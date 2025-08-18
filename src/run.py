@@ -1,0 +1,1 @@
+from src.classes.avatar import Avatar
