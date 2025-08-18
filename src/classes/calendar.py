@@ -1,4 +1,6 @@
+from enum import Enum
 from dataclasses import dataclass
+
 
 class Month(Enum):
     JANUARY = "January"
