@@ -1,8 +1,8 @@
 
 
-class World:
+class Simulator:
     def __init__(self):
-        pass 
+        self.avatars = [] # list[Avatar]
 
     def step(self):
         """
@@ -12,4 +12,6 @@ class World:
         先结算多个角色间互相交互的事件。
         再去结算单个角色的事件。
         """
-        pass
+        # 结算角色行为
+        for avatar in self.avatars:
+            avatar.act()
