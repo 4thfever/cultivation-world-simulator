@@ -1,7 +1,7 @@
 import os
 import sys
 import random
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 
 # 将项目根目录加入 Python 路径，确保可以导入 `src` 包
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -45,9 +45,11 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
 
     # 2) 西部大漠（左侧宽带），先铺设便于后续北/南带覆盖
     desert_w = max(4, width // 5)
+    desert_tiles: List[Tuple[int, int]] = []
     for y in range(height):
         for x in range(0, desert_w):
             game_map.create_tile(x, y, TileType.DESERT)
+            desert_tiles.append((x, y))
     # 绿洲
     for _ in range(random.randint(2, 3)):
         cx = random.randint(1, max(1, desert_w - 1))
@@ -73,16 +75,20 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
 
     # 4) 南部热带雨林（底部宽带，覆盖整宽度）
     south_band = max(3, height // 5)
+    rainforest_tiles: List[Tuple[int, int]] = []
     for y in range(height - south_band, height):
         for x in range(width):
             game_map.create_tile(x, y, TileType.RAINFOREST)
+            rainforest_tiles.append((x, y))
 
     # 5) 最东海域（右侧宽带），最后铺海以覆盖前面的地形；随后在海中造岛
     sea_band_w = max(3, width // 6)
     sea_x0 = width - sea_band_w
+    sea_tiles: List[Tuple[int, int]] = []
     for y in range(height):
         for x in range(sea_x0, width):
             game_map.create_tile(x, y, TileType.SEA)
+            sea_tiles.append((x, y))
     # 岛屿：在海域内生成若干小岛（平原/森林）
     for _ in range(random.randint(3, 5)):
         cx = random.randint(sea_x0, width - 2)
@@ -102,9 +108,9 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
             if x < sea_x0:
                 game_map.create_tile(x, y, TileType.WATER)
 
-    # 7) 中部山脉：几条短链（避开海域和上下带）
-    for _ in range(random.randint(2, 4)):
-        length = random.randint(6, 12)
+    # 7) 中部山脉：多条更长的链（避开海域和上下带）
+    for _ in range(random.randint(6, 10)):
+        length = random.randint(10, 20)
         x = random.randint(desert_w + 1, sea_x0 - 2)
         y = random.randint(north_band + 1, height - south_band - 2)
         dx, dy = random.choice([(1, 0), (1, 1), (1, -1)])
@@ -133,6 +139,88 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
         if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.DESERT):
             game_map.create_tile(x, y, TileType.CITY)
             cities += 1
+
+    # 10) 创建示例 Region（演示：底色可无 region；特意设立的带名字与描述）
+    if desert_tiles:
+        game_map.create_region("大漠", "西部荒漠地带", 40, desert_tiles)
+    if sea_tiles:
+        game_map.create_region("东海", "最东边的大海", 80, sea_tiles)
+    if rainforest_tiles:
+        game_map.create_region("南疆雨林", "南部潮湿炎热的雨林", 120, rainforest_tiles)
+
+    # 9.5) 生成一条横贯东西的长河（允许小幅上下摆动与随机加宽）
+    river_tiles: List[Tuple[int, int]] = []
+    # 选一条靠近中部的基准纬线，避开极北/极南带
+    base_y = clamp(height // 2 + random.randint(-2, 2), north_band + 1, height - south_band - 2)
+    y = base_y
+    for x in range(0, width):
+        # 开凿主河道
+        game_map.create_tile(x, y, TileType.WATER)
+        river_tiles.append((x, y))
+        # 随机加宽 1 格（上下其一）
+        if random.random() < 0.45:
+            wy = clamp(y + random.choice([-1, 1]), 0, height - 1)
+            game_map.create_tile(x, wy, TileType.WATER)
+            river_tiles.append((x, wy))
+        # 轻微摆动（-1, 0, 1），并缓慢回归基准线
+        drift_choices = [-1, 0, 1]
+        dy = random.choice(drift_choices)
+        # 回归力：偏离过大时更倾向于向 base_y 靠拢
+        if y - base_y > 2:
+            dy = -1 if random.random() < 0.7 else dy
+        elif base_y - y > 2:
+            dy = 1 if random.random() < 0.7 else dy
+        y = clamp(y + dy, 1, height - 2)
+
+    # 11) 聚类函数：用于后续命名山脉/森林
+    def find_type_clusters(tile_type: TileType) -> list[list[Tuple[int, int]]]:
+        visited: set[Tuple[int, int]] = set()
+        clusters: list[list[Tuple[int, int]]] = []
+        for (tx, ty), t in game_map.tiles.items():
+            if t.type is not tile_type or (tx, ty) in visited:
+                continue
+            stack = [(tx, ty)]
+            visited.add((tx, ty))
+            comp: list[Tuple[int, int]] = []
+            while stack:
+                cx, cy = stack.pop()
+                comp.append((cx, cy))
+                for nx, ny in ((cx + 1, cy), (cx - 1, cy), (cx, cy + 1), (cx, cy - 1)):
+                    if not game_map.is_in_bounds(nx, ny) or (nx, ny) in visited:
+                        continue
+                    tt = game_map.get_tile(nx, ny)
+                    if tt.type is tile_type:
+                        visited.add((nx, ny))
+                        stack.append((nx, ny))
+            clusters.append(comp)
+        return clusters
+
+    # 高山：阈值较低，便于更多命名；森林：阈值更高，避免碎片
+    all_mountain_clusters = find_type_clusters(TileType.MOUNTAIN)
+    mountain_clusters = [c for c in all_mountain_clusters if len(c) >= 8]
+    forest_clusters = [c for c in find_type_clusters(TileType.FOREST) if len(c) >= 12]
+
+    # 组装所有地理信息到一个统一的配置 dict
+    regions_cfg: List[Dict[str, Any]] = []
+    if desert_tiles:
+        regions_cfg.append({"name": "大漠", "description": "西部荒漠地带", "qi": 40, "tiles": desert_tiles})
+    if sea_tiles:
+        regions_cfg.append({"name": "东海", "description": "最东边的大海", "qi": 80, "tiles": sea_tiles})
+    if rainforest_tiles:
+        regions_cfg.append({"name": "南疆雨林", "description": "南部潮湿炎热的雨林", "qi": 120, "tiles": rainforest_tiles})
+    if river_tiles:
+        regions_cfg.append({"name": "大河", "description": "发源内陆，奔流入海", "qi": 100, "tiles": river_tiles})
+
+    for i, comp in enumerate(sorted(mountain_clusters, key=len, reverse=True), start=1):
+        regions_cfg.append({"name": f"高山{i}", "description": "山脉与高峰地带", "qi": 110, "tiles": comp})
+    for i, comp in enumerate(sorted(forest_clusters, key=len, reverse=True), start=1):
+        regions_cfg.append({"name": f"大林{i}", "description": "茂密幽深的森林", "qi": 90, "tiles": comp})
+
+    # 应用配置创建 Region，并把配置存到 map 上，方便前端/后续逻辑使用
+    for r in regions_cfg:
+        game_map.create_region(r["name"], r["description"], r["qi"], r["tiles"])
+    geo_config: Dict[str, Any] = {"regions": regions_cfg}
+    setattr(game_map, "geo_config", geo_config)
 
     return game_map
 

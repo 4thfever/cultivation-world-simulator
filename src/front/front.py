@@ -61,6 +61,8 @@ class Front:
         # 字体（优先中文友好字体；可显式传入 TTF 路径）
         self.font = self._create_font(16)
         self.tooltip_font = self._create_font(14)
+        # 区域名字体缓存：按需动态放大（随区域面积和格子大小自适应）
+        self._region_font_cache: Dict[int, object] = {}
 
         # 配色
         self.colors: Dict[str, Tuple[int, int, int]] = {
@@ -123,6 +125,7 @@ class Front:
         self.screen.fill(self.colors["bg"])
 
         self._draw_map()
+        self._draw_region_labels()
         hovered = self._draw_avatars_and_pick_hover()
         if hovered is not None:
             self._draw_tooltip_for_avatar(hovered)
@@ -131,6 +134,16 @@ class Front:
         hint = f"A:自动步进({'开' if self._auto_step else '关'})  SPACE:单步  ESC:退出"
         text_surf = self.font.render(hint, True, self.colors["text"])
         self.screen.blit(text_surf, (self.margin, 4))
+
+        # 年月（右上角显示：YYYY年MM月）
+        try:
+            month_num = list(type(self.simulator.month)).index(self.simulator.month) + 1
+        except Exception:
+            month_num = 1
+        ym_text = f"{int(self.simulator.year)}年{month_num:02d}月"
+        ym_surf = self.font.render(ym_text, True, self.colors["text"])
+        screen_w, _ = self.screen.get_size()
+        self.screen.blit(ym_surf, (screen_w - self.margin - ym_surf.get_width(), 4))
 
         pygame.display.flip()
 
@@ -158,6 +171,66 @@ class Front:
             start_pos = (m, m + gy * ts)
             end_pos = (m + map_obj.width * ts, m + gy * ts)
             pygame.draw.line(self.screen, grid_color, start_pos, end_pos, 1)
+
+    def _draw_region_labels(self):
+        pygame = self.pygame
+        map_obj = self.world.map
+        ts = self.tile_size
+        m = self.margin
+
+        # 聚合每个 region 的所有地块中心点：Region 以自身 id 为哈希键
+        region_to_points: Dict[object, List[Tuple[int, int]]] = {}
+        # 直接遍历底层 tiles 字典更高效
+        for (x, y), tile in getattr(map_obj, "tiles", {}).items():
+            if getattr(tile, "region", None) is None:
+                continue
+            region_obj = tile.region
+            cx = m + x * ts + ts // 2
+            cy = m + y * ts + ts // 2
+            region_to_points.setdefault(region_obj, []).append((cx, cy))
+
+        if not region_to_points:
+            return
+
+        for region, points in region_to_points.items():
+            if not points:
+                continue
+            # 计算质心
+            avg_x = sum(p[0] for p in points) // len(points)
+            avg_y = sum(p[1] for p in points) // len(points)
+
+            name = getattr(region, "name", None)
+            if not name:
+                continue
+
+            # 按区域大小与格子尺寸决定字体大小
+            area = len(points)
+            base = int(self.tile_size * 1.1)
+            growth = int(max(0, min(24, (area ** 0.5))))
+            font_size = max(16, min(40, base + growth))
+            region_font = self._get_region_font(font_size)
+
+            # 渲染带轻微阴影的文字
+            text_surface = region_font.render(str(name), True, self.colors["text"])  # 主文字
+            shadow_surface = region_font.render(str(name), True, (0, 0, 0))  # 阴影
+
+            text_w = text_surface.get_width()
+            text_h = text_surface.get_height()
+            x = int(avg_x - text_w / 2)
+            y = int(avg_y - text_h / 2)
+
+            # 先画阴影，略微偏移
+            self.screen.blit(shadow_surface, (x + 1, y + 1))
+            # 再画主文字
+            self.screen.blit(text_surface, (x, y))
+
+    def _get_region_font(self, size: int):
+        # 缓存不同大小的字体，避免每帧重复创建
+        f = self._region_font_cache.get(size)
+        if f is None:
+            f = self._create_font(size)
+            self._region_font_cache[size] = f
+        return f
 
     def _draw_avatars_and_pick_hover(self) -> Optional[Avatar]:
         pygame = self.pygame

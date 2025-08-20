@@ -1,5 +1,6 @@
 from enum import Enum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import itertools
 
 class TileType(Enum):
     PLAIN = "plain" # 平原
@@ -12,6 +13,9 @@ class TileType(Enum):
     RAINFOREST = "rainforest" # 热带雨林
     GLACIER = "glacier" # 冰川/冰原
     SNOW_MOUNTAIN = "snow_mountain" # 雪山
+
+region_id_counter = itertools.count(1)
+
 
 @dataclass
 class Region():
@@ -26,6 +30,18 @@ class Region():
     name: str
     description: str
     qi: int # 灵气，从0~255
+    id: int = field(init=False)
+    
+    def __post_init__(self):
+        self.id = next(region_id_counter)
+    
+    def __hash__(self) -> int:
+        return hash(self.id)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Region):
+            return False
+        return self.id == other.id
     # 物产
     # 灵气
     # 其他
@@ -36,12 +52,11 @@ class Tile():
     type: TileType
     x: int
     y: int
-    # region: Region
+    region: Region | None = None # 可以是一个region的一部分，也可以不属于任何region
 
 class Map():
     """
     通过dict记录position 到 tile。
-    TODO: 记录region到position的映射。
     TODO: 有特色的地貌，比如西部大漠，东部平原，最东海洋和岛国。南边热带雨林，北边雪山和冰原。
     """
     def __init__(self, width: int, height: int):
@@ -60,3 +75,18 @@ class Map():
 
     def get_tile(self, x: int, y: int) -> Tile:
         return self.tiles[(x, y)]
+
+    def create_region(self, name: str, description: str, qi: int, locs: list[tuple[int, int]]):
+        """
+        创建一个region。
+        """
+        region = Region(name=name, description=description, qi=qi)
+        for loc in locs:
+            self.tiles[loc].region = region
+        return region
+
+    def get_region(self, x: int, y: int) -> Region | None:
+        """
+        获取一个region。
+        """
+        return self.tiles[(x, y)].region

@@ -1,8 +1,10 @@
-
+from src.classes.calendar import Month, Year, next_month
 
 class Simulator:
     def __init__(self):
         self.avatars = [] # list[Avatar]
+        self.year = Year(1)
+        self.month = Month.JANUARY
 
     def step(self):
         """
@@ -15,3 +17,6 @@ class Simulator:
         # 结算角色行为
         for avatar in self.avatars:
             avatar.act()
+
+        # 最后结算年月
+        self.month, self.year = next_month(self.month, self.year)
