@@ -1,6 +1,8 @@
+import itertools
 from enum import Enum
 from dataclasses import dataclass, field
-import itertools
+
+from src.classes.essence import Essence, EssenceType
 
 class TileType(Enum):
     PLAIN = "plain" # 平原
@@ -13,6 +15,7 @@ class TileType(Enum):
     RAINFOREST = "rainforest" # 热带雨林
     GLACIER = "glacier" # 冰川/冰原
     SNOW_MOUNTAIN = "snow_mountain" # 雪山
+    VOLCANO = "volcano" # 火山
 
 region_id_counter = itertools.count(1)
 
@@ -29,7 +32,7 @@ class Region():
     """
     name: str
     description: str
-    qi: int # 灵气，从0~255
+    essence: Essence
     id: int = field(init=False)
     
     def __post_init__(self):
@@ -46,13 +49,15 @@ class Region():
     # 灵气
     # 其他
 
+default_region = Region(name="平原", description="最普通的平原，没有什么可说的", essence=Essence(density={EssenceType.GOLD: 1, EssenceType.WOOD: 1, EssenceType.WATER: 1, EssenceType.FIRE: 1, EssenceType.EARTH: 1}))
+
 @dataclass
 class Tile():
     # 实际的地块
     type: TileType
     x: int
     y: int
-    region: Region | None = None # 可以是一个region的一部分，也可以不属于任何region
+    region: Region # 可以是一个region的一部分，也可以不属于任何region
 
 class Map():
     """
@@ -71,16 +76,16 @@ class Map():
         return 0 <= x < self.width and 0 <= y < self.height
 
     def create_tile(self, x: int, y: int, tile_type: TileType):
-        self.tiles[(x, y)] = Tile(tile_type, x, y)
+        self.tiles[(x, y)] = Tile(tile_type, x, y, region=default_region)
 
     def get_tile(self, x: int, y: int) -> Tile:
         return self.tiles[(x, y)]
 
-    def create_region(self, name: str, description: str, qi: int, locs: list[tuple[int, int]]):
+    def create_region(self, name: str, description: str, essence: Essence, locs: list[tuple[int, int]]):
         """
         创建一个region。
         """
-        region = Region(name=name, description=description, qi=qi)
+        region = Region(name=name, description=description, essence=essence)
         for loc in locs:
             self.tiles[loc].region = region
         return region

@@ -85,6 +85,7 @@ class Front:
             TileType.RAINFOREST: (12, 80, 36),
             TileType.GLACIER: (210, 230, 240),
             TileType.SNOW_MOUNTAIN: (200, 200, 200),
+            TileType.VOLCANO: (180, 40, 40),  # 火山红色
         }
 
         self.clock = pygame.time.Clock()
@@ -125,10 +126,15 @@ class Front:
         self.screen.fill(self.colors["bg"])
 
         self._draw_map()
-        self._draw_region_labels()
-        hovered = self._draw_avatars_and_pick_hover()
-        if hovered is not None:
-            self._draw_tooltip_for_avatar(hovered)
+        hovered_region = self._draw_region_labels()
+        hovered_avatar = self._draw_avatars_and_pick_hover()
+        
+        # 优先显示region tooltip，如果没有region tooltip才显示avatar tooltip
+        if hovered_region is not None:
+            mouse_x, mouse_y = self.pygame.mouse.get_pos()
+            self._draw_tooltip_for_region(hovered_region, mouse_x, mouse_y)
+        elif hovered_avatar is not None:
+            self._draw_tooltip_for_avatar(hovered_avatar)
 
         # 状态条
         hint = f"A:自动步进({'开' if self._auto_step else '关'})  SPACE:单步  ESC:退出"
@@ -177,6 +183,7 @@ class Front:
         map_obj = self.world.map
         ts = self.tile_size
         m = self.margin
+        mouse_x, mouse_y = pygame.mouse.get_pos()
 
         # 聚合每个 region 的所有地块中心点：Region 以自身 id 为哈希键
         region_to_points: Dict[object, List[Tuple[int, int]]] = {}
@@ -192,6 +199,7 @@ class Front:
         if not region_to_points:
             return
 
+        hovered_region = None
         for region, points in region_to_points.items():
             if not points:
                 continue
@@ -219,10 +227,17 @@ class Front:
             x = int(avg_x - text_w / 2)
             y = int(avg_y - text_h / 2)
 
+            # 检测鼠标悬停
+            if (x <= mouse_x <= x + text_w and y <= mouse_y <= y + text_h):
+                hovered_region = region
+
             # 先画阴影，略微偏移
             self.screen.blit(shadow_surface, (x + 1, y + 1))
             # 再画主文字
             self.screen.blit(text_surface, (x, y))
+
+        # 返回悬停的region
+        return hovered_region
 
     def _get_region_font(self, size: int):
         # 缓存不同大小的字体，避免每帧重复创建
@@ -272,6 +287,32 @@ class Front:
         ]
         return lines
 
+    def _region_tooltip_lines(self, region) -> List[str]:
+        lines = [
+            f"区域: {region.name}",
+            f"描述: {region.description}",
+        ]
+        
+        # 添加灵气信息
+        if hasattr(region, 'essence') and region.essence:
+            # 按密度排序，显示最重要的灵气
+            essence_items = []
+            for essence_type, density in region.essence.density.items():
+                if density > 0:
+                    essence_name = str(essence_type) 
+                    essence_items.append((density, essence_name))
+            
+            if essence_items:
+                # 按密度降序排序
+                essence_items.sort(reverse=True)
+                lines.append("灵气分布:")
+                for density, name in essence_items:
+                    # 用星号表示密度等级
+                    stars = "★" * density + "☆" * (10 - density)
+                    lines.append(f"  {name}: {stars}")
+        
+        return lines
+
     def _draw_tooltip_for_avatar(self, avatar: Avatar):
         pygame = self.pygame
         lines = self._avatar_tooltip_lines(avatar)
@@ -293,6 +334,37 @@ class Front:
             x = mx - width - 12
         if y + height > screen_h:
             y = my - height - 12
+
+        bg_rect = pygame.Rect(x, y, width, height)
+        pygame.draw.rect(self.screen, self.colors["tooltip_bg"], bg_rect, border_radius=6)
+        pygame.draw.rect(self.screen, self.colors["tooltip_bd"], bg_rect, 1, border_radius=6)
+
+        # 绘制文字
+        cursor_y = y + padding
+        for s in surf_lines:
+            self.screen.blit(s, (x + padding, cursor_y))
+            cursor_y += s.get_height() + spacing
+
+    def _draw_tooltip_for_region(self, region, mouse_x: int, mouse_y: int):
+        pygame = self.pygame
+        lines = self._region_tooltip_lines(region)
+
+        # 计算尺寸
+        padding = 6
+        spacing = 2
+        surf_lines = [self.tooltip_font.render(t, True, self.colors["text"]) for t in lines]
+        width = max(s.get_width() for s in surf_lines) + padding * 2
+        height = sum(s.get_height() for s in surf_lines) + padding * 2 + spacing * (len(surf_lines) - 1)
+
+        x = mouse_x + 12
+        y = mouse_y + 12
+
+        # 边界修正：尽量不出屏幕
+        screen_w, screen_h = self.screen.get_size()
+        if x + width > screen_w:
+            x = mouse_x - width - 12
+        if y + height > screen_h:
+            y = mouse_y - height - 12
 
         bg_rect = pygame.Rect(x, y, width, height)
         pygame.draw.rect(self.screen, self.colors["tooltip_bg"], bg_rect, border_radius=6)
