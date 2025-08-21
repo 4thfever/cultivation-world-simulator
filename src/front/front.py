@@ -74,19 +74,9 @@ class Front:
             "avatar": (240, 220, 90),
         }
 
-        self.tile_colors: Dict[TileType, Tuple[int, int, int]] = {
-            TileType.PLAIN: (64, 120, 64),
-            TileType.FOREST: (24, 96, 48),
-            TileType.MOUNTAIN: (108, 108, 108),
-            TileType.WATER: (60, 120, 180),
-            TileType.SEA: (30, 90, 150),
-            TileType.CITY: (140, 120, 90),
-            TileType.DESERT: (210, 180, 60),
-            TileType.RAINFOREST: (12, 80, 36),
-            TileType.GLACIER: (210, 230, 240),
-            TileType.SNOW_MOUNTAIN: (200, 200, 200),
-            TileType.VOLCANO: (180, 40, 40),  # 火山红色
-        }
+        # 加载tile图像
+        self.tile_images: Dict[TileType, object] = {}
+        self._load_tile_images()
 
         self.clock = pygame.time.Clock()
 
@@ -159,13 +149,20 @@ class Front:
         ts = self.tile_size
         m = self.margin
 
-        # 先画网格背景块
+        # 先画tile图像
         for y in range(map_obj.height):
             for x in range(map_obj.width):
                 tile = map_obj.get_tile(x, y)
-                color = self.tile_colors.get(tile.type, (80, 80, 80))
-                rect = pygame.Rect(m + x * ts, m + y * ts, ts, ts)
-                pygame.draw.rect(self.screen, color, rect)
+                tile_image = self.tile_images.get(tile.type)
+                if tile_image:
+                    # 使用tile图像
+                    pos = (m + x * ts, m + y * ts)
+                    self.screen.blit(tile_image, pos)
+                else:
+                    # 如果没有图像，使用默认颜色块
+                    color = (80, 80, 80)  # 默认灰色
+                    rect = pygame.Rect(m + x * ts, m + y * ts, ts, ts)
+                    pygame.draw.rect(self.screen, color, rect)
 
         # 画网格线
         grid_color = self.colors["grid"]
@@ -376,6 +373,43 @@ class Front:
             self.screen.blit(s, (x + padding, cursor_y))
             cursor_y += s.get_height() + spacing
 
+
+    def _load_tile_images(self):
+        """
+        加载所有tile类型的图像
+        """
+        import os
+        pygame = self.pygame
+        
+        # 定义所有tile类型
+        tile_types = [
+            TileType.PLAIN, TileType.WATER, TileType.SEA, TileType.MOUNTAIN,
+            TileType.FOREST, TileType.CITY, TileType.DESERT, TileType.RAINFOREST,
+            TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.VOLCANO,
+            TileType.GRASSLAND, TileType.SWAMP, TileType.CAVE, TileType.RUINS, TileType.FARM
+        ]
+        
+        for tile_type in tile_types:
+            image_path = f"assets/tiles/{tile_type.value}.png"
+            if os.path.exists(image_path):
+                try:
+                    # 加载图像并缩放到tile_size
+                    image = pygame.image.load(image_path)
+                    scaled_image = pygame.transform.scale(image, (self.tile_size, self.tile_size))
+                    self.tile_images[tile_type] = scaled_image
+                    print(f"已加载tile图像: {image_path}")
+                except Exception as e:
+                    print(f"加载tile图像失败 {image_path}: {e}")
+                    # 如果加载失败，创建一个默认的颜色块
+                    fallback_surface = pygame.Surface((self.tile_size, self.tile_size))
+                    fallback_surface.fill((128, 128, 128))  # 灰色作为默认
+                    self.tile_images[tile_type] = fallback_surface
+            else:
+                print(f"tile图像文件不存在: {image_path}")
+                # 创建默认颜色块
+                fallback_surface = pygame.Surface((self.tile_size, self.tile_size))
+                fallback_surface.fill((128, 128, 128))
+                self.tile_images[tile_type] = fallback_surface
 
     def _create_font(self, size: int):
         pygame = self.pygame

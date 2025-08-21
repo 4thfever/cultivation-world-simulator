@@ -158,6 +158,100 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
             game_map.create_tile(x, y, TileType.VOLCANO)
             volcano_tiles.append((x, y))
 
+    # 8.6) 草原：在平原区域生成一些草原
+    grassland_tiles: List[Tuple[int, int]] = []
+    for _ in range(random.randint(3, 5)):
+        cx = random.randint(desert_w + 1, mountain_end_x - 2)
+        cy = random.randint(north_band + 1, height - south_band - 2)
+        r = random.randint(2, 4)
+        for x, y in circle_points(cx, cy, r, width, height):
+            if x < sea_x0:
+                current_tile = game_map.get_tile(x, y)
+                if current_tile.type == TileType.PLAIN:  # 只在平原上生成草原
+                    game_map.create_tile(x, y, TileType.GRASSLAND)
+                    grassland_tiles.append((x, y))
+
+    # 8.7) 沼泽：在水域附近生成一些沼泽
+    swamp_tiles: List[Tuple[int, int]] = []
+    for _ in range(random.randint(2, 4)):
+        cx = random.randint(desert_w + 1, sea_x0 - 2)
+        cy = random.randint(north_band + 1, height - south_band - 2)
+        r = random.randint(1, 2)
+        for x, y in circle_points(cx, cy, r, width, height):
+            if x < sea_x0:
+                # 检查周围是否有水域
+                has_water_nearby = False
+                for dx in [-1, 0, 1]:
+                    for dy in [-1, 0, 1]:
+                        nx, ny = x + dx, y + dy
+                        if game_map.is_in_bounds(nx, ny):
+                            nearby_tile = game_map.get_tile(nx, ny)
+                            if nearby_tile.type in (TileType.WATER, TileType.SEA):
+                                has_water_nearby = True
+                                break
+                    if has_water_nearby:
+                        break
+                
+                if has_water_nearby:
+                    current_tile = game_map.get_tile(x, y)
+                    if current_tile.type in (TileType.PLAIN, TileType.GRASSLAND):
+                        game_map.create_tile(x, y, TileType.SWAMP)
+                        swamp_tiles.append((x, y))
+
+    # 8.8) 洞穴：在山脉附近生成一些洞穴
+    cave_tiles: List[Tuple[int, int]] = []
+    for _ in range(random.randint(2, 4)):
+        cx = random.randint(desert_w + 1, mountain_end_x - 1)
+        cy = random.randint(north_band + 1, height - south_band - 2)
+        # 检查周围是否有山脉
+        has_mountain_nearby = False
+        for dx in [-2, -1, 0, 1, 2]:
+            for dy in [-2, -1, 0, 1, 2]:
+                nx, ny = cx + dx, cy + dy
+                if game_map.is_in_bounds(nx, ny):
+                    nearby_tile = game_map.get_tile(nx, ny)
+                    if nearby_tile.type == TileType.MOUNTAIN:
+                        has_mountain_nearby = True
+                        break
+            if has_mountain_nearby:
+                break
+        
+        if has_mountain_nearby:
+            current_tile = game_map.get_tile(cx, cy)
+            if current_tile.type in (TileType.PLAIN, TileType.GRASSLAND):
+                game_map.create_tile(cx, cy, TileType.CAVE)
+                cave_tiles.append((cx, cy))
+
+    # 8.9) 遗迹：随机在一些地方生成古代遗迹
+    ruins_tiles: List[Tuple[int, int]] = []
+    for _ in range(random.randint(2, 3)):
+        cx = random.randint(desert_w + 1, sea_x0 - 2)
+        cy = random.randint(north_band + 1, height - south_band - 2)
+        current_tile = game_map.get_tile(cx, cy)
+        if current_tile.type in (TileType.PLAIN, TileType.GRASSLAND, TileType.DESERT):
+            game_map.create_tile(cx, cy, TileType.RUINS)
+            ruins_tiles.append((cx, cy))
+
+    # 8.10) 农田：在城市附近生成一些农田
+    farm_tiles: List[Tuple[int, int]] = []
+    # 先收集所有城市位置
+    city_positions = []
+    for (tx, ty), tile in game_map.tiles.items():
+        if tile.type == TileType.CITY:
+            city_positions.append((tx, ty))
+    
+    # 在每个城市周围生成农田
+    for city_x, city_y in city_positions:
+        for _ in range(random.randint(3, 6)):
+            # 在城市周围2-4格范围内生成农田
+            fx = city_x + random.randint(-4, 4)
+            fy = city_y + random.randint(-4, 4)
+            if game_map.is_in_bounds(fx, fy):
+                current_tile = game_map.get_tile(fx, fy)
+                if current_tile.type in (TileType.PLAIN, TileType.GRASSLAND):
+                    game_map.create_tile(fx, fy, TileType.FARM)
+                    farm_tiles.append((fx, fy))
+
     # 9) 城市：2~4个，尽量落在非极端地形
     cities = 0
     attempts = 0
@@ -166,7 +260,7 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
         x = random.randint(0, width - 1)
         y = random.randint(0, height - 1)
         t = game_map.get_tile(x, y)
-        if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.DESERT, TileType.VOLCANO):
+        if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.DESERT, TileType.VOLCANO, TileType.SWAMP, TileType.CAVE, TileType.RUINS):
             game_map.create_tile(x, y, TileType.CITY)
             cities += 1
 
@@ -359,6 +453,81 @@ def build_rich_random_map(width: int = 30, height: int = 20, *, seed: int | None
             "tiles": volcano_tiles
         })
     
+    # 添加草原region
+    if grassland_tiles:
+        regions_cfg.append({
+            "name": "青青草原", 
+            "description": "广阔的草原地带，适合放牧和修炼", 
+            "essence": Essence(density={
+                EssenceType.WOOD: 7, 
+                EssenceType.EARTH: 6, 
+                EssenceType.WATER: 5, 
+                EssenceType.FIRE: 3, 
+                EssenceType.GOLD: 2
+            }), 
+            "tiles": grassland_tiles
+        })
+    
+    # 添加沼泽region
+    if swamp_tiles:
+        regions_cfg.append({
+            "name": "迷雾沼泽", 
+            "description": "危险的沼泽地带，瘴气弥漫但蕴含特殊灵药", 
+            "essence": Essence(density={
+                EssenceType.WATER: 8, 
+                EssenceType.WOOD: 6, 
+                EssenceType.EARTH: 5, 
+                EssenceType.FIRE: 3, 
+                EssenceType.GOLD: 2
+            }), 
+            "tiles": swamp_tiles
+        })
+    
+    # 添加洞穴region
+    if cave_tiles:
+        regions_cfg.append({
+            "name": "神秘洞穴", 
+            "description": "隐藏在山脉中的神秘洞穴，可能藏有宝物", 
+            "essence": Essence(density={
+                EssenceType.EARTH: 9, 
+                EssenceType.GOLD: 8, 
+                EssenceType.FIRE: 4, 
+                EssenceType.WATER: 3, 
+                EssenceType.WOOD: 2
+            }), 
+            "tiles": cave_tiles
+        })
+    
+    # 添加遗迹region
+    if ruins_tiles:
+        regions_cfg.append({
+            "name": "古代遗迹", 
+            "description": "上古时代留下的神秘遗迹，蕴含古老的力量", 
+            "essence": Essence(density={
+                EssenceType.GOLD: 9, 
+                EssenceType.EARTH: 7, 
+                EssenceType.FIRE: 6, 
+                EssenceType.WATER: 5, 
+                EssenceType.WOOD: 4
+            }), 
+            "tiles": ruins_tiles
+        })
+    
+    # 添加农田region
+    if farm_tiles:
+        regions_cfg.append({
+            "name": "良田", 
+            "description": "肥沃的农田，为城市提供粮食", 
+            "essence": Essence(density={
+                EssenceType.WOOD: 8, 
+                EssenceType.EARTH: 7, 
+                EssenceType.WATER: 6, 
+                EssenceType.FIRE: 3, 
+                EssenceType.GOLD: 2
+            }), 
+            "tiles": farm_tiles
+        })
+    
     for i, comp in enumerate(sorted(mountain_clusters, key=len, reverse=True), start=1):
         regions_cfg.append({
             "name": f"高山{i}", 
@@ -414,7 +583,7 @@ def make_avatars(world: World, count: int = 12) -> list[Avatar]:
             x = random.randint(0, width - 1)
             y = random.randint(0, height - 1)
             t = world.map.get_tile(x, y)
-            if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.VOLCANO):
+            if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.VOLCANO, TileType.SWAMP, TileType.CAVE, TileType.RUINS):
                 break
         else:
             x, y = random.randint(0, width - 1), random.randint(0, height - 1)

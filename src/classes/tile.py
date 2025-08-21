@@ -16,6 +16,11 @@ class TileType(Enum):
     GLACIER = "glacier" # 冰川/冰原
     SNOW_MOUNTAIN = "snow_mountain" # 雪山
     VOLCANO = "volcano" # 火山
+    GRASSLAND = "grassland" # 草原
+    SWAMP = "swamp" # 沼泽
+    CAVE = "cave" # 洞穴
+    RUINS = "ruins" # 遗迹
+    FARM = "farm" # 农田
 
 region_id_counter = itertools.count(1)
 
