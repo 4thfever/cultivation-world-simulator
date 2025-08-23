@@ -7,6 +7,8 @@ from src.classes.calendar import Month, Year
 from src.classes.action import Action
 from src.classes.world import World
 from src.classes.tile import Tile
+from src.classes.cultivation import CultivationProgress
+from src.classes.root import Root
 from src.utils.strings import to_snake_case
 
 class Gender(Enum):
@@ -34,10 +36,12 @@ class Avatar:
     birth_year: Year
     age: int
     gender: Gender
+    cultivation_progress: CultivationProgress = field(default_factory=lambda: CultivationProgress(0))
     pos_x: int = 0
     pos_y: int = 0
     tile: Optional[Tile] = None
     actions: dict[str, Action] = field(default_factory=dict)
+    root: Root = field(default_factory=lambda: random.choice(list(Root)))
 
 
     def bind_action(self, action_class: type[Action]):
