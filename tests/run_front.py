@@ -710,21 +710,23 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def make_avatars(world: World, count: int = 12) -> dict[int, Avatar]:
+def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) -> dict[int, Avatar]:
     avatars: dict[int, Avatar] = {}
     width, height = world.map.width, world.map.height
     for i in range(count):
         name = f"NPC{i+1:03d}"
-        birth_year = Year(random.randint(1990, 2010))
-        birth_month = random.choice(list(Month))
+        # 随机生成年龄，范围从16到60岁
         age_years = random.randint(16, 60)
+        # 根据当前年份和年龄计算出生年份
+        birth_year = current_year - age_years
+        birth_month = random.choice(list(Month))
         gender = random_gender()
         
         # 随机生成level，范围从0到120（对应四个大境界）
         level = random.randint(0, 120)
         cultivation_progress = CultivationProgress(level)
         
-        # 创建Age实例，传入年龄和境界
+        # 创建Age实例，传入年龄
         age = Age(age_years)
 
         # 找一个非海域的出生点
@@ -764,8 +766,13 @@ def main():
     game_map = build_rich_random_map(width=width, height=height)
     world = World(map=game_map)
 
+    # 设置模拟器从第100年开始
     sim = Simulator()
-    sim.avatars.update(make_avatars(world, count=14))
+    sim.year = Year(100)  # 设置初始年份为100年
+    sim.month = Month.JANUARY  # 设置初始月份为1月
+    
+    # 创建角色，传入当前年份确保年龄与生日匹配
+    sim.avatars.update(make_avatars(world, count=14, current_year=sim.year))
 
     front = Front(
         world=world,

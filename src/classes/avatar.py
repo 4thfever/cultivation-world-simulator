@@ -97,6 +97,12 @@ class Avatar:
             如果老死返回True，否则返回False
         """
         return self.age.death_by_old_age(self.cultivation_progress.realm)
+
+    def update_age(self, current_month: Month, current_year: Year):
+        """
+        更新年龄
+        """
+        self.age.update_age(current_month, current_year, self.birth_month, self.birth_year)
     
     def get_age_info(self) -> dict:
         """

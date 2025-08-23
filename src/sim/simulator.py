@@ -26,6 +26,7 @@ class Simulator:
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.year, self.month, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
                 events.append(event)
+            avatar.update_age(self.month, self.year)
         
         for avatar_id in death_avatar_ids:
             self.avatars.pop(avatar_id)

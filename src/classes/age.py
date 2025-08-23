@@ -1,4 +1,5 @@
 import random
+from src.classes.calendar import Month, Year
 from src.classes.cultivation import Realm
 
 class Age:
@@ -55,6 +56,30 @@ class Age:
         判断是否老死
         """
         return random.random() < self.get_death_probability(realm)
+
+    def calculate_age(self, current_month: Month, current_year: Year, birth_month: Month, birth_year: Year) -> int:
+        """
+        计算准确的年龄（整数年）
+        
+        Args:
+            current_month: 当前月份
+            current_year: 当前年份
+            birth_month: 出生月份
+            birth_year: 出生年份
+            
+        Returns:
+            整数年龄
+        """
+        age = current_year - birth_year
+        if current_month.value < birth_month.value:
+            age -= 1
+        return max(0, age)
+    
+    def update_age(self, current_month: Month, current_year: Year, birth_month: Month, birth_year: Year):
+        """
+        更新年龄
+        """
+        self.age = self.calculate_age(current_month, current_year, birth_month, birth_year)
     
     def __str__(self) -> str:
         """返回年龄的字符串表示"""
