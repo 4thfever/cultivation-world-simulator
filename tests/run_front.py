@@ -19,6 +19,7 @@ from src.classes.action import Move
 from src.classes.essence import Essence, EssenceType
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
+from src.classes.age import Age
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -709,18 +710,22 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def make_avatars(world: World, count: int = 12) -> list[Avatar]:
-    avatars: list[Avatar] = []
+def make_avatars(world: World, count: int = 12) -> dict[int, Avatar]:
+    avatars: dict[int, Avatar] = {}
     width, height = world.map.width, world.map.height
     for i in range(count):
         name = f"NPC{i+1:03d}"
         birth_year = Year(random.randint(1990, 2010))
         birth_month = random.choice(list(Month))
-        age = random.randint(16, 60)
+        age_years = random.randint(16, 60)
         gender = random_gender()
         
         # 随机生成level，范围从0到120（对应四个大境界）
         level = random.randint(0, 120)
+        cultivation_progress = CultivationProgress(level)
+        
+        # 创建Age实例，传入年龄和境界
+        age = Age(age_years)
 
         # 找一个非海域的出生点
         for _ in range(200):
@@ -740,14 +745,14 @@ def make_avatars(world: World, count: int = 12) -> list[Avatar]:
             birth_year=birth_year,
             age=age,
             gender=gender,
-            cultivation_progress=CultivationProgress(level),
+            cultivation_progress=cultivation_progress,
             pos_x=x,
             pos_y=y,
             root=random.choice(list(Root)),  # 随机选择灵根
         )
         avatar.tile = world.map.get_tile(x, y)
         avatar.bind_action(Move)
-        avatars.append(avatar)
+        avatars[i] = avatar
     return avatars
 
 
@@ -760,7 +765,7 @@ def main():
     world = World(map=game_map)
 
     sim = Simulator()
-    sim.avatars.extend(make_avatars(world, count=14))
+    sim.avatars.update(make_avatars(world, count=14))
 
     front = Front(
         world=world,
@@ -769,6 +774,7 @@ def main():
         margin=8,
         step_interval_ms=350,
         window_title="Cultivation World — Front Demo",
+        sidebar_width=350,  # 新增：设置侧边栏宽度
     )
     front.run()
 

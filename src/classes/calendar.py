@@ -1,6 +1,4 @@
 from enum import Enum
-from dataclasses import dataclass
-
 
 class Month(Enum):
     JANUARY = 1
@@ -15,6 +13,12 @@ class Month(Enum):
     OCTOBER = 10
     NOVEMBER = 11
     DECEMBER = 12
+
+    def __str__(self) -> str:
+        return str(self.value) 
+
+    def __repr__(self) -> str:
+        return str(self.value) 
 
 class Year(int):
     def __add__(self, other: int) -> 'Year':

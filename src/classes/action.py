@@ -2,6 +2,9 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from src.classes.essence import Essence, EssenceType
+from src.classes.root import Root, corres_essence_type
+
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
     from src.classes.world import World
@@ -59,3 +62,25 @@ class Move(DefineAction):
         else:
             # 超出边界：不改变位置与tile
             pass
+
+class Cultivate(DefineAction):
+    """
+    修炼动作，可以增加修仙进度。
+    """
+    def execute(self, root: Root, essence: Essence):
+        """
+        修炼
+        获得的exp增加取决于essence的对应灵根的大小。
+        """
+        essence_type = corres_essence_type[root]
+        essence_density = essence.get_density(essence_type)
+        exp = self.get_exp(essence_density)
+        self.avatar.cultivation_progress.add_exp(exp)
+
+    def get_exp(self, essence_density: int) -> int:
+        """
+        根据essence的密度，计算获得的exp。
+        公式为：base * essence_density
+        """
+        base = 100
+        return base * essence_density

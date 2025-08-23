@@ -65,7 +65,7 @@ class CultivationProgress:
     def get_exp_required(self, target_level: int) -> int:
         """
         计算升级到指定等级需要的经验值
-        使用指数增长公式：base_exp * (growth_rate ^ level) * realm_multiplier
+        使用简单的代数加法：base_exp + (level - 1) * increment + realm_bonus
         
         参数:
             target_level: 目标等级
@@ -77,13 +77,15 @@ class CultivationProgress:
             return 0
         
         base_exp = 100  # 基础经验值
-        growth_rate = 1.15  # 每级增长15%
+        increment = 50   # 每级增加50点经验值
         
-        # 境界加成倍数：每跨越一个境界，经验需求增加50%
-        realm_multiplier = 1 + (target_level // 30) * 0.5
+        # 基础经验值计算
+        exp_required = base_exp + (target_level - 1) * increment
         
-        exp_required = int(base_exp * (growth_rate ** target_level) * realm_multiplier)
-        return exp_required
+        # 境界加成：每跨越一个境界，额外增加1000点经验值
+        realm_bonus = (target_level // 30) * 1000
+        
+        return exp_required + realm_bonus
 
     def can_level_up(self) -> bool:
         """

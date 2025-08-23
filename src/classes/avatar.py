@@ -7,8 +7,9 @@ from src.classes.calendar import Month, Year
 from src.classes.action import Action
 from src.classes.world import World
 from src.classes.tile import Tile
-from src.classes.cultivation import CultivationProgress
+from src.classes.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
+from src.classes.age import Age
 from src.utils.strings import to_snake_case
 
 class Gender(Enum):
@@ -34,7 +35,7 @@ class Avatar:
     id: int
     birth_month: Month
     birth_year: Year
-    age: int
+    age: Age
     gender: Gender
     cultivation_progress: CultivationProgress = field(default_factory=lambda: CultivationProgress(0))
     pos_x: int = 0
@@ -75,3 +76,42 @@ class Avatar:
         """
         # 目前只做一个事情，就是随机移动。
         return "Move", {"delta_x": random.randint(-1, 1), "delta_y": random.randint(-1, 1)}
+    
+    def update_cultivation(self, new_level: int):
+        """
+        更新修仙进度，并在境界提升时更新寿命
+        """
+        old_realm = self.cultivation_progress.realm
+        self.cultivation_progress.level = new_level
+        self.cultivation_progress.realm = self.cultivation_progress.get_realm(new_level)
+        
+        # 如果境界提升了，更新寿命期望
+        if self.cultivation_progress.realm != old_realm:
+            self.age.update_realm(self.cultivation_progress.realm)
+    
+    def death_by_old_age(self) -> bool:
+        """
+        检查是否老死
+        
+        返回:
+            如果老死返回True，否则返回False
+        """
+        return self.age.death_by_old_age(self.cultivation_progress.realm)
+    
+    def get_age_info(self) -> dict:
+        """
+        获取年龄相关信息
+        
+        返回:
+            包含年龄、期望寿命、死亡概率等信息的字典
+        """
+        current_age, expected_lifespan = self.age.get_lifespan_progress()
+        death_probability = self.age.get_death_probability()
+        
+        return {
+            "current_age": round(current_age, 2),
+            "expected_lifespan": expected_lifespan,
+            "is_elderly": self.age.is_elderly(),
+            "death_probability": round(death_probability, 4),
+            "realm": self.cultivation_progress.realm.value
+        }

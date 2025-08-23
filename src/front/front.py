@@ -6,6 +6,7 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
+from src.sim.event import Event
 
 
 class Front:
@@ -33,6 +34,7 @@ class Front:
         step_interval_ms: int = 400,
         window_title: str = "Cultivation World Simulator",
         font_path: Optional[str] = None,
+        sidebar_width: int = 300,  # 新增：侧边栏宽度
     ):
         self.world = world
         self.simulator = simulator
@@ -41,10 +43,12 @@ class Front:
         self.step_interval_ms = step_interval_ms
         self.window_title = window_title
         self.font_path = font_path
+        self.sidebar_width = sidebar_width  # 新增：侧边栏宽度
 
         # 运行时状态
         self._auto_step = True
         self._last_step_ms = 0
+        self.events: List[Event] = []  # 新增：存储事件历史
 
         # 初始化pygame
         import pygame
@@ -52,8 +56,8 @@ class Front:
         pygame.init()
         pygame.font.init()
 
-        # 计算窗口大小
-        width_px = world.map.width * tile_size + margin * 2
+        # 计算窗口大小（包含侧边栏）
+        width_px = world.map.width * tile_size + margin * 2 + sidebar_width
         height_px = world.map.height * tile_size + margin * 2
         self.screen = pygame.display.set_mode((width_px, height_px))
         pygame.display.set_caption(window_title)
@@ -61,6 +65,8 @@ class Front:
         # 字体和缓存
         self.font = self._create_font(16)
         self.tooltip_font = self._create_font(14)
+        self.sidebar_font = self._create_font(12)  # 新增：侧边栏字体
+        self.status_font = self._create_font(18)  # 新增：状态栏字体（更大更清晰）
         self._region_font_cache: Dict[int, object] = {}
 
         # 配色方案
@@ -71,6 +77,12 @@ class Front:
             "tooltip_bg": (32, 32, 32),
             "tooltip_bd": (90, 90, 90),
             "avatar": (240, 220, 90),
+            "sidebar_bg": (25, 25, 25),  # 新增：侧边栏背景色
+            "sidebar_border": (60, 60, 60),  # 新增：侧边栏边框色
+            "event_text": (200, 200, 200),  # 新增：事件文字色
+            "status_bg": (15, 15, 15),  # 新增：状态栏背景色（深色）
+            "status_border": (50, 50, 50),  # 新增：状态栏边框色
+            "status_text": (220, 220, 220),  # 新增：状态栏文字色（亮色）
         }
 
         # 加载tile图像
@@ -78,6 +90,13 @@ class Front:
         self._load_tile_images()
 
         self.clock = pygame.time.Clock()
+
+    def add_events(self, new_events: List[Event]):
+        """新增：添加新事件到事件历史"""
+        self.events.extend(new_events)
+        # 保持最多1000个事件，避免内存占用过大
+        if len(self.events) > 1000:
+            self.events = self.events[-1000:]
 
     def run(self):
         """主循环"""
@@ -110,7 +129,9 @@ class Front:
 
     def _step_once(self):
         """执行一步模拟"""
-        self.simulator.step()
+        events = self.simulator.step()  # 获取返回的事件
+        if events:  # 新增：将事件添加到事件历史
+            self.add_events(events)
         self._last_step_ms = 0
 
     def _render(self):
@@ -134,27 +155,74 @@ class Front:
 
         # 状态信息
         self._draw_status_bar()
-        self._draw_date_info()
+
+        # 新增：绘制侧边栏
+        self._draw_sidebar()
 
         pygame.display.flip()
 
     def _draw_status_bar(self):
-        """绘制状态栏"""
-        hint = f"A:自动步进({'开' if self._auto_step else '关'})  SPACE:单步  ESC:退出"
-        text_surf = self.font.render(hint, True, self.colors["text"])
-        self.screen.blit(text_surf, (self.margin, 4))
-
-    def _draw_date_info(self):
-        """绘制日期信息"""
+        """绘制状态栏 - 包含操作指南和年月信息"""
+        pygame = self.pygame
+        
+        # 状态栏配置
+        status_y = 8
+        status_height = 32
+        padding = 8
+        
+        # 绘制状态栏背景
+        status_rect = pygame.Rect(0, 0, self.screen.get_width(), status_height)
+        pygame.draw.rect(self.screen, self.colors["status_bg"], status_rect)
+        pygame.draw.line(self.screen, self.colors["status_border"], 
+                        (0, status_height), (self.screen.get_width(), status_height), 2)
+        
+        # 1. 绘制操作指南
+        self._draw_operation_guide(status_y, padding)
+        
+        # 2. 绘制年月信息
+        self._draw_year_month_info(status_y, padding)
+    
+    def _draw_operation_guide(self, y_pos: int, padding: int):
+        """绘制操作指南"""
+        # 构建操作指南文本
+        auto_status = "开" if self._auto_step else "关"
+        guide_text = f"A:自动步进({auto_status})  SPACE:单步  ESC:退出"
+        
+        # 渲染文本
+        guide_surf = self.status_font.render(guide_text, True, self.colors["status_text"])
+        
+        # 绘制文本
+        x_pos = self.margin + padding
+        self.screen.blit(guide_surf, (x_pos, y_pos))
+        
+        # 保存操作指南的宽度，供年月信息定位使用
+        self._guide_width = guide_surf.get_width()
+    
+    def _draw_year_month_info(self, y_pos: int, padding: int):
+        """绘制年月信息"""
+        # 获取年月数据
+        year = int(self.simulator.year)
+        month_num = self._get_month_number()
+        
+        # 构建年月文本
+        ym_text = f"{year}年{month_num:02d}月"
+        
+        # 渲染文本
+        ym_surf = self.status_font.render(ym_text, True, self.colors["status_text"])
+        
+        # 计算位置：放在操作指南右边，留适当间距
+        x_pos = self.margin + self._guide_width + padding * 3
+        self.screen.blit(ym_surf, (x_pos, y_pos))
+    
+    def _get_month_number(self) -> int:
+        """获取月份数字"""
         try:
             month_num = list(type(self.simulator.month)).index(self.simulator.month) + 1
+            return month_num
         except Exception:
-            month_num = 1
-            
-        ym_text = f"{int(self.simulator.year)}年{month_num:02d}月"
-        ym_surf = self.font.render(ym_text, True, self.colors["text"])
-        screen_w, _ = self.screen.get_size()
-        self.screen.blit(ym_surf, (screen_w - self.margin - ym_surf.get_width(), 4))
+            return 1
+
+
 
     def _draw_map(self):
         """绘制地图"""
@@ -285,7 +353,7 @@ class Front:
         hovered = None
         min_dist = float("inf")
 
-        for avatar in self.simulator.avatars:
+        for avatar_id, avatar in self.simulator.avatars.items():
             cx, cy = self._avatar_center_pixel(avatar)
             radius = max(8, self.tile_size // 3)
             
@@ -394,17 +462,9 @@ class Front:
             image_path = f"assets/tiles/{tile_type.value}.png"
             
             if os.path.exists(image_path):
-                try:
-                    image = pygame.image.load(image_path)
-                    scaled_image = pygame.transform.scale(image, (self.tile_size, self.tile_size))
-                    self.tile_images[tile_type] = scaled_image
-                    print(f"已加载tile图像: {image_path}")
-                except Exception as e:
-                    print(f"加载tile图像失败 {image_path}: {e}")
-                    self._create_fallback_surface(tile_type)
-            else:
-                print(f"tile图像文件不存在: {image_path}")
-                self._create_fallback_surface(tile_type)
+                image = pygame.image.load(image_path)
+                scaled_image = pygame.transform.scale(image, (self.tile_size, self.tile_size))
+                self.tile_images[tile_type] = scaled_image
 
     def _create_fallback_surface(self, tile_type):
         """创建默认的fallback surface"""
@@ -444,6 +504,61 @@ class Front:
 
         # 退回默认字体
         return pygame.font.SysFont(None, size)
+
+    def _draw_sidebar(self):
+        """新增：绘制侧边栏"""
+        pygame = self.pygame
+        
+        # 计算侧边栏位置
+        sidebar_x = self.world.map.width * self.tile_size + self.margin * 2
+        sidebar_y = self.margin
+        
+        # 绘制侧边栏背景
+        sidebar_rect = pygame.Rect(sidebar_x, sidebar_y, self.sidebar_width, 
+                                 self.screen.get_height() - self.margin * 2)
+        pygame.draw.rect(self.screen, self.colors["sidebar_bg"], sidebar_rect)
+        pygame.draw.rect(self.screen, self.colors["sidebar_border"], sidebar_rect, 2)
+        
+        # 绘制标题
+        title_text = "事件历史"
+        title_surf = self.sidebar_font.render(title_text, True, self.colors["text"])
+        title_x = sidebar_x + 10
+        title_y = sidebar_y + 10
+        self.screen.blit(title_surf, (title_x, title_y))
+        
+        # 绘制分隔线
+        line_y = title_y + title_surf.get_height() + 10
+        pygame.draw.line(self.screen, self.colors["sidebar_border"], 
+                        (sidebar_x + 10, line_y), 
+                        (sidebar_x + self.sidebar_width - 10, line_y), 1)
+        
+        # 绘制事件列表
+        event_y = line_y + 15
+        max_events = (self.screen.get_height() - event_y - self.margin) // 20  # 每行20像素
+        
+        # 显示最近的事件（从最新开始）
+        recent_events = self.events[-max_events:] if len(self.events) > max_events else self.events
+        
+        for event in reversed(recent_events):  # 最新的在顶部
+            event_text = str(event)
+            
+            # 如果文本太长，截断它
+            if len(event_text) > 35:  # 大约35个字符
+                event_text = event_text[:32] + "..."
+            
+            event_surf = self.sidebar_font.render(event_text, True, self.colors["event_text"])
+            self.screen.blit(event_surf, (title_x, event_y))
+            event_y += 20
+            
+            # 如果超出显示区域，停止绘制
+            if event_y > self.screen.get_height() - self.margin:
+                break
+        
+        # 如果没有事件，显示提示信息
+        if not self.events:
+            no_event_text = "暂无事件"
+            no_event_surf = self.sidebar_font.render(no_event_text, True, self.colors["event_text"])
+            self.screen.blit(no_event_surf, (title_x, event_y))
 
 
 __all__ = ["Front"]
