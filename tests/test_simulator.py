@@ -33,8 +33,6 @@ def test_simulator_step_moves_avatar_and_sets_tile():
         pos_y=1,
     )
 
-    # 绑定移动动作
-    avatar.bind_action(Move)
 
     sim = Simulator()
     sim.avatars.append(avatar)

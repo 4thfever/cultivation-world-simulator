@@ -1,10 +1,11 @@
 import random
+import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
 from src.classes.calendar import Month, Year
-from src.classes.action import Action
+from src.classes.action import Action, Move, Cultivate
 from src.classes.world import World
 from src.classes.tile import Tile
 from src.classes.cultivation import CultivationProgress, Realm
@@ -32,7 +33,7 @@ class Avatar:
     """
     world: World
     name: str
-    id: int
+    id: str
     birth_month: Month
     birth_year: Year
     age: Age
@@ -43,6 +44,19 @@ class Avatar:
     tile: Optional[Tile] = None
     actions: dict[str, Action] = field(default_factory=dict)
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
+
+    def __post_init__(self):
+        """
+        在Avatar创建后自动绑定基础动作
+        """
+        self._bind_basic_actions()
+
+    def _bind_basic_actions(self):
+        """
+        绑定基础动作，如移动等
+        """
+        self.bind_action(Move)
+        self.bind_action(Cultivate)
 
 
     def bind_action(self, action_class: type[Action]):
@@ -121,3 +135,31 @@ class Avatar:
             "death_probability": round(death_probability, 4),
             "realm": self.cultivation_progress.realm.value
         }
+
+def get_new_avatar_from_ordinary(world: World, current_year: Year, name: str, age: Age):
+    """
+    从凡人中来的新修士
+    这代表其境界为最低
+    """
+    # 利用uuid功能生成id
+    avatar_id = str(uuid.uuid4())
+
+    birth_year = current_year - age.age
+    birth_month = random.choice(list(Month))
+    cultivation_progress = CultivationProgress(0)
+    pos_x = random.randint(0, 100)
+    pos_y = random.randint(0, 100)
+    gender = random.choice(list(Gender))
+
+    return Avatar(
+        world=world,
+        name=name,
+        id=avatar_id,
+        birth_month=birth_month,
+        birth_year=birth_year,
+        age=age,
+        gender=gender,
+        cultivation_progress=cultivation_progress,
+        pos_x=pos_x,
+        pos_y=pos_y,
+    )

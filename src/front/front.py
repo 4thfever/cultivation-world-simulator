@@ -26,7 +26,6 @@ class Front:
 
     def __init__(
         self,
-        world: World,
         simulator: Simulator,
         *,
         tile_size: int = 32,
@@ -36,7 +35,7 @@ class Front:
         font_path: Optional[str] = None,
         sidebar_width: int = 300,  # 新增：侧边栏宽度
     ):
-        self.world = world
+        self.world = simulator.world
         self.simulator = simulator
         self.tile_size = tile_size
         self.margin = margin
@@ -57,8 +56,8 @@ class Front:
         pygame.font.init()
 
         # 计算窗口大小（包含侧边栏）
-        width_px = world.map.width * tile_size + margin * 2 + sidebar_width
-        height_px = world.map.height * tile_size + margin * 2
+        width_px = self.world.map.width * tile_size + margin * 2 + sidebar_width
+        height_px = self.world.map.height * tile_size + margin * 2
         self.screen = pygame.display.set_mode((width_px, height_px))
         pygame.display.set_caption(window_title)
 

@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import uuid
 from typing import List, Tuple, Dict, Any
 
 # 将项目根目录加入 Python 路径，确保可以导入 `src` 包
@@ -710,8 +711,8 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) -> dict[int, Avatar]:
-    avatars: dict[int, Avatar] = {}
+def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) -> dict[str, Avatar]:
+    avatars: dict[str, Avatar] = {}
     width, height = world.map.width, world.map.height
     for i in range(count):
         name = f"NPC{i+1:03d}"
@@ -742,7 +743,7 @@ def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) 
         avatar = Avatar(
             world=world,
             name=name,
-            id=i + 1,
+            id=str(uuid.uuid4()),
             birth_month=birth_month,
             birth_year=birth_year,
             age=age,
@@ -753,8 +754,7 @@ def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) 
             root=random.choice(list(Root)),  # 随机选择灵根
         )
         avatar.tile = world.map.get_tile(x, y)
-        avatar.bind_action(Move)
-        avatars[i] = avatar
+        avatars[avatar.id] = avatar
     return avatars
 
 
@@ -767,7 +767,7 @@ def main():
     world = World(map=game_map)
 
     # 设置模拟器从第100年开始
-    sim = Simulator()
+    sim = Simulator(world)
     sim.year = Year(100)  # 设置初始年份为100年
     sim.month = Month.JANUARY  # 设置初始月份为1月
     
@@ -775,7 +775,6 @@ def main():
     sim.avatars.update(make_avatars(world, count=14, current_year=sim.year))
 
     front = Front(
-        world=world,
         simulator=sim,
         tile_size=24,  # 稍微减小tile大小以适应更大的地图
         margin=8,

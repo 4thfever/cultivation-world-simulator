@@ -1,7 +1,9 @@
+import uuid
 from src.classes.avatar import Avatar, Gender
 from src.classes.calendar import Month, Year
 from src.classes.world import World 
 from src.classes.tile import Map, TileType
+from src.classes.age import Age
 
 def test_basic():
     """
@@ -17,10 +19,10 @@ def test_basic():
     avatar = Avatar(
         world=world,
         name="John Doe",
-        id=1,
+        id=str(uuid.uuid4()),
         birth_month=Month.JANUARY,
         birth_year=Year(2000),
-        age=20,
+        age=Age(20),
         gender=Gender.MALE
     )
 

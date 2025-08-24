@@ -1,12 +1,19 @@
+import random
+
 from src.classes.calendar import Month, Year, next_month
-from src.classes.avatar import Avatar
+from src.classes.avatar import Avatar, get_new_avatar_from_ordinary
+from src.classes.age import Age
+from src.classes.avatar import Gender
+from src.classes.world import World
 from src.sim.event import Event
 
 class Simulator:
-    def __init__(self):
-        self.avatars = {} # dict of int -> Avatar
+    def __init__(self, world: World):
+        self.avatars = {} # dict of str -> Avatar
         self.year = Year(1)
         self.month = Month.JANUARY
+        self.world = world
+        self.brith_rate = 0.01
 
     def step(self):
         """
@@ -17,7 +24,7 @@ class Simulator:
         再去结算单个角色的事件。
         """
         events = [] # list of Event
-        death_avatar_ids = [] # list of int
+        death_avatar_ids = [] # list of str
 
         # 结算角色行为
         for avatar_id, avatar in self.avatars.items():
@@ -28,8 +35,18 @@ class Simulator:
                 events.append(event)
             avatar.update_age(self.month, self.year)
         
+        # 删除死亡的角色
         for avatar_id in death_avatar_ids:
             self.avatars.pop(avatar_id)
+
+        # 新角色
+        if random.random() < self.brith_rate:
+            name = f"无名"
+            age = random.randint(16, 60)
+            new_avatar = get_new_avatar_from_ordinary(self.world, self.year, name, Age(age))
+            self.avatars[new_avatar.id] = new_avatar
+            event = Event(self.year, self.month, f"{new_avatar.name}晋升为修士了。")
+            events.append(event)
 
         # 最后结算年月
         self.month, self.year = next_month(self.month, self.year)
