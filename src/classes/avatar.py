@@ -147,8 +147,8 @@ def get_new_avatar_from_ordinary(world: World, current_year: Year, name: str, ag
     birth_year = current_year - age.age
     birth_month = random.choice(list(Month))
     cultivation_progress = CultivationProgress(0)
-    pos_x = random.randint(0, 100)
-    pos_y = random.randint(0, 100)
+    pos_x = random.randint(0, world.map.width)
+    pos_y = random.randint(0, world.map.height)
     gender = random.choice(list(Gender))
 
     return Avatar(

@@ -67,7 +67,6 @@ class Tile():
 class Map():
     """
     通过dict记录position 到 tile。
-    TODO: 有特色的地貌，比如西部大漠，东部平原，最东海洋和岛国。南边热带雨林，北边雪山和冰原。
     """
     def __init__(self, width: int, height: int):
         self.tiles = {}
