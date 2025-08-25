@@ -88,6 +88,12 @@ class Front:
         self.tile_images = {}
         self._load_tile_images()
 
+        # 加载avatar头像图像
+        self.male_avatars = []
+        self.female_avatars = []
+        self.avatar_images = {}  # avatar_id -> 图像surface
+        self._load_avatar_images()
+
         self.clock = pygame.time.Clock()
 
     def add_events(self, new_events: List[Event]):
@@ -352,18 +358,37 @@ class Front:
         hovered = None
         min_dist = float("inf")
 
+        # 确保新的avatar也有头像分配
+        self._assign_avatar_images()
+
         for avatar_id, avatar in self.simulator.avatars.items():
             cx, cy = self._avatar_center_pixel(avatar)
-            radius = max(8, self.tile_size // 3)
             
-            # 绘制Avatar
-            pygame.draw.circle(self.screen, self.colors["avatar"], (cx, cy), radius)
-
-            # 检测悬停
-            dist = math.hypot(mouse_x - cx, mouse_y - cy)
-            if dist <= radius and dist < min_dist:
-                hovered = avatar
-                min_dist = dist
+            # 尝试使用头像图片
+            avatar_image = self.avatar_images.get(avatar_id)
+            if avatar_image:
+                # 计算头像图片的位置（居中显示）
+                image_rect = avatar_image.get_rect()
+                image_x = cx - image_rect.width // 2
+                image_y = cy - image_rect.height // 2
+                
+                # 绘制头像图片
+                self.screen.blit(avatar_image, (image_x, image_y))
+                
+                # 检测悬停（使用图片的矩形区域）
+                if image_rect.collidepoint(mouse_x - image_x, mouse_y - image_y):
+                    hovered = avatar
+                    min_dist = 0  # 如果鼠标在图片内，设为最优先
+            else:
+                # 回退到圆点显示
+                radius = max(8, self.tile_size // 3)
+                pygame.draw.circle(self.screen, self.colors["avatar"], (cx, cy), radius)
+                
+                # 检测悬停（使用圆形区域）
+                dist = math.hypot(mouse_x - cx, mouse_y - cy)
+                if dist <= radius and dist < min_dist:
+                    hovered = avatar
+                    min_dist = dist
 
         return hovered
 
@@ -411,7 +436,7 @@ class Front:
     def _draw_tooltip_for_avatar(self, avatar: Avatar):
         """绘制Avatar的tooltip"""
         lines = [
-            f"{avatar.name}#{avatar.id}",
+            f"{avatar.name}",
             f"性别: {avatar.gender}",
             f"年龄: {avatar.age}",
             f"境界: {str(avatar.cultivation_progress)}",
@@ -464,6 +489,59 @@ class Front:
                 image = pygame.image.load(image_path)
                 scaled_image = pygame.transform.scale(image, (self.tile_size, self.tile_size))
                 self.tile_images[tile_type] = scaled_image
+
+    def _load_avatar_images(self):
+        """加载avatar头像图像"""
+        import os
+        import random
+        pygame = self.pygame
+        
+        # 加载男性头像
+        male_dir = "assets/males"
+        if os.path.exists(male_dir):
+            for filename in os.listdir(male_dir):
+                # 只加载数字序号的png文件，跳过original.png
+                if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
+                    image_path = os.path.join(male_dir, filename)
+                    try:
+                        image = pygame.image.load(image_path)
+                        # 调大一倍的头像大小
+                        avatar_size = max(32, self.tile_size * 4 // 3)
+                        scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
+                        self.male_avatars.append(scaled_image)
+                    except pygame.error:
+                        continue  # 跳过无法加载的图片
+        
+        # 加载女性头像
+        female_dir = "assets/females"
+        if os.path.exists(female_dir):
+            for filename in os.listdir(female_dir):
+                # 只加载数字序号的png文件，跳过original.png
+                if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
+                    image_path = os.path.join(female_dir, filename)
+                    try:
+                        image = pygame.image.load(image_path)
+                        # 调大一倍的头像大小
+                        avatar_size = max(32, self.tile_size * 4 // 3)
+                        scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
+                        self.female_avatars.append(scaled_image)
+                    except pygame.error:
+                        continue  # 跳过无法加载的图片
+        
+        # 为每个现有的avatar分配头像
+        self._assign_avatar_images()
+    
+    def _assign_avatar_images(self):
+        """为每个avatar分配头像图片"""
+        import random
+        
+        for avatar_id, avatar in self.simulator.avatars.items():
+            if avatar_id not in self.avatar_images:
+                if avatar.gender == Gender.MALE and self.male_avatars:
+                    self.avatar_images[avatar_id] = random.choice(self.male_avatars)
+                elif avatar.gender == Gender.FEMALE and self.female_avatars:
+                    self.avatar_images[avatar_id] = random.choice(self.female_avatars)
+                # 如果没有可用的头像，则使用None，后续会画圆点作为fallback
 
     def _create_fallback_surface(self, tile_type):
         """创建默认的fallback surface"""
