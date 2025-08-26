@@ -505,8 +505,8 @@ class Front:
                     image_path = os.path.join(male_dir, filename)
                     try:
                         image = pygame.image.load(image_path)
-                        # 调大一倍的头像大小
-                        avatar_size = max(32, self.tile_size * 4 // 3)
+                        # 调整头像大小，减小20%
+                        avatar_size = max(26, int(self.tile_size * 4 // 3 * 0.8))
                         scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
                         self.male_avatars.append(scaled_image)
                     except pygame.error:
@@ -521,8 +521,8 @@ class Front:
                     image_path = os.path.join(female_dir, filename)
                     try:
                         image = pygame.image.load(image_path)
-                        # 调大一倍的头像大小
-                        avatar_size = max(32, self.tile_size * 4 // 3)
+                        # 调整头像大小，减小20%
+                        avatar_size = max(26, int(self.tile_size * 4 // 3 * 0.8))
                         scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
                         self.female_avatars.append(scaled_image)
                     except pygame.error:
