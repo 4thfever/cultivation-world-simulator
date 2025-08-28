@@ -1,13 +1,6 @@
-import os
-import sys
 import random
 import uuid
 from typing import List, Tuple, Dict, Any
-
-# 将项目根目录加入 Python 路径，确保可以导入 `src` 包
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
 
 # 依赖项目内部模块
 from src.front.front import Front
@@ -21,7 +14,7 @@ from src.classes.essence import Essence, EssenceType
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from create_map import create_cultivation_world_map
+from src.tools.create_map import create_cultivation_world_map
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -92,15 +85,13 @@ def main():
     # 为了每次更丰富，使用随机种子；如需复现可将 seed 固定
 
     game_map = create_cultivation_world_map()
-    world = World(map=game_map)
+    world = World(map=game_map, year=Year(100), month=Month.JANUARY)
 
-    # 设置模拟器从第100年开始
+    # 创建模拟器
     sim = Simulator(world)
-    sim.year = Year(100)  # 设置初始年份为100年
-    sim.month = Month.JANUARY  # 设置初始月份为1月
     
     # 创建角色，传入当前年份确保年龄与生日匹配
-    sim.avatars.update(make_avatars(world, count=14, current_year=sim.year))
+    sim.avatars.update(make_avatars(world, count=14, current_year=world.year))
 
     front = Front(
         simulator=sim,

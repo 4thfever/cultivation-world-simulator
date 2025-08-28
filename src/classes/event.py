@@ -13,3 +13,7 @@ class Event:
 
     def __str__(self) -> str:
         return f"{self.year}年{self.month}月: {self.content}"
+
+class NullEvent:
+    def __str__(self) -> str:
+        return ""

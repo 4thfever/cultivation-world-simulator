@@ -14,7 +14,7 @@ def test_basic():
         for y in range(2):
             map.create_tile(x, y, TileType.PLAIN)
 
-    world = World(map=map)
+    world = World(map=map, year=Year(1), month=Month.JANUARY)
 
     avatar = Avatar(
         world=world,

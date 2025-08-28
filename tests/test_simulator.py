@@ -18,13 +18,13 @@ def test_simulator_step_moves_avatar_and_sets_tile():
         for y in range(3):
             game_map.create_tile(x, y, TileType.PLAIN)
 
-    world = World(map=game_map)
+    world = World(map=game_map, year=Year(1), month=Month.JANUARY)
 
     # 将角色放在地图中心，避免越界
     avatar = Avatar(
         world=world,
         name="Tester",
-        id=1,
+        id="1",
         birth_month=Month.JANUARY,
         birth_year=Year(2000),
         age=20,
@@ -34,8 +34,8 @@ def test_simulator_step_moves_avatar_and_sets_tile():
     )
 
 
-    sim = Simulator()
-    sim.avatars.append(avatar)
+    sim = Simulator(world)
+    sim.avatars["1"] = avatar
 
     # 执行一步模拟
     sim.step()

@@ -6,7 +6,7 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
-from src.sim.event import Event
+from src.classes.event import Event
 
 
 class Front:
@@ -206,7 +206,7 @@ class Front:
     def _draw_year_month_info(self, y_pos: int, padding: int):
         """绘制年月信息"""
         # 获取年月数据
-        year = int(self.simulator.year)
+        year = int(self.simulator.world.year)
         month_num = self._get_month_number()
         
         # 构建年月文本
@@ -222,7 +222,7 @@ class Front:
     def _get_month_number(self) -> int:
         """获取月份数字"""
         try:
-            month_num = list(type(self.simulator.month)).index(self.simulator.month) + 1
+            month_num = list(type(self.simulator.world.month)).index(self.simulator.world.month) + 1
             return month_num
         except Exception:
             return 1
@@ -279,39 +279,31 @@ class Front:
         m = self.margin
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
-        # 收集每个region的所有地块中心点
-        region_to_points = self._collect_region_points(map_obj, ts, m)
-        
-        if not region_to_points:
-            return None
-
         # 绘制每个region的标签
         hovered_region = None
-        for region, points in region_to_points.items():
-            if not points:
-                continue
-                
-            # 计算质心
-            avg_x = sum(p[0] for p in points) // len(points)
-            avg_y = sum(p[1] for p in points) // len(points)
-
+        for region in map_obj.regions.values():
             name = getattr(region, "name", None)
             if not name:
                 continue
 
-            # 计算字体大小
-            font_size = self._calculate_font_size(len(points))
+            # 使用region的center_loc计算屏幕位置
+            center_x, center_y = region.center_loc
+            screen_x = m + center_x * ts + ts // 2
+            screen_y = m + center_y * ts + ts // 2
+
+            # 计算字体大小（基于region面积）
+            font_size = self._calculate_font_size_by_area(region.area)
             region_font = self._get_region_font(font_size)
 
             # 渲染文字
             text_surface = region_font.render(str(name), True, self.colors["text"])
             shadow_surface = region_font.render(str(name), True, (0, 0, 0))
 
-            # 计算位置
+            # 计算位置（居中显示）
             text_w = text_surface.get_width()
             text_h = text_surface.get_height()
-            x = int(avg_x - text_w / 2)
-            y = int(avg_y - text_h / 2)
+            x = int(screen_x - text_w / 2)
+            y = int(screen_y - text_h / 2)
 
             # 检测鼠标悬停
             if (x <= mouse_x <= x + text_w and y <= mouse_y <= y + text_h):
@@ -323,23 +315,10 @@ class Front:
 
         return hovered_region
 
-    def _collect_region_points(self, map_obj, ts, m):
-        """收集region的点位信息"""
-        region_to_points = {}
-        
-        for (x, y), tile in getattr(map_obj, "tiles", {}).items():
-            if getattr(tile, "region", None) is None:
-                continue
-                
-            region_obj = tile.region
-            cx = m + x * ts + ts // 2
-            cy = m + y * ts + ts // 2
-            region_to_points.setdefault(region_obj, []).append((cx, cy))
-            
-        return region_to_points
 
-    def _calculate_font_size(self, area):
-        """根据区域大小计算字体大小"""
+
+    def _calculate_font_size_by_area(self, area):
+        """根据区域面积计算字体大小"""
         base = int(self.tile_size * 1.1)
         growth = int(max(0, min(24, (area ** 0.5))))
         return max(16, min(40, base + growth))

@@ -1,9 +1,12 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+import random
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
+from src.classes.tile import Region
+from src.classes.event import Event, NullEvent
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -24,7 +27,7 @@ class Action(ABC):
         self.world = world
 
     @abstractmethod
-    def execute(self):
+    def execute(self) -> Event|NullEvent:
         pass
 
 class DefineAction(Action):
@@ -45,7 +48,7 @@ class Move(DefineAction):
     """
     最基础的移动动作，在tile之间进行切换。
     """
-    def execute(self, delta_x: int, delta_y: int):
+    def execute(self, delta_x: int, delta_y: int) -> Event|NullEvent:
         """
         移动到某个tile
         """
@@ -62,20 +65,42 @@ class Move(DefineAction):
         else:
             # 超出边界：不改变位置与tile
             pass
+        return NullEvent()
+
+class MoveToRegion(DefineAction):
+    """
+    移动到某个region
+    """
+    def execute(self, region: Region) -> Event|NullEvent:
+        """
+        移动到某个region
+        """
+        cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
+        region_center_loc = region.center_loc
+        delta_x = region_center_loc[0] - cur_loc[0]
+        delta_y = region_center_loc[1] - cur_loc[1]
+        # 横纵向一次最多移动一格（可以同时横纵移动）
+        delta_x = max(-1, min(1, delta_x))
+        delta_y = max(-1, min(1, delta_y))
+        Move(self.avatar, self.world).execute(delta_x, delta_y)
+        return Event(self.world.year, self.world.month, f"{self.avatar.name} 移动向 {region.name}")
 
 class Cultivate(DefineAction):
     """
     修炼动作，可以增加修仙进度。
     """
-    def execute(self, root: Root, essence: Essence):
+    def execute(self) -> Event|NullEvent:
         """
         修炼
         获得的exp增加取决于essence的对应灵根的大小。
         """
+        root = self.avatar.root
+        essence = self.avatar.tile.region.essence
         essence_type = corres_essence_type[root]
         essence_density = essence.get_density(essence_type)
         exp = self.get_exp(essence_density)
         self.avatar.cultivation_progress.add_exp(exp)
+        return Event(self.world.year, self.world.month, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 修炼")
 
     def get_exp(self, essence_density: int) -> int:
         """
@@ -84,3 +109,32 @@ class Cultivate(DefineAction):
         """
         base = 100
         return base * essence_density
+
+
+# 突破境界class
+class Breakthrough(DefineAction):
+    """
+    突破境界
+    """
+    def calc_success_rate(self) -> float:
+        """
+        计算突破境界的成功率
+        """
+        return 0.5
+
+    def execute(self) -> Event|NullEvent:
+        """
+        突破境界
+        """
+        assert self.avatar.cultivation_progress.can_break_through()   
+        success_rate = self.calc_success_rate()
+        if random.random() < success_rate:
+            self.avatar.cultivation_progress.break_through()
+            is_success = True
+        else:
+            is_success = False
+        res = "成功" if is_success else "失败"
+        return Event(self.world.year, self.world.month, f"{self.avatar.name} 突破境界{res}")
+
+
+ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion]

@@ -26,6 +26,12 @@ level_to_stage = {
     20: Stage.Late_Stage,
 }
 
+level_to_break_through = {
+    30: Realm.Foundation_Establishment,
+    60: Realm.Core_Formation,
+    90: Realm.Nascent_Soul,
+}
+
 class CultivationProgress:
     """
     修仙进度(包含等级、境界和经验值)
@@ -62,7 +68,7 @@ class CultivationProgress:
     def __str__(self) -> str:
         return f"{self.realm.value}{self.stage.value}({self.level}级)"
 
-    def get_exp_required(self, target_level: int) -> int:
+    def get_exp_required(self) -> int:
         """
         计算升级到指定等级需要的经验值
         使用简单的代数加法：base_exp + (level - 1) * increment + realm_bonus
@@ -73,17 +79,16 @@ class CultivationProgress:
         返回:
             需要的经验值
         """
-        if target_level <= 0 or target_level > 120:
-            return 0
+        next_level = self.level + 1
         
         base_exp = 100  # 基础经验值
         increment = 50   # 每级增加50点经验值
         
         # 基础经验值计算
-        exp_required = base_exp + (target_level - 1) * increment
+        exp_required = base_exp + (next_level - 1) * increment
         
         # 境界加成：每跨越一个境界，额外增加1000点经验值
-        realm_bonus = (target_level // 30) * 1000
+        realm_bonus = (next_level // 30) * 1000
         
         return exp_required + realm_bonus
 
@@ -94,7 +99,7 @@ class CultivationProgress:
         返回:
             如果经验值足够升级则返回True
         """
-        required_exp = self.get_exp_required(self.level + 1)
+        required_exp = self.get_exp_required()
         return self.exp >= required_exp
 
     def get_exp_progress(self) -> tuple[int, int]:
@@ -104,7 +109,7 @@ class CultivationProgress:
         返回:
             (当前经验值, 升级所需经验值)
         """
-        required_exp = self.get_exp_required(self.level + 1)
+        required_exp = self.get_exp_required()
         return self.exp, required_exp
 
     def add_exp(self, exp_amount: int) -> bool:
@@ -130,3 +135,17 @@ class CultivationProgress:
             return True
         
         return False
+
+    def break_through(self):
+        """
+        突破境界
+        """
+        self.level += 1
+        self.realm = self.get_realm(self.level)
+        self.stage = self.get_stage(self.level)
+
+    def can_break_through(self) -> bool:
+        """
+        检查是否可以突破
+        """
+        return self.level in level_to_break_through.keys()

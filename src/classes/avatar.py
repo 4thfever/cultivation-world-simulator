@@ -5,13 +5,14 @@ from enum import Enum
 from typing import Optional
 
 from src.classes.calendar import Month, Year
-from src.classes.action import Action, Move, Cultivate
+from src.classes.action import Action, ALL_ACTION_CLASSES
 from src.classes.world import World
-from src.classes.tile import Tile
+from src.classes.tile import Tile, Region
 from src.classes.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
 from src.classes.age import Age
 from src.utils.strings import to_snake_case
+from src.classes.ai import AI, RuleAI
 
 class Gender(Enum):
     MALE = "male"
@@ -44,19 +45,22 @@ class Avatar:
     tile: Optional[Tile] = None
     actions: dict[str, Action] = field(default_factory=dict)
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
+    ai: AI = None
 
     def __post_init__(self):
         """
-        在Avatar创建后自动绑定基础动作
+        在Avatar创建后自动绑定基础动作和AI
         """
+        self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
+        self.ai = RuleAI(self)
         self._bind_basic_actions()
 
     def _bind_basic_actions(self):
         """
         绑定基础动作，如移动等
         """
-        self.bind_action(Move)
-        self.bind_action(Cultivate)
+        for action in ALL_ACTION_CLASSES:
+            self.bind_action(action)
 
 
     def bind_action(self, action_class: type[Action]):
@@ -80,16 +84,10 @@ class Avatar:
         角色执行动作。
         实际上分为两步：决定做什么（decide）和实习上去做（do）
         """
-        action_name, action_args = self.decide()
+        action_name, action_args = self.ai.decide(self.world)
         action = self.actions[action_name]
-        action.execute(**action_args)
-
-    def decide(self):
-        """
-        决定做什么。
-        """
-        # 目前只做一个事情，就是随机移动。
-        return "Move", {"delta_x": random.randint(-1, 1), "delta_y": random.randint(-1, 1)}
+        event = action.execute(**action_args)
+        return event
     
     def update_cultivation(self, new_level: int):
         """
@@ -135,6 +133,9 @@ class Avatar:
             "death_probability": round(death_probability, 4),
             "realm": self.cultivation_progress.realm.value
         }
+
+    def is_in_region(self, region: Region) -> bool:
+        return self.tile.region == region
 
 def get_new_avatar_from_ordinary(world: World, current_year: Year, name: str, age: Age):
     """

@@ -3,15 +3,12 @@ import random
 from src.classes.calendar import Month, Year, next_month
 from src.classes.avatar import Avatar, get_new_avatar_from_ordinary
 from src.classes.age import Age
-from src.classes.avatar import Gender
 from src.classes.world import World
-from src.sim.event import Event
+from src.classes.event import Event, NullEvent
 
 class Simulator:
     def __init__(self, world: World):
         self.avatars = {} # dict of str -> Avatar
-        self.year = Year(1)
-        self.month = Month.JANUARY
         self.world = world
         self.brith_rate = 0.01
 
@@ -28,12 +25,14 @@ class Simulator:
 
         # 结算角色行为
         for avatar_id, avatar in self.avatars.items():
-            avatar.act()
+            event = avatar.act()
+            if event is not NullEvent:
+                events.append(event)
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
-                event = Event(self.year, self.month, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
+                event = Event(self.world.year, self.world.month, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
                 events.append(event)
-            avatar.update_age(self.month, self.year)
+            avatar.update_age(self.world.month, self.world.year)
         
         # 删除死亡的角色
         for avatar_id in death_avatar_ids:
@@ -43,12 +42,12 @@ class Simulator:
         if random.random() < self.brith_rate:
             name = f"无名"
             age = random.randint(16, 60)
-            new_avatar = get_new_avatar_from_ordinary(self.world, self.year, name, Age(age))
+            new_avatar = get_new_avatar_from_ordinary(self.world, self.world.year, name, Age(age))
             self.avatars[new_avatar.id] = new_avatar
-            event = Event(self.year, self.month, f"{new_avatar.name}晋升为修士了。")
+            event = Event(self.world.year, self.world.month, f"{new_avatar.name}晋升为修士了。")
             events.append(event)
 
         # 最后结算年月
-        self.month, self.year = next_month(self.month, self.year)
+        self.world.month, self.world.year = next_month(self.world.month, self.world.year)
 
         return events

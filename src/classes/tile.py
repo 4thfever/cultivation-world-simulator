@@ -39,10 +39,13 @@ class Region():
     description: str
     essence: Essence
     id: int = field(init=False)
-    
+    center_loc: tuple[int, int] = field(init=False)
+    area: int = field(init=False)
+
     def __post_init__(self):
         self.id = next(region_id_counter)
-    
+
+
     def __hash__(self) -> int:
         return hash(self.id)
 
@@ -55,6 +58,7 @@ class Region():
     # 其他
 
 default_region = Region(name="平原", description="最普通的平原，没有什么可说的", essence=Essence(density={EssenceType.GOLD: 1, EssenceType.WOOD: 1, EssenceType.WATER: 1, EssenceType.FIRE: 1, EssenceType.EARTH: 1}))
+default_region.area = 1  # 默认区域面积为1
 
 @dataclass
 class Tile():
@@ -70,6 +74,7 @@ class Map():
     """
     def __init__(self, width: int, height: int):
         self.tiles = {}
+        self.regions = {}
         self.width = width
         self.height = height
 
@@ -90,9 +95,38 @@ class Map():
         创建一个region。
         """
         region = Region(name=name, description=description, essence=essence)
+        center_loc = self.get_center_locs(locs)
         for loc in locs:
             self.tiles[loc].region = region
+        region.center_loc = center_loc
+        region.area = len(locs)
+        self.regions[region.id] = region
         return region
+
+    def get_center_locs(self, locs: list[tuple[int, int]]) -> tuple[int, int]:
+        """
+        获取locs的中心位置。
+        如果几何中心恰好在位置列表中，返回几何中心；
+        否则返回距离几何中心最近的实际位置。
+        """
+        if not locs:
+            return (0, 0)
+        
+        # 分别计算x和y坐标的平均值
+        avg_x = sum(loc[0] for loc in locs) // len(locs)
+        avg_y = sum(loc[1] for loc in locs) // len(locs)
+        center = (avg_x, avg_y)
+
+        # 如果几何中心恰好在位置列表中，直接返回
+        if center in locs:
+            return center
+        
+        # 否则找到距离几何中心最近的实际位置
+        def distance_squared(loc: tuple[int, int]) -> int:
+            """计算到中心点的距离平方（避免开方运算）"""
+            return (loc[0] - avg_x) ** 2 + (loc[1] - avg_y) ** 2
+        
+        return min(locs, key=distance_squared)
 
     def get_region(self, x: int, y: int) -> Region | None:
         """
