@@ -4,6 +4,7 @@ from src.classes.calendar import Month, Year
 from src.classes.world import World 
 from src.classes.tile import Map, TileType
 from src.classes.age import Age
+from src.utils.names import get_random_name
 
 def test_basic():
     """
@@ -18,7 +19,7 @@ def test_basic():
 
     avatar = Avatar(
         world=world,
-        name="John Doe",
+        name=get_random_name(Gender.MALE),
         id=str(uuid.uuid4()),
         birth_month=Month.JANUARY,
         birth_year=Year(2000),

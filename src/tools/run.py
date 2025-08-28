@@ -15,6 +15,7 @@ from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
 from src.tools.create_map import create_cultivation_world_map
+from src.utils.names import get_random_name
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -38,13 +39,14 @@ def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) 
     avatars: dict[str, Avatar] = {}
     width, height = world.map.width, world.map.height
     for i in range(count):
-        name = f"NPC{i+1:03d}"
         # 随机生成年龄，范围从16到60岁
         age_years = random.randint(16, 60)
         # 根据当前年份和年龄计算出生年份
         birth_year = current_year - age_years
         birth_month = random.choice(list(Month))
         gender = random_gender()
+        # 使用仙侠风格的随机名字
+        name = get_random_name(gender)
         
         # 随机生成level，范围从0到120（对应四个大境界）
         level = random.randint(0, 120)

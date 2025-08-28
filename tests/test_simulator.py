@@ -6,6 +6,7 @@ from src.classes.calendar import Month, Year
 from src.classes.world import World
 from src.classes.tile import Map, TileType
 from src.classes.action import Move
+from src.utils.names import get_random_name
 
 
 def test_simulator_step_moves_avatar_and_sets_tile():
@@ -23,7 +24,7 @@ def test_simulator_step_moves_avatar_and_sets_tile():
     # 将角色放在地图中心，避免越界
     avatar = Avatar(
         world=world,
-        name="Tester",
+        name=get_random_name(Gender.MALE),
         id="1",
         birth_month=Month.JANUARY,
         birth_year=Year(2000),

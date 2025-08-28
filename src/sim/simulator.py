@@ -1,10 +1,11 @@
 import random
 
 from src.classes.calendar import Month, Year, next_month
-from src.classes.avatar import Avatar, get_new_avatar_from_ordinary
+from src.classes.avatar import Avatar, get_new_avatar_from_ordinary, Gender
 from src.classes.age import Age
 from src.classes.world import World
 from src.classes.event import Event, NullEvent
+from src.utils.names import get_random_name
 
 class Simulator:
     def __init__(self, world: World):
@@ -40,8 +41,9 @@ class Simulator:
 
         # 新角色
         if random.random() < self.brith_rate:
-            name = f"无名"
             age = random.randint(16, 60)
+            gender = random.choice(list(Gender))
+            name = get_random_name(gender)
             new_avatar = get_new_avatar_from_ordinary(self.world, self.world.year, name, Age(age))
             self.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.year, self.world.month, f"{new_avatar.name}晋升为修士了。")
