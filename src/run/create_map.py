@@ -125,14 +125,18 @@ def _create_2x2_cities(game_map: Map):
                 if game_map.is_in_bounds(x, y):
                     game_map.tiles[(x, y)].type = TileType.CITY
 
-def _create_2x2_caves(game_map: Map):
-    """创建2*2的洞穴区域"""
-    caves = [
-        {"name": "幽深洞府", "base_x": 35, "base_y": 5, "description": "冰原东部的神秘洞穴"},
-        {"name": "隐秘石窟", "base_x": 40, "base_y": 15, "description": "林海西部的古老石窟"}
+def _create_2x2_wuxing_caves(game_map: Map):
+    """创建2*2的五行洞府区域"""
+    # 五行洞府配置：金木水火土
+    wuxing_caves = [
+        {"name": "太白金府", "base_x": 26, "base_y": 12, "element": EssenceType.GOLD, "description": "青峰山脉深处的金行洞府"},
+        {"name": "青木洞天", "base_x": 48, "base_y": 18, "element": EssenceType.WOOD, "description": "青云林海中的木行洞府"},
+        {"name": "玄水秘境", "base_x": 67, "base_y": 25, "element": EssenceType.WATER, "description": "无边碧海深处的水行洞府"},
+        {"name": "离火洞府", "base_x": 50, "base_y": 33, "element": EssenceType.FIRE, "description": "炎狱火山旁的火行洞府"},
+        {"name": "厚土玄宫", "base_x": 30, "base_y": 16, "element": EssenceType.EARTH, "description": "青峰山脉的土行洞府"}
     ]
     
-    for cave in caves:
+    for cave in wuxing_caves:
         base_x, base_y = cave["base_x"], cave["base_y"]
         
         for dx in range(2):
@@ -186,8 +190,8 @@ def _add_other_terrains(game_map: Map):
     # 创建2*2城市区域
     _create_2x2_cities(game_map)
     
-    # 创建2*2洞穴区域
-    _create_2x2_caves(game_map)
+    # 创建2*2五行洞府区域
+    _create_2x2_wuxing_caves(game_map)
     
     # 创建2*2遗迹区域
     _create_2x2_ruins(game_map)
@@ -235,7 +239,7 @@ def _create_regions(game_map: Map):
     # 南疆蛮荒 (雨林)
     if TileType.RAINFOREST in terrain_coords:
         essence = Essence({
-            EssenceType.WOOD: 9,
+            EssenceType.WOOD: 8,  # 木行主属性，但低于洞府的10
             EssenceType.WATER: 6,
             EssenceType.EARTH: 5,
             EssenceType.FIRE: 3,
@@ -267,7 +271,7 @@ def _create_regions(game_map: Map):
     # 无边碧海 (海洋)
     if TileType.SEA in terrain_coords:
         essence = Essence({
-            EssenceType.WATER: 10,
+            EssenceType.WATER: 8,  # 水行主属性，但低于洞府的10
             EssenceType.GOLD: 4,
             EssenceType.WOOD: 3,
             EssenceType.EARTH: 2,
@@ -315,8 +319,8 @@ def _create_regions(game_map: Map):
     # 万丈雪峰 (雪山)
     if TileType.SNOW_MOUNTAIN in terrain_coords:
         essence = Essence({
-            EssenceType.WATER: 9,
-            EssenceType.GOLD: 8,
+            EssenceType.WATER: 7,  # 水行主属性，但低于洞府的10
+            EssenceType.GOLD: 6,   # 金行次要，但低于洞府的10
             EssenceType.EARTH: 6,
             EssenceType.FIRE: 1,
             EssenceType.WOOD: 2
@@ -331,8 +335,8 @@ def _create_regions(game_map: Map):
     # 碧野千里 (草原)
     if TileType.GRASSLAND in terrain_coords:
         essence = Essence({
-            EssenceType.WOOD: 6,
-            EssenceType.EARTH: 6,
+            EssenceType.WOOD: 5,  # 木行属性适中
+            EssenceType.EARTH: 5,  # 土行属性适中
             EssenceType.WATER: 5,
             EssenceType.GOLD: 3,
             EssenceType.FIRE: 4
@@ -347,8 +351,8 @@ def _create_regions(game_map: Map):
     # 青云林海 (森林)
     if TileType.FOREST in terrain_coords:
         essence = Essence({
-            EssenceType.WOOD: 8,
-            EssenceType.WATER: 5,
+            EssenceType.WOOD: 7,  # 木行主属性，但低于洞府的10
+            EssenceType.WATER: 4,
             EssenceType.EARTH: 4,
             EssenceType.GOLD: 3,
             EssenceType.FIRE: 3
@@ -363,7 +367,7 @@ def _create_regions(game_map: Map):
     # 炎狱火山 (火山)
     if TileType.VOLCANO in terrain_coords:
         essence = Essence({
-            EssenceType.FIRE: 10,
+            EssenceType.FIRE: 8,  # 火行主属性，但低于洞府的10
             EssenceType.EARTH: 7,
             EssenceType.GOLD: 4,
             EssenceType.WATER: 1,
@@ -378,7 +382,7 @@ def _create_regions(game_map: Map):
     
     # 为每个2*2城市、洞穴和遗迹创建独立区域
     _create_city_regions(game_map)
-    _create_caves_regions(game_map)
+    _create_wuxing_caves_regions(game_map)
     _create_ruins_regions(game_map)
     
 
@@ -388,8 +392,8 @@ def _create_regions(game_map: Map):
     # 沃土良田 (农田)
     if TileType.FARM in terrain_coords:
         essence = Essence({
-            EssenceType.WOOD: 7,
-            EssenceType.EARTH: 7,
+            EssenceType.WOOD: 6,  # 木行属性较强
+            EssenceType.EARTH: 6,  # 土行属性较强
             EssenceType.WATER: 6,
             EssenceType.GOLD: 2,
             EssenceType.FIRE: 3
@@ -420,8 +424,8 @@ def _create_regions(game_map: Map):
     # 迷雾沼泽 (沼泽)
     if TileType.SWAMP in terrain_coords:
         essence = Essence({
-            EssenceType.WATER: 7,
-            EssenceType.WOOD: 6,
+            EssenceType.WATER: 6,  # 水行属性较强
+            EssenceType.WOOD: 5,   # 木行属性适中
             EssenceType.EARTH: 5,
             EssenceType.FIRE: 2,
             EssenceType.GOLD: 3
@@ -466,14 +470,22 @@ def _create_city_regions(game_map: Map):
             city_coords
         )
 
-def _create_caves_regions(game_map: Map):
-    """为每个2*2洞穴创建独立区域"""
-    caves = [
-        {"name": "幽深洞府", "base_x": 35, "base_y": 5, "description": "冰原东部的神秘洞穴，深幽莫测，寒气逼人。此地水行与土行灵气并重，常有前辈留下的传承。"},
-        {"name": "隐秘石窟", "base_x": 40, "base_y": 15, "description": "林海西部的古老石窟，木行与土行灵气交融，机缘与危险并存。"}
+def _create_wuxing_caves_regions(game_map: Map):
+    """为每个2*2五行洞府创建独立区域"""
+    wuxing_caves = [
+        {"name": "太白金府", "base_x": 26, "base_y": 12, "element": EssenceType.GOLD, 
+         "description": "青峰山脉深处的金行洞府，金精气凝，刀剑鸣音不绝，乃金系修士的最高圣地。"},
+        {"name": "青木洞天", "base_x": 48, "base_y": 18, "element": EssenceType.WOOD, 
+         "description": "青云林海中的木行洞府，生机盎然，灵药遍地，乃木系修士的最高圣地。"},
+        {"name": "玄水秘境", "base_x": 67, "base_y": 25, "element": EssenceType.WATER, 
+         "description": "无边碧海深处的水行洞府，碧波万里，水精凝神，乃水系修士的最高圣地。"},
+        {"name": "离火洞府", "base_x": 50, "base_y": 33, "element": EssenceType.FIRE, 
+         "description": "炎狱火山旁的火行洞府，烈焰冲天，真火精纯，乃火系修士的最高圣地。"},
+        {"name": "厚土玄宫", "base_x": 30, "base_y": 16, "element": EssenceType.EARTH, 
+         "description": "青峰山脉的土行洞府，厚德载物，山岳共鸣，乃土系修士的最高圣地。"}
     ]
     
-    for cave in caves:
+    for cave in wuxing_caves:
         base_x, base_y = cave["base_x"], cave["base_y"]
         cave_coords = []
         
@@ -483,23 +495,11 @@ def _create_caves_regions(game_map: Map):
                 if game_map.is_in_bounds(x, y):
                     cave_coords.append((x, y))
         
-        # 根据洞穴位置调整灵气配置
-        if cave["name"] == "幽深洞府":  # 冰原东部
-            essence = Essence({
-                EssenceType.WATER: 7,
-                EssenceType.EARTH: 6,
-                EssenceType.GOLD: 5,
-                EssenceType.FIRE: 2,
-                EssenceType.WOOD: 3
-            })
-        else:  # 隐秘石窟，林海西部
-            essence = Essence({
-                EssenceType.WOOD: 7,
-                EssenceType.EARTH: 6,
-                EssenceType.WATER: 5,
-                EssenceType.GOLD: 4,
-                EssenceType.FIRE: 3
-            })
+        # 每个洞府的主属性灵气为10（最高值），其他属性较低
+        essence_config = {essence_type: 2 for essence_type in EssenceType}
+        essence_config[cave["element"]] = 10  # 主属性达到最高值
+        
+        essence = Essence(essence_config)
         
         game_map.create_region(
             cave["name"],

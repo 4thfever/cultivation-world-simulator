@@ -14,7 +14,7 @@ from src.classes.essence import Essence, EssenceType
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from src.tools.create_map import create_cultivation_world_map
+from src.run.create_map import create_cultivation_world_map
 from src.utils.names import get_random_name
 
 

@@ -14,12 +14,11 @@ def load_config():
     Returns:
         DictConfig: 合并后的配置对象
     """
-    # 获取项目根目录
-    project_root = Path(__file__).parent.parent.parent
-    
+    static_path = Path("static")
+
     # 配置文件路径
-    base_config_path = project_root / "config.yml"
-    local_config_path = project_root / "local_config.yml"
+    base_config_path = static_path / "config.yml"
+    local_config_path = static_path / "local_config.yml"
     
     # 读取基础配置
     base_config = OmegaConf.create({})
