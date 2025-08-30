@@ -126,7 +126,7 @@
    pip install -r requirements.txt
    ```
 
-3. 配置LLM（可选）：
+3. 配置LLM：
    在 `static/config.yml` 中配置LLM参数：
    ```yaml
    llm:
@@ -159,12 +159,12 @@
 
 ```
 cultivation-world-simulator/
-├── src/                      # 核心源代码
+├── src/                     # 核心源代码
 │   ├── classes/             # 核心数据类
 │   │   ├── avatar.py        # 角色系统
 │   │   ├── world.py         # 世界模型
 │   │   ├── tile.py          # 地图系统
-│   │   └── ...             # 其他核心类
+│   │   └── ...              # 其他核心类
 │   ├── front/               # 前端显示模块
 │   │   └── front.py         # pygame界面
 │   ├── sim/                 # 模拟引擎
@@ -174,25 +174,25 @@ cultivation-world-simulator/
 │   │   └── create_map.py    # 地图生成工具
 │   └── utils/               # 实用工具
 │       ├── config.py        # 配置管理
-│       ├── llm.py          # LLM接口
+│       ├── llm.py           # LLM接口
 │       └── strings.py       # 字符串处理
 ├── assets/                  # 游戏资源
-│   ├── tiles/              # 地形贴图
-│   ├── males/              # 男性角色头像
-│   └── females/            # 女性角色头像
-├── static/                 # 静态配置文件
-│   ├── config.yml          # 基础配置
-│   ├── local_config.yml    # 本地配置（优先级更高）
-│   └── templates/          # AI提示词模板
-├── configs/                # 其他配置文件
-├── tests/                  # 测试代码
-├── requirements.txt        # Python依赖列表
-└── README.md              # 项目说明
+│   ├── tiles/               # 地形贴图
+│   ├── males/               # 男性角色头像
+│   └── females/             # 女性角色头像
+├── static/                  # 静态配置文件
+│   ├── config.yml           # 基础配置
+│   ├── local_config.yml     # 本地配置（优先级更高）
+│   └── templates/           # AI提示词模板
+├── configs/                 # 其他配置文件
+├── tests/                   # 测试代码
+├── requirements.txt         # Python依赖列表
+└── README.md                # 项目说明
 ```
 
 ## 技术架构
 
-- **前端显示**: pygame (计划未来支持Web)
+- **前端显示**: pygame (未来可能支持Web)
 - **模拟引擎**: 自研事件驱动模拟器
 - **世界模型**: 基于规则的确定性系统
 - **AI集成**: 预留LLM接口，支持混合决策
