@@ -1,6 +1,15 @@
 from litellm import completion
+from langchain.prompts import PromptTemplate
+
 from src.utils.config import CONFIG
-print(CONFIG)
+
+def get_prompt(template: str, infos: dict) -> str:
+    """
+    根据模板，获取提示词
+    """
+    prompt_template = PromptTemplate(template=template)
+    return prompt_template.format(**infos)
+
 
 def call_llm(prompt: str) -> str:
     """
@@ -8,7 +17,6 @@ def call_llm(prompt: str) -> str:
     
     Args:
         prompt: 输入的提示词
-        custom_llm_provider: 自定义的LLM提供者
     Returns:
         str: LLM返回的结果
     """
