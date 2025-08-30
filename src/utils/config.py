@@ -32,6 +32,10 @@ def load_config():
     
     # 合并配置，local_config优先级更高
     config = OmegaConf.merge(base_config, local_config)
+
+    # 把paths下的所有值pathlib化
+    for key, value in config.paths.items():
+        config.paths[key] = Path(value)
     
     return config
 

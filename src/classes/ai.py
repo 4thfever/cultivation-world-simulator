@@ -8,6 +8,8 @@ from abc import ABC, abstractmethod
 from src.classes.world import World
 from src.classes.tile import Region
 from src.classes.root import corres_essence_type
+from src.classes.action import ACTION_SPACE_STR
+from src.utils.llm import get_ai_prompt_and_call_llm
 
 class AI(ABC):
     """
@@ -22,12 +24,6 @@ class AI(ABC):
         决定做什么
         """
         pass
-
-    # def create_event(self, world: World, content: str) -> Event:
-    #     """
-    #     创建事件
-    #     """
-    #     return Event(world.year, world.month, content)
 
 class RuleAI(AI):
     """
@@ -69,4 +65,14 @@ class LLMAI(AI):
         """
         决定做什么
         """
-        pass
+        action_space_str = ACTION_SPACE_STR
+        avatar_infos_str = str(self.avatar)
+        regions_str = "\n".join([str(region) for region in world.map.regions.values()])
+        dict_info = {
+            "action_space": action_space_str,
+            "avatar_infos": avatar_infos_str,
+            "regions": regions_str
+        }
+        res = get_ai_prompt_and_call_llm(dict_info)
+        action_name, action_params = res["action_name"], res["action_params"]
+        return action_name, action_params

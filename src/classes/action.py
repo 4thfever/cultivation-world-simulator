@@ -2,6 +2,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 import random
+import json
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
@@ -48,6 +49,7 @@ class Move(DefineAction):
     """
     最基础的移动动作，在tile之间进行切换。
     """
+    COMMENT = "移动到某个相对位置"
     def execute(self, delta_x: int, delta_y: int) -> Event|NullEvent:
         """
         移动到某个tile
@@ -71,10 +73,13 @@ class MoveToRegion(DefineAction):
     """
     移动到某个region
     """
-    def execute(self, region: Region) -> Event|NullEvent:
+    COMMENT = "移动到某个区域"
+    def execute(self, region: Region|str) -> Event|NullEvent:
         """
         移动到某个region
         """
+        if isinstance(region, str):
+            region = self.world.map.region_names[region]
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         region_center_loc = region.center_loc
         delta_x = region_center_loc[0] - cur_loc[0]
@@ -89,6 +94,7 @@ class Cultivate(DefineAction):
     """
     修炼动作，可以增加修仙进度。
     """
+    COMMENT = "修炼，增进修为"
     def execute(self) -> Event|NullEvent:
         """
         修炼
@@ -116,6 +122,7 @@ class Breakthrough(DefineAction):
     """
     突破境界
     """
+    COMMENT = "尝试突破境界"
     def calc_success_rate(self) -> float:
         """
         计算突破境界的成功率
@@ -138,3 +145,11 @@ class Breakthrough(DefineAction):
 
 
 ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion]
+# 不包括Move
+ACTION_SPACE = [
+    # {"action": "Move", "params": {"delta_x": int, "delta_y": int}, "comment": Move.COMMENT},
+    {"action": "Cultivate", "params": {}, "comment": Cultivate.COMMENT},
+    {"action": "Breakthrough", "params": {}, "comment": Breakthrough.COMMENT},
+    {"action": "MoveToRegion", "params": {"region": "region_name"}, "comment": MoveToRegion.COMMENT},
+]
+ACTION_SPACE_STR = json.dumps(ACTION_SPACE, ensure_ascii=False) 

@@ -45,6 +45,15 @@ class Region():
     def __post_init__(self):
         self.id = next(region_id_counter)
 
+    def __str__(self) -> str:
+        return f"区域。名字：{self.name}，描述：{self.description}，最浓的灵气：{self.get_most_dense_essence()}， 灵气值：{self.get_most_dense_essence_value()}"
+
+    def get_most_dense_essence(self) -> EssenceType:
+        return max(self.essence.density.items(), key=lambda x: x[1])[0]
+    
+    def get_most_dense_essence_value(self) -> int:
+        most_dense_essence = self.get_most_dense_essence()
+        return self.essence.density[most_dense_essence]
 
     def __hash__(self) -> int:
         return hash(self.id)
@@ -74,7 +83,8 @@ class Map():
     """
     def __init__(self, width: int, height: int):
         self.tiles = {}
-        self.regions = {}
+        self.regions = {}      # region_id -> region
+        self.region_names = {} # region_name -> region
         self.width = width
         self.height = height
 
@@ -101,6 +111,7 @@ class Map():
         region.center_loc = center_loc
         region.area = len(locs)
         self.regions[region.id] = region
+        self.region_names[name] = region
         return region
 
     def get_center_locs(self, locs: list[tuple[int, int]]) -> tuple[int, int]:

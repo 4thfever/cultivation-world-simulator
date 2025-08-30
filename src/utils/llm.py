@@ -1,7 +1,10 @@
 from litellm import completion
 from langchain.prompts import PromptTemplate
+from pathlib import Path
+import json
 
 from src.utils.config import CONFIG
+from src.utils.io import read_txt
 
 def get_prompt(template: str, infos: dict) -> str:
     """
@@ -32,3 +35,22 @@ def call_llm(prompt: str) -> str:
     
     # 返回生成的内容
     return response.choices[0].message.content
+
+def get_prompt_and_call_llm(template_path: Path, infos: dict) -> str:
+    """
+    根据模板，获取提示词，并调用LLM
+    """
+    template = read_txt(template_path)
+    prompt = get_prompt(template, infos)
+    res = call_llm(prompt)
+    json_res = json.loads(res)
+    print(f"prompt = {prompt}")
+    print(f"res = {res}")
+    return json_res
+
+def get_ai_prompt_and_call_llm(infos: dict) -> dict:
+    """
+    根据模板，获取提示词，并调用LLM
+    """
+    template_path = CONFIG.paths.templates / "ai.txt"
+    return get_prompt_and_call_llm(template_path, infos)

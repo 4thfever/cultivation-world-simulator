@@ -93,7 +93,7 @@ def main():
     sim = Simulator(world)
     
     # 创建角色，传入当前年份确保年龄与生日匹配
-    sim.avatars.update(make_avatars(world, count=14, current_year=world.year))
+    sim.avatars.update(make_avatars(world, count=2, current_year=world.year))
 
     front = Front(
         simulator=sim,

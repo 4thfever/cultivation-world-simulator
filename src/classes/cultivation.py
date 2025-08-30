@@ -149,3 +149,6 @@ class CultivationProgress:
         检查是否可以突破
         """
         return self.level in level_to_break_through.keys()
+
+    def __str__(self) -> str:
+        return f"{self.realm.value}{self.stage.value}({self.level}级)。可以突破：{self.can_break_through()}"

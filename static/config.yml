@@ -2,3 +2,6 @@ llm:
   # 填入litellm支持的model name和key
   model_name: 
   key:
+
+paths:
+  templates: static/templates/

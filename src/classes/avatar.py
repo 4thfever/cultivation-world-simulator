@@ -12,7 +12,7 @@ from src.classes.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
 from src.classes.age import Age
 from src.utils.strings import to_snake_case
-from src.classes.ai import AI, RuleAI
+from src.classes.ai import AI, RuleAI, LLMAI
 
 class Gender(Enum):
     MALE = "male"
@@ -52,8 +52,16 @@ class Avatar:
         在Avatar创建后自动绑定基础动作和AI
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
-        self.ai = RuleAI(self)
+        self.ai = LLMAI(self)
+        # self.ai = RuleAI(self)
         self._bind_basic_actions()
+
+    def __str__(self) -> str:
+        """
+        获取avatar的详细信息
+        尽量多打一些，因为会用来给LLM进行决策
+        """
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress})"
 
     def _bind_basic_actions(self):
         """
