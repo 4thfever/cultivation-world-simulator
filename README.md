@@ -21,14 +21,14 @@
 - ✅ 前端显示界面（pygame）
 - ✅ 基础模拟器框架
 - ✅ 项目文档（README）
-- [ ] 配置文件系统（config）
-- [ ] Web前端支持（从pygame切换）
+- ✅ 配置文件系统（config）
+- [ ] Web前端支持（后期考虑）
 - [ ] ECS并行工具（后期考虑）
 
 ### 🗺️ 地块系统
 - ✅ 基础tile地块系统
 - [ ] 同tile内NPC相互交互
-- [ ] 乡村和城镇的机制
+- [ ] 城市/宗派据点的机制
 - [ ] 灵气分布与产出设计
 - [ ] 地块间移动（move_to_region action）
 
@@ -37,7 +37,7 @@
 - ✅ 修炼境界体系
 - ✅ 灵根系统
 - ✅ 基础移动动作
-- [ ] 动态的突破成功概率
+- [ ] 角色突破机制：动态的突破成功概率、不同突破结果和效果
 - [ ] 角色关系系统
 - [ ] 性格系统设计
 - [ ] 角色特殊能力
@@ -53,7 +53,7 @@
   - [ ] 个人技（灵活融入代码）
   - [ ] 生活技能
 - [ ] 凡人角色支持
-- [ ] 角色突破机制
+- [ ] 天骄系统（更强能力，更强AI）
 
 ### 🏛️ 组织系统
 - [ ] 宗门系统
@@ -97,13 +97,15 @@
 - [ ] 生物间相互关系
 
 ### 🤖 AI增强系统
-- [ ] 角色AI系统（规则AI + LLM接口预留）
-- [ ] LLM驱动的NPC对话
+- ✅ LLM接口集成
+- ✅ 角色AI系统（规则AI + LLM AI）
+- [ ] AI动作链系统（长期规划和目标导向行为）
+- [ ] 突发动作响应系统（对外界刺激的即时反应）
+- [ ] LLM驱动的NPC对话、思考、互动、事件总结
 - [ ] 智能决策系统
 - [ ] 动态剧情生成
 - [ ] NPC观测空间设计
 - [ ] NPC之间关系交互
-- [ ] LLM接口集成
 
 ### 🏛️ 世界背景系统
 - [ ] 上古历史生成
@@ -112,11 +114,6 @@
 
 ## 使用方法
 
-### 环境要求
-- Python 3.8+
-- pygame
-- PyYAML
-
 ### 运行步骤
 1. 克隆项目到本地：
    ```bash
@@ -124,14 +121,23 @@
    cd cultivation-world-simulator
    ```
 
-2. 安装依赖（如需要的话）：
+2. 安装依赖：
    ```bash
-   pip install pygame pyyaml
+   pip install -r requirements.txt
    ```
 
-3. 运行模拟器：
+3. 配置LLM（可选）：
+   在 `static/config.yml` 中配置LLM参数：
+   ```yaml
+   llm:
+     model_name: "gpt-3.5-turbo"  # 或其他litellm支持的模型名称
+     key: "your-api-key-here"     # 你的API密钥
+   ```
+   具体支持的模型请参考 [litellm文档](https://docs.litellm.ai/docs/providers)
+
+4. 运行模拟器：
    ```bash
-   python src/tools/run.py
+   python -m src.run.run
    ```
 
 ### 基本操作
@@ -162,19 +168,25 @@ cultivation-world-simulator/
 │   ├── front/               # 前端显示模块
 │   │   └── front.py         # pygame界面
 │   ├── sim/                 # 模拟引擎
-│   │   ├── simulator.py     # 核心模拟器
-│   │   └── event.py         # 事件系统
-│   ├── tools/               # 工具脚本
+│   │   └── simulator.py     # 核心模拟器
+│   ├── run/                 # 运行脚本
 │   │   ├── run.py           # 主程序入口
 │   │   └── create_map.py    # 地图生成工具
 │   └── utils/               # 实用工具
+│       ├── config.py        # 配置管理
+│       ├── llm.py          # LLM接口
 │       └── strings.py       # 字符串处理
 ├── assets/                  # 游戏资源
 │   ├── tiles/              # 地形贴图
 │   ├── males/              # 男性角色头像
 │   └── females/            # 女性角色头像
-├── configs/                # 配置文件
+├── static/                 # 静态配置文件
+│   ├── config.yml          # 基础配置
+│   ├── local_config.yml    # 本地配置（优先级更高）
+│   └── templates/          # AI提示词模板
+├── configs/                # 其他配置文件
 ├── tests/                  # 测试代码
+├── requirements.txt        # Python依赖列表
 └── README.md              # 项目说明
 ```
 
@@ -187,7 +199,7 @@ cultivation-world-simulator/
 
 ## 贡献指南
 
-欢迎对修仙世界模拟器项目的贡献！无论是代码、创意还是测试反馈都非常宝贵。
+欢迎对修仙世界模拟器项目的贡献！
 
 ## 许可证
 
