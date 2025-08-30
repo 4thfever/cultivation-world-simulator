@@ -143,3 +143,4 @@ Thumbs.db
 *.temp
 
 TODO
+local_config.yml
