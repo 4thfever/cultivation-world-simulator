@@ -3,14 +3,15 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-from src.classes.calendar import Month, Year, MonthStamp
+from src.classes.calendar import MonthStamp
 from src.classes.action import Action, ALL_ACTION_CLASSES
 from src.classes.world import World
 from src.classes.tile import Tile, Region
-from src.classes.cultivation import CultivationProgress, Realm
+from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
 from src.classes.event import NULL_EVENT
+from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
 
 from src.classes.ai import AI, RuleAI, LLMAI
 from src.classes.persona import Persona, personas_by_id
@@ -27,6 +28,9 @@ gender_strs = {
     Gender.MALE: "男",
     Gender.FEMALE: "女",
 }
+
+# 历史动作对的最大数量
+MAX_HISTORY_ACTIONS = 3
 
 @dataclass
 class Avatar:
@@ -48,8 +52,8 @@ class Avatar:
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     persona: Persona = field(default_factory=lambda: random.choice(list(personas_by_id.values())))
     ai: AI = None
-    action_be_executed: Optional[Action] = None
-    action_parmas_be_executed: Optional[dict] = None
+    cur_action_pair: Optional[ACTION_PAIR] = None
+    history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
 
     def __post_init__(self):
         """
@@ -66,7 +70,7 @@ class Avatar:
         """
         return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress})"
 
-    def create_action(self, action_name: str) -> Action:
+    def create_action(self, action_name: ACTION_NAME) -> Action:
         """
         根据动作名称创建新的action实例
         
@@ -95,20 +99,40 @@ class Avatar:
         """
         event = NULL_EVENT
         
-        if self.action_be_executed is None:
+        if self.cur_action_pair is None:
             # 决定动作时生成事件
             action_name, action_args, event = self.ai.decide(self.world)
-            self.action_be_executed = self.create_action(action_name)
-            self.action_parmas_be_executed = action_args
+            action = self.create_action(action_name)
+            self.cur_action_pair = (action, action_args)
         
         # 纯粹执行动作，不产生事件
-        self.action_be_executed.execute(**self.action_parmas_be_executed)
+        action, action_params = self.cur_action_pair
+        action.execute(**action_params)
         
-        if self.action_be_executed.is_finished(**self.action_parmas_be_executed):
-            self.action_be_executed = None
-            self.action_parmas_be_executed = None
+        if action.is_finished(**action_params):
+            # 将完成的动作对添加到历史记录中
+            self._add_to_history(self.cur_action_pair)
         
         return event
+    
+    def _add_to_history(self, action_pair: ACTION_PAIR) -> None:
+        """
+        将完成的动作对添加到历史记录中
+        
+        Args:
+            action_pair: 要添加的动作对
+            
+        注意:
+            - 如果历史记录达到上限，会丢弃最老的记录
+            - 新的记录会被添加到列表末尾
+        """
+        # 添加新的动作对到历史记录
+        self.history_action_pairs.append(action_pair)
+        self.cur_action_pair = None
+        
+        # 如果超过上限，移除最老的记录
+        if len(self.history_action_pairs) > MAX_HISTORY_ACTIONS:
+            self.history_action_pairs.pop(0)
     
     def update_cultivation(self, new_level: int):
         """

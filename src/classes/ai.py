@@ -14,6 +14,7 @@ from src.classes.root import corres_essence_type
 from src.classes.action import ACTION_SPACE_STR
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm
+from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -25,7 +26,7 @@ class AI(ABC):
     def __init__(self, avatar: Avatar):
         self.avatar = avatar
 
-    def decide(self, world: World) -> tuple[str, dict, Event]:
+    def decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, Event]:
         """
         决定做什么，同时生成对应的事件
         """
@@ -39,7 +40,7 @@ class AI(ABC):
         return action_name, action_params, event
 
     @abstractmethod
-    def _decide(self, world: World) -> tuple[str, dict]:
+    def _decide(self, world: World) -> ACTION_PAIR:
         """
         决策逻辑：决定执行什么动作和参数
         由子类实现具体的决策逻辑
@@ -50,7 +51,7 @@ class RuleAI(AI):
     """
     规则AI
     """
-    def _decide(self, world: World) -> tuple[str, dict]:
+    def _decide(self, world: World) -> ACTION_PAIR:
         """
         决策逻辑：决定执行什么动作和参数
         先做一个简单的：
@@ -92,7 +93,7 @@ class LLMAI(AI):
         不能每个单步step都调用一次LLM来决定下一步做什么。这样子一方面动作一直乱变，另一方面也太费token了。
         decide的作用是，拉取既有的动作链（如果没有了就call_llm），再根据动作链决定动作，以及动作之间的衔接。
     """
-    def _decide(self, world: World) -> tuple[str, dict]:
+    def _decide(self, world: World) -> ACTION_PAIR:
         """
         决策逻辑：通过LLM决定执行什么动作和参数
         """
