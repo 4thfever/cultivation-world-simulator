@@ -6,6 +6,7 @@ NPC AI的类。
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+import random
 
 from src.classes.world import World
 from src.classes.tile import Region
@@ -59,6 +60,8 @@ class RuleAI(AI):
         4. 如果已经到达最好的区域，则进行修炼
         5. 如果需要突破境界了，则突破境界
         """
+        if random.random() < 0.1:
+            return "Play", {}
         best_region = self.get_best_region(list(world.map.regions.values()))
         if self.avatar.is_in_region(best_region):
             if self.avatar.cultivation_progress.can_break_through():

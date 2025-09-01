@@ -255,13 +255,33 @@ class Breakthrough(DefineAction, ActualActionMixin):
         """
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
+@long_action(step_month=6)
+class Play(DefineAction, ActualActionMixin):
+    """
+    游戏娱乐动作，持续半年时间
+    """
+    COMMENT = "游戏娱乐，放松身心"
+    
+    def _execute(self) -> None:
+        """
+        进行游戏娱乐活动
+        """
+        # 游戏娱乐的具体逻辑可以在这里实现
+        # 比如增加心情值、减少压力等
+        pass
+    
+    def get_event(self) -> Event:
+        """
+        获取游戏娱乐动作开始时的事件
+        """
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始玩耍")
 
-ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion]
-# 不包括Move
+ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play]
 ACTION_SPACE = [
     # {"action": "Move", "params": {"delta_x": int, "delta_y": int}, "comment": Move.COMMENT},
     {"action": "Cultivate", "params": {}, "comment": Cultivate.COMMENT},
     {"action": "Breakthrough", "params": {}, "comment": Breakthrough.COMMENT},
     {"action": "MoveToRegion", "params": {"region": "region_name"}, "comment": MoveToRegion.COMMENT},
+    {"action": "Play", "params": {}, "comment": Play.COMMENT},
 ]
-ACTION_SPACE_STR = json.dumps(ACTION_SPACE, ensure_ascii=False) 
+ACTION_SPACE_STR = json.dumps(ACTION_SPACE, ensure_ascii=False)
