@@ -33,7 +33,10 @@ def long_action(step_month: int):
             """
             if self.start_monthstamp is None:
                 return False
-            return (self.world.month_stamp - self.start_monthstamp) >= self.step_month
+            # 修正逻辑：使用 >= step_month - 1 而不是 >= step_month
+            # 这样1个月的动作在第1个月完成（时间差0 >= 0），10个月的动作在第10个月完成（时间差9 >= 9）
+            # 避免了原来多执行一个月的bug
+            return (self.world.month_stamp - self.start_monthstamp) >= self.step_month - 1
         
         # 只添加 is_finished 方法
         cls.is_finished = is_finished
@@ -241,9 +244,7 @@ class Breakthrough(DefineAction, ActualActionMixin):
         """
         突破境界
         """
-        # assert self.avatar.cultivation_progress.can_break_through()   
-        if not self.avatar.cultivation_progress.can_break_through():
-            print(f"警告，{self.avatar.name} 无法突破境界，其level为 {self.avatar.cultivation_progress.level}，无法突破")
+        assert self.avatar.cultivation_progress.can_break_through()   
         success_rate = self.calc_success_rate()
         if random.random() < success_rate:
             self.avatar.cultivation_progress.break_through()

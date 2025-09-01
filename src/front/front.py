@@ -151,12 +151,12 @@ class Front:
         hovered_region = self._draw_region_labels()
         hovered_avatar = self._draw_avatars_and_pick_hover()
         
-        # 显示tooltip
-        if hovered_region is not None:
+        # 显示tooltip (人物优先级高于region)
+        if hovered_avatar is not None:
+            self._draw_tooltip_for_avatar(hovered_avatar)
+        elif hovered_region is not None:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             self._draw_tooltip_for_region(hovered_region, mouse_x, mouse_y)
-        elif hovered_avatar is not None:
-            self._draw_tooltip_for_avatar(hovered_avatar)
 
         # 状态信息
         self._draw_status_bar()
@@ -481,8 +481,8 @@ class Front:
                     image_path = os.path.join(male_dir, filename)
                     try:
                         image = pygame.image.load(image_path)
-                        # 调整头像大小，减小20%
-                        avatar_size = max(26, int(self.tile_size * 4 // 3 * 0.8))
+                        # 调整头像大小，减小20%后再放大1.2倍
+                        avatar_size = max(26, int(self.tile_size * 4 // 3))
                         scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
                         self.male_avatars.append(scaled_image)
                     except pygame.error:
@@ -497,8 +497,8 @@ class Front:
                     image_path = os.path.join(female_dir, filename)
                     try:
                         image = pygame.image.load(image_path)
-                        # 调整头像大小，减小20%
-                        avatar_size = max(26, int(self.tile_size * 4 // 3 * 0.8))
+                        # 调整头像大小，减小20%后再放大1.2倍
+                        avatar_size = max(26, int(self.tile_size * 4 // 3 * 0.8 * 1.2))
                         scaled_image = pygame.transform.scale(image, (avatar_size, avatar_size))
                         self.female_avatars.append(scaled_image)
                     except pygame.error:

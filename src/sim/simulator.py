@@ -11,7 +11,7 @@ class Simulator:
     def __init__(self, world: World):
         self.avatars = {} # dict of str -> Avatar
         self.world = world
-        self.brith_rate = 0.01
+        self.brith_rate = 0 # 0表示不出生新角色
 
     def step(self):
         """

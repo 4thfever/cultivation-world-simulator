@@ -115,7 +115,7 @@ class CultivationProgress:
         self.exp += exp_amount
         
         # 检查是否可以升级
-        while self.can_level_up():
+        if self.is_level_up():
             required_exp = self.get_exp_required()
             self.exp -= required_exp
             self.level += 1
@@ -140,12 +140,19 @@ class CultivationProgress:
         """
         return self.level in level_to_break_through.keys()
 
-    def can_level_up(self) -> bool:
+    def can_cultivate(self) -> bool:
         """
-        检查是否可以升级
-        可以突破，说明到顶了，说明不能升级。
+        检查是否可以修炼
+        可以突破，说明到顶了，说明不能修炼了，必须突破后才能正常修炼。
         """
         return not self.can_break_through()
+
+    def is_level_up(self) -> bool:
+        """
+        检查是否可以进入下一级
+        """
+        exp_required = self.get_exp_required()
+        return self.exp >= exp_required
 
     def __str__(self) -> str:
         return f"{self.realm.value}{self.stage.value}({self.level}级)。可以突破：{self.can_break_through()}"
