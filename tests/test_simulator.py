@@ -2,7 +2,7 @@ import random
 
 from src.sim.simulator import Simulator
 from src.classes.avatar import Avatar, Gender
-from src.classes.calendar import Month, Year
+from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.world import World
 from src.classes.tile import Map, TileType
 from src.classes.action import Move
@@ -19,15 +19,14 @@ def test_simulator_step_moves_avatar_and_sets_tile():
         for y in range(3):
             game_map.create_tile(x, y, TileType.PLAIN)
 
-    world = World(map=game_map, year=Year(1), month=Month.JANUARY)
+    world = World(map=game_map, month_stamp=create_month_stamp(Year(1), Month.JANUARY))
 
     # 将角色放在地图中心，避免越界
     avatar = Avatar(
         world=world,
         name=get_random_name(Gender.MALE),
         id="1",
-        birth_month=Month.JANUARY,
-        birth_year=Year(2000),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
         age=20,
         gender=Gender.MALE,
         pos_x=1,

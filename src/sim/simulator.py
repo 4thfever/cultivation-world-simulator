@@ -1,10 +1,10 @@
 import random
 
-from src.classes.calendar import Month, Year, next_month
+from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.avatar import Avatar, get_new_avatar_from_ordinary, Gender
 from src.classes.age import Age
 from src.classes.world import World
-from src.classes.event import Event, NullEvent
+from src.classes.event import Event, is_null_event
 from src.utils.names import get_random_name
 
 class Simulator:
@@ -27,13 +27,13 @@ class Simulator:
         # 结算角色行为
         for avatar_id, avatar in self.avatars.items():
             event = avatar.act()
-            if event is not NullEvent:
+            if not is_null_event(event):
                 events.append(event)
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
-                event = Event(self.world.year, self.world.month, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
+                event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
                 events.append(event)
-            avatar.update_age(self.world.month, self.world.year)
+            avatar.update_age(self.world.month_stamp)
         
         # 删除死亡的角色
         for avatar_id in death_avatar_ids:
@@ -44,12 +44,12 @@ class Simulator:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
-            new_avatar = get_new_avatar_from_ordinary(self.world, self.world.year, name, Age(age))
+            new_avatar = get_new_avatar_from_ordinary(self.world, self.world.month_stamp, name, Age(age))
             self.avatars[new_avatar.id] = new_avatar
-            event = Event(self.world.year, self.world.month, f"{new_avatar.name}晋升为修士了。")
+            event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。")
             events.append(event)
 
         # 最后结算年月
-        self.world.month, self.world.year = next_month(self.world.month, self.world.year)
+        self.world.month_stamp = self.world.month_stamp + 1
 
         return events

@@ -1,6 +1,6 @@
-import uuid
+from src.utils.id_generator import get_avatar_id
 from src.classes.avatar import Avatar, Gender
-from src.classes.calendar import Month, Year
+from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.world import World 
 from src.classes.tile import Map, TileType
 from src.classes.age import Age
@@ -15,14 +15,13 @@ def test_basic():
         for y in range(2):
             map.create_tile(x, y, TileType.PLAIN)
 
-    world = World(map=map, year=Year(1), month=Month.JANUARY)
+    world = World(map=map, month_stamp=create_month_stamp(Year(1), Month.JANUARY))
 
     avatar = Avatar(
         world=world,
         name=get_random_name(Gender.MALE),
-        id=str(uuid.uuid4()),
-        birth_month=Month.JANUARY,
-        birth_year=Year(2000),
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
         age=Age(20),
         gender=Gender.MALE
     )

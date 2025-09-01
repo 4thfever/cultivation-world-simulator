@@ -92,16 +92,6 @@ class CultivationProgress:
         
         return exp_required + realm_bonus
 
-    def can_level_up(self) -> bool:
-        """
-        检查是否可以升级
-        
-        返回:
-            如果经验值足够升级则返回True
-        """
-        required_exp = self.get_exp_required()
-        return self.exp >= required_exp
-
     def get_exp_progress(self) -> tuple[int, int]:
         """
         获取当前经验值进度
@@ -149,6 +139,13 @@ class CultivationProgress:
         检查是否可以突破
         """
         return self.level in level_to_break_through.keys()
+
+    def can_level_up(self) -> bool:
+        """
+        检查是否可以升级
+        可以突破，说明到顶了，说明不能升级。
+        """
+        return not self.can_break_through()
 
     def __str__(self) -> str:
         return f"{self.realm.value}{self.stage.value}({self.level}级)。可以突破：{self.can_break_through()}"

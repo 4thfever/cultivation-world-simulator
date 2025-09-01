@@ -206,8 +206,8 @@ class Front:
     def _draw_year_month_info(self, y_pos: int, padding: int):
         """绘制年月信息"""
         # 获取年月数据
-        year = int(self.simulator.world.year)
-        month_num = self._get_month_number()
+        year = int(self.simulator.world.month_stamp.get_year())
+        month_num = self.simulator.world.month_stamp.get_month().value
         
         # 构建年月文本
         ym_text = f"{year}年{month_num:02d}月"
@@ -220,12 +220,8 @@ class Front:
         self.screen.blit(ym_surf, (x_pos, y_pos))
     
     def _get_month_number(self) -> int:
-        """获取月份数字"""
-        try:
-            month_num = list(type(self.simulator.world.month)).index(self.simulator.world.month) + 1
-            return month_num
-        except Exception:
-            return 1
+        """获取月份数字（已弃用，保留向后兼容）"""
+        return self.simulator.world.month_stamp.get_month().value
 
 
 
@@ -420,6 +416,7 @@ class Front:
             f"年龄: {avatar.age}",
             f"境界: {str(avatar.cultivation_progress)}",
             f"灵根: {avatar.root.value}",
+            f"个性: {avatar.persona.name}",
             f"位置: ({avatar.pos_x}, {avatar.pos_y})",
         ]
         self._draw_tooltip(lines, *self.pygame.mouse.get_pos(), self.tooltip_font)

@@ -1,5 +1,4 @@
 import random
-import uuid
 from typing import List, Tuple, Dict, Any
 
 # 依赖项目内部模块
@@ -8,7 +7,7 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.tile import Map, TileType
 from src.classes.avatar import Avatar, Gender
-from src.classes.calendar import Month, Year
+from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.action import Move
 from src.classes.essence import Essence, EssenceType
 from src.classes.cultivation import CultivationProgress
@@ -16,6 +15,7 @@ from src.classes.root import Root
 from src.classes.age import Age
 from src.run.create_map import create_cultivation_world_map
 from src.utils.names import get_random_name
+from src.utils.id_generator import get_avatar_id
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -35,15 +35,14 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) -> dict[str, Avatar]:
+def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp = MonthStamp(100 * 12)) -> dict[str, Avatar]:
     avatars: dict[str, Avatar] = {}
     width, height = world.map.width, world.map.height
     for i in range(count):
         # 随机生成年龄，范围从16到60岁
         age_years = random.randint(16, 60)
-        # 根据当前年份和年龄计算出生年份
-        birth_year = current_year - age_years
-        birth_month = random.choice(list(Month))
+        # 根据当前时间戳和年龄计算出生时间戳
+        birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
         gender = random_gender()
         # 使用仙侠风格的随机名字
         name = get_random_name(gender)
@@ -68,9 +67,8 @@ def make_avatars(world: World, count: int = 12, current_year: Year = Year(100)) 
         avatar = Avatar(
             world=world,
             name=name,
-            id=str(uuid.uuid4()),
-            birth_month=birth_month,
-            birth_year=birth_year,
+            id=get_avatar_id(),
+            birth_month_stamp=MonthStamp(birth_month_stamp),
             age=age,
             gender=gender,
             cultivation_progress=cultivation_progress,
@@ -87,13 +85,13 @@ def main():
     # 为了每次更丰富，使用随机种子；如需复现可将 seed 固定
 
     game_map = create_cultivation_world_map()
-    world = World(map=game_map, year=Year(100), month=Month.JANUARY)
+    world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
 
     # 创建模拟器
     sim = Simulator(world)
     
     # 创建角色，传入当前年份确保年龄与生日匹配
-    sim.avatars.update(make_avatars(world, count=2, current_year=world.year))
+    sim.avatars.update(make_avatars(world, count=2, current_month_stamp=world.month_stamp))
 
     front = Front(
         simulator=sim,

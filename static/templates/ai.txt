@@ -8,6 +8,8 @@
 {regions}
 你需要进行决策的NPC的基本信息为：
 {avatar_infos}
+其个性为：{avatar_persona}
+决策时需参考这个角色的个性。
 
 注意，只返回json格式的动作
 返回格式：

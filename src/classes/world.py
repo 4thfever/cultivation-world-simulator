@@ -1,10 +1,9 @@
 from dataclasses import dataclass
 
 from src.classes.tile import Map
-from src.classes.calendar import Year, Month
+from src.classes.calendar import Year, Month, MonthStamp
 
 @dataclass
 class World():
     map: Map
-    year: Year
-    month: Month
+    month_stamp: MonthStamp

@@ -1,18 +1,20 @@
 import random
-import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
-from src.classes.calendar import Month, Year
+from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.action import Action, ALL_ACTION_CLASSES
 from src.classes.world import World
 from src.classes.tile import Tile, Region
 from src.classes.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
 from src.classes.age import Age
-from src.utils.strings import to_snake_case
+from src.classes.event import NULL_EVENT
+
 from src.classes.ai import AI, RuleAI, LLMAI
+from src.classes.persona import Persona, personas_by_id
+from src.utils.id_generator import get_avatar_id
 
 class Gender(Enum):
     MALE = "male"
@@ -35,26 +37,27 @@ class Avatar:
     world: World
     name: str
     id: str
-    birth_month: Month
-    birth_year: Year
+    birth_month_stamp: MonthStamp
     age: Age
     gender: Gender
     cultivation_progress: CultivationProgress = field(default_factory=lambda: CultivationProgress(0))
     pos_x: int = 0
     pos_y: int = 0
     tile: Optional[Tile] = None
-    actions: dict[str, Action] = field(default_factory=dict)
+
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
+    persona: Persona = field(default_factory=lambda: random.choice(list(personas_by_id.values())))
     ai: AI = None
+    action_be_executed: Optional[Action] = None
+    action_parmas_be_executed: Optional[dict] = None
 
     def __post_init__(self):
         """
-        在Avatar创建后自动绑定基础动作和AI
+        在Avatar创建后自动初始化tile和AI
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
-        self.ai = LLMAI(self)
-        # self.ai = RuleAI(self)
-        self._bind_basic_actions()
+        # self.ai = LLMAI(self)
+        self.ai = RuleAI(self)
 
     def __str__(self) -> str:
         """
@@ -63,38 +66,48 @@ class Avatar:
         """
         return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress})"
 
-    def _bind_basic_actions(self):
+    def create_action(self, action_name: str) -> Action:
         """
-        绑定基础动作，如移动等
+        根据动作名称创建新的action实例
+        
+        Args:
+            action_name: 动作类的名称（如 'Cultivate', 'Breakthrough' 等）
+        
+        Returns:
+            新创建的Action实例
+        
+        Raises:
+            ValueError: 如果找不到对应的动作类
         """
-        for action in ALL_ACTION_CLASSES:
-            self.bind_action(action)
-
-
-    def bind_action(self, action_class: type[Action]):
-        """
-        绑定一个action到avatar
-        """
-        # 以类名为键保存实例，保持可追踪性
-        self.actions[action_class.__name__] = action_class(self, self.world)
-
-        # 同时挂载一个便捷方法，名称为蛇形（MoveFast -> move_fast），并转发参数
-        method_name = to_snake_case(action_class.__name__)
-
-        def _wrapper(*args, **kwargs):
-            return self.actions[action_class.__name__].execute(*args, **kwargs)
-
-        setattr(self, method_name, _wrapper)
+        # 在所有动作类中查找对应的类
+        for action_class in ALL_ACTION_CLASSES:
+            if action_class.__name__ == action_name:
+                return action_class(self, self.world)
+        
+        raise ValueError(f"未找到名为 '{action_name}' 的动作类")
 
 
     def act(self):
         """
         角色执行动作。
-        实际上分为两步：决定做什么（decide）和实习上去做（do）
+        实际上分为两步：决定做什么（decide）和实际去做（do）
+        事件只在决定动作时产生，执行过程不产生事件
         """
-        action_name, action_args = self.ai.decide(self.world)
-        action = self.actions[action_name]
-        event = action.execute(**action_args)
+        event = NULL_EVENT
+        
+        if self.action_be_executed is None:
+            # 决定动作时生成事件
+            action_name, action_args, event = self.ai.decide(self.world)
+            self.action_be_executed = self.create_action(action_name)
+            self.action_parmas_be_executed = action_args
+        
+        # 纯粹执行动作，不产生事件
+        self.action_be_executed.execute(**self.action_parmas_be_executed)
+        
+        if self.action_be_executed.is_finished(**self.action_parmas_be_executed):
+            self.action_be_executed = None
+            self.action_parmas_be_executed = None
+        
         return event
     
     def update_cultivation(self, new_level: int):
@@ -118,11 +131,11 @@ class Avatar:
         """
         return self.age.death_by_old_age(self.cultivation_progress.realm)
 
-    def update_age(self, current_month: Month, current_year: Year):
+    def update_age(self, current_month_stamp: MonthStamp):
         """
         更新年龄
         """
-        self.age.update_age(current_month, current_year, self.birth_month, self.birth_year)
+        self.age.update_age(current_month_stamp, self.birth_month_stamp)
     
     def get_age_info(self) -> dict:
         """
@@ -145,27 +158,25 @@ class Avatar:
     def is_in_region(self, region: Region) -> bool:
         return self.tile.region == region
 
-def get_new_avatar_from_ordinary(world: World, current_year: Year, name: str, age: Age):
+def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
     从凡人中来的新修士
     这代表其境界为最低
     """
-    # 利用uuid功能生成id
-    avatar_id = str(uuid.uuid4())
+    # 生成短ID，替代UUID4
+    avatar_id = get_avatar_id()
 
-    birth_year = current_year - age.age
-    birth_month = random.choice(list(Month))
+    birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
     cultivation_progress = CultivationProgress(0)
-    pos_x = random.randint(0, world.map.width)
-    pos_y = random.randint(0, world.map.height)
+    pos_x = random.randint(0, world.map.width - 1)
+    pos_y = random.randint(0, world.map.height - 1)
     gender = random.choice(list(Gender))
 
     return Avatar(
         world=world,
         name=name,
         id=avatar_id,
-        birth_month=birth_month,
-        birth_year=birth_year,
+        birth_month_stamp=MonthStamp(birth_month_stamp),
         age=age,
         gender=gender,
         cultivation_progress=cultivation_progress,
