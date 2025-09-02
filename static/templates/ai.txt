@@ -17,5 +17,5 @@
     "thinking": ..., // 简单思考应该怎么决策
     "action_name": ...,
     "action_params": ...,
-    "avatar_thinking": ..., // 从角色角度，以第一人称视角，描述心态
+    "avatar_thinking": ..., // 从角色角度，以第一人称视角，描述心态，符合世界观
 }}
