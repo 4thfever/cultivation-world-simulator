@@ -182,6 +182,12 @@ class Avatar:
     def is_in_region(self, region: Region) -> bool:
         return self.tile.region == region
 
+    def get_history_action_pairs_str(self) -> str:
+        """
+        获取历史动作对的字符串
+        """
+        return "\n".join([f"{action.__class__.__name__}: {action_params}" for action, action_params in self.history_action_pairs])
+
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
     从凡人中来的新修士

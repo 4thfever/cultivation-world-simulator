@@ -70,7 +70,7 @@ class RuleAI(AI):
             else:
                 return "Cultivate", {}
         else:
-            return "MoveToRegion", {"region": best_region}
+            return "MoveToRegion", {"region": best_region.name}
     
     def get_best_region(self, regions: list[Region]) -> Region:
         """

@@ -124,6 +124,7 @@ class Front:
                     elif event.key == pygame.K_SPACE:
                         self._step_once()
 
+
             # 自动步进
             if self._auto_step and self._last_step_ms >= self.step_interval_ms:
                 self._step_once()
@@ -423,10 +424,7 @@ class Front:
         # 添加历史动作信息
         lines.append("")  # 空行分隔
         lines.append("历史动作:")
-        for i, (action, params) in enumerate(avatar.history_action_pairs):
-            action_name = action.__class__.__name__
-            lines.append(f"  {i+1}. {action_name}")
-        
+        lines.extend(avatar.get_history_action_pairs_str().split("\n"))
         self._draw_tooltip(lines, *self.pygame.mouse.get_pos(), self.tooltip_font)
 
     def _draw_tooltip_for_region(self, region, mouse_x: int, mouse_y: int):
