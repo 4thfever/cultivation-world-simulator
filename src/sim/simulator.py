@@ -13,7 +13,7 @@ class Simulator:
         self.world = world
         self.brith_rate = 0 # 0表示不出生新角色
 
-    def step(self):
+    async def step(self):
         """
         前进一步（每步模拟是一个月时间）
         结算这个时间内的所有情况。
@@ -26,7 +26,7 @@ class Simulator:
 
         # 结算角色行为
         for avatar_id, avatar in self.avatars.items():
-            event = avatar.act()
+            event = await avatar.act()
             if not is_null_event(event):
                 events.append(event)
             if avatar.death_by_old_age():

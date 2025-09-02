@@ -1,5 +1,11 @@
 import random
+import asyncio
+import sys
+import os
 from typing import List, Tuple, Dict, Any
+
+# 添加项目根目录到Python路径
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # 依赖项目内部模块
 from src.front.front import Front
@@ -81,7 +87,7 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
     return avatars
 
 
-def main():
+async def main():
     # 为了每次更丰富，使用随机种子；如需复现可将 seed 固定
 
     game_map = create_cultivation_world_map()
@@ -101,9 +107,9 @@ def main():
         window_title="Cultivation World — Front Demo",
         sidebar_width=350,  # 新增：设置侧边栏宽度
     )
-    front.run()
+    await front.run_async()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
 

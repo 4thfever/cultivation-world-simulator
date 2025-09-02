@@ -1,5 +1,6 @@
 import math
 from typing import Dict, List, Optional, Tuple
+import asyncio # 新增：导入asyncio
 
 # Front 只依赖项目内部类型定义与 pygame
 from src.sim.simulator import Simulator
@@ -103,10 +104,20 @@ class Front:
         if len(self.events) > 1000:
             self.events = self.events[-1000:]
 
-    def run(self):
-        """主循环"""
+    async def _step_once_async(self):
+        """异步执行一步模拟"""
+        events = await self.simulator.step()  # 获取返回的事件
+        if events:  # 新增：将事件添加到事件历史
+            self.add_events(events)
+        self._last_step_ms = 0
+
+    async def run_async(self):
+        """异步主循环"""
         pygame = self.pygame
         running = True
+        
+        # 用于存储正在进行的step任务
+        current_step_task = None
         
         while running:
             dt_ms = self.clock.tick(60)
@@ -122,23 +133,35 @@ class Front:
                     elif event.key == pygame.K_a:
                         self._auto_step = not self._auto_step
                     elif event.key == pygame.K_SPACE:
-                        self._step_once()
-
+                        # 手动步进：创建新任务
+                        if current_step_task is None or current_step_task.done():
+                            current_step_task = asyncio.create_task(self._step_once_async())
 
             # 自动步进
             if self._auto_step and self._last_step_ms >= self.step_interval_ms:
-                self._step_once()
+                # 自动步进：创建新任务
+                if current_step_task is None or current_step_task.done():
+                    current_step_task = asyncio.create_task(self._step_once_async())
+                self._last_step_ms = 0
+
+            # 检查step任务是否完成
+            if current_step_task and current_step_task.done():
+                try:
+                    await current_step_task  # 获取结果（如果有异常会抛出）
+                except Exception as e:
+                    print(f"Step执行出错: {e}")
+                current_step_task = None
 
             self._render()
+            # 使用asyncio.sleep而不是pygame的时钟，避免阻塞
+            await asyncio.sleep(0.016)  # 约60fps
 
         pygame.quit()
 
     def _step_once(self):
-        """执行一步模拟"""
-        events = self.simulator.step()  # 获取返回的事件
-        if events:  # 新增：将事件添加到事件历史
-            self.add_events(events)
-        self._last_step_ms = 0
+        """执行一步模拟（同步版本，已弃用）"""
+        print("警告：_step_once已弃用，请使用异步版本")
+        pass
 
     def _render(self):
         """渲染主画面"""
