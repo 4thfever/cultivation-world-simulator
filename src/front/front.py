@@ -146,10 +146,7 @@ class Front:
 
             # 检查step任务是否完成
             if current_step_task and current_step_task.done():
-                try:
-                    await current_step_task  # 获取结果（如果有异常会抛出）
-                except Exception as e:
-                    print(f"Step执行出错: {e}")
+                await current_step_task
                 current_step_task = None
 
             self._render()

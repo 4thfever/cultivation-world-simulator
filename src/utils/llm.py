@@ -1,8 +1,9 @@
 from litellm import completion
 from langchain.prompts import PromptTemplate
 from pathlib import Path
-import json
 import asyncio
+import re
+import json5
 
 from src.utils.config import CONFIG
 from src.utils.io import read_txt
@@ -49,6 +50,19 @@ async def call_llm_async(prompt: str) -> str:
     # 使用asyncio.to_thread包装同步调用
     return await asyncio.to_thread(call_llm, prompt)
 
+def parse_llm_response(res: str) -> dict:
+    """
+    解析LLM返回的结果，支持多种格式
+    """
+    res = res.strip()
+    
+    # 提取markdown代码块中的JSON
+    json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', res, re.DOTALL)
+    if json_match:
+        res = json_match.group(1)
+    
+    return json5.loads(res)
+
 def get_prompt_and_call_llm(template_path: Path, infos: dict) -> str:
     """
     根据模板，获取提示词，并调用LLM
@@ -56,7 +70,7 @@ def get_prompt_and_call_llm(template_path: Path, infos: dict) -> str:
     template = read_txt(template_path)
     prompt = get_prompt(template, infos)
     res = call_llm(prompt)
-    json_res = json.loads(res)
+    json_res = parse_llm_response(res)
     # print(f"prompt = {prompt}")
     # print(f"res = {res}")
     return json_res
@@ -68,9 +82,8 @@ async def get_prompt_and_call_llm_async(template_path: Path, infos: dict) -> str
     template = read_txt(template_path)
     prompt = get_prompt(template, infos)
     res = await call_llm_async(prompt)
-    json_res = json.loads(res)
-    print(f"prompt = {prompt}")
     print(f"res = {res}")
+    json_res = parse_llm_response(res)
     return json_res
 
 def get_ai_prompt_and_call_llm(infos: dict) -> dict:

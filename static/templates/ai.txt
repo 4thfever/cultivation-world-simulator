@@ -14,7 +14,8 @@
 注意，只返回json格式的动作
 返回格式：
 {{
-    "avatar_id": ...,
+    "thinking": ..., // 简单思考应该怎么决策
     "action_name": ...,
     "action_params": ...,
+    "avatar_thinking": ..., // 从角色角度，以第一人称视角，描述心态
 }}
