@@ -26,21 +26,21 @@ class AI(ABC):
     def __init__(self, avatar: Avatar):
         self.avatar = avatar
 
-    async def decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, Event]:
+    async def decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str, Event]:
         """
         决定做什么，同时生成对应的事件
         """
         # 先决定动作和参数
-        action_name, action_params = await self._decide(world)
+        action_name, action_params, avatar_thinking = await self._decide(world)
         
         # 获取动作对象并生成事件
         action = self.avatar.create_action(action_name)
         event = action.get_event(**action_params)
         
-        return action_name, action_params, event
+        return action_name, action_params, avatar_thinking, event
 
     @abstractmethod
-    async def _decide(self, world: World) -> ACTION_PAIR:
+    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
         """
         决策逻辑：决定执行什么动作和参数
         由子类实现具体的决策逻辑
@@ -51,7 +51,7 @@ class RuleAI(AI):
     """
     规则AI
     """
-    async def _decide(self, world: World) -> ACTION_PAIR:
+    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
         """
         决策逻辑：决定执行什么动作和参数
         先做一个简单的：
@@ -62,15 +62,15 @@ class RuleAI(AI):
         5. 如果需要突破境界了，则突破境界
         """
         if random.random() < 0.1:
-            return "Play", {}
+            return "Play", {}, ""
         best_region = self.get_best_region(list(world.map.regions.values()))
         if self.avatar.is_in_region(best_region):
             if self.avatar.cultivation_progress.can_break_through():
-                return "Breakthrough", {}
+                return "Breakthrough", {}, ""
             else:
-                return "Cultivate", {}
+                return "Cultivate", {}, ""
         else:
-            return "MoveToRegion", {"region": best_region.name}
+            return "MoveToRegion", {"region": best_region.name}, ""
     
     def get_best_region(self, regions: list[Region]) -> Region:
         """
@@ -93,7 +93,7 @@ class LLMAI(AI):
         不能每个单步step都调用一次LLM来决定下一步做什么。这样子一方面动作一直乱变，另一方面也太费token了。
         decide的作用是，拉取既有的动作链（如果没有了就call_llm），再根据动作链决定动作，以及动作之间的衔接。
     """
-    async def _decide(self, world: World) -> ACTION_PAIR:
+    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
@@ -108,5 +108,5 @@ class LLMAI(AI):
             "avatar_persona": avatar_persona
         }
         res = await get_ai_prompt_and_call_llm_async(dict_info)
-        action_name, action_params = res["action_name"], res["action_params"]
-        return action_name, action_params
+        action_name, action_params, avatar_thinking = res["action_name"], res["action_params"], res["avatar_thinking"]
+        return action_name, action_params, avatar_thinking

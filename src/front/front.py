@@ -8,6 +8,7 @@ from src.classes.world import World
 from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
 from src.classes.event import Event
+from src.utils.text_wrap import wrap_text
 
 
 class Front:
@@ -155,10 +156,7 @@ class Front:
 
         pygame.quit()
 
-    def _step_once(self):
-        """执行一步模拟（同步版本，已弃用）"""
-        print("警告：_step_once已弃用，请使用异步版本")
-        pass
+
 
     def _render(self):
         """渲染主画面"""
@@ -239,11 +237,6 @@ class Front:
         # 计算位置：放在操作指南右边，留适当间距
         x_pos = self.margin + self._guide_width + padding * 3
         self.screen.blit(ym_surf, (x_pos, y_pos))
-    
-    def _get_month_number(self) -> int:
-        """获取月份数字（已弃用，保留向后兼容）"""
-        return self.simulator.world.month_stamp.get_month().value
-
 
 
     def _draw_map(self):
@@ -445,6 +438,15 @@ class Front:
         lines.append("")  # 空行分隔
         lines.append("历史动作:")
         lines.extend(avatar.get_history_action_pairs_str().split("\n"))
+        
+        # 添加thinking信息
+        if avatar.thinking:
+            lines.append("")  # 空行分隔
+            lines.append("思考:")
+            # 使用wrap_text函数将thinking信息按20字符换行
+            thinking_lines = wrap_text(avatar.thinking, 20)
+            lines.extend(thinking_lines)
+        
         self._draw_tooltip(lines, *self.pygame.mouse.get_pos(), self.tooltip_font)
 
     def _draw_tooltip_for_region(self, region, mouse_x: int, mouse_y: int):
@@ -545,11 +547,7 @@ class Front:
                     self.avatar_images[avatar_id] = random.choice(self.female_avatars)
                 # 如果没有可用的头像，则使用None，后续会画圆点作为fallback
 
-    def _create_fallback_surface(self, tile_type):
-        """创建默认的fallback surface"""
-        fallback_surface = self.pygame.Surface((self.tile_size, self.tile_size))
-        fallback_surface.fill((128, 128, 128))  # 灰色
-        self.tile_images[tile_type] = fallback_surface
+
 
     def _create_font(self, size: int):
         """创建字体"""

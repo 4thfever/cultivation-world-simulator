@@ -54,6 +54,7 @@ class Avatar:
     ai: AI = None
     cur_action_pair: Optional[ACTION_PAIR] = None
     history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
+    thinking: str = ""
 
     def __post_init__(self):
         """
@@ -101,8 +102,9 @@ class Avatar:
         
         if self.cur_action_pair is None:
             # 决定动作时生成事件
-            action_name, action_args, event = await self.ai.decide(self.world)
+            action_name, action_args, avatar_thinking, event = await self.ai.decide(self.world)
             action = self.create_action(action_name)
+            self.thinking = avatar_thinking
             self.cur_action_pair = (action, action_args)
         
         # 纯粹执行动作，不产生事件
