@@ -2,9 +2,10 @@ import random
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
+import json
 
 from src.classes.calendar import MonthStamp
-from src.classes.action import Action, ALL_ACTION_CLASSES
+from src.classes.action import Action, ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
 from src.classes.world import World
 from src.classes.tile import Tile, Region
 from src.classes.cultivation import CultivationProgress
@@ -189,6 +190,20 @@ class Avatar:
         获取历史动作对的字符串
         """
         return "\n".join([f"{action.__class__.__name__}: {action_params}" for action, action_params in self.history_action_pairs])
+
+    def get_action_space_str(self) -> str:
+        action_space = self.get_action_space()
+        action_space_str = json.dumps(action_space, ensure_ascii=False)
+        return action_space_str
+    
+    def get_action_space(self) -> list[dict]:
+        """
+        获取动作空间
+        """
+        actual_actions = [self.create_action(action_cls_name) for action_cls_name in ALL_ACTUAL_ACTION_NAMES]
+        doable_actions = [action for action in actual_actions if action.is_doable]
+        action_space = [{"action": action.__class__.__name__, "params": action.PARAMS, "comment": action.COMMENT} for action in doable_actions]
+        return action_space
 
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """

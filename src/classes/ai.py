@@ -11,7 +11,6 @@ import random
 from src.classes.world import World
 from src.classes.tile import Region
 from src.classes.root import corres_essence_type
-from src.classes.action import ACTION_SPACE_STR
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
@@ -84,9 +83,7 @@ class RuleAI(AI):
 class LLMAI(AI):
     """
     LLM AI
-    """
-    # TODO：动作链
-    """
+    一些思考：
     AI动作应该分两类：
         1. 动作链，一定时间内的长期规划，动作按照这个动作链来执行（以及何时终止并执行下一个动作）
         2. 突发情况，比如突然有人要攻击NPC，这个时候的反应
@@ -97,7 +94,7 @@ class LLMAI(AI):
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
-        action_space_str = ACTION_SPACE_STR
+        action_space_str = self.avatar.get_action_space_str()
         avatar_infos_str = str(self.avatar)
         regions_str = "\n".join([str(region) for region in world.map.regions.values()])
         avatar_persona = self.avatar.persona.prompt

@@ -128,12 +128,21 @@ class ActualActionMixin():
         """
         pass
 
+    @property
+    @abstractmethod
+    def is_doable(self) -> bool:
+        """
+        判断动作是否可以执行
+        """
+        pass
+
 
 class Move(DefineAction, ChunkActionMixin):
     """
     最基础的移动动作，在tile之间进行切换。
     """
     COMMENT = "移动到某个相对位置"
+    PARAMS = {"delta_x": "int", "delta_y": "int"}
     def _execute(self, delta_x: int, delta_y: int) -> None:
         """
         移动到某个tile
@@ -157,6 +166,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     移动到某个region
     """
     COMMENT = "移动到某个区域"
+    PARAMS = {"region": "region_name"}
     def _execute(self, region: Region|str) -> None:
         """
         移动到某个region
@@ -194,12 +204,20 @@ class MoveToRegion(DefineAction, ActualActionMixin):
             region_name = str(region)
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}")
 
+    @property
+    def is_doable(self) -> bool:
+        """
+        判断移动到区域动作是否可以执行
+        """
+        return True
+
 @long_action(step_month=10)
 class Cultivate(DefineAction, ActualActionMixin):
     """
     修炼动作，可以增加修仙进度。
     """
     COMMENT = "修炼，增进修为"
+    PARAMS = {}
     def _execute(self) -> None:
         """
         修炼
@@ -226,6 +244,13 @@ class Cultivate(DefineAction, ActualActionMixin):
         """
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼")
 
+    @property
+    def is_doable(self) -> bool:
+        """
+        判断修炼动作是否可以执行
+        """
+        return self.avatar.cultivation_progress.can_cultivate()
+
 
 # 突破境界class
 @long_action(step_month=1)
@@ -234,6 +259,7 @@ class Breakthrough(DefineAction, ActualActionMixin):
     突破境界
     """
     COMMENT = "尝试突破境界"
+    PARAMS = {}
     def calc_success_rate(self) -> float:
         """
         计算突破境界的成功率
@@ -255,12 +281,20 @@ class Breakthrough(DefineAction, ActualActionMixin):
         """
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
+    @property
+    def is_doable(self) -> bool:
+        """
+        判断突破动作是否可以执行
+        """
+        return self.avatar.cultivation_progress.can_break_through()
+
 @long_action(step_month=6)
 class Play(DefineAction, ActualActionMixin):
     """
     游戏娱乐动作，持续半年时间
     """
     COMMENT = "游戏娱乐，放松身心"
+    PARAMS = {}
     
     def _execute(self) -> None:
         """
@@ -276,12 +310,11 @@ class Play(DefineAction, ActualActionMixin):
         """
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始玩耍")
 
+    @property
+    def is_doable(self) -> bool:
+        return True
+
 ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play]
-ACTION_SPACE = [
-    # {"action": "Move", "params": {"delta_x": int, "delta_y": int}, "comment": Move.COMMENT},
-    {"action": "Cultivate", "params": {}, "comment": Cultivate.COMMENT},
-    {"action": "Breakthrough", "params": {}, "comment": Breakthrough.COMMENT},
-    {"action": "MoveToRegion", "params": {"region": "region_name"}, "comment": MoveToRegion.COMMENT},
-    {"action": "Play", "params": {}, "comment": Play.COMMENT},
-]
-ACTION_SPACE_STR = json.dumps(ACTION_SPACE, ensure_ascii=False)
+ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play]
+ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play"]
+ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play"]
