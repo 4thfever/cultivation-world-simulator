@@ -32,6 +32,8 @@ class AI(ABC):
     async def decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, Event]]:
         """
         决定做什么，同时生成对应的事件。
+        一个ai支持批量生成多个avatar的动作。
+        这对LLM AI节省时间和token非常有意义。
         """
         results = await self._decide(world, avatars_to_decide)
 
@@ -99,10 +101,8 @@ class LLMAI(AI):
     LLM AI
     一些思考：
     AI动作应该分两类：
-        1. 动作链，一定时间内的长期规划，动作按照这个动作链来执行（以及何时终止并执行下一个动作）
-        2. 突发情况，比如突然有人要攻击NPC，这个时候的反应
-        不能每个单步step都调用一次LLM来决定下一步做什么。这样子一方面动作一直乱变，另一方面也太费token了。
-        decide的作用是，拉取既有的动作链（如果没有了就call_llm），再根据动作链决定动作，以及动作之间的衔接。
+        1. 长期动作，比如要持续很长一段时间的行为
+        2. 突发应对动作，比如突然有人要攻击NPC，这个时候的反应
     """
 
     async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:

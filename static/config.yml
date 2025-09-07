@@ -7,7 +7,7 @@ paths:
   templates: static/templates/
 
 ai:
-  mode: "rule" # "rule" or "llm"
+  mode: "llm" # "rule" or "llm"
 
 game:
   init_npc_num: 3
