@@ -22,8 +22,22 @@ class AI(ABC):
     """
     AI的基类
     """
+    pass
+
+class SingleAI(AI):
+    """
+    单个角色的AI
+    """
     def __init__(self, avatar: Avatar):
         self.avatar = avatar
+
+    @abstractmethod
+    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
+        """
+        决策逻辑：决定执行什么动作和参数
+        由子类实现具体的决策逻辑
+        """
+        pass
 
     async def decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str, Event]:
         """
@@ -38,15 +52,37 @@ class AI(ABC):
         
         return action_name, action_params, avatar_thinking, event
 
-    @abstractmethod
-    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
+class GroupAI(AI):
+    """
+    多个角色的AI
+    """
+    def __init__(self):
+        self.avatars = []
+
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
         """
         决策逻辑：决定执行什么动作和参数
         由子类实现具体的决策逻辑
         """
         pass
 
-class RuleAI(AI):
+    async def decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, Event]]:
+        """
+        决定做什么，同时生成对应的事件
+        """
+        # 先决定动作和参数
+        results = await self._decide(world, avatars_to_decide)
+
+        for avatar, result in results.items():
+            action_name, action_params, avatar_thinking = result
+            action = avatar.create_action(action_name)
+            event = action.get_event(**action_params)
+            results[avatar] = (action_name, action_params, avatar_thinking, event)
+        
+        # 获取动作对象并生成事件
+        return results
+
+class RuleAI(SingleAI):
     """
     规则AI
     """
@@ -80,7 +116,7 @@ class RuleAI(AI):
         region_with_best_essence = max(regions, key=lambda region: region.essence.get_density(essence_type))
         return region_with_best_essence
         
-class LLMAI(AI):
+class LLMAI(GroupAI):
     """
     LLM AI
     一些思考：
@@ -90,20 +126,23 @@ class LLMAI(AI):
         不能每个单步step都调用一次LLM来决定下一步做什么。这样子一方面动作一直乱变，另一方面也太费token了。
         decide的作用是，拉取既有的动作链（如果没有了就call_llm），再根据动作链决定动作，以及动作之间的衔接。
     """
-    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
-        action_space_str = self.avatar.get_action_space_str()
-        avatar_infos_str = str(self.avatar)
-        regions_str = "\n".join([str(region) for region in world.map.regions.values()])
-        avatar_persona = self.avatar.persona.prompt
-        dict_info = {
-            "action_space": action_space_str,
-            "avatar_infos": avatar_infos_str,
-            "regions": regions_str,
-            "avatar_persona": avatar_persona
+        global_info = world.get_prompt()
+        avatar_infos = {avatar.id: avatar.get_prompt() for avatar in avatars_to_decide}
+        info = {
+            "avatar_infos": avatar_infos,
+            "global_info": global_info
         }
-        res = await get_ai_prompt_and_call_llm_async(dict_info)
-        action_name, action_params, avatar_thinking = res["action_name"], res["action_params"], res["avatar_thinking"]
-        return action_name, action_params, avatar_thinking
+        res = await get_ai_prompt_and_call_llm_async(info)
+        results = {}
+        for avatar in avatars_to_decide:
+            action_name, action_params, avatar_thinking = res[avatar.id]["action_name"], res[avatar.id]["action_params"], res[avatar.id]["avatar_thinking"]
+            results[avatar] = (action_name, action_params, avatar_thinking)
+        return results
+
+llm_ai = LLMAI()
+# rule_ai = RuleAI()
+rule_ai = None

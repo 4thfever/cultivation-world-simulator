@@ -14,7 +14,6 @@ from src.classes.age import Age
 from src.classes.event import NULL_EVENT
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
 
-from src.classes.ai import AI, RuleAI, LLMAI
 from src.classes.persona import Persona, personas_by_id
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
@@ -53,27 +52,28 @@ class Avatar:
 
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     persona: Persona = field(default_factory=lambda: random.choice(list(personas_by_id.values())))
-    ai: AI = None
     cur_action_pair: Optional[ACTION_PAIR] = None
     history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
     thinking: str = ""
 
     def __post_init__(self):
         """
-        在Avatar创建后自动初始化tile和AI
+        在Avatar创建后自动初始化tile
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
-        if CONFIG.ai.mode == "llm":
-            self.ai = LLMAI(self)
-        else:
-            self.ai = RuleAI(self)
 
-    def __str__(self) -> str:
+    def __hash__(self) -> int:
+        return hash(self.id)
+
+    def get_info(self) -> str:
         """
         获取avatar的详细信息
         尽量多打一些，因为会用来给LLM进行决策
         """
         return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress})"
+
+    def __str__(self) -> str:
+        return self.get_info()
 
     def create_action(self, action_name: ACTION_NAME) -> Action:
         """
@@ -95,21 +95,17 @@ class Avatar:
         
         raise ValueError(f"未找到名为 '{action_name}' 的动作类")
 
+    def load_decide_result(self, action_name: ACTION_NAME, action_args: ACTION_PARAMS, avatar_thinking: str):
+        action = self.create_action(action_name)
+        self.thinking = avatar_thinking
+        self.cur_action_pair = (action, action_args)
 
     async def act(self):
         """
         角色执行动作。
-        实际上分为两步：决定做什么（decide）和实际去做（do）
+        注意这里只负责执行，不负责决定做什么动作。
         事件只在决定动作时产生，执行过程不产生事件
         """
-        event = NULL_EVENT
-        
-        if self.cur_action_pair is None:
-            # 决定动作时生成事件
-            action_name, action_args, avatar_thinking, event = await self.ai.decide(self.world)
-            action = self.create_action(action_name)
-            self.thinking = avatar_thinking
-            self.cur_action_pair = (action, action_args)
         
         # 纯粹执行动作，不产生事件
         action, action_params = self.cur_action_pair
@@ -119,7 +115,7 @@ class Avatar:
             # 将完成的动作对添加到历史记录中
             self._add_to_history(self.cur_action_pair)
         
-        return event
+        return
     
     def _add_to_history(self, action_pair: ACTION_PAIR) -> None:
         """
@@ -207,6 +203,15 @@ class Avatar:
         doable_actions = [action for action in actual_actions if action.is_doable]
         action_space = [{"action": action.__class__.__name__, "params": action.PARAMS, "comment": action.COMMENT} for action in doable_actions]
         return action_space
+
+    def get_prompt(self) -> str:
+        """
+        获取角色提示词
+        """
+        info = self.get_info()
+        persona = self.persona.prompt
+        action_space = self.get_action_space_str()
+        return f"{info}\n其个性为：{persona}\n决策时需参考这个角色的个性。\n该角色的动作空间及其参数为：{action_space}"
 
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """

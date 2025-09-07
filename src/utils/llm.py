@@ -80,8 +80,9 @@ async def get_prompt_and_call_llm_async(template_path: Path, infos: dict) -> str
     template = read_txt(template_path)
     prompt = get_prompt(template, infos)
     res = await call_llm_async(prompt)
-    # print(f"res = {res}")
     json_res = parse_llm_response(res)
+    # print(f"prompt = {prompt}")
+    # print(f"json_res = {json_res}")
     return json_res
 
 def get_ai_prompt_and_call_llm(infos: dict) -> dict:

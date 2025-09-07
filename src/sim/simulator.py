@@ -5,6 +5,7 @@ from src.classes.avatar import Avatar, get_new_avatar_from_ordinary, Gender
 from src.classes.age import Age
 from src.classes.world import World
 from src.classes.event import Event, is_null_event
+from src.classes.ai import llm_ai, rule_ai
 from src.utils.names import get_random_name
 from src.utils.config import CONFIG
 
@@ -25,11 +26,23 @@ class Simulator:
         events = [] # list of Event
         death_avatar_ids = [] # list of str
 
+        # 决定动作行为
+        avatars_to_decide = [avatar for avatar in list(self.avatars.values()) if avatar.cur_action_pair is None]
+        if CONFIG.ai.mode == "llm":
+            ai = llm_ai
+        else:
+            ai = rule_ai
+        if avatars_to_decide:   
+            decide_results = await ai.decide(self.world, avatars_to_decide)
+            for avatar, result in decide_results.items():
+                action_name, action_args, avatar_thinking, event = result
+                avatar.load_decide_result(action_name, action_args, avatar_thinking)
+                if not is_null_event(event):
+                    events.append(event)
+        
         # 结算角色行为
         for avatar_id, avatar in self.avatars.items():
-            event = await avatar.act()
-            if not is_null_event(event):
-                events.append(event)
+            await avatar.act()
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
