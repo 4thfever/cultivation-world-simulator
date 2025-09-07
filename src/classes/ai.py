@@ -20,75 +20,37 @@ if TYPE_CHECKING:
 
 class AI(ABC):
     """
-    AI的基类
+    抽象AI：统一采用批量接口。
+    原先的 GroupAI（多个角色的AI）语义被保留并上移到此基类。
+    子类需实现 _decide(world, avatars) 返回每个 Avatar 的 (action_name, action_params, thinking)。
     """
-    pass
-
-class SingleAI(AI):
-    """
-    单个角色的AI
-    """
-    def __init__(self, avatar: Avatar):
-        self.avatar = avatar
 
     @abstractmethod
-    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
-        """
-        决策逻辑：决定执行什么动作和参数
-        由子类实现具体的决策逻辑
-        """
-        pass
-
-    async def decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str, Event]:
-        """
-        决定做什么，同时生成对应的事件
-        """
-        # 先决定动作和参数
-        action_name, action_params, avatar_thinking = await self._decide(world)
-        
-        # 获取动作对象并生成事件
-        action = self.avatar.create_action(action_name)
-        event = action.get_event(**action_params)
-        
-        return action_name, action_params, avatar_thinking, event
-
-class GroupAI(AI):
-    """
-    多个角色的AI
-    """
-    def __init__(self):
-        self.avatars = []
-
     async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
-        """
-        决策逻辑：决定执行什么动作和参数
-        由子类实现具体的决策逻辑
-        """
         pass
 
     async def decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, Event]]:
         """
-        决定做什么，同时生成对应的事件
+        决定做什么，同时生成对应的事件。
         """
-        # 先决定动作和参数
         results = await self._decide(world, avatars_to_decide)
 
-        for avatar, result in results.items():
+        for avatar, result in list(results.items()):
             action_name, action_params, avatar_thinking = result
             action = avatar.create_action(action_name)
             event = action.get_event(**action_params)
             results[avatar] = (action_name, action_params, avatar_thinking, event)
-        
-        # 获取动作对象并生成事件
+
         return results
 
-class RuleAI(SingleAI):
+class RuleAI(AI):
     """
-    规则AI
+    规则AI（批量接口，内部逐个决策）
     """
-    async def _decide(self, world: World) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
+
+    def __decide(self, world: World, avatar: "Avatar", regions: list[Region]) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
         """
-        决策逻辑：决定执行什么动作和参数
+        单个 Avatar 的决策逻辑。
         先做一个简单的：
         1. 找到自己灵根对应的最好的区域
         2. 检测自己是否在最好的区域
@@ -97,26 +59,42 @@ class RuleAI(SingleAI):
         5. 如果需要突破境界了，则突破境界
         """
         if random.random() < 0.1:
-            return "Play", {}, ""
-        best_region = self.get_best_region(list(world.map.regions.values()))
-        if self.avatar.is_in_region(best_region):
-            if self.avatar.cultivation_progress.can_break_through():
-                return "Breakthrough", {}, ""
+            return ("Play", {}, "")
+
+        best_region = self.get_best_region_for_avatar(avatar, regions)
+
+        if avatar.is_in_region(best_region):
+            if avatar.cultivation_progress.can_break_through():
+                return ("Breakthrough", {}, "")
             else:
-                return "Cultivate", {}, ""
+                return ("Cultivate", {}, "")
         else:
-            return "MoveToRegion", {"region": best_region.name}, ""
-    
-    def get_best_region(self, regions: list[Region]) -> Region:
+            return ("MoveToRegion", {"region": best_region.name}, "")
+
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
+        """
+        决策逻辑：批量接口的实现上，逐个 Avatar 调用 __decide 进行独立决策，
+        以保持规则AI的可控性与可测试性。
+        """
+        results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]] = {}
+        regions: list[Region] = list(world.map.regions.values())
+
+        for avatar in avatars_to_decide:
+            results[avatar] = self.__decide(world, avatar, regions)
+
+        return results
+
+    def get_best_region_for_avatar(self, avatar: "Avatar", regions: list[Region]) -> Region:
         """
         根据avatar的灵根找到最适合的区域
         """
-        root = self.avatar.root
-        essence_type = corres_essence_type[root]
-        region_with_best_essence = max(regions, key=lambda region: region.essence.get_density(essence_type))
+        essence_type = corres_essence_type[avatar.root]
+        region_with_best_essence = max(
+            regions, key=lambda region: region.essence.get_density(essence_type)
+        )
         return region_with_best_essence
-        
-class LLMAI(GroupAI):
+
+class LLMAI(AI):
     """
     LLM AI
     一些思考：
@@ -126,6 +104,7 @@ class LLMAI(GroupAI):
         不能每个单步step都调用一次LLM来决定下一步做什么。这样子一方面动作一直乱变，另一方面也太费token了。
         decide的作用是，拉取既有的动作链（如果没有了就call_llm），再根据动作链决定动作，以及动作之间的衔接。
     """
+
     async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
@@ -134,15 +113,16 @@ class LLMAI(GroupAI):
         avatar_infos = {avatar.id: avatar.get_prompt() for avatar in avatars_to_decide}
         info = {
             "avatar_infos": avatar_infos,
-            "global_info": global_info
+            "global_info": global_info,
         }
         res = await get_ai_prompt_and_call_llm_async(info)
-        results = {}
+        results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]] = {}
         for avatar in avatars_to_decide:
-            action_name, action_params, avatar_thinking = res[avatar.id]["action_name"], res[avatar.id]["action_params"], res[avatar.id]["avatar_thinking"]
+            action_name = res[avatar.id]["action_name"]
+            action_params = res[avatar.id]["action_params"]
+            avatar_thinking = res[avatar.id]["avatar_thinking"]
             results[avatar] = (action_name, action_params, avatar_thinking)
         return results
 
 llm_ai = LLMAI()
-# rule_ai = RuleAI()
-rule_ai = None
+rule_ai = RuleAI()
