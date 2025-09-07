@@ -6,12 +6,13 @@ from src.classes.age import Age
 from src.classes.world import World
 from src.classes.event import Event, is_null_event
 from src.utils.names import get_random_name
+from src.utils.config import CONFIG
 
 class Simulator:
     def __init__(self, world: World):
         self.avatars = {} # dict of str -> Avatar
         self.world = world
-        self.brith_rate = 0 # 0表示不出生新角色
+        self.birth_rate = CONFIG.game.npc_birth_rate_per_month  # 从配置文件读取NPC每月出生率
 
     async def step(self):
         """
@@ -40,7 +41,7 @@ class Simulator:
             self.avatars.pop(avatar_id)
 
         # 新角色
-        if random.random() < self.brith_rate:
+        if random.random() < self.birth_rate:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)

@@ -17,6 +17,7 @@ from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
 from src.classes.ai import AI, RuleAI, LLMAI
 from src.classes.persona import Persona, personas_by_id
 from src.utils.id_generator import get_avatar_id
+from src.utils.config import CONFIG
 
 class Gender(Enum):
     MALE = "male"
@@ -62,8 +63,10 @@ class Avatar:
         在Avatar创建后自动初始化tile和AI
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
-        self.ai = LLMAI(self)
-        # self.ai = RuleAI(self)
+        if CONFIG.ai.mode == "llm":
+            self.ai = LLMAI(self)
+        else:
+            self.ai = RuleAI(self)
 
     def __str__(self) -> str:
         """

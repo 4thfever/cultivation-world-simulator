@@ -22,6 +22,7 @@ from src.classes.age import Age
 from src.run.create_map import create_cultivation_world_map
 from src.utils.names import get_random_name
 from src.utils.id_generator import get_avatar_id
+from src.utils.config import CONFIG
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -96,8 +97,8 @@ async def main():
     # 创建模拟器
     sim = Simulator(world)
     
-    # 创建角色，传入当前年份确保年龄与生日匹配
-    sim.avatars.update(make_avatars(world, count=2, current_month_stamp=world.month_stamp))
+    # 创建角色，传入当前年份确保年龄与生日匹配，使用配置文件中的NPC数量
+    sim.avatars.update(make_avatars(world, count=CONFIG.game.init_npc_num, current_month_stamp=world.month_stamp))
 
     front = Front(
         simulator=sim,
