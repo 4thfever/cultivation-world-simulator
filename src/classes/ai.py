@@ -14,6 +14,7 @@ from src.classes.root import corres_essence_type
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
+from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -35,7 +36,10 @@ class AI(ABC):
         一个ai支持批量生成多个avatar的动作。
         这对LLM AI节省时间和token非常有意义。
         """
-        results = await self._decide(world, avatars_to_decide)
+        results = {}
+        max_decide_num = CONFIG.ai.max_decide_num
+        for i in range(0, len(avatars_to_decide), max_decide_num):
+            results.update(await self._decide(world, avatars_to_decide[i:i+max_decide_num]))
 
         for avatar, result in list(results.items()):
             action_name, action_params, avatar_thinking = result
