@@ -434,10 +434,17 @@ class Front:
             f"位置: ({avatar.pos_x}, {avatar.pos_y})",
         ]
         
-        # 添加历史动作信息
-        lines.append("")  # 空行分隔
-        lines.append("历史动作:")
-        lines.extend(avatar.get_history_action_pairs_str().split("\n"))
+        # 添加灵石信息（使用MagicStone的__str__方法显示详细信息）
+        lines.append(f"灵石: {str(avatar.magic_stone)}")
+        
+        # 添加物品信息
+        if avatar.items:
+            lines.append("物品:")
+            for item, quantity in avatar.items.items():
+                lines.append(f"  {item.name} x{quantity}")
+        else:
+            lines.append("")  # 空行分隔
+            lines.append("物品: 无")
         
         # 添加thinking信息
         if avatar.thinking:

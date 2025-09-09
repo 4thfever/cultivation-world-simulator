@@ -15,6 +15,8 @@ from src.classes.event import NULL_EVENT
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
 
 from src.classes.persona import Persona, personas_by_id
+from src.classes.item import Item
+from src.classes.magic_stone import MagicStone
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 
@@ -55,6 +57,8 @@ class Avatar:
     cur_action_pair: Optional[ACTION_PAIR] = None
     history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
     thinking: str = ""
+    magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0)) # 灵石，即货币
+    items: dict[Item, int] = field(default_factory=dict)
 
     def __post_init__(self):
         """
@@ -183,6 +187,75 @@ class Avatar:
 
     def is_in_region(self, region: Region) -> bool:
         return self.tile.region == region
+    
+    def add_item(self, item: Item, quantity: int = 1) -> None:
+        """
+        添加物品到背包
+        
+        Args:
+            item: 要添加的物品
+            quantity: 添加数量，默认为1
+        """
+        if quantity <= 0:
+            return
+            
+        if item in self.items:
+            self.items[item] += quantity
+        else:
+            self.items[item] = quantity
+    
+    def remove_item(self, item: Item, quantity: int = 1) -> bool:
+        """
+        从背包移除物品
+        
+        Args:
+            item: 要移除的物品
+            quantity: 移除数量，默认为1
+            
+        Returns:
+            bool: 是否成功移除（如果物品不足则返回False）
+        """
+        if quantity <= 0:
+            return True
+            
+        if item not in self.items:
+            return False
+            
+        if self.items[item] < quantity:
+            return False
+            
+        self.items[item] -= quantity
+        
+        # 如果数量为0，从字典中移除该物品
+        if self.items[item] == 0:
+            del self.items[item]
+            
+        return True
+    
+    def has_item(self, item: Item, quantity: int = 1) -> bool:
+        """
+        检查是否拥有足够数量的物品
+        
+        Args:
+            item: 要检查的物品
+            quantity: 需要的数量，默认为1
+            
+        Returns:
+            bool: 是否拥有足够数量的物品
+        """
+        return item in self.items and self.items[item] >= quantity
+    
+    def get_item_quantity(self, item: Item) -> int:
+        """
+        获取指定物品的数量
+        
+        Args:
+            item: 要查询的物品
+            
+        Returns:
+            int: 物品数量，如果没有该物品则返回0
+        """
+        return self.items.get(item, 0)
 
     def get_history_action_pairs_str(self) -> str:
         """
@@ -211,7 +284,17 @@ class Avatar:
         info = self.get_info()
         persona = self.persona.prompt
         action_space = self.get_action_space_str()
-        return f"{info}\n其个性为：{persona}\n决策时需参考这个角色的个性。\n该角色的动作空间及其参数为：{action_space}"
+        
+        # 添加灵石信息
+        magic_stone_info = f"灵石持有情况：{str(self.magic_stone)}"
+        
+        # 添加物品信息
+        if self.items:
+            items_info = "物品持有情况：" + "，".join([f"{item.name}x{quantity}" for item, quantity in self.items.items()])
+        else:
+            items_info = "物品持有情况：无"
+        
+        return f"{info}\n其个性为：{persona}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的个性。\n该角色的动作空间及其参数为：{action_space}"
 
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
