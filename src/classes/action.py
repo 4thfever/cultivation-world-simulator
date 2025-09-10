@@ -7,7 +7,7 @@ import inspect
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
-from src.classes.region import Region
+from src.classes.region import Region, CultivateRegion
 from src.classes.event import Event, NULL_EVENT
 
 if TYPE_CHECKING:
@@ -253,8 +253,9 @@ class Cultivate(DefineAction, ActualActionMixin):
         判断修炼动作是否可以执行
         """
         root = self.avatar.root
+        region = self.avatar.tile.region
         _corres_essence_type = corres_essence_type[root]
-        return self.avatar.cultivation_progress.can_cultivate() and self.avatar.tile.region.essence.get_density(_corres_essence_type) > 0
+        return self.avatar.cultivation_progress.can_cultivate() and isinstance(region, CultivateRegion) and region.essence.get_density(_corres_essence_type) > 0
 
 # 突破境界class
 @long_action(step_month=1)
