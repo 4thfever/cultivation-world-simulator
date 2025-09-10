@@ -7,6 +7,7 @@ import json5
 
 from src.utils.config import CONFIG
 from src.utils.io import read_txt
+from src.run.log import log_llm_call
 
 def get_prompt(template: str, infos: dict) -> str:
     """
@@ -36,7 +37,9 @@ def call_llm(prompt: str) -> str:
     )
     
     # 返回生成的内容
-    return response.choices[0].message.content
+    result = response.choices[0].message.content
+    log_llm_call(model_name, prompt, result)  # 记录日志
+    return result
 
 async def call_llm_async(prompt: str) -> str:
     """
@@ -48,7 +51,8 @@ async def call_llm_async(prompt: str) -> str:
         str: LLM返回的结果
     """
     # 使用asyncio.to_thread包装同步调用
-    return await asyncio.to_thread(call_llm, prompt)
+    result = await asyncio.to_thread(call_llm, prompt)
+    return result
 
 def parse_llm_response(res: str) -> dict:
     """

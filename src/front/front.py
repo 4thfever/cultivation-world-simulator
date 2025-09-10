@@ -284,14 +284,14 @@ class Front:
     def _draw_region_labels(self):
         """绘制区域标签"""
         pygame = self.pygame
-        map_obj = self.world.map
         ts = self.tile_size
         m = self.margin
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         # 绘制每个region的标签
+        from src.classes.region import regions_by_id
         hovered_region = None
-        for region in map_obj.regions.values():
+        for region in regions_by_id.values():
             name = getattr(region, "name", None)
             if not name:
                 continue
@@ -458,25 +458,24 @@ class Front:
 
     def _draw_tooltip_for_region(self, region, mouse_x: int, mouse_y: int):
         """绘制Region的tooltip"""
+        # 如果region为None，不显示tooltip
+        if region is None:
+            return
+            
         lines = [
             f"区域: {region.name}",
-            f"描述: {region.description}",
+            f"描述: {region.desc}",
         ]
         
-        # 添加灵气信息
-        if hasattr(region, 'essence') and region.essence:
-            essence_items = []
-            for essence_type, density in region.essence.density.items():
-                if density > 0:
-                    essence_name = str(essence_type)
-                    essence_items.append((density, essence_name))
-            
-            if essence_items:
-                essence_items.sort(reverse=True)
-                lines.append("灵气分布:")
-                for density, name in essence_items:
-                    stars = "★" * density + "☆" * (10 - density)
-                    lines.append(f"  {name}: {stars}")
+        # 根据region类型添加灵气信息
+        from src.classes.region import CultivateRegion
+        
+        if isinstance(region, CultivateRegion):
+            # 修炼区域：只显示最高灵气类型和密度
+            stars = "★" * region.essence_density + "☆" * (10 - region.essence_density)
+            lines.append(f"主要灵气: {region.essence_type} {stars}")
+        
+        # 普通区域和城市区域不显示灵气信息
         
         self._draw_tooltip(lines, mouse_x, mouse_y, self.tooltip_font)
 

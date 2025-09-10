@@ -18,6 +18,25 @@ class Root(Enum):
     WATER = "水"
     FIRE = "火"
     EARTH = "土"
+    
+    @classmethod
+    def from_str(cls, root_str: str) -> 'Root':
+        """
+        从字符串创建Root实例
+        
+        Args:
+            root_str: 灵根的字符串表示，如 "金", "木", "水", "火", "土"
+            
+        Returns:
+            对应的Root枚举值
+            
+        Raises:
+            ValueError: 如果字符串不匹配任何已知的灵根类型
+        """
+        for root in cls:
+            if root.value == root_str:
+                return root
+        raise ValueError(f"Unknown root type: {root_str}")
 
 corres_essence_type = {
     Root.GOLD: EssenceType.GOLD,

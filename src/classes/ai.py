@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import random
 
 from src.classes.world import World
-from src.classes.tile import Region
+from src.classes.region import Region
 from src.classes.root import corres_essence_type
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async

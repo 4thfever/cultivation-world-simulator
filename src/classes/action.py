@@ -7,7 +7,7 @@ import inspect
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
-from src.classes.tile import Region
+from src.classes.region import Region
 from src.classes.event import Event, NULL_EVENT
 
 if TYPE_CHECKING:
@@ -172,7 +172,8 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         移动到某个region
         """
         if isinstance(region, str):
-            region = self.world.map.region_names[region]
+            from src.classes.region import regions_by_name
+            region = regions_by_name[region]
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         region_center_loc = region.center_loc
         delta_x = region_center_loc[0] - cur_loc[0]
@@ -187,7 +188,8 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         判断动作是否完成
         """
         if isinstance(region, str):
-            region = self.world.map.region_names[region]
+            from src.classes.region import regions_by_name
+            region = regions_by_name[region]
         return self.avatar.is_in_region(region)
     
     def get_event(self, region: Region|str) -> Event:
@@ -196,8 +198,9 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         """
         if isinstance(region, str):
             region_name = region
-            if region in self.world.map.region_names:
-                region_name = self.world.map.region_names[region].name
+            from src.classes.region import regions_by_name
+            if region in regions_by_name:
+                region_name = regions_by_name[region].name
         elif hasattr(region, 'name'):
             region_name = region.name
         else:
@@ -249,8 +252,9 @@ class Cultivate(DefineAction, ActualActionMixin):
         """
         判断修炼动作是否可以执行
         """
-        return self.avatar.cultivation_progress.can_cultivate()
-
+        root = self.avatar.root
+        _corres_essence_type = corres_essence_type[root]
+        return self.avatar.cultivation_progress.can_cultivate() and self.avatar.tile.region.essence.get_density(_corres_essence_type) > 0
 
 # 突破境界class
 @long_action(step_month=1)

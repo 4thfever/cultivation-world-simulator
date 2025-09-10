@@ -7,7 +7,8 @@ import json
 from src.classes.calendar import MonthStamp
 from src.classes.action import Action, ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
 from src.classes.world import World
-from src.classes.tile import Tile, Region
+from src.classes.tile import Tile
+from src.classes.region import Region
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age

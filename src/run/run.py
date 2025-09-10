@@ -23,6 +23,7 @@ from src.run.create_map import create_cultivation_world_map
 from src.utils.names import get_random_name
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
+from src.run.log import get_logger
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -90,6 +91,10 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
 
 async def main():
     # 为了每次更丰富，使用随机种子；如需复现可将 seed 固定
+    
+    # 初始化日志系统（会自动清理旧日志）
+    logger = get_logger()
+    print(f"日志系统已初始化，日志文件：{logger.log_file_path}")
 
     game_map = create_cultivation_world_map()
     world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))

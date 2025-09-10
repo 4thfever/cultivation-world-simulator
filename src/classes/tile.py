@@ -1,8 +1,9 @@
-import itertools
 from enum import Enum
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from src.classes.essence import Essence, EssenceType
+if TYPE_CHECKING:
+    from src.classes.region import Region
 
 class TileType(Enum):
     PLAIN = "plain" # 平原
@@ -22,52 +23,6 @@ class TileType(Enum):
     RUINS = "ruins" # 遗迹
     FARM = "farm" # 农田
 
-region_id_counter = itertools.count(1)
-
-
-@dataclass
-class Region():
-    """
-    理想中，一些地块应当在一起组成一个区域。
-    比如，某山；某湖、江、海；某森林；某平原；某城市；
-    一些分布，比如物产，按照Region来分布。
-    再比如，灵气，应当也是按照region分布的。
-    默认，一个region内部的属性，是共通的。
-    同时，NPC应当对Region有观测和认知。
-    """
-    name: str
-    description: str
-    essence: Essence
-    id: int = field(init=False)
-    center_loc: tuple[int, int] = field(init=False)
-    area: int = field(init=False)
-
-    def __post_init__(self):
-        self.id = next(region_id_counter)
-
-    def __str__(self) -> str:
-        return f"区域。名字：{self.name}，描述：{self.description}，最浓的灵气：{self.get_most_dense_essence()}， 灵气值：{self.get_most_dense_essence_value()}"
-
-    def get_most_dense_essence(self) -> EssenceType:
-        return max(self.essence.density.items(), key=lambda x: x[1])[0]
-    
-    def get_most_dense_essence_value(self) -> int:
-        most_dense_essence = self.get_most_dense_essence()
-        return self.essence.density[most_dense_essence]
-
-    def __hash__(self) -> int:
-        return hash(self.id)
-
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, Region):
-            return False
-        return self.id == other.id
-    # 物产
-    # 灵气
-    # 其他
-
-default_region = Region(name="平原", description="最普通的平原，没有什么可说的", essence=Essence(density={EssenceType.GOLD: 1, EssenceType.WOOD: 1, EssenceType.WATER: 1, EssenceType.FIRE: 1, EssenceType.EARTH: 1}))
-default_region.area = 1  # 默认区域面积为1
 
 @dataclass
 class Tile():
@@ -75,7 +30,7 @@ class Tile():
     type: TileType
     x: int
     y: int
-    region: Region # 可以是一个region的一部分，也可以不属于任何region
+    region: 'Region' = None # 可以是一个region的一部分，也可以不属于任何region
 
 class Map():
     """
@@ -83,10 +38,18 @@ class Map():
     """
     def __init__(self, width: int, height: int):
         self.tiles = {}
-        self.regions = {}      # region_id -> region
-        self.region_names = {} # region_name -> region
         self.width = width
         self.height = height
+        
+        # 加载所有region数据到Map中
+        self._load_regions()
+    
+    def _load_regions(self):
+        """从配置文件加载所有区域数据到Map实例中"""
+        # 延迟导入避免循环导入
+        from src.classes.region import load_all_regions
+        
+        self.regions, self.region_names = load_all_regions()
 
     def is_in_bounds(self, x: int, y: int) -> bool:
         """
@@ -95,24 +58,10 @@ class Map():
         return 0 <= x < self.width and 0 <= y < self.height
 
     def create_tile(self, x: int, y: int, tile_type: TileType):
-        self.tiles[(x, y)] = Tile(tile_type, x, y, region=default_region)
+        self.tiles[(x, y)] = Tile(tile_type, x, y, region=None)
 
     def get_tile(self, x: int, y: int) -> Tile:
         return self.tiles[(x, y)]
-
-    def create_region(self, name: str, description: str, essence: Essence, locs: list[tuple[int, int]]):
-        """
-        创建一个region。
-        """
-        region = Region(name=name, description=description, essence=essence)
-        center_loc = self.get_center_locs(locs)
-        for loc in locs:
-            self.tiles[loc].region = region
-        region.center_loc = center_loc
-        region.area = len(locs)
-        self.regions[region.id] = region
-        self.region_names[name] = region
-        return region
 
     def get_center_locs(self, locs: list[tuple[int, int]]) -> tuple[int, int]:
         """
@@ -139,7 +88,7 @@ class Map():
         
         return min(locs, key=distance_squared)
 
-    def get_region(self, x: int, y: int) -> Region | None:
+    def get_region(self, x: int, y: int) -> 'Region | None':
         """
         获取一个region。
         """

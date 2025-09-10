@@ -5,7 +5,8 @@ from src.utils.config import CONFIG
 
 
 def load_csv(path: Path) -> pd.DataFrame:
-    df = pd.read_csv(path)
+    # 跳过第二行说明行，只读取标题行和实际数据行
+    df = pd.read_csv(path, skiprows=[1])
     row_types = {
         "id": int,
         "name": str,

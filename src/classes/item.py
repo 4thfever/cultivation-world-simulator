@@ -12,6 +12,9 @@ class Item:
     desc: str
     grade: int
 
+    def __hash__(self) -> int:
+        return hash(self.id)
+
     def __str__(self) -> str:
         return self.name
 
