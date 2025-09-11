@@ -1,4 +1,4 @@
-from .front import Front
+from .app import Front
 
 __all__ = ["Front"]
 
