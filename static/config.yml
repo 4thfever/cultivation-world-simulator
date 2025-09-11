@@ -15,3 +15,5 @@ game:
   init_npc_num: 3
   npc_birth_rate_per_month: 0.001
 
+df:
+  ids_separator: "，"

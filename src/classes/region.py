@@ -1,10 +1,13 @@
 from dataclasses import dataclass, field
-from typing import Union, TypeVar, Type
+from typing import Union, TypeVar, Type, Optional
 from enum import Enum
 from abc import ABC, abstractmethod
 
 from src.utils.df import game_configs
+from src.utils.config import CONFIG
 from src.classes.essence import EssenceType, Essence
+from src.classes.animal import Animal, animals_by_id
+from src.classes.plant import Plant, plants_by_id
 
 
 def get_tiles_from_shape(shape: 'Shape', north_west_cor: str, south_east_cor: str) -> list[tuple[int, int]]:
@@ -182,13 +185,59 @@ class Shape(Enum):
 class NormalRegion(Region):
     """
     普通区域 - 平原、大河之类的，没有灵气或灵气很低
+    包含该区域分布的动植物物种信息
     """
+    animal_ids: list[int] = field(default_factory=list)  # 该区域分布的动物物种IDs
+    plant_ids: list[int] = field(default_factory=list)   # 该区域分布的植物物种IDs
+    
+    # 这些字段将在__post_init__中设置
+    animals: list[Animal] = field(init=False, default_factory=list)  # 该区域的动物实例
+    plants: list[Plant] = field(init=False, default_factory=list)    # 该区域的植物实例
+    
+    def __post_init__(self):
+        """初始化动植物实例"""
+        # 先调用父类的__post_init__
+        super().__post_init__()
+        
+        # 加载动物实例
+        for animal_id in self.animal_ids:
+            if animal_id in animals_by_id:
+                self.animals.append(animals_by_id[animal_id])
+        
+        # 加载植物实例
+        for plant_id in self.plant_ids:
+            if plant_id in plants_by_id:
+                self.plants.append(plants_by_id[plant_id])
     
     def get_region_type(self) -> str:
         return "normal"
+    
+    def get_species_info(self) -> str:
+        """获取该区域动植物物种的描述信息"""
+        info_parts = []
+        if self.animals:
+            animal_infos = [animal.get_info() for animal in self.animals]
+            info_parts.extend(animal_infos)
+        
+        if self.plants:
+            plant_infos = [plant.get_info() for plant in self.plants]
+            info_parts.extend(plant_infos)
+        
+        return "; ".join(info_parts) if info_parts else "暂无特色物种"
 
     def __str__(self) -> str:
-        return f"普通区域：{self.name} - {self.desc}"
+        species_info = self.get_species_info()
+        return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
+
+    @property
+    def is_huntable(self) -> bool:
+        # 如果该区域有动物，则可以狩猎
+        return len(self.animals) > 0
+
+    @property
+    def is_harvestable(self) -> bool:
+        # 如果该区域有植物，则可以采集
+        return len(self.plants) > 0
 
 
 @dataclass
@@ -261,6 +310,24 @@ def _load_regions(region_type: Type[T], config_name: str) -> tuple[dict[int, T],
         if region_type == CultivateRegion:
             base_params["essence_type"] = EssenceType.from_str(str(row["root_type"]))
             base_params["essence_density"] = int(row["root_density"])
+        
+        # 如果是普通区域，添加动植物ID参数
+        elif region_type == NormalRegion:
+            # 处理动物IDs
+            animal_ids_list = []
+            animal_ids = row.get("animal_ids")
+            if animal_ids is not None and str(animal_ids).strip() and str(animal_ids) != 'nan':
+                for animal_id_str in str(animal_ids).split(CONFIG.df.ids_separator):
+                    animal_ids_list.append(int(float(animal_id_str.strip())))
+            base_params["animal_ids"] = animal_ids_list
+                
+            # 处理植物IDs
+            plant_ids_list = []
+            plant_ids = row.get("plant_ids")
+            if plant_ids is not None and str(plant_ids).strip() and str(plant_ids) != 'nan':
+                for plant_id_str in str(plant_ids).split(CONFIG.df.ids_separator):
+                    plant_ids_list.append(int(float(plant_id_str.strip())))
+            base_params["plant_ids"] = plant_ids_list
         
         region = region_type(**base_params)
         regions_by_id[region.id] = region

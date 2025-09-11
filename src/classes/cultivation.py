@@ -26,6 +26,14 @@ level_to_stage = {
     20: Stage.Late_Stage,
 }
 
+# realm_id到Realm的映射（用于物品等级系统）
+realm_id_to_realm = {
+    1: Realm.Qi_Refinement,
+    2: Realm.Foundation_Establishment,
+    3: Realm.Core_Formation,
+    4: Realm.Nascent_Soul,
+}
+
 level_to_break_through = {
     30: Realm.Foundation_Establishment,
     60: Realm.Core_Formation,
@@ -57,9 +65,9 @@ class CultivationProgress:
                 return realm
         return Realm.Qi_Refinement
 
-    def get_stage(self, level: int) -> str:
+    def get_stage(self, level: int) -> Stage:
         """获取阶段"""
-        _level = self.level % levels_per_realm
+        _level = level % levels_per_realm
         for level_threshold, stage in reversed(list(level_to_stage.items())):
             if _level >= level_threshold:
                 return stage
@@ -156,3 +164,64 @@ class CultivationProgress:
 
     def __str__(self) -> str:
         return f"{self.realm.value}{self.stage.value}({self.level}级)。可以突破：{self.can_break_through()}"
+
+
+# 为Realm类添加from_id类方法
+def _realm_from_id(cls, realm_id: int) -> Realm:
+    """
+    根据realm_id获取对应的Realm
+    
+    Args:
+        realm_id: 境界ID (1-4)
+        
+    Returns:
+        对应的Realm枚举值
+        
+    Raises:
+        ValueError: 如果realm_id不存在
+    """
+    if realm_id not in realm_id_to_realm:
+        raise ValueError(f"Unknown realm_id: {realm_id}")
+    return realm_id_to_realm[realm_id]
+
+# 将from_id方法绑定到Realm类
+Realm.from_id = classmethod(_realm_from_id)
+
+# 境界顺序映射
+_realm_order = {
+    Realm.Qi_Refinement: 1,
+    Realm.Foundation_Establishment: 2,
+    Realm.Core_Formation: 3,
+    Realm.Nascent_Soul: 4,
+}
+
+# 为Realm类添加比较操作符
+def _realm_ge(self, other):
+    """大于等于比较"""
+    if not isinstance(other, Realm):
+        return NotImplemented
+    return _realm_order[self] >= _realm_order[other]
+
+def _realm_le(self, other):
+    """小于等于比较"""
+    if not isinstance(other, Realm):
+        return NotImplemented
+    return _realm_order[self] <= _realm_order[other]
+
+def _realm_gt(self, other):
+    """大于比较"""
+    if not isinstance(other, Realm):
+        return NotImplemented
+    return _realm_order[self] > _realm_order[other]
+
+def _realm_lt(self, other):
+    """小于比较"""
+    if not isinstance(other, Realm):
+        return NotImplemented
+    return _realm_order[self] < _realm_order[other]
+
+# 将比较方法绑定到Realm类
+Realm.__ge__ = _realm_ge
+Realm.__le__ = _realm_le
+Realm.__gt__ = _realm_gt
+Realm.__lt__ = _realm_lt

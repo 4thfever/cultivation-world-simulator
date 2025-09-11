@@ -7,8 +7,9 @@ import inspect
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
-from src.classes.region import Region, CultivateRegion
+from src.classes.region import Region, CultivateRegion, NormalRegion
 from src.classes.event import Event, NULL_EVENT
+from src.classes.item import Item
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -319,7 +320,118 @@ class Play(DefineAction, ActualActionMixin):
     def is_doable(self) -> bool:
         return True
 
-ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play]
-ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play]
-ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play"]
-ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play"]
+
+@long_action(step_month=6)
+class Hunt(DefineAction, ActualActionMixin):
+    """
+    狩猎动作，在有动物的区域进行狩猎，持续6个月
+    可以获得动物对应的物品
+    """
+    COMMENT = "在当前区域狩猎动物，获取动物材料"
+    PARAMS = {}
+    
+    def _execute(self) -> None:
+        """
+        执行狩猎动作
+        """
+        region = self.avatar.tile.region
+        success_rate = self.get_success_rate()
+        
+        if random.random() < success_rate:
+            # 成功狩猎，从avatar境界足够的动物中随机选择一种
+            avatar_realm = self.avatar.cultivation_progress.realm
+            available_animals = [animal for animal in region.animals if avatar_realm >= animal.realm]
+            target_animal = random.choice(available_animals)
+            # 随机选择该动物的一种物品
+            item = random.choice(target_animal.items)
+            self.avatar.add_item(item, 1)
+    
+    def get_success_rate(self) -> float:
+        """
+        获取狩猎成功率，预留接口，目前固定为100%
+        """
+        return 1.0  # 100%成功率
+    
+    def get_event(self) -> Event:
+        """
+        获取狩猎动作开始时的事件
+        """
+        region = self.avatar.tile.region
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始狩猎")
+    
+    @property
+    def is_doable(self) -> bool:
+        """
+        判断是否可以狩猎：必须在有动物的普通区域，且avatar的境界必须大于等于动物的境界
+        """
+        region = self.avatar.tile.region
+        if not isinstance(region, NormalRegion) or len(region.animals) == 0:
+            return False
+        
+        # 检查avatar的境界是否足够狩猎区域内的动物
+        avatar_realm = self.avatar.cultivation_progress.realm
+        for animal in region.animals:
+            if avatar_realm >= animal.realm:
+                return True
+        return False
+
+
+@long_action(step_month=6)
+class Harvest(DefineAction, ActualActionMixin):
+    """
+    采集动作，在有植物的区域进行采集，持续6个月
+    可以获得植物对应的物品
+    """
+    COMMENT = "在当前区域采集植物，获取植物材料"
+    PARAMS = {}
+    
+    def _execute(self) -> None:
+        """
+        执行采集动作
+        """
+        region = self.avatar.tile.region
+        success_rate = self.get_success_rate()
+        
+        if random.random() < success_rate:
+            # 成功采集，从avatar境界足够的植物中随机选择一种
+            avatar_realm = self.avatar.cultivation_progress.realm
+            available_plants = [plant for plant in region.plants if avatar_realm >= plant.realm]
+            target_plant = random.choice(available_plants)
+            # 随机选择该植物的一种物品
+            item = random.choice(target_plant.items)
+            self.avatar.add_item(item, 1)
+    
+    def get_success_rate(self) -> float:
+        """
+        获取采集成功率，预留接口，目前固定为100%
+        """
+        return 1.0  # 100%成功率
+    
+    def get_event(self) -> Event:
+        """
+        获取采集动作开始时的事件
+        """
+        region = self.avatar.tile.region
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集")
+    
+    @property
+    def is_doable(self) -> bool:
+        """
+        判断是否可以采集：必须在有植物的普通区域，且avatar的境界必须大于等于植物的境界
+        """
+        region = self.avatar.tile.region
+        if not isinstance(region, NormalRegion) or len(region.plants) == 0:
+            return False
+        
+        # 检查avatar的境界是否足够采集区域内的植物
+        avatar_realm = self.avatar.cultivation_progress.realm
+        for plant in region.plants:
+            if avatar_realm >= plant.realm:
+                return True
+        return False
+
+
+ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest]
+ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest]
+ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest"]
+ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest"]

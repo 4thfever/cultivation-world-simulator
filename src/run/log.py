@@ -112,6 +112,8 @@ class Logger:
         
         # 记录日志
         log_message = f"LLM_INTERACTION: {json.dumps(log_data, ensure_ascii=False)}"
+        # 将JSON中的\n替换为真正的换行符，使日志更易读
+        log_message = log_message.replace('\\n', '\n')
         self.logger.info(log_message)
     
     def log_error(self, error_message: str, prompt: str = None):
@@ -129,6 +131,8 @@ class Logger:
         }
         
         log_message = f"LLM_ERROR: {json.dumps(log_data, ensure_ascii=False)}"
+        # 将JSON中的\n替换为真正的换行符，使日志更易读
+        log_message = log_message.replace('\\n', '\n')
         self.logger.error(log_message)
     
     def get_today_stats(self) -> dict:

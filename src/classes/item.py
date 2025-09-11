@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from src.utils.df import game_configs
+from src.classes.cultivation import Realm
 
 @dataclass
 class Item:
@@ -10,7 +11,7 @@ class Item:
     id: int
     name: str
     desc: str
-    grade: int
+    realm: Realm
 
     def __hash__(self) -> int:
         return hash(self.id)
@@ -29,7 +30,7 @@ def _load_items() -> tuple[dict[int, Item], dict[str, Item]]:
             id=int(row["id"]),
             name=str(row["name"]),
             desc=str(row["desc"]),
-            grade=int(row["grade"])
+            realm=Realm.from_id(int(row["stage_id"]))
         )
         items_by_id[item.id] = item
         items_by_name[item.name] = item

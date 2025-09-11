@@ -467,15 +467,25 @@ class Front:
             f"描述: {region.desc}",
         ]
         
-        # 根据region类型添加灵气信息
-        from src.classes.region import CultivateRegion
+        # 根据region类型添加特殊信息
+        from src.classes.region import CultivateRegion, NormalRegion
         
         if isinstance(region, CultivateRegion):
-            # 修炼区域：只显示最高灵气类型和密度
+            # 修炼区域：显示灵气信息
             stars = "★" * region.essence_density + "☆" * (10 - region.essence_density)
             lines.append(f"主要灵气: {region.essence_type} {stars}")
+        elif isinstance(region, NormalRegion):
+            # 普通区域：显示物种信息
+            species_info = region.get_species_info()
+            if species_info and species_info != "暂无特色物种":
+                lines.append("物种分布:")
+                # 将详细的物种信息按分号分割，每个物种信息作为单独一行
+                for species in species_info.split("; "):
+                    lines.append(f"  {species}")
+            else:
+                lines.append("物种分布: 暂无特色物种")
         
-        # 普通区域和城市区域不显示灵气信息
+        # 城市区域不显示额外信息
         
         self._draw_tooltip(lines, mouse_x, mouse_y, self.tooltip_font)
 
