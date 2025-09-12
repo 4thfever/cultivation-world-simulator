@@ -150,8 +150,13 @@ class Move(DefineAction, ChunkActionMixin):
         移动到某个tile
         """
         world = self.world
-        new_x = self.avatar.pos_x + delta_x
-        new_y = self.avatar.pos_y + delta_y
+        # 基于境界的移动步长：每轴最多移动 move_step_length 格
+        step = getattr(self.avatar, "move_step_length", 1)
+        clamped_dx = max(-step, min(step, delta_x))
+        clamped_dy = max(-step, min(step, delta_y))
+
+        new_x = self.avatar.pos_x + clamped_dx
+        new_y = self.avatar.pos_y + clamped_dy
 
         # 边界检查：越界则不移动
         if world.map.is_in_bounds(new_x, new_y):
@@ -180,9 +185,10 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         region_center_loc = region.center_loc
         delta_x = region_center_loc[0] - cur_loc[0]
         delta_y = region_center_loc[1] - cur_loc[1]
-        # 横纵向一次最多移动一格（可以同时横纵移动）
-        delta_x = max(-1, min(1, delta_x))
-        delta_y = max(-1, min(1, delta_y))
+        # 横纵向一次最多移动 move_step_length 格（可以同时横纵移动）
+        step = getattr(self.avatar, "move_step_length", 1)
+        delta_x = max(-step, min(step, delta_x))
+        delta_y = max(-step, min(step, delta_y))
         Move(self.avatar, self.world).execute(delta_x, delta_y)
 
     def is_finished(self, region: Region|str) -> bool:

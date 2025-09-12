@@ -114,7 +114,7 @@ class LLMAI(AI):
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
         global_info = world.get_info()
-        avatar_infos = {avatar.id: avatar.get_prompt() for avatar in avatars_to_decide}
+        avatar_infos = {avatar.name: avatar.get_prompt() for avatar in avatars_to_decide}
         info = {
             "avatar_infos": avatar_infos,
             "global_info": global_info,
@@ -122,9 +122,9 @@ class LLMAI(AI):
         res = await get_ai_prompt_and_call_llm_async(info)
         results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]] = {}
         for avatar in avatars_to_decide:
-            action_name = res[avatar.id]["action_name"]
-            action_params = res[avatar.id]["action_params"]
-            avatar_thinking = res[avatar.id]["avatar_thinking"]
+            action_name = res[avatar.name]["action_name"]
+            action_params = res[avatar.name]["action_params"]
+            avatar_thinking = res[avatar.name]["avatar_thinking"]
             results[avatar] = (action_name, action_params, avatar_thinking)
         return results
 

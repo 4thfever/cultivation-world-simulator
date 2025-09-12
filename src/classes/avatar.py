@@ -297,6 +297,13 @@ class Avatar:
         
         return f"{info}\n其个性为：{persona}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的个性。\n该角色的动作空间及其参数为：{action_space}"
 
+    @property
+    def move_step_length(self) -> int:
+        """
+        获取角色的移动步长
+        """
+        return int(self.cultivation_progress.realm.value)
+
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
     从凡人中来的新修士

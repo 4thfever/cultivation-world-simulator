@@ -1,12 +1,12 @@
 你是一个决策者，这是一个修仙的仙侠世界，你负责来决定一些NPC的下一步行为。
 {global_info}
-你需要进行决策的NPC的dict[AvatarId, info]为
+你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
 
 注意，只返回json格式的结果。
 分Avatar进行返回，格式为：
 {{
-    AvatarId: {{
+    AvatarName: {{
         "thinking": ..., // 简单思考应该怎么决策
         "action_name": ...,
         "action_params": ...,
