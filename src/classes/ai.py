@@ -113,7 +113,7 @@ class LLMAI(AI):
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
-        global_info = world.get_prompt()
+        global_info = world.get_info()
         avatar_infos = {avatar.id: avatar.get_prompt() for avatar in avatars_to_decide}
         info = {
             "avatar_infos": avatar_infos,

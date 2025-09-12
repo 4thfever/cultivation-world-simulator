@@ -7,9 +7,10 @@ import inspect
 
 from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, corres_essence_type
-from src.classes.region import Region, CultivateRegion, NormalRegion
+from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
 from src.classes.event import Event, NULL_EVENT
-from src.classes.item import Item
+from src.classes.item import Item, items_by_name
+from src.classes.prices import prices
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -431,7 +432,52 @@ class Harvest(DefineAction, ActualActionMixin):
         return False
 
 
-ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest]
-ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest]
-ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest"]
-ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest"]
+@long_action(step_month=1)
+class Sold(DefineAction, ActualActionMixin):
+    """
+    在城镇出售指定名称的物品，一次性卖出持有的全部数量。
+    收益为 item_price * item_num，动作耗时1个月。
+    """
+    COMMENT = "在城镇出售持有的某类物品的全部"
+    PARAMS = {"item_name": "str"}
+
+    def _execute(self, item_name: str) -> None:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return
+
+        # 找到物品
+        item = items_by_name.get(item_name)
+        if item is None:
+            return
+
+        # 检查持有数量
+        quantity = self.avatar.get_item_quantity(item)
+        if quantity <= 0:
+            return
+
+        # 计算价格并结算
+        price_per = prices.get_price(item)
+        total_gain = price_per * quantity
+
+        # 扣除物品并增加灵石
+        removed = self.avatar.remove_item(item, quantity)
+        if not removed:
+            return
+
+        self.avatar.magic_stone = self.avatar.magic_stone + total_gain
+
+    def get_event(self, item_name: str) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}")
+
+    @property
+    def is_doable(self) -> bool:
+        # 只允许在城镇且背包非空时出现在动作空间
+        region = self.avatar.tile.region
+        return isinstance(region, CityRegion) and bool(self.avatar.items)
+
+
+ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest, Sold]
+ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest, Sold]
+ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]
+ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]

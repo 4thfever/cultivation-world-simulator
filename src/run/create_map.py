@@ -1,4 +1,5 @@
-from src.classes.tile import Map, TileType
+from src.classes.map import Map
+from src.classes.tile import TileType
 from src.classes.essence import Essence, EssenceType
 
 def create_cultivation_world_map() -> Map:

@@ -11,11 +11,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from src.front.front import Front
 from src.sim.simulator import Simulator
 from src.classes.world import World
-from src.classes.tile import Map, TileType
+from src.classes.map import Map
+from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
 from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
-from src.classes.action import Move
-from src.classes.essence import Essence, EssenceType
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
