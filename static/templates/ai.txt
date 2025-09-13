@@ -2,14 +2,21 @@
 {global_info}
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
+通用的动作说明为：
+{general_action_infos}
 
 注意，只返回json格式的结果。
 分Avatar进行返回，格式为：
 {{
     AvatarName: {{
         "thinking": ..., // 简单思考应该怎么决策
-        "action_name": ...,
-        "action_params": ...,
-        "avatar_thinking": ..., // 从角色角度，以第一人称视角，描述心态，符合世界观
+        "objective": ..., // 角色接下来一段时间的目标
+        // 基于objective，一次性决定未来的3~8个动作，按顺序执行
+        "action_name_params_pairs": list[Tuple[action_name, action_params]],
+        "avatar_thinking": ... // 从角色角度，以第一人称视角，基于action_name_params_pairs描述想法
     }}
 }}
+
+要求与约束：
+- 若需要先移动再修炼，请将 "MoveToRegion" 放在前面，随后接 "Cultivate"。
+- 若当前可突破，可在合适时机插入 "Breakthrough"。

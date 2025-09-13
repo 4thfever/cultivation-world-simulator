@@ -13,8 +13,9 @@ from src.classes.region import Region
 from src.classes.root import corres_essence_type
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async
-from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
+from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_NAME_PARAMS_PAIRS
 from src.utils.config import CONFIG
+from src.classes.action import ACTION_INFOS_STR
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -27,10 +28,10 @@ class AI(ABC):
     """
 
     @abstractmethod
-    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple]:
         pass
 
-    async def decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, Event]]:
+    async def decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str, Event]]:
         """
         决定做什么，同时生成对应的事件。
         一个ai支持批量生成多个avatar的动作。
@@ -42,10 +43,17 @@ class AI(ABC):
             results.update(await self._decide(world, avatars_to_decide[i:i+max_decide_num]))
 
         for avatar, result in list(results.items()):
-            action_name, action_params, avatar_thinking = result
-            action = avatar.create_action(action_name)
-            event = action.get_event(**action_params)
-            results[avatar] = (action_name, action_params, avatar_thinking, event)
+            # 兼容：RuleAI 返回单动作，LLMAI 返回动作链
+            if result and isinstance(result[0], list):
+                action_name_params_pairs, avatar_thinking, objective = result  # type: ignore
+            else:
+                action_name, action_params, avatar_thinking, objective = result  # type: ignore
+                action_name_params_pairs = [(action_name, action_params)]
+            # 只为队列中的第一个动作生成事件
+            first_action_name, first_action_params = action_name_params_pairs[0]
+            action = avatar.create_action(first_action_name)
+            event = action.get_event(**first_action_params)
+            results[avatar] = (action_name_params_pairs, avatar_thinking, objective, event)
 
         return results
 
@@ -54,7 +62,7 @@ class RuleAI(AI):
     规则AI（批量接口，内部逐个决策）
     """
 
-    def __decide(self, world: World, avatar: "Avatar", regions: list[Region]) -> tuple[ACTION_NAME, ACTION_PARAMS, str]:
+    def __decide(self, world: World, avatar: "Avatar", regions: list[Region]) -> tuple[ACTION_NAME, ACTION_PARAMS, str, str]:
         """
         单个 Avatar 的决策逻辑。
         先做一个简单的：
@@ -65,24 +73,24 @@ class RuleAI(AI):
         5. 如果需要突破境界了，则突破境界
         """
         if random.random() < 0.1:
-            return ("Play", {}, "")
+            return ("Play", {}, "", "放松一下，缓解修行压力")
 
         best_region = self.get_best_region_for_avatar(avatar, regions)
 
         if avatar.is_in_region(best_region):
             if avatar.cultivation_progress.can_break_through():
-                return ("Breakthrough", {}, "")
+                return ("Breakthrough", {}, "", "尽快突破到更高境界")
             else:
-                return ("Cultivate", {}, "")
+                return ("Cultivate", {}, "", "稳步提升修为")
         else:
-            return ("MoveToRegion", {"region": best_region.name}, "")
+            return ("MoveToRegion", {"region": best_region.name}, "", f"前往{best_region.name}修行")
 
-    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, str]]:
         """
         决策逻辑：批量接口的实现上，逐个 Avatar 调用 __decide 进行独立决策，
         以保持规则AI的可控性与可测试性。
         """
-        results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]] = {}
+        results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str, str]] = {}
         regions: list[Region] = list(world.map.regions.values())
 
         for avatar in avatars_to_decide:
@@ -109,23 +117,40 @@ class LLMAI(AI):
         2. 突发应对动作，比如突然有人要攻击NPC，这个时候的反应
     """
 
-    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]]:
+    async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str]]:
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
         global_info = world.get_info()
-        avatar_infos = {avatar.name: avatar.get_prompt() for avatar in avatars_to_decide}
+        avatar_infos = {avatar.name: avatar.get_prompt_info() for avatar in avatars_to_decide}
+        general_action_infos = ACTION_INFOS_STR
         info = {
             "avatar_infos": avatar_infos,
             "global_info": global_info,
+            "general_action_infos": general_action_infos,
         }
         res = await get_ai_prompt_and_call_llm_async(info)
-        results: dict[Avatar, tuple[ACTION_NAME, ACTION_PARAMS, str]] = {}
+        results: dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str]] = {}
         for avatar in avatars_to_decide:
-            action_name = res[avatar.name]["action_name"]
-            action_params = res[avatar.name]["action_params"]
-            avatar_thinking = res[avatar.name]["avatar_thinking"]
-            results[avatar] = (action_name, action_params, avatar_thinking)
+            r = res[avatar.name]
+            # 仅接受 action_name_params_pairs，不再支持单个 action_name/action_params
+            raw_pairs = r["action_name_params_pairs"]
+            pairs: ACTION_NAME_PARAMS_PAIRS = []
+            for p in raw_pairs:
+                if isinstance(p, list) and len(p) == 2:
+                    pairs.append((p[0], p[1]))
+                elif isinstance(p, dict) and "action_name" in p and "action_params" in p:
+                    pairs.append((p["action_name"], p["action_params"]))
+                else:
+                    # 跳过无法解析的项
+                    continue
+            # 至少有一个
+            if not pairs:
+                raise ValueError(f"LLM未返回有效的action_name_params_pairs: {r}")
+
+            avatar_thinking = r.get("avatar_thinking", r.get("thinking", ""))
+            objective = r.get("objective", "")
+            results[avatar] = (pairs, avatar_thinking, objective)
         return results
 
 llm_ai = LLMAI()

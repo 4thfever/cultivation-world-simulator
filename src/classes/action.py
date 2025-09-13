@@ -65,6 +65,15 @@ class Action(ABC):
     def execute(self) -> None:
         pass
 
+
+    @property
+    def name(self) -> str:
+        """
+        获取动作名称
+        """
+        return str(self.__class__.__name__)
+
+
 class DefineAction(Action):
     def __init__(self, avatar: Avatar, world: World):
         """
@@ -173,6 +182,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     移动到某个region
     """
     COMMENT = "移动到某个区域"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"region": "region_name"}
     def _execute(self, region: Region|str) -> None:
         """
@@ -228,6 +238,7 @@ class Cultivate(DefineAction, ActualActionMixin):
     修炼动作，可以增加修仙进度。
     """
     COMMENT = "修炼，增进修为"
+    DOABLES_REQUIREMENTS = "在修炼区域中，角色不可以突破"
     PARAMS = {}
     def _execute(self) -> None:
         """
@@ -272,6 +283,7 @@ class Breakthrough(DefineAction, ActualActionMixin):
     突破境界
     """
     COMMENT = "尝试突破境界"
+    DOABLES_REQUIREMENTS = "角色可以突破时"
     PARAMS = {}
     def calc_success_rate(self) -> float:
         """
@@ -307,6 +319,7 @@ class Play(DefineAction, ActualActionMixin):
     游戏娱乐动作，持续半年时间
     """
     COMMENT = "游戏娱乐，放松身心"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {}
     
     def _execute(self) -> None:
@@ -335,6 +348,7 @@ class Hunt(DefineAction, ActualActionMixin):
     可以获得动物对应的物品
     """
     COMMENT = "在当前区域狩猎动物，获取动物材料"
+    DOABLES_REQUIREMENTS = "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
     PARAMS = {}
     
     def _execute(self) -> None:
@@ -390,6 +404,7 @@ class Harvest(DefineAction, ActualActionMixin):
     可以获得植物对应的物品
     """
     COMMENT = "在当前区域采集植物，获取植物材料"
+    DOABLES_REQUIREMENTS = "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
     PARAMS = {}
     
     def _execute(self) -> None:
@@ -445,6 +460,7 @@ class Sold(DefineAction, ActualActionMixin):
     收益为 item_price * item_num，动作耗时1个月。
     """
     COMMENT = "在城镇出售持有的某类物品的全部"
+    DOABLES_REQUIREMENTS = "在城镇且背包非空"
     PARAMS = {"item_name": "str"}
 
     def _execute(self, item_name: str) -> None:
@@ -487,3 +503,12 @@ ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play, Hunt, H
 ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest, Sold]
 ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]
 ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]
+
+ACTION_INFOS = {
+    action.__name__: {
+        "comment": action.COMMENT,
+        "doable_requirements": action.DOABLES_REQUIREMENTS,
+        "params": action.PARAMS,
+    } for action in ALL_ACTUAL_ACTION_CLASSES
+}
+ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False)

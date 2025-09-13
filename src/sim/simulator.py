@@ -27,7 +27,20 @@ class Simulator:
         death_avatar_ids = [] # list of str
 
         # 决定动作行为
-        avatars_to_decide = [avatar for avatar in list(self.avatars.values()) if avatar.cur_action_pair is None]
+        avatars_to_decide = []
+        for avatar in list(self.avatars.values()):
+            if avatar.cur_action_pair is None:
+                # 若有排队动作但当前不可执行：丢弃之后的所有动作
+                if avatar.has_next_actions():
+                    if not avatar.is_next_action_doable():
+                        avatar.next_actions.clear()
+                        avatars_to_decide.append(avatar)
+                    else:
+                        event = avatar.pop_next_action_and_set_current()
+                        if event is not None and not is_null_event(event):
+                            events.append(event)
+                else:
+                    avatars_to_decide.append(avatar)
         if CONFIG.ai.mode == "llm":
             ai = llm_ai
         else:
@@ -35,8 +48,8 @@ class Simulator:
         if avatars_to_decide:   
             decide_results = await ai.decide(self.world, avatars_to_decide)
             for avatar, result in decide_results.items():
-                action_name, action_args, avatar_thinking, event = result
-                avatar.load_decide_result(action_name, action_args, avatar_thinking)
+                action_name_params_pairs, avatar_thinking, objective, event = result
+                avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, objective)
                 if not is_null_event(event):
                     events.append(event)
         

@@ -143,6 +143,11 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
         lines.append("思考:")
         thinking_lines = wrap_text(avatar.thinking, 20)
         lines.extend(thinking_lines)
+    if getattr(avatar, "objective", None):
+        lines.append("")
+        lines.append("目标:")
+        objective_lines = wrap_text(avatar.objective, 20)
+        lines.extend(objective_lines)
     draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font)
 
 

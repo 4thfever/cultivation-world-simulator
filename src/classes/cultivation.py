@@ -11,30 +11,30 @@ class Stage(Enum):
     Middle_Stage = "中期"
     Late_Stage = "后期"
 
-levels_per_realm = 30
-levels_per_stage = 10
+LEVELS_PER_REALM = 30
+LEVELS_PER_STAGE = 10
 
-level_to_realm = {
+LEVEL_TO_REALM = {
     0: Realm.Qi_Refinement,
     30: Realm.Foundation_Establishment,
     60: Realm.Core_Formation,
     90: Realm.Nascent_Soul,
 }
-level_to_stage = {
+LEVEL_TO_STAGE = {
     0: Stage.Early_Stage,
     10: Stage.Middle_Stage,
     20: Stage.Late_Stage,
 }
 
 # realm_id到Realm的映射（用于物品等级系统）
-realm_id_to_realm = {
+REALM_ID_TO_REALM = {
     1: Realm.Qi_Refinement,
     2: Realm.Foundation_Establishment,
     3: Realm.Core_Formation,
     4: Realm.Nascent_Soul,
 }
 
-level_to_break_through = {
+LEVEL_TO_BREAK_THROUGH = {
     30: Realm.Foundation_Establishment,
     60: Realm.Core_Formation,
     90: Realm.Nascent_Soul,
@@ -60,21 +60,31 @@ class CultivationProgress:
 
     def get_realm(self, level: int) -> str:
         """获取境界"""
-        for level_threshold, realm in reversed(list(level_to_realm.items())):
+        for level_threshold, realm in reversed(list(LEVEL_TO_REALM.items())):
             if level >= level_threshold:
                 return realm
         return Realm.Qi_Refinement
 
     def get_stage(self, level: int) -> Stage:
         """获取阶段"""
-        _level = level % levels_per_realm
-        for level_threshold, stage in reversed(list(level_to_stage.items())):
+        _level = level % LEVELS_PER_REALM
+        for level_threshold, stage in reversed(list(LEVEL_TO_STAGE.items())):
             if _level >= level_threshold:
                 return stage
         return Stage.Early_Stage
 
+    def get_month_step(self) -> int:
+        """
+        每月能够移动的距离，
+        练气，筑基为1
+        金丹，元婴为2
+        """
+        return int(self.level // LEVELS_PER_REALM * 2) + 1
+
     def __str__(self) -> str:
-        return f"{self.realm.value}{self.stage.value}({self.level}级)"
+        can_break_through = self.can_break_through()
+        can_break_through_str = "可以突破" if can_break_through else "不可以突破"
+        return f"{self.realm.value}{self.stage.value}({self.level}级){can_break_through_str}"
 
     def get_exp_required(self) -> int:
         """
@@ -146,7 +156,7 @@ class CultivationProgress:
         """
         检查是否可以突破
         """
-        return self.level in level_to_break_through.keys()
+        return self.level in LEVEL_TO_BREAK_THROUGH.keys()
 
     def can_cultivate(self) -> bool:
         """
@@ -180,15 +190,15 @@ def _realm_from_id(cls, realm_id: int) -> Realm:
     Raises:
         ValueError: 如果realm_id不存在
     """
-    if realm_id not in realm_id_to_realm:
+    if realm_id not in REALM_ID_TO_REALM:
         raise ValueError(f"Unknown realm_id: {realm_id}")
-    return realm_id_to_realm[realm_id]
+    return REALM_ID_TO_REALM[realm_id]
 
 # 将from_id方法绑定到Realm类
 Realm.from_id = classmethod(_realm_from_id)
 
 # 境界顺序映射
-_realm_order = {
+_REALM_ORDER = {
     Realm.Qi_Refinement: 1,
     Realm.Foundation_Establishment: 2,
     Realm.Core_Formation: 3,
@@ -200,25 +210,25 @@ def _realm_ge(self, other):
     """大于等于比较"""
     if not isinstance(other, Realm):
         return NotImplemented
-    return _realm_order[self] >= _realm_order[other]
+    return _REALM_ORDER[self] >= _REALM_ORDER[other]
 
 def _realm_le(self, other):
     """小于等于比较"""
     if not isinstance(other, Realm):
         return NotImplemented
-    return _realm_order[self] <= _realm_order[other]
+    return _REALM_ORDER[self] <= _REALM_ORDER[other]
 
 def _realm_gt(self, other):
     """大于比较"""
     if not isinstance(other, Realm):
         return NotImplemented
-    return _realm_order[self] > _realm_order[other]
+    return _REALM_ORDER[self] > _REALM_ORDER[other]
 
 def _realm_lt(self, other):
     """小于比较"""
     if not isinstance(other, Realm):
         return NotImplemented
-    return _realm_order[self] < _realm_order[other]
+    return _REALM_ORDER[self] < _REALM_ORDER[other]
 
 # 将比较方法绑定到Realm类
 Realm.__ge__ = _realm_ge

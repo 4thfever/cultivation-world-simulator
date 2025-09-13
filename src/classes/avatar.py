@@ -12,8 +12,8 @@ from src.classes.region import Region
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from src.classes.event import NULL_EVENT
-from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR
+from src.classes.event import NULL_EVENT, Event
+from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
 
 from src.classes.persona import Persona, personas_by_id
 from src.classes.item import Item
@@ -57,7 +57,9 @@ class Avatar:
     persona: Persona = field(default_factory=lambda: random.choice(list(personas_by_id.values())))
     cur_action_pair: Optional[ACTION_PAIR] = None
     history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
+    next_actions: ACTION_NAME_PARAMS_PAIRS = field(default_factory=list)
     thinking: str = ""
+    objective: str = ""
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0)) # 灵石，即货币
     items: dict[Item, int] = field(default_factory=dict)
 
@@ -100,10 +102,61 @@ class Avatar:
         
         raise ValueError(f"未找到名为 '{action_name}' 的动作类")
 
-    def load_decide_result(self, action_name: ACTION_NAME, action_args: ACTION_PARAMS, avatar_thinking: str):
-        action = self.create_action(action_name)
+    def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, objective: str):
+        """
+        加载AI的决策结果（动作链），立即设置第一个为当前动作，其余进入队列。
+        """
+        if not action_name_params_pairs:
+            return
+        first_action_name, first_action_params = action_name_params_pairs[0]
+        action = self.create_action(first_action_name)
         self.thinking = avatar_thinking
-        self.cur_action_pair = (action, action_args)
+        self.objective = objective
+        self.cur_action_pair = (action, first_action_params)
+        # 余下的动作进入队列
+        if len(action_name_params_pairs) > 1:
+            self.next_actions.extend(action_name_params_pairs[1:])
+
+    def has_next_actions(self) -> bool:
+        return len(self.next_actions) > 0
+
+    def pop_next_action_and_set_current(self) -> Optional[Event]:
+        """
+        从队列中取出下一个动作并设置为当前动作，同时返回开始事件。
+        若队列为空则返回None。
+        """
+        if not self.next_actions:
+            return None
+        action_name, action_params = self.next_actions.pop(0)
+        action = self.create_action(action_name)
+        self.cur_action_pair = (action, action_params)
+        try:
+            event = action.get_event(**action_params)
+        except TypeError:
+            # 兼容无参数的 get_event 定义
+            event = action.get_event()
+        return event
+
+    def peek_next_action(self) -> Optional[ACTION_NAME_PARAMS_PAIR]:
+        """
+        查看下一个动作但不弹出。
+        """
+        if not self.next_actions:
+            return None
+        return self.next_actions[0]
+
+    def is_next_action_doable(self) -> bool:
+        """
+        判断队列中的下一个动作当前是否可执行。
+        若没有下一个动作，返回False。
+        """
+        pair = self.peek_next_action()
+        if pair is None:
+            return False
+        action_name, _ = pair
+        action = self.create_action(action_name)
+        # 动作的 is_doable 定义为 @property
+        return bool(getattr(action, "is_doable", True))
 
     async def act(self):
         """
@@ -262,7 +315,7 @@ class Avatar:
         """
         获取历史动作对的字符串
         """
-        return "\n".join([f"{action.__class__.__name__}: {action_params}" for action, action_params in self.history_action_pairs])
+        return "\n".join([f"{action.name}: {action_params}" for action, action_params in self.history_action_pairs])
 
     def get_action_space_str(self) -> str:
         action_space = self.get_action_space()
@@ -275,12 +328,12 @@ class Avatar:
         """
         actual_actions = [self.create_action(action_cls_name) for action_cls_name in ALL_ACTUAL_ACTION_NAMES]
         doable_actions = [action for action in actual_actions if action.is_doable]
-        action_space = [{"action": action.__class__.__name__, "params": action.PARAMS, "comment": action.COMMENT} for action in doable_actions]
+        action_space = [action.name for action in doable_actions]
         return action_space
 
-    def get_prompt(self) -> str:
+    def get_prompt_info(self) -> str:
         """
-        获取角色提示词
+        获取角色提示词信息
         """
         info = self.get_info()
         persona = self.persona.prompt
@@ -295,14 +348,14 @@ class Avatar:
         else:
             items_info = "物品持有情况：无"
         
-        return f"{info}\n其个性为：{persona}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的个性。\n该角色的动作空间及其参数为：{action_space}"
+        return f"{info}\n其个性为：{persona}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的个性。\n该角色的目前暂时的合法动作为：{action_space}"
 
     @property
     def move_step_length(self) -> int:
         """
         获取角色的移动步长
         """
-        return int(self.cultivation_progress.realm.value)
+        return self.cultivation_progress.get_month_step()
 
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
