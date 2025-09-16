@@ -11,6 +11,7 @@ from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
 from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
 from src.classes.prices import prices
+from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -298,7 +299,33 @@ class Breakthrough(DefineAction, ActualActionMixin):
         assert self.avatar.cultivation_progress.can_break_through()   
         success_rate = self.calc_success_rate()
         if random.random() < success_rate:
+            old_realm = self.avatar.cultivation_progress.realm
             self.avatar.cultivation_progress.break_through()
+            new_realm = self.avatar.cultivation_progress.realm
+            
+            # 突破成功时更新HP和MP的最大值
+            if new_realm != old_realm:
+                self._update_hp_mp_on_breakthrough(new_realm)
+    
+    def _update_hp_mp_on_breakthrough(self, new_realm):
+        """
+        突破境界时更新HP和MP的最大值并完全恢复
+        
+        Args:
+            new_realm: 新的境界
+        """
+        new_max_hp = HP_MAX_BY_REALM.get(new_realm, 100)
+        new_max_mp = MP_MAX_BY_REALM.get(new_realm, 100)
+        
+        # 计算增加的最大值
+        hp_increase = new_max_hp - self.avatar.hp.max
+        mp_increase = new_max_mp - self.avatar.mp.max
+        
+        # 更新最大值并恢复相应的当前值
+        self.avatar.hp.add_max(hp_increase)
+        self.avatar.hp.recover(hp_increase)  # 突破时完全恢复HP
+        self.avatar.mp.add_max(mp_increase)
+        self.avatar.mp.recover(mp_increase)  # 突破时完全恢复MP
     
     def get_event(self) -> Event:
         """

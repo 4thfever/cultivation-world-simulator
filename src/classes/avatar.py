@@ -18,6 +18,7 @@ from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_
 from src.classes.persona import Persona, personas_by_id
 from src.classes.item import Item
 from src.classes.magic_stone import MagicStone
+from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 
@@ -62,12 +63,20 @@ class Avatar:
     objective: str = ""
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0)) # 灵石，即货币
     items: dict[Item, int] = field(default_factory=dict)
+    hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
+    mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
 
     def __post_init__(self):
         """
-        在Avatar创建后自动初始化tile
+        在Avatar创建后自动初始化tile和HP/MP
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
+        
+        # 根据当前境界初始化HP和MP
+        max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
+        max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
+        self.hp = HP(max_hp, max_hp)
+        self.mp = MP(max_mp, max_mp)
 
     def __hash__(self) -> int:
         return hash(self.id)
@@ -77,7 +86,7 @@ class Avatar:
         获取avatar的详细信息
         尽量多打一些，因为会用来给LLM进行决策
         """
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress})"
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp})"
 
     def __str__(self) -> str:
         return self.get_info()

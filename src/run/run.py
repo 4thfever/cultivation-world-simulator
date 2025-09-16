@@ -108,7 +108,7 @@ async def main():
         simulator=sim,
         tile_size=19,  # 减小20%的tile大小 (24 * 0.8 ≈ 19)
         margin=8,
-        step_interval_ms=350,
+        step_interval_ms=750,
         window_title="Cultivation World — Front Demo",
         sidebar_width=350,  # 新增：设置侧边栏宽度
     )
