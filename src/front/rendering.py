@@ -129,9 +129,10 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
         f"HP: {avatar.hp}",
         f"MP: {avatar.mp}",
         f"灵根: {avatar.root.value}",
-        f"个性: {avatar.persona.name}",
+        f"个性: {', '.join([persona.name for persona in avatar.personas])}",
         f"位置: ({avatar.pos_x}, {avatar.pos_y})",
     ]
+
     lines.append(f"灵石: {str(avatar.magic_stone)}")
     if avatar.items:
         lines.append("物品:")

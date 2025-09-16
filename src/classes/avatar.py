@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 import json
 
 from src.classes.calendar import MonthStamp
@@ -15,12 +15,14 @@ from src.classes.age import Age
 from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
 
-from src.classes.persona import Persona, personas_by_id
+from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
 from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
+
+persona_num = CONFIG.avatar.persona_num
 
 class Gender(Enum):
     MALE = "male"
@@ -55,7 +57,7 @@ class Avatar:
     tile: Optional[Tile] = None
 
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
-    persona: Persona = field(default_factory=lambda: random.choice(list(personas_by_id.values())))
+    personas: List[Persona] = field(default_factory=list)
     cur_action_pair: Optional[ACTION_PAIR] = None
     history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
     next_actions: ACTION_NAME_PARAMS_PAIRS = field(default_factory=list)
@@ -77,6 +79,10 @@ class Avatar:
         max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
         self.hp = HP(max_hp, max_hp)
         self.mp = MP(max_mp, max_mp)
+        
+        # 如果personas列表为空，则随机分配两个不互斥的persona
+        if not self.personas:
+            self.personas = get_random_compatible_personas(persona_num)
 
     def __hash__(self) -> int:
         return hash(self.id)
@@ -86,7 +92,8 @@ class Avatar:
         获取avatar的详细信息
         尽量多打一些，因为会用来给LLM进行决策
         """
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp})"
+        personas_str = ", ".join([persona.name for persona in self.personas])
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
 
     def __str__(self) -> str:
         return self.get_info()
@@ -345,8 +352,13 @@ class Avatar:
         获取角色提示词信息
         """
         info = self.get_info()
-        persona = self.persona.prompt
         action_space = self.get_action_space_str()
+        
+        # 构建personas的提示词信息
+        personas_prompts = []
+        for i, persona in enumerate(self.personas, 1):
+            personas_prompts.append(f"其个性{i}：{persona.prompt}")
+        personas_info = "\n".join(personas_prompts)
         
         # 添加灵石信息
         magic_stone_info = f"灵石持有情况：{str(self.magic_stone)}"
@@ -357,7 +369,8 @@ class Avatar:
         else:
             items_info = "物品持有情况：无"
         
-        return f"{info}\n其个性为：{persona}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的个性。\n该角色的目前暂时的合法动作为：{action_space}"
+        personas_count = len(self.personas)
+        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的{personas_count}个个性特点。\n该角色的目前暂时的合法动作为：{action_space}"
 
     @property
     def move_step_length(self) -> int:
