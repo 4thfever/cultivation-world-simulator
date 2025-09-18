@@ -21,6 +21,7 @@ from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
+from src.classes.relation import Relation
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -67,6 +68,7 @@ class Avatar:
     items: dict[Item, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
     mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
+    relations: dict["Avatar", Relation] = field(default_factory=dict)
 
     def __post_init__(self):
         """
@@ -369,8 +371,60 @@ class Avatar:
         else:
             items_info = "物品持有情况：无"
         
+        # 关系摘要
+        relations_summary = self._get_relations_summary_str()
+
         personas_count = len(self.personas)
-        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n决策时需参考这个角色的{personas_count}个个性特点。\n该角色的目前暂时的合法动作为：{action_space}"
+        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n关系：{relations_summary}\n决策时需参考这个角色的{personas_count}个个性特点。\n该角色的目前暂时的合法动作为：{action_space}"
+
+    def set_relation(self, other: "Avatar", relation: Relation) -> None:
+        """
+        设置与另一个角色的关系（对称）。
+        """
+        if other is self:
+            return
+        self.relations[other] = relation
+        # 保持对称
+        if getattr(other, "relations", None) is not None:
+            other.relations[self] = relation
+
+    def get_relation(self, other: "Avatar") -> Optional[Relation]:
+        return self.relations.get(other)
+
+    def clear_relation(self, other: "Avatar") -> None:
+        self.relations.pop(other, None)
+        if getattr(other, "relations", None) is not None:
+            other.relations.pop(self, None)
+
+    def _get_relations_summary_str(self, max_count: int = 8) -> str:
+        entries: list[str] = []
+        for other in self.relations.keys():
+            entries.append(self.get_other_avatar_info(other))
+        if not entries:
+            return "无"
+        return "，".join(entries[:max_count])
+
+    def get_co_region_avatars(self, avatars: List["Avatar"]) -> List["Avatar"]:
+        """
+        返回与自己处于同一区域的角色列表（不含自己）。
+        """
+        if self.tile is None:
+            return []
+        same_region: list[Avatar] = []
+        for other in avatars:
+            if other is self or other.tile is None:
+                continue
+            if other.tile.region == self.tile.region:
+                same_region.append(other)
+        return same_region
+
+    def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
+        """
+        仅显示三个字段：名字、境界、关系。
+        """
+        relation = self.get_relation(other_avatar)
+        relation_str = str(relation)
+        return f"{other_avatar.name}，境界：{str(other_avatar.cultivation_progress)}，关系：{relation_str}"
 
     @property
     def move_step_length(self) -> int:

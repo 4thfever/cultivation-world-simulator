@@ -3,6 +3,7 @@ from typing import List, Optional, Tuple, Callable
 from src.classes.avatar import Avatar, Gender
 from src.classes.tile import TileType
 from src.utils.text_wrap import wrap_text
+from src.classes.relation import Relation
 
 
 def draw_grid(pygame_mod, screen, colors, map_obj, ts: int, m: int):
@@ -164,6 +165,16 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
         lines.append("目标:")
         objective_lines = wrap_text(avatar.objective, 20)
         lines.extend(objective_lines)
+
+    # 关系信息
+    relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(avatar, "relations", {}).items()]
+    lines.append("")
+    if relations_list:
+        lines.append("关系:")
+        for s in relations_list[:6]:
+            lines.append(f"  {s}")
+    else:
+        lines.append("关系: 无")
     draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font)
 
 
