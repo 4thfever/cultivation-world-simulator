@@ -69,6 +69,10 @@ class Front:
 
         self.clock = pygame.time.Clock()
 
+        # 渲染插值状态：avatar_id -> {start_px, start_py, target_px, target_py, start_ms, duration_ms}
+        self._avatar_display_states: Dict[str, Dict[str, float]] = {}
+        self._init_avatar_display_states()
+
     def add_events(self, new_events: List[Event]):
         self.events.extend(new_events)
         if len(self.events) > 1000:
@@ -79,6 +83,8 @@ class Front:
         if events:
             self.add_events(events)
         self._last_step_ms = 0
+        # 步进完成后，更新插值目标
+        self._update_avatar_display_targets()
 
     async def run_async(self):
         pygame = self.pygame
@@ -105,6 +111,8 @@ class Front:
             if current_step_task and current_step_task.done():
                 await current_step_task
                 current_step_task = None
+                # 再次确保目标同步（防止外部触发的状态变更遗漏）
+                self._update_avatar_display_targets()
             self._render()
             await asyncio.sleep(0.016)
         pygame.quit()
@@ -124,7 +132,14 @@ class Front:
         )
         self._assign_avatar_images()
         hovered_avatar = draw_avatars_and_pick_hover(
-            pygame, self.screen, self.colors, self.simulator, self.avatar_images, self.tile_size, self.margin
+            pygame,
+            self.screen,
+            self.colors,
+            self.simulator,
+            self.avatar_images,
+            self.tile_size,
+            self.margin,
+            self._get_display_center,
         )
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
         draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, self._auto_step)
@@ -150,6 +165,75 @@ class Front:
                     self.avatar_images[avatar_id] = random.choice(self.male_avatars)
                 elif avatar.gender == Gender.FEMALE and self.female_avatars:
                     self.avatar_images[avatar_id] = random.choice(self.female_avatars)
+
+    # --- 插值辅助 ---
+    def _now_ms(self) -> int:
+        return self.pygame.time.get_ticks()
+
+    def _init_avatar_display_states(self):
+        now = self._now_ms()
+        ts = self.tile_size
+        m = self.margin
+        # 清理已不存在的 avatar 状态
+        to_del = [aid for aid in self._avatar_display_states.keys() if aid not in self.simulator.avatars]
+        for aid in to_del:
+            self._avatar_display_states.pop(aid, None)
+        # 初始化/补全
+        for avatar_id, avatar in self.simulator.avatars.items():
+            if avatar_id not in self._avatar_display_states:
+                cx = m + avatar.pos_x * ts + ts // 2
+                cy = m + avatar.pos_y * ts + ts // 2
+                self._avatar_display_states[avatar_id] = {
+                    "start_px": float(cx),
+                    "start_py": float(cy),
+                    "target_px": float(cx),
+                    "target_py": float(cy),
+                    "start_ms": float(now),
+                    "duration_ms": float(max(1, self.step_interval_ms)),
+                }
+
+    def _update_avatar_display_targets(self):
+        now = self._now_ms()
+        ts = self.tile_size
+        m = self.margin
+        self._init_avatar_display_states()
+        for avatar_id, avatar in self.simulator.avatars.items():
+            state = self._avatar_display_states[avatar_id]
+            # 当前目标像素
+            cur_target_x = m + avatar.pos_x * ts + ts // 2
+            cur_target_y = m + avatar.pos_y * ts + ts // 2
+            if int(state["target_px"]) != cur_target_x or int(state["target_py"]) != cur_target_y:
+                # 以当前插值位置为新起点，目标设为最新位置
+                # 计算当前插值位置
+                elapsed = max(0.0, float(now) - float(state["start_ms"]))
+                duration = max(1.0, float(state["duration_ms"]))
+                t = min(1.0, elapsed / duration)
+                cur_x = float(state["start_px"]) + (float(state["target_px"]) - float(state["start_px"])) * t
+                cur_y = float(state["start_py"]) + (float(state["target_py"]) - float(state["start_py"])) * t
+                state["start_px"] = cur_x
+                state["start_py"] = cur_y
+                state["target_px"] = float(cur_target_x)
+                state["target_py"] = float(cur_target_y)
+                state["start_ms"] = float(now)
+                state["duration_ms"] = float(max(1, self.step_interval_ms))
+
+    def _get_display_center(self, avatar: Avatar, tile_size: int, margin: int):
+        # 忽略传入的 tile_size/margin，优先使用 Front 的，以避免不一致
+        state = self._avatar_display_states.get(avatar.id)
+        if not state:
+            # 回退：未初始化时直接返回逻辑中心
+            cx = self.margin + avatar.pos_x * self.tile_size + self.tile_size // 2
+            cy = self.margin + avatar.pos_y * self.tile_size + self.tile_size // 2
+            return float(cx), float(cy)
+        now = self._now_ms()
+        elapsed = max(0.0, float(now) - float(state["start_ms"]))
+        duration = max(1.0, float(state["duration_ms"]))
+        t = min(1.0, elapsed / duration)
+        # 使用轻微的 ease-in-out（近似）：t' = 3t^2 - 2t^3
+        te = t * t * (3.0 - 2.0 * t)
+        x = float(state["start_px"]) + (float(state["target_px"]) - float(state["start_px"])) * te
+        y = float(state["start_py"]) + (float(state["target_py"]) - float(state["start_py"])) * te
+        return x, y
 
 
 __all__ = ["Front"]

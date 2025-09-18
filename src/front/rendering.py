@@ -1,5 +1,5 @@
 import math
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Callable
 from src.classes.avatar import Avatar, Gender
 from src.classes.tile import TileType
 from src.utils.text_wrap import wrap_text
@@ -73,12 +73,25 @@ def avatar_center_pixel(avatar: Avatar, tile_size: int, margin: int) -> Tuple[in
     return px, py
 
 
-def draw_avatars_and_pick_hover(pygame_mod, screen, colors, simulator, avatar_images, tile_size: int, margin: int) -> Optional[Avatar]:
+def draw_avatars_and_pick_hover(
+    pygame_mod,
+    screen,
+    colors,
+    simulator,
+    avatar_images,
+    tile_size: int,
+    margin: int,
+    get_display_center: Optional[Callable[[Avatar, int, int], Tuple[float, float]]] = None,
+) -> Optional[Avatar]:
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
     hovered = None
     min_dist = float("inf")
     for avatar_id, avatar in simulator.avatars.items():
-        cx, cy = avatar_center_pixel(avatar, tile_size, margin)
+        if get_display_center is not None:
+            cx_f, cy_f = get_display_center(avatar, tile_size, margin)
+            cx, cy = int(cx_f), int(cy_f)
+        else:
+            cx, cy = avatar_center_pixel(avatar, tile_size, margin)
         avatar_image = avatar_images.get(avatar_id)
         if avatar_image:
             image_rect = avatar_image.get_rect()
