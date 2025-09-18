@@ -40,7 +40,7 @@ LEVEL_TO_BREAK_THROUGH = {
     90: Realm.Nascent_Soul,
 }
 
-REALM_TO_MONTH_STEP = {
+REALM_TO_MOVE_STEP = {
     Realm.Qi_Refinement: 1,
     Realm.Foundation_Establishment: 2,
     Realm.Core_Formation: 2,
@@ -80,13 +80,13 @@ class CultivationProgress:
                 return stage
         return Stage.Early_Stage
 
-    def get_month_step(self) -> int:
+    def get_move_step(self) -> int:
         """
         每月能够移动的距离，
         练气，筑基为1
         金丹，元婴为2
         """
-        return REALM_TO_MONTH_STEP[self.realm]
+        return REALM_TO_MOVE_STEP[self.realm]
 
     def __str__(self) -> str:
         can_break_through = self.can_break_through()

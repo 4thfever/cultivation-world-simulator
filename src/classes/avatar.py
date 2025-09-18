@@ -377,7 +377,7 @@ class Avatar:
         """
         获取角色的移动步长
         """
-        return self.cultivation_progress.get_month_step()
+        return self.cultivation_progress.get_move_step()
 
 def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
     """
