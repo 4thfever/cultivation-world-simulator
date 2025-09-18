@@ -40,6 +40,13 @@ LEVEL_TO_BREAK_THROUGH = {
     90: Realm.Nascent_Soul,
 }
 
+REALM_TO_MONTH_STEP = {
+    Realm.Qi_Refinement: 1,
+    Realm.Foundation_Establishment: 2,
+    Realm.Core_Formation: 2,
+    Realm.Nascent_Soul: 2,
+}
+
 class CultivationProgress:
     """
     修仙进度(包含等级、境界和经验值)
@@ -79,7 +86,7 @@ class CultivationProgress:
         练气，筑基为1
         金丹，元婴为2
         """
-        return int(self.level // LEVELS_PER_REALM * 2) + 1
+        return REALM_TO_MONTH_STEP[self.realm]
 
     def __str__(self) -> str:
         can_break_through = self.can_break_through()
