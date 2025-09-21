@@ -54,7 +54,9 @@ class Simulator:
         
         # 结算角色行为
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            await avatar.act()
+            new_events = await avatar.act()
+            if new_events:
+                events.extend(new_events)
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")

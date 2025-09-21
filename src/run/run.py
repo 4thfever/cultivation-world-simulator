@@ -89,11 +89,9 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
     # —— 为演示添加少量示例关系 ——
     avatar_list = list(avatars.values())
     if len(avatar_list) >= 2:
-        # 朋友
-        avatar_list[0].set_relation(avatar_list[1], Relation.FRIEND)
+        avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
     if len(avatar_list) >= 4:
-        # 仇人
-        avatar_list[2].set_relation(avatar_list[3], Relation.ENEMY)
+        avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
     if len(avatar_list) >= 6:
         # 师徒（随意指派方向，关系对称）
         avatar_list[4].set_relation(avatar_list[5], Relation.MASTER_APPRENTICE)

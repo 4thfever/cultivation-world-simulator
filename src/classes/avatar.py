@@ -5,7 +5,8 @@ from typing import Optional, List
 import json
 
 from src.classes.calendar import MonthStamp
-from src.classes.action import Action, ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
+from src.classes.action import Action
+from src.classes.actions import ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
 from src.classes.world import World
 from src.classes.tile import Tile
 from src.classes.region import Region
@@ -37,8 +38,8 @@ gender_strs = {
     Gender.FEMALE: "女",
 }
 
-# 历史动作对的最大数量
-MAX_HISTORY_ACTIONS = 3
+# 历史事件的最大数量
+MAX_HISTORY_EVENTS = 10
 
 @dataclass
 class Avatar:
@@ -60,7 +61,8 @@ class Avatar:
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     personas: List[Persona] = field(default_factory=list)
     cur_action_pair: Optional[ACTION_PAIR] = None
-    history_action_pairs: list[ACTION_PAIR] = field(default_factory=list)
+    history_events: List[Event] = field(default_factory=list)
+    _pending_events: List[Event] = field(default_factory=list)
     next_actions: ACTION_NAME_PARAMS_PAIRS = field(default_factory=list)
     thinking: str = ""
     objective: str = ""
@@ -135,6 +137,12 @@ class Avatar:
         if len(action_name_params_pairs) > 1:
             self.next_actions.extend(action_name_params_pairs[1:])
 
+    def clear_next_actions(self) -> None:
+        """
+        清空后续动作队列（不影响当前动作）。
+        """
+        self.next_actions.clear()
+
     def has_next_actions(self) -> bool:
         return len(self.next_actions) > 0
 
@@ -176,41 +184,23 @@ class Avatar:
         # 动作的 is_doable 定义为 @property
         return bool(getattr(action, "is_doable", True))
 
-    async def act(self):
+    async def act(self) -> List[Event]:
         """
         角色执行动作。
         注意这里只负责执行，不负责决定做什么动作。
         事件只在决定动作时产生，执行过程不产生事件
         """
         
-        # 纯粹执行动作，不产生事件
+        # 纯粹执行动作。具体事件由决定阶段或动作内部通过 add_event 添加
         action, action_params = self.cur_action_pair
         action.execute(**action_params)
         
         if action.is_finished(**action_params):
-            # 将完成的动作对添加到历史记录中
-            self._add_to_history(self.cur_action_pair)
-        
-        return
-    
-    def _add_to_history(self, action_pair: ACTION_PAIR) -> None:
-        """
-        将完成的动作对添加到历史记录中
-        
-        Args:
-            action_pair: 要添加的动作对
-            
-        注意:
-            - 如果历史记录达到上限，会丢弃最老的记录
-            - 新的记录会被添加到列表末尾
-        """
-        # 添加新的动作对到历史记录
-        self.history_action_pairs.append(action_pair)
-        self.cur_action_pair = None
-        
-        # 如果超过上限，移除最老的记录
-        if len(self.history_action_pairs) > MAX_HISTORY_ACTIONS:
-            self.history_action_pairs.pop(0)
+            # 完成后清空当前动作
+            self.cur_action_pair = None
+        # 返回并清空待派发事件
+        events, self._pending_events = self._pending_events, []
+        return events
     
     def update_cultivation(self, new_level: int):
         """
@@ -329,11 +319,18 @@ class Avatar:
         """
         return self.items.get(item, 0)
 
-    def get_history_action_pairs_str(self) -> str:
+    def add_event(self, event: Event, *, to_sidebar: bool = True, to_history: bool = True) -> None:
         """
-        获取历史动作对的字符串
+        添加事件：
+        - to_sidebar: 是否进入全局侧边栏（通过 Simulator 收集）
+        - to_history: 是否进入本角色的历史事件（最多保留 MAX_HISTORY_EVENTS 条）
         """
-        return "\n".join([f"{action.name}: {action_params}" for action, action_params in self.history_action_pairs])
+        if to_sidebar:
+            self._pending_events.append(event)
+        if to_history:
+            self.history_events.append(event)
+            if len(self.history_events) > MAX_HISTORY_EVENTS:
+                self.history_events = self.history_events[-MAX_HISTORY_EVENTS:]
 
     def get_action_space_str(self) -> str:
         action_space = self.get_action_space()
@@ -382,7 +379,14 @@ class Avatar:
         # 关系摘要
         relations_summary = self._get_relations_summary_str()
 
-        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前暂时的合法动作为：{action_space}"
+        # 历史事件摘要
+        if self.history_events:
+            history_lines = "；".join([str(e) for e in self.history_events[-8:]])
+            history_info = f"历史事件：{history_lines}"
+        else:
+            history_info = "历史事件：无"
+
+        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n{history_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """

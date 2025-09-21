@@ -15,7 +15,7 @@ from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_NAME_PARAMS_PAIRS
 from src.utils.config import CONFIG
-from src.classes.action import ACTION_INFOS_STR
+from src.classes.actions import ACTION_INFOS_STR
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
