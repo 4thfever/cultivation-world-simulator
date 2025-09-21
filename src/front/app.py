@@ -159,7 +159,7 @@ class Front:
 
     def _assign_avatar_images(self):
         import random
-        for avatar_id, avatar in self.simulator.avatars.items():
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             if avatar_id not in self.avatar_images:
                 if avatar.gender == Gender.MALE and self.male_avatars:
                     self.avatar_images[avatar_id] = random.choice(self.male_avatars)
@@ -175,11 +175,11 @@ class Front:
         ts = self.tile_size
         m = self.margin
         # 清理已不存在的 avatar 状态
-        to_del = [aid for aid in self._avatar_display_states.keys() if aid not in self.simulator.avatars]
+        to_del = [aid for aid in self._avatar_display_states.keys() if aid not in self.world.avatar_manager.avatars]
         for aid in to_del:
             self._avatar_display_states.pop(aid, None)
         # 初始化/补全
-        for avatar_id, avatar in self.simulator.avatars.items():
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             if avatar_id not in self._avatar_display_states:
                 cx = m + avatar.pos_x * ts + ts // 2
                 cy = m + avatar.pos_y * ts + ts // 2
@@ -197,7 +197,7 @@ class Front:
         ts = self.tile_size
         m = self.margin
         self._init_avatar_display_states()
-        for avatar_id, avatar in self.simulator.avatars.items():
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             state = self._avatar_display_states[avatar_id]
             # 当前目标像素
             cur_target_x = m + avatar.pos_x * ts + ts // 2

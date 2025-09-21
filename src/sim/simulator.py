@@ -11,7 +11,6 @@ from src.utils.config import CONFIG
 
 class Simulator:
     def __init__(self, world: World):
-        self.avatars = {} # dict of str -> Avatar
         self.world = world
         self.birth_rate = CONFIG.game.npc_birth_rate_per_month  # 从配置文件读取NPC每月出生率
 
@@ -28,7 +27,7 @@ class Simulator:
 
         # 决定动作行为
         avatars_to_decide = []
-        for avatar in list(self.avatars.values()):
+        for avatar in list(self.world.avatar_manager.avatars.values()):
             if avatar.cur_action_pair is None:
                 # 若有排队动作但当前不可执行：丢弃之后的所有动作
                 if avatar.has_next_actions():
@@ -54,7 +53,7 @@ class Simulator:
                     events.append(event)
         
         # 结算角色行为
-        for avatar_id, avatar in self.avatars.items():
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             await avatar.act()
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
@@ -64,7 +63,7 @@ class Simulator:
         
         # 删除死亡的角色
         for avatar_id in death_avatar_ids:
-            self.avatars.pop(avatar_id)
+            self.world.avatar_manager.avatars.pop(avatar_id)
 
         # 新角色
         if random.random() < self.birth_rate:
@@ -72,7 +71,7 @@ class Simulator:
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
             new_avatar = get_new_avatar_from_ordinary(self.world, self.world.month_stamp, name, Age(age))
-            self.avatars[new_avatar.id] = new_avatar
+            self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。")
             events.append(event)
 

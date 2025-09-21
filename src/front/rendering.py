@@ -87,7 +87,7 @@ def draw_avatars_and_pick_hover(
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
     hovered = None
     min_dist = float("inf")
-    for avatar_id, avatar in simulator.avatars.items():
+    for avatar_id, avatar in simulator.world.avatar_manager.avatars.items():
         if get_display_center is not None:
             cx_f, cy_f = get_display_center(avatar, tile_size, margin)
             cx, cy = int(cx_f), int(cy_f)

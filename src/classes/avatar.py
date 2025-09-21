@@ -349,7 +349,7 @@ class Avatar:
         action_space = [action.name for action in doable_actions]
         return action_space
 
-    def get_prompt_info(self) -> str:
+    def get_prompt_info(self, co_region_avatars: Optional[List["Avatar"]] = None) -> str:
         """
         获取角色提示词信息
         """
@@ -371,11 +371,18 @@ class Avatar:
         else:
             items_info = "物品持有情况：无"
         
+        # 同区域角色（可选）
+        co_region_info = ""
+        if co_region_avatars:
+            entries: list[str] = []
+            for other in co_region_avatars[:8]:
+                entries.append(f"{other.name}(境界：{other.cultivation_progress.get_simple_info()})")
+            co_region_info = "\n同区域角色：" + ("，".join(entries) if entries else "无")
+
         # 关系摘要
         relations_summary = self._get_relations_summary_str()
 
-        personas_count = len(self.personas)
-        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n关系：{relations_summary}\n决策时需参考这个角色的{personas_count}个个性特点。\n该角色的目前暂时的合法动作为：{action_space}"
+        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前暂时的合法动作为：{action_space}"
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """
@@ -424,7 +431,7 @@ class Avatar:
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
-        return f"{other_avatar.name}，境界：{str(other_avatar.cultivation_progress)}，关系：{relation_str}"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_simple_info()}，关系：{relation_str}"
 
     @property
     def move_step_length(self) -> int:

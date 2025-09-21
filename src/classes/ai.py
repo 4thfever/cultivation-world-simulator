@@ -122,7 +122,11 @@ class LLMAI(AI):
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
         global_info = world.get_info()
-        avatar_infos = {avatar.name: avatar.get_prompt_info() for avatar in avatars_to_decide}
+        # 在提示中包含与该角色处于同一区域的其他角色
+        avatar_infos = {}
+        for avatar in avatars_to_decide:
+            co_region = world.get_avatars_in_same_region(avatar)
+            avatar_infos[avatar.name] = avatar.get_prompt_info(co_region)
         general_action_infos = ACTION_INFOS_STR
         info = {
             "avatar_infos": avatar_infos,
