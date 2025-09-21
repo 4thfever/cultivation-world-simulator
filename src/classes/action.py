@@ -233,6 +233,52 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         """
         return True
 
+
+class MoveToAvatar(DefineAction, ActualActionMixin):
+    """
+    朝另一个角色当前位置移动。
+    """
+    COMMENT = "移动到某个角色所在位置"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"avatar_name": "str"}
+
+    def _get_target(self, avatar_name: str):
+        """
+        根据名字查找目标角色；找不到返回 None。
+        """
+        for v in self.world.avatar_manager.avatars.values():
+            if v.name == avatar_name:
+                return v
+        raise ValueError(f"未找到名为 {avatar_name} 的角色")
+
+    def _execute(self, avatar_name: str) -> None:
+        target = self._get_target(avatar_name)
+        if target is None:
+            return
+        cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
+        target_loc = (target.pos_x, target.pos_y)
+        delta_x = target_loc[0] - cur_loc[0]
+        delta_y = target_loc[1] - cur_loc[1]
+        step = getattr(self.avatar, "move_step_length", 1)
+        delta_x = max(-step, min(step, delta_x))
+        delta_y = max(-step, min(step, delta_y))
+        Move(self.avatar, self.world).execute(delta_x, delta_y)
+
+    def is_finished(self, avatar_name: str) -> bool:
+        target = self._get_target(avatar_name)
+        if target is None:
+            return True
+        return self.avatar.pos_x == target.pos_x and self.avatar.pos_y == target.pos_y
+
+    def get_event(self, avatar_name: str) -> Event:
+        target = self._get_target(avatar_name)
+        target_name = target.name if target is not None else avatar_name
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}")
+
+    @property
+    def is_doable(self) -> bool:
+        return True
+
 @long_action(step_month=10)
 class Cultivate(DefineAction, ActualActionMixin):
     """
@@ -526,10 +572,10 @@ class Sold(DefineAction, ActualActionMixin):
         return isinstance(region, CityRegion) and bool(self.avatar.items)
 
 
-ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest, Sold]
-ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, Play, Hunt, Harvest, Sold]
-ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]
-ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "Play", "Hunt", "Harvest", "Sold"]
+ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, MoveToAvatar, Play, Hunt, Harvest, Sold]
+ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, MoveToAvatar, Play, Hunt, Harvest, Sold]
+ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "MoveToAvatar", "Play", "Hunt", "Harvest", "Sold"]
+ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "MoveToAvatar", "Play", "Hunt", "Harvest", "Sold"]
 
 ACTION_INFOS = {
     action.__name__: {

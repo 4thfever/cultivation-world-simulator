@@ -97,11 +97,10 @@ class Logger:
             duration: 调用耗时（秒）
             additional_info: 额外信息
         """
+        # 机器可读的摘要（不包含大段文本，避免 JSON 转义导致 \ 混杂）
         log_data = {
             "timestamp": datetime.now().isoformat(),
             "model_name": model_name,
-            "prompt": prompt,
-            "response": response,
             "prompt_length": len(prompt),
             "response_length": len(response),
             "duration": duration
@@ -110,11 +109,13 @@ class Logger:
         if additional_info:
             log_data.update(additional_info)
         
-        # 记录日志
+        # 记录可解析的 JSON 摘要
         log_message = f"LLM_INTERACTION: {json.dumps(log_data, ensure_ascii=False)}"
-        # 将JSON中的\n替换为真正的换行符，使日志更易读
-        log_message = log_message.replace('\\n', '\n')
         self.logger.info(log_message)
+
+        # 记录更友好的原始多行文本，避免引号被转义
+        self.logger.info("LLM_PROMPT:\n%s", prompt)
+        self.logger.info("LLM_RESPONSE:\n%s", response)
     
     def log_error(self, error_message: str, prompt: str = None):
         """
@@ -124,16 +125,18 @@ class Logger:
             error_message: 错误信息
             prompt: 相关的提示词（可选）
         """
+        # 错误摘要（不含原始 prompt，避免转义干扰）
         log_data = {
             "timestamp": datetime.now().isoformat(),
             "error": error_message,
-            "prompt": prompt if prompt else None
         }
-        
+
         log_message = f"LLM_ERROR: {json.dumps(log_data, ensure_ascii=False)}"
-        # 将JSON中的\n替换为真正的换行符，使日志更易读
-        log_message = log_message.replace('\\n', '\n')
         self.logger.error(log_message)
+
+        # 如提供 prompt，追加原始多行文本便于排查
+        if prompt:
+            self.logger.error("LLM_ERROR_PROMPT:\n%s", prompt)
     
     def get_today_stats(self) -> dict:
         """
