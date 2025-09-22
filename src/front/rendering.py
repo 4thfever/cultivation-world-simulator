@@ -112,11 +112,13 @@ def draw_avatars_and_pick_hover(
     return hovered
 
 
-def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font):
+def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: Optional[int] = None):
     padding = 6
     spacing = 2
     surf_lines = [font.render(t, True, colors["text"]) for t in lines]
     width = max(s.get_width() for s in surf_lines) + padding * 2
+    if min_width is not None:
+        width = max(width, min_width)
     height = sum(s.get_height() for s in surf_lines) + padding * 2 + spacing * (len(surf_lines) - 1)
     x = mouse_x + 12
     y = mouse_y + 12
@@ -158,12 +160,12 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
     if avatar.thinking:
         lines.append("")
         lines.append("思考:")
-        thinking_lines = wrap_text(avatar.thinking, 20)
+        thinking_lines = wrap_text(avatar.thinking, 28)
         lines.extend(thinking_lines)
     if getattr(avatar, "objective", None):
         lines.append("")
         lines.append("目标:")
-        objective_lines = wrap_text(avatar.objective, 20)
+        objective_lines = wrap_text(avatar.objective, 28)
         lines.extend(objective_lines)
 
     # 关系信息
@@ -175,7 +177,7 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
             lines.append(f"  {s}")
     else:
         lines.append("关系: 无")
-    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font)
+    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=260)
 
 
 def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int):

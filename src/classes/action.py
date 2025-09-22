@@ -12,6 +12,7 @@ from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
 from src.classes.prices import prices
 from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
+from src.classes.battle import decide_battle
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -572,16 +573,26 @@ class Sold(DefineAction, ActualActionMixin):
         return isinstance(region, CityRegion) and bool(self.avatar.items)
 
 
-ALL_ACTION_CLASSES = [Move, Cultivate, Breakthrough, MoveToRegion, MoveToAvatar, Play, Hunt, Harvest, Sold]
-ALL_ACTUAL_ACTION_CLASSES = [Cultivate, Breakthrough, MoveToRegion, MoveToAvatar, Play, Hunt, Harvest, Sold]
-ALL_ACTION_NAMES = ["Move", "Cultivate", "Breakthrough", "MoveToRegion", "MoveToAvatar", "Play", "Hunt", "Harvest", "Sold"]
-ALL_ACTUAL_ACTION_NAMES = ["Cultivate", "Breakthrough", "MoveToRegion", "MoveToAvatar", "Play", "Hunt", "Harvest", "Sold"]
-
-ACTION_INFOS = {
-    action.__name__: {
-        "comment": action.COMMENT,
-        "doable_requirements": action.DOABLES_REQUIREMENTS,
-        "params": action.PARAMS,
-    } for action in ALL_ACTUAL_ACTION_CLASSES
-}
-ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False)
+class Battle(DefineAction, ChunkActionMixin):
+    COMMENT = "与目标进行对战，判定胜负"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"avatar_name": "AvatarName"}
+    def _execute(self, avatar_name: str) -> None:
+        target = None
+        for v in self.world.avatar_manager.avatars.values():
+            if v.name == avatar_name:
+                target = v
+                break
+        if target is None:
+            return
+        winner, loser, _ = decide_battle(self.avatar, target)
+        # 简化：失败者HP小额扣减
+        if hasattr(loser, "hp"):
+            loser.hp.reduce(10)
+    def is_finished(self, avatar_name: str) -> bool:
+        return True
+    def get_event(self, avatar_name: str) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 与 {avatar_name} 进行对战")
+    @property
+    def is_doable(self) -> bool:
+        return True

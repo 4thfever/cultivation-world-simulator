@@ -181,8 +181,8 @@ class Avatar:
             return False
         action_name, _ = pair
         action = self.create_action(action_name)
-        # 动作的 is_doable 定义为 @property
-        return bool(getattr(action, "is_doable", True))
+        doable = action.is_doable
+        return doable
 
     async def act(self) -> List[Event]:
         """

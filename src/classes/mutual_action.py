@@ -7,7 +7,6 @@ from src.classes.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.event import Event
 from src.utils.llm import get_prompt_and_call_llm
 from src.utils.config import CONFIG
-from src.classes.battle import decide_battle
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -205,31 +204,6 @@ class MoveAwayFromRegion(DefineAction, ActualActionMixin):
         return True
     def get_event(self, region: str) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 离开 {region}")
-    @property
-    def is_doable(self) -> bool:
-        return True
-
-
-class Battle(DefineAction, ActualActionMixin):
-    COMMENT = "与目标进行对战，判定胜负"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
-    PARAMS = {"avatar_name": "AvatarName"}
-    def _execute(self, avatar_name: str) -> None:
-        target = None
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == avatar_name:
-                target = v
-                break
-        if target is None:
-            return
-        winner, loser, _ = decide_battle(self.avatar, target)
-        # 简化：失败者HP小额扣减
-        if hasattr(loser, "hp"):
-            loser.hp.reduce(10)
-    def is_finished(self, avatar_name: str) -> bool:
-        return True
-    def get_event(self, avatar_name: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 与 {avatar_name} 进行对战")
     @property
     def is_doable(self) -> bool:
         return True

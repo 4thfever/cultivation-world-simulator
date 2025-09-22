@@ -3,8 +3,6 @@ from __future__ import annotations
 import json
 
 from src.classes.action import (
-    DefineAction,
-    ActualActionMixin,
     Move,
     Cultivate,
     Breakthrough,
@@ -14,19 +12,19 @@ from src.classes.action import (
     Hunt,
     Harvest,
     Sold,
+    Battle,
 )
 from src.classes.mutual_action import (
-    MutualAction,
     DriveAway,
     AttackInteract,
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
-    Battle,
 )
 
 
 ALL_ACTION_CLASSES = [
     Move,
+    Battle,
     Cultivate,
     Breakthrough,
     MoveToRegion,
@@ -40,7 +38,6 @@ ALL_ACTION_CLASSES = [
     AttackInteract,
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
-    Battle,
 ]
 
 ALL_ACTUAL_ACTION_CLASSES = [
@@ -56,7 +53,6 @@ ALL_ACTUAL_ACTION_CLASSES = [
     AttackInteract,
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
-    Battle,
 ]
 
 ALL_ACTION_NAMES = [action.__name__ for action in ALL_ACTION_CLASSES]
