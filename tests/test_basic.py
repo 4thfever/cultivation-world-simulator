@@ -4,6 +4,7 @@ from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.world import World 
 from src.classes.tile import Map, TileType
 from src.classes.age import Age
+from src.classes.cultivation import Realm
 from src.utils.names import get_random_name
 
 def test_basic():
@@ -22,7 +23,7 @@ def test_basic():
         name=get_random_name(Gender.MALE),
         id=get_avatar_id(),
         birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
-        age=Age(20),
+        age=Age(20, Realm.Qi_Refinement),
         gender=Gender.MALE
     )
 

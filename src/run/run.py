@@ -59,8 +59,8 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         level = random.randint(0, 120)
         cultivation_progress = CultivationProgress(level)
         
-        # 创建Age实例，传入年龄
-        age = Age(age_years)
+        # 创建Age实例，传入年龄与当前境界
+        age = Age(age_years, cultivation_progress.realm)
 
         # 找一个非海域的出生点
         for _ in range(200):

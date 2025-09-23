@@ -83,6 +83,8 @@ class Avatar:
         max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
         self.hp = HP(max_hp, max_hp)
         self.mp = MP(max_mp, max_mp)
+
+        # 最大寿元已在 Age 构造时基于境界初始化
         
         # 如果personas列表为空，则随机分配两个不互斥的persona
         if not self.personas:
@@ -182,6 +184,7 @@ class Avatar:
         action_name, _ = pair
         action = self.create_action(action_name)
         doable = action.is_doable
+        assert isinstance(doable, bool)
         return doable
 
     async def act(self) -> List[Event]:
@@ -356,7 +359,7 @@ class Avatar:
         # 构建personas的提示词信息
         personas_prompts = []
         for i, persona in enumerate(self.personas, 1):
-            personas_prompts.append(f"其个性{i}：{persona.prompt}")
+            personas_prompts.append(f"个性{i}：{persona.prompt}")
         personas_info = "\n".join(personas_prompts)
         
         # 添加灵石信息

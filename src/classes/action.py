@@ -6,7 +6,7 @@ import json
 import inspect
 
 from src.classes.essence import Essence, EssenceType
-from src.classes.root import Root, get_essence_types_for_root
+from src.classes.root import Root, get_essence_types_for_root, extra_breakthrough_success_rate
 from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
 from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
@@ -335,16 +335,21 @@ class Cultivate(DefineAction, ActualActionMixin):
 @long_action(step_month=1)
 class Breakthrough(DefineAction, ActualActionMixin):
     """
-    突破境界
+    突破境界。
+    成功率由 `CultivationProgress.get_breakthrough_success_rate()` 决定；
+    失败时按 `CultivationProgress.get_breakthrough_fail_reduce_lifespan()` 减少寿元（年）。
     """
-    COMMENT = "尝试突破境界"
+    COMMENT = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
     DOABLES_REQUIREMENTS = "角色处于瓶颈时"
     PARAMS = {}
     def calc_success_rate(self) -> float:
         """
-        计算突破境界的成功率
+        计算突破境界的成功率（由修为进度给出）
         """
-        return 0.5
+        base = self.avatar.cultivation_progress.get_breakthrough_success_rate()
+        bonus = extra_breakthrough_success_rate[self.avatar.root]
+        # 夹紧到 [0, 1]
+        return max(0.0, min(1.0, base + bonus))
 
     def _execute(self) -> None:
         """
@@ -360,6 +365,12 @@ class Breakthrough(DefineAction, ActualActionMixin):
             # 突破成功时更新HP和MP的最大值
             if new_realm != old_realm:
                 self._update_hp_mp_on_breakthrough(new_realm)
+                # 成功：确保最大寿元至少达到新境界的基线
+                self.avatar.age.ensure_max_lifespan_at_least_realm_base(new_realm)
+        else:
+            # 突破失败：减少最大寿元上限
+            reduce_years = self.avatar.cultivation_progress.get_breakthrough_fail_reduce_lifespan()
+            self.avatar.age.decrease_max_lifespan(reduce_years)
     
     def _update_hp_mp_on_breakthrough(self, new_realm):
         """
@@ -487,18 +498,24 @@ class Harvest(DefineAction, ActualActionMixin):
     COMMENT = "在当前区域采集植物，获取植物材料"
     DOABLES_REQUIREMENTS = "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
     PARAMS = {}
+
+    def get_available_plants(self) -> list[Plant]:
+        """
+        获取avatar境界足够的植物
+        """
+        region = self.avatar.tile.region
+        avatar_realm = self.avatar.cultivation_progress.realm
+        return [plant for plant in region.plants if avatar_realm >= plant.realm]
     
     def _execute(self) -> None:
         """
         执行采集动作
         """
-        region = self.avatar.tile.region
         success_rate = self.get_success_rate()
-        
+        available_plants = self.get_available_plants()
+
         if random.random() < success_rate:
             # 成功采集，从avatar境界足够的植物中随机选择一种
-            avatar_realm = self.avatar.cultivation_progress.realm
-            available_plants = [plant for plant in region.plants if avatar_realm >= plant.realm]
             target_plant = random.choice(available_plants)
             # 随机选择该植物的一种物品
             item = random.choice(target_plant.items)
@@ -523,15 +540,12 @@ class Harvest(DefineAction, ActualActionMixin):
         判断是否可以采集：必须在有植物的普通区域，且avatar的境界必须大于等于植物的境界
         """
         region = self.avatar.tile.region
-        if not isinstance(region, NormalRegion) or len(region.plants) == 0:
+        if not isinstance(region, NormalRegion):
             return False
-        
-        # 检查avatar的境界是否足够采集区域内的植物
-        avatar_realm = self.avatar.cultivation_progress.realm
-        for plant in region.plants:
-            if avatar_realm >= plant.realm:
-                return True
-        return False
+        avaliable_plants = self.get_available_plants()
+        if len(avaliable_plants) == 0:
+            return False
+        return True
 
 
 @long_action(step_month=1)

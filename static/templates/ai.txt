@@ -19,4 +19,4 @@
 
 要求与约束：
 - 若需要先移动再修炼，请将 "MoveToRegion" 放在前面，随后接 "Cultivate"。
-- 若当前可突破，可在合适时机插入 "Breakthrough"。
+- thought可从侧面体现出角色个性

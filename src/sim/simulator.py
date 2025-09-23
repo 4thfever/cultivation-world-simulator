@@ -3,6 +3,7 @@ import random
 from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.avatar import Avatar, get_new_avatar_from_ordinary, Gender
 from src.classes.age import Age
+from src.classes.cultivation import Realm
 from src.classes.world import World
 from src.classes.event import Event, is_null_event
 from src.classes.ai import llm_ai, rule_ai
@@ -54,7 +55,9 @@ class Simulator:
         
         # 结算角色行为
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            new_events = await avatar.act()
+            new_events = []
+            if avatar.is_next_action_doable():
+                new_events = await avatar.act()
             if new_events:
                 events.extend(new_events)
             if avatar.death_by_old_age():
@@ -72,7 +75,7 @@ class Simulator:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
-            new_avatar = get_new_avatar_from_ordinary(self.world, self.world.month_stamp, name, Age(age))
+            new_avatar = get_new_avatar_from_ordinary(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
             self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。")
             events.append(event)

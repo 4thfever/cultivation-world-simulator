@@ -185,10 +185,13 @@ class CultivationProgress:
 
     def is_in_bottleneck(self) -> bool:
         """
-        检查是否可以突破
-        其实就是再瓶颈期间。
+        是否处于瓶颈期。
+        如果级别在LEVEL_TO_BREAK_THROUGH中，同时realm不是该级别对应的realm，则处于瓶颈期。
         """
-        return self.level in LEVEL_TO_BREAK_THROUGH.keys()
+        for level_threshold, realm in LEVEL_TO_BREAK_THROUGH.items():
+            if self.level == level_threshold and self.realm != realm:
+                return True
+        return False
 
     def can_break_through(self) -> bool:
         """
@@ -213,6 +216,12 @@ class CultivationProgress:
     def __str__(self) -> str:
         return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{self.is_in_bottleneck()}"
 
+    def get_breakthrough_success_rate(self) -> float:
+        return breakthrough_success_rate_by_realm[self.realm]
+    
+    def get_breakthrough_fail_reduce_lifespan(self) -> int:
+        return breakthrough_fail_reduce_lifespan_by_realm[self.realm]
+
 
 
 breakthrough_success_rate_by_realm = {
@@ -223,8 +232,8 @@ breakthrough_success_rate_by_realm = {
 }
 
 breakthrough_fail_reduce_lifespan_by_realm = {
-    Realm.Qi_Refinement: 10,
-    Realm.Foundation_Establishment: 20,
-    Realm.Core_Formation: 30,
-    Realm.Nascent_Soul: 40,
+    Realm.Qi_Refinement: 5,
+    Realm.Foundation_Establishment: 10,
+    Realm.Core_Formation: 15,
+    Realm.Nascent_Soul: 20,
 }

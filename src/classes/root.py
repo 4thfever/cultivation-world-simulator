@@ -6,6 +6,7 @@
 """
 from enum import Enum
 from typing import List, Tuple
+from collections import defaultdict
 
 from src.classes.essence import EssenceType
 
@@ -76,15 +77,7 @@ def get_essence_types_for_root(root: Root) -> List[EssenceType]:
     """
     return [_essence_by_element[e] for e in root.elements]
 
-roots = {
-    "金": Root.GOLD,
-    "木": Root.WOOD,
-    "水": Root.WATER,
-    "火": Root.FIRE,
-    "土": Root.EARTH,
-    "雷": Root.THUNDER,
-    "冰": Root.ICE,
-    "风": Root.WIND,
-    "暗": Root.DARK,
-    "天": Root.HEAVEN,
+extra_breakthrough_success_rate = {
+    Root.HEAVEN: 0.1,
 }
+extra_breakthrough_success_rate = defaultdict(lambda: 0, extra_breakthrough_success_rate)
