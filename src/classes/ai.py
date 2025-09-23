@@ -10,7 +10,7 @@ import random
 
 from src.classes.world import World
 from src.classes.region import Region
-from src.classes.root import corres_essence_type
+from src.classes.root import get_essence_types_for_root
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import get_ai_prompt_and_call_llm_async
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_PAIR, ACTION_NAME_PARAMS_PAIRS
@@ -102,10 +102,10 @@ class RuleAI(AI):
         """
         根据avatar的灵根找到最适合的区域
         """
-        essence_type = corres_essence_type[avatar.root]
-        region_with_best_essence = max(
-            regions, key=lambda region: region.essence.get_density(essence_type)
-        )
+        essence_types = get_essence_types_for_root(avatar.root)
+        def best_density(region: Region) -> int:
+            return max((region.essence.get_density(et) for et in essence_types), default=0)
+        region_with_best_essence = max(regions, key=best_density)
         return region_with_best_essence
 
 class LLMAI(AI):

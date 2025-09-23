@@ -6,7 +6,7 @@ import json
 import inspect
 
 from src.classes.essence import Essence, EssenceType
-from src.classes.root import Root, corres_essence_type
+from src.classes.root import Root, get_essence_types_for_root
 from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
 from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
@@ -286,7 +286,7 @@ class Cultivate(DefineAction, ActualActionMixin):
     修炼动作，可以增加修仙进度。
     """
     COMMENT = "修炼，增进修为"
-    DOABLES_REQUIREMENTS = "在修炼区域中，角色不可以突破"
+    DOABLES_REQUIREMENTS = "在修炼区域中，修炼区域的灵气为角色的灵根之一，且角色未到瓶颈。"
     PARAMS = {}
     def _execute(self) -> None:
         """
@@ -295,8 +295,9 @@ class Cultivate(DefineAction, ActualActionMixin):
         """
         root = self.avatar.root
         essence = self.avatar.tile.region.essence
-        essence_type = corres_essence_type[root]
-        essence_density = essence.get_density(essence_type)
+        # 多元素：取与角色灵根任一匹配元素的最大密度
+        essence_types = get_essence_types_for_root(root)
+        essence_density = max((essence.get_density(et) for et in essence_types), default=0)
         exp = self.get_exp(essence_density)
         self.avatar.cultivation_progress.add_exp(exp)
 
@@ -321,8 +322,14 @@ class Cultivate(DefineAction, ActualActionMixin):
         """
         root = self.avatar.root
         region = self.avatar.tile.region
-        _corres_essence_type = corres_essence_type[root]
-        return self.avatar.cultivation_progress.can_cultivate() and isinstance(region, CultivateRegion) and region.essence.get_density(_corres_essence_type) > 0
+        essence_types = get_essence_types_for_root(root)
+        if not self.avatar.cultivation_progress.can_cultivate():
+            return False
+        if not isinstance(region, CultivateRegion):
+            return False
+        if all(region.essence.get_density(et) == 0 for et in essence_types):
+            return False
+        return True
 
 # 突破境界class
 @long_action(step_month=1)
@@ -331,7 +338,7 @@ class Breakthrough(DefineAction, ActualActionMixin):
     突破境界
     """
     COMMENT = "尝试突破境界"
-    DOABLES_REQUIREMENTS = "角色可以突破时"
+    DOABLES_REQUIREMENTS = "角色处于瓶颈时"
     PARAMS = {}
     def calc_success_rate(self) -> float:
         """

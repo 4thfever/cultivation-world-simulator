@@ -1,10 +1,36 @@
 from enum import Enum
+from functools import total_ordering
 
+@total_ordering
 class Realm(Enum):
     Qi_Refinement = "练气"
     Foundation_Establishment = "筑基"
     Core_Formation = "金丹"
     Nascent_Soul = "元婴"
+
+    @classmethod
+    def from_id(cls, realm_id: int) -> "Realm":
+        order: tuple[Realm, ...] = (
+            cls.Qi_Refinement,
+            cls.Foundation_Establishment,
+            cls.Core_Formation,
+            cls.Nascent_Soul,
+        )
+        index = realm_id - 1
+        if index < 0 or index >= len(order):
+            raise ValueError(f"Unknown realm_id: {realm_id}")
+        return order[index]
+
+    def __lt__(self, other):
+        if not isinstance(other, Realm):
+            return NotImplemented
+        order: tuple[Realm, ...] = (
+            Realm.Qi_Refinement,
+            Realm.Foundation_Establishment,
+            Realm.Core_Formation,
+            Realm.Nascent_Soul,
+        )
+        return order.index(self) < order.index(other)
 
 class Stage(Enum):
     Early_Stage = "前期"
@@ -24,14 +50,6 @@ LEVEL_TO_STAGE = {
     0: Stage.Early_Stage,
     10: Stage.Middle_Stage,
     20: Stage.Late_Stage,
-}
-
-# realm_id到Realm的映射（用于物品等级系统）
-REALM_ID_TO_REALM = {
-    1: Realm.Qi_Refinement,
-    2: Realm.Foundation_Establishment,
-    3: Realm.Core_Formation,
-    4: Realm.Nascent_Soul,
 }
 
 LEVEL_TO_BREAK_THROUGH = {
@@ -165,18 +183,25 @@ class CultivationProgress:
         self.realm = self.get_realm(self.level)
         self.stage = self.get_stage(self.level)
 
+    def is_in_bottleneck(self) -> bool:
+        """
+        检查是否可以突破
+        其实就是再瓶颈期间。
+        """
+        return self.level in LEVEL_TO_BREAK_THROUGH.keys()
+
     def can_break_through(self) -> bool:
         """
         检查是否可以突破
         """
-        return self.level in LEVEL_TO_BREAK_THROUGH.keys()
+        return self.is_in_bottleneck()
 
     def can_cultivate(self) -> bool:
         """
         检查是否可以修炼
         可以突破，说明到顶了，说明不能修炼了，必须突破后才能正常修炼。
         """
-        return not self.can_break_through()
+        return not self.is_in_bottleneck()
 
     def is_level_up(self) -> bool:
         """
@@ -186,65 +211,20 @@ class CultivationProgress:
         return self.exp >= exp_required
 
     def __str__(self) -> str:
-        return f"{self.realm.value}{self.stage.value}({self.level}级)。可以突破：{self.can_break_through()}"
+        return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{self.is_in_bottleneck()}"
 
 
-# 为Realm类添加from_id类方法
-def _realm_from_id(cls, realm_id: int) -> Realm:
-    """
-    根据realm_id获取对应的Realm
-    
-    Args:
-        realm_id: 境界ID (1-4)
-        
-    Returns:
-        对应的Realm枚举值
-        
-    Raises:
-        ValueError: 如果realm_id不存在
-    """
-    if realm_id not in REALM_ID_TO_REALM:
-        raise ValueError(f"Unknown realm_id: {realm_id}")
-    return REALM_ID_TO_REALM[realm_id]
 
-# 将from_id方法绑定到Realm类
-Realm.from_id = classmethod(_realm_from_id)
-
-# 境界顺序映射
-_REALM_ORDER = {
-    Realm.Qi_Refinement: 1,
-    Realm.Foundation_Establishment: 2,
-    Realm.Core_Formation: 3,
-    Realm.Nascent_Soul: 4,
+breakthrough_success_rate_by_realm = {
+    Realm.Qi_Refinement: 0.8,
+    Realm.Foundation_Establishment: 0.6,
+    Realm.Core_Formation: 0.4,
+    Realm.Nascent_Soul: 0.2,
 }
 
-# 为Realm类添加比较操作符
-def _realm_ge(self, other):
-    """大于等于比较"""
-    if not isinstance(other, Realm):
-        return NotImplemented
-    return _REALM_ORDER[self] >= _REALM_ORDER[other]
-
-def _realm_le(self, other):
-    """小于等于比较"""
-    if not isinstance(other, Realm):
-        return NotImplemented
-    return _REALM_ORDER[self] <= _REALM_ORDER[other]
-
-def _realm_gt(self, other):
-    """大于比较"""
-    if not isinstance(other, Realm):
-        return NotImplemented
-    return _REALM_ORDER[self] > _REALM_ORDER[other]
-
-def _realm_lt(self, other):
-    """小于比较"""
-    if not isinstance(other, Realm):
-        return NotImplemented
-    return _REALM_ORDER[self] < _REALM_ORDER[other]
-
-# 将比较方法绑定到Realm类
-Realm.__ge__ = _realm_ge
-Realm.__le__ = _realm_le
-Realm.__gt__ = _realm_gt
-Realm.__lt__ = _realm_lt
+breakthrough_fail_reduce_lifespan_by_realm = {
+    Realm.Qi_Refinement: 10,
+    Realm.Foundation_Establishment: 20,
+    Realm.Core_Formation: 30,
+    Realm.Nascent_Soul: 40,
+}

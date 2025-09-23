@@ -97,7 +97,7 @@ class Avatar:
         尽量多打一些，因为会用来给LLM进行决策
         """
         personas_str = ", ".join([persona.name for persona in self.personas])
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={self.root.value}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
 
     def __str__(self) -> str:
         return self.get_info()
