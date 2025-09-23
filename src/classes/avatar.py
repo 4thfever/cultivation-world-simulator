@@ -157,6 +157,13 @@ class Avatar:
             return None
         action_name, action_params = self.next_actions.pop(0)
         action = self.create_action(action_name)
+        while not action.is_doable and self.next_actions:
+            action_name, action_params = self.next_actions.pop(0)
+            action = self.create_action(action_name)
+
+        if not action.is_doable:
+            return None
+
         self.cur_action_pair = (action, action_params)
         try:
             event = action.get_event(**action_params)
@@ -185,6 +192,7 @@ class Avatar:
         action = self.create_action(action_name)
         doable = action.is_doable
         assert isinstance(doable, bool)
+        del action
         return doable
 
     async def act(self) -> List[Event]:

@@ -442,18 +442,27 @@ class Hunt(DefineAction, ActualActionMixin):
     COMMENT = "在当前区域狩猎动物，获取动物材料"
     DOABLES_REQUIREMENTS = "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
     PARAMS = {}
+
+    def get_available_animals(self) -> list[Animal]:
+        """
+        获取avatar境界足够的动物
+        """
+        region = self.avatar.tile.region
+        avatar_realm = self.avatar.cultivation_progress.realm
+        return [animal for animal in region.animals if avatar_realm >= animal.realm]
     
     def _execute(self) -> None:
         """
         执行狩猎动作
         """
-        region = self.avatar.tile.region
         success_rate = self.get_success_rate()
+        available_animals = self.get_available_animals()
+        if len(available_animals) == 0:
+            # TODO: 我的doable检查有问题，之后看看问题在哪里
+            return
         
         if random.random() < success_rate:
             # 成功狩猎，从avatar境界足够的动物中随机选择一种
-            avatar_realm = self.avatar.cultivation_progress.realm
-            available_animals = [animal for animal in region.animals if avatar_realm >= animal.realm]
             target_animal = random.choice(available_animals)
             # 随机选择该动物的一种物品
             item = random.choice(target_animal.items)
@@ -478,15 +487,12 @@ class Hunt(DefineAction, ActualActionMixin):
         判断是否可以狩猎：必须在有动物的普通区域，且avatar的境界必须大于等于动物的境界
         """
         region = self.avatar.tile.region
-        if not isinstance(region, NormalRegion) or len(region.animals) == 0:
+        if not isinstance(region, NormalRegion):
             return False
-        
-        # 检查avatar的境界是否足够狩猎区域内的动物
-        avatar_realm = self.avatar.cultivation_progress.realm
-        for animal in region.animals:
-            if avatar_realm >= animal.realm:
-                return True
-        return False
+        available_animals = self.get_available_animals()
+        if len(available_animals) == 0:
+            return False
+        return True
 
 
 @long_action(step_month=6)
@@ -513,6 +519,9 @@ class Harvest(DefineAction, ActualActionMixin):
         """
         success_rate = self.get_success_rate()
         available_plants = self.get_available_plants()
+        if len(available_plants) == 0:
+            # TODO: 我的doable检查有问题，之后看看问题在哪里
+            return
 
         if random.random() < success_rate:
             # 成功采集，从avatar境界足够的植物中随机选择一种

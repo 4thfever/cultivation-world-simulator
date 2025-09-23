@@ -55,11 +55,13 @@ class Simulator:
         
         # 结算角色行为
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            new_events = []
-            if avatar.is_next_action_doable():
-                new_events = await avatar.act()
+            # 只在当前有动作时执行当前动作，不再检查“下一个动作”的可执行性
+            new_events = await avatar.act()
             if new_events:
                 events.extend(new_events)
+
+        # 结算寿命逻辑
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
