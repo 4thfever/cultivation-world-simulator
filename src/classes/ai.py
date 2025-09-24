@@ -49,11 +49,8 @@ class AI(ABC):
             else:
                 action_name, action_params, avatar_thinking, objective = result  # type: ignore
                 action_name_params_pairs = [(action_name, action_params)]
-            # 只为队列中的第一个动作生成事件
-            first_action_name, first_action_params = action_name_params_pairs[0]
-            action = avatar.create_action(first_action_name)
-            event = action.get_event(**first_action_params)
-            results[avatar] = (action_name_params_pairs, avatar_thinking, objective, event)
+            # 不在决策阶段生成开始事件，提交阶段统一触发
+            results[avatar] = (action_name_params_pairs, avatar_thinking, objective, NULL_EVENT)
 
         return results
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from enum import Enum
 from typing import TYPE_CHECKING
 import random
 import json
@@ -17,6 +18,8 @@ from src.classes.battle import decide_battle
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
     from src.classes.world import World
+    from src.classes.animal import Animal
+    from src.classes.plant import Plant
 
 
 def long_action(step_month: int):
@@ -125,28 +128,24 @@ class ChunkActionMixin():
 class ActualActionMixin():
     """
     实际的可以被规则/LLM调用，让avatar去执行的动作。
-    不一定是多个step，也有可能就一个step
+    不一定是多个step，也有可能就一个step。
+
+    新接口：子类必须实现 can_start/start/step/finish。
     """
     @abstractmethod
-    def is_finished(self) -> bool:
-        """
-        判断动作是否完成
-        """
-        pass
-    
-    @abstractmethod
-    def get_event(self, *args, **kwargs) -> Event:
-        """
-        获取动作开始时的事件
-        """
+    def can_start(self, **params) -> bool:
         pass
 
-    @property
     @abstractmethod
-    def is_doable(self) -> bool:
-        """
-        判断动作是否可以执行
-        """
+    def start(self, **params) -> Event | None:
+        pass
+
+    @abstractmethod
+    def step(self, **params) -> tuple[str, list[Event]]:  # status: "running" | "completed" | "failed" | "blocked"
+        pass
+
+    @abstractmethod
+    def finish(self, **params) -> list[Event]:
         pass
 
 
@@ -203,19 +202,10 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         delta_y = max(-step, min(step, delta_y))
         Move(self.avatar, self.world).execute(delta_x, delta_y)
 
-    def is_finished(self, region: Region|str) -> bool:
-        """
-        判断动作是否完成
-        """
-        if isinstance(region, str):
-            from src.classes.region import regions_by_name
-            region = regions_by_name[region]
-        return self.avatar.is_in_region(region)
-    
-    def get_event(self, region: Region|str) -> Event:
-        """
-        获取移动动作开始时的事件
-        """
+    def can_start(self, region: Region|str|None = None) -> bool:
+        return True
+
+    def start(self, region: Region|str) -> Event:
         if isinstance(region, str):
             region_name = region
             from src.classes.region import regions_by_name
@@ -227,12 +217,17 @@ class MoveToRegion(DefineAction, ActualActionMixin):
             region_name = str(region)
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}")
 
-    @property
-    def is_doable(self) -> bool:
-        """
-        判断移动到区域动作是否可以执行
-        """
-        return True
+    def step(self, region: Region|str) -> tuple[str, list[Event]]:
+        self.execute(region=region)
+        # 完成条件：到达目标区域
+        if isinstance(region, str):
+            from src.classes.region import regions_by_name
+            region = regions_by_name[region]
+        done = self.avatar.is_in_region(region)
+        return ("completed" if done else "running"), []
+
+    def finish(self, region: Region|str) -> list[Event]:
+        return []
 
 
 class MoveToAvatar(DefineAction, ActualActionMixin):
@@ -265,20 +260,28 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         delta_y = max(-step, min(step, delta_y))
         Move(self.avatar, self.world).execute(delta_x, delta_y)
 
-    def is_finished(self, avatar_name: str) -> bool:
-        target = self._get_target(avatar_name)
-        if target is None:
-            return True
-        return self.avatar.pos_x == target.pos_x and self.avatar.pos_y == target.pos_y
+    def can_start(self, avatar_name: str|None = None) -> bool:
+        return True
 
-    def get_event(self, avatar_name: str) -> Event:
+    def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)
         target_name = target.name if target is not None else avatar_name
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}")
 
-    @property
-    def is_doable(self) -> bool:
-        return True
+    def step(self, avatar_name: str) -> tuple[str, list[Event]]:
+        self.execute(avatar_name=avatar_name)
+        target = None
+        try:
+            target = self._get_target(avatar_name)
+        except Exception:
+            target = None
+        if target is None:
+            return "completed", []
+        done = self.avatar.pos_x == target.pos_x and self.avatar.pos_y == target.pos_y
+        return ("completed" if done else "running"), []
+
+    def finish(self, avatar_name: str) -> list[Event]:
+        return []
 
 @long_action(step_month=10)
 class Cultivate(DefineAction, ActualActionMixin):
@@ -306,20 +309,12 @@ class Cultivate(DefineAction, ActualActionMixin):
         根据essence的密度，计算获得的exp。
         公式为：base * essence_density
         """
+        if self.avatar.cultivation_progress.is_in_bottleneck():
+            return 0
         base = 100
         return base * essence_density
     
-    def get_event(self) -> Event:
-        """
-        获取修炼动作开始时的事件
-        """
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼")
-
-    @property
-    def is_doable(self) -> bool:
-        """
-        判断修炼动作是否可以执行
-        """
+    def can_start(self) -> bool:
         root = self.avatar.root
         region = self.avatar.tile.region
         essence_types = get_essence_types_for_root(root)
@@ -330,6 +325,18 @@ class Cultivate(DefineAction, ActualActionMixin):
         if all(region.essence.get_density(et) == 0 for et in essence_types):
             return False
         return True
+
+    def start(self) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼")
+
+    def step(self) -> tuple[str, list[Event]]:
+        self.execute()
+        # 使用 long_action 注入的 is_finished
+        done = getattr(self, "is_finished")()
+        return ("completed" if done else "running"), []
+
+    def finish(self) -> list[Event]:
+        return []
 
 # 突破境界class
 @long_action(step_month=1)
@@ -392,18 +399,19 @@ class Breakthrough(DefineAction, ActualActionMixin):
         self.avatar.mp.add_max(mp_increase)
         self.avatar.mp.recover(mp_increase)  # 突破时完全恢复MP
     
-    def get_event(self) -> Event:
-        """
-        获取突破动作开始时的事件
-        """
+    def can_start(self) -> bool:
+        return self.avatar.cultivation_progress.can_break_through()
+
+    def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
-    @property
-    def is_doable(self) -> bool:
-        """
-        判断突破动作是否可以执行
-        """
-        return self.avatar.cultivation_progress.can_break_through()
+    def step(self) -> tuple[str, list[Event]]:
+        self.execute()
+        done = getattr(self, "is_finished")()
+        return ("completed" if done else "running"), []
+
+    def finish(self) -> list[Event]:
+        return []
 
 @long_action(step_month=6)
 class Play(DefineAction, ActualActionMixin):
@@ -422,15 +430,19 @@ class Play(DefineAction, ActualActionMixin):
         # 比如增加心情值、减少压力等
         pass
     
-    def get_event(self) -> Event:
-        """
-        获取游戏娱乐动作开始时的事件
-        """
+    def can_start(self) -> bool:
+        return True
+
+    def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始玩耍")
 
-    @property
-    def is_doable(self) -> bool:
-        return True
+    def step(self) -> tuple[str, list[Event]]:
+        self.execute()
+        done = getattr(self, "is_finished")()
+        return ("completed" if done else "running"), []
+
+    def finish(self) -> list[Event]:
+        return []
 
 
 @long_action(step_month=6)
@@ -474,18 +486,7 @@ class Hunt(DefineAction, ActualActionMixin):
         """
         return 1.0  # 100%成功率
     
-    def get_event(self) -> Event:
-        """
-        获取狩猎动作开始时的事件
-        """
-        region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始狩猎")
-    
-    @property
-    def is_doable(self) -> bool:
-        """
-        判断是否可以狩猎：必须在有动物的普通区域，且avatar的境界必须大于等于动物的境界
-        """
+    def can_start(self) -> bool:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False
@@ -493,6 +494,18 @@ class Hunt(DefineAction, ActualActionMixin):
         if len(available_animals) == 0:
             return False
         return True
+
+    def start(self) -> Event:
+        region = self.avatar.tile.region
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始狩猎")
+
+    def step(self) -> tuple[str, list[Event]]:
+        self.execute()
+        done = getattr(self, "is_finished")()
+        return ("completed" if done else "running"), []
+
+    def finish(self) -> list[Event]:
+        return []
 
 
 @long_action(step_month=6)
@@ -536,18 +549,7 @@ class Harvest(DefineAction, ActualActionMixin):
         """
         return 1.0  # 100%成功率
     
-    def get_event(self) -> Event:
-        """
-        获取采集动作开始时的事件
-        """
-        region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集")
-    
-    @property
-    def is_doable(self) -> bool:
-        """
-        判断是否可以采集：必须在有植物的普通区域，且avatar的境界必须大于等于植物的境界
-        """
+    def can_start(self) -> bool:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False
@@ -555,6 +557,18 @@ class Harvest(DefineAction, ActualActionMixin):
         if len(avaliable_plants) == 0:
             return False
         return True
+
+    def start(self) -> Event:
+        region = self.avatar.tile.region
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集")
+
+    def step(self) -> tuple[str, list[Event]]:
+        self.execute()
+        done = getattr(self, "is_finished")()
+        return ("completed" if done else "running"), []
+
+    def finish(self) -> list[Event]:
+        return []
 
 
 @long_action(step_month=1)
@@ -593,14 +607,28 @@ class Sold(DefineAction, ActualActionMixin):
 
         self.avatar.magic_stone = self.avatar.magic_stone + total_gain
 
-    def get_event(self, item_name: str) -> Event:
+    def can_start(self, item_name: str|None = None) -> bool:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return False
+        if item_name is None:
+            # 用于动作空间：只要背包非空即可
+            return bool(self.avatar.items)
+        item = items_by_name.get(item_name)
+        if item is None:
+            return False
+        return self.avatar.get_item_quantity(item) > 0
+
+    def start(self, item_name: str) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}")
 
-    @property
-    def is_doable(self) -> bool:
-        # 只允许在城镇且背包非空时出现在动作空间
-        region = self.avatar.tile.region
-        return isinstance(region, CityRegion) and bool(self.avatar.items)
+    def step(self, item_name: str) -> tuple[str, list[Event]]:
+        self.execute(item_name=item_name)
+        # 一次性动作
+        return "completed", []
+
+    def finish(self, item_name: str) -> list[Event]:
+        return []
 
 
 class Battle(DefineAction, ChunkActionMixin):
@@ -619,10 +647,4 @@ class Battle(DefineAction, ChunkActionMixin):
         # 简化：失败者HP小额扣减
         if hasattr(loser, "hp"):
             loser.hp.reduce(10)
-    def is_finished(self, avatar_name: str) -> bool:
-        return True
-    def get_event(self, avatar_name: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 与 {avatar_name} 进行对战")
-    @property
-    def is_doable(self) -> bool:
-        return True
+    # Battle 作为 ChunkAction，不直接由调度器执行

@@ -49,10 +49,7 @@ ALL_ACTUAL_ACTION_CLASSES = [
     Hunt,
     Harvest,
     Sold,
-    DriveAway,
-    AttackInteract,
-    MoveAwayFromAvatar,
-    MoveAwayFromRegion,
+    # 互动类/反馈类作为即时落地，不进入可选择动作空间
 ]
 
 ALL_ACTION_NAMES = [action.__name__ for action in ALL_ACTION_CLASSES]

@@ -26,37 +26,32 @@ class Simulator:
         events = [] # list of Event
         death_avatar_ids = [] # list of str
 
-        # 决定动作行为
+        # 决策阶段：仅对需要新计划的角色调用 AI（当前无动作且无计划）
         avatars_to_decide = []
         for avatar in list(self.world.avatar_manager.avatars.values()):
-            if avatar.cur_action_pair is None:
-                # 若有排队动作但当前不可执行：丢弃之后的所有动作
-                if avatar.has_next_actions():
-                    if not avatar.is_next_action_doable():
-                        avatar.next_actions.clear()
-                        avatars_to_decide.append(avatar)
-                    else:
-                        event = avatar.pop_next_action_and_set_current()
-                        if event is not None and not is_null_event(event):
-                            events.append(event)
-                else:
-                    avatars_to_decide.append(avatar)
+            if avatar.current_action is None and not avatar.has_plans():
+                avatars_to_decide.append(avatar)
         if CONFIG.ai.mode == "llm":
             ai = llm_ai
         else:
             ai = rule_ai
-        if avatars_to_decide:   
+        if avatars_to_decide:
             decide_results = await ai.decide(self.world, avatars_to_decide)
             for avatar, result in decide_results.items():
-                action_name_params_pairs, avatar_thinking, objective, event = result
+                action_name_params_pairs, avatar_thinking, objective, _event = result
+                # 仅入队计划，不在此处添加开始事件，避免与提交阶段重复
                 avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, objective)
-                if not is_null_event(event):
-                    events.append(event)
         
-        # 结算角色行为
+        # 提交阶段：为空闲角色提交计划中的下一个可执行动作
+        for avatar in list(self.world.avatar_manager.avatars.values()):
+            if avatar.current_action is None:
+                start_event = avatar.commit_next_plan()
+                if start_event is not None and not is_null_event(start_event):
+                    events.append(start_event)
+
+        # 执行阶段：推进所有有当前动作的角色
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            # 只在当前有动作时执行当前动作，不再检查“下一个动作”的可执行性
-            new_events = await avatar.act()
+            new_events = await avatar.tick_action()
             if new_events:
                 events.extend(new_events)
 

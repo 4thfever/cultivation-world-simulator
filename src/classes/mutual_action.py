@@ -59,8 +59,14 @@ class MutualAction(DefineAction, LLMAction):
         """
         将反馈决定落地为目标角色的立即动作（清空后加载单步动作链）。
         """
-        # 使用已有的加载动作链接口，立即设置为当前动作
+        # 先加载为计划
         target_avatar.load_decide_result_chain([(action_name, action_params)], target_avatar.thinking, "")
+        # 立即提交为当前动作，触发开始事件
+        start_event = target_avatar.commit_next_plan()
+        if start_event is not None:
+            # 事件广播到双方（进入侧边栏与历史）
+            self.avatar.add_event(start_event)
+            target_avatar.add_event(start_event)
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         """
@@ -93,12 +99,12 @@ class MutualAction(DefineAction, LLMAction):
         # 挂到目标的thinking上（面向UI/日志），并执行反馈落地
         target_avatar.thinking = thinking
         # 发起事件（进入侧边栏与双方历史）
-        start_event = self.get_event(target_avatar)
+        start_event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_avatar.name} 发起 {getattr(self, 'ACTION_NAME', self.name)}")
         self.avatar.add_event(start_event)
         target_avatar.add_event(start_event)
-        # 1) 先清空目标后续动作（仅清空队列，不动当前动作）
-        if hasattr(target_avatar, "clear_next_actions"):
-            target_avatar.clear_next_actions()
+        # 1) 先清空目标后续计划（仅清空队列，不动当前动作）
+        if hasattr(target_avatar, "clear_plans"):
+            target_avatar.clear_plans()
         # 2) 再结算反馈映射为对应动作
         self._settle_feedback(target_avatar, feedback)
         # 3) 反馈事件（进入侧边栏与双方历史）
@@ -109,17 +115,8 @@ class MutualAction(DefineAction, LLMAction):
         self._apply_feedback(target_avatar, feedback)
 
     # 互动力一般是一次性的即时动作
-    def is_finished(self, target_avatar: "Avatar") -> bool:  # type: ignore[override]
-        return True
-
-    def get_event(self, target_avatar: "Avatar|str") -> Event:  # type: ignore[override]
-        target_name = target_avatar if isinstance(target_avatar, str) else target_avatar.name
-        return Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {getattr(self, 'ACTION_NAME', self.name)}")
-
-    @property
-    def is_doable(self) -> bool:  # type: ignore[override]
-        # 一般来讲，必须和对象avatar在同一区域
-        return True
+    # 互动类行为仍保持一次性效果，由自身执行时发事件
+    # 不接入新的调度器接口
 
 
 class DriveAway(MutualAction, ActualActionMixin):
@@ -177,13 +174,7 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
             self.avatar.pos_x = nx
             self.avatar.pos_y = ny
             self.avatar.tile = self.world.map.get_tile(nx, ny)
-    def is_finished(self, avatar_name: str) -> bool:
-        return True
-    def get_event(self, avatar_name: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 远离 {avatar_name}")
-    @property
-    def is_doable(self) -> bool:
-        return True
+    # 保持一次性效果，不参与新的调度接口
 
 
 class MoveAwayFromRegion(DefineAction, ActualActionMixin):
@@ -200,10 +191,4 @@ class MoveAwayFromRegion(DefineAction, ActualActionMixin):
             self.avatar.pos_x = nx
             self.avatar.pos_y = ny
             self.avatar.tile = self.world.map.get_tile(nx, ny)
-    def is_finished(self, region: str) -> bool:
-        return True
-    def get_event(self, region: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 离开 {region}")
-    @property
-    def is_doable(self) -> bool:
-        return True
+    # 保持一次性效果，不参与新的调度接口

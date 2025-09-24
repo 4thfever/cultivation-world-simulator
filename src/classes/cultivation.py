@@ -40,24 +40,6 @@ class Stage(Enum):
 LEVELS_PER_REALM = 30
 LEVELS_PER_STAGE = 10
 
-LEVEL_TO_REALM = {
-    0: Realm.Qi_Refinement,
-    30: Realm.Foundation_Establishment,
-    60: Realm.Core_Formation,
-    90: Realm.Nascent_Soul,
-}
-LEVEL_TO_STAGE = {
-    0: Stage.Early_Stage,
-    10: Stage.Middle_Stage,
-    20: Stage.Late_Stage,
-}
-
-LEVEL_TO_BREAK_THROUGH = {
-    30: Realm.Foundation_Establishment,
-    60: Realm.Core_Formation,
-    90: Realm.Nascent_Soul,
-}
-
 REALM_TO_MOVE_STEP = {
     Realm.Qi_Refinement: 1,
     Realm.Foundation_Establishment: 2,
@@ -83,20 +65,30 @@ class CultivationProgress:
         self.realm = self.get_realm(level)
         self.stage = self.get_stage(level)
 
-    def get_realm(self, level: int) -> str:
-        """获取境界"""
-        for level_threshold, realm in reversed(list(LEVEL_TO_REALM.items())):
-            if level >= level_threshold:
-                return realm
-        return Realm.Qi_Refinement
+    def get_realm(self, level: int) -> Realm:
+        """获取境界（算术推导，不依赖映射表）"""
+        if level <= 0:
+            return Realm.Qi_Refinement
+        realm_index = (level - 1) // LEVELS_PER_REALM  # 0-based index
+        order: tuple[Realm, ...] = (
+            Realm.Qi_Refinement,
+            Realm.Foundation_Establishment,
+            Realm.Core_Formation,
+            Realm.Nascent_Soul,
+        )
+        return order[min(realm_index, len(order) - 1)]
 
     def get_stage(self, level: int) -> Stage:
-        """获取阶段"""
-        _level = level % LEVELS_PER_REALM
-        for level_threshold, stage in reversed(list(LEVEL_TO_STAGE.items())):
-            if _level >= level_threshold:
-                return stage
-        return Stage.Early_Stage
+        """获取阶段（算术推导：1-10前期，11-20中期，21-30后期）"""
+        if level <= 0:
+            return Stage.Early_Stage
+        stage_index = ((level - 1) % LEVELS_PER_REALM) // LEVELS_PER_STAGE
+        order: tuple[Stage, ...] = (
+            Stage.Early_Stage,
+            Stage.Middle_Stage,
+            Stage.Late_Stage,
+        )
+        return order[min(stage_index, len(order) - 1)]
 
     def get_move_step(self) -> int:
         """
@@ -136,8 +128,9 @@ class CultivationProgress:
         # 基础经验值计算
         exp_required = base_exp + (next_level - 1) * increment
         
-        # 境界加成：每跨越一个境界，额外增加1000点经验值
-        realm_bonus = (next_level // 30) * 1000
+        # 境界加成：按 next_level 所处境界（延后入境界，算术推导）增加
+        realm_index = (max(1, next_level) - 1) // LEVELS_PER_REALM
+        realm_bonus = realm_index * 1000
         
         return exp_required + realm_bonus
 
@@ -162,18 +155,25 @@ class CultivationProgress:
             如果升级了则返回True
         """
         self.exp += exp_amount
-        
-        # 检查是否可以升级
-        if self.is_level_up():
+
+        leveled_up = False
+        # 支持多级升级，但在瓶颈（30/60/90…）停下，等待突破
+        while True:
+            # 瓶颈位：level > 0 且 level % LEVELS_PER_REALM == 0
+            if self.is_in_bottleneck():
+                break
+            if not self.is_level_up():
+                break
             required_exp = self.get_exp_required()
             self.exp -= required_exp
             self.level += 1
-            # 更新境界和阶段
             self.realm = self.get_realm(self.level)
             self.stage = self.get_stage(self.level)
-            return True
-        
-        return False
+            leveled_up = True
+            if self.is_in_bottleneck():
+                break
+
+        return leveled_up
 
     def break_through(self):
         """
@@ -186,12 +186,9 @@ class CultivationProgress:
     def is_in_bottleneck(self) -> bool:
         """
         是否处于瓶颈期。
-        如果级别在LEVEL_TO_BREAK_THROUGH中，同时realm不是该级别对应的realm，则处于瓶颈期。
+        处于每个大境界的第 30、60、90…级时（level > 0 且 level % LEVELS_PER_REALM == 0）。
         """
-        for level_threshold, realm in LEVEL_TO_BREAK_THROUGH.items():
-            if self.level == level_threshold and self.realm != realm:
-                return True
-        return False
+        return self.level > 0 and (self.level % LEVELS_PER_REALM == 0)
 
     def can_break_through(self) -> bool:
         """
