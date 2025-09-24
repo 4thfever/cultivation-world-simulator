@@ -1,12 +1,8 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from enum import Enum
 from typing import TYPE_CHECKING
 import random
-import json
-import inspect
 
-from src.classes.essence import Essence, EssenceType
 from src.classes.root import Root, get_essence_types_for_root, extra_breakthrough_success_rate
 from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
 from src.classes.event import Event, NULL_EVENT
@@ -364,6 +360,8 @@ class Breakthrough(DefineAction, ActualActionMixin):
         """
         assert self.avatar.cultivation_progress.can_break_through()   
         success_rate = self.calc_success_rate()
+        # 记录本次尝试的基础信息
+        self._success_rate_cached = success_rate
         if random.random() < success_rate:
             old_realm = self.avatar.cultivation_progress.realm
             self.avatar.cultivation_progress.break_through()
@@ -374,10 +372,14 @@ class Breakthrough(DefineAction, ActualActionMixin):
                 self._update_hp_mp_on_breakthrough(new_realm)
                 # 成功：确保最大寿元至少达到新境界的基线
                 self.avatar.age.ensure_max_lifespan_at_least_realm_base(new_realm)
+            # 记录结果用于 finish 事件
+            self._last_result = ("success", getattr(old_realm, "value", str(old_realm)), getattr(new_realm, "value", str(new_realm)))
         else:
             # 突破失败：减少最大寿元上限
             reduce_years = self.avatar.cultivation_progress.get_breakthrough_fail_reduce_lifespan()
             self.avatar.age.decrease_max_lifespan(reduce_years)
+            # 记录结果用于 finish 事件
+            self._last_result = ("fail", int(reduce_years))
     
     def _update_hp_mp_on_breakthrough(self, new_realm):
         """
@@ -403,6 +405,9 @@ class Breakthrough(DefineAction, ActualActionMixin):
         return self.avatar.cultivation_progress.can_break_through()
 
     def start(self) -> Event:
+        # 清理上次残留的结果状态（防御性）
+        self._last_result = None
+        self._success_rate_cached = None
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
     def step(self) -> tuple[str, list[Event]]:
@@ -411,7 +416,15 @@ class Breakthrough(DefineAction, ActualActionMixin):
         return ("completed" if done else "running"), []
 
     def finish(self) -> list[Event]:
-        return []
+        # 根据执行阶段记录的 _last_result 生成简洁完成事件
+        res = getattr(self, "_last_result", None)
+        if isinstance(res, tuple) and res:
+            if res[0] == "success":
+                return [Event(self.world.month_stamp, f"{self.avatar.name} 突破成功")]
+            elif res[0] == "fail":
+                return [Event(self.world.month_stamp, f"{self.avatar.name} 突破失败")]
+            else:
+                raise ValueError(f"Unknown result: {res}")
 
 @long_action(step_month=6)
 class Play(DefineAction, ActualActionMixin):
