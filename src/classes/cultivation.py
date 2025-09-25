@@ -222,10 +222,10 @@ class CultivationProgress:
 
 
 breakthrough_success_rate_by_realm = {
-    Realm.Qi_Refinement: 0.8,
-    Realm.Foundation_Establishment: 0.6,
-    Realm.Core_Formation: 0.4,
-    Realm.Nascent_Soul: 0.2,
+    Realm.Qi_Refinement: 0.8, # 练气，80%
+    Realm.Foundation_Establishment: 0.6, # 筑基，60%
+    Realm.Core_Formation: 0.4, # 金丹，40%
+    Realm.Nascent_Soul: 0.2, # 元婴，20%
 }
 
 breakthrough_fail_reduce_lifespan_by_realm = {

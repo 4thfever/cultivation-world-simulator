@@ -59,17 +59,15 @@ def _build_root_members_from_csv() -> Dict[str, tuple]:
         element_names = [s.strip() for s in elements_field.split(sep) if str(s).strip()]
         element_members: List[RootElement] = []
         for en in element_names:
-            try:
-                # RootElement 的值即为中文名，因此可直接用中文构造
-                element_members.append(RootElement(en))
-            except Exception as e:
-                raise ValueError(f"root.csv 中未知的元素名称: {en}") from e
+            element_members.append(RootElement(en))
         members[key] = (cn_name, tuple(element_members))
     return members
 
 
 # 动态创建 Root 枚举（使用 mixin 作为 type，使 __new__ 生效）
 Root = Enum("Root", _build_root_members_from_csv(), type=_RootMixin)
+# 某些环境下函数式创建的 Enum 可能未正确采用 mixin 的 __str__，这里显式绑定确保生效
+Root.__str__ = _RootMixin.__str__
 
 
 # 元素到灵气类型的一一对应
@@ -94,21 +92,12 @@ def _load_extra_breakthrough_success_rate_from_csv() -> Dict["Root", float]:
     从 root.csv 载入各灵根的额外突破成功率，默认0。
     列名：extra_breakthrough_success_rate
     """
-    df = game_configs.get("root")
-    if df is None:
-        return {}
+    df = game_configs["root"]
     bonuses: Dict["Root", float] = {}
     for _, row in df.iterrows():
         key = str(row["key"]).strip()
-        try:
-            root_member = getattr(Root, key)
-        except AttributeError:
-            # CSV 中的 key 未在 Root 中注册（理论不可能），跳过
-            continue
-        try:
-            bonus = float(row.get("extra_breakthrough_success_rate", 0) or 0)
-        except Exception:
-            bonus = 0.0
+        root_member = getattr(Root, key)
+        bonus = float(row.get("extra_breakthrough_success_rate", 0) or 0)
         bonuses[root_member] = bonus
     return bonuses
 
