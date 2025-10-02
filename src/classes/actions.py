@@ -16,7 +16,7 @@ from src.classes.action import (
 )
 from src.classes.mutual_action import (
     DriveAway,
-    AttackInteract,
+    Attack,
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
 )
@@ -35,7 +35,7 @@ ALL_ACTION_CLASSES = [
     Sold,
     # 互动相关动作（实际执行的反馈动作也纳入）
     DriveAway,
-    AttackInteract,
+    Attack,
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
 ]
@@ -49,7 +49,8 @@ ALL_ACTUAL_ACTION_CLASSES = [
     Hunt,
     Harvest,
     Sold,
-    # 互动类/反馈类作为即时落地，不进入可选择动作空间
+    DriveAway,
+    Attack,
 ]
 
 ALL_ACTION_NAMES = [action.__name__ for action in ALL_ACTION_CLASSES]

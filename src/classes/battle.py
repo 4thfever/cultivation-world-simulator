@@ -58,7 +58,8 @@ def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
 
 def get_damage(winner: "Avatar", loser: "Avatar") -> int:
     """
-    根据胜负双方境界差距估算伤害：基础30，差一大境界+10，上限80。
+    根据胜负双方境界差距估算伤害：基础100，差一大境界+100，上限500。
     """
     gap = max(0, _realm_order(winner.cultivation_progress.realm) - _realm_order(loser.cultivation_progress.realm))
-    return min(80, 30 + 10 * gap)
+    # return min(500, 100 + 100 * gap)
+    return 500

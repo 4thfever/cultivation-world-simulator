@@ -3,17 +3,20 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from src.classes.action import DefineAction, ActualActionMixin, LLMAction
+from src.classes.action import DefineAction, ActualActionMixin, LLMAction, StepStatus
 from src.classes.battle import get_escape_success_rate
+from src.classes.tile import get_avatar_distance
 import random
 from src.classes.event import Event
 from src.utils.llm import get_prompt_and_call_llm
 from src.utils.config import CONFIG
+from src.classes.action import long_action
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
-
+# 默认所有的互动都是1个月时间
+@long_action(step_month=1)
 class MutualAction(DefineAction, LLMAction):
     """
     互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
@@ -80,17 +83,27 @@ class MutualAction(DefineAction, LLMAction):
         # 默认不额外记录，由事件系统承担
         return
 
-    def _execute(self, target_avatar: "Avatar|str") -> None:
-        # 允许传入名字字符串
+    def _get_target_avatar(self, target_avatar: "Avatar|str") -> "Avatar|None":
+        """
+        获取目标角色，支持传入角色对象或名字字符串
+        
+        Returns:
+            目标角色，如果找不到返回 None
+        """
         if isinstance(target_avatar, str):
             name = target_avatar
-            target_avatar = None
             for v in self.world.avatar_manager.avatars.values():
                 if v.name == name:
-                    target_avatar = v
-                    break
-            if target_avatar is None:
-                return
+                    return v
+            return None
+        return target_avatar
+
+    def _execute(self, target_avatar: "Avatar|str") -> None:
+        # 允许传入名字字符串
+        target_avatar = self._get_target_avatar(target_avatar)
+        if target_avatar is None:
+            return
+            
         infos = self._build_prompt_infos(target_avatar)
         res = self._call_llm_feedback(infos)
         # LLM 只返回 {avatar_name_2: {thinking, feedback}}
@@ -100,10 +113,6 @@ class MutualAction(DefineAction, LLMAction):
 
         # 挂到目标的thinking上（面向UI/日志），并执行反馈落地
         target_avatar.thinking = thinking
-        # 发起事件（进入侧边栏与双方历史）
-        start_event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_avatar.name} 发起 {getattr(self, 'ACTION_NAME', self.name)}")
-        self.avatar.add_event(start_event)
-        target_avatar.add_event(start_event)
         # 1) 先清空目标后续计划（仅清空队列，不动当前动作）
         if hasattr(target_avatar, "clear_plans"):
             target_avatar.clear_plans()
@@ -122,9 +131,45 @@ class MutualAction(DefineAction, LLMAction):
         # 4) 记录历史（文本记录）
         self._apply_feedback(target_avatar, feedback)
 
-    # 互动行为一般是一次性的即时动作
-    # 互动类行为仍保持一次性效果，由自身执行时发事件
-    # 不接入新的调度器接口
+    # 实现 ActualActionMixin 接口
+    def can_start(self, target_avatar: "Avatar|str|None" = None) -> bool:
+        """
+        检查互动动作能否启动：两个角色距离必须小于等于2
+        """
+        if target_avatar is None:
+            return False
+        target = self._get_target_avatar(target_avatar)
+        if target is None:
+            return False
+        distance = get_avatar_distance(self.avatar, target)
+        return distance <= 2
+
+    def start(self, target_avatar: "Avatar|str") -> Event:
+        """
+        启动互动动作，返回开始事件
+        """
+        target = self._get_target_avatar(target_avatar)
+        target_name = target.name if target is not None else str(target_avatar)
+        action_name = getattr(self, 'ACTION_NAME', self.name)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}")
+        # 将事件添加到双方历史
+        self.avatar.add_event(event)
+        if target is not None:
+            target.add_event(event)
+        return event
+
+    def step(self, target_avatar: "Avatar|str") -> tuple[StepStatus, list[Event]]:
+        """
+        执行互动动作，互动动作是即时完成的
+        """
+        self.execute(target_avatar=target_avatar)
+        return StepStatus.COMPLETED, []
+
+    def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+        """
+        完成互动动作，事件已在 step 中处理，无需额外事件
+        """
+        return []
 
 
 class DriveAway(MutualAction, ActualActionMixin):
@@ -144,8 +189,8 @@ class DriveAway(MutualAction, ActualActionMixin):
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
 
-class AttackInteract(MutualAction, ActualActionMixin):
-    """攻击互动：被攻击者的反馈。"""
+class Attack(MutualAction, ActualActionMixin):
+    """攻击另一个NPC"""
     ACTION_NAME = "攻击"
     COMMENT = "对目标进行攻击。"
     DOABLES_REQUIREMENTS = "与目标处于同一区域"

@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.classes.region import Region
+    from src.classes.avatar import Avatar
 
 class TileType(Enum):
     PLAIN = "plain" # 平原
@@ -31,4 +32,18 @@ class Tile():
     x: int
     y: int
     region: 'Region' = None # 可以是一个region的一部分，也可以不属于任何region
+
+
+def get_avatar_distance(avatar1: 'Avatar', avatar2: 'Avatar') -> int:
+    """
+    计算两个 Avatar 之间的汉明距离（曼哈顿距离）
+    
+    Args:
+        avatar1: 第一个角色
+        avatar2: 第二个角色
+    
+    Returns:
+        两个角色之间的距离
+    """
+    return abs(avatar1.pos_x - avatar2.pos_x) + abs(avatar1.pos_y - avatar2.pos_y)
 
