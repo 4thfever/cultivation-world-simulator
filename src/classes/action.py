@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+from enum import Enum
 import random
 
 from src.classes.root import Root, get_essence_types_for_root, extra_breakthrough_success_rate
@@ -137,12 +138,17 @@ class ActualActionMixin():
         pass
 
     @abstractmethod
-    def step(self, **params) -> tuple[str, list[Event]]:  # status: "running" | "completed" | "failed" | "blocked"
+    def step(self, **params) -> tuple["StepStatus", list[Event]]:
         pass
 
     @abstractmethod
     def finish(self, **params) -> list[Event]:
         pass
+
+
+class StepStatus(Enum):
+    RUNNING = "running"
+    COMPLETED = "completed"
 
 
 class Move(DefineAction, ChunkActionMixin):
@@ -213,14 +219,14 @@ class MoveToRegion(DefineAction, ActualActionMixin):
             region_name = str(region)
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}")
 
-    def step(self, region: Region|str) -> tuple[str, list[Event]]:
+    def step(self, region: Region|str) -> tuple[StepStatus, list[Event]]:
         self.execute(region=region)
         # 完成条件：到达目标区域
         if isinstance(region, str):
             from src.classes.region import regions_by_name
             region = regions_by_name[region]
         done = self.avatar.is_in_region(region)
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self, region: Region|str) -> list[Event]:
         return []
@@ -264,7 +270,7 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         target_name = target.name if target is not None else avatar_name
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}")
 
-    def step(self, avatar_name: str) -> tuple[str, list[Event]]:
+    def step(self, avatar_name: str) -> tuple[StepStatus, list[Event]]:
         self.execute(avatar_name=avatar_name)
         target = None
         try:
@@ -272,9 +278,9 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         except Exception:
             target = None
         if target is None:
-            return "completed", []
+            return StepStatus.COMPLETED, []
         done = self.avatar.pos_x == target.pos_x and self.avatar.pos_y == target.pos_y
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self, avatar_name: str) -> list[Event]:
         return []
@@ -325,11 +331,11 @@ class Cultivate(DefineAction, ActualActionMixin):
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼")
 
-    def step(self) -> tuple[str, list[Event]]:
+    def step(self) -> tuple[StepStatus, list[Event]]:
         self.execute()
         # 使用 long_action 注入的 is_finished
         done = getattr(self, "is_finished")()
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self) -> list[Event]:
         return []
@@ -410,10 +416,10 @@ class Breakthrough(DefineAction, ActualActionMixin):
         self._success_rate_cached = None
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
-    def step(self) -> tuple[str, list[Event]]:
+    def step(self) -> tuple[StepStatus, list[Event]]:
         self.execute()
         done = getattr(self, "is_finished")()
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self) -> list[Event]:
         # 根据执行阶段记录的 _last_result 生成简洁完成事件
@@ -449,10 +455,10 @@ class Play(DefineAction, ActualActionMixin):
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始玩耍")
 
-    def step(self) -> tuple[str, list[Event]]:
+    def step(self) -> tuple[StepStatus, list[Event]]:
         self.execute()
         done = getattr(self, "is_finished")()
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self) -> list[Event]:
         return []
@@ -512,10 +518,10 @@ class Hunt(DefineAction, ActualActionMixin):
         region = self.avatar.tile.region
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始狩猎")
 
-    def step(self) -> tuple[str, list[Event]]:
+    def step(self) -> tuple[StepStatus, list[Event]]:
         self.execute()
         done = getattr(self, "is_finished")()
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self) -> list[Event]:
         return []
@@ -575,10 +581,10 @@ class Harvest(DefineAction, ActualActionMixin):
         region = self.avatar.tile.region
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集")
 
-    def step(self) -> tuple[str, list[Event]]:
+    def step(self) -> tuple[StepStatus, list[Event]]:
         self.execute()
         done = getattr(self, "is_finished")()
-        return ("completed" if done else "running"), []
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self) -> list[Event]:
         return []
@@ -635,10 +641,10 @@ class Sold(DefineAction, ActualActionMixin):
     def start(self, item_name: str) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}")
 
-    def step(self, item_name: str) -> tuple[str, list[Event]]:
+    def step(self, item_name: str) -> tuple[StepStatus, list[Event]]:
         self.execute(item_name=item_name)
         # 一次性动作
-        return "completed", []
+        return StepStatus.COMPLETED, []
 
     def finish(self, item_name: str) -> list[Event]:
         return []

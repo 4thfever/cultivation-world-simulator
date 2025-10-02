@@ -5,7 +5,7 @@ from typing import Optional, List
 import json
 
 from src.classes.calendar import MonthStamp
-from src.classes.action import Action
+from src.classes.action import Action, StepStatus
 from src.classes.actions import ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
 from src.classes.world import World
 from src.classes.tile import Tile
@@ -24,6 +24,7 @@ from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 from src.classes.relation import Relation
+from src.run.log import get_logger
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -153,18 +154,14 @@ class Avatar:
             plan = self.planned_actions.pop(0)
             action = self.create_action(plan.action_name)
             # 再验证
-            can_start = True
-            try:
-                can_start = bool(action.can_start(**plan.params))
-            except TypeError:
-                can_start = bool(action.can_start())
+            can_start = bool(action.can_start(**plan.params))
             if not can_start:
+                # 记录不合法动作
+                logger = get_logger().logger
+                logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动", self.name, self.id, plan.action_name, plan.params)
                 continue
             # 启动
-            try:
-                start_event = action.start(**plan.params)
-            except TypeError:
-                start_event = action.start()
+            start_event = action.start(**plan.params)
             self.current_action = ActionInstance(action=action, params=plan.params, status="running")
             return start_event
         return None
@@ -186,7 +183,7 @@ class Avatar:
             status, mid_events = action.step(**params)
         except TypeError:
             status, mid_events = action.step()
-        if status == "completed":
+        if status == StepStatus.COMPLETED:
             try:
                 finish_events = action.finish(**params)
             except TypeError:
@@ -203,30 +200,6 @@ class Avatar:
         events, self._pending_events = self._pending_events, []
         return events
 
-    def _commit_specific_plan(self, plan: ActionPlan) -> bool:
-        """
-        尝试提交指定计划为当前动作，不返回事件（用于内部/立即触发）。
-        """
-        if self.current_action is not None:
-            # 已有当前动作则直接入队
-            self.planned_actions.insert(0, plan)
-            return False
-        action = self.create_action(plan.action_name)
-        try:
-            can_start = bool(action.can_start(**plan.params))
-        except TypeError:
-            can_start = bool(action.can_start())
-        if not can_start:
-            # 无法启动则丢入计划队列等待
-            self.planned_actions.insert(0, plan)
-            return False
-        try:
-            _ = action.start(**plan.params)
-        except TypeError:
-            _ = action.start()
-        self.current_action = ActionInstance(action=action, params=plan.params, status="running")
-        return True
-    
     def update_cultivation(self, new_level: int):
         """
         更新修仙进度，并在境界提升时更新寿命
@@ -272,8 +245,12 @@ class Avatar:
             "realm": self.cultivation_progress.realm.value
         }
 
-    def is_in_region(self, region: Region) -> bool:
-        return self.tile.region == region
+    def is_in_region(self, region: Region|None) -> bool:
+        current_region = self.tile.region
+        if current_region is None:
+            tile = self.world.map.get_tile(self.pos_x, self.pos_y)
+            current_region = tile.region
+        return current_region == region
     
     def add_item(self, item: Item, quantity: int = 1) -> None:
         """
@@ -370,12 +347,8 @@ class Avatar:
         doable_actions: list[Action] = []
         for action in actual_actions:
             # 用 can_start 的无参形式，用于“是否在动作空间中显示”
-            try:
-                if action.can_start():
-                    doable_actions.append(action)
-            except TypeError:
-                # 无参展示判定失败时，简单跳过（避免在空间中展示需要参数才能判定的动作）
-                continue
+            if action.can_start():
+                doable_actions.append(action)
         action_space = [action.name for action in doable_actions]
         return action_space
 
