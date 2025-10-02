@@ -25,6 +25,7 @@ from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 from src.classes.relation import Relation
 from src.run.log import get_logger
+from src.classes.alignment import Alignment
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -73,6 +74,7 @@ class Avatar:
     hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
     mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
     relations: dict["Avatar", Relation] = field(default_factory=dict)
+    alignment: Alignment = field(default_factory=lambda: random.choice(list(Alignment)))
 
     def __post_init__(self):
         """
@@ -101,7 +103,7 @@ class Avatar:
         尽量多打一些，因为会用来给LLM进行决策
         """
         personas_str = ", ".join([persona.name for persona in self.personas])
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 阵营={self.alignment}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
 
     def __str__(self) -> str:
         return self.get_info()
@@ -437,11 +439,11 @@ class Avatar:
 
     def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
         """
-        仅显示三个字段：名字、境界、关系。
+        仅显示4个字段：名字、境界、关系、阵营。
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_simple_info()}，关系：{relation_str}"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_simple_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}"
 
     @property
     def move_step_length(self) -> int:

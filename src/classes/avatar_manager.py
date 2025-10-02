@@ -25,4 +25,31 @@ class AvatarManager:
                 same_region.append(other)
         return same_region
 
+    def remove_avatar(self, avatar_id: str) -> None:
+        """
+        从管理器中删除一个 avatar，并清理所有与其相关的双向关系。
+        """
+        avatar = self.avatars.get(avatar_id)
+        if avatar is None:
+            return
+        # 先清理与其直接记录的关系（会保持对称）
+        related = list(getattr(avatar, "relations", {}).keys())
+        for other in related:
+            avatar.clear_relation(other)
+        # 再次扫一遍所有 avatar，确保不存在残留引用
+        for other in list(self.avatars.values()):
+            if other is avatar:
+                continue
+            if getattr(other, "relations", None) is not None and avatar in other.relations:
+                other.clear_relation(avatar)
+        # 最后移除自身
+        self.avatars.pop(avatar_id, None)
+
+    def remove_avatars(self, avatar_ids: List[str]) -> None:
+        """
+        批量删除 avatars，并清理所有关系。
+        """
+        for aid in list(avatar_ids):
+            self.remove_avatar(aid)
+
 

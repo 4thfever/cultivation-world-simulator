@@ -6,6 +6,7 @@ import random
 
 from src.classes.root import Root, get_essence_types_for_root, extra_breakthrough_success_rate
 from src.classes.region import Region, CultivateRegion, NormalRegion, CityRegion
+from src.classes.alignment import Alignment
 from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
 from src.classes.prices import prices
@@ -688,4 +689,78 @@ class Battle(DefineAction, ActualActionMixin):
         if isinstance(res, tuple) and len(res) == 2:
             winner, loser = res
             return [Event(self.world.month_stamp, f"{winner} 战胜了 {loser}")]
+        return []
+
+
+@long_action(step_month=3)
+class PlunderMortals(DefineAction, ActualActionMixin):
+    """
+    在城镇对凡人进行搜刮，获取少量灵石。
+    仅邪阵营可执行。
+    """
+    COMMENT = "在城镇搜刮凡人，获取少量灵石"
+    DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘邪’"
+    PARAMS = {}
+    GAIN = 20
+
+    def _execute(self) -> None:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return
+        gain = self.GAIN
+        self.avatar.magic_stone = self.avatar.magic_stone + gain
+
+    def can_start(self) -> bool:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return False
+        return self.avatar.alignment == Alignment.EVIL
+
+    def start(self) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始搜刮凡人")
+
+    def step(self) -> tuple[StepStatus, list[Event]]:
+        self.execute()
+        return (StepStatus.COMPLETED if getattr(self, "is_finished")() else StepStatus.RUNNING), []
+
+    def finish(self) -> list[Event]:
+        return []
+
+
+@long_action(step_month=3)
+class HelpMortals(DefineAction, ActualActionMixin):
+    """
+    在城镇帮助凡人，消耗少量灵石。
+    仅正阵营可执行。
+    """
+    COMMENT = "在城镇帮助凡人，消耗少量灵石"
+    DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘正’，并且灵石足够"
+    PARAMS = {}
+    COST = 10
+
+    def _execute(self) -> None:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return
+        cost = self.COST
+        if getattr(self.avatar.magic_stone, "value", 0) >= cost:
+            self.avatar.magic_stone = self.avatar.magic_stone - cost
+
+    def can_start(self) -> bool:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return False
+        if self.avatar.alignment != Alignment.RIGHTEOUS:
+            return False
+        cost = self.COST
+        return getattr(self.avatar.magic_stone, "value", 0) >= cost
+
+    def start(self) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始帮助凡人")
+
+    def step(self) -> tuple[StepStatus, list[Event]]:
+        self.execute()
+        return (StepStatus.COMPLETED if getattr(self, "is_finished")() else StepStatus.RUNNING), []
+
+    def finish(self) -> list[Event]:
         return []

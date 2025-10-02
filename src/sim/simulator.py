@@ -56,7 +56,7 @@ class Simulator:
             if new_events:
                 events.extend(new_events)
 
-        # 结算战斗等导致的死亡（HP<=0）与寿命逻辑
+        # 结算战斗等导致的死亡逻辑
         for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
             if avatar.hp <= 0:
                 death_avatar_ids.append(avatar_id)
@@ -66,11 +66,15 @@ class Simulator:
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
                 events.append(event)
+        # 删除死亡的角色（由 AvatarManager 清理关系并移除）
+        if death_avatar_ids:
+            self.world.avatar_manager.remove_avatars(death_avatar_ids)
+            
+        # 寿命逻辑
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             avatar.update_age(self.world.month_stamp)
         
-        # 删除死亡的角色
-        for avatar_id in death_avatar_ids:
-            self.world.avatar_manager.avatars.pop(avatar_id)
+
 
         # 新角色
         if random.random() < self.birth_rate:

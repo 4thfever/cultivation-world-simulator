@@ -13,6 +13,8 @@ from src.classes.action import (
     Harvest,
     Sold,
     Battle,
+    PlunderMortals,
+    HelpMortals,
 )
 from src.classes.mutual_action import (
     DriveAway,
@@ -33,6 +35,8 @@ ALL_ACTION_CLASSES = [
     Hunt,
     Harvest,
     Sold,
+    PlunderMortals,
+    HelpMortals,
     # 互动相关动作（实际执行的反馈动作也纳入）
     DriveAway,
     Attack,
@@ -49,6 +53,8 @@ ALL_ACTUAL_ACTION_CLASSES = [
     Hunt,
     Harvest,
     Sold,
+    PlunderMortals,
+    HelpMortals,
     DriveAway,
     Attack,
 ]

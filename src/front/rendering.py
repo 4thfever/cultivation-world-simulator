@@ -141,6 +141,7 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
         f"{avatar.name}",
         f"性别: {avatar.gender}",
         f"年龄: {avatar.age}",
+        f"阵营: {avatar.alignment}",
         f"境界: {str(avatar.cultivation_progress)}",
         f"HP: {avatar.hp}",
         f"MP: {avatar.mp}",
