@@ -69,9 +69,9 @@ class MutualAction(DefineAction, LLMAction):
         # 立即提交为当前动作，触发开始事件
         start_event = target_avatar.commit_next_plan()
         if start_event is not None:
-            # 事件广播到双方（进入侧边栏与历史）
+            # 侧边栏仅推送一次（由动作发起方承担），另一侧仅写历史
             self.avatar.add_event(start_event)
-            target_avatar.add_event(start_event)
+            target_avatar.add_event(start_event, to_sidebar=False)
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         """
@@ -126,8 +126,9 @@ class MutualAction(DefineAction, LLMAction):
         }
         fb_label = fb_map.get(str(feedback).strip(), str(feedback))
         feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}")
+        # 侧边栏仅推送一次，另一侧仅写入历史，避免重复
         self.avatar.add_event(feedback_event)
-        target_avatar.add_event(feedback_event)
+        target_avatar.add_event(feedback_event, to_sidebar=False)
         # 4) 记录历史（文本记录）
         self._apply_feedback(target_avatar, feedback)
 
@@ -152,10 +153,10 @@ class MutualAction(DefineAction, LLMAction):
         target_name = target.name if target is not None else str(target_avatar)
         action_name = getattr(self, 'ACTION_NAME', self.name)
         event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}")
-        # 将事件添加到双方历史
-        self.avatar.add_event(event)
+        # 仅写入历史，避免与提交阶段重复推送到侧边栏
+        self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
-            target.add_event(event)
+            target.add_event(event, to_sidebar=False)
         return event
 
     def step(self, target_avatar: "Avatar|str") -> tuple[StepStatus, list[Event]]:
@@ -238,10 +239,10 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
             self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
             start_event = self.avatar.commit_next_plan()
             if start_event is not None:
+                # 仅在本方推送到侧边栏；对方仅写历史
                 self.avatar.add_event(start_event)
-                # 也同步给对方
                 if target is not None:
-                    target.add_event(start_event)
+                    target.add_event(start_event, to_sidebar=False)
 
 
 class MoveAwayFromRegion(DefineAction, ActualActionMixin):
