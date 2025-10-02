@@ -23,7 +23,7 @@ from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
-from src.classes.relation import Relation
+from src.classes.relation import Relation, get_reciprocal
 from src.run.log import get_logger
 from src.classes.alignment import Alignment
 
@@ -398,14 +398,16 @@ class Avatar:
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """
-        设置与另一个角色的关系（对称）。
+        设置与另一个角色的关系。
+        - 对称关系（如 FRIEND/ENEMY/LOVERS/SIBLING/KIN）会在对方处写入相同的关系。
+        - 有向关系（如 MASTER、APPRENTICE、PARENT、CHILD）会在对方处写入对偶关系。
         """
         if other is self:
             return
         self.relations[other] = relation
-        # 保持对称
+        # 写入对方的对偶关系（对称关系会得到同一枚举值）
         if getattr(other, "relations", None) is not None:
-            other.relations[self] = relation
+            other.relations[self] = get_reciprocal(relation)
 
     def get_relation(self, other: "Avatar") -> Optional[Relation]:
         return self.relations.get(other)
