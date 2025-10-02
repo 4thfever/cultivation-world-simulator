@@ -35,6 +35,37 @@ class HP:
     
     def __repr__(self) -> str:
         return self.__str__()
+    
+    # 比较运算符，使用cur进行比较
+    def __eq__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur == other.cur
+        return self.cur == other
+    
+    def __ne__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur != other.cur
+        return self.cur != other
+    
+    def __lt__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur < other.cur
+        return self.cur < other
+    
+    def __le__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur <= other.cur
+        return self.cur <= other
+    
+    def __gt__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur > other.cur
+        return self.cur > other
+    
+    def __ge__(self, other) -> bool:
+        if isinstance(other, HP):
+            return self.cur >= other.cur
+        return self.cur >= other
         
 HP_MAX_BY_REALM = {
     Realm.Qi_Refinement: 100,
@@ -75,6 +106,37 @@ class MP:
     
     def __repr__(self) -> str:
         return self.__str__()
+    
+    # 比较运算符，使用cur进行比较
+    def __eq__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur == other.cur
+        return self.cur == other
+    
+    def __ne__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur != other.cur
+        return self.cur != other
+    
+    def __lt__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur < other.cur
+        return self.cur < other
+    
+    def __le__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur <= other.cur
+        return self.cur <= other
+    
+    def __gt__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur > other.cur
+        return self.cur > other
+    
+    def __ge__(self, other) -> bool:
+        if isinstance(other, MP):
+            return self.cur >= other.cur
+        return self.cur >= other
 
     def add_max(self, value_2_add:int) -> bool:
         self.max += value_2_add

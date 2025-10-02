@@ -9,6 +9,7 @@ from src.classes.event import Event, is_null_event
 from src.classes.ai import llm_ai, rule_ai
 from src.utils.names import get_random_name
 from src.utils.config import CONFIG
+from src.run.log import get_logger
 
 class Simulator:
     def __init__(self, world: World):
@@ -55,8 +56,12 @@ class Simulator:
             if new_events:
                 events.extend(new_events)
 
-        # 结算寿命逻辑
-        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
+        # 结算战斗等导致的死亡（HP<=0）与寿命逻辑
+        for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
+            if avatar.hp <= 0:
+                death_avatar_ids.append(avatar_id)
+                event = Event(self.world.month_stamp, f"{avatar.name} 因重伤身亡")
+                events.append(event)
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
                 event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
@@ -76,6 +81,11 @@ class Simulator:
             self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。")
             events.append(event)
+
+        # 将事件写入日志
+        logger = get_logger().logger
+        for event in events:
+            logger.info("EVENT: %s", str(event))
 
         # 最后结算年月
         self.world.month_stamp = self.world.month_stamp + 1

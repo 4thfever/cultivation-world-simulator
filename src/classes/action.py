@@ -650,20 +650,42 @@ class Sold(DefineAction, ActualActionMixin):
         return []
 
 
-class Battle(DefineAction, ChunkActionMixin):
+class Battle(DefineAction, ActualActionMixin):
     COMMENT = "与目标进行对战，判定胜负"
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"avatar_name": "AvatarName"}
-    def _execute(self, avatar_name: str) -> None:
-        target = None
+
+    def _get_target(self, avatar_name: str):
         for v in self.world.avatar_manager.avatars.values():
             if v.name == avatar_name:
-                target = v
-                break
+                return v
+        return None
+
+    def _execute(self, avatar_name: str) -> None:
+        target = self._get_target(avatar_name)
         if target is None:
             return
-        winner, loser, _ = decide_battle(self.avatar, target)
-        # 简化：失败者HP小额扣减
-        if hasattr(loser, "hp"):
-            loser.hp.reduce(10)
-    # Battle 作为 ChunkAction，不直接由调度器执行
+        winner, loser, damage = decide_battle(self.avatar, target)
+        loser.hp.reduce(damage)
+        self._last_result = (winner.name, loser.name)
+
+    def can_start(self, avatar_name: str | None = None) -> bool:
+        if avatar_name is None:
+            return False
+        return self._get_target(avatar_name) is not None
+
+    def start(self, avatar_name: str) -> Event:
+        target = self._get_target(avatar_name)
+        target_name = target.name if target is not None else avatar_name
+        return Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗")
+
+    def step(self, avatar_name: str) -> tuple[StepStatus, list[Event]]:
+        self.execute(avatar_name=avatar_name)
+        return StepStatus.COMPLETED, []
+
+    def finish(self, avatar_name: str) -> list[Event]:
+        res = getattr(self, "_last_result", None)
+        if isinstance(res, tuple) and len(res) == 2:
+            winner, loser = res
+            return [Event(self.world.month_stamp, f"{winner} 战胜了 {loser}")]
+        return []

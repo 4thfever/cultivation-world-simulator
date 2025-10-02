@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from src.classes.action import DefineAction, ActualActionMixin, LLMAction
+from src.classes.battle import get_escape_success_rate
+import random
 from src.classes.event import Event
 from src.utils.llm import get_prompt_and_call_llm
 from src.utils.config import CONFIG
@@ -107,8 +109,14 @@ class MutualAction(DefineAction, LLMAction):
             target_avatar.clear_plans()
         # 2) 再结算反馈映射为对应动作
         self._settle_feedback(target_avatar, feedback)
-        # 3) 反馈事件（进入侧边栏与双方历史）
-        feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{feedback}")
+        # 3) 反馈事件（进入侧边栏与双方历史，中文化文案）
+        fb_map = {
+            "MoveAwayFromAvatar": "试图远离",
+            "MoveAwayFromRegion": "试图离开区域",
+            "Battle": "战斗",
+        }
+        fb_label = fb_map.get(str(feedback).strip(), str(feedback))
+        feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}")
         self.avatar.add_event(feedback_event)
         target_avatar.add_event(feedback_event)
         # 4) 记录历史（文本记录）
@@ -129,6 +137,7 @@ class DriveAway(MutualAction, ActualActionMixin):
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
         if fb == "MoveAwayFromRegion":
+            # 驱赶选择离开：必定成功，不涉及概率
             params = {"region": self.avatar.tile.region.name}
             self._set_target_immediate_action(target_avatar, fb, params)
         elif fb == "Battle":
@@ -166,14 +175,28 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
                 break
         if target is None:
             return
-        dx = 1 if self.avatar.pos_x >= target.pos_x else -1
-        dy = 1 if self.avatar.pos_y >= target.pos_y else -1
-        nx = self.avatar.pos_x + dx
-        ny = self.avatar.pos_y + dy
-        if self.world.map.is_in_bounds(nx, ny):
-            self.avatar.pos_x = nx
-            self.avatar.pos_y = ny
-            self.avatar.tile = self.world.map.get_tile(nx, ny)
+        # 被攻击时逃跑的成功率：从 battle 模块获取（暂时固定值）
+        escape_rate = float(get_escape_success_rate(target, self.avatar))
+        if random.random() < escape_rate:
+            dx = 1 if self.avatar.pos_x >= target.pos_x else -1
+            dy = 1 if self.avatar.pos_y >= target.pos_y else -1
+            nx = self.avatar.pos_x + dx
+            ny = self.avatar.pos_y + dy
+            if self.world.map.is_in_bounds(nx, ny):
+                self.avatar.pos_x = nx
+                self.avatar.pos_y = ny
+                self.avatar.tile = self.world.map.get_tile(nx, ny)
+        else:
+            # 逃跑失败：进入战斗（立即动作）
+            self.avatar.clear_plans()
+            # 入队并提交
+            self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
+            start_event = self.avatar.commit_next_plan()
+            if start_event is not None:
+                self.avatar.add_event(start_event)
+                # 也同步给对方
+                if target is not None:
+                    target.add_event(start_event)
 
 
 class MoveAwayFromRegion(DefineAction, ActualActionMixin):
@@ -181,7 +204,7 @@ class MoveAwayFromRegion(DefineAction, ActualActionMixin):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"region": "RegionName"}
     def _execute(self, region: str) -> None:
-        # 简化：向地图边缘移动一步
+        # 驱赶离开：若选择离开，必定成功。简化为向地图边缘移动一步
         dx = 1 if self.avatar.pos_x < self.world.map.width - 1 else -1
         dy = 1 if self.avatar.pos_y < self.world.map.height - 1 else -1
         nx = max(0, min(self.world.map.width - 1, self.avatar.pos_x + dx))

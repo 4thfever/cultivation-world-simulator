@@ -34,14 +34,31 @@ def calc_win_rate(attacker: "Avatar", defender: "Avatar") -> float:
     return max(0.1, min(0.9, base))
 
 
-def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Avatar", float]:
+def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Avatar", int]:
     """
-    结算一场战斗，返回(胜者, 败者, 进攻方胜率)。
-    仅做结果判定，不做数值伤害结算。
+    结算一场战斗，返回(胜者, 败者, 伤害值)。
+    伤害值根据胜负双方境界差距给出，范围约 [30, 80]。
     """
     p = calc_win_rate(attacker, defender)
     if random.random() < p:
-        return attacker, defender, p
+        winner, loser = attacker, defender
     else:
-        return defender, attacker, p
+        winner, loser = defender, attacker
 
+    damage = get_damage(winner, loser)
+    return winner, loser, damage
+
+def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
+    """
+    逃跑成功率：临时返回常量值，后续可基于双方能力细化。
+    attacker: 追击方（通常为进攻者）
+    defender: 逃跑方（通常为被攻击者）
+    """
+    return 0.6
+
+def get_damage(winner: "Avatar", loser: "Avatar") -> int:
+    """
+    根据胜负双方境界差距估算伤害：基础30，差一大境界+10，上限80。
+    """
+    gap = max(0, _realm_order(winner.cultivation_progress.realm) - _realm_order(loser.cultivation_progress.realm))
+    return min(80, 30 + 10 * gap)

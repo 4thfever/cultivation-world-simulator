@@ -56,8 +56,7 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         name = get_random_name(gender)
         
         # 随机生成level，范围从0到120（对应四个大境界）
-        # level = random.randint(0, 120)
-        level = 29
+        level = random.randint(0, 120)
         cultivation_progress = CultivationProgress(level)
         
         # 创建Age实例，传入年龄与当前境界
