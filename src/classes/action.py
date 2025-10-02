@@ -279,7 +279,7 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
             target = None
         if target is None:
             return StepStatus.COMPLETED, []
-        done = self.avatar.is_in_region(target.tile.region)
+        done = self.avatar.tile == target.tile
         return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
 
     def finish(self, avatar_name: str) -> list[Event]:

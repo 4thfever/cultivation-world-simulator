@@ -2,6 +2,7 @@ llm:
   # 填入litellm支持的model name和key
   model_name: "your-model-name"
   key: "your-api-key"
+  base_url: "your-base-url-of-llm"
 
 paths:
   templates: static/templates/

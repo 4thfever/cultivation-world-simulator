@@ -29,11 +29,13 @@ def call_llm(prompt: str) -> str:
     # 从配置中获取模型信息
     model_name = CONFIG.llm.model_name
     api_key = CONFIG.llm.key
+    base_url = CONFIG.llm.base_url
     # 调用litellm的completion函数
     response = completion(
         model=model_name,
         messages=[{"role": "user", "content": prompt}],
         api_key=api_key,
+        base_url=base_url,
     )
     
     # 返回生成的内容
