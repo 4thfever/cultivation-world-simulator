@@ -114,7 +114,7 @@ class MutualAction(DefineAction, LLMAction):
         # 4) 记录历史（文本记录）
         self._apply_feedback(target_avatar, feedback)
 
-    # 互动力一般是一次性的即时动作
+    # 互动行为一般是一次性的即时动作
     # 互动类行为仍保持一次性效果，由自身执行时发事件
     # 不接入新的调度器接口
 
@@ -174,7 +174,6 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
             self.avatar.pos_x = nx
             self.avatar.pos_y = ny
             self.avatar.tile = self.world.map.get_tile(nx, ny)
-    # 保持一次性效果，不参与新的调度接口
 
 
 class MoveAwayFromRegion(DefineAction, ActualActionMixin):
@@ -191,4 +190,3 @@ class MoveAwayFromRegion(DefineAction, ActualActionMixin):
             self.avatar.pos_x = nx
             self.avatar.pos_y = ny
             self.avatar.tile = self.world.map.get_tile(nx, ny)
-    # 保持一次性效果，不参与新的调度接口
