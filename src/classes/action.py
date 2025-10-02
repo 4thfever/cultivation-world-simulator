@@ -807,16 +807,10 @@ class Talk(DefineAction, ActualActionMixin):
         return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与同区域的他人攀谈")
 
     def step(self) -> tuple[StepStatus, list[Event]]:
-        # 先找同tile对象
-        same_tile_others = self._get_same_tile_others()
-        if not same_tile_others:
-            # 无同tile对象，本次作罢
-            fail_event = Event(self.world.month_stamp, f"{self.avatar.name} 未在同一位置找到可攀谈之人")
-            self.avatar.add_event(fail_event)
-            return StepStatus.COMPLETED, []
+        same_region_others = self._get_same_region_others()
 
         import random
-        target = random.choice(same_tile_others)
+        target = random.choice(same_region_others)
 
         # 进入交谈：由概率决定本次是否允许建立关系
         from src.classes.mutual_action import Conversation

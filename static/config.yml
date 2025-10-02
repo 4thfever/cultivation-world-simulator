@@ -24,5 +24,4 @@ avatar:
 
 # 社交相关配置
 social:
-  # 攀谈触发关系的基础概率（仅“攀谈”驱动的交谈会尝试；直接“交谈”不会）
   talk_into_relation_probability: 0.1

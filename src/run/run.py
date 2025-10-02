@@ -89,18 +89,18 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         # 随机分配阵营（正/邪）
         avatar.alignment = random.choice(list(Alignment))
         avatars[avatar.id] = avatar
-    # —— 为演示添加少量示例关系 ——
-    avatar_list = list(avatars.values())
-    if len(avatar_list) >= 2:
-        avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
-    if len(avatar_list) >= 4:
-        avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
-    if len(avatar_list) >= 6:
-        # 师徒（有向）：第5位是师傅，第6位是徒弟
-        avatar_list[4].set_relation(avatar_list[5], Relation.MASTER)
-    if len(avatar_list) >= 8:
-        # 情侣
-        avatar_list[6].set_relation(avatar_list[7], Relation.LOVERS)
+    # # —— 为演示添加少量示例关系 ——
+    # avatar_list = list(avatars.values())
+    # if len(avatar_list) >= 2:
+    #     avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
+    # if len(avatar_list) >= 4:
+    #     avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
+    # if len(avatar_list) >= 6:
+    #     # 师徒（有向）：第5位是师傅，第6位是徒弟
+    #     avatar_list[4].set_relation(avatar_list[5], Relation.MASTER)
+    # if len(avatar_list) >= 8:
+    #     # 情侣
+    #     avatar_list[6].set_relation(avatar_list[7], Relation.LOVERS)
     return avatars
 
 
