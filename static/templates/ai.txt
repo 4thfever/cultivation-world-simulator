@@ -5,7 +5,7 @@
 通用的动作说明为：
 {general_action_infos}
 
-注意，只返回json格式的结果。
+注意，只返回json格式结果，且严格满足json格式。
 分Avatar进行返回，格式为：
 {{
     AvatarName: {{

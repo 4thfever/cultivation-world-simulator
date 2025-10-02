@@ -15,8 +15,6 @@ from src.classes.action import long_action
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
-# 默认所有的互动都是1个月时间
-@long_action(step_month=1)
 class MutualAction(DefineAction, LLMAction):
     """
     互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
@@ -64,14 +62,15 @@ class MutualAction(DefineAction, LLMAction):
         """
         将反馈决定落地为目标角色的立即动作（清空后加载单步动作链）。
         """
+        # 抢占：清空后续计划并中断其当前动作
+        self._preempt_avatar(target_avatar)
         # 先加载为计划
         target_avatar.load_decide_result_chain([(action_name, action_params)], target_avatar.thinking, "")
         # 立即提交为当前动作，触发开始事件
         start_event = target_avatar.commit_next_plan()
         if start_event is not None:
             # 侧边栏仅推送一次（由动作发起方承担），另一侧仅写历史
-            self.avatar.add_event(start_event)
-            target_avatar.add_event(start_event, to_sidebar=False)
+            self._add_event_pair(start_event, initiator=self.avatar, target=target_avatar)
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         """
@@ -83,20 +82,28 @@ class MutualAction(DefineAction, LLMAction):
         # 默认不额外记录，由事件系统承担
         return
 
+    # 通用工具：按名找人
+    def _find_avatar_by_name(self, name: str) -> "Avatar|None":
+        for v in self.world.avatar_manager.avatars.values():
+            if v.name == name:
+                return v
+        return None
+
     def _get_target_avatar(self, target_avatar: "Avatar|str") -> "Avatar|None":
-        """
-        获取目标角色，支持传入角色对象或名字字符串
-        
-        Returns:
-            目标角色，如果找不到返回 None
-        """
         if isinstance(target_avatar, str):
-            name = target_avatar
-            for v in self.world.avatar_manager.avatars.values():
-                if v.name == name:
-                    return v
-            return None
+            return self._find_avatar_by_name(target_avatar)
         return target_avatar
+
+    # 通用工具：抢占 avatar 当前动作
+    def _preempt_avatar(self, avatar: "Avatar") -> None:
+        avatar.clear_plans()
+        avatar.current_action = None
+
+    # 通用工具：向两人推事件（侧栏只推 initiator）
+    def _add_event_pair(self, event: Event, initiator: "Avatar", target: "Avatar") -> None:
+        initiator.add_event(event)
+        if target is not None:
+            target.add_event(event, to_sidebar=False)
 
     def _execute(self, target_avatar: "Avatar|str") -> None:
         # 允许传入名字字符串
@@ -114,8 +121,7 @@ class MutualAction(DefineAction, LLMAction):
         # 挂到目标的thinking上（面向UI/日志），并执行反馈落地
         target_avatar.thinking = thinking
         # 1) 先清空目标后续计划（仅清空队列，不动当前动作）
-        if hasattr(target_avatar, "clear_plans"):
-            target_avatar.clear_plans()
+        target_avatar.clear_plans()
         # 2) 再结算反馈映射为对应动作
         self._settle_feedback(target_avatar, feedback)
         # 3) 反馈事件（进入侧边栏与双方历史，中文化文案）
@@ -127,8 +133,7 @@ class MutualAction(DefineAction, LLMAction):
         fb_label = fb_map.get(str(feedback).strip(), str(feedback))
         feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}")
         # 侧边栏仅推送一次，另一侧仅写入历史，避免重复
-        self.avatar.add_event(feedback_event)
-        target_avatar.add_event(feedback_event, to_sidebar=False)
+        self._add_event_pair(feedback_event, initiator=self.avatar, target=target_avatar)
         # 4) 记录历史（文本记录）
         self._apply_feedback(target_avatar, feedback)
 
@@ -214,11 +219,7 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"avatar_name": "AvatarName"}
     def _execute(self, avatar_name: str) -> None:
-        target = None
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == avatar_name:
-                target = v
-                break
+        target = self._find_avatar_by_name(avatar_name)
         if target is None:
             return
         # 被攻击时逃跑的成功率：从 battle 模块获取（暂时固定值）
@@ -233,16 +234,13 @@ class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
                 self.avatar.pos_y = ny
                 self.avatar.tile = self.world.map.get_tile(nx, ny)
         else:
-            # 逃跑失败：进入战斗（立即动作）
-            self.avatar.clear_plans()
-            # 入队并提交
+            # 抢占：中断自身动作并清空队列后入队并提交
+            self._preempt_avatar(self.avatar)
             self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
             start_event = self.avatar.commit_next_plan()
             if start_event is not None:
                 # 仅在本方推送到侧边栏；对方仅写历史
-                self.avatar.add_event(start_event)
-                if target is not None:
-                    target.add_event(start_event, to_sidebar=False)
+                self._add_event_pair(start_event, initiator=self.avatar, target=target)
 
 
 class MoveAwayFromRegion(DefineAction, ActualActionMixin):
