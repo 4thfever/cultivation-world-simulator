@@ -2,7 +2,7 @@
 
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
-正在进行的动作为：{avatar_name_1}向{avatar_name_2}发起了攀谈。这代表{avatar_name_1}希望与{avatar_name_2}进行对话。这个对话可能是善意的，也可能是恶意的，也可能是闲聊。取决于NPC性格、正邪等因素。
+正在进行的动作为：{avatar_name_1}向{avatar_name_2}发起了攀谈。这代表{avatar_name_1}希望与{avatar_name_2}进行对话（他们目前是陌生人）。这个对话可能是善意的，也可能是恶意的，也可能是闲聊。取决于NPC性格、正邪等因素。
 {avatar_name_2}可以进行的选择为：
 ["Talk", "Reject"]
 两者是否可能进入某种关系：{can_into_relation}。注意，如果为True，也不代表一定要进入某种关系。这都由你来判断。
@@ -14,7 +14,7 @@
     {avatar_name_2}: {{
         "thinking": ..., // 简单思考应该怎么决策
         "feedback": ... // 面对{avatar_name_1}的行为的合法feedback action name
-        "talk_content": ... // 如果返回的action为Talk，则输出双方交谈的主体与大体内容。
+        "talk_content": ... // 如果返回的action为Talk，则输出对话的主题和情况概括。注意不是对话的口语内容。
         "into_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
     }}
 }}

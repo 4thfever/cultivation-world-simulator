@@ -20,8 +20,7 @@ df:
   ids_separator: ";"
 
 avatar:
-  persona_num: 3
+  persona_num: 1
 
-# 社交相关配置
 social:
-  talk_into_relation_probability: 0.1
+  talk_into_relation_probability: 0.9
