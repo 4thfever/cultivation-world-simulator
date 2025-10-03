@@ -54,7 +54,7 @@ def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
     attacker: 追击方（通常为进攻者）
     defender: 逃跑方（通常为被攻击者）
     """
-    return 0.6
+    return 0.1
 
 def get_damage(winner: "Avatar", loser: "Avatar") -> int:
     """

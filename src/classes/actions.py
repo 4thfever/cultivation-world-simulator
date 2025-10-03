@@ -20,10 +20,9 @@ from src.classes.action import (
 from src.classes.mutual_action import (
     DriveAway,
     Attack,
-    MoveAwayFromAvatar,
-    MoveAwayFromRegion,
     Conversation,
 )
+from src.classes.action import MoveAwayFromAvatar, MoveAwayFromRegion, Escape
 
 
 ALL_ACTION_CLASSES = [
@@ -46,6 +45,9 @@ ALL_ACTION_CLASSES = [
     MoveAwayFromAvatar,
     MoveAwayFromRegion,
     Conversation,
+    Escape,
+    Conversation,
+    Escape,
 ]
 
 ALL_ACTUAL_ACTION_CLASSES = [
@@ -63,6 +65,8 @@ ALL_ACTUAL_ACTION_CLASSES = [
     DriveAway,
     Attack,
     Conversation,
+    MoveAwayFromAvatar,
+    MoveAwayFromRegion,
 ]
 
 ALL_ACTION_NAMES = [action.__name__ for action in ALL_ACTION_CLASSES]

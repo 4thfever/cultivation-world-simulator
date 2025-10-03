@@ -179,8 +179,10 @@ class Avatar:
         """
         if self.current_action is None:
             return []
-        action = self.current_action.action
-        params = self.current_action.params
+        # 记录当前动作实例引用，用于检测执行过程中是否发生了“抢占/切换”
+        action_instance_before = self.current_action
+        action = action_instance_before.action
+        params = action_instance_before.params
         try:
             status, mid_events = action.step(**params)
         except TypeError:
@@ -190,7 +192,10 @@ class Avatar:
                 finish_events = action.finish(**params)
             except TypeError:
                 finish_events = action.finish()
-            self.current_action = None
+            # 仅当当前动作仍然是刚才执行的那个实例时才清空
+            # 若在 step() 内部通过“抢占”机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
+            if self.current_action is action_instance_before:
+                self.current_action = None
             if finish_events:
                 # 允许 finish 直接返回事件（极少用），统一并入 pending
                 for e in finish_events:

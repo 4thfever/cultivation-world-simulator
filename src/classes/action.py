@@ -11,7 +11,7 @@ from src.classes.event import Event, NULL_EVENT
 from src.classes.item import Item, items_by_name
 from src.classes.prices import prices
 from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
-from src.classes.battle import decide_battle
+from src.classes.battle import decide_battle, get_escape_success_rate
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -283,6 +283,153 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
             return StepStatus.COMPLETED, []
         done = self.avatar.tile == target.tile
         return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
+
+    def finish(self, avatar_name: str) -> list[Event]:
+        return []
+
+
+@long_action(step_month=6)
+class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
+    """
+    持续远离指定角色，持续6个月。
+    - 规则：每月尝试使与目标的曼哈顿距离增大一步
+    - 任何时候都可以启动
+    """
+    COMMENT = "持续远离指定角色"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"avatar_name": "AvatarName"}
+
+    def _find_avatar_by_name(self, name: str) -> "Avatar|None":
+        for v in self.world.avatar_manager.avatars.values():
+            if v.name == name:
+                return v
+        return None
+
+    def _execute(self, avatar_name: str) -> None:
+        target = self._find_avatar_by_name(avatar_name)
+        if target is None:
+            return
+        # 计算远离方向：使曼哈顿距离尽量增大
+        dx = 1 if self.avatar.pos_x >= target.pos_x else -1
+        dy = 1 if self.avatar.pos_y >= target.pos_y else -1
+        nx = self.avatar.pos_x + dx
+        ny = self.avatar.pos_y + dy
+        if self.world.map.is_in_bounds(nx, ny):
+            self.avatar.pos_x = nx
+            self.avatar.pos_y = ny
+            self.avatar.tile = self.world.map.get_tile(nx, ny)
+
+    def can_start(self, avatar_name: str | None = None) -> bool:
+        return True
+
+    def start(self, avatar_name: str) -> Event:
+        target_name = avatar_name
+        try:
+            t = self._find_avatar_by_name(avatar_name)
+            if t is not None:
+                target_name = t.name
+        except Exception:
+            pass
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始远离 {target_name}")
+
+    def step(self, avatar_name: str) -> tuple[StepStatus, list[Event]]:
+        self.execute(avatar_name=avatar_name)
+        done = getattr(self, "is_finished")()
+        return (StepStatus.COMPLETED if done else StepStatus.RUNNING), []
+
+    def finish(self, avatar_name: str) -> list[Event]:
+        return []
+
+
+class MoveAwayFromRegion(DefineAction, ActualActionMixin):
+    COMMENT = "离开指定区域"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"region": "RegionName"}
+
+    def _execute(self, region: str) -> None:
+        # 简化：向地图边缘移动一步
+        dx = 1 if self.avatar.pos_x < self.world.map.width - 1 else -1
+        dy = 1 if self.avatar.pos_y < self.world.map.height - 1 else -1
+        nx = max(0, min(self.world.map.width - 1, self.avatar.pos_x + dx))
+        ny = max(0, min(self.world.map.height - 1, self.avatar.pos_y + dy))
+        if self.world.map.is_in_bounds(nx, ny):
+            self.avatar.pos_x = nx
+            self.avatar.pos_y = ny
+            self.avatar.tile = self.world.map.get_tile(nx, ny)
+
+    def can_start(self, region: str | None = None) -> bool:
+        return True
+
+    def start(self, region: str) -> Event:
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {region}")
+
+    def step(self, region: str) -> tuple[StepStatus, list[Event]]:
+        self.execute(region=region)
+        return StepStatus.COMPLETED, []
+
+    def finish(self, region: str) -> list[Event]:
+        return []
+
+
+class Escape(DefineAction, ActualActionMixin):
+    """
+    逃离：尝试从对方身边脱离（有成功率）。
+    成功：抢占并进入 MoveAwayFromAvatar(6个月)。
+    失败：抢占并进入 Battle。
+    """
+    COMMENT = "逃离对方（基于成功率判定）"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"avatar_name": "AvatarName"}
+
+    def _find_avatar_by_name(self, name: str) -> "Avatar|None":
+        for v in self.world.avatar_manager.avatars.values():
+            if v.name == name:
+                return v
+        return None
+
+    def _preempt_avatar(self, avatar: "Avatar") -> None:
+        avatar.clear_plans()
+        avatar.current_action = None
+
+    def _add_event_pair(self, event: Event, initiator: "Avatar", target: "Avatar|None") -> None:
+        initiator.add_event(event)
+        if target is not None:
+            target.add_event(event, to_sidebar=False)
+
+    def _execute(self, avatar_name: str) -> None:
+        target = self._find_avatar_by_name(avatar_name)
+        if target is None:
+            return
+        escape_rate = float(get_escape_success_rate(target, self.avatar))
+        import random as _r
+        success = _r.random() < escape_rate
+        result_text = "成功" if success else "失败"
+        result_event = Event(self.world.month_stamp, f"{self.avatar.name} 试图从 {target.name} 逃离：{result_text}")
+        self._add_event_pair(result_event, initiator=self.avatar, target=target)
+        if success:
+            self._preempt_avatar(self.avatar)
+            self.avatar.load_decide_result_chain([("MoveAwayFromAvatar", {"avatar_name": avatar_name})], self.avatar.thinking, "")
+            start_event = self.avatar.commit_next_plan()
+            if start_event is not None:
+                self._add_event_pair(start_event, initiator=self.avatar, target=target)
+        else:
+            self._preempt_avatar(self.avatar)
+            self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
+            start_event = self.avatar.commit_next_plan()
+            if start_event is not None:
+                self._add_event_pair(start_event, initiator=self.avatar, target=target)
+
+    def can_start(self, avatar_name: str | None = None) -> bool:
+        return True
+
+    def start(self, avatar_name: str) -> Event:
+        target = self._find_avatar_by_name(avatar_name)
+        target_name = target.name if target is not None else avatar_name
+        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试从 {target_name} 逃离")
+
+    def step(self, avatar_name: str) -> tuple[StepStatus, list[Event]]:
+        self.execute(avatar_name=avatar_name)
+        return StepStatus.COMPLETED, []
 
     def finish(self, avatar_name: str) -> list[Event]:
         return []
@@ -686,11 +833,11 @@ class Battle(DefineAction, ActualActionMixin):
         return StepStatus.COMPLETED, []
 
     def finish(self, avatar_name: str) -> list[Event]:
-        res = getattr(self, "_last_result", None)
+        res = self._last_result
         if isinstance(res, tuple) and len(res) == 2:
             winner, loser = res
             return [Event(self.world.month_stamp, f"{winner} 战胜了 {loser}")]
-        return []
+        raise ValueError(f"Battle finish error: {res}")
 
 
 @long_action(step_month=3)

@@ -131,6 +131,7 @@ class MutualAction(DefineAction, LLMAction):
         fb_map = {
             "MoveAwayFromAvatar": "试图远离",
             "MoveAwayFromRegion": "试图离开区域",
+            "Escape": "逃离",
             "Battle": "战斗",
         }
         fb_label = fb_map.get(str(feedback).strip(), str(feedback))
@@ -204,11 +205,11 @@ class Attack(MutualAction, ActualActionMixin):
     COMMENT = "对目标进行攻击。"
     DOABLES_REQUIREMENTS = "与目标处于同一区域"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["MoveAwayFromAvatar", "Battle"]
+    FEEDBACK_ACTIONS = ["Escape", "Battle"]
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
-        if fb == "MoveAwayFromAvatar":
+        if fb == "Escape":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
         elif fb == "Battle":
@@ -216,50 +217,7 @@ class Attack(MutualAction, ActualActionMixin):
             self._set_target_immediate_action(target_avatar, fb, params)
 
 
-# 轻量实现三个动作类，供互动动作反馈直接使用
-class MoveAwayFromAvatar(DefineAction, ActualActionMixin):
-    COMMENT = "远离指定角色"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
-    PARAMS = {"avatar_name": "AvatarName"}
-    def _execute(self, avatar_name: str) -> None:
-        target = self._find_avatar_by_name(avatar_name)
-        if target is None:
-            return
-        # 被攻击时逃跑的成功率：从 battle 模块获取（暂时固定值）
-        escape_rate = float(get_escape_success_rate(target, self.avatar))
-        if random.random() < escape_rate:
-            dx = 1 if self.avatar.pos_x >= target.pos_x else -1
-            dy = 1 if self.avatar.pos_y >= target.pos_y else -1
-            nx = self.avatar.pos_x + dx
-            ny = self.avatar.pos_y + dy
-            if self.world.map.is_in_bounds(nx, ny):
-                self.avatar.pos_x = nx
-                self.avatar.pos_y = ny
-                self.avatar.tile = self.world.map.get_tile(nx, ny)
-        else:
-            # 抢占：中断自身动作并清空队列后入队并提交
-            self._preempt_avatar(self.avatar)
-            self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
-            start_event = self.avatar.commit_next_plan()
-            if start_event is not None:
-                # 仅在本方推送到侧边栏；对方仅写历史
-                self._add_event_pair(start_event, initiator=self.avatar, target=target)
-
-
-class MoveAwayFromRegion(DefineAction, ActualActionMixin):
-    COMMENT = "离开指定区域"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
-    PARAMS = {"region": "RegionName"}
-    def _execute(self, region: str) -> None:
-        # 驱赶离开：若选择离开，必定成功。简化为向地图边缘移动一步
-        dx = 1 if self.avatar.pos_x < self.world.map.width - 1 else -1
-        dy = 1 if self.avatar.pos_y < self.world.map.height - 1 else -1
-        nx = max(0, min(self.world.map.width - 1, self.avatar.pos_x + dx))
-        ny = max(0, min(self.world.map.height - 1, self.avatar.pos_y + dy))
-        if self.world.map.is_in_bounds(nx, ny):
-            self.avatar.pos_x = nx
-            self.avatar.pos_y = ny
-            self.avatar.tile = self.world.map.get_tile(nx, ny)
+    
 
 
 class Conversation(MutualAction, ActualActionMixin):
