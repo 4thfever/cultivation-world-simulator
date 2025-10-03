@@ -65,6 +65,17 @@ class MutualAction(DefineAction, LLMAction):
         """
         将反馈决定落地为目标角色的立即动作（清空后加载单步动作链）。
         """
+        # 若当前已是同类同参动作，直接跳过，避免重复“发起战斗”等事件刷屏
+        try:
+            cur = target_avatar.current_action
+            if cur is not None:
+                cur_name = getattr(cur.action, "__class__", type(cur.action)).__name__
+                if cur_name == action_name:
+                    # 简单判断参数等价（键值相等）
+                    if getattr(cur, "params", {}) == dict(action_params):
+                        return
+        except Exception:
+            pass
         # 抢占：清空后续计划并中断其当前动作
         self._preempt_avatar(target_avatar)
         # 先加载为计划

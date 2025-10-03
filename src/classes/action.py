@@ -249,7 +249,7 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         for v in self.world.avatar_manager.avatars.values():
             if v.name == avatar_name:
                 return v
-        raise ValueError(f"未找到名为 {avatar_name} 的角色")
+        return None
 
     def _execute(self, avatar_name: str) -> None:
         target = self._get_target(avatar_name)
@@ -265,6 +265,9 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(delta_x, delta_y)
 
     def can_start(self, avatar_name: str|None = None) -> bool:
+        target = self._get_target(avatar_name)
+        if target is None:
+            return False
         return True
 
     def start(self, avatar_name: str) -> Event:
@@ -837,7 +840,7 @@ class Battle(DefineAction, ActualActionMixin):
         if isinstance(res, tuple) and len(res) == 2:
             winner, loser = res
             return [Event(self.world.month_stamp, f"{winner} 战胜了 {loser}")]
-        raise ValueError(f"Battle finish error: {res}")
+        return []
 
 
 @long_action(step_month=3)

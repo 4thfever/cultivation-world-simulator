@@ -75,6 +75,8 @@ class Avatar:
     mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
     relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment = field(default_factory=lambda: random.choice(list(Alignment)))
+    # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
+    _new_action_set_this_step: bool = False
 
     def __post_init__(self):
         """
@@ -165,6 +167,8 @@ class Avatar:
             # 启动
             start_event = action.start(**plan.params)
             self.current_action = ActionInstance(action=action, params=plan.params, status="running")
+            # 标记为“本轮新设动作”，用于本月补充执行
+            self._new_action_set_this_step = True
             return start_event
         return None
 
@@ -205,6 +209,8 @@ class Avatar:
             for e in mid_events:
                 self._pending_events.append(e)
         events, self._pending_events = self._pending_events, []
+        # 本轮已执行过，清除“新设动作”标记
+        self._new_action_set_this_step = False
         return events
 
     def update_cultivation(self, new_level: int):

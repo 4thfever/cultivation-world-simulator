@@ -50,11 +50,27 @@ class Simulator:
                 if start_event is not None and not is_null_event(start_event):
                     events.append(start_event)
 
-        # 执行阶段：推进所有有当前动作的角色
-        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            new_events = await avatar.tick_action()
-            if new_events:
-                events.extend(new_events)
+        # 执行阶段：推进当前动作，支持同月链式抢占即时结算
+        # 采用最多3轮的小循环：
+        # - 每轮遍历现有角色执行一次 tick_action
+        # - 若本轮有角色在遍历过程中被抢占并新设了动作（标记 _new_action_set_this_step=True），下一轮继续执行
+        # - 最多 3 轮以防极端互相抢占导致长链
+        MAX_LOCAL_ROUNDS = 3
+        for _ in range(MAX_LOCAL_ROUNDS):
+            new_action_happened = False
+            for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
+                # 本轮执行前若标记为新设，则清理，执行后由 Avatar 再统一清除
+                if getattr(avatar, "_new_action_set_this_step", False):
+                    new_action_happened = True
+                new_events = await avatar.tick_action()
+                if new_events:
+                    events.extend(new_events)
+                # 若在本次执行后产生了新的动作（被别人抢占设立），则标志位会在 commit_next_plan 时被置 True
+                if getattr(avatar, "_new_action_set_this_step", False):
+                    new_action_happened = True
+            # 若本轮未检测到新动作产生，则结束本地循环
+            if not new_action_happened:
+                break
 
         # 结算战斗等导致的死亡逻辑
         for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
