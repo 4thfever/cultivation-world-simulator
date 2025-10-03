@@ -125,11 +125,17 @@ class Region(ABC):
         # 基于坐标点计算面积
         self.area = len(self.cors)
         
-        # 计算中心位置（基于实际坐标点的平均值）
+        # 计算中心位置：选取落在区域格点集合中的、最接近几何中心的点
         if self.cors:
             avg_x = sum(coord[0] for coord in self.cors) // len(self.cors)
             avg_y = sum(coord[1] for coord in self.cors) // len(self.cors)
-            self.center_loc = (avg_x, avg_y)
+            candidate = (avg_x, avg_y)
+            if candidate in self.cors:
+                self.center_loc = candidate
+            else:
+                def _dist2(p: tuple[int, int]) -> int:
+                    return (p[0] - avg_x) ** 2 + (p[1] - avg_y) ** 2
+                self.center_loc = min(self.cors, key=_dist2)
         else:
             # 如果没有坐标点，使用边界框中心作为fallback
             nw_coords = tuple(map(int, self.north_west_cor.split(',')))

@@ -13,14 +13,14 @@ ai:
   max_decide_num: 3
 
 game:
-  init_npc_num: 2
+  init_npc_num: 6
   npc_birth_rate_per_month: 0.001
 
 df:
   ids_separator: ";"
 
 avatar:
-  persona_num: 1
+  persona_num: 3
 
 social:
   talk_into_relation_probability: 0.1
