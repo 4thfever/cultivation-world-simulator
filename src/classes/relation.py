@@ -63,17 +63,17 @@ def is_innate(relation: Relation) -> bool:
 # 有向关系的对偶映射；对称关系映射到自身
 RECIPROCAL_RELATION: dict[Relation, Relation] = {
     # 血缘
-    Relation.PARENT: Relation.CHILD,
-    Relation.CHILD: Relation.PARENT,
-    Relation.SIBLING: Relation.SIBLING,
-    Relation.KIN: Relation.KIN,
+    Relation.PARENT: Relation.CHILD,  # 父母 -> 子女
+    Relation.CHILD: Relation.PARENT,  # 子女 -> 父母
+    Relation.SIBLING: Relation.SIBLING,  # 兄弟姐妹 -> 兄弟姐妹
+    Relation.KIN: Relation.KIN,  # 亲属 -> 亲属
 
     # 后天
-    Relation.MASTER: Relation.APPRENTICE,
-    Relation.APPRENTICE: Relation.MASTER,
-    Relation.LOVERS: Relation.LOVERS,
-    Relation.FRIEND: Relation.FRIEND,
-    Relation.ENEMY: Relation.ENEMY,
+    Relation.MASTER: Relation.APPRENTICE,  # 师傅 -> 徒弟
+    Relation.APPRENTICE: Relation.MASTER,  # 徒弟 -> 师傅
+    Relation.LOVERS: Relation.LOVERS,  # 情侣 -> 情侣
+    Relation.FRIEND: Relation.FRIEND,  # 朋友 -> 朋友
+    Relation.ENEMY: Relation.ENEMY,  # 仇人 -> 仇人
 }
 
 
@@ -95,11 +95,11 @@ def get_possible_post_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> L
     评估“to_avatar 相对于 from_avatar”可能新增的后天关系集合（方向性明确）。
 
     清晰规则：
-    - LOVERS（情侣）：要求男女异性；若已存在 to->from 的相同关系则不重复
-    - MASTER（师傅）：要求 to.level >= from.level + 20
-    - APPRENTICE（徒弟）：要求 to.level <= from.level - 20
-    - FRIEND（朋友）：始终可能（若未已存在）
-    - ENEMY（仇人）：始终可能（若未已存在）
+    - LOVERS(情侣)：要求男女异性；若已存在 to->from 的相同关系则不重复
+    - MASTER(师傅)：要求 to.level >= from.level + 20
+    - APPRENTICE(徒弟)：要求 to.level <= from.level - 20
+    - FRIEND(朋友)：始终可能(若未已存在)
+    - ENEMY(仇人)：始终可能(若未已存在)
 
     说明：本函数只判断“是否可能”，不做概率与人格相关控制；概率留给上层逻辑。
     返回的是 Relation 列表，均为 to_avatar 相对于 from_avatar 的候选。
