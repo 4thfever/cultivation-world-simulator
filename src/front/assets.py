@@ -31,7 +31,7 @@ def load_avatar_images(pygame_mod, tile_size: int):
                 image_path = os.path.join(male_dir, filename)
                 try:
                     image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.2))
+                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.5))
                     scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
                     male_avatars.append(scaled)
                 except pygame_mod.error:
@@ -44,7 +44,7 @@ def load_avatar_images(pygame_mod, tile_size: int):
                 image_path = os.path.join(female_dir, filename)
                 try:
                     image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int(tile_size * 4 // 3 * 0.8 * 1.2 * 1.2))
+                    avatar_size = max(26, int(tile_size * 4 // 3 * 0.8 * 1.2 * 1.2 * 1.2))
                     scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
                     female_avatars.append(scaled)
                 except pygame_mod.error:
