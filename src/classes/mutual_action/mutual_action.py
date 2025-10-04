@@ -78,7 +78,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         except Exception:
             pass
         # 抢占：清空后续计划并中断其当前动作
-        self._preempt_avatar(target_avatar)
+        self.preempt_avatar(target_avatar)
         # 先加载为计划
         target_avatar.load_decide_result_chain([(action_name, action_params)], target_avatar.thinking, "")
         # 立即提交为当前动作，触发开始事件
