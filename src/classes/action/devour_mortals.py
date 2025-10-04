@@ -4,6 +4,7 @@ from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.alignment import Alignment
+from src.classes.technique import TechniqueAttribute
 
 
 class DevourMortals(TimedAction):
@@ -12,8 +13,8 @@ class DevourMortals(TimedAction):
     与普通修炼相比，经验获取显著更高。
     """
 
-    COMMENT = "在城镇吞噬凡人，获得大量修行经验（邪修）"
-    DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘邪’，且未处于瓶颈"
+    COMMENT = "在城镇吞噬凡人，获得大量修行经验（邪功法）"
+    DOABLES_REQUIREMENTS = "仅限城市区域，且当前功法为‘邪’，且未处于瓶颈"
     PARAMS = {}
 
     duration_months = 2
@@ -31,7 +32,8 @@ class DevourMortals(TimedAction):
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False
-        if self.avatar.alignment != Alignment.EVIL:
+        tech = self.avatar.technique
+        if tech.attribute != TechniqueAttribute.EVIL:
             return False
         return not self.avatar.cultivation_progress.is_in_bottleneck()
 

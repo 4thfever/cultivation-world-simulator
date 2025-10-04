@@ -103,3 +103,22 @@ extra_breakthrough_success_rate = defaultdict(
         Root.HEAVEN: 0.1,
     },
 )
+
+
+def format_root_cn(root: "Root") -> str:
+    """
+    将 Root 显示为中文短名 + 组成，例如：
+    - 天（金、木、水、火、土）
+    - 风（木、水）
+    - 金（金）
+    回退：若无法获取组成则仅显示短名。
+    """
+    # Root 成员的 value 为中文名（如“风灵根”、“天灵根”）
+    name = getattr(root, "value", str(root))
+    short_name = name.replace("灵根", "") if isinstance(name, str) else str(root)
+    elements = getattr(root, "elements", None)
+    if not elements:
+        return short_name
+    # RootElement.__str__ 返回其中文值，因此直接 str(e)
+    elements_cn = "、".join(str(e) for e in elements)
+    return f"{short_name}（{elements_cn}）"

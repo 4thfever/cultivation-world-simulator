@@ -4,6 +4,7 @@ from src.classes.avatar import Avatar, Gender
 from src.classes.tile import TileType
 from src.utils.text_wrap import wrap_text
 from src.classes.relation import Relation
+from src.classes.root import format_root_cn
 
 # 顶部状态栏高度（像素）
 STATUS_BAR_HEIGHT = 32
@@ -156,7 +157,7 @@ def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
         f"境界: {str(avatar.cultivation_progress)}",
         f"HP: {avatar.hp}",
         f"MP: {avatar.mp}",
-        f"灵根: {str(avatar.root)}",
+        f"灵根: {format_root_cn(avatar.root)}",
         f"功法: {avatar.technique.name}（{avatar.technique.attribute}·{avatar.technique.grade.value}）",
         f"个性: {', '.join([persona.name for persona in avatar.personas])}",
         f"位置: ({avatar.pos_x}, {avatar.pos_y})",
