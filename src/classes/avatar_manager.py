@@ -5,6 +5,7 @@ from typing import Dict, List, TYPE_CHECKING
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
+from src.classes.observe import get_observable_avatars
 
 @dataclass
 class AvatarManager:
@@ -24,6 +25,13 @@ class AvatarManager:
             if other.tile.region == region:
                 same_region.append(other)
         return same_region
+
+    def get_observable_avatars(self, avatar: "Avatar") -> List["Avatar"]:
+        """
+        返回处于 avatar 感知范围内的其他角色列表（不含自己）。
+        基于曼哈顿距离与境界映射的感知半径过滤。
+        """
+        return get_observable_avatars(avatar, self.avatars.values())
 
     def remove_avatar(self, avatar_id: str) -> None:
         """

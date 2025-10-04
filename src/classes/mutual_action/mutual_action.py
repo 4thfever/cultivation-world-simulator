@@ -30,7 +30,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
 
     ACTION_NAME: str = "MutualAction"
     COMMENT: str = ""
-    DOABLES_REQUIREMENTS: str = "同区域内可互动"
+    DOABLES_REQUIREMENTS: str = "感知范围内可互动"
     PARAMS: dict = {"target_avatar": "Avatar"}
     FEEDBACK_ACTIONS: list[str] = []
 
@@ -137,15 +137,15 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
     # 实现 ActualActionMixin 接口
     def can_start(self, target_avatar: "Avatar|str|None" = None) -> bool:
         """
-        检查互动动作能否启动：两个角色距离必须小于等于2
+        检查互动动作能否启动：目标需在发起者的感知范围内。
         """
         if target_avatar is None:
             return False
         target = self._get_target_avatar(target_avatar)
         if target is None:
             return False
-        distance = get_avatar_distance(self.avatar, target)
-        return distance <= 3
+        from src.classes.observe import is_within_observation
+        return is_within_observation(self.avatar, target)
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         """

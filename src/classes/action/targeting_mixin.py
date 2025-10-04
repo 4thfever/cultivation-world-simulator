@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional, Iterable
 
 from src.classes.tile import get_avatar_distance
+from src.classes.observe import get_observable_avatars
 
 
 class TargetingMixin:
@@ -34,6 +35,9 @@ class TargetingMixin:
 
     def distance_between(self, a: "Avatar", b: "Avatar") -> int:
         return get_avatar_distance(a, b)
+
+    def avatars_in_observation_range(self, avatar: "Avatar") -> list["Avatar"]:
+        return self.world.avatar_manager.get_observable_avatars(avatar)
 
     def preempt_avatar(self, avatar: "Avatar") -> None:
         """抢占目标：清空其计划并中断当前动作。"""

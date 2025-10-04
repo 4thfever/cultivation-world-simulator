@@ -23,3 +23,6 @@ class World():
 
     def get_avatars_in_same_region(self, avatar: "Avatar"):
         return self.avatar_manager.get_avatars_in_same_region(avatar)
+
+    def get_observable_avatars(self, avatar: "Avatar"):
+        return self.avatar_manager.get_observable_avatars(avatar)

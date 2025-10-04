@@ -379,13 +379,13 @@ class Avatar:
         else:
             items_info = "物品持有情况：无"
         
-        # 同区域角色（可选）
+        # 观测范围内角色（沿用参数名保持兼容）
         co_region_info = ""
         if co_region_avatars:
             entries: list[str] = []
             for other in co_region_avatars[:8]:
                 entries.append(f"{other.name}(境界：{other.cultivation_progress.get_simple_info()})")
-            co_region_info = "\n同区域角色：" + ("，".join(entries) if entries else "无")
+            co_region_info = "\n观测范围内角色：" + ("，".join(entries) if entries else "无")
 
         # 关系摘要
         relations_summary = self._get_relations_summary_str()
