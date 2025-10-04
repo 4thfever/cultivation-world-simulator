@@ -5,33 +5,36 @@ from src.classes.tile import TileType
 from src.utils.text_wrap import wrap_text
 from src.classes.relation import Relation
 
+# 顶部状态栏高度（像素）
+STATUS_BAR_HEIGHT = 32
 
-def draw_grid(pygame_mod, screen, colors, map_obj, ts: int, m: int):
+
+def draw_grid(pygame_mod, screen, colors, map_obj, ts: int, m: int, top_offset: int = 0):
     grid_color = colors["grid"]
     for gx in range(map_obj.width + 1):
-        start_pos = (m + gx * ts, m)
-        end_pos = (m + gx * ts, m + map_obj.height * ts)
+        start_pos = (m + gx * ts, m + top_offset)
+        end_pos = (m + gx * ts, m + top_offset + map_obj.height * ts)
         pygame_mod.draw.line(screen, grid_color, start_pos, end_pos, 1)
     for gy in range(map_obj.height + 1):
-        start_pos = (m, m + gy * ts)
-        end_pos = (m + map_obj.width * ts, m + gy * ts)
+        start_pos = (m, m + top_offset + gy * ts)
+        end_pos = (m + map_obj.width * ts, m + top_offset + gy * ts)
         pygame_mod.draw.line(screen, grid_color, start_pos, end_pos, 1)
 
 
-def draw_map(pygame_mod, screen, colors, world, tile_images, ts: int, m: int):
+def draw_map(pygame_mod, screen, colors, world, tile_images, ts: int, m: int, top_offset: int = 0):
     map_obj = world.map
     for y in range(map_obj.height):
         for x in range(map_obj.width):
             tile = map_obj.get_tile(x, y)
             tile_image = tile_images.get(tile.type)
             if tile_image:
-                pos = (m + x * ts, m + y * ts)
+                pos = (m + x * ts, m + top_offset + y * ts)
                 screen.blit(tile_image, pos)
             else:
                 color = (80, 80, 80)
-                rect = pygame_mod.Rect(m + x * ts, m + y * ts, ts, ts)
+                rect = pygame_mod.Rect(m + x * ts, m + top_offset + y * ts, ts, ts)
                 pygame_mod.draw.rect(screen, color, rect)
-    draw_grid(pygame_mod, screen, colors, map_obj, ts, m)
+    draw_grid(pygame_mod, screen, colors, map_obj, ts, m, top_offset)
 
 
 def calculate_font_size_by_area(tile_size: int, area: int) -> int:
@@ -40,7 +43,7 @@ def calculate_font_size_by_area(tile_size: int, area: int) -> int:
     return max(16, min(40, base + growth))
 
 
-def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_size: int, margin: int):
+def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_size: int, margin: int, top_offset: int = 0):
     ts = tile_size
     m = margin
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
@@ -52,7 +55,7 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
             continue
         center_x, center_y = region.center_loc
         screen_x = m + center_x * ts + ts // 2
-        screen_y = m + center_y * ts + ts // 2
+        screen_y = m + top_offset + center_y * ts + ts // 2
         font_size = calculate_font_size_by_area(tile_size, region.area)
         region_font = get_region_font(font_size)
         text_surface = region_font.render(str(name), True, colors["text"])
@@ -68,9 +71,9 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
     return hovered_region
 
 
-def avatar_center_pixel(avatar: Avatar, tile_size: int, margin: int) -> Tuple[int, int]:
+def avatar_center_pixel(avatar: Avatar, tile_size: int, margin: int, top_offset: int = 0) -> Tuple[int, int]:
     px = margin + avatar.pos_x * tile_size + tile_size // 2
-    py = margin + avatar.pos_y * tile_size + tile_size // 2
+    py = margin + top_offset + avatar.pos_y * tile_size + tile_size // 2
     return px, py
 
 
@@ -83,6 +86,7 @@ def draw_avatars_and_pick_hover(
     tile_size: int,
     margin: int,
     get_display_center: Optional[Callable[[Avatar, int, int], Tuple[float, float]]] = None,
+    top_offset: int = 0,
 ) -> Optional[Avatar]:
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
     hovered = None
@@ -93,6 +97,7 @@ def draw_avatars_and_pick_hover(
             cx, cy = int(cx_f), int(cy_f)
         else:
             cx, cy = avatar_center_pixel(avatar, tile_size, margin)
+        cy += top_offset
         avatar_image = avatar_images.get(avatar_id)
         if avatar_image:
             image_rect = avatar_image.get_rect()
@@ -223,7 +228,7 @@ def draw_year_month_info(pygame_mod, screen, colors, font, margin: int, guide_wi
 
 def draw_status_bar(pygame_mod, screen, colors, font, margin: int, world, auto_step: bool):
     status_y = 8
-    status_height = 32
+    status_height = STATUS_BAR_HEIGHT
     status_rect = pygame_mod.Rect(0, 0, screen.get_width(), status_height)
     pygame_mod.draw.rect(screen, colors["status_bg"], status_rect)
     pygame_mod.draw.line(screen, colors["status_border"],
@@ -239,6 +244,7 @@ __all__ = [
     "draw_tooltip_for_avatar",
     "draw_tooltip_for_region",
     "draw_status_bar",
+    "STATUS_BAR_HEIGHT",
 ]
 
 

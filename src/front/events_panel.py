@@ -1,4 +1,5 @@
 from typing import List
+from .rendering import STATUS_BAR_HEIGHT
 
 
 def _wrap_text_by_pixels(font, text: str, max_width_px: int) -> List[str]:
@@ -27,10 +28,14 @@ def _wrap_text_by_pixels(font, text: str, max_width_px: int) -> List[str]:
 def draw_sidebar(pygame_mod, screen, colors, font, events: List[object],
                  world_map, tile_size: int, margin: int, sidebar_width: int):
     sidebar_x = world_map.width * tile_size + margin * 2
-    sidebar_y = margin
+    sidebar_y = margin + STATUS_BAR_HEIGHT
 
-    sidebar_rect = pygame_mod.Rect(sidebar_x, sidebar_y, sidebar_width,
-                                   screen.get_height() - margin * 2)
+    sidebar_rect = pygame_mod.Rect(
+        sidebar_x,
+        sidebar_y,
+        sidebar_width,
+        screen.get_height() - sidebar_y - margin,
+    )
     pygame_mod.draw.rect(screen, colors["sidebar_bg"], sidebar_rect)
     pygame_mod.draw.rect(screen, colors["sidebar_border"], sidebar_rect, 2)
 

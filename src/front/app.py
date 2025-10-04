@@ -15,6 +15,7 @@ from .rendering import (
     draw_tooltip_for_avatar,
     draw_tooltip_for_region,
     draw_status_bar,
+    STATUS_BAR_HEIGHT,
 )
 from .events_panel import draw_sidebar
 
@@ -50,7 +51,7 @@ class Front:
         pygame.font.init()
 
         width_px = self.world.map.width * tile_size + margin * 2 + sidebar_width
-        height_px = self.world.map.height * tile_size + margin * 2
+        height_px = self.world.map.height * tile_size + margin * 2 + STATUS_BAR_HEIGHT
         self.screen = pygame.display.set_mode((width_px, height_px))
         pygame.display.set_caption(window_title)
 
@@ -120,7 +121,16 @@ class Front:
     def _render(self):
         pygame = self.pygame
         self.screen.fill(self.colors["bg"])
-        draw_map(pygame, self.screen, self.colors, self.world, self.tile_images, self.tile_size, self.margin)
+        draw_map(
+            pygame,
+            self.screen,
+            self.colors,
+            self.world,
+            self.tile_images,
+            self.tile_size,
+            self.margin,
+            STATUS_BAR_HEIGHT,
+        )
         hovered_region = draw_region_labels(
             pygame,
             self.screen,
@@ -129,6 +139,7 @@ class Front:
             self._get_region_font,
             self.tile_size,
             self.margin,
+            STATUS_BAR_HEIGHT,
         )
         self._assign_avatar_images()
         hovered_avatar = draw_avatars_and_pick_hover(
@@ -140,6 +151,7 @@ class Front:
             self.tile_size,
             self.margin,
             self._get_display_center,
+            STATUS_BAR_HEIGHT,
         )
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
         draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, self._auto_step)
