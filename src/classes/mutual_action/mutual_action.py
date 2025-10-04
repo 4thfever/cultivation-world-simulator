@@ -59,7 +59,8 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
 
     def _call_llm_feedback(self, infos: dict) -> dict:
         template_path = self._get_template_path()
-        res = get_prompt_and_call_llm(template_path, infos)
+        # mutual用快速llm，不需要复杂决策
+        res = get_prompt_and_call_llm(template_path, infos, mode="fast")
         return res
 
     def _set_target_immediate_action(self, target_avatar: "Avatar", action_name: str, action_params: dict) -> None:

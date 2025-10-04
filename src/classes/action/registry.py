@@ -18,10 +18,8 @@ class ActionRegistry:
     def register(cls, action_cls: type, *, actual: bool) -> None:
         name = action_cls.__name__
         cls._name_to_cls[name] = action_cls
-        cls._name_to_cls[name.lower()] = action_cls  # 大小写别名
         if actual:
             cls._actual_name_to_cls[name] = action_cls
-            cls._actual_name_to_cls[name.lower()] = action_cls  # 大小写别名
 
     @classmethod
     def get(cls, name: str) -> type:
@@ -29,11 +27,25 @@ class ActionRegistry:
 
     @classmethod
     def all(cls) -> Iterable[type]:
-        return cls._name_to_cls.values()
+        # 去重保持稳定顺序
+        seen = set()
+        ordered: list[type] = []
+        for t in cls._name_to_cls.values():
+            if t not in seen:
+                seen.add(t)
+                ordered.append(t)
+        return ordered
 
     @classmethod
     def all_actual(cls) -> Iterable[type]:
-        return cls._actual_name_to_cls.values()
+        # 去重保持稳定顺序
+        seen = set()
+        ordered: list[type] = []
+        for t in cls._actual_name_to_cls.values():
+            if t not in seen:
+                seen.add(t)
+                ordered.append(t)
+        return ordered
 
 
 def register_action(*, actual: bool = True) -> Callable[[type], type]:

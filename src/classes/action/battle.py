@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import decide_battle
+from src.classes.story_teller import StoryTeller
 
 
 class Battle(InstantAction):
@@ -22,7 +23,7 @@ class Battle(InstantAction):
             return
         winner, loser, damage = decide_battle(self.avatar, target)
         loser.hp.reduce(damage)
-        self._last_result = (winner.name, loser.name)
+        self._last_result = (winner.name, loser.name, damage)
 
     def can_start(self, avatar_name: str | None = None) -> bool:
         if avatar_name is None:
@@ -32,15 +33,31 @@ class Battle(InstantAction):
     def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)
         target_name = target.name if target is not None else avatar_name
-        return Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗")
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗")
+        # 记录开始事件内容，供故事生成使用
+        self._start_event_content = event.content
+        return event
 
     # InstantAction 已实现 step 完成
 
     def finish(self, avatar_name: str) -> list[Event]:
         res = self._last_result
-        if isinstance(res, tuple) and len(res) == 2:
-            winner, loser = res
-            return [Event(self.world.month_stamp, f"{winner} 战胜了 {loser}")]
+        if isinstance(res, tuple) and len(res) in (2, 3):
+            winner, loser = res[0], res[1]
+            damage = res[2] if len(res) == 3 else None
+            if damage is not None:
+                result_text = f"{winner} 战胜了 {loser}，造成{damage}点伤害"
+            else:
+                result_text = f"{winner} 战胜了 {loser}"
+            result_event = Event(self.world.month_stamp, result_text)
+
+            # 生成战斗小故事：直接复用已生成的事件文本
+            target = self._get_target(avatar_name)
+            avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
+            start_text = getattr(self, "_start_event_content", "") or result_event.content
+            story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content)
+            story_event = Event(self.world.month_stamp, story)
+            return [result_event, story_event]
         return []
 
 

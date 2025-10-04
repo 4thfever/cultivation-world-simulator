@@ -38,9 +38,6 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(delta_x, delta_y)
 
     def can_start(self, avatar_name: str | None = None) -> bool:
-        target = self._get_target(avatar_name)
-        if target is None:
-            return False
         return True
 
     def start(self, avatar_name: str) -> Event:

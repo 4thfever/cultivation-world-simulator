@@ -1,6 +1,7 @@
 llm:
   # 填入litellm支持的model name和key
   model_name: "your-model-name"
+  fast_model_name: "your-fast-model-name"
   key: "your-api-key"
   base_url: "your-base-url-of-llm"
 
@@ -13,7 +14,7 @@ ai:
   max_decide_num: 3
 
 game:
-  init_npc_num: 6
+  init_npc_num: 2
   npc_birth_rate_per_month: 0.001
 
 df:
