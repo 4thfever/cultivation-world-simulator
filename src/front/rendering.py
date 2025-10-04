@@ -43,7 +43,7 @@ def calculate_font_size_by_area(tile_size: int, area: int) -> int:
     return max(16, min(40, base + growth))
 
 
-def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_size: int, margin: int, top_offset: int = 0):
+def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_size: int, margin: int, top_offset: int = 0, outline_px: int = 2):
     ts = tile_size
     m = margin
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
@@ -59,14 +59,20 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
         font_size = calculate_font_size_by_area(tile_size, region.area)
         region_font = get_region_font(font_size)
         text_surface = region_font.render(str(name), True, colors["text"])
-        shadow_surface = region_font.render(str(name), True, (0, 0, 0))
+        border_surface = region_font.render(str(name), True, colors.get("text_border", (24, 24, 24)))
         text_w = text_surface.get_width()
         text_h = text_surface.get_height()
         x = int(screen_x - text_w / 2)
         y = int(screen_y - text_h / 2)
         if (x <= mouse_x <= x + text_w and y <= mouse_y <= y + text_h):
             hovered_region = region
-        screen.blit(shadow_surface, (x + 1, y + 1))
+        # 多方向描边
+        if outline_px > 0:
+            for dx in (-outline_px, 0, outline_px):
+                for dy in (-outline_px, 0, outline_px):
+                    if dx == 0 and dy == 0:
+                        continue
+                    screen.blit(border_surface, (x + dx, y + dy))
         screen.blit(text_surface, (x, y))
     return hovered_region
 
