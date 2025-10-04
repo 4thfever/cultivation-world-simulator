@@ -5,8 +5,9 @@ from typing import Optional, List
 import json
 
 from src.classes.calendar import MonthStamp
-from src.classes.action import Action, StepStatus
-from src.classes.actions import ALL_ACTUAL_ACTION_CLASSES, ALL_ACTION_CLASSES, ALL_ACTUAL_ACTION_NAMES
+from src.classes.action import Action
+from src.classes.action_runtime import ActionStatus, ActionResult
+from src.classes.action.registry import ActionRegistry
 from src.classes.world import World
 from src.classes.tile import Tile
 from src.classes.region import Region
@@ -123,12 +124,8 @@ class Avatar:
         Raises:
             ValueError: 如果找不到对应的动作类
         """
-        # 在所有动作类中查找对应的类
-        for action_class in ALL_ACTION_CLASSES:
-            if action_class.__name__ == action_name:
-                return action_class(self, self.world)
-        
-        raise ValueError(f"未找到名为 '{action_name}' 的动作类")
+        action_cls = ActionRegistry.get(action_name)
+        return action_cls(self, self.world)
 
     def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, objective: str):
         """
@@ -187,15 +184,9 @@ class Avatar:
         action_instance_before = self.current_action
         action = action_instance_before.action
         params = action_instance_before.params
-        try:
-            status, mid_events = action.step(**params)
-        except TypeError:
-            status, mid_events = action.step()
-        if status == StepStatus.COMPLETED:
-            try:
-                finish_events = action.finish(**params)
-            except TypeError:
-                finish_events = action.finish()
+        result: ActionResult = action.step(**params)
+        if result.status == ActionStatus.COMPLETED:
+            finish_events = action.finish(**params)
             # 仅当当前动作仍然是刚才执行的那个实例时才清空
             # 若在 step() 内部通过“抢占”机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
             if self.current_action is action_instance_before:
@@ -205,8 +196,8 @@ class Avatar:
                 for e in finish_events:
                     self._pending_events.append(e)
         # 合并动作返回的事件（通常为空）
-        if mid_events:
-            for e in mid_events:
+        if result.events:
+            for e in result.events:
                 self._pending_events.append(e)
         events, self._pending_events = self._pending_events, []
         # 本轮已执行过，清除“新设动作”标记
@@ -356,6 +347,7 @@ class Avatar:
         """
         获取动作空间
         """
+        from src.classes.actions import ALL_ACTUAL_ACTION_NAMES
         actual_actions = [self.create_action(action_cls_name) for action_cls_name in ALL_ACTUAL_ACTION_NAMES]
         doable_actions: list[Action] = []
         for action in actual_actions:

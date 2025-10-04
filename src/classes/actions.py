@@ -2,75 +2,13 @@ from __future__ import annotations
 
 import json
 
-from src.classes.action import (
-    Move,
-    Cultivate,
-    Breakthrough,
-    MoveToRegion,
-    MoveToAvatar,
-    Play,
-    Hunt,
-    Harvest,
-    Sold,
-    Battle,
-    PlunderMortals,
-    HelpMortals,
-    Talk,
-)
-from src.classes.mutual_action import (
-    DriveAway,
-    Attack,
-    Conversation,
-)
-from src.classes.action import MoveAwayFromAvatar, MoveAwayFromRegion, Escape
+from src.classes.action.registry import ActionRegistry
 
 
-ALL_ACTION_CLASSES = [
-    Move,
-    Battle,
-    Cultivate,
-    Breakthrough,
-    MoveToRegion,
-    MoveToAvatar,
-    Play,
-    Hunt,
-    Harvest,
-    Sold,
-    PlunderMortals,
-    HelpMortals,
-    Talk,
-    # 互动相关动作（实际执行的反馈动作也纳入）
-    DriveAway,
-    Attack,
-    MoveAwayFromAvatar,
-    MoveAwayFromRegion,
-    Conversation,
-    Escape,
-    Conversation,
-    Escape,
-]
-
-ALL_ACTUAL_ACTION_CLASSES = [
-    Cultivate,
-    Breakthrough,
-    MoveToRegion,
-    MoveToAvatar,
-    Play,
-    Hunt,
-    Harvest,
-    Sold,
-    PlunderMortals,
-    HelpMortals,
-    Talk,
-    DriveAway,
-    Attack,
-    Conversation,
-    MoveAwayFromAvatar,
-    MoveAwayFromRegion,
-]
-
-ALL_ACTION_NAMES = [action.__name__ for action in ALL_ACTION_CLASSES]
-ALL_ACTUAL_ACTION_NAMES = [action.__name__ for action in ALL_ACTUAL_ACTION_CLASSES]
+ALL_ACTION_CLASSES = list(ActionRegistry.all())
+ALL_ACTUAL_ACTION_CLASSES = list(ActionRegistry.all_actual())
+ALL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTION_CLASSES]
+ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 
 ACTION_INFOS = {
     action.__name__: {

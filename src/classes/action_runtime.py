@@ -1,11 +1,43 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
+from enum import Enum
 
 
-# 运行时动作状态（字符串，便于与现有实现对接）
-ActionStatus = str  # "running" | "completed" | "failed" | "blocked"
+class ActionStatus(Enum):
+    """
+    动作推进过程中的标准状态枚举。
+    - RUNNING: 仍在进行中，需要在未来的 tick 中继续推进
+    - COMPLETED: 已正常完成
+    - FAILED: 执行失败（参数/前置条件等导致）
+    - CANCELLED: 被外部取消（如被其他动作抢占）
+    - INTERRUPTED: 运行中被打断（如战斗/事件中断）
+    """
+
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+    INTERRUPTED = "interrupted"
+
+
+@dataclass
+class ActionResult:
+    """
+    标准动作返回体。所有 Action.step() 必须返回该类型。
+
+    Attributes:
+        status: 当前推进后的状态（见 ActionStatus）
+        events: 在本次推进过程中生成的事件（通常由 Avatar 收集并展示）
+        payload: 可选的结构化数据，便于上层消费（如数值、战斗结果等）
+        next_action: 可选的“建议下一个动作”（名称, 参数）供上层调度策略参考
+    """
+
+    status: ActionStatus
+    events: List[Any]
+    payload: Optional[Dict[str, Any]] = None
+    next_action: Optional[tuple[str, Dict[str, Any]]] = None
 
 
 @dataclass
@@ -29,5 +61,5 @@ class ActionInstance:
     """
     action: Any  # src.classes.action.Action
     params: Dict[str, Any]
-    status: ActionStatus = "running"
+    status: str = "running"  # 遗留字段：Avatar 以字符串记录运行态
 
