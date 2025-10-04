@@ -12,6 +12,7 @@ def load_csv(path: Path) -> pd.DataFrame:
         "name": str,
         "description": str,
         "prompt": str,
+        "weight": float,
     }
     for column, dtype in row_types.items():
         if column in df.columns:
