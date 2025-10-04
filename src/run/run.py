@@ -24,7 +24,6 @@ from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.classes.relation import Relation
-from src.classes.alignment import Alignment
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -86,8 +85,6 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
             root=random.choice(list(Root)),  # 随机选择灵根
         )
         avatar.tile = world.map.get_tile(x, y)
-        # 随机分配阵营（正/邪）
-        avatar.alignment = random.choice(list(Alignment))
         avatars[avatar.id] = avatar
     # # —— 为演示添加少量示例关系 ——
     avatar_list = list(avatars.values())

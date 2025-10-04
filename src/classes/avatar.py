@@ -93,9 +93,9 @@ class Avatar:
 
         # 最大寿元已在 Age 构造时基于境界初始化
         
-        # 如果personas列表为空，则随机分配两个不互斥的persona
+        # 如果personas列表为空，则随机分配两个符合条件且不互斥的persona
         if not self.personas:
-            self.personas = get_random_compatible_personas(persona_num)
+            self.personas = get_random_compatible_personas(persona_num, avatar=self)
 
     def __hash__(self) -> int:
         return hash(self.id)

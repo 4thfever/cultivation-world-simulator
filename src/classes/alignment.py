@@ -15,6 +15,21 @@ class Alignment(Enum):
     def get_info(self) -> str:
         return alignment_strs[self] + ": " + alignment_infos[self]
 
+    def __hash__(self) -> int:
+        return hash(self.value)
+
+    def __eq__(self, other) -> bool:
+        """
+        允许与同类或字符串比较：
+        - Alignment: 恒等比较
+        - str: 同时支持英文值（value）与中文显示（__str__）
+        """
+        if isinstance(other, Alignment):
+            return self is other
+        if isinstance(other, str):
+            return other == self.value or other == str(self)
+        return False
+
 
 alignment_strs = {
     Alignment.RIGHTEOUS: "正",
