@@ -200,6 +200,3 @@ def log_llm_error(error_message: str, prompt: str = None):
     """便捷函数：记录LLM错误"""
     logger = get_logger()
     logger.log_error(error_message, prompt)
-
-# 向后兼容的别名
-get_llm_logger = get_logger
