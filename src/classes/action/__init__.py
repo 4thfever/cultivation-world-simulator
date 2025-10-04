@@ -30,6 +30,7 @@ from .battle import Battle
 from .plunder_mortals import PlunderMortals
 from .help_mortals import HelpMortals
 from .talk import Talk
+from .devour_mortals import DevourMortals
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -56,6 +57,7 @@ register_action(actual=False)(Battle)
 register_action(actual=True)(PlunderMortals)
 register_action(actual=True)(HelpMortals)
 register_action(actual=True)(Talk)
+register_action(actual=True)(DevourMortals)
 
 __all__ = [
     # 基类
@@ -84,6 +86,7 @@ __all__ = [
     "PlunderMortals",
     "HelpMortals",
     "Talk",
+    "DevourMortals",
 ]
 
 

@@ -13,6 +13,7 @@ from src.classes.tile import Tile
 from src.classes.region import Region
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
+from src.classes.technique import Technique, get_random_technique_for_avatar
 from src.classes.age import Age
 from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
@@ -64,6 +65,7 @@ class Avatar:
 
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     personas: List[Persona] = field(default_factory=list)
+    technique: Technique | None = None
     history_events: List[Event] = field(default_factory=list)
     _pending_events: List[Event] = field(default_factory=list)
     current_action: Optional[ActionInstance] = None
@@ -97,6 +99,10 @@ class Avatar:
         if not self.personas:
             self.personas = get_random_compatible_personas(persona_num, avatar=self)
 
+        # 出生即随机赋予功法（与灵根/阵营/条件兼容）
+        if self.technique is None:
+            self.technique = get_random_technique_for_avatar(self)
+
     def __hash__(self) -> int:
         return hash(self.id)
 
@@ -106,7 +112,8 @@ class Avatar:
         尽量多打一些，因为会用来给LLM进行决策
         """
         personas_str = ", ".join([persona.name for persona in self.personas])
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 阵营={self.alignment.get_info()}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
+        technique_str = self.technique.name if self.technique is not None else "无"
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 阵营={self.alignment.get_info()}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 功法={technique_str}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
 
     def __str__(self) -> str:
         return self.get_info()

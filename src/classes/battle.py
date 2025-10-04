@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import random
 from typing import Tuple, TYPE_CHECKING
+import random
 
 from src.classes.cultivation import Realm
+from src.classes.technique import get_suppression_bonus, get_grade_advantage_bonus
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -24,13 +26,26 @@ def _realm_order(realm: Realm) -> int:
 
 def calc_win_rate(attacker: "Avatar", defender: "Avatar") -> float:
     """
-    根据双方境界粗略计算进攻方胜率。
-    基准50%，每高一个大境界+15%，限制在[0.1, 0.9]。
+    胜率计算（返回进攻方胜率 p ∈ [0.1, 0.9]）：
+    - 基准：50%
+    - 境界差：每高一大境界 +15%
+    - 功法品阶差：按品阶差的相对加成（可正可负）
+    - 属性克制：若进攻方克制防守方，再 +10%
+    最后夹紧到 [0.1, 0.9]
     """
     atk_order = _realm_order(attacker.cultivation_progress.realm)
     def_order = _realm_order(defender.cultivation_progress.realm)
     delta = atk_order - def_order
     base = 0.5 + 0.15 * delta
+    # 功法品阶差相对加成
+    atk_grade = getattr(getattr(attacker, "technique", None), "grade", None)
+    def_grade = getattr(getattr(defender, "technique", None), "grade", None)
+    base += get_grade_advantage_bonus(atk_grade, def_grade)
+    # 属性克制：若进攻方克制防守方，再+10%
+    atk_attr = getattr(getattr(attacker, "technique", None), "attribute", None)
+    def_attr = getattr(getattr(defender, "technique", None), "attribute", None)
+    if atk_attr is not None and def_attr is not None:
+        base += get_suppression_bonus(atk_attr, def_attr)
     return max(0.1, min(0.9, base))
 
 
@@ -58,8 +73,37 @@ def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
 
 def get_damage(winner: "Avatar", loser: "Avatar") -> int:
     """
-    根据胜负双方境界差距估算伤害：基础100，差一大境界+100，上限500。
+    伤害计算（返回单次战斗伤害值，整数）：
+    1) 先计算“期望伤害” expected：
+       - 境界差：base = 100 + 80 × gap，其中 gap = max(0, winnerRealmOrder - loserRealmOrder)
+       - 功法品阶差：按品阶差 bonus 调整 expected *= (1 + bonus)
+       - 属性克制：若胜者克制败者，再乘 1.15
+       - 夹紧：期望伤害最终限制在 [30, 500]
+    2) 再生成随机区间：[low, high] = [0.85×expected, 1.15×expected]
+    3) 下限与比例保护：不低于败者最大HP的 10%，并至少为 15 的硬下限
+    4) 返回区间内的随机整数
     """
     gap = max(0, _realm_order(winner.cultivation_progress.realm) - _realm_order(loser.cultivation_progress.realm))
-    # return min(500, 100 + 100 * gap)
-    return 500
+    expected = 100 + 80 * gap
+    win_grade = getattr(getattr(winner, "technique", None), "grade", None)
+    lose_grade = getattr(getattr(loser, "technique", None), "grade", None)
+    expected *= (1.0 + get_grade_advantage_bonus(win_grade, lose_grade))
+    win_attr = getattr(getattr(winner, "technique", None), "attribute", None)
+    lose_attr = getattr(getattr(loser, "technique", None), "attribute", None)
+    if win_attr is not None and lose_attr is not None:
+        if get_suppression_bonus(win_attr, lose_attr) > 0:
+            expected *= 1.15
+    # 期望伤害夹紧
+    expected = max(30.0, min(500.0, expected))
+
+    # 设定伤害区间并随机
+    low = int(expected * 0.85)
+    high = int(expected * 1.15)
+
+    # 与最大HP挂钩的最低保护
+    loser_max_hp = getattr(getattr(loser, "hp", None), "max", 0) or 0
+    hp_floor = int(max(15, loser_max_hp * 0.10))
+    low = max(low, hp_floor)
+    high = max(high, low + 1)
+
+    return random.randint(low, high)
