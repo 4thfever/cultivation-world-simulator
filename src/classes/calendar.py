@@ -39,8 +39,6 @@ class MonthStamp(int):
     def __add__(self, other: int) -> 'MonthStamp':
         return MonthStamp(int(self) + other)
 
-
-
 def create_month_stamp(year: Year, month: Month) -> MonthStamp:
     """从年和月创建MonthStamp"""
     return MonthStamp(int(year) * 12 + month.value - 1)

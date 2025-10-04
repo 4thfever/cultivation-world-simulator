@@ -953,19 +953,18 @@ class Talk(DefineAction, ActualActionMixin):
         return len(self._get_same_region_others()) > 0
 
     def start(self) -> Event:
+        self.same_region_others = self._get_same_region_others()
         # 记录开始事件
         return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与同区域的他人攀谈")
 
     def step(self) -> tuple[StepStatus, list[Event]]:
-        same_region_others = self._get_same_region_others()
-
         import random
-        target = random.choice(same_region_others)
+        target = random.choice(self.same_region_others)
 
         # 进入交谈：由概率决定本次是否允许建立关系
         from src.classes.mutual_action import Conversation
         # 由配置决定本次是否有“有机会进入关系”标记
-        prob = float(getattr(CONFIG.social, "talk_into_relation_probability", 0.0))
+        prob = CONFIG.social.talk_into_relation_probability
         can_into_relation = (random.random() < prob)
 
         conv = Conversation(self.avatar, self.world)

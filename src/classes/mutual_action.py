@@ -303,27 +303,26 @@ class Conversation(MutualAction, ActualActionMixin):
 
         target.thinking = thinking
 
-        # 拒绝则只记录反馈
-        if feedback and feedback != "Talk":
+        fb = feedback.strip()
+        # 仅当明确接受时才记录对话与关系；其余一律视为拒绝
+        if fb == "Talk":
+            if talk_content:
+                content_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的交谈：{talk_content}")
+                # 进入侧栏一次，并写入双方历史
+                self._add_event_pair(content_event, initiator=self.avatar, target=target)
+
+            if can_into_relation and into_relation_str:
+                rel = Relation.from_chinese(into_relation_str)
+                if rel is not None:
+                    self.avatar.set_relation(target, rel)
+                    set_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的关系变为：{relation_display_names.get(rel, str(rel))}")
+                    self._add_event_pair(set_event, initiator=self.avatar, target=target)
+
+            return StepStatus.COMPLETED, []
+        else:
             feedback_event = Event(self.world.month_stamp, f"{target.name} 拒绝与 {self.avatar.name} 交谈")
             self._add_event_pair(feedback_event, initiator=self.avatar, target=target)
             return StepStatus.COMPLETED, []
-
-        # 接受并记录对话内容
-        if talk_content:
-            content_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的交谈：{talk_content}")
-            # 进入侧栏一次，并写入双方历史
-            self._add_event_pair(content_event, initiator=self.avatar, target=target)
-
-        # 仅当 can_into_relation=True 时，根据返回尝试建立关系
-        if can_into_relation and into_relation_str:
-            rel = Relation.from_chinese(into_relation_str)
-            if rel is not None:
-                self.avatar.set_relation(target, rel)
-                set_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的关系变为：{relation_display_names.get(rel, str(rel))}")
-                self._add_event_pair(set_event, initiator=self.avatar, target=target)
-
-        return StepStatus.COMPLETED, []
 
     def finish(self, target_avatar: "Avatar|str", **kwargs) -> list[Event]:
         return []
