@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 
 from src.classes.action.registry import ActionRegistry
+# 确保在收集注册表前加载所有动作模块（含 mutual actions）
+import src.classes.action  # noqa: F401
+import src.classes.mutual_action  # noqa: F401
 
 
 ALL_ACTION_CLASSES = list(ActionRegistry.all())
@@ -16,7 +19,7 @@ ACTION_INFOS = {
         "doable_requirements": getattr(action, "DOABLES_REQUIREMENTS", ""),
         "params": getattr(action, "PARAMS", {}),
     }
-    for action in ALL_ACTUAL_ACTION_CLASSES
+    for action in ALL_ACTION_CLASSES
 }
 ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False)
 

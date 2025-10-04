@@ -145,7 +145,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         if target is None:
             return False
         distance = get_avatar_distance(self.avatar, target)
-        return distance <= 2
+        return distance <= 3
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         """
