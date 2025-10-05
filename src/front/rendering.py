@@ -139,6 +139,10 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
         x = mouse_x - width - 12
     if y + height > screen_h:
         y = mouse_y - height - 12
+    # 进一步夹紧，避免位于窗口上边或左边之外
+    x = max(0, min(x, screen_w - width))
+    top_limit = 0  # 如需避免覆盖状态栏，可改为 STATUS_BAR_HEIGHT
+    y = max(top_limit, min(y, screen_h - height))
     bg_rect = pygame_mod.Rect(x, y, width, height)
     pygame_mod.draw.rect(screen, colors["tooltip_bg"], bg_rect, border_radius=6)
     pygame_mod.draw.rect(screen, colors["tooltip_bd"], bg_rect, 1, border_radius=6)
