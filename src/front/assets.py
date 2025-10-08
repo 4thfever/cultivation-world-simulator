@@ -29,13 +29,10 @@ def load_avatar_images(pygame_mod, tile_size: int):
         for filename in os.listdir(male_dir):
             if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
                 image_path = os.path.join(male_dir, filename)
-                try:
-                    image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.5))
-                    scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
-                    male_avatars.append(scaled)
-                except pygame_mod.error:
-                    continue
+                image = pygame_mod.image.load(image_path)
+                avatar_size = max(26, int((tile_size * 4 // 3) * 1.5))
+                scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
+                male_avatars.append(scaled)
 
     female_dir = "assets/females"
     if os.path.exists(female_dir):
