@@ -50,31 +50,85 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
     from src.classes.region import regions_by_id
     hovered_region = None
-    for region in regions_by_id.values():
+
+    # 以区域面积降序放置，优先保证大区域标签可读性
+    regions = sorted(list(regions_by_id.values()), key=lambda r: getattr(r, "area", 0), reverse=True)
+
+    placed_rects = []  # 已放置标签的矩形列表，用于碰撞检测
+
+    # 可放置范围（地图区域）
+    map_px_w = world.map.width * ts
+    map_px_h = world.map.height * ts
+    min_x_allowed = m
+    max_x_allowed = m + map_px_w
+    min_y_allowed = m + top_offset
+    max_y_allowed = m + top_offset + map_px_h
+
+    def _clamp_rect(x0: int, y0: int, w: int, h: int) -> Tuple[int, int]:
+        # 将标签限制在地图区域内
+        x = max(min_x_allowed, min(x0, max_x_allowed - w))
+        y = max(min_y_allowed, min(y0, max_y_allowed - h))
+        return x, y
+
+    for region in regions:
         name = getattr(region, "name", None)
         if not name:
             continue
         center_x, center_y = region.center_loc
-        screen_x = m + center_x * ts + ts // 2
-        screen_y = m + top_offset + center_y * ts + ts // 2
+        screen_cx = m + center_x * ts + ts // 2
+        screen_cy = m + top_offset + center_y * ts + ts // 2
         font_size = calculate_font_size_by_area(tile_size, region.area)
         region_font = get_region_font(font_size)
         text_surface = region_font.render(str(name), True, colors["text"])
         border_surface = region_font.render(str(name), True, colors.get("text_border", (24, 24, 24)))
         text_w = text_surface.get_width()
         text_h = text_surface.get_height()
-        x = int(screen_x - text_w / 2)
-        y = int(screen_y - text_h / 2)
-        if (x <= mouse_x <= x + text_w and y <= mouse_y <= y + text_h):
+
+        # 候选偏移（围绕中心），尽量保持靠近中心位置
+        pad = 6
+        dxw = max(8, int(0.6 * text_w)) + pad
+        dyh = max(6, int(0.6 * text_h)) + pad
+        candidates = [
+            (0, 0),
+            (0, -dyh),
+            (0, dyh),
+            (-dxw, 0),
+            (dxw, 0),
+            (-dxw, -dyh),
+            (dxw, -dyh),
+            (-dxw, dyh),
+            (dxw, dyh),
+        ]
+
+        chosen_rect = None
+        for (dx, dy) in candidates:
+            x_try = int(screen_cx + dx - text_w / 2)
+            y_try = int(screen_cy + dy - text_h / 2)
+            x_try, y_try = _clamp_rect(x_try, y_try, text_w, text_h)
+            rect_try = pygame_mod.Rect(x_try, y_try, text_w, text_h)
+            if not any(rect_try.colliderect(r) for r in placed_rects):
+                chosen_rect = rect_try
+                break
+        if chosen_rect is None:
+            # 如果所有候选均冲突，就退回中心位置
+            x0 = int(screen_cx - text_w / 2)
+            y0 = int(screen_cy - text_h / 2)
+            x0, y0 = _clamp_rect(x0, y0, text_w, text_h)
+            chosen_rect = pygame_mod.Rect(x0, y0, text_w, text_h)
+
+        # 悬停检测使用最终位置
+        if chosen_rect.collidepoint(mouse_x, mouse_y):
             hovered_region = region
+
         # 多方向描边
         if outline_px > 0:
             for dx in (-outline_px, 0, outline_px):
                 for dy in (-outline_px, 0, outline_px):
                     if dx == 0 and dy == 0:
                         continue
-                    screen.blit(border_surface, (x + dx, y + dy))
-        screen.blit(text_surface, (x, y))
+                    screen.blit(border_surface, (chosen_rect.x + dx, chosen_rect.y + dy))
+        screen.blit(text_surface, (chosen_rect.x, chosen_rect.y))
+        placed_rects.append(chosen_rect)
     return hovered_region
 
 
