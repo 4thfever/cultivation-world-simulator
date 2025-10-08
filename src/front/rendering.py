@@ -101,9 +101,24 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
         name = getattr(region, "name", None)
         if not name:
             continue
-        center_x, center_y = region.center_loc
-        screen_cx = m + center_x * ts + ts // 2
-        screen_cy = m + top_offset + center_y * ts + ts // 2
+        # 以“区域最下缘的中点”为锚点（优先放在区域下方）
+        if getattr(region, "cors", None):
+            bottom_y = max(y for _, y in region.cors)
+            xs_on_bottom = [x for x, y in region.cors if y == bottom_y]
+            if xs_on_bottom:
+                left_x = min(xs_on_bottom)
+                right_x = max(xs_on_bottom)
+                anchor_cx_tile = (left_x + right_x) / 2.0
+            else:
+                anchor_cx_tile = float(region.center_loc[0])
+        else:
+            # 兜底使用中心点
+            anchor_cx_tile = float(region.center_loc[0])
+            bottom_y = int(region.center_loc[1])
+
+        screen_cx = int(m + anchor_cx_tile * ts + ts // 2)
+        # 锚点Y取区域底边像素的下一行，再加少量间距
+        screen_cy = int(m + top_offset + (bottom_y + 1) * ts + 2)
         font_size = calculate_font_size_by_area(tile_size, region.area)
         region_font = get_region_font(font_size)
         text_surface = region_font.render(str(name), True, colors["text"])
@@ -111,35 +126,32 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
         text_w = text_surface.get_width()
         text_h = text_surface.get_height()
 
-        # 候选偏移（围绕中心），尽量保持靠近中心位置
+        # 候选偏移：优先“区域下方”，若越界或冲突，再尝试左右位移、其上方
         pad = 6
         dxw = max(8, int(0.6 * text_w)) + pad
-        dyh = max(6, int(0.6 * text_h)) + pad
+        dyh = text_h + pad
         candidates = [
-            (0, 0),
-            (0, -dyh),
-            (0, dyh),
-            (-dxw, 0),
-            (dxw, 0),
-            (-dxw, -dyh),
-            (dxw, -dyh),
-            (-dxw, dyh),
-            (dxw, dyh),
+            (0, 0),              # 正下方（期望位置）
+            (-dxw, 0), (dxw, 0), # 下方左右
+            (0, -dyh),           # 底边上方一行
+            (-dxw, -dyh), (dxw, -dyh),
+            (0, -2 * dyh),       # 再上方，尽量避免覆盖区域
         ]
 
         chosen_rect = None
         for (dx, dy) in candidates:
+            # 以锚点为基准，文本顶部左上角坐标
             x_try = int(screen_cx + dx - text_w / 2)
-            y_try = int(screen_cy + dy - text_h / 2)
+            y_try = int(screen_cy + dy)
             x_try, y_try = _clamp_rect(x_try, y_try, text_w, text_h)
             rect_try = pygame_mod.Rect(x_try, y_try, text_w, text_h)
             if not any(rect_try.colliderect(r) for r in placed_rects):
                 chosen_rect = rect_try
                 break
         if chosen_rect is None:
-            # 如果所有候选均冲突，就退回中心位置
+            # 如果所有候选均冲突，就退回锚点正下方
             x0 = int(screen_cx - text_w / 2)
-            y0 = int(screen_cy - text_h / 2)
+            y0 = int(screen_cy)
             x0, y0 = _clamp_rect(x0, y0, text_w, text_h)
             chosen_rect = pygame_mod.Rect(x0, y0, text_w, text_h)
 

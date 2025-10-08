@@ -179,7 +179,7 @@ def _create_2x2_wuxing_caves(game_map: Map):
         {"name": "太白金府", "base_x": 26, "base_y": 12, "element": EssenceType.GOLD, "description": "青峰山脉深处的金行洞府"},
         {"name": "青木洞天", "base_x": 48, "base_y": 18, "element": EssenceType.WOOD, "description": "青云林海中的木行洞府"},
         {"name": "玄水秘境", "base_x": 67, "base_y": 25, "element": EssenceType.WATER, "description": "无边碧海深处的水行洞府"},
-        {"name": "离火洞府", "base_x": 50, "base_y": 33, "element": EssenceType.FIRE, "description": "炎狱火山旁的火行洞府"},
+        {"name": "离火洞府", "base_x": 48, "base_y": 33, "element": EssenceType.FIRE, "description": "炎狱火山旁的火行洞府"},
         {"name": "厚土玄宫", "base_x": 30, "base_y": 16, "element": EssenceType.EARTH, "description": "青峰山脉的土行洞府"}
     ]
     
