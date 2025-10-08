@@ -14,7 +14,7 @@
     {avatar_name_2}: {{
         "thinking": ..., // 简单思考应该怎么决策
         "feedback": ... // 面对{avatar_name_1}的行为的合法feedback action name
-        "talk_content": ... // 第三人称视角的，对话的主题和情况概括，约100字。注意不是对话的口语内容。
+        "talk_content": ... // 第三人称视角的，对话的主题和情况概括，约100字。注意不是对话的口语内容，仙侠语言风格。
         "into_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
     }}
 }}

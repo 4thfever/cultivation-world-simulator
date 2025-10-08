@@ -31,6 +31,21 @@ class Alignment(Enum):
             return other == self.value or other == str(self)
         return False
 
+    @staticmethod
+    def from_str(text: str) -> "Alignment":
+        """
+        将字符串解析为 Alignment，支持中文与英文别名。
+        未识别时返回中立。
+        """
+        t = str(text).strip().lower()
+        if t in {"正", "righteous", "right"}:
+            return Alignment.RIGHTEOUS
+        if t in {"中", "neutral", "middle", "center"}:
+            return Alignment.NEUTRAL
+        if t in {"邪", "evil"}:
+            return Alignment.EVIL
+        return Alignment.NEUTRAL
+
 
 alignment_strs = {
     Alignment.RIGHTEOUS: "正",
