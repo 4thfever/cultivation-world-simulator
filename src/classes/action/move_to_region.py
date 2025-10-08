@@ -16,14 +16,29 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"region": "region_name"}
 
+    def _resolve_region(self, region: Region | str) -> Region:
+        """
+        将字符串或全局Region实例解析为当前world.map中的Region实例：
+        - 优先使用 world.map.region_names
+        - 若传入是 Region 实例，按 id 映射到 world.map.regions
+        - 兜底返回原对象（避免KeyError中断）
+        """
+        try:
+            if isinstance(region, str):
+                return self.world.map.region_names.get(region) or region  # type: ignore[return-value]
+            # 非字符串：按 id 在 map 中取对应实例
+            rid = getattr(region, "id", None)
+            if rid is not None and rid in self.world.map.regions:
+                return self.world.map.regions[rid]
+            return region
+        except Exception:
+            return region
+
     def _execute(self, region: Region | str) -> None:
         """
         移动到某个region
         """
-        if isinstance(region, str):
-            from src.classes.region import regions_by_name
-
-            region = regions_by_name[region]
+        region = self._resolve_region(region)
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         region_center_loc = region.center_loc
         delta_x = region_center_loc[0] - cur_loc[0]
@@ -38,26 +53,15 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         return True
 
     def start(self, region: Region | str) -> Event:
-        if isinstance(region, str):
-            region_name = region
-            from src.classes.region import regions_by_name
-
-            if region in regions_by_name:
-                region_name = regions_by_name[region].name
-        elif hasattr(region, "name"):
-            region_name = region.name
-        else:
-            region_name = str(region)
+        r = self._resolve_region(region)
+        region_name = getattr(r, "name", str(region))
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}")
 
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)
         # 完成条件：到达目标区域
-        if isinstance(region, str):
-            from src.classes.region import regions_by_name
-
-            region = regions_by_name[region]
-        done = self.avatar.is_in_region(region)
+        r = self._resolve_region(region)
+        done = self.avatar.is_in_region(r if isinstance(r, Region) else None)
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
     def finish(self, region: Region | str) -> list[Event]:
