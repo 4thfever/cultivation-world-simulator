@@ -147,11 +147,11 @@ async def main():
 
     front = Front(
         simulator=sim,
-        tile_size=19,  # 减小20%的tile大小 (24 * 0.8 ≈ 19)
+        tile_size=24,  # 每个tile扩大约25%像素（与tile数量缩减相抵，窗口不变）
         margin=8,
         step_interval_ms=750,
         window_title="Cultivation World — Front Demo",
-        sidebar_width=350,  # 新增：设置侧边栏宽度
+        sidebar_width=350,
     )
     await front.run_async()
 
