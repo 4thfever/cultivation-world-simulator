@@ -19,7 +19,7 @@ ACTION_INFOS = {
         "doable_requirements": getattr(action, "DOABLES_REQUIREMENTS", ""),
         "params": getattr(action, "PARAMS", {}),
     }
-    for action in ALL_ACTION_CLASSES
+    for action in ALL_ACTUAL_ACTION_CLASSES
 }
 ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False)
 
