@@ -22,33 +22,18 @@ def load_tile_images(pygame_mod, tile_size: int) -> Dict[TileType, object]:
 
 
 def load_avatar_images(pygame_mod, tile_size: int):
-    male_avatars: List[object] = []
-    female_avatars: List[object] = []
-
-    male_dir = "assets/males"
-    if os.path.exists(male_dir):
-        for filename in os.listdir(male_dir):
-            if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
-                image_path = os.path.join(male_dir, filename)
-                image = pygame_mod.image.load(image_path)
-                avatar_size = max(26, int((tile_size * 4 // 3) * 1.2))
-                scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
-                male_avatars.append(scaled)
-
-    female_dir = "assets/females"
-    if os.path.exists(female_dir):
-        for filename in os.listdir(female_dir):
-            if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
-                image_path = os.path.join(female_dir, filename)
-                try:
+    def load_from_dir(base_dir: str) -> List[object]:
+        results: List[object] = []
+        if os.path.exists(base_dir):
+            for filename in os.listdir(base_dir):
+                if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
+                    image_path = os.path.join(base_dir, filename)
                     image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int(tile_size * 4 // 3 * 0.8 * 1.2 * 1.2 * 1.2))
+                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.2))
                     scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
-                    female_avatars.append(scaled)
-                except pygame_mod.error:
-                    continue
-
-    return male_avatars, female_avatars
+                    results.append(scaled)
+        return results
+    return load_from_dir("assets/males"), load_from_dir("assets/females")
 
 
 def load_sect_images(pygame_mod, tile_size: int):
