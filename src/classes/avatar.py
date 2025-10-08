@@ -412,9 +412,9 @@ class Avatar:
         # 宗门信息
         sect_name = self.get_sect_str()
         if self.sect is not None:
-            sect_info = f"宗门信息：{sect_name}，风格：{self.sect.member_act_style}"
-        else:
-            sect_info = f"宗门信息：{sect_name}"
+            sect_info = f"{sect_name}，风格：{self.sect.member_act_style}，驻地：{self.sect.headquarter.name}"
+        else: # 散修
+            sect_info = sect_name
 
         # 历史事件摘要
         if self.history_events:

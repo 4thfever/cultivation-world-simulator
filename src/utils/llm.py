@@ -61,18 +61,103 @@ async def call_llm_async(prompt: str, mode="normal") -> str:
     result = await asyncio.to_thread(call_llm, prompt, mode)
     return result
 
+def _extract_code_blocks(text: str):
+    """
+    提取所有markdown代码块，返回 (lang, content) 列表。
+    """
+    pattern = re.compile(r"```([^\n`]*)\n([\s\S]*?)```", re.DOTALL)
+    blocks = []
+    for lang, content in pattern.findall(text):
+        blocks.append((lang.strip().lower(), content.strip()))
+    return blocks
+
+
+def _find_first_balanced_json_object(text: str):
+    """
+    在整段文本中扫描并返回首个平衡的花括号 {...} 片段（忽略字符串中的括号）。
+    找到则返回子串，否则返回None。
+    """
+    depth = 0
+    start_index = None
+    in_string = False
+    string_char = ''
+    escape = False
+    for idx, ch in enumerate(text):
+        if in_string:
+            if escape:
+                escape = False
+                continue
+            if ch == '\\':
+                escape = True
+                continue
+            if ch == string_char:
+                in_string = False
+            continue
+        if ch in ('"', "'"):
+            in_string = True
+            string_char = ch
+            continue
+        if ch == '{':
+            if depth == 0:
+                start_index = idx
+            depth += 1
+            continue
+        if ch == '}':
+            if depth > 0:
+                depth -= 1
+                if depth == 0 and start_index is not None:
+                    return text[start_index:idx + 1]
+    return None
+
+
 def parse_llm_response(res: str) -> dict:
     """
-    解析LLM返回的结果，支持多种格式
+    仅针对 JSON 的稳健解析：
+    1) 优先解析 ```json/json5``` 或未标注语言的代码块
+    2) 自由文本中定位首个平衡的 {...}
+    3) 整体 json5 兜底
+    最终返回字典；否则抛错。
     """
-    res = res.strip()
-    
-    # 提取markdown代码块中的JSON
-    json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', res, re.DOTALL)
-    if json_match:
-        res = json_match.group(1)
-    
-    return json5.loads(res)
+    res = (res or '').strip()
+    if not res:
+        return {}
+
+    # 1) 优先解析代码块（仅 json/json5/未标注语言）
+    for lang, block in _extract_code_blocks(res):
+        if lang and lang not in ("json", "json5"):
+            continue
+        # 先在块内找平衡对象
+        span = _find_first_balanced_json_object(block)
+        candidates = [span] if span else [block]
+        for cand in candidates:
+            if not cand:
+                continue
+            try:
+                obj = json5.loads(cand)
+                if isinstance(obj, dict):
+                    return obj
+            except Exception:
+                continue
+
+    # 2) 扫描全文首个平衡的JSON对象
+    json_span = _find_first_balanced_json_object(res)
+    if json_span:
+        try:
+            obj = json5.loads(json_span)
+            if isinstance(obj, dict):
+                return obj
+        except Exception:
+            pass
+
+    # 3) 整体 json5 兜底
+    try:
+        obj = json5.loads(res)
+        if isinstance(obj, dict):
+            return obj
+    except Exception:
+        pass
+
+    raise ValueError("无法从LLM响应中解析出有效的JSON字典对象")
 
 def get_prompt_and_call_llm(template_path: Path, infos: dict, mode="normal") -> str:
     """
