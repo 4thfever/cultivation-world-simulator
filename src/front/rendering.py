@@ -66,10 +66,72 @@ def draw_sect_headquarters(pygame_mod, screen, world, sect_images: dict, ts: int
         screen.blit(image, (x_px, y_px))
 
 
+def _is_small_square_region(region) -> int:
+    """
+    若为 2x2 或 3x3 的矩形/正方形区域，返回边长（2或3）；否则返回0。
+    """
+    try:
+        nw = tuple(map(int, str(getattr(region, "north_west_cor", "0,0")).split(",")))
+        se = tuple(map(int, str(getattr(region, "south_east_cor", "0,0")).split(",")))
+    except Exception:
+        return 0
+    if getattr(region, "shape", None) is None:
+        return 0
+    shape_name = getattr(region.shape, "name", "")
+    if shape_name not in ("RECTANGLE", "SQUARE"):
+        return 0
+    width = se[0] - nw[0] + 1
+    height = se[1] - nw[1] + 1
+    if width == height and width in (2, 3):
+        return width
+    return 0
+
+
+def draw_small_regions(pygame_mod, screen, world, region_images: dict, tile_images: dict, ts: int, m: int, top_offset: int = 0):
+    """
+    使用整图绘制 2x2 / 3x3 的小区域：
+    - 优先按名称从 region_images 中取 n×n 的整图（n 为 2 或 3）
+    - 若没有整图，则将现有 tile 图裁切/合成为一张，避免重复边框
+    """
+    for region in world.map.regions.values():
+        n = _is_small_square_region(region)
+        if n == 0:
+            continue
+        # 仅对 2x2 生效；3x3 不覆盖（保持每格一张图）
+        if n != 2:
+            continue
+        try:
+            nw = tuple(map(int, str(getattr(region, "north_west_cor", "0,0")).split(",")))
+        except Exception:
+            continue
+        x_px = m + nw[0] * ts
+        y_px = m + top_offset + nw[1] * ts
+        name_key = str(getattr(region, "name", ""))
+        variants = region_images.get(name_key)
+        if variants and variants.get(n):
+            screen.blit(variants[n], (x_px, y_px))
+            continue
+        # 回退：直接将该区域左上角 tile 的贴图放大为 n×n 覆盖（只用一张图，而不是四/九张）
+        try:
+            tile = world.map.get_tile(nw[0], nw[1])
+            base_image = tile_images.get(tile.type)
+        except Exception:
+            base_image = None
+        if base_image is not None:
+            scaled = pygame_mod.transform.scale(base_image, (ts * n, ts * n))
+            screen.blit(scaled, (x_px, y_px))
+        else:
+            # 最后兜底：淡色块
+            tmp = pygame_mod.Surface((ts * n, ts * n), pygame_mod.SRCALPHA)
+            tmp.fill((255, 255, 255, 24))
+            screen.blit(tmp, (x_px, y_px))
+
+
 def calculate_font_size_by_area(tile_size: int, area: int) -> int:
     base = int(tile_size * 1.1)
     growth = int(max(0, min(24, (area ** 0.5))))
-    return max(16, min(40, base + growth))
+    size = base + growth - 7  # 再降低2个字号
+    return max(16, min(40, size))
 
 
 def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_size: int, margin: int, top_offset: int = 0, outline_px: int = 2):
@@ -101,8 +163,9 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
         name = getattr(region, "name", None)
         if not name:
             continue
-        # 以“区域最下缘的中点”为锚点（优先放在区域下方）
-        if getattr(region, "cors", None):
+        # 小区域（面积<=9，例如2x2/3x3）标签放在底部；大区域放在中心
+        use_bottom = getattr(region, "area", 0) <= 9
+        if use_bottom and getattr(region, "cors", None):
             bottom_y = max(y for _, y in region.cors)
             xs_on_bottom = [x for x, y in region.cors if y == bottom_y]
             if xs_on_bottom:
@@ -111,14 +174,12 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
                 anchor_cx_tile = (left_x + right_x) / 2.0
             else:
                 anchor_cx_tile = float(region.center_loc[0])
+            screen_cx = int(m + anchor_cx_tile * ts + ts // 2)
+            screen_cy = int(m + top_offset + (bottom_y + 1) * ts + 2)
         else:
-            # 兜底使用中心点
-            anchor_cx_tile = float(region.center_loc[0])
-            bottom_y = int(region.center_loc[1])
-
-        screen_cx = int(m + anchor_cx_tile * ts + ts // 2)
-        # 锚点Y取区域底边像素的下一行，再加少量间距
-        screen_cy = int(m + top_offset + (bottom_y + 1) * ts + 2)
+            # 居中放置
+            screen_cx = int(m + float(region.center_loc[0]) * ts + ts // 2)
+            screen_cy = int(m + top_offset + float(region.center_loc[1]) * ts)
         font_size = calculate_font_size_by_area(tile_size, region.area)
         region_font = get_region_font(font_size)
         text_surface = region_font.render(str(name), True, colors["text"])

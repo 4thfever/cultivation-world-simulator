@@ -150,14 +150,9 @@ def parse_llm_response(res: str) -> dict:
             pass
 
     # 3) 整体 json5 兜底
-    try:
-        obj = json5.loads(res)
-        if isinstance(obj, dict):
-            return obj
-    except Exception:
-        pass
+    obj = json5.loads(res)
+    return obj
 
-    raise ValueError("无法从LLM响应中解析出有效的JSON字典对象")
 
 def get_prompt_and_call_llm(template_path: Path, infos: dict, mode="normal") -> str:
     """

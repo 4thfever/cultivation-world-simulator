@@ -82,10 +82,25 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
         base_w, base_h = BASE_W, BASE_H
         size_w = se[0] - nw[0]
         size_h = se[1] - nw[1]
-        nw_x = max(0, min(game_map.width - 1, _scale_x(nw[0], game_map.width)))
-        nw_y = max(0, min(game_map.height - 1, _scale_y(nw[1], game_map.height)))
-        se_x = max(nw_x, min(game_map.width - 1, nw_x + size_w))
-        se_y = max(nw_y, min(game_map.height - 1, nw_y + size_h))
+        # 初步缩放坐标
+        nw_x = _scale_x(nw[0], game_map.width)
+        nw_y = _scale_y(nw[1], game_map.height)
+        se_x = nw_x + size_w
+        se_y = nw_y + size_h
+        # 边界修正：确保 2x2 或 1x2 等固定尺寸完整在图内
+        if se_x >= game_map.width:
+            shift = se_x - (game_map.width - 1)
+            nw_x -= shift
+            se_x -= shift
+        if se_y >= game_map.height:
+            shift = se_y - (game_map.height - 1)
+            nw_y -= shift
+            se_y -= shift
+        # 最终夹紧
+        nw_x = max(0, min(game_map.width - 1, nw_x))
+        nw_y = max(0, min(game_map.height - 1, nw_y))
+        se_x = max(nw_x, min(game_map.width - 1, se_x))
+        se_y = max(nw_y, min(game_map.height - 1, se_y))
         region = SectRegion(
             id=400 + sect.id,
             name=hq_name,
@@ -213,11 +228,11 @@ def _create_2x2_wuxing_caves(game_map: Map):
     """创建2*2的五行洞府区域"""
     # 五行洞府配置：金木水火土
     wuxing_caves = [
-        {"name": "太白金府", "base_x": _scale_x(26, game_map.width), "base_y": _scale_y(12, game_map.height), "element": EssenceType.GOLD, "description": "青峰山脉深处的金行洞府"},
+        {"name": "太白金府", "base_x": _scale_x(24, game_map.width), "base_y": _scale_y(12, game_map.height), "element": EssenceType.GOLD, "description": "青峰山脉深处的金行洞府"},
         {"name": "青木洞天", "base_x": _scale_x(48, game_map.width), "base_y": _scale_y(18, game_map.height), "element": EssenceType.WOOD, "description": "青云林海中的木行洞府"},
         {"name": "玄水秘境", "base_x": _scale_x(67, game_map.width), "base_y": _scale_y(25, game_map.height), "element": EssenceType.WATER, "description": "无边碧海深处的水行洞府"},
         {"name": "离火洞府", "base_x": _scale_x(48, game_map.width), "base_y": _scale_y(33, game_map.height), "element": EssenceType.FIRE, "description": "炎狱火山旁的火行洞府"},
-        {"name": "厚土玄宫", "base_x": _scale_x(30, game_map.width), "base_y": _scale_y(16, game_map.height), "element": EssenceType.EARTH, "description": "青峰山脉的土行洞府"}
+        {"name": "厚土玄宫", "base_x": _scale_x(32, game_map.width), "base_y": _scale_y(16, game_map.height), "element": EssenceType.EARTH, "description": "青峰山脉的土行洞府"}
     ]
     
     for cave in wuxing_caves:
@@ -281,6 +296,12 @@ def _scale_loaded_regions(game_map: Map) -> None:
             new_nw_y = max(0, min(height - 1, _scale_y(nw_y, height)))
             new_se_x = max(new_nw_x, min(width - 1, _scale_x(se_x, width)))
             new_se_y = max(new_nw_y, min(height - 1, _scale_y(se_y, height)))
+        # 夹紧到地图范围
+        new_nw_x = max(0, min(width - 1, new_nw_x))
+        new_se_x = max(new_nw_x, min(width - 1, new_se_x))
+        new_nw_y = max(0, min(height - 1, new_nw_y))
+        new_se_y = max(new_nw_y, min(height - 1, new_se_y))
+
         params = {
             "id": region.id,
             "name": region.name,
