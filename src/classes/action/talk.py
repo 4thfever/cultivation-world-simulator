@@ -26,7 +26,7 @@ class Talk(InstantAction):
         # Talk 本身不做长期效果，主要在 step 中驱动 Conversation
         return
 
-    def can_start(self) -> bool:
+    def can_start(self, **kwargs) -> bool:
         # 感知范围内是否存在其他NPC（用于展示在动作空间）
         return len(self._get_observed_others()) > 0
 

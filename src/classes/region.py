@@ -158,6 +158,16 @@ class Region(ABC):
         """返回区域类型的字符串表示"""
         pass
 
+    def get_hover_info(self) -> list[str]:
+        """
+        返回用于前端悬浮提示的多行信息（基础信息）。
+        子类可扩展更多领域信息。
+        """
+        return [
+            f"区域: {self.name}",
+            f"描述: {self.desc}",
+        ]
+
 
 class Shape(Enum):
     """
@@ -235,6 +245,17 @@ class NormalRegion(Region):
         species_info = self.get_species_info()
         return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
 
+    def get_hover_info(self) -> list[str]:
+        lines = super().get_hover_info()
+        species_info = self.get_species_info()
+        if species_info and species_info != "暂无特色物种":
+            lines.append("物种分布:")
+            for species in species_info.split("; "):
+                lines.append(f"  {species}")
+        else:
+            lines.append("物种分布: 暂无特色物种")
+        return lines
+
     @property
     def is_huntable(self) -> bool:
         # 如果该区域有动物，则可以狩猎
@@ -270,6 +291,12 @@ class CultivateRegion(Region):
     def __str__(self) -> str:
         return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
 
+    def get_hover_info(self) -> list[str]:
+        lines = super().get_hover_info()
+        stars = "★" * self.essence_density + "☆" * (10 - self.essence_density)
+        lines.append(f"主要灵气: {self.essence_type} {stars}")
+        return lines
+
 
 @dataclass
 class CityRegion(Region):
@@ -282,6 +309,10 @@ class CityRegion(Region):
 
     def __str__(self) -> str:
         return f"城市区域：{self.name} - {self.desc}"
+
+    def get_hover_info(self) -> list[str]:
+        # 城市区域暂时仅展示基础信息
+        return super().get_hover_info()
 
 
 T = TypeVar('T', NormalRegion, CultivateRegion, CityRegion)

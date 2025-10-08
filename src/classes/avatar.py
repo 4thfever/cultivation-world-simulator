@@ -28,6 +28,7 @@ from src.utils.config import CONFIG
 from src.classes.relation import Relation, get_reciprocal
 from src.run.log import get_logger
 from src.classes.alignment import Alignment
+from src.classes.sect import Sect
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -77,7 +78,9 @@ class Avatar:
     hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
     mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
     relations: dict["Avatar", Relation] = field(default_factory=dict)
-    alignment: Alignment = field(default_factory=lambda: random.choice(list(Alignment)))
+    alignment: Alignment | None = None
+    # 所属宗门（可为空，表示散修/无门无派）
+    sect: Sect | None = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
 
@@ -103,6 +106,14 @@ class Avatar:
         if self.technique is None:
             self.technique = get_random_technique_for_avatar(self)
 
+        # 若未设定阵营，则依据宗门/无门无派规则设置，避免后续为 None
+        if self.alignment is None:
+            if self.sect is not None:
+                self.alignment = self.sect.alignment
+            else:
+                from src.classes.alignment import Alignment as _Alignment
+                self.alignment = random.choice(list(_Alignment))
+
     def __hash__(self) -> int:
         return hash(self.id)
 
@@ -113,7 +124,8 @@ class Avatar:
         """
         personas_str = ", ".join([persona.name for persona in self.personas])
         technique_str = self.technique.name if self.technique is not None else "无"
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 阵营={self.alignment.get_info()}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 功法={technique_str}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
+        sect_str = self.get_sect_str()
+        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 宗门={sect_str}, 阵营={self.alignment.get_info()}, 区域={self.tile.region.name}, 灵根={str(self.root)}, 功法={technique_str}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
 
     def __str__(self) -> str:
         return self.get_info()
@@ -397,6 +409,13 @@ class Avatar:
         # 关系摘要
         relations_summary = self._get_relations_summary_str()
 
+        # 宗门信息
+        sect_name = self.get_sect_str()
+        if self.sect is not None:
+            sect_info = f"宗门信息：{sect_name}，风格：{self.sect.member_act_style}"
+        else:
+            sect_info = f"宗门信息：{sect_name}"
+
         # 历史事件摘要
         if self.history_events:
             history_lines = "；".join([str(e) for e in self.history_events[-8:]])
@@ -404,7 +423,66 @@ class Avatar:
         else:
             history_info = "历史事件：无"
 
-        return f"{info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n{history_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
+        return f"{info}\n{sect_info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n{history_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
+
+    def get_hover_info(self) -> list[str]:
+        """
+        返回用于前端悬浮提示的多行信息。
+        """
+        lines: list[str] = [
+            f"{self.name}",
+            f"性别: {self.gender}",
+            f"年龄: {self.age}",
+            f"阵营: {self.alignment}",
+            f"境界: {str(self.cultivation_progress)}",
+            f"HP: {self.hp}",
+            f"MP: {self.mp}",
+        ]
+        lines.append(f"宗门: {self.get_sect_str()}")
+        from src.classes.root import format_root_cn
+        lines.append(f"灵根: {format_root_cn(self.root)}")
+        if self.technique is not None:
+            lines.append(f"功法: {self.technique.name}（{self.technique.attribute}·{self.technique.grade.value}）")
+        else:
+            lines.append("功法: 无")
+        if self.personas:
+            lines.append(f"个性: {', '.join([persona.name for persona in self.personas])}")
+        lines.append(f"位置: ({self.pos_x}, {self.pos_y})")
+        lines.append(f"灵石: {str(self.magic_stone)}")
+        if self.items:
+            lines.append("物品:")
+            for item, quantity in self.items.items():
+                lines.append(f"  {item.name} x{quantity}")
+        else:
+            lines.append("")
+            lines.append("物品: 无")
+        if self.thinking:
+            lines.append("")
+            lines.append("思考:")
+            from src.utils.text_wrap import wrap_text
+            lines.extend(wrap_text(self.thinking, 28))
+        if getattr(self, "objective", None):
+            lines.append("")
+            lines.append("目标:")
+            from src.utils.text_wrap import wrap_text
+            lines.extend(wrap_text(self.objective, 28))
+
+        # 关系信息
+        lines.append("")
+        relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(self, "relations", {}).items()]
+        if relations_list:
+            lines.append("关系:")
+            for s in relations_list[:6]:
+                lines.append(f"  {s}")
+        else:
+            lines.append("关系: 无")
+        return lines
+
+    def get_sect_str(self) -> str:
+        """
+        获取宗门显示名：有宗门则返回宗门名，否则返回"散修"。
+        """
+        return self.sect.name if self.sect is not None else "散修"
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """

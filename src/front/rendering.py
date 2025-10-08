@@ -2,9 +2,9 @@ import math
 from typing import List, Optional, Tuple, Callable
 from src.classes.avatar import Avatar, Gender
 from src.classes.tile import TileType
-from src.utils.text_wrap import wrap_text
 from src.classes.relation import Relation
 from src.classes.root import format_root_cn
+from src.utils.text_wrap import wrap_text
 
 # 顶部状态栏高度（像素）
 STATUS_BAR_HEIGHT = 32
@@ -207,70 +207,16 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
 
 
 def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
-    lines = [
-        f"{avatar.name}",
-        f"性别: {avatar.gender}",
-        f"年龄: {avatar.age}",
-        f"阵营: {avatar.alignment}",
-        f"境界: {str(avatar.cultivation_progress)}",
-        f"HP: {avatar.hp}",
-        f"MP: {avatar.mp}",
-        f"灵根: {format_root_cn(avatar.root)}",
-        f"功法: {avatar.technique.name}（{avatar.technique.attribute}·{avatar.technique.grade.value}）",
-        f"个性: {', '.join([persona.name for persona in avatar.personas])}",
-        f"位置: ({avatar.pos_x}, {avatar.pos_y})",
-    ]
-
-    lines.append(f"灵石: {str(avatar.magic_stone)}")
-    if avatar.items:
-        lines.append("物品:")
-        for item, quantity in avatar.items.items():
-            lines.append(f"  {item.name} x{quantity}")
-    else:
-        lines.append("")
-        lines.append("物品: 无")
-    if avatar.thinking:
-        lines.append("")
-        lines.append("思考:")
-        thinking_lines = wrap_text(avatar.thinking, 28)
-        lines.extend(thinking_lines)
-    if getattr(avatar, "objective", None):
-        lines.append("")
-        lines.append("目标:")
-        objective_lines = wrap_text(avatar.objective, 28)
-        lines.extend(objective_lines)
-
-    # 关系信息
-    relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(avatar, "relations", {}).items()]
-    lines.append("")
-    if relations_list:
-        lines.append("关系:")
-        for s in relations_list[:6]:
-            lines.append(f"  {s}")
-    else:
-        lines.append("关系: 无")
+    # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
+    lines = avatar.get_hover_info()
     draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=260)
 
 
 def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int):
     if region is None:
         return
-    lines = [
-        f"区域: {region.name}",
-        f"描述: {region.desc}",
-    ]
-    from src.classes.region import CultivateRegion, NormalRegion
-    if isinstance(region, CultivateRegion):
-        stars = "★" * region.essence_density + "☆" * (10 - region.essence_density)
-        lines.append(f"主要灵气: {region.essence_type} {stars}")
-    elif isinstance(region, NormalRegion):
-        species_info = region.get_species_info()
-        if species_info and species_info != "暂无特色物种":
-            lines.append("物种分布:")
-            for species in species_info.split("; "):
-                lines.append(f"  {species}")
-        else:
-            lines.append("物种分布: 暂无特色物种")
+    # 改为调用 region.get_hover_info()
+    lines = region.get_hover_info()
     draw_tooltip(pygame_mod, screen, colors, lines, mouse_x, mouse_y, font)
 
 

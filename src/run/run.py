@@ -19,9 +19,11 @@ from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
 from src.run.create_map import create_cultivation_world_map
-from src.utils.names import get_random_name
+from src.utils.names import get_random_name, get_random_name_for_sect
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
+from src.classes.sect import sects_by_id
+from src.classes.alignment import Alignment
 from src.run.log import get_logger
 from src.classes.relation import Relation
 
@@ -46,14 +48,33 @@ def random_gender() -> Gender:
 def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp = MonthStamp(100 * 12)) -> dict[str, Avatar]:
     avatars: dict[str, Avatar] = {}
     width, height = world.map.width, world.map.height
+    # 依据配置决定宗门人数占比：当 init_npc_num > sect_num 时启用宗门逻辑
+    num_total = int(count)
+    max_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
+    use_sects = num_total > max_sects and max_sects > 0
+    # 约 2/3 为宗门弟子，1/3 为散修
+    sect_member_target = int(num_total * 2 / 3) if use_sects else 0
+    # 随机抽取启用的宗门列表
+    enabled_sects = list(sects_by_id.values())
+    random.shuffle(enabled_sects)
+    enabled_sects = enabled_sects[:max_sects] if use_sects else []
+    # 循环均匀分配宗门成员（轮询宗门）
+    sect_assign_index = 0
+    sect_member_count = 0
     for i in range(count):
         # 随机生成年龄，范围从16到60岁
         age_years = random.randint(16, 60)
         # 根据当前时间戳和年龄计算出生时间戳
         birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
         gender = random_gender()
-        # 使用仙侠风格的随机名字
-        name = get_random_name(gender)
+        # 分配宗门或散修
+        assigned_sect = None
+        if use_sects and sect_member_count < sect_member_target and enabled_sects:
+            assigned_sect = enabled_sects[sect_assign_index % len(enabled_sects)]
+            sect_assign_index += 1
+            sect_member_count += 1
+        # 根据宗门生成姓名
+        name = get_random_name_for_sect(gender, assigned_sect)
         
         # 随机生成level，范围从0到120（对应四个大境界）
         level = random.randint(0, 120)
@@ -83,8 +104,12 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
             pos_x=x,
             pos_y=y,
             root=random.choice(list(Root)),  # 随机选择灵根
+            sect=assigned_sect,
         )
         avatar.tile = world.map.get_tile(x, y)
+        # 依据宗门设定阵营（若有宗门则与宗门阵营一致，否则保留默认随机）
+        if assigned_sect is not None:
+            avatar.alignment = assigned_sect.alignment
         avatars[avatar.id] = avatar
     # # —— 为演示添加少量示例关系 ——
     avatar_list = list(avatars.values())

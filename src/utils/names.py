@@ -1,5 +1,7 @@
 import random
+from typing import Optional
 from src.classes.avatar import Gender
+from src.classes.sect import Sect
 
 """
 仙侠风格姓名数据库
@@ -66,3 +68,17 @@ def get_random_name(gender: Gender) -> str:
         return get_random_male_name()
     else:
         return get_random_female_name()
+
+
+def get_random_name_for_sect(gender: Gender, sect: Optional[Sect]) -> str:
+    """
+    基于宗门生成姓名：优先使用宗门常见姓与性别对应名，若缺失则回退到全局库。
+    """
+    if sect is None:
+        return get_random_name(gender)
+    surnames = sect.sect_surnames or SURNAMES
+    if gender == Gender.MALE:
+        given_pool = sect.male_sect_given_names or MALE_GIVEN_NAMES
+    else:
+        given_pool = sect.female_sect_given_names or FEMALE_GIVEN_NAMES
+    return random.choice(surnames) + random.choice(given_pool)

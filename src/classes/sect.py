@@ -13,6 +13,7 @@ class SectHeadQuarter:
     宗门总部
     """
     name: str
+    desc: str
     image: Path
 
 @dataclass
@@ -26,7 +27,8 @@ class Sect:
     member_act_style: str
     alignment: Alignment
     sect_surnames: list[str]
-    sect_given_names: list[str]
+    male_sect_given_names: list[str]
+    female_sect_given_names: list[str]
     headquarter: SectHeadQuarter
     # 功法：在technique.csv中配置
     # TODO：法宝
@@ -47,16 +49,23 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     assets_base = Path("assets/sects")
     for _, row in df.iterrows():
         image_path = assets_base / f"{row['name']}.png"
+        male_given_names = _split_names(row["male_sect_given_names"]) 
+        female_given_names = _split_names(row["female_sect_given_names"]) 
 
         sect = Sect(
             id=int(row["id"]),
             name=str(row["name"]),
             desc=str(row["desc"]),
             member_act_style=str(row["member_act_style"]),
-            alignment=Alignment.from_str(row.get("alignment", "中")),
-            sect_surnames=_split_names(row.get("sect_surnames", "")),
-            sect_given_names=_split_names(row.get("sect_given_names", "")),
-            headquarter=SectHeadQuarter(name=str(row["name"]), image=image_path),
+            alignment=Alignment.from_str(row["alignment"]),
+            sect_surnames=_split_names(row["sect_surnames"]),
+            male_sect_given_names=male_given_names,
+            female_sect_given_names=female_given_names,
+            headquarter=SectHeadQuarter(
+                name=(str(row["headquarter_name"]) if str(row["headquarter_name"]).strip() else str(row["name"])),
+                desc=str(row["headquarter_desc"]),
+                image=image_path,
+            ),
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect
