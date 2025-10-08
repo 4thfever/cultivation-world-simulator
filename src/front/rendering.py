@@ -38,6 +38,34 @@ def draw_map(pygame_mod, screen, colors, world, tile_images, ts: int, m: int, to
     draw_grid(pygame_mod, screen, colors, map_obj, ts, m, top_offset)
 
 
+def draw_sect_headquarters(pygame_mod, screen, world, sect_images: dict, ts: int, m: int, top_offset: int = 0):
+    """
+    在底图绘制完成后叠加绘制宗门总部（2x2 tile）。
+    以区域左上角（north_west_cor）为锚点绘制。
+    """
+    for region in world.map.regions.values():
+        if getattr(region, "get_region_type", lambda: "")() != "sect":
+            continue
+        img_path: str | None = getattr(region, "image_path", None)
+        if not img_path:
+            # 可回退到按名称找图：期望 assets/sects/{region.name}.png
+            key = str(getattr(region, "name", ""))
+            image = sect_images.get(key)
+        else:
+            key = str(pygame_mod.Path(img_path).stem) if hasattr(pygame_mod, "Path") else img_path.split("/")[-1].split("\\")[-1].split(".")[0]
+            image = sect_images.get(key)
+        if not image:
+            # 未加载到图片则跳过
+            continue
+        try:
+            nw = tuple(map(int, str(getattr(region, "north_west_cor", "0,0")).split(",")))
+        except Exception:
+            continue
+        x_px = m + nw[0] * ts
+        y_px = m + top_offset + nw[1] * ts
+        screen.blit(image, (x_px, y_px))
+
+
 def calculate_font_size_by_area(tile_size: int, area: int) -> int:
     base = int(tile_size * 1.1)
     growth = int(max(0, min(24, (area ** 0.5))))
@@ -48,11 +76,10 @@ def draw_region_labels(pygame_mod, screen, colors, world, get_region_font, tile_
     ts = tile_size
     m = margin
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
-    from src.classes.region import regions_by_id
     hovered_region = None
 
     # 以区域面积降序放置，优先保证大区域标签可读性
-    regions = sorted(list(regions_by_id.values()), key=lambda r: getattr(r, "area", 0), reverse=True)
+    regions = sorted(list(world.map.regions.values()), key=lambda r: getattr(r, "area", 0), reverse=True)
 
     placed_rects = []  # 已放置标签的矩形列表，用于碰撞检测
 

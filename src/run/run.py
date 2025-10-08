@@ -18,7 +18,7 @@ from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from src.run.create_map import create_cultivation_world_map
+from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
 from src.utils.names import get_random_name, get_random_name_for_sect
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
@@ -58,6 +58,9 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
     enabled_sects = list(sects_by_id.values())
     random.shuffle(enabled_sects)
     enabled_sects = enabled_sects[:max_sects] if use_sects else []
+    # 在地图上添加启用宗门的总部（仅显示名称与描述）
+    if enabled_sects:
+        add_sect_headquarters(world.map, enabled_sects)
     # 循环均匀分配宗门成员（轮询宗门）
     sect_assign_index = 0
     sect_member_count = 0

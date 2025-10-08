@@ -7,7 +7,7 @@ from src.classes.avatar import Avatar, Gender
 
 from .theme import COLORS
 from .fonts import create_font, get_region_font as _get_region_font_cached
-from .assets import load_tile_images, load_avatar_images
+from .assets import load_tile_images, load_avatar_images, load_sect_images
 from .rendering import (
     draw_map,
     draw_region_labels,
@@ -64,6 +64,7 @@ class Front:
         self.colors = COLORS
 
         self.tile_images = load_tile_images(self.pygame, self.tile_size)
+        self.sect_images = load_sect_images(self.pygame, self.tile_size)
         self.male_avatars, self.female_avatars = load_avatar_images(self.pygame, self.tile_size)
         self.avatar_images: Dict[str, object] = {}
         self._assign_avatar_images()
@@ -131,6 +132,9 @@ class Front:
             self.margin,
             STATUS_BAR_HEIGHT,
         )
+        # 底图后叠加宗门总部图层（2x2）
+        from .rendering import draw_sect_headquarters
+        draw_sect_headquarters(pygame, self.screen, self.world, self.sect_images, self.tile_size, self.margin, STATUS_BAR_HEIGHT)
         hovered_region = draw_region_labels(
             pygame,
             self.screen,

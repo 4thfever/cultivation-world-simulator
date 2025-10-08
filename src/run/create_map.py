@@ -1,6 +1,9 @@
 from src.classes.map import Map
 from src.classes.tile import TileType
 from src.classes.essence import Essence, EssenceType
+from src.classes.sect_region import SectRegion
+from src.classes.region import Shape
+from src.classes.sect import Sect
 
 def create_cultivation_world_map() -> Map:
     """
@@ -19,6 +22,49 @@ def create_cultivation_world_map() -> Map:
     _assign_regions_to_tiles(game_map)
     
     return game_map
+
+def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
+    """
+    根据已启用的宗门列表，为其添加总部区域（2x2或1x2等小矩形，hover仅显示名称与描述）。
+    若未启用（列表中无该宗门），则不添加对应总部。
+    """
+    # 为九个宗门设计坐标（根据地图地形大势和叙事）：
+    # 仅登记矩形区域的西北角与东南角
+    locs: dict[str, tuple[tuple[int, int], tuple[int, int]]] = {
+        "明心剑宗": ((36, 10), (37, 11)),   # 北部山脉以南的名门仙山
+        "百兽宗":   ((22, 22), (23, 23)),   # 中西部靠近山林
+        "水镜宗":   ((58, 22), (59, 23)),   # 湖心三岛——近东海内陆湖
+        "冥王宗":   ((66, 8),  (67, 9)),    # 东北近海的群岛
+        "朱勾宗":   ((48, 8),  (49, 9)),    # 东北内陆山地近雪域
+        "合欢宗":   ((62, 40), (63, 41)),   # 东南近海桃花岛
+        "镇魂宗":   ((30, 46), (31, 47)),   # 极南海上礁岛
+        "幽魂噬影宗":((44, 38), (45, 39)),  # 南部雨林深处
+        "千帆城":   ((60, 28), (61, 29)),   # 海上浮岛靠近入海口
+    }
+
+    name_to_sect = {s.name: s for s in enabled_sects}
+
+    for sect_name, (nw, se) in locs.items():
+        sect = name_to_sect.get(sect_name)
+        if sect is None:
+            continue
+        # 名称与描述来自 sect.headquarter；若为空则用 sect 名称/描述
+        hq_name = getattr(sect.headquarter, "name", sect.name) or sect.name
+        hq_desc = getattr(sect.headquarter, "desc", sect.desc) or sect.desc
+        region = SectRegion(
+            id=400 + sect.id,  # 4xx 预留给宗门总部区域id
+            name=hq_name,
+            desc=hq_desc,
+            shape=Shape.RECTANGLE,
+            north_west_cor=f"{nw[0]},{nw[1]}",
+            south_east_cor=f"{se[0]},{se[1]}",
+            image_path=str(getattr(sect.headquarter, "image", None)),
+        )
+        game_map.regions[region.id] = region
+        game_map.region_names[region.name] = region
+
+    # 添加完成后，重新分配到 tiles
+    _assign_regions_to_tiles(game_map)
 
 def _create_base_terrain(game_map: Map):
     """创建基础地形"""

@@ -1,5 +1,6 @@
 import os
 from typing import Dict, List
+from pathlib import Path
 from src.classes.tile import TileType
 
 
@@ -50,6 +51,25 @@ def load_avatar_images(pygame_mod, tile_size: int):
     return male_avatars, female_avatars
 
 
-__all__ = ["load_tile_images", "load_avatar_images"]
+def load_sect_images(pygame_mod, tile_size: int):
+    """
+    加载宗门总部图片，缩放为 2x2 tile 大小，返回按文件名（不含后缀）为键的图像字典。
+    文件名建议与宗门名称一致。
+    """
+    images: Dict[str, object] = {}
+    base_dir = Path("assets/sects")
+    if base_dir.exists():
+        for filename in base_dir.iterdir():
+            if filename.suffix.lower() == ".png" and filename.name != "original.png":
+                try:
+                    image = pygame_mod.image.load(str(filename))
+                    scaled = pygame_mod.transform.scale(image, (tile_size * 2, tile_size * 2))
+                    images[filename.stem] = scaled
+                except pygame_mod.error:
+                    continue
+    return images
+
+
+__all__ = ["load_tile_images", "load_avatar_images", "load_sect_images"]
 
 

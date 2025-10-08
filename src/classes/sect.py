@@ -6,7 +6,13 @@ from src.utils.df import game_configs
 from src.utils.config import CONFIG
 
 
-# 宗门驻地
+"""
+宗门、宗门总部基础数据。
+驻地名称与描述已迁移到 sect_region.csv，供地图区域系统使用。
+此处仅保留宗门本体信息与头像编辑所需的静态字段。
+"""
+
+# 宗门驻地（基础展示数据，具体地图位置在 sect_region.csv 中定义）
 @dataclass
 class SectHeadQuarter:
     """
@@ -61,9 +67,10 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             sect_surnames=_split_names(row["sect_surnames"]),
             male_sect_given_names=male_given_names,
             female_sect_given_names=female_given_names,
+            # 保留旧字段的兼容读取（如旧csv仍包含headquarter_*列则读入；否则使用宗门名与空描述）
             headquarter=SectHeadQuarter(
-                name=(str(row["headquarter_name"]) if str(row["headquarter_name"]).strip() else str(row["name"])),
-                desc=str(row["headquarter_desc"]),
+                name=(str(row.get("headquarter_name", "")).strip() or str(row["name"])) ,
+                desc=str(row.get("headquarter_desc", "")),
                 image=image_path,
             ),
         )
