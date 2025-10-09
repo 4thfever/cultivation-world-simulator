@@ -28,6 +28,7 @@ from src.utils.config import CONFIG
 from src.classes.relation import Relation, get_reciprocal
 from src.run.log import get_logger
 from src.classes.alignment import Alignment
+from src.utils.params import filter_kwargs_for_callable
 from src.classes.sect import Sect
 
 persona_num = CONFIG.avatar.persona_num
@@ -177,14 +178,16 @@ class Avatar:
             plan = self.planned_actions.pop(0)
             action = self.create_action(plan.action_name)
             # 再验证
-            can_start = bool(action.can_start(**plan.params))
+            params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
+            can_start = bool(action.can_start(**params_for_can_start))
             if not can_start:
                 # 记录不合法动作
                 logger = get_logger().logger
                 logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动", self.name, self.id, plan.action_name, plan.params)
                 continue
             # 启动
-            start_event = action.start(**plan.params)
+            params_for_start = filter_kwargs_for_callable(action.start, plan.params)
+            start_event = action.start(**params_for_start)
             self.current_action = ActionInstance(action=action, params=plan.params, status="running")
             # 标记为“本轮新设动作”，用于本月补充执行
             self._new_action_set_this_step = True
@@ -206,9 +209,11 @@ class Avatar:
         action_instance_before = self.current_action
         action = action_instance_before.action
         params = action_instance_before.params
-        result: ActionResult = action.step(**params)
+        params_for_step = filter_kwargs_for_callable(action.step, params)
+        result: ActionResult = action.step(**params_for_step)
         if result.status == ActionStatus.COMPLETED:
-            finish_events = action.finish(**params)
+            params_for_finish = filter_kwargs_for_callable(action.finish, params)
+            finish_events = action.finish(**params_for_finish)
             # 仅当当前动作仍然是刚才执行的那个实例时才清空
             # 若在 step() 内部通过“抢占”机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
             if self.current_action is action_instance_before:
