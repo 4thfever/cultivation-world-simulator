@@ -36,6 +36,8 @@ class Sect:
     male_sect_given_names: list[str]
     female_sect_given_names: list[str]
     headquarter: SectHeadQuarter
+    # 本宗关联的功法名称（来自 technique.csv 的 sect 列）
+    technique_names: list[str]
     # 功法：在technique.csv中配置
     # TODO：法宝
     # TODO：宗内等级和称谓
@@ -52,11 +54,22 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     sects_by_name: dict[str, Sect] = {}
 
     df = game_configs["sect"]
+    # 可能不存在 technique 配表或未添加 sect 列，做容错
+    tech_df = game_configs.get("technique")
     assets_base = Path("assets/sects")
     for _, row in df.iterrows():
         image_path = assets_base / f"{row['name']}.png"
         male_given_names = _split_names(row["male_sect_given_names"]) 
         female_given_names = _split_names(row["female_sect_given_names"]) 
+
+        # 收集该宗门下配置的功法名称
+        technique_names: list[str] = []
+        if tech_df is not None and "sect" in tech_df.columns:
+            technique_names = [
+                str(tname).strip()
+                for tname in tech_df.loc[tech_df["sect"] == row["name"], "name"].tolist()
+                if str(tname).strip()
+            ]
 
         sect = Sect(
             id=int(row["id"]),
@@ -73,6 +86,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
                 desc=str(row.get("headquarter_desc", "")),
                 image=image_path,
             ),
+            technique_names=technique_names,
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect

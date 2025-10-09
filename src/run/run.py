@@ -26,6 +26,7 @@ from src.classes.sect import sects_by_id
 from src.classes.alignment import Alignment
 from src.run.log import get_logger
 from src.classes.relation import Relation
+from src.classes.technique import get_technique_by_sect, attribute_to_root
 
 
 def clamp(value: int, lo: int, hi: int) -> int:
@@ -113,6 +114,13 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         # 依据宗门设定阵营（若有宗门则与宗门阵营一致，否则保留默认随机）
         if assigned_sect is not None:
             avatar.alignment = assigned_sect.alignment
+            # 宗门弟子：按宗门功法随机
+            t = get_technique_by_sect(assigned_sect)
+            avatar.technique = t
+        # 将灵根改为功法对应灵根（邪功法不变）
+        mapped_root = attribute_to_root(avatar.technique.attribute)
+        if mapped_root is not None:
+            avatar.root = mapped_root
         avatars[avatar.id] = avatar
     # # —— 为演示添加少量示例关系 ——
     avatar_list = list(avatars.values())

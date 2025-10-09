@@ -49,6 +49,8 @@ class Technique:
     prompt: str
     weight: float
     condition: str
+    # 归属宗门名称；None/空表示无宗门要求（散修可修）
+    sect: Optional[str] = None
 
     def is_allowed_for(self, avatar) -> bool:
         if not self.condition:
@@ -85,6 +87,8 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
         condition = "" if str(cond_val) == "nan" else str(cond_val).strip()
         weight_val = row.get("weight", 1)
         weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
+        sect_val = row.get("sect", "")
+        sect = None if str(sect_val) == "nan" or str(sect_val).strip() == "" else str(sect_val).strip()
         t = Technique(
             id=int(row["id"]),
             name=name,
@@ -93,6 +97,7 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             prompt=str(row.get("prompt", "")),
             weight=weight,
             condition=condition,
+            sect=sect,
         )
         techniques_by_id[t.id] = t
         techniques_by_name[t.name] = t
@@ -157,6 +162,35 @@ def get_random_technique_for_avatar(avatar) -> Technique:
     return random.choices(candidates, weights=weights, k=1)[0]
 
 
+def get_technique_by_sect(sect) -> Technique:
+    """
+    简化版：仅按宗门筛选并按权重抽样，不考虑灵根与 condition。
+    - 散修（sect 为 None/空）：只从无宗门要求（sect 为空）的功法中抽样；
+    - 有宗门：从“无宗门 + 该宗门”的功法中抽样；
+    若集合为空，则退回全量功法。
+    """
+    import random
+
+    sect_name: Optional[str] = None
+    if sect is not None:
+        sect_name = getattr(sect, "name", sect)
+        if isinstance(sect_name, str):
+            sect_name = sect_name.strip() or None
+
+    allowed_sects: set[Optional[str]] = {None, ""}
+    if sect_name is not None:
+        allowed_sects.add(sect_name)
+
+    def _in_allowed_sect(t: Technique) -> bool:
+        return (t.sect in allowed_sects) or (t.sect is None) or (t.sect == "")
+
+    candidates: List[Technique] = [t for t in techniques_by_id.values() if _in_allowed_sect(t)]
+    if not candidates:
+        candidates = list(techniques_by_id.values())
+    weights = [max(0.0, t.weight) for t in candidates]
+    return random.choices(candidates, weights=weights, k=1)[0]
+
+
 def get_grade_bonus(grade: TechniqueGrade) -> float:
     if grade is TechniqueGrade.UPPER:
         return 0.10
@@ -198,3 +232,18 @@ def get_grade_advantage_bonus(attacker_grade: Optional[TechniqueGrade], defender
     return bonus
 
 
+
+# 将功法属性映射为默认的灵根（邪功法不返回）
+def attribute_to_root(attr: TechniqueAttribute) -> Optional[Root]:
+    mapping: dict[TechniqueAttribute, Root] = {
+        TechniqueAttribute.GOLD: Root.GOLD,
+        TechniqueAttribute.WOOD: Root.WOOD,
+        TechniqueAttribute.WATER: Root.WATER,
+        TechniqueAttribute.FIRE: Root.FIRE,
+        TechniqueAttribute.EARTH: Root.EARTH,
+        TechniqueAttribute.THUNDER: Root.THUNDER,
+        TechniqueAttribute.ICE: Root.ICE,
+        TechniqueAttribute.WIND: Root.WIND,
+        TechniqueAttribute.DARK: Root.DARK,
+    }
+    return mapping.get(attr)

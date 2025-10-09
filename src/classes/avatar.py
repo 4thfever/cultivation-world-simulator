@@ -13,7 +13,7 @@ from src.classes.tile import Tile
 from src.classes.region import Region
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
-from src.classes.technique import Technique, get_random_technique_for_avatar
+from src.classes.technique import Technique, get_random_technique_for_avatar, get_technique_by_sect
 from src.classes.age import Age
 from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
@@ -102,9 +102,11 @@ class Avatar:
         if not self.personas:
             self.personas = get_random_compatible_personas(persona_num, avatar=self)
 
-        # 出生即随机赋予功法（与灵根/阵营/条件兼容）
+        # 出生即按宗门分配功法：
+        # - 散修：仅从无宗门功法抽样
+        # - 有宗门：从“无宗门 + 本宗门”集合抽样
         if self.technique is None:
-            self.technique = get_random_technique_for_avatar(self)
+            self.technique = get_technique_by_sect(self.sect)
 
         # 若未设定阵营，则依据宗门/无门无派规则设置，避免后续为 None
         if self.alignment is None:
