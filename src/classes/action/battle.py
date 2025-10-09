@@ -21,9 +21,11 @@ class Battle(InstantAction):
         target = self._get_target(avatar_name)
         if target is None:
             return
-        winner, loser, damage = decide_battle(self.avatar, target)
-        loser.hp.reduce(damage)
-        self._last_result = (winner.name, loser.name, damage)
+        winner, loser, loser_damage, winner_damage = decide_battle(self.avatar, target)
+        # 应用双方伤害
+        loser.hp.reduce(loser_damage)
+        winner.hp.reduce(winner_damage)
+        self._last_result = (winner.name, loser.name, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str | None = None) -> bool:
         if avatar_name is None:
@@ -42,22 +44,19 @@ class Battle(InstantAction):
 
     def finish(self, avatar_name: str) -> list[Event]:
         res = self._last_result
-        if isinstance(res, tuple) and len(res) in (2, 3):
-            winner, loser = res[0], res[1]
-            damage = res[2] if len(res) == 3 else None
-            if damage is not None:
-                result_text = f"{winner} 战胜了 {loser}，造成{damage}点伤害"
-            else:
-                result_text = f"{winner} 战胜了 {loser}"
-            result_event = Event(self.world.month_stamp, result_text)
+        if not (isinstance(res, tuple) and len(res) == 4):
+            return []
+        winner, loser = res[0], res[1]
+        loser_damage, winner_damage = res[2], res[3]
+        result_text = f"{winner} 战胜了 {loser}，{loser} 受伤{loser_damage}点，{winner} 也受伤{winner_damage}点"
+        result_event = Event(self.world.month_stamp, result_text)
 
-            # 生成战斗小故事：直接复用已生成的事件文本
-            target = self._get_target(avatar_name)
-            avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
-            start_text = getattr(self, "_start_event_content", "") or result_event.content
-            story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content)
-            story_event = Event(self.world.month_stamp, story)
-            return [result_event, story_event]
-        return []
+        # 生成战斗小故事：直接复用已生成的事件文本
+        target = self._get_target(avatar_name)
+        avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
+        start_text = getattr(self, "_start_event_content", "") or result_event.content
+        story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content)
+        story_event = Event(self.world.month_stamp, story)
+        return [result_event, story_event]
 
 

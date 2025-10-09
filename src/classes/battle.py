@@ -49,10 +49,13 @@ def calc_win_rate(attacker: "Avatar", defender: "Avatar") -> float:
     return max(0.1, min(0.9, base))
 
 
-def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Avatar", int]:
+def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Avatar", int, int]:
     """
-    结算一场战斗，返回(胜者, 败者, 伤害值)。
-    伤害值根据胜负双方境界差距给出，范围约 [30, 80]。
+    结算一场战斗，返回(胜者, 败者, 败者掉血, 赢家掉血)。
+    规则：
+    - 先按 calc_win_rate 判定胜负；
+    - 以 get_damage 计算基准伤害，再让败者“多掉一点血”（适度上调，例如 +15%）；
+    - 赢家也会受伤，但伤害不超过败者伤害的一半（随机 15%~40% 区间）。
     """
     p = calc_win_rate(attacker, defender)
     if random.random() < p:
@@ -60,8 +63,16 @@ def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Av
     else:
         winner, loser = defender, attacker
 
-    damage = get_damage(winner, loser)
-    return winner, loser, damage
+    base_damage = get_damage(winner, loser)
+    # 败者多掉一点血：适度上调，保持上限由 HP.reduce 自然处理
+    loser_damage = max(1, int(base_damage * 1.15))
+
+    # 赢家也掉血，但不超过败者的一半：在 15%~40% 的范围取随机值
+    rnd_ratio = random.uniform(0.15, 0.40)
+    winner_damage = int(loser_damage * rnd_ratio)
+    winner_damage = max(0, min(winner_damage, loser_damage // 2))
+
+    return winner, loser, loser_damage, winner_damage
 
 def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
     """

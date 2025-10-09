@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 
 from src.classes.tile import Tile, TileType
+from src.classes.sect_region import SectRegion
 
 if TYPE_CHECKING:
     from src.classes.region import Region
@@ -34,6 +35,9 @@ class Map():
         self.cultivate_region_names = cultivate_regions_by_name
         self.city_regions = city_regions_by_id
         self.city_region_names = city_regions_by_name
+        # 宗门总部区域集合（由地图生成阶段注入）
+        # 若外部未注入 SectRegion，这里仍可通过 regions 过滤得到
+        self.sect_regions = {rid: r for rid, r in self.regions.items() if isinstance(r, SectRegion)}
 
     def is_in_bounds(self, x: int, y: int) -> bool:
         """
@@ -95,6 +99,12 @@ class Map():
         # 城市区域
         parts.append("城市区域（可以交易）：")
         parts.extend([f"- {str(region)}" for region in self.city_regions.values()])
+        parts.append("")
+
+        # 宗门总部区域
+        if getattr(self, "sect_regions", None):
+            parts.append("宗门总部：")
+            parts.extend([f"- {region.name} - {region.desc}" for region in self.sect_regions.values()])
         return "\n".join(parts)
 
 

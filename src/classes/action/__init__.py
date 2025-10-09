@@ -31,6 +31,7 @@ from .plunder_mortals import PlunderMortals
 from .help_mortals import HelpMortals
 from .talk import Talk
 from .devour_mortals import DevourMortals
+from .self_heal import SelfHeal
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -58,6 +59,7 @@ register_action(actual=True)(PlunderMortals)
 register_action(actual=True)(HelpMortals)
 register_action(actual=True)(Talk)
 register_action(actual=True)(DevourMortals)
+register_action(actual=True)(SelfHeal)
 
 __all__ = [
     # 基类
@@ -87,6 +89,7 @@ __all__ = [
     "HelpMortals",
     "Talk",
     "DevourMortals",
+    "SelfHeal",
 ]
 
 
