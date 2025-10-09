@@ -112,6 +112,8 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
         )
         game_map.regions[region.id] = region
         game_map.region_names[region.name] = region
+        # 刷新 Map 内部的宗门区域缓存
+        game_map.update_sect_regions()
 
     # 添加完成后，重新分配到 tiles
     _assign_regions_to_tiles(game_map)

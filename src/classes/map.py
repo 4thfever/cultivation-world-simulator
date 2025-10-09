@@ -35,8 +35,11 @@ class Map():
         self.cultivate_region_names = cultivate_regions_by_name
         self.city_regions = city_regions_by_id
         self.city_region_names = city_regions_by_name
-        # 宗门总部区域集合（由地图生成阶段注入）
-        # 若外部未注入 SectRegion，这里仍可通过 regions 过滤得到
+        # 宗门总部区域集合（由地图生成阶段注入），保持与其他区域一致的“提前维护”策略
+        self.update_sect_regions()
+
+    def update_sect_regions(self) -> None:
+        """根据当前 self.regions 动态刷新宗门总部区域字典。"""
         self.sect_regions = {rid: r for rid, r in self.regions.items() if isinstance(r, SectRegion)}
 
     def is_in_bounds(self, x: int, y: int) -> bool:
@@ -101,10 +104,9 @@ class Map():
         parts.extend([f"- {str(region)}" for region in self.city_regions.values()])
         parts.append("")
 
-        # 宗门总部区域
-        if getattr(self, "sect_regions", None):
-            parts.append("宗门总部：")
-            parts.extend([f"- {region.name} - {region.desc}" for region in self.sect_regions.values()])
+        # 宗门总部区域（使用维护的缓存）
+        parts.append("宗门总部（宗门弟子可在此进行疗伤等操作）：")
+        parts.extend([f"- {region.name} - {region.desc}" for region in self.sect_regions.values()])
         return "\n".join(parts)
 
 
