@@ -27,8 +27,6 @@
 
 欢迎大家提出意见或者建议，喜欢的话可以点个star~也可以去[我的B站账号](https://space.bilibili.com/527346837)观看本项目的介绍视频。
 
-## 截图预览
-
 ![游戏截图](assets/screenshot.png)
 
 ## 功能开发进度
