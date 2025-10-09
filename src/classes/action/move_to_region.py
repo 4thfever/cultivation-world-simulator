@@ -5,6 +5,7 @@ from src.classes.event import Event
 from src.classes.region import Region
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
 
 
 class MoveToRegion(DefineAction, ActualActionMixin):
@@ -41,13 +42,11 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         region = self._resolve_region(region)
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         region_center_loc = region.center_loc
-        delta_x = region_center_loc[0] - cur_loc[0]
-        delta_y = region_center_loc[1] - cur_loc[1]
-        # 横纵向一次最多移动 move_step_length 格（可以同时横纵移动）
+        raw_dx = region_center_loc[0] - cur_loc[0]
+        raw_dy = region_center_loc[1] - cur_loc[1]
         step = getattr(self.avatar, "move_step_length", 1)
-        delta_x = max(-step, min(step, delta_x))
-        delta_y = max(-step, min(step, delta_y))
-        Move(self.avatar, self.world).execute(delta_x, delta_y)
+        dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
+        Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: Region | str | None = None) -> bool:
         return True

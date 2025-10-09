@@ -1,7 +1,12 @@
 from __future__ import annotations
 
-from src.classes.action import TimedAction
+from src.classes.action import TimedAction, Move
 from src.classes.event import Event
+from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
 
 
 class MoveAwayFromAvatar(TimedAction):
@@ -15,7 +20,7 @@ class MoveAwayFromAvatar(TimedAction):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"avatar_name": "AvatarName"}
 
-    def _find_avatar_by_name(self, name: str) -> "Avatar|None":
+    def _find_avatar_by_name(self, name: str) -> "Avatar | None":
         for v in self.world.avatar_manager.avatars.values():
             if v.name == name:
                 return v
@@ -27,15 +32,12 @@ class MoveAwayFromAvatar(TimedAction):
         target = self._find_avatar_by_name(avatar_name)
         if target is None:
             return
-        # 计算远离方向：使曼哈顿距离尽量增大
-        dx = 1 if self.avatar.pos_x >= target.pos_x else -1
-        dy = 1 if self.avatar.pos_y >= target.pos_y else -1
-        nx = self.avatar.pos_x + dx
-        ny = self.avatar.pos_y + dy
-        if self.world.map.is_in_bounds(nx, ny):
-            self.avatar.pos_x = nx
-            self.avatar.pos_y = ny
-            self.avatar.tile = self.world.map.get_tile(nx, ny)
+        # 远离方向：以目标到自身的向量取反
+        raw_dx = -(target.pos_x - self.avatar.pos_x)
+        raw_dy = -(target.pos_y - self.avatar.pos_y)
+        step = getattr(self.avatar, "move_step_length", 1)
+        dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
+        Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, avatar_name: str | None = None) -> bool:
         return True

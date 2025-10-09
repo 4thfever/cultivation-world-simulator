@@ -41,10 +41,10 @@ LEVELS_PER_REALM = 30
 LEVELS_PER_STAGE = 10
 
 REALM_TO_MOVE_STEP = {
-    Realm.Qi_Refinement: 1,
-    Realm.Foundation_Establishment: 2,
-    Realm.Core_Formation: 2,
-    Realm.Nascent_Soul: 2,
+    Realm.Qi_Refinement: 2,
+    Realm.Foundation_Establishment: 3,
+    Realm.Core_Formation: 4,
+    Realm.Nascent_Soul: 5,
 }
 
 class CultivationProgress:

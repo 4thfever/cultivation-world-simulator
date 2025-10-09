@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from src.classes.action import DefineAction, ChunkActionMixin
+from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
 
 
 class Move(DefineAction, ChunkActionMixin):
@@ -16,10 +17,9 @@ class Move(DefineAction, ChunkActionMixin):
         移动到某个tile
         """
         world = self.world
-        # 基于境界的移动步长：每轴最多移动 move_step_length 格
+        # 基于境界的移动步长：曼哈顿限制，优先斜向
         step = getattr(self.avatar, "move_step_length", 1)
-        clamped_dx = max(-step, min(step, delta_x))
-        clamped_dy = max(-step, min(step, delta_y))
+        clamped_dx, clamped_dy = clamp_manhattan_with_diagonal_priority(delta_x, delta_y, step)
 
         new_x = self.avatar.pos_x + clamped_dx
         new_y = self.avatar.pos_y + clamped_dy

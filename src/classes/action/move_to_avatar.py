@@ -4,6 +4,7 @@ from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
 
 
 class MoveToAvatar(DefineAction, ActualActionMixin):
@@ -30,12 +31,11 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
             return
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         target_loc = (target.pos_x, target.pos_y)
-        delta_x = target_loc[0] - cur_loc[0]
-        delta_y = target_loc[1] - cur_loc[1]
+        raw_dx = target_loc[0] - cur_loc[0]
+        raw_dy = target_loc[1] - cur_loc[1]
         step = getattr(self.avatar, "move_step_length", 1)
-        delta_x = max(-step, min(step, delta_x))
-        delta_y = max(-step, min(step, delta_y))
-        Move(self.avatar, self.world).execute(delta_x, delta_y)
+        dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
+        Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, avatar_name: str | None = None) -> bool:
         return True
