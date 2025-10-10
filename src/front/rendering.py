@@ -8,6 +8,34 @@ from src.utils.text_wrap import wrap_text
 
 # 顶部状态栏高度（像素）
 STATUS_BAR_HEIGHT = 32
+def wrap_lines_for_tooltip(lines: List[str], max_chars_per_line: int = 28) -> List[str]:
+    """
+    将一组 tooltip 行进行字符级换行：
+    - 对形如 "前缀: 内容" 的行，仅对内容部分换行，并在续行添加两个空格缩进
+    - 其他行超过宽度则直接按宽度切分
+    """
+    wrapped: List[str] = []
+    for line in lines:
+        # 仅处理简单前缀（到第一个": "为界）
+        split_idx = line.find(": ")
+        if split_idx != -1:
+            prefix = line[: split_idx + 2]
+            content = line[split_idx + 2 :]
+            segs = wrap_text(content, max_chars_per_line)
+            if segs:
+                wrapped.append(prefix + segs[0])
+                for seg in segs[1:]:
+                    wrapped.append("  " + seg)
+            else:
+                wrapped.append(line)
+            continue
+        # 无前缀情形：必要时整行切分
+        if len(line) > max_chars_per_line:
+            wrapped.extend(wrap_text(line, max_chars_per_line))
+        else:
+            wrapped.append(line)
+    return wrapped
+
 
 
 def draw_grid(pygame_mod, screen, colors, map_obj, ts: int, m: int, top_offset: int = 0):
@@ -309,6 +337,7 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
 def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
     # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
     lines = avatar.get_hover_info()
+    lines = wrap_lines_for_tooltip(lines, 28)
     draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=260)
 
 
@@ -317,7 +346,9 @@ def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: i
         return
     # 改为调用 region.get_hover_info()
     lines = region.get_hover_info()
-    draw_tooltip(pygame_mod, screen, colors, lines, mouse_x, mouse_y, font)
+    lines = wrap_lines_for_tooltip(lines, 28)
+    # 与头像一致设置较合理的最小宽度，避免过窄导致难以阅读
+    draw_tooltip(pygame_mod, screen, colors, lines, mouse_x, mouse_y, font, min_width=260)
 
 
 def draw_operation_guide(pygame_mod, screen, colors, font, margin: int, auto_step: bool):

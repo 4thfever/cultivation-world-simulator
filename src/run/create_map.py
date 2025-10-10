@@ -4,6 +4,7 @@ from src.classes.essence import Essence, EssenceType
 from src.classes.sect_region import SectRegion
 from src.classes.region import Shape
 from src.classes.sect import Sect
+from src.utils.df import game_configs
 
 BASE_W = 70
 BASE_H = 50
@@ -69,17 +70,40 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
         "千帆城":   ((60, 28), (61, 29)),
     }
 
-    name_to_sect = {s.name: s for s in enabled_sects}
+    # 从 sect_region.csv 读取（按 sect_id 对齐）：sect_name、headquarter_name、headquarter_desc
+    sect_region_df = game_configs["sect_region"]
+    hq_by_id: dict[int, tuple[str, str, str]] = {
+        int(row["sect_id"]): (
+            str(row["sect_name"]).strip(),
+            str(row["headquarter_name"]).strip(),
+            str(row["headquarter_desc"]).strip(),
+        )
+        for _, row in sect_region_df.iterrows()
+    }
+    # 坐标字典按 sect.name 提供，转换为按 sect.id 对齐
+    id_to_coords: dict[int, tuple[tuple[int, int], tuple[int, int]]] = {
+        s.id: locs[s.name] for s in enabled_sects if s.name in locs
+    }
 
-    for sect_name, (nw, se) in locs.items():
-        sect = name_to_sect.get(sect_name)
-        if sect is None:
+    for sect in enabled_sects:
+        coords = id_to_coords.get(sect.id)
+        if coords is None:
             continue
-        # 名称与描述来自 sect.headquarter；若为空则用 sect 名称/描述
+        nw, se = coords
+        # 名称与描述：优先使用 sect_region.csv；若为空则回退到 sect.headquarter / sect
         hq_name = getattr(sect.headquarter, "name", sect.name) or sect.name
         hq_desc = getattr(sect.headquarter, "desc", sect.desc) or sect.desc
+        csv_entry = hq_by_id.get(sect.id)
+        sect_name_for_region = sect.name
+        if csv_entry is not None:
+            sect_name_csv, csv_name, csv_desc = csv_entry
+            if csv_name:
+                hq_name = csv_name
+            if csv_desc:
+                hq_desc = csv_desc
+            if sect_name_csv:
+                sect_name_for_region = sect_name_csv
         # 按比例缩放左上角坐标，保持区域尺寸（如2x2）不变
-        base_w, base_h = BASE_W, BASE_H
         size_w = se[0] - nw[0]
         size_h = se[1] - nw[1]
         # 初步缩放坐标
@@ -108,6 +132,7 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
             shape=Shape.RECTANGLE,
             north_west_cor=f"{nw_x},{nw_y}",
             south_east_cor=f"{se_x},{se_y}",
+            sect_name=sect_name_for_region,
             image_path=str(getattr(sect.headquarter, "image", None)),
         )
         game_map.regions[region.id] = region
@@ -317,6 +342,11 @@ def _scale_loaded_regions(game_map: Map) -> None:
             params["essence_type"] = getattr(region, "essence_type")
         if hasattr(region, "essence_density"):
             params["essence_density"] = getattr(region, "essence_density")
+        # SectRegion 透传特有字段
+        if hasattr(region, "sect_name"):
+            params["sect_name"] = getattr(region, "sect_name")
+        if hasattr(region, "image_path"):
+            params["image_path"] = getattr(region, "image_path")
         new_region = cls(**params)  # 重新构建以刷新 cors/area/center
         new_regions[new_region.id] = new_region
         new_region_names[new_region.name] = new_region
