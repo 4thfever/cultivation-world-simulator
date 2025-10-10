@@ -57,6 +57,9 @@ class Technique:
             return True
         return bool(eval(self.condition, {"__builtins__": {}}, {"avatar": avatar, "Alignment": Alignment}))
 
+    def get_info(self) -> str:
+        return f"{self.name}（{self.attribute}）{self.grade.value} {self.prompt}"
+
 
 # 五行与扩展属性的克制关系
 # - 五行：金克木，木克土，土克水，水克火，火克金
@@ -138,7 +141,6 @@ def is_attribute_compatible_with_root(attr: TechniqueAttribute, root: Root) -> b
         return attr in complex_map[root]
 
     return False
-
 
 def get_random_technique_for_avatar(avatar) -> Technique:
     import random

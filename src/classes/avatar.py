@@ -126,7 +126,7 @@ class Avatar:
         尽量多打一些，因为会用来给LLM进行决策
         """
         personas_str = ", ".join([persona.name for persona in self.personas])
-        technique_str = self.technique.name if self.technique is not None else "无"
+        technique_str = self.technique.get_info()
         sect_str = self.get_sect_str()
         region_name = self.tile.region.name if self.tile.region is not None else "无"
         return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 宗门={sect_str}, 阵营={self.alignment.get_info()}, 区域={region_name}, 灵根={str(self.root)}, 功法={technique_str}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
