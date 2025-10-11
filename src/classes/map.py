@@ -85,28 +85,22 @@ class Map():
         """
         return self.tiles[(x, y)].region
 
-    def get_info(self) -> str:
-        """返回地图的简要信息，按类型分组罗列区域并说明用途。"""
-        parts: list[str] = []
+    def get_info(self, detailed: bool = False) -> dict:
+        """
+        返回地图信息（dict）。
+        - detailed=False：各类区域返回名称列表
+        - detailed=True：各类区域返回详细信息字符串列表
+        """
+        def build_regions_info(regions_dict) -> list[str]:
+            if detailed:
+                return [r.get_detailed_info() for r in regions_dict.values()]
+            return [r.get_info() for r in regions_dict.values()]
 
-        # 修炼区域
-        parts.append("修炼区域（可以修炼以增进修为）：")
-        parts.extend([f"- {str(region)}" for region in self.cultivate_regions.values()])
-        parts.append("")
-
-        # 普通区域
-        parts.append("普通区域（可以狩猎或采集）：")
-        parts.extend([f"- {str(region)}" for region in self.normal_regions.values()])
-        parts.append("")
-
-        # 城市区域
-        parts.append("城市区域（可以交易）：")
-        parts.extend([f"- {str(region)}" for region in self.city_regions.values()])
-        parts.append("")
-
-        # 宗门总部区域（使用维护的缓存）
-        parts.append("宗门总部（宗门弟子可在此进行疗伤等操作）：")
-        parts.extend([f"- {region.name} - {region.desc}" for region in self.sect_regions.values()])
-        return "\n".join(parts)
+        return {
+            "修炼区域（可以修炼以增进修为）": build_regions_info(self.cultivate_regions),
+            "普通区域（可以狩猎或采集）": build_regions_info(self.normal_regions),
+            "城市区域（可以交易）": build_regions_info(self.city_regions),
+            "宗门总部（宗门弟子可在此进行疗伤等操作）": build_regions_info(self.sect_regions),
+        }
 
 
