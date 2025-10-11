@@ -19,6 +19,12 @@ class Item:
     def __str__(self) -> str:
         return self.name
 
+    def get_info(self) -> str:
+        return f"{self.name} -（{self.realm.value}）"
+
+    def get_detailed_info(self) -> str:
+        return f"{self.name} - {self.desc}（{self.realm.value}）"
+
 def _load_items() -> tuple[dict[int, Item], dict[str, Item]]:
     """从配表加载item数据"""
     items_by_id: dict[int, Item] = {}

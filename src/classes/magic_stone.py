@@ -21,6 +21,12 @@ class MagicStone(int):
         _upper, _middle, _value = self.exchange()
         return f"上品灵石：{_upper}，中品灵石：{_middle}，下品灵石：{_value}"
 
+    def get_info(self) -> str:
+        return str(self)
+
+    def get_detailed_info(self) -> str:
+        return str(self)
+
     def __add__(self, other: Union['MagicStone', int]) -> 'MagicStone':
         if isinstance(other, int):
             return MagicStone(self.value + other)

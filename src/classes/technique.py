@@ -58,7 +58,11 @@ class Technique:
         return bool(eval(self.condition, {"__builtins__": {}}, {"avatar": avatar, "Alignment": Alignment}))
 
     def get_info(self) -> str:
+        return f"{self.name}（{self.attribute}）{self.grade.value}"
+
+    def get_detailed_info(self) -> str:
         return f"{self.name}（{self.attribute}）{self.grade.value} {self.prompt}"
+
 
 
 # 五行与扩展属性的克制关系

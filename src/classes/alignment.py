@@ -14,7 +14,12 @@ class Alignment(Enum):
         return alignment_strs.get(self, self.value)
 
     def get_info(self) -> str:
-        return alignment_strs[self] + ": " + alignment_infos[self]
+        # 简版：仅返回短中文
+        return alignment_strs[self]
+
+    def get_detailed_info(self) -> str:
+        # 详细版：短中文 + 详细描述 + 关键词提示
+        return f"{alignment_strs[self]}：{alignment_infos[self]}"
 
     def __hash__(self) -> int:
         return hash(self.value)
@@ -58,4 +63,3 @@ alignment_infos = {
     Alignment.NEUTRAL: "中立阵营的理念是：顺势而为，趋利避害，重视自度与平衡，不轻易站队。",
     Alignment.EVIL: "邪恶阵营的理念是：弱肉强食，以自身利益为先，蔑视规则，推崇权力与恐惧。",
 }
-

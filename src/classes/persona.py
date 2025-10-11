@@ -23,6 +23,12 @@ class Persona:
     weight: float
     condition: str
 
+    def get_info(self) -> str:
+        return self.name
+
+    def get_detailed_info(self) -> str:
+        return f"{self.name}（{self.prompt}）"
+
 def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     """从配表加载persona数据"""
     personas_by_id: dict[int, Persona] = {}

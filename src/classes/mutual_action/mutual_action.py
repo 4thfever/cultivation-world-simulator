@@ -42,8 +42,8 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         avatar_name_2 = target_avatar.name
         # avatar infos 仅放入与两人相关的提示，避免超长
         avatar_infos = {
-            avatar_name_1: self.avatar.cultivation_progress.get_simple_info(),
-            avatar_name_2: target_avatar.get_prompt_info([]),
+            avatar_name_1: self.avatar.get_info(detailed=False),
+            avatar_name_2: target_avatar.get_info(detailed=False),
         }
         feedback_actions = self.FEEDBACK_ACTIONS
         comment = self.COMMENT

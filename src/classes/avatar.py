@@ -120,16 +120,53 @@ class Avatar:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    def get_info(self) -> str:
+    def get_info(self, detailed: bool = False) -> str:
         """
-        获取avatar的详细信息
-        尽量多打一些，因为会用来给LLM进行决策
+        获取avatar的信息，分详细和不详细两种。
         """
-        personas_str = ", ".join([persona.name for persona in self.personas])
-        technique_str = self.technique.get_info()
-        sect_str = self.get_sect_str()
-        region_name = self.tile.region.name if self.tile.region is not None else "无"
-        return f"Avatar(id={self.id}, 性别={self.gender}, 年龄={self.age}, name={self.name}, 宗门={sect_str}, 阵营={self.alignment.get_info()}, 区域={region_name}, 灵根={str(self.root)}, 功法={technique_str}, 境界={self.cultivation_progress}, HP={self.hp}, MP={self.mp}, 个性={personas_str})"
+        region_info = "无"
+        region = self.tile.region if self.tile is not None else None
+        relations_info = self._get_relations_summary_str()
+        magic_stone_info = str(self.magic_stone)
+
+        info = "Avatar:\n"
+        info += f"id={self.id}\n"
+        info += f"name={self.name}\n"
+        info += f"gender={self.gender}\n"
+        info += f"age={self.age}\n"
+        info += f"hp={self.hp}\n"
+        info += f"mp={self.mp}\n"
+        info += f"magic_stone={magic_stone_info}\n"
+        info += f"relations={relations_info}\n"
+
+        # 接下来开始有区分了
+        if detailed:
+            sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
+            alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
+            region_info = region.get_detailed_info() if region is not None else "无"
+            root_info = self.root.get_detailed_info()
+            technique_info = self.technique.get_detailed_info() if self.technique is not None else "无"
+            cultivation_info = self.cultivation_progress.get_detailed_info()
+            personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
+            items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
+        else:
+            sect_info = self.sect.get_info() if self.sect is not None else "散修"
+            region_info = region.get_info() if region is not None else "无"
+            alignment_info = self.alignment.get_info()
+            root_info = self.root.get_info()
+            technique_info = self.technique.get_info()
+            cultivation_info = self.cultivation_progress.get_info()
+            personas_info = ", ".join([p.get_info() for p in self.personas]) if self.personas else "无"
+            items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
+        info += f"sect={sect_info}\n"
+        info += f"alignment={alignment_info}\n"
+        info += f"region={region_info}\n"
+        info += f"root={root_info}\n"
+        info += f"technique={technique_info}\n"
+        info += f"cultivation={cultivation_info}\n"
+        info += f"personas={personas_info}\n"
+        info += f"items={items_info}\n"
+        return info
 
     def __str__(self) -> str:
         return self.get_info()
@@ -388,23 +425,8 @@ class Avatar:
         """
         获取角色提示词信息
         """
-        info = self.get_info()
+        info = self.get_info(detailed=False)
         action_space = self.get_action_space_str()
-        
-        # 构建personas的提示词信息
-        personas_prompts = []
-        for i, persona in enumerate(self.personas, 1):
-            personas_prompts.append(f"个性{i}：{persona.prompt}")
-        personas_info = "\n".join(personas_prompts)
-        
-        # 添加灵石信息
-        magic_stone_info = f"灵石持有情况：{str(self.magic_stone)}"
-        
-        # 添加物品信息
-        if self.items:
-            items_info = "物品持有情况：" + "，".join([f"{item.name}x{quantity}" for item, quantity in self.items.items()])
-        else:
-            items_info = "物品持有情况：无"
         
         # 观测范围内角色（沿用参数名保持兼容）
         co_region_info = ""
@@ -414,16 +436,6 @@ class Avatar:
                 entries.append(f"{other.name}(境界：{other.cultivation_progress.get_simple_info()})")
             co_region_info = "\n观测范围内角色：" + ("，".join(entries) if entries else "无")
 
-        # 关系摘要
-        relations_summary = self._get_relations_summary_str()
-
-        # 宗门信息
-        sect_name = self.get_sect_str()
-        if self.sect is not None:
-            sect_info = f"{sect_name}，风格：{self.sect.member_act_style}，驻地：{self.sect.headquarter.name}"
-        else: # 散修
-            sect_info = sect_name
-
         # 历史事件摘要
         if self.history_events:
             history_lines = "；".join([str(e) for e in self.history_events[-8:]])
@@ -431,7 +443,7 @@ class Avatar:
         else:
             history_info = "历史事件：无"
 
-        return f"{info}\n{sect_info}\n{personas_info}\n{magic_stone_info}\n{items_info}\n{history_info}\n关系：{relations_summary}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
+        return f"{info}\n{history_info}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
 
     def get_hover_info(self) -> list[str]:
         """

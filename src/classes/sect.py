@@ -41,6 +41,15 @@ class Sect:
     # 功法：在technique.csv中配置
     # TODO：法宝
     # TODO：宗内等级和称谓
+
+    def get_info(self) -> str:
+        hq = self.headquarter
+        return f"{self.name}（阵营：{self.alignment}，驻地：{hq.name}）"
+
+    def get_detailed_info(self) -> str:
+        # 详细描述：风格、阵营、驻地
+        hq = self.headquarter
+        return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）"
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
     sep = CONFIG.df.ids_separator

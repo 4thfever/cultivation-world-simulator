@@ -78,6 +78,12 @@ class Root(_RootMixin, Enum):
         ),
     )
 
+    def get_info(self) -> str:
+        return format_root_cn(self)
+
+    def get_detailed_info(self) -> str:
+        return self.get_info()
+
 
 # 元素到灵气类型的一一对应
 _essence_by_element = {

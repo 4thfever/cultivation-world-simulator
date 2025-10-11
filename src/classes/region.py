@@ -168,6 +168,14 @@ class Region(ABC):
             f"描述: {self.desc}",
         ]
 
+    def get_info(self) -> str:
+        # 简版：仅返回名称
+        return self.name
+
+    def get_detailed_info(self) -> str:
+        # 基类暂无更多结构化信息，详细版返回名称+描述
+        return f"{self.name} - {self.desc}"
+
 
 class Shape(Enum):
     """
@@ -245,6 +253,15 @@ class NormalRegion(Region):
         species_info = self.get_species_info()
         return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
 
+    def get_info(self) -> str:
+        return self.name
+
+    def get_detailed_info(self) -> str:
+        species_info = self.get_species_info()
+        if not species_info or species_info == "暂无特色物种":
+            return f"{self.name} - {self.desc}"
+        return f"{self.name} - {self.desc} | 物种分布：{species_info}"
+
     def get_hover_info(self) -> list[str]:
         lines = super().get_hover_info()
         species_info = self.get_species_info()
@@ -291,6 +308,12 @@ class CultivateRegion(Region):
     def __str__(self) -> str:
         return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
 
+    def get_info(self) -> str:
+        return self.name
+
+    def get_detailed_info(self) -> str:
+        return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
+
     def get_hover_info(self) -> list[str]:
         lines = super().get_hover_info()
         stars = "★" * self.essence_density + "☆" * (10 - self.essence_density)
@@ -313,6 +336,12 @@ class CityRegion(Region):
     def get_hover_info(self) -> list[str]:
         # 城市区域暂时仅展示基础信息
         return super().get_hover_info()
+
+    def get_info(self) -> str:
+        return self.name
+
+    def get_detailed_info(self) -> str:
+        return f"{self.name} - {self.desc}"
 
 
 T = TypeVar('T', NormalRegion, CultivateRegion, CityRegion)

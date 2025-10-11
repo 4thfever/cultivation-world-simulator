@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, TYPE_CHECKING
 
 from src.utils.config import CONFIG
 from src.utils.llm import get_prompt_and_call_llm
@@ -15,12 +15,12 @@ class StoryTeller:
     def build_avatar_infos(*avatars: "Avatar") -> Dict[str, str]:
         """
         将若干角色信息组织为 {name: info} 映射，供故事模板使用。
-        优先使用 `get_prompt_info([])`，失败时退化为 `get_info()`。
+        战斗/小故事使用详细信息。
         """
         infos: Dict[str, str] = {}
         for av in avatars:
             try:
-                infos[av.name] = av.get_prompt_info([])
+                infos[av.name] = av.get_info(detailed=True)
             except Exception:
                 infos[av.name] = getattr(av, "name", "未知角色")
         return infos
@@ -50,4 +50,9 @@ class StoryTeller:
 
 __all__ = ["StoryTeller"]
 
+
+
+if TYPE_CHECKING:
+    # 仅用于类型检查，避免循环导入
+    from src.classes.avatar import Avatar
 

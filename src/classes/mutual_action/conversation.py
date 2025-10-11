@@ -36,10 +36,10 @@ class Conversation(MutualAction):
     def _build_prompt_infos(self, target_avatar: "Avatar", *, can_into_relation: bool) -> dict:
         avatar_name_1 = self.avatar.name
         avatar_name_2 = target_avatar.name
-        # 目标的 get_prompt_info 已含 personas、关系等，信息更充分
+        # 交谈：使用详细信息，便于生成更丰富对话
         avatar_infos = {
-            avatar_name_1: self.avatar.get_prompt_info([]),
-            avatar_name_2: target_avatar.get_prompt_info([]),
+            avatar_name_1: self.avatar.get_info(detailed=True),
+            avatar_name_2: target_avatar.get_info(detailed=True),
         }
         # 可能的后天关系（转中文名，给模板阅读）
         possible_relations = [relation_display_names[r] for r in get_possible_post_relations(self.avatar, target_avatar)]
