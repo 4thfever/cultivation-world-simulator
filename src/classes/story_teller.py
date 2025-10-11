@@ -12,12 +12,12 @@ class StoryTeller:
     """
 
     @staticmethod
-    def build_avatar_infos(*avatars: "Avatar") -> Dict[str, str]:
+    def build_avatar_infos(*avatars: "Avatar") -> Dict[str, dict]:
         """
-        将若干角色信息组织为 {name: info} 映射，供故事模板使用。
-        战斗/小故事使用详细信息。
+        将若干角色信息组织为 {name: info_dict} 映射，供故事模板使用。
+        战斗/小故事使用详细信息（dict 版）。
         """
-        infos: Dict[str, str] = {}
+        infos: Dict[str, dict] = {}
         for av in avatars:
             try:
                 infos[av.name] = av.get_info(detailed=True)
@@ -26,7 +26,7 @@ class StoryTeller:
         return infos
 
     @staticmethod
-    def tell_story(avatar_infos: Dict[str, str], event: str, res: str) -> str:
+    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str) -> str:
         """
         基于 `static/templates/story.txt` 模板生成小故事。
         始终使用 fast 模式以提升速度。

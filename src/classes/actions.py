@@ -21,6 +21,6 @@ ACTION_INFOS = {
     }
     for action in ALL_ACTUAL_ACTION_CLASSES
 }
-ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False)
+ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False, indent=2)
 
 

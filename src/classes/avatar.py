@@ -120,26 +120,14 @@ class Avatar:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    def get_info(self, detailed: bool = False) -> str:
+    def get_info(self, detailed: bool = False) -> dict:
         """
-        获取avatar的信息，分详细和不详细两种。
+        获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
         """
-        region_info = "无"
         region = self.tile.region if self.tile is not None else None
         relations_info = self._get_relations_summary_str()
         magic_stone_info = str(self.magic_stone)
 
-        info = "Avatar:\n"
-        info += f"id={self.id}\n"
-        info += f"name={self.name}\n"
-        info += f"gender={self.gender}\n"
-        info += f"age={self.age}\n"
-        info += f"hp={self.hp}\n"
-        info += f"mp={self.mp}\n"
-        info += f"magic_stone={magic_stone_info}\n"
-        info += f"relations={relations_info}\n"
-
-        # 接下来开始有区分了
         if detailed:
             sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
             alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
@@ -152,24 +140,34 @@ class Avatar:
         else:
             sect_info = self.sect.get_info() if self.sect is not None else "散修"
             region_info = region.get_info() if region is not None else "无"
-            alignment_info = self.alignment.get_info()
+            alignment_info = self.alignment.get_info() if self.alignment is not None else "未知"
             root_info = self.root.get_info()
-            technique_info = self.technique.get_info()
+            technique_info = self.technique.get_info() if self.technique is not None else "无"
             cultivation_info = self.cultivation_progress.get_info()
             personas_info = ", ".join([p.get_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
-        info += f"sect={sect_info}\n"
-        info += f"alignment={alignment_info}\n"
-        info += f"region={region_info}\n"
-        info += f"root={root_info}\n"
-        info += f"technique={technique_info}\n"
-        info += f"cultivation={cultivation_info}\n"
-        info += f"personas={personas_info}\n"
-        info += f"items={items_info}\n"
-        return info
+
+        return {
+            "id": self.id,
+            "名字": self.name,
+            "性别": str(self.gender),
+            "年龄": str(self.age),
+            "hp": str(self.hp),
+            "mp": str(self.mp),
+            "灵石": magic_stone_info,
+            "关系": relations_info,
+            "宗门": sect_info,
+            "阵营": alignment_info,
+            "地区": region_info,
+            "灵根": root_info,
+            "功法": technique_info,
+            "境界": cultivation_info,
+            "个性": personas_info,
+            "物品": items_info,
+        }
 
     def __str__(self) -> str:
-        return self.get_info()
+        return str(self.get_info(detailed=False))
 
     def create_action(self, action_name: ACTION_NAME) -> Action:
         """
@@ -421,31 +419,28 @@ class Avatar:
         action_space = [action.name for action in doable_actions]
         return action_space
 
-    def get_prompt_info(self, co_region_avatars: Optional[List["Avatar"]] = None) -> str:
+    def get_prompt_info(self, co_region_avatars: Optional[List["Avatar"]] = None) -> dict:
         """
-        获取角色提示词信息
+        获取角色提示词信息，返回 dict。
         """
         info = self.get_info(detailed=False)
-        
-        # 观测范围内角色（沿用参数名保持兼容）
-        co_region_info = ""
+
+        observed: list[str] = []
         if co_region_avatars:
-            entries: list[str] = []
             for other in co_region_avatars[:8]:
-                entries.append(f"{other.name}(境界：{other.cultivation_progress.get_info()})")
-            co_region_info = "\n观测范围内角色：" + ("，".join(entries) if entries else "无")
+                observed.append(f"{other.name}(境界：{other.cultivation_progress.get_info()})")
 
-        # 历史事件摘要
         if self.history_events:
-            history_lines = "；".join([str(e) for e in self.history_events[-8:]])
-            history_info = f"历史事件：{history_lines}"
+            history_list = [str(e) for e in self.history_events[-8:]]
         else:
-            history_info = "历史事件：无"
+            history_list = []
 
-        # 动作空间
-        action_space = self.get_action_space_str()
+        action_space = self.get_action_space()
 
-        return f"{info}\n{history_info}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
+        info["动作空间"] = action_space
+        info["观察到的角色"] = observed
+        info["历史事件"] = history_list
+        return info
 
     def get_hover_info(self) -> list[str]:
         """

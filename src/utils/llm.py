@@ -8,13 +8,20 @@ import json5
 from src.utils.config import CONFIG
 from src.utils.io import read_txt
 from src.run.log import log_llm_call
+from src.utils.strings import intentify_prompt_infos
 
 def get_prompt(template: str, infos: dict) -> str:
     """
     根据模板，获取提示词
     """
     prompt_template = PromptTemplate(template=template)
-    return prompt_template.format(**infos)
+    # 将 dict/list 等结构化对象转为 JSON 字符串
+    # 策略：
+    # - avatar_infos: 不包装 intent（模板里已经说明是 dict[Name, info]）
+    # - general_action_infos: 强制包装 intent 以凸显语义
+    # - 其他容器类型：默认包装 intent
+    processed_infos = intentify_prompt_infos(infos)
+    return prompt_template.format(**processed_infos)
 
 
 def call_llm(prompt: str, mode="normal") -> str:
