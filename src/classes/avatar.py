@@ -432,7 +432,7 @@ class Avatar:
         if co_region_avatars:
             entries: list[str] = []
             for other in co_region_avatars[:8]:
-                entries.append(f"{other.name}(境界：{other.cultivation_progress.get_simple_info()})")
+                entries.append(f"{other.name}(境界：{other.cultivation_progress.get_info()})")
             co_region_info = "\n观测范围内角色：" + ("，".join(entries) if entries else "无")
 
         # 历史事件摘要
@@ -555,7 +555,7 @@ class Avatar:
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_simple_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}"
 
     @property
     def move_step_length(self) -> int:
