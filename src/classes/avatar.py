@@ -426,7 +426,6 @@ class Avatar:
         获取角色提示词信息
         """
         info = self.get_info(detailed=False)
-        action_space = self.get_action_space_str()
         
         # 观测范围内角色（沿用参数名保持兼容）
         co_region_info = ""
@@ -442,6 +441,9 @@ class Avatar:
             history_info = f"历史事件：{history_lines}"
         else:
             history_info = "历史事件：无"
+
+        # 动作空间
+        action_space = self.get_action_space_str()
 
         return f"{info}\n{history_info}\n{co_region_info}\n该角色的目前合法动作为：{action_space}"
 
