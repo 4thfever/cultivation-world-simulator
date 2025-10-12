@@ -254,7 +254,7 @@ class NormalRegion(Region):
         return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
 
     def get_info(self) -> str:
-        return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）"
+        return self.name
 
     def get_detailed_info(self) -> str:
         species_info = self.get_species_info()
@@ -309,7 +309,7 @@ class CultivateRegion(Region):
         return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
 
     def get_info(self) -> str:
-        return self.name
+        return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）"
 
     def get_detailed_info(self) -> str:
         return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
