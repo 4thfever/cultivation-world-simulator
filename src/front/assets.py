@@ -21,6 +21,21 @@ def load_tile_images(pygame_mod, tile_size: int) -> Dict[TileType, object]:
     return images
 
 
+def load_tile_originals(pygame_mod) -> Dict[TileType, object]:
+    originals: Dict[TileType, object] = {}
+    tile_types = [
+        TileType.PLAIN, TileType.WATER, TileType.SEA, TileType.MOUNTAIN,
+        TileType.FOREST, TileType.CITY, TileType.DESERT, TileType.RAINFOREST,
+        TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.VOLCANO,
+        TileType.GRASSLAND, TileType.SWAMP, TileType.CAVE, TileType.RUINS, TileType.FARM
+    ]
+    for tile_type in tile_types:
+        image_path = f"assets/tiles/{tile_type.value}.png"
+        if os.path.exists(image_path):
+            originals[tile_type] = pygame_mod.image.load(image_path)
+    return originals
+
+
 def load_avatar_images(pygame_mod, tile_size: int):
     def load_from_dir(base_dir: str) -> List[object]:
         results: List[object] = []
@@ -83,6 +98,12 @@ def load_region_images(pygame_mod, tile_size: int) -> Dict[str, Dict[int, object
     return results
 
 
-__all__ = ["load_tile_images", "load_avatar_images", "load_sect_images", "load_region_images"]
+__all__ = [
+    "load_tile_images",
+    "load_tile_originals",
+    "load_avatar_images",
+    "load_sect_images",
+    "load_region_images",
+]
 
 

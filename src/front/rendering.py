@@ -115,7 +115,7 @@ def _is_small_square_region(region) -> int:
     return 0
 
 
-def draw_small_regions(pygame_mod, screen, world, region_images: dict, tile_images: dict, ts: int, m: int, top_offset: int = 0):
+def draw_small_regions(pygame_mod, screen, world, region_images: dict, tile_images: dict, ts: int, m: int, top_offset: int = 0, tile_originals: Optional[dict] = None):
     """
     使用整图绘制 2x2 / 3x3 的小区域：
     - 优先按名称从 region_images 中取 n×n 的整图（n 为 2 或 3）
@@ -139,10 +139,14 @@ def draw_small_regions(pygame_mod, screen, world, region_images: dict, tile_imag
         if variants and variants.get(n):
             screen.blit(variants[n], (x_px, y_px))
             continue
-        # 回退：直接将该区域左上角 tile 的贴图放大为 n×n 覆盖（只用一张图，而不是四/九张）
+        # 回退：从原始 tile 贴图一次性缩放到 n×n，避免“先缩1×1再放大”的二次缩放
         try:
             tile = world.map.get_tile(nw[0], nw[1])
-            base_image = tile_images.get(tile.type)
+            base_image = None
+            if tile_originals is not None:
+                base_image = tile_originals.get(tile.type)
+            if base_image is None:
+                base_image = tile_images.get(tile.type)
         except Exception:
             base_image = None
         if base_image is not None:
@@ -337,7 +341,6 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
 def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
     # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
     lines = avatar.get_hover_info()
-    lines = wrap_lines_for_tooltip(lines, 28)
     draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=260)
 
 
@@ -346,9 +349,27 @@ def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: i
         return
     # 改为调用 region.get_hover_info()
     lines = region.get_hover_info()
-    lines = wrap_lines_for_tooltip(lines, 28)
+    # 区域描述较长时做字符级换行，策略与头像思考/目标一致（28 字）
+    wrapped_lines: list[str] = []
+    for line in lines:
+        # 针对以“描述: ”开头的行，保留前缀并仅对内容换行
+        if line.startswith("描述: "):
+            prefix = "描述: "
+            content = line[len(prefix):]
+            segs = wrap_text(content, 28)
+            if segs:
+                wrapped_lines.append(prefix + segs[0])
+                for seg in segs[1:]:
+                    wrapped_lines.append("  " + seg)
+            else:
+                wrapped_lines.append(line)
+        else:
+            if len(line) > 28:
+                wrapped_lines.extend(wrap_text(line, 28))
+            else:
+                wrapped_lines.append(line)
     # 与头像一致设置较合理的最小宽度，避免过窄导致难以阅读
-    draw_tooltip(pygame_mod, screen, colors, lines, mouse_x, mouse_y, font, min_width=260)
+    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=260)
 
 
 def draw_operation_guide(pygame_mod, screen, colors, font, margin: int, auto_step: bool):

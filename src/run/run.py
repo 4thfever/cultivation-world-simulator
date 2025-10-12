@@ -183,7 +183,7 @@ async def main():
 
     front = Front(
         simulator=sim,
-        tile_size=24,  # 每个tile扩大约25%像素（与tile数量缩减相抵，窗口不变）
+        tile_size=24,
         margin=8,
         step_interval_ms=750,
         window_title="Cultivation World — Front Demo",
