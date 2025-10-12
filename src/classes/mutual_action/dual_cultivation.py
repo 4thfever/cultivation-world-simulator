@@ -46,9 +46,7 @@ class DualCultivation(MutualAction):
         # 必须为异性
         if target.gender == self.avatar.gender:
             return False
-        # 必须在感知范围内
-        from src.classes.observe import is_within_observation
-        return is_within_observation(self.avatar, target)
+        return True
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         target = self._get_target_avatar(target_avatar)
