@@ -14,7 +14,7 @@ class Relation(Enum):
     # —— 后天（社会/情感） ——
     MASTER = "master"              # 师傅 -> 徒弟（有向）
     APPRENTICE = "apprentice"      # 徒弟 -> 师傅（有向）
-    LOVERS = "lovers"              # 情侣/道侣（对称）
+    LOVERS = "lovers"              # 道侣（对称）
     FRIEND = "friend"              # 朋友（对称）
     ENEMY = "enemy"                # 仇人/敌人（对称）
 
@@ -45,7 +45,7 @@ relation_display_names = {
     # 后天（社会/情感）
     Relation.MASTER: "师傅",
     Relation.APPRENTICE: "徒弟",
-    Relation.LOVERS: "情侣",
+    Relation.LOVERS: "道侣",
     Relation.FRIEND: "朋友",
     Relation.ENEMY: "仇人",
 }
@@ -71,7 +71,7 @@ RECIPROCAL_RELATION: dict[Relation, Relation] = {
     # 后天
     Relation.MASTER: Relation.APPRENTICE,  # 师傅 -> 徒弟
     Relation.APPRENTICE: Relation.MASTER,  # 徒弟 -> 师傅
-    Relation.LOVERS: Relation.LOVERS,  # 情侣 -> 情侣
+    Relation.LOVERS: Relation.LOVERS,  # 道侣 -> 道侣
     Relation.FRIEND: Relation.FRIEND,  # 朋友 -> 朋友
     Relation.ENEMY: Relation.ENEMY,  # 仇人 -> 仇人
 }
@@ -95,7 +95,7 @@ def get_possible_post_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> L
     评估“to_avatar 相对于 from_avatar”可能新增的后天关系集合（方向性明确）。
 
     清晰规则：
-    - LOVERS(情侣)：要求男女异性；若已存在 to->from 的相同关系则不重复
+    - LOVERS(道侣)：要求男女异性；若已存在 to->from 的相同关系则不重复
     - MASTER(师傅)：要求 to.level >= from.level + 20
     - APPRENTICE(徒弟)：要求 to.level <= from.level - 20
     - FRIEND(朋友)：始终可能(若未已存在)
