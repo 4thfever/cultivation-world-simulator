@@ -138,13 +138,14 @@ class Avatar:
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
         else:
-            sect_info = self.sect.get_info() if self.sect is not None else "散修"
+            # personas和sect一致返回detailed，因为这俩太重要了
+            sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
             region_info = region.get_info() if region is not None else "无"
             alignment_info = self.alignment.get_info() if self.alignment is not None else "未知"
             root_info = self.root.get_info()
             technique_info = self.technique.get_info() if self.technique is not None else "无"
             cultivation_info = self.cultivation_progress.get_info()
-            personas_info = ", ".join([p.get_info() for p in self.personas]) if self.personas else "无"
+            personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
 
         return {
