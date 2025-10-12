@@ -11,7 +11,7 @@ def load_csv(path: Path) -> pd.DataFrame:
         "id": int,
         "name": str,
         "description": str,
-        "prompt": str,
+        "desc": str,
         "weight": float,
     }
     for column, dtype in row_types.items():

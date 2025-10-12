@@ -46,7 +46,7 @@ class Technique:
     name: str
     attribute: TechniqueAttribute
     grade: TechniqueGrade
-    prompt: str
+    desc: str
     weight: float
     condition: str
     # 归属宗门名称；None/空表示无宗门要求（散修可修）
@@ -61,7 +61,7 @@ class Technique:
         return f"{self.name}（{self.attribute}）{self.grade.value}"
 
     def get_detailed_info(self) -> str:
-        return f"{self.name}（{self.attribute}）{self.grade.value} {self.prompt}"
+        return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}"
 
 
 
@@ -101,7 +101,7 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             name=name,
             attribute=attr,
             grade=grade,
-            prompt=str(row.get("prompt", "")),
+            desc=str(row.get("desc", "")),
             weight=weight,
             condition=condition,
             sect=sect,

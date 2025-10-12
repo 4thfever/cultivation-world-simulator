@@ -1,5 +1,5 @@
-id,name,technique_root,grade,prompt,weight,condition,sect
-,名称,属性,品阶（上中下）,提示词,抽样权重,条件,所属宗门
+id,name,technique_root,grade,desc,weight,condition,sect
+,名称,属性,品阶（上中下）,描述/提示词,抽样权重,条件,所属宗门
 1,太乙金光锻体诀,金,下品,运太乙金光淬骨炼筋，金罡护体，刀兵难侵。,1,,
 2,金阳破甲术,金,中品,融金阳之炽与锋，一往破敌，破甲断魄。,1,,
 4,青木长春诀,木,下品,借青木长春之机，涓涓养元，稳固根基。,1,,

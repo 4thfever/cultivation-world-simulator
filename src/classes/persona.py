@@ -18,7 +18,7 @@ class Persona:
     """
     id: int
     name: str
-    prompt: str
+    desc: str
     exclusion_ids: List[int]
     weight: float
     condition: str
@@ -27,7 +27,7 @@ class Persona:
         return self.name
 
     def get_detailed_info(self) -> str:
-        return f"{self.name}（{self.prompt}）"
+        return f"{self.name}（{self.desc}）"
 
 def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     """从配表加载persona数据"""
@@ -52,7 +52,7 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
         persona = Persona(
             id=int(row["id"]),
             name=str(row["name"]),
-            prompt=str(row["prompt"]),
+            desc=str(row["desc"]),
             exclusion_ids=exclusion_ids,
             weight=weight,
             condition=condition,
