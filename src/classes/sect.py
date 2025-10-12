@@ -38,6 +38,8 @@ class Sect:
     headquarter: SectHeadQuarter
     # 本宗关联的功法名称（来自 technique.csv 的 sect 列）
     technique_names: list[str]
+    # 随机选择宗门时使用的权重（默认1）
+    weight: float = 1.0
     # 功法：在technique.csv中配置
     # TODO：法宝
     # TODO：宗内等级和称谓
@@ -80,6 +82,10 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
                 if str(tname).strip()
             ]
 
+        # 读取权重（缺省/NaN 则为 1.0）
+        weight_val = row.get("weight", 1)
+        weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
+
         sect = Sect(
             id=int(row["id"]),
             name=str(row["name"]),
@@ -96,6 +102,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
                 image=image_path,
             ),
             technique_names=technique_names,
+            weight=weight,
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect
