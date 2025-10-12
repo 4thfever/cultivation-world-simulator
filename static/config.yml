@@ -4,6 +4,7 @@ llm:
   fast_model_name: "your-fast-model-name"
   key: "your-api-key"
   base_url: "your-base-url-of-llm"
+  max_parse_retries: 3
 
 paths:
   templates: static/templates/
@@ -11,7 +12,7 @@ paths:
 
 ai:
   mode: "llm" # "rule" or "llm"
-  max_decide_num: 3
+  max_decide_num: 4
 
 game:
   init_npc_num: 9
