@@ -30,6 +30,7 @@ from src.run.log import get_logger
 from src.classes.alignment import Alignment
 from src.utils.params import filter_kwargs_for_callable
 from src.classes.sect import Sect
+from src.classes.appearance import Appearance, get_random_appearance
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -82,6 +83,8 @@ class Avatar:
     alignment: Alignment | None = None
     # 所属宗门（可为空，表示散修/无门无派）
     sect: Sect | None = None
+    # 外貌（1~10级），创建时随机生成
+    appearance: Appearance = field(default_factory=get_random_appearance)
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
 
@@ -137,6 +140,7 @@ class Avatar:
             cultivation_info = self.cultivation_progress.get_detailed_info()
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
+            appearance_info = self.appearance.get_detailed_info(self.gender)
         else:
             # personas和sect一致返回detailed，因为这俩太重要了
             sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
@@ -147,6 +151,7 @@ class Avatar:
             cultivation_info = self.cultivation_progress.get_info()
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
+            appearance_info = self.appearance.get_info()
 
         return {
             "id": self.id,
@@ -165,6 +170,7 @@ class Avatar:
             "境界": cultivation_info,
             "个性": personas_info,
             "物品": items_info,
+            "外貌": appearance_info,
         }
 
     def __str__(self) -> str:
@@ -451,6 +457,7 @@ class Avatar:
             f"{self.name}",
             f"性别: {self.gender}",
             f"年龄: {self.age}",
+            f"外貌: {self.appearance.get_info()}",
             f"阵营: {self.alignment}",
             f"境界: {str(self.cultivation_progress)}",
             f"HP: {self.hp}",
