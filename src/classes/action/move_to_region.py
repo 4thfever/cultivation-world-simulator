@@ -24,16 +24,13 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         - 若传入是 Region 实例，按 id 映射到 world.map.regions
         - 兜底返回原对象（避免KeyError中断）
         """
-        try:
-            if isinstance(region, str):
-                return self.world.map.region_names.get(region) or region  # type: ignore[return-value]
-            # 非字符串：按 id 在 map 中取对应实例
-            rid = getattr(region, "id", None)
-            if rid is not None and rid in self.world.map.regions:
-                return self.world.map.regions[rid]
-            return region
-        except Exception:
-            return region
+        if isinstance(region, str):
+            return self.world.map.region_names.get(region)
+        # 非字符串：按 id 在 map 中取对应实例
+        rid = getattr(region, "id", None)
+        if rid is not None and rid in self.world.map.regions:
+            return self.world.map.regions[rid]
+        raise ValueError(f"Invalid region: {region}")
 
     def _execute(self, region: Region | str) -> None:
         """
