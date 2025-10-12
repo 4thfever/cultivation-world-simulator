@@ -24,7 +24,7 @@ class DualCultivation(MutualAction):
     """
 
     ACTION_NAME = "双修"
-    COMMENT = "以情入道的双修之术，仅合欢宗弟子可发起，对象可接受或拒绝"
+    COMMENT = "以情入道的双修之术，仅合欢宗弟子可发起，对象可接受或拒绝，如接受会共同度过一段瞬息欢愉但甜蜜的时光"
     DOABLES_REQUIREMENTS = "发起者为合欢宗；目标在感知范围内且为异性"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
