@@ -554,11 +554,11 @@ class Avatar:
 
     def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
         """
-        仅显示4个字段：名字、境界、关系、阵营。
+        仅显示几个字段：名字、境界、关系、宗门、阵营、外貌。
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{other_avatar.sect.name}，外貌：{other_avatar.appearance.get_info()}"
 
     @property
     def move_step_length(self) -> int:
