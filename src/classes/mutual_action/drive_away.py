@@ -11,6 +11,7 @@ class DriveAway(MutualAction):
     DOABLES_REQUIREMENTS = "与目标处于同一区域"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Battle"]
+    story_prompt: str = ""
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()

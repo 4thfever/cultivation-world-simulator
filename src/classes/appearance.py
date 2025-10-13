@@ -7,6 +7,9 @@ from typing import Iterable, List, Tuple
 
 @dataclass
 class Appearance:
+    """
+    外貌/颜值
+    """
     level: int  # 1~10
     name: str
     desc_male: str

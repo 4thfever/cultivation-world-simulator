@@ -45,7 +45,7 @@ class StoryTeller:
         return infos
 
     @staticmethod
-    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str) -> str:
+    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str, story_prompt: str = "") -> str:
         """
         基于 `static/templates/story.txt` 模板生成小故事。
         始终使用 fast 模式以提升速度。
@@ -57,6 +57,7 @@ class StoryTeller:
             "event": event,
             "res": res,
             "style": random.choice(story_styles),
+            "story_prompt": story_prompt or "",
         }
         data = get_prompt_and_call_llm(template_path, infos, mode="fast")
         story = data["story"].strip()
