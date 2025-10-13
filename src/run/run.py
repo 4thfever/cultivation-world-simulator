@@ -46,14 +46,14 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def sample_existed_sects(all_sects: Sequence, max_sects: int) -> list:
+def sample_existed_sects(all_sects: Sequence, needed_sects: int) -> list:
     """
     按权重无放回抽样本局启用的宗门；当权重和为0时退回均匀无放回抽样。
     返回长度不超过 max_sects。
     """
-    if max_sects <= 0 or not all_sects:
+    if needed_sects <= 0 or not all_sects:
         return []
-    k = min(max_sects, len(all_sects))
+    k = min(needed_sects, len(all_sects))
     pool = list(all_sects)
     base_weights = [max(0.0, s.weight) for s in pool]
     if sum(base_weights) <= 0:
@@ -79,9 +79,9 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
     # 在地图上添加本局宗门总部
     if existed_sects:
         add_sect_headquarters(world.map, existed_sects)
-    # 按权重分配宗门成员
+    # 统计将要分配的宗门成员数量（用于均分）
     sect_member_count = 0
-    # 先得到存在的宗门（已在上方计算）
+    sect_member_counts_by_id: dict[int, int] = {s.id: 0 for s in existed_sects} if existed_sects else {}
 
     for i in range(count):
         # 随机生成年龄，范围从16到60岁
@@ -92,12 +92,11 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         # 分配宗门或散修
         assigned_sect = None
         if use_sects and sect_member_count < sect_member_target and existed_sects:
-            # 使用已启用宗门按权重抽样；若权重之和不大于0则退回均匀随机
-            weights = [max(0.0, s.weight) for s in existed_sects]
-            if sum(weights) > 0:
-                assigned_sect = random.choices(existed_sects, weights=weights, k=1)[0]
-            else:
-                assigned_sect = random.choice(existed_sects)
+            # 均分到各宗门：选择当前成员最少的宗门，若并列则随机
+            min_count = min(sect_member_counts_by_id.values()) if sect_member_counts_by_id else 0
+            candidates = [s for s in existed_sects if sect_member_counts_by_id.get(s.id, 0) == min_count]
+            assigned_sect = random.choice(candidates)
+            sect_member_counts_by_id[assigned_sect.id] = sect_member_counts_by_id.get(assigned_sect.id, 0) + 1
             sect_member_count += 1
         # 根据宗门生成姓名
         name = get_random_name_for_sect(gender, assigned_sect)
@@ -174,8 +173,8 @@ async def main():
 
     # 得到本局的宗门
     all_sects = list(sects_by_id.values())
-    max_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
-    existed_sects = sample_existed_sects(all_sects, max_sects)
+    needed_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
+    existed_sects = sample_existed_sects(all_sects, needed_sects)
     
     # 创建角色，传入当前年份确保年龄与生日匹配，使用配置文件中的NPC数量
     all_avatars = make_avatars(world, count=CONFIG.game.init_npc_num, current_month_stamp=world.month_stamp, existed_sects=existed_sects)
