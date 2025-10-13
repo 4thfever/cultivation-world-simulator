@@ -558,7 +558,8 @@ class Avatar:
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{other_avatar.sect.name}，外貌：{other_avatar.appearance.get_info()}"
+        sect_str = other_avatar.sect.name if other_avatar.sect is not None else "散修"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，外貌：{other_avatar.appearance.get_info()}"
 
     @property
     def move_step_length(self) -> int:
