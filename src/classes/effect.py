@@ -20,6 +20,14 @@ def load_effect_from_str(value: object) -> dict[str, Any]:
     s = str(value).strip()
     if not s or s == "nan":
         return {}
+    # 使用全局配置中的分隔符将占位分隔符替换回逗号，便于 JSON/字面量解析
+    try:
+        from src.utils.config import CONFIG  # 延迟导入避免循环依赖
+        sep = str(getattr(getattr(CONFIG, "df", {}), "ids_separator", ","))
+        if sep and sep != ",":
+            s = s.replace(sep, ",")
+    except Exception:
+        pass
     try:
         obj = json.loads(s)
         return obj if isinstance(obj, dict) else {}
