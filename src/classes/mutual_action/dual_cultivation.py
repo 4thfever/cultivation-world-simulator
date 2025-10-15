@@ -40,7 +40,7 @@ class DualCultivation(MutualAction):
             return False
         # 基于 effects 判断是否允许
         effects = self.avatar.effects
-        legal_actions = effects["legal_actions"]
+        legal_actions = effects.get("legal_actions", [])
         if not isinstance(legal_actions, list) or "DualCultivation" not in legal_actions:
             return False
         target = self._get_target_avatar(target_avatar)
