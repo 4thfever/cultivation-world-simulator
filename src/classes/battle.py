@@ -135,7 +135,6 @@ def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Av
     - 双方伤害均按 Civ6 风格由同一差值决定（对称公式），HP 与战斗力独立。
     """
     p = calc_win_rate(attacker, defender)
-    print(f"胜率: {p}")
     if random.random() < p:
         winner, loser = attacker, defender
     else:
