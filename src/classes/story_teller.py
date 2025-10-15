@@ -38,10 +38,7 @@ class StoryTeller:
         """
         infos: Dict[str, dict] = {}
         for av in avatars:
-            try:
-                infos[av.name] = av.get_info(detailed=True)
-            except Exception:
-                infos[av.name] = getattr(av, "name", "未知角色")
+            infos[av.name] = av.get_info(detailed=True)
         return infos
 
     @staticmethod

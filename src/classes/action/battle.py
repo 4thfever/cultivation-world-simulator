@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from src.classes.action import InstantAction
 from src.classes.event import Event
-from src.classes.battle import decide_battle
+from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
 
 
@@ -35,7 +35,9 @@ class Battle(InstantAction):
     def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)
         target_name = target.name if target is not None else avatar_name
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗")
+        # 展示双方折算战斗力（基于对手、含克制）
+        s_att, s_def = get_effective_strength_pair(self.avatar, target)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）")
         # 记录开始事件内容，供故事生成使用
         self._start_event_content = event.content
         return event

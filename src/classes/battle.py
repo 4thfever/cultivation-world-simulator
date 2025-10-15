@@ -1,120 +1,150 @@
 from __future__ import annotations
 
+import math
 import random
 from typing import Tuple, TYPE_CHECKING
-import random
 
-from src.classes.cultivation import Realm
-from src.classes.technique import get_suppression_bonus, get_grade_advantage_bonus
+from src.classes.technique import TechniqueGrade, get_suppression_bonus
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 
-def _realm_order(realm: Realm) -> int:
+# 战斗力参数（参考文明6思想，但适配本项目数值体系）
+_STRENGTH_LOG_SCALE: float = 10.0            # 修为强度的对数缩放：10×ln(1+level)
+_GRADE_POINTS = {
+    TechniqueGrade.LOWER: 0.0,
+    TechniqueGrade.MIDDLE: 3.0,
+    TechniqueGrade.UPPER: 6.0,
+}
+_SUPPRESSION_POINTS: float = 3.0             # 属性克制即加固定战斗力点数
+_CIV6_K: float = 0.04                        # 伤害指数系数：e^(K×差值)
+_WIN_BETA: float = 0.15                      # 胜率逻辑函数斜率
+_BASE_DAMAGE_LOW: int = 24                   # 基础伤害下限（按 defender.maxHP/100 缩放）
+_BASE_DAMAGE_HIGH: int = 36                  # 基础伤害上限（按 defender.maxHP/100 缩放）
+_MIN_RATIO: float = 1.05                     # 最小相对优势比，确保赢家伤害严格更低
+_PAIR_BIAS: float = 1.1                     # 成对偏置：让败者再多一点、赢家再少一点
+
+
+def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
     """
-    将境界映射为数值顺序，用于胜率计算。
+    计算对某个对手的有效战斗力：
+    = 10×ln(1+修为等级) + 品阶点数(0/3/6) + 克制点数(若克制则+3)
+    说明：
+    - 修为使用总等级（1..120）并做对数缩放，避免过大；
+    - 品阶加点为线性，避免与修为重复放大；
+    - 克制只在“对某个对手”时生效，因此放在此函数处理。
     """
-    order_map = {
-        Realm.Qi_Refinement: 1,
-        Realm.Foundation_Establishment: 2,
-        Realm.Core_Formation: 3,
-        Realm.Nascent_Soul: 4,
-    }
-    return order_map.get(realm, 1)
+    level = max(1, self_avatar.cultivation_progress.level)
+    strength_from_level = _STRENGTH_LOG_SCALE * math.log1p(level)
+
+    grade_points = 0.0
+    if self_avatar.technique is not None:
+        grade_points = _GRADE_POINTS.get(self_avatar.technique.grade, 0.0)
+
+    suppression_points = 0.0
+    if self_avatar.technique is not None and opponent.technique is not None:
+        # 仅需“是否克制”的布尔，不引入倍率。
+        if get_suppression_bonus(self_avatar.technique.attribute, opponent.technique.attribute) > 0.0:
+            suppression_points = _SUPPRESSION_POINTS
+
+    return strength_from_level + grade_points + suppression_points
+
+
+def _strength_diff(attacker: "Avatar", defender: "Avatar") -> float:
+    return _combat_strength_vs(defender, attacker) - _combat_strength_vs(attacker, defender)
+
+
+def get_effective_strength(self_avatar: "Avatar", opponent: "Avatar") -> float:
+    """
+    对外公开：返回 self_avatar 面对 opponent 时的折算战斗力。
+    用于事件展示与调试，不参与状态修改。
+    """
+    return _combat_strength_vs(opponent, self_avatar)
+
+
+def get_effective_strength_pair(a: "Avatar", b: "Avatar") -> tuple[float, float]:
+    """
+    一次性返回双方（a 面对 b，b 面对 a）的折算战斗力。
+    顺序：(a_strength, b_strength)
+    """
+    return _combat_strength_vs(b, a), _combat_strength_vs(a, b)
 
 
 def calc_win_rate(attacker: "Avatar", defender: "Avatar") -> float:
     """
-    胜率计算（返回进攻方胜率 p ∈ [0.1, 0.9]）：
-    - 基准：50%
-    - 境界差：每高一大境界 +15%
-    - 功法品阶差：按品阶差的相对加成（可正可负）
-    - 属性克制：若进攻方克制防守方，再 +10%
-    最后夹紧到 [0.1, 0.9]
+    胜率 = sigmoid(β×战斗力差)，并夹紧到 [0.1, 0.9]
+    - 战斗力差 = 有效战斗力(att) - 有效战斗力(def)
+    - β 默认 0.15，使差值≈10时胜率≈0.82
     """
-    atk_order = _realm_order(attacker.cultivation_progress.realm)
-    def_order = _realm_order(defender.cultivation_progress.realm)
-    delta = atk_order - def_order
-    base = 0.5 + 0.15 * delta
-    # 功法品阶差相对加成
-    atk_grade = getattr(getattr(attacker, "technique", None), "grade", None)
-    def_grade = getattr(getattr(defender, "technique", None), "grade", None)
-    base += get_grade_advantage_bonus(atk_grade, def_grade)
-    # 属性克制：若进攻方克制防守方，再+10%
-    atk_attr = getattr(getattr(attacker, "technique", None), "attribute", None)
-    def_attr = getattr(getattr(defender, "technique", None), "attribute", None)
-    if atk_attr is not None and def_attr is not None:
-        base += get_suppression_bonus(atk_attr, def_attr)
-    return max(0.1, min(0.9, base))
+    diff = _strength_diff(attacker, defender)
+    p = 1.0 / (1.0 + math.exp(-_WIN_BETA * diff))
+    if p < 0.1:
+        return 0.1
+    if p > 0.9:
+        return 0.9
+    return p
+
+
+def _base_damage_scale(defender: "Avatar") -> float:
+    # 以 100 HP 为基准，将 Civ6 的 24~36 损伤映射到不同境界的 HP 档位
+    max_hp = defender.hp.max
+    return max(1.0, max_hp / 100.0)
+
+
+def _damage_from_to(attacker: "Avatar", defender: "Avatar") -> int:
+    """
+    使用 Civ6 风格伤害：damage = U(24,36)×scale × e^(K×差值)
+    - scale = defender.maxHP / 100，使不同境界下伤害相对一致
+    - 差值 = strength(att) - strength(def)
+    """
+    diff = _strength_diff(attacker, defender)
+    base = random.randint(_BASE_DAMAGE_LOW, _BASE_DAMAGE_HIGH) * _base_damage_scale(defender)
+    dmg = base * math.exp(_CIV6_K * diff)
+    return max(1, int(dmg))
+
+
+def _damage_pair(winner: "Avatar", loser: "Avatar") -> tuple[int, int]:
+    """
+    成对伤害：使用同一基础与对称比值，保证赢家伤害严格小于败者伤害。
+    - ratio = max(exp(K×|diff|), MIN_RATIO)
+    - 中间尺度 = 几何均值 sqrt(scale_winner × scale_loser)
+    - 败者伤害 = base × 中间尺度 × ratio
+    - 赢家伤害 = base × 中间尺度 ÷ ratio
+    """
+    abs_diff = abs(_strength_diff(winner, loser))
+    ratio = math.exp(_CIV6_K * abs_diff)
+    ratio *= _PAIR_BIAS
+    if ratio < _MIN_RATIO:
+        ratio = _MIN_RATIO
+
+    base = random.randint(_BASE_DAMAGE_LOW, _BASE_DAMAGE_HIGH)
+    scale_w = _base_damage_scale(winner)
+    scale_l = _base_damage_scale(loser)
+    mid_scale = math.sqrt(scale_w * scale_l)
+
+    loser_damage = max(1, int(base * mid_scale * ratio))
+    winner_damage = max(1, int(base * mid_scale / ratio))
+    return loser_damage, winner_damage
 
 
 def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Avatar", int, int]:
     """
-    结算一场战斗，返回(胜者, 败者, 败者掉血, 赢家掉血)。
-    规则：
-    - 先按 calc_win_rate 判定胜负；
-    - 以 get_damage 计算基准伤害，再让败者“多掉一点血”（适度上调，例如 +15%）；
-    - 赢家也会受伤，但伤害不超过败者伤害的一半（随机 15%~40% 区间）。
+    结算战斗，返回 (胜者, 败者, 败者掉血, 赢家掉血)。
+    - 胜率由战斗力差的逻辑函数给出；
+    - 双方伤害均按 Civ6 风格由同一差值决定（对称公式），HP 与战斗力独立。
     """
     p = calc_win_rate(attacker, defender)
+    print(f"胜率: {p}")
     if random.random() < p:
         winner, loser = attacker, defender
     else:
         winner, loser = defender, attacker
 
-    base_damage = get_damage(winner, loser)
-    # 败者多掉一点血：适度上调，保持上限由 HP.reduce 自然处理
-    loser_damage = max(1, int(base_damage * 1.15))
-
-    # 赢家也掉血，但不超过败者的一半：在 15%~40% 的范围取随机值
-    rnd_ratio = random.uniform(0.15, 0.40)
-    winner_damage = int(loser_damage * rnd_ratio)
-    winner_damage = max(0, min(winner_damage, loser_damage // 2))
-
+    loser_damage, winner_damage = _damage_pair(winner, loser)
     return winner, loser, loser_damage, winner_damage
 
+
 def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
-    """
-    逃跑成功率：临时返回常量值，后续可基于双方能力细化。
-    attacker: 追击方（通常为进攻者）
-    defender: 逃跑方（通常为被攻击者）
-    """
+    """逃跑成功率：后续可基于双方能力细化。"""
     return 0.1
-
-def get_damage(winner: "Avatar", loser: "Avatar") -> int:
-    """
-    伤害计算（返回单次战斗伤害值，整数）：
-    1) 先计算“期望伤害” expected：
-       - 境界差：base = 100 + 80 × gap，其中 gap = max(0, winnerRealmOrder - loserRealmOrder)
-       - 功法品阶差：按品阶差 bonus 调整 expected *= (1 + bonus)
-       - 属性克制：若胜者克制败者，再乘 1.15
-       - 夹紧：期望伤害最终限制在 [30, 500]
-    2) 再生成随机区间：[low, high] = [0.85×expected, 1.15×expected]
-    3) 下限与比例保护：不低于败者最大HP的 10%，并至少为 15 的硬下限
-    4) 返回区间内的随机整数
-    """
-    gap = max(0, _realm_order(winner.cultivation_progress.realm) - _realm_order(loser.cultivation_progress.realm))
-    expected = 100 + 80 * gap
-    win_grade = getattr(getattr(winner, "technique", None), "grade", None)
-    lose_grade = getattr(getattr(loser, "technique", None), "grade", None)
-    expected *= (1.0 + get_grade_advantage_bonus(win_grade, lose_grade))
-    win_attr = getattr(getattr(winner, "technique", None), "attribute", None)
-    lose_attr = getattr(getattr(loser, "technique", None), "attribute", None)
-    if win_attr is not None and lose_attr is not None:
-        if get_suppression_bonus(win_attr, lose_attr) > 0:
-            expected *= 1.15
-    # 期望伤害夹紧
-    expected = max(30.0, min(500.0, expected))
-
-    # 设定伤害区间并随机
-    low = int(expected * 0.85)
-    high = int(expected * 1.15)
-
-    # 与最大HP挂钩的最低保护
-    loser_max_hp = getattr(getattr(loser, "hp", None), "max", 0) or 0
-    hp_floor = int(max(15, loser_max_hp * 0.10))
-    low = max(low, hp_floor)
-    high = max(high, low + 1)
-
-    return random.randint(low, high)
