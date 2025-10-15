@@ -20,6 +20,7 @@ from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
 from src.classes.action_runtime import ActionPlan, ActionInstance
 from src.classes.effect import _merge_effects
+from src.classes.alignment import Alignment
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
 from src.classes.magic_stone import MagicStone
@@ -128,10 +129,13 @@ class Avatar:
     @property
     def effects(self) -> dict[str, object]:
         merged: dict[str, object] = defaultdict(str)
+        # 来自宗门
         if self.sect is not None and getattr(self.sect, "effects", None):
             merged = _merge_effects(merged, self.sect.effects)
-        if self.technique is not None and getattr(self.technique, "effects", None):
-            merged = _merge_effects(merged, self.technique.effects)
+        # 来自功法
+        merged = _merge_effects(merged, self.technique.effects)
+        # 来自灵根
+        merged = _merge_effects(merged, self.root.effects)
         return merged
 
 

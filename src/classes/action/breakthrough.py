@@ -25,7 +25,7 @@ CALAMITY_DESCRIPTIONS: dict[str, str] = {
     "情劫": "柔情即刃，难舍难分，念头被拉回人间烟火。",
 }
 from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
-from src.classes.root import extra_breakthrough_success_rate
+from src.classes.effect import _merge_effects
 
 
 class Breakthrough(TimedAction):
@@ -45,7 +45,8 @@ class Breakthrough(TimedAction):
         计算突破境界的成功率（由修为进度给出）
         """
         base = self.avatar.cultivation_progress.get_breakthrough_success_rate()
-        bonus = extra_breakthrough_success_rate[self.avatar.root]
+        # 统一从 avatar.effects 读取额外加成（root/technique/sect 等已合并）
+        bonus = float(self.avatar.effects.get("extra_breakthrough_success_rate", 0.0))
         # 夹紧到 [0, 1]
         return max(0.0, min(1.0, base + bonus))
 

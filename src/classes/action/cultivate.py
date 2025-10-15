@@ -29,6 +29,10 @@ class Cultivate(TimedAction):
         essence_types = get_essence_types_for_root(root)
         essence_density = max((essence.get_density(et) for et in essence_types), default=0)
         exp = self.get_exp(essence_density)
+        # 结算额外修炼经验（来自功法/宗门/灵根等已合并）
+        extra_exp = int(self.avatar.effects.get("extra_cultivate_exp", 0) or 0)
+        if extra_exp:
+            exp += extra_exp
         self.avatar.cultivation_progress.add_exp(exp)
 
     def get_exp(self, essence_density: int) -> int:

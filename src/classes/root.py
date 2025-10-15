@@ -7,6 +7,8 @@
 from enum import Enum
 from typing import List, Tuple, Dict
 from collections import defaultdict
+from src.utils.df import game_configs
+from src.classes.effect import build_effects_map_from_df
 
 from src.classes.essence import EssenceType
 
@@ -84,6 +86,13 @@ class Root(_RootMixin, Enum):
     def get_detailed_info(self) -> str:
         return self.get_info()
 
+    @property
+    def effects(self) -> dict[str, object]:
+        """
+        从 CSV 读取的该灵根效果。
+        """
+        return dict(_root_effects_by_root.get(self, {}))
+
 
 # 元素到灵气类型的一一对应
 _essence_by_element = {
@@ -102,14 +111,16 @@ def get_essence_types_for_root(root: "Root") -> List[EssenceType]:
     return [_essence_by_element[e] for e in root.elements]
 
 
-# 额外突破成功率（默认 0.0），根据原 CSV 保留天灵根 0.1
-extra_breakthrough_success_rate = defaultdict(
-    lambda: 0.0,
-    {
-        Root.HEAVEN: 0.1,
-    },
-)
+def _parse_root_key(raw: str) -> "Root":
+    return Root[raw]
 
+
+_root_effects_by_root = build_effects_map_from_df(
+    game_configs.get("root"),
+    key_column="key",
+    parse_key=_parse_root_key,
+    effects_column="effects",
+)
 
 def format_root_cn(root: "Root") -> str:
     """

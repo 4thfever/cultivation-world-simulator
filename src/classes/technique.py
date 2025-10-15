@@ -67,8 +67,6 @@ class Technique:
     def get_detailed_info(self) -> str:
         return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}"
 
-
-
 # 五行与扩展属性的克制关系
 # - 五行：金克木，木克土，土克水，水克火，火克金
 # - 雷克邪；邪、冰、风、暗不克任何人
