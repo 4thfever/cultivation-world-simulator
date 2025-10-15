@@ -108,6 +108,15 @@ class Simulator:
             events.append(event)
         return events
 
+    def _phase_update_time_effect(self):
+        """
+        更新时间效果（如HP回复）。
+        """
+        events = []
+        for avatar in self.world.avatar_manager.avatars.values():
+            avatar.update_time_effect()
+        return events
+
     def _phase_log_events(self, events):
         """
         将事件写入日志。
@@ -142,10 +151,14 @@ class Simulator:
         # 5. 年龄与新生
         events.extend(self._phase_update_age_and_birth())
 
-        # 6. 日志
+        # 6. 时间效果（如HP回复）
+        events.extend(self._phase_update_time_effect())
+
+        # 7. 日志
         self._phase_log_events(events)
 
-        # 7. 时间推进
+        # 8. 时间推进
         self.world.month_stamp = self.world.month_stamp + 1
+
 
         return events

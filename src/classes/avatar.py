@@ -561,6 +561,15 @@ class Avatar:
         sect_str = other_avatar.sect.name if other_avatar.sect is not None else "散修"
         return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，外貌：{other_avatar.appearance.get_info()}"
 
+    def update_time_effect(self) -> None:
+        """
+        随时间更新的被动效果。
+        当前实现：当 HP 未满时，回复最大生命值的 1%。
+        """
+        if self.hp.cur < self.hp.max:
+            recover_amount = int(self.hp.max * 0.01)
+            self.hp.recover(recover_amount)
+
     @property
     def move_step_length(self) -> int:
         """
