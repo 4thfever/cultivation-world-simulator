@@ -54,7 +54,7 @@ class StoryTeller:
             "event": event,
             "res": res,
             "style": random.choice(story_styles),
-            "STORY_PROMPT": STORY_PROMPT or "",
+            "story_prompt": STORY_PROMPT or "",
         }
         data = get_prompt_and_call_llm(template_path, infos, mode="fast")
         story = data["story"].strip()
