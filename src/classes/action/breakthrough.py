@@ -3,6 +3,27 @@ from __future__ import annotations
 import random
 from src.classes.action import TimedAction
 from src.classes.event import Event
+from src.classes.cultivation import Realm
+from src.classes.story_teller import StoryTeller
+from src.classes.relation import Relation
+
+# —— 配置：哪些“出发境界”会生成突破小故事（global var）——
+ALLOW_STORY_FROM_REALMS: list[Realm] = [
+    Realm.Foundation_Establishment,  # 筑基
+    Realm.Core_Formation,            # 金丹
+]
+
+# 故事提示词（global var）
+STORY_PROMPT_BASE = "以古风、凝练、不炫技的笔触，描绘修士历经{calamity}劫时的心境与取舍，篇幅60~120字。"
+
+# 劫难说明（global var）
+CALAMITY_DESCRIPTIONS: dict[str, str] = {
+    "心魔": "心念起伏，自我否定与执念缠斗，外寂而内喧。",
+    "雷劫": "天威如潮，电光凝成纹理，压迫骨血与神识。",
+    "肉身": "筋骨皮膜重塑，真气磨砺经脉，疼痛与新生并至。",
+    "仇家": "旧怨不散，刀光在心底回响，一念之差改写因果。",
+    "情劫": "柔情即刃，难舍难分，念头被拉回人间烟火。",
+}
 from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.classes.root import extra_breakthrough_success_rate
 
@@ -17,6 +38,7 @@ class Breakthrough(TimedAction):
     COMMENT = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
     DOABLES_REQUIREMENTS = "角色处于瓶颈时"
     PARAMS = {}
+    # 保留类级常量声明，实际读取模块级配置
 
     def calc_success_rate(self) -> float:
         """
@@ -84,22 +106,59 @@ class Breakthrough(TimedAction):
         return self.avatar.cultivation_progress.can_break_through()
 
     def start(self) -> Event:
-        # 清理上次残留的结果状态（防御性）
+        # 清理状态
         self._last_result = None
         self._success_rate_cached = None
+        # 预判是否生成故事与选择劫难
+        old_realm = self.avatar.cultivation_progress.realm
+        # 仅基于出发境界判断是否生成故事
+        self._gen_story = old_realm in ALLOW_STORY_FROM_REALMS
+        self._calamity = self._choose_calamity()
+        self._calamity_other = self._choose_related_avatar(self._calamity)
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
     # TimedAction 已统一 step 逻辑
 
     def finish(self) -> list[Event]:
-        # 根据执行阶段记录的 _last_result 生成简洁完成事件
         res = getattr(self, "_last_result", None)
-        if isinstance(res, tuple) and res:
-            if res[0] == "success":
-                return [Event(self.world.month_stamp, f"{self.avatar.name} 突破成功")]
-            elif res[0] == "fail":
-                return [Event(self.world.month_stamp, f"{self.avatar.name} 突破失败")]
+        if not (isinstance(res, tuple) and res):
+            return []
+        calamity = getattr(self, "_calamity", "劫难")
+        result_ok = res[0] == "success"
+        core_text = f"{self.avatar.name} 遭遇了{calamity}劫难，突破{'成功' if result_ok else '失败'}"
+        events: list[Event] = [Event(self.world.month_stamp, core_text)]
+
+        if getattr(self, "_gen_story", False):
+            # 故事参与者：本体 +（可选）相关角色
+            if getattr(self, "_calamity_other", None) is not None:
+                avatar_infos = StoryTeller.build_avatar_infos(self.avatar, self._calamity_other)
             else:
-                raise ValueError(f"Unknown result: {res}")
+                avatar_infos = StoryTeller.build_avatar_infos(self.avatar)
+            desc = CALAMITY_DESCRIPTIONS.get(str(calamity), "")
+            prompt = (STORY_PROMPT_BASE.format(calamity=str(calamity)) + (" " + desc if desc else "")).strip()
+            story = StoryTeller.tell_story(avatar_infos, core_text, ("突破成功" if result_ok else "突破失败"), prompt)
+            events.append(Event(self.world.month_stamp, story))
+        return events
+
+    # ——— 内部：劫难选择与关联角色 ———
+    def _choose_calamity(self) -> str:
+        base = ["心魔", "雷劫", "肉身"]
+        rels = getattr(self.avatar, "relations", {})
+        has_enemy = any(rel is Relation.ENEMY for rel in rels.values())
+        has_lover = any(rel is Relation.LOVERS for rel in rels.values())
+        if has_enemy:
+            base.append("仇家")
+        if has_lover:
+            base.append("情劫")
+        return random.choice(base)
+
+    def _choose_related_avatar(self, calamity: str):
+        if calamity not in ("仇家", "情劫"):
+            return None
+        target_rel = Relation.ENEMY if calamity == "仇家" else Relation.LOVERS
+        candidates = [other for other, rel in self.avatar.relations.items() if rel is target_rel]
+        if not candidates:
+            return None
+        return random.choice(candidates)
 
 
