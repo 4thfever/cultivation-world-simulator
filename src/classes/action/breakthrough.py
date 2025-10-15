@@ -21,7 +21,7 @@ CALAMITY_DESCRIPTIONS: dict[str, str] = {
     "心魔": "心念起伏，自我否定与执念缠斗，外寂而内喧。",
     "雷劫": "天威如潮，电光凝成纹理，压迫骨血与神识。",
     "肉身": "筋骨皮膜重塑，真气磨砺经脉，疼痛与新生并至。",
-    "仇家": "旧怨不散，刀光在心底回响，一念之差改写因果。",
+    "寻仇": "仇人旧怨不散，刀光在心底回响，一念之差改写因果。",
     "情劫": "柔情即刃，难舍难分，念头被拉回人间烟火。",
 }
 from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
@@ -113,8 +113,12 @@ class Breakthrough(TimedAction):
         old_realm = self.avatar.cultivation_progress.realm
         # 仅基于出发境界判断是否生成故事
         self._gen_story = old_realm in ALLOW_STORY_FROM_REALMS
-        self._calamity = self._choose_calamity()
-        self._calamity_other = self._choose_related_avatar(self._calamity)
+        if self._gen_story:
+            self._calamity = self._choose_calamity()
+            self._calamity_other = self._choose_related_avatar(self._calamity)
+        else:
+            self._calamity = None
+            self._calamity_other = None
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
 
     # TimedAction 已统一 step 逻辑
@@ -123,12 +127,17 @@ class Breakthrough(TimedAction):
         res = getattr(self, "_last_result", None)
         if not (isinstance(res, tuple) and res):
             return []
-        calamity = getattr(self, "_calamity", "劫难")
         result_ok = res[0] == "success"
+        if not getattr(self, "_gen_story", False):
+            # 不生成故事：不出现劫难，仅简单结果
+            core_text = f"{self.avatar.name} 突破{'成功' if result_ok else '失败'}"
+            return [Event(self.world.month_stamp, core_text)]
+
+        calamity = getattr(self, "_calamity", "劫难")
         core_text = f"{self.avatar.name} 遭遇了{calamity}劫难，突破{'成功' if result_ok else '失败'}"
         events: list[Event] = [Event(self.world.month_stamp, core_text)]
 
-        if getattr(self, "_gen_story", False):
+        if True:
             # 故事参与者：本体 +（可选）相关角色
             if getattr(self, "_calamity_other", None) is not None:
                 avatar_infos = StoryTeller.build_avatar_infos(self.avatar, self._calamity_other)
@@ -147,15 +156,15 @@ class Breakthrough(TimedAction):
         has_enemy = any(rel is Relation.ENEMY for rel in rels.values())
         has_lover = any(rel is Relation.LOVERS for rel in rels.values())
         if has_enemy:
-            base.append("仇家")
+            base.append("寻仇")
         if has_lover:
             base.append("情劫")
         return random.choice(base)
 
     def _choose_related_avatar(self, calamity: str):
-        if calamity not in ("仇家", "情劫"):
+        if calamity not in ("寻仇", "情劫"):
             return None
-        target_rel = Relation.ENEMY if calamity == "仇家" else Relation.LOVERS
+        target_rel = Relation.ENEMY if calamity == "寻仇" else Relation.LOVERS
         candidates = [other for other, rel in self.avatar.relations.items() if rel is target_rel]
         if not candidates:
             return None
