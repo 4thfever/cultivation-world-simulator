@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional, Dict, List
+import json
+from src.classes.effect import load_effect_from_str
 
 from src.utils.df import game_configs
 from src.classes.alignment import Alignment
@@ -51,6 +53,8 @@ class Technique:
     condition: str
     # 归属宗门名称；None/空表示无宗门要求（散修可修）
     sect: Optional[str] = None
+    # 影响角色或系统的效果
+    effects: dict[str, object] = field(default_factory=dict)
 
     def is_allowed_for(self, avatar) -> bool:
         if not self.condition:
@@ -96,6 +100,9 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
         weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
         sect_val = row.get("sect", "")
         sect = None if str(sect_val) == "nan" or str(sect_val).strip() == "" else str(sect_val).strip()
+        # 读取 effects（兼容 JSON/单引号字面量/空）
+        effects = load_effect_from_str(row.get("effects", ""))
+
         t = Technique(
             id=int(row["id"]),
             name=name,
@@ -105,6 +112,7 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             weight=weight,
             condition=condition,
             sect=sect,
+            effects=effects,
         )
         techniques_by_id[t.id] = t
         techniques_by_name[t.name] = t

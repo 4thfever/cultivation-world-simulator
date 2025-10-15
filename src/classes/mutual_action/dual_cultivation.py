@@ -38,9 +38,10 @@ class DualCultivation(MutualAction):
     def can_start(self, target_avatar: "Avatar|str|None" = None) -> bool:
         if target_avatar is None:
             return False
-        # 必须为合欢宗
-        sect = self.avatar.sect
-        if sect is None or sect.name != "合欢宗":
+        # 基于 effects 判断是否允许
+        effects = self.avatar.effects
+        legal_actions = effects["legal_actions"]
+        if not isinstance(legal_actions, list) or "DualCultivation" not in legal_actions:
             return False
         target = self._get_target_avatar(target_avatar)
         if target is None:

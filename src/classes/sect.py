@@ -1,8 +1,10 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
+import json
 
 from src.classes.alignment import Alignment
 from src.utils.df import game_configs
+from src.classes.effect import load_effect_from_str
 from src.utils.config import CONFIG
 
 
@@ -40,6 +42,8 @@ class Sect:
     technique_names: list[str]
     # 随机选择宗门时使用的权重（默认1）
     weight: float = 1.0
+    # 影响角色或系统的效果
+    effects: dict[str, object] = field(default_factory=dict)
     # 功法：在technique.csv中配置
     # TODO：法宝
     # TODO：宗内等级和称谓
@@ -86,6 +90,9 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
         weight_val = row.get("weight", 1)
         weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
 
+        # 读取 effects（兼容 JSON/单引号字面量/空）
+        effects = load_effect_from_str(row.get("effects", ""))
+
         sect = Sect(
             id=int(row["id"]),
             name=str(row["name"]),
@@ -103,6 +110,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             ),
             technique_names=technique_names,
             weight=weight,
+            effects=effects,
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect

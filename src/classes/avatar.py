@@ -2,6 +2,7 @@ import random
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional, List
+from collections import defaultdict
 import json
 
 from src.classes.calendar import MonthStamp
@@ -18,7 +19,7 @@ from src.classes.age import Age
 from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
 from src.classes.action_runtime import ActionPlan, ActionInstance
-
+from src.classes.effect import _merge_effects
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
 from src.classes.magic_stone import MagicStone
@@ -87,6 +88,7 @@ class Avatar:
     appearance: Appearance = field(default_factory=get_random_appearance)
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
+    # 不缓存 effects；实时从宗门与功法合并
 
     def __post_init__(self):
         """
@@ -119,6 +121,18 @@ class Avatar:
             else:
                 from src.classes.alignment import Alignment as _Alignment
                 self.alignment = random.choice(list(_Alignment))
+
+        # effects 改为实时属性，不在此初始化
+
+    @property
+    def effects(self) -> dict[str, object]:
+        merged: dict[str, object] = defaultdict(str)
+        if self.sect is not None and getattr(self.sect, "effects", None):
+            merged = _merge_effects(merged, self.sect.effects)
+        if self.technique is not None and getattr(self.technique, "effects", None):
+            merged = _merge_effects(merged, self.technique.effects)
+        return merged
+
 
     def __hash__(self) -> int:
         return hash(self.id)
