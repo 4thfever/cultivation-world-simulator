@@ -29,7 +29,7 @@ class DualCultivation(MutualAction):
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
     # 提供用于故事生成的提示词，供 StoryTeller 模板参考
-    story_prompt: str | None = "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。"
+    STORY_PROMPT: str | None = "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
 
     def _get_template_path(self) -> Path:
         # 复用 mutual_action 模板，仅需返回 Accept/Reject
@@ -104,7 +104,7 @@ class DualCultivation(MutualAction):
             # 生成恋爱/双修小故事：使用通用故事模板
             avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content, self.story_prompt)
+            story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content, self.STORY_PROMPT)
             story_event = Event(self.world.month_stamp, story)
             events.append(story_event)
         else:

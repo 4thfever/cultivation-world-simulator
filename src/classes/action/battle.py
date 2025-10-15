@@ -10,6 +10,10 @@ class Battle(InstantAction):
     COMMENT = "与目标进行对战，判定胜负"
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"avatar_name": "AvatarName"}
+    # 提供用于故事生成的提示词：不出现血量/伤害等数值描述
+    STORY_PROMPT: str | None = (
+        "不要出现具体血量、伤害点数或任何数值表达。"
+    )
 
     def _get_target(self, avatar_name: str):
         for v in self.world.avatar_manager.avatars.values():
@@ -57,7 +61,7 @@ class Battle(InstantAction):
         target = self._get_target(avatar_name)
         avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
         start_text = getattr(self, "_start_event_content", "") or result_event.content
-        story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content)
+        story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content, self.STORY_PROMPT)
         story_event = Event(self.world.month_stamp, story)
         return [result_event, story_event]
 

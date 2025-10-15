@@ -43,7 +43,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         "Battle": "战斗",
     }
     # 若该互动动作可能生成小故事，可在子类中覆盖该提示词
-    story_prompt: str | None = None
+    STORY_PROMPT: str | None = None
 
     def _get_template_path(self) -> Path:
         return CONFIG.paths.templates / "mutual_action.txt"

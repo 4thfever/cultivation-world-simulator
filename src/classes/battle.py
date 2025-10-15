@@ -26,29 +26,29 @@ _MIN_RATIO: float = 1.05                     # 最小相对优势比，确保赢
 _PAIR_BIAS: float = 1.1                     # 成对偏置：让败者再多一点、赢家再少一点
 
 
-def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
+def get_base_strength(self_avatar: "Avatar") -> float:
     """
-    计算对某个对手的有效战斗力：
-    = 10×ln(1+修为等级) + 品阶点数(0/3/6) + 克制点数(若克制则+3)
-    说明：
-    - 修为使用总等级（1..120）并做对数缩放，避免过大；
-    - 品阶加点为线性，避免与修为重复放大；
-    - 克制只在“对某个对手”时生效，因此放在此函数处理。
+    基础战斗力：与对手无关。
+    = 10×ln(1+修为等级) + 品阶点数(0/3/6)
     """
     level = max(1, self_avatar.cultivation_progress.level)
     strength_from_level = _STRENGTH_LOG_SCALE * math.log1p(level)
-
     grade_points = 0.0
     if self_avatar.technique is not None:
         grade_points = _GRADE_POINTS.get(self_avatar.technique.grade, 0.0)
+    return strength_from_level + grade_points
 
+
+def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
+    """
+    相对战斗力：= 基础战斗力 + 克制点数(若克制则+3)
+    """
+    base = get_base_strength(self_avatar)
     suppression_points = 0.0
     if self_avatar.technique is not None and opponent.technique is not None:
-        # 仅需“是否克制”的布尔，不引入倍率。
         if get_suppression_bonus(self_avatar.technique.attribute, opponent.technique.attribute) > 0.0:
             suppression_points = _SUPPRESSION_POINTS
-
-    return strength_from_level + grade_points + suppression_points
+    return base + suppression_points
 
 
 def _strength_diff(attacker: "Avatar", defender: "Avatar") -> float:

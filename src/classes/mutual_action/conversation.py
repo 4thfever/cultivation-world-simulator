@@ -28,7 +28,7 @@ class Conversation(MutualAction):
     DOABLES_REQUIREMENTS = "与目标处于同一区域"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
-    story_prompt: str = ""
+    STORY_PROMPT: str = ""
 
     def _get_template_path(self) -> Path:
         # 使用 talk.txt 模板，以获取是否接受与对话内容

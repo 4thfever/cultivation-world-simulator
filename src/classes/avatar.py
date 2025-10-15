@@ -32,6 +32,7 @@ from src.classes.alignment import Alignment
 from src.utils.params import filter_kwargs_for_callable
 from src.classes.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
+from src.classes.battle import get_base_strength
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -476,6 +477,7 @@ class Avatar:
             f"境界: {str(self.cultivation_progress)}",
             f"HP: {self.hp}",
             f"MP: {self.mp}",
+            f"战斗力: {int(get_base_strength(self))}",
         ]
         lines.append(f"宗门: {self.get_sect_str()}")
         from src.classes.root import format_root_cn
