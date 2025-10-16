@@ -89,7 +89,6 @@ def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp 
         # 根据当前时间戳和年龄计算出生时间戳
         birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
         gender = random_gender()
-        # gender = Gender.FEMALE
         # 分配宗门或散修
         assigned_sect = None
         if use_sects and sect_member_count < sect_member_target and existed_sects:
