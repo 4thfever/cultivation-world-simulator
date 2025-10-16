@@ -20,6 +20,8 @@ _GRADE_POINTS = {
 _SUPPRESSION_POINTS: float = 3.0             # 属性克制即加固定战斗力点数
 _CIV6_K: float = 0.04                        # 伤害指数系数：e^(K×差值)
 _WIN_BETA: float = 0.15                      # 胜率逻辑函数斜率
+_MIN_WIN_RATE: float = 0.01                  # 最小胜率
+_MAX_WIN_RATE: float = 0.99                  # 最大胜率
 _BASE_DAMAGE_LOW: int = 24                   # 基础伤害下限（按 defender.maxHP/100 缩放）
 _BASE_DAMAGE_HIGH: int = 36                  # 基础伤害上限（按 defender.maxHP/100 缩放）
 _MIN_RATIO: float = 1.05                     # 最小相对优势比，确保赢家伤害严格更低
@@ -79,10 +81,10 @@ def calc_win_rate(attacker: "Avatar", defender: "Avatar") -> float:
     """
     diff = _strength_diff(attacker, defender)
     p = 1.0 / (1.0 + math.exp(-_WIN_BETA * diff))
-    if p < 0.1:
-        return 0.1
-    if p > 0.9:
-        return 0.9
+    if p < _MIN_WIN_RATE:
+        return _MIN_WIN_RATE
+    if p > _MAX_WIN_RATE:
+        return _MAX_WIN_RATE
     return p
 
 
