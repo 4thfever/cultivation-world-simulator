@@ -9,5 +9,5 @@ id,key,name,element_list,desc,effects
 7,ICE,冰灵根,金;水,控制力强；持久性好,
 8,WIND,风灵根,木;水,身法卓绝；难以捉摸,
 9,DARK,暗灵根,火;土,隐匿系；擅幻术与诡道,
-10,HEAVEN,天灵根,金;木;水;火;土,资质通天；五行皆通，修行全面,{"extra_breakthrough_success_rate": 0.1}
+10,HEAVEN,天灵根,金;木;水;火;土,资质通天；五行皆通，修行全面,"extra_breakthrough_success_rate": 0.1
 
