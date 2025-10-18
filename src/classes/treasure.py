@@ -53,7 +53,8 @@ def _load_treasures() -> tuple[Dict[int, Treasure], Dict[str, Treasure], Dict[in
         if raw_sect is not None and str(raw_sect).strip() and str(raw_sect).strip() != "nan":
             sect_id = int(float(raw_sect))
 
-        effects = load_effect_from_str(row.get("effects", ""))
+        raw_effects_val = row.get("effects", "")
+        effects = load_effect_from_str(raw_effects_val)
 
         sect_obj: Optional[Sect] = sects_by_id.get(int(sect_id)) if sect_id is not None else None
 
@@ -65,6 +66,8 @@ def _load_treasures() -> tuple[Dict[int, Treasure], Dict[str, Treasure], Dict[in
             effects=effects,
             sect=sect_obj,
         )
+
+        # no-op
 
         treasures_by_id[t.id] = t
         treasures_by_name[t.name] = t

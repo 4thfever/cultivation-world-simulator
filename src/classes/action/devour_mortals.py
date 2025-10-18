@@ -24,11 +24,6 @@ class DevourMortals(TimedAction):
             tr.devoured_souls = min(10000, int(tr.devoured_souls) + gain)
 
     def can_start(self) -> bool:
-        region = self.avatar.tile.region
-        # 需持有万魂幡且行为被允许
-        tr = getattr(self.avatar, "treasure", None)
-        if tr is None or tr.name != "万魂幡":
-            return False
         legal = self.avatar.effects.get("legal_actions", [])
         return "DevourMortals" in legal
 

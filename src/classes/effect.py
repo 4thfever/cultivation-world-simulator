@@ -1,18 +1,14 @@
 from __future__ import annotations
 
 import json
-import ast
 from typing import Any, Callable, Optional
 
 
 def load_effect_from_str(value: object) -> dict[str, Any]:
     """
-    解析 effects 字符串为 dict：
-    - 支持裸键值对格式（如 'k': ['v']）
-    - 支持 JSON 格式（双引号）
-    - 支持 Python 字面量（单引号）
+    将 effects 字段解析为 dict（仅支持标准 JSON 字符串）。
     - value 为 None/空字符串/'nan' 时返回 {}
-    - 解析非 dict 则返回 {}
+    - 解析失败或结果非 dict 返回 {}
     """
     if value is None:
         return {}
@@ -21,26 +17,11 @@ def load_effect_from_str(value: object) -> dict[str, Any]:
     s = str(value).strip()
     if not s or s == "nan":
         return {}
-    # 使用全局配置中的分隔符将占位分隔符替换回逗号，便于解析
-    try:
-        from src.utils.config import CONFIG
-        sep = str(getattr(getattr(CONFIG, "df", {}), "ids_separator", ","))
-        if sep and sep != ",":
-            s = s.replace(sep, ",")
-    except Exception:
-        pass
-    # 如果不是以 { 开头，则添加花括号包裹
-    if not s.startswith("{"):
-        s = "{" + s + "}"
     try:
         obj = json.loads(s)
         return obj if isinstance(obj, dict) else {}
     except Exception:
-        try:
-            obj = ast.literal_eval(s)
-            return obj if isinstance(obj, dict) else {}
-        except Exception:
-            return {}
+        return {}
 
 
 def _merge_effects(base: dict[str, object], addition: dict[str, object]) -> dict[str, object]:
