@@ -38,7 +38,10 @@ def get_base_strength(self_avatar: "Avatar") -> float:
     grade_points = 0.0
     if self_avatar.technique is not None:
         grade_points = _GRADE_POINTS.get(self_avatar.technique.grade, 0.0)
-    return strength_from_level + grade_points
+    # 来自效果的额外战斗力点数（例如法宝带来的被动加成）
+    extra_raw = self_avatar.effects.get("extra_battle_strength_points", 0)
+    extra_points = float(extra_raw or 0.0)
+    return strength_from_level + grade_points + extra_points
 
 
 def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:

@@ -85,6 +85,10 @@ class DualCultivation(MutualAction):
         jitter = random.uniform(-0.2, 0.2)
         factor = max(3.0, min(5.0, factor + jitter))
         exp_gain = int(base * factor)
+        # 附加“双修经验提升”效果（如法宝）
+        extra_raw = initiator.effects.get("extra_dual_cultivation_exp", 0)
+        extra = int(extra_raw or 0)
+        exp_gain += extra
         initiator.cultivation_progress.add_exp(exp_gain)
         self._dual_exp_gain = exp_gain
 

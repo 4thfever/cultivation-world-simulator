@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 # 依赖项目内部模块
 from src.front.front import Front
 from src.sim.simulator import Simulator
+from src.sim.new_avatar import make_avatars
 from src.classes.world import World
 from src.classes.map import Map
 from src.classes.tile import TileType
@@ -68,94 +69,12 @@ def sample_existed_sects(all_sects: Sequence, needed_sects: int) -> list:
     return result
 
 def make_avatars(world: World, count: int = 12, current_month_stamp: MonthStamp = MonthStamp(100 * 12), existed_sects: Optional[List] = None) -> dict[str, Avatar]:
-    avatars: dict[str, Avatar] = {}
-    width, height = world.map.width, world.map.height
-    # 依据配置决定宗门人数占比：当 init_npc_num > sect_num 时启用宗门逻辑
-    num_total = int(count)
-    use_sects = bool(existed_sects)
-    # 约 2/3 为宗门弟子，1/3 为散修
-    sect_member_target = int(num_total * 2 / 3) if use_sects else 0
-    # 本局启用的宗门（已在上方确定）
-    # 在地图上添加本局宗门总部
+    # 迁移到 src/sim/new_avatar.py
+    from src.sim.new_avatar import make_avatars as _new_make
+    # 在地图上添加本局宗门总部（保持原行为）
     if existed_sects:
         add_sect_headquarters(world.map, existed_sects)
-    # 统计将要分配的宗门成员数量（用于均分）
-    sect_member_count = 0
-    sect_member_counts_by_id: dict[int, int] = {s.id: 0 for s in existed_sects} if existed_sects else {}
-
-    for i in range(count):
-        # 随机生成年龄，范围从16到60岁
-        age_years = random.randint(16, 60)
-        # 根据当前时间戳和年龄计算出生时间戳
-        birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
-        gender = random_gender()
-        # 分配宗门或散修
-        assigned_sect = None
-        if use_sects and sect_member_count < sect_member_target and existed_sects:
-            # 均分到各宗门：选择当前成员最少的宗门，若并列则随机
-            min_count = min(sect_member_counts_by_id.values()) if sect_member_counts_by_id else 0
-            candidates = [s for s in existed_sects if sect_member_counts_by_id.get(s.id, 0) == min_count]
-            assigned_sect = random.choice(candidates)
-            sect_member_counts_by_id[assigned_sect.id] = sect_member_counts_by_id.get(assigned_sect.id, 0) + 1
-            sect_member_count += 1
-        # 根据宗门生成姓名
-        name = get_random_name_for_sect(gender, assigned_sect)
-        
-        # 随机生成level，范围从0到120（对应四个大境界）
-        level = random.randint(0, 120)
-        cultivation_progress = CultivationProgress(level)
-        
-        # 创建Age实例，传入年龄与当前境界
-        age = Age(age_years, cultivation_progress.realm)
-
-        # 找一个非海域的出生点
-        for _ in range(200):
-            x = random.randint(0, width - 1)
-            y = random.randint(0, height - 1)
-            t = world.map.get_tile(x, y)
-            if t.type not in (TileType.WATER, TileType.SEA, TileType.MOUNTAIN, TileType.VOLCANO, TileType.SWAMP, TileType.CAVE, TileType.RUINS):
-                break
-        else:
-            x, y = random.randint(0, width - 1), random.randint(0, height - 1)
-
-        avatar = Avatar(
-            world=world,
-            name=name,
-            id=get_avatar_id(),
-            birth_month_stamp=MonthStamp(birth_month_stamp),
-            age=age,
-            gender=gender,
-            cultivation_progress=cultivation_progress,
-            pos_x=x,
-            pos_y=y,
-            root=random.choice(list(Root)),  # 随机选择灵根
-            sect=assigned_sect,
-        )
-        avatar.tile = world.map.get_tile(x, y)
-        # 依据宗门设定阵营（若有宗门则与宗门阵营一致，否则保留默认随机）
-        if assigned_sect is not None:
-            avatar.alignment = assigned_sect.alignment
-            # 宗门弟子：按宗门功法随机
-            t = get_technique_by_sect(assigned_sect)
-            avatar.technique = t
-        # 将灵根改为功法对应灵根（邪功法不变）
-        mapped_root = attribute_to_root(avatar.technique.attribute)
-        if mapped_root is not None:
-            avatar.root = mapped_root
-        avatars[avatar.id] = avatar
-    # # —— 为演示添加少量示例关系 ——
-    avatar_list = list(avatars.values())
-    if len(avatar_list) >= 2:
-        avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
-    if len(avatar_list) >= 4:
-        avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
-    if len(avatar_list) >= 6:
-        # 师徒（有向）：第5位是师傅，第6位是徒弟
-        avatar_list[4].set_relation(avatar_list[5], Relation.MASTER)
-    if len(avatar_list) >= 8:
-        # 道侣
-        avatar_list[6].set_relation(avatar_list[7], Relation.LOVERS)
-    return avatars
+    return _new_make(world, count=count, current_month_stamp=current_month_stamp, existed_sects=existed_sects)
 
 
 async def main():

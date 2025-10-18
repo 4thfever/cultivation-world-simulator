@@ -28,7 +28,10 @@ def get_avatar_observation_radius(avatar: "Avatar") -> int:
     """
     获取角色的感知半径。
     """
-    return get_observation_radius_by_realm(avatar.cultivation_progress.realm)
+    base = get_observation_radius_by_realm(avatar.cultivation_progress.realm)
+    extra_raw = avatar.effects.get("extra_observation_radius", 0)
+    extra = int(extra_raw or 0)
+    return max(1, base + extra)
 
 
 def is_within_observation(initiator: "Avatar", other: "Avatar") -> bool:

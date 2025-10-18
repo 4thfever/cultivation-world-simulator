@@ -23,6 +23,7 @@ from src.classes.effect import _merge_effects
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
+from src.classes.treasure import Treasure
 from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
@@ -88,6 +89,8 @@ class Avatar:
     sect: Sect | None = None
     # 外貌（1~10级），创建时随机生成
     appearance: Appearance = field(default_factory=get_random_appearance)
+    # 装备的法宝（仅一个）
+    treasure: Optional[Treasure] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 不缓存 effects；实时从宗门与功法合并
@@ -136,6 +139,9 @@ class Avatar:
         merged = _merge_effects(merged, self.technique.effects)
         # 来自灵根
         merged = _merge_effects(merged, self.root.effects)
+        # 来自法宝
+        if self.treasure is not None:
+            merged = _merge_effects(merged, self.treasure.effects)
         return merged
 
 
@@ -172,6 +178,12 @@ class Avatar:
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
             appearance_info = self.appearance.get_info()
 
+        # 法宝信息：detailed 使用 get_detailed_info；简略使用 get_info
+        if self.treasure is not None:
+            treasures_info = self.treasure.get_detailed_info() if detailed else self.treasure.get_info()
+        else:
+            treasures_info = "无"
+
         return {
             "id": self.id,
             "名字": self.name,
@@ -190,6 +202,7 @@ class Avatar:
             "个性": personas_info,
             "物品": items_info,
             "外貌": appearance_info,
+            "法宝": treasures_info,
         }
 
     def __str__(self) -> str:
@@ -579,7 +592,8 @@ class Avatar:
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
         sect_str = other_avatar.sect.name if other_avatar.sect is not None else "散修"
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，外貌：{other_avatar.appearance.get_info()}"
+        tr_str = other_avatar.treasure.get_info() if other_avatar.treasure is not None else "无"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，法宝：{tr_str}，外貌：{other_avatar.appearance.get_info()}"
 
     def update_time_effect(self) -> None:
         """
@@ -597,28 +611,4 @@ class Avatar:
         """
         return self.cultivation_progress.get_move_step()
 
-def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age):
-    """
-    从凡人中来的新修士
-    这代表其境界为最低
-    """
-    # 生成短ID，替代UUID4
-    avatar_id = get_avatar_id()
-
-    birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)  # 在出生年内随机选择月份
-    cultivation_progress = CultivationProgress(0)
-    pos_x = random.randint(0, world.map.width - 1)
-    pos_y = random.randint(0, world.map.height - 1)
-    gender = random.choice(list(Gender))
-
-    return Avatar(
-        world=world,
-        name=name,
-        id=avatar_id,
-        birth_month_stamp=MonthStamp(birth_month_stamp),
-        age=age,
-        gender=gender,
-        cultivation_progress=cultivation_progress,
-        pos_x=pos_x,
-        pos_y=pos_y,
-    )
+    

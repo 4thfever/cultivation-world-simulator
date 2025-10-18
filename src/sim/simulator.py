@@ -1,7 +1,8 @@
 import random
 
 from src.classes.calendar import Month, Year, MonthStamp
-from src.classes.avatar import Avatar, get_new_avatar_from_ordinary, Gender
+from src.classes.avatar import Avatar, Gender
+from src.sim.new_avatar import get_new_avatar_from_ordinary
 from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.classes.world import World

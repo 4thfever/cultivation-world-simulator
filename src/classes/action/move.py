@@ -19,6 +19,9 @@ class Move(DefineAction, ChunkActionMixin):
         world = self.world
         # 基于境界的移动步长：曼哈顿限制，优先斜向
         step = getattr(self.avatar, "move_step_length", 1)
+        # 附加移动步长加成
+        extra_raw = self.avatar.effects.get("extra_move_step", 0)
+        step += int(extra_raw or 0)
         clamped_dx, clamped_dy = clamp_manhattan_with_diagonal_priority(delta_x, delta_y, step)
 
         new_x = self.avatar.pos_x + clamped_dx
