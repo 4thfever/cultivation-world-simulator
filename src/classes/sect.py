@@ -45,7 +45,6 @@ class Sect:
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     # 功法：在technique.csv中配置
-    # TODO：法宝
     # TODO：宗内等级和称谓
 
     def get_info(self) -> str:

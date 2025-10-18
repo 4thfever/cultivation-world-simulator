@@ -133,7 +133,7 @@ class Avatar:
     def effects(self) -> dict[str, object]:
         merged: dict[str, object] = defaultdict(str)
         # 来自宗门
-        if self.sect is not None and getattr(self.sect, "effects", None):
+        if self.sect is not None:
             merged = _merge_effects(merged, self.sect.effects)
         # 来自功法
         merged = _merge_effects(merged, self.technique.effects)
@@ -142,7 +142,17 @@ class Avatar:
         # 来自法宝
         if self.treasure is not None:
             merged = _merge_effects(merged, self.treasure.effects)
-        return merged
+        # 评估动态效果表达式：值以 "eval(...)" 形式给出
+        evaluated: dict[str, object] = {}
+        for k, v in merged.items():
+            if isinstance(v, str):
+                s = v.strip()
+                if s.startswith("eval(") and s.endswith(")"):
+                    expr = s[5:-1]
+                    evaluated[k] = eval(expr, {"__builtins__": {}}, {"avatar": self})
+                    continue
+            evaluated[k] = v
+        return evaluated
 
 
     def __hash__(self) -> int:
@@ -157,6 +167,7 @@ class Avatar:
         magic_stone_info = str(self.magic_stone)
 
         if detailed:
+            treasure_info = self.treasure.get_detailed_info() if self.treasure is not None else "无"
             sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
             alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
             region_info = region.get_detailed_info() if region is not None else "无"
@@ -167,6 +178,7 @@ class Avatar:
             items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
             appearance_info = self.appearance.get_detailed_info(self.gender)
         else:
+            treasure_info = self.treasure.get_info() if self.treasure is not None else "无"
             # personas和sect一致返回detailed，因为这俩太重要了
             sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
             region_info = region.get_info() if region is not None else "无"
@@ -177,12 +189,6 @@ class Avatar:
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
             appearance_info = self.appearance.get_info()
-
-        # 法宝信息：detailed 使用 get_detailed_info；简略使用 get_info
-        if self.treasure is not None:
-            treasures_info = self.treasure.get_detailed_info() if detailed else self.treasure.get_info()
-        else:
-            treasures_info = "无"
 
         return {
             "id": self.id,
@@ -202,7 +208,7 @@ class Avatar:
             "个性": personas_info,
             "物品": items_info,
             "外貌": appearance_info,
-            "法宝": treasures_info,
+            "法宝": treasure_info,
         }
 
     def __str__(self) -> str:
@@ -485,55 +491,70 @@ class Avatar:
         """
         返回用于前端悬浮提示的多行信息。
         """
-        lines: list[str] = [
-            f"{self.name}",
-            f"性别: {self.gender}",
-            f"年龄: {self.age}",
-            f"外貌: {self.appearance.get_info()}",
-            f"阵营: {self.alignment}",
-            f"境界: {str(self.cultivation_progress)}",
-            f"HP: {self.hp}",
-            f"MP: {self.mp}",
-            f"战斗力: {int(get_base_strength(self))}",
-        ]
-        lines.append(f"宗门: {self.get_sect_str()}")
-        from src.classes.root import format_root_cn
-        lines.append(f"灵根: {format_root_cn(self.root)}")
-        if self.technique is not None:
-            lines.append(f"功法: {self.technique.name}（{self.technique.attribute}·{self.technique.grade.value}）")
-        else:
-            lines.append("功法: 无")
-        if self.personas:
-            lines.append(f"个性: {', '.join([persona.name for persona in self.personas])}")
-        lines.append(f"位置: ({self.pos_x}, {self.pos_y})")
-        lines.append(f"灵石: {str(self.magic_stone)}")
-        if self.items:
-            lines.append("物品:")
-            for item, quantity in self.items.items():
-                lines.append(f"  {item.name} x{quantity}")
-        else:
-            lines.append("")
-            lines.append("物品: 无")
-        if self.thinking:
-            lines.append("")
-            lines.append("思考:")
-            from src.utils.text_wrap import wrap_text
-            lines.extend(wrap_text(self.thinking, 28))
-        if getattr(self, "objective", None):
-            lines.append("")
-            lines.append("目标:")
-            from src.utils.text_wrap import wrap_text
-            lines.extend(wrap_text(self.objective, 28))
+        def add_kv(lines: list[str], key: str, value: object) -> None:
+            lines.append(f"{key}: {value}")
 
-        # 关系信息
-        lines.append("")
+        def add_section(lines: list[str], title: str, body: list[str]) -> None:
+            lines.append("")
+            lines.append(f"{title}:")
+            lines.extend(body)
+
+        lines: list[str] = []
+        # 基础信息
+        lines.append(f"{self.name}")
+        add_kv(lines, "性别", self.gender)
+        add_kv(lines, "年龄", self.age)
+        add_kv(lines, "外貌", self.appearance.get_info())
+        add_kv(lines, "阵营", self.alignment)
+        add_kv(lines, "境界", str(self.cultivation_progress))
+        add_kv(lines, "HP", self.hp)
+        add_kv(lines, "MP", self.mp)
+        add_kv(lines, "战斗力", int(get_base_strength(self)))
+        add_kv(lines, "宗门", self.get_sect_str())
+
+        from src.classes.root import format_root_cn
+        add_kv(lines, "灵根", format_root_cn(self.root))
+
+        if self.technique is not None:
+            tech_str = f"{self.technique.name}（{self.technique.attribute}·{self.technique.grade.value}）"
+        else:
+            tech_str = "无"
+        add_kv(lines, "功法", tech_str)
+
+        if self.personas:
+            add_kv(lines, "个性", ", ".join([p.name for p in self.personas]))
+
+        add_kv(lines, "位置", f"({self.pos_x}, {self.pos_y})")
+        add_kv(lines, "灵石", str(self.magic_stone))
+
+        # 物品
+        if self.items:
+            items_lines = [f"  {item.name} x{quantity}" for item, quantity in self.items.items()]
+            add_section(lines, "物品", items_lines)
+        else:
+            add_kv(lines, "物品", "无")
+
+        # 思考与目标
+        if self.thinking:
+            from src.utils.text_wrap import wrap_text
+            add_section(lines, "思考", wrap_text(self.thinking, 28))
+        if getattr(self, "objective", None):
+            from src.utils.text_wrap import wrap_text
+            add_section(lines, "目标", wrap_text(self.objective, 28))
+
+        # 法宝（仅名字）
+        if self.treasure is not None:
+            add_section(lines, "法宝", [self.treasure.get_info()])
+        else:
+            add_kv(lines, "法宝", "无")
+
+        # 关系
         relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(self, "relations", {}).items()]
         if relations_list:
-            lines.append("关系:")
-            for s in relations_list[:6]:
-                lines.append(f"  {s}")
+            add_section(lines, "关系", [f"  {s}" for s in relations_list[:6]])
         else:
-            lines.append("关系: 无")
+            add_kv(lines, "关系", "无")
+
         return lines
 
     def get_sect_str(self) -> str:

@@ -22,13 +22,16 @@ class Treasure:
     desc: str
     effects: dict[str, object] = field(default_factory=dict)
     sect: Optional[Sect] = None
+    # 万魂幡专用：吞噬魂魄计数（0~10000）
+    devoured_souls: int = 0
 
     def get_info(self) -> str:
-        return self.name
+        suffix = f"（吞噬魂魄：{self.devoured_souls}）" if self.name == "万魂幡" and self.devoured_souls > 0 else ""
+        return f"{self.name}{suffix}"
 
     def get_detailed_info(self) -> str:
-        sect_name = self.sect.name if self.sect is not None else "散修可用"
-        return f"{self.name}（宗门：{sect_name}）{self.desc}"
+        souls = f" 吞噬魂魄：{self.devoured_souls}" if self.name == "万魂幡" and self.devoured_souls > 0 else ""
+        return f"{self.name}（{self.desc}）{souls}"
 
 
 def _load_treasures() -> tuple[Dict[int, Treasure], Dict[str, Treasure], Dict[int, Treasure]]:
@@ -72,7 +75,3 @@ def _load_treasures() -> tuple[Dict[int, Treasure], Dict[str, Treasure], Dict[in
 
 
 treasures_by_id, treasures_by_name, treasures_by_sect_id = _load_treasures()
-
-
-for name, treasure in treasures_by_name.items():
-    print(name, treasure.sect.name)
