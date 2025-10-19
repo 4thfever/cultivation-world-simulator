@@ -11,6 +11,7 @@ from src.classes.ai import llm_ai, rule_ai
 from src.utils.names import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
+from src.classes.fortune import try_trigger_fortune
 
 class Simulator:
     def __init__(self, world: World):
@@ -109,13 +110,17 @@ class Simulator:
             events.append(event)
         return events
 
-    def _phase_update_time_effect(self):
+    def _phase_passive_effects(self):
         """
-        更新时间效果（如HP回复）。
+        被动结算阶段：
+        - 更新时间效果（如HP回复）
+        - 触发奇遇（非动作）
         """
         events = []
         for avatar in self.world.avatar_manager.avatars.values():
             avatar.update_time_effect()
+        for avatar in list(self.world.avatar_manager.avatars.values()):
+            events.extend(try_trigger_fortune(avatar))
         return events
 
     def _phase_log_events(self, events):
@@ -152,8 +157,8 @@ class Simulator:
         # 5. 年龄与新生
         events.extend(self._phase_update_age_and_birth())
 
-        # 6. 时间效果（如HP回复）
-        events.extend(self._phase_update_time_effect())
+        # 6. 被动结算（时间效果+奇遇）
+        events.extend(self._phase_passive_effects())
 
         # 7. 日志
         self._phase_log_events(events)

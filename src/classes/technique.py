@@ -174,6 +174,28 @@ def get_random_technique_for_avatar(avatar) -> Technique:
     return random.choices(candidates, weights=weights, k=1)[0]
 
 
+def get_random_upper_technique_for_avatar(avatar) -> Technique | None:
+    """
+    返回一个与 avatar 灵根/阵营/条件相容的上品功法；若无则返回 None。
+    仅用于奇遇奖励优先挑选上品功法。
+    """
+    import random
+    candidates: List[Technique] = []
+    for t in techniques_by_id.values():
+        if t.grade is not TechniqueGrade.UPPER:
+            continue
+        if not t.is_allowed_for(avatar):
+            continue
+        if t.attribute == TechniqueAttribute.EVIL and avatar.alignment != Alignment.EVIL:
+            continue
+        if not is_attribute_compatible_with_root(t.attribute, avatar.root):
+            continue
+        candidates.append(t)
+    if not candidates:
+        return None
+    weights = [max(0.0, t.weight) for t in candidates]
+    return random.choices(candidates, weights=weights, k=1)[0]
+
 def get_technique_by_sect(sect) -> Technique:
     """
     简化版：仅按宗门筛选并按权重抽样，不考虑灵根与 condition。
