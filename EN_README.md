@@ -70,7 +70,7 @@ If you like this project, consider starring it. You can also watch an intro vide
   - [ ] Attribute points allocation
   - [ ] Skill system (techniques)
   - [ ] Equipment system
-  - [ ] Artifacts system
+  - ✅ Artifacts
 - [ ] Skill learning
   - [ ] Learnable skills
   - [ ] Personal techniques (flexible integration)
@@ -150,7 +150,7 @@ If you like this project, consider starring it. You can also watch an intro vide
 - [ ] Ancient history generation
 
 ### Specials
-- [ ] Fortuitous encounters
+- ✅ Fortuitous encounters
 - [ ] Paths/Daos
 - [ ] Possession & Rebirth
 - [ ] Formations

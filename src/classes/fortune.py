@@ -107,10 +107,10 @@ def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         avatar.technique = tech
         res_text = f"{avatar.name} 得到上品功法『{tech.name}』"
 
-    # 生成故事（仅给出主旨，留白由LLM发挥）
+    # 生成故事
     event_text = f"{avatar.name} 遭遇奇遇（{theme}）"
     story_prompt = (
-        f"主旨：{theme}。请据此自由发挥，写不超过120字的小故事，收束于获得之物。"
+        f"主旨：{theme}。请据此写100~150字小故事。"
     )
     story = StoryTeller.tell_from_actors(event_text, res_text, avatar, prompt=story_prompt)
 
