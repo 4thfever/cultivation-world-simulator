@@ -1,3 +1,9 @@
+<!-- 语言 / Language -->
+<p align="center">
+  <a href="README.md">🇨🇳 中文</a> · <a href="EN_README.md">🇺🇸 English</a>
+</p>
+<p align="center">— ✦ —</p>
+
 # 修仙世界模拟器 (Cultivation World Simulator)
 
 一个基于规则和AI驱动的修仙世界模拟器，旨在创造一个真正活着的、有沉浸感的仙侠世界。
