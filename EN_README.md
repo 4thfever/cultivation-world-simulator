@@ -63,14 +63,14 @@ If you like this project, consider starring it. You can also watch an intro vide
 - ✅ Breakthrough system
 - ✅ Relationships
 - ✅ Perception radius
+- ✅ Buff system: buffs/debuffs
+- ✅ Artifacts
 - [ ] Special abilities
 - [ ] Epithets/nicknames
-- [ ] Buff system: buffs/debuffs, state mgmt
 - [ ] Combat-related
   - [ ] Attribute points allocation
   - [ ] Skill system (techniques)
   - [ ] Equipment system
-  - ✅ Artifacts
 - [ ] Skill learning
   - [ ] Learnable skills
   - [ ] Personal techniques (flexible integration)
@@ -82,7 +82,7 @@ If you like this project, consider starring it. You can also watch an intro vide
 - [ ] Sect system
   - ✅ Settings, techniques, healing, base, styles
   - ✅ Special sect action: Hehuan Sect (dual cultivation)
-  - [ ] Sect artifacts, sect will AI, tasks, recruiting
+  - [ ] sect will AI, tasks, recruiting
   - [ ] Sect tiers: different titles, abilities, actions
 - [ ] Clans
 - [ ] Court/Empire (TBD)
