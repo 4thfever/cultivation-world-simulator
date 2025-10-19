@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.region import Region
+from src.classes.sect import sects_by_name
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -62,6 +63,15 @@ class MoveToRegion(DefineAction, ActualActionMixin):
             if len(candidates) == 1:
                 return by_name[candidates[0]]
 
+            # 4) 兜底：若传入为宗门名，则解析为其总部区域
+            sect = sects_by_name.get(region_name) or (sects_by_name.get(normalized) if normalized and normalized != region_name else None)
+            if sect is not None:
+                # 若区域名表未命中，尝试在已注册的宗门总部区域中按 sect_name 匹配（唯一时返回）
+                sect_regions = getattr(self.world.map, "sect_regions", {}) or {}
+                matched = [r for r in sect_regions.values() if getattr(r, "sect_name", None) == sect.name]
+                if len(matched) == 1:
+                    return matched[0]
+
             # 失败：抛出明确错误提示
             if candidates:
                 sample = ", ".join(candidates[:5])
@@ -88,7 +98,13 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: Region | str | None = None) -> bool:
-        return True
+        if region is None:
+            return False
+        try:
+            self._resolve_region(region)
+            return True
+        except (ValueError, TypeError):
+            return False
 
     def start(self, region: Region | str) -> Event:
         r = self._resolve_region(region)
