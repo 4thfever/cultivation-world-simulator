@@ -38,6 +38,8 @@ class StoryTeller:
         """
         infos: Dict[str, dict] = {}
         for av in avatars:
+            if av is None:
+                continue
             infos[av.name] = av.get_info(detailed=True)
         return infos
 
@@ -56,9 +58,25 @@ class StoryTeller:
             "style": random.choice(story_styles),
             "story_prompt": STORY_PROMPT or "",
         }
-        data = get_prompt_and_call_llm(template_path, infos, mode="fast")
-        story = data["story"].strip()
-        return story
+        try:
+            data = get_prompt_and_call_llm(template_path, infos, mode="fast")
+            story = data.get("story", "").strip()
+            if story:
+                return story
+        except Exception:
+            # 避免过度 try/catch，仅在外部依赖失败时提供降级
+            pass
+        # 降级文案（不中断主流程）
+        style = infos.get("style", "")
+        return f"{event}。{res}。{style}"
+
+    @staticmethod
+    def tell_from_actors(event: str, res: str, *actors: "Avatar", prompt: str | None = None) -> str:
+        """
+        便捷方法：直接从参与者对象生成 avatar_infos 并讲述故事。
+        """
+        avatar_infos = StoryTeller.build_avatar_infos(*actors)
+        return StoryTeller.tell_story(avatar_infos, event, res, prompt or "")
 
 
 __all__ = ["StoryTeller"]

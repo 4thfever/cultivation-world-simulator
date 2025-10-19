@@ -57,11 +57,10 @@ class Battle(InstantAction):
         result_text = f"{winner} 战胜了 {loser}，{loser} 受伤{loser_damage}点，{winner} 也受伤{winner_damage}点"
         result_event = Event(self.world.month_stamp, result_text)
 
-        # 生成战斗小故事：直接复用已生成的事件文本
+        # 生成战斗小故事：使用便捷方法从参与者直接生成
         target = self._get_target(avatar_name)
-        avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
         start_text = getattr(self, "_start_event_content", "") or result_event.content
-        story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content, self.STORY_PROMPT)
+        story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
         story_event = Event(self.world.month_stamp, story)
         return [result_event, story_event]
 

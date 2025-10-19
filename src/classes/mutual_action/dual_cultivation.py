@@ -105,10 +105,9 @@ class DualCultivation(MutualAction):
             result_event = Event(self.world.month_stamp, result_text)
             events.append(result_event)
 
-            # 生成恋爱/双修小故事：使用通用故事模板
-            avatar_infos = StoryTeller.build_avatar_infos(self.avatar, target)
+            # 生成恋爱/双修小故事：使用 StoryTeller 便捷方法
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_story(avatar_infos, start_text, result_event.content, self.STORY_PROMPT)
+            story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
             story_event = Event(self.world.month_stamp, story)
             events.append(story_event)
         else:

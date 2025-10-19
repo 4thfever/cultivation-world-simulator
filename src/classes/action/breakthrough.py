@@ -140,13 +140,9 @@ class Breakthrough(TimedAction):
 
         if True:
             # 故事参与者：本体 +（可选）相关角色
-            if getattr(self, "_calamity_other", None) is not None:
-                avatar_infos = StoryTeller.build_avatar_infos(self.avatar, self._calamity_other)
-            else:
-                avatar_infos = StoryTeller.build_avatar_infos(self.avatar)
             desc = CALAMITY_DESCRIPTIONS.get(str(calamity), "")
             prompt = (STORY_PROMPT_BASE.format(calamity=str(calamity)) + (" " + desc if desc else "")).strip()
-            story = StoryTeller.tell_story(avatar_infos, core_text, ("突破成功" if result_ok else "突破失败"), prompt)
+            story = StoryTeller.tell_from_actors(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, getattr(self, "_calamity_other", None), prompt=prompt)
             events.append(Event(self.world.month_stamp, story))
         return events
 
