@@ -6,11 +6,11 @@
 
 # Cultivation World Simulator
 
-An AI-augmented, rules-driven cultivation world simulator aimed at creating a truly living and immersive xianxia world.
+An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.
 
 ## Overview
 
-Cultivation World Simulator combines traditional deterministic rule systems with modern AI. It models terrains, characters, cultivation system, relationships, and more, to form an autonomous, vibrant virtual world.
+Cultivation World Simulator combines traditional game-rule systems with large language models. By first establishing a complete ruleset for the cultivation world, it creates an autonomous, vibrant, immersive virtual world with emergent stories.
 
 Core idea: **Build a credible rule-based world model first, then plug in AI to bring it to life.**
 
