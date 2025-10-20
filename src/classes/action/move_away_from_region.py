@@ -36,7 +36,7 @@ class MoveAwayFromRegion(InstantAction):
         return True
 
     def start(self, region: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {region}")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {region}", related_avatars=[self.avatar.id])
 
     # InstantAction 已实现 step 完成
 

@@ -53,13 +53,13 @@ class SelfHeal(TimedAction):
         region_name = getattr(region, "name", "宗门总部")
         # 重置累计量
         self._healed_total = 0
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region_name} 开始静养疗伤")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region_name} 开始静养疗伤", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     def finish(self) -> list[Event]:
         healed_total = int(getattr(self, "_healed_total", 0))
         # 统一用一次事件简要反馈
-        return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成，HP已回满（本次恢复{healed_total}点，当前HP {self.avatar.hp}）")]
+        return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成，HP已回满（本次恢复{healed_total}点，当前HP {self.avatar.hp}）", related_avatars=[self.avatar.id])]
 
 

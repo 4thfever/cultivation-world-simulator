@@ -2,6 +2,7 @@
 event class
 """
 from dataclasses import dataclass
+from typing import List, Optional
 
 from src.classes.calendar import Month, Year, MonthStamp
 
@@ -9,6 +10,8 @@ from src.classes.calendar import Month, Year, MonthStamp
 class Event:
     month_stamp: MonthStamp
     content: str
+    # 相关角色ID列表；若与任何角色无关则为 None
+    related_avatars: Optional[List[str]] = None
 
     def __str__(self) -> str:
         year = self.month_stamp.get_year()

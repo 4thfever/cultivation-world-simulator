@@ -50,7 +50,14 @@ class MoveAwayFromAvatar(TimedAction):
                 target_name = t.name
         except Exception:
             pass
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始远离 {target_name}")
+        rel_ids = [self.avatar.id]
+        try:
+            t = self._find_avatar_by_name(avatar_name)
+            if t is not None:
+                rel_ids.append(t.id)
+        except Exception:
+            pass
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始远离 {target_name}", related_avatars=rel_ids)
 
     # TimedAction 已统一 step 逻辑
 

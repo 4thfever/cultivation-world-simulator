@@ -43,7 +43,10 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)
         target_name = target.name if target is not None else avatar_name
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}")
+        rel_ids = [self.avatar.id]
+        if target is not None:
+            rel_ids.append(target.id)
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}", related_avatars=rel_ids)
 
     def step(self, avatar_name: str) -> ActionResult:
         self.execute(avatar_name=avatar_name)

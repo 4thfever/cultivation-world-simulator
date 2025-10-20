@@ -63,7 +63,10 @@ class Conversation(MutualAction):
     def start(self, target_avatar: "Avatar|str", **kwargs) -> Event:
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target_name} 开始交谈")
+        rel_ids = [self.avatar.id]
+        if target is not None:
+            rel_ids.append(target.id)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target_name} 开始交谈", related_avatars=rel_ids)
         # 写入历史即可，内容事件稍后生成
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
@@ -89,7 +92,7 @@ class Conversation(MutualAction):
         # 仅当明确接受时才记录对话与关系；其余一律视为拒绝
         if fb == "Talk":
             if talk_content:
-                content_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的交谈：{talk_content}")
+                content_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的交谈：{talk_content}", related_avatars=[self.avatar.id, target.id])
                 # 进入侧栏一次，并写入双方历史
                 EventHelper.push_pair(content_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 
@@ -97,12 +100,12 @@ class Conversation(MutualAction):
                 rel = Relation.from_chinese(into_relation_str)
                 if rel is not None:
                     self.avatar.set_relation(target, rel)
-                    set_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的关系变为：{relation_display_names.get(rel, str(rel))}")
+                    set_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", related_avatars=[self.avatar.id, target.id])
                     EventHelper.push_pair(set_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 
             return ActionResult(status=ActionStatus.COMPLETED, events=[])
         else:
-            feedback_event = Event(self.world.month_stamp, f"{target.name} 拒绝与 {self.avatar.name} 交谈")
+            feedback_event = Event(self.world.month_stamp, f"{target.name} 拒绝与 {self.avatar.name} 交谈", related_avatars=[self.avatar.id, target.id])
             EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target, to_sidebar_once=True)
             return ActionResult(status=ActionStatus.COMPLETED, events=[])
 

@@ -77,6 +77,10 @@ class Front:
         self._avatar_display_states: Dict[str, Dict[str, float]] = {}
         self._init_avatar_display_states()
 
+        # 侧栏筛选状态：None 表示所有人；否则为 avatar_id
+        self._sidebar_filter_avatar_id: Optional[str] = None
+        self._sidebar_filter_open: bool = False
+
     def add_events(self, new_events: List[Event]):
         self.events.extend(new_events)
         if len(self.events) > 1000:
@@ -108,6 +112,8 @@ class Front:
                     elif event.key == pygame.K_SPACE:
                         if current_step_task is None or current_step_task.done():
                             current_step_task = asyncio.create_task(self._step_once_async())
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self._handle_mouse_click()
             if self._auto_step and self._last_step_ms >= self.step_interval_ms:
                 if current_step_task is None or current_step_task.done():
                     current_step_task = asyncio.create_task(self._step_once_async())
@@ -162,16 +168,56 @@ class Front:
         )
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
         draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, self._auto_step)
-        draw_sidebar(
-            pygame, self.screen, self.colors, self.sidebar_font, self.events,
+
+        # 计算筛选后的事件
+        if self._sidebar_filter_avatar_id is None:
+            events_to_draw: List[Event] = self.events
+        else:
+            aid = self._sidebar_filter_avatar_id
+            events_to_draw = [e for e in self.events if getattr(e, "related_avatars", None) and (aid in e.related_avatars)]
+
+        # 构造下拉选项（第一个是所有人；其余为当前世界中的角色）
+        options: List[tuple[str, Optional[str]]] = [("所有人", None)]
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
+            options.append((avatar.name, avatar_id))
+        sel_label = "所有人"
+        if self._sidebar_filter_avatar_id is not None:
+            sel_avatar = self.world.avatar_manager.avatars.get(self._sidebar_filter_avatar_id)
+            if sel_avatar is not None:
+                sel_label = sel_avatar.name
+
+        sidebar_ui = draw_sidebar(
+            pygame, self.screen, self.colors, self.sidebar_font, events_to_draw,
             self.world.map, self.tile_size, self.margin, self.sidebar_width,
+            filter_selected_label=sel_label,
+            filter_is_open=self._sidebar_filter_open,
+            filter_options=options,
         )
+        # 保存供点击检测
+        self._sidebar_ui = sidebar_ui
         if hovered_avatar is not None:
             draw_tooltip_for_avatar(pygame, self.screen, self.colors, self.tooltip_font, hovered_avatar)
         elif hovered_region is not None:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             draw_tooltip_for_region(pygame, self.screen, self.colors, self.tooltip_font, hovered_region, mouse_x, mouse_y)
         pygame.display.flip()
+
+    def _handle_mouse_click(self) -> None:
+        # 仅处理侧栏筛选点击
+        pygame = self.pygame
+        mouse_pos = pygame.mouse.get_pos()
+        ui = getattr(self, "_sidebar_ui", {}) or {}
+        toggle_rect = ui.get("filter_toggle_rect")
+        option_rects = ui.get("filter_option_rects") or []
+        if toggle_rect and toggle_rect.collidepoint(mouse_pos):
+            self._sidebar_filter_open = not self._sidebar_filter_open
+            return
+        if self._sidebar_filter_open:
+            for oid, rect in option_rects:
+                if rect.collidepoint(mouse_pos):
+                    self._sidebar_filter_avatar_id = oid if oid is not None else None
+                    self._sidebar_filter_open = False
+                    return
 
     def _get_region_font(self, size: int):
         return _get_region_font_cached(self.pygame, self._region_font_cache, size, self.font_path)

@@ -63,7 +63,7 @@ class Harvest(TimedAction):
 
     def start(self) -> Event:
         region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始采集", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

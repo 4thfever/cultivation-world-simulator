@@ -134,7 +134,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         self._settle_feedback(target_avatar, feedback)
         # 3) 反馈事件（进入侧边栏与双方历史，中文化文案）
         fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
-        feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}")
+        feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target_avatar.id])
         # 侧边栏仅推送一次，另一侧仅写入历史，避免重复
         EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target_avatar, to_sidebar_once=True)
         # 4) 记录历史（文本记录）
@@ -160,7 +160,10 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         action_name = getattr(self, 'ACTION_NAME', self.name)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}")
+        rel_ids = [self.avatar.id]
+        if target is not None:
+            rel_ids.append(target.id)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids)
         # 仅写入历史，避免与提交阶段重复推送到侧边栏
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:

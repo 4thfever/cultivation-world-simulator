@@ -28,7 +28,7 @@ class DevourMortals(TimedAction):
         return "DevourMortals" in legal
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始吞噬凡人")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始吞噬凡人", related_avatars=[self.avatar.id])
 
     def finish(self) -> list[Event]:
         return []

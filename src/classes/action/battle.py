@@ -41,7 +41,13 @@ class Battle(InstantAction):
         target_name = target.name if target is not None else avatar_name
         # 展示双方折算战斗力（基于对手、含克制）
         s_att, s_def = get_effective_strength_pair(self.avatar, target)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）")
+        rel_ids = [self.avatar.id]
+        if target is not None:
+            try:
+                rel_ids.append(target.id)
+            except Exception:
+                pass
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）", related_avatars=rel_ids)
         # 记录开始事件内容，供故事生成使用
         self._start_event_content = event.content
         return event
@@ -55,13 +61,20 @@ class Battle(InstantAction):
         winner, loser = res[0], res[1]
         loser_damage, winner_damage = res[2], res[3]
         result_text = f"{winner} 战胜了 {loser}，{loser} 受伤{loser_damage}点，{winner} 也受伤{winner_damage}点"
-        result_event = Event(self.world.month_stamp, result_text)
+        rel_ids = [self.avatar.id]
+        try:
+            t = self._get_target(avatar_name)
+            if t is not None:
+                rel_ids.append(t.id)
+        except Exception:
+            pass
+        result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids)
 
         # 生成战斗小故事：使用便捷方法从参与者直接生成
         target = self._get_target(avatar_name)
         start_text = getattr(self, "_start_event_content", "") or result_event.content
         story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
-        story_event = Event(self.world.month_stamp, story)
+        story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids)
         return [result_event, story_event]
 
 

@@ -33,7 +33,7 @@ class PlunderMortals(TimedAction):
         return self.avatar.alignment == Alignment.EVIL
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始搜刮凡人")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始搜刮凡人", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

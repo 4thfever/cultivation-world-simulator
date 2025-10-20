@@ -51,7 +51,10 @@ class DualCultivation(MutualAction):
     def start(self, target_avatar: "Avatar|str") -> Event:
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修")
+        rel_ids = [self.avatar.id]
+        if target is not None:
+            rel_ids.append(target.id)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修", related_avatars=rel_ids)
         # 仅写入历史
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
@@ -102,17 +105,17 @@ class DualCultivation(MutualAction):
         if success:
             gain = int(self._dual_exp_gain)
             result_text = f"{self.avatar.name} 与 {target.name} 成功双修，{self.avatar.name} 获得修为经验 +{gain} 点"
-            result_event = Event(self.world.month_stamp, result_text)
+            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id])
             events.append(result_event)
 
             # 生成恋爱/双修小故事：使用 StoryTeller 便捷方法
             start_text = self._start_event_content or result_event.content
             story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
-            story_event = Event(self.world.month_stamp, story)
+            story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id])
             events.append(story_event)
         else:
             result_text = f"{target.name} 拒绝了与 {self.avatar.name} 的双修"
-            result_event = Event(self.world.month_stamp, result_text)
+            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id])
             events.append(result_event)
 
         return events

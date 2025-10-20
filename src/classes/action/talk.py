@@ -33,7 +33,7 @@ class Talk(InstantAction):
     def start(self) -> Event:
         self.observed_others = self._get_observed_others()
         # 记录开始事件
-        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与感知范围内的他人攀谈")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与感知范围内的他人攀谈", related_avatars=[self.avatar.id])
 
     def step(self) -> ActionResult:
         import random

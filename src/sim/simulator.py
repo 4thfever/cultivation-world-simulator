@@ -83,11 +83,11 @@ class Simulator:
         for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
             if avatar.hp <= 0:
                 death_avatar_ids.append(avatar_id)
-                event = Event(self.world.month_stamp, f"{avatar.name} 因重伤身亡")
+                event = Event(self.world.month_stamp, f"{avatar.name} 因重伤身亡", related_avatars=[avatar.id])
                 events.append(event)
             if avatar.death_by_old_age():
                 death_avatar_ids.append(avatar_id)
-                event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁")
+                event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁", related_avatars=[avatar.id])
                 events.append(event)
         if death_avatar_ids:
             self.world.avatar_manager.remove_avatars(death_avatar_ids)
@@ -106,7 +106,7 @@ class Simulator:
             name = get_random_name(gender)
             new_avatar = get_new_avatar_from_ordinary(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
             self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
-            event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。")
+            event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。", related_avatars=[new_avatar.id])
             events.append(event)
         return events
 

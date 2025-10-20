@@ -109,7 +109,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     def start(self, region: Region | str) -> Event:
         r = self._resolve_region(region)
         region_name = r.name  # 仅使用规范化后的区域名
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}", related_avatars=[self.avatar.id])
 
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)

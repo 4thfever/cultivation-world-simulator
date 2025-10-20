@@ -58,7 +58,7 @@ class Cultivate(TimedAction):
         return True
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

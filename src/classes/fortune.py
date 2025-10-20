@@ -115,8 +115,8 @@ def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     story = StoryTeller.tell_from_actors(event_text, res_text, avatar, prompt=story_prompt)
 
     events: list[Event] = [
-        Event(avatar.world.month_stamp, event_text),
-        Event(avatar.world.month_stamp, story),
+        Event(avatar.world.month_stamp, event_text, related_avatars=[avatar.id]),
+        Event(avatar.world.month_stamp, story, related_avatars=[avatar.id]),
     ]
     return events
 

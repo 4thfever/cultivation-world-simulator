@@ -120,7 +120,7 @@ class Breakthrough(TimedAction):
         else:
             self._calamity = None
             self._calamity_other = None
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
@@ -132,18 +132,25 @@ class Breakthrough(TimedAction):
         if not getattr(self, "_gen_story", False):
             # 不生成故事：不出现劫难，仅简单结果
             core_text = f"{self.avatar.name} 突破{'成功' if result_ok else '失败'}"
-            return [Event(self.world.month_stamp, core_text)]
+            return [Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id])]
 
         calamity = getattr(self, "_calamity", "劫难")
         core_text = f"{self.avatar.name} 遭遇了{calamity}劫难，突破{'成功' if result_ok else '失败'}"
-        events: list[Event] = [Event(self.world.month_stamp, core_text)]
+        rel_ids = [self.avatar.id]
+        other = getattr(self, "_calamity_other", None)
+        if other is not None:
+            try:
+                rel_ids.append(other.id)
+            except Exception:
+                pass
+        events: list[Event] = [Event(self.world.month_stamp, core_text, related_avatars=rel_ids)]
 
         if True:
             # 故事参与者：本体 +（可选）相关角色
             desc = CALAMITY_DESCRIPTIONS.get(str(calamity), "")
             prompt = (STORY_PROMPT_BASE.format(calamity=str(calamity)) + (" " + desc if desc else "")).strip()
             story = StoryTeller.tell_from_actors(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, getattr(self, "_calamity_other", None), prompt=prompt)
-            events.append(Event(self.world.month_stamp, story))
+            events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids))
         return events
 
     # ——— 内部：劫难选择与关联角色 ———
