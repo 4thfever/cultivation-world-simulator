@@ -81,7 +81,7 @@ If you like this project, consider starring it. You can also watch an intro vide
 ### 🏛️ Organizations
 - [ ] Sect system
   - ✅ Settings, techniques, healing, base, styles
-  - ✅ Special sect action: Hehuan Sect (dual cultivation)
+  - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (catch spirit animal)
   - [ ] sect will AI, tasks, recruiting
   - [ ] Sect tiers: different titles, abilities, actions
 - [ ] Clans

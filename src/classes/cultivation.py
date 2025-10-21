@@ -36,10 +36,31 @@ class Realm(Enum):
         return REALM_RANK[self] >= REALM_RANK[other]
         
 
+@total_ordering
 class Stage(Enum):
     Early_Stage = "前期"
     Middle_Stage = "中期"
     Late_Stage = "后期"
+
+    def __lt__(self, other):
+        if not isinstance(other, Stage):
+            return NotImplemented
+        return STAGE_RANK[self] < STAGE_RANK[other]
+
+    def __le__(self, other):
+        if not isinstance(other, Stage):
+            return NotImplemented
+        return STAGE_RANK[self] <= STAGE_RANK[other]
+
+    def __gt__(self, other):
+        if not isinstance(other, Stage):
+            return NotImplemented
+        return STAGE_RANK[self] > STAGE_RANK[other]
+
+    def __ge__(self, other):
+        if not isinstance(other, Stage):
+            return NotImplemented
+        return STAGE_RANK[self] >= STAGE_RANK[other]
 
 # 统一的境界顺序与排名，避免重复定义
 REALM_ORDER: tuple[Realm, ...] = (
@@ -49,6 +70,14 @@ REALM_ORDER: tuple[Realm, ...] = (
     Realm.Nascent_Soul,
 )
 REALM_RANK: dict[Realm, int] = {realm: idx for idx, realm in enumerate(REALM_ORDER)}
+
+# 统一的阶段顺序与排名，避免重复定义
+STAGE_ORDER: tuple[Stage, ...] = (
+    Stage.Early_Stage,
+    Stage.Middle_Stage,
+    Stage.Late_Stage,
+)
+STAGE_RANK: dict[Stage, int] = {stage: idx for idx, stage in enumerate(STAGE_ORDER)}
 
 LEVELS_PER_REALM = 30
 LEVELS_PER_STAGE = 10
@@ -90,12 +119,7 @@ class CultivationProgress:
         if level <= 0:
             return Stage.Early_Stage
         stage_index = ((level - 1) % LEVELS_PER_REALM) // LEVELS_PER_STAGE
-        order: tuple[Stage, ...] = (
-            Stage.Early_Stage,
-            Stage.Middle_Stage,
-            Stage.Late_Stage,
-        )
-        return order[min(stage_index, len(order) - 1)]
+        return STAGE_ORDER[min(stage_index, len(STAGE_ORDER) - 1)]
 
     def get_move_step(self) -> int:
         """
