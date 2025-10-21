@@ -29,11 +29,6 @@ class Catch(TimedAction):
 
     duration_months = 4
 
-    def _get_available_animals(self) -> list[Animal]:
-        region = self.avatar.tile.region
-        avatar_realm = self.avatar.cultivation_progress.realm
-        return [animal for animal in getattr(region, "animals", []) if avatar_realm >= animal.realm]
-
     def _calc_success_rate_by_realm(self, animal_realm: Realm) -> float:
         mapping: dict[Realm, float] = {
             Realm.Qi_Refinement: 0.8,
@@ -44,7 +39,8 @@ class Catch(TimedAction):
         return mapping.get(animal_realm, 0.1)
 
     def _execute(self) -> None:
-        animals = self._get_available_animals()
+        region = self.avatar.tile.region
+        animals = region.animals
         if not animals:
             return
         target = random.choice(animals)
@@ -63,8 +59,13 @@ class Catch(TimedAction):
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False, "当前不在普通区域"
-        if len(self._get_available_animals()) == 0:
-            return False, "当前区域无可御兽的动物或其境界过高"
+        animals = region.animals
+        if len(animals) == 0:
+            return False, "当前区域没有动物"
+        # 动物境界是否可御
+        available_animals = [animal for animal in animals if self.avatar.cultivation_progress.realm >= animal.realm]
+        if len(available_animals) == 0:
+            return False, "当前区域的动物境界于角色境界"
         return True, ""
 
     def start(self) -> Event:

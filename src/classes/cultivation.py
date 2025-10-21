@@ -10,32 +10,45 @@ class Realm(Enum):
 
     @classmethod
     def from_id(cls, realm_id: int) -> "Realm":
-        order: tuple[Realm, ...] = (
-            cls.Qi_Refinement,
-            cls.Foundation_Establishment,
-            cls.Core_Formation,
-            cls.Nascent_Soul,
-        )
         index = realm_id - 1
-        if index < 0 or index >= len(order):
+        if index < 0 or index >= len(REALM_ORDER):
             raise ValueError(f"Unknown realm_id: {realm_id}")
-        return order[index]
+        return REALM_ORDER[index]
 
     def __lt__(self, other):
         if not isinstance(other, Realm):
             return NotImplemented
-        order: tuple[Realm, ...] = (
-            Realm.Qi_Refinement,
-            Realm.Foundation_Establishment,
-            Realm.Core_Formation,
-            Realm.Nascent_Soul,
-        )
-        return order.index(self) < order.index(other)
+        return REALM_RANK[self] < REALM_RANK[other]
+
+    def __le__(self, other):
+        if not isinstance(other, Realm):
+            return NotImplemented
+        return REALM_RANK[self] <= REALM_RANK[other]
+
+    def __gt__(self, other):
+        if not isinstance(other, Realm):
+            return NotImplemented
+        return REALM_RANK[self] > REALM_RANK[other]
+
+    def __ge__(self, other):
+        if not isinstance(other, Realm):
+            return NotImplemented
+        return REALM_RANK[self] >= REALM_RANK[other]
+        
 
 class Stage(Enum):
     Early_Stage = "前期"
     Middle_Stage = "中期"
     Late_Stage = "后期"
+
+# 统一的境界顺序与排名，避免重复定义
+REALM_ORDER: tuple[Realm, ...] = (
+    Realm.Qi_Refinement,
+    Realm.Foundation_Establishment,
+    Realm.Core_Formation,
+    Realm.Nascent_Soul,
+)
+REALM_RANK: dict[Realm, int] = {realm: idx for idx, realm in enumerate(REALM_ORDER)}
 
 LEVELS_PER_REALM = 30
 LEVELS_PER_STAGE = 10
@@ -70,13 +83,7 @@ class CultivationProgress:
         if level <= 0:
             return Realm.Qi_Refinement
         realm_index = (level - 1) // LEVELS_PER_REALM  # 0-based index
-        order: tuple[Realm, ...] = (
-            Realm.Qi_Refinement,
-            Realm.Foundation_Establishment,
-            Realm.Core_Formation,
-            Realm.Nascent_Soul,
-        )
-        return order[min(realm_index, len(order) - 1)]
+        return REALM_ORDER[min(realm_index, len(REALM_ORDER) - 1)]
 
     def get_stage(self, level: int) -> Stage:
         """获取阶段（算术推导：1-10前期，11-20中期，21-30后期）"""

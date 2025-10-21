@@ -4,10 +4,6 @@ import random
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import NormalRegion
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from src.classes.plant import Plant
 
 
 class Harvest(TimedAction):
@@ -20,45 +16,43 @@ class Harvest(TimedAction):
     DOABLES_REQUIREMENTS = "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
     PARAMS = {}
 
-    def get_available_plants(self) -> list[Plant]:
-        """
-        获取avatar境界足够的植物
-        """
-        region = self.avatar.tile.region
-        avatar_realm = self.avatar.cultivation_progress.realm
-        return [plant for plant in region.plants if avatar_realm >= plant.realm]
-
     duration_months = 6
 
     def _execute(self) -> None:
         """
         执行采集动作
         """
-        success_rate = self.get_success_rate()
-        available_plants = self.get_available_plants()
+        region = self.avatar.tile.region
+        plants = getattr(region, "plants", [])
+        if len(plants) == 0:
+            return
+        available_plants = [
+            plant for plant in plants
+            if self.avatar.cultivation_progress.realm >= plant.realm
+        ]
         if len(available_plants) == 0:
             return
 
-        if random.random() < success_rate:
-            # 成功采集，从avatar境界足够的植物中随机选择一种
+        # 目前固定100%成功率
+        if random.random() < 1.0:
             target_plant = random.choice(available_plants)
             # 随机选择该植物的一种物品
             item = random.choice(target_plant.items)
             self.avatar.add_item(item, 1)
 
-    def get_success_rate(self) -> float:
-        """
-        获取采集成功率，预留接口，目前固定为100%
-        """
-        return 1.0  # 100%成功率
-
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False, "当前不在普通区域"
-        avaliable_plants = self.get_available_plants()
-        if len(avaliable_plants) == 0:
-            return False, "当前区域无可采集的植物或其境界过高"
+        plants = getattr(region, "plants", [])
+        if len(plants) == 0:
+            return False, "当前区域没有植物"
+        available_plants = [
+            plant for plant in plants
+            if self.avatar.cultivation_progress.realm >= plant.realm
+        ]
+        if len(available_plants) == 0:
+            return False, "当前区域的植物境界过高"
         return True, ""
 
     def start(self) -> Event:

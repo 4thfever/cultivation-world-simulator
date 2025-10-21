@@ -4,10 +4,6 @@ import random
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import NormalRegion
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from src.classes.animal import Animal
 
 
 class Hunt(TimedAction):
@@ -20,45 +16,43 @@ class Hunt(TimedAction):
     DOABLES_REQUIREMENTS = "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
     PARAMS = {}
 
-    def get_available_animals(self) -> list[Animal]:
-        """
-        获取avatar境界足够的动物
-        """
-        region = self.avatar.tile.region
-        avatar_realm = self.avatar.cultivation_progress.realm
-        return [animal for animal in region.animals if avatar_realm >= animal.realm]
-
     duration_months = 6
 
     def _execute(self) -> None:
         """
         执行狩猎动作
         """
-        success_rate = self.get_success_rate()
-        available_animals = self.get_available_animals()
+        region = self.avatar.tile.region
+        animals = getattr(region, "animals", [])
+        if len(animals) == 0:
+            return
+        available_animals = [
+            animal for animal in animals
+            if self.avatar.cultivation_progress.realm >= animal.realm
+        ]
         if len(available_animals) == 0:
             return
 
-        if random.random() < success_rate:
-            # 成功狩猎，从avatar境界足够的动物中随机选择一种
+        # 目前固定100%成功率
+        if random.random() < 1.0:
             target_animal = random.choice(available_animals)
             # 随机选择该动物的一种物品
             item = random.choice(target_animal.items)
             self.avatar.add_item(item, 1)
 
-    def get_success_rate(self) -> float:
-        """
-        获取狩猎成功率，预留接口，目前固定为100%
-        """
-        return 1.0  # 100%成功率
-
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False, "当前不在普通区域"
-        available_animals = self.get_available_animals()
+        animals = getattr(region, "animals", [])
+        if len(animals) == 0:
+            return False, "当前区域没有动物"
+        available_animals = [
+            animal for animal in animals
+            if self.avatar.cultivation_progress.realm >= animal.realm
+        ]
         if len(available_animals) == 0:
-            return False, "当前区域无可狩猎的动物或其境界过高"
+            return False, "当前区域的动物境界过高"
         return True, ""
 
     def start(self) -> Event:
