@@ -35,6 +35,7 @@ from src.utils.params import filter_kwargs_for_callable
 from src.classes.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.battle import get_base_strength
+from src.classes.spirit_animal import SpiritAnimal
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -91,6 +92,8 @@ class Avatar:
     appearance: Appearance = field(default_factory=get_random_appearance)
     # 装备的法宝（仅一个）
     treasure: Optional[Treasure] = None
+    # 灵兽：最多一个；若再次捕捉则覆盖
+    spirit_animal: Optional[SpiritAnimal] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 不缓存 effects；实时从宗门与功法合并
@@ -142,6 +145,9 @@ class Avatar:
         # 来自法宝
         if self.treasure is not None:
             merged = _merge_effects(merged, self.treasure.effects)
+        # 来自灵兽
+        if self.spirit_animal is not None:
+            merged = _merge_effects(merged, self.spirit_animal.effects)
         # 评估动态效果表达式：值以 "eval(...)" 形式给出
         evaluated: dict[str, object] = {}
         for k, v in merged.items():
@@ -177,6 +183,7 @@ class Avatar:
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
             appearance_info = self.appearance.get_detailed_info(self.gender)
+            spirit_animal_info = self.spirit_animal.get_info() if self.spirit_animal is not None else "无"
         else:
             treasure_info = self.treasure.get_info() if self.treasure is not None else "无"
             # personas和sect一致返回detailed，因为这俩太重要了
@@ -189,8 +196,9 @@ class Avatar:
             personas_info = ", ".join([p.get_detailed_info() for p in self.personas]) if self.personas else "无"
             items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in self.items.items()]) if self.items else "无"
             appearance_info = self.appearance.get_info()
+            spirit_animal_info = self.spirit_animal.get_info() if self.spirit_animal is not None else "无"
 
-        return {
+        info_dict = {
             "id": self.id,
             "名字": self.name,
             "性别": str(self.gender),
@@ -210,6 +218,10 @@ class Avatar:
             "外貌": appearance_info,
             "法宝": treasure_info,
         }
+        # 灵兽：仅在存在时显示
+        if self.spirit_animal is not None:
+            info_dict["灵兽"] = spirit_animal_info
+        return info_dict
 
     def __str__(self) -> str:
         return str(self.get_info(detailed=False))
@@ -547,6 +559,10 @@ class Avatar:
             add_section(lines, "法宝", [self.treasure.get_info()])
         else:
             add_kv(lines, "法宝", "无")
+
+        # 灵兽：仅在存在时显示
+        if self.spirit_animal is not None:
+            add_kv(lines, "灵兽", self.spirit_animal.get_info())
 
         # 关系
         relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(self, "relations", {}).items()]

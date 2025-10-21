@@ -68,6 +68,19 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     sects_by_name: dict[str, Sect] = {}
 
     df = game_configs["sect"]
+    # 读取宗门驻地映射（优先从 sect_region.csv 获取驻地地名/描述）
+    sect_region_df = game_configs.get("sect_region")
+    hq_by_sect_id: dict[int, tuple[str, str]] = {}
+    if sect_region_df is not None:
+        for _, sr in sect_region_df.iterrows():
+            sid_str = str(sr.get("sect_id", "")).strip()
+            # 跳过说明行或空值
+            if not sid_str.isdigit():
+                continue
+            sid = int(sid_str)
+            hq_name = str(sr.get("headquarter_name", "")).strip()
+            hq_desc = str(sr.get("headquarter_desc", "")).strip()
+            hq_by_sect_id[sid] = (hq_name, hq_desc)
     # 可能不存在 technique 配表或未添加 sect 列，做容错
     tech_df = game_configs.get("technique")
     assets_base = Path("assets/sects")
@@ -92,6 +105,11 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
         # 读取 effects（兼容 JSON/单引号字面量/空）
         effects = load_effect_from_str(row.get("effects", ""))
 
+        # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
+        csv_hq = hq_by_sect_id.get(int(row["id"]))
+        hq_name_from_csv = (csv_hq[0] if csv_hq else "").strip() if csv_hq else ""
+        hq_desc_from_csv = (csv_hq[1] if csv_hq else "").strip() if csv_hq else ""
+
         sect = Sect(
             id=int(row["id"]),
             name=str(row["name"]),
@@ -101,10 +119,10 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             sect_surnames=_split_names(row["sect_surnames"]),
             male_sect_given_names=male_given_names,
             female_sect_given_names=female_given_names,
-            # 保留旧字段的兼容读取（如旧csv仍包含headquarter_*列则读入；否则使用宗门名与空描述）
+            # 驻地：优先 sect_region.csv；否则兼容旧列；最终回退宗门名
             headquarter=SectHeadQuarter(
-                name=(str(row.get("headquarter_name", "")).strip() or str(row["name"])) ,
-                desc=str(row.get("headquarter_desc", "")),
+                name=(hq_name_from_csv or str(row.get("headquarter_name", "")).strip() or str(row["name"])) ,
+                desc=(hq_desc_from_csv or str(row.get("headquarter_desc", ""))),
                 image=image_path,
             ),
             technique_names=technique_names,

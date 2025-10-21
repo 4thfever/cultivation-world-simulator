@@ -249,18 +249,35 @@ class NormalRegion(Region):
         
         return "; ".join(info_parts) if info_parts else "暂无特色物种"
 
+    def _get_species_brief(self) -> str:
+        """
+        简要物种信息：仅名字与境界，用于在名称后括号展示。
+        例："灵兔（练气）、青云鹿（练气）、暗影豹（筑基）"
+        若无物种，返回空串。
+        """
+        briefs: list[str] = []
+        if self.animals:
+            briefs.extend([f"{a.name}（{a.realm.value}）" for a in self.animals])
+        if self.plants:
+            briefs.extend([f"{p.name}（{p.realm.value}）" for p in self.plants])
+        return "、".join(briefs)
+
     def __str__(self) -> str:
         species_info = self.get_species_info()
         return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
 
     def get_info(self) -> str:
-        return self.name
+        brief = self._get_species_brief()
+        return f"{self.name}（{brief}）" if brief else self.name
 
     def get_detailed_info(self) -> str:
+        # 名称后追加物种简要；正文仍保留原来的详细物种描述
+        brief = self._get_species_brief()
+        name_with_brief = f"{self.name}（{brief}）" if brief else self.name
         species_info = self.get_species_info()
         if not species_info or species_info == "暂无特色物种":
-            return f"{self.name} - {self.desc}"
-        return f"{self.name} - {self.desc} | 物种分布：{species_info}"
+            return f"{name_with_brief} - {self.desc}"
+        return f"{name_with_brief} - {self.desc} | 物种分布：{species_info}"
 
     def get_hover_info(self) -> list[str]:
         lines = super().get_hover_info()
