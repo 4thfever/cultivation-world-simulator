@@ -17,9 +17,6 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"region": "region_name"}
 
-    def _resolve_region(self, region: Region | str) -> Region:
-        return resolve_region(self.world, region)
-
     def _execute(self, region: Region | str) -> None:
         """
         移动到某个region
@@ -50,8 +47,9 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)
         # 完成条件：到达目标区域
-        r = self._resolve_region(region)
-        done = self.avatar.is_in_region(r if isinstance(r, Region) else None)
+        r = resolve_region(region)
+        # 常规：基于 tile.region 精确判定；兜底：当前位置坐标属于目标区域的格点集合
+        done = self.avatar.is_in_region(r) or ((self.avatar.pos_x, self.avatar.pos_y) in getattr(r, "cors", ()))
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
     def finish(self, region: Region | str) -> list[Event]:

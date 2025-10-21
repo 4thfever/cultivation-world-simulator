@@ -123,14 +123,14 @@ def make_avatars(
 
     # 简单关系样例
     avatar_list = list(avatars.values())
-    if len(avatar_list) >= 2:
-        avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
-    if len(avatar_list) >= 4:
-        avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
-    if len(avatar_list) >= 6:
-        avatar_list[4].set_relation(avatar_list[5], Relation.MASTER)
-    if len(avatar_list) >= 8:
-        avatar_list[6].set_relation(avatar_list[7], Relation.LOVERS)
+    # if len(avatar_list) >= 2:
+    #     avatar_list[0].set_relation(avatar_list[1], Relation.ENEMY)
+    # if len(avatar_list) >= 4:
+    #     avatar_list[2].set_relation(avatar_list[3], Relation.FRIEND)
+    # if len(avatar_list) >= 6:
+    #     avatar_list[4].set_relation(avatar_list[5], Relation.MASTER)
+    # if len(avatar_list) >= 8:
+    #     avatar_list[6].set_relation(avatar_list[7], Relation.LOVERS)
 
     return avatars
 

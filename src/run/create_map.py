@@ -338,6 +338,11 @@ def _scale_loaded_regions(game_map: Map) -> None:
             "south_east_cor": f"{new_se_x},{new_se_y}",
         }
         # 附带子类特有字段
+        # 普通区域需要保留物种ID列表，避免缩放重建后丢失物种信息
+        if hasattr(region, "animal_ids"):
+            params["animal_ids"] = list(getattr(region, "animal_ids") or [])
+        if hasattr(region, "plant_ids"):
+            params["plant_ids"] = list(getattr(region, "plant_ids") or [])
         if hasattr(region, "essence_type"):
             params["essence_type"] = getattr(region, "essence_type")
         if hasattr(region, "essence_density"):
