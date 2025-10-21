@@ -52,14 +52,14 @@ class Hunt(TimedAction):
         """
         return 1.0  # 100%成功率
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
-            return False
+            return False, "当前不在普通区域"
         available_animals = self.get_available_animals()
         if len(available_animals) == 0:
-            return False
-        return True
+            return False, "当前区域无可狩猎的动物或其境界过高"
+        return True, ""
 
     def start(self) -> Event:
         region = self.avatar.tile.region

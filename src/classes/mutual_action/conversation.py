@@ -52,13 +52,16 @@ class Conversation(MutualAction):
             "possible_relations": possible_relations,
         }
 
-    def can_start(self, target_avatar: "Avatar|str|None" = None, **kwargs) -> bool:
+    def can_start(self, target_avatar: "Avatar|str|None" = None, **kwargs) -> tuple[bool, str]:
         if target_avatar is None:
-            return False
+            return False, "缺少参数 target_avatar"
         target = self._get_target_avatar(target_avatar)
-        if target is None or target.tile is None or self.avatar.tile is None:
-            return False
-        return target.tile.region == self.avatar.tile.region
+        if target is None:
+            return False, "目标不存在"
+        if target.tile is None or self.avatar.tile is None:
+            return False, "任一角色未处于有效区域"
+        ok = target.tile.region == self.avatar.tile.region
+        return (ok, "" if ok else "目标不在同一区域")
 
     def start(self, target_avatar: "Avatar|str", **kwargs) -> Event:
         target = self._get_target_avatar(target_avatar)

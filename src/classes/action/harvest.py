@@ -52,14 +52,14 @@ class Harvest(TimedAction):
         """
         return 1.0  # 100%成功率
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
-            return False
+            return False, "当前不在普通区域"
         avaliable_plants = self.get_available_plants()
         if len(avaliable_plants) == 0:
-            return False
-        return True
+            return False, "当前区域无可采集的植物或其境界过高"
+        return True, ""
 
     def start(self) -> Event:
         region = self.avatar.tile.region

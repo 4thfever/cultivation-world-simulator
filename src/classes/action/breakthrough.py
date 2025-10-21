@@ -103,8 +103,9 @@ class Breakthrough(TimedAction):
         self.avatar.mp.add_max(mp_increase)
         self.avatar.mp.recover(mp_increase)  # 突破时完全恢复MP
 
-    def can_start(self) -> bool:
-        return self.avatar.cultivation_progress.can_break_through()
+    def can_start(self) -> tuple[bool, str]:
+        ok = self.avatar.cultivation_progress.can_break_through()
+        return (ok, "" if ok else "当前不处于瓶颈，无法突破")
 
     def start(self) -> Event:
         # 清理状态

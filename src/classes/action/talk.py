@@ -26,9 +26,10 @@ class Talk(InstantAction):
         # Talk 本身不做长期效果，主要在 step 中驱动 Conversation
         return
 
-    def can_start(self, **kwargs) -> bool:
+    def can_start(self, **kwargs) -> tuple[bool, str]:
         # 感知范围内是否存在其他NPC（用于展示在动作空间）
-        return len(self._get_observed_others()) > 0
+        ok = len(self._get_observed_others()) > 0
+        return (ok, "" if ok else "感知范围内没有可交谈对象")
 
     def start(self) -> Event:
         self.observed_others = self._get_observed_others()

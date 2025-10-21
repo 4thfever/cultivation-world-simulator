@@ -31,10 +31,11 @@ class Battle(InstantAction):
         winner.hp.reduce(winner_damage)
         self._last_result = (winner.name, loser.name, loser_damage, winner_damage)
 
-    def can_start(self, avatar_name: str | None = None) -> bool:
+    def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
         if avatar_name is None:
-            return False
-        return self._get_target(avatar_name) is not None
+            return False, "缺少参数 avatar_name"
+        ok = self._get_target(avatar_name) is not None
+        return (ok, "" if ok else "目标不存在")
 
     def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)

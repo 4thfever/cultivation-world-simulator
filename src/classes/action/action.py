@@ -129,8 +129,8 @@ class ActualActionMixin():
     """
 
     @abstractmethod
-    def can_start(self, **params) -> bool:
-        return True
+    def can_start(self, **params) -> tuple[bool, str]:
+        return True, ""
 
     @abstractmethod
     def start(self, **params) -> Event | None:

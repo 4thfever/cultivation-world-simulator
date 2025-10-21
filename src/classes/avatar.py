@@ -271,11 +271,11 @@ class Avatar:
             action = self.create_action(plan.action_name)
             # 再验证
             params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
-            can_start = bool(action.can_start(**params_for_can_start))
+            can_start, reason = action.can_start(**params_for_can_start)
             if not can_start:
                 # 记录不合法动作
                 logger = get_logger().logger
-                logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动", self.name, self.id, plan.action_name, plan.params)
+                logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s", self.name, self.id, plan.action_name, plan.params, reason)
                 continue
             # 启动
             params_for_start = filter_kwargs_for_callable(action.start, plan.params)
@@ -471,7 +471,8 @@ class Avatar:
         doable_actions: list[Action] = []
         for action in actual_actions:
             # 用 can_start 的无参形式，用于“是否在动作空间中显示”
-            if action.can_start():
+            ok, _reason = action.can_start()
+            if ok:
                 doable_actions.append(action)
         action_space = [action.name for action in doable_actions]
         return action_space

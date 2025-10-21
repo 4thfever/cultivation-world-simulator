@@ -23,7 +23,7 @@ class Catch(TimedAction):
     - 按动物境界映射成功率尝试捕捉，成功则成为灵兽（覆盖旧灵兽）。
     """
 
-    COMMENT = "尝试驯服一只灵兽，成为自身灵兽"
+    COMMENT = "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级。"
     DOABLES_REQUIREMENTS = "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
     PARAMS = {}
 
@@ -55,15 +55,17 @@ class Catch(TimedAction):
             # 覆盖为新的灵兽
             self.avatar.spirit_animal = SpiritAnimal(name=target.name, realm=target.realm)
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         # 仅百兽宗
         sect = getattr(self.avatar, "sect", None)
         if sect is None or getattr(sect, "name", "") != "百兽宗":
-            return False
+            return False, "仅百兽宗弟子可用"
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
-            return False
-        return len(self._get_available_animals()) > 0
+            return False, "当前不在普通区域"
+        if len(self._get_available_animals()) == 0:
+            return False, "当前区域无可御兽的动物或其境界过高"
+        return True, ""
 
     def start(self) -> Event:
         region = self.avatar.tile.region

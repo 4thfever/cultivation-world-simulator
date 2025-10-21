@@ -26,11 +26,13 @@ class PlunderMortals(TimedAction):
         gain = self.GAIN
         self.avatar.magic_stone = self.avatar.magic_stone + gain
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False
-        return self.avatar.alignment == Alignment.EVIL
+            return False, "仅能在城市区域执行"
+        if self.avatar.alignment != Alignment.EVIL:
+            return False, "仅邪阵营可执行"
+        return True, ""
 
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始搜刮凡人", related_avatars=[self.avatar.id])

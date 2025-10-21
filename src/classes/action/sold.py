@@ -43,17 +43,19 @@ class SellItems(InstantAction):
 
         self.avatar.magic_stone = self.avatar.magic_stone + total_gain
 
-    def can_start(self, item_name: str | None = None) -> bool:
+    def can_start(self, item_name: str | None = None) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False
+            return False, "仅能在城市区域执行"
         if item_name is None:
             # 用于动作空间：只要背包非空即可
-            return bool(self.avatar.items)
+            ok = bool(self.avatar.items)
+            return (ok, "" if ok else "背包为空，无可出售物品")
         item = items_by_name.get(item_name)
         if item is None:
-            return False
-        return self.avatar.get_item_quantity(item) > 0
+            return False, f"未知物品: {item_name}"
+        ok = self.avatar.get_item_quantity(item) > 0
+        return (ok, "" if ok else "该物品数量为0")
 
     def start(self, item_name: str) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}")

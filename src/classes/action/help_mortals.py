@@ -27,14 +27,16 @@ class HelpMortals(TimedAction):
         if getattr(self.avatar.magic_stone, "value", 0) >= cost:
             self.avatar.magic_stone = self.avatar.magic_stone - cost
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False
+            return False, "仅能在城市区域执行"
         if self.avatar.alignment != Alignment.RIGHTEOUS:
-            return False
+            return False, "仅正阵营可执行"
         cost = self.COST
-        return self.avatar.magic_stone >= cost
+        if not (self.avatar.magic_stone >= cost):
+            return False, "灵石不足"
+        return True, ""
 
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始帮助凡人")

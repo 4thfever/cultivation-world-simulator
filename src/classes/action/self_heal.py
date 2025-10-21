@@ -37,16 +37,18 @@ class SelfHeal(TimedAction):
         hq_name = getattr(getattr(sect, "headquarter", None), "name", None) or getattr(sect, "name", None)
         return bool(hq_name) and region.name == hq_name
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         # 必须是宗门弟子且在自身宗门总部，且当前HP未满
         if getattr(self.avatar, "sect", None) is None:
-            return False
+            return False, "仅宗门弟子可用"
         if not self._is_in_own_sect_headquarter():
-            return False
+            return False, "需要位于自身宗门总部"
         hp_obj = getattr(self.avatar, "hp", None)
         if hp_obj is None:
-            return False
-        return hp_obj.cur < hp_obj.max
+            return False, "缺少HP信息"
+        if not (hp_obj.cur < hp_obj.max):
+            return False, "当前HP已满"
+        return True, ""
 
     def start(self) -> Event:
         region = getattr(getattr(self.avatar, "tile", None), "region", None)

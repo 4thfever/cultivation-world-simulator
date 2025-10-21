@@ -23,8 +23,8 @@ class Play(TimedAction):
         # 比如增加心情值、减少压力等
         pass
 
-    def can_start(self) -> bool:
-        return True
+    def can_start(self) -> tuple[bool, str]:
+        return True, ""
 
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始玩耍")

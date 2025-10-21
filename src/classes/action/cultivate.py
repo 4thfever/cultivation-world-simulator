@@ -45,17 +45,17 @@ class Cultivate(TimedAction):
         base = 100
         return base * essence_density
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         root = self.avatar.root
         region = self.avatar.tile.region
         essence_types = get_essence_types_for_root(root)
         if not self.avatar.cultivation_progress.can_cultivate():
-            return False
+            return False, "修为已达瓶颈，无法继续修炼"
         if not isinstance(region, CultivateRegion):
-            return False
+            return False, "当前不在修炼区域"
         if all(region.essence.get_density(et) == 0 for et in essence_types):
-            return False
-        return True
+            return False, "当前区域无与灵根相符的灵气"
+        return True, ""
 
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼", related_avatars=[self.avatar.id])

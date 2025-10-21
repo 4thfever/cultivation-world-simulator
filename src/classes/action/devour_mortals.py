@@ -23,9 +23,10 @@ class DevourMortals(TimedAction):
             gain = random.randint(10, 100)
             tr.devoured_souls = min(10000, int(tr.devoured_souls) + gain)
 
-    def can_start(self) -> bool:
+    def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])
-        return "DevourMortals" in legal
+        ok = "DevourMortals" in legal
+        return (ok, "" if ok else "未被允许的非法动作（缺少万魂幡或权限）")
 
     def start(self) -> Event:
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始吞噬凡人", related_avatars=[self.avatar.id])

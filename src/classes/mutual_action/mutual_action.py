@@ -141,17 +141,18 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         self._apply_feedback(target_avatar, feedback)
 
     # 实现 ActualActionMixin 接口
-    def can_start(self, target_avatar: "Avatar|str|None" = None) -> bool:
+    def can_start(self, target_avatar: "Avatar|str|None" = None) -> tuple[bool, str]:
         """
         检查互动动作能否启动：目标需在发起者的感知范围内。
         """
         if target_avatar is None:
-            return False
+            return False, "缺少参数 target_avatar"
         target = self._get_target_avatar(target_avatar)
         if target is None:
-            return False
+            return False, "目标不存在"
         from src.classes.observe import is_within_observation
-        return is_within_observation(self.avatar, target)
+        ok = is_within_observation(self.avatar, target)
+        return (ok, "" if ok else "目标不在感知范围内")
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         """

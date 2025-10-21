@@ -37,8 +37,8 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
         Move(self.avatar, self.world).execute(dx, dy)
 
-    def can_start(self, avatar_name: str | None = None) -> bool:
-        return True
+    def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
+        return True, ""
 
     def start(self, avatar_name: str) -> Event:
         target = self._get_target(avatar_name)
