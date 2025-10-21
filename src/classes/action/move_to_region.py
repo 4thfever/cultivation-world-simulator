@@ -21,7 +21,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         """
         移动到某个region
         """
-        region = self._resolve_region(region)
+        region = resolve_region(self.world, region)
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         region_center_loc = region.center_loc
         raw_dx = region_center_loc[0] - cur_loc[0]
