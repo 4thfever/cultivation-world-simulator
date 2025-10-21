@@ -8,6 +8,7 @@ from src.utils.config import CONFIG
 from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
 from src.classes.plant import Plant, plants_by_id
+from src.classes.sect import sects_by_name
 
 
 def get_tiles_from_shape(shape: 'Shape', north_west_cor: str, south_east_cor: str) -> list[tuple[int, int]]:
@@ -359,6 +360,80 @@ class CityRegion(Region):
 
     def get_detailed_info(self) -> str:
         return f"{self.name} - {self.desc}"
+
+
+def _normalize_region_name(name: str) -> str:
+    """
+    将诸如 "太白金府（金行灵气：10）" 归一化为 "太白金府"：
+    去除常见括号及其中附加信息，并裁剪空白。
+    """
+    s = str(name).strip()
+    brackets = [("(", ")"), ("（", "）"), ("[", "]"), ("【", "】"), ("「", "」"), ("『", "』"), ("<", ">"), ("《", "》")]
+    for left, right in brackets:
+        while True:
+            start = s.find(left)
+            end = s.rfind(right)
+            if start != -1 and end != -1 and end > start:
+                s = (s[:start] + s[end + 1:]).strip()
+            else:
+                break
+    return s
+
+
+def resolve_region(world, region: Union[Region, str]) -> Region:
+    """
+    解析字符串或 Region 为当前 world.map 中的 Region 实例：
+    - 字符串：先精确匹配；失败则做归一化再匹配；再做“唯一包含”匹配；最后尝试按宗门名解析宗门总部区域
+    - Region：若 world.map.regions 中存在同 id 的实例，则返回映射后的当前实例，否则原样返回
+
+    Raises:
+        ValueError: 未知区域名或名称不唯一
+        TypeError: 不支持的类型
+    """
+    from typing import Dict  # 局部导入以避免潜在循环
+
+    if isinstance(region, str):
+        region_name = region
+        by_name: Dict[str, Region] = getattr(world.map, "region_names", {})
+
+        # 1) 精确匹配
+        r = by_name.get(region_name)
+        if r is not None:
+            return r
+
+        # 2) 归一化后再精确匹配
+        normalized = _normalize_region_name(region_name)
+        if normalized and normalized != region_name:
+            r2 = by_name.get(normalized)
+            if r2 is not None:
+                return r2
+
+        # 3) 唯一包含匹配（当且仅当候选唯一时）
+        candidates = [name for name in by_name.keys() if name and (name in region_name or (normalized and name in normalized))]
+        if len(candidates) == 1:
+            return by_name[candidates[0]]
+
+        # 4) 兜底：若传入为宗门名，则解析为其总部区域
+        sect = sects_by_name.get(region_name) or (sects_by_name.get(normalized) if normalized and normalized != region_name else None)
+        if sect is not None:
+            sect_regions = getattr(world.map, "sect_regions", {}) or {}
+            matched = [r for r in sect_regions.values() if getattr(r, "sect_name", None) == sect.name]
+            if len(matched) == 1:
+                return matched[0]
+
+        # 失败：抛出明确错误提示
+        if candidates:
+            sample = ", ".join(candidates[:5])
+            raise ValueError(f"区域名不唯一: {region_name}，候选: {sample}")
+        raise ValueError(f"未知区域名: {region_name}")
+
+    if isinstance(region, Region):
+        by_id = getattr(world.map, "regions", None)
+        if isinstance(by_id, dict) and region.id in by_id:
+            return by_id[region.id]
+        return region
+
+    raise TypeError(f"不支持的region类型: {type(region).__name__}")
 
 
 T = TypeVar('T', NormalRegion, CultivateRegion, CityRegion)
