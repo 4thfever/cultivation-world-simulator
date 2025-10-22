@@ -81,6 +81,12 @@ class Front:
         self._sidebar_filter_avatar_id: Optional[str] = None
         self._sidebar_filter_open: bool = False
 
+        # hover 轮换状态（滚轮切换）
+        self._hover_anchor_pos: Optional[tuple[int, int]] = None
+        self._hover_candidates: List[str] = []  # avatar_id 列表（当前锚点下）
+        self._hover_index: int = 0
+        self._hover_last_build_ms: int = 0
+
     def add_events(self, new_events: List[Event]):
         self.events.extend(new_events)
         if len(self.events) > 1000:
@@ -114,6 +120,14 @@ class Front:
                             current_step_task = asyncio.create_task(self._step_once_async())
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     self._handle_mouse_click()
+                # 兼容旧版滚轮为 MOUSEBUTTON 4/5
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (4, 5):
+                    delta = 1 if event.button == 4 else -1
+                    self._on_mouse_wheel(delta)
+                # pygame 2 的标准滚轮事件
+                elif getattr(pygame, "MOUSEWHEEL", None) is not None and event.type == pygame.MOUSEWHEEL:
+                    # event.y: 上滚为正，下滚为负
+                    self._on_mouse_wheel(int(getattr(event, "y", 0)))
             if self._auto_step and self._last_step_ms >= self.step_interval_ms:
                 if current_step_task is None or current_step_task.done():
                     current_step_task = asyncio.create_task(self._step_once_async())
@@ -155,7 +169,7 @@ class Front:
             STATUS_BAR_HEIGHT,
         )
         self._assign_avatar_images()
-        hovered_avatar = draw_avatars_and_pick_hover(
+        hovered_default, hover_candidates = draw_avatars_and_pick_hover(
             pygame,
             self.screen,
             self.colors,
@@ -166,6 +180,7 @@ class Front:
             self._get_display_center,
             STATUS_BAR_HEIGHT,
         )
+        hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
         draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, self._auto_step)
 
@@ -197,6 +212,18 @@ class Front:
         self._sidebar_ui = sidebar_ui
         if hovered_avatar is not None:
             draw_tooltip_for_avatar(pygame, self.screen, self.colors, self.tooltip_font, hovered_avatar)
+            # 绘制候选徽标（仅当存在多个候选）
+            if len(hover_candidates) >= 2:
+                from .rendering import draw_hover_badge
+                # 取当前 hover 对象的显示中心
+                cx_f, cy_f = self._get_display_center(hovered_avatar, self.tile_size, self.margin)
+                cx, cy = int(cx_f), int(cy_f)
+                # 计算当前索引（1-based）
+                try:
+                    idx = self._hover_candidates.index(hovered_avatar.id)
+                except ValueError:
+                    idx = 0
+                draw_hover_badge(pygame, self.screen, self.colors, self.tooltip_font, cx, cy, idx + 1, len(hover_candidates), STATUS_BAR_HEIGHT)
         elif hovered_region is not None:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             draw_tooltip_for_region(pygame, self.screen, self.colors, self.tooltip_font, hovered_region, mouse_x, mouse_y)
@@ -221,6 +248,64 @@ class Front:
 
     def _get_region_font(self, size: int):
         return _get_region_font_cached(self.pygame, self._region_font_cache, size, self.font_path)
+
+    # --- Hover 轮换逻辑 ---
+    def _is_mouse_near_anchor(self, radius_px: int = 20) -> bool:
+        if self._hover_anchor_pos is None:
+            return False
+        mx, my = self.pygame.mouse.get_pos()
+        ax, ay = self._hover_anchor_pos
+        dx = mx - ax
+        dy = my - ay
+        return (dx * dx + dy * dy) <= (radius_px * radius_px)
+
+    def _rebuild_hover_candidates(self, hovered_default: Optional[Avatar], candidates: List[Avatar]) -> None:
+        self._hover_anchor_pos = self.pygame.mouse.get_pos()
+        self._hover_candidates = [a.id for a in candidates]
+        if hovered_default is not None and hovered_default.id in self._hover_candidates:
+            self._hover_index = self._hover_candidates.index(hovered_default.id)
+        else:
+            self._hover_index = 0
+        self._hover_last_build_ms = self._now_ms()
+
+    def _pick_hover_with_scroll(self, hovered_default: Optional[Avatar], candidates: List[Avatar]) -> Optional[Avatar]:
+        # 无候选时清空状态
+        if not candidates:
+            self._hover_anchor_pos = None
+            self._hover_candidates = []
+            self._hover_index = 0
+            return None
+        # 当前候选ID列表
+        current_ids = [a.id for a in candidates]
+        # 需要重建的情形：
+        # 1) 没有锚点；2) 鼠标离锚点太远；3) 候选集合变化；4) 距上次构建时间过久
+        need_rebuild = False
+        if self._hover_anchor_pos is None:
+            need_rebuild = True
+        elif not self._is_mouse_near_anchor():
+            need_rebuild = True
+        elif current_ids != self._hover_candidates:
+            need_rebuild = True
+        elif (self._now_ms() - self._hover_last_build_ms) > 800:
+            need_rebuild = True
+        if need_rebuild:
+            self._rebuild_hover_candidates(hovered_default, candidates)
+        # 选出当前下标对应的 avatar
+        if not self._hover_candidates:
+            return hovered_default
+        self._hover_index %= max(1, len(self._hover_candidates))
+        aid = self._hover_candidates[self._hover_index]
+        return self.world.avatar_manager.avatars.get(aid, hovered_default)
+
+    def _on_mouse_wheel(self, delta: int) -> None:
+        # 仅当有至少两个候选且鼠标仍在锚点附近时进行轮换
+        if len(self._hover_candidates) >= 2 and self._is_mouse_near_anchor():
+            if delta > 0:
+                self._hover_index = (self._hover_index - 1) % len(self._hover_candidates)
+            elif delta < 0:
+                self._hover_index = (self._hover_index + 1) % len(self._hover_candidates)
+            # 轻微刷新锚点时间，避免过快过期
+            self._hover_last_build_ms = self._now_ms()
 
     def _assign_avatar_images(self):
         import random

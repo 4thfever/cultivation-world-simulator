@@ -280,10 +280,9 @@ def draw_avatars_and_pick_hover(
     margin: int,
     get_display_center: Optional[Callable[[Avatar, int, int], Tuple[float, float]]] = None,
     top_offset: int = 0,
-) -> Optional[Avatar]:
+) -> Tuple[Optional[Avatar], List[Avatar]]:
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
-    hovered = None
-    min_dist = float("inf")
+    candidates_with_dist: List[Tuple[float, Avatar]] = []
     for avatar_id, avatar in simulator.world.avatar_manager.avatars.items():
         if get_display_center is not None:
             cx_f, cy_f = get_display_center(avatar, tile_size, margin)
@@ -298,16 +297,18 @@ def draw_avatars_and_pick_hover(
             image_y = cy - image_rect.height // 2
             screen.blit(avatar_image, (image_x, image_y))
             if image_rect.collidepoint(mouse_x - image_x, mouse_y - image_y):
-                hovered = avatar
-                min_dist = 0
+                dist = math.hypot(mouse_x - cx, mouse_y - cy)
+                candidates_with_dist.append((dist, avatar))
         else:
             radius = max(8, tile_size // 3)
             pygame_mod.draw.circle(screen, colors["avatar"], (cx, cy), radius)
             dist = math.hypot(mouse_x - cx, mouse_y - cy)
-            if dist <= radius and dist < min_dist:
-                hovered = avatar
-                min_dist = dist
-    return hovered
+            if dist <= radius:
+                candidates_with_dist.append((dist, avatar))
+    candidates_with_dist.sort(key=lambda t: t[0])
+    hovered = candidates_with_dist[0][1] if candidates_with_dist else None
+    candidate_avatars: List[Avatar] = [a for _, a in candidates_with_dist]
+    return hovered, candidate_avatars
 
 
 def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: Optional[int] = None):
@@ -410,5 +411,30 @@ __all__ = [
     "draw_status_bar",
     "STATUS_BAR_HEIGHT",
 ]
+
+
+def draw_hover_badge(pygame_mod, screen, colors, font, center_x: int, center_y: int, index: int, total: int, top_offset: int = 0):
+    """
+    在给定中心附近绘制一个小徽标，显示 index/total（索引从1开始）。
+    徽标默认放在头像上方偏右位置。
+    """
+    label = f"{index}/{total}"
+    surf = font.render(label, True, colors["text"])
+    pad_x = 6
+    pad_y = 2
+    w = surf.get_width() + pad_x * 2
+    h = surf.get_height() + pad_y * 2
+    # 徽标位置：头像中心的右上角
+    x = int(center_x + 10)
+    y = int(center_y + top_offset - 24 - h)
+    rect = pygame_mod.Rect(x, y, w, h)
+    # 半透明背景与描边
+    bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
+    bg.fill((20, 20, 20, 180))
+    screen.blit(bg, (rect.x, rect.y))
+    pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
+    # 文本
+    screen.blit(surf, (rect.x + pad_x, rect.y + pad_y))
+
 
 
