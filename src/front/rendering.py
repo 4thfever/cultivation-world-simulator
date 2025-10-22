@@ -459,7 +459,13 @@ def _draw_avatar_name_label(pygame_mod, screen, colors, font, name_text: str, *,
         screen.blit(bg, (tx - pad_x, ty - pad_y))
         rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
         pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
+        # 高亮时直接白字绘制（背景已提供对比）
         screen.blit(text_surf, (tx, ty))
+        return
+    # 非高亮：加1px 阴影提升可读性（不加底板）
+    shadow = font.render(name_text, True, colors.get("text_border", (24, 24, 24)))
+    screen.blit(shadow, (tx + 1, ty + 1))
+    screen.blit(text_surf, (tx, ty))
 
 
 def map_pixel_size(world_or_map, tile_size: int) -> Tuple[int, int]:

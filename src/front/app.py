@@ -62,7 +62,7 @@ class Front:
         self.tooltip_font = create_font(self.pygame, 14, self.font_path)
         self.sidebar_font = create_font(self.pygame, 14, self.font_path)
         self.status_font = create_font(self.pygame, 18, self.font_path)
-        self.name_font = create_font(self.pygame, 14, self.font_path)
+        self.name_font = create_font(self.pygame, 16, self.font_path)
         self._region_font_cache: Dict[int, object] = {}
 
         self.colors = COLORS
