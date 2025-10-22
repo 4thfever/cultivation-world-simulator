@@ -4,15 +4,18 @@ from pathlib import Path
 from src.classes.tile import TileType
 
 
+# 统一的贴图类型集合，供各加载函数复用
+ALL_TILE_TYPES = [
+    TileType.PLAIN, TileType.WATER, TileType.SEA, TileType.MOUNTAIN,
+    TileType.FOREST, TileType.CITY, TileType.DESERT, TileType.RAINFOREST,
+    TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.VOLCANO,
+    TileType.GRASSLAND, TileType.SWAMP, TileType.CAVE, TileType.RUINS, TileType.FARM
+]
+
+
 def load_tile_images(pygame_mod, tile_size: int) -> Dict[TileType, object]:
     images: Dict[TileType, object] = {}
-    tile_types = [
-        TileType.PLAIN, TileType.WATER, TileType.SEA, TileType.MOUNTAIN,
-        TileType.FOREST, TileType.CITY, TileType.DESERT, TileType.RAINFOREST,
-        TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.VOLCANO,
-        TileType.GRASSLAND, TileType.SWAMP, TileType.CAVE, TileType.RUINS, TileType.FARM
-    ]
-    for tile_type in tile_types:
+    for tile_type in ALL_TILE_TYPES:
         image_path = f"assets/tiles/{tile_type.value}.png"
         if os.path.exists(image_path):
             image = pygame_mod.image.load(image_path)
@@ -23,13 +26,7 @@ def load_tile_images(pygame_mod, tile_size: int) -> Dict[TileType, object]:
 
 def load_tile_originals(pygame_mod) -> Dict[TileType, object]:
     originals: Dict[TileType, object] = {}
-    tile_types = [
-        TileType.PLAIN, TileType.WATER, TileType.SEA, TileType.MOUNTAIN,
-        TileType.FOREST, TileType.CITY, TileType.DESERT, TileType.RAINFOREST,
-        TileType.GLACIER, TileType.SNOW_MOUNTAIN, TileType.VOLCANO,
-        TileType.GRASSLAND, TileType.SWAMP, TileType.CAVE, TileType.RUINS, TileType.FARM
-    ]
-    for tile_type in tile_types:
+    for tile_type in ALL_TILE_TYPES:
         image_path = f"assets/tiles/{tile_type.value}.png"
         if os.path.exists(image_path):
             originals[tile_type] = pygame_mod.image.load(image_path)
@@ -104,6 +101,7 @@ __all__ = [
     "load_avatar_images",
     "load_sect_images",
     "load_region_images",
+    "ALL_TILE_TYPES",
 ]
 
 

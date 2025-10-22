@@ -1,13 +1,11 @@
 import math
 from typing import List, Optional, Tuple, Callable
-from src.classes.avatar import Avatar, Gender
-from src.classes.tile import TileType
-from src.classes.relation import Relation
-from src.classes.root import format_root_cn
+from src.classes.avatar import Avatar
 from src.utils.text_wrap import wrap_text
 
 # 顶部状态栏高度（像素）
 STATUS_BAR_HEIGHT = 32
+TOOLTIP_MIN_WIDTH = 260
 def wrap_lines_for_tooltip(lines: List[str], max_chars_per_line: int = 28) -> List[str]:
     """
     将一组 tooltip 行进行字符级换行：
@@ -300,35 +298,16 @@ def draw_avatars_and_pick_hover(
             screen.blit(avatar_image, (image_x, image_y))
             # 名字（置于头像下方居中）
             if name_font is not None:
-                name_text = str(getattr(avatar, "name", ""))
-                if name_text:
-                    is_highlight = bool(highlight_avatar_id and avatar.id == highlight_avatar_id)
-                    text_color = (236, 236, 236) if is_highlight else colors["text"]
-                    text_surf = name_font.render(name_text, True, text_color)
-                    tx = image_x + (image_rect.width - text_surf.get_width()) // 2
-                    ty = image_y + image_rect.height + 2
-                    if is_highlight:
-                        pad_x = 6
-                        pad_y = 2
-                        w = text_surf.get_width() + pad_x * 2
-                        h = text_surf.get_height() + pad_y * 2
-                        bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
-                        bg.fill((0, 0, 0, 210))
-                        screen.blit(bg, (tx - pad_x, ty - pad_y))
-                        # 边框
-                        rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
-                        pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
-                        screen.blit(text_surf, (tx, ty))
-                    else:
-                        # 轻描边
-                        border_color = colors.get("text_border", (24, 24, 24))
-                        border_surf = name_font.render(name_text, True, border_color)
-                        for dx in (-1, 1, 0, 0):
-                            for dy in (0, 0, -1, 1):
-                                if dx == 0 and dy == 0:
-                                    continue
-                                screen.blit(border_surf, (tx + dx, ty + dy))
-                        screen.blit(text_surf, (tx, ty))
+                _draw_avatar_name_label(
+                    pygame_mod,
+                    screen,
+                    colors,
+                    name_font,
+                    str(getattr(avatar, "name", "")),
+                    is_highlight=bool(highlight_avatar_id and avatar.id == highlight_avatar_id),
+                    anchor_x=image_x + image_rect.width // 2,
+                    anchor_y=image_y + image_rect.height + 2,
+                )
             if image_rect.collidepoint(mouse_x - image_x, mouse_y - image_y):
                 dist = math.hypot(mouse_x - cx, mouse_y - cy)
                 candidates_with_dist.append((dist, avatar))
@@ -337,33 +316,16 @@ def draw_avatars_and_pick_hover(
             pygame_mod.draw.circle(screen, colors["avatar"], (cx, cy), radius)
             # 名字（置于圆形下方居中）
             if name_font is not None:
-                name_text = str(getattr(avatar, "name", ""))
-                if name_text:
-                    is_highlight = bool(highlight_avatar_id and avatar.id == highlight_avatar_id)
-                    text_color = (236, 236, 236) if is_highlight else colors["text"]
-                    text_surf = name_font.render(name_text, True, text_color)
-                    tx = int(cx - text_surf.get_width() / 2)
-                    ty = int(cy + radius + 2)
-                    if is_highlight:
-                        pad_x = 6
-                        pad_y = 2
-                        w = text_surf.get_width() + pad_x * 2
-                        h = text_surf.get_height() + pad_y * 2
-                        bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
-                        bg.fill((0, 0, 0, 210))
-                        screen.blit(bg, (tx - pad_x, ty - pad_y))
-                        rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
-                        pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
-                        screen.blit(text_surf, (tx, ty))
-                    else:
-                        border_color = colors.get("text_border", (24, 24, 24))
-                        border_surf = name_font.render(name_text, True, border_color)
-                        for dx in (-1, 1, 0, 0):
-                            for dy in (0, 0, -1, 1):
-                                if dx == 0 and dy == 0:
-                                    continue
-                                screen.blit(border_surf, (tx + dx, ty + dy))
-                        screen.blit(text_surf, (tx, ty))
+                _draw_avatar_name_label(
+                    pygame_mod,
+                    screen,
+                    colors,
+                    name_font,
+                    str(getattr(avatar, "name", "")),
+                    is_highlight=bool(highlight_avatar_id and avatar.id == highlight_avatar_id),
+                    anchor_x=cx,
+                    anchor_y=int(cy + radius + 2),
+                )
             dist = math.hypot(mouse_x - cx, mouse_y - cy)
             if dist <= radius:
                 candidates_with_dist.append((dist, avatar))
@@ -373,7 +335,7 @@ def draw_avatars_and_pick_hover(
     return hovered, candidate_avatars
 
 
-def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: Optional[int] = None):
+def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: Optional[int] = None, top_limit: int = 0):
     padding = 6
     spacing = 2
     surf_lines = [font.render(t, True, colors["text"]) for t in lines]
@@ -390,7 +352,6 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
         y = mouse_y - height - 12
     # 进一步夹紧，避免位于窗口上边或左边之外
     x = max(0, min(x, screen_w - width))
-    top_limit = 0  # 如需避免覆盖状态栏，可改为 STATUS_BAR_HEIGHT
     y = max(top_limit, min(y, screen_h - height))
     bg_rect = pygame_mod.Rect(x, y, width, height)
     pygame_mod.draw.rect(screen, colors["tooltip_bg"], bg_rect, border_radius=6)
@@ -404,35 +365,16 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
 def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
     # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
     lines = avatar.get_hover_info()
-    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=260)
+    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=TOOLTIP_MIN_WIDTH, top_limit=STATUS_BAR_HEIGHT)
 
 
 def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int):
     if region is None:
         return
-    # 改为调用 region.get_hover_info()
+    # 改为调用 region.get_hover_info()，并统一用 wrap_lines_for_tooltip 进行换行
     lines = region.get_hover_info()
-    # 区域描述较长时做字符级换行，策略与头像思考/目标一致（28 字）
-    wrapped_lines: list[str] = []
-    for line in lines:
-        # 针对以“描述: ”开头的行，保留前缀并仅对内容换行
-        if line.startswith("描述: "):
-            prefix = "描述: "
-            content = line[len(prefix):]
-            segs = wrap_text(content, 28)
-            if segs:
-                wrapped_lines.append(prefix + segs[0])
-                for seg in segs[1:]:
-                    wrapped_lines.append("  " + seg)
-            else:
-                wrapped_lines.append(line)
-        else:
-            if len(line) > 28:
-                wrapped_lines.extend(wrap_text(line, 28))
-            else:
-                wrapped_lines.append(line)
-    # 与头像一致设置较合理的最小宽度，避免过窄导致难以阅读
-    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=260)
+    wrapped_lines = wrap_lines_for_tooltip(lines, 28)
+    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=TOOLTIP_MIN_WIDTH, top_limit=STATUS_BAR_HEIGHT)
 
 
 def draw_operation_guide(pygame_mod, screen, colors, font, margin: int, auto_step: bool):
@@ -472,6 +414,7 @@ __all__ = [
     "draw_tooltip_for_region",
     "draw_status_bar",
     "STATUS_BAR_HEIGHT",
+    "map_pixel_size",
 ]
 
 
@@ -499,4 +442,30 @@ def draw_hover_badge(pygame_mod, screen, colors, font, center_x: int, center_y: 
     screen.blit(surf, (rect.x + pad_x, rect.y + pad_y))
 
 
+def _draw_avatar_name_label(pygame_mod, screen, colors, font, name_text: str, *, is_highlight: bool, anchor_x: int, anchor_y: int) -> None:
+    if not name_text:
+        return
+    text_color = (236, 236, 236) if is_highlight else colors["text"]
+    text_surf = font.render(name_text, True, text_color)
+    tx = int(anchor_x - text_surf.get_width() / 2)
+    ty = int(anchor_y)
+    if is_highlight:
+        pad_x = 6
+        pad_y = 2
+        w = text_surf.get_width() + pad_x * 2
+        h = text_surf.get_height() + pad_y * 2
+        bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
+        bg.fill((0, 0, 0, 210))
+        screen.blit(bg, (tx - pad_x, ty - pad_y))
+        rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
+        pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
+        screen.blit(text_surf, (tx, ty))
 
+
+def map_pixel_size(world_or_map, tile_size: int) -> Tuple[int, int]:
+    """
+    计算地图像素宽高（不含 margin 与顶部偏移）。
+    支持传入 world（含 .map）或 map 对象（含 .width/.height）。
+    """
+    map_obj = getattr(world_or_map, "map", world_or_map)
+    return map_obj.width * tile_size, map_obj.height * tile_size

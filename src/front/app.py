@@ -1,4 +1,5 @@
 import asyncio
+import random
 from typing import Dict, List, Optional
 
 from src.sim.simulator import Simulator
@@ -16,6 +17,8 @@ from .rendering import (
     draw_tooltip_for_region,
     draw_status_bar,
     STATUS_BAR_HEIGHT,
+    draw_small_regions,
+    draw_sect_headquarters,
 )
 from .events_panel import draw_sidebar
 
@@ -82,6 +85,10 @@ class Front:
         self._sidebar_filter_avatar_id: Optional[str] = None
         self._sidebar_filter_open: bool = False
 
+        # 侧栏筛选选项缓存（列表）与脏标记
+        self._sidebar_options_cache: Optional[List[tuple[str, Optional[str]]]] = None
+        self._sidebar_options_dirty: bool = True
+
         # hover 轮换状态（滚轮切换）
         self._hover_anchor_pos: Optional[tuple[int, int]] = None
         self._hover_candidates: List[str] = []  # avatar_id 列表（当前锚点下）
@@ -100,6 +107,8 @@ class Front:
         self._last_step_ms = 0
         # 步进完成后，更新插值目标
         self._update_avatar_display_targets()
+        # 世界推进后，角色增减或名称改变的可能性上升，置脏侧栏选项
+        self._sidebar_options_dirty = True
 
     async def run_async(self):
         pygame = self.pygame
@@ -156,7 +165,6 @@ class Front:
             STATUS_BAR_HEIGHT,
         )
         # 底图后叠加小区域整图（2x2/3x3），再绘制宗门总部，避免被覆盖
-        from .rendering import draw_sect_headquarters, draw_small_regions
         draw_small_regions(pygame, self.screen, self.world, self.region_images, self.tile_images, self.tile_size, self.margin, STATUS_BAR_HEIGHT, self.tile_originals)
         draw_sect_headquarters(pygame, self.screen, self.world, self.sect_images, self.tile_size, self.margin, STATUS_BAR_HEIGHT)
         hovered_region = draw_region_labels(
@@ -194,10 +202,8 @@ class Front:
             aid = self._sidebar_filter_avatar_id
             events_to_draw = [e for e in self.events if getattr(e, "related_avatars", None) and (aid in e.related_avatars)]
 
-        # 构造下拉选项（第一个是所有人；其余为当前世界中的角色）
-        options: List[tuple[str, Optional[str]]] = [("所有人", None)]
-        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
-            options.append((avatar.name, avatar_id))
+        # 构造下拉选项（第一个是所有人；其余为当前世界中的角色）- 带缓存
+        options = self._get_sidebar_options_cached()
         sel_label = "所有人"
         if self._sidebar_filter_avatar_id is not None:
             sel_avatar = self.world.avatar_manager.avatars.get(self._sidebar_filter_avatar_id)
@@ -311,13 +317,20 @@ class Front:
             self._hover_last_build_ms = self._now_ms()
 
     def _assign_avatar_images(self):
-        import random
+        # 若在上一次分配后头像集合未发生变化，且数量相等，则跳过
+        if not getattr(self, "_avatar_assign_dirty", True) and len(self.avatar_images) == len(self.world.avatar_manager.avatars):
+            return
+        assigned_new = False
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             if avatar_id not in self.avatar_images:
                 if avatar.gender == Gender.MALE and self.male_avatars:
                     self.avatar_images[avatar_id] = random.choice(self.male_avatars)
                 elif avatar.gender == Gender.FEMALE and self.female_avatars:
                     self.avatar_images[avatar_id] = random.choice(self.female_avatars)
+                assigned_new = True
+        # 分配完成，标记为干净；在后续状态更新时会被置脏
+        if assigned_new or len(self.avatar_images) == len(self.world.avatar_manager.avatars):
+            self._avatar_assign_dirty = False
 
     # --- 插值辅助 ---
     def _now_ms(self) -> int:
@@ -344,6 +357,10 @@ class Front:
                     "start_ms": float(now),
                     "duration_ms": float(max(1, self.step_interval_ms)),
                 }
+        # 任何插值初始化/同步都可能意味着角色集合发生变化，置脏以便头像图像分配在下一帧检查
+        self._avatar_assign_dirty = True
+        # 角色集合变动也会影响侧栏选项
+        self._sidebar_options_dirty = True
 
     def _update_avatar_display_targets(self):
         now = self._now_ms()
@@ -387,6 +404,16 @@ class Front:
         x = float(state["start_px"]) + (float(state["target_px"]) - float(state["start_px"])) * te
         y = float(state["start_py"]) + (float(state["target_py"]) - float(state["start_py"])) * te
         return x, y
+
+    def _get_sidebar_options_cached(self) -> List[tuple[str, Optional[str]]]:
+        if (not self._sidebar_options_dirty) and self._sidebar_options_cache is not None:
+            return self._sidebar_options_cache
+        options: List[tuple[str, Optional[str]]] = [("所有人", None)]
+        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
+            options.append((avatar.name, avatar_id))
+        self._sidebar_options_cache = options
+        self._sidebar_options_dirty = False
+        return options
 
 
 __all__ = ["Front"]
