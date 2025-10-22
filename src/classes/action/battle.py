@@ -4,6 +4,8 @@ from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
+from src.classes.action.event_helper import EventHelper
+from src.utils.asyncio_utils import schedule_background
 
 
 class Battle(InstantAction):
@@ -71,11 +73,23 @@ class Battle(InstantAction):
             pass
         result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids)
 
-        # 生成战斗小故事：使用便捷方法从参与者直接生成
+        # 异步生成战斗小故事并在完成后推送事件，避免阻塞事件循环
         target = self._get_target(avatar_name)
         start_text = getattr(self, "_start_event_content", "") or result_event.content
-        story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
-        story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids)
-        return [result_event, story_event]
+        month_at_finish = self.world.month_stamp
+
+        async def _gen_and_push_story():
+            story = await StoryTeller.tell_from_actors_async(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+            story_event = Event(month_at_finish, story, related_avatars=rel_ids)
+            EventHelper.push_pair(story_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+
+        def _fallback_sync():
+            story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+            story_event = Event(month_at_finish, story, related_avatars=rel_ids)
+            EventHelper.push_pair(story_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+
+        schedule_background(_gen_and_push_story(), fallback=_fallback_sync)
+
+        return [result_event]
 
 

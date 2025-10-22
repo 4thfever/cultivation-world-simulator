@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from typing import Dict, TYPE_CHECKING
+import asyncio
 import random
 
 from src.utils.config import CONFIG
-from src.utils.llm import get_prompt_and_call_llm
+from src.utils.llm import get_prompt_and_call_llm, get_prompt_and_call_llm_async
 
 story_styles = [
     "平淡叙述：语句克制、少修饰、像旁观者记录。",
@@ -64,9 +65,31 @@ class StoryTeller:
             if story:
                 return story
         except Exception:
-            # 避免过度 try/catch，仅在外部依赖失败时提供降级
             pass
         # 降级文案（不中断主流程）
+        style = infos.get("style", "")
+        return f"{event}。{res}。{style}"
+
+    @staticmethod
+    async def tell_story_async(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "") -> str:
+        """
+        异步版本：生成小故事，失败时返回降级文案。
+        """
+        template_path = CONFIG.paths.templates / "story.txt"
+        infos = {
+            "avatar_infos": avatar_infos,
+            "event": event,
+            "res": res,
+            "style": random.choice(story_styles),
+            "story_prompt": STORY_PROMPT or "",
+        }
+        try:
+            data = await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
+            story = str(data.get("story", "")).strip()
+            if story:
+                return story
+        except Exception:
+            pass
         style = infos.get("style", "")
         return f"{event}。{res}。{style}"
 
@@ -77,6 +100,11 @@ class StoryTeller:
         """
         avatar_infos = StoryTeller.build_avatar_infos(*actors)
         return StoryTeller.tell_story(avatar_infos, event, res, prompt or "")
+
+    @staticmethod
+    async def tell_from_actors_async(event: str, res: str, *actors: "Avatar", prompt: str | None = None) -> str:
+        avatar_infos = StoryTeller.build_avatar_infos(*actors)
+        return await StoryTeller.tell_story_async(avatar_infos, event, res, prompt or "")
 
 
 __all__ = ["StoryTeller"]

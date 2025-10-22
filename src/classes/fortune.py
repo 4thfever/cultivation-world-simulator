@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import random
 from typing import Optional
+import asyncio
 
 from src.utils.config import CONFIG
 from src.classes.avatar import Avatar
 from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
+from src.classes.action.event_helper import EventHelper
+from src.utils.asyncio_utils import schedule_background
 from src.classes.technique import TechniqueGrade, get_random_upper_technique_for_avatar
 from src.classes.treasure import Treasure, treasures_by_id
 
@@ -107,18 +110,28 @@ def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         avatar.technique = tech
         res_text = f"{avatar.name} 得到上品功法『{tech.name}』"
 
-    # 生成故事
+    # 生成故事（异步避免阻塞）
     event_text = f"遭遇奇遇（{theme}），{res_text}"
     story_prompt = (
         f"请据此写100~150字小故事。"
     )
-    story = StoryTeller.tell_from_actors(event_text, res_text, avatar, prompt=story_prompt)
 
-    events: list[Event] = [
-        Event(avatar.world.month_stamp, event_text, related_avatars=[avatar.id]),
-        Event(avatar.world.month_stamp, story, related_avatars=[avatar.id]),
-    ]
-    return events
+    month_at_finish = avatar.world.month_stamp
+    base_event = Event(month_at_finish, event_text, related_avatars=[avatar.id])
+
+    async def _gen_and_push_story():
+        story = await StoryTeller.tell_from_actors_async(event_text, res_text, avatar, prompt=story_prompt)
+        story_event = Event(month_at_finish, story, related_avatars=[avatar.id])
+        EventHelper.push_self(story_event, avatar, to_sidebar=True)
+
+    def _fallback_sync():
+        story = StoryTeller.tell_from_actors(event_text, res_text, avatar, prompt=story_prompt)
+        story_event = Event(month_at_finish, story, related_avatars=[avatar.id])
+        EventHelper.push_self(story_event, avatar, to_sidebar=True)
+
+    schedule_background(_gen_and_push_story(), fallback=_fallback_sync)
+
+    return [base_event]
 
 
 __all__ = [

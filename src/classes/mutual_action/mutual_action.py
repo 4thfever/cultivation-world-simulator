@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import TYPE_CHECKING
+import asyncio
 
 from src.classes.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.tile import get_avatar_distance
 from src.classes.event import Event
-from src.utils.llm import get_prompt_and_call_llm
+from src.utils.llm import get_prompt_and_call_llm, get_prompt_and_call_llm_async
 from src.utils.config import CONFIG
 from src.classes.relation import relation_display_names, Relation, get_possible_post_relations
 from src.classes.action_runtime import ActionResult, ActionStatus
@@ -45,6 +46,12 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
     # 若该互动动作可能生成小故事，可在子类中覆盖该提示词
     STORY_PROMPT: str | None = None
 
+    def __init__(self, avatar: "Avatar", world: "World"):
+        super().__init__(avatar, world)
+        # 异步反馈任务句柄与缓存结果
+        self._feedback_task: asyncio.Task | None = None
+        self._feedback_cached: dict | None = None
+
     def _get_template_path(self) -> Path:
         return CONFIG.paths.templates / "mutual_action.txt"
 
@@ -70,10 +77,16 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         }
 
     def _call_llm_feedback(self, infos: dict) -> dict:
+        """
+        兼容保留：同步调用（不在事件循环内使用）。
+        """
         template_path = self._get_template_path()
-        # mutual用快速llm，不需要复杂决策
         res = get_prompt_and_call_llm(template_path, infos, mode="fast")
         return res
+
+    async def _call_llm_feedback_async(self, infos: dict) -> dict:
+        template_path = self._get_template_path()
+        return await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
 
     def _set_target_immediate_action(self, target_avatar: "Avatar", action_name: str, action_params: dict) -> None:
         """
@@ -115,29 +128,25 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         return target_avatar
 
     def _execute(self, target_avatar: "Avatar|str") -> None:
+        """
+        保留同步实现（不在事件循环内使用）。
+        """
         target_avatar = self._get_target_avatar(target_avatar)
         if target_avatar is None:
             return
 
         infos = self._build_prompt_infos(target_avatar)
         res = self._call_llm_feedback(infos)
-        # LLM 只返回 {avatar_name_2: {thinking, feedback}}
         r = res.get(infos["avatar_name_2"], {})
         thinking = r.get("thinking", "")
         feedback = r.get("feedback", "")
 
-        # 挂到目标的thinking上（面向UI/日志），并执行反馈落地
         target_avatar.thinking = thinking
-        # 1) 先清空目标后续计划（仅清空队列，不动当前动作）
         target_avatar.clear_plans()
-        # 2) 再结算反馈映射为对应动作
         self._settle_feedback(target_avatar, feedback)
-        # 3) 反馈事件（进入侧边栏与双方历史，中文化文案）
         fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
         feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target_avatar.id])
-        # 侧边栏仅推送一次，另一侧仅写入历史，避免重复
         EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target_avatar, to_sidebar_once=True)
-        # 4) 记录历史（文本记录）
         self._apply_feedback(target_avatar, feedback)
 
     # 实现 ActualActionMixin 接口
@@ -173,10 +182,44 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
 
     def step(self, target_avatar: "Avatar|str") -> ActionResult:
         """
-        执行互动动作，互动动作是即时完成的
+        异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地反馈并完成。
         """
-        self.execute(target_avatar=target_avatar)
-        return ActionResult(status=ActionStatus.COMPLETED, events=[])
+        target = self._get_target_avatar(target_avatar)
+        if target is None:
+            return ActionResult(status=ActionStatus.FAILED, events=[])
+
+        # 若无任务，创建异步任务
+        if self._feedback_task is None and self._feedback_cached is None:
+            infos = self._build_prompt_infos(target)
+            try:
+                loop = asyncio.get_running_loop()
+                self._feedback_task = loop.create_task(self._call_llm_feedback_async(infos))
+            except RuntimeError:
+                # 无运行中的事件循环时，退化为同步调用（如离线批处理）
+                self._feedback_cached = self._call_llm_feedback(infos)
+
+        # 若任务已完成，消费结果
+        if self._feedback_task is not None and self._feedback_task.done():
+            self._feedback_cached = self._feedback_task.result()
+            self._feedback_task = None
+
+        if self._feedback_cached is not None:
+            res = self._feedback_cached
+            self._feedback_cached = None
+            r = res.get(target.name, {})
+            thinking = r.get("thinking", "")
+            feedback = r.get("feedback", "")
+
+            target.thinking = thinking
+            target.clear_plans()
+            self._settle_feedback(target, feedback)
+            fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
+            feedback_event = Event(self.world.month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
+            EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            self._apply_feedback(target, feedback)
+            return ActionResult(status=ActionStatus.COMPLETED, events=[])
+
+        return ActionResult(status=ActionStatus.RUNNING, events=[])
 
     def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         """
