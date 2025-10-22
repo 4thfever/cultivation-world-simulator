@@ -280,6 +280,8 @@ def draw_avatars_and_pick_hover(
     margin: int,
     get_display_center: Optional[Callable[[Avatar, int, int], Tuple[float, float]]] = None,
     top_offset: int = 0,
+    name_font: Optional[object] = None,
+    highlight_avatar_id: Optional[str] = None,
 ) -> Tuple[Optional[Avatar], List[Avatar]]:
     mouse_x, mouse_y = pygame_mod.mouse.get_pos()
     candidates_with_dist: List[Tuple[float, Avatar]] = []
@@ -296,12 +298,72 @@ def draw_avatars_and_pick_hover(
             image_x = cx - image_rect.width // 2
             image_y = cy - image_rect.height // 2
             screen.blit(avatar_image, (image_x, image_y))
+            # 名字（置于头像下方居中）
+            if name_font is not None:
+                name_text = str(getattr(avatar, "name", ""))
+                if name_text:
+                    is_highlight = bool(highlight_avatar_id and avatar.id == highlight_avatar_id)
+                    text_color = (236, 236, 236) if is_highlight else colors["text"]
+                    text_surf = name_font.render(name_text, True, text_color)
+                    tx = image_x + (image_rect.width - text_surf.get_width()) // 2
+                    ty = image_y + image_rect.height + 2
+                    if is_highlight:
+                        pad_x = 6
+                        pad_y = 2
+                        w = text_surf.get_width() + pad_x * 2
+                        h = text_surf.get_height() + pad_y * 2
+                        bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
+                        bg.fill((0, 0, 0, 210))
+                        screen.blit(bg, (tx - pad_x, ty - pad_y))
+                        # 边框
+                        rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
+                        pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
+                        screen.blit(text_surf, (tx, ty))
+                    else:
+                        # 轻描边
+                        border_color = colors.get("text_border", (24, 24, 24))
+                        border_surf = name_font.render(name_text, True, border_color)
+                        for dx in (-1, 1, 0, 0):
+                            for dy in (0, 0, -1, 1):
+                                if dx == 0 and dy == 0:
+                                    continue
+                                screen.blit(border_surf, (tx + dx, ty + dy))
+                        screen.blit(text_surf, (tx, ty))
             if image_rect.collidepoint(mouse_x - image_x, mouse_y - image_y):
                 dist = math.hypot(mouse_x - cx, mouse_y - cy)
                 candidates_with_dist.append((dist, avatar))
         else:
             radius = max(8, tile_size // 3)
             pygame_mod.draw.circle(screen, colors["avatar"], (cx, cy), radius)
+            # 名字（置于圆形下方居中）
+            if name_font is not None:
+                name_text = str(getattr(avatar, "name", ""))
+                if name_text:
+                    is_highlight = bool(highlight_avatar_id and avatar.id == highlight_avatar_id)
+                    text_color = (236, 236, 236) if is_highlight else colors["text"]
+                    text_surf = name_font.render(name_text, True, text_color)
+                    tx = int(cx - text_surf.get_width() / 2)
+                    ty = int(cy + radius + 2)
+                    if is_highlight:
+                        pad_x = 6
+                        pad_y = 2
+                        w = text_surf.get_width() + pad_x * 2
+                        h = text_surf.get_height() + pad_y * 2
+                        bg = pygame_mod.Surface((w, h), pygame_mod.SRCALPHA)
+                        bg.fill((0, 0, 0, 210))
+                        screen.blit(bg, (tx - pad_x, ty - pad_y))
+                        rect = pygame_mod.Rect(tx - pad_x, ty - pad_y, w, h)
+                        pygame_mod.draw.rect(screen, colors.get("tooltip_bd", (90, 90, 90)), rect, 1, border_radius=6)
+                        screen.blit(text_surf, (tx, ty))
+                    else:
+                        border_color = colors.get("text_border", (24, 24, 24))
+                        border_surf = name_font.render(name_text, True, border_color)
+                        for dx in (-1, 1, 0, 0):
+                            for dy in (0, 0, -1, 1):
+                                if dx == 0 and dy == 0:
+                                    continue
+                                screen.blit(border_surf, (tx + dx, ty + dy))
+                        screen.blit(text_surf, (tx, ty))
             dist = math.hypot(mouse_x - cx, mouse_y - cy)
             if dist <= radius:
                 candidates_with_dist.append((dist, avatar))

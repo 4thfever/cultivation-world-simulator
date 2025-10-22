@@ -59,6 +59,7 @@ class Front:
         self.tooltip_font = create_font(self.pygame, 14, self.font_path)
         self.sidebar_font = create_font(self.pygame, 14, self.font_path)
         self.status_font = create_font(self.pygame, 18, self.font_path)
+        self.name_font = create_font(self.pygame, 14, self.font_path)
         self._region_font_cache: Dict[int, object] = {}
 
         self.colors = COLORS
@@ -179,6 +180,8 @@ class Front:
             self.margin,
             self._get_display_center,
             STATUS_BAR_HEIGHT,
+            self.name_font,
+            self._sidebar_filter_avatar_id,
         )
         hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
