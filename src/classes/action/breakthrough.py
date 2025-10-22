@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 from src.classes.action import TimedAction
+from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.cultivation import Realm
 from src.classes.story_teller import StoryTeller
@@ -28,6 +29,7 @@ from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
 
 
+@cooldown_action
 class Breakthrough(TimedAction):
     """
     突破境界。
@@ -36,8 +38,10 @@ class Breakthrough(TimedAction):
     """
 
     COMMENT = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
-    DOABLES_REQUIREMENTS = "角色处于瓶颈时"
+    DOABLES_REQUIREMENTS = "角色处于瓶颈时；不能连续执行"
     PARAMS = {}
+    # 冷却：突破应当有CD，避免连刷
+    ACTION_CD_MONTHS: int = 3
     # 保留类级常量声明，实际读取模块级配置
 
     def calc_success_rate(self) -> float:

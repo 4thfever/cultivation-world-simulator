@@ -30,7 +30,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
 
     ACTION_NAME: str = "MutualAction"
     COMMENT: str = ""
-    DOABLES_REQUIREMENTS: str = "感知范围内可互动"
+    DOABLES_REQUIREMENTS: str = "交互范围内可互动"
     PARAMS: dict = {"target_avatar": "Avatar"}
     FEEDBACK_ACTIONS: list[str] = []
     # 反馈动作 -> 中文标签 的映射，供事件展示复用
@@ -143,7 +143,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
     # 实现 ActualActionMixin 接口
     def can_start(self, target_avatar: "Avatar|str|None" = None) -> tuple[bool, str]:
         """
-        检查互动动作能否启动：目标需在发起者的感知范围内。
+        检查互动动作能否启动：目标需在发起者的交互范围内。
         """
         if target_avatar is None:
             return False, "缺少参数 target_avatar"
@@ -152,7 +152,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             return False, "目标不存在"
         from src.classes.observe import is_within_observation
         ok = is_within_observation(self.avatar, target)
-        return (ok, "" if ok else "目标不在感知范围内")
+        return (ok, "" if ok else "目标不在交互范围内")
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         """

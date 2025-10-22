@@ -24,8 +24,8 @@ class Conversation(MutualAction):
     """
 
     ACTION_NAME = "交谈"
-    COMMENT = "两人需在同一地区，进行一段交流对话"
-    DOABLES_REQUIREMENTS = "与目标处于同一区域"
+    COMMENT = "与对方进行一段交流对话"
+    DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
     STORY_PROMPT: str = ""

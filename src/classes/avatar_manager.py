@@ -28,7 +28,7 @@ class AvatarManager:
 
     def get_observable_avatars(self, avatar: "Avatar") -> List["Avatar"]:
         """
-        返回处于 avatar 感知范围内的其他角色列表（不含自己）。
+        返回处于 avatar 交互范围内的其他角色列表（不含自己）。
         基于曼哈顿距离与境界映射的感知半径过滤。
         """
         return get_observable_avatars(avatar, self.avatars.values())

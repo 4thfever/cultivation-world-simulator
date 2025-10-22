@@ -96,6 +96,8 @@ class Avatar:
     spirit_animal: Optional[SpiritAnimal] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
+    # 动作冷却：记录动作类名 -> 上次完成月戳
+    _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     # 不缓存 effects；实时从宗门与功法合并
 
     def __post_init__(self):

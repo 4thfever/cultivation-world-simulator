@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from .mutual_action import MutualAction
+from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
 from src.utils.config import CONFIG
@@ -13,11 +14,12 @@ if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 
+@cooldown_action
 class DualCultivation(MutualAction):
-    """双修：合欢宗弟子可与感知范围内的修士尝试双修。
+    """双修：合欢宗弟子可与交互范围内的修士尝试双修。
 
     - 仅限发起方为合欢宗成员
-    - 仅当目标在感知范围内
+    - 仅当目标在交互范围内
     - 目标可以选择 接受 或 拒绝
     - 若接受：发起者获得大量修为（约为修炼的 3~5 倍，随对方等级浮动），目标不获得修为
     - 成功进入后生成一段“恋爱/双修”的小故事
@@ -25,11 +27,13 @@ class DualCultivation(MutualAction):
 
     ACTION_NAME = "双修"
     COMMENT = "以情入道的双修之术，仅合欢宗弟子可发起，对象可接受或拒绝"
-    DOABLES_REQUIREMENTS = "发起者为合欢宗；目标在感知范围内"
+    DOABLES_REQUIREMENTS = "发起者为合欢宗；目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
     # 提供用于故事生成的提示词，供 StoryTeller 模板参考
     STORY_PROMPT: str | None = "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
+    # 双修的社交冷却：避免频繁请求
+    ACTION_CD_MONTHS: int = 3
 
     def _get_template_path(self) -> Path:
         # 复用 mutual_action 模板，仅需返回 Accept/Reject

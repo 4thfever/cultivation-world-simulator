@@ -7,10 +7,10 @@ import random
 
 class DevourMortals(TimedAction):
     """
-    吞噬凡人：需持有万魂幡，吞噬魂魄可大大增加战力。
+    吞噬凡人：需持有万魂幡，吞噬魂魄可较多增加战力。
     """
 
-    COMMENT = "吞噬凡人，大大增加战力"
+    COMMENT = "吞噬凡人，较多增加战力"
     DOABLES_REQUIREMENTS = "持有万魂幡"
     PARAMS = {}
 

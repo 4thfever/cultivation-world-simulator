@@ -8,33 +8,33 @@ from src.classes.event import Event
 
 class Talk(InstantAction):
     """
-    攀谈：尝试与感知范围内的某个NPC进行交谈。
-    - can_start：感知范围内存在其他NPC
-    - 发起后：从感知范围内随机选择一个目标，进入 MutualAction: Conversation（允许建立关系）
+    攀谈：尝试与交互范围内的某个NPC进行交谈。
+    - can_start：交互范围内存在其他NPC
+    - 发起后：从交互范围内随机选择一个目标，进入 MutualAction: Conversation（允许建立关系）
     """
 
-    COMMENT = "与感知范围内的NPC发起攀谈"
-    DOABLES_REQUIREMENTS = "感知范围内存在其他NPC"
+    COMMENT = "与交互范围内的NPC发起攀谈"
+    DOABLES_REQUIREMENTS = "交互范围内存在其他NPC"
     PARAMS = {}
 
     def _get_observed_others(self) -> list["Avatar"]:
         return self.world.avatar_manager.get_observable_avatars(self.avatar)
 
-    # 不再限定必须同一 tile，由感知范围统一约束
+    # 不再限定必须同一 tile，由交互范围统一约束
 
     def _execute(self) -> None:
         # Talk 本身不做长期效果，主要在 step 中驱动 Conversation
         return
 
     def can_start(self, **kwargs) -> tuple[bool, str]:
-        # 感知范围内是否存在其他NPC（用于展示在动作空间）
+        # 交互范围内是否存在其他NPC（用于展示在动作空间）
         ok = len(self._get_observed_others()) > 0
-        return (ok, "" if ok else "感知范围内没有可交谈对象")
+        return (ok, "" if ok else "交互范围内没有可交谈对象")
 
     def start(self) -> Event:
         self.observed_others = self._get_observed_others()
         # 记录开始事件
-        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与感知范围内的他人攀谈", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试与交互范围内的他人攀谈", related_avatars=[self.avatar.id])
 
     def step(self) -> ActionResult:
         import random

@@ -36,7 +36,7 @@ def get_avatar_observation_radius(avatar: "Avatar") -> int:
 
 def is_within_observation(initiator: "Avatar", other: "Avatar") -> bool:
     """
-    判断 other 是否处于 initiator 的感知范围内：
+    判断 other 是否处于 initiator 的交互范围内：
     汉明距离(曼哈顿距离) <= initiator 的感知半径。
     """
     return get_avatar_distance(initiator, other) <= get_avatar_observation_radius(initiator)
@@ -44,7 +44,7 @@ def is_within_observation(initiator: "Avatar", other: "Avatar") -> bool:
 
 def get_observable_avatars(initiator: "Avatar", avatars: Iterable["Avatar"]) -> List["Avatar"]:
     """
-    从给定集合中过滤出处于 initiator 感知范围内的角色（不包含 initiator 本人）。
+    从给定集合中过滤出处于 initiator 交互范围内的角色（不包含 initiator 本人）。
     算法：线性扫描 O(N)，与现有管理器遍历复杂度一致。
     """
     result: list["Avatar"] = []
