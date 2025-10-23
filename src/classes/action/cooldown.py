@@ -14,16 +14,6 @@ def cooldown_action(cls: type) -> type:
     if cd <= 0:
         return cls
 
-    # 追加提示到 COMMENT（若存在）
-    try:
-        comment = getattr(cls, "COMMENT", "")
-        if isinstance(comment, str) and comment.strip():
-            if f"冷却：{cd}月" not in comment:
-                setattr(cls, "COMMENT", f"{comment}（冷却：{cd}月）")
-    except Exception:
-        # 避免 COMMENT 异常影响核心逻辑
-        pass
-
     # 包装 can_start
     if hasattr(cls, "can_start"):
         original_can_start = cls.can_start
@@ -52,7 +42,6 @@ def cooldown_action(cls: type) -> type:
             return events
 
         cls.finish = finish  # type: ignore[assignment]
-
     return cls
 
 
