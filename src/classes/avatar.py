@@ -495,9 +495,6 @@ class Avatar:
         else:
             history_list = []
 
-        action_space = self.get_action_space()
-
-        info["动作空间"] = action_space
         info["观察到的角色"] = observed
         info["历史事件"] = history_list
         return info

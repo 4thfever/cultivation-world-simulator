@@ -16,7 +16,7 @@ ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 ACTION_INFOS = {
     action.__name__: {
         "comment": getattr(action, "COMMENT", ""),
-        "doable_requirements": getattr(action, "DOABLES_REQUIREMENTS", ""),
+        "requirements": getattr(action, "DOABLES_REQUIREMENTS", ""),
         "params": getattr(action, "PARAMS", {}),
         "cd_months": int(getattr(action, "ACTION_CD_MONTHS", 0) or 0),
     }
