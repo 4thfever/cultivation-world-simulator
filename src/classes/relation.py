@@ -137,9 +137,26 @@ def get_possible_post_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> L
     return candidates
 
 
-# ——— 悬浮提示：从“自身视角”格式化关系 ———
-def _label_from_self_perspective(relation: Relation) -> str:
-    # 以“我”为参照：有向关系需要取对偶后再显示（如 MASTER -> 徒弟）。
+# ——— 显示层：性别化称谓映射与标签工具 ———
+# 基于对方性别的细化：
+GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
+    # 我 -> 对方：CHILD（我为子，对方为父/母） → 显示对方为 父亲/母亲
+    (Relation.CHILD, "male"): "父亲",
+    (Relation.CHILD, "female"): "母亲",
+    # 我 -> 对方：PARENT（我为父/母，对方为子） → 显示对方为 儿子/女儿
+    (Relation.PARENT, "male"): "儿子",
+    (Relation.PARENT, "female"): "女儿",
+}
+
+
+def _label_from_self_perspective(relation: Relation, other_gender: object | None = None) -> str:
+    # 优先使用性别化细化
+    if other_gender is not None:
+        gender_value = getattr(other_gender, "value", None) or str(other_gender)
+        s = GENDERED_DISPLAY.get((relation, gender_value))
+        if s:
+            return s
+    # 其余关系：以“我”为参照，取对偶再显示（MASTER -> 徒弟）
     counterpart = get_reciprocal(relation)
     return relation_display_names.get(counterpart, str(counterpart))
 
@@ -158,7 +175,7 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 6) -> list[str]:
 
     grouped: dict[str, list[str]] = defaultdict(list)
     for other, rel in relations.items():
-        grouped[_label_from_self_perspective(rel)].append(other.name)
+        grouped[_label_from_self_perspective(rel, getattr(other, "gender", None))].append(other.name)
 
     lines: list[str] = []
     for key in sorted(grouped.keys()):
@@ -167,4 +184,9 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 6) -> list[str]:
         if len(lines) >= max_lines:
             break
     return lines
+
+
+def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:
+    lines = get_relations_strs(avatar, max_lines=max_lines)
+    return sep.join(lines) if lines else "无"
 

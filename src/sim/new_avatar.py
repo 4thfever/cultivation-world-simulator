@@ -54,7 +54,7 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def get_new_avatar_from_ordinary(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
+def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
     """
     从凡人中来的新修士：最低境界、随机位置，不分配宗门/法宝。
     """
