@@ -49,6 +49,12 @@ MASTER_LEVEL_EXTRA_MAX: int = 10        # 在最小等级差基础上的额外�
 PARENT_LEVEL_MIN_DIFF: int = 10         # 父母与子女最小等级差
 PARENT_LEVEL_EXTRA_MAX: int = 10        # 在最小等级差基础上的额外浮动
 
+# —— 新凡人（单个）生成相关概率与范围 ——
+NEW_MORTAL_PARENT_PROB: float = 0.30    # 有概率是某个既有角色的子女
+NEW_MORTAL_SECT_PROB: float = 0.50      # 有概率成为某个“已有宗门”的弟子
+NEW_MORTAL_MASTER_PROB: float = 0.40    # 若成为宗门弟子，有概率拜该宗门现有人物为师
+NEW_MORTAL_LEVEL_MAX: int = 40          # 新凡人默认偏低等级上限
+
 
 def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
@@ -56,25 +62,164 @@ def random_gender() -> Gender:
 
 def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
     """
-    从凡人中来的新修士：最低境界、随机位置，不分配宗门/法宝。
+    从凡人中来的新修士：先规划宗门/关系，再生成实际角色；不分配宗门法宝。
     """
-    avatar_id = get_avatar_id()
+    # 规划
+    plan = plan_mortal(world, name=name, age=age)
+    # 生成
+    return build_mortal_from_plan(world, current_month_stamp, name=name, age=age, plan=plan)
+
+
+class MortalPlan:
+    def __init__(self):
+        self.gender: Optional[Gender] = None
+        self.sect: Optional[Sect] = None
+        self.surname: Optional[str] = None
+        self.parent_avatar: Optional[Avatar] = None
+        self.master_avatar: Optional[Avatar] = None
+        self.level: int = max(LEVEL_MIN, random.randint(LEVEL_MIN, NEW_MORTAL_LEVEL_MAX))
+        self.pos_x: int = 0
+        self.pos_y: int = 0
+
+
+def _pick_any_sect(existed_sects: Optional[List[Sect]]) -> Optional[Sect]:
+    if not existed_sects:
+        return None
+    return random.choice(existed_sects)
+
+
+def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
+    """
+    从宗门列表中“均衡”挑选 k 个位置的宗门引用：
+    - 每次选择当前计数最少的宗门之一；
+    - 返回长度为 k 的列表；
+    """
+    if not existed_sects or k <= 0:
+        return []
+    counts: dict[int, int] = {s.id: 0 for s in existed_sects}
+    chosen: list[Optional[Sect]] = []
+    for _ in range(k):
+        min_count = min(counts.values()) if counts else 0
+        candidates = [s for s in existed_sects if counts.get(s.id, 0) == min_count]
+        s = random.choice(candidates)
+        counts[s.id] = counts.get(s.id, 0) + 1
+        chosen.append(s)
+    return chosen
+
+
+def plan_mortal(world: World, name: str, age: Age, *, existed_sects: Optional[List[Sect]] = None, existing_avatars: Optional[List[Avatar]] = None) -> MortalPlan:
+    """
+    规划新凡人的宗门与关系（父母/师徒），以及取名所需的姓氏等。
+    """
+    plan = MortalPlan()
+
+    # 性别与位置
+    plan.gender = random_gender()
+    plan.pos_x = random.randint(0, world.map.width - 1)
+    plan.pos_y = random.randint(0, world.map.height - 1)
+
+    # 数据源
+    if existing_avatars is None:
+        existing_avatars = list(world.avatar_manager.avatars.values())
+    if existed_sects is None:
+        # 若 run 层已抽样，可传入；否则直接从世界可见宗门中随机（此处简单选择）
+        try:
+            from src.classes.sect import sects_by_id as _sects_by_id
+            existed_sects = list(_sects_by_id.values())
+        except Exception:
+            existed_sects = []
+
+    # 5.b 宗门（先于关系确定，便于后续取名/师徒）
+    if random.random() < NEW_MORTAL_SECT_PROB:
+        # 单人场景：挑1个宗门，复用均衡逻辑的退化形式
+        picked = _pick_sects_balanced(existed_sects or [], 1)
+        plan.sect = picked[0] if picked else None
+
+    # 5.a 父/母：从现有角色中挑选足够年长者
+    if random.random() < NEW_MORTAL_PARENT_PROB and existing_avatars:
+        candidates: list[Avatar] = []
+        for av in existing_avatars:
+            if av.age.age >= age.age + PARENT_MIN_DIFF:
+                candidates.append(av)
+        if candidates:
+            parent = random.choice(candidates)
+            plan.parent_avatar = parent
+            # 姓氏偏好：父男同姓，母女异姓（仅在 name 为空时影响）
+            if not name:
+                if parent.gender is Gender.MALE:
+                    plan.surname = pick_surname_for_sect(plan.sect or parent.sect)
+                else:
+                    # 母为女：尽量不同姓
+                    mom_surname = pick_surname_for_sect(plan.sect or parent.sect)
+                    # 迭代挑一个不同姓
+                    for _ in range(5):
+                        s = pick_surname_for_sect(plan.sect)
+                        if s != mom_surname:
+                            plan.surname = s
+                            break
+
+            # 父母更强的趋势：控制新人的 level 不超过父母太多
+            if parent.cultivation_progress.level + PARENT_LEVEL_MIN_DIFF > plan.level:
+                plan.level = max(LEVEL_MIN, min(parent.cultivation_progress.level - 1, NEW_MORTAL_LEVEL_MAX))
+
+    # 5.c 师徒（仅当选中了宗门）
+    if plan.sect is not None and random.random() < NEW_MORTAL_MASTER_PROB and existing_avatars:
+        same_sect = [av for av in existing_avatars if av.sect is plan.sect]
+        if same_sect:
+            stronger = [av for av in same_sect if av.cultivation_progress.level >= plan.level + MASTER_LEVEL_MIN_DIFF]
+            if stronger:
+                plan.master_avatar = random.choice(stronger)
+
+    return plan
+
+
+def build_mortal_from_plan(world: World, current_month_stamp: MonthStamp, *, name: str, age: Age, plan: MortalPlan) -> Avatar:
+    """
+    根据规划创建新凡人，并写入父母/师徒关系；不分配宗门法宝。
+    取名规则：尊重传入 name；若为空，则按规划的 sect/surname 生成。
+    """
+    # 名称
+    if name:
+        final_name = name
+    else:
+        if plan.surname:
+            final_name = get_random_name_with_surname(plan.gender, plan.surname, plan.sect)
+        else:
+            final_name = get_random_name_for_sect(plan.gender, plan.sect)
+
+    # 出生时间与位置
     birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)
-    cultivation_progress = CultivationProgress(0)
-    pos_x = random.randint(0, world.map.width - 1)
-    pos_y = random.randint(0, world.map.height - 1)
-    gender = random.choice(list(Gender))
-    return Avatar(
+
+    # 基础对象
+    avatar = Avatar(
         world=world,
-        name=name,
-        id=avatar_id,
+        name=final_name,
+        id=get_avatar_id(),
         birth_month_stamp=MonthStamp(birth_month_stamp),
         age=age,
-        gender=gender,
-        cultivation_progress=cultivation_progress,
-        pos_x=pos_x,
-        pos_y=pos_y,
+        gender=plan.gender,
+        cultivation_progress=CultivationProgress(plan.level),
+        pos_x=plan.pos_x,
+        pos_y=plan.pos_y,
+        sect=plan.sect,
     )
+
+    # 位置刷新
+    avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
+
+    # 写关系（父母/师徒）；不发放宗门法宝
+    if plan.parent_avatar is not None:
+        plan.parent_avatar.set_relation(avatar, Relation.PARENT)
+    if plan.master_avatar is not None:
+        plan.master_avatar.set_relation(avatar, Relation.MASTER)
+
+    # 功法将由 __post_init__ 自动基于 sect 设置；灵根映射同 make_avatars 流程
+    if avatar.technique is not None:
+        mapped = attribute_to_root(avatar.technique.attribute)
+        if mapped is not None:
+            avatar.root = mapped
+
+    return avatar
 
 
 def plan_sects_and_relations(n: int, existed_sects: Optional[List[Sect]]) -> tuple[list[Optional[Sect]], list[Optional[Gender]], list[Optional[str]], dict[tuple[int, int], Relation]]:
@@ -94,13 +239,8 @@ def plan_sects_and_relations(n: int, existed_sects: Optional[List[Sect]]) -> tup
     # 宗门均衡分配（约 2/3 成为宗门弟子）
     if use_sects and existed_sects:
         sect_member_target = int(n * SECT_MEMBER_RATIO)  # 目标配额：约2/3为宗门弟子；其余散修
-        sect_member_counts_by_id: dict[int, int] = {s.id: 0 for s in existed_sects}
-        for i in range(sect_member_target):
-            min_count = min(sect_member_counts_by_id.values()) if sect_member_counts_by_id else 0  # 轮转均衡：优先填充人数最少的宗门
-            candidates = [s for s in existed_sects if sect_member_counts_by_id.get(s.id, 0) == min_count]
-            s = random.choice(candidates)
-            sect_member_counts_by_id[s.id] += 1
-            planned_sect[i] = s
+        planned_sect[:sect_member_target] = _pick_sects_balanced(existed_sects, sect_member_target)
+        # 打散次序，避免前段集中
         paired = list(zip(planned_sect, list(range(n))))
         random.shuffle(paired)
         planned_sect = [p[0] for p in paired]
