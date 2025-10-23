@@ -171,7 +171,9 @@ class Avatar:
         获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
         """
         region = self.tile.region if self.tile is not None else None
-        relations_info = self._get_relations_summary_str()
+        from src.classes.relation import get_relations_strs
+        relation_lines = get_relations_strs(self, max_lines=8)
+        relations_info = "；".join(relation_lines) if relation_lines else "无"
         magic_stone_info = str(self.magic_stone)
 
         if detailed:
@@ -564,10 +566,11 @@ class Avatar:
         if self.spirit_animal is not None:
             add_kv(lines, "灵兽", self.spirit_animal.get_info())
 
-        # 关系
-        relations_list = [f"{other.name}({str(relation)})" for other, relation in getattr(self, "relations", {}).items()]
-        if relations_list:
-            add_section(lines, "关系", [f"  {s}" for s in relations_list[:6]])
+        # 关系（从自身视角分组展示）
+        from src.classes.relation import get_relations_strs
+        relation_lines = get_relations_strs(self, max_lines=6)
+        if relation_lines:
+            add_section(lines, "关系", [f"  {s}" for s in relation_lines])
         else:
             add_kv(lines, "关系", "无")
 

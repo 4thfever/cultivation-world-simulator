@@ -74,11 +74,37 @@ def get_random_name_for_sect(gender: Gender, sect: Optional[Sect]) -> str:
     """
     基于宗门生成姓名：优先使用宗门常见姓与性别对应名，若缺失则回退到全局库。
     """
+    surname = pick_surname_for_sect(sect)
+    given_pool = get_given_pool_for_sect(gender, sect)
+    return surname + random.choice(given_pool)
+
+
+# —— 新增：基于指定姓氏与宗门风格生成姓名 ——
+def pick_surname_for_sect(sect: Optional[Sect]) -> str:
+    """
+    从宗门常见姓或全局库中挑选一个姓氏。
+    """
+    if sect is not None and sect.sect_surnames:
+        return random.choice(sect.sect_surnames)
+    return random.choice(SURNAMES)
+
+
+def get_given_pool_for_sect(gender: Gender, sect: Optional[Sect]) -> list[str]:
+    """
+    返回给定性别与宗门下的名库（回退到全局）。
+    """
     if sect is None:
-        return get_random_name(gender)
-    surnames = sect.sect_surnames or SURNAMES
+        return MALE_GIVEN_NAMES if gender == Gender.MALE else FEMALE_GIVEN_NAMES
     if gender == Gender.MALE:
-        given_pool = sect.male_sect_given_names or MALE_GIVEN_NAMES
-    else:
-        given_pool = sect.female_sect_given_names or FEMALE_GIVEN_NAMES
-    return random.choice(surnames) + random.choice(given_pool)
+        return sect.male_sect_given_names or MALE_GIVEN_NAMES
+    return sect.female_sect_given_names or FEMALE_GIVEN_NAMES
+
+
+def get_random_name_with_surname(gender: Gender, surname: str, sect: Optional[Sect]) -> str:
+    """
+    使用给定姓氏，结合宗门偏好名库生成姓名；若宗门未配置则回退全局。
+    """
+    if not surname:
+        return get_random_name_for_sect(gender, sect)
+    given_pool = get_given_pool_for_sect(gender, sect)
+    return surname + random.choice(given_pool)

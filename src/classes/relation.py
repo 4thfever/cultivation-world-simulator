@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from enum import Enum
 from typing import TYPE_CHECKING, List
+from collections import defaultdict
 
 
 class Relation(Enum):
@@ -134,4 +135,36 @@ def get_possible_post_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> L
         candidates.append(Relation.APPRENTICE)
 
     return candidates
+
+
+# ——— 悬浮提示：从“自身视角”格式化关系 ———
+def _label_from_self_perspective(relation: Relation) -> str:
+    # 以“我”为参照：有向关系需要取对偶后再显示（如 MASTER -> 徒弟）。
+    counterpart = get_reciprocal(relation)
+    return relation_display_names.get(counterpart, str(counterpart))
+
+
+def get_relations_strs(avatar: "Avatar", max_lines: int = 6) -> list[str]:
+    """
+    以“我”的视角整理关系，输出若干行：
+    - 我的师傅：A，B
+    - 我的徒弟：C
+    - 兄弟姐妹：D，E
+    等。
+    """
+    relations = getattr(avatar, "relations", None)
+    if not relations:
+        return []
+
+    grouped: dict[str, list[str]] = defaultdict(list)
+    for other, rel in relations.items():
+        grouped[_label_from_self_perspective(rel)].append(other.name)
+
+    lines: list[str] = []
+    for key in sorted(grouped.keys()):
+        names = "，".join(grouped[key])
+        lines.append(f"{key}为：{names}")
+        if len(lines) >= max_lines:
+            break
+    return lines
 
