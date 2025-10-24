@@ -451,15 +451,14 @@ class Avatar:
     def add_event(self, event: Event, *, to_sidebar: bool = True, to_history: bool = True) -> None:
         """
         添加事件：
-        - to_sidebar: 是否进入全局侧边栏（通过 Simulator 收集）
-        - to_history: 是否进入本角色的历史事件（最多保留 MAX_HISTORY_EVENTS 条）
+        - to_sidebar: 是否进入全局侧边栏（通过 Avatar._pending_events 暂存）
+        - to_history: 兼容参数，已废弃（统一改为通过 World.event_manager 查询历史）
         """
         if to_sidebar:
             self._pending_events.append(event)
-        if to_history:
-            self.history_events.append(event)
-            if len(self.history_events) > MAX_HISTORY_EVENTS:
-                self.history_events = self.history_events[-MAX_HISTORY_EVENTS:]
+            # 侧边栏类事件通常不在 Simulator 的 events 列表里，直接记入全局事件管理器
+            em = self.world.event_manager
+            em.add_event(event)
 
     def get_action_space_str(self) -> str:
         action_space = self.get_action_space()
@@ -492,10 +491,11 @@ class Avatar:
             for other in co_region_avatars[:8]:
                 observed.append(f"{other.name}(境界：{other.cultivation_progress.get_info()})")
 
-        if self.history_events:
-            history_list = [str(e) for e in self.history_events[-8:]]
-        else:
-            history_list = []
+        # 历史事件改为从全局事件管理器查询
+        n = CONFIG.social.event_context_num
+        em = self.world.event_manager
+        events = em.get_events_by_avatar(self.id, limit=n)
+        history_list = [str(e) for e in events]
 
         info["观察到的角色"] = observed
         info["历史事件"] = history_list

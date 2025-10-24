@@ -6,6 +6,9 @@
 {avatar_name_2}可以进行的选择为：
 {feedback_actions}
 
+最近事件：
+{recent_events}
+
 注意，只返回json格式的结果。
 只返回{avatar_name_2}的行动，格式为：
 {{

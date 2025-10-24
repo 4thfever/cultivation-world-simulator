@@ -16,6 +16,7 @@ from src.classes.action.targeting_mixin import TargetingMixin
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
+    from src.classes.world import World
 
 
 class MutualAction(DefineAction, LLMAction, TargetingMixin):
@@ -64,6 +65,12 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             avatar_name_1: self.avatar.get_info(detailed=False),
             avatar_name_2: target_avatar.get_info(detailed=False),
         }
+        # 历史上下文：仅双方共同经历的最近事件
+        n = CONFIG.social.event_context_num
+
+        pair_recent_events: list[str] = []
+        em = self.world.event_manager
+        pair_recent_events = [str(e) for e in em.get_events_between(self.avatar.id, target_avatar.id, limit=n)]
         feedback_actions = self.FEEDBACK_ACTIONS
         comment = self.COMMENT
         action_name = self.ACTION_NAME
@@ -74,6 +81,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             "action_name": action_name,
             "action_info": comment,
             "feedback_actions": feedback_actions,
+            "recent_events": pair_recent_events,
         }
 
     def _call_llm_feedback(self, infos: dict) -> dict:

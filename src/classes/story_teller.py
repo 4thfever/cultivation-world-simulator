@@ -45,7 +45,28 @@ class StoryTeller:
         return infos
 
     @staticmethod
-    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "") -> str:
+    def _collect_recent_events(*actors: "Avatar") -> list[str]:
+        from src.utils.config import CONFIG as _CONFIG
+        n = _CONFIG.social.event_context_num
+        world = None
+        for av in actors:
+            if av is not None:
+                world = av.world
+                break
+        if world is None:
+            return []
+        em = world.event_manager
+        non_null = [a for a in actors if a is not None]
+        if len(non_null) >= 2:
+            a1, a2 = non_null[0], non_null[1]
+            return [str(e) for e in em.get_events_between(a1.id, a2.id, limit=n)]
+        if non_null:
+            a = non_null[0]
+            return [str(e) for e in em.get_events_by_avatar(a.id, limit=n)]
+        return []
+
+    @staticmethod
+    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "", *, recent_events: list[str] | None = None) -> str:
         """
         基于 `static/templates/story.txt` 模板生成小故事。
         始终使用 fast 模式以提升速度。
@@ -58,6 +79,7 @@ class StoryTeller:
             "res": res,
             "style": random.choice(story_styles),
             "story_prompt": STORY_PROMPT or "",
+            "recent_events": (recent_events or []),
         }
         try:
             data = get_prompt_and_call_llm(template_path, infos, mode="fast")
@@ -71,7 +93,7 @@ class StoryTeller:
         return f"{event}。{res}。{style}"
 
     @staticmethod
-    async def tell_story_async(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "") -> str:
+    async def tell_story_async(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "", *, recent_events: list[str] | None = None) -> str:
         """
         异步版本：生成小故事，失败时返回降级文案。
         """
@@ -82,6 +104,7 @@ class StoryTeller:
             "res": res,
             "style": random.choice(story_styles),
             "story_prompt": STORY_PROMPT or "",
+            "recent_events": (recent_events or []),
         }
         try:
             data = await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
@@ -99,12 +122,14 @@ class StoryTeller:
         便捷方法：直接从参与者对象生成 avatar_infos 并讲述故事。
         """
         avatar_infos = StoryTeller.build_avatar_infos(*actors)
-        return StoryTeller.tell_story(avatar_infos, event, res, prompt or "")
+        recent_events = StoryTeller._collect_recent_events(*actors)
+        return StoryTeller.tell_story(avatar_infos, event, res, prompt or "", recent_events=recent_events)
 
     @staticmethod
     async def tell_from_actors_async(event: str, res: str, *actors: "Avatar", prompt: str | None = None) -> str:
         avatar_infos = StoryTeller.build_avatar_infos(*actors)
-        return await StoryTeller.tell_story_async(avatar_infos, event, res, prompt or "")
+        recent_events = StoryTeller._collect_recent_events(*actors)
+        return await StoryTeller.tell_story_async(avatar_infos, event, res, prompt or "", recent_events=recent_events)
 
 
 __all__ = ["StoryTeller"]

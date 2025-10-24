@@ -28,3 +28,4 @@ avatar:
 
 social:
   talk_into_relation_probability: 0.1
+  event_context_num: 6

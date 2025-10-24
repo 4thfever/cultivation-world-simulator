@@ -161,6 +161,10 @@ class Simulator:
         events.extend(self._phase_passive_effects())
 
         # 7. 日志
+        # 统一写入事件管理器
+        if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
+            for e in events:
+                self.world.event_manager.add_event(e)
         self._phase_log_events(events)
 
         # 8. 时间推进

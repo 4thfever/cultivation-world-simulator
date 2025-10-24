@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from src.classes.map import Map
 from src.classes.calendar import Year, Month, MonthStamp
 from src.classes.avatar_manager import AvatarManager
+from src.classes.event_manager import EventManager
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -14,6 +15,8 @@ class World():
     map: Map
     month_stamp: MonthStamp
     avatar_manager: AvatarManager = field(default_factory=AvatarManager)
+    # 全局事件管理器
+    event_manager: EventManager = field(default_factory=EventManager)
 
     def get_info(self, detailed: bool = False) -> dict:
         """
