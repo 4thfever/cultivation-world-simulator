@@ -1,21 +1,23 @@
 import random
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Tuple, Union
 
 from src.classes.world import World
 from src.classes.map import Map
 from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
+from src.classes.appearance import get_appearance_by_level
 from src.classes.calendar import MonthStamp
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
 from src.utils.names import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
-from src.classes.sect import Sect
+from src.classes.sect import Sect, sects_by_id, sects_by_name
 from src.classes.alignment import Alignment
 from src.classes.relation import Relation
-from src.classes.technique import get_technique_by_sect, attribute_to_root
-from src.classes.treasure import treasures_by_sect_id
+from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
+from src.classes.treasure import treasures_by_sect_id, Treasure, treasures_by_id, treasures_by_name
+from src.classes.persona import Persona, personas_by_id, personas_by_name
 
 
 # —— 参数常量（便于调参）——
@@ -460,11 +462,236 @@ def make_avatars(
     current_month_stamp: MonthStamp = MonthStamp(100 * 12),
     existed_sects: Optional[List[Sect]] = None,
 ) -> dict[str, Avatar]:
+    from src.utils.config import CONFIG
+
     n = int(max(0, count))
     if n == 0:
         return {}
-    # 只负责编排：先规划，再生成
-    planned_sect, planned_gender, planned_surname, planned_relations = plan_sects_and_relations(n, existed_sects)
-    return build_avatars_from_plan(world, current_month_stamp, planned_sect, planned_gender, planned_surname, planned_relations)
 
+    avatars: dict[str, Avatar] = {}
+
+    # 先生成一个“defined_avatar”（若配置存在）
+    defined = getattr(CONFIG, "defined_avatar", None)
+    used = 0
+    if defined is not None:
+        try:
+            da = get_new_avatar_with_config(
+                world,
+                current_month_stamp,
+                name=str(getattr(defined, "name", "") or ""),
+                age=int(getattr(defined, "age", 0) or 0) if str(getattr(defined, "age", "")).strip() else None,
+                gender=str(getattr(defined, "gender", "")).strip() or None,
+                sect=getattr(defined, "sect", None),
+                appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
+            )
+            avatars[da.id] = da
+            used = 1
+        except Exception:
+            # 配置异常则忽略定义的角色，回退为纯随机
+            used = 0
+
+    # 剩余随机编排
+    rest = max(0, n - used)
+    if rest > 0:
+        planned_sect, planned_gender, planned_surname, planned_relations = plan_sects_and_relations(rest, existed_sects)
+        random_avatars = build_avatars_from_plan(world, current_month_stamp, planned_sect, planned_gender, planned_surname, planned_relations)
+        avatars.update(random_avatars)
+
+    return avatars
+
+
+
+# —— 指定参数创建：支持传入字符串并解析为对象 ——
+def _parse_gender(value: Union[str, Gender, None]) -> Optional[Gender]:
+    if value is None:
+        return None
+    if isinstance(value, Gender):
+        return value
+    s = str(value).strip()
+    if s == "男":
+        return Gender.MALE
+    if s == "女":
+        return Gender.FEMALE
+    return None
+
+
+def _parse_sect(value: Union[str, int, Sect, None]) -> Optional[Sect]:
+    if value is None:
+        return None
+    if isinstance(value, Sect):
+        return value
+    # 纯数字视为 id
+    if isinstance(value, int):
+        return sects_by_id.get(value)
+    s = str(value).strip()
+    if not s:
+        return None
+    if s.isdigit():
+        return sects_by_id.get(int(s))
+    return sects_by_name.get(s)
+
+
+def _parse_technique(value: Union[str, int, Technique, None]) -> Optional[Technique]:
+    if value is None:
+        return None
+    if isinstance(value, Technique):
+        return value
+    if isinstance(value, int):
+        return techniques_by_id.get(value)
+    s = str(value).strip()
+    if not s:
+        return None
+    if s.isdigit():
+        return techniques_by_id.get(int(s))
+    return techniques_by_name.get(s)
+
+
+def _parse_treasure(value: Union[str, int, Treasure, None]) -> Optional[Treasure]:
+    if value is None:
+        return None
+    if isinstance(value, Treasure):
+        return value
+    if isinstance(value, int):
+        return treasures_by_id.get(value)
+    s = str(value).strip()
+    if not s:
+        return None
+    if s.isdigit():
+        return treasures_by_id.get(int(s))
+    return treasures_by_name.get(s)
+
+
+def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona]], None]) -> Optional[List[Persona]]:
+    if value is None:
+        return None
+    values: List[Union[str, int, Persona]]
+    if isinstance(value, list):
+        values = value
+    else:
+        values = [value]
+    result: List[Persona] = []
+    for v in values:
+        if isinstance(v, Persona):
+            result.append(v)
+            continue
+        if isinstance(v, int):
+            p = personas_by_id.get(v)
+            if p is not None:
+                result.append(p)
+            continue
+        s = str(v).strip()
+        if not s:
+            continue
+        if s.isdigit():
+            p = personas_by_id.get(int(s))
+            if p is not None:
+                result.append(p)
+        else:
+            p = personas_by_name.get(s)
+            if p is not None:
+                result.append(p)
+    # 去重，保持顺序
+    seen: set[int] = set()
+    unique: List[Persona] = []
+    for p in result:
+        if p.id in seen:
+            continue
+        seen.add(p.id)
+        unique.append(p)
+    return unique if unique else None
+
+
+def get_new_avatar_with_config(
+    world: World,
+    current_month_stamp: MonthStamp,
+    *,
+    name: Optional[str] = None,
+    age: Union[int, Age, None] = None,
+    gender: Union[str, Gender, None] = None,
+    sect: Union[str, int, Sect, None] = None,
+    level: Optional[int] = None,
+    pos: Optional[Tuple[int, int]] = None,
+    technique: Union[str, int, Technique, None] = None,
+    treasure: Union[str, int, Treasure, None] = None,
+    personas: Union[str, int, Persona, List[Union[str, int, Persona]], None] = None,
+    appearance: Optional[int] = None,
+) -> Avatar:
+    """
+    创建一个可配置的新角色：
+    - 若未提供参数，则复用 get_new_avatar_from_mortal 的随机策略（通过 plan_mortal 实现）。
+    - 支持字符串参数：gender 仅支持 "男/女"；sect/technique/treasure/persona 可用名称或数字ID。
+
+    参数：
+    - name: 角色名；为空则根据宗门与姓氏自动生成
+    - age: 年龄（int）或 Age；未提供时随机
+    - gender: 性别（Gender 或 字符串）
+    - sect: 宗门（Sect 或 名称/ID）
+    - level: 等级（0~120）；未提供时随机
+    - pos: 初始坐标 (x, y)；未提供时随机
+    - technique: 指定功法
+    - treasure: 指定法宝
+    - personas: 指定个性（单个或列表）
+    """
+    # 年龄（先取整数年龄，规划阶段只用到 age.age，不依赖 realm）
+    if isinstance(age, Age):
+        age_years = age.age
+    elif isinstance(age, int):
+        age_years = max(AGE_MIN, age)
+    else:
+        age_years = random.randint(AGE_MIN, AGE_MAX)
+
+    # 先做一次规划，之后用传入参数覆盖
+    tmp_age_for_plan = Age(age_years, CultivationProgress(LEVEL_MIN).realm)
+    plan = plan_mortal(world, name=name or "", age=tmp_age_for_plan)
+
+    # 覆盖：性别
+    g = _parse_gender(gender)
+    if g is not None:
+        plan.gender = g
+
+    # 覆盖：宗门
+    s = _parse_sect(sect)
+    if s is not None:
+        plan.sect = s
+
+    # 覆盖：等级
+    if isinstance(level, int):
+        plan.level = max(LEVEL_MIN, min(LEVEL_MAX, level))
+
+    # 覆盖：坐标
+    if isinstance(pos, tuple) and len(pos) == 2:
+        x, y = int(pos[0]), int(pos[1])
+        # 夹在地图范围内
+        x = max(0, min(world.map.width - 1, x))
+        y = max(0, min(world.map.height - 1, y))
+        plan.pos_x, plan.pos_y = x, y
+
+    # 根据最终等级推导境界，再构造 Age
+    final_realm = CultivationProgress(plan.level).realm
+    final_age = Age(age_years, final_realm)
+
+    # 生成
+    avatar = build_mortal_from_plan(world, current_month_stamp, name=name or "", age=final_age, plan=plan)
+
+    # 覆盖：功法/法宝/个性
+    tech_obj = _parse_technique(technique)
+    if tech_obj is not None:
+        avatar.technique = tech_obj
+        mapped = attribute_to_root(tech_obj.attribute)
+        if mapped is not None:
+            avatar.root = mapped
+
+    tre_obj = _parse_treasure(treasure)
+    if tre_obj is not None:
+        avatar.treasure = tre_obj
+
+    pers_list = _parse_personas(personas)
+    if pers_list is not None and len(pers_list) > 0:
+        avatar.personas = pers_list
+
+    # 覆盖：外貌/颜值
+    if isinstance(appearance, int):
+        avatar.appearance = get_appearance_by_level(appearance)
+
+    return avatar
 

@@ -62,9 +62,24 @@ def get_random_appearance() -> Appearance:
     return Appearance(level=base.level, name=base.name, desc_male=base.desc_male, desc_female=base.desc_female)
 
 
+def get_appearance_by_level(level: int) -> Appearance:
+    """
+    按等级(1~10)返回外貌实例；越界时夹在范围内。
+    返回新实例，避免外部持有池中引用。
+    """
+    lv = int(level)
+    if lv < 1:
+        lv = 1
+    if lv > 10:
+        lv = 10
+    base = next((a for a in _APPEARANCE_POOL if a.level == lv), _APPEARANCE_POOL[-1])
+    return Appearance(level=base.level, name=base.name, desc_male=base.desc_male, desc_female=base.desc_female)
+
+
 __all__ = [
     "Appearance",
     "get_random_appearance",
+    "get_appearance_by_level",
 ]
 
 

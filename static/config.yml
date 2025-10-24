@@ -29,3 +29,10 @@ avatar:
 social:
   talk_into_relation_probability: 0.1
   event_context_num: 6
+
+defined_avatar:
+  name: "张三"
+  age: 18
+  gender: "男"
+  sect: "合欢宗"
+  appearance: 10
