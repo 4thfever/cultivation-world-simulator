@@ -474,21 +474,21 @@ def make_avatars(
     defined = getattr(CONFIG, "defined_avatar", None)
     used = 0
     if defined is not None:
-        try:
-            da = get_new_avatar_with_config(
-                world,
-                current_month_stamp,
-                name=str(getattr(defined, "name", "") or ""),
-                age=int(getattr(defined, "age", 0) or 0) if str(getattr(defined, "age", "")).strip() else None,
-                gender=str(getattr(defined, "gender", "")).strip() or None,
-                sect=getattr(defined, "sect", None),
-                appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
-            )
-            avatars[da.id] = da
-            used = 1
-        except Exception:
-            # 配置异常则忽略定义的角色，回退为纯随机
-            used = 0
+        da = get_new_avatar_with_config(
+            world,
+            current_month_stamp,
+            name=str(getattr(defined, "name", "") or ""),
+            age=int(getattr(defined, "age", 0) or 0) if str(getattr(defined, "age", "")).strip() else None,
+            gender=str(getattr(defined, "gender", "")).strip() or None,
+            sect=getattr(defined, "sect", None),
+            appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
+            technique=getattr(defined, "technique", None),
+            treasure=getattr(defined, "treasure", None),
+            personas=getattr(defined, "personas", None),
+        )
+        avatars[da.id] = da
+        used = 1
+
 
     # 剩余随机编排
     rest = max(0, n - used)
@@ -564,11 +564,32 @@ def _parse_treasure(value: Union[str, int, Treasure, None]) -> Optional[Treasure
 def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona]], None]) -> Optional[List[Persona]]:
     if value is None:
         return None
-    values: List[Union[str, int, Persona]]
-    if isinstance(value, list):
-        values = value
-    else:
-        values = [value]
+
+    # 统一展开为列表，兼容 OmegaConf 的 ListConfig
+    def _as_list(v: object) -> List[object]:
+        # Persona 自身视为标量
+        if isinstance(v, Persona):
+            return [v]
+        # 原生序列
+        if isinstance(v, (list, tuple, set)):
+            return list(v)
+        # 兼容 OmegaConf.ListConfig（若存在）
+        try:
+            from omegaconf import ListConfig  # type: ignore
+            if isinstance(v, ListConfig):
+                return list(v)
+        except Exception:
+            pass
+        # 其它可迭代但非字符串：尽量展开
+        if hasattr(v, "__iter__") and not isinstance(v, (str, bytes)):
+            try:
+                return list(v)  # type: ignore
+            except Exception:
+                return [v]
+        return [v]
+
+    raw_values = _as_list(value)
+    values: List[Union[str, int, Persona]] = raw_values  # type: ignore
     result: List[Persona] = []
     for v in values:
         if isinstance(v, Persona):

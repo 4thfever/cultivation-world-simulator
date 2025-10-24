@@ -31,8 +31,15 @@ social:
   event_context_num: 6
 
 defined_avatar:
-  name: "张三"
+  name: 王大锤
+  level: 29
   age: 18
-  gender: "男"
-  sect: "合欢宗"
+  gender: 男
+  sect: 百兽宗
   appearance: 10
+  personas:
+    - 穿越者
+    - 傲娇
+    - 复仇
+  treasure: 万魂幡
+  technique: 九天淬体雷诀
