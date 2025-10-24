@@ -13,13 +13,19 @@ ALL_ACTUAL_ACTION_CLASSES = list(ActionRegistry.all_actual())
 ALL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTION_CLASSES]
 ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 
-ACTION_INFOS = {
-    action.__name__: {
-        "comment": getattr(action, "COMMENT", ""),
-        "requirements": getattr(action, "DOABLES_REQUIREMENTS", ""),
-        "params": getattr(action, "PARAMS", {}),
-        "cd_months": int(getattr(action, "ACTION_CD_MONTHS", 0) or 0),
+def _build_action_info(action):
+    info = {
+        "comment": action.COMMENT,
+        "requirements": action.DOABLES_REQUIREMENTS,
+        "params": action.PARAMS,
     }
+    cd = int(getattr(action, "ACTION_CD_MONTHS", 0) or 0)
+    if cd > 0:
+        info["cd_months"] = cd
+    return info
+
+ACTION_INFOS = {
+    action.__name__: _build_action_info(action)
     for action in ALL_ACTUAL_ACTION_CLASSES
 }
 ACTION_INFOS_STR = json.dumps(ACTION_INFOS, ensure_ascii=False, indent=2)
