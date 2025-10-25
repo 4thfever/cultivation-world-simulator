@@ -421,6 +421,33 @@ def _assign_regions_to_tiles(game_map: Map):
             if game_map.is_in_bounds(coord_x, coord_y):
                 game_map.tiles[(coord_x, coord_y)].region = region
 
+    # 归并“最终归属”的坐标集合到 Map.region_cors，并回写到各 Region
+    final_region_cors: dict[int, list[tuple[int, int]]] = {}
+    for x in range(game_map.width):
+        for y in range(game_map.height):
+            tile = game_map.tiles[(x, y)]
+            r = tile.region
+            if r is None:
+                continue
+            rid = r.id
+            if rid not in final_region_cors:
+                final_region_cors[rid] = []
+            final_region_cors[rid].append((x, y))
+
+    # 写入 Map 级缓存
+    game_map.region_cors = final_region_cors
+
+    # 将最终坐标集合回写到各 Region 的 cors/area/center_loc
+    for rid, region in list(game_map.regions.items()):
+        cors = final_region_cors.get(rid, [])
+        # 去重并排序，保证稳定性
+        cors = sorted(set(cors))
+        region.cors = cors
+        region.area = len(cors)
+        # 计算新的中心点（若无格点则保持原中心）
+        if cors:
+            region.center_loc = game_map.get_center_locs(cors)
+
 if __name__ == "__main__":
     # 创建地图
     cultivation_map = create_cultivation_world_map()

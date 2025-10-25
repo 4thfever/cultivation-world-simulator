@@ -58,7 +58,7 @@ class SellItems(InstantAction):
         return (ok, "" if ok else "该物品数量为0")
 
     def start(self, item_name: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}", related_avatars=[self.avatar.id])
 
     # InstantAction 已实现 step 完成
 

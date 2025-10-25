@@ -27,7 +27,7 @@ class Play(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始消遣")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始消遣", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

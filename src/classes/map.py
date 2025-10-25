@@ -15,6 +15,9 @@ class Map():
         self.tiles = {}
         self.width = width
         self.height = height
+        # 维护“最终归属”的每个 region 的坐标集合（由分配流程写入）
+        # key: region.id, value: list[(x, y)]
+        self.region_cors: dict[int, list[tuple[int, int]]] = {}
         
         # 加载所有region数据到Map中
         self._load_regions()

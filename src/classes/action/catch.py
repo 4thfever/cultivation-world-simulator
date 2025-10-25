@@ -29,6 +29,10 @@ class Catch(TimedAction):
 
     duration_months = 4
 
+    def __init__(self, avatar, world):
+        super().__init__(avatar, world)
+        self._caught_result: tuple[str, Realm] | None = None
+
     def _calc_success_rate_by_realm(self, animal_realm: Realm) -> float:
         mapping: dict[Realm, float] = {
             Realm.Qi_Refinement: 0.8,
@@ -43,6 +47,9 @@ class Catch(TimedAction):
         animals = region.animals
         if not animals:
             return
+        # 若已成功捕捉过一次，本次动作内不再重复尝试
+        if self._caught_result is not None:
+            return
         target = random.choice(animals)
         base = self._calc_success_rate_by_realm(target.realm)
         extra = float(self.avatar.effects.get("extra_catch_success_rate", 0) or 0)
@@ -50,11 +57,13 @@ class Catch(TimedAction):
         if random.random() < rate:
             # 覆盖为新的灵兽
             self.avatar.spirit_animal = SpiritAnimal(name=target.name, realm=target.realm)
+            # 记录结果供 finish 生成事件
+            self._caught_result = (str(target.name), target.realm)
 
     def can_start(self) -> tuple[bool, str]:
         # 仅百兽宗
-        sect = getattr(self.avatar, "sect", None)
-        if sect is None or getattr(sect, "name", "") != "百兽宗":
+        sect = self.avatar.sect
+        if sect is None or sect.name != "百兽宗":
             return False, "仅百兽宗弟子可用"
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
@@ -69,10 +78,18 @@ class Catch(TimedAction):
         return True, ""
 
     def start(self) -> Event:
+        # 清理状态
+        self._caught_result = None
         region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 尝试御兽")
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 尝试御兽", related_avatars=[self.avatar.id])
 
     def finish(self) -> list[Event]:
-        return []
+        res = self._caught_result
+        if not (isinstance(res, tuple) and len(res) == 2):
+            return []
+        target_name, target_realm = res[0], res[1]
+        realm_label = target_realm.value
+        text = f"{self.avatar.name} 御兽成功，{realm_label}境的{target_name}成为其灵兽"
+        return [Event(self.world.month_stamp, text, related_avatars=[self.avatar.id])]
 
 
