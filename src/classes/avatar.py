@@ -274,7 +274,7 @@ class Avatar:
             plan = self.planned_actions.pop(0)
             try:
                 action = self.create_action(plan.action_name)
-            except ValueError as e:
+            except:
                 logger = get_logger().logger
                 logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s", self.name, self.id, plan.action_name, plan.params, e)
                 continue
