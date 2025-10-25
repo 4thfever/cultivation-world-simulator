@@ -46,7 +46,7 @@ class Hunt(TimedAction):
             return False, "当前不在普通区域"
         animals = getattr(region, "animals", [])
         if len(animals) == 0:
-            return False, "当前区域没有动物"
+            return False, f"当前区域{region.name}没有动物"
         available_animals = [
             animal for animal in animals
             if self.avatar.cultivation_progress.realm >= animal.realm

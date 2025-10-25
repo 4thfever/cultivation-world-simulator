@@ -474,13 +474,17 @@ def make_avatars(
     defined = getattr(CONFIG, "defined_avatar", None)
     used = 0
     if defined is not None:
+        surname = str(getattr(defined, "surname", "") or "").strip()
+        given_name = str(getattr(defined, "given_name", "") or "").strip()
+        defined_name = f"{surname}{given_name}"
         da = get_new_avatar_with_config(
             world,
             current_month_stamp,
-            name=str(getattr(defined, "name", "") or ""),
+            name=defined_name,
             age=int(getattr(defined, "age", 0) or 0) if str(getattr(defined, "age", "")).strip() else None,
             gender=str(getattr(defined, "gender", "")).strip() or None,
             sect=getattr(defined, "sect", None),
+            level=int(getattr(defined, "level", 0) or 0) if str(getattr(defined, "level", "")).strip() else None,
             appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
             technique=getattr(defined, "technique", None),
             treasure=getattr(defined, "treasure", None),

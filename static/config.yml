@@ -31,10 +31,11 @@ social:
   event_context_num: 6
 
 defined_avatar:
-  name: 王大锤
+  surname: 丰川
+  given_name: 祥子
   level: 29
   age: 18
-  gender: 男
+  gender: 女
   sect: 百兽宗
   appearance: 10
   personas:
