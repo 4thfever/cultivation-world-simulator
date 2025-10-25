@@ -8,6 +8,9 @@
 两者是否可能进入某种关系：{can_into_relation}。注意，如果为True，也不代表一定要进入某种关系。这都由你来判断。
 {avatar_name_2}可能相对于{avatar_name_1}的身份为： {possible_relations}
 
+最近事件：
+{recent_events}
+
 注意，只返回json格式的结果。
 只返回{avatar_name_2}的行动，格式为：
 {{

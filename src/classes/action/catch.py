@@ -58,7 +58,9 @@ class Catch(TimedAction):
             # 覆盖为新的灵兽
             self.avatar.spirit_animal = SpiritAnimal(name=target.name, realm=target.realm)
             # 记录结果供 finish 生成事件
-            self._caught_result = (str(target.name), target.realm)
+            self._caught_result = (str(target.name), target.realm, "success")
+        else:
+            self._caught_result = (None, None, "fail")
 
     def can_start(self) -> tuple[bool, str]:
         # 仅百兽宗
@@ -85,11 +87,14 @@ class Catch(TimedAction):
 
     def finish(self) -> list[Event]:
         res = self._caught_result
-        if not (isinstance(res, tuple) and len(res) == 2):
+        if not (isinstance(res, tuple) and len(res) == 3):
             return []
-        target_name, target_realm = res[0], res[1]
-        realm_label = target_realm.value
-        text = f"{self.avatar.name} 御兽成功，{realm_label}境的{target_name}成为其灵兽"
-        return [Event(self.world.month_stamp, text, related_avatars=[self.avatar.id])]
+        target_name, target_realm, result = res[0], res[1], res[2]
+        if result == "fail":
+            return [Event(self.world.month_stamp, f"{self.avatar.name} 御兽失败", related_avatars=[self.avatar.id])]
+        else:
+            realm_label = target_realm.value
+            text = f"{self.avatar.name} 御兽成功，{realm_label}境的{target_name}成为其灵兽"
+            return [Event(self.world.month_stamp, text, related_avatars=[self.avatar.id])]
 
 

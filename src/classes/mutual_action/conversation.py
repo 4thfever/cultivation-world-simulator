@@ -44,12 +44,17 @@ class Conversation(MutualAction):
         }
         # 可能的后天关系（转中文名，给模板阅读）
         possible_relations = [relation_display_names[r] for r in get_possible_post_relations(self.avatar, target_avatar)]
+        # 历史上下文：仅双方共同经历的最近事件（与 MutualAction 对齐）
+        n = CONFIG.social.event_context_num
+        em = self.world.event_manager
+        pair_recent_events = [str(e) for e in em.get_events_between(self.avatar.id, target_avatar.id, limit=n)]
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
             "can_into_relation": bool(can_into_relation),
             "possible_relations": possible_relations,
+            "recent_events": pair_recent_events,
         }
 
     def can_start(self, target_avatar: "Avatar|str|None" = None, **kwargs) -> tuple[bool, str]:
