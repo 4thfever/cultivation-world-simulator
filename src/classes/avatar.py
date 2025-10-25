@@ -272,7 +272,12 @@ class Avatar:
             return None
         while self.planned_actions:
             plan = self.planned_actions.pop(0)
-            action = self.create_action(plan.action_name)
+            try:
+                action = self.create_action(plan.action_name)
+            except ValueError as e:
+                logger = get_logger().logger
+                logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s", self.name, self.id, plan.action_name, plan.params, e)
+                continue
             # 再验证
             params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
             can_start, reason = action.can_start(**params_for_can_start)
