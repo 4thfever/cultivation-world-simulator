@@ -4,7 +4,6 @@ llm:
   model_name: "openai/qwen-plus"
   fast_model_name: "openai/qwen-flash"
   base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-  max_parse_retries: 3
 
 paths:
   templates: static/templates/
@@ -12,9 +11,10 @@ paths:
 
 ai:
   max_decide_num: 4
+  max_parse_retries: 3
 
 game:
-  init_npc_num: 6
+  init_npc_num: 3
   sect_num: 2 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
   npc_birth_rate_per_month: 0.001
   fortune_probability: 0.001
@@ -29,16 +29,16 @@ social:
   talk_into_relation_probability: 0.1
   event_context_num: 6
 
-defined_avatar:
-  surname: 丰川
-  given_name: 祥子
-  level: 31
-  age: 18
-  gender: 女
-  sect: 百兽宗
-  appearance: 10
-  personas:
-    - 穿越者
-    - 随性
-    - 外向
-  treasure: 百兽驭兽符
+# defined_avatar:
+#   surname: 丰川
+#   given_name: 祥子
+#   level: 31
+#   age: 18
+#   gender: 女
+#   sect: 百兽宗
+#   appearance: 10
+#   personas:
+#     - 穿越者
+#     - 随性
+#     - 外向
+#   treasure: 百兽驭兽符

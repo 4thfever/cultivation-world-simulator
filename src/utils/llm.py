@@ -164,7 +164,7 @@ def call_and_parse_llm(prompt: str, mode: str = "normal") -> dict:
     将 LLM 调用与解析合并，并在解析失败时按配置重试。
     成功返回 dict，超过重试次数仍失败则抛错。
     """
-    max_retries = int(getattr(CONFIG.llm, "max_parse_retries", 0))
+    max_retries = int(getattr(CONFIG.ai, "max_parse_retries", 0))
     last_err: Exception | None = None
     for _ in range(1 + max_retries):
         res = call_llm(prompt, mode)
@@ -181,7 +181,7 @@ async def call_and_parse_llm_async(prompt: str, mode: str = "normal") -> dict:
     异步版本：将 LLM 调用与解析合并，并在解析失败时按配置重试。
     成功返回 dict，超过重试次数仍失败则抛错。
     """
-    max_retries = int(getattr(CONFIG.llm, "max_parse_retries", 0))
+    max_retries = int(getattr(CONFIG.ai, "max_parse_retries", 0))
     last_err: Exception | None = None
     for _ in range(1 + max_retries):
         res = await call_llm_async(prompt, mode)
