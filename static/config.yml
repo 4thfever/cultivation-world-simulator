@@ -1,9 +1,9 @@
 llm:
   # 填入litellm支持的model name和key
-  model_name: "your-model-name"
-  fast_model_name: "your-fast-model-name"
-  key: "your-api-key"
-  base_url: "your-base-url-of-llm"
+  key: "your-api-key" # 目前需要的是阿里的qwen api
+  model_name: "openai/qwen-plus"
+  fast_model_name: "openai/qwen-flash"
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
   max_parse_retries: 3
 
 paths:
@@ -11,7 +11,6 @@ paths:
   game_configs: static/game_configs/
 
 ai:
-  mode: "llm" # "rule" or "llm"
   max_decide_num: 4
 
 game:
