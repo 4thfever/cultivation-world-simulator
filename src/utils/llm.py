@@ -3,6 +3,7 @@ from pathlib import Path
 import asyncio
 import re
 import json5
+import os
 
 from src.utils.config import CONFIG
 from src.utils.io import read_txt
@@ -38,7 +39,8 @@ def call_llm(prompt: str, mode="normal") -> str:
         model_name = CONFIG.llm.fast_model_name
     else:
         raise ValueError(f"Invalid mode: {mode}")
-    api_key = CONFIG.llm.key
+    # API Key 优先从环境变量读取，其次 fallback 到配置文件
+    api_key = os.getenv("QWEN_API_KEY") or CONFIG.llm.key
     base_url = CONFIG.llm.base_url
     # 调用litellm的completion函数
     response = completion(
