@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
 cd /d "%~dp0"
