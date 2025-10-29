@@ -3,6 +3,7 @@ from pathlib import Path
 import asyncio
 import re
 import json5
+import os
 
 from src.utils.config import CONFIG
 from src.utils.io import read_txt
@@ -38,7 +39,8 @@ def call_llm(prompt: str, mode="normal") -> str:
         model_name = CONFIG.llm.fast_model_name
     else:
         raise ValueError(f"Invalid mode: {mode}")
-    api_key = CONFIG.llm.key
+    # API Key 优先从环境变量读取，其次 fallback 到配置文件
+    api_key = os.getenv("QWEN_API_KEY") or CONFIG.llm.key
     base_url = CONFIG.llm.base_url
     # 调用litellm的completion函数
     response = completion(
@@ -164,7 +166,7 @@ def call_and_parse_llm(prompt: str, mode: str = "normal") -> dict:
     将 LLM 调用与解析合并，并在解析失败时按配置重试。
     成功返回 dict，超过重试次数仍失败则抛错。
     """
-    max_retries = int(getattr(CONFIG.llm, "max_parse_retries", 0))
+    max_retries = int(getattr(CONFIG.ai, "max_parse_retries", 0))
     last_err: Exception | None = None
     for _ in range(1 + max_retries):
         res = call_llm(prompt, mode)
@@ -181,7 +183,7 @@ async def call_and_parse_llm_async(prompt: str, mode: str = "normal") -> dict:
     异步版本：将 LLM 调用与解析合并，并在解析失败时按配置重试。
     成功返回 dict，超过重试次数仍失败则抛错。
     """
-    max_retries = int(getattr(CONFIG.llm, "max_parse_retries", 0))
+    max_retries = int(getattr(CONFIG.ai, "max_parse_retries", 0))
     last_err: Exception | None = None
     for _ in range(1 + max_retries):
         res = await call_llm_async(prompt, mode)

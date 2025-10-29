@@ -1,18 +1,17 @@
 llm:
   # 填入litellm支持的model name和key
-  model_name: "your-model-name"
-  fast_model_name: "your-fast-model-name"
-  key: "your-api-key"
-  base_url: "your-base-url-of-llm"
-  max_parse_retries: 3
+  key: "your-api-key" # 目前需要的是阿里的qwen api
+  model_name: "openai/qwen-plus"
+  fast_model_name: "openai/qwen-flash"
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
 
 paths:
   templates: static/templates/
   game_configs: static/game_configs/
 
 ai:
-  mode: "llm" # "rule" or "llm"
   max_decide_num: 4
+  max_parse_retries: 3
 
 game:
   init_npc_num: 6
@@ -30,16 +29,16 @@ social:
   talk_into_relation_probability: 0.1
   event_context_num: 6
 
-defined_avatar:
-  surname: 丰川
-  given_name: 祥子
-  level: 31
-  age: 18
-  gender: 女
-  sect: 百兽宗
-  appearance: 10
-  personas:
-    - 穿越者
-    - 随性
-    - 外向
-  treasure: 百兽驭兽符
+# defined_avatar:
+#   surname: 丰川
+#   given_name: 祥子
+#   level: 31
+#   age: 18
+#   gender: 女
+#   sect: 百兽宗
+#   appearance: 10
+#   personas:
+#     - 穿越者
+#     - 随性
+#     - 外向
+#   treasure: 百兽驭兽符

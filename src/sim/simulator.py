@@ -7,7 +7,7 @@ from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.classes.world import World
 from src.classes.event import Event, is_null_event
-from src.classes.ai import llm_ai, rule_ai
+from src.classes.ai import llm_ai
 from src.utils.names import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
@@ -29,10 +29,7 @@ class Simulator:
                 avatars_to_decide.append(avatar)
         if not avatars_to_decide:
             return
-        if CONFIG.ai.mode == "llm":
-            ai = llm_ai
-        else:
-            ai = rule_ai
+        ai = llm_ai
         decide_results = await ai.decide(self.world, avatars_to_decide)
         for avatar, result in decide_results.items():
             action_name_params_pairs, avatar_thinking, objective, _event = result
