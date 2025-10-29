@@ -169,6 +169,7 @@ def process(
     white_threshold: int = 240,
     output: Optional[PathLike] = None,
     show_progress: bool = False,
+    resize_to: Optional[tuple[int, int]] = (512, 512),
 ) -> Image.Image:
     """先裁边后去白底的组合处理函数。"""
 
@@ -178,6 +179,10 @@ def process(
         white_threshold=white_threshold, 
         show_progress=show_progress
     )
+    
+    # 压缩图片到指定尺寸
+    if resize_to is not None:
+        cleaned = cleaned.resize(resize_to, Image.Resampling.LANCZOS)
 
     if output is not None:
         cleaned.save(output)
@@ -193,6 +198,8 @@ def process_all(
     white_threshold: int = 240,
     show_progress: bool = True,
     show_detail_progress: bool = False,
+    resize_to: Optional[tuple[int, int]] = (512, 512),
+    rename_by_index: bool = True,
 ) -> list[Path]:
     """
     遍历目录内的图像文件，批量处理并保存到目标目录。
@@ -204,6 +211,8 @@ def process_all(
         white_threshold: 白色阈值
         show_progress: 是否显示批处理进度条
         show_detail_progress: 是否显示每张图片的详细处理进度（洪水填充进度）
+        resize_to: 调整图片尺寸，None表示不调整
+        rename_by_index: 是否按索引重命名为 1.png, 2.png...
     """
 
     input_path = Path(input_dir)
@@ -228,14 +237,30 @@ def process_all(
             white_threshold=white_threshold,
             output=target,
             show_progress=show_detail_progress,
+            resize_to=resize_to,
         )
         saved_files.append(target)
+    
+    # 根据索引重命名文件
+    if rename_by_index and saved_files:
+        renamed_files: list[Path] = []
+        for index, old_path in enumerate(saved_files, start=1):
+            new_name = f"{index}.png"
+            new_path = output_path / new_name
+            old_path.rename(new_path)
+            renamed_files.append(new_path)
+        return renamed_files
 
     return saved_files
 
 if __name__ == "__main__":
     process_all(
-        input_dir="tools/img_gen/tmp/raw",
-        output_dir="tools/img_gen/tmp/processed",
+        input_dir="tools/img_gen/tmp/males",
+        output_dir="tools/img_gen/tmp/processed_males",
+        crop_fraction=1 / 16,
+    )
+    process_all(
+        input_dir="tools/img_gen/tmp/females",
+        output_dir="tools/img_gen/tmp/processed_females",
         crop_fraction=1 / 16,
     )

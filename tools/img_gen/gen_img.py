@@ -89,7 +89,7 @@ def generate_qwen_image(prompt: str, *, size: str = "1328*1328") -> str:
     raise RuntimeError("未获得图片结果")
 
 
-def save_generated_image(query: str) -> str:
+def save_generated_image(query: str, folder: str = "tools/img_gen/tmp/raw") -> str:
     """根据查询生成图片并保存到 result 目录。
     
     入参:
@@ -101,7 +101,7 @@ def save_generated_image(query: str) -> str:
     b64 = generate_qwen_image(query)
     img_bytes = base64.b64decode(b64)
     
-    result_dir = "tools/img_gen/tmp/raw"
+    result_dir = folder
     os.makedirs(result_dir, exist_ok=True)
     
     filename = datetime.now().strftime("%Y%m%d_%H%M%S") + ".png"
@@ -156,7 +156,7 @@ if __name__ == "__main__":
 
     for affix in male_affixes:
         prompt_text = male_prompt_base + affix
-        save_generated_image(prompt_text)
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
     for affix in female_affixes:
         prompt_text = female_prompt_base + affix
-        save_generated_image(prompt_text)
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
