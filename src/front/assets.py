@@ -41,7 +41,7 @@ def load_avatar_images(pygame_mod, tile_size: int):
                 if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
                     image_path = os.path.join(base_dir, filename)
                     image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.5))
+                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.8))
                     scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
                     results.append(scaled)
         return results
