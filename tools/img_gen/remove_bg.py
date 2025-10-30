@@ -253,14 +253,89 @@ def process_all(
 
     return saved_files
 
+
+def process_all_sects(
+    input_dir: PathLike = "result",
+    output_dir: PathLike = "processed",
+    *,
+    crop_fraction: float = 1 / 16,
+    sect_names: list[str],
+    show_progress: bool = True,
+    resize_to: Optional[tuple[int, int]] = (512, 512),
+) -> list[Path]:
+    """
+    批量处理门派图片：只裁剪边缘，不抠背景，使用指定名称命名。
+    
+    Args:
+        input_dir: 输入目录
+        output_dir: 输出目录
+        crop_fraction: 裁剪比例
+        sect_names: 门派名称列表，按顺序对应输入文件
+        show_progress: 是否显示批处理进度条
+        resize_to: 调整图片尺寸，None表示不调整
+    """
+
+    input_path = Path(input_dir)
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    allowed_suffixes = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
+    files = [
+        path
+        for path in sorted(input_path.iterdir())
+        if path.is_file() and path.suffix.lower() in allowed_suffixes
+    ]
+
+    iterator = tqdm(files, desc="Processing sect images") if show_progress else files
+    saved_files: list[Path] = []
+
+    for index, file_path in enumerate(iterator):
+        # 只裁剪边缘，不抠背景
+        cropped = crop_inner_region(file_path, fraction=crop_fraction)
+        
+        # 调整尺寸
+        if resize_to is not None:
+            cropped = cropped.resize(resize_to, Image.Resampling.LANCZOS)
+        
+        # 使用门派名称命名
+        if index < len(sect_names):
+            output_name = f"{sect_names[index]}.png"
+        else:
+            # 如果名称列表不够，使用原文件名
+            output_name = file_path.name
+        
+        output_file = output_path / output_name
+        cropped.save(output_file)
+        saved_files.append(output_file)
+
+    return saved_files
+
+
 if __name__ == "__main__":
-    process_all(
-        input_dir="tools/img_gen/tmp/males",
-        output_dir="tools/img_gen/tmp/processed_males",
+    # process_all(
+    #     input_dir="tools/img_gen/tmp/males",
+    #     output_dir="tools/img_gen/tmp/processed_males",
+    #     crop_fraction=1 / 16,
+    # )
+    # process_all(
+    #     input_dir="tools/img_gen/tmp/females",
+    #     output_dir="tools/img_gen/tmp/processed_females",
+    #     crop_fraction=1 / 16,
+    # )
+    sect_names = [
+        "明心剑宗",
+        "百兽宗",
+        "水镜宗",
+        "冥王宗",
+        "朱勾宗",
+        "合欢宗",
+        "镇魂宗",
+        "幽魂噬影宗",
+        "千帆城",
+    ]
+    process_all_sects(
+        input_dir="tools/img_gen/tmp/sects",
+        output_dir="tools/img_gen/tmp/processed_sects",
         crop_fraction=1 / 16,
-    )
-    process_all(
-        input_dir="tools/img_gen/tmp/females",
-        output_dir="tools/img_gen/tmp/processed_females",
-        crop_fraction=1 / 16,
+        sect_names=sect_names,
     )

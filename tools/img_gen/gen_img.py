@@ -153,10 +153,24 @@ if __name__ == "__main__":
         "金棕长发，爽朗大笑，额前碎发，兽牙发簪。",
         "青黑短发，专注坚定，线条硬朗，细链发饰垂坠。",
     ]
-
-    for affix in male_affixes:
-        prompt_text = male_prompt_base + affix
-        save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
-    for affix in female_affixes:
-        prompt_text = female_prompt_base + affix
-        save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
+    sect_prompt_base = "像素化的仙侠宗门场景图片，极度像素化，颗粒感强，线条轮廓粗，极简主义，二次元风格漫画图片。"
+    sect_affixes = [
+        "山巅飘渺云海，云纹禁制光芒环绕，远处群峰。",
+        "灵兽栖地，兽栏密布，岩石兽穴。",
+        "湖面倒影，中央悬浮巨大水镜，镜面波光粼粼，雾气弥漫。",
+        "幽冥宗门，阴暗昏沉，黑雾弥漫，冷厉气息，幽蓝鬼火点点。",
+        "炼器工坊，机关密布，熔炉火光。",
+        "合欢宫殿，粉红雾气，花瓣飘舞，柔和光晕，纱幔轻垂。",
+        "镇魂大殿，铁血肃杀，封印符文，镇压法阵，黑铁锁链。",
+        "幽影之地，暗影重重，光影交错，幽冥之气，黑雾吞噬轮廓。",
+        "船帆如云，炼器炉火。",
+    ]
+    # for affix in male_affixes:
+    #     prompt_text = male_prompt_base + affix
+    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
+    # for affix in female_affixes:
+    #     prompt_text = female_prompt_base + affix
+    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
+    for i, affix in enumerate(sect_affixes):
+        prompt_text = sect_prompt_base + affix
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/sects")
