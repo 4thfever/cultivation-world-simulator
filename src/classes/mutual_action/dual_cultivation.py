@@ -46,10 +46,13 @@ class DualCultivation(MutualAction):
         effects = self.avatar.effects
         legal_actions = effects.get("legal_actions", [])
         if not isinstance(legal_actions, list) or "DualCultivation" not in legal_actions:
-            return False, "仅合欢宗或未被允许"
+            return False, "不具有双修的权限"
         target = self._get_target_avatar(target_avatar)
         if target is None:
-            return False, "目标不存在"
+            return False, "双修目标不存在"
+        # 先不限定同一区域，之后再限制
+        # if target.tile.region != self.avatar.tile.region:
+            # return False, "目标不在同一区域"
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:

@@ -64,9 +64,11 @@ class Conversation(MutualAction):
         if target is None:
             return False, "目标不存在"
         if target.tile is None or self.avatar.tile is None:
-            return False, "任一角色未处于有效区域"
-        ok = target.tile.region == self.avatar.tile.region
-        return (ok, "" if ok else "目标不在同一区域")
+            return False, "目标未处于有效区域"
+        # 先不限定同一区域，之后再限制
+        # if target.tile.region != self.avatar.tile.region:
+            # return False, "目标不在同一区域"
+        return True, ""
 
     def start(self, target_avatar: "Avatar|str", **kwargs) -> Event:
         target = self._get_target_avatar(target_avatar)
