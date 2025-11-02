@@ -91,50 +91,6 @@ if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 
-def get_possible_post_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> List[Relation]:
-    """
-    评估“to_avatar 相对于 from_avatar”可能新增的后天关系集合（方向性明确）。
-
-    清晰规则：
-    - LOVERS(道侣)：要求男女异性；若已存在 to->from 的相同关系则不重复
-    - MASTER(师傅)：要求 to.level >= from.level + 20
-    - APPRENTICE(徒弟)：要求 to.level <= from.level - 20
-    - FRIEND(朋友)：始终可能(若未已存在)
-    - ENEMY(仇人)：始终可能(若未已存在)
-
-    说明：本函数只判断“是否可能”，不做概率与人格相关控制；概率留给上层逻辑。
-    返回的是 Relation 列表，均为 to_avatar 相对于 from_avatar 的候选。
-    """
-    # 方向相关：检查 to->from 已有关系，避免重复推荐
-    existing_to_from = to_avatar.get_relation(from_avatar)
-
-    candidates: list[Relation] = []
-
-    # 基础信息（Avatar 定义确保存在）
-    level_from = from_avatar.cultivation_progress.level
-    level_to = to_avatar.cultivation_progress.level
-
-    # - FRIEND
-    if existing_to_from != Relation.FRIEND:
-        candidates.append(Relation.FRIEND)
-
-    # - ENEMY
-    if existing_to_from != Relation.ENEMY:
-        candidates.append(Relation.ENEMY)
-
-    # - LOVERS：异性（Avatar 定义确保性别存在）
-    if from_avatar.gender != to_avatar.gender and existing_to_from != Relation.LOVERS:
-        candidates.append(Relation.LOVERS)
-
-    # - 师徒（方向性）：
-    #   MASTER：to 是 from 的师傅 → to.level >= from.level + 20
-    #   APPRENTICE：to 是 from 的徒弟 → to.level <= from.level - 20
-    if level_to >= level_from + 20 and existing_to_from != Relation.MASTER:
-        candidates.append(Relation.MASTER)
-    if level_to <= level_from - 20 and existing_to_from != Relation.APPRENTICE:
-        candidates.append(Relation.APPRENTICE)
-
-    return candidates
 
 
 # ——— 显示层：性别化称谓映射与标签工具 ———
@@ -189,4 +145,3 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 6) -> list[str]:
 def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:
     lines = get_relations_strs(avatar, max_lines=max_lines)
     return sep.join(lines) if lines else "无"
-

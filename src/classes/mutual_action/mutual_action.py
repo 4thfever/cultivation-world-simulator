@@ -4,12 +4,13 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 import asyncio
 
-from src.classes.action import DefineAction, ActualActionMixin, LLMAction
+from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.tile import get_avatar_distance
 from src.classes.event import Event
 from src.utils.llm import get_prompt_and_call_llm, get_prompt_and_call_llm_async
 from src.utils.config import CONFIG
-from src.classes.relation import relation_display_names, Relation, get_possible_post_relations
+from src.classes.relation import relation_display_names, Relation
+from src.classes.relations import get_possible_new_relations
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.event_helper import EventHelper
 from src.classes.action.targeting_mixin import TargetingMixin

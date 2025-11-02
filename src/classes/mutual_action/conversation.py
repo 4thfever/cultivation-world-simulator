@@ -4,7 +4,13 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from .mutual_action import MutualAction
-from src.classes.relation import relation_display_names, Relation, get_possible_post_relations
+from src.classes.relation import relation_display_names, Relation
+from src.classes.relations import (
+    get_possible_new_relations,
+    get_possible_cancel_relations,
+    set_relation,
+    cancel_relation,
+)
 from src.classes.event import Event
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
@@ -17,9 +23,9 @@ if TYPE_CHECKING:
 class Conversation(MutualAction):
     """交谈：两名角色在同一区域进行交流。
 
-    - 可由“攀谈”触发，或直接发起
+    - 可由"攀谈"触发，或直接发起
     - 仅当双方处于同一 Region 时可启动
-    - 当 can_into_relation=True 且 LLM 决策返回 into_relation 时，根据返回建立关系
+    - LLM 可决策是否进入新关系或取消旧关系
     - 会将对话内容写入事件系统
     """
 
@@ -27,14 +33,14 @@ class Conversation(MutualAction):
     COMMENT = "与对方进行一段交流对话"
     DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
+    FEEDBACK_ACTIONS: list[str] = []  # Conversation 自动触发，不需要对方决策
     STORY_PROMPT: str = ""
 
     def _get_template_path(self) -> Path:
-        # 使用 talk.txt 模板，以获取是否接受与对话内容
-        return CONFIG.paths.templates / "talk.txt"
+        # 使用专门的 conversation.txt 模板
+        return CONFIG.paths.templates / "conversation.txt"
 
-    def _build_prompt_infos(self, target_avatar: "Avatar", *, can_into_relation: bool) -> dict:
+    def _build_prompt_infos(self, target_avatar: "Avatar") -> dict:
         avatar_name_1 = self.avatar.name
         avatar_name_2 = target_avatar.name
         # 交谈：使用详细信息，便于生成更丰富对话
@@ -43,8 +49,12 @@ class Conversation(MutualAction):
             avatar_name_2: target_avatar.get_info(detailed=True),
         }
         # 可能的后天关系（转中文名，给模板阅读）
-        possible_relations = [relation_display_names[r] for r in get_possible_post_relations(self.avatar, target_avatar)]
-        # 历史上下文：仅双方共同经历的最近事件（与 MutualAction 对齐）
+        # 注意：这里计算的是 target 相对于 avatar 的可能关系
+        possible_new_relations = [relation_display_names[r] for r in get_possible_new_relations(self.avatar, target_avatar)]
+        # 可能取消的关系
+        possible_cancel_relations = [relation_display_names[r] for r in get_possible_cancel_relations(target_avatar, self.avatar)]
+        
+        # 历史上下文：仅双方共同经历的最近事件
         n = CONFIG.social.event_context_num
         em = self.world.event_manager
         pair_recent_events = [str(e) for e in em.get_events_between(self.avatar.id, target_avatar.id, limit=n)]
@@ -52,11 +62,12 @@ class Conversation(MutualAction):
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
-            "can_into_relation": bool(can_into_relation),
-            "possible_relations": possible_relations,
+            "possible_new_relations": possible_new_relations,
+            "possible_cancal_relations": possible_cancel_relations,  # 保持模板中的拼写
             "recent_events": pair_recent_events,
         }
 
+    # 覆盖 can_start：Conversation 不需要检查观察范围，只需要在有效区域即可
     def can_start(self, target_avatar: "Avatar|str|None" = None, **kwargs) -> tuple[bool, str]:
         if target_avatar is None:
             return False, "缺少参数 target_avatar"
@@ -65,11 +76,9 @@ class Conversation(MutualAction):
             return False, "目标不存在"
         if target.tile is None or self.avatar.tile is None:
             return False, "目标未处于有效区域"
-        # 先不限定同一区域，之后再限制
-        # if target.tile.region != self.avatar.tile.region:
-            # return False, "目标不在同一区域"
         return True, ""
 
+    # 覆盖 start：自定义事件消息
     def start(self, target_avatar: "Avatar|str", **kwargs) -> Event:
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
@@ -77,49 +86,84 @@ class Conversation(MutualAction):
         if target is not None:
             rel_ids.append(target.id)
         event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target_name} 开始交谈", related_avatars=rel_ids)
-        # 写入历史即可，内容事件稍后生成
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
             target.add_event(event, to_sidebar=False)
         return event
 
-    def step(self, target_avatar: "Avatar|str", can_into_relation: bool = False) -> ActionResult:
+    def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
+        """
+        处理 LLM 返回的对话结果，包括对话内容和关系变化。
+        Conversation 不需要反馈（FEEDBACK_ACTIONS 为空），直接生成内容。
+        """
+        conversation_content = str(result.get("conversation_content", "")).strip()
+        new_relation_str = str(result.get("new_relation", "")).strip()
+        cancel_relation_str = str(result.get("cancal_relation", "")).strip()  # 保持模板中的拼写
+
+        # 记录对话内容
+        if conversation_content:
+            content_event = Event(
+                self.world.month_stamp, 
+                f"{self.avatar.name} 与 {target.name} 的交谈：{conversation_content}", 
+                related_avatars=[self.avatar.id, target.id]
+            )
+            EventHelper.push_pair(content_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+
+        # 处理进入新关系
+        if new_relation_str:
+            rel = Relation.from_chinese(new_relation_str)
+            if rel is not None:
+                set_relation(target, self.avatar, rel)
+                set_event = Event(
+                    self.world.month_stamp, 
+                    f"{target.name} 与 {self.avatar.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", 
+                    related_avatars=[self.avatar.id, target.id]
+                )
+                EventHelper.push_pair(set_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+
+        # 处理取消关系
+        if cancel_relation_str:
+            rel = Relation.from_chinese(cancel_relation_str)
+            if rel is not None:
+                success = cancel_relation(target, self.avatar, rel)
+                if success:
+                    cancel_event = Event(
+                        self.world.month_stamp, 
+                        f"{target.name} 与 {self.avatar.name} 取消了关系：{relation_display_names.get(rel, str(rel))}", 
+                        related_avatars=[self.avatar.id, target.id]
+                    )
+                    EventHelper.push_pair(cancel_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+
+        return ActionResult(status=ActionStatus.COMPLETED, events=[])
+
+    def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:
+        """调用通用异步 step 逻辑"""
         target = self._get_target_avatar(target_avatar)
         if target is None:
-            return ActionResult(status=ActionStatus.COMPLETED, events=[])
+            return ActionResult(status=ActionStatus.FAILED, events=[])
 
-        infos = self._build_prompt_infos(target, can_into_relation=can_into_relation)
-        res = self._call_llm_feedback(infos)
-        r = res.get(infos["avatar_name_2"], {})
-        thinking = r.get("thinking", "")
-        feedback = str(r.get("feedback", "")).strip()
-        talk_content = str(r.get("talk_content", "")).strip()
-        into_relation_str = str(r.get("into_relation", "")).strip()
+        # 若无任务，创建异步任务
+        if self._feedback_task is None and self._feedback_cached is None:
+            infos = self._build_prompt_infos(target)
+            import asyncio
+            try:
+                loop = asyncio.get_running_loop()
+                self._feedback_task = loop.create_task(self._call_llm_feedback_async(infos))
+            except RuntimeError:
+                self._feedback_cached = self._call_llm_feedback(infos)
 
-        target.thinking = thinking
+        # 若任务已完成，消费结果
+        if self._feedback_task is not None and self._feedback_task.done():
+            self._feedback_cached = self._feedback_task.result()
+            self._feedback_task = None
 
-        fb = feedback.strip()
-        # 仅当明确接受时才记录对话与关系；其余一律视为拒绝
-        if fb == "Talk":
-            if talk_content:
-                content_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的交谈：{talk_content}", related_avatars=[self.avatar.id, target.id])
-                # 进入侧栏一次，并写入双方历史
-                EventHelper.push_pair(content_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+        if self._feedback_cached is not None:
+            res = self._feedback_cached
+            self._feedback_cached = None
+            r = res.get(target.name, {})
+            thinking = r.get("thinking", "")
+            target.thinking = thinking
+            
+            return self._handle_feedback_result(target, r)
 
-            if can_into_relation and into_relation_str:
-                rel = Relation.from_chinese(into_relation_str)
-                if rel is not None:
-                    self.avatar.set_relation(target, rel)
-                    set_event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", related_avatars=[self.avatar.id, target.id])
-                    EventHelper.push_pair(set_event, initiator=self.avatar, target=target, to_sidebar_once=True)
-
-            return ActionResult(status=ActionStatus.COMPLETED, events=[])
-        else:
-            feedback_event = Event(self.world.month_stamp, f"{target.name} 拒绝与 {self.avatar.name} 交谈", related_avatars=[self.avatar.id, target.id])
-            EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target, to_sidebar_once=True)
-            return ActionResult(status=ActionStatus.COMPLETED, events=[])
-
-    def finish(self, target_avatar: "Avatar|str", **kwargs) -> list[Event]:
-        return []
-
-
+        return ActionResult(status=ActionStatus.RUNNING, events=[])

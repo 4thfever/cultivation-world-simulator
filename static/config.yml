@@ -26,8 +26,7 @@ avatar:
   persona_num: 3
 
 social:
-  talk_into_relation_probability: 0.1
-  event_context_num: 6
+  event_context_num: 8
 
 # defined_avatar:
 #   surname: 丰川

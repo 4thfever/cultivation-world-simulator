@@ -590,23 +590,26 @@ class Avatar:
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """
         设置与另一个角色的关系。
-        - 对称关系（如 FRIEND/ENEMY/LOVERS/SIBLING/KIN）会在对方处写入相同的关系。
-        - 有向关系（如 MASTER、APPRENTICE、PARENT、CHILD）会在对方处写入对偶关系。
+        委托给 relations.py 中的函数。
         """
-        if other is self:
-            return
-        self.relations[other] = relation
-        # 写入对方的对偶关系（对称关系会得到同一枚举值）
-        if getattr(other, "relations", None) is not None:
-            other.relations[self] = get_reciprocal(relation)
+        from src.classes.relations import set_relation
+        set_relation(self, other, relation)
 
     def get_relation(self, other: "Avatar") -> Optional[Relation]:
-        return self.relations.get(other)
+        """
+        获取与另一个角色的关系。
+        委托给 relations.py 中的函数。
+        """
+        from src.classes.relations import get_relation
+        return get_relation(self, other)
 
     def clear_relation(self, other: "Avatar") -> None:
-        self.relations.pop(other, None)
-        if getattr(other, "relations", None) is not None:
-            other.relations.pop(self, None)
+        """
+        清除与另一个角色的关系。
+        委托给 relations.py 中的函数。
+        """
+        from src.classes.relations import clear_relation
+        clear_relation(self, other)
 
     def _get_relations_summary_str(self, max_count: int = 8) -> str:
         entries: list[str] = []
