@@ -10,7 +10,7 @@ from src.classes.calendar import MonthStamp
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from src.utils.names import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
+from src.classes.name import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
 from src.classes.sect import Sect, sects_by_id, sects_by_name
 from src.classes.alignment import Alignment

@@ -20,7 +20,7 @@ from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
 from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
-from src.utils.names import get_random_name, get_random_name_for_sect
+from src.classes.name import get_random_name, get_random_name_for_sect
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id

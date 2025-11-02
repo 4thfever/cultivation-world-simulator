@@ -4,9 +4,10 @@ from src.sim.simulator import Simulator
 from src.classes.avatar import Avatar, Gender
 from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.world import World
-from src.classes.tile import Map, TileType
+from src.classes.map import Map
+from src.classes.tile import TileType
 from src.classes.action import Move
-from src.utils.names import get_random_name
+from src.classes.name import get_random_name
 
 
 def test_simulator_step_moves_avatar_and_sets_tile():

@@ -8,7 +8,7 @@ from src.classes.cultivation import Realm
 from src.classes.world import World
 from src.classes.event import Event, is_null_event
 from src.classes.ai import llm_ai
-from src.utils.names import get_random_name
+from src.classes.name import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.classes.fortune import try_trigger_fortune

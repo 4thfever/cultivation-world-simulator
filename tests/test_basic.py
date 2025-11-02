@@ -2,10 +2,11 @@ from src.utils.id_generator import get_avatar_id
 from src.classes.avatar import Avatar, Gender
 from src.classes.calendar import Month, Year, MonthStamp, create_month_stamp
 from src.classes.world import World 
-from src.classes.tile import Map, TileType
+from src.classes.map import Map
+from src.classes.tile import TileType
 from src.classes.age import Age
 from src.classes.cultivation import Realm
-from src.utils.names import get_random_name
+from src.classes.name import get_random_name
 
 def test_basic():
     """
