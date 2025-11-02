@@ -38,12 +38,13 @@ If you like this project, consider starring it~ You can also watch intro videos 
 ### 🏗️ Foundation
 - ✅ World map basics
 - ✅ Diverse terrain types (plain, mountain, forest, desert, water, etc.)
-- ✅ Time system (year-month timestamps)
-- ✅ Frontend UI (pygame)
+- ✅ Time system
+- ✅ Frontend UI
 - ✅ Simulation framework
-- ✅ Project documentation (README)
+- ✅ Project documentation
 - ✅ Config system
-- [ ] Standalone release (packaged exe)
+- ✅ Standalone release (packaged exe)
+- [ ] Menu bar (in progress)
 - [ ] Web frontend (later)
 - [ ] ECS parallel toolkit (later)
 - [ ] Player-configurable prompts (later)
