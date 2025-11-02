@@ -24,6 +24,7 @@ from src.classes.alignment import Alignment
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
 from src.classes.treasure import Treasure
+from src.classes.trait import Trait, get_random_trait
 from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
@@ -94,6 +95,8 @@ class Avatar:
     treasure: Optional[Treasure] = None
     # 灵兽：最多一个；若再次捕捉则覆盖
     spirit_animal: Optional[SpiritAnimal] = None
+    # 特质：每个角色有且仅有一个
+    trait: Trait = None  # 将在__post_init__中初始化
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 动作冷却：记录动作类名 -> 上次完成月戳
@@ -117,6 +120,10 @@ class Avatar:
         # 如果personas列表为空，则随机分配两个符合条件且不互斥的persona
         if not self.personas:
             self.personas = get_random_compatible_personas(persona_num, avatar=self)
+
+        # 如果trait为空，则随机分配一个
+        if self.trait is None:
+            self.trait = get_random_trait(self)
 
         # 出生即按宗门分配功法：
         # - 散修：仅从无宗门功法抽样
@@ -144,6 +151,8 @@ class Avatar:
         merged = _merge_effects(merged, self.technique.effects)
         # 来自灵根
         merged = _merge_effects(merged, self.root.effects)
+        # 来自特质
+        merged = _merge_effects(merged, self.trait.effects)
         # 来自法宝
         if self.treasure is not None:
             merged = _merge_effects(merged, self.treasure.effects)
@@ -218,6 +227,7 @@ class Avatar:
             "功法": technique_info,
             "境界": cultivation_info,
             "个性": personas_info,
+            "特质": self.trait.get_detailed_info() if detailed else self.trait.get_info(),
             "物品": items_info,
             "外貌": appearance_info,
             "法宝": treasure_info,
@@ -274,7 +284,7 @@ class Avatar:
             plan = self.planned_actions.pop(0)
             try:
                 action = self.create_action(plan.action_name)
-            except:
+            except Exception as e:
                 logger = get_logger().logger
                 logger.warning("非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s", self.name, self.id, plan.action_name, plan.params, e)
                 continue
@@ -542,6 +552,8 @@ class Avatar:
 
         if self.personas:
             add_kv(lines, "个性", ", ".join([p.name for p in self.personas]))
+
+        add_kv(lines, "特质", self.trait.get_info())
 
         add_kv(lines, "位置", f"({self.pos_x}, {self.pos_y})")
         add_kv(lines, "灵石", str(self.magic_stone))

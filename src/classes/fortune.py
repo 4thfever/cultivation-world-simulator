@@ -252,7 +252,9 @@ def try_trigger_fortune(avatar: Avatar) -> list[Event]:
       * 拜师：建立师徒关系
     - 故事：仅给出主旨主题，由 LLM 自由发挥生成短故事。
     """
-    prob = float(getattr(CONFIG.game, "fortune_probability", 0.0))
+    base_prob = float(getattr(CONFIG.game, "fortune_probability", 0.0))
+    extra_prob = float(avatar.effects.get("extra_fortune_probability", 0.0))
+    prob = base_prob + extra_prob
     if prob <= 0.0:
         return []
     

@@ -1,0 +1,5 @@
+id,name,desc,weight,condition,effects
+,名称,描述/用于LLM输入的文本,采样时不同权重被采样到的概率,选取条件(可用avatar字段/Alignment中文或英文等),"JSON形式"
+1,无,无特殊天赋,19,,
+2,气运之子,天生气运加身，更易遇到奇遇，战斗力也略有提升,1,,"{""extra_fortune_probability"": 0.04, ""extra_battle_strength_points"": 2}"
+
