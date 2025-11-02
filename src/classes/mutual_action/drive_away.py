@@ -21,6 +21,10 @@ class DriveAway(MutualAction):
     # 驱赶冷却：避免反复驱赶刷屏
     ACTION_CD_MONTHS: int = 3
 
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """驱赶无额外检查条件"""
+        return True, ""
+
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
         if fb == "MoveAwayFromRegion":

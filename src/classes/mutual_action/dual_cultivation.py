@@ -39,20 +39,12 @@ class DualCultivation(MutualAction):
         # 复用 mutual_action 模板，仅需返回 Accept/Reject
         return CONFIG.paths.templates / "mutual_action.txt"
 
-    def can_start(self, target_avatar: "Avatar|str|None" = None) -> tuple[bool, str]:
-        if target_avatar is None:
-            return False, "缺少参数 target_avatar"
-        # 基于 effects 判断是否允许
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """检查双修特有的启动条件"""
         effects = self.avatar.effects
         legal_actions = effects.get("legal_actions", [])
         if not isinstance(legal_actions, list) or "DualCultivation" not in legal_actions:
             return False, "不具有双修的权限"
-        target = self._get_target_avatar(target_avatar)
-        if target is None:
-            return False, "双修目标不存在"
-        # 先不限定同一区域，之后再限制
-        # if target.tile.region != self.avatar.tile.region:
-            # return False, "目标不在同一区域"
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:

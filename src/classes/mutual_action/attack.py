@@ -21,6 +21,10 @@ class Attack(MutualAction):
     # 攻击冷却：避免同月连刷攻击
     ACTION_CD_MONTHS: int = 3
 
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """攻击无额外检查条件"""
+        return True, ""
+
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
         if fb == "Escape":

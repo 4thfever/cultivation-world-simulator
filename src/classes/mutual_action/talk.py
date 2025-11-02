@@ -28,8 +28,13 @@ class Talk(MutualAction):
     # - _get_template_path() -> mutual_action.txt
     # - _build_prompt_infos() -> 标准的双方信息和历史事件
     # - can_start() -> 检查目标在交互范围内
+    # - _can_start() -> 无额外检查
     # - start() -> 生成开始事件
     # - finish() -> 返回空列表（已在父类实现）
+    
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """攀谈无额外检查条件"""
+        return True, ""
     
     def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
         """

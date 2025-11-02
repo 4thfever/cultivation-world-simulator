@@ -67,15 +67,8 @@ class Conversation(MutualAction):
             "recent_events": pair_recent_events,
         }
 
-    # 覆盖 can_start：Conversation 不需要检查观察范围，只需要在有效区域即可
-    def can_start(self, target_avatar: "Avatar|str|None" = None, **kwargs) -> tuple[bool, str]:
-        if target_avatar is None:
-            return False, "缺少参数 target_avatar"
-        target = self._get_target_avatar(target_avatar)
-        if target is None:
-            return False, "目标不存在"
-        if target.tile is None or self.avatar.tile is None:
-            return False, "目标未处于有效区域"
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """交谈无额外检查条件"""
         return True, ""
 
     # 覆盖 start：自定义事件消息

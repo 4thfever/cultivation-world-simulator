@@ -162,6 +162,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
     def can_start(self, target_avatar: "Avatar|str|None" = None) -> tuple[bool, str]:
         """
         检查互动动作能否启动：目标需在发起者的交互范围内。
+        子类通过实现 _can_start 来添加额外检查。
         """
         if target_avatar is None:
             return False, "缺少参数 target_avatar"
@@ -170,7 +171,18 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             return False, "目标不存在"
         from src.classes.observe import is_within_observation
         ok = is_within_observation(self.avatar, target)
-        return (ok, "" if ok else "目标不在交互范围内")
+        if not ok:
+            return False, "目标不在交互范围内"
+        # 调用子类的额外检查
+        return self._can_start(target)
+
+    def _can_start(self, target: "Avatar") -> tuple[bool, str]:
+        """
+        子类实现此方法来添加特定的启动条件检查。
+        参数 target 已经过基类验证（存在且在交互范围内）。
+        默认返回 True。
+        """
+        return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:
         """
