@@ -377,9 +377,8 @@ def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: i
     draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=TOOLTIP_MIN_WIDTH, top_limit=STATUS_BAR_HEIGHT)
 
 
-def draw_operation_guide(pygame_mod, screen, colors, font, margin: int, auto_step: bool):
-    auto_status = "开" if auto_step else "关"
-    guide_text = f"A:自动步进({auto_status})  SPACE:单步  ESC:退出"
+def draw_operation_guide(pygame_mod, screen, colors, font, margin: int):
+    guide_text = "ESC: 呼出菜单"
     guide_surf = font.render(guide_text, True, colors["status_text"])
     x_pos = margin + 8
     screen.blit(guide_surf, (x_pos, 8))
@@ -395,14 +394,14 @@ def draw_year_month_info(pygame_mod, screen, colors, font, margin: int, guide_wi
     screen.blit(ym_surf, (x_pos, 8))
 
 
-def draw_status_bar(pygame_mod, screen, colors, font, margin: int, world, auto_step: bool):
+def draw_status_bar(pygame_mod, screen, colors, font, margin: int, world):
     status_y = 8
     status_height = STATUS_BAR_HEIGHT
     status_rect = pygame_mod.Rect(0, 0, screen.get_width(), status_height)
     pygame_mod.draw.rect(screen, colors["status_bg"], status_rect)
     pygame_mod.draw.line(screen, colors["status_border"],
                         (0, status_height), (screen.get_width(), status_height), 2)
-    guide_w = draw_operation_guide(pygame_mod, screen, colors, font, margin, auto_step)
+    guide_w = draw_operation_guide(pygame_mod, screen, colors, font, margin)
     draw_year_month_info(pygame_mod, screen, colors, font, margin, guide_w, world)
 
 

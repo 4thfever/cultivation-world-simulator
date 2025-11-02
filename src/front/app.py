@@ -21,6 +21,7 @@ from .rendering import (
     draw_sect_headquarters,
 )
 from .events_panel import draw_sidebar
+from .menu import PauseMenu
 
 
 class Front:
@@ -44,7 +45,6 @@ class Front:
         self.font_path = font_path
         self.sidebar_width = sidebar_width
 
-        self._auto_step = True
         self._last_step_ms = 0
         self.events: List[Event] = []
 
@@ -76,6 +76,9 @@ class Front:
         self._assign_avatar_images()
 
         self.clock = pygame.time.Clock()
+        
+        # 暂停菜单
+        self.pause_menu = PauseMenu(pygame)
 
         # 渲染插值状态：avatar_id -> {start_px, start_py, target_px, target_py, start_ms, duration_ms}
         self._avatar_display_states: Dict[str, Dict[str, float]] = {}
@@ -116,37 +119,48 @@ class Front:
         current_step_task = None
         while running:
             dt_ms = self.clock.tick(60)
-            self._last_step_ms += dt_ms
+            
+            # 游戏未暂停时才累积时间
+            if not self.pause_menu.is_visible:
+                self._last_step_ms += dt_ms
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        running = False
-                    elif event.key == pygame.K_a:
-                        self._auto_step = not self._auto_step
-                    elif event.key == pygame.K_SPACE:
-                        if current_step_task is None or current_step_task.done():
-                            current_step_task = asyncio.create_task(self._step_once_async())
+                        self.pause_menu.toggle()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    self._handle_mouse_click()
+                    # 处理菜单点击
+                    if self.pause_menu.is_visible:
+                        action = self._handle_menu_click()
+                        if action == "quit":
+                            running = False
+                    else:
+                        self._handle_mouse_click()
                 # 兼容旧版滚轮为 MOUSEBUTTON 4/5
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (4, 5):
-                    delta = 1 if event.button == 4 else -1
-                    self._on_mouse_wheel(delta)
+                    if not self.pause_menu.is_visible:
+                        delta = 1 if event.button == 4 else -1
+                        self._on_mouse_wheel(delta)
                 # pygame 2 的标准滚轮事件
                 elif getattr(pygame, "MOUSEWHEEL", None) is not None and event.type == pygame.MOUSEWHEEL:
-                    # event.y: 上滚为正，下滚为负
-                    self._on_mouse_wheel(int(getattr(event, "y", 0)))
-            if self._auto_step and self._last_step_ms >= self.step_interval_ms:
+                    if not self.pause_menu.is_visible:
+                        # event.y: 上滚为正，下滚为负
+                        self._on_mouse_wheel(int(getattr(event, "y", 0)))
+            
+            # 游戏未暂停时才自动步进
+            if not self.pause_menu.is_visible and self._last_step_ms >= self.step_interval_ms:
                 if current_step_task is None or current_step_task.done():
                     current_step_task = asyncio.create_task(self._step_once_async())
                 self._last_step_ms = 0
+            
             if current_step_task and current_step_task.done():
                 await current_step_task
                 current_step_task = None
                 # 再次确保目标同步（防止外部触发的状态变更遗漏）
                 self._update_avatar_display_targets()
+            
             self._render()
             await asyncio.sleep(0.016)
         pygame.quit()
@@ -193,7 +207,7 @@ class Front:
         )
         hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
-        draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, self._auto_step)
+        draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world)
 
         # 计算筛选后的事件
         if self._sidebar_filter_avatar_id is None:
@@ -236,10 +250,14 @@ class Front:
         elif hovered_region is not None:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             draw_tooltip_for_region(pygame, self.screen, self.colors, self.tooltip_font, hovered_region, mouse_x, mouse_y)
+        
+        # 绘制暂停菜单（在最上层）
+        self._menu_option_rects = self.pause_menu.draw(self.screen, self.colors, self.status_font)
+        
         pygame.display.flip()
 
     def _handle_mouse_click(self) -> None:
-        # 仅处理侧栏筛选点击
+        """处理侧栏筛选点击"""
         pygame = self.pygame
         mouse_pos = pygame.mouse.get_pos()
         ui = getattr(self, "_sidebar_ui", {}) or {}
@@ -254,6 +272,12 @@ class Front:
                     self._sidebar_filter_avatar_id = oid if oid is not None else None
                     self._sidebar_filter_open = False
                     return
+    
+    def _handle_menu_click(self) -> Optional[str]:
+        """处理菜单点击，返回动作"""
+        mouse_pos = self.pygame.mouse.get_pos()
+        option_rects = getattr(self, "_menu_option_rects", [])
+        return self.pause_menu.handle_click(mouse_pos, option_rects)
 
     def _get_region_font(self, size: int):
         return _get_region_font_cached(self.pygame, self._region_font_cache, size, self.font_path)
