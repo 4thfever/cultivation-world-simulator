@@ -188,14 +188,8 @@ If you like this project, consider starring it. You can also watch an intro vide
    python -m src.run.run
    ```
 
-### Basic Operations
-- A random map is generated at startup
-- Observe characters moving and acting in the world
-- Press ESC to quit
-
-## Contributing
-
-Contributions are welcome!
+## Contributors
+- Aku, for world design & discussion
 
 ## License
 

@@ -182,8 +182,9 @@
    在 `static/config.yml` 中配置LLM参数：
    ```yaml
    llm:
-     model_name: "gpt-3.5-turbo"  # 或其他litellm支持的模型名称
+     model_name: "qwen-plus"  # 或其他litellm支持的模型名称
      key: "your-api-key-here"     # 你的API密钥
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
    ```
    具体支持的模型请参考 [litellm文档](https://docs.litellm.ai/docs/providers)
 
@@ -192,14 +193,8 @@
    python -m src.run.run
    ```
 
-### 基本操作
-- 启动后会自动生成随机地图
-- 可以观察角色在世界中的移动和行为
-- 按ESC退出程序
-
-## 贡献指南
-
-欢迎对修仙世界模拟器项目的贡献！
+## 贡献者
+- Aku, 世界观设计与讨论
 
 ## 许可证
 
