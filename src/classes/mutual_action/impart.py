@@ -38,9 +38,9 @@ class Impart(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查传道特有的启动条件"""
-        # 检查是否是师徒关系
+        # 检查是否是师徒关系：师傅对徒弟的关系应该是 MASTER
         relation = self.avatar.get_relation(target)
-        if relation != Relation.APPRENTICE:
+        if relation != Relation.MASTER:
             return False, "目标不是自己的徒弟"
         
         # 检查等级差
