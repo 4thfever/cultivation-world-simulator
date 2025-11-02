@@ -29,7 +29,7 @@ However, LLM-only NPC decision/dialogue is not enough. A credible rule system mu
 
 I aim to create a pure, joyful, direct, living sense of immersion. Not a mere marketing demo, nor purely academic like “Stanford Town”, but a world that players can actually feel and inhabit.
 
-If you like this project, consider starring it. You can also watch an intro video on my Bilibili: [`link`](https://space.bilibili.com/527346837).
+If you like this project, consider starring it~ You can also watch intro videos for this project on my [Bilibili account](https://space.bilibili.com/527346837).
 
 ![Screenshot](assets/screenshot.png)
 
@@ -48,11 +48,12 @@ If you like this project, consider starring it. You can also watch an intro vide
 - [ ] ECS parallel toolkit (later)
 - [ ] Player-configurable prompts (later)
 
-### 🗺️ Tile System
+### 🗺️ World System
 - ✅ Basic tile mechanics
 - ✅ Normal, cultivate, city, sect regions
 - ✅ Same-tile NPC interactions
 - ✅ Qi distribution and yields
+- [ ] Dynamic worldview, map, history, sect, and notable figure generation
 
 ### 👤 Character System
 - ✅ Core attributes
@@ -65,6 +66,7 @@ If you like this project, consider starring it. You can also watch an intro vide
 - ✅ Perception radius
 - ✅ Buff system: buffs/debuffs
 - ✅ Artifacts
+- [ ] Character compatibility
 - [ ] Special abilities
 - [ ] Epithets/nicknames
 - [ ] Combat-related
@@ -178,10 +180,11 @@ If you like this project, consider starring it. You can also watch an intro vide
    Edit `static/config.yml`:
    ```yaml
    llm:
-     model_name: "gpt-3.5-turbo"  # or another model supported by LiteLLM
+     model_name: "qwen-plus"  # or another model supported by LiteLLM
      key: "your-api-key-here"     # your API key
+     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
    ```
-   See the LiteLLM docs: [`link`](https://docs.litellm.ai/docs/providers)
+   For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
 
 4. Run the simulator:
    ```bash
@@ -193,10 +196,10 @@ If you like this project, consider starring it. You can also watch an intro vide
 
 ## License
 
-This project is licensed as specified in [`LICENSE`](LICENSE).
+This project is licensed as specified in the [LICENSE](LICENSE) file.
 
 ## Contact
 
-Open an issue or pull request if you have questions or suggestions.
-
+If you have any questions or suggestions, feel free to open an Issue or Pull Request.
+You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!
 
