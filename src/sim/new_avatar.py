@@ -209,6 +209,9 @@ def build_mortal_from_plan(world: World, current_month_stamp: MonthStamp, *, nam
 
     # 位置刷新
     avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
+    
+    # 分配宗门职位（根据境界）
+    _assign_sect_rank(avatar, world)
 
     # 写关系（父母/师徒）；不发放宗门法宝
     if plan.parent_avatar is not None:
@@ -446,6 +449,9 @@ def build_avatars_from_plan(
 
         avatars_by_index[i] = avatar
         avatars_by_id[avatar.id] = avatar
+    
+    # 批量分配宗门职位（需要在所有avatar创建后统一处理，以正确检查掌门唯一性）
+    _assign_sect_ranks_batch(avatars_by_index, world)
 
     for (a, b), relation in planned_relations.items():
         av_a = avatars_by_index[a]
@@ -742,4 +748,83 @@ def get_new_avatar_with_config(
         avatar.appearance = get_appearance_by_level(appearance)
 
     return avatar
+
+
+def _assign_sect_rank(avatar: Avatar, world: World) -> None:
+    """
+    为单个avatar分配宗门职位（根据境界）
+    处理掌门唯一性：如果该宗门已有掌门，元婴修士只能当长老
+    
+    Args:
+        avatar: 要分配职位的角色
+        world: 世界对象
+    """
+    # 散修无职位
+    if avatar.sect is None:
+        avatar.sect_rank = None
+        return
+    
+    from src.classes.sect_ranks import get_rank_from_realm, sect_has_patriarch, SectRank
+    
+    # 根据境界获取对应职位
+    rank = get_rank_from_realm(avatar.cultivation_progress.realm)
+    
+    # 如果是掌门，检查该宗门是否已有掌门
+    if rank == SectRank.Patriarch:
+        if sect_has_patriarch(avatar):
+            # 已有掌门，降为长老
+            rank = SectRank.Elder
+    
+    avatar.sect_rank = rank
+
+
+def _assign_sect_ranks_batch(avatars: List[Avatar], world: World) -> None:
+    """
+    批量为avatars分配宗门职位
+    确保每个宗门只有一个掌门（按境界等级优先，同境界随机）
+    
+    Args:
+        avatars: 要分配职位的角色列表
+        world: 世界对象
+    """
+    from src.classes.sect_ranks import get_rank_from_realm, SectRank
+    
+    # 先为所有人分配基础职位
+    for avatar in avatars:
+        if avatar is None:
+            continue
+        if avatar.sect is None:
+            avatar.sect_rank = None
+        else:
+            avatar.sect_rank = get_rank_from_realm(avatar.cultivation_progress.realm)
+    
+    # 收集每个宗门的元婴修士（应为掌门的候选人）
+    sect_nascent_souls: Dict[int, List[Avatar]] = {}
+    for avatar in avatars:
+        if avatar is None or avatar.sect is None:
+            continue
+        if avatar.sect_rank == SectRank.Patriarch:
+            sect_id = avatar.sect.id
+            if sect_id not in sect_nascent_souls:
+                sect_nascent_souls[sect_id] = []
+            sect_nascent_souls[sect_id].append(avatar)
+    
+    # 检查world中已存在的掌门
+    existing_patriarchs: Dict[int, bool] = {}
+    for other in world.avatar_manager.avatars.values():
+        if other.sect is not None and other.sect_rank == SectRank.Patriarch:
+            existing_patriarchs[other.sect.id] = True
+    
+    # 为每个宗门选择唯一掌门
+    for sect_id, candidates in sect_nascent_souls.items():
+        # 如果world中已有掌门，所有候选人都降为长老
+        if existing_patriarchs.get(sect_id, False):
+            for avatar in candidates:
+                avatar.sect_rank = SectRank.Elder
+        else:
+            # 选择等级最高的作为掌门，其余降为长老
+            candidates.sort(key=lambda av: av.cultivation_progress.level, reverse=True)
+            # 第一个保持掌门
+            for avatar in candidates[1:]:
+                avatar.sect_rank = SectRank.Elder
 

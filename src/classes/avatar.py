@@ -1,9 +1,12 @@
 import random
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from collections import defaultdict
 import json
+
+if TYPE_CHECKING:
+    from src.classes.sect_ranks import SectRank
 
 from src.classes.calendar import MonthStamp
 from src.classes.action import Action
@@ -89,6 +92,8 @@ class Avatar:
     alignment: Alignment | None = None
     # 所属宗门（可为空，表示散修/无门无派）
     sect: Sect | None = None
+    # 宗门职位（仅当有宗门时有效）
+    sect_rank: "SectRank | None" = None
     # 外貌（1~10级），创建时随机生成
     appearance: Appearance = field(default_factory=get_random_appearance)
     # 装备的法宝（仅一个）
@@ -185,9 +190,11 @@ class Avatar:
         relations_info = "；".join(relation_lines) if relation_lines else "无"
         magic_stone_info = str(self.magic_stone)
 
+        from src.classes.sect import get_sect_info_with_rank
+        
         if detailed:
             treasure_info = self.treasure.get_detailed_info() if self.treasure is not None else "无"
-            sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
+            sect_info = get_sect_info_with_rank(self, detailed=True)
             alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
             region_info = region.get_detailed_info() if region is not None else "无"
             root_info = self.root.get_detailed_info()
@@ -199,8 +206,8 @@ class Avatar:
             spirit_animal_info = self.spirit_animal.get_info() if self.spirit_animal is not None else "无"
         else:
             treasure_info = self.treasure.get_info() if self.treasure is not None else "无"
-            # personas和sect一致返回detailed，因为这俩太重要了
-            sect_info = self.sect.get_detailed_info() if self.sect is not None else "散修"
+            # 宗门信息：非详细模式下只显示"宗门名+职位"
+            sect_info = get_sect_info_with_rank(self, detailed=False)
             region_info = region.get_info() if region is not None else "无"
             alignment_info = self.alignment.get_info() if self.alignment is not None else "未知"
             root_info = self.root.get_info()
@@ -316,7 +323,7 @@ class Avatar:
         """
         if self.current_action is None:
             return []
-        # 记录当前动作实例引用，用于检测执行过程中是否发生了“抢占/切换”
+        # 记录当前动作实例引用，用于检测执行过程中是否发生了"抢占/切换"
         action_instance_before = self.current_action
         action = action_instance_before.action
         params = action_instance_before.params
@@ -326,9 +333,14 @@ class Avatar:
             params_for_finish = filter_kwargs_for_callable(action.finish, params)
             finish_events = action.finish(**params_for_finish)
             # 仅当当前动作仍然是刚才执行的那个实例时才清空
-            # 若在 step() 内部通过“抢占”机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
+            # 若在 step() 内部通过"抢占"机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
             if self.current_action is action_instance_before:
                 self.current_action = None
+                # 动作完成后，如果有待执行计划，立即提交下一个（支持同月链式执行）
+                if self.has_plans():
+                    start_event = self.commit_next_plan()
+                    if start_event is not None:
+                        self._pending_events.append(start_event)
             if finish_events:
                 # 允许 finish 直接返回事件（极少用），统一并入 pending
                 for e in finish_events:
@@ -338,13 +350,15 @@ class Avatar:
             for e in result.events:
                 self._pending_events.append(e)
         events, self._pending_events = self._pending_events, []
-        # 本轮已执行过，清除“新设动作”标记
-        self._new_action_set_this_step = False
+        # 本轮已执行过，清除"新设动作"标记（但如果刚刚提交了新动作，commit_next_plan会重新设置为True）
+        if self.current_action is None:
+            # 当前无动作时才清除标记，避免清除新提交动作的标记
+            self._new_action_set_this_step = False
         return events
 
     def update_cultivation(self, new_level: int):
         """
-        更新修仙进度，并在境界提升时更新寿命
+        更新修仙进度，并在境界提升时更新寿命和宗门职位
         """
         old_realm = self.cultivation_progress.realm
         self.cultivation_progress.level = new_level
@@ -353,6 +367,9 @@ class Avatar:
         # 如果境界提升了，更新寿命期望
         if self.cultivation_progress.realm != old_realm:
             self.age.update_realm(self.cultivation_progress.realm)
+            # 如果有宗门，检查是否需要晋升职位
+            from src.classes.sect_ranks import check_and_promote_sect_rank
+            check_and_promote_sect_rank(self, old_realm, self.cultivation_progress.realm)
     
     def death_by_old_age(self) -> bool:
         """
@@ -595,9 +612,19 @@ class Avatar:
 
     def get_sect_str(self) -> str:
         """
-        获取宗门显示名：有宗门则返回宗门名，否则返回"散修"。
+        获取宗门显示名：有宗门则返回"宗门名+职位"，否则返回"散修"。
+        例如："合欢宗长老"、"散修"
         """
-        return self.sect.name if self.sect is not None else "散修"
+        if self.sect is None:
+            return "散修"
+        
+        # 有宗门但无职位（理论上不应该出现，兜底处理）
+        if self.sect_rank is None:
+            return self.sect.name
+        
+        from src.classes.sect_ranks import get_rank_display_name
+        rank_name = get_rank_display_name(self.sect_rank, self.sect)
+        return f"{self.sect.name}{rank_name}"
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """

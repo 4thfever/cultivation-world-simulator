@@ -44,8 +44,8 @@ class Sect:
     weight: float = 1.0
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
-    # 功法：在technique.csv中配置
-    # TODO：宗内等级和称谓
+    # 宗门自定义职位名称（可选）：SectRank -> 名称
+    rank_names: dict[str, str] = field(default_factory=dict)
 
     def get_info(self) -> str:
         hq = self.headquarter
@@ -55,6 +55,20 @@ class Sect:
         # 详细描述：风格、阵营、驻地
         hq = self.headquarter
         return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）"
+    
+    def get_rank_name(self, rank: "SectRank") -> str:
+        """
+        获取宗门的职位名称（支持自定义）
+        
+        Args:
+            rank: 宗门职位枚举
+            
+        Returns:
+            职位名称字符串
+        """
+        from src.classes.sect_ranks import SectRank, DEFAULT_RANK_NAMES
+        # 优先使用自定义名称，否则使用默认名称
+        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
     sep = CONFIG.df.ids_separator
@@ -137,3 +151,43 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
 # 导出：从配表加载 sect 数据
 sects_by_id, sects_by_name = _load_sects()
+
+
+def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
+    """
+    获取包含职位的宗门信息字符串
+    
+    Args:
+        avatar: 角色对象
+        detailed: 是否包含宗门详细信息（阵营、风格、驻地等）
+        
+    Returns:
+        - 散修：返回"散修"
+        - detailed=False：返回"明心剑宗长老"
+        - detailed=True：返回"明心剑宗长老（阵营：正，风格：...，驻地：...）"
+    """
+    from typing import TYPE_CHECKING
+    if TYPE_CHECKING:
+        from src.classes.avatar import Avatar
+    
+    # 散修直接返回
+    if avatar.sect is None:
+        return "散修"
+    
+    # 获取职位+宗门名（如"明心剑宗长老"）
+    sect_rank_str = avatar.get_sect_str()
+    
+    # 如果不需要详细信息，直接返回职位字符串
+    if not detailed:
+        return sect_rank_str
+    
+    # 需要详细信息：拼接宗门的详细描述
+    sect_detail = avatar.sect.get_detailed_info()  # "明心剑宗（阵营：正，...）"
+    
+    # 提取括号及其内容
+    if "（" in sect_detail:
+        detail_part = sect_detail[sect_detail.index("（"):]
+        return f"{sect_rank_str}{detail_part}"
+    
+    # 如果没有括号（理论上不应该出现），直接返回职位字符串
+    return sect_rank_str

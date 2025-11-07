@@ -53,12 +53,12 @@ class Talk(MutualAction):
             )
             EventHelper.push_pair(accept_event, initiator=self.avatar, target=target, to_sidebar_once=True)
             
-            # 立即启动 Conversation
-            from .conversation import Conversation
-            conv = Conversation(self.avatar, self.world)
-            conv.start(target_avatar=target)
-            # 直接执行一次 step，启动异步调用
-            conv.step(target_avatar=target)
+            # 将 Conversation 加入计划队列，在Talk完成后立即执行
+            self.avatar.load_decide_result_chain(
+                [("Conversation", {"target_avatar": target.name})],
+                self.avatar.thinking,
+                self.avatar.objective
+            )
         else:
             # 拒绝攀谈
             reject_event = Event(
