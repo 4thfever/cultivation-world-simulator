@@ -9,8 +9,6 @@ from src.utils.config import CONFIG
 from src.classes.avatar import Avatar
 from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
-from src.classes.action.event_helper import EventHelper
-from src.utils.asyncio_utils import schedule_background
 from src.classes.technique import (
     TechniqueGrade,
     get_random_upper_technique_for_avatar,
@@ -237,7 +235,7 @@ def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
     return random.choices(candidates, weights=weights, k=1)[0]
 
 
-def try_trigger_fortune(avatar: Avatar) -> list[Event]:
+async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     """
     在月度结算阶段尝试触发奇遇。
     规则：
@@ -300,35 +298,19 @@ def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         related_avatars.append(master.id)
         actors_for_story = [avatar, master]  # 拜师奇遇需要两个人的信息
 
-    # 生成故事（异步避免阻塞）
+    # 生成故事（异步，等待完成）
     event_text = f"遭遇奇遇（{theme}），{res_text}"
     story_prompt = "请据此写100~150字小故事。"
 
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=related_avatars)
 
-    async def _gen_and_push_story():
-        # 拜师奇遇传入两个角色，其他奇遇传入一个角色
-        story = await StoryTeller.tell_from_actors_async(event_text, res_text, *actors_for_story, prompt=story_prompt)
-        story_event = Event(month_at_finish, story, related_avatars=related_avatars)
-        # 根据涉及角色数量推送事件
-        if len(actors_for_story) == 1:
-            EventHelper.push_self(story_event, avatar, to_sidebar=True)
-        else:
-            # 拜师奇遇涉及两个角色
-            EventHelper.push_pair(story_event, initiator=avatar, target=actors_for_story[1], to_sidebar_once=True)
+    # 生成故事事件
+    story = await StoryTeller.tell_from_actors_async(event_text, res_text, *actors_for_story, prompt=story_prompt)
+    story_event = Event(month_at_finish, story, related_avatars=related_avatars)
 
-    def _fallback_sync():
-        story = StoryTeller.tell_from_actors(event_text, res_text, *actors_for_story, prompt=story_prompt)
-        story_event = Event(month_at_finish, story, related_avatars=related_avatars)
-        if len(actors_for_story) == 1:
-            EventHelper.push_self(story_event, avatar, to_sidebar=True)
-        else:
-            EventHelper.push_pair(story_event, initiator=avatar, target=actors_for_story[1], to_sidebar_once=True)
-
-    schedule_background(_gen_and_push_story(), fallback=_fallback_sync)
-
-    return [base_event]
+    # 返回基础事件和故事事件
+    return [base_event, story_event]
 
 
 __all__ = [

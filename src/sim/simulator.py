@@ -107,7 +107,7 @@ class Simulator:
             events.append(event)
         return events
 
-    def _phase_passive_effects(self):
+    async def _phase_passive_effects(self):
         """
         被动结算阶段：
         - 更新时间效果（如HP回复）
@@ -117,7 +117,8 @@ class Simulator:
         for avatar in self.world.avatar_manager.avatars.values():
             avatar.update_time_effect()
         for avatar in list(self.world.avatar_manager.avatars.values()):
-            events.extend(try_trigger_fortune(avatar))
+            fortune_events = await try_trigger_fortune(avatar)
+            events.extend(fortune_events)
         return events
 
     def _phase_log_events(self, events):
@@ -155,7 +156,7 @@ class Simulator:
         events.extend(self._phase_update_age_and_birth())
 
         # 6. 被动结算（时间效果+奇遇）
-        events.extend(self._phase_passive_effects())
+        events.extend(await self._phase_passive_effects())
 
         # 7. 日志
         # 统一写入事件管理器
