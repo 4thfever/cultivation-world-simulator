@@ -6,27 +6,15 @@ from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.cultivation import Realm
 from src.classes.story_teller import StoryTeller
-from src.classes.relation import Relation
+from src.classes.tribulation import TribulationSelector
+from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
+from src.classes.effect import _merge_effects
 
-# —— 配置：哪些“出发境界”会生成突破小故事（global var）——
+# —— 配置：哪些"出发境界"会生成突破小故事（global var）——
 ALLOW_STORY_FROM_REALMS: list[Realm] = [
     Realm.Foundation_Establishment,  # 筑基
     Realm.Core_Formation,            # 金丹
 ]
-
-# 故事提示词（global var）
-STORY_PROMPT_BASE = "以古风、凝练、不炫技的笔触，描绘修士历经{calamity}劫时的心境与取舍，篇幅60~120字。"
-
-# 劫难说明（global var）
-CALAMITY_DESCRIPTIONS: dict[str, str] = {
-    "心魔": "心念起伏，自我否定与执念缠斗，外寂而内喧。",
-    "雷劫": "天威如潮，电光凝成纹理，压迫骨血与神识。",
-    "肉身": "筋骨皮膜重塑，真气磨砺经脉，疼痛与新生并至。",
-    "寻仇": "仇人旧怨不散，刀光在心底回响，一念之差改写因果。",
-    "情劫": "柔情即刃，难舍难分，念头被拉回人间烟火。",
-}
-from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
-from src.classes.effect import _merge_effects
 
 
 @cooldown_action
@@ -120,8 +108,8 @@ class Breakthrough(TimedAction):
         # 仅基于出发境界判断是否生成故事
         self._gen_story = old_realm in ALLOW_STORY_FROM_REALMS
         if self._gen_story:
-            self._calamity = self._choose_calamity()
-            self._calamity_other = self._choose_related_avatar(self._calamity)
+            self._calamity = TribulationSelector.choose_tribulation(self.avatar)
+            self._calamity_other = TribulationSelector.choose_related_avatar(self.avatar, self._calamity)
         else:
             self._calamity = None
             self._calamity_other = None
@@ -152,31 +140,9 @@ class Breakthrough(TimedAction):
 
         if True:
             # 故事参与者：本体 +（可选）相关角色
-            desc = CALAMITY_DESCRIPTIONS.get(str(calamity), "")
-            prompt = (STORY_PROMPT_BASE.format(calamity=str(calamity)) + (" " + desc if desc else "")).strip()
+            prompt = TribulationSelector.get_story_prompt(str(calamity))
             story = StoryTeller.tell_from_actors(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, getattr(self, "_calamity_other", None), prompt=prompt)
             events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids))
         return events
-
-    # ——— 内部：劫难选择与关联角色 ———
-    def _choose_calamity(self) -> str:
-        base = ["心魔", "雷劫", "肉身"]
-        rels = getattr(self.avatar, "relations", {})
-        has_enemy = any(rel is Relation.ENEMY for rel in rels.values())
-        has_lover = any(rel is Relation.LOVERS for rel in rels.values())
-        if has_enemy:
-            base.append("寻仇")
-        if has_lover:
-            base.append("情劫")
-        return random.choice(base)
-
-    def _choose_related_avatar(self, calamity: str):
-        if calamity not in ("寻仇", "情劫"):
-            return None
-        target_rel = Relation.ENEMY if calamity == "寻仇" else Relation.LOVERS
-        candidates = [other for other, rel in self.avatar.relations.items() if rel is target_rel]
-        if not candidates:
-            return None
-        return random.choice(candidates)
 
 
