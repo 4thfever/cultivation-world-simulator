@@ -27,6 +27,8 @@ class FortuneKind(Enum):
     TREASURE = "treasure"
     TECHNIQUE = "technique"
     FIND_MASTER = "find_master"
+    SPIRIT_STONE = "spirit_stone"  # 灵石奇遇
+    CULTIVATION = "cultivation"     # 修为奇遇
 
 
 F_TREASURE_THEMES: list[str] = [
@@ -51,6 +53,25 @@ F_FIND_MASTER_THEMES: list[str] = [
     "展露天赋",
     "机缘巧合",
     "通过考验",
+]
+
+F_SPIRIT_STONE_THEMES: list[str] = [
+    "偶遇灵矿",
+    "洞府遗财",
+    "击杀妖兽",
+    "交易获利",
+    "赌石得宝",
+    "拾遗藏宝",
+]
+
+F_CULTIVATION_THEMES: list[str] = [
+    "顿悟玄机",
+    "古碑感悟",
+    "服食灵药",
+    "秘境修炼",
+    "前辈灌顶",
+    "灵泉淬体",
+    "传承记忆",
 ]
 
 
@@ -139,6 +160,18 @@ def _can_get_master(avatar: Avatar) -> bool:
     return _find_potential_master(avatar) is not None
 
 
+def _can_get_spirit_stone(avatar: Avatar) -> bool:
+    """检查是否可以获得灵石奇遇"""
+    # 任何人都可以获得灵石
+    return True
+
+
+def _can_get_cultivation(avatar: Avatar) -> bool:
+    """检查是否可以获得修为奇遇"""
+    # 只有未达到瓶颈的人才能获得修为
+    return not avatar.cultivation_progress.is_in_bottleneck()
+
+
 def _choose_kind(avatar: Avatar) -> FortuneKind:
     """
     从所有可能的奇遇中随机选择一个。
@@ -158,6 +191,14 @@ def _choose_kind(avatar: Avatar) -> FortuneKind:
     if _can_get_master(avatar):
         possible_kinds.append(FortuneKind.FIND_MASTER)
     
+    # 灵石奇遇：任何人都可以
+    if _can_get_spirit_stone(avatar):
+        possible_kinds.append(FortuneKind.SPIRIT_STONE)
+    
+    # 修为奇遇：未达到瓶颈的人可以
+    if _can_get_cultivation(avatar):
+        possible_kinds.append(FortuneKind.CULTIVATION)
+    
     if not possible_kinds:
         return None
     
@@ -171,6 +212,10 @@ def _pick_theme(kind: FortuneKind) -> str:
         return random.choice(F_TECHNIQUE_THEMES)
     elif kind == FortuneKind.FIND_MASTER:
         return random.choice(F_FIND_MASTER_THEMES)
+    elif kind == FortuneKind.SPIRIT_STONE:
+        return random.choice(F_SPIRIT_STONE_THEMES)
+    elif kind == FortuneKind.CULTIVATION:
+        return random.choice(F_CULTIVATION_THEMES)
     return ""
 
 
@@ -235,6 +280,39 @@ def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
     return random.choices(candidates, weights=weights, k=1)[0]
 
 
+def _get_spirit_stone_amount(avatar: Avatar) -> int:
+    """根据境界返回灵石数量（相当于一年狩猎售卖的收入）"""
+    from src.classes.cultivation import Realm
+    
+    realm_ranges = {
+        Realm.Qi_Refinement: (20, 30),
+        Realm.Foundation_Establishment: (100, 150),
+        Realm.Core_Formation: (200, 300),
+        Realm.Nascent_Soul: (400, 600),
+    }
+    range_tuple = realm_ranges.get(
+        avatar.cultivation_progress.realm, 
+        (20, 30)  # 默认值
+    )
+    return random.randint(*range_tuple)
+
+
+def _get_cultivation_exp(avatar: Avatar) -> int:
+    """根据境界返回修为经验（相当于一年修炼的收益）"""
+    from src.classes.cultivation import Realm
+    
+    realm_exp = {
+        Realm.Qi_Refinement: 600,
+        Realm.Foundation_Establishment: 800,
+        Realm.Core_Formation: 1000,
+        Realm.Nascent_Soul: 1200,
+    }
+    return realm_exp.get(
+        avatar.cultivation_progress.realm,
+        600  # 默认值
+    )
+
+
 async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     """
     在月度结算阶段尝试触发奇遇。
@@ -244,10 +322,14 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
       * 法宝奇遇：无法宝（不限散修/宗门）
       * 功法奇遇：功法非上品（不限散修/宗门，但宗门弟子只能获得本宗门或无宗门功法）
       * 拜师奇遇：无师傅且世界中有合适的师傅（优先同宗门，不能拜敌对阵营）
+      * 灵石奇遇：任何人都可以触发
+      * 修为奇遇：未达到瓶颈的人可以触发
     - 结果：
       * 法宝：世界唯一且不可重复
       * 功法：可重复，优先上品，需与灵根兼容，宗门弟子受宗门限制
       * 拜师：建立师徒关系
+      * 灵石：根据境界获得灵石（相当于一年狩猎售卖收入）
+      * 修为：根据境界增加修为经验（相当于一年修炼收益）
     - 故事：仅给出主旨主题，由 LLM 自由发挥生成短故事。
     """
     base_prob = float(getattr(CONFIG.game, "fortune_probability", 0.0))
@@ -297,6 +379,16 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         res_text = f"{avatar.name} 拜 {master.name} 为师"
         related_avatars.append(master.id)
         actors_for_story = [avatar, master]  # 拜师奇遇需要两个人的信息
+
+    elif kind == FortuneKind.SPIRIT_STONE:
+        amount = _get_spirit_stone_amount(avatar)
+        avatar.magic_stone.value += amount
+        res_text = f"{avatar.name} 获得灵石 {amount} 枚"
+
+    elif kind == FortuneKind.CULTIVATION:
+        exp_gain = _get_cultivation_exp(avatar)
+        avatar.cultivation_progress.add_exp(exp_gain)
+        res_text = f"{avatar.name} 修为增长 {exp_gain} 点"
 
     # 生成故事（异步，等待完成）
     event_text = f"遭遇奇遇（{theme}），{res_text}"
