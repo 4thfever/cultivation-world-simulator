@@ -22,7 +22,7 @@ class Persona:
     id: int
     name: str
     desc: str
-    exclusion_ids: List[int]
+    exclusion_names: List[str]
     rarity: Rarity
     condition: str
     effects: dict[str, object]
@@ -45,11 +45,11 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     
     persona_df = game_configs["persona"]
     for _, row in persona_df.iterrows():
-        # 解析exclusion_ids字符串，转换为int列表
-        exclusion_ids_str = str(row["exclusion_ids"]) if str(row["exclusion_ids"]) != "nan" else ""
-        exclusion_ids = []
-        if exclusion_ids_str:
-            exclusion_ids = [int(x.strip()) for x in exclusion_ids_str.split(ids_separator) if x.strip()]
+        # 解析exclusion_names字符串，转换为字符串列表
+        exclusion_names_str = str(row["exclusion_names"]) if str(row["exclusion_names"]) != "nan" else ""
+        exclusion_names = []
+        if exclusion_names_str:
+            exclusion_names = [x.strip() for x in exclusion_names_str.split(ids_separator) if x.strip()]
         # 解析稀有度（缺失或为 NaN 时默认为 N）
         rarity_val = row.get("rarity", "N")
         rarity_str = str(rarity_val).strip().upper()
@@ -65,7 +65,7 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
             id=int(row["id"]),
             name=str(row["name"]),
             desc=str(row["desc"]),
-            exclusion_ids=exclusion_ids,
+            exclusion_names=exclusion_names,
             rarity=rarity,
             condition=condition,
             effects=effects,
@@ -82,7 +82,7 @@ def _is_persona_allowed(persona_id: int, already_selected_ids: set[int], avatar:
     """
     统一判断：persona 是否允许被选择（条件 + 互斥）。
     - 条件：当存在 avatar 且配置了 condition 时，通过安全 eval 判断。
-    - 互斥：与已选 persona 双向互斥。
+    - 互斥：与已选 persona 双向互斥（通过名字比较）。
     """
     persona = personas_by_id[persona_id]
     # 条件判定
@@ -90,10 +90,11 @@ def _is_persona_allowed(persona_id: int, already_selected_ids: set[int], avatar:
         allowed = bool(eval(persona.condition, {"__builtins__": {}}, {"avatar": avatar}))
         if not allowed:
             return False
-    # 与已选互斥检查（双向）
+    # 与已选互斥检查（双向，通过名字）
     for sid in already_selected_ids:
         other = personas_by_id[sid]
-        if (persona_id in other.exclusion_ids) or (sid in persona.exclusion_ids):
+        # 检查当前persona是否在对方的互斥列表中，或对方是否在当前persona的互斥列表中
+        if (persona.name in other.exclusion_names) or (other.name in persona.exclusion_names):
             return False
     return True
 
