@@ -1,4 +1,5 @@
 import asyncio
+import os
 import random
 from typing import Dict, List, Optional
 
@@ -57,6 +58,12 @@ class Front:
         height_px = self.world.map.height * tile_size + margin * 2 + STATUS_BAR_HEIGHT
         self.screen = pygame.display.set_mode((width_px, height_px))
         pygame.display.set_caption(window_title)
+        
+        # 设置窗口图标
+        icon_path = "assets/icon.png"
+        if os.path.exists(icon_path):
+            icon = pygame.image.load(icon_path)
+            pygame.display.set_icon(icon)
 
         self.font = create_font(self.pygame, 16, self.font_path)
         self.tooltip_font = create_font(self.pygame, 14, self.font_path)

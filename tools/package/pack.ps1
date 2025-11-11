@@ -40,6 +40,9 @@ if (-not (Test-Path $EntryPy)) {
 $AssetsPath = Join-Path $RepoRoot "assets"
 $StaticPath = Join-Path $RepoRoot "static"
 
+# Icon path
+$IconPath = Join-Path $AssetsPath "icon.ico"
+
 # Runtime hook
 $RuntimeHookPath = Join-Path $ScriptDir "runtime_hook_setcwd.py"
 
@@ -74,6 +77,11 @@ $argsList = @(
 
 if (Test-Path $RuntimeHookPath) {
     $argsList += @("--runtime-hook", $RuntimeHookPath)
+}
+
+# Add icon if available
+if (Test-Path $IconPath) {
+    $argsList += @("--icon", $IconPath)
 }
 
 # Call PyInstaller
