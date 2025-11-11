@@ -101,11 +101,8 @@ async def main():
 
     front = Front(
         simulator=sim,
-        tile_size=24,
-        margin=8,
         step_interval_ms=750,
         window_title="Cultivation World — Front Demo",
-        sidebar_width=350,
     )
     await front.run_async()
 

@@ -1,5 +1,5 @@
 from typing import List, Optional, Tuple, Dict
-from .rendering import STATUS_BAR_HEIGHT, map_pixel_size
+from .rendering import map_pixel_size
 
 
 def _wrap_text_by_pixels(font, text: str, max_width_px: int) -> List[str]:
@@ -35,6 +35,7 @@ def draw_sidebar(
     tile_size: int,
     margin: int,
     sidebar_width: int,
+    status_bar_height: int,
     *,
     filter_selected_label: str,
     filter_is_open: bool,
@@ -42,7 +43,7 @@ def draw_sidebar(
 ) -> Dict[str, object]:
     map_px_w, _ = map_pixel_size(type("_W", (), {"map": world_map})(), tile_size)
     sidebar_x = map_px_w + margin * 2
-    sidebar_y = margin + STATUS_BAR_HEIGHT
+    sidebar_y = margin + status_bar_height
 
     sidebar_rect = pygame_mod.Rect(
         sidebar_x,

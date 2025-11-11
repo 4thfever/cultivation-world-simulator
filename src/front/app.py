@@ -17,12 +17,12 @@ from .rendering import (
     draw_tooltip_for_avatar,
     draw_tooltip_for_region,
     draw_status_bar,
-    STATUS_BAR_HEIGHT,
     draw_small_regions,
     draw_sect_headquarters,
 )
 from .events_panel import draw_sidebar
 from .menu import PauseMenu
+from .layout import calculate_layout, get_fullscreen_resolution
 
 
 class Front:
@@ -30,21 +30,15 @@ class Front:
         self,
         simulator: Simulator,
         *,
-        tile_size: int = 32,
-        margin: int = 8,
         step_interval_ms: int = 400,
         window_title: str = "Cultivation World Simulator",
         font_path: Optional[str] = None,
-        sidebar_width: int = 300,
     ):
         self.world = simulator.world
         self.simulator = simulator
-        self.tile_size = tile_size
-        self.margin = margin
         self.step_interval_ms = step_interval_ms
         self.window_title = window_title
         self.font_path = font_path
-        self.sidebar_width = sidebar_width
 
         self._last_step_ms = 0
         self.events: List[Event] = []
@@ -54,10 +48,38 @@ class Front:
         pygame.init()
         pygame.font.init()
 
-        width_px = self.world.map.width * tile_size + margin * 2 + sidebar_width
-        height_px = self.world.map.height * tile_size + margin * 2 + STATUS_BAR_HEIGHT
-        self.screen = pygame.display.set_mode((width_px, height_px))
+        # 获取可用屏幕分辨率（排除任务栏）并计算动态布局
+        screen_width, screen_height = get_fullscreen_resolution(pygame)
+        self.layout = calculate_layout(
+            screen_width, 
+            screen_height,
+            self.world.map.width,
+            self.world.map.height
+        )
+        
+        # 使用动态布局参数
+        self.tile_size = self.layout.tile_size
+        self.margin = self.layout.margin
+        self.sidebar_width = self.layout.sidebar_width
+        
+        # 创建无边框最大化窗口（底部保留任务栏空间）
+        self.screen = pygame.display.set_mode((self.layout.screen_width, self.layout.screen_height), pygame.NOFRAME)
         pygame.display.set_caption(window_title)
+        
+        # 将窗口移动到屏幕左上角 (0, 0)，顶部紧贴屏幕边缘
+        import os
+        if os.name == 'nt':  # Windows系统
+            try:
+                import ctypes
+                hwnd = pygame.display.get_wm_info()['window']
+                # SWP_NOZORDER = 0x0004, SWP_SHOWWINDOW = 0x0040
+                # 设置窗口位置到 (0, 0)，不改变Z顺序
+                ctypes.windll.user32.SetWindowPos(hwnd, 0, 0, 0, 
+                                                  self.layout.screen_width, 
+                                                  self.layout.screen_height, 
+                                                  0x0004)
+            except Exception:
+                pass  # 如果设置失败也不影响使用
         
         # 设置窗口图标
         icon_path = "assets/icon.png"
@@ -65,20 +87,22 @@ class Front:
             icon = pygame.image.load(icon_path)
             pygame.display.set_icon(icon)
 
-        self.font = create_font(self.pygame, 16, self.font_path)
-        self.tooltip_font = create_font(self.pygame, 14, self.font_path)
-        self.sidebar_font = create_font(self.pygame, 14, self.font_path)
-        self.status_font = create_font(self.pygame, 18, self.font_path)
-        self.name_font = create_font(self.pygame, 16, self.font_path)
+        # 使用动态字体大小
+        self.font = create_font(self.pygame, self.layout.font_size_medium, self.font_path)
+        self.tooltip_font = create_font(self.pygame, self.layout.font_size_tooltip, self.font_path)
+        self.sidebar_font = create_font(self.pygame, self.layout.font_size_normal, self.font_path)
+        self.status_font = create_font(self.pygame, self.layout.font_size_large, self.font_path)
+        self.name_font = create_font(self.pygame, self.layout.font_size_medium, self.font_path)
         self._region_font_cache: Dict[int, object] = {}
 
         self.colors = COLORS
 
+        # 使用动态尺寸加载资源
         self.tile_images = load_tile_images(self.pygame, self.tile_size)
         self.tile_originals = load_tile_originals(self.pygame)
         self.sect_images = load_sect_images(self.pygame, self.tile_size)
         self.region_images = load_region_images(self.pygame, self.tile_size)
-        self.male_avatars, self.female_avatars = load_avatar_images(self.pygame, self.tile_size)
+        self.male_avatars, self.female_avatars = load_avatar_images(self.pygame, self.tile_size, self.layout.avatar_size)
         self.avatar_images: Dict[str, object] = {}
         self._assign_avatar_images()
 
@@ -175,6 +199,7 @@ class Front:
     def _render(self):
         pygame = self.pygame
         self.screen.fill(self.colors["bg"])
+        status_bar_height = self.layout.status_bar_height
         draw_map(
             pygame,
             self.screen,
@@ -183,11 +208,11 @@ class Front:
             self.tile_images,
             self.tile_size,
             self.margin,
-            STATUS_BAR_HEIGHT,
+            status_bar_height,
         )
         # 底图后叠加小区域整图（2x2/3x3），再绘制宗门总部，避免被覆盖
-        draw_small_regions(pygame, self.screen, self.world, self.region_images, self.tile_images, self.tile_size, self.margin, STATUS_BAR_HEIGHT, self.tile_originals)
-        draw_sect_headquarters(pygame, self.screen, self.world, self.sect_images, self.tile_size, self.margin, STATUS_BAR_HEIGHT)
+        draw_small_regions(pygame, self.screen, self.world, self.region_images, self.tile_images, self.tile_size, self.margin, status_bar_height, self.tile_originals)
+        draw_sect_headquarters(pygame, self.screen, self.world, self.sect_images, self.tile_size, self.margin, status_bar_height)
         hovered_region = draw_region_labels(
             pygame,
             self.screen,
@@ -196,7 +221,7 @@ class Front:
             self._get_region_font,
             self.tile_size,
             self.margin,
-            STATUS_BAR_HEIGHT,
+            status_bar_height,
         )
         self._assign_avatar_images()
         hovered_default, hover_candidates = draw_avatars_and_pick_hover(
@@ -208,13 +233,13 @@ class Front:
             self.tile_size,
             self.margin,
             self._get_display_center,
-            STATUS_BAR_HEIGHT,
+            status_bar_height,
             self.name_font,
             self._sidebar_filter_avatar_id,
         )
         hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
-        draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world)
+        draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, status_bar_height)
 
         # 计算筛选后的事件
         if self._sidebar_filter_avatar_id is None:
@@ -233,7 +258,7 @@ class Front:
 
         sidebar_ui = draw_sidebar(
             pygame, self.screen, self.colors, self.sidebar_font, events_to_draw,
-            self.world.map, self.tile_size, self.margin, self.sidebar_width,
+            self.world.map, self.tile_size, self.margin, self.sidebar_width, status_bar_height,
             filter_selected_label=sel_label,
             filter_is_open=self._sidebar_filter_open,
             filter_options=options,
@@ -241,7 +266,7 @@ class Front:
         # 保存供点击检测
         self._sidebar_ui = sidebar_ui
         if hovered_avatar is not None:
-            draw_tooltip_for_avatar(pygame, self.screen, self.colors, self.tooltip_font, hovered_avatar)
+            draw_tooltip_for_avatar(pygame, self.screen, self.colors, self.tooltip_font, hovered_avatar, self.layout.tooltip_min_width, status_bar_height)
             # 绘制候选徽标（仅当存在多个候选）
             if len(hover_candidates) >= 2:
                 from .rendering import draw_hover_badge
@@ -253,10 +278,10 @@ class Front:
                     idx = self._hover_candidates.index(hovered_avatar.id)
                 except ValueError:
                     idx = 0
-                draw_hover_badge(pygame, self.screen, self.colors, self.tooltip_font, cx, cy, idx + 1, len(hover_candidates), STATUS_BAR_HEIGHT)
+                draw_hover_badge(pygame, self.screen, self.colors, self.tooltip_font, cx, cy, idx + 1, len(hover_candidates), status_bar_height)
         elif hovered_region is not None:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            draw_tooltip_for_region(pygame, self.screen, self.colors, self.tooltip_font, hovered_region, mouse_x, mouse_y)
+            draw_tooltip_for_region(pygame, self.screen, self.colors, self.tooltip_font, hovered_region, mouse_x, mouse_y, self.layout.tooltip_min_width, status_bar_height)
         
         # 绘制暂停菜单（在最上层）
         self._menu_option_rects = self.pause_menu.draw(self.screen, self.colors, self.status_font)

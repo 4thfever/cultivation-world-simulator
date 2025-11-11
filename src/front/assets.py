@@ -33,7 +33,18 @@ def load_tile_originals(pygame_mod) -> Dict[TileType, object]:
     return originals
 
 
-def load_avatar_images(pygame_mod, tile_size: int):
+def load_avatar_images(pygame_mod, tile_size: int, avatar_size: int = None):
+    """
+    加载avatar图像
+    
+    Args:
+        pygame_mod: pygame模块
+        tile_size: tile大小（用于计算默认avatar大小）
+        avatar_size: 可选，直接指定avatar大小；如果为None则根据tile_size计算
+    """
+    if avatar_size is None:
+        avatar_size = max(26, int((tile_size * 4 // 3) * 1.8))
+    
     def load_from_dir(base_dir: str) -> List[object]:
         results: List[object] = []
         if os.path.exists(base_dir):
@@ -41,7 +52,6 @@ def load_avatar_images(pygame_mod, tile_size: int):
                 if filename.endswith('.png') and filename != 'original.png' and filename.replace('.png', '').isdigit():
                     image_path = os.path.join(base_dir, filename)
                     image = pygame_mod.image.load(image_path)
-                    avatar_size = max(26, int((tile_size * 4 // 3) * 1.8))
                     scaled = pygame_mod.transform.scale(image, (avatar_size, avatar_size))
                     results.append(scaled)
         return results

@@ -3,9 +3,7 @@ from typing import List, Optional, Tuple, Callable
 from src.classes.avatar import Avatar
 from src.utils.text_wrap import wrap_text
 
-# 顶部状态栏高度（像素）
-STATUS_BAR_HEIGHT = 32
-TOOLTIP_MIN_WIDTH = 260
+
 def wrap_lines_for_tooltip(lines: List[str], max_chars_per_line: int = 28) -> List[str]:
     """
     将一组 tooltip 行进行字符级换行：
@@ -335,13 +333,12 @@ def draw_avatars_and_pick_hover(
     return hovered, candidate_avatars
 
 
-def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: Optional[int] = None, top_limit: int = 0):
+def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: int = 260, top_limit: int = 0):
     padding = 6
     spacing = 2
     surf_lines = [font.render(t, True, colors["text"]) for t in lines]
     width = max(s.get_width() for s in surf_lines) + padding * 2
-    if min_width is not None:
-        width = max(width, min_width)
+    width = max(width, min_width)
     height = sum(s.get_height() for s in surf_lines) + padding * 2 + spacing * (len(surf_lines) - 1)
     x = mouse_x + 12
     y = mouse_y + 12
@@ -362,19 +359,19 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
         cursor_y += s.get_height() + spacing
 
 
-def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar):
+def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar, tooltip_min_width: int = 260, status_bar_height: int = 32):
     # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
     lines = avatar.get_hover_info()
-    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=TOOLTIP_MIN_WIDTH, top_limit=STATUS_BAR_HEIGHT)
+    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=tooltip_min_width, top_limit=status_bar_height)
 
 
-def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int):
+def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int, tooltip_min_width: int = 260, status_bar_height: int = 32):
     if region is None:
         return
     # 改为调用 region.get_hover_info()，并统一用 wrap_lines_for_tooltip 进行换行
     lines = region.get_hover_info()
     wrapped_lines = wrap_lines_for_tooltip(lines, 28)
-    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=TOOLTIP_MIN_WIDTH, top_limit=STATUS_BAR_HEIGHT)
+    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=tooltip_min_width, top_limit=status_bar_height)
 
 
 def draw_operation_guide(pygame_mod, screen, colors, font, margin: int):
@@ -394,13 +391,12 @@ def draw_year_month_info(pygame_mod, screen, colors, font, margin: int, guide_wi
     screen.blit(ym_surf, (x_pos, 8))
 
 
-def draw_status_bar(pygame_mod, screen, colors, font, margin: int, world):
+def draw_status_bar(pygame_mod, screen, colors, font, margin: int, world, status_bar_height: int = 32):
     status_y = 8
-    status_height = STATUS_BAR_HEIGHT
-    status_rect = pygame_mod.Rect(0, 0, screen.get_width(), status_height)
+    status_rect = pygame_mod.Rect(0, 0, screen.get_width(), status_bar_height)
     pygame_mod.draw.rect(screen, colors["status_bg"], status_rect)
     pygame_mod.draw.line(screen, colors["status_border"],
-                        (0, status_height), (screen.get_width(), status_height), 2)
+                        (0, status_bar_height), (screen.get_width(), status_bar_height), 2)
     guide_w = draw_operation_guide(pygame_mod, screen, colors, font, margin)
     draw_year_month_info(pygame_mod, screen, colors, font, margin, guide_w, world)
 
@@ -412,8 +408,10 @@ __all__ = [
     "draw_tooltip_for_avatar",
     "draw_tooltip_for_region",
     "draw_status_bar",
-    "STATUS_BAR_HEIGHT",
     "map_pixel_size",
+    "draw_hover_badge",
+    "draw_small_regions",
+    "draw_sect_headquarters",
 ]
 
 
