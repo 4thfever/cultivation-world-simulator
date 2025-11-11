@@ -4,6 +4,7 @@ from typing import Optional, Iterable
 
 from src.classes.tile import get_avatar_distance
 from src.classes.observe import get_observable_avatars
+from src.classes.normalize import normalize_avatar_name
 
 
 class TargetingMixin:
@@ -13,8 +14,15 @@ class TargetingMixin:
     注意：不做异常吞噬，失败路径返回 None 或 False，由调用方决策。
     """
     def find_avatar_by_name(self, name: str) -> "Avatar|None":
+        """
+        根据名字查找角色。
+        会自动规范化名字（去除括号等附加信息）以提高容错性。
+        
+        例如：查找 "张三（元婴）" 会自动匹配到名为 "张三" 的角色
+        """
+        normalized_name = normalize_avatar_name(name)
         for v in self.world.avatar_manager.avatars.values():
-            if v.name == name:
+            if v.name == normalized_name:
                 return v
         return None
 

@@ -4,6 +4,7 @@ from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
+from src.classes.normalize import normalize_avatar_name
 
 
 class Battle(InstantAction):
@@ -16,8 +17,13 @@ class Battle(InstantAction):
     )
 
     def _get_target(self, avatar_name: str):
+        """
+        根据名字查找目标角色；找不到返回 None。
+        会自动规范化名字（去除括号等附加信息）以提高容错性。
+        """
+        normalized_name = normalize_avatar_name(avatar_name)
         for v in self.world.avatar_manager.avatars.values():
-            if v.name == avatar_name:
+            if v.name == normalized_name:
                 return v
         return None
 

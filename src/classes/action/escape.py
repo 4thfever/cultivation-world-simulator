@@ -4,6 +4,7 @@ from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import get_escape_success_rate
 from src.classes.action.event_helper import EventHelper
+from src.classes.normalize import normalize_avatar_name
 
 
 class Escape(InstantAction):
@@ -18,8 +19,13 @@ class Escape(InstantAction):
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar|None":
+        """
+        根据名字查找角色；找不到返回 None。
+        会自动规范化名字（去除括号等附加信息）以提高容错性。
+        """
+        normalized_name = normalize_avatar_name(name)
         for v in self.world.avatar_manager.avatars.values():
-            if v.name == name:
+            if v.name == normalized_name:
                 return v
         return None
 

@@ -516,7 +516,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         observed: list[str] = []
         if co_region_avatars:
             for other in co_region_avatars[:8]:
-                observed.append(f"{other.name}(境界：{other.cultivation_progress.get_info()})")
+                observed.append(f"{other.name}，境界：{other.cultivation_progress.get_info()}")
 
         # 历史事件改为从全局事件管理器查询
         n = CONFIG.social.event_context_num

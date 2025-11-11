@@ -5,6 +5,7 @@ from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.item import items_by_name
 from src.classes.prices import prices
+from src.classes.normalize import normalize_item_name
 
 
 class SellItems(InstantAction):
@@ -22,8 +23,11 @@ class SellItems(InstantAction):
         if not isinstance(region, CityRegion):
             return
 
+        # 规范化物品名称（去除境界等附加信息）
+        normalized_name = normalize_item_name(item_name)
+        
         # 找到物品
-        item = items_by_name.get(item_name)
+        item = items_by_name.get(normalized_name)
         if item is None:
             return
 
@@ -51,14 +55,22 @@ class SellItems(InstantAction):
             # 用于动作空间：只要背包非空即可
             ok = bool(self.avatar.items)
             return (ok, "" if ok else "背包为空，无可出售物品")
-        item = items_by_name.get(item_name)
+        
+        # 规范化物品名称
+        normalized_name = normalize_item_name(item_name)
+        item = items_by_name.get(normalized_name)
         if item is None:
             return False, f"未知物品: {item_name}"
         ok = self.avatar.get_item_quantity(item) > 0
         return (ok, "" if ok else "该物品数量为0")
 
     def start(self, item_name: str) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {item_name}", related_avatars=[self.avatar.id])
+        # 规范化物品名称用于显示（与执行逻辑一致）
+        normalized_name = normalize_item_name(item_name)
+        # 尝试获取标准物品名（如果存在）
+        item = items_by_name.get(normalized_name)
+        display_name = item.name if item is not None else normalized_name
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {display_name}", related_avatars=[self.avatar.id])
 
     # InstantAction 已实现 step 完成
 

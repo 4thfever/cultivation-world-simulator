@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.classes.action import TimedAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
+from src.classes.normalize import normalize_avatar_name
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -21,8 +22,13 @@ class MoveAwayFromAvatar(TimedAction):
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar | None":
+        """
+        根据名字查找角色；找不到返回 None。
+        会自动规范化名字（去除括号等附加信息）以提高容错性。
+        """
+        normalized_name = normalize_avatar_name(name)
         for v in self.world.avatar_manager.avatars.values():
-            if v.name == name:
+            if v.name == normalized_name:
                 return v
         return None
 

@@ -5,6 +5,7 @@ from src.classes.event import Event
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
+from src.classes.normalize import normalize_avatar_name
 
 
 class MoveToAvatar(DefineAction, ActualActionMixin):
@@ -19,9 +20,11 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     def _get_target(self, avatar_name: str):
         """
         根据名字查找目标角色；找不到返回 None。
+        会自动规范化名字（去除括号等附加信息）以提高容错性。
         """
+        normalized_name = normalize_avatar_name(avatar_name)
         for v in self.world.avatar_manager.avatars.values():
-            if v.name == avatar_name:
+            if v.name == normalized_name:
                 return v
         return None
 
