@@ -151,7 +151,6 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         feedback = r.get("feedback", "")
 
         target_avatar.thinking = thinking
-        target_avatar.clear_plans()
         self._settle_feedback(target_avatar, feedback)
         fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
         feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target_avatar.id])
@@ -232,7 +231,6 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             feedback = r.get("feedback", "")
 
             target.thinking = thinking
-            target.clear_plans()
             self._settle_feedback(target, feedback)
             fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
             feedback_event = Event(self.world.month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
