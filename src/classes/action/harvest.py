@@ -38,7 +38,11 @@ class Harvest(TimedAction):
             target_plant = random.choice(available_plants)
             # 随机选择该植物的一种物品
             item = random.choice(target_plant.items)
-            self.avatar.add_item(item, 1)
+            # 基础获得1个，额外物品来自effects
+            base_quantity = 1
+            extra_items = int(self.avatar.effects.get("extra_harvest_items", 0) or 0)
+            total_quantity = base_quantity + extra_items
+            self.avatar.add_item(item, total_quantity)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

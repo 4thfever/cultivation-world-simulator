@@ -4,6 +4,8 @@ from typing import List, Optional, TYPE_CHECKING
 
 from src.utils.df import game_configs
 from src.utils.config import CONFIG
+from src.classes.effect import load_effect_from_str
+from src.classes.rarity import Rarity, get_rarity_from_str
 
 ids_separator = CONFIG.df.ids_separator
 
@@ -14,14 +16,21 @@ if TYPE_CHECKING:
 @dataclass
 class Persona:
     """
-    角色个性
+    角色特质
+    包含个性、天赋等角色特征
     """
     id: int
     name: str
     desc: str
     exclusion_ids: List[int]
-    weight: float
+    rarity: Rarity
     condition: str
+    effects: dict[str, object]
+    
+    @property
+    def weight(self) -> float:
+        """根据稀有度获取采样权重"""
+        return self.rarity.weight
 
     def get_info(self) -> str:
         return self.name
@@ -41,21 +50,25 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
         exclusion_ids = []
         if exclusion_ids_str:
             exclusion_ids = [int(x.strip()) for x in exclusion_ids_str.split(ids_separator) if x.strip()]
-        # 解析权重（缺失或为 NaN 时默认为 1.0），避免不必要的异常
-        weight_val = row.get("weight", 1)
-        weight_str = str(weight_val).strip()
-        weight = float(weight_str) if weight_str and weight_str.lower() != "nan" else 1.0
+        # 解析稀有度（缺失或为 NaN 时默认为 N）
+        rarity_val = row.get("rarity", "N")
+        rarity_str = str(rarity_val).strip().upper()
+        rarity = get_rarity_from_str(rarity_str) if rarity_str and rarity_str != "NAN" else get_rarity_from_str("N")
         # 条件：可为空
         condition_val = row.get("condition", "")
         condition = "" if str(condition_val) == "nan" else str(condition_val).strip()
+        # 解析effects
+        raw_effects_val = row.get("effects", "")
+        effects = load_effect_from_str(raw_effects_val)
         
         persona = Persona(
             id=int(row["id"]),
             name=str(row["name"]),
             desc=str(row["desc"]),
             exclusion_ids=exclusion_ids,
-            weight=weight,
+            rarity=rarity,
             condition=condition,
+            effects=effects,
         )
         personas_by_id[persona.id] = persona
         personas_by_name[persona.name] = persona

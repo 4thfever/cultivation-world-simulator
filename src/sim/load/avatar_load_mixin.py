@@ -47,7 +47,6 @@ class AvatarLoadMixin:
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.classes.persona import personas_by_id
-        from src.classes.trait import traits_by_id
         from src.classes.appearance import get_appearance_by_level
         from src.classes.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
@@ -132,11 +131,6 @@ class AvatarLoadMixin:
         # 重建personas
         persona_ids = data.get("persona_ids", [])
         avatar.personas = [personas_by_id[pid] for pid in persona_ids if pid in personas_by_id]
-        
-        # 重建trait
-        trait_id = data.get("trait_id")
-        if trait_id is not None and trait_id in traits_by_id:
-            avatar.trait = traits_by_id[trait_id]
         
         # 设置外貌（通过level获取完整的Appearance对象）
         avatar.appearance = get_appearance_by_level(data.get("appearance", 5))

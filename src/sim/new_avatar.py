@@ -18,7 +18,6 @@ from src.classes.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.treasure import treasures_by_sect_id, Treasure, treasures_by_id, treasures_by_name
 from src.classes.persona import Persona, personas_by_id, personas_by_name
-from src.classes.trait import Trait, traits_by_id, traits_by_name
 
 
 # —— 参数常量（便于调参）——
@@ -572,22 +571,6 @@ def _parse_treasure(value: Union[str, int, Treasure, None]) -> Optional[Treasure
     return treasures_by_name.get(s)
 
 
-def _parse_trait(value: Union[str, int, Trait, None]) -> Optional[Trait]:
-    """解析trait参数"""
-    if value is None:
-        return None
-    if isinstance(value, Trait):
-        return value
-    if isinstance(value, int):
-        return traits_by_id.get(value)
-    s = str(value).strip()
-    if not s:
-        return None
-    if s.isdigit():
-        return traits_by_id.get(int(s))
-    return traits_by_name.get(s)
-
-
 def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona]], None]) -> Optional[List[Persona]]:
     if value is None:
         return None
@@ -662,7 +645,6 @@ def get_new_avatar_with_config(
     technique: Union[str, int, Technique, None] = None,
     treasure: Union[str, int, Treasure, None] = None,
     personas: Union[str, int, Persona, List[Union[str, int, Persona]], None] = None,
-    trait: Union[str, int, Trait, None] = None,
     appearance: Optional[int] = None,
 ) -> Avatar:
     """
@@ -737,11 +719,6 @@ def get_new_avatar_with_config(
     pers_list = _parse_personas(personas)
     if pers_list is not None and len(pers_list) > 0:
         avatar.personas = pers_list
-
-    # 覆盖：特质
-    trait_obj = _parse_trait(trait)
-    if trait_obj is not None:
-        avatar.trait = trait_obj
 
     # 覆盖：外貌/颜值
     if isinstance(appearance, int):

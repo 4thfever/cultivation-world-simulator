@@ -38,7 +38,11 @@ class Hunt(TimedAction):
             target_animal = random.choice(available_animals)
             # 随机选择该动物的一种物品
             item = random.choice(target_animal.items)
-            self.avatar.add_item(item, 1)
+            # 基础获得1个，额外物品来自effects
+            base_quantity = 1
+            extra_items = int(self.avatar.effects.get("extra_hunt_items", 0) or 0)
+            total_quantity = base_quantity + extra_items
+            self.avatar.add_item(item, total_quantity)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

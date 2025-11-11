@@ -334,9 +334,23 @@ def draw_avatars_and_pick_hover(
 
 
 def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: int = 260, top_limit: int = 0):
+    """
+    绘制tooltip，支持颜色标记格式：<color:R,G,B>text</color>
+    """
+    import re
     padding = 6
     spacing = 2
-    surf_lines = [font.render(t, True, colors["text"]) for t in lines]
+    
+    # 解析每行文本，生成渲染表面
+    surf_lines = []
+    for line in lines:
+        # 检查是否包含颜色标记
+        if "<color:" in line:
+            # 使用正则表达式解析颜色标记
+            surf_lines.append(_render_colored_text(pygame_mod, font, line, colors["text"]))
+        else:
+            surf_lines.append(font.render(line, True, colors["text"]))
+    
     width = max(s.get_width() for s in surf_lines) + padding * 2
     width = max(width, min_width)
     height = sum(s.get_height() for s in surf_lines) + padding * 2 + spacing * (len(surf_lines) - 1)
@@ -357,6 +371,66 @@ def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mou
     for s in surf_lines:
         screen.blit(s, (x + padding, cursor_y))
         cursor_y += s.get_height() + spacing
+
+
+def _render_colored_text(pygame_mod, font, text: str, default_color) -> object:
+    """
+    渲染带颜色标记的文本，格式：<color:R,G,B>text</color>
+    返回一个合成的Surface
+    """
+    import re
+    
+    # 解析颜色标记
+    pattern = r'<color:(\d+),(\d+),(\d+)>(.*?)</color>'
+    parts = []
+    last_end = 0
+    
+    for match in re.finditer(pattern, text):
+        # 添加标记前的普通文本
+        if match.start() > last_end:
+            plain_text = text[last_end:match.start()]
+            parts.append((plain_text, default_color))
+        
+        # 添加带颜色的文本
+        r, g, b = int(match.group(1)), int(match.group(2)), int(match.group(3))
+        colored_text = match.group(4)
+        parts.append((colored_text, (r, g, b)))
+        
+        last_end = match.end()
+    
+    # 添加剩余的普通文本
+    if last_end < len(text):
+        parts.append((text[last_end:], default_color))
+    
+    # 如果没有颜色标记，直接返回普通渲染
+    if len(parts) == 1 and parts[0][1] == default_color:
+        return font.render(text, True, default_color)
+    
+    # 渲染每个部分并合成
+    rendered_parts = []
+    total_width = 0
+    max_height = 0
+    
+    for txt, color in parts:
+        if txt:
+            surf = font.render(txt, True, color)
+            rendered_parts.append(surf)
+            total_width += surf.get_width()
+            max_height = max(max_height, surf.get_height())
+    
+    # 创建合成Surface
+    if not rendered_parts:
+        return font.render("", True, default_color)
+    
+    combined = pygame_mod.Surface((total_width, max_height), pygame_mod.SRCALPHA)
+    combined.fill((0, 0, 0, 0))  # 透明背景
+    
+    x_offset = 0
+    for surf in rendered_parts:
+        combined.blit(surf, (x_offset, 0))
+        x_offset += surf.get_width()
+    
+    return combined
 
 
 def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar, tooltip_min_width: int = 260, status_bar_height: int = 32):

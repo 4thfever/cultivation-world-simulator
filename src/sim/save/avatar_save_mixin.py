@@ -86,7 +86,6 @@ class AvatarSaveMixin:
             "sect_rank": self.sect_rank.value if self.sect_rank else None,
             "alignment": self.alignment.name if self.alignment else None,
             "persona_ids": [p.id for p in self.personas] if self.personas else [],
-            "trait_id": self.trait.id if self.trait else None,
             "appearance": self.appearance.level,
             
             # 行动与AI
