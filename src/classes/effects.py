@@ -95,6 +95,15 @@ EXTRA_CATCH_SUCCESS_RATE = "extra_catch_success_rate"
 说明: 捕捉灵兽时增加的成功率
 """
 
+# --- 逃跑相关 ---
+EXTRA_ESCAPE_SUCCESS_RATE = "extra_escape_success_rate"
+"""
+额外逃跑成功率
+类型: float (范围: 0.0 ~ 1.0)
+结算: src/classes/battle.py
+说明: 从对方身边逃离时增加的成功率
+"""
+
 # --- 奇遇相关 ---
 EXTRA_FORTUNE_PROBABILITY = "extra_fortune_probability"
 """
@@ -164,6 +173,9 @@ ALL_EFFECTS = [
     
     # 捕捉相关
     "extra_catch_success_rate",          # float - 额外捕捉成功率
+    
+    # 逃跑相关
+    "extra_escape_success_rate",         # float - 额外逃跑成功率
     
     # 奇遇相关
     "extra_fortune_probability",         # float - 额外奇遇概率

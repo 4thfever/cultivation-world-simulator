@@ -150,5 +150,10 @@ def decide_battle(attacker: "Avatar", defender: "Avatar") -> Tuple["Avatar", "Av
 
 
 def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
-    """逃跑成功率：后续可基于双方能力细化。"""
-    return 0.1
+    """
+    逃跑成功率：defender 试图从 attacker 身边逃离
+    基础成功率 0.1，可通过 defender 的 effects 提升
+    """
+    base_rate = 0.1
+    bonus = float(defender.effects.get("extra_escape_success_rate", 0.0))
+    return max(0.0, min(1.0, base_rate + bonus))
