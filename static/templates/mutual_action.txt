@@ -13,7 +13,6 @@
 只返回{avatar_name_2}的行动，格式为：
 {{
     {avatar_name_2}: {{
-        "thinking": ..., // 简单思考应该怎么决策
         "feedback": ... // 面对{avatar_name_1}的行为的合法feedback action name
     }}
 }}
