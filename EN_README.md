@@ -45,9 +45,13 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Config system
 - ✅ Standalone release (packaged exe)
 - ✅ Menu bar & Save & Load
-- [ ] Web frontend (later)
-- [ ] ECS parallel toolkit (later)
-- [ ] Player-configurable prompts (later)
+
+### 🔭 Long-term Systems
+- [ ] Web frontend support
+- [ ] ECS parallel toolkit
+- [ ] Player-customizable prompts
+- [ ] Novelization/imagery/video for history and events
+- [ ] Player-controlled character
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
@@ -61,32 +65,27 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Cultivation realms
 - ✅ Spiritual roots
 - ✅ Basic movement actions
-- ✅ Personality
+- ✅ Trait & Personality
 - ✅ Breakthrough system
 - ✅ Relationships
-- ✅ Perception radius
-- ✅ Buff system: buffs/debuffs
-- ✅ Artifacts
+- ✅ Interaction range
+- ✅ Effect system: buffs/debuffs
+- ✅ Techniques
+- [ ] Combat equipment & auxiliary equipment
 - [ ] Character compatibility
-- [ ] Special abilities
 - [ ] Epithets/nicknames
-- [ ] Combat-related
-  - [ ] Attribute points allocation
-  - [ ] Skill system (techniques)
-  - [ ] Equipment system
-- [ ] Skill learning
+- [ ] Skill learning system:
   - [ ] Learnable skills
-  - [ ] Personal techniques (flexible integration)
-  - [ ] Life professions (alchemy, formations, farming, forging, etc., with tailored prompts and info space)
-- [ ] Mortals support
+  - [ ] Life professions (alchemy, formations, planting, forging, etc.)
+- [ ] Mortals
 - [ ] Prodigies (stronger abilities and AI)
 
 ### 🏛️ Organizations
 - [ ] Sect system
   - ✅ Settings, techniques, healing, base, styles
-  - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (catch spirit animal)
-  - [ ] sect will AI, tasks, recruiting
-  - [ ] Sect tiers: different titles, abilities, actions
+  - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming)
+  - [ ] Sect will AI, sect tasks
+  - ✅ Sect tiers
 - [ ] Clans
 - [ ] Court/Empire (TBD)
 - [ ] Inter-organization relations
@@ -108,17 +107,16 @@ If you like this project, consider starring it~ You can also watch intro videos 
   - [ ] Auctions
   - [ ] Secret realm exploration
   - [ ] Martial tournaments
+  - [ ] Heaven-earth Qi fluctuations
 - [ ] Sudden events
   - [ ] Treasure/cave emergence
-  - [ ] Novelized/CG/film-style presentations
 - [ ] Natural events:
   - [ ] Natural disasters
   - [ ] Beast tides
 
 ### ⚔️ Combat
-- [ ] Combat design (roots influence skills and styles)
-- [ ] Advantages and counters
-- ✅ Win-rate estimation (simple)
+- ✅ Advantages and counters
+- ✅ Win-rate estimation system
 
 ### 🎒 Items
 - ✅ Basic items and spirit stones
@@ -154,11 +152,11 @@ If you like this project, consider starring it~ You can also watch intro videos 
 
 ### Specials
 - ✅ Fortuitous encounters
+- ✅ Tribulations & Heart devils
 - [ ] Paths/Daos
 - [ ] Possession & Rebirth
 - [ ] Formations
 - [ ] Opportunities
-- [ ] Tribulations & Heart devils
 - [ ] Flexible world rules
 - [ ] Divination & Omens
 - [ ] Male-female traits inversion
