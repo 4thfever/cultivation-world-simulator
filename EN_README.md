@@ -44,7 +44,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Project documentation
 - ✅ Config system
 - ✅ Standalone release (packaged exe)
-- [ ] Menu bar (in progress)
+- ✅ Menu bar & Save & Load
 - [ ] Web frontend (later)
 - [ ] ECS parallel toolkit (later)
 - [ ] Player-configurable prompts (later)
