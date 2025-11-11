@@ -143,6 +143,10 @@ logs/
 *.tmp
 *.temp
 
+# Save files (ignore all files in saves directory but not the directory itself)
+assets/saves/*
+!assets/saves/README.md
+
 TODO
 local_config.yml
 

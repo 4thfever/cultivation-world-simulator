@@ -16,7 +16,7 @@
 {{
     "{avatar_name_2}": {{
         "thinking": ..., // 简单思考对话的情况
-        "conversation_content": ... // 对话双方均为第三人称视角的，对话的主题和情况概括，约100字。注意不是对话的口语内容，仙侠语言风格。
+        "conversation_content": ... // 对话双方均为第三人称视角的对话，100~150字，仙侠语言风格。可以是聊天也可以是对话概括。
         "new_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
         "cancal_relation": ... // 可选，如果你认为可以让两者取消某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
     }}

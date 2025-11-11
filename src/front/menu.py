@@ -15,6 +15,8 @@ class PauseMenu:
         self.pygame = pygame_mod
         self.is_visible = False
         self.options = [
+            MenuOption("保存游戏", "save"),
+            MenuOption("加载游戏", "load"),
             MenuOption("退出游戏", "quit")
         ]
         self.selected_index = 0
@@ -50,9 +52,9 @@ class PauseMenu:
         pygame = self.pygame
         screen_w, screen_h = screen.get_size()
         
-        # 绘制半透明黑色背景（模糊效果）
+        # 绘制全屏半透明黑色背景（作为mask，阻止背后交互）
         overlay = pygame.Surface((screen_w, screen_h), pygame.SRCALPHA)
-        overlay.fill((0, 0, 0, 160))
+        overlay.fill((0, 0, 0, 180))
         screen.blit(overlay, (0, 0))
         
         # 计算菜单尺寸

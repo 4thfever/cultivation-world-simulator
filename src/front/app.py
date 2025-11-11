@@ -22,6 +22,7 @@ from .rendering import (
 )
 from .events_panel import draw_sidebar
 from .menu import PauseMenu
+from .toast import Toast
 from .layout import calculate_layout, get_fullscreen_resolution
 
 
@@ -33,12 +34,14 @@ class Front:
         step_interval_ms: int = 400,
         window_title: str = "Cultivation World Simulator",
         font_path: Optional[str] = None,
+        existed_sects: Optional[List] = None,
     ):
         self.world = simulator.world
         self.simulator = simulator
         self.step_interval_ms = step_interval_ms
         self.window_title = window_title
         self.font_path = font_path
+        self.existed_sects = existed_sects or []  # 保存本局启用的宗门列表
 
         self._last_step_ms = 0
         self.events: List[Event] = []
@@ -110,6 +113,12 @@ class Front:
         
         # 暂停菜单
         self.pause_menu = PauseMenu(pygame)
+        
+        # Toast提示
+        self.toast = Toast(pygame)
+        
+        # 世界ID标记（用于取消过期的异步任务）
+        self._world_id = 0
 
         # 渲染插值状态：avatar_id -> {start_px, start_py, target_px, target_py, start_ms, duration_ms}
         self._avatar_display_states: Dict[str, Dict[str, float]] = {}
@@ -135,7 +144,16 @@ class Front:
             self.events = self.events[-1000:]
 
     async def _step_once_async(self):
+        # 捕获当前world_id，用于检测是否已经加载了新世界
+        current_world_id = self._world_id
+        
         events = await self.simulator.step()
+        
+        # 如果world_id已改变，说明加载了新存档，丢弃这次结果
+        if self._world_id != current_world_id:
+            print(f"丢弃过期的异步任务结果（world_id: {current_world_id} -> {self._world_id}）")
+            return
+        
         if events:
             self.add_events(events)
         self._last_step_ms = 0
@@ -162,12 +180,13 @@ class Front:
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.toggle()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    # 处理菜单点击
+                    # 处理菜单点击（菜单可见时阻止其他所有交互）
                     if self.pause_menu.is_visible:
                         action = self._handle_menu_click()
                         if action == "quit":
                             running = False
                     else:
+                        # 只有菜单不可见时才处理地图交互
                         self._handle_mouse_click()
                 # 兼容旧版滚轮为 MOUSEBUTTON 4/5
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button in (4, 5):
@@ -213,31 +232,38 @@ class Front:
         # 底图后叠加小区域整图（2x2/3x3），再绘制宗门总部，避免被覆盖
         draw_small_regions(pygame, self.screen, self.world, self.region_images, self.tile_images, self.tile_size, self.margin, status_bar_height, self.tile_originals)
         draw_sect_headquarters(pygame, self.screen, self.world, self.sect_images, self.tile_size, self.margin, status_bar_height)
-        hovered_region = draw_region_labels(
-            pygame,
-            self.screen,
-            self.colors,
-            self.world,
-            self._get_region_font,
-            self.tile_size,
-            self.margin,
-            status_bar_height,
-        )
-        self._assign_avatar_images()
-        hovered_default, hover_candidates = draw_avatars_and_pick_hover(
-            pygame,
-            self.screen,
-            self.colors,
-            self.simulator,
-            self.avatar_images,
-            self.tile_size,
-            self.margin,
-            self._get_display_center,
-            status_bar_height,
-            self.name_font,
-            self._sidebar_filter_avatar_id,
-        )
-        hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
+        # 如果菜单可见，不显示任何hover（避免穿透）
+        if not self.pause_menu.is_visible:
+            hovered_region = draw_region_labels(
+                pygame,
+                self.screen,
+                self.colors,
+                self.world,
+                self._get_region_font,
+                self.tile_size,
+                self.margin,
+                status_bar_height,
+            )
+            self._assign_avatar_images()
+            hovered_default, hover_candidates = draw_avatars_and_pick_hover(
+                pygame,
+                self.screen,
+                self.colors,
+                self.simulator,
+                self.avatar_images,
+                self.tile_size,
+                self.margin,
+                self._get_display_center,
+                status_bar_height,
+                self.name_font,
+                self._sidebar_filter_avatar_id,
+            )
+            hovered_avatar = self._pick_hover_with_scroll(hovered_default, hover_candidates)
+        else:
+            # 菜单可见时，清空所有hover状态
+            hovered_region = None
+            hovered_avatar = None
+            hover_candidates = []
         # 先绘制状态栏和侧边栏，再绘制 tooltip 保证 tooltip 在最上层
         draw_status_bar(pygame, self.screen, self.colors, self.status_font, self.margin, self.world, status_bar_height)
 
@@ -286,6 +312,10 @@ class Front:
         # 绘制暂停菜单（在最上层）
         self._menu_option_rects = self.pause_menu.draw(self.screen, self.colors, self.status_font)
         
+        # 更新并绘制Toast（在最上层）
+        self.toast.update()
+        self.toast.draw(self.screen, self.sidebar_font)
+        
         pygame.display.flip()
 
     def _handle_mouse_click(self) -> None:
@@ -309,7 +339,121 @@ class Front:
         """处理菜单点击，返回动作"""
         mouse_pos = self.pygame.mouse.get_pos()
         option_rects = getattr(self, "_menu_option_rects", [])
-        return self.pause_menu.handle_click(mouse_pos, option_rects)
+        action = self.pause_menu.handle_click(mouse_pos, option_rects)
+        
+        # 处理保存和加载操作
+        if action == "save":
+            self._save_game()
+            self.pause_menu.hide()
+            return None
+        elif action == "load":
+            success = self._load_game()
+            if success:
+                self.pause_menu.hide()
+            return None
+        
+        return action
+    
+    def _save_game(self) -> bool:
+        """保存游戏"""
+        try:
+            from src.sim.save.save_game import save_game
+            success, filename = save_game(self.world, self.simulator, self.existed_sects)
+            if success and filename:
+                self.toast.show(f"保存成功！\n{filename}", Toast.SUCCESS, duration_ms=4000)
+                print(f"游戏保存成功！文件：{filename}")
+            else:
+                self.toast.show("游戏保存失败", Toast.ERROR)
+            return success
+        except Exception as e:
+            self.toast.show(f"保存失败: {str(e)[:30]}", Toast.ERROR)
+            print(f"保存游戏时出错: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+    
+    def _load_game(self) -> bool:
+        """加载游戏 - 打开文件选择对话框"""
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            from pathlib import Path
+            from src.utils.config import CONFIG
+            from src.sim.load.load_game import load_game
+            
+            # 创建临时的tkinter根窗口（隐藏）
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            
+            # 获取saves目录
+            saves_dir = CONFIG.paths.saves
+            saves_dir.mkdir(parents=True, exist_ok=True)
+            
+            # 打开文件选择对话框
+            save_path = filedialog.askopenfilename(
+                title="选择存档文件",
+                initialdir=str(saves_dir),
+                filetypes=[("JSON文件", "*.json"), ("所有文件", "*.*")]
+            )
+            
+            # 销毁tkinter根窗口
+            root.destroy()
+            
+            # 如果用户取消
+            if not save_path:
+                self.toast.show("取消加载", Toast.INFO, duration_ms=2000)
+                return False
+            
+            save_path = Path(save_path)
+            if not save_path.exists():
+                self.toast.show("存档文件不存在", Toast.ERROR)
+                return False
+            
+            # 显示加载提示
+            self.toast.show("正在加载存档...", Toast.INFO, duration_ms=10000)
+            # 强制刷新一次屏幕，让toast显示出来
+            self._render()
+            
+            # 加载游戏数据
+            world, simulator, existed_sects = load_game(save_path)
+            
+            # 增加world_id，使所有正在进行的异步任务失效
+            self._world_id += 1
+            
+            # 替换当前的world和simulator
+            self.world = world
+            self.simulator = simulator
+            self.existed_sects = existed_sects
+            
+            # 从event_manager恢复事件到侧边栏显示列表
+            self.events.clear()
+            recent_events = world.event_manager.get_recent_events(limit=1000)
+            self.events.extend(recent_events)
+            
+            # 重新初始化头像图像分配
+            self.avatar_images.clear()
+            self._assign_avatar_images()
+            
+            # 重新初始化插值状态
+            self._avatar_display_states.clear()
+            self._init_avatar_display_states()
+            
+            # 标记侧栏选项为脏（需要重建角色列表）
+            self._sidebar_options_dirty = True
+            self._sidebar_filter_avatar_id = None
+            
+            # 立即显示成功toast，覆盖"正在加载"的toast
+            filename = save_path.name
+            self.toast.show(f"加载成功！\n{filename}", Toast.SUCCESS, duration_ms=3000)
+            print(f"游戏加载成功！文件：{filename}")
+            return True
+        except Exception as e:
+            self.toast.show(f"加载失败: {str(e)[:30]}", Toast.ERROR)
+            print(f"加载游戏时出错: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
 
     def _get_region_font(self, size: int):
         return _get_region_font_cached(self.pygame, self._region_font_cache, size, self.font_path)

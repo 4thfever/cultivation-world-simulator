@@ -17,6 +17,23 @@ class Event:
         year = self.month_stamp.get_year()
         month = self.month_stamp.get_month()
         return f"{year}年{month}月: {self.content}"
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {
+            "month_stamp": int(self.month_stamp),
+            "content": self.content,
+            "related_avatars": self.related_avatars
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "Event":
+        """从字典重建Event"""
+        return cls(
+            month_stamp=MonthStamp(data["month_stamp"]),
+            content=data["content"],
+            related_avatars=data.get("related_avatars")
+        )
 
 class NullEvent:
     """

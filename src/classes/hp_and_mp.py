@@ -66,6 +66,15 @@ class HP:
         if isinstance(other, HP):
             return self.cur >= other.cur
         return self.cur >= other
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {"max": self.max, "cur": self.cur}
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "HP":
+        """从字典重建HP"""
+        return cls(max=data["max"], cur=data["cur"])
         
 HP_MAX_BY_REALM = {
     Realm.Qi_Refinement: 100,
@@ -141,6 +150,15 @@ class MP:
     def add_max(self, value_2_add:int) -> bool:
         self.max += value_2_add
         return True
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {"max": self.max, "cur": self.cur}
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "MP":
+        """从字典重建MP"""
+        return cls(max=data["max"], cur=data["cur"])
 
 MP_MAX_BY_REALM = {
     Realm.Qi_Refinement: 100,

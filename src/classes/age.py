@@ -121,3 +121,17 @@ class Age:
     def __repr__(self) -> str:
         """返回年龄的详细字符串表示"""
         return f"Age({self.age})"
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {
+            "age": self.age,
+            "max_lifespan": self.max_lifespan
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict, realm: Realm) -> "Age":
+        """从字典重建Age"""
+        age_obj = cls(data["age"], realm)
+        age_obj.max_lifespan = data["max_lifespan"]
+        return age_obj

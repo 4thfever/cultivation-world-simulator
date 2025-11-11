@@ -1,3 +1,6 @@
+meta:
+  version: "1.0.2"
+
 llm:
   # 填入litellm支持的model name和key
   key: "your-api-key" # 目前需要的是阿里的qwen api
@@ -8,6 +11,7 @@ llm:
 paths:
   templates: static/templates/
   game_configs: static/game_configs/
+  saves: assets/saves/
 
 ai:
   max_decide_num: 4
@@ -27,6 +31,9 @@ avatar:
 
 social:
   event_context_num: 8
+
+save:
+  max_events_to_save: 1000
 
 # defined_avatar:
 #   surname: 丰川

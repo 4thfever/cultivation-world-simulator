@@ -52,6 +52,29 @@ class ActionPlan:
     expiry_month: Optional[int] = None  # 到期月戳；None 为不过期
     max_retries: int = 0
     attempted: int = 0
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {
+            "action_name": self.action_name,
+            "params": self.params,
+            "priority": self.priority,
+            "expiry_month": self.expiry_month,
+            "max_retries": self.max_retries,
+            "attempted": self.attempted
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "ActionPlan":
+        """从字典重建ActionPlan"""
+        return cls(
+            action_name=data["action_name"],
+            params=data["params"],
+            priority=data.get("priority", 0),
+            expiry_month=data.get("expiry_month"),
+            max_retries=data.get("max_retries", 0),
+            attempted=data.get("attempted", 0)
+        )
 
 
 @dataclass

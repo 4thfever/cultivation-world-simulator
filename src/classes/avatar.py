@@ -13,6 +13,8 @@ from src.classes.action import Action
 from src.classes.action_runtime import ActionStatus, ActionResult
 from src.classes.action.registry import ActionRegistry
 from src.classes.world import World
+from src.sim.save.avatar_save_mixin import AvatarSaveMixin
+from src.sim.load.avatar_load_mixin import AvatarLoadMixin
 from src.classes.tile import Tile
 from src.classes.region import Region
 from src.classes.cultivation import CultivationProgress
@@ -59,7 +61,7 @@ gender_strs = {
 MAX_HISTORY_EVENTS = 10
 
 @dataclass
-class Avatar:
+class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     """
     NPC的类。
     包含了这个角色的一切信息。
@@ -697,5 +699,5 @@ class Avatar:
         获取角色的移动步长
         """
         return self.cultivation_progress.get_move_step()
-
     
+

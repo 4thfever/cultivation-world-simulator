@@ -103,6 +103,7 @@ async def main():
         simulator=sim,
         step_interval_ms=750,
         window_title="Cultivation World — Front Demo",
+        existed_sects=existed_sects,
     )
     await front.run_async()
 

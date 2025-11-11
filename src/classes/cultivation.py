@@ -246,6 +246,20 @@ class CultivationProgress:
     
     def get_breakthrough_fail_reduce_lifespan(self) -> int:
         return breakthrough_fail_reduce_lifespan_by_realm[self.realm]
+    
+    def to_dict(self) -> dict:
+        """转换为可序列化的字典"""
+        return {
+            "level": self.level,
+            "exp": self.exp,
+            "realm": self.realm.name,  # 保存枚举的name
+            "stage": self.stage.name
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "CultivationProgress":
+        """从字典重建CultivationProgress"""
+        return cls(level=data["level"], exp=data["exp"])
 
 
 

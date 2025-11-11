@@ -1,0 +1,99 @@
+"""
+Avatar存档序列化Mixin
+
+将Avatar的序列化逻辑从avatar.py分离出来，保持核心类的清晰性。
+
+存档策略：
+- 引用对象（Technique, Item等）：保存id，加载时从全局字典获取
+- relations：转换为dict[str, str]（avatar_id -> relation_value）
+- items：转换为dict[int, int]（item_id -> quantity）
+- current_action：保存动作类名和参数
+- treasure：需要深拷贝（因为devoured_souls是实例特有的）
+"""
+
+
+class AvatarSaveMixin:
+    """Avatar存档序列化Mixin
+    
+    提供to_save_dict方法，将Avatar转换为可JSON序列化的字典
+    """
+    
+    def to_save_dict(self) -> dict:
+        """转换为可序列化的字典（用于存档）
+        
+        Returns:
+            包含Avatar完整状态的字典，可直接JSON序列化
+        """
+        # 序列化relations: dict[Avatar, Relation] -> dict[str, str]
+        relations_dict = {
+            other.id: relation.value
+            for other, relation in self.relations.items()
+        }
+        
+        # 序列化items: dict[Item, int] -> dict[int, int]
+        items_dict = {
+            item.id: quantity
+            for item, quantity in self.items.items()
+        }
+        
+        # 序列化current_action
+        current_action_dict = None
+        if self.current_action is not None:
+            current_action_dict = {
+                "action_name": self.current_action.action.__class__.__name__,
+                "params": self.current_action.params,
+                "status": self.current_action.status
+            }
+        
+        # 序列化planned_actions
+        planned_actions_list = [plan.to_dict() for plan in self.planned_actions]
+        
+        # 序列化spirit_animal
+        spirit_animal_dict = None
+        if self.spirit_animal is not None:
+            spirit_animal_dict = {
+                "name": self.spirit_animal.name,
+                "realm": self.spirit_animal.realm.name
+            }
+        
+        return {
+            # 基础信息
+            "id": self.id,
+            "name": self.name,
+            "birth_month_stamp": int(self.birth_month_stamp),
+            "gender": self.gender.value,
+            "pos_x": self.pos_x,
+            "pos_y": self.pos_y,
+            
+            # 修炼相关
+            "age": self.age.to_dict(),
+            "cultivation_progress": self.cultivation_progress.to_dict(),
+            "root": self.root.name,
+            "technique_id": self.technique.id if self.technique else None,
+            "hp": self.hp.to_dict(),
+            "mp": self.mp.to_dict(),
+            
+            # 物品与资源
+            "magic_stone": self.magic_stone.value,
+            "items": items_dict,
+            "treasure_id": self.treasure.id if self.treasure else None,
+            "treasure_devoured_souls": self.treasure.devoured_souls if self.treasure else 0,
+            "spirit_animal": spirit_animal_dict,
+            
+            # 社交与状态
+            "relations": relations_dict,
+            "sect_id": self.sect.id if self.sect else None,
+            "sect_rank": self.sect_rank.value if self.sect_rank else None,
+            "alignment": self.alignment.name if self.alignment else None,
+            "persona_ids": [p.id for p in self.personas] if self.personas else [],
+            "trait_id": self.trait.id if self.trait else None,
+            "appearance": self.appearance.level,
+            
+            # 行动与AI
+            "current_action": current_action_dict,
+            "planned_actions": planned_actions_list,
+            "thinking": self.thinking,
+            "objective": self.objective,
+            "_action_cd_last_months": self._action_cd_last_months,
+        }
+
