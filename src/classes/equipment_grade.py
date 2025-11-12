@@ -20,7 +20,7 @@ class EquipmentGrade(Enum):
 
 # 装备等级颜色映射
 _grade_colors = {
-    EquipmentGrade.COMMON: (150, 150, 150),    # 灰色
+    EquipmentGrade.COMMON: (255, 255, 255),    # 白色
     EquipmentGrade.TREASURE: (138, 43, 226),   # 紫色
     EquipmentGrade.ARTIFACT: (255, 215, 0),    # 金色
 }

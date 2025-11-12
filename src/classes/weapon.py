@@ -72,12 +72,15 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
         sect_obj: Optional[Sect] = sects_by_id.get(int(sect_id)) if sect_id is not None else None
 
         # 解析weapon_type
-        weapon_type_str = str(row.get("weapon_type", "其他"))
-        weapon_type = WeaponType.OTHER
+        weapon_type_str = str(row.get("weapon_type", ""))
+        weapon_type = None
         for wt in WeaponType:
             if wt.value == weapon_type_str:
                 weapon_type = wt
                 break
+        
+        if weapon_type is None:
+            raise ValueError(f"武器 {row['name']} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型")
 
         # 解析grade
         grade_str = str(row.get("grade", "普通"))

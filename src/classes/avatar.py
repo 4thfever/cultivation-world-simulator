@@ -102,6 +102,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     appearance: Appearance = field(default_factory=get_random_appearance)
     # 兵器（必有，无则分配普通兵器）
     weapon: Optional[Weapon] = None
+    # 兵器熟练度（0-100），更换兵器归零
+    weapon_proficiency: float = 0.0
     # 辅助装备（可选）
     auxiliary: Optional[Auxiliary] = None
     # 灵兽：最多一个；若再次捕捉则覆盖
@@ -144,10 +146,21 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
                 from src.classes.alignment import Alignment as _Alignment
                 self.alignment = random.choice(list(_Alignment))
 
-        # 兵器初始化：如果无兵器，分配一个随机的普通兵器
+        # 兵器初始化：如果无兵器，分配一个普通兵器
+        # 有宗门且宗门有倾向兵器时，80%概率使用宗门兵器，否则随机
         if self.weapon is None:
-            weapon_type = random.choice(list(WeaponType))
-            self.weapon = get_common_weapon(weapon_type)
+            if self.sect is not None and self.sect.preferred_weapon:
+                # 有宗门倾向兵器，80%概率使用
+                if random.random() < 0.8:
+                    # 尝试根据宗门倾向兵器类型获取
+                    for wt in WeaponType:
+                        if wt.value == self.sect.preferred_weapon:
+                            self.weapon = get_common_weapon(wt)
+                            break
+            # 如果还没有兵器（无宗门、无倾向、或20%随机），随机分配
+            if self.weapon is None:
+                weapon_type = random.choice(list(WeaponType))
+                self.weapon = get_common_weapon(weapon_type)
 
         # effects 改为实时属性，不在此初始化
 
@@ -202,7 +215,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         from src.classes.sect import get_sect_info_with_rank
         
         if detailed:
-            weapon_info = self.weapon.get_detailed_info() if self.weapon is not None else "无"
+            weapon_info = f"{self.weapon.get_detailed_info()}，熟练度：{self.weapon_proficiency:.1f}%"
             auxiliary_info = self.auxiliary.get_detailed_info() if self.auxiliary is not None else "无"
             sect_info = get_sect_info_with_rank(self, detailed=True)
             alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
@@ -720,5 +733,24 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         获取角色的移动步长
         """
         return self.cultivation_progress.get_move_step()
+    
+    def change_weapon(self, new_weapon: Weapon) -> None:
+        """
+        更换兵器，熟练度归零
+        
+        Args:
+            new_weapon: 新的兵器
+        """
+        self.weapon = new_weapon
+        self.weapon_proficiency = 0.0
+    
+    def increase_weapon_proficiency(self, amount: float) -> None:
+        """
+        增加兵器熟练度，上限100
+        
+        Args:
+            amount: 增加的熟练度值
+        """
+        self.weapon_proficiency = min(100.0, self.weapon_proficiency + amount)
     
 

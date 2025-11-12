@@ -35,6 +35,14 @@ class Battle(InstantAction):
         # 应用双方伤害
         loser.hp.reduce(loser_damage)
         winner.hp.reduce(winner_damage)
+        
+        # 增加双方兵器熟练度（战斗经验）
+        import random
+        proficiency_gain = random.uniform(1.0, 3.0)
+        self.avatar.increase_weapon_proficiency(proficiency_gain)
+        if target is not None:
+            target.increase_weapon_proficiency(proficiency_gain)
+        
         self._last_result = (winner.name, loser.name, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:

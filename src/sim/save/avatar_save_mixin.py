@@ -78,6 +78,7 @@ class AvatarSaveMixin:
             "items": items_dict,
             "weapon_id": self.weapon.id if self.weapon else None,
             "weapon_special_data": self.weapon.special_data if self.weapon else {},
+            "weapon_proficiency": self.weapon_proficiency,
             "auxiliary_id": self.auxiliary.id if self.auxiliary else None,
             "auxiliary_special_data": self.auxiliary.special_data if self.auxiliary else {},
             "spirit_animal": spirit_animal_dict,

@@ -13,6 +13,7 @@ class WeaponType(Enum):
     WHIP = "鞭"
     ZITHER = "琴"        # 音律武器
     FLUTE = "笛"         # 包括箫
+    HIDDEN_WEAPON = "暗器"  # 暗器，如飞针、袖箭等
     
     def __str__(self) -> str:
         return self.value

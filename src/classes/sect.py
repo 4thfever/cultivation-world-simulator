@@ -34,14 +34,13 @@ class Sect:
     desc: str
     member_act_style: str
     alignment: Alignment
-    sect_surnames: list[str]
-    male_sect_given_names: list[str]
-    female_sect_given_names: list[str]
     headquarter: SectHeadQuarter
     # 本宗关联的功法名称（来自 technique.csv 的 sect 列）
     technique_names: list[str]
     # 随机选择宗门时使用的权重（默认1）
     weight: float = 1.0
+    # 宗门倾向的兵器类型（字符串，如"剑"、"刀"等）
+    preferred_weapon: str = ""
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     # 宗门自定义职位名称（可选）：SectRank -> 名称
@@ -100,8 +99,6 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     assets_base = Path("assets/sects")
     for _, row in df.iterrows():
         image_path = assets_base / f"{row['name']}.png"
-        male_given_names = _split_names(row["male_sect_given_names"]) 
-        female_given_names = _split_names(row["female_sect_given_names"]) 
 
         # 收集该宗门下配置的功法名称
         technique_names: list[str] = []
@@ -119,6 +116,10 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
         # 读取 effects（兼容 JSON/单引号字面量/空）
         effects = load_effect_from_str(row.get("effects", ""))
 
+        # 读取倾向兵器类型
+        preferred_weapon_val = row.get("preferred_weapon", "")
+        preferred_weapon = str(preferred_weapon_val).strip() if str(preferred_weapon_val) != "nan" else ""
+
         # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
         csv_hq = hq_by_sect_id.get(int(row["id"]))
         hq_name_from_csv = (csv_hq[0] if csv_hq else "").strip() if csv_hq else ""
@@ -130,9 +131,6 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             desc=str(row["desc"]),
             member_act_style=str(row["member_act_style"]),
             alignment=Alignment.from_str(row["alignment"]),
-            sect_surnames=_split_names(row["sect_surnames"]),
-            male_sect_given_names=male_given_names,
-            female_sect_given_names=female_given_names,
             # 驻地：优先 sect_region.csv；否则兼容旧列；最终回退宗门名
             headquarter=SectHeadQuarter(
                 name=(hq_name_from_csv or str(row.get("headquarter_name", "")).strip() or str(row["name"])) ,
@@ -141,6 +139,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             ),
             technique_names=technique_names,
             weight=weight,
+            preferred_weapon=preferred_weapon,
             effects=effects,
         )
         sects_by_id[sect.id] = sect

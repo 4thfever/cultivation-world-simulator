@@ -106,6 +106,9 @@ class AvatarLoadMixin:
             avatar.weapon = copy.deepcopy(weapons_by_id[weapon_id])
             avatar.weapon.special_data = data.get("weapon_special_data", {})
         
+        # 恢复兵器熟练度
+        avatar.weapon_proficiency = float(data.get("weapon_proficiency", 0.0))
+        
         # 重建auxiliary（深拷贝因为special_data是实例特有的）
         auxiliary_id = data.get("auxiliary_id")
         if auxiliary_id is not None and auxiliary_id in auxiliaries_by_id:

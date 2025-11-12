@@ -399,8 +399,6 @@ def build_avatars_from_plan(
     avatars_by_index: list[Avatar] = [None] * n  # type: ignore
     avatars_by_id: dict[str, Avatar] = {}
 
-    sect_treasure_assigned: Dict[int, bool] = {}
-
     for i in range(n):
         gender = planned_gender[i] or random_gender()
         sect = planned_sect[i]

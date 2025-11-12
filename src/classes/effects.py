@@ -10,7 +10,7 @@ Effect 来源：
 - 功法 (technique)
 - 灵根 (root)
 - 特质 (persona)
-- 法宝 (treasure)
+- 兵器和辅助装备 (weapon, auxiliary)
 """
 
 # =============================================================================
@@ -143,7 +143,7 @@ Effects 通过 src/classes/effect.py 中的 _merge_effects() 函数合并。
 2. 功法 (technique)
 3. 灵根 (root)
 4. 特质 (persona) - 遍历所有 personas
-5. 法宝 (treasure)
+5. 兵器和辅助装备 (weapon, auxiliary)
 
 最终结果通过 Avatar.effects 属性获取（实时计算）。
 """
