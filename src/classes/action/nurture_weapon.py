@@ -39,8 +39,8 @@ class NurtureWeapon(TimedAction):
                     self.avatar.weapon_proficiency = old_proficiency
                     # 记录升华事件
                     from src.classes.event import Event
-                    self.avatar.world.add_event(Event(
-                        self.avatar.world.month_stamp,
+                    self.avatar.add_event(Event(
+                        self.world.month_stamp,
                         f"{self.avatar.name} 温养{old_weapon_name}时，兵器灵性大增，升华为{treasure_weapon.name}！",
                         related_avatars=[self.avatar.id]
                     ))

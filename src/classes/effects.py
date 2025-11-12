@@ -129,6 +129,15 @@ EXTRA_FORTUNE_PROBABILITY = "extra_fortune_probability"
 说明: 增加触发奇遇事件的概率
 """
 
+# --- 兵器相关 ---
+EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
+"""
+额外兵器熟练度增长速度
+类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
+结算: src/classes/action/nurture_weapon.py 和战斗相关代码
+说明: 提升兵器熟练度增长速度的倍率
+"""
+
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"
 """
@@ -197,6 +206,9 @@ ALL_EFFECTS = [
     
     # 奇遇相关
     "extra_fortune_probability",         # float - 额外奇遇概率
+    
+    # 兵器相关
+    "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率
     
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表

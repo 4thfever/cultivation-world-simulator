@@ -31,7 +31,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 29,嫉妒,友爱;热情,你对在修为、外貌或财富等方面远超于你的人容易产生敌意，更倾向对其冷淡、挑衅或打压。,N,
 30,穿越者,,你来自现代社会，怀念现代社会的一切，你的思考（thinking）必须是现代化的思考,SR,
 31,气运之子,,天生气运加身，更易遇到奇遇，战斗力也略有提升,SSR,,"{""extra_fortune_probability"": 0.05, ""extra_battle_strength_points"": 2, ""extra_breakthrough_success_rate"": 0.05}"
-32,剑痴,怠惰;胆小,以剑入道，剑即是命。你认为剑道至上，战力强悍，但对剑道之外的事物兴趣寥寥。,R,
+32,剑痴,怠惰;胆小,以剑入道，剑即是命。你认为剑道至上，战力强悍，但对剑道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.SWORD""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.SWORD""}]"
 33,散修,,无宗门庇护，四处寻找机缘，警惕性高，善于观察周围环境以自保求存。,N,
 34,城府深,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
 35,忠诚,孤僻;淡漠;刻薄,重承诺守信义，对认定的人绝不背叛，愿为之赴死。你视背叛为最大耻辱。,R,
@@ -41,3 +41,17 @@ id,name,exclusion_names,desc,rarity,condition,effects
 39,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,
 40,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,
 41,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,"{""extra_fortune_probability"": 0.02}"
+42,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.SWORD""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.SWORD""}]"
+43,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.SABER""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.SABER""}]"
+44,枪修,怠惰,精通枪法，百兵之王在手，修炼速度远超常人。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.SPEAR""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.SPEAR""}]"
+45,棍修,怠惰,棍棒在手，天下我有。对棍法有着天生的悟性。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.STAFF""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.STAFF""}]"
+46,音律大师,怠惰,精通音律之道，琴笛在手，可攻可守，修炼速度远超常人。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE""}]"
+47,暗器高手,怠惰,擅长使用暗器，出手诡秘莫测，修炼暗器技巧时事半功倍。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.HIDDEN_WEAPON""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.HIDDEN_WEAPON""}]"
+48,扇修,怠惰,精通扇法，举手投足间尽显风流，持扇修炼时事半功倍。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.FAN""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.FAN""}]"
+49,鞭修,怠惰,精通鞭法，软兵器在手，刚柔并济，修炼速度远超常人。,R,,"[{""extra_weapon_proficiency_gain"": 0.5, ""when"": ""avatar.weapon.type == WeaponType.WHIP""}, {""extra_battle_strength_points"": 1, ""when"": ""avatar.weapon.type == WeaponType.WHIP""}]"
+50,刀痴,怠惰;胆小,以刀入道，刀即是命。你认为刀法至上，战力强悍，但对刀道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.SABER""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.SABER""}]"
+51,枪痴,怠惰;胆小,以枪入道，枪即是命。你认为枪法至上，战力强悍，但对枪道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.SPEAR""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.SPEAR""}]"
+52,棍圣,怠惰;胆小,以棍入道，棍即是命。棍法通神，一棍在手，天下无敌，但对棍道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.STAFF""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.STAFF""}]"
+53,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.FAN""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.FAN""}]"
+54,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.WHIP""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.WHIP""}]"
+55,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{""extra_weapon_proficiency_gain"": 1.0, ""when"": ""avatar.weapon.type == WeaponType.HIDDEN_WEAPON""}, {""extra_battle_strength_points"": 3, ""when"": ""avatar.weapon.type == WeaponType.HIDDEN_WEAPON""}]"

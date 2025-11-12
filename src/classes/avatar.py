@@ -24,7 +24,7 @@ from src.classes.age import Age
 from src.classes.event import NULL_EVENT, Event
 from src.classes.typings import ACTION_NAME, ACTION_PARAMS, ACTION_NAME_PARAMS_PAIRS, ACTION_NAME_PARAMS_PAIR
 from src.classes.action_runtime import ActionPlan, ActionInstance
-from src.classes.effect import _merge_effects
+from src.classes.effect import _merge_effects, _evaluate_conditional_effect
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
@@ -156,34 +156,41 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         merged: dict[str, object] = defaultdict(str)
         # 来自宗门
         if self.sect is not None:
-            merged = _merge_effects(merged, self.sect.effects)
+            evaluated = _evaluate_conditional_effect(self.sect.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 来自功法
-        merged = _merge_effects(merged, self.technique.effects)
+        evaluated = _evaluate_conditional_effect(self.technique.effects, self)
+        merged = _merge_effects(merged, evaluated)
         # 来自灵根
-        merged = _merge_effects(merged, self.root.effects)
+        evaluated = _evaluate_conditional_effect(self.root.effects, self)
+        merged = _merge_effects(merged, evaluated)
         # 来自特质（persona）
         for persona in self.personas:
-            merged = _merge_effects(merged, persona.effects)
+            evaluated = _evaluate_conditional_effect(persona.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 来自兵器
         if self.weapon is not None:
-            merged = _merge_effects(merged, self.weapon.effects)
+            evaluated = _evaluate_conditional_effect(self.weapon.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 来自辅助装备
         if self.auxiliary is not None:
-            merged = _merge_effects(merged, self.auxiliary.effects)
+            evaluated = _evaluate_conditional_effect(self.auxiliary.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 来自灵兽
         if self.spirit_animal is not None:
-            merged = _merge_effects(merged, self.spirit_animal.effects)
+            evaluated = _evaluate_conditional_effect(self.spirit_animal.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 评估动态效果表达式：值以 "eval(...)" 形式给出
-        evaluated: dict[str, object] = {}
+        final: dict[str, object] = {}
         for k, v in merged.items():
             if isinstance(v, str):
                 s = v.strip()
                 if s.startswith("eval(") and s.endswith(")"):
                     expr = s[5:-1]
-                    evaluated[k] = eval(expr, {"__builtins__": {}}, {"avatar": self})
+                    final[k] = eval(expr, {"__builtins__": {}}, {"avatar": self})
                     continue
-            evaluated[k] = v
-        return evaluated
+            final[k] = v
+        return final
 
 
     def __hash__(self) -> int:
@@ -790,6 +797,9 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         Args:
             amount: 增加的熟练度值
         """
-        self.weapon_proficiency = min(100.0, self.weapon_proficiency + amount)
+        # 应用extra_weapon_proficiency_gain效果（倍率加成）
+        gain_multiplier = 1.0 + self.effects.get("extra_weapon_proficiency_gain", 0.0)
+        actual_amount = amount * gain_multiplier
+        self.weapon_proficiency = min(100.0, self.weapon_proficiency + actual_amount)
     
 
