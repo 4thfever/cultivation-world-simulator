@@ -8,7 +8,7 @@ Avatar存档序列化Mixin
 - relations：转换为dict[str, str]（avatar_id -> relation_value）
 - items：转换为dict[int, int]（item_id -> quantity）
 - current_action：保存动作类名和参数
-- treasure：需要深拷贝（因为devoured_souls是实例特有的）
+- weapon/auxiliary：需要深拷贝（因为special_data是实例特有的）
 """
 
 
@@ -76,8 +76,10 @@ class AvatarSaveMixin:
             # 物品与资源
             "magic_stone": self.magic_stone.value,
             "items": items_dict,
-            "treasure_id": self.treasure.id if self.treasure else None,
-            "treasure_devoured_souls": self.treasure.devoured_souls if self.treasure else 0,
+            "weapon_id": self.weapon.id if self.weapon else None,
+            "weapon_special_data": self.weapon.special_data if self.weapon else {},
+            "auxiliary_id": self.auxiliary.id if self.auxiliary else None,
+            "auxiliary_special_data": self.auxiliary.special_data if self.auxiliary else {},
             "spirit_animal": spirit_animal_dict,
             
             # 社交与状态

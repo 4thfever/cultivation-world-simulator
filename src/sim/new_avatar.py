@@ -16,7 +16,8 @@ from src.classes.sect import Sect, sects_by_id, sects_by_name
 from src.classes.alignment import Alignment
 from src.classes.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
-from src.classes.treasure import treasures_by_sect_id, Treasure, treasures_by_id, treasures_by_name
+from src.classes.weapon import Weapon, weapons_by_id, weapons_by_name
+from src.classes.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
 from src.classes.persona import Persona, personas_by_id, personas_by_name
 
 
@@ -436,10 +437,8 @@ def build_avatars_from_plan(
         if sect is not None:
             avatar.alignment = sect.alignment
             avatar.technique = get_technique_by_sect(sect)
-            treasure = treasures_by_sect_id.get(sect.id)
-            if treasure is not None and not sect_treasure_assigned.get(sect.id, False):  # 每宗门仅发放一次所属法宝
-                avatar.treasure = treasure
-                sect_treasure_assigned[sect.id] = True
+            # 每个宗门只分配一个法宝级兵器给最强者（但不在这里分配，而是让奇遇系统处理）
+            # 宗门成员初始都是普通兵器
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
@@ -493,7 +492,8 @@ def make_avatars(
             level=int(getattr(defined, "level", 0) or 0) if str(getattr(defined, "level", "")).strip() else None,
             appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
             technique=getattr(defined, "technique", None),
-            treasure=getattr(defined, "treasure", None),
+            weapon=getattr(defined, "weapon", None),
+            auxiliary=getattr(defined, "auxiliary", None),
             personas=getattr(defined, "personas", None),
         )
         avatars[da.id] = da
@@ -556,19 +556,34 @@ def _parse_technique(value: Union[str, int, Technique, None]) -> Optional[Techni
     return techniques_by_name.get(s)
 
 
-def _parse_treasure(value: Union[str, int, Treasure, None]) -> Optional[Treasure]:
+def _parse_weapon(value: Union[str, int, Weapon, None]) -> Optional[Weapon]:
     if value is None:
         return None
-    if isinstance(value, Treasure):
+    if isinstance(value, Weapon):
         return value
     if isinstance(value, int):
-        return treasures_by_id.get(value)
+        return weapons_by_id.get(value)
     s = str(value).strip()
     if not s:
         return None
     if s.isdigit():
-        return treasures_by_id.get(int(s))
-    return treasures_by_name.get(s)
+        return weapons_by_id.get(int(s))
+    return weapons_by_name.get(s)
+
+
+def _parse_auxiliary(value: Union[str, int, Auxiliary, None]) -> Optional[Auxiliary]:
+    if value is None:
+        return None
+    if isinstance(value, Auxiliary):
+        return value
+    if isinstance(value, int):
+        return auxiliaries_by_id.get(value)
+    s = str(value).strip()
+    if not s:
+        return None
+    if s.isdigit():
+        return auxiliaries_by_id.get(int(s))
+    return auxiliaries_by_name.get(s)
 
 
 def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona]], None]) -> Optional[List[Persona]]:
@@ -643,14 +658,15 @@ def get_new_avatar_with_config(
     level: Optional[int] = None,
     pos: Optional[Tuple[int, int]] = None,
     technique: Union[str, int, Technique, None] = None,
-    treasure: Union[str, int, Treasure, None] = None,
+    weapon: Union[str, int, Weapon, None] = None,
+    auxiliary: Union[str, int, Auxiliary, None] = None,
     personas: Union[str, int, Persona, List[Union[str, int, Persona]], None] = None,
     appearance: Optional[int] = None,
 ) -> Avatar:
     """
     创建一个可配置的新角色：
     - 若未提供参数，则复用 get_new_avatar_from_mortal 的随机策略（通过 plan_mortal 实现）。
-    - 支持字符串参数：gender 仅支持 "男/女"；sect/technique/treasure/persona 可用名称或数字ID。
+    - 支持字符串参数：gender 仅支持 "男/女"；sect/technique/weapon/auxiliary/persona 可用名称或数字ID。
 
     参数：
     - name: 角色名；为空则根据宗门与姓氏自动生成
@@ -660,7 +676,8 @@ def get_new_avatar_with_config(
     - level: 等级（0~120）；未提供时随机
     - pos: 初始坐标 (x, y)；未提供时随机
     - technique: 指定功法
-    - treasure: 指定法宝
+    - weapon: 指定兵器
+    - auxiliary: 指定辅助装备
     - personas: 指定个性（单个或列表）
     """
     # 年龄（先取整数年龄，规划阶段只用到 age.age，不依赖 realm）
@@ -704,7 +721,7 @@ def get_new_avatar_with_config(
     # 生成
     avatar = build_mortal_from_plan(world, current_month_stamp, name=name or "", age=final_age, plan=plan)
 
-    # 覆盖：功法/法宝/个性
+    # 覆盖：功法/兵器/辅助装备/个性
     tech_obj = _parse_technique(technique)
     if tech_obj is not None:
         avatar.technique = tech_obj
@@ -712,9 +729,13 @@ def get_new_avatar_with_config(
         if mapped is not None:
             avatar.root = mapped
 
-    tre_obj = _parse_treasure(treasure)
-    if tre_obj is not None:
-        avatar.treasure = tre_obj
+    weapon_obj = _parse_weapon(weapon)
+    if weapon_obj is not None:
+        avatar.weapon = weapon_obj
+
+    auxiliary_obj = _parse_auxiliary(auxiliary)
+    if auxiliary_obj is not None:
+        avatar.auxiliary = auxiliary_obj
 
     pers_list = _parse_personas(personas)
     if pers_list is not None and len(pers_list) > 0:

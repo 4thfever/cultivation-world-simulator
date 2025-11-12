@@ -6,7 +6,7 @@ Avatar读档反序列化Mixin
 读档策略：
 - 两阶段加载：先加载所有Avatar（relations留空），再重建relations网络
 - 引用对象：通过id从全局字典获取（如techniques_by_id）
-- treasure：深拷贝后恢复devoured_souls
+- weapon/auxiliary：深拷贝后恢复special_data
 - 错误容错：缺失的引用对象会跳过而不是崩溃
 """
 from typing import TYPE_CHECKING
@@ -41,7 +41,8 @@ class AvatarLoadMixin:
         from src.classes.hp_and_mp import HP, MP
         from src.classes.technique import techniques_by_id
         from src.classes.item import items_by_id
-        from src.classes.treasure import treasures_by_id
+        from src.classes.weapon import weapons_by_id
+        from src.classes.auxiliary import auxiliaries_by_id
         from src.classes.sect import sects_by_id
         from src.classes.sect_ranks import SectRank
         from src.classes.root import Root
@@ -98,12 +99,19 @@ class AvatarLoadMixin:
             if item_id in items_by_id:
                 avatar.items[items_by_id[item_id]] = quantity
         
-        # 重建treasure（深拷贝因为devoured_souls是实例特有的）
-        treasure_id = data.get("treasure_id")
-        if treasure_id is not None and treasure_id in treasures_by_id:
+        # 重建weapon（深拷贝因为special_data是实例特有的）
+        weapon_id = data.get("weapon_id")
+        if weapon_id is not None and weapon_id in weapons_by_id:
             import copy
-            avatar.treasure = copy.deepcopy(treasures_by_id[treasure_id])
-            avatar.treasure.devoured_souls = data.get("treasure_devoured_souls", 0)
+            avatar.weapon = copy.deepcopy(weapons_by_id[weapon_id])
+            avatar.weapon.special_data = data.get("weapon_special_data", {})
+        
+        # 重建auxiliary（深拷贝因为special_data是实例特有的）
+        auxiliary_id = data.get("auxiliary_id")
+        if auxiliary_id is not None and auxiliary_id in auxiliaries_by_id:
+            import copy
+            avatar.auxiliary = copy.deepcopy(auxiliaries_by_id[auxiliary_id])
+            avatar.auxiliary.special_data = data.get("auxiliary_special_data", {})
         
         # 重建spirit_animal
         spirit_animal_data = data.get("spirit_animal")

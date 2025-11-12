@@ -28,7 +28,10 @@ from src.classes.effect import _merge_effects
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, personas_by_id, get_random_compatible_personas
 from src.classes.item import Item
-from src.classes.treasure import Treasure
+from src.classes.weapon import Weapon, get_common_weapon
+from src.classes.auxiliary import Auxiliary
+from src.classes.weapon_type import WeaponType
+from src.classes.equipment_grade import EquipmentGrade
 from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
@@ -97,8 +100,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     sect_rank: "SectRank | None" = None
     # 外貌（1~10级），创建时随机生成
     appearance: Appearance = field(default_factory=get_random_appearance)
-    # 装备的法宝（仅一个）
-    treasure: Optional[Treasure] = None
+    # 兵器（必有，无则分配普通兵器）
+    weapon: Optional[Weapon] = None
+    # 辅助装备（可选）
+    auxiliary: Optional[Auxiliary] = None
     # 灵兽：最多一个；若再次捕捉则覆盖
     spirit_animal: Optional[SpiritAnimal] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
@@ -139,6 +144,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
                 from src.classes.alignment import Alignment as _Alignment
                 self.alignment = random.choice(list(_Alignment))
 
+        # 兵器初始化：如果无兵器，分配一个随机的普通兵器
+        if self.weapon is None:
+            weapon_type = random.choice(list(WeaponType))
+            self.weapon = get_common_weapon(weapon_type)
+
         # effects 改为实时属性，不在此初始化
 
     @property
@@ -154,9 +164,12 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         # 来自特质（persona）
         for persona in self.personas:
             merged = _merge_effects(merged, persona.effects)
-        # 来自法宝
-        if self.treasure is not None:
-            merged = _merge_effects(merged, self.treasure.effects)
+        # 来自兵器
+        if self.weapon is not None:
+            merged = _merge_effects(merged, self.weapon.effects)
+        # 来自辅助装备
+        if self.auxiliary is not None:
+            merged = _merge_effects(merged, self.auxiliary.effects)
         # 来自灵兽
         if self.spirit_animal is not None:
             merged = _merge_effects(merged, self.spirit_animal.effects)
@@ -189,7 +202,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         from src.classes.sect import get_sect_info_with_rank
         
         if detailed:
-            treasure_info = self.treasure.get_detailed_info() if self.treasure is not None else "无"
+            weapon_info = self.weapon.get_detailed_info() if self.weapon is not None else "无"
+            auxiliary_info = self.auxiliary.get_detailed_info() if self.auxiliary is not None else "无"
             sect_info = get_sect_info_with_rank(self, detailed=True)
             alignment_info = self.alignment.get_detailed_info() if self.alignment is not None else "未知"
             region_info = region.get_detailed_info() if region is not None else "无"
@@ -201,7 +215,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             appearance_info = self.appearance.get_detailed_info(self.gender)
             spirit_animal_info = self.spirit_animal.get_info() if self.spirit_animal is not None else "无"
         else:
-            treasure_info = self.treasure.get_info() if self.treasure is not None else "无"
+            weapon_info = self.weapon.get_info() if self.weapon is not None else "无"
+            auxiliary_info = self.auxiliary.get_info() if self.auxiliary is not None else "无"
             # 宗门信息：非详细模式下只显示"宗门名+职位"
             sect_info = get_sect_info_with_rank(self, detailed=False)
             region_info = region.get_info() if region is not None else "无"
@@ -232,7 +247,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "特质": personas_info,
             "物品": items_info,
             "外貌": appearance_info,
-            "法宝": treasure_info,
+            "兵器": weapon_info,
+            "辅助装备": auxiliary_info,
         }
         # 灵兽：仅在存在时显示
         if self.spirit_animal is not None:
@@ -588,11 +604,19 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             from src.utils.text_wrap import wrap_text
             add_section(lines, "目标", wrap_text(self.objective, 28))
 
-        # 法宝（仅名字）
-        if self.treasure is not None:
-            add_section(lines, "法宝", [self.treasure.get_info()])
+        # 兵器（必有，使用颜色标记等级）
+        if self.weapon is not None:
+            r, g, b = self.weapon.grade.color_rgb
+            weapon_text = f"<color:{r},{g},{b}>{self.weapon.get_info()}</color>"
+            add_kv(lines, "兵器", weapon_text)
+        
+        # 辅助装备（可选，使用颜色标记等级）
+        if self.auxiliary is not None:
+            r, g, b = self.auxiliary.grade.color_rgb
+            auxiliary_text = f"<color:{r},{g},{b}>{self.auxiliary.get_info()}</color>"
+            add_kv(lines, "辅助装备", auxiliary_text)
         else:
-            add_kv(lines, "法宝", "无")
+            add_kv(lines, "辅助装备", "无")
 
         # 灵兽：仅在存在时显示
         if self.spirit_animal is not None:
@@ -672,13 +696,14 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
     def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
         """
-        仅显示几个字段：名字、境界、关系、宗门、阵营、外貌。
+        仅显示几个字段：名字、境界、关系、宗门、阵营、外貌、装备。
         """
         relation = self.get_relation(other_avatar)
         relation_str = str(relation)
         sect_str = other_avatar.sect.name if other_avatar.sect is not None else "散修"
-        tr_str = other_avatar.treasure.get_info() if other_avatar.treasure is not None else "无"
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，法宝：{tr_str}，外貌：{other_avatar.appearance.get_info()}"
+        weapon_str = other_avatar.weapon.get_info() if other_avatar.weapon is not None else "无"
+        auxiliary_str = other_avatar.auxiliary.get_info() if other_avatar.auxiliary is not None else "无"
+        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，兵器：{weapon_str}，辅助：{auxiliary_str}，外貌：{other_avatar.appearance.get_info()}"
 
     def update_time_effect(self) -> None:
         """

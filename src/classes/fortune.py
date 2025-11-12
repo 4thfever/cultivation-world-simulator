@@ -17,21 +17,32 @@ from src.classes.technique import (
     is_attribute_compatible_with_root,
     TechniqueAttribute,
 )
-from src.classes.treasure import Treasure, treasures_by_id
+from src.classes.weapon import Weapon, weapons_by_id
+from src.classes.auxiliary import Auxiliary, auxiliaries_by_id
+from src.classes.equipment_grade import EquipmentGrade
 from src.classes.relation import Relation
 from src.classes.alignment import Alignment
 
 
 class FortuneKind(Enum):
     """奇遇类型"""
-    TREASURE = "treasure"
+    WEAPON = "weapon"               # 兵器奇遇
+    AUXILIARY = "auxiliary"         # 辅助装备奇遇
     TECHNIQUE = "technique"
     FIND_MASTER = "find_master"
-    SPIRIT_STONE = "spirit_stone"  # 灵石奇遇
+    SPIRIT_STONE = "spirit_stone"   # 灵石奇遇
     CULTIVATION = "cultivation"     # 修为奇遇
 
 
-F_TREASURE_THEMES: list[str] = [
+F_WEAPON_THEMES: list[str] = [
+    "误入洞府",
+    "巧捡神兵",
+    "误入试炼",
+    "异象出世",
+    "高人赠予",
+]
+
+F_AUXILIARY_THEMES: list[str] = [
     "误入洞府",
     "巧捡奇物",
     "误入试炼",
@@ -138,9 +149,18 @@ def _find_potential_master(avatar: Avatar) -> Optional[Avatar]:
     return None
 
 
-def _can_get_treasure(avatar: Avatar) -> bool:
-    """检查是否可以获得法宝奇遇"""
-    return avatar.treasure is None
+def _can_get_weapon(avatar: Avatar) -> bool:
+    """检查是否可以获得兵器奇遇：当前兵器是普通级时可触发"""
+    if avatar.weapon is None:
+        return True
+    return avatar.weapon.grade == EquipmentGrade.COMMON
+
+
+def _can_get_auxiliary(avatar: Avatar) -> bool:
+    """检查是否可以获得辅助装备奇遇：无辅助装备或辅助装备非法宝级时可触发"""
+    if avatar.auxiliary is None:
+        return True
+    return avatar.auxiliary.grade != EquipmentGrade.ARTIFACT
 
 
 def _can_get_technique(avatar: Avatar) -> bool:
@@ -179,9 +199,13 @@ def _choose_kind(avatar: Avatar) -> FortuneKind:
     """
     possible_kinds: list[FortuneKind] = []
     
-    # 法宝奇遇：任何人无法宝都可以
-    if _can_get_treasure(avatar):
-        possible_kinds.append(FortuneKind.TREASURE)
+    # 兵器奇遇：当前兵器是普通级时可触发
+    if _can_get_weapon(avatar):
+        possible_kinds.append(FortuneKind.WEAPON)
+    
+    # 辅助装备奇遇：无辅助装备或辅助装备非法宝级时可触发
+    if _can_get_auxiliary(avatar):
+        possible_kinds.append(FortuneKind.AUXILIARY)
     
     # 功法奇遇：任何人功法非上品都可以（实际获得时会有限制）
     if _can_get_technique(avatar):
@@ -206,8 +230,10 @@ def _choose_kind(avatar: Avatar) -> FortuneKind:
 
 
 def _pick_theme(kind: FortuneKind) -> str:
-    if kind == FortuneKind.TREASURE:
-        return random.choice(F_TREASURE_THEMES)
+    if kind == FortuneKind.WEAPON:
+        return random.choice(F_WEAPON_THEMES)
+    elif kind == FortuneKind.AUXILIARY:
+        return random.choice(F_AUXILIARY_THEMES)
     elif kind == FortuneKind.TECHNIQUE:
         return random.choice(F_TECHNIQUE_THEMES)
     elif kind == FortuneKind.FIND_MASTER:
@@ -219,16 +245,58 @@ def _pick_theme(kind: FortuneKind) -> str:
     return ""
 
 
-def _get_unique_treasure_for_world(avatar: Avatar) -> Optional[Treasure]:
-    """获取世界唯一法宝：从全量里挑选一个未被任何人持有的"""
-    owned_ids: set[int] = set()
+def _get_weapon_for_avatar(avatar: Avatar) -> Optional[Weapon]:
+    """
+    获取兵器：优先法宝 > 宝物 > 普通
+    - 法宝：检查世界唯一性
+    - 宝物：可重复
+    - 普通：可重复
+    """
+    # 尝试获取法宝级兵器
+    owned_artifact_ids: set[int] = set()
     for other in avatar.world.avatar_manager.avatars.values():
-        if other.treasure is not None:
-            owned_ids.add(other.treasure.id)
-    candidates = [t for t in treasures_by_id.values() if t.id not in owned_ids]
-    if not candidates:
-        return None
-    return random.choice(candidates)
+        if other.weapon is not None and other.weapon.grade == EquipmentGrade.ARTIFACT:
+            owned_artifact_ids.add(other.weapon.id)
+    
+    artifact_candidates = [w for w in weapons_by_id.values() 
+                          if w.grade == EquipmentGrade.ARTIFACT and w.id not in owned_artifact_ids]
+    if artifact_candidates:
+        return random.choice(artifact_candidates)
+    
+    # 尝试获取宝物级兵器
+    treasure_candidates = [w for w in weapons_by_id.values() 
+                          if w.grade == EquipmentGrade.TREASURE]
+    if treasure_candidates:
+        return random.choice(treasure_candidates)
+    
+    # 回退到普通级兵器（理论上不应该走到这里，因为普通级兵器不应该通过奇遇获得）
+    return None
+
+
+def _get_auxiliary_for_avatar(avatar: Avatar) -> Optional[Auxiliary]:
+    """
+    获取辅助装备：优先法宝 > 宝物
+    - 法宝：检查世界唯一性
+    - 宝物：可重复
+    """
+    # 尝试获取法宝级辅助装备
+    owned_artifact_ids: set[int] = set()
+    for other in avatar.world.avatar_manager.avatars.values():
+        if other.auxiliary is not None and other.auxiliary.grade == EquipmentGrade.ARTIFACT:
+            owned_artifact_ids.add(other.auxiliary.id)
+    
+    artifact_candidates = [a for a in auxiliaries_by_id.values() 
+                          if a.grade == EquipmentGrade.ARTIFACT and a.id not in owned_artifact_ids]
+    if artifact_candidates:
+        return random.choice(artifact_candidates)
+    
+    # 尝试获取宝物级辅助装备
+    treasure_candidates = [a for a in auxiliaries_by_id.values() 
+                          if a.grade == EquipmentGrade.TREASURE]
+    if treasure_candidates:
+        return random.choice(treasure_candidates)
+    
+    return None
 
 
 def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
@@ -319,13 +387,15 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     规则：
     - 奇遇不是一个 action；仅在条件满足时以概率触发。
     - 触发条件：
-      * 法宝奇遇：无法宝（不限散修/宗门）
+      * 兵器奇遇：当前兵器是普通级
+      * 辅助装备奇遇：无辅助装备或辅助装备非法宝级
       * 功法奇遇：功法非上品（不限散修/宗门，但宗门弟子只能获得本宗门或无宗门功法）
       * 拜师奇遇：无师傅且世界中有合适的师傅（优先同宗门，不能拜敌对阵营）
       * 灵石奇遇：任何人都可以触发
       * 修为奇遇：未达到瓶颈的人可以触发
     - 结果：
-      * 法宝：世界唯一且不可重复
+      * 兵器：优先法宝（世界唯一）> 宝物（可重复）
+      * 辅助装备：优先法宝（世界唯一）> 宝物（可重复）
       * 功法：可重复，优先上品，需与灵根兼容，宗门弟子受宗门限制
       * 拜师：建立师徒关系
       * 灵石：根据境界获得灵石（相当于一年狩猎售卖收入）
@@ -351,15 +421,25 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     related_avatars = [avatar.id]
     actors_for_story = [avatar]  # 用于生成故事的角色列表
 
-    if kind == FortuneKind.TREASURE:
-        tr = _get_unique_treasure_for_world(avatar)
-        if tr is None:
+    if kind == FortuneKind.WEAPON:
+        weapon = _get_weapon_for_avatar(avatar)
+        if weapon is None:
             # 回退到功法
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            avatar.treasure = tr
-            res_text = f"{avatar.name} 获得法宝『{tr.name}』"
+            avatar.weapon = weapon
+            res_text = f"{avatar.name} 获得{weapon.grade}兵器『{weapon.name}』"
+
+    if kind == FortuneKind.AUXILIARY:
+        auxiliary = _get_auxiliary_for_avatar(avatar)
+        if auxiliary is None:
+            # 回退到功法
+            kind = FortuneKind.TECHNIQUE
+            theme = _pick_theme(kind)
+        else:
+            avatar.auxiliary = auxiliary
+            res_text = f"{avatar.name} 获得{auxiliary.grade}辅助装备『{auxiliary.name}』"
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)

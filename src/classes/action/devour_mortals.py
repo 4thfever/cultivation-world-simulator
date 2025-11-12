@@ -18,10 +18,11 @@ class DevourMortals(TimedAction):
 
     def _execute(self) -> None:
         # 若持有万魂幡：累积吞噬魂魄（10~100），上限10000
-        tr = getattr(self.avatar, "treasure", None)
-        if tr is not None and tr.name == "万魂幡":
+        weapon = self.avatar.weapon
+        if weapon is not None and weapon.name == "万魂幡":
             gain = random.randint(10, 100)
-            tr.devoured_souls = min(10000, int(tr.devoured_souls) + gain)
+            current_souls = weapon.special_data.get("devoured_souls", 0)
+            weapon.special_data["devoured_souls"] = min(10000, int(current_souls) + gain)
 
     def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])

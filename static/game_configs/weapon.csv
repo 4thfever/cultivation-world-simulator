@@ -1,0 +1,14 @@
+id,name,weapon_type,grade,sect_id,desc,effects
+,名称,兵器类型,等级(普通/宝物/法宝),所属宗门ID(见sect.csv),描述/提示词,"JSON形式"
+1,本命剑匣,剑,法宝,1,以心御剑，匣启如霆，剑意随心破万法.,"{""extra_battle_strength_points"": 3}"
+4,镇魂钟,棍,法宝,7,钟鸣摄魄，定魂镇邪，护心安魂.,"{""extra_battle_strength_points"": 2, ""extra_observation_radius"": 1}"
+6,万魂幡,扇,法宝,4,幡起万魂啾啾，阴风过境.,"{""legal_actions"": [""DevourMortals""], ""extra_battle_strength_points"": ""eval(avatar.weapon.special_data.get('devoured_souls', 0) // 100 * 0.1)""}"
+1001,普通剑,剑,普通,,平凡无奇的剑，修仙者人手一把。,"{}"
+1002,普通刀,刀,普通,,平凡无奇的刀。,"{}"
+1003,普通枪,枪,普通,,平凡无奇的枪。,"{}"
+1004,普通棍,棍,普通,,平凡无奇的棍。,"{}"
+1005,普通扇,扇,普通,,平凡无奇的扇。,"{}"
+1006,普通鞭,鞭,普通,,平凡无奇的鞭。,"{}"
+1007,普通琴,琴,普通,,平凡无奇的琴。,"{}"
+1008,普通笛,笛,普通,,平凡无奇的笛。,"{}"
+
