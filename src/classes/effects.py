@@ -26,6 +26,22 @@ EXTRA_BATTLE_STRENGTH_POINTS = "extra_battle_strength_points"
 说明: 直接增加角色的战斗力数值
 """
 
+EXTRA_MAX_HP = "extra_max_hp"
+"""
+额外最大生命值
+类型: int
+结算: src/classes/avatar.py (__post_init__)
+说明: 增加角色的最大生命值上限
+"""
+
+EXTRA_MAX_MP = "extra_max_mp"
+"""
+额外最大灵力值
+类型: int
+结算: src/classes/avatar.py (__post_init__)
+说明: 增加角色的最大灵力值上限
+"""
+
 EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
 """
 额外观察半径
@@ -155,6 +171,8 @@ Effects 通过 src/classes/effect.py 中的 _merge_effects() 函数合并。
 ALL_EFFECTS = [
     # 战斗相关
     "extra_battle_strength_points",      # int - 额外战斗力
+    "extra_max_hp",                      # int - 额外最大生命值
+    "extra_max_mp",                      # int - 额外最大灵力值
     "extra_observation_radius",          # int - 额外观察半径
     
     # 修炼相关

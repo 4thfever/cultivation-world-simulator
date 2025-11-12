@@ -63,6 +63,63 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
+def _assign_initial_weapon(avatar: Avatar) -> None:
+    """
+    为新角色分配初始兵器
+    - 根据宗门倾向（80%概率）或随机选择兵器类型
+    - 1%概率获得法宝（优先宗门相关）
+    - 5%概率获得宝物
+    - 94%概率获得普通兵器
+    """
+    from src.classes.weapon import get_common_weapon, get_treasure_weapon, weapons_by_id, weapons_by_sect_id
+    from src.classes.weapon_type import WeaponType
+    from src.classes.equipment_grade import EquipmentGrade
+    import copy
+    
+    # 1. 确定兵器类型：宗门倾向或随机
+    weapon_type = None
+    if avatar.sect is not None and avatar.sect.preferred_weapon:
+        if random.random() < 0.8:
+            for wt in WeaponType:
+                if wt.value == avatar.sect.preferred_weapon:
+                    weapon_type = wt
+                    break
+    if weapon_type is None:
+        weapon_type = random.choice(list(WeaponType))
+    
+    # 2. 确定品质并分配兵器
+    roll = random.random()
+    
+    if roll < 0.01:
+        # 尝试获得法宝（优先宗门相关）
+        artifact_weapon = None
+        if avatar.sect is not None and avatar.sect.id in weapons_by_sect_id:
+            candidate = weapons_by_sect_id[avatar.sect.id]
+            if candidate.grade == EquipmentGrade.ARTIFACT:
+                artifact_weapon = candidate
+        
+        # 如果没有宗门相关法宝，从所有同类型法宝中选择
+        if artifact_weapon is None:
+            artifact_candidates = [w for w in weapons_by_id.values() 
+                                 if w.grade == EquipmentGrade.ARTIFACT and w.weapon_type == weapon_type]
+            if artifact_candidates:
+                artifact_weapon = random.choice(artifact_candidates)
+        
+        if artifact_weapon is not None:
+            avatar.weapon = copy.deepcopy(artifact_weapon)
+            return
+    
+    if roll < 0.06:  # 0.01 + 0.05
+        # 获得宝物
+        treasure_weapon = get_treasure_weapon(weapon_type)
+        if treasure_weapon:
+            avatar.weapon = copy.deepcopy(treasure_weapon)
+            return
+    
+    # 获得普通兵器
+    avatar.weapon = get_common_weapon(weapon_type)
+
+
 def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
     """
     从凡人中来的新修士：先规划宗门/关系，再生成实际角色；不分配宗门法宝。
@@ -212,6 +269,9 @@ def build_mortal_from_plan(world: World, current_month_stamp: MonthStamp, *, nam
     
     # 分配宗门职位（根据境界）
     _assign_sect_rank(avatar, world)
+
+    # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
+    _assign_initial_weapon(avatar)
 
     # 写关系（父母/师徒）；不发放宗门法宝
     if plan.parent_avatar is not None:
@@ -435,8 +495,9 @@ def build_avatars_from_plan(
         if sect is not None:
             avatar.alignment = sect.alignment
             avatar.technique = get_technique_by_sect(sect)
-            # 每个宗门只分配一个法宝级兵器给最强者（但不在这里分配，而是让奇遇系统处理）
-            # 宗门成员初始都是普通兵器
+
+        # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
+        _assign_initial_weapon(avatar)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)

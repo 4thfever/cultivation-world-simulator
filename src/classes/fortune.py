@@ -428,7 +428,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            avatar.weapon = weapon
+            avatar.change_weapon(weapon)
             res_text = f"{avatar.name} 获得{weapon.grade}兵器『{weapon.name}』"
 
     if kind == FortuneKind.AUXILIARY:
@@ -438,7 +438,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            avatar.auxiliary = auxiliary
+            avatar.change_auxiliary(auxiliary)
             res_text = f"{avatar.name} 获得{auxiliary.grade}辅助装备『{auxiliary.name}』"
 
     if kind == FortuneKind.TECHNIQUE:

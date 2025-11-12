@@ -146,23 +146,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
                 from src.classes.alignment import Alignment as _Alignment
                 self.alignment = random.choice(list(_Alignment))
 
-        # 兵器初始化：如果无兵器，分配一个普通兵器
-        # 有宗门且宗门有倾向兵器时，80%概率使用宗门兵器，否则随机
-        if self.weapon is None:
-            if self.sect is not None and self.sect.preferred_weapon:
-                # 有宗门倾向兵器，80%概率使用
-                if random.random() < 0.8:
-                    # 尝试根据宗门倾向兵器类型获取
-                    for wt in WeaponType:
-                        if wt.value == self.sect.preferred_weapon:
-                            self.weapon = get_common_weapon(wt)
-                            break
-            # 如果还没有兵器（无宗门、无倾向、或20%随机），随机分配
-            if self.weapon is None:
-                weapon_type = random.choice(list(WeaponType))
-                self.weapon = get_common_weapon(weapon_type)
 
-        # effects 改为实时属性，不在此初始化
+        
+        # 初始化时计算所有长期效果（HP/MP等）
+        self.recalc_effects()
 
     @property
     def effects(self) -> dict[str, object]:
@@ -388,9 +375,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         self.cultivation_progress.level = new_level
         self.cultivation_progress.realm = self.cultivation_progress.get_realm(new_level)
         
-        # 如果境界提升了，更新寿命期望
+        # 如果境界提升了，更新寿命期望和长期效果
         if self.cultivation_progress.realm != old_realm:
             self.age.update_realm(self.cultivation_progress.realm)
+            # 境界变化会影响 HP/MP 基础值，需要重新计算
+            self.recalc_effects()
             # 如果有宗门，检查是否需要晋升职位
             from src.classes.sect_ranks import check_and_promote_sect_rank
             check_and_promote_sect_rank(self, old_realm, self.cultivation_progress.realm)
@@ -734,15 +723,65 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         """
         return self.cultivation_progress.get_move_step()
     
+    def recalc_effects(self) -> None:
+        """
+        重新计算所有长期效果
+        在装备更换、突破境界等情况下调用
+        
+        说明：
+        - self.effects 是 @property，每次访问都会重新 merge 所有来源的 effects
+        - 包括：宗门、功法、灵根、特质、兵器、辅助装备、灵兽
+        - 也会重新计算动态表达式（如 eval(...)）
+        
+        当前包括：
+        - HP/MP 最大值
+        - 将来可能还有其他长期 effects
+        """
+        # 计算基础最大值（基于境界）
+        base_max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
+        base_max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
+        
+        # 访问 self.effects 会触发 @property，重新 merge 所有 effects
+        effects = self.effects
+        extra_max_hp = int(effects.get("extra_max_hp", 0))
+        extra_max_mp = int(effects.get("extra_max_mp", 0))
+        
+        # 计算新的最大值
+        new_max_hp = base_max_hp + extra_max_hp
+        new_max_mp = base_max_mp + extra_max_mp
+        
+        # 更新最大值
+        self.hp.max = new_max_hp
+        self.mp.max = new_max_mp
+        
+        # 调整当前值（不超过新的最大值）
+        if self.hp.cur > new_max_hp:
+            self.hp.cur = new_max_hp
+        if self.mp.cur > new_max_mp:
+            self.mp.cur = new_max_mp
+        
+        # 将来这里可以添加其他长期 effects 的计算
+    
     def change_weapon(self, new_weapon: Weapon) -> None:
         """
-        更换兵器，熟练度归零
+        更换兵器，熟练度归零，并重新计算长期效果
         
         Args:
             new_weapon: 新的兵器
         """
         self.weapon = new_weapon
         self.weapon_proficiency = 0.0
+        self.recalc_effects()
+    
+    def change_auxiliary(self, new_auxiliary: Optional[Auxiliary]) -> None:
+        """
+        更换辅助装备，并重新计算长期效果
+        
+        Args:
+            new_auxiliary: 新的辅助装备（可为 None 表示卸下）
+        """
+        self.auxiliary = new_auxiliary
+        self.recalc_effects()
     
     def increase_weapon_proficiency(self, amount: float) -> None:
         """

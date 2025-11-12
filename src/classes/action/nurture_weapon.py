@@ -17,9 +17,33 @@ class NurtureWeapon(TimedAction):
     duration_months = 3
 
     def _execute(self) -> None:
+        from src.classes.equipment_grade import EquipmentGrade
+        from src.classes.weapon import get_treasure_weapon
+        
         # 温养兵器增加较多熟练度（5-10）
         proficiency_gain = random.uniform(5.0, 10.0)
         self.avatar.increase_weapon_proficiency(proficiency_gain)
+        
+        # 如果是普通兵器，有5%概率升级为宝物
+        if self.avatar.weapon and self.avatar.weapon.grade == EquipmentGrade.COMMON:
+            if random.random() < 0.05:
+                treasure_weapon = get_treasure_weapon(self.avatar.weapon.weapon_type)
+                if treasure_weapon:
+                    import copy
+                    old_weapon_name = self.avatar.weapon.name
+                    old_proficiency = self.avatar.weapon_proficiency
+                    # 深拷贝宝物兵器并更换（会重新计算长期效果）
+                    new_weapon = copy.deepcopy(treasure_weapon)
+                    self.avatar.change_weapon(new_weapon)
+                    # 恢复熟练度（change_weapon 会归零，需要手动恢复）
+                    self.avatar.weapon_proficiency = old_proficiency
+                    # 记录升华事件
+                    from src.classes.event import Event
+                    self.avatar.world.add_event(Event(
+                        self.avatar.world.month_stamp,
+                        f"{self.avatar.name} 温养{old_weapon_name}时，兵器灵性大增，升华为{treasure_weapon.name}！",
+                        related_avatars=[self.avatar.id]
+                    ))
 
     def can_start(self) -> tuple[bool, str]:
         # 任何时候都可以温养兵器
@@ -36,6 +60,7 @@ class NurtureWeapon(TimedAction):
     def finish(self) -> list[Event]:
         weapon_name = self.avatar.weapon.name if self.avatar.weapon else "兵器"
         proficiency = self.avatar.weapon_proficiency
+        # 注意：升华事件已经在_execute中添加，这里只添加完成事件
         return [
             Event(
                 self.world.month_stamp,

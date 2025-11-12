@@ -117,3 +117,12 @@ def get_common_weapon(weapon_type: WeaponType) -> Optional[Weapon]:
     weapon_name = f"普通{weapon_type.value}"
     return weapons_by_name.get(weapon_name)
 
+
+def get_treasure_weapon(weapon_type: WeaponType) -> Optional[Weapon]:
+    """获取指定类型的宝物级兵器"""
+    from src.classes.equipment_grade import EquipmentGrade
+    for weapon in weapons_by_id.values():
+        if weapon.weapon_type == weapon_type and weapon.grade == EquipmentGrade.TREASURE:
+            return weapon
+    return None
+

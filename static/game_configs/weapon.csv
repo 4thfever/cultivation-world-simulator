@@ -12,4 +12,13 @@ id,name,weapon_type,grade,sect_id,desc,effects
 1007,普通琴,琴,普通,,平凡无奇的琴。,"{""extra_battle_strength_points"": 1}"
 1008,普通笛,笛,普通,,平凡无奇的笛。,"{""extra_battle_strength_points"": 1}"
 1009,普通暗器,暗器,普通,,平凡无奇的暗器。,"{""extra_battle_strength_points"": 1}"
+2001,青霜剑,剑,宝物,,剑身寒气逼人，剑锋如霜。,"{""extra_battle_strength_points"": 2}"
+2002,破军刀,刀,宝物,,刀势霸道凌厉，破军杀阵。,"{""extra_battle_strength_points"": 2}"
+2003,龙吟枪,枪,宝物,,枪出如龙，势如破竹。,"{""extra_battle_strength_points"": 2, ""extra_max_hp"": 50}"
+2004,降魔杵,棍,宝物,,降妖除魔，正气凛然。,"{""extra_battle_strength_points"": 2, ""extra_max_hp"": 50}"
+2005,紫罗扇,扇,宝物,,扇动间紫气缭绕，洞悉先机。,"{""extra_battle_strength_points"": 2, ""extra_observation_radius"": 1}"
+2006,蛟龙鞭,鞭,宝物,,鞭身如蛟龙盘旋，柔中带刚。,"{""extra_battle_strength_points"": 2}"
+2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{""extra_battle_strength_points"": 2, ""cultivation_speed_rate"": 1.1}"
+2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{""extra_battle_strength_points"": 2, ""cultivation_speed_rate"": 1.1}"
+2009,追魂刺,暗器,宝物,,暗器如影随形，取人性命于无声。,"{""extra_battle_strength_points"": 2}"
 
