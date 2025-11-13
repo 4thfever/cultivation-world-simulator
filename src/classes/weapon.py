@@ -113,8 +113,8 @@ weapons_by_id, weapons_by_name, weapons_by_sect_id = _load_weapons()
 
 
 def get_common_weapon(weapon_type: WeaponType) -> Optional[Weapon]:
-    """获取指定类型的普通兵器（用于兜底）"""
-    weapon_name = f"普通{weapon_type.value}"
+    """获取指定类型的凡品兵器（用于兜底）"""
+    weapon_name = f"凡品{weapon_type.value}"
     return weapons_by_name.get(weapon_name)
 
 

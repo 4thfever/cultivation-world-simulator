@@ -33,6 +33,7 @@ from .devour_mortals import DevourMortals
 from .self_heal import SelfHeal
 from .catch import Catch
 from .nurture_weapon import NurtureWeapon
+from .switch_weapon import SwitchWeapon
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -62,6 +63,7 @@ register_action(actual=True)(DevourMortals)
 register_action(actual=True)(SelfHeal)
 register_action(actual=True)(Catch)
 register_action(actual=True)(NurtureWeapon)
+register_action(actual=True)(SwitchWeapon)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -93,6 +95,8 @@ __all__ = [
     "DevourMortals",
     "SelfHeal",
     "Catch",
+    "NurtureWeapon",
+    "SwitchWeapon",
     # Talk 已移动到 mutual_action 模块
 ]
 

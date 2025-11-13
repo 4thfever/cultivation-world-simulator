@@ -130,3 +130,30 @@ def normalize_item_name(name: str) -> str:
     s = s.rstrip(" -").strip()
     return s
 
+
+def normalize_weapon_type(name: str) -> str:
+    """
+    规范化兵器类型名称：映射到标准的WeaponType枚举值。
+    
+    处理格式：
+    - 去除空格和多余符号
+    - "剑"/"剑类"/"剑兵器" -> "剑"
+    
+    Args:
+        name: 兵器类型名称
+        
+    Returns:
+        规范化后的兵器类型名称（WeaponType.value）
+        
+    Examples:
+        >>> normalize_weapon_type("剑 ")
+        '剑'
+        >>> normalize_weapon_type("刀类")
+        '刀'
+    """
+    s = str(name).strip()
+    # 移除常见后缀
+    for suffix in ["类", "兵器", "武器"]:
+        if s.endswith(suffix):
+            s = s[:-len(suffix)].strip()
+    return s
