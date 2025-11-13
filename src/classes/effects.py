@@ -155,63 +155,21 @@ LEGAL_ACTIONS = "legal_actions"
 # =============================================================================
 
 """
-## CSV 中 effects 列的写法（支持宽松JSON格式）
+CSV 中 effects 列的写法（支持宽松JSON格式）:
 
-### 基础格式（推荐）
-```
-{extra_battle_strength_points: 3}
-{extra_battle_strength_points: 2, extra_max_hp: 50}
-{legal_actions: ['DevourMortals'], extra_battle_strength_points: 2}
-```
+基础格式（推荐无引号key）:
+  {extra_battle_strength_points: 3}
+  {extra_battle_strength_points: 2, extra_max_hp: 50}
+  {legal_actions: ['DevourMortals']}
 
-### 格式规则
-1. ✅ 无引号key（推荐）: {extra_battle_strength_points: 3}
-2. ✅ 单引号: {'extra_battle_strength_points': 3}
-3. ✅ 双引号: {"extra_battle_strength_points": 3}
-4. ✅ 混合使用: {key1: 1, 'key2': 2, "key3": 3}
+条件effect（when字段）:
+  [{when: 'avatar.weapon.type == WeaponType.SWORD', extra_battle_strength_points: 3}]
+  可访问: avatar, WeaponType, EquipmentGrade, Alignment
 
-### 条件effect（when 子句）
-当 effect 需要根据条件生效时，使用 when 字段：
+动态值（字符串表达式会被eval）:
+  {extra_battle_strength_points: 'avatar.weapon.special_data.get("souls", 0) * 0.1'}
 
-```
-# 单条件
-[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_battle_strength_points: 3}]
-
-# 多条件（满足任一条件即生效，effects会累加）
-[
-  {when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3},
-  {when: 'avatar.alignment == Alignment.EVIL', extra_cultivate_exp: 20}
-]
-```
-
-### 动态表达式（eval）
-对于需要运行时计算的值，使用字符串形式的表达式：
-
-```
-{extra_battle_strength_points: 'avatar.weapon.special_data.get("devoured_souls", 0) // 100 * 0.1'}
-```
-
-注意：
-- eval 表达式在 Avatar.effects property 中动态计算
-- 可访问的变量：avatar, WeaponType, EquipmentGrade, Alignment
-- 表达式失败时默认为 0
-
-### 实际示例
-
-```csv
-# weapon.csv
-id,name,effects
-1,本命剑匣,{extra_battle_strength_points: 3}
-4,镇魂钟,{extra_battle_strength_points: 2, extra_observation_radius: 1}
-6,万魂幡,{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get("devoured_souls", 0) // 100 * 0.1'}
-
-# persona.csv - 条件effect
-32,剑痴,[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]
-46,音律大师,[{when: 'avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]
-
-# technique.csv - 负面effect
-28,血神噬魂大法,{extra_breakthrough_success_rate: -0.1, extra_cultivate_exp: 50}
-```
+注意: CSV中包含逗号的effects值需要用双引号包裹，避免被误认为列分隔符
 """
 
 # =============================================================================
