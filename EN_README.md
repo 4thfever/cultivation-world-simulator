@@ -58,6 +58,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Normal, cultivate, city, sect regions
 - ✅ Same-tile NPC interactions
 - ✅ Qi distribution and yields
+- ✅ World event
 - [ ] Dynamic worldview, map, history, sect, and notable figure generation
 
 ### 👤 Character System
@@ -71,7 +72,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Interaction range
 - ✅ Effect system: buffs/debuffs
 - ✅ Techniques
-- [ ] Combat equipment & auxiliary equipment
+- ✅ Combat equipment & auxiliary equipment
 - [ ] Character compatibility
 - [ ] Epithets/nicknames
 - [ ] Skill learning system:
