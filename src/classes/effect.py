@@ -9,7 +9,15 @@ if TYPE_CHECKING:
 
 def load_effect_from_str(value: object) -> dict[str, Any] | list[dict[str, Any]]:
     """
-    将 effects 字段解析为 dict 或 list（仅支持标准 JSON 字符串）。
+    将 effects 字段解析为 dict 或 list（支持宽松JSON格式）。
+    
+    支持的格式：
+    1. 标准JSON: {"extra_battle_strength_points": 3}
+    2. 单引号: {'extra_battle_strength_points': 3}
+    3. 无引号key: {extra_battle_strength_points: 3}
+    4. 混合格式: {extra_battle_strength_points: 3, 'legal_actions': ['DevourMortals']}
+    5. 条件数组: [{when: 'condition', effect1: value1}, ...]
+    
     - value 为 None/空字符串/'nan' 时返回 {}
     - 解析失败时返回 {}
     - 支持返回 dict（单个effect）或 list[dict]（多个条件effect）
@@ -21,8 +29,56 @@ def load_effect_from_str(value: object) -> dict[str, Any] | list[dict[str, Any]]
     s = str(value).strip()
     if not s or s == "nan":
         return {}
+    
+    # 先尝试标准 JSON 解析
     try:
         obj = json.loads(s)
+        if isinstance(obj, (dict, list)):
+            return obj
+        return {}
+    except Exception:
+        pass
+    
+    # 尝试宽松解析：单引号转双引号 + 无引号key处理
+    try:
+        import re
+        
+        # 1. 先保护所有引号内的内容（包括单引号和双引号字符串）
+        strings = []
+        def save_string(match):
+            strings.append(match.group(0))
+            return f"__STRING_{len(strings)-1}__"
+        
+        relaxed = s
+        # 保护双引号字符串
+        relaxed = re.sub(r'"(?:[^"\\]|\\.)*"', save_string, relaxed)
+        # 保护单引号字符串
+        relaxed = re.sub(r"'(?:[^'\\]|\\.)*'", save_string, relaxed)
+        
+        # 2. 给无引号的key添加引号（此时所有字符串都已被保护）
+        # 匹配: 开始位置后的标识符 + 冒号
+        relaxed = re.sub(r'([{\[,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)(\s*):', r'\1"__KEY_\2__"\3:', relaxed)
+        
+        # 3. 恢复字符串，并将单引号转为双引号
+        for i, s_val in enumerate(strings):
+            # 如果是单引号字符串，转为双引号
+            if s_val.startswith("'"):
+                # 需要转义内部的双引号，但要先恢复其中的__STRING_占位符
+                content = s_val[1:-1]  # 去掉单引号
+                # 恢复内部的字符串占位符
+                for j, inner_str in enumerate(strings):
+                    if f"__STRING_{j}__" in content and j != i:
+                        content = content.replace(f"__STRING_{j}__", inner_str)
+                # 转义处理
+                content = content.replace('\\', '\\\\').replace('"', '\\"')
+                s_val = f'"{content}"'
+            relaxed = relaxed.replace(f"__STRING_{i}__", s_val)
+        
+        # 4. 恢复key（去掉__KEY_标记）
+        relaxed = relaxed.replace('"__KEY_', '"').replace('__"', '"')
+        
+        # 5. 尝试解析
+        obj = json.loads(relaxed)
         if isinstance(obj, (dict, list)):
             return obj
         return {}

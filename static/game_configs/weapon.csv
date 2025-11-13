@@ -1,24 +1,24 @@
 id,name,weapon_type,grade,sect_id,desc,effects
-,名称,兵器类型,等级(普通/宝物/法宝),所属宗门ID(见sect.csv),描述/提示词,"JSON形式"
-1,本命剑匣,剑,法宝,1,以心御剑，匣启如霆，剑意随心破万法.,"{""extra_battle_strength_points"": 3}"
-4,镇魂钟,棍,法宝,7,钟鸣摄魄，定魂镇邪，护心安魂.,"{""extra_battle_strength_points"": 2, ""extra_observation_radius"": 1}"
-6,万魂幡,扇,法宝,4,幡起万魂啾啾，阴风过境.,"{""legal_actions"": [""DevourMortals""], ""extra_battle_strength_points"": ""eval(avatar.weapon.special_data.get('devoured_souls', 0) // 100 * 0.1)""}"
-1001,普通剑,剑,普通,,平凡无奇的剑。,"{""extra_battle_strength_points"": 1}"
-1002,普通刀,刀,普通,,平凡无奇的刀。,"{""extra_battle_strength_points"": 1}"
-1003,普通枪,枪,普通,,平凡无奇的枪。,"{""extra_battle_strength_points"": 1}"
-1004,普通棍,棍,普通,,平凡无奇的棍。,"{""extra_battle_strength_points"": 1}"
-1005,普通扇,扇,普通,,平凡无奇的扇。,"{""extra_battle_strength_points"": 1}"
-1006,普通鞭,鞭,普通,,平凡无奇的鞭。,"{""extra_battle_strength_points"": 1}"
-1007,普通琴,琴,普通,,平凡无奇的琴。,"{""extra_battle_strength_points"": 1}"
-1008,普通笛,笛,普通,,平凡无奇的笛。,"{""extra_battle_strength_points"": 1}"
-1009,普通暗器,暗器,普通,,平凡无奇的暗器。,"{""extra_battle_strength_points"": 1}"
-2001,青霜剑,剑,宝物,,剑身寒气逼人，剑锋如霜。,"{""extra_battle_strength_points"": 2}"
-2002,破军刀,刀,宝物,,刀势霸道凌厉，破军杀阵。,"{""extra_battle_strength_points"": 2}"
-2003,龙吟枪,枪,宝物,,枪出如龙，势如破竹。,"{""extra_battle_strength_points"": 2, ""extra_max_hp"": 50}"
-2004,降魔杵,棍,宝物,,降妖除魔，正气凛然。,"{""extra_battle_strength_points"": 2, ""extra_max_hp"": 50}"
-2005,紫罗扇,扇,宝物,,扇动间紫气缭绕，洞悉先机。,"{""extra_battle_strength_points"": 2, ""extra_observation_radius"": 1}"
-2006,蛟龙鞭,鞭,宝物,,鞭身如蛟龙盘旋，柔中带刚。,"{""extra_battle_strength_points"": 2}"
-2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{""extra_battle_strength_points"": 2, ""cultivation_speed_rate"": 1.1}"
-2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{""extra_battle_strength_points"": 2, ""cultivation_speed_rate"": 1.1}"
-2009,追魂刺,暗器,宝物,,暗器如影随形，取人性命于无声。,"{""extra_battle_strength_points"": 2}"
+,名称,兵器类型,等级(普通/宝物/法宝),所属宗门ID(见sect.csv),描述/提示词,"JSON形式（支持宽松格式，见effects.py说明）"
+1,本命剑匣,剑,法宝,1,以心御剑，匣启如霆，剑意随心破万法.,{extra_battle_strength_points: 3}
+4,镇魂钟,棍,法宝,7,钟鸣摄魄，定魂镇邪，护心安魂.,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+6,万魂幡,扇,法宝,4,幡起万魂啾啾，阴风过境.,"{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
+1001,普通剑,剑,普通,,平凡无奇的剑。,{extra_battle_strength_points: 1}
+1002,普通刀,刀,普通,,平凡无奇的刀。,{extra_battle_strength_points: 1}
+1003,普通枪,枪,普通,,平凡无奇的枪。,{extra_battle_strength_points: 1}
+1004,普通棍,棍,普通,,平凡无奇的棍。,{extra_battle_strength_points: 1}
+1005,普通扇,扇,普通,,平凡无奇的扇。,{extra_battle_strength_points: 1}
+1006,普通鞭,鞭,普通,,平凡无奇的鞭。,{extra_battle_strength_points: 1}
+1007,普通琴,琴,普通,,平凡无奇的琴。,{extra_battle_strength_points: 1}
+1008,普通笛,笛,普通,,平凡无奇的笛。,{extra_battle_strength_points: 1}
+1009,普通暗器,暗器,普通,,平凡无奇的暗器。,{extra_battle_strength_points: 1}
+2001,青霜剑,剑,宝物,,剑身寒气逼人，剑锋如霜。,{extra_battle_strength_points: 2}
+2002,破军刀,刀,宝物,,刀势霸道凌厉，破军杀阵。,{extra_battle_strength_points: 2}
+2003,龙吟枪,枪,宝物,,枪出如龙，势如破竹。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+2004,降魔杵,棍,宝物,,降妖除魔，正气凛然。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+2005,紫罗扇,扇,宝物,,扇动间紫气缭绕，洞悉先机。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+2006,蛟龙鞭,鞭,宝物,,鞭身如蛟龙盘旋，柔中带刚。,{extra_battle_strength_points: 2}
+2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{extra_battle_strength_points: 2, cultivation_speed_rate: 1.1}"
+2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{extra_battle_strength_points: 2, cultivation_speed_rate: 1.1}"
+2009,追魂刺,暗器,宝物,,暗器如影随形，取人性命于无声。,{extra_battle_strength_points: 2}
 

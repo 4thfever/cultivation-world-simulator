@@ -1,5 +1,5 @@
 id,key,name,element_list,desc,effects
-,,,元素列表以分号分隔（示例：金;木）,描述不会在代码中使用,"JSON，例：{""extra_breakthrough_success_rate"": 0.1}"
+,,,元素列表以分号分隔（示例：金;木）,描述不会在代码中使用,"JSON形式（支持宽松格式，见effects.py说明）"
 1,GOLD,金灵根,金,刚强果断；攻击力强，适合剑修,
 2,WOOD,木灵根,木,仁厚坚韧；擅恢复、毒术与木属性法术,
 3,WATER,水灵根,水,智慧圆融；身法轻盈，善辅助与隐匿,
@@ -9,5 +9,5 @@ id,key,name,element_list,desc,effects
 7,ICE,冰灵根,金;水,控制力强；持久性好,
 8,WIND,风灵根,木;水,身法卓绝；难以捉摸,
 9,DARK,暗灵根,火;土,隐匿系；擅幻术与诡道,
-10,HEAVEN,天灵根,金;木;水;火;土,资质通天；五行皆通，修行全面,"{""extra_breakthrough_success_rate"": 0.1}"
+10,HEAVEN,天灵根,金;木;水;火;土,资质通天；五行皆通，修行全面,{extra_breakthrough_success_rate: 0.1}
 
