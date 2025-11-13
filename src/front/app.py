@@ -270,17 +270,27 @@ class Front:
         # 计算筛选后的事件
         if self._sidebar_filter_avatar_id is None:
             events_to_draw: List[Event] = self.events
+        elif self._sidebar_filter_avatar_id == "__world_events__":
+            # 特殊筛选：仅显示世界事件（不绑定任何角色）
+            events_to_draw = [e for e in self.events if not getattr(e, "related_avatars", None)]
         else:
             aid = self._sidebar_filter_avatar_id
             events_to_draw = [e for e in self.events if getattr(e, "related_avatars", None) and (aid in e.related_avatars)]
 
-        # 构造下拉选项（第一个是所有人；其余为当前世界中的角色）- 带缓存
+        # 构造下拉选项（第一个是所有；其余为当前世界中的角色）- 带缓存
         options = self._get_sidebar_options_cached()
-        sel_label = "所有人"
-        if self._sidebar_filter_avatar_id is not None:
+        sel_label = "所有"
+        if self._sidebar_filter_avatar_id == "__world_events__":
+            sel_label = "世界事件"
+        elif self._sidebar_filter_avatar_id is not None:
             sel_avatar = self.world.avatar_manager.avatars.get(self._sidebar_filter_avatar_id)
             if sel_avatar is not None:
                 sel_label = sel_avatar.name
+
+        # 获取天地灵机相关信息
+        current_phenomenon = self.world.current_phenomenon
+        phenomenon_start_year = self.world.phenomenon_start_year if hasattr(self.world, 'phenomenon_start_year') else 0
+        current_year = self.world.month_stamp.get_year()
 
         sidebar_ui = draw_sidebar(
             pygame, self.screen, self.colors, self.sidebar_font, events_to_draw,
@@ -288,6 +298,9 @@ class Front:
             filter_selected_label=sel_label,
             filter_is_open=self._sidebar_filter_open,
             filter_options=options,
+            current_phenomenon=current_phenomenon,
+            phenomenon_start_year=phenomenon_start_year,
+            current_year=current_year,
         )
         # 保存供点击检测
         self._sidebar_ui = sidebar_ui
@@ -608,7 +621,10 @@ class Front:
     def _get_sidebar_options_cached(self) -> List[tuple[str, Optional[str]]]:
         if (not self._sidebar_options_dirty) and self._sidebar_options_cache is not None:
             return self._sidebar_options_cache
-        options: List[tuple[str, Optional[str]]] = [("所有人", None)]
+        options: List[tuple[str, Optional[str]]] = [
+            ("所有", None),
+            ("世界事件", "__world_events__")
+        ]
         for avatar_id, avatar in self.world.avatar_manager.avatars.items():
             options.append((avatar.name, avatar_id))
         self._sidebar_options_cache = options

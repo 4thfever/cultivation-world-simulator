@@ -12,6 +12,7 @@ from src.classes.name import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.classes.fortune import try_trigger_fortune
+from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 
 class Simulator:
     def __init__(self, world: World):
@@ -120,6 +121,61 @@ class Simulator:
             fortune_events = await try_trigger_fortune(avatar)
             events.extend(fortune_events)
         return events
+    
+    def _phase_update_celestial_phenomenon(self):
+        """
+        更新天地灵机：
+        - 检查当前天象是否到期
+        - 如果到期，则随机选择新天象
+        - 生成世界事件记录天象变化
+        
+        天象变化时机：
+        - 从游戏第二年（101年）开始
+        - 每5年（或当前天象指定的持续时间）变化一次
+        """
+        events = []
+        current_year = self.world.month_stamp.get_year()
+        current_month = self.world.month_stamp.get_month()
+        
+        # 第一年（100年）不触发天象
+        if current_year < 101:
+            return events
+        
+        # 初次运行：在101年1月设置初始天象
+        if self.world.current_phenomenon is None and current_month == Month.JANUARY:
+            new_phenomenon = get_random_celestial_phenomenon()
+            if new_phenomenon:
+                self.world.current_phenomenon = new_phenomenon
+                self.world.phenomenon_start_year = current_year
+                # 生成世界事件（不绑定任何角色）
+                event = Event(
+                    self.world.month_stamp,
+                    f"天降异象！{new_phenomenon.name}：{new_phenomenon.desc}。",
+                    related_avatars=None  # 世界事件，不绑定角色
+                )
+                events.append(event)
+        elif self.world.current_phenomenon is not None:
+            # 检查是否到期（每年一月检查）
+            if current_month == Month.JANUARY:
+                elapsed_years = current_year - self.world.phenomenon_start_year
+                if elapsed_years >= self.world.current_phenomenon.duration_years:
+                    # 天象到期，更换新天象
+                    old_phenomenon = self.world.current_phenomenon
+                    new_phenomenon = get_random_celestial_phenomenon()
+                    
+                    if new_phenomenon:
+                        self.world.current_phenomenon = new_phenomenon
+                        self.world.phenomenon_start_year = current_year
+                        
+                        # 生成天象变化事件
+                        event = Event(
+                            self.world.month_stamp,
+                            f"{old_phenomenon.name}消散，天地异象再现！{new_phenomenon.name}：{new_phenomenon.desc}。",
+                            related_avatars=None  # 世界事件
+                        )
+                        events.append(event)
+        
+        return events
 
     def _phase_log_events(self, events):
         """
@@ -158,14 +214,17 @@ class Simulator:
         # 6. 被动结算（时间效果+奇遇）
         events.extend(await self._phase_passive_effects())
 
-        # 7. 日志
+        # 7. 更新天地灵机
+        events.extend(self._phase_update_celestial_phenomenon())
+
+        # 8. 日志
         # 统一写入事件管理器
         if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
             for e in events:
                 self.world.event_manager.add_event(e)
         self._phase_log_events(events)
 
-        # 8. 时间推进
+        # 9. 时间推进
         self.world.month_stamp = self.world.month_stamp + 1
 
 

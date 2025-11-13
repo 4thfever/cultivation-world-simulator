@@ -180,6 +180,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         if self.spirit_animal is not None:
             evaluated = _evaluate_conditional_effect(self.spirit_animal.effects, self)
             merged = _merge_effects(merged, evaluated)
+        # 来自天地灵机（世界级buff/debuff）
+        if self.world.current_phenomenon is not None:
+            evaluated = _evaluate_conditional_effect(self.world.current_phenomenon.effects, self)
+            merged = _merge_effects(merged, evaluated)
         # 评估动态效果表达式：值以 "eval(...)" 形式给出
         final: dict[str, object] = {}
         for k, v in merged.items():

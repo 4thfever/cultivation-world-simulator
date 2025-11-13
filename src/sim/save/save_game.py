@@ -82,7 +82,10 @@ def save_game(
         # 构建世界数据
         world_data = {
             "month_stamp": int(world.month_stamp),
-            "existed_sect_ids": [sect.id for sect in existed_sects]
+            "existed_sect_ids": [sect.id for sect in existed_sects],
+            # 天地灵机
+            "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
+            "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

@@ -88,6 +88,13 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 重建World对象
         world = World(map=game_map, month_stamp=month_stamp)
         
+        # 重建天地灵机
+        from src.classes.celestial_phenomenon import celestial_phenomena_by_id
+        phenomenon_id = world_data.get("current_phenomenon_id")
+        if phenomenon_id is not None and phenomenon_id in celestial_phenomena_by_id:
+            world.current_phenomenon = celestial_phenomena_by_id[phenomenon_id]
+            world.phenomenon_start_year = world_data.get("phenomenon_start_year", 0)
+        
         # 获取本局启用的宗门
         existed_sect_ids = world_data.get("existed_sect_ids", [])
         existed_sects = [sects_by_id[sid] for sid in existed_sect_ids if sid in sects_by_id]

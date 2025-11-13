@@ -1,0 +1,26 @@
+id,name,rarity,effects,desc,duration_years
+1,紫气东来,R,{extra_cultivate_exp: 15},天降祥瑞，紫气弥漫东方，修士修炼速度大增,5
+2,金行旺盛,R,"[{when: 'any(e.value == ""金"" for e in avatar.root.elements)', extra_battle_strength_points: 20, extra_cultivate_exp: 15}]",金行之力充盈天地，金灵根修士如虎添翼,5
+3,木气盎然,R,"[{when: 'any(e.value == ""木"" for e in avatar.root.elements)', extra_dual_cultivation_exp: 15, extra_max_hp: 100}]",木德之气滋养万物，木灵根修士生机勃勃,5
+4,水德之年,R,"[{when: 'any(e.value == ""水"" for e in avatar.root.elements)', extra_breakthrough_success_rate: 0.2, extra_cultivate_exp: 10}]",水行流转通达无碍，水灵根修士突破更易,5
+5,火运当空,R,"[{when: 'any(e.value == ""火"" for e in avatar.root.elements)', extra_battle_strength_points: 30, extra_cultivate_exp: -5}]",火势炽烈易生心魔，火灵根修士战力暴涨但修炼不稳,5
+6,土德载物,R,"[{when: 'any(e.value == ""土"" for e in avatar.root.elements)', extra_cultivate_exp: 20, extra_max_hp: 80}]",土德厚重承载万物，土灵根修士根基更稳,5
+7,五行逆乱,SR,"{extra_cultivate_exp: -10, extra_breakthrough_success_rate: 0.3}",五行失序天地大乱，修炼艰难却蕴含突破良机,5
+8,天道压制,SR,"[{when: 'avatar.cultivation_progress.realm.value >= 6', extra_cultivate_exp: -25}, {when: 'avatar.cultivation_progress.realm.value < 6', extra_cultivate_exp: 10}]",天道显化压制强者扶助弱者，天地趋于平衡,5
+9,劫数将至,SR,"{extra_battle_strength_points: 20, extra_fortune_probability: -0.05}",杀劫降临天地戾气弥漫，修士战力大增但凶险倍增,5
+10,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修士修炼如沐春风,5
+11,灵气枯竭,R,"{extra_cultivate_exp: -20}",灵气衰竭修炼艰难，万物萧索,5
+12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 30, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -10}]",魔气滔天邪道大兴，正道受压,5
+13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 25, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -10}]",浩然正气镇压邪祟，正道昌盛,5
+14,剑道当空,SR,"[{when: 'avatar.weapon.weapon_type.value == ""剑""', extra_battle_strength_points: 25, extra_weapon_proficiency_gain: 0.5}]",剑气纵横万里，剑修天下无敌,5
+15,枪芒破空,R,"[{when: 'avatar.weapon.weapon_type.value == ""枪""', extra_battle_strength_points: 25, extra_weapon_proficiency_gain: 0.5}]",枪出如龙破碎虚空，枪修威震天下,5
+16,神兵出世,SR,"{extra_weapon_proficiency_gain: 1.0}",神兵有灵百兵共鸣，温养兵器事半功倍,5
+17,双修之机,R,"{extra_dual_cultivation_exp: 20}",阴阳交泰天地和合，双修效率大增,5
+18,杀劫降临,SR,"{extra_battle_strength_points: 15, extra_fortune_probability: -0.1}",血光冲天杀机四伏，战斗凶险倍增,5
+19,太平盛世,R,"{extra_cultivate_exp: -10, extra_fortune_probability: 0.1}",天下太平岁月静好，修炼缓慢但奇遇频现,5
+20,天道垂青,R,"[{when: 'any(p.name == ""气运之子"" for p in avatar.personas)', extra_cultivate_exp: 25, extra_fortune_probability: 0.15}]",天道显化垂怜苍生，气运者更受眷顾,5
+21,血月当空,SR,"{extra_battle_strength_points: 20, extra_cultivate_exp: -10}",血月高悬杀机暴涨，战斗狂热但修心不易,5
+22,飞升之门,SSR,"{extra_cultivate_exp: 30, extra_breakthrough_success_rate: 0.2}",天门大开飞升有望，巅峰修士得窥天道,7
+23,法则显化,SSR,"{extra_breakthrough_success_rate: 0.5}",天地法则显化于世，众修士感悟突破,3
+24,时空乱流,SSR,"{extra_fortune_probability: 0.1}",时空错乱奇遇频生，机缘无数,5
+
