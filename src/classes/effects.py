@@ -59,6 +59,14 @@ EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
 说明: 每次修炼时额外获得的经验值
 """
 
+CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
+"""
+修炼时长缩减
+类型: float (范围: 0.0 ~ 0.9，建议不超过0.5)
+结算: src/classes/action/cultivate.py
+说明: 修炼动作的时长缩减比例（如 0.2 表示缩减20%，10个月变为8个月）
+"""
+
 EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
 """
 额外突破成功率
@@ -171,6 +179,14 @@ DAMAGE_REDUCTION = "damage_reduction"
 说明: 受到伤害的减免比例（如 0.1 表示减少10%伤害）
 """
 
+REALM_SUPPRESSION_BONUS = "realm_suppression_bonus"
+"""
+境界压制加成
+类型: float (倍率，如 0.15 表示每高一个大境界获得15%战斗力加成)
+结算: src/classes/battle.py
+说明: 当角色境界高于对手时，每高一个大境界额外增加战斗力点数
+"""
+
 # --- 经济相关 ---
 EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
 """
@@ -178,6 +194,14 @@ EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
 类型: float (倍率，如 0.2 表示增加20%，1.0 表示翻倍)
 结算: src/classes/action/sold.py
 说明: 出售物品时的价格倍率
+"""
+
+EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
+"""
+额外搜刮收益倍率
+类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
+结算: src/classes/action/plunder_mortals.py
+说明: 搜刮凡人时的灵石收益倍率
 """
 
 # --- 特殊权限 ---
@@ -248,9 +272,11 @@ ALL_EFFECTS = [
     "extra_max_mp",                      # int - 额外最大灵力值
     "extra_observation_radius",          # int - 额外观察半径
     "damage_reduction",                  # float - 伤害减免
+    "realm_suppression_bonus",           # float - 境界压制加成
     
     # 修炼相关
     "extra_cultivate_exp",               # int - 额外修炼经验
+    "cultivate_duration_reduction",      # float - 修炼时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     
     # 双修相关
@@ -282,6 +308,7 @@ ALL_EFFECTS = [
     
     # 经济相关
     "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
+    "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
     
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表

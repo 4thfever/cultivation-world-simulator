@@ -58,6 +58,15 @@ class Cultivate(TimedAction):
         return True, ""
 
     def start(self) -> Event:
+        # 计算修炼时长缩减
+        reduction = float(self.avatar.effects.get("cultivate_duration_reduction", 0.0))
+        reduction = max(0.0, min(0.9, reduction))  # 限制在 [0, 0.9] 范围内
+        
+        # 动态设置此次修炼的实际duration（四舍五入确保为整数月份）
+        base_duration = self.__class__.duration_months
+        actual_duration = max(1, round(base_duration * (1.0 - reduction)))
+        self.duration_months = actual_duration
+        
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑

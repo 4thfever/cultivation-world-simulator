@@ -621,12 +621,16 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         if self.weapon is not None:
             r, g, b = self.weapon.grade.color_rgb
             weapon_text = f"<color:{r},{g},{b}>{self.weapon.get_info()}</color>"
+            if self.weapon.desc:
+                weapon_text += f"（{self.weapon.desc}）"
             add_kv(lines, "兵器", weapon_text)
         
         # 辅助装备（可选，使用颜色标记等级）
         if self.auxiliary is not None:
             r, g, b = self.auxiliary.grade.color_rgb
             auxiliary_text = f"<color:{r},{g},{b}>{self.auxiliary.get_info()}</color>"
+            if self.auxiliary.desc:
+                auxiliary_text += f"（{self.auxiliary.desc}）"
             add_kv(lines, "辅助装备", auxiliary_text)
         else:
             add_kv(lines, "辅助装备", "无")

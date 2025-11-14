@@ -23,7 +23,16 @@ class PlunderMortals(TimedAction):
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return
-        gain = self.GAIN
+        
+        # 基础收益
+        base_gain = self.GAIN
+        
+        # 应用搜刮收益倍率
+        multiplier_raw = self.avatar.effects.get("extra_plunder_multiplier", 0.0)
+        multiplier = 1.0 + float(multiplier_raw or 0.0)
+        
+        # 计算最终收益
+        gain = int(base_gain * multiplier)
         self.avatar.magic_stone = self.avatar.magic_stone + gain
 
     def can_start(self) -> tuple[bool, str]:

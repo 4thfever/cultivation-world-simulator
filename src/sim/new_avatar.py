@@ -63,19 +63,6 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-# 装备概率配置（便于维护和扩展）
-_EQUIPMENT_PROBABILITIES = {
-    'weapon': (0.01, 0.05),  # 武器：1%法宝，5%宝物
-    'auxiliary': {           # 辅助装备：分层概率
-        'Qi_Refinement': (0.0, 0.05),
-        'Foundation_Establishment': (0.02, 0.08),
-        'Core_Formation': (0.05, 0.15),
-        'Nascent_Soul': (0.10, 0.20),
-        'default': (0.0, 0.05),
-    }
-}
-
-
 def _get_equipment_probabilities_by_realm(realm, equipment_type: str) -> tuple[float, float]:
     """
     根据境界和装备类型获取法宝、宝物的概率
@@ -88,10 +75,16 @@ def _get_equipment_probabilities_by_realm(realm, equipment_type: str) -> tuple[f
         (artifact_prob, treasure_prob): 法宝概率和宝物概率
     """
     if equipment_type == 'weapon':
-        return _EQUIPMENT_PROBABILITIES['weapon']
+        return (0.05, 0.25)  # 武器：5%法宝，25%宝物
     
-    # 辅助装备：根据境界查询
-    auxiliary_probs = _EQUIPMENT_PROBABILITIES['auxiliary']
+    # 辅助装备：根据境界分层
+    auxiliary_probs = {
+        'Qi_Refinement': (0.05, 0.20),
+        'Foundation_Establishment': (0.10, 0.35),
+        'Core_Formation': (0.20, 0.50),
+        'Nascent_Soul': (0.35, 0.60),
+        'default': (0.05, 0.20),
+    }
     realm_name = realm.name if hasattr(realm, 'name') else 'default'
     return auxiliary_probs.get(realm_name, auxiliary_probs['default'])
 

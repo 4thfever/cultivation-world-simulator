@@ -46,14 +46,39 @@ def get_base_strength(self_avatar: "Avatar") -> float:
 
 def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
     """
-    相对战斗力：= 基础战斗力 + 克制点数(若克制则+3)
+    相对战斗力：= 基础战斗力 + 克制点数(若克制则+3) + 境界压制点数
     """
     base = get_base_strength(self_avatar)
+    
+    # 属性克制加成
     suppression_points = 0.0
     if self_avatar.technique is not None and opponent.technique is not None:
         if get_suppression_bonus(self_avatar.technique.attribute, opponent.technique.attribute) > 0.0:
             suppression_points = _SUPPRESSION_POINTS
-    return base + suppression_points
+    
+    # 境界压制加成
+    realm_bonus_points = 0.0
+    realm_suppression_bonus_raw = self_avatar.effects.get("realm_suppression_bonus", 0.0)
+    if realm_suppression_bonus_raw:
+        realm_suppression_bonus = float(realm_suppression_bonus_raw or 0.0)
+        # 计算境界差（大境界）
+        from src.classes.cultivation import Realm
+        realm_order = {
+            Realm.Qi_Refinement: 1,
+            Realm.Foundation_Establishment: 2,
+            Realm.Core_Formation: 3,
+            Realm.Nascent_Soul: 4,
+        }
+        self_realm_rank = realm_order.get(self_avatar.cultivation_progress.realm, 1)
+        opponent_realm_rank = realm_order.get(opponent.cultivation_progress.realm, 1)
+        realm_diff = self_realm_rank - opponent_realm_rank
+        
+        # 如果境界更高，则获得加成
+        if realm_diff > 0:
+            # 按基础战斗力的百分比计算加成点数
+            realm_bonus_points = base * realm_suppression_bonus * realm_diff
+    
+    return base + suppression_points + realm_bonus_points
 
 
 def _strength_diff(attacker: "Avatar", defender: "Avatar") -> float:
