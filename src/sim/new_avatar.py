@@ -63,18 +63,138 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
+# 装备概率配置（便于维护和扩展）
+_EQUIPMENT_PROBABILITIES = {
+    'weapon': (0.01, 0.05),  # 武器：1%法宝，5%宝物
+    'auxiliary': {           # 辅助装备：分层概率
+        'Qi_Refinement': (0.0, 0.05),
+        'Foundation_Establishment': (0.02, 0.08),
+        'Core_Formation': (0.05, 0.15),
+        'Nascent_Soul': (0.10, 0.20),
+        'default': (0.0, 0.05),
+    }
+}
+
+
+def _get_equipment_probabilities_by_realm(realm, equipment_type: str) -> tuple[float, float]:
+    """
+    根据境界和装备类型获取法宝、宝物的概率
+    
+    Args:
+        realm: 角色境界
+        equipment_type: 'weapon' 或 'auxiliary'
+    
+    Returns:
+        (artifact_prob, treasure_prob): 法宝概率和宝物概率
+    """
+    if equipment_type == 'weapon':
+        return _EQUIPMENT_PROBABILITIES['weapon']
+    
+    # 辅助装备：根据境界查询
+    auxiliary_probs = _EQUIPMENT_PROBABILITIES['auxiliary']
+    realm_name = realm.name if hasattr(realm, 'name') else 'default'
+    return auxiliary_probs.get(realm_name, auxiliary_probs['default'])
+
+
+def _find_equipment_by_grade(
+    avatar: Avatar,
+    grade,
+    equipment_pool_by_id: dict,
+    equipment_pool_by_sect_id: dict,
+    weapon_type_filter = None,
+):
+    """
+    根据品质查找装备（优先宗门相关，再从全局池）
+    
+    Args:
+        avatar: 角色
+        grade: 装备品质（ARTIFACT/TREASURE）
+        equipment_pool_by_id: 按ID索引的装备池
+        equipment_pool_by_sect_id: 按宗门ID索引的装备池
+        weapon_type_filter: 武器类型过滤（可选）
+    
+    Returns:
+        找到的装备，如果没有则返回None
+    """
+    # 优先宗门相关装备
+    if avatar.sect is not None and avatar.sect.id in equipment_pool_by_sect_id:
+        candidate = equipment_pool_by_sect_id[avatar.sect.id]
+        if candidate.grade == grade:
+            return candidate
+    
+    # 从全局池中查找（包含类型过滤）
+    candidates = [
+        e for e in equipment_pool_by_id.values()
+        if e.grade == grade
+        and (weapon_type_filter is None or e.weapon_type == weapon_type_filter)
+    ]
+    return random.choice(candidates) if candidates else None
+
+
+def _assign_equipment_generic(
+    avatar: Avatar,
+    equipment_type: str,
+    equipment_pool_by_id: dict,
+    equipment_pool_by_sect_id: dict,
+    weapon_type_filter = None,
+) -> Optional[object]:
+    """
+    通用装备分配函数（支持武器和辅助装备）
+    
+    Args:
+        avatar: 角色
+        equipment_type: 'weapon' 或 'auxiliary'
+        equipment_pool_by_id: 按ID索引的装备池
+        equipment_pool_by_sect_id: 按宗门ID索引的装备池
+        weapon_type_filter: 武器类型过滤（仅武器需要）
+    
+    Returns:
+        分配的装备对象，如果无装备则返回None
+    """
+    from src.classes.equipment_grade import EquipmentGrade
+    import copy
+    
+    # 获取概率
+    artifact_prob, treasure_prob = _get_equipment_probabilities_by_realm(
+        avatar.cultivation_progress.realm,
+        equipment_type
+    )
+    
+    roll = random.random()
+    
+    # 尝试获得法宝
+    if roll < artifact_prob:
+        equipment = _find_equipment_by_grade(
+            avatar, EquipmentGrade.ARTIFACT,
+            equipment_pool_by_id, equipment_pool_by_sect_id,
+            weapon_type_filter
+        )
+        if equipment:
+            return copy.deepcopy(equipment)
+    
+    # 尝试获得宝物
+    if roll < artifact_prob + treasure_prob:
+        equipment = _find_equipment_by_grade(
+            avatar, EquipmentGrade.TREASURE,
+            equipment_pool_by_id, equipment_pool_by_sect_id,
+            weapon_type_filter
+        )
+        if equipment:
+            return copy.deepcopy(equipment)
+    
+    return None
+
+
 def _assign_initial_weapon(avatar: Avatar) -> None:
     """
     为新角色分配初始兵器
     - 根据宗门倾向（80%概率）或随机选择兵器类型
     - 1%概率获得法宝（优先宗门相关）
-    - 5%概率获得宝物
+    - 5%概率获得宝物（优先宗门相关）
     - 94%概率获得普通兵器
     """
-    from src.classes.weapon import get_common_weapon, get_treasure_weapon, weapons_by_id, weapons_by_sect_id
+    from src.classes.weapon import get_common_weapon, weapons_by_id, weapons_by_sect_id
     from src.classes.weapon_type import WeaponType
-    from src.classes.equipment_grade import EquipmentGrade
-    import copy
     
     # 1. 确定兵器类型：宗门倾向或随机
     weapon_type = None
@@ -87,37 +207,46 @@ def _assign_initial_weapon(avatar: Avatar) -> None:
     if weapon_type is None:
         weapon_type = random.choice(list(WeaponType))
     
-    # 2. 确定品质并分配兵器
-    roll = random.random()
+    # 2. 尝试分配高品质兵器
+    high_grade_weapon = _assign_equipment_generic(
+        avatar,
+        'weapon',
+        weapons_by_id,
+        weapons_by_sect_id,
+        weapon_type
+    )
     
-    if roll < 0.01:
-        # 尝试获得法宝（优先宗门相关）
-        artifact_weapon = None
-        if avatar.sect is not None and avatar.sect.id in weapons_by_sect_id:
-            candidate = weapons_by_sect_id[avatar.sect.id]
-            if candidate.grade == EquipmentGrade.ARTIFACT:
-                artifact_weapon = candidate
-        
-        # 如果没有宗门相关法宝，从所有同类型法宝中选择
-        if artifact_weapon is None:
-            artifact_candidates = [w for w in weapons_by_id.values() 
-                                 if w.grade == EquipmentGrade.ARTIFACT and w.weapon_type == weapon_type]
-            if artifact_candidates:
-                artifact_weapon = random.choice(artifact_candidates)
-        
-        if artifact_weapon is not None:
-            avatar.weapon = copy.deepcopy(artifact_weapon)
-            return
+    if high_grade_weapon is not None:
+        avatar.weapon = high_grade_weapon
+        return
     
-    if roll < 0.06:  # 0.01 + 0.05
-        # 获得宝物
-        treasure_weapon = get_treasure_weapon(weapon_type)
-        if treasure_weapon:
-            avatar.weapon = copy.deepcopy(treasure_weapon)
-            return
-    
-    # 获得普通兵器
+    # 3. 分配普通兵器
     avatar.weapon = get_common_weapon(weapon_type)
+
+
+def _assign_initial_auxiliary(avatar: Avatar) -> None:
+    """
+    为新角色分配初始辅助装备（基于境界分层概率）
+    - 境界越高，获得辅助装备概率越大
+    - 优先分配宗门相关的辅助装备
+    - 练气期：5%宝物
+    - 筑基期：2%法宝，8%宝物
+    - 金丹期：5%法宝，15%宝物
+    - 元婴期：10%法宝，20%宝物
+    """
+    from src.classes.auxiliary import auxiliaries_by_id, auxiliaries_by_sect_id
+    
+    # 尝试分配辅助装备
+    auxiliary = _assign_equipment_generic(
+        avatar,
+        'auxiliary',
+        auxiliaries_by_id,
+        auxiliaries_by_sect_id,
+        None  # 辅助装备无类型过滤
+    )
+    
+    if auxiliary is not None:
+        avatar.auxiliary = auxiliary
 
 
 def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
@@ -272,6 +401,9 @@ def build_mortal_from_plan(world: World, current_month_stamp: MonthStamp, *, nam
 
     # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
     _assign_initial_weapon(avatar)
+    
+    # 初始辅助装备分配（基于境界分层概率）
+    _assign_initial_auxiliary(avatar)
 
     # 写关系（父母/师徒）；不发放宗门法宝
     if plan.parent_avatar is not None:
@@ -498,6 +630,9 @@ def build_avatars_from_plan(
 
         # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
         _assign_initial_weapon(avatar)
+        
+        # 初始辅助装备分配（基于境界分层概率）
+        _assign_initial_auxiliary(avatar)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)

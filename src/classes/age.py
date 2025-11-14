@@ -19,15 +19,17 @@ class Age:
     
     def __init__(self, age: int, realm: Realm):
         self.age = age
-        # 最大理论寿元（年），初始化为 max(境界基线, 当前年龄+1)
-        self.max_lifespan: int = max(self.get_base_expected_lifespan(realm), self.age + 1)
+        # 基础最大寿元（年），不含effects加成，初始化为 max(境界基线, 当前年龄+1)
+        self.base_max_lifespan: int = max(self.get_base_expected_lifespan(realm), self.age + 1)
+        # 实际最大寿元（年），包含effects加成，初始值与基础值相同
+        self.max_lifespan: int = self.base_max_lifespan
     
     def get_age(self) -> int:
         """获取当前年龄"""
         return self.age
     
     def get_expected_lifespan(self, realm: Realm) -> int:
-        """获取期望寿命（即当前最大寿元上限）。"""
+        """获取期望寿命（即当前最大寿元上限，已包含effects加成）。"""
         return self.max_lifespan
 
     def get_base_expected_lifespan(self, realm: Realm) -> int:
@@ -37,26 +39,30 @@ class Age:
     def set_initial_max_lifespan(self, realm: Realm) -> None:
         """构造时已设置最大寿元，此处保持与构造策略一致。"""
         base = self.get_base_expected_lifespan(realm)
-        self.max_lifespan = max(base, self.age + 1)
+        self.base_max_lifespan = max(base, self.age + 1)
+        self.max_lifespan = self.base_max_lifespan
 
     def ensure_max_lifespan_at_least_realm_base(self, realm: Realm) -> None:
-        """确保最大寿元至少达到 max(该境界基线, 当前年龄+1)。"""
+        """确保基础最大寿元至少达到 max(该境界基线, 当前年龄+1)。"""
         base = self.get_base_expected_lifespan(realm)
         floor_value = max(base, self.age + 1)
-        if self.max_lifespan < floor_value:
-            self.max_lifespan = floor_value
+        if self.base_max_lifespan < floor_value:
+            self.base_max_lifespan = floor_value
+            self.max_lifespan = self.base_max_lifespan
 
     def increase_max_lifespan(self, years: int) -> None:
-        """提升最大寿元上限。"""
+        """提升基础最大寿元上限。"""
         if years <= 0:
             return
-        self.max_lifespan = (self.max_lifespan or 0) + years
+        self.base_max_lifespan = (self.base_max_lifespan or 0) + years
+        self.max_lifespan = self.base_max_lifespan
 
     def decrease_max_lifespan(self, years: int) -> None:
-        """降低最大寿元上限（可以低于当前年龄）。"""
+        """降低基础最大寿元上限（可以低于当前年龄）。"""
         if years <= 0:
             return
-        self.max_lifespan = self.max_lifespan - years
+        self.base_max_lifespan = self.base_max_lifespan - years
+        self.max_lifespan = self.base_max_lifespan
     
     def get_death_probability(self, realm: Realm | None = None) -> float:
         """
@@ -126,6 +132,7 @@ class Age:
         """转换为可序列化的字典"""
         return {
             "age": self.age,
+            "base_max_lifespan": self.base_max_lifespan,
             "max_lifespan": self.max_lifespan
         }
     
@@ -133,5 +140,6 @@ class Age:
     def from_dict(cls, data: dict, realm: Realm) -> "Age":
         """从字典重建Age"""
         age_obj = cls(data["age"], realm)
+        age_obj.base_max_lifespan = data["base_max_lifespan"]
         age_obj.max_lifespan = data["max_lifespan"]
         return age_obj

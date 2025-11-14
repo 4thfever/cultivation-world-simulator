@@ -38,7 +38,12 @@ class SellItems(InstantAction):
 
         # 计算价格并结算
         price_per = prices.get_price(item)
-        total_gain = price_per * quantity
+        base_total_gain = price_per * quantity
+        
+        # 应用出售价格倍率加成
+        price_multiplier_raw = self.avatar.effects.get("extra_item_sell_price_multiplier", 0.0)
+        price_multiplier = 1.0 + float(price_multiplier_raw or 0.0)
+        total_gain = int(base_total_gain * price_multiplier)
 
         # 扣除物品并增加灵石
         removed = self.avatar.remove_item(item, quantity)

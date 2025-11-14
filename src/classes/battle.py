@@ -114,8 +114,8 @@ def _damage_pair(winner: "Avatar", loser: "Avatar") -> tuple[int, int]:
     成对伤害：使用同一基础与对称比值，保证赢家伤害严格小于败者伤害。
     - ratio = max(exp(K×|diff|), MIN_RATIO)
     - 中间尺度 = 几何均值 sqrt(scale_winner × scale_loser)
-    - 败者伤害 = base × 中间尺度 × ratio
-    - 赢家伤害 = base × 中间尺度 ÷ ratio
+    - 败者伤害 = base × 中间尺度 × ratio × (1 - loser的伤害减免)
+    - 赢家伤害 = base × 中间尺度 ÷ ratio × (1 - winner的伤害减免)
     """
     abs_diff = abs(_strength_diff(winner, loser))
     ratio = math.exp(_CIV6_K * abs_diff)
@@ -128,8 +128,19 @@ def _damage_pair(winner: "Avatar", loser: "Avatar") -> tuple[int, int]:
     scale_l = _base_damage_scale(loser)
     mid_scale = math.sqrt(scale_w * scale_l)
 
-    loser_damage = max(1, int(base * mid_scale * ratio))
-    winner_damage = max(1, int(base * mid_scale / ratio))
+    # 计算原始伤害
+    loser_damage_raw = base * mid_scale * ratio
+    winner_damage_raw = base * mid_scale / ratio
+    
+    # 应用伤害减免效果
+    loser_reduction_raw = loser.effects.get("damage_reduction", 0.0)
+    loser_reduction = max(0.0, min(1.0, float(loser_reduction_raw or 0.0)))
+    winner_reduction_raw = winner.effects.get("damage_reduction", 0.0)
+    winner_reduction = max(0.0, min(1.0, float(winner_reduction_raw or 0.0)))
+    
+    loser_damage = max(1, int(loser_damage_raw * (1.0 - loser_reduction)))
+    winner_damage = max(1, int(winner_damage_raw * (1.0 - winner_reduction)))
+    
     return loser_damage, winner_damage
 
 

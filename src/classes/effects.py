@@ -138,6 +138,48 @@ EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
 说明: 提升兵器熟练度增长速度的倍率
 """
 
+EXTRA_WEAPON_UPGRADE_CHANCE = "extra_weapon_upgrade_chance"
+"""
+额外兵器升华概率
+类型: float (范围: 0.0 ~ 1.0)
+结算: src/classes/action/nurture_weapon.py
+说明: 温养兵器时升华为宝物的概率提升
+"""
+
+# --- 生存与恢复相关 ---
+EXTRA_MAX_LIFESPAN = "extra_max_lifespan"
+"""
+额外最大寿元
+类型: int (年)
+结算: src/classes/age.py
+说明: 增加角色的最大寿命上限（年）
+"""
+
+EXTRA_HP_RECOVERY_RATE = "extra_hp_recovery_rate"
+"""
+额外HP恢复速率
+类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
+结算: src/classes/action/self_heal.py
+说明: 疗伤时的HP恢复效率倍率
+"""
+
+DAMAGE_REDUCTION = "damage_reduction"
+"""
+伤害减免
+类型: float (范围: 0.0 ~ 1.0)
+结算: src/classes/battle.py
+说明: 受到伤害的减免比例（如 0.1 表示减少10%伤害）
+"""
+
+# --- 经济相关 ---
+EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
+"""
+额外物品出售价格倍率
+类型: float (倍率，如 0.2 表示增加20%，1.0 表示翻倍)
+结算: src/classes/action/sold.py
+说明: 出售物品时的价格倍率
+"""
+
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"
 """
@@ -205,6 +247,7 @@ ALL_EFFECTS = [
     "extra_max_hp",                      # int - 额外最大生命值
     "extra_max_mp",                      # int - 额外最大灵力值
     "extra_observation_radius",          # int - 额外观察半径
+    "damage_reduction",                  # float - 伤害减免
     
     # 修炼相关
     "extra_cultivate_exp",               # int - 额外修炼经验
@@ -231,6 +274,14 @@ ALL_EFFECTS = [
     
     # 兵器相关
     "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率
+    "extra_weapon_upgrade_chance",       # float - 额外兵器升华概率
+    
+    # 生存与恢复相关
+    "extra_max_lifespan",                # int - 额外最大寿元（年）
+    "extra_hp_recovery_rate",            # float - 额外HP恢复速率倍率
+    
+    # 经济相关
+    "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
     
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表

@@ -721,10 +721,16 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     def update_time_effect(self) -> None:
         """
         随时间更新的被动效果。
-        当前实现：当 HP 未满时，回复最大生命值的 1%。
+        当前实现：当 HP 未满时，回复最大生命值的 1%（受HP恢复速率加成影响）。
         """
         if self.hp.cur < self.hp.max:
-            recover_amount = int(self.hp.max * 0.01)
+            base_recover = self.hp.max * 0.01
+            
+            # 应用HP恢复速率加成
+            recovery_rate_raw = self.effects.get("extra_hp_recovery_rate", 0.0)
+            recovery_rate_multiplier = 1.0 + float(recovery_rate_raw or 0.0)
+            
+            recover_amount = int(base_recover * recovery_rate_multiplier)
             self.hp.recover(recover_amount)
 
     @property
@@ -746,7 +752,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         
         当前包括：
         - HP/MP 最大值
-        - 将来可能还有其他长期 effects
+        - 寿命最大值
         """
         # 计算基础最大值（基于境界）
         base_max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
@@ -756,22 +762,23 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         effects = self.effects
         extra_max_hp = int(effects.get("extra_max_hp", 0))
         extra_max_mp = int(effects.get("extra_max_mp", 0))
+        extra_max_lifespan = int(effects.get("extra_max_lifespan", 0))
         
         # 计算新的最大值
         new_max_hp = base_max_hp + extra_max_hp
         new_max_mp = base_max_mp + extra_max_mp
+        new_max_lifespan = self.age.base_max_lifespan + extra_max_lifespan
         
         # 更新最大值
         self.hp.max = new_max_hp
         self.mp.max = new_max_mp
+        self.age.max_lifespan = new_max_lifespan
         
         # 调整当前值（不超过新的最大值）
         if self.hp.cur > new_max_hp:
             self.hp.cur = new_max_hp
         if self.mp.cur > new_max_mp:
             self.mp.cur = new_max_mp
-        
-        # 将来这里可以添加其他长期 effects 的计算
     
     def change_weapon(self, new_weapon: Weapon) -> None:
         """

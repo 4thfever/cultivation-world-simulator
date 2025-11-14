@@ -24,9 +24,15 @@ class NurtureWeapon(TimedAction):
         proficiency_gain = random.uniform(5.0, 10.0)
         self.avatar.increase_weapon_proficiency(proficiency_gain)
         
-        # 如果是普通兵器，有5%概率升级为宝物
+        # 如果是普通兵器，有概率升级为宝物
         if self.avatar.weapon and self.avatar.weapon.grade == EquipmentGrade.COMMON:
-            if random.random() < 0.05:
+            # 基础5%概率 + 来自effects的额外概率
+            base_upgrade_chance = 0.05
+            extra_chance_raw = self.avatar.effects.get("extra_weapon_upgrade_chance", 0.0)
+            extra_chance = max(0.0, min(1.0, float(extra_chance_raw or 0.0)))
+            total_chance = min(1.0, base_upgrade_chance + extra_chance)
+            
+            if random.random() < total_chance:
                 treasure_weapon = get_treasure_weapon(self.avatar.weapon.weapon_type)
                 if treasure_weapon:
                     import copy
