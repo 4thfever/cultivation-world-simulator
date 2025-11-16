@@ -25,6 +25,8 @@ class Auxiliary:
     desc: str
     effects: dict[str, object] = field(default_factory=dict)
     sect: Optional[Sect] = None
+    # 特殊属性（用于存储实例特定数据）
+    special_data: dict = field(default_factory=dict)
 
     def get_info(self) -> str:
         """获取简略信息"""
