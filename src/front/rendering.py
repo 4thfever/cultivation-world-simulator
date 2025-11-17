@@ -516,7 +516,7 @@ def draw_hover_badge(pygame_mod, screen, colors, font, center_x: int, center_y: 
 def _draw_avatar_name_label(pygame_mod, screen, colors, font, name_text: str, *, is_highlight: bool, anchor_x: int, anchor_y: int) -> None:
     if not name_text:
         return
-    text_color = (236, 236, 236) if is_highlight else colors["text"]
+    text_color = (236, 236, 236) if is_highlight else (0, 0, 0)
     text_surf = font.render(name_text, True, text_color)
     tx = int(anchor_x - text_surf.get_width() / 2)
     ty = int(anchor_y)
@@ -533,8 +533,8 @@ def _draw_avatar_name_label(pygame_mod, screen, colors, font, name_text: str, *,
         # 高亮时直接白字绘制（背景已提供对比）
         screen.blit(text_surf, (tx, ty))
         return
-    # 非高亮：加1px 阴影提升可读性（不加底板）
-    shadow = font.render(name_text, True, colors.get("text_border", (24, 24, 24)))
+    # 非高亮：加1px 白色阴影提升可读性（不加底板）
+    shadow = font.render(name_text, True, (255, 255, 255))
     screen.blit(shadow, (tx + 1, ty + 1))
     screen.blit(text_surf, (tx, ty))
 
