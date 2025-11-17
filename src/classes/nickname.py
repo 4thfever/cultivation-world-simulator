@@ -1,6 +1,6 @@
 """
 绰号生成模块
-为满足条件的角色生成江湖绰号
+为满足条件的角色生成修仙界绰号
 """
 from typing import Optional, List, TYPE_CHECKING
 
@@ -128,7 +128,7 @@ async def process_avatar_nickname(avatar: "Avatar") -> Optional[Event]:
     # 生成事件：角色获得绰号
     event = Event(
         avatar.world.month_stamp,
-        f"{avatar.name}在江湖中闯出名号，被人称为'{nickname}'。",
+        f"{avatar.name}在修仙界中闯出名号，被人称为'{nickname}'。",
         related_avatars=[avatar.id],
         is_major=True
     )
