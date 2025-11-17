@@ -33,6 +33,10 @@ social:
   major_event_context_num: 10  # 大事（长期记忆）展示数量
   minor_event_context_num: 10  # 小事（短期记忆）展示数量
 
+nickname:
+  major_event_threshold: 10  # 获得绰号需要的长期事件数量
+  minor_event_threshold: 50  # 获得绰号需要的短期事件数量
+
 save:
   max_events_to_save: 1000
 

@@ -122,6 +122,19 @@ class Simulator:
             events.extend(fortune_events)
         return events
     
+    async def _phase_nickname_generation(self):
+        """
+        绰号生成阶段
+        """
+        from src.classes.nickname import process_avatar_nickname
+        
+        events = []
+        for avatar in list(self.world.avatar_manager.avatars.values()):
+            event = await process_avatar_nickname(avatar)
+            if event:
+                events.append(event)
+        return events
+    
     def _phase_update_celestial_phenomenon(self):
         """
         更新天地灵机：
@@ -214,10 +227,13 @@ class Simulator:
         # 6. 被动结算（时间效果+奇遇）
         events.extend(await self._phase_passive_effects())
 
-        # 7. 更新天地灵机
+        # 7. 绰号生成
+        events.extend(await self._phase_nickname_generation())
+
+        # 8. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 8. 日志
+        # 9. 日志
         # 统一写入事件管理器
         if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
             for e in events:

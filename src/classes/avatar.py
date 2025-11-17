@@ -108,6 +108,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     auxiliary: Optional[Auxiliary] = None
     # 灵兽：最多一个；若再次捕捉则覆盖
     spirit_animal: Optional[SpiritAnimal] = None
+    # 绰号：江湖中对该角色的称谓，满足条件后生成，永久不变
+    nickname: Optional[str] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 动作冷却：记录动作类名 -> 上次完成月戳
@@ -260,6 +262,9 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "兵器": weapon_info,
             "辅助装备": auxiliary_info,
         }
+        # 绰号：仅在存在时显示
+        if self.nickname is not None:
+            info_dict["绰号"] = self.nickname
         # 灵兽：仅在存在时显示
         if self.spirit_animal is not None:
             info_dict["灵兽"] = spirit_animal_info
@@ -574,7 +579,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
         lines: list[str] = []
         # 基础信息
-        lines.append(f"{self.name}")
+        if self.nickname:
+            lines.append(f"{self.name}「{self.nickname}」")
+        else:
+            lines.append(f"{self.name}")
         add_kv(lines, "性别", self.gender)
         add_kv(lines, "年龄", self.age)
         add_kv(lines, "外貌", self.appearance.get_info())
