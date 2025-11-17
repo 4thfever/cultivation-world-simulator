@@ -35,6 +35,11 @@ class Auxiliary:
     def get_detailed_info(self) -> str:
         """获取详细信息"""
         return f"{self.name}（{self.grade}，{self.desc}）"
+    
+    def get_colored_info(self) -> str:
+        """获取带颜色标记的信息，供前端渲染使用"""
+        r, g, b = self.grade.color_rgb
+        return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
 
 def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dict[int, Auxiliary]]:

@@ -4,6 +4,7 @@
 """
 from enum import Enum
 from dataclasses import dataclass
+from src.classes.color import Color, RARITY_COLORS
 
 
 class RarityLevel(Enum):
@@ -35,28 +36,28 @@ RARITY_CONFIGS = {
     RarityLevel.N: Rarity(
         level=RarityLevel.N,
         weight=10.0,
-        color_rgb=(255, 255, 255),  # 白色
+        color_rgb=RARITY_COLORS["N"],
         color_hex="#FFFFFF",
         chinese_name="普通"
     ),
     RarityLevel.R: Rarity(
         level=RarityLevel.R,
         weight=5.0,
-        color_rgb=(74, 144, 226),  # 蓝色
+        color_rgb=RARITY_COLORS["R"],
         color_hex="#4A90E2",
         chinese_name="稀有"
     ),
     RarityLevel.SR: Rarity(
         level=RarityLevel.SR,
         weight=3.0,
-        color_rgb=(147, 112, 219),  # 紫色
+        color_rgb=RARITY_COLORS["SR"],
         color_hex="#9370DB",
         chinese_name="超稀有"
     ),
     RarityLevel.SSR: Rarity(
         level=RarityLevel.SSR,
         weight=1.0,
-        color_rgb=(255, 215, 0),  # 金色
+        color_rgb=RARITY_COLORS["SSR"],
         color_hex="#FFD700",
         chinese_name="传说"
     ),

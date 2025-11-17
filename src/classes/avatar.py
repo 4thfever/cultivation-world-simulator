@@ -585,18 +585,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         from src.classes.root import format_root_cn
         add_kv(lines, "灵根", format_root_cn(self.root))
 
-        if self.technique is not None:
-            tech_str = f"{self.technique.name}（{self.technique.attribute}·{self.technique.grade.value}）"
-        else:
-            tech_str = "无"
+        tech_str = self.technique.get_colored_info() if self.technique is not None else "无"
         add_kv(lines, "功法", tech_str)
 
         if self.personas:
-            # 使用颜色标记格式：<color:R,G,B>text</color>
-            persona_parts = []
-            for p in self.personas:
-                r, g, b = p.rarity.color_rgb
-                persona_parts.append(f"<color:{r},{g},{b}>{p.name}</color>")
+            persona_parts = [p.get_colored_info() for p in self.personas]
             add_kv(lines, "特质", ", ".join(persona_parts))
 
         add_kv(lines, "位置", f"({self.pos_x}, {self.pos_y})")
@@ -619,16 +612,14 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
         # 兵器（必有，使用颜色标记等级）
         if self.weapon is not None:
-            r, g, b = self.weapon.grade.color_rgb
-            weapon_text = f"<color:{r},{g},{b}>{self.weapon.get_info()}</color>"
+            weapon_text = self.weapon.get_colored_info()
             if self.weapon.desc:
                 weapon_text += f"（{self.weapon.desc}）"
             add_kv(lines, "兵器", weapon_text)
         
         # 辅助装备（可选，使用颜色标记等级）
         if self.auxiliary is not None:
-            r, g, b = self.auxiliary.grade.color_rgb
-            auxiliary_text = f"<color:{r},{g},{b}>{self.auxiliary.get_info()}</color>"
+            auxiliary_text = self.auxiliary.get_colored_info()
             if self.auxiliary.desc:
                 auxiliary_text += f"（{self.auxiliary.desc}）"
             add_kv(lines, "辅助装备", auxiliary_text)

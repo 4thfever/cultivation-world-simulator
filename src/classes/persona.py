@@ -37,6 +37,11 @@ class Persona:
 
     def get_detailed_info(self) -> str:
         return f"{self.name}（{self.desc}）"
+    
+    def get_colored_info(self) -> str:
+        """获取带颜色标记的信息，供前端渲染使用"""
+        r, g, b = self.rarity.color_rgb
+        return f"<color:{r},{g},{b}>{self.name}</color>"
 
 def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     """从配表加载persona数据"""

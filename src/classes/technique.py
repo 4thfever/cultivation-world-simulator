@@ -5,6 +5,7 @@ from enum import Enum
 from typing import Optional, Dict, List
 import json
 from src.classes.effect import load_effect_from_str
+from src.classes.color import Color, TECHNIQUE_GRADE_COLORS
 
 from src.utils.df import game_configs
 from src.classes.alignment import Alignment
@@ -40,6 +41,16 @@ class TechniqueGrade(Enum):
         if s == "中品":
             return TechniqueGrade.MIDDLE
         return TechniqueGrade.LOWER
+    
+    @property
+    def color_rgb(self) -> tuple[int, int, int]:
+        """返回功法品阶对应的RGB颜色值"""
+        color_map = {
+            TechniqueGrade.LOWER: TECHNIQUE_GRADE_COLORS["LOWER"],
+            TechniqueGrade.MIDDLE: TECHNIQUE_GRADE_COLORS["MIDDLE"],
+            TechniqueGrade.UPPER: TECHNIQUE_GRADE_COLORS["UPPER"],
+        }
+        return color_map.get(self, Color.COMMON_WHITE)
 
 
 @dataclass
@@ -66,6 +77,11 @@ class Technique:
 
     def get_detailed_info(self) -> str:
         return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}"
+    
+    def get_colored_info(self) -> str:
+        """获取带颜色标记的信息，供前端渲染使用"""
+        r, g, b = self.grade.color_rgb
+        return f"<color:{r},{g},{b}>{self.name}（{self.attribute}·{self.grade.value}）</color>"
 
 # 五行与扩展属性的克制关系
 # - 五行：金克木，木克土，土克水，水克火，火克金

@@ -33,7 +33,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 31,气运之子,,天生气运加身，更易遇到奇遇，战斗力也略有提升,SSR,,"{extra_fortune_probability: 0.05, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
 32,剑痴,怠惰;胆小,以剑入道，剑即是命。你认为剑道至上，战力强悍，但对剑道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 33,散修,,无宗门庇护，四处寻找机缘，警惕性高，善于观察周围环境以自保求存。,N,
-34,城府深,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
+34,心机深沉,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
 35,忠诚,孤僻;淡漠;刻薄,重承诺守信义，对认定的人绝不背叛，愿为之赴死。你视背叛为最大耻辱。,R,
 36,狠辣,友爱;热情;胆小,行事果决狠辣，不留后患，斩草必除根。你认为心慈手软只会害了自己。,N,
 37,重生者,无常;随性,经历过一世，对未来有模糊预知，行事更有目的性。你比常人更清楚什么重要，什么是陷阱。,SSR,

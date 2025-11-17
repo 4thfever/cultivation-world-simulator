@@ -45,6 +45,11 @@ class Weapon:
         if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
             souls = f" 吞噬魂魄：{self.special_data['devoured_souls']}"
         return f"{self.name}（{self.weapon_type}·{self.grade}，{self.desc}）{souls}"
+    
+    def get_colored_info(self) -> str:
+        """获取带颜色标记的信息，供前端渲染使用"""
+        r, g, b = self.grade.color_rgb
+        return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
 
 def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Weapon]]:
