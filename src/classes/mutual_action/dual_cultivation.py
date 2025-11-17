@@ -22,7 +22,7 @@ class DualCultivation(MutualAction):
     - 仅当目标在交互范围内
     - 目标可以选择 接受 或 拒绝
     - 若接受：发起者获得大量修为（约为修炼的 3~5 倍，随对方等级浮动），目标不获得修为
-    - 成功进入后生成一段“恋爱/双修”的小故事
+    - 成功进入后生成一段"恋爱/双修"的小故事
     """
 
     ACTION_NAME = "双修"
@@ -34,6 +34,8 @@ class DualCultivation(MutualAction):
     STORY_PROMPT: str | None = "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
     # 双修的社交冷却：避免频繁请求
     ACTION_CD_MONTHS: int = 3
+    # 双修是大事（长期记忆）
+    IS_MAJOR: bool = True
 
     def _get_template_path(self) -> Path:
         # 复用 mutual_action 模板，仅需返回 Accept/Reject
@@ -53,7 +55,7 @@ class DualCultivation(MutualAction):
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修", related_avatars=rel_ids)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修", related_avatars=rel_ids, is_major=True)
         # 仅写入历史
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
@@ -104,17 +106,17 @@ class DualCultivation(MutualAction):
         if success:
             gain = int(self._dual_exp_gain)
             result_text = f"{self.avatar.name} 与 {target.name} 成功双修，{self.avatar.name} 获得修为经验 +{gain} 点"
-            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id])
+            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id], is_major=True)
             events.append(result_event)
 
             # 生成恋爱/双修小故事：使用 StoryTeller 便捷方法
             start_text = self._start_event_content or result_event.content
             story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
-            story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id])
+            story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id], is_story=True)
             events.append(story_event)
         else:
             result_text = f"{target.name} 拒绝了与 {self.avatar.name} 的双修"
-            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id])
+            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id], is_major=True)
             events.append(result_event)
 
         return events

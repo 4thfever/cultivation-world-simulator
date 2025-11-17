@@ -47,7 +47,8 @@ class StoryTeller:
     @staticmethod
     def _collect_recent_events(*actors: "Avatar") -> list[str]:
         from src.utils.config import CONFIG as _CONFIG
-        n = _CONFIG.social.event_context_num
+        major_limit = _CONFIG.social.major_event_context_num
+        minor_limit = _CONFIG.social.minor_event_context_num
         world = None
         for av in actors:
             if av is not None:
@@ -58,11 +59,17 @@ class StoryTeller:
         em = world.event_manager
         non_null = [a for a in actors if a is not None]
         if len(non_null) >= 2:
+            # 两人故事：获取两人的大事和小事
             a1, a2 = non_null[0], non_null[1]
-            return [str(e) for e in em.get_events_between(a1.id, a2.id, limit=n)]
+            major_events = em.get_major_events_between(a1.id, a2.id, limit=major_limit)
+            minor_events = em.get_minor_events_between(a1.id, a2.id, limit=minor_limit)
+            return [str(e) for e in major_events + minor_events]
         if non_null:
+            # 单人故事：获取单人的大事和小事
             a = non_null[0]
-            return [str(e) for e in em.get_events_by_avatar(a.id, limit=n)]
+            major_events = em.get_major_events_by_avatar(a.id, limit=major_limit)
+            minor_events = em.get_minor_events_by_avatar(a.id, limit=minor_limit)
+            return [str(e) for e in major_events + minor_events]
         return []
 
     @staticmethod

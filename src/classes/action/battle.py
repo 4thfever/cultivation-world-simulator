@@ -15,6 +15,8 @@ class Battle(InstantAction):
     STORY_PROMPT: str | None = (
         "不要出现具体血量、伤害点数或任何数值表达。"
     )
+    # 战斗是大事（长期记忆）
+    IS_MAJOR: bool = True
 
     def _get_target(self, avatar_name: str):
         """
@@ -62,7 +64,7 @@ class Battle(InstantAction):
                 rel_ids.append(target.id)
             except Exception:
                 pass
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）", related_avatars=rel_ids)
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）", related_avatars=rel_ids, is_major=True)
         # 记录开始事件内容，供故事生成使用
         self._start_event_content = event.content
         return event
@@ -83,13 +85,13 @@ class Battle(InstantAction):
                 rel_ids.append(t.id)
         except Exception:
             pass
-        result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids)
+        result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
 
         # 生成战斗小故事（同步调用，与其他动作保持一致）
         target = self._get_target(avatar_name)
-        start_text = getattr(self, "_start_event_content", "") or result_event.content
+        start_text = self._start_event_content if hasattr(self, '_start_event_content') else result_event.content
         story = StoryTeller.tell_from_actors(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
-        story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids)
+        story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
 
         return [result_event, story_event]
 

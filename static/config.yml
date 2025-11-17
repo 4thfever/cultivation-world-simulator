@@ -18,8 +18,8 @@ ai:
   max_parse_retries: 3
 
 game:
-  init_npc_num: 12
-  sect_num: 3 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
+  init_npc_num: 6
+  sect_num: 2 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
   npc_birth_rate_per_month: 0.001
   fortune_probability: 0.001
 
@@ -30,7 +30,8 @@ avatar:
   persona_num: 3
 
 social:
-  event_context_num: 8
+  major_event_context_num: 10  # 大事（长期记忆）展示数量
+  minor_event_context_num: 10  # 小事（短期记忆）展示数量
 
 save:
   max_events_to_save: 1000

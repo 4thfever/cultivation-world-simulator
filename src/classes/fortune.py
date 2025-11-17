@@ -475,11 +475,11 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     story_prompt = "请据此写100~150字小故事。"
 
     month_at_finish = avatar.world.month_stamp
-    base_event = Event(month_at_finish, event_text, related_avatars=related_avatars)
+    base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)
 
     # 生成故事事件
     story = await StoryTeller.tell_from_actors_async(event_text, res_text, *actors_for_story, prompt=story_prompt)
-    story_event = Event(month_at_finish, story, related_avatars=related_avatars)
+    story_event = Event(month_at_finish, story, related_avatars=related_avatars, is_story=True)
 
     # 返回基础事件和故事事件
     return [base_event, story_event]

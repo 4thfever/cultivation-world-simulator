@@ -20,6 +20,12 @@ class EventManager:
         self._by_id: Dict[str, Event] = {}
         self._by_avatar: Dict[str, deque[Event]] = defaultdict(deque)
         self._by_pair: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
+        # 按角色分类的大事/小事索引
+        self._by_avatar_major: Dict[str, deque[Event]] = defaultdict(deque)
+        self._by_avatar_minor: Dict[str, deque[Event]] = defaultdict(deque)
+        # 按角色对分类的大事/小事索引
+        self._by_pair_major: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
+        self._by_pair_minor: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
 
     def _append_with_limit(self, dq: deque, item: Event) -> None:
         dq.append(item)
@@ -39,15 +45,29 @@ class EventManager:
             self._events.popleft()
 
         # 分索引：按人/人对
-        rel = getattr(event, "related_avatars", None) or []
+        rel = event.related_avatars or []
         rel_unique = list(dict.fromkeys(rel))  # 去重但保持顺序
         for aid in rel_unique:
             self._append_with_limit(self._by_avatar[aid], event)
-        # 仅当且仅当“恰有两位参与者”时建立按人对索引
+            # 故事事件进入小事索引，不进入大事索引
+            if event.is_story:
+                self._append_with_limit(self._by_avatar_minor[aid], event)
+            elif event.is_major:
+                self._append_with_limit(self._by_avatar_major[aid], event)
+            else:
+                self._append_with_limit(self._by_avatar_minor[aid], event)
+        # 仅当且仅当"恰有两位参与者"时建立按人对索引
         if len(rel_unique) == 2:
             a, b = rel_unique[0], rel_unique[1]
             pair_key = frozenset([a, b])
             self._append_with_limit(self._by_pair[pair_key], event)
+            # 角色对也建立分类索引
+            if event.is_story:
+                self._append_with_limit(self._by_pair_minor[pair_key], event)
+            elif event.is_major:
+                self._append_with_limit(self._by_pair_major[pair_key], event)
+            else:
+                self._append_with_limit(self._by_pair_minor[pair_key], event)
 
     # —— 查询接口 ——
     def get_recent_events(self, limit: int = 100) -> List[Event]:
@@ -64,6 +84,36 @@ class EventManager:
     def get_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 50) -> List[Event]:
         key = frozenset([avatar_id1, avatar_id2])
         dq = self._by_pair.get(key)
+        if not dq:
+            return []
+        return list(dq)[-limit:]
+
+    def get_major_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List[Event]:
+        """获取角色的大事（长期记忆）"""
+        dq = self._by_avatar_major.get(avatar_id)
+        if not dq:
+            return []
+        return list(dq)[-limit:]
+
+    def get_minor_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List[Event]:
+        """获取角色的小事（短期记忆）"""
+        dq = self._by_avatar_minor.get(avatar_id)
+        if not dq:
+            return []
+        return list(dq)[-limit:]
+
+    def get_major_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List[Event]:
+        """获取两个角色之间的大事（长期记忆）"""
+        key = frozenset([avatar_id1, avatar_id2])
+        dq = self._by_pair_major.get(key)
+        if not dq:
+            return []
+        return list(dq)[-limit:]
+
+    def get_minor_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List[Event]:
+        """获取两个角色之间的小事（短期记忆）"""
+        key = frozenset([avatar_id1, avatar_id2])
+        dq = self._by_pair_minor.get(key)
         if not dq:
             return []
         return list(dq)[-limit:]

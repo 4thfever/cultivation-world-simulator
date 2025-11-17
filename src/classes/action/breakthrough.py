@@ -30,6 +30,8 @@ class Breakthrough(TimedAction):
     PARAMS = {}
     # 冷却：突破应当有CD，避免连刷
     ACTION_CD_MONTHS: int = 3
+    # 突破是大事（长期记忆）
+    IS_MAJOR: bool = True
     # 保留类级常量声明，实际读取模块级配置
 
     def calc_success_rate(self) -> float:
@@ -65,8 +67,8 @@ class Breakthrough(TimedAction):
             # 记录结果用于 finish 事件
             self._last_result = (
                 "success",
-                getattr(old_realm, "value", str(old_realm)),
-                getattr(new_realm, "value", str(new_realm)),
+                old_realm.value,
+                new_realm.value,
             )
         else:
             # 突破失败：减少最大寿元上限
@@ -100,12 +102,11 @@ class Breakthrough(TimedAction):
         return (ok, "" if ok else "当前不处于瓶颈，无法突破")
 
     def start(self) -> Event:
-        # 清理状态
+        # 初始化状态
         self._last_result = None
         self._success_rate_cached = None
         # 预判是否生成故事与选择劫难
         old_realm = self.avatar.cultivation_progress.realm
-        # 仅基于出发境界判断是否生成故事
         self._gen_story = old_realm in ALLOW_STORY_FROM_REALMS
         if self._gen_story:
             self._calamity = TribulationSelector.choose_tribulation(self.avatar)
@@ -113,36 +114,33 @@ class Breakthrough(TimedAction):
         else:
             self._calamity = None
             self._calamity_other = None
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界", related_avatars=[self.avatar.id], is_major=True)
 
     # TimedAction 已统一 step 逻辑
 
     def finish(self) -> list[Event]:
-        res = getattr(self, "_last_result", None)
-        if not (isinstance(res, tuple) and res):
+        if not self._last_result:
             return []
-        result_ok = res[0] == "success"
-        if not getattr(self, "_gen_story", False):
+        result_ok = self._last_result[0] == "success"
+        if not self._gen_story:
             # 不生成故事：不出现劫难，仅简单结果
             core_text = f"{self.avatar.name} 突破{'成功' if result_ok else '失败'}"
-            return [Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id])]
+            return [Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id], is_major=True)]
 
-        calamity = getattr(self, "_calamity", "劫难")
+        calamity = self._calamity
         core_text = f"{self.avatar.name} 遭遇了{calamity}劫难，突破{'成功' if result_ok else '失败'}"
         rel_ids = [self.avatar.id]
-        other = getattr(self, "_calamity_other", None)
-        if other is not None:
+        if self._calamity_other is not None:
             try:
-                rel_ids.append(other.id)
+                rel_ids.append(self._calamity_other.id)
             except Exception:
                 pass
-        events: list[Event] = [Event(self.world.month_stamp, core_text, related_avatars=rel_ids)]
+        events: list[Event] = [Event(self.world.month_stamp, core_text, related_avatars=rel_ids, is_major=True)]
 
-        if True:
-            # 故事参与者：本体 +（可选）相关角色
-            prompt = TribulationSelector.get_story_prompt(str(calamity))
-            story = StoryTeller.tell_from_actors(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, getattr(self, "_calamity_other", None), prompt=prompt)
-            events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids))
+        # 故事参与者：本体 +（可选）相关角色
+        prompt = TribulationSelector.get_story_prompt(str(calamity))
+        story = StoryTeller.tell_from_actors(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt)
+        events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True))
         return events
 
 

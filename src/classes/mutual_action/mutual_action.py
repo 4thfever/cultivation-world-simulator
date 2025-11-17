@@ -66,12 +66,13 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             avatar_name_1: self.avatar.get_info(detailed=False),
             avatar_name_2: target_avatar.get_info(detailed=False),
         }
-        # 历史上下文：仅双方共同经历的最近事件
-        n = CONFIG.social.event_context_num
-
-        pair_recent_events: list[str] = []
+        # 历史上下文：仅双方共同经历的大事和小事
+        major_limit = CONFIG.social.major_event_context_num
+        minor_limit = CONFIG.social.minor_event_context_num
         em = self.world.event_manager
-        pair_recent_events = [str(e) for e in em.get_events_between(self.avatar.id, target_avatar.id, limit=n)]
+        major_events = em.get_major_events_between(self.avatar.id, target_avatar.id, limit=major_limit)
+        minor_events = em.get_minor_events_between(self.avatar.id, target_avatar.id, limit=minor_limit)
+        pair_recent_events = [str(e) for e in major_events + minor_events]
         feedback_actions = self.FEEDBACK_ACTIONS
         comment = self.COMMENT
         action_name = self.ACTION_NAME
@@ -189,11 +190,13 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         """
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
-        action_name = getattr(self, 'ACTION_NAME', self.name)
+        action_name = self.ACTION_NAME
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids)
+        # 根据IS_MAJOR类变量设置事件类型
+        is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
+        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
         # 仅写入历史，避免与提交阶段重复推送到侧边栏
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:

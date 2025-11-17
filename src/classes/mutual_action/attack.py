@@ -20,6 +20,8 @@ class Attack(MutualAction):
     STORY_PROMPT: str = ""
     # 攻击冷却：避免同月连刷攻击
     ACTION_CD_MONTHS: int = 3
+    # 攻击是大事（长期记忆）
+    IS_MAJOR: bool = True
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攻击无额外检查条件"""

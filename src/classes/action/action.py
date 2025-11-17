@@ -126,7 +126,34 @@ class ActualActionMixin():
     不一定是多个step，也有可能就一个step。
 
     新接口：子类必须实现 can_start/start/step/finish。
+    
+    类变量：
+    - IS_MAJOR: 是否为大事（长期记忆），默认False（小事/短期记忆）
     """
+    
+    # 默认为小事（短期记忆）
+    IS_MAJOR: bool = False
+
+    def create_event(self, content: str, related_avatars=None) -> Event:
+        """
+        创建事件的辅助方法，自动带上is_major属性
+        
+        Args:
+            content: 事件内容
+            related_avatars: 相关角色ID列表
+            
+        Returns:
+            Event对象，is_major根据当前Action的IS_MAJOR类变量设置
+        """
+        from src.classes.action.action import Action
+        # 获取当前类的IS_MAJOR属性
+        is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
+        return Event(
+            month_stamp=self.world.month_stamp,
+            content=content,
+            related_avatars=related_avatars,
+            is_major=is_major
+        )
 
     @abstractmethod
     def can_start(self, **params) -> tuple[bool, str]:
@@ -164,7 +191,7 @@ class TimedAction(DefineAction, ActualActionMixin):
     duration_months: int = 1
 
     def step(self, **params) -> ActionResult:
-        if getattr(self, 'start_monthstamp', None) is None:
+        if not hasattr(self, 'start_monthstamp') or self.start_monthstamp is None:
             self.start_monthstamp = self.world.month_stamp
         self._execute(**params)
         done = (self.world.month_stamp - self.start_monthstamp) >= (self.duration_months - 1)

@@ -241,7 +241,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             spirit_animal_info = self.spirit_animal.get_info() if self.spirit_animal is not None else "无"
 
         info_dict = {
-            "id": self.id,
             "名字": self.name,
             "性别": str(self.gender),
             "年龄": str(self.age),
@@ -509,12 +508,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         添加事件：
         - to_sidebar: 是否进入全局侧边栏（通过 Avatar._pending_events 暂存）
         - to_history: 兼容参数，已废弃（统一改为通过 World.event_manager 查询历史）
+        
+        注意：事件会先存入_pending_events，统一由Simulator写入event_manager，避免重复
         """
         if to_sidebar:
             self._pending_events.append(event)
-            # 侧边栏类事件通常不在 Simulator 的 events 列表里，直接记入全局事件管理器
-            em = self.world.event_manager
-            em.add_event(event)
 
     def get_action_space_str(self) -> str:
         action_space = self.get_action_space()
@@ -547,14 +545,19 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             for other in co_region_avatars[:8]:
                 observed.append(f"{other.name}，境界：{other.cultivation_progress.get_info()}")
 
-        # 历史事件改为从全局事件管理器查询
-        n = CONFIG.social.event_context_num
+        # 历史事件改为从全局事件管理器分类查询
         em = self.world.event_manager
-        events = em.get_events_by_avatar(self.id, limit=n)
-        history_list = [str(e) for e in events]
+        major_limit = CONFIG.social.major_event_context_num
+        minor_limit = CONFIG.social.minor_event_context_num
+        major_events = em.get_major_events_by_avatar(self.id, limit=major_limit)
+        minor_events = em.get_minor_events_by_avatar(self.id, limit=minor_limit)
+        
+        major_list = [str(e) for e in major_events]
+        minor_list = [str(e) for e in minor_events]
 
         info["观察到的角色"] = observed
-        info["历史事件"] = history_list
+        info["长期记忆"] = major_list
+        info["短期记忆"] = minor_list
         return info
 
     def get_hover_info(self) -> list[str]:

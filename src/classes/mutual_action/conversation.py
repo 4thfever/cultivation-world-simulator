@@ -54,10 +54,13 @@ class Conversation(MutualAction):
         # 可能取消的关系
         possible_cancel_relations = [relation_display_names[r] for r in get_possible_cancel_relations(target_avatar, self.avatar)]
         
-        # 历史上下文：仅双方共同经历的最近事件
-        n = CONFIG.social.event_context_num
+        # 历史上下文：仅双方共同经历的大事和小事
+        major_limit = CONFIG.social.major_event_context_num
+        minor_limit = CONFIG.social.minor_event_context_num
         em = self.world.event_manager
-        pair_recent_events = [str(e) for e in em.get_events_between(self.avatar.id, target_avatar.id, limit=n)]
+        major_events = em.get_major_events_between(self.avatar.id, target_avatar.id, limit=major_limit)
+        minor_events = em.get_minor_events_between(self.avatar.id, target_avatar.id, limit=minor_limit)
+        pair_recent_events = [str(e) for e in major_events + minor_events]
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,

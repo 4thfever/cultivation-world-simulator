@@ -12,6 +12,10 @@ class Event:
     content: str
     # 相关角色ID列表；若与任何角色无关则为 None
     related_avatars: Optional[List[str]] = None
+    # 是否为大事（长期记忆），默认False（小事/短期记忆）
+    is_major: bool = False
+    # 是否为故事事件（不进入记忆索引），默认False
+    is_story: bool = False
 
     def __str__(self) -> str:
         year = self.month_stamp.get_year()
@@ -23,7 +27,9 @@ class Event:
         return {
             "month_stamp": int(self.month_stamp),
             "content": self.content,
-            "related_avatars": self.related_avatars
+            "related_avatars": self.related_avatars,
+            "is_major": self.is_major,
+            "is_story": self.is_story
         }
     
     @classmethod
@@ -32,7 +38,9 @@ class Event:
         return cls(
             month_stamp=MonthStamp(data["month_stamp"]),
             content=data["content"],
-            related_avatars=data.get("related_avatars")
+            related_avatars=data.get("related_avatars"),
+            is_major=data.get("is_major", False),
+            is_story=data.get("is_story", False)
         )
 
 class NullEvent:
