@@ -182,9 +182,9 @@
 3. 配置LLM：
    在 `static/config.yml` 中配置LLM参数：
    ```yaml
-   llm:
-     model_name: "qwen-plus"  # 或其他litellm支持的模型名称
-     key: "your-api-key-here"     # 你的API密钥
+    llm:
+      model_name: "qwen-plus"  # 或其他litellm支持的模型名称
+      key: "your-api-key-here"     # 你的API密钥
       base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
    ```
    具体支持的模型请参考 [litellm文档](https://docs.litellm.ai/docs/providers)

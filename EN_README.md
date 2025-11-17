@@ -179,10 +179,10 @@ If you like this project, consider starring it~ You can also watch intro videos 
 3. Configure LLM:
    Edit `static/config.yml`:
    ```yaml
-   llm:
-     model_name: "qwen-plus"  # or another model supported by LiteLLM
-     key: "your-api-key-here"     # your API key
-     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    llm:
+      model_name: "qwen-plus"  # or another model supported by LiteLLM
+      key: "your-api-key-here"     # your API key
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
    ```
    For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
 
