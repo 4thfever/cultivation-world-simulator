@@ -73,6 +73,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Effect system: buffs/debuffs
 - ✅ Techniques
 - ✅ Combat equipment & auxiliary equipment
+- ✅ Short/Long term memory
 - [ ] Character compatibility
 - [ ] Epithets/nicknames
 - [ ] Skill learning system:
@@ -144,7 +145,6 @@ If you like this project, consider starring it~ You can also watch intro videos 
   - ✅ Multiple writing styles
 - [ ] NPC observation space design
 - [ ] One-off choices (e.g., switch techniques or not)
-- [ ] Long-term memories / unforgettable memories
 
 ### 🏛️ World Lore
 - [ ] Lore framework
