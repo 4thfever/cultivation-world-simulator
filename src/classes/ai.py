@@ -63,7 +63,7 @@ class LLMAI(AI):
         avatar_infos = {}
         for avatar in avatars_to_decide:
             observed = world.get_observable_avatars(avatar)
-            avatar_infos[avatar.name] = avatar.get_prompt_info(observed)
+            avatar_infos[avatar.name] = avatar.get_expanded_info(observed)
         general_action_infos = ACTION_INFOS_STR
         info = {
             "avatar_infos": avatar_infos,

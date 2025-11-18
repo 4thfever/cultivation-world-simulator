@@ -43,31 +43,27 @@ class Conversation(MutualAction):
     def _build_prompt_infos(self, target_avatar: "Avatar") -> dict:
         avatar_name_1 = self.avatar.name
         avatar_name_2 = target_avatar.name
-        # 交谈：使用详细信息，便于生成更丰富对话
+        
+        # avatar1 使用 expanded_info（包含详细信息和共同事件），避免重复
+        expanded_info = self.avatar.get_expanded_info(other_avatar=target_avatar, detailed=True)
+        
         avatar_infos = {
-            avatar_name_1: self.avatar.get_info(detailed=True),
+            avatar_name_1: expanded_info,
             avatar_name_2: target_avatar.get_info(detailed=True),
         }
+        
         # 可能的后天关系（转中文名，给模板阅读）
         # 注意：这里计算的是 target 相对于 avatar 的可能关系
         possible_new_relations = [relation_display_names[r] for r in get_possible_new_relations(self.avatar, target_avatar)]
         # 可能取消的关系
         possible_cancel_relations = [relation_display_names[r] for r in get_possible_cancel_relations(target_avatar, self.avatar)]
         
-        # 历史上下文：仅双方共同经历的大事和小事
-        major_limit = CONFIG.social.major_event_context_num
-        minor_limit = CONFIG.social.minor_event_context_num
-        em = self.world.event_manager
-        major_events = em.get_major_events_between(self.avatar.id, target_avatar.id, limit=major_limit)
-        minor_events = em.get_minor_events_between(self.avatar.id, target_avatar.id, limit=minor_limit)
-        pair_recent_events = [str(e) for e in major_events + minor_events]
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
             "possible_new_relations": possible_new_relations,
             "possible_cancal_relations": possible_cancel_relations,  # 保持模板中的拼写
-            "recent_events": pair_recent_events,
         }
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:

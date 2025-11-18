@@ -60,19 +60,15 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
     def _build_prompt_infos(self, target_avatar: "Avatar") -> dict:
         avatar_name_1 = self.avatar.name
         avatar_name_2 = target_avatar.name
-        # avatar infos 仅放入与两人相关的提示，避免超长
+        
+        # avatar1 使用 expanded_info（包含非详细信息和共同事件），避免重复
+        expanded_info = self.avatar.get_expanded_info(other_avatar=target_avatar, detailed=False)
+        
         avatar_infos = {
-            # 决策：使用非详细信息
-            avatar_name_1: self.avatar.get_info(detailed=False),
+            avatar_name_1: expanded_info,
             avatar_name_2: target_avatar.get_info(detailed=False),
         }
-        # 历史上下文：仅双方共同经历的大事和小事
-        major_limit = CONFIG.social.major_event_context_num
-        minor_limit = CONFIG.social.minor_event_context_num
-        em = self.world.event_manager
-        major_events = em.get_major_events_between(self.avatar.id, target_avatar.id, limit=major_limit)
-        minor_events = em.get_minor_events_between(self.avatar.id, target_avatar.id, limit=minor_limit)
-        pair_recent_events = [str(e) for e in major_events + minor_events]
+        
         feedback_actions = self.FEEDBACK_ACTIONS
         comment = self.COMMENT
         action_name = self.ACTION_NAME
@@ -83,7 +79,6 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             "action_name": action_name,
             "action_info": comment,
             "feedback_actions": feedback_actions,
-            "recent_events": pair_recent_events,
         }
 
     def _call_llm_feedback(self, infos: dict) -> dict:

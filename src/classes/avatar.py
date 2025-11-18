@@ -547,11 +547,21 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         action_space = [action.name for action in doable_actions]
         return action_space
 
-    def get_prompt_info(self, co_region_avatars: Optional[List["Avatar"]] = None) -> dict:
+    def get_expanded_info(
+        self, 
+        co_region_avatars: Optional[List["Avatar"]] = None,
+        other_avatar: Optional["Avatar"] = None,
+        detailed: bool = False
+    ) -> dict:
         """
-        获取角色提示词信息，返回 dict。
+        获取角色的扩展信息，包含基础信息、观察到的角色和事件历史。
+        
+        Args:
+            co_region_avatars: 同区域的其他角色列表，用于"观察到的角色"字段
+            other_avatar: 另一个角色，如果提供则返回两人共同经历的事件，否则返回单人事件
+            detailed: 是否返回详细信息
         """
-        info = self.get_info(detailed=False)
+        info = self.get_info(detailed=detailed)
 
         observed: list[str] = []
         if co_region_avatars:
@@ -562,15 +572,21 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         em = self.world.event_manager
         major_limit = CONFIG.social.major_event_context_num
         minor_limit = CONFIG.social.minor_event_context_num
-        major_events = em.get_major_events_by_avatar(self.id, limit=major_limit)
-        minor_events = em.get_minor_events_by_avatar(self.id, limit=minor_limit)
+        
+        # 根据是否提供 other_avatar 决定获取单人事件还是双人共同事件
+        if other_avatar is not None:
+            major_events = em.get_major_events_between(self.id, other_avatar.id, limit=major_limit)
+            minor_events = em.get_minor_events_between(self.id, other_avatar.id, limit=minor_limit)
+        else:
+            major_events = em.get_major_events_by_avatar(self.id, limit=major_limit)
+            minor_events = em.get_minor_events_by_avatar(self.id, limit=minor_limit)
         
         major_list = [str(e) for e in major_events]
         minor_list = [str(e) for e in minor_events]
 
         info["观察到的角色"] = observed
-        info["长期记忆"] = major_list
-        info["短期记忆"] = minor_list
+        info["重大事件"] = major_list
+        info["短期事件"] = minor_list
         info["长期目标"] = self.long_term_objective.content if self.long_term_objective else "无"
         return info
 

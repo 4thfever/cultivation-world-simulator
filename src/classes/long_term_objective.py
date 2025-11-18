@@ -77,31 +77,17 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     Returns:
         生成的LongTermObjective对象，失败则返回None
     """
-
     # 准备世界信息
     world_info = avatar.world.get_info()
     
-    # 准备角色信息
-    avatar_info = avatar.get_info(detailed=True)
-    avatar_info_str = "\n".join([f"{k}: {v}" for k, v in avatar_info.items()])
-    
-    # 获取事件历史
-    em = avatar.world.event_manager
-    major_limit = CONFIG.social.major_event_context_num
-    minor_limit = CONFIG.social.minor_event_context_num
-    major_events = em.get_major_events_by_avatar(avatar.id, limit=major_limit)
-    minor_events = em.get_minor_events_by_avatar(avatar.id, limit=minor_limit)
-    
-    major_events_str = "\n".join([f"- {str(e)}" for e in major_events]) if major_events else "无"
-    minor_events_str = "\n".join([f"- {str(e)}" for e in minor_events]) if minor_events else "无"
+    # 获取 expanded_info（包含详细信息和事件历史）
+    expanded_info = avatar.get_expanded_info(detailed=True)
     
     # 准备模板参数
     template_path = CONFIG.paths.templates / "long_term_objective.txt"
     infos = {
         "world_info": world_info,
-        "avatar_info": avatar_info_str,
-        "major_events": major_events_str,
-        "minor_events": minor_events_str
+        "avatar_info": expanded_info,
     }
     
     # 调用LLM并自动解析JSON（使用fast模型）

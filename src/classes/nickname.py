@@ -63,26 +63,13 @@ async def generate_nickname(avatar: "Avatar") -> Optional[str]:
         生成的绰号，失败则返回None
     """
     try:
-        # 准备角色信息
-        avatar_info = avatar.get_info(detailed=True)
-        avatar_info_str = "\n".join([f"{k}: {v}" for k, v in avatar_info.items()])
-        
-        # 获取事件历史（根据配置的阈值获取对应数量的事件）
-        em = avatar.world.event_manager
-        major_threshold = CONFIG.nickname.major_event_threshold
-        minor_threshold = CONFIG.nickname.minor_event_threshold
-        major_events = em.get_major_events_by_avatar(avatar.id, limit=major_threshold)
-        minor_events = em.get_minor_events_by_avatar(avatar.id, limit=minor_threshold)
-        
-        major_events_str = "\n".join([f"- {str(e)}" for e in major_events]) if major_events else "无"
-        minor_events_str = "\n".join([f"- {str(e)}" for e in minor_events]) if minor_events else "无"
+        # 获取 expanded_info（包含详细信息和事件历史）
+        expanded_info = avatar.get_expanded_info(detailed=True)
         
         # 准备模板参数
         template_path = CONFIG.paths.templates / "nickname.txt"
         infos = {
-            "avatar_info": avatar_info_str,
-            "major_events": major_events_str,
-            "minor_events": minor_events_str
+            "avatar_info": expanded_info,
         }
         
         # 调用LLM并自动解析JSON

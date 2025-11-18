@@ -2,12 +2,10 @@
 
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
+
 正在进行的动作为：{avatar_name_1}向{avatar_name_2}发起了动作：{action_name}。这个动作的意味为{action_info}
 {avatar_name_2}可以进行的选择为：
 {feedback_actions}
-
-最近事件：
-{recent_events}
 
 注意，只返回json格式的结果。
 只返回{avatar_name_2}的行动，格式为：

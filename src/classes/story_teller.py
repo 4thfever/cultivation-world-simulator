@@ -45,48 +45,37 @@ class StoryTeller:
         return infos
 
     @staticmethod
-    def _collect_recent_events(*actors: "Avatar") -> list[str]:
-        from src.utils.config import CONFIG as _CONFIG
-        major_limit = _CONFIG.social.major_event_context_num
-        minor_limit = _CONFIG.social.minor_event_context_num
-        world = None
-        for av in actors:
-            if av is not None:
-                world = av.world
-                break
-        if world is None:
-            return []
-        em = world.event_manager
-        non_null = [a for a in actors if a is not None]
-        if len(non_null) >= 2:
-            # 两人故事：获取两人的大事和小事
-            a1, a2 = non_null[0], non_null[1]
-            major_events = em.get_major_events_between(a1.id, a2.id, limit=major_limit)
-            minor_events = em.get_minor_events_between(a1.id, a2.id, limit=minor_limit)
-            return [str(e) for e in major_events + minor_events]
-        if non_null:
-            # 单人故事：获取单人的大事和小事
-            a = non_null[0]
-            major_events = em.get_major_events_by_avatar(a.id, limit=major_limit)
-            minor_events = em.get_minor_events_by_avatar(a.id, limit=minor_limit)
-            return [str(e) for e in major_events + minor_events]
-        return []
-
-    @staticmethod
-    def tell_story(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "", *, recent_events: list[str] | None = None) -> str:
+    def tell_story(event: str, res: str, *actors: "Avatar", prompt: str = "") -> str:
         """
         基于 `static/templates/story.txt` 模板生成小故事。
         始终使用 fast 模式以提升速度。
         失败时返回降级版文案，避免中断流程。
+        
+        Args:
+            event: 事件描述
+            res: 结果描述
+            *actors: 参与的角色（1-2个）
+            prompt: 可选的故事提示词
         """
+        # 构建 avatar_infos，第一个 avatar 使用 expanded_info
+        non_null = [a for a in actors if a is not None]
+        avatar_infos: Dict[str, dict] = {}
+        
+        if len(non_null) >= 2:
+            # 双人故事：第一个用 expanded_info（包含共同事件），第二个用 detailed info
+            avatar_infos[non_null[0].name] = non_null[0].get_expanded_info(other_avatar=non_null[1], detailed=True)
+            avatar_infos[non_null[1].name] = non_null[1].get_info(detailed=True)
+        elif non_null:
+            # 单人故事：直接用 expanded_info
+            avatar_infos[non_null[0].name] = non_null[0].get_expanded_info(detailed=True)
+        
         template_path = CONFIG.paths.templates / "story.txt"
         infos = {
             "avatar_infos": avatar_infos,
             "event": event,
             "res": res,
             "style": random.choice(story_styles),
-            "story_prompt": STORY_PROMPT or "",
-            "recent_events": (recent_events or []),
+            "story_prompt": prompt,
         }
         try:
             data = get_prompt_and_call_llm(template_path, infos, mode="fast")
@@ -100,18 +89,35 @@ class StoryTeller:
         return f"{event}。{res}。{style}"
 
     @staticmethod
-    async def tell_story_async(avatar_infos: Dict[str, dict], event: str, res: str, STORY_PROMPT: str = "", *, recent_events: list[str] | None = None) -> str:
+    async def tell_story_async(event: str, res: str, *actors: "Avatar", prompt: str = "") -> str:
         """
         异步版本：生成小故事，失败时返回降级文案。
+        
+        Args:
+            event: 事件描述
+            res: 结果描述
+            *actors: 参与的角色（1-2个）
+            prompt: 可选的故事提示词
         """
+        # 构建 avatar_infos，第一个 avatar 使用 expanded_info
+        non_null = [a for a in actors if a is not None]
+        avatar_infos: Dict[str, dict] = {}
+        
+        if len(non_null) >= 2:
+            # 双人故事：第一个用 expanded_info（包含共同事件），第二个用 detailed info
+            avatar_infos[non_null[0].name] = non_null[0].get_expanded_info(other_avatar=non_null[1], detailed=True)
+            avatar_infos[non_null[1].name] = non_null[1].get_info(detailed=True)
+        elif non_null:
+            # 单人故事：直接用 expanded_info
+            avatar_infos[non_null[0].name] = non_null[0].get_expanded_info(detailed=True)
+        
         template_path = CONFIG.paths.templates / "story.txt"
         infos = {
             "avatar_infos": avatar_infos,
             "event": event,
             "res": res,
             "style": random.choice(story_styles),
-            "story_prompt": STORY_PROMPT or "",
-            "recent_events": (recent_events or []),
+            "story_prompt": prompt,
         }
         try:
             data = await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
@@ -126,17 +132,16 @@ class StoryTeller:
     @staticmethod
     def tell_from_actors(event: str, res: str, *actors: "Avatar", prompt: str | None = None) -> str:
         """
-        便捷方法：直接从参与者对象生成 avatar_infos 并讲述故事。
+        便捷方法别名，保持向后兼容。直接调用 tell_story。
         """
-        avatar_infos = StoryTeller.build_avatar_infos(*actors)
-        recent_events = StoryTeller._collect_recent_events(*actors)
-        return StoryTeller.tell_story(avatar_infos, event, res, prompt or "", recent_events=recent_events)
+        return StoryTeller.tell_story(event, res, *actors, prompt=prompt or "")
 
     @staticmethod
     async def tell_from_actors_async(event: str, res: str, *actors: "Avatar", prompt: str | None = None) -> str:
-        avatar_infos = StoryTeller.build_avatar_infos(*actors)
-        recent_events = StoryTeller._collect_recent_events(*actors)
-        return await StoryTeller.tell_story_async(avatar_infos, event, res, prompt or "", recent_events=recent_events)
+        """
+        便捷方法别名，保持向后兼容。直接调用 tell_story_async。
+        """
+        return await StoryTeller.tell_story_async(event, res, *actors, prompt=prompt or "")
 
 
 __all__ = ["StoryTeller"]
