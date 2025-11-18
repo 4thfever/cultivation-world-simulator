@@ -80,11 +80,8 @@ class Talk(MutualAction):
         if self._feedback_task is None and self._feedback_cached is None:
             infos = self._build_prompt_infos(target)
             import asyncio
-            try:
-                loop = asyncio.get_running_loop()
-                self._feedback_task = loop.create_task(self._call_llm_feedback_async(infos))
-            except RuntimeError:
-                self._feedback_cached = self._call_llm_feedback(infos)
+            loop = asyncio.get_running_loop()
+            self._feedback_task = loop.create_task(self._call_llm_feedback(infos))
 
         # 若任务已完成，消费结果
         if self._feedback_task is not None and self._feedback_task.done():
