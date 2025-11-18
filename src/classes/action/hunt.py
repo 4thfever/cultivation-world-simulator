@@ -65,7 +65,7 @@ class Hunt(TimedAction):
 
     # TimedAction 已统一 step 逻辑
 
-    def finish(self) -> list[Event]:
+    async def finish(self) -> list[Event]:
         return []
 
 

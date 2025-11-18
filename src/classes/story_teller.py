@@ -3,8 +3,11 @@ from __future__ import annotations
 from typing import Dict, TYPE_CHECKING
 import random
 
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
+
 from src.utils.config import CONFIG
-from src.utils.llm import get_prompt_and_call_llm, get_prompt_and_call_llm_async
+from src.utils.llm import call_llm_with_template, LLMMode
 
 story_styles = [
     "平淡叙述：语句克制、少修饰、像旁观者记录。",
@@ -67,32 +70,7 @@ class StoryTeller:
         return f"{event}。{res}。{style}"
 
     @staticmethod
-    def tell_story(event: str, res: str, *actors: "Avatar", prompt: str = "") -> str:
-        """
-        生成小故事（同步版本）。
-        基于 `static/templates/story.txt` 模板，失败时返回降级文案。
-        
-        Args:
-            event: 事件描述
-            res: 结果描述
-            *actors: 参与的角色（1-2个）
-            prompt: 可选的故事提示词
-        """
-        avatar_infos = StoryTeller._build_avatar_infos(*actors)
-        infos = StoryTeller._build_template_data(event, res, avatar_infos, prompt)
-        
-        try:
-            data = get_prompt_and_call_llm(StoryTeller.TEMPLATE_PATH, infos, mode="fast")
-            story = data.get("story", "").strip()
-            if story:
-                return story
-        except Exception:
-            pass
-        
-        return StoryTeller._make_fallback_story(event, res, infos["style"])
-
-    @staticmethod
-    async def tell_story_async(event: str, res: str, *actors: "Avatar", prompt: str = "") -> str:
+    async def tell_story(event: str, res: str, *actors: "Avatar", prompt: str = "") -> str:
         """
         生成小故事（异步版本）。
         基于 `static/templates/story.txt` 模板，失败时返回降级文案。
@@ -107,13 +85,14 @@ class StoryTeller:
         infos = StoryTeller._build_template_data(event, res, avatar_infos, prompt)
         
         try:
-            data = await get_prompt_and_call_llm_async(StoryTeller.TEMPLATE_PATH, infos, mode="fast")
-            story = str(data.get("story", "")).strip()
+            data = await call_llm_with_template(StoryTeller.TEMPLATE_PATH, infos, LLMMode.FAST)
+            story = data.get("story", "").strip()
             if story:
                 return story
         except Exception:
             pass
         
         return StoryTeller._make_fallback_story(event, res, infos["style"])
+
 
 __all__ = ["StoryTeller"]

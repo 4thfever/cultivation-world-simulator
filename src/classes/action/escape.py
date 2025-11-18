@@ -75,7 +75,7 @@ class Escape(InstantAction):
 
     # InstantAction 已实现 step 完成
 
-    def finish(self, avatar_name: str) -> list[Event]:
+    async def finish(self, avatar_name: str) -> list[Event]:
         return []
 
 

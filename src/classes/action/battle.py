@@ -71,7 +71,7 @@ class Battle(InstantAction):
 
     # InstantAction 已实现 step 完成
 
-    def finish(self, avatar_name: str) -> list[Event]:
+    async def finish(self, avatar_name: str) -> list[Event]:
         res = self._last_result
         if not (isinstance(res, tuple) and len(res) == 4):
             return []
@@ -87,10 +87,10 @@ class Battle(InstantAction):
             pass
         result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
 
-        # 生成战斗小故事（同步调用，与其他动作保持一致）
+        # 生成战斗小故事
         target = self._get_target(avatar_name)
         start_text = self._start_event_content if hasattr(self, '_start_event_content') else result_event.content
-        story = StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+        story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
         story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
 
         return [result_event, story_event]

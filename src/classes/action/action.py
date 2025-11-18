@@ -168,7 +168,7 @@ class ActualActionMixin():
         ...
 
     @abstractmethod
-    def finish(self, **params) -> list[Event]:
+    async def finish(self, **params) -> list[Event]:
         return []
 
 

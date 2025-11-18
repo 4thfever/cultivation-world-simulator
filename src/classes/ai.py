@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from src.classes.world import World
 from src.classes.event import Event, NULL_EVENT
-from src.utils.llm import get_ai_prompt_and_call_llm_async
+from src.utils.llm import call_ai_action
 from src.classes.typings import ACTION_NAME_PARAMS_PAIRS
 from src.utils.config import CONFIG
 from src.classes.actions import ACTION_INFOS_STR
@@ -70,7 +70,7 @@ class LLMAI(AI):
             "global_info": global_info,
             "general_action_infos": general_action_infos,
         }
-        res = await get_ai_prompt_and_call_llm_async(info)
+        res = await call_ai_action(info)
         results: dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str]] = {}
         for avatar in avatars_to_decide:
             r = res[avatar.name]

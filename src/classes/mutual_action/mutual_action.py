@@ -7,7 +7,7 @@ import asyncio
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.tile import get_avatar_distance
 from src.classes.event import Event
-from src.utils.llm import get_prompt_and_call_llm, get_prompt_and_call_llm_async
+from src.utils.llm import call_llm_with_template, LLMMode
 from src.utils.config import CONFIG
 from src.classes.relation import relation_display_names, Relation
 from src.classes.relations import get_possible_new_relations
@@ -81,17 +81,10 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             "feedback_actions": feedback_actions,
         }
 
-    def _call_llm_feedback(self, infos: dict) -> dict:
-        """
-        兼容保留：同步调用（不在事件循环内使用）。
-        """
+    async def _call_llm_feedback(self, infos: dict) -> dict:
+        """异步调用 LLM 获取反馈"""
         template_path = self._get_template_path()
-        res = get_prompt_and_call_llm(template_path, infos, mode="fast")
-        return res
-
-    async def _call_llm_feedback_async(self, infos: dict) -> dict:
-        template_path = self._get_template_path()
-        return await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
+        return await call_llm_with_template(template_path, infos, LLMMode.FAST)
 
     def _set_target_immediate_action(self, target_avatar: "Avatar", action_name: str, action_params: dict) -> None:
         """
@@ -132,16 +125,14 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             return self.find_avatar_by_name(target_avatar)
         return target_avatar
 
-    def _execute(self, target_avatar: "Avatar|str") -> None:
-        """
-        保留同步实现（不在事件循环内使用）。
-        """
+    async def _execute(self, target_avatar: "Avatar|str") -> None:
+        """异步执行互动动作"""
         target_avatar = self._get_target_avatar(target_avatar)
         if target_avatar is None:
             return
 
         infos = self._build_prompt_infos(target_avatar)
-        res = self._call_llm_feedback(infos)
+        res = await self._call_llm_feedback(infos)
         r = res.get(infos["avatar_name_2"], {})
         thinking = r.get("thinking", "")
         feedback = r.get("feedback", "")
@@ -209,12 +200,8 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         # 若无任务，创建异步任务
         if self._feedback_task is None and self._feedback_cached is None:
             infos = self._build_prompt_infos(target)
-            try:
-                loop = asyncio.get_running_loop()
-                self._feedback_task = loop.create_task(self._call_llm_feedback_async(infos))
-            except RuntimeError:
-                # 无运行中的事件循环时，退化为同步调用（如离线批处理）
-                self._feedback_cached = self._call_llm_feedback(infos)
+            loop = asyncio.get_running_loop()
+            self._feedback_task = loop.create_task(self._call_llm_feedback(infos))
 
         # 若任务已完成，消费结果
         if self._feedback_task is not None and self._feedback_task.done():
@@ -238,7 +225,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
 
-    def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+    async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         """
         完成互动动作，事件已在 step 中处理，无需额外事件
         """

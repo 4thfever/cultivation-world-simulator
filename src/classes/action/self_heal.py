@@ -59,7 +59,7 @@ class SelfHeal(TimedAction):
 
     # TimedAction 已统一 step 逻辑
 
-    def finish(self) -> list[Event]:
+    async def finish(self) -> list[Event]:
         healed_total = int(getattr(self, "_healed_total", 0))
         # 统一用一次事件简要反馈
         return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成，HP已回满（本次恢复{healed_total}点，当前HP {self.avatar.hp}）", related_avatars=[self.avatar.id])]

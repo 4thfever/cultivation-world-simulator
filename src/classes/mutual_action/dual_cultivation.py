@@ -96,7 +96,7 @@ class DualCultivation(MutualAction):
         initiator.cultivation_progress.add_exp(exp_gain)
         self._dual_exp_gain = exp_gain
 
-    def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+    async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         target = self._get_target_avatar(target_avatar)
         events: list[Event] = []
         success = self._dual_cultivation_success
@@ -111,7 +111,7 @@ class DualCultivation(MutualAction):
 
             # 生成恋爱/双修小故事
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+            story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
             story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id], is_story=True)
             events.append(story_event)
         else:

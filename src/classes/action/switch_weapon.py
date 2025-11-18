@@ -75,6 +75,6 @@ class SwitchWeapon(InstantAction):
             related_avatars=[self.avatar.id]
         )
 
-    def finish(self, weapon_type_name: str) -> list[Event]:
+    async def finish(self, weapon_type_name: str) -> list[Event]:
         return []
 

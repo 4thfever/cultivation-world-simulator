@@ -85,7 +85,7 @@ class Catch(TimedAction):
         region = self.avatar.tile.region
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 尝试御兽", related_avatars=[self.avatar.id])
 
-    def finish(self) -> list[Event]:
+    async def finish(self) -> list[Event]:
         res = self._caught_result
         if not (isinstance(res, tuple) and len(res) == 3):
             return []

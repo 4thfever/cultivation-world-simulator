@@ -90,7 +90,7 @@ class Impart(MutualAction):
         target.cultivation_progress.add_exp(exp_gain)
         self._impart_exp_gain = exp_gain
 
-    def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+    async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         target = self._get_target_avatar(target_avatar)
         events: list[Event] = []
         success = self._impart_success
@@ -110,7 +110,7 @@ class Impart(MutualAction):
             # 生成师徒传道小故事
             from src.classes.story_teller import StoryTeller
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_story(
+            story = await StoryTeller.tell_story(
                 start_text,
                 result_text,
                 self.avatar,

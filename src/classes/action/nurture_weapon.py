@@ -63,7 +63,7 @@ class NurtureWeapon(TimedAction):
             related_avatars=[self.avatar.id]
         )
 
-    def finish(self) -> list[Event]:
+    async def finish(self) -> list[Event]:
         weapon_name = self.avatar.weapon.name if self.avatar.weapon else "兵器"
         proficiency = self.avatar.weapon_proficiency
         # 注意：升华事件已经在_execute中添加，这里只添加完成事件

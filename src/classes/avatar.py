@@ -365,7 +365,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         result: ActionResult = action.step(**params_for_step)
         if result.status == ActionStatus.COMPLETED:
             params_for_finish = filter_kwargs_for_callable(action.finish, params)
-            finish_events = action.finish(**params_for_finish)
+            finish_events = await action.finish(**params_for_finish)
             # 仅当当前动作仍然是刚才执行的那个实例时才清空
             # 若在 step() 内部通过"抢占"机制切换了动作（如 Escape 失败立即切到 Battle），不要清空新动作
             if self.current_action is action_instance_before:

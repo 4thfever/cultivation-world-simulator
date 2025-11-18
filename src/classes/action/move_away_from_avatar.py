@@ -67,7 +67,7 @@ class MoveAwayFromAvatar(TimedAction):
 
     # TimedAction 已统一 step 逻辑
 
-    def finish(self, avatar_name: str) -> list[Event]:
+    async def finish(self, avatar_name: str) -> list[Event]:
         return []
 
 

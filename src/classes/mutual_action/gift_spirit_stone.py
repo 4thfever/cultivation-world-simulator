@@ -79,7 +79,7 @@ class GiftSpiritStone(MutualAction):
         # 目标获得灵石
         target.magic_stone += self.GIFT_AMOUNT
 
-    def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+    async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         target = self._get_target_avatar(target_avatar)
         events: list[Event] = []
         success = self._gift_success
@@ -98,7 +98,7 @@ class GiftSpiritStone(MutualAction):
             # 生成赠送小故事
             from src.classes.story_teller import StoryTeller
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_story(
+            story = await StoryTeller.tell_story(
                 start_text,
                 result_text,
                 self.avatar,

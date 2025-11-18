@@ -59,7 +59,7 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         done = self.avatar.tile == target.tile
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
-    def finish(self, avatar_name: str) -> list[Event]:
+    async def finish(self, avatar_name: str) -> list[Event]:
         return []
 
 

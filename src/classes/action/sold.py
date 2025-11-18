@@ -79,7 +79,7 @@ class SellItems(InstantAction):
 
     # InstantAction 已实现 step 完成
 
-    def finish(self, item_name: str) -> list[Event]:
+    async def finish(self, item_name: str) -> list[Event]:
         return []
 
 

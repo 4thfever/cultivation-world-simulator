@@ -52,7 +52,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         done = self.avatar.is_in_region(r) or ((self.avatar.pos_x, self.avatar.pos_y) in getattr(r, "cors", ()))
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
-    def finish(self, region: Region | str) -> list[Event]:
+    async def finish(self, region: Region | str) -> list[Event]:
         return []
 
 

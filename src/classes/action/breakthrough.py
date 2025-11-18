@@ -118,7 +118,7 @@ class Breakthrough(TimedAction):
 
     # TimedAction 已统一 step 逻辑
 
-    def finish(self) -> list[Event]:
+    async def finish(self) -> list[Event]:
         if not self._last_result:
             return []
         result_ok = self._last_result[0] == "success"
@@ -139,7 +139,7 @@ class Breakthrough(TimedAction):
 
         # 故事参与者：本体 +（可选）相关角色
         prompt = TribulationSelector.get_story_prompt(str(calamity))
-        story = StoryTeller.tell_story(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt)
+        story = await StoryTeller.tell_story(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt)
         events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True))
         return events
 
