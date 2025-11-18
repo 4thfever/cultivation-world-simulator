@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from src.classes.event import Event
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.utils.params import filter_kwargs_for_callable
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -178,7 +179,8 @@ class InstantAction(DefineAction, ActualActionMixin):
     """
 
     def step(self, **params) -> ActionResult:
-        self._execute(**params)
+        params_for_execute = filter_kwargs_for_callable(self._execute, params)
+        self._execute(**params_for_execute)
         return ActionResult(status=ActionStatus.COMPLETED, events=[])
 
 
@@ -193,7 +195,8 @@ class TimedAction(DefineAction, ActualActionMixin):
     def step(self, **params) -> ActionResult:
         if not hasattr(self, 'start_monthstamp') or self.start_monthstamp is None:
             self.start_monthstamp = self.world.month_stamp
-        self._execute(**params)
+        params_for_execute = filter_kwargs_for_callable(self._execute, params)
+        self._execute(**params_for_execute)
         done = (self.world.month_stamp - self.start_monthstamp) >= (self.duration_months - 1)
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
