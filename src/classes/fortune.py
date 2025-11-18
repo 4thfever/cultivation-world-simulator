@@ -478,7 +478,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)
 
     # 生成故事事件
-    story = await StoryTeller.tell_from_actors_async(event_text, res_text, *actors_for_story, prompt=story_prompt)
+    story = await StoryTeller.tell_story_async(event_text, res_text, *actors_for_story, prompt=story_prompt)
     story_event = Event(month_at_finish, story, related_avatars=related_avatars, is_story=True)
 
     # 返回基础事件和故事事件

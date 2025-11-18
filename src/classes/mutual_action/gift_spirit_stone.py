@@ -98,7 +98,7 @@ class GiftSpiritStone(MutualAction):
             # 生成赠送小故事
             from src.classes.story_teller import StoryTeller
             start_text = self._start_event_content or result_event.content
-            story = StoryTeller.tell_from_actors(
+            story = StoryTeller.tell_story(
                 start_text,
                 result_text,
                 self.avatar,
