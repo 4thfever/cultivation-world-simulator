@@ -16,8 +16,8 @@ def intentify_prompt_infos(infos: dict) -> dict:
     processed: dict = dict(infos or {})
     if "avatar_infos" in processed:
         processed["avatar_infos"] = to_json_str_with_intent(processed["avatar_infos"])
-    if "global_info" in processed:
-        processed["global_info"] = to_json_str_with_intent(processed["global_info"])
+    if "world_info" in processed:
+        processed["world_info"] = to_json_str_with_intent(processed["world_info"])
     if "general_action_infos" in processed:
         processed["general_action_infos"] = to_json_str_with_intent(processed["general_action_infos"])
     if "expanded_info" in processed:

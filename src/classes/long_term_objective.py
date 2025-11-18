@@ -14,6 +14,7 @@ from src.classes.event import Event
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_template, LLMMode
 from src.run.log import get_logger
+from src.classes.actions import ACTION_INFOS_STR
 
 logger = get_logger().logger
 
@@ -88,6 +89,7 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     infos = {
         "world_info": world_info,
         "avatar_info": expanded_info,
+        "general_action_infos": ACTION_INFOS_STR,
     }
     
     # 调用LLM并自动解析JSON（使用fast模型）

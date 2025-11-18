@@ -1,5 +1,5 @@
 你是一个决策者，这是一个仙侠世界，你负责来决定一些角色之后的动作行为。
-{global_info}
+{world_info}
 全部可执行的动作有：
 {general_action_infos}
 你需要进行决策的NPC的dict[AvatarName, info]为

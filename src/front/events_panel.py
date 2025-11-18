@@ -8,21 +8,30 @@ def _wrap_text_by_pixels(font, text: str, max_width_px: int) -> List[str]:
     """
     if not text:
         return [""]
-    lines: List[str] = []
-    current = ""
-    for ch in str(text):
-        test = current + ch
-        w, _ = font.size(test)
-        if w <= max_width_px:
-            current = test
-        else:
-            if current:
-                lines.append(current)
-            # 新行从当前字符开始
-            current = ch
-    if current:
-        lines.append(current)
-    return lines
+    
+    # 先处理显式换行符 \n，避免被当作乱码字符渲染
+    logical_lines = str(text).split('\n')
+    result: List[str] = []
+    
+    # 对每个逻辑行分别进行像素宽度换行
+    for logical_line in logical_lines:
+        if not logical_line:
+            result.append("")
+            continue
+        current = ""
+        for ch in logical_line:
+            test = current + ch
+            w, _ = font.size(test)
+            if w <= max_width_px:
+                current = test
+            else:
+                if current:
+                    result.append(current)
+                current = ch
+        if current:
+            result.append(current)
+    
+    return result if result else [""]
 
 
 def draw_sidebar(
