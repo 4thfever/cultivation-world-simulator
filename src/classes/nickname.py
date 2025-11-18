@@ -86,7 +86,7 @@ async def generate_nickname(avatar: "Avatar") -> Optional[str]:
         }
         
         # 调用LLM并自动解析JSON
-        response_data = await get_prompt_and_call_llm_async(template_path, infos, mode="normal")
+        response_data = await get_prompt_and_call_llm_async(template_path, infos, mode="fast")
         
         nickname = response_data.get("nickname", "").strip()
         thinking = response_data.get("thinking", "")
