@@ -95,7 +95,12 @@ class AvatarSaveMixin:
             "current_action": current_action_dict,
             "planned_actions": planned_actions_list,
             "thinking": self.thinking,
-            "objective": self.objective,
+            "short_term_objective": self.short_term_objective,
+            "long_term_objective": {
+                "content": self.long_term_objective.content,
+                "origin": self.long_term_objective.origin,
+                "set_year": self.long_term_objective.set_year
+            } if self.long_term_objective else None,
             "_action_cd_last_months": self._action_cd_last_months,
         }
 

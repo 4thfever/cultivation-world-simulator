@@ -13,6 +13,7 @@ from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.classes.fortune import try_trigger_fortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
+from src.classes.long_term_objective import process_avatar_long_term_objective
 
 class Simulator:
     def __init__(self, world: World):
@@ -33,9 +34,9 @@ class Simulator:
         ai = llm_ai
         decide_results = await ai.decide(self.world, avatars_to_decide)
         for avatar, result in decide_results.items():
-            action_name_params_pairs, avatar_thinking, objective, _event = result
+            action_name_params_pairs, avatar_thinking, short_term_objective, _event = result
             # 仅入队计划，不在此处添加开始事件，避免与提交阶段重复
-            avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, objective)
+            avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, short_term_objective)
 
     def _phase_commit_next_plans(self):
         """
@@ -135,6 +136,18 @@ class Simulator:
                 events.append(event)
         return events
     
+    async def _phase_long_term_objective_thinking(self):
+        """
+        长期目标思考阶段
+        检查角色是否需要生成/更新长期目标
+        """
+        events = []
+        for avatar in list(self.world.avatar_manager.avatars.values()):
+            event = await process_avatar_long_term_objective(avatar)
+            if event:
+                events.append(event)
+        return events
+    
     def _phase_update_celestial_phenomenon(self):
         """
         更新天地灵机：
@@ -208,6 +221,9 @@ class Simulator:
         再去结算单个角色的事件。
         """
         events = [] # list of Event
+
+        # 0.5 长期目标思考阶段（在决策之前）
+        events.extend(await self._phase_long_term_objective_thinking())
 
         # 1. 决策阶段
         await self._phase_decide_actions()

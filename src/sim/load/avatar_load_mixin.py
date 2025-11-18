@@ -148,8 +148,20 @@ class AvatarLoadMixin:
         
         # 设置行动与AI
         avatar.thinking = data.get("thinking", "")
-        avatar.objective = data.get("objective", "")
+        avatar.short_term_objective = data.get("short_term_objective", data.get("objective", ""))  # 兼容旧存档
         avatar._action_cd_last_months = data.get("_action_cd_last_months", {})
+        
+        # 加载长期目标
+        long_term_objective_data = data.get("long_term_objective")
+        if long_term_objective_data:
+            from src.classes.long_term_objective import LongTermObjective
+            avatar.long_term_objective = LongTermObjective(
+                content=long_term_objective_data.get("content", ""),
+                origin=long_term_objective_data.get("origin", "llm"),
+                set_year=long_term_objective_data.get("set_year", 100)
+            )
+        else:
+            avatar.long_term_objective = None
         
         # 重建planned_actions
         planned_actions_data = data.get("planned_actions", [])

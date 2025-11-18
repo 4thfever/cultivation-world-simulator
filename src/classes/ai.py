@@ -39,9 +39,9 @@ class AI(ABC):
             results.update(await self._decide(world, avatars_to_decide[i:i+max_decide_num]))
 
         for avatar, result in list(results.items()):
-            action_name_params_pairs, avatar_thinking, objective = result  # type: ignore
+            action_name_params_pairs, avatar_thinking, short_term_objective = result  # type: ignore
             # 不在决策阶段生成开始事件，提交阶段统一触发
-            results[avatar] = (action_name_params_pairs, avatar_thinking, objective, NULL_EVENT)
+            results[avatar] = (action_name_params_pairs, avatar_thinking, short_term_objective, NULL_EVENT)
 
         return results
 
@@ -90,8 +90,8 @@ class LLMAI(AI):
                 raise ValueError(f"LLM未返回有效的action_name_params_pairs: {r}")
 
             avatar_thinking = r.get("avatar_thinking", r.get("thinking", ""))
-            objective = r.get("objective", "")
-            results[avatar] = (pairs, avatar_thinking, objective)
+            short_term_objective = r.get("short_term_objective", "")
+            results[avatar] = (pairs, avatar_thinking, short_term_objective)
         return results
 
 llm_ai = LLMAI()

@@ -57,7 +57,7 @@ class Talk(MutualAction):
             self.avatar.load_decide_result_chain(
                 [("Conversation", {"target_avatar": target.name})],
                 self.avatar.thinking,
-                self.avatar.objective
+                self.avatar.short_term_objective
             )
         else:
             # 拒绝攀谈

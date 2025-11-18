@@ -27,11 +27,17 @@ class World():
         """
         返回世界信息（dict），其中包含地图信息（dict）。
         """
+        static_info = self.static_info
         map_info = self.map.get_info(detailed=detailed)
-        return map_info
+        world_info = {**map_info, **static_info}
+        return world_info
 
     def get_avatars_in_same_region(self, avatar: "Avatar"):
         return self.avatar_manager.get_avatars_in_same_region(avatar)
 
     def get_observable_avatars(self, avatar: "Avatar"):
         return self.avatar_manager.get_observable_avatars(avatar)
+
+    @property
+    def static_info(self) -> dict:
+        return {"static_info": "这是一个修仙世界，修仙的境界有：练气、筑基、金丹、元婴。"}

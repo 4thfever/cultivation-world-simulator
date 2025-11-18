@@ -44,6 +44,7 @@ from src.classes.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.battle import get_base_strength
 from src.classes.spirit_animal import SpiritAnimal
+from src.classes.long_term_objective import LongTermObjective
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -87,7 +88,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     current_action: Optional[ActionInstance] = None
     planned_actions: List[ActionPlan] = field(default_factory=list)
     thinking: str = ""
-    objective: str = ""
+    short_term_objective: str = ""
+    long_term_objective: Optional[LongTermObjective] = None
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0)) # 灵石，即货币
     items: dict[Item, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
@@ -268,6 +270,12 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         # 灵兽：仅在存在时显示
         if self.spirit_animal is not None:
             info_dict["灵兽"] = spirit_animal_info
+        # 长期目标：仅在存在时显示
+        if self.long_term_objective is not None:
+            info_dict["长期目标"] = self.long_term_objective.content
+        # 短期目标：仅在存在时显示
+        if self.short_term_objective:
+            info_dict["短期目标"] = self.short_term_objective
         return info_dict
 
     def __str__(self) -> str:
@@ -289,14 +297,14 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         action_cls = ActionRegistry.get(action_name)
         return action_cls(self, self.world)
 
-    def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, objective: str):
+    def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, short_term_objective: str):
         """
         加载AI的决策结果（动作链），立即设置第一个为当前动作，其余进入队列。
         """
         if not action_name_params_pairs:
             return
         self.thinking = avatar_thinking
-        self.objective = objective
+        self.short_term_objective = short_term_objective
         # 转为计划并入队（不立即提交，交由提交阶段统一触发开始事件）
         plans: List[ActionPlan] = [ActionPlan(name, params) for name, params in action_name_params_pairs]
         self.planned_actions.extend(plans)
@@ -563,6 +571,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         info["观察到的角色"] = observed
         info["长期记忆"] = major_list
         info["短期记忆"] = minor_list
+        info["长期目标"] = self.long_term_objective.content if self.long_term_objective else "无"
         return info
 
     def get_hover_info(self) -> list[str]:
@@ -617,9 +626,12 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         if self.thinking:
             from src.utils.text_wrap import wrap_text
             add_section(lines, "思考", wrap_text(self.thinking, 28))
-        if getattr(self, "objective", None):
+        if self.long_term_objective:
             from src.utils.text_wrap import wrap_text
-            add_section(lines, "目标", wrap_text(self.objective, 28))
+            add_section(lines, "长期目标", wrap_text(self.long_term_objective.content, 28))
+        if self.short_term_objective:
+            from src.utils.text_wrap import wrap_text
+            add_section(lines, "短期目标", wrap_text(self.short_term_objective, 28))
 
         # 兵器（必有，使用颜色标记等级）
         if self.weapon is not None:
