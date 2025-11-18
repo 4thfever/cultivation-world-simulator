@@ -25,7 +25,6 @@ class GiftSpiritStone(MutualAction):
     DOABLES_REQUIREMENTS = "发起者至少有100灵石；目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
-    STORY_PROMPT: str | None = "描绘一段赠送灵石的场景，体现赠送者的慷慨和接受者的反应。80~120字。"
 
     # 默认赠送数量
     GIFT_AMOUNT = 100
@@ -56,8 +55,6 @@ class GiftSpiritStone(MutualAction):
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
             target.add_event(event, to_sidebar=False)
-        # 记录开始文本用于故事生成
-        self._start_event_content = event.content
         # 初始化内部标记
         self._gift_success = False
         return event
@@ -94,23 +91,6 @@ class GiftSpiritStone(MutualAction):
                 related_avatars=[self.avatar.id, target.id]
             )
             events.append(result_event)
-
-            # 生成赠送小故事
-            from src.classes.story_teller import StoryTeller
-            start_text = self._start_event_content or result_event.content
-            story = await StoryTeller.tell_story(
-                start_text,
-                result_text,
-                self.avatar,
-                target,
-                prompt=self.STORY_PROMPT
-            )
-            story_event = Event(
-                self.world.month_stamp,
-                story,
-                related_avatars=[self.avatar.id, target.id]
-            )
-            events.append(story_event)
         else:
             result_text = f"{target.name} 婉拒了 {self.avatar.name} 的灵石赠送"
             result_event = Event(

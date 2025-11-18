@@ -29,7 +29,6 @@ class Impart(MutualAction):
     DOABLES_REQUIREMENTS = "发起者是目标的师傅；师傅等级 > 徒弟等级 + 20；目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
-    STORY_PROMPT: str | None = "师傅向徒弟传道授业，描绘一段温馨的师徒传承场景，体现师傅的循循善诱与徒弟的虚心求教。100~150字。"
     # 传道冷却：6个月
     ACTION_CD_MONTHS: int = 6
 
@@ -65,8 +64,6 @@ class Impart(MutualAction):
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
             target.add_event(event, to_sidebar=False)
-        # 记录开始文本用于故事生成
-        self._start_event_content = event.content
         # 初始化内部标记
         self._impart_success = False
         self._impart_exp_gain = 0
@@ -106,23 +103,6 @@ class Impart(MutualAction):
                 related_avatars=[self.avatar.id, target.id]
             )
             events.append(result_event)
-
-            # 生成师徒传道小故事
-            from src.classes.story_teller import StoryTeller
-            start_text = self._start_event_content or result_event.content
-            story = await StoryTeller.tell_story(
-                start_text,
-                result_text,
-                self.avatar,
-                target,
-                prompt=self.STORY_PROMPT
-            )
-            story_event = Event(
-                self.world.month_stamp,
-                story,
-                related_avatars=[self.avatar.id, target.id]
-            )
-            events.append(story_event)
         else:
             result_text = f"{target.name} 婉拒了 {self.avatar.name} 的传道"
             result_event = Event(
