@@ -34,6 +34,9 @@ class Talk(MutualAction):
     
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攀谈无额外检查条件"""
+        from src.classes.observe import is_within_observation
+        if not is_within_observation(self.avatar, target):
+            return False, "目标不在交互范围内"
         return True, ""
     
     def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:

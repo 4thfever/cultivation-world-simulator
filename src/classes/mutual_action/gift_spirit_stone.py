@@ -34,6 +34,10 @@ class GiftSpiritStone(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查赠送灵石的启动条件"""
+        from src.classes.observe import is_within_observation
+        if not is_within_observation(self.avatar, target):
+            return False, "目标不在交互范围内"
+
         # 检查发起者的灵石是否足够
         if self.avatar.magic_stone < self.GIFT_AMOUNT:
             return False, f"灵石不足（当前：{self.avatar.magic_stone}，需要：{self.GIFT_AMOUNT}）"

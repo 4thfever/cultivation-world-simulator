@@ -37,6 +37,10 @@ class Impart(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查传道特有的启动条件"""
+        from src.classes.observe import is_within_observation
+        if not is_within_observation(self.avatar, target):
+            return False, "目标不在交互范围内"
+
         # 检查是否是师徒关系：师傅对徒弟的关系应该是 MASTER
         relation = self.avatar.get_relation(target)
         if relation != Relation.MASTER:

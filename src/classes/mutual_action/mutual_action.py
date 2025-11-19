@@ -155,10 +155,6 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         target = self._get_target_avatar(target_avatar)
         if target is None:
             return False, "目标不存在"
-        from src.classes.observe import is_within_observation
-        ok = is_within_observation(self.avatar, target)
-        if not ok:
-            return False, "目标不在交互范围内"
         # 调用子类的额外检查
         return self._can_start(target)
 

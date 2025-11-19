@@ -25,6 +25,9 @@ class Attack(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攻击无额外检查条件"""
+        from src.classes.observe import is_within_observation
+        if not is_within_observation(self.avatar, target):
+            return False, "目标不在交互范围内"
         return True, ""
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
