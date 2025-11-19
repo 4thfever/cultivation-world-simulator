@@ -640,14 +640,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
         # 思考与目标
         if self.thinking:
-            from src.utils.text_wrap import wrap_text
-            add_section(lines, "思考", wrap_text(self.thinking, 28))
+            add_section(lines, "思考", [self.thinking])
         if self.long_term_objective:
-            from src.utils.text_wrap import wrap_text
-            add_section(lines, "长期目标", wrap_text(self.long_term_objective.content, 28))
+            add_section(lines, "长期目标", [self.long_term_objective.content])
         if self.short_term_objective:
-            from src.utils.text_wrap import wrap_text
-            add_section(lines, "短期目标", wrap_text(self.short_term_objective, 28))
+            add_section(lines, "短期目标", [self.short_term_objective])
 
         # 兵器（必有，使用颜色标记等级）
         if self.weapon is not None:

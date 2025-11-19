@@ -1,14 +1,14 @@
 import math
 from typing import List, Optional, Tuple, Callable
 from src.classes.avatar import Avatar
-from src.utils.text_wrap import wrap_text
+from src.utils.text_wrap import wrap_text_by_pixels
 
 
-def wrap_lines_for_tooltip(lines: List[str], max_chars_per_line: int = 28) -> List[str]:
+def wrap_lines_for_tooltip(font, lines: List[str], max_width_px: int = 320) -> List[str]:
     """
-    将一组 tooltip 行进行字符级换行：
+    将一组 tooltip 行进行像素级自动换行：
     - 对形如 "前缀: 内容" 的行，仅对内容部分换行，并在续行添加两个空格缩进
-    - 其他行超过宽度则直接按宽度切分
+    - 其他行超过宽度则直接按像素宽度切分
     """
     wrapped: List[str] = []
     for line in lines:
@@ -17,21 +17,36 @@ def wrap_lines_for_tooltip(lines: List[str], max_chars_per_line: int = 28) -> Li
         if split_idx != -1:
             prefix = line[: split_idx + 2]
             content = line[split_idx + 2 :]
-            segs = wrap_text(content, max_chars_per_line)
+            
+            prefix_w, _ = font.size(prefix)
+            indent_str = "  "
+            indent_w, _ = font.size(indent_str)
+            
+            # 内容的第一行允许宽度 = 总宽 - 前缀宽
+            # 内容的后续行允许宽度 = 总宽 - 缩进宽
+            content_first_w = max_width_px - prefix_w
+            content_rest_w = max_width_px - indent_w
+            
+            # 边界保护：如果前缀特别长导致第一行没空间，就强制让它换行（给一个合理的最小值）
+            # 或者直接让它等于后续行宽度（这会造成视觉溢出，但比死循环好）
+            if content_first_w < 20: 
+                content_first_w = content_rest_w
+
+            segs = wrap_text_by_pixels(font, content, content_rest_w, first_line_max_width_px=content_first_w)
+            
             if segs:
                 wrapped.append(prefix + segs[0])
                 for seg in segs[1:]:
-                    wrapped.append("  " + seg)
+                    wrapped.append(indent_str + seg)
             else:
+                # 内容为空的情况
                 wrapped.append(line)
             continue
-        # 无前缀情形：必要时整行切分
-        if len(line) > max_chars_per_line:
-            wrapped.extend(wrap_text(line, max_chars_per_line))
-        else:
-            wrapped.append(line)
+            
+        # 无前缀情形：直接换行
+        wrapped.extend(wrap_text_by_pixels(font, line, max_width_px))
+            
     return wrapped
-
 
 
 def draw_grid(pygame_mod, screen, colors, map_obj, ts: int, m: int, top_offset: int = 0):
@@ -333,7 +348,7 @@ def draw_avatars_and_pick_hover(
     return hovered, candidate_avatars
 
 
-def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: int = 260, top_limit: int = 0):
+def draw_tooltip(pygame_mod, screen, colors, lines: List[str], mouse_x: int, mouse_y: int, font, min_width: int = 320, top_limit: int = 0):
     """
     绘制tooltip，支持颜色标记格式：<color:R,G,B>text</color>
     """
@@ -433,18 +448,20 @@ def _render_colored_text(pygame_mod, font, text: str, default_color) -> object:
     return combined
 
 
-def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar, tooltip_min_width: int = 260, status_bar_height: int = 32):
-    # 改为从 Avatar.get_hover_info 获取信息行，避免前端重复拼接
+def draw_tooltip_for_avatar(pygame_mod, screen, colors, font, avatar: Avatar, tooltip_min_width: int = 320, status_bar_height: int = 32):
+    # 从 Avatar.get_hover_info 获取信息行
     lines = avatar.get_hover_info()
-    draw_tooltip(pygame_mod, screen, colors, lines, *pygame_mod.mouse.get_pos(), font, min_width=tooltip_min_width, top_limit=status_bar_height)
+    # 使用 wrap_lines_for_tooltip 进行像素级自动换行
+    wrapped_lines = wrap_lines_for_tooltip(font, lines, max_width_px=tooltip_min_width)
+    draw_tooltip(pygame_mod, screen, colors, wrapped_lines, *pygame_mod.mouse.get_pos(), font, min_width=tooltip_min_width, top_limit=status_bar_height)
 
 
-def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int, tooltip_min_width: int = 260, status_bar_height: int = 32):
+def draw_tooltip_for_region(pygame_mod, screen, colors, font, region, mouse_x: int, mouse_y: int, tooltip_min_width: int = 320, status_bar_height: int = 32):
     if region is None:
         return
-    # 改为调用 region.get_hover_info()，并统一用 wrap_lines_for_tooltip 进行换行
+    # 调用 region.get_hover_info()，并统一用 wrap_lines_for_tooltip 进行换行
     lines = region.get_hover_info()
-    wrapped_lines = wrap_lines_for_tooltip(lines, 28)
+    wrapped_lines = wrap_lines_for_tooltip(font, lines, max_width_px=tooltip_min_width)
     draw_tooltip(pygame_mod, screen, colors, wrapped_lines, mouse_x, mouse_y, font, min_width=tooltip_min_width, top_limit=status_bar_height)
 
 

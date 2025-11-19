@@ -1,37 +1,6 @@
 from typing import List, Optional, Tuple, Dict
+from src.utils.text_wrap import wrap_text_by_pixels
 from .rendering import map_pixel_size
-
-
-def _wrap_text_by_pixels(font, text: str, max_width_px: int) -> List[str]:
-    """
-    按像素宽度对单行文本进行硬换行，适配中英文混排（逐字符测量）。
-    """
-    if not text:
-        return [""]
-    
-    # 先处理显式换行符 \n，避免被当作乱码字符渲染
-    logical_lines = str(text).split('\n')
-    result: List[str] = []
-    
-    # 对每个逻辑行分别进行像素宽度换行
-    for logical_line in logical_lines:
-        if not logical_line:
-            result.append("")
-            continue
-        current = ""
-        for ch in logical_line:
-            test = current + ch
-            w, _ = font.size(test)
-            if w <= max_width_px:
-                current = test
-            else:
-                if current:
-                    result.append(current)
-                current = ch
-        if current:
-            result.append(current)
-    
-    return result if result else [""]
 
 
 def draw_sidebar(
@@ -86,7 +55,8 @@ def draw_sidebar(
         
         # 描述文字（自动换行）
         usable_width = phenomenon_width
-        desc_lines = _wrap_text_by_pixels(font, current_phenomenon.desc, usable_width)
+        # 使用统一的 wrap_text_by_pixels
+        desc_lines = wrap_text_by_pixels(font, current_phenomenon.desc, usable_width)
         for line in desc_lines:
             line_surf = font.render(line, True, colors["event_text"])
             screen.blit(line_surf, (phenomenon_x, phenomenon_y))
@@ -163,7 +133,8 @@ def draw_sidebar(
     # 从最新事件开始，逐条向下渲染，超出底部则停止
     for event in reversed(events):
         event_text = str(event)
-        wrapped_lines = _wrap_text_by_pixels(font, event_text, usable_width)
+        # 使用统一的 wrap_text_by_pixels
+        wrapped_lines = wrap_text_by_pixels(font, event_text, usable_width)
         for line in wrapped_lines:
             event_surf = font.render(line, True, colors["event_text"])
             screen.blit(event_surf, (title_x, event_y))
@@ -184,5 +155,3 @@ def draw_sidebar(
 
 
 __all__ = ["draw_sidebar"]
-
-
