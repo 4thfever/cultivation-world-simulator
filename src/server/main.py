@@ -2,8 +2,9 @@ import sys
 import os
 import asyncio
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 # 确保可以导入 src 模块
@@ -23,6 +24,29 @@ game_instance = {
     "world": None,
     "sim": None
 }
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: list[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: dict):
+        import json
+        try:
+            # 简单序列化，实际生产可能需要更复杂的 Encoder
+            txt = json.dumps(message, default=str)
+            for connection in self.active_connections:
+                await connection.send_text(txt)
+        except Exception as e:
+            print(f"Broadcast error: {e}")
+
+manager = ConnectionManager()
 
 def init_game():
     """初始化游戏世界，逻辑复用自 src/run/run.py"""
@@ -54,10 +78,47 @@ def init_game():
     game_instance["sim"] = sim
     print("游戏世界初始化完成！")
 
+async def game_loop():
+    """后台自动运行游戏循环"""
+    print("后台游戏循环已启动...")
+    while True:
+        # 控制游戏速度，例如每秒 1 次更新
+        await asyncio.sleep(1.0) 
+        
+        try:
+            sim = game_instance.get("sim")
+            world = game_instance.get("world")
+            
+            if sim and world:
+                # 执行一步
+                events = await sim.step()
+                
+                # 构造广播数据包
+                state = {
+                    "type": "tick",
+                    "year": int(world.month_stamp.get_year()),
+                    "month": world.month_stamp.get_month().value,
+                    "events": [str(e) for e in events],
+                    # 暂时只发前 50 个角色的位置更新，减少数据量
+                    "avatars": [
+                        {
+                            "id": str(a.id), 
+                            "x": int(getattr(a, "pos_x", 0)), 
+                            "y": int(getattr(a, "pos_y", 0))
+                        } 
+                        for a in list(world.avatar_manager.avatars.values())[:50]
+                    ]
+                }
+                await manager.broadcast(state)
+        except Exception as e:
+            print(f"Game loop error: {e}")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 启动时初始化
     init_game()
+    # 启动后台任务
+    asyncio.create_task(game_loop())
     yield
     # 关闭时清理（如果需要）
 
@@ -72,9 +133,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 挂载静态资源
+ASSETS_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
+if os.path.exists(ASSETS_PATH):
+    app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
+else:
+    print(f"Warning: Assets path not found: {ASSETS_PATH}")
+
 @app.get("/")
 def read_root():
     return {"status": "online", "app": "Cultivation World Simulator Backend"}
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            # 保持连接活跃，接收客户端指令（目前暂不处理复杂指令）
+            data = await websocket.receive_text()
+            # echo test
+            if data == "ping":
+                await websocket.send_text('{"type":"pong"}')
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+    except Exception as e:
+        print(f"WS Error: {e}")
+        manager.disconnect(websocket)
 
 @app.get("/api/state")
 def get_state():
@@ -121,7 +205,9 @@ def get_state():
                     "name": aname,
                     "x": ax,
                     "y": ay,
-                    "action": str(aaction)
+                    "action": str(aaction),
+                    "gender": str(a.gender.value),
+                    "pic_id": (hash(a.id) % 15) + 1
                 })
         except Exception as e:
             return {"step": 3, "error": str(e)}
@@ -136,6 +222,48 @@ def get_state():
 
     except Exception as e:
         return {"step": 0, "error": "Fatal: " + str(e)}
+
+@app.get("/api/map")
+def get_map():
+    """获取静态地图数据（仅需加载一次）"""
+    world = game_instance.get("world")
+    if not world or not world.map:
+        return {"error": "No map"}
+    
+    # 构造二维数组
+    w, h = world.map.width, world.map.height
+    map_data = []
+    for y in range(h):
+        row = []
+        for x in range(w):
+            tile = world.map.get_tile(x, y)
+            row.append(tile.type.name)
+        map_data.append(row)
+        
+    # 构造区域列表
+    regions_data = []
+    if world.map and hasattr(world.map, 'regions'):
+        for r in world.map.regions.values():
+            # 确保有中心点
+            if hasattr(r, 'center_loc') and r.center_loc:
+                rtype = "unknown"
+                if hasattr(r, 'get_region_type'):
+                    rtype = r.get_region_type()
+                
+                regions_data.append({
+                    "id": r.id,
+                    "name": r.name,
+                    "type": rtype,
+                    "x": r.center_loc[0],
+                    "y": r.center_loc[1]
+                })
+        
+    return {
+        "width": w,
+        "height": h,
+        "data": map_data,
+        "regions": regions_data
+    }
 
 @app.post("/api/step")
 async def step_world():

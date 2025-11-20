@@ -186,10 +186,28 @@ If you like this project, consider starring it~ You can also watch intro videos 
    ```
    For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
 
-4. Run the simulator:
+4. Run the simulator (Local Pygame version):
    ```bash
    python -m src.run.run
    ```
+
+5. Run Web version (WIP):
+   Start both backend and frontend.
+
+   **Backend:**
+   ```bash
+   # In project root
+   python src/server/main.py
+   ```
+
+   **Frontend:**
+   ```bash
+   # In a new terminal, inside 'web' directory
+   cd web
+   npm run dev
+   ```
+   Then visit http://localhost:5173
+
 
 ## Contributors
 - Aku, for world design & discussion

@@ -14,6 +14,7 @@ export const useGameStore = defineStore('game', () => {
     const year = ref(0)
     const month = ref(0)
     const avatars = ref<Record<string, Avatar>>({})
+    const events = ref<string[]>([]) // 添加事件列表状态
     
     // 计算属性：转换为数组以便遍历
     const avatarList = computed(() => Object.values(avatars.value))
@@ -35,6 +36,12 @@ export const useGameStore = defineStore('game', () => {
                 if (data.type === 'tick') {
                     year.value = data.year
                     month.value = data.month
+                    
+                    // 更新事件日志
+                    if (data.events && Array.isArray(data.events)) {
+                        // 将新事件追加到开头
+                        events.value = [...data.events, ...events.value].slice(0, 100) // 只保留最近100条
+                    }
                     
                     // 更新 Avatars（增量更新逻辑：这里后端暂发的是全量/部分列表，直接覆盖位置）
                     if (data.avatars && Array.isArray(data.avatars)) {
@@ -87,6 +94,7 @@ export const useGameStore = defineStore('game', () => {
         month,
         avatars,
         avatarList,
+        events, // 导出 events
         connect,
         fetchInitialState
     }

@@ -189,10 +189,28 @@
    ```
    具体支持的模型请参考 [litellm文档](https://docs.litellm.ai/docs/providers)
 
-4. 运行模拟器：
+4. 运行模拟器（本地 Pygame 版）：
    ```bash
    python -m src.run.run
    ```
+
+5. 运行 Web 版本（开发中）：
+   需要同时启动后端和前端。
+   
+   **后端：**
+   ```bash
+   # 在项目根目录
+   python src/server/main.py
+   ```
+   
+   **前端：**
+   ```bash
+   # 打开新终端，进入 web 目录
+   cd web
+   npm run dev
+   ```
+   然后访问 http://localhost:5173
+
 
 ## 贡献者
 - Aku, 世界观\玩法设计与讨论
