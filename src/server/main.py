@@ -250,13 +250,18 @@ def get_map():
                 if hasattr(r, 'get_region_type'):
                     rtype = r.get_region_type()
                 
-                regions_data.append({
+                region_dict = {
                     "id": r.id,
                     "name": r.name,
                     "type": rtype,
                     "x": r.center_loc[0],
                     "y": r.center_loc[1]
-                })
+                }
+                # 如果是宗门区域，额外传递 sect_name 用于前端加载图片
+                if hasattr(r, 'sect_name'):
+                    region_dict["sect_name"] = r.sect_name
+                
+                regions_data.append(region_dict)
         
     return {
         "width": w,

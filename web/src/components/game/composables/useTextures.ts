@@ -6,7 +6,9 @@ const textures = ref<Record<string, Texture>>({})
 const isLoaded = ref(false)
 
 export function useTextures() {
-  const loadTextures = async () => {
+  
+  // 基础纹理加载（地图块、角色）
+  const loadBaseTextures = async () => {
     if (isLoaded.value) return
 
     const manifest: Record<string, string> = {
@@ -28,7 +30,7 @@ export function useTextures() {
       'FARM': '/assets/tiles/farm.png'
     }
 
-    // 加载地图纹理
+    // 加载基础地图纹理
     for (const [key, url] of Object.entries(manifest)) {
       try {
         textures.value[key] = await Assets.load(url)
@@ -52,13 +54,32 @@ export function useTextures() {
     }
 
     isLoaded.value = true
-    console.log('Textures loaded')
+    console.log('Base textures loaded')
+  }
+
+  // 动态加载宗门纹理（按需）
+  const loadSectTexture = async (sectName: string) => {
+      const key = `SECT_${sectName}`
+      if (textures.value[key]) return // 已经加载过
+
+      // 假设图片路径规则：/assets/sects/宗门名.png
+      // 优先尝试 .png，如果需要支持 .jpg 可能需要额外逻辑，这里先定死 .png
+      const url = `/assets/sects/${sectName}.png`
+      try {
+          const tex = await Assets.load(url)
+          textures.value[key] = tex
+          console.log(`Loaded sect texture: ${sectName}`)
+      } catch (e) {
+          console.warn(`Failed to load sect texture for ${sectName}, using fallback.`)
+          // 加载失败时不占位，MapLayer 会 fallback 到 CITY
+      }
   }
 
   return {
     textures,
     isLoaded,
-    loadTextures
+    loadBaseTextures,
+    loadSectTexture
   }
 }
 

@@ -4,7 +4,7 @@ import { Container, Sprite } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
 
 const mapContainer = ref<Container>()
-const { textures, isLoaded } = useTextures()
+const { textures, isLoaded, loadSectTexture } = useTextures()
 const TILE_SIZE = 64
 const regions = ref<any[]>([])
 
@@ -17,8 +17,17 @@ async function initMap() {
     const res = await fetch('/api/map')
     const data = await res.json()
     const mapData = data.data
-    // Regions are already provided by backend
     regions.value = data.regions || []
+    
+    // 1. 预加载所有宗门的纹理
+    const loadPromises: Promise<void>[] = []
+    for (const r of regions.value) {
+        if (r.type === 'sect' && r.sect_name) {
+             // 使用 sect_name（宗门名）而不是 name（总部名）来加载图片
+             loadPromises.push(loadSectTexture(r.sect_name))
+        }
+    }
+    await Promise.all(loadPromises)
     
     if (!mapData) return
 
@@ -33,22 +42,55 @@ async function initMap() {
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const type = mapData[y][x]
-        const tex = textures.value[type] || textures.value['PLAIN']
+        
+        // 占位符直接跳过，不渲染任何东西（让背景透出来，或者就空着）
+        if (type === 'PLACEHOLDER') continue
+
+        let tex = textures.value[type] 
+        
+        // 特殊处理 SECT 类型
+        if (type === 'SECT') {
+             const r = regions.value.find(r => 
+                r.type === 'sect' && Math.abs(r.x - x) < 3 && Math.abs(r.y - y) < 3
+             )
+             
+             if (r && r.sect_name) {
+                 // 使用 sect_name（宗门名）而不是 name（总部名）来匹配图片
+                 const sectKey = `SECT_${r.sect_name}`
+                 if (textures.value[sectKey]) {
+                     tex = textures.value[sectKey]
+                 } else {
+                     tex = textures.value['CITY'] 
+                 }
+             } else {
+                 tex = textures.value['CITY']
+             }
+        }
+        
+        if (!tex) tex = textures.value['PLAIN']
         
         if (tex) {
           const s = new Sprite(tex)
           s.x = x * TILE_SIZE
           s.y = y * TILE_SIZE
-          s.width = TILE_SIZE
-          s.height = TILE_SIZE
-          // Optimization: Static tiles don't need interactivity
+          
+          // 2x2 大地块渲染逻辑
+          if (['SECT', 'CITY', 'CAVE', 'RUINS'].includes(type)) {
+              s.width = TILE_SIZE * 2
+              s.height = TILE_SIZE * 2
+              // 确保层级正确，大建筑可以稍微调整 zIndex 如果有深度排序需求
+              // 但在这里 tile 是平铺的，只要顺序对就行
+          } else {
+              s.width = TILE_SIZE
+              s.height = TILE_SIZE
+          }
+          
           s.eventMode = 'none' 
           mapContainer.value.addChild(s)
         }
       }
     }
     
-    // Emit world size
     emit('mapLoaded', { 
         width: cols * TILE_SIZE, 
         height: rows * TILE_SIZE 

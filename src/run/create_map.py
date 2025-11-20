@@ -139,6 +139,18 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
         game_map.region_names[region.name] = region
         # 刷新 Map 内部的宗门区域缓存
         game_map.update_sect_regions()
+        
+        # 将宗门范围内的 Tiles 设置为 SECT 锚点或 PLACEHOLDER
+        for x in range(nw_x, se_x + 1): # 注意：se_x 是 inclusive 吗？Region 定义里可能是 inclusive，这里循环用 range 需要 +1
+            for y in range(nw_y, se_y + 1):
+                if not game_map.is_in_bounds(x, y):
+                    continue
+                
+                # 判断是否为左上角
+                if x == nw_x and y == nw_y:
+                    game_map.tiles[(x, y)].type = TileType.SECT
+                else:
+                    game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
 
     # 添加完成后，重新分配到 tiles
     _assign_regions_to_tiles(game_map)
@@ -245,11 +257,15 @@ def _create_2x2_cities(game_map: Map):
     for city in cities:
         base_x, base_y = city["base_x"], city["base_y"]
         
+        # 使用 2x2 布局：左上角为真实 CITY，其他为 PLACEHOLDER
         for dx in range(2):
             for dy in range(2):
                 x, y = base_x + dx, base_y + dy
                 if game_map.is_in_bounds(x, y):
-                    game_map.tiles[(x, y)].type = TileType.CITY
+                    if dx == 0 and dy == 0:
+                         game_map.tiles[(x, y)].type = TileType.CITY
+                    else:
+                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
 
 def _create_2x2_wuxing_caves(game_map: Map):
     """创建2*2的五行洞府区域"""
@@ -269,7 +285,10 @@ def _create_2x2_wuxing_caves(game_map: Map):
             for dy in range(2):
                 x, y = base_x + dx, base_y + dy
                 if game_map.is_in_bounds(x, y):
-                    game_map.tiles[(x, y)].type = TileType.CAVE
+                    if dx == 0 and dy == 0:
+                         game_map.tiles[(x, y)].type = TileType.CAVE
+                    else:
+                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
 
 def _create_2x2_ruins(game_map: Map):
     """创建2*2的遗迹区域"""
@@ -285,7 +304,10 @@ def _create_2x2_ruins(game_map: Map):
             for dy in range(2):
                 x, y = base_x + dx, base_y + dy
                 if game_map.is_in_bounds(x, y):
-                    game_map.tiles[(x, y)].type = TileType.RUINS
+                    if dx == 0 and dy == 0:
+                         game_map.tiles[(x, y)].type = TileType.RUINS
+                    else:
+                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
 
 def _scale_loaded_regions(game_map: Map) -> None:
     """按比例缩放从 CSV 加载到 Map 的区域坐标。

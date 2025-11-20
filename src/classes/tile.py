@@ -23,7 +23,8 @@ class TileType(Enum):
     CAVE = "cave" # 洞穴
     RUINS = "ruins" # 遗迹
     FARM = "farm" # 农田
-
+    SECT = "sect" # 宗门
+    PLACEHOLDER = "placeholder" # 2x2大建筑的占位符
 
 @dataclass
 class Tile():
@@ -46,4 +47,3 @@ def get_avatar_distance(avatar1: 'Avatar', avatar2: 'Avatar') -> int:
         两个角色之间的距离
     """
     return abs(avatar1.pos_x - avatar2.pos_x) + abs(avatar1.pos_y - avatar2.pos_y)
-

@@ -9,7 +9,7 @@ import { useTextures } from './composables/useTextures'
 
 const container = ref<HTMLElement>()
 const { width, height } = useElementSize(container)
-const { loadTextures, isLoaded } = useTextures()
+const { loadBaseTextures, isLoaded } = useTextures()
 
 const mapSize = ref({ width: 2000, height: 2000 })
 
@@ -20,7 +20,7 @@ function onMapLoaded(size: { width: number, height: number }) {
 const devicePixelRatio = window.devicePixelRatio || 1
 
 onMounted(() => {
-  loadTextures()
+  loadBaseTextures()
 })
 </script>
 
