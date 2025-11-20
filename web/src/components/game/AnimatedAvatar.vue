@@ -9,6 +9,10 @@ const props = defineProps<{
   tileSize: number
 }>()
 
+const emit = defineEmits<{
+  (e: 'select', payload: { type: 'avatar'; id: string; name?: string }): void
+}>()
+
 const { textures } = useTextures()
 const app = useApplication()
 
@@ -90,6 +94,14 @@ const nameStyle = {
         alpha: 0.8
     }
 }
+
+function handlePointerTap() {
+    emit('select', {
+        type: 'avatar',
+        id: props.avatar.id,
+        name: props.avatar.name
+    })
+}
 </script>
 
 <template>
@@ -97,6 +109,9 @@ const nameStyle = {
     :x="currentX" 
     :y="currentY" 
     :z-index="Math.floor(currentY)"
+    event-mode="static"
+    cursor="pointer"
+    @pointertap="handlePointerTap"
   >
     <sprite
       v-if="getTexture()"

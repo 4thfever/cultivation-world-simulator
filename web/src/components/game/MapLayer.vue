@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, inject } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Container, Sprite } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
 
@@ -8,7 +8,10 @@ const { textures, isLoaded, loadSectTexture } = useTextures()
 const TILE_SIZE = 64
 const regions = ref<any[]>([])
 
-const emit = defineEmits(['mapLoaded'])
+const emit = defineEmits<{
+  (e: 'mapLoaded', payload: { width: number, height: number }): void
+  (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
+}>()
 
 async function initMap() {
   if (!mapContainer.value || !isLoaded.value) return
@@ -113,8 +116,8 @@ function getRegionStyle(type: string) {
     const base = {
         fontFamily: '"Microsoft YaHei", sans-serif',
         fontSize: type === 'sect' ? 48 : 64, 
-        fill: type === 'sect' ? 0xffcc00 : (type === 'city' ? 0xccffcc : 0xffffff),
-        stroke: { color: 0x000000, width: 8, join: 'round' }, 
+        fill: type === 'sect' ? '#ffcc00' : (type === 'city' ? '#ccffcc' : '#ffffff'),
+        stroke: { color: '#000000', width: 8, join: 'round' }, 
         align: 'center',
         dropShadow: {
             color: '#000000',
@@ -126,6 +129,14 @@ function getRegionStyle(type: string) {
     }
     return base
 }
+
+function handleRegionSelect(region: any) {
+    emit('regionSelected', {
+        type: 'region',
+        id: String(region.id),
+        name: region.name
+    })
+}
 </script>
 
 <template>
@@ -135,6 +146,7 @@ function getRegionStyle(type: string) {
      
      <!-- Region Labels Layer (Above tiles) -->
      <container :z-index="200">
+        <!-- @vue-ignore -->
         <text
             v-for="r in regions"
             :key="r.name"
@@ -143,6 +155,9 @@ function getRegionStyle(type: string) {
             :y="r.y * TILE_SIZE + TILE_SIZE / 2"
             :anchor="0.5"
             :style="getRegionStyle(r.type)"
+            event-mode="static"
+            cursor="pointer"
+            @pointertap="handleRegionSelect(r)"
         />
      </container>
   </container>

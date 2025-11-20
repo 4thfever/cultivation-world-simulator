@@ -3,6 +3,7 @@ import { onMounted, ref, computed } from 'vue'
 import { useGameStore } from './stores/game'
 import { NConfigProvider, darkTheme, NSelect } from 'naive-ui'
 import GameCanvas from './components/game/GameCanvas.vue'
+import InfoPanel from './components/InfoPanel.vue'
 
 const store = useGameStore()
 const filterValue = ref('all')
@@ -12,10 +13,26 @@ const filterOptions = computed(() => [
   ...store.avatarList.map(a => ({ label: a.name, value: a.id }))
 ])
 
+const filteredEvents = computed(() => {
+  const allEvents = Array.isArray(store.events) ? store.events : store.events ?? []
+  if (filterValue.value === 'all') {
+    return allEvents.slice()
+  }
+  return allEvents.filter(event => event.relatedAvatarIds.includes(filterValue.value))
+})
+
+const emptyEventMessage = computed(() => {
+  return filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
+})
+
 onMounted(async () => {
   await store.fetchInitialState()
   store.connect()
 })
+
+function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?: string }) {
+  store.openInfoPanel(target)
+}
 </script>
 
 <template>
@@ -38,7 +55,11 @@ onMounted(async () => {
       <div class="main-content">
         <!-- 地图区域 (占据主要空间) -->
         <div class="map-container">
-          <GameCanvas />
+          <GameCanvas
+            @avatarSelected="handleSelection"
+            @regionSelected="handleSelection"
+          />
+          <InfoPanel />
         </div>
 
         <!-- 右侧侧边栏 (固定宽度) -->
@@ -53,10 +74,10 @@ onMounted(async () => {
                     class="event-filter"
                 />
             </div>
-            <div v-if="store.events.length === 0" class="empty">暂无事件</div>
+            <div v-if="filteredEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
             <div v-else class="event-list">
-                <div v-for="(event, index) in store.events" :key="index" class="event-item">
-                    {{ event }}
+                <div v-for="event in filteredEvents" :key="event.id" class="event-item">
+                    {{ event.content || event.text }}
                 </div>
             </div>
           </div>
@@ -161,10 +182,12 @@ onMounted(async () => {
 }
 
 .event-item {
-    font-size: 12px;
-    color: #ccc;
-    padding: 4px 0;
-    border-bottom: 1px solid #333;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ddd;
+    padding: 6px 0;
+    border-bottom: 1px solid #2a2a2a;
+    white-space: pre-line;
 }
 
 .event-item:last-child {

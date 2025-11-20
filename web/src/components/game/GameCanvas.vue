@@ -13,8 +13,21 @@ const { loadBaseTextures, isLoaded } = useTextures()
 
 const mapSize = ref({ width: 2000, height: 2000 })
 
+const emit = defineEmits<{
+  (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
+  (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
+}>()
+
 function onMapLoaded(size: { width: number, height: number }) {
     mapSize.value = size
+}
+
+function handleAvatarSelected(payload: { type: 'avatar'; id: string; name?: string }) {
+  emit('avatarSelected', payload)
+}
+
+function handleRegionSelected(payload: { type: 'region'; id: string; name?: string }) {
+  emit('regionSelected', payload)
 }
 
 const devicePixelRatio = window.devicePixelRatio || 1
@@ -46,8 +59,8 @@ onMounted(() => {
         :world-width="mapSize.width"
         :world-height="mapSize.height"
       >
-        <MapLayer @mapLoaded="onMapLoaded" />
-        <EntityLayer />
+        <MapLayer @mapLoaded="onMapLoaded" @regionSelected="handleRegionSelected" />
+        <EntityLayer @avatarSelected="handleAvatarSelected" />
       </Viewport>
     </Application>
   </div>

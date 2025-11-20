@@ -2,7 +2,8 @@ import sys
 import os
 import asyncio
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from typing import List
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
@@ -17,6 +18,8 @@ from src.run.create_map import create_cultivation_world_map, add_sect_headquarte
 from src.sim.new_avatar import make_avatars as _new_make
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
+from src.classes.color import serialize_hover_lines
+from src.classes.event import Event
 import random
 
 # 全局游戏实例
@@ -47,6 +50,46 @@ class ConnectionManager:
             print(f"Broadcast error: {e}")
 
 manager = ConnectionManager()
+
+
+def serialize_events_for_client(events: List[Event]) -> List[dict]:
+    """将事件转换为前端可用的结构。"""
+    serialized: List[dict] = []
+    for idx, event in enumerate(events):
+        month_stamp = getattr(event, "month_stamp", None)
+        stamp_int = None
+        year = None
+        month = None
+        if month_stamp is not None:
+            try:
+                stamp_int = int(month_stamp)
+            except Exception:
+                stamp_int = None
+            try:
+                year = int(month_stamp.get_year())
+            except Exception:
+                year = None
+            try:
+                month_obj = month_stamp.get_month()
+                month = int(getattr(month_obj, "value", month_obj))
+            except Exception:
+                month = None
+
+        related_raw = getattr(event, "related_avatars", None) or []
+        related_ids = [str(a) for a in related_raw if a is not None]
+
+        serialized.append({
+            "id": getattr(event, "event_id", None) or f"{stamp_int or 'evt'}-{idx}",
+            "text": str(event),
+            "content": getattr(event, "content", ""),
+            "year": year,
+            "month": month,
+            "month_stamp": stamp_int,
+            "related_avatar_ids": related_ids,
+            "is_major": bool(getattr(event, "is_major", False)),
+            "is_story": bool(getattr(event, "is_story", False)),
+        })
+    return serialized
 
 def init_game():
     """初始化游戏世界，逻辑复用自 src/run/run.py"""
@@ -98,7 +141,7 @@ async def game_loop():
                     "type": "tick",
                     "year": int(world.month_stamp.get_year()),
                     "month": world.month_stamp.get_month().value,
-                    "events": [str(e) for e in events],
+                    "events": serialize_events_for_client(events),
                     # 暂时只发前 50 个角色的位置更新，减少数据量
                     "avatars": [
                         {
@@ -212,12 +255,21 @@ def get_state():
         except Exception as e:
             return {"step": 3, "error": str(e)}
 
+        recent_events = []
+        try:
+            event_manager = getattr(world, "event_manager", None)
+            if event_manager:
+                recent_events = serialize_events_for_client(event_manager.get_recent_events(limit=50))
+        except Exception:
+            recent_events = []
+
         return {
             "status": "ok",
             "year": y,
             "month": m,
             "avatar_count": len(world.avatar_manager.avatars),
-            "avatars": av_list
+            "avatars": av_list,
+            "events": recent_events
         }
 
     except Exception as e:
@@ -283,6 +335,43 @@ async def step_world():
         "message": "Step executed",
         "event_count": len(events),
         "events_sample": [str(e) for e in events[:5]]
+    }
+
+@app.get("/api/hover")
+def get_hover_info(
+    target_type: str = Query(alias="type"),
+    target_id: str = Query(alias="id")
+):
+    world = game_instance.get("world")
+    if world is None:
+        raise HTTPException(status_code=503, detail="World not initialized")
+
+    target = None
+    if target_type == "avatar":
+        target = world.avatar_manager.avatars.get(target_id)
+    elif target_type == "region":
+        if world.map and hasattr(world.map, "regions"):
+            regions = world.map.regions
+            target = regions.get(target_id)
+            if target is None:
+                try:
+                    target = regions.get(int(target_id))
+                except (ValueError, TypeError):
+                    target = None
+    else:
+        raise HTTPException(status_code=400, detail="Unsupported target type")
+
+    if target is None:
+        raise HTTPException(status_code=404, detail="Target not found")
+    if not hasattr(target, "get_hover_info"):
+        raise HTTPException(status_code=422, detail="Target has no hover info")
+
+    lines = target.get_hover_info() or []
+    return {
+        "id": target_id,
+        "type": target_type,
+        "name": getattr(target, "name", target_id),
+        "lines": serialize_hover_lines([str(line) for line in lines]),
     }
 
 def start():
