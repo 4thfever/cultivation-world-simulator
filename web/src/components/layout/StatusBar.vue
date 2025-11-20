@@ -13,6 +13,17 @@ const store = useGameStore()
     <div class="center">
       <span class="time">{{ store.year }}年 {{ store.month }}月</span>
     </div>
+    <div class="author">
+      <span>作者：</span>
+      <a
+        class="author-link"
+        href="https://space.bilibili.com/527346837"
+        target="_blank"
+        rel="noopener"
+      >
+        肥桥今天吃什么
+      </a>
+    </div>
     <div class="right">
       <span>修士: {{ store.avatarList.length }}</span>
     </div>
@@ -30,6 +41,7 @@ const store = useGameStore()
   padding: 0 16px;
   font-size: 14px;
   z-index: 10;
+  gap: 16px;
 }
 
 .top-bar .title {
@@ -47,6 +59,24 @@ const store = useGameStore()
 
 .status-dot.connected {
   background: #52c41a;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  color: #bbb;
+}
+
+.author-link {
+  color: #4dabf7;
+  text-decoration: none;
+}
+
+.author-link:hover {
+  color: #8bc6ff;
+  text-decoration: underline;
 }
 
 </style>
