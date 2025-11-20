@@ -22,6 +22,18 @@ const filteredEvents = computed(() => {
 const emptyEventMessage = computed(() => (
   filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
 ))
+
+function formatEventDate(event: { year?: number; month?: number; monthStamp?: number }) {
+  if (typeof event.year === 'number' && typeof event.month === 'number') {
+    return `${event.year}年${event.month}月`
+  }
+  if (typeof event.monthStamp === 'number') {
+    const year = Math.floor(event.monthStamp / 12)
+    const month = event.monthStamp % 12 || 12
+    return `${year}年${month}月`
+  }
+  return '未知'
+}
 </script>
 
 <template>
@@ -38,7 +50,8 @@ const emptyEventMessage = computed(() => (
     <div v-if="filteredEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
     <div v-else class="event-list">
       <div v-for="event in filteredEvents" :key="event.id" class="event-item">
-        {{ event.content || event.text }}
+        <div class="event-date">{{ formatEventDate(event) }}</div>
+        <div class="event-content">{{ event.content || event.text }}</div>
       </div>
     </div>
   </section>
@@ -78,16 +91,29 @@ const emptyEventMessage = computed(() => (
 }
 
 .event-item {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #ddd;
+  display: flex;
+  gap: 8px;
   padding: 6px 0;
   border-bottom: 1px solid #2a2a2a;
-  white-space: pre-line;
 }
 
 .event-item:last-child {
   border-bottom: none;
+}
+
+.event-date {
+  flex: 0 0 25%;
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.event-content {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ddd;
+  white-space: pre-line;
 }
 
 .empty {
