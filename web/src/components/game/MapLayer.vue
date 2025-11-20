@@ -1,141 +1,136 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Container, Sprite } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
+import { useMapData } from '../../composables/useMapData'
+import type { Region } from '../../types/game'
 
+const TILE_SIZE = 64
 const mapContainer = ref<Container>()
 const { textures, isLoaded, loadSectTexture } = useTextures()
-const TILE_SIZE = 64
-const regions = ref<any[]>([])
+const { mapTiles, regions, isMapLoaded, loadMapData } = useMapData()
+const regionStyleCache = new Map<string, Record<string, unknown>>()
 
 const emit = defineEmits<{
   (e: 'mapLoaded', payload: { width: number, height: number }): void
   (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
 }>()
 
-async function initMap() {
-  if (!mapContainer.value || !isLoaded.value) return
-  
-  try {
-    const res = await fetch('/api/map')
-    const data = await res.json()
-    const mapData = data.data
-    regions.value = data.regions || []
-    
-    // 1. 预加载所有宗门的纹理
-    const loadPromises: Promise<void>[] = []
-    for (const r of regions.value) {
-        if (r.type === 'sect' && r.sect_name) {
-             // 使用 sect_name（宗门名）而不是 name（总部名）来加载图片
-             loadPromises.push(loadSectTexture(r.sect_name))
-        }
-    }
-    await Promise.all(loadPromises)
-    
-    if (!mapData) return
-
-    // Imperative Tile Rendering
-    mapContainer.value.removeChildren()
-    
-    const rows = mapData.length
-    const cols = mapData[0].length
-    
-    console.log(`Rendering Map: ${cols}x${rows}`)
-    
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        const type = mapData[y][x]
-        
-        // 占位符直接跳过，不渲染任何东西（让背景透出来，或者就空着）
-        if (type === 'PLACEHOLDER') continue
-
-        let tex = textures.value[type] 
-        
-        // 特殊处理 SECT 类型
-        if (type === 'SECT') {
-             const r = regions.value.find(r => 
-                r.type === 'sect' && Math.abs(r.x - x) < 3 && Math.abs(r.y - y) < 3
-             )
-             
-             if (r && r.sect_name) {
-                 // 使用 sect_name（宗门名）而不是 name（总部名）来匹配图片
-                 const sectKey = `SECT_${r.sect_name}`
-                 if (textures.value[sectKey]) {
-                     tex = textures.value[sectKey]
-                 } else {
-                     tex = textures.value['CITY'] 
-                 }
-             } else {
-                 tex = textures.value['CITY']
-             }
-        }
-        
-        if (!tex) tex = textures.value['PLAIN']
-        
-        if (tex) {
-          const s = new Sprite(tex)
-          s.x = x * TILE_SIZE
-          s.y = y * TILE_SIZE
-          
-          // 2x2 大地块渲染逻辑
-          if (['SECT', 'CITY', 'CAVE', 'RUINS'].includes(type)) {
-              s.width = TILE_SIZE * 2
-              s.height = TILE_SIZE * 2
-              // 确保层级正确，大建筑可以稍微调整 zIndex 如果有深度排序需求
-              // 但在这里 tile 是平铺的，只要顺序对就行
-          } else {
-              s.width = TILE_SIZE
-              s.height = TILE_SIZE
-          }
-          
-          s.eventMode = 'none' 
-          mapContainer.value.addChild(s)
-        }
-      }
-    }
-    
-    emit('mapLoaded', { 
-        width: cols * TILE_SIZE, 
-        height: rows * TILE_SIZE 
-    })
-    
-  } catch (e) {
-    console.error("Map load error", e)
+onMounted(() => {
+  loadMapData().catch((error) => console.error('Map load error', error))
+  if (isLoaded.value && isMapLoaded.value) {
+    renderMap()
   }
+})
+
+watch(
+  () => [isLoaded.value, isMapLoaded.value],
+  ([texturesReady, mapReady]) => {
+    if (texturesReady && mapReady) {
+      renderMap()
+    }
+  }
+)
+
+async function renderMap() {
+  if (!mapContainer.value || !mapTiles.value.length) return
+
+  await preloadSectTextures(regions.value)
+  mapContainer.value.removeChildren()
+
+  const rows = mapTiles.value.length
+  const cols = mapTiles.value[0]?.length ?? 0
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const type = mapTiles.value[y][x]
+      if (type === 'PLACEHOLDER') continue
+
+      let tex = textures.value[type]
+
+      if (type === 'SECT') {
+        tex = resolveSectTexture(x, y) ?? textures.value['CITY']
+      }
+
+      if (!tex) {
+        tex = textures.value['PLAIN']
+      }
+
+      if (!tex) continue
+
+      const sprite = new Sprite(tex)
+      sprite.x = x * TILE_SIZE
+      sprite.y = y * TILE_SIZE
+
+      if (['SECT', 'CITY', 'CAVE', 'RUINS'].includes(type)) {
+        sprite.width = TILE_SIZE * 2
+        sprite.height = TILE_SIZE * 2
+      } else {
+        sprite.width = TILE_SIZE
+        sprite.height = TILE_SIZE
+      }
+
+      sprite.eventMode = 'none'
+      mapContainer.value.addChild(sprite)
+    }
+  }
+
+  emit('mapLoaded', {
+    width: cols * TILE_SIZE,
+    height: rows * TILE_SIZE
+  })
 }
 
-watch(isLoaded, (val) => {
-  if (val) initMap()
-})
+async function preloadSectTextures(regionList: Region[]) {
+  const sectNames = Array.from(
+    new Set(
+      regionList
+        .filter(region => region.type === 'sect' && region.sect_name)
+        .map(region => region.sect_name as string)
+    )
+  )
+  await Promise.all(sectNames.map(name => loadSectTexture(name)))
+}
 
-onMounted(() => {
-  if (isLoaded.value) initMap()
-})
+function resolveSectTexture(x: number, y: number) {
+  const region = regions.value.find(r =>
+    r.type === 'sect' && Math.abs(r.x - x) < 3 && Math.abs(r.y - y) < 3
+  )
+  if (region?.sect_name) {
+    const key = `SECT_${region.sect_name}`
+    return textures.value[key] ?? null
+  }
+  return null
+}
 
 function getRegionStyle(type: string) {
-    const base = {
-        fontFamily: '"Microsoft YaHei", sans-serif',
-        fontSize: type === 'sect' ? 48 : 64, 
-        fill: type === 'sect' ? '#ffcc00' : (type === 'city' ? '#ccffcc' : '#ffffff'),
-        stroke: { color: '#000000', width: 8, join: 'round' }, 
-        align: 'center',
-        dropShadow: {
-            color: '#000000',
-            blur: 4,
-            angle: Math.PI / 6,
-            distance: 4,
-            alpha: 0.8
-        }
+  if (regionStyleCache.has(type)) {
+    return regionStyleCache.get(type)
+  }
+  const style = {
+    fontFamily: '"Microsoft YaHei", sans-serif',
+    fontSize: type === 'sect' ? 48 : 64,
+    fill: type === 'sect' ? '#ffcc00' : (type === 'city' ? '#ccffcc' : '#ffffff'),
+    stroke: { color: '#000000', width: 8, join: 'round' },
+    align: 'center',
+    dropShadow: {
+      color: '#000000',
+      blur: 4,
+      angle: Math.PI / 6,
+      distance: 4,
+      alpha: 0.8
     }
-    return base
+  }
+  regionStyleCache.set(type, style)
+  return style
 }
 
-function handleRegionSelect(region: any) {
-    emit('regionSelected', {
-        type: 'region',
-        id: String(region.id),
-        name: region.name
-    })
+function handleRegionSelect(region: Region) {
+  emit('regionSelected', {
+    type: 'region',
+    id: String(region.id),
+    name: region.name
+  })
 }
 </script>
 

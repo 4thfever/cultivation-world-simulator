@@ -1,278 +1,186 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+import type {
+  Avatar,
+  GameEvent,
+  HoverLine,
+  HoverTarget,
+  TickPayload
+} from '../types/game'
+import { gameApi } from '../services/gameApi'
+import { createGameGateway } from '../services/gameGateway'
+import { normalizeGameEvent, normalizeHoverLines } from '../utils/normalizers'
 
-export interface Avatar {
-    id: string
-    name?: string
-    x: number
-    y: number
-    action?: string
+const MAX_EVENTS = 200
+
+function cacheKey(target: HoverTarget) {
+  return `${target.type}:${target.id}`
 }
 
-export type HoverTarget = {
-    type: 'avatar' | 'region'
-    id: string
-    name?: string
+function eventRank(event: GameEvent) {
+  if (typeof event.monthStamp === 'number') {
+    return event.monthStamp
+  }
+  if (typeof event.year === 'number' && typeof event.month === 'number') {
+    return event.year * 12 + event.month
+  }
+  return -Infinity
 }
 
-export interface HoverSegment {
-    text: string
-    color?: string
-}
-
-export type HoverLine = HoverSegment[]
-
-function normalizeHoverLines(raw: unknown): HoverLine[] {
-    if (!Array.isArray(raw)) return []
-    return raw.map((line) => {
-        if (!Array.isArray(line)) {
-            return [{ text: line != null ? String(line) : '' }]
-        }
-        const segments = line.map((segment) => {
-            if (segment && typeof segment === 'object') {
-                const record = segment as Record<string, unknown>
-                const textValue = 'text' in record ? record.text : ''
-                const colorValue = 'color' in record ? record.color : undefined
-                const text = textValue != null ? String(textValue) : ''
-                const color = typeof colorValue === 'string' && colorValue ? colorValue : undefined
-                return { text, color }
-            }
-            return { text: segment != null ? String(segment) : '' }
-        })
-        return segments.length ? segments : [{ text: '' }]
-    })
-}
-
-export interface GameEvent {
-    id: string
-    text: string
-    content?: string
-    year?: number
-    month?: number
-    monthStamp?: number
-    relatedAvatarIds: string[]
-    isMajor?: boolean
-    isStory?: boolean
-}
-
-let localEventIdCounter = 0
-function nextLocalEventId(prefix: string) {
-    localEventIdCounter += 1
-    return `${prefix}-${Date.now()}-${localEventIdCounter}`
-}
-
-function normalizeGameEvent(raw: unknown): GameEvent | null {
-    if (raw == null) {
-        return null
-    }
-
-    if (typeof raw === 'string') {
-        return {
-            id: nextLocalEventId('legacy'),
-            text: raw,
-            relatedAvatarIds: []
-        }
-    }
-
-    if (typeof raw === 'object') {
-        const record = raw as Record<string, unknown>
-        const textSource = record.text ?? record.content ?? ''
-        const text = typeof textSource === 'string' ? textSource : String(textSource ?? '')
-        const idSource = record.id
-        const id = typeof idSource === 'string' && idSource ? idSource : nextLocalEventId('evt')
-        const relatedSource = record.related_avatar_ids ?? record.relatedAvatarIds ?? []
-        const relatedAvatarIds = Array.isArray(relatedSource) ? relatedSource.map(val => String(val)) : []
-        const content = typeof record.content === 'string' ? record.content : undefined
-        const year = typeof record.year === 'number' ? record.year : undefined
-        const month = typeof record.month === 'number' ? record.month : undefined
-        const monthStampRaw = record.month_stamp ?? record.monthStamp
-        const monthStamp = typeof monthStampRaw === 'number' ? monthStampRaw : undefined
-        const isMajor = Boolean(record.is_major ?? record.isMajor ?? false)
-        const isStory = Boolean(record.is_story ?? record.isStory ?? false)
-
-        return {
-            id,
-            text: text || content || '',
-            content,
-            year,
-            month,
-            monthStamp,
-            relatedAvatarIds,
-            isMajor,
-            isStory
-        }
-    }
-
-    return {
-        id: nextLocalEventId('legacy'),
-        text: String(raw),
-        relatedAvatarIds: []
-    }
+function sortEventsDescending(a: GameEvent, b: GameEvent) {
+  const diff = eventRank(b) - eventRank(a)
+  if (diff !== 0) return diff
+  return b.id.localeCompare(a.id)
 }
 
 export const useGameStore = defineStore('game', () => {
-    const isConnected = ref(false)
-    const year = ref(0)
-    const month = ref(0)
-    const avatars = ref<Record<string, Avatar>>({})
-    const events = ref<GameEvent[]>([]) // 添加事件列表状态
-    const selectedTarget = ref<HoverTarget | null>(null)
-    const hoverInfo = ref<HoverLine[]>([])
-    const infoLoading = ref(false)
-    const infoError = ref<string | null>(null)
-    const hoverCache = new Map<string, HoverLine[]>()
-    
-    // 计算属性：转换为数组以便遍历
-    const avatarList = computed(() => Object.values(avatars.value))
+  const isConnected = ref(false)
+  const year = ref(0)
+  const month = ref(0)
+  const avatars = ref<Record<string, Avatar>>({})
+  const events = ref<GameEvent[]>([])
+  const selectedTarget = ref<HoverTarget | null>(null)
+  const hoverInfo = ref<HoverLine[]>([])
+  const infoLoading = ref(false)
+  const infoError = ref<string | null>(null)
+  const hoverCache = new Map<string, HoverLine[]>()
 
-    function cacheKey(target: HoverTarget) {
-        return `${target.type}:${target.id}`
+  const avatarList = computed(() => Object.values(avatars.value))
+
+  const gateway = createGameGateway({
+    onTick: handleTickPayload,
+    onStatusChange: (connected) => {
+      isConnected.value = connected
+    },
+    onError: (error) => {
+      console.error('WS Error', error)
+    }
+  })
+
+  function handleTickPayload(payload: TickPayload) {
+    year.value = payload.year
+    month.value = payload.month
+    appendEvents(payload.events)
+
+    if (Array.isArray(payload.avatars)) {
+      mergeAvatars(payload.avatars)
+    }
+  }
+
+  function mergeAvatars(list: Avatar[]) {
+    list.forEach((av) => {
+      const existing = avatars.value[av.id]
+      avatars.value[av.id] = existing ? { ...existing, ...av } : { ...av }
+    })
+  }
+
+  function appendEvents(rawEvents: unknown) {
+    if (!Array.isArray(rawEvents) || !rawEvents.length) return
+    const bucket = new Map(events.value.map((evt) => [evt.id, evt]))
+    let changed = false
+
+    rawEvents.forEach((item) => {
+      const evt = normalizeGameEvent(item)
+      if (!evt) return
+      bucket.set(evt.id, evt)
+      changed = true
+    })
+
+    if (!changed) return
+
+    const nextEvents = [...bucket.values()].sort(sortEventsDescending).slice(0, MAX_EVENTS)
+    events.value = nextEvents
+  }
+
+  async function fetchInitialState() {
+    try {
+      const data = await gameApi.getInitialState()
+      if (data.status !== 'ok') return
+      year.value = data.year
+      month.value = data.month
+      if (Array.isArray(data.avatars)) {
+        const nextAvatars: Record<string, Avatar> = {}
+        data.avatars.forEach((av) => {
+          nextAvatars[av.id] = av
+        })
+        avatars.value = nextAvatars
+      }
+      appendEvents(data.events)
+    } catch (error) {
+      console.error('Fetch State Error', error)
+    }
+  }
+
+  async function fetchHoverInfo(target: HoverTarget) {
+    const key = cacheKey(target)
+    const cached = hoverCache.get(key)
+    if (cached) {
+      if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
+        hoverInfo.value = cached
+      }
+      infoLoading.value = false
+      infoError.value = null
+      return
     }
 
-    function appendEvents(rawEvents: unknown) {
-        if (!Array.isArray(rawEvents)) return
-        const normalized = rawEvents
-            .map((item) => normalizeGameEvent(item))
-            .filter((evt): evt is GameEvent => !!evt)
-        if (normalized.length) {
-            events.value = [...normalized, ...events.value].slice(0, 100)
-        }
-    }
+    infoLoading.value = true
+    infoError.value = null
+    hoverInfo.value = []
 
-    function connect() {
-        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-        // 开发环境下 Vite 代理会处理 /ws，生产环境直接连
-        const host = window.location.host
-        const ws = new WebSocket(`${protocol}//${host}/ws`)
-
-        ws.onopen = () => {
-            console.log('WS Connected')
-            isConnected.value = true
-        }
-
-        ws.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data)
-                if (data.type === 'tick') {
-                    year.value = data.year
-                    month.value = data.month
-                    
-                    // 更新事件日志
-                    appendEvents(data.events)
-                    
-                    // 更新 Avatars（增量更新逻辑：这里后端暂发的是全量/部分列表，直接覆盖位置）
-                    if (data.avatars && Array.isArray(data.avatars)) {
-                        data.avatars.forEach((av: Avatar) => {
-                            if (avatars.value[av.id]) {
-                                // 存在则更新
-                                Object.assign(avatars.value[av.id], av)
-                            } else {
-                                // 不存在则创建（新角色）
-                                avatars.value[av.id] = av
-                            }
-                        })
-                    }
-                }
-            } catch (e) {
-                console.error('WS Parse Error', e)
-            }
-        }
-
-        ws.onclose = () => {
-            console.log('WS Closed')
-            isConnected.value = false
-            // 简单的断线重连
-            setTimeout(connect, 3000)
-        }
-    }
-
-    // 初始加载（通过 HTTP 获取一次全量状态，因为 WS 只发增量或视口内）
-    async function fetchInitialState() {
-        try {
-            const res = await fetch('/api/state')
-            const data = await res.json()
-            if (data.status === 'ok') {
-                year.value = data.year
-                month.value = data.month
-                if (data.avatars) {
-                    data.avatars.forEach((av: Avatar) => {
-                        avatars.value[av.id] = av
-                    })
-                }
-                appendEvents(data.events)
-            }
-        } catch (e) {
-            console.error('Fetch State Error', e)
-        }
-    }
-
-    async function fetchHoverInfo(target: HoverTarget) {
-        const key = cacheKey(target)
-        const cached = hoverCache.get(key)
-        if (cached) {
-            if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-                hoverInfo.value = cached
-            }
-            infoLoading.value = false
-            infoError.value = null
-            return
-        }
-
-        infoLoading.value = true
-        infoError.value = null
+    try {
+      const data = await gameApi.getHoverInfo(target)
+      const lines = normalizeHoverLines(data.lines)
+      hoverCache.set(key, lines)
+      if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
+        hoverInfo.value = lines
+      }
+    } catch (error) {
+      if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
+        infoError.value = error instanceof Error ? error.message : String(error)
         hoverInfo.value = []
-
-        try {
-            const query = new URLSearchParams({ type: target.type, id: target.id })
-            const res = await fetch(`/api/hover?${query.toString()}`)
-            if (!res.ok) {
-                throw new Error(`加载失败：${res.status}`)
-            }
-            const data = await res.json()
-            const lines = normalizeHoverLines(data.lines)
-            hoverCache.set(key, lines)
-            if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-                hoverInfo.value = lines
-            }
-        } catch (e) {
-            if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-                infoError.value = e instanceof Error ? e.message : String(e)
-                hoverInfo.value = []
-            }
-        } finally {
-            if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-                infoLoading.value = false
-            }
-        }
-    }
-
-    function openInfoPanel(target: HoverTarget) {
-        selectedTarget.value = target
-        fetchHoverInfo(target)
-    }
-
-    function closeInfoPanel() {
-        selectedTarget.value = null
-        infoError.value = null
-        hoverInfo.value = []
+      }
+    } finally {
+      if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
         infoLoading.value = false
+      }
     }
+  }
 
-    return {
-        isConnected,
-        year,
-        month,
-        avatars,
-        avatarList,
-        events, // 导出 events
-        selectedTarget,
-        hoverInfo,
-        infoLoading,
-        infoError,
-        connect,
-        fetchInitialState,
-        openInfoPanel,
-        closeInfoPanel
-    }
+  function connect() {
+    gateway.connect()
+  }
+
+  function disconnect() {
+    gateway.disconnect()
+  }
+
+  function openInfoPanel(target: HoverTarget) {
+    selectedTarget.value = target
+    fetchHoverInfo(target)
+  }
+
+  function closeInfoPanel() {
+    selectedTarget.value = null
+    infoError.value = null
+    hoverInfo.value = []
+    infoLoading.value = false
+  }
+
+  return {
+    isConnected,
+    year,
+    month,
+    avatars,
+    avatarList,
+    events,
+    selectedTarget,
+    hoverInfo,
+    infoLoading,
+    infoError,
+    connect,
+    disconnect,
+    fetchInitialState,
+    openInfoPanel,
+    closeInfoPanel
+  }
 })
-

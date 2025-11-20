@@ -30,28 +30,29 @@ export function useTextures() {
       'FARM': '/assets/tiles/farm.png'
     }
 
-    // 加载基础地图纹理
-    for (const [key, url] of Object.entries(manifest)) {
+    const tilePromises = Object.entries(manifest).map(async ([key, url]) => {
       try {
         textures.value[key] = await Assets.load(url)
-      } catch (e) {
-        console.error(`Failed to load texture: ${url}`, e)
+      } catch (error) {
+        console.error(`Failed to load texture: ${url}`, error)
       }
-    }
+    })
 
-    // 加载角色立绘 (1-16)
-    for (let i = 1; i <= 16; i++) {
+    const avatarPromises = Array.from({ length: 16 }, (_, index) => index + 1).map(async (i) => {
       const maleUrl = `/assets/males/${i}.png`
       const femaleUrl = `/assets/females/${i}.png`
 
-      try {
-        textures.value[`male_${i}`] = await Assets.load(maleUrl)
-      } catch (e) { /* ignore */ }
+      await Promise.allSettled([
+        Assets.load(maleUrl).then((tex) => {
+          textures.value[`male_${i}`] = tex
+        }),
+        Assets.load(femaleUrl).then((tex) => {
+          textures.value[`female_${i}`] = tex
+        })
+      ])
+    })
 
-      try {
-        textures.value[`female_${i}`] = await Assets.load(femaleUrl)
-      } catch (e) { /* ignore */ }
-    }
+    await Promise.all([...tilePromises, ...avatarPromises])
 
     isLoaded.value = true
     console.log('Base textures loaded')

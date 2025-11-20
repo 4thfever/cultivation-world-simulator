@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useTextures } from './composables/useTextures'
-import { ref, watch, onMounted } from 'vue'
-import { Graphics, Ticker } from 'pixi.js'
-import { useApplication } from 'vue3-pixi'
+import { ref, watch } from 'vue'
+import { Graphics } from 'pixi.js'
+import type { Avatar } from '../../types/game'
+import { useSharedTicker } from './composables/useSharedTicker'
 
 const props = defineProps<{
-  avatar: any
+  avatar: Avatar
   tileSize: number
 }>()
 
@@ -14,7 +15,6 @@ const emit = defineEmits<{
 }>()
 
 const { textures } = useTextures()
-const app = useApplication()
 
 // Target position (grid coordinates)
 const targetX = ref(props.avatar.x)
@@ -30,34 +30,23 @@ watch(() => [props.avatar.x, props.avatar.y], ([newX, newY]) => {
     targetY.value = newY
 })
 
-// Animation Loop
-onMounted(() => {
-    const ticker = new Ticker()
-    ticker.add((delta) => {
-        const destX = targetX.value * props.tileSize + props.tileSize / 2
-        const destY = targetY.value * props.tileSize + props.tileSize / 2
-        
-        // Simple Lerp for smoothness
-        // Speed factor: 0.1 means it covers 10% of the remaining distance per frame
-        const speed = 0.1 * delta.deltaTime 
-        
-        if (Math.abs(destX - currentX.value) > 1) {
-            currentX.value += (destX - currentX.value) * speed
-        } else {
-            currentX.value = destX
-        }
-        
-        if (Math.abs(destY - currentY.value) > 1) {
-            currentY.value += (destY - currentY.value) * speed
-        } else {
-            currentY.value = destY
-        }
-    })
-    ticker.start()
+useSharedTicker((delta) => {
+    const destX = targetX.value * props.tileSize + props.tileSize / 2
+    const destY = targetY.value * props.tileSize + props.tileSize / 2
     
-    // Cleanup manually if needed, though Vue unmount should handle parent destruction
-    // Ideally we should attach to app.ticker, but local ticker is easier for per-component logic without memory leaks if managed well.
-    // Better approach: use onTick from vue3-pixi if available, or just requestAnimationFrame
+    const speed = 0.1 * delta
+    
+    if (Math.abs(destX - currentX.value) > 1) {
+        currentX.value += (destX - currentX.value) * speed
+    } else {
+        currentX.value = destX
+    }
+    
+    if (Math.abs(destY - currentY.value) > 1) {
+        currentY.value += (destY - currentY.value) * speed
+    } else {
+        currentY.value = destY
+    }
 })
 
 function getTexture() {
