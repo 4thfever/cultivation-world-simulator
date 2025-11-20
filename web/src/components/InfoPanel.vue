@@ -1,16 +1,48 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 
 const store = useGameStore()
+const panelRef = ref<HTMLElement | null>(null)
+let lastOpenAt = 0
 
 const title = computed(() => store.selectedTarget?.name ?? '')
+
+watch(
+  () => store.selectedTarget,
+  (target) => {
+    if (target) {
+      lastOpenAt = performance.now()
+    }
+  }
+)
+
+function handleDocumentPointerDown(event: PointerEvent) {
+  if (!store.selectedTarget || !panelRef.value) return
+  const target = event.target as Node | null
+  if (target && panelRef.value.contains(target)) return
+
+  const now = performance.now()
+  if (now - lastOpenAt < 50) {
+    return
+  }
+  store.closeInfoPanel()
+}
+
+onMounted(() => {
+  document.addEventListener('pointerdown', handleDocumentPointerDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('pointerdown', handleDocumentPointerDown)
+})
 </script>
 
 <template>
   <div
     v-if="store.selectedTarget"
     class="info-panel"
+    ref="panelRef"
   >
     <div class="info-header">
       <div class="info-title">{{ title || '详情' }}</div>
