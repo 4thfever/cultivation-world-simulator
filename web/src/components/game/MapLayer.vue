@@ -17,6 +17,7 @@ async function initMap() {
     const res = await fetch('/api/map')
     const data = await res.json()
     const mapData = data.data
+    // Regions are already provided by backend
     regions.value = data.regions || []
     
     if (!mapData) return
@@ -69,9 +70,9 @@ onMounted(() => {
 function getRegionStyle(type: string) {
     const base = {
         fontFamily: '"Microsoft YaHei", sans-serif',
-        fontSize: type === 'sect' ? 48 : 64,
+        fontSize: type === 'sect' ? 48 : 64, 
         fill: type === 'sect' ? 0xffcc00 : (type === 'city' ? 0xccffcc : 0xffffff),
-        stroke: { color: 0x000000, width: 8, join: 'round' },
+        stroke: { color: 0x000000, width: 8, join: 'round' }, 
         align: 'center',
         dropShadow: {
             color: '#000000',
@@ -86,18 +87,21 @@ function getRegionStyle(type: string) {
 </script>
 
 <template>
-  <container ref="mapContainer">
-    <!-- Regions (Labels) -->
-     <text
-        v-for="r in regions"
-        :key="r.name"
-        :text="r.name"
-        :x="r.x * TILE_SIZE + TILE_SIZE / 2"
-        :y="r.y * TILE_SIZE + TILE_SIZE / 2"
-        :anchor="0.5"
-        :style="getRegionStyle(r.type)"
-        :z-index="100"
-     />
+  <container>
+     <!-- Tile Layer -->
+     <container ref="mapContainer" />
+     
+     <!-- Region Labels Layer (Above tiles) -->
+     <container :z-index="200">
+        <text
+            v-for="r in regions"
+            :key="r.name"
+            :text="r.name"
+            :x="r.x * TILE_SIZE + TILE_SIZE / 2"
+            :y="r.y * TILE_SIZE + TILE_SIZE / 2"
+            :anchor="0.5"
+            :style="getRegionStyle(r.type)"
+        />
+     </container>
   </container>
 </template>
-
