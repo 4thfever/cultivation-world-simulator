@@ -7,21 +7,26 @@ const store = useGameStore()
 <template>
   <header class="top-bar">
     <div class="left">
-      <span class="title">修仙模拟器</span>
+      <span class="title">AI修仙世界模拟器</span>
       <span class="status-dot" :class="{ connected: store.isConnected }"></span>
     </div>
     <div class="center">
       <span class="time">{{ store.year }}年 {{ store.month }}月</span>
     </div>
     <div class="author">
-      <span>作者：</span>
-      <a
+      肥桥今天吃什么的<a
         class="author-link"
         href="https://space.bilibili.com/527346837"
         target="_blank"
         rel="noopener"
+      >B站空间</a>
+      <a
+        class="author-link"
+        href="https://github.com/4thfever/cultivation-world-simulator"
+        target="_blank"
+        rel="noopener"
       >
-        肥桥今天吃什么
+        Github仓库
       </a>
     </div>
     <div class="right">
