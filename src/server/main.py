@@ -224,9 +224,7 @@ print(f"Web dist path: {WEB_DIST_PATH}")
 
 # (静态文件挂载已移动到文件末尾，以避免覆盖 API 路由)
 
-@app.get("/")
-def read_root():
-        return {"status": "online", "app": "Cultivation World Simulator Backend (Headless / Dev Mode)"}
+# (read_root removed to allow StaticFiles to handle /)
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
