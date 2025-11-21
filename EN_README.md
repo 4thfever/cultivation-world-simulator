@@ -36,22 +36,17 @@ If you like this project, consider starring it~ You can also watch intro videos 
 ## Development Progress
 
 ### 🏗️ Foundation
-- ✅ World map basics
+- ✅ World map basics, time, event system
 - ✅ Diverse terrain types (plain, mountain, forest, desert, water, etc.)
-- ✅ Time system
-- ✅ Frontend UI
+- ✅ Web-based frontend interface
 - ✅ Simulation framework
-- ✅ Project documentation
-- ✅ Config system
+- ✅ Configuration files
 - ✅ Standalone release (packaged exe)
 - ✅ Menu bar & Save & Load
 
 ### 🔭 Long-term Systems
-- [ ] Web frontend support
 - [ ] ECS parallel toolkit
-- [ ] Player-customizable prompts
 - [ ] Novelization/imagery/video for history and events
-- [ ] Player-controlled character
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
@@ -74,6 +69,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Techniques
 - ✅ Combat equipment & auxiliary equipment
 - ✅ Short/Long term memory
+- ✅ Character's short and long term objectives, supporting player active setting
 - [ ] Character compatibility
 - [ ] Epithets/nicknames
 - [ ] Skill learning system:
@@ -186,27 +182,14 @@ If you like this project, consider starring it~ You can also watch intro videos 
    ```
    For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
 
-4. Run the simulator (Local Pygame version):
-   ```bash
-   python -m src.run.run
-   ```
-
-5. Run Web version (WIP):
-   Start both backend and frontend.
-
-   **Backend:**
+4. Run:
+   Need to start both backend and frontend.
+   
    ```bash
    # In project root
    python src/server/main.py
    ```
-
-   **Frontend:**
-   ```bash
-   # In a new terminal, inside 'web' directory
-   cd web
-   npm run dev
-   ```
-   Then visit http://localhost:5173
+   The browser will automatically open the web frontend.
 
 
 ## Contributors
