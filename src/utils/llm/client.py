@@ -38,8 +38,14 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}"
     }
+    
+    # 处理模型名称：去除 'openai/' 前缀（针对 litellm 的兼容性配置）
+    model_name = config.model_name
+    if model_name.startswith("openai/"):
+        model_name = model_name.replace("openai/", "")
+    
     data = {
-        "model": config.model_name,
+        "model": model_name,
         "messages": [{"role": "user", "content": prompt}]
     }
     
