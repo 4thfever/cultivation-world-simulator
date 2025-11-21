@@ -7,7 +7,7 @@ import json
 from src.classes.effect import load_effect_from_str
 from src.classes.color import Color, TECHNIQUE_GRADE_COLORS
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.alignment import Alignment
 from src.classes.root import Root, RootElement
 
@@ -104,25 +104,25 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
     techniques_by_id: dict[int, Technique] = {}
     techniques_by_name: dict[str, Technique] = {}
     df = game_configs["technique"]
-    for _, row in df.iterrows():
-        attr = TechniqueAttribute(str(row["technique_root"]).strip())
-        name = str(row["name"]).strip()
-        grade = TechniqueGrade.from_str(row.get("grade", "下品"))
-        cond_val = row.get("condition", "")
-        condition = "" if str(cond_val) == "nan" else str(cond_val).strip()
-        weight_val = row.get("weight", 1)
-        weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
-        sect_val = row.get("sect", "")
-        sect = None if str(sect_val) == "nan" or str(sect_val).strip() == "" else str(sect_val).strip()
-        # 读取 effects（兼容 JSON/单引号字面量/空）
-        effects = load_effect_from_str(row.get("effects", ""))
+    for row in df:
+        attr = TechniqueAttribute(get_str(row, "technique_root"))
+        name = get_str(row, "name")
+        grade = TechniqueGrade.from_str(get_str(row, "grade", "下品"))
+        condition = get_str(row, "condition")
+        weight = get_float(row, "weight", 1.0)
+        
+        sect = get_str(row, "sect")
+        if not sect:
+            sect = None
+            
+        effects = load_effect_from_str(get_str(row, "effects"))
 
         t = Technique(
-            id=int(row["id"]),
+            id=get_int(row, "id"),
             name=name,
             attribute=attr,
             grade=grade,
-            desc=str(row.get("desc", "")),
+            desc=get_str(row, "desc"),
             weight=weight,
             condition=condition,
             sect=sect,

@@ -22,7 +22,7 @@ import random
 from dataclasses import dataclass
 from typing import Optional
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
 from src.classes.rarity import Rarity, get_rarity_from_str
 
@@ -69,26 +69,21 @@ def _load_celestial_phenomena() -> dict[int, CelestialPhenomenon]:
         return phenomena_by_id
     
     phenomenon_df = game_configs["celestial_phenomenon"]
-    for _, row in phenomenon_df.iterrows():
+    for row in phenomenon_df:
         # 解析稀有度
-        rarity_val = row.get("rarity", "N")
-        rarity_str = str(rarity_val).strip().upper()
+        rarity_str = get_str(row, "rarity", "N").upper()
         rarity = get_rarity_from_str(rarity_str) if rarity_str and rarity_str != "NAN" else get_rarity_from_str("N")
         
         # 解析effects
-        raw_effects_val = row.get("effects", "")
-        effects = load_effect_from_str(raw_effects_val)
-        
-        # 解析持续年限（默认5年）
-        duration_years = int(row.get("duration_years", 5))
+        effects = load_effect_from_str(get_str(row, "effects"))
         
         phenomenon = CelestialPhenomenon(
-            id=int(row["id"]),
-            name=str(row["name"]),
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
             rarity=rarity,
             effects=effects,
-            desc=str(row["desc"]),
-            duration_years=duration_years,
+            desc=get_str(row, "desc"),
+            duration_years=get_int(row, "duration_years", 5),
         )
         phenomena_by_id[phenomenon.id] = phenomenon
     
@@ -113,4 +108,3 @@ def get_random_celestial_phenomenon() -> Optional[CelestialPhenomenon]:
     weights = [p.weight for p in phenomena]
     
     return random.choices(phenomena, weights=weights, k=1)[0]
-

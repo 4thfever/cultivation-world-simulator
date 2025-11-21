@@ -1,5 +1,5 @@
 meta:
-  version: "1.0.3"
+  version: "1.0.5"
 
 llm:
   # 填入litellm支持的model name和key

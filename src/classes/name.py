@@ -2,7 +2,7 @@ import random
 from typing import Optional
 from dataclasses import dataclass
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str
 from src.classes.avatar import Gender
 
 
@@ -43,9 +43,9 @@ class NameManager:
         """从CSV加载姓名数据"""
         # 加载姓氏
         last_name_df = game_configs["last_name"]
-        for _, row in last_name_df.iterrows():
-            name = str(row["last_name"]).strip()
-            sect = str(row.get("sect", "")).strip() if row.get("sect") and str(row.get("sect")) != "nan" else None
+        for row in last_name_df:
+            name = get_str(row, "last_name")
+            sect = get_str(row, "sect")
             
             if sect:
                 if sect not in self.sect_last_names:
@@ -56,11 +56,11 @@ class NameManager:
         
         # 加载名字
         given_name_df = game_configs["given_name"]
-        for _, row in given_name_df.iterrows():
-            name = str(row["given_name"]).strip()
-            gender_str = str(row["gender"]).strip()
+        for row in given_name_df:
+            name = get_str(row, "given_name")
+            gender_str = get_str(row, "gender")
             gender = Gender.MALE if gender_str == "男" else Gender.FEMALE
-            sect = str(row.get("sect", "")).strip() if row.get("sect") and str(row.get("sect")) != "nan" else None
+            sect = get_str(row, "sect")
             
             if sect:
                 if sect not in self.sect_given_names:
@@ -194,4 +194,3 @@ def get_random_name_with_surname(
     """
     sect_name = sect.name if sect is not None else None
     return _name_manager.get_random_full_name_with_surname(gender, surname, sect_name)
-

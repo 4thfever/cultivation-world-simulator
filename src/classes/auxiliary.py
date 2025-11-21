@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Dict
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
 from src.classes.equipment_grade import EquipmentGrade
 from src.classes.sect import Sect, sects_by_id
@@ -55,19 +55,17 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dic
     if df is None:
         return auxiliaries_by_id, auxiliaries_by_name, auxiliaries_by_sect_id
 
-    for _, row in df.iterrows():
-        raw_sect = row.get("sect_id")
-        sect_id: Optional[int] = None
-        if raw_sect is not None and str(raw_sect).strip() and str(raw_sect).strip() != "nan":
-            sect_id = int(float(raw_sect))
+    for row in df:
+        sect_id = get_int(row, "sect_id", -1)
+        if sect_id == -1:
+            sect_id = None
 
-        raw_effects_val = row.get("effects", "")
-        effects = load_effect_from_str(raw_effects_val)
+        effects = load_effect_from_str(get_str(row, "effects"))
 
-        sect_obj: Optional[Sect] = sects_by_id.get(int(sect_id)) if sect_id is not None else None
+        sect_obj: Optional[Sect] = sects_by_id.get(sect_id) if sect_id is not None else None
 
         # 解析grade
-        grade_str = str(row.get("grade", "普通"))
+        grade_str = get_str(row, "grade", "普通")
         grade = EquipmentGrade.COMMON
         for g in EquipmentGrade:
             if g.value == grade_str:
@@ -75,11 +73,11 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dic
                 break
 
         a = Auxiliary(
-            id=int(row["id"]),
-            name=str(row["name"]),
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
             grade=grade,
             sect_id=sect_id,
-            desc=str(row.get("desc", "")),
+            desc=get_str(row, "desc"),
             effects=effects,
             sect=sect_obj,
         )
@@ -93,4 +91,3 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dic
 
 
 auxiliaries_by_id, auxiliaries_by_name, auxiliaries_by_sect_id = _load_auxiliaries()
-

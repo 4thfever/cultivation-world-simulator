@@ -4,7 +4,7 @@ from src.classes.essence import Essence, EssenceType
 from src.classes.sect_region import SectRegion
 from src.classes.region import Shape
 from src.classes.sect import Sect
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int
 
 BASE_W = 70
 BASE_H = 50
@@ -73,12 +73,12 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
     # 从 sect_region.csv 读取（按 sect_id 对齐）：sect_name、headquarter_name、headquarter_desc
     sect_region_df = game_configs["sect_region"]
     hq_by_id: dict[int, tuple[str, str, str]] = {
-        int(row["sect_id"]): (
-            str(row["sect_name"]).strip(),
-            str(row["headquarter_name"]).strip(),
-            str(row["headquarter_desc"]).strip(),
+        get_int(row, "sect_id"): (
+            get_str(row, "sect_name"),
+            get_str(row, "headquarter_name"),
+            get_str(row, "headquarter_desc"),
         )
-        for _, row in sect_region_df.iterrows()
+        for row in sect_region_df
     }
     # 坐标字典按 sect.name 提供，转换为按 sect.id 对齐
     id_to_coords: dict[int, tuple[tuple[int, int], tuple[int, int]]] = {

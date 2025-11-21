@@ -2,12 +2,10 @@ import random
 from dataclasses import dataclass
 from typing import List, Optional, TYPE_CHECKING
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_list_str, get_int
 from src.utils.config import CONFIG
 from src.classes.effect import load_effect_from_str
 from src.classes.rarity import Rarity, get_rarity_from_str
-
-ids_separator = CONFIG.df.ids_separator
 
 if TYPE_CHECKING:
     # 仅用于类型检查，避免运行时循环导入
@@ -49,27 +47,24 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     personas_by_name: dict[str, Persona] = {}
     
     persona_df = game_configs["persona"]
-    for _, row in persona_df.iterrows():
+    for row in persona_df:
         # 解析exclusion_names字符串，转换为字符串列表
-        exclusion_names_str = str(row["exclusion_names"]) if str(row["exclusion_names"]) != "nan" else ""
-        exclusion_names = []
-        if exclusion_names_str:
-            exclusion_names = [x.strip() for x in exclusion_names_str.split(ids_separator) if x.strip()]
+        exclusion_names = get_list_str(row, "exclusion_names")
+        
         # 解析稀有度（缺失或为 NaN 时默认为 N）
-        rarity_val = row.get("rarity", "N")
-        rarity_str = str(rarity_val).strip().upper()
+        rarity_str = get_str(row, "rarity", "N").upper()
         rarity = get_rarity_from_str(rarity_str) if rarity_str and rarity_str != "NAN" else get_rarity_from_str("N")
-        # 条件：可为空
-        condition_val = row.get("condition", "")
-        condition = "" if str(condition_val) == "nan" else str(condition_val).strip()
+        
+        # 条件
+        condition = get_str(row, "condition")
+        
         # 解析effects
-        raw_effects_val = row.get("effects", "")
-        effects = load_effect_from_str(raw_effects_val)
+        effects = load_effect_from_str(get_str(row, "effects"))
         
         persona = Persona(
-            id=int(row["id"]),
-            name=str(row["name"]),
-            desc=str(row["desc"]),
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
+            desc=get_str(row, "desc"),
             exclusion_names=exclusion_names,
             rarity=rarity,
             condition=condition,
@@ -138,4 +133,3 @@ def get_random_compatible_personas(num_personas: int = 2, avatar: Optional["Avat
         selected_ids.add(selected_persona.id)
 
     return selected_personas
-

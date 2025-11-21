@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 
 from src.classes.alignment import Alignment
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
 from src.utils.config import CONFIG
 
@@ -68,6 +68,7 @@ class Sect:
         from src.classes.sect_ranks import SectRank, DEFAULT_RANK_NAMES
         # 优先使用自定义名称，否则使用默认名称
         return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
+
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
     sep = CONFIG.df.ids_separator
@@ -85,56 +86,59 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     sect_region_df = game_configs.get("sect_region")
     hq_by_sect_id: dict[int, tuple[str, str]] = {}
     if sect_region_df is not None:
-        for _, sr in sect_region_df.iterrows():
-            sid_str = str(sr.get("sect_id", "")).strip()
-            # 跳过说明行或空值
-            if not sid_str.isdigit():
+        for sr in sect_region_df:
+            sid = get_int(sr, "sect_id", -1)
+            if sid == -1:
                 continue
-            sid = int(sid_str)
-            hq_name = str(sr.get("headquarter_name", "")).strip()
-            hq_desc = str(sr.get("headquarter_desc", "")).strip()
+            hq_name = get_str(sr, "headquarter_name")
+            hq_desc = get_str(sr, "headquarter_desc")
             hq_by_sect_id[sid] = (hq_name, hq_desc)
+    
     # 可能不存在 technique 配表或未添加 sect 列，做容错
     tech_df = game_configs.get("technique")
     assets_base = Path("assets/sects")
-    for _, row in df.iterrows():
-        image_path = assets_base / f"{row['name']}.png"
+    
+    for row in df:
+        name = get_str(row, "name")
+        image_path = assets_base / f"{name}.png"
 
         # 收集该宗门下配置的功法名称
         technique_names: list[str] = []
-        if tech_df is not None and "sect" in tech_df.columns:
+        # 检查 tech_df 是否存在以及是否有数据
+        if tech_df:
+            # 检查是否存在 sect 字段 (检查第一行或当前行)
             technique_names = [
-                str(tname).strip()
-                for tname in tech_df.loc[tech_df["sect"] == row["name"], "name"].tolist()
-                if str(tname).strip()
+                get_str(t, "name")
+                for t in tech_df
+                if get_str(t, "sect") == name and get_str(t, "name")
             ]
 
-        # 读取权重（缺省/NaN 则为 1.0）
-        weight_val = row.get("weight", 1)
-        weight = float(str(weight_val)) if str(weight_val) != "nan" else 1.0
+        weight = get_float(row, "weight", 1.0)
 
-        # 读取 effects（兼容 JSON/单引号字面量/空）
-        effects = load_effect_from_str(row.get("effects", ""))
+        # 读取 effects
+        effects = load_effect_from_str(get_str(row, "effects"))
 
         # 读取倾向兵器类型
-        preferred_weapon_val = row.get("preferred_weapon", "")
-        preferred_weapon = str(preferred_weapon_val).strip() if str(preferred_weapon_val) != "nan" else ""
+        preferred_weapon = get_str(row, "preferred_weapon")
 
         # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
-        csv_hq = hq_by_sect_id.get(int(row["id"]))
+        sid = get_int(row, "id")
+        csv_hq = hq_by_sect_id.get(sid)
         hq_name_from_csv = (csv_hq[0] if csv_hq else "").strip() if csv_hq else ""
         hq_desc_from_csv = (csv_hq[1] if csv_hq else "").strip() if csv_hq else ""
 
+        hq_name = hq_name_from_csv or get_str(row, "headquarter_name") or name
+        hq_desc = hq_desc_from_csv or get_str(row, "headquarter_desc")
+
         sect = Sect(
-            id=int(row["id"]),
-            name=str(row["name"]),
-            desc=str(row["desc"]),
-            member_act_style=str(row["member_act_style"]),
-            alignment=Alignment.from_str(row["alignment"]),
-            # 驻地：优先 sect_region.csv；否则兼容旧列；最终回退宗门名
+            id=sid,
+            name=name,
+            desc=get_str(row, "desc"),
+            member_act_style=get_str(row, "member_act_style"),
+            alignment=Alignment.from_str(get_str(row, "alignment")),
             headquarter=SectHeadQuarter(
-                name=(hq_name_from_csv or str(row.get("headquarter_name", "")).strip() or str(row["name"])) ,
-                desc=(hq_desc_from_csv or str(row.get("headquarter_desc", ""))),
+                name=hq_name,
+                desc=hq_desc,
                 image=image_path,
             ),
             technique_names=technique_names,

@@ -199,32 +199,33 @@ app.add_middleware(
 # 路径处理：兼容开发环境和 PyInstaller 打包环境
 if getattr(sys, 'frozen', False):
     # PyInstaller 打包模式
-    base_path = sys._MEIPASS
-    # 在 pack.ps1 中，我们把 web/dist 映射到了 web_dist
-    WEB_DIST_PATH = os.path.join(base_path, 'web_dist')
-    # assets 同理
-    ASSETS_PATH = os.path.join(base_path, 'assets')
+    # 1. 获取 EXE 所在目录 (外部目录)
+    exe_dir = os.path.dirname(sys.executable)
+    
+    # 2. 寻找外部的 web_static
+    WEB_DIST_PATH = os.path.join(exe_dir, 'web_static')
+    
+    # 3. Assets 依然在 _internal 里 (因为我们在 pack.ps1 里用了 --add-data)
+    # 注意：ASSETS_PATH 仍然指向 _internal/assets
+    ASSETS_PATH = os.path.join(sys._MEIPASS, 'assets')
 else:
     # 开发模式
     base_path = os.path.join(os.path.dirname(__file__), '..', '..')
     WEB_DIST_PATH = os.path.join(base_path, 'web', 'dist')
     ASSETS_PATH = os.path.join(base_path, 'assets')
 
-# 1. 挂载游戏资源 (图片等)
-if os.path.exists(ASSETS_PATH):
-    app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
-else:
-    print(f"Warning: Assets path not found: {ASSETS_PATH}")
+# 规范化路径
+WEB_DIST_PATH = os.path.abspath(WEB_DIST_PATH)
+ASSETS_PATH = os.path.abspath(ASSETS_PATH)
 
-# 2. 挂载前端静态页面 (Web Dist)
-if os.path.exists(WEB_DIST_PATH):
-    print(f"Serving Web UI from: {WEB_DIST_PATH}")
-    app.mount("/", StaticFiles(directory=WEB_DIST_PATH, html=True), name="web_dist")
-else:
-    print(f"Warning: Web dist path not found: {WEB_DIST_PATH}. Please run 'npm run build' in web directory.")
-    
-    @app.get("/")
-    def read_root():
+print(f"Runtime mode: {'Frozen/Packaged' if getattr(sys, 'frozen', False) else 'Development'}")
+print(f"Assets path: {ASSETS_PATH}")
+print(f"Web dist path: {WEB_DIST_PATH}")
+
+# (静态文件挂载已移动到文件末尾，以避免覆盖 API 路由)
+
+@app.get("/")
+def read_root():
         return {"status": "online", "app": "Cultivation World Simulator Backend (Headless / Dev Mode)"}
 
 @app.websocket("/ws")
@@ -551,6 +552,22 @@ def api_load_game(req: LoadGameRequest):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Load failed: {str(e)}")
+
+# --- 静态文件挂载 (必须放在最后) ---
+
+# 1. 挂载游戏资源 (图片等)
+if os.path.exists(ASSETS_PATH):
+    app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
+else:
+    print(f"Warning: Assets path not found: {ASSETS_PATH}")
+
+# 2. 挂载前端静态页面 (Web Dist)
+# 放在最后，因为 "/" 会匹配所有未定义的路由
+if os.path.exists(WEB_DIST_PATH):
+    print(f"Serving Web UI from: {WEB_DIST_PATH}")
+    app.mount("/", StaticFiles(directory=WEB_DIST_PATH, html=True), name="web_dist")
+else:
+    print(f"Warning: Web dist path not found: {WEB_DIST_PATH}.")
 
 def start():
     """启动服务的入口函数"""

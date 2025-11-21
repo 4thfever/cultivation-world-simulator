@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int, get_list_int
 from src.utils.config import CONFIG
 from src.classes.item import Item, items_by_id
 from src.classes.cultivation import Realm
@@ -50,19 +50,14 @@ def _load_plants() -> tuple[dict[int, Plant], dict[str, Plant]]:
     plants_by_name: dict[str, Plant] = {}
     
     plant_df = game_configs["plant"]
-    for _, row in plant_df.iterrows():
-        # 处理item_ids
-        item_ids_list = []
-        item_ids = row.get("item_ids")
-        if item_ids is not None and str(item_ids).strip() and str(item_ids) != 'nan':
-            for item_id_str in str(item_ids).split(CONFIG.df.ids_separator):
-                item_ids_list.append(int(float(item_id_str.strip())))
+    for row in plant_df:
+        item_ids_list = get_list_int(row, "item_ids")
             
         plant = Plant(
-            id=int(row["id"]),
-            name=str(row["name"]),
-            desc=str(row["desc"]),
-            realm=Realm.from_id(int(row["stage_id"])),
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
+            desc=get_str(row, "desc"),
+            realm=Realm.from_id(get_int(row, "stage_id")),
             item_ids=item_ids_list
         )
         plants_by_id[plant.id] = plant

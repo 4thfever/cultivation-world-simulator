@@ -3,7 +3,7 @@ from typing import Union, TypeVar, Type, Optional
 from enum import Enum
 from abc import ABC, abstractmethod
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int, get_list_int
 from src.utils.config import CONFIG
 from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
@@ -453,39 +453,26 @@ def _load_regions(region_type: Type[T], config_name: str) -> tuple[dict[int, T],
     regions_by_name: dict[str, T] = {}
     
     region_df = game_configs[config_name]
-    for _, row in region_df.iterrows():
+    for row in region_df:
         # 构建基础参数
         base_params = {
-            "id": int(row["id"]),
-            "name": str(row["name"]),
-            "desc": str(row["desc"]),
-            "shape": Shape.from_str(str(row["shape"])),
-            "north_west_cor": str(row["north-west-cor"]),
-            "south_east_cor": str(row["south-east-cor"])
+            "id": get_int(row, "id"),
+            "name": get_str(row, "name"),
+            "desc": get_str(row, "desc"),
+            "shape": Shape.from_str(get_str(row, "shape")),
+            "north_west_cor": get_str(row, "north-west-cor"),
+            "south_east_cor": get_str(row, "south-east-cor")
         }
         
         # 如果是修炼区域，添加额外参数
         if region_type == CultivateRegion:
-            base_params["essence_type"] = EssenceType.from_str(str(row["root_type"]))
-            base_params["essence_density"] = int(row["root_density"])
+            base_params["essence_type"] = EssenceType.from_str(get_str(row, "root_type"))
+            base_params["essence_density"] = get_int(row, "root_density")
         
         # 如果是普通区域，添加动植物ID参数
         elif region_type == NormalRegion:
-            # 处理动物IDs
-            animal_ids_list = []
-            animal_ids = row.get("animal_ids")
-            if animal_ids is not None and str(animal_ids).strip() and str(animal_ids) != 'nan':
-                for animal_id_str in str(animal_ids).split(CONFIG.df.ids_separator):
-                    animal_ids_list.append(int(float(animal_id_str.strip())))
-            base_params["animal_ids"] = animal_ids_list
-                
-            # 处理植物IDs
-            plant_ids_list = []
-            plant_ids = row.get("plant_ids")
-            if plant_ids is not None and str(plant_ids).strip() and str(plant_ids) != 'nan':
-                for plant_id_str in str(plant_ids).split(CONFIG.df.ids_separator):
-                    plant_ids_list.append(int(float(plant_id_str.strip())))
-            base_params["plant_ids"] = plant_ids_list
+            base_params["animal_ids"] = get_list_int(row, "animal_ids")
+            base_params["plant_ids"] = get_list_int(row, "plant_ids")
         
         region = region_type(**base_params)
         regions_by_id[region.id] = region

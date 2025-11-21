@@ -101,7 +101,7 @@ $argsList = @(
     
     # Data Files
     "--add-data", "${AssetsPath};assets",       # Game Assets (Images) -> _internal/assets
-    "--add-data", "${WebDistDir};web_dist",     # Web Frontend -> _internal/web_dist
+    # REMOVED: "--add-data", "${WebDistDir};web_dist",  (We will copy this manually to outside)
     "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
     
     # Excludes
@@ -182,6 +182,13 @@ try {
             } else {
                 Write-Host "✓ Copied static to exe directory" -ForegroundColor Green
             }
+        }
+
+        # Copy Web Dist to exe directory (Manual copy instead of PyInstaller bundle)
+        if (Test-Path $WebDistDir) {
+             $DestWeb = Join-Path $ExeDir "web_static"
+             Copy-Item -Path $WebDistDir -Destination $DestWeb -Recurse -Force
+             Write-Host "✓ Copied web_dist to web_static in exe directory" -ForegroundColor Green
         }
     }
     

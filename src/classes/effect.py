@@ -188,21 +188,21 @@ def _merge_effects(base: dict[str, object], addition: dict[str, object]) -> dict
 
 
 def build_effects_map_from_df(
-    df,
+    data: list[dict[str, Any]],
     key_column: str,
     parse_key: Callable[[str], Any],
     effects_column: str = "effects",
 ) -> dict[Any, dict[str, object]]:
     """
-    将配表 DataFrame 构造成 {key -> effects} 的映射：
+    将配表数据列表构造成 {key -> effects} 的映射：
     - key_column：用于定位键（字符串），通过 parse_key 解析为目标键（如 Enum）
     - effects_column：字符串列，使用 load_effect_from_str 解析
     解析失败或空值的行将被忽略。
     """
     effects_map: dict[Any, dict[str, object]] = {}
-    if df is None:
+    if not data:
         return effects_map
-    for _, row in df.iterrows():
+    for row in data:
         raw_key = str(row.get(key_column, "")).strip()
         if not raw_key or raw_key == "nan":
             continue

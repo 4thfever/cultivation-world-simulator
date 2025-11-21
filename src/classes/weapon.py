@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional, Dict
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
 from src.classes.equipment_grade import EquipmentGrade
 from src.classes.weapon_type import WeaponType
@@ -65,19 +65,17 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
     if df is None:
         return weapons_by_id, weapons_by_name, weapons_by_sect_id
 
-    for _, row in df.iterrows():
-        raw_sect = row.get("sect_id")
-        sect_id: Optional[int] = None
-        if raw_sect is not None and str(raw_sect).strip() and str(raw_sect).strip() != "nan":
-            sect_id = int(float(raw_sect))
+    for row in df:
+        sect_id = get_int(row, "sect_id", -1)
+        if sect_id == -1:
+            sect_id = None
 
-        raw_effects_val = row.get("effects", "")
-        effects = load_effect_from_str(raw_effects_val)
+        effects = load_effect_from_str(get_str(row, "effects"))
 
-        sect_obj: Optional[Sect] = sects_by_id.get(int(sect_id)) if sect_id is not None else None
+        sect_obj: Optional[Sect] = sects_by_id.get(sect_id) if sect_id is not None else None
 
         # 解析weapon_type
-        weapon_type_str = str(row.get("weapon_type", ""))
+        weapon_type_str = get_str(row, "weapon_type")
         weapon_type = None
         for wt in WeaponType:
             if wt.value == weapon_type_str:
@@ -85,10 +83,12 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
                 break
         
         if weapon_type is None:
-            raise ValueError(f"武器 {row['name']} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型")
+            # 如果找不到对应类型，可以决定是跳过还是抛错
+            # 这里保持原有逻辑，如果是空或者非法，抛错提示配置问题
+            raise ValueError(f"武器 {get_str(row, 'name')} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型")
 
         # 解析grade
-        grade_str = str(row.get("grade", "普通"))
+        grade_str = get_str(row, "grade", "普通")
         grade = EquipmentGrade.COMMON
         for g in EquipmentGrade:
             if g.value == grade_str:
@@ -96,12 +96,12 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
                 break
 
         w = Weapon(
-            id=int(row["id"]),
-            name=str(row["name"]),
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
             weapon_type=weapon_type,
             grade=grade,
             sect_id=sect_id,
-            desc=str(row.get("desc", "")),
+            desc=get_str(row, "desc"),
             effects=effects,
             sect=sect_obj,
         )
@@ -130,4 +130,3 @@ def get_treasure_weapon(weapon_type: WeaponType) -> Optional[Weapon]:
         if weapon.weapon_type == weapon_type and weapon.grade == EquipmentGrade.TREASURE:
             return weapon
     return None
-

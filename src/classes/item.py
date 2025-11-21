@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.utils.df import game_configs
+from src.utils.df import game_configs, get_str, get_int
 from src.classes.cultivation import Realm
 
 @dataclass
@@ -31,12 +31,12 @@ def _load_items() -> tuple[dict[int, Item], dict[str, Item]]:
     items_by_name: dict[str, Item] = {}
     
     item_df = game_configs["item"]
-    for _, row in item_df.iterrows():
+    for row in item_df:
         item = Item(
-            id=int(row["id"]),
-            name=str(row["name"]),
-            desc=str(row["desc"]),
-            realm=Realm.from_id(int(row["stage_id"]))
+            id=get_int(row, "id"),
+            name=get_str(row, "name"),
+            desc=get_str(row, "desc"),
+            realm=Realm.from_id(get_int(row, "stage_id"))
         )
         items_by_id[item.id] = item
         items_by_name[item.name] = item
@@ -45,6 +45,3 @@ def _load_items() -> tuple[dict[int, Item], dict[str, Item]]:
 
 # 从配表加载item数据
 items_by_id, items_by_name = _load_items()
-
-
-
