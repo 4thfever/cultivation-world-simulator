@@ -111,21 +111,23 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  async function fetchHoverInfo(target: HoverTarget) {
+  async function fetchHoverInfo(target: HoverTarget, forceRefresh = false) {
     const key = cacheKey(target)
-    const cached = hoverCache.get(key)
-    if (cached) {
-      if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-        hoverInfo.value = cached
+    if (!forceRefresh) {
+      const cached = hoverCache.get(key)
+      if (cached) {
+        if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
+          hoverInfo.value = cached
+        }
+        infoLoading.value = false
+        infoError.value = null
+        return
       }
-      infoLoading.value = false
-      infoError.value = null
-      return
     }
 
     infoLoading.value = true
     infoError.value = null
-    hoverInfo.value = []
+    if (!forceRefresh) hoverInfo.value = []
 
     try {
       const data = await gameApi.getHoverInfo(target)
@@ -143,6 +145,22 @@ export const useGameStore = defineStore('game', () => {
       if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
         infoLoading.value = false
       }
+    }
+  }
+
+  async function setLongTermObjective(avatarId: string, content: string) {
+    await gameApi.setLongTermObjective(avatarId, content)
+    // 成功后刷新 info panel
+    if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
+      await fetchHoverInfo(selectedTarget.value, true)
+    }
+  }
+
+  async function clearLongTermObjective(avatarId: string) {
+    await gameApi.clearLongTermObjective(avatarId)
+    // 成功后刷新 info panel
+    if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
+      await fetchHoverInfo(selectedTarget.value, true)
     }
   }
 
@@ -181,6 +199,8 @@ export const useGameStore = defineStore('game', () => {
     disconnect,
     fetchInitialState,
     openInfoPanel,
-    closeInfoPanel
+    closeInfoPanel,
+    setLongTermObjective,
+    clearLongTermObjective
   }
 })

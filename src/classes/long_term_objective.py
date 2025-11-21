@@ -177,3 +177,15 @@ def set_user_long_term_objective(avatar: "Avatar", objective_content: str) -> No
     )
     logger.info(f"玩家为角色 {avatar.name} 设定长期目标：{objective_content}")
 
+
+def clear_user_long_term_objective(avatar: "Avatar") -> bool:
+    """
+    清空玩家设定的长期目标
+    如果当前目标是 system/llm 生成的，则不清除并返回 False
+    如果是 user 生成的，清除并返回 True
+    """
+    if avatar.long_term_objective and avatar.long_term_objective.origin == "user":
+        avatar.long_term_objective = None
+        logger.info(f"玩家清空了角色 {avatar.name} 的长期目标")
+        return True
+    return False

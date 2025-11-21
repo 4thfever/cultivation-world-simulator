@@ -7,6 +7,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Quer
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+from pydantic import BaseModel
 
 # 确保可以导入 src 模块
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -20,6 +21,7 @@ from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
 from src.classes.color import serialize_hover_lines
 from src.classes.event import Event
+from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 import random
 
 # 全局游戏实例
@@ -71,7 +73,6 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
                 year = None
             try:
                 month_obj = month_stamp.get_month()
-                month = int(getattr(month_obj, "value", month_obj))
             except Exception:
                 month = None
 
@@ -372,6 +373,42 @@ def get_hover_info(
         "type": target_type,
         "name": getattr(target, "name", target_id),
         "lines": serialize_hover_lines([str(line) for line in lines]),
+    }
+
+class SetObjectiveRequest(BaseModel):
+    avatar_id: str
+    content: str
+
+class ClearObjectiveRequest(BaseModel):
+    avatar_id: str
+
+@app.post("/api/action/set_long_term_objective")
+def set_long_term_objective(req: SetObjectiveRequest):
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+    
+    avatar = world.avatar_manager.avatars.get(req.avatar_id)
+    if not avatar:
+        raise HTTPException(status_code=404, detail="Avatar not found")
+        
+    set_user_long_term_objective(avatar, req.content)
+    return {"status": "ok", "message": "Objective set"}
+
+@app.post("/api/action/clear_long_term_objective")
+def clear_long_term_objective(req: ClearObjectiveRequest):
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+        
+    avatar = world.avatar_manager.avatars.get(req.avatar_id)
+    if not avatar:
+        raise HTTPException(status_code=404, detail="Avatar not found")
+        
+    cleared = clear_user_long_term_objective(avatar)
+    return {
+        "status": "ok", 
+        "message": "Objective cleared" if cleared else "No user objective to clear"
     }
 
 def start():
