@@ -77,6 +77,7 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
                 year = None
             try:
                 month_obj = month_stamp.get_month()
+                month = month_obj.value
             except Exception:
                 month = None
 

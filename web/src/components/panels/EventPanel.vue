@@ -29,7 +29,7 @@ function formatEventDate(event: { year?: number; month?: number; monthStamp?: nu
   }
   if (typeof event.monthStamp === 'number') {
     const year = Math.floor(event.monthStamp / 12)
-    const month = event.monthStamp % 12 || 12
+    const month = (event.monthStamp % 12) + 1
     return `${year}年${month}月`
   }
   return '未知'
