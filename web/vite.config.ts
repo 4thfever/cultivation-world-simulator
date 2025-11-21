@@ -11,6 +11,9 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    assetsDir: 'web_static', // 避免与游戏原本的 /assets 目录冲突
+  },
   server: {
     proxy: {
       '/api': {

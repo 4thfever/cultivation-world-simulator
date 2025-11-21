@@ -1,6 +1,7 @@
 import sys
 import os
 import asyncio
+import webbrowser
 from contextlib import asynccontextmanager
 from typing import List, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
@@ -170,6 +171,17 @@ async def lifespan(app: FastAPI):
     init_game()
     # 启动后台任务
     asyncio.create_task(game_loop())
+    
+    # 自动打开浏览器
+    host = "127.0.0.1"
+    port = 8002
+    url = f"http://{host}:{port}"
+    print(f"Ready! Opening browser at {url}")
+    try:
+        webbrowser.open(url)
+    except Exception as e:
+        print(f"Failed to open browser: {e}")
+        
     yield
     # 关闭时清理（如果需要）
 
@@ -184,16 +196,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 挂载静态资源
-ASSETS_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
+# 路径处理：兼容开发环境和 PyInstaller 打包环境
+if getattr(sys, 'frozen', False):
+    # PyInstaller 打包模式
+    base_path = sys._MEIPASS
+    # 在 pack.ps1 中，我们把 web/dist 映射到了 web_dist
+    WEB_DIST_PATH = os.path.join(base_path, 'web_dist')
+    # assets 同理
+    ASSETS_PATH = os.path.join(base_path, 'assets')
+else:
+    # 开发模式
+    base_path = os.path.join(os.path.dirname(__file__), '..', '..')
+    WEB_DIST_PATH = os.path.join(base_path, 'web', 'dist')
+    ASSETS_PATH = os.path.join(base_path, 'assets')
+
+# 1. 挂载游戏资源 (图片等)
 if os.path.exists(ASSETS_PATH):
     app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
 else:
     print(f"Warning: Assets path not found: {ASSETS_PATH}")
 
-@app.get("/")
-def read_root():
-    return {"status": "online", "app": "Cultivation World Simulator Backend"}
+# 2. 挂载前端静态页面 (Web Dist)
+if os.path.exists(WEB_DIST_PATH):
+    print(f"Serving Web UI from: {WEB_DIST_PATH}")
+    app.mount("/", StaticFiles(directory=WEB_DIST_PATH, html=True), name="web_dist")
+else:
+    print(f"Warning: Web dist path not found: {WEB_DIST_PATH}. Please run 'npm run build' in web directory.")
+    
+    @app.get("/")
+    def read_root():
+        return {"status": "online", "app": "Cultivation World Simulator Backend (Headless / Dev Mode)"}
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -523,7 +555,9 @@ def api_load_game(req: LoadGameRequest):
 def start():
     """启动服务的入口函数"""
     # 改为 8002 端口
-    uvicorn.run("src.server.main:app", host="0.0.0.0", port=8002, reload=False)
+    # 使用 127.0.0.1 更加安全且避免防火墙弹窗
+    # 注意：直接传递 app 对象而不是字符串，避免 PyInstaller 打包后找不到模块的问题
+    uvicorn.run(app, host="127.0.0.1", port=8002)
 
 if __name__ == "__main__":
     start()

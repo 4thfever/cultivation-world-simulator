@@ -27,8 +27,40 @@ $BuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag)
 $SpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag)
 New-Item -ItemType Directory -Force -Path $DistDir, $BuildDir, $SpecDir | Out-Null
 
+# --- Web Frontend Build ---
+$WebDir = Join-Path $RepoRoot "web"
+$WebDistDir = Join-Path $WebDir "dist"
+
+Write-Host "Checking Web Frontend..." -ForegroundColor Cyan
+if (Test-Path $WebDir) {
+    Push-Location $WebDir
+    try {
+        if (-not (Test-Path "node_modules")) {
+            Write-Host "Installing npm dependencies..."
+            # Use cmd /c to ensure npm is found on Windows
+            cmd /c "npm install"
+        }
+        Write-Host "Building web frontend..."
+        cmd /c "npm run build"
+        
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Web build failed."
+            exit 1
+        }
+    } catch {
+        Write-Error "Web build process failed: $_"
+        exit 1
+    } finally {
+        Pop-Location
+    }
+} else {
+    Write-Error "Web directory not found at $WebDir"
+    exit 1
+}
+
 # Entry and app name
-$EntryPy = Join-Path $RepoRoot "src\run\run.py"
+# CHANGED: Use server main.py instead of run.py
+$EntryPy = Join-Path $RepoRoot "src\server\main.py"
 $AppName = "CultivationWorld"
 
 if (-not (Test-Path $EntryPy)) {
@@ -59,14 +91,40 @@ $argsList = @(
     "--onedir",
     "--clean",
     "--noconfirm",
-    "--windowed",
+    # "--windowed",  <-- REMOVED: We want a console window for the server so user can close it
+    "--console",
     "--distpath", $DistDir,
     "--workpath", $BuildDir,
     "--specpath", $SpecDir,
     "--paths", $RepoRoot,
     "--additional-hooks-dir", $AdditionalHooksPath,
-    "--add-data", "${AssetsPath};assets",
-    "--add-data", "${StaticPath};static",
+    
+    # Data Files
+    "--add-data", "${AssetsPath};assets",       # Game Assets (Images) -> _internal/assets
+    "--add-data", "${WebDistDir};web_dist",     # Web Frontend -> _internal/web_dist
+    "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
+    
+    # Excludes
+    "--exclude-module", "pygame",               # Exclude heavy library not needed for server
+    "--exclude-module", "matplotlib",           # Plotting library often pulled by pandas
+    "--exclude-module", "tkinter",              # Python default GUI
+    "--exclude-module", "PyQt5",                # Qt GUI
+    "--exclude-module", "PyQt6",
+    "--exclude-module", "PySide2",
+    "--exclude-module", "PySide6",
+    "--exclude-module", "wx",                   # wxPython
+    "--exclude-module", "notebook",             # Jupyter notebook
+    "--exclude-module", "ipython",
+    "--exclude-module", "boto3",                # AWS SDK (huge, for Bedrock/S3)
+    "--exclude-module", "botocore",
+    "--exclude-module", "s3transfer",
+    "--exclude-module", "azure",                # Azure SDK
+    "--exclude-module", "huggingface_hub",      # HuggingFace (for local models)
+    "--exclude-module", "transformers",         # Transformers (huge)
+    "--exclude-module", "tensorflow",
+    "--exclude-module", "torch",                # PyTorch (massive if present)
+    
+    # Hidden imports for LLM
     "--hidden-import", "tiktoken_ext.openai_public",
     "--hidden-import", "tiktoken_ext",
     "--collect-all", "tiktoken",
@@ -110,12 +168,9 @@ try {
         }
     }
     
-    # Copy static and assets to exe directory
+    # Copy static to exe directory (Config needs to be next to exe for CWD access)
     if (Test-Path $ExeDir) {        
-        if (Test-Path $AssetsPath) {
-            Copy-Item -Path $AssetsPath -Destination $ExeDir -Recurse -Force
-            Write-Host "✓ Copied assets to exe directory" -ForegroundColor Green
-        }
+        # NOTE: We DO NOT copy 'assets' to root anymore. They are inside _internal via --add-data.
         
         if (Test-Path $StaticPath) {
             Copy-Item -Path $StaticPath -Destination $ExeDir -Recurse -Force
@@ -136,12 +191,6 @@ try {
         Remove-Item -Path $BuildDirRoot -Recurse -Force
         Write-Host "✓ Deleted entire build directory: $BuildDirRoot" -ForegroundColor Green
     }
-    
-    # $SpecDirRoot = Join-Path $RepoRoot "tmp\spec"
-    # if (Test-Path $SpecDirRoot) {
-    #     Remove-Item -Path $SpecDirRoot -Recurse -Force
-    #     Write-Host "✓ Deleted entire spec directory: $SpecDirRoot" -ForegroundColor Green
-    # }
     
     Write-Host "`n=== Package completed ===" -ForegroundColor Cyan
     Write-Host "Distribution directory: " (Resolve-Path $DistDir).Path
