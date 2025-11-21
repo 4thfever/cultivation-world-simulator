@@ -1,13 +1,78 @@
 """LLM 客户端核心调用逻辑"""
 
 from pathlib import Path
-from litellm import completion
+import json
+import urllib.request
+import urllib.error
 
 from .config import LLMMode, LLMConfig
 from .parser import parse_json
 from .prompt import build_prompt, load_template
 from .exceptions import LLMError, ParseError
 from src.run.log import log_llm_call
+
+try:
+    # 使用动态导入，避免 PyInstaller 静态分析将其作为依赖打包
+    import importlib
+    importlib.import_module("litellm")
+    has_litellm = True
+except ImportError:
+    has_litellm = False 
+
+def _call_with_litellm(config: LLMConfig, prompt: str) -> str:
+    """使用 litellm 调用"""
+    import importlib
+    litellm = importlib.import_module("litellm")
+    response = litellm.completion(
+        model=config.model_name,
+        messages=[{"role": "user", "content": prompt}],
+        api_key=config.api_key,
+        base_url=config.base_url,
+    )
+    return response.choices[0].message.content
+
+
+def _call_with_requests(config: LLMConfig, prompt: str) -> str:
+    """使用原生 requests 调用 (OpenAI 兼容接口)"""
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {config.api_key}"
+    }
+    data = {
+        "model": config.model_name,
+        "messages": [{"role": "user", "content": prompt}]
+    }
+    
+    # 处理 URL
+    url = config.base_url
+    if not url:
+        raise ValueError("Base URL is required for requests mode")
+        
+    if "chat/completions" not in url:
+        url = url.rstrip("/")
+        if not url.endswith("/v1"):
+            # 尝试智能追加 v1，如果用户没写
+            # 但有些服务可能不需要 v1，这里保守起见，如果没 v1 且没 chat/completions，直接加 /chat/completions
+            # 假设用户配置的是类似 https://api.openai.com/v1
+             pass
+        url = f"{url}/chat/completions"
+
+    req = urllib.request.Request(
+        url, 
+        data=json.dumps(data).encode('utf-8'), 
+        headers=headers,
+        method="POST"
+    )
+    
+    try:
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            return result['choices'][0]['message']['content']
+    except urllib.error.HTTPError as e:
+        error_content = e.read().decode('utf-8')
+        raise Exception(f"LLM Request failed {e.code}: {error_content}")
+    except Exception as e:
+        raise Exception(f"LLM Request failed: {str(e)}")
 
 
 async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
@@ -26,15 +91,25 @@ async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
     # 获取配置
     config = LLMConfig.from_mode(mode)
     
-    # 调用 litellm（包装为异步）
+    # 调用逻辑
     def _call():
-        response = completion(
-            model=config.model_name,
-            messages=[{"role": "user", "content": prompt}],
-            api_key=config.api_key,
-            base_url=config.base_url,
-        )
-        return response.choices[0].message.content
+        # try:
+        #     return _call_with_litellm(config, prompt)
+        # except ImportError:
+        #     # 如果没有 litellm，降级使用 requests
+        #     return _call_with_requests(config, prompt)
+        try:
+            if has_litellm:
+                return _call_with_litellm(config, prompt)
+            else:
+                return _call_with_requests(config, prompt)
+        except Exception as e:
+            # litellm 可能抛出其他错误，如果仅仅是导入错误我们降级
+            # 如果是 litellm 内部错误（如 api key 错误），应该抛出
+            # 但为了稳健，如果 litellm 失败，是否尝试 request? 
+            # 用户只说了 "没有的话(if no litellm)"，通常指安装。
+            # 所以 catch ImportError 是对的。
+            raise e
     
     result = await asyncio.to_thread(_call)
     
@@ -126,4 +201,3 @@ async def call_ai_action(
     from src.utils.config import CONFIG
     template_path = CONFIG.paths.templates / "ai.txt"
     return await call_llm_with_template(template_path, infos, mode)
-

@@ -105,6 +105,9 @@ $argsList = @(
     "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
     
     # Excludes
+    "--exclude-module", "litellm",              # Optional LLM client with heavy dependencies
+    "--exclude-module", "google",               # Google Cloud/AI libs
+    "--exclude-module", "scipy",                # Scientific computing
     "--exclude-module", "pygame",               # Exclude heavy library not needed for server
     "--exclude-module", "matplotlib",           # Plotting library often pulled by pandas
     "--exclude-module", "tkinter",              # Python default GUI
@@ -128,9 +131,7 @@ $argsList = @(
     "--hidden-import", "tiktoken_ext.openai_public",
     "--hidden-import", "tiktoken_ext",
     "--collect-all", "tiktoken",
-    "--collect-all", "litellm",
-    "--copy-metadata", "tiktoken",
-    "--copy-metadata", "litellm"
+    "--copy-metadata", "tiktoken"
 )
 
 if (Test-Path $RuntimeHookPath) {
