@@ -61,6 +61,8 @@ async function renderMap() {
       const sprite = new Sprite(tex)
       sprite.x = x * TILE_SIZE
       sprite.y = y * TILE_SIZE
+      // 开启像素取整，消除 Tile 之间的黑边缝隙
+      sprite.roundPixels = true
 
       if (['SECT', 'CITY', 'CAVE', 'RUINS'].includes(type)) {
         sprite.width = TILE_SIZE * 2

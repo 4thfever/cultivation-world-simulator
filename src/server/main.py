@@ -2,7 +2,7 @@ import sys
 import os
 import asyncio
 from contextlib import asynccontextmanager
-from typing import List
+from typing import List, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -22,12 +22,15 @@ from src.classes.sect import sects_by_id
 from src.classes.color import serialize_hover_lines
 from src.classes.event import Event
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
+from src.sim.save.save_game import save_game, list_saves
+from src.sim.load.load_game import load_game
 import random
 
 # 全局游戏实例
 game_instance = {
     "world": None,
-    "sim": None
+    "sim": None,
+    "is_paused": False # 新增暂停标记
 }
 
 class ConnectionManager:
@@ -130,6 +133,10 @@ async def game_loop():
         await asyncio.sleep(1.0) 
         
         try:
+            # 检查暂停状态
+            if game_instance.get("is_paused", False):
+                continue
+
             sim = game_instance.get("sim")
             world = game_instance.get("world")
             
@@ -270,7 +277,8 @@ def get_state():
             "month": m,
             "avatar_count": len(world.avatar_manager.avatars),
             "avatars": av_list,
-            "events": recent_events
+            "events": recent_events,
+            "is_paused": game_instance.get("is_paused", False)
         }
 
     except Exception as e:
@@ -337,6 +345,18 @@ async def step_world():
         "event_count": len(events),
         "events_sample": [str(e) for e in events[:5]]
     }
+
+@app.post("/api/control/pause")
+def pause_game():
+    """暂停游戏循环"""
+    game_instance["is_paused"] = True
+    return {"status": "ok", "message": "Game paused"}
+
+@app.post("/api/control/resume")
+def resume_game():
+    """恢复游戏循环"""
+    game_instance["is_paused"] = False
+    return {"status": "ok", "message": "Game resumed"}
 
 @app.get("/api/hover")
 def get_hover_info(
@@ -410,6 +430,95 @@ def clear_long_term_objective(req: ClearObjectiveRequest):
         "status": "ok", 
         "message": "Objective cleared" if cleared else "No user objective to clear"
     }
+
+# --- 存档系统 API ---
+
+class SaveGameRequest(BaseModel):
+    filename: Optional[str] = None
+
+class LoadGameRequest(BaseModel):
+    filename: str
+
+@app.get("/api/saves")
+def get_saves():
+    """获取存档列表"""
+    saves_list = list_saves()
+    # 转换 Path 为 str，并整理格式
+    result = []
+    for path, meta in saves_list:
+        result.append({
+            "filename": path.name,
+            "save_time": meta.get("save_time", ""),
+            "game_time": meta.get("game_time", ""),
+            "version": meta.get("version", "")
+        })
+    return {"saves": result}
+
+@app.post("/api/game/save")
+def api_save_game(req: SaveGameRequest):
+    """保存游戏"""
+    world = game_instance.get("world")
+    sim = game_instance.get("sim")
+    if not world or not sim:
+        raise HTTPException(status_code=503, detail="Game not initialized")
+    
+    # 这里的 existed_sects 需要从 world 或者 sim 中获取，目前简单起见，
+    # 我们可以遍历地图上的宗门总部，或者如果全局有保存最好。
+    # 由于 init_game 只有一次，我们需要从 world 中反推 active sects
+    # 但 save_game 签名里的 existed_sects 主要是为了记录 id。
+    # 实际上 world.map.regions 中包含了宗门总部信息。
+    # 或者更简单的：直接从 sects_by_id 取所有? 不太对。
+    # 让我们看看 save_game 实现：它主要是存 id。
+    # 我们可以传入空列表，如果在 load 时能容忍的话。
+    # 实际上 load_game 里：existed_sects = [sects_by_id[sid] for sid in existed_sect_ids]
+    # 所以 save 时如果不传，load 时就拿不到。
+    # 临时方案：遍历所有宗门，如果它有领地或者有人，就算存在。
+    # 或者更粗暴：CONFIG.game.sect_num 如果没变，可以不管。
+    # 最好是 world 对象上能挂载 existed_sects。
+    # 暂时方案：传入所有宗门作为 existed_sects (全集)，虽然有点浪费，但不丢数据。
+    # 更好的方案：修改 init_game，把 existed_sects 挂载到 world 上。
+    
+    # 尝试从 world 属性获取（如果以后添加了）
+    existed_sects = getattr(world, "existed_sects", [])
+    if not existed_sects:
+        # fallback: 所有 sects
+        existed_sects = list(sects_by_id.values())
+
+    success, filename = save_game(world, sim, existed_sects, save_path=None) # save_path=None 会自动生成时间戳文件名
+    if success:
+        return {"status": "ok", "filename": filename}
+    else:
+        raise HTTPException(status_code=500, detail="Save failed")
+
+@app.post("/api/game/load")
+def api_load_game(req: LoadGameRequest):
+    """加载游戏"""
+    # 安全检查：只允许加载 saves 目录下的文件
+    if ".." in req.filename or "/" in req.filename or "\\" in req.filename:
+         raise HTTPException(status_code=400, detail="Invalid filename")
+    
+    try:
+        saves_dir = CONFIG.paths.saves
+        target_path = saves_dir / req.filename
+        
+        if not target_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+
+        # 加载
+        new_world, new_sim, new_sects = load_game(target_path)
+        
+        # 确保挂载 existed_sects 以便下次保存
+        new_world.existed_sects = new_sects
+
+        # 替换全局实例
+        game_instance["world"] = new_world
+        game_instance["sim"] = new_sim
+        
+        return {"status": "ok", "message": "Game loaded"}
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Load failed: {str(e)}")
 
 def start():
     """启动服务的入口函数"""

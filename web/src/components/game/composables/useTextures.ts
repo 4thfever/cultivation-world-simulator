@@ -1,5 +1,8 @@
 import { ref } from 'vue'
-import { Assets, Texture } from 'pixi.js'
+import { Assets, Texture, TextureStyle } from 'pixi.js'
+
+// 设置全局纹理缩放模式为 nearest (像素风)
+TextureStyle.defaultOptions.scaleMode = 'nearest'
 
 // 全局纹理缓存，避免重复加载
 const textures = ref<Record<string, Texture>>({})

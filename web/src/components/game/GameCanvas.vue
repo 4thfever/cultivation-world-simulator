@@ -2,6 +2,7 @@
 import { Application } from 'vue3-pixi'
 import { ref, onMounted } from 'vue'
 import { useElementSize } from '@vueuse/core'
+import { useGameStore } from '../../stores/game' // 引入 store
 import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
@@ -10,6 +11,8 @@ import { useTextures } from './composables/useTextures'
 const container = ref<HTMLElement>()
 const { width, height } = useElementSize(container)
 const { loadBaseTextures, isLoaded } = useTextures()
+
+const store = useGameStore() // 使用 store
 
 const mapSize = ref({ width: 2000, height: 2000 })
 
@@ -59,7 +62,16 @@ onMounted(() => {
         :world-width="mapSize.width"
         :world-height="mapSize.height"
       >
-        <MapLayer @mapLoaded="onMapLoaded" @regionSelected="handleRegionSelected" />
+        <!-- 
+          使用 store.worldVersion 作为 key 
+          当读档时，MapLayer 会被重新创建，从而重新加载地图数据
+          但 Application 和 WebGL 上下文保持不变，避免崩溃
+        -->
+        <MapLayer 
+          :key="store.worldVersion" 
+          @mapLoaded="onMapLoaded" 
+          @regionSelected="handleRegionSelected" 
+        />
         <EntityLayer @avatarSelected="handleAvatarSelected" />
       </Viewport>
     </Application>

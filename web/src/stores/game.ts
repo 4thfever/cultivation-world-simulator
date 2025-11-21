@@ -44,6 +44,9 @@ export const useGameStore = defineStore('game', () => {
   const infoLoading = ref(false)
   const infoError = ref<string | null>(null)
   const hoverCache = new Map<string, HoverLine[]>()
+  
+  // 新增：用于标记世界是否被重置（读档）
+  const worldVersion = ref(0)
 
   const avatarList = computed(() => Object.values(avatars.value))
 
@@ -105,6 +108,9 @@ export const useGameStore = defineStore('game', () => {
         })
         avatars.value = nextAvatars
       }
+      
+      // 重置事件列表，而不是追加，因为是全新状态
+      events.value = []
       appendEvents(data.events)
     } catch (error) {
       console.error('Fetch State Error', error)
@@ -164,6 +170,26 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
+  async function reloadGame(filename: string) {
+    // 1. 调用加载接口
+    await gameApi.loadGame(filename)
+    
+    // 2. 清空前端状态
+    avatars.value = {}
+    events.value = []
+    hoverCache.clear()
+    hoverInfo.value = []
+    selectedTarget.value = null
+    
+    // 3. 重新获取初始状态
+    await fetchInitialState()
+    
+    // 4. 更新世界版本，触发特定组件重绘
+    worldVersion.value++
+    
+    return true
+  }
+
   function connect() {
     gateway.connect()
   }
@@ -195,12 +221,14 @@ export const useGameStore = defineStore('game', () => {
     hoverInfo,
     infoLoading,
     infoError,
+    worldVersion, // 导出
     connect,
     disconnect,
     fetchInitialState,
     openInfoPanel,
     closeInfoPanel,
     setLongTermObjective,
-    clearLongTermObjective
+    clearLongTermObjective,
+    reloadGame
   }
 })
