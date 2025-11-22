@@ -73,7 +73,7 @@ async def generate_nickname(avatar: "Avatar") -> Optional[str]:
         }
         
         # 调用LLM并自动解析JSON
-        response_data = await call_llm_with_template(template_path, infos, LLMMode.FAST)
+        response_data = await call_llm_with_template(template_path, infos, LLMMode.NORMAL)
         
         nickname = response_data.get("nickname", "").strip()
         thinking = response_data.get("thinking", "")
