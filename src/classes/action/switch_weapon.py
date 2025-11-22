@@ -13,11 +13,16 @@ class SwitchWeapon(InstantAction):
     熟练度重置为0。
     """
 
-    COMMENT = "切换到指定类型的凡品兵器。当前兵器会丧失，熟练度会重置为0。适用于想要更换兵器类型或从头修炼新兵器的情况。"
+    COMMENT = "切换到指定类型的凡品兵器，或卸下兵器。当前兵器会丧失，熟练度会重置为0。适用于想要更换兵器类型或从头修炼新兵器的情况。"
     DOABLES_REQUIREMENTS = "无前置条件"
     PARAMS = {"weapon_type_name": "str"}
 
     def _execute(self, weapon_type_name: str) -> None:
+        # 处理卸下兵器的情况
+        if weapon_type_name in ["无", "None", "none", ""]:
+            self.avatar.change_weapon(None)
+            return
+
         # 规范化兵器类型名称
         normalized_type = normalize_weapon_type(weapon_type_name)
         
@@ -44,6 +49,12 @@ class SwitchWeapon(InstantAction):
             # AI调用：总是可以切换兵器
             return True, ""
         
+        # 处理卸下兵器的情况
+        if weapon_type_name in ["无", "None", "none", ""]:
+            if self.avatar.weapon is None:
+                return False, "当前已处于无兵器状态"
+            return True, ""
+
         # 规范化并验证兵器类型
         normalized_type = normalize_weapon_type(weapon_type_name)
         target_weapon_type = None
@@ -53,10 +64,11 @@ class SwitchWeapon(InstantAction):
                 break
         
         if target_weapon_type is None:
-            return False, f"未知兵器类型: {weapon_type_name}（支持的类型：剑/刀/枪/棍/扇/鞭/琴/笛/暗器）"
+            return False, f"未知兵器类型: {weapon_type_name}（支持的类型：剑/刀/枪/棍/扇/鞭/琴/笛/暗器/无）"
         
         # 检查是否已经是该类型的凡品兵器
-        if self.avatar.weapon.weapon_type == target_weapon_type and \
+        if self.avatar.weapon is not None and \
+           self.avatar.weapon.weapon_type == target_weapon_type and \
            self.avatar.weapon.name == f"凡品{target_weapon_type.value}":
             return False, f"已经装备了凡品{target_weapon_type.value}"
         
@@ -68,6 +80,13 @@ class SwitchWeapon(InstantAction):
         return True, ""
 
     def start(self, weapon_type_name: str) -> Event:
+        if weapon_type_name in ["无", "None", "none", ""]:
+            return Event(
+                self.world.month_stamp,
+                f"{self.avatar.name} 卸下了兵器",
+                related_avatars=[self.avatar.id]
+            )
+
         normalized_type = normalize_weapon_type(weapon_type_name)
         return Event(
             self.world.month_stamp,

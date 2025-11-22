@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch, nextTick } from 'vue'
 import { useWorldStore } from '../../stores/world'
 import { NSelect } from 'naive-ui'
 
 const worldStore = useWorldStore()
 const filterValue = ref('all')
+const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
   { label: '所有人', value: 'all' },
@@ -18,6 +19,15 @@ const filteredEvents = computed(() => {
   }
   return allEvents.filter(event => event.relatedAvatarIds.includes(filterValue.value))
 })
+
+// 自动滚动到底部
+watch(filteredEvents, () => {
+  nextTick(() => {
+    if (eventListRef.value) {
+      eventListRef.value.scrollTop = eventListRef.value.scrollHeight
+    }
+  })
+}, { deep: true })
 
 const emptyEventMessage = computed(() => (
   filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
@@ -40,7 +50,7 @@ function formatEventDate(event: { year: number; month: number }) {
       />
     </div>
     <div v-if="filteredEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
-    <div v-else class="event-list">
+    <div v-else class="event-list" ref="eventListRef">
       <div v-for="event in filteredEvents" :key="event.id" class="event-item">
         <div class="event-date">{{ formatEventDate(event) }}</div>
         <div class="event-content">{{ event.content || event.text }}</div>

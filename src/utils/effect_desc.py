@@ -75,12 +75,15 @@ def translate_condition(condition: str) -> str:
     vars_map = {
         "avatar.weapon.type": "武器类型",
         "avatar.weapon.weapon_type.value": "武器类型",
+        "avatar.weapon.proficiency": "兵器熟练度",
+        "avatar.weapon": "兵器",
         "avatar.cultivation_progress.realm.value": "境界等级",
         "avatar.cultivation.level": "修为等级",
         "avatar.alignment": "立场",
         "avatar.age": "年龄",
         "avatar.spirit_animal": "灵兽",
-        "avatar.weapon.proficiency": "兵器熟练度",
+        "avatar.sect": "宗门",
+        "avatar.auxiliary": "辅助装备",
     }
     
     # 2. 枚举值映射

@@ -84,14 +84,14 @@ export const useWorldStore = defineStore('world', () => {
     const combined = [...newEvents, ...events.value];
     
     combined.sort((a, b) => {
-      // 1. 先按时间戳降序（最新的月在上面）
+      // 1. 先按时间戳升序（最旧的月在上面）
       const ta = a.timestamp;
       const tb = b.timestamp;
       if (tb !== ta) {
-        return tb - ta;
+        return ta - tb;
       }
       
-      // 2. 时间相同时，按原始逻辑顺序降序（后发生的在上面）
+      // 2. 时间相同时，按原始逻辑顺序升序（先发生的在上面）
       // 旧事件通常没有 _seq (undefined)，视为最旧 (-1)
       const seqA = (a as any)._seq ?? -1;
       const seqB = (b as any)._seq ?? -1;
@@ -99,10 +99,15 @@ export const useWorldStore = defineStore('world', () => {
       // 如果都是旧事件，保持相对顺序 (Stable)
       if (seqA === -1 && seqB === -1) return 0;
       
-      return seqB - seqA;
+      return seqA - seqB;
     });
     
-    events.value = combined.slice(0, MAX_EVENTS);
+    // 保留最新的 N 条 (因为是升序，最新的在最后，所以取最后 N 条)
+    if (combined.length > MAX_EVENTS) {
+      events.value = combined.slice(-MAX_EVENTS);
+    } else {
+      events.value = combined;
+    }
   }
 
   function handleTick(payload: TickPayloadDTO) {
