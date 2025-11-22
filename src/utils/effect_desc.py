@@ -1,4 +1,5 @@
 from typing import Any
+import re
 
 EFFECT_DESC_MAP = {
     "extra_hp_recovery_rate": "生命恢复速率",
@@ -55,6 +56,88 @@ def format_value(key: str, value: Any) -> str:
     
     return str(value)
 
+def translate_condition(condition: str) -> str:
+    """
+    将代码形式的条件表达式转换为易读的中文描述。
+    """
+    if not condition:
+        return "条件触发"
+        
+    # 特殊复杂模式：any(p.name == "xxx" for p in avatar.personas)
+    if "avatar.personas" in condition and "any" in condition:
+        m = re.search(r'p\.name\s*==\s*["\'](.*?)["\']', condition)
+        if m:
+            return f"拥有【{m.group(1)}】特质"
+
+    s = condition
+    
+    # 1. 变量映射
+    vars_map = {
+        "avatar.weapon.type": "武器类型",
+        "avatar.weapon.weapon_type.value": "武器类型",
+        "avatar.cultivation_progress.realm.value": "境界等级",
+        "avatar.cultivation.level": "修为等级",
+        "avatar.alignment": "立场",
+        "avatar.age": "年龄",
+        "avatar.spirit_animal": "灵兽",
+        "avatar.weapon.proficiency": "兵器熟练度",
+    }
+    
+    # 2. 枚举值映射
+    enums_map = {
+        "WeaponType.SWORD": "剑",
+        "WeaponType.SABER": "刀",
+        "WeaponType.SPEAR": "枪",
+        "WeaponType.STAFF": "棍",
+        "WeaponType.FAN": "扇",
+        "WeaponType.WHIP": "鞭",
+        "WeaponType.ZITHER": "琴",
+        "WeaponType.FLUTE": "笛",
+        "WeaponType.HIDDEN_WEAPON": "暗器",
+        
+        "Alignment.RIGHTEOUS": "正道",
+        "Alignment.GOOD": "正道", 
+        "Alignment.EVIL": "魔道",
+        "Alignment.NEUTRAL": "中立",
+    }
+    
+    # 执行变量和枚举替换
+    for k, v in vars_map.items():
+        s = s.replace(k, v)
+        
+    for k, v in enums_map.items():
+        s = s.replace(k, v)
+
+    # 3. 特殊语法处理 (is not None, is None)
+    # 必须在变量替换之后，普通运算符替换之前
+    if " is not None" in s:
+        s = re.sub(r'([^\s]+)\s+is\s+not\s+None', r'拥有\1', s)
+    if " is None" in s:
+        s = re.sub(r'([^\s]+)\s+is\s+None', r'未拥有\1', s)
+    
+    # 4. 运算符映射
+    ops_map = {
+        "==": "为",
+        "!=": "非",
+        ">=": "≥",
+        "<=": "≤",
+        ">": "＞",
+        "<": "＜",
+        " and ": " 且 ",
+        " or ": " 或 ",
+        " in ": " 属于 ",
+        " not ": "非",
+    }
+
+    for k, v in ops_map.items():
+        s = s.replace(k, v)
+
+    # 清理符号
+    s = s.replace('"', '').replace("'", "")
+    s = s.replace('[', '【').replace(']', '】')
+    
+    return f"当{s.strip()}"
+
 def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> str:
     """
     将 effects 字典转换为易读的文本描述。
@@ -68,10 +151,7 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
         for eff in effects:
             text = format_effects_to_text(eff)
             if text:
-                if eff.get("when"):
-                    parts.append(f"[条件触发] {text}")
-                else:
-                    parts.append(text)
+                parts.append(text)
         return "\n".join(parts)
     
     desc_list = []
@@ -93,6 +173,12 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
             val_str = format_value(k, v)
             
         desc_list.append(f"{name} {val_str}")
+    
+    text = "；".join(desc_list)
+    
+    # 如果有条件，添加条件描述
+    if effects.get("when"):
+        cond = translate_condition(str(effects["when"]))
+        return f"[{cond}] {text}"
         
-    return "；".join(desc_list)
-
+    return text
