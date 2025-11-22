@@ -175,7 +175,11 @@ def set_user_long_term_objective(avatar: "Avatar", objective_content: str) -> No
         origin="user",
         set_year=current_year
     )
-    logger.info(f"玩家为角色 {avatar.name} 设定长期目标：{objective_content}")
+    
+    # 用户手动设定长期目标时，清空短期目标，以便AI重新规划
+    avatar.short_term_objective = ""
+    
+    logger.info(f"玩家为角色 {avatar.name} 设定长期目标：{objective_content}，并已清空短期目标")
 
 
 def clear_user_long_term_objective(avatar: "Avatar") -> bool:
