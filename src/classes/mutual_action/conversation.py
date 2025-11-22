@@ -109,7 +109,8 @@ class Conversation(MutualAction):
                 set_event = Event(
                     self.world.month_stamp, 
                     f"{target.name} 与 {self.avatar.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", 
-                    related_avatars=[self.avatar.id, target.id]
+                    related_avatars=[self.avatar.id, target.id],
+                    is_major=True
                 )
                 EventHelper.push_pair(set_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 
@@ -122,7 +123,8 @@ class Conversation(MutualAction):
                     cancel_event = Event(
                         self.world.month_stamp, 
                         f"{target.name} 与 {self.avatar.name} 取消了关系：{relation_display_names.get(rel, str(rel))}", 
-                        related_avatars=[self.avatar.id, target.id]
+                        related_avatars=[self.avatar.id, target.id],
+                        is_major=True
                     )
                     EventHelper.push_pair(cancel_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 

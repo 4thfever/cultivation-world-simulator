@@ -20,8 +20,8 @@ ai:
 game:
   init_npc_num: 6
   sect_num: 2 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
-  npc_birth_rate_per_month: 0.001
-  fortune_probability: 0.001
+  npc_birth_rate_per_month: 0.01
+  fortune_probability: 0.005
 
 df:
   ids_separator: ";"
@@ -34,8 +34,8 @@ social:
   minor_event_context_num: 10  # 小事（短期记忆）展示数量
 
 nickname:
-  major_event_threshold: 10  # 获得绰号需要的长期事件数量
-  minor_event_threshold: 50  # 获得绰号需要的短期事件数量
+  major_event_threshold: 3  # 获得绰号需要的长期事件数量
+  minor_event_threshold: 20  # 获得绰号需要的短期事件数量
 
 save:
   max_events_to_save: 1000

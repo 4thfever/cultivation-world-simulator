@@ -26,8 +26,8 @@ const title = computed(() => {
 });
 
 const subTitle = computed(() => {
-  if (uiStore.detailData && 'nickname' in uiStore.detailData) {
-    return uiStore.detailData.nickname;
+  if (uiStore.detailData && 'nickname' in uiStore.detailData && uiStore.detailData.nickname) {
+    return `「${uiStore.detailData.nickname}」`;
   }
   return '';
 });

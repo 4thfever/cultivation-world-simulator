@@ -42,12 +42,10 @@ export const useWorldStore = defineStore('world', () => {
       if (existing) {
         // Merge
         next.set(av.id, { ...existing, ...av } as AvatarSummary);
-      } else {
-        // Insert (ensure required fields exist if possible, otherwise cast)
-        // 在 Tick 中出现的新 Avatar 可能是完整的
-        next.set(av.id, av as AvatarSummary); 
+        changed = true;
       }
-      changed = true;
+      // Else: ignore. Do NOT insert new avatars from tick updates,
+      // as tick data is incomplete (position only) and might be from a stale game state (Race Condition).
     }
 
     if (changed) {
@@ -66,9 +64,9 @@ export const useWorldStore = defineStore('world', () => {
       year: e.year ?? year.value,
       month: e.month ?? month.value,
       timestamp: (e.year ?? year.value) * 12 + (e.month ?? month.value),
-      relatedAvatarIds: e.relatedAvatarIds || [],
-      isMajor: e.isMajor,
-      isStory: e.isStory
+      relatedAvatarIds: e.related_avatar_ids || [],
+      isMajor: e.is_major,
+      isStory: e.is_story
     }));
 
     // 排序并保留最新的 N 条
@@ -80,6 +78,8 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   function handleTick(payload: TickPayloadDTO) {
+    if (!isLoaded.value) return;
+    
     setTime(payload.year, payload.month);
     if (payload.avatars) updateAvatars(payload.avatars);
     if (payload.events) addEvents(payload.events);

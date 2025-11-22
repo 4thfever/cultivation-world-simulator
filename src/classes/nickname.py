@@ -40,8 +40,8 @@ def can_get_nickname(avatar: "Avatar") -> bool:
     major_threshold = CONFIG.nickname.major_event_threshold
     minor_threshold = CONFIG.nickname.minor_event_threshold
     
-    major_events = em.get_major_events_by_avatar(avatar.id)
-    minor_events = em.get_minor_events_by_avatar(avatar.id)
+    major_events = em.get_major_events_by_avatar(avatar.id, limit=major_threshold)
+    minor_events = em.get_minor_events_by_avatar(avatar.id, limit=minor_threshold)
     
     major_count = len(major_events)
     minor_count = len(minor_events)
@@ -115,7 +115,7 @@ async def process_avatar_nickname(avatar: "Avatar") -> Optional[Event]:
     # 生成事件：角色获得绰号
     event = Event(
         avatar.world.month_stamp,
-        f"{avatar.name}在修仙界中闯出名号，被人称为'{nickname}'。",
+        f"{avatar.name}在修仙界中闯出名号，被人称为「{nickname}」。",
         related_avatars=[avatar.id],
         is_major=True
     )

@@ -185,5 +185,8 @@ class AvatarLoadMixin:
         # relations需要在外部单独重建（因为需要所有avatar都加载完成）
         avatar.relations = {}
         
+        # 加载完成后重新计算effects（确保数值正确）
+        avatar.recalc_effects()
+        
         return avatar
 

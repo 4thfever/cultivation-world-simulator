@@ -71,7 +71,7 @@ async function handleClearObjective() {
       <!-- Stats Grid -->
       <div class="stats-grid">
         <StatItem label="境界" :value="data.realm" :sub-value="data.level" />
-        <StatItem label="年龄" :value="formatAge(data.age, data.lifespan)" />
+        <StatItem label="年龄" :value="`${data.age} / ${data.lifespan}`" />
         
         <StatItem label="HP" :value="formatHp(data.hp.cur, data.hp.max)" />
         <StatItem label="MP" :value="formatHp(data.mp.cur, data.mp.max)" />
