@@ -30,7 +30,7 @@ function handleRegionSelected(payload: { type: 'region'; id: string; name?: stri
   emit('regionSelected', payload)
 }
 
-const devicePixelRatio = window.devicePixelRatio || 1
+const devicePixelRatio = 1 // 强制为 1，避免像素风游戏在高分屏下的坐标和缩放问题
 
 onMounted(() => {
   loadBaseTextures()
