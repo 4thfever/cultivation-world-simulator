@@ -14,7 +14,7 @@ paths:
   saves: assets/saves/
 
 ai:
-  max_decide_num: 4
+  max_decide_num: 3
   max_parse_retries: 3
 
 game:

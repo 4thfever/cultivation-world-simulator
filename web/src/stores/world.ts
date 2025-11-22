@@ -65,7 +65,8 @@ export const useWorldStore = defineStore('world', () => {
     if (!rawEvents || rawEvents.length === 0) return;
     
     // 转换 DTO -> Domain
-    const newEvents: GameEvent[] = rawEvents.map(e => ({
+    // 增加临时索引 _seq 记录原始逻辑顺序，用于同时间戳事件的排序
+    const newEvents: GameEvent[] = rawEvents.map((e, index) => ({
       id: e.id,
       text: e.text,
       content: e.content,
@@ -74,13 +75,32 @@ export const useWorldStore = defineStore('world', () => {
       timestamp: (e.year ?? year.value) * 12 + (e.month ?? month.value),
       relatedAvatarIds: e.related_avatar_ids || [],
       isMajor: e.is_major,
-      isStory: e.is_story
-    }));
+      isStory: e.is_story,
+      _seq: index 
+    } as GameEvent & { _seq: number }));
 
     // 排序并保留最新的 N 条
     const MAX_EVENTS = 300;
     const combined = [...newEvents, ...events.value];
-    combined.sort((a, b) => b.timestamp - a.timestamp); // 降序
+    
+    combined.sort((a, b) => {
+      // 1. 先按时间戳降序（最新的月在上面）
+      const ta = a.timestamp;
+      const tb = b.timestamp;
+      if (tb !== ta) {
+        return tb - ta;
+      }
+      
+      // 2. 时间相同时，按原始逻辑顺序降序（后发生的在上面）
+      // 旧事件通常没有 _seq (undefined)，视为最旧 (-1)
+      const seqA = (a as any)._seq ?? -1;
+      const seqB = (b as any)._seq ?? -1;
+      
+      // 如果都是旧事件，保持相对顺序 (Stable)
+      if (seqA === -1 && seqB === -1) return 0;
+      
+      return seqB - seqA;
+    });
     
     events.value = combined.slice(0, MAX_EVENTS);
   }

@@ -5,6 +5,7 @@ NPC AI 的类。
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+import asyncio
 
 from src.classes.world import World
 from src.classes.event import Event, NULL_EVENT
@@ -35,8 +36,16 @@ class AI(ABC):
         """
         results = {}
         max_decide_num = CONFIG.ai.max_decide_num
+        
+        # 使用 asyncio.gather 并行执行多个批次的决策
+        tasks = []
         for i in range(0, len(avatars_to_decide), max_decide_num):
-            results.update(await self._decide(world, avatars_to_decide[i:i+max_decide_num]))
+             tasks.append(self._decide(world, avatars_to_decide[i:i+max_decide_num]))
+             
+        if tasks:
+            batch_results_list = await asyncio.gather(*tasks)
+            for batch_result in batch_results_list:
+                results.update(batch_result)
 
         for avatar, result in list(results.items()):
             action_name_params_pairs, avatar_thinking, short_term_objective = result  # type: ignore

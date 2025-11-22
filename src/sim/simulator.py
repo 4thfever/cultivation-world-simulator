@@ -1,4 +1,5 @@
 import random
+import asyncio
 
 from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.avatar import Avatar, Gender
@@ -118,9 +119,14 @@ class Simulator:
         events = []
         for avatar in self.world.avatar_manager.avatars.values():
             avatar.update_time_effect()
-        for avatar in list(self.world.avatar_manager.avatars.values()):
-            fortune_events = await try_trigger_fortune(avatar)
-            events.extend(fortune_events)
+        
+        # 使用 gather 并行触发奇遇
+        tasks = [try_trigger_fortune(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        results = await asyncio.gather(*tasks)
+        for res in results:
+            if res:
+                events.extend(res)
+                
         return events
     
     async def _phase_nickname_generation(self):
@@ -129,11 +135,11 @@ class Simulator:
         """
         from src.classes.nickname import process_avatar_nickname
         
-        events = []
-        for avatar in list(self.world.avatar_manager.avatars.values()):
-            event = await process_avatar_nickname(avatar)
-            if event:
-                events.append(event)
+        # 并发执行
+        tasks = [process_avatar_nickname(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        results = await asyncio.gather(*tasks)
+        
+        events = [e for e in results if e]
         return events
     
     async def _phase_long_term_objective_thinking(self):
@@ -141,11 +147,11 @@ class Simulator:
         长期目标思考阶段
         检查角色是否需要生成/更新长期目标
         """
-        events = []
-        for avatar in list(self.world.avatar_manager.avatars.values()):
-            event = await process_avatar_long_term_objective(avatar)
-            if event:
-                events.append(event)
+        # 并发执行
+        tasks = [process_avatar_long_term_objective(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        results = await asyncio.gather(*tasks)
+        
+        events = [e for e in results if e]
         return events
     
     def _phase_update_celestial_phenomenon(self):
