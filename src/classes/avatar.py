@@ -743,7 +743,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
         # 关系（从自身视角分组展示）
         from src.classes.relation import get_relations_strs
-        relation_lines = get_relations_strs(self, max_lines=6)
+        relation_lines = get_relations_strs(self, max_lines=15)
         if relation_lines:
             add_section(lines, "关系", [f"  {s}" for s in relation_lines])
         else:

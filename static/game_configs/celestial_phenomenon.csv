@@ -1,23 +1,23 @@
 id,name,rarity,effects,desc,duration_years
 1,紫气东来,R,{extra_cultivate_exp: 15},天降祥瑞，紫气弥漫东方，修士修炼速度大增,5
-2,金煞之年,R,"[{when: 'avatar.weapon.weapon_type.value in [""剑"", ""刀""]', extra_battle_strength_points: 25, extra_weapon_proficiency_gain: 0.3}, {extra_battle_strength_points: 10}]",金煞充盈天地肃杀，剑修刀修锋芒毕露，众修战力皆增,5
+2,金煞之年,R,"[{when: 'avatar.weapon.weapon_type.value in [""剑"", ""刀""]', extra_battle_strength_points: 5, extra_weapon_proficiency_gain: 0.3}, {extra_battle_strength_points: 3}]",金煞充盈天地肃杀，剑修刀修锋芒毕露，众修战力皆增,5
 3,木灵盛世,R,"{extra_harvest_items: 2, extra_hp_recovery_rate: 0.5}",木德滋养生机盎然，灵药遍地灵兽成群，疗伤复元如沐甘霖,5
 4,水德之纪,R,"{extra_cultivate_exp: 20, cultivate_duration_reduction: 0.2}",水行流转通达无碍，修炼如行云流水，悟法通神一日千里,5
-5,火劫时代,R,"{extra_battle_strength_points: 35, extra_max_lifespan: -50}",天火燃烧劫数降临，战力暴涨却损耗寿元，如烈火燃尽生机,5
+5,火劫时代,R,"{extra_battle_strength_points: 5, extra_max_lifespan: -50}",天火燃烧劫数降临，战力暴涨却损耗寿元，如烈火燃尽生机,5
 6,土厚之世,R,"{damage_reduction: 0.15, extra_max_hp: 150}",土德厚重载物无疆，根基稳固血气充盈，百邪难侵万法不破,5
 7,五行逆乱,SR,"{extra_cultivate_exp: -10, extra_breakthrough_success_rate: 0.3}",五行失序天地大乱，修炼艰难却蕴含突破良机,5
 8,天道均衡,SR,"[{when: 'avatar.cultivation_progress.realm.value >= 6', extra_cultivate_exp: -25}, {when: 'avatar.cultivation_progress.realm.value < 6', extra_cultivate_exp: 10}]",天道显化强者受抑，弱者得助万物归中,5
-9,劫数将至,SR,"{extra_battle_strength_points: 20, extra_fortune_probability: -0.05}",劫数降临戾气弥漫，修士战力暴涨却杀机四伏,5
+9,劫数将至,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.05}",劫数降临戾气弥漫，修士战力暴涨却杀机四伏,5
 10,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修士修炼如沐春风,5
 11,灵气枯竭,R,"{extra_cultivate_exp: -20}",灵气枯竭末法将至，修炼如逆水行舟举步维艰,5
 12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -5}]",魔气滔天邪道横行，正道式微难以抗衡,5
 13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -0}]",浩然正气镇压邪祟，正道昌盛,5
 14,神兵出世,SR,"{extra_weapon_proficiency_gain: 1.0}",神兵有灵百兵齐鸣，温养进境一日千里,5
 15,阴阳交泰,R,"{extra_dual_cultivation_exp: 20}",阴阳交泰天地和合，双修之道水到渠成,5
-16,杀劫降临,SR,"{extra_battle_strength_points: 15, extra_fortune_probability: -0.1}",血光冲天杀机四伏，战斗凶险倍增,5
+16,杀劫降临,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.1}",血光冲天杀机四伏，战斗凶险倍增,5
 17,太平盛世,R,"{extra_cultivate_exp: -10, extra_fortune_probability: 0.1}",天下太平万物安宁，修炼迟缓却机缘频生,5
 18,气运加身,R,"[{when: 'any(p.name == ""气运之子"" for p in avatar.personas)', extra_cultivate_exp: 25, extra_fortune_probability: 0.15}]",天命眷顾气运之子，修炼奇遇皆蒙福泽,5
-19,血月当空,SR,"{extra_battle_strength_points: 20, extra_cultivate_exp: -10}",血月高悬杀机暴涨，战斗狂热但修心不易,5
+19,血月当空,SR,"{extra_battle_strength_points: 7, extra_cultivate_exp: -10}",血月高悬杀机暴涨，战斗狂热但修心不易,5
 20,飞升之门,SSR,"{extra_cultivate_exp: 30, extra_breakthrough_success_rate: 0.2}",天门大开飞升有望，巅峰修士得窥天道,7
 21,法则显化,SSR,"{extra_breakthrough_success_rate: 0.5}",天地法则显化于世，众修士感悟突破,3
 22,时空乱流,SSR,"{extra_fortune_probability: 0.1}",时空错乱奇遇频生，机缘无数,5

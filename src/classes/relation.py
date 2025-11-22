@@ -117,29 +117,57 @@ def _label_from_self_perspective(relation: Relation, other_gender: object | None
     return relation_display_names.get(counterpart, str(counterpart))
 
 
-def get_relations_strs(avatar: "Avatar", max_lines: int = 6) -> list[str]:
+def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     """
-    以“我”的视角整理关系，输出若干行：
-    - 我的师傅：A，B
-    - 我的徒弟：C
-    - 兄弟姐妹：D，E
-    等。
+    以“我”的视角整理关系，输出若干行。
+    总是显示主要关系栏位（师傅、徒弟、道侣、父母、子女、兄弟姐妹、朋友、仇人），
+    若无则显示“无”。
     """
-    relations = getattr(avatar, "relations", None)
-    if not relations:
-        return []
+    relations = getattr(avatar, "relations", {}) or {}
 
+    # 1. 收集并根据标签分组所有关系
     grouped: dict[str, list[str]] = defaultdict(list)
     for other, rel in relations.items():
-        grouped[_label_from_self_perspective(rel, getattr(other, "gender", None))].append(other.name)
+        label = _label_from_self_perspective(rel, getattr(other, "gender", None))
+        grouped[label].append(other.name)
 
     lines: list[str] = []
-    for key in sorted(grouped.keys()):
-        names = "，".join(grouped[key])
-        lines.append(f"{key}为：{names}")
-        if len(lines) >= max_lines:
-            break
-    return lines
+
+    # 2. 定义显示顺序配置：(兜底显示名, [该类别下的具体标签列表])
+    # 注意："父母"和"子女"包含了性别化标签(父亲/母亲)和通用标签(父母)
+    display_config = [
+        ("师傅", ["师傅"]),
+        ("徒弟", ["徒弟"]),
+        ("道侣", ["道侣"]),
+        ("父母", ["父亲", "母亲", "父母"]),
+        ("子女", ["儿子", "女儿", "子女"]),
+        ("兄弟姐妹", ["兄弟姐妹"]),
+        ("朋友", ["朋友"]),
+        ("仇人", ["仇人"]),
+    ]
+
+    processed_labels = set()
+
+    # 3. 遍历配置生成显示文本
+    for fallback_label, target_labels in display_config:
+        found_any = False
+        for label in target_labels:
+            if label in grouped:
+                names = "，".join(grouped[label])
+                lines.append(f"{label}：{names}")
+                found_any = True
+                processed_labels.add(label)
+
+        if not found_any:
+            lines.append(f"{fallback_label}：无")
+
+    # 4. 处理未在配置中列出的其他关系
+    for label in sorted(grouped.keys()):
+        if label not in processed_labels:
+            names = "，".join(grouped[label])
+            lines.append(f"{label}：{names}")
+
+    return lines[:max_lines]
 
 
 def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:

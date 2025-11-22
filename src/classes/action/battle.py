@@ -13,7 +13,7 @@ class Battle(InstantAction):
     PARAMS = {"avatar_name": "AvatarName"}
     # 提供用于故事生成的提示词：不出现血量/伤害等数值描述
     STORY_PROMPT: str | None = (
-        "不要出现具体血量、伤害点数或任何数值表达。"
+        "不要出现具体血量、伤害点数或任何数值表达。战斗要体现出双方的功法、境界、装备等。"
     )
     # 战斗是大事（长期记忆）
     IS_MAJOR: bool = True
