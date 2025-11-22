@@ -81,6 +81,35 @@ export const useWorldStore = defineStore('world', () => {
     if (!isLoaded.value) return;
     
     setTime(payload.year, payload.month);
+
+    // 检查并处理死亡事件，移除已死亡的角色
+    if (payload.events && Array.isArray(payload.events)) {
+      const deathEvents = payload.events.filter((e: any) => {
+        const c = e.content || '';
+        return c.includes('身亡') || c.includes('老死');
+      });
+
+      if (deathEvents.length > 0) {
+        const next = new Map(avatars.value);
+        let changed = false;
+
+        for (const de of deathEvents) {
+          if (de.related_avatar_ids && Array.isArray(de.related_avatar_ids)) {
+            for (const id of de.related_avatar_ids) {
+              if (next.has(id)) {
+                next.delete(id);
+                changed = true;
+              }
+            }
+          }
+        }
+
+        if (changed) {
+          avatars.value = next;
+        }
+      }
+    }
+
     if (payload.avatars) updateAvatars(payload.avatars);
     if (payload.events) addEvents(payload.events);
   }

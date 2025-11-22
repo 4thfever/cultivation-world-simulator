@@ -1,6 +1,6 @@
 """
 长期目标模块
-为角色生成和管理长期目标（3-5年）
+为角色生成和管理长期目标（3-10年）
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -35,8 +35,8 @@ def can_generate_long_term_objective(avatar: "Avatar") -> bool:
     1. 已有用户设定的目标，永不自动生成
     2. 无目标时，可以生成
     3. 距离上次设定 <3年，不生成
-    4. 距离上次设定 ≥5年，必定生成
-    5. 距离上次设定 3-5年，按概率生成（渐进概率）
+    4. 距离上次设定 ≥10年，必定生成
+    5. 距离上次设定 3-10年，按概率生成（渐进概率）
     
     Args:
         avatar: 要检查的角色
@@ -58,11 +58,11 @@ def can_generate_long_term_objective(avatar: "Avatar") -> bool:
     
     if years_passed < 3:
         return False
-    elif years_passed >= 5:
+    elif years_passed >= 10:
         return True
-    else:  # 3-5年之间
-        # 渐进概率：3年时10%，4年时50%，接近5年时接近100%
-        probability = (years_passed - 3) / 2 * 0.9 + 0.1
+    else:  # 3-10年之间
+        # 渐进概率：3年时10%，随时间推移逐渐增加，接近10年时接近100%
+        probability = (years_passed - 3) / 7 * 0.9 + 0.1
         return random.random() < probability
 
 
@@ -93,7 +93,7 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     }
     
     # 调用LLM并自动解析JSON（使用fast模型）
-    response_data = await call_llm_with_template(template_path, infos, LLMMode.FAST)
+    response_data = await call_llm_with_template(template_path, infos, LLMMode.NORMAL)
     
     content = response_data.get("long_term_objective", "").strip()
     
