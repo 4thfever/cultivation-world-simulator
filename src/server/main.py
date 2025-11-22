@@ -167,21 +167,55 @@ async def game_loop():
                 # 执行一步
                 events = await sim.step()
                 
+                # 找出新诞生的角色 ID
+                newly_born_ids = set()
+                for e in events:
+                    if "晋升为修士" in e.content and e.related_avatars:
+                        newly_born_ids.update(e.related_avatars)
+
+                avatar_updates = []
+                
+                # 为了避免重复发送大量数据，我们区分处理：
+                # - 新角色：发送完整数据
+                # - 旧角色：只发送位置 (x, y)（限制数量）
+                
+                # 1. 发送新角色的完整信息
+                for aid in newly_born_ids:
+                    a = world.avatar_manager.avatars.get(aid)
+                    if a:
+                        avatar_updates.append({
+                            "id": str(a.id),
+                            "name": a.name,
+                            "x": int(getattr(a, "pos_x", 0)),
+                            "y": int(getattr(a, "pos_y", 0)),
+                            "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
+                            "pic_id": (hash(a.id) % 15) + 1,
+                            "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
+                        })
+
+                # 2. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
+                limit = 50
+                count = 0
+                for a in world.avatar_manager.avatars.values():
+                    # 如果是新角色，已经在上面处理过了，跳过
+                    if a.id in newly_born_ids:
+                        continue
+                        
+                    if count < limit:
+                        avatar_updates.append({
+                            "id": str(a.id), 
+                            "x": int(getattr(a, "pos_x", 0)), 
+                            "y": int(getattr(a, "pos_y", 0))
+                        })
+                        count += 1
+
                 # 构造广播数据包
                 state = {
                     "type": "tick",
                     "year": int(world.month_stamp.get_year()),
                     "month": world.month_stamp.get_month().value,
                     "events": serialize_events_for_client(events),
-                    # 暂时只发前 50 个角色的位置更新，减少数据量
-                    "avatars": [
-                        {
-                            "id": str(a.id), 
-                            "x": int(getattr(a, "pos_x", 0)), 
-                            "y": int(getattr(a, "pos_y", 0))
-                        } 
-                        for a in list(world.avatar_manager.avatars.values())[:50]
-                    ]
+                    "avatars": avatar_updates
                 }
                 await manager.broadcast(state)
         except Exception as e:

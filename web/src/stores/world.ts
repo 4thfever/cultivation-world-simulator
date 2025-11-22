@@ -43,9 +43,15 @@ export const useWorldStore = defineStore('world', () => {
         // Merge
         next.set(av.id, { ...existing, ...av } as AvatarSummary);
         changed = true;
+      } else {
+        // New Avatar? Only insert if it has enough info (at least name)
+        // This handles newly born avatars sent by backend
+        if (av.name) {
+           next.set(av.id, av as AvatarSummary);
+           changed = true;
+        }
       }
-      // Else: ignore. Do NOT insert new avatars from tick updates,
-      // as tick data is incomplete (position only) and might be from a stale game state (Race Condition).
+      // Else: ignore. Do NOT insert new avatars from tick updates unless they have full info.
     }
 
     if (changed) {
