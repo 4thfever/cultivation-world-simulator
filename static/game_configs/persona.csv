@@ -1,5 +1,5 @@
 id,name,exclusion_names,desc,rarity,condition,effects
-,,和本persona互斥的persona的名称,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件(可用avatar字段/Alignment中文或英文等),"JSON形式（支持宽松格式，见effects.py说明）"
+,,和本persona互斥的persona的名称,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件(可用avatar字段/Alignment中文或英文等),JSON形式（支持宽松格式，见effects.py说明）
 1,理性,无常;随性,你总是会用逻辑来思考问题，做事会谋定而后动。,N,
 2,无常,理性;极端正义;极端邪恶;沉思,目标飘忽不定，不会长期坚持一个目标。,N,
 3,怠惰,冒险;极端正义;极端邪恶,你总是会拖延，不想努力，更热衷于享受人生。,N,
@@ -11,7 +11,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 9,沉思,无常,你总是会深思熟虑，思考问题比较有哲理。,N,
 10,惜命,冒险;极端正义;极端邪恶,你总是会珍惜自己的生命，不会轻易冒险。,R,,{extra_escape_success_rate: 0.15}
 11,友爱,孤僻;淡漠;好斗;复仇;极端正义;极端邪恶,你重视同伴与和谐，乐于助人，倾向通过协作与沟通化解矛盾。,N,
-12,复仇,友爱;淡漠,"你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。你必须立刻进行复仇行动。",N,,
+12,复仇,友爱;淡漠,你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。你必须立刻进行复仇行动。,N,,
 13,孤僻,友爱,你喜欢独处，避免与人深交，更信赖自己的判断与行动。,N,
 14,淡漠,友爱;复仇;好斗;极端正义;极端邪恶,你情感克制，对外界冷静疏离，不轻易被他人或事件影响。,N,
 15,好斗,友爱;淡漠;惜命;胆小,你直面冲突，偏好以力量与对抗解决问题，并格外热衷增加己身战力。,R,,{extra_battle_strength_points: 1}
@@ -23,8 +23,8 @@ id,name,exclusion_names,desc,rarity,condition,effects
 21,外向,孤僻;淡漠;内向,你乐于与人交流，主动结识伙伴，倾向接受对话和合作。,N,
 22,刻薄,友爱;热情,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己，更容易引发冲突与对立；你通常不愿迅速进入友好关系，更可能在不顺利的交流后滋生敌意或结仇。,N,
 23,热情,孤僻;淡漠;刻薄,你待人友好、积极回应，倾向用鼓励与赞美拉近距离；你更愿意主动展开善意的交流，乐于合作与分享,N,
-24,极端正义,内向;极端邪恶,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,avatar.alignment == "正",{extra_breakthrough_success_rate: 0.05}
-25,极端邪恶,内向;极端正义,你推崇权力与恐惧，为达目的不择手段，对善良嗤之以鼻。,SR,avatar.alignment == "邪","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
+24,极端正义,内向;极端邪恶,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,"avatar.alignment == ""正""",{extra_breakthrough_success_rate: 0.05}
+25,极端邪恶,内向;极端正义,你推崇权力与恐惧，为达目的不择手段，对善良嗤之以鼻。,SR,"avatar.alignment == ""邪""","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
 26,开放,腼腆,你对待和他人结为道侣或者双修比较随意,R,,{extra_dual_cultivation_exp: 30}
 27,腼腆,开放,你对待和他人结为道侣或者双修比较谨慎,N,
 28,舔狗,孤僻;淡漠;刻薄;腼腆,你对异性中外貌出众者格外友善，倾向主动接近、帮助与合作。,N,
@@ -32,26 +32,25 @@ id,name,exclusion_names,desc,rarity,condition,effects
 30,穿越者,,你来自现代社会，怀念现代社会的一切，你的思考（thinking）必须是现代化的思考,SR,
 31,气运之子,,天生气运加身，更易遇到奇遇，战斗力也略有提升,SSR,,"{extra_fortune_probability: 0.05, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
 32,剑痴,怠惰;胆小,以剑入道，剑即是命。你认为剑道至上，战力强悍，但对剑道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-33,散修,,无宗门庇护，四处寻找机缘，警惕性高，善于观察周围环境以自保求存。,N,
-34,心机深沉,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
-35,忠诚,孤僻;淡漠;刻薄,重承诺守信义，对认定的人绝不背叛，愿为之赴死。你视背叛为最大耻辱。,R,
-36,狠辣,友爱;热情;胆小,行事果决狠辣，不留后患，斩草必除根。你认为心慈手软只会害了自己。,N,
-37,重生者,无常;随性,经历过一世，对未来有模糊预知，行事更有目的性。你比常人更清楚什么重要，什么是陷阱。,SSR,
-38,疑心重,热情;外向;友爱,对任何人都保持怀疑，不轻易信任，时刻警惕他人可能的背叛和算计。,N,
-39,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,
-40,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,
-41,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,{extra_fortune_probability: 0.02}
-42,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-43,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-44,枪修,怠惰,精通枪法，百兵之王在手，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-45,棍修,怠惰,棍棒在手，天下我有。对棍法有着天生的悟性。,R,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-46,音律大师,怠惰,精通音律之道，琴笛在手，可攻可守，修炼速度远超常人。,SR,,"[{when: 'avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-47,暗器高手,怠惰,擅长使用暗器，出手诡秘莫测，修炼暗器技巧时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-48,扇修,怠惰,精通扇法，举手投足间尽显风流，持扇修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-49,鞭修,怠惰,精通鞭法，软兵器在手，刚柔并济，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-50,刀痴,怠惰;胆小,以刀入道，刀即是命。你认为刀法至上，战力强悍，但对刀道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-51,枪痴,怠惰;胆小,以枪入道，枪即是命。你认为枪法至上，战力强悍，但对枪道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-52,棍圣,怠惰;胆小,以棍入道，棍即是命。棍法通神，一棍在手，天下无敌，但对棍道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-53,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-54,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-55,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+33,心机深沉,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
+34,忠诚,孤僻;淡漠;刻薄,重承诺守信义，对认定的人绝不背叛，愿为之赴死。你视背叛为最大耻辱。,R,
+35,狠辣,友爱;热情;胆小,行事果决狠辣，不留后患，斩草必除根。你认为心慈手软只会害了自己。,N,
+36,重生者,无常;随性,经历过一世，对未来有模糊预知，行事更有目的性。你比常人更清楚什么重要，什么是陷阱。,SSR,
+37,疑心重,热情;外向;友爱,对任何人都保持怀疑，不轻易信任，时刻警惕他人可能的背叛和算计。,N,
+38,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,
+39,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,
+40,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,{extra_fortune_probability: 0.02}
+41,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+42,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+43,枪修,怠惰,精通枪法，百兵之王在手，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+44,棍修,怠惰,棍棒在手，天下我有。对棍法有着天生的悟性。,R,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+45,音律大师,怠惰,精通音律之道，琴笛在手，可攻可守，修炼速度远超常人。,SR,,"[{when: 'avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+46,暗器高手,怠惰,擅长使用暗器，出手诡秘莫测，修炼暗器技巧时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+47,扇修,怠惰,精通扇法，举手投足间尽显风流，持扇修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+48,鞭修,怠惰,精通鞭法，软兵器在手，刚柔并济，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+49,刀痴,怠惰;胆小,以刀入道，刀即是命。你认为刀法至上，战力强悍，但对刀道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+50,枪痴,怠惰;胆小,以枪入道，枪即是命。你认为枪法至上，战力强悍，但对枪道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+51,棍圣,怠惰;胆小,以棍入道，棍即是命。棍法通神，一棍在手，天下无敌，但对棍道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+52,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+53,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+54,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"

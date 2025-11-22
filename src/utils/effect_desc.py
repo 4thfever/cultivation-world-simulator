@@ -20,12 +20,22 @@ EFFECT_DESC_MAP = {
     "extra_escape_success_rate": "逃跑成功率",
     "extra_observation_radius": "感知范围",
     "extra_move_step": "移动步长",
+    "legal_actions": "特殊能力",
+}
+
+ACTION_DESC_MAP = {
+    "DualCultivation": "双修",
+    "DevourMortals": "吞噬凡人",
 }
 
 def format_value(key: str, value: Any) -> str:
     """
     格式化效果数值
     """
+    if key == "legal_actions" and isinstance(value, list):
+        actions = [ACTION_DESC_MAP.get(str(a), str(a)) for a in value]
+        return "、".join(actions)
+
     if isinstance(value, (int, float)):
         # 处理百分比类型的字段
         if "rate" in key or "probability" in key or "chance" in key or "multiplier" in key or "gain" in key:
@@ -69,10 +79,13 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
         # 跳过 eval 表达式或者无法解析的 key，或者直接显示 key
         name = EFFECT_DESC_MAP.get(k, k)
         
-        # 如果是 eval 表达式（字符串形式）
-        if isinstance(v, str) and v.startswith("eval("):
-            # 尝试提取简单的描述，或者显示"特殊效果"
-            val_str = "特殊效果"
+        # 如果是 eval 表达式（字符串形式）或者看起来像代码
+        if isinstance(v, str):
+            if v.startswith("eval(") or "avatar." in v or "//" in v:
+                # 尝试提取简单的描述，或者显示"特殊效果"
+                val_str = "特殊效果（动态）"
+            else:
+                val_str = format_value(k, v)
         else:
             val_str = format_value(k, v)
             

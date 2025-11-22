@@ -45,7 +45,7 @@ class Alignment(Enum):
         t = str(text).strip().lower()
         if t in {"正", "righteous", "right"}:
             return Alignment.RIGHTEOUS
-        if t in {"中", "neutral", "middle", "center"}:
+        if t in {"中", "中立", "neutral", "middle", "center"}:
             return Alignment.NEUTRAL
         if t in {"邪", "evil"}:
             return Alignment.EVIL
@@ -54,7 +54,7 @@ class Alignment(Enum):
 
 alignment_strs = {
     Alignment.RIGHTEOUS: "正",
-    Alignment.NEUTRAL: "中",
+    Alignment.NEUTRAL: "中立",
     Alignment.EVIL: "邪",
 }
 

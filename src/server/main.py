@@ -35,6 +35,8 @@ game_instance = {
     "is_paused": True # 默认启动为暂停状态，等待前端连接唤醒
 }
 
+# 触发配置重载的标记 (technique.csv updated)
+
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
 IS_DEV_MODE = "--dev" in sys.argv
 
@@ -411,20 +413,6 @@ def get_map():
         "regions": regions_data
     }
 
-@app.post("/api/step")
-async def step_world():
-    """手动触发一帧（一个月）"""
-    sim = game_instance["sim"]
-    if not sim:
-        return {"error": "Sim not initialized"}
-    
-    events = await sim.step()
-    
-    return {
-        "message": "Step executed",
-        "event_count": len(events),
-        "events_sample": [str(e) for e in events[:5]]
-    }
 
 @app.post("/api/control/pause")
 def pause_game():

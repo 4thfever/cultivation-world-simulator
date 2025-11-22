@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue';
-import { useUiStore } from '@/stores/ui';
-import type { AvatarDetail, RegionDetail } from '@/types/core';
+import { useUiStore } from '../../../../stores/ui';
 
 // Sub-components
 import AvatarDetailView from './AvatarDetail.vue';

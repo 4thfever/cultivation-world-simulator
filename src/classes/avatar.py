@@ -535,23 +535,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         """
         self.age.update_age(current_month_stamp, self.birth_month_stamp)
     
-    def get_age_info(self) -> dict:
-        """
-        获取年龄相关信息
-        
-        返回:
-            包含年龄、期望寿命、死亡概率等信息的字典
-        """
-        current_age, expected_lifespan = self.age.get_lifespan_progress()
-        death_probability = self.age.get_death_probability()
-        
-        return {
-            "current_age": round(current_age, 2),
-            "expected_lifespan": expected_lifespan,
-            "is_elderly": self.age.is_elderly(),
-            "death_probability": round(death_probability, 4),
-            "realm": self.cultivation_progress.realm.value
-        }
 
     def is_in_region(self, region: Region|None) -> bool:
         current_region = self.tile.region
@@ -640,25 +623,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         if to_sidebar:
             self._pending_events.append(event)
 
-    def get_action_space_str(self) -> str:
-        action_space = self.get_action_space()
-        action_space_str = json.dumps(action_space, ensure_ascii=False)
-        return action_space_str
-    
-    def get_action_space(self) -> list[dict]:
-        """
-        获取动作空间
-        """
-        from src.classes.actions import ALL_ACTUAL_ACTION_NAMES
-        actual_actions = [self.create_action(action_cls_name) for action_cls_name in ALL_ACTUAL_ACTION_NAMES]
-        doable_actions: list[Action] = []
-        for action in actual_actions:
-            # 用 can_start 的无参形式，用于“是否在动作空间中显示”
-            ok, _reason = action.can_start()
-            if ok:
-                doable_actions.append(action)
-        action_space = [action.name for action in doable_actions]
-        return action_space
 
     def get_expanded_info(
         self, 
@@ -827,13 +791,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         from src.classes.relations import clear_relation
         clear_relation(self, other)
 
-    def _get_relations_summary_str(self, max_count: int = 8) -> str:
-        entries: list[str] = []
-        for other in self.relations.keys():
-            entries.append(self.get_other_avatar_info(other))
-        if not entries:
-            return "无"
-        return "，".join(entries[:max_count])
 
     def get_co_region_avatars(self, avatars: List["Avatar"]) -> List["Avatar"]:
         """

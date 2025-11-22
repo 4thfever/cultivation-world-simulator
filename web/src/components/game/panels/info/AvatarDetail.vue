@@ -72,22 +72,28 @@ async function handleClearObjective() {
       <div class="stats-grid">
         <StatItem label="境界" :value="data.realm" :sub-value="data.level" />
         <StatItem label="年龄" :value="formatAge(data.age, data.lifespan)" />
+        
         <StatItem label="HP" :value="formatHp(data.hp.cur, data.hp.max)" />
-        <StatItem label="灵石" :value="data.magic_stone" />
+        <StatItem label="MP" :value="formatHp(data.mp.cur, data.mp.max)" />
         
         <StatItem 
           label="阵营" 
           :value="data.alignment" 
-          full-width 
           :on-click="() => showDetail(data.alignment_detail)"
+        />
+        <StatItem 
+          label="宗门" 
+          :value="data.sect?.name || '散修'" 
+          :sub-value="data.sect?.rank"
+          :on-click="data.sect ? () => showDetail(data.sect) : undefined"
         />
         
         <StatItem 
           label="灵根" 
           :value="data.root" 
-          full-width 
           :on-click="() => showDetail(data.root_detail)"
         />
+        <StatItem label="灵石" :value="data.magic_stone" />
       </div>
 
       <!-- Thinking -->
@@ -109,12 +115,6 @@ async function handleClearObjective() {
           v-if="data.technique" 
           :item="data.technique" 
           @click="showDetail(data.technique)" 
-        />
-        <EntityRow 
-          v-if="data.sect" 
-          :item="data.sect" 
-          :meta="data.sect.rank"
-          @click="showDetail(data.sect)" 
         />
         <EntityRow 
           v-if="data.weapon" 

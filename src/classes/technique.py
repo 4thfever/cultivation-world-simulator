@@ -252,45 +252,8 @@ def get_technique_by_sect(sect) -> Technique:
     return random.choices(candidates, weights=weights, k=1)[0]
 
 
-def get_grade_bonus(grade: TechniqueGrade) -> float:
-    if grade is TechniqueGrade.UPPER:
-        return 0.10
-    if grade is TechniqueGrade.MIDDLE:
-        return 0.05
-    return 0.0
-
-
 def get_suppression_bonus(att_attr: TechniqueAttribute, def_attr: TechniqueAttribute) -> float:
     return 0.10 if def_attr in SUPPRESSION.get(att_attr, set()) else 0.0
-
-
-# 相对品阶优势加成：按“品阶差×步进”的方式计算
-# - 品阶映射：下品=0，中品=1，上品=2
-# - 每级差距步进：5%（最大±10%）
-_GRADE_RANK: dict[TechniqueGrade, int] = {
-    TechniqueGrade.LOWER: 0,
-    TechniqueGrade.MIDDLE: 1,
-    TechniqueGrade.UPPER: 2,
-}
-
-
-def get_grade_advantage_bonus(attacker_grade: Optional[TechniqueGrade], defender_grade: Optional[TechniqueGrade]) -> float:
-    """
-    根据双方品阶差计算进攻方的相对加成：
-    - diff = rank(att) - rank(def)
-    - bonus = 0.05 × diff，夹紧到 [-0.10, 0.10]
-    - 任一为空则视为无加成
-    返回：进攻方概率或伤害的相对加成（可为负）。
-    """
-    if attacker_grade is None or defender_grade is None:
-        return 0.0
-    diff = _GRADE_RANK[attacker_grade] - _GRADE_RANK[defender_grade]
-    bonus = 0.05 * diff
-    if bonus > 0.10:
-        bonus = 0.10
-    if bonus < -0.10:
-        bonus = -0.10
-    return bonus
 
 
 

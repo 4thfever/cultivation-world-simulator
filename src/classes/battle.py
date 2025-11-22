@@ -12,11 +12,6 @@ if TYPE_CHECKING:
 
 # 战斗力参数（参考文明6思想，但适配本项目数值体系）
 _STRENGTH_LOG_SCALE: float = 10.0            # 修为强度的对数缩放：10×ln(1+level)
-_GRADE_POINTS = {
-    TechniqueGrade.LOWER: 0.0,
-    TechniqueGrade.MIDDLE: 3.0,
-    TechniqueGrade.UPPER: 6.0,
-}
 _SUPPRESSION_POINTS: float = 3.0             # 属性克制即加固定战斗力点数
 _CIV6_K: float = 0.04                        # 伤害指数系数：e^(K×差值)
 _WIN_BETA: float = 0.15                      # 胜率逻辑函数斜率
@@ -31,17 +26,15 @@ _PAIR_BIAS: float = 1.1                     # 成对偏置：让败者再多一�
 def get_base_strength(self_avatar: "Avatar") -> float:
     """
     基础战斗力：与对手无关。
-    = 10×ln(1+修为等级) + 品阶点数(0/3/6)
+    = 10×ln(1+修为等级) + 额外效果点数
     """
     level = max(1, self_avatar.cultivation_progress.level)
     strength_from_level = _STRENGTH_LOG_SCALE * math.log1p(level)
-    grade_points = 0.0
-    if self_avatar.technique is not None:
-        grade_points = _GRADE_POINTS.get(self_avatar.technique.grade, 0.0)
-    # 来自效果的额外战斗力点数（例如法宝带来的被动加成）
+    
+    # 来自效果的额外战斗力点数（例如功法、法宝带来的被动加成）
     extra_raw = self_avatar.effects.get("extra_battle_strength_points", 0)
     extra_points = float(extra_raw or 0.0)
-    return strength_from_level + grade_points + extra_points
+    return strength_from_level + extra_points
 
 
 def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
