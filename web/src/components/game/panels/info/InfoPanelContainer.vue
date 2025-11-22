@@ -199,24 +199,6 @@ onUnmounted(() => {
   color: #ff7875;
 }
 
-/* Scrollbar Styling */
-.panel-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.panel-body::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-}
-
-.panel-body::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 3px;
-}
-
-.panel-body::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 
 /* Legacy */
 .legacy-list {
