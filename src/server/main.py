@@ -2,6 +2,7 @@ import sys
 import os
 import asyncio
 import webbrowser
+import subprocess
 from contextlib import asynccontextmanager
 from typing import List, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
@@ -33,6 +34,9 @@ game_instance = {
     "sim": None,
     "is_paused": False # 新增暂停标记
 }
+
+# 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
+IS_DEV_MODE = "--dev" in sys.argv
 
 class ConnectionManager:
     def __init__(self):
@@ -173,18 +177,47 @@ async def lifespan(app: FastAPI):
     # 启动后台任务
     asyncio.create_task(game_loop())
     
-    # 自动打开浏览器
+    npm_process = None
     host = "127.0.0.1"
-    port = 8002
-    url = f"http://{host}:{port}"
-    print(f"Ready! Opening browser at {url}")
+    
+    if IS_DEV_MODE:
+        print("🚀 启动开发模式 (Dev Mode)...")
+        # 计算 web 目录 (假设在当前脚本的 ../../web)
+        # 注意：这里直接重新计算路径，确保稳健
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+        web_dir = os.path.join(project_root, 'web')
+        
+        print(f"正在启动前端开发服务 (npm run dev) 于: {web_dir}")
+        # Windows 下使用 shell=True
+        try:
+            npm_process = subprocess.Popen(["npm", "run", "dev"], cwd=web_dir, shell=True)
+            # 假设 Vite 默认端口是 5173
+            target_url = "http://localhost:5173"
+        except Exception as e:
+            print(f"启动前端服务失败: {e}")
+            target_url = f"http://{host}:8002"
+    else:
+        target_url = f"http://{host}:8002"
+    
+    # 自动打开浏览器
+    print(f"Ready! Opening browser at {target_url}")
     try:
-        webbrowser.open(url)
+        webbrowser.open(target_url)
     except Exception as e:
         print(f"Failed to open browser: {e}")
         
     yield
-    # 关闭时清理（如果需要）
+    
+    # 关闭时清理
+    if npm_process:
+        print("正在关闭前端开发服务...")
+        try:
+            # 尝试终止进程
+            # Windows 下 terminate 可能无法杀死 shell=True 的子进程树，这里简单处理
+            subprocess.call(['taskkill', '/F', '/T', '/PID', str(npm_process.pid)])
+        except Exception as e:
+            print(f"关闭前端服务时出错: {e}")
 
 app = FastAPI(lifespan=lifespan)
 
@@ -562,11 +595,15 @@ else:
 
 # 2. 挂载前端静态页面 (Web Dist)
 # 放在最后，因为 "/" 会匹配所有未定义的路由
-if os.path.exists(WEB_DIST_PATH):
-    print(f"Serving Web UI from: {WEB_DIST_PATH}")
-    app.mount("/", StaticFiles(directory=WEB_DIST_PATH, html=True), name="web_dist")
+# 仅在非开发模式下挂载，避免覆盖开发服务器
+if not IS_DEV_MODE:
+    if os.path.exists(WEB_DIST_PATH):
+        print(f"Serving Web UI from: {WEB_DIST_PATH}")
+        app.mount("/", StaticFiles(directory=WEB_DIST_PATH, html=True), name="web_dist")
+    else:
+        print(f"Warning: Web dist path not found: {WEB_DIST_PATH}.")
 else:
-    print(f"Warning: Web dist path not found: {WEB_DIST_PATH}.")
+    print("Dev Mode: Skipping static file mount for '/' (using Vite dev server instead)")
 
 def start():
     """启动服务的入口函数"""
