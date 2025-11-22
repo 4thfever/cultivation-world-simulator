@@ -44,10 +44,6 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Standalone release (packaged exe)
 - ✅ Menu bar & Save & Load
 
-### 🔭 Long-term Systems
-- [ ] ECS parallel toolkit
-- [ ] Novelization/imagery/video for history and events
-
 ### 🗺️ World System
 - ✅ Basic tile mechanics
 - ✅ Normal, cultivate, city, sect regions
@@ -158,6 +154,10 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - [ ] Divination & Omens
 - [ ] Male-female traits inversion
 
+### 🔭 Long-term
+- [ ] ECS parallel toolkit
+- [ ] Novelization/imagery/video for history and events
+- [ ] Avatar calling MCP tools on their own
 ## Usage
 
 ### Run Steps

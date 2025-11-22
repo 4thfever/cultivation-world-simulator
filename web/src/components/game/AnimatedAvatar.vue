@@ -2,11 +2,11 @@
 import { useTextures } from './composables/useTextures'
 import { ref, watch } from 'vue'
 import { Graphics } from 'pixi.js'
-import type { Avatar } from '../../types/game'
+import type { AvatarSummary } from '../../types/core'
 import { useSharedTicker } from './composables/useSharedTicker'
 
 const props = defineProps<{
-  avatar: Avatar
+  avatar: AvatarSummary
   tileSize: number
 }>()
 

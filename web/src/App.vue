@@ -1,23 +1,26 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { useGameStore } from './stores/game'
-import { gameApi } from './services/gameApi'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
+import { useWorldStore } from './stores/world'
+import { useUiStore } from './stores/ui'
+import { useGameSocket } from './composables/useGameSocket'
+import { gameApi } from './api/game'
+
 import GameCanvas from './components/game/GameCanvas.vue'
-import InfoPanel from './components/InfoPanel.vue'
+import InfoPanelContainer from './components/game/panels/info/InfoPanelContainer.vue'
 import StatusBar from './components/layout/StatusBar.vue'
 import EventPanel from './components/panels/EventPanel.vue'
 import SystemMenu from './components/SystemMenu.vue'
 
-const store = useGameStore()
+// Composables
+useGameSocket()
+
+const worldStore = useWorldStore()
+const uiStore = useUiStore()
 const showMenu = ref(false)
 
 onMounted(async () => {
-  await store.fetchInitialState().catch((error) => {
-    console.error('初始化失败', error)
-  })
-  store.connect()
-  
+  await worldStore.initialize()
   window.addEventListener('keydown', handleKeydown)
 })
 
@@ -27,8 +30,8 @@ onUnmounted(() => {
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
-    if (store.selectedTarget) {
-      store.closeInfoPanel()
+    if (uiStore.selectedTarget) {
+      uiStore.clearSelection()
     } else {
       showMenu.value = !showMenu.value
     }
@@ -36,7 +39,7 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?: string }) {
-  store.openInfoPanel(target)
+  uiStore.select(target.type, target.id)
 }
 
 function handleMenuClose() {
@@ -72,7 +75,7 @@ watch(showMenu, (visible) => {
               @avatarSelected="handleSelection"
               @regionSelected="handleSelection"
             />
-            <InfoPanel />
+            <InfoPanelContainer />
           </div>
           <aside class="sidebar">
             <EventPanel />

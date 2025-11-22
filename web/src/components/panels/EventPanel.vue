@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useGameStore } from '../../stores/game'
+import { useWorldStore } from '../../stores/world'
 import { NSelect } from 'naive-ui'
 
-const store = useGameStore()
+const worldStore = useWorldStore()
 const filterValue = ref('all')
 
 const filterOptions = computed(() => [
   { label: '所有人', value: 'all' },
-  ...store.avatarList.map(avatar => ({ label: avatar.name ?? avatar.id, value: avatar.id }))
+  ...worldStore.avatarList.map(avatar => ({ label: avatar.name ?? avatar.id, value: avatar.id }))
 ])
 
 const filteredEvents = computed(() => {
-  const allEvents = Array.isArray(store.events) ? store.events : []
+  const allEvents = worldStore.events || []
   if (filterValue.value === 'all') {
     return allEvents
   }
@@ -23,16 +23,8 @@ const emptyEventMessage = computed(() => (
   filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
 ))
 
-function formatEventDate(event: { year?: number; month?: number; monthStamp?: number }) {
-  if (typeof event.year === 'number' && typeof event.month === 'number') {
-    return `${event.year}年${event.month}月`
-  }
-  if (typeof event.monthStamp === 'number') {
-    const year = Math.floor(event.monthStamp / 12)
-    const month = (event.monthStamp % 12) + 1
-    return `${year}年${month}月`
-  }
-  return '未知'
+function formatEventDate(event: { year: number; month: number }) {
+  return `${event.year}年${event.month}月`
 }
 </script>
 
@@ -123,4 +115,3 @@ function formatEventDate(event: { year?: number; month?: number; monthStamp?: nu
   font-size: 12px;
 }
 </style>
-

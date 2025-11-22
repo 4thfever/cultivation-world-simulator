@@ -2,13 +2,13 @@
 import { onMounted, ref, watch } from 'vue'
 import { Container, Sprite } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
-import { useMapData } from '../../composables/useMapData'
-import type { Region } from '../../types/game'
+import { useWorldStore } from '../../stores/world'
+import type { RegionSummary } from '../../types/core'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
 const { textures, isLoaded, loadSectTexture } = useTextures()
-const { mapTiles, regions, isMapLoaded, loadMapData } = useMapData()
+const worldStore = useWorldStore()
 const regionStyleCache = new Map<string, Record<string, unknown>>()
 
 const emit = defineEmits<{
@@ -17,14 +17,14 @@ const emit = defineEmits<{
 }>()
 
 onMounted(() => {
-  loadMapData().catch((error) => console.error('Map load error', error))
-  if (isLoaded.value && isMapLoaded.value) {
+  // Map data is loaded by worldStore.initialize() in App.vue or similar
+  if (isLoaded.value && worldStore.isLoaded) {
     renderMap()
   }
 })
 
 watch(
-  () => [isLoaded.value, isMapLoaded.value],
+  () => [isLoaded.value, worldStore.isLoaded],
   ([texturesReady, mapReady]) => {
     if (texturesReady && mapReady) {
       renderMap()
@@ -33,17 +33,17 @@ watch(
 )
 
 async function renderMap() {
-  if (!mapContainer.value || !mapTiles.value.length) return
+  if (!mapContainer.value || !worldStore.mapData.length) return
 
-  await preloadSectTextures(regions.value)
+  await preloadSectTextures()
   mapContainer.value.removeChildren()
 
-  const rows = mapTiles.value.length
-  const cols = mapTiles.value[0]?.length ?? 0
+  const rows = worldStore.mapData.length
+  const cols = worldStore.mapData[0]?.length ?? 0
 
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      const type = mapTiles.value[y][x]
+      const type = worldStore.mapData[y][x]
       if (type === 'PLACEHOLDER') continue
 
       let tex = textures.value[type]
@@ -83,10 +83,11 @@ async function renderMap() {
   })
 }
 
-async function preloadSectTextures(regionList: Region[]) {
+async function preloadSectTextures() {
+  const regions = Array.from(worldStore.regions.values());
   const sectNames = Array.from(
     new Set(
-      regionList
+      regions
         .filter(region => region.type === 'sect' && region.sect_name)
         .map(region => region.sect_name as string)
     )
@@ -95,7 +96,8 @@ async function preloadSectTextures(regionList: Region[]) {
 }
 
 function resolveSectTexture(x: number, y: number) {
-  const region = regions.value.find(r =>
+  const regions = Array.from(worldStore.regions.values());
+  const region = regions.find(r =>
     r.type === 'sect' && Math.abs(r.x - x) < 3 && Math.abs(r.y - y) < 3
   )
   if (region?.sect_name) {
@@ -127,7 +129,7 @@ function getRegionStyle(type: string) {
   return style
 }
 
-function handleRegionSelect(region: Region) {
+function handleRegionSelect(region: RegionSummary) {
   emit('regionSelected', {
     type: 'region',
     id: String(region.id),
@@ -145,7 +147,7 @@ function handleRegionSelect(region: Region) {
      <container :z-index="200">
         <!-- @vue-ignore -->
         <text
-            v-for="r in regions"
+            v-for="r in Array.from(worldStore.regions.values())"
             :key="r.name"
             :text="r.name"
             :x="r.x * TILE_SIZE + TILE_SIZE / 2"

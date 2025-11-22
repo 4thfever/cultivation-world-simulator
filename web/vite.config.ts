@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { compilerOptions } from 'vue3-pixi'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +12,11 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
   build: {
     assetsDir: 'web_static', // 避免与游戏原本的 /assets 目录冲突
   },

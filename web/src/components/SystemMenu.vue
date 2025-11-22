@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { gameApi, type SaveFile } from '../services/gameApi'
-import { useGameStore } from '../stores/game'
+import { gameApi } from '../api/game'
+import { useWorldStore } from '../stores/world'
+import { useUiStore } from '../stores/ui'
 import { useMessage } from 'naive-ui'
+import type { SaveFileDTO } from '../types/api'
 
 const props = defineProps<{
   visible: boolean
@@ -12,17 +14,18 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const store = useGameStore()
+const worldStore = useWorldStore()
+const uiStore = useUiStore()
 const message = useMessage()
 
 const activeTab = ref<'save' | 'load'>('load')
-const saves = ref<SaveFile[]>([])
+const saves = ref<SaveFileDTO[]>([])
 const loading = ref(false)
 
 async function fetchSaves() {
   loading.value = true
   try {
-    const res = await gameApi.getSaves()
+    const res = await gameApi.fetchSaves()
     saves.value = res.saves
   } catch (e) {
     message.error('获取存档列表失败')
@@ -49,7 +52,17 @@ async function handleLoad(filename: string) {
 
   loading.value = true
   try {
-    await store.reloadGame(filename)
+    // 1. Call API
+    await gameApi.loadGame(filename)
+    
+    // 2. Reset UI & World
+    worldStore.reset()
+    uiStore.clearSelection()
+    uiStore.clearHoverCache()
+    
+    // 3. Re-initialize
+    await worldStore.initialize()
+    
     message.success('读档成功')
     emit('close')
   } catch (e) {
@@ -292,4 +305,3 @@ onMounted(() => {
   padding: 40px;
 }
 </style>
-

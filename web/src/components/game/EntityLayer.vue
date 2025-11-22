@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useGameStore } from '../../stores/game'
+import { useWorldStore } from '../../stores/world'
 import AnimatedAvatar from './AnimatedAvatar.vue'
 
-const store = useGameStore()
+const worldStore = useWorldStore()
 const TILE_SIZE = 64
 
 const emit = defineEmits<{
@@ -17,7 +17,7 @@ function handleAvatarSelect(payload: { type: 'avatar'; id: string; name?: string
 <template>
   <container sortable-children>
     <AnimatedAvatar
-      v-for="avatar in store.avatarList"
+      v-for="avatar in worldStore.avatarList"
       :key="avatar.id"
       :avatar="avatar"
       :tile-size="TILE_SIZE"

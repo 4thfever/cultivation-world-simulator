@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import { useGameStore } from '../../stores/game'
+import { useWorldStore } from '../../stores/world'
+import { gameSocket } from '../../api/socket'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const store = useGameStore()
+const store = useWorldStore()
+const isConnected = ref(false)
+
+// Update status locally since socket store is bare-bones
+let cleanup: (() => void) | undefined;
+
+onMounted(() => {
+  cleanup = gameSocket.onStatusChange((status) => {
+    isConnected.value = status
+  })
+})
+
+onUnmounted(() => {
+  if (cleanup) cleanup()
+})
 </script>
 
 <template>
   <header class="top-bar">
     <div class="left">
       <span class="title">AI修仙世界模拟器</span>
-      <span class="status-dot" :class="{ connected: store.isConnected }"></span>
+      <span class="status-dot" :class="{ connected: isConnected }"></span>
     </div>
     <div class="center">
       <span class="time">{{ store.year }}年 {{ store.month }}月</span>
@@ -72,6 +88,13 @@ const store = useGameStore()
   gap: 4px;
   white-space: nowrap;
   color: #bbb;
+  display: none; /* 暂时隐藏，因为空间可能不够 */
+}
+
+@media (min-width: 1024px) {
+  .author {
+    display: flex;
+  }
 }
 
 .author-link {
@@ -83,6 +106,4 @@ const store = useGameStore()
   color: #8bc6ff;
   text-decoration: underline;
 }
-
 </style>
-
