@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
-import { ref, computed, watch } from 'vue';
+import { ref } from 'vue';
 import { gameApi } from '../api/game';
 import type { AvatarDetail, RegionDetail, HoverLine } from '../types/core';
-import { useWorldStore } from './world'; // Optional, if we need to cross-reference
 
 export type SelectionType = 'avatar' | 'region';
 

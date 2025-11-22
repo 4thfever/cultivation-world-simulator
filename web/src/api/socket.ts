@@ -19,8 +19,11 @@ export class GameSocket {
   private reconnectTimer: number | null = null;
   private attempts = 0;
   private isIntentionalClose = false;
+  private options: SocketOptions;
 
-  constructor(private options: SocketOptions = {}) {}
+  constructor(options: SocketOptions = {}) {
+    this.options = options;
+  }
 
   public connect() {
     this.isIntentionalClose = false;

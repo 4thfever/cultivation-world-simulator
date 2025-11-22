@@ -126,12 +126,11 @@ $argsList = @(
     "--exclude-module", "transformers",         # Transformers (huge)
     "--exclude-module", "tensorflow",
     "--exclude-module", "torch",                # PyTorch (massive if present)
-    
-    # Hidden imports for LLM
-    "--hidden-import", "tiktoken_ext.openai_public",
-    "--hidden-import", "tiktoken_ext",
-    "--collect-all", "tiktoken",
-    "--copy-metadata", "tiktoken"
+    "--exclude-module", "numpy",                # Numerics (not used in server)
+    "--exclude-module", "pandas",               # Data analysis (not used in server)
+    "--exclude-module", "PIL",                  # Image processing (not used in server)
+    "--exclude-module", "Pillow",
+    "--exclude-module", "tiktoken"              # Tokenizer (not used in server)
 )
 
 if (Test-Path $RuntimeHookPath) {

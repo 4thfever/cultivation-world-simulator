@@ -72,10 +72,25 @@ function fitMap() {
 
 watch(() => [props.screenWidth, props.screenHeight], ([w, h]) => {
   if (viewport) {
-    // 窗口大小改变时，重新计算最小缩放值，防止用户看到黑边
-    const fitScale = Math.min(w / props.worldWidth, h / props.worldHeight)
-    viewport.clampZoom({ minScale: fitScale * 0.8, maxScale: 4.0 }) 
+    // 1. Resize Viewport 视口尺寸更新
     viewport.resize(w, h, props.worldWidth, props.worldHeight)
+    
+    // 2. 重新计算适配比例
+    const fitScale = Math.min(w / props.worldWidth, h / props.worldHeight)
+    
+    // 3. 设定缩放限制
+    // 确保 maxScale 始终大于 minScale，防止地图极小时崩溃
+    const minScale = fitScale * 0.8
+    const maxScale = Math.max(4.0, minScale * 2.0)
+    
+    viewport.clampZoom({ minScale, maxScale }) 
+
+    // 4. 自动修正缩放
+    // 如果当前缩放过小（导致黑边），或者因为初始化时的尺寸问题导致缩放不正确，强制恢复到适配大小
+    if (viewport.scaled < minScale * 0.95) {
+       viewport.setZoom(fitScale)
+       viewport.moveCenter(props.worldWidth / 2, props.worldHeight / 2)
+    }
   }
 })
 

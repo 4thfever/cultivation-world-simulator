@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
 import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
-import type { TickPayloadDTO, InitialStateDTO, MapResponseDTO } from '../types/api';
+import type { TickPayloadDTO } from '../types/api';
 import { gameApi } from '../api/game';
 
 export const useWorldStore = defineStore('world', () => {
@@ -92,7 +92,7 @@ export const useWorldStore = defineStore('world', () => {
 
     // 检查并处理死亡事件，移除已死亡的角色
     if (payload.events && Array.isArray(payload.events)) {
-      const deathEvents = payload.events.filter((e: any) => {
+      const deathEvents = (payload.events as any[]).filter((e: any) => {
         const c = e.content || '';
         return c.includes('身亡') || c.includes('老死');
       });
