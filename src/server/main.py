@@ -32,7 +32,7 @@ import random
 game_instance = {
     "world": None,
     "sim": None,
-    "is_paused": False # 新增暂停标记
+    "is_paused": True # 默认启动为暂停状态，等待前端连接唤醒
 }
 
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
@@ -45,9 +45,24 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
+        
+        # 当第一个客户端连接时，自动恢复游戏
+        if len(self.active_connections) == 1:
+            self._set_pause_state(False, "检测到客户端连接，自动恢复游戏运行。")
 
     def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
+            
+        # 当最后一个客户端断开时，自动暂停游戏
+        if len(self.active_connections) == 0:
+            self._set_pause_state(True, "所有客户端已断开，自动暂停游戏以节省资源。")
+
+    def _set_pause_state(self, should_pause: bool, log_msg: str):
+        """辅助方法：切换暂停状态并打印日志"""
+        if game_instance.get("is_paused") != should_pause:
+            game_instance["is_paused"] = should_pause
+            print(f"[Auto-Control] {log_msg}")
 
     async def broadcast(self, message: dict):
         import json

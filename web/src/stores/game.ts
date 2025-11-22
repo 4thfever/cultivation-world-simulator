@@ -68,6 +68,14 @@ export const useGameStore = defineStore('game', () => {
     if (Array.isArray(payload.avatars)) {
       mergeAvatars(payload.avatars)
     }
+
+    // Tick means time passed, so cache is stale
+    hoverCache.clear()
+    
+    // If panel is open, silently refresh content to show latest status
+    if (selectedTarget.value) {
+      fetchHoverInfo(selectedTarget.value, { force: true, silent: true })
+    }
   }
 
   function mergeAvatars(list: Avatar[]) {
@@ -117,23 +125,29 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  async function fetchHoverInfo(target: HoverTarget, forceRefresh = false) {
+  async function fetchHoverInfo(target: HoverTarget, options: { force?: boolean, silent?: boolean } = {}) {
+    const { force = false, silent = false } = options
     const key = cacheKey(target)
-    if (!forceRefresh) {
+    
+    if (!force) {
       const cached = hoverCache.get(key)
       if (cached) {
         if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
           hoverInfo.value = cached
         }
-        infoLoading.value = false
-        infoError.value = null
+        if (!silent) {
+          infoLoading.value = false
+          infoError.value = null
+        }
         return
       }
     }
 
-    infoLoading.value = true
-    infoError.value = null
-    if (!forceRefresh) hoverInfo.value = []
+    if (!silent) {
+      infoLoading.value = true
+      infoError.value = null
+      if (!force) hoverInfo.value = []
+    }
 
     try {
       const data = await gameApi.getHoverInfo(target)
@@ -144,12 +158,16 @@ export const useGameStore = defineStore('game', () => {
       }
     } catch (error) {
       if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-        infoError.value = error instanceof Error ? error.message : String(error)
-        hoverInfo.value = []
+        if (!silent) {
+          infoError.value = error instanceof Error ? error.message : String(error)
+          hoverInfo.value = []
+        }
       }
     } finally {
       if (selectedTarget.value && cacheKey(selectedTarget.value) === key) {
-        infoLoading.value = false
+        if (!silent) {
+          infoLoading.value = false
+        }
       }
     }
   }
@@ -158,7 +176,7 @@ export const useGameStore = defineStore('game', () => {
     await gameApi.setLongTermObjective(avatarId, content)
     // 成功后刷新 info panel
     if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
-      await fetchHoverInfo(selectedTarget.value, true)
+      await fetchHoverInfo(selectedTarget.value, { force: true })
     }
   }
 
@@ -166,7 +184,7 @@ export const useGameStore = defineStore('game', () => {
     await gameApi.clearLongTermObjective(avatarId)
     // 成功后刷新 info panel
     if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
-      await fetchHoverInfo(selectedTarget.value, true)
+      await fetchHoverInfo(selectedTarget.value, { force: true })
     }
   }
 
