@@ -71,7 +71,6 @@ class AvatarSaveMixin:
             "root": self.root.name,
             "technique_id": self.technique.id if self.technique else None,
             "hp": self.hp.to_dict(),
-            "mp": self.mp.to_dict(),
             
             # 物品与资源
             "magic_stone": self.magic_stone.value,

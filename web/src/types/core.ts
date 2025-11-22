@@ -51,7 +51,6 @@ export interface AvatarDetail extends EntityBase {
   realm: string;
   level: number;
   hp: { cur: number; max: number };
-  mp: { cur: number; max: number };
   magic_stone: number;
   
   // 属性与资质

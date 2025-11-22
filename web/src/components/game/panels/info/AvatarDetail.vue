@@ -74,7 +74,7 @@ async function handleClearObjective() {
         <StatItem label="年龄" :value="`${data.age} / ${data.lifespan}`" />
         
         <StatItem label="HP" :value="formatHp(data.hp.cur, data.hp.max)" />
-        <StatItem label="MP" :value="formatHp(data.mp.cur, data.mp.max)" />
+        <StatItem label="性别" :value="data.gender" />
         
         <StatItem 
           label="阵营" 

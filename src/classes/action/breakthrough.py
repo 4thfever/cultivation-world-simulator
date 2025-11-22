@@ -7,7 +7,7 @@ from src.classes.event import Event
 from src.classes.cultivation import Realm
 from src.classes.story_teller import StoryTeller
 from src.classes.tribulation import TribulationSelector
-from src.classes.hp_and_mp import HP_MAX_BY_REALM, MP_MAX_BY_REALM
+from src.classes.hp_and_mp import HP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
 
 # —— 配置：哪些"出发境界"会生成突破小故事（global var）——
@@ -59,9 +59,9 @@ class Breakthrough(TimedAction):
             self.avatar.cultivation_progress.break_through()
             new_realm = self.avatar.cultivation_progress.realm
 
-            # 突破成功时更新HP和MP的最大值
+            # 突破成功时更新HP的最大值
             if new_realm != old_realm:
-                self._update_hp_mp_on_breakthrough(new_realm)
+                self._update_hp_on_breakthrough(new_realm)
                 # 成功：确保最大寿元至少达到新境界的基线
                 self.avatar.age.ensure_max_lifespan_at_least_realm_base(new_realm)
             # 记录结果用于 finish 事件
@@ -77,25 +77,21 @@ class Breakthrough(TimedAction):
             # 记录结果用于 finish 事件
             self._last_result = ("fail", int(reduce_years))
 
-    def _update_hp_mp_on_breakthrough(self, new_realm):
+    def _update_hp_on_breakthrough(self, new_realm):
         """
-        突破境界时更新HP和MP的最大值并完全恢复
+        突破境界时更新HP的最大值并完全恢复
 
         Args:
             new_realm: 新的境界
         """
         new_max_hp = HP_MAX_BY_REALM.get(new_realm, 100)
-        new_max_mp = MP_MAX_BY_REALM.get(new_realm, 100)
 
         # 计算增加的最大值
         hp_increase = new_max_hp - self.avatar.hp.max
-        mp_increase = new_max_mp - self.avatar.mp.max
 
         # 更新最大值并恢复相应的当前值
         self.avatar.hp.add_max(hp_increase)
         self.avatar.hp.recover(hp_increase)  # 突破时完全恢复HP
-        self.avatar.mp.add_max(mp_increase)
-        self.avatar.mp.recover(mp_increase)  # 突破时完全恢复MP
 
     def can_start(self) -> tuple[bool, str]:
         ok = self.avatar.cultivation_progress.can_break_through()

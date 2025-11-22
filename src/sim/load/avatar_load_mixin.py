@@ -38,7 +38,7 @@ class AvatarLoadMixin:
         from src.classes.calendar import MonthStamp
         from src.classes.cultivation import Realm, CultivationProgress
         from src.classes.age import Age
-        from src.classes.hp_and_mp import HP, MP
+        from src.classes.hp_and_mp import HP
         from src.classes.technique import techniques_by_id
         from src.classes.item import items_by_id
         from src.classes.weapon import weapons_by_id
@@ -84,9 +84,8 @@ class AvatarLoadMixin:
         if technique_id is not None:
             avatar.technique = techniques_by_id.get(technique_id)
         
-        # 设置HP/MP
+        # 设置HP
         avatar.hp = HP.from_dict(data["hp"])
-        avatar.mp = MP.from_dict(data["mp"])
         
         # 设置物品与资源
         avatar.magic_stone = MagicStone(data.get("magic_stone", 0))

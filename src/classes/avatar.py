@@ -33,7 +33,7 @@ from src.classes.auxiliary import Auxiliary
 from src.classes.weapon_type import WeaponType
 from src.classes.equipment_grade import EquipmentGrade
 from src.classes.magic_stone import MagicStone
-from src.classes.hp_and_mp import HP, MP, HP_MAX_BY_REALM, MP_MAX_BY_REALM
+from src.classes.hp_and_mp import HP, HP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 from src.classes.relation import Relation, get_reciprocal
@@ -93,7 +93,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0)) # 灵石，即货币
     items: dict[Item, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))  # 将在__post_init__中初始化
-    mp: MP = field(default_factory=lambda: MP(0, 0))  # 将在__post_init__中初始化
     relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment | None = None
     # 所属宗门（可为空，表示散修/无门无派）
@@ -120,15 +119,13 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
     def __post_init__(self):
         """
-        在Avatar创建后自动初始化tile和HP/MP
+        在Avatar创建后自动初始化tile和HP
         """
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
         
-        # 根据当前境界初始化HP和MP
+        # 根据当前境界初始化HP
         max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
-        max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
         self.hp = HP(max_hp, max_hp)
-        self.mp = MP(max_mp, max_mp)
 
         # 最大寿元已在 Age 构造时基于境界初始化
         
@@ -152,7 +149,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
 
         
-        # 初始化时计算所有长期效果（HP/MP等）
+        # 初始化时计算所有长期效果（HP等）
         self.recalc_effects()
 
     @property
@@ -249,7 +246,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "性别": str(self.gender),
             "年龄": str(self.age),
             "hp": str(self.hp),
-            "mp": str(self.mp),
             "灵石": magic_stone_info,
             "关系": relations_info,
             "宗门": sect_info,
@@ -292,7 +288,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "realm": self.cultivation_progress.realm.value,
             "level": self.cultivation_progress.level,
             "hp": {"cur": self.hp.cur, "max": self.hp.max},
-            "mp": {"cur": self.mp.cur, "max": self.mp.max},
             "alignment": str(self.alignment) if self.alignment else "未知",
             "magic_stone": self.magic_stone.value,
             "thinking": self.thinking,
@@ -690,7 +685,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         add_kv(lines, "阵营", self.alignment)
         add_kv(lines, "境界", str(self.cultivation_progress))
         add_kv(lines, "HP", self.hp)
-        add_kv(lines, "MP", self.mp)
         add_kv(lines, "战斗力", int(get_base_strength(self)))
         add_kv(lines, "宗门", self.get_sect_str())
 
@@ -850,26 +844,22 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         - 也会重新计算动态表达式（如 eval(...)）
         
         当前包括：
-        - HP/MP 最大值
+        - HP 最大值
         - 寿命最大值
         """
         # 计算基础最大值（基于境界）
         base_max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
-        base_max_mp = MP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
         
         # 访问 self.effects 会触发 @property，重新 merge 所有 effects
         effects = self.effects
         extra_max_hp = int(effects.get("extra_max_hp", 0))
-        extra_max_mp = int(effects.get("extra_max_mp", 0))
         extra_max_lifespan = int(effects.get("extra_max_lifespan", 0))
         
         # 计算新的最大值
         new_max_hp = base_max_hp + extra_max_hp
-        new_max_mp = base_max_mp + extra_max_mp
         
         # 更新最大值
         self.hp.max = new_max_hp
-        self.mp.max = new_max_mp
         
         # 更新寿命
         # 如果 effects 中有额外寿命加成，需要加到 base_max_lifespan 上吗？
@@ -884,8 +874,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         # 调整当前值（不超过新的最大值）
         if self.hp.cur > new_max_hp:
             self.hp.cur = new_max_hp
-        if self.mp.cur > new_max_mp:
-            self.mp.cur = new_max_mp
     
     def change_weapon(self, new_weapon: Weapon) -> None:
         """
