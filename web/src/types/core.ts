@@ -117,6 +117,17 @@ export interface RegionDetail extends EntityBase {
   plants: EffectEntity[];
 }
 
+// --- 天地灵机 ---
+
+export interface CelestialPhenomenon {
+  id: number;
+  name: string;
+  desc: string;
+  rarity: string;
+  duration_years?: number;
+  effect_desc?: string;
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {
@@ -140,4 +151,3 @@ export type HoverSegment = {
 };
 
 export type HoverLine = HoverSegment[];
-

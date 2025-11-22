@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
-import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary } from '../types/core';
+import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO, MapResponseDTO } from '../types/api';
 import { gameApi } from '../api/game';
 
@@ -20,6 +20,8 @@ export const useWorldStore = defineStore('world', () => {
   const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
   
   const isLoaded = ref(false);
+  
+  const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
 
   // --- Getters ---
 
@@ -118,6 +120,9 @@ export const useWorldStore = defineStore('world', () => {
 
     if (payload.avatars) updateAvatars(payload.avatars);
     if (payload.events) addEvents(payload.events);
+    if (payload.phenomenon !== undefined) {
+        currentPhenomenon.value = payload.phenomenon;
+    }
   }
 
   async function initialize() {
@@ -145,6 +150,9 @@ export const useWorldStore = defineStore('world', () => {
       // 3. Set Events (Initial state might have history?)
       events.value = [];
       if (stateRes.events) addEvents(stateRes.events);
+      
+      // 4. Set Phenomenon
+      currentPhenomenon.value = stateRes.phenomenon || null;
 
       isLoaded.value = true;
     } catch (e) {
@@ -158,6 +166,7 @@ export const useWorldStore = defineStore('world', () => {
     avatars.value = new Map();
     events.value = [];
     isLoaded.value = false;
+    currentPhenomenon.value = null;
   }
 
   return {
@@ -169,10 +178,10 @@ export const useWorldStore = defineStore('world', () => {
     mapData,
     regions,
     isLoaded,
+    currentPhenomenon,
     
     initialize,
     handleTick,
     reset
   };
 });
-

@@ -3,7 +3,7 @@
  * 这些类型严格对应后端接口返回的 JSON 结构。
  */
 
-import type { MapMatrix } from './core';
+import type { MapMatrix, CelestialPhenomenon } from './core';
 
 // --- 通用响应 ---
 
@@ -29,6 +29,7 @@ export interface InitialStateDTO {
     pic_id?: number;
   }>;
   events?: unknown[];
+  phenomenon?: CelestialPhenomenon | null;
 }
 
 export interface TickPayloadDTO {
@@ -37,6 +38,7 @@ export interface TickPayloadDTO {
   month: number;
   avatars?: Array<Partial<InitialStateDTO['avatars'] extends (infer U)[] ? U : never>>;
   events?: unknown[];
+  phenomenon?: CelestialPhenomenon | null;
 }
 
 export interface MapResponseDTO {
@@ -64,4 +66,3 @@ export interface SaveFileDTO {
   game_time: string;
   version: string;
 }
-

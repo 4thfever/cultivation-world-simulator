@@ -118,6 +118,34 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
         })
     return serialized
 
+def serialize_phenomenon(phenomenon) -> Optional[dict]:
+    """序列化天地灵机对象"""
+    if not phenomenon:
+        return None
+    
+    # 安全地获取 rarity.name
+    rarity_str = "N"
+    if hasattr(phenomenon, "rarity") and phenomenon.rarity:
+        # 检查 rarity 是否是 Enum (RarityLevel)
+        if hasattr(phenomenon.rarity, "name"):
+            rarity_str = phenomenon.rarity.name
+        # 检查 rarity 是否是 Rarity dataclass (包含 level 字段)
+        elif hasattr(phenomenon.rarity, "level") and hasattr(phenomenon.rarity.level, "name"):
+            rarity_str = phenomenon.rarity.level.name
+            
+    # 生成效果描述
+    from src.utils.effect_desc import format_effects_to_text
+    effect_desc = format_effects_to_text(phenomenon.effects) if hasattr(phenomenon, "effects") else ""
+
+    return {
+        "id": phenomenon.id,
+        "name": phenomenon.name,
+        "desc": phenomenon.desc,
+        "rarity": rarity_str,
+        "duration_years": phenomenon.duration_years,
+        "effect_desc": effect_desc
+    }
+
 def init_game():
     """初始化游戏世界，逻辑复用自 src/run/run.py"""
     print("正在初始化游戏世界...")
@@ -215,7 +243,8 @@ async def game_loop():
                     "year": int(world.month_stamp.get_year()),
                     "month": world.month_stamp.get_month().value,
                     "events": serialize_events_for_client(events),
-                    "avatars": avatar_updates
+                    "avatars": avatar_updates,
+                    "phenomenon": serialize_phenomenon(world.current_phenomenon)
                 }
                 await manager.broadcast(state)
         except Exception as e:
@@ -394,6 +423,7 @@ def get_state():
             "avatar_count": len(world.avatar_manager.avatars),
             "avatars": av_list,
             "events": recent_events,
+            "phenomenon": serialize_phenomenon(world.current_phenomenon),
             "is_paused": game_instance.get("is_paused", False)
         }
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useWorldStore } from '../../stores/world'
 import { gameSocket } from '../../api/socket'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { NPopover } from 'naive-ui'
 
 const store = useWorldStore()
 const isConnected = ref(false)
@@ -18,6 +19,18 @@ onMounted(() => {
 onUnmounted(() => {
   if (cleanup) cleanup()
 })
+
+const phenomenonColor = computed(() => {
+  const p = store.currentPhenomenon;
+  if (!p) return '#ccc';
+  switch (p.rarity) {
+    case 'N': return '#ccc';
+    case 'R': return '#4dabf7'; // Blue
+    case 'SR': return '#a0d911'; // Lime
+    case 'SSR': return '#fa8c16'; // Orange/Gold
+    default: return '#ccc';
+  }
+})
 </script>
 
 <template>
@@ -28,6 +41,35 @@ onUnmounted(() => {
     </div>
     <div class="center">
       <span class="time">{{ store.year }}年 {{ store.month }}月</span>
+      
+      <!-- 天地灵机 -->
+      <div class="phenomenon" v-if="store.currentPhenomenon">
+        <span class="divider">|</span>
+        <n-popover trigger="hover" placement="bottom" style="max-width: 300px;">
+          <template #trigger>
+            <span class="phenomenon-name" :style="{ color: phenomenonColor }">
+              [{{ store.currentPhenomenon.name }}]
+            </span>
+          </template>
+          <div class="phenomenon-card">
+             <div class="p-header" :style="{ color: phenomenonColor }">
+               <span class="p-title">{{ store.currentPhenomenon.name }}</span>
+               <span class="p-rarity">{{ store.currentPhenomenon.rarity }}</span>
+             </div>
+             <div class="p-desc">{{ store.currentPhenomenon.desc }}</div>
+             
+             <!-- 效果描述 -->
+             <div class="effect-block" v-if="store.currentPhenomenon.effect_desc">
+               <div class="effect-label">效果：</div>
+               <div class="effect-content">{{ store.currentPhenomenon.effect_desc }}</div>
+             </div>
+
+             <div class="p-duration" v-if="store.currentPhenomenon.duration_years">
+                持续 {{ store.currentPhenomenon.duration_years }} 年
+             </div>
+          </div>
+        </n-popover>
+      </div>
     </div>
     <div class="author">
       肥桥今天吃什么的<a
@@ -68,6 +110,86 @@ onUnmounted(() => {
 .top-bar .title {
   font-weight: bold;
   margin-right: 8px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phenomenon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.divider {
+  color: #444;
+}
+
+.phenomenon-name {
+  cursor: help;
+  font-weight: bold;
+}
+
+.phenomenon-card {
+  padding: 4px 0;
+}
+
+.p-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 4px;
+}
+
+.p-rarity {
+  font-size: 12px;
+  opacity: 0.8;
+  border: 1px solid currentColor;
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.p-desc {
+  font-size: 13px;
+  color: #ddd;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+/* 统一的效果块样式 */
+.effect-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin: 8px 0;
+}
+
+.effect-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.effect-content {
+  font-size: 13px;
+  color: #fadb14; /* 亮黄色，匹配游戏常见的高亮色 */
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.p-duration {
+  font-size: 12px;
+  color: #888;
+  text-align: right;
 }
 
 .status-dot {
