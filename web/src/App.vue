@@ -18,6 +18,7 @@ useGameSocket()
 const worldStore = useWorldStore()
 const uiStore = useUiStore()
 const showMenu = ref(false)
+const isManualPaused = ref(false)
 
 onMounted(async () => {
   await worldStore.initialize()
@@ -35,6 +36,9 @@ function handleKeydown(e: KeyboardEvent) {
     } else {
       showMenu.value = !showMenu.value
     }
+  } else if (e.key === ' ') {
+    // Space to toggle pause? Optional but good UX
+    // toggleManualPause()
   }
 }
 
@@ -46,9 +50,13 @@ function handleMenuClose() {
   showMenu.value = false
 }
 
-// 监听菜单状态，控制游戏暂停/继续
-watch(showMenu, (visible) => {
-  if (visible) {
+function toggleManualPause() {
+  isManualPaused.value = !isManualPaused.value
+}
+
+// 监听菜单状态和手动暂停状态，控制游戏暂停/继续
+watch([showMenu, isManualPaused], ([menuVisible, manualPaused]) => {
+  if (menuVisible || manualPaused) {
     gameApi.pauseGame().catch(console.error)
   } else {
     gameApi.resumeGame().catch(console.error)
@@ -64,12 +72,32 @@ watch(showMenu, (visible) => {
         
         <div class="main-content">
           <div class="map-container">
-            <!-- 菜单按钮移动到这里，相对于地图区域定位 -->
-            <button class="menu-toggle" @click="showMenu = true">
-              <svg viewBox="0 0 24 24" width="24" height="24">
-                <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-              </svg>
-            </button>
+            <!-- 顶部控制栏 -->
+            <div class="top-controls">
+              <!-- 暂停/播放按钮 -->
+              <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? '继续游戏' : '暂停游戏'">
+                <!-- 播放图标 (当暂停时显示) -->
+                <svg v-if="isManualPaused" viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M8 5v14l11-7z"/>
+                </svg>
+                <!-- 暂停图标 (当播放时显示) -->
+                <svg v-else viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <!-- 菜单按钮 -->
+              <button class="control-btn menu-toggle" @click="showMenu = true">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- 暂停状态提示 -->
+            <div v-if="isManualPaused" class="pause-indicator">
+              <div class="pause-text">已暂停</div>
+            </div>
 
             <GameCanvas
               @avatarSelected="handleSelection"
@@ -117,11 +145,16 @@ watch(showMenu, (visible) => {
   overflow: hidden;
 }
 
-.menu-toggle {
+.top-controls {
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 100;
+  display: flex;
+  gap: 10px;
+}
+
+.control-btn {
   background: rgba(0,0,0,0.5);
   border: 1px solid #444;
   color: #ddd;
@@ -132,11 +165,33 @@ watch(showMenu, (visible) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s;
 }
 
-.menu-toggle:hover {
+.control-btn:hover {
   background: rgba(0,0,0,0.8);
   border-color: #666;
+  color: #fff;
+}
+
+.pause-indicator {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  pointer-events: none;
+}
+
+.pause-text {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
 }
 
 .sidebar {

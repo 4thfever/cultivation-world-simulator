@@ -10,8 +10,8 @@ id,name,rarity,effects,desc,duration_years
 9,劫数将至,SR,"{extra_battle_strength_points: 20, extra_fortune_probability: -0.05}",劫数降临戾气弥漫，修士战力暴涨却杀机四伏,5
 10,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修士修炼如沐春风,5
 11,灵气枯竭,R,"{extra_cultivate_exp: -20}",灵气枯竭末法将至，修炼如逆水行舟举步维艰,5
-12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 30, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -10}]",魔气滔天邪道横行，正道式微难以抗衡,5
-13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 25, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -10}]",浩然正气镇压邪祟，正道昌盛,5
+12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -5}]",魔气滔天邪道横行，正道式微难以抗衡,5
+13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -0}]",浩然正气镇压邪祟，正道昌盛,5
 14,神兵出世,SR,"{extra_weapon_proficiency_gain: 1.0}",神兵有灵百兵齐鸣，温养进境一日千里,5
 15,阴阳交泰,R,"{extra_dual_cultivation_exp: 20}",阴阳交泰天地和合，双修之道水到渠成,5
 16,杀劫降临,SR,"{extra_battle_strength_points: 15, extra_fortune_probability: -0.1}",血光冲天杀机四伏，战斗凶险倍增,5
