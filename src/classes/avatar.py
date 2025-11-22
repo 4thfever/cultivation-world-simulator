@@ -866,12 +866,20 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         # 计算新的最大值
         new_max_hp = base_max_hp + extra_max_hp
         new_max_mp = base_max_mp + extra_max_mp
-        new_max_lifespan = self.age.base_max_lifespan + extra_max_lifespan
         
         # 更新最大值
         self.hp.max = new_max_hp
         self.mp.max = new_max_mp
-        self.age.max_lifespan = new_max_lifespan
+        
+        # 更新寿命
+        # 如果 effects 中有额外寿命加成，需要加到 base_max_lifespan 上吗？
+        # 不，base_max_lifespan 是基于境界和年龄计算的基础值（裸值）。
+        # max_lifespan 是最终值，应该是 base + extra。
+        # 但是 Age 类内部逻辑是：set_base -> update max (max = base)。
+        # 所以我们需要显式设置 max_lifespan = base + extra
+        
+        if self.age:
+            self.age.max_lifespan = self.age.base_max_lifespan + extra_max_lifespan
         
         # 调整当前值（不超过新的最大值）
         if self.hp.cur > new_max_hp:

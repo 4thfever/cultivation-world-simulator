@@ -42,6 +42,11 @@ class Age:
         self.base_max_lifespan = max(base, self.age + 1)
         self.max_lifespan = self.base_max_lifespan
 
+    def update_realm(self, new_realm: Realm) -> None:
+        """当境界提升时调用，更新寿命上限"""
+        # 提升基础寿命上限，确保不低于新境界的基准
+        self.ensure_max_lifespan_at_least_realm_base(new_realm)
+
     def ensure_max_lifespan_at_least_realm_base(self, realm: Realm) -> None:
         """确保基础最大寿元至少达到 max(该境界基线, 当前年龄+1)。"""
         base = self.get_base_expected_lifespan(realm)

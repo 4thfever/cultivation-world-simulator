@@ -15,7 +15,11 @@ const ELEMENT_MAP: Record<string, string> = {
   'Water': '水',
   'Fire': '火',
   'Earth': '土',
-  'None': '无'
+  'None': '无',
+  // Map internal key names if they leak (e.g. GOLD from RootElement)
+  'gold': '金',
+  'Gold': '金',
+  'GOLD': '金'
 };
 
 export function translateElement(type: string): string {
