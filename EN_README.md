@@ -66,8 +66,8 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - ✅ Combat equipment & auxiliary equipment
 - ✅ Short/Long term memory
 - ✅ Character's short and long term objectives, supporting player active setting
+- ✅ Avatar nicknames
 - [ ] Character compatibility
-- [ ] Epithets/nicknames
 - [ ] Skill learning system:
   - [ ] Learnable skills
   - [ ] Life professions (alchemy, formations, planting, forging, etc.)
