@@ -21,6 +21,9 @@ EFFECT_DESC_MAP = {
     "extra_observation_radius": "感知范围",
     "extra_move_step": "移动步长",
     "legal_actions": "特殊能力",
+    "damage_reduction": "伤害减免",
+    "realm_suppression_bonus": "境界压制",
+    "cultivate_duration_reduction": "修炼时长缩减",
 }
 
 ACTION_DESC_MAP = {
@@ -38,7 +41,7 @@ def format_value(key: str, value: Any) -> str:
 
     if isinstance(value, (int, float)):
         # 处理百分比类型的字段
-        if "rate" in key or "probability" in key or "chance" in key or "multiplier" in key or "gain" in key:
+        if "rate" in key or "probability" in key or "chance" in key or "multiplier" in key or "gain" in key or "reduction" in key or "bonus" in key:
             # 如果是小数，转为百分比。通常 0.1 表示 +10%
             # 但有些可能是直接的倍率？代码里 1.0 + value，所以 value 是增量
             if isinstance(value, float):
