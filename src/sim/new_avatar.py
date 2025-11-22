@@ -242,12 +242,12 @@ def _assign_initial_auxiliary(avatar: Avatar) -> None:
         avatar.auxiliary = auxiliary
 
 
-def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age) -> Avatar:
+def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age, level: int = 1) -> Avatar:
     """
     从凡人中来的新修士：先规划宗门/关系，再生成实际角色；不分配宗门法宝。
     """
     # 规划
-    plan = plan_mortal(world, name=name, age=age)
+    plan = plan_mortal(world, name=name, age=age, level=level)
     # 生成
     return build_mortal_from_plan(world, current_month_stamp, name=name, age=age, plan=plan)
 
@@ -259,7 +259,7 @@ class MortalPlan:
         self.surname: Optional[str] = None
         self.parent_avatar: Optional[Avatar] = None
         self.master_avatar: Optional[Avatar] = None
-        self.level: int = max(LEVEL_MIN, random.randint(LEVEL_MIN, NEW_MORTAL_LEVEL_MAX))
+        self.level: int = 1
         self.pos_x: int = 0
         self.pos_y: int = 0
 
@@ -289,11 +289,14 @@ def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sec
     return chosen
 
 
-def plan_mortal(world: World, name: str, age: Age, *, existed_sects: Optional[List[Sect]] = None, existing_avatars: Optional[List[Avatar]] = None) -> MortalPlan:
+def plan_mortal(world: World, name: str, age: Age, *, existed_sects: Optional[List[Sect]] = None, existing_avatars: Optional[List[Avatar]] = None, level: int = 1) -> MortalPlan:
     """
     规划新凡人的宗门与关系（父母/师徒），以及取名所需的姓氏等。
     """
     plan = MortalPlan()
+    
+    # 初始等级
+    plan.level = level
 
     # 性别与位置
     plan.gender = random_gender()
@@ -339,10 +342,6 @@ def plan_mortal(world: World, name: str, age: Age, *, existed_sects: Optional[Li
                         if s != mom_surname:
                             plan.surname = s
                             break
-
-            # 父母更强的趋势：控制新人的 level 不超过父母太多
-            if parent.cultivation_progress.level + PARENT_LEVEL_MIN_DIFF > plan.level:
-                plan.level = max(LEVEL_MIN, min(parent.cultivation_progress.level - 1, NEW_MORTAL_LEVEL_MAX))
 
     # 5.c 师徒（仅当选中了宗门）
     if plan.sect is not None and random.random() < NEW_MORTAL_MASTER_PROB and existing_avatars:
