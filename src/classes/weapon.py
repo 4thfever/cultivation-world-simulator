@@ -51,6 +51,28 @@ class Weapon:
         r, g, b = self.grade.color_rgb
         return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        
+        # 基础描述
+        full_desc = self.desc
+        
+        # 特殊数据处理
+        souls = 0
+        if self.name == "万魂幡":
+            souls = self.special_data.get("devoured_souls", 0)
+            if souls > 0:
+                full_desc = f"{full_desc} (已吞噬魂魄：{souls})"
+        
+        return {
+            "name": self.name,
+            "desc": full_desc,
+            "grade": self.grade.value,
+            "color": self.grade.color_rgb,
+            "type": self.weapon_type.value,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 
 def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Weapon]]:
     """从配表加载 weapon 数据。

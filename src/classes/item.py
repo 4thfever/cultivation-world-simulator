@@ -25,6 +25,14 @@ class Item:
     def get_detailed_info(self) -> str:
         return f"{self.name} - {self.desc}（{self.realm.value}）"
 
+    def get_structured_info(self) -> dict:
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "grade": self.realm.value,
+            "effect_desc": "" # 物品暂时没有效果字段
+        }
+
 def _load_items() -> tuple[dict[int, Item], dict[str, Item]]:
     """从配表加载item数据"""
     items_by_id: dict[int, Item] = {}

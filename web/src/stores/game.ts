@@ -5,7 +5,9 @@ import type {
   GameEvent,
   HoverLine,
   HoverTarget,
-  TickPayload
+  TickPayload,
+  IAvatarDetail,
+  DetailInfo
 } from '../types/game'
 import { gameApi } from '../services/gameApi'
 import { createGameGateway } from '../services/gameGateway'
@@ -41,6 +43,7 @@ export const useGameStore = defineStore('game', () => {
   const events = ref<GameEvent[]>([])
   const selectedTarget = ref<HoverTarget | null>(null)
   const hoverInfo = ref<HoverLine[]>([])
+  const detailInfo = ref<DetailInfo | null>(null)
   const infoLoading = ref(false)
   const infoError = ref<string | null>(null)
   const hoverCache = new Map<string, HoverLine[]>()
@@ -74,7 +77,11 @@ export const useGameStore = defineStore('game', () => {
     
     // If panel is open, silently refresh content to show latest status
     if (selectedTarget.value) {
-      fetchHoverInfo(selectedTarget.value, { force: true, silent: true })
+      if (selectedTarget.value.type === 'avatar') {
+        fetchDetailInfo(selectedTarget.value, { silent: true })
+      } else {
+        fetchHoverInfo(selectedTarget.value, { force: true, silent: true })
+      }
     }
   }
 
@@ -122,6 +129,38 @@ export const useGameStore = defineStore('game', () => {
       appendEvents(data.events)
     } catch (error) {
       console.error('Fetch State Error', error)
+    }
+  }
+
+  async function fetchDetailInfo(target: HoverTarget, options: { silent?: boolean } = {}) {
+    const { silent = false } = options
+    if (!silent) {
+      infoLoading.value = true
+      infoError.value = null
+      detailInfo.value = null
+    }
+
+    try {
+      const data = await gameApi.getDetailInfo(target)
+      // Check if result matches current selection (race condition)
+      if (selectedTarget.value && selectedTarget.value.id === target.id) {
+        detailInfo.value = data
+        // If fallback is true, we might also want to populate hoverInfo for legacy support,
+        // but InfoPanel should handle detailInfo with lines fallback.
+      }
+    } catch (error) {
+      if (selectedTarget.value && selectedTarget.value.id === target.id) {
+        if (!silent) {
+          infoError.value = error instanceof Error ? error.message : String(error)
+          detailInfo.value = null
+        }
+      }
+    } finally {
+      if (selectedTarget.value && selectedTarget.value.id === target.id) {
+        if (!silent) {
+          infoLoading.value = false
+        }
+      }
     }
   }
 
@@ -176,7 +215,7 @@ export const useGameStore = defineStore('game', () => {
     await gameApi.setLongTermObjective(avatarId, content)
     // 成功后刷新 info panel
     if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
-      await fetchHoverInfo(selectedTarget.value, { force: true })
+      await fetchDetailInfo(selectedTarget.value, { silent: true })
     }
   }
 
@@ -184,7 +223,7 @@ export const useGameStore = defineStore('game', () => {
     await gameApi.clearLongTermObjective(avatarId)
     // 成功后刷新 info panel
     if (selectedTarget.value && selectedTarget.value.id === avatarId && selectedTarget.value.type === 'avatar') {
-      await fetchHoverInfo(selectedTarget.value, { force: true })
+      await fetchDetailInfo(selectedTarget.value, { silent: true })
     }
   }
 
@@ -218,13 +257,18 @@ export const useGameStore = defineStore('game', () => {
 
   function openInfoPanel(target: HoverTarget) {
     selectedTarget.value = target
-    fetchHoverInfo(target)
+    if (target.type === 'avatar' || target.type === 'region') {
+      fetchDetailInfo(target)
+    } else {
+      fetchHoverInfo(target)
+    }
   }
 
   function closeInfoPanel() {
     selectedTarget.value = null
     infoError.value = null
     hoverInfo.value = []
+    detailInfo.value = null
     infoLoading.value = false
   }
 
@@ -237,6 +281,7 @@ export const useGameStore = defineStore('game', () => {
     events,
     selectedTarget,
     hoverInfo,
+    detailInfo,
     infoLoading,
     infoError,
     worldVersion, // 导出

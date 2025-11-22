@@ -44,6 +44,16 @@ class Plant:
         
         return " - ".join(info_parts)
 
+    def get_structured_info(self) -> dict:
+        items_info = [item.get_structured_info() for item in self.items]
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "grade": self.realm.value,
+            "drops": items_info,
+            "type": "plant"
+        }
+
 def _load_plants() -> tuple[dict[int, Plant], dict[str, Plant]]:
     """从配表加载plant数据"""
     plants_by_id: dict[int, Plant] = {}

@@ -69,6 +69,19 @@ class Sect:
         # 优先使用自定义名称，否则使用默认名称
         return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        hq = self.headquarter
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "alignment": self.alignment.value,
+            "style": self.member_act_style,
+            "hq_name": hq.name,
+            "hq_desc": hq.desc,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
     sep = CONFIG.df.ids_separator

@@ -24,4 +24,8 @@ class SectRegion(Region):
             f"描述: {self.desc}",
         ]
 
-
+    def get_structured_info(self) -> dict:
+        info = super().get_structured_info()
+        info["type_name"] = "宗门驻地"
+        info["sect_name"] = self.sect_name
+        return info

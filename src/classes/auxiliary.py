@@ -41,6 +41,16 @@ class Auxiliary:
         r, g, b = self.grade.color_rgb
         return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "grade": self.grade.value,
+            "color": self.grade.color_rgb,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 
 def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dict[int, Auxiliary]]:
     """从配表加载 auxiliary 数据。

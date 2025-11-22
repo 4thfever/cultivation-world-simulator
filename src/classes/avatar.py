@@ -278,6 +278,119 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             info_dict["短期目标"] = self.short_term_objective
         return info_dict
 
+    def get_structured_info(self) -> dict:
+        """
+        获取结构化的角色信息，用于前端展示和交互。
+        """
+        # 基础信息
+        info = {
+            "id": self.id,
+            "name": self.name,
+            "gender": str(self.gender),
+            "age": self.age.age,
+            "lifespan": self.age.max_lifespan,
+            "realm": self.cultivation_progress.realm.value,
+            "level": self.cultivation_progress.level,
+            "hp": {"cur": self.hp.cur, "max": self.hp.max},
+            "mp": {"cur": self.mp.cur, "max": self.mp.max},
+            "alignment": str(self.alignment) if self.alignment else "未知",
+            "magic_stone": self.magic_stone.value,
+            "thinking": self.thinking,
+            "short_term_objective": self.short_term_objective,
+            "long_term_objective": self.long_term_objective.content if self.long_term_objective else "",
+            "nickname": self.nickname,
+        }
+
+        # 复杂对象结构化
+        
+        # 1. 特质 (Personas)
+        info["personas"] = [p.get_structured_info() for p in self.personas]
+        
+        # 2. 功法 (Technique)
+        if self.technique:
+            info["technique"] = self.technique.get_structured_info()
+        else:
+            info["technique"] = None
+            
+        # 3. 宗门 (Sect)
+        if self.sect:
+            sect_info = self.sect.get_structured_info()
+            # 补充职位信息
+            if self.sect_rank:
+                from src.classes.sect_ranks import get_rank_display_name
+                sect_info["rank"] = get_rank_display_name(self.sect_rank, self.sect)
+            else:
+                sect_info["rank"] = "弟子"
+            info["sect"] = sect_info
+        else:
+            info["sect"] = None
+            
+        # 补充：阵营详情
+        from src.classes.alignment import alignment_infos, alignment_strs
+        # 保持 alignment 字段为 string (value) 兼容现有逻辑
+        info["alignment"] = str(self.alignment) if self.alignment else "未知"
+        if self.alignment:
+            cn_name = alignment_strs.get(self.alignment, self.alignment.value)
+            desc = alignment_infos.get(self.alignment, "")
+            info["alignment_detail"] = {
+                "name": cn_name,
+                "desc": desc,
+            }
+
+        # 4. 装备 (Weapon & Auxiliary)
+        if self.weapon:
+            w_info = self.weapon.get_structured_info()
+            w_info["proficiency"] = f"{self.weapon_proficiency:.1f}%"
+            info["weapon"] = w_info
+        else:
+            info["weapon"] = None
+            
+        if self.auxiliary:
+            info["auxiliary"] = self.auxiliary.get_structured_info()
+        else:
+            info["auxiliary"] = None
+            
+        # 5. 物品 (Items)
+        items_list = []
+        for item, count in self.items.items():
+            i_info = item.get_structured_info()
+            i_info["count"] = count
+            items_list.append(i_info)
+        info["items"] = items_list
+        
+        # 6. 关系 (Relations)
+        relations_list = []
+        for other, relation in self.relations.items():
+            relations_list.append({
+                "target_id": other.id,
+                "name": other.name,
+                "relation": str(relation),
+                # 可以加更多 info，比如境界，用于列表中展示
+                "realm": other.cultivation_progress.realm.value,
+                "sect": other.sect.name if other.sect else "散修"
+            })
+        info["relations"] = relations_list
+        
+        # 7. 外貌
+        info["appearance"] = self.appearance.get_info()
+        
+        # 8. 灵根
+        from src.classes.root import format_root_cn
+        from src.utils.effect_desc import format_effects_to_text
+        root_str = format_root_cn(self.root)
+        info["root"] = root_str
+        info["root_detail"] = {
+             "name": root_str,
+             "desc": f"包含元素：{'、'.join(str(e) for e in self.root.elements)}",
+             "effect_desc": format_effects_to_text(self.root.effects)
+        }
+        
+        # 9. 灵兽
+        if self.spirit_animal:
+             info["spirit_animal"] = self.spirit_animal.get_structured_info()
+
+        return info
+
     def __str__(self) -> str:
         return str(self.get_info(detailed=False))
 

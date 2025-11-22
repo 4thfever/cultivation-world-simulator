@@ -177,6 +177,15 @@ class Region(ABC):
         # 基类暂无更多结构化信息，详细版返回名称+描述
         return f"{self.name} - {self.desc}"
 
+    def get_structured_info(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "desc": self.desc,
+            "type": self.get_region_type(),
+            "type_name": "区域" 
+        }
+
 
 class Shape(Enum):
     """
@@ -301,6 +310,13 @@ class NormalRegion(Region):
         # 如果该区域有植物，则可以采集
         return len(self.plants) > 0
 
+    def get_structured_info(self) -> dict:
+        info = super().get_structured_info()
+        info["type_name"] = "普通区域"
+        info["animals"] = [a.get_structured_info() for a in self.animals]
+        info["plants"] = [p.get_structured_info() for p in self.plants]
+        return info
+
 
 @dataclass
 class CultivateRegion(Region):
@@ -338,6 +354,15 @@ class CultivateRegion(Region):
         lines.append(f"主要灵气: {self.essence_type} {stars}")
         return lines
 
+    def get_structured_info(self) -> dict:
+        info = super().get_structured_info()
+        info["type_name"] = "修炼区域"
+        info["essence"] = {
+            "type": self.essence_type.value,
+            "density": self.essence_density
+        }
+        return info
+
 
 @dataclass
 class CityRegion(Region):
@@ -360,6 +385,11 @@ class CityRegion(Region):
 
     def get_detailed_info(self) -> str:
         return f"{self.name} - {self.desc}"
+
+    def get_structured_info(self) -> dict:
+        info = super().get_structured_info()
+        info["type_name"] = "城市区域"
+        return info
 
 
 def _normalize_region_name(name: str) -> str:

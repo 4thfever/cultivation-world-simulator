@@ -2,7 +2,9 @@ import type {
   HoverResponse,
   HoverTarget,
   InitialStateResponse,
-  MapResponse
+  MapResponse,
+  IAvatarDetail,
+  DetailInfo
 } from '../types/game'
 import { apiGet, apiPost } from './apiClient'
 
@@ -12,6 +14,14 @@ function buildHoverQuery(target: HoverTarget) {
     id: target.id
   })
   return `/api/hover?${query.toString()}`
+}
+
+function buildDetailQuery(target: HoverTarget) {
+  const query = new URLSearchParams({
+    type: target.type,
+    id: target.id
+  })
+  return `/api/detail?${query.toString()}`
 }
 
 export interface SaveFile {
@@ -28,6 +38,10 @@ export const gameApi = {
 
   getHoverInfo(target: HoverTarget) {
     return apiGet<HoverResponse>(buildHoverQuery(target))
+  },
+
+  getDetailInfo(target: HoverTarget) {
+    return apiGet<DetailInfo>(buildDetailQuery(target))
   },
 
   getMap() {

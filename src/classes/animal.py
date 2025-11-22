@@ -44,6 +44,16 @@ class Animal:
         
         return " - ".join(info_parts)
 
+    def get_structured_info(self) -> dict:
+        items_info = [item.get_structured_info() for item in self.items]
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "grade": self.realm.value,
+            "drops": items_info,
+            "type": "animal"
+        }
+
 def _load_animals() -> tuple[dict[int, Animal], dict[str, Animal]]:
     """从配表加载animal数据"""
     animals_by_id: dict[int, Animal] = {}

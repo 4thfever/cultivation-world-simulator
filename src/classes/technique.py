@@ -83,6 +83,17 @@ class Technique:
         r, g, b = self.grade.color_rgb
         return f"<color:{r},{g},{b}>{self.name}（{self.attribute}·{self.grade.value}）</color>"
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "grade": self.grade.value,
+            "color": self.grade.color_rgb,
+            "attribute": self.attribute.value,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 # 五行与扩展属性的克制关系
 # - 五行：金克木，木克土，土克水，水克火，火克金
 # - 雷克邪；邪、冰、风、暗不克任何人

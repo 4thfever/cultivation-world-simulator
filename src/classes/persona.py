@@ -41,6 +41,16 @@ class Persona:
         r, g, b = self.rarity.color_rgb
         return f"<color:{r},{g},{b}>{self.name}</color>"
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        return {
+            "name": self.name,
+            "desc": self.desc,
+            "rarity": self.rarity.level.value,
+            "color": self.rarity.color_rgb,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     """从配表加载persona数据"""
     personas_by_id: dict[int, Persona] = {}

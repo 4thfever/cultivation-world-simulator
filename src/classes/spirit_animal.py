@@ -39,4 +39,13 @@ class SpiritAnimal:
         pts = self.get_extra_strength_points()
         return {"extra_battle_strength_points": pts} if pts else {}
 
+    def get_structured_info(self) -> dict:
+        from src.utils.effect_desc import format_effects_to_text
+        return {
+            "name": self.name,
+            "desc": f"境界：{self.realm.value}",
+            "grade": self.realm.value,
+            "effect_desc": format_effects_to_text(self.effects),
+        }
+
 
