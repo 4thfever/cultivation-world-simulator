@@ -605,9 +605,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         lines: list[str] = []
         # 基础信息
         if self.nickname:
-            lines.append(f"{self.name}「{self.nickname}」")
-        else:
-            lines.append(f"{self.name}")
+            add_kv(lines, "绰号", f"「{self.nickname}」")
+        
         add_kv(lines, "性别", self.gender)
         add_kv(lines, "年龄", self.age)
         add_kv(lines, "外貌", self.appearance.get_info())
@@ -628,7 +627,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             persona_parts = [p.get_colored_info() for p in self.personas]
             add_kv(lines, "特质", ", ".join(persona_parts))
 
-        add_kv(lines, "位置", f"({self.pos_x}, {self.pos_y})")
         add_kv(lines, "灵石", str(self.magic_stone))
 
         # 物品

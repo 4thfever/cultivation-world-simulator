@@ -239,7 +239,7 @@ class CultivationProgress:
         return self.exp >= exp_required
 
     def __str__(self) -> str:
-        return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{self.is_in_bottleneck()}"
+        return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{'是' if self.is_in_bottleneck() else '否'}"
 
     def get_breakthrough_success_rate(self) -> float:
         return breakthrough_success_rate_by_realm[self.realm]
