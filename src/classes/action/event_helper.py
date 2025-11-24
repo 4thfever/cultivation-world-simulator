@@ -16,7 +16,7 @@ class EventHelper:
     def push_pair(event: Event, initiator: "Avatar", target: Optional["Avatar"], *, to_sidebar_once: bool = True) -> None:
         initiator.add_event(event, to_sidebar=True)
         if target is not None:
-            target.add_event(event, to_sidebar=(not to_sidebar_once), to_history=True)
+            target.add_event(event, to_sidebar=(not to_sidebar_once))
 
     @staticmethod
     def push_self(event: Event, avatar: "Avatar", *, to_sidebar: bool = True) -> None:

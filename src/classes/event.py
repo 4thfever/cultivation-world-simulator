@@ -1,8 +1,9 @@
 """
 event class
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional
+import uuid
 
 from src.classes.calendar import Month, Year, MonthStamp
 
@@ -16,6 +17,8 @@ class Event:
     is_major: bool = False
     # 是否为故事事件（不进入记忆索引），默认False
     is_story: bool = False
+    # 唯一ID，用于去重
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
 
     def __str__(self) -> str:
         year = self.month_stamp.get_year()
@@ -29,7 +32,8 @@ class Event:
             "content": self.content,
             "related_avatars": self.related_avatars,
             "is_major": self.is_major,
-            "is_story": self.is_story
+            "is_story": self.is_story,
+            "id": self.id
         }
     
     @classmethod
@@ -40,7 +44,8 @@ class Event:
             content=data["content"],
             related_avatars=data.get("related_avatars"),
             is_major=data.get("is_major", False),
-            is_story=data.get("is_story", False)
+            is_story=data.get("is_story", False),
+            id=data.get("id", str(uuid.uuid4()))
         )
 
 class NullEvent:

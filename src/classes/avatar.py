@@ -405,9 +405,15 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         action_cls = ActionRegistry.get(action_name)
         return action_cls(self, self.world)
 
-    def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, short_term_objective: str):
+    def load_decide_result_chain(self, action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS, avatar_thinking: str, short_term_objective: str, prepend: bool = False):
         """
         加载AI的决策结果（动作链），立即设置第一个为当前动作，其余进入队列。
+        
+        Args:
+            action_name_params_pairs: 动作名和参数对列表
+            avatar_thinking: 思考内容
+            short_term_objective: 短期目标
+            prepend: 是否插队到最前面（默认False，即追加到末尾）
         """
         if not action_name_params_pairs:
             return
@@ -415,7 +421,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         self.short_term_objective = short_term_objective
         # 转为计划并入队（不立即提交，交由提交阶段统一触发开始事件）
         plans: List[ActionPlan] = [ActionPlan(name, params) for name, params in action_name_params_pairs]
-        self.planned_actions.extend(plans)
+        if prepend:
+            self.planned_actions[0:0] = plans
+        else:
+            self.planned_actions.extend(plans)
 
     def clear_plans(self) -> None:
         self.planned_actions.clear()
@@ -607,11 +616,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         """
         return self.items.get(item, 0)
 
-    def add_event(self, event: Event, *, to_sidebar: bool = True, to_history: bool = True) -> None:
+    def add_event(self, event: Event, *, to_sidebar: bool = True) -> None:
         """
         添加事件：
         - to_sidebar: 是否进入全局侧边栏（通过 Avatar._pending_events 暂存）
-        - to_history: 兼容参数，已废弃（统一改为通过 World.event_manager 查询历史）
         
         注意：事件会先存入_pending_events，统一由Simulator写入event_manager，避免重复
         """

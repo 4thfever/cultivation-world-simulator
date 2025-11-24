@@ -11,7 +11,7 @@ from src.classes.relations import (
     set_relation,
     cancel_relation,
 )
-from src.classes.event import Event
+from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.event_helper import EventHelper
@@ -72,16 +72,13 @@ class Conversation(MutualAction):
 
     # 覆盖 start：自定义事件消息
     def start(self, target_avatar: "Avatar|str", **kwargs) -> Event:
-        target = self._get_target_avatar(target_avatar)
-        target_name = target.name if target is not None else str(target_avatar)
-        rel_ids = [self.avatar.id]
-        if target is not None:
-            rel_ids.append(target.id)
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 与 {target_name} 开始交谈", related_avatars=rel_ids)
-        self.avatar.add_event(event, to_sidebar=False)
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
-        return event
+        # 记录开始时间
+        self._start_month_stamp = self.world.month_stamp
+        
+        # Conversation 动作不仅返回 NULL_EVENT 以避免生成“开始交谈”的冗余事件（防止与对话内容事件时序显示混乱），
+        # 同时也无需手动 add_event，因为我们希望侧边栏和历史记录都只显示最终的对话内容。
+        
+        return NULL_EVENT
 
     def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
         """
@@ -92,10 +89,13 @@ class Conversation(MutualAction):
         new_relation_str = str(result.get("new_relation", "")).strip()
         cancel_relation_str = str(result.get("cancal_relation", "")).strip()  # 保持模板中的拼写
 
+        # 使用开始时间戳
+        month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
+
         # 记录对话内容
         if conversation_content:
             content_event = Event(
-                self.world.month_stamp, 
+                month_stamp, 
                 f"{self.avatar.name} 与 {target.name} 的交谈：{conversation_content}", 
                 related_avatars=[self.avatar.id, target.id]
             )
@@ -107,7 +107,7 @@ class Conversation(MutualAction):
             if rel is not None:
                 set_relation(target, self.avatar, rel)
                 set_event = Event(
-                    self.world.month_stamp, 
+                    month_stamp, 
                     f"{target.name} 与 {self.avatar.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", 
                     related_avatars=[self.avatar.id, target.id],
                     is_major=True
@@ -121,7 +121,7 @@ class Conversation(MutualAction):
                 success = cancel_relation(target, self.avatar, rel)
                 if success:
                     cancel_event = Event(
-                        self.world.month_stamp, 
+                        month_stamp, 
                         f"{target.name} 与 {self.avatar.name} 取消了关系：{relation_display_names.get(rel, str(rel))}", 
                         related_avatars=[self.avatar.id, target.id],
                         is_major=True

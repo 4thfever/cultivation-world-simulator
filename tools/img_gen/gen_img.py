@@ -165,12 +165,12 @@ if __name__ == "__main__":
         "幽影之地，暗影重重，光影交错，幽冥之气，黑雾吞噬轮廓。",
         "船帆如云，炼器炉火。",
     ]
-    # for affix in male_affixes:
-    #     prompt_text = male_prompt_base + affix
-    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
-    # for affix in female_affixes:
-    #     prompt_text = female_prompt_base + affix
-    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
-    for i, affix in enumerate(sect_affixes):
-        prompt_text = sect_prompt_base + affix
-        save_generated_image(prompt_text, folder="tools/img_gen/tmp/sects")
+    for affix in male_affixes:
+        prompt_text = male_prompt_base + affix
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
+    for affix in female_affixes:
+        prompt_text = female_prompt_base + affix
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
+    # for i, affix in enumerate(sect_affixes):
+    #     prompt_text = sect_prompt_base + affix
+    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/sects")

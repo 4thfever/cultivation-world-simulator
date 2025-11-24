@@ -56,11 +56,12 @@ class Talk(MutualAction):
             )
             EventHelper.push_pair(accept_event, initiator=self.avatar, target=target, to_sidebar_once=True)
             
-            # 将 Conversation 加入计划队列，在Talk完成后立即执行
+            # 将 Conversation 加入计划队列，在Talk完成后立即执行（插队到最前）
             self.avatar.load_decide_result_chain(
                 [("Conversation", {"target_avatar": target.name})],
                 self.avatar.thinking,
-                self.avatar.short_term_objective
+                self.avatar.short_term_objective,
+                prepend=True
             )
         else:
             # 拒绝攀谈

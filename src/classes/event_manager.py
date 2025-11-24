@@ -33,11 +33,16 @@ class EventManager:
             dq.popleft()
 
     def add_event(self, event: Event) -> None:
-        # 幂等：若已存在同 event_id，跳过
-        if getattr(event, "event_id", None) and event.event_id in self._by_id:
+        # 过滤掉空事件
+        from src.classes.event import is_null_event
+        if is_null_event(event):
             return
-        if getattr(event, "event_id", None):
-            self._by_id[event.event_id] = event
+
+        # 幂等：若已存在同 id，跳过
+        if getattr(event, "id", None) and event.id in self._by_id:
+            return
+        if getattr(event, "id", None):
+            self._by_id[event.id] = event
 
         # 全局
         self._events.append(event)

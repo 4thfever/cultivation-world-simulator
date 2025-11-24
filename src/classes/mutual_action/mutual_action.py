@@ -53,6 +53,8 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         # 异步反馈任务句柄与缓存结果
         self._feedback_task: asyncio.Task | None = None
         self._feedback_cached: dict | None = None
+        # 记录动作开始时间，用于生成事件的时间戳
+        self._start_month_stamp: int | None = None
 
     def _get_template_path(self) -> Path:
         return CONFIG.paths.templates / "mutual_action.txt"
@@ -170,6 +172,9 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         """
         启动互动动作，返回开始事件
         """
+        # 记录开始时间
+        self._start_month_stamp = self.world.month_stamp
+
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         action_name = self.ACTION_NAME
@@ -178,7 +183,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             rel_ids.append(target.id)
         # 根据IS_MAJOR类变量设置事件类型
         is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
+        event = Event(self._start_month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
         # 仅写入历史，避免与提交阶段重复推送到侧边栏
         self.avatar.add_event(event, to_sidebar=False)
         if target is not None:
@@ -214,7 +219,9 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
             target.thinking = thinking
             self._settle_feedback(target, feedback)
             fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
-            feedback_event = Event(self.world.month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
+            # 使用开始时间戳
+            month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
+            feedback_event = Event(month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
             EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target, to_sidebar_once=True)
             self._apply_feedback(target, feedback)
             return ActionResult(status=ActionStatus.COMPLETED, events=[])
