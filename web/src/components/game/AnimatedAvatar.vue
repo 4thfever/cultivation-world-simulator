@@ -8,6 +8,7 @@ import { useSharedTicker } from './composables/useSharedTicker'
 const props = defineProps<{
   avatar: AvatarSummary
   tileSize: number
+  offset?: { x: number; y: number }
 }>()
 
 const emit = defineEmits<{
@@ -21,8 +22,12 @@ const targetX = ref(props.avatar.x)
 const targetY = ref(props.avatar.y)
 
 // Current render position (pixel coordinates)
-const currentX = ref(props.avatar.x * props.tileSize + props.tileSize / 2)
-const currentY = ref(props.avatar.y * props.tileSize + props.tileSize / 2)
+// Initial position includes offset immediately to avoid "jumping" on spawn if possible,
+// but props.offset might be undefined initially.
+const initialOffsetX = props.offset?.x ?? 0
+const initialOffsetY = props.offset?.y ?? 0
+const currentX = ref((props.avatar.x + initialOffsetX) * props.tileSize + props.tileSize / 2)
+const currentY = ref((props.avatar.y + initialOffsetY) * props.tileSize + props.tileSize / 2)
 
 // Watch for prop updates (server ticks)
 watch(() => [props.avatar.x, props.avatar.y], ([newX, newY]) => {
@@ -31,8 +36,11 @@ watch(() => [props.avatar.x, props.avatar.y], ([newX, newY]) => {
 })
 
 useSharedTicker((delta) => {
-    const destX = targetX.value * props.tileSize + props.tileSize / 2
-    const destY = targetY.value * props.tileSize + props.tileSize / 2
+    const offsetX = props.offset?.x ?? 0
+    const offsetY = props.offset?.y ?? 0
+    
+    const destX = (targetX.value + offsetX) * props.tileSize + props.tileSize / 2
+    const destY = (targetY.value + offsetY) * props.tileSize + props.tileSize / 2
     
     const speed = 0.1 * delta
     
@@ -90,8 +98,8 @@ const nameStyle = {
     fontFamily: '"Microsoft YaHei", sans-serif',
     fontSize: 42, // Increased from 36
     fontWeight: 'bold',
-    fill: 0xffffff,
-    stroke: { color: 0x000000, width: 6 }, // Thicker stroke
+    fill: '#ffffff',
+    stroke: { color: '#000000', width: 6 }, // Thicker stroke
     align: 'center',
     dropShadow: {
         color: '#000000',
@@ -100,7 +108,7 @@ const nameStyle = {
         distance: 2,
         alpha: 0.8
     }
-}
+} as any
 
 function handlePointerTap() {
     emit('select', {

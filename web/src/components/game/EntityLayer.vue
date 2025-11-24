@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useWorldStore } from '../../stores/world'
 import AnimatedAvatar from './AnimatedAvatar.vue'
+import { computed } from 'vue'
+import { calculateVisualOffsets } from './utils/avatarLayout'
 
 const worldStore = useWorldStore()
 const TILE_SIZE = 64
@@ -8,6 +10,10 @@ const TILE_SIZE = 64
 const emit = defineEmits<{
   (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
 }>()
+
+const avatarOffsets = computed(() => {
+  return calculateVisualOffsets(worldStore.avatarList)
+})
 
 function handleAvatarSelect(payload: { type: 'avatar'; id: string; name?: string }) {
   emit('avatarSelected', payload)
@@ -21,6 +27,7 @@ function handleAvatarSelect(payload: { type: 'avatar'; id: string; name?: string
       :key="avatar.id"
       :avatar="avatar"
       :tile-size="TILE_SIZE"
+      :offset="avatarOffsets.get(avatar.id)"
       @select="handleAvatarSelect"
     />
   </container>
