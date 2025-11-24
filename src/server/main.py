@@ -35,6 +35,47 @@ game_instance = {
     "is_paused": True # 默认启动为暂停状态，等待前端连接唤醒
 }
 
+# Cache for avatar IDs
+AVATAR_ASSETS = {
+    "males": [],
+    "females": []
+}
+
+def scan_avatar_assets():
+    """Scan assets directory for avatar images"""
+    global AVATAR_ASSETS
+    
+    def get_ids(subdir):
+        directory = os.path.join(ASSETS_PATH, subdir)
+        if not os.path.exists(directory):
+            return []
+        ids = []
+        for f in os.listdir(directory):
+            if f.lower().endswith('.png'):
+                try:
+                    name = os.path.splitext(f)[0]
+                    ids.append(int(name))
+                except ValueError:
+                    pass
+        return sorted(ids)
+
+    AVATAR_ASSETS["males"] = get_ids("males")
+    AVATAR_ASSETS["females"] = get_ids("females")
+    print(f"Loaded avatar assets: {len(AVATAR_ASSETS['males'])} males, {len(AVATAR_ASSETS['females'])} females")
+
+def get_avatar_pic_id(avatar_id: str, gender_val: str) -> int:
+    """Deterministically get a valid pic_id for an avatar"""
+    key = "females" if gender_val == "female" else "males"
+    available = AVATAR_ASSETS.get(key, [])
+    
+    if not available:
+        return 1
+        
+    # Use hash to pick an index from available IDs
+    # Use abs() because hash can be negative
+    idx = abs(hash(str(avatar_id))) % len(available)
+    return available[idx]
+
 # 触发配置重载的标记 (technique.csv updated)
 
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
@@ -217,7 +258,7 @@ async def game_loop():
                             "x": int(getattr(a, "pos_x", 0)),
                             "y": int(getattr(a, "pos_y", 0)),
                             "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
-                            "pic_id": (hash(a.id) % 15) + 1,
+                            "pic_id": get_avatar_pic_id(str(a.id), a.gender.value),
                             "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
                         })
 
@@ -253,6 +294,7 @@ async def game_loop():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 启动时初始化
+    scan_avatar_assets()
     init_game()
     # 启动后台任务
     asyncio.create_task(game_loop())
@@ -356,6 +398,11 @@ async def websocket_endpoint(websocket: WebSocket):
         print(f"WS Error: {e}")
         manager.disconnect(websocket)
 
+@app.get("/api/meta/avatars")
+def get_avatar_meta():
+    return AVATAR_ASSETS
+
+
 @app.get("/api/state")
 def get_state():
     """获取当前世界的一个快照（调试模式）"""
@@ -403,7 +450,7 @@ def get_state():
                     "y": ay,
                     "action": str(aaction),
                     "gender": str(a.gender.value),
-                    "pic_id": (hash(a.id) % 15) + 1
+                    "pic_id": get_avatar_pic_id(aid, str(a.gender.value))
                 })
         except Exception as e:
             return {"step": 3, "error": str(e)}
@@ -534,6 +581,7 @@ def get_detail_info(
 ):
     """获取结构化详情信息，替代/增强 hover info"""
     world = game_instance.get("world")
+
     if world is None:
         raise HTTPException(status_code=503, detail="World not initialized")
 

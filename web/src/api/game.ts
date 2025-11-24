@@ -23,6 +23,10 @@ export const gameApi = {
     return httpClient.get<MapResponseDTO>('/api/map');
   },
 
+  fetchAvatarMeta() {
+    return httpClient.get<{ males: number[]; females: number[] }>('/api/meta/avatars');
+  },
+
   // --- Information ---
 
   fetchHoverInfo(params: HoverParams) {

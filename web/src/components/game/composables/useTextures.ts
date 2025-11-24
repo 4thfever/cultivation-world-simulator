@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
+import { gameApi } from '@/api/game'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -7,12 +8,26 @@ TextureStyle.defaultOptions.scaleMode = 'nearest'
 // 全局纹理缓存，避免重复加载
 const textures = ref<Record<string, Texture>>({})
 const isLoaded = ref(false)
+const availableAvatars = ref<{ males: number[], females: number[] }>({ males: [], females: [] })
 
 export function useTextures() {
   
   // 基础纹理加载（地图块、角色）
   const loadBaseTextures = async () => {
     if (isLoaded.value) return
+
+    // Load Avatar Meta first
+    try {
+        const meta = await gameApi.fetchAvatarMeta()
+        if (meta.males) availableAvatars.value.males = meta.males
+        if (meta.females) availableAvatars.value.females = meta.females
+        console.log('Avatar meta loaded:', availableAvatars.value)
+    } catch (e) {
+        console.warn('Failed to load avatar meta, using default range', e)
+        // Fallback
+        availableAvatars.value.males = Array.from({length: 47}, (_, i) => i + 1)
+        availableAvatars.value.females = Array.from({length: 41}, (_, i) => i + 1)
+    }
 
     const manifest: Record<string, string> = {
       'PLAIN': '/assets/tiles/plain.png',
@@ -41,19 +56,24 @@ export function useTextures() {
       }
     })
 
-    const avatarPromises = Array.from({ length: 16 }, (_, index) => index + 1).map(async (i) => {
-      const maleUrl = `/assets/males/${i}.png`
-      const femaleUrl = `/assets/females/${i}.png`
-
-      await Promise.allSettled([
-        Assets.load(maleUrl).then((tex) => {
-          textures.value[`male_${i}`] = tex
-        }),
-        Assets.load(femaleUrl).then((tex) => {
-          textures.value[`female_${i}`] = tex
-        })
-      ])
-    })
+    // Load Avatars based on available IDs
+    const avatarPromises: Promise<void>[] = []
+    
+    for (const id of availableAvatars.value.males) {
+        avatarPromises.push(
+            Assets.load(`/assets/males/${id}.png`)
+                .then(tex => { textures.value[`male_${id}`] = tex })
+                .catch(e => console.warn(`Failed male_${id}`, e))
+        )
+    }
+    
+    for (const id of availableAvatars.value.females) {
+        avatarPromises.push(
+            Assets.load(`/assets/females/${id}.png`)
+                .then(tex => { textures.value[`female_${id}`] = tex })
+                .catch(e => console.warn(`Failed female_${id}`, e))
+        )
+    }
 
     await Promise.all([...tilePromises, ...avatarPromises])
 
@@ -83,7 +103,8 @@ export function useTextures() {
     textures,
     isLoaded,
     loadBaseTextures,
-    loadSectTexture
+    loadSectTexture,
+    availableAvatars
   }
 }
 

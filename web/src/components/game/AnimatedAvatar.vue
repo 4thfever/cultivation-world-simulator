@@ -14,7 +14,7 @@ const emit = defineEmits<{
   (e: 'select', payload: { type: 'avatar'; id: string; name?: string }): void
 }>()
 
-const { textures } = useTextures()
+const { textures, availableAvatars } = useTextures()
 
 // Target position (grid coordinates)
 const targetX = ref(props.avatar.x)
@@ -50,7 +50,25 @@ useSharedTicker((delta) => {
 })
 
 function getTexture() {
-  const key = `${(props.avatar.gender || 'male').toLowerCase()}_${props.avatar.pic_id || 1}`
+  const gender = (props.avatar.gender || 'male').toLowerCase()
+  let pid = props.avatar.pic_id
+  
+  // Fallback logic if pic_id is missing
+  if (!pid) {
+     const list = availableAvatars.value[gender === 'female' ? 'females' : 'males']
+     if (list && list.length > 0) {
+         let hash = 0
+         const str = props.avatar.id || props.avatar.name || 'default'
+         for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash)
+         }
+         pid = list[Math.abs(hash) % list.length]
+     } else {
+         pid = 1
+     }
+  }
+
+  const key = `${gender}_${pid}`
   return textures.value[key]
 }
 
