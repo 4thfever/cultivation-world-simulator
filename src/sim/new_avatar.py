@@ -695,49 +695,9 @@ def make_avatars(
     current_month_stamp: MonthStamp = MonthStamp(100 * 12),
     existed_sects: Optional[List[Sect]] = None,
 ) -> dict[str, Avatar]:
-    from src.utils.config import CONFIG
-
-    n = int(max(0, count))
-    if n == 0:
-        return {}
-
-    avatars: dict[str, Avatar] = {}
-
-    # 先生成一个“defined_avatar”（若配置存在）
-    defined = getattr(CONFIG, "defined_avatar", None)
-    used = 0
-    if defined is not None:
-        surname = str(getattr(defined, "surname", "") or "").strip()
-        given_name = str(getattr(defined, "given_name", "") or "").strip()
-        defined_name = f"{surname}{given_name}"
-        da = create_avatar_from_request(
-            world,
-            current_month_stamp,
-            name=defined_name,
-            age=int(getattr(defined, "age", 0) or 0) if str(getattr(defined, "age", "")).strip() else None,
-            gender=str(getattr(defined, "gender", "")).strip() or None,
-            sect=getattr(defined, "sect", None),
-            level=int(getattr(defined, "level", 0) or 0) if str(getattr(defined, "level", "")).strip() else None,
-            appearance=int(getattr(defined, "appearance", 0) or 0) if str(getattr(defined, "appearance", "")).strip() else None,
-            technique=getattr(defined, "technique", None),
-            weapon=getattr(defined, "weapon", None),
-            auxiliary=getattr(defined, "auxiliary", None),
-            personas=getattr(defined, "personas", None),
-        )
-        avatars[da.id] = da
-        used = 1
-
-
-    # 剩余随机编排
-    rest = max(0, n - used)
-    if rest > 0:
-        population_plan = PopulationPlanner.plan_group(rest, existed_sects)
-        random_avatars = AvatarFactory.build_group(world, current_month_stamp, population_plan)
-        avatars.update(random_avatars)
-
-    return avatars
-
-
+    population_plan = PopulationPlanner.plan_group(count, existed_sects)
+    random_avatars = AvatarFactory.build_group(world, current_month_stamp, population_plan)
+    return random_avatars
 
 # —— 指定参数创建：支持传入字符串并解析为对象 ——
 def _parse_gender(value: Union[str, Gender, None]) -> Optional[Gender]:
