@@ -3,7 +3,7 @@ import asyncio
 
 from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.avatar import Avatar, Gender
-from src.sim.new_avatar import get_new_avatar_from_mortal
+from src.sim.new_avatar import create_random_mortal
 from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.classes.world import World
@@ -104,7 +104,7 @@ class Simulator:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
-            new_avatar = get_new_avatar_from_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
+            new_avatar = create_random_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
             self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。", related_avatars=[new_avatar.id])
             events.append(event)

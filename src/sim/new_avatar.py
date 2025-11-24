@@ -1,9 +1,8 @@
 import random
+from dataclasses import dataclass
 from typing import List, Optional, Dict, Tuple, Union
 
 from src.classes.world import World
-from src.classes.map import Map
-from src.classes.tile import TileType
 from src.classes.avatar import Avatar, Gender
 from src.classes.appearance import get_appearance_by_level
 from src.classes.calendar import MonthStamp
@@ -13,7 +12,6 @@ from src.classes.age import Age
 from src.classes.name import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
 from src.classes.sect import Sect, sects_by_id, sects_by_name
-from src.classes.alignment import Alignment
 from src.classes.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.weapon import Weapon, weapons_by_id, weapons_by_name
@@ -89,555 +87,606 @@ def _get_equipment_probabilities_by_realm(realm, equipment_type: str) -> tuple[f
     return auxiliary_probs.get(realm_name, auxiliary_probs['default'])
 
 
-def _find_equipment_by_grade(
-    avatar: Avatar,
-    grade,
-    equipment_pool_by_id: dict,
-    equipment_pool_by_sect_id: dict,
-    weapon_type_filter = None,
-):
+class EquipmentAllocator:
     """
-    根据品质查找装备（优先宗门相关，再从全局池）
-    
-    Args:
-        avatar: 角色
-        grade: 装备品质（ARTIFACT/TREASURE）
-        equipment_pool_by_id: 按ID索引的装备池
-        equipment_pool_by_sect_id: 按宗门ID索引的装备池
-        weapon_type_filter: 武器类型过滤（可选）
-    
-    Returns:
-        找到的装备，如果没有则返回None
+    负责所有初始装备分配逻辑，提供兵器与辅助装备的统一接口。
     """
-    # 优先宗门相关装备
-    if avatar.sect is not None and avatar.sect.id in equipment_pool_by_sect_id:
-        candidate = equipment_pool_by_sect_id[avatar.sect.id]
-        if candidate.grade == grade:
-            return candidate
-    
-    # 从全局池中查找（包含类型过滤）
-    candidates = [
-        e for e in equipment_pool_by_id.values()
-        if e.grade == grade
-        and (weapon_type_filter is None or e.weapon_type == weapon_type_filter)
-    ]
-    return random.choice(candidates) if candidates else None
 
+    @staticmethod
+    def assign_weapon(avatar: Avatar) -> None:
+        """
+        初始兵器逻辑：
+        - 80% 继承宗门偏好兵器类型，否则完全随机
+        - 先按境界概率抽高品质（约 1% 法宝、5% 宝物），优先宗门池
+        - 若高品质落空，再发一把普通兵器
+        """
+        from src.classes.weapon import get_common_weapon, weapons_by_id, weapons_by_sect_id
+        from src.classes.weapon_type import WeaponType
 
-def _assign_equipment_generic(
-    avatar: Avatar,
-    equipment_type: str,
-    equipment_pool_by_id: dict,
-    equipment_pool_by_sect_id: dict,
-    weapon_type_filter = None,
-) -> Optional[object]:
-    """
-    通用装备分配函数（支持武器和辅助装备）
-    
-    Args:
-        avatar: 角色
-        equipment_type: 'weapon' 或 'auxiliary'
-        equipment_pool_by_id: 按ID索引的装备池
-        equipment_pool_by_sect_id: 按宗门ID索引的装备池
-        weapon_type_filter: 武器类型过滤（仅武器需要）
-    
-    Returns:
-        分配的装备对象，如果无装备则返回None
-    """
-    from src.classes.equipment_grade import EquipmentGrade
-    import copy
-    
-    # 获取概率
-    artifact_prob, treasure_prob = _get_equipment_probabilities_by_realm(
-        avatar.cultivation_progress.realm,
-        equipment_type
-    )
-    
-    roll = random.random()
-    
-    # 尝试获得法宝
-    if roll < artifact_prob:
-        equipment = _find_equipment_by_grade(
-            avatar, EquipmentGrade.ARTIFACT,
-            equipment_pool_by_id, equipment_pool_by_sect_id,
-            weapon_type_filter
-        )
-        if equipment:
-            return copy.deepcopy(equipment)
-    
-    # 尝试获得宝物
-    if roll < artifact_prob + treasure_prob:
-        equipment = _find_equipment_by_grade(
-            avatar, EquipmentGrade.TREASURE,
-            equipment_pool_by_id, equipment_pool_by_sect_id,
-            weapon_type_filter
-        )
-        if equipment:
-            return copy.deepcopy(equipment)
-    
-    return None
-
-
-def _assign_initial_weapon(avatar: Avatar) -> None:
-    """
-    为新角色分配初始兵器
-    - 根据宗门倾向（80%概率）或随机选择兵器类型
-    - 1%概率获得法宝（优先宗门相关）
-    - 5%概率获得宝物（优先宗门相关）
-    - 94%概率获得普通兵器
-    """
-    from src.classes.weapon import get_common_weapon, weapons_by_id, weapons_by_sect_id
-    from src.classes.weapon_type import WeaponType
-    
-    # 1. 确定兵器类型：宗门倾向或随机
-    weapon_type = None
-    if avatar.sect is not None and avatar.sect.preferred_weapon:
-        if random.random() < 0.8:
-            for wt in WeaponType:
-                if wt.value == avatar.sect.preferred_weapon:
-                    weapon_type = wt
-                    break
-    if weapon_type is None:
-        weapon_type = random.choice(list(WeaponType))
-    
-    # 2. 尝试分配高品质兵器
-    high_grade_weapon = _assign_equipment_generic(
-        avatar,
-        'weapon',
-        weapons_by_id,
-        weapons_by_sect_id,
-        weapon_type
-    )
-    
-    if high_grade_weapon is not None:
-        avatar.weapon = high_grade_weapon
-        return
-    
-    # 3. 分配普通兵器
-    avatar.weapon = get_common_weapon(weapon_type)
-
-
-def _assign_initial_auxiliary(avatar: Avatar) -> None:
-    """
-    为新角色分配初始辅助装备（基于境界分层概率）
-    - 境界越高，获得辅助装备概率越大
-    - 优先分配宗门相关的辅助装备
-    - 练气期：5%宝物
-    - 筑基期：2%法宝，8%宝物
-    - 金丹期：5%法宝，15%宝物
-    - 元婴期：10%法宝，20%宝物
-    """
-    from src.classes.auxiliary import auxiliaries_by_id, auxiliaries_by_sect_id
-    
-    # 尝试分配辅助装备
-    auxiliary = _assign_equipment_generic(
-        avatar,
-        'auxiliary',
-        auxiliaries_by_id,
-        auxiliaries_by_sect_id,
-        None  # 辅助装备无类型过滤
-    )
-    
-    if auxiliary is not None:
-        avatar.auxiliary = auxiliary
-
-
-def get_new_avatar_from_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age, level: int = 1) -> Avatar:
-    """
-    从凡人中来的新修士：先规划宗门/关系，再生成实际角色；不分配宗门法宝。
-    """
-    # 规划
-    plan = plan_mortal(world, name=name, age=age, level=level)
-    # 生成
-    return build_mortal_from_plan(world, current_month_stamp, name=name, age=age, plan=plan)
-
-
-class MortalPlan:
-    def __init__(self):
-        self.gender: Optional[Gender] = None
-        self.sect: Optional[Sect] = None
-        self.surname: Optional[str] = None
-        self.parent_avatar: Optional[Avatar] = None
-        self.master_avatar: Optional[Avatar] = None
-        self.level: int = 1
-        self.pos_x: int = 0
-        self.pos_y: int = 0
-
-def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
-    """
-    从宗门列表中“均衡”挑选 k 个位置的宗门引用：
-    - 每次选择当前计数最少的宗门之一；
-    - 返回长度为 k 的列表；
-    """
-    if not existed_sects or k <= 0:
-        return []
-    counts: dict[int, int] = {s.id: 0 for s in existed_sects}
-    chosen: list[Optional[Sect]] = []
-    for _ in range(k):
-        min_count = min(counts.values()) if counts else 0
-        candidates = [s for s in existed_sects if counts.get(s.id, 0) == min_count]
-        s = random.choice(candidates)
-        counts[s.id] = counts.get(s.id, 0) + 1
-        chosen.append(s)
-    return chosen
-
-
-def plan_mortal(world: World, name: str, age: Age, *, existed_sects: Optional[List[Sect]] = None, existing_avatars: Optional[List[Avatar]] = None, level: int = 1) -> MortalPlan:
-    """
-    规划新凡人的宗门与关系（父母/师徒），以及取名所需的姓氏等。
-    """
-    plan = MortalPlan()
-    
-    # 初始等级
-    plan.level = level
-
-    # 性别与位置
-    plan.gender = random_gender()
-    plan.pos_x = random.randint(0, world.map.width - 1)
-    plan.pos_y = random.randint(0, world.map.height - 1)
-
-    # 数据源
-    if existing_avatars is None:
-        existing_avatars = list(world.avatar_manager.avatars.values())
-    if existed_sects is None:
-        # 若 run 层已抽样，可传入；否则直接从世界可见宗门中随机（此处简单选择）
-        try:
-            from src.classes.sect import sects_by_id as _sects_by_id
-            existed_sects = list(_sects_by_id.values())
-        except Exception:
-            existed_sects = []
-
-    # 5.b 宗门（先于关系确定，便于后续取名/师徒）
-    if random.random() < NEW_MORTAL_SECT_PROB:
-        # 单人场景：挑1个宗门，复用均衡逻辑的退化形式
-        picked = _pick_sects_balanced(existed_sects or [], 1)
-        plan.sect = picked[0] if picked else None
-
-    # 5.a 父/母：从现有角色中挑选足够年长者
-    if random.random() < NEW_MORTAL_PARENT_PROB and existing_avatars:
-        candidates: list[Avatar] = []
-        for av in existing_avatars:
-            if av.age.age >= age.age + PARENT_MIN_DIFF:
-                candidates.append(av)
-        if candidates:
-            parent = random.choice(candidates)
-            plan.parent_avatar = parent
-            # 姓氏偏好：父男同姓，母女异姓（仅在 name 为空时影响）
-            if not name:
-                if parent.gender is Gender.MALE:
-                    plan.surname = pick_surname_for_sect(plan.sect or parent.sect)
-                else:
-                    # 母为女：尽量不同姓
-                    mom_surname = pick_surname_for_sect(plan.sect or parent.sect)
-                    # 迭代挑一个不同姓
-                    for _ in range(5):
-                        s = pick_surname_for_sect(plan.sect)
-                        if s != mom_surname:
-                            plan.surname = s
-                            break
-
-    # 5.c 师徒（仅当选中了宗门）
-    if plan.sect is not None and random.random() < NEW_MORTAL_MASTER_PROB and existing_avatars:
-        same_sect = [av for av in existing_avatars if av.sect is plan.sect]
-        if same_sect:
-            stronger = [av for av in same_sect if av.cultivation_progress.level >= plan.level + MASTER_LEVEL_MIN_DIFF]
-            if stronger:
-                plan.master_avatar = random.choice(stronger)
-
-    return plan
-
-
-def build_mortal_from_plan(world: World, current_month_stamp: MonthStamp, *, name: str, age: Age, plan: MortalPlan) -> Avatar:
-    """
-    根据规划创建新凡人，并写入父母/师徒关系；不分配宗门法宝。
-    取名规则：尊重传入 name；若为空，则按规划的 sect/surname 生成。
-    """
-    # 名称
-    if name:
-        final_name = name
-    else:
-        if plan.surname:
-            final_name = get_random_name_with_surname(plan.gender, plan.surname, plan.sect)
-        else:
-            final_name = get_random_name_for_sect(plan.gender, plan.sect)
-
-    # 出生时间与位置
-    birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)
-
-    # 基础对象
-    avatar = Avatar(
-        world=world,
-        name=final_name,
-        id=get_avatar_id(),
-        birth_month_stamp=MonthStamp(birth_month_stamp),
-        age=age,
-        gender=plan.gender,
-        cultivation_progress=CultivationProgress(plan.level),
-        pos_x=plan.pos_x,
-        pos_y=plan.pos_y,
-        sect=plan.sect,
-    )
-
-    # 位置刷新
-    avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
-    
-    # 分配宗门职位（根据境界）
-    _assign_sect_rank(avatar, world)
-
-    # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
-    _assign_initial_weapon(avatar)
-    
-    # 初始辅助装备分配（基于境界分层概率）
-    _assign_initial_auxiliary(avatar)
-
-    # 写关系（父母/师徒）；不发放宗门法宝
-    if plan.parent_avatar is not None:
-        plan.parent_avatar.set_relation(avatar, Relation.PARENT)
-    if plan.master_avatar is not None:
-        plan.master_avatar.set_relation(avatar, Relation.MASTER)
-
-    # 功法将由 __post_init__ 自动基于 sect 设置；灵根映射同 make_avatars 流程
-    if avatar.technique is not None:
-        mapped = attribute_to_root(avatar.technique.attribute)
-        if mapped is not None:
-            avatar.root = mapped
-
-    return avatar
-
-
-def plan_sects_and_relations(n: int, existed_sects: Optional[List[Sect]]) -> tuple[list[Optional[Sect]], list[Optional[Gender]], list[Optional[str]], dict[tuple[int, int], Relation]]:
-    """
-    规划：
-    - 每个索引对应的宗门（可为空，表示散修）；
-    - 性别（部分在后续阶段才确定）；
-    - 姓氏（用于生成父子同姓/母子异姓等）；
-    - 预设关系 (i,j)->Relation（方向遵循 set_relation 的方向）。
-    """
-    n = int(max(0, n))
-    use_sects = bool(existed_sects)
-    planned_sect: list[Optional[Sect]] = [None] * n
-    if n == 0:
-        return planned_sect, [None]*0, [None]*0, {}
-
-    # 宗门均衡分配（约 2/3 成为宗门弟子）
-    if use_sects and existed_sects:
-        sect_member_target = int(n * SECT_MEMBER_RATIO)  # 目标配额：约2/3为宗门弟子；其余散修
-        planned_sect[:sect_member_target] = _pick_sects_balanced(existed_sects, sect_member_target)
-        # 打散次序，避免前段集中
-        paired = list(zip(planned_sect, list(range(n))))
-        random.shuffle(paired)
-        planned_sect = [p[0] for p in paired]
-
-    planned_gender: list[Optional[Gender]] = [None] * n
-    planned_surname: list[Optional[str]] = [None] * n
-    planned_relations: dict[tuple[int, int], Relation] = {}
-
-    # — 家庭 —
-    unused_indices = list(range(n))
-    random.shuffle(unused_indices)
-
-    def _reserve_pair() -> tuple[int, int] | None:
-        if len(unused_indices) < 2:
-            return None
-        a = unused_indices.pop()
-        b = unused_indices.pop()
-        return (a, b)
-
-    family_pairs_budget = max(0, n // FAMILY_PAIR_CAP_DIV)  # 家庭上限：约每6人1对；触发概率见常量
-    for _ in range(family_pairs_budget):
-        if random.random() < FAMILY_TRIGGER_PROB:
-            pair = _reserve_pair()
-            if pair is None:
-                break
-            a, b = pair
-            if random.random() < FATHER_CHILD_PROB:
-                # 父子：同姓；父为男
-                surname = pick_surname_for_sect(planned_sect[a] or planned_sect[b])
-                planned_surname[a] = surname
-                planned_surname[b] = surname
-                planned_gender[a] = Gender.MALE
-                planned_relations[(a, b)] = Relation.PARENT
-            else:
-                # 母子：异姓；母为女
-                mother = a if random.random() < 0.5 else b
-                child = b if mother == a else a
-                planned_gender[mother] = Gender.FEMALE
-                mom_surname = pick_surname_for_sect(planned_sect[mother])
-                planned_surname[mother] = mom_surname
-                for _ in range(5):
-                    s = pick_surname_for_sect(planned_sect[child])
-                    if s != mom_surname:
-                        planned_surname[child] = s
+        weapon_type = None
+        if avatar.sect is not None and avatar.sect.preferred_weapon:
+            if random.random() < 0.8:
+                for wt in WeaponType:
+                    if wt.value == avatar.sect.preferred_weapon:
+                        weapon_type = wt
                         break
-                planned_relations[(mother, child)] = Relation.PARENT
+        if weapon_type is None:
+            weapon_type = random.choice(list(WeaponType))
 
-    leftover = unused_indices[:]
+        high_grade_weapon = EquipmentAllocator._assign_generic(
+            avatar,
+            'weapon',
+            weapons_by_id,
+            weapons_by_sect_id,
+            weapon_type
+        )
 
-    # — 道侣 —
-    random.shuffle(leftover)
-    lovers_budget = max(0, n // LOVERS_PAIR_CAP_DIV)  # 道侣预算，两两配对，强制异性
-    i = 0
-    while i + 1 < len(leftover) and lovers_budget > 0:
-        if random.random() < LOVERS_TRIGGER_PROB:
-            a = leftover[i]
-            b = leftover[i + 1]
-            if (a, b) not in planned_relations and (b, a) not in planned_relations:
-                if planned_gender[a] is None and planned_gender[b] is None:
-                    planned_gender[a] = Gender.MALE if random.random() < 0.5 else Gender.FEMALE
-                    planned_gender[b] = Gender.FEMALE if planned_gender[a] is Gender.MALE else Gender.MALE
-                elif planned_gender[a] is None:
-                    planned_gender[a] = Gender.MALE if planned_gender[b] is Gender.FEMALE else Gender.FEMALE
-                elif planned_gender[b] is None:
-                    planned_gender[b] = Gender.MALE if planned_gender[a] is Gender.FEMALE else Gender.FEMALE
-                if planned_gender[a] != planned_gender[b]:
-                    planned_relations[(a, b)] = Relation.LOVERS
-            lovers_budget -= 1
-        i += 2
+        if high_grade_weapon is not None:
+            avatar.weapon = high_grade_weapon
+            return
 
-    # — 师徒（同宗门）—
-    if use_sects and existed_sects:
-        members_by_sect: dict[int, list[int]] = {s.id: [] for s in existed_sects}
-        for idx, sect in enumerate(planned_sect):
-            if sect is not None:
-                members_by_sect.setdefault(sect.id, []).append(idx)
-        for _sect_id, members in members_by_sect.items():
-            random.shuffle(members)
-            j = 0
-            while j + 1 < len(members):
-                if random.random() < MASTER_PAIR_PROB:  # 师徒：同宗门内指定概率，两两配对
-                    master, apprentice = members[j], members[j + 1]
-                    if (master, apprentice) not in planned_relations and (apprentice, master) not in planned_relations:
-                        planned_relations[(master, apprentice)] = Relation.MASTER
-                j += 2
+        avatar.weapon = get_common_weapon(weapon_type)
 
-    # — 朋友/仇人 —
-    all_indices = list(range(n))
-    random.shuffle(all_indices)
-    k = 0
-    while k + 1 < len(all_indices):  # 朋友/仇人互斥
-        a, b = all_indices[k], all_indices[k + 1]
-        if (a, b) in planned_relations or (b, a) in planned_relations:
+    @staticmethod
+    def assign_auxiliary(avatar: Avatar) -> None:
+        """
+        初始辅助装备逻辑（境界越高概率越高）：
+        - 练气：约 5% 宝物
+        - 筑基：≈ 2% 法宝 + 8% 宝物
+        - 金丹：≈ 5% 法宝 + 15% 宝物
+        - 元婴：≈ 10% 法宝 + 20% 宝物
+        同样优先宗门专属辅助装备。
+        """
+        from src.classes.auxiliary import auxiliaries_by_id, auxiliaries_by_sect_id
+
+        auxiliary = EquipmentAllocator._assign_generic(
+            avatar,
+            'auxiliary',
+            auxiliaries_by_id,
+            auxiliaries_by_sect_id,
+            None
+        )
+
+        if auxiliary is not None:
+            avatar.auxiliary = auxiliary
+
+    @staticmethod
+    def _find_by_grade(
+        avatar: Avatar,
+        grade,
+        equipment_pool_by_id: dict,
+        equipment_pool_by_sect_id: dict,
+        weapon_type_filter = None,
+    ):
+        if avatar.sect is not None and avatar.sect.id in equipment_pool_by_sect_id:
+            candidate = equipment_pool_by_sect_id[avatar.sect.id]
+            if candidate.grade == grade:
+                return candidate
+
+        candidates = [
+            e for e in equipment_pool_by_id.values()
+            if e.grade == grade
+            and (weapon_type_filter is None or getattr(e, "weapon_type", None) == weapon_type_filter)
+        ]
+        return random.choice(candidates) if candidates else None
+
+    @staticmethod
+    def _assign_generic(
+        avatar: Avatar,
+        equipment_type: str,
+        equipment_pool_by_id: dict,
+        equipment_pool_by_sect_id: dict,
+        weapon_type_filter = None,
+    ) -> Optional[object]:
+        from src.classes.equipment_grade import EquipmentGrade
+        import copy
+
+        artifact_prob, treasure_prob = _get_equipment_probabilities_by_realm(
+            avatar.cultivation_progress.realm,
+            equipment_type
+        )
+
+        roll = random.random()
+
+        if roll < artifact_prob:
+            equipment = EquipmentAllocator._find_by_grade(
+                avatar, EquipmentGrade.ARTIFACT,
+                equipment_pool_by_id, equipment_pool_by_sect_id,
+                weapon_type_filter
+            )
+            if equipment:
+                return copy.deepcopy(equipment)
+
+        if roll < artifact_prob + treasure_prob:
+            equipment = EquipmentAllocator._find_by_grade(
+                avatar, EquipmentGrade.TREASURE,
+                equipment_pool_by_id, equipment_pool_by_sect_id,
+                weapon_type_filter
+            )
+            if equipment:
+                return copy.deepcopy(equipment)
+
+        return None
+
+
+@dataclass
+class MortalPlan:
+    gender: Optional[Gender] = None
+    sect: Optional[Sect] = None
+    surname: Optional[str] = None
+    parent_avatar: Optional[Avatar] = None
+    master_avatar: Optional[Avatar] = None
+    level: int = 1
+    pos_x: int = 0
+    pos_y: int = 0
+
+
+@dataclass
+class PopulationPlan:
+    sects: List[Optional[Sect]]
+    genders: List[Optional[Gender]]
+    surnames: List[Optional[str]]
+    relations: Dict[Tuple[int, int], Relation]
+
+class MortalPlanner:
+    """
+    负责单个角色的前期规划（宗门、性别、关系、出生点等）。
+    """
+
+    @staticmethod
+    def plan(
+        world: World,
+        name: str,
+        age: Age,
+        *,
+        existed_sects: Optional[List[Sect]] = None,
+        existing_avatars: Optional[List[Avatar]] = None,
+        level: int = 1,
+        allow_relations: bool = True,
+    ) -> MortalPlan:
+        plan = MortalPlan(level=level)
+
+        plan.gender = random_gender()
+        plan.pos_x = random.randint(0, world.map.width - 1)
+        plan.pos_y = random.randint(0, world.map.height - 1)
+
+        if existing_avatars is None:
+            existing_avatars = list(world.avatar_manager.avatars.values())
+        if existed_sects is None:
+            try:
+                from src.classes.sect import sects_by_id as _sects_by_id
+                existed_sects = list(_sects_by_id.values())
+            except Exception:
+                existed_sects = []
+
+        if random.random() < NEW_MORTAL_SECT_PROB:
+            picked = PopulationPlanner._pick_sects_balanced(existed_sects or [], 1)
+            plan.sect = picked[0] if picked else None
+
+        if allow_relations and existing_avatars:
+            if random.random() < NEW_MORTAL_PARENT_PROB:
+                candidates: list[Avatar] = [
+                    av for av in existing_avatars if av.age.age >= age.age + PARENT_MIN_DIFF
+                ]
+                if candidates:
+                    parent = random.choice(candidates)
+                    plan.parent_avatar = parent
+                    if not name:
+                        if parent.gender is Gender.MALE:
+                            plan.surname = pick_surname_for_sect(plan.sect or parent.sect)
+                        else:
+                            mom_surname = pick_surname_for_sect(plan.sect or parent.sect)
+                            for _ in range(5):
+                                s = pick_surname_for_sect(plan.sect)
+                                if s != mom_surname:
+                                    plan.surname = s
+                                    break
+            if plan.sect is not None and random.random() < NEW_MORTAL_MASTER_PROB:
+                same_sect = [av for av in existing_avatars if av.sect is plan.sect]
+                if same_sect:
+                    stronger = [
+                        av
+                        for av in same_sect
+                        if av.cultivation_progress.level >= plan.level + MASTER_LEVEL_MIN_DIFF
+                    ]
+                    if stronger:
+                        plan.master_avatar = random.choice(stronger)
+
+        return plan
+
+
+class PopulationPlanner:
+    """
+    负责批量角色的宗门/关系规划。
+    """
+
+    @staticmethod
+    def plan_group(n: int, existed_sects: Optional[List[Sect]]) -> PopulationPlan:
+        n = int(max(0, n))
+        use_sects = bool(existed_sects)
+        planned_sect: list[Optional[Sect]] = [None] * n
+        if n == 0:
+            return PopulationPlan(planned_sect, [None] * 0, [None] * 0, {})
+
+        if use_sects and existed_sects:
+            sect_member_target = int(n * SECT_MEMBER_RATIO)
+            planned_sect[:sect_member_target] = PopulationPlanner._pick_sects_balanced(existed_sects, sect_member_target)
+            paired = list(zip(planned_sect, list(range(n))))
+            random.shuffle(paired)
+            planned_sect = [p[0] for p in paired]
+
+        planned_gender: list[Optional[Gender]] = [None] * n
+        planned_surname: list[Optional[str]] = [None] * n
+        planned_relations: dict[tuple[int, int], Relation] = {}
+
+        # — 家庭 —
+        unused_indices = list(range(n))
+        random.shuffle(unused_indices)
+
+        def _reserve_pair() -> tuple[int, int] | None:
+            if len(unused_indices) < 2:
+                return None
+            a = unused_indices.pop()
+            b = unused_indices.pop()
+            return (a, b)
+
+        family_pairs_budget = max(0, n // FAMILY_PAIR_CAP_DIV)
+        for _ in range(family_pairs_budget):
+            if random.random() < FAMILY_TRIGGER_PROB:
+                pair = _reserve_pair()
+                if pair is None:
+                    break
+                a, b = pair
+                if random.random() < FATHER_CHILD_PROB:
+                    surname = pick_surname_for_sect(planned_sect[a] or planned_sect[b])
+                    planned_surname[a] = surname
+                    planned_surname[b] = surname
+                    planned_gender[a] = Gender.MALE
+                    planned_relations[(a, b)] = Relation.PARENT
+                else:
+                    mother = a if random.random() < 0.5 else b
+                    child = b if mother == a else a
+                    planned_gender[mother] = Gender.FEMALE
+                    mom_surname = pick_surname_for_sect(planned_sect[mother])
+                    planned_surname[mother] = mom_surname
+                    for _ in range(5):
+                        s = pick_surname_for_sect(planned_sect[child])
+                        if s != mom_surname:
+                            planned_surname[child] = s
+                            break
+                    planned_relations[(mother, child)] = Relation.PARENT
+
+        leftover = unused_indices[:]
+
+        # — 道侣 —
+        random.shuffle(leftover)
+        lovers_budget = max(0, n // LOVERS_PAIR_CAP_DIV)
+        i = 0
+        while i + 1 < len(leftover) and lovers_budget > 0:
+            if random.random() < LOVERS_TRIGGER_PROB:
+                a = leftover[i]
+                b = leftover[i + 1]
+                if (a, b) not in planned_relations and (b, a) not in planned_relations:
+                    if planned_gender[a] is None and planned_gender[b] is None:
+                        planned_gender[a] = Gender.MALE if random.random() < 0.5 else Gender.FEMALE
+                        planned_gender[b] = Gender.FEMALE if planned_gender[a] is Gender.MALE else Gender.MALE
+                    elif planned_gender[a] is None:
+                        planned_gender[a] = Gender.MALE if planned_gender[b] is Gender.FEMALE else Gender.FEMALE
+                    elif planned_gender[b] is None:
+                        planned_gender[b] = Gender.MALE if planned_gender[a] is Gender.FEMALE else Gender.FEMALE
+                    if planned_gender[a] != planned_gender[b]:
+                        planned_relations[(a, b)] = Relation.LOVERS
+                lovers_budget -= 1
+            i += 2
+
+        # — 师徒（同宗门）—
+        if use_sects and existed_sects:
+            members_by_sect: dict[int, list[int]] = {s.id: [] for s in existed_sects}
+            for idx, sect in enumerate(planned_sect):
+                if sect is not None:
+                    members_by_sect.setdefault(sect.id, []).append(idx)
+            for members in members_by_sect.values():
+                random.shuffle(members)
+                j = 0
+                while j + 1 < len(members):
+                    if random.random() < MASTER_PAIR_PROB:
+                        master, apprentice = members[j], members[j + 1]
+                        if (master, apprentice) not in planned_relations and (apprentice, master) not in planned_relations:
+                            planned_relations[(master, apprentice)] = Relation.MASTER
+                    j += 2
+
+        # — 朋友/仇人 —
+        all_indices = list(range(n))
+        random.shuffle(all_indices)
+        k = 0
+        while k + 1 < len(all_indices):
+            a, b = all_indices[k], all_indices[k + 1]
+            if (a, b) in planned_relations or (b, a) in planned_relations:
+                k += 2
+                continue
+            r = random.random()
+            if r < FRIEND_PROB:
+                planned_relations[(a, b)] = Relation.FRIEND
+            elif r < FRIEND_PROB + ENEMY_PROB:
+                planned_relations[(a, b)] = Relation.ENEMY
             k += 2
-            continue
-        r = random.random()
-        if r < FRIEND_PROB:
-            planned_relations[(a, b)] = Relation.FRIEND
-        elif r < FRIEND_PROB + ENEMY_PROB:
-            planned_relations[(a, b)] = Relation.ENEMY
-        k += 2
 
-    # 性别兜底
-    for i in range(n):
-        if planned_gender[i] is None:
-            planned_gender[i] = random_gender()
+        for idx in range(n):
+            if planned_gender[idx] is None:
+                planned_gender[idx] = random_gender()
 
-    return planned_sect, planned_gender, planned_surname, planned_relations
+        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations)
+
+    @staticmethod
+    def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
+        if not existed_sects or k <= 0:
+            return []
+        counts: dict[int, int] = {s.id: 0 for s in existed_sects}
+        chosen: list[Optional[Sect]] = []
+        for _ in range(k):
+            min_count = min(counts.values()) if counts else 0
+            candidates = [s for s in existed_sects if counts.get(s.id, 0) == min_count]
+            s = random.choice(candidates)
+            counts[s.id] = counts.get(s.id, 0) + 1
+            chosen.append(s)
+        return chosen
 
 
-def build_avatars_from_plan(
-    world: World,
-    current_month_stamp: MonthStamp,
-    planned_sect: list[Optional[Sect]],
-    planned_gender: list[Optional[Gender]],
-    planned_surname: list[Optional[str]],
-    planned_relations: dict[tuple[int, int], Relation],
-) -> dict[str, Avatar]:
+class RelationApplier:
     """
-    根据规划生成实际 Avatar，并写入关系与宗门法宝/灵根映射。
+    负责将规划关系写入 Avatar 实例。
     """
-    n = len(planned_sect)
-    width, height = world.map.width, world.map.height
 
-    ages: list[int] = [random.randint(AGE_MIN, AGE_MAX) for _ in range(n)]
-    levels: list[int] = [random.randint(LEVEL_MIN, LEVEL_MAX) for _ in range(n)]
+    @staticmethod
+    def apply(avatars_by_index: List[Optional[Avatar]], relations: dict[tuple[int, int], Relation]) -> None:
+        for (a, b), relation in relations.items():
+            if a >= len(avatars_by_index) or b >= len(avatars_by_index):
+                continue
+            av_a = avatars_by_index[a]
+            av_b = avatars_by_index[b]
+            if av_a is None or av_b is None or av_a is av_b:
+                continue
+            av_a.set_relation(av_b, relation)
 
-    # 调整父子年龄差（父母比子女至少大PARENT_MIN_DIFF，最大PARENT_AGE_CAP）
-    for (a, b), rel in list(planned_relations.items()):
-        if rel is Relation.PARENT:
-            if ages[a] <= ages[b] + (PARENT_MIN_DIFF - 1):
-                ages[a] = min(PARENT_AGE_CAP, ages[b] + random.randint(PARENT_MIN_DIFF, PARENT_MAX_DIFF))
 
-    # 调整父母-子女等级差（通常父母更强）
-    for (a, b), rel in list(planned_relations.items()):
-        if rel is Relation.PARENT:
-            # 至少略高于子女
-            if levels[a] <= levels[b]:
-                levels[a] = min(LEVEL_MAX, levels[b] + 1)
-            # 满足最小差值要求
-            if levels[a] < levels[b] + PARENT_LEVEL_MIN_DIFF:
-                levels[a] = min(LEVEL_MAX, levels[b] + PARENT_LEVEL_MIN_DIFF + random.randint(0, PARENT_LEVEL_EXTRA_MAX))
+class SectRankAssigner:
+    """
+    负责宗门职位的分配，保证掌门唯一。
+    """
 
-    # 调整师徒级差（师傅≥徒弟 MASTER_LEVEL_MIN_DIFF）
-    for (a, b), rel in list(planned_relations.items()):
-        if rel is Relation.MASTER:
-            if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
-                levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
+    @staticmethod
+    def assign_one(avatar: Avatar, world: World) -> None:
+        if avatar.sect is None:
+            avatar.sect_rank = None
+            return
 
-    avatars_by_index: list[Avatar] = [None] * n  # type: ignore
-    avatars_by_id: dict[str, Avatar] = {}
+        from src.classes.sect_ranks import get_rank_from_realm, sect_has_patriarch, SectRank
 
-    for i in range(n):
-        gender = planned_gender[i] or random_gender()
-        sect = planned_sect[i]
+        rank = get_rank_from_realm(avatar.cultivation_progress.realm)
+        if rank == SectRank.Patriarch and sect_has_patriarch(avatar):
+            rank = SectRank.Elder
+        avatar.sect_rank = rank
 
-        if planned_surname[i]:
-            name = get_random_name_with_surname(gender, planned_surname[i] or "", sect)
+    @staticmethod
+    def assign_batch(avatars: List[Avatar], world: World) -> None:
+        from src.classes.sect_ranks import get_rank_from_realm, SectRank
+
+        for avatar in avatars:
+            if avatar is None:
+                continue
+            if avatar.sect is None:
+                avatar.sect_rank = None
+            else:
+                avatar.sect_rank = get_rank_from_realm(avatar.cultivation_progress.realm)
+
+        sect_nascent_souls: Dict[int, List[Avatar]] = {}
+        for avatar in avatars:
+            if avatar is None or avatar.sect is None:
+                continue
+            if avatar.sect_rank == SectRank.Patriarch:
+                sect_id = avatar.sect.id
+                if sect_id not in sect_nascent_souls:
+                    sect_nascent_souls[sect_id] = []
+                sect_nascent_souls[sect_id].append(avatar)
+
+        existing_patriarchs: Dict[int, bool] = {}
+        for other in world.avatar_manager.avatars.values():
+            if other.sect is not None and other.sect_rank == SectRank.Patriarch:
+                existing_patriarchs[other.sect.id] = True
+
+        for sect_id, candidates in sect_nascent_souls.items():
+            if existing_patriarchs.get(sect_id, False):
+                for avatar in candidates:
+                    avatar.sect_rank = SectRank.Elder
+            else:
+                candidates.sort(key=lambda av: av.cultivation_progress.level, reverse=True)
+                for avatar in candidates[1:]:
+                    avatar.sect_rank = SectRank.Elder
+
+
+class AvatarFactory:
+    """
+    根据规划产出 Avatar，对装备、宗门职位和关系进行统一处理。
+    """
+
+    @staticmethod
+    def build_from_plan(
+        world: World,
+        current_month_stamp: MonthStamp,
+        *,
+        name: str,
+        age: Age,
+        plan: MortalPlan,
+        attach_relations: bool = True,
+        overrides: Optional[Dict[str, object]] = None,
+    ) -> Avatar:
+        if name:
+            final_name = name
         else:
-            name = get_random_name_for_sect(gender, sect)
+            if plan.surname:
+                final_name = get_random_name_with_surname(plan.gender, plan.surname, plan.sect)
+            else:
+                final_name = get_random_name_for_sect(plan.gender, plan.sect)
 
-        level = levels[i]
-        cultivation_progress = CultivationProgress(level)
-        age_years = ages[i]
-        age = Age(age_years, cultivation_progress.realm)
-
-        x, y = random.randint(0, width - 1), random.randint(0, height - 1)
-        birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)
+        birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)
 
         avatar = Avatar(
             world=world,
-            name=name,
+            name=final_name,
             id=get_avatar_id(),
             birth_month_stamp=MonthStamp(birth_month_stamp),
             age=age,
-            gender=gender,
-            cultivation_progress=cultivation_progress,
-            pos_x=x,
-            pos_y=y,
-            root=random.choice(list(Root)),
-            sect=sect,
+            gender=plan.gender,
+            cultivation_progress=CultivationProgress(plan.level),
+            pos_x=plan.pos_x,
+            pos_y=plan.pos_y,
+            sect=plan.sect,
         )
 
-        avatar.tile = world.map.get_tile(x, y)
+        avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
 
-        if sect is not None:
-            avatar.alignment = sect.alignment
-            avatar.technique = get_technique_by_sect(sect)
+        SectRankAssigner.assign_one(avatar, world)
+        EquipmentAllocator.assign_weapon(avatar)
+        EquipmentAllocator.assign_auxiliary(avatar)
 
-        # 初始兵器分配（必须在 Avatar.__post_init__ 之前）
-        _assign_initial_weapon(avatar)
-        
-        # 初始辅助装备分配（基于境界分层概率）
-        _assign_initial_auxiliary(avatar)
+        if attach_relations:
+            if plan.parent_avatar is not None:
+                plan.parent_avatar.set_relation(avatar, Relation.PARENT)
+            if plan.master_avatar is not None:
+                plan.master_avatar.set_relation(avatar, Relation.MASTER)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
-            if mapped is not None:  # 功法属性→默认灵根映射（邪不映射）
+            if mapped is not None:
                 avatar.root = mapped
 
-        avatars_by_index[i] = avatar
-        avatars_by_id[avatar.id] = avatar
-    
-    # 批量分配宗门职位（需要在所有avatar创建后统一处理，以正确检查掌门唯一性）
-    _assign_sect_ranks_batch(avatars_by_index, world)
+        if overrides:
+            AvatarFactory._apply_overrides(avatar, overrides)
 
-    for (a, b), relation in planned_relations.items():
-        av_a = avatars_by_index[a]
-        av_b = avatars_by_index[b]
-        if av_a is None or av_b is None or av_a is av_b:
-            continue
-        av_a.set_relation(av_b, relation)
+        return avatar
 
-    return avatars_by_id
+    @staticmethod
+    def build_group(
+        world: World,
+        current_month_stamp: MonthStamp,
+        population_plan: PopulationPlan,
+    ) -> dict[str, Avatar]:
+        planned_sect = population_plan.sects
+        planned_gender = population_plan.genders
+        planned_surname = population_plan.surnames
+        planned_relations = population_plan.relations
+
+        n = len(planned_sect)
+        width, height = world.map.width, world.map.height
+
+        ages: list[int] = [random.randint(AGE_MIN, AGE_MAX) for _ in range(n)]
+        levels: list[int] = [random.randint(LEVEL_MIN, LEVEL_MAX) for _ in range(n)]
+
+        for (a, b), rel in list(planned_relations.items()):
+            if rel is Relation.PARENT:
+                if ages[a] <= ages[b] + (PARENT_MIN_DIFF - 1):
+                    ages[a] = min(PARENT_AGE_CAP, ages[b] + random.randint(PARENT_MIN_DIFF, PARENT_MAX_DIFF))
+
+        for (a, b), rel in list(planned_relations.items()):
+            if rel is Relation.PARENT:
+                if levels[a] <= levels[b]:
+                    levels[a] = min(LEVEL_MAX, levels[b] + 1)
+                if levels[a] < levels[b] + PARENT_LEVEL_MIN_DIFF:
+                    levels[a] = min(LEVEL_MAX, levels[b] + PARENT_LEVEL_MIN_DIFF + random.randint(0, PARENT_LEVEL_EXTRA_MAX))
+
+        for (a, b), rel in list(planned_relations.items()):
+            if rel is Relation.MASTER:
+                if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
+                    levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
+
+        avatars_by_index: list[Avatar] = [None] * n  # type: ignore
+        avatars_by_id: dict[str, Avatar] = {}
+
+        for i in range(n):
+            gender = planned_gender[i] or random_gender()
+            sect = planned_sect[i]
+
+            if planned_surname[i]:
+                name = get_random_name_with_surname(gender, planned_surname[i] or "", sect)
+            else:
+                name = get_random_name_for_sect(gender, sect)
+
+            level = levels[i]
+            cultivation_progress = CultivationProgress(level)
+            age_years = ages[i]
+            age = Age(age_years, cultivation_progress.realm)
+
+            x, y = random.randint(0, width - 1), random.randint(0, height - 1)
+            birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)
+
+            avatar = Avatar(
+                world=world,
+                name=name,
+                id=get_avatar_id(),
+                birth_month_stamp=MonthStamp(birth_month_stamp),
+                age=age,
+                gender=gender,
+                cultivation_progress=cultivation_progress,
+                pos_x=x,
+                pos_y=y,
+                root=random.choice(list(Root)),
+                sect=sect,
+            )
+
+            avatar.tile = world.map.get_tile(x, y)
+
+            if sect is not None:
+                avatar.alignment = sect.alignment
+                avatar.technique = get_technique_by_sect(sect)
+
+            EquipmentAllocator.assign_weapon(avatar)
+            EquipmentAllocator.assign_auxiliary(avatar)
+
+            if avatar.technique is not None:
+                mapped = attribute_to_root(avatar.technique.attribute)
+                if mapped is not None:
+                    avatar.root = mapped
+
+            avatars_by_index[i] = avatar
+            avatars_by_id[avatar.id] = avatar
+
+        SectRankAssigner.assign_batch(avatars_by_index, world)
+        RelationApplier.apply(avatars_by_index, planned_relations)
+
+        return avatars_by_id
+
+    @staticmethod
+    def _apply_overrides(avatar: Avatar, overrides: Dict[str, object]) -> None:
+        technique = overrides.get("technique")
+        if isinstance(technique, Technique):
+            avatar.technique = technique
+            mapped = attribute_to_root(technique.attribute)
+            if mapped is not None:
+                avatar.root = mapped
+
+        weapon = overrides.get("weapon")
+        if isinstance(weapon, Weapon):
+            avatar.weapon = weapon
+
+        auxiliary = overrides.get("auxiliary")
+        if isinstance(auxiliary, Auxiliary):
+            avatar.auxiliary = auxiliary
+
+        personas = overrides.get("personas")
+        if isinstance(personas, list) and personas:
+            avatar.personas = personas  # type: ignore[assignment]
+
+        appearance = overrides.get("appearance")
+        if isinstance(appearance, int):
+            avatar.appearance = get_appearance_by_level(appearance)
+
+
+def create_random_mortal(world: World, current_month_stamp: MonthStamp, name: str, age: Age, level: int = 1) -> Avatar:
+    """
+    创建一个完全随机的新修士，包含可能的亲属/师徒关系。
+    """
+    plan = MortalPlanner.plan(world, name=name, age=age, level=level, allow_relations=True)
+    return AvatarFactory.build_from_plan(world, current_month_stamp, name=name, age=age, plan=plan)
 
 
 def make_avatars(
@@ -661,7 +710,7 @@ def make_avatars(
         surname = str(getattr(defined, "surname", "") or "").strip()
         given_name = str(getattr(defined, "given_name", "") or "").strip()
         defined_name = f"{surname}{given_name}"
-        da = get_new_avatar_with_config(
+        da = create_avatar_from_request(
             world,
             current_month_stamp,
             name=defined_name,
@@ -682,8 +731,8 @@ def make_avatars(
     # 剩余随机编排
     rest = max(0, n - used)
     if rest > 0:
-        planned_sect, planned_gender, planned_surname, planned_relations = plan_sects_and_relations(rest, existed_sects)
-        random_avatars = build_avatars_from_plan(world, current_month_stamp, planned_sect, planned_gender, planned_surname, planned_relations)
+        population_plan = PopulationPlanner.plan_group(rest, existed_sects)
+        random_avatars = AvatarFactory.build_group(world, current_month_stamp, population_plan)
         avatars.update(random_avatars)
 
     return avatars
@@ -826,7 +875,7 @@ def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona
     return unique if unique else None
 
 
-def get_new_avatar_with_config(
+def create_avatar_from_request(
     world: World,
     current_month_stamp: MonthStamp,
     *,
@@ -843,21 +892,7 @@ def get_new_avatar_with_config(
     appearance: Optional[int] = None,
 ) -> Avatar:
     """
-    创建一个可配置的新角色：
-    - 若未提供参数，则复用 get_new_avatar_from_mortal 的随机策略（通过 plan_mortal 实现）。
-    - 支持字符串参数：gender 仅支持 "男/女"；sect/technique/weapon/auxiliary/persona 可用名称或数字ID。
-
-    参数：
-    - name: 角色名；为空则根据宗门与姓氏自动生成
-    - age: 年龄（int）或 Age；未提供时随机
-    - gender: 性别（Gender 或 字符串）
-    - sect: 宗门（Sect 或 名称/ID）
-    - level: 等级（0~120）；未提供时随机
-    - pos: 初始坐标 (x, y)；未提供时随机
-    - technique: 指定功法
-    - weapon: 指定兵器
-    - auxiliary: 指定辅助装备
-    - personas: 指定个性（单个或列表）
+    供前端使用的角色创建入口：支持字符串/ID 参数，且默认不生成亲友关系。
     """
     # 年龄（先取整数年龄，规划阶段只用到 age.age，不依赖 realm）
     if isinstance(age, Age):
@@ -867,9 +902,8 @@ def get_new_avatar_with_config(
     else:
         age_years = random.randint(AGE_MIN, AGE_MAX)
 
-    # 先做一次规划，之后用传入参数覆盖
     tmp_age_for_plan = Age(age_years, CultivationProgress(LEVEL_MIN).realm)
-    plan = plan_mortal(world, name=name or "", age=tmp_age_for_plan)
+    plan = MortalPlanner.plan(world, name=name or "", age=tmp_age_for_plan, allow_relations=False)
 
     # 覆盖：性别
     g = _parse_gender(gender)
@@ -898,110 +932,30 @@ def get_new_avatar_with_config(
     final_age = Age(age_years, final_realm)
 
     # 生成
-    avatar = build_mortal_from_plan(world, current_month_stamp, name=name or "", age=final_age, plan=plan)
-
-    # 覆盖：功法/兵器/辅助装备/个性
+    overrides: Dict[str, object] = {}
     tech_obj = _parse_technique(technique)
     if tech_obj is not None:
-        avatar.technique = tech_obj
-        mapped = attribute_to_root(tech_obj.attribute)
-        if mapped is not None:
-            avatar.root = mapped
-
+        overrides["technique"] = tech_obj
     weapon_obj = _parse_weapon(weapon)
     if weapon_obj is not None:
-        avatar.weapon = weapon_obj
-
+        overrides["weapon"] = weapon_obj
     auxiliary_obj = _parse_auxiliary(auxiliary)
     if auxiliary_obj is not None:
-        avatar.auxiliary = auxiliary_obj
-
+        overrides["auxiliary"] = auxiliary_obj
     pers_list = _parse_personas(personas)
-    if pers_list is not None and len(pers_list) > 0:
-        avatar.personas = pers_list
-
-    # 覆盖：外貌/颜值
+    if pers_list:
+        overrides["personas"] = pers_list
     if isinstance(appearance, int):
-        avatar.appearance = get_appearance_by_level(appearance)
-
+        overrides["appearance"] = appearance
+    
+    avatar = AvatarFactory.build_from_plan(
+        world,
+        current_month_stamp,
+        name=name or "",
+        age=final_age,
+        plan=plan,
+        attach_relations=False,
+        overrides=overrides if overrides else None,
+    )
+    
     return avatar
-
-
-def _assign_sect_rank(avatar: Avatar, world: World) -> None:
-    """
-    为单个avatar分配宗门职位（根据境界）
-    处理掌门唯一性：如果该宗门已有掌门，元婴修士只能当长老
-    
-    Args:
-        avatar: 要分配职位的角色
-        world: 世界对象
-    """
-    # 散修无职位
-    if avatar.sect is None:
-        avatar.sect_rank = None
-        return
-    
-    from src.classes.sect_ranks import get_rank_from_realm, sect_has_patriarch, SectRank
-    
-    # 根据境界获取对应职位
-    rank = get_rank_from_realm(avatar.cultivation_progress.realm)
-    
-    # 如果是掌门，检查该宗门是否已有掌门
-    if rank == SectRank.Patriarch:
-        if sect_has_patriarch(avatar):
-            # 已有掌门，降为长老
-            rank = SectRank.Elder
-    
-    avatar.sect_rank = rank
-
-
-def _assign_sect_ranks_batch(avatars: List[Avatar], world: World) -> None:
-    """
-    批量为avatars分配宗门职位
-    确保每个宗门只有一个掌门（按境界等级优先，同境界随机）
-    
-    Args:
-        avatars: 要分配职位的角色列表
-        world: 世界对象
-    """
-    from src.classes.sect_ranks import get_rank_from_realm, SectRank
-    
-    # 先为所有人分配基础职位
-    for avatar in avatars:
-        if avatar is None:
-            continue
-        if avatar.sect is None:
-            avatar.sect_rank = None
-        else:
-            avatar.sect_rank = get_rank_from_realm(avatar.cultivation_progress.realm)
-    
-    # 收集每个宗门的元婴修士（应为掌门的候选人）
-    sect_nascent_souls: Dict[int, List[Avatar]] = {}
-    for avatar in avatars:
-        if avatar is None or avatar.sect is None:
-            continue
-        if avatar.sect_rank == SectRank.Patriarch:
-            sect_id = avatar.sect.id
-            if sect_id not in sect_nascent_souls:
-                sect_nascent_souls[sect_id] = []
-            sect_nascent_souls[sect_id].append(avatar)
-    
-    # 检查world中已存在的掌门
-    existing_patriarchs: Dict[int, bool] = {}
-    for other in world.avatar_manager.avatars.values():
-        if other.sect is not None and other.sect_rank == SectRank.Patriarch:
-            existing_patriarchs[other.sect.id] = True
-    
-    # 为每个宗门选择唯一掌门
-    for sect_id, candidates in sect_nascent_souls.items():
-        # 如果world中已有掌门，所有候选人都降为长老
-        if existing_patriarchs.get(sect_id, False):
-            for avatar in candidates:
-                avatar.sect_rank = SectRank.Elder
-        else:
-            # 选择等级最高的作为掌门，其余降为长老
-            candidates.sort(key=lambda av: av.cultivation_progress.level, reverse=True)
-            # 第一个保持掌门
-            for avatar in candidates[1:]:
-                avatar.sect_rank = SectRank.Elder
-

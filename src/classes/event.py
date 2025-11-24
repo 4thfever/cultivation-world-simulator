@@ -50,13 +50,20 @@ class Event:
 
 class NullEvent:
     """
-    空事件单例类
+    空事件单例类，保持与 Event 相同的最小接口，避免调用方访问属性时报错。
     """
     _instance = None
     
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
+            # 初始化一次即可
+            cls._instance.month_stamp = MonthStamp(0)
+            cls._instance.content = ""
+            cls._instance.related_avatars = None
+            cls._instance.is_major = False
+            cls._instance.is_story = False
+            cls._instance.id = "NULL_EVENT"
         return cls._instance
     
     def __str__(self) -> str:
@@ -65,6 +72,17 @@ class NullEvent:
     def __bool__(self) -> bool:
         """使NullEvent实例在布尔上下文中为False"""
         return False
+    
+    def to_dict(self) -> dict:
+        """保持序列化接口"""
+        return {
+            "month_stamp": int(self.month_stamp),
+            "content": self.content,
+            "related_avatars": self.related_avatars,
+            "is_major": self.is_major,
+            "is_story": self.is_story,
+            "id": self.id,
+        }
 
 # 全局单例实例
 NULL_EVENT = NullEvent()

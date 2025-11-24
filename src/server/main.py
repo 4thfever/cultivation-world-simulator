@@ -18,7 +18,7 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
-from src.sim.new_avatar import make_avatars as _new_make, get_new_avatar_with_config
+from src.sim.new_avatar import make_avatars as _new_make, create_avatar_from_request
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
 from src.classes.technique import techniques_by_id
@@ -804,7 +804,7 @@ def create_avatar(req: CreateAvatarRequest):
             
         personas = None
         if req.persona_ids:
-            personas = req.persona_ids # get_new_avatar_with_config 支持 int 列表
+            personas = req.persona_ids # create_avatar_from_request 支持 int 列表
 
         have_name = False
         final_name = None
@@ -826,9 +826,9 @@ def create_avatar(req: CreateAvatarRequest):
         # 创建角色
         # 注意：level 如果是境界枚举值对应的等级范围，前端可能传的是 realm index，后端需要转换吗？
         # 简单起见，我们假设 level 传的是具体等级 (1-120) 或者 realm index * 30 + 1
-        # get_new_avatar_with_config 接收 level (int)
+        # create_avatar_from_request 接收 level (int)
         
-        avatar = get_new_avatar_with_config(
+        avatar = create_avatar_from_request(
             world,
             world.month_stamp,
             name=final_name,
