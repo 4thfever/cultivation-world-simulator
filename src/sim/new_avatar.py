@@ -263,13 +263,6 @@ class MortalPlan:
         self.pos_x: int = 0
         self.pos_y: int = 0
 
-
-def _pick_any_sect(existed_sects: Optional[List[Sect]]) -> Optional[Sect]:
-    if not existed_sects:
-        return None
-    return random.choice(existed_sects)
-
-
 def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
     """
     从宗门列表中“均衡”挑选 k 个位置的宗门引用：

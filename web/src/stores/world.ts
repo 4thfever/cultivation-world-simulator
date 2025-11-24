@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
 import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
-import type { TickPayloadDTO } from '../types/api';
+import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
 import { gameApi } from '../api/game';
 
 export const useWorldStore = defineStore('world', () => {
@@ -150,6 +150,19 @@ export const useWorldStore = defineStore('world', () => {
     }
   }
 
+  function applyStateSnapshot(stateRes: InitialStateDTO) {
+    setTime(stateRes.year, stateRes.month);
+    const avatarMap = new Map();
+    if (stateRes.avatars) {
+      stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
+    }
+    avatars.value = avatarMap;
+    events.value = [];
+    if (stateRes.events) addEvents(stateRes.events);
+    currentPhenomenon.value = stateRes.phenomenon || null;
+    isLoaded.value = true;
+  }
+
   async function initialize() {
     try {
       const [stateRes, mapRes] = await Promise.all([
@@ -157,31 +170,23 @@ export const useWorldStore = defineStore('world', () => {
         gameApi.fetchMap()
       ]);
 
-      // 1. Set Map
       mapData.value = mapRes.data;
       const regionMap = new Map();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
 
-      // 2. Set State
-      setTime(stateRes.year, stateRes.month);
-      
-      const avatarMap = new Map();
-      if (stateRes.avatars) {
-        stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
-      }
-      avatars.value = avatarMap;
-
-      // 3. Set Events (Initial state might have history?)
-      events.value = [];
-      if (stateRes.events) addEvents(stateRes.events);
-      
-      // 4. Set Phenomenon
-      currentPhenomenon.value = stateRes.phenomenon || null;
-
-      isLoaded.value = true;
+      applyStateSnapshot(stateRes);
     } catch (e) {
       console.error('Failed to initialize world', e);
+    }
+  }
+
+  async function fetchState() {
+    try {
+      const stateRes = await gameApi.fetchInitialState();
+      applyStateSnapshot(stateRes);
+    } catch (e) {
+      console.error('Failed to fetch state snapshot', e);
     }
   }
 
@@ -206,6 +211,7 @@ export const useWorldStore = defineStore('world', () => {
     currentPhenomenon,
     
     initialize,
+    fetchState,
     handleTick,
     reset
   };

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { gameApi } from '../api/game'
+import { ref, onMounted, computed, watch } from 'vue'
+import { gameApi, type GameDataDTO, type SimpleAvatarDTO, type CreateAvatarParams } from '../api/game'
 import { useWorldStore } from '../stores/world'
 import { useUiStore } from '../stores/ui'
-import { useMessage } from 'naive-ui'
+import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
 import type { SaveFileDTO } from '../types/api'
 
 const props = defineProps<{
@@ -18,9 +18,103 @@ const worldStore = useWorldStore()
 const uiStore = useUiStore()
 const message = useMessage()
 
-const activeTab = ref<'save' | 'load'>('load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete'>('load')
 const saves = ref<SaveFileDTO[]>([])
 const loading = ref(false)
+
+// --- Create Avatar State ---
+const gameData = ref<GameDataDTO | null>(null)
+const avatarMeta = ref<{ males: number[]; females: number[] } | null>(null)
+const createForm = ref<CreateAvatarParams>({
+  surname: '',
+  given_name: '',
+  gender: '男',
+  age: 16,
+  level: undefined,
+  sect_id: undefined,
+  persona_ids: [],
+  pic_id: undefined,
+  technique_id: undefined,
+  weapon_id: undefined,
+  auxiliary_id: undefined,
+  alignment: undefined,
+  appearance: 7
+})
+
+// --- Delete Avatar State ---
+const avatarList = ref<SimpleAvatarDTO[]>([])
+const avatarSearch = ref('')
+
+const filteredAvatars = computed(() => {
+  if (!avatarSearch.value) return avatarList.value
+  return avatarList.value.filter(a => a.name.includes(avatarSearch.value))
+})
+
+const availableAvatars = computed(() => {
+  if (!avatarMeta.value) return []
+  const key = createForm.value.gender === '女' ? 'females' : 'males'
+  return avatarMeta.value[key] || []
+})
+
+const currentAvatarUrl = computed(() => {
+  if (!createForm.value.pic_id) return ''
+  const dir = createForm.value.gender === '女' ? 'females' : 'males'
+  return `/assets/${dir}/${createForm.value.pic_id}.png`
+})
+
+// --- Options ---
+
+const sectOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.sects.map(s => ({ label: s.name, value: s.id }))
+})
+
+const personaOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.personas.map(p => ({ label: p.name + ` (${p.desc})`, value: p.id }))
+})
+
+const realmOptions = computed(() => {
+    if (!gameData.value) return []
+    return gameData.value.realms.map((r, idx) => ({
+        label: r,
+        value: idx * 30 + 1
+    }))
+})
+
+const techniqueOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.techniques.map(t => ({
+    label: `${t.name}（${t.attribute}·${t.grade}）`,
+    value: t.id
+  }))
+})
+
+const weaponOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.weapons.map(w => ({
+    label: `${w.name}（${w.type}·${w.grade}）`,
+    value: w.id
+  }))
+})
+
+const auxiliaryOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.auxiliaries.map(a => ({
+    label: `${a.name}（${a.grade}）`,
+    value: a.id
+  }))
+})
+
+const alignmentOptions = computed(() => {
+  if (!gameData.value) return []
+  return gameData.value.alignments.map(a => ({
+    label: a.label,
+    value: a.value
+  }))
+})
+
+// --- Actions ---
 
 async function fetchSaves() {
   loading.value = true
@@ -34,12 +128,40 @@ async function fetchSaves() {
   }
 }
 
+async function fetchGameData() {
+  loading.value = true
+  try {
+    if (!gameData.value) {
+      gameData.value = await gameApi.fetchGameData()
+    }
+    if (!avatarMeta.value) {
+      avatarMeta.value = await gameApi.fetchAvatarMeta()
+    }
+  } catch (e) {
+    message.error('获取游戏数据失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+async function fetchAvatarList() {
+  loading.value = true
+  try {
+    const res = await gameApi.fetchAvatarList()
+    avatarList.value = res.avatars
+  } catch (e) {
+    message.error('获取角色列表失败')
+  } finally {
+    loading.value = false
+  }
+}
+
 async function handleSave() {
   loading.value = true
   try {
     const res = await gameApi.saveGame()
     message.success(`存档成功: ${res.filename}`)
-    await fetchSaves() // 刷新列表
+    await fetchSaves()
   } catch (e) {
     message.error('存档失败')
   } finally {
@@ -52,17 +174,11 @@ async function handleLoad(filename: string) {
 
   loading.value = true
   try {
-    // 1. Call API
     await gameApi.loadGame(filename)
-    
-    // 2. Reset UI & World
     worldStore.reset()
     uiStore.clearSelection()
     uiStore.clearHoverCache()
-    
-    // 3. Re-initialize
     await worldStore.initialize()
-    
     message.success('读档成功')
     emit('close')
   } catch (e) {
@@ -72,11 +188,92 @@ async function handleLoad(filename: string) {
   }
 }
 
+async function handleCreateAvatar() {
+  if (!createForm.value.level && realmOptions.value.length > 0) {
+    createForm.value.level = realmOptions.value[0].value as number
+  }
+
+  loading.value = true
+  try {
+    await gameApi.createAvatar(createForm.value)
+    message.success('角色创建成功')
+    await Promise.all([
+      fetchAvatarList(),
+      worldStore.fetchState ? worldStore.fetchState() : Promise.resolve()
+    ])
+    createForm.value = {
+      surname: '',
+      given_name: '',
+      gender: '男',
+      age: 16,
+      level: realmOptions.value[0]?.value,
+      sect_id: undefined,
+      persona_ids: [],
+      pic_id: undefined,
+      technique_id: undefined,
+      weapon_id: undefined,
+      auxiliary_id: undefined,
+      alignment: undefined,
+      appearance: 7
+    }
+  } catch (e) {
+    message.error('创建失败: ' + String(e))
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleDeleteAvatar(id: string, name: string) {
+  if (!confirm(`确定要删除角色 ${name} 吗？此操作不可恢复。`)) return
+  
+  loading.value = true
+  try {
+    await gameApi.deleteAvatar(id)
+    message.success('删除成功')
+    await Promise.all([
+      fetchAvatarList(),
+      worldStore.fetchState ? worldStore.fetchState() : Promise.resolve()
+    ])
+  } catch (e) {
+    message.error('删除失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+function switchTab(tab: typeof activeTab.value) {
+  activeTab.value = tab
+  if (tab === 'save' || tab === 'load') {
+    fetchSaves()
+  } else if (tab === 'create') {
+    fetchGameData()
+  } else if (tab === 'delete') {
+    fetchAvatarList()
+  }
+}
+
+watch(() => createForm.value.gender, () => {
+  createForm.value.pic_id = undefined
+})
+
+watch(() => props.visible, (val) => {
+  if (val) {
+    switchTab(activeTab.value)
+  }
+})
+
+watch(() => realmOptions.value, (options) => {
+  if (!createForm.value.level && options.length > 0) {
+    createForm.value.level = options[0].value as number
+  }
+}, { immediate: true })
+
 onMounted(() => {
   if (props.visible) {
     fetchSaves()
   }
 })
+
 </script>
 
 <template>
@@ -89,22 +286,35 @@ onMounted(() => {
       
       <div class="menu-tabs">
         <button 
+          :class="{ active: activeTab === 'load' }"
+          @click="switchTab('load')"
+        >
+          加载游戏
+        </button>
+        <button 
           :class="{ active: activeTab === 'save' }"
-          @click="activeTab = 'save'; fetchSaves()"
+          @click="switchTab('save')"
         >
           保存游戏
         </button>
         <button 
-          :class="{ active: activeTab === 'load' }"
-          @click="activeTab = 'load'; fetchSaves()"
+          :class="{ active: activeTab === 'create' }"
+          @click="switchTab('create')"
         >
-          加载游戏
+          新建角色
+        </button>
+        <button 
+          :class="{ active: activeTab === 'delete' }"
+          @click="switchTab('delete')"
+        >
+          删除角色
         </button>
       </div>
 
       <div class="menu-content">
         <div v-if="loading" class="loading">处理中...</div>
         
+        <!-- Save Panel -->
         <div v-else-if="activeTab === 'save'" class="save-panel">
           <div class="new-save-card" @click="handleSave">
             <div class="icon">+</div>
@@ -113,7 +323,8 @@ onMounted(() => {
           </div>
         </div>
 
-        <div v-else class="load-panel">
+        <!-- Load Panel -->
+        <div v-else-if="activeTab === 'load'" class="load-panel">
           <div v-if="saves.length === 0" class="empty">暂无存档</div>
           <div 
             v-for="save in saves" 
@@ -129,6 +340,110 @@ onMounted(() => {
             <div class="load-btn">加载</div>
           </div>
         </div>
+
+        <!-- Create Avatar Panel -->
+        <div v-else-if="activeTab === 'create'" class="create-panel">
+          <div class="create-layout">
+            <div class="form-column">
+              <n-form label-placement="left" label-width="80">
+                <n-form-item label="姓名">
+                  <div class="name-inputs">
+                    <n-input v-model:value="createForm.surname" placeholder="姓" style="width: 80px" />
+                    <n-input v-model:value="createForm.given_name" placeholder="名" style="flex: 1" />
+                  </div>
+                </n-form-item>
+                <n-form-item label="性别">
+                  <n-radio-group v-model:value="createForm.gender">
+                    <n-radio-button value="男" label="男" />
+                    <n-radio-button value="女" label="女" />
+                  </n-radio-group>
+                </n-form-item>
+                <n-form-item label="年龄">
+                  <n-slider v-model:value="createForm.age" :min="16" :max="100" :step="1" />
+                  <span style="margin-left: 10px; width: 50px">{{ createForm.age }}岁</span>
+                </n-form-item>
+                <n-form-item label="初始境界">
+                    <n-select v-model:value="createForm.level" :options="realmOptions" placeholder="选择初始境界" />
+                </n-form-item>
+                <n-form-item label="所属宗门">
+                  <n-select v-model:value="createForm.sect_id" :options="sectOptions" placeholder="选择宗门 (留空为散修)" clearable />
+                </n-form-item>
+                <n-form-item label="初始个性">
+                  <n-select v-model:value="createForm.persona_ids" multiple :options="personaOptions" placeholder="选择个性" clearable max-tag-count="responsive" />
+                </n-form-item>
+                <n-form-item label="阵营">
+                  <n-select v-model:value="createForm.alignment" :options="alignmentOptions" placeholder="选择正/中/邪 (可留空)" clearable />
+                </n-form-item>
+                <n-form-item label="颜值">
+                  <div class="appearance-slider">
+                    <n-slider 
+                      v-model:value="createForm.appearance" 
+                      :min="1" 
+                      :max="10" 
+                      :step="1"
+                      style="flex: 1; min-width: 0;"
+                    />
+                    <span>{{ createForm.appearance || 1 }}</span>
+                  </div>
+                </n-form-item>
+                <n-form-item label="功法">
+                  <n-select v-model:value="createForm.technique_id" :options="techniqueOptions" placeholder="选择功法 (可留空)" clearable />
+                </n-form-item>
+                <n-form-item label="兵器">
+                  <n-select v-model:value="createForm.weapon_id" :options="weaponOptions" placeholder="选择兵器 (可留空)" clearable />
+                </n-form-item>
+                <n-form-item label="辅助装备">
+                  <n-select v-model:value="createForm.auxiliary_id" :options="auxiliaryOptions" placeholder="选择辅助装备 (可留空)" clearable />
+                </n-form-item>
+                <div class="actions">
+                  <n-button type="primary" @click="handleCreateAvatar" block>创建角色</n-button>
+                </div>
+              </n-form>
+            </div>
+            <div class="avatar-column">
+              <div class="avatar-preview">
+                <img v-if="currentAvatarUrl" :src="currentAvatarUrl" alt="Avatar Preview" />
+                <div v-else class="no-avatar">请选择头像</div>
+              </div>
+              <div class="avatar-grid">
+                <div 
+                  v-for="id in availableAvatars" 
+                  :key="id"
+                  class="avatar-option"
+                  :class="{ selected: createForm.pic_id === id }"
+                  @click="createForm.pic_id = id"
+                >
+                  <img :src="`/assets/${createForm.gender === '女' ? 'females' : 'males'}/${id}.png`" loading="lazy" />
+                </div>
+                <div v-if="availableAvatars.length === 0" class="no-avatars">暂无可用头像</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delete Avatar Panel -->
+        <div v-else-if="activeTab === 'delete'" class="delete-panel">
+          <div class="search-bar">
+            <n-input v-model:value="avatarSearch" placeholder="搜索角色名..." />
+          </div>
+          <div class="avatar-list">
+            <div v-if="filteredAvatars.length === 0" class="empty">未找到角色</div>
+            <div 
+              v-for="avatar in filteredAvatars" 
+              :key="avatar.id"
+              class="avatar-item"
+            >
+               <div class="avatar-info">
+                 <div class="name">{{ avatar.name }}</div>
+                 <div class="details">
+                    {{ avatar.gender }} | {{ avatar.age }}岁 | {{ avatar.realm }} | {{ avatar.sect_name }}
+                 </div>
+               </div>
+               <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">删除</n-button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -150,8 +465,8 @@ onMounted(() => {
 
 .system-menu {
   background: #1a1a1a;
-  width: 600px;
-  height: 500px;
+  width: 820px;
+  height: 620px;
   border: 1px solid #333;
   border-radius: 8px;
   display: flex;
@@ -212,9 +527,14 @@ onMounted(() => {
   overflow-y: auto;
 }
 
-.save-panel {
+.save-panel, .load-panel, .create-panel, .delete-panel {
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.save-panel {
+    align-items: center;
   padding-top: 40px;
 }
 
@@ -249,7 +569,7 @@ onMounted(() => {
   margin-top: 5px;
 }
 
-.save-item {
+.save-item, .avatar-item {
   background: #222;
   border: 1px solid #333;
   padding: 12px;
@@ -262,12 +582,12 @@ onMounted(() => {
   transition: background 0.2s;
 }
 
-.save-item:hover {
+.save-item:hover, .avatar-item:hover {
   background: #2a2a2a;
   border-color: #444;
 }
 
-.save-info .save-time {
+.save-info .save-time, .avatar-info .name {
   color: #fff;
   font-weight: bold;
   font-size: 14px;
@@ -283,6 +603,12 @@ onMounted(() => {
   color: #666;
   font-size: 12px;
   font-family: monospace;
+}
+
+.avatar-info .details {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 .load-btn {
@@ -303,5 +629,128 @@ onMounted(() => {
   text-align: center;
   color: #666;
   padding: 40px;
+}
+
+.create-panel .actions {
+    margin-top: 20px;
+}
+
+.search-bar {
+    margin-bottom: 15px;
+}
+
+.create-layout {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.form-column {
+  flex: 1;
+  min-width: 320px;
+}
+
+.avatar-column {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.avatar-preview {
+  width: 100%;
+  height: 220px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #222;
+  overflow: hidden;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.no-avatar {
+  color: #666;
+  font-size: 12px;
+}
+
+.avatar-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  grid-auto-rows: 80px;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  min-height: 220px;
+}
+
+.avatar-option {
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.avatar-option:hover {
+  border-color: #666;
+  transform: translateY(-2px);
+}
+
+.avatar-option.selected {
+  border-color: #4a9eff;
+}
+
+.avatar-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+}
+
+.no-avatars {
+  grid-column: span 4;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+.appearance-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.appearance-slider :deep(.n-slider) {
+  flex: 1;
+  min-width: 0;
+}
+
+.appearance-slider span {
+  width: 32px;
+  text-align: right;
+  color: #ddd;
 }
 </style>

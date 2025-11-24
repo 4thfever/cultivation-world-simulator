@@ -39,17 +39,3 @@ nickname:
 
 save:
   max_events_to_save: 1000
-
-# defined_avatar:
-#   surname: 丰川
-#   given_name: 祥子
-#   level: 31
-#   age: 18
-#   gender: 女
-#   sect: 百兽宗
-#   appearance: 10
-#   personas:
-#     - 穿越者
-#     - 随性
-#     - 外向
-#   treasure: 百兽驭兽符

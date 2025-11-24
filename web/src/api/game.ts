@@ -12,6 +12,43 @@ export interface HoverParams {
   id: string;
 }
 
+// --- New Types ---
+
+export interface GameDataDTO {
+  sects: Array<{ id: number; name: string; alignment: string }>;
+  personas: Array<{ id: number; name: string; desc: string; rarity: string }>;
+  realms: string[];
+  techniques: Array<{ id: number; name: string; grade: string; attribute: string; sect: string | null }>;
+  weapons: Array<{ id: number; name: string; grade: string; type: string; sect_id: number | null }>;
+  auxiliaries: Array<{ id: number; name: string; grade: string; sect_id: number | null }>;
+  alignments: Array<{ value: string; label: string }>;
+}
+
+export interface SimpleAvatarDTO {
+  id: string;
+  name: string;
+  sect_name: string;
+  realm: string;
+  gender: string;
+  age: number;
+}
+
+export interface CreateAvatarParams {
+  surname?: string;
+  given_name?: string;
+  gender?: string;
+  age?: number;
+  level?: number;
+  sect_id?: number;
+  persona_ids?: number[];
+  pic_id?: number;
+  technique_id?: number;
+  weapon_id?: number;
+  auxiliary_id?: number;
+  alignment?: string;
+  appearance?: number;
+}
+
 export const gameApi = {
   // --- World State ---
   
@@ -76,6 +113,23 @@ export const gameApi = {
 
   loadGame(filename: string) {
     return httpClient.post<{ status: string; message: string }>('/api/game/load', { filename });
+  },
+
+  // --- Avatar Management ---
+  
+  fetchGameData() {
+    return httpClient.get<GameDataDTO>('/api/meta/game_data');
+  },
+
+  fetchAvatarList() {
+    return httpClient.get<{ avatars: SimpleAvatarDTO[] }>('/api/meta/avatar_list');
+  },
+
+  createAvatar(params: CreateAvatarParams) {
+    return httpClient.post<{ status: string; message: string; avatar_id: string }>('/api/action/create_avatar', params);
+  },
+
+  deleteAvatar(avatarId: string) {
+    return httpClient.post<{ status: string; message: string }>('/api/action/delete_avatar', { avatar_id: avatarId });
   }
 };
-

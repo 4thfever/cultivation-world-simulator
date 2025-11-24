@@ -111,6 +111,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     spirit_animal: Optional[SpiritAnimal] = None
     # 绰号：江湖中对该角色的称谓，满足条件后生成，永久不变
     nickname: Optional[str] = None
+    # 自定义头像ID：如果设置，优先使用此ID显示头像
+    custom_pic_id: Optional[int] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 动作冷却：记录动作类名 -> 上次完成月戳

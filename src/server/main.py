@@ -18,9 +18,16 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
-from src.sim.new_avatar import make_avatars as _new_make
+from src.sim.new_avatar import make_avatars as _new_make, get_new_avatar_with_config
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
+from src.classes.technique import techniques_by_id
+from src.classes.weapon import weapons_by_id
+from src.classes.auxiliary import auxiliaries_by_id
+from src.classes.appearance import get_appearance_by_level
+from src.classes.persona import personas_by_id
+from src.classes.cultivation import REALM_ORDER
+from src.classes.alignment import Alignment
 from src.classes.color import serialize_hover_lines
 from src.classes.event import Event
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
@@ -75,6 +82,17 @@ def get_avatar_pic_id(avatar_id: str, gender_val: str) -> int:
     # Use abs() because hash can be negative
     idx = abs(hash(str(avatar_id))) % len(available)
     return available[idx]
+
+
+def resolve_avatar_pic_id(avatar) -> int:
+    """Return the actual avatar portrait ID, respecting custom overrides."""
+    if avatar is None:
+        return 1
+    custom_pic_id = getattr(avatar, "custom_pic_id", None)
+    if custom_pic_id is not None:
+        return custom_pic_id
+    gender_val = getattr(getattr(avatar, "gender", None), "value", "male")
+    return get_avatar_pic_id(str(getattr(avatar, "id", "")), gender_val or "male")
 
 # 触发配置重载的标记 (technique.csv updated)
 
@@ -258,7 +276,7 @@ async def game_loop():
                             "x": int(getattr(a, "pos_x", 0)),
                             "y": int(getattr(a, "pos_y", 0)),
                             "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
-                            "pic_id": get_avatar_pic_id(str(a.id), a.gender.value),
+                            "pic_id": resolve_avatar_pic_id(a),
                             "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
                         })
 
@@ -450,7 +468,7 @@ def get_state():
                     "y": ay,
                     "action": str(aaction),
                     "gender": str(a.gender.value),
-                    "pic_id": get_avatar_pic_id(aid, str(a.gender.value))
+                    "pic_id": resolve_avatar_pic_id(a)
                 })
         except Exception as e:
             return {"step": 3, "error": str(e)}
@@ -649,6 +667,232 @@ def clear_long_term_objective(req: ClearObjectiveRequest):
         "status": "ok", 
         "message": "Objective cleared" if cleared else "No user objective to clear"
     }
+
+# --- 角色管理 API ---
+
+class CreateAvatarRequest(BaseModel):
+    surname: Optional[str] = None
+    given_name: Optional[str] = None
+    gender: Optional[str] = None
+    age: Optional[int] = None
+    level: Optional[int] = None
+    sect_id: Optional[int] = None
+    persona_ids: Optional[List[int]] = None
+    pic_id: Optional[int] = None
+    technique_id: Optional[int] = None
+    weapon_id: Optional[int] = None
+    auxiliary_id: Optional[int] = None
+    alignment: Optional[str] = None
+    appearance: Optional[int] = None
+
+class DeleteAvatarRequest(BaseModel):
+    avatar_id: str
+
+@app.get("/api/meta/game_data")
+def get_game_data():
+    """获取游戏元数据（宗门、个性、境界等），供前端选择"""
+    # 1. 宗门列表
+    sects_list = []
+    for s in sects_by_id.values():
+        sects_list.append({
+            "id": s.id,
+            "name": s.name,
+            "alignment": s.alignment.value
+        })
+    
+    # 2. 个性列表
+    personas_list = []
+    for p in personas_by_id.values():
+        personas_list.append({
+            "id": p.id,
+            "name": p.name,
+            "desc": p.desc,
+            "rarity": p.rarity.level.name if hasattr(p.rarity, 'level') else "N"
+        })
+        
+    # 3. 境界列表
+    realms_list = [r.value for r in REALM_ORDER]
+
+    # 4. 功法 / 兵器 / 辅助装备
+    techniques_list = [
+        {
+            "id": t.id,
+            "name": t.name,
+            "grade": t.grade.value,
+            "attribute": t.attribute.value,
+            "sect": t.sect
+        }
+        for t in techniques_by_id.values()
+    ]
+
+    weapons_list = [
+        {
+            "id": w.id,
+            "name": w.name,
+            "type": w.weapon_type.value,
+            "grade": w.grade.value,
+            "sect_id": w.sect_id
+        }
+        for w in weapons_by_id.values()
+    ]
+
+    auxiliaries_list = [
+        {
+            "id": a.id,
+            "name": a.name,
+            "grade": a.grade.value,
+            "sect_id": a.sect_id
+        }
+        for a in auxiliaries_by_id.values()
+    ]
+    
+    alignments_list = [
+        {
+            "value": align.value,
+            "label": str(align)
+        }
+        for align in Alignment
+    ]
+
+    return {
+        "sects": sects_list,
+        "personas": personas_list,
+        "realms": realms_list,
+        "techniques": techniques_list,
+        "weapons": weapons_list,
+        "auxiliaries": auxiliaries_list,
+        "alignments": alignments_list
+    }
+
+@app.get("/api/meta/avatar_list")
+def get_avatar_list_simple():
+    """获取简略的角色列表，用于管理界面"""
+    world = game_instance.get("world")
+    if not world:
+        return {"avatars": []}
+    
+    result = []
+    for a in world.avatar_manager.avatars.values():
+        sect_name = a.sect.name if a.sect else "散修"
+        realm_str = a.cultivation_progress.realm.value if hasattr(a, 'cultivation_progress') else "未知"
+        
+        result.append({
+            "id": str(a.id),
+            "name": a.name,
+            "sect_name": sect_name,
+            "realm": realm_str,
+            "gender": a.gender.value,
+            "age": a.age.age
+        })
+    
+    # 按名字排序
+    result.sort(key=lambda x: x["name"])
+    return {"avatars": result}
+
+@app.post("/api/action/create_avatar")
+def create_avatar(req: CreateAvatarRequest):
+    """创建新角色"""
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+        
+    try:
+        # 准备参数
+        sect = None
+        if req.sect_id is not None:
+            sect = sects_by_id.get(req.sect_id)
+            
+        personas = None
+        if req.persona_ids:
+            personas = req.persona_ids # get_new_avatar_with_config 支持 int 列表
+
+        have_name = False
+        final_name = None
+        surname = (req.surname or "").strip()
+        given_name = (req.given_name or "").strip()
+        if surname or given_name:
+            if surname and given_name:
+                final_name = f"{surname}{given_name}"
+                have_name = True
+            elif surname:
+                final_name = f"{surname}某"
+                have_name = True
+            else:
+                final_name = given_name
+                have_name = True
+        if not have_name:
+            final_name = None
+
+        # 创建角色
+        # 注意：level 如果是境界枚举值对应的等级范围，前端可能传的是 realm index，后端需要转换吗？
+        # 简单起见，我们假设 level 传的是具体等级 (1-120) 或者 realm index * 30 + 1
+        # get_new_avatar_with_config 接收 level (int)
+        
+        avatar = get_new_avatar_with_config(
+            world,
+            world.month_stamp,
+            name=final_name,
+            gender=req.gender, # "男"/"女"
+            age=req.age,
+            level=req.level,
+            sect=sect,
+            personas=personas,
+            technique=req.technique_id,
+            weapon=req.weapon_id,
+            auxiliary=req.auxiliary_id,
+            appearance=req.appearance
+        )
+
+        if req.pic_id is not None:
+            gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
+            available_ids = set(AVATAR_ASSETS.get(gender_key, []))
+            if available_ids and req.pic_id not in available_ids:
+                raise HTTPException(status_code=400, detail="Invalid pic_id for selected gender")
+            avatar.custom_pic_id = req.pic_id
+
+        if req.alignment:
+            avatar.alignment = Alignment.from_str(req.alignment)
+
+        if req.appearance is not None:
+            avatar.appearance = get_appearance_by_level(req.appearance)
+
+        # 清空系统自动生成的关系，保持用户自定义角色独立
+        existing_relations = list(getattr(avatar, "relations", {}).keys())
+        for other in existing_relations:
+            avatar.clear_relation(other)
+
+        if req.alignment:
+            avatar.alignment = Alignment.from_str(req.alignment)
+
+        # 注册到管理器
+        world.avatar_manager.avatars[avatar.id] = avatar
+        
+        return {
+            "status": "ok", 
+            "message": f"Created avatar {avatar.name}",
+            "avatar_id": str(avatar.id)
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/action/delete_avatar")
+def delete_avatar(req: DeleteAvatarRequest):
+    """删除角色"""
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+    
+    if req.avatar_id not in world.avatar_manager.avatars:
+        raise HTTPException(status_code=404, detail="Avatar not found")
+        
+    try:
+        world.avatar_manager.remove_avatar(req.avatar_id)
+        return {"status": "ok", "message": "Avatar deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 # --- 存档系统 API ---
 

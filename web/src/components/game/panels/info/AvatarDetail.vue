@@ -94,6 +94,7 @@ async function handleClearObjective() {
           :on-click="() => showDetail(data.root_detail)"
         />
         <StatItem label="灵石" :value="data.magic_stone" />
+        <StatItem label="颜值" :value="data.appearance" />
       </div>
 
       <!-- Thinking -->
