@@ -31,7 +31,7 @@ I aim to create a pure, joyful, direct, living sense of immersion. Not a mere ma
 
 If you like this project, consider starring it~ You can also watch intro videos for this project on my [Bilibili account](https://space.bilibili.com/527346837).
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](assets/screenshot.gif)
 
 ## Development Progress
 
@@ -153,6 +153,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - [ ] Flexible world rules
 - [ ] Divination & Omens
 - [ ] Male-female traits inversion
+- [ ] Secret
 
 ### 🔭 Long-term
 - [ ] ECS parallel toolkit
