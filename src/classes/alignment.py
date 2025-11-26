@@ -61,5 +61,5 @@ alignment_strs = {
 alignment_infos = {
     Alignment.RIGHTEOUS: "正义阵营的理念是：扶助弱小，维护秩序，除魔卫道。",
     Alignment.NEUTRAL: "中立阵营的理念是：顺势而为，趋利避害，重视自度与平衡，不轻易站队。",
-    Alignment.EVIL: "邪恶阵营的理念是：弱肉强食，以自身利益为先，蔑视规则，推崇权力与恐惧。",
+    Alignment.EVIL: "邪恶阵营的理念是：弱肉强食，以自身利益为先，蔑视规则，推崇权力与恐惧。行事狠辣，常有杀人夺宝之举。",
 }

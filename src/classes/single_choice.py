@@ -1,11 +1,13 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, TYPE_CHECKING
 from src.utils.llm import call_llm_with_template
-from src.classes.avatar import Avatar
 from src.utils.config import CONFIG
 import json
 
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
+
 async def make_decision(
-    avatar: Avatar, 
+    avatar: "Avatar", 
     context_desc: str, 
     options: List[Dict[str, Any]]
 ) -> str:
@@ -57,11 +59,21 @@ async def make_decision(
             except (json.JSONDecodeError, ValueError):
                 # 如果 JSON 解析失败，直接看字符串内容是否就是选项 key
                 choice = clean_result
+            # 有时候 llm 会输出 "choice: A"，这里做个兼容
         else:
             choice = clean_result
 
     # 验证 choice 是否在 options key 中
     valid_keys = {opt["key"] for opt in options}
-    assert choice in valid_keys, f"choice {choice} not in valid_keys {valid_keys}"
+    # 简单的容错：如果返回的是 "A." 或者 "A "
+    if choice not in valid_keys:
+        for k in valid_keys:
+            if k in choice:
+                choice = k
+                break
+    
+    if choice not in valid_keys:
+         # 兜底：默认选第一个
+         choice = options[0]["key"]
+
     return choice
-        
