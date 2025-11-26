@@ -32,10 +32,23 @@ const subTitle = computed(() => {
   return '';
 });
 
+const hasNicknameReason = computed(() => {
+  return uiStore.detailData && 'nickname_reason' in uiStore.detailData && uiStore.detailData.nickname_reason;
+});
+
+const showNicknameReason = ref(false);
+
+function toggleNicknameReason() {
+  if (hasNicknameReason.value) {
+    showNicknameReason.value = !showNicknameReason.value;
+  }
+}
+
 // --- Interaction ---
 
 function close() {
   uiStore.clearSelection();
+  showNicknameReason.value = false;
 }
 
   // Click outside to close
@@ -57,6 +70,7 @@ function close() {
 // Record open time
 watch(() => uiStore.selectedTarget, (val) => {
   if (val) lastOpenAt = performance.now();
+  showNicknameReason.value = false;
 });
 
 onMounted(() => {
@@ -74,7 +88,22 @@ onUnmounted(() => {
     <div class="panel-header">
       <div class="title-group">
         <div class="main-title">{{ title }}</div>
-        <div v-if="subTitle" class="sub-title">{{ subTitle }}</div>
+        <div 
+          v-if="subTitle" 
+          class="sub-title" 
+          :class="{ 'clickable': hasNicknameReason }"
+          @click="toggleNicknameReason"
+        >
+          {{ subTitle }}
+        </div>
+        
+        <!-- Nickname Reason Popover -->
+        <div v-if="showNicknameReason && hasNicknameReason" class="nickname-reason-popover">
+          <div class="popover-arrow"></div>
+          <div class="popover-content">
+            {{ uiStore.detailData.nickname_reason }}
+          </div>
+        </div>
       </div>
       <button class="close-btn" @click="close">×</button>
     </div>
@@ -144,6 +173,57 @@ onUnmounted(() => {
   display: flex;
   align-items: baseline;
   gap: 8px;
+  position: relative;
+}
+
+.sub-title {
+  font-size: 12px;
+  color: #888;
+}
+
+.sub-title.clickable {
+  cursor: pointer;
+  border-bottom: 1px dashed #666;
+}
+
+.sub-title.clickable:hover {
+  color: #bbb;
+  border-bottom-color: #999;
+}
+
+.nickname-reason-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: rgba(50, 50, 50, 0.98);
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 8px 12px;
+  z-index: 100;
+  width: max-content;
+  max-width: 260px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* Prevents blocking if it overlaps something vital, though typically we want to select text */
+  pointer-events: auto;
+}
+
+.popover-arrow {
+  position: absolute;
+  top: -5px;
+  left: 20px; /* Approximate alignment under the nickname */
+  width: 8px;
+  height: 8px;
+  background: rgba(50, 50, 50, 0.98);
+  border-left: 1px solid #555;
+  border-top: 1px solid #555;
+  transform: rotate(45deg);
+}
+
+.popover-content {
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.4;
 }
 
 .main-title {

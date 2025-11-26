@@ -13,6 +13,8 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_template, LLMMode
 from src.run.log import get_logger
 
+from src.classes.nickname_data import Nickname
+
 logger = get_logger().logger
 
 
@@ -50,7 +52,7 @@ def can_get_nickname(avatar: "Avatar") -> bool:
     return major_count >= major_threshold and minor_count >= minor_threshold
 
 
-async def generate_nickname(avatar: "Avatar") -> Optional[str]:
+async def generate_nickname(avatar: "Avatar") -> Optional[dict]:
     """
     为角色生成绰号
     
@@ -60,7 +62,7 @@ async def generate_nickname(avatar: "Avatar") -> Optional[str]:
         avatar: 要生成绰号的角色
         
     Returns:
-        生成的绰号，失败则返回None
+        包含 nickname 和 reason 的字典，失败则返回None
     """
     try:
         # 获取 expanded_info（包含详细信息和事件历史）
@@ -77,15 +79,19 @@ async def generate_nickname(avatar: "Avatar") -> Optional[str]:
         
         nickname = response_data.get("nickname", "").strip()
         thinking = response_data.get("thinking", "")
+        reason = response_data.get("reason", "").strip()
         
         if not nickname:
             logger.warning(f"为角色 {avatar.name} 生成绰号失败：返回空绰号")
             return None
         
-        logger.info(f"为角色 {avatar.name} 生成绰号：{nickname}")
+        logger.info(f"为角色 {avatar.name} 生成绰号：{nickname} (原因：{reason})")
         logger.debug(f"绰号生成思考过程：{thinking}")
         
-        return nickname
+        return {
+            "nickname": nickname,
+            "reason": reason
+        }
         
     except Exception as e:
         logger.error(f"生成绰号时出错：{e}")
@@ -107,15 +113,19 @@ async def process_avatar_nickname(avatar: "Avatar") -> Optional[Event]:
     if not can_get_nickname(avatar):
         return None
     
-    nickname = await generate_nickname(avatar)
-    if not nickname:
+    result = await generate_nickname(avatar)
+    if not result:
         return None
     
-    avatar.nickname = nickname
+    nickname_str = result["nickname"]
+    reason = result["reason"]
+    
+    avatar.nickname = Nickname(value=nickname_str, reason=reason)
+    
     # 生成事件：角色获得绰号
     event = Event(
         avatar.world.month_stamp,
-        f"{avatar.name}在修仙界中闯出名号，被人称为「{nickname}」。",
+        f"{avatar.name}在修仙界中闯出名号，被人称为「{nickname_str}」。",
         related_avatars=[avatar.id],
         is_major=True
     )

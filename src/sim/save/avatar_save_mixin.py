@@ -89,6 +89,7 @@ class AvatarSaveMixin:
             "alignment": self.alignment.name if self.alignment else None,
             "persona_ids": [p.id for p in self.personas] if self.personas else [],
             "appearance": self.appearance.level,
+            "nickname": self.nickname.to_dict() if self.nickname else None,
             
             # 行动与AI
             "current_action": current_action_dict,

@@ -144,10 +144,14 @@ class AvatarLoadMixin:
         
         # 设置外貌（通过level获取完整的Appearance对象）
         avatar.appearance = get_appearance_by_level(data.get("appearance", 5))
+
+        # 恢复绰号
+        from src.classes.nickname_data import Nickname
+        avatar.nickname = Nickname.from_dict(data.get("nickname"))
         
         # 设置行动与AI
         avatar.thinking = data.get("thinking", "")
-        avatar.short_term_objective = data.get("short_term_objective", data.get("objective", ""))  # 兼容旧存档
+        avatar.short_term_objective = data.get("short_term_objective", "")
         avatar._action_cd_last_months = data.get("_action_cd_last_months", {})
         
         # 加载长期目标

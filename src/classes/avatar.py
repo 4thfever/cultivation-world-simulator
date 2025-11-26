@@ -45,6 +45,7 @@ from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.battle import get_base_strength
 from src.classes.spirit_animal import SpiritAnimal
 from src.classes.long_term_objective import LongTermObjective
+from src.classes.nickname_data import Nickname
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -110,7 +111,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     # 灵兽：最多一个；若再次捕捉则覆盖
     spirit_animal: Optional[SpiritAnimal] = None
     # 绰号：江湖中对该角色的称谓，满足条件后生成，永久不变
-    nickname: Optional[str] = None
+    nickname: Optional[Nickname] = None
     # 自定义头像ID：如果设置，优先使用此ID显示头像
     custom_pic_id: Optional[int] = None
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
@@ -264,7 +265,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         }
         # 绰号：仅在存在时显示
         if self.nickname is not None:
-            info_dict["绰号"] = self.nickname
+            info_dict["绰号"] = self.nickname.value
         # 灵兽：仅在存在时显示
         if self.spirit_animal is not None:
             info_dict["灵兽"] = spirit_animal_info
@@ -295,7 +296,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "thinking": self.thinking,
             "short_term_objective": self.short_term_objective,
             "long_term_objective": self.long_term_objective.content if self.long_term_objective else "",
-            "nickname": self.nickname,
+            "nickname": self.nickname.value if self.nickname else None,
+            "nickname_reason": self.nickname.reason if self.nickname else None,
         }
 
         # 复杂对象结构化
@@ -687,7 +689,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         lines: list[str] = []
         # 基础信息
         if self.nickname:
-            add_kv(lines, "绰号", f"「{self.nickname}」")
+            add_kv(lines, "绰号", f"「{self.nickname.value}」")
         
         add_kv(lines, "性别", self.gender)
         add_kv(lines, "年龄", self.age)
