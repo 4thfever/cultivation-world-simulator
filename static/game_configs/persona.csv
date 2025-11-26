@@ -54,3 +54,5 @@ id,name,exclusion_names,desc,rarity,condition,effects
 52,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 53,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 54,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+55,好色,无欲,你对美色有着强烈的渴求，容易被外貌出众的异性吸引，行事往往受欲望驱使。,N,,
+56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
