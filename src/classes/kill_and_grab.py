@@ -73,7 +73,7 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
             winner.change_auxiliary(loot_item)
             loser.change_auxiliary(None)
         
-        return f"并夺取了对方的{loot_item.grade.value}『{loot_item.name}』！"
+        return f"{winner.name}夺取了对方的{loot_item.grade.value}『{loot_item.name}』！"
     
     return ""
 
