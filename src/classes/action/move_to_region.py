@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import random
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.region import Region, resolve_region
@@ -17,15 +18,38 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"region": "region_name"}
 
+    def __init__(self, avatar, world):
+        super().__init__(avatar, world)
+        self.target_loc = None
+
+    def _get_target_loc(self, region: Region) -> tuple[int, int]:
+        """
+        获取或生成本次移动的目标坐标。
+        如果尚未生成，则从区域坐标集合中随机选取一个。
+        """
+        if self.target_loc is not None:
+            # 简单的校验：确保目标点属于该区域（防止区域变动等极端情况，可选）
+            return self.target_loc
+
+        if hasattr(region, "cors") and region.cors:
+            self.target_loc = random.choice(region.cors)
+        else:
+            # 兜底：如果区域没有坐标集合，使用中心点
+            self.target_loc = region.center_loc
+        
+        return self.target_loc
+
     def _execute(self, region: Region | str) -> None:
         """
         移动到某个region
         """
         region = resolve_region(self.world, region)
+        target_loc = self._get_target_loc(region)
+        
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
-        region_center_loc = region.center_loc
-        raw_dx = region_center_loc[0] - cur_loc[0]
-        raw_dy = region_center_loc[1] - cur_loc[1]
+        raw_dx = target_loc[0] - cur_loc[0]
+        raw_dy = target_loc[1] - cur_loc[1]
+        
         step = getattr(self.avatar, "move_step_length", 1)
         dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
         Move(self.avatar, self.world).execute(dx, dy)
@@ -41,15 +65,21 @@ class MoveToRegion(DefineAction, ActualActionMixin):
 
     def start(self, region: Region | str) -> Event:
         r = resolve_region(self.world, region)
-        region_name = r.name  # 仅使用规范化后的区域名
+        region_name = r.name
+        # 在开始时就确定目标点
+        self._get_target_loc(r)
         return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}", related_avatars=[self.avatar.id])
 
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)
-        # 完成条件：到达目标区域
+        
         r = resolve_region(self.world, region)
-        # 常规：基于 tile.region 精确判定；兜底：当前位置坐标属于目标区域的格点集合
-        done = self.avatar.is_in_region(r) or ((self.avatar.pos_x, self.avatar.pos_y) in getattr(r, "cors", ()))
+        target_loc = self._get_target_loc(r)
+        
+        # 完成条件：到达具体的随机目标点
+        cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
+        done = (cur_loc == target_loc)
+        
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
 
     async def finish(self, region: Region | str) -> list[Event]:
