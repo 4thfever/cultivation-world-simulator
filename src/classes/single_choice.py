@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Optional
 from src.utils.llm import call_llm_with_template
 from src.classes.avatar import Avatar
+from src.utils.config import CONFIG
 import json
 
 async def make_decision(
@@ -29,10 +30,13 @@ async def make_decision(
     full_choices_str = f"【当前情境】：{context_desc}\n\n{choices_str}"
 
     # 3. 调用 AI
+    template_path = CONFIG.paths.templates / "single_choice.txt"
     result = await call_llm_with_template(
-        "single_choice", 
-        avatar_infos=avatar_infos,
-        choices=full_choices_str
+        template_path, 
+        infos={
+            "avatar_infos": avatar_infos,
+            "choices": full_choices_str
+        }
     )
     
     # 4. 解析结果
