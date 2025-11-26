@@ -814,14 +814,23 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
     def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
         """
-        仅显示几个字段：名字、境界、关系、宗门、阵营、外貌、装备。
+        仅显示几个字段：名字、绰号、境界、关系、宗门、阵营、外貌、功法、武器、辅助装备、HP
         """
-        relation = self.get_relation(other_avatar)
-        relation_str = str(relation)
-        sect_str = other_avatar.sect.name if other_avatar.sect is not None else "散修"
-        weapon_str = other_avatar.weapon.get_info() if other_avatar.weapon is not None else "无"
-        auxiliary_str = other_avatar.auxiliary.get_info() if other_avatar.auxiliary is not None else "无"
-        return f"{other_avatar.name}，境界：{other_avatar.cultivation_progress.get_info()}，关系：{relation_str}，阵营：{other_avatar.alignment}，宗门：{sect_str}，兵器：{weapon_str}，辅助：{auxiliary_str}，外貌：{other_avatar.appearance.get_info()}"
+        nickname = other_avatar.nickname.value if other_avatar.nickname else "无"
+        sect = other_avatar.sect.name if other_avatar.sect else "散修"
+        tech = other_avatar.technique.get_info() if other_avatar.technique else "无"
+        weapon = other_avatar.weapon.get_info() if other_avatar.weapon else "无"
+        aux = other_avatar.auxiliary.get_info() if other_avatar.auxiliary else "无"
+        alignment = other_avatar.alignment
+        
+        # 关系可能为空
+        relation = self.get_relation(other_avatar) or "无"
+
+        return (
+            f"{other_avatar.name}，绰号：{nickname}，境界：{other_avatar.cultivation_progress.get_info()}，"
+            f"关系：{relation}，宗门：{sect}，阵营：{alignment}，"
+            f"外貌：{other_avatar.appearance.get_info()}，功法：{tech}，兵器：{weapon}，辅助：{aux}，HP：{other_avatar.hp}"
+        )
 
     def update_time_effect(self) -> None:
         """
