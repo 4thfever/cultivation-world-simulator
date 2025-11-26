@@ -1,0 +1,63 @@
+from typing import Any, Dict, List, Optional
+from src.utils.llm import call_llm_with_template
+from src.classes.avatar import Avatar
+import json
+
+async def make_decision(
+    avatar: Avatar, 
+    context_desc: str, 
+    options: List[Dict[str, Any]]
+) -> str:
+    """
+    让角色在多个选项中做出单选决策。
+    
+    Args:
+        avatar: 做出决策的角色
+        context_desc: 决策背景描述
+        options: 选项列表，每个选项是一个字典，必须包含 'key' 和 'desc' 字段
+                 例如: [{'key': 'A', 'desc': '...'}, {'key': 'B', 'desc': '...'}]
+    
+    Returns:
+        str: AI 选择的选项 Key (如 'A' 或 'B')
+    """
+    # 1. 获取角色信息 (详细模式)
+    avatar_infos = str(avatar.get_info(detailed=True))
+    
+    # 2. 格式化选项字符串
+    choices_list = [f"{opt.get('key', '')}: {opt.get('desc', '')}" for opt in options]
+    choices_str = "\n".join(choices_list)
+    full_choices_str = f"【当前情境】：{context_desc}\n\n{choices_str}"
+
+    # 3. 调用 AI
+    result = await call_llm_with_template(
+        "single_choice", 
+        avatar_infos=avatar_infos,
+        choices=full_choices_str
+    )
+    
+    # 4. 解析结果
+    choice = ""
+    if isinstance(result, dict):
+        choice = result.get("choice", "").strip()
+    elif isinstance(result, str):
+        clean_result = result.strip()
+        # 尝试解析可能包含 markdown 的 json
+        if "{" in clean_result and "}" in clean_result:
+            try:
+                # 提取可能的 json 部分
+                start = clean_result.find("{")
+                end = clean_result.rfind("}") + 1
+                json_str = clean_result[start:end]
+                data = json.loads(json_str)
+                choice = data.get("choice", "").strip()
+            except (json.JSONDecodeError, ValueError):
+                # 如果 JSON 解析失败，直接看字符串内容是否就是选项 key
+                choice = clean_result
+        else:
+            choice = clean_result
+
+    # 验证 choice 是否在 options key 中
+    valid_keys = {opt["key"] for opt in options}
+    assert choice in valid_keys, f"choice {choice} not in valid_keys {valid_keys}"
+    return choice
+        

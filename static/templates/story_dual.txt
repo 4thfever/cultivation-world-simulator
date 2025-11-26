@@ -19,6 +19,7 @@
 {{
     "thinking": ..., // 简单思考故事剧情和关系变化
     "story": "", // 第三人称的故事正文，仙侠语言风格
+    "analyze_relation": ... // 分析是否应该有关系的取消或者新增
     "new_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
     "cancel_relation": ... // 可选，如果你认为可以让两者取消某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
 }}

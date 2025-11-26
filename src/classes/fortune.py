@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import random
 from enum import Enum
-from typing import Optional
+from typing import Optional, Any
 import asyncio
 
 from src.utils.config import CONFIG
@@ -421,6 +421,50 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     related_avatars = [avatar.id]
     actors_for_story = [avatar]  # 用于生成故事的角色列表
 
+    
+    # 导入单选决策模块
+    from src.classes.single_choice import make_decision
+
+    async def _resolve_choice(
+        new_obj: Any,
+        old_obj: Optional[Any],
+        type_label: str,
+        extra_context: str = ""
+    ) -> tuple[bool, str]:
+        """
+        通用决策辅助函数
+        Returns: (should_replace, result_text)
+        """
+        new_name = new_obj.name
+        new_grade = new_obj.grade.value
+        
+        if old_obj is None:
+            return True, f"{avatar.name} 获得{new_grade}{type_label}『{new_name}』"
+
+        old_name = old_obj.name
+        old_grade = old_obj.grade.value
+        
+        options = [
+            {
+                "key": "A", 
+                "desc": f"保留原{type_label}『{old_name}』({old_grade})，放弃新{type_label}『{new_name}』({new_grade})。"
+            },
+            {
+                "key": "B", 
+                "desc": f"放弃原{type_label}，接受新{type_label}『{new_name}』({new_grade})。"
+            }
+        ]
+        
+        base_context = f"你在奇遇中发现了{new_grade}{type_label}『{new_name}』，但你手中已有『{old_name}』。"
+        context = f"{base_context} {extra_context}".strip()
+        
+        choice = await make_decision(avatar, context, options)
+        
+        if choice == "A":
+            return False, f"{avatar.name} 放弃了{new_grade}{type_label}『{new_name}』，保留了『{old_name}』"
+        else:
+            return True, f"{avatar.name} 获得了{new_grade}{type_label}『{new_name}』，替换了『{old_name}』"
+
     if kind == FortuneKind.WEAPON:
         weapon = _get_weapon_for_avatar(avatar)
         if weapon is None:
@@ -428,8 +472,11 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            avatar.change_weapon(weapon)
-            res_text = f"{avatar.name} 获得{weapon.grade}兵器『{weapon.name}』"
+            should_equip, res_text = await _resolve_choice(
+                weapon, avatar.weapon, "兵器"
+            )
+            if should_equip:
+                avatar.change_weapon(weapon)
 
     if kind == FortuneKind.AUXILIARY:
         auxiliary = _get_auxiliary_for_avatar(avatar)
@@ -438,16 +485,26 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            avatar.change_auxiliary(auxiliary)
-            res_text = f"{avatar.name} 获得{auxiliary.grade}辅助装备『{auxiliary.name}』"
+            should_equip, res_text = await _resolve_choice(
+                auxiliary, avatar.auxiliary, "辅助装备"
+            )
+            if should_equip:
+                avatar.change_auxiliary(auxiliary)
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)
         if tech is None:
-            # 若无可用上品功法（宗门弟子可能因宗门限制而找不到），则不奖励
             return []
-        avatar.technique = tech
-        res_text = f"{avatar.name} 得到上品功法『{tech.name}』"
+            
+        should_learn, res_text = await _resolve_choice(
+            tech, avatar.technique, "功法",
+            extra_context=f"这与你当前主修的『{avatar.technique.name if avatar.technique else ''}』冲突。"
+        )
+            
+        if should_learn:
+            avatar.technique = tech
+
+
 
     elif kind == FortuneKind.FIND_MASTER:
         master = _find_potential_master(avatar)
