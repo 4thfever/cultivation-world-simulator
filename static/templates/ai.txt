@@ -12,7 +12,7 @@
     AvatarName: {{
         "avatar_thinking": ... // 从角色角度，以第一人称视角，简单清晰的描述想法
         "short_term_objective": ..., // 角色接下来一段时间的短期目标
-        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 一次性决定未来的3~8个动作，按顺序执行
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 一次性决定未来的5~10个动作，按顺序执行
     }}
 }}
 

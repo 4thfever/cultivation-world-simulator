@@ -24,6 +24,7 @@ class Persona:
     rarity: Rarity
     condition: str
     effects: dict[str, object]
+    effect_desc: str = ""
     
     @property
     def weight(self) -> float:
@@ -34,7 +35,9 @@ class Persona:
         return self.name
 
     def get_detailed_info(self) -> str:
-        return f"{self.name}（{self.desc}）"
+        desc_part = f"（{self.desc}）" if self.desc else ""
+        effect_part = f"\n效果：{self.effect_desc}" if self.effect_desc else ""
+        return f"{self.name}{desc_part}{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -42,13 +45,12 @@ class Persona:
         return f"<color:{r},{g},{b}>{self.name}</color>"
 
     def get_structured_info(self) -> dict:
-        from src.utils.effect_desc import format_effects_to_text
         return {
             "name": self.name,
             "desc": self.desc,
             "rarity": self.rarity.level.value,
             "color": self.rarity.color_rgb,
-            "effect_desc": format_effects_to_text(self.effects),
+            "effect_desc": self.effect_desc,
         }
 
 def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
@@ -70,6 +72,8 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
         
         # 解析effects
         effects = load_effect_from_str(get_str(row, "effects"))
+        from src.utils.effect_desc import format_effects_to_text
+        effect_desc = format_effects_to_text(effects)
         
         persona = Persona(
             id=get_int(row, "id"),
@@ -79,6 +83,7 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
             rarity=rarity,
             condition=condition,
             effects=effects,
+            effect_desc=effect_desc,
         )
         personas_by_id[persona.id] = persona
         personas_by_name[persona.name] = persona

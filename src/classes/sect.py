@@ -43,6 +43,7 @@ class Sect:
     preferred_weapon: str = ""
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
+    effect_desc: str = ""
     # 宗门自定义职位名称（可选）：SectRank -> 名称
     rank_names: dict[str, str] = field(default_factory=dict)
 
@@ -53,7 +54,8 @@ class Sect:
     def get_detailed_info(self) -> str:
         # 详细描述：风格、阵营、驻地
         hq = self.headquarter
-        return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）"
+        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）{effect_part}"
     
     def get_rank_name(self, rank: "SectRank") -> str:
         """
@@ -70,7 +72,6 @@ class Sect:
         return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
 
     def get_structured_info(self) -> dict:
-        from src.utils.effect_desc import format_effects_to_text
         hq = self.headquarter
         return {
             "name": self.name,
@@ -79,7 +80,7 @@ class Sect:
             "style": self.member_act_style,
             "hq_name": hq.name,
             "hq_desc": hq.desc,
-            "effect_desc": format_effects_to_text(self.effects),
+            "effect_desc": self.effect_desc,
         }
 
 def _split_names(value: object) -> list[str]:
@@ -130,6 +131,8 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
         # 读取 effects
         effects = load_effect_from_str(get_str(row, "effects"))
+        from src.utils.effect_desc import format_effects_to_text
+        effect_desc = format_effects_to_text(effects)
 
         # 读取倾向兵器类型
         preferred_weapon = get_str(row, "preferred_weapon")
@@ -158,6 +161,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             weight=weight,
             preferred_weapon=preferred_weapon,
             effects=effects,
+            effect_desc=effect_desc,
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect

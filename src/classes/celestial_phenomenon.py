@@ -44,6 +44,7 @@ class CelestialPhenomenon:
     name: str
     rarity: Rarity
     effects: dict[str, object]
+    effect_desc: str
     desc: str
     duration_years: int
     
@@ -58,7 +59,8 @@ class CelestialPhenomenon:
     
     def get_detailed_info(self) -> str:
         """获取详细信息"""
-        return f"{self.name}（{self.desc}）"
+        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        return f"{self.name}（{self.desc}{effect_part}）"
 
 
 def _load_celestial_phenomena() -> dict[int, CelestialPhenomenon]:
@@ -76,12 +78,15 @@ def _load_celestial_phenomena() -> dict[int, CelestialPhenomenon]:
         
         # 解析effects
         effects = load_effect_from_str(get_str(row, "effects"))
+        from src.utils.effect_desc import format_effects_to_text
+        effect_desc = format_effects_to_text(effects)
         
         phenomenon = CelestialPhenomenon(
             id=get_int(row, "id"),
             name=get_str(row, "name"),
             rarity=rarity,
             effects=effects,
+            effect_desc=effect_desc,
             desc=get_str(row, "desc"),
             duration_years=get_int(row, "duration_years", 5),
         )

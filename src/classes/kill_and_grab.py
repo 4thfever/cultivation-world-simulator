@@ -49,11 +49,15 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
         should_loot = True
     else:
         # 2. 否则让 AI 决策
-        context = f"战斗胜利，{loser.name} 身死道消，留下了一件{loot_item.grade.value}{'兵器' if loot_type == 'weapon' else '辅助装备'}『{loot_item.name}』（{loot_item.desc}）。"
+        # 构建详细描述，包含效果
+        item_desc = loot_item.get_detailed_info()
+        current_desc = winner_current.get_detailed_info()
+
+        context = f"战斗胜利，{loser.name} 身死道消，留下了一件{loot_item.grade.value}{'兵器' if loot_type == 'weapon' else '辅助装备'}『{item_desc}』。"
         options = [
             {
                 "key": "A",
-                "desc": f"夺取{loot_item.grade.value}『{loot_item.name}』（{loot_item.desc}），替换掉身上的『{winner_current.name}』（{winner_current.grade.value}，{winner_current.desc}）。"
+                "desc": f"夺取『{loot_item.name}』，替换掉身上的『{winner_current.name}』。\n  - 新装备：{item_desc}\n  - 原装备：{current_desc}"
             },
             {
                 "key": "B",

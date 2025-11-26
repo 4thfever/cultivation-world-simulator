@@ -93,6 +93,13 @@ class Root(_RootMixin, Enum):
         """
         return dict(_root_effects_by_root.get(self, {}))
 
+    @property
+    def effect_desc(self) -> str:
+        """
+        获取灵根效果的文本描述。
+        """
+        return _root_effect_desc_by_root.get(self, "")
+
 
 # 元素到灵气类型的一一对应
 _essence_by_element = {
@@ -121,6 +128,12 @@ _root_effects_by_root = build_effects_map_from_df(
     parse_key=_parse_root_key,
     effects_column="effects",
 )
+
+from src.utils.effect_desc import format_effects_to_text
+_root_effect_desc_by_root = {
+    root: format_effects_to_text(effects)
+    for root, effects in _root_effects_by_root.items()
+}
 
 def format_root_cn(root: "Root") -> str:
     """

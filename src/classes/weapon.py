@@ -27,6 +27,7 @@ class Weapon:
     sect_id: Optional[int]
     desc: str
     effects: dict[str, object] = field(default_factory=dict)
+    effect_desc: str = ""
     sect: Optional[Sect] = None
     # 特殊属性（如万魂幡的吞噬魂魄计数）
     special_data: dict = field(default_factory=dict)
@@ -44,7 +45,9 @@ class Weapon:
         souls = ""
         if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
             souls = f" 吞噬魂魄：{self.special_data['devoured_souls']}"
-        return f"{self.name}（{self.weapon_type}·{self.grade}，{self.desc}）{souls}"
+        
+        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        return f"{self.name}（{self.weapon_type}·{self.grade}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -52,7 +55,6 @@ class Weapon:
         return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
     def get_structured_info(self) -> dict:
-        from src.utils.effect_desc import format_effects_to_text
         
         # 基础描述
         full_desc = self.desc
@@ -70,7 +72,7 @@ class Weapon:
             "grade": self.grade.value,
             "color": self.grade.color_rgb,
             "type": self.weapon_type.value,
-            "effect_desc": format_effects_to_text(self.effects),
+            "effect_desc": self.effect_desc,
         }
 
 
@@ -93,6 +95,8 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
             sect_id = None
 
         effects = load_effect_from_str(get_str(row, "effects"))
+        from src.utils.effect_desc import format_effects_to_text
+        effect_desc = format_effects_to_text(effects)
 
         sect_obj: Optional[Sect] = sects_by_id.get(sect_id) if sect_id is not None else None
 
@@ -125,6 +129,7 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon], Dict[int, Wea
             sect_id=sect_id,
             desc=get_str(row, "desc"),
             effects=effects,
+            effect_desc=effect_desc,
             sect=sect_obj,
         )
 

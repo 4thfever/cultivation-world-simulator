@@ -375,13 +375,12 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         
         # 8. 灵根
         from src.classes.root import format_root_cn
-        from src.utils.effect_desc import format_effects_to_text
         root_str = format_root_cn(self.root)
         info["root"] = root_str
         info["root_detail"] = {
              "name": root_str,
              "desc": f"包含元素：{'、'.join(str(e) for e in self.root.elements)}",
-             "effect_desc": format_effects_to_text(self.root.effects)
+             "effect_desc": self.root.effect_desc
         }
         
         # 9. 灵兽

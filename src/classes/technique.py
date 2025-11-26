@@ -66,6 +66,7 @@ class Technique:
     sect: Optional[str] = None
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
+    effect_desc: str = ""
 
     def is_allowed_for(self, avatar) -> bool:
         if not self.condition:
@@ -76,7 +77,8 @@ class Technique:
         return f"{self.name}（{self.attribute}）{self.grade.value}"
 
     def get_detailed_info(self) -> str:
-        return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}"
+        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -84,14 +86,13 @@ class Technique:
         return f"<color:{r},{g},{b}>{self.name}（{self.attribute}·{self.grade.value}）</color>"
 
     def get_structured_info(self) -> dict:
-        from src.utils.effect_desc import format_effects_to_text
         return {
             "name": self.name,
             "desc": self.desc,
             "grade": self.grade.value,
             "color": self.grade.color_rgb,
             "attribute": self.attribute.value,
-            "effect_desc": format_effects_to_text(self.effects),
+            "effect_desc": self.effect_desc,
         }
 
 # 五行与扩展属性的克制关系
@@ -127,6 +128,8 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             sect = None
             
         effects = load_effect_from_str(get_str(row, "effects"))
+        from src.utils.effect_desc import format_effects_to_text
+        effect_desc = format_effects_to_text(effects)
 
         t = Technique(
             id=get_int(row, "id"),
@@ -138,6 +141,7 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             condition=condition,
             sect=sect,
             effects=effects,
+            effect_desc=effect_desc,
         )
         techniques_by_id[t.id] = t
         techniques_by_name[t.name] = t
