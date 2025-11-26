@@ -15,6 +15,7 @@ from src.run.log import get_logger
 from src.classes.fortune import try_trigger_fortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
+from src.classes.death import handle_death
 
 class Simulator:
     def __init__(self, world: World):
@@ -76,21 +77,30 @@ class Simulator:
 
     def _phase_resolve_death(self):
         """
-        结算战斗等导致的死亡以及寿终正寝，移除死亡角色，返回死亡事件集合。
+        结算死亡：
+        - 战斗死亡已在 Action 中结算，此处不再重复（因为已从 avatars 中移除）
+        - 此时剩下的 avatars 都是存活的，只需检查非战斗因素（如老死、被动掉血）
         """
         events = []
-        death_avatar_ids = []
+        # 遍历时可能修改字典，使用 list() 复制
         for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
+            is_dead = False
+            reason = ""
+            
+            # 优先判定重伤（可能是被动效果导致）
             if avatar.hp <= 0:
-                death_avatar_ids.append(avatar_id)
-                event = Event(self.world.month_stamp, f"{avatar.name} 因重伤身亡", related_avatars=[avatar.id])
+                is_dead = True
+                reason = f"{avatar.name} 因重伤不治身亡"
+            # 其次判定寿元
+            elif avatar.death_by_old_age():
+                is_dead = True
+                reason = f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁"
+                
+            if is_dead:
+                event = Event(self.world.month_stamp, reason, related_avatars=[avatar.id])
                 events.append(event)
-            if avatar.death_by_old_age():
-                death_avatar_ids.append(avatar_id)
-                event = Event(self.world.month_stamp, f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁", related_avatars=[avatar.id])
-                events.append(event)
-        if death_avatar_ids:
-            self.world.avatar_manager.remove_avatars(death_avatar_ids)
+                handle_death(self.world, avatar)
+                
         return events
 
     def _phase_update_age_and_birth(self):

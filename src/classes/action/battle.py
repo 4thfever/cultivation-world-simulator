@@ -5,6 +5,7 @@ from src.classes.event import Event
 from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
 from src.classes.normalize import normalize_avatar_name
+from src.classes.death import handle_death
 
 
 class Battle(InstantAction):
@@ -45,7 +46,7 @@ class Battle(InstantAction):
         if target is not None:
             target.increase_weapon_proficiency(proficiency_gain)
         
-        self._last_result = (winner.name, loser.name, loser_damage, winner_damage)
+        self._last_result = (winner, loser, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
         if avatar_name is None:
@@ -77,21 +78,31 @@ class Battle(InstantAction):
             return []
         winner, loser = res[0], res[1]
         loser_damage, winner_damage = res[2], res[3]
-        result_text = f"{winner} 战胜了 {loser}，{loser} 受伤{loser_damage}点，{winner} 也受伤{winner_damage}点"
+
+        # 判定是否致死
+        is_fatal = loser.hp <= 0
+        if is_fatal:
+            result_text = f"{winner.name} 战胜了 {loser.name}，造成{loser_damage}点伤害。{loser.name} 遭受重创，当场陨落。"
+        else:
+            result_text = f"{winner.name} 战胜了 {loser.name}，{loser.name} 受伤{loser_damage}点，{winner.name} 也受伤{winner_damage}点"
+
         rel_ids = [self.avatar.id]
+        target = self._get_target(avatar_name)
         try:
-            t = self._get_target(avatar_name)
-            if t is not None:
-                rel_ids.append(t.id)
+            if target is not None:
+                rel_ids.append(target.id)
         except Exception:
             pass
         result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
 
         # 生成战斗小故事
-        target = self._get_target(avatar_name)
         start_text = self._start_event_content if hasattr(self, '_start_event_content') else result_event.content
         # 战斗强制双人模式，允许改变关系
         story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT, allow_relation_changes=True)
         story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
+
+        # 如果死亡，执行死亡清理（在故事生成后，保证关系数据可用）
+        if is_fatal:
+            handle_death(self.world, loser)
 
         return [result_event, story_event]
