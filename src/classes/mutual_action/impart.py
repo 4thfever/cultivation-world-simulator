@@ -100,15 +100,7 @@ class Impart(MutualAction):
 
         if success:
             gain = int(self._impart_exp_gain)
-            result_text = f"{self.avatar.name} 向 {target.name} 传道，{target.name} 获得修为经验 +{gain} 点"
-            result_event = Event(
-                self.world.month_stamp,
-                result_text,
-                related_avatars=[self.avatar.id, target.id]
-            )
-            events.append(result_event)
-        else:
-            result_text = f"{target.name} 婉拒了 {self.avatar.name} 的传道"
+            result_text = f"{target.name} 获得修为经验 +{gain} 点"
             result_event = Event(
                 self.world.month_stamp,
                 result_text,

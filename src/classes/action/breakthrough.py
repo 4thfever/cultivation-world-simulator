@@ -135,8 +135,7 @@ class Breakthrough(TimedAction):
 
         # 故事参与者：本体 +（可选）相关角色
         prompt = TribulationSelector.get_story_prompt(str(calamity))
-        story = await StoryTeller.tell_story(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt)
+        # 突破强制单人模式，不改变关系（因为没有双修/战斗那样的互动）
+        story = await StoryTeller.tell_story(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt, allow_relation_changes=False)
         events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True))
         return events
-
-

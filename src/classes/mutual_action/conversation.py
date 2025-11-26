@@ -4,12 +4,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from .mutual_action import MutualAction
-from src.classes.relation import relation_display_names, Relation
 from src.classes.relations import (
-    get_possible_new_relations,
-    get_possible_cancel_relations,
-    set_relation,
-    cancel_relation,
+    process_relation_changes,
+    get_relation_change_context,
 )
 from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
@@ -52,18 +49,15 @@ class Conversation(MutualAction):
             avatar_name_2: target_avatar.get_info(detailed=True),
         }
         
-        # 可能的后天关系（转中文名，给模板阅读）
-        # 注意：这里计算的是 target 相对于 avatar 的可能关系
-        possible_new_relations = [relation_display_names[r] for r in get_possible_new_relations(self.avatar, target_avatar)]
-        # 可能取消的关系
-        possible_cancel_relations = [relation_display_names[r] for r in get_possible_cancel_relations(target_avatar, self.avatar)]
+        # 获取关系上下文
+        possible_new_relations, possible_cancel_relations = get_relation_change_context(self.avatar, target_avatar)
         
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
             "possible_new_relations": possible_new_relations,
-            "possible_cancal_relations": possible_cancel_relations,  # 保持模板中的拼写
+            "possible_cancel_relations": possible_cancel_relations,
         }
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
@@ -86,8 +80,6 @@ class Conversation(MutualAction):
         Conversation 不需要反馈（FEEDBACK_ACTIONS 为空），直接生成内容。
         """
         conversation_content = str(result.get("conversation_content", "")).strip()
-        new_relation_str = str(result.get("new_relation", "")).strip()
-        cancel_relation_str = str(result.get("cancal_relation", "")).strip()  # 保持模板中的拼写
 
         # 使用开始时间戳
         month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
@@ -101,32 +93,8 @@ class Conversation(MutualAction):
             )
             EventHelper.push_pair(content_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 
-        # 处理进入新关系
-        if new_relation_str:
-            rel = Relation.from_chinese(new_relation_str)
-            if rel is not None:
-                set_relation(target, self.avatar, rel)
-                set_event = Event(
-                    month_stamp, 
-                    f"{target.name} 与 {self.avatar.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", 
-                    related_avatars=[self.avatar.id, target.id],
-                    is_major=True
-                )
-                EventHelper.push_pair(set_event, initiator=self.avatar, target=target, to_sidebar_once=True)
-
-        # 处理取消关系
-        if cancel_relation_str:
-            rel = Relation.from_chinese(cancel_relation_str)
-            if rel is not None:
-                success = cancel_relation(target, self.avatar, rel)
-                if success:
-                    cancel_event = Event(
-                        month_stamp, 
-                        f"{target.name} 与 {self.avatar.name} 取消了关系：{relation_display_names.get(rel, str(rel))}", 
-                        related_avatars=[self.avatar.id, target.id],
-                        is_major=True
-                    )
-                    EventHelper.push_pair(cancel_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+        # 处理关系变化 (调用通用逻辑)
+        process_relation_changes(self.avatar, target, result, month_stamp)
 
         return ActionResult(status=ActionStatus.COMPLETED, events=[])
 

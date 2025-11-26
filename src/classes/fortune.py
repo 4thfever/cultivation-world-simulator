@@ -478,7 +478,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)
 
     # 生成故事事件
-    story = await StoryTeller.tell_story(event_text, res_text, *actors_for_story, prompt=story_prompt)
+    # 奇遇强制单人模式，不改变关系（因为关系已经在硬逻辑中处理了）
+    story = await StoryTeller.tell_story(event_text, res_text, *actors_for_story, prompt=story_prompt, allow_relation_changes=False)
     story_event = Event(month_at_finish, story, related_avatars=related_avatars, is_story=True)
 
     # 返回基础事件和故事事件
@@ -488,5 +489,3 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
 __all__ = [
     "try_trigger_fortune",
 ]
-
-

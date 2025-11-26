@@ -90,9 +90,8 @@ class Battle(InstantAction):
         # 生成战斗小故事
         target = self._get_target(avatar_name)
         start_text = self._start_event_content if hasattr(self, '_start_event_content') else result_event.content
-        story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+        # 战斗强制双人模式，允许改变关系
+        story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT, allow_relation_changes=True)
         story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
 
         return [result_event, story_event]
-
-

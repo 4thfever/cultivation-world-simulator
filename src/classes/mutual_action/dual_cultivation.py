@@ -105,20 +105,15 @@ class DualCultivation(MutualAction):
 
         if success:
             gain = int(self._dual_exp_gain)
-            result_text = f"{self.avatar.name} 与 {target.name} 成功双修，{self.avatar.name} 获得修为经验 +{gain} 点"
+            result_text = f"{self.avatar.name} 获得修为经验 +{gain} 点"
             result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id], is_major=True)
             events.append(result_event)
 
             # 生成恋爱/双修小故事
             start_text = self._start_event_content or result_event.content
-            story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT)
+            # 双修强制双人模式，允许改变关系
+            story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT, allow_relation_changes=True)
             story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id], is_story=True)
             events.append(story_event)
-        else:
-            result_text = f"{target.name} 拒绝了与 {self.avatar.name} 的双修"
-            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id], is_major=True)
-            events.append(result_event)
 
         return events
-
-
