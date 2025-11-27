@@ -124,6 +124,24 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 将所有avatar添加到world
         world.avatar_manager.avatars = all_avatars
         
+        # 重建宗门成员关系与功法列表
+        from src.classes.technique import techniques_by_name
+        
+        # 1. 重建成员
+        for avatar in all_avatars.values():
+            if avatar.sect:
+                # 存档中 avatar.sect 已经被 Avatar.from_save_dict 恢复为 Sect 对象引用
+                # 但 Sect.members 是空的（因为 Sect 是重新加载配置生成的）
+                avatar.sect.add_member(avatar)
+        
+        # 2. 重建功法对象列表（兼容旧存档）
+        for sect in existed_sects:
+            if not sect.techniques and sect.technique_names:
+                sect.techniques = []
+                for t_name in sect.technique_names:
+                    if t_name in techniques_by_name:
+                        sect.techniques.append(techniques_by_name[t_name])
+
         # 重建事件历史
         events_data = save_data.get("events", [])
         for event_data in events_data:

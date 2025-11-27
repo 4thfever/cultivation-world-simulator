@@ -3,18 +3,23 @@ import { ref } from 'vue';
 import type { RegionDetail, EffectEntity } from '@/types/core';
 import EntityRow from './components/EntityRow.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
-import { translateElement } from '@/utils/formatters/dictionary';
+import { useUiStore } from '@/stores/ui';
 
 defineProps<{
   data: RegionDetail;
 }>();
 
+const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
 
 function showDetail(item: EffectEntity | undefined) {
   if (item) {
     secondaryItem.value = item;
   }
+}
+
+function jumpToSect(id: number) {
+  uiStore.select('sect', id.toString());
 }
 </script>
 
@@ -29,13 +34,18 @@ function showDetail(item: EffectEntity | undefined) {
     <div class="section">
       <div class="section-title">{{ data.type_name }}</div>
       <div class="desc">{{ data.desc }}</div>
+      
+      <!-- Sect Jump Button -->
+      <div v-if="data.sect_id" class="actions">
+         <button class="btn primary" @click="jumpToSect(data.sect_id!)">查看宗门详情</button>
+      </div>
     </div>
 
     <!-- Essence -->
     <div class="section" v-if="data.essence">
       <div class="section-title">灵气环境</div>
       <div class="essence-info">
-        {{ translateElement(data.essence.type) }}行灵气 · 浓度 {{ data.essence.density }}
+        {{ data.essence.type }}行灵气 · 浓度 {{ data.essence.density }}
       </div>
     </div>
 
@@ -109,5 +119,35 @@ function showDetail(item: EffectEntity | undefined) {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.btn {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn.primary {
+  background: #177ddc;
+  color: white;
+  border: none;
+}
+
+.btn.primary:hover {
+  background: #1890ff;
 }
 </style>

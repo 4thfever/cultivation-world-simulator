@@ -120,6 +120,23 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     # 不缓存 effects；实时从宗门与功法合并
 
+    def join_sect(self, sect: Sect, rank: "SectRank") -> None:
+        """加入宗门"""
+        if self.sect:
+            self.leave_sect()
+        self.sect = sect
+        self.sect_rank = rank
+        sect.add_member(self)
+        # 更新阵营倾向为宗门阵营（如果之前是中立或不同）- 可选，视设计而定
+        # 这里暂不强制修改个人阵营，除非完全不兼容
+        
+    def leave_sect(self) -> None:
+        """退出宗门"""
+        if self.sect:
+            self.sect.remove_member(self)
+            self.sect = None
+            self.sect_rank = None
+
     def __post_init__(self):
         """
         在Avatar创建后自动初始化tile和HP
@@ -141,6 +158,10 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         # - 有宗门：从“无宗门 + 本宗门”集合抽样
         if self.technique is None:
             self.technique = get_technique_by_sect(self.sect)
+
+        # 确保宗门引用同步
+        if self.sect:
+            self.sect.add_member(self)
 
         # 若未设定阵营，则依据宗门/无门无派规则设置，避免后续为 None
         if self.alignment is None:
@@ -771,6 +792,16 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         from src.classes.sect_ranks import get_rank_display_name
         rank_name = get_rank_display_name(self.sect_rank, self.sect)
         return f"{self.sect.name}{rank_name}"
+
+    def get_sect_rank_name(self) -> str:
+        """
+        获取宗门职位的显示名称
+        """
+        if self.sect is None or self.sect_rank is None:
+            return "散修"
+        
+        from src.classes.sect_ranks import get_rank_display_name
+        return get_rank_display_name(self.sect_rank, self.sect)
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """

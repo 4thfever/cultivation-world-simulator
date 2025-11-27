@@ -358,7 +358,7 @@ class CultivateRegion(Region):
         info = super().get_structured_info()
         info["type_name"] = "修炼区域"
         info["essence"] = {
-            "type": self.essence_type.value,
+            "type": str(self.essence_type), # EssenceType.__str__ 已经返回中文名
             "density": self.essence_density
         }
         return info

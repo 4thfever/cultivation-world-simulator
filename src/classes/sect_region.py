@@ -11,6 +11,7 @@ class SectRegion(Region):
     无额外操作或属性。
     """
     sect_name: str
+    sect_id: int = -1
     image_path: str | None = None
 
     def get_region_type(self) -> str:
@@ -28,4 +29,5 @@ class SectRegion(Region):
         info = super().get_structured_info()
         info["type_name"] = "宗门驻地"
         info["sect_name"] = self.sect_name
+        info["sect_id"] = self.sect_id
         return info

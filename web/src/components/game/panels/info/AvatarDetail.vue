@@ -4,6 +4,7 @@ import type { AvatarDetail, EffectEntity } from '@/types/core';
 import { formatHp, formatAge } from '@/utils/formatters/number';
 import StatItem from './components/StatItem.vue';
 import EntityRow from './components/EntityRow.vue';
+import RelationRow from './components/RelationRow.vue';
 import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import { gameApi } from '@/api/game';
@@ -28,6 +29,10 @@ function showDetail(item: EffectEntity | undefined) {
 
 function jumpToAvatar(id: string) {
   uiStore.select('avatar', id);
+}
+
+function jumpToSect(id: string) {
+  uiStore.select('sect', id);
 }
 
 async function handleSetObjective() {
@@ -85,7 +90,7 @@ async function handleClearObjective() {
           label="宗门" 
           :value="data.sect?.name || '散修'" 
           :sub-value="data.sect?.rank"
-          :on-click="data.sect ? () => showDetail(data.sect) : undefined"
+          :on-click="data.sect ? () => jumpToSect(data.sect.id) : undefined"
         />
         
         <StatItem 
@@ -154,18 +159,14 @@ async function handleClearObjective() {
       <div class="section" v-if="data.relations?.length">
         <div class="section-title">关系</div>
         <div class="list-container">
-          <div 
+          <RelationRow 
             v-for="rel in data.relations"
             :key="rel.target_id"
-            class="relation-item"
+            :name="rel.name"
+            :meta="rel.relation"
+            :sub="`${rel.sect} · ${rel.realm}`"
             @click="jumpToAvatar(rel.target_id)"
-          >
-            <div class="rel-head">
-              <span class="rel-name">{{ rel.name }}</span>
-              <span class="rel-type">{{ rel.relation }}</span>
-            </div>
-            <div class="rel-sub">{{ rel.sect }} · {{ rel.realm }}</div>
-          </div>
+          />
         </div>
       </div>
 
@@ -281,42 +282,6 @@ async function handleClearObjective() {
 
 .btn.primary:hover {
   background: #1890ff;
-}
-
-/* Relations */
-.relation-item {
-  padding: 6px 8px;
-  background: rgba(0, 0, 0, 0.2);
-  border-left: 2px solid #333;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.relation-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-left-color: #666;
-}
-
-.rel-head {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2px;
-}
-
-.rel-name {
-  font-size: 13px;
-  color: #eee;
-  font-weight: bold;
-}
-
-.rel-type {
-  font-size: 12px;
-  color: #aaa;
-}
-
-.rel-sub {
-  font-size: 11px;
-  color: #666;
 }
 
 /* Modal */

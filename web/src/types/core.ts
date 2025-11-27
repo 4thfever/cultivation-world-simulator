@@ -85,6 +85,28 @@ export interface SectInfo extends EffectEntity {
   rank: string;
 }
 
+export interface SectMember {
+  id: string;
+  name: string;
+  pic_id: number;
+  gender: string;
+  rank: string;
+  realm: string;
+}
+
+export interface SectDetail extends EntityBase {
+  desc: string;
+  alignment: string;
+  style: string;
+  hq_name: string;
+  hq_desc: string;
+  effect_desc: string;
+  technique_names?: string[]; // Deprecated
+  techniques: EffectEntity[];
+  preferred_weapon: string;
+  members: SectMember[];
+}
+
 export interface RelationInfo {
   target_id: string;
   name: string;
@@ -106,6 +128,7 @@ export interface RegionDetail extends EntityBase {
   desc: string;
   type: string;
   type_name: string; // 中文类型名
+  sect_id?: number;
   
   essence?: { 
     type: string; 

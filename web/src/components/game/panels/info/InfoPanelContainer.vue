@@ -5,6 +5,7 @@ import { useUiStore } from '../../../../stores/ui';
 // Sub-components
 import AvatarDetailView from './AvatarDetail.vue';
 import RegionDetailView from './RegionDetail.vue';
+import SectDetailView from './SectDetail.vue';
 
 const uiStore = useUiStore();
 const panelRef = ref<HTMLElement | null>(null);
@@ -15,6 +16,7 @@ let lastOpenAt = 0;
 const currentComponent = computed(() => {
   if (uiStore.selectedTarget?.type === 'avatar') return AvatarDetailView;
   if (uiStore.selectedTarget?.type === 'region') return RegionDetailView;
+  if (uiStore.selectedTarget?.type === 'sect') return SectDetailView;
   return null;
 });
 

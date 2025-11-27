@@ -615,12 +615,19 @@ def get_detail_info(
                     target = regions.get(int(target_id))
                 except (ValueError, TypeError):
                     target = None
+    elif target_type == "sect":
+        try:
+            sid = int(target_id)
+            target = sects_by_id.get(sid)
+        except (ValueError, TypeError):
+            target = None
 
     if target is None:
          raise HTTPException(status_code=404, detail="Target not found")
          
     if hasattr(target, "get_structured_info"):
-        return target.get_structured_info()
+        info = target.get_structured_info()
+        return info
     else:
         # 回退到 hover info 如果没有结构化信息
         if hasattr(target, "get_hover_info"):

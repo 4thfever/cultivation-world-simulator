@@ -133,6 +133,7 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
             north_west_cor=f"{nw_x},{nw_y}",
             south_east_cor=f"{se_x},{se_y}",
             sect_name=sect_name_for_region,
+            sect_id=sect.id,
             image_path=str(getattr(sect.headquarter, "image", None)),
         )
         game_map.regions[region.id] = region
@@ -372,6 +373,8 @@ def _scale_loaded_regions(game_map: Map) -> None:
         # SectRegion 透传特有字段
         if hasattr(region, "sect_name"):
             params["sect_name"] = getattr(region, "sect_name")
+        if hasattr(region, "sect_id"):
+            params["sect_id"] = getattr(region, "sect_id")
         if hasattr(region, "image_path"):
             params["image_path"] = getattr(region, "image_path")
         new_region = cls(**params)  # 重新构建以刷新 cors/area/center

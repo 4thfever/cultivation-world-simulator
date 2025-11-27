@@ -7,6 +7,11 @@ from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
 from src.utils.config import CONFIG
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
+    from src.classes.technique import Technique
+    from src.classes.sect_ranks import SectRank
 
 """
 宗门、宗门总部基础数据。
@@ -46,6 +51,25 @@ class Sect:
     effect_desc: str = ""
     # 宗门自定义职位名称（可选）：SectRank -> 名称
     rank_names: dict[str, str] = field(default_factory=dict)
+    
+    # 运行时成员列表：Avatar ID -> Avatar
+    members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
+    # 功法对象列表：Technique
+    techniques: list["Technique"] = field(default_factory=list, init=False)
+
+    def __post_init__(self):
+        self.members = {}
+        self.techniques = []
+
+    def add_member(self, avatar: "Avatar") -> None:
+        """添加成员到宗门"""
+        if avatar.id not in self.members:
+            self.members[avatar.id] = avatar
+    
+    def remove_member(self, avatar: "Avatar") -> None:
+        """从宗门移除成员"""
+        if avatar.id in self.members:
+            del self.members[avatar.id]
 
     def get_info(self) -> str:
         hq = self.headquarter
@@ -73,14 +97,66 @@ class Sect:
 
     def get_structured_info(self) -> dict:
         hq = self.headquarter
+        
+        from src.classes.sect_ranks import RANK_ORDER
+        from src.server.main import resolve_avatar_pic_id
+        from src.classes.technique import techniques_by_name
+        
+        # 成员列表：直接从 self.members 获取
+        members_list = []
+        for a in self.members.values():
+            rank_enum = getattr(a, "sect_rank", None)
+            sort_val = 999
+            if rank_enum and rank_enum in RANK_ORDER:
+                sort_val = RANK_ORDER[rank_enum]
+                
+            members_list.append({
+                "id": str(a.id),
+                "name": a.name,
+                "pic_id": resolve_avatar_pic_id(a),
+                "gender": a.gender.value if hasattr(a.gender, "value") else "male",
+                "rank": a.get_sect_rank_name(),
+                "realm": a.cultivation_progress.realm.value if hasattr(a, 'cultivation_progress') else "未知",
+                "_sort_val": sort_val
+            })
+        # 按职位排序
+        members_list.sort(key=lambda x: x["_sort_val"])
+        # 清理排序字段
+        for m in members_list:
+            del m["_sort_val"]
+
+        # 填充 techniques
+        # 使用 technique_names 从全局字典中查找对应的 Technique 对象并序列化
+        techniques_data = []
+        for t_name in self.technique_names:
+            t_obj = techniques_by_name.get(t_name)
+            if t_obj:
+                techniques_data.append(t_obj.get_structured_info())
+            else:
+                # Fallback for missing techniques: create a minimal structure
+                techniques_data.append({
+                    "name": t_name,
+                    "desc": "（未知功法）",
+                    "grade": "",
+                    "color": (200, 200, 200), # Gray
+                    "attribute": "",
+                    "effect_desc": ""
+                })
+
         return {
+            "id": self.id,
             "name": self.name,
             "desc": self.desc,
-            "alignment": self.alignment.value,
+            "alignment": str(self.alignment), # 直接返回中文
             "style": self.member_act_style,
             "hq_name": hq.name,
             "hq_desc": hq.desc,
             "effect_desc": self.effect_desc,
+            "techniques": techniques_data,
+            # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
+            "technique_names": self.technique_names,
+            "preferred_weapon": self.preferred_weapon,
+            "members": members_list
         }
 
 def _split_names(value: object) -> list[str]:
