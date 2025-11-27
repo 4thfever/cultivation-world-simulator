@@ -213,6 +213,21 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
         # 读取倾向兵器类型
         preferred_weapon = get_str(row, "preferred_weapon")
 
+        # 解析自定义职位
+        raw_ranks = get_str(row, "rank_names")
+        rank_names_map = {}
+        if raw_ranks:
+            # 格式：掌门;长老;内门;外门
+            parts = [x.strip() for x in raw_ranks.split(";") if x.strip()]
+            if len(parts) == 4:
+                from src.classes.sect_ranks import SectRank
+                rank_names_map = {
+                    SectRank.Patriarch.value: parts[0],
+                    SectRank.Elder.value: parts[1],
+                    SectRank.InnerDisciple.value: parts[2],
+                    SectRank.OuterDisciple.value: parts[3],
+                }
+
         # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
         sid = get_int(row, "id")
         csv_hq = hq_by_sect_id.get(sid)
@@ -238,6 +253,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             preferred_weapon=preferred_weapon,
             effects=effects,
             effect_desc=effect_desc,
+            rank_names=rank_names_map,
         )
         sects_by_id[sect.id] = sect
         sects_by_name[sect.name] = sect
