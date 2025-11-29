@@ -312,30 +312,35 @@ def process_all_sects(
 
 
 if __name__ == "__main__":
-    process_all(
-        input_dir="tools/img_gen/tmp/males",
-        output_dir="tools/img_gen/tmp/processed_males",
-        crop_fraction=1 / 16,
-    )
-    process_all(
-        input_dir="tools/img_gen/tmp/females",
-        output_dir="tools/img_gen/tmp/processed_females",
-        crop_fraction=1 / 16,
-    )
-    # sect_names = [
-    #     "明心剑宗",
-    #     "百兽宗",
-    #     "水镜宗",
-    #     "冥王宗",
-    #     "朱勾宗",
-    #     "合欢宗",
-    #     "镇魂宗",
-    #     "幽魂噬影宗",
-    #     "千帆城",
-    # ]
-    # process_all_sects(
-    #     input_dir="tools/img_gen/tmp/sects",
-    #     output_dir="tools/img_gen/tmp/processed_sects",
+    # process_all(
+    #     input_dir="tools/img_gen/tmp/males",
+    #     output_dir="tools/img_gen/tmp/processed_males",
     #     crop_fraction=1 / 16,
-    #     sect_names=sect_names,
     # )
+    # process_all(
+    #     input_dir="tools/img_gen/tmp/females",
+    #     output_dir="tools/img_gen/tmp/processed_females",
+    #     crop_fraction=1 / 16,
+    # )
+    sect_names = [
+        # "明心剑宗",
+        # "百兽宗",
+        # "水镜宗",
+        # "冥王宗",
+        # "朱勾宗",
+        # "合欢宗",
+        # "镇魂宗",
+        # "幽魂噬影宗",
+        # "千帆城",
+        "妙化宗",
+        "回玄宗",
+        "不夜城",
+        "天行健宗",
+        "噬魔宗",
+    ]
+    process_all_sects(
+        input_dir="tools/img_gen/tmp/sects",
+        output_dir="tools/img_gen/tmp/processed_sects",
+        crop_fraction=1 / 16,
+        sect_names=sect_names,
+    )

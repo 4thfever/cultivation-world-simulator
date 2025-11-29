@@ -228,22 +228,27 @@ if __name__ == "__main__":
     ]
     sect_prompt_base = "像素化的仙侠宗门场景图片，极度像素化，颗粒感强，线条轮廓粗，极简主义，二次元风格漫画图片。"
     sect_affixes = [
-        "山巅飘渺云海，云纹禁制光芒环绕，远处群峰。",
-        "灵兽栖地，兽栏密布，岩石兽穴。",
-        "湖面倒影，中央悬浮巨大水镜，镜面波光粼粼，雾气弥漫。",
-        "幽冥宗门，阴暗昏沉，黑雾弥漫，冷厉气息，幽蓝鬼火点点。",
-        "炼器工坊，机关密布，熔炉火光。",
-        "合欢宫殿，粉红雾气，花瓣飘舞，柔和光晕，纱幔轻垂。",
-        "镇魂大殿，铁血肃杀，封印符文，镇压法阵，黑铁锁链。",
-        "幽影之地，暗影重重，光影交错，幽冥之气，黑雾吞噬轮廓。",
-        "船帆如云，炼器炉火。",
+        # "山巅飘渺云海，云纹禁制光芒环绕，远处群峰。",
+        # "灵兽栖地，兽栏密布，岩石兽穴。",
+        # "湖面倒影，中央悬浮巨大水镜，镜面波光粼粼，雾气弥漫。",
+        # "幽冥宗门，阴暗昏沉，黑雾弥漫，冷厉气息，幽蓝鬼火点点。",
+        # "炼器工坊，机关密布，熔炉火光。",
+        # "合欢宫殿，粉红雾气，花瓣飘舞，柔和光晕，纱幔轻垂。",
+        # "镇魂大殿，铁血肃杀，封印符文，镇压法阵，黑铁锁链。",
+        # "幽影之地，暗影重重，光影交错，幽冥之气，黑雾吞噬轮廓。",
+        # "船帆如云，炼器炉火。",
+        "雅致园林，丝竹管弦，百花盛开，隐约音律符文，春意盎然。",  # 妙化宗
+        "云雾缭绕山峰，无数禁制光阵层叠，晦暗不明，神秘莫测。",  # 回玄宗
+        "极光绚丽，万年寒冰城墙，流光溢彩，如梦似幻，不夜之城。",  # 不夜城
+        "雄奇山峰，紫气东来，浩然正气光柱冲天，书声琅琅幻象。",  # 天行健宗
+        "险恶山脉，血雾弥漫，怪石嶙峋，白骨累累，狂野血腥。",  # 噬魔宗
     ]
-    for affix in male_affixes:
-        prompt_text = male_prompt_base + affix
-        save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
-    for affix in female_affixes:
-        prompt_text = female_prompt_base + affix
-        save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
-    # for i, affix in enumerate(sect_affixes):
-    #     prompt_text = sect_prompt_base + affix
-    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/sects")
+    # for affix in male_affixes:
+    #     prompt_text = male_prompt_base + affix
+    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/males")
+    # for affix in female_affixes:
+    #     prompt_text = female_prompt_base + affix
+    #     save_generated_image(prompt_text, folder="tools/img_gen/tmp/females")
+    for i, affix in enumerate(sect_affixes):
+        prompt_text = sect_prompt_base + affix
+        save_generated_image(prompt_text, folder="tools/img_gen/tmp/sects")
