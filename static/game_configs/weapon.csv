@@ -15,8 +15,8 @@ id,name,weapon_type,grade,sect_id,desc,effects
 2004,降魔杵,棍,宝物,,降妖除魔，正气凛然。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
 2005,紫罗扇,扇,宝物,,扇动间紫气缭绕，洞悉先机。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
 2006,蛟龙鞭,鞭,宝物,,鞭身如蛟龙盘旋，柔中带刚。,{extra_battle_strength_points: 2}
-2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{extra_battle_strength_points: 2, cultivation_speed_rate: 1.1}"
-2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{extra_battle_strength_points: 2, cultivation_speed_rate: 1.1}"
+2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
 2009,追魂刺,暗器,宝物,,暗器如影随形，取人性命于无声。,{extra_battle_strength_points: 2}
 2010,灵兽骨笛,笛,宝物,2,以灵兽之骨炼成，可与兽类心意相通。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
 2011,赤焰战刀,刀,宝物,,烈火淬炼而成，刀身赤红似火。,{extra_battle_strength_points: 2}
