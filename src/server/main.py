@@ -243,69 +243,74 @@ async def game_loop():
         # 控制游戏速度，例如每秒 1 次更新
         await asyncio.sleep(1.0) 
         
-        # 检查暂停状态
-        if game_instance.get("is_paused", False):
-            continue
+        try:
+            # 检查暂停状态
+            if game_instance.get("is_paused", False):
+                continue
 
-        sim = game_instance.get("sim")
-        world = game_instance.get("world")
-        
-        if sim and world:
-            # 执行一步
-            events = await sim.step()
+            sim = game_instance.get("sim")
+            world = game_instance.get("world")
             
-            # 找出新诞生的角色 ID
-            newly_born_ids = set()
-            for e in events:
-                if "晋升为修士" in e.content and e.related_avatars:
-                    newly_born_ids.update(e.related_avatars)
+            if sim and world:
+                # 执行一步
+                events = await sim.step()
+                
+                # 找出新诞生的角色 ID
+                newly_born_ids = set()
+                for e in events:
+                    if "晋升为修士" in e.content and e.related_avatars:
+                        newly_born_ids.update(e.related_avatars)
 
-            avatar_updates = []
-            
-            # 为了避免重复发送大量数据，我们区分处理：
-            # - 新角色：发送完整数据
-            # - 旧角色：只发送位置 (x, y)（限制数量）
-            
-            # 1. 发送新角色的完整信息
-            for aid in newly_born_ids:
-                a = world.avatar_manager.avatars.get(aid)
-                if a:
-                    avatar_updates.append({
-                        "id": str(a.id),
-                        "name": a.name,
-                        "x": int(getattr(a, "pos_x", 0)),
-                        "y": int(getattr(a, "pos_y", 0)),
-                        "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
-                        "pic_id": resolve_avatar_pic_id(a),
-                        "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
-                    })
+                avatar_updates = []
+                
+                # 为了避免重复发送大量数据，我们区分处理：
+                # - 新角色：发送完整数据
+                # - 旧角色：只发送位置 (x, y)（限制数量）
+                
+                # 1. 发送新角色的完整信息
+                for aid in newly_born_ids:
+                    a = world.avatar_manager.avatars.get(aid)
+                    if a:
+                        avatar_updates.append({
+                            "id": str(a.id),
+                            "name": a.name,
+                            "x": int(getattr(a, "pos_x", 0)),
+                            "y": int(getattr(a, "pos_y", 0)),
+                            "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
+                            "pic_id": resolve_avatar_pic_id(a),
+                            "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
+                        })
 
-            # 2. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
-            limit = 50
-            count = 0
-            for a in world.avatar_manager.avatars.values():
-                # 如果是新角色，已经在上面处理过了，跳过
-                if a.id in newly_born_ids:
-                    continue
-                    
-                if count < limit:
-                    avatar_updates.append({
-                        "id": str(a.id), 
-                        "x": int(getattr(a, "pos_x", 0)), 
-                        "y": int(getattr(a, "pos_y", 0))
-                    })
-                    count += 1
+                # 2. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
+                limit = 50
+                count = 0
+                for a in world.avatar_manager.avatars.values():
+                    # 如果是新角色，已经在上面处理过了，跳过
+                    if a.id in newly_born_ids:
+                        continue
+                        
+                    if count < limit:
+                        avatar_updates.append({
+                            "id": str(a.id), 
+                            "x": int(getattr(a, "pos_x", 0)), 
+                            "y": int(getattr(a, "pos_y", 0))
+                        })
+                        count += 1
 
-            # 构造广播数据包
-            state = {
-                "type": "tick",
-                "year": int(world.month_stamp.get_year()),
-                "month": world.month_stamp.get_month().value,
-                "events": serialize_events_for_client(events),
-                "avatars": avatar_updates,
-                "phenomenon": serialize_phenomenon(world.current_phenomenon)
-            }
-            await manager.broadcast(state)
+                # 构造广播数据包
+                state = {
+                    "type": "tick",
+                    "year": int(world.month_stamp.get_year()),
+                    "month": world.month_stamp.get_month().value,
+                    "events": serialize_events_for_client(events),
+                    "avatars": avatar_updates,
+                    "phenomenon": serialize_phenomenon(world.current_phenomenon)
+                }
+                await manager.broadcast(state)
+        except Exception as e:
+            from src.run.log import get_logger
+            print(f"Game loop error: {e}")
+            get_logger().logger.error(f"Game loop error: {e}", exc_info=True)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
