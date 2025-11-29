@@ -58,7 +58,7 @@ EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
 """
 额外观察半径
 类型: int
-结算: [待实现]
+结算: src/classes/observe.py
 说明: 增加角色的观察范围（格子数）。
 数值参考: 
   - 微量: 1
@@ -146,7 +146,7 @@ EXTRA_MOVE_STEP = "extra_move_step"
 """
 额外移动步数
 类型: int
-结算: [待实现]
+结算: src/classes/action/move.py
 说明: 每次移动时可以多移动的格子数。
 数值参考: 
   - 微量: 1
@@ -308,17 +308,6 @@ EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
 """
 
 # --- 社交相关 ---
-#EXTRA_SOCIAL_SUCCESS_RATE = "extra_social_success_rate"
-"""
-额外社交成功率
-类型: float
-结算: src/classes/mutual_action/talk.py (待实现)
-说明: 社交互动（请求双修、索要物品等）的成功率加成。
-数值参考: 
-  - 微量: 0.1
-  - 中量: 0.2~0.3
-  - 魅惑: 0.5+
-"""
 
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"

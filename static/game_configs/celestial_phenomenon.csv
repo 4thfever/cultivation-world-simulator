@@ -11,7 +11,7 @@ id,name,rarity,effects,desc,duration_years
 10,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进,5
 11,灵气枯竭,R,"{extra_cultivate_exp: -20}",灵气枯竭末法将至，修炼如逆水行舟，宜节约资源稳固道心,5
 12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -5}]",魔气滔天邪道大昌，魔修如鱼得水，正道修士当避其锋芒潜心积淀,5
-13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -0}]",浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头,5
+13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -5}]",浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头,5
 14,神兵出世,SR,"{extra_weapon_proficiency_gain: 1.0}",神兵有灵百兵齐鸣，兵器熟练度提升极快，宜勤练武艺磨砺锋芒,5
 15,阴阳交泰,R,"{extra_dual_cultivation_exp: 20}",阴阳交泰天地和合，彼此互补进境神速，最宜寻觅道侣共参双修之乐,5
 16,杀劫降临,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",血光冲天杀意难抑，虽杀伐之力大增但机缘断绝，宜主动出击以杀证道,5

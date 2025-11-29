@@ -113,6 +113,14 @@ def _evaluate_conditional_effect(effect: dict[str, Any] | list[dict[str, Any]], 
         "WeaponType": WeaponType,
         "EquipmentGrade": EquipmentGrade,
         "Alignment": Alignment,
+        # 常用内置函数
+        "any": any,
+        "all": all,
+        "len": len,
+        "set": set,
+        "list": list,
+        "max": max,
+        "min": min,
     }
     
     def _check_condition(when_expr: str) -> bool:
