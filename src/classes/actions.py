@@ -17,8 +17,10 @@ def _build_action_info(action):
     info = {
         "comment": action.COMMENT,
         "requirements": action.DOABLES_REQUIREMENTS,
-        "params": action.PARAMS,
     }
+    if action.PARAMS:
+        info["params"] = action.PARAMS
+
     cd = int(getattr(action, "ACTION_CD_MONTHS", 0) or 0)
     if cd > 0:
         info["cd_months"] = cd

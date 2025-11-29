@@ -212,4 +212,8 @@ def get_assassination_success_rate(attacker: "Avatar", defender: "Avatar") -> fl
     diff = attacker_rank - defender_rank
     rate = base_rate + diff * 0.05
     
+    # 应用额外暗杀成功率加成
+    extra = float(attacker.effects.get("extra_assassinate_success_rate", 0.0))
+    rate += extra
+    
     return max(0.01, min(1.0, rate))

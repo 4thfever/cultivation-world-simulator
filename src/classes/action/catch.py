@@ -63,10 +63,6 @@ class Catch(TimedAction):
             self._caught_result = (None, None, "fail")
 
     def can_start(self) -> tuple[bool, str]:
-        # 仅百兽宗
-        sect = self.avatar.sect
-        if sect is None or sect.name != "百兽宗":
-            return False, "仅百兽宗弟子可用"
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False, "当前不在普通区域"

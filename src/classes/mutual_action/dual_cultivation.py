@@ -43,10 +43,6 @@ class DualCultivation(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查双修特有的启动条件"""
-        effects = self.avatar.effects
-        legal_actions = effects.get("legal_actions", [])
-        if not isinstance(legal_actions, list) or "DualCultivation" not in legal_actions:
-            return False, "不具有双修的权限"
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:

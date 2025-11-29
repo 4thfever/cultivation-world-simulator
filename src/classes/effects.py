@@ -23,7 +23,11 @@ EXTRA_BATTLE_STRENGTH_POINTS = "extra_battle_strength_points"
 额外战斗力点数
 类型: int
 结算: src/classes/battle.py
-说明: 直接增加角色的战斗力数值
+说明: 直接增加角色的战斗力数值。
+数值参考: 
+  - 微量: 1~2 (相当于提升1-2个小境界)
+  - 中量: 3~5 (相当于提升半个大境界)
+  - 大量: 8+ (相当于提升一个大境界)
 """
 
 EXTRA_MAX_HP = "extra_max_hp"
@@ -31,7 +35,11 @@ EXTRA_MAX_HP = "extra_max_hp"
 额外最大生命值
 类型: int
 结算: src/classes/avatar.py (__post_init__)
-说明: 增加角色的最大生命值上限
+说明: 增加角色的最大生命值上限。
+数值参考: 
+  - 微量: 10~30
+  - 中量: 50~100 (练气期基础HP约100)
+  - 大量: 200+
 """
 
 EXTRA_MAX_MP = "extra_max_mp"
@@ -39,7 +47,11 @@ EXTRA_MAX_MP = "extra_max_mp"
 额外最大灵力值
 类型: int
 结算: src/classes/avatar.py (__post_init__)
-说明: 增加角色的最大灵力值上限
+说明: 增加角色的最大灵力值上限。
+数值参考: 
+  - 微量: 10~30
+  - 中量: 50~100 (练气期基础MP约100)
+  - 大量: 200+
 """
 
 EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
@@ -47,7 +59,11 @@ EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
 额外观察半径
 类型: int
 结算: [待实现]
-说明: 增加角色的观察范围
+说明: 增加角色的观察范围（格子数）。
+数值参考: 
+  - 微量: 1
+  - 中量: 2~3
+  - 大量: 5+
 """
 
 # --- 修炼相关 ---
@@ -56,23 +72,35 @@ EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
 额外修炼经验
 类型: int
 结算: src/classes/action/cultivate.py
-说明: 每次修炼时额外获得的经验值
+说明: 每次修炼结算时，额外增加的固定经验值。
+数值参考: 
+  - 微量: 5~10
+  - 中量: 20~50 (基础修炼约每次100点经验)
+  - 大量: 100+
 """
 
 CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
 """
 修炼时长缩减
-类型: float (范围: 0.0 ~ 0.9，建议不超过0.5)
+类型: float
 结算: src/classes/action/cultivate.py
-说明: 修炼动作的时长缩减比例（如 0.2 表示缩减20%，10个月变为8个月）
+说明: 修炼动作的时长缩减比例。
+数值参考: 
+  - 微量: 0.05~0.1 (缩减5%-10%)
+  - 中量: 0.15~0.25
+  - 极限: 0.5 (不建议超过0.5)
 """
 
 EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
 """
 额外突破成功率
-类型: float (范围: -1.0 ~ 1.0)
+类型: float
 结算: src/classes/action/breakthrough.py
-说明: 修改突破时的成功率，可以为负值降低成功率
+说明: 修改突破瓶颈时的成功率。
+数值参考: 
+  - 微量: 0.05 (5%)
+  - 中量: 0.1~0.15
+  - 大量: 0.3+
 """
 
 # --- 双修相关 ---
@@ -81,7 +109,11 @@ EXTRA_DUAL_CULTIVATION_EXP = "extra_dual_cultivation_exp"
 额外双修经验
 类型: int
 结算: src/classes/mutual_action/dual_cultivation.py
-说明: 双修时发起者额外获得的经验值
+说明: 双修时发起者额外获得的固定经验值。
+数值参考: 
+  - 微量: 10~30
+  - 中量: 50~100 (双修基础收益约300~500)
+  - 大量: 150+
 """
 
 # --- 采集相关 ---
@@ -90,7 +122,11 @@ EXTRA_HARVEST_ITEMS = "extra_harvest_items"
 额外采集物品数量
 类型: int
 结算: src/classes/action/harvest.py
-说明: 采集植物时额外获得的物品数量
+说明: 采集植物时额外获得的物品数量。
+数值参考: 
+  - 微量: 1
+  - 中量: 2~3
+  - 大量: 5+
 """
 
 EXTRA_HUNT_ITEMS = "extra_hunt_items"
@@ -98,7 +134,11 @@ EXTRA_HUNT_ITEMS = "extra_hunt_items"
 额外狩猎物品数量
 类型: int
 结算: src/classes/action/hunt.py
-说明: 狩猎动物时额外获得的物品数量
+说明: 狩猎动物时额外获得的物品数量。
+数值参考: 
+  - 微量: 1
+  - 中量: 2~3
+  - 大量: 5+
 """
 
 # --- 移动相关 ---
@@ -107,51 +147,90 @@ EXTRA_MOVE_STEP = "extra_move_step"
 额外移动步数
 类型: int
 结算: [待实现]
-说明: 每次移动时可以多移动的步数
+说明: 每次移动时可以多移动的格子数。
+数值参考: 
+  - 微量: 1
+  - 中量: 2
+  - 大量: 3+
 """
 
 # --- 捕捉相关 ---
 EXTRA_CATCH_SUCCESS_RATE = "extra_catch_success_rate"
 """
 额外捕捉成功率
-类型: float (范围: 0.0 ~ 1.0)
+类型: float
 结算: src/classes/action/catch.py
-说明: 捕捉灵兽时增加的成功率
+说明: 捕捉灵兽时增加的成功率。
+数值参考: 
+  - 微量: 0.05~0.1 (5%-10%)
+  - 中量: 0.2~0.3
+  - 大量: 0.5+
 """
 
 # --- 逃跑相关 ---
 EXTRA_ESCAPE_SUCCESS_RATE = "extra_escape_success_rate"
 """
 额外逃跑成功率
-类型: float (范围: 0.0 ~ 1.0)
+类型: float
 结算: src/classes/battle.py
-说明: 从对方身边逃离时增加的成功率
+说明: 从战斗中逃离的成功率加成。
+数值参考: 
+  - 微量: 0.1
+  - 中量: 0.2~0.3
+  - 大量: 0.5 (配合基础概率几乎必逃)
+"""
+
+# --- 暗杀相关 ---
+EXTRA_ASSASSINATE_SUCCESS_RATE = "extra_assassinate_success_rate"
+"""
+额外暗杀成功率
+类型: float
+结算: src/classes/battle.py (get_assassination_success_rate)
+说明: 暗杀判定成功率的加成。
+数值参考: 
+  - 微量: 0.05~0.1
+  - 中量: 0.2~0.3
+  - 大量: 0.5+
 """
 
 # --- 奇遇相关 ---
 EXTRA_FORTUNE_PROBABILITY = "extra_fortune_probability"
 """
 额外奇遇概率
-类型: float (范围: 0.0 ~ 1.0)
+类型: float
 结算: src/classes/fortune.py
-说明: 增加触发奇遇事件的概率
+说明: 每月触发奇遇的额外概率（绝对值）。
+数值参考: 
+  - 基础概率通常极低 (<0.01)
+  - 微量: 0.005 (0.5%，显著增加)
+  - 中量: 0.01~0.02 (1%-2%，非常高)
+  - 极高: 0.05+ (5%，奇遇频发)
 """
 
 # --- 兵器相关 ---
 EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
 """
 额外兵器熟练度增长速度
-类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
-结算: src/classes/action/nurture_weapon.py 和战斗相关代码
-说明: 提升兵器熟练度增长速度的倍率
+类型: float
+结算: src/classes/action/nurture_weapon.py
+说明: 熟练度增长倍率（乘法加成）。
+数值参考: 
+  - 微量: 0.1~0.2 (+10%-20%)
+  - 中量: 0.5 (+50%)
+  - 大量: 1.0 (+100%，翻倍)
 """
 
 EXTRA_WEAPON_UPGRADE_CHANCE = "extra_weapon_upgrade_chance"
 """
 额外兵器升华概率
-类型: float (范围: 0.0 ~ 1.0)
+类型: float
 结算: src/classes/action/nurture_weapon.py
-说明: 温养兵器时升华为宝物的概率提升
+说明: 温养兵器时升华为宝物的概率加成。
+数值参考: 
+  - 基础概率: 0.05 (5%)
+  - 微量: 0.05 (+5%)
+  - 中量: 0.1~0.15
+  - 大量: 0.3+
 """
 
 # --- 生存与恢复相关 ---
@@ -160,48 +239,85 @@ EXTRA_MAX_LIFESPAN = "extra_max_lifespan"
 额外最大寿元
 类型: int (年)
 结算: src/classes/age.py
-说明: 增加角色的最大寿命上限（年）
+说明: 增加角色的最大寿命上限。
+数值参考: 
+  - 微量: 5~10
+  - 中量: 20~50
+  - 大量: 100+
 """
 
 EXTRA_HP_RECOVERY_RATE = "extra_hp_recovery_rate"
 """
 额外HP恢复速率
-类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
+类型: float
 结算: src/classes/action/self_heal.py
-说明: 疗伤时的HP恢复效率倍率
+说明: 疗伤时的HP恢复效率倍率。
+数值参考: 
+  - 微量: 0.1~0.2
+  - 中量: 0.5 (+50%)
+  - 大量: 1.0 (翻倍)
 """
 
 DAMAGE_REDUCTION = "damage_reduction"
 """
 伤害减免
-类型: float (范围: 0.0 ~ 1.0)
+类型: float
 结算: src/classes/battle.py
-说明: 受到伤害的减免比例（如 0.1 表示减少10%伤害）
+说明: 受到伤害的减免比例（乘法减少）。
+数值参考: 
+  - 微量: 0.05~0.1 (5%-10%)
+  - 中量: 0.15~0.25
+  - 坦克: 0.3+ (不建议超过0.5)
 """
 
 REALM_SUPPRESSION_BONUS = "realm_suppression_bonus"
 """
 境界压制加成
-类型: float (倍率，如 0.15 表示每高一个大境界获得15%战斗力加成)
+类型: float
 结算: src/classes/battle.py
-说明: 当角色境界高于对手时，每高一个大境界额外增加战斗力点数
+说明: 当境界高于对手时，每级境界差提供的战斗力百分比加成。
+数值参考: 
+  - 基础值: 0.0 (无额外加成，仅靠基础属性)
+  - 微量: 0.1 (每级差多10%战斗力)
+  - 中量: 0.2~0.3
 """
 
 # --- 经济相关 ---
 EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
 """
 额外物品出售价格倍率
-类型: float (倍率，如 0.2 表示增加20%，1.0 表示翻倍)
+类型: float
 结算: src/classes/action/sold.py
-说明: 出售物品时的价格倍率
+说明: 出售物品时的价格加成倍率。
+数值参考: 
+  - 微量: 0.1 (+10%)
+  - 中量: 0.2~0.3
+  - 奸商: 0.5+
 """
 
 EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
 """
 额外搜刮收益倍率
-类型: float (倍率，如 0.5 表示增加50%，1.0 表示翻倍)
+类型: float
 结算: src/classes/action/plunder_mortals.py
-说明: 搜刮凡人时的灵石收益倍率
+说明: 搜刮凡人时的收益倍率。
+数值参考: 
+  - 微量: 0.5 (+50%)
+  - 中量: 1.0~2.0 (翻倍到三倍)
+  - 暴徒: 3.0+
+"""
+
+# --- 社交相关 ---
+#EXTRA_SOCIAL_SUCCESS_RATE = "extra_social_success_rate"
+"""
+额外社交成功率
+类型: float
+结算: src/classes/mutual_action/talk.py (待实现)
+说明: 社交互动（请求双修、索要物品等）的成功率加成。
+数值参考: 
+  - 微量: 0.1
+  - 中量: 0.2~0.3
+  - 魅惑: 0.5+
 """
 
 # --- 特殊权限 ---
@@ -210,10 +326,9 @@ LEGAL_ACTIONS = "legal_actions"
 合法动作列表
 类型: list[str]
 结算: 各个 action 的权限检查
-说明: 允许角色执行的特殊动作列表
+说明: 允许角色执行的特殊动作列表。
 可用值:
-  - "DualCultivation": 双修（合欢宗专属）
-  - "DevourMortals": 吞噬凡人（邪道法宝）
+  - "DevourMortals": 吞噬凡人（邪道法宝万魂幡）
 """
 
 # =============================================================================
@@ -295,6 +410,9 @@ ALL_EFFECTS = [
     # 逃跑相关
     "extra_escape_success_rate",         # float - 额外逃跑成功率
     
+    # 暗杀相关
+    "extra_assassinate_success_rate",    # float - 额外暗杀成功率
+
     # 奇遇相关
     "extra_fortune_probability",         # float - 额外奇遇概率
     
@@ -309,6 +427,8 @@ ALL_EFFECTS = [
     # 经济相关
     "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
+    
+    # 社交相关
     
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表
