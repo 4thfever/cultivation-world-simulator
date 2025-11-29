@@ -695,9 +695,19 @@ def make_avatars(
     current_month_stamp: MonthStamp = MonthStamp(100 * 12),
     existed_sects: Optional[List[Sect]] = None,
 ) -> dict[str, Avatar]:
+    from src.sim.load.protagonists import spawn_protagonists
+    
+    # 1. 生成主角团
+    protagonist_avatars = spawn_protagonists(world, current_month_stamp)
+    
+    # 2. 生成随机路人
     population_plan = PopulationPlanner.plan_group(count, existed_sects)
     random_avatars = AvatarFactory.build_group(world, current_month_stamp, population_plan)
-    return random_avatars
+    
+    # 3. 合并结果
+    all_avatars = {**random_avatars, **protagonist_avatars}
+    
+    return all_avatars
 
 # —— 指定参数创建：支持传入字符串并解析为对象 ——
 def _parse_gender(value: Union[str, Gender, None]) -> Optional[Gender]:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Optional, Dict
+import copy
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
@@ -28,6 +29,28 @@ class Auxiliary:
     sect: Optional[Sect] = None
     # 特殊属性（用于存储实例特定数据）
     special_data: dict = field(default_factory=dict)
+
+    def __deepcopy__(self, memo):
+        """
+        自定义 deepcopy，避免深拷贝 sect 导致级联复制整个世界。
+        """
+        if id(self) in memo:
+            return memo[id(self)]
+
+        new_obj = Auxiliary(
+            id=self.id,
+            name=self.name,
+            grade=self.grade,
+            sect_id=self.sect_id,
+            desc=self.desc,
+            effects=copy.deepcopy(self.effects, memo),
+            effect_desc=self.effect_desc,
+            sect=self.sect,  # 浅拷贝引用
+            special_data=copy.deepcopy(self.special_data, memo)
+        )
+        
+        memo[id(self)] = new_obj
+        return new_obj
 
     def get_info(self) -> str:
         """获取简略信息"""

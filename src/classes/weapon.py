@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Optional, Dict
+import copy
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
@@ -31,6 +32,32 @@ class Weapon:
     sect: Optional[Sect] = None
     # 特殊属性（如万魂幡的吞噬魂魄计数）
     special_data: dict = field(default_factory=dict)
+
+    def __deepcopy__(self, memo):
+        """
+        自定义 deepcopy，避免深拷贝 sect 导致级联复制整个世界（包含所有 Avatar）。
+        """
+        # 如果已经在 memo 中，直接返回
+        if id(self) in memo:
+            return memo[id(self)]
+
+        new_obj = Weapon(
+            id=self.id,
+            name=self.name,
+            weapon_type=self.weapon_type,
+            grade=self.grade,
+            sect_id=self.sect_id,
+            desc=self.desc,
+            # effects 和 special_data 是可变的字典，需要 deepcopy
+            effects=copy.deepcopy(self.effects, memo),
+            # sect 是全局对象引用，绝不能 deepcopy
+            sect=self.sect,
+            special_data=copy.deepcopy(self.special_data, memo),
+            effect_desc=self.effect_desc
+        )
+        
+        memo[id(self)] = new_obj
+        return new_obj
 
     def get_info(self) -> str:
         """获取简略信息"""
