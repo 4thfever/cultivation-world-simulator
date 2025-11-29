@@ -43,7 +43,7 @@ class MutualAction(DefineAction, LLMAction, TargetingMixin):
         "MoveAwayFromAvatar": "试图远离",
         "MoveAwayFromRegion": "试图离开区域",
         "Escape": "逃离",
-        "Battle": "战斗",
+        "Attack": "战斗",
     }
     # 若该互动动作可能生成小故事，可在子类中覆盖该提示词
     STORY_PROMPT: str | None = None

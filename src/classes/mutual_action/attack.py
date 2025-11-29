@@ -9,14 +9,14 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class Attack(MutualAction):
+class MutualAttack(MutualAction):
     """攻击另一个NPC"""
 
     ACTION_NAME = "攻击"
     COMMENT = "对目标进行攻击。"
     DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Escape", "Battle"]
+    FEEDBACK_ACTIONS = ["Escape", "Attack"]
     STORY_PROMPT: str = ""
     # 攻击冷却：避免同月连刷攻击
     ACTION_CD_MONTHS: int = 3
@@ -35,7 +35,7 @@ class Attack(MutualAction):
         if fb == "Escape":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
-        elif fb == "Battle":
+        elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
 

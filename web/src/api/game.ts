@@ -49,6 +49,15 @@ export interface CreateAvatarParams {
   appearance?: number;
 }
 
+export interface PhenomenonDTO {
+  id: number;
+  name: string;
+  desc: string;
+  rarity: string;
+  duration_years: number;
+  effect_desc: string;
+}
+
 export const gameApi = {
   // --- World State ---
   
@@ -62,6 +71,14 @@ export const gameApi = {
 
   fetchAvatarMeta() {
     return httpClient.get<{ males: number[]; females: number[] }>('/api/meta/avatars');
+  },
+
+  fetchPhenomenaList() {
+    return httpClient.get<{ phenomena: PhenomenonDTO[] }>('/api/meta/phenomena');
+  },
+
+  setPhenomenon(id: number) {
+    return httpClient.post('/api/control/set_phenomenon', { id });
   },
 
   // --- Information ---

@@ -11,7 +11,7 @@ class Escape(InstantAction):
     """
     逃离：尝试从对方身边脱离（有成功率）。
     成功：抢占并进入 MoveAwayFromAvatar(6个月)。
-    失败：抢占并进入 Battle。
+    失败：抢占并进入 Attack。
     """
 
     COMMENT = "逃离对方（基于成功率判定）"
@@ -57,7 +57,7 @@ class Escape(InstantAction):
                 EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)
         else:
             self._preempt_avatar(self.avatar)
-            self.avatar.load_decide_result_chain([("Battle", {"avatar_name": avatar_name})], self.avatar.thinking, "")
+            self.avatar.load_decide_result_chain([("Attack", {"avatar_name": avatar_name})], self.avatar.thinking, "")
             start_event = self.avatar.commit_next_plan()
             if start_event is not None:
                 EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)

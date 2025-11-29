@@ -26,7 +26,7 @@ from .play import Play
 from .hunt import Hunt
 from .harvest import Harvest
 from .sold import SellItems
-from .battle import Battle
+from .attack import Attack
 from .plunder_mortals import PlunderMortals
 from .help_mortals import HelpMortals
 from .devour_mortals import DevourMortals
@@ -34,6 +34,7 @@ from .self_heal import SelfHeal
 from .catch import Catch
 from .nurture_weapon import NurtureWeapon
 from .switch_weapon import SwitchWeapon
+from .assassinate import Assassinate
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -56,7 +57,7 @@ register_action(actual=True)(Play)
 register_action(actual=True)(Hunt)
 register_action(actual=True)(Harvest)
 register_action(actual=True)(SellItems)
-register_action(actual=False)(Battle)
+register_action(actual=False)(Attack)
 register_action(actual=True)(PlunderMortals)
 register_action(actual=True)(HelpMortals)
 register_action(actual=True)(DevourMortals)
@@ -64,6 +65,7 @@ register_action(actual=True)(SelfHeal)
 register_action(actual=True)(Catch)
 register_action(actual=True)(NurtureWeapon)
 register_action(actual=True)(SwitchWeapon)
+register_action(actual=True)(Assassinate)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -89,7 +91,7 @@ __all__ = [
     "Hunt",
     "Harvest",
     "SellItems",
-    "Battle",
+    "Attack",
     "PlunderMortals",
     "HelpMortals",
     "DevourMortals",
@@ -97,6 +99,7 @@ __all__ = [
     "Catch",
     "NurtureWeapon",
     "SwitchWeapon",
+    "Assassinate",
     # Talk 已移动到 mutual_action 模块
 ]
 

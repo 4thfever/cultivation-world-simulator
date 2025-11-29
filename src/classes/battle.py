@@ -186,3 +186,30 @@ def get_escape_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
     base_rate = 0.1
     bonus = float(defender.effects.get("extra_escape_success_rate", 0.0))
     return max(0.0, min(1.0, base_rate + bonus))
+
+
+def get_assassination_success_rate(attacker: "Avatar", defender: "Avatar") -> float:
+    """
+    暗杀成功率：
+    - 基础 10%
+    - 同境界 10%
+    - 每高一个大境界 +5%，每低一个大境界 -5%
+    - 范围 [1%, 100%]
+    """
+    from src.classes.cultivation import Realm
+    realm_order = {
+        Realm.Qi_Refinement: 1,
+        Realm.Foundation_Establishment: 2,
+        Realm.Core_Formation: 3,
+        Realm.Nascent_Soul: 4,
+    }
+    
+    base_rate = 0.10
+    
+    attacker_rank = realm_order.get(attacker.cultivation_progress.realm, 1)
+    defender_rank = realm_order.get(defender.cultivation_progress.realm, 1)
+    
+    diff = attacker_rank - defender_rank
+    rate = base_rate + diff * 0.05
+    
+    return max(0.01, min(1.0, rate))

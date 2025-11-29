@@ -9,8 +9,8 @@ from src.classes.normalize import normalize_avatar_name
 from src.classes.death import handle_death
 from src.classes.kill_and_grab import kill_and_grab
 
-class Battle(InstantAction):
-    COMMENT = "与目标进行对战，判定胜负"
+class Attack(InstantAction):
+    COMMENT = "攻击目标，进行对战"
     DOABLES_REQUIREMENTS = "任何时候都可以执行"
     PARAMS = {"avatar_name": "AvatarName"}
     # 提供用于故事生成的提示词：不出现血量/伤害等数值描述

@@ -22,6 +22,7 @@ export const useWorldStore = defineStore('world', () => {
   const isLoaded = ref(false);
   
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
+  const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
 
   // --- Getters ---
 
@@ -199,6 +200,28 @@ export const useWorldStore = defineStore('world', () => {
     currentPhenomenon.value = null;
   }
 
+  async function getPhenomenaList() {
+    if (phenomenaList.value.length > 0) return phenomenaList.value;
+    try {
+      const res = await gameApi.fetchPhenomenaList();
+      // The API returns DTOs which match CelestialPhenomenon structure enough for frontend display
+      phenomenaList.value = res.phenomena as CelestialPhenomenon[];
+      return phenomenaList.value;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  }
+
+  async function changePhenomenon(id: number) {
+    await gameApi.setPhenomenon(id);
+    // 乐观更新：直接从列表里找到并设置，不等下一次 tick
+    const p = phenomenaList.value.find(item => item.id === id);
+    if (p) {
+      currentPhenomenon.value = p;
+    }
+  }
+
   return {
     year,
     month,
@@ -209,10 +232,13 @@ export const useWorldStore = defineStore('world', () => {
     regions,
     isLoaded,
     currentPhenomenon,
+    phenomenaList,
     
     initialize,
     fetchState,
     handleTick,
-    reset
+    reset,
+    getPhenomenaList,
+    changePhenomenon
   };
 });

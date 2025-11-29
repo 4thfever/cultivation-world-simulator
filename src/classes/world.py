@@ -30,6 +30,10 @@ class World():
         static_info = self.static_info
         map_info = self.map.get_info(detailed=detailed)
         world_info = {**map_info, **static_info}
+
+        if self.current_phenomenon:
+            world_info["天地灵机"] = f"【{self.current_phenomenon.name}】{self.current_phenomenon.desc}"
+
         return world_info
 
     def get_avatars_in_same_region(self, avatar: "Avatar"):
@@ -40,4 +44,4 @@ class World():
 
     @property
     def static_info(self) -> dict:
-        return {"static_info": "这是一个修仙世界，修仙的境界有：练气、筑基、金丹、元婴。"}
+        return {"世界描述": "这是一个修仙世界，修仙的境界有：练气、筑基、金丹、元婴。"}

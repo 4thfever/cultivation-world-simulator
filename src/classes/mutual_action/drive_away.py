@@ -16,7 +16,7 @@ class DriveAway(MutualAction):
     COMMENT = "以武力威慑对方离开此地。"
     DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Battle"]
+    FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Attack"]
     STORY_PROMPT: str = ""
     # 驱赶冷却：避免反复驱赶刷屏
     ACTION_CD_MONTHS: int = 3
@@ -34,7 +34,7 @@ class DriveAway(MutualAction):
             # 驱赶选择离开：必定成功，不涉及概率
             params = {"region": self.avatar.tile.region.name}
             self._set_target_immediate_action(target_avatar, fb, params)
-        elif fb == "Battle":
+        elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
 

@@ -2,10 +2,12 @@
 import { useWorldStore } from '../../stores/world'
 import { gameSocket } from '../../api/socket'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { NPopover } from 'naive-ui'
+import { NPopover, NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 
 const store = useWorldStore()
+const message = useMessage()
 const isConnected = ref(false)
+const showSelector = ref(false)
 
 // Update status locally since socket store is bare-bones
 let cleanup: (() => void) | undefined;
@@ -23,14 +25,29 @@ onUnmounted(() => {
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
   if (!p) return '#ccc';
-  switch (p.rarity) {
+  return getRarityColor(p.rarity);
+})
+
+function getRarityColor(rarity: string) {
+  switch (rarity) {
     case 'N': return '#ccc';
     case 'R': return '#4dabf7'; // Blue
     case 'SR': return '#a0d911'; // Lime
     case 'SSR': return '#fa8c16'; // Orange/Gold
     default: return '#ccc';
   }
-})
+}
+
+async function openPhenomenonSelector() {
+  showSelector.value = true;
+  await store.getPhenomenaList();
+}
+
+async function handleSelect(id: number, name: string) {
+  await store.changePhenomenon(id);
+  showSelector.value = false;
+  message.success(`天象已更易为：${name}`);
+}
 </script>
 
 <template>
@@ -47,7 +64,11 @@ const phenomenonColor = computed(() => {
         <span class="divider">|</span>
         <n-popover trigger="hover" placement="bottom" style="max-width: 300px;">
           <template #trigger>
-            <span class="phenomenon-name" :style="{ color: phenomenonColor }">
+            <span 
+              class="phenomenon-name" 
+              :style="{ color: phenomenonColor }"
+              @click="openPhenomenonSelector"
+            >
               [{{ store.currentPhenomenon.name }}]
             </span>
           </template>
@@ -67,10 +88,40 @@ const phenomenonColor = computed(() => {
              <div class="p-duration" v-if="store.currentPhenomenon.duration_years">
                 持续 {{ store.currentPhenomenon.duration_years }} 年
              </div>
+             <div class="click-tip">（点击可更易天象）</div>
           </div>
         </n-popover>
       </div>
     </div>
+
+    <!-- 天象选择器 Modal -->
+    <n-modal
+      v-model:show="showSelector"
+      preset="card"
+      title="天道干涉：更易天象"
+      style="width: 700px; max-height: 80vh; overflow-y: auto;"
+    >
+      <n-list hoverable clickable>
+        <n-list-item v-for="p in store.phenomenaList" :key="p.id" @click="handleSelect(p.id, p.name)">
+          <div class="list-item-content">
+            <div class="item-left">
+              <div class="item-name" :style="{ color: getRarityColor(p.rarity) }">
+                {{ p.name }}
+                <n-tag size="small" :bordered="false" :color="{ color: 'rgba(255,255,255,0.1)', textColor: getRarityColor(p.rarity) }">
+                  {{ p.rarity }}
+                </n-tag>
+              </div>
+              <div class="item-desc">{{ p.desc }}</div>
+            </div>
+            <div class="item-right">
+               <div class="item-effect" v-if="p.effect_desc">{{ p.effect_desc }}</div>
+            </div>
+          </div>
+        </n-list-item>
+        <n-empty v-if="store.phenomenaList.length === 0" description="暂无天象数据" />
+      </n-list>
+    </n-modal>
+
     <div class="author">
       肥桥今天吃什么的<a
         class="author-link"
@@ -129,8 +180,14 @@ const phenomenonColor = computed(() => {
 }
 
 .phenomenon-name {
-  cursor: help;
+  cursor: pointer;
   font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.phenomenon-name:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
 .phenomenon-card {
@@ -190,6 +247,45 @@ const phenomenonColor = computed(() => {
   font-size: 12px;
   color: #888;
   text-align: right;
+}
+
+.click-tip {
+  font-size: 10px;
+  color: #666;
+  text-align: center;
+  margin-top: 8px;
+  border-top: 1px dashed #333;
+  padding-top: 4px;
+}
+
+.list-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-desc {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.item-effect {
+  font-size: 12px;
+  color: #e6a23c; /* Warning color */
+  background: rgba(230, 162, 60, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
 }
 
 .status-dot {

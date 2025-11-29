@@ -172,50 +172,47 @@ class Simulator:
         - 生成世界事件记录天象变化
         
         天象变化时机：
-        - 从游戏第二年（101年）开始
-        - 每5年（或当前天象指定的持续时间）变化一次
+        - 初始年份（如100年）1月立即开始第一个天象
+        - 每N年（当前天象指定的持续时间）变化一次
         """
         events = []
         current_year = self.world.month_stamp.get_year()
         current_month = self.world.month_stamp.get_month()
         
-        # 第一年（100年）不触发天象
-        if current_year < 101:
-            return events
+        # 检查是否需要初始化或更新天象
+        # 1. 如果没有天象 (初始化)
+        # 2. 如果有天象且到期 (每年一月检查)
+        should_update = False
+        is_init = False
         
-        # 初次运行：在101年1月设置初始天象
-        if self.world.current_phenomenon is None and current_month == Month.JANUARY:
+        if self.world.current_phenomenon is None:
+            should_update = True
+            is_init = True
+        elif current_month == Month.JANUARY:
+            elapsed_years = current_year - self.world.phenomenon_start_year
+            if elapsed_years >= self.world.current_phenomenon.duration_years:
+                should_update = True
+
+        if should_update:
+            old_phenomenon = self.world.current_phenomenon
             new_phenomenon = get_random_celestial_phenomenon()
+            
             if new_phenomenon:
                 self.world.current_phenomenon = new_phenomenon
                 self.world.phenomenon_start_year = current_year
-                # 生成世界事件（不绑定任何角色）
+                
+                desc = ""
+                if is_init:
+                    desc = f"世界初开，天降异象！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                else:
+                    desc = f"{old_phenomenon.name}消散，天地异象再现！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                
                 event = Event(
                     self.world.month_stamp,
-                    f"天降异象！{new_phenomenon.name}：{new_phenomenon.desc}。",
-                    related_avatars=None  # 世界事件，不绑定角色
+                    desc,
+                    related_avatars=None
                 )
                 events.append(event)
-        elif self.world.current_phenomenon is not None:
-            # 检查是否到期（每年一月检查）
-            if current_month == Month.JANUARY:
-                elapsed_years = current_year - self.world.phenomenon_start_year
-                if elapsed_years >= self.world.current_phenomenon.duration_years:
-                    # 天象到期，更换新天象
-                    old_phenomenon = self.world.current_phenomenon
-                    new_phenomenon = get_random_celestial_phenomenon()
-                    
-                    if new_phenomenon:
-                        self.world.current_phenomenon = new_phenomenon
-                        self.world.phenomenon_start_year = current_year
-                        
-                        # 生成天象变化事件
-                        event = Event(
-                            self.world.month_stamp,
-                            f"{old_phenomenon.name}消散，天地异象再现！{new_phenomenon.name}：{new_phenomenon.desc}。",
-                            related_avatars=None  # 世界事件
-                        )
-                        events.append(event)
         
         return events
 

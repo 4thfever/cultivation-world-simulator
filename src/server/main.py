@@ -30,6 +30,7 @@ from src.classes.cultivation import REALM_ORDER
 from src.classes.alignment import Alignment
 from src.classes.color import serialize_hover_lines
 from src.classes.event import Event
+from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim.save.save_game import save_game, list_saves
 from src.sim.load.load_game import load_game
@@ -795,6 +796,39 @@ def get_avatar_list_simple():
     # 按名字排序
     result.sort(key=lambda x: x["name"])
     return {"avatars": result}
+
+@app.get("/api/meta/phenomena")
+def get_phenomena_list():
+    """获取所有可选的天地灵机列表"""
+    result = []
+    # 按 ID 排序
+    for p in sorted(celestial_phenomena_by_id.values(), key=lambda x: x.id):
+        result.append(serialize_phenomenon(p))
+    return {"phenomena": result}
+
+class SetPhenomenonRequest(BaseModel):
+    id: int
+
+@app.post("/api/control/set_phenomenon")
+def set_phenomenon(req: SetPhenomenonRequest):
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+    
+    p = celestial_phenomena_by_id.get(req.id)
+    if not p:
+        raise HTTPException(status_code=404, detail="Phenomenon not found")
+        
+    world.current_phenomenon = p
+    
+    # 重置计时器，使其从当前年份开始重新计算持续时间
+    try:
+        current_year = int(world.month_stamp.get_year())
+        world.phenomenon_start_year = current_year
+    except Exception:
+        pass
+    
+    return {"status": "ok", "message": f"Phenomenon set to {p.name}"}
 
 @app.post("/api/action/create_avatar")
 def create_avatar(req: CreateAvatarRequest):
