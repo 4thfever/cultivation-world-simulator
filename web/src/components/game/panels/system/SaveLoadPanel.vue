@@ -1,0 +1,206 @@
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue'
+import { gameApi, type SaveFileDTO } from '../../../../api/game'
+import { useWorldStore } from '../../../../stores/world'
+import { useUiStore } from '../../../../stores/ui'
+import { useMessage } from 'naive-ui'
+
+const props = defineProps<{
+  mode: 'save' | 'load'
+}>()
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
+
+const worldStore = useWorldStore()
+const uiStore = useUiStore()
+const message = useMessage()
+const loading = ref(false)
+const saves = ref<SaveFileDTO[]>([])
+
+async function fetchSaves() {
+  loading.value = true
+  try {
+    const res = await gameApi.fetchSaves()
+    saves.value = res.saves
+  } catch (e) {
+    message.error('获取存档列表失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleSave() {
+  loading.value = true
+  try {
+    const res = await gameApi.saveGame()
+    message.success(`存档成功: ${res.filename}`)
+    await fetchSaves()
+  } catch (e) {
+    message.error('存档失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleLoad(filename: string) {
+  if (!confirm(`确定要加载存档 ${filename} 吗？当前未保存的进度将丢失。`)) return
+
+  loading.value = true
+  try {
+    await gameApi.loadGame(filename)
+    worldStore.reset()
+    uiStore.clearSelection()
+    uiStore.clearHoverCache()
+    await worldStore.initialize()
+    message.success('读档成功')
+    emit('close')
+  } catch (e) {
+    message.error('读档失败')
+  } finally {
+    loading.value = false
+  }
+}
+
+watch(() => props.mode, () => {
+  fetchSaves()
+})
+
+onMounted(() => {
+  fetchSaves()
+})
+</script>
+
+<template>
+  <div :class="mode === 'save' ? 'save-panel' : 'load-panel'">
+    <div v-if="loading && saves.length === 0" class="loading">加载中...</div>
+    
+    <!-- Save Mode: New Save Button -->
+    <template v-if="mode === 'save'">
+      <div class="new-save-card" @click="handleSave">
+        <div class="icon">+</div>
+        <div>新建存档</div>
+        <div class="sub">点击创建一个新的存档文件</div>
+      </div>
+    </template>
+
+    <!-- Save List -->
+    <div v-if="!loading && saves.length === 0" class="empty">暂无存档</div>
+    <div 
+      v-for="save in saves" 
+      :key="save.filename"
+      class="save-item"
+      @click="mode === 'load' ? handleLoad(save.filename) : null"
+    >
+      <div class="save-info">
+        <div class="save-time">{{ save.save_time }}</div>
+        <div class="game-time">游戏时间: {{ save.game_time }}</div>
+        <div class="filename">{{ save.filename }}</div>
+      </div>
+      <div v-if="mode === 'load'" class="load-btn">加载</div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.save-panel, .load-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.save-panel {
+  align-items: center;
+  padding-top: 40px;
+}
+
+.new-save-card {
+  width: 200px;
+  height: 150px;
+  border: 2px dashed #444;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #888;
+  margin-bottom: 40px;
+}
+
+.new-save-card:hover {
+  border-color: #666;
+  background: #222;
+  color: #fff;
+}
+
+.new-save-card .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.new-save-card .sub {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.save-item {
+  background: #222;
+  border: 1px solid #333;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.save-panel .save-item {
+    cursor: default; /* 存档模式下列表仅展示，不可点击加载 */
+    width: 600px;
+}
+
+.save-item:hover {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.save-info .save-time {
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.save-info .game-time {
+  color: #4a9eff;
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.save-info .filename {
+  color: #666;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.load-btn {
+  background: #333;
+  color: #ddd;
+  border: 1px solid #444;
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+
+.loading, .empty {
+  text-align: center;
+  color: #888;
+  padding: 40px;
+  width: 100%;
+}
+</style>
