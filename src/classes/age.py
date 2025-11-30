@@ -84,7 +84,8 @@ class Age:
         years_over_lifespan = self.age - expected
         
         # 基础概率：每超过1年增加0.01的概率
-        death_probability = min(years_over_lifespan * 0.01, 0.1)
+        prob_add = 0.01
+        death_probability = min(years_over_lifespan * prob_add, 0.1)
 
         return death_probability
         

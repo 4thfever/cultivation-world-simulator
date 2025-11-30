@@ -11,8 +11,12 @@ const emit = defineEmits<{
   (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
 }>()
 
+const visibleAvatars = computed(() => {
+  return worldStore.avatarList.filter(a => !a.is_dead)
+})
+
 const avatarOffsets = computed(() => {
-  return calculateVisualOffsets(worldStore.avatarList)
+  return calculateVisualOffsets(visibleAvatars.value)
 })
 
 function handleAvatarSelect(payload: { type: 'avatar'; id: string; name?: string }) {
@@ -23,7 +27,7 @@ function handleAvatarSelect(payload: { type: 'avatar'; id: string; name?: string
 <template>
   <container sortable-children>
     <AnimatedAvatar
-      v-for="avatar in worldStore.avatarList"
+      v-for="avatar in visibleAvatars"
       :key="avatar.id"
       :avatar="avatar"
       :tile-size="TILE_SIZE"

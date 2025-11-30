@@ -9,7 +9,10 @@ const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
   { label: '所有人', value: 'all' },
-  ...worldStore.avatarList.map(avatar => ({ label: avatar.name ?? avatar.id, value: avatar.id }))
+  ...worldStore.avatarList.map(avatar => ({ 
+    label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''), 
+    value: avatar.id 
+  }))
 ])
 
 const filteredEvents = computed(() => {

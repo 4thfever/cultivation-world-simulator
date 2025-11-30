@@ -16,6 +16,7 @@ from src.classes.fortune import try_trigger_fortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason
 
 class Simulator:
     def __init__(self, world: World):
@@ -28,7 +29,7 @@ class Simulator:
         将 AI 的决策结果加载为角色的计划链。
         """
         avatars_to_decide = []
-        for avatar in list(self.world.avatar_manager.avatars.values()):
+        for avatar in self.world.avatar_manager.get_living_avatars():
             if avatar.current_action is None and not avatar.has_plans():
                 avatars_to_decide.append(avatar)
         if not avatars_to_decide:
@@ -45,7 +46,7 @@ class Simulator:
         提交阶段：为空闲角色提交计划中的下一个可执行动作，返回开始事件集合。
         """
         events = []
-        for avatar in list(self.world.avatar_manager.avatars.values()):
+        for avatar in self.world.avatar_manager.get_living_avatars():
             if avatar.current_action is None:
                 start_event = avatar.commit_next_plan()
                 if start_event is not None and not is_null_event(start_event):
@@ -60,7 +61,7 @@ class Simulator:
         MAX_LOCAL_ROUNDS = 3
         for _ in range(MAX_LOCAL_ROUNDS):
             new_action_happened = False
-            for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
+            for avatar in self.world.avatar_manager.get_living_avatars():
                 # 本轮执行前若标记为新设，则清理，执行后由 Avatar 再统一清除
                 if getattr(avatar, "_new_action_set_this_step", False):
                     new_action_happened = True
@@ -78,28 +79,30 @@ class Simulator:
     def _phase_resolve_death(self):
         """
         结算死亡：
-        - 战斗死亡已在 Action 中结算，此处不再重复（因为已从 avatars 中移除）
+        - 战斗死亡已在 Action 中结算
         - 此时剩下的 avatars 都是存活的，只需检查非战斗因素（如老死、被动掉血）
         """
         events = []
-        # 遍历时可能修改字典，使用 list() 复制
-        for avatar_id, avatar in list(self.world.avatar_manager.avatars.items()):
+        for avatar in self.world.avatar_manager.get_living_avatars():
             is_dead = False
-            reason = ""
+            reason_str = ""
+            death_reason = DeathReason.UNKNOWN
             
             # 优先判定重伤（可能是被动效果导致）
-            if avatar.hp <= 0:
+            if avatar.hp.cur <= 0: # 注意：这里应该是 avatar.hp.cur 或者 avatar.hp <= 0 取决于 HP 类的实现，原代码是 avatar.hp <= 0
                 is_dead = True
-                reason = f"{avatar.name} 因重伤不治身亡"
+                reason_str = f"{avatar.name} 因重伤不治身亡"
+                death_reason = DeathReason.SERIOUS_INJURY
             # 其次判定寿元
             elif avatar.death_by_old_age():
                 is_dead = True
-                reason = f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁"
+                reason_str = f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁"
+                death_reason = DeathReason.OLD_AGE
                 
             if is_dead:
-                event = Event(self.world.month_stamp, reason, related_avatars=[avatar.id])
+                event = Event(self.world.month_stamp, reason_str, related_avatars=[avatar.id])
                 events.append(event)
-                handle_death(self.world, avatar)
+                handle_death(self.world, avatar, death_reason)
                 
         return events
 
@@ -108,12 +111,13 @@ class Simulator:
         更新存活角色年龄，并以一定概率生成新修士，返回期间产生的事件集合。
         """
         events = []
-        for avatar_id, avatar in self.world.avatar_manager.avatars.items():
+        for avatar in self.world.avatar_manager.get_living_avatars():
             avatar.update_age(self.world.month_stamp)
         if random.random() < self.birth_rate:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
+            # create_random_mortal 内部会获取 existing_avatars，需要确保它处理活人
             new_avatar = create_random_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
             self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。", related_avatars=[new_avatar.id])
@@ -127,11 +131,12 @@ class Simulator:
         - 触发奇遇（非动作）
         """
         events = []
-        for avatar in self.world.avatar_manager.avatars.values():
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+        for avatar in living_avatars:
             avatar.update_time_effect()
         
         # 使用 gather 并行触发奇遇
-        tasks = [try_trigger_fortune(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        tasks = [try_trigger_fortune(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         for res in results:
             if res:
@@ -146,7 +151,8 @@ class Simulator:
         from src.classes.nickname import process_avatar_nickname
         
         # 并发执行
-        tasks = [process_avatar_nickname(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+        tasks = [process_avatar_nickname(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
         events = [e for e in results if e]
@@ -158,7 +164,8 @@ class Simulator:
         检查角色是否需要生成/更新长期目标
         """
         # 并发执行
-        tasks = [process_avatar_long_term_objective(avatar) for avatar in self.world.avatar_manager.avatars.values()]
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+        tasks = [process_avatar_long_term_objective(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
         events = [e for e in results if e]

@@ -114,6 +114,12 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     nickname: Optional[Nickname] = None
     # 自定义头像ID：如果设置，优先使用此ID显示头像
     custom_pic_id: Optional[int] = None
+    
+    # 死亡状态
+    is_dead: bool = False
+    # 死亡信息：{ "time": MonthStamp, "reason": str, "location": (x, y) }
+    death_info: Optional[dict] = None
+
     # 当月/当步新设动作标记：在 commit_next_plan 设为 True，首次 tick_action 后清为 False
     _new_action_set_this_step: bool = False
     # 动作冷却：记录动作类名 -> 上次完成月戳
@@ -122,6 +128,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
 
     def join_sect(self, sect: Sect, rank: "SectRank") -> None:
         """加入宗门"""
+        if self.is_dead:
+            return
         if self.sect:
             self.leave_sect()
         self.sect = sect
@@ -136,6 +144,38 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             self.sect.remove_member(self)
             self.sect = None
             self.sect_rank = None
+
+    def set_dead(self, reason: str, time: MonthStamp) -> None:
+        """
+        设置角色死亡状态。
+        
+        Args:
+            reason: 死亡原因
+            time: 死亡时间
+        """
+        if self.is_dead:
+            return
+            
+        self.is_dead = True
+        self.death_info = {
+            "time": int(time),
+            "reason": reason,
+            "location": (self.pos_x, self.pos_y)
+        }
+        
+        # 清空所有计划和当前动作
+        self.planned_actions.clear()
+        self.current_action = None
+        self._pending_events.clear()
+        self.thinking = ""
+        self.short_term_objective = ""
+        
+        # 退出宗门（保留职位记录还是清除？通常死人不再担任职位）
+        # 但为了历史记录，也许可以保留 sect 字段，但从宗门成员列表中移除
+        if self.sect:
+            self.sect.remove_member(self)
+            # 不清除 self.sect 和 self.sect_rank，作为生平记录保留
+
 
     def __post_init__(self):
         """
@@ -319,6 +359,8 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             "long_term_objective": self.long_term_objective.content if self.long_term_objective else "",
             "nickname": self.nickname.value if self.nickname else None,
             "nickname_reason": self.nickname.reason if self.nickname else None,
+            "is_dead": self.is_dead,
+            "death_info": self.death_info,
         }
 
         # 复杂对象结构化

@@ -67,9 +67,12 @@ async function handleClearObjective() {
     />
 
     <!-- Actions Bar -->
-    <div class="actions-bar">
+    <div class="actions-bar" v-if="!data.is_dead">
       <button class="btn primary" @click="showObjectiveModal = true">设定目标</button>
       <button class="btn" @click="handleClearObjective">清空目标</button>
+    </div>
+    <div class="dead-banner" v-else>
+      已故 ({{ data.death_info?.reason || '未知原因' }})
     </div>
 
     <div class="content-scroll">
@@ -210,6 +213,17 @@ async function handleClearObjective() {
   padding-bottom: 12px;
   border-bottom: 1px solid #333;
   margin-bottom: 12px;
+}
+
+.dead-banner {
+  background: #4a1a1a;
+  color: #ffaaaa;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 13px;
+  margin-bottom: 12px;
+  border: 1px solid #7a2a2a;
 }
 
 .content-scroll {

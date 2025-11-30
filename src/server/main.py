@@ -255,16 +255,19 @@ async def game_loop():
                 # 执行一步
                 events = await sim.step()
                 
-                # 找出新诞生的角色 ID
+                # 找出新诞生的角色 ID 和 刚死亡的角色 ID
                 newly_born_ids = set()
+                newly_dead_ids = set()
                 for e in events:
                     if "晋升为修士" in e.content and e.related_avatars:
                         newly_born_ids.update(e.related_avatars)
+                    if ("身亡" in e.content or "老死" in e.content) and e.related_avatars:
+                        newly_dead_ids.update(e.related_avatars)
 
                 avatar_updates = []
                 
                 # 为了避免重复发送大量数据，我们区分处理：
-                # - 新角色：发送完整数据
+                # - 新角色/刚死角色：发送完整数据（或关键状态更新）
                 # - 旧角色：只发送位置 (x, y)（限制数量）
                 
                 # 1. 发送新角色的完整信息
@@ -276,15 +279,29 @@ async def game_loop():
                             "name": a.name,
                             "x": int(getattr(a, "pos_x", 0)),
                             "y": int(getattr(a, "pos_y", 0)),
-                            "gender": a.gender.value, # 使用 value (male/female) 而不是 str (中文)
+                            "gender": a.gender.value,
                             "pic_id": resolve_avatar_pic_id(a),
-                            "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆"
+                            "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆",
+                            "is_dead": False
                         })
 
-                # 2. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
+                # 2. 发送刚死角色的状态更新
+                for aid in newly_dead_ids:
+                    # 注意：死人可能不在 get_living_avatars() 里，但还在 avatars 里
+                    a = world.avatar_manager.avatars.get(aid)
+                    if a:
+                        avatar_updates.append({
+                            "id": str(a.id),
+                            "name": a.name, # 名字也带上，防止前端没数据
+                            "is_dead": True,
+                            "action": "已故"
+                        })
+
+                # 3. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
                 limit = 50
                 count = 0
-                for a in world.avatar_manager.avatars.values():
+                # 只遍历活人更新位置
+                for a in world.avatar_manager.get_living_avatars():
                     # 如果是新角色，已经在上面处理过了，跳过
                     if a.id in newly_born_ids:
                         continue

@@ -148,6 +148,10 @@ class AvatarLoadMixin:
         # 恢复绰号
         from src.classes.nickname_data import Nickname
         avatar.nickname = Nickname.from_dict(data.get("nickname"))
+
+        # 恢复死亡状态
+        avatar.is_dead = data.get("is_dead", False)
+        avatar.death_info = data.get("death_info")
         
         # 设置行动与AI
         avatar.thinking = data.get("thinking", "")

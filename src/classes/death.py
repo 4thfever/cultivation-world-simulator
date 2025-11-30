@@ -1,16 +1,27 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
+from src.classes.death_reason import DeathReason
 
 if TYPE_CHECKING:
     from src.classes.world import World
     from src.classes.avatar import Avatar
 
-def handle_death(world: World, avatar: Avatar) -> None:
+def handle_death(world: World, avatar: Avatar, reason: Union[str, DeathReason] = DeathReason.UNKNOWN) -> None:
     """
     处理角色死亡的统一入口。
-    负责将角色从世界管理器中移除，并处理相关的清理工作（如关系解除已在 remove_avatar 中实现）。
-    注意：本函数不负责生成死亡事件文本，调用者应在调用前生成相应的 Event。
+    负责将角色标记为死亡，清理行动队列，但保留角色数据。
+    
+    Args:
+        world: 世界对象
+        avatar: 死亡的角色
+        reason: 死亡原因（DeathReason枚举或字符串）
     """
-    # 从管理器中移除角色（remove_avatar 内部会自动清理双向关系）
-    world.avatar_manager.remove_avatar(avatar.id)
+    # 如果传入的是枚举，转为字符串值
+    reason_str = reason.value if isinstance(reason, DeathReason) else str(reason)
+    
+    # 标记为死亡（软删除）
+    avatar.set_dead(reason_str, world.month_stamp)
+    
+    # 可以在这里触发其他逻辑，比如检查是否有继承人等
+
 

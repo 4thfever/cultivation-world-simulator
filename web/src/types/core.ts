@@ -37,6 +37,7 @@ export interface AvatarSummary extends EntityBase, Coordinates {
   action?: string;
   gender?: string;
   pic_id?: number;
+  is_dead?: boolean;
 }
 
 export interface AvatarDetail extends EntityBase {
@@ -46,6 +47,12 @@ export interface AvatarDetail extends EntityBase {
   lifespan: number;
   nickname?: string;
   appearance: string; // 外貌描述
+  is_dead?: boolean;
+  death_info?: {
+    time: number;
+    reason: string;
+    location: [number, number];
+  };
   
   // 修行状态
   realm: string;

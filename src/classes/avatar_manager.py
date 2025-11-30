@@ -26,6 +26,12 @@ class AvatarManager:
                 same_region.append(other)
         return same_region
 
+    def get_living_avatars(self) -> List["Avatar"]:
+        """
+        返回所有存活的角色列表。
+        """
+        return [avatar for avatar in self.avatars.values() if not avatar.is_dead]
+
     def get_observable_avatars(self, avatar: "Avatar") -> List["Avatar"]:
         """
         返回处于 avatar 交互范围内的其他角色列表（不含自己）。

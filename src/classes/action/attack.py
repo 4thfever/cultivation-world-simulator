@@ -7,6 +7,7 @@ from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
 from src.classes.normalize import normalize_avatar_name
 from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason
 from src.classes.kill_and_grab import kill_and_grab
 
 class Attack(InstantAction):
@@ -109,6 +110,6 @@ class Attack(InstantAction):
 
         # 如果死亡，执行死亡清理（在故事生成后，保证关系数据可用）
         if is_fatal:
-            handle_death(self.world, loser)
+            handle_death(self.world, loser, DeathReason.BATTLE)
 
         return [result_event, story_event]

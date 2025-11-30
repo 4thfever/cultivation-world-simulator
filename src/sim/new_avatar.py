@@ -251,7 +251,10 @@ class MortalPlanner:
         plan.pos_y = random.randint(0, world.map.height - 1)
 
         if existing_avatars is None:
-            existing_avatars = list(world.avatar_manager.avatars.values())
+            existing_avatars = world.avatar_manager.get_living_avatars()
+        else:
+            existing_avatars = [av for av in existing_avatars if not av.is_dead]
+            
         if existed_sects is None:
             try:
                 from src.classes.sect import sects_by_id as _sects_by_id
