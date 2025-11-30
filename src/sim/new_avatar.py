@@ -342,7 +342,7 @@ class PopulationPlanner:
                     planned_surname[a] = surname
                     planned_surname[b] = surname
                     planned_gender[a] = Gender.MALE
-                    planned_relations[(a, b)] = Relation.PARENT
+                    planned_relations[(a, b)] = Relation.CHILD
                 else:
                     mother = a if random.random() < 0.5 else b
                     child = b if mother == a else a
@@ -354,7 +354,7 @@ class PopulationPlanner:
                         if s != mom_surname:
                             planned_surname[child] = s
                             break
-                    planned_relations[(mother, child)] = Relation.PARENT
+                    planned_relations[(mother, child)] = Relation.CHILD
 
         leftover = unused_indices[:]
 
@@ -392,7 +392,8 @@ class PopulationPlanner:
                     if random.random() < MASTER_PAIR_PROB:
                         master, apprentice = members[j], members[j + 1]
                         if (master, apprentice) not in planned_relations and (apprentice, master) not in planned_relations:
-                            planned_relations[(master, apprentice)] = Relation.MASTER
+                            # MASTER -> APPRENTICE (Master.relations[Apprentice] = APPRENTICE)
+                            planned_relations[(master, apprentice)] = Relation.APPRENTICE
                     j += 2
 
         # — 朋友/仇人 —
@@ -551,9 +552,17 @@ class AvatarFactory:
 
         if attach_relations:
             if plan.parent_avatar is not None:
-                plan.parent_avatar.set_relation(avatar, Relation.PARENT)
+                # plan.parent_avatar 是长辈
+                # 设置关系：长辈.set_relation(自己, CHILD)
+                # 底层逻辑：长辈.relations[自己] = CHILD (长辈认为自己是孩子)
+                #          自己.relations[长辈] = PARENT (自己认为长辈是父母)
+                plan.parent_avatar.set_relation(avatar, Relation.CHILD)
             if plan.master_avatar is not None:
-                plan.master_avatar.set_relation(avatar, Relation.MASTER)
+                # plan.master_avatar 是师傅
+                # 设置关系：师傅.set_relation(自己, APPRENTICE)
+                # 底层逻辑：师傅.relations[自己] = APPRENTICE (师傅认为自己是徒弟)
+                #          自己.relations[师傅] = MASTER (自己认为师傅是师傅)
+                plan.master_avatar.set_relation(avatar, Relation.APPRENTICE)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
@@ -583,19 +592,19 @@ class AvatarFactory:
         levels: list[int] = [random.randint(LEVEL_MIN, LEVEL_MAX) for _ in range(n)]
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.PARENT:
+            if rel is Relation.CHILD:
                 if ages[a] <= ages[b] + (PARENT_MIN_DIFF - 1):
                     ages[a] = min(PARENT_AGE_CAP, ages[b] + random.randint(PARENT_MIN_DIFF, PARENT_MAX_DIFF))
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.PARENT:
+            if rel is Relation.CHILD:
                 if levels[a] <= levels[b]:
                     levels[a] = min(LEVEL_MAX, levels[b] + 1)
                 if levels[a] < levels[b] + PARENT_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + PARENT_LEVEL_MIN_DIFF + random.randint(0, PARENT_LEVEL_EXTRA_MAX))
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.MASTER:
+            if rel is Relation.APPRENTICE:
                 if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
 

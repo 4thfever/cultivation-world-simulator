@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Optional
 from collections import defaultdict
 
 
@@ -86,15 +86,12 @@ def get_reciprocal(relation: Relation) -> Relation:
     return RECIPROCAL_RELATION.get(relation, relation)
 
 
-# ——— 新增：评估两名角色可能新增的后天关系 ———
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 
-
-
 # ——— 显示层：性别化称谓映射与标签工具 ———
-# 基于对方性别的细化：
+
 GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     # 我 -> 对方：CHILD（我为子，对方为父/母） → 显示对方为 父亲/母亲
     (Relation.CHILD, "male"): "父亲",
@@ -104,72 +101,92 @@ GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     (Relation.PARENT, "female"): "女儿",
 }
 
+# 显示顺序配置
+DISPLAY_ORDER = [
+    "师傅", "徒弟", "道侣",
+    "父亲", "母亲",
+    "儿子", "女儿",
+    "哥哥", "弟弟", "姐姐", "妹妹",
+    "兄弟", "姐妹", "兄弟姐妹", # 兜底
+    "朋友", "仇人",
+    "亲属"
+]
 
-def _label_from_self_perspective(relation: Relation, other_gender: object | None = None) -> str:
-    # 优先使用性别化细化
-    if other_gender is not None:
-        gender_value = getattr(other_gender, "value", None) or str(other_gender)
-        s = GENDERED_DISPLAY.get((relation, gender_value))
-        if s:
-            return s
-    # 其余关系：以“我”为参照，取对偶再显示（MASTER -> 徒弟）
-    counterpart = get_reciprocal(relation)
-    return relation_display_names.get(counterpart, str(counterpart))
+def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: "Avatar") -> str:
+    """
+    获取 self_avatar 视角的 other_avatar 的称谓。
+    例如：relation=CHILD (self是子), other是男 -> "父亲"
+    relation=SIBLING, other比self大, other是女 -> "姐姐"
+    """
+    # 1. 处理兄弟姐妹 (涉及长幼比较)
+    if relation == Relation.SIBLING:
+        is_older = False
+        # 比较出生时间 (MonthStamp 越小越早出生，年龄越大)
+        if hasattr(other_avatar, "birth_month_stamp") and hasattr(self_avatar, "birth_month_stamp"):
+            if other_avatar.birth_month_stamp < self_avatar.birth_month_stamp:
+                is_older = True
+            elif other_avatar.birth_month_stamp == self_avatar.birth_month_stamp:
+                # 同月生，简单按 ID 排序保证一致性
+                is_older = str(other_avatar.id) < str(self_avatar.id)
+        
+        gender_val = getattr(getattr(other_avatar, "gender", None), "value", "male")
+        
+        if gender_val == "male":
+            return "哥哥" if is_older else "弟弟"
+        else:
+            return "姐姐" if is_older else "妹妹"
+
+    # 2. 查表处理通用性别化称谓
+    other_gender = getattr(other_avatar, "gender", None)
+    gender_val = getattr(other_gender, "value", "male")
+    
+    label = GENDERED_DISPLAY.get((relation, gender_val))
+    if label:
+        return label
+
+    # 3. 回退到默认显示名
+    return relation_display_names.get(relation, relation.value)
 
 
 def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     """
     以“我”的视角整理关系，输出若干行。
-    总是显示主要关系栏位（师傅、徒弟、道侣、父母、子女、兄弟姐妹、朋友、仇人），
-    若无则显示“无”。
     """
     relations = getattr(avatar, "relations", {}) or {}
 
     # 1. 收集并根据标签分组所有关系
     grouped: dict[str, list[str]] = defaultdict(list)
     for other, rel in relations.items():
-        label = _label_from_self_perspective(rel, getattr(other, "gender", None))
+        label = get_relation_label(rel, avatar, other)
         grouped[label].append(other.name)
 
     lines: list[str] = []
-
-    # 2. 定义显示顺序配置：(兜底显示名, [该类别下的具体标签列表])
-    # 注意："父母"和"子女"包含了性别化标签(父亲/母亲)和通用标签(父母)
-    display_config = [
-        ("师傅", ["师傅"]),
-        ("徒弟", ["徒弟"]),
-        ("道侣", ["道侣"]),
-        ("父母", ["父亲", "母亲", "父母"]),
-        ("子女", ["儿子", "女儿", "子女"]),
-        ("兄弟姐妹", ["兄弟姐妹"]),
-        ("朋友", ["朋友"]),
-        ("仇人", ["仇人"]),
-    ]
-
     processed_labels = set()
 
-    # 3. 遍历配置生成显示文本
-    for fallback_label, target_labels in display_config:
-        found_any = False
-        for label in target_labels:
-            if label in grouped:
-                names = "，".join(grouped[label])
-                lines.append(f"{label}：{names}")
-                found_any = True
-                processed_labels.add(label)
+    # 2. 按照预定义顺序输出
+    for label in DISPLAY_ORDER:
+        if label in grouped:
+            names = "，".join(grouped[label])
+            lines.append(f"{label}：{names}")
+            processed_labels.add(label)
 
-        if not found_any:
-            lines.append(f"{fallback_label}：无")
-
-    # 4. 处理未在配置中列出的其他关系
+    # 3. 处理未在配置中列出的其他关系（按字典序）
     for label in sorted(grouped.keys()):
         if label not in processed_labels:
             names = "，".join(grouped[label])
             lines.append(f"{label}：{names}")
+            processed_labels.add(label)
+
+    # 4. 若无任何关系
+    if not lines:
+        return ["无"]
 
     return lines[:max_lines]
 
 
 def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:
     lines = get_relations_strs(avatar, max_lines=max_lines)
-    return sep.join(lines) if lines else "无"
+    # 如果只有一行且是"无"，直接返回
+    if len(lines) == 1 and lines[0] == "无":
+        return "无"
+    return sep.join(lines)

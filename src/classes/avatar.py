@@ -36,7 +36,7 @@ from src.classes.magic_stone import MagicStone
 from src.classes.hp_and_mp import HP, HP_MAX_BY_REALM
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
-from src.classes.relation import Relation, get_reciprocal
+from src.classes.relation import Relation, get_reciprocal, get_relation_label
 from src.run.log import get_logger
 from src.classes.alignment import Alignment
 from src.utils.params import filter_kwargs_for_callable
@@ -384,7 +384,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             relations_list.append({
                 "target_id": other.id,
                 "name": other.name,
-                "relation": str(relation),
+                "relation": get_relation_label(relation, self, other),
                 # 可以加更多 info，比如境界，用于列表中展示
                 "realm": other.cultivation_progress.realm.value,
                 "sect": other.sect.name if other.sect else "散修"

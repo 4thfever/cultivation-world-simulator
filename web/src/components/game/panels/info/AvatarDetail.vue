@@ -163,7 +163,7 @@ async function handleClearObjective() {
             v-for="rel in data.relations"
             :key="rel.target_id"
             :name="rel.name"
-            :meta="rel.relation"
+            :meta="`${data.name}的${rel.relation}`"
             :sub="`${rel.sect} · ${rel.realm}`"
             @click="jumpToAvatar(rel.target_id)"
           />
