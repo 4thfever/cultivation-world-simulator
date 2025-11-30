@@ -694,6 +694,7 @@ class CreateAvatarRequest(BaseModel):
     auxiliary_id: Optional[int] = None
     alignment: Optional[str] = None
     appearance: Optional[int] = None
+    relations: Optional[List[dict]] = None
 
 class DeleteAvatarRequest(BaseModel):
     avatar_id: str
@@ -883,7 +884,8 @@ def create_avatar(req: CreateAvatarRequest):
             technique=req.technique_id,
             weapon=req.weapon_id,
             auxiliary=req.auxiliary_id,
-            appearance=req.appearance
+            appearance=req.appearance,
+            relations=req.relations
         )
 
         if req.pic_id is not None:
@@ -899,10 +901,9 @@ def create_avatar(req: CreateAvatarRequest):
         if req.appearance is not None:
             avatar.appearance = get_appearance_by_level(req.appearance)
 
-        # 清空系统自动生成的关系，保持用户自定义角色独立
-        existing_relations = list(getattr(avatar, "relations", {}).keys())
-        for other in existing_relations:
-            avatar.clear_relation(other)
+        # 关系已经在 create_avatar_from_request 中根据参数设置好了，
+        # 且该函数内部调用 MortalPlanner 时已经指定 allow_relations=False，不会生成随机关系。
+        # 因此这里不需要再清空关系，否则会把自己选的关系删掉。
 
         if req.alignment:
             avatar.alignment = Alignment.from_str(req.alignment)

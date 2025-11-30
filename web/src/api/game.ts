@@ -47,6 +47,7 @@ export interface CreateAvatarParams {
   auxiliary_id?: number;
   alignment?: string;
   appearance?: number;
+  relations?: Array<{ target_id: string; relation: string }>;
 }
 
 export interface PhenomenonDTO {

@@ -38,8 +38,20 @@ const createForm = ref<CreateAvatarParams>({
   weapon_id: undefined,
   auxiliary_id: undefined,
   alignment: undefined,
-  appearance: 7
+  appearance: 7,
+  relations: []
 })
+
+const relationOptions = [
+  { label: '父母', value: 'parent' },
+  { label: '子女', value: 'child' },
+  { label: '兄弟姐妹', value: 'sibling' },
+  { label: '师傅', value: 'master' },
+  { label: '徒弟', value: 'apprentice' },
+  { label: '道侣', value: 'lovers' },
+  { label: '朋友', value: 'friend' },
+  { label: '仇人', value: 'enemy' }
+]
 
 // --- Delete Avatar State ---
 const avatarList = ref<SimpleAvatarDTO[]>([])
@@ -113,6 +125,24 @@ const alignmentOptions = computed(() => {
     value: a.value
   }))
 })
+
+const avatarOptions = computed(() => {
+  return avatarList.value.map(a => ({
+    label: `[${a.sect_name}] ${a.name}`,
+    value: a.id
+  }))
+})
+
+function addRelation() {
+  if (!createForm.value.relations) {
+    createForm.value.relations = []
+  }
+  createForm.value.relations.push({ target_id: '', relation: 'friend' })
+}
+
+function removeRelation(index: number) {
+  createForm.value.relations?.splice(index, 1)
+}
 
 // --- Actions ---
 
@@ -214,7 +244,8 @@ async function handleCreateAvatar() {
       weapon_id: undefined,
       auxiliary_id: undefined,
       alignment: undefined,
-      appearance: 7
+      appearance: 7,
+      relations: []
     }
   } catch (e) {
     message.error('创建失败: ' + String(e))
@@ -247,6 +278,7 @@ function switchTab(tab: typeof activeTab.value) {
     fetchSaves()
   } else if (tab === 'create') {
     fetchGameData()
+    fetchAvatarList()
   } else if (tab === 'delete') {
     fetchAvatarList()
   }
@@ -394,6 +426,27 @@ onMounted(() => {
                 </n-form-item>
                 <n-form-item label="辅助装备">
                   <n-select v-model:value="createForm.auxiliary_id" :options="auxiliaryOptions" placeholder="选择辅助装备 (可留空)" clearable />
+                </n-form-item>
+                <n-form-item label="人际关系">
+                  <div class="relations-container">
+                    <div v-for="(rel, index) in createForm.relations" :key="index" class="relation-row">
+                      <n-select 
+                        v-model:value="rel.target_id" 
+                        :options="avatarOptions" 
+                        placeholder="选择角色" 
+                        filterable 
+                        style="width: 160px"
+                      />
+                      <n-select 
+                        v-model:value="rel.relation" 
+                        :options="relationOptions" 
+                        placeholder="关系" 
+                        style="width: 100px"
+                      />
+                      <n-button @click="removeRelation(index)" circle size="small" type="error">-</n-button>
+                    </div>
+                    <n-button @click="addRelation" size="small" dashed style="width: 100%">+ 添加关系</n-button>
+                  </div>
                 </n-form-item>
                 <div class="actions">
                   <n-button type="primary" @click="handleCreateAvatar" block>创建角色</n-button>
@@ -752,5 +805,18 @@ onMounted(() => {
   width: 32px;
   text-align: right;
   color: #ddd;
+}
+
+.relations-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.relation-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 </style>

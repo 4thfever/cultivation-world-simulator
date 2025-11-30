@@ -859,6 +859,7 @@ def create_avatar_from_request(
     auxiliary: Union[str, int, Auxiliary, None] = None,
     personas: Union[str, int, Persona, List[Union[str, int, Persona]], None] = None,
     appearance: Optional[int] = None,
+    relations: Optional[List[Dict[str, str]]] = None,
 ) -> Avatar:
     """
     供前端使用的角色创建入口：支持字符串/ID 参数，且默认不生成亲友关系。
@@ -927,4 +928,28 @@ def create_avatar_from_request(
         overrides=overrides if overrides else None,
     )
     
+    if relations:
+        for rel_item in relations:
+            target_id = rel_item.get('target_id')
+            rel_type = rel_item.get('relation')
+            
+            if not target_id or not rel_type:
+                continue
+                
+            # 尝试转为字符串ID
+            t_id_str = str(target_id)
+            target = world.avatar_manager.avatars.get(t_id_str)
+            if not target:
+                continue
+            
+            # 解析关系
+            rel_enum = None
+            for r in Relation:
+                if r.value == rel_type:
+                    rel_enum = r
+                    break
+            
+            if rel_enum:
+                avatar.set_relation(target, rel_enum)
+
     return avatar
