@@ -1,36 +1,35 @@
 id,name,weapon_type,grade,sect_id,desc,effects
 ,名称,兵器类型,等级(普通/宝物/法宝),所属宗门ID(见sect.csv),描述/提示词,"JSON形式（支持宽松格式，见effects.py说明）"
-1001,凡品剑,剑,普通,,平凡无奇的剑。,{extra_battle_strength_points: 1}
-1002,凡品刀,刀,普通,,平凡无奇的刀。,{extra_battle_strength_points: 1}
-1003,凡品枪,枪,普通,,平凡无奇的枪。,{extra_battle_strength_points: 1}
-1004,凡品棍,棍,普通,,平凡无奇的棍。,{extra_battle_strength_points: 1}
-1005,凡品扇,扇,普通,,平凡无奇的扇。,{extra_battle_strength_points: 1}
-1006,凡品鞭,鞭,普通,,平凡无奇的鞭。,{extra_battle_strength_points: 1}
-1007,凡品琴,琴,普通,,平凡无奇的琴。,{extra_battle_strength_points: 1}
-1008,凡品笛,笛,普通,,平凡无奇的笛。,{extra_battle_strength_points: 1}
-1009,凡品暗器,暗器,普通,,平凡无奇的暗器。,{extra_battle_strength_points: 1}
-2001,青霜剑,剑,宝物,,剑身寒气逼人，剑锋如霜。,{extra_battle_strength_points: 2}
-2002,破军刀,刀,宝物,,刀势霸道凌厉，破军杀阵。,{extra_battle_strength_points: 2}
-2003,龙吟枪,枪,宝物,,枪出如龙，势如破竹。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
-2004,降魔杵,棍,宝物,,降妖除魔，正气凛然。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
-2005,紫罗扇,扇,宝物,,扇动间紫气缭绕，洞悉先机。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
-2006,蛟龙鞭,鞭,宝物,,鞭身如蛟龙盘旋，柔中带刚。,{extra_battle_strength_points: 2}
-2007,瑶光琴,琴,宝物,,琴音悠扬，助人悟道。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
-2008,凤鸣笛,笛,宝物,,笛声如凤鸣九天，清心宁神。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
-2009,追魂刺,暗器,宝物,,暗器如影随形，取人性命于无声。,{extra_battle_strength_points: 2}
-2010,灵兽骨笛,笛,宝物,2,以灵兽之骨炼成，可与兽类心意相通。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
-2011,赤焰战刀,刀,宝物,,烈火淬炼而成，刀身赤红似火。,{extra_battle_strength_points: 2}
-2012,玄铁重剑,剑,宝物,,重剑无锋，大巧不工。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
-2013,碧波软剑,剑,宝物,,轻灵如水，剑法飘逸。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
-2014,伏魔降妖棍,棍,宝物,7,镇魂宗弟子常用，正气凛然。,"{extra_battle_strength_points: 2, extra_max_mp: 100}"
-3001,本命剑匣,剑,法宝,1,以心御剑，匣启如霆，剑意随心破万法.,{extra_battle_strength_points: 3}
-3002,镇魂钟,棍,法宝,7,钟鸣摄魄，定魂镇邪，护心安魂.,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
-3003,万魂幡,扇,法宝,4,幡起万魂啾啾，阴风过境.,"{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
-3004,百战破军枪,枪,法宝,9,千帆城名器，百战淬炼，熟能生巧，威力与熟练度共长。,"{extra_battle_strength_points: '2 + avatar.weapon.proficiency * 0.01'}"
-3005,霸王战戟,枪,法宝,,上古霸王遗兵，境界越高威力越强，可对低境界者形成压制。,"[{extra_battle_strength_points: 2}, {when: 'avatar.cultivation.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
-3006,千手灭魂箭,暗器,法宝,5,朱勾宗杀器，暗箭如雨，来去无踪。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
-3007,剑宗诛邪剑,剑,法宝,1,明心剑宗传承圣剑，克制邪道。,{extra_battle_strength_points: 3}
-3008,阴阳双刃,剑,法宝,,正邪同体，阴阳调和，兼具两面之力。,"{extra_battle_strength_points: 2, extra_max_hp: 100, extra_max_mp: 100}"
-3009,虚空之扇,扇,法宝,,扇动间可窥破虚空，千里瞬至。,"{extra_battle_strength_points: 2, extra_observation_radius: 2, extra_move_step: 1}"
-3010,鬼哭神嚎锤,棍,法宝,,邪道重兵，锤起鬼哭神嚎，刚猛无匹。,"{extra_battle_strength_points: 3, damage_reduction: 0.1}"
-
+1001,凡品剑,剑,普通,,市井铁匠铺打造的铁剑，勉强能用。,{extra_battle_strength_points: 1}
+1002,凡品刀,刀,普通,,厚背砍刀，寻常武夫的最爱。,{extra_battle_strength_points: 1}
+1003,凡品枪,枪,普通,,白蜡杆制成，枪头挂着红缨。,{extra_battle_strength_points: 1}
+1004,凡品棍,棍,普通,,普通的硬木棍，长与眉齐。,{extra_battle_strength_points: 1}
+1005,凡品扇,扇,普通,,文人雅士常用的折扇，附庸风雅。,{extra_battle_strength_points: 1}
+1006,凡品鞭,鞭,普通,,普通的皮鞭，多用于赶车或刑罚。,{extra_battle_strength_points: 1}
+1007,凡品琴,琴,普通,,桐木制成的古琴，音色尚可。,{extra_battle_strength_points: 1}
+1008,凡品笛,笛,普通,,紫竹削制，声音清脆。,{extra_battle_strength_points: 1}
+1009,凡品暗器,暗器,普通,,随处可见的铁制暗器。,{extra_battle_strength_points: 1}
+2001,青霜剑,剑,宝物,,剑气森寒，据说曾斩过白蛇。,{extra_battle_strength_points: 2}
+2002,井中月,刀,宝物,,刀光如井中映月，虚实难测。,{extra_battle_strength_points: 2}
+2003,火尖枪,枪,宝物,,枪头隐有火光，能引动凡火。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+2004,囚龙棒,棍,宝物,,精铁铸造，重达千斤，力大者可用。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+2005,桃花扇,扇,宝物,,桃花影落飞神剑，扇面绘有桃花，暗藏杀机。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+2006,打神鞭,鞭,宝物,,仿品，虽无打神之能，却可伤人神魂。,{extra_battle_strength_points: 2}
+2007,天魔琴,琴,宝物,,琴音魔性，扰乱心智。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+2008,鬼笛陈情,笛,宝物,,据说能以此笛操控尸傀。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+2009,无影针,暗器,宝物,,细若牛毛，来去无影，防不胜防。,{extra_battle_strength_points: 2}
+2010,万兽笛,笛,宝物,2,百兽宗秘制，笛声可安抚或激怒野兽。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
+2011,血饮狂刀,刀,宝物,,刀身赤红，似渴望饮血。,{extra_battle_strength_points: 2}
+2012,玄铁重剑,剑,宝物,,重剑无锋，大巧不工，独孤求败。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
+2013,紫薇软剑,剑,宝物,,软若束带，动若灵蛇。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
+2014,水火囚龙棍,棍,宝物,7,镇魂宗制式兵器，水火相济，困敌锁魂。,"{extra_battle_strength_points: 2, extra_max_mp: 100}"
+3001,青竹蜂云剑,剑,法宝,1,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
+3002,随心铁杆兵,棍,法宝,7,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+3003,五火七禽扇,扇,法宝,4,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
+3004,弑神枪,枪,法宝,9,杀气滔天，曾染魔神之血，枪出无回。,"{extra_battle_strength_points: '2 + avatar.weapon.proficiency * 0.01'}"
+3005,赤锋矛,枪,法宝,,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 2}, {when: 'avatar.cultivation.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
+3006,斩仙飞刀,暗器,法宝,5,红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
+3007,诛仙剑,剑,法宝,1,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,{extra_battle_strength_points: 3}
+3008,干将莫邪,剑,法宝,,挚情之剑，一雌一雄，分则为杀，合则为情。,"{extra_battle_strength_points: 2, extra_max_hp: 100, extra_max_mp: 100}"
+3009,芭蕉扇,扇,法宝,,太阴之精叶，一扇息火，二扇生风，三扇下雨。,"{extra_battle_strength_points: 2, extra_observation_radius: 2, extra_move_step: 1}"
+3010,紫金降魔杵,棍,法宝,,韦护的兵器，虽然轻灵，打在人身却重如泰山。,"{extra_battle_strength_points: 3, damage_reduction: 0.1}"

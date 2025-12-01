@@ -1,49 +1,49 @@
 id,name,technique_root,grade,desc,weight,condition,sect,effects
 ,名称,属性,品阶（上中下）,描述/提示词,抽样权重,条件,所属宗门,JSON形式（支持宽松格式，见effects.py说明）
-1,太乙金光锻体诀,金,下品,运太乙金光淬骨炼筋，金罡护体，刀兵难侵。,1,,,
-2,金阳破甲术,金,中品,融金阳之炽与锋，一往破敌，破甲断魄。,1,,,"{""extra_battle_strength_points"": 3}"
-4,青木长春诀,木,下品,借青木长春之机，涓涓养元，稳固根基。,1,,,
-5,碧林长生法,木,中品,汲林海生机，法源不竭，柔而不折。,1,,,"{""extra_battle_strength_points"": 3}"
-7,玄冥敛息诀,水,下品,以玄冥静息收摄心神，润物无声。,1,,,
-8,玄水化海术,水,中品,以玄水化百川，绵延不绝，攻守随势。,1,,,"{""extra_battle_strength_points"": 3}"
-10,南明离火心诀,火,下品,承南明离火之炽，鼓荡心魄，炼魂淬魄。,1,,,
-11,赤炎炼真诀,火,中品,以赤炎炼真元，去伪存真，攻势如潮。,1,,,"{""extra_battle_strength_points"": 3}"
-13,厚土镇魄诀,土,下品,以厚土安神定魄，稳如山嶽，不动如山。,1,,,
-14,玄黄定岳法,土,中品,以玄黄凝岳势，千钧一力，镇压四方。,1,,,"{""extra_battle_strength_points"": 3}"
-16,玄冰凝真诀,冰,下品,以玄冰凝灵，清寒护体，心湖如镜。,1,,,
-17,冰魄玄寒法,冰,中品,御玄寒之魄，封江冻海，以静制动。,1,,,"{""extra_battle_strength_points"": 3}"
-19,御风术,风,下品,以清风导息，轻身迅行，形如掠影。,1,,,
-20,清风御行法,风,中品,驭风行空，攻守兼备，灵动飘逸。,1,,,"{""extra_battle_strength_points"": 3}"
-22,幽冥潜形术,暗,下品,以幽冥藏形，锋芒尽敛，伺机而动。,1,,,
-23,玄夜无相法,暗,中品,夜行无相，出入无痕，摄人心魄。,1,,,"{""extra_battle_strength_points"": 3}"
-25,九天淬体雷诀,雷,下品,引九天霆罡击体，筋骨再生，爆发如雷。,1,,,
-26,九霄养雷法,雷,中品,引九霄真雷，养气通窍，威势赫然。,1,,,"{""extra_battle_strength_points"": 3}"
-28,血神噬魂大法,邪,下品,以血神邪念淬炼，杀伐狠辣，损阴德。,1,,,"{extra_breakthrough_success_rate: -0.1, extra_cultivate_exp: 50}"
-29,冥狱吞灵大法,邪,中品,循冥狱之道吞噬灵魄，逆乱阴阳，速成之途。,1,,,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 3}"
-30,明心归一剑典,金,上品,以剑返本归一，明镜止水，一剑断妄。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
-31,霆光明志剑,雷,上品,以霆光贯剑意，电掣雷行，破虚斩障。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
-32,离火明心诀,火,上品,以离火照见自心，去蔽存真，剑随心行。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
-33,御兽玄纲,木,上品,以木灵沟通群兽，血脉契合，驱策如臂。,10,,百兽宗,"{""extra_battle_strength_points"": 6}"
-34,蛮荒镇骨体,土,上品,以厚土淬锻筋骨，躯壳如山，血勇不挫。,10,,百兽宗,"{""extra_battle_strength_points"": 6}"
-35,血啸狩魂诀,邪,上品,以嗜血啸魄摄魂，狩猎杀伐，越战越猛。,10,,百兽宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
-36,彻天水镜观,水,上品,以彻天水镜观机，借势化力，先机在握。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
-37,寒漪反斩法,冰,上品,以寒漪回折之势，四两拨千斤，刚柔相济。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
-38,镜花游身步,风,上品,以轻风流转为引，身化水月，进退自如。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
-39,幽冥镇狱经,暗,上品,引幽冥阴煞镇压万灵，寒魄凝骨，万劫不侵。,10,,冥王宗,"{""extra_battle_strength_points"": 6}"
-40,冥焰噬神法,邪,上品,以冥焰噬神，逆夺生机，吞灵化魄。,10,,冥王宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
-41,黄泉引魄步,冰,上品,以玄寒引魄入泉，步步生霜，摄魂夺魄。,10,,冥王宗,"{""extra_battle_strength_points"": 6}"
-42,赤狱炼锋诀,火,上品,以赤狱真火炼锋，法器通灵，杀机更盛。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
-43,魇丝摄魂术,暗,上品,以魇丝无声摄魄，藏形夺命，来去无迹。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
-44,噬心傀儡经,金,上品,以金罡刻阵，傀儡载魄，攻守如一。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
-45,双修合和典,水,上品,以清润相济，合气生生，周天圆满。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
-46,魅月摄情术,暗,上品,以魅月摄心，惑而不乱，借情化力。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
-47,绮罗化影步,风,上品,以轻纱化影，形随意转，柔中带锋。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
-48,镇岳定魂经,土,上品,以玄黄定岳势，安神定魄，万邪难侵。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
-49,霆狱伏邪法,雷,上品,引九霄霆威压邪，刚猛无俦，镇压不返。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
-50,金章封煞术,金,上品,以金章为印，封煞束灵，斩乱镇邪。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
-51,幽冥无相诀,暗,上品,隐形无相，出没幽明，摄心夺魄于无声。,10,,幽魂噬影宗,"{""extra_battle_strength_points"": 6}"
-52,噬影穿行步,风,上品,以风掠影，穿行缝隙，先至而不留痕。,10,,幽魂噬影宗,"{""extra_battle_strength_points"": 6}"
-53,冥狱吞魄经,邪,上品,循幽冥吞魄之道，化敌为养，速成险绝。,10,,幽魂噬影宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
-54,天罗机巧篇,金,上品,精研机巧阵枢，百变应敌，器术合一。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
-55,蓝星定魂阵,土,上品,以厚土定魂为基，阵锁心神，稳如磐石。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
-56,飞翼乘风术,风,上品,乘风而行，纵横千里，御器齐驱。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
+1,金刚不坏体,金,下品,少林七十二绝技之一，浑身坚若金刚，刀枪不入。,1,,,
+2,金钟罩,金,中品,运气成钟，护持周身，反震外力。,1,,,"{""extra_battle_strength_points"": 3}"
+4,长春功,木,下品,养生延年，气息绵长，凡人修仙的基础功法。,1,,,
+5,青帝木皇功,木,中品,汲取草木精气，生机不绝，皇气浩荡。,1,,,"{""extra_battle_strength_points"": 3}"
+7,若水诀,水,下品,上善若水，水利万物而不争，绵柔醇厚。,1,,,
+8,黑帝水皇拳,水,中品,驾驭滔滔黑水，如帝亲临，大气磅礴。,1,,,"{""extra_battle_strength_points"": 3}"
+10,火球术,火,下品,最基础的法术，凝聚火球伤敌，简单实用。,1,,,
+11,纯阳无极功,火,中品,纯阳之气，刚猛无铸，克制阴邪。,1,,,"{""extra_battle_strength_points"": 3}"
+13,搬山诀,土,下品,力能扛鼎，气力悠长，如下山猛虎。,1,,,
+14,不动明王诀,土,中品,不动如山，动如雷震，佛门护法神功。,1,,,"{""extra_battle_strength_points"": 3}"
+16,冰心诀,冰,下品,心若冰清，天塌不惊，凝神静气。,1,,,
+17,玄冰劲,冰,中品,寒气透骨，冻结经脉，阴狠霸道。,1,,,"{""extra_battle_strength_points"": 3}"
+19,神行百变,风,下品,身法灵动，变幻莫测，逃跑一流。,1,,,
+20,梯云纵,风,中品,武当绝学，左脚踩右脚，直上青云。,1,,,"{""extra_battle_strength_points"": 3}"
+22,敛息术,暗,下品,收敛气息，如枯木死灰，令人难以察觉。,1,,,
+23,鬼影迷踪,暗,中品,如鬼魅般难以捉摸，步法诡异。,1,,,"{""extra_battle_strength_points"": 3}"
+25,掌心雷,雷,下品,道家正宗法术，掌心发雷，震慑妖邪。,1,,,
+26,五雷正法,雷,中品,役使五行之雷，刚猛霸道，无坚不摧。,1,,,"{""extra_battle_strength_points"": 3}"
+28,燃血大法,邪,下品,燃烧精血，短暂爆发实力，事后虚弱。,1,,,"{extra_breakthrough_success_rate: -0.1, extra_cultivate_exp: 50}"
+29,吸星大法,邪,中品,吸取他人内力为己用，霸道异常，常有反噬。,1,,,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 3}"
+30,草字剑诀,金,上品,一株草斩尽日月星辰，完美世界三大剑诀之一。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
+31,神剑御雷真诀,雷,上品,九天玄刹，化为神雷。煌煌天威，以剑引之。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
+32,大河剑意,火,上品,君不见黄河之水天上来，奔流到海不复回。,10,,明心剑宗,"{""extra_battle_strength_points"": 6}"
+33,青帝长生诀,木,上品,青帝所创，木系至高功法，生生不息，枯木逢春。,10,,百兽宗,"{""extra_battle_strength_points"": 6}"
+34,神象镇狱劲,土,上品,以气引神，以神成象，举手投足，镇压地狱。,10,,百兽宗,"{""extra_battle_strength_points"": 6}"
+35,鲲鹏宝术,邪,上品,入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬。,10,,百兽宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
+36,虚空经,水,上品,以无限虚空证道，掌控空间，先天立于不败。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
+37,太上忘情录,冰,上品,太上忘情，非无情，乃忘情。至公至正，威力无穷。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
+38,逍遥游,风,上品,乘天地之正，而御六气之辩，以游无穷。,10,,水镜宗,"{""extra_battle_strength_points"": 6}"
+39,吞天魔功,暗,上品,狠人大帝所创，吞噬万千体质，铸就混沌体。,10,,冥王宗,"{""extra_battle_strength_points"": 6}"
+40,天魔策,邪,上品,魔门至高宝典，包罗万象，直指破碎虚空。,10,,冥王宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
+41,冥河真经,冰,上品,血海不枯，冥河不死。演化四亿八千万血神子。,10,,冥王宗,"{""extra_battle_strength_points"": 6}"
+42,焚诀,火,上品,通过吞噬异火进化功法，潜力无限，号令万火。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
+43,道心种魔大法,暗,上品,以他人为炉鼎，种魔种，夺天地造化。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
+44,大衍决,金,上品,专修神识，能分心多用，操控万千傀儡。,10,,朱勾宗,"{""extra_battle_strength_points"": 6}"
+45,大乐赋,水,上品,阴阳大道，极乐飞升。双修之至高法门。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
+46,天魔舞,暗,上品,域外天魔之舞，勾魂摄魄，乱人心智。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
+47,凌波微步,风,上品,体迅飞凫，飘忽若神，罗袜生尘。,10,,合欢宗,"{""extra_battle_strength_points"": 6}"
+48,过去弥陀经,土,上品,神魂不灭，超脱彼岸。修成过去二竖，万劫不磨。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
+49,神霄雷法,雷,上品,道家雷法正宗，役使神霄天雷，诛邪灭魔。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
+50,九字真言,金,上品,临兵斗者皆阵列前行。道家无上咒法。,10,,镇魂宗,"{""extra_battle_strength_points"": 6}"
+51,幽冥鬼爪,暗,上品,阴损毒辣，专破内家真气，触之即死。,10,,幽魂噬影宗,"{""extra_battle_strength_points"": 6}"
+52,三千雷动,风,上品,身化雷霆，瞬息千里，残影重重。,10,,幽魂噬影宗,"{""extra_battle_strength_points"": 6}"
+53,血神经,邪,上品,人皮为纸，鲜血为墨。修炼者必先剥皮噬血。,10,,幽魂噬影宗,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
+54,神机百炼,金,上品,炼器极致，化腐朽为神奇，万物皆可为兵。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
+55,周天星斗大阵,土,上品,引周天星力，演化宇宙洪荒，攻防一体。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
+56,纵地金光,风,上品,阐教绝学，化作一道金光，瞬息万里。,10,,千帆城,"{""extra_battle_strength_points"": 6}"
