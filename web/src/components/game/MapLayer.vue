@@ -44,7 +44,6 @@ async function renderMap() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       const type = worldStore.mapData[y][x]
-      if (type === 'PLACEHOLDER') continue
 
       let tex = textures.value[type]
 
@@ -64,13 +63,8 @@ async function renderMap() {
       // 开启像素取整，消除 Tile 之间的黑边缝隙
       sprite.roundPixels = true
 
-      if (['SECT', 'CITY', 'CAVE', 'RUINS'].includes(type)) {
-        sprite.width = TILE_SIZE * 2
-        sprite.height = TILE_SIZE * 2
-      } else {
-        sprite.width = TILE_SIZE
-        sprite.height = TILE_SIZE
-      }
+      sprite.width = TILE_SIZE
+      sprite.height = TILE_SIZE
 
       sprite.eventMode = 'none'
       mapContainer.value.addChild(sprite)
@@ -151,7 +145,7 @@ function handleRegionSelect(region: RegionSummary) {
             :key="r.name"
             :text="r.name"
             :x="r.x * TILE_SIZE + TILE_SIZE / 2"
-            :y="r.y * TILE_SIZE + TILE_SIZE / 2"
+            :y="r.y * TILE_SIZE + TILE_SIZE * 1.5"
             :anchor="0.5"
             :style="getRegionStyle(r.type)"
             event-mode="static"

@@ -24,7 +24,6 @@ class TileType(Enum):
     RUINS = "ruins" # 遗迹
     FARM = "farm" # 农田
     SECT = "sect" # 宗门
-    PLACEHOLDER = "placeholder" # 2x2大建筑的占位符
 
 @dataclass
 class Tile():

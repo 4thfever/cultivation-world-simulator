@@ -53,26 +53,26 @@ def create_cultivation_world_map() -> Map:
 
 def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
     """
-    根据已启用的宗门列表，为其添加总部区域（2x2或1x2等小矩形，hover仅显示名称与描述）。
+    根据已启用的宗门列表，为其添加总部区域（1x1，hover仅显示名称与描述）。
     若未启用（列表中无该宗门），则不添加对应总部。
     """
     # 为九个宗门设计坐标（根据地图地形大势和叙事）：
-    # 仅登记矩形区域的西北角与东南角
+    # 仅登记矩形区域的西北角与东南角（现在合二为一）
     locs: dict[str, tuple[tuple[int, int], tuple[int, int]]] = {
-        "明心剑宗": ((36, 10), (37, 11)),
-        "百兽宗":   ((22, 22), (23, 23)),
-        "水镜宗":   ((58, 22), (59, 23)),
-        "冥王宗":   ((66, 8),  (67, 9)),
-        "朱勾宗":   ((48, 8),  (49, 9)),
-        "合欢宗":   ((62, 40), (63, 41)),
-        "镇魂宗":   ((30, 46), (31, 47)),
-        "幽魂噬影宗":((44, 38), (45, 39)),
-        "千帆城":   ((60, 28), (61, 29)),
-        "妙化宗":   ((42, 6),  (43, 7)),   # 北部冰原边缘
-        "回玄宗":   ((52, 18), (53, 19)),  # 东北部森林边缘
-        "不夜城":   ((28, 4),  (29, 5)),   # 极北冰原
-        "天行健宗": ((38, 25), (39, 26)),  # 中部平原，浩然峰
-        "噬魔宗":   ((10, 30), (11, 31)),  # 西部大漠深处
+        "明心剑宗": ((36, 10), (36, 10)),
+        "百兽宗":   ((22, 22), (22, 22)),
+        "水镜宗":   ((58, 22), (58, 22)),
+        "冥王宗":   ((66, 8),  (66, 8)),
+        "朱勾宗":   ((48, 8),  (48, 8)),
+        "合欢宗":   ((62, 40), (62, 40)),
+        "镇魂宗":   ((30, 46), (30, 46)),
+        "幽魂噬影宗":((44, 38), (44, 38)),
+        "千帆城":   ((60, 28), (60, 28)),
+        "妙化宗":   ((42, 6),  (42, 6)),   # 北部冰原边缘
+        "回玄宗":   ((52, 18), (52, 18)),  # 东北部森林边缘
+        "不夜城":   ((28, 4),  (28, 4)),   # 极北冰原
+        "天行健宗": ((38, 25), (38, 25)),  # 中部平原，浩然峰
+        "噬魔宗":   ((10, 30), (10, 30)),  # 西部大漠深处
     }
 
     # 从 sect_region.csv 读取（按 sect_id 对齐）：sect_name、headquarter_name、headquarter_desc
@@ -108,28 +108,17 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
                 hq_desc = csv_desc
             if sect_name_csv:
                 sect_name_for_region = sect_name_csv
-        # 按比例缩放左上角坐标，保持区域尺寸（如2x2）不变
-        size_w = se[0] - nw[0]
-        size_h = se[1] - nw[1]
-        # 初步缩放坐标
+        
+        # 缩放坐标
         nw_x = _scale_x(nw[0], game_map.width)
         nw_y = _scale_y(nw[1], game_map.height)
-        se_x = nw_x + size_w
-        se_y = nw_y + size_h
-        # 边界修正：确保 2x2 或 1x2 等固定尺寸完整在图内
-        if se_x >= game_map.width:
-            shift = se_x - (game_map.width - 1)
-            nw_x -= shift
-            se_x -= shift
-        if se_y >= game_map.height:
-            shift = se_y - (game_map.height - 1)
-            nw_y -= shift
-            se_y -= shift
-        # 最终夹紧
+        
+        # 边界修正
         nw_x = max(0, min(game_map.width - 1, nw_x))
         nw_y = max(0, min(game_map.height - 1, nw_y))
-        se_x = max(nw_x, min(game_map.width - 1, se_x))
-        se_y = max(nw_y, min(game_map.height - 1, se_y))
+        
+        se_x, se_y = nw_x, nw_y
+
         region = SectRegion(
             id=400 + sect.id,
             name=hq_name,
@@ -146,17 +135,9 @@ def add_sect_headquarters(game_map: Map, enabled_sects: list[Sect]):
         # 刷新 Map 内部的宗门区域缓存
         game_map.update_sect_regions()
         
-        # 将宗门范围内的 Tiles 设置为 SECT 锚点或 PLACEHOLDER
-        for x in range(nw_x, se_x + 1): # 注意：se_x 是 inclusive 吗？Region 定义里可能是 inclusive，这里循环用 range 需要 +1
-            for y in range(nw_y, se_y + 1):
-                if not game_map.is_in_bounds(x, y):
-                    continue
-                
-                # 判断是否为左上角
-                if x == nw_x and y == nw_y:
-                    game_map.tiles[(x, y)].type = TileType.SECT
-                else:
-                    game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
+        # 设置 Tile
+        if game_map.is_in_bounds(nw_x, nw_y):
+            game_map.tiles[(nw_x, nw_y)].type = TileType.SECT
 
     # 添加完成后，重新分配到 tiles
     _assign_regions_to_tiles(game_map)
@@ -252,8 +233,8 @@ def _calculate_wide_river_tiles(game_map: Map):
     
     return list(set(river_tiles))
 
-def _create_2x2_cities(game_map: Map):
-    """创建2*2的城市区域"""
+def _create_cities(game_map: Map):
+    """创建城市区域"""
     cities = [
         {"name": "青云城", "base_x": _scale_x(34, game_map.width), "base_y": _scale_y(21, game_map.height), "description": "繁华都市的中心"},
         {"name": "沙月城", "base_x": _scale_x(14, game_map.width), "base_y": _scale_y(19, game_map.height), "description": "沙漠绿洲中的贸易重镇"},
@@ -261,20 +242,12 @@ def _create_2x2_cities(game_map: Map):
     ]
     
     for city in cities:
-        base_x, base_y = city["base_x"], city["base_y"]
-        
-        # 使用 2x2 布局：左上角为真实 CITY，其他为 PLACEHOLDER
-        for dx in range(2):
-            for dy in range(2):
-                x, y = base_x + dx, base_y + dy
-                if game_map.is_in_bounds(x, y):
-                    if dx == 0 and dy == 0:
-                         game_map.tiles[(x, y)].type = TileType.CITY
-                    else:
-                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
+        x, y = city["base_x"], city["base_y"]
+        if game_map.is_in_bounds(x, y):
+            game_map.tiles[(x, y)].type = TileType.CITY
 
-def _create_2x2_wuxing_caves(game_map: Map):
-    """创建2*2的五行洞府区域"""
+def _create_wuxing_caves(game_map: Map):
+    """创建五行洞府区域"""
     # 五行洞府配置：金木水火土
     wuxing_caves = [
         {"name": "太白金府", "base_x": _scale_x(24, game_map.width), "base_y": _scale_y(12, game_map.height), "element": EssenceType.GOLD, "description": "青峰山脉深处的金行洞府"},
@@ -285,35 +258,21 @@ def _create_2x2_wuxing_caves(game_map: Map):
     ]
     
     for cave in wuxing_caves:
-        base_x, base_y = cave["base_x"], cave["base_y"]
-        
-        for dx in range(2):
-            for dy in range(2):
-                x, y = base_x + dx, base_y + dy
-                if game_map.is_in_bounds(x, y):
-                    if dx == 0 and dy == 0:
-                         game_map.tiles[(x, y)].type = TileType.CAVE
-                    else:
-                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
+        x, y = cave["base_x"], cave["base_y"]
+        if game_map.is_in_bounds(x, y):
+            game_map.tiles[(x, y)].type = TileType.CAVE
 
-def _create_2x2_ruins(game_map: Map):
-    """创建2*2的遗迹区域"""
+def _create_ruins(game_map: Map):
+    """创建遗迹区域"""
     ruins = [
         {"name": "古越遗迹", "base_x": _scale_x(25, game_map.width), "base_y": _scale_y(40, game_map.height), "description": "雨林深处的上古遗迹"},
         {"name": "沧海遗迹", "base_x": _scale_x(66, game_map.width), "base_y": _scale_y(47, game_map.height), "description": "沉没在海中的远古文明遗迹"}
     ]
     
     for ruin in ruins:
-        base_x, base_y = ruin["base_x"], ruin["base_y"]
-        
-        for dx in range(2):
-            for dy in range(2):
-                x, y = base_x + dx, base_y + dy
-                if game_map.is_in_bounds(x, y):
-                    if dx == 0 and dy == 0:
-                         game_map.tiles[(x, y)].type = TileType.RUINS
-                    else:
-                         game_map.tiles[(x, y)].type = TileType.PLACEHOLDER
+        x, y = ruin["base_x"], ruin["base_y"]
+        if game_map.is_in_bounds(x, y):
+            game_map.tiles[(x, y)].type = TileType.RUINS
 
 def _scale_loaded_regions(game_map: Map) -> None:
     """按比例缩放从 CSV 加载到 Map 的区域坐标。
@@ -340,11 +299,12 @@ def _scale_loaded_regions(game_map: Map) -> None:
         span_w = max(0, se_x - nw_x)
         span_h = max(0, se_y - nw_y)
         if shape.name in ("RECTANGLE", "SQUARE") and span_w <= 1 and span_h <= 1:
-            # 小区域保持尺寸：仅缩放左上角
+            # 小区域（如 2x2 或更小）缩放后塌缩为 1x1
             new_nw_x = max(0, min(width - 1, _scale_x(nw_x, width)))
             new_nw_y = max(0, min(height - 1, _scale_y(nw_y, height)))
-            new_se_x = max(new_nw_x, min(width - 1, new_nw_x + span_w))
-            new_se_y = max(new_nw_y, min(height - 1, new_nw_y + span_h))
+            # 强制变为 1x1
+            new_se_x = new_nw_x
+            new_se_y = new_nw_y
         else:
             # 一般区域按比例缩放两角
             new_nw_x = max(0, min(width - 1, _scale_x(nw_x, width)))
@@ -415,14 +375,14 @@ def _add_other_terrains(game_map: Map):
             if game_map.tiles[(x, y)].type == TileType.PLAIN:
                 game_map.tiles[(x, y)].type = TileType.VOLCANO
     
-    # 创建2*2城市区域
-    _create_2x2_cities(game_map)
+    # 创建城市区域
+    _create_cities(game_map)
     
-    # 创建2*2五行洞府区域
-    _create_2x2_wuxing_caves(game_map)
+    # 创建五行洞府区域
+    _create_wuxing_caves(game_map)
     
-    # 创建2*2遗迹区域
-    _create_2x2_ruins(game_map)
+    # 创建遗迹区域
+    _create_ruins(game_map)
     
     # 农田 (城市附近，改为不与草原重叠的区域)
     for x in _scaled_range_x(33, 38, w):
