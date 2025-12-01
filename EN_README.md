@@ -135,8 +135,8 @@ If you like this project, consider starring it~ You can also watch intro videos 
   - ✅ Battle micro-theaters
   - ✅ Dialogue micro-theaters
   - ✅ Multiple writing styles
+- ✅ One-off choices (e.g., switch techniques or not)
 - [ ] NPC observation space design
-- [ ] One-off choices (e.g., switch techniques or not)
 
 ### 🏛️ World Lore
 - [ ] Lore framework
@@ -153,7 +153,8 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - [ ] Flexible world rules
 - [ ] Divination & Omens
 - [ ] Male-female traits inversion
-- [ ] Secret
+- [ ] Avatar Secret
+- [ ] World Secret
 
 ### 🔭 Long-term
 - [ ] ECS parallel toolkit
