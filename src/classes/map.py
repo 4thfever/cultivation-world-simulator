@@ -19,27 +19,19 @@ class Map():
         # key: region.id, value: list[(x, y)]
         self.region_cors: dict[int, list[tuple[int, int]]] = {}
         
-        # 加载所有region数据到Map中
-        self._load_regions()
-    
-    def _load_regions(self):
-        """从配置文件加载所有区域数据到Map实例中"""
-        # 延迟导入避免循环导入
-        from src.classes.region import regions_by_id, regions_by_name
-        from src.classes.region import normal_regions_by_id, normal_regions_by_name
-        from src.classes.region import cultivate_regions_by_id, cultivate_regions_by_name
-        from src.classes.region import city_regions_by_id, city_regions_by_name
+        # 区域字典，由外部加载器 (load_map.py) 填充
+        self.regions = {}
+        self.region_names = {}
+        self.sect_regions = {}
         
-        self.regions = regions_by_id
-        self.region_names = regions_by_name
-        self.normal_regions = normal_regions_by_id
-        self.normal_region_names = normal_regions_by_name
-        self.cultivate_regions = cultivate_regions_by_id
-        self.cultivate_region_names = cultivate_regions_by_name
-        self.city_regions = city_regions_by_id
-        self.city_region_names = city_regions_by_name
-        # 宗门总部区域集合（由地图生成阶段注入），保持与其他区域一致的“提前维护”策略
-        self.update_sect_regions()
+        # 这些分类字典可能暂时不再自动维护，或者需要 load_map.py 手动维护
+        # 为了兼容性，先初始化为空
+        self.normal_regions = {}
+        self.normal_region_names = {}
+        self.cultivate_regions = {}
+        self.cultivate_region_names = {}
+        self.city_regions = {}
+        self.city_region_names = {}
 
     def update_sect_regions(self) -> None:
         """根据当前 self.regions 动态刷新宗门总部区域字典。"""
@@ -91,19 +83,24 @@ class Map():
     def get_info(self, detailed: bool = False) -> dict:
         """
         返回地图信息（dict）。
-        - detailed=False：各类区域返回名称列表
-        - detailed=True：各类区域返回详细信息字符串列表
         """
+        # 动态分类（因为现在没有自动分类字典了）
+        # 或者我们简单点，不分类返回，只返回总览？
+        # 为了保持接口不变，我们可以现场过滤。
+        
+        from src.classes.region import NormalRegion, CultivateRegion, CityRegion, SectRegion
+        
+        def filter_regions(cls):
+            return {rid: r for rid, r in self.regions.items() if isinstance(r, cls)}
+
         def build_regions_info(regions_dict) -> list[str]:
             if detailed:
                 return [r.get_detailed_info() for r in regions_dict.values()]
             return [r.get_info() for r in regions_dict.values()]
 
         return {
-            "修炼区域（可以修炼以增进修为）": build_regions_info(self.cultivate_regions),
-            "普通区域（可以狩猎或采集）": build_regions_info(self.normal_regions),
-            "城市区域（可以交易）": build_regions_info(self.city_regions),
-            "宗门总部（宗门弟子可在此进行疗伤等操作）": build_regions_info(self.sect_regions),
+            "修炼区域（可以修炼以增进修为）": build_regions_info(filter_regions(CultivateRegion)),
+            "普通区域（可以狩猎或采集）": build_regions_info(filter_regions(NormalRegion)),
+            "城市区域（可以交易）": build_regions_info(filter_regions(CityRegion)),
+            "宗门总部（宗门弟子可在此进行疗伤等操作）": build_regions_info(filter_regions(SectRegion)),
         }
-
-

@@ -13,7 +13,7 @@ from src.classes.event import Event
 from src.classes.sect import sects_by_id, Sect
 from src.classes.relation import Relation
 from src.sim.simulator import Simulator
-from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
+from src.run.load_map import load_cultivation_world_map
 from src.utils.config import CONFIG
 
 
@@ -52,7 +52,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[
               f"游戏时间: {meta.get('game_time', 'unknown')})")
         
         # 重建地图（地图本身不变，只需重建宗门总部位置）
-        game_map = create_cultivation_world_map()
+        game_map = load_cultivation_world_map()
         
         # 读取世界数据
         world_data = save_data.get("world", {})
@@ -64,9 +64,6 @@ def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[
         # 获取本局启用的宗门
         existed_sect_ids = world_data.get("existed_sect_ids", [])
         existed_sects = [sects_by_id[sid] for sid in existed_sect_ids if sid in sects_by_id]
-        
-        # 在地图上添加宗门总部
-        add_sect_headquarters(game_map, existed_sects)
         
         # 第一阶段：重建所有Avatar（不含relations）
         avatars_data = save_data.get("avatars", [])

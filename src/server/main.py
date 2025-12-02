@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
-from src.run.create_map import create_cultivation_world_map, add_sect_headquarters
+from src.run.load_map import load_cultivation_world_map
 from src.sim.new_avatar import make_avatars as _new_make, create_avatar_from_request
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
@@ -209,7 +209,7 @@ def serialize_phenomenon(phenomenon) -> Optional[dict]:
 def init_game():
     """初始化游戏世界，逻辑复用自 src/run/run.py"""
     print("正在初始化游戏世界...")
-    game_map = create_cultivation_world_map()
+    game_map = load_cultivation_world_map()
     world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
     sim = Simulator(world)
 
@@ -223,9 +223,6 @@ def init_game():
         pool = list(all_sects)
         random.shuffle(pool)
         existed_sects = pool[:needed_sects]
-
-    if existed_sects:
-        add_sect_headquarters(world.map, existed_sects)
 
     # 创建角色
     # 注意：这里直接调用 new_avatar 的 make_avatars，避免循环导入

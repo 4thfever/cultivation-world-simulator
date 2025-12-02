@@ -10,7 +10,7 @@ class SectRegion(Region):
     宗门总部区域：仅用于显示宗门总部的名称与描述。
     无额外操作或属性。
     """
-    sect_name: str
+    sect_name: str = ""
     sect_id: int = -1
     image_path: str | None = None
 
