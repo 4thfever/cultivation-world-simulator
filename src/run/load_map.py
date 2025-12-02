@@ -2,10 +2,11 @@ import os
 import csv
 from src.classes.map import Map
 from src.classes.tile import TileType
-from src.classes.region import Region, Shape, NormalRegion, CultivateRegion, CityRegion
+from src.classes.region import Region, NormalRegion, CultivateRegion, CityRegion
 from src.classes.sect_region import SectRegion
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.essence import EssenceType
+from src.classes.sect import sects_by_id  # 直接导入已加载的宗门数据
 
 # 静态配置路径
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), "../../static/game_configs")
@@ -36,13 +37,11 @@ def load_cultivation_world_map() -> Map:
         for x, tile_name in enumerate(row):
             if x < width:
                 try:
-                    # TileType 通常是大写，兼容 CSV 可能存的小写
                     t_type = TileType[tile_name.upper()]
                 except KeyError:
-                    # 兼容性处理：如果是 sect 名称，映射为山地或平原
-                    # 编辑器可能把 sect 名称也存进来了
-                    # 这里简单处理为 MOUNTAIN，或者根据需要扩展 TileType
-                    t_type = TileType.MOUNTAIN if "宗" in tile_name else TileType.PLAIN
+                    # 如果不是标准地形，则是宗门驻地名称
+                    # 这些名称直接对应 SECT 类型
+                    t_type = TileType.SECT
                 
                 game_map.create_tile(x, y, t_type)
     
@@ -105,9 +104,16 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
                 params["essence_type"] = EssenceType.from_str(get_str(row, "root_type"))
                 params["essence_density"] = get_int(row, "root_density")
             elif type_tag == "sect":
-                params["sect_id"] = get_int(row, "sect_id")
-                params["sect_name"] = get_str(row, "name") # 假设驻地名即区域名
-                # image_path 暂不处理或需要另寻来源
+                sect_id = get_int(row, "sect_id")
+                params["sect_id"] = sect_id
+                
+                # 直接从已加载的 sects_by_id 中获取宗门对象
+                # 如果找不到对应的 sect_id，默认使用驻地名称作为兜底（防止崩溃），但正常情况下应该能找到
+                sect_obj = sects_by_id.get(sect_id)
+                if sect_obj:
+                    params["sect_name"] = sect_obj.name
+                else:
+                    params["sect_name"] = get_str(row, "name")
             
             # 实例化
             try:

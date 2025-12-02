@@ -88,7 +88,7 @@ class Map():
         # 或者我们简单点，不分类返回，只返回总览？
         # 为了保持接口不变，我们可以现场过滤。
         
-        from src.classes.region import NormalRegion, CultivateRegion, CityRegion, SectRegion
+        from src.classes.region import NormalRegion, CultivateRegion, CityRegion
         
         def filter_regions(cls):
             return {rid: r for rid, r in self.regions.items() if isinstance(r, cls)}

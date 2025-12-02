@@ -11,65 +11,6 @@ from src.classes.plant import Plant, plants_by_id
 from src.classes.sect import sects_by_name
 
 
-def get_tiles_from_shape(shape: 'Shape', north_west_cor: str, south_east_cor: str) -> list[tuple[int, int]]:
-    """
-    根据形状和两个角点坐标，计算出对应的所有坐标点
-    """
-    if not north_west_cor or not south_east_cor:
-        return []
-        
-    nw_coords = tuple(map(int, north_west_cor.split(',')))
-    se_coords = tuple(map(int, south_east_cor.split(',')))
-    
-    min_x, min_y = nw_coords
-    max_x, max_y = se_coords
-    
-    coordinates = []
-    
-    if shape == Shape.SQUARE or shape == Shape.RECTANGLE:
-        for x in range(min_x, max_x + 1):
-            for y in range(min_y, max_y + 1):
-                coordinates.append((x, y))
-                
-    elif shape == Shape.MEANDERING:
-        distance_x = max_x - min_x
-        distance_y = max_y - min_y
-        total_distance = max(distance_x, distance_y)
-        
-        if total_distance < 10: width = 1
-        elif total_distance < 30: width = 2
-        else: width = 3
-        
-        path_points = []
-        if distance_x >= distance_y:
-            for x in range(min_x, max_x + 1):
-                progress = (x - min_x) / max(distance_x, 1)
-                base_y = min_y + int(progress * distance_y)
-                import math
-                wave_amplitude = min(3, distance_y // 4) if distance_y > 0 else 0
-                wave_y = int(wave_amplitude * math.sin(progress * math.pi * 2))
-                y = max(min_y, min(max_y, base_y + wave_y))
-                path_points.append((x, y))
-        else:
-            for y in range(min_y, max_y + 1):
-                progress = (y - min_y) / max(distance_y, 1)
-                base_x = min_x + int(progress * distance_x)
-                import math
-                wave_amplitude = min(3, distance_x // 4) if distance_x > 0 else 0
-                wave_x = int(wave_amplitude * math.sin(progress * math.pi * 2))
-                x = max(min_x, min(max_x, base_x + wave_x))
-                path_points.append((x, y))
-        
-        for px, py in path_points:
-            for dx in range(-width//2, width//2 + 1):
-                for dy in range(-width//2, width//2 + 1):
-                    nx, ny = px + dx, py + dy
-                    if min_x <= nx <= max_x and min_y <= ny <= max_y:
-                        coordinates.append((nx, ny))
-    
-    return sorted(list(set(coordinates)))
-
-
 @dataclass
 class Region(ABC):
     """
@@ -79,12 +20,7 @@ class Region(ABC):
     name: str
     desc: str
     
-    # 可选/默认值，因为现在主要通过外部传入 cors 初始化
-    shape: 'Shape' = field(default=None) 
-    north_west_cor: str = ""
-    south_east_cor: str = ""
-    
-    # 核心坐标数据
+    # 核心坐标数据，由 load_map.py 注入
     cors: list[tuple[int, int]] = field(default_factory=list)
     
     # 计算字段
@@ -93,13 +29,6 @@ class Region(ABC):
 
     def __post_init__(self):
         """初始化计算字段"""
-        if self.shape is None:
-            self.shape = Shape.SQUARE # 默认值
-
-        # 如果 cors 为空且提供了旧版坐标字符串，尝试计算 (兼容性)
-        if not self.cors and self.north_west_cor and self.south_east_cor:
-             self.cors = get_tiles_from_shape(self.shape, self.north_west_cor, self.south_east_cor)
-        
         # 基于坐标点计算面积
         self.area = len(self.cors)
         
@@ -116,12 +45,7 @@ class Region(ABC):
                 self.center_loc = min(self.cors, key=_dist2)
         else:
             # Fallback
-            if self.north_west_cor and self.south_east_cor:
-                nw = list(map(int, self.north_west_cor.split(',')))
-                se = list(map(int, self.south_east_cor.split(',')))
-                self.center_loc = ((nw[0]+se[0])//2, (nw[1]+se[1])//2)
-            else:
-                self.center_loc = (0, 0)
+            self.center_loc = (0, 0)
 
     def __hash__(self) -> int:
         return hash(self.id)
@@ -155,20 +79,6 @@ class Region(ABC):
             "type": self.get_region_type(),
             "type_name": "区域" 
         }
-
-
-class Shape(Enum):
-    SQUARE = "square"
-    RECTANGLE = "rectangle"
-    MEANDERING = "meandering"
-
-    @classmethod
-    def from_str(cls, shape_str: str) -> 'Shape':
-        if not shape_str: return cls.SQUARE
-        for shape in cls:
-            if shape.value == shape_str:
-                return shape
-        return cls.SQUARE
 
 
 @dataclass

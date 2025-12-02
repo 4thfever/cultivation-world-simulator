@@ -45,7 +45,12 @@ export function useTextures() {
       'SWAMP': '/assets/tiles/swamp.png',
       'CAVE': '/assets/tiles/cave.png',
       'RUINS': '/assets/tiles/ruins.png',
-      'FARM': '/assets/tiles/farm.png'
+      'FARM': '/assets/tiles/farm.png',
+      'ISLAND': '/assets/tiles/island.png',
+      'BAMBOO': '/assets/tiles/bamboo.png',
+      'GOBI': '/assets/tiles/gobi.png',
+      'TUNDRA': '/assets/tiles/tundra.png',
+      'MARSH': '/assets/tiles/swamp.png'
     }
 
     const tilePromises = Object.entries(manifest).map(async ([key, url]) => {
@@ -87,15 +92,25 @@ export function useTextures() {
       if (textures.value[key]) return // 已经加载过
 
       // 假设图片路径规则：/assets/sects/宗门名.png
-      // 优先尝试 .png，如果需要支持 .jpg 可能需要额外逻辑，这里先定死 .png
+      // 使用 encodeURIComponent 处理中文路径
       const url = `/assets/sects/${sectName}.png`
+      
       try {
+          // 尝试直接加载（Pixi v7+ Assets.load 通常能处理 URL）
+          // 为了兼容性，我们保留原始字符串，如果失败再尝试 encode
           const tex = await Assets.load(url)
           textures.value[key] = tex
           console.log(`Loaded sect texture: ${sectName}`)
       } catch (e) {
-          console.warn(`Failed to load sect texture for ${sectName}, using fallback.`)
-          // 加载失败时不占位，MapLayer 会 fallback 到 CITY
+          // 尝试 encode 再次加载
+           try {
+               const encodedUrl = `/assets/sects/${encodeURIComponent(sectName)}.png`
+               const tex = await Assets.load(encodedUrl)
+               textures.value[key] = tex
+               console.log(`Loaded sect texture (encoded): ${sectName}`)
+           } catch (e2) {
+               console.warn(`Failed to load sect texture for ${sectName} (both raw and encoded), using fallback.`, e)
+           }
       }
   }
 

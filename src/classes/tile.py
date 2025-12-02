@@ -24,6 +24,11 @@ class TileType(Enum):
     RUINS = "ruins" # 遗迹
     FARM = "farm" # 农田
     SECT = "sect" # 宗门
+    ISLAND = "island" # 岛屿
+    BAMBOO = "bamboo" # 竹林
+    GOBI = "gobi" # 戈壁
+    TUNDRA = "tundra" # 苔原
+    MARSH = "marsh" # 湿地
 
 @dataclass
 class Tile():
