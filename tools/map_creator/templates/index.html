@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>修仙世界地图编辑器</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background: #1a1a1a; color: #e0e0e0; }
+        #canvas-container {
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            position: relative;
+            background: #333;
+        }
+        canvas {
+            display: block;
+            background: #000;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 300px;
+            background: #2d2d2d;
+            border-right: 1px solid #444;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+        .scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .item-btn {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            transition: background 0.2s;
+        }
+        .item-btn:hover { background: #444; }
+        .item-btn.active { background: #3b82f6; color: white; }
+        .color-bar {
+            width: 4px;
+            align-self: stretch;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        .preview-img {
+            width: 32px; height: 32px;
+            margin-right: 8px;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #000;
+        }
+        .region-id {
+            font-size: 0.7rem;
+            color: #666;
+            font-family: monospace;
+        }
+        .bind-img {
+            width: 16px; height: 16px;
+            margin-left: auto;
+            opacity: 0.7;
+        }
+        .section-title {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding-left: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+{% raw %}
+<div id="app">
+    <!-- Loading Overlay -->
+    <div v-if="loading" class="loader">
+        <div class="text-white text-xl">正在加载资源...</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="p-4 border-b border-gray-600 flex justify-between items-center">
+            <h1 class="font-bold text-lg">地图编辑器</h1>
+            <button @click="saveMap" class="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded text-sm">
+                保存
+            </button>
+        </div>
+
+        <!-- Tabs: 交换顺序，Region 在前 -->
+        <div class="flex border-b border-gray-600">
+            <div 
+                class="flex-1 text-center py-2 cursor-pointer hover:bg-gray-700"
+                :class="{ 'bg-gray-600': mode === 'region' }"
+                @click="mode = 'region'">
+                区域 (Region)
+            </div>
+            <div 
+                class="flex-1 text-center py-2 cursor-pointer hover:bg-gray-700"
+                :class="{ 'bg-gray-600': mode === 'tile' }"
+                @click="mode = 'tile'">
+                地形 (Tile)
+            </div>
+        </div>
+
+        <!-- Region List -->
+        <div v-if="mode === 'region'" class="scroll-area">
+            <div class="mb-2 px-2">
+                <button 
+                    class="w-full border border-red-400 text-red-400 py-1 rounded hover:bg-red-900"
+                    :class="{ 'bg-red-900': currentRegion === null }"
+                    @click="currentRegion = null">
+                    橡皮擦 (清除区域)
+                </button>
+            </div>
+            <div 
+                v-for="region in regions" 
+                :key="region.id"
+                class="item-btn"
+                :class="{ active: currentRegion === region.id }"
+                @click="currentRegion = region.id">
+                <!-- 颜色条 -->
+                <div class="color-bar" :style="{ backgroundColor: region.color }"></div>
+                
+                <!-- 绑定地形预览图 (主展示) -->
+                <img 
+                    v-if="region.bindTile"
+                    :src="`/${region.bindTileType === 'sect' ? 'sects' : 'tiles'}/${region.bindTile}.png`" 
+                    class="preview-img"
+                >
+                <div v-else class="preview-img bg-gray-700"></div>
+
+                <div class="flex flex-col overflow-hidden">
+                    <span class="text-sm font-bold truncate" :title="region.name">{{ region.name }}</span>
+                    <span class="region-id">{{ region.id }} | {{ region.type }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile List -->
+        <div v-if="mode === 'tile'" class="scroll-area">
+            <div class="section-title">基础地形</div>
+            <div 
+                v-for="tile in tiles" 
+                :key="tile"
+                class="item-btn"
+                :class="{ active: currentTile === tile && currentTileType === 'tile' }"
+                @click="selectTile(tile, 'tile')">
+                <img :src="`/tiles/${tile}.png`" class="preview-img">
+                <span>{{ tile }}</span>
+            </div>
+            
+            <div class="section-title">宗门建筑</div>
+            <div 
+                v-for="tile in sectTiles" 
+                :key="tile"
+                class="item-btn"
+                :class="{ active: currentTile === tile && currentTileType === 'sect' }"
+                @click="selectTile(tile, 'sect')">
+                <img :src="`/sects/${tile}.png`" class="preview-img">
+                <span>{{ tile }}</span>
+            </div>
+        </div>
+        
+        <div class="p-2 text-xs text-gray-500 border-t border-gray-600">
+            左键绘制 | 按住Shift框选<br>
+            滚轮缩放 | 右键拖动<br>
+            当前坐标: {{ hoverX }}, {{ hoverY }}<br>
+            <span v-if="isShiftDown" class="text-yellow-400">矩形工具已激活</span>
+        </div>
+    </div>
+
+    <!-- Canvas Area -->
+    <div id="canvas-container" ref="container" @contextmenu.prevent tabindex="0">
+        <canvas ref="canvas"></canvas>
+    </div>
+</div>
+
+<script>
+const { createApp, ref, onMounted, reactive, computed, watch } = Vue;
+
+createApp({
+    setup() {
+        // --- State ---
+        const loading = ref(true);
+        const mode = ref('region'); // 默认 Region 模式
+        const tiles = ref([]);
+        const sectTiles = ref([]);
+        const regions = ref([]);
+        const savedMap = ref({}); 
+        
+        const currentTile = ref('plain');
+        const currentTileType = ref('tile');
+        const currentRegion = ref(null);
+        
+        const mapWidth = ref(100);
+        const mapHeight = ref(70);
+        const tileSize = 32; 
+        
+        const grid = reactive([]); 
+        
+        // Viewport
+        const scale = ref(1.0);
+        const offsetX = ref(320); 
+        const offsetY = ref(20);
+        
+        const hoverX = ref(0);
+        const hoverY = ref(0);
+        const isShiftDown = ref(false);
+        
+        // Rect Tool
+        const dragStart = ref(null); 
+
+        // Canvas refs
+        const canvas = ref(null);
+        const container = ref(null);
+        let ctx = null;
+        
+        // Image Cache: name -> Image
+        const images = {};
+
+        // --- Initialization ---
+        onMounted(async () => {
+            await initData();
+            initGrid();
+            initCanvas();
+            initKeyboard();
+            requestAnimationFrame(drawLoop);
+            loading.value = false;
+        });
+
+        async function initData() {
+            try {
+                const res = await fetch('/api/init');
+                const data = await res.json();
+                tiles.value = data.tiles;
+                sectTiles.value = data.sectTiles;
+                regions.value = data.regions;
+                mapWidth.value = data.width;
+                mapHeight.value = data.height;
+                savedMap.value = data.savedMap || {};
+                
+                // Preload images
+                const loadImg = (name, folder) => {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.src = `/${folder}/${name}.png`;
+                        img.onload = () => { images[name] = img; resolve(); };
+                        img.onerror = () => { console.warn('Missing img:', name); resolve(); }; 
+                    });
+                };
+
+                const promises = [
+                    ...data.tiles.map(t => loadImg(t, 'tiles')),
+                    ...data.sectTiles.map(t => loadImg(t, 'sects'))
+                ];
+                await Promise.all(promises);
+            } catch (e) {
+                console.error("Failed to init", e);
+                alert("初始化失败，请查看控制台");
+            }
+        }
+
+        function initGrid() {
+            const total = mapWidth.value * mapHeight.value;
+            for (let y = 0; y < mapHeight.value; y++) {
+                for (let x = 0; x < mapWidth.value; x++) {
+                    const key = `${x},${y}`;
+                    const saved = savedMap.value[key];
+                    grid.push({
+                        x: x,
+                        y: y,
+                        t: saved?.t || 'plain',
+                        r: saved?.r || null
+                    });
+                }
+            }
+        }
+        
+        function selectTile(name, type) {
+            currentTile.value = name;
+            currentTileType.value = type;
+        }
+
+        function initKeyboard() {
+            window.addEventListener('keydown', e => {
+                if (e.key === 'Shift') isShiftDown.value = true;
+            });
+            window.addEventListener('keyup', e => {
+                if (e.key === 'Shift') isShiftDown.value = false;
+            });
+        }
+
+        // --- Canvas Logic ---
+        function initCanvas() {
+            const el = canvas.value;
+            ctx = el.getContext('2d');
+            resizeCanvas();
+            
+            const cont = container.value;
+            
+            let isDragging = false;
+            let isPanning = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            cont.addEventListener('mousedown', e => {
+                container.value.focus(); 
+                if (e.button === 2 || e.button === 1) {
+                    isPanning = true;
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                } else if (e.button === 0) {
+                    isDragging = true;
+                    if (isShiftDown.value) {
+                        dragStart.value = { x: hoverX.value, y: hoverY.value };
+                    } else {
+                        paint(hoverX.value, hoverY.value);
+                    }
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isDragging && isShiftDown.value && dragStart.value) {
+                    applyRectPaint();
+                }
+                isDragging = false;
+                isPanning = false;
+                dragStart.value = null;
+            });
+
+            cont.addEventListener('mousemove', e => {
+                updateHover(e);
+                
+                if (isPanning) {
+                    offsetX.value += e.clientX - lastX;
+                    offsetY.value += e.clientY - lastY;
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                }
+                
+                if (isDragging) {
+                    if (!isShiftDown.value) {
+                        paint(hoverX.value, hoverY.value);
+                    }
+                }
+            });
+
+            cont.addEventListener('wheel', e => {
+                e.preventDefault();
+                const zoomSpeed = 0.1;
+                const delta = e.deltaY > 0 ? -zoomSpeed : zoomSpeed;
+                const newScale = Math.max(0.1, Math.min(5.0, scale.value + delta));
+                scale.value = newScale;
+            }, { passive: false });
+
+            window.addEventListener('resize', resizeCanvas);
+        }
+
+        function resizeCanvas() {
+            canvas.value.width = window.innerWidth;
+            canvas.value.height = window.innerHeight;
+        }
+
+        function updateHover(e) {
+            const rect = canvas.value.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            
+            const worldX = (mx - offsetX.value) / scale.value;
+            const worldY = (my - offsetY.value) / scale.value;
+            
+            const gx = Math.max(0, Math.min(mapWidth.value - 1, Math.floor(worldX / tileSize)));
+            const gy = Math.max(0, Math.min(mapHeight.value - 1, Math.floor(worldY / tileSize)));
+            
+            hoverX.value = gx;
+            hoverY.value = gy;
+        }
+
+        function paint(gx, gy) {
+            if (gx < 0 || gx >= mapWidth.value || gy < 0 || gy >= mapHeight.value) return;
+            
+            const idx = gy * mapWidth.value + gx;
+            const cell = grid[idx];
+            
+            if (mode.value === 'tile') {
+                cell.t = currentTile.value;
+            } else {
+                cell.r = currentRegion.value;
+                
+                // Auto-paint bind tile if not eraser
+                if (currentRegion.value !== null) {
+                    const region = regions.value.find(r => r.id === currentRegion.value);
+                    if (region && region.bindTile) {
+                        cell.t = region.bindTile;
+                    }
+                }
+            }
+        }
+        
+        function applyRectPaint() {
+            const x1 = Math.min(dragStart.value.x, hoverX.value);
+            const x2 = Math.max(dragStart.value.x, hoverX.value);
+            const y1 = Math.min(dragStart.value.y, hoverY.value);
+            const y2 = Math.max(dragStart.value.y, hoverY.value);
+            
+            for (let y = y1; y <= y2; y++) {
+                for (let x = x1; x <= x2; x++) {
+                    paint(x, y);
+                }
+            }
+        }
+
+        // --- Render Loop ---
+        function drawLoop() {
+            if (!ctx) return;
+            
+            const cvs = canvas.value;
+            const w = cvs.width;
+            const h = cvs.height;
+            
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, w, h);
+            
+            ctx.save();
+            ctx.translate(offsetX.value, offsetY.value);
+            ctx.scale(scale.value, scale.value);
+            
+            const startX = Math.floor(-offsetX.value / scale.value / tileSize);
+            const startY = Math.floor(-offsetY.value / scale.value / tileSize);
+            const endX = startX + Math.floor(w / scale.value / tileSize) + 2;
+            const endY = startY + Math.floor(h / scale.value / tileSize) + 2;
+            
+            const rMap = {};
+            regions.value.forEach(r => rMap[r.id] = r);
+
+            // Draw Tiles & Region Borders
+            for (let y = Math.max(0, startY); y < Math.min(mapHeight.value, endY); y++) {
+                for (let x = Math.max(0, startX); x < Math.min(mapWidth.value, endX); x++) {
+                    const idx = y * mapWidth.value + x;
+                    const cell = grid[idx];
+                    const px = x * tileSize;
+                    const py = y * tileSize;
+                    
+                    // 1. Draw Tile Image
+                    const img = images[cell.t];
+                    if (img) {
+                        ctx.drawImage(img, px, py, tileSize, tileSize);
+                    } else {
+                        ctx.fillStyle = '#333';
+                        ctx.fillRect(px, py, tileSize, tileSize);
+                    }
+                    
+                    // 2. Draw Region Border (Edge Detection)
+                    if (cell.r !== null) {
+                        const region = rMap[cell.r];
+                        if (region) {
+                            const getR = (tx, ty) => {
+                                if (tx < 0 || tx >= mapWidth.value || ty < 0 || ty >= mapHeight.value) return null;
+                                return grid[ty * mapWidth.value + tx].r;
+                            };
+
+                            ctx.lineWidth = 4;
+                            ctx.lineCap = 'square';
+                            ctx.strokeStyle = region.color;
+                            ctx.beginPath();
+                            
+                            // Top
+                            if (getR(x, y - 1) !== cell.r) { ctx.moveTo(px, py); ctx.lineTo(px + tileSize, py); }
+                            // Bottom
+                            if (getR(x, y + 1) !== cell.r) { ctx.moveTo(px, py + tileSize); ctx.lineTo(px + tileSize, py + tileSize); }
+                            // Left
+                            if (getR(x - 1, y) !== cell.r) { ctx.moveTo(px, py); ctx.lineTo(px, py + tileSize); }
+                            // Right
+                            if (getR(x + 1, y) !== cell.r) { ctx.moveTo(px + tileSize, py); ctx.lineTo(px + tileSize, py + tileSize); }
+                            
+                            ctx.stroke();
+
+                            // Very light fill to indicate ownership
+                            ctx.globalAlpha = 0.1;
+                            ctx.fillStyle = region.color;
+                            ctx.fillRect(px, py, tileSize, tileSize);
+                            ctx.globalAlpha = 1.0;
+                        }
+                    }
+                }
+            }
+            
+            // Draw Hover / Rect Preview
+            if (isShiftDown.value && dragStart.value) {
+                // Rect Preview
+                const x1 = Math.min(dragStart.value.x, hoverX.value);
+                const x2 = Math.max(dragStart.value.x, hoverX.value);
+                const y1 = Math.min(dragStart.value.y, hoverY.value);
+                const y2 = Math.max(dragStart.value.y, hoverY.value);
+                
+                const px = x1 * tileSize;
+                const py = y1 * tileSize;
+                const rw = (x2 - x1 + 1) * tileSize;
+                const rh = (y2 - y1 + 1) * tileSize;
+                
+                ctx.strokeStyle = '#ffff00';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(px, py, rw, rh);
+                ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+                ctx.fillRect(px, py, rw, rh);
+                
+            } else {
+                // Single Cell Hover
+                const px = hoverX.value * tileSize;
+                const py = hoverY.value * tileSize;
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(px, py, tileSize, tileSize);
+            }
+            
+            ctx.restore();
+            requestAnimationFrame(drawLoop);
+        }
+
+        // --- Actions ---
+        async function saveMap() {
+            const payload = {
+                grid: grid
+            };
+            try {
+                const res = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+                if (json.status === 'success') {
+                    alert('保存成功！');
+                } else {
+                    alert('保存失败: ' + json.message);
+                }
+            } catch (e) {
+                alert('保存出错');
+            }
+        }
+
+        return {
+            loading, mode, tiles, sectTiles, regions, 
+            currentTile, currentTileType, currentRegion,
+            saveMap,
+            hoverX, hoverY, isShiftDown,
+            selectTile,
+            canvas, container
+        };
+    }
+}).mount('#app');
+</script>
+{% endraw %}
+</body>
+</html>
