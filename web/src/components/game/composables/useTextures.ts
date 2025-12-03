@@ -43,14 +43,22 @@ export function useTextures() {
       'VOLCANO': '/assets/tiles/volcano.png',
       'GRASSLAND': '/assets/tiles/grassland.png',
       'SWAMP': '/assets/tiles/swamp.png',
-      'CAVE': '/assets/tiles/cave.png',
-      'RUINS': '/assets/tiles/ruins.png',
       'FARM': '/assets/tiles/farm.png',
       'ISLAND': '/assets/tiles/island.png',
       'BAMBOO': '/assets/tiles/bamboo.png',
       'GOBI': '/assets/tiles/gobi.png',
       'TUNDRA': '/assets/tiles/tundra.png',
-      'MARSH': '/assets/tiles/swamp.png'
+      'MARSH': '/assets/tiles/swamp.png',
+      // Cave slices
+      'cave_0': '/assets/tiles/cave_0.png',
+      'cave_1': '/assets/tiles/cave_1.png',
+      'cave_2': '/assets/tiles/cave_2.png',
+      'cave_3': '/assets/tiles/cave_3.png',
+      // Ruin slices
+      'ruin_0': '/assets/tiles/ruin_0.png',
+      'ruin_1': '/assets/tiles/ruin_1.png',
+      'ruin_2': '/assets/tiles/ruin_2.png',
+      'ruin_3': '/assets/tiles/ruin_3.png',
     }
 
     const tilePromises = Object.entries(manifest).map(async ([key, url]) => {
@@ -86,32 +94,60 @@ export function useTextures() {
     console.log('Base textures loaded')
   }
 
-  // 动态加载宗门纹理（按需）
+  // 动态加载宗门纹理（按需）- 加载4个切片用于渲染
   const loadSectTexture = async (sectName: string) => {
-      const key = `SECT_${sectName}`
-      if (textures.value[key]) return // 已经加载过
-
-      // 假设图片路径规则：/assets/sects/宗门名.png
-      // 使用 encodeURIComponent 处理中文路径
-      const url = `/assets/sects/${sectName}.png`
+      // 加载4个切片 _0, _1, _2, _3
+      const slicePromises = [0, 1, 2, 3].map(async (i) => {
+          const key = `${sectName}_${i}`
+          if (textures.value[key]) return
+          
+          const url = `/assets/sects/${sectName}_${i}.png`
+          try {
+              const tex = await Assets.load(url)
+              textures.value[key] = tex
+          } catch (e) {
+              try {
+                  const encodedUrl = `/assets/sects/${encodeURIComponent(`${sectName}_${i}`)}.png`
+                  const tex = await Assets.load(encodedUrl)
+                  textures.value[key] = tex
+              } catch (e2) {
+                  console.warn(`Failed to load sect slice: ${key}`)
+              }
+          }
+      })
       
-      try {
-          // 尝试直接加载（Pixi v7+ Assets.load 通常能处理 URL）
-          // 为了兼容性，我们保留原始字符串，如果失败再尝试 encode
-          const tex = await Assets.load(url)
-          textures.value[key] = tex
-          console.log(`Loaded sect texture: ${sectName}`)
-      } catch (e) {
-          // 尝试 encode 再次加载
-           try {
-               const encodedUrl = `/assets/sects/${encodeURIComponent(sectName)}.png`
-               const tex = await Assets.load(encodedUrl)
-               textures.value[key] = tex
-               console.log(`Loaded sect texture (encoded): ${sectName}`)
-           } catch (e2) {
-               console.warn(`Failed to load sect texture for ${sectName} (both raw and encoded), using fallback.`, e)
-           }
-      }
+      await Promise.all(slicePromises)
+  }
+
+  // 动态加载城市纹理（按需）- 加载4个切片用于渲染
+  const loadCityTexture = async (cityName: string) => {
+      // 加载4个切片 _0, _1, _2, _3
+      const extensions = ['.jpg', '.png']
+      
+      const slicePromises = [0, 1, 2, 3].map(async (i) => {
+          const key = `${cityName}_${i}`
+          if (textures.value[key]) return
+          
+          for (const ext of extensions) {
+              const url = `/assets/cities/${cityName}_${i}${ext}`
+              try {
+                  const tex = await Assets.load(url)
+                  textures.value[key] = tex
+                  return
+              } catch (e) {
+                  try {
+                      const encodedUrl = `/assets/cities/${encodeURIComponent(`${cityName}_${i}`)}${ext}`
+                      const tex = await Assets.load(encodedUrl)
+                      textures.value[key] = tex
+                      return
+                  } catch (e2) {
+                      // continue
+                  }
+              }
+          }
+      })
+      
+      await Promise.all(slicePromises)
   }
 
   return {
@@ -119,6 +155,7 @@ export function useTextures() {
     isLoaded,
     loadBaseTextures,
     loadSectTexture,
+    loadCityTexture,
     availableAvatars
   }
 }

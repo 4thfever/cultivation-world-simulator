@@ -7,7 +7,7 @@ import type { RegionSummary } from '../../types/core'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
-const { textures, isLoaded, loadSectTexture } = useTextures()
+const { textures, isLoaded, loadSectTexture, loadCityTexture } = useTextures()
 const worldStore = useWorldStore()
 const regionStyleCache = new Map<string, Record<string, unknown>>()
 
@@ -35,12 +35,13 @@ watch(
 async function renderMap() {
   if (!mapContainer.value || !worldStore.mapData.length) return
 
-  await preloadSectTextures()
+  await preloadRegionTextures()
   mapContainer.value.removeChildren()
 
   const rows = worldStore.mapData.length
   const cols = worldStore.mapData[0]?.length ?? 0
 
+  // 1. Render Base Tiles
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       const type = worldStore.mapData[y][x]
@@ -71,14 +72,19 @@ async function renderMap() {
     }
   }
 
+  // 2. Render Large Regions (2x2)
+  renderLargeRegions()
+
   emit('mapLoaded', {
     width: cols * TILE_SIZE,
     height: rows * TILE_SIZE
   })
 }
 
-async function preloadSectTextures() {
+async function preloadRegionTextures() {
   const regions = Array.from(worldStore.regions.values());
+  
+  // Sects
   const sectNames = Array.from(
     new Set(
       regions
@@ -86,19 +92,71 @@ async function preloadSectTextures() {
         .map(region => region.sect_name as string)
     )
   )
-  await Promise.all(sectNames.map(name => loadSectTexture(name)))
+  
+  // Cities
+  const cityNames = Array.from(
+    new Set(
+        regions
+            .filter(region => region.type === 'city')
+            .map(region => region.name)
+    )
+  )
+
+  await Promise.all([
+      ...sectNames.map(name => loadSectTexture(name)),
+      ...cityNames.map(name => loadCityTexture(name))
+  ])
 }
 
-function resolveSectTexture(x: number, y: number) {
-  const regions = Array.from(worldStore.regions.values());
-  const region = regions.find(r =>
-    r.type === 'sect' && Math.abs(r.x - x) < 3 && Math.abs(r.y - y) < 3
-  )
-  if (region?.sect_name) {
-    const key = `SECT_${region.sect_name}`
-    return textures.value[key] ?? null
-  }
+// Sect tile rendering is now handled in renderLargeRegions via slices
+function resolveSectTexture(_x: number, _y: number) {
+  // Legacy function - sect rendering is now done via slices in renderLargeRegions
   return null
+}
+
+function renderLargeRegions() {
+    const regions = Array.from(worldStore.regions.values());
+    for (const region of regions) {
+        let baseName: string | null = null;
+        
+        if (region.type === 'city') {
+            baseName = region.name
+        } else if (region.type === 'sect' && region.sect_name) {
+            baseName = region.sect_name
+        } else if (region.type === 'cultivate') {
+            if (region.name.includes('遗迹')) {
+                baseName = 'ruin'
+            } else if (region.name.includes('洞') || region.name.includes('府') || region.name.includes('秘境') || region.name.includes('宫')) {
+                baseName = 'cave'
+            }
+        }
+
+        if (baseName && mapContainer.value) {
+            // Render 4 slices as 2x2 grid
+            // Slice indices: 0=TL, 1=TR, 2=BL, 3=BR
+            const positions = [
+                { dx: 0, dy: 0, idx: 0 },  // TL
+                { dx: 1, dy: 0, idx: 1 },  // TR
+                { dx: 0, dy: 1, idx: 2 },  // BL
+                { dx: 1, dy: 1, idx: 3 },  // BR
+            ]
+            
+            for (const pos of positions) {
+                const sliceKey = `${baseName}_${pos.idx}`
+                const tex = textures.value[sliceKey]
+                if (tex) {
+                    const sprite = new Sprite(tex)
+                    sprite.x = (region.x + pos.dx) * TILE_SIZE
+                    sprite.y = (region.y + pos.dy) * TILE_SIZE
+                    sprite.width = TILE_SIZE
+                    sprite.height = TILE_SIZE
+                    sprite.roundPixels = true
+                    sprite.eventMode = 'none'
+                    mapContainer.value.addChild(sprite)
+                }
+            }
+        }
+    }
 }
 
 function getRegionStyle(type: string) {

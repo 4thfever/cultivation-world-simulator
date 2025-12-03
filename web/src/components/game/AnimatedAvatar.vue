@@ -83,23 +83,23 @@ function getTexture() {
 function getScale() {
   const tex = getTexture()
   if (!tex) return 1
-  // Scale up: 4.25x tile size (larger medium size)
-  return (props.tileSize * 4.25) / Math.max(tex.width, tex.height)
+  // Scale up: 3.0x tile size
+  return (props.tileSize * 3.0) / Math.max(tex.width, tex.height)
 }
 
 const drawFallback = (g: Graphics) => {
     g.clear()
-    g.circle(0, 0, props.tileSize * 0.8) // Increased size
+    g.circle(0, 0, props.tileSize * 0.5)
     g.fill({ color: props.avatar.gender === 'female' ? 0xffaaaa : 0xaaaaff })
-    g.stroke({ width: 3, color: 0x000000 })
+    g.stroke({ width: 2, color: 0x000000 })
 }
 
 const nameStyle = {
     fontFamily: '"Microsoft YaHei", sans-serif',
-    fontSize: 65, // Larger medium size
+    fontSize: 42,
     fontWeight: 'bold',
     fill: '#ffffff',
-    stroke: { color: '#000000', width: 5.5 }, // Thicker stroke
+    stroke: { color: '#000000', width: 3.5 },
     align: 'center',
     dropShadow: {
         color: '#000000',

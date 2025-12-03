@@ -140,7 +140,7 @@
                 <!-- 绑定地形预览图 (主展示) -->
                 <img 
                     v-if="region.bindTile"
-                    :src="`/${region.bindTileType === 'sect' ? 'sects' : 'tiles'}/${region.bindTile}.png`" 
+                    :src="`/${region.bindTileType === 'sect' ? 'sects' : (region.bindTileType === 'city' ? 'cities' : 'tiles')}/${region.bindTileType === 'city' ? cityTilesMap[region.bindTile] : region.bindTile + '.png'}`" 
                     class="preview-img"
                 >
                 <div v-else class="preview-img bg-gray-700"></div>
@@ -162,17 +162,6 @@
                 :class="{ active: currentTile === tile && currentTileType === 'tile' }"
                 @click="selectTile(tile, 'tile')">
                 <img :src="`/tiles/${tile}.png`" class="preview-img">
-                <span>{{ tile }}</span>
-            </div>
-            
-            <div class="section-title">宗门建筑</div>
-            <div 
-                v-for="tile in sectTiles" 
-                :key="tile"
-                class="item-btn"
-                :class="{ active: currentTile === tile && currentTileType === 'sect' }"
-                @click="selectTile(tile, 'sect')">
-                <img :src="`/sects/${tile}.png`" class="preview-img">
                 <span>{{ tile }}</span>
             </div>
         </div>
@@ -201,6 +190,8 @@ createApp({
         const mode = ref('region'); // 默认 Region 模式
         const tiles = ref([]);
         const sectTiles = ref([]);
+        const cityTiles = ref([]);
+        const cityTilesMap = ref({});
         const regions = ref([]);
         const savedMap = ref({}); 
         
@@ -250,24 +241,55 @@ createApp({
                 const data = await res.json();
                 tiles.value = data.tiles;
                 sectTiles.value = data.sectTiles;
+                cityTiles.value = data.cityTiles;
+                cityTilesMap.value = data.cityTilesMap;
                 regions.value = data.regions;
                 mapWidth.value = data.width;
                 mapHeight.value = data.height;
                 savedMap.value = data.savedMap || {};
                 
                 // Preload images
-                const loadImg = (name, folder) => {
+                const loadImg = (name, folder, filename) => {
                     return new Promise((resolve) => {
                         const img = new Image();
-                        img.src = `/${folder}/${name}.png`;
+                        const finalName = filename || (name + '.png');
+                        // Encode URI for Chinese characters in filenames
+                        const encodedName = encodeURIComponent(finalName);
+                        img.src = `/${folder}/${encodedName}`;
                         img.onload = () => { images[name] = img; resolve(); };
-                        img.onerror = () => { console.warn('Missing img:', name); resolve(); }; 
+                        img.onerror = () => { 
+                            // Try fallback without encoding just in case
+                            if (encodedName !== finalName) {
+                                img.src = `/${folder}/${finalName}`;
+                            } else {
+                                console.warn('Missing img:', name); resolve(); 
+                            }
+                        }; 
                     });
+                };
+                
+                // Load slices for large tiles (Sect/City/cave/ruin)
+                const loadLargeTileSlices = async (name, folder, ext = '.png') => {
+                    const slicePromises = [0, 1, 2, 3].map(i => {
+                        const sliceName = `${name}_${i}`;
+                        return loadImg(sliceName, folder, `${sliceName}${ext}`);
+                    });
+                    await Promise.all(slicePromises);
                 };
 
                 const promises = [
+                    // Normal tiles (including cave/ruin base, but we also need slices)
                     ...data.tiles.map(t => loadImg(t, 'tiles')),
-                    ...data.sectTiles.map(t => loadImg(t, 'sects'))
+                    // Sect slices
+                    ...data.sectTiles.map(t => loadLargeTileSlices(t, 'sects')),
+                    // City slices (handle jpg extension from cityTilesMap)
+                    ...data.cityTiles.map(t => {
+                        const ext = data.cityTilesMap[t]?.split('.').pop() || 'jpg';
+                        return loadLargeTileSlices(t, 'cities', '.' + ext);
+                    }),
+                    // cave/ruin slices
+                    loadLargeTileSlices('cave', 'tiles'),
+                    loadLargeTileSlices('ruin', 'tiles'),
                 ];
                 await Promise.all(promises);
             } catch (e) {
@@ -392,6 +414,36 @@ createApp({
             hoverY.value = gy;
         }
 
+        // Large tiles set (for quick lookup)
+        const largeTileSet = new Set(['cave', 'ruin']);
+        
+        // Helper: Check if a tile is large (sect/city/cave/ruin)
+        function isLargeTile(tileName, tileType) {
+            if (tileType === 'sect' || tileType === 'city') return true;
+            if (largeTileSet.has(tileName)) return true;
+            return sectTiles.value.includes(tileName) || cityTiles.value.includes(tileName);
+        }
+        
+        // Helper: Paint a 2x2 large tile using slices
+        function paintLargeTile(gx, gy, tileName, regionId = null) {
+            // Bounds check
+            if (gx + 1 >= mapWidth.value || gy + 1 >= mapHeight.value) return false;
+            
+            const setCell = (tx, ty, tName, rId) => {
+                const tidx = ty * mapWidth.value + tx;
+                grid[tidx].t = tName;
+                if (rId !== null) grid[tidx].r = rId;
+            };
+            
+            // TL=0, TR=1, BL=2, BR=3
+            setCell(gx, gy, `${tileName}_0`, regionId);
+            setCell(gx + 1, gy, `${tileName}_1`, regionId);
+            setCell(gx, gy + 1, `${tileName}_2`, regionId);
+            setCell(gx + 1, gy + 1, `${tileName}_3`, regionId);
+            
+            return true;
+        }
+
         function paint(gx, gy) {
             if (gx < 0 || gx >= mapWidth.value || gy < 0 || gy >= mapHeight.value) return;
             
@@ -399,14 +451,27 @@ createApp({
             const cell = grid[idx];
             
             if (mode.value === 'tile') {
-                cell.t = currentTile.value;
+                // Special handling for Large Tiles (Sect/City/cave/ruin) -> 2x2 slices
+                if (isLargeTile(currentTile.value, currentTileType.value)) {
+                    paintLargeTile(gx, gy, currentTile.value);
+                } else {
+                    // Normal 1x1 Tile
+                    cell.t = currentTile.value;
+                }
             } else {
+                // Region Mode
                 cell.r = currentRegion.value;
                 
                 // Auto-paint bind tile if not eraser
                 if (currentRegion.value !== null) {
                     const region = regions.value.find(r => r.id === currentRegion.value);
                     if (region && region.bindTile) {
+                        // If bound tile is large, paint 2x2 slices
+                        if (isLargeTile(region.bindTile, region.bindTileType)) {
+                            if (paintLargeTile(gx, gy, region.bindTile, currentRegion.value)) {
+                                return; // Done painting 2x2
+                            }
+                        }
                         cell.t = region.bindTile;
                     }
                 }
@@ -556,7 +621,7 @@ createApp({
         }
 
         return {
-            loading, mode, tiles, sectTiles, regions, 
+            loading, mode, tiles, sectTiles, cityTiles, cityTilesMap, regions, 
             currentTile, currentTileType, currentRegion,
             saveMap,
             hoverX, hoverY, isShiftDown,

@@ -13,8 +13,8 @@ CONFIG_DIR = os.path.join(BASE_DIR, "static", "game_configs")
 OUTPUT_DIR = os.path.dirname(__file__)
 
 # 地图尺寸
-MAP_WIDTH = 100
-MAP_HEIGHT = 70
+MAP_WIDTH = 70
+MAP_HEIGHT = 50
 
 @app.route('/')
 def index():
@@ -28,8 +28,12 @@ def serve_tile_image(filename):
 def serve_sect_image(filename):
     return send_from_directory(os.path.join(ASSETS_DIR, "sects"), filename)
 
+@app.route('/cities/<path:filename>')
+def serve_city_image(filename):
+    return send_from_directory(os.path.join(ASSETS_DIR, "cities"), filename)
+
 # 显式定义的区域-地形映射表
-# Key: 区域名称, Value: {"t": tile_name, "type": "tile" | "sect"}
+# Key: 区域名称, Value: {"t": tile_name, "type": "tile" | "sect" | "city"}
 REGION_TILE_MAP = {
     # --- 普通区域 (Normal Regions) ---
     "平原地带": {"t": "plain", "type": "tile"},
@@ -52,9 +56,11 @@ REGION_TILE_MAP = {
     "蓬莱遗岛": {"t": "island", "type": "tile"},
     
     # --- 城市区域 (City Regions) ---
-    "青云城": {"t": "city", "type": "tile"},
-    "沙月城": {"t": "city", "type": "tile"},
-    "翠林城": {"t": "city", "type": "tile"},
+    "青云城": {"t": "青云城", "type": "city"},
+    "沙月城": {"t": "沙月城", "type": "city"},
+    "翠林城": {"t": "翠林城", "type": "city"},
+    "揽月城": {"t": "揽月城", "type": "city"},
+    "沧澜城": {"t": "沧澜城", "type": "city"},
     
     # --- 洞府遗迹 (Cultivate Regions) ---
     "太白金府": {"t": "cave", "type": "tile"},
@@ -62,11 +68,11 @@ REGION_TILE_MAP = {
     "玄水秘境": {"t": "cave", "type": "tile"},
     "离火洞府": {"t": "cave", "type": "tile"},
     "厚土玄宫": {"t": "cave", "type": "tile"},
-    "古越遗迹": {"t": "ruins", "type": "tile"},
-    "沧海遗迹": {"t": "ruins", "type": "tile"},
+    "古越遗迹": {"t": "ruin", "type": "tile"},
+    "沧海遗迹": {"t": "ruin", "type": "tile"},
 }
 
-def get_default_tile(name, type_tag, all_tiles, all_sect_tiles):
+def get_default_tile(name, type_tag, all_tiles, all_sect_tiles, all_city_tiles):
     """根据区域名称和类型查找默认 Tile"""
     
     # 1. 查表 (精确匹配)
@@ -84,8 +90,10 @@ def get_default_tile(name, type_tag, all_tiles, all_sect_tiles):
                 return {"t": t, "type": "sect"}
         return {"t": "mountain", "type": "tile"} # 默认建在山上
 
-    # 3. 城市默认
+    # 3. 城市
     if type_tag == 'city':
+        if name in all_city_tiles:
+             return {"t": name, "type": "city"}
         return {"t": "city", "type": "tile"}
         
     # 4. 包含特定关键词的兜底逻辑 (针对未在表中的新区域)
@@ -93,7 +101,7 @@ def get_default_tile(name, type_tag, all_tiles, all_sect_tiles):
     if '洞' in name_lower or '府' in name_lower or '秘境' in name_lower: 
         return {"t": "cave", "type": "tile"}
     if '遗迹' in name_lower:
-        return {"t": "ruins", "type": "tile"}
+        return {"t": "ruin", "type": "tile"}
 
     # 默认
     return {"t": "plain", "type": "tile"}
@@ -104,18 +112,51 @@ def init_data():
     
     # 1. 获取所有 Tile 图片名称
     tile_files = glob.glob(os.path.join(ASSETS_DIR, "tiles", "*.png"))
-    tiles = [os.path.splitext(os.path.basename(f))[0] for f in tile_files]
+    # 过滤切片 (name_0.png)
+    tiles = [os.path.splitext(os.path.basename(f))[0] for f in tile_files if not os.path.splitext(os.path.basename(f))[0][-2:] in ['_0', '_1', '_2', '_3']]
     tiles.sort()
 
     # 2. 获取所有 Sect 图片名称
     sect_files = glob.glob(os.path.join(ASSETS_DIR, "sects", "*.png"))
-    sect_tiles = [os.path.splitext(os.path.basename(f))[0] for f in sect_files]
+    sect_tiles = [os.path.splitext(os.path.basename(f))[0] for f in sect_files if not os.path.splitext(os.path.basename(f))[0][-2:] in ['_0', '_1', '_2', '_3']]
     sect_tiles.sort()
 
-    # 3. 读取 Region 配置
+    # 3. 获取所有 City 图片名称 (保留扩展名映射)
+    city_files = glob.glob(os.path.join(ASSETS_DIR, "cities", "*.*"))
+    # 过滤非图片
+    city_files = [f for f in city_files if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    
+    city_tiles_map = {} # name -> filename
+    city_tiles = []
+    for f in city_files:
+        name = os.path.splitext(os.path.basename(f))[0]
+        if name[-2:] in ['_0', '_1', '_2', '_3']: continue
+        filename = os.path.basename(f)
+        city_tiles.append(name)
+        city_tiles_map[name] = filename
+    city_tiles.sort()
+
+    # 4. 读取 sect.csv 建立 sect_id -> sect_name 映射
+    sect_id_to_name = {}
+    sect_csv_path = os.path.join(CONFIG_DIR, "sect.csv")
+    if os.path.exists(sect_csv_path):
+        with open(sect_csv_path, 'r', encoding='utf-8-sig') as f:
+            reader = csv.reader(f)
+            rows = list(reader)
+            data_rows = rows[2:] if len(rows) > 2 else []
+            for row in data_rows:
+                if len(row) >= 2:
+                    try:
+                        sid = int(row[0])
+                        sname = row[1]
+                        sect_id_to_name[sid] = sname
+                    except ValueError:
+                        continue
+
+    # 5. 读取 Region 配置
     regions = []
     
-    def parse_csv(filename, id_col, name_col, type_tag):
+    def parse_csv(filename, id_col, name_col, type_tag, sect_id_col=None):
         path = os.path.join(CONFIG_DIR, filename)
         if not os.path.exists(path):
             print(f"Warning: {path} not found")
@@ -136,8 +177,17 @@ def init_data():
                     color_hash = hash(f"{type_tag}_{r_id}") & 0xFFFFFF
                     color = f"#{color_hash:06x}"
                     
+                    # 对于 sect 类型，使用 sect_id 查找对应的宗门名称
+                    bind_name = name
+                    if type_tag == 'sect' and sect_id_col is not None and len(row) > sect_id_col:
+                        try:
+                            sid = int(row[sect_id_col])
+                            bind_name = sect_id_to_name.get(sid, name)
+                        except ValueError:
+                            pass
+                    
                     # 计算默认绑定 Tile
-                    bind_info = get_default_tile(name, type_tag, tiles, sect_tiles)
+                    bind_info = get_default_tile(bind_name, type_tag, tiles, sect_tiles, city_tiles)
 
                     regions.append({
                         "id": r_id,
@@ -154,8 +204,8 @@ def init_data():
     # 读取四种配置
     # normal_region.csv: id=0, name=1
     parse_csv("normal_region.csv", 0, 1, "normal")
-    # sect_region.csv: sect_id=0, sect_name=1
-    parse_csv("sect_region.csv", 0, 1, "sect")
+    # sect_region.csv: id=0, name=1, sect_id=3
+    parse_csv("sect_region.csv", 0, 1, "sect", sect_id_col=3)
     # cultivate_region.csv: id=0, name=1
     parse_csv("cultivate_region.csv", 0, 1, "cultivate")
     # city_region.csv: id=0, name=1
@@ -179,6 +229,8 @@ def init_data():
         "height": MAP_HEIGHT,
         "tiles": tiles,
         "sectTiles": sect_tiles,
+        "cityTiles": city_tiles,
+        "cityTilesMap": city_tiles_map,
         "regions": regions,
         "savedMap": saved_map
     })
