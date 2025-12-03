@@ -165,15 +165,15 @@ function getRegionStyle(type: string) {
   }
   const style = {
     fontFamily: '"Microsoft YaHei", sans-serif',
-    fontSize: type === 'sect' ? 85 : 100,
+    fontSize: type === 'sect' ? 60 : 72,
     fill: type === 'sect' ? '#ffcc00' : (type === 'city' ? '#ccffcc' : '#ffffff'),
-    stroke: { color: '#000000', width: 7, join: 'round' },
+    stroke: { color: '#000000', width: 5, join: 'round' },
     align: 'center',
     dropShadow: {
       color: '#000000',
-      blur: 4,
+      blur: 3,
       angle: Math.PI / 6,
-      distance: 4,
+      distance: 3,
       alpha: 0.8
     }
   }

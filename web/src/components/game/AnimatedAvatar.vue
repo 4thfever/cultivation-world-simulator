@@ -83,8 +83,8 @@ function getTexture() {
 function getScale() {
   const tex = getTexture()
   if (!tex) return 1
-  // Scale up: 3.0x tile size
-  return (props.tileSize * 3.0) / Math.max(tex.width, tex.height)
+  // Scale up: 3.5x tile size
+  return (props.tileSize * 3.5) / Math.max(tex.width, tex.height)
 }
 
 const drawFallback = (g: Graphics) => {
@@ -96,10 +96,10 @@ const drawFallback = (g: Graphics) => {
 
 const nameStyle = {
     fontFamily: '"Microsoft YaHei", sans-serif',
-    fontSize: 42,
+    fontSize: 50,
     fontWeight: 'bold',
     fill: '#ffffff',
-    stroke: { color: '#000000', width: 3.5 },
+    stroke: { color: '#000000', width: 4 },
     align: 'center',
     dropShadow: {
         color: '#000000',
