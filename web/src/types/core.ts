@@ -25,6 +25,7 @@ export interface EffectEntity extends EntityBase {
   rarity?: string; // e.g., 'SSR', 'R', '上品'
   type?: string;
   color?: string | number[]; // 某些实体自带颜色
+  drops?: EffectEntity[];
 }
 
 export interface Item extends EffectEntity {

@@ -11,7 +11,7 @@ id,name,grade,sect_id,desc,effects
 2009,金丝软甲,宝物,1,刀枪不入，水火不侵，贴身软甲.,"{extra_max_hp: 100, damage_reduction: 0.05}"
 2010,寒玉床,宝物,,古墓派至宝，在此床上修炼，事半功倍，且无心魔之虞.,{cultivate_duration_reduction: 0.2}
 2011,无相面具,宝物,,千人千面，不仅掩盖容貌，更能掩盖气息.,{extra_plunder_multiplier: 0.5}
-3001,神风舟,法宝,9,韩立常用的飞行法器，速度极快，居家旅行杀人越货必备.,{extra_move_step: 1}
+3001,神风舟,法宝,9,飞行法器，速度极快，居家旅行杀人越货必备.,{extra_move_step: 1}
 3002,昆仑镜,法宝,3,上古神器，拥有穿梭时空之力，此为仿品，仅能窥探远方.,{extra_observation_radius: 2}
 3003,掌天瓶,法宝,5,夺天地之造化，聚日月之精华，催熟万物.,{extra_cultivate_exp: 50}
 3004,龙凤呈祥戒,法宝,6,龙凤和鸣，心意相通，双修进境一日千里.,{extra_dual_cultivation_exp: 100}

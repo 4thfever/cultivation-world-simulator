@@ -73,7 +73,7 @@ class Region(ABC):
 
     def get_structured_info(self) -> dict:
         return {
-            "id": self.id,
+            "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
             "type": self.get_region_type(),
@@ -156,8 +156,14 @@ class NormalRegion(Region):
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
         info["type_name"] = "普通区域"
-        info["animals"] = [a.get_structured_info() for a in self.animals]
-        info["plants"] = [p.get_structured_info() for p in self.plants]
+        
+        # Fix: Return the actual structure instead of just calling get_structured_info on elements but never assigning
+        # The previous implementation (if it existed) was inherited from base or incorrect
+        
+        # Assuming animals and plants are populated in __post_init__
+        info["animals"] = [a.get_structured_info() for a in self.animals] if self.animals else []
+        info["plants"] = [p.get_structured_info() for p in self.plants] if self.plants else []
+        
         return info
 
 

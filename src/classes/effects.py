@@ -149,9 +149,8 @@ EXTRA_MOVE_STEP = "extra_move_step"
 结算: src/classes/action/move.py
 说明: 每次移动时可以多移动的格子数。
 数值参考: 
-  - 微量: 1
-  - 中量: 2
-  - 大量: 3+
+  - 中量: 1
+  - 大量: 2
 """
 
 # --- 捕捉相关 ---

@@ -47,6 +47,7 @@ class Animal:
     def get_structured_info(self) -> dict:
         items_info = [item.get_structured_info() for item in self.items]
         return {
+            "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
             "grade": self.realm.value,

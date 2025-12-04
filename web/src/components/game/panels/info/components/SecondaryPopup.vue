@@ -34,6 +34,21 @@ const emit = defineEmits(['close']);
           <div class="label">效果：</div>
           <div class="effect-text">{{ item.effect_desc }}</div>
         </div>
+
+        <!-- Drops Display -->
+        <div v-if="item.drops?.length" class="drops-box">
+          <div class="label">掉落/产出：</div>
+          <div class="drop-list">
+            <span 
+              v-for="drop in item.drops" 
+              :key="drop.id" 
+              class="drop-tag"
+              :style="{ color: getEntityColor(drop) }"
+            >
+              {{ drop.name }}
+            </span>
+          </div>
+        </div>
         
         <!-- 动态字段展示 (Extensibility) -->
         <div v-if="item.hq_name" class="extra-info">
@@ -146,5 +161,23 @@ const emit = defineEmits(['close']);
 .sub-desc {
   color: #888;
   margin-top: 2px;
+}
+
+.drops-box {
+  margin-top: 4px;
+}
+
+.drop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.drop-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
 }
 </style>
