@@ -3,7 +3,8 @@
  * 封装基础的 fetch 请求
  */
 
-const API_BASE = ''; // 相对路径
+// 使用环境变量作为 API 基础路径，如果没有配置则默认为空（相对路径）
+const API_BASE = import.meta.env.VITE_API_TARGET || '';
 
 export class ApiError extends Error {
   public status: number;

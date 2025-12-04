@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
 import { useWorldStore } from './stores/world'
 import { useUiStore } from './stores/ui'
-import { useGameSocket } from './composables/useGameSocket'
+import { useSocketStore } from './stores/socket'
 import { gameApi } from './api/game'
 
 import GameCanvas from './components/game/GameCanvas.vue'
@@ -12,20 +12,24 @@ import StatusBar from './components/layout/StatusBar.vue'
 import EventPanel from './components/panels/EventPanel.vue'
 import SystemMenu from './components/SystemMenu.vue'
 
-// Composables
-useGameSocket()
-
+// Stores
 const worldStore = useWorldStore()
 const uiStore = useUiStore()
+const socketStore = useSocketStore()
+
 const showMenu = ref(false)
 const isManualPaused = ref(false)
 
 onMounted(async () => {
+  // 初始化 Socket 连接
+  socketStore.init()
+  // 初始化世界状态
   await worldStore.initialize()
   window.addEventListener('keydown', handleKeydown)
 })
 
 onUnmounted(() => {
+  socketStore.disconnect()
   window.removeEventListener('keydown', handleKeydown)
 })
 

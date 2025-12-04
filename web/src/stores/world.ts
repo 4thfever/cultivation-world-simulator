@@ -3,6 +3,7 @@ import { ref, shallowRef, computed } from 'vue';
 import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
 import { gameApi } from '../api/game';
+import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
 
 export const useWorldStore = defineStore('world', () => {
   // --- State ---
@@ -65,69 +66,14 @@ export const useWorldStore = defineStore('world', () => {
   function addEvents(rawEvents: any[]) {
     if (!rawEvents || rawEvents.length === 0) return;
     
-    // 转换 DTO -> Domain
-    // 增加临时索引 _seq 记录原始逻辑顺序，用于同时间戳事件的排序
-    const newEvents: GameEvent[] = rawEvents.map((e, index) => ({
-      id: e.id,
-      text: e.text,
-      content: e.content,
-      year: e.year ?? year.value,
-      month: e.month ?? month.value,
-      timestamp: (e.year ?? year.value) * 12 + (e.month ?? month.value),
-      relatedAvatarIds: e.related_avatar_ids || [],
-      isMajor: e.is_major,
-      isStory: e.is_story,
-      _seq: index 
-    } as GameEvent & { _seq: number }));
-
-    // 排序并保留最新的 N 条
-    const MAX_EVENTS = 300;
-    const combined = [...newEvents, ...events.value];
-    
-    combined.sort((a, b) => {
-      // 1. 先按时间戳升序（最旧的月在上面）
-      const ta = a.timestamp;
-      const tb = b.timestamp;
-      if (tb !== ta) {
-        return ta - tb;
-      }
-      
-      // 2. 时间相同时，按原始逻辑顺序升序（先发生的在上面）
-      // 旧事件通常没有 _seq (undefined)，视为最旧 (-1)
-      const seqA = (a as any)._seq ?? -1;
-      const seqB = (b as any)._seq ?? -1;
-      
-      // 如果都是旧事件，保持相对顺序 (Stable)
-      if (seqA === -1 && seqB === -1) return 0;
-      
-      return seqA - seqB;
-    });
-    
-    // 保留最新的 N 条 (因为是升序，最新的在最后，所以取最后 N 条)
-    if (combined.length > MAX_EVENTS) {
-      events.value = combined.slice(-MAX_EVENTS);
-    } else {
-      events.value = combined;
-    }
+    const newEvents = processNewEvents(rawEvents, year.value, month.value);
+    events.value = mergeAndSortEvents(events.value, newEvents);
   }
 
   function handleTick(payload: TickPayloadDTO) {
     if (!isLoaded.value) return;
     
     setTime(payload.year, payload.month);
-
-    // 检查并处理死亡事件，移除已死亡的角色
-    // if (payload.events && Array.isArray(payload.events)) {
-    //   const deathEvents = (payload.events as any[]).filter((e: any) => {
-    //     const c = e.content || '';
-    //     return c.includes('身亡') || c.includes('老死');
-    //   });
-    //
-    //   if (deathEvents.length > 0) {
-    //     // 旧逻辑：主动删除死人。现在改为软删除，后端会在 avatars 更新中推送 is_dead 状态，
-    //     // 所以这里不再需要主动操作。前端展示层根据 is_dead 决定是否隐藏。
-    //   }
-    // }
 
     if (payload.avatars) updateAvatars(payload.avatars);
     if (payload.events) addEvents(payload.events);

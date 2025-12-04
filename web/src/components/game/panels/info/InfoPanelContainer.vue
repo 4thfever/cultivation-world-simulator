@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import { useUiStore } from '../../../../stores/ui';
 
 // Sub-components
@@ -11,14 +12,18 @@ const uiStore = useUiStore();
 const panelRef = ref<HTMLElement | null>(null);
 let lastOpenAt = 0;
 
-// --- Computed ---
+// --- Component Resolution ---
 
 const currentComponent = computed(() => {
-  if (uiStore.selectedTarget?.type === 'avatar') return AvatarDetailView;
-  if (uiStore.selectedTarget?.type === 'region') return RegionDetailView;
-  if (uiStore.selectedTarget?.type === 'sect') return SectDetailView;
-  return null;
+  switch (uiStore.selectedTarget?.type) {
+    case 'avatar': return AvatarDetailView;
+    case 'region': return RegionDetailView;
+    case 'sect': return SectDetailView;
+    default: return null;
+  }
 });
+
+// --- Title & Subtitle Logic ---
 
 const title = computed(() => {
   if (uiStore.detailData) {
@@ -53,34 +58,19 @@ function close() {
   showNicknameReason.value = false;
 }
 
-  // Click outside to close
-  function handleDocumentPointerDown(event: PointerEvent) {
-    if (!uiStore.selectedTarget || !panelRef.value) return;
-    const target = event.target as Node | null;
-    
-    // 检查点击是否在面板内部，或者是在二级弹窗内部（如果二级弹窗是挂在 body 上的 portal 这里的逻辑会有问题，但目前 SecondaryPopup 是 AvatarDetail 的子组件，所以应该被 panelRef 包含）
-    // 但是要注意，SecondaryPopup 使用了 absolute 定位到 left: -100%，仍然是 panelRef 的子节点
-    if (target && panelRef.value.contains(target)) return;
+// 使用 vueuse 的 onClickOutside 替代原生监听
+onClickOutside(panelRef, () => {
+  // Prevent closing immediately after opening if click propagated
+  const now = performance.now();
+  if (now - lastOpenAt < 100) return;
+  
+  close();
+});
 
-    // Prevent closing immediately after opening if click propagated
-    const now = performance.now();
-    if (now - lastOpenAt < 100) return;
-
-    close();
-  }
-
-// Record open time
+// Record open time to prevent immediate close
 watch(() => uiStore.selectedTarget, (val) => {
   if (val) lastOpenAt = performance.now();
   showNicknameReason.value = false;
-});
-
-onMounted(() => {
-  document.addEventListener('pointerdown', handleDocumentPointerDown);
-});
-
-onUnmounted(() => {
-  document.removeEventListener('pointerdown', handleDocumentPointerDown);
 });
 </script>
 
@@ -126,17 +116,6 @@ onUnmounted(() => {
           :data="uiStore.detailData" 
         />
       </div>
-
-      <!-- Fallback / Legacy Hover Info (If detail failed or not applicable) -->
-      <div v-else class="legacy-list">
-        <div v-for="(line, i) in uiStore.hoverInfo" :key="i" class="line">
-          <span 
-            v-for="(seg, j) in line" 
-            :key="j"
-            :style="{ color: seg.color }"
-          >{{ seg.text }}</span>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -148,10 +127,10 @@ onUnmounted(() => {
   right: 20px;
   width: 320px;
   max-height: calc(100vh - 80px);
-  background: rgba(24, 24, 24, 0.96);
-  border: 1px solid #333;
+  background: var(--panel-bg);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--panel-shadow);
   color: #eee;
   display: flex;
   flex-direction: column;
@@ -164,8 +143,8 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: rgba(38, 38, 38, 0.95);
-  border-bottom: 1px solid #333;
+  background: var(--panel-header-bg);
+  border-bottom: 1px solid var(--color-border);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   flex-shrink: 0;
@@ -180,7 +159,7 @@ onUnmounted(() => {
 
 .sub-title {
   font-size: 12px;
-  color: #888;
+  color: var(--color-text-secondary);
 }
 
 .sub-title.clickable {
@@ -206,14 +185,13 @@ onUnmounted(() => {
   width: max-content;
   max-width: 260px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  pointer-events: none; /* Prevents blocking if it overlaps something vital, though typically we want to select text */
   pointer-events: auto;
 }
 
 .popover-arrow {
   position: absolute;
   top: -5px;
-  left: 20px; /* Approximate alignment under the nickname */
+  left: 20px;
   width: 8px;
   height: 8px;
   background: rgba(50, 50, 50, 0.98);
@@ -233,11 +211,6 @@ onUnmounted(() => {
   font-weight: bold;
 }
 
-.sub-title {
-  font-size: 12px;
-  color: #888;
-}
-
 .close-btn {
   background: transparent;
   border: none;
@@ -254,7 +227,7 @@ onUnmounted(() => {
 
 .panel-body {
   flex: 1;
-  overflow: hidden; /* Let children scroll */
+  overflow: hidden;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -270,7 +243,7 @@ onUnmounted(() => {
 }
 
 .state-msg {
-  color: #888;
+  color: var(--color-text-secondary);
   font-size: 13px;
   text-align: center;
   padding: 20px 0;
@@ -279,17 +252,4 @@ onUnmounted(() => {
 .state-msg.error {
   color: #ff7875;
 }
-
-
-/* Legacy */
-.legacy-list {
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.line {
-  margin-bottom: 4px;
-  white-space: pre-wrap;
-}
 </style>
-

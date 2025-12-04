@@ -3,13 +3,13 @@ import { onMounted, ref, watch } from 'vue'
 import { Container, Sprite } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
 import { useWorldStore } from '../../stores/world'
+import { getRegionTextStyle } from '../../utils/mapStyles'
 import type { RegionSummary } from '../../types/core'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
 const { textures, isLoaded, loadSectTexture, loadCityTexture } = useTextures()
 const worldStore = useWorldStore()
-const regionStyleCache = new Map<string, Record<string, unknown>>()
 
 const emit = defineEmits<{
   (e: 'mapLoaded', payload: { width: number, height: number }): void
@@ -49,7 +49,8 @@ async function renderMap() {
       let tex = textures.value[type]
 
       if (type === 'SECT') {
-        tex = resolveSectTexture(x, y) ?? textures.value['CITY']
+        // Legacy placeholder
+        tex = textures.value['CITY']
       }
 
       if (!tex) {
@@ -96,9 +97,9 @@ async function preloadRegionTextures() {
   // Cities
   const cityNames = Array.from(
     new Set(
-        regions
-            .filter(region => region.type === 'city')
-            .map(region => region.name)
+      regions
+        .filter(region => region.type === 'city')
+        .map(region => region.name)
     )
   )
 
@@ -106,12 +107,6 @@ async function preloadRegionTextures() {
       ...sectNames.map(name => loadSectTexture(name)),
       ...cityNames.map(name => loadCityTexture(name))
   ])
-}
-
-// Sect tile rendering is now handled in renderLargeRegions via slices
-function resolveSectTexture(_x: number, _y: number) {
-  // Legacy function - sect rendering is now done via slices in renderLargeRegions
-  return null
 }
 
 function renderLargeRegions() {
@@ -159,28 +154,6 @@ function renderLargeRegions() {
     }
 }
 
-function getRegionStyle(type: string) {
-  if (regionStyleCache.has(type)) {
-    return regionStyleCache.get(type)
-  }
-  const style = {
-    fontFamily: '"Microsoft YaHei", sans-serif',
-    fontSize: type === 'sect' ? 60 : 72,
-    fill: type === 'sect' ? '#ffcc00' : (type === 'city' ? '#ccffcc' : '#ffffff'),
-    stroke: { color: '#000000', width: 5, join: 'round' },
-    align: 'center',
-    dropShadow: {
-      color: '#000000',
-      blur: 3,
-      angle: Math.PI / 6,
-      distance: 3,
-      alpha: 0.8
-    }
-  }
-  regionStyleCache.set(type, style)
-  return style
-}
-
 function handleRegionSelect(region: RegionSummary) {
   emit('regionSelected', {
     type: 'region',
@@ -205,7 +178,7 @@ function handleRegionSelect(region: RegionSummary) {
             :x="r.x * TILE_SIZE + TILE_SIZE / 2"
             :y="r.y * TILE_SIZE + TILE_SIZE * 1.5"
             :anchor="0.5"
-            :style="getRegionStyle(r.type)"
+            :style="getRegionTextStyle(r.type)"
             event-mode="static"
             cursor="pointer"
             @pointertap="handleRegionSelect(r)"

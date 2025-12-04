@@ -171,6 +171,9 @@ export interface GameEvent {
   relatedAvatarIds: string[];
   isMajor: boolean;
   isStory: boolean;
+  
+  // 运行时辅助字段
+  _seq?: number; 
 }
 
 // --- 悬浮提示 (Hover) ---
