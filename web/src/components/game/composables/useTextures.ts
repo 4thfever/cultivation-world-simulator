@@ -33,6 +33,8 @@ export function useTextures() {
       'PLAIN': '/assets/tiles/plain.png',
       'WATER': '/assets/tiles/water.png',
       'SEA': '/assets/tiles/sea.png',
+      'WATER_FULL': '/assets/tiles/water_full.jpg',
+      'SEA_FULL': '/assets/tiles/sea_full.jpg',
       'MOUNTAIN': '/assets/tiles/mountain.png',
       'FOREST': '/assets/tiles/forest.png',
       'CITY': '/assets/tiles/city.png',

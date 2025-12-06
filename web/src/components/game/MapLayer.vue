@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { Container, Sprite } from 'pixi.js'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { Container, Sprite, TilingSprite, Graphics, Ticker } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
 import { useWorldStore } from '../../stores/world'
 import { getRegionTextStyle } from '../../utils/mapStyles'
@@ -10,6 +10,11 @@ const TILE_SIZE = 64
 const mapContainer = ref<Container>()
 const { textures, isLoaded, loadSectTexture, loadCityTexture } = useTextures()
 const worldStore = useWorldStore()
+
+// 动态水面相关变量
+let ticker: Ticker | null = null
+let seaLayer: TilingSprite | null = null
+let waterLayer: TilingSprite | null = null
 
 const emit = defineEmits<{
   (e: 'mapLoaded', payload: { width: number, height: number }): void
@@ -23,6 +28,10 @@ onMounted(() => {
   }
 })
 
+onUnmounted(() => {
+  cleanupTicker()
+})
+
 watch(
   () => [isLoaded.value, worldStore.isLoaded],
   ([texturesReady, mapReady]) => {
@@ -32,20 +41,86 @@ watch(
   }
 )
 
+function cleanupTicker() {
+  if (ticker) {
+    ticker.stop()
+    ticker.destroy()
+    ticker = null
+  }
+}
+
 async function renderMap() {
   if (!mapContainer.value || !worldStore.mapData.length) return
 
-  await preloadRegionTextures()
+  // 清理旧资源
+  cleanupTicker()
   mapContainer.value.removeChildren()
+  
+  await preloadRegionTextures()
 
   const rows = worldStore.mapData.length
   const cols = worldStore.mapData[0]?.length ?? 0
+  const mapWidth = cols * TILE_SIZE
+  const mapHeight = rows * TILE_SIZE
 
-  // 1. Render Base Tiles
+  // --- 1. 准备动态水面层 (TilingSprite + Mask) ---
+  
+  // 创建海洋层 (底层水)
+  const seaTex = textures.value['SEA_FULL'] || textures.value['SEA']
+  
+  // Pixi v8 style
+  seaLayer = new TilingSprite({
+    texture: seaTex,
+    width: mapWidth,
+    height: mapHeight
+  })
+  
+  // 尝试缩小纹理比例，确保能看到花纹
+  seaLayer.tileScale.set(0.5, 0.5) 
+  
+  const seaMask = new Graphics()
+  seaLayer.mask = seaMask
+  
+  // 创建淡水层 (河流/湖泊)
+  const waterTex = textures.value['WATER_FULL'] || textures.value['WATER']
+
+  waterLayer = new TilingSprite({
+    texture: waterTex,
+    width: mapWidth,
+    height: mapHeight
+  })
+  waterLayer.tileScale.set(0.5, 0.5)
+
+  const waterMask = new Graphics()
+  waterLayer.mask = waterMask
+
+  // 容器用于存放普通地块（非水面）
+  const groundContainer = new Container()
+
+  // --- 2. 遍历地图数据 ---
+  let hasSea = false
+  let hasWater = false
+
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       const type = worldStore.mapData[y][x]
 
+      // 处理特殊地块：海与水
+      if (type === 'SEA') {
+        seaMask.rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+        seaMask.fill(0xffffff)
+        hasSea = true
+        continue
+      }
+      
+      if (type === 'WATER') {
+        waterMask.rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+        waterMask.fill(0xffffff)
+        hasWater = true
+        continue
+      }
+
+      // 处理普通地块
       let tex = textures.value[type]
 
       if (type === 'SECT') {
@@ -62,23 +137,63 @@ async function renderMap() {
       const sprite = new Sprite(tex)
       sprite.x = x * TILE_SIZE
       sprite.y = y * TILE_SIZE
-      // 开启像素取整，消除 Tile 之间的黑边缝隙
       sprite.roundPixels = true
-
       sprite.width = TILE_SIZE
       sprite.height = TILE_SIZE
-
       sprite.eventMode = 'none'
-      mapContainer.value.addChild(sprite)
+      
+      groundContainer.addChild(sprite)
     }
   }
 
-  // 2. Render Large Regions (2x2)
+  // v8 不需要 endFill
+  // seaMask.endFill()
+  // waterMask.endFill()
+
+  // --- 3. 组装图层 ---
+  // 顺序：海 -> 水 -> 陆地
+  if (hasSea && seaLayer) {
+    mapContainer.value.addChild(seaLayer)
+    // Mask 通常不需要 addChild，但如果 mask 行为异常，可以尝试 addChild 但设置 renderable = false
+    // 在 v8 中通常不需要
+    mapContainer.value.addChild(seaMask)
+  }
+  
+  if (hasWater && waterLayer) {
+    mapContainer.value.addChild(waterLayer)
+    mapContainer.value.addChild(waterMask)
+  }
+
+  mapContainer.value.addChild(groundContainer)
+
+  // --- 4. 启动动画 Ticker ---
+  if (hasSea || hasWater) {
+    ticker = new Ticker()
+    ticker.add((tickerInstance: any) => {
+      // v8: deltaMS / deltaTime
+      const speed = 0.5 * tickerInstance.deltaTime
+      
+      if (hasSea && seaLayer) {
+        // 海洋稍微向左下流动
+        seaLayer.tilePosition.x -= speed * 0.5
+        seaLayer.tilePosition.y += speed * 0.5
+      }
+      
+      if (hasWater && waterLayer) {
+        // 河流向右流动
+        waterLayer.tilePosition.x += speed
+        waterLayer.tilePosition.y += speed * 0.2
+      }
+    })
+    ticker.start()
+  }
+
+  // 5. Render Large Regions (2x2) - 宗门、城市等覆盖层
   renderLargeRegions()
 
   emit('mapLoaded', {
-    width: cols * TILE_SIZE,
-    height: rows * TILE_SIZE
+    width: mapWidth,
+    height: mapHeight
   })
 }
 
