@@ -140,7 +140,12 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
 
 def _parse_list(s: str) -> list[int]:
     if not s: return []
-    try:
-        return [int(x.strip()) for x in s.split(",") if x.strip()]
-    except:
-        return []
+    res = []
+    for x in s.split(","):
+        x = x.strip()
+        if x:
+            try:
+                res.append(int(float(x)))
+            except (ValueError, TypeError):
+                pass
+    return res
