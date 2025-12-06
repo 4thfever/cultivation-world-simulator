@@ -1,9 +1,19 @@
 import { ref } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
 import { gameApi } from '@/api/game'
+import { getClusteredTileVariant } from '@/utils/procedural'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
+
+// 地形变体配置
+const TILE_VARIANTS: Record<string, { prefix: string, count: number }> = {
+  'RAINFOREST': { prefix: 'rainforest', count: 9 },
+  'BAMBOO': { prefix: 'bamboo', count: 9 },
+  'GOBI': { prefix: 'gobi', count: 9 },
+  'ISLAND': { prefix: 'island', count: 9 },
+  'SWAMP': { prefix: 'swamp', count: 9 },
+}
 
 // 全局纹理缓存，避免重复加载
 const textures = ref<Record<string, Texture>>({})
@@ -71,6 +81,20 @@ export function useTextures() {
       }
     })
 
+    // Load Tile Variants
+    const variantPromises: Promise<void>[] = []
+    Object.entries(TILE_VARIANTS).forEach(([key, { prefix, count }]) => {
+      for (let i = 1; i <= count; i++) {
+        const variantKey = `${key}_${i}`
+        const url = `/assets/tiles/${prefix}_${i}.png`
+        variantPromises.push(
+          Assets.load(url)
+            .then(tex => { textures.value[variantKey] = tex })
+            .catch(e => console.warn(`Failed to load variant ${variantKey}`, e))
+        )
+      }
+    })
+
     // Load Clouds
     const cloudPromises: Promise<void>[] = []
     for (let i = 0; i <= 8; i++) {
@@ -100,7 +124,7 @@ export function useTextures() {
         )
     }
 
-    await Promise.all([...tilePromises, ...avatarPromises, ...cloudPromises])
+    await Promise.all([...tilePromises, ...variantPromises, ...avatarPromises, ...cloudPromises])
 
     isLoaded.value = true
     console.log('Base textures loaded')
@@ -162,13 +186,30 @@ export function useTextures() {
       await Promise.all(slicePromises)
   }
 
+  // 获取地形纹理（支持随机变体）
+  const getTileTexture = (type: string, x: number, y: number): Texture | undefined => {
+    const variantConfig = TILE_VARIANTS[type]
+    if (variantConfig) {
+      // 使用噪声聚类算法替代纯随机 Hash
+      // 让变体在地图上呈现自然的群落分布，减少视觉噪点
+      const index = getClusteredTileVariant(x, y, variantConfig.count)
+      const variantKey = `${type}_${index}`
+      
+      if (textures.value[variantKey]) {
+        return textures.value[variantKey]
+      }
+    }
+    return textures.value[type]
+  }
+
   return {
     textures,
     isLoaded,
     loadBaseTextures,
     loadSectTexture,
     loadCityTexture,
-    availableAvatars
+    availableAvatars,
+    getTileTexture
   }
 }
 

@@ -8,7 +8,7 @@ import type { RegionSummary } from '../../types/core'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
-const { textures, isLoaded, loadSectTexture, loadCityTexture } = useTextures()
+const { textures, isLoaded, loadSectTexture, loadCityTexture, getTileTexture } = useTextures()
 const worldStore = useWorldStore()
 
 // 动态水面相关变量
@@ -121,7 +121,7 @@ async function renderMap() {
       }
 
       // 处理普通地块
-      let tex = textures.value[type]
+      let tex = getTileTexture(type, x, y)
 
       if (type === 'SECT') {
         // Legacy placeholder
