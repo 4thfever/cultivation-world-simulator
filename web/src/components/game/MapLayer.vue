@@ -171,7 +171,22 @@ async function renderMap() {
     ticker = new Ticker()
     ticker.add((tickerInstance: any) => {
       // v8: deltaMS / deltaTime
-      const speed = 0.5 * tickerInstance.deltaTime
+      let baseSpeed = 0.5
+      
+      const configSpeed = worldStore.frontendConfig?.water_speed || 'high' // default high as per old behavior
+      if (configSpeed === 'none') {
+        baseSpeed = 0
+      } else if (configSpeed === 'low') {
+        baseSpeed = 0.1
+      } else if (configSpeed === 'medium') {
+        baseSpeed = 0.3
+      } else if (configSpeed === 'high') {
+        baseSpeed = 0.8
+      }
+
+      if (baseSpeed === 0) return
+
+      const speed = baseSpeed * tickerInstance.deltaTime
       
       if (hasSea && seaLayer) {
         // 海洋稍微向左下流动

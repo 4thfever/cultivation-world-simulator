@@ -41,5 +41,5 @@ save:
   max_events_to_save: 1000
 
 frontend:
-  water_speed: none
+  water_speed: low
   cloud_freq: low
