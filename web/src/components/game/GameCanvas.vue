@@ -5,6 +5,7 @@ import { useElementSize } from '@vueuse/core'
 import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
+import CloudLayer from './CloudLayer.vue'
 import { useTextures } from './composables/useTextures'
 
 const container = ref<HTMLElement>()
@@ -71,6 +72,7 @@ onMounted(() => {
           @regionSelected="handleRegionSelected" 
         />
         <EntityLayer @avatarSelected="handleAvatarSelected" />
+        <CloudLayer :width="mapSize.width" :height="mapSize.height" />
       </Viewport>
     </Application>
   </div>

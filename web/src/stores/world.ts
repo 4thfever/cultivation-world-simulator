@@ -21,6 +21,7 @@ export const useWorldStore = defineStore('world', () => {
   const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
   
   const isLoaded = ref(false);
+  const frontendConfig = ref<Record<string, any>>({});
   
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
@@ -103,6 +104,9 @@ export const useWorldStore = defineStore('world', () => {
       ]);
 
       mapData.value = mapRes.data;
+      if (mapRes.config) {
+        frontendConfig.value = mapRes.config;
+      }
       const regionMap = new Map();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
@@ -162,6 +166,7 @@ export const useWorldStore = defineStore('world', () => {
     mapData,
     regions,
     isLoaded,
+    frontendConfig,
     currentPhenomenon,
     phenomenaList,
     

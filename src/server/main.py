@@ -556,7 +556,8 @@ def get_map():
         "width": w,
         "height": h,
         "data": map_data,
-        "regions": regions_data
+        "regions": regions_data,
+        "config": CONFIG.get("frontend", {})
     }
 
 

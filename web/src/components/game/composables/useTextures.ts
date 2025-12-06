@@ -71,6 +71,16 @@ export function useTextures() {
       }
     })
 
+    // Load Clouds
+    const cloudPromises: Promise<void>[] = []
+    for (let i = 0; i <= 8; i++) {
+        cloudPromises.push(
+            Assets.load(`/assets/clouds/cloud_${i}.png`)
+                .then(tex => { textures.value[`cloud_${i}`] = tex })
+                .catch(e => console.warn(`Failed cloud_${i}`, e))
+        )
+    }
+
     // Load Avatars based on available IDs
     const avatarPromises: Promise<void>[] = []
     
@@ -90,7 +100,7 @@ export function useTextures() {
         )
     }
 
-    await Promise.all([...tilePromises, ...avatarPromises])
+    await Promise.all([...tilePromises, ...avatarPromises, ...cloudPromises])
 
     isLoaded.value = true
     console.log('Base textures loaded')

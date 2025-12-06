@@ -51,6 +51,10 @@ export interface MapResponseDTO {
     type: string;
     sect_name?: string;
   }>;
+  config?: {
+    water_speed?: string;
+    cloud_freq?: string;
+  };
 }
 
 export interface HoverResponseDTO {
