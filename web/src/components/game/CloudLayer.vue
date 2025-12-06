@@ -54,6 +54,7 @@ function spawnCloud(initial: boolean = false) {
   // 2. Create Cloud Sprite
   const sprite = new Sprite(tex)
   sprite.anchor.set(0.5)
+  sprite.eventMode = 'none' // Ensure clicks pass through
   
   // Scale
   const scale = 2.0 + Math.random() * 2.0 // 2.0 - 4.0
@@ -68,6 +69,7 @@ function spawnCloud(initial: boolean = false) {
   shadow.scale.set(scale) // Same scale
   shadow.tint = 0x000000  // Black
   shadow.alpha = 0.3      // Faint shadow
+  shadow.eventMode = 'none' // Ensure clicks pass through
   
   // 4. Determine Position & Speed
   // Main wind direction: Left to Right (West to East)
@@ -200,5 +202,5 @@ onUnmounted(() => {
 
 <template>
   <!-- z-index 300 should be above entities (usually < 100) and map -->
-  <container ref="container" :z-index="300" />
+  <container ref="container" :z-index="300" event-mode="none" />
 </template>
