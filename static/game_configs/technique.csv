@@ -6,7 +6,7 @@ id,name,technique_root,grade,desc,weight,condition,sect,effects
 5,青帝木皇功,木,中品,汲取草木精气，生机不绝，皇气浩荡。,1,,,"{""extra_battle_strength_points"": 3}"
 7,若水诀,水,下品,上善若水，水利万物而不争，绵柔醇厚。,1,,,
 8,黑帝水皇拳,水,中品,驾驭滔滔黑水，如帝亲临，大气磅礴。,1,,,"{""extra_battle_strength_points"": 3}"
-10,火球术,火,下品,最基础的法术，凝聚火球伤敌，简单实用。,1,,,
+10,火灵诀,火,下品,最基础的法术，凝聚火炎伤敌，简单实用。,1,,,
 11,纯阳无极功,火,中品,纯阳之气，刚猛无铸，克制阴邪。,1,,,"{""extra_battle_strength_points"": 3}"
 13,搬山诀,土,下品,力能扛鼎，气力悠长，如下山猛虎。,1,,,
 14,不动明王诀,土,中品,不动如山，动如雷震，佛门护法神功。,1,,,"{""extra_battle_strength_points"": 3}"

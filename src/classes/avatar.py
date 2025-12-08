@@ -756,7 +756,7 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         major_list = [str(e) for e in major_events]
         minor_list = [str(e) for e in minor_events]
 
-        info["观察到的角色"] = observed
+        info["周围角色"] = observed
         info["重大事件"] = major_list
         info["短期事件"] = minor_list
         info["长期目标"] = self.long_term_objective.content if self.long_term_objective else "无"
