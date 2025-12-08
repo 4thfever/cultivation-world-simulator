@@ -1,1 +1,81 @@
+from __future__ import annotations
+
+import random
+from src.classes.action import DefineAction, ActualActionMixin, Move
+from src.classes.event import Event
+from src.classes.action_runtime import ActionResult, ActionStatus
+from src.utils.distance import manhattan_distance
+from src.classes.region import Region
+
+class MoveToDirection(DefineAction, ActualActionMixin):
+    """
+    向某个方向移动探索（固定时长6个月）
+    """
+    
+    COMMENT = "向某个方向探索未知区域"
+    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    PARAMS = {"direction": "direction (North/South/East/West)"}
+    IS_MAJOR = False
+    
+    # 固定持续时间
+    DURATION = 6
+
+    def __init__(self, avatar, world):
+        super().__init__(avatar, world)
+        # 记录本次动作的开始状态
+        self.start_monthstamp = None
+        self.direction = None
+        
+        # 方向向量映射 (假设 (0,0) 在左上角)
+        # North: y减小
+        # South: y增加
+        # West: x减小
+        # East: x增加
+        self.DIR_VECTORS = {
+            "North": (0, -1),
+            "South": (0, 1),
+            "West": (-1, 0),
+            "East": (1, 0),
+            "北": (0, -1),
+            "南": (0, 1),
+            "西": (-1, 0),
+            "东": (1, 0)
+        }
+
+    def can_start(self, direction: str | None = None) -> tuple[bool, str]:
+        if not direction:
+            return False, "缺少方向参数"
+        if direction not in self.DIR_VECTORS:
+            return False, f"无效的方向: {direction}"
+        return True, ""
+
+    def start(self, direction: str) -> Event:
+        self.start_monthstamp = self.world.month_stamp
+        self.direction = direction
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始向{direction}方探索未知区域", related_avatars=[self.avatar.id])
+
+    def step(self, direction: str) -> ActionResult:
+        # 确保方向已设置
+        self.direction = direction
+        dx_dir, dy_dir = self.DIR_VECTORS[direction]
+        
+        # 计算本次移动步长
+        step_len = getattr(self.avatar, "move_step_length", 1)
+        
+        # 计算实际位移
+        dx = dx_dir * step_len
+        dy = dy_dir * step_len
+        
+        # 执行移动
+        Move(self.avatar, self.world).execute(dx, dy)
+        
+        # 检查是否完成（固定时长）
+        # 修正：(current - start) >= duration - 1，即第1个月执行后，差值为0，如果duration=1则完成
+        elapsed = self.world.month_stamp - self.start_monthstamp
+        is_done = elapsed >= (self.DURATION - 1)
+        
+        return ActionResult(status=(ActionStatus.COMPLETED if is_done else ActionStatus.RUNNING), events=[])
+
+    async def finish(self, direction: str) -> list[Event]:
+        return [Event(self.world.month_stamp, f"{self.avatar.name} 结束了向{direction}方的探索", related_avatars=[self.avatar.id])]
 

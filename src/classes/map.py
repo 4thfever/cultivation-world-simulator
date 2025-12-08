@@ -91,7 +91,6 @@ class Map():
              from src.classes.avatar import Avatar
 
         from src.classes.region import NormalRegion, CultivateRegion, CityRegion
-        from src.utils.distance import chebyshev_distance
         
         known_region_ids = avatar.known_regions if avatar else None
         current_loc = (avatar.pos_x, avatar.pos_y) if avatar else None
@@ -99,23 +98,14 @@ class Map():
         def filter_regions(cls):
             return {
                 rid: r for rid, r in self.regions.items() 
-                if known_region_ids is None or rid in known_region_ids
+                if isinstance(r, cls) and (known_region_ids is None or rid in known_region_ids)
             }
 
         def build_regions_info(regions_dict) -> list[str]:
             infos = []
+            step_len = avatar.move_step_length if avatar else 1
             for r in regions_dict.values():
-                base_info = r.get_detailed_info() if detailed else r.get_info()
-                
-                # 如果有当前位置，追加距离信息
-                dist = chebyshev_distance(current_loc, r.center_loc)
-                # 估算到达时间：距离 / 步长 (向上取整)
-                step_len = avatar.move_step_length
-                months = (dist + step_len - 1) // step_len
-                # 避免显示 0 个月
-                months = max(1, months)
-                base_info += f"（距离：{months}月）"
-                
+                base_info = r.get_detailed_info(current_loc, step_len) if detailed else r.get_info(current_loc, step_len)
                 infos.append(base_info)
             return infos
 

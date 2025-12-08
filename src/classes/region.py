@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 
 from src.utils.df import game_configs, get_str, get_int, get_list_int
 from src.utils.config import CONFIG
+from src.utils.distance import chebyshev_distance
 from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
 from src.classes.plant import Plant, plants_by_id
@@ -65,11 +66,26 @@ class Region(ABC):
             f"描述: {self.desc}",
         ]
 
-    def get_info(self) -> str:
-        return self.name
+    @abstractmethod
+    def _get_desc(self) -> str:
+        """返回紧跟在名字后的描述，通常包含括号，例如 '（金行灵气：5）'"""
+        pass
 
-    def get_detailed_info(self) -> str:
-        return f"{self.name} - {self.desc}"
+    def _get_distance_desc(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
+        if current_loc is None:
+            return ""
+        dist = chebyshev_distance(current_loc, self.center_loc)
+        # 估算到达时间：距离 / 步长 (向上取整)
+        months = (dist + step_len - 1) // step_len
+        # 避免显示 0 个月
+        months = max(1, months)
+        return f"（距离：{months}月）"
+
+    def get_info(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
+        return f"{self.name}{self._get_distance_desc(current_loc, step_len)}"
+
+    def get_detailed_info(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
+        return f"{self.name}{self._get_desc()} - {self.desc}{self._get_distance_desc(current_loc, step_len)}"
 
     def get_structured_info(self) -> dict:
         return {
@@ -108,31 +124,15 @@ class NormalRegion(Region):
             info_parts.extend([a.get_info() for a in self.animals])
         if self.plants:
             info_parts.extend([p.get_info() for p in self.plants])
-        return "; ".join(info_parts) if info_parts else "暂无特色物种"
+        return "; ".join(info_parts) if info_parts else "无特色物种"
 
-    def _get_species_brief(self) -> str:
-        briefs: list[str] = []
-        if self.animals:
-            briefs.extend([f"{a.name}（{a.realm.value}）" for a in self.animals])
-        if self.plants:
-            briefs.extend([f"{p.name}（{p.realm.value}）" for p in self.plants])
-        return "、".join(briefs)
+    def _get_desc(self) -> str:
+        species_info = self.get_species_info()
+        return f"（物种分布：{species_info}）"
 
     def __str__(self) -> str:
         species_info = self.get_species_info()
         return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
-
-    def get_info(self) -> str:
-        brief = self._get_species_brief()
-        return f"{self.name}（{brief}）" if brief else self.name
-
-    def get_detailed_info(self) -> str:
-        brief = self._get_species_brief()
-        name_with_brief = f"{self.name}（{brief}）" if brief else self.name
-        species_info = self.get_species_info()
-        if not species_info or species_info == "暂无特色物种":
-            return f"{name_with_brief} - {self.desc}"
-        return f"{name_with_brief} - {self.desc} | 物种分布：{species_info}"
 
     def get_hover_info(self) -> list[str]:
         lines = super().get_hover_info()
@@ -183,14 +183,11 @@ class CultivateRegion(Region):
     def get_region_type(self) -> str:
         return "cultivate"
 
+    def _get_desc(self) -> str:
+        return f"（{self.essence_type}行灵气：{self.essence_density}）"
+
     def __str__(self) -> str:
         return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
-
-    def get_info(self) -> str:
-        return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）"
-
-    def get_detailed_info(self) -> str:
-        return f"{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
 
     def get_hover_info(self) -> list[str]:
         lines = super().get_hover_info()
@@ -216,12 +213,6 @@ class CityRegion(Region):
 
     def __str__(self) -> str:
         return f"城市区域：{self.name} - {self.desc}"
-
-    def get_info(self) -> str:
-        return self.name
-
-    def get_detailed_info(self) -> str:
-        return f"{self.name} - {self.desc}"
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
