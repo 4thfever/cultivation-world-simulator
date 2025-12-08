@@ -77,7 +77,6 @@ function spawnCloud(initial: boolean = false) {
   const speedY = (Math.random() - 0.5) * 0.1 // Slight vertical drift
   
   let x, y
-  const margin = 200
   
   if (initial) {
     // Random anywhere
@@ -85,7 +84,17 @@ function spawnCloud(initial: boolean = false) {
     y = Math.random() * props.height
   } else {
     // Start from Left (off-screen)
-    x = -margin - Math.random() * 100
+    // We need to ensure the cloud is fully off-screen.
+    // Shadow is offset to the right, so the rightmost point is shadow.x + halfWidth
+    // shadow.x = x + offset
+    // rightmost = x + offset + halfWidth
+    // We want rightmost < 0 -> x < -(offset + halfWidth)
+    
+    const shadowOffsetX = 40 * scale
+    const halfWidth = (tex.width * scale) / 2
+    const safeMargin = shadowOffsetX + halfWidth + 50
+    
+    x = -safeMargin - Math.random() * 200
     y = Math.random() * props.height
   }
   
@@ -112,7 +121,7 @@ function spawnCloud(initial: boolean = false) {
 
 function updateClouds(dt: number) {
   const bounds = { w: props.width, h: props.height }
-  const margin = 300 // Wider margin for cleanup
+  const verticalMargin = 300 // For Y-axis removal
   
   for (let i = activeClouds.value.length - 1; i >= 0; i--) {
     const cloud = activeClouds.value[i]
@@ -122,14 +131,24 @@ function updateClouds(dt: number) {
     cloud.sprite.y += cloud.speedY * dt
     
     // Move Shadow (Keep offset)
-    // Re-calculate offset based on scale to keep it simple, or just apply delta
     cloud.shadow.x += cloud.speedX * dt
     cloud.shadow.y += cloud.speedY * dt
     
-    // Boundary Check (Only check Right side since we move Right)
-    if (cloud.sprite.x > bounds.w + margin || 
-        cloud.sprite.y > bounds.h + margin || 
-        cloud.sprite.y < -margin) {
+    // Calculate removal boundary
+    // Use sprite width to determine if fully off-screen
+    // sprite.width is the scaled width. Anchor is 0.5.
+    const halfWidth = cloud.sprite.width / 2
+    
+    // Check if Cloud is fully off-screen to the right
+    // We check the Leftmost edge of the cloud/shadow complex.
+    // Since shadow is to the right, the leftmost edge is the cloud's left edge.
+    // Left edge = cloud.sprite.x - halfWidth
+    const isOffScreenRight = (cloud.sprite.x - halfWidth) > bounds.w
+    
+    // Vertical check (standard margin)
+    const isOffScreenVertical = cloud.sprite.y > bounds.h + verticalMargin || cloud.sprite.y < -verticalMargin
+
+    if (isOffScreenRight || isOffScreenVertical) {
           
       // Remove
       if (container.value) {
@@ -204,3 +223,4 @@ onUnmounted(() => {
   <!-- z-index 300 should be above entities (usually < 100) and map -->
   <container ref="container" :z-index="300" event-mode="none" />
 </template>
+

@@ -125,6 +125,9 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
     # 动作冷却：记录动作类名 -> 上次完成月戳
     _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     # 不缓存 effects；实时从宗门与功法合并
+    
+    # 知道的区域 ID 集合
+    known_regions: set[int] = field(default_factory=set)
 
     def join_sect(self, sect: Sect, rank: "SectRank") -> None:
         """加入宗门"""
@@ -215,6 +218,24 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         
         # 初始化时计算所有长期效果（HP等）
         self.recalc_effects()
+
+        # 初始化已知区域
+        self._init_known_regions()
+
+    def _init_known_regions(self):
+        """初始化已知区域：当前位置 + 宗门驻地"""
+        # 1. 当前位置
+        if self.tile and self.tile.region:
+            self.known_regions.add(self.tile.region.id)
+        
+        # 2. 宗门驻地
+        if self.sect:
+            # 遍历地图寻找该宗门的驻地
+            # map.sect_regions 是 {region_id: SectRegion}
+            for r in self.world.map.sect_regions.values():
+                if r.sect_id == self.sect.id:
+                    self.known_regions.add(r.id)
+                    break
 
     @property
     def effects(self) -> dict[str, object]:
@@ -571,6 +592,11 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
         if self.current_action is None:
             # 当前无动作时才清除标记，避免清除新提交动作的标记
             self._new_action_set_this_step = False
+            
+        # 每次执行动作后，更新已知区域
+        if self.tile and self.tile.region:
+            self.known_regions.add(self.tile.region.id)
+            
         return events
 
     def update_cultivation(self, new_level: int):

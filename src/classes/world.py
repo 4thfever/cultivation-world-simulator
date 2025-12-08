@@ -23,12 +23,13 @@ class World():
     # 天地灵机开始年份（用于计算持续时间）
     phenomenon_start_year: int = 0
 
-    def get_info(self, detailed: bool = False) -> dict:
+    def get_info(self, detailed: bool = False, known_region_ids: Optional[set[int]] = None) -> dict:
         """
         返回世界信息（dict），其中包含地图信息（dict）。
+        如果指定了 known_region_ids，则只返回这些 ID 对应的区域信息。
         """
         static_info = self.static_info
-        map_info = self.map.get_info(detailed=detailed)
+        map_info = self.map.get_info(detailed=detailed, known_region_ids=known_region_ids)
         world_info = {**map_info, **static_info}
 
         if self.current_phenomenon:

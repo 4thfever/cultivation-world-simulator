@@ -104,5 +104,6 @@ class AvatarSaveMixin:
                 "set_year": self.long_term_objective.set_year
             } if self.long_term_objective else None,
             "_action_cd_last_months": self._action_cd_last_months,
+            "known_regions": list(self.known_regions),
         }
 

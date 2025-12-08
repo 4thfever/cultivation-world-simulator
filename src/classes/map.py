@@ -80,9 +80,10 @@ class Map():
         """
         return self.tiles[(x, y)].region
 
-    def get_info(self, detailed: bool = False) -> dict:
+    def get_info(self, detailed: bool = False, known_region_ids: Optional[set[int]] = None) -> dict:
         """
         返回地图信息（dict）。
+        known_region_ids: 如果提供，仅返回这些ID对应的区域信息。
         """
         # 动态分类（因为现在没有自动分类字典了）
         # 或者我们简单点，不分类返回，只返回总览？
@@ -91,7 +92,10 @@ class Map():
         from src.classes.region import NormalRegion, CultivateRegion, CityRegion
         
         def filter_regions(cls):
-            return {rid: r for rid, r in self.regions.items() if isinstance(r, cls)}
+            return {
+                rid: r for rid, r in self.regions.items() 
+                if rid in known_region_ids
+            }
 
         def build_regions_info(regions_dict) -> list[str]:
             if detailed:

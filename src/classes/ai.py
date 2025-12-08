@@ -66,22 +66,33 @@ class LLMAI(AI):
     async def _decide(self, world: World, avatars_to_decide: list[Avatar]) -> dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str]]:
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
+        改动：支持每个角色仅获取其已知区域的世界信息，并发调用 LLM。
         """
-        world_info = world.get_info()
-        # 在提示中包含处于角色观测范围内的其他角色
-        avatar_infos = {}
-        for avatar in avatars_to_decide:
-            observed = world.get_observable_avatars(avatar)
-            avatar_infos[avatar.name] = avatar.get_expanded_info(observed)
         general_action_infos = ACTION_INFOS_STR
-        info = {
-            "avatar_infos": avatar_infos,
-            "world_info": world_info,
-            "general_action_infos": general_action_infos,
-        }
-        res = await call_ai_action(info)
+        async def decide_one(avatar: Avatar):
+            # 获取基于该角色已知区域的世界信息
+            world_info = world.get_info(known_region_ids=avatar.known_regions)
+            
+            # 在提示中包含处于角色观测范围内的其他角色
+            observed = world.get_observable_avatars(avatar)
+            avatar_info = avatar.get_expanded_info(co_region_avatars=observed)
+            
+            info = {
+                "avatar_info": avatar_info,
+                "world_info": world_info,
+                "general_action_infos": general_action_infos,
+            }
+            res = await call_ai_action(info)
+            return avatar, res
+
+        tasks = [decide_one(avatar) for avatar in avatars_to_decide]
+        results_list = await asyncio.gather(*tasks)
+        
         results: dict[Avatar, tuple[ACTION_NAME_PARAMS_PAIRS, str, str]] = {}
-        for avatar in avatars_to_decide:
+        for avatar, res in results_list:
+            if not res or avatar.name not in res:
+                continue
+                
             r = res[avatar.name]
             # 仅接受 action_name_params_pairs，不再支持单个 action_name/action_params
             raw_pairs = r["action_name_params_pairs"]
@@ -94,6 +105,7 @@ class LLMAI(AI):
                 else:
                     # 跳过无法解析的项
                     continue
+            
             # 至少有一个
             if not pairs:
                 raise ValueError(f"LLM未返回有效的action_name_params_pairs: {r}")
@@ -101,6 +113,7 @@ class LLMAI(AI):
             avatar_thinking = r.get("avatar_thinking", r.get("thinking", ""))
             short_term_objective = r.get("short_term_objective", "")
             results[avatar] = (pairs, avatar_thinking, short_term_objective)
+            
         return results
 
 llm_ai = LLMAI()
