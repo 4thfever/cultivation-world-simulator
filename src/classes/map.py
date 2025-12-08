@@ -80,27 +80,44 @@ class Map():
         """
         return self.tiles[(x, y)].region
 
-    def get_info(self, detailed: bool = False, known_region_ids: Optional[set[int]] = None) -> dict:
+    def get_info(self, detailed: bool = False, avatar: object = None) -> dict:
         """
         返回地图信息（dict）。
-        known_region_ids: 如果提供，仅返回这些ID对应的区域信息。
+        avatar: 如果提供，将用于：
+               1. 过滤仅返回 avatar.known_regions 中的区域
+               2. 计算并在描述中追加从 avatar 当前位置到各区域的距离
         """
-        # 动态分类（因为现在没有自动分类字典了）
-        # 或者我们简单点，不分类返回，只返回总览？
-        # 为了保持接口不变，我们可以现场过滤。
-        
+        if TYPE_CHECKING:
+             from src.classes.avatar import Avatar
+
         from src.classes.region import NormalRegion, CultivateRegion, CityRegion
+        from src.utils.distance import chebyshev_distance
+        
+        known_region_ids = avatar.known_regions if avatar else None
+        current_loc = (avatar.pos_x, avatar.pos_y) if avatar else None
         
         def filter_regions(cls):
             return {
                 rid: r for rid, r in self.regions.items() 
-                if rid in known_region_ids
+                if known_region_ids is None or rid in known_region_ids
             }
 
         def build_regions_info(regions_dict) -> list[str]:
-            if detailed:
-                return [r.get_detailed_info() for r in regions_dict.values()]
-            return [r.get_info() for r in regions_dict.values()]
+            infos = []
+            for r in regions_dict.values():
+                base_info = r.get_detailed_info() if detailed else r.get_info()
+                
+                # 如果有当前位置，追加距离信息
+                dist = chebyshev_distance(current_loc, r.center_loc)
+                # 估算到达时间：距离 / 步长 (向上取整)
+                step_len = avatar.move_step_length
+                months = (dist + step_len - 1) // step_len
+                # 避免显示 0 个月
+                months = max(1, months)
+                base_info += f"（距离：{months}月）"
+                
+                infos.append(base_info)
+            return infos
 
         return {
             "修炼区域（可以修炼以增进修为）": build_regions_info(filter_regions(CultivateRegion)),

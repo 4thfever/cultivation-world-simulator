@@ -4,7 +4,7 @@ from src.classes.action import InstantAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
 from src.classes.region import Region, resolve_region
-from src.classes.region import resolve_region
+from src.utils.distance import euclidean_distance
 
 
 class MoveAwayFromRegion(InstantAction):
@@ -19,7 +19,7 @@ class MoveAwayFromRegion(InstantAction):
         y = self.avatar.pos_y
         # 找到目标区域内距离当前坐标最近的格点
         if getattr(r, "cors", None):
-            nearest = min(r.cors, key=lambda p: (p[0] - x) * (p[0] - x) + (p[1] - y) * (p[1] - y))
+            nearest = min(r.cors, key=lambda p: euclidean_distance((x, y), p))
             away_dx = x - nearest[0]
             away_dy = y - nearest[1]
         else:

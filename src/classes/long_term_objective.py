@@ -78,8 +78,8 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     Returns:
         生成的LongTermObjective对象，失败则返回None
     """
-    # 准备世界信息（仅获取已知区域）
-    world_info = avatar.world.get_info(known_region_ids=avatar.known_regions)
+    # 准备世界信息（仅获取已知区域 + 距离信息）
+    world_info = avatar.world.get_info(avatar=avatar)
     
     # 获取 expanded_info（包含详细信息和事件历史）
     expanded_info = avatar.get_expanded_info(detailed=True)

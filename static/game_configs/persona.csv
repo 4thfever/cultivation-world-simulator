@@ -56,3 +56,5 @@ id,name,exclusion_names,desc,rarity,condition,effects
 54,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 55,好色,无欲,你对美色有着强烈的渴求，容易被外貌出众的异性吸引，行事往往受欲望驱使。,N,,
 56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
+57,探险家,死宅,你对未知的世界充满好奇，热衷于探索地图上未被点亮的区域，难以忍受长时间待在同一个地方。,SR,,
+58,死宅,探险家;冒险,你认为外面的世界充满危险且麻烦，除了必要的宗门任务，你极度排斥长途跋涉，更喜欢待在熟悉的区域修炼。,N,,

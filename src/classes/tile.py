@@ -94,9 +94,11 @@ class Tile():
     region: 'Region' = None # 可以是一个region的一部分，也可以不属于任何region
 
 
+from src.utils.distance import manhattan_distance
+
 def get_avatar_distance(avatar1: 'Avatar', avatar2: 'Avatar') -> int:
     """
-    计算两个 Avatar 之间的汉明距离（曼哈顿距离）
+    计算两个 Avatar 之间的曼哈顿距离
     
     Args:
         avatar1: 第一个角色
@@ -105,4 +107,4 @@ def get_avatar_distance(avatar1: 'Avatar', avatar2: 'Avatar') -> int:
     Returns:
         两个角色之间的距离
     """
-    return abs(avatar1.pos_x - avatar2.pos_x) + abs(avatar1.pos_y - avatar2.pos_y)
+    return manhattan_distance((avatar1.pos_x, avatar1.pos_y), (avatar2.pos_x, avatar2.pos_y))

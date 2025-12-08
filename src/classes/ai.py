@@ -70,8 +70,8 @@ class LLMAI(AI):
         """
         general_action_infos = ACTION_INFOS_STR
         async def decide_one(avatar: Avatar):
-            # 获取基于该角色已知区域的世界信息
-            world_info = world.get_info(known_region_ids=avatar.known_regions)
+            # 获取基于该角色已知区域的世界信息（包含距离计算）
+            world_info = world.get_info(avatar=avatar)
             
             # 在提示中包含处于角色观测范围内的其他角色
             observed = world.get_observable_avatars(avatar)
