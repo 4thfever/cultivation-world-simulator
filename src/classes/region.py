@@ -101,7 +101,7 @@ class Region(ABC):
         }
 
 
-@dataclass
+@dataclass(eq=False)
 class NormalRegion(Region):
     """普通区域"""
     animal_ids: list[int] = field(default_factory=list)
@@ -171,7 +171,7 @@ class NormalRegion(Region):
         return info
 
 
-@dataclass
+@dataclass(eq=False)
 class CultivateRegion(Region):
     """修炼区域"""
     essence_type: EssenceType = EssenceType.GOLD # 默认值避免 dataclass 继承错误
@@ -225,7 +225,7 @@ class CultivateRegion(Region):
         return info
 
 
-@dataclass
+@dataclass(eq=False)
 class CityRegion(Region):
     """城市区域"""
     def get_region_type(self) -> str:

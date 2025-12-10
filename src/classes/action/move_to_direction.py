@@ -82,7 +82,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         self.start_monthstamp = self.world.month_stamp
         self.direction = direction
         direction_cn = Direction.get_cn_name(direction)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始向{direction_cn}方探索未知区域", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始向{direction_cn}方移动", related_avatars=[self.avatar.id])
 
     def step(self, direction: str) -> ActionResult:
         # 确保方向已设置
@@ -108,7 +108,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
 
     async def finish(self, direction: str) -> list[Event]:
         direction_cn = Direction.get_cn_name(direction)
-        return [Event(self.world.month_stamp, f"{self.avatar.name} 结束了向{direction_cn}方的探索", related_avatars=[self.avatar.id])]
+        return [Event(self.world.month_stamp, f"{self.avatar.name} 结束了向{direction_cn}方的移动", related_avatars=[self.avatar.id])]
 
     def _execute(self, *args, **kwargs):
         pass

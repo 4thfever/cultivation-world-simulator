@@ -143,6 +143,12 @@ export interface RegionDetail extends EntityBase {
     density: number; 
   };
   
+  // 洞府主人（修炼区域特有）
+  host?: {
+    id: string;
+    name: string;
+  } | null;
+  
   animals: EffectEntity[];
   plants: EffectEntity[];
 }

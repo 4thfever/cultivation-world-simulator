@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import type { RegionDetail, EffectEntity } from '@/types/core';
 import EntityRow from './components/EntityRow.vue';
+import RelationRow from './components/RelationRow.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import { useUiStore } from '@/stores/ui';
 
@@ -20,6 +21,10 @@ function showDetail(item: EffectEntity | undefined) {
 
 function jumpToSect(id: number) {
   uiStore.select('sect', id.toString());
+}
+
+function jumpToAvatar(id: string) {
+  uiStore.select('avatar', id);
 }
 </script>
 
@@ -47,6 +52,18 @@ function jumpToSect(id: number) {
       <div class="essence-info">
         {{ data.essence.type }}行灵气 · 浓度 {{ data.essence.density }}
       </div>
+    </div>
+
+    <!-- Host (洞府主人) -->
+    <div class="section" v-if="data.type === 'cultivate'">
+      <div class="section-title">洞府主人</div>
+      <RelationRow 
+        v-if="data.host"
+        :name="data.host.name"
+        meta="主人"
+        @click="jumpToAvatar(data.host.id)"
+      />
+      <div v-else class="empty-hint">无主（可占据）</div>
     </div>
 
     <!-- Animals -->
@@ -113,6 +130,12 @@ function jumpToSect(id: number) {
 .essence-info {
   font-size: 13px;
   color: #88fdc4;
+}
+
+.empty-hint {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
 }
 
 .list {
