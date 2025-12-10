@@ -18,15 +18,7 @@ class SectRegion(Region):
         return "sect"
 
     def _get_desc(self) -> str:
-        return f"（宗门：{self.sect_name}）"
-
-    def get_hover_info(self) -> list[str]:
-        # 覆盖基础 hover：明确显示“宗门驻地”
-        return [
-            f"宗门: {self.sect_name}",
-            f"驻地: {self.name}",
-            f"描述: {self.desc}",
-        ]
+        return f"（{self.sect_name}）"
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()

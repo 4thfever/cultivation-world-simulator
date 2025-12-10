@@ -72,7 +72,10 @@ class Region(ABC):
 
     @abstractmethod
     def _get_desc(self) -> str:
-        """返回紧跟在名字后的描述，通常包含括号，例如 '（金行灵气：5）'"""
+        """
+        返回紧跟在名字后的描述，通常包含括号，例如 '（金行灵气：5）'
+        注意，不需要包含self.desc
+        """
         pass
 
     def _get_distance_desc(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
@@ -232,7 +235,7 @@ class CityRegion(Region):
         return "city"
 
     def _get_desc(self) -> str:
-        return "（城市）"
+        return ""
 
     def __str__(self) -> str:
         return f"城市区域：{self.name} - {self.desc}"
