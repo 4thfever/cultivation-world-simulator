@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import math
 import random
-from typing import Tuple, TYPE_CHECKING
+from typing import Tuple, TYPE_CHECKING, Callable, Awaitable, Optional
 
 from src.classes.technique import TechniqueGrade, get_suppression_bonus
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
+    from src.classes.event import Event
 
 
 # 战斗力参数（参考文明6思想，但适配本项目数值体系）
@@ -114,19 +115,6 @@ def _base_damage_scale(defender: "Avatar") -> float:
     max_hp = defender.hp.max
     return max(1.0, max_hp / 100.0)
 
-
-def _damage_from_to(attacker: "Avatar", defender: "Avatar") -> int:
-    """
-    使用 Civ6 风格伤害：damage = U(24,36)×scale × e^(K×差值)
-    - scale = defender.maxHP / 100，使不同境界下伤害相对一致
-    - 差值 = strength(att) - strength(def)
-    """
-    diff = _strength_diff(attacker, defender)
-    base = random.randint(_BASE_DAMAGE_LOW, _BASE_DAMAGE_HIGH) * _base_damage_scale(defender)
-    dmg = base * math.exp(_CIV6_K * diff)
-    return max(1, int(dmg))
-
-
 def _damage_pair(winner: "Avatar", loser: "Avatar") -> tuple[int, int]:
     """
     成对伤害：使用同一基础与对称比值，保证赢家伤害严格小于败者伤害。
@@ -217,3 +205,112 @@ def get_assassination_success_rate(attacker: "Avatar", defender: "Avatar") -> fl
     rate += extra
     
     return max(0.01, min(1.0, rate))
+
+
+async def gen_battle_result_text(
+    winner: "Avatar",
+    loser: "Avatar",
+    l_dmg: int,
+    w_dmg: int,
+    is_fatal: bool,
+    prefix: str = "",
+    action_desc: str = "战胜了",
+    postfix: str = "",
+    check_loot: bool = False
+) -> str:
+    """
+    生成标准战斗结果文本。
+    """
+    text_prefix = f"{prefix} " if prefix else ""
+    if is_fatal:
+        text = f"{text_prefix}{winner.name} {action_desc} {loser.name}{postfix}，造成 {l_dmg} 点伤害。{loser.name} 遭受重创，当场陨落。"
+        if check_loot:
+            from src.classes.kill_and_grab import kill_and_grab
+            text += await kill_and_grab(winner, loser)
+        return text
+    else:
+        return f"{text_prefix}{winner.name} {action_desc} {loser.name}{postfix}，{loser.name} 受伤 {l_dmg} 点，{winner.name} 也受伤 {w_dmg} 点。"
+
+
+async def handle_battle_finish(
+    world,
+    attacker: "Avatar",
+    target: "Avatar",
+    res: Tuple["Avatar", "Avatar", int, int],
+    start_event_content: str,
+    story_prompt: str,
+    outcome_text_func: Optional[Callable[["Avatar", "Avatar", int, int, bool], Awaitable[str]]] = None,
+    check_loot: bool = False,
+    prefix: str = "",
+    action_desc: str = "战胜了",
+    postfix: str = ""
+) -> list["Event"]:
+    """
+    处理战斗结果的通用逻辑（生成事件、故事、处理死亡）。
+    
+    Args:
+        world: 世界对象
+        attacker: 发起者
+        target: 目标
+        res: decide_battle 的结果 (winner, loser, loser_damage, winner_damage)
+        start_event_content: 开始事件的内容（用于故事生成）
+        story_prompt: 故事生成的提示词
+        outcome_text_func: (可选) 异步回调函数，用于生成结果文本。
+                           如果为 None，则使用标准生成逻辑。
+                           参数: (winner, loser, loser_damage, winner_damage, is_fatal)
+                           返回: 结果文本字符串
+        check_loot: 是否检查杀人夺宝（仅当 is_fatal 为 True 且使用默认文本生成时生效，或者 outcome_text_func 自己处理）
+        prefix: 默认文本生成的前缀（仅当 outcome_text_func 为 None 时生效）
+        action_desc: 默认文本生成的动作描述（仅当 outcome_text_func 为 None 时生效）
+        postfix: 默认文本生成的后缀（仅当 outcome_text_func 为 None 时生效）
+    """
+    from src.classes.event import Event
+    from src.classes.story_teller import StoryTeller
+    from src.classes.death import handle_death
+    from src.classes.death_reason import DeathReason
+
+    winner, loser, loser_damage, winner_damage = res
+    is_fatal = loser.hp <= 0
+    
+    # 生成结果文本
+    if outcome_text_func:
+        result_text = await outcome_text_func(winner, loser, loser_damage, winner_damage, is_fatal)
+    else:
+        result_text = await gen_battle_result_text(
+            winner, loser, loser_damage, winner_damage, is_fatal,
+            prefix=prefix, action_desc=action_desc, postfix=postfix, check_loot=check_loot
+        )
+    
+    # 构造事件
+    rel_ids = [attacker.id]
+    if target:
+        rel_ids.append(target.id)
+        
+    result_event = Event(world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
+    
+    # 确定故事生成的起始文本（如果为空则使用结果文本作为兜底）
+    start_content = start_event_content
+    if not start_content:
+        start_content = result_text
+
+    # 生成故事
+    story = await StoryTeller.tell_story(
+        start_content,
+        result_event.content,
+        attacker,
+        target,
+        prompt=story_prompt,
+        allow_relation_changes=True
+    )
+    story_event = Event(world.month_stamp, story, related_avatars=rel_ids, is_story=True)
+    
+    # 处理死亡
+    if is_fatal:
+        handle_death(world, loser, DeathReason.BATTLE)
+        
+    # 将事件分发给目标（如果目标不是发起者），发起者由 ActionMixin 处理
+    if target and target.id != attacker.id:
+        target.add_event(result_event)
+        target.add_event(story_event)
+        
+    return [result_event, story_event]

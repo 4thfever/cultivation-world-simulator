@@ -127,34 +127,17 @@ class Assassinate(InstantAction):
             if not (isinstance(res, tuple) and len(res) == 4):
                 return [] 
                 
-            winner, loser, loser_damage, winner_damage = res
+            start_text = getattr(self, '_start_event_content', "")
             
-            is_fatal = loser.hp <= 0
-            
-            prefix = f"暗杀失败！双方爆发激战。"
-            
-            if is_fatal:
-                result_text = f"{prefix} {winner.name} 最终战胜并斩杀了 {loser.name} (伤害 {loser_damage})。"
-                loot_text = await kill_and_grab(winner, loser)
-                result_text += loot_text
-            else:
-                result_text = f"{prefix} {winner.name} 战胜了 {loser.name}，造成 {loser_damage} 点伤害，自身受损 {winner_damage} 点。"
-            
-            result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
-            
-            # 生成故事
-            story = await StoryTeller.tell_story(
-                self._start_event_content,
-                result_event.content,
+            from src.classes.battle import handle_battle_finish
+            return await handle_battle_finish(
+                self.world,
                 self.avatar,
                 target,
-                prompt=self.STORY_PROMPT_FAIL,
-                allow_relation_changes=True
+                res,
+                start_text,
+                self.STORY_PROMPT_FAIL,
+                prefix="暗杀失败！双方爆发激战。",
+                check_loot=True
             )
-            story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
-            
-            if is_fatal:
-                handle_death(self.world, loser, DeathReason.BATTLE)
-                
-            return [result_event, story_event]
 

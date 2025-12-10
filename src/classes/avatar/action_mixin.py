@@ -1,0 +1,158 @@
+"""
+Avatar 动作管理 Mixin
+"""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Optional, List
+
+if TYPE_CHECKING:
+    from src.classes.avatar.core import Avatar
+
+from src.classes.action import Action
+from src.classes.action_runtime import ActionStatus, ActionResult, ActionPlan, ActionInstance
+from src.classes.action.registry import ActionRegistry
+from src.classes.event import Event
+from src.classes.typings import ACTION_NAME, ACTION_NAME_PARAMS_PAIRS
+from src.utils.params import filter_kwargs_for_callable
+from src.run.log import get_logger
+
+
+class ActionMixin:
+    """动作管理相关方法"""
+    
+    def create_action(self: "Avatar", action_name: ACTION_NAME) -> Action:
+        """
+        根据动作名称创建新的action实例
+        
+        Args:
+            action_name: 动作类的名称（如 'Cultivate', 'Breakthrough' 等）
+        
+        Returns:
+            新创建的Action实例
+        
+        Raises:
+            ValueError: 如果找不到对应的动作类
+        """
+        action_cls = ActionRegistry.get(action_name)
+        return action_cls(self, self.world)
+
+    def load_decide_result_chain(
+        self: "Avatar",
+        action_name_params_pairs: ACTION_NAME_PARAMS_PAIRS,
+        avatar_thinking: str,
+        short_term_objective: str,
+        prepend: bool = False
+    ):
+        """
+        加载AI的决策结果（动作链），立即设置第一个为当前动作，其余进入队列。
+        
+        Args:
+            action_name_params_pairs: 动作名和参数对列表
+            avatar_thinking: 思考内容
+            short_term_objective: 短期目标
+            prepend: 是否插队到最前面（默认False，即追加到末尾）
+        """
+        if not action_name_params_pairs:
+            return
+        self.thinking = avatar_thinking
+        self.short_term_objective = short_term_objective
+        # 转为计划并入队（不立即提交，交由提交阶段统一触发开始事件）
+        plans: List[ActionPlan] = [ActionPlan(name, params) for name, params in action_name_params_pairs]
+        if prepend:
+            self.planned_actions[0:0] = plans
+        else:
+            self.planned_actions.extend(plans)
+
+    def clear_plans(self: "Avatar") -> None:
+        self.planned_actions.clear()
+
+    def has_plans(self: "Avatar") -> bool:
+        return len(self.planned_actions) > 0
+
+    def commit_next_plan(self: "Avatar") -> Optional[Event]:
+        """
+        提交下一个可启动的计划为当前动作；返回开始事件（若有）。
+        """
+        if self.current_action is not None:
+            return None
+        while self.planned_actions:
+            plan = self.planned_actions.pop(0)
+            try:
+                action = self.create_action(plan.action_name)
+            except Exception as e:
+                logger = get_logger().logger
+                logger.warning(
+                    "非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s",
+                    self.name, self.id, plan.action_name, plan.params, e
+                )
+                continue
+            # 再验证
+            params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
+            can_start, reason = action.can_start(**params_for_can_start)
+            if not can_start:
+                # 记录不合法动作
+                logger = get_logger().logger
+                logger.warning(
+                    "非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s",
+                    self.name, self.id, plan.action_name, plan.params, reason
+                )
+                continue
+            # 启动
+            params_for_start = filter_kwargs_for_callable(action.start, plan.params)
+            start_event = action.start(**params_for_start)
+            self.current_action = ActionInstance(action=action, params=plan.params, status="running")
+            # 标记为"本轮新设动作"，用于本月补充执行
+            self._new_action_set_this_step = True
+            return start_event
+        return None
+
+    def peek_next_plan(self: "Avatar") -> Optional[ActionPlan]:
+        if not self.planned_actions:
+            return None
+        return self.planned_actions[0]
+
+    async def tick_action(self: "Avatar") -> List[Event]:
+        """
+        推进当前动作一步；返回过程中由动作内部产生的事件（通过 add_event 收集）。
+        """
+        if self.current_action is None:
+            return []
+        # 记录当前动作实例引用，用于检测执行过程中是否发生了"抢占/切换"
+        action_instance_before = self.current_action
+        action = action_instance_before.action
+        params = action_instance_before.params
+        params_for_step = filter_kwargs_for_callable(action.step, params)
+        result: ActionResult = action.step(**params_for_step)
+        if result.status == ActionStatus.COMPLETED:
+            params_for_finish = filter_kwargs_for_callable(action.finish, params)
+            finish_events = await action.finish(**params_for_finish)
+            # 仅当当前动作仍然是刚才执行的那个实例时才清空
+            # 若在 step() 内部通过"抢占"机制切换了动作（如 Escape 失败立即切到 Attack），不要清空新动作
+            if self.current_action is action_instance_before:
+                self.current_action = None
+            if finish_events:
+                # 允许 finish 直接返回事件（极少用），统一并入 pending
+                for e in finish_events:
+                    self._pending_events.append(e)
+        # 合并动作返回的事件（通常为空）
+        if result.events:
+            for e in result.events:
+                self._pending_events.append(e)
+        events, self._pending_events = self._pending_events, []
+        # 本轮已执行过，清除"新设动作"标记（但如果刚刚提交了新动作，commit_next_plan会重新设置为True）
+        if self.current_action is None:
+            # 当前无动作时才清除标记，避免清除新提交动作的标记
+            self._new_action_set_this_step = False
+            
+        return events
+
+    def add_event(self: "Avatar", event: Event, *, to_sidebar: bool = True) -> None:
+        """
+        添加事件：
+        - to_sidebar: 是否进入全局侧边栏（通过 Avatar._pending_events 暂存）
+        
+        注意：事件会先存入_pending_events，统一由Simulator写入event_manager，避免重复
+        """
+        if to_sidebar:
+            self._pending_events.append(event)
+

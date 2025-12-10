@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from src.classes.world import World
 
 
-class MutualAction(DefineAction, LLMAction, TargetingMixin):
+class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     """
     互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
     子类需要定义：

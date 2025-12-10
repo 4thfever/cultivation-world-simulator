@@ -78,38 +78,17 @@ class Attack(InstantAction):
         res = self._last_result
         if not (isinstance(res, tuple) and len(res) == 4):
             return []
-        winner, loser = res[0], res[1]
-        loser_damage, winner_damage = res[2], res[3]
-
-        # 判定是否致死
-        is_fatal = loser.hp <= 0
-        if is_fatal:
-            result_text = f"{winner.name} 战胜了 {loser.name}，造成{loser_damage}点伤害。{loser.name} 遭受重创，当场陨落。"
-            
-            # 杀人夺宝
-            loot_text = await kill_and_grab(winner, loser)
-            result_text += loot_text
-
-        else:
-            result_text = f"{winner.name} 战胜了 {loser.name}，{loser.name} 受伤{loser_damage}点，{winner.name} 也受伤{winner_damage}点"
-
-        rel_ids = [self.avatar.id]
+        
         target = self._get_target(avatar_name)
-        try:
-            if target is not None:
-                rel_ids.append(target.id)
-        except Exception:
-            pass
-        result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
-
-        # 生成战斗小故事
-        start_text = self._start_event_content if hasattr(self, '_start_event_content') else result_event.content
-        # 战斗强制双人模式，允许改变关系
-        story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT, allow_relation_changes=True)
-        story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
-
-        # 如果死亡，执行死亡清理（在故事生成后，保证关系数据可用）
-        if is_fatal:
-            handle_death(self.world, loser, DeathReason.BATTLE)
-
-        return [result_event, story_event]
+        start_text = getattr(self, '_start_event_content', "")
+        
+        from src.classes.battle import handle_battle_finish
+        return await handle_battle_finish(
+            self.world,
+            self.avatar,
+            target,
+            res,
+            start_text,
+            self.STORY_PROMPT,
+            check_loot=True
+        )

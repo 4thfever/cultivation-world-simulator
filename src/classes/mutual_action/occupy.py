@@ -1,62 +1,56 @@
 from __future__ import annotations
 
+import random
 from typing import TYPE_CHECKING
+
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
+from src.classes.action.cooldown import cooldown_action
 from src.classes.region import resolve_region, CultivateRegion
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.classes.battle import decide_battle
+from src.classes.story_teller import StoryTeller
+from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
-    from src.classes.world import World
 
+
+@cooldown_action
 @register_action(actual=True)
 class Occupy(MutualAction):
     """
     占据动作（互动版）：
     占据指定的洞府。如果是无主洞府直接占据；如果是有主洞府，则发起抢夺。
+    对方拒绝则进入战斗，进攻方胜利则洞府易主。
     """
     ACTION_NAME = "Occupy"
     COMMENT = "占据或抢夺洞府"
-    
-    # 参数：洞府名称
     PARAMS = {"region_name": "str"}
-    
-    # 对方的反馈选项（仅在抢夺时有效）
     FEEDBACK_ACTIONS = ["Yield", "Reject"]
-    
-    # 反馈对应的中文描述
-    FEEDBACK_LABELS = {
-        "Yield": "让步",
-        "Reject": "拒绝",
-    }
-    
-    # 是大事
+    FEEDBACK_LABELS = {"Yield": "让步", "Reject": "拒绝"}
     IS_MAJOR = True
+    ACTION_CD_MONTHS = 6
+    
+    STORY_PROMPT = "这是一场争夺洞府的战斗。不要出现具体血量或伤害数值。"
 
-    def _get_region_and_host(self, region_name: str) -> tuple[CultivateRegion | None, Avatar | None, str]:
-        """
-        解析区域并获取主人
-        """
-        try:
-            region = resolve_region(self.world, region_name)
-        except Exception as e:
+    def _get_region_and_host(self, region_name: str) -> tuple[CultivateRegion | None, "Avatar | None", str]:
+        """解析区域并获取主人"""
+        region = resolve_region(self.world, region_name)
+        if region is None:
             return None, None, f"无法找到区域：{region_name}"
-            
         if not isinstance(region, CultivateRegion):
             return None, None, f"{region.name} 不是修炼区域，无法占据"
-            
         return region, region.host_avatar, ""
 
     def can_start(self, region_name: str) -> tuple[bool, str]:
         region, host, err = self._get_region_and_host(region_name)
         if err:
             return False, err
-            
         if region.host_avatar == self.avatar:
             return False, "已经是该洞府的主人了"
-            
         return super().can_start(target_avatar=host)
 
     def start(self, region_name: str) -> Event:
@@ -68,19 +62,63 @@ class Occupy(MutualAction):
         return super().step(target_avatar=host)
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        """
-        处理反馈结果
-        """
+        """处理反馈结果"""
         region = self.avatar.tile.region
+        
         if feedback_name == "Yield":
-            # 对方让步：转移所有权
+            # 对方让步：直接转移所有权
             region.host_avatar = self.avatar
             
-            # 记录事件
-            self.avatar.add_event(self.create_event(f"成功从 {target_avatar.name} 手中夺取了 {region.name}", related_avatars=[target_avatar.id]))
-            target_avatar.add_event(Event(self.world.month_stamp, f"面对 {self.avatar.name} 的逼迫，不得不让出了 {region.name}", related_avatars=[self.avatar.id], is_major=True))
+            # 共用一个事件
+            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {region.name}。"
+            event = Event(
+                self.world.month_stamp, 
+                event_text, 
+                related_avatars=[self.avatar.id, target_avatar.id],
+                is_major=True
+            )
+            self.avatar.add_event(event)
+            target_avatar.add_event(event)
+            
+            self._last_result = None
             
         elif feedback_name == "Reject":
-            # 对方拒绝：所有权不变
-            self.avatar.add_event(self.create_event(f"试图抢夺 {region.name}，但被 {target_avatar.name} 拒绝", related_avatars=[target_avatar.id]))
-            target_avatar.add_event(Event(self.world.month_stamp, f"拒绝了 {self.avatar.name} 对 {region.name} 的抢夺要求", related_avatars=[self.avatar.id], is_major=True))
+            # 对方拒绝：进入战斗
+            winner, loser, loser_dmg, winner_dmg = decide_battle(self.avatar, target_avatar)
+            loser.hp.reduce(loser_dmg)
+            winner.hp.reduce(winner_dmg)
+            
+            # 进攻方胜利则洞府易主
+            attacker_won = winner == self.avatar
+            if attacker_won:
+                region.host_avatar = self.avatar
+            
+            self._last_result = (winner, loser, loser_dmg, winner_dmg, region.name, attacker_won)
+
+    async def finish(self, region_name: str) -> list[Event]:
+        """完成动作，生成战斗故事并处理死亡"""
+        res = self._last_result if hasattr(self, '_last_result') else None
+        if res is None:
+            return []
+        
+        # res format from occupy: (winner, loser, l_dmg, w_dmg, r_name, attacker_won)
+        winner, loser, l_dmg, w_dmg, r_name, attacker_won = res
+        battle_res = (winner, loser, l_dmg, w_dmg)
+        
+        target = loser if winner == self.avatar else winner
+        
+        start_text = f"{self.avatar.name} 试图抢夺 {target.name} 的洞府 {r_name}，{target.name} 拒绝并应战"
+        
+        postfix = f"，成功夺取了 {r_name}" if attacker_won else f"，守住了 {r_name}"
+
+        from src.classes.battle import handle_battle_finish
+        return await handle_battle_finish(
+            self.world,
+            self.avatar,
+            target,
+            battle_res,
+            start_text,
+            self.STORY_PROMPT,
+            action_desc="击败了",
+            postfix=postfix
+        )

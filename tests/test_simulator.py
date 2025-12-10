@@ -8,6 +8,8 @@ from src.classes.map import Map
 from src.classes.tile import TileType
 from src.classes.action import Move
 from src.classes.name import get_random_name
+from src.classes.age import Age
+from src.classes.cultivation import Realm
 
 
 def test_simulator_step_moves_avatar_and_sets_tile():
@@ -28,7 +30,7 @@ def test_simulator_step_moves_avatar_and_sets_tile():
         name=get_random_name(Gender.MALE),
         id="1",
         birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
-        age=20,
+        age=Age(20, Realm.Qi_Refinement),
         gender=Gender.MALE,
         pos_x=1,
         pos_y=1,
@@ -36,7 +38,7 @@ def test_simulator_step_moves_avatar_and_sets_tile():
 
 
     sim = Simulator(world)
-    sim.avatars["1"] = avatar
+    world.avatar_manager.avatars["1"] = avatar
 
     # 执行一步模拟
     sim.step()
