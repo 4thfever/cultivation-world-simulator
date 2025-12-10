@@ -53,6 +53,11 @@ class Cultivate(TimedAction):
             return False, "修为已达瓶颈，无法继续修炼"
         if not isinstance(region, CultivateRegion):
             return False, "当前不在修炼区域"
+        
+        # 检查洞府所有权
+        if region.host_avatar is not None and region.host_avatar != self.avatar:
+            return False, f"该洞府已被 {region.host_avatar.name} 占据，无法修炼"
+            
         if all(region.essence.get_density(et) == 0 for et in essence_types):
             return False, "当前区域无与灵根相符的灵气"
         return True, ""

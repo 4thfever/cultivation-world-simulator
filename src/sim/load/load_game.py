@@ -124,6 +124,16 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 将所有avatar添加到world
         world.avatar_manager.avatars = all_avatars
         
+        # 恢复洞府主人关系
+        cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})
+        from src.classes.region import CultivateRegion
+        for rid_str, avatar_id in cultivate_regions_hosts.items():
+            rid = int(rid_str)
+            if rid in game_map.regions:
+                region = game_map.regions[rid]
+                if isinstance(region, CultivateRegion) and avatar_id in all_avatars:
+                    region.host_avatar = all_avatars[avatar_id]
+        
         # 重建宗门成员关系与功法列表
         from src.classes.technique import techniques_by_name
         

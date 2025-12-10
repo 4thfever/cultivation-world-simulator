@@ -593,10 +593,6 @@ class Avatar(AvatarSaveMixin, AvatarLoadMixin):
             # 当前无动作时才清除标记，避免清除新提交动作的标记
             self._new_action_set_this_step = False
             
-        # 每次执行动作后，更新已知区域
-        if self.tile and self.tile.region:
-            self.known_regions.add(self.tile.region.id)
-            
         return events
 
     def update_cultivation(self, new_level: int):

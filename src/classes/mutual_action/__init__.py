@@ -9,6 +9,7 @@ from .talk import Talk
 from .impart import Impart
 from .gift_spirit_stone import GiftSpiritStone
 from .spar import Spar
+from .occupy import Occupy
 from src.classes.action.registry import register_action
 
 __all__ = [
@@ -21,6 +22,7 @@ __all__ = [
     "Impart",
     "GiftSpiritStone",
     "Spar",
+    "Occupy",
 ]
 
 # 注册 mutual actions（均为实际动作）
@@ -32,5 +34,6 @@ register_action(actual=True)(Talk)
 register_action(actual=True)(Impart)
 register_action(actual=True)(GiftSpiritStone)
 register_action(actual=True)(Spar)
+register_action(actual=True)(Occupy)
 
 

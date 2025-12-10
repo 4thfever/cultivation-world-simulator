@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Union, TypeVar, Type, Optional
+from typing import Union, TypeVar, Type, Optional, TYPE_CHECKING
 from enum import Enum
 from abc import ABC, abstractmethod
 
@@ -10,6 +10,10 @@ from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
 from src.classes.plant import Plant, plants_by_id
 from src.classes.sect import sects_by_name
+
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
+
 
 
 @dataclass
@@ -173,6 +177,9 @@ class CultivateRegion(Region):
     essence_type: EssenceType = EssenceType.GOLD # 默认值避免 dataclass 继承错误
     essence_density: int = 0
     essence: Essence = field(init=False)
+    
+    # 洞府主人：默认为空（无主）
+    host_avatar: Optional["Avatar"] = field(default=None, init=False)
 
     def __post_init__(self):
         super().__post_init__()
@@ -193,6 +200,10 @@ class CultivateRegion(Region):
         lines = super().get_hover_info()
         stars = "★" * self.essence_density + "☆" * (10 - self.essence_density)
         lines.append(f"主要灵气: {self.essence_type} {stars}")
+        if self.host_avatar:
+            lines.append(f"主人: {self.host_avatar.name}")
+        else:
+            lines.append("主人: 无（可占据）")
         return lines
 
     def get_structured_info(self) -> dict:
@@ -202,6 +213,15 @@ class CultivateRegion(Region):
             "type": str(self.essence_type),
             "density": self.essence_density
         }
+        
+        if self.host_avatar:
+            info["host"] = {
+                "id": self.host_avatar.id,
+                "name": self.host_avatar.name
+            }
+        else:
+            info["host"] = None
+            
         return info
 
 

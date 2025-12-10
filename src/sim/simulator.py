@@ -23,6 +23,75 @@ class Simulator:
         self.world = world
         self.birth_rate = CONFIG.game.npc_birth_rate_per_month  # 从配置文件读取NPC每月出生率
 
+    def _phase_update_perception_and_knowledge(self):
+        """
+        感知更新阶段：
+        1. 基于感知范围更新 known_regions
+        2. 自动占据无主洞府（如果自己没有洞府）
+        """
+        from src.classes.observe import get_avatar_observation_radius
+        from src.classes.region import CultivateRegion
+
+        # 1. 缓存当前有洞府的角色ID
+        avatars_with_home = set()
+        # 注意：这里我们只关心 CultivateRegion 的 host
+        # map.cultivate_regions 可能需要确保被正确初始化，如果没有，可以回退到遍历所有 regions
+        # 为了稳妥，遍历所有 Region 筛选
+        cultivate_regions = [
+            r for r in self.world.map.regions.values() 
+            if isinstance(r, CultivateRegion)
+        ]
+        
+        for r in cultivate_regions:
+            if r.host_avatar:
+                avatars_with_home.add(r.host_avatar.id)
+
+        # 2. 遍历所有存活角色
+        for avatar in self.world.avatar_manager.get_living_avatars():
+            # 计算感知半径（曼哈顿距离）
+            radius = get_avatar_observation_radius(avatar)
+            
+            # 扫描范围内的坐标
+            # 优化：只扫描半径内的坐标可能比遍历所有region快，也可能慢，取决于地图大小和半径
+            # 地图可能很大，半径通常很小（<10），所以基于坐标扫描更优
+            
+            # 获取范围内的有效坐标
+            start_x = max(0, avatar.pos_x - radius)
+            end_x = min(self.world.map.width - 1, avatar.pos_x + radius)
+            start_y = max(0, avatar.pos_y - radius)
+            end_y = min(self.world.map.height - 1, avatar.pos_y + radius)
+
+            # 收集感知到的区域
+            observed_regions = set()
+            for x in range(start_x, end_x + 1):
+                for y in range(start_y, end_y + 1):
+                    # 距离判定：曼哈顿距离
+                    if abs(x - avatar.pos_x) + abs(y - avatar.pos_y) <= radius:
+                        tile = self.world.map.get_tile(x, y)
+                        if tile.region:
+                            observed_regions.add(tile.region)
+
+            # 更新认知与自动占据
+            for region in observed_regions:
+                # 更新 known_regions
+                avatar.known_regions.add(region.id)
+                
+                # 自动占据逻辑
+                # 只有当：是修炼区域 + 无主 + 自己无洞府 时触发
+                if isinstance(region, CultivateRegion):
+                    if region.host_avatar is None:
+                        if avatar.id not in avatars_with_home:
+                            # 占据
+                            region.host_avatar = avatar
+                            avatars_with_home.add(avatar.id)
+                            # 记录事件
+                            event = Event(
+                                self.world.month_stamp,
+                                f"路过 {region.name}，发现无主，将其占据。",
+                                related_avatars=[avatar.id]
+                            )
+                            avatar.add_event(event)
+                            
     async def _phase_decide_actions(self):
         """
         决策阶段：仅对需要新计划的角色调用 AI（当前无动作且无计划），
@@ -241,6 +310,10 @@ class Simulator:
         再去结算单个角色的事件。
         """
         events = [] # list of Event
+
+        # 0. 感知与认知更新阶段（包括自动占据洞府）
+        #    在思考和决策之前，先让角色感知世界
+        self._phase_update_perception_and_knowledge()
 
         # 0.5 长期目标思考阶段（在决策之前）
         events.extend(await self._phase_long_term_objective_thinking())

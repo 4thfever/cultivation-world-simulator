@@ -80,12 +80,21 @@ def save_game(
         }
         
         # 构建世界数据
+        # 收集有主洞府信息
+        from src.classes.region import CultivateRegion
+        cultivate_regions_hosts = {}
+        if hasattr(world.map, 'regions'):
+             for rid, region in world.map.regions.items():
+                 if isinstance(region, CultivateRegion) and region.host_avatar:
+                     cultivate_regions_hosts[str(rid)] = region.host_avatar.id
+
         world_data = {
             "month_stamp": int(world.month_stamp),
             "existed_sect_ids": [sect.id for sect in existed_sects],
             # 天地灵机
             "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
             "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,
+            "cultivate_regions_hosts": cultivate_regions_hosts,
         }
         
         # 保存所有Avatar（第一阶段：不含relations）
