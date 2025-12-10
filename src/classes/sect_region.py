@@ -18,7 +18,7 @@ class SectRegion(Region):
         return "sect"
 
     def _get_desc(self) -> str:
-        return f"（{self.sect_name}）"
+        return f"（【{self.sect_name}】宗门驻地）"
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
