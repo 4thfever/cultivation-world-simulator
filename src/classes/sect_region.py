@@ -17,6 +17,9 @@ class SectRegion(Region):
     def get_region_type(self) -> str:
         return "sect"
 
+    def _get_desc(self) -> str:
+        return f"（宗门：{self.sect_name}）"
+
     def get_hover_info(self) -> list[str]:
         # 覆盖基础 hover：明确显示“宗门驻地”
         return [

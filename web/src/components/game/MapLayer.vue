@@ -123,13 +123,13 @@ async function renderMap() {
       // 处理普通地块
       let tex = getTileTexture(type, x, y)
 
+      // SECT 地块由 renderLargeRegions 渲染，这里跳过
       if (type === 'SECT') {
-        // Legacy placeholder
-        tex = textures.value['CITY']
+        continue
       }
 
       if (!tex) {
-        tex = textures.value['PLAIN']
+        throw new Error(`Missing texture for tile type: ${type} at (${x}, ${y})`)
       }
 
       if (!tex) continue

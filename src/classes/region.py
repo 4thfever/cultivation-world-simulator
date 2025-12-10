@@ -231,6 +231,9 @@ class CityRegion(Region):
     def get_region_type(self) -> str:
         return "city"
 
+    def _get_desc(self) -> str:
+        return "（城市）"
+
     def __str__(self) -> str:
         return f"城市区域：{self.name} - {self.desc}"
 

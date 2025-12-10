@@ -142,13 +142,10 @@ export function useTextures() {
               const tex = await Assets.load(url)
               textures.value[key] = tex
           } catch (e) {
-              try {
-                  const encodedUrl = `/assets/sects/${encodeURIComponent(`${sectName}_${i}`)}.png`
-                  const tex = await Assets.load(encodedUrl)
-                  textures.value[key] = tex
-              } catch (e2) {
-                  console.warn(`Failed to load sect slice: ${key}`)
-              }
+              // 尝试 URL 编码后加载
+              const encodedUrl = `/assets/sects/${encodeURIComponent(`${sectName}_${i}`)}.png`
+              const tex = await Assets.load(encodedUrl)
+              textures.value[key] = tex
           }
       })
       
