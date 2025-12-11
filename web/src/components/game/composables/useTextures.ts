@@ -7,12 +7,20 @@ import { getClusteredTileVariant } from '@/utils/procedural'
 TextureStyle.defaultOptions.scaleMode = 'nearest'
 
 // 地形变体配置
-const TILE_VARIANTS: Record<string, { prefix: string, count: number }> = {
-  'RAINFOREST': { prefix: 'rainforest', count: 9 },
-  'BAMBOO': { prefix: 'bamboo', count: 9 },
-  'GOBI': { prefix: 'gobi', count: 9 },
-  'ISLAND': { prefix: 'island', count: 9 },
-  'SWAMP': { prefix: 'swamp', count: 9 },
+// startIndex: 变体索引起始值，默认为 0
+const TILE_VARIANTS: Record<string, { prefix: string, count: number, startIndex?: number }> = {
+  // 从 0 开始的变体 (0-8)
+  'GLACIER': { prefix: 'glacier', count: 9, startIndex: 0 },
+  'MOUNTAIN': { prefix: 'mountain', count: 9, startIndex: 0 },
+  'DESERT': { prefix: 'desert', count: 9, startIndex: 0 }, 
+  'SNOW_MOUNTAIN': { prefix: 'snow_mountain', count: 9, startIndex: 0 },
+  'FOREST': { prefix: 'forest', count: 9, startIndex: 0 },
+  'GRASSLAND': { prefix: 'grassland', count: 9, startIndex: 0 },
+  'RAINFOREST': { prefix: 'rainforest', count: 9, startIndex: 0 },
+  'BAMBOO': { prefix: 'bamboo', count: 9, startIndex: 0 },
+  'GOBI': { prefix: 'gobi', count: 9, startIndex: 0 },
+  'ISLAND': { prefix: 'island', count: 9, startIndex: 0 },
+  'SWAMP': { prefix: 'swamp', count: 9, startIndex: 0 },
 }
 
 // 全局纹理缓存，避免重复加载
@@ -83,8 +91,8 @@ export function useTextures() {
 
     // Load Tile Variants
     const variantPromises: Promise<void>[] = []
-    Object.entries(TILE_VARIANTS).forEach(([key, { prefix, count }]) => {
-      for (let i = 1; i <= count; i++) {
+    Object.entries(TILE_VARIANTS).forEach(([key, { prefix, count, startIndex = 0 }]) => {
+      for (let i = startIndex; i < startIndex + count; i++) {
         const variantKey = `${key}_${i}`
         const url = `/assets/tiles/${prefix}_${i}.png`
         variantPromises.push(

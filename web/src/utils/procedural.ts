@@ -19,20 +19,21 @@ function random(x: number, y: number): number {
  * 算法逻辑：
  * 1. 使用双重正弦波生成低频噪声（Biomes/群落感），让相邻的格子倾向于选择索引相近的变体。
  * 2. 叠加高频 Hash 扰动（Jitter），避免纹理过于死板或出现明显的人工波纹。
- * 3. 最终效果：变体会在地图上呈现自然的“斑块状”分布，而非杂乱的噪点。
+ * 3. 最终效果：变体会在地图上呈现自然的"斑块状"分布，而非杂乱的噪点。
  * 
  * @param x 地图 X 坐标
  * @param y 地图 Y 坐标
  * @param count 变体总数 (例如 9)
- * @returns 1 到 count 之间的整数索引
+ * @param startIndex 变体索引起始值，默认为 0
+ * @returns startIndex 到 startIndex + count - 1 之间的整数索引
  */
-export function getClusteredTileVariant(x: number, y: number, count: number): number {
-    if (count <= 1) return 1;
+export function getClusteredTileVariant(x: number, y: number, count: number, startIndex: number = 0): number {
+    if (count <= 1) return startIndex;
 
     // 1. 低频噪声 (Large Scale Noise)
     // 决定区域的主色调。Scale 越小，斑块越大。
     // 0.15 意味着大约 2PI / 0.15 ~= 40 格一个完整周期，
-    // 视觉上大约 10-20 格为一个明显的“群落”。
+    // 视觉上大约 10-20 格为一个明显的"群落"。
     const scale = 0.15;
     
     // 使用两个不同频率和方向的波叠加，打破完美的对角线感
@@ -55,13 +56,13 @@ export function getClusteredTileVariant(x: number, y: number, count: number): nu
     // 钳制到 [0, 1]
     finalValue = Math.max(0, Math.min(1, finalValue));
 
-    // 4. 映射到 [1, count]
-    // 使用 Math.floor(val * count) 得到 0..count-1，再 +1
-    let index = Math.floor(finalValue * count) + 1;
+    // 4. 映射到 [startIndex, startIndex + count - 1]
+    let index = Math.floor(finalValue * count) + startIndex;
     
     // 边界保护 (防止浮点误差导致溢出)
-    if (index > count) index = count;
-    if (index < 1) index = 1;
+    const maxIndex = startIndex + count - 1;
+    if (index > maxIndex) index = maxIndex;
+    if (index < startIndex) index = startIndex;
 
     return index;
 }
