@@ -152,6 +152,4 @@ local_config.yml
 
 台本/
 笔记/
-tmp/
-tmp2/
-tmp3/
+tmp*/
