@@ -84,8 +84,17 @@ class Cultivate(TimedAction):
         actual_duration = max(1, round(base_duration * (1.0 - reduction)))
         self.duration_months = actual_duration
         
-        efficiency = "进境颇佳" if self._get_matched_essence_density() > 0 else "进境缓慢"
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.region.name} 开始修炼，{efficiency}", related_avatars=[self.avatar.id])
+        matched_density = self._get_matched_essence_density()
+        region = self.avatar.tile.region
+        
+        if matched_density > 0:
+            efficiency = "进境颇佳"
+        elif isinstance(region, CultivateRegion) and region.essence_density > 0:
+            efficiency = "进境缓慢（灵气不匹配）"
+        else:
+            efficiency = "进境缓慢（灵气稀薄）"
+
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始修炼，{efficiency}", related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
         return []
