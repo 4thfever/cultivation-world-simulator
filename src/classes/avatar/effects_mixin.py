@@ -5,8 +5,7 @@ Avatar 效果计算 Mixin
 """
 from __future__ import annotations
 
-from collections import defaultdict
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from src.classes.avatar.core import Avatar
@@ -18,53 +17,97 @@ from src.classes.hp_and_mp import HP_MAX_BY_REALM
 class EffectsMixin:
     """效果计算相关方法"""
     
+    def _evaluate_values(self, effects: dict[str, Any]) -> dict[str, Any]:
+        """
+        评估效果字典中的动态值（字符串表达式）。
+        支持明确的 'eval(...)' 格式，以及包含 'avatar.' 的隐式表达式。
+        """
+        result = {}
+        # 安全的 eval 上下文
+        context = {
+            "__builtins__": {},
+            "avatar": self,
+            "max": max,
+            "min": min,
+            "int": int,
+            "float": float,
+            "round": round,
+        }
+
+        for k, v in effects.items():
+            if isinstance(v, str):
+                s = v.strip()
+                expr = None
+                
+                # 检查是否为表达式
+                if s.startswith("eval(") and s.endswith(")"):
+                    expr = s[5:-1]
+                elif "avatar." in s: # 启发式：包含 avatar. 则视为表达式
+                    expr = s
+                
+                if expr:
+                    try:
+                        result[k] = eval(expr, context)
+                    except Exception:
+                        # 评估失败，保留原值（可能是普通字符串，或者表达式有误）
+                        result[k] = v
+                else:
+                    result[k] = v
+            else:
+                result[k] = v
+        return result
+
     @property
     def effects(self: "Avatar") -> dict[str, object]:
         """
         合并所有来源的效果：宗门、功法、灵根、特质、兵器、辅助装备、灵兽、天地灵机
         """
-        merged: dict[str, object] = defaultdict(str)
+        merged: dict[str, object] = {}
+        
+        def _process_source(source_obj):
+            if source_obj is None:
+                return
+            # 1. 评估条件 (when)
+            evaluated = _evaluate_conditional_effect(source_obj.effects, self)
+            # 2. 评估动态值 (expressions)
+            evaluated = self._evaluate_values(evaluated)
+            # 3. 合并到总效果
+            nonlocal merged
+            merged = _merge_effects(merged, evaluated)
+
         # 来自宗门
         if self.sect is not None:
-            evaluated = _evaluate_conditional_effect(self.sect.effects, self)
-            merged = _merge_effects(merged, evaluated)
+            _process_source(self.sect)
+            
         # 来自功法
-        evaluated = _evaluate_conditional_effect(self.technique.effects, self)
-        merged = _merge_effects(merged, evaluated)
+        if self.technique is not None:
+            _process_source(self.technique)
+            
         # 来自灵根
-        evaluated = _evaluate_conditional_effect(self.root.effects, self)
-        merged = _merge_effects(merged, evaluated)
+        if self.root is not None:
+            _process_source(self.root)
+            
         # 来自特质（persona）
         for persona in self.personas:
-            evaluated = _evaluate_conditional_effect(persona.effects, self)
-            merged = _merge_effects(merged, evaluated)
+            _process_source(persona)
+            
         # 来自兵器
         if self.weapon is not None:
-            evaluated = _evaluate_conditional_effect(self.weapon.effects, self)
-            merged = _merge_effects(merged, evaluated)
+            _process_source(self.weapon)
+            
         # 来自辅助装备
         if self.auxiliary is not None:
-            evaluated = _evaluate_conditional_effect(self.auxiliary.effects, self)
-            merged = _merge_effects(merged, evaluated)
+            _process_source(self.auxiliary)
+            
         # 来自灵兽
         if self.spirit_animal is not None:
-            evaluated = _evaluate_conditional_effect(self.spirit_animal.effects, self)
-            merged = _merge_effects(merged, evaluated)
+            _process_source(self.spirit_animal)
+            
         # 来自天地灵机（世界级buff/debuff）
         if self.world.current_phenomenon is not None:
-            evaluated = _evaluate_conditional_effect(self.world.current_phenomenon.effects, self)
-            merged = _merge_effects(merged, evaluated)
-        # 评估动态效果表达式：值以 "eval(...)" 形式给出
-        final: dict[str, object] = {}
-        for k, v in merged.items():
-            if isinstance(v, str):
-                s = v.strip()
-                if s.startswith("eval(") and s.endswith(")"):
-                    expr = s[5:-1]
-                    final[k] = eval(expr, {"__builtins__": {}}, {"avatar": self})
-                    continue
-            final[k] = v
-        return final
+            _process_source(self.world.current_phenomenon)
+
+        return merged
 
     def recalc_effects(self: "Avatar") -> None:
         """
@@ -116,4 +159,3 @@ class EffectsMixin:
     def move_step_length(self: "Avatar") -> int:
         """获取角色的移动步长"""
         return self.cultivation_progress.get_move_step()
-

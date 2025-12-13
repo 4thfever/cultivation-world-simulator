@@ -24,14 +24,6 @@ class Talk(MutualAction):
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
     
-    # 复用父类的所有方法：
-    # - _get_template_path() -> mutual_action.txt
-    # - _build_prompt_infos() -> 标准的双方信息和历史事件
-    # - can_start() -> 检查目标在交互范围内
-    # - _can_start() -> 无额外检查
-    # - start() -> 生成开始事件
-    # - finish() -> 返回空列表（已在父类实现）
-    
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攀谈无额外检查条件"""
         from src.classes.observe import is_within_observation
@@ -42,9 +34,10 @@ class Talk(MutualAction):
     def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
         """
         处理 LLM 返回的反馈结果。
-        子类可覆盖此方法来定义自己的反馈处理逻辑。
         """
         feedback = str(result.get("feedback", "")).strip()
+        
+        events_to_return = []
         
         # 处理反馈
         if feedback == "Talk":
@@ -54,7 +47,8 @@ class Talk(MutualAction):
                 f"{target.name} 接受了 {self.avatar.name} 的攀谈", 
                 related_avatars=[self.avatar.id, target.id]
             )
-            EventHelper.push_pair(accept_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            
+            events_to_return.append(accept_event)
             
             # 将 Conversation 加入计划队列并立即提交
             self.avatar.load_decide_result_chain(
@@ -66,7 +60,8 @@ class Talk(MutualAction):
             # 立即提交为当前动作
             start_event = self.avatar.commit_next_plan()
             if start_event is not None:
-                EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+                pass
+
         else:
             # 拒绝攀谈
             reject_event = Event(
@@ -74,9 +69,9 @@ class Talk(MutualAction):
                 f"{target.name} 拒绝了 {self.avatar.name} 的攀谈", 
                 related_avatars=[self.avatar.id, target.id]
             )
-            EventHelper.push_pair(reject_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            events_to_return.append(reject_event)
         
-        return ActionResult(status=ActionStatus.COMPLETED, events=[])
+        return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
     
     def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:
         """调用父类的通用异步 step 逻辑"""

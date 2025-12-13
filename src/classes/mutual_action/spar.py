@@ -9,6 +9,8 @@ from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
 from src.classes.action.cooldown import cooldown_action
 
+from src.classes.action.event_helper import EventHelper
+
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
@@ -65,8 +67,10 @@ class Spar(MutualAction):
             result_text, 
             related_avatars=[self.avatar.id, target_avatar.id]
         )
-        self.avatar.add_event(event, to_sidebar=True)
-        target_avatar.add_event(event, to_sidebar=True)
+        
+        # 使用 EventHelper.push_pair 确保只推送一次到 Global EventManager（通过 to_sidebar_once=True）
+        # 此时 Self(Initiator) 获得 to_sidebar=True, Target 获得 to_sidebar=False
+        EventHelper.push_pair(event, self.avatar, target_avatar, to_sidebar_once=True)
 
     async def finish(self, target_avatar: Avatar | str) -> list[Event]:
         # 获取目标
@@ -97,4 +101,5 @@ class Spar(MutualAction):
             is_story=True
         )
         
+        # 返回给 Self (由 ActionMixin 处理)
         return [story_event]

@@ -26,7 +26,7 @@ id,name,weapon_type,grade,sect_id,desc,effects
 3001,青竹蜂云剑,剑,法宝,1,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
 3002,随心铁杆兵,棍,法宝,7,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
 3003,五火七禽扇,扇,法宝,4,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
-3004,弑神枪,枪,法宝,9,杀气滔天，曾染魔神之血，枪出无回。,"{extra_battle_strength_points: '2 + avatar.weapon.proficiency * 0.01'}"
+3004,弑神枪,枪,法宝,9,杀气滔天，曾染魔神之血，枪出无回。,"{extra_battle_strength_points: '2 + avatar.weapon_proficiency * 0.01'}"
 3005,赤锋矛,枪,法宝,,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 2}, {when: 'avatar.cultivation.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
 3006,斩仙飞刀,暗器,法宝,5,红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
 3007,诛仙剑,剑,法宝,1,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,{extra_battle_strength_points: 3}

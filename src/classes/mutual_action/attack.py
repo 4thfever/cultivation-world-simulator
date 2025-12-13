@@ -32,11 +32,15 @@ class MutualAttack(MutualAction):
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
+        
+        # 此处不产生新事件，仅改变目标行为
+        # 目标的行为改变会通过 _set_target_immediate_action -> commit_next_plan 产生新事件
+        # 且 commit_next_plan 内部会处理事件分发（理论上）
+        # 但我们看看基类的 _set_target_immediate_action 实现
+        
         if fb == "Escape":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
         elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}
             self._set_target_immediate_action(target_avatar, fb, params)
-
-

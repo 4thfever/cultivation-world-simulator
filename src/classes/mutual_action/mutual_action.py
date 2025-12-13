@@ -126,25 +126,11 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         if isinstance(target_avatar, str):
             return self.find_avatar_by_name(target_avatar)
         return target_avatar
-
+    
     async def _execute(self, target_avatar: "Avatar|str") -> None:
-        """异步执行互动动作"""
-        target_avatar = self._get_target_avatar(target_avatar)
-        if target_avatar is None:
-            return
-
-        infos = self._build_prompt_infos(target_avatar)
-        res = await self._call_llm_feedback(infos)
-        r = res.get(infos["avatar_name_2"], {})
-        thinking = r.get("thinking", "")
-        feedback = r.get("feedback", "")
-
-        target_avatar.thinking = thinking
-        self._settle_feedback(target_avatar, feedback)
-        fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
-        feedback_event = Event(self.world.month_stamp, f"{target_avatar.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target_avatar.id])
-        EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target_avatar, to_sidebar_once=True)
-        self._apply_feedback(target_avatar, feedback)
+        """异步执行互动动作 (deprecated, use step instead)"""
+        # 仅为兼容 DefineAction 接口，实际逻辑在 step 中
+        pass
 
     # 实现 ActualActionMixin 接口
     def can_start(self, target_avatar: "Avatar|str|None" = None) -> tuple[bool, str]:
@@ -184,10 +170,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         # 根据IS_MAJOR类变量设置事件类型
         is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
         event = Event(self._start_month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
-        # 仅写入历史，避免与提交阶段重复推送到侧边栏
-        self.avatar.add_event(event, to_sidebar=False)
+        
+        # 仅手动添加给 Target，Self的部分由ActionMixin通过返回值处理
+        # 默认不推Target侧边栏，因为发起事件通常只在发起者侧重要，或者作为"收到发起"的通知
         if target is not None:
             target.add_event(event, to_sidebar=False)
+            
         return event
 
     def step(self, target_avatar: "Avatar|str") -> ActionResult:
@@ -219,12 +207,13 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             target.thinking = thinking
             self._settle_feedback(target, feedback)
             fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
+            
             # 使用开始时间戳
             month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
             feedback_event = Event(month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
-            EventHelper.push_pair(feedback_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            
             self._apply_feedback(target, feedback)
-            return ActionResult(status=ActionStatus.COMPLETED, events=[])
+            return ActionResult(status=ActionStatus.COMPLETED, events=[feedback_event])
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
 
@@ -233,5 +222,3 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         完成互动动作，事件已在 step 中处理，无需额外事件
         """
         return []
-
-

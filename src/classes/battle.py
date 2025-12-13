@@ -307,10 +307,4 @@ async def handle_battle_finish(
     # 处理死亡
     if is_fatal:
         handle_death(world, loser, DeathReason.BATTLE)
-        
-    # 将事件分发给目标（如果目标不是发起者），发起者由 ActionMixin 处理
-    if target and target.id != attacker.id:
-        target.add_event(result_event)
-        target.add_event(story_event)
-        
     return [result_event, story_event]

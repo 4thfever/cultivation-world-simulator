@@ -34,7 +34,7 @@ protagonist_configs = [
         "desc": "《凡人修仙传》主角，韩老魔",
         "params": {
             "gender": "男",
-            "age": 200,
+            "age": 120,
             "level": 90,         # 合体/大乘
             "sect": 9,           # 千帆城 (商会/散修流)
             "technique": 33,     # 青帝长生诀 (木系至高)
@@ -89,7 +89,7 @@ protagonist_configs = [
             "technique": 56,     # 纵地金光 (风系身法)
             "weapon": 2013,      # 紫薇软剑 (轻灵剑法)
             "auxiliary": 2007,   # 踏云靴 (身法加成)
-            "personas": ["霸道", "剑修", "沉思"],
+            "personas": ["霸道", "剑修", "刻薄"],
             "appearance": 35,    # 美貌御姐
         }
     },
@@ -123,7 +123,7 @@ protagonist_configs = [
             "technique": 36,     # 虚空经 (全知观测)
             "weapon": 2005,      # 桃花扇 (本命物)
             "auxiliary": 3002,   # 昆仑镜 (全知之眼)
-            "personas": ["心机深沉", "疑心重", "贪财"],
+            "personas": ["心机深沉", "疑心重", "穿越者"],
             "appearance": 25,
         }
     },
@@ -190,7 +190,7 @@ protagonist_configs = [
             "technique": 38,     # 逍遥游 (身法)
             "weapon": 3009,      # 芭蕉扇 (术法)
             "auxiliary": 2006,   # 源天神眼 (明阳神通)
-            "personas": ["友爱", "惜命", "沉思"],
+            "personas": ["死宅", "惜命", "沉思"],
             "appearance": 5,
         }
     }

@@ -13,6 +13,7 @@ from src.classes.battle import decide_battle
 from src.classes.story_teller import StoryTeller
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
+from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -26,7 +27,7 @@ class Occupy(MutualAction):
     占据指定的洞府。如果是无主洞府直接占据；如果是有主洞府，则发起抢夺。
     对方拒绝则进入战斗，进攻方胜利则洞府易主。
     """
-    ACTION_NAME = "Occupy"
+    ACTION_NAME = "抢夺洞府"
     COMMENT = "占据或抢夺洞府"
     PARAMS = {"region_name": "str"}
     FEEDBACK_ACTIONS = ["Yield", "Reject"]
@@ -55,7 +56,29 @@ class Occupy(MutualAction):
 
     def start(self, region_name: str) -> Event:
         region, host, _ = self._get_region_and_host(region_name)
-        return super().start(target_avatar=host)
+
+        # 必须初始化开始时间
+        self._start_month_stamp = self.world.month_stamp
+
+        target_name = host.name if host else "无主之地"
+        event_text = f"{self.avatar.name} 对 {target_name} 的 {region.name} 发起抢夺"
+
+        rel_ids = [self.avatar.id]
+        if host:
+            rel_ids.append(host.id)
+
+        event = Event(
+            self._start_month_stamp,
+            event_text,
+            related_avatars=rel_ids,
+            is_major=self.IS_MAJOR
+        )
+        # 记录到历史，侧边栏推送由 ActionMixin.commit_next_plan 统一处理
+        self.avatar.add_event(event, to_sidebar=False)
+        if host:
+            host.add_event(event, to_sidebar=False)
+
+        return event
 
     def step(self, region_name: str) -> ActionResult:
         region, host, _ = self._get_region_and_host(region_name)
@@ -77,8 +100,8 @@ class Occupy(MutualAction):
                 related_avatars=[self.avatar.id, target_avatar.id],
                 is_major=True
             )
-            self.avatar.add_event(event)
-            target_avatar.add_event(event)
+            # 统一推送，避免重复
+            EventHelper.push_pair(event, initiator=self.avatar, target=target_avatar, to_sidebar_once=True)
             
             self._last_result = None
             

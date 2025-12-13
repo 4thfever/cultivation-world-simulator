@@ -11,7 +11,6 @@ from src.classes.relations import (
 from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
-from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -84,6 +83,8 @@ class Conversation(MutualAction):
         # 使用开始时间戳
         month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
 
+        events_to_return = []
+
         # 记录对话内容
         if conversation_content:
             content_event = Event(
@@ -91,12 +92,17 @@ class Conversation(MutualAction):
                 f"{self.avatar.name} 与 {target.name} 的交谈：{conversation_content}", 
                 related_avatars=[self.avatar.id, target.id]
             )
-            EventHelper.push_pair(content_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            events_to_return.append(content_event)
 
         # 处理关系变化 (调用通用逻辑)
+        # 注意：process_relation_changes 可能会生成关系变化的事件
+        # 这部分逻辑需要确认是否也遵循新模式。
+        # 假设 process_relation_changes 内部使用了 add_event，则需要留意是否存在双重添加风险。
+        # 目前看来 process_relation_changes 是通过 EventHelper 或直接 add_event 操作的。
+        # 如果它内部逻辑完备（如使用了 EventHelper 去重），则无需改动。
         process_relation_changes(self.avatar, target, result, month_stamp)
 
-        return ActionResult(status=ActionStatus.COMPLETED, events=[])
+        return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
 
     def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:
         """调用通用异步 step 逻辑"""
