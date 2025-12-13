@@ -18,7 +18,7 @@ from src.sim.simulator import Simulator
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.load_map import load_cultivation_world_map
-from src.sim.new_avatar import make_avatars as _new_make, create_avatar_from_request
+from src.sim.new_avatar import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG
 from src.classes.sect import sects_by_id
 from src.classes.technique import techniques_by_id
@@ -34,6 +34,7 @@ from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim.save.save_game import save_game, list_saves
 from src.sim.load.load_game import load_game
+from src.utils import protagonist as prot_utils
 import random
 
 # 全局游戏实例
@@ -225,9 +226,40 @@ def init_game():
         existed_sects = pool[:needed_sects]
 
     # 创建角色
-    # 注意：这里直接调用 new_avatar 的 make_avatars，避免循环导入
-    all_avatars = _new_make(world, count=CONFIG.game.init_npc_num, current_month_stamp=world.month_stamp, existed_sects=existed_sects)
-    world.avatar_manager.avatars.update(all_avatars)
+    protagonist_mode = getattr(CONFIG.avatar, "protagonist", "none")
+    target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
+    
+    final_avatars = {}
+
+    # 1. 生成主角 (All / Random)
+    spawned_protagonists_count = 0
+    if protagonist_mode in ["all", "random"]:
+        prob = 1.0 if protagonist_mode == "all" else 0.05
+        # 注意：spawn_protagonists 返回的是 dict
+        prot_avatars = prot_utils.spawn_protagonists(world, world.month_stamp, probability=prob)
+        final_avatars.update(prot_avatars)
+        spawned_protagonists_count = len(prot_avatars)
+        print(f"生成了 {spawned_protagonists_count} 位主角 (Mode: {protagonist_mode})")
+
+    # 2. 生成路人 (如果需要)
+    # random 或 none 模式下补齐人数
+    remaining_count = 0
+    if protagonist_mode == "all":
+        remaining_count = 0
+    else:
+        remaining_count = max(0, target_total_count - spawned_protagonists_count)
+
+    if remaining_count > 0:
+        random_avatars = _new_make_random(
+            world, 
+            count=remaining_count, 
+            current_month_stamp=world.month_stamp, 
+            existed_sects=existed_sects
+        )
+        final_avatars.update(random_avatars)
+        print(f"生成了 {len(random_avatars)} 位随机路人")
+        
+    world.avatar_manager.avatars.update(final_avatars)
     
     game_instance["world"] = world
     game_instance["sim"] = sim

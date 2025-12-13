@@ -1,4 +1,5 @@
 from typing import List, Dict, Optional
+import random
 from src.classes.avatar import Avatar
 from src.classes.world import World
 from src.classes.calendar import MonthStamp
@@ -199,14 +200,23 @@ protagonist_configs = [
 # 2. 执行生成与关系绑定逻辑
 # ==========================================
 
-def spawn_protagonists(world: World, current_month_stamp: MonthStamp) -> Dict[str, Avatar]:
+def spawn_protagonists(
+    world: World, 
+    current_month_stamp: MonthStamp, 
+    probability: float = 1.0
+) -> Dict[str, Avatar]:
     """
     遍历配置生成角色，并处理特殊关系。
+    :param probability: 每个角色生成的概率 (0.0 - 1.0)。
     """
     created_avatars = {}
     
     # 1. 批量生成
     for config in protagonist_configs:
+        # 概率判定
+        if probability < 1.0 and random.random() > probability:
+            continue
+            
         try:
             avatar = create_avatar_from_request(
                 world=world,
@@ -215,10 +225,11 @@ def spawn_protagonists(world: World, current_month_stamp: MonthStamp) -> Dict[st
                 **config["params"]
             )
             created_avatars[config["key"]] = avatar
-        except Exception as e:
+        except Exception:
             pass # 忽略生成错误，避免中断
 
     # 2. 绑定关系
+    # 注意：需要确保双方都已生成
     
     # 【凡人组】韩立 <-> 厉飞雨 (挚友)
     if "han_li" in created_avatars and "li_fei_yu" in created_avatars:
