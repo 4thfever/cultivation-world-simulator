@@ -182,15 +182,20 @@ class AvatarLoadMixin:
         avatar.planned_actions = [ActionPlan.from_dict(plan_data) for plan_data in planned_actions_data]
         
         # 重建current_action（如果有）
-        current_action_data = data.get("current_action")
-        if current_action_data is not None:
+        current_action_dict = data.get("current_action")
+        if current_action_dict is not None:
             try:
-                action = avatar.create_action(current_action_data["action_name"])
+                action = avatar.create_action(current_action_dict["action_name"])
+                
+                # 恢复动作内部状态
+                if "state" in current_action_dict:
+                    action.load_save_data(current_action_dict["state"])
+                
                 from src.classes.action_runtime import ActionInstance
                 avatar.current_action = ActionInstance(
                     action=action,
-                    params=current_action_data["params"],
-                    status=current_action_data["status"]
+                    params=current_action_dict["params"],
+                    status=current_action_dict["status"]
                 )
             except Exception:
                 # 如果动作无法重建，跳过（容错）

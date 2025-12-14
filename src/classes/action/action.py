@@ -69,6 +69,14 @@ class Action(ABC):
         """
         return str(self.__class__.__name__)
 
+    def get_save_data(self) -> dict:
+        """获取需要存档的运行时数据"""
+        return {}
+
+    def load_save_data(self, data: dict) -> None:
+        """加载运行时数据"""
+        pass
+
 
 class DefineAction(Action):
     def __init__(self, avatar: Avatar, world: World):
@@ -98,6 +106,24 @@ class DefineAction(Action):
         具体的动作执行逻辑，由子类实现
         """
         pass
+
+    def get_save_data(self) -> dict:
+        data = super().get_save_data()
+        # 很多长态动作（包括MoveToDirection）都会设置此属性
+        if hasattr(self, 'start_monthstamp'):
+            val = self.start_monthstamp
+            data['start_monthstamp'] = int(val) if val is not None else None
+        return data
+
+    def load_save_data(self, data: dict) -> None:
+        super().load_save_data(data)
+        if 'start_monthstamp' in data:
+            val = data['start_monthstamp']
+            if val is not None:
+                from src.classes.calendar import MonthStamp
+                self.start_monthstamp = MonthStamp(val)
+            else:
+                self.start_monthstamp = None
 
 
 class LLMAction(Action):
@@ -199,5 +225,3 @@ class TimedAction(DefineAction, ActualActionMixin):
         self._execute(**params_for_execute)
         done = (self.world.month_stamp - self.start_monthstamp) >= (self.duration_months - 1)
         return ActionResult(status=(ActionStatus.COMPLETED if done else ActionStatus.RUNNING), events=[])
-
-

@@ -42,7 +42,8 @@ class AvatarSaveMixin:
             current_action_dict = {
                 "action_name": self.current_action.action.__class__.__name__,
                 "params": self.current_action.params,
-                "status": self.current_action.status
+                "status": self.current_action.status,
+                "state": self.current_action.action.get_save_data()
             }
         
         # 序列化planned_actions
