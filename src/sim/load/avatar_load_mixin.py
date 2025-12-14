@@ -6,10 +6,11 @@ Avatar读档反序列化Mixin
 读档策略：
 - 两阶段加载：先加载所有Avatar（relations留空），再重建relations网络
 - 引用对象：通过id从全局字典获取（如techniques_by_id）
-- weapon/auxiliary：深拷贝后恢复special_data
+- weapon/auxiliary：浅拷贝后恢复special_data（避免deepcopy带来的递归/崩溃风险）
 - 错误容错：缺失的引用对象会跳过而不是崩溃
 """
 from typing import TYPE_CHECKING
+import copy
 
 if TYPE_CHECKING:
     from src.classes.world import World
@@ -98,21 +99,26 @@ class AvatarLoadMixin:
             if item_id in items_by_id:
                 avatar.items[items_by_id[item_id]] = quantity
         
-        # 重建weapon（深拷贝因为special_data是实例特有的）
+        # 重建weapon
+        # 使用copy而非deepcopy，避免潜在的递归引用导致的崩溃，且性能更好
+        # special_data 是实例特有的，需要单独赋值
         weapon_id = data.get("weapon_id")
         if weapon_id is not None and weapon_id in weapons_by_id:
-            import copy
-            avatar.weapon = copy.deepcopy(weapons_by_id[weapon_id])
+            # 浅拷贝：复制引用，但 weapon.special_data 会被共享
+            # 所以需要手动重新赋值 special_data
+            weapon_proto = weapons_by_id[weapon_id]
+            avatar.weapon = copy.copy(weapon_proto)
             avatar.weapon.special_data = data.get("weapon_special_data", {})
         
         # 恢复兵器熟练度
         avatar.weapon_proficiency = float(data.get("weapon_proficiency", 0.0))
         
-        # 重建auxiliary（深拷贝因为special_data是实例特有的）
+        # 重建auxiliary
+        # 同上，使用copy
         auxiliary_id = data.get("auxiliary_id")
         if auxiliary_id is not None and auxiliary_id in auxiliaries_by_id:
-            import copy
-            avatar.auxiliary = copy.deepcopy(auxiliaries_by_id[auxiliary_id])
+            auxiliary_proto = auxiliaries_by_id[auxiliary_id]
+            avatar.auxiliary = copy.copy(auxiliary_proto)
             avatar.auxiliary.special_data = data.get("auxiliary_special_data", {})
         
         # 重建spirit_animal
@@ -197,4 +203,3 @@ class AvatarLoadMixin:
         avatar.recalc_effects()
         
         return avatar
-

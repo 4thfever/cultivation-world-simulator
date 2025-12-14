@@ -304,8 +304,10 @@ class Avatar(
         self._init_known_regions()
 
     def __hash__(self) -> int:
+        if not hasattr(self, 'id'):
+            # 防御性编程：如果id尚未初始化（例如deepcopy过程中），使用对象内存地址
+            return super().__hash__()
         return hash(self.id)
 
     def __str__(self) -> str:
         return str(self.get_info(detailed=False))
-
