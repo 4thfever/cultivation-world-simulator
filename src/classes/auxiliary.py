@@ -29,6 +29,26 @@ class Auxiliary:
     # 特殊属性（用于存储实例特定数据）
     special_data: dict = field(default_factory=dict)
 
+    def __deepcopy__(self, memo):
+        """
+        自定义深拷贝：
+        Sect 对象必须保持单例引用，不能深拷贝，否则会复制整个宗门及其所有成员，
+        导致内存浪费和潜在的无限递归/哈希错误。
+        """
+        import copy
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        
+        for k, v in self.__dict__.items():
+            if k == 'sect':
+                # 浅拷贝引用
+                setattr(result, k, v)
+            else:
+                # 深拷贝其他属性
+                setattr(result, k, copy.deepcopy(v, memo))
+        return result
+
     def get_info(self) -> str:
         """获取简略信息"""
         return f"{self.name}"

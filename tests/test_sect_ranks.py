@@ -50,8 +50,8 @@ def test_auto_promote():
 
 def test_avatar_sect_rank_assignment():
     """测试avatar创建时宗门职位分配"""
-    from src.run.create_map import create_cultivation_world_map
-    game_map = create_cultivation_world_map()
+    from src.run.load_map import load_cultivation_world_map
+    game_map = load_cultivation_world_map()
     world = World(
         map=game_map,
         month_stamp=MonthStamp(100 * 12),
@@ -77,8 +77,8 @@ def test_avatar_sect_rank_assignment():
 
 def test_patriarch_uniqueness():
     """测试每个宗门只有一个掌门"""
-    from src.run.create_map import create_cultivation_world_map
-    game_map = create_cultivation_world_map()
+    from src.run.load_map import load_cultivation_world_map
+    game_map = load_cultivation_world_map()
     world = World(
         map=game_map,
         month_stamp=MonthStamp(100 * 12),
@@ -104,8 +104,8 @@ def test_patriarch_uniqueness():
 
 def test_sect_str_display():
     """测试宗门信息显示"""
-    from src.run.create_map import create_cultivation_world_map
-    game_map = create_cultivation_world_map()
+    from src.run.load_map import load_cultivation_world_map
+    game_map = load_cultivation_world_map()
     world = World(
         map=game_map,
         month_stamp=MonthStamp(100 * 12),
@@ -129,8 +129,8 @@ def test_sect_str_display():
 
 def test_cultivation_breakthrough_promotion():
     """测试突破境界后自动晋升"""
-    from src.run.create_map import create_cultivation_world_map
-    game_map = create_cultivation_world_map()
+    from src.run.load_map import load_cultivation_world_map
+    game_map = load_cultivation_world_map()
     world = World(
         map=game_map,
         month_stamp=MonthStamp(100 * 12),

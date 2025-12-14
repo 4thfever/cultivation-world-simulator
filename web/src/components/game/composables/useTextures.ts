@@ -53,15 +53,8 @@ export function useTextures() {
       'SEA': '/assets/tiles/sea.png',
       'WATER_FULL': '/assets/tiles/water_full.jpg',
       'SEA_FULL': '/assets/tiles/sea_full.jpg',
-      'MOUNTAIN': '/assets/tiles/mountain.png',
-      'FOREST': '/assets/tiles/forest.png',
       'CITY': '/assets/tiles/city.png',
-      'DESERT': '/assets/tiles/desert.png',
-      'RAINFOREST': '/assets/tiles/rainforest.png',
-      'GLACIER': '/assets/tiles/glacier.png',
-      'SNOW_MOUNTAIN': '/assets/tiles/snow_mountain.png',
       'VOLCANO': '/assets/tiles/volcano.png',
-      'GRASSLAND': '/assets/tiles/grassland.png',
       'SWAMP': '/assets/tiles/swamp.png',
       'FARM': '/assets/tiles/farm.png',
       'ISLAND': '/assets/tiles/island.png',
@@ -133,6 +126,13 @@ export function useTextures() {
     }
 
     await Promise.all([...tilePromises, ...variantPromises, ...avatarPromises, ...cloudPromises])
+
+    // 为没有基础纹理的变体类型设置默认纹理（使用第0个变体作为默认值）
+    Object.keys(TILE_VARIANTS).forEach(key => {
+        if (!textures.value[key] && textures.value[`${key}_0`]) {
+            textures.value[key] = textures.value[`${key}_0`]
+        }
+    })
 
     isLoaded.value = true
     console.log('Base textures loaded')
