@@ -48,17 +48,13 @@ def test_auto_promote():
     assert should_auto_promote(Realm.Qi_Refinement, Realm.Qi_Refinement) == False
 
 
-def test_avatar_sect_rank_assignment():
+
+def test_avatar_sect_rank_assignment(base_world):
     """测试avatar创建时宗门职位分配"""
-    from src.run.load_map import load_cultivation_world_map
-    game_map = load_cultivation_world_map()
-    world = World(
-        map=game_map,
-        month_stamp=MonthStamp(100 * 12),
-    )
+    # 使用 base_world fixture，不需要 load_cultivation_world_map
     
     # 创建多个avatar
-    avatars_dict = make_avatars(world, count=20, current_month_stamp=MonthStamp(100 * 12))
+    avatars_dict = make_avatars(base_world, count=20, current_month_stamp=MonthStamp(100 * 12))
     avatars = list(avatars_dict.values())
     
     # 检查所有有宗门的avatar都有职位
@@ -75,17 +71,11 @@ def test_avatar_sect_rank_assignment():
             assert avatar.sect_rank is None, f"{avatar.name} 散修不应该有职位"
 
 
-def test_patriarch_uniqueness():
+def test_patriarch_uniqueness(base_world):
     """测试每个宗门只有一个掌门"""
-    from src.run.load_map import load_cultivation_world_map
-    game_map = load_cultivation_world_map()
-    world = World(
-        map=game_map,
-        month_stamp=MonthStamp(100 * 12),
-    )
     
     # 创建足够多的avatar
-    avatars_dict = make_avatars(world, count=50, current_month_stamp=MonthStamp(100 * 12))
+    avatars_dict = make_avatars(base_world, count=50, current_month_stamp=MonthStamp(100 * 12))
     avatars = list(avatars_dict.values())
     
     # 统计每个宗门的掌门数量
@@ -102,16 +92,10 @@ def test_patriarch_uniqueness():
         assert len(patriarchs) <= 1, f"宗门 {sect_id} 有多个掌门: {patriarchs}"
 
 
-def test_sect_str_display():
+def test_sect_str_display(base_world):
     """测试宗门信息显示"""
-    from src.run.load_map import load_cultivation_world_map
-    game_map = load_cultivation_world_map()
-    world = World(
-        map=game_map,
-        month_stamp=MonthStamp(100 * 12),
-    )
     
-    avatars_dict = make_avatars(world, count=20, current_month_stamp=MonthStamp(100 * 12))
+    avatars_dict = make_avatars(base_world, count=20, current_month_stamp=MonthStamp(100 * 12))
     avatars = list(avatars_dict.values())
     
     for avatar in avatars:
@@ -127,16 +111,10 @@ def test_sect_str_display():
                 assert rank_name in sect_str
 
 
-def test_cultivation_breakthrough_promotion():
+def test_cultivation_breakthrough_promotion(base_world):
     """测试突破境界后自动晋升"""
-    from src.run.load_map import load_cultivation_world_map
-    game_map = load_cultivation_world_map()
-    world = World(
-        map=game_map,
-        month_stamp=MonthStamp(100 * 12),
-    )
     
-    avatars_dict = make_avatars(world, count=10, current_month_stamp=MonthStamp(100 * 12))
+    avatars_dict = make_avatars(base_world, count=10, current_month_stamp=MonthStamp(100 * 12))
     avatars = list(avatars_dict.values())
     
     # 找一个练气期的宗门弟子
@@ -158,6 +136,7 @@ def test_cultivation_breakthrough_promotion():
         # 检查职位是否晋升
         assert target_avatar.sect_rank == SectRank.InnerDisciple
         assert target_avatar.sect_rank > old_rank
+
 
 
 if __name__ == "__main__":

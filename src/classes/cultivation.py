@@ -124,8 +124,10 @@ class CultivationProgress:
     def get_move_step(self) -> int:
         """
         每月能够移动的距离，
-        练气，筑基为1
-        金丹，元婴为2
+        练气: 2
+        筑基: 3
+        金丹: 4
+        元婴: 5
         """
         return REALM_TO_MOVE_STEP[self.realm]
 

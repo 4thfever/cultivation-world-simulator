@@ -16,11 +16,11 @@ from src.sim.load.load_game import load_game
 from src.utils.id_generator import get_avatar_id
 from src.utils.config import CONFIG
 
-# Helper to create a simple map
-def create_simple_map():
-    m = Map(width=5, height=5) # Slightly larger to be safe
-    for x in range(5):
-        for y in range(5):
+# Helper to create a simple map (aligned with conftest base_map logic)
+def create_test_map():
+    m = Map(width=10, height=10)
+    for x in range(10):
+        for y in range(10):
             m.create_tile(x, y, TileType.PLAIN)
     return m
 
@@ -37,7 +37,7 @@ def test_save_load_cycle(temp_save_dir):
     """
     # 1. Setup World
     # Create a deterministic map for testing
-    game_map = create_simple_map()
+    game_map = create_test_map()
     
     # Set a specific time
     start_year = Year(100)
@@ -45,6 +45,7 @@ def test_save_load_cycle(temp_save_dir):
     month_stamp = create_month_stamp(start_year, start_month)
     
     world = World(map=game_map, month_stamp=month_stamp)
+
     
     # 2. Add an Avatar
     avatar_id = get_avatar_id()
@@ -92,7 +93,7 @@ def test_save_load_cycle(temp_save_dir):
     # but since it's inside, we rely on sys.modules or patch the target module path.
     # The import in load_game.py is: from src.run.load_map import load_cultivation_world_map
     
-    with patch('src.run.load_map.load_cultivation_world_map', return_value=create_simple_map()):
+    with patch('src.run.load_map.load_cultivation_world_map', return_value=create_test_map()):
         # We also need to be careful about 'sects_by_id' if we had sects, but we don't.
         loaded_world, loaded_sim, loaded_sects = load_game(save_path)
     
@@ -126,7 +127,7 @@ def test_save_load_with_relations(temp_save_dir):
     """
     Test saving and loading avatars with relationships.
     """
-    game_map = create_simple_map()
+    game_map = create_test_map()
     world = World(map=game_map, month_stamp=create_month_stamp(Year(1), Month.JANUARY))
     
     # Create two avatars
@@ -148,7 +149,7 @@ def test_save_load_with_relations(temp_save_dir):
     save_path = temp_save_dir / "test_relation.json"
     save_game(world, sim, [], save_path)
     
-    with patch('src.run.load_map.load_cultivation_world_map', return_value=create_simple_map()):
+    with patch('src.run.load_map.load_cultivation_world_map', return_value=create_test_map()):
         l_world, _, _ = load_game(save_path)
         
     l_av1 = l_world.avatar_manager.avatars[av1.id]
