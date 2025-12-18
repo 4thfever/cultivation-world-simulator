@@ -26,7 +26,7 @@ class Conversation(MutualAction):
     """
 
     ACTION_NAME = "交谈"
-    COMMENT = "与对方进行一段交流对话"
+    DESC = "与对方进行一段交流对话"
     DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = []  # Conversation 自动触发，不需要对方决策
@@ -51,12 +51,20 @@ class Conversation(MutualAction):
         # 获取关系上下文
         possible_new_relations, possible_cancel_relations = get_relation_change_context(self.avatar, target_avatar)
         
+        # 获取后续计划
+        p1 = self.avatar.get_planned_actions_str()
+        p2 = target_avatar.get_planned_actions_str()
+        planned_actions_str = {
+            avatar_name_1: p1,
+            avatar_name_2: p2,
+        }
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
             "possible_new_relations": possible_new_relations,
             "possible_cancel_relations": possible_cancel_relations,
+            "planned_actions": planned_actions_str,
         }
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:

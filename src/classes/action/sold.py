@@ -14,7 +14,8 @@ class SellItems(InstantAction):
     收益为 item_price * item_num，动作耗时1个月。
     """
 
-    COMMENT = "在城镇出售持有的某类物品的全部"
+    ACTION_NAME = "出售物品"
+    DESC = "在城镇出售持有的某类物品的全部"
     DOABLES_REQUIREMENTS = "在城镇且背包非空"
     PARAMS = {"item_name": "str"}
 

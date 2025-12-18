@@ -25,14 +25,14 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
     子类需要定义：
       - ACTION_NAME: 当前动作名（给模板展示）
-      - COMMENT: 动作语义说明（给模板展示）
+      - DESC: 动作语义说明（给模板展示）
       - FEEDBACK_ACTIONS: 反馈可选的 action name 列表（直接可执行）
       - PARAMS: 参数，需要包含 target_avatar
       - FEEDBACK_ACTIONS: 反馈可选的 action name 列表（直接可执行）
     """
 
     ACTION_NAME: str = "MutualAction"
-    COMMENT: str = ""
+    DESC: str = ""
     DOABLES_REQUIREMENTS: str = "交互范围内可互动"
     PARAMS: dict = {"target_avatar": "Avatar"}
     FEEDBACK_ACTIONS: list[str] = []
@@ -72,14 +72,14 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         }
         
         feedback_actions = self.FEEDBACK_ACTIONS
-        comment = self.COMMENT
+        desc = self.DESC
         action_name = self.ACTION_NAME
         return {
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
             "action_name": action_name,
-            "action_info": comment,
+            "action_info": desc,
             "feedback_actions": feedback_actions,
         }
 

@@ -14,8 +14,9 @@ class Escape(InstantAction):
     失败：抢占并进入 Attack。
     """
 
-    COMMENT = "逃离对方（基于成功率判定）"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "逃离"
+    DESC = "逃离对方（基于成功率判定）"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar|None":

@@ -156,3 +156,29 @@ class ActionMixin:
         if to_sidebar:
             self._pending_events.append(event)
 
+    def get_planned_actions_str(self: "Avatar") -> str:
+        """
+        获取易读的计划动作列表字符串。
+        """
+        if not self.planned_actions:
+            return "无"
+        
+        lines = []
+        for i, plan in enumerate(self.planned_actions, 1):
+            try:
+                action_cls = ActionRegistry.get(plan.action_name)
+                # 优先取 ACTION_NAME，否则用类名
+                display_name = getattr(action_cls, "ACTION_NAME", plan.action_name)
+            except Exception:
+                display_name = plan.action_name
+            
+            # 简化参数显示，只保留基本类型
+            simple_params = {k: v for k, v in plan.params.items() if isinstance(v, (str, int, float, bool))}
+            info = f"{i}. {display_name}"
+            if simple_params:
+                info += f" {simple_params}"
+            
+            lines.append(info)
+            
+        return "\n".join(lines)
+

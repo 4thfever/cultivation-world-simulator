@@ -18,8 +18,9 @@ if TYPE_CHECKING:
 
 @cooldown_action
 class Assassinate(InstantAction):
-    COMMENT = "暗杀目标，失败则变为战斗"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行；需要冷却"
+    ACTION_NAME = "暗杀"
+    DESC = "暗杀目标，失败则变为战斗"
+    DOABLES_REQUIREMENTS = "无限制；需要冷却"
     PARAMS = {"avatar_name": "AvatarName"}
     ACTION_CD_MONTHS = 12
     

@@ -14,8 +14,9 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     移动到某个region
     """
 
-    COMMENT = "移动到某个区域"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "移动到区域"
+    DESC = "移动到某个区域"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "region_name"}
 
     def __init__(self, avatar, world):

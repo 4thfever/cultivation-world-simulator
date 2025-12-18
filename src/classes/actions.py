@@ -15,8 +15,8 @@ ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 
 def _build_action_info(action):
     info = {
-        "comment": action.COMMENT,
-        "requirements": action.DOABLES_REQUIREMENTS,
+        "desc": action.DESC,
+        "require": action.DOABLES_REQUIREMENTS,
     }
     if action.PARAMS:
         info["params"] = action.PARAMS

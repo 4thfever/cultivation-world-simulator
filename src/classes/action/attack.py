@@ -11,8 +11,9 @@ from src.classes.death_reason import DeathReason
 from src.classes.kill_and_grab import kill_and_grab
 
 class Attack(InstantAction):
-    COMMENT = "攻击目标，进行对战"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "发起战斗"
+    DESC = "攻击目标，进行对战"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
     # 提供用于故事生成的提示词：不出现血量/伤害等数值描述
     STORY_PROMPT: str | None = (

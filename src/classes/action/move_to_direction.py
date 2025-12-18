@@ -57,8 +57,9 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     向某个方向移动探索（固定时长6个月）
     """
     
-    COMMENT = "向某个方向探索未知区域"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "移动探索"
+    DESC = "向某个方向探索未知区域"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"direction": "direction (North/South/East/West)"}
     IS_MAJOR = False
     

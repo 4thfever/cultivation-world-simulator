@@ -13,7 +13,7 @@ class DriveAway(MutualAction):
     """驱赶：试图让对方离开当前区域。"""
 
     ACTION_NAME = "驱赶"
-    COMMENT = "以武力威慑对方离开此地。"
+    DESC = "以武力威慑对方离开此地。"
     DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Attack"]

@@ -21,7 +21,7 @@ class Spar(MutualAction):
     切磋动作：双方切磋，不造成伤害，增加武器熟练度。
     """
     ACTION_NAME = "切磋"
-    COMMENT = "与目标切磋武艺，点到为止（大幅增加武器熟练度，不造成伤害）"
+    DESC = "与目标切磋武艺，点到为止（大幅增加武器熟练度，不造成伤害）"
     DOABLES_REQUIREMENTS = "交互范围内可互动；不能连续执行"
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
     

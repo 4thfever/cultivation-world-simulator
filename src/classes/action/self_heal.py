@@ -11,7 +11,8 @@ class SelfHeal(TimedAction):
     单月动作，执行后HP直接回满。
     """
 
-    COMMENT = "在宗门总部静养疗伤，回满HP"
+    ACTION_NAME = "疗伤"
+    DESC = "在宗门总部静养疗伤，回满HP"
     DOABLES_REQUIREMENTS = "自己是宗门弟子，且位于本宗门总部区域，且当前HP未满"
     PARAMS = {}
 

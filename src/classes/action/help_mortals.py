@@ -12,7 +12,8 @@ class HelpMortals(TimedAction):
     仅正阵营可执行。
     """
 
-    COMMENT = "在城镇帮助凡人，消耗少量灵石"
+    ACTION_NAME = "帮助凡人"
+    DESC = "在城镇帮助凡人，消耗少量灵石"
     DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘正’，并且灵石足够"
     PARAMS = {}
     COST = 10

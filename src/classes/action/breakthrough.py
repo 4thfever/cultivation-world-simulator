@@ -25,7 +25,8 @@ class Breakthrough(TimedAction):
     失败时按 `CultivationProgress.get_breakthrough_fail_reduce_lifespan()` 减少寿元（年）。
     """
 
-    COMMENT = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
+    ACTION_NAME = "突破"
+    DESC = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
     DOABLES_REQUIREMENTS = "角色处于瓶颈时；不能连续执行"
     PARAMS = {}
     # 冷却：突破应当有CD，避免连刷

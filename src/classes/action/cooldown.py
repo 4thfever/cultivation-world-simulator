@@ -7,7 +7,7 @@ def cooldown_action(cls: type) -> type:
     - 仅当类定义了 ACTION_CD_MONTHS 且 >0 时生效
     - 在 can_start 前置检查冷却；在 finish 后记录冷却开始月戳
     - 冷却记录存放于 avatar._action_cd_last_months[ClassName]
-    - 同时在 COMMENT 中追加“（冷却：X月）”便于 UI 显示
+    - 同时在 DESC 中追加“（冷却：X月）”便于 UI 显示
     """
 
     cd = int(getattr(cls, "ACTION_CD_MONTHS", 0) or 0)

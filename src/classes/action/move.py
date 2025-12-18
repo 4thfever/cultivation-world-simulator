@@ -9,7 +9,8 @@ class Move(DefineAction, ChunkActionMixin):
     最基础的移动动作，在tile之间进行切换。
     """
 
-    COMMENT = "移动到某个相对位置"
+    ACTION_NAME = "移动"
+    DESC = "移动到某个相对位置"
     PARAMS = {"delta_x": "int", "delta_y": "int"}
 
     def _execute(self, delta_x: int, delta_y: int) -> None:

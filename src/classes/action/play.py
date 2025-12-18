@@ -9,8 +9,9 @@ class Play(TimedAction):
     消遣动作，持续半年时间
     """
 
-    COMMENT = "消遣，放松身心"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "消遣"
+    DESC = "消遣，放松身心"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}
 
     duration_months = 6

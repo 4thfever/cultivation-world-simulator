@@ -17,8 +17,9 @@ class MoveAwayFromAvatar(TimedAction):
     - 任何时候都可以启动
     """
 
-    COMMENT = "持续远离指定角色"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "远离角色"
+    DESC = "持续远离指定角色"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar | None":

@@ -12,7 +12,8 @@ class Harvest(TimedAction):
     可以获得植物对应的物品
     """
 
-    COMMENT = "在当前区域采集植物，获取植物材料"
+    ACTION_NAME = "采集"
+    DESC = "在当前区域采集植物，获取植物材料"
     DOABLES_REQUIREMENTS = "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
     PARAMS = {}
 

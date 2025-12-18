@@ -11,7 +11,8 @@ class Cultivate(TimedAction):
     修炼动作，可以增加修仙进度。
     """
 
-    COMMENT = "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差。"
+    ACTION_NAME = "修炼"
+    DESC = "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差。"
     DOABLES_REQUIREMENTS = "角色未到瓶颈；若在洞府区域，则该洞府需无主或归自己所有。"
     PARAMS = {}
 

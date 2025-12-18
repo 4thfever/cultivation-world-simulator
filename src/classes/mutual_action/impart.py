@@ -25,7 +25,7 @@ class Impart(MutualAction):
     """
 
     ACTION_NAME = "传道"
-    COMMENT = "师傅向徒弟传授修炼经验，徒弟可获得大量修为"
+    DESC = "师傅向徒弟传授修炼经验，徒弟可获得大量修为"
     DOABLES_REQUIREMENTS = "发起者是目标的师傅；师傅等级 > 徒弟等级 + 20；目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]

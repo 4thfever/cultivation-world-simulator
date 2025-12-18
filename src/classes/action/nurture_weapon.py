@@ -10,8 +10,9 @@ class NurtureWeapon(TimedAction):
     温养兵器：花时间温养兵器，可以较多增加熟练度
     """
 
-    COMMENT = "温养兵器，增加兵器熟练度"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "温养兵器"
+    DESC = "温养兵器，增加兵器熟练度"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}
 
     duration_months = 3

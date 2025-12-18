@@ -12,7 +12,8 @@ class Hunt(TimedAction):
     可以获得动物对应的物品
     """
 
-    COMMENT = "在当前区域狩猎动物，获取动物材料"
+    ACTION_NAME = "狩猎"
+    DESC = "在当前区域狩猎动物，获取动物材料"
     DOABLES_REQUIREMENTS = "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
     PARAMS = {}
 

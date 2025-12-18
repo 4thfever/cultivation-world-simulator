@@ -13,8 +13,9 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     朝另一个角色当前位置移动。
     """
 
-    COMMENT = "移动到某个角色所在位置"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "移动到角色"
+    DESC = "移动到某个角色所在位置"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "str"}
 
     def _get_target(self, avatar_name: str):

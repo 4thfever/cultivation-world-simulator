@@ -8,8 +8,9 @@ from src.utils.distance import euclidean_distance
 
 
 class MoveAwayFromRegion(InstantAction):
-    COMMENT = "离开指定区域"
-    DOABLES_REQUIREMENTS = "任何时候都可以执行"
+    ACTION_NAME = "离开区域"
+    DESC = "离开指定区域"
+    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "RegionName"}
 
     def _execute(self, region: str) -> None:
