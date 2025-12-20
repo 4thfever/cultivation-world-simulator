@@ -61,7 +61,7 @@ if (Test-Path $WebDir) {
 # Entry and app name
 # CHANGED: Use server main.py instead of run.py
 $EntryPy = Join-Path $RepoRoot "src\server\main.py"
-$AppName = "CultivationWorld"
+$AppName = "AI修仙模拟器"
 
 if (-not (Test-Path $EntryPy)) {
     Write-Error "Entry script not found: $EntryPy"
