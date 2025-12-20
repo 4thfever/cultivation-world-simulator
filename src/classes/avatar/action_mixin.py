@@ -137,7 +137,7 @@ class ActionMixin:
         # 合并动作返回的事件（通常为空）
         if result.events:
             for e in result.events:
-                self._pending_events.append(e)
+                self.add_event(e)
         events, self._pending_events = self._pending_events, []
         # 本轮已执行过，清除"新设动作"标记（但如果刚刚提交了新动作，commit_next_plan会重新设置为True）
         if self.current_action is None:

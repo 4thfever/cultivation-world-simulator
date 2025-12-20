@@ -350,11 +350,14 @@ class Simulator:
                             t_state["count"] = 0
                             t_state["checked_times"] += 1
         
+        events = []
         if pairs_to_resolve:
-            # 批量并发处理
-            await RelationResolver.run_batch(pairs_to_resolve)
+            # 批量并发处理，并直接收集返回的事件
+            relation_events = await RelationResolver.run_batch(pairs_to_resolve)
+            if relation_events:
+                events.extend(relation_events)
             
-        return []
+        return events
 
     async def step(self):
         """

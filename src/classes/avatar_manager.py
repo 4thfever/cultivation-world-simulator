@@ -11,6 +11,12 @@ from src.classes.observe import get_observable_avatars
 class AvatarManager:
     avatars: Dict[str, "Avatar"] = field(default_factory=dict)
 
+    def get_avatar(self, avatar_id: str) -> "Avatar | None":
+        """
+        根据 ID 获取角色对象
+        """
+        return self.avatars.get(str(avatar_id))
+
     def get_avatars_in_same_region(self, avatar: "Avatar") -> List["Avatar"]:
         """
         返回与给定 avatar 处于同一区域的其他角色列表（不含自己）。

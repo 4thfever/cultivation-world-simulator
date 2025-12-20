@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, List, Tuple
+from typing import TYPE_CHECKING, List, Tuple, Optional
 
 from src.classes.relation import (
     Relation,
@@ -12,7 +12,6 @@ from src.classes.relations import (
 )
 from src.classes.calendar import get_date_str
 from src.classes.event import Event
-from src.classes.action.event_helper import EventHelper
 from src.utils.llm import call_llm_with_template, LLMMode
 from src.utils.config import CONFIG
 
@@ -50,8 +49,9 @@ class RelationResolver:
         
         return {
             "relation_rules_desc": get_relation_rules_desc(),
-            "avatar_a_info": str(avatar_a.get_info(detailed=True)),
             "avatar_a_name": avatar_a.name,
+            "avatar_a_info": str(avatar_a.get_info(detailed=True)),
+            "avatar_b_name": avatar_b.name,
             "avatar_b_info": str(avatar_b.get_info(detailed=True)),
             "current_relations": f"目前关系：{rel_desc}",
             "recent_events_text": recent_events_text,
@@ -59,9 +59,9 @@ class RelationResolver:
         }
 
     @staticmethod
-    async def resolve_pair(avatar_a: "Avatar", avatar_b: "Avatar") -> None:
+    async def resolve_pair(avatar_a: "Avatar", avatar_b: "Avatar") -> Optional[Event]:
         """
-        处理一对角色的关系变化
+        处理一对角色的关系变化，返回产生的事件
         """
         infos = RelationResolver._build_prompt_data(avatar_a, avatar_b)
         
@@ -69,7 +69,7 @@ class RelationResolver:
             
         changed = result.get("changed", False)
         if not changed:
-            return
+            return None
             
         month_stamp = avatar_a.world.month_stamp
         
@@ -78,15 +78,16 @@ class RelationResolver:
         reason = result.get("reason", "")
         
         if not rel_name:
-            return
+            return None
 
         # 解析关系枚举
         try:
             rel = Relation[rel_name]
         except KeyError:
-            return
+            return None
             
         display_name = relation_display_names.get(rel, rel_name)
+        event = None
             
         if c_type == "ADD":
             # 检查是否已有
@@ -106,31 +107,55 @@ class RelationResolver:
             
             current_rel = avatar_b.get_relation(avatar_a)
             if current_rel == rel:
-                return
+                return None
                 
             set_relation(avatar_b, avatar_a, rel)
             
-            event_text = f"【关系新增】{reason}，{avatar_a.name} 与 {avatar_b.name} 结为{display_name}。"
+            event_text = f"{avatar_a.name} 与 {avatar_b.name}因为{reason}成为{display_name}。"
             event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
-            EventHelper.push_pair(event, initiator=avatar_a, target=avatar_b, to_sidebar_once=True)
             
         elif c_type == "REMOVE":
             # 同样反转调用
             success = cancel_relation(avatar_b, avatar_a, rel)
             if success:
-                event_text = f"【关系断绝】{reason}，{avatar_a.name} 与 {avatar_b.name} 不再是{display_name}。"
+                event_text = f"{avatar_a.name} 与 {avatar_b.name} 因为{reason}不再是{display_name}。"
                 event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
-                EventHelper.push_pair(event, initiator=avatar_a, target=avatar_b, to_sidebar_once=True)
+
+        if event:
+            # 手动调用 add_event(to_sidebar=False) 来更新统计数据，但不加入 pending_events
+            # 因为事件将由 Simulator 统一处理
+            avatar_a.add_event(event, to_sidebar=False)
+            avatar_b.add_event(event, to_sidebar=False)
+            return event
+            
+        return None
 
     @staticmethod
-    async def run_batch(pairs: List[Tuple["Avatar", "Avatar"]]) -> None:
+    async def run_batch(pairs: List[Tuple["Avatar", "Avatar"]]) -> List[Event]:
         """
-        批量并发处理
+        批量并发处理，返回产生的所有事件
         """
         if not pairs:
-            return
+            return []
             
-        async with AITaskBatch() as batch:
-            for a, b in pairs:
-                batch.add(RelationResolver.resolve_pair(a, b))
-
+        events = []
+        
+        # 使用 asyncio.gather 而不是 AITaskBatch.gather，因为 AITaskBatch 没有 gather 方法
+        import asyncio
+        tasks = []
+        for a, b in pairs:
+            # 创建协程任务但不立即 await
+            tasks.append(RelationResolver.resolve_pair(a, b))
+        
+        if not tasks:
+            return []
+            
+        # 并发执行所有任务
+        results = await asyncio.gather(*tasks)
+        
+        # 收集结果
+        for res in results:
+            if res and isinstance(res, Event):
+                events.append(res)
+                
+        return events
