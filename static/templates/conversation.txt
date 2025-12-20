@@ -16,7 +16,7 @@
 {{
     "{avatar_name_2}": {{
         "thinking": ..., // 简单思考对话如何进行
-        "conversation_content": ... // 对话双方均为第三人称视角的对话，100~300字，有来有回的多轮对话。
+        "conversation_content": ... // 对包含神态、动作描写的第三人称小说有来有回的多轮对话片段，100~300字。
         "analyze_relation": ... // 分析是否应该有关系的取消或者新增
         "new_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
         "cancel_relation": ... // 可选，如果你认为可以让两者取消某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。

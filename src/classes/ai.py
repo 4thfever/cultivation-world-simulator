@@ -78,6 +78,7 @@ class LLMAI(AI):
             avatar_info = avatar.get_expanded_info(co_region_avatars=observed)
             
             info = {
+                "avatar_name": avatar.name,
                 "avatar_info": avatar_info,
                 "world_info": world_info,
                 "general_action_infos": general_action_infos,
