@@ -1,6 +1,6 @@
 import asyncio
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, AsyncMock
 
 from src.sim.simulator import Simulator
 from src.classes.action.move_to_direction import MoveToDirection
@@ -27,8 +27,19 @@ def test_simulator_step_moves_avatar_and_sets_tile(base_world, dummy_avatar):
     dummy_avatar.current_action = ActionInstance(action=action, params={"direction": direction})
 
     # Mock LLM to avoid external calls or errors
-    with patch("src.sim.simulator.llm_ai") as mock_ai:
+    # We need to patch where it is imported or used. 
+    # simulator.py imports process_avatar_long_term_objective, etc.
+    # The easiest way is to patch call_llm globally or specifically the phases.
+    with patch("src.sim.simulator.llm_ai") as mock_ai, \
+         patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
+         patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
+         patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr:
+        
         mock_ai.decide = MagicMock(return_value={})
+        # Mock async returns for gathered tasks
+        mock_lto.return_value = None 
+        mock_nick.return_value = None
+        mock_rr.return_value = []
         
         print(f"DEBUG: Before step: pos_x={dummy_avatar.pos_x}")
         # Run step synchronously
