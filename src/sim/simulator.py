@@ -386,7 +386,7 @@ class Simulator:
         events.extend(await self._phase_execute_actions())
 
         # 4. 关系演化阶段
-        await self._phase_evolve_relations()
+        events.extend(await self._phase_evolve_relations())
 
         # 5. 结算死亡
         events.extend(self._phase_resolve_death())

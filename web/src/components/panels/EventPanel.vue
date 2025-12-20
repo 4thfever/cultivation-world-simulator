@@ -23,14 +23,40 @@ const filteredEvents = computed(() => {
   return allEvents.filter(event => event.relatedAvatarIds.includes(filterValue.value))
 })
 
-// 自动滚动到底部
+// 智能滚动：仅当用户处于底部时才自动跟随滚动
 watch(filteredEvents, () => {
+  const el = eventListRef.value
+  if (!el) return
+
+  // 1. scrollHeight === clientHeight: 内容不满一页，无需滚动，视为“在底部”（为了后续满屏时能自动衔接）
+  // 2. scrollHeight - scrollTop - clientHeight < 20: 内容已满页且当前在最底部
+  const isScrollable = el.scrollHeight > el.clientHeight
+  const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 20)
+
+  if (isAtBottom) {
+    nextTick(() => {
+      // 检查DOM元素是否存在（可能在tick期间被销毁）
+      if (!eventListRef.value) return
+      
+      // 重新获取元素，因为DOM可能已经更新
+      const updatedEl = eventListRef.value
+      
+      // 只有内容确实超出容器时才需要设置 scrollTop
+      if (updatedEl.scrollHeight > updatedEl.clientHeight) {
+         updatedEl.scrollTop = updatedEl.scrollHeight
+      }
+    })
+  }
+}, { deep: true })
+
+// 切换筛选对象时，强制滚动到底部
+watch(filterValue, () => {
   nextTick(() => {
     if (eventListRef.value) {
       eventListRef.value.scrollTop = eventListRef.value.scrollHeight
     }
   })
-}, { deep: true })
+})
 
 const emptyEventMessage = computed(() => (
   filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
