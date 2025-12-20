@@ -7,7 +7,6 @@ from src.classes.avatar.core import (
     Avatar,
     Gender,
     gender_strs,
-    MAX_HISTORY_EVENTS,
 )
 
 from src.classes.avatar.info_presenter import (
@@ -23,7 +22,6 @@ __all__ = [
     "Avatar",
     "Gender",
     "gender_strs",
-    "MAX_HISTORY_EVENTS",
     # 信息展示函数
     "get_avatar_info",
     "get_avatar_structured_info",

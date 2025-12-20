@@ -207,9 +207,8 @@ class Simulator:
         # 使用 gather 并行触发奇遇
         tasks = [try_trigger_fortune(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
-        for res in results:
-            if res:
-                events.extend(res)
+        
+        events.extend([e for res in results if res for e in res])
                 
         return events
     

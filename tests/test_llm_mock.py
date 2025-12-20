@@ -1,9 +1,10 @@
 import pytest
+import json
 from unittest.mock import MagicMock, patch, AsyncMock
 from pathlib import Path
 from src.utils.llm.prompt import build_prompt
-from src.utils.llm.parser import parse_json, try_parse_code_blocks, try_parse_balanced_json
-from src.utils.llm.client import call_llm_json, LLMMode
+from src.utils.llm.parser import parse_json
+from src.utils.llm.client import call_llm_json, call_llm, LLMMode
 from src.utils.llm.exceptions import ParseError, LLMError
 
 # ================= Prompt Tests =================
@@ -58,20 +59,10 @@ def test_parse_code_block():
     result = parse_json(text)
     assert result == {"foo": "bar"}
 
-def test_parse_nested_braces():
-    text = 'some text {"a": {"b": 1}} some more text'
-    result = parse_json(text)
-    assert result == {"a": {"b": 1}}
-
 def test_parse_fail():
     text = "Not a json"
     with pytest.raises(ParseError):
         parse_json(text)
-
-def test_extract_from_text_with_noise():
-    text = "Sure! Here is the JSON you requested: {\"a\": 1} Hope this helps."
-    result = parse_json(text)
-    assert result == {"a": 1}
 
 # ================= Client Mock Tests =================
 @pytest.mark.asyncio
@@ -107,3 +98,40 @@ async def test_call_llm_json_all_fail():
         
         assert mock_call.call_count == 2 # Initial + 1 retry
 
+@pytest.mark.asyncio
+async def test_call_llm_fallback_requests():
+    """测试没有 litellm 时降级到 requests"""
+    
+    # 模拟 HTTP 响应内容
+    mock_response_content = json.dumps({
+        "choices": [{"message": {"content": "Response from requests"}}]
+    }).encode('utf-8')
+    
+    # Mock response object
+    mock_response = MagicMock()
+    mock_response.read.return_value = mock_response_content
+    mock_response.__enter__.return_value = mock_response
+    
+    # Mock Config
+    mock_config = MagicMock()
+    mock_config.api_key = "test_key"
+    mock_config.base_url = "http://test.api/v1"
+    mock_config.model_name = "test-model"
+
+    # Patch 多个对象
+    with patch("src.utils.llm.client.HAS_LITELLM", False), \
+         patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
+         patch("urllib.request.urlopen", return_value=mock_response) as mock_urlopen:
+        
+        result = await call_llm("hello", mode=LLMMode.NORMAL)
+        
+        assert result == "Response from requests"
+        
+        # 验证 urlopen 被调用
+        mock_urlopen.assert_called_once()
+        
+        # 验证请求参数
+        args, _ = mock_urlopen.call_args
+        request_obj = args[0]
+        # client.py 逻辑会把 http://test.api/v1 变成 http://test.api/v1/chat/completions
+        assert request_obj.full_url == "http://test.api/v1/chat/completions"

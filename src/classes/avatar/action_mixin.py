@@ -106,11 +106,6 @@ class ActionMixin:
             return start_event
         return None
 
-    def peek_next_plan(self: "Avatar") -> Optional[ActionPlan]:
-        if not self.planned_actions:
-            return None
-        return self.planned_actions[0]
-
     async def tick_action(self: "Avatar") -> List[Event]:
         """
         推进当前动作一步；返回过程中由动作内部产生的事件（通过 add_event 收集）。

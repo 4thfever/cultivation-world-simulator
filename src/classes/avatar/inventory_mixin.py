@@ -59,19 +59,6 @@ class InventoryMixin:
             
         return True
     
-    def has_item(self: "Avatar", item: "Item", quantity: int = 1) -> bool:
-        """
-        检查是否拥有足够数量的物品
-        
-        Args:
-            item: 要检查的物品
-            quantity: 需要的数量，默认为1
-            
-        Returns:
-            bool: 是否拥有足够数量的物品
-        """
-        return item in self.items and self.items[item] >= quantity
-    
     def get_item_quantity(self: "Avatar", item: "Item") -> int:
         """
         获取指定物品的数量

@@ -60,9 +60,6 @@ gender_strs = {
     Gender.FEMALE: "女",
 }
 
-# 历史事件的最大数量
-MAX_HISTORY_EVENTS = 10
-
 
 @dataclass
 class Avatar(
@@ -90,7 +87,6 @@ class Avatar(
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     personas: List[Persona] = field(default_factory=list)
     technique: Technique | None = None
-    history_events: List[Event] = field(default_factory=list)
     _pending_events: List[Event] = field(default_factory=list)
     current_action: Optional[ActionInstance] = None
     planned_actions: List[ActionPlan] = field(default_factory=list)
@@ -205,25 +201,6 @@ class Avatar(
             check_and_promote_sect_rank(self, old_realm, self.cultivation_progress.realm)
 
     # ========== 区域与位置 ==========
-
-    def is_in_region(self, region: Region | None) -> bool:
-        current_region = self.tile.region
-        if current_region is None:
-            tile = self.world.map.get_tile(self.pos_x, self.pos_y)
-            current_region = tile.region
-        return current_region == region
-
-    def get_co_region_avatars(self, avatars: List["Avatar"]) -> List["Avatar"]:
-        """返回与自己处于同一区域的角色列表（不含自己）。"""
-        if self.tile is None:
-            return []
-        same_region: list[Avatar] = []
-        for other in avatars:
-            if other is self or other.tile is None:
-                continue
-            if other.tile.region == self.tile.region:
-                same_region.append(other)
-        return same_region
 
     def _init_known_regions(self):
         """初始化已知区域：当前位置 + 宗门驻地"""

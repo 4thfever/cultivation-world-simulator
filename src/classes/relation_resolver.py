@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING, List, Tuple, Optional
+import asyncio
 
 from src.classes.relation import (
     Relation,
@@ -17,8 +18,6 @@ from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
-
-from src.utils.ai_batch import AITaskBatch
 
 class RelationResolver:
     TEMPLATE_PATH = CONFIG.paths.templates / "relation_update.txt"
@@ -137,25 +136,10 @@ class RelationResolver:
         """
         if not pairs:
             return []
-            
-        events = []
-        
-        # 使用 asyncio.gather 而不是 AITaskBatch.gather，因为 AITaskBatch 没有 gather 方法
-        import asyncio
-        tasks = []
-        for a, b in pairs:
-            # 创建协程任务但不立即 await
-            tasks.append(RelationResolver.resolve_pair(a, b))
-        
-        if not tasks:
-            return []
-            
+
         # 并发执行所有任务
+        tasks = [RelationResolver.resolve_pair(a, b) for a, b in pairs]
         results = await asyncio.gather(*tasks)
         
-        # 收集结果
-        for res in results:
-            if res and isinstance(res, Event):
-                events.append(res)
-                
-        return events
+        # 过滤掉 None 结果 (resolve_pair 失败或无变化时返回 None)
+        return [res for res in results if res]
