@@ -23,6 +23,10 @@ class DriveAway(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """驱赶无额外检查条件"""
+        # 必须在有效区域内才能驱赶（因为需要指定 MoveAwayFromRegion 的目标区域）
+        if self.avatar.tile.region is None:
+            return False, "荒野之中无法驱赶"
+            
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
             return False, "目标不在交互范围内"

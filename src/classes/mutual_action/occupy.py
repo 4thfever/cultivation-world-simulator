@@ -57,11 +57,10 @@ class Occupy(MutualAction):
     def start(self, region_name: str) -> Event:
         region, host, _ = self._get_region_and_host(region_name)
 
-        # 必须初始化开始时间
         self._start_month_stamp = self.world.month_stamp
 
-        target_name = host.name if host else "无主之地"
-        event_text = f"{self.avatar.name} 对 {target_name} 的 {self.avatar.tile.location_name} 发起抢夺"
+        region_display_name = region.name if region else self.avatar.tile.location_name
+        event_text = f"{self.avatar.name} 对 {host.name} 的 {region_display_name} 发起抢夺"
 
         rel_ids = [self.avatar.id]
         if host:
