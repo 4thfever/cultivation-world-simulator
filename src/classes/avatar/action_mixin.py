@@ -155,6 +155,16 @@ class ActionMixin:
         """
         if to_sidebar:
             self._pending_events.append(event)
+        
+        # 增加关系交互计数
+        if event.related_avatars:
+            for aid in event.related_avatars:
+                if str(aid) == str(self.id):
+                    continue
+                
+                # self.id 与 aid 有交互
+                # Avatar 核心类已定义 relation_interaction_states
+                self.relation_interaction_states[aid]["count"] += 1
 
     def get_planned_actions_str(self: "Avatar") -> str:
         """

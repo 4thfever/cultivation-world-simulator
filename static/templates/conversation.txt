@@ -1,4 +1,4 @@
-你是一个小说家，这是一个仙侠世界，你负责来生成两个NPC间的对话内容，并决定两人是否会有关系的变化。
+你是一个小说家，这是一个仙侠世界，你负责来生成两个NPC间的对话内容。
 
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
@@ -7,18 +7,11 @@
 
 {avatar_name_1}和{avatar_name_2}的对话可能是善意\恶意\闲聊。目的和内容参考NPC信息得出。
 
-两者可能进入的关系：{possible_new_relations}
-两者可能取消的关系：{possible_cancel_relations}
-注意：进入/取消关系不是必须的，完全由你根据对话情况、双方性格、历史事件等判断决定。
-
 注意，只返回json格式的结果。
 格式为：
 {{
     "{avatar_name_2}": {{
         "thinking": ..., // 简单思考对话如何进行
         "conversation_content": ... // 对包含神态、动作描写的第三人称小说有来有回的多轮对话片段，100~300字。
-        "analyze_relation": ... // 分析是否应该有关系的取消或者新增
-        "new_relation": ... // 如果你认为可以让两者产生某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
-        "cancel_relation": ... // 可选，如果你认为可以让两者取消某种身份关系，则返回关系的中文名，否则返回空str。注意这是{avatar_name_2}相对于{avatar_name_1}的身份。
     }}
 }}

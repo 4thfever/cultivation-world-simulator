@@ -73,8 +73,6 @@ class StoryTeller:
         # 如果有两个有效角色，计算可能的关系
         non_null = [a for a in actors if a is not None]
         if len(non_null) >= 2:
-            # 计算 actors[1] 相对于 actors[0] 的可能关系
-            possible_new_relations, possible_cancel_relations = get_relation_change_context(non_null[0], non_null[1])
             avatar_name_1 = non_null[0].name
             avatar_name_2 = non_null[1].name
 
@@ -86,8 +84,6 @@ class StoryTeller:
             "res": res,
             "style": random.choice(story_styles),
             "story_prompt": prompt,
-            "possible_new_relations": possible_new_relations,
-            "possible_cancel_relations": possible_cancel_relations,
         }
 
     @staticmethod
@@ -124,14 +120,6 @@ class StoryTeller:
         # 移除了 try-except 块，允许异常向上冒泡，以便 Fail Fast
         data = await call_llm_with_template(template_path, infos, LLMMode.FAST)
         story = data.get("story", "").strip()
-        
-        # 仅在双人模式下处理关系变化
-        if is_dual:
-            avatar_1 = non_null[0]
-            avatar_2 = non_null[1]
-            # 尝试获取 month_stamp
-            month_stamp = getattr(avatar_1.world, "month_stamp", 0)
-            process_relation_changes(avatar_1, avatar_2, data, month_stamp)
 
         if story:
             return story

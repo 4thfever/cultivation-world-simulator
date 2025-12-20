@@ -48,9 +48,6 @@ class Conversation(MutualAction):
             avatar_name_2: target_avatar.get_info(detailed=True),
         }
         
-        # 获取关系上下文
-        possible_new_relations, possible_cancel_relations = get_relation_change_context(self.avatar, target_avatar)
-        
         # 获取后续计划
         p1 = self.avatar.get_planned_actions_str()
         p2 = target_avatar.get_planned_actions_str()
@@ -62,8 +59,6 @@ class Conversation(MutualAction):
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
-            "possible_new_relations": possible_new_relations,
-            "possible_cancel_relations": possible_cancel_relations,
             "planned_actions": planned_actions_str,
         }
 
@@ -101,15 +96,6 @@ class Conversation(MutualAction):
                 related_avatars=[self.avatar.id, target.id]
             )
             events_to_return.append(content_event)
-
-        # 处理关系变化 (调用通用逻辑)
-        # 注意：process_relation_changes 可能会生成关系变化的事件
-        # 这部分逻辑需要确认是否也遵循新模式。
-        # 假设 process_relation_changes 内部使用了 add_event，则需要留意是否存在双重添加风险。
-        # 目前看来 process_relation_changes 是通过 EventHelper 或直接 add_event 操作的。
-        # 如果它内部逻辑完备（如使用了 EventHelper 去重），则无需改动。
-        process_relation_changes(self.avatar, target, result, month_stamp)
-
         return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
 
     def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:

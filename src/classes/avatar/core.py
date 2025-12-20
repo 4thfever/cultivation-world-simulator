@@ -4,6 +4,7 @@ Avatar 核心类
 精简后的 Avatar 类，通过 Mixin 组合完整功能。
 """
 import random
+from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional, List, TYPE_CHECKING
@@ -118,6 +119,9 @@ class Avatar(
     _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     
     known_regions: set[int] = field(default_factory=set)
+
+    # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
+    relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
 
     # ========== 宗门相关 ==========
     

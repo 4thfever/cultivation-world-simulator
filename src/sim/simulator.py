@@ -301,6 +301,61 @@ class Simulator:
             logger.info("EVENT: %s", str(event))
 
 
+    async def _phase_evolve_relations(self):
+        """
+        关系演化阶段：检查并处理满足条件的角色关系变化
+        """
+        from src.classes.relation_resolver import RelationResolver
+        
+        pairs_to_resolve = []
+        processed_pairs = set() # (id1, id2) id1 < id2
+        
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+        
+        for avatar in living_avatars:
+            target_ids = list(avatar.relation_interaction_states.keys())
+            
+            for target_id in target_ids:
+                state = avatar.relation_interaction_states[target_id]
+                target = self.world.avatar_manager.get_avatar(target_id)
+                
+                # 判定是否触发
+                count = state["count"]
+                should_trigger = False
+                
+                threshold = CONFIG.social.relation_check_threshold
+                
+                if count >= threshold:
+                    should_trigger = True
+                
+                if should_trigger:
+                    # 确保唯一性
+                    id1, id2 = sorted([str(avatar.id), str(target.id)])
+                    pair_key = (id1, id2)
+                    
+                    if pair_key not in processed_pairs:
+                        processed_pairs.add(pair_key)
+                        pairs_to_resolve.append((avatar, target))
+                        
+                        # 重置双方的计数器，防止重复触发
+                        
+                        # 1. 重置 A 侧
+                        state["count"] = 0
+                        state["checked_times"] += 1
+                        
+                        # 2. 重置 B 侧 (如果 B 也有状态记录)
+                        if hasattr(target, "relation_interaction_states"):
+                            # target 对 avatar 的记录
+                            t_state = target.relation_interaction_states[str(avatar.id)]
+                            t_state["count"] = 0
+                            t_state["checked_times"] += 1
+        
+        if pairs_to_resolve:
+            # 批量并发处理
+            await RelationResolver.run_batch(pairs_to_resolve)
+            
+        return []
+
     async def step(self):
         """
         前进一步（每步模拟是一个月时间）
@@ -327,29 +382,32 @@ class Simulator:
         # 3. 执行阶段
         events.extend(await self._phase_execute_actions())
 
-        # 4. 结算死亡
+        # 4. 关系演化阶段
+        await self._phase_evolve_relations()
+
+        # 5. 结算死亡
         events.extend(self._phase_resolve_death())
 
-        # 5. 年龄与新生
+        # 6. 年龄与新生
         events.extend(self._phase_update_age_and_birth())
 
-        # 6. 被动结算（时间效果+奇遇）
+        # 7. 被动结算（时间效果+奇遇）
         events.extend(await self._phase_passive_effects())
 
-        # 7. 绰号生成
+        # 8. 绰号生成
         events.extend(await self._phase_nickname_generation())
 
-        # 8. 更新天地灵机
+        # 9. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 9. 日志
+        # 10. 日志
         # 统一写入事件管理器
         if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
             for e in events:
                 self.world.event_manager.add_event(e)
         self._phase_log_events(events)
 
-        # 9. 时间推进
+        # 11. 时间推进
         self.world.month_stamp = self.world.month_stamp + 1
 
 

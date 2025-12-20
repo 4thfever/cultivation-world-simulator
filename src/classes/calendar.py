@@ -42,3 +42,8 @@ class MonthStamp(int):
 def create_month_stamp(year: Year, month: Month) -> MonthStamp:
     """从年和月创建MonthStamp"""
     return MonthStamp(int(year) * 12 + month.value - 1)
+
+def get_date_str(stamp: int) -> str:
+    """将 MonthStamp (int) 转换为 'X年Y月' 格式"""
+    ms = MonthStamp(stamp)
+    return f"{ms.get_year()}年{ms.get_month().value}月"

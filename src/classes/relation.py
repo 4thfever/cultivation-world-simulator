@@ -57,6 +57,36 @@ INNATE_RELATIONS: set[Relation] = {
 }
 
 
+# —— 规则定义 ——
+
+ADD_RELATION_RULES: dict[Relation, str] = {
+    Relation.LOVERS: "【道侣】需双方为异性。必须是双方非常相互认可且情投意合。",
+    Relation.FRIEND: "【朋友】友善互动（交谈、切磋点到为止、治疗）。无实质利益冲突。",
+    Relation.ENEMY: "【仇人】发生过实质性伤害（攻击致伤、偷窃、羞辱）。单次严重伤害或多次轻微摩擦。",
+    Relation.MASTER: "【师傅】需境界显著高于徒弟（例如金丹vs练气）。",
+    Relation.APPRENTICE: "【徒弟】相对于师傅的身份，通常由师傅关系自动确立。",
+}
+
+CANCEL_RELATION_RULES: dict[Relation, str] = {
+    Relation.LOVERS: "【解除道侣】冲突、感情破裂、发生严重背叛。",
+    Relation.FRIEND: "【绝交】发生利益冲突、背叛或长期无互动导致疏远。",
+    Relation.ENEMY: "【化敌为友】一方主动示好并被接受，或共同经历生死患难，或仇恨被冲淡。",
+    Relation.MASTER: "【逐出师门/叛出师门】徒弟大逆不道或师傅无力教导。",
+    Relation.APPRENTICE: "【解除师徒】同上。",
+}
+
+
+def get_relation_rules_desc() -> str:
+    """获取关系规则的描述文本，用于 Prompt"""
+    lines = ["【建立关系规则】"]
+    for rel, desc in ADD_RELATION_RULES.items():
+        lines.append(f"- {desc}")
+    lines.append("\n【取消关系规则】")
+    for rel, desc in CANCEL_RELATION_RULES.items():
+        lines.append(f"- {desc}")
+    return "\n".join(lines)
+
+
 def is_innate(relation: Relation) -> bool:
     return relation in INNATE_RELATIONS
 

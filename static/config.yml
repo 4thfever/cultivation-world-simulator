@@ -36,6 +36,7 @@ avatar:
 social:
   major_event_context_num: 10  # 大事（长期记忆）展示数量
   minor_event_context_num: 10  # 小事（短期记忆）展示数量
+  relation_check_threshold: 5 # 关系检查需要的交互次数
 
 nickname:
   major_event_threshold: 5  # 获得绰号需要的长期事件数量
