@@ -26,24 +26,26 @@ const filteredEvents = computed(() => {
 // 智能滚动：仅当用户处于底部时才自动跟随滚动
 watch(filteredEvents, () => {
   const el = eventListRef.value
-  if (!el) return
+  let shouldAutoScroll = false
 
-  // 1. scrollHeight === clientHeight: 内容不满一页，无需滚动，视为“在底部”（为了后续满屏时能自动衔接）
-  // 2. scrollHeight - scrollTop - clientHeight < 20: 内容已满页且当前在最底部
-  const isScrollable = el.scrollHeight > el.clientHeight
-  const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 20)
+  if (!el) {
+    // 之前没有元素（列表为空），现在有新数据进入，应当默认滚动到底部
+    shouldAutoScroll = true
+  } else {
+    // 元素存在，判断当前是否处于底部
+    // 1. 如果内容不满一页，视为“在底部”
+    // 2. 如果已溢出，判断距离底部的位置（阈值 50px）
+    const isScrollable = el.scrollHeight > el.clientHeight
+    const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 50)
+    shouldAutoScroll = isAtBottom
+  }
 
-  if (isAtBottom) {
+  if (shouldAutoScroll) {
     nextTick(() => {
-      // 检查DOM元素是否存在（可能在tick期间被销毁）
-      if (!eventListRef.value) return
-      
-      // 重新获取元素，因为DOM可能已经更新
+      // DOM更新后再次获取元素
       const updatedEl = eventListRef.value
-      
-      // 只有内容确实超出容器时才需要设置 scrollTop
-      if (updatedEl.scrollHeight > updatedEl.clientHeight) {
-         updatedEl.scrollTop = updatedEl.scrollHeight
+      if (updatedEl) {
+        updatedEl.scrollTop = updatedEl.scrollHeight
       }
     })
   }
