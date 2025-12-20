@@ -87,7 +87,7 @@ class Simulator:
                             # 记录事件
                             event = Event(
                                 self.world.month_stamp,
-                                f"{avatar.name} 路过 {region.name}，发现无主，将其占据。",
+                                f"{avatar.name} 路过 {avatar.tile.location_name}，发现无主，将其占据。",
                                 related_avatars=[avatar.id]
                             )
                             avatar.add_event(event)

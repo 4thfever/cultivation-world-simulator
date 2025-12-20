@@ -93,6 +93,14 @@ class Tile():
     y: int
     region: 'Region' = None # 可以是一个region的一部分，也可以不属于任何region
 
+    @property
+    def location_name(self) -> str:
+        """
+        优雅地获取当前地点的名称。
+        如果属于某个区域，返回区域名；否则返回'荒野'。
+        """
+        return self.region.name if self.region else "荒野"
+
 
 from src.utils.distance import manhattan_distance
 

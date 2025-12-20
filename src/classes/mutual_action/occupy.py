@@ -43,7 +43,7 @@ class Occupy(MutualAction):
         if region is None:
             return None, None, f"无法找到区域：{region_name}"
         if not isinstance(region, CultivateRegion):
-            return None, None, f"{region.name} 不是修炼区域，无法占据"
+            return None, None, f"{region.name if region else '荒野'} 不是修炼区域，无法占据"
         return region, region.host_avatar, ""
 
     def can_start(self, region_name: str) -> tuple[bool, str]:
@@ -61,7 +61,7 @@ class Occupy(MutualAction):
         self._start_month_stamp = self.world.month_stamp
 
         target_name = host.name if host else "无主之地"
-        event_text = f"{self.avatar.name} 对 {target_name} 的 {region.name} 发起抢夺"
+        event_text = f"{self.avatar.name} 对 {target_name} 的 {self.avatar.tile.location_name} 发起抢夺"
 
         rel_ids = [self.avatar.id]
         if host:
@@ -93,7 +93,7 @@ class Occupy(MutualAction):
             region.host_avatar = self.avatar
             
             # 共用一个事件
-            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {region.name}。"
+            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {self.avatar.tile.location_name}。"
             event = Event(
                 self.world.month_stamp, 
                 event_text, 
@@ -116,7 +116,7 @@ class Occupy(MutualAction):
             if attacker_won:
                 region.host_avatar = self.avatar
             
-            self._last_result = (winner, loser, loser_dmg, winner_dmg, region.name, attacker_won)
+            self._last_result = (winner, loser, loser_dmg, winner_dmg, self.avatar.tile.location_name, attacker_won)
 
     async def finish(self, region_name: str) -> list[Event]:
         """完成动作，生成战斗故事并处理死亡"""

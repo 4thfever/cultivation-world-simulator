@@ -80,7 +80,7 @@ class Catch(TimedAction):
         # 清理状态
         self._caught_result = None
         region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 尝试御兽", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 尝试御兽", related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
         res = self._caught_result

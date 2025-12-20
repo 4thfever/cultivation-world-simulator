@@ -32,7 +32,7 @@ class DriveAway(MutualAction):
         fb = str(feedback_name).strip()
         if fb == "MoveAwayFromRegion":
             # 驱赶选择离开：必定成功，不涉及概率
-            params = {"region": self.avatar.tile.region.name}
+            params = {"region": self.avatar.tile.location_name}
             self._set_target_immediate_action(target_avatar, fb, params)
         elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}

@@ -36,7 +36,7 @@ class SelfHeal(TimedAction):
         if not isinstance(region, SectRegion):
             return False
         hq_name = getattr(getattr(sect, "headquarter", None), "name", None) or getattr(sect, "name", None)
-        return bool(hq_name) and region.name == hq_name
+        return bool(hq_name) and region and region.name == hq_name
 
     def can_start(self) -> tuple[bool, str]:
         # 必须是宗门弟子且在自身宗门总部，且当前HP未满

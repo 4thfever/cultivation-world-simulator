@@ -95,7 +95,7 @@ class Cultivate(TimedAction):
         else:
             efficiency = "进境缓慢（灵气稀薄）"
 
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region.name} 开始修炼，{efficiency}", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 开始修炼，{efficiency}", related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
         return []
