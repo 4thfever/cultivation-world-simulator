@@ -111,14 +111,14 @@ class RelationResolver:
                 
             set_relation(avatar_b, avatar_a, rel)
             
-            event_text = f"{avatar_a.name} 与 {avatar_b.name}因为{reason}成为{display_name}。"
+            event_text = f"因为{reason}，{avatar_a.name}成为{avatar_b.name}的{display_name}。"
             event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
             
         elif c_type == "REMOVE":
             # 同样反转调用
             success = cancel_relation(avatar_b, avatar_a, rel)
             if success:
-                event_text = f"{avatar_a.name} 与 {avatar_b.name} 因为{reason}不再是{display_name}。"
+                event_text = f"因为{reason}，{avatar_a.name}不再是{avatar_b.name}的{display_name}。"
                 event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
 
         if event:

@@ -18,7 +18,7 @@
 【近期交互记录】
 {recent_events_text}
 
-请分析：
+要求：
 1. 根据交互记录，分析两人的互动是怎样的？
 2. 是否满足规则定义中建立新关系或取消旧关系的条件？
 3. 分析是否应该改变关系，关系的新增或者取消应该符合相关条件。
@@ -26,8 +26,8 @@
 返回 JSON 格式：
 {{
     "analysis": "...", // 简要分析思路，明确指出为何变化或为何不变化
-    "changed": true | false, // 是否发生关系变更。如无必要，请填 false
+    "changed": true | false, // 是否发生关系变更。
     "change_type": "ADD" | "REMOVE", // 变更类型。changed为false时可忽略
     "relation": "LOVERS" | "FRIEND" | "ENEMY" | "MASTER" ... (必须是大写枚举名), // 涉及的关系。changed为false时可忽略。注意是{avatar_a_name}相对于{avatar_b_name}的身份。如输出MASTER，即A变为B的师傅。
-    "reason": "..." // 简述原因，名词，类似“意气相投”。changed为false时可忽略
+    "reason": "..." // 简述原因，十个字内的名词，类似“意气相投”。changed为false时可忽略
 }}
