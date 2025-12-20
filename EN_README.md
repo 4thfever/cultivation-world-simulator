@@ -78,8 +78,9 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - [ ] Sect system
   - ✅ Settings, techniques, healing, base, styles
   - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming)
-  - [ ] Sect will AI, sect tasks
-  - ✅ Sect tiers
+  - [ ] Sect will AI
+  - [ ] Sect tasks
+- ✅ Sect tiers
 - [ ] Clans
 - [ ] Court/Empire (TBD)
 - [ ] Inter-organization relations
@@ -136,7 +137,6 @@ If you like this project, consider starring it~ You can also watch intro videos 
   - ✅ Dialogue micro-theaters
   - ✅ Multiple writing styles
 - ✅ One-off choices (e.g., switch techniques or not)
-- [ ] NPC observation space design
 
 ### 🏛️ World Lore
 - [ ] Lore framework
@@ -146,6 +146,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 ### Specials
 - ✅ Fortuitous encounters
 - ✅ Tribulations & Heart devils
+- [ ] Ascension to Upper Realm
 - [ ] Paths/Daos
 - [ ] Possession & Rebirth
 - [ ] Formations
@@ -153,7 +154,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
 - [ ] Flexible world rules
 - [ ] Divination & Omens
 - [ ] Male-female traits inversion
-- [ ] Avatar Secret
+- [ ] Hidden Identity / Dual Persona
 - [ ] World Secret
 
 ### 🔭 Long-term
@@ -178,9 +179,7 @@ If you like this project, consider starring it~ You can also watch intro videos 
    Edit `static/config.yml`:
    ```yaml
     llm:
-      model_name: "qwen-plus"  # or another model supported by LiteLLM
       key: "your-api-key-here"     # your API key
-      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
    ```
    For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
 
