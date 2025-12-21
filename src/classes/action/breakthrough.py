@@ -7,7 +7,7 @@ from src.classes.event import Event
 from src.classes.cultivation import Realm
 from src.classes.story_teller import StoryTeller
 from src.classes.tribulation import TribulationSelector
-from src.classes.hp_and_mp import HP_MAX_BY_REALM
+from src.classes.hp import HP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
 
 # —— 配置：哪些"出发境界"会生成突破小故事（global var）——

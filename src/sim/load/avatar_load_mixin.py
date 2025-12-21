@@ -39,7 +39,7 @@ class AvatarLoadMixin:
         from src.classes.calendar import MonthStamp
         from src.classes.cultivation import Realm, CultivationProgress
         from src.classes.age import Age
-        from src.classes.hp_and_mp import HP
+        from src.classes.hp import HP
         from src.classes.technique import techniques_by_id
         from src.classes.item import items_by_id
         from src.classes.weapon import weapons_by_id

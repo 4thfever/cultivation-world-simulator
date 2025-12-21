@@ -1,5 +1,5 @@
 import pytest
-from src.classes.hp_and_mp import HP
+from src.classes.hp import HP
 from src.classes.cultivation import Realm
 from src.utils.distance import chebyshev_distance, manhattan_distance, euclidean_distance
 from src.utils.id_generator import get_avatar_id

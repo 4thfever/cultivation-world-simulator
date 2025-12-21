@@ -30,7 +30,7 @@ from src.classes.item import Item
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 from src.classes.magic_stone import MagicStone
-from src.classes.hp_and_mp import HP, HP_MAX_BY_REALM
+from src.classes.hp import HP, HP_MAX_BY_REALM
 from src.classes.relation import Relation
 from src.classes.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance

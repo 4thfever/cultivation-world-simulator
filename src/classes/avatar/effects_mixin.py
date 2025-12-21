@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from src.classes.avatar.core import Avatar
 
 from src.classes.effect import _merge_effects, _evaluate_conditional_effect
-from src.classes.hp_and_mp import HP_MAX_BY_REALM
+from src.classes.hp import HP_MAX_BY_REALM
 
 
 class EffectsMixin:
