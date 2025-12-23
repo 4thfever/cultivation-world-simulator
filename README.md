@@ -205,6 +205,6 @@
 本项目采用 [LICENSE](LICENSE) 文件中指定的许可证。
 
 ## 联系方式
-如果您对项目有任何问题或建议，欢迎提交 Issue 或 Pull Request。
-欢迎给我的[B站账号](https://space.bilibili.com/527346837)留言！
-也可以加入QQ群进行讨论：1071821688。进群需要输入我的B站昵称。
+如果您对项目有任何问题或建议，欢迎提交 Issue 或 Pull Request。  
+欢迎给我的[B站账号](https://space.bilibili.com/527346837)留言！  
+也可以加入QQ群进行讨论：1071821688。进群需要输入我的B站昵称。  
