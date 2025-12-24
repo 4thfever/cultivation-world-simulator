@@ -22,7 +22,7 @@ id,name,weapon_type,grade,sect_id,desc,effects
 2011,血饮狂刀,刀,宝物,,刀身赤红，似渴望饮血。,{extra_battle_strength_points: 2}
 2012,玄铁重剑,剑,宝物,,重剑无锋，大巧不工，独孤求败。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
 2013,紫薇软剑,剑,宝物,,软若束带，动若灵蛇。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
-2014,水火囚龙棍,棍,宝物,7,镇魂宗制式兵器，水火相济，困敌锁魂。,"{extra_battle_strength_points: 2, extra_max_mp: 100}"
+2014,水火囚龙棍,棍,宝物,7,镇魂宗制式兵器，水火相济，困敌锁魂。,"{extra_battle_strength_points: 2}"
 3001,青竹蜂云剑,剑,法宝,1,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
 3002,随心铁杆兵,棍,法宝,7,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
 3003,五火七禽扇,扇,法宝,4,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{legal_actions: ['DevourMortals'], extra_battle_strength_points: 'avatar.weapon.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
