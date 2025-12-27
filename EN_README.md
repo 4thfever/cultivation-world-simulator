@@ -33,6 +33,12 @@ If you like this project, consider starring it~ You can also watch intro videos 
 
 ![Screenshot](assets/screenshot.gif)
 
+## Contact
+
+If you have any questions or suggestions, feel free to open an Issue or Pull Request.
+You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!
+You can also join the QQ group for discussion: 1071821688. Verification answer is my Bilibili nickname.
+
 ## Development Progress
 
 ### 🏗️ Foundation
@@ -200,8 +206,4 @@ If you like this project, consider starring it~ You can also watch intro videos 
 
 This project is licensed as specified in the [LICENSE](LICENSE) file.
 
-## Contact
-
-If you have any questions or suggestions, feel free to open an Issue or Pull Request.
-You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!
 

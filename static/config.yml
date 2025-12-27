@@ -39,7 +39,7 @@ social:
   relation_check_threshold: 5 # 关系检查需要的交互次数
 
 nickname:
-  major_event_threshold: 5  # 获得绰号需要的长期事件数量
+  major_event_threshold: 3  # 获得绰号需要的长期事件数量
   minor_event_threshold: 25  # 获得绰号需要的短期事件数量
 
 save:
