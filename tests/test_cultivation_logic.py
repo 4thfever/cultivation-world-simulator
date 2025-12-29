@@ -108,3 +108,4 @@ def test_cp_serialization():
     assert cp_new.exp == 123
     assert cp_new.realm == Realm.Qi_Refinement
 
+

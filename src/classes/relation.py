@@ -188,7 +188,16 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     grouped: dict[str, list[str]] = defaultdict(list)
     for other, rel in relations.items():
         label = get_relation_label(rel, avatar, other)
-        grouped[label].append(other.name)
+        
+        display_name = other.name
+        # 死亡标记
+        if getattr(other, "is_dead", False):
+            # death_info 是一个可选的字典，其中 'reason' 已经被 handle_death 格式化好了
+            d_info = getattr(other, "death_info", None)
+            reason = d_info["reason"] if d_info and "reason" in d_info else "未知原因"
+            display_name = f"{other.name}(已故：{reason})"
+            
+        grouped[label].append(display_name)
 
     lines: list[str] = []
     processed_labels = set()

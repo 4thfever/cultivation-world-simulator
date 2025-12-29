@@ -151,25 +151,24 @@ class Simulator:
         - 战斗死亡已在 Action 中结算
         - 此时剩下的 avatars 都是存活的，只需检查非战斗因素（如老死、被动掉血）
         """
+        from src.classes.death_reason import DeathReason, DeathType
+
         events = []
         for avatar in self.world.avatar_manager.get_living_avatars():
             is_dead = False
-            reason_str = ""
-            death_reason = DeathReason.UNKNOWN
+            death_reason: DeathReason | None = None
             
             # 优先判定重伤（可能是被动效果导致）
             if avatar.hp.cur <= 0: # 注意：这里应该是 avatar.hp.cur 或者 avatar.hp <= 0 取决于 HP 类的实现，原代码是 avatar.hp <= 0
                 is_dead = True
-                reason_str = f"{avatar.name} 因重伤不治身亡"
-                death_reason = DeathReason.SERIOUS_INJURY
+                death_reason = DeathReason(DeathType.SERIOUS_INJURY)
             # 其次判定寿元
             elif avatar.death_by_old_age():
                 is_dead = True
-                reason_str = f"{avatar.name} 老死了，时年{avatar.age.get_age()}岁"
-                death_reason = DeathReason.OLD_AGE
+                death_reason = DeathReason(DeathType.OLD_AGE)
                 
-            if is_dead:
-                event = Event(self.world.month_stamp, reason_str, related_avatars=[avatar.id])
+            if is_dead and death_reason:
+                event = Event(self.world.month_stamp, str(death_reason), related_avatars=[avatar.id])
                 events.append(event)
                 handle_death(self.world, avatar, death_reason)
                 
@@ -318,6 +317,9 @@ class Simulator:
                 state = avatar.relation_interaction_states[target_id]
                 target = self.world.avatar_manager.get_avatar(target_id)
                 
+                if target is None or target.is_dead:
+                    continue
+
                 # 判定是否触发
                 count = state["count"]
                 should_trigger = False

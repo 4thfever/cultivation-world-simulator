@@ -116,3 +116,4 @@ def test_df_get_list_int():
     assert get_list_int(row, "a", separator="|") == [1, 2, 3]
     assert get_list_int(row, "c", separator="|") == [1, 3]
 
+
