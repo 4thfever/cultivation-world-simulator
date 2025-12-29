@@ -49,6 +49,7 @@ onMounted(() => {
       v-if="width > 0 && height > 0"
       :width="width"
       :height="height"
+      :resizeTo="container"
       :background-color="0x000000"
       :antialias="false"
       :resolution="devicePixelRatio"
@@ -88,5 +89,7 @@ onMounted(() => {
 
 .game-canvas-container :deep(canvas) {
   display: block; 
+  width: 100%;
+  height: 100%;
 }
 </style>
