@@ -158,5 +158,12 @@ async def call_llm_with_task_name(
         dict: LLM 返回的 JSON 数据
     """
     mode = get_task_mode(task_name)
+    
+    # 全局强制模式检查
+    # 如果 llm.mode 被设置为 normal 或 fast，则强制覆盖
+    global_mode = getattr(CONFIG.llm, "mode", "default")
+    if global_mode in ["normal", "fast"]:
+        mode = LLMMode(global_mode)
+            
     return await call_llm_with_template(template_path, infos, mode, max_retries)
 

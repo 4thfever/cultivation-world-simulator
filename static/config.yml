@@ -4,9 +4,9 @@ meta:
 llm:
   # 填入litellm支持的model name和key
   key: "your-api-key" # 目前需要的是阿里的qwen api
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
   model_name: "openai/qwen-plus"
   fast_model_name: "openai/qwen-flash"
-  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
   default_modes:
     action_decision: "normal"
     long_term_objective: "normal"
@@ -15,6 +15,7 @@ llm:
     relation_resolver: "fast"
     story_teller: "fast"
     interaction_feedback: "fast"
+  mode: "default" # default: 使用default_modes中的模式，normal: 均使用normal模式，fast: 均使用fast模式
 
 paths:
   templates: static/templates/
