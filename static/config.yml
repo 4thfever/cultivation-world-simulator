@@ -1,9 +1,9 @@
 meta:
-  version: "1.0.8"
+  version: "1.0.9"
 
 llm:
   # 填入litellm支持的model name和key
-  key: "your-api-key" # 目前需要的是阿里的qwen api
+  key: "your-api-key" # 目前需要的是阿里的qwen api。如果用别家的，需要对应修改下面的base_url。
   base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
   model_name: "openai/qwen-plus"
   fast_model_name: "openai/qwen-flash"

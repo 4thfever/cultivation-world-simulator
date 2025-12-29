@@ -33,14 +33,18 @@ def _get_semaphore() -> asyncio.Semaphore:
 
 
 def _call_with_requests(config: LLMConfig, prompt: str) -> str:
-    """使用原生 requests 调用 (OpenAI 兼容接口)"""
+    """使用原生 urllib 调用 (OpenAI 兼容接口)"""
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}"
     }
     
-    # 兼容 litellm 的 openai/ 前缀处理
-    model_name = config.model_name.replace("openai/", "")
+    # 兼容 litellm 的 openai/ 前缀处理，以及其他常见前缀清理
+    model_name = config.model_name
+    for prefix in ["openai/", "azure/", "bedrock/"]:
+        if model_name.startswith(prefix):
+            model_name = model_name[len(prefix):]
+            break
     
     data = {
         "model": model_name,
@@ -49,13 +53,11 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
     
     url = config.base_url
     if not url:
-        raise ValueError("Base URL is required for requests mode")
+        raise ValueError("Base URL is required for requests mode (OpenAI Compatible)")
         
+    # URL 规范化处理：确保指向 chat/completions
     if "chat/completions" not in url:
         url = url.rstrip("/")
-        if not url.endswith("/v1"):
-            # 简单启发式：如果不是显式 v1 结尾，也加上
-             pass
         url = f"{url}/chat/completions"
 
     req = urllib.request.Request(
@@ -66,11 +68,13 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
     )
     
     try:
-        with urllib.request.urlopen(req) as response:
+        # 设置超时时间为 60 秒，避免无限等待
+        with urllib.request.urlopen(req, timeout=60) as response:
             result = json.loads(response.read().decode('utf-8'))
             return result['choices'][0]['message']['content']
     except urllib.error.HTTPError as e:
-        raise Exception(f"LLM Request failed {e.code}: {e.read().decode('utf-8')}")
+        error_body = e.read().decode('utf-8')
+        raise Exception(f"LLM Request failed {e.code}: {error_body}")
     except Exception as e:
         raise Exception(f"LLM Request failed: {str(e)}")
 
@@ -97,7 +101,8 @@ async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
                 # 再次抛出以便上层处理，或者记录日志
                 raise Exception(f"LiteLLM call failed: {str(e)}") from e
         else:
-            # 降级到 requests (在线程池中运行)
+            # 降级到 requests (在线程池中运行)，实现 OpenAI 兼容接口
+            # 这样即使没有 litellm，只要模型服务提供商支持 OpenAI 格式（如 Qwen, DeepSeek, LocalAI 等）均可工作
             result = await asyncio.to_thread(_call_with_requests, config, prompt)
     
     log_llm_call(config.model_name, prompt, result)
