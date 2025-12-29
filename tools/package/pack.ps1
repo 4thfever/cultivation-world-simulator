@@ -184,6 +184,13 @@ try {
             }
         }
 
+        # 清理 _internal 中的 local_config.yml (防止敏感信息泄露)
+        $InternalLocalConfigPath = Join-Path $ExeDir "_internal\static\local_config.yml"
+        if (Test-Path $InternalLocalConfigPath) {
+            Remove-Item -Path $InternalLocalConfigPath -Force
+            Write-Host "✓ Removed sensitive local_config.yml from _internal" -ForegroundColor Green
+        }
+
         # Copy Web Dist to exe directory (Manual copy instead of PyInstaller bundle)
         if (Test-Path $WebDistDir) {
              $DestWeb = Join-Path $ExeDir "web_static"

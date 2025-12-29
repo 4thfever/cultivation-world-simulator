@@ -85,4 +85,8 @@ onMounted(() => {
   overflow: hidden;
   background: #000;
 }
+
+.game-canvas-container :deep(canvas) {
+  display: block; 
+}
 </style>

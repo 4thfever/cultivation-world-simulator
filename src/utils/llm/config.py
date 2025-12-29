@@ -38,7 +38,7 @@ class LLMConfig:
         )
         
         # API Key 优先从环境变量读取
-        api_key = os.getenv("QWEN_API_KEY") or CONFIG.llm.key
+        api_key = CONFIG.llm.key
         
         return cls(
             model_name=model_name,
