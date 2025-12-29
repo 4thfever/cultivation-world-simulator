@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 from src.classes.event import Event
 from src.utils.config import CONFIG
-from src.utils.llm import call_llm_with_template, LLMMode
+from src.utils.llm import call_llm_with_task_name
 from src.run.log import get_logger
 
 from src.classes.nickname_data import Nickname
@@ -75,7 +75,7 @@ async def generate_nickname(avatar: "Avatar") -> Optional[dict]:
         }
         
         # 调用LLM并自动解析JSON
-        response_data = await call_llm_with_template(template_path, infos, LLMMode.NORMAL)
+        response_data = await call_llm_with_task_name("nickname", template_path, infos)
         
         nickname = response_data.get("nickname", "").strip()
         thinking = response_data.get("thinking", "")

@@ -13,7 +13,7 @@ from src.classes.relations import (
 )
 from src.classes.calendar import get_date_str
 from src.classes.event import Event
-from src.utils.llm import call_llm_with_template, LLMMode
+from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -64,7 +64,7 @@ class RelationResolver:
         """
         infos = RelationResolver._build_prompt_data(avatar_a, avatar_b)
         
-        result = await call_llm_with_template(RelationResolver.TEMPLATE_PATH, infos, mode=LLMMode.FAST)
+        result = await call_llm_with_task_name("relation_resolver", RelationResolver.TEMPLATE_PATH, infos)
             
         changed = result.get("changed", False)
         if not changed:

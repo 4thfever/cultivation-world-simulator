@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, TYPE_CHECKING
-from src.utils.llm import call_llm_with_template
+from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 import json
 
@@ -33,7 +33,8 @@ async def make_decision(
 
     # 3. 调用 AI
     template_path = CONFIG.paths.templates / "single_choice.txt"
-    result = await call_llm_with_template(
+    result = await call_llm_with_task_name(
+        "single_choice",
         template_path, 
         infos={
             "avatar_infos": avatar_infos,

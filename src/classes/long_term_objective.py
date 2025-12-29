@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 from src.classes.event import Event
 from src.utils.config import CONFIG
-from src.utils.llm import call_llm_with_template, LLMMode
+from src.utils.llm import call_llm_with_task_name
 from src.run.log import get_logger
 from src.classes.actions import ACTION_INFOS_STR
 
@@ -92,8 +92,8 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
         "general_action_infos": ACTION_INFOS_STR,
     }
     
-    # 调用LLM并自动解析JSON（使用fast模型）
-    response_data = await call_llm_with_template(template_path, infos, LLMMode.NORMAL)
+    # 调用LLM并自动解析JSON（使用配置的模型模式）
+    response_data = await call_llm_with_task_name("long_term_objective", template_path, infos)
     
     content = response_data.get("long_term_objective", "").strip()
     

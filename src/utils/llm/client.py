@@ -9,7 +9,7 @@ from typing import Optional
 
 from src.run.log import log_llm_call
 from src.utils.config import CONFIG
-from .config import LLMMode, LLMConfig
+from .config import LLMMode, LLMConfig, get_task_mode
 from .parser import parse_json
 from .prompt import build_prompt, load_template
 from .exceptions import LLMError, ParseError
@@ -139,7 +139,24 @@ async def call_llm_with_template(
     return await call_llm_json(prompt, mode, max_retries)
 
 
-async def call_ai_action(infos: dict, mode: LLMMode = LLMMode.NORMAL) -> dict:
-    """AI 行动决策专用接口"""
-    template_path = CONFIG.paths.templates / "ai.txt"
-    return await call_llm_with_template(template_path, infos, mode)
+async def call_llm_with_task_name(
+    task_name: str,
+    template_path: Path | str,
+    infos: dict,
+    max_retries: int | None = None
+) -> dict:
+    """
+    根据任务名称自动选择 LLM 模式并调用
+    
+    Args:
+        task_name: 任务名称，用于在 config.yml 中查找对应的模式
+        template_path: 模板路径
+        infos: 模板参数
+        max_retries: 最大重试次数
+        
+    Returns:
+        dict: LLM 返回的 JSON 数据
+    """
+    mode = get_task_mode(task_name)
+    return await call_llm_with_template(template_path, infos, mode, max_retries)
+

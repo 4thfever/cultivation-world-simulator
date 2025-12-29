@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 from src.utils.config import CONFIG
-from src.utils.llm import call_llm_with_template, LLMMode
+from src.utils.llm import call_llm_with_task_name
 from src.classes.relations import (
     process_relation_changes,
     get_relation_change_context
@@ -118,7 +118,7 @@ class StoryTeller:
         infos = StoryTeller._build_template_data(event, res, avatar_infos, prompt, *actors)
         
         # 移除了 try-except 块，允许异常向上冒泡，以便 Fail Fast
-        data = await call_llm_with_template(template_path, infos, LLMMode.FAST)
+        data = await call_llm_with_task_name("story_teller", template_path, infos)
         story = data.get("story", "").strip()
 
         if story:

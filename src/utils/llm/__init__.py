@@ -7,16 +7,17 @@ LLM 调用模块
 - call_llm_with_template: 使用模板调用（最常用）
 """
 
-from .client import call_llm, call_llm_json, call_llm_with_template, call_ai_action
-from .config import LLMMode
+from .client import call_llm, call_llm_json, call_llm_with_template, call_llm_with_task_name
+from .config import LLMMode, get_task_mode
 from .exceptions import LLMError, ParseError, ConfigError
 
 __all__ = [
     "call_llm",
     "call_llm_json", 
     "call_llm_with_template",
-    "call_ai_action",
+    "call_llm_with_task_name",
     "LLMMode",
+    "get_task_mode",
     "LLMError",
     "ParseError",
     "ConfigError",

@@ -5,9 +5,8 @@ from typing import TYPE_CHECKING
 import asyncio
 
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
-from src.classes.tile import get_avatar_distance
 from src.classes.event import Event
-from src.utils.llm import call_llm_with_template, LLMMode
+from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 from src.classes.relation import relation_display_names, Relation
 from src.classes.relations import get_possible_new_relations
@@ -86,7 +85,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     async def _call_llm_feedback(self, infos: dict) -> dict:
         """异步调用 LLM 获取反馈"""
         template_path = self._get_template_path()
-        return await call_llm_with_template(template_path, infos, LLMMode.FAST)
+        return await call_llm_with_task_name("interaction_feedback", template_path, infos)
 
     def _set_target_immediate_action(self, target_avatar: "Avatar", action_name: str, action_params: dict) -> None:
         """

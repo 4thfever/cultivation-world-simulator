@@ -9,9 +9,10 @@ import asyncio
 
 from src.classes.world import World
 from src.classes.event import Event, NULL_EVENT
-from src.utils.llm import call_ai_action
+from src.utils.llm import call_llm_with_task_name
 from src.classes.typings import ACTION_NAME_PARAMS_PAIRS
 from src.classes.actions import ACTION_INFOS_STR
+from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -66,7 +67,8 @@ class LLMAI(AI):
                 "world_info": world_info,
                 "general_action_infos": general_action_infos,
             }
-            res = await call_ai_action(info)
+            template_path = CONFIG.paths.templates / "ai.txt"
+            res = await call_llm_with_task_name("action_decision", template_path, info)
             return avatar, res
 
         # 直接并发所有任务

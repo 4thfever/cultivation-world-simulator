@@ -7,6 +7,14 @@ llm:
   model_name: "openai/qwen-plus"
   fast_model_name: "openai/qwen-flash"
   base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  default_modes:
+    action_decision: "normal"
+    long_term_objective: "normal"
+    nickname: "normal"
+    single_choice: "normal"
+    relation_resolver: "fast"
+    story_teller: "fast"
+    interaction_feedback: "fast"
 
 paths:
   templates: static/templates/

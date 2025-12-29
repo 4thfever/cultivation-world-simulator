@@ -46,3 +46,19 @@ class LLMConfig:
             base_url=CONFIG.llm.base_url
         )
 
+
+def get_task_mode(task_name: str) -> LLMMode:
+    """
+    获取指定任务的 LLM 调用模式
+    
+    Args:
+        task_name: 任务名称 (配置在 llm.default_modes 下的 key)
+        
+    Returns:
+        LLMMode: 对应的模式，如果未配置则默认返回 NORMAL
+    """
+    from src.utils.config import CONFIG
+    
+    # 获取配置的模式字符串，默认 normal
+    mode_str = getattr(CONFIG.llm.default_modes, task_name, "normal")
+    return LLMMode(mode_str)
