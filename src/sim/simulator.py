@@ -13,6 +13,7 @@ from src.classes.name import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.classes.fortune import try_trigger_fortune
+from src.classes.misfortune import try_trigger_misfortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
@@ -203,9 +204,10 @@ class Simulator:
         for avatar in living_avatars:
             avatar.update_time_effect()
         
-        # 使用 gather 并行触发奇遇
-        tasks = [try_trigger_fortune(avatar) for avatar in living_avatars]
-        results = await asyncio.gather(*tasks)
+        # 使用 gather 并行触发奇遇和霉运
+        tasks_fortune = [try_trigger_fortune(avatar) for avatar in living_avatars]
+        tasks_misfortune = [try_trigger_misfortune(avatar) for avatar in living_avatars]
+        results = await asyncio.gather(*(tasks_fortune + tasks_misfortune))
         
         events.extend([e for res in results if res for e in res])
                 

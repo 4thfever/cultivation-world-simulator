@@ -365,7 +365,7 @@ def _get_spirit_stone_amount(avatar: Avatar) -> int:
     return random.randint(*range_tuple)
 
 
-def _get_cultivation_exp(avatar: Avatar) -> int:
+def get_cultivation_exp_reward(avatar: Avatar) -> int:
     """根据境界返回修为经验（相当于一年修炼的收益）"""
     from src.classes.cultivation import Realm
     
@@ -523,13 +523,13 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         res_text = f"{avatar.name} 获得灵石 {amount} 枚"
 
     elif kind == FortuneKind.CULTIVATION:
-        exp_gain = _get_cultivation_exp(avatar)
+        exp_gain = get_cultivation_exp_reward(avatar)
         avatar.cultivation_progress.add_exp(exp_gain)
         res_text = f"{avatar.name} 修为增长 {exp_gain} 点"
 
     # 生成故事（异步，等待完成）
     event_text = f"遭遇奇遇（{theme}），{res_text}"
-    story_prompt = "请据此写100~150字小故事。"
+    story_prompt = "请据此写100~300字小故事。"
 
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)
@@ -545,4 +545,5 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
 
 __all__ = [
     "try_trigger_fortune",
+    "get_cultivation_exp_reward",
 ]

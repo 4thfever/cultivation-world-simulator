@@ -42,18 +42,6 @@ EXTRA_MAX_HP = "extra_max_hp"
   - 大量: 200+
 """
 
-EXTRA_MAX_MP = "extra_max_mp"
-"""
-额外最大灵力值
-类型: int
-结算: src/classes/avatar.py (__post_init__)
-说明: 增加角色的最大灵力值上限。
-数值参考: 
-  - 微量: 10~30
-  - 中量: 50~100 (练气期基础MP约100)
-  - 大量: 200+
-"""
-
 EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
 """
 额外观察半径
@@ -372,7 +360,6 @@ ALL_EFFECTS = [
     # 战斗相关
     "extra_battle_strength_points",      # int - 额外战斗力
     "extra_max_hp",                      # int - 额外最大生命值
-    "extra_max_mp",                      # int - 额外最大灵力值
     "extra_observation_radius",          # int - 额外观察半径
     "damage_reduction",                  # float - 伤害减免
     "realm_suppression_bonus",           # float - 境界压制加成
@@ -403,6 +390,7 @@ ALL_EFFECTS = [
 
     # 奇遇相关
     "extra_fortune_probability",         # float - 额外奇遇概率
+    "extra_misfortune_probability",      # float - 额外霉运概率
     
     # 兵器相关
     "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率

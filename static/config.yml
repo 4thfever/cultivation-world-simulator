@@ -25,6 +25,7 @@ game:
   sect_num: 3 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
   npc_birth_rate_per_month: 0
   fortune_probability: 0.005
+  misfortune_probability: 0.005
 
 df:
   ids_separator: ";"
