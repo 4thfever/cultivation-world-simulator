@@ -19,6 +19,7 @@ const socketStore = useSocketStore()
 
 const showMenu = ref(false)
 const isManualPaused = ref(false)
+const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>('load')
 
 onMounted(async () => {
   // 初始化 Socket 连接
@@ -27,6 +28,15 @@ onMounted(async () => {
   await worldStore.initialize()
   window.addEventListener('keydown', handleKeydown)
 })
+
+// 导出方法供 socket store 调用
+function openLLMConfig() {
+  menuDefaultTab.value = 'llm'
+  showMenu.value = true
+}
+
+// 暴露给全局以便 socket store 可以调用
+;(window as any).__openLLMConfig = openLLMConfig
 
 onUnmounted(() => {
   socketStore.disconnect()
@@ -115,7 +125,8 @@ watch([showMenu, isManualPaused], ([menuVisible, manualPaused]) => {
         </div>
 
         <SystemMenu 
-          :visible="showMenu" 
+          :visible="showMenu"
+          :default-tab="menuDefaultTab"
           @close="handleMenuClose"
         />
       </div>

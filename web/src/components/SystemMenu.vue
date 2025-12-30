@@ -7,29 +7,36 @@ import LLMConfigPanel from './game/panels/system/LLMConfigPanel.vue'
 
 const props = defineProps<{
   visible: boolean
+  defaultTab?: 'save' | 'load' | 'create' | 'delete' | 'llm'
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>('load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>(props.defaultTab || 'load')
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab
 }
 
-// Reset tab when reopening
+// 监听 defaultTab 变化
+watch(() => props.defaultTab, (newTab) => {
+  if (newTab) {
+    activeTab.value = newTab
+  }
+})
+
+// 当菜单打开时，如果有 defaultTab 就使用它
 watch(() => props.visible, (val) => {
-  if (val) {
-    // Do not reset activeTab to keep user context, or reset if preferred
-    // activeTab.value = 'load' 
+  if (val && props.defaultTab) {
+    activeTab.value = props.defaultTab
   }
 })
 </script>
 
 <template>
-  <div v-if="visible" class="system-menu-overlay" @click.self="emit('close')">
+  <div v-if="visible" class="system-menu-overlay">
     <div class="system-menu">
       <div class="menu-header">
         <h2>系统菜单</h2>

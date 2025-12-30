@@ -8,11 +8,13 @@ const API_BASE = import.meta.env.VITE_API_TARGET || '';
 
 export class ApiError extends Error {
   public status: number;
+  public response: { data: any };
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, responseData?: any) {
     super(message);
     this.status = status;
     this.name = 'ApiError';
+    this.response = { data: responseData || {} };
   }
 }
 
@@ -21,7 +23,21 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new ApiError(response.status, `Request failed: ${response.statusText}`);
+    // 尝试解析错误响应的 JSON
+    let errorData = null;
+    let errorMessage = `Request failed: ${response.statusText}`;
+    
+    try {
+      errorData = await response.json();
+      // 如果后端返回了 detail 字段，使用它作为错误消息
+      if (errorData?.detail) {
+        errorMessage = errorData.detail;
+      }
+    } catch {
+      // 如果解析失败，使用默认错误消息
+    }
+    
+    throw new ApiError(response.status, errorMessage, errorData);
   }
 
   // 假设后端总是返回 JSON

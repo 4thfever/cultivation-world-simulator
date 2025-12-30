@@ -173,7 +173,7 @@ async def call_llm_with_task_name(
     return await call_llm_with_template(template_path, infos, mode, max_retries)
 
 
-def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig] = None) -> bool:
+def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig] = None) -> tuple[bool, str]:
     """
     测试 LLM 服务连通性 (同步版本)
     
@@ -182,7 +182,7 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
         config: 直接使用该配置进行测试
         
     Returns:
-        bool: 连接成功返回 True，失败返回 False
+        tuple[bool, str]: (是否成功, 错误信息)，成功时错误信息为空字符串
     """
     try:
         if config is None:
@@ -199,7 +199,22 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
         else:
             # 直接调用 requests 实现
             _call_with_requests(config, "test")
-        return True
+        return True, ""
     except Exception as e:
-        print(f"Connectivity test failed: {e}")
-        return False
+        error_msg = str(e)
+        print(f"Connectivity test failed: {error_msg}")
+        
+        # 解析常见错误并提供友好提示
+        if "401" in error_msg or "invalid_api_key" in error_msg or "Incorrect API key" in error_msg:
+            return False, "API Key 无效，请检查您的密钥是否正确"
+        elif "403" in error_msg or "Forbidden" in error_msg:
+            return False, "访问被拒绝，请检查您的权限或配额"
+        elif "404" in error_msg:
+            return False, "服务地址不存在，请检查 Base URL 是否正确"
+        elif "timeout" in error_msg.lower():
+            return False, "连接超时，请检查网络连接或服务地址"
+        elif "Connection" in error_msg or "connect" in error_msg.lower():
+            return False, "无法连接到服务器，请检查 Base URL 和网络"
+        else:
+            # 返回原始错误信息
+            return False, error_msg

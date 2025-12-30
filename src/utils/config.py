@@ -1,9 +1,7 @@
 """
 配置管理模块
 使用OmegaConf读取config.yml和local_config.yml
-local_config.yml的优先级更高
 """
-
 from pathlib import Path
 from omegaconf import OmegaConf
 
@@ -34,8 +32,9 @@ def load_config():
     config = OmegaConf.merge(base_config, local_config)
 
     # 把paths下的所有值pathlib化
-    for key, value in config.paths.items():
-        config.paths[key] = Path(value)
+    if hasattr(config, "paths"):
+        for key, value in config.paths.items():
+            config.paths[key] = Path(value)
     
     return config
 
