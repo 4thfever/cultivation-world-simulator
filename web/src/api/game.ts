@@ -59,6 +59,14 @@ export interface PhenomenonDTO {
   effect_desc: string;
 }
 
+export interface LLMConfigDTO {
+  base_url: string;
+  api_key: string;
+  model_name: string;
+  fast_model_name: string;
+  mode: string;
+}
+
 export const gameApi = {
   // --- World State ---
   
@@ -149,5 +157,19 @@ export const gameApi = {
 
   deleteAvatar(avatarId: string) {
     return httpClient.post<{ status: string; message: string }>('/api/action/delete_avatar', { avatar_id: avatarId });
+  },
+
+  // --- LLM Config ---
+
+  fetchLLMConfig() {
+    return httpClient.get<LLMConfigDTO>('/api/config/llm');
+  },
+
+  testLLMConnection(config: LLMConfigDTO) {
+    return httpClient.post<{ status: string; message: string }>('/api/config/llm/test', config);
+  },
+
+  saveLLMConfig(config: LLMConfigDTO) {
+    return httpClient.post<{ status: string; message: string }>('/api/config/llm/save', config);
   }
 };

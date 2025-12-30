@@ -36,6 +36,9 @@ from src.sim.save.save_game import save_game, list_saves
 from src.sim.load.load_game import load_game
 from src.utils import protagonist as prot_utils
 import random
+from omegaconf import OmegaConf
+from src.utils.llm.client import test_connectivity
+from src.utils.llm.config import LLMConfig, LLMMode
 
 # 全局游戏实例
 game_instance = {
@@ -983,6 +986,100 @@ def delete_avatar(req: DeleteAvatarRequest):
         return {"status": "ok", "message": "Avatar deleted"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# --- LLM Config API ---
+
+class LLMConfigDTO(BaseModel):
+    base_url: str
+    api_key: str
+    model_name: str
+    fast_model_name: str
+    mode: str
+
+class TestConnectionRequest(BaseModel):
+    base_url: str
+    api_key: str
+    model_name: str
+
+@app.get("/api/config/llm")
+def get_llm_config():
+    """获取当前 LLM 配置"""
+    return {
+        "base_url": getattr(CONFIG.llm, "base_url", ""),
+        "api_key": getattr(CONFIG.llm, "key", ""),
+        "model_name": getattr(CONFIG.llm, "model_name", ""),
+        "fast_model_name": getattr(CONFIG.llm, "fast_model_name", ""),
+        "mode": getattr(CONFIG.llm, "mode", "default")
+    }
+
+@app.post("/api/config/llm/test")
+def test_llm_connection(req: TestConnectionRequest):
+    """测试 LLM 连接"""
+    try:
+        # 构造临时配置
+        config = LLMConfig(
+            base_url=req.base_url,
+            api_key=req.api_key,
+            model_name=req.model_name
+        )
+        
+        success = test_connectivity(config=config)
+        
+        if success:
+            return {"status": "ok", "message": "连接成功"}
+        else:
+            raise HTTPException(status_code=400, detail="连接失败")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"测试出错: {str(e)}")
+
+@app.post("/api/config/llm/save")
+def save_llm_config(req: LLMConfigDTO):
+    """保存 LLM 配置"""
+    try:
+        # 1. Update In-Memory Config (Partial update)
+        # OmegaConf object attributes can be set directly if they exist
+        if not OmegaConf.is_config(CONFIG):
+            # 理论上 CONFIG 是 DictConfig
+            pass
+
+        # 直接更新 CONFIG.llm 的属性
+        CONFIG.llm.base_url = req.base_url
+        CONFIG.llm.key = req.api_key
+        CONFIG.llm.model_name = req.model_name
+        CONFIG.llm.fast_model_name = req.fast_model_name
+        CONFIG.llm.mode = req.mode
+
+        # 2. Persist to local_config.yml
+        # 使用 src/utils/config.py 中类似的路径逻辑
+        # 注意：这里我们假设是在项目根目录下运行，或者静态文件路径是相对固定的
+        # 为了稳健，我们复用 CONFIG 加载时的路径逻辑（但这里是写入）
+        
+        local_config_path = "static/local_config.yml"
+        
+        # Load existing or create new
+        if os.path.exists(local_config_path):
+            conf = OmegaConf.load(local_config_path)
+        else:
+            conf = OmegaConf.create({})
+        
+        # Ensure llm section exists
+        if "llm" not in conf:
+            conf.llm = {}
+            
+        conf.llm.base_url = req.base_url
+        conf.llm.key = req.api_key
+        conf.llm.model_name = req.model_name
+        conf.llm.fast_model_name = req.fast_model_name
+        conf.llm.mode = req.mode
+        
+        OmegaConf.save(conf, local_config_path)
+        
+        return {"status": "ok", "message": "配置已保存"}
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"保存失败: {str(e)}")
 
 
 # --- 存档系统 API ---

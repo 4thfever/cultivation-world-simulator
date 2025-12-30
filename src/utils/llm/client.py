@@ -173,18 +173,21 @@ async def call_llm_with_task_name(
     return await call_llm_with_template(template_path, infos, mode, max_retries)
 
 
-def test_connectivity(mode: LLMMode = LLMMode.NORMAL) -> bool:
+def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig] = None) -> bool:
     """
     测试 LLM 服务连通性 (同步版本)
     
     Args:
-        mode: 测试使用的模式 (NORMAL/FAST)
+        mode: 测试使用的模式 (NORMAL/FAST)，如果传入 config 则忽略此参数
+        config: 直接使用该配置进行测试
         
     Returns:
         bool: 连接成功返回 True，失败返回 False
     """
     try:
-        config = LLMConfig.from_mode(mode)
+        if config is None:
+            config = LLMConfig.from_mode(mode)
+            
         if HAS_LITELLM:
             # 使用 litellm 同步接口
             litellm.completion(
@@ -197,5 +200,6 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL) -> bool:
             # 直接调用 requests 实现
             _call_with_requests(config, "test")
         return True
-    except Exception:
+    except Exception as e:
+        print(f"Connectivity test failed: {e}")
         return False

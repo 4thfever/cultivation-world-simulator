@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
 import DeleteAvatarPanel from './game/panels/system/DeleteAvatarPanel.vue'
+import LLMConfigPanel from './game/panels/system/LLMConfigPanel.vue'
 
 const props = defineProps<{
   visible: boolean
@@ -12,7 +13,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const activeTab = ref<'save' | 'load' | 'create' | 'delete'>('load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>('load')
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab
@@ -60,6 +61,12 @@ watch(() => props.visible, (val) => {
         >
           删除角色
         </button>
+        <button 
+          :class="{ active: activeTab === 'llm' }"
+          @click="switchTab('llm')"
+        >
+          LLM设置
+        </button>
       </div>
 
       <div class="menu-content">
@@ -77,6 +84,8 @@ watch(() => props.visible, (val) => {
              currently it stays to allow creating more or just refreshes internal list -->
         
         <DeleteAvatarPanel v-else-if="activeTab === 'delete'" />
+        
+        <LLMConfigPanel v-else-if="activeTab === 'llm'" />
       </div>
     </div>
   </div>

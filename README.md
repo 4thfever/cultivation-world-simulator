@@ -206,6 +206,9 @@
 ## 贡献者
 - Aku, 世界观\玩法设计与讨论
 
+## 参考
+- 参考了ailifeengine部分ui
+
 ## 许可证
 
 本项目采用 [LICENSE](LICENSE) 文件中指定的许可证。
