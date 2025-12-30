@@ -154,19 +154,7 @@ try {
     # 在 finally 块中执行后续操作，确保一定会执行
     Write-Host "`n=== Post-build processing ===" -ForegroundColor Green
     
-    # Copy cmd files to exe directory
-    $CmdSrc = Join-Path $ScriptDir "set_env.cmd"
     $ExeDir = Join-Path $DistDir $AppName
-    if ((Test-Path $CmdSrc) -and (Test-Path $ExeDir)) {
-        Copy-Item -Path $CmdSrc -Destination $ExeDir -Force
-        # Rename cmd file
-        $OldCmdPath = Join-Path $ExeDir "set_env.cmd"
-        $NewCmdPath = Join-Path $ExeDir "点击输入大模型密钥.cmd"
-        if (Test-Path $OldCmdPath) {
-            Move-Item -Path $OldCmdPath -Destination $NewCmdPath -Force
-            Write-Host "✓ Copied and renamed to 点击输入大模型密钥.cmd in exe directory" -ForegroundColor Green
-        }
-    }
     
     # Copy static to exe directory (Config needs to be next to exe for CWD access)
     if (Test-Path $ExeDir) {        
