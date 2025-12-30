@@ -26,7 +26,7 @@ class TestActionSocial:
         return target
 
     @pytest.mark.asyncio
-    @patch("src.classes.mutual_action.mutual_action.call_llm_with_template", new_callable=AsyncMock)
+    @patch("src.classes.mutual_action.mutual_action.call_llm_with_task_name", new_callable=AsyncMock)
     async def test_conversation_flow(self, mock_llm, dummy_avatar, target_avatar):
         """测试对话流程：Step -> LLM -> Feedback"""
         
