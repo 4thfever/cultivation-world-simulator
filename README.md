@@ -189,9 +189,12 @@
    在 `static/config.yml` 中配置LLM参数：
    ```yaml
     llm:
-      key: "your-api-key-here"     # 你的API密钥
+      key: "your-api-key-here"        # 你的API密钥，如"sk-xxx"
+      base_url: "https://api.xxx.com" # API地址，如"https://dashscope.aliyuncs.com/compatible-mode/v1"
+      model_name: "model-name"        # 智能模型名称，如"qwen-plus"
+      fast_model_name: "fast-model"   # 快速模型名称，如"qwen-fast"
    ```
-   具体支持的模型请参考 [litellm文档](https://docs.litellm.ai/docs/providers)
+   支持所有兼容 OpenAI 接口格式的 API 提供商（如通义千问、DeepSeek、硅基流动、OpenRouter 等）
 
 4. 运行：
    需要同时启动后端和前端。

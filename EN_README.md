@@ -185,9 +185,12 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
    Edit `static/config.yml`:
    ```yaml
     llm:
-      key: "your-api-key-here"     # your API key
+      key: "your-api-key-here"        # your API key
+      base_url: "https://api.xxx.com" # API base URL
+      model_name: "model-name"        # main model name
+      fast_model_name: "fast-model"   # fast model name
    ```
-   For supported models, refer to [litellm documentation](https://docs.litellm.ai/docs/providers)
+   Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
 
 4. Run:
    Need to start both backend and frontend.

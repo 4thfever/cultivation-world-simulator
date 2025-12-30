@@ -99,12 +99,12 @@ async def test_call_llm_json_all_fail():
         assert mock_call.call_count == 2 # Initial + 1 retry
 
 @pytest.mark.asyncio
-async def test_call_llm_fallback_requests():
-    """测试没有 litellm 时降级到 requests"""
+async def test_call_llm_with_urllib():
+    """测试使用 urllib 调用 OpenAI 兼容接口"""
     
     # 模拟 HTTP 响应内容
     mock_response_content = json.dumps({
-        "choices": [{"message": {"content": "Response from requests"}}]
+        "choices": [{"message": {"content": "Response from API"}}]
     }).encode('utf-8')
     
     # Mock response object
@@ -119,13 +119,12 @@ async def test_call_llm_fallback_requests():
     mock_config.model_name = "test-model"
 
     # Patch 多个对象
-    with patch("src.utils.llm.client.HAS_LITELLM", False), \
-         patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
+    with patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
          patch("urllib.request.urlopen", return_value=mock_response) as mock_urlopen:
         
         result = await call_llm("hello", mode=LLMMode.NORMAL)
         
-        assert result == "Response from requests"
+        assert result == "Response from API"
         
         # 验证 urlopen 被调用
         mock_urlopen.assert_called_once()
