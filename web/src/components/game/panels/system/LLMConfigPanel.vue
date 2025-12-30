@@ -17,7 +17,7 @@ const config = ref<LLMConfigDTO>({
 })
 
 const modeOptions = [
-  { label: '均衡 (Default)', value: 'default', desc: '自动选择模型' },
+  { label: '均衡 (Default)', value: 'default', desc: '自动选择模型（推荐）' },
   { label: '智能 (Normal)', value: 'normal', desc: '全用智能模型' },
   { label: '快速 (Fast)', value: 'fast', desc: '全用快速模型' }
 ]
@@ -259,7 +259,7 @@ onMounted(() => {
           <div class="help-section">
             <h4>🔗 4. 从哪里获取 Key?</h4>
             <ul class="link-list">
-               <li><a href="https://bailian.console.aliyun.com/" target="_blank">阿里云百炼 (Qwen) <span class="recommend-tag">最推荐</span></a></li>
+               <li><a href="https://bailian.console.aliyun.com/" target="_blank">阿里云百炼 (Qwen / 最推荐)</a></li>
                <li><a href="https://platform.deepseek.com/" target="_blank">DeepSeek 开放平台 (国内推荐，便宜)</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">OpenRouter (全机型聚合，推荐)</a></li>
                <li><a href="https://cloud.siliconflow.cn/" target="_blank">硅基流动 (国内聚合)</a></li>
@@ -674,16 +674,5 @@ onMounted(() => {
   background: #33443a;
   color: #888;
   cursor: not-allowed;
-}
-
-.recommend-tag {
-  font-size: 10px;
-  background: #ff4d4f;
-  color: white;
-  padding: 1px 4px;
-  border-radius: 3px;
-  margin-left: 6px;
-  font-weight: normal;
-  vertical-align: middle;
 }
 </style>
