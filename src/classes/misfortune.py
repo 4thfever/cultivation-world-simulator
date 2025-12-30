@@ -112,9 +112,9 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         
     elif kind == MisfortuneKind.INJURY:
         # 受伤：扣减HP
-        # 扣减量：最大生命值的 10%~80% + 固定值
+        # 扣减量：最大生命值的 10%~30% + 固定值
         max_hp = avatar.hp.max
-        ratio = random.uniform(0.1, 0.8)
+        ratio = random.uniform(0.1, 0.3)
         damage = int(max_hp * ratio) + random.randint(10, 50)
         
         avatar.hp.cur -= damage
@@ -132,7 +132,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         actual_loss = min(current_exp, loss)
         avatar.cultivation_progress.exp -= actual_loss
         
-        res_text = f"{avatar.name} 修为倒退"
+        res_text = f"{avatar.name} 修为倒退 {actual_loss} 点"
         
     # 生成故事
     event_text = f"遭遇霉运（{theme}），{res_text}"

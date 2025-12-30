@@ -58,3 +58,5 @@ id,name,exclusion_names,desc,rarity,condition,effects
 56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
 57,探险家,死宅,你对未知的世界充满好奇，热衷于探索地图上未被点亮的区域，难以忍受长时间待在同一个地方。,SR,,
 58,死宅,探险家;冒险,你认为外面的世界充满危险且麻烦，除了必要的宗门任务，你极度排斥长途跋涉，更喜欢待在熟悉的区域修炼。,N,,
+59,扫把星,福缘深厚;气运之子,天生霉运缠身，喝凉水都塞牙。虽然活着不易，但也磨练了心性。,N,,{extra_misfortune_probability: 0.005}
+60,大器晚成,,早年修行多舛，霉运连连；但若能坚持至金丹元婴，便可否极泰来，气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""练气"", ""筑基""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""金丹"", ""元婴""]', extra_fortune_probability: 0.01}]"
