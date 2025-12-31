@@ -11,9 +11,9 @@ id,name,grade,desc,effects
 2009,金丝软甲,筑基,刀枪不入，水火不侵，贴身软甲.,"{extra_max_hp: 100, damage_reduction: 0.05}"
 2010,寒玉床,筑基,古墓派至宝，在此床上修炼，事半功倍，且无心魔之虞.,{cultivate_duration_reduction: 0.2}
 2011,无相面具,筑基,千人千面，不仅掩盖容貌，更能掩盖气息.,{extra_plunder_multiplier: 0.5}
-3001,神风舟,金丹,飞行法器，速度极快，居家旅行杀人越货必备.,{extra_move_step: 1}
+3001,神风舟,金丹,飞行法器，速度极快，居家旅行杀人越货必备.,"{extra_move_step: 2, extra_escape_success_rate: 0.15}"
 3002,昆仑镜,金丹,上古神器，拥有穿梭时空之力，此为仿品，仅能窥探远方.,{extra_observation_radius: 2}
-3003,掌天瓶,元婴,夺天地之造化，聚日月之精华，催熟万物.,{extra_cultivate_exp: 50}
+3003,掌天瓶,元婴,夺天地之造化，聚日月之精华，催熟万物.,"{extra_cultivate_exp: 150, cultivate_duration_reduction: 0.2}"
 3004,龙凤呈祥戒,金丹,龙凤和鸣，心意相通，双修进境一日千里.,{extra_dual_cultivation_exp: 100}
 3005,隐形披风,金丹,披上后身形尽隐，连神识也难以察觉.,"{extra_move_step: 1, extra_escape_success_rate: 0.2}"
 3006,御兽环,金丹,套在妖兽颈上，任其凶焰滔天，也要乖乖听命.,{extra_catch_success_rate: 0.1}

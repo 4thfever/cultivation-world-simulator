@@ -24,12 +24,12 @@ id,name,weapon_type,grade,desc,effects
 2013,紫薇软剑,剑,筑基,软若束带，动若灵蛇。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
 2014,水火囚龙棍,棍,筑基,镇魂宗制式兵器，水火相济，困敌锁魂。,{extra_battle_strength_points: 2}
 3001,青竹蜂云剑,剑,金丹,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
-3002,随心铁杆兵,棍,金丹,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+3002,随心铁杆兵,棍,金丹,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 3, extra_observation_radius: 1}"
 3003,五火七禽扇,扇,金丹,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{extra_battle_strength_points: 3, extra_observation_radius: 2}"
-3004,弑神枪,枪,元婴,杀气滔天，曾染魔神之血，枪出无回。,{extra_battle_strength_points: '2 + avatar.weapon_proficiency * 0.01'}
-3005,赤锋矛,枪,元婴,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 2}, {when: 'avatar.cultivation_progress.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
+3004,弑神枪,枪,元婴,杀气滔天，曾染魔神之血，枪出无回。,{extra_battle_strength_points: '3 + avatar.weapon_proficiency * 0.02'}
+3005,赤锋矛,枪,元婴,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 3}, {when: 'avatar.cultivation_progress.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
 3006,斩仙飞刀,暗器,金丹,红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
-3007,诛仙剑,剑,元婴,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,{extra_battle_strength_points: 3}
-3008,干将莫邪,剑,金丹,挚情之剑，一雌一雄，分则为杀，合则为情。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
-3009,芭蕉扇,扇,金丹,太阴之精叶，一扇息火，二扇生风，三扇下雨。,"{extra_battle_strength_points: 2, extra_observation_radius: 2, extra_move_step: 1}"
+3007,诛仙剑,剑,元婴,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.1}"
+3008,干将莫邪,剑,金丹,挚情之剑，一雌一雄，分则为杀，合则为情。,"{extra_battle_strength_points: 3, extra_max_hp: 150}"
+3009,芭蕉扇,扇,金丹,太阴之精叶，一扇息火，二扇生风，三扇下雨。,"{extra_battle_strength_points: 3, extra_observation_radius: 2, extra_move_step: 1}"
 3010,紫金降魔杵,棍,金丹,韦护的兵器，虽然轻灵，打在人身却重如泰山。,"{extra_battle_strength_points: 3, damage_reduction: 0.1}"
