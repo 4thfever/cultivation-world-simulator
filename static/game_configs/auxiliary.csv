@@ -24,4 +24,4 @@ id,name,grade,sect_id,desc,effects
 3011,六道剑匣,法宝,1,背负六道，剑出轮回，悟剑良伴.,"{extra_breakthrough_success_rate: 0.2, extra_cultivate_exp: 100}"
 3012,传国玉玺,法宝,,受命于天，既寿永昌。皇威浩荡，震慑宵小.,{realm_suppression_bonus: 0.15}
 3013,灵眼之泉,法宝,5,可移动的灵气之源，随身携带的洞天福地.,"{cultivate_duration_reduction: 0.3, extra_cultivate_exp: 50}"
-3014,万魂幡,法宝,,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{legal_actions: ['DevourMortals'], extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.2, extra_battle_strength_points: 'avatar.auxiliary.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
+3014,万魂幡,法宝,,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{legal_actions: ['DevourMortals'], extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.15, extra_battle_strength_points: 'avatar.auxiliary.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
