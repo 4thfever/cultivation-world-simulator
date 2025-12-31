@@ -104,3 +104,50 @@ class InventoryMixin:
         actual_amount = amount * gain_multiplier
         self.weapon_proficiency = min(100.0, self.weapon_proficiency + actual_amount)
 
+    # ==================== 出售接口 ====================
+    
+    def _get_sell_multiplier(self: "Avatar") -> float:
+        """获取出售价格倍率（包含效果加成）"""
+        raw = self.effects.get("extra_item_sell_price_multiplier", 0.0)
+        return 1.0 + float(raw or 0.0)
+
+    def sell_item(self: "Avatar", item: "Item", quantity: int = 1) -> int:
+        """
+        出售材料物品，返回获得的灵石数量。
+        应用 extra_item_sell_price_multiplier 效果。
+        """
+        from src.classes.prices import prices
+        
+        if quantity <= 0 or self.get_item_quantity(item) < quantity:
+            return 0
+        
+        self.remove_item(item, quantity)
+        
+        base_price = prices.get_item_price(item) * quantity
+        total = int(base_price * self._get_sell_multiplier())
+        
+        self.magic_stone = self.magic_stone + total
+        return total
+
+    def sell_weapon(self: "Avatar", weapon: "Weapon") -> int:
+        """
+        出售兵器，返回获得的灵石数量。
+        注意：这是辅助方法，不会自动卸下当前装备。
+        """
+        from src.classes.prices import prices
+        
+        total = int(prices.get_weapon_price(weapon) * self._get_sell_multiplier())
+        self.magic_stone = self.magic_stone + total
+        return total
+
+    def sell_auxiliary(self: "Avatar", auxiliary: "Auxiliary") -> int:
+        """
+        出售辅助装备，返回获得的灵石数量。
+        注意：这是辅助方法，不会自动卸下当前装备。
+        """
+        from src.classes.prices import prices
+        
+        total = int(prices.get_auxiliary_price(auxiliary) * self._get_sell_multiplier())
+        self.magic_stone = self.magic_stone + total
+        return total
+

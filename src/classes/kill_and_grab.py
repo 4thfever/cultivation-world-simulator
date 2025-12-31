@@ -56,7 +56,7 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
         options = [
             {
                 "key": "A",
-                "desc": f"夺取『{loot_item.name}』，替换掉身上的『{winner_current.name}』。\n  - 新装备：{item_desc}\n  - 原装备：{current_desc}"
+                "desc": f"夺取『{loot_item.name}』，卖掉身上的『{winner_current.name}』换取灵石。\n  - 新装备：{item_desc}\n  - 原装备：{current_desc}"
             },
             {
                 "key": "B",
@@ -69,9 +69,15 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
     
     if should_loot:
         if loot_type == "weapon":
+            # 自动卖掉旧武器
+            if winner.weapon is not None:
+                winner.sell_weapon(winner.weapon)
             winner.change_weapon(loot_item)
             loser.change_weapon(None)
         else:
+            # 自动卖掉旧辅助装备
+            if winner.auxiliary is not None:
+                winner.sell_auxiliary(winner.auxiliary)
             winner.change_auxiliary(loot_item)
             loser.change_auxiliary(None)
         

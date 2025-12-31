@@ -28,8 +28,8 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     from src.classes.sect import get_sect_info_with_rank
     
     if detailed:
-        weapon_info = f"{avatar.weapon.get_detailed_info()}，熟练度：{avatar.weapon_proficiency:.1f}%"
-        auxiliary_info = avatar.auxiliary.get_detailed_info() if avatar.auxiliary is not None else "无"
+        weapon_info = f"{avatar.weapon.get_detailed_info()}，熟练度：{avatar.weapon_proficiency:.1f}%" if avatar.weapon else "无"
+        auxiliary_info = avatar.auxiliary.get_detailed_info() if avatar.auxiliary else "无"
         sect_info = get_sect_info_with_rank(avatar, detailed=True)
         alignment_info = avatar.alignment.get_detailed_info() if avatar.alignment is not None else "未知"
         region_info = region.get_detailed_info() if region is not None else "无"

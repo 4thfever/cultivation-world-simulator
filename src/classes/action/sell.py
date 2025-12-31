@@ -4,14 +4,13 @@ from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.item import items_by_name
-from src.classes.prices import prices
 from src.classes.normalize import normalize_item_name
 
 
 class SellItems(InstantAction):
     """
     在城镇出售指定名称的物品，一次性卖出持有的全部数量。
-    收益为 item_price * item_num，动作耗时1个月。
+    收益通过 avatar.sell_item() 结算。
     """
 
     ACTION_NAME = "出售物品"
@@ -37,21 +36,8 @@ class SellItems(InstantAction):
         if quantity <= 0:
             return
 
-        # 计算价格并结算
-        price_per = prices.get_price(item)
-        base_total_gain = price_per * quantity
-        
-        # 应用出售价格倍率加成
-        price_multiplier_raw = self.avatar.effects.get("extra_item_sell_price_multiplier", 0.0)
-        price_multiplier = 1.0 + float(price_multiplier_raw or 0.0)
-        total_gain = int(base_total_gain * price_multiplier)
-
-        # 扣除物品并增加灵石
-        removed = self.avatar.remove_item(item, quantity)
-        if not removed:
-            return
-
-        self.avatar.magic_stone = self.avatar.magic_stone + total_gain
+        # 通过统一接口出售
+        self.avatar.sell_item(item, quantity)
 
     def can_start(self, item_name: str | None = None) -> tuple[bool, str]:
         region = self.avatar.tile.region
@@ -78,9 +64,6 @@ class SellItems(InstantAction):
         display_name = item.name if item is not None else normalized_name
         return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇出售 {display_name}", related_avatars=[self.avatar.id])
 
-    # InstantAction 已实现 step 完成
-
     async def finish(self, item_name: str) -> list[Event]:
         return []
-
 

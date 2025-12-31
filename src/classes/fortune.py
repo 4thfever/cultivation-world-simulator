@@ -423,7 +423,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             },
             {
                 "key": "B", 
-                "desc": f"放弃原{type_label}，接受新{type_label}『{new_name}』({new_grade_val})。"
+                "desc": f"卖掉原{type_label}『{old_name}』换取灵石，接受新{type_label}『{new_name}』({new_grade_val})。"
             }
         ]
         
@@ -435,7 +435,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         if choice == "A":
             return False, f"{avatar.name} 放弃了{new_grade_val}{type_label}『{new_name}』，保留了『{old_name}』"
         else:
-            return True, f"{avatar.name} 获得了{new_grade_val}{type_label}『{new_name}』，替换了『{old_name}』"
+            return True, f"{avatar.name} 获得了{new_grade_val}{type_label}『{new_name}』，卖掉了『{old_name}』"
 
     if kind == FortuneKind.WEAPON:
         weapon = _get_weapon_for_avatar(avatar)
@@ -448,6 +448,9 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
                 weapon, avatar.weapon, "兵器"
             )
             if should_equip:
+                # 自动卖掉旧武器
+                if avatar.weapon is not None:
+                    avatar.sell_weapon(avatar.weapon)
                 avatar.change_weapon(weapon)
 
     if kind == FortuneKind.AUXILIARY:
@@ -461,6 +464,9 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
                 auxiliary, avatar.auxiliary, "辅助装备"
             )
             if should_equip:
+                # 自动卖掉旧辅助装备
+                if avatar.auxiliary is not None:
+                    avatar.sell_auxiliary(avatar.auxiliary)
                 avatar.change_auxiliary(auxiliary)
 
     if kind == FortuneKind.TECHNIQUE:
