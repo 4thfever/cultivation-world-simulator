@@ -61,32 +61,6 @@ def random_gender() -> Gender:
     return Gender.MALE if random.random() < 0.5 else Gender.FEMALE
 
 
-def _get_equipment_probabilities_by_realm(realm, equipment_type: str) -> tuple[float, float]:
-    """
-    根据境界和装备类型获取法宝、宝物的概率
-    
-    Args:
-        realm: 角色境界
-        equipment_type: 'weapon' 或 'auxiliary'
-    
-    Returns:
-        (artifact_prob, treasure_prob): 法宝概率和宝物概率
-    """
-    if equipment_type == 'weapon':
-        return (0.05, 0.25)  # 武器：5%法宝，25%宝物
-    
-    # 辅助装备：根据境界分层
-    auxiliary_probs = {
-        'Qi_Refinement': (0.05, 0.20),
-        'Foundation_Establishment': (0.10, 0.35),
-        'Core_Formation': (0.20, 0.50),
-        'Nascent_Soul': (0.35, 0.60),
-        'default': (0.05, 0.20),
-    }
-    realm_name = realm.name if hasattr(realm, 'name') else 'default'
-    return auxiliary_probs.get(realm_name, auxiliary_probs['default'])
-
-
 class EquipmentAllocator:
     """
     负责所有初始装备分配逻辑，提供兵器与辅助装备的统一接口。
@@ -97,10 +71,9 @@ class EquipmentAllocator:
         """
         初始兵器逻辑：
         - 80% 继承宗门偏好兵器类型，否则完全随机
-        - 先按境界概率抽高品质（约 1% 法宝、5% 宝物），优先宗门池
-        - 若高品质落空，再发一把普通兵器
+        - 根据境界随机生成一把兵器
         """
-        from src.classes.weapon import get_common_weapon, weapons_by_id, weapons_by_sect_id
+        from src.classes.weapon import get_random_weapon_by_realm
         from src.classes.weapon_type import WeaponType
 
         weapon_type = None
@@ -110,103 +83,18 @@ class EquipmentAllocator:
                     if wt.value == avatar.sect.preferred_weapon:
                         weapon_type = wt
                         break
-        if weapon_type is None:
-            weapon_type = random.choice(list(WeaponType))
-
-        high_grade_weapon = EquipmentAllocator._assign_generic(
-            avatar,
-            'weapon',
-            weapons_by_id,
-            weapons_by_sect_id,
-            weapon_type
-        )
-
-        if high_grade_weapon is not None:
-            avatar.weapon = high_grade_weapon
-            return
-
-        avatar.weapon = get_common_weapon(weapon_type)
+        
+        avatar.weapon = get_random_weapon_by_realm(avatar.cultivation_progress.realm, weapon_type)
 
     @staticmethod
     def assign_auxiliary(avatar: Avatar) -> None:
         """
-        初始辅助装备逻辑（境界越高概率越高）：
-        - 练气：约 5% 宝物
-        - 筑基：≈ 2% 法宝 + 8% 宝物
-        - 金丹：≈ 5% 法宝 + 15% 宝物
-        - 元婴：≈ 10% 法宝 + 20% 宝物
-        同样优先宗门专属辅助装备。
+        初始辅助装备逻辑：
+        - 根据境界随机生成一件辅助装备
         """
-        from src.classes.auxiliary import auxiliaries_by_id, auxiliaries_by_sect_id
-
-        auxiliary = EquipmentAllocator._assign_generic(
-            avatar,
-            'auxiliary',
-            auxiliaries_by_id,
-            auxiliaries_by_sect_id,
-            None
-        )
-
-        if auxiliary is not None:
-            avatar.auxiliary = auxiliary
-
-    @staticmethod
-    def _find_by_grade(
-        avatar: Avatar,
-        grade,
-        equipment_pool_by_id: dict,
-        equipment_pool_by_sect_id: dict,
-        weapon_type_filter = None,
-    ):
-        if avatar.sect is not None and avatar.sect.id in equipment_pool_by_sect_id:
-            candidate = equipment_pool_by_sect_id[avatar.sect.id]
-            if candidate.grade == grade:
-                return candidate
-
-        candidates = [
-            e for e in equipment_pool_by_id.values()
-            if e.grade == grade
-            and (weapon_type_filter is None or getattr(e, "weapon_type", None) == weapon_type_filter)
-        ]
-        return random.choice(candidates) if candidates else None
-
-    @staticmethod
-    def _assign_generic(
-        avatar: Avatar,
-        equipment_type: str,
-        equipment_pool_by_id: dict,
-        equipment_pool_by_sect_id: dict,
-        weapon_type_filter = None,
-    ) -> Optional[object]:
-        from src.classes.equipment_grade import EquipmentGrade
-        import copy
-
-        artifact_prob, treasure_prob = _get_equipment_probabilities_by_realm(
-            avatar.cultivation_progress.realm,
-            equipment_type
-        )
-
-        roll = random.random()
-
-        if roll < artifact_prob:
-            equipment = EquipmentAllocator._find_by_grade(
-                avatar, EquipmentGrade.ARTIFACT,
-                equipment_pool_by_id, equipment_pool_by_sect_id,
-                weapon_type_filter
-            )
-            if equipment:
-                return copy.deepcopy(equipment)
-
-        if roll < artifact_prob + treasure_prob:
-            equipment = EquipmentAllocator._find_by_grade(
-                avatar, EquipmentGrade.TREASURE,
-                equipment_pool_by_id, equipment_pool_by_sect_id,
-                weapon_type_filter
-            )
-            if equipment:
-                return copy.deepcopy(equipment)
-
-        return None
+        from src.classes.auxiliary import get_random_auxiliary_by_realm
+        
+        avatar.auxiliary = get_random_auxiliary_by_realm(avatar.cultivation_progress.realm)
 
 
 @dataclass

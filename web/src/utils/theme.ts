@@ -20,7 +20,13 @@ export const GRADE_COLORS: Record<string, string> = {
   'SSR': '#fddc88',
   'Artifact': '#fddc88',
   
-  'Default': '#cccccc'
+  'Default': '#cccccc',
+
+  // 境界映射
+  '练气': '#cccccc', // White/Gray
+  '筑基': '#88fdc4', // Green
+  '金丹': '#c488fd', // Purple
+  '元婴': '#fddc88', // Gold
 };
 
 /**

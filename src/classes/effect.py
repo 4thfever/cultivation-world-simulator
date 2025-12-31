@@ -103,7 +103,7 @@ def _evaluate_conditional_effect(effect: dict[str, Any] | list[dict[str, Any]], 
         评估后实际生效的effect dict（合并所有满足条件的effects）
     """
     from src.classes.weapon_type import WeaponType
-    from src.classes.equipment_grade import EquipmentGrade
+    from src.classes.cultivation import Realm
     from src.classes.alignment import Alignment
     
     # 构建安全的eval上下文
@@ -111,7 +111,7 @@ def _evaluate_conditional_effect(effect: dict[str, Any] | list[dict[str, Any]], 
         "__builtins__": {},
         "avatar": avatar,
         "WeaponType": WeaponType,
-        "EquipmentGrade": EquipmentGrade,
+        "Realm": Realm,
         "Alignment": Alignment,
         # 常用内置函数
         "any": any,

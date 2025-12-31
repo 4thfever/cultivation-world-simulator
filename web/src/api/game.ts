@@ -19,8 +19,8 @@ export interface GameDataDTO {
   personas: Array<{ id: number; name: string; desc: string; rarity: string }>;
   realms: string[];
   techniques: Array<{ id: number; name: string; grade: string; attribute: string; sect: string | null }>;
-  weapons: Array<{ id: number; name: string; grade: string; type: string; sect_id: number | null }>;
-  auxiliaries: Array<{ id: number; name: string; grade: string; sect_id: number | null }>;
+  weapons: Array<{ id: number; name: string; grade: string; type: string }>;
+  auxiliaries: Array<{ id: number; name: string; grade: string }>;
   alignments: Array<{ value: string; label: string }>;
 }
 

@@ -4,7 +4,7 @@ import type { EffectEntity } from '@/types/core';
 
 defineProps<{
   item: EffectEntity;
-  meta?: string; // e.g. "Rank 3" or "Count: 5"
+  meta?: string; // e.g. "熟练度 50%"
   compact?: boolean;
 }>();
 
@@ -20,8 +20,9 @@ defineEmits(['click']);
     <span class="name" :style="{ color: getEntityColor(item) }">
       {{ item.name }}
     </span>
-    <span v-if="meta || item.grade" class="meta">
-      {{ meta || item.grade }}
+    <span class="info">
+      <span v-if="meta" class="meta">{{ meta }}</span>
+      <span v-if="item.grade" class="grade">{{ item.grade }}</span>
     </span>
   </div>
 </template>
@@ -48,9 +49,23 @@ defineEmits(['click']);
   font-size: 12px;
 }
 
+.info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grade {
+  font-size: 11px;
+  padding: 1px 5px;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 3px;
+  color: #daa520;
+}
+
 .meta {
   font-size: 11px;
   color: #888;
 }
 </style>
-

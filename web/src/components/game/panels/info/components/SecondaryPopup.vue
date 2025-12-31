@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import type { EffectEntity } from '@/types/core';
 import { getEntityColor } from '@/utils/theme';
 
-const props = defineProps<{
+defineProps<{
   item: EffectEntity | null;
 }>();
 
-const emit = defineEmits(['close']);
-
-// 简单的状态，用于决定是否显示
-// 实际显示逻辑由父组件通过 props.item 控制
+defineEmits(['close']);
 </script>
 
 <template>
@@ -25,7 +21,8 @@ const emit = defineEmits(['close']);
       
       <div class="sec-body">
         <div class="sec-row" v-if="item.grade || item.rarity">
-          <span class="badge">{{ item.grade || item.rarity }}</span>
+          <span class="badge grade-badge">{{ item.grade || item.rarity }}</span>
+          <span v-if="item.type" class="badge type-badge">{{ item.type }}</span>
         </div>
         
         <div class="sec-desc" v-if="item.desc">{{ item.desc }}</div>
@@ -126,6 +123,24 @@ const emit = defineEmits(['close']);
   border-radius: 4px;
   font-size: 11px;
   color: #fff;
+}
+
+.sec-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.grade-badge {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #daa520;
+}
+
+.type-badge {
+  background: rgba(100, 149, 237, 0.2);
+  border: 1px solid rgba(100, 149, 237, 0.4);
+  color: #87ceeb;
 }
 
 .sec-desc {

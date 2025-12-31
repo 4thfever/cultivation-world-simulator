@@ -2,19 +2,20 @@ from __future__ import annotations
 
 from src.classes.action import InstantAction
 from src.classes.event import Event
-from src.classes.weapon import get_common_weapon
+from src.classes.weapon import get_random_weapon_by_realm
 from src.classes.weapon_type import WeaponType
+from src.classes.cultivation import Realm
 from src.classes.normalize import normalize_weapon_type
 
 
 class SwitchWeapon(InstantAction):
     """
-    切换兵器：将当前兵器切换为指定类型的凡品兵器。
+    切换兵器：将当前兵器切换为指定类型的练气兵器。
     熟练度重置为0。
     """
 
     ACTION_NAME = "切换兵器"
-    DESC = "切换到指定类型的凡品兵器，或卸下兵器。当前兵器会丧失，熟练度会重置为0。适用于想要更换兵器类型或从头修炼新兵器的情况。"
+    DESC = "切换到指定类型的练气兵器，或卸下兵器。当前兵器会丧失，熟练度会重置为0。适用于想要更换兵器类型或从头修炼新兵器的情况。"
     DOABLES_REQUIREMENTS = "无前置条件"
     PARAMS = {"weapon_type_name": "str"}
 
@@ -37,8 +38,8 @@ class SwitchWeapon(InstantAction):
         if target_weapon_type is None:
             return
         
-        # 获取凡品兵器
-        common_weapon = get_common_weapon(target_weapon_type)
+        # 获取练气兵器（练气期）
+        common_weapon = get_random_weapon_by_realm(Realm.Qi_Refinement, target_weapon_type)
         if common_weapon is None:
             return
         
@@ -67,16 +68,16 @@ class SwitchWeapon(InstantAction):
         if target_weapon_type is None:
             return False, f"未知兵器类型: {weapon_type_name}（支持的类型：剑/刀/枪/棍/扇/鞭/琴/笛/暗器/无）"
         
-        # 检查是否已经是该类型的凡品兵器
+        # 检查是否已经是该类型的练气兵器
         if self.avatar.weapon is not None and \
            self.avatar.weapon.weapon_type == target_weapon_type and \
-           self.avatar.weapon.name == f"凡品{target_weapon_type.value}":
-            return False, f"已经装备了凡品{target_weapon_type.value}"
+           self.avatar.weapon.realm == Realm.Qi_Refinement:
+            return False, f"已经装备了基础{target_weapon_type.value}"
         
-        # 检查凡品兵器是否存在
-        common_weapon = get_common_weapon(target_weapon_type)
+        # 检查练气兵器是否存在
+        common_weapon = get_random_weapon_by_realm(Realm.Qi_Refinement, target_weapon_type)
         if common_weapon is None:
-            return False, f"系统中不存在凡品{target_weapon_type.value}"
+            return False, f"系统中不存在练气{target_weapon_type.value}"
         
         return True, ""
 
@@ -91,7 +92,7 @@ class SwitchWeapon(InstantAction):
         normalized_type = normalize_weapon_type(weapon_type_name)
         return Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 切换兵器为凡品{normalized_type}",
+            f"{self.avatar.name} 切换兵器为练气{normalized_type}",
             related_avatars=[self.avatar.id]
         )
 

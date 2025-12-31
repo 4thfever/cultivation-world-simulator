@@ -17,11 +17,11 @@ from src.classes.technique import (
     is_attribute_compatible_with_root,
     TechniqueAttribute,
 )
-from src.classes.weapon import Weapon, weapons_by_id
-from src.classes.auxiliary import Auxiliary, auxiliaries_by_id
-from src.classes.equipment_grade import EquipmentGrade
+from src.classes.weapon import Weapon, get_random_weapon_by_realm
+from src.classes.auxiliary import Auxiliary, get_random_auxiliary_by_realm
 from src.classes.relation import Relation
 from src.classes.alignment import Alignment
+from src.classes.cultivation import Realm
 
 
 class FortuneKind(Enum):
@@ -150,17 +150,17 @@ def _find_potential_master(avatar: Avatar) -> Optional[Avatar]:
 
 
 def _can_get_weapon(avatar: Avatar) -> bool:
-    """检查是否可以获得兵器奇遇：当前兵器是普通级时可触发"""
+    """检查是否可以获得兵器奇遇：当前兵器是练气级（凡品）时可触发"""
     if avatar.weapon is None:
         return True
-    return avatar.weapon.grade == EquipmentGrade.COMMON
+    return avatar.weapon.realm == Realm.Qi_Refinement
 
 
 def _can_get_auxiliary(avatar: Avatar) -> bool:
-    """检查是否可以获得辅助装备奇遇：无辅助装备或辅助装备非法宝级时可触发"""
+    """检查是否可以获得辅助装备奇遇：无辅助装备或辅助装备是练气级时可触发"""
     if avatar.auxiliary is None:
         return True
-    return avatar.auxiliary.grade != EquipmentGrade.ARTIFACT
+    return avatar.auxiliary.realm == Realm.Qi_Refinement
 
 
 def _can_get_technique(avatar: Avatar) -> bool:
@@ -247,56 +247,28 @@ def _pick_theme(kind: FortuneKind) -> str:
 
 def _get_weapon_for_avatar(avatar: Avatar) -> Optional[Weapon]:
     """
-    获取兵器：优先法宝 > 宝物 > 普通
-    - 法宝：检查世界唯一性
-    - 宝物：可重复
-    - 普通：可重复
+    获取兵器：
+    奇遇通常提供比当前境界更好的兵器。
+    如果是练气期，提供筑基期兵器。
+    其他境界提供同境界兵器（因为高境界兵器本身就稀有且强）。
     """
-    # 尝试获取法宝级兵器
-    owned_artifact_ids: set[int] = set()
-    for other in avatar.world.avatar_manager.avatars.values():
-        if other.weapon is not None and other.weapon.grade == EquipmentGrade.ARTIFACT:
-            owned_artifact_ids.add(other.weapon.id)
-    
-    artifact_candidates = [w for w in weapons_by_id.values() 
-                          if w.grade == EquipmentGrade.ARTIFACT and w.id not in owned_artifact_ids]
-    if artifact_candidates:
-        return random.choice(artifact_candidates)
-    
-    # 尝试获取宝物级兵器
-    treasure_candidates = [w for w in weapons_by_id.values() 
-                          if w.grade == EquipmentGrade.TREASURE]
-    if treasure_candidates:
-        return random.choice(treasure_candidates)
-    
-    # 回退到普通级兵器（理论上不应该走到这里，因为普通级兵器不应该通过奇遇获得）
-    return None
+    target_realm = avatar.cultivation_progress.realm
+    if target_realm == Realm.Qi_Refinement:
+        target_realm = Realm.Foundation_Establishment
+        
+    return get_random_weapon_by_realm(target_realm)
 
 
 def _get_auxiliary_for_avatar(avatar: Avatar) -> Optional[Auxiliary]:
     """
-    获取辅助装备：优先法宝 > 宝物
-    - 法宝：检查世界唯一性
-    - 宝物：可重复
+    获取辅助装备：
+    规则同兵器。
     """
-    # 尝试获取法宝级辅助装备
-    owned_artifact_ids: set[int] = set()
-    for other in avatar.world.avatar_manager.avatars.values():
-        if other.auxiliary is not None and other.auxiliary.grade == EquipmentGrade.ARTIFACT:
-            owned_artifact_ids.add(other.auxiliary.id)
-    
-    artifact_candidates = [a for a in auxiliaries_by_id.values() 
-                          if a.grade == EquipmentGrade.ARTIFACT and a.id not in owned_artifact_ids]
-    if artifact_candidates:
-        return random.choice(artifact_candidates)
-    
-    # 尝试获取宝物级辅助装备
-    treasure_candidates = [a for a in auxiliaries_by_id.values() 
-                          if a.grade == EquipmentGrade.TREASURE]
-    if treasure_candidates:
-        return random.choice(treasure_candidates)
-    
-    return None
+    target_realm = avatar.cultivation_progress.realm
+    if target_realm == Realm.Qi_Refinement:
+        target_realm = Realm.Foundation_Establishment
+        
+    return get_random_auxiliary_by_realm(target_realm)
 
 
 def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
@@ -436,34 +408,34 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         Returns: (should_replace, result_text)
         """
         new_name = new_obj.name
-        new_grade = new_obj.grade.value
+        new_grade_val = getattr(new_obj, "grade", getattr(new_obj, "realm", None)).value
         
         if old_obj is None:
-            return True, f"{avatar.name} 获得{new_grade}{type_label}『{new_name}』"
+            return True, f"{avatar.name} 获得{new_grade_val}{type_label}『{new_name}』"
 
         old_name = old_obj.name
-        old_grade = old_obj.grade.value
+        old_grade_val = getattr(old_obj, "grade", getattr(old_obj, "realm", None)).value
         
         options = [
             {
                 "key": "A", 
-                "desc": f"保留原{type_label}『{old_name}』({old_grade})，放弃新{type_label}『{new_name}』({new_grade})。"
+                "desc": f"保留原{type_label}『{old_name}』({old_grade_val})，放弃新{type_label}『{new_name}』({new_grade_val})。"
             },
             {
                 "key": "B", 
-                "desc": f"放弃原{type_label}，接受新{type_label}『{new_name}』({new_grade})。"
+                "desc": f"放弃原{type_label}，接受新{type_label}『{new_name}』({new_grade_val})。"
             }
         ]
         
-        base_context = f"你在奇遇中发现了{new_grade}{type_label}『{new_name}』，但你手中已有『{old_name}』。"
+        base_context = f"你在奇遇中发现了{new_grade_val}{type_label}『{new_name}』，但你手中已有『{old_name}』。"
         context = f"{base_context} {extra_context}".strip()
         
         choice = await make_decision(avatar, context, options)
         
         if choice == "A":
-            return False, f"{avatar.name} 放弃了{new_grade}{type_label}『{new_name}』，保留了『{old_name}』"
+            return False, f"{avatar.name} 放弃了{new_grade_val}{type_label}『{new_name}』，保留了『{old_name}』"
         else:
-            return True, f"{avatar.name} 获得了{new_grade}{type_label}『{new_name}』，替换了『{old_name}』"
+            return True, f"{avatar.name} 获得了{new_grade_val}{type_label}『{new_name}』，替换了『{old_name}』"
 
     if kind == FortuneKind.WEAPON:
         weapon = _get_weapon_for_avatar(avatar)

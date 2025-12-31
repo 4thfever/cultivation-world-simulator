@@ -18,15 +18,15 @@ class NurtureWeapon(TimedAction):
     duration_months = 3
 
     def _execute(self) -> None:
-        from src.classes.equipment_grade import EquipmentGrade
-        from src.classes.weapon import get_treasure_weapon
+        from src.classes.cultivation import Realm
+        from src.classes.weapon import get_random_weapon_by_realm
         
         # 温养兵器增加较多熟练度（5-10）
         proficiency_gain = random.uniform(5.0, 10.0)
         self.avatar.increase_weapon_proficiency(proficiency_gain)
         
-        # 如果是普通兵器，有概率升级为宝物
-        if self.avatar.weapon and self.avatar.weapon.grade == EquipmentGrade.COMMON:
+        # 如果是练气兵器，有概率升级为筑基兵器
+        if self.avatar.weapon and self.avatar.weapon.realm == Realm.Qi_Refinement:
             # 基础5%概率 + 来自effects的额外概率
             base_upgrade_chance = 0.05
             extra_chance_raw = self.avatar.effects.get("extra_weapon_upgrade_chance", 0.0)
@@ -34,12 +34,13 @@ class NurtureWeapon(TimedAction):
             total_chance = min(1.0, base_upgrade_chance + extra_chance)
             
             if random.random() < total_chance:
-                treasure_weapon = get_treasure_weapon(self.avatar.weapon.weapon_type)
+                treasure_weapon = get_random_weapon_by_realm(Realm.Foundation_Establishment, self.avatar.weapon.weapon_type)
                 if treasure_weapon:
                     import copy
                     old_weapon_name = self.avatar.weapon.name
                     old_proficiency = self.avatar.weapon_proficiency
                     # 深拷贝宝物兵器并更换（会重新计算长期效果）
+                    # get_random_weapon_by_realm 已经返回了副本，但再次copy也无妨
                     new_weapon = copy.deepcopy(treasure_weapon)
                     self.avatar.change_weapon(new_weapon)
                     # 恢复熟练度（change_weapon 会归零，需要手动恢复）

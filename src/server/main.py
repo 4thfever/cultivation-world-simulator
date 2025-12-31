@@ -869,8 +869,7 @@ def get_game_data():
             "id": w.id,
             "name": w.name,
             "type": w.weapon_type.value,
-            "grade": w.grade.value,
-            "sect_id": w.sect_id
+            "grade": w.realm.value,
         }
         for w in weapons_by_id.values()
     ]
@@ -879,8 +878,7 @@ def get_game_data():
         {
             "id": a.id,
             "name": a.name,
-            "grade": a.grade.value,
-            "sect_id": a.sect_id
+            "grade": a.realm.value,
         }
         for a in auxiliaries_by_id.values()
     ]

@@ -1,12 +1,25 @@
 from enum import Enum
 from functools import total_ordering
 
+from src.classes.color import Color
+
 @total_ordering
 class Realm(Enum):
     Qi_Refinement = "练气"
     Foundation_Establishment = "筑基"
     Core_Formation = "金丹"
     Nascent_Soul = "元婴"
+
+    @property
+    def color_rgb(self) -> tuple[int, int, int]:
+        """返回境界对应的RGB颜色值"""
+        color_map = {
+            Realm.Qi_Refinement: Color.COMMON_WHITE,
+            Realm.Foundation_Establishment: Color.UNCOMMON_GREEN,
+            Realm.Core_Formation: Color.EPIC_PURPLE,
+            Realm.Nascent_Soul: Color.LEGENDARY_GOLD,
+        }
+        return color_map.get(self, Color.COMMON_WHITE)
 
     @classmethod
     def from_id(cls, realm_id: int) -> "Realm":

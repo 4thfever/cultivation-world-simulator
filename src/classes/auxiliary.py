@@ -5,8 +5,7 @@ from typing import Optional, Dict
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
-from src.classes.equipment_grade import EquipmentGrade
-from src.classes.sect import Sect, sects_by_id
+from src.classes.cultivation import Realm
 
 
 @dataclass
@@ -14,114 +13,104 @@ class Auxiliary:
     """
     辅助装备类：提供各种辅助功能的装备
     字段与 static/game_configs/auxiliary.csv 对应：
-    - grade: 装备等级（普通、宝物、法宝）
-    - sect_id: 对应宗门ID（见 sect.csv）；允许为空表示无特定宗门归属
+    - realm: 装备等级（练气/筑基/金丹/元婴）
     - effects: 解析为 dict，用于与 Avatar.effects 合并
     """
     id: int
     name: str
-    grade: EquipmentGrade
-    sect_id: Optional[int]
+    realm: Realm
     desc: str
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
-    sect: Optional[Sect] = None
     # 特殊属性（用于存储实例特定数据）
     special_data: dict = field(default_factory=dict)
 
-    def __deepcopy__(self, memo):
-        """
-        自定义深拷贝：
-        Sect 对象必须保持单例引用，不能深拷贝，否则会复制整个宗门及其所有成员，
-        导致内存浪费和潜在的无限递归/哈希错误。
-        """
-        import copy
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        
-        for k, v in self.__dict__.items():
-            if k == 'sect':
-                # 浅拷贝引用
-                setattr(result, k, v)
-            else:
-                # 深拷贝其他属性
-                setattr(result, k, copy.deepcopy(v, memo))
-        return result
-
     def get_info(self) -> str:
         """获取简略信息"""
-        return f"{self.name}"
+        suffix = ""
+        # 万魂幡特殊显示
+        if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
+            suffix = f"（吞噬魂魄：{self.special_data['devoured_souls']}）"
+        return f"{self.name}{suffix}"
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
+        souls = ""
+        if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
+            souls = f" 吞噬魂魄：{self.special_data['devoured_souls']}"
+        
         effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（{self.grade}，{self.desc}）{effect_part}"
+        return f"{self.name}（{self.realm.value}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
-        r, g, b = self.grade.color_rgb
+        r, g, b = self.realm.color_rgb
         return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
     def get_structured_info(self) -> dict:
+        full_desc = self.desc
+        # 特殊数据处理
+        souls = 0
+        if self.name == "万魂幡":
+            souls = self.special_data.get("devoured_souls", 0)
+            if souls > 0:
+                full_desc = f"{full_desc} (已吞噬魂魄：{souls})"
+
         return {
             "name": self.name,
-            "desc": self.desc,
-            "grade": self.grade.value,
-            "color": self.grade.color_rgb,
+            "desc": full_desc,
+            "grade": self.realm.value,
+            "color": self.realm.color_rgb,
             "effect_desc": self.effect_desc,
         }
 
 
-def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary], Dict[int, Auxiliary]]:
+def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
     """从配表加载 auxiliary 数据。
-    返回：(按ID、按名称、按宗门ID 的映射)。
-    若同一宗门配置多个辅助装备，按首次出现保留（每门至多一个法宝级）。
+    返回：(按ID、按名称 的映射)。
     """
     auxiliaries_by_id: Dict[int, Auxiliary] = {}
     auxiliaries_by_name: Dict[str, Auxiliary] = {}
-    auxiliaries_by_sect_id: Dict[int, Auxiliary] = {}
 
     df = game_configs.get("auxiliary")
     if df is None:
-        return auxiliaries_by_id, auxiliaries_by_name, auxiliaries_by_sect_id
+        return auxiliaries_by_id, auxiliaries_by_name
 
     for row in df:
-        sect_id = get_int(row, "sect_id", -1)
-        if sect_id == -1:
-            sect_id = None
-
         effects = load_effect_from_str(get_str(row, "effects"))
         from src.utils.effect_desc import format_effects_to_text
         effect_desc = format_effects_to_text(effects)
         
-        sect_obj: Optional[Sect] = sects_by_id.get(sect_id) if sect_id is not None else None
-
         # 解析grade
-        grade_str = get_str(row, "grade", "普通")
-        grade = EquipmentGrade.COMMON
-        for g in EquipmentGrade:
-            if g.value == grade_str:
-                grade = g
-                break
+        grade_str = get_str(row, "grade", "练气")
+        try:
+            realm = next(r for r in Realm if r.value == grade_str)
+        except StopIteration:
+            realm = Realm.Qi_Refinement
 
         a = Auxiliary(
             id=get_int(row, "id"),
             name=get_str(row, "name"),
-            grade=grade,
-            sect_id=sect_id,
+            realm=realm,
             desc=get_str(row, "desc"),
             effects=effects,
             effect_desc=effect_desc,
-            sect=sect_obj,
         )
 
         auxiliaries_by_id[a.id] = a
         auxiliaries_by_name[a.name] = a
-        if a.sect_id is not None and a.sect_id not in auxiliaries_by_sect_id:
-            auxiliaries_by_sect_id[a.sect_id] = a
 
-    return auxiliaries_by_id, auxiliaries_by_name, auxiliaries_by_sect_id
+    return auxiliaries_by_id, auxiliaries_by_name
 
 
-auxiliaries_by_id, auxiliaries_by_name, auxiliaries_by_sect_id = _load_auxiliaries()
+auxiliaries_by_id, auxiliaries_by_name = _load_auxiliaries()
+
+
+def get_random_auxiliary_by_realm(realm: Realm) -> Optional[Auxiliary]:
+    """获取指定境界的随机辅助装备"""
+    import random
+    import copy
+    candidates = [a for a in auxiliaries_by_id.values() if a.realm == realm]
+    if not candidates:
+        return None
+    return copy.deepcopy(random.choice(candidates))
