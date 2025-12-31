@@ -4,7 +4,6 @@ import re
 EFFECT_DESC_MAP = {
     "extra_hp_recovery_rate": "生命恢复速率",
     "extra_max_hp": "最大生命值",
-    "extra_max_mp": "最大灵力值",
     "extra_max_lifespan": "最大寿元",
     "extra_weapon_proficiency_gain": "兵器熟练度获取",
     "extra_dual_cultivation_exp": "双修经验",

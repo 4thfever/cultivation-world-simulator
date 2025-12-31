@@ -39,7 +39,7 @@ EXTRA_MAX_HP = "extra_max_hp"
 数值参考: 
   - 微量: 10~30
   - 中量: 50~100 (练气期基础HP约100)
-  - 大量: 200+
+  - 大量: 150+
 """
 
 EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
@@ -50,8 +50,8 @@ EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
 说明: 增加角色的观察范围（格子数）。
 数值参考: 
   - 微量: 1
-  - 中量: 2~3
-  - 大量: 5+
+  - 中量: 2
+  - 大量: 3
 """
 
 # --- 修炼相关 ---
@@ -75,8 +75,8 @@ CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
 说明: 修炼动作的时长缩减比例。
 数值参考: 
   - 微量: 0.05~0.1 (缩减5%-10%)
-  - 中量: 0.15~0.25
-  - 极限: 0.5 (不建议超过0.5)
+  - 中量: 0.15 (15%)
+  - 极限: 0.3 (30%)
 """
 
 EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
@@ -87,8 +87,8 @@ EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
 说明: 修改突破瓶颈时的成功率。
 数值参考: 
   - 微量: 0.05 (5%)
-  - 中量: 0.1~0.15
-  - 大量: 0.3+
+  - 中量: 0.1 (10%)
+  - 大量: 0.3 (30%)
 """
 
 # --- 双修相关 ---
@@ -113,8 +113,8 @@ EXTRA_HARVEST_ITEMS = "extra_harvest_items"
 说明: 采集植物时额外获得的物品数量。
 数值参考: 
   - 微量: 1
-  - 中量: 2~3
-  - 大量: 5+
+  - 中量: 2
+  - 大量: 3
 """
 
 EXTRA_HUNT_ITEMS = "extra_hunt_items"
@@ -125,8 +125,8 @@ EXTRA_HUNT_ITEMS = "extra_hunt_items"
 说明: 狩猎动物时额外获得的物品数量。
 数值参考: 
   - 微量: 1
-  - 中量: 2~3
-  - 大量: 5+
+  - 中量: 2
+  - 大量: 3
 """
 
 # --- 移动相关 ---
@@ -150,8 +150,8 @@ EXTRA_CATCH_SUCCESS_RATE = "extra_catch_success_rate"
 说明: 捕捉灵兽时增加的成功率。
 数值参考: 
   - 微量: 0.05~0.1 (5%-10%)
-  - 中量: 0.2~0.3
-  - 大量: 0.5+
+  - 中量: 0.2 (20%)
+  - 大量: 0.3 (30%)
 """
 
 # --- 逃跑相关 ---
@@ -163,8 +163,8 @@ EXTRA_ESCAPE_SUCCESS_RATE = "extra_escape_success_rate"
 说明: 从战斗中逃离的成功率加成。
 数值参考: 
   - 微量: 0.1
-  - 中量: 0.2~0.3
-  - 大量: 0.5 (配合基础概率几乎必逃)
+  - 中量: 0.2
+  - 大量: 0.3~0.5 (配合基础概率几乎必逃)
 """
 
 # --- 暗杀相关 ---
@@ -175,9 +175,9 @@ EXTRA_ASSASSINATE_SUCCESS_RATE = "extra_assassinate_success_rate"
 结算: src/classes/battle.py (get_assassination_success_rate)
 说明: 暗杀判定成功率的加成。
 数值参考: 
-  - 微量: 0.05~0.1
-  - 中量: 0.2~0.3
-  - 大量: 0.5+
+  - 微量: 0.05 (5%)
+  - 中量: 0.1 (10%)
+  - 大量: 0.15 (15%)
 """
 
 # --- 奇遇相关 ---
@@ -216,8 +216,8 @@ EXTRA_WEAPON_UPGRADE_CHANCE = "extra_weapon_upgrade_chance"
 数值参考: 
   - 基础概率: 0.05 (5%)
   - 微量: 0.05 (+5%)
-  - 中量: 0.1~0.15
-  - 大量: 0.3+
+  - 中量: 0.1 (10%)
+  - 大量: 0.15 (15%)
 """
 
 # --- 生存与恢复相关 ---
@@ -252,9 +252,9 @@ DAMAGE_REDUCTION = "damage_reduction"
 结算: src/classes/battle.py
 说明: 受到伤害的减免比例（乘法减少）。
 数值参考: 
-  - 微量: 0.05~0.1 (5%-10%)
-  - 中量: 0.15~0.25
-  - 坦克: 0.3+ (不建议超过0.5)
+  - 微量: 0.05
+  - 中量: 0.1
+  - 坦克: 0.2~0.3 (不建议超过0.3)
 """
 
 REALM_SUPPRESSION_BONUS = "realm_suppression_bonus"
@@ -262,11 +262,12 @@ REALM_SUPPRESSION_BONUS = "realm_suppression_bonus"
 境界压制加成
 类型: float
 结算: src/classes/battle.py
-说明: 当境界高于对手时，每级境界差提供的战斗力百分比加成。
+说明: 当境界高于对手时，每级境界差提供的战斗力百分比加成。可以理解为“额外威压”
 数值参考: 
   - 基础值: 0.0 (无额外加成，仅靠基础属性)
-  - 微量: 0.1 (每级差多10%战斗力)
-  - 中量: 0.2~0.3
+  - 微量: 0.05 (每级差多10%战斗力)
+  - 中量: 0.1
+  - 大量: 0.15
 """
 
 # --- 经济相关 ---
@@ -279,7 +280,7 @@ EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
 数值参考: 
   - 微量: 0.1 (+10%)
   - 中量: 0.2~0.3
-  - 奸商: 0.5+
+  - 奸商: 0.5
 """
 
 EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
@@ -289,12 +290,10 @@ EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
 结算: src/classes/action/plunder_mortals.py
 说明: 搜刮凡人时的收益倍率。
 数值参考: 
-  - 微量: 0.5 (+50%)
-  - 中量: 1.0~2.0 (翻倍到三倍)
-  - 暴徒: 3.0+
+  - 微量: 0.5 
+  - 中量: 1.0
+  - 大量: 2
 """
-
-# --- 社交相关 ---
 
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"
@@ -403,8 +402,6 @@ ALL_EFFECTS = [
     # 经济相关
     "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
-    
-    # 社交相关
     
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表

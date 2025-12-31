@@ -15,7 +15,7 @@ id,name,grade,sect_id,desc,effects
 3002,昆仑镜,法宝,3,上古神器，拥有穿梭时空之力，此为仿品，仅能窥探远方.,{extra_observation_radius: 2}
 3003,掌天瓶,法宝,5,夺天地之造化，聚日月之精华，催熟万物.,{extra_cultivate_exp: 50}
 3004,龙凤呈祥戒,法宝,6,龙凤和鸣，心意相通，双修进境一日千里.,{extra_dual_cultivation_exp: 100}
-3005,隐形披风,法宝,8,披上后身形尽隐，连神识也难以察觉.,"{extra_move_step: 1, extra_observation_radius: 1}"
+3005,隐形披风,法宝,8,披上后身形尽隐，连神识也难以察觉.,"{extra_move_step: 1, extra_escape_success_rate: 0.2}"
 3006,御兽环,法宝,2,套在妖兽颈上，任其凶焰滔天，也要乖乖听命.,{extra_catch_success_rate: 0.1}
 3007,太虚甲,法宝,7,太虚幻境所化，万法不沾，防御力惊人.,"{damage_reduction: 0.2, extra_max_hp: 200}"
 3008,八卦炉,法宝,4,仿太上老君炼丹炉，丹成九转，药效倍增.,"{extra_max_lifespan: 150, extra_hp_recovery_rate: 0.5}"
@@ -24,4 +24,4 @@ id,name,grade,sect_id,desc,effects
 3011,六道剑匣,法宝,1,背负六道，剑出轮回，悟剑良伴.,"{extra_breakthrough_success_rate: 0.2, extra_cultivate_exp: 100}"
 3012,传国玉玺,法宝,,受命于天，既寿永昌。皇威浩荡，震慑宵小.,{realm_suppression_bonus: 0.15}
 3013,灵眼之泉,法宝,5,可移动的灵气之源，随身携带的洞天福地.,"{cultivate_duration_reduction: 0.3, extra_cultivate_exp: 50}"
-3014,万魂幡,法宝,,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.2}"
+3014,万魂幡,法宝,,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{legal_actions: ['DevourMortals'], extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.2, extra_battle_strength_points: 'avatar.auxiliary.special_data.get(""devoured_souls"", 0) // 100 * 0.1'}"
