@@ -26,6 +26,35 @@ You don't need to personally fight monsters or level up. Instead, you observe al
 - 🌏 **Rules as the Cornerstone**: The world runs on a rigorous numerical system including spiritual roots, realms, cultivation methods, and lifespans. AI imagination is constrained within a reasonable cultivation logic framework, ensuring the world is authentic and credible.
 - 🦋 **Emergent Storytelling**: Even the developer doesn't know what will happen next. There is no preset script, only world evolution woven from countless causes and effects. Sect wars, righteous vs. demonic conflicts, the fall of geniuses—all are deduced autonomously by the world's logic.
 
+<table border="0">
+  <tr>
+    <td width="33%" valign="top">
+      <h4 align="center">Character Panel</h4>
+      <img src="assets/角色.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Personality Traits</h4>
+      <img src="assets/特质.png" width="100%" />
+    </td>
+    <td width="33%" valign="top">
+      <h4 align="center">Sect System</h4>
+      <img src="assets/宗门.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Life Experiences</h4>
+      <img src="assets/经历.png" width="100%" />
+    </td>
+    <td width="33%" valign="top">
+      <h4 align="center">Independent Thinking</h4>
+      <img src="assets/思考.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Short/Long Term Goals</h4>
+      <img src="assets/目标.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Nicknames</h4>
+      <img src="assets/绰号.png" width="100%" />
+    </td>
+  </tr>
+</table>
+
 ### Why make this?
 The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
 
