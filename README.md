@@ -28,35 +28,27 @@
 
 <table border="0">
   <tr>
-    <td width="50%" valign="top">
+    <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
       <img src="assets/角色.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">性格特质</h4>
+      <img src="assets/特质.png" width="100%" />
     </td>
-    <td width="50%" valign="top">
+    <td width="33%" valign="top">
       <h4 align="center">宗门体系</h4>
       <img src="assets/宗门.png" width="100%" />
-    </td>
-  </tr>
-  <tr>
-    <td width="33%" valign="top">
-      <h4 align="center">自主思考</h4>
-      <img src="assets/思考.png" width="100%" />
-    </td>
-    <td width="33%" valign="top">
+      <br/><br/>
       <h4 align="center">生平经历</h4>
       <img src="assets/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
+      <h4 align="center">自主思考</h4>
+      <img src="assets/思考.png" width="100%" />
+      <br/><br/>
       <h4 align="center">长短期目标</h4>
       <img src="assets/目标.png" width="100%" />
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h4 align="center">性格特质</h4>
-      <img src="assets/特质.png" width="100%" />
-    </td>
-    <td width="50%" valign="top">
+      <br/><br/>
       <h4 align="center">江湖绰号</h4>
       <img src="assets/绰号.png" width="100%" />
     </td>
