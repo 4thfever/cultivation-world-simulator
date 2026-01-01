@@ -209,4 +209,5 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 
 This project is licensed as specified in the [LICENSE](LICENSE) file.
 
-
+## Acknowledgments
+- Referenced some UI elements from ailifeengine
