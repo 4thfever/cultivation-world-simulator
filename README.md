@@ -6,6 +6,11 @@
 
 # 修仙世界模拟器 (Cultivation World Simulator)
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Vue](https://img.shields.io/badge/Vue.js-3.x-4FC08D)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+
 <p align="center">
   <img src="assets/screenshot.gif" alt="游戏演示" width="100%">
 </p>
@@ -211,26 +216,31 @@
 
 2. 安装依赖：
    ```bash
+   # 后端依赖
    pip install -r requirements.txt
+   
+   # 前端依赖 (需Node.js环境)
+   cd web && npm install
    ```
 
 3. 配置LLM：
-   在 `static/config.yml` 中配置LLM参数：
+   在 `static/config.yml` 中配置LLM参数（OpenAI格式）：
    ```yaml
     llm:
-      key: "your-api-key-here"        # 你的API密钥，如"sk-xxx"
-      base_url: "https://api.xxx.com" # API地址，如"https://dashscope.aliyuncs.com/compatible-mode/v1"
-      model_name: "model-name"        # 智能模型名称，如"qwen-plus"
-      fast_model_name: "fast-model"   # 快速模型名称，如"qwen-fast"
+      key: "your-api-key-here"        # 你的API密钥
+      base_url: "https://api.xxx.com" # API地址
+      model_name: "qwen-plus"         # 智能模型名称
+      fast_model_name: "qwen-turbo"   # 快速模型名称
    ```
-   支持所有兼容 OpenAI 接口格式的 API 提供商（如通义千问、DeepSeek、硅基流动、OpenRouter 等）
+
+   也支持在前端直接配入LLM参数：
+   
+   <img src="assets/llm_config.png" alt="前端LLM配置" width="80%">
 
 4. 运行：
-   需要同时启动后端和前端。
-   
    ```bash
-   # 在项目根目录
-   python src/server/main.py
+   # 启动服务 (推荐开发模式，会自动启动前端)
+   python src/server/main.py --dev
    ```
    浏览器会自动打开网页前端。
 
