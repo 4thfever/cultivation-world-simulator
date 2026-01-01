@@ -26,9 +26,42 @@
 - 🌏 **规则作为基石**：世界基于灵根、境界、功法、寿元等严谨的数值体系运行。AI 的想象力被限制在合理的修仙逻辑框架内，确保世界真实可信。
 - 🦋 **涌现式剧情**：开发者也不知道下一秒会发生什么。没有预设剧本，只有无数因果交织出的世界演变。宗门大战、正魔之争、天骄陨落，皆由世界逻辑自主推演。
 
-<p align="center">
-  <img src="assets/screenshot.png" alt="游戏截图" width="100%">
-</p>
+<table border="0">
+  <tr>
+    <td width="50%" valign="top">
+      <h4 align="center">角色面板</h4>
+      <img src="assets/角色.png" width="100%" />
+    </td>
+    <td width="50%" valign="top">
+      <h4 align="center">宗门体系</h4>
+      <img src="assets/宗门.png" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" valign="top">
+      <h4 align="center">自主思考</h4>
+      <img src="assets/思考.png" width="100%" />
+    </td>
+    <td width="33%" valign="top">
+      <h4 align="center">生平经历</h4>
+      <img src="assets/经历.png" width="100%" />
+    </td>
+    <td width="33%" valign="top">
+      <h4 align="center">长短期目标</h4>
+      <img src="assets/目标.png" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4 align="center">性格特质</h4>
+      <img src="assets/特质.png" width="100%" />
+    </td>
+    <td width="50%" valign="top">
+      <h4 align="center">江湖绰号</h4>
+      <img src="assets/绰号.png" width="100%" />
+    </td>
+  </tr>
+</table>
 
 ### 为什么要做这个？
 修仙网文中的世界很精彩，但读者永远只能观察到一隅。
