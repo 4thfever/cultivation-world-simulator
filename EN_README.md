@@ -212,7 +212,11 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 
 2. Install dependencies:
    ```bash
+   # Backend dependencies
    pip install -r requirements.txt
+   
+   # Frontend dependencies (Node.js environment required)
+   cd web && npm install
    ```
 
 3. Configure LLM:
@@ -226,12 +230,14 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
    ```
    Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
 
-4. Run:
-   Need to start both backend and frontend.
+   You can also configure LLM parameters directly in the frontend:
    
+   <img src="assets/llm_config.png" alt="Frontend LLM Config" width="100%">
+
+4. Run:
    ```bash
-   # In project root
-   python src/server/main.py
+   # Start service (Recommended dev mode, automatically starts frontend)
+   python src/server/main.py --dev
    ```
    The browser will automatically open the web frontend.
 

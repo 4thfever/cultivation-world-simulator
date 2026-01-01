@@ -235,7 +235,7 @@
 
    也支持在前端直接配入LLM参数：
    
-   <img src="assets/llm_config.png" alt="前端LLM配置" width="80%">
+   <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
 
 4. 运行：
    ```bash
@@ -249,7 +249,7 @@
 - Aku, 世界观\玩法设计与讨论
 
 ## 致谢
-- 参考了ailifeengine部分ui
+- 参考了ai life engine部分ui
 
 ## 许可证
 
