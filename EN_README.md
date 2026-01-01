@@ -1,7 +1,7 @@
 <!-- Language / 语言 -->
-<p align="center">
+<h3 align="center">
   <a href="README.md">🇨🇳 中文</a> · <a href="EN_README.md">🇺🇸 English</a>
-</p>
+</h3>
 <p align="center">— ✦ —</p>
 
 # Cultivation World Simulator
@@ -49,6 +49,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Configuration files
 - ✅ Standalone release (packaged exe)
 - ✅ Menu bar & Save & Load
+- ✅ Flexible custom LLM interface
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
@@ -84,9 +85,9 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - [ ] Sect system
   - ✅ Settings, techniques, healing, base, styles
   - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming)
+  - ✅ Sect tiers
   - [ ] Sect will AI
   - [ ] Sect tasks
-- ✅ Sect tiers
 - [ ] Clans
 - [ ] Court/Empire (TBD)
 - [ ] Inter-organization relations
@@ -101,14 +102,14 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Multiplayer actions: initiator + responder flow
 - ✅ LLM actions that affect relationships
 - ✅ Systematic action registration and runtime logic
-- [ ] Richer actions
 
 ### 🎭 Event System
+- ✅ Heaven-earth Qi fluctuations
 - [ ] World-scale events:
   - [ ] Auctions
   - [ ] Secret realm exploration
   - [ ] Martial tournaments
-  - [ ] Heaven-earth Qi fluctuations
+  - [ ] Sect grand competition
 - [ ] Sudden events
   - [ ] Treasure/cave emergence
 - [ ] Natural events:
@@ -121,8 +122,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 
 ### 🎒 Items
 - ✅ Basic items and spirit stones
-- [ ] Trading mechanics
-- [ ] Economy system
+- ✅ Trading mechanics
 
 ### 🌿 Ecology
 - ✅ Animals and plants
@@ -152,16 +152,18 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 ### Specials
 - ✅ Fortuitous encounters
 - ✅ Tribulations & Heart devils
-- [ ] Ascension to Upper Realm
-- [ ] Paths/Daos
 - [ ] Possession & Rebirth
+- [ ] Opportunities & Karma
+- [ ] Divination & Prophecy
+- [ ] Male appearance female traits & Female appearance male traits
+- [ ] Character Secrets & Two-faced
+- [ ] Ascension to Upper Realm
 - [ ] Formations
-- [ ] Opportunities
-- [ ] Flexible world rules
-- [ ] Divination & Omens
-- [ ] Male-female traits inversion
-- [ ] Hidden Identity / Dual Persona
-- [ ] World Secret
+- [ ] Paths/Daos
+- [ ] World Secrets & World Laws (Flexible customization)
+- [ ] Gu Refining
+- [ ] World-ending Crisis
+- [ ] Become a Legend of Later Ages
 
 ### 🔭 Long-term
 - [ ] ECS parallel toolkit
