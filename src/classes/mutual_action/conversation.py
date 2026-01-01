@@ -26,6 +26,7 @@ class Conversation(MutualAction):
     """
 
     ACTION_NAME = "交谈"
+    EMOJI = "🗣️"
     DESC = "与对方进行一段交流对话"
     DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}

@@ -26,6 +26,7 @@ class Breakthrough(TimedAction):
     """
 
     ACTION_NAME = "突破"
+    EMOJI = "⚡"
     DESC = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
     DOABLES_REQUIREMENTS = "角色处于瓶颈时；不能连续执行"
     PARAMS = {}

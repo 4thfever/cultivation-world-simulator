@@ -19,6 +19,7 @@ class Talk(MutualAction):
     """
 
     ACTION_NAME = "攀谈"
+    EMOJI = "👋"
     DESC = "向对方发起攀谈"
     DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}

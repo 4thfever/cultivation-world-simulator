@@ -69,6 +69,8 @@ class Action(ABC):
         """
         return str(self.__class__.__name__)
 
+    EMOJI: str = ""
+
     def get_save_data(self) -> dict:
         """获取需要存档的运行时数据"""
         return {}

@@ -111,6 +111,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "nickname_reason": avatar.nickname.reason if avatar.nickname else None,
         "is_dead": avatar.is_dead,
         "death_info": avatar.death_info,
+        "action_state": f"正在{getattr(avatar.current_action.action, 'ACTION_NAME', '思考')}" if hasattr(avatar, "current_action") and avatar.current_action and getattr(avatar.current_action, "action", None) else "思考"
     }
 
     # 1. 特质 (Personas)

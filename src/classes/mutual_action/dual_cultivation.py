@@ -26,6 +26,7 @@ class DualCultivation(MutualAction):
     """
 
     ACTION_NAME = "双修"
+    EMOJI = "💕"
     DESC = "以情入道的双修之术，仅合欢宗弟子可发起，对象可接受或拒绝"
     DOABLES_REQUIREMENTS = "发起者为合欢宗；目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}

@@ -28,6 +28,7 @@ class Occupy(MutualAction):
     对方拒绝则进入战斗，进攻方胜利则洞府易主。
     """
     ACTION_NAME = "抢夺洞府"
+    EMOJI = "🚩"
     DESC = "占据或抢夺洞府"
     PARAMS = {"region_name": "str"}
     FEEDBACK_ACTIONS = ["Yield", "Reject"]

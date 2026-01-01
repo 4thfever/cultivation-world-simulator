@@ -31,6 +31,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     """
 
     ACTION_NAME: str = "MutualAction"
+    EMOJI: str = "💬"
     DESC: str = ""
     DOABLES_REQUIREMENTS: str = "交互范围内可互动"
     PARAMS: dict = {"target_avatar": "Avatar"}

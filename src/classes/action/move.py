@@ -10,6 +10,7 @@ class Move(DefineAction, ChunkActionMixin):
     """
 
     ACTION_NAME = "移动"
+    EMOJI = "🏃"
     DESC = "移动到某个相对位置"
     PARAMS = {"delta_x": "int", "delta_y": "int"}
 

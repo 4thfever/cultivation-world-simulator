@@ -14,6 +14,7 @@ class SellItems(InstantAction):
     """
 
     ACTION_NAME = "出售物品"
+    EMOJI = "💰"
     DESC = "在城镇出售持有的某类物品的全部"
     DOABLES_REQUIREMENTS = "在城镇且背包非空"
     PARAMS = {"item_name": "str"}

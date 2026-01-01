@@ -13,6 +13,7 @@ class MutualAttack(MutualAction):
     """攻击另一个NPC"""
 
     ACTION_NAME = "攻击"
+    EMOJI = "⚔️"
     DESC = "对目标进行攻击。"
     DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}

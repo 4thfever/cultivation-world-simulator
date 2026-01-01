@@ -36,6 +36,7 @@ export interface Item extends EffectEntity {
 
 export interface AvatarSummary extends EntityBase, Coordinates {
   action?: string;
+  action_emoji?: string;
   gender?: string;
   pic_id?: number;
   is_dead?: boolean;
@@ -49,6 +50,7 @@ export interface AvatarDetail extends EntityBase {
   nickname?: string;
   appearance: string; // 外貌描述
   is_dead?: boolean;
+  action_state?: string; // 当前正在进行的动作描述
   death_info?: {
     time: number;
     reason: string;

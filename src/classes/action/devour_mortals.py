@@ -11,6 +11,7 @@ class DevourMortals(TimedAction):
     """
 
     ACTION_NAME = "吞噬凡人"
+    EMOJI = "🩸"
     DESC = "吞噬凡人，较多增加战力"
     DOABLES_REQUIREMENTS = "持有万魂幡"
     PARAMS = {}

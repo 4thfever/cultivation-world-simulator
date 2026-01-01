@@ -10,6 +10,7 @@ class Play(TimedAction):
     """
 
     ACTION_NAME = "消遣"
+    EMOJI = "🪁"
     DESC = "消遣，放松身心"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}

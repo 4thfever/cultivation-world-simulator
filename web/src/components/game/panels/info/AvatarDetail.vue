@@ -76,6 +76,11 @@ async function handleClearObjective() {
     </div>
 
     <div class="content-scroll">
+      <!-- Action State Banner -->
+      <div v-if="!data.is_dead && data.action_state" class="action-banner">
+        {{ data.action_state }}
+      </div>
+
       <!-- Stats Grid -->
       <div class="stats-grid">
         <StatItem label="境界" :value="data.realm" :sub-value="data.level" />
@@ -224,6 +229,17 @@ async function handleClearObjective() {
   font-size: 13px;
   margin-bottom: 12px;
   border: 1px solid #7a2a2a;
+}
+
+.action-banner {
+  background: rgba(23, 125, 220, 0.15);
+  color: #aaddff;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 13px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(23, 125, 220, 0.3);
 }
 
 .content-scroll {

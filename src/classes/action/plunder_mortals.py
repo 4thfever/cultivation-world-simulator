@@ -13,6 +13,7 @@ class PlunderMortals(TimedAction):
     """
 
     ACTION_NAME = "搜刮凡人"
+    EMOJI = "💀"
     DESC = "在城镇搜刮凡人，获取少量灵石"
     DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘邪’"
     PARAMS = {}

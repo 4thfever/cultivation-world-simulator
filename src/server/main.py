@@ -99,6 +99,21 @@ def resolve_avatar_pic_id(avatar) -> int:
     gender_val = getattr(getattr(avatar, "gender", None), "value", "male")
     return get_avatar_pic_id(str(getattr(avatar, "id", "")), gender_val or "male")
 
+def resolve_avatar_action_emoji(avatar) -> str:
+    """获取角色当前动作的 Emoji"""
+    if not avatar:
+        return ""
+    curr = getattr(avatar, "current_action", None)
+    if not curr:
+        return ""
+    
+    # ActionInstance.action -> Action 实例
+    act_instance = getattr(curr, "action", None)
+    if not act_instance:
+        return ""
+
+    return getattr(act_instance, "EMOJI", "")
+
 # 触发配置重载的标记 (technique.csv updated)
 
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
@@ -380,7 +395,8 @@ async def game_loop():
                             "y": int(getattr(a, "pos_y", 0)),
                             "gender": a.gender.value,
                             "pic_id": resolve_avatar_pic_id(a),
-                            "action": getattr(a, "current_action", {}).get("name", "发呆") if hasattr(a, "current_action") and a.current_action else "发呆",
+                            "action": getattr(a, "current_action", {}).get("name", "思考") if hasattr(a, "current_action") and a.current_action else "思考",
+                            "action_emoji": resolve_avatar_action_emoji(a),
                             "is_dead": False
                         })
 
@@ -409,7 +425,8 @@ async def game_loop():
                         avatar_updates.append({
                             "id": str(a.id), 
                             "x": int(getattr(a, "pos_x", 0)), 
-                            "y": int(getattr(a, "pos_y", 0))
+                            "y": int(getattr(a, "pos_y", 0)),
+                            "action_emoji": resolve_avatar_action_emoji(a)
                         })
                         count += 1
 
@@ -597,6 +614,7 @@ def get_state():
                     "x": ax,
                     "y": ay,
                     "action": str(aaction),
+                    "action_emoji": resolve_avatar_action_emoji(a),
                     "gender": str(a.gender.value),
                     "pic_id": resolve_avatar_pic_id(a)
                 })

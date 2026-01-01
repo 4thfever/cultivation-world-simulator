@@ -11,6 +11,7 @@ class NurtureWeapon(TimedAction):
     """
 
     ACTION_NAME = "温养兵器"
+    EMOJI = "✨"
     DESC = "温养兵器，增加兵器熟练度"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}

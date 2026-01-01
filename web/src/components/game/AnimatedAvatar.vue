@@ -55,7 +55,14 @@ useSharedTicker((delta) => {
     } else {
         currentY.value = destY
     }
+    
+    // Emoji bobbing animation
+    emojiTime += delta * 0.05
+    emojiBob.value = Math.sin(emojiTime) * 5
 })
+
+let emojiTime = 0
+const emojiBob = ref(0)
 
 function getTexture() {
   const gender = (props.avatar.gender || 'male').toLowerCase()
@@ -117,6 +124,57 @@ function handlePointerTap() {
         name: props.avatar.name
     })
 }
+
+const emojiStyle = {
+    fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif',
+    fontSize: 70,
+    align: 'center',
+} as any
+
+const drawEmojiBg = (g: Graphics) => {
+    g.clear()
+    
+    const w = 80
+    const h = 80
+    const r = 16
+    const halfW = w / 2
+    const halfH = h / 2
+    
+    // 1. Draw all fills first (to cover background)
+    g.beginPath()
+    g.roundRect(-halfW, -halfH, w, h, r)
+    g.fill({ color: 0xffffff, alpha: 1.0 })
+    
+    // Tail fill
+    g.beginPath()
+    g.moveTo(-halfW + 10, halfH)     // Start at bottom-left area of body
+    g.lineTo(-halfW - 10, halfH + 20) // Point pointing down-left
+    g.lineTo(-halfW, halfH - 10)      // Back to left edge of body
+    g.closePath()
+    g.fill({ color: 0xffffff, alpha: 1.0 })
+
+    // 2. Draw Strokes (Outlines)
+    // We draw the bubble body stroke
+    g.roundRect(-halfW, -halfH, w, h, r)
+    g.stroke({ width: 3, color: 0x000000, alpha: 1.0 })
+    
+    // We draw the tail stroke
+    g.beginPath()
+    g.moveTo(-halfW + 10, halfH)
+    g.lineTo(-halfW - 10, halfH + 20)
+    g.lineTo(-halfW, halfH - 10)
+    g.stroke({ width: 3, color: 0x000000, alpha: 1.0 })
+
+    // 3. Clean up the intersection with a white patch
+    // We fill a small polygon over the line where tail meets body
+    g.beginPath()
+    g.moveTo(-halfW + 8, halfH - 2)   // Inside body, near bottom
+    g.lineTo(-halfW - 2, halfH - 12)  // Inside body, near left
+    g.lineTo(-halfW - 8, halfH + 16)  // Towards tail tip (but not all the way)
+    g.lineTo(-halfW + 8, halfH + 2)   // Towards tail base
+    g.closePath()
+    g.fill({ color: 0xffffff, alpha: 1.0 })
+}
 </script>
 
 <template>
@@ -140,6 +198,22 @@ function handlePointerTap() {
       v-else
       @render="drawFallback"
     />
+
+    <!-- Emoji Bubble -->
+    <container
+      v-if="avatar.action_emoji"
+      :x="tileSize * 0.6"
+      :y="(getTexture() ? -tileSize * 3.5 : -tileSize * 1.2) + emojiBob"
+      :z-index="100"
+    >
+        <graphics @render="drawEmojiBg" />
+        <text
+            :text="avatar.action_emoji"
+            :style="emojiStyle"
+            :anchor="0.5"
+            :scale="1.0"
+        />
+    </container>
 
     <text
       :text="avatar.name"

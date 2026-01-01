@@ -12,6 +12,7 @@ from src.classes.kill_and_grab import kill_and_grab
 
 class Attack(InstantAction):
     ACTION_NAME = "发起战斗"
+    EMOJI = "⚔️"
     DESC = "攻击目标，进行对战"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}

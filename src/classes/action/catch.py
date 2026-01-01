@@ -24,6 +24,7 @@ class Catch(TimedAction):
     """
 
     ACTION_NAME = "御兽"
+    EMOJI = "🕸️"
     DESC = "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级。"
     DOABLES_REQUIREMENTS = "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
     PARAMS = {}

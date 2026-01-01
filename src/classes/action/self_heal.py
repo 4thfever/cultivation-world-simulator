@@ -12,6 +12,7 @@ class SelfHeal(TimedAction):
     """
 
     ACTION_NAME = "疗伤"
+    EMOJI = "💚"
     DESC = "在宗门总部静养疗伤，回满HP"
     DOABLES_REQUIREMENTS = "自己是宗门弟子，且位于本宗门总部区域，且当前HP未满"
     PARAMS = {}

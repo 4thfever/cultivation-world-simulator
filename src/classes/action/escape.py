@@ -15,6 +15,7 @@ class Escape(InstantAction):
     """
 
     ACTION_NAME = "逃离"
+    EMOJI = "💨"
     DESC = "逃离对方（基于成功率判定）"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}

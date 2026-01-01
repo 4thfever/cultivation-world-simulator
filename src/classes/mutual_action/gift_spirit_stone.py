@@ -21,6 +21,7 @@ class GiftSpiritStone(MutualAction):
     """
 
     ACTION_NAME = "赠送灵石"
+    EMOJI = "🎁"
     DESC = "向对方赠送灵石，一次赠送100灵石"
     DOABLES_REQUIREMENTS = "发起者至少有100灵石；目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
