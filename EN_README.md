@@ -6,38 +6,40 @@
 
 # Cultivation World Simulator
 
-An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.
+<p align="center">
+  <img src="assets/screenshot.gif" alt="Game Demo" width="100%">
+</p>
 
-## Overview
+> **An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.**
 
-Cultivation World Simulator combines traditional game-rule systems with large language models. By first establishing a complete ruleset for the cultivation world, it creates an autonomous, vibrant, immersive virtual world with emergent stories.
+## 📖 Introduction
 
-Core idea: **Build a credible rule-based world model first, then plug in AI to bring it to life.**
+This is an **AI-driven open-world cultivation simulator**.
 
-### Tech Stack
+Unlike traditional RPGs where you play a specific character, here **you play as the "Heavenly Dao" (God)**.
+You don't need to personally fight monsters or level up. Instead, you observe all living beings from a god's perspective. In an open world woven together by rules and AI, you witness the rise and fall of sects and the emergence of prodigies. You can quietly watch the world change, or bring down tribulations and alter minds, subtly intervening in the world's progress.
 
-- **Frontend Rendering**: pygame (Web support in the future)
-- **Simulation Engine**: custom event-driven simulator
-- **World Model**: rule-based deterministic systems
-- **AI Integration**: LLM-generated actions, decisions, micro-stories
+### ✨ Core Highlights
 
-## Background
+- 👁️ **Play as "Heavenly Dao" (God Perspective)**: You are not a cultivator, but the **Heavenly Dao** controlling the world's rules. Observe the myriad forms of life and experience their joys and sorrows.
+- 🤖 **Fully AI-Driven**: Every NPC is independently driven by LLMs, with unique personalities, memories, relationships, and behavioral logic. They make decisions based on the current situation, have love and hate, form factions, and even defy the heavens to change their fate.
+- 🌏 **Rules as the Cornerstone**: The world runs on a rigorous numerical system including spiritual roots, realms, cultivation methods, and lifespans. AI imagination is constrained within a reasonable cultivation logic framework, ensuring the world is authentic and credible.
+- 🦋 **Emergent Storytelling**: Even the developer doesn't know what will happen next. There is no preset script, only world evolution woven from countless causes and effects. Sect wars, righteous vs. demonic conflicts, the fall of geniuses—all are deduced autonomously by the world's logic.
 
-I have been a long-time reader of xianxia novels, from classics to modern works. As a game AI practitioner, I believe today’s LLM capabilities are sufficient to support a xianxia-style world simulation.
+### Why make this?
+The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
 
-However, LLM-only NPC decision/dialogue is not enough. A credible rule system must ground the world as the “world model”, and then AI makes it vivid.
+Cultivation games are either completely scripted or rely on simple state machines designed by humans, often resulting in forced and unintelligent behaviors.
 
-I aim to create a pure, joyful, direct, living sense of immersion. Not a mere marketing demo, nor purely academic like “Stanford Town”, but a world that players can actually feel and inhabit.
+With the advent of Large Language Models, the goal of making "every character alive" seems reachable.
 
-If you like this project, consider starring it~ You can also watch intro videos for this project on my [Bilibili account](https://space.bilibili.com/527346837).
-
-![Screenshot](assets/screenshot.gif)
+I hope to create a pure, joyful, direct, and living sense of immersion in a cultivation world. Not a pure marketing tool for some game company, nor pure research like "Stanford Town", but an actual world that provides players with real immersion.
 
 ## Contact
 
-If you have any questions or suggestions, feel free to open an Issue or Pull Request.
-You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!
-You can also join the QQ group for discussion: 1071821688. Verification answer is my Bilibili nickname.
+If you have any questions or suggestions, feel free to open an Issue or Pull Request.  
+You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!  
+You can also join the QQ group for discussion: 1071821688. Verification answer is my Bilibili nickname.  
 
 ## Development Progress
 
@@ -169,6 +171,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - [ ] ECS parallel toolkit
 - [ ] Novelization/imagery/video for history and events
 - [ ] Avatar calling MCP tools on their own
+
 ## Usage
 
 ### Run Steps
@@ -207,9 +210,9 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 ## Contributors
 - Aku, for world design & discussion
 
+## Acknowledgments
+- Referenced some UI elements from ailifeengine
+
 ## License
 
 This project is licensed as specified in the [LICENSE](LICENSE) file.
-
-## Acknowledgments
-- Referenced some UI elements from ailifeengine
