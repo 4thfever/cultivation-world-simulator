@@ -114,17 +114,20 @@ watch(() => props.visible, (val) => {
 
 .system-menu {
   background: #1a1a1a;
-  width: 820px;
-  height: 620px;
+  width: 95vw;
+  height: 90vh;
+  max-width: 1920px;
+  /* 动态基准字号：最小16px，正常为视口短边的2%，最大28px */
+  font-size: clamp(16px, 2vmin, 28px);
   border: 1px solid #333;
-  border-radius: 8px;
+  border-radius: 0.5em;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 0.5em 1.5em rgba(0,0,0,0.5);
 }
 
 .menu-header {
-  padding: 16px;
+  padding: 1em;
   border-bottom: 1px solid #333;
   display: flex;
   justify-content: space-between;
@@ -133,7 +136,7 @@ watch(() => props.visible, (val) => {
 
 .menu-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.2em;
   color: #ddd;
 }
 
@@ -141,8 +144,9 @@ watch(() => props.visible, (val) => {
   background: none;
   border: none;
   color: #999;
-  font-size: 24px;
+  font-size: 1.5em;
   cursor: pointer;
+  padding: 0 0.5em;
 }
 
 .menu-tabs {
@@ -152,12 +156,13 @@ watch(() => props.visible, (val) => {
 
 .menu-tabs button {
   flex: 1;
-  padding: 12px;
+  padding: 0.8em;
   background: #222;
   border: none;
   color: #888;
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 1em;
 }
 
 .menu-tabs button:hover {
@@ -167,12 +172,12 @@ watch(() => props.visible, (val) => {
 .menu-tabs button.active {
   background: #1a1a1a;
   color: #fff;
-  border-bottom: 2px solid #4a9eff;
+  border-bottom: 0.15em solid #4a9eff;
 }
 
 .menu-content {
   flex: 1;
-  padding: 20px;
+  padding: 1.5em;
   overflow-y: auto;
 }
 </style>

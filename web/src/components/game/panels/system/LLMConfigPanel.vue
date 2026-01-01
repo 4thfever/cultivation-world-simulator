@@ -271,6 +271,9 @@ onMounted(() => {
             <p>
               您的 API Key 仅保存在您的本地电脑配置文件中 (`static/local_config.yml`)，由本地运行的游戏后端直接与模型厂商通信。本游戏 (Cultivation World Simulator) 是完全开源的程序，绝不会将您的 Key 上传至任何第三方服务器。也请注意不要把local_config.yml文件分享给任何人。
             </p>
+            <p>
+              使用token会产生费用，请自行评估使用成本。
+            </p>
           </div>
         </div>
 
@@ -286,31 +289,31 @@ onMounted(() => {
 .llm-panel {
   height: 100%;
   overflow-y: auto;
-  padding: 0 10px;
+  padding: 0 0.8em;
 }
 
 .loading {
   text-align: center;
   color: #888;
-  padding: 40px;
+  padding: 3em;
 }
 
 .section {
-  margin-bottom: 24px;
+  margin-bottom: 1.5em;
 }
 
 .section-title {
-  font-size: 14px;
+  font-size: 1em;
   font-weight: bold;
   color: #ddd;
-  margin-bottom: 12px;
-  border-left: 3px solid #4a9eff;
-  padding-left: 8px;
+  margin-bottom: 0.8em;
+  border-left: 0.2em solid #4a9eff;
+  padding-left: 0.5em;
 }
 
 .preset-buttons {
   display: flex;
-  gap: 10px;
+  gap: 0.8em;
   flex-wrap: wrap;
 }
 
@@ -318,11 +321,11 @@ onMounted(() => {
   background: #333;
   border: 1px solid #444;
   color: #ccc;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 0.4em 0.8em;
+  border-radius: 0.3em;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 12px;
+  font-size: 0.85em;
 }
 
 .preset-btn:hover {
@@ -332,20 +335,20 @@ onMounted(() => {
 }
 
 .form-item {
-  margin-bottom: 16px;
+  margin-bottom: 1.2em;
 }
 
 .form-item label {
   display: block;
-  font-size: 13px;
+  font-size: 0.9em;
   color: #bbb;
-  margin-bottom: 6px;
+  margin-bottom: 0.4em;
 }
 
 .form-item .desc {
-  font-size: 11px;
+  font-size: 0.8em;
   color: #666;
-  margin-bottom: 6px;
+  margin-bottom: 0.4em;
 }
 
 .input-field {
@@ -353,10 +356,10 @@ onMounted(() => {
   background: #222;
   border: 1px solid #444;
   color: #ddd;
-  padding: 8px 10px;
-  border-radius: 4px;
+  padding: 0.6em 0.8em;
+  border-radius: 0.3em;
   font-family: monospace;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 .input-field:focus {
@@ -369,16 +372,16 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 0.4em;
 }
 
 .help-btn {
   background: none;
   border: 1px solid #444;
   color: #888;
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 10px;
+  font-size: 0.8em;
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -392,7 +395,7 @@ onMounted(() => {
 .mode-options.horizontal {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 0.8em;
 }
 
 .mode-options.horizontal .mode-radio {
@@ -400,15 +403,15 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 12px 6px;
+  padding: 0.8em 0.4em;
 }
 
 .mode-radio {
   display: flex;
   background: #222;
   border: 1px solid #333;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 0.8em;
+  border-radius: 0.3em;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -432,14 +435,14 @@ onMounted(() => {
 
 .radio-label {
   color: #ddd;
-  font-size: 13px;
+  font-size: 0.9em;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 0.3em;
 }
 
 .radio-desc {
   color: #777;
-  font-size: 11px;
+  font-size: 0.8em;
   line-height: 1.3;
 }
 
@@ -460,18 +463,19 @@ onMounted(() => {
 .modal-content {
   background: #0f1115;
   border: 1px solid #333;
-  border-radius: 12px;
-  width: 700px;
+  border-radius: 0.8em;
+  width: 50em;
   max-width: 90vw;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  box-shadow: 0 1.5em 3em rgba(0,0,0,0.7);
   overflow: hidden;
+  font-size: 1rem; /* 重置 modal 内部字体，避免过大，或者保留继承 */
 }
 
 .modal-header {
-  padding: 20px 24px;
+  padding: 1.2em 1.5em;
   border-bottom: 1px solid #222;
   display: flex;
   justify-content: space-between;
@@ -481,22 +485,22 @@ onMounted(() => {
 
 .modal-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.2em;
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5em;
 }
 
 .modal-header h3::before {
   content: "?";
   display: inline-flex;
-  width: 20px;
-  height: 20px;
+  width: 1.4em;
+  height: 1.4em;
   border: 1px solid #00e0b0;
   color: #00e0b0;
   border-radius: 50%;
-  font-size: 14px;
+  font-size: 0.9em;
   align-items: center;
   justify-content: center;
 }
@@ -505,7 +509,7 @@ onMounted(() => {
   background: none;
   border: none;
   color: #666;
-  font-size: 24px;
+  font-size: 1.5em;
   cursor: pointer;
   transition: color 0.2s;
 }
@@ -517,48 +521,48 @@ onMounted(() => {
 .modal-body {
   flex: 1;
   overflow-y: auto;
-  padding: 24px;
+  padding: 1.5em;
   color: #aaa;
 }
 
 .help-section {
-  margin-bottom: 30px;
+  margin-bottom: 2em;
 }
 
 .help-section h4 {
-  color: #6da; /* 类似截图中的青绿色 */
-  font-size: 16px;
-  margin: 0 0 12px 0;
+  color: #6da;
+  font-size: 1.1em;
+  margin: 0 0 0.8em 0;
 }
 
 .help-section p {
   line-height: 1.6;
-  margin: 0 0 10px 0;
-  font-size: 14px;
+  margin: 0 0 0.6em 0;
+  font-size: 0.95em;
 }
 
 .model-cards {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 0.8em;
+  margin-top: 0.8em;
 }
 
 .card {
   flex: 1;
   background: #16181d;
   border: 1px solid #333;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 0.5em;
+  padding: 0.8em;
 }
 
 .card h5 {
   color: #8a9eff;
-  margin: 0 0 8px 0;
-  font-size: 14px;
+  margin: 0 0 0.5em 0;
+  font-size: 0.95em;
 }
 
 .card p {
-  font-size: 12px;
+  font-size: 0.85em;
   color: #777;
   margin: 0;
 }
@@ -566,13 +570,13 @@ onMounted(() => {
 .code-block {
   background: #111;
   border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 0.5em;
+  padding: 1em;
   font-family: monospace;
 }
 
 .code-block p {
-  margin-bottom: 8px;
+  margin-bottom: 0.5em;
 }
 
 .code-block p:last-child {
@@ -585,8 +589,8 @@ onMounted(() => {
 
 .code-block code {
   background: #333;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  border-radius: 0.2em;
   color: #ff79c6;
 }
 
@@ -596,7 +600,7 @@ onMounted(() => {
   margin: 0;
   background: #16181d;
   border: 1px solid #333;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .link-list li {
@@ -610,10 +614,10 @@ onMounted(() => {
 .link-list a {
   display: flex;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 0.8em 1em;
   color: #ddd;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.95em;
   transition: background 0.2s;
 }
 
@@ -627,19 +631,19 @@ onMounted(() => {
 }
 
 .modal-footer {
-  padding: 16px 24px;
+  padding: 1em 1.5em;
   border-top: 1px solid #222;
   background: #0f1115;
 }
 
 .confirm-btn {
   width: 100%;
-  background: #0099cc; /* 类似截图中的蓝色按钮 */
+  background: #0099cc;
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 16px;
+  padding: 0.8em;
+  border-radius: 0.4em;
+  font-size: 1em;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
@@ -652,16 +656,16 @@ onMounted(() => {
 .action-bar {
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 20px;
+  padding-bottom: 1.5em;
 }
 
 .save-btn {
   background: #2a8a4a;
   color: #fff;
   border: none;
-  padding: 10px 24px;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 0.7em 1.5em;
+  border-radius: 0.3em;
+  font-size: 0.95em;
   cursor: pointer;
   transition: background 0.2s;
 }

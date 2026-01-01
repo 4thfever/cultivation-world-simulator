@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { gameApi } from '../api/game';
-import type { AvatarDetail, RegionDetail, HoverLine } from '../types/core';
+import type { AvatarDetail, RegionDetail, SectDetail, HoverLine } from '../types/core';
 
-export type SelectionType = 'avatar' | 'region';
+export type SelectionType = 'avatar' | 'region' | 'sect';
 
 export interface Selection {
   type: SelectionType;
@@ -16,7 +16,7 @@ export const useUiStore = defineStore('ui', () => {
   const selectedTarget = ref<Selection | null>(null);
   
   // 详情数据 (可能为空，或正在加载)
-  const detailData = ref<AvatarDetail | RegionDetail | null>(null);
+  const detailData = ref<AvatarDetail | RegionDetail | SectDetail | null>(null);
   const isLoadingDetail = ref(false);
   const detailError = ref<string | null>(null);
 

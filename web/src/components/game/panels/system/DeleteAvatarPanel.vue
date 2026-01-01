@@ -86,27 +86,27 @@ onMounted(() => {
 }
 
 .search-bar {
-    margin-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 .loading {
   text-align: center;
   color: #888;
-  padding: 40px;
+  padding: 3em;
 }
 
 .empty {
   text-align: center;
   color: #666;
-  padding: 40px;
+  padding: 3em;
 }
 
 .avatar-item {
   background: #222;
   border: 1px solid #333;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  padding: 0.8em;
+  margin-bottom: 0.8em;
+  border-radius: 0.3em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -122,12 +122,12 @@ onMounted(() => {
 .avatar-info .name {
   color: #fff;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .avatar-info .details {
     color: #888;
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 0.85em;
+    margin-top: 0.3em;
 }
 </style>

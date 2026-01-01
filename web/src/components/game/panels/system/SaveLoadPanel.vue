@@ -112,14 +112,14 @@ onMounted(() => {
 
 .save-panel {
   align-items: center;
-  padding-top: 40px;
+  padding-top: 3em;
 }
 
 .new-save-card {
-  width: 200px;
-  height: 150px;
+  width: 15em;
+  height: 11em;
   border: 2px dashed #444;
-  border-radius: 8px;
+  border-radius: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,7 +127,7 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s;
   color: #888;
-  margin-bottom: 40px;
+  margin-bottom: 3em;
 }
 
 .new-save-card:hover {
@@ -137,22 +137,22 @@ onMounted(() => {
 }
 
 .new-save-card .icon {
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 3em;
+  margin-bottom: 0.2em;
 }
 
 .new-save-card .sub {
-  font-size: 12px;
+  font-size: 0.85em;
   color: #666;
-  margin-top: 5px;
+  margin-top: 0.4em;
 }
 
 .save-item {
   background: #222;
   border: 1px solid #333;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  padding: 0.8em;
+  margin-bottom: 0.8em;
+  border-radius: 0.3em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -162,8 +162,9 @@ onMounted(() => {
 }
 
 .save-panel .save-item {
-    cursor: default; /* 存档模式下列表仅展示，不可点击加载 */
-    width: 600px;
+    cursor: default; 
+    width: 100%;
+    max-width: 45em;
 }
 
 .save-item:hover {
@@ -174,18 +175,18 @@ onMounted(() => {
 .save-info .save-time {
   color: #fff;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .save-info .game-time {
   color: #4a9eff;
-  font-size: 13px;
-  margin: 4px 0;
+  font-size: 0.9em;
+  margin: 0.3em 0;
 }
 
 .save-info .filename {
   color: #666;
-  font-size: 12px;
+  font-size: 0.85em;
   font-family: monospace;
 }
 
@@ -193,14 +194,15 @@ onMounted(() => {
   background: #333;
   color: #ddd;
   border: 1px solid #444;
-  padding: 6px 16px;
-  border-radius: 4px;
+  padding: 0.4em 1em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
 }
 
 .loading, .empty {
   text-align: center;
   color: #888;
-  padding: 40px;
+  padding: 3em;
   width: 100%;
 }
 </style>

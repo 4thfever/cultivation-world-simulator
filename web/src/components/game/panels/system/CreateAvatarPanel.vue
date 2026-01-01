@@ -206,7 +206,7 @@ onMounted(() => {
         <n-form label-placement="left" label-width="80">
           <n-form-item label="姓名">
             <div class="name-inputs">
-              <n-input v-model:value="createForm.surname" placeholder="姓" style="width: 80px" />
+              <n-input v-model:value="createForm.surname" placeholder="姓" style="width: 6em" />
               <n-input v-model:value="createForm.given_name" placeholder="名" style="flex: 1" />
             </div>
           </n-form-item>
@@ -218,7 +218,7 @@ onMounted(() => {
           </n-form-item>
           <n-form-item label="年龄">
             <n-slider v-model:value="createForm.age" :min="16" :max="100" :step="1" />
-            <span style="margin-left: 10px; width: 50px">{{ createForm.age }}岁</span>
+            <span style="margin-left: 0.8em; width: 4em">{{ createForm.age }}岁</span>
           </n-form-item>
           <n-form-item label="初始境界">
               <n-select v-model:value="createForm.level" :options="realmOptions" placeholder="选择初始境界" />
@@ -261,13 +261,13 @@ onMounted(() => {
                   :options="avatarOptions" 
                   placeholder="选择角色" 
                   filterable 
-                  style="width: 160px"
+                  style="width: 12em"
                 />
                 <n-select 
                   v-model:value="rel.relation" 
                   :options="relationOptions" 
                   placeholder="关系" 
-                  style="width: 100px"
+                  style="width: 8em"
                 />
                 <n-button @click="removeRelation(index)" circle size="small" type="error">-</n-button>
               </div>
@@ -311,37 +311,37 @@ onMounted(() => {
 .loading {
   text-align: center;
   color: #888;
-  padding: 40px;
+  padding: 3em;
 }
 
 .create-layout {
   display: flex;
-  gap: 20px;
+  gap: 1.5em;
   height: 100%;
 }
 
 .form-column {
   flex: 1;
-  min-width: 320px;
+  min-width: 20em;
 }
 
 .avatar-column {
-  width: 300px;
+  width: 20em;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.8em;
 }
 
 .name-inputs {
   display: flex;
-  gap: 10px;
+  gap: 0.8em;
 }
 
 .avatar-preview {
   width: 100%;
-  height: 220px;
+  height: 15em;
   border: 1px solid #444;
-  border-radius: 4px;
+  border-radius: 0.3em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,27 +357,27 @@ onMounted(() => {
 
 .no-avatar {
   color: #666;
-  font-size: 12px;
+  font-size: 0.85em;
 }
 
 .avatar-grid {
   flex: 1;
   overflow-y: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-  grid-auto-rows: 80px;
-  gap: 8px;
-  padding: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(4em, 1fr));
+  grid-auto-rows: 5em;
+  gap: 0.5em;
+  padding: 0.4em;
   border: 1px solid #333;
-  border-radius: 4px;
-  min-height: 220px;
+  border-radius: 0.3em;
+  min-height: 15em;
 }
 
 .avatar-option {
   width: 100%;
   height: 100%;
   border: 2px solid transparent;
-  border-radius: 6px;
+  border-radius: 0.4em;
   overflow: hidden;
   cursor: pointer;
   background: #111;
@@ -400,20 +400,20 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 2px;
+  padding: 0.15em;
 }
 
 .no-avatars {
   grid-column: span 4;
   text-align: center;
   color: #666;
-  font-size: 12px;
+  font-size: 0.85em;
 }
 
 .appearance-slider {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.8em;
   flex: 1;
   min-width: 0;
 }
@@ -424,7 +424,7 @@ onMounted(() => {
 }
 
 .appearance-slider span {
-  width: 32px;
+  width: 2.5em;
   text-align: right;
   color: #ddd;
 }
@@ -433,16 +433,16 @@ onMounted(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.6em;
 }
 
 .relation-row {
   display: flex;
-  gap: 8px;
+  gap: 0.6em;
   align-items: center;
 }
 
 .actions {
-  margin-top: 20px;
+  margin-top: 1.5em;
 }
 </style>

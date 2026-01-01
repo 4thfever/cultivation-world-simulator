@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { AvatarDetail, EffectEntity } from '@/types/core';
-import { formatHp, formatAge } from '@/utils/formatters/number';
+import { formatHp } from '@/utils/formatters/number';
 import StatItem from './components/StatItem.vue';
 import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
@@ -98,7 +98,7 @@ async function handleClearObjective() {
           label="宗门" 
           :value="data.sect?.name || '散修'" 
           :sub-value="data.sect?.rank"
-          :on-click="data.sect ? () => jumpToSect(data.sect.id) : undefined"
+          :on-click="data.sect ? () => jumpToSect(data.sect!.id) : undefined"
         />
         
         <StatItem 
