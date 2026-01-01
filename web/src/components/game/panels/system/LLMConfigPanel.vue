@@ -45,7 +45,7 @@ const presets = [
     name: 'OpenRouter',
     base_url: 'https://openrouter.ai/api/v1',
     model_name: 'anthropic/claude-3.5-sonnet',
-    fast_model_name: 'google/gemini-flash-1.5'
+    fast_model_name: 'google/gemini-3-flash'
   }
 ]
 
