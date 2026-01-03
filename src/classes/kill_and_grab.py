@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import random
 
-from src.classes.single_choice import make_decision
+from src.classes.single_choice import make_decision, format_swap_choice_desc
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -49,14 +49,15 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
     else:
         # 其他情况下都让 AI 决策
         # 构建详细描述，包含效果
-        item_desc = loot_item.get_detailed_info()
-        current_desc = winner_current.get_detailed_info()
-
-        context = f"战斗胜利，{loser.name} 身死道消，留下了一件{loot_item.realm.value}{'兵器' if loot_type == 'weapon' else '辅助装备'}『{item_desc}』。"
+        item_label = '兵器' if loot_type == 'weapon' else '辅助装备'
+        context = f"战斗胜利，{loser.name} 身死道消，留下了一件{loot_item.realm.value}{item_label}『{loot_item.name}』。"
+        
+        swap_desc = format_swap_choice_desc(loot_item, winner_current, item_label)
+        
         options = [
             {
                 "key": "A",
-                "desc": f"夺取『{loot_item.name}』，卖掉身上的『{winner_current.name}』换取灵石。\n  - 新装备：{item_desc}\n  - 原装备：{current_desc}"
+                "desc": f"夺取『{loot_item.name}』，卖掉身上的『{winner_current.name}』换取灵石。\n{swap_desc}"
             },
             {
                 "key": "B",

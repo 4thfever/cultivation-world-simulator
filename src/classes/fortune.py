@@ -150,7 +150,7 @@ def _find_potential_master(avatar: Avatar) -> Optional[Avatar]:
 
 
 def _can_get_weapon(avatar: Avatar) -> bool:
-    """检查是否可以获得兵器奇遇：当前兵器是练气级（凡品）时可触发"""
+    """检查是否可以获得兵器奇遇：当前兵器是练气级（练气）时可触发"""
     if avatar.weapon is None:
         return True
     return avatar.weapon.realm == Realm.Qi_Refinement
@@ -395,7 +395,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
 
     
     # 导入单选决策模块
-    from src.classes.single_choice import make_decision
+    from src.classes.single_choice import make_decision, format_swap_choice_desc
 
     async def _resolve_choice(
         new_obj: Any,
@@ -414,16 +414,17 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             return True, f"{avatar.name} 获得{new_grade_val}{type_label}『{new_name}』"
 
         old_name = old_obj.name
-        old_grade_val = getattr(old_obj, "grade", getattr(old_obj, "realm", None)).value
+        
+        swap_desc = format_swap_choice_desc(new_obj, old_obj, type_label)
         
         options = [
             {
                 "key": "A", 
-                "desc": f"保留原{type_label}『{old_name}』({old_grade_val})，放弃新{type_label}『{new_name}』({new_grade_val})。"
+                "desc": f"保留原{type_label}『{old_name}』，放弃新{type_label}『{new_name}』。"
             },
             {
                 "key": "B", 
-                "desc": f"卖掉原{type_label}『{old_name}』换取灵石，接受新{type_label}『{new_name}』({new_grade_val})。"
+                "desc": f"卖掉原{type_label}『{old_name}』换取灵石，接受新{type_label}『{new_name}』。\n{swap_desc}"
             }
         ]
         

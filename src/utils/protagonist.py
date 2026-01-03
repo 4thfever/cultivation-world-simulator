@@ -155,7 +155,7 @@ protagonist_configs = [
             "level": 65,
             "sect": 14,          # 噬魔宗
             "technique": 28,     # 燃血大法 (自残修仙)
-            "weapon": 1001,      # 凡品剑 (红中)
+            "weapon": 1001,      # 练气剑 (红中)
             "auxiliary": 2008,   # 菩提子 (清心压制)
             "personas": ["无常", "好斗", "忠诚"],
             "appearance": 20,

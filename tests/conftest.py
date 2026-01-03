@@ -49,7 +49,7 @@ def dummy_avatar(base_world):
     
     # 赋予一个 Mock 武器，防止 get_avatar_info 报错
     av.weapon = MagicMock()
-    av.weapon.get_detailed_info.return_value = "测试木剑（凡品）"
+    av.weapon.get_detailed_info.return_value = "测试木剑（练气）"
     av.weapon_proficiency = 0.0
     
     return av

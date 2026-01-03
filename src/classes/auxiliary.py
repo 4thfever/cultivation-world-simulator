@@ -25,13 +25,11 @@ class Auxiliary:
     # 特殊属性（用于存储实例特定数据）
     special_data: dict = field(default_factory=dict)
 
-    def get_info(self) -> str:
-        """获取简略信息"""
-        suffix = ""
-        # 万魂幡特殊显示
-        if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
-            suffix = f"（吞噬魂魄：{self.special_data['devoured_souls']}）"
-        return f"{self.name}{suffix}"
+    def get_info(self, detailed: bool = False) -> str:
+        """获取信息"""
+        if detailed:
+            return self.get_detailed_info()
+        return f"{self.name}"
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""

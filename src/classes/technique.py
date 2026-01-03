@@ -73,7 +73,9 @@ class Technique:
             return True
         return bool(eval(self.condition, {"__builtins__": {}}, {"avatar": avatar, "Alignment": Alignment}))
 
-    def get_info(self) -> str:
+    def get_info(self, detailed: bool = False) -> str:
+        if detailed:
+            return self.get_detailed_info()
         return f"{self.name}（{self.attribute}）{self.grade.value}"
 
     def get_detailed_info(self) -> str:

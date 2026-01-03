@@ -1,14 +1,14 @@
 id,name,weapon_type,grade,desc,effects
 ,名称,兵器类型,等级(练气/筑基/金丹/元婴),描述/提示词,JSON形式（支持宽松格式，见effects.py说明）
-1001,凡品剑,剑,练气,市井铁匠铺打造的铁剑，勉强能用。,{extra_battle_strength_points: 1}
-1002,凡品刀,刀,练气,厚背砍刀，寻常武夫的最爱。,{extra_battle_strength_points: 1}
-1003,凡品枪,枪,练气,白蜡杆制成，枪头挂着红缨。,{extra_battle_strength_points: 1}
-1004,凡品棍,棍,练气,普通的硬木棍，长与眉齐。,{extra_battle_strength_points: 1}
-1005,凡品扇,扇,练气,文人雅士常用的折扇，附庸风雅。,{extra_battle_strength_points: 1}
-1006,凡品鞭,鞭,练气,普通的皮鞭，多用于赶车或刑罚。,{extra_battle_strength_points: 1}
-1007,凡品琴,琴,练气,桐木制成的古琴，音色尚可。,{extra_battle_strength_points: 1}
-1008,凡品笛,笛,练气,紫竹削制，声音清脆。,{extra_battle_strength_points: 1}
-1009,凡品暗器,暗器,练气,随处可见的铁制暗器。,{extra_battle_strength_points: 1}
+1001,练气剑,剑,练气,市井铁匠铺打造的铁剑，勉强能用。,{extra_battle_strength_points: 1}
+1002,练气刀,刀,练气,厚背砍刀，寻常武夫的最爱。,{extra_battle_strength_points: 1}
+1003,练气枪,枪,练气,白蜡杆制成，枪头挂着红缨。,{extra_battle_strength_points: 1}
+1004,练气棍,棍,练气,普通的硬木棍，长与眉齐。,{extra_battle_strength_points: 1}
+1005,练气扇,扇,练气,文人雅士常用的折扇，附庸风雅。,{extra_battle_strength_points: 1}
+1006,练气鞭,鞭,练气,普通的皮鞭，多用于赶车或刑罚。,{extra_battle_strength_points: 1}
+1007,练气琴,琴,练气,桐木制成的古琴，音色尚可。,{extra_battle_strength_points: 1}
+1008,练气笛,笛,练气,紫竹削制，声音清脆。,{extra_battle_strength_points: 1}
+1009,练气暗器,暗器,练气,随处可见的铁制暗器。,{extra_battle_strength_points: 1}
 2001,青霜剑,剑,筑基,剑气森寒。,{extra_battle_strength_points: 2}
 2002,井中月,刀,筑基,刀光如井中映月，虚实难测。,{extra_battle_strength_points: 2}
 2003,火尖枪,枪,筑基,枪头隐有火光，能引动凡火。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"

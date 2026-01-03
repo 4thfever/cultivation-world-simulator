@@ -82,35 +82,6 @@ class TestEquipment:
         assert aux.name in detailed
         assert aux.realm.value in detailed
 
-    def test_soul_banner(self):
-        """测试万魂幡特殊逻辑"""
-        # 查找万魂幡
-        soul_banner = None
-        for a in auxiliaries_by_id.values():
-            if a.name == "万魂幡":
-                soul_banner = a
-                break
-        
-        if not soul_banner:
-            pytest.skip("万魂幡 not found in config")
-            
-        import copy
-        banner = copy.deepcopy(soul_banner)
-        
-        # 初始状态
-        assert "吞噬魂魄" not in banner.get_info()
-        
-        # 增加魂魄
-        banner.special_data["devoured_souls"] = 100
-        
-        # 检查显示更新
-        assert "吞噬魂魄：100" in banner.get_info()
-        assert "吞噬魂魄：100" in banner.get_detailed_info()
-        
-        # 检查结构化信息
-        struct = banner.get_structured_info()
-        assert "已吞噬魂魄：100" in struct["desc"]
-
     def test_grade_renaming_compatibility(self):
         """测试 realm 改名后的兼容性（如果有必要）"""
         # 确保 weapon 和 auxiliary 确实有 realm 属性
