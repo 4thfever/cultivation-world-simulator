@@ -14,6 +14,7 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     """
 
     ACTION_NAME = "移动到角色"
+    EMOJI = "🏃"
     DESC = "移动到某个角色所在位置"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "str"}

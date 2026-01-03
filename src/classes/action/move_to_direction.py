@@ -58,6 +58,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     """
     
     ACTION_NAME = "移动探索"
+    EMOJI = "🧭"
     DESC = "向某个方向探索未知区域"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"direction": "direction (North/South/East/West)"}

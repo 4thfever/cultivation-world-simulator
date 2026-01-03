@@ -18,6 +18,7 @@ class MoveAwayFromAvatar(TimedAction):
     """
 
     ACTION_NAME = "远离角色"
+    EMOJI = "🏃"
     DESC = "持续远离指定角色"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}

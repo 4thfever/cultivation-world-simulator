@@ -15,6 +15,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     """
 
     ACTION_NAME = "移动到区域"
+    EMOJI = "🏃"
     DESC = "移动到某个区域"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "region_name"}

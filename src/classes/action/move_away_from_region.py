@@ -9,6 +9,7 @@ from src.utils.distance import euclidean_distance
 
 class MoveAwayFromRegion(InstantAction):
     ACTION_NAME = "离开区域"
+    EMOJI = "🏃"
     DESC = "离开指定区域"
     DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "RegionName"}

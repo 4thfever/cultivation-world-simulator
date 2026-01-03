@@ -15,6 +15,7 @@ class SwitchWeapon(InstantAction):
     """
 
     ACTION_NAME = "切换兵器"
+    EMOJI = "🔄"
     DESC = "切换到指定类型的练气兵器，或卸下兵器。当前兵器会丧失，熟练度会重置为0。适用于想要更换兵器类型或从头修炼新兵器的情况。"
     DOABLES_REQUIREMENTS = "无前置条件"
     PARAMS = {"weapon_type_name": "str"}
