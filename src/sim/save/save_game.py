@@ -95,6 +95,8 @@ def save_game(
             "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
             "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,
             "cultivate_regions_hosts": cultivate_regions_hosts,
+            # 出世物品流转
+            "circulation": world.circulation.to_save_dict(),
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

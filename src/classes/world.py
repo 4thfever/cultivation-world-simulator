@@ -5,6 +5,7 @@ from src.classes.map import Map
 from src.classes.calendar import Year, Month, MonthStamp
 from src.classes.avatar_manager import AvatarManager
 from src.classes.event_manager import EventManager
+from src.classes.circulation import CirculationManager
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -22,6 +23,8 @@ class World():
     current_phenomenon: Optional["CelestialPhenomenon"] = None
     # 天地灵机开始年份（用于计算持续时间）
     phenomenon_start_year: int = 0
+    # 出世物品流通管理器
+    circulation: CirculationManager = field(default_factory=CirculationManager)
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """

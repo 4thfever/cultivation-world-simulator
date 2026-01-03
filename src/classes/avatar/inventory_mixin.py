@@ -136,6 +136,9 @@ class InventoryMixin:
         """
         from src.classes.prices import prices
         
+        # 记录流转
+        self.world.circulation.add_weapon(weapon)
+
         total = int(prices.get_weapon_price(weapon) * self._get_sell_multiplier())
         self.magic_stone = self.magic_stone + total
         return total
@@ -147,6 +150,9 @@ class InventoryMixin:
         """
         from src.classes.prices import prices
         
+        # 记录流转
+        self.world.circulation.add_auxiliary(auxiliary)
+
         total = int(prices.get_auxiliary_price(auxiliary) * self._get_sell_multiplier())
         self.magic_stone = self.magic_stone + total
         return total
