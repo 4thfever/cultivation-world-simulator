@@ -26,6 +26,7 @@ EFFECT_DESC_MAP = {
     "damage_reduction": "伤害减免",
     "realm_suppression_bonus": "境界压制",
     "cultivate_duration_reduction": "修炼时长缩减",
+    "extra_cast_success_rate": "铸造成功率",
 }
 
 ACTION_DESC_MAP = {

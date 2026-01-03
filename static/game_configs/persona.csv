@@ -1,8 +1,8 @@
 id,name,exclusion_names,desc,rarity,condition,effects
-,,和本persona互斥的persona的名称,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件(可用avatar字段/Alignment中文或英文等),JSON形式（支持宽松格式，见effects.py说明）
+,名称,和本persona互斥的persona的名称,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件(可用avatar字段/Alignment中文或英文等),JSON形式（支持宽松格式，见effects.py说明）
 1,理性,无常;随性,你总是会用逻辑来思考问题，做事会谋定而后动。,N,
 2,无常,理性;极端正义;极端邪恶;沉思,目标飘忽不定，不会长期坚持一个目标。,N,
-3,怠惰,冒险;极端正义;极端邪恶,你总是会拖延，不想努力，更热衷于享受人生。,N,
+3,怠惰,冒险;极端正义;极端邪恶,你总是会拖延，不想努力，更热衷于享受人生。,N,,{extra_cast_success_rate: -0.05}
 4,冒险,怠惰;惜命,你总是会冒险，喜欢刺激，总想放手一搏。,N,
 5,随性,理性;极端正义;极端邪恶,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,
 6,贪财,,你对灵石和财富有着强烈的渴望。,N,
@@ -15,7 +15,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 13,孤僻,友爱,你喜欢独处，避免与人深交，更信赖自己的判断与行动。,N,
 14,淡漠,友爱;复仇;好斗;极端正义;极端邪恶,你情感克制，对外界冷静疏离，不轻易被他人或事件影响。,N,
 15,好斗,友爱;淡漠;惜命;胆小,你直面冲突，偏好以力量与对抗解决问题，并格外热衷增加己身战力。,R,,{extra_battle_strength_points: 1}
-16,鲁莽,理性;沉思;惜命,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,
+16,鲁莽,理性;沉思;惜命,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,{extra_cast_success_rate: -0.05}
 17,胆小,冒险;好斗;复仇;极端正义;极端邪恶,你谨小慎微，容易畏惧风险，倾向回避正面冲突。,N,,{extra_escape_success_rate: 0.1}
 18,霸道,友爱;胆小,你行事强势，不讲道理，习惯以自己的利益为先，倾向多吃多占、压人一步，对他人的反对不以为意。,N,
 19,修行痴迷,无常;怠惰;随性,你将绝大多数时间用于修炼，厌恶与修行无关的社交与享乐。,R,,{extra_cultivate_exp: 30}
@@ -53,10 +53,11 @@ id,name,exclusion_names,desc,rarity,condition,effects
 51,棍圣,怠惰;胆小,以棍入道，棍即是命。棍法通神，一棍在手，天下无敌，但对棍道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 52,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 53,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-54,暗影宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+54,刺客宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 55,好色,无欲,你对美色有着强烈的渴求，容易被外貌出众的异性吸引，行事往往受欲望驱使。,N,,
 56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
 57,探险家,死宅,你对未知的世界充满好奇，热衷于探索地图上未被点亮的区域，难以忍受长时间待在同一个地方。,SR,,
 58,死宅,探险家;冒险,你认为外面的世界充满危险且麻烦，除了必要的宗门任务，你极度排斥长途跋涉，更喜欢待在熟悉的区域修炼。,N,,
 59,扫把星,福缘深厚;气运之子,天生霉运缠身，喝凉水都塞牙。虽然活着不易，但也磨练了心性。,N,,{extra_misfortune_probability: 0.005}
 60,大器晚成,,早年修行多舛，霉运连连；但若能坚持至金丹元婴，便可否极泰来，气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""练气"", ""筑基""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""金丹"", ""元婴""]', extra_fortune_probability: 0.01}]"
+61,炼器师,好斗,精通炼器之道，对材料敏锐，擅长铸造法宝。你认为法宝是修行的关键，战斗并非你的专长。,R,,{extra_cast_success_rate: 0.15}

@@ -36,6 +36,7 @@ from .nurture_weapon import NurtureWeapon
 from .switch_weapon import SwitchWeapon
 from .assassinate import Assassinate
 from .move_to_direction import MoveToDirection
+from .cast import Cast
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -68,6 +69,7 @@ register_action(actual=True)(NurtureWeapon)
 register_action(actual=True)(SwitchWeapon)
 register_action(actual=True)(Assassinate)
 register_action(actual=True)(MoveToDirection)
+register_action(actual=True)(Cast)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -103,6 +105,7 @@ __all__ = [
     "SwitchWeapon",
     "Assassinate",
     "MoveToDirection",
+    "Cast",
     # Talk 已移动到 mutual_action 模块
     # Occupy 已移动到 mutual_action 模块
 ]

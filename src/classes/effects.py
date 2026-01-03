@@ -194,6 +194,31 @@ EXTRA_FORTUNE_PROBABILITY = "extra_fortune_probability"
   - 极高: 0.01 (1%，不少了)
 """
 
+EXTRA_MISFORTUNE_PROBABILITY = "extra_misfortune_probability"
+"""
+额外霉运概率
+类型: float
+结算: src/classes/misfortune.py
+数值参考: 
+  - 基础概率通常极低 (<0.01)
+  - 微量: 0.001 (0.1%，有)
+  - 中量: 0.002~0.005 (高)
+  - 极高: 0.01 (1%，不少了)
+"""
+
+# --- 铸造相关 ---
+EXTRA_CAST_SUCCESS_RATE = "extra_cast_success_rate"
+"""
+额外铸造成功率
+类型: float
+结算: src/classes/action/cast.py
+说明: 铸造（Cast）动作的成功率加成。
+数值参考: 
+  - 微量: 0.05 (+5%)
+  - 中量: 0.1 (+10%)
+  - 大量: 0.2+ (+20%)
+"""
+
 # --- 兵器相关 ---
 EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
 """
@@ -391,6 +416,9 @@ ALL_EFFECTS = [
     "extra_fortune_probability",         # float - 额外奇遇概率
     "extra_misfortune_probability",      # float - 额外霉运概率
     
+    # 铸造相关
+    "extra_cast_success_rate",           # float - 额外铸造成功率
+
     # 兵器相关
     "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率
     "extra_weapon_upgrade_chance",       # float - 额外兵器升华概率

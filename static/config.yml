@@ -27,6 +27,11 @@ game:
   fortune_probability: 0.005
   misfortune_probability: 0.005
 
+action:
+  cast:
+    cost: 10
+    base_success_rate: 0.3
+
 df:
   ids_separator: ";"
 

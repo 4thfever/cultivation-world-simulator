@@ -18,9 +18,9 @@ id,name,grade,desc,effects
 3005,隐形披风,金丹,披上后身形尽隐，连神识也难以察觉.,"{extra_move_step: 1, extra_escape_success_rate: 0.2}"
 3006,御兽环,金丹,套在妖兽颈上，任其凶焰滔天，也要乖乖听命.,{extra_catch_success_rate: 0.1}
 3007,太虚甲,金丹,太虚幻境所化，万法不沾，防御力惊人.,"{damage_reduction: 0.2, extra_max_hp: 200}"
-3008,八卦炉,金丹,仿太上老君炼丹炉，丹成九转，药效倍增.,"{extra_max_lifespan: 150, extra_hp_recovery_rate: 0.5}"
+3008,八卦炉,金丹,仿太上老君炼丹炉，丹成九转，药效倍增.,"{extra_hp_recovery_rate: 0.5, extra_cast_success_rate: 0.2}"
 3009,聚宝盆,金丹,沈万三的宝物，放入一文，取出万贯，财源滚滚.,"{extra_item_sell_price_multiplier: 0.5, extra_fortune_probability: 0.01}"
-3010,天地烘炉,金丹,以天地为炉，造化为工，炼制万物.,"{extra_weapon_upgrade_chance: 0.15, extra_weapon_proficiency_gain: 0.5}"
+3010,天地烘炉,金丹,以天地为炉，造化为工，炼制万物.,"{extra_weapon_upgrade_chance: 0.15, extra_cast_success_rate: 0.3}"
 3011,六道剑匣,金丹,背负六道，剑出轮回，悟剑良伴.,"{extra_breakthrough_success_rate: 0.2, extra_cultivate_exp: 100}"
 3012,传国玉玺,元婴,受命于天，既寿永昌。皇威浩荡，震慑宵小.,{realm_suppression_bonus: 0.15}
 3013,灵眼之泉,金丹,可移动的灵气之源，随身携带的洞天福地.,"{cultivate_duration_reduction: 0.3, extra_cultivate_exp: 50}"

@@ -394,49 +394,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     actors_for_story = [avatar]  # 用于生成故事的角色列表
 
     
-    # 导入单选决策模块
-    from src.classes.single_choice import make_decision, format_swap_choice_desc
-
-    async def _resolve_choice(
-        new_obj: Any,
-        old_obj: Optional[Any],
-        type_label: str,
-        extra_context: str = ""
-    ) -> tuple[bool, str]:
-        """
-        通用决策辅助函数
-        Returns: (should_replace, result_text)
-        """
-        new_name = new_obj.name
-        new_grade_val = getattr(new_obj, "grade", getattr(new_obj, "realm", None)).value
-        
-        if old_obj is None:
-            return True, f"{avatar.name} 获得{new_grade_val}{type_label}『{new_name}』"
-
-        old_name = old_obj.name
-        
-        swap_desc = format_swap_choice_desc(new_obj, old_obj, type_label)
-        
-        options = [
-            {
-                "key": "A", 
-                "desc": f"保留原{type_label}『{old_name}』，放弃新{type_label}『{new_name}』。"
-            },
-            {
-                "key": "B", 
-                "desc": f"卖掉原{type_label}『{old_name}』换取灵石，接受新{type_label}『{new_name}』。\n{swap_desc}"
-            }
-        ]
-        
-        base_context = f"你在奇遇中发现了{new_grade_val}{type_label}『{new_name}』，但你手中已有『{old_name}』。"
-        context = f"{base_context} {extra_context}".strip()
-        
-        choice = await make_decision(avatar, context, options)
-        
-        if choice == "A":
-            return False, f"{avatar.name} 放弃了{new_grade_val}{type_label}『{new_name}』，保留了『{old_name}』"
-        else:
-            return True, f"{avatar.name} 获得了{new_grade_val}{type_label}『{new_name}』，卖掉了『{old_name}』"
+    # 导入通用决策模块
+    from src.classes.single_choice import handle_item_exchange
 
     if kind == FortuneKind.WEAPON:
         weapon = _get_weapon_for_avatar(avatar)
@@ -445,14 +404,17 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            should_equip, res_text = await _resolve_choice(
-                weapon, avatar.weapon, "兵器"
+            intro = f"你在奇遇中发现了{weapon.realm.value}兵器『{weapon.name}』。"
+            if avatar.weapon:
+                intro += f" 但你手中已有『{avatar.weapon.name}』。"
+
+            _, res_text = await handle_item_exchange(
+                avatar=avatar,
+                new_item=weapon,
+                item_type="weapon",
+                context_intro=intro,
+                can_sell_new=False
             )
-            if should_equip:
-                # 自动卖掉旧武器
-                if avatar.weapon is not None:
-                    avatar.sell_weapon(avatar.weapon)
-                avatar.change_weapon(weapon)
 
     if kind == FortuneKind.AUXILIARY:
         auxiliary = _get_auxiliary_for_avatar(avatar)
@@ -461,29 +423,34 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            should_equip, res_text = await _resolve_choice(
-                auxiliary, avatar.auxiliary, "辅助装备"
+            intro = f"你在奇遇中发现了{auxiliary.realm.value}辅助装备『{auxiliary.name}』。"
+            if avatar.auxiliary:
+                intro += f" 但你手中已有『{avatar.auxiliary.name}』。"
+
+            _, res_text = await handle_item_exchange(
+                avatar=avatar,
+                new_item=auxiliary,
+                item_type="auxiliary",
+                context_intro=intro,
+                can_sell_new=False
             )
-            if should_equip:
-                # 自动卖掉旧辅助装备
-                if avatar.auxiliary is not None:
-                    avatar.sell_auxiliary(avatar.auxiliary)
-                avatar.change_auxiliary(auxiliary)
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)
         if tech is None:
             return []
             
-        should_learn, res_text = await _resolve_choice(
-            tech, avatar.technique, "功法",
-            extra_context=f"这与你当前主修的『{avatar.technique.name if avatar.technique else ''}』冲突。"
+        intro = f"你在奇遇中领悟了上品功法『{tech.name}』。"
+        if avatar.technique:
+            intro += f" 这与你当前主修的『{avatar.technique.name}』冲突。"
+
+        _, res_text = await handle_item_exchange(
+            avatar=avatar,
+            new_item=tech,
+            item_type="technique",
+            context_intro=intro,
+            can_sell_new=False
         )
-            
-        if should_learn:
-            avatar.technique = tech
-
-
 
     elif kind == FortuneKind.FIND_MASTER:
         master = _find_potential_master(avatar)
