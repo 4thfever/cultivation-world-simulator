@@ -65,10 +65,10 @@ class StoryTeller:
         """构建模板渲染所需的数据字典"""
         
         # 默认空关系列表
-        possible_new_relations = []
-        possible_cancel_relations = []
         avatar_name_1 = ""
         avatar_name_2 = ""
+        
+        world_info = actors[0].world.static_info
         
         # 如果有两个有效角色，计算可能的关系
         non_null = [a for a in actors if a is not None]
@@ -77,6 +77,7 @@ class StoryTeller:
             avatar_name_2 = non_null[1].name
 
         return {
+            "world_info": world_info,
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,

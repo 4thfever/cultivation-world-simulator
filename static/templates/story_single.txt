@@ -1,5 +1,8 @@
 你是一个小说家，这是一个仙侠世界，你需要把一个事件扩展为一个约200~500字的故事。
 
+世界背景：
+{world_info}
+
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
 

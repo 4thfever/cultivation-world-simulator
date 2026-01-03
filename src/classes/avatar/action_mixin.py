@@ -87,6 +87,13 @@ class ActionMixin:
                 )
                 continue
             # 再验证
+            if not isinstance(plan.params, dict):
+                get_logger().logger.warning(
+                    "非法参数: Avatar(name=%s) 动作 %s 参数类型错误: %s",
+                    self.name, plan.action_name, type(plan.params)
+                )
+                continue
+
             params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
             can_start, reason = action.can_start(**params_for_can_start)
             if not can_start:

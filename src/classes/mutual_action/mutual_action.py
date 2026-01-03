@@ -71,10 +71,13 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             avatar_name_2: target_avatar.get_info(detailed=False),
         }
         
+        world_info = self.world.static_info
+
         feedback_actions = self.FEEDBACK_ACTIONS
         desc = self.DESC
         action_name = self.ACTION_NAME
         return {
+            "world_info": world_info,
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,

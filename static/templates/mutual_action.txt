@@ -1,5 +1,8 @@
 你是一个决策者，这是一个仙侠世界，你负责来决定两个NPC的下一步行为。
 
+世界背景：
+{world_info}
+
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
 

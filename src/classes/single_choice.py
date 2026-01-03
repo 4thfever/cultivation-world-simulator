@@ -33,10 +33,12 @@ async def make_decision(
 
     # 3. 调用 AI
     template_path = CONFIG.paths.templates / "single_choice.txt"
+    world_info = avatar.world.static_info
     result = await call_llm_with_task_name(
         "single_choice",
         template_path, 
         infos={
+            "world_info": world_info,
             "avatar_infos": avatar_infos,
             "choices": full_choices_str
         }
