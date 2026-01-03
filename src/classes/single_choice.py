@@ -91,10 +91,10 @@ def format_swap_choice_desc(new_item: Any, old_item: Any | None, item_type_name:
         old_item: 当前持有的物品对象（可能为 None）
         item_type_name: 物品类型名称（如"兵器"、"功法"）
     """
-    new_info = item.get_info(detailed=True)
+    new_info = new_item.get_info(detailed=True)
     
     if old_item:
-        old_info = item.get_info(detailed=True)
+        old_info = old_item.get_info(detailed=True)
         return (
             f"现有{item_type_name}：{old_info}\n"
             f"新{item_type_name}：{new_info}\n"
