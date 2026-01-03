@@ -88,7 +88,6 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Same-tile NPC interactions
 - ✅ Qi distribution and yields
 - ✅ World event
-- [ ] Dynamic worldview, map, history, sect, and notable figure generation
 
 ### 👤 Character System
 - ✅ Core attributes
