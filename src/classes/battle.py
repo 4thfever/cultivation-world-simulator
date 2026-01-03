@@ -267,7 +267,7 @@ async def handle_battle_finish(
     from src.classes.event import Event
     from src.classes.story_teller import StoryTeller
     from src.classes.death import handle_death
-    from src.classes.death_reason import DeathReason
+    from src.classes.death_reason import DeathReason, DeathType
 
     winner, loser, loser_damage, winner_damage = res
     is_fatal = loser.hp <= 0
@@ -306,5 +306,5 @@ async def handle_battle_finish(
     
     # 处理死亡
     if is_fatal:
-        handle_death(world, loser, DeathReason.BATTLE)
+        handle_death(world, loser, DeathReason(DeathType.BATTLE, killer_name=attacker.name))
     return [result_event, story_event]

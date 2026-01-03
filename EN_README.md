@@ -179,9 +179,9 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ One-off choices (e.g., switch techniques or not)
 
 ### 🏛️ World Lore
-- [ ] Lore framework
-- [ ] Worldbuilding
-- [ ] Ancient history generation
+- ✅ Inject basic world knowledge
+- [ ] Dynamic worldview generation
+- [ ] Dynamic history generation
 
 ### Specials
 - ✅ Fortuitous encounters

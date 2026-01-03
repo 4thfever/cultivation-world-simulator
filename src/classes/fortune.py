@@ -408,13 +408,14 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             if avatar.weapon:
                 intro += f" 但你手中已有『{avatar.weapon.name}』。"
 
-            _, res_text = await handle_item_exchange(
+            _, exchange_text = await handle_item_exchange(
                 avatar=avatar,
                 new_item=weapon,
                 item_type="weapon",
                 context_intro=intro,
                 can_sell_new=False
             )
+            res_text = f"发现了兵器『{weapon.name}』，{exchange_text}"
 
     if kind == FortuneKind.AUXILIARY:
         auxiliary = _get_auxiliary_for_avatar(avatar)
@@ -427,13 +428,14 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             if avatar.auxiliary:
                 intro += f" 但你手中已有『{avatar.auxiliary.name}』。"
 
-            _, res_text = await handle_item_exchange(
+            _, exchange_text = await handle_item_exchange(
                 avatar=avatar,
                 new_item=auxiliary,
                 item_type="auxiliary",
                 context_intro=intro,
                 can_sell_new=False
             )
+            res_text = f"发现了辅助装备『{auxiliary.name}』，{exchange_text}"
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)
@@ -444,13 +446,14 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         if avatar.technique:
             intro += f" 这与你当前主修的『{avatar.technique.name}』冲突。"
 
-        _, res_text = await handle_item_exchange(
+        _, exchange_text = await handle_item_exchange(
             avatar=avatar,
             new_item=tech,
             item_type="technique",
             context_intro=intro,
             can_sell_new=False
         )
+        res_text = f"领悟了功法『{tech.name}』，{exchange_text}"
 
     elif kind == FortuneKind.FIND_MASTER:
         master = _find_potential_master(avatar)

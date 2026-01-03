@@ -139,6 +139,14 @@ class Cast(TimedAction):
         # 4. 决策：保留还是卖出
         base_desc = f"铸造成功！获得了{self.target_realm.value}{item_label}『{new_item.name}』。"
         
+        # 事件1：铸造成功
+        events.append(Event(
+            self.world.month_stamp,
+            f"{self.avatar.name} 成功铸造{self.target_realm.value}{item_label}『{new_item.name}』。",
+            related_avatars=[self.avatar.id],
+            is_major=True
+        ))
+
         _, result_text = await handle_item_exchange(
             avatar=self.avatar, 
             new_item=new_item,
@@ -147,6 +155,7 @@ class Cast(TimedAction):
             can_sell_new=True
         )
 
+        # 事件2：处置结果
         events.append(Event(
             self.world.month_stamp,
             result_text,

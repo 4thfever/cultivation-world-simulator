@@ -57,6 +57,6 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
         else:
             loser.change_auxiliary(None)
         
-        return log_text
+        return f"缴获了{item_label}『{loot_item.name}』。{log_text}"
     
     return ""

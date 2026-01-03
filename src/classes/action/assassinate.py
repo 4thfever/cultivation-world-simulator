@@ -9,7 +9,7 @@ from src.classes.battle import decide_battle, get_assassination_success_rate
 from src.classes.story_teller import StoryTeller
 from src.classes.normalize import normalize_avatar_name
 from src.classes.death import handle_death
-from src.classes.death_reason import DeathReason
+from src.classes.death_reason import DeathReason, DeathType
 from src.classes.kill_and_grab import kill_and_grab
 
 if TYPE_CHECKING:
@@ -119,7 +119,7 @@ class Assassinate(InstantAction):
             story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
             
             # 死亡清理
-            handle_death(self.world, target, DeathReason.BATTLE)
+            handle_death(self.world, target, DeathReason(DeathType.BATTLE, killer_name=self.avatar.name))
             
             return [result_event, story_event]
             
