@@ -106,9 +106,12 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Character's short and long term objectives, supporting player active setting
 - ✅ Avatar nicknames
 - [ ] Character compatibility
-- [ ] Skill learning system:
-  - [ ] Learnable skills
-  - [ ] Life professions (alchemy, formations, planting, forging, etc.)
+- [ ] Life Skills
+  - ✅ Forging
+  - [ ] Alchemy
+  - [ ] Planting
+  - [ ] Taming
+  - [ ] Evolving skills
 - [ ] Mortals
 - [ ] Prodigies (stronger abilities and AI)
 
