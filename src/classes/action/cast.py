@@ -89,7 +89,7 @@ class Cast(TimedAction):
 
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 开始闭关铸造{target_realm}阶法宝，投入了大量材料。", 
+            f"{self.avatar.name} 开始尝试铸造{target_realm}阶法宝。", 
             related_avatars=[self.avatar.id]
         )
 
