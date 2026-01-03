@@ -4,6 +4,7 @@ import random
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.region import Region, resolve_region
+from src.classes.sect_region import SectRegion
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -60,7 +61,13 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         if region is None:
             return False, "缺少参数 region"
         try:
-            resolve_region(self.world, region)
+            r = resolve_region(self.world, region)
+            
+            # 宗门总部限制：非本门弟子禁止入内
+            if isinstance(r, SectRegion):
+                if self.avatar.sect is None or self.avatar.sect.id != r.sect_id:
+                    return False, f"【{r.name}】是其他宗门驻地，你并非该宗门弟子。"
+            
             return True, ""
         except Exception:
             return False, f"无法解析区域: {region}"

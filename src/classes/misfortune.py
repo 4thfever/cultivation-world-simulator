@@ -8,7 +8,6 @@ from src.utils.config import CONFIG
 from src.classes.avatar import Avatar
 from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
-from src.classes.fortune import get_cultivation_exp_reward
 
 class MisfortuneKind(Enum):
     """霉运类型"""
@@ -136,7 +135,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         
     # 生成故事
     event_text = f"遭遇霉运（{theme}），{res_text}"
-    story_prompt = "请据此写100~300字小故事。只描述倒霉事件本身，不要描述角色的心理活动或者愈挫愈勇。"
+    story_prompt = "请据此写100~300字小故事。只描述倒霉事件本身，不要描述角色的心理活动或者愈挫愈勇，不要有数值。"
     
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=[avatar.id], is_major=True)

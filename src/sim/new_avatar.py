@@ -6,6 +6,7 @@ from src.classes.world import World
 from src.classes.avatar import Avatar, Gender
 from src.classes.appearance import get_appearance_by_level
 from src.classes.calendar import MonthStamp
+from src.classes.region import Region, resolve_region
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
@@ -454,6 +455,11 @@ class AvatarFactory:
                 # 底层逻辑：师傅.relations[自己] = APPRENTICE (师傅认为自己是徒弟)
                 #          自己.relations[师傅] = MASTER (自己认为师傅是师傅)
                 plan.master_avatar.set_relation(avatar, Relation.APPRENTICE)
+
+        # 宗门弟子天生知道宗门总部位置
+        if avatar.sect is not None:
+            hq_region = resolve_region(world, avatar.sect.headquarter.name)
+            avatar.known_regions.add(hq_region.id)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)

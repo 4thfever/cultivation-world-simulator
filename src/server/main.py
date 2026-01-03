@@ -395,7 +395,7 @@ async def game_loop():
                             "y": int(getattr(a, "pos_y", 0)),
                             "gender": a.gender.value,
                             "pic_id": resolve_avatar_pic_id(a),
-                            "action": getattr(a, "current_action", {}).get("name", "思考") if hasattr(a, "current_action") and a.current_action else "思考",
+                            "action": a.current_action_name,
                             "action_emoji": resolve_avatar_action_emoji(a),
                             "is_dead": False
                         })

@@ -264,6 +264,15 @@ class Avatar(
 
     # ========== 魔法方法 ==========
 
+    @property
+    def current_action_name(self) -> str:
+        """获取当前动作名称，默认返回'思考'"""
+        if self.current_action and self.current_action.action:
+            action = self.current_action.action
+            # 优先取 ACTION_NAME (中文名)，如果没有则使用类名
+            return getattr(action, "ACTION_NAME", getattr(action, "name", "思考"))
+        return "思考"
+
     def __post_init__(self):
         """在Avatar创建后自动初始化tile和HP"""
         self.tile = self.world.map.get_tile(self.pos_x, self.pos_y)
