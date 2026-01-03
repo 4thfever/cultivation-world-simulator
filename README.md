@@ -8,10 +8,11 @@
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
 ![Last Commit](https://img.shields.io/github/last-commit/4thfever/cultivation-world-simulator)
+![Repo Size](https://img.shields.io/github/repo-size/4thfever/cultivation-world-simulator)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A7%86%E9%A2%91-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
-
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
@@ -262,7 +263,3 @@
 
 ## 致谢
 - 参考了ai life engine部分ui
-
-## 许可证
-
-本项目采用 [LICENSE](LICENSE) 文件中指定的许可证。
