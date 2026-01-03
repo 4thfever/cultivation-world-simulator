@@ -143,6 +143,8 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         target = self._get_target_avatar(target_avatar)
         if target is None:
             return False, "目标不存在"
+        if target == self.avatar:
+            return False, "不能对自己发起互动"
         # 调用子类的额外检查
         return self._can_start(target)
 

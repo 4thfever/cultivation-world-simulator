@@ -20,8 +20,8 @@ class Talk(MutualAction):
 
     ACTION_NAME = "攀谈"
     EMOJI = "👋"
-    DESC = "向对方发起攀谈"
-    DOABLES_REQUIREMENTS = "目标在交互范围内"
+    DESC = "向某人发起攀谈，对象不能是自己"
+    DOABLES_REQUIREMENTS = "对象在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
     
