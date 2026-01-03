@@ -15,6 +15,18 @@ from src.classes.relation import get_relation_label
 from src.utils.config import CONFIG
 
 
+def _get_effects_text(avatar: "Avatar") -> str:
+    """获取格式化的效果文本"""
+    from src.utils.effect_desc import format_effects_to_text
+    breakdown = avatar.get_effect_breakdown()
+    effect_parts = []
+    for source_name, effects in breakdown:
+        desc_str = format_effects_to_text(effects)
+        if desc_str:
+            effect_parts.append(f"[{source_name}] {desc_str}")
+    return "\n".join(effect_parts) if effect_parts else "无"
+
+
 def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     """
     获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
@@ -73,6 +85,10 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         "兵器": weapon_info,
         "辅助装备": auxiliary_info,
     }
+    
+    if detailed:
+        info_dict["当前效果"] = _get_effects_text(avatar)
+
     # 绰号：仅在存在时显示
     if avatar.nickname is not None:
         info_dict["绰号"] = avatar.nickname.value
@@ -195,6 +211,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     # 9. 灵兽
     if avatar.spirit_animal:
          info["spirit_animal"] = avatar.spirit_animal.get_structured_info()
+
+    # 当前效果
+    info["当前效果"] = _get_effects_text(avatar)
 
     return info
 
@@ -348,3 +367,31 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
         f"外貌：{to_avatar.appearance.get_info()}，功法：{tech}，兵器：{weapon}，辅助：{aux}，HP：{to_avatar.hp}"
     )
 
+
+def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
+    """
+    获取角色的文本描述。
+    detailed=True 时包含详细的效果来源分析。
+    """
+    # 基础描述
+    lines = [f"【{avatar.name}】 {avatar.gender} {avatar.age}岁"]
+    lines.append(f"境界: {avatar.cultivation_progress.get_info()}")
+    if avatar.sect:
+        lines.append(f"身份: {avatar.get_sect_str()}")
+    
+    if detailed:
+        lines.append("\n--- 当前效果明细 ---")
+        breakdown = avatar.get_effect_breakdown()
+        
+        from src.utils.effect_desc import format_effects_to_text
+        
+        if not breakdown:
+            lines.append("无额外效果")
+        else:
+            for source_name, effects in breakdown:
+                # 使用现有的 format_effects_to_text 将字典转为中文描述
+                desc_str = format_effects_to_text(effects)
+                if desc_str:
+                    lines.append(f"[{source_name}]: {desc_str}")
+                
+    return "\n".join(lines)

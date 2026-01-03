@@ -85,6 +85,9 @@ export interface AvatarDetail extends EntityBase {
   // 列表数据
   items: Item[];
   relations: RelationInfo[];
+  
+  // 附加信息
+  "当前效果"?: string;
 }
 
 export interface SectInfo extends EffectEntity {

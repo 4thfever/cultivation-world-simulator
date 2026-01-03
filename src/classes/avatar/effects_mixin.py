@@ -109,6 +109,51 @@ class EffectsMixin:
 
         return merged
 
+    def get_effect_breakdown(self: "Avatar") -> list[tuple[str, dict[str, Any]]]:
+        """
+        获取效果明细，返回 [(来源名称, 生效的效果字典), ...]
+        用于 get_desc 展示。
+        """
+        breakdown = []
+        
+        def _collect(name: str, source_obj):
+            if source_obj is None:
+                return
+            # 1. 评估条件 (when)
+            evaluated = _evaluate_conditional_effect(source_obj.effects, self)
+            # 2. 评估动态值 (expressions)
+            evaluated = self._evaluate_values(evaluated)
+            
+            if evaluated:
+                breakdown.append((name, evaluated))
+
+        # 按照优先级或逻辑顺序收集
+        if self.sect:
+            _collect(f"宗门【{self.sect.name}】", self.sect)
+            
+        if self.technique:
+            _collect(f"功法【{self.technique.name}】", self.technique)
+            
+        if self.root:
+            _collect("灵根", self.root)
+            
+        for p in self.personas:
+            _collect(f"特质【{p.name}】", p)
+            
+        if self.weapon:
+            _collect(f"兵器【{self.weapon.name}】", self.weapon)
+            
+        if self.auxiliary:
+            _collect(f"辅助【{self.auxiliary.name}】", self.auxiliary)
+            
+        if self.spirit_animal:
+            _collect(f"灵兽【{self.spirit_animal.name}】", self.spirit_animal)
+            
+        if self.world.current_phenomenon:
+            _collect("天地灵机", self.world.current_phenomenon)
+
+        return breakdown
+
     def recalc_effects(self: "Avatar") -> None:
         """
         重新计算所有长期效果

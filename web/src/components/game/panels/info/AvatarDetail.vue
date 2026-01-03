@@ -187,6 +187,21 @@ async function handleClearObjective() {
         <div class="section-title">短期目标</div>
         <div class="text-content">{{ data.short_term_objective || '无' }}</div>
       </div>
+
+      <!-- Effects -->
+      <div class="section" v-if="data['当前效果'] && data['当前效果'] !== '无'">
+        <div class="section-title">当前效果</div>
+        <div class="effects-list">
+          <div 
+            v-for="(line, idx) in data['当前效果'].split('\n')" 
+            :key="idx"
+            class="effect-row"
+          >
+            <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || '其他' }}</div>
+            <div class="effect-content">{{ line.replace(/^\[.*?\]\s*/, '') }}</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Modal -->
@@ -357,5 +372,30 @@ async function handleClearObjective() {
 .modal-footer {
   display: flex;
   gap: 10px;
+}
+
+.effects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.effect-row {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  align-items: flex-start;
+}
+
+.effect-source {
+  min-width: 80px;
+  color: #888;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.effect-content {
+  color: #aaddff;
+  flex: 1;
 }
 </style>

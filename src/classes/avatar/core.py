@@ -257,6 +257,11 @@ class Avatar(
         from src.classes.avatar.info_presenter import get_other_avatar_info
         return get_other_avatar_info(self, other_avatar)
 
+    def get_desc(self, detailed: bool = False) -> str:
+        """获取角色的文本描述（包含效果明细）"""
+        from src.classes.avatar.info_presenter import get_avatar_desc
+        return get_avatar_desc(self, detailed=detailed)
+
     # ========== 魔法方法 ==========
 
     def __post_init__(self):

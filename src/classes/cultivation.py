@@ -146,7 +146,7 @@ class CultivationProgress:
 
     def get_detailed_info(self) -> str:
         can_break_through = self.can_break_through()
-        can_break_through_str = "可以突破" if can_break_through else "不可以突破"
+        can_break_through_str = "需要突破" if can_break_through else "未到瓶颈无需突破"
         return f"{self.realm.value}{self.stage.value}({self.level}级){can_break_through_str}"
 
     def get_info(self) -> str:
