@@ -115,7 +115,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "gender": str(avatar.gender),
         "age": avatar.age.age,
         "lifespan": avatar.age.max_lifespan,
-        "realm": avatar.cultivation_progress.realm.value,
+        "realm": avatar.cultivation_progress.get_info(),
         "level": avatar.cultivation_progress.level,
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
         "alignment": str(avatar.alignment) if avatar.alignment else "未知",
@@ -191,7 +191,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "target_id": other.id,
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
-            "realm": other.cultivation_progress.realm.value,
+            "realm": other.cultivation_progress.get_info(),
             "sect": other.sect.name if other.sect else "散修"
         })
     info["relations"] = relations_list

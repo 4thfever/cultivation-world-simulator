@@ -116,7 +116,7 @@ class Sect:
                 "pic_id": resolve_avatar_pic_id(a),
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
-                "realm": a.cultivation_progress.realm.value if hasattr(a, 'cultivation_progress') else "未知",
+                "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else "未知",
                 "_sort_val": sort_val
             })
         # 按职位排序
