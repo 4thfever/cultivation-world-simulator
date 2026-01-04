@@ -465,9 +465,13 @@ async def lifespan(app: FastAPI):
         web_dir = os.path.join(project_root, 'web')
         
         print(f"正在启动前端开发服务 (npm run dev) 于: {web_dir}")
-        # Windows 下使用 shell=True
+        # 跨平台兼容：Windows 用 shell=True + 字符串，macOS/Linux 用 shell=False + 列表。
         try:
-            npm_process = subprocess.Popen(["npm", "run", "dev"], cwd=web_dir, shell=True)
+            import platform
+            if platform.system() == "Windows":
+                npm_process = subprocess.Popen("npm run dev", cwd=web_dir, shell=True)
+            else:
+                npm_process = subprocess.Popen(["npm", "run", "dev"], cwd=web_dir, shell=False)
             # 假设 Vite 默认端口是 5173
             target_url = "http://localhost:5173"
         except Exception as e:
@@ -489,9 +493,13 @@ async def lifespan(app: FastAPI):
     if npm_process:
         print("正在关闭前端开发服务...")
         try:
-            # 尝试终止进程
-            # Windows 下 terminate 可能无法杀死 shell=True 的子进程树，这里简单处理
-            subprocess.call(['taskkill', '/F', '/T', '/PID', str(npm_process.pid)])
+            import platform
+            if platform.system() == "Windows":
+                # Windows 下 terminate 可能无法杀死 shell=True 的子进程树。
+                subprocess.call(['taskkill', '/F', '/T', '/PID', str(npm_process.pid)])
+            else:
+                # macOS/Linux 直接 terminate。
+                npm_process.terminate()
         except Exception as e:
             print(f"关闭前端服务时出错: {e}")
 
