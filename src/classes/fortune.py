@@ -461,7 +461,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             # 找不到合适的师傅
             return []
         # 建立师徒关系：avatar 是徒弟，master 是师傅
-        avatar.set_relation(master, Relation.APPRENTICE)
+        # avatar 视 master 为 MASTER，master 视 avatar 为 APPRENTICE（自动设置对偶）。
+        avatar.set_relation(master, Relation.MASTER)
         res_text = f"{avatar.name} 拜 {master.name} 为师"
         related_avatars.append(master.id)
         actors_for_story = [avatar, master]  # 拜师奇遇需要两个人的信息
