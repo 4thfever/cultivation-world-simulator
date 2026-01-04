@@ -13,6 +13,7 @@ EFFECT_DESC_MAP = {
     "extra_harvest_items": "采集获取物品",
     "extra_hunt_items": "狩猎获取物品",
     "extra_item_sell_price_multiplier": "物品出售价格",
+    "shop_buy_price_reduction": "购买折扣",
     "extra_weapon_upgrade_chance": "兵器升级概率",
     "extra_plunder_multiplier": "搜刮收益",
     "extra_catch_success_rate": "捕捉灵兽成功率",

@@ -5,7 +5,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 3,怠惰,冒险;极端正义;极端邪恶,你总是会拖延，不想努力，更热衷于享受人生。,N,,{extra_cast_success_rate: -0.05}
 4,冒险,怠惰;惜命,你总是会冒险，喜欢刺激，总想放手一搏。,N,
 5,随性,理性;极端正义;极端邪恶,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,
-6,贪财,,你对灵石和财富有着强烈的渴望。,N,
+6,贪财,,你对灵石和财富有着强烈的渴望。,N,,{extra_item_sell_price_multiplier: 0.1}
 7,采集者,,喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。你认为大自然的恩赐需要用心去发现和珍惜。,R,,{extra_harvest_items: 1}
 8,猎人,,享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌，喜欢捕猎野兽。情况允许也会御兽。,R,,{extra_hunt_items: 1}
 9,沉思,无常,你总是会深思熟虑，思考问题比较有哲理。,N,
@@ -39,7 +39,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 37,疑心重,热情;外向;友爱,对任何人都保持怀疑，不轻易信任，时刻警惕他人可能的背叛和算计。,N,
 38,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,,"[{when: 'avatar.weapon is None', extra_battle_strength_points: 5}]"
 39,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,
-40,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,{extra_fortune_probability: 0.01}
+40,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
 41,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 42,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 43,枪修,怠惰,精通枪法，百兵之王在手，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
@@ -58,6 +58,6 @@ id,name,exclusion_names,desc,rarity,condition,effects
 56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
 57,探险家,死宅,你对未知的世界充满好奇，热衷于探索地图上未被点亮的区域，难以忍受长时间待在同一个地方。,SR,,
 58,死宅,探险家;冒险,你认为外面的世界充满危险且麻烦，除了必要的宗门任务，你极度排斥长途跋涉，更喜欢待在熟悉的区域修炼。,N,,
-59,扫把星,福缘深厚;气运之子,天生霉运缠身，喝凉水都塞牙。虽然活着不易，但也磨练了心性。,N,,{extra_misfortune_probability: 0.005}
+59,扫把星,福缘深厚;气运之子,天生霉运缠身，喝凉水都塞牙。虽然活着不易，但也磨练了心性。,N,,"{extra_misfortune_probability: 0.005, extra_item_sell_price_multiplier: -0.1}"
 60,大器晚成,,早年修行多舛，霉运连连；但若能坚持至金丹元婴，便可否极泰来，气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""练气"", ""筑基""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""金丹"", ""元婴""]', extra_fortune_probability: 0.01}]"
 61,炼器师,好斗,精通炼器之道，对材料敏锐，擅长铸造法宝。你认为法宝是修行的关键，战斗并非你的专长。,R,,{extra_cast_success_rate: 0.15}

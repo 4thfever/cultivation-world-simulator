@@ -106,11 +106,6 @@ class InventoryMixin:
 
     # ==================== 出售接口 ====================
     
-    def _get_sell_multiplier(self: "Avatar") -> float:
-        """获取出售价格倍率（包含效果加成）"""
-        raw = self.effects.get("extra_item_sell_price_multiplier", 0.0)
-        return 1.0 + float(raw or 0.0)
-
     def sell_item(self: "Avatar", item: "Item", quantity: int = 1) -> int:
         """
         出售材料物品，返回获得的灵石数量。
@@ -123,8 +118,9 @@ class InventoryMixin:
         
         self.remove_item(item, quantity)
         
-        base_price = prices.get_item_price(item) * quantity
-        total = int(base_price * self._get_sell_multiplier())
+        # 使用统一的卖出价格接口（包含所有加成逻辑）
+        unit_price = prices.get_selling_price(item, self)
+        total = unit_price * quantity
         
         self.magic_stone = self.magic_stone + total
         return total
@@ -139,7 +135,8 @@ class InventoryMixin:
         # 记录流转
         self.world.circulation.add_weapon(weapon)
 
-        total = int(prices.get_weapon_price(weapon) * self._get_sell_multiplier())
+        # 使用统一的卖出价格接口
+        total = prices.get_selling_price(weapon, self)
         self.magic_stone = self.magic_stone + total
         return total
 
@@ -153,7 +150,8 @@ class InventoryMixin:
         # 记录流转
         self.world.circulation.add_auxiliary(auxiliary)
 
-        total = int(prices.get_auxiliary_price(auxiliary) * self._get_sell_multiplier())
+        # 使用统一的卖出价格接口
+        total = prices.get_selling_price(auxiliary, self)
         self.magic_stone = self.magic_stone + total
         return total
 

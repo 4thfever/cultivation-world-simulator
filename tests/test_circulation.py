@@ -157,7 +157,21 @@ def test_avatar_sell_integration(empty_world):
     with patch("src.classes.prices.prices") as mock_prices:
         mock_prices.get_weapon_price.return_value = 100
         mock_prices.get_auxiliary_price.return_value = 200
+        # 这里的 sell_weapon 现在调用 get_selling_price，我们也 mock 它
+        # 假设这里没有额外加成，或者我们直接设定最终售价
+        mock_prices.get_selling_price.side_effect = lambda obj, seller: \
+            100 if getattr(obj, "id", 0) == 999 else \
+            (300 if getattr(obj, "id", 0) == 888 else 0)
+        # 上面的 side_effect 比较复杂，因为测试里先后卖了 weapon(id=999) 和 aux(id=888)
+        # 我们可以简单地根据类型返回，或者分段 mock
         
+        # 重新定义 mock 逻辑
+        def get_selling_price_mock(obj, seller):
+            if hasattr(obj, "id") and obj.id == 999: return 100
+            if hasattr(obj, "id") and obj.id == 888: return 200
+            return 0
+        mock_prices.get_selling_price.side_effect = get_selling_price_mock
+
         # 1. Test Sell Weapon
         # Create a dummy weapon that acts like the real one
         weapon = MagicMock(spec=Weapon)

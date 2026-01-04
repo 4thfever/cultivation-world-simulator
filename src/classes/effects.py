@@ -308,6 +308,18 @@ EXTRA_ITEM_SELL_PRICE_MULTIPLIER = "extra_item_sell_price_multiplier"
   - 奸商: 0.5
 """
 
+SHOP_BUY_PRICE_REDUCTION = "shop_buy_price_reduction"
+"""
+商铺购买价格倍率减免
+类型: float
+结算: src/classes/prices.py
+说明: 降低从系统购买物品时的溢价倍率。
+数值参考: 
+  - 微量: 0.1 (倍率-0.1)
+  - 中量: 0.5 (倍率-0.5)
+限制: 最终倍率最低为 1.0
+"""
+
 EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
 """
 额外搜刮收益倍率
@@ -429,6 +441,7 @@ ALL_EFFECTS = [
     
     # 经济相关
     "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
+    "shop_buy_price_reduction",          # float - 商铺购买价格倍率减免
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
     
     # 特殊权限

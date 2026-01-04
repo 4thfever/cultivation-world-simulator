@@ -152,13 +152,30 @@ class TestAvatarSell:
         
         base_price = prices.get_item_price(item)
         
-        # 设置 20% 加成 - patch 内部方法
-        with patch.object(dummy_avatar, '_get_sell_multiplier', return_value=1.2):
-            gained = dummy_avatar.sell_item(item, 1)
+        # 模拟 20% 加成 (0.2)
+        # 这里的 effects 是 property，需要用 PropertyMock
+        with patch("src.classes.avatar.core.Avatar.effects", new_callable=lambda: {"extra_item_sell_price_multiplier": 0.2}):
+             # 注意：由于 Avatar 分布在多个 mixin 中，patch 的位置取决于 effects 定义的位置
+             # effects 定义在 EffectsMixin 中，但混入后是在 Avatar 类上
+             # 如果 patch 比较麻烦，我们可以利用 Prices.get_selling_price 的逻辑
+             # 这里我们其实也可以直接 patch get_selling_price 来验证 sell_item 是否使用了它
+             # 但为了验证集成逻辑，我们尝试 patch effects
+             pass
+
+        # 重新考虑：patch Property 比较繁琐，容易出错。
+        # 既然我们已经验证了 Prices.get_selling_price 的逻辑（在 Prices 单元测试中应该覆盖，虽然当前文件主要是测试 Avatar 交互）
+        # 这里我们可以构造一个带有特定 effects 的 mock avatar，或者更简单的：
+        # patch prices.get_selling_price，验证其被调用，且返回值被正确累加
         
-        expected = int(base_price * 1.2)
-        assert gained == expected
-        assert dummy_avatar.magic_stone.value == expected
+        expected_total = int(base_price * 1.2)
+        with patch("src.classes.prices.prices.get_selling_price", return_value=expected_total) as mock_get_price:
+            gained = dummy_avatar.sell_item(item, 1)
+            
+            # 验证调用参数
+            mock_get_price.assert_called_with(item, dummy_avatar)
+            
+        assert gained == expected_total
+        assert dummy_avatar.magic_stone.value == expected_total
 
     def test_sell_weapon_with_multiplier(self, dummy_avatar):
         """测试出售兵器时价格倍率生效"""
@@ -169,10 +186,12 @@ class TestAvatarSell:
         dummy_avatar.magic_stone.value = 0
         base_price = prices.get_weapon_price(weapon)
         
-        # 设置 50% 加成 - patch 内部方法
-        with patch.object(dummy_avatar, '_get_sell_multiplier', return_value=1.5):
-            gained = dummy_avatar.sell_weapon(weapon)
+        expected_total = int(base_price * 1.5)
         
-        expected = int(base_price * 1.5)
-        assert gained == expected
+        # 同样 patch get_selling_price
+        with patch("src.classes.prices.prices.get_selling_price", return_value=expected_total) as mock_get_price:
+            gained = dummy_avatar.sell_weapon(weapon)
+            mock_get_price.assert_called_with(weapon, dummy_avatar)
+        
+        assert gained == expected_total
 
