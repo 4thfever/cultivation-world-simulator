@@ -222,3 +222,4 @@ def build_effects_map_from_df(
         if eff:
             effects_map[key] = eff
     return effects_map
+

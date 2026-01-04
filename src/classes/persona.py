@@ -72,7 +72,7 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
         
         # 解析effects
         effects = load_effect_from_str(get_str(row, "effects"))
-        from src.utils.effect_desc import format_effects_to_text
+        from src.classes.effect import format_effects_to_text
         effect_desc = format_effects_to_text(effects)
         
         persona = Persona(

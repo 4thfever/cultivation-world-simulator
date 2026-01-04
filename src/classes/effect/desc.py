@@ -188,3 +188,4 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
         return f"[{cond}] {text}"
         
     return text
+

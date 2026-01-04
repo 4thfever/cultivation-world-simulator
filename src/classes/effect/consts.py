@@ -370,7 +370,7 @@ CSV 中 effects 列的写法（支持宽松JSON格式）:
 # =============================================================================
 
 """
-Effects 通过 src/classes/effect.py 中的 _merge_effects() 函数合并。
+Effects 通过 src/classes/effect/process.py 中的 _merge_effects() 函数合并。
 
 合并规则:
 1. 列表类型 (如 legal_actions): 取并集（去重）
@@ -447,3 +447,4 @@ ALL_EFFECTS = [
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表
 ]
+

@@ -17,7 +17,7 @@ from src.utils.config import CONFIG
 
 def _get_effects_text(avatar: "Avatar") -> str:
     """获取格式化的效果文本"""
-    from src.utils.effect_desc import format_effects_to_text
+    from src.classes.effect import format_effects_to_text
     breakdown = avatar.get_effect_breakdown()
     effect_parts = []
     for source_name, effects in breakdown:
@@ -383,7 +383,7 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
         lines.append("\n--- 当前效果明细 ---")
         breakdown = avatar.get_effect_breakdown()
         
-        from src.utils.effect_desc import format_effects_to_text
+        from src.classes.effect import format_effects_to_text
         
         if not breakdown:
             lines.append("无额外效果")

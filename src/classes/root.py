@@ -129,7 +129,7 @@ _root_effects_by_root = build_effects_map_from_df(
     effects_column="effects",
 )
 
-from src.utils.effect_desc import format_effects_to_text
+from src.classes.effect import format_effects_to_text
 _root_effect_desc_by_root = {
     root: format_effects_to_text(effects)
     for root, effects in _root_effects_by_root.items()

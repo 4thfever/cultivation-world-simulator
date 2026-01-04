@@ -207,7 +207,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
         # 读取 effects
         effects = load_effect_from_str(get_str(row, "effects"))
-        from src.utils.effect_desc import format_effects_to_text
+        from src.classes.effect import format_effects_to_text
         effect_desc = format_effects_to_text(effects)
 
         # 读取倾向兵器类型

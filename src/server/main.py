@@ -213,7 +213,7 @@ def serialize_phenomenon(phenomenon) -> Optional[dict]:
             rarity_str = phenomenon.rarity.level.name
             
     # 生成效果描述
-    from src.utils.effect_desc import format_effects_to_text
+    from src.classes.effect import format_effects_to_text
     effect_desc = format_effects_to_text(phenomenon.effects) if hasattr(phenomenon, "effects") else ""
 
     return {

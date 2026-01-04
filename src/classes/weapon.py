@@ -70,7 +70,7 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
 
     for row in df:
         effects = load_effect_from_str(get_str(row, "effects"))
-        from src.utils.effect_desc import format_effects_to_text
+        from src.classes.effect import format_effects_to_text
         effect_desc = format_effects_to_text(effects)
 
         # 解析weapon_type

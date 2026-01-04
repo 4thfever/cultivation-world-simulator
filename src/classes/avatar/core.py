@@ -40,7 +40,7 @@ from src.classes.nickname_data import Nickname
 from src.utils.config import CONFIG
 
 # Mixin 导入
-from src.classes.avatar.effects_mixin import EffectsMixin
+from src.classes.effect import EffectsMixin
 from src.classes.avatar.inventory_mixin import InventoryMixin
 from src.classes.avatar.action_mixin import ActionMixin
 

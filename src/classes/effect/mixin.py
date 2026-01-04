@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from src.classes.avatar.core import Avatar
 
-from src.classes.effect import _merge_effects, _evaluate_conditional_effect
+from .process import _merge_effects, _evaluate_conditional_effect
 from src.classes.hp import HP_MAX_BY_REALM
 
 
@@ -204,3 +204,4 @@ class EffectsMixin:
     def move_step_length(self: "Avatar") -> int:
         """获取角色的移动步长"""
         return self.cultivation_progress.get_move_step()
+
