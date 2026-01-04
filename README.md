@@ -250,10 +250,10 @@
    在 `static/config.yml` 中配置LLM参数（OpenAI格式）：
    ```yaml
     llm:
-      key: "your-api-key-here"        # 你的API密钥
-      base_url: "https://api.xxx.com" # API地址
-      model_name: "qwen-plus"         # 智能模型名称
-      fast_model_name: "qwen-turbo"   # 快速模型名称
+      key: "your-api-key-here"           # 你的API密钥
+      base_url: "https://api.xxx.com"    # API地址
+      model_name: "normal_model_name"    # 智能模型名称
+      fast_model_name: "fast_model_name" # 快速模型名称
    ```
 
    也支持在前端直接配入LLM参数：

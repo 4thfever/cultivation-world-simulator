@@ -1,0 +1,53 @@
+# 贡献指南 (Contributing Guide)
+
+感谢你对 **Cultivation World Simulator** (修仙模拟器) 感兴趣！欢迎任何形式的贡献，包括修复 Bug、改进文档或开发新功能。
+
+为了保持代码库的健康和风格统一，请在贡献前阅读以下指南。
+
+## 🛠️ 开发环境搭建
+
+具体的安装和启动步骤请参考 [README.md](./README.md) 中的说明。
+
+**项目结构说明：**
+- **后端 (Python)**: 位于 `src/` 目录。
+- **前端 (Vue 3)**: 位于 `web/` 目录。
+
+## ✅ 测试要求 (必须)
+
+在提交 Pull Request 之前，请务必确保所有测试通过。这是保证代码质量的关键。
+
+**运行后端测试：**
+```bash
+pytest tests/
+```
+
+请确保所有测试用例都能通过（PASS）。如果你添加了新功能，建议同时也添加相应的测试用例。
+
+## 📝 代码规范
+
+我们追求**简洁、优雅、清晰易读**的代码风格。
+
+### Python 后端
+- 遵循 PEP 8 风格指南。
+- 如果新增了功能，请加入对应的pytest测试。
+
+### Vue 前端
+- 使用 **TypeScript** 编写逻辑。
+- 遵循 Vue 3 Composition API 的最佳实践。
+- 组件命名清晰，保持单一职责。
+
+## 🚀 提交 Pull Request (PR)
+
+1. **Fork** 本仓库到你的 GitHub 账户。
+2. **Clone** 你的 Fork 版本到本地。
+3. 创建一个新的分支进行开发：
+   ```bash
+   git checkout -b feature/你的功能名称
+   # 或者
+   git checkout -b fix/修复的问题
+   ```
+4. 提交你的更改 (Commit)，请使用清晰的提交信息。
+5. 推送 (Push) 到你的远程分支。
+6. 在 GitHub 上发起 **Pull Request**。
+
+感谢你的贡献！一起打造更好的修仙世界。

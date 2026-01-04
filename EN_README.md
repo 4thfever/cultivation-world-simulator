@@ -250,10 +250,10 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
    Edit `static/config.yml`:
    ```yaml
     llm:
-      key: "your-api-key-here"        # your API key
-      base_url: "https://api.xxx.com" # API base URL
-      model_name: "model-name"        # main model name
-      fast_model_name: "fast-model"   # fast model name
+      key: "your-api-key-here"           # your api key
+      base_url: "https://api.xxx.com"    # API addr 
+      model_name: "normal_model_name"    
+      fast_model_name: "fast_model_name" 
    ```
    Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
 
@@ -271,6 +271,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 
 ## Contributors
 - Aku, for world design & discussion
+- [@xzhseh](https://github.com/xzhseh), contributed part of the frontend code
 
 ## Acknowledgments
 - Referenced some UI elements from ailifeengine
