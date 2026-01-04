@@ -155,6 +155,14 @@ class AvatarLoadMixin:
         from src.classes.nickname_data import Nickname
         avatar.nickname = Nickname.from_dict(data.get("nickname"))
 
+        # 恢复情绪
+        from src.classes.emotions import EmotionType
+        emotion_str = data.get("emotion", "平静")
+        try:
+            avatar.emotion = EmotionType(emotion_str)
+        except ValueError:
+            avatar.emotion = EmotionType.CALM
+
         # 恢复死亡状态
         avatar.is_dead = data.get("is_dead", False)
         avatar.death_info = data.get("death_info")

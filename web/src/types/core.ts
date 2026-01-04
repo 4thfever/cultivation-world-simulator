@@ -64,6 +64,13 @@ export interface AvatarDetail extends EntityBase {
   magic_stone: number;
   base_battle_strength: number;
   
+  // 情绪
+  emotion: {
+    name: string;
+    emoji: string;
+    desc: string;
+  };
+  
   // 属性与资质
   alignment: string;
   alignment_detail?: EffectEntity;

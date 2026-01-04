@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
 from src.classes.battle import get_base_strength
 from src.classes.relation import get_relation_label
+from src.classes.emotions import EMOTION_EMOJIS, EmotionType
 from src.utils.config import CONFIG
 
 
@@ -84,6 +85,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         "外貌": appearance_info,
         "兵器": weapon_info,
         "辅助装备": auxiliary_info,
+        "情绪": avatar.emotion.value,
     }
     
     if detailed:
@@ -109,6 +111,8 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     获取结构化的角色信息，用于前端展示和交互。
     """
     # 基础信息
+    emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
+    
     info = {
         "id": avatar.id,
         "name": avatar.name,
@@ -121,6 +125,11 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "alignment": str(avatar.alignment) if avatar.alignment else "未知",
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
+        "emotion": {
+            "name": avatar.emotion.value,
+            "emoji": emoji,
+            "desc": avatar.emotion.value
+        },
         "thinking": avatar.thinking,
         "short_term_objective": avatar.short_term_objective,
         "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",

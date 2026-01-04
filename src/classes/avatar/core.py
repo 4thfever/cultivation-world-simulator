@@ -37,6 +37,7 @@ from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.spirit_animal import SpiritAnimal
 from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
+from src.classes.emotions import EmotionType
 from src.utils.config import CONFIG
 
 # Mixin 导入
@@ -106,6 +107,7 @@ class Avatar(
     auxiliary: Optional[Auxiliary] = None
     spirit_animal: Optional[SpiritAnimal] = None
     nickname: Optional[Nickname] = None
+    emotion: EmotionType = EmotionType.CALM
     custom_pic_id: Optional[int] = None
     
     is_dead: bool = False

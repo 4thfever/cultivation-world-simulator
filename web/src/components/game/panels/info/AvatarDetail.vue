@@ -109,6 +109,11 @@ async function handleClearObjective() {
         <StatItem label="灵石" :value="data.magic_stone" />
         <StatItem label="颜值" :value="data.appearance" />
         <StatItem label="基础战力" :value="data.base_battle_strength" />
+        <StatItem 
+          label="情绪" 
+          :value="data.emotion.emoji" 
+          :sub-value="data.emotion.name"
+        />
       </div>
 
       <!-- Thinking -->

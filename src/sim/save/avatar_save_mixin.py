@@ -91,6 +91,7 @@ class AvatarSaveMixin:
             "persona_ids": [p.id for p in self.personas] if self.personas else [],
             "appearance": self.appearance.level,
             "nickname": self.nickname.to_dict() if self.nickname else None,
+            "emotion": self.emotion.value,
             "is_dead": self.is_dead,
             "death_info": self.death_info,
             

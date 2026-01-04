@@ -99,6 +99,16 @@ class LLMAI(AI):
 
             avatar_thinking = r.get("avatar_thinking", r.get("thinking", ""))
             short_term_objective = r.get("short_term_objective", "")
+            
+            # 更新情绪
+            from src.classes.emotions import EmotionType
+            raw_emotion = r.get("current_emotion", "平静")
+            try:
+                # 尝试通过 value (中文) 获取枚举
+                avatar.emotion = EmotionType(raw_emotion)
+            except ValueError:
+                avatar.emotion = EmotionType.CALM
+                
             results[avatar] = (pairs, avatar_thinking, short_term_objective)
             
         return results
