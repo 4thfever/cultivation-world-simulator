@@ -104,6 +104,8 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Standalone release (packaged exe)
 - ✅ Menu bar & Save & Load
 - ✅ Flexible custom LLM interface
+- ✅ Support macOS
+- [ ] Support multi-language localization
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
