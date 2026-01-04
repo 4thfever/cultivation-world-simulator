@@ -58,3 +58,60 @@ export function mergeAndSortEvents(existingEvents: GameEvent[], newEvents: GameE
   return combined;
 }
 
+/**
+ * 根据角色 ID 哈希生成一致的 HSL 颜色。
+ */
+export function avatarIdToColor(id: string): string {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = ((hash << 5) - hash) + id.charCodeAt(i);
+    hash |= 0;
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 70%, 65%)`;
+}
+
+/**
+ * 根据角色列表构建 name -> color 映射表。
+ */
+export function buildAvatarColorMap(
+  avatars: Array<{ id: string; name?: string }>
+): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const av of avatars) {
+    if (av.name) {
+      map.set(av.name, avatarIdToColor(av.id));
+    }
+  }
+  return map;
+}
+
+const HTML_ESCAPE_MAP: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+
+/**
+ * 高亮文本中的角色名，返回 HTML 字符串。
+ */
+export function highlightAvatarNames(
+  text: string,
+  colorMap: Map<string, string>
+): string {
+  if (!text || colorMap.size === 0) return text;
+
+  // 按名字长度倒序排列，避免部分匹配（如 "张三" 匹配到 "张三丰"）。
+  const names = [...colorMap.keys()].sort((a, b) => b.length - a.length);
+
+  let result = text;
+  for (const name of names) {
+    const color = colorMap.get(name)!;
+    const escaped = name.replace(/[&<>"']/g, c => HTML_ESCAPE_MAP[c] || c);
+    result = result.replaceAll(name, `<span style="color:${color}">${escaped}</span>`);
+  }
+  return result;
+}
+
