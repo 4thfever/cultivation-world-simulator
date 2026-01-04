@@ -944,7 +944,7 @@ def get_avatar_list_simple():
             "name": a.name,
             "sect_name": sect_name,
             "realm": realm_str,
-            "gender": a.gender.value,
+            "gender": str(a.gender),
             "age": a.age.age
         })
     
