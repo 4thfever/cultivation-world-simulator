@@ -269,8 +269,8 @@
 
 
 ## 贡献者
-- Aku, 世界观\玩法设计与讨论
-- @xzhseh, 贡献前端代码
+* Aku, 世界观\玩法设计与讨论
+* [@xzhseh](https://github.com/xzhseh), 贡献部分前端代码
 
 ## 致谢
 - 参考了ai life engine部分ui
