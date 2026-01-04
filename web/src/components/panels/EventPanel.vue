@@ -2,6 +2,8 @@
 import { computed, ref, watch, nextTick } from 'vue'
 import { useWorldStore } from '../../stores/world'
 import { NSelect } from 'naive-ui'
+import { highlightAvatarNames, buildAvatarColorMap } from '../../utils/eventHelper'
+import type { GameEvent } from '../../types/core'
 
 const worldStore = useWorldStore()
 const filterValue = ref('all')
@@ -67,6 +69,15 @@ const emptyEventMessage = computed(() => (
 function formatEventDate(event: { year: number; month: number }) {
   return `${event.year}年${event.month}月`
 }
+
+// 构建角色名 -> 颜色映射表。
+const avatarColorMap = computed(() => buildAvatarColorMap(worldStore.avatarList))
+
+// 渲染事件内容，高亮角色名。
+function renderEventContent(event: GameEvent): string {
+  const text = event.content || event.text || ''
+  return highlightAvatarNames(text, avatarColorMap.value)
+}
 </script>
 
 <template>
@@ -84,7 +95,7 @@ function formatEventDate(event: { year: number; month: number }) {
     <div v-else class="event-list" ref="eventListRef">
       <div v-for="event in filteredEvents" :key="event.id" class="event-item">
         <div class="event-date">{{ formatEventDate(event) }}</div>
-        <div class="event-content">{{ event.content || event.text }}</div>
+        <div class="event-content" v-html="renderEventContent(event)"></div>
       </div>
     </div>
   </section>
