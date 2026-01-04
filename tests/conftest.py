@@ -51,6 +51,10 @@ def dummy_avatar(base_world):
     av.weapon = MagicMock()
     av.weapon.get_detailed_info.return_value = "测试木剑（练气）"
     av.weapon_proficiency = 0.0
+
+    # 强制清空特质（因为 __post_init__ 会在 personas 为空时自动随机生成）
+    av.personas = []
+    av.recalc_effects()
     
     return av
 
