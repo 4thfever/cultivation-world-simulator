@@ -153,7 +153,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 ### ⚡ Action System
 - ✅ Basic movement
 - ✅ Action execution framework
-- ✅ Defined actions (rule-complete)
+- ✅ Defined actions
 - ✅ Long-duration actions and settlement
   - ✅ Multi-month actions (cultivate, breakthrough, play, etc.)
   - ✅ Auto-settlement upon completion
