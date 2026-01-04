@@ -62,6 +62,7 @@ export interface AvatarDetail extends EntityBase {
   level: number;
   hp: { cur: number; max: number };
   magic_stone: number;
+  base_battle_strength: number;
   
   // 属性与资质
   alignment: string;

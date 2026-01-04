@@ -120,6 +120,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
         "alignment": str(avatar.alignment) if avatar.alignment else "未知",
         "magic_stone": avatar.magic_stone.value,
+        "base_battle_strength": int(get_base_strength(avatar)),
         "thinking": avatar.thinking,
         "short_term_objective": avatar.short_term_objective,
         "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",

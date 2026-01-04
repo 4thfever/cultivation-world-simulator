@@ -12,7 +12,20 @@ if TYPE_CHECKING:
 
 
 # 战斗力参数（参考文明6思想，但适配本项目数值体系）
-_STRENGTH_LOG_SCALE: float = 10.0            # 修为强度的对数缩放：10×ln(1+level)
+# 境界基础战力
+_REALM_BASE_STRENGTH = {
+    "Qi_Refinement": 10.0,
+    "Foundation_Establishment": 20.0,
+    "Core_Formation": 30.0,
+    "Nascent_Soul": 40.0,
+}
+# 小境界（阶段）额外加成
+_STAGE_BONUS_STRENGTH = {
+    "Early_Stage": 0.0,
+    "Middle_Stage": 2.5,
+    "Late_Stage": 5.0,
+}
+
 _SUPPRESSION_POINTS: float = 3.0             # 属性克制即加固定战斗力点数
 _CIV6_K: float = 0.04                        # 伤害指数系数：e^(K×差值)
 _WIN_BETA: float = 0.15                      # 胜率逻辑函数斜率
@@ -26,11 +39,18 @@ _PAIR_BIAS: float = 1.1                     # 成对偏置：让败者再多一�
 
 def get_base_strength(self_avatar: "Avatar") -> float:
     """
-    基础战斗力：与对手无关。
-    = 10×ln(1+修为等级) + 额外效果点数
+    基础战斗力（重构版）：
+    = 境界基准值 + 小境界加成 + 额外效果
     """
-    level = max(1, self_avatar.cultivation_progress.level)
-    strength_from_level = _STRENGTH_LOG_SCALE * math.log1p(level)
+    # 1. 获取当前境界的基础值
+    realm_name = self_avatar.cultivation_progress.realm.name
+    base_val = _REALM_BASE_STRENGTH.get(realm_name, 10.0)
+    
+    # 2. 获取小境界（阶段）加成
+    stage_name = self_avatar.cultivation_progress.stage.name
+    stage_bonus = _STAGE_BONUS_STRENGTH.get(stage_name, 0.0)
+    
+    strength_from_level = base_val + stage_bonus
     
     # 来自效果的额外战斗力点数（例如功法、法宝带来的被动加成）
     extra_raw = self_avatar.effects.get("extra_battle_strength_points", 0)
@@ -40,7 +60,7 @@ def get_base_strength(self_avatar: "Avatar") -> float:
 
 def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
     """
-    相对战斗力：= 基础战斗力 + 克制点数(若克制则+3) + 境界压制点数
+    相对战斗力：= 基础战斗力 + 克制点数(若克制则+3)
     """
     base = get_base_strength(self_avatar)
     
@@ -50,29 +70,7 @@ def _combat_strength_vs(opponent: "Avatar", self_avatar: "Avatar") -> float:
         if get_suppression_bonus(self_avatar.technique.attribute, opponent.technique.attribute) > 0.0:
             suppression_points = _SUPPRESSION_POINTS
     
-    # 境界压制加成
-    realm_bonus_points = 0.0
-    realm_suppression_bonus_raw = self_avatar.effects.get("realm_suppression_bonus", 0.0)
-    if realm_suppression_bonus_raw:
-        realm_suppression_bonus = float(realm_suppression_bonus_raw or 0.0)
-        # 计算境界差（大境界）
-        from src.classes.cultivation import Realm
-        realm_order = {
-            Realm.Qi_Refinement: 1,
-            Realm.Foundation_Establishment: 2,
-            Realm.Core_Formation: 3,
-            Realm.Nascent_Soul: 4,
-        }
-        self_realm_rank = realm_order.get(self_avatar.cultivation_progress.realm, 1)
-        opponent_realm_rank = realm_order.get(opponent.cultivation_progress.realm, 1)
-        realm_diff = self_realm_rank - opponent_realm_rank
-        
-        # 如果境界更高，则获得加成
-        if realm_diff > 0:
-            # 按基础战斗力的百分比计算加成点数
-            realm_bonus_points = base * realm_suppression_bonus * realm_diff
-    
-    return base + suppression_points + realm_bonus_points
+    return base + suppression_points
 
 
 def _strength_diff(attacker: "Avatar", defender: "Avatar") -> float:
