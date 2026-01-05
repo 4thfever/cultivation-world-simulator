@@ -2,15 +2,15 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from src.classes.action import InstantAction
+from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
 from src.classes.battle import decide_battle, get_effective_strength_pair
 from src.classes.story_teller import StoryTeller
-from src.classes.normalize import normalize_avatar_name
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
 from src.classes.kill_and_grab import kill_and_grab
 
-class Attack(InstantAction):
+class Attack(InstantAction, TargetingMixin):
     ACTION_NAME = "发起战斗"
     EMOJI = "⚔️"
     DESC = "攻击目标，进行对战"
@@ -23,19 +23,8 @@ class Attack(InstantAction):
     # 战斗是大事（长期记忆）
     IS_MAJOR: bool = True
 
-    def _get_target(self, avatar_name: str):
-        """
-        根据名字查找目标角色；找不到返回 None。
-        会自动规范化名字（去除括号等附加信息）以提高容错性。
-        """
-        normalized_name = normalize_avatar_name(avatar_name)
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == normalized_name:
-                return v
-        return None
-
     def _execute(self, avatar_name: str) -> None:
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         if target is None:
             return
         winner, loser, loser_damage, winner_damage = decide_battle(self.avatar, target)
@@ -53,13 +42,11 @@ class Attack(InstantAction):
         self._last_result = (winner, loser, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
-        if avatar_name is None:
-            return False, "缺少参数 avatar_name"
-        ok = self._get_target(avatar_name) is not None
-        return (ok, "" if ok else "目标不存在")
+        _, ok, reason = self.validate_target_avatar(avatar_name)
+        return ok, reason
 
     def start(self, avatar_name: str) -> Event:
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         target_name = target.name if target is not None else avatar_name
         # 展示双方折算战斗力（基于对手、含克制）
         s_att, s_def = get_effective_strength_pair(self.avatar, target)
@@ -81,7 +68,7 @@ class Attack(InstantAction):
         if not (isinstance(res, tuple) and len(res) == 4):
             return []
         
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         start_text = getattr(self, '_start_event_content', "")
         
         from src.classes.battle import handle_battle_finish

@@ -2,6 +2,8 @@
 import pytest
 from unittest.mock import MagicMock, patch, AsyncMock
 from src.classes.action.attack import Attack
+from src.classes.action.assassinate import Assassinate
+from src.classes.mutual_action.talk import Talk
 from src.classes.action_runtime import ActionStatus
 
 class TestActionCombat:
@@ -70,8 +72,111 @@ class TestActionCombat:
         """测试目标不存在"""
         dummy_avatar.world.avatar_manager.avatars = {}
         action = Attack(dummy_avatar, dummy_avatar.world)
-        
+
         ok, reason = action.can_start("Ghost")
         assert ok is False
         assert reason == "目标不存在"
+
+    def test_attack_can_start_dead_target(self, dummy_avatar, target_avatar):
+        """测试不能攻击已死亡的目标"""
+        target_avatar.is_dead = True
+        dummy_avatar.world.avatar_manager.avatars = {target_avatar.name: target_avatar}
+
+        action = Attack(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start("TargetDummy")
+
+        assert ok is False
+        assert reason == "目标已死亡"
+
+    def test_attack_can_start_alive_target(self, dummy_avatar, target_avatar):
+        """测试可以攻击存活的目标"""
+        target_avatar.is_dead = False
+        dummy_avatar.world.avatar_manager.avatars = {target_avatar.name: target_avatar}
+
+        action = Attack(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start("TargetDummy")
+
+        assert ok is True
+        assert reason == ""
+
+
+class TestAssassinate:
+    """暗杀动作测试"""
+
+    @pytest.fixture
+    def target_avatar(self):
+        """创建一个靶子角色"""
+        target = MagicMock()
+        target.name = "TargetDummy"
+        target.id = "target_id"
+        target.is_dead = False
+        return target
+
+    def test_assassinate_can_start_dead_target(self, dummy_avatar, target_avatar):
+        """测试不能暗杀已死亡的目标"""
+        target_avatar.is_dead = True
+        dummy_avatar.world.avatar_manager.avatars = {target_avatar.name: target_avatar}
+
+        action = Assassinate(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start(avatar_name="TargetDummy")
+
+        assert ok is False
+        assert reason == "目标已死亡"
+
+    def test_assassinate_can_start_alive_target(self, dummy_avatar, target_avatar):
+        """测试可以暗杀存活的目标"""
+        target_avatar.is_dead = False
+        dummy_avatar.world.avatar_manager.avatars = {target_avatar.name: target_avatar}
+
+        action = Assassinate(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start(avatar_name="TargetDummy")
+
+        assert ok is True
+        assert reason == ""
+
+    def test_assassinate_can_start_missing_target(self, dummy_avatar):
+        """测试目标不存在"""
+        dummy_avatar.world.avatar_manager.avatars = {}
+
+        action = Assassinate(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start(avatar_name="Ghost")
+
+        assert ok is False
+        assert reason == "目标不存在"
+
+
+class TestMutualActionDeadTarget:
+    """互动动作对死亡目标的测试"""
+
+    @pytest.fixture
+    def target_avatar(self):
+        """创建一个靶子角色"""
+        target = MagicMock()
+        target.name = "TargetDummy"
+        target.id = "target_id"
+        target.is_dead = False
+        target.tile = MagicMock()
+        return target
+
+    def test_talk_can_start_dead_target(self, dummy_avatar, target_avatar):
+        """测试不能对已死亡的目标发起攀谈"""
+        target_avatar.is_dead = True
+        dummy_avatar.world.avatar_manager.avatars = {target_avatar.name: target_avatar}
+
+        action = Talk(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start("TargetDummy")
+
+        assert ok is False
+        assert reason == "目标已死亡"
+
+    def test_talk_can_start_self(self, dummy_avatar):
+        """测试不能对自己发起攀谈"""
+        dummy_avatar.is_dead = False
+        dummy_avatar.world.avatar_manager.avatars = {dummy_avatar.name: dummy_avatar}
+
+        action = Talk(dummy_avatar, dummy_avatar.world)
+        ok, reason = action.can_start(dummy_avatar.name)
+
+        assert ok is False
+        assert reason == "不能对自己发起互动"
 

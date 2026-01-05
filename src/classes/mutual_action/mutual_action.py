@@ -140,6 +140,9 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         """
         检查互动动作能否启动：目标需在发起者的交互范围内。
         子类通过实现 _can_start 来添加额外检查。
+
+        注意：此方法未使用 TargetingMixin.validate_target_avatar()，
+        因为需要额外检查 target == self.avatar 和调用子类的 _can_start()。
         """
         if target_avatar is None:
             return False, "缺少参数 target_avatar"
@@ -148,6 +151,8 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             return False, "目标不存在"
         if target == self.avatar:
             return False, "不能对自己发起互动"
+        if target.is_dead:
+            return False, "目标已死亡"
         # 调用子类的额外检查
         return self._can_start(target)
 

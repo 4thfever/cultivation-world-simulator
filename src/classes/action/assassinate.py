@@ -4,10 +4,10 @@ import random
 
 from src.classes.action import InstantAction
 from src.classes.action.cooldown import cooldown_action
+from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
 from src.classes.battle import decide_battle, get_assassination_success_rate
 from src.classes.story_teller import StoryTeller
-from src.classes.normalize import normalize_avatar_name
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.kill_and_grab import kill_and_grab
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class Assassinate(InstantAction):
+class Assassinate(InstantAction, TargetingMixin):
     ACTION_NAME = "暗杀"
     EMOJI = "🗡️"
     DESC = "暗杀目标，失败则变为战斗"
@@ -39,15 +39,8 @@ class Assassinate(InstantAction):
     # 暗杀是大事（长期记忆）
     IS_MAJOR: bool = True
 
-    def _get_target(self, avatar_name: str) -> Avatar | None:
-        normalized_name = normalize_avatar_name(avatar_name)
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == normalized_name:
-                return v
-        return None
-
     def _execute(self, avatar_name: str) -> None:
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         if target is None:
             return
             
@@ -77,13 +70,11 @@ class Assassinate(InstantAction):
 
     def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
         # 注意：cooldown_action 装饰器会覆盖这个方法并在调用此方法前检查 CD
-        if avatar_name is None:
-            return False, "缺少参数 avatar_name"
-        ok = self._get_target(avatar_name) is not None
-        return (ok, "" if ok else "目标不存在")
+        _, ok, reason = self.validate_target_avatar(avatar_name)
+        return ok, reason
 
     def start(self, avatar_name: str) -> Event:
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         target_name = target.name if target is not None else avatar_name
         
         event = Event(self.world.month_stamp, f"{self.avatar.name} 潜伏在阴影中，试图暗杀 {target_name}...", related_avatars=[self.avatar.id, target.id] if target else [self.avatar.id], is_major=True)
@@ -91,7 +82,7 @@ class Assassinate(InstantAction):
         return event
 
     async def finish(self, avatar_name: str) -> list[Event]:
-        target = self._get_target(avatar_name)
+        target = self.find_avatar_by_name(avatar_name)
         if target is None:
             return []
             
