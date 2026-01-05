@@ -1,9 +1,16 @@
 def to_json_str_with_intent(data, unescape_newlines: bool = True) -> str:
     """
-    将任意数据包装为带有 intent 的 JSON 字符串，便于在 Prompt 中明确语义。
+    将 Python 对象转为格式化的 JSON 字符串，用于 LLM prompt 模板填充。
 
-    结构：{"intent": intent, "data": data}
-    - 使用缩进与 ensure_ascii=False，保证可读性与中文不转义
+    Args:
+        data: 任意可 JSON 序列化的对象（dict, list 等）。
+        unescape_newlines: 是否将 JSON 中的 '\\n' 转为真正的换行符，默认 True。
+
+    Returns:
+        格式化的 JSON 字符串，带缩进，中文保持原样（不转为 \\uXXXX）。
+
+    Note:
+        返回的字符串可安全用于 str.format()，因为 format() 不会递归解析已替换的内容。
     """
     import json
     s = json.dumps(data, ensure_ascii=False, indent=2)
