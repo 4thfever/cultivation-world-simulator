@@ -39,6 +39,7 @@ from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
 from src.classes.emotions import EmotionType
 from src.utils.config import CONFIG
+from src.classes.elixir import ConsumedElixir, Elixir
 
 # Mixin 导入
 from src.classes.effect import EffectsMixin
@@ -110,6 +111,8 @@ class Avatar(
     emotion: EmotionType = EmotionType.CALM
     custom_pic_id: Optional[int] = None
     
+    elixirs: List[ConsumedElixir] = field(default_factory=list)
+
     is_dead: bool = False
     death_info: Optional[dict] = None
 
@@ -122,6 +125,23 @@ class Avatar(
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
 
     # ========== 宗门相关 ==========
+
+    def consume_elixir(self, elixir: Elixir) -> bool:
+        """
+        服用丹药
+        :return: 是否成功服用
+        """
+        # 1. 境界校验：只能服用境界等于或者小于当前境界的丹药
+        if elixir.realm > self.cultivation_progress.realm:
+            return False
+            
+        # 2. 记录服用状态
+        self.elixirs.append(ConsumedElixir(elixir, int(self.world.month_stamp)))
+        
+        # 3. 立即触发属性重算（因为可能有立即生效的数值变化，或者MaxHP/Lifespan改变）
+        self.recalc_effects()
+        
+        return True
     
     def join_sect(self, sect: Sect, rank: "SectRank") -> None:
         """加入宗门"""

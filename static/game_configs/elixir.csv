@@ -1,0 +1,17 @@
+id,name,realm,type,desc,price,effects
+,名称,境界(练气/筑基/金丹/元婴),类型(Breakthrough/Lifespan/BurnBlood/Heal),描述,价格,JSON形式Effects
+1,破境丹,练气,Breakthrough,凝聚灵气，辅助练气期修士突破瓶颈的丹药（药效5年）。,50,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+2,破境丹,筑基,Breakthrough,蕴含筑基真意，辅助筑基期修士突破瓶颈的灵丹（药效5年）。,200,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+3,破境丹,金丹,Breakthrough,凝结金丹之气，辅助金丹期修士碎丹成婴（药效5年）。,500,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+5,长生丹,练气,Lifespan,采用凡间珍草炼制，略微延缓衰老（药效50年）。,100,"{duration_month: 600, extra_max_lifespan: 5}"
+6,长生丹,筑基,Lifespan,取天地灵草炼制，可延寿十载（药效50年）。,500,"{duration_month: 1200, extra_max_lifespan: 10}"
+7,长生丹,金丹,Lifespan,夺天地造化，凡人服之立毙，金丹修士服之延寿半甲子（药效50年）。,200,"{duration_month: 2400, extra_max_lifespan: 30}"
+8,长生丹,元婴,Lifespan,蕴含一丝长生之气，元婴老怪以此续命（药效50年）。,5000,"{duration_month: 6000, extra_max_lifespan: 100}"
+9,燃血丹,练气,BurnBlood,燃烧精血换取短暂爆发。3年内战力提升，但10年内经脉受损战力下降。,50,"[{duration_month: 36, extra_battle_strength_points: 3}, {duration_month: 120, extra_battle_strength_points: -1}]"
+10,燃血丹,筑基,BurnBlood,激发潜能的猛药。3年内战力大增，但10年内虚弱。,100,"[{duration_month: 36, extra_battle_strength_points: 5}, {duration_month: 120, extra_battle_strength_points: -2}]"
+11,燃血丹,金丹,BurnBlood,金丹修士拼命时的选择。3年内战力暴涨，但10年内重伤。,200,"[{duration_month: 36, extra_battle_strength_points: 7}, {duration_month: 120, extra_battle_strength_points: -3}]"
+12,燃血丹,元婴,BurnBlood,燃烧元婴本源。3年内获得毁天灭地的力量，但10年内几乎废人。,300,"[{duration_month: 36, extra_battle_strength_points: 10}, {duration_month: 120, extra_battle_strength_points: -5}]"
+13,回春丹,练气,Heal,普通的疗伤丹药，可恢复练气期修士的伤势（持续5年）。,20,"{duration_month: 60, extra_hp_recovery_rate: 0.5}"
+14,回春丹,筑基,Heal,药力温和醇厚，能快速愈合筑基期修士的肉身损伤（持续5年）。,50,"{duration_month: 60, extra_hp_recovery_rate: 1.0}"
+15,回春丹,金丹,Heal,蕴含生机之力，疗伤圣药（持续5年）。,100,"{duration_month: 60, extra_hp_recovery_rate: 2.0}"
+16,回春丹,元婴,Heal,蕴含造化生机，肉身修复极快（持续5年）。,200,"{duration_month: 60, extra_hp_recovery_rate: 5.0}"

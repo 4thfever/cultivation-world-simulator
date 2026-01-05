@@ -52,6 +52,7 @@ class AvatarLoadMixin:
         from src.classes.appearance import get_appearance_by_level
         from src.classes.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
+        from src.classes.elixir import elixirs_by_id, ConsumedElixir
         
         # 重建基本对象
         gender = Gender(data["gender"])
@@ -212,6 +213,16 @@ class AvatarLoadMixin:
         # relations需要在外部单独重建（因为需要所有avatar都加载完成）
         avatar.relations = {}
         
+        # 恢复丹药记录
+        elixir_list_data = data.get("elixirs", [])
+        avatar.elixirs = []
+        for elixir_data in elixir_list_data:
+            elixir_id = elixir_data["id"]
+            if elixir_id in elixirs_by_id:
+                elixir_obj = elixirs_by_id[elixir_id]
+                consume_time = elixir_data["time"]
+                avatar.elixirs.append(ConsumedElixir(elixir_obj, consume_time))
+
         # 加载完成后重新计算effects（确保数值正确）
         avatar.recalc_effects()
         

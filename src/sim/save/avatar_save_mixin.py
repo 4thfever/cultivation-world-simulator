@@ -107,5 +107,14 @@ class AvatarSaveMixin:
             } if self.long_term_objective else None,
             "_action_cd_last_months": self._action_cd_last_months,
             "known_regions": list(self.known_regions),
+            
+            # 丹药
+            "elixirs": [
+                {
+                    "id": consumed.elixir.id,
+                    "time": consumed.consume_time
+                }
+                for consumed in self.elixirs
+            ],
         }
 

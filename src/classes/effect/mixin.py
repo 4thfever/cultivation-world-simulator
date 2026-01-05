@@ -60,7 +60,7 @@ class EffectsMixin:
     @property
     def effects(self: "Avatar") -> dict[str, object]:
         """
-        合并所有来源的效果：宗门、功法、灵根、特质、兵器、辅助装备、灵兽、天地灵机
+        合并所有来源的效果：宗门、功法、灵根、特质、兵器、辅助装备、灵兽、天地灵机、丹药
         """
         merged: dict[str, object] = {}
         
@@ -107,6 +107,11 @@ class EffectsMixin:
         if self.world.current_phenomenon is not None:
             _process_source(self.world.current_phenomenon)
 
+        # 来自已服用的丹药
+        # 简化逻辑：直接 merge 所有丹药的效果
+        for consumed in self.elixirs:
+            _process_source(consumed.elixir)
+
         return merged
 
     def get_effect_breakdown(self: "Avatar") -> list[tuple[str, dict[str, Any]]]:
@@ -151,6 +156,9 @@ class EffectsMixin:
             
         if self.world.current_phenomenon:
             _collect("天地灵机", self.world.current_phenomenon)
+
+        for consumed in self.elixirs:
+            _collect(f"丹药【{consumed.elixir.name}】", consumed.elixir)
 
         return breakdown
 
