@@ -197,15 +197,15 @@ async function handleClearObjective() {
       <!-- Effects -->
       <div class="section" v-if="data['当前效果'] && data['当前效果'] !== '无'">
         <div class="section-title">当前效果</div>
-        <div class="effects-list">
-          <div 
-            v-for="(line, idx) in data['当前效果'].split('\n')" 
-            :key="idx"
-            class="effect-row"
-          >
+        <div class="effects-grid">
+          <template v-for="(line, idx) in data['当前效果'].split('\n')" :key="idx">
             <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || '其他' }}</div>
-            <div class="effect-content">{{ line.replace(/^\[.*?\]\s*/, '') }}</div>
-          </div>
+            <div class="effect-content">
+              <div v-for="(segment, sIdx) in line.replace(/^\[.*?\]\s*/, '').split(/[;；]/)" :key="sIdx">
+                {{ segment.trim() }}
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -380,28 +380,22 @@ async function handleClearObjective() {
   gap: 10px;
 }
 
-.effects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.effect-row {
-  display: flex;
-  gap: 8px;
+.effects-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
   font-size: 12px;
-  align-items: flex-start;
+  align-items: baseline;
 }
 
 .effect-source {
-  min-width: 80px;
   color: #888;
   text-align: right;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .effect-content {
   color: #aaddff;
-  flex: 1;
+  line-height: 1.4;
 }
 </style>
