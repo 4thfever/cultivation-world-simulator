@@ -52,11 +52,11 @@ class Logger:
     def _setup_current_logger(self):
         """设置当前日期的日志记录器"""
         current_date = datetime.now().strftime("%Y%m%d")
-        log_filename = f"app_{current_date}.log"
+        log_filename = f"{current_date}.log"
         self.log_file_path = self.log_dir / log_filename
         
         # 创建日志记录器
-        self.logger = logging.getLogger(f"app_logger_{current_date}")
+        self.logger = logging.getLogger(f"logger_{current_date}")
         self.logger.setLevel(logging.INFO)
         
         # 清除现有的处理器（避免重复记录）
