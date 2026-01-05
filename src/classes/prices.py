@@ -80,6 +80,7 @@ class Prices:
         from src.classes.item import Item
         from src.classes.weapon import Weapon
         from src.classes.auxiliary import Auxiliary
+        from src.classes.elixir import Elixir
         
         if isinstance(obj, Item):
             return self.get_item_price(obj)
@@ -87,6 +88,8 @@ class Prices:
             return self.get_weapon_price(obj)
         elif isinstance(obj, Auxiliary):
             return self.get_auxiliary_price(obj)
+        elif isinstance(obj, Elixir):
+            return obj.price
         return 0
 
     def get_buying_price(self, obj: Sellable, buyer: "Avatar" = None) -> int:
