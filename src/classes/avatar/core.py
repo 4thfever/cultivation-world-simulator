@@ -135,14 +135,41 @@ class Avatar(
         if elixir.realm > self.cultivation_progress.realm:
             return False
             
-        # 2. 记录服用状态
+        # 2. 重复服用校验：若已服用过同种且未失效的丹药，则无效
+        # 因为延寿丹药都是无限持久的，所以所有延寿丹药都只能服用一次。
+        for consumed in self.elixirs:
+            if consumed.elixir.id == elixir.id:
+                if not consumed.is_completely_expired(int(self.world.month_stamp)):
+                    return False
+
+        # 3. 记录服用状态
         self.elixirs.append(ConsumedElixir(elixir, int(self.world.month_stamp)))
         
-        # 3. 立即触发属性重算（因为可能有立即生效的数值变化，或者MaxHP/Lifespan改变）
+        # 4. 立即触发属性重算（因为可能有立即生效的数值变化，或者MaxHP/Lifespan改变）
         self.recalc_effects()
         
         return True
     
+    def process_elixir_expiration(self, current_month: int) -> None:
+        """
+        处理丹药过期：
+        1. 移除已完全过期的丹药
+        2. 如果有移除，触发属性重算
+        """
+        if not self.elixirs:
+            return
+
+        original_count = len(self.elixirs)
+        # 过滤掉完全过期的
+        self.elixirs = [
+            e for e in self.elixirs 
+            if not e.is_completely_expired(current_month)
+        ]
+        
+        # 如果数量减少，说明有过期，重算属性（主要是寿命、MaxHP）
+        if len(self.elixirs) < original_count:
+            self.recalc_effects()
+
     def join_sect(self, sect: Sect, rank: "SectRank") -> None:
         """加入宗门"""
         if self.is_dead:

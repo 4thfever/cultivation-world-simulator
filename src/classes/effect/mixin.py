@@ -61,56 +61,14 @@ class EffectsMixin:
     def effects(self: "Avatar") -> dict[str, object]:
         """
         合并所有来源的效果：宗门、功法、灵根、特质、兵器、辅助装备、灵兽、天地灵机、丹药
+        直接复用 get_effect_breakdown 的逻辑，确保显示与实际效果一致。
         """
         merged: dict[str, object] = {}
         
-        def _process_source(source_obj):
-            if source_obj is None:
-                return
-            # 1. 评估条件 (when)
-            evaluated = _evaluate_conditional_effect(source_obj.effects, self)
-            # 2. 评估动态值 (expressions)
-            evaluated = self._evaluate_values(evaluated)
-            # 3. 合并到总效果
-            nonlocal merged
-            merged = _merge_effects(merged, evaluated)
-
-        # 来自宗门
-        if self.sect is not None:
-            _process_source(self.sect)
-            
-        # 来自功法
-        if self.technique is not None:
-            _process_source(self.technique)
-            
-        # 来自灵根
-        if self.root is not None:
-            _process_source(self.root)
-            
-        # 来自特质（persona）
-        for persona in self.personas:
-            _process_source(persona)
-            
-        # 来自兵器
-        if self.weapon is not None:
-            _process_source(self.weapon)
-            
-        # 来自辅助装备
-        if self.auxiliary is not None:
-            _process_source(self.auxiliary)
-            
-        # 来自灵兽
-        if self.spirit_animal is not None:
-            _process_source(self.spirit_animal)
-            
-        # 来自天地灵机（世界级buff/debuff）
-        if self.world.current_phenomenon is not None:
-            _process_source(self.world.current_phenomenon)
-
-        # 来自已服用的丹药
-        # 简化逻辑：直接 merge 所有丹药的效果
-        for consumed in self.elixirs:
-            _process_source(consumed.elixir)
+        # get_effect_breakdown 已经完成了条件评估(when)和动态值计算(expressions)
+        # 我们只需要合并结果即可
+        for _, effect_dict in self.get_effect_breakdown():
+            merged = _merge_effects(merged, effect_dict)
 
         return merged
 
@@ -121,11 +79,21 @@ class EffectsMixin:
         """
         breakdown = []
         
-        def _collect(name: str, source_obj):
-            if source_obj is None:
+        def _collect(name: str, source_obj=None, explicit_effects=None):
+            """
+            收集效果。
+            source_obj: 包含 .effects 的对象
+            explicit_effects: 直接传入的 effects (dict or list)
+            """
+            raw_effects = explicit_effects
+            if raw_effects is None and source_obj is not None:
+                raw_effects = getattr(source_obj, "effects", {})
+                
+            if not raw_effects:
                 return
+
             # 1. 评估条件 (when)
-            evaluated = _evaluate_conditional_effect(source_obj.effects, self)
+            evaluated = _evaluate_conditional_effect(raw_effects, self)
             # 2. 评估动态值 (expressions)
             evaluated = self._evaluate_values(evaluated)
             
@@ -134,31 +102,33 @@ class EffectsMixin:
 
         # 按照优先级或逻辑顺序收集
         if self.sect:
-            _collect(f"宗门【{self.sect.name}】", self.sect)
+            _collect(f"宗门【{self.sect.name}】", source_obj=self.sect)
             
         if self.technique:
-            _collect(f"功法【{self.technique.name}】", self.technique)
+            _collect(f"功法【{self.technique.name}】", source_obj=self.technique)
             
         if self.root:
-            _collect("灵根", self.root)
+            _collect("灵根", source_obj=self.root)
             
         for p in self.personas:
-            _collect(f"特质【{p.name}】", p)
+            _collect(f"特质【{p.name}】", source_obj=p)
             
         if self.weapon:
-            _collect(f"兵器【{self.weapon.name}】", self.weapon)
+            _collect(f"兵器【{self.weapon.name}】", source_obj=self.weapon)
             
         if self.auxiliary:
-            _collect(f"辅助【{self.auxiliary.name}】", self.auxiliary)
+            _collect(f"辅助【{self.auxiliary.name}】", source_obj=self.auxiliary)
             
         if self.spirit_animal:
-            _collect(f"灵兽【{self.spirit_animal.name}】", self.spirit_animal)
+            _collect(f"灵兽【{self.spirit_animal.name}】", source_obj=self.spirit_animal)
             
         if self.world.current_phenomenon:
-            _collect("天地灵机", self.world.current_phenomenon)
+            _collect("天地灵机", source_obj=self.world.current_phenomenon)
 
         for consumed in self.elixirs:
-            _collect(f"丹药【{consumed.elixir.name}】", consumed.elixir)
+            # 使用 get_active_effects 获取当前生效的效果
+            active = consumed.get_active_effects(int(self.world.month_stamp))
+            _collect(f"丹药【{consumed.elixir.name}】", explicit_effects=active)
 
         return breakdown
 
@@ -212,4 +182,3 @@ class EffectsMixin:
     def move_step_length(self: "Avatar") -> int:
         """获取角色的移动步长"""
         return self.cultivation_progress.get_move_step()
-

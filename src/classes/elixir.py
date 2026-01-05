@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str, format_effects_to_text
@@ -30,7 +30,7 @@ class Elixir:
     type: ElixirType
     desc: str
     price: int
-    effects: dict[str, object] = field(default_factory=dict)
+    effects: Union[dict[str, object], list[dict[str, object]]] = field(default_factory=dict)
     effect_desc: str = ""
 
     def get_info(self, detailed: bool = False) -> str:
@@ -79,6 +79,53 @@ class ConsumedElixir:
     """
     elixir: Elixir
     consume_time: int  # 服用时的 MonthStamp
+    _expire_time: Union[int, float] = field(init=False)
+
+    def __post_init__(self):
+        self._expire_time = self.consume_time + self._get_max_duration()
+
+    def _get_max_duration(self) -> Union[int, float]:
+        """获取丹药的最长持续时间"""
+        effects = self.elixir.effects
+        if isinstance(effects, dict):
+            effects = [effects]
+        
+        max_d = 0
+        for eff in effects:
+            # 如果没有 duration_month 字段，视为永久效果
+            if "duration_month" not in eff:
+                return float('inf')
+            max_d = max(max_d, int(eff.get("duration_month", 0)))
+        return max_d
+
+    def is_completely_expired(self, current_month: int) -> bool:
+        """
+        判断丹药是否彻底失效（所有效果都过期）
+        """
+        return current_month >= self._expire_time
+
+    def get_active_effects(self, current_month: int) -> List[dict[str, object]]:
+        """
+        获取当前时间点仍然有效的 effects 列表
+        """
+        active = []
+        effects = self.elixir.effects
+        if isinstance(effects, dict):
+            effects = [effects]
+        
+        for eff in effects:
+            # 永久效果
+            if "duration_month" not in eff:
+                active.append(eff)
+                continue
+            
+            # 有时限效果
+            duration = int(eff.get("duration_month", 0))
+            if duration > 0:
+                if current_month < self.consume_time + duration:
+                    active.append(eff)
+        
+        return active
 
 
 def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:

@@ -126,6 +126,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Effect system: buffs/debuffs
 - ✅ Techniques
 - ✅ Combat equipment & auxiliary equipment
+- ✅ Elixir
 - ✅ Short/Long term memory
 - ✅ Character's short and long term objectives, supporting player active setting
 - ✅ Avatar nicknames

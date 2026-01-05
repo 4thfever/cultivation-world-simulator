@@ -98,7 +98,7 @@ async def test_simulator_resolve_death(base_world, dummy_avatar):
     assert "重伤不治身亡" in str(events[0])
 
 @pytest.mark.asyncio
-async def test_simulator_evolve_relations_filter_dead(base_world, dummy_avatar):
+async def test_simulator_evolve_relations_filter_dead(base_world, dummy_avatar, mock_llm_managers):
     """测试关系演化阶段过滤死者"""
     from src.sim.simulator import Simulator
     sim = Simulator(base_world)
@@ -133,18 +133,19 @@ async def test_simulator_evolve_relations_filter_dead(base_world, dummy_avatar):
     # 让 Target 死亡
     target.set_dead("测试死亡", base_world.month_stamp)
     
-    # Mock RelationResolver 防止真正调用 LLM
-    from unittest.mock import patch
-    with patch('src.classes.relation_resolver.RelationResolver.run_batch') as mock_run:
-        await sim._phase_evolve_relations()
-        
-        # 验证：因为 target 已死，应该不会调用 run_batch
-        mock_run.assert_not_called()
+    # 获取 mock_rr 用于验证调用
+    mock_run = mock_llm_managers["rr"]
+    
+    await sim._phase_evolve_relations()
+    
+    # 验证：因为 target 已死，应该不会调用 run_batch
+    mock_run.assert_not_called()
         
     # 如果 Target 活着，应该会调用
     target.is_dead = False
-    with patch('src.classes.relation_resolver.RelationResolver.run_batch') as mock_run:
-        mock_run.return_value = []
-        await sim._phase_evolve_relations()
-        mock_run.assert_called_once()
+    mock_run.reset_mock() # 重置 mock 调用记录
+    mock_run.return_value = [] # AsyncMock 会自动将其 wrap 进 awaitable
+    
+    await sim._phase_evolve_relations()
+    mock_run.assert_called_once()
 

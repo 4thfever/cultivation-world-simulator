@@ -200,12 +200,16 @@ class Simulator:
     async def _phase_passive_effects(self):
         """
         被动结算阶段：
+        - 处理丹药过期
         - 更新时间效果（如HP回复）
         - 触发奇遇（非动作）
         """
         events = []
         living_avatars = self.world.avatar_manager.get_living_avatars()
         for avatar in living_avatars:
+            # 1. 处理丹药过期
+            avatar.process_elixir_expiration(int(self.world.month_stamp))
+            # 2. 更新被动效果 (如HP回复)
             avatar.update_time_effect()
         
         # 使用 gather 并行触发奇遇和霉运

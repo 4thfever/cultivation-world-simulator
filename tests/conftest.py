@@ -58,3 +58,40 @@ def dummy_avatar(base_world):
     
     return av
 
+@pytest.fixture
+def mock_llm_managers():
+    """
+    Mock 所有涉及 LLM 调用的管理器和函数，防止测试中意外调用 LLM。
+    包括：
+    - llm_ai (decision making)
+    - process_avatar_long_term_objective (long term goal)
+    - process_avatar_nickname (nickname generation)
+    - RelationResolver.run_batch (relationship evolution)
+    """
+    from unittest.mock import patch, MagicMock, AsyncMock
+
+    with patch("src.sim.simulator.llm_ai") as mock_ai, \
+         patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
+         patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
+         patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr:
+        
+        # 1. Mock AI Decision
+        # ai.decide is an async method
+        mock_ai.decide = AsyncMock(return_value={})
+
+        # 2. Mock Long Term Objective
+        # AsyncMock returns a coroutine when called
+        mock_lto.return_value = None
+
+        # 3. Mock Nickname
+        mock_nick.return_value = None
+
+        # 4. Mock Relation Resolver
+        mock_rr.return_value = []
+
+        yield {
+            "ai": mock_ai,
+            "lto": mock_lto,
+            "nick": mock_nick,
+            "rr": mock_rr
+        }
