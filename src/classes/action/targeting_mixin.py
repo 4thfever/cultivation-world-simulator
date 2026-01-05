@@ -57,4 +57,26 @@ class TargetingMixin:
         avatar.load_decide_result_chain([(action_name, params)], avatar.thinking, "")
         avatar.commit_next_plan()
 
+    def validate_target_avatar(self, name: str | None) -> tuple["Avatar | None", bool, str]:
+        """
+        验证目标角色是否有效（存在且存活）。
+
+        Args:
+            name: 目标角色名。
+
+        Returns:
+            (target, can_proceed, reason)
+            - target: 找到的角色对象，无效时为 None。
+            - can_proceed: 是否可以继续。
+            - reason: 失败原因（成功时为空字符串）。
+        """
+        if not name:
+            return None, False, "缺少目标参数"
+        target = self.find_avatar_by_name(name)
+        if target is None:
+            return None, False, "目标不存在"
+        if target.is_dead:
+            return None, False, "目标已死亡"
+        return target, True, ""
+
 
