@@ -5,8 +5,8 @@ from typing import Tuple, Any
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
-from src.classes.item import items_by_name
 from src.classes.normalize import normalize_goods_name
+from src.utils.resolution import resolve_goods_by_name
 
 
 class Sell(InstantAction):
@@ -23,46 +23,6 @@ class Sell(InstantAction):
     DOABLES_REQUIREMENTS = "在城镇且持有可出售物品/装备"
     PARAMS = {"target_name": "str"}
 
-    def _resolve_obj(self, target_name: str) -> Tuple[Any, str, str]:
-        """
-        解析出售对象
-        返回: (对象, 类型, 显示名称)
-        类型: "item", "weapon", "auxiliary", "none"
-        """
-        normalized_name = normalize_goods_name(target_name)
-        
-        # 1. 检查背包材料
-        item = items_by_name.get(normalized_name)
-        if item and self.avatar.get_item_quantity(item) > 0:
-            return item, "item", item.name
-
-        # 2. 检查当前兵器
-        if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
-            return self.avatar.weapon, "weapon", self.avatar.weapon.name
-
-        # 3. 检查当前辅助装备
-        if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
-            return self.avatar.auxiliary, "auxiliary", self.avatar.auxiliary.name
-
-        return None, "none", normalized_name
-
-    def _execute(self, target_name: str) -> None:
-        region = self.avatar.tile.region
-        if not isinstance(region, CityRegion):
-            return
-
-        obj, obj_type, _ = self._resolve_obj(target_name)
-        
-        if obj_type == "item":
-            quantity = self.avatar.get_item_quantity(obj)
-            self.avatar.sell_item(obj, quantity)
-        elif obj_type == "weapon":
-            self.avatar.sell_weapon(obj)
-            self.avatar.change_weapon(None) # 卖出后卸下
-        elif obj_type == "auxiliary":
-            self.avatar.sell_auxiliary(obj)
-            self.avatar.change_auxiliary(None) # 卖出后卸下
-
     def can_start(self, target_name: str | None = None) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
@@ -76,14 +36,61 @@ class Sell(InstantAction):
             ok = has_items or has_weapon or has_auxiliary
             return (ok, "" if ok else "背包为空且无装备，无可出售物品")
         
-        obj, obj_type, _ = self._resolve_obj(target_name)
-        if obj_type == "none":
+        # 使用通用解析逻辑获取物品原型和类型
+        obj, obj_type, _ = resolve_goods_by_name(target_name)
+        normalized_name = normalize_goods_name(target_name)
+        
+        # 1. 如果是物品，检查背包
+        if obj_type == "item":
+            if self.avatar.get_item_quantity(obj) > 0:
+                pass # 检查通过
+            else:
+                 return False, f"未持有物品: {target_name}"
+
+        # 2. 如果是兵器，检查当前装备
+        elif obj_type == "weapon":
+            if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
+                pass # 检查通过
+            else:
+                return False, f"未持有装备: {target_name}"
+
+        # 3. 如果是辅助装备，检查当前装备
+        elif obj_type == "auxiliary":
+            if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
+                pass # 检查通过
+            else:
+                return False, f"未持有装备: {target_name}"
+        
+        else:
             return False, f"未持有物品/装备: {target_name}"
             
         return True, ""
 
+    def _execute(self, target_name: str) -> None:
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return
+
+        # 使用通用解析逻辑获取物品原型和类型
+        obj, obj_type, _ = resolve_goods_by_name(target_name)
+        normalized_name = normalize_goods_name(target_name)
+        
+        if obj_type == "item":
+            quantity = self.avatar.get_item_quantity(obj)
+            self.avatar.sell_item(obj, quantity)
+        elif obj_type == "weapon":
+            # 需要再确认一次是否是当前装备
+             if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
+                self.avatar.sell_weapon(obj)
+                self.avatar.change_weapon(None) # 卖出后卸下
+        elif obj_type == "auxiliary":
+            # 需要再确认一次是否是当前装备
+             if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
+                self.avatar.sell_auxiliary(obj)
+                self.avatar.change_auxiliary(None) # 卖出后卸下
+
     def start(self, target_name: str) -> Event:
-        obj, obj_type, display_name = self._resolve_obj(target_name)
+        obj, obj_type, display_name = resolve_goods_by_name(target_name)
         return Event(
             self.world.month_stamp, 
             f"{self.avatar.name} 在城镇出售了 {display_name}", 

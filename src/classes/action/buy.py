@@ -6,12 +6,10 @@ from typing import TYPE_CHECKING, Tuple, Any
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
-from src.classes.elixir import elixirs_by_name, Elixir
-from src.classes.item import items_by_name, Item
-from src.classes.weapon import weapons_by_name, Weapon
-from src.classes.auxiliary import auxiliaries_by_name, Auxiliary
+from src.classes.elixir import Elixir, get_elixirs_by_realm
 from src.classes.prices import prices
-from src.classes.normalize import normalize_goods_name
+from src.classes.cultivation import Realm
+from src.utils.resolution import resolve_goods_by_name
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -28,40 +26,10 @@ class Buy(InstantAction):
 
     ACTION_NAME = "购买"
     EMOJI = "💸"
-    elixir_names_str = ", ".join(elixirs_by_name.keys())
+    elixir_names_str = ", ".join([e.name for e in get_elixirs_by_realm(Realm.Qi_Refinement)])
     DESC = f"在城镇购买物品/装备（丹药购买后将立即服用）。可选丹药：{elixir_names_str}"
     DOABLES_REQUIREMENTS = "在城镇且金钱足够"
     PARAMS = {"target_name": "str"}
-
-    def _resolve_obj(self, target_name: str) -> Tuple[Any, str, str]:
-        """
-        解析物品名称，返回 (对象, 类型, 显示名称)。
-        类型字符串: "elixir", "item", "weapon", "auxiliary", "unknown"
-        """
-        normalized_name = normalize_goods_name(target_name)
-        
-        # 1. 尝试作为丹药查找
-        if normalized_name in elixirs_by_name:
-            # 这里的 elixirs_by_name 返回的是 list，我们取第一个作为购买对象
-            elixir = elixirs_by_name[normalized_name][0]
-            return elixir, "elixir", elixir.name
-
-        # 2. 尝试作为兵器查找
-        weapon = weapons_by_name.get(normalized_name)
-        if weapon:
-            return weapon, "weapon", weapon.name
-
-        # 3. 尝试作为辅助装备查找
-        auxiliary = auxiliaries_by_name.get(normalized_name)
-        if auxiliary:
-            return auxiliary, "auxiliary", auxiliary.name
-
-        # 4. 尝试作为普通物品查找
-        item = items_by_name.get(normalized_name)
-        if item:
-            return item, "item", item.name
-
-        return None, "unknown", normalized_name
 
     def can_start(self, target_name: str | None = None) -> tuple[bool, str]:
         region = self.avatar.tile.region
@@ -74,7 +42,7 @@ class Buy(InstantAction):
             ok = self.avatar.magic_stone > 0
             return (ok, "" if ok else "身无分文")
 
-        obj, obj_type, display_name = self._resolve_obj(target_name)
+        obj, obj_type, display_name = resolve_goods_by_name(target_name)
         if obj_type == "unknown":
             return False, f"未知物品: {target_name}"
 
@@ -87,6 +55,10 @@ class Buy(InstantAction):
         if obj_type == "elixir":
             elixir: Elixir = obj
             
+            # 必须是练气期丹药
+            if elixir.realm != Realm.Qi_Refinement:
+                return False, "当前仅开放练气期丹药购买"
+
             # 境界限制
             if elixir.realm > self.avatar.cultivation_progress.realm:
                 return False, f"境界不足，无法承受药力 ({elixir.realm.value})"
@@ -100,7 +72,7 @@ class Buy(InstantAction):
         return True, ""
 
     def _execute(self, target_name: str) -> None:
-        obj, obj_type, display_name = self._resolve_obj(target_name)
+        obj, obj_type, display_name = resolve_goods_by_name(target_name)
         if obj_type == "unknown":
             return
             
@@ -110,6 +82,8 @@ class Buy(InstantAction):
         # 交付
         if obj_type == "elixir":
             self.avatar.consume_elixir(obj)
+        # TODO: 购买新装备，如果换下了旧装备，应该自动卖出
+        # 但是我现在还没有购买的能力，所以这个逻辑之后做。
         elif obj_type == "item":
             self.avatar.add_item(obj)
         elif obj_type == "weapon":
@@ -122,7 +96,7 @@ class Buy(InstantAction):
             self.avatar.change_auxiliary(new_auxiliary)
 
     def start(self, target_name: str) -> Event:
-        obj, obj_type, display_name = self._resolve_obj(target_name)
+        obj, obj_type, display_name = resolve_goods_by_name(target_name)
         
         if obj_type == "elixir":
             action_desc = "购买并服用了"

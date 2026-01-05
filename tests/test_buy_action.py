@@ -73,8 +73,8 @@ def test_buy_item_success(avatar_in_city, mock_objects):
     """测试购买普通物品成功"""
     elixirs_mock, items_mock, _, _, test_item = mock_objects
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(avatar_in_city, avatar_in_city.world)
         
@@ -97,8 +97,8 @@ def test_buy_elixir_success(avatar_in_city, mock_objects):
     """测试购买并服用丹药成功"""
     elixirs_mock, items_mock, test_elixir, _, _ = mock_objects
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(avatar_in_city, avatar_in_city.world)
         
@@ -128,8 +128,8 @@ def test_buy_fail_not_in_city(dummy_avatar, mock_objects):
     # 确保不在城市 (dummy_avatar 默认在 (0,0) PLAIN)
     assert not isinstance(dummy_avatar.tile.region, CityRegion)
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(dummy_avatar, dummy_avatar.world)
         can_start, reason = action.can_start("铁矿石")
@@ -143,8 +143,8 @@ def test_buy_fail_no_money(avatar_in_city, mock_objects):
     
     avatar_in_city.magic_stone = 0 # 没钱
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("铁矿石")
@@ -156,8 +156,8 @@ def test_buy_fail_unknown_item(avatar_in_city, mock_objects):
     """测试未知物品"""
     elixirs_mock, items_mock, _, _, _ = mock_objects
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("不存在的东西")
@@ -165,25 +165,26 @@ def test_buy_fail_unknown_item(avatar_in_city, mock_objects):
         assert can_start is False
         assert "未知物品" in reason
 
-def test_buy_elixir_fail_realm_too_low(avatar_in_city, mock_objects):
-    """测试境界不足无法购买丹药"""
-    elixirs_mock, items_mock, _, high_level_elixir, _ = mock_objects
-    
-    # 给予足够金钱，避免因为钱不够而先报错
-    avatar_in_city.magic_stone = 10000
-    
-    # 角色是练气期，尝试买筑基期丹药
-    assert avatar_in_city.cultivation_progress.realm == Realm.Qi_Refinement
-    assert high_level_elixir.realm == Realm.Foundation_Establishment
-    
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    def test_buy_elixir_fail_high_level_restricted(avatar_in_city, mock_objects):
+        """测试购买高阶丹药被限制"""
+        elixirs_mock, items_mock, _, high_level_elixir, _ = mock_objects
         
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        can_start, reason = action.can_start("筑基丹")
+        # 给予足够金钱，避免因为钱不够而先报错
+        avatar_in_city.magic_stone = 10000
         
-        assert can_start is False
-        assert "境界不足" in reason
+        # 角色是练气期，尝试买筑基期丹药
+        assert avatar_in_city.cultivation_progress.realm == Realm.Qi_Refinement
+        assert high_level_elixir.realm == Realm.Foundation_Establishment
+        
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.items_by_name", items_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            can_start, reason = action.can_start("筑基丹")
+            
+            assert can_start is False
+            # 当前版本限制仅开放练气期丹药
+            assert "当前仅开放练气期丹药购买" in reason
 
 def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_objects):
     """测试药效尚存无法重复购买"""
@@ -199,8 +200,8 @@ def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_objects):
     
     avatar_in_city.elixirs.append(consumed)
     
-    with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
-         patch("src.classes.action.buy.items_by_name", items_mock):
+    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+         patch("src.utils.resolution.items_by_name", items_mock):
         
         action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("聚气丹")

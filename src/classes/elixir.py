@@ -184,3 +184,8 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
 
 # 导出全局变量
 elixirs_by_id, elixirs_by_name = _load_elixirs()
+
+
+def get_elixirs_by_realm(realm: Realm) -> List[Elixir]:
+    """获取指定境界的所有丹药"""
+    return [e for e in elixirs_by_id.values() if e.realm == realm]
