@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from src.classes.action.buy import BuyItem
+from src.classes.action.buy import Buy
 from src.classes.region import CityRegion, Region
 from src.classes.elixir import Elixir, ElixirType, ConsumedElixir
 from src.classes.item import Item
@@ -76,7 +76,7 @@ def test_buy_item_success(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         
         # 1. 检查是否可购买
         can_start, reason = action.can_start("铁矿石")
@@ -100,7 +100,7 @@ def test_buy_elixir_success(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         
         can_start, reason = action.can_start("聚气丹")
         assert can_start is True
@@ -131,7 +131,7 @@ def test_buy_fail_not_in_city(dummy_avatar, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(dummy_avatar, dummy_avatar.world)
+        action = Buy(dummy_avatar, dummy_avatar.world)
         can_start, reason = action.can_start("铁矿石")
         
         assert can_start is False
@@ -146,7 +146,7 @@ def test_buy_fail_no_money(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("铁矿石")
         
         assert can_start is False
@@ -159,7 +159,7 @@ def test_buy_fail_unknown_item(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("不存在的东西")
         
         assert can_start is False
@@ -179,7 +179,7 @@ def test_buy_elixir_fail_realm_too_low(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("筑基丹")
         
         assert can_start is False
@@ -202,7 +202,7 @@ def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_objects):
     with patch("src.classes.action.buy.elixirs_by_name", elixirs_mock), \
          patch("src.classes.action.buy.items_by_name", items_mock):
         
-        action = BuyItem(avatar_in_city, avatar_in_city.world)
+        action = Buy(avatar_in_city, avatar_in_city.world)
         can_start, reason = action.can_start("聚气丹")
         
         assert can_start is False

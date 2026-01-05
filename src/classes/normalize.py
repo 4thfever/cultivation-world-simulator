@@ -105,28 +105,30 @@ def normalize_region_name(name: str) -> str:
     return s
 
 
-def normalize_item_name(name: str) -> str:
+def normalize_goods_name(name: str) -> str:
     """
-    规范化物品名称：去除境界标识等附加信息。
+    规范化商品名称（包括物品、兵器、法宝、丹药）。
     
-    处理格式：
-    - "青云鹿角 -（练气）" -> "青云鹿角"
-    - "风速马皮（筑基）" -> "风速马皮"
+    统一逻辑：
+    1. 移除括号及内容（如境界、类型说明）
+    2. 移除尾部的 " -" 标记（常见于材料生成名）
+    3. 移除首尾空格
     
     Args:
-        name: 原始物品名称，可能包含境界等附加信息
+        name: 原始商品名称
         
     Returns:
-        规范化后的物品名称
+        规范化后的商品名称
         
     Examples:
-        >>> normalize_item_name("青云鹿角 -（练气）")
+        >>> normalize_goods_name("青云鹿角 -（练气）") # item
         '青云鹿角'
-        >>> normalize_item_name("风速马皮（筑基）")
-        '风速马皮'
+        >>> normalize_goods_name("精铁剑（练气）") # weapon
+        '精铁剑'
+        >>> normalize_goods_name("聚气丹（练气）") # elixir
+        '聚气丹'
     """
     s = _remove_parentheses(name)
-    # 额外处理：去除尾部的 " -" 标记
     s = s.rstrip(" -").strip()
     return s
 

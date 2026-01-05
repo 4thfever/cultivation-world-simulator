@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from typing import TYPE_CHECKING, Tuple, Any
 
 from src.classes.action import InstantAction
@@ -7,62 +8,75 @@ from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.elixir import elixirs_by_name, Elixir
 from src.classes.item import items_by_name, Item
+from src.classes.weapon import weapons_by_name, Weapon
+from src.classes.auxiliary import auxiliaries_by_name, Auxiliary
 from src.classes.prices import prices
-from src.classes.normalize import normalize_item_name
+from src.classes.normalize import normalize_goods_name
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 
-class BuyItem(InstantAction):
+class Buy(InstantAction):
     """
     在城镇购买物品。
     
     如果是丹药：购买后强制立即服用。
     如果是其他物品：购买后放入背包。
+    如果是装备（兵器/法宝）：购买后直接装备（替换原有装备）。
     """
 
-    ACTION_NAME = "购买物品"
+    ACTION_NAME = "购买"
     EMOJI = "💸"
-    DESC = "在城镇购买物品（丹药购买后将立即服用）"
+    elixir_names_str = ", ".join(elixirs_by_name.keys())
+    DESC = f"在城镇购买物品/装备（丹药购买后将立即服用）。可选丹药：{elixir_names_str}"
     DOABLES_REQUIREMENTS = "在城镇且金钱足够"
-    PARAMS = {"item_name": "str"}
+    PARAMS = {"target_name": "str"}
 
-    def _resolve_obj(self, item_name: str) -> Tuple[Any, str, str]:
+    def _resolve_obj(self, target_name: str) -> Tuple[Any, str, str]:
         """
         解析物品名称，返回 (对象, 类型, 显示名称)。
-        类型字符串: "elixir", "item", "unknown"
+        类型字符串: "elixir", "item", "weapon", "auxiliary", "unknown"
         """
-        normalized_name = normalize_item_name(item_name)
+        normalized_name = normalize_goods_name(target_name)
         
         # 1. 尝试作为丹药查找
         if normalized_name in elixirs_by_name:
             # 这里的 elixirs_by_name 返回的是 list，我们取第一个作为购买对象
-            # TODO: 如果未来有同名不同级的丹药，这里可能需要更精确的逻辑
             elixir = elixirs_by_name[normalized_name][0]
             return elixir, "elixir", elixir.name
 
-        # 2. 尝试作为普通物品查找
+        # 2. 尝试作为兵器查找
+        weapon = weapons_by_name.get(normalized_name)
+        if weapon:
+            return weapon, "weapon", weapon.name
+
+        # 3. 尝试作为辅助装备查找
+        auxiliary = auxiliaries_by_name.get(normalized_name)
+        if auxiliary:
+            return auxiliary, "auxiliary", auxiliary.name
+
+        # 4. 尝试作为普通物品查找
         item = items_by_name.get(normalized_name)
         if item:
             return item, "item", item.name
 
         return None, "unknown", normalized_name
 
-    def can_start(self, item_name: str | None = None) -> tuple[bool, str]:
+    def can_start(self, target_name: str | None = None) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, "仅能在城市区域执行"
             
-        if item_name is None:
+        if target_name is None:
             # 用于动作空间检查
             # 理论上只要有钱就可以买东西，这里简单判定金钱>0
             ok = self.avatar.magic_stone > 0
             return (ok, "" if ok else "身无分文")
 
-        obj, obj_type, display_name = self._resolve_obj(item_name)
+        obj, obj_type, display_name = self._resolve_obj(target_name)
         if obj_type == "unknown":
-            return False, f"未知物品: {item_name}"
+            return False, f"未知物品: {target_name}"
 
         # 检查价格
         price = prices.get_buying_price(obj, self.avatar)
@@ -85,8 +99,8 @@ class BuyItem(InstantAction):
                         
         return True, ""
 
-    def _execute(self, item_name: str) -> None:
-        obj, obj_type, display_name = self._resolve_obj(item_name)
+    def _execute(self, target_name: str) -> None:
+        obj, obj_type, display_name = self._resolve_obj(target_name)
         if obj_type == "unknown":
             return
             
@@ -98,11 +112,25 @@ class BuyItem(InstantAction):
             self.avatar.consume_elixir(obj)
         elif obj_type == "item":
             self.avatar.add_item(obj)
+        elif obj_type == "weapon":
+            # 购买装备需要深拷贝，因为装备有独立状态
+            new_weapon = copy.deepcopy(obj)
+            self.avatar.change_weapon(new_weapon)
+        elif obj_type == "auxiliary":
+            # 购买装备需要深拷贝
+            new_auxiliary = copy.deepcopy(obj)
+            self.avatar.change_auxiliary(new_auxiliary)
 
-    def start(self, item_name: str) -> Event:
-        obj, obj_type, display_name = self._resolve_obj(item_name)
+    def start(self, target_name: str) -> Event:
+        obj, obj_type, display_name = self._resolve_obj(target_name)
         
-        action_desc = "购买并服用了" if obj_type == "elixir" else "购买了"
+        if obj_type == "elixir":
+            action_desc = "购买并服用了"
+        elif obj_type in ["weapon", "auxiliary"]:
+            action_desc = "购买并装备了"
+        else:
+            action_desc = "购买了"
+            
         price = prices.get_buying_price(obj, self.avatar) if obj else 0
         
         return Event(
@@ -111,6 +139,5 @@ class BuyItem(InstantAction):
             related_avatars=[self.avatar.id]
         )
 
-    async def finish(self, item_name: str) -> list[Event]:
+    async def finish(self, target_name: str) -> list[Event]:
         return []
-

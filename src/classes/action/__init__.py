@@ -25,7 +25,7 @@ from .breakthrough import Breakthrough
 from .play import Play
 from .hunt import Hunt
 from .harvest import Harvest
-from .sell import SellItems
+from .sell import Sell
 from .attack import Attack
 from .plunder_mortals import PlunderMortals
 from .help_mortals import HelpMortals
@@ -37,7 +37,7 @@ from .switch_weapon import SwitchWeapon
 from .assassinate import Assassinate
 from .move_to_direction import MoveToDirection
 from .cast import Cast
-from .buy import BuyItem
+from .buy import Buy
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -59,7 +59,7 @@ register_action(actual=True)(Breakthrough)
 register_action(actual=True)(Play)
 register_action(actual=True)(Hunt)
 register_action(actual=True)(Harvest)
-register_action(actual=True)(SellItems)
+register_action(actual=True)(Sell)
 register_action(actual=False)(Attack)
 register_action(actual=True)(PlunderMortals)
 register_action(actual=True)(HelpMortals)
@@ -71,7 +71,7 @@ register_action(actual=True)(SwitchWeapon)
 register_action(actual=True)(Assassinate)
 register_action(actual=True)(MoveToDirection)
 register_action(actual=True)(Cast)
-register_action(actual=True)(BuyItem)
+register_action(actual=True)(Buy)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -96,7 +96,7 @@ __all__ = [
     "Play",
     "Hunt",
     "Harvest",
-    "SellItems",
+    "Sell",
     "Attack",
     "PlunderMortals",
     "HelpMortals",
@@ -108,7 +108,7 @@ __all__ = [
     "Assassinate",
     "MoveToDirection",
     "Cast",
-    "BuyItem",
+    "Buy",
     # Talk 已移动到 mutual_action 模块
     # Occupy 已移动到 mutual_action 模块
 ]
