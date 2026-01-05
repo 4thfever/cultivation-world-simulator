@@ -14,7 +14,7 @@
         "avatar_thinking": ... // 从角色角度，以第一人称视角，简单清晰的描述想法
         "current_emotion": ... // 从以下列表中选择一个最符合当前心情的词：平静、开心、愤怒、悲伤、恐惧、惊讶、期待、厌恶、疑惑、疲惫
         "short_term_objective": ..., // 角色接下来一段时间的短期目标
-        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 一次性决定未来的5~10个动作，按顺序执行
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 一次性决定未来的5~10个动作，按顺序执行。action_params 必须是字典 {{}}，不能是 null。
     }}
 }}
 

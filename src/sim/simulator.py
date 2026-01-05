@@ -126,6 +126,10 @@ class Simulator:
     async def _phase_execute_actions(self):
         """
         执行阶段：推进当前动作，支持同月链式抢占即时结算，返回期间产生的事件。
+
+        TODO: 为单个角色的 tick_action() 添加 try-except 处理。
+              当前如果任一角色的动作执行抛出异常，整个 step() 会失败，
+              导致 month_stamp 不会推进，游戏卡在同一个月份无限循环。
         """
         events = []
         MAX_LOCAL_ROUNDS = 3
