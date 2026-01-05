@@ -87,9 +87,10 @@ class LLMAI(AI):
             
             for p in raw_pairs:
                 if isinstance(p, list) and len(p) == 2:
-                    pairs.append((p[0], p[1]))
+                    # LLM 可能返回 null 作为 params，需要转为空字典。
+                    pairs.append((p[0], p[1] or {}))
                 elif isinstance(p, dict) and "action_name" in p and "action_params" in p:
-                    pairs.append((p["action_name"], p["action_params"]))
+                    pairs.append((p["action_name"], p["action_params"] or {}))
                 else:
                     continue
             
