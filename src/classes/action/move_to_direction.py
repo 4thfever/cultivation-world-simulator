@@ -73,9 +73,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         self.start_monthstamp = None
         self.direction = None
 
-    def can_start(self, direction: str | None = None) -> tuple[bool, str]:
-        if not direction:
-            return False, "缺少方向参数"
+    def can_start(self, direction: str) -> tuple[bool, str]:
         if not Direction.is_valid(direction):
             return False, f"无效的方向: {direction}"
         return True, ""

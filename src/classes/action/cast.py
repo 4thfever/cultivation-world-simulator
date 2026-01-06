@@ -50,7 +50,7 @@ class Cast(TimedAction):
                 count += qty
         return count
 
-    def can_start(self, target_realm: str = "") -> tuple[bool, str]:
+    def can_start(self, target_realm: str) -> tuple[bool, str]:
         if not target_realm:
             return False, "未指定目标境界"
         
@@ -67,7 +67,7 @@ class Cast(TimedAction):
             
         return True, ""
 
-    def start(self, target_realm: str = "") -> Event:
+    def start(self, target_realm: str) -> Event:
         self.target_realm = Realm(target_realm)
         cost = self._get_cost()
         

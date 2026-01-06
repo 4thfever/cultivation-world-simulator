@@ -31,17 +31,11 @@ class Buy(InstantAction):
     DOABLES_REQUIREMENTS = "在城镇且金钱足够"
     PARAMS = {"target_name": "str"}
 
-    def can_start(self, target_name: str | None = None) -> tuple[bool, str]:
+    def can_start(self, target_name: str) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, "仅能在城市区域执行"
             
-        if target_name is None:
-            # 用于动作空间检查
-            # 理论上只要有钱就可以买东西，这里简单判定金钱>0
-            ok = self.avatar.magic_stone > 0
-            return (ok, "" if ok else "身无分文")
-
         obj, obj_type, display_name = resolve_goods_by_name(target_name)
         if obj_type == "unknown":
             return False, f"未知物品: {target_name}"

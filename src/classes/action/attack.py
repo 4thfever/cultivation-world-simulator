@@ -41,7 +41,7 @@ class Attack(InstantAction, TargetingMixin):
         
         self._last_result = (winner, loser, loser_damage, winner_damage)
 
-    def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
+    def can_start(self, avatar_name: str) -> tuple[bool, str]:
         _, ok, reason = self.validate_target_avatar(avatar_name)
         return ok, reason
 

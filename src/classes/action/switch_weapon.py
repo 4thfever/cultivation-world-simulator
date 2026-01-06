@@ -47,11 +47,7 @@ class SwitchWeapon(InstantAction):
         # 切换兵器（使用 Avatar 的 change_weapon 方法）
         self.avatar.change_weapon(common_weapon)
 
-    def can_start(self, weapon_type_name: str | None = None) -> tuple[bool, str]:
-        if weapon_type_name is None:
-            # AI调用：总是可以切换兵器
-            return True, ""
-        
+    def can_start(self, weapon_type_name: str) -> tuple[bool, str]:
         # 处理卸下兵器的情况
         if weapon_type_name in ["无", "None", "none", ""]:
             if self.avatar.weapon is None:

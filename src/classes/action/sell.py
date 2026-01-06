@@ -23,18 +23,10 @@ class Sell(InstantAction):
     DOABLES_REQUIREMENTS = "在城镇且持有可出售物品/装备"
     PARAMS = {"target_name": "str"}
 
-    def can_start(self, target_name: str | None = None) -> tuple[bool, str]:
+    def can_start(self, target_name: str) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, "仅能在城市区域执行"
-            
-        if target_name is None:
-            # 用于动作空间：只要有任何可卖东西即可
-            has_items = bool(self.avatar.items)
-            has_weapon = self.avatar.weapon is not None
-            has_auxiliary = self.avatar.auxiliary is not None
-            ok = has_items or has_weapon or has_auxiliary
-            return (ok, "" if ok else "背包为空且无装备，无可出售物品")
         
         # 使用通用解析逻辑获取物品原型和类型
         obj, obj_type, _ = resolve_goods_by_name(target_name)

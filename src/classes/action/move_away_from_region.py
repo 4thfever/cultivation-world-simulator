@@ -34,9 +34,7 @@ class MoveAwayFromRegion(InstantAction):
         dx, dy = clamp_manhattan_with_diagonal_priority(away_dx, away_dy, step)
         Move(self.avatar, self.world).execute(dx, dy)
 
-    def can_start(self, region: str | None = None) -> tuple[bool, str]:
-        if region is None:
-            return True, ""
+    def can_start(self, region: str) -> tuple[bool, str]:
         try:
             resolve_region(self.world, region)
             return True, ""

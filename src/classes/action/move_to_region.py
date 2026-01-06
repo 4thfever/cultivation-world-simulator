@@ -57,9 +57,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         dx, dy = clamp_manhattan_with_diagonal_priority(raw_dx, raw_dy, step)
         Move(self.avatar, self.world).execute(dx, dy)
 
-    def can_start(self, region: Region | str | None = None) -> tuple[bool, str]:
-        if region is None:
-            return False, "缺少参数 region"
+    def can_start(self, region: Region | str) -> tuple[bool, str]:
         try:
             r = resolve_region(self.world, region)
             

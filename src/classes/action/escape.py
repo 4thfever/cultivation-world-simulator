@@ -64,7 +64,7 @@ class Escape(InstantAction):
             if start_event is not None:
                 EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)
 
-    def can_start(self, avatar_name: str | None = None) -> tuple[bool, str]:
+    def can_start(self, avatar_name: str) -> tuple[bool, str]:
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
