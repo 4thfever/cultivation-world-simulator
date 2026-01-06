@@ -164,9 +164,6 @@ class NormalRegion(Region):
         info = super().get_structured_info()
         info["type_name"] = "普通区域"
         
-        # Fix: Return the actual structure instead of just calling get_structured_info on elements but never assigning
-        # The previous implementation (if it existed) was inherited from base or incorrect
-        
         # Assuming animals and plants are populated in __post_init__
         info["animals"] = [a.get_structured_info() for a in self.animals] if self.animals else []
         info["plants"] = [p.get_structured_info() for p in self.plants] if self.plants else []
@@ -244,66 +241,3 @@ class CityRegion(Region):
         info = super().get_structured_info()
         info["type_name"] = "城市区域"
         return info
-
-
-def _normalize_region_name(name: str) -> str:
-    s = str(name).strip()
-    brackets = [("(", ")"), ("（", "）"), ("[", "]"), ("【", "】"), ("「", "」"), ("『", "』"), ("<", ">"), ("《", "》")]
-    for left, right in brackets:
-        while True:
-            start = s.find(left)
-            end = s.rfind(right)
-            if start != -1 and end != -1 and end > start:
-                s = (s[:start] + s[end + 1:]).strip()
-            else:
-                break
-    return s
-
-
-def resolve_region(world, region: Union[Region, str]) -> Region:
-    """
-    解析字符串或 Region 为当前 world.map 中的 Region 实例
-    """
-    from typing import Dict
-
-    if isinstance(region, str):
-        region_name = region
-        by_name: Dict[str, Region] = getattr(world.map, "region_names", {})
-
-        # 1) 精确匹配
-        r = by_name.get(region_name)
-        if r is not None:
-            return r
-
-        # 2) 归一化后再精确匹配
-        normalized = _normalize_region_name(region_name)
-        if normalized and normalized != region_name:
-            r2 = by_name.get(normalized)
-            if r2 is not None:
-                return r2
-
-        # 3) 唯一包含匹配
-        candidates = [name for name in by_name.keys() if name and (name in region_name or (normalized and name in normalized))]
-        if len(candidates) == 1:
-            return by_name[candidates[0]]
-
-        # 4) 兜底：若传入为宗门名，则解析为其总部区域
-        sect = sects_by_name.get(region_name) or (sects_by_name.get(normalized) if normalized and normalized != region_name else None)
-        if sect is not None:
-            sect_regions = getattr(world.map, "sect_regions", {}) or {}
-            matched = [r for r in sect_regions.values() if getattr(r, "sect_name", None) == sect.name]
-            if len(matched) == 1:
-                return matched[0]
-
-        if candidates:
-            sample = ", ".join(candidates[:5])
-            raise ValueError(f"区域名不唯一: {region_name}，候选: {sample}")
-        raise ValueError(f"未知区域名: {region_name}")
-
-    if isinstance(region, Region):
-        by_id = getattr(world.map, "regions", None)
-        if isinstance(by_id, dict) and region.id in by_id:
-            return by_id[region.id]
-        return region
-
-    raise TypeError(f"不支持的region类型: {type(region).__name__}")

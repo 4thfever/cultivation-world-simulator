@@ -1,10 +1,15 @@
 from __future__ import annotations
 
-from typing import Optional, Iterable
+from typing import Optional, Iterable, TYPE_CHECKING
 
 from src.classes.tile import get_avatar_distance
 from src.classes.observe import get_observable_avatars
 from src.classes.normalize import normalize_avatar_name
+from src.utils.resolution import resolve_query
+# 注意：避免在此处直接引入 Avatar 导致循环引用，使用 TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
 
 
 class TargetingMixin:
@@ -17,14 +22,13 @@ class TargetingMixin:
         """
         根据名字查找角色。
         会自动规范化名字（去除括号等附加信息）以提高容错性。
-        
-        例如：查找 "张三（元婴）" 会自动匹配到名为 "张三" 的角色
         """
-        normalized_name = normalize_avatar_name(name)
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == normalized_name:
-                return v
-        return None
+            
+        # 动态导入 Avatar 类以进行类型检查，或者直接依赖 resolve_query 的内部逻辑
+        # 这里 resolve_query 需要 world 上下文
+        from src.classes.avatar import Avatar
+        res = resolve_query(name, self.world, expected_types=[Avatar])
+        return res.obj
 
     def avatars_in_same_region(self, avatar: "Avatar") -> list["Avatar"]:
         return self.world.avatar_manager.get_avatars_in_same_region(avatar)
@@ -78,5 +82,3 @@ class TargetingMixin:
         if target.is_dead:
             return None, False, "目标已死亡"
         return target, True, ""
-
-

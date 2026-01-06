@@ -7,13 +7,14 @@ from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
 from src.classes.action.cooldown import cooldown_action
-from src.classes.region import resolve_region, CultivateRegion
+from src.classes.region import CultivateRegion
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.battle import decide_battle
 from src.classes.story_teller import StoryTeller
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
 from src.classes.action.event_helper import EventHelper
+from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -40,11 +41,17 @@ class Occupy(MutualAction):
 
     def _get_region_and_host(self, region_name: str) -> tuple[CultivateRegion | None, "Avatar | None", str]:
         """解析区域并获取主人"""
-        region = resolve_region(self.world, region_name)
-        if region is None:
+        res = resolve_query(region_name, self.world, expected_types=[CultivateRegion])
+        
+        # resolve_query 可能返回普通 Region，这里需要严格检查是否为 CultivateRegion
+        region = res.obj
+        
+        if not res.is_valid or region is None:
             return None, None, f"无法找到区域：{region_name}"
+            
         if not isinstance(region, CultivateRegion):
             return None, None, f"{region.name if region else '荒野'} 不是修炼区域，无法占据"
+            
         return region, region.host_avatar, ""
 
     def can_start(self, region_name: str) -> tuple[bool, str]:

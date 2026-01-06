@@ -11,6 +11,7 @@ from src.classes.weapon import get_random_weapon_by_realm
 from src.classes.auxiliary import get_random_auxiliary_by_realm
 from src.classes.single_choice import handle_item_exchange
 from src.utils.config import CONFIG
+from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -54,10 +55,11 @@ class Cast(TimedAction):
         if not target_realm:
             return False, "未指定目标境界"
         
-        try:
-            realm = Realm(target_realm)
-        except ValueError:
+        res = resolve_query(target_realm, expected_types=[Realm])
+        if not res.is_valid:
             return False, f"无效的境界: {target_realm}"
+            
+        realm = res.obj
 
         cost = self._get_cost()
         count = self._count_materials(realm)
@@ -68,7 +70,11 @@ class Cast(TimedAction):
         return True, ""
 
     def start(self, target_realm: str) -> Event:
-        self.target_realm = Realm(target_realm)
+        res = resolve_query(target_realm, expected_types=[Realm])
+        if res.is_valid:
+            self.target_realm = res.obj
+            self.target_realm = Realm(target_realm)
+
         cost = self._get_cost()
         
         # 扣除材料逻辑
@@ -87,9 +93,10 @@ class Cast(TimedAction):
         for item, take in items_to_modify:
             self.avatar.remove_item(item, take)
 
+        realm_val = self.target_realm.value if self.target_realm else target_realm
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 开始尝试铸造{target_realm}阶法宝。", 
+            f"{self.avatar.name} 开始尝试铸造{realm_val}阶法宝。", 
             related_avatars=[self.avatar.id]
         )
 

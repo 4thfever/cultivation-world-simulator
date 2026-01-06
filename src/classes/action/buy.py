@@ -9,7 +9,10 @@ from src.classes.region import CityRegion
 from src.classes.elixir import Elixir, get_elixirs_by_realm
 from src.classes.prices import prices
 from src.classes.cultivation import Realm
-from src.utils.resolution import resolve_goods_by_name
+from src.classes.weapon import Weapon
+from src.classes.auxiliary import Auxiliary
+from src.classes.item import Item
+from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -36,17 +39,19 @@ class Buy(InstantAction):
         if not isinstance(region, CityRegion):
             return False, "仅能在城市区域执行"
             
-        obj, obj_type, display_name = resolve_goods_by_name(target_name)
-        if obj_type == "unknown":
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        if not res.is_valid:
             return False, f"未知物品: {target_name}"
 
+        obj = res.obj
+        
         # 检查价格
         price = prices.get_buying_price(obj, self.avatar)
         if self.avatar.magic_stone < price:
             return False, f"灵石不足 (需要 {price})"
 
         # 丹药特殊限制
-        if obj_type == "elixir":
+        if isinstance(obj, Elixir):
             elixir: Elixir = obj
             
             # 必须是练气期丹药
@@ -66,35 +71,36 @@ class Buy(InstantAction):
         return True, ""
 
     def _execute(self, target_name: str) -> None:
-        obj, obj_type, display_name = resolve_goods_by_name(target_name)
-        if obj_type == "unknown":
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        if not res.is_valid:
             return
             
+        obj = res.obj
         price = prices.get_buying_price(obj, self.avatar)
         self.avatar.magic_stone -= price
         
         # 交付
-        if obj_type == "elixir":
+        if isinstance(obj, Elixir):
             self.avatar.consume_elixir(obj)
-        # TODO: 购买新装备，如果换下了旧装备，应该自动卖出
-        # 但是我现在还没有购买的能力，所以这个逻辑之后做。
-        elif obj_type == "item":
+        elif isinstance(obj, Item):
             self.avatar.add_item(obj)
-        elif obj_type == "weapon":
+        elif isinstance(obj, Weapon):
             # 购买装备需要深拷贝，因为装备有独立状态
             new_weapon = copy.deepcopy(obj)
             self.avatar.change_weapon(new_weapon)
-        elif obj_type == "auxiliary":
+        elif isinstance(obj, Auxiliary):
             # 购买装备需要深拷贝
             new_auxiliary = copy.deepcopy(obj)
             self.avatar.change_auxiliary(new_auxiliary)
 
     def start(self, target_name: str) -> Event:
-        obj, obj_type, display_name = resolve_goods_by_name(target_name)
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        obj = res.obj
+        display_name = res.name
         
-        if obj_type == "elixir":
+        if isinstance(obj, Elixir):
             action_desc = "购买并服用了"
-        elif obj_type in ["weapon", "auxiliary"]:
+        elif isinstance(obj, (Weapon, Auxiliary)):
             action_desc = "购买并装备了"
         else:
             action_desc = "购买了"

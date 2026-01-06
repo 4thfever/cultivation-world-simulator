@@ -5,10 +5,10 @@ from src.classes.action import InstantAction
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
 from src.classes.battle import decide_battle, get_effective_strength_pair
-from src.classes.story_teller import StoryTeller
-from src.classes.death import handle_death
-from src.classes.death_reason import DeathReason
-from src.classes.kill_and_grab import kill_and_grab
+from src.utils.resolution import resolve_query
+
+if TYPE_CHECKING:
+    from src.classes.avatar import Avatar
 
 class Attack(InstantAction, TargetingMixin):
     ACTION_NAME = "发起战斗"
@@ -24,7 +24,8 @@ class Attack(InstantAction, TargetingMixin):
     IS_MAJOR: bool = True
 
     def _execute(self, avatar_name: str) -> None:
-        target = self.find_avatar_by_name(avatar_name)
+        from src.classes.avatar import Avatar
+        target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         if target is None:
             return
         winner, loser, loser_damage, winner_damage = decide_battle(self.avatar, target)
@@ -42,11 +43,21 @@ class Attack(InstantAction, TargetingMixin):
         self._last_result = (winner, loser, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str) -> tuple[bool, str]:
-        _, ok, reason = self.validate_target_avatar(avatar_name)
-        return ok, reason
+        if not avatar_name:
+            return False, "缺少目标参数"
+            
+        from src.classes.avatar import Avatar
+        target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
+        if target is None:
+            return False, "目标不存在"
+        if target.is_dead:
+            return False, "目标已死亡"
+            
+        return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        target = self.find_avatar_by_name(avatar_name)
+        from src.classes.avatar import Avatar
+        target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         target_name = target.name if target is not None else avatar_name
         # 展示双方折算战斗力（基于对手、含克制）
         s_att, s_def = get_effective_strength_pair(self.avatar, target)
@@ -68,7 +79,8 @@ class Attack(InstantAction, TargetingMixin):
         if not (isinstance(res, tuple) and len(res) == 4):
             return []
         
-        target = self.find_avatar_by_name(avatar_name)
+        from src.classes.avatar import Avatar
+        target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         start_text = getattr(self, '_start_event_content', "")
         
         from src.classes.battle import handle_battle_finish

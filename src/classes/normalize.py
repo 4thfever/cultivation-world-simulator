@@ -2,29 +2,15 @@
 名称规范化工具模块
 
 提供统一的名称规范化函数，用于处理各类名称中的括号和附加信息。
-适用于：角色名、地区名、物品名等。
 """
 
-
-def _remove_parentheses(name: str) -> str:
+def remove_parentheses(name: str, recursive: bool = False) -> str:
     """
-    通用的括号移除函数：去除字符串中首个括号及其内容。
-    
-    支持的括号类型：() （） [] 【】 「」 『』 <> 《》
+    通用括号移除函数。
     
     Args:
         name: 原始字符串
-        
-    Returns:
-        去除首个括号后的字符串（去除前后空格）
-        
-    Examples:
-        >>> _remove_parentheses("张三（元婴）")
-        '张三'
-        >>> _remove_parentheses("青云林海（千年古松（金丹））")
-        '青云林海'
-        >>> _remove_parentheses("青云鹿角 -（练气）")
-        '青云鹿角 -'
+        recursive: 是否递归移除所有括号（处理嵌套括号）
     """
     s = str(name).strip()
     brackets = [
@@ -34,127 +20,56 @@ def _remove_parentheses(name: str) -> str:
         ("<", ">"), ("《", "》")
     ]
     
-    for left, right in brackets:
-        idx = s.find(left)
-        if idx != -1:
-            # 找到左括号，去除从此开始到字符串末尾的内容
-            s = s[:idx].strip()
-            break
-    
-    return s
-
-
-def normalize_avatar_name(name: str) -> str:
-    """
-    规范化角色名字：去除括号及其中的附加信息（如境界）。
-    
-    Args:
-        name: 原始角色名字，可能包含境界等附加信息
-        
-    Returns:
-        规范化后的角色名字
-        
-    Examples:
-        >>> normalize_avatar_name("张三（元婴）")
-        '张三'
-        >>> normalize_avatar_name("张三，境界：元婴")
-        '张三，境界：元婴'
-    """
-    return _remove_parentheses(name)
-
-
-def normalize_region_name(name: str) -> str:
-    """
-    规范化地区名称：去除括号及其中的附加信息（如灵气密度、动植物等）。
-    
-    处理多层括号：递归去除所有括号及其内容。
-    
-    Args:
-        name: 原始地区名称，可能包含资源等附加信息
-        
-    Returns:
-        规范化后的地区名称
-        
-    Examples:
-        >>> normalize_region_name("太白金府（金行灵气：10）")
-        '太白金府'
-        >>> normalize_region_name("青云林海（千年古松（金丹））")
-        '青云林海'
-    """
-    s = str(name).strip()
-    brackets = [
-        ("(", ")"), ("（", "）"),
-        ("[", "]"), ("【", "】"),
-        ("「", "」"), ("『", "』"),
-        ("<", ">"), ("《", "》")
-    ]
-    
-    # 递归去除所有括号（用于处理嵌套括号）
     while True:
         found = False
         for left, right in brackets:
+            # 查找最外层的左括号
             start = s.find(left)
-            end = s.rfind(right)
-            if start != -1 and end != -1 and end > start:
-                s = (s[:start] + s[end + 1:]).strip()
+            if start != -1:
+                # 查找对应的右括号（从后往前找或者从前往后找匹配的）
+                # 简单策略：找最后一个右括号，或者找匹配的。
+                # 原有逻辑 region 使用的是 rfind，这里我们采用更稳健的逻辑：
+                # 既然是 remove，通常是去除说明性文字，保留主体。
+                
+                # 策略：找到第一个左括号，和其对应的配对右括号（如果简单处理，直接找最后一个右括号可能误删）
+                # 但为了保持和原有 region 逻辑一致（处理 "青云林海（千年古松（金丹））" -> "青云林海"），
+                # 只要发现左括号，就切断到末尾或者切断到匹配的右括号。
+                
+                # 简化逻辑：找到第一个左括号，直接截断。这适用于绝大多数 "Name (Info)" 的情况。
+                s = s[:start].strip()
                 found = True
                 break
-        if not found:
+        
+        if not recursive or not found:
             break
-    
-    return s
+            
+    return s.strip()
 
+def normalize_name(name: str) -> str:
+    """
+    最通用的规范化：去除括号及其内容。
+    """
+    return remove_parentheses(name)
+
+# --- 兼容特定业务逻辑的别名或特化 ---
+
+def normalize_avatar_name(name: str) -> str:
+    return remove_parentheses(name)
+
+def normalize_region_name(name: str) -> str:
+    # 地区名可能包含多层嵌套，使用递归模式虽然在这里和非递归效果可能一样（因为都是截断），
+    # 但保持接口定义清晰。对于截断策略，递归其实没有意义，因为第一次就截断了。
+    # 除非括号在中间： "Region(Info) Suffix" -> "Region Suffix"？
+    # 目前游戏里的命名习惯通常后缀是括号说明，所以直接截断是安全的。
+    return remove_parentheses(name)
 
 def normalize_goods_name(name: str) -> str:
-    """
-    规范化商品名称（包括物品、兵器、法宝、丹药）。
-    
-    统一逻辑：
-    1. 移除括号及内容（如境界、类型说明）
-    2. 移除尾部的 " -" 标记（常见于材料生成名）
-    3. 移除首尾空格
-    
-    Args:
-        name: 原始商品名称
-        
-    Returns:
-        规范化后的商品名称
-        
-    Examples:
-        >>> normalize_goods_name("青云鹿角 -（练气）") # item
-        '青云鹿角'
-        >>> normalize_goods_name("精铁剑（练气）") # weapon
-        '精铁剑'
-        >>> normalize_goods_name("聚气丹（练气）") # elixir
-        '聚气丹'
-    """
-    s = _remove_parentheses(name)
-    s = s.rstrip(" -").strip()
-    return s
-
+    """物品名额外去除尾部的 ' -'"""
+    s = remove_parentheses(name)
+    return s.rstrip(" -").strip()
 
 def normalize_weapon_type(name: str) -> str:
-    """
-    规范化兵器类型名称：映射到标准的WeaponType枚举值。
-    
-    处理格式：
-    - 去除空格和多余符号
-    - "剑"/"剑类"/"剑兵器" -> "剑"
-    
-    Args:
-        name: 兵器类型名称
-        
-    Returns:
-        规范化后的兵器类型名称（WeaponType.value）
-        
-    Examples:
-        >>> normalize_weapon_type("剑 ")
-        '剑'
-        >>> normalize_weapon_type("刀类")
-        '刀'
-    """
     s = str(name).strip()
-    # 移除常见后缀
     for suffix in ["类", "兵器", "武器"]:
         if s.endswith(suffix):
             s = s[:-len(suffix)].strip()

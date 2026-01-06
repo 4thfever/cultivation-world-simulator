@@ -3,8 +3,9 @@ from __future__ import annotations
 from src.classes.action import InstantAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
-from src.classes.region import Region, resolve_region
+from src.classes.region import Region
 from src.utils.distance import euclidean_distance
+from src.utils.resolution import resolve_query
 
 
 class MoveAwayFromRegion(InstantAction):
@@ -16,7 +17,10 @@ class MoveAwayFromRegion(InstantAction):
 
     def _execute(self, region: str) -> None:
         # 解析目标区域，并沿“远离该区域最近格点”的方向移动一步
-        r: Region = resolve_region(self.world, region)
+        r = resolve_query(region, self.world, expected_types=[Region]).obj
+        if not r:
+            return
+
         x = self.avatar.pos_x
         y = self.avatar.pos_y
         # 找到目标区域内距离当前坐标最近的格点
@@ -35,19 +39,16 @@ class MoveAwayFromRegion(InstantAction):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: str) -> tuple[bool, str]:
-        try:
-            resolve_region(self.world, region)
+        if resolve_query(region, self.world, expected_types=[Region]).obj:
             return True, ""
-        except Exception:
-            return False, f"无法解析区域: {region}"
+        return False, f"无法解析区域: {region}"
 
     def start(self, region: str) -> Event:
-        r = resolve_region(self.world, region)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {r.name}", related_avatars=[self.avatar.id])
+        r = resolve_query(region, self.world, expected_types=[Region]).obj
+        region_name = r.name if r else region
+        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {region_name}", related_avatars=[self.avatar.id])
 
     # InstantAction 已实现 step 完成
 
     async def finish(self, region: str) -> list[Event]:
         return []
-
-

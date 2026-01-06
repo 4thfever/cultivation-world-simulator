@@ -6,7 +6,10 @@ from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.normalize import normalize_goods_name
-from src.utils.resolution import resolve_goods_by_name
+from src.utils.resolution import resolve_query
+from src.classes.item import Item
+from src.classes.weapon import Weapon
+from src.classes.auxiliary import Auxiliary
 
 
 class Sell(InstantAction):
@@ -29,32 +32,36 @@ class Sell(InstantAction):
             return False, "仅能在城市区域执行"
         
         # 使用通用解析逻辑获取物品原型和类型
-        obj, obj_type, _ = resolve_goods_by_name(target_name)
+        res = resolve_query(target_name, expected_types=[Item, Weapon, Auxiliary])
+        if not res.is_valid:
+            return False, f"未持有物品/装备: {target_name}"
+        
+        obj = res.obj
         normalized_name = normalize_goods_name(target_name)
         
         # 1. 如果是物品，检查背包
-        if obj_type == "item":
+        if isinstance(obj, Item):
             if self.avatar.get_item_quantity(obj) > 0:
                 pass # 检查通过
             else:
                  return False, f"未持有物品: {target_name}"
 
         # 2. 如果是兵器，检查当前装备
-        elif obj_type == "weapon":
+        elif isinstance(obj, Weapon):
             if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
                 pass # 检查通过
             else:
                 return False, f"未持有装备: {target_name}"
 
         # 3. 如果是辅助装备，检查当前装备
-        elif obj_type == "auxiliary":
+        elif isinstance(obj, Auxiliary):
             if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
                 pass # 检查通过
             else:
                 return False, f"未持有装备: {target_name}"
         
         else:
-            return False, f"未持有物品/装备: {target_name}"
+            return False, f"无法出售此类型: {target_name}"
             
         return True, ""
 
@@ -63,26 +70,30 @@ class Sell(InstantAction):
         if not isinstance(region, CityRegion):
             return
 
-        # 使用通用解析逻辑获取物品原型和类型
-        obj, obj_type, _ = resolve_goods_by_name(target_name)
+        res = resolve_query(target_name, expected_types=[Item, Weapon, Auxiliary])
+        if not res.is_valid:
+            return
+            
+        obj = res.obj
         normalized_name = normalize_goods_name(target_name)
         
-        if obj_type == "item":
+        if isinstance(obj, Item):
             quantity = self.avatar.get_item_quantity(obj)
             self.avatar.sell_item(obj, quantity)
-        elif obj_type == "weapon":
+        elif isinstance(obj, Weapon):
             # 需要再确认一次是否是当前装备
              if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
                 self.avatar.sell_weapon(obj)
                 self.avatar.change_weapon(None) # 卖出后卸下
-        elif obj_type == "auxiliary":
+        elif isinstance(obj, Auxiliary):
             # 需要再确认一次是否是当前装备
              if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
                 self.avatar.sell_auxiliary(obj)
                 self.avatar.change_auxiliary(None) # 卖出后卸下
 
     def start(self, target_name: str) -> Event:
-        obj, obj_type, display_name = resolve_goods_by_name(target_name)
+        res = resolve_query(target_name)
+        display_name = res.name if res.is_valid else target_name
         return Event(
             self.world.month_stamp, 
             f"{self.avatar.name} 在城镇出售了 {display_name}", 

@@ -3,11 +3,12 @@ from __future__ import annotations
 import random
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
-from src.classes.region import Region, resolve_region
+from src.classes.region import Region
 from src.classes.sect_region import SectRegion
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
+from src.utils.resolution import resolve_query
 
 
 class MoveToRegion(DefineAction, ActualActionMixin):
@@ -46,8 +47,11 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         """
         移动到某个region
         """
-        region = resolve_region(self.world, region)
-        target_loc = self._get_target_loc(region)
+        target_region = resolve_query(region, self.world, expected_types=[Region]).obj
+        if not target_region:
+            return
+
+        target_loc = self._get_target_loc(target_region)
         
         cur_loc = (self.avatar.pos_x, self.avatar.pos_y)
         raw_dx = target_loc[0] - cur_loc[0]
@@ -58,29 +62,34 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: Region | str) -> tuple[bool, str]:
-        try:
-            r = resolve_region(self.world, region)
-            
-            # 宗门总部限制：非本门弟子禁止入内
-            if isinstance(r, SectRegion):
-                if self.avatar.sect is None or self.avatar.sect.id != r.sect_id:
-                    return False, f"【{r.name}】是其他宗门驻地，你并非该宗门弟子。"
-            
-            return True, ""
-        except Exception:
+        r = resolve_query(region, self.world, expected_types=[Region]).obj
+        if not r:
             return False, f"无法解析区域: {region}"
+            
+        # 宗门总部限制：非本门弟子禁止入内
+        if isinstance(r, SectRegion):
+            if self.avatar.sect is None or self.avatar.sect.id != r.sect_id:
+                return False, f"【{r.name}】是其他宗门驻地，你并非该宗门弟子。"
+        
+        return True, ""
 
     def start(self, region: Region | str) -> Event:
-        r = resolve_region(self.world, region)
-        region_name = r.name
-        # 在开始时就确定目标点
-        self._get_target_loc(r)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}", related_avatars=[self.avatar.id])
+        r = resolve_query(region, self.world, expected_types=[Region]).obj
+        # 这里理论上在 can_start 已经校验过，但为了安全再校验一次，如果None则不处理（实际上不会发生）
+        if r:
+            region_name = r.name
+            # 在开始时就确定目标点
+            self._get_target_loc(r)
+            return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}", related_avatars=[self.avatar.id])
+        return Event(self.world.month_stamp, f"{self.avatar.name} 试图移动但目标无效", related_avatars=[self.avatar.id])
 
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)
         
-        r = resolve_region(self.world, region)
+        r = resolve_query(region, self.world, expected_types=[Region]).obj
+        if not r:
+             return ActionResult(status=ActionStatus.FAILED, events=[])
+
         target_loc = self._get_target_loc(r)
         
         # 完成条件：到达具体的随机目标点
@@ -91,5 +100,3 @@ class MoveToRegion(DefineAction, ActualActionMixin):
 
     async def finish(self, region: Region | str) -> list[Event]:
         return []
-
-

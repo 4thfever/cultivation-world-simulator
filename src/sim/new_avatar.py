@@ -6,7 +6,8 @@ from src.classes.world import World
 from src.classes.avatar import Avatar, Gender
 from src.classes.appearance import get_appearance_by_level
 from src.classes.calendar import MonthStamp
-from src.classes.region import Region, resolve_region
+from src.classes.region import Region
+from src.utils.resolution import resolve_query
 from src.classes.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
@@ -458,7 +459,8 @@ class AvatarFactory:
 
         # 宗门弟子天生知道宗门总部位置
         if avatar.sect is not None:
-            hq_region = resolve_region(world, avatar.sect.headquarter.name)
+            res = resolve_query(avatar.sect.headquarter.name, world, expected_types=[Region])
+            hq_region = res.obj
             avatar.known_regions.add(hq_region.id)
 
         if avatar.technique is not None:
