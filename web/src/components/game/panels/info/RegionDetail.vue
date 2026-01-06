@@ -93,6 +93,20 @@ function jumpToAvatar(id: string) {
         />
       </div>
     </div>
+
+    <!-- Lodes -->
+    <div class="section" v-if="data.lodes?.length">
+      <div class="section-title">矿脉分布</div>
+      <div class="list">
+        <EntityRow 
+          v-for="lode in data.lodes"
+          :key="lode.name"
+          :item="lode"
+          compact
+          @click="showDetail(lode)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

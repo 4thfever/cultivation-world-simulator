@@ -164,6 +164,7 @@ export interface RegionDetail extends EntityBase {
   
   animals: EffectEntity[];
   plants: EffectEntity[];
+  lodes: EffectEntity[];
 }
 
 // --- 天地灵机 ---

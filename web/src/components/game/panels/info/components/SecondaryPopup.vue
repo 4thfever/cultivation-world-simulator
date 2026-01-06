@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import type { EffectEntity } from '@/types/core';
 import { getEntityColor } from '@/utils/theme';
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   item: EffectEntity | null;
 }>();
 
 defineEmits(['close']);
+
+const typeMap: Record<string, string> = {
+  'animal': '动物',
+  'plant': '植物',
+  'lode': '矿脉',
+  'item': '物品',
+  'weapon': '兵器',
+  'auxiliary': '辅助装备',
+  'technique': '功法',
+  'sect': '宗门',
+  'persona': '特质'
+};
+
+const displayType = computed(() => {
+  if (!props.item?.type) return '';
+  return typeMap[props.item.type] || props.item.type;
+});
 </script>
 
 <template>
@@ -20,9 +38,9 @@ defineEmits(['close']);
       </div>
       
       <div class="sec-body">
-        <div class="sec-row" v-if="item.grade || item.rarity">
-          <span class="badge grade-badge">{{ item.grade || item.rarity }}</span>
-          <span v-if="item.type" class="badge type-badge">{{ item.type }}</span>
+        <div class="sec-row" v-if="item.grade || item.rarity || displayType">
+          <span v-if="item.grade || item.rarity" class="badge grade-badge">{{ item.grade || item.rarity }}</span>
+          <span v-if="displayType" class="badge type-badge">{{ displayType }}</span>
         </div>
         
         <div class="sec-desc" v-if="item.desc">{{ item.desc }}</div>
