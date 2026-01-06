@@ -10,7 +10,6 @@ from src.classes.item import Item
 from src.classes.weapon import get_random_weapon_by_realm
 from src.classes.auxiliary import get_random_auxiliary_by_realm
 from src.classes.single_choice import handle_item_exchange
-from src.utils.config import CONFIG
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
@@ -24,7 +23,16 @@ class Cast(TimedAction):
     ACTION_NAME = "铸造"
     EMOJI = "🔥"
     DESC = "消耗材料尝试铸造法宝"
-    DOABLES_REQUIREMENTS = f"拥有{getattr(CONFIG.action.cast, 'cost', 10)}个同阶材料"
+
+    COST = 5
+    SUCCESS_RATES = {
+        Realm.Qi_Refinement: 0.4,
+        Realm.Foundation_Establishment: 0.3,
+        Realm.Core_Formation: 0.2,
+        Realm.Nascent_Soul: 0.1,
+    }
+
+    DOABLES_REQUIREMENTS = f"拥有{COST}个同境界材料"
     PARAMS = {"target_realm": "目标境界名称（'练气'、'筑基'、'金丹'、'元婴'）"}
     IS_MAJOR = False
 
@@ -35,8 +43,7 @@ class Cast(TimedAction):
         self.target_realm: Optional[Realm] = None
 
     def _get_cost(self) -> int:
-        # 从配置读取消耗数量，默认为10
-        return getattr(CONFIG.action.cast, "cost", 10)
+        return self.COST
 
     def _count_materials(self, realm: Realm) -> int:
         """
@@ -109,7 +116,7 @@ class Cast(TimedAction):
             return []
 
         # 1. 计算成功率
-        base_rate = float(getattr(CONFIG.action.cast, "base_success_rate", 0.3))
+        base_rate = self.SUCCESS_RATES.get(self.target_realm, 0.1)
         extra_rate = float(self.avatar.effects.get("extra_cast_success_rate", 0.0))
         success_rate = base_rate + extra_rate
         
