@@ -7,6 +7,7 @@ from src.classes.action import TimedAction
 from src.classes.cultivation import Realm
 from src.classes.event import Event
 from src.classes.item import Item
+from src.classes.lode import ORE_ITEM_IDS
 from src.classes.weapon import get_random_weapon_by_realm
 from src.classes.auxiliary import get_random_auxiliary_by_realm
 from src.classes.single_choice import handle_item_exchange
@@ -32,7 +33,7 @@ class Cast(TimedAction):
         Realm.Nascent_Soul: 0.1,
     }
 
-    DOABLES_REQUIREMENTS = f"拥有{COST}个同境界材料"
+    DOABLES_REQUIREMENTS = f"拥有{COST}个同境界矿石材料"
     PARAMS = {"target_realm": "目标境界名称（'练气'、'筑基'、'金丹'、'元婴'）"}
     IS_MAJOR = False
 
@@ -48,13 +49,12 @@ class Cast(TimedAction):
     def _count_materials(self, realm: Realm) -> int:
         """
         统计符合条件的材料数量。
-        注意：仅统计 Item 类的直接实例，不统计 Weapon/Auxiliary 等子类（它们也是 Item，但通常不作为铸造原材料）。
+        注意：仅统计 Item 类的直接实例，且必须在 ORE_ITEM_IDS 中。
         """
         count = 0
         for item, qty in self.avatar.items.items():
-            # 这里使用 type(item) is Item 来严格限制必须是基础材料
-            # 如果项目里有其他继承自 Item 的材料类，可能需要放宽这个限制
-            if type(item).__name__ == "Item" and item.realm == realm:
+            # 增加判断：item.id 必须在 ORE_ITEM_IDS 中
+            if type(item).__name__ == "Item" and item.realm == realm and item.id in ORE_ITEM_IDS:
                 count += qty
         return count
 
@@ -80,7 +80,6 @@ class Cast(TimedAction):
         res = resolve_query(target_realm, expected_types=[Realm])
         if res.is_valid:
             self.target_realm = res.obj
-            self.target_realm = Realm(target_realm)
 
         cost = self._get_cost()
         
@@ -92,7 +91,7 @@ class Cast(TimedAction):
         for item, qty in self.avatar.items.items():
             if to_deduct <= 0:
                 break
-            if type(item).__name__ == "Item" and item.realm == self.target_realm:
+            if type(item).__name__ == "Item" and item.realm == self.target_realm and item.id in ORE_ITEM_IDS:
                 take = min(qty, to_deduct)
                 items_to_modify.append((item, take))
                 to_deduct -= take

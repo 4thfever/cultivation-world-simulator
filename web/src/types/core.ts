@@ -194,12 +194,3 @@ export interface GameEvent {
   // 运行时辅助字段
   _seq?: number; 
 }
-
-// --- 悬浮提示 (Hover) ---
-
-export type HoverSegment = {
-  text: string;
-  color?: string;
-};
-
-export type HoverLine = HoverSegment[];

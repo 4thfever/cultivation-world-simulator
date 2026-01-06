@@ -57,10 +57,6 @@ export interface MapResponseDTO {
   };
 }
 
-export interface HoverResponseDTO {
-  lines: unknown; // 后端返回的可能是复杂的嵌套数组
-}
-
 // 详情接口返回的结构比较动态，通常包含 entity 的所有字段
 export type DetailResponseDTO = Record<string, any>;
 

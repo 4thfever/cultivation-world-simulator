@@ -289,10 +289,6 @@ class Avatar(
         from src.classes.avatar.info_presenter import get_avatar_structured_info
         return get_avatar_structured_info(self)
 
-    def get_hover_info(self) -> list[str]:
-        from src.classes.avatar.info_presenter import get_avatar_hover_info
-        return get_avatar_hover_info(self)
-
     def get_expanded_info(
         self, 
         co_region_avatars: Optional[List["Avatar"]] = None,

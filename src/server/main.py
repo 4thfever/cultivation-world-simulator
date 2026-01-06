@@ -28,7 +28,6 @@ from src.classes.appearance import get_appearance_by_level
 from src.classes.persona import personas_by_id
 from src.classes.cultivation import REALM_ORDER
 from src.classes.alignment import Alignment
-from src.classes.color import serialize_hover_lines
 from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
@@ -707,43 +706,6 @@ def resume_game():
     game_instance["is_paused"] = False
     return {"status": "ok", "message": "Game resumed"}
 
-@app.get("/api/hover")
-def get_hover_info(
-    target_type: str = Query(alias="type"),
-    target_id: str = Query(alias="id")
-):
-    world = game_instance.get("world")
-    if world is None:
-        raise HTTPException(status_code=503, detail="World not initialized")
-
-    target = None
-    if target_type == "avatar":
-        target = world.avatar_manager.get_avatar(target_id)
-    elif target_type == "region":
-        if world.map and hasattr(world.map, "regions"):
-            regions = world.map.regions
-            target = regions.get(target_id)
-            if target is None:
-                try:
-                    target = regions.get(int(target_id))
-                except (ValueError, TypeError):
-                    target = None
-    else:
-        raise HTTPException(status_code=400, detail="Unsupported target type")
-
-    if target is None:
-        raise HTTPException(status_code=404, detail="Target not found")
-    if not hasattr(target, "get_hover_info"):
-        raise HTTPException(status_code=422, detail="Target has no hover info")
-
-    lines = target.get_hover_info() or []
-    return {
-        "id": target_id,
-        "type": target_type,
-        "name": getattr(target, "name", target_id),
-        "lines": serialize_hover_lines([str(line) for line in lines]),
-    }
-
 @app.get("/api/detail")
 def get_detail_info(
     target_type: str = Query(alias="type"),
@@ -777,19 +739,8 @@ def get_detail_info(
     if target is None:
          raise HTTPException(status_code=404, detail="Target not found")
          
-    if hasattr(target, "get_structured_info"):
-        info = target.get_structured_info()
-        return info
-    else:
-        # 回退到 hover info 如果没有结构化信息
-        if hasattr(target, "get_hover_info"):
-            lines = target.get_hover_info() or []
-            return {
-                "fallback": True,
-                "name": getattr(target, "name", target_id),
-                "lines": serialize_hover_lines([str(line) for line in lines])
-            }
-        return {"error": "No info available"}
+    info = target.get_structured_info()
+    return info
 
 class SetObjectiveRequest(BaseModel):
     avatar_id: str

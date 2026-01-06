@@ -9,6 +9,7 @@ from src.utils.distance import chebyshev_distance
 from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
 from src.classes.plant import Plant, plants_by_id
+from src.classes.lode import Lode, lodes_by_id
 from src.classes.sect import sects_by_name
 
 if TYPE_CHECKING:
@@ -64,12 +65,6 @@ class Region(ABC):
     def get_region_type(self) -> str:
         pass
 
-    def get_hover_info(self) -> list[str]:
-        return [
-            f"区域: {self.name}",
-            f"描述: {self.desc}",
-        ]
-
     @abstractmethod
     def _get_desc(self) -> str:
         """
@@ -109,9 +104,11 @@ class NormalRegion(Region):
     """普通区域"""
     animal_ids: list[int] = field(default_factory=list)
     plant_ids: list[int] = field(default_factory=list)
+    lode_ids: list[int] = field(default_factory=list)
     
     animals: list[Animal] = field(init=False, default_factory=list)
     plants: list[Plant] = field(init=False, default_factory=list)
+    lodes: list[Lode] = field(init=False, default_factory=list)
     
     def __post_init__(self):
         super().__post_init__()
@@ -121,6 +118,9 @@ class NormalRegion(Region):
         for plant_id in self.plant_ids:
             if plant_id in plants_by_id:
                 self.plants.append(plants_by_id[plant_id])
+        for lode_id in self.lode_ids:
+            if lode_id in lodes_by_id:
+                self.lodes.append(lodes_by_id[lode_id])
     
     def get_region_type(self) -> str:
         return "normal"
@@ -131,26 +131,17 @@ class NormalRegion(Region):
             info_parts.extend([a.get_info() for a in self.animals])
         if self.plants:
             info_parts.extend([p.get_info() for p in self.plants])
-        return "; ".join(info_parts) if info_parts else "无特色物种"
+        if self.lodes:
+            info_parts.extend([l.get_info() for l in self.lodes])
+        return "; ".join(info_parts) if info_parts else "无特色资源"
 
     def _get_desc(self) -> str:
         species_info = self.get_species_info()
-        return f"（物种分布：{species_info}）"
+        return f"（资源分布：{species_info}）"
 
     def __str__(self) -> str:
         species_info = self.get_species_info()
-        return f"普通区域：{self.name} - {self.desc} | 物种分布：{species_info}"
-
-    def get_hover_info(self) -> list[str]:
-        lines = super().get_hover_info()
-        species_info = self.get_species_info()
-        if species_info and species_info != "暂无特色物种":
-            lines.append("物种分布:")
-            for species in species_info.split("; "):
-                lines.append(f"  {species}")
-        else:
-            lines.append("物种分布: 暂无特色物种")
-        return lines
+        return f"普通区域：{self.name} - {self.desc} | 资源分布：{species_info}"
 
     @property
     def is_huntable(self) -> bool:
@@ -160,6 +151,10 @@ class NormalRegion(Region):
     def is_harvestable(self) -> bool:
         return len(self.plants) > 0
 
+    @property
+    def is_mineable(self) -> bool:
+        return len(self.lodes) > 0
+
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
         info["type_name"] = "普通区域"
@@ -167,6 +162,7 @@ class NormalRegion(Region):
         # Assuming animals and plants are populated in __post_init__
         info["animals"] = [a.get_structured_info() for a in self.animals] if self.animals else []
         info["plants"] = [p.get_structured_info() for p in self.plants] if self.plants else []
+        info["lodes"] = [l.get_structured_info() for l in self.lodes] if self.lodes else []
         
         return info
 
@@ -195,16 +191,6 @@ class CultivateRegion(Region):
 
     def __str__(self) -> str:
         return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
-
-    def get_hover_info(self) -> list[str]:
-        lines = super().get_hover_info()
-        stars = "★" * self.essence_density + "☆" * (10 - self.essence_density)
-        lines.append(f"主要灵气: {self.essence_type} {stars}")
-        if self.host_avatar:
-            lines.append(f"主人: {self.host_avatar.name}")
-        else:
-            lines.append("主人: 无（可占据）")
-        return lines
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()

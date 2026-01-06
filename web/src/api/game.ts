@@ -2,7 +2,6 @@ import { httpClient } from './http';
 import type { 
   InitialStateDTO, 
   MapResponseDTO, 
-  HoverResponseDTO, 
   DetailResponseDTO,
   SaveFileDTO
 } from '../types/api';
@@ -91,11 +90,6 @@ export const gameApi = {
   },
 
   // --- Information ---
-
-  fetchHoverInfo(params: HoverParams) {
-    const query = new URLSearchParams(Object.entries(params));
-    return httpClient.get<HoverResponseDTO>(`/api/hover?${query}`);
-  },
 
   fetchDetailInfo(params: HoverParams) {
     const query = new URLSearchParams(Object.entries(params));

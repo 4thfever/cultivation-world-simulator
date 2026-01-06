@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { gameApi } from '../api/game';
-import type { AvatarDetail, RegionDetail, SectDetail, HoverLine } from '../types/core';
+import type { AvatarDetail, RegionDetail, SectDetail } from '../types/core';
 
 export type SelectionType = 'avatar' | 'region' | 'sect';
 
@@ -20,11 +20,6 @@ export const useUiStore = defineStore('ui', () => {
   const isLoadingDetail = ref(false);
   const detailError = ref<string | null>(null);
 
-  // --- Hover ---
-  
-  const hoveringTarget = ref<Selection | null>(null);
-  const hoverInfo = ref<HoverLine[]>([]);
-  
   // --- Actions ---
 
   async function select(type: SelectionType, id: string) {
@@ -78,58 +73,15 @@ export const useUiStore = defineStore('ui', () => {
     }
   }
 
-  // --- Hover Actions ---
-
-  // Simple cache for hover
-  const hoverCache = new Map<string, HoverLine[]>();
-
-  async function setHover(type: SelectionType | null, id?: string) {
-    if (!type || !id) {
-      hoveringTarget.value = null;
-      return;
-    }
-
-    const key = `${type}:${id}`;
-    hoveringTarget.value = { type, id };
-    
-    // Check cache
-    if (hoverCache.has(key)) {
-      hoverInfo.value = hoverCache.get(key)!;
-      return;
-    }
-
-    try {
-      const res = await gameApi.fetchHoverInfo({ type, id });
-      // Normalize lines... (Assuming backend returns lines compatible with HoverLine)
-      const lines = res.lines as HoverLine[]; 
-      hoverCache.set(key, lines);
-      
-      if (hoveringTarget.value?.type === type && hoveringTarget.value?.id === id) {
-        hoverInfo.value = lines;
-      }
-    } catch (e) {
-      console.warn('Hover fetch failed', e);
-    }
-  }
-
-  function clearHoverCache() {
-    hoverCache.clear();
-  }
-
   return {
     selectedTarget,
     detailData,
     isLoadingDetail,
     detailError,
     
-    hoveringTarget,
-    hoverInfo,
-    
     select,
     clearSelection,
-    refreshDetail,
-    setHover,
-    clearHoverCache
+    refreshDetail
   };
 });
 

@@ -115,14 +115,6 @@ def split_colored_segments(text: str) -> list[dict[str, str]]:
     return segments
 
 
-def serialize_hover_lines(lines: list[str]) -> list[list[dict[str, str]]]:
-    """将 hover 信息行转换为 segment 列表，供前端直接渲染颜色。"""
-    serialized: list[list[dict[str, str]]] = []
-    for line in lines:
-        serialized.append(split_colored_segments(line or ""))
-    return serialized
-
-
 # ==================== 颜色方案映射 ====================
 
 # 装备等级颜色方案（普通-宝物-法宝）
