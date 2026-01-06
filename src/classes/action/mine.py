@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import random
 from src.classes.action import TimedAction
 from src.classes.event import Event
-from src.classes.region import NormalRegion
+from src.utils.gather import execute_gather, check_can_start_gather
 
 
 class Mine(TimedAction):
@@ -20,53 +19,30 @@ class Mine(TimedAction):
 
     duration_months = 6
 
+    def __init__(self, avatar, world):
+        super().__init__(avatar, world)
+        self.gained_items: dict[str, int] = {}
+
     def _execute(self) -> None:
         """
         执行挖矿动作
         """
-        region = self.avatar.tile.region
-        lodes = getattr(region, "lodes", [])
-        if len(lodes) == 0:
-            return
-        available_lodes = [
-            lode for lode in lodes
-            if self.avatar.cultivation_progress.realm >= lode.realm
-        ]
-        if len(available_lodes) == 0:
-            return
-
-        # 目前固定100%成功率
-        if random.random() < 1.0:
-            target_lode = random.choice(available_lodes)
-            # 随机选择该矿脉的一种物品
-            item = random.choice(target_lode.items)
-            # 基础获得1个，额外物品来自effects
-            base_quantity = 1
-            extra_items = int(self.avatar.effects.get("extra_mine_items", 0) or 0)
-            total_quantity = base_quantity + extra_items
-            self.avatar.add_item(item, total_quantity)
+        gained = execute_gather(self.avatar, "lodes", "extra_mine_items")
+        for name, count in gained.items():
+            self.gained_items[name] = self.gained_items.get(name, 0) + count
 
     def can_start(self) -> tuple[bool, str]:
-        region = self.avatar.tile.region
-        if not isinstance(region, NormalRegion):
-            return False, "当前不在普通区域"
-        lodes = getattr(region, "lodes", [])
-        if len(lodes) == 0:
-            return False, "当前区域没有矿脉"
-        available_lodes = [
-            lode for lode in lodes
-            if self.avatar.cultivation_progress.realm >= lode.realm
-        ]
-        if len(available_lodes) == 0:
-            return False, "当前区域的矿脉境界过高"
-        return True, ""
+        return check_can_start_gather(self.avatar, "lodes", "矿脉")
 
     def start(self) -> Event:
-        region = self.avatar.tile.region
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 开始挖矿", related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
-        return []
-
+        items_desc = "、".join([f"{k}x{v}" for k, v in self.gained_items.items()])
+        return [Event(
+            self.world.month_stamp,
+            f"{self.avatar.name} 结束了挖矿，获得了：{items_desc}",
+            related_avatars=[self.avatar.id]
+        )]
