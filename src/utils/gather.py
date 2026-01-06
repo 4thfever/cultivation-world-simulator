@@ -68,7 +68,7 @@ def execute_gather(
     
     base_quantity = 1
     extra_items = int(avatar.effects.get(extra_effect_key, 0) or 0)
-    total_quantity = max(1, base_quantity + extra_items)
+    total_quantity = base_quantity + extra_items
     
     avatar.add_item(item, total_quantity)
     

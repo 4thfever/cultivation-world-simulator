@@ -128,26 +128,39 @@ class Simulator:
         执行阶段：推进当前动作，支持同月链式抢占即时结算，返回期间产生的事件。
 
         TODO: 为单个角色的 tick_action() 添加 try-except 处理。
-              当前如果任一角色的动作执行抛出异常，整个 step() 会失败，
-              导致 month_stamp 不会推进，游戏卡在同一个月份无限循环。
         """
         events = []
         MAX_LOCAL_ROUNDS = 3
-        for _ in range(MAX_LOCAL_ROUNDS):
-            new_action_happened = False
-            for avatar in self.world.avatar_manager.get_living_avatars():
-                # 本轮执行前若标记为新设，则清理，执行后由 Avatar 再统一清除
-                if getattr(avatar, "_new_action_set_this_step", False):
-                    new_action_happened = True
+        
+        # Round 1: 全员执行一次
+        avatars_needing_retry = set()
+        for avatar in self.world.avatar_manager.get_living_avatars():
+            new_events = await avatar.tick_action()
+            if new_events:
+                events.extend(new_events)
+            
+            # 检查是否有新动作产生（抢占/连招），如果有则加入下一轮
+            # 注意：tick_action 内部已处理标记清除逻辑，仅当动作发生切换时才会保留 True
+            if getattr(avatar, "_new_action_set_this_step", False):
+                avatars_needing_retry.add(avatar)
+
+        # Round 2+: 仅执行有新动作的角色，避免无辜角色重复执行
+        round_count = 1
+        while avatars_needing_retry and round_count < MAX_LOCAL_ROUNDS:
+            current_avatars = list(avatars_needing_retry)
+            avatars_needing_retry.clear()
+            
+            for avatar in current_avatars:
                 new_events = await avatar.tick_action()
                 if new_events:
                     events.extend(new_events)
-                # 若在本次执行后产生了新的动作（被别人抢占设立），则标志位会在 commit_next_plan 时被置 True
+                
+                # 再次检查
                 if getattr(avatar, "_new_action_set_this_step", False):
-                    new_action_happened = True
-            # 若本轮未检测到新动作产生，则结束本地循环
-            if not new_action_happened:
-                break
+                    avatars_needing_retry.add(avatar)
+            
+            round_count += 1
+            
         return events
 
     def _phase_resolve_death(self):

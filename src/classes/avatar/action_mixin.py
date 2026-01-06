@@ -141,9 +141,11 @@ class ActionMixin:
             for e in result.events:
                 self.add_event(e)
         events, self._pending_events = self._pending_events, []
-        # 本轮已执行过，清除"新设动作"标记（但如果刚刚提交了新动作，commit_next_plan会重新设置为True）
-        if self.current_action is None:
-            # 当前无动作时才清除标记，避免清除新提交动作的标记
+        # 本轮已执行过，清除"新设动作"标记
+        # 1. 动作结束 (None)
+        # 2. 动作继续执行且未发生切换 (is action_instance_before)
+        # 注意：如果动作发生了切换（如 Escape -> Attack），则视为新动作，不清除标记以便 Simulator 进行下一轮调度
+        if self.current_action is None or self.current_action is action_instance_before:
             self._new_action_set_this_step = False
             
         return events
