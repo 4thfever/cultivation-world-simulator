@@ -402,8 +402,8 @@ async def game_loop():
 
                 # 2. 发送刚死角色的状态更新
                 for aid in newly_dead_ids:
-                    # 注意：死人可能不在 get_living_avatars() 里，但还在 avatars 里
-                    a = world.avatar_manager.avatars.get(aid)
+                    # 使用 get_avatar 以兼容死者查询
+                    a = world.avatar_manager.get_avatar(aid)
                     if a:
                         avatar_updates.append({
                             "id": str(a.id),
@@ -411,6 +411,8 @@ async def game_loop():
                             "is_dead": True,
                             "action": "已故"
                         })
+                        # 将死者归档到墓地，从活跃列表移除
+                        world.avatar_manager.handle_death(aid)
 
                 # 3. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
                 limit = 50
@@ -723,7 +725,7 @@ def get_hover_info(
 
     target = None
     if target_type == "avatar":
-        target = world.avatar_manager.avatars.get(target_id)
+        target = world.avatar_manager.get_avatar(target_id)
     elif target_type == "region":
         if world.map and hasattr(world.map, "regions"):
             regions = world.map.regions
@@ -762,7 +764,7 @@ def get_detail_info(
 
     target = None
     if target_type == "avatar":
-        target = world.avatar_manager.avatars.get(target_id)
+        target = world.avatar_manager.get_avatar(target_id)
     elif target_type == "region":
         if world.map and hasattr(world.map, "regions"):
             regions = world.map.regions

@@ -123,7 +123,12 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                     avatar.relations[other_avatar] = relation
         
         # 将所有avatar添加到world
-        world.avatar_manager.avatars = all_avatars
+        # 根据生死状态分流
+        for avatar in all_avatars.values():
+            if avatar.is_dead:
+                world.avatar_manager.dead_avatars[avatar.id] = avatar
+            else:
+                world.avatar_manager.avatars[avatar.id] = avatar
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})

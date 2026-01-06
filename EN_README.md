@@ -206,7 +206,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 ### 🏛️ World Lore
 - ✅ Inject basic world knowledge
 - [ ] Dynamic worldview generation
-- [ ] Dynamic history generation
+- [ ] Dynamic generation of techniques, equipment, sects, and maps based on user input history
 
 ### Specials
 - ✅ Fortuitous encounters
@@ -225,7 +225,6 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - [ ] Become a Legend of Later Ages
 
 ### 🔭 Long-term
-- [ ] ECS parallel toolkit
 - [ ] Novelization/imagery/video for history and events
 - [ ] Avatar calling MCP tools on their own
 

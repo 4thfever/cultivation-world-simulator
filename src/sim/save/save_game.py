@@ -100,8 +100,9 @@ def save_game(
         }
         
         # 保存所有Avatar（第一阶段：不含relations）
+        # 需要保存活人和死者
         avatars_data = []
-        for avatar in world.avatar_manager.avatars.values():
+        for avatar in world.avatar_manager._iter_all_avatars():
             avatars_data.append(avatar.to_save_dict())
         
         # 保存事件历史（限制数量）
