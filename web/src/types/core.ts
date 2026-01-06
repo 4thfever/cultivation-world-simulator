@@ -26,6 +26,8 @@ export interface EffectEntity extends EntityBase {
   type?: string;
   color?: string | number[]; // 某些实体自带颜色
   drops?: EffectEntity[];
+  hq_name?: string;
+  hq_desc?: string;
 }
 
 export interface Item extends EffectEntity {
