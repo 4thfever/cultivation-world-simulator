@@ -369,14 +369,9 @@ async def game_loop():
                 # 执行一步
                 events = await sim.step()
                 
-                # 找出新诞生的角色 ID 和 刚死亡的角色 ID
-                newly_born_ids = set()
-                newly_dead_ids = set()
-                for e in events:
-                    if "晋升为修士" in e.content and e.related_avatars:
-                        newly_born_ids.update(e.related_avatars)
-                    if ("身亡" in e.content or "老死" in e.content) and e.related_avatars:
-                        newly_dead_ids.update(e.related_avatars)
+                # 获取状态变更 (Source of Truth: AvatarManager)
+                newly_born_ids = world.avatar_manager.pop_newly_born()
+                newly_dead_ids = world.avatar_manager.pop_newly_dead()
 
                 avatar_updates = []
                 
@@ -411,8 +406,6 @@ async def game_loop():
                             "is_dead": True,
                             "action": "已故"
                         })
-                        # 将死者归档到墓地，从活跃列表移除
-                        world.avatar_manager.handle_death(aid)
 
                 # 3. 常规位置更新（暂时只发前 50 个旧角色，减少数据量）
                 limit = 50
@@ -1063,7 +1056,7 @@ def create_avatar(req: CreateAvatarRequest):
             avatar.alignment = Alignment.from_str(req.alignment)
 
         # 注册到管理器
-        world.avatar_manager.avatars[avatar.id] = avatar
+        world.avatar_manager.register_avatar(avatar, is_newly_born=True)
         
         return {
             "status": "ok", 

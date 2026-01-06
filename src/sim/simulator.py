@@ -173,7 +173,7 @@ class Simulator:
                 death_reason = DeathReason(DeathType.OLD_AGE)
                 
             if is_dead and death_reason:
-                event = Event(self.world.month_stamp, str(death_reason), related_avatars=[avatar.id])
+                event = Event(self.world.month_stamp, f"{avatar.name}{death_reason}", related_avatars=[avatar.id])
                 events.append(event)
                 handle_death(self.world, avatar, death_reason)
                 
@@ -192,7 +192,7 @@ class Simulator:
             name = get_random_name(gender)
             # create_random_mortal 内部会获取 existing_avatars，需要确保它处理活人
             new_avatar = create_random_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
-            self.world.avatar_manager.avatars[new_avatar.id] = new_avatar
+            self.world.avatar_manager.register_avatar(new_avatar, is_newly_born=True)
             event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。", related_avatars=[new_avatar.id])
             events.append(event)
         return events

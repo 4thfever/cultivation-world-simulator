@@ -21,4 +21,7 @@ def handle_death(world: World, avatar: Avatar, reason: Union[str, DeathReason]) 
     # 标记为死亡（软删除）
     avatar.set_dead(reason_str, world.month_stamp)
     
+    # 从管理器中归档（硬移动），并记录变更
+    world.avatar_manager.handle_death(avatar.id)
+    
     # 可以在这里触发其他逻辑，比如检查是否有继承人等

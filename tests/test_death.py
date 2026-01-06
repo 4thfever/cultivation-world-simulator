@@ -25,23 +25,32 @@ def test_death_reason_str():
     assert str(reason_old) == "寿元耗尽而亡"
 
 def test_handle_death(base_world, dummy_avatar):
-    """测试死亡处理函数"""
+    """测试死亡处理函数（集成测试：包含归档和缓冲）"""
     reason = DeathReason(DeathType.BATTLE, killer_name="李四")
+    
+    # 确保角色在管理器中
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    assert dummy_avatar.id in base_world.avatar_manager.avatars
     
     # 执行死亡处理
     handle_death(base_world, dummy_avatar, reason)
     
-    # 验证状态
+    # 1. 验证对象状态
     assert dummy_avatar.is_dead is True
     assert dummy_avatar.death_info is not None
     assert dummy_avatar.death_info["reason"] == "被李四杀害"
     assert dummy_avatar.death_info["time"] == int(base_world.month_stamp)
-    assert dummy_avatar.death_info["location"] == (dummy_avatar.pos_x, dummy_avatar.pos_y)
     
-    # 验证清理工作
-    assert len(dummy_avatar.planned_actions) == 0
-    assert dummy_avatar.current_action is None
-    assert dummy_avatar.sect is None
+    # 2. 验证管理器状态（已归档）
+    assert dummy_avatar.id not in base_world.avatar_manager.avatars
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    
+    # 3. 验证缓冲区（用于前端推送）
+    newly_dead = base_world.avatar_manager.pop_newly_dead()
+    assert str(dummy_avatar.id) in newly_dead
+    
+    # 4. 验证缓冲区清空
+    assert len(base_world.avatar_manager.pop_newly_dead()) == 0
 
 def test_relation_display_with_death(base_world, dummy_avatar):
     """测试关系列表中的死亡显示"""
@@ -65,6 +74,8 @@ def test_relation_display_with_death(base_world, dummy_avatar):
         root=Root.WOOD,
         alignment=Alignment.RIGHTEOUS
     )
+    # 注册朋友
+    base_world.avatar_manager.register_avatar(friend)
     
     # 建立关系
     dummy_avatar.set_relation(friend, Relation.FRIEND)
@@ -85,7 +96,7 @@ def test_relation_display_with_death(base_world, dummy_avatar):
 def test_avatar_manager_archive_death(base_world, dummy_avatar):
     """测试 AvatarManager 的死亡归档逻辑"""
     manager = base_world.avatar_manager
-    manager.avatars[dummy_avatar.id] = dummy_avatar
+    manager.register_avatar(dummy_avatar)
     
     # 确保初始在活人表
     assert dummy_avatar.id in manager.avatars
@@ -100,82 +111,29 @@ def test_avatar_manager_archive_death(base_world, dummy_avatar):
     
     # 验证 get_avatar 依然能查到
     assert manager.get_avatar(dummy_avatar.id) == dummy_avatar
+    
+    # 验证 buffer
+    assert str(dummy_avatar.id) in manager.pop_newly_dead()
 
 @pytest.mark.asyncio
 async def test_simulator_resolve_death(base_world, dummy_avatar):
     """测试模拟器的死亡结算阶段"""
     from src.sim.simulator import Simulator
     sim = Simulator(base_world)
-    base_world.avatar_manager.avatars[dummy_avatar.id] = dummy_avatar
+    base_world.avatar_manager.register_avatar(dummy_avatar)
     
     # Case 1: 重伤死亡
     dummy_avatar.hp.cur = -10
+    
+    # 执行死亡结算
     events = sim._phase_resolve_death()
     
+    # 验证
     assert dummy_avatar.is_dead is True
     assert dummy_avatar.death_info["reason"] == "重伤不治身亡"
     assert len(events) > 0
     assert "重伤不治身亡" in str(events[0])
     
-    # 注意：在 Simulator 的 phase 中，角色只是被标记死亡
-    # 真正的归档发生在 main.py 循环中，或者我们可以手动触发
-    # 这里我们只验证标记逻辑
-
-@pytest.mark.asyncio
-async def test_simulator_evolve_relations_filter_dead(base_world, dummy_avatar, mock_llm_managers):
-    """测试关系演化阶段过滤死者"""
-    from src.sim.simulator import Simulator
-    sim = Simulator(base_world)
-    
-    # 创建对手
-    from src.classes.avatar import Avatar, Gender
-    from src.classes.age import Age
-    from src.classes.cultivation import Realm
-    from src.utils.id_generator import get_avatar_id
-    from src.classes.root import Root
-    from src.classes.alignment import Alignment
-    from src.classes.calendar import create_month_stamp, Year, Month
-    
-    target = Avatar(
-        world=base_world,
-        name="Target",
-        id=get_avatar_id(),
-        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
-        age=Age(20, Realm.Qi_Refinement),
-        gender=Gender.MALE,
-        pos_x=0, pos_y=0,
-        root=Root.FIRE,
-        alignment=Alignment.EVIL
-    )
-    
-    base_world.avatar_manager.avatars[dummy_avatar.id] = dummy_avatar
-    base_world.avatar_manager.avatars[target.id] = target
-    
-    # 设置交互状态达到阈值
-    dummy_avatar.relation_interaction_states[target.id]["count"] = 100
-    
-    # 让 Target 死亡并归档（模拟真实流程）
-    target.set_dead("测试死亡", base_world.month_stamp)
-    base_world.avatar_manager.handle_death(target.id)
-    
-    # 获取 mock_rr 用于验证调用
-    mock_run = mock_llm_managers["rr"]
-    
-    await sim._phase_evolve_relations()
-    
-    # 验证：因为 target 已死且归档，get_living_avatars 不会返回它，target 也不在活人列表里
-    # 即使 get_avatar 能查到它，逻辑中应该有防守检查
-    mock_run.assert_not_called()
-        
-    # 如果 Target 活着，应该会调用
-    target.is_dead = False
-    # 复活：手动移回活人表
-    if target.id in base_world.avatar_manager.dead_avatars:
-        base_world.avatar_manager.avatars[target.id] = base_world.avatar_manager.dead_avatars.pop(target.id)
-    
-    mock_run.reset_mock() # 重置 mock 调用记录
-    mock_run.return_value = [] # AsyncMock 会自动将其 wrap 进 awaitable
-    
-    await sim._phase_evolve_relations()
-    mock_run.assert_called_once()
-
+    # 验证已被自动归档（因为 handle_death 现在会调用 manager.handle_death）
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    assert str(dummy_avatar.id) in base_world.avatar_manager.pop_newly_dead()

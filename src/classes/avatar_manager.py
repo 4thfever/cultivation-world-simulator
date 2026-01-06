@@ -14,6 +14,33 @@ class AvatarManager:
     avatars: Dict[str, "Avatar"] = field(default_factory=dict)
     # 存储已死亡的角色（归档）
     dead_avatars: Dict[str, "Avatar"] = field(default_factory=dict)
+    
+    # --- 变更缓冲区 (不参与序列化) ---
+    _newly_dead_buffer: List[str] = field(default_factory=list, init=False)
+    _newly_born_buffer: List[str] = field(default_factory=list, init=False)
+
+    def register_avatar(self, avatar: "Avatar", is_newly_born: bool = False) -> None:
+        """
+        注册一个角色到管理器中。
+        Args:
+            avatar: 角色对象
+            is_newly_born: 是否为新出生的角色（若是，则加入变更缓冲供前端同步）
+        """
+        self.avatars[str(avatar.id)] = avatar
+        if is_newly_born:
+            self._newly_born_buffer.append(str(avatar.id))
+
+    def pop_newly_dead(self) -> List[str]:
+        """获取并清空本帧刚死亡的角色ID列表"""
+        res = list(self._newly_dead_buffer)
+        self._newly_dead_buffer.clear()
+        return res
+
+    def pop_newly_born(self) -> List[str]:
+        """获取并清空本帧刚出生的角色ID列表"""
+        res = list(self._newly_born_buffer)
+        self._newly_born_buffer.clear()
+        return res
 
     def get_avatar(self, avatar_id: str) -> "Avatar | None":
         """
@@ -33,6 +60,9 @@ class AvatarManager:
             # 断开地图连接，确保不出现在地图网格上
             if hasattr(avatar, "tile"):
                 avatar.tile = None
+            
+            # 记录变更
+            self._newly_dead_buffer.append(aid)
 
     def get_avatars_in_same_region(self, avatar: "Avatar") -> List["Avatar"]:
         """

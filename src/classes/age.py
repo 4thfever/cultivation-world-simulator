@@ -19,8 +19,8 @@ class Age:
     
     def __init__(self, age: int, realm: Realm):
         self.age = age
-        # 基础最大寿元（年），不含effects加成，初始化为 max(境界基线, 当前年龄+1)
-        self.base_max_lifespan: int = max(self.get_base_expected_lifespan(realm), self.age + 1)
+        # 基础最大寿元（年），不含effects加成
+        self.base_max_lifespan: int = self.get_base_expected_lifespan(realm)
         # 实际最大寿元（年），包含effects加成，初始值与基础值相同
         self.max_lifespan: int = self.base_max_lifespan
     
@@ -38,8 +38,7 @@ class Age:
 
     def set_initial_max_lifespan(self, realm: Realm) -> None:
         """构造时已设置最大寿元，此处保持与构造策略一致。"""
-        base = self.get_base_expected_lifespan(realm)
-        self.base_max_lifespan = max(base, self.age + 1)
+        self.base_max_lifespan = self.get_base_expected_lifespan(realm)
         self.max_lifespan = self.base_max_lifespan
 
     def update_realm(self, new_realm: Realm) -> None:
@@ -48,11 +47,10 @@ class Age:
         self.ensure_max_lifespan_at_least_realm_base(new_realm)
 
     def ensure_max_lifespan_at_least_realm_base(self, realm: Realm) -> None:
-        """确保基础最大寿元至少达到 max(该境界基线, 当前年龄+1)。"""
+        """确保基础最大寿元至少达到该境界基线。"""
         base = self.get_base_expected_lifespan(realm)
-        floor_value = max(base, self.age + 1)
-        if self.base_max_lifespan < floor_value:
-            self.base_max_lifespan = floor_value
+        if self.base_max_lifespan < base:
+            self.base_max_lifespan = base
             self.max_lifespan = self.base_max_lifespan
 
     def increase_max_lifespan(self, years: int) -> None:
@@ -85,7 +83,7 @@ class Age:
         
         # 基础概率：每超过1年增加0.01的概率
         prob_add = 0.01
-        death_probability = min(years_over_lifespan * prob_add, 0.1)
+        death_probability = min(years_over_lifespan * prob_add, 0.01)
 
         return death_probability
         
