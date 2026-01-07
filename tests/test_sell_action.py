@@ -57,9 +57,9 @@ def test_sell_weapon_success(avatar_in_city, mock_item_data):
         assert can_start is True
         
         # 2. 执行出售
-        # 练气期兵器基础价格 100? No, original test assumed 10 due to fallback/mock issues.
-        # Let's keep assuming 10 for consistency with previous pass.
-        expected_income = 10 
+        # 练气期兵器基础价格 150 (refer to src/classes/prices.py)
+        # 卖出加成默认为 0.0 -> 单价 150
+        expected_income = 150 
         
         initial_money = avatar_in_city.magic_stone
         action._execute("青云剑")
@@ -87,7 +87,8 @@ def test_sell_auxiliary_success(avatar_in_city, mock_item_data):
         can_start, reason = action.can_start("聚灵珠")
         assert can_start is True
         
-        expected_income = 10
+        # 练气期辅助装备基础价格 150
+        expected_income = 150
         
         action._execute("聚灵珠")
         
