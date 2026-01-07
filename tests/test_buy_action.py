@@ -1,79 +1,16 @@
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from src.classes.action.buy import Buy
-from src.classes.region import CityRegion, Region
-from src.classes.elixir import Elixir, ElixirType, ConsumedElixir
-from src.classes.material import Material
-from src.classes.weapon import Weapon
-from src.classes.weapon_type import WeaponType
+from src.classes.region import CityRegion
+from src.classes.elixir import ElixirType, ConsumedElixir
 from src.classes.cultivation import Realm
-from src.classes.tile import Tile, TileType
+from tests.conftest import create_test_weapon # Explicitly import if needed, or rely on conftest being auto-loaded (it is)
 
-# 创建一些测试用的对象
-def create_test_elixir(name, realm, price=100, elixir_id=1, effects=None):
-    if effects is None:
-        effects = {"max_hp": 10}
-    return Elixir(
-        id=elixir_id,
-        name=name,
-        realm=realm,
-        type=ElixirType.Breakthrough,
-        desc="测试丹药",
-        price=price,
-        effects=effects
-    )
-
-def create_test_material(name, realm, material_id=101):
-    return Material(
-        id=material_id,
-        name=name,
-        desc="测试物品",
-        realm=realm
-    )
-
-@pytest.fixture
-def avatar_in_city(dummy_avatar):
-    """
-    修改 dummy_avatar，使其位于城市中，并给予初始资金
-    """
-    # 模拟 Tile 和 Region
-    # Region init: id, name, desc, cors (default=[])
-    city_region = CityRegion(id=1, name="TestCity", desc="测试城市")
-    tile = Tile(0, 0, TileType.CITY)
-    tile.region = city_region
-    
-    dummy_avatar.tile = tile
-    dummy_avatar.magic_stone = 1000  # 初始资金
-    dummy_avatar.cultivation_progress.realm = Realm.Qi_Refinement # 练气期
-    dummy_avatar.elixirs = [] # 清空已服用丹药
-    
-    return dummy_avatar
-
-@pytest.fixture
-def mock_objects():
-    """
-    Mock elixirs_by_name 和 materials_by_name
-    """
-    test_elixir = create_test_elixir("聚气丹", Realm.Qi_Refinement, price=100)
-    high_level_elixir = create_test_elixir("筑基丹", Realm.Foundation_Establishment, price=1000, elixir_id=2)
-    test_material = create_test_material("铁矿石", Realm.Qi_Refinement)
-
-    # elixirs_by_name 是 Dict[str, List[Elixir]]
-    elixirs_mock = {
-        "聚气丹": [test_elixir],
-        "筑基丹": [high_level_elixir]
-    }
-    
-    # materials_by_name 是 Dict[str, Material]
-    materials_mock = {
-        "铁矿石": test_material
-    }
-    
-    return elixirs_mock, materials_mock, test_elixir, high_level_elixir, test_material
-
-def test_buy_item_success(avatar_in_city, mock_objects):
+def test_buy_item_success(avatar_in_city, mock_item_data):
     """测试购买普通材料成功"""
-    elixirs_mock, materials_mock, _, _, test_material = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    test_material = mock_item_data["obj_material"]
     
     with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
          patch("src.utils.resolution.materials_by_name", materials_mock):
@@ -95,9 +32,11 @@ def test_buy_item_success(avatar_in_city, mock_objects):
         assert avatar_in_city.magic_stone == initial_money - expected_price
         assert avatar_in_city.get_material_quantity(test_material) == 1
 
-def test_buy_elixir_success(avatar_in_city, mock_objects):
+def test_buy_elixir_success(avatar_in_city, mock_item_data):
     """测试购买并服用丹药成功"""
-    elixirs_mock, materials_mock, test_elixir, _, _ = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    test_elixir = mock_item_data["obj_elixir"]
     
     with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
          patch("src.utils.resolution.materials_by_name", materials_mock):
@@ -111,7 +50,6 @@ def test_buy_elixir_success(avatar_in_city, mock_objects):
         expected_price = int(test_elixir.price * 1.5)
         
         # 模拟服用丹药的行为
-        
         action._execute("聚气丹")
         
         assert avatar_in_city.magic_stone == initial_money - expected_price
@@ -121,9 +59,10 @@ def test_buy_elixir_success(avatar_in_city, mock_objects):
         assert len(avatar_in_city.elixirs) == 1
         assert avatar_in_city.elixirs[0].elixir.name == "聚气丹"
 
-def test_buy_fail_not_in_city(dummy_avatar, mock_objects):
+def test_buy_fail_not_in_city(dummy_avatar, mock_item_data):
     """测试不在城市无法购买"""
-    elixirs_mock, materials_mock, _, _, _ = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
     
     # 确保不在城市 (dummy_avatar 默认在 (0,0) PLAIN)
     assert not isinstance(dummy_avatar.tile.region, CityRegion)
@@ -137,9 +76,10 @@ def test_buy_fail_not_in_city(dummy_avatar, mock_objects):
         assert can_start is False
         assert "仅能在城市" in reason
 
-def test_buy_fail_no_money(avatar_in_city, mock_objects):
+def test_buy_fail_no_money(avatar_in_city, mock_item_data):
     """测试没钱无法购买"""
-    elixirs_mock, materials_mock, _, _, test_material = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
     
     avatar_in_city.magic_stone = 0 # 没钱
     
@@ -152,9 +92,10 @@ def test_buy_fail_no_money(avatar_in_city, mock_objects):
         assert can_start is False
         assert "灵石不足" in reason
 
-def test_buy_fail_unknown_item(avatar_in_city, mock_objects):
+def test_buy_fail_unknown_item(avatar_in_city, mock_item_data):
     """测试未知物品"""
-    elixirs_mock, materials_mock, _, _, _ = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
     
     with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
          patch("src.utils.resolution.materials_by_name", materials_mock):
@@ -165,11 +106,13 @@ def test_buy_fail_unknown_item(avatar_in_city, mock_objects):
         assert can_start is False
         assert "未知物品" in reason
 
-def test_buy_elixir_fail_high_level_restricted(avatar_in_city, mock_objects):
+def test_buy_elixir_fail_high_level_restricted(avatar_in_city, mock_item_data):
     """测试购买高阶丹药被限制"""
-    elixirs_mock, materials_mock, _, high_level_elixir, _ = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    high_level_elixir = mock_item_data["obj_high_elixir"]
     
-    # 给予足够金钱，避免因为钱不够而先报错
+    # 给予足够金钱
     avatar_in_city.magic_stone = 10000
     
     # 角色是练气期，尝试买筑基期丹药
@@ -183,12 +126,13 @@ def test_buy_elixir_fail_high_level_restricted(avatar_in_city, mock_objects):
         can_start, reason = action.can_start("筑基丹")
         
         assert can_start is False
-        # 当前版本限制仅开放练气期丹药
         assert "当前仅开放练气期丹药购买" in reason
 
-def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_objects):
+def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_item_data):
     """测试药效尚存无法重复购买"""
-    elixirs_mock, materials_mock, test_elixir, _, _ = mock_objects
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    test_elixir = mock_item_data["obj_elixir"]
     
     # 先服用一个
     consumed = ConsumedElixir(test_elixir, int(avatar_in_city.world.month_stamp))
@@ -204,19 +148,36 @@ def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_objects):
         assert can_start is False
         assert "药效尚存" in reason
 
-def test_buy_weapon_trade_in(avatar_in_city, mock_objects):
+def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     """测试购买新武器时自动卖出旧武器"""
-    elixirs_mock, materials_mock, _, _, _ = mock_objects
+    # 这里需要构造一个旧武器，mock_item_data里只有一套新武器
+    from tests.conftest import create_test_weapon
+    from src.classes.weapon import Weapon, WeaponType
     
-    # 构造旧武器和新武器
-    old_weapon = Weapon(id=201, name="铁剑", weapon_type=WeaponType.SWORD, realm=Realm.Qi_Refinement, desc="...", effects={'atk': 1})
-    new_weapon = Weapon(id=202, name="青云剑", weapon_type=WeaponType.SWORD, realm=Realm.Qi_Refinement, desc="...", effects={'atk': 10})
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    new_weapon = mock_item_data["obj_weapon"]
+    
+    # 手动添加武器到 materials_mock (Buy logic looks up weapons in materials too? Or just assumes unique names?)
+    # Buy code checks `get_item_by_name` which checks all dicts.
+    # In test_buy_action we only mocked elixirs and materials. 
+    # Let's ensure '青云剑' is findable. Ideally it should be in weapons_by_name but maybe Buy logic is flexible?
+    # Original test put it in materials_mock["青云剑"] = new_weapon. Let's follow that pattern for now or better: mock weapons too.
+    
+    # Wait, original test: materials_mock["青云剑"] = new_weapon
+    # But `src.utils.resolution.get_item_by_name` checks materials, weapons, auxiliaries.
+    # Let's do it properly by mocking weapons_by_name as well if possible, or just stick to materials for simplicity if Buy allows.
+    # Buy uses `get_item_by_name`.
+    
+    materials_mock["青云剑"] = new_weapon
+    
+    # 构造旧武器
+    old_weapon = create_test_weapon("铁剑", Realm.Qi_Refinement, weapon_id=199)
+    old_weapon.effects = {'atk': 1}
     
     # 装备旧武器
     avatar_in_city.change_weapon(old_weapon)
     assert avatar_in_city.weapon == old_weapon
-    
-    materials_mock["青云剑"] = new_weapon
     
     initial_money = avatar_in_city.magic_stone
     
@@ -244,5 +205,5 @@ def test_buy_weapon_trade_in(avatar_in_city, mock_objects):
         action._execute("青云剑")
         
         assert avatar_in_city.weapon.name == "青云剑"
-        assert avatar_in_city.weapon != old_weapon # 应该是新对象
+        assert avatar_in_city.weapon != old_weapon
         assert avatar_in_city.magic_stone == expected_money

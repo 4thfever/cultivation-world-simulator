@@ -49,13 +49,12 @@ class TestEquipment:
             
         w2 = get_random_weapon_by_realm(Realm.Qi_Refinement)
         # 即使随机到同一个原型，它们也应该是不同的对象
-        # 注意：get_random_weapon_by_realm 内部已经做了 deepcopy
+        # 注意：get_random_weapon_by_realm 内部已经做了 instantiate
         
-        # 为了确保测试有效，我们手动获取同一个原型并 deepcopy
+        # 为了确保测试有效，我们手动获取同一个原型并 instantiate
         prototype = weapons_by_id[w1.id]
-        import copy
-        w_copy1 = copy.deepcopy(prototype)
-        w_copy2 = copy.deepcopy(prototype)
+        w_copy1 = prototype.instantiate()
+        w_copy2 = prototype.instantiate()
         
         assert w_copy1 is not w_copy2
         assert w_copy1.id == w_copy2.id

@@ -207,7 +207,6 @@ class InventoryMixin:
         包括扣款、获得物品（服用/入包/装备）、以旧换新。
         返回交易报告 dict。
         """
-        import copy
         from src.classes.elixir import Elixir
         from src.classes.weapon import Weapon
         from src.classes.auxiliary import Auxiliary
@@ -240,7 +239,7 @@ class InventoryMixin:
             
         elif isinstance(obj, (Weapon, Auxiliary)):
             # 装备需要深拷贝
-            new_equip = copy.deepcopy(obj)
+            new_equip = obj.instantiate()
             
             # 尝试卖出旧装备并换上新装备
             sold_name, refund = self._equip_and_trade_in(new_equip)

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import random
-import copy
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Union, Optional
@@ -9,6 +8,7 @@ from typing import Dict, List, Union, Optional
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str, format_effects_to_text
 from src.classes.cultivation import Realm
+from src.classes.item import Item
 
 
 class ElixirType(Enum):
@@ -21,7 +21,7 @@ class ElixirType(Enum):
 
 
 @dataclass
-class Elixir:
+class Elixir(Item):
     """
     丹药类
     字段与 static/game_configs/elixir.csv 对应
@@ -196,4 +196,6 @@ def get_elixirs_by_realm(realm: Realm) -> List[Elixir]:
 def get_random_elixir_by_realm(realm: Realm) -> Optional[Elixir]:
     """获取指定境界的随机丹药"""
     candidates = get_elixirs_by_realm(realm)
-    return copy.deepcopy(random.choice(candidates))
+    if not candidates:
+        return None
+    return random.choice(candidates).instantiate()

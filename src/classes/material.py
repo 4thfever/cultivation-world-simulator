@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
+from src.classes.item import Item
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.cultivation import Realm
 
 @dataclass
-class Material:
+class Material(Item):
     """
     材料
     """
@@ -12,6 +13,9 @@ class Material:
     name: str
     desc: str
     realm: Realm
+
+    def instantiate(self) -> "Material":
+        return self
 
     def __hash__(self) -> int:
         return hash(self.id)

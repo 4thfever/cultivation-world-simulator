@@ -26,13 +26,13 @@ class CirculationManager:
             return
         # 使用深拷贝存储，防止外部修改影响记录
         # 注意：这里假设 weapon 对象是可以被 copy 的
-        self.sold_weapons.append(copy.deepcopy(weapon))
+        self.sold_weapons.append(weapon.instantiate())
         
     def add_auxiliary(self, auxiliary: "Auxiliary") -> None:
         """记录一件流出的辅助装备"""
         if auxiliary is None:
             return
-        self.sold_auxiliaries.append(copy.deepcopy(auxiliary))
+        self.sold_auxiliaries.append(auxiliary.instantiate())
         
     def to_save_dict(self) -> dict:
         """序列化为字典以便存档"""
