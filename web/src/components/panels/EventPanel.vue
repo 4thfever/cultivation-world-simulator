@@ -1,60 +1,124 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick } from 'vue'
+import { computed, ref, watch, nextTick, onMounted } from 'vue'
 import { useWorldStore } from '../../stores/world'
-import { NSelect } from 'naive-ui'
+import { NSelect, NSpin, NButton } from 'naive-ui'
 import { highlightAvatarNames, buildAvatarColorMap } from '../../utils/eventHelper'
 import type { GameEvent } from '../../types/core'
 
 const worldStore = useWorldStore()
-const filterValue = ref('all')
+const filterValue1 = ref('all')
+const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛选
 const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
   { label: '所有人', value: 'all' },
-  ...worldStore.avatarList.map(avatar => ({ 
-    label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''), 
-    value: avatar.id 
+  ...worldStore.avatarList.map(avatar => ({
+    label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''),
+    value: avatar.id
   }))
 ])
 
-const filteredEvents = computed(() => {
-  const allEvents = worldStore.events || []
-  if (filterValue.value === 'all') {
-    return allEvents
+// 第二人的选项（排除第一人和"所有人"）
+const filterOptions2 = computed(() =>
+  worldStore.avatarList
+    .filter(avatar => avatar.id !== filterValue1.value)
+    .map(avatar => ({
+      label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''),
+      value: avatar.id
+    }))
+)
+
+// 直接使用 store 中的事件（已由 API 过滤）
+const displayEvents = computed(() => worldStore.events || [])
+
+// 向上滚动加载更多
+function handleScroll(e: Event) {
+  const el = e.target as HTMLElement
+  if (!el) return
+
+  // 当滚动到顶部附近时，加载更多
+  if (el.scrollTop < 100 && worldStore.eventsHasMore && !worldStore.eventsLoading) {
+    const oldScrollHeight = el.scrollHeight
+    worldStore.loadMoreEvents().then(() => {
+      // 保持滚动位置（在顶部加载了新内容后）
+      nextTick(() => {
+        const newScrollHeight = el.scrollHeight
+        el.scrollTop = newScrollHeight - oldScrollHeight + el.scrollTop
+      })
+    })
   }
-  return allEvents.filter(event => event.relatedAvatarIds.includes(filterValue.value))
+}
+
+// 构建筛选参数
+function buildFilter() {
+  if (filterValue2.value && filterValue1.value !== 'all') {
+    // 双人筛选
+    return { avatar_id_1: filterValue1.value, avatar_id_2: filterValue2.value }
+  } else if (filterValue1.value !== 'all') {
+    // 单人筛选
+    return { avatar_id: filterValue1.value }
+  }
+  return {}
+}
+
+// 加载事件并滚动到底部
+async function reloadEvents() {
+  await worldStore.resetEvents(buildFilter())
+  nextTick(() => {
+    if (eventListRef.value) {
+      eventListRef.value.scrollTop = eventListRef.value.scrollHeight
+    }
+  })
+}
+
+// 切换第一人筛选
+watch(filterValue1, async (newVal) => {
+  // 如果选了"所有人"，清除第二人筛选
+  if (newVal === 'all') {
+    filterValue2.value = null
+  }
+  await reloadEvents()
 })
 
-// 智能滚动：仅当用户处于底部时才自动跟随滚动
-watch(filteredEvents, () => {
-  const el = eventListRef.value
-  let shouldAutoScroll = false
+// 切换第二人筛选
+watch(filterValue2, async () => {
+  await reloadEvents()
+})
 
-  if (!el) {
-    // 之前没有元素（列表为空），现在有新数据进入，应当默认滚动到底部
-    shouldAutoScroll = true
-  } else {
-    // 元素存在，判断当前是否处于底部
-    // 1. 如果内容不满一页，视为“在底部”
-    // 2. 如果已溢出，判断距离底部的位置（阈值 50px）
-    const isScrollable = el.scrollHeight > el.clientHeight
-    const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 50)
-    shouldAutoScroll = isAtBottom
+// 添加第二人
+function addSecondFilter() {
+  // 默认选择列表中的第一个（排除当前第一人）
+  const options = filterOptions2.value
+  if (options.length > 0) {
+    filterValue2.value = options[0].value
   }
+}
 
-  if (shouldAutoScroll) {
+// 移除第二人筛选
+function removeSecondFilter() {
+  filterValue2.value = null
+}
+
+// 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）
+watch(displayEvents, () => {
+  const el = eventListRef.value
+  if (!el) return
+
+  const isScrollable = el.scrollHeight > el.clientHeight
+  const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 50)
+
+  if (isAtBottom) {
     nextTick(() => {
-      // DOM更新后再次获取元素
-      const updatedEl = eventListRef.value
-      if (updatedEl) {
-        updatedEl.scrollTop = updatedEl.scrollHeight
+      if (eventListRef.value) {
+        eventListRef.value.scrollTop = eventListRef.value.scrollHeight
       }
     })
   }
 }, { deep: true })
 
-// 切换筛选对象时，强制滚动到底部
-watch(filterValue, () => {
+// 初始加载
+onMounted(async () => {
+  await worldStore.resetEvents({})
   nextTick(() => {
     if (eventListRef.value) {
       eventListRef.value.scrollTop = eventListRef.value.scrollHeight
@@ -62,9 +126,11 @@ watch(filterValue, () => {
   })
 })
 
-const emptyEventMessage = computed(() => (
-  filterValue.value === 'all' ? '暂无事件' : '该修士暂无事件'
-))
+const emptyEventMessage = computed(() => {
+  if (filterValue2.value) return '这两人之间暂无事件'
+  if (filterValue1.value !== 'all') return '该修士暂无事件'
+  return '暂无事件'
+})
 
 function formatEventDate(event: { year: number; month: number }) {
   return `${event.year}年${event.month}月`
@@ -84,16 +150,49 @@ function renderEventContent(event: GameEvent): string {
   <section class="sidebar-section">
     <div class="sidebar-header">
       <h3>事件记录</h3>
-      <n-select
-        v-model:value="filterValue"
-        :options="filterOptions"
-        size="tiny"
-        class="event-filter"
-      />
+      <div class="filter-group">
+        <n-select
+          v-model:value="filterValue1"
+          :options="filterOptions"
+          size="tiny"
+          class="event-filter"
+        />
+        <!-- 双人筛选 -->
+        <template v-if="filterValue2 !== null">
+          <n-select
+            v-model:value="filterValue2"
+            :options="filterOptions2"
+            size="tiny"
+            class="event-filter"
+          />
+          <n-button size="tiny" quaternary @click="removeSecondFilter" class="remove-btn">
+            &times;
+          </n-button>
+        </template>
+        <!-- 添加第二人按钮（仅当选择了单人时显示） -->
+        <n-button
+          v-else-if="filterValue1 !== 'all'"
+          size="tiny"
+          quaternary
+          @click="addSecondFilter"
+          class="add-btn"
+        >
+          + 添加第二人
+        </n-button>
+      </div>
     </div>
-    <div v-if="filteredEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
-    <div v-else class="event-list" ref="eventListRef">
-      <div v-for="event in filteredEvents" :key="event.id" class="event-item">
+    <div v-if="worldStore.eventsLoading && displayEvents.length === 0" class="loading">
+      <n-spin size="small" />
+      <span>加载中...</span>
+    </div>
+    <div v-else-if="displayEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
+    <div v-else class="event-list" ref="eventListRef" @scroll="handleScroll">
+      <!-- 顶部加载指示器 -->
+      <div v-if="worldStore.eventsHasMore" class="load-more-hint">
+        <span v-if="worldStore.eventsLoading">加载中...</span>
+        <span v-else>向上滚动加载更多</span>
+      </div>
+      <div v-for="event in displayEvents" :key="event.id" class="event-item">
         <div class="event-date">{{ formatEventDate(event) }}</div>
         <div class="event-content" v-html="renderEventContent(event)"></div>
       </div>
@@ -124,8 +223,34 @@ function renderEventContent(event: GameEvent): string {
   white-space: nowrap;
 }
 
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .event-filter {
-  width: 200px;
+  width: 120px;
+}
+
+.add-btn {
+  color: #888;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.add-btn:hover {
+  color: #aaa;
+}
+
+.remove-btn {
+  color: #888;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+.remove-btn:hover {
+  color: #f66;
 }
 
 .event-list {
@@ -160,10 +285,25 @@ function renderEventContent(event: GameEvent): string {
   white-space: pre-line;
 }
 
-.empty {
+.empty, .loading {
   padding: 20px;
   text-align: center;
   color: #666;
   font-size: 12px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.load-more-hint {
+  text-align: center;
+  padding: 8px;
+  color: #666;
+  font-size: 11px;
+  border-bottom: 1px solid #2a2a2a;
 }
 </style>

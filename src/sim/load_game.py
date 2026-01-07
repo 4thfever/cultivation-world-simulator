@@ -17,6 +17,15 @@ from src.run.load_map import load_cultivation_world_map
 from src.utils.config import CONFIG
 
 
+def get_events_db_path(save_path: Path) -> Path:
+    """
+    根据存档路径计算事件数据库路径。
+
+    例如：save_20260105_1423.json -> save_20260105_1423_events.db
+    """
+    return save_path.with_suffix("").with_name(save_path.stem + "_events.db")
+
+
 def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[Sect]]:
     """
     从文件加载游戏状态
@@ -53,13 +62,20 @@ def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[
         
         # 重建地图（地图本身不变，只需重建宗门总部位置）
         game_map = load_cultivation_world_map()
-        
+
         # 读取世界数据
         world_data = save_data.get("world", {})
         month_stamp = MonthStamp(world_data["month_stamp"])
-        
-        # 重建World对象
-        world = World(map=game_map, month_stamp=month_stamp)
+
+        # 计算事件数据库路径
+        events_db_path = get_events_db_path(save_path)
+
+        # 重建World对象（使用 SQLite 事件存储）
+        world = World.create_with_db(
+            map=game_map,
+            month_stamp=month_stamp,
+            events_db_path=events_db_path,
+        )
         
         # 获取本局启用的宗门
         existed_sect_ids = world_data.get("existed_sect_ids", [])
@@ -86,19 +102,27 @@ def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[
         
         # 将所有avatar添加到world
         world.avatar_manager.avatars = all_avatars
-        
-        # 重建事件历史
+
+        # 检查是否需要从 JSON 迁移事件（向后兼容）
+        db_event_count = world.event_manager.count()
         events_data = save_data.get("events", [])
-        for event_data in events_data:
-            event = Event.from_dict(event_data)
-            world.event_manager.add_event(event)
-        
+
+        if db_event_count == 0 and len(events_data) > 0:
+            # SQLite 数据库是空的，但 JSON 中有事件，执行迁移
+            print(f"正在从 JSON 迁移 {len(events_data)} 条事件到 SQLite...")
+            for event_data in events_data:
+                event = Event.from_dict(event_data)
+                world.event_manager.add_event(event)
+            print("事件迁移完成")
+        else:
+            print(f"已从 SQLite 加载 {db_event_count} 条事件")
+
         # 重建Simulator
         simulator_data = save_data.get("simulator", {})
         simulator = Simulator(world)
         simulator.birth_rate = simulator_data.get("birth_rate", CONFIG.game.npc_birth_rate_per_month)
-        
-        print(f"存档加载成功！共加载 {len(all_avatars)} 个角色，{len(events_data)} 条事件")
+
+        print(f"存档加载成功！共加载 {len(all_avatars)} 个角色")
         return world, simulator, existed_sects
         
     except Exception as e:

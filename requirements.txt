@@ -4,3 +4,8 @@ json5>=0.9.0
 fastapi>=0.100.0
 uvicorn>=0.20.0
 websockets>=11.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0  # Required for async tests
+httpx>=0.27.0  # Required for FastAPI TestClient
