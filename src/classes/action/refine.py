@@ -24,9 +24,9 @@ class Refine(TimedAction):
 
     COST = 3
     SUCCESS_RATES = {
-        Realm.Qi_Refinement: 0.4,
-        Realm.Foundation_Establishment: 0.3,
-        Realm.Core_Formation: 0.2,
+        Realm.Qi_Refinement: 0.6,
+        Realm.Foundation_Establishment: 0.4,
+        Realm.Core_Formation: 0.25,
         Realm.Nascent_Soul: 0.1,
     }
 

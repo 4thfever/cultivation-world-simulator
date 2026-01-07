@@ -45,7 +45,7 @@ class Prices:
     
     # 兵器价格表（稀有，价值高）
     WEAPON_PRICES = {
-        Realm.Qi_Refinement: 10,
+        Realm.Qi_Refinement: 150,
         Realm.Foundation_Establishment: 300,
         Realm.Core_Formation: 1000,
         Realm.Nascent_Soul: 2000,
@@ -53,7 +53,7 @@ class Prices:
     
     # 辅助装备价格表
     AUXILIARY_PRICES = {
-        Realm.Qi_Refinement: 10,
+        Realm.Qi_Refinement: 150,
         Realm.Foundation_Establishment: 250,
         Realm.Core_Formation: 800,
         Realm.Nascent_Soul: 1600,
