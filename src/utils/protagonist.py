@@ -40,7 +40,7 @@ protagonist_configs = [
             "technique": 33,     # 青帝长生诀 (木系至高)
             "weapon": 3001,      # 青竹蜂云剑 (本命法宝)
             "auxiliary": 3003,   # 掌天瓶 (催熟万物)
-            "personas": ["惜命", "心机深沉", "药师"],
+            "personas": ["惜命", "心机深沉", "苟"],
             "appearance": 15,
         }
     },

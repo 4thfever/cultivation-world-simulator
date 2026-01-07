@@ -63,3 +63,4 @@ id,name,exclusion_names,desc,rarity,condition,effects
 61,炼器师,好斗,精通炼器之道，对材料敏锐，擅长铸造法宝。你认为法宝是修行的关键，战斗并非你的专长。,R,,{extra_cast_success_rate: 0.15}
 62,情绪化,理性;淡漠,你的情绪波动很大，极易受外界事件影响而改变心情，做事也更随心所欲。,N,,
 63,矿工,怠惰,擅长勘探挖掘，对矿脉有着独特的直觉。你认为地下的宝藏才是最实在的财富。,R,,{extra_mine_materials: 1}
+64,苟,冒险;鲁莽;好斗,你躲避风险和风头，尽力不担上任何风险。虽然别人议论嘲笑你，但是你只自称“稳健”。,R,,{extra_self_heal_efficiency: 0.5, extra_escape_success_rate: 0.1}

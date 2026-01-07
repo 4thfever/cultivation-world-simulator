@@ -113,5 +113,5 @@ class Map():
             "修炼区域（可以修炼以增进修为）": build_regions_info(filter_regions(CultivateRegion)),
             "普通区域（可以狩猎、采集、挖矿）": build_regions_info(filter_regions(NormalRegion)),
             "城市区域（可以交易）": build_regions_info(filter_regions(CityRegion)),
-            "宗门总部（宗门弟子可在此进行疗伤等操作）": build_regions_info(filter_regions(SectRegion)),
+            "宗门总部（宗门弟子在此疗伤事半功倍）": build_regions_info(filter_regions(SectRegion)),
         }

@@ -280,7 +280,7 @@ EXTRA_MAX_LIFESPAN = "extra_max_lifespan"
 
 EXTRA_HP_RECOVERY_RATE = "extra_hp_recovery_rate"
 """
-额外HP恢复速率
+额外HP恢复速率。同时影响动作SelfHeal和Simulator中的自然回复。
 类型: float
 结算: src/classes/action/self_heal.py
 说明: 疗伤时的HP恢复效率倍率。
