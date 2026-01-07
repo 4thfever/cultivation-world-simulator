@@ -130,7 +130,6 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Short/Long term memory
 - ✅ Character's short and long term objectives, supporting player active setting
 - ✅ Avatar nicknames
-- [ ] Character compatibility
 - [ ] Life Skills
   - ✅ Forging
   - ✅ Refine
