@@ -507,6 +507,15 @@ class AvatarFactory:
                 if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
 
+        # 确保年龄不超过境界寿命上限，避免角色一出生就老死
+        # 放在所有关系调整之后，因为关系调整可能会修改年龄和等级
+        for i in range(n):
+            realm = CultivationProgress(levels[i]).realm
+            max_lifespan = Age.REALM_LIFESPAN.get(realm, 100)
+            if ages[i] >= max_lifespan:
+                # 将年龄限制为寿命上限的 80%-95%，保留一定的生存空间
+                ages[i] = int(max_lifespan * random.uniform(0.8, 0.95))
+
         avatars_by_index: list[Avatar] = [None] * n  # type: ignore
         avatars_by_id: dict[str, Avatar] = {}
 
