@@ -38,7 +38,7 @@ id,name,exclusion_names,desc,rarity,condition,effects
 36,重生者,无常;随性,经历过一世，对未来有模糊预知，行事更有目的性。你比常人更清楚什么重要，什么是陷阱。,SSR,
 37,疑心重,热情;外向;友爱,对任何人都保持怀疑，不轻易信任，时刻警惕他人可能的背叛和算计。,N,
 38,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,,"[{when: 'avatar.weapon is None', extra_battle_strength_points: 5}]"
-39,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,
+39,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,,{extra_refine_success_rate: 0.15}
 40,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
 41,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 42,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"

@@ -6,26 +6,23 @@ from typing import Optional, TYPE_CHECKING, List
 from src.classes.action import TimedAction
 from src.classes.cultivation import Realm
 from src.classes.event import Event
-from src.classes.item import Item
-from src.classes.lode import ORE_ITEM_IDS
-from src.classes.weapon import get_random_weapon_by_realm
-from src.classes.auxiliary import get_random_auxiliary_by_realm
+from src.classes.elixir import get_random_elixir_by_realm
 from src.classes.single_choice import handle_item_exchange
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
-class Cast(TimedAction):
+class Refine(TimedAction):
     """
-    铸造动作：消耗同阶材料，尝试打造同阶宝物（兵器或辅助装备）。
+    炼丹动作：消耗同阶材料，尝试炼制同阶丹药。
     持续时间：3个月
     """
-    ACTION_NAME = "铸造"
-    EMOJI = "🔥"
-    DESC = "消耗材料尝试铸造法宝"
+    ACTION_NAME = "炼丹"
+    EMOJI = "💊"
+    DESC = "消耗材料尝试炼制丹药"
 
-    COST = 5
+    COST = 3
     SUCCESS_RATES = {
         Realm.Qi_Refinement: 0.4,
         Realm.Foundation_Establishment: 0.3,
@@ -37,7 +34,7 @@ class Cast(TimedAction):
     PARAMS = {"target_realm": "目标境界名称（'练气'、'筑基'、'金丹'、'元婴'）"}
     IS_MAJOR = False
 
-    duration_months = 3
+    duration_months = 2
 
     def __init__(self, avatar: Avatar, world):
         super().__init__(avatar, world)
@@ -102,7 +99,7 @@ class Cast(TimedAction):
         realm_val = self.target_realm.value if self.target_realm else target_realm
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 开始尝试铸造{realm_val}阶法宝。", 
+            f"{self.avatar.name} 开始尝试炼制{realm_val}阶丹药。", 
             related_avatars=[self.avatar.id]
         )
 
@@ -116,7 +113,8 @@ class Cast(TimedAction):
 
         # 1. 计算成功率
         base_rate = self.SUCCESS_RATES.get(self.target_realm, 0.1)
-        extra_rate = float(self.avatar.effects.get("extra_cast_success_rate", 0.0))
+        # 获取额外成功率（例如来自特质或功法）
+        extra_rate = float(self.avatar.effects.get("extra_refine_success_rate", 0.0))
         success_rate = base_rate + extra_rate
         
         events = []
@@ -126,7 +124,7 @@ class Cast(TimedAction):
             # 失败
             fail_event = Event(
                 self.world.month_stamp,
-                f"{self.avatar.name} 铸造{self.target_realm.value}阶法宝失败，所有材料化为灰烬。",
+                f"{self.avatar.name} 炼制{self.target_realm.value}阶丹药失败，所有材料化为灰烬。",
                 related_avatars=[self.avatar.id],
                 is_major=False
             )
@@ -134,28 +132,25 @@ class Cast(TimedAction):
             return events
 
         # 3. 成功：生成物品
-        # 50% 兵器，50% 辅助装备
-        is_weapon = random.random() < 0.5
-        new_item = None
-        item_type = ""
-        item_label = ""
-        
-        if is_weapon:
-            new_item = get_random_weapon_by_realm(self.target_realm)
-            item_type = "weapon"
-            item_label = "兵器"
-        else:
-            new_item = get_random_auxiliary_by_realm(self.target_realm)
-            item_type = "auxiliary"
-            item_label = "辅助装备"
-            
+        new_item = get_random_elixir_by_realm(self.target_realm)
+        if new_item is None:
+            # 理论上不应该发生，除非该境界没有配置丹药
+             fail_event = Event(
+                self.world.month_stamp,
+                f"{self.avatar.name} 炼制成功，但似乎没有产生任何已知的丹药。",
+                related_avatars=[self.avatar.id],
+                is_major=False
+            )
+             events.append(fail_event)
+             return events
+
         # 4. 决策：保留还是卖出
-        base_desc = f"铸造成功！获得了{self.target_realm.value}{item_label}『{new_item.name}』。"
+        base_desc = f"炼丹成功！获得了{self.target_realm.value}丹药『{new_item.name}』。"
         
-        # 事件1：铸造成功
+        # 事件1：炼丹成功
         events.append(Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 成功铸造{self.target_realm.value}{item_label}『{new_item.name}』。",
+            f"{self.avatar.name} 成功炼制{self.target_realm.value}丹药『{new_item.name}』。",
             related_avatars=[self.avatar.id],
             is_major=True
         ))
@@ -163,7 +158,7 @@ class Cast(TimedAction):
         _, result_text = await handle_item_exchange(
             avatar=self.avatar, 
             new_item=new_item,
-            item_type=item_type,
+            item_type="elixir",
             context_intro=base_desc,
             can_sell_new=True
         )
@@ -177,3 +172,4 @@ class Cast(TimedAction):
         ))
         
         return events
+

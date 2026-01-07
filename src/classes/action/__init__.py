@@ -37,6 +37,7 @@ from .switch_weapon import SwitchWeapon
 from .assassinate import Assassinate
 from .move_to_direction import MoveToDirection
 from .cast import Cast
+from .refine import Refine
 from .buy import Buy
 from .mine import Mine
 
@@ -72,6 +73,7 @@ register_action(actual=True)(SwitchWeapon)
 register_action(actual=True)(Assassinate)
 register_action(actual=True)(MoveToDirection)
 register_action(actual=True)(Cast)
+register_action(actual=True)(Refine)
 register_action(actual=True)(Buy)
 register_action(actual=True)(Mine)
 # Talk 已移动到 mutual_action 模块，在那里注册
@@ -110,6 +112,7 @@ __all__ = [
     "Assassinate",
     "MoveToDirection",
     "Cast",
+    "Refine",
     "Buy",
     "Mine",
 ]
