@@ -133,7 +133,7 @@
 - [ ] 角色间相性
 - [ ] 生活技能
   - ✅ 铸造
-  - [ ] 丹药
+  - ✅ 炼丹
   - [ ] 种植
   - [ ] 饲养
   - [ ] 技能可进化
@@ -270,7 +270,7 @@
 
 ## 贡献者
 * Aku, 世界观\玩法设计与讨论
-* [@xzhseh](https://github.com/xzhseh), 贡献部分前端代码
+* [@xzhseh](https://github.com/xzhseh), 贡献代码
 
 ## 致谢
 - 参考了ai life engine部分ui

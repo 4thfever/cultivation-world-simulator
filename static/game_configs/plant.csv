@@ -1,4 +1,4 @@
-id,name,desc,stage_id,item_ids
+id,name,desc,stage_id,material_ids
 ,,,"该植物对应的物品ID"
 1,奇草,生长在灵气充沛之地的奇异草药，叶片呈淡蓝色，具有神奇的治愈效果,1,10
 2,灵木,千年古树吸收天地灵气而成，木质坚硬且蕴含浓郁灵力,2,11

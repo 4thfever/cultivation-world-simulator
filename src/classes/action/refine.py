@@ -46,12 +46,11 @@ class Refine(TimedAction):
     def _count_materials(self, realm: Realm) -> int:
         """
         统计符合条件的材料数量。
-        注意：统计所有 Item 类的直接实例，不限于矿石。
+        注意：统计所有材料，不限于矿石。
         """
         count = 0
-        for item, qty in self.avatar.items.items():
-            # 只要是 Item 实例且境界符合即可
-            if type(item).__name__ == "Item" and item.realm == realm:
+        for material, qty in self.avatar.materials.items():
+            if material.realm == realm:
                 count += qty
         return count
 
@@ -62,7 +61,7 @@ class Refine(TimedAction):
         res = resolve_query(target_realm, expected_types=[Realm])
         if not res.is_valid:
             return False, f"无效的境界: {target_realm}"
-            
+        
         realm = res.obj
 
         cost = self._get_cost()
@@ -82,19 +81,19 @@ class Refine(TimedAction):
         
         # 扣除材料逻辑
         to_deduct = cost
-        items_to_modify = []
+        materials_to_modify = []
         
         # 再次遍历寻找材料进行扣除
-        for item, qty in self.avatar.items.items():
+        for material, qty in self.avatar.materials.items():
             if to_deduct <= 0:
                 break
-            if type(item).__name__ == "Item" and item.realm == self.target_realm:
+            if material.realm == self.target_realm:
                 take = min(qty, to_deduct)
-                items_to_modify.append((item, take))
+                materials_to_modify.append((material, take))
                 to_deduct -= take
                 
-        for item, take in items_to_modify:
-            self.avatar.remove_item(item, take)
+        for material, take in materials_to_modify:
+            self.avatar.remove_material(material, take)
 
         realm_val = self.target_realm.value if self.target_realm else target_realm
         return Event(
@@ -133,18 +132,8 @@ class Refine(TimedAction):
 
         # 3. 成功：生成物品
         new_item = get_random_elixir_by_realm(self.target_realm)
-        if new_item is None:
-            # 理论上不应该发生，除非该境界没有配置丹药
-             fail_event = Event(
-                self.world.month_stamp,
-                f"{self.avatar.name} 炼制成功，但似乎没有产生任何已知的丹药。",
-                related_avatars=[self.avatar.id],
-                is_major=False
-            )
-             events.append(fail_event)
-             return events
 
-        # 4. 决策：保留还是卖出
+        # 4. 决策：保留（服用）还是卖出
         base_desc = f"炼丹成功！获得了{self.target_realm.value}丹药『{new_item.name}』。"
         
         # 事件1：炼丹成功

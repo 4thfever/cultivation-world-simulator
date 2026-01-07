@@ -50,7 +50,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         technique_info = avatar.technique.get_detailed_info() if avatar.technique is not None else "无"
         cultivation_info = avatar.cultivation_progress.get_detailed_info()
         personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else "无"
-        items_info = "，".join([f"{item.get_detailed_info()}x{quantity}" for item, quantity in avatar.items.items()]) if avatar.items else "无"
+        materials_info = "，".join([f"{mat.get_detailed_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else "无"
         appearance_info = avatar.appearance.get_detailed_info(avatar.gender)
         spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else "无"
     else:
@@ -63,7 +63,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         technique_info = avatar.technique.get_info() if avatar.technique is not None else "无"
         cultivation_info = avatar.cultivation_progress.get_info()
         personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else "无"
-        items_info = "，".join([f"{item.get_info()}x{quantity}" for item, quantity in avatar.items.items()]) if avatar.items else "无"
+        materials_info = "，".join([f"{mat.get_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else "无"
         appearance_info = avatar.appearance.get_info()
         spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else "无"
 
@@ -81,7 +81,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         "功法": technique_info,
         "境界": cultivation_info,
         "特质": personas_info,
-        "物品": items_info,
+        "材料": materials_info,
         "外貌": appearance_info,
         "兵器": weapon_info,
         "辅助装备": auxiliary_info,
@@ -185,13 +185,13 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     else:
         info["auxiliary"] = None
         
-    # 5. 物品 (Items)
-    items_list = []
-    for item, count in avatar.items.items():
-        i_info = item.get_structured_info()
-        i_info["count"] = count
-        items_list.append(i_info)
-    info["items"] = items_list
+    # 5. 材料 (Materials)
+    materials_list = []
+    for material, count in avatar.materials.items():
+        m_info = material.get_structured_info()
+        m_info["count"] = count
+        materials_list.append(m_info)
+    info["materials"] = materials_list
     
     # 6. 关系 (Relations)
     relations_list = []

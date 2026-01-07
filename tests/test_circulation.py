@@ -179,7 +179,7 @@ def test_avatar_sell_integration(empty_world):
         weapon.name = "TestBlade"
         weapon.realm = Realm.Qi_Refinement
         
-        # The mixin usually requires self.items to have the item for sell_item, 
+        # The mixin usually requires self.materials to have the material for sell_material, 
         # but sell_weapon/sell_auxiliary are for equipped items or passed items.
         # Looking at inventory_mixin.py: sell_weapon(self, weapon) just calculates price and adds stones.
         # It calls _get_sell_multiplier()

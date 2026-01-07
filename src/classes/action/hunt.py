@@ -8,7 +8,7 @@ from src.utils.gather import execute_gather, check_can_start_gather
 class Hunt(TimedAction):
     """
     狩猎动作，在有动物的区域进行狩猎，持续6个月
-    可以获得动物对应的物品
+    可以获得动物对应的材料
     """
 
     ACTION_NAME = "狩猎"
@@ -21,15 +21,15 @@ class Hunt(TimedAction):
 
     def __init__(self, avatar, world):
         super().__init__(avatar, world)
-        self.gained_items: dict[str, int] = {}
+        self.gained_materials: dict[str, int] = {}
 
     def _execute(self) -> None:
         """
         执行狩猎动作
         """
-        gained = execute_gather(self.avatar, "animals", "extra_hunt_items")
+        gained = execute_gather(self.avatar, "animals", "extra_hunt_materials")
         for name, count in gained.items():
-            self.gained_items[name] = self.gained_items.get(name, 0) + count
+            self.gained_materials[name] = self.gained_materials.get(name, 0) + count
 
     def can_start(self) -> tuple[bool, str]:
         return check_can_start_gather(self.avatar, "animals", "动物")
@@ -41,9 +41,9 @@ class Hunt(TimedAction):
 
     async def finish(self) -> list[Event]:
         # 必定有产出
-        items_desc = "、".join([f"{k}x{v}" for k, v in self.gained_items.items()])
+        materials_desc = "、".join([f"{k}x{v}" for k, v in self.gained_materials.items()])
         return [Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 结束了狩猎，获得了：{items_desc}",
+            f"{self.avatar.name} 结束了狩猎，获得了：{materials_desc}",
             related_avatars=[self.avatar.id]
         )]

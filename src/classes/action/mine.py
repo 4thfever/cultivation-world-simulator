@@ -21,15 +21,15 @@ class Mine(TimedAction):
 
     def __init__(self, avatar, world):
         super().__init__(avatar, world)
-        self.gained_items: dict[str, int] = {}
+        self.gained_materials: dict[str, int] = {}
 
     def _execute(self) -> None:
         """
         执行挖矿动作
         """
-        gained = execute_gather(self.avatar, "lodes", "extra_mine_items")
+        gained = execute_gather(self.avatar, "lodes", "extra_mine_materials")
         for name, count in gained.items():
-            self.gained_items[name] = self.gained_items.get(name, 0) + count
+            self.gained_materials[name] = self.gained_materials.get(name, 0) + count
 
     def can_start(self) -> tuple[bool, str]:
         return check_can_start_gather(self.avatar, "lodes", "矿脉")
@@ -40,9 +40,9 @@ class Mine(TimedAction):
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
-        items_desc = "、".join([f"{k}x{v}" for k, v in self.gained_items.items()])
+        materials_desc = "、".join([f"{k}x{v}" for k, v in self.gained_materials.items()])
         return [Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 结束了挖矿，获得了：{items_desc}",
+            f"{self.avatar.name} 结束了挖矿，获得了：{materials_desc}",
             related_avatars=[self.avatar.id]
         )]

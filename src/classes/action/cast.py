@@ -6,8 +6,7 @@ from typing import Optional, TYPE_CHECKING, List
 from src.classes.action import TimedAction
 from src.classes.cultivation import Realm
 from src.classes.event import Event
-from src.classes.item import Item
-from src.classes.lode import ORE_ITEM_IDS
+from src.classes.material import Material
 from src.classes.weapon import get_random_weapon_by_realm
 from src.classes.auxiliary import get_random_auxiliary_by_realm
 from src.classes.single_choice import handle_item_exchange
@@ -49,12 +48,10 @@ class Cast(TimedAction):
     def _count_materials(self, realm: Realm) -> int:
         """
         统计符合条件的材料数量。
-        注意：统计所有 Item 类的直接实例，不限于矿石。
         """
         count = 0
-        for item, qty in self.avatar.items.items():
-            # 只要是 Item 实例且境界符合即可
-            if type(item).__name__ == "Item" and item.realm == realm:
+        for material, qty in self.avatar.materials.items():
+            if material.realm == realm:
                 count += qty
         return count
 
@@ -85,19 +82,19 @@ class Cast(TimedAction):
         
         # 扣除材料逻辑
         to_deduct = cost
-        items_to_modify = []
+        materials_to_modify = []
         
         # 再次遍历寻找材料进行扣除
-        for item, qty in self.avatar.items.items():
+        for material, qty in self.avatar.materials.items():
             if to_deduct <= 0:
                 break
-            if type(item).__name__ == "Item" and item.realm == self.target_realm:
+            if material.realm == self.target_realm:
                 take = min(qty, to_deduct)
-                items_to_modify.append((item, take))
+                materials_to_modify.append((material, take))
                 to_deduct -= take
                 
-        for item, take in items_to_modify:
-            self.avatar.remove_item(item, take)
+        for material, take in materials_to_modify:
+            self.avatar.remove_material(material, take)
 
         realm_val = self.target_realm.value if self.target_realm else target_realm
         return Event(

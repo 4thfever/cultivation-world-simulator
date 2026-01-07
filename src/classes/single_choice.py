@@ -76,22 +76,49 @@ def _get_item_ops(avatar: "Avatar", item_type: str) -> dict:
         return {
             "label": "兵器",
             "get_current": lambda: avatar.weapon,
-            "equip": avatar.change_weapon,
-            "sell": avatar.sell_weapon
+            "use_func": avatar.change_weapon,
+            "sell_func": avatar.sell_weapon,
+            "verbs": {
+                "action": "装备",
+                "done": "换上了",
+                "replace": "替换"
+            }
         }
     elif item_type == "auxiliary":
         return {
             "label": "辅助装备",
             "get_current": lambda: avatar.auxiliary,
-            "equip": avatar.change_auxiliary,
-            "sell": avatar.sell_auxiliary
+            "use_func": avatar.change_auxiliary,
+            "sell_func": avatar.sell_auxiliary,
+            "verbs": {
+                "action": "装备",
+                "done": "换上了",
+                "replace": "替换"
+            }
         }
     elif item_type == "technique":
         return {
             "label": "功法",
             "get_current": lambda: avatar.technique,
-            "equip": lambda x: setattr(avatar, 'technique', x),
-            "sell": None  # 功法通常不能卖
+            "use_func": lambda x: setattr(avatar, 'technique', x),
+            "sell_func": None,  # 功法通常不能卖
+            "verbs": {
+                "action": "修炼",
+                "done": "改修了",
+                "replace": "替换"
+            }
+        }
+    elif item_type == "elixir":
+        return {
+            "label": "丹药",
+            "get_current": lambda: None, # 丹药没有“当前装备”的概念，都是新获得的
+            "use_func": avatar.consume_elixir,
+            "sell_func": avatar.sell_elixir,
+            "verbs": {
+                "action": "服用",
+                "done": "服用了",
+                "replace": "替换" # 丹药其实没有 replace，但为了模板通用可以给个默认值
+            }
         }
     else:
         raise ValueError(f"Unsupported item type: {item_type}")
@@ -100,7 +127,7 @@ def _get_item_ops(avatar: "Avatar", item_type: str) -> dict:
 async def handle_item_exchange(
     avatar: "Avatar",
     new_item: Any,
-    item_type: str, # "weapon", "auxiliary", "technique"
+    item_type: str, # "weapon", "auxiliary", "technique", "elixir"
     context_intro: str,
     can_sell_new: bool = False
 ) -> Tuple[bool, str]:
@@ -119,6 +146,7 @@ async def handle_item_exchange(
     """
     ops = _get_item_ops(avatar, item_type)
     label = ops["label"]
+    verbs = ops["verbs"]
     current_item = ops["get_current"]()
     
     new_name = new_item.name
@@ -126,8 +154,8 @@ async def handle_item_exchange(
     
     # 1. 自动装备：当前无装备且不强制考虑卖新
     if current_item is None and not can_sell_new:
-        ops["equip"](new_item)
-        return True, f"{avatar.name} 获得了{new_grade}{label}『{new_name}』并装备。"
+        ops["use_func"](new_item)
+        return True, f"{avatar.name} 获得了{new_grade}{label}『{new_name}』并{verbs['action']}。"
 
     # 2. 需要决策：准备描述
     old_name = current_item.name if current_item else ""
@@ -137,19 +165,19 @@ async def handle_item_exchange(
     if current_item:
         old_info = current_item.get_info(detailed=True)
         swap_desc = f"现有{label}：{old_info}\n{swap_desc}"
-        if ops["sell"]:
-            swap_desc += f"\n（选择替换将卖出旧{label}）"
+        if ops["sell_func"]:
+            swap_desc += f"\n（选择{verbs['replace']}将卖出旧{label}）"
 
     # 3. 构建选项
-    # Option A: 装备新物品
-    opt_a_text = f"装备新{label}『{new_name}』"
-    if current_item and ops["sell"]:
+    # Option A: 装备/服用新物品
+    opt_a_text = f"{verbs['action']}新{label}『{new_name}』"
+    if current_item and ops["sell_func"]:
         opt_a_text += f"，卖掉旧{label}『{old_name}』"
     elif current_item:
-        opt_a_text += f"，替换旧{label}『{old_name}』"
+        opt_a_text += f"，{verbs['replace']}旧{label}『{old_name}』"
 
     # Option B: 拒绝新物品
-    if can_sell_new and ops["sell"]:
+    if can_sell_new and ops["sell_func"]:
         opt_b_text = f"卖掉新{label}『{new_name}』换取灵石，保留现状"
     else:
         opt_b_text = f"放弃『{new_name}』"
@@ -167,15 +195,15 @@ async def handle_item_exchange(
     # 4. 执行决策
     if choice == "A":
         # 卖旧（如果有且能卖）
-        if current_item and ops["sell"]:
-            ops["sell"](current_item)
-        # 装新
-        ops["equip"](new_item)
-        return True, f"{avatar.name} 换上了{new_grade}{label}『{new_name}』。"
+        if current_item and ops["sell_func"]:
+            ops["sell_func"](current_item)
+        # 装新/服用
+        ops["use_func"](new_item)
+        return True, f"{avatar.name} {verbs['done']}{new_grade}{label}『{new_name}』。"
     else:
         # 卖新（如果被要求且能卖）
-        if can_sell_new and ops["sell"]:
-            sold_price = ops["sell"](new_item)
+        if can_sell_new and ops["sell_func"]:
+            sold_price = ops["sell_func"](new_item)
             return False, f"{avatar.name} 卖掉了新获得的{new_name}，获利 {sold_price} 灵石。"
         else:
             return False, f"{avatar.name} 放弃了{new_name}。"

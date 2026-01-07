@@ -1,4 +1,4 @@
-id,name,desc,stage_id,item_ids
+id,name,desc,stage_id,material_ids
 ,,,"该矿脉对应的物品ID"
 1,玄铁矿脉,蕴含玄铁的普通矿脉，常见于浅层地表,1,101
 2,赤铜矿脉,深埋地下的赤铜矿脉，周围往往伴生火热之气,2,102

@@ -26,7 +26,7 @@ from src.classes.event import Event
 from src.classes.action_runtime import ActionPlan, ActionInstance
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, get_random_compatible_personas
-from src.classes.item import Item
+from src.classes.material import Material
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 from src.classes.magic_stone import MagicStone
@@ -96,7 +96,7 @@ class Avatar(
     short_term_objective: str = ""
     long_term_objective: Optional[LongTermObjective] = None
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0))
-    items: dict[Item, int] = field(default_factory=dict)
+    materials: dict[Material, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))
     relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment | None = None

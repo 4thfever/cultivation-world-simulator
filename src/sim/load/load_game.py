@@ -8,7 +8,7 @@
 加载流程（两阶段）：
 1. 第一阶段：加载所有Avatar对象（relations留空）
    - 通过AvatarLoadMixin.from_save_dict反序列化
-   - 配表对象（Technique, Item等）通过id从全局字典获取
+   - 配表对象（Technique, Material等）通过id从全局字典获取
 2. 第二阶段：重建Avatar之间的relations网络
    - 必须在所有Avatar加载完成后才能建立引用关系
    
@@ -123,12 +123,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                     avatar.relations[other_avatar] = relation
         
         # 将所有avatar添加到world
-        # 根据生死状态分流
-        for avatar in all_avatars.values():
-            if avatar.is_dead:
-                world.avatar_manager.dead_avatars[avatar.id] = avatar
-            else:
-                world.avatar_manager.avatars[avatar.id] = avatar
+        world.avatar_manager.avatars = all_avatars
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})

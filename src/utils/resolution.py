@@ -6,7 +6,7 @@ from src.classes.normalize import normalize_goods_name, normalize_name, normaliz
 from src.classes.elixir import elixirs_by_name, Elixir
 from src.classes.weapon import weapons_by_name, Weapon
 from src.classes.auxiliary import auxiliaries_by_name, Auxiliary
-from src.classes.item import items_by_name, Item
+from src.classes.material import materials_by_name, Material
 from src.classes.cultivation import Realm
 
 @dataclass
@@ -36,7 +36,7 @@ def resolve_query(
         query: 待解析的对象（字符串名 或 直接的对象实例）
         world: 世界对象上下文（用于查找 Avatar, Region）
         expected_types: 期望的类型列表。如果提供，将优先或仅尝试这些类型。
-                        支持的类型: Item, Weapon, Elixir, Auxiliary, Region, Avatar, Realm 等类对象
+                        支持的类型: Material, Weapon, Elixir, Auxiliary, Region, Avatar, Realm 等类对象
                         必须直接传入类对象，不再支持字符串名。
     """
     if query is None:
@@ -73,7 +73,7 @@ def resolve_query(
 
             t_name = t.__name__
             
-            if t_name in ["Item", "Weapon", "Elixir", "Auxiliary"]:
+            if t_name in ["Material", "Weapon", "Elixir", "Auxiliary"]:
                 if "goods" not in checks: checks.append("goods")
             elif t_name == "Region" or t_name == "CityRegion" or t_name == "SectRegion" or t_name == "CultivateRegion":
                 if "region" not in checks: checks.append("region")
@@ -124,9 +124,9 @@ def _resolve_goods(name: str) -> Any | None:
     if norm in auxiliaries_by_name:
         return auxiliaries_by_name[norm]
         
-    # 4. 普通物品
-    if norm in items_by_name:
-        return items_by_name[norm]
+    # 4. 材料
+    if norm in materials_by_name:
+        return materials_by_name[norm]
         
     return None
 
