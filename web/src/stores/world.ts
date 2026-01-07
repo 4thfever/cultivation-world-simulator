@@ -274,7 +274,7 @@ export const useWorldStore = defineStore('world', () => {
     frontendConfig,
     currentPhenomenon,
     phenomenaList,
-
+    // Functions.
     initialize,
     fetchState,
     handleTick,
