@@ -1,2 +1,4 @@
 [tool.pytest.ini_options]
 pythonpath = "."
+testpaths = ["tests"]
+norecursedirs = ["tmp", "assets", "node_modules", "dist", "build", "web", "tools"]

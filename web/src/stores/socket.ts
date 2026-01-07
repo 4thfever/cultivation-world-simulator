@@ -34,9 +34,6 @@ export const useSocketStore = defineStore('socket', () => {
         // Update World
         worldStore.handleTick(payload);
         
-        // UI Cache Invalidations
-        uiStore.clearHoverCache();
-        
         // Refresh Detail if open (Silent update)
         if (uiStore.selectedTarget) {
           uiStore.refreshDetail(); 
