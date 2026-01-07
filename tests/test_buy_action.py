@@ -182,11 +182,11 @@ def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     initial_money = avatar_in_city.magic_stone
     
     # 价格计算
-    # 练气期 Weapon Base Price = 10
-    # 买入: 10 * 1.5 = 15
-    buy_cost = 15
-    # 卖出: 10 * 1.0 = 10
-    sell_refund = 10
+    # 练气期 Weapon Base Price = 150 (refer to src/classes/prices.py)
+    # 买入: 150 * 1.5 = 225
+    buy_cost = 225
+    # 卖出: 150 * 1.0 = 150
+    sell_refund = 150
     
     expected_money = initial_money - buy_cost + sell_refund
     
