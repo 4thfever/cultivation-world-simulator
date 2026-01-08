@@ -46,6 +46,9 @@ game_instance = {
     "is_paused": True # 默认启动为暂停状态，等待前端连接唤醒
 }
 
+# 用于防止 game_loop 和 load_game 之间的 race condition。
+game_loop_lock = asyncio.Lock()
+
 # Cache for avatar IDs
 AVATAR_ASSETS = {
     "males": [],
@@ -361,10 +364,14 @@ async def game_loop():
             if game_instance.get("is_paused", False):
                 continue
 
-            sim = game_instance.get("sim")
-            world = game_instance.get("world")
-            
-            if sim and world:
+            # 获取锁，防止在 sim.step() 执行期间 load_game 替换 world。
+            async with game_loop_lock:
+                sim = game_instance.get("sim")
+                world = game_instance.get("world")
+                
+                if not sim or not world:
+                    continue
+                    
                 # 执行一步
                 events = await sim.step()
                 
@@ -1197,7 +1204,7 @@ def api_save_game(req: SaveGameRequest):
         raise HTTPException(status_code=500, detail="Save failed")
 
 @app.post("/api/game/load")
-def api_load_game(req: LoadGameRequest):
+async def api_load_game(req: LoadGameRequest):
     """加载游戏"""
     # 安全检查：只允许加载 saves 目录下的文件
     if ".." in req.filename or "/" in req.filename or "\\" in req.filename:
@@ -1210,21 +1217,23 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
-        # 暂停游戏，防止 game_loop 在加载过程中使用旧 world 生成事件。
-        game_instance["is_paused"] = True
+        # 获取锁，等待当前 game_loop 的 sim.step() 完成后再替换 world。
+        async with game_loop_lock:
+            # 暂停游戏，防止下一次 game_loop 迭代。
+            game_instance["is_paused"] = True
 
-        # 加载
-        new_world, new_sim, new_sects = load_game(target_path)
-        
-        # 确保挂载 existed_sects 以便下次保存
-        new_world.existed_sects = new_sects
+            # 加载（同步操作，在锁内执行确保 world 不会被 game_loop 使用）。
+            new_world, new_sim, new_sects = load_game(target_path)
+            
+            # 确保挂载 existed_sects 以便下次保存
+            new_world.existed_sects = new_sects
 
-        # 替换全局实例
-        game_instance["world"] = new_world
-        game_instance["sim"] = new_sim
+            # 替换全局实例
+            game_instance["world"] = new_world
+            game_instance["sim"] = new_sim
 
-        # 加载完成后恢复游戏。
-        game_instance["is_paused"] = False
+            # 加载完成后恢复游戏。
+            game_instance["is_paused"] = False
         
         return {"status": "ok", "message": "Game loaded"}
     except Exception as e:
