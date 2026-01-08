@@ -157,3 +157,132 @@ def test_save_load_with_relations(temp_save_dir):
     
     assert l_av2 in l_av1.relations
     assert l_av1.relations[l_av2] == Relation.FRIEND
+
+
+# =============================================================================
+# API Load Game Tests - Race Condition Prevention
+# =============================================================================
+
+class TestApiLoadGameRaceCondition:
+    """
+    Tests for the race condition fix in api_load_game.
+    
+    The bug: When loading a save, the game_loop could still be running with the
+    old world, generating events with stale timestamps (e.g., 100年1月 events
+    appearing after loading a 106年 save).
+    
+    The fix: Pause the game during loading, then resume after.
+    """
+
+    def test_load_game_pauses_during_load(self, temp_save_dir):
+        """Test that api_load_game pauses then resumes the game."""
+        from fastapi.testclient import TestClient
+        from src.server import main
+
+        # Create a simple save file.
+        game_map = create_test_map()
+        month_stamp = create_month_stamp(Year(200), Month.JUNE)
+        world = World(map=game_map, month_stamp=month_stamp)
+
+        avatar = Avatar(
+            world=world,
+            name="TestAvatar",
+            id=get_avatar_id(),
+            birth_month_stamp=create_month_stamp(Year(180), Month.JANUARY),
+            age=Age(20, Realm.Qi_Refinement),
+            gender=Gender.MALE,
+        )
+        world.avatar_manager.avatars[avatar.id] = avatar
+
+        sim = Simulator(world)
+        save_path = temp_save_dir / "test_pause.json"
+        save_game(world, sim, [], save_path)
+
+        # Setup: game is running (not paused).
+        original_state = main.game_instance.copy()
+        main.game_instance["is_paused"] = False
+        main.game_instance["world"] = World(
+            map=create_test_map(),
+            month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+        )
+        main.game_instance["sim"] = MagicMock()
+
+        # Mock CONFIG.paths.saves to point to our temp dir.
+        with patch.object(CONFIG.paths, "saves", temp_save_dir):
+            with patch('src.run.load_map.load_cultivation_world_map', return_value=create_test_map()):
+                client = TestClient(main.app)
+                response = client.post(
+                    "/api/game/load",
+                    json={"filename": "test_pause.json"}
+                )
+
+        assert response.status_code == 200
+
+        # After load: game should be resumed (not paused).
+        assert main.game_instance["is_paused"] is False
+
+        # Verify the world was actually replaced.
+        assert main.game_instance["world"].month_stamp.get_year() == 200
+
+        # Cleanup.
+        main.game_instance.update(original_state)
+
+    def test_load_game_prevents_stale_events(self, temp_save_dir):
+        """
+        Test that pausing during load prevents events with old timestamps.
+        
+        This simulates the race condition scenario:
+        1. Old world is at 100年1月
+        2. User loads a save from 200年6月
+        3. Without the fix, game_loop might generate 100年1月 events
+        4. With the fix, game is paused during load so no stale events are generated
+        """
+        from src.server import main
+
+        # Create a save at 200年.
+        game_map = create_test_map()
+        save_world = World(
+            map=game_map,
+            month_stamp=create_month_stamp(Year(200), Month.JUNE),
+        )
+        sim = Simulator(save_world)
+        save_path = temp_save_dir / "test_stale.json"
+        save_game(save_world, sim, [], save_path)
+
+        # Setup: "old" world at 100年.
+        old_world = World(
+            map=create_test_map(),
+            month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+        )
+
+        original_state = main.game_instance.copy()
+        main.game_instance["world"] = old_world
+        main.game_instance["sim"] = Simulator(old_world)
+        main.game_instance["is_paused"] = False
+
+        # Verify initial state.
+        assert main.game_instance["is_paused"] is False
+        assert main.game_instance["world"].month_stamp.get_year() == 100
+
+        # Perform load.
+        with patch.object(CONFIG.paths, "saves", temp_save_dir):
+            with patch('src.run.load_map.load_cultivation_world_map', return_value=create_test_map()):
+                from fastapi.testclient import TestClient
+                client = TestClient(main.app)
+                response = client.post(
+                    "/api/game/load",
+                    json={"filename": "test_stale.json"}
+                )
+
+        assert response.status_code == 200
+
+        # After load: world is updated and game is running.
+        assert main.game_instance["is_paused"] is False
+        assert main.game_instance["world"].month_stamp.get_year() == 200
+
+        # The key point: because is_paused was True during load, game_loop
+        # would skip sim.step(), so no events with stale timestamps (100年)
+        # would be generated.
+
+        # Cleanup.
+        main.game_instance.update(original_state)
