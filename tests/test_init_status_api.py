@@ -131,7 +131,7 @@ class TestUpdateInitProgress:
         
         assert game_instance["init_phase"] == 2
         assert game_instance["init_phase_name"] == "initializing_sects"
-        assert game_instance["init_progress"] == 33
+        assert game_instance["init_progress"] == 20
 
     def test_update_progress_without_phase_name(self, reset_game_instance):
         """Test updating progress uses default phase name from mapping."""
@@ -139,7 +139,7 @@ class TestUpdateInitProgress:
         
         assert game_instance["init_phase"] == 3
         assert game_instance["init_phase_name"] == "generating_avatars"
-        assert game_instance["init_progress"] == 50
+        assert game_instance["init_progress"] == 30
 
     def test_all_phase_names_mapped(self):
         """Test all phases have corresponding names."""
