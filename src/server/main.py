@@ -1438,9 +1438,6 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
-        # 暂停游戏，防止 game_loop 在加载过程中使用旧 world 生成事件。
-        game_instance["is_paused"] = True
-
         # 加载
         new_world, new_sim, new_sects = load_game(target_path)
         
@@ -1450,9 +1447,6 @@ def api_load_game(req: LoadGameRequest):
         # 替换全局实例
         game_instance["world"] = new_world
         game_instance["sim"] = new_sim
-
-        # 加载完成后保持暂停状态，让用户决定何时恢复。
-        # 这也给前端时间来刷新状态。
         
         return {"status": "ok", "message": "Game loaded"}
     except Exception as e:
