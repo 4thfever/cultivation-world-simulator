@@ -126,9 +126,10 @@ class ConnectionManager:
         await websocket.accept()
         self.active_connections.append(websocket)
         
-        # 当第一个客户端连接时，自动恢复游戏
+        # 不再自动恢复游戏，让用户明确选择"新游戏"或"加载存档"。
+        # 这样可以避免在用户加载存档前就生成初始化事件。
         if len(self.active_connections) == 1:
-            self._set_pause_state(False, "检测到客户端连接，自动恢复游戏运行。")
+            print("[Auto-Control] 检测到客户端连接，游戏保持暂停状态，等待用户操作。")
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
@@ -367,7 +368,10 @@ def init_game():
         print("LLM 连通性检测通过 ✓")
         game_instance["llm_check_failed"] = False
         game_instance["llm_error_message"] = ""
-        game_instance["is_paused"] = False
+        # 即使 LLM 检测通过，也保持暂停状态。
+        # 等待用户选择"新游戏"或"加载存档"后再开始运行。
+        # 这样可以避免在用户加载存档前就生成初始化事件（如长期目标）。
+        game_instance["is_paused"] = True
     # ===== LLM 检测结束 =====
 
 async def game_loop():

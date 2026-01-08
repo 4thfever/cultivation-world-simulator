@@ -18,7 +18,8 @@ const uiStore = useUiStore()
 const socketStore = useSocketStore()
 
 const showMenu = ref(false)
-const isManualPaused = ref(false)
+// 启动时默认暂停，让用户选择"新游戏"或"加载存档"后再继续。
+const isManualPaused = ref(true)
 const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>('load')
 
 onMounted(async () => {
