@@ -55,11 +55,12 @@ const tips = [
 ]
 
 const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
+const displayProgress = ref(0) // 实际显示的进度
 const localElapsed = ref(0)
 let tipInterval: ReturnType<typeof setInterval> | null = null
 let elapsedInterval: ReturnType<typeof setInterval> | null = null
 
-const progress = computed(() => props.status?.progress ?? 0)
+const progress = computed(() => displayProgress.value)
 const phaseText = computed(() => {
   const phaseName = props.status?.phase_name || ''
   const text = phaseTexts[phaseName] || phaseTexts['']
@@ -70,6 +71,15 @@ const phaseText = computed(() => {
 })
 const isError = computed(() => props.status?.status === 'error')
 const errorMessage = computed(() => props.status?.error || '未知错误')
+
+// 监听后端进度，如果后端进度领先，则同步
+watch(() => props.status?.progress, (newVal) => {
+  if (newVal !== undefined && newVal !== null) {
+    if (newVal > displayProgress.value) {
+      displayProgress.value = newVal
+    }
+  }
+}, { immediate: true })
 
 // 根据时间计算背景透明度：前5秒保持不透明，5-20秒逐渐透明到0.8。
 // 只影响背景，不影响内容亮度。
@@ -90,6 +100,7 @@ const strokeDashoffset = computed(() => {
 
 async function handleRetry() {
   localElapsed.value = 0
+  displayProgress.value = 0
   try {
     await gameApi.reinitGame()
   } catch (e: any) {
@@ -104,9 +115,29 @@ function startTimers() {
     currentTip.value = tips[idx]
   }, 5000)
   
-  // 本地计时器 + 阶段文案轮换。
+  // 本地计时器 + 阶段文案轮换 + 伪进度自增
   elapsedInterval = setInterval(() => {
     localElapsed.value++
+
+    // 伪进度逻辑
+    if (props.status?.status === 'in_progress' && displayProgress.value < 99) {
+      const currentPhase = props.status?.phase ?? 0
+      // 后端定义的进度节点: {0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83}
+      const progressMap: Record<number, number> = { 0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83 }
+      const nextPhaseStart = progressMap[currentPhase + 1] ?? 100
+      
+      // 每两秒增加 1%
+      if (localElapsed.value % 2 === 0) {
+        // 如果还没达到下一阶段的起点前 1%，就继续自增
+        if (displayProgress.value < nextPhaseStart - 1) {
+          displayProgress.value++
+        } else if (currentPhase === 5 && displayProgress.value < 99) {
+          // 最后一个阶段（5阶段）允许一直增加到 99%
+          displayProgress.value++
+        }
+      }
+    }
+
     // 每 5 秒切换一次 generating_initial_events 的文案。
     if (localElapsed.value % 5 === 0) {
       eventPhaseTextIndex.value++
@@ -129,6 +160,7 @@ function stopTimers() {
 watch(() => props.status?.status, (newStatus, oldStatus) => {
   if (oldStatus === 'ready' && newStatus !== 'ready') {
     localElapsed.value = 0
+    displayProgress.value = 0
   }
 })
 

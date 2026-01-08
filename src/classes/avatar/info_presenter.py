@@ -86,6 +86,8 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         "兵器": weapon_info,
         "辅助装备": auxiliary_info,
         "情绪": avatar.emotion.value,
+        "长期目标": avatar.long_term_objective.content if avatar.long_term_objective else "无",
+        "短期目标": avatar.short_term_objective if avatar.short_term_objective else "无",
     }
     
     if detailed:
@@ -97,12 +99,6 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     # 灵兽：仅在存在时显示
     if avatar.spirit_animal is not None:
         info_dict["灵兽"] = spirit_animal_info
-    # 长期目标：仅在存在时显示
-    if avatar.long_term_objective is not None:
-        info_dict["长期目标"] = avatar.long_term_objective.content
-    # 短期目标：仅在存在时显示
-    if avatar.short_term_objective:
-        info_dict["短期目标"] = avatar.short_term_objective
     return info_dict
 
 
@@ -269,7 +265,6 @@ def get_avatar_expanded_info(
     info["周围角色"] = observed
     info["重大事件"] = major_list
     info["短期事件"] = minor_list
-    info["长期目标"] = avatar.long_term_objective.content if avatar.long_term_objective else "无"
     return info
 
 
