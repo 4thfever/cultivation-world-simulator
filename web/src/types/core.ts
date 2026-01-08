@@ -24,6 +24,7 @@ export interface EffectEntity extends EntityBase {
   grade?: string;
   rarity?: string; // e.g., 'SSR', 'R', '上品'
   type?: string;
+  type_name?: string; // 新增：中文类型名，如"丹药"、"破境"等
   color?: string | number[]; // 某些实体自带颜色
   drops?: EffectEntity[];
   hq_name?: string;
@@ -167,6 +168,7 @@ export interface RegionDetail extends EntityBase {
   animals: EffectEntity[];
   plants: EffectEntity[];
   lodes: EffectEntity[];
+  store_items?: (EffectEntity & { price: number })[];
 }
 
 // --- 天地灵机 ---

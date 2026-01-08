@@ -11,6 +11,7 @@ from src.classes.animal import Animal, animals_by_id
 from src.classes.plant import Plant, plants_by_id
 from src.classes.lode import Lode, lodes_by_id
 from src.classes.sect import sects_by_name
+from src.classes.store import StoreMixin
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -212,18 +213,48 @@ class CultivateRegion(Region):
 
 
 @dataclass(eq=False)
-class CityRegion(Region):
+class CityRegion(Region, StoreMixin):
     """城市区域"""
+    sell_items: str = field(default="[]")
+
+    def __post_init__(self):
+        super().__post_init__()
+        try:
+            import ast
+            items_list = ast.literal_eval(self.sell_items)
+            if isinstance(items_list, list):
+                self.init_store(items_list)
+            else:
+                self.init_store([])
+        except Exception:
+            self.init_store([])
+
     def get_region_type(self) -> str:
         return "city"
 
     def _get_desc(self) -> str:
+        store_info = self.get_store_info()
+        if store_info:
+            return f"（{store_info}）"
         return ""
 
     def __str__(self) -> str:
-        return f"城市区域：{self.name} - {self.desc}"
+        store_info = self.get_store_info()
+        desc_part = f" | {store_info}" if store_info else ""
+        return f"城市区域：{self.name} - {self.desc}{desc_part}"
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
         info["type_name"] = "城市区域"
+        
+        store_items_info = []
+        if hasattr(self, 'store_items'):
+            from src.classes.prices import prices
+            for item in self.store_items:
+                item_info = item.get_structured_info()
+                # Inject price
+                item_info["price"] = prices.get_buying_price(item, None)
+                store_items_info.append(item_info)
+        
+        info["store_items"] = store_items_info
         return info

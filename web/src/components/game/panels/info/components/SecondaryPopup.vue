@@ -22,6 +22,7 @@ const typeMap: Record<string, string> = {
 };
 
 const displayType = computed(() => {
+  if (props.item?.type_name) return props.item.type_name; // 优先使用后端传回的中文类型名
   if (!props.item?.type) return '';
   return typeMap[props.item.type] || props.item.type;
 });

@@ -12,25 +12,33 @@ def test_buy_item_success(avatar_in_city, mock_item_data):
     materials_mock = mock_item_data["materials"]
     test_material = mock_item_data["obj_material"]
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-        
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        
-        # 1. 检查是否可购买
-        can_start, reason = action.can_start("铁矿石")
-        assert can_start is True
-        
-        # 2. 执行购买
-        initial_money = avatar_in_city.magic_stone
-        # 练气期材料基础价格 10，倍率 1.5 -> 15
-        expected_price = int(10 * 1.5)
-        
-        action._execute("铁矿石")
-        
-        # 3. 验证结果
-        assert avatar_in_city.magic_stone == initial_money - expected_price
-        assert avatar_in_city.get_material_quantity(test_material) == 1
+    # 模拟 CityRegion.is_selling 方法
+    # 直接在 avatar_in_city.tile.region 上 mock 或者动态添加属性
+    # 由于 avatar_in_city 使用了 mock_region，我们需要确保它有 is_selling
+    # 假设 conftest 中 avatar_in_city.tile.region 是一个 CityRegion 实例或者 Mock
+    
+    # 我们这里动态 patch is_selling
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True) as mock_is_selling:
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            
+            # 1. 检查是否可购买
+            can_start, reason = action.can_start("铁矿石")
+            assert can_start is True
+            mock_is_selling.assert_called_with("铁矿石")
+            
+            # 2. 执行购买
+            initial_money = avatar_in_city.magic_stone
+            # 练气期材料基础价格 10，倍率 1.5 -> 15
+            expected_price = int(10 * 1.5)
+            
+            action._execute("铁矿石")
+            
+            # 3. 验证结果
+            assert avatar_in_city.magic_stone == initial_money - expected_price
+            assert avatar_in_city.get_material_quantity(test_material) == 1
 
 def test_buy_elixir_success(avatar_in_city, mock_item_data):
     """测试购买并服用丹药成功"""
@@ -38,26 +46,43 @@ def test_buy_elixir_success(avatar_in_city, mock_item_data):
     materials_mock = mock_item_data["materials"]
     test_elixir = mock_item_data["obj_elixir"]
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-        
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        
-        can_start, reason = action.can_start("聚气丹")
-        assert can_start is True
-        
-        initial_money = avatar_in_city.magic_stone
-        expected_price = int(test_elixir.price * 1.5)
-        
-        # 模拟服用丹药的行为
-        action._execute("聚气丹")
-        
-        assert avatar_in_city.magic_stone == initial_money - expected_price
-        # 背包里不应该有丹药
-        assert len(avatar_in_city.materials) == 0 
-        # 已服用列表应该有
-        assert len(avatar_in_city.elixirs) == 1
-        assert avatar_in_city.elixirs[0].elixir.name == "聚气丹"
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            
+            can_start, reason = action.can_start("聚气丹")
+            assert can_start is True
+            
+            initial_money = avatar_in_city.magic_stone
+            expected_price = int(test_elixir.price * 1.5)
+            
+            # 模拟服用丹药的行为
+            action._execute("聚气丹")
+            
+            assert avatar_in_city.magic_stone == initial_money - expected_price
+            # 背包里不应该有丹药
+            assert len(avatar_in_city.materials) == 0 
+            # 已服用列表应该有
+            assert len(avatar_in_city.elixirs) == 1
+            assert avatar_in_city.elixirs[0].elixir.name == "聚气丹"
+
+def test_buy_fail_item_not_sold(avatar_in_city, mock_item_data):
+    """测试商品不在商店售卖列表中"""
+    elixirs_mock = mock_item_data["elixirs"]
+    materials_mock = mock_item_data["materials"]
+    
+    # Mock is_selling 返回 False
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=False):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+             
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            can_start, reason = action.can_start("铁矿石")
+            
+            assert can_start is False
+            assert "不出售" in reason
 
 def test_buy_fail_not_in_city(dummy_avatar, mock_item_data):
     """测试不在城市无法购买"""
@@ -83,14 +108,15 @@ def test_buy_fail_no_money(avatar_in_city, mock_item_data):
     
     avatar_in_city.magic_stone = 0 # 没钱
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-        
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        can_start, reason = action.can_start("铁矿石")
-        
-        assert can_start is False
-        assert "灵石不足" in reason
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            can_start, reason = action.can_start("铁矿石")
+            
+            assert can_start is False
+            assert "灵石不足" in reason
 
 def test_buy_fail_unknown_item(avatar_in_city, mock_item_data):
     """测试未知物品"""
@@ -119,14 +145,16 @@ def test_buy_elixir_fail_high_level_restricted(avatar_in_city, mock_item_data):
     assert avatar_in_city.cultivation_progress.realm == Realm.Qi_Refinement
     assert high_level_elixir.realm == Realm.Foundation_Establishment
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-        
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        can_start, reason = action.can_start("筑基丹")
-        
-        assert can_start is False
-        assert "当前仅开放练气期丹药购买" in reason
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            can_start, reason = action.can_start("筑基丹")
+            
+            assert can_start is False
+            # 错误信息变了，现在是通用的境界限制
+            assert "境界不足" in reason
 
 def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_item_data):
     """测试药效尚存无法重复购买"""
@@ -139,14 +167,15 @@ def test_buy_elixir_fail_duplicate_active(avatar_in_city, mock_item_data):
     
     avatar_in_city.elixirs.append(consumed)
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-        
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        can_start, reason = action.can_start("聚气丹")
-        
-        assert can_start is False
-        assert "药效尚存" in reason
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+            
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            can_start, reason = action.can_start("聚气丹")
+            
+            assert can_start is False
+            assert "药效尚存" in reason
 
 def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     """测试购买新武器时自动卖出旧武器"""
@@ -157,17 +186,6 @@ def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     elixirs_mock = mock_item_data["elixirs"]
     materials_mock = mock_item_data["materials"]
     new_weapon = mock_item_data["obj_weapon"]
-    
-    # 手动添加武器到 materials_mock (Buy logic looks up weapons in materials too? Or just assumes unique names?)
-    # Buy code checks `get_item_by_name` which checks all dicts.
-    # In test_buy_action we only mocked elixirs and materials. 
-    # Let's ensure '青云剑' is findable. Ideally it should be in weapons_by_name but maybe Buy logic is flexible?
-    # Original test put it in materials_mock["青云剑"] = new_weapon. Let's follow that pattern for now or better: mock weapons too.
-    
-    # Wait, original test: materials_mock["青云剑"] = new_weapon
-    # But `src.utils.resolution.get_item_by_name` checks materials, weapons, auxiliaries.
-    # Let's do it properly by mocking weapons_by_name as well if possible, or just stick to materials for simplicity if Buy allows.
-    # Buy uses `get_item_by_name`.
     
     materials_mock["青云剑"] = new_weapon
     
@@ -190,20 +208,21 @@ def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     
     expected_money = initial_money - buy_cost + sell_refund
     
-    with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
-         patch("src.utils.resolution.materials_by_name", materials_mock):
-         
-        action = Buy(avatar_in_city, avatar_in_city.world)
-        
-        # 验证 Event 描述
-        event = action.start("青云剑")
-        assert "青云剑" in event.content
-        assert "铁剑" in event.content
-        assert "折价售出" in event.content
-        
-        # 执行购买
-        action._execute("青云剑")
-        
-        assert avatar_in_city.weapon.name == "青云剑"
-        assert avatar_in_city.weapon != old_weapon
-        assert avatar_in_city.magic_stone == expected_money
+    with patch.object(avatar_in_city.tile.region, 'is_selling', return_value=True):
+        with patch("src.utils.resolution.elixirs_by_name", elixirs_mock), \
+             patch("src.utils.resolution.materials_by_name", materials_mock):
+             
+            action = Buy(avatar_in_city, avatar_in_city.world)
+            
+            # 验证 Event 描述
+            event = action.start("青云剑")
+            assert "青云剑" in event.content
+            assert "铁剑" in event.content
+            assert "折价售出" in event.content
+            
+            # 执行购买
+            action._execute("青云剑")
+            
+            assert avatar_in_city.weapon.name == "青云剑"
+            assert avatar_in_city.weapon != old_weapon
+            assert avatar_in_city.magic_stone == expected_money

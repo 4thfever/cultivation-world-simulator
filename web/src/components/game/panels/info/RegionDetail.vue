@@ -107,6 +107,21 @@ function jumpToAvatar(id: string) {
         />
       </div>
     </div>
+
+    <!-- Store Items -->
+    <div class="section" v-if="data.store_items?.length">
+      <div class="section-title">坊市交易</div>
+      <div class="list">
+        <EntityRow 
+          v-for="item in data.store_items"
+          :key="item.id || item.name"
+          :item="item"
+          :meta="`${item.price}灵石`"
+          compact
+          @click="showDetail(item)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

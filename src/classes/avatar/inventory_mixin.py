@@ -185,10 +185,6 @@ class InventoryMixin:
 
         # 2. 丹药特殊检查
         if isinstance(obj, Elixir):
-            # 商店业务规则：当前仅开放练气期丹药购买
-            if obj.realm != Realm.Qi_Refinement:
-                return False, "当前仅开放练气期丹药购买"
-            
             # 境界限制
             if obj.realm > self.cultivation_progress.realm:
                 return False, f"境界不足，无法承受药力 ({obj.realm.value})"

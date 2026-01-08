@@ -56,6 +56,7 @@ class Auxiliary(Item):
                 full_desc = f"{full_desc} (已吞噬魂魄：{souls})"
 
         return {
+            "id": str(self.id),
             "name": self.name,
             "desc": full_desc,
             "grade": self.realm.value,

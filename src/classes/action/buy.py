@@ -5,9 +5,8 @@ from typing import TYPE_CHECKING, Tuple, Any
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
-from src.classes.elixir import Elixir, get_elixirs_by_realm
+from src.classes.elixir import Elixir
 from src.classes.prices import prices
-from src.classes.cultivation import Realm
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 from src.classes.material import Material
@@ -28,8 +27,7 @@ class Buy(InstantAction):
 
     ACTION_NAME = "购买"
     EMOJI = "💸"
-    elixir_names_str = ", ".join([e.name for e in get_elixirs_by_realm(Realm.Qi_Refinement)])
-    DESC = f"在城镇购买物品/装备（丹药购买后将立即服用）。可选丹药：{elixir_names_str}"
+    DESC = f"在城镇购买物品/装备/丹药。"
     DOABLES_REQUIREMENTS = "在城镇且金钱足够"
     PARAMS = {"target_name": "str"}
 
@@ -41,6 +39,15 @@ class Buy(InstantAction):
         res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Material])
         if not res.is_valid:
             return False, f"未知物品: {target_name}"
+
+        # 检查商店是否售卖
+        # 必须是 StoreMixin (CityRegion 混入了 StoreMixin)
+        if hasattr(region, "is_selling"):
+            if not region.is_selling(res.obj.name):
+                return False, f"{region.name} 不出售 {res.obj.name}"
+        else:
+            # 如果不是商店区域（虽然前面已经检查了 CityRegion，但为了安全）
+            return False, "该区域没有商店"
 
         # 核心逻辑委托给 Avatar
         return self.avatar.can_buy_item(res.obj)
