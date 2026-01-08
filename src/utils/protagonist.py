@@ -45,6 +45,22 @@ protagonist_configs = [
         }
     },
     {
+        "key": "nangong_wan",
+        "name": "南宫婉",
+        "desc": "《凡人修仙传》女主角，掩月宗长老",
+        "params": {
+            "gender": "女",
+            "age": 150,
+            "level": 80,         # 元婴后期
+            "sect": 12,          # 不夜城 (掩月宗/素女功)
+            "technique": 47,     # 凌波微步 (素女轮回功)
+            "weapon": 3009,      # 芭蕉扇 (朱雀环)
+            "auxiliary": 3004,   # 龙凤呈祥戒
+            "personas": ["淡漠", "正直", "修行痴迷"],
+            "appearance": 42,
+        }
+    },
+    {
         "key": "li_fei_yu",
         "name": "厉飞雨",
         "desc": "《凡人修仙传》韩立挚友，杀人放火厉飞雨",
@@ -78,6 +94,22 @@ protagonist_configs = [
         }
     },
     {
+        "key": "xiao_xun_er",
+        "name": "萧薰儿",
+        "desc": "《斗破苍穹》女主角，古族神品血脉",
+        "params": {
+            "gender": "女",
+            "age": 25,
+            "level": 85,
+            "sect": 13,          # 天行健宗 (远古族)
+            "technique": 11,     # 纯阳无极功 (金帝焚天炎)
+            "weapon": 3005,      # 赤锋矛
+            "auxiliary": 3012,   # 传国玉玺 (族长信物)
+            "personas": ["高贵", "霸道", "友爱"],
+            "appearance": 45,
+        }
+    },
+    {
         "key": "nalan_yanran",
         "name": "纳兰嫣然",
         "desc": "《斗破苍穹》云岚宗少宗主，退婚女",
@@ -108,6 +140,38 @@ protagonist_configs = [
             "auxiliary": 2008,   # 菩提子 (悟性/诸果之因)
             "personas": ["穿越者", "好斗", "外向"],
             "appearance": 12,
+        }
+    },
+    {
+        "key": "gu_xiao_sang",
+        "name": "顾小桑",
+        "desc": "《一世之尊》女主角，罗教圣女",
+        "params": {
+            "gender": "女",
+            "age": 24,
+            "level": 75,
+            "sect": 8,           # 幽魂噬影宗 (圣女/诡秘)
+            "technique": 36,     # 虚空经 (无生老母/空间)
+            "weapon": 2005,      # 桃花扇 (无生指/美貌)
+            "auxiliary": 2011,   # 无相面具 (千变万化)
+            "personas": ["心机深沉", "随性", "狠辣"],
+            "appearance": 45,
+        }
+    },
+    {
+        "key": "jiang_zhi_wei",
+        "name": "江芷微",
+        "desc": "《一世之尊》女主角，剑二十三",
+        "params": {
+            "gender": "女",
+            "age": 25,
+            "level": 70,
+            "sect": 1,           # 明心剑宗 (洗剑阁)
+            "technique": 30,     # 草字剑诀 (截天七剑)
+            "weapon": 3007,      # 诛仙剑 (太解剑)
+            "auxiliary": 3011,   # 六道剑匣
+            "personas": ["剑痴", "正直", "果敢"],
+            "appearance": 30,
         }
     },
     # ------------------- 掌门路 -------------------
@@ -159,6 +223,56 @@ protagonist_configs = [
             "auxiliary": 2008,   # 菩提子 (清心压制)
             "personas": ["无常", "好斗", "忠诚"],
             "appearance": 20,
+        }
+    },
+    {
+        "key": "bai_ling_miao",
+        "name": "白灵淼",
+        "desc": "《道诡异仙》女主角，白莲教圣女",
+        "params": {
+            "gender": "女",
+            "age": 18,
+            "level": 55,
+            "sect": 3,           # 水镜宗 (白莲教/幻象)
+            "technique": 16,     # 冰心诀 (纯净/白毛)
+            "weapon": 2007,      # 天魔琴 (煞气/掌控)
+            "auxiliary": 2008,   # 菩提子 (压制疯狂)
+            "personas": ["友爱", "忠诚", "腼腆"],
+            "appearance": 40,
+        }
+    },
+    # ------------------- 遮天 -------------------
+    {
+        "key": "ruthless_empress",
+        "name": "狠人大帝",
+        "desc": "《遮天》古今第一狠人",
+        "params": {
+            "gender": "女",
+            "age": 1000,
+            "level": 120,        # 红尘仙
+            "sect": 4,           # 冥王宗 (吞天/死亡)
+            "technique": 39,     # 吞天魔功
+            "weapon": 3004,      # 弑神枪 (龙纹黑金鼎)
+            "auxiliary": 2011,   # 无相面具 (青铜面具)
+            "personas": ["孤傲", "淡漠", "狠辣"],
+            "appearance": 48,
+        }
+    },
+    # ------------------- 诛仙 -------------------
+    {
+        "key": "lu_xue_qi",
+        "name": "陆雪琪",
+        "desc": "《诛仙》女主角，青云门天之骄女",
+        "params": {
+            "gender": "女",
+            "age": 28,
+            "level": 65,
+            "sect": 1,           # 明心剑宗 (青云门)
+            "technique": 31,     # 神剑御雷真诀
+            "weapon": 3007,      # 诛仙剑 (天琊)
+            "auxiliary": 2010,   # 寒玉床 (静坐修行)
+            "personas": ["高冷", "坚韧", "正直"],
+            "appearance": 45,
         }
     },
     # ------------------- 玄鉴仙族 -------------------
@@ -231,23 +345,37 @@ def spawn_protagonists(
     # 2. 绑定关系
     # 注意：需要确保双方都已生成
     
-    # 【凡人组】韩立 <-> 厉飞雨 (挚友)
-    if "han_li" in created_avatars and "li_fei_yu" in created_avatars:
+    # 【凡人组】
+    if "han_li" in created_avatars:
         han = created_avatars["han_li"]
-        li = created_avatars["li_fei_yu"]
-        han.set_relation(li, Relation.FRIEND)
+        if "li_fei_yu" in created_avatars:
+            han.set_relation(created_avatars["li_fei_yu"], Relation.FRIEND)
+        if "nangong_wan" in created_avatars:
+            han.set_relation(created_avatars["nangong_wan"], Relation.LOVERS)
 
-    # 【斗破组】萧炎 <-> 纳兰嫣然 (仇敌/退婚)
-    if "xiao_yan" in created_avatars and "nalan_yanran" in created_avatars:
+    # 【斗破组】
+    if "xiao_yan" in created_avatars:
         xiao = created_avatars["xiao_yan"]
-        nalan = created_avatars["nalan_yanran"]
-        xiao.set_relation(nalan, Relation.ENEMY)
+        if "nalan_yanran" in created_avatars:
+            xiao.set_relation(created_avatars["nalan_yanran"], Relation.ENEMY)
+        if "xiao_xun_er" in created_avatars:
+            xiao.set_relation(created_avatars["xiao_xun_er"], Relation.LOVERS)
+
+    # 【一世组】
+    if "meng_qi" in created_avatars:
+        meng = created_avatars["meng_qi"]
+        if "gu_xiao_sang" in created_avatars:
+            meng.set_relation(created_avatars["gu_xiao_sang"], Relation.LOVERS)
+        if "jiang_zhi_wei" in created_avatars:
+            meng.set_relation(created_avatars["jiang_zhi_wei"], Relation.FRIEND)
+
+    # 【道诡组】
+    if "li_huo_wang" in created_avatars and "bai_ling_miao" in created_avatars:
+        created_avatars["li_huo_wang"].set_relation(created_avatars["bai_ling_miao"], Relation.LOVERS)
 
     # 【玄鉴组】李通崖 <-> 李曦明 (长辈)
     if "li_tong_ya" in created_avatars and "li_xi_ming" in created_avatars:
-        tong_ya = created_avatars["li_tong_ya"]
-        xi_ming = created_avatars["li_xi_ming"]
-        tong_ya.set_relation(xi_ming, Relation.PARENT)
+        created_avatars["li_tong_ya"].set_relation(created_avatars["li_xi_ming"], Relation.PARENT)
 
     # 返回 ID -> Avatar 字典，方便合并
     return {av.id: av for av in created_avatars.values()}
