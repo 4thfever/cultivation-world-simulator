@@ -30,7 +30,7 @@ export interface EffectEntity extends EntityBase {
   hq_desc?: string;
 }
 
-export interface Item extends EffectEntity {
+export interface Material extends EffectEntity {
   count: number;
 }
 
@@ -93,7 +93,7 @@ export interface AvatarDetail extends EntityBase {
   spirit_animal?: EffectEntity;
   
   // 列表数据
-  items: Item[];
+  materials: Material[];
   relations: RelationInfo[];
   
   // 附加信息

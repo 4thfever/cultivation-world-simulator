@@ -52,7 +52,6 @@ async function handleLoad(filename: string) {
     await gameApi.loadGame(filename)
     worldStore.reset()
     uiStore.clearSelection()
-    uiStore.clearHoverCache()
     await worldStore.initialize()
     message.success('读档成功')
     emit('close')

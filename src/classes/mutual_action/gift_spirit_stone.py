@@ -89,9 +89,9 @@ class GiftSpiritStone(MutualAction):
             return events
 
         if success:
-            result_text = f"{self.avatar.name} 赠送了 {self.GIFT_AMOUNT} 灵石给 {target.name}（{self.avatar.
-            name} 灵石：{self.avatar.magic_stone + self.GIFT_AMOUNT} → {self.avatar.magic_stone}，{target.
-            name} 灵石：{target.magic_stone - self.GIFT_AMOUNT} → {target.magic_stone}）"
+            result_text = f"""{self.avatar.name} 赠送了 {self.GIFT_AMOUNT} 灵石给 {target.name}
+（{self.avatar.name} 灵石：{self.avatar.magic_stone + self.GIFT_AMOUNT} → {self.avatar.magic_stone}，
+{target.name} 灵石：{target.magic_stone - self.GIFT_AMOUNT} → {target.magic_stone}）"""
             result_event = Event(
                 self.world.month_stamp,
                 result_text,

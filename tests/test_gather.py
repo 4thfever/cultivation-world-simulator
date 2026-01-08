@@ -17,18 +17,18 @@ def mock_region(dummy_avatar):
     return real_region
 
 @pytest.fixture
-def mock_resource_item():
-    item = MagicMock()
-    item.name = "TestItem"
-    item.realm = Realm.Qi_Refinement
-    return item
+def mock_resource_material():
+    material = MagicMock()
+    material.name = "TestMaterial"
+    material.realm = Realm.Qi_Refinement
+    return material
 
 @pytest.fixture
-def mock_resource(mock_resource_item):
+def mock_resource(mock_resource_material):
     """创建一个通用的资源对象 (Lode/Animal/Plant)"""
     res = MagicMock()
     res.realm = Realm.Qi_Refinement
-    res.items = [mock_resource_item]
+    res.materials = [mock_resource_material]
     return res
 
 def test_check_can_start_gather_success(dummy_avatar, mock_region, mock_resource):
@@ -66,22 +66,22 @@ def test_check_can_start_gather_realm_too_low(dummy_avatar, mock_region, mock_re
     assert can is False
     assert "当前区域的矿脉境界过高" in msg
 
-def test_execute_gather_success(dummy_avatar, mock_region, mock_resource, mock_resource_item):
+def test_execute_gather_success(dummy_avatar, mock_region, mock_resource, mock_resource_material):
     """测试执行采集逻辑成功"""
     mock_region.lodes = [mock_resource]
     
-    # 模拟 add_item
-    dummy_avatar.add_item = MagicMock()
+    # 模拟 add_material
+    dummy_avatar.add_material = MagicMock()
     
-    result = execute_gather(dummy_avatar, "lodes", "extra_mine_items")
+    result = execute_gather(dummy_avatar, "lodes", "extra_mine_materials")
     
-    assert "TestItem" in result
-    assert result["TestItem"] >= 1
-    dummy_avatar.add_item.assert_called_once()
+    assert "TestMaterial" in result
+    assert result["TestMaterial"] >= 1
+    dummy_avatar.add_material.assert_called_once()
     
-    # 验证获得的物品是正确的
-    args, _ = dummy_avatar.add_item.call_args
-    assert args[0] == mock_resource_item
+    # 验证获得的材料是正确的
+    args, _ = dummy_avatar.add_material.call_args
+    assert args[0] == mock_resource_material
     assert args[1] >= 1
 
 def test_execute_gather_with_extra_effect(dummy_avatar, mock_region, mock_resource):
@@ -90,28 +90,28 @@ def test_execute_gather_with_extra_effect(dummy_avatar, mock_region, mock_resour
     
     # effects 是只读属性，它通过合并各个组件的 effects 来计算。
     # 为了测试，我们 Mock 掉 effects 属性。
-    with patch.object(type(dummy_avatar), 'effects', new_callable=lambda: {"extra_mine_items": 2}):
-        dummy_avatar.add_item = MagicMock()
+    with patch.object(type(dummy_avatar), 'effects', new_callable=lambda: {"extra_mine_materials": 2}):
+        dummy_avatar.add_material = MagicMock()
         
-        result = execute_gather(dummy_avatar, "lodes", "extra_mine_items")
+        result = execute_gather(dummy_avatar, "lodes", "extra_mine_materials")
         
         # 基础1 + 加成2 = 3
-        assert result["TestItem"] == 3
+        assert result["TestMaterial"] == 3
     
 def test_execute_gather_random_selection(dummy_avatar, mock_region):
     """测试从多个资源中随机选择"""
     res1 = MagicMock()
     res1.realm = Realm.Qi_Refinement
-    res1.items = [MagicMock(name="Item1")]
-    res1.items[0].name = "Item1"
+    res1.materials = [MagicMock(name="Material1")]
+    res1.materials[0].name = "Material1"
     
     res2 = MagicMock()
     res2.realm = Realm.Qi_Refinement
-    res2.items = [MagicMock(name="Item2")]
-    res2.items[0].name = "Item2"
+    res2.materials = [MagicMock(name="Material2")]
+    res2.materials[0].name = "Material2"
     
     mock_region.lodes = [res1, res2]
-    dummy_avatar.add_item = MagicMock()
+    dummy_avatar.add_material = MagicMock()
     
-    execute_gather(dummy_avatar, "lodes", "extra_mine_items")
-    dummy_avatar.add_item.assert_called_once()
+    execute_gather(dummy_avatar, "lodes", "extra_mine_materials")
+    dummy_avatar.add_material.assert_called_once()

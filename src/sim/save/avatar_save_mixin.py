@@ -4,9 +4,9 @@ Avatar存档序列化Mixin
 将Avatar的序列化逻辑从avatar.py分离出来，保持核心类的清晰性。
 
 存档策略：
-- 引用对象（Technique, Item等）：保存id，加载时从全局字典获取
+- 引用对象（Technique, Material等）：保存id，加载时从全局字典获取
 - relations：转换为dict[str, str]（avatar_id -> relation_value）
-- items：转换为dict[int, int]（item_id -> quantity）
+- materials：转换为dict[int, int]（material_id -> quantity）
 - current_action：保存动作类名和参数
 - weapon/auxiliary：需要深拷贝（因为special_data是实例特有的）
 """
@@ -30,10 +30,10 @@ class AvatarSaveMixin:
             for other, relation in self.relations.items()
         }
         
-        # 序列化items: dict[Item, int] -> dict[int, int]
-        items_dict = {
-            item.id: quantity
-            for item, quantity in self.items.items()
+        # 序列化materials: dict[Material, int] -> dict[int, int]
+        materials_dict = {
+            material.id: quantity
+            for material, quantity in self.materials.items()
         }
         
         # 序列化current_action
@@ -75,7 +75,7 @@ class AvatarSaveMixin:
             
             # 物品与资源
             "magic_stone": self.magic_stone.value,
-            "items": items_dict,
+            "materials": materials_dict,
             "weapon_id": self.weapon.id if self.weapon else None,
             "weapon_special_data": self.weapon.special_data if self.weapon else {},
             "weapon_proficiency": self.weapon_proficiency,

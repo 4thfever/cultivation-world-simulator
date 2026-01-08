@@ -154,12 +154,12 @@ async function handleClearObjective() {
         />
       </div>
 
-      <!-- Items -->
-      <div class="section" v-if="data.items?.length">
-        <div class="section-title">物品</div>
+      <!-- Materials -->
+      <div class="section" v-if="data.materials?.length">
+        <div class="section-title">材料</div>
         <div class="list-container">
           <EntityRow 
-            v-for="item in data.items"
+            v-for="item in data.materials"
             :key="item.name"
             :item="item"
             :meta="`x${item.count}`"

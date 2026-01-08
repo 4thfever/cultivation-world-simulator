@@ -1,8 +1,8 @@
 import pytest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.map import Map
-from src.classes.tile import TileType
+from src.classes.tile import TileType, Tile
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.classes.avatar import Avatar, Gender
@@ -10,6 +10,16 @@ from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.utils.id_generator import get_avatar_id
 from src.classes.name import get_random_name
+from src.classes.root import Root
+from src.classes.alignment import Alignment
+
+# Action related imports
+from src.classes.elixir import Elixir, ElixirType
+from src.classes.material import Material
+from src.classes.weapon import Weapon
+from src.classes.weapon_type import WeaponType
+from src.classes.auxiliary import Auxiliary
+from src.classes.region import CityRegion
 
 @pytest.fixture
 def base_map():
@@ -25,9 +35,6 @@ def base_map():
 def base_world(base_map):
     """创建一个基于 base_map 的世界，时间为 Year 1, Jan"""
     return World(map=base_map, month_stamp=create_month_stamp(Year(1), Month.JANUARY))
-
-from src.classes.root import Root
-from src.classes.alignment import Alignment
 
 @pytest.fixture
 def dummy_avatar(base_world):
@@ -62,31 +69,15 @@ def dummy_avatar(base_world):
 def mock_llm_managers():
     """
     Mock 所有涉及 LLM 调用的管理器和函数，防止测试中意外调用 LLM。
-    包括：
-    - llm_ai (decision making)
-    - process_avatar_long_term_objective (long term goal)
-    - process_avatar_nickname (nickname generation)
-    - RelationResolver.run_batch (relationship evolution)
     """
-    from unittest.mock import patch, MagicMock, AsyncMock
-
     with patch("src.sim.simulator.llm_ai") as mock_ai, \
          patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
          patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
          patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr:
         
-        # 1. Mock AI Decision
-        # ai.decide is an async method
         mock_ai.decide = AsyncMock(return_value={})
-
-        # 2. Mock Long Term Objective
-        # AsyncMock returns a coroutine when called
         mock_lto.return_value = None
-
-        # 3. Mock Nickname
         mock_nick.return_value = None
-
-        # 4. Mock Relation Resolver
         mock_rr.return_value = []
 
         yield {
@@ -95,3 +86,100 @@ def mock_llm_managers():
             "nick": mock_nick,
             "rr": mock_rr
         }
+
+# --- Shared Helpers for Item Creation ---
+
+def create_test_elixir(name, realm, price=100, elixir_id=1, effects=None):
+    if effects is None:
+        effects = {"max_hp": 10}
+    return Elixir(
+        id=elixir_id,
+        name=name,
+        realm=realm,
+        type=ElixirType.Breakthrough,
+        desc="测试丹药",
+        price=price,
+        effects=effects
+    )
+
+def create_test_material(name, realm, material_id=101):
+    return Material(
+        id=material_id,
+        name=name,
+        desc="测试物品",
+        realm=realm
+    )
+
+def create_test_weapon(name, realm, weapon_id=201):
+    return Weapon(
+        id=weapon_id,
+        name=name,
+        weapon_type=WeaponType.SWORD,
+        realm=realm,
+        desc="测试兵器",
+        effects={},
+        effect_desc=""
+    )
+
+def create_test_auxiliary(name, realm, aux_id=301):
+    return Auxiliary(
+        id=aux_id,
+        name=name,
+        realm=realm,
+        desc="测试法宝",
+        effects={},
+        effect_desc=""
+    )
+
+@pytest.fixture
+def avatar_in_city(dummy_avatar):
+    """
+    修改 dummy_avatar，使其位于城市中，并给予初始资金
+    """
+    city_region = CityRegion(id=1, name="TestCity", desc="测试城市")
+    tile = Tile(0, 0, TileType.CITY)
+    tile.region = city_region
+    
+    dummy_avatar.tile = tile
+    dummy_avatar.magic_stone = 1000
+    dummy_avatar.cultivation_progress.realm = Realm.Qi_Refinement
+    dummy_avatar.elixirs = []
+    dummy_avatar.materials = {} # 确保背包为空
+    dummy_avatar.weapon = None
+    dummy_avatar.auxiliary = None
+    
+    return dummy_avatar
+
+@pytest.fixture
+def mock_item_data():
+    """
+    提供标准的一组测试物品，包括材料、丹药、兵器、法宝。
+    返回一个包含这些对象的字典，方便后续 mock 使用。
+    """
+    test_elixir = create_test_elixir("聚气丹", Realm.Qi_Refinement, price=100)
+    high_level_elixir = create_test_elixir("筑基丹", Realm.Foundation_Establishment, price=1000, elixir_id=2)
+    test_material = create_test_material("铁矿石", Realm.Qi_Refinement)
+    test_weapon = create_test_weapon("青云剑", Realm.Qi_Refinement)
+    test_auxiliary = create_test_auxiliary("聚灵珠", Realm.Qi_Refinement)
+
+    return {
+        "elixirs": {
+            "聚气丹": [test_elixir],
+            "筑基丹": [high_level_elixir]
+        },
+        "materials": {
+            "铁矿石": test_material
+        },
+        "weapons": {
+            "青云剑": test_weapon
+        },
+        "auxiliaries": {
+            "聚灵珠": test_auxiliary
+        },
+        # Direct access
+        "obj_elixir": test_elixir,
+        "obj_high_elixir": high_level_elixir,
+        "obj_material": test_material,
+        "obj_weapon": test_weapon,
+        "obj_auxiliary": test_auxiliary
+    }

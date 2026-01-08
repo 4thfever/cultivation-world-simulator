@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 from typing import TYPE_CHECKING, Tuple, Any
 
 from src.classes.action import InstantAction
@@ -11,7 +10,7 @@ from src.classes.prices import prices
 from src.classes.cultivation import Realm
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
-from src.classes.item import Item
+from src.classes.material import Material
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
@@ -24,7 +23,7 @@ class Buy(InstantAction):
     
     如果是丹药：购买后强制立即服用。
     如果是其他物品：购买后放入背包。
-    如果是装备（兵器/法宝）：购买后直接装备（替换原有装备）。
+    如果是装备（兵器/法宝）：购买后直接装备（替换原有装备，旧装备折价售出）。
     """
 
     ACTION_NAME = "购买"
@@ -39,77 +38,46 @@ class Buy(InstantAction):
         if not isinstance(region, CityRegion):
             return False, "仅能在城市区域执行"
             
-        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Material])
         if not res.is_valid:
             return False, f"未知物品: {target_name}"
 
-        obj = res.obj
-        
-        # 检查价格
-        price = prices.get_buying_price(obj, self.avatar)
-        if self.avatar.magic_stone < price:
-            return False, f"灵石不足 (需要 {price})"
-
-        # 丹药特殊限制
-        if isinstance(obj, Elixir):
-            elixir: Elixir = obj
-            
-            # 必须是练气期丹药
-            if elixir.realm != Realm.Qi_Refinement:
-                return False, "当前仅开放练气期丹药购买"
-
-            # 境界限制
-            if elixir.realm > self.avatar.cultivation_progress.realm:
-                return False, f"境界不足，无法承受药力 ({elixir.realm.value})"
-                
-            # 耐药性/生效中检查
-            for consumed in self.avatar.elixirs:
-                if consumed.elixir.id == elixir.id:
-                    if not consumed.is_completely_expired(int(self.world.month_stamp)):
-                        return False, "药效尚存，无法重复服用"
-                        
-        return True, ""
+        # 核心逻辑委托给 Avatar
+        return self.avatar.can_buy_item(res.obj)
 
     def _execute(self, target_name: str) -> None:
-        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Material])
         if not res.is_valid:
             return
             
-        obj = res.obj
-        price = prices.get_buying_price(obj, self.avatar)
-        self.avatar.magic_stone -= price
-        
-        # 交付
-        if isinstance(obj, Elixir):
-            self.avatar.consume_elixir(obj)
-        elif isinstance(obj, Item):
-            self.avatar.add_item(obj)
-        elif isinstance(obj, Weapon):
-            # 购买装备需要深拷贝，因为装备有独立状态
-            new_weapon = copy.deepcopy(obj)
-            self.avatar.change_weapon(new_weapon)
-        elif isinstance(obj, Auxiliary):
-            # 购买装备需要深拷贝
-            new_auxiliary = copy.deepcopy(obj)
-            self.avatar.change_auxiliary(new_auxiliary)
+        # 真正执行购买 (含扣款、服用/装备/卖旧)
+        self.avatar.buy_item(res.obj)
 
     def start(self, target_name: str) -> Event:
-        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Item])
+        res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Material])
         obj = res.obj
         display_name = res.name
+        
+        # 预先获取一些信息用于生成文本 (不修改状态)
+        price = prices.get_buying_price(obj, self.avatar)
+        
+        # 构造描述
+        action_desc = "购买了"
+        suffix = ""
         
         if isinstance(obj, Elixir):
             action_desc = "购买并服用了"
         elif isinstance(obj, (Weapon, Auxiliary)):
             action_desc = "购买并装备了"
-        else:
-            action_desc = "购买了"
-            
-        price = prices.get_buying_price(obj, self.avatar) if obj else 0
-        
+            # 预测是否会有卖旧行为，生成对应描述
+            if isinstance(obj, Weapon) and self.avatar.weapon:
+                suffix = f" (并将原有的{self.avatar.weapon.name}折价售出)"
+            elif isinstance(obj, Auxiliary) and self.avatar.auxiliary:
+                suffix = f" (并将原有的{self.avatar.auxiliary.name}折价售出)"
+
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 在城镇花费 {price} 灵石{action_desc} {display_name}", 
+            f"{self.avatar.name} 在城镇花费 {price} 灵石{action_desc} {display_name}{suffix}", 
             related_avatars=[self.avatar.id]
         )
 

@@ -61,7 +61,7 @@ def test_circulation_manager_basic():
     
     # Test adding Weapon
     w = create_mock_weapon(1, "Sword")
-    # CirculationManager uses deepcopy, so we need to ensure the mock supports it or use real objects if possible.
+    # CirculationManager uses instantiate, so we need to ensure the mock supports it
     # MagicMock is hard to deepcopy properly in some contexts, let's use a simple object structure or patch copy.deepcopy
     # But for robustness, let's try to make a real-ish object or a class that looks like Weapon
     
@@ -71,6 +71,9 @@ def test_circulation_manager_basic():
             self.id = id
             self.name = name
             self.special_data = special_data or {}
+        def instantiate(self):
+            import copy
+            return copy.deepcopy(self)
     
     w1 = DummyItem(1, "Sword", {"kills": 10})
     cm.add_weapon(w1)
@@ -100,6 +103,9 @@ def test_circulation_serialization():
             self.id = id
             self.name = name
             self.special_data = {}
+        def instantiate(self):
+            import copy
+            return copy.deepcopy(self)
 
     w1 = DummyItem(101, "RareSword")
     w1.special_data = {"stat": 1}
@@ -175,11 +181,12 @@ def test_avatar_sell_integration(empty_world):
         # 1. Test Sell Weapon
         # Create a dummy weapon that acts like the real one
         weapon = MagicMock(spec=Weapon)
+        weapon.instantiate.return_value = weapon # Mock instantiate
         weapon.id = 999
         weapon.name = "TestBlade"
         weapon.realm = Realm.Qi_Refinement
         
-        # The mixin usually requires self.items to have the item for sell_item, 
+        # The mixin usually requires self.materials to have the material for sell_material, 
         # but sell_weapon/sell_auxiliary are for equipped items or passed items.
         # Looking at inventory_mixin.py: sell_weapon(self, weapon) just calculates price and adds stones.
         # It calls _get_sell_multiplier()
@@ -198,6 +205,7 @@ def test_avatar_sell_integration(empty_world):
         
         # 2. Test Sell Auxiliary
         aux = MagicMock(spec=Auxiliary)
+        aux.instantiate.return_value = aux # Mock instantiate
         aux.id = 888
         aux.name = "TestAmulet"
         
@@ -219,6 +227,9 @@ def test_save_load_circulation(temp_save_dir, empty_world):
             self.name = name
             self.special_data = {}
             self.realm = Realm.Qi_Refinement # needed if deepcopy looks at it or for other checks
+        def instantiate(self):
+            import copy
+            return copy.deepcopy(self)
             
     w1 = SimpleItem(10, "LostSword")
     w1.special_data = {"kills": 99}

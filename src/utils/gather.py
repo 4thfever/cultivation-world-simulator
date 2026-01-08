@@ -37,7 +37,7 @@ def execute_gather(
 ) -> dict[str, int]:
     """
     执行采集逻辑。
-    返回: {item_name: count}
+    返回: {material_name: count}
     """
     from src.classes.region import NormalRegion
     region = avatar.tile.region
@@ -61,16 +61,16 @@ def execute_gather(
     target = random.choice(available)
     
     # 2. 随机选择产出物
-    if not hasattr(target, "items") or not target.items:
+    if not hasattr(target, "materials") or not target.materials:
         return {}
         
-    item = random.choice(target.items)
+    material = random.choice(target.materials)
     
     base_quantity = 1
-    extra_items = int(avatar.effects.get(extra_effect_key, 0) or 0)
-    total_quantity = base_quantity + extra_items
+    extra_materials = int(avatar.effects.get(extra_effect_key, 0) or 0)
+    total_quantity = base_quantity + extra_materials
     
-    avatar.add_item(item, total_quantity)
+    avatar.add_material(material, total_quantity)
     
-    return {item.name: total_quantity}
+    return {material.name: total_quantity}
 

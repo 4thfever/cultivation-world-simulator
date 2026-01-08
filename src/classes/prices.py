@@ -6,7 +6,7 @@
 价格只和对应的 realm 绑定，全局统一。
 
 价格设计参考（以练气期年收入约 20-30 灵石为基准）：
-- 材料(Item): 采集物等消耗品
+- 材料(Material): 采集物等消耗品
 - 兵器(Weapon): 稀有装备，价值较高
 - 辅助装备(Auxiliary): 法宝等，价值次于兵器
 """
@@ -17,13 +17,13 @@ from typing import Union, TYPE_CHECKING
 from src.classes.cultivation import Realm
 
 if TYPE_CHECKING:
-    from src.classes.item import Item
+    from src.classes.material import Material
     from src.classes.weapon import Weapon
     from src.classes.auxiliary import Auxiliary
     from src.classes.avatar import Avatar
 
 # 类型别名
-Sellable = Union["Item", "Weapon", "Auxiliary"]
+Sellable = Union["Material", "Weapon", "Auxiliary"]
 
 
 class Prices:
@@ -36,16 +36,16 @@ class Prices:
     GLOBAL_BUY_MULTIPLIER = 1.5
     
     # 材料价格表（采集物等）
-    ITEM_PRICES = {
+    MATERIAL_PRICES = {
         Realm.Qi_Refinement: 10,
         Realm.Foundation_Establishment: 30,
-        Realm.Core_Formation: 60,
-        Realm.Nascent_Soul: 100,
+        Realm.Core_Formation: 50,
+        Realm.Nascent_Soul: 70,
     }
     
     # 兵器价格表（稀有，价值高）
     WEAPON_PRICES = {
-        Realm.Qi_Refinement: 10,
+        Realm.Qi_Refinement: 150,
         Realm.Foundation_Establishment: 300,
         Realm.Core_Formation: 1000,
         Realm.Nascent_Soul: 2000,
@@ -53,15 +53,15 @@ class Prices:
     
     # 辅助装备价格表
     AUXILIARY_PRICES = {
-        Realm.Qi_Refinement: 10,
+        Realm.Qi_Refinement: 150,
         Realm.Foundation_Establishment: 250,
         Realm.Core_Formation: 800,
         Realm.Nascent_Soul: 1600,
     }
     
-    def get_item_price(self, item: "Item") -> int:
+    def get_material_price(self, material: "Material") -> int:
         """获取材料基础价格"""
-        return self.ITEM_PRICES.get(item.realm, 10)
+        return self.MATERIAL_PRICES.get(material.realm, 10)
     
     def get_weapon_price(self, weapon: "Weapon") -> int:
         """获取兵器基础价格"""
@@ -77,13 +77,13 @@ class Prices:
         根据对象类型自动分发到对应的价格查询方法。
         注意：这是物品的【基准价值】，通常等于玩家【卖出给系统】的基础价格。
         """
-        from src.classes.item import Item
+        from src.classes.material import Material
         from src.classes.weapon import Weapon
         from src.classes.auxiliary import Auxiliary
         from src.classes.elixir import Elixir
         
-        if isinstance(obj, Item):
-            return self.get_item_price(obj)
+        if isinstance(obj, Material):
+            return self.get_material_price(obj)
         elif isinstance(obj, Weapon):
             return self.get_weapon_price(obj)
         elif isinstance(obj, Auxiliary):

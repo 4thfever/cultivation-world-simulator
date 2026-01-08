@@ -6,10 +6,11 @@ from typing import Optional, Dict
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
 from src.classes.cultivation import Realm
+from src.classes.item import Item
 
 
 @dataclass
-class Auxiliary:
+class Auxiliary(Item):
     """
     辅助装备类：提供各种辅助功能的装备
     字段与 static/game_configs/auxiliary.csv 对应：
@@ -107,8 +108,7 @@ auxiliaries_by_id, auxiliaries_by_name = _load_auxiliaries()
 def get_random_auxiliary_by_realm(realm: Realm) -> Optional[Auxiliary]:
     """获取指定境界的随机辅助装备"""
     import random
-    import copy
     candidates = [a for a in auxiliaries_by_id.values() if a.realm == realm]
     if not candidates:
         return None
-    return copy.deepcopy(random.choice(candidates))
+    return random.choice(candidates).instantiate()

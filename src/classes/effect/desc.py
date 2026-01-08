@@ -10,8 +10,9 @@ EFFECT_DESC_MAP = {
     "extra_breakthrough_success_rate": "突破成功率",
     "extra_fortune_probability": "奇遇概率",
     "extra_misfortune_probability": "霉运概率",
-    "extra_harvest_items": "采集获取物品",
-    "extra_hunt_items": "狩猎获取物品",
+    "extra_harvest_materials": "采集获取材料",
+    "extra_hunt_materials": "狩猎获取材料",
+    "extra_mine_materials": "挖矿获取材料",
     "extra_item_sell_price_multiplier": "物品出售价格",
     "shop_buy_price_reduction": "购买折扣",
     "extra_weapon_upgrade_chance": "兵器升级概率",
@@ -28,6 +29,7 @@ EFFECT_DESC_MAP = {
     "realm_suppression_bonus": "境界压制",
     "cultivate_duration_reduction": "修炼时长缩减",
     "extra_cast_success_rate": "铸造成功率",
+    "extra_refine_success_rate": "炼丹成功率",
 }
 
 ACTION_DESC_MAP = {
@@ -162,7 +164,7 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
     
     desc_list = []
     for k, v in effects.items():
-        if k == "when":
+        if k in ["when", "duration_month"]:
             continue
             
         # 跳过 eval 表达式或者无法解析的 key，或者直接显示 key

@@ -66,6 +66,7 @@ class Occupy(MutualAction):
         region, host, _ = self._get_region_and_host(region_name)
 
         self._start_month_stamp = self.world.month_stamp
+        self.target_region_name = region_name
 
         region_display_name = region.name if region else self.avatar.tile.location_name
         event_text = f"{self.avatar.name} 对 {host.name} 的 {region_display_name} 发起抢夺"
@@ -93,14 +94,16 @@ class Occupy(MutualAction):
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         """处理反馈结果"""
-        region = self.avatar.tile.region
+        region_name = getattr(self, "target_region_name", self.avatar.tile.location_name)
+        region, _, _ = self._get_region_and_host(region_name)
         
         if feedback_name == "Yield":
             # 对方让步：直接转移所有权
-            region.host_avatar = self.avatar
+            if region:
+                region.host_avatar = self.avatar
             
             # 共用一个事件
-            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {self.avatar.tile.location_name}。"
+            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {region_name}。"
             event = Event(
                 self.world.month_stamp, 
                 event_text, 
@@ -120,10 +123,10 @@ class Occupy(MutualAction):
             
             # 进攻方胜利则洞府易主
             attacker_won = winner == self.avatar
-            if attacker_won:
+            if attacker_won and region:
                 region.host_avatar = self.avatar
             
-            self._last_result = (winner, loser, loser_dmg, winner_dmg, self.avatar.tile.location_name, attacker_won)
+            self._last_result = (winner, loser, loser_dmg, winner_dmg, region_name, attacker_won)
 
     async def finish(self, region_name: str) -> list[Event]:
         """完成动作，生成战斗故事并处理死亡"""

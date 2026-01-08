@@ -7,7 +7,7 @@ from src.classes.event import Event
 from src.classes.region import CityRegion
 from src.classes.normalize import normalize_goods_name
 from src.utils.resolution import resolve_query
-from src.classes.item import Item
+from src.classes.material import Material
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 
@@ -17,7 +17,7 @@ class Sell(InstantAction):
     在城镇出售指定名称的物品/装备。
     如果是材料：一次性卖出持有的全部数量。
     如果是装备：卖出当前装备的（如果是当前装备）。
-    收益通过 avatar.sell_item() / sell_weapon() / sell_auxiliary() 结算。
+    收益通过 avatar.sell_material() / sell_weapon() / sell_auxiliary() 结算。
     """
 
     ACTION_NAME = "出售"
@@ -32,19 +32,19 @@ class Sell(InstantAction):
             return False, "仅能在城市区域执行"
         
         # 使用通用解析逻辑获取物品原型和类型
-        res = resolve_query(target_name, expected_types=[Item, Weapon, Auxiliary])
+        res = resolve_query(target_name, expected_types=[Material, Weapon, Auxiliary])
         if not res.is_valid:
             return False, f"未持有物品/装备: {target_name}"
         
         obj = res.obj
         normalized_name = normalize_goods_name(target_name)
         
-        # 1. 如果是物品，检查背包
-        if isinstance(obj, Item):
-            if self.avatar.get_item_quantity(obj) > 0:
+        # 1. 如果是材料，检查背包
+        if isinstance(obj, Material):
+            if self.avatar.get_material_quantity(obj) > 0:
                 pass # 检查通过
             else:
-                 return False, f"未持有物品: {target_name}"
+                 return False, f"未持有材料: {target_name}"
 
         # 2. 如果是兵器，检查当前装备
         elif isinstance(obj, Weapon):
@@ -70,16 +70,16 @@ class Sell(InstantAction):
         if not isinstance(region, CityRegion):
             return
 
-        res = resolve_query(target_name, expected_types=[Item, Weapon, Auxiliary])
+        res = resolve_query(target_name, expected_types=[Material, Weapon, Auxiliary])
         if not res.is_valid:
             return
             
         obj = res.obj
         normalized_name = normalize_goods_name(target_name)
         
-        if isinstance(obj, Item):
-            quantity = self.avatar.get_item_quantity(obj)
-            self.avatar.sell_item(obj, quantity)
+        if isinstance(obj, Material):
+            quantity = self.avatar.get_material_quantity(obj)
+            self.avatar.sell_material(obj, quantity)
         elif isinstance(obj, Weapon):
             # 需要再确认一次是否是当前装备
              if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:

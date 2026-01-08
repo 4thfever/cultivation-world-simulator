@@ -7,26 +7,53 @@ from src.classes.sect_region import SectRegion
 
 class SelfHeal(TimedAction):
     """
-    在宗门总部静养疗伤（仅宗门弟子可用，且必须位于自身宗门总部）。
-    单月动作，执行后HP直接回满。
+    静养疗伤。
+    单月动作。非宗门总部恢复一定比例HP，在宗门总部则回满HP。
     """
 
     ACTION_NAME = "疗伤"
     EMOJI = "💚"
-    DESC = "在宗门总部静养疗伤，回满HP"
-    DOABLES_REQUIREMENTS = "自己是宗门弟子，且位于本宗门总部区域，且当前HP未满"
+    DESC = "运功疗伤，宗门总部可完全恢复"
+    DOABLES_REQUIREMENTS = "当前HP未满"
     PARAMS = {}
 
     # 单月动作
     duration_months = 1
 
     def _execute(self) -> None:
-        # 单月直接回满HP
         hp_obj = self.avatar.hp
-        delta = int(max(0, hp_obj.max - hp_obj.cur))
-        if delta > 0:
-            hp_obj.recover(delta)
-        self._healed_total = delta
+        
+        # 基础回复比例 (10%)
+        base_ratio = 0.1
+        
+        # 特质/效果加成
+        # extra_self_heal_efficiency 为小数，例如 0.5 代表 +50% 效率
+        effect_bonus = float(self.avatar.effects.get("extra_self_heal_efficiency", 0.0))
+        
+        # 地点加成
+        # 宗门总部：直接回满 (覆盖基础值，视为极大加成)
+        is_hq = self._is_in_own_sect_headquarter()
+        
+        if is_hq:
+            # 宗门总部：直接回满
+            heal_amount = max(0, hp_obj.max - hp_obj.cur)
+        else:
+            # 普通区域：基础 + 加成
+            # 计算总比例：基础 * (1 + 效率加成)
+            total_ratio = base_ratio * (1.0 + effect_bonus)
+            heal_amount = int(hp_obj.max * total_ratio)
+            
+        # 确保不溢出且至少为1（如果HP不满）
+        heal_amount = min(heal_amount, hp_obj.max - hp_obj.cur)
+        if hp_obj.cur < hp_obj.max:
+            heal_amount = max(1, heal_amount)
+        else:
+            heal_amount = 0
+        
+        if heal_amount > 0:
+            hp_obj.recover(heal_amount)
+            
+        self._healed_total = heal_amount
 
     def _is_in_own_sect_headquarter(self) -> bool:
         sect = getattr(self.avatar, "sect", None)
@@ -40,11 +67,8 @@ class SelfHeal(TimedAction):
         return bool(hq_name) and region and region.name == hq_name
 
     def can_start(self) -> tuple[bool, str]:
-        # 必须是宗门弟子且在自身宗门总部，且当前HP未满
-        if getattr(self.avatar, "sect", None) is None:
-            return False, "仅宗门弟子可用"
-        if not self._is_in_own_sect_headquarter():
-            return False, "需要位于自身宗门总部"
+        # 任何人任何地方都可疗伤，只要HP未满
+        
         hp_obj = getattr(self.avatar, "hp", None)
         if hp_obj is None:
             return False, "缺少HP信息"
@@ -54,7 +78,7 @@ class SelfHeal(TimedAction):
 
     def start(self) -> Event:
         region = getattr(getattr(self.avatar, "tile", None), "region", None)
-        region_name = getattr(region, "name", "宗门总部")
+        region_name = getattr(region, "name", "荒郊野外")
         # 重置累计量
         self._healed_total = 0
         return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region_name} 开始静养疗伤", related_avatars=[self.avatar.id])
@@ -64,6 +88,4 @@ class SelfHeal(TimedAction):
     async def finish(self) -> list[Event]:
         healed_total = int(getattr(self, "_healed_total", 0))
         # 统一用一次事件简要反馈
-        return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成，HP已回满（本次恢复{healed_total}点，当前HP {self.avatar.hp}）", related_avatars=[self.avatar.id])]
-
-
+        return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成（本次恢复{healed_total}点，当前HP {self.avatar.hp}）", related_avatars=[self.avatar.id])]

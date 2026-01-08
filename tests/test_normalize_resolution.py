@@ -10,7 +10,7 @@ from src.utils.resolution import (
     resolve_query,
     ResolutionResult
 )
-from src.classes.item import Item
+from src.classes.material import Material
 from src.classes.cultivation import Realm
 
 # ==================== Normalize Tests ====================
@@ -75,14 +75,14 @@ def test_resolve_query_empty():
 def test_resolve_query_direct_object():
     """测试直接传递对象"""
     # 1. 匹配类型
-    item = Item(id=999, name="测试物品", desc="测试描述", realm=Realm.Qi_Refinement)
-    res = resolve_query(item, expected_types=[Item])
+    material = Material(id=999, name="测试材料", desc="测试描述", realm=Realm.Qi_Refinement)
+    res = resolve_query(material, expected_types=[Material])
     assert res.is_valid
-    assert res.obj is item
-    assert res.resolved_type == Item
+    assert res.obj is material
+    assert res.resolved_type == Material
 
     # 2. 不匹配类型但作为对象传入
-    res = resolve_query(item, expected_types=[Realm])
+    res = resolve_query(material, expected_types=[Realm])
     assert not res.is_valid
 
 def test_resolve_query_realm():
@@ -101,7 +101,7 @@ def test_resolve_query_realm():
 
 def test_resolve_query_unsupported_type():
     """测试不支持的类型输入"""
-    res = resolve_query(123, expected_types=[Item])
+    res = resolve_query(123, expected_types=[Material])
     assert not res.is_valid
     assert "非字符串" in res.error_msg
 
@@ -121,7 +121,7 @@ def test_resolve_region_mock(mock_world):
     # 或者我们只测试逻辑分支
     pass 
 
-# 由于 resolution.py 内部强依赖了实际的类 (Item, Region 等)，
+# 由于 resolution.py 内部强依赖了实际的类 (Material, Region 等)，
 # 且使用了 isinstance(t, type) 和 t.__name__ 判断，
 # 纯单元测试建议主要覆盖逻辑分支。集成测试覆盖实际类。
 

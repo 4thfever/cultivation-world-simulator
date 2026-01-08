@@ -37,12 +37,11 @@ class NurtureWeapon(TimedAction):
             if random.random() < total_chance:
                 treasure_weapon = get_random_weapon_by_realm(Realm.Foundation_Establishment, self.avatar.weapon.weapon_type)
                 if treasure_weapon:
-                    import copy
                     old_weapon_name = self.avatar.weapon.name
                     old_proficiency = self.avatar.weapon_proficiency
                     # 深拷贝宝物兵器并更换（会重新计算长期效果）
                     # get_random_weapon_by_realm 已经返回了副本，但再次copy也无妨
-                    new_weapon = copy.deepcopy(treasure_weapon)
+                    new_weapon = treasure_weapon.instantiate()
                     self.avatar.change_weapon(new_weapon)
                     # 恢复熟练度（change_weapon 会归零，需要手动恢复）
                     self.avatar.weapon_proficiency = old_proficiency

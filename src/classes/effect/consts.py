@@ -105,28 +105,36 @@ EXTRA_DUAL_CULTIVATION_EXP = "extra_dual_cultivation_exp"
 """
 
 # --- 采集相关 ---
-EXTRA_HARVEST_ITEMS = "extra_harvest_items"
+EXTRA_HARVEST_MATERIALS = "extra_harvest_materials"
 """
-额外采集物品数量
+额外采集材料数量
 类型: int
 结算: src/classes/action/harvest.py
-说明: 采集植物时额外获得的物品数量。
+说明: 采集植物时额外获得的材料数量。
 数值参考: 
   - 微量: 1
   - 中量: 2
   - 大量: 3
 """
 
-EXTRA_HUNT_ITEMS = "extra_hunt_items"
+EXTRA_HUNT_MATERIALS = "extra_hunt_materials"
 """
-额外狩猎物品数量
+额外狩猎材料数量
 类型: int
 结算: src/classes/action/hunt.py
-说明: 狩猎动物时额外获得的物品数量。
+说明: 狩猎动物时额外获得的材料数量。
 数值参考: 
   - 微量: 1
   - 中量: 2
   - 大量: 3
+"""
+
+EXTRA_MINE_MATERIALS = "extra_mine_materials"
+"""
+额外挖矿材料数量
+类型: int
+结算: src/classes/action/mine.py
+说明: 挖矿时额外获得的材料数量。
 """
 
 # --- 移动相关 ---
@@ -219,6 +227,18 @@ EXTRA_CAST_SUCCESS_RATE = "extra_cast_success_rate"
   - 大量: 0.2+ (+20%)
 """
 
+EXTRA_REFINE_SUCCESS_RATE = "extra_refine_success_rate"
+"""
+额外炼丹成功率
+类型: float
+结算: src/classes/action/refine.py
+说明: 炼丹（Refine）动作的成功率加成。
+数值参考: 
+  - 微量: 0.05 (+5%)
+  - 中量: 0.1 (+10%)
+  - 大量: 0.2+ (+20%)
+"""
+
 # --- 兵器相关 ---
 EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
 """
@@ -260,7 +280,7 @@ EXTRA_MAX_LIFESPAN = "extra_max_lifespan"
 
 EXTRA_HP_RECOVERY_RATE = "extra_hp_recovery_rate"
 """
-额外HP恢复速率
+额外HP恢复速率。同时影响动作SelfHeal和Simulator中的自然回复。
 类型: float
 结算: src/classes/action/self_heal.py
 说明: 疗伤时的HP恢复效率倍率。
@@ -409,8 +429,9 @@ ALL_EFFECTS = [
     "extra_dual_cultivation_exp",        # int - 额外双修经验
     
     # 采集相关
-    "extra_harvest_items",               # int - 额外采集物品数量
-    "extra_hunt_items",                  # int - 额外狩猎物品数量
+    "extra_harvest_materials",           # int - 额外采集材料数量
+    "extra_hunt_materials",              # int - 额外狩猎材料数量
+    "extra_mine_materials",               # int - 额外挖矿材料数量
     
     # 移动相关
     "extra_move_step",                   # int - 额外移动步数
@@ -430,6 +451,7 @@ ALL_EFFECTS = [
     
     # 铸造相关
     "extra_cast_success_rate",           # float - 额外铸造成功率
+    "extra_refine_success_rate",         # float - 额外炼丹成功率
 
     # 兵器相关
     "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率

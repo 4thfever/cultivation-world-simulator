@@ -41,7 +41,7 @@ class AvatarLoadMixin:
         from src.classes.age import Age
         from src.classes.hp import HP
         from src.classes.technique import techniques_by_id
-        from src.classes.item import items_by_id
+        from src.classes.material import materials_by_id
         from src.classes.weapon import weapons_by_id
         from src.classes.auxiliary import auxiliaries_by_id
         from src.classes.sect import sects_by_id
@@ -92,13 +92,13 @@ class AvatarLoadMixin:
         # 设置物品与资源
         avatar.magic_stone = MagicStone(data.get("magic_stone", 0))
         
-        # 重建items
-        items_dict = data.get("items", {})
-        avatar.items = {}
-        for item_id_str, quantity in items_dict.items():
-            item_id = int(item_id_str)
-            if item_id in items_by_id:
-                avatar.items[items_by_id[item_id]] = quantity
+        # 重建materials (兼容旧档 items)
+        materials_dict = data.get("materials") or data.get("items") or {}
+        avatar.materials = {}
+        for mat_id_str, quantity in materials_dict.items():
+            mat_id = int(mat_id_str)
+            if mat_id in materials_by_id:
+                avatar.materials[materials_by_id[mat_id]] = quantity
         
         # 重建weapon
         # 使用copy而非deepcopy，避免潜在的递归引用导致的崩溃，且性能更好

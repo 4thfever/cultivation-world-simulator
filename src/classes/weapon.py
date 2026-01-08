@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 import random
 from dataclasses import dataclass, field
 from typing import Optional, Dict
@@ -9,10 +8,11 @@ from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
 from src.classes.cultivation import Realm
 from src.classes.weapon_type import WeaponType
+from src.classes.item import Item
 
 
 @dataclass
-class Weapon:
+class Weapon(Item):
     """
     兵器类：用于战斗的装备
     字段与 static/game_configs/weapon.csv 对应：
@@ -118,4 +118,4 @@ def get_random_weapon_by_realm(realm: Realm, weapon_type: Optional[WeaponType] =
         
     if not candidates:
         return None
-    return copy.deepcopy(random.choice(candidates))
+    return random.choice(candidates).instantiate()
