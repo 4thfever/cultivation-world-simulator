@@ -1307,6 +1307,11 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
+        # 关闭旧 World 的 EventManager，释放 SQLite 连接。
+        old_world = game_instance.get("world")
+        if old_world and hasattr(old_world, "event_manager"):
+            old_world.event_manager.close()
+
         # 加载
         new_world, new_sim, new_sects = load_game(target_path)
 
