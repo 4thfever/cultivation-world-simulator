@@ -66,6 +66,34 @@ export interface LLMConfigDTO {
   mode: string;
 }
 
+// --- Events Pagination ---
+
+export interface EventDTO {
+  id: string;
+  text: string;
+  content: string;
+  year: number;
+  month: number;
+  month_stamp: number;
+  related_avatar_ids: string[];
+  is_major: boolean;
+  is_story: boolean;
+}
+
+export interface EventsResponseDTO {
+  events: EventDTO[];
+  next_cursor: string | null;
+  has_more: boolean;
+}
+
+export interface FetchEventsParams {
+  avatar_id?: string;
+  avatar_id_1?: string;
+  avatar_id_2?: string;
+  cursor?: string;
+  limit?: number;
+}
+
 export const gameApi = {
   // --- World State ---
   
@@ -165,5 +193,25 @@ export const gameApi = {
 
   saveLLMConfig(config: LLMConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/config/llm/save', config);
+  },
+
+  // --- Events Pagination ---
+
+  fetchEvents(params: FetchEventsParams = {}) {
+    const query = new URLSearchParams();
+    if (params.avatar_id) query.set('avatar_id', params.avatar_id);
+    if (params.avatar_id_1) query.set('avatar_id_1', params.avatar_id_1);
+    if (params.avatar_id_2) query.set('avatar_id_2', params.avatar_id_2);
+    if (params.cursor) query.set('cursor', params.cursor);
+    if (params.limit) query.set('limit', String(params.limit));
+    const qs = query.toString();
+    return httpClient.get<EventsResponseDTO>(`/api/events${qs ? '?' + qs : ''}`);
+  },
+
+  cleanupEvents(keepMajor = true, beforeMonthStamp?: number) {
+    const query = new URLSearchParams();
+    query.set('keep_major', String(keepMajor));
+    if (beforeMonthStamp !== undefined) query.set('before_month_stamp', String(beforeMonthStamp));
+    return httpClient.delete<{ deleted: number }>(`/api/events/cleanup?${query}`);
   }
 };

@@ -7,20 +7,22 @@
 - list_saves: 列出所有存档文件
 
 存档内容：
-- meta: 版本号、保存时间、游戏时间
+- meta: 版本号、保存时间、游戏时间、事件数据库信息
 - world: 游戏时间戳、本局启用的宗门列表
 - avatars: 所有角色的完整状态（通过AvatarSaveMixin.to_save_dict序列化）
-- events: 最近N条事件历史（N在config.yml中配置）
+- events: 最近N条事件历史（仅用于向后兼容迁移，新事件存储在SQLite中）
 - simulator: 模拟器配置（如出生率）
 
-存档格式：JSON（明文，易于调试）
-存档位置：assets/saves/ (配置在config.yml中)
+存档格式：
+- JSON（明文，易于调试）+ SQLite事件数据库
+- 存档位置：assets/saves/ (配置在config.yml中)
+- 事件数据库：{save_name}_events.db（与JSON文件同目录）
 
 注意事项：
-- 当前版本只支持单一存档槽位（save.json）
 - 不支持跨版本兼容（版本号仅记录，不做检查）
 - 地图本身不保存（因为地图是固定的，只保存宗门总部位置）
 - relations在Avatar中已转换为id映射，避免循环引用
+- 事件实时写入SQLite，JSON中的events字段仅用于旧存档迁移
 """
 import json
 from pathlib import Path
@@ -33,6 +35,7 @@ if TYPE_CHECKING:
     from src.classes.sect import Sect
 
 from src.utils.config import CONFIG
+from src.sim.load.load_game import get_events_db_path
 
 
 def save_game(
@@ -72,11 +75,33 @@ def save_game(
             save_path = Path(save_path)
             save_path.parent.mkdir(parents=True, exist_ok=True)
         
+        # 计算事件数据库路径。
+        events_db_path = get_events_db_path(save_path)
+
+        # 确保当前的 SQLite 数据库被复制到新存档的位置。
+        # 如果当前使用的是其他数据库文件，需要将其复制过来。
+        if hasattr(world.event_manager, "_storage") and world.event_manager._storage:
+             current_db_path = world.event_manager._storage._db_path
+             if current_db_path != events_db_path:
+                 import shutil
+                 # 确保源文件存在
+                 if current_db_path.exists():
+                    # 确保目标目录存在
+                    events_db_path.parent.mkdir(parents=True, exist_ok=True)
+                    # 复制数据库文件
+                    shutil.copy2(current_db_path, events_db_path)
+                    print(f"已复制事件数据库: {current_db_path} -> {events_db_path}")
+                 else:
+                     print(f"警告: 当前事件数据库不存在: {current_db_path}")
+
         # 构建元信息
         meta = {
             "version": CONFIG.meta.version,
             "save_time": datetime.now().isoformat(),
-            "game_time": f"{world.month_stamp.get_year()}年{world.month_stamp.get_month().value}月"
+            "game_time": f"{world.month_stamp.get_year()}年{world.month_stamp.get_month().value}月",
+            # SQLite 事件数据库信息。
+            "events_db": str(events_db_path.name),
+            "event_count": world.event_manager.count(),
         }
         
         # 构建世界数据

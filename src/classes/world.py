@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 
 from src.classes.map import Map
@@ -64,3 +65,28 @@ class World():
             "装备与丹药": "通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服用好的丹药，能获得很大好处。",
         }
         return desc
+
+    @classmethod
+    def create_with_db(
+        cls,
+        map: "Map",
+        month_stamp: MonthStamp,
+        events_db_path: Path,
+    ) -> "World":
+        """
+        工厂方法：创建使用 SQLite 持久化事件的 World 实例。
+
+        Args:
+            map: 地图对象。
+            month_stamp: 时间戳。
+            events_db_path: 事件数据库文件路径。
+
+        Returns:
+            配置好的 World 实例。
+        """
+        event_manager = EventManager.create_with_db(events_db_path)
+        return cls(
+            map=map,
+            month_stamp=month_stamp,
+            event_manager=event_manager,
+        )

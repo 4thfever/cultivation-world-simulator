@@ -184,7 +184,7 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
         related_ids = [str(a) for a in related_raw if a is not None]
 
         serialized.append({
-            "id": getattr(event, "event_id", None) or f"{stamp_int or 'evt'}-{idx}",
+            "id": getattr(event, "id", None) or f"{stamp_int or 'evt'}-{idx}",
             "text": str(event),
             "content": getattr(event, "content", ""),
             "year": year,
@@ -274,10 +274,31 @@ def check_llm_connectivity() -> tuple[bool, str]:
 
 def init_game():
     """初始化游戏世界，逻辑复用自 src/run/run.py"""
-    
+    from datetime import datetime
+    from src.sim.load_game import get_events_db_path
+
     print("正在初始化游戏世界...")
     game_map = load_cultivation_world_map()
-    world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+
+    # 生成时间戳命名的存档路径
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+    save_name = f"save_{timestamp}"
+    saves_dir = CONFIG.paths.saves
+    saves_dir.mkdir(parents=True, exist_ok=True)
+    save_path = saves_dir / f"{save_name}.json"
+    events_db_path = get_events_db_path(save_path)
+
+    # 使用 SQLite 事件存储创建 World
+    world = World.create_with_db(
+        map=game_map,
+        month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+        events_db_path=events_db_path,
+    )
+    print(f"事件数据库: {events_db_path}")
+
+    # 记录当前存档路径（供后续保存使用）
+    game_instance["current_save_path"] = save_path
+
     sim = Simulator(world)
 
     # 宗门初始化逻辑
@@ -644,6 +665,80 @@ def get_state():
 
     except Exception as e:
         return {"step": 0, "error": "Fatal: " + str(e)}
+
+
+@app.get("/api/events")
+def get_events(
+    avatar_id: str = None,
+    avatar_id_1: str = None,
+    avatar_id_2: str = None,
+    cursor: str = None,
+    limit: int = 100,
+):
+    """
+    分页获取事件列表。
+
+    Query Parameters:
+        avatar_id: 按单个角色筛选。
+        avatar_id_1: Pair 查询：角色 1。
+        avatar_id_2: Pair 查询：角色 2（需同时提供 avatar_id_1）。
+        cursor: 分页 cursor，获取该位置之前的事件。
+        limit: 每页数量，默认 100。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"events": [], "next_cursor": None, "has_more": False}
+
+    event_manager = getattr(world, "event_manager", None)
+    if event_manager is None:
+        return {"events": [], "next_cursor": None, "has_more": False}
+
+    # 构建 pair 参数
+    avatar_id_pair = None
+    if avatar_id_1 and avatar_id_2:
+        avatar_id_pair = (avatar_id_1, avatar_id_2)
+
+    # 调用分页查询
+    events, next_cursor, has_more = event_manager.get_events_paginated(
+        avatar_id=avatar_id,
+        avatar_id_pair=avatar_id_pair,
+        cursor=cursor,
+        limit=limit,
+    )
+
+    return {
+        "events": serialize_events_for_client(events),
+        "next_cursor": next_cursor,
+        "has_more": has_more,
+    }
+
+
+@app.delete("/api/events/cleanup")
+def cleanup_events(
+    keep_major: bool = True,
+    before_month_stamp: int = None,
+):
+    """
+    清理历史事件（用户触发）。
+
+    Query Parameters:
+        keep_major: 是否保留大事，默认 true。
+        before_month_stamp: 删除此时间之前的事件。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"deleted": 0, "error": "No world"}
+
+    event_manager = getattr(world, "event_manager", None)
+    if event_manager is None:
+        return {"deleted": 0, "error": "No event manager"}
+
+    deleted = event_manager.cleanup(
+        keep_major=keep_major,
+        before_month_stamp=before_month_stamp,
+    )
+    return {"deleted": deleted}
+
 
 @app.get("/api/map")
 def get_map():
@@ -1183,14 +1278,16 @@ def api_save_game(req: SaveGameRequest):
     sim = game_instance.get("sim")
     if not world or not sim:
         raise HTTPException(status_code=503, detail="Game not initialized")
-    
+
     # 尝试从 world 属性获取（如果以后添加了）
     existed_sects = getattr(world, "existed_sects", [])
     if not existed_sects:
         # fallback: 所有 sects
         existed_sects = list(sects_by_id.values())
 
-    success, filename = save_game(world, sim, existed_sects, save_path=None) # save_path=None 会自动生成时间戳文件名
+    # 使用当前存档路径（保持 SQLite 数据库关联）
+    current_save_path = game_instance.get("current_save_path")
+    success, filename = save_game(world, sim, existed_sects, save_path=current_save_path)
     if success:
         return {"status": "ok", "filename": filename}
     else:
@@ -1210,16 +1307,22 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
+        # 关闭旧 World 的 EventManager，释放 SQLite 连接。
+        old_world = game_instance.get("world")
+        if old_world and hasattr(old_world, "event_manager"):
+            old_world.event_manager.close()
+
         # 加载
         new_world, new_sim, new_sects = load_game(target_path)
-        
+
         # 确保挂载 existed_sects 以便下次保存
         new_world.existed_sects = new_sects
 
         # 替换全局实例
         game_instance["world"] = new_world
         game_instance["sim"] = new_sim
-        
+        game_instance["current_save_path"] = target_path
+
         return {"status": "ok", "message": "Game loaded"}
     except Exception as e:
         import traceback

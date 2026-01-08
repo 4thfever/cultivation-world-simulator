@@ -1,126 +1,247 @@
-from typing import Dict, List
-from collections import deque, defaultdict
+"""
+事件管理器。
 
-from src.classes.event import Event
+重构后使用 SQLite 存储，提供与旧版兼容的接口。
+"""
+from __future__ import annotations
+
+from pathlib import Path
+from typing import List, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.classes.event import Event
+    from src.classes.event_storage import EventStorage
 
 
 class EventManager:
     """
-    全局事件管理器：统一保存事件，并提供按角色、按角色对、按时间的查询。
-    - 限长清理，避免内存无限增长。
-    - 幂等写入（基于 event_id）。
-    - 仅对恰为两人参与的事件建立“按人对”索引。
+    事件管理器：使用 SQLite 持久化存储。
+
+    保持与旧版兼容的接口：
+    - add_event: 添加事件
+    - get_recent_events: 获取最近事件
+    - get_events_by_avatar: 按角色查询
+    - get_events_between: 按角色对查询
+    - get_major_events_by_avatar: 获取角色大事
+    - get_minor_events_by_avatar: 获取角色小事
+    - get_major_events_between: 获取角色对大事
+    - get_minor_events_between: 获取角色对小事
     """
 
-    def __init__(self, *, max_global_events: int = 5000, max_index_events: int = 200) -> None:
-        self.max_global_events = max_global_events
-        self.max_index_events = max_index_events
+    def __init__(self, storage: Optional["EventStorage"] = None):
+        """
+        初始化事件管理器。
 
-        self._events: deque[Event] = deque()
-        self._by_id: Dict[str, Event] = {}
-        self._by_avatar: Dict[str, deque[Event]] = defaultdict(deque)
-        self._by_pair: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
-        # 按角色分类的大事/小事索引
-        self._by_avatar_major: Dict[str, deque[Event]] = defaultdict(deque)
-        self._by_avatar_minor: Dict[str, deque[Event]] = defaultdict(deque)
-        # 按角色对分类的大事/小事索引
-        self._by_pair_major: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
-        self._by_pair_minor: Dict[frozenset[str], deque[Event]] = defaultdict(deque)
+        Args:
+            storage: SQLite 存储层。如果为 None，则使用内存模式（仅用于测试）。
+        """
+        self._storage = storage
+        # 内存后备（仅当 storage 为 None 时使用，用于测试或迁移期间）。
+        self._memory_events: List["Event"] = []
 
-    def _append_with_limit(self, dq: deque, item: Event) -> None:
-        dq.append(item)
-        if len(dq) > self.max_index_events:
-            dq.popleft()
+    @classmethod
+    def create_with_db(cls, db_path: Path) -> "EventManager":
+        """
+        工厂方法：创建使用 SQLite 的事件管理器。
 
-    def add_event(self, event: Event) -> None:
-        # 过滤掉空事件
+        Args:
+            db_path: 数据库文件路径。
+
+        Returns:
+            配置好的 EventManager 实例。
+        """
+        from src.classes.event_storage import EventStorage
+        storage = EventStorage(db_path)
+        return cls(storage)
+
+    @classmethod
+    def create_in_memory(cls) -> "EventManager":
+        """
+        工厂方法：创建内存模式的事件管理器（仅用于测试）。
+
+        Returns:
+            内存模式的 EventManager 实例。
+        """
+        return cls(storage=None)
+
+    def add_event(self, event: "Event") -> None:
+        """
+        添加事件。
+
+        如果有 SQLite 存储，实时写入数据库。
+        否则存入内存后备列表。
+        """
+        # 过滤空事件。
         from src.classes.event import is_null_event
         if is_null_event(event):
             return
 
-        # 幂等：若已存在同 id，跳过
-        if getattr(event, "id", None) and event.id in self._by_id:
-            return
-        if getattr(event, "id", None):
-            self._by_id[event.id] = event
+        if self._storage:
+            self._storage.add_event(event)
+        else:
+            # 内存后备模式。
+            self._memory_events.append(event)
 
-        # 全局
-        self._events.append(event)
-        if len(self._events) > self.max_global_events:
-            self._events.popleft()
+    def get_recent_events(self, limit: int = 100) -> List["Event"]:
+        """获取最近的事件（时间正序）。"""
+        if self._storage:
+            return self._storage.get_recent_events(limit=limit)
+        else:
+            return self._memory_events[-limit:]
 
-        # 分索引：按人/人对
-        rel = event.related_avatars or []
-        rel_unique = list(dict.fromkeys(rel))  # 去重但保持顺序
-        for aid in rel_unique:
-            self._append_with_limit(self._by_avatar[aid], event)
-            # 故事事件进入小事索引，不进入大事索引
-            if event.is_story:
-                self._append_with_limit(self._by_avatar_minor[aid], event)
-            elif event.is_major:
-                self._append_with_limit(self._by_avatar_major[aid], event)
-            else:
-                self._append_with_limit(self._by_avatar_minor[aid], event)
-        # 仅当且仅当"恰有两位参与者"时建立按人对索引
-        if len(rel_unique) == 2:
-            a, b = rel_unique[0], rel_unique[1]
-            pair_key = frozenset([a, b])
-            self._append_with_limit(self._by_pair[pair_key], event)
-            # 角色对也建立分类索引
-            if event.is_story:
-                self._append_with_limit(self._by_pair_minor[pair_key], event)
-            elif event.is_major:
-                self._append_with_limit(self._by_pair_major[pair_key], event)
-            else:
-                self._append_with_limit(self._by_pair_minor[pair_key], event)
+    def get_events_by_avatar(self, avatar_id: str, *, limit: int = 50) -> List["Event"]:
+        """获取角色相关的事件（时间正序）。"""
+        if self._storage:
+            return self._storage.get_events_by_avatar(avatar_id, limit=limit)
+        else:
+            # 内存后备模式：简单过滤。
+            result = []
+            for e in reversed(self._memory_events):
+                if e.related_avatars and avatar_id in e.related_avatars:
+                    result.append(e)
+                    if len(result) >= limit:
+                        break
+            return list(reversed(result))
 
-    # —— 查询接口 ——
-    def get_recent_events(self, limit: int = 100) -> List[Event]:
-        if limit <= 0:
-            return []
-        return list(self._events)[-limit:]
+    def get_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 50) -> List["Event"]:
+        """获取两个角色之间的事件（时间正序）。"""
+        if self._storage:
+            return self._storage.get_events_between(avatar_id1, avatar_id2, limit=limit)
+        else:
+            # 内存后备模式：简单过滤。
+            result = []
+            for e in reversed(self._memory_events):
+                if e.related_avatars:
+                    if avatar_id1 in e.related_avatars and avatar_id2 in e.related_avatars:
+                        result.append(e)
+                        if len(result) >= limit:
+                            break
+            return list(reversed(result))
 
-    def get_events_by_avatar(self, avatar_id: str, *, limit: int = 50) -> List[Event]:
-        dq = self._by_avatar.get(avatar_id)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    def get_major_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List["Event"]:
+        """获取角色的大事（长期记忆，时间正序）。"""
+        if self._storage:
+            return self._storage.get_major_events_by_avatar(avatar_id, limit=limit)
+        else:
+            result = []
+            for e in reversed(self._memory_events):
+                if e.is_major and not e.is_story:
+                    if e.related_avatars and avatar_id in e.related_avatars:
+                        result.append(e)
+                        if len(result) >= limit:
+                            break
+            return list(reversed(result))
 
-    def get_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 50) -> List[Event]:
-        key = frozenset([avatar_id1, avatar_id2])
-        dq = self._by_pair.get(key)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    def get_minor_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List["Event"]:
+        """获取角色的小事（短期记忆，时间正序）。"""
+        if self._storage:
+            return self._storage.get_minor_events_by_avatar(avatar_id, limit=limit)
+        else:
+            result = []
+            for e in reversed(self._memory_events):
+                if not e.is_major or e.is_story:
+                    if e.related_avatars and avatar_id in e.related_avatars:
+                        result.append(e)
+                        if len(result) >= limit:
+                            break
+            return list(reversed(result))
 
-    def get_major_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List[Event]:
-        """获取角色的大事（长期记忆）"""
-        dq = self._by_avatar_major.get(avatar_id)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    def get_major_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List["Event"]:
+        """获取两个角色之间的大事（长期记忆，时间正序）。"""
+        if self._storage:
+            return self._storage.get_major_events_between(avatar_id1, avatar_id2, limit=limit)
+        else:
+            result = []
+            for e in reversed(self._memory_events):
+                if e.is_major and not e.is_story:
+                    if e.related_avatars:
+                        if avatar_id1 in e.related_avatars and avatar_id2 in e.related_avatars:
+                            result.append(e)
+                            if len(result) >= limit:
+                                break
+            return list(reversed(result))
 
-    def get_minor_events_by_avatar(self, avatar_id: str, *, limit: int = 10) -> List[Event]:
-        """获取角色的小事（短期记忆）"""
-        dq = self._by_avatar_minor.get(avatar_id)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    def get_minor_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List["Event"]:
+        """获取两个角色之间的小事（短期记忆，时间正序）。"""
+        if self._storage:
+            return self._storage.get_minor_events_between(avatar_id1, avatar_id2, limit=limit)
+        else:
+            result = []
+            for e in reversed(self._memory_events):
+                if not e.is_major or e.is_story:
+                    if e.related_avatars:
+                        if avatar_id1 in e.related_avatars and avatar_id2 in e.related_avatars:
+                            result.append(e)
+                            if len(result) >= limit:
+                                break
+            return list(reversed(result))
 
-    def get_major_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List[Event]:
-        """获取两个角色之间的大事（长期记忆）"""
-        key = frozenset([avatar_id1, avatar_id2])
-        dq = self._by_pair_major.get(key)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    # --- 分页查询接口（新增）---
 
-    def get_minor_events_between(self, avatar_id1: str, avatar_id2: str, *, limit: int = 10) -> List[Event]:
-        """获取两个角色之间的小事（短期记忆）"""
-        key = frozenset([avatar_id1, avatar_id2])
-        dq = self._by_pair_minor.get(key)
-        if not dq:
-            return []
-        return list(dq)[-limit:]
+    def get_events_paginated(
+        self,
+        avatar_id: Optional[str] = None,
+        avatar_id_pair: Optional[tuple[str, str]] = None,
+        cursor: Optional[str] = None,
+        limit: int = 100,
+    ) -> tuple[List["Event"], Optional[str], bool]:
+        """
+        分页查询事件。
 
+        Args:
+            avatar_id: 按单个角色筛选。
+            avatar_id_pair: Pair 查询（两个角色之间的事件）。
+            cursor: 分页 cursor，获取该位置之前的事件。
+            limit: 每页数量。
 
+        Returns:
+            (events, next_cursor, has_more)
+            - events: 事件列表（时间倒序，最新在前）。
+            - next_cursor: 下一页的 cursor，None 表示没有更多。
+            - has_more: 是否有更多数据。
+        """
+        if self._storage:
+            events, next_cursor = self._storage.get_events(
+                avatar_id=avatar_id,
+                avatar_id_pair=avatar_id_pair,
+                cursor=cursor,
+                limit=limit,
+            )
+            return events, next_cursor, next_cursor is not None
+        else:
+            # 内存模式不支持完整分页，返回最近的。
+            events = self.get_recent_events(limit=limit)
+            return list(reversed(events)), None, False
+
+    # --- 清理接口 ---
+
+    def cleanup(self, keep_major: bool = True, before_month_stamp: Optional[int] = None) -> int:
+        """
+        清理事件。
+
+        Args:
+            keep_major: 是否保留大事。
+            before_month_stamp: 删除此时间之前的事件。
+
+        Returns:
+            删除的事件数量。
+        """
+        if self._storage:
+            return self._storage.cleanup(keep_major=keep_major, before_month_stamp=before_month_stamp)
+        else:
+            # 内存模式：简单清空。
+            count = len(self._memory_events)
+            self._memory_events.clear()
+            return count
+
+    def count(self) -> int:
+        """获取事件总数。"""
+        if self._storage:
+            return self._storage.count()
+        else:
+            return len(self._memory_events)
+
+    def close(self) -> None:
+        """关闭资源。"""
+        if self._storage:
+            self._storage.close()

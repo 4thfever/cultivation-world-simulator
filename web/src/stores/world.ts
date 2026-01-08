@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
 import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
+import type { FetchEventsParams } from '../api/game';
 import { gameApi } from '../api/game';
 import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
 
@@ -16,7 +17,13 @@ export const useWorldStore = defineStore('world', () => {
   const avatars = shallowRef<Map<string, AvatarSummary>>(new Map());
   
   const events = shallowRef<GameEvent[]>([]);
-  
+
+  // 分页状态
+  const eventsCursor = ref<string | null>(null);
+  const eventsHasMore = ref(false);
+  const eventsLoading = ref(false);
+  const eventsFilter = ref<FetchEventsParams>({});
+
   const mapData = shallowRef<MapMatrix>([]);
   const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
   
@@ -66,9 +73,31 @@ export const useWorldStore = defineStore('world', () => {
 
   function addEvents(rawEvents: any[]) {
     if (!rawEvents || rawEvents.length === 0) return;
-    
-    const newEvents = processNewEvents(rawEvents, year.value, month.value);
-    events.value = mergeAndSortEvents(events.value, newEvents);
+
+    let newEvents = processNewEvents(rawEvents, year.value, month.value);
+
+    // 根据当前筛选条件过滤（数据在 SQLite 中不会丢失）
+    const filter = eventsFilter.value;
+    if (filter.avatar_id) {
+      newEvents = newEvents.filter(e =>
+        e.relatedAvatarIds?.includes(filter.avatar_id!)
+      );
+    } else if (filter.avatar_id_1 && filter.avatar_id_2) {
+      newEvents = newEvents.filter(e =>
+        e.relatedAvatarIds?.includes(filter.avatar_id_1!) &&
+        e.relatedAvatarIds?.includes(filter.avatar_id_2!)
+      );
+    }
+
+    if (newEvents.length === 0) return;
+
+    // WebSocket 推送的新事件直接追加到末尾（最新事件在底部）
+    // 使用 Set 去重（基于 id）
+    const existingIds = new Set(events.value.map(e => e.id));
+    const uniqueNewEvents = newEvents.filter(e => !existingIds.has(e.id));
+    if (uniqueNewEvents.length > 0) {
+      events.value = [...events.value, ...uniqueNewEvents];
+    }
   }
 
   function handleTick(payload: TickPayloadDTO) {
@@ -90,8 +119,11 @@ export const useWorldStore = defineStore('world', () => {
       stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
     }
     avatars.value = avatarMap;
+    // 事件通过 resetEvents() 从分页 API 加载，这里只重置状态。
     events.value = [];
-    if (stateRes.events) addEvents(stateRes.events);
+    eventsCursor.value = null;
+    eventsHasMore.value = false;
+    eventsFilter.value = {};
     currentPhenomenon.value = stateRes.phenomenon || null;
     isLoaded.value = true;
   }
@@ -112,6 +144,9 @@ export const useWorldStore = defineStore('world', () => {
       regions.value = regionMap;
 
       applyStateSnapshot(stateRes);
+
+      // 从分页 API 加载事件。
+      await resetEvents({});
     } catch (e) {
       console.error('Failed to initialize world', e);
     }
@@ -131,8 +166,74 @@ export const useWorldStore = defineStore('world', () => {
     month.value = 0;
     avatars.value = new Map();
     events.value = [];
+    eventsCursor.value = null;
+    eventsHasMore.value = false;
+    eventsFilter.value = {};
     isLoaded.value = false;
     currentPhenomenon.value = null;
+  }
+
+  // --- 事件分页 ---
+
+  async function loadEvents(filter: FetchEventsParams = {}, append = false) {
+    if (eventsLoading.value) return;
+    eventsLoading.value = true;
+
+    try {
+      const params: FetchEventsParams = { ...filter, limit: 100 };
+      if (append && eventsCursor.value) {
+        params.cursor = eventsCursor.value;
+      }
+
+      const res = await gameApi.fetchEvents(params);
+
+      // 转换为 GameEvent 格式
+      const newEvents: GameEvent[] = res.events.map(e => ({
+        id: e.id,
+        text: e.text,
+        content: e.content,
+        year: e.year,
+        month: e.month,
+        monthStamp: e.month_stamp,
+        relatedAvatarIds: e.related_avatar_ids,
+        isMajor: e.is_major,
+        isStory: e.is_story,
+      }));
+
+      // API 返回倒序（最新在前），反转成时间正序（最旧在前，最新在后）
+      const sortedNewEvents = newEvents.reverse();
+
+      if (append) {
+        // 加载更旧的事件，添加到顶部。
+        events.value = [...sortedNewEvents, ...events.value];
+      } else {
+        // 切换筛选条件：直接用 API 数据替换，不做 merge。
+        // TODO: API 请求期间 WebSocket 推送的事件可能丢失，用户可手动刷新。
+        events.value = sortedNewEvents;
+        eventsFilter.value = filter;
+      }
+
+      eventsCursor.value = res.next_cursor;
+      eventsHasMore.value = res.has_more;
+    } catch (e) {
+      console.error('Failed to load events', e);
+    } finally {
+      eventsLoading.value = false;
+    }
+  }
+
+  async function loadMoreEvents() {
+    if (!eventsHasMore.value || eventsLoading.value) return;
+    await loadEvents(eventsFilter.value, true);
+  }
+
+  async function resetEvents(filter: FetchEventsParams = {}) {
+    eventsLoading.value = false;  // 强制允许新请求，避免被旧请求阻塞。
+    eventsCursor.value = null;
+    eventsHasMore.value = false;
+    events.value = [];  // 清空旧数据，避免筛选切换时显示残留。
+    eventsFilter.value = filter;  // 立即更新筛选条件，让 addEvents 也能正确过滤。
+    await loadEvents(filter, false);
   }
 
   async function getPhenomenaList() {
@@ -163,17 +264,24 @@ export const useWorldStore = defineStore('world', () => {
     avatars,
     avatarList,
     events,
+    eventsCursor,
+    eventsHasMore,
+    eventsLoading,
+    eventsFilter,
     mapData,
     regions,
     isLoaded,
     frontendConfig,
     currentPhenomenon,
     phenomenaList,
-    
+    // Functions.
     initialize,
     fetchState,
     handleTick,
     reset,
+    loadEvents,
+    loadMoreEvents,
+    resetEvents,
     getPhenomenaList,
     changePhenomenon
   };

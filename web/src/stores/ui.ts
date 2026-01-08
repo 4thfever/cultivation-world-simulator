@@ -39,6 +39,11 @@ export const useUiStore = defineStore('ui', () => {
     detailError.value = null;
   }
 
+  function clearHoverCache() {
+    // 清除详情缓存，强制下次选择时重新加载。
+    detailData.value = null;
+  }
+
   async function refreshDetail() {
     if (!selectedTarget.value) return;
 
@@ -78,9 +83,10 @@ export const useUiStore = defineStore('ui', () => {
     detailData,
     isLoadingDetail,
     detailError,
-    
+
     select,
     clearSelection,
+    clearHoverCache,
     refreshDetail
   };
 });

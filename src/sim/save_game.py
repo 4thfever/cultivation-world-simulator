@@ -10,6 +10,7 @@ from src.classes.world import World
 from src.sim.simulator import Simulator
 from src.classes.sect import Sect
 from src.utils.config import CONFIG
+from src.sim.load_game import get_events_db_path
 
 
 def save_game(
@@ -17,18 +18,18 @@ def save_game(
     simulator: Simulator,
     existed_sects: List[Sect],
     save_path: Optional[Path] = None
-) -> bool:
+) -> tuple[bool, str]:
     """
     保存游戏状态到文件
-    
+
     Args:
         world: 世界对象
         simulator: 模拟器对象
         existed_sects: 本局启用的宗门列表
         save_path: 保存路径，默认为saves/save.json
-        
+
     Returns:
-        保存是否成功
+        (是否成功, 文件名)
     """
     try:
         # 确定保存路径
@@ -57,40 +58,39 @@ def save_game(
         avatars_data = []
         for avatar in world.avatar_manager.avatars.values():
             avatars_data.append(avatar.to_save_dict())
-        
-        # 保存事件历史（限制数量）
-        max_events = CONFIG.save.max_events_to_save
-        events_data = []
-        recent_events = world.event_manager.get_recent_events(limit=max_events)
-        for event in recent_events:
-            events_data.append(event.to_dict())
-        
+
+        # 事件已实时写入 SQLite，不再保存到 JSON。
+        # 记录事件数据库路径到元信息中（供参考）。
+        events_db_path = get_events_db_path(save_path)
+        meta["events_db"] = str(events_db_path.name)
+        meta["event_count"] = world.event_manager.count()
+
         # 保存模拟器数据
         simulator_data = {
             "birth_rate": simulator.birth_rate
         }
-        
-        # 组装完整的存档数据
+
+        # 组装完整的存档数据（不含 events，事件在 SQLite 中）
         save_data = {
             "meta": meta,
             "world": world_data,
             "avatars": avatars_data,
-            "events": events_data,
             "simulator": simulator_data
         }
-        
+
         # 写入文件
         with open(save_path, "w", encoding="utf-8") as f:
             json.dump(save_data, f, ensure_ascii=False, indent=2)
-        
+
         print(f"游戏已保存到: {save_path}")
-        return True
-        
+        print(f"事件数据库: {events_db_path} ({meta['event_count']} 条事件)")
+        return True, save_path.name
+
     except Exception as e:
         print(f"保存游戏失败: {e}")
         import traceback
         traceback.print_exc()
-        return False
+        return False, ""
 
 
 def get_save_info(save_path: Path) -> Optional[dict]:
