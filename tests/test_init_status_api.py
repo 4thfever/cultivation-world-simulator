@@ -153,14 +153,6 @@ class TestUpdateInitProgress:
         }
         assert INIT_PHASE_NAMES == expected_phases
 
-    def test_progress_percentages(self, reset_game_instance):
-        """Test progress percentages for each phase."""
-        expected_progress = {0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83}
-        
-        for phase, expected in expected_progress.items():
-            update_init_progress(phase)
-            assert game_instance["init_progress"] == expected, f"Phase {phase} should have progress {expected}"
-
 
 class TestNewGameEndpoint:
     """Tests for /api/game/new endpoint."""

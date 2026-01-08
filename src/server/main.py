@@ -295,8 +295,8 @@ def update_init_progress(phase: int, phase_name: str = ""):
     """更新初始化进度。"""
     game_instance["init_phase"] = phase
     game_instance["init_phase_name"] = phase_name or INIT_PHASE_NAMES.get(phase, "")
-    # 每阶段占约 16.7%（共 6 阶段），最后一阶段到 100%
-    progress_map = {0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83}
+    # 最后一阶段到 100%
+    progress_map = {0: 0, 1: 10, 2: 20, 3: 30, 4: 40, 5: 50}
     game_instance["init_progress"] = progress_map.get(phase, phase * 17)
     print(f"[Init] Phase {phase}: {game_instance['init_phase_name']} ({game_instance['init_progress']}%)")
 

@@ -126,8 +126,8 @@ function startTimers() {
       const progressMap: Record<number, number> = { 0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83 }
       const nextPhaseStart = progressMap[currentPhase + 1] ?? 100
       
-      // 每两秒增加 1%
-      if (localElapsed.value % 2 === 0) {
+      // 每1秒增加 1%
+      if (localElapsed.value % 1 === 0) {
         // 如果还没达到下一阶段的起点前 1%，就继续自增
         if (displayProgress.value < nextPhaseStart - 1) {
           displayProgress.value++
