@@ -1,0 +1,441 @@
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { gameApi, type InitStatusDTO } from '../api/game'
+
+const props = defineProps<{
+  status: InitStatusDTO | null
+}>()
+
+// 阶段文案（鬼谷八荒风格）
+const phaseTexts: Record<string, string | string[]> = {
+  'scanning_assets': '扫描天地资源',
+  'loading_map': '构建洪荒山川',
+  'initializing_sects': '宗门入世',
+  'generating_avatars': '众修士降临',
+  'checking_llm': '连通天道意志',
+  'generating_initial_events': [
+    '天道轮转，命运初显',
+    '因果交织，机缘暗涌',
+    '气运流转，风云将起',
+    '众生沉浮，天机莫测',
+    '劫数将至，各凭造化',
+    '红尘万丈，道心初定',
+    '缘起缘灭，皆是天意',
+    '大道无形，万法归一',
+  ],
+  'loading_save': '读取前世因果',
+  'parsing_data': '解析天地法则',
+  'restoring_state': '恢复时空位面',
+  'finalizing': '万象归位',
+  'complete': '天地初开',
+  '': '混沌初始',
+}
+
+// 用于 generating_initial_events 阶段的轮换文案。
+const eventPhaseTextIndex = ref(0)
+
+// Tips 列表
+const tips = [
+  '修行之路，贵在坚持。',
+  '灵根虽重要，但心境更为关键。',
+  '结交道友，可获意外之机缘。',
+  '善用洞府，方能事半功倍。',
+  '大道三千，殊途同归。',
+  '天地灵气，时刻流转。',
+  '心魔缠身，难成大道。',
+  '筑基之前，切莫急躁。',
+  '功法相克，知己知彼。',
+  '渡劫之时，需借天时地利。',
+]
+
+const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
+const localElapsed = ref(0)
+let tipInterval: ReturnType<typeof setInterval> | null = null
+let elapsedInterval: ReturnType<typeof setInterval> | null = null
+
+const progress = computed(() => props.status?.progress ?? 0)
+const phaseText = computed(() => {
+  const phaseName = props.status?.phase_name || ''
+  const text = phaseTexts[phaseName] || phaseTexts['']
+  if (Array.isArray(text)) {
+    return text[eventPhaseTextIndex.value % text.length]
+  }
+  return text
+})
+const isError = computed(() => props.status?.status === 'error')
+const errorMessage = computed(() => props.status?.error || '未知错误')
+
+// 根据时间计算背景透明度：前5秒保持不透明，5-20秒逐渐透明到0.8。
+// 只影响背景，不影响内容亮度。
+const bgOpacity = computed(() => {
+  const elapsed = localElapsed.value
+  if (elapsed <= 5) return 1
+  if (elapsed >= 20) return 0.8
+  // 5秒 -> 1.0, 20秒 -> 0.8 (线性插值)。
+  return 1 - (elapsed - 5) / 15 * 0.2
+})
+
+// SVG 圆环参数
+const radius = 90
+const circumference = 2 * Math.PI * radius
+const strokeDashoffset = computed(() => {
+  return circumference - (progress.value / 100) * circumference
+})
+
+async function handleRetry() {
+  localElapsed.value = 0
+  try {
+    await gameApi.reinitGame()
+  } catch (e: any) {
+    console.error('Reinit failed:', e)
+  }
+}
+
+function startTimers() {
+  // Tips 切换
+  tipInterval = setInterval(() => {
+    const idx = Math.floor(Math.random() * tips.length)
+    currentTip.value = tips[idx]
+  }, 5000)
+  
+  // 本地计时器 + 阶段文案轮换。
+  elapsedInterval = setInterval(() => {
+    localElapsed.value++
+    // 每 3 秒切换一次 generating_initial_events 的文案。
+    if (localElapsed.value % 3 === 0) {
+      eventPhaseTextIndex.value++
+    }
+  }, 1000)
+}
+
+function stopTimers() {
+  if (tipInterval) {
+    clearInterval(tipInterval)
+    tipInterval = null
+  }
+  if (elapsedInterval) {
+    clearInterval(elapsedInterval)
+    elapsedInterval = null
+  }
+}
+
+// 当状态从 ready 变成其他时，重置
+watch(() => props.status?.status, (newStatus, oldStatus) => {
+  if (oldStatus === 'ready' && newStatus !== 'ready') {
+    localElapsed.value = 0
+  }
+})
+
+onMounted(() => {
+  startTimers()
+})
+
+onUnmounted(() => {
+  stopTimers()
+})
+</script>
+
+<template>
+  <div class="loading-overlay">
+    <!-- 背景层 - 只有这层透明度变化 -->
+    <div 
+      class="bg-layer"
+      :style="{ opacity: bgOpacity }"
+    ></div>
+
+    <!-- 背景装饰 -->
+    <div class="bg-decoration" :style="{ opacity: bgOpacity }">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="content">
+      <!-- 标题 -->
+      <h1 class="title">AI 修仙世界模拟器</h1>
+      <p class="subtitle">AI Cultivation World Simulator</p>
+
+      <!-- 进度圆环 -->
+      <div class="progress-ring">
+        <svg width="220" height="220" viewBox="0 0 220 220">
+          <defs>
+            <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#00ffa3;stop-opacity:1" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <!-- 背景圆环 -->
+          <circle
+            class="track"
+            cx="110"
+            cy="110"
+            :r="radius"
+          />
+          <!-- 进度圆环 -->
+          <circle
+            class="progress"
+            :class="{ error: isError }"
+            cx="110"
+            cy="110"
+            :r="radius"
+            :stroke-dasharray="circumference"
+            :stroke-dashoffset="strokeDashoffset"
+            filter="url(#glow)"
+          />
+        </svg>
+        
+        <!-- 圆环内容 -->
+        <div class="ring-content">
+          <div class="percentage" :class="{ error: isError }">
+            {{ isError ? '!' : progress + '%' }}
+          </div>
+          <div class="phase-text">{{ isError ? '初始化失败' : phaseText }}</div>
+        </div>
+      </div>
+
+      <!-- 错误信息 -->
+      <div v-if="isError" class="error-section">
+        <p class="error-message">{{ errorMessage }}</p>
+        <button class="retry-btn" @click="handleRetry">
+          重新初始化
+        </button>
+      </div>
+
+      <!-- Tips -->
+      <div v-else class="tips-section">
+        <div class="tips-label">修行小贴士</div>
+        <div class="tips">{{ currentTip }}</div>
+      </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="footer">
+      <div class="elapsed">已等待 {{ localElapsed }} 秒</div>
+      <div class="version">v1.1.0</div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景层 - 只有这层会变透明，带模糊效果 */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 18, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.5s ease;
+}
+
+/* 背景装饰 */
+.bg-decoration {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+
+.glow-1 {
+  width: 400px;
+  height: 400px;
+  background: #00d4ff;
+  top: 10%;
+  left: 20%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.glow-2 {
+  width: 300px;
+  height: 300px;
+  background: #00ffa3;
+  bottom: 20%;
+  right: 15%;
+  animation: float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -20px); }
+}
+
+/* 主内容 */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: 16px;
+  margin: 0 0 8px 16px;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0 50px 0;
+  text-transform: uppercase;
+}
+
+/* 进度圆环 */
+.progress-ring {
+  width: 220px;
+  height: 220px;
+  position: relative;
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle.track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 4;
+}
+
+.progress-ring circle.progress {
+  fill: none;
+  stroke: url(#progress-gradient);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-ring circle.progress.error {
+  stroke: #ff6b6b;
+}
+
+.ring-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.percentage {
+  font-size: 48px;
+  font-weight: 200;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.percentage.error {
+  color: #ff6b6b;
+  font-size: 56px;
+}
+
+.phase-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
+  letter-spacing: 2px;
+}
+
+/* 错误区域 */
+.error-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.error-message {
+  color: rgba(255, 107, 107, 0.9);
+  font-size: 14px;
+  max-width: 300px;
+  text-align: center;
+  margin: 0;
+}
+
+.retry-btn {
+  padding: 12px 32px;
+  background: transparent;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: 24px;
+  color: rgba(255, 107, 107, 0.9);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.retry-btn:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.6);
+}
+
+/* Tips 区域 */
+.tips-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.tips-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.tips {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 300px;
+  line-height: 1.6;
+  transition: opacity 0.3s ease;
+}
+
+/* 底部 */
+.footer {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.elapsed, .version {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 1px;
+}
+</style>

@@ -66,6 +66,17 @@ export interface LLMConfigDTO {
   mode: string;
 }
 
+export interface InitStatusDTO {
+  status: 'idle' | 'pending' | 'in_progress' | 'ready' | 'error';
+  phase: number;
+  phase_name: string;
+  progress: number;
+  elapsed_seconds: number;
+  error: string | null;
+  llm_check_failed: boolean;
+  llm_error_message: string;
+}
+
 export const gameApi = {
   // --- World State ---
   
@@ -165,5 +176,19 @@ export const gameApi = {
 
   saveLLMConfig(config: LLMConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/config/llm/save', config);
+  },
+
+  // --- Init Status ---
+
+  fetchInitStatus() {
+    return httpClient.get<InitStatusDTO>('/api/init-status');
+  },
+
+  startNewGame() {
+    return httpClient.post<{ status: string; message: string }>('/api/game/new', {});
+  },
+
+  reinitGame() {
+    return httpClient.post<{ status: string; message: string }>('/api/control/reinit', {});
   }
 };
