@@ -1307,6 +1307,9 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
+        # 暂停游戏，防止 game_loop 在加载过程中使用旧 world 生成事件。
+        game_instance["is_paused"] = True
+
         # 关闭旧 World 的 EventManager，释放 SQLite 连接。
         old_world = game_instance.get("world")
         if old_world and hasattr(old_world, "event_manager"):
@@ -1323,6 +1326,9 @@ def api_load_game(req: LoadGameRequest):
         game_instance["sim"] = new_sim
         game_instance["current_save_path"] = target_path
 
+        # 加载完成后保持暂停状态，让用户决定何时恢复。
+        # 这也给前端时间来刷新状态。
+        
         return {"status": "ok", "message": "Game loaded"}
     except Exception as e:
         import traceback
