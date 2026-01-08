@@ -231,7 +231,7 @@ class TestSaveLoadWithSQLiteEvents:
         assert success
 
         # Check meta contains events_db info.
-        with open(save_path, "r") as f:
+        with open(save_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         meta = data["meta"]

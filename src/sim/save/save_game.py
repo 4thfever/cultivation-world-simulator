@@ -78,6 +78,22 @@ def save_game(
         # 计算事件数据库路径。
         events_db_path = get_events_db_path(save_path)
 
+        # 确保当前的 SQLite 数据库被复制到新存档的位置。
+        # 如果当前使用的是其他数据库文件，需要将其复制过来。
+        if hasattr(world.event_manager, "_storage") and world.event_manager._storage:
+             current_db_path = world.event_manager._storage._db_path
+             if current_db_path != events_db_path:
+                 import shutil
+                 # 确保源文件存在
+                 if current_db_path.exists():
+                    # 确保目标目录存在
+                    events_db_path.parent.mkdir(parents=True, exist_ok=True)
+                    # 复制数据库文件
+                    shutil.copy2(current_db_path, events_db_path)
+                    print(f"已复制事件数据库: {current_db_path} -> {events_db_path}")
+                 else:
+                     print(f"警告: 当前事件数据库不存在: {current_db_path}")
+
         # 构建元信息
         meta = {
             "version": CONFIG.meta.version,
