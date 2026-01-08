@@ -49,17 +49,16 @@ async function handleLoad(filename: string) {
 
   loading.value = true
   try {
+    // 调用后端加载存档，后端会设置 init_status = "in_progress"
+    // App.vue 的轮询会检测到状态变化，显示加载界面，并在 ready 后重新初始化前端
     await gameApi.loadGame(filename)
-    worldStore.reset()
-    uiStore.clearSelection()
-    await worldStore.initialize()
-    message.success('读档成功')
+    // 关闭菜单，让加载界面显示出来
     emit('close')
   } catch (e) {
     message.error('读档失败')
-  } finally {
     loading.value = false
   }
+  // 注意：不在这里设置 loading.value = false，因为菜单会关闭
 }
 
 watch(() => props.mode, () => {

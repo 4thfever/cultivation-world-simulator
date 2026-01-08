@@ -128,13 +128,10 @@ export const useWorldStore = defineStore('world', () => {
     isLoaded.value = true;
   }
 
-  async function initialize() {
+  // 提前加载地图数据（在 LLM 初始化期间可用）。
+  async function preloadMap() {
     try {
-      const [stateRes, mapRes] = await Promise.all([
-        gameApi.fetchInitialState(),
-        gameApi.fetchMap()
-      ]);
-
+      const mapRes = await gameApi.fetchMap();
       mapData.value = mapRes.data;
       if (mapRes.config) {
         frontendConfig.value = mapRes.config;
@@ -142,11 +139,60 @@ export const useWorldStore = defineStore('world', () => {
       const regionMap = new Map();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
+      // 标记地图已加载，让 MapLayer 可以渲染。
+      isLoaded.value = true;
+      console.log('[WorldStore] Map preloaded');
+    } catch (e) {
+      console.warn('[WorldStore] Failed to preload map, will retry on initialize', e);
+    }
+  }
 
-      applyStateSnapshot(stateRes);
+  // 提前加载角色数据（在 checking_llm 阶段 world 已创建）。
+  async function preloadAvatars() {
+    try {
+      const stateRes = await gameApi.fetchInitialState();
+      // 只更新角色，不标记完全初始化。
+      const avatarMap = new Map();
+      if (stateRes.avatars) {
+        stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
+      }
+      avatars.value = avatarMap;
+      setTime(stateRes.year, stateRes.month);
+      console.log('[WorldStore] Avatars preloaded:', avatarMap.size);
+    } catch (e) {
+      console.warn('[WorldStore] Failed to preload avatars, will retry on initialize', e);
+    }
+  }
+
+  async function initialize() {
+    try {
+      // 如果地图还没加载，一起加载。
+      const needMapLoad = mapData.value.length === 0;
+      
+      if (needMapLoad) {
+        const [stateRes, mapRes] = await Promise.all([
+          gameApi.fetchInitialState(),
+          gameApi.fetchMap()
+        ]);
+
+        mapData.value = mapRes.data;
+        if (mapRes.config) {
+          frontendConfig.value = mapRes.config;
+        }
+        const regionMap = new Map();
+        mapRes.regions.forEach(r => regionMap.set(r.id, r));
+        regions.value = regionMap;
+
+        applyStateSnapshot(stateRes);
+      } else {
+        // 地图已预加载，只需获取状态。
+        const stateRes = await gameApi.fetchInitialState();
+        applyStateSnapshot(stateRes);
+      }
 
       // 从分页 API 加载事件。
       await resetEvents({});
+
     } catch (e) {
       console.error('Failed to initialize world', e);
     }
@@ -274,7 +320,9 @@ export const useWorldStore = defineStore('world', () => {
     frontendConfig,
     currentPhenomenon,
     phenomenaList,
-    // Functions.
+    
+    preloadMap,
+    preloadAvatars,
     initialize,
     fetchState,
     handleTick,

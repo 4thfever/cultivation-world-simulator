@@ -3,6 +3,7 @@ import os
 import asyncio
 import webbrowser
 import subprocess
+import time
 from contextlib import asynccontextmanager
 from typing import List, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
@@ -43,7 +44,14 @@ from src.utils.llm.config import LLMConfig, LLMMode
 game_instance = {
     "world": None,
     "sim": None,
-    "is_paused": True # 默认启动为暂停状态，等待前端连接唤醒
+    "is_paused": True,  # 默认启动为暂停状态，等待前端连接唤醒
+    # 初始化状态字段
+    "init_status": "idle",  # idle | pending | in_progress | ready | error
+    "init_phase": 0,         # 当前阶段 (0-5)
+    "init_phase_name": "",   # 当前阶段名称
+    "init_progress": 0,      # 总体进度 (0-100)
+    "init_error": None,      # 错误信息
+    "init_start_time": None, # 初始化开始时间戳
 }
 
 # Cache for avatar IDs
@@ -273,12 +281,138 @@ def check_llm_connectivity() -> tuple[bool, str]:
     except Exception as e:
         return False, f"连通性检测异常：{str(e)}"
 
-def init_game():
-    """初始化游戏世界，逻辑复用自 src/run/run.py"""
+# 初始化阶段名称映射（用于前端显示）
+INIT_PHASE_NAMES = {
+    0: "scanning_assets",
+    1: "loading_map",
+    2: "initializing_sects",
+    3: "generating_avatars",
+    4: "checking_llm",
+    5: "generating_initial_events",
+}
+
+def update_init_progress(phase: int, phase_name: str = ""):
+    """更新初始化进度。"""
+    game_instance["init_phase"] = phase
+    game_instance["init_phase_name"] = phase_name or INIT_PHASE_NAMES.get(phase, "")
+    # 每阶段占约 16.7%（共 6 阶段），最后一阶段到 100%
+    progress_map = {0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83}
+    game_instance["init_progress"] = progress_map.get(phase, phase * 17)
+    print(f"[Init] Phase {phase}: {game_instance['init_phase_name']} ({game_instance['init_progress']}%)")
+
+async def init_game_async():
+    """异步初始化游戏世界，带进度更新。"""
+    game_instance["init_status"] = "in_progress"
+    game_instance["init_start_time"] = time.time()
+    game_instance["init_error"] = None
+
+    try:
+        # 阶段 0: 资源扫描
+        update_init_progress(0, "scanning_assets")
+        await asyncio.to_thread(scan_avatar_assets)
+
+        # 阶段 1: 地图加载
+        update_init_progress(1, "loading_map")
+        game_map = await asyncio.to_thread(load_cultivation_world_map)
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        sim = Simulator(world)
+
+        # 阶段 2: 宗门初始化
+        update_init_progress(2, "initializing_sects")
+        all_sects = list(sects_by_id.values())
+        needed_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
+        existed_sects = []
+        if needed_sects > 0 and all_sects:
+            pool = list(all_sects)
+            random.shuffle(pool)
+            existed_sects = pool[:needed_sects]
+
+        # 阶段 3: 角色生成
+        update_init_progress(3, "generating_avatars")
+        protagonist_mode = getattr(CONFIG.avatar, "protagonist", "none")
+        target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
+        final_avatars = {}
+
+        spawned_protagonists_count = 0
+        if protagonist_mode in ["all", "random"]:
+            prob = 1.0 if protagonist_mode == "all" else 0.05
+            def _spawn_protagonists_sync():
+                return prot_utils.spawn_protagonists(world, world.month_stamp, probability=prob)
+            prot_avatars = await asyncio.to_thread(_spawn_protagonists_sync)
+            final_avatars.update(prot_avatars)
+            spawned_protagonists_count = len(prot_avatars)
+            print(f"生成了 {spawned_protagonists_count} 位主角 (Mode: {protagonist_mode})")
+
+        remaining_count = 0
+        if protagonist_mode == "all":
+            remaining_count = 0
+        else:
+            remaining_count = max(0, target_total_count - spawned_protagonists_count)
+
+        if remaining_count > 0:
+            def _make_random_sync():
+                return _new_make_random(
+                    world,
+                    count=remaining_count,
+                    current_month_stamp=world.month_stamp,
+                    existed_sects=existed_sects
+                )
+            random_avatars = await asyncio.to_thread(_make_random_sync)
+            final_avatars.update(random_avatars)
+            print(f"生成了 {len(random_avatars)} 位随机路人")
+
+        world.avatar_manager.avatars.update(final_avatars)
+        game_instance["world"] = world
+        game_instance["sim"] = sim
+
+        # 阶段 4: LLM 连通性检测
+        update_init_progress(4, "checking_llm")
+        print("正在检测 LLM 连通性...")
+        # 使用线程池执行，避免阻塞事件循环，让 /api/init-status 可以响应
+        success, error_msg = await asyncio.to_thread(check_llm_connectivity)
+
+        if not success:
+            print(f"[警告] LLM 连通性检测失败: {error_msg}")
+            game_instance["llm_check_failed"] = True
+            game_instance["llm_error_message"] = error_msg
+        else:
+            print("LLM 连通性检测通过 ✓")
+            game_instance["llm_check_failed"] = False
+            game_instance["llm_error_message"] = ""
+
+        # 阶段 5: 生成初始事件（第一次 sim.step）
+        update_init_progress(5, "generating_initial_events")
+        print("正在生成初始事件...")
+        
+        # 取消暂停，执行第一步来生成初始事件
+        game_instance["is_paused"] = False
+        try:
+            await sim.step()
+            print("初始事件生成完成 ✓")
+        except Exception as e:
+            print(f"[警告] 初始事件生成失败: {e}")
+        finally:
+            # 执行完后重新暂停，等待前端准备好
+            game_instance["is_paused"] = True
+
+        # 完成
+        game_instance["init_status"] = "ready"
+        game_instance["init_progress"] = 100
+        print("游戏世界初始化完成！")
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        game_instance["init_status"] = "error"
+        game_instance["init_error"] = str(e)
+        print(f"[Error] 初始化失败: {e}")
+
+
+    """初始化游戏世界，逻辑复用自 src/run/run.py (同步版本，保留用于向后兼容)"""
     from datetime import datetime
     from src.sim.load_game import get_events_db_path
-
     print("正在初始化游戏世界...")
+    scan_avatar_assets()
     game_map = load_cultivation_world_map()
 
     # 生成时间戳命名的存档路径
@@ -373,17 +507,36 @@ def init_game():
         # 这样可以避免在用户加载存档前就生成初始化事件（如长期目标）。
         game_instance["is_paused"] = True
     # ===== LLM 检测结束 =====
+    
+    # 更新初始化状态为就绪
+    game_instance["init_status"] = "ready"
+    game_instance["init_progress"] = 100
 
 async def game_loop():
-    """后台自动运行游戏循环"""
-    print("后台游戏循环已启动...")
+    """后台自动运行游戏循环。"""
+    print("后台游戏循环已启动，等待初始化完成...")
+    
+    # 等待初始化完成
+    while game_instance.get("init_status") not in ("ready", "error"):
+        await asyncio.sleep(0.5)
+    
+    if game_instance.get("init_status") == "error":
+        print("[game_loop] 初始化失败，游戏循环退出。")
+        return
+    
+    print("[game_loop] 初始化完成，开始游戏循环。")
+    
     while True:
         # 控制游戏速度，例如每秒 1 次更新
-        await asyncio.sleep(1.0) 
+        await asyncio.sleep(1.0)
         
         try:
             # 检查暂停状态
             if game_instance.get("is_paused", False):
+                continue
+            
+            # 再次检查初始化状态（可能被重新初始化）
+            if game_instance.get("init_status") != "ready":
                 continue
 
             sim = game_instance.get("sim")
@@ -466,10 +619,12 @@ async def game_loop():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 启动时初始化
-    scan_avatar_assets()
-    init_game()
-    # 启动后台任务
+    # 启动时自动开始异步初始化游戏
+    # 前端会轮询 /api/init-status 来显示加载进度
+    print("服务器启动，开始异步初始化游戏...")
+    asyncio.create_task(init_game_async())
+    
+    # 启动后台游戏循环（会自动等待初始化完成）
     asyncio.create_task(game_loop())
     
     npm_process = None
@@ -804,6 +959,73 @@ def resume_game():
     """恢复游戏循环"""
     game_instance["is_paused"] = False
     return {"status": "ok", "message": "Game resumed"}
+
+
+# --- 初始化状态 API ---
+
+@app.get("/api/init-status")
+def get_init_status():
+    """获取初始化状态。"""
+    status = game_instance.get("init_status", "idle")
+    start_time = game_instance.get("init_start_time")
+    elapsed = time.time() - start_time if start_time else 0
+    
+    return {
+        "status": status,
+        "phase": game_instance.get("init_phase", 0),
+        "phase_name": game_instance.get("init_phase_name", ""),
+        "progress": game_instance.get("init_progress", 0),
+        "elapsed_seconds": round(elapsed, 1),
+        "error": game_instance.get("init_error"),
+        # 额外信息：LLM 状态
+        "llm_check_failed": game_instance.get("llm_check_failed", False),
+        "llm_error_message": game_instance.get("llm_error_message", ""),
+    }
+
+
+@app.post("/api/game/new")
+async def start_new_game():
+    """开始新游戏（异步初始化）。"""
+    current_status = game_instance.get("init_status", "idle")
+    
+    # 如果已经在初始化中，返回错误
+    if current_status == "in_progress":
+        raise HTTPException(status_code=400, detail="Game is already initializing")
+    
+    # 如果已经初始化完成，需要重置
+    if current_status == "ready":
+        # 清理旧的游戏状态
+        game_instance["world"] = None
+        game_instance["sim"] = None
+    
+    # 重置初始化状态
+    game_instance["init_status"] = "pending"
+    game_instance["init_phase"] = 0
+    game_instance["init_progress"] = 0
+    game_instance["init_error"] = None
+    
+    # 启动异步初始化任务
+    asyncio.create_task(init_game_async())
+    
+    return {"status": "ok", "message": "New game initialization started"}
+
+
+@app.post("/api/control/reinit")
+async def reinit_game():
+    """重新初始化游戏（用于错误恢复）。"""
+    # 清理旧的游戏状态
+    game_instance["world"] = None
+    game_instance["sim"] = None
+    game_instance["init_status"] = "pending"
+    game_instance["init_phase"] = 0
+    game_instance["init_progress"] = 0
+    game_instance["init_error"] = None
+    
+    # 启动异步初始化任务
+    asyncio.create_task(init_game_async())
+    
+    return {"status": "ok", "message": "Reinitialization started"}
+
 
 @app.get("/api/detail")
 def get_detail_info(
@@ -1298,8 +1520,8 @@ def api_save_game(req: SaveGameRequest):
         raise HTTPException(status_code=500, detail="Save failed")
 
 @app.post("/api/game/load")
-def api_load_game(req: LoadGameRequest):
-    """加载游戏"""
+async def api_load_game(req: LoadGameRequest):
+    """加载游戏（异步，支持进度更新）。"""
     # 安全检查：只允许加载 saves 目录下的文件
     if ".." in req.filename or "/" in req.filename or "\\" in req.filename:
          raise HTTPException(status_code=400, detail="Invalid filename")
@@ -1311,8 +1533,22 @@ def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
+        # 设置加载状态
+        game_instance["init_status"] = "in_progress"
+        game_instance["init_start_time"] = time.time()
+        game_instance["init_error"] = None
+        game_instance["init_phase"] = 0
+        game_instance["init_phase_name"] = "loading_save"
+        game_instance["init_progress"] = 10
+
         # 暂停游戏，防止 game_loop 在加载过程中使用旧 world 生成事件。
         game_instance["is_paused"] = True
+        await asyncio.sleep(0)  # 让出控制权
+
+        # 更新进度
+        game_instance["init_progress"] = 30
+        game_instance["init_phase_name"] = "parsing_data"
+        await asyncio.sleep(0)
 
         # 关闭旧 World 的 EventManager，释放 SQLite 连接。
         old_world = game_instance.get("world")
@@ -1321,6 +1557,11 @@ def api_load_game(req: LoadGameRequest):
 
         # 加载
         new_world, new_sim, new_sects = load_game(target_path)
+        
+        # 更新进度
+        game_instance["init_progress"] = 70
+        game_instance["init_phase_name"] = "restoring_state"
+        await asyncio.sleep(0)
 
         # 确保挂载 existed_sects 以便下次保存
         new_world.existed_sects = new_sects
@@ -1330,6 +1571,16 @@ def api_load_game(req: LoadGameRequest):
         game_instance["sim"] = new_sim
         game_instance["current_save_path"] = target_path
 
+        # 更新进度
+        game_instance["init_progress"] = 90
+        game_instance["init_phase_name"] = "finalizing"
+        await asyncio.sleep(0)
+
+        # 加载完成
+        game_instance["init_status"] = "ready"
+        game_instance["init_progress"] = 100
+        game_instance["init_phase_name"] = "complete"
+        
         # 加载完成后保持暂停状态，让用户决定何时恢复。
         # 这也给前端时间来刷新状态。
         
@@ -1337,6 +1588,8 @@ def api_load_game(req: LoadGameRequest):
     except Exception as e:
         import traceback
         traceback.print_exc()
+        game_instance["init_status"] = "error"
+        game_instance["init_error"] = str(e)
         raise HTTPException(status_code=500, detail=f"Load failed: {str(e)}")
 
 # --- 静态文件挂载 (必须放在最后) ---
