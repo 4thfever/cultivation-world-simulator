@@ -58,6 +58,9 @@
       <br/><br/>
       <h4 align="center">城市区域</h4>
       <img src="assets/screenshots/城市.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">生平经历</h4>
+      <img src="assets/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
@@ -68,6 +71,9 @@
       <br/><br/>
       <h4 align="center">自主思考</h4>
       <img src="assets/screenshots/思考.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">江湖绰号</h4>
+      <img src="assets/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">洞府探秘</h4>
@@ -80,12 +86,6 @@
       <img src="assets/screenshots/丹药.png" width="100%" />
       <img src="assets/screenshots/法宝.png" width="100%" />
       <img src="assets/screenshots/武器.png" width="100%" />
-      <br/><br/>
-      <h4 align="center">生平经历</h4>
-      <img src="assets/screenshots/经历.png" width="100%" />
-      <br/><br/>
-      <h4 align="center">江湖绰号</h4>
-      <img src="assets/screenshots/绰号.png" width="100%" />
     </td>
   </tr>
 </table>
