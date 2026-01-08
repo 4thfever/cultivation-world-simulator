@@ -1425,8 +1425,8 @@ def api_save_game(req: SaveGameRequest):
         raise HTTPException(status_code=500, detail="Save failed")
 
 @app.post("/api/game/load")
-async def api_load_game(req: LoadGameRequest):
-    """加载游戏（异步，支持进度更新）。"""
+def api_load_game(req: LoadGameRequest):
+    """加载游戏"""
     # 安全检查：只允许加载 saves 目录下的文件
     if ".." in req.filename or "/" in req.filename or "\\" in req.filename:
          raise HTTPException(status_code=400, detail="Invalid filename")
@@ -1438,30 +1438,11 @@ async def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
-        # 设置加载状态
-        game_instance["init_status"] = "in_progress"
-        game_instance["init_start_time"] = time.time()
-        game_instance["init_error"] = None
-        game_instance["init_phase"] = 0
-        game_instance["init_phase_name"] = "loading_save"
-        game_instance["init_progress"] = 10
-
         # 暂停游戏，防止 game_loop 在加载过程中使用旧 world 生成事件。
         game_instance["is_paused"] = True
-        await asyncio.sleep(0)  # 让出控制权
-
-        # 更新进度
-        game_instance["init_progress"] = 30
-        game_instance["init_phase_name"] = "parsing_data"
-        await asyncio.sleep(0)
 
         # 加载
         new_world, new_sim, new_sects = load_game(target_path)
-        
-        # 更新进度
-        game_instance["init_progress"] = 70
-        game_instance["init_phase_name"] = "restoring_state"
-        await asyncio.sleep(0)
         
         # 确保挂载 existed_sects 以便下次保存
         new_world.existed_sects = new_sects
@@ -1470,16 +1451,6 @@ async def api_load_game(req: LoadGameRequest):
         game_instance["world"] = new_world
         game_instance["sim"] = new_sim
 
-        # 更新进度
-        game_instance["init_progress"] = 90
-        game_instance["init_phase_name"] = "finalizing"
-        await asyncio.sleep(0)
-
-        # 加载完成
-        game_instance["init_status"] = "ready"
-        game_instance["init_progress"] = 100
-        game_instance["init_phase_name"] = "complete"
-        
         # 加载完成后保持暂停状态，让用户决定何时恢复。
         # 这也给前端时间来刷新状态。
         
@@ -1487,8 +1458,6 @@ async def api_load_game(req: LoadGameRequest):
     except Exception as e:
         import traceback
         traceback.print_exc()
-        game_instance["init_status"] = "error"
-        game_instance["init_error"] = str(e)
         raise HTTPException(status_code=500, detail=f"Load failed: {str(e)}")
 
 # --- 静态文件挂载 (必须放在最后) ---
