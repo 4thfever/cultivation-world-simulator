@@ -31,7 +31,7 @@ class StoreMixin:
     def get_store_info(self) -> str:
         """
         获取商店信息描述
-        例如：交易：练气剑、练气刀（100灵石）；练气破境丹（50灵石）
+        例如：出售：练气剑、练气刀（100灵石）；练气破境丹（50灵石）
         """
         # 如果没有初始化或者没有物品
         if not hasattr(self, 'store_items') or not self.store_items:
@@ -52,12 +52,12 @@ class StoreMixin:
         # 按价格从低到高排序
         for price in sorted(items_by_price.keys()):
             names = items_by_price[price]
-            # 去重并保持顺序 (Python 3.7+ dict key insertion order)
+            # 去重并保持顺序 
             unique_names = list(dict.fromkeys(names))
             names_str = "、".join(unique_names)
             parts.append(f"{names_str}（{price}灵石）")
             
-        return "交易：" + "；".join(parts)
+        return "出售：" + "；".join(parts)
 
     def is_selling(self, item_name: str) -> bool:
         """

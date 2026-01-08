@@ -33,7 +33,6 @@ from .devour_mortals import DevourMortals
 from .self_heal import SelfHeal
 from .catch import Catch
 from .nurture_weapon import NurtureWeapon
-from .switch_weapon import SwitchWeapon
 from .assassinate import Assassinate
 from .move_to_direction import MoveToDirection
 from .cast import Cast
@@ -69,7 +68,6 @@ register_action(actual=True)(DevourMortals)
 register_action(actual=True)(SelfHeal)
 register_action(actual=True)(Catch)
 register_action(actual=True)(NurtureWeapon)
-register_action(actual=True)(SwitchWeapon)
 register_action(actual=True)(Assassinate)
 register_action(actual=True)(MoveToDirection)
 register_action(actual=True)(Cast)
@@ -108,7 +106,6 @@ __all__ = [
     "SelfHeal",
     "Catch",
     "NurtureWeapon",
-    "SwitchWeapon",
     "Assassinate",
     "MoveToDirection",
     "Cast",
