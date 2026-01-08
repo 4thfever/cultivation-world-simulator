@@ -6,6 +6,7 @@
 {planned_actions}
 
 {avatar_name_1}和{avatar_name_2}的对话可能是善意\恶意\闲聊。目的和内容参考NPC信息得出。
+可以用名字或者绰号（如存在）相互称呼
 
 注意，只返回json格式的结果。
 格式为：
