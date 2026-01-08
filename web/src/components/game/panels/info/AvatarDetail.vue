@@ -76,6 +76,18 @@ async function handleClearObjective() {
     </div>
 
     <div class="content-scroll">
+      <!-- Objectives -->
+      <div v-if="!data.is_dead" class="objectives-banner">
+        <div class="objective-item">
+          <span class="label">长期目标</span>
+          <span class="value">{{ data.long_term_objective || '无' }}</span>
+        </div>
+        <div class="objective-item">
+          <span class="label">短期目标</span>
+          <span class="value">{{ data.short_term_objective || '无' }}</span>
+        </div>
+      </div>
+
       <!-- Action State Banner -->
       <div v-if="!data.is_dead && data.action_state" class="action-banner">
         {{ data.action_state }}
@@ -184,16 +196,6 @@ async function handleClearObjective() {
         </div>
       </div>
 
-      <!-- Objectives -->
-      <div class="section">
-        <div class="section-title">长期目标</div>
-        <div class="text-content">{{ data.long_term_objective || '无' }}</div>
-      </div>
-      <div class="section">
-        <div class="section-title">短期目标</div>
-        <div class="text-content">{{ data.short_term_objective || '无' }}</div>
-      </div>
-
       <!-- Effects -->
       <div class="section" v-if="data['当前效果'] && data['当前效果'] !== '无'">
         <div class="section-title">当前效果</div>
@@ -261,6 +263,34 @@ async function handleClearObjective() {
   font-size: 13px;
   margin-bottom: 8px;
   border: 1px solid rgba(23, 125, 220, 0.3);
+}
+
+.objectives-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.objective-item {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.objective-item .label {
+  color: #888;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.objective-item .value {
+  color: #ccc;
 }
 
 .content-scroll {
