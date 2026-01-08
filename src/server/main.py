@@ -314,7 +314,26 @@ async def init_game_async():
         # 阶段 1: 地图加载
         update_init_progress(1, "loading_map")
         game_map = await asyncio.to_thread(load_cultivation_world_map)
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+
+        # 初始化 SQLite 事件数据库
+        from datetime import datetime
+        from src.sim.load_game import get_events_db_path
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+        save_name = f"save_{timestamp}"
+        saves_dir = CONFIG.paths.saves
+        saves_dir.mkdir(parents=True, exist_ok=True)
+        save_path = saves_dir / f"{save_name}.json"
+        events_db_path = get_events_db_path(save_path)
+        
+        game_instance["current_save_path"] = save_path
+        print(f"事件数据库: {events_db_path}")
+
+        world = World.create_with_db(
+            map=game_map,
+            month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+            events_db_path=events_db_path,
+        )
         sim = Simulator(world)
 
         # 阶段 2: 宗门初始化
@@ -408,109 +427,6 @@ async def init_game_async():
         print(f"[Error] 初始化失败: {e}")
 
 
-    """初始化游戏世界，逻辑复用自 src/run/run.py (同步版本，保留用于向后兼容)"""
-    from datetime import datetime
-    from src.sim.load_game import get_events_db_path
-    print("正在初始化游戏世界...")
-    scan_avatar_assets()
-    game_map = load_cultivation_world_map()
-
-    # 生成时间戳命名的存档路径
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-    save_name = f"save_{timestamp}"
-    saves_dir = CONFIG.paths.saves
-    saves_dir.mkdir(parents=True, exist_ok=True)
-    save_path = saves_dir / f"{save_name}.json"
-    events_db_path = get_events_db_path(save_path)
-
-    # 使用 SQLite 事件存储创建 World
-    world = World.create_with_db(
-        map=game_map,
-        month_stamp=create_month_stamp(Year(100), Month.JANUARY),
-        events_db_path=events_db_path,
-    )
-    print(f"事件数据库: {events_db_path}")
-
-    # 记录当前存档路径（供后续保存使用）
-    game_instance["current_save_path"] = save_path
-
-    sim = Simulator(world)
-
-    # 宗门初始化逻辑
-    all_sects = list(sects_by_id.values())
-    needed_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
-    
-    # 简单的宗门抽样逻辑 (简化版)
-    existed_sects = []
-    if needed_sects > 0 and all_sects:
-        pool = list(all_sects)
-        random.shuffle(pool)
-        existed_sects = pool[:needed_sects]
-
-    # 创建角色
-    protagonist_mode = getattr(CONFIG.avatar, "protagonist", "none")
-    target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
-    
-    final_avatars = {}
-
-    # 1. 生成主角 (All / Random)
-    spawned_protagonists_count = 0
-    if protagonist_mode in ["all", "random"]:
-        prob = 1.0 if protagonist_mode == "all" else 0.05
-        # 注意：spawn_protagonists 返回的是 dict
-        prot_avatars = prot_utils.spawn_protagonists(world, world.month_stamp, probability=prob)
-        final_avatars.update(prot_avatars)
-        spawned_protagonists_count = len(prot_avatars)
-        print(f"生成了 {spawned_protagonists_count} 位主角 (Mode: {protagonist_mode})")
-
-    # 2. 生成路人 (如果需要)
-    # random 或 none 模式下补齐人数
-    remaining_count = 0
-    if protagonist_mode == "all":
-        remaining_count = 0
-    else:
-        remaining_count = max(0, target_total_count - spawned_protagonists_count)
-
-    if remaining_count > 0:
-        random_avatars = _new_make_random(
-            world, 
-            count=remaining_count, 
-            current_month_stamp=world.month_stamp, 
-            existed_sects=existed_sects
-        )
-        final_avatars.update(random_avatars)
-        print(f"生成了 {len(random_avatars)} 位随机路人")
-        
-    world.avatar_manager.avatars.update(final_avatars)
-    
-    game_instance["world"] = world
-    game_instance["sim"] = sim
-    print("游戏世界初始化完成！")
-    
-    # ===== LLM 连通性检测（在 simulator 运行前）=====
-    print("正在检测 LLM 连通性...")
-    success, error_msg = check_llm_connectivity()
-    
-    if not success:
-        print(f"[警告] LLM 连通性检测失败: {error_msg}")
-        print("[警告] Simulator 已暂停，等待配置 LLM...")
-        game_instance["llm_check_failed"] = True
-        game_instance["llm_error_message"] = error_msg
-        game_instance["is_paused"] = True
-        print("等待前端连接并配置 LLM...")
-    else:
-        print("LLM 连通性检测通过 ✓")
-        game_instance["llm_check_failed"] = False
-        game_instance["llm_error_message"] = ""
-        # 即使 LLM 检测通过，也保持暂停状态。
-        # 等待用户选择"新游戏"或"加载存档"后再开始运行。
-        # 这样可以避免在用户加载存档前就生成初始化事件（如长期目标）。
-        game_instance["is_paused"] = True
-    # ===== LLM 检测结束 =====
-    
-    # 更新初始化状态为就绪
-    game_instance["init_status"] = "ready"
-    game_instance["init_progress"] = 100
 
 async def game_loop():
     """后台自动运行游戏循环。"""
