@@ -11,22 +11,22 @@ from src.sim.new_avatar import create_avatar_from_request
 # ==========================================
 protagonist_configs = [
     # ------------------- 赤心巡天 -------------------
-    {
-        "key": "jiang_wang",
-        "name": "姜望",
-        "desc": "《赤心巡天》主角，赤心剑修",
-        "params": {
-            "gender": "男",
-            "age": 22,
-            "level": 60,         # 金丹/外楼
-            "sect": 1,           # 明心剑宗
-            "technique": 30,     # 草字剑诀 (剑道至高)
-            "weapon": 3007,      # 诛仙剑 (长相思)
-            "auxiliary": 3011,   # 六道剑匣 (随身剑匣)
-            "personas": ["心机深沉", "极端正义", "剑痴"],
-            "appearance": 8,
-        }
-    },
+    # {
+    #     "key": "jiang_wang",
+    #     "name": "姜望",
+    #     "desc": "《赤心巡天》主角，赤心剑修",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 22,
+    #         "level": 60,         # 金丹/外楼
+    #         "sect": 1,           # 明心剑宗
+    #         "technique": 30,     # 草字剑诀 (剑道至高)
+    #         "weapon": 3007,      # 诛仙剑 (长相思)
+    #         "auxiliary": 3011,   # 六道剑匣 (随身剑匣)
+    #         "personas": ["心机深沉", "极端正义", "剑痴"],
+    #         "appearance": 8,
+    #     }
+    # },
     # ------------------- 凡人修仙传 -------------------
     {
         "key": "han_li",
@@ -56,43 +56,43 @@ protagonist_configs = [
             "technique": 47,     # 凌波微步 (素女轮回功)
             "weapon": 3009,      # 芭蕉扇 (朱雀环)
             "auxiliary": 3004,   # 龙凤呈祥戒
-            "personas": ["淡漠", "正直", "修行痴迷"],
+            "personas": ["淡漠", "理性", "修行痴迷"],
             "appearance": 42,
         }
     },
-    {
-        "key": "li_fei_yu",
-        "name": "厉飞雨",
-        "desc": "《凡人修仙传》韩立挚友，杀人放火厉飞雨",
-        "params": {
-            "gender": "男",
-            "age": 25,           # 英年早逝形象
-            "level": 30,         # 筑基期 (对应凡人武学巅峰+修仙入门)
-            "sect": 14,          # 噬魔宗 (透支潜力，杀伐果断)
-            "technique": 28,     # 燃血大法 (燃烧气血)
-            "weapon": 2011,      # 血饮狂刀 (杀气腾腾)
-            "auxiliary": 2003,   # 人参果(伪) (增加寿命)
-            "personas": ["狠辣", "好斗", "忠诚"],
-            "appearance": 10,
-        }
-    },
+    # {
+    #     "key": "li_fei_yu",
+    #     "name": "厉飞雨",
+    #     "desc": "《凡人修仙传》韩立挚友，杀人放火厉飞雨",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 25,           # 英年早逝形象
+    #         "level": 30,         # 筑基期 (对应凡人武学巅峰+修仙入门)
+    #         "sect": 14,          # 噬魔宗 (透支潜力，杀伐果断)
+    #         "technique": 28,     # 燃血大法 (燃烧气血)
+    #         "weapon": 2011,      # 血饮狂刀 (杀气腾腾)
+    #         "auxiliary": 2003,   # 人参果(伪) (增加寿命)
+    #         "personas": ["狠辣", "好斗", "忠诚"],
+    #         "appearance": 10,
+    #     }
+    # },
     # ------------------- 斗破苍穹 -------------------
-    {
-        "key": "xiao_yan",
-        "name": "萧炎",
-        "desc": "《斗破苍穹》主角，炎帝",
-        "params": {
-            "gender": "男",
-            "age": 30,
-            "level": 110,        # 斗帝
-            "sect": 5,           # 朱勾宗 (火系/炼器/暗杀)
-            "technique": 42,     # 焚决 (吞噬异火)
-            "weapon": 2012,      # 玄铁重剑 (玄重尺)
-            "auxiliary": 3008,   # 八卦炉 (药老/炼药)
-            "personas": ["炼丹师", "气运之子", "复仇"],
-            "appearance": 10,
-        }
-    },
+    # {
+    #     "key": "xiao_yan",
+    #     "name": "萧炎",
+    #     "desc": "《斗破苍穹》主角，炎帝",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 30,
+    #         "level": 110,        # 斗帝
+    #         "sect": 5,           # 朱勾宗 (火系/炼器/暗杀)
+    #         "technique": 42,     # 焚决 (吞噬异火)
+    #         "weapon": 2012,      # 玄铁重剑 (玄重尺)
+    #         "auxiliary": 3008,   # 八卦炉 (药老/炼药)
+    #         "personas": ["炼丹师", "气运之子", "复仇"],
+    #         "appearance": 10,
+    #     }
+    # },
     {
         "key": "xiao_xun_er",
         "name": "萧薰儿",
@@ -105,7 +105,7 @@ protagonist_configs = [
             "technique": 11,     # 纯阳无极功 (金帝焚天炎)
             "weapon": 3005,      # 赤锋矛
             "auxiliary": 3012,   # 传国玉玺 (族长信物)
-            "personas": ["高贵", "霸道", "友爱"],
+            "personas": ["气运之子", "霸道", "友爱"],
             "appearance": 45,
         }
     },
@@ -126,22 +126,22 @@ protagonist_configs = [
         }
     },
     # ------------------- 一世之尊 -------------------
-    {
-        "key": "meng_qi",
-        "name": "孟奇",
-        "desc": "《一世之尊》主角，雷刀狂僧",
-        "params": {
-            "gender": "男",
-            "age": 25,
-            "level": 80,
-            "sect": 7,           # 镇魂宗 (肉身/禅意)
-            "technique": 49,     # 神霄雷法 (雷法正宗)
-            "weapon": 2011,      # 血饮狂刀 (雷刀/霸王绝刀)
-            "auxiliary": 2008,   # 菩提子 (悟性/诸果之因)
-            "personas": ["穿越者", "好斗", "外向"],
-            "appearance": 12,
-        }
-    },
+    # {
+    #     "key": "meng_qi",
+    #     "name": "孟奇",
+    #     "desc": "《一世之尊》主角，雷刀狂僧",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 25,
+    #         "level": 80,
+    #         "sect": 7,           # 镇魂宗 (肉身/禅意)
+    #         "technique": 49,     # 神霄雷法 (雷法正宗)
+    #         "weapon": 2011,      # 血饮狂刀 (雷刀/霸王绝刀)
+    #         "auxiliary": 2008,   # 菩提子 (悟性/诸果之因)
+    #         "personas": ["穿越者", "好斗", "外向"],
+    #         "appearance": 12,
+    #     }
+    # },
     {
         "key": "gu_xiao_sang",
         "name": "顾小桑",
@@ -170,61 +170,61 @@ protagonist_configs = [
             "technique": 30,     # 草字剑诀 (截天七剑)
             "weapon": 3007,      # 诛仙剑 (太解剑)
             "auxiliary": 3011,   # 六道剑匣
-            "personas": ["剑痴", "正直", "果敢"],
+            "personas": ["剑痴", "好斗", "极端正义"],
             "appearance": 30,
         }
     },
     # ------------------- 掌门路 -------------------
-    {
-        "key": "qi_xiu",
-        "name": "齐休",
-        "desc": "《掌门路》主角，全知掌门",
-        "params": {
-            "gender": "男",
-            "age": 150,
-            "level": 70,
-            "sect": 3,           # 水镜宗 (全知/观测)
-            "technique": 36,     # 虚空经 (全知观测)
-            "weapon": 2005,      # 桃花扇 (本命物)
-            "auxiliary": 3002,   # 昆仑镜 (全知之眼)
-            "personas": ["心机深沉", "疑心重", "穿越者"],
-            "appearance": 25,
-        }
-    },
+    # {
+    #     "key": "qi_xiu",
+    #     "name": "齐休",
+    #     "desc": "《掌门路》主角，全知掌门",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 150,
+    #         "level": 70,
+    #         "sect": 3,           # 水镜宗 (全知/观测)
+    #         "technique": 36,     # 虚空经 (全知观测)
+    #         "weapon": 2005,      # 桃花扇 (本命物)
+    #         "auxiliary": 3002,   # 昆仑镜 (全知之眼)
+    #         "personas": ["心机深沉", "疑心重", "穿越者"],
+    #         "appearance": 25,
+    #     }
+    # },
     # ------------------- 神秘复苏 -------------------
-    {
-        "key": "yang_jian",
-        "name": "杨间",
-        "desc": "《神秘复苏》主角，鬼眼",
-        "params": {
-            "gender": "男",
-            "age": 20,
-            "level": 75,
-            "sect": 8,           # 幽魂噬影宗 (鬼影/灵异)
-            "technique": 51,     # 幽冥鬼爪 (鬼影袭击)
-            "weapon": 3004,      # 弑神枪 (发裂长枪/棺材钉)
-            "auxiliary": 2006,   # 源天神眼 (鬼眼)
-            "personas": ["淡漠", "心机深沉", "狠辣"],
-            "appearance": 18,
-        }
-    },
+    # {
+    #     "key": "yang_jian",
+    #     "name": "杨间",
+    #     "desc": "《神秘复苏》主角，鬼眼",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 20,
+    #         "level": 75,
+    #         "sect": 8,           # 幽魂噬影宗 (鬼影/灵异)
+    #         "technique": 51,     # 幽冥鬼爪 (鬼影袭击)
+    #         "weapon": 3004,      # 弑神枪 (发裂长枪/棺材钉)
+    #         "auxiliary": 2006,   # 源天神眼 (鬼眼)
+    #         "personas": ["淡漠", "心机深沉", "狠辣"],
+    #         "appearance": 18,
+    #     }
+    # },
     # ------------------- 道诡异仙 -------------------
-    {
-        "key": "li_huo_wang",
-        "name": "李火旺",
-        "desc": "《道诡异仙》主角，心素",
-        "params": {
-            "gender": "男",
-            "age": 19,
-            "level": 65,
-            "sect": 14,          # 噬魔宗
-            "technique": 28,     # 燃血大法 (自残修仙)
-            "weapon": 1001,      # 练气剑 (红中)
-            "auxiliary": 2008,   # 菩提子 (清心压制)
-            "personas": ["无常", "好斗", "忠诚"],
-            "appearance": 20,
-        }
-    },
+    # {
+    #     "key": "li_huo_wang",
+    #     "name": "李火旺",
+    #     "desc": "《道诡异仙》主角，心素",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 19,
+    #         "level": 65,
+    #         "sect": 14,          # 噬魔宗
+    #         "technique": 28,     # 燃血大法 (自残修仙)
+    #         "weapon": 1001,      # 练气剑 (红中)
+    #         "auxiliary": 2008,   # 菩提子 (清心压制)
+    #         "personas": ["无常", "好斗", "忠诚"],
+    #         "appearance": 20,
+    #     }
+    # },
     {
         "key": "bai_ling_miao",
         "name": "白灵淼",
@@ -249,12 +249,12 @@ protagonist_configs = [
         "params": {
             "gender": "女",
             "age": 1000,
-            "level": 120,        # 红尘仙
+            "level": 80,         # 元婴
             "sect": 4,           # 冥王宗 (吞天/死亡)
             "technique": 39,     # 吞天魔功
             "weapon": 3004,      # 弑神枪 (龙纹黑金鼎)
             "auxiliary": 2011,   # 无相面具 (青铜面具)
-            "personas": ["孤傲", "淡漠", "狠辣"],
+            "personas": ["修行痴迷", "淡漠", "狠辣"],
             "appearance": 48,
         }
     },
@@ -271,43 +271,43 @@ protagonist_configs = [
             "technique": 31,     # 神剑御雷真诀
             "weapon": 3007,      # 诛仙剑 (天琊)
             "auxiliary": 2010,   # 寒玉床 (静坐修行)
-            "personas": ["高冷", "坚韧", "正直"],
+            "personas": ["淡漠", "修行痴迷", "极端正义"],
             "appearance": 45,
         }
     },
     # ------------------- 玄鉴仙族 -------------------
-    {
-        "key": "li_tong_ya",
-        "name": "李通崖",
-        "desc": "《玄鉴仙族》老祖",
-        "params": {
-            "gender": "男",
-            "age": 80,
-            "level": 50,
-            "sect": 3,           # 水镜宗
-            "technique": 32,     # 大河剑意 (水系剑修)
-            "weapon": 2013,      # 紫薇软剑
-            "auxiliary": 3002,   # 昆仑镜 (鉴子)
-            "personas": ["友爱", "沉思", "剑修"],
-            "appearance": 30,
-        }
-    },
-    {
-        "key": "li_xi_ming",
-        "name": "李曦明",
-        "desc": "《玄鉴仙族》后辈",
-        "params": {
-            "gender": "男",
-            "age": 25,
-            "level": 40,
-            "sect": 3,           # 水镜宗
-            "technique": 38,     # 逍遥游 (身法)
-            "weapon": 3009,      # 芭蕉扇 (术法)
-            "auxiliary": 2006,   # 源天神眼 (明阳神通)
-            "personas": ["死宅", "惜命", "沉思"],
-            "appearance": 5,
-        }
-    }
+    # {
+    #     "key": "li_tong_ya",
+    #     "name": "李通崖",
+    #     "desc": "《玄鉴仙族》老祖",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 80,
+    #         "level": 50,
+    #         "sect": 3,           # 水镜宗
+    #         "technique": 32,     # 大河剑意 (水系剑修)
+    #         "weapon": 2013,      # 紫薇软剑
+    #         "auxiliary": 3002,   # 昆仑镜 (鉴子)
+    #         "personas": ["友爱", "沉思", "剑修"],
+    #         "appearance": 30,
+    #     }
+    # },
+    # {
+    #     "key": "li_xi_ming",
+    #     "name": "李曦明",
+    #     "desc": "《玄鉴仙族》后辈",
+    #     "params": {
+    #         "gender": "男",
+    #         "age": 25,
+    #         "level": 40,
+    #         "sect": 3,           # 水镜宗
+    #         "technique": 38,     # 逍遥游 (身法)
+    #         "weapon": 3009,      # 芭蕉扇 (术法)
+    #         "auxiliary": 2006,   # 源天神眼 (明阳神通)
+    #         "personas": ["死宅", "惜命", "沉思"],
+    #         "appearance": 5,
+    #     }
+    # }
 ]
 
 # ==========================================
