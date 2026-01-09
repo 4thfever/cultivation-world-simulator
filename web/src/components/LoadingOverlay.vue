@@ -52,6 +52,7 @@ const tips = [
   '天命之子特质的角色，好运连连，奇遇不断',
   '现代世界的穿越者，只想回到现实世界，但这是不可能的',
   '丹药有生效的时间限制',
+  '由于大模型需要思考，游戏启动可能耗时较久',
 ]
 
 const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])

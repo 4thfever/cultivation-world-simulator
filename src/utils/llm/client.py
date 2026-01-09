@@ -55,8 +55,8 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
     )
     
     try:
-        # 设置超时时间为 60 秒，避免无限等待
-        with urllib.request.urlopen(req, timeout=60) as response:
+        # 设置超时时间为 120 秒，避免无限等待
+        with urllib.request.urlopen(req, timeout=120) as response:
             result = json.loads(response.read().decode('utf-8'))
             return result['choices'][0]['message']['content']
     except urllib.error.HTTPError as e:
