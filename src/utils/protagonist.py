@@ -248,8 +248,8 @@ protagonist_configs = [
         "desc": "《遮天》古今第一狠人",
         "params": {
             "gender": "女",
-            "age": 1000,
-            "level": 80,         # 元婴
+            "age": 450,
+            "level": 91,         # 元婴
             "sect": 4,           # 冥王宗 (吞天/死亡)
             "technique": 39,     # 吞天魔功
             "weapon": 3004,      # 弑神枪 (龙纹黑金鼎)
