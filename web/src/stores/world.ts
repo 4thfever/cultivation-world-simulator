@@ -4,7 +4,7 @@ import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPheno
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
 import type { FetchEventsParams } from '../api/game';
 import { gameApi } from '../api/game';
-import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
+import { processNewEvents } from '../utils/eventHelper';
 
 export const useWorldStore = defineStore('world', () => {
   // --- State ---
@@ -240,6 +240,7 @@ export const useWorldStore = defineStore('world', () => {
         content: e.content,
         year: e.year,
         month: e.month,
+        timestamp: e.month_stamp,
         monthStamp: e.month_stamp,
         relatedAvatarIds: e.related_avatar_ids,
         isMajor: e.is_major,

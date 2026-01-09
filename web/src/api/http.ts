@@ -57,6 +57,10 @@ export const httpClient = {
       },
       body: JSON.stringify(body),
     });
+  },
+
+  delete<T>(path: string) {
+    return request<T>(path, { method: 'DELETE' });
   }
 };
 
