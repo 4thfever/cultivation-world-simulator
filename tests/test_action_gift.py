@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 from unittest.mock import patch, MagicMock
 from src.classes.mutual_action.gift import Gift
 from src.classes.action_runtime import ActionResult, ActionStatus
