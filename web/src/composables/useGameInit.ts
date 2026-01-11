@@ -5,6 +5,8 @@ import { useSocketStore } from '@/stores/socket'
 import { GAME_PHASES } from '@/constants/game'
 import { storeToRefs } from 'pinia'
 
+import { useTextures } from '@/components/game/composables/useTextures'
+
 interface UseGameInitOptions {
   onIdle?: () => void
 }
@@ -13,6 +15,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const systemStore = useSystemStore()
   const worldStore = useWorldStore()
   const socketStore = useSocketStore()
+  const { loadBaseTextures } = useTextures()
 
   const { initStatus, isInitialized, isLoading } = storeToRefs(systemStore)
   
@@ -39,6 +42,10 @@ export function useGameInit(options: UseGameInitOptions = {}) {
     
     systemStore.setInitialized(true)
     console.log('[GameInit] Game initialized.')
+
+    // 重新加载纹理以确保新生成的角色头像被加载
+    console.log('[GameInit] Reloading textures for new avatars...')
+    await loadBaseTextures()
   }
 
   async function pollInitStatus() {
