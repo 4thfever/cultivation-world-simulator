@@ -1,11 +1,12 @@
 from collections import defaultdict
-from typing import Any, List
+from typing import Any, List, Union
 
 from src.utils.resolution import resolve_query
 from src.classes.elixir import Elixir
 from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 from src.classes.prices import prices
+from src.classes.item_registry import ItemRegistry
 
 class StoreMixin:
     """
@@ -13,20 +14,25 @@ class StoreMixin:
     赋予区域售卖物品的能力
     """
     
-    def init_store(self, item_names: list[str]):
+    def init_store(self, item_ids: list[int]):
         """
         初始化商店物品
-        :param item_names: 物品名称列表
+        :param item_ids: 物品ID列表
         """
         self.store_items = []
-        if not item_names:
+        if not item_ids:
             return
 
-        for name in item_names:
-            # 期望类型：丹药、武器、辅助
-            res = resolve_query(name, expected_types=[Elixir, Weapon, Auxiliary])
-            if res.is_valid and res.obj:
-                self.store_items.append(res.obj)
+        for item_id in item_ids:
+            item = ItemRegistry.get(item_id)
+            if item:
+                self.store_items.append(item)
+            else:
+                # 兼容旧逻辑：如果列表中混入了字符串名称（虽然根据迁移脚本不应该发生）
+                if isinstance(item_id, str):
+                    res = resolve_query(item_id, expected_types=[Elixir, Weapon, Auxiliary])
+                    if res.is_valid and res.obj:
+                        self.store_items.append(res.obj)
     
     def get_store_info(self) -> str:
         """

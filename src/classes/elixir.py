@@ -166,7 +166,7 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
         effect_desc = format_effects_to_text(effects)
 
         elixir = Elixir(
-            id=elixir_id,
+            id=get_int(row, "item_id"),
             name=name,
             realm=realm,
             type=elixir_type,
@@ -176,11 +176,15 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
             effect_desc=effect_desc
         )
 
-        elixirs_by_id[elixir_id] = elixir
+        elixirs_by_id[elixir.id] = elixir
         
         if name not in elixirs_by_name:
             elixirs_by_name[name] = []
         elixirs_by_name[name].append(elixir)
+        
+        # 注册到全局注册表
+        from src.classes.item_registry import ItemRegistry
+        ItemRegistry.register(elixir.id, elixir)
 
     return elixirs_by_id, elixirs_by_name
 

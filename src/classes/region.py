@@ -215,19 +215,11 @@ class CultivateRegion(Region):
 @dataclass(eq=False)
 class CityRegion(Region, StoreMixin):
     """城市区域"""
-    sell_items: str = field(default="[]")
+    sell_item_ids: list[int] = field(default_factory=list)
 
     def __post_init__(self):
         super().__post_init__()
-        try:
-            import ast
-            items_list = ast.literal_eval(self.sell_items)
-            if isinstance(items_list, list):
-                self.init_store(items_list)
-            else:
-                self.init_store([])
-        except Exception:
-            self.init_store([])
+        self.init_store(self.sell_item_ids)
 
     def get_region_type(self) -> str:
         return "city"

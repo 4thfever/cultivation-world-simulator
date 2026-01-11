@@ -105,9 +105,16 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
                 params["essence_type"] = EssenceType.from_str(get_str(row, "root_type"))
                 params["essence_density"] = get_int(row, "root_density")
             elif type_tag == "city":
-                sell_items_str = get_str(row, "sell_items")
-                if sell_items_str:
-                    params["sell_items"] = sell_items_str
+                sell_ids_str = get_str(row, "sell_item_ids")
+                if sell_ids_str:
+                    try:
+                        import ast
+                        ids = ast.literal_eval(sell_ids_str)
+                        if isinstance(ids, list):
+                            params["sell_item_ids"] = ids
+                    except Exception as e:
+                        print(f"Error parsing sell_item_ids for city {rid}: {e}")
+
             elif type_tag == "sect":
                 sect_id = get_int(row, "sect_id")
                 params["sect_id"] = sect_id

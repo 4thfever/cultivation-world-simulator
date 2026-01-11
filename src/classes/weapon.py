@@ -93,7 +93,7 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
             realm = Realm.Qi_Refinement
 
         w = Weapon(
-            id=get_int(row, "id"),
+            id=get_int(row, "item_id"),
             name=get_str(row, "name"),
             weapon_type=weapon_type,
             realm=realm,
@@ -104,6 +104,10 @@ def _load_weapons() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
 
         weapons_by_id[w.id] = w
         weapons_by_name[w.name] = w
+        
+        # 注册到全局注册表
+        from src.classes.item_registry import ItemRegistry
+        ItemRegistry.register(w.id, w)
 
     return weapons_by_id, weapons_by_name
 

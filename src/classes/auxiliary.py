@@ -89,7 +89,7 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
             realm = Realm.Qi_Refinement
 
         a = Auxiliary(
-            id=get_int(row, "id"),
+            id=get_int(row, "item_id"),
             name=get_str(row, "name"),
             realm=realm,
             desc=get_str(row, "desc"),
@@ -99,6 +99,10 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
 
         auxiliaries_by_id[a.id] = a
         auxiliaries_by_name[a.name] = a
+        
+        # 注册到全局注册表
+        from src.classes.item_registry import ItemRegistry
+        ItemRegistry.register(a.id, a)
 
     return auxiliaries_by_id, auxiliaries_by_name
 
