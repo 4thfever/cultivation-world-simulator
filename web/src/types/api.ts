@@ -129,6 +129,7 @@ export interface GameStartConfigDTO {
   sect_num: number;
   protagonist: string;
   npc_awakening_rate_per_month: number;
+  world_history?: string;
 }
 
 export interface CurrentConfigDTO {
@@ -136,6 +137,7 @@ export interface CurrentConfigDTO {
     init_npc_num: number;
     sect_num: number;
     npc_awakening_rate_per_month: number;
+    world_history?: string;
   };
   avatar: {
     protagonist: string;

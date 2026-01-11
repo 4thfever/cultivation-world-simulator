@@ -89,8 +89,8 @@ async def test_history_influence(base_world):
         # Mock _read_csv to return dummy string
         manager._read_csv = MagicMock(return_value="dummy,csv,content")
         
-        # Mock call_llm_with_template
-        with patch("src.classes.history.call_llm_with_template", new_callable=AsyncMock) as mock_llm:
+        # Mock call_llm_with_task_name
+        with patch("src.classes.history.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
             mock_llm.return_value = mock_response
             
             # --- Execute ---

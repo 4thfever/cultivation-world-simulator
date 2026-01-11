@@ -7,7 +7,7 @@ import logging
 from src.classes.item_registry import ItemRegistry
 from src.classes.technique import techniques_by_id, techniques_by_name
 from src.classes.weapon import weapons_by_name
-from src.utils.llm.client import call_llm_with_template
+from src.utils.llm.client import call_llm_with_task_name
 from src.run.log import get_logger
 
 if TYPE_CHECKING:
@@ -43,7 +43,8 @@ class HistoryManager:
         # 2. 调用 LLM
         self.logger.info("[History] 正在根据历史推演世界变化...")
         try:
-            result = await call_llm_with_template(
+            result = await call_llm_with_task_name(
+                task_name="history_influence",
                 template_path="static/templates/history_influence.txt",
                 infos=infos,
                 max_retries=3 # 增加重试次数，确保 JSON 格式正确

@@ -73,18 +73,21 @@ def mock_llm_managers():
     with patch("src.sim.simulator.llm_ai") as mock_ai, \
          patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
          patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
-         patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr:
+         patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
+         patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist:
         
         mock_ai.decide = AsyncMock(return_value={})
         mock_lto.return_value = None
         mock_nick.return_value = None
         mock_rr.return_value = []
+        mock_hist.return_value = None
 
         yield {
             "ai": mock_ai,
             "lto": mock_lto,
             "nick": mock_nick,
-            "rr": mock_rr
+            "rr": mock_rr,
+            "hist": mock_hist
         }
 
 # --- Shared Helpers for Item Creation ---
