@@ -7,7 +7,7 @@ from .conversation import Conversation
 from .dual_cultivation import DualCultivation
 from .talk import Talk
 from .impart import Impart
-from .gift_spirit_stone import GiftSpiritStone
+from .gift import Gift
 from .spar import Spar
 from .occupy import Occupy
 from src.classes.action.registry import register_action
@@ -20,7 +20,7 @@ __all__ = [
     "DualCultivation",
     "Talk",
     "Impart",
-    "GiftSpiritStone",
+    "Gift",
     "Spar",
     "Occupy",
 ]
@@ -32,7 +32,7 @@ register_action(actual=True)(Conversation)
 register_action(actual=True)(DualCultivation)
 register_action(actual=True)(Talk)
 register_action(actual=True)(Impart)
-register_action(actual=True)(GiftSpiritStone)
+register_action(actual=True)(Gift)
 register_action(actual=True)(Spar)
 register_action(actual=True)(Occupy)
 
