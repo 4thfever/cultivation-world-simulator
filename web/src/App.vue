@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
-import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
+import { NConfigProvider, darkTheme, NMessageProvider, createDiscreteApi } from 'naive-ui'
 import { useWorldStore } from './stores/world'
 import { useUiStore } from './stores/ui'
 import { useSocketStore } from './stores/socket'
@@ -23,14 +23,22 @@ const initStatus = ref<InitStatusDTO | null>(null)
 const gameInitialized = ref(false)
 const mapPreloaded = ref(false)
 let pollInterval: ReturnType<typeof setInterval> | null = null
+const canCloseMenu = ref(true)
+const { message } = createDiscreteApi(['message'], {
+  configProviderProps: {
+    theme: darkTheme
+  }
+})
 
 // 根据 spec: showLoading = initStatus !== 'ready'
 // 注意：
 // 1. initStatus 为 null 时显示加载界面（还没获取到状态）
-// 2. initStatus 不是 ready 时显示加载界面
-// 3. 前端还没初始化完成时也要显示加载界面
+// 2. initStatus 不是 ready 且不是 idle 时显示加载界面
+// 3. 前端还没初始化完成时也要显示加载界面（如果后端 ready）
 const showLoading = computed(() => {
   if (initStatus.value === null) return true
+  // idle 状态下，不显示全屏 loading，而是显示菜单供用户配置
+  if (initStatus.value.status === 'idle') return false
   if (initStatus.value.status !== 'ready') return true
   if (!gameInitialized.value) return true
   return false
@@ -38,7 +46,7 @@ const showLoading = computed(() => {
 
 const showMenu = ref(false)
 const isManualPaused = ref(true)
-const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>('load')
+const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>('load')
 
 // 可以提前加载地图的阶段（宗门初始化后地图数据就 ready 了）。
 const MAP_READY_PHASES = ['initializing_sects', 'generating_avatars', 'checking_llm', 'generating_initial_events']
@@ -54,6 +62,12 @@ async function pollInitStatus() {
     const prevStatus = initStatus.value?.status
     initStatus.value = res
     
+    // 如果是从 null -> idle，或者一直保持 idle 但菜单没打开
+    // 这里我们只在第一次检测到 idle 时执行启动检查
+    if (res.status === 'idle' && !showMenu.value && prevStatus !== 'idle') {
+      performStartupCheck()
+    }
+
     // 提前加载地图：当进入特定阶段且还没预加载过时。
     if (!mapPreloaded.value && MAP_READY_PHASES.includes(res.phase_name)) {
       mapPreloaded.value = true
@@ -72,10 +86,58 @@ async function pollInitStatus() {
       await initializeGame()
       // ready 后停止轮询
       stopPolling()
+      // 游戏准备就绪，关闭菜单
+      showMenu.value = false
     }
   } catch (e) {
     console.error('Failed to fetch init status:', e)
   }
+}
+
+async function performStartupCheck() {
+  try {
+    const res = await gameApi.fetchLLMStatus()
+    
+    if (!res.configured) {
+      // 未配置 -> 强制进入 LLM 配置，禁止关闭
+      showMenu.value = true
+      menuDefaultTab.value = 'llm'
+      canCloseMenu.value = false
+      message.warning('检测到 LLM 未配置，请先完成设置')
+    } else {
+      // 已配置 -> 验证连通性
+      try {
+        const configRes = await gameApi.fetchLLMConfig()
+        await gameApi.testLLMConnection(configRes)
+        
+        // 测试通过 -> 允许进入开始游戏
+        menuDefaultTab.value = 'start'
+        canCloseMenu.value = true
+        // 确保菜单显示在 Start 页
+        showMenu.value = true
+      } catch (connErr) {
+        // 连接失败 -> 强制进入配置
+        console.error('LLM Connection check failed:', connErr)
+        showMenu.value = true
+        menuDefaultTab.value = 'llm'
+        canCloseMenu.value = false
+        message.error('LLM 连接测试失败，请重新配置')
+      }
+    }
+  } catch (e) {
+    console.error('Failed to check LLM status:', e)
+    // Fallback
+    showMenu.value = true
+    menuDefaultTab.value = 'llm'
+    canCloseMenu.value = false
+    message.error('无法获取系统状态')
+  }
+}
+
+function handleLLMReady() {
+  canCloseMenu.value = true
+  menuDefaultTab.value = 'start'
+  message.success('LLM 配置成功，请开始游戏')
 }
 
 async function initializeGame() {
@@ -141,6 +203,10 @@ function handleKeydown(e: KeyboardEvent) {
       uiStore.clearSelection()
     } else {
       showMenu.value = !showMenu.value
+      // 如果打开菜单，默认切到 load (或者保持上一次的状态，这里暂定 load)
+      if (showMenu.value) {
+        menuDefaultTab.value = 'load'
+      }
     }
   }
 }
@@ -226,7 +292,10 @@ watch([showMenu, isManualPaused], ([menuVisible, manualPaused]) => {
         <SystemMenu 
           :visible="showMenu"
           :default-tab="menuDefaultTab"
+          :game-initialized="gameInitialized"
+          :closable="canCloseMenu"
           @close="handleMenuClose"
+          @llm-ready="handleLLMReady"
         />
       </div>
     </n-message-provider>

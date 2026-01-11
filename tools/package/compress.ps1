@@ -76,6 +76,18 @@ if ($LogFiles) {
     }
 }
 
+# 4.3 Remove saves directories (Recursively)
+# Deletes 'saves' folder in root and inside '_internal' (and any save files within)
+$SaveDirs = Get-ChildItem -Path $SourceDir -Include "saves" -Recurse -Directory -Force
+if ($SaveDirs) {
+    foreach ($dir in $SaveDirs) {
+        if (Test-Path $dir.FullName) {
+            Remove-Item -Path $dir.FullName -Recurse -Force
+            Write-Host "  [-] Deleted Saves Dir: $($dir.FullName)" -ForegroundColor DarkGray
+        }
+    }
+}
+
 # ==============================================================================
 # 5. Compress
 # ==============================================================================

@@ -69,6 +69,10 @@ function applyPreset(preset: typeof presets[0]) {
   message.info(`已应用 ${preset.name} 预设 (请填写 API Key)`)
 }
 
+const emit = defineEmits<{
+  (e: 'config-saved'): void
+}>()
+
 async function handleTestAndSave() {
   if (!config.value.api_key) {
     message.warning('请填写 API Key')
@@ -88,6 +92,7 @@ async function handleTestAndSave() {
     // 2. 保存配置
     await gameApi.saveLLMConfig(config.value)
     message.success('配置已保存')
+    emit('config-saved')
   } catch (e: any) {
     message.error('测试或保存失败: ' + (e.response?.data?.detail || e.message))
   } finally {

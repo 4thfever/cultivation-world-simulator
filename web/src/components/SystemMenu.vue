@@ -4,17 +4,21 @@ import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
 import DeleteAvatarPanel from './game/panels/system/DeleteAvatarPanel.vue'
 import LLMConfigPanel from './game/panels/system/LLMConfigPanel.vue'
+import GameStartPanel from './game/panels/system/GameStartPanel.vue'
 
 const props = defineProps<{
   visible: boolean
-  defaultTab?: 'save' | 'load' | 'create' | 'delete' | 'llm'
+  defaultTab?: 'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'
+  gameInitialized: boolean
+  closable?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'llm-ready'): void
 }>()
 
-const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm'>(props.defaultTab || 'load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>(props.defaultTab || 'load')
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab
@@ -40,10 +44,18 @@ watch(() => props.visible, (val) => {
     <div class="system-menu">
       <div class="menu-header">
         <h2>系统菜单</h2>
-        <button class="close-btn" @click="emit('close')">×</button>
+        <!-- 只有在游戏未开始且处于 start/llm 界面时才可能无法关闭（如果是强制引导） -->
+        <!-- 但为了用户体验，通常保留关闭按钮，用户如果没配置好就关闭，也只是回到 idle 状态的空界面 -->
+        <button class="close-btn" @click="emit('close')" v-if="closable !== false">×</button>
       </div>
       
       <div class="menu-tabs">
+        <button 
+          :class="{ active: activeTab === 'start' }"
+          @click="switchTab('start')"
+        >
+          开始游戏
+        </button>
         <button 
           :class="{ active: activeTab === 'load' }"
           @click="switchTab('load')"
@@ -53,18 +65,21 @@ watch(() => props.visible, (val) => {
         <button 
           :class="{ active: activeTab === 'save' }"
           @click="switchTab('save')"
+          :disabled="!gameInitialized"
         >
           保存游戏
         </button>
         <button 
           :class="{ active: activeTab === 'create' }"
           @click="switchTab('create')"
+          :disabled="!gameInitialized"
         >
           新建角色
         </button>
         <button 
           :class="{ active: activeTab === 'delete' }"
           @click="switchTab('delete')"
+          :disabled="!gameInitialized"
         >
           删除角色
         </button>
@@ -77,8 +92,13 @@ watch(() => props.visible, (val) => {
       </div>
 
       <div class="menu-content">
+        <GameStartPanel 
+          v-if="activeTab === 'start'" 
+          :readonly="gameInitialized"
+        />
+
         <SaveLoadPanel 
-          v-if="activeTab === 'save' || activeTab === 'load'" 
+          v-else-if="activeTab === 'save' || activeTab === 'load'" 
           :mode="activeTab === 'save' ? 'save' : 'load'"
           @close="emit('close')"
         />
@@ -87,12 +107,13 @@ watch(() => props.visible, (val) => {
           v-else-if="activeTab === 'create'" 
           @created="switchTab('create')" 
         />
-        <!-- Note: @created callback could switch to list or stay, 
-             currently it stays to allow creating more or just refreshes internal list -->
         
         <DeleteAvatarPanel v-else-if="activeTab === 'delete'" />
         
-        <LLMConfigPanel v-else-if="activeTab === 'llm'" />
+        <LLMConfigPanel 
+          v-else-if="activeTab === 'llm'" 
+          @config-saved="emit('llm-ready')"
+        />
       </div>
     </div>
   </div>
@@ -165,8 +186,13 @@ watch(() => props.visible, (val) => {
   font-size: 1em;
 }
 
-.menu-tabs button:hover {
+.menu-tabs button:hover:not(:disabled) {
   background: #2a2a2a;
+}
+
+.menu-tabs button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .menu-tabs button.active {

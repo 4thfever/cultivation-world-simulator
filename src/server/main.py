@@ -20,7 +20,7 @@ from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.load_map import load_cultivation_world_map
 from src.sim.new_avatar import make_avatars as _new_make_random, create_avatar_from_request
-from src.utils.config import CONFIG
+from src.utils.config import CONFIG, load_config
 from src.classes.sect import sects_by_id
 from src.classes.technique import techniques_by_id
 from src.classes.weapon import weapons_by_id
@@ -536,10 +536,9 @@ async def game_loop():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 启动时自动开始异步初始化游戏
-    # 前端会轮询 /api/init-status 来显示加载进度
-    print("服务器启动，开始异步初始化游戏...")
-    asyncio.create_task(init_game_async())
+    # 启动时不再自动开始初始化游戏，等待前端指令
+    # 保持 init_status 为 idle
+    print("服务器启动，等待开始游戏指令...")
     
     # 启动后台游戏循环（会自动等待初始化完成）
     asyncio.create_task(game_loop())
@@ -900,22 +899,97 @@ def get_init_status():
     }
 
 
-@app.post("/api/game/new")
-async def start_new_game():
-    """开始新游戏（异步初始化）。"""
+# --- 开局配置与启动 API ---
+
+class GameStartRequest(BaseModel):
+    init_npc_num: int
+    sect_num: int
+    protagonist: str
+    npc_awakening_rate_per_month: float
+
+@app.get("/api/config/current")
+def get_current_config():
+    """获取当前游戏配置（用于回显）"""
+    return {
+        "game": {
+            "init_npc_num": getattr(CONFIG.game, "init_npc_num", 12),
+            "sect_num": getattr(CONFIG.game, "sect_num", 3),
+            "npc_awakening_rate_per_month": getattr(CONFIG.game, "npc_awakening_rate_per_month", 0.01)
+        },
+        "avatar": {
+            "protagonist": getattr(CONFIG.avatar, "protagonist", "none")
+        }
+    }
+
+@app.get("/api/config/llm/status")
+def get_llm_status():
+    """获取 LLM 配置状态"""
+    key = getattr(CONFIG.llm, "key", "")
+    base_url = getattr(CONFIG.llm, "base_url", "")
+    return {
+        "configured": bool(key and base_url)
+    }
+
+@app.post("/api/game/start")
+async def start_game(req: GameStartRequest):
+    """
+    保存配置并开始新游戏。
+    """
     current_status = game_instance.get("init_status", "idle")
-    
-    # 如果已经在初始化中，返回错误
     if current_status == "in_progress":
         raise HTTPException(status_code=400, detail="Game is already initializing")
+
+    # 1. 保存到 local_config.yml
+    local_config_path = "static/local_config.yml"
     
-    # 如果已经初始化完成，需要重置
+    # 读取现有 local_config 或创建新的
+    if os.path.exists(local_config_path):
+        conf = OmegaConf.load(local_config_path)
+    else:
+        conf = OmegaConf.create({})
+    
+    # 确保结构存在
+    if "game" not in conf: conf.game = {}
+    if "avatar" not in conf: conf.avatar = {}
+    
+    # 更新值
+    conf.game.init_npc_num = req.init_npc_num
+    conf.game.sect_num = req.sect_num
+    conf.game.npc_awakening_rate_per_month = req.npc_awakening_rate_per_month
+    conf.avatar.protagonist = req.protagonist
+    
+    # 写入文件
+    try:
+        OmegaConf.save(conf, local_config_path)
+    except Exception as e:
+        print(f"Error saving local config: {e}")
+        # Log but continue? Or fail? Best to fail if we promised to save.
+        raise HTTPException(status_code=500, detail=f"Failed to save config: {e}")
+
+    # 2. 重新加载全局 CONFIG
+    global CONFIG
+    try:
+        # 重新执行 load_config
+        new_config = load_config()
+        # 更新 CONFIG 引用 (OmegaConf 对象是可变的吗？ load_config 返回新对象)
+        # 我们不能简单替换 import 的 CONFIG，因为其他模块可能已经 import 了它。
+        # OmegaConf.merge 是原地更新吗？ 不是。
+        # 这是一个常见坑。最好的方式是修改 CONFIG 的内容而不是替换对象。
+        # 但 CONFIG 是 DictConfig。
+        
+        # 让我们尝试更新 CONFIG 的内容
+        # 更好的方法可能是：
+        CONFIG.merge_with(new_config) 
+        
+    except Exception as e:
+        print(f"Error reloading config: {e}")
+    
+    # 3. 开始初始化
     if current_status == "ready":
         # 清理旧的游戏状态
         game_instance["world"] = None
         game_instance["sim"] = None
     
-    # 重置初始化状态
     game_instance["init_status"] = "pending"
     game_instance["init_phase"] = 0
     game_instance["init_progress"] = 0
@@ -924,7 +998,7 @@ async def start_new_game():
     # 启动异步初始化任务
     asyncio.create_task(init_game_async())
     
-    return {"status": "ok", "message": "New game initialization started"}
+    return {"status": "ok", "message": "Game initialization started"}
 
 
 @app.post("/api/control/reinit")

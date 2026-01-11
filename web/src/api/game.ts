@@ -66,6 +66,24 @@ export interface LLMConfigDTO {
   mode: string;
 }
 
+export interface GameStartConfigDTO {
+  init_npc_num: number;
+  sect_num: number;
+  protagonist: string;
+  npc_awakening_rate_per_month: number;
+}
+
+export interface CurrentConfigDTO {
+  game: {
+    init_npc_num: number;
+    sect_num: number;
+    npc_awakening_rate_per_month: number;
+  };
+  avatar: {
+    protagonist: string;
+  };
+}
+
 // --- Events Pagination ---
 
 export interface EventDTO {
@@ -117,7 +135,8 @@ export const gameApi = {
   },
 
   fetchAvatarMeta() {
-    return httpClient.get<{ males: number[]; females: number[] }>('/api/meta/avatars');
+    // Add timestamp to prevent caching
+    return httpClient.get<{ males: number[]; females: number[] }>(`/api/meta/avatars?t=${Date.now()}`);
   },
 
   fetchPhenomenaList() {
@@ -205,6 +224,10 @@ export const gameApi = {
   saveLLMConfig(config: LLMConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/config/llm/save', config);
   },
+  
+  fetchLLMStatus() {
+    return httpClient.get<{ configured: boolean }>('/api/config/llm/status');
+  },
 
   // --- Events Pagination ---
 
@@ -233,10 +256,21 @@ export const gameApi = {
   },
 
   startNewGame() {
+    // Legacy: replaced by startGame logic usually, but kept for compatibility if needed
     return httpClient.post<{ status: string; message: string }>('/api/game/new', {});
   },
 
   reinitGame() {
     return httpClient.post<{ status: string; message: string }>('/api/control/reinit', {});
+  },
+
+  // --- Game Start Config ---
+  
+  fetchCurrentConfig() {
+    return httpClient.get<CurrentConfigDTO>('/api/config/current');
+  },
+
+  startGame(config: GameStartConfigDTO) {
+    return httpClient.post<{ status: string; message: string }>('/api/game/start', config);
   }
 };

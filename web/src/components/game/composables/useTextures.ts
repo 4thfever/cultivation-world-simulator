@@ -32,19 +32,46 @@ export function useTextures() {
   
   // 基础纹理加载（地图块、角色）
   const loadBaseTextures = async () => {
-    if (isLoaded.value) return
-
-    // Load Avatar Meta first
+    // 1. 获取最新的 Avatar Meta 并检查是否有变化
+    let metaChanged = false
     try {
         const meta = await gameApi.fetchAvatarMeta()
-        if (meta.males) availableAvatars.value.males = meta.males
-        if (meta.females) availableAvatars.value.females = meta.females
-        console.log('Avatar meta loaded:', availableAvatars.value)
+        
+        // 对比当前缓存的列表和新获取的列表
+        const newMalesStr = JSON.stringify(meta.males || [])
+        const curMalesStr = JSON.stringify(availableAvatars.value.males)
+        if (meta.males && newMalesStr !== curMalesStr) {
+            availableAvatars.value.males = meta.males
+            metaChanged = true
+        }
+
+        const newFemalesStr = JSON.stringify(meta.females || [])
+        const curFemalesStr = JSON.stringify(availableAvatars.value.females)
+        if (meta.females && newFemalesStr !== curFemalesStr) {
+            availableAvatars.value.females = meta.females
+            metaChanged = true
+        }
+        
+        if (metaChanged) {
+            console.log('Avatar meta updated:', availableAvatars.value)
+        }
     } catch (e) {
         console.warn('Failed to load avatar meta, using default range', e)
-        // Fallback
-        availableAvatars.value.males = Array.from({length: 47}, (_, i) => i + 1)
-        availableAvatars.value.females = Array.from({length: 41}, (_, i) => i + 1)
+        // Fallback: 只有在列表为空时才使用默认值
+        if (availableAvatars.value.males.length === 0) {
+            availableAvatars.value.males = Array.from({length: 47}, (_, i) => i + 1)
+            availableAvatars.value.females = Array.from({length: 41}, (_, i) => i + 1)
+            metaChanged = true
+        }
+    }
+
+    // 2. 如果已经加载过，且元数据没有变化，则跳过
+    // 注意：如果 metaChanged 为 true，即使 isLoaded 为 true 也要重新执行加载逻辑（Pixi Assets 会处理去重）
+    if (isLoaded.value && !metaChanged) {
+        // Double check if textures are actually loaded for current avatars
+        // This handles the case where meta didn't change (e.g. was fallback) but textures weren't loaded
+        const missingTexture = availableAvatars.value.males.some(id => !textures.value[`male_${id}`])
+        if (!missingTexture) return
     }
 
     const manifest: Record<string, string> = {
