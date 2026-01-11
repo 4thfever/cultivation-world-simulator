@@ -67,7 +67,7 @@ def save_game(
 
         # 保存模拟器数据
         simulator_data = {
-            "birth_rate": simulator.birth_rate
+            "awakening_rate": simulator.awakening_rate
         }
 
         # 组装完整的存档数据（不含 events，事件在 SQLite 中）

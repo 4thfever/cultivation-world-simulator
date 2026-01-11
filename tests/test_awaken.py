@@ -63,7 +63,7 @@ async def test_simulator_birth_logic(base_world):
     )
     
     sim = Simulator(base_world)
-    sim.birth_rate = 1.0 # 必生
+    sim.awakening_rate = 1.0 # 必生
     
     # Patch 掉 create_random_mortal，避免依赖复杂的宗门/地图数据
     with patch('src.sim.simulator.create_random_mortal', return_value=mock_avatar):

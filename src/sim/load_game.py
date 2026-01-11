@@ -120,7 +120,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple[World, Simulator, List[
         # 重建Simulator
         simulator_data = save_data.get("simulator", {})
         simulator = Simulator(world)
-        simulator.birth_rate = simulator_data.get("birth_rate", CONFIG.game.npc_birth_rate_per_month)
+        simulator.awakening_rate = simulator_data.get("awakening_rate", simulator_data.get("birth_rate", CONFIG.game.npc_awakening_rate_per_month))
 
         print(f"存档加载成功！共加载 {len(all_avatars)} 个角色")
         return world, simulator, existed_sects

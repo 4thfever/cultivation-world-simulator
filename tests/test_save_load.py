@@ -74,7 +74,7 @@ def test_save_load_cycle(temp_save_dir):
     sim = Simulator(world)
     # Modify a config value on the instance to check if it persists
     test_birth_rate = 0.99 
-    sim.birth_rate = test_birth_rate
+    sim.awakening_rate = test_birth_rate
     
     # 4. Prepare Existed Sects (Empty for this basic test)
     existed_sects = []
@@ -119,7 +119,7 @@ def test_save_load_cycle(temp_save_dir):
     assert loaded_avatar.hp.cur == 80
     
     # Verify Simulator
-    assert loaded_sim.birth_rate == test_birth_rate
+    assert loaded_sim.awakening_rate == test_birth_rate
     
     # Verify World/Simulator linkage
     assert loaded_sim.world == loaded_world

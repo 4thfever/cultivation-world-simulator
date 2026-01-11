@@ -22,7 +22,7 @@ from src.classes.death_reason import DeathReason
 class Simulator:
     def __init__(self, world: World):
         self.world = world
-        self.birth_rate = CONFIG.game.npc_birth_rate_per_month  # 从配置文件读取NPC每月出生率
+        self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month  # 从配置文件读取NPC每月觉醒率（凡人晋升修士）
 
     def _phase_update_perception_and_knowledge(self):
         """
@@ -199,7 +199,7 @@ class Simulator:
         events = []
         for avatar in self.world.avatar_manager.get_living_avatars():
             avatar.update_age(self.world.month_stamp)
-        if random.random() < self.birth_rate:
+        if random.random() < self.awakening_rate:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
             name = get_random_name(gender)
