@@ -13,6 +13,7 @@ import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
+from src.utils.config import CONFIG
 
 class Logger:
     """通用日志记录器"""
@@ -80,6 +81,12 @@ class Logger:
         
         # 不向根日志记录器传播
         self.logger.propagate = False
+        
+        # 记录版本号
+        if hasattr(CONFIG, "meta") and hasattr(CONFIG.meta, "version"):
+            self.logger.info(f"========== Game Start (Version: {CONFIG.meta.version}) ==========")
+        else:
+            self.logger.info("========== Game Start (Version: Unknown) ==========")
     
     def log_llm_interaction(self, 
                           model_name: str,
