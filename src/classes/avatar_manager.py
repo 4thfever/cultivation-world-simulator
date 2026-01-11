@@ -112,15 +112,28 @@ class AvatarManager:
         related = list(getattr(avatar, "relations", {}).keys())
         for other in related:
             avatar.clear_relation(other)
+
+        # 2. 清理占据的洞府
+        if getattr(avatar, "world", None) and hasattr(avatar.world, "map"):
+            for region in avatar.world.map.regions.values():
+                if getattr(region, "host_avatar", None) == avatar:
+                    region.host_avatar = None
             
-        # 2. 扫一遍所有角色（含死者），确保清除反向引用
+        # 3. 扫一遍所有角色（含死者），确保清除反向引用
         for other in self._iter_all_avatars():
             if other is avatar:
                 continue
             if getattr(other, "relations", None) is not None and avatar in other.relations:
                 other.clear_relation(avatar)
         
-        # 3. 移除自身
+        # 4. 清理宗门关系
+        if getattr(avatar, "sect", None) is not None:
+            # 必须调用 sect.remove_member 以从宗门成员字典中移除
+            # 注意：不应调用 avatar.leave_sect()，因为它可能修改 avatar.sect 为 None，
+            # 而我们这里主要关注清理外部（Sect对象）对 avatar 的引用。
+            avatar.sect.remove_member(avatar)
+
+        # 5. 移除自身
         self.avatars.pop(aid, None)
         self.dead_avatars.pop(aid, None)
 
