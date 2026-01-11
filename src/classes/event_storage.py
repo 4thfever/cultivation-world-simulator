@@ -9,12 +9,32 @@ import sqlite3
 from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 from contextlib import contextmanager
+from datetime import datetime, timezone
 
 from src.run.log import get_logger
 
 if TYPE_CHECKING:
     from src.classes.event import Event
 
+def _format_time(ts: float) -> str:
+    """将 timestamp float 转换为 SQLite 兼容的 UTC 字符串"""
+    return datetime.fromtimestamp(ts, timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
+
+def _parse_time(ts_str: str) -> float:
+    """将 SQLite 时间字符串解析为 timestamp float"""
+    if not ts_str:
+        return 0.0
+    try:
+        # 尝试带微秒的格式
+        dt = datetime.strptime(ts_str, '%Y-%m-%d %H:%M:%S.%f')
+    except ValueError:
+        try:
+            # 尝试不带微秒的格式
+            dt = datetime.strptime(ts_str, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            return 0.0
+    # 假设数据库存的是 UTC (naive time string from sqlite usually treated as such)
+    return dt.replace(tzinfo=timezone.utc).timestamp()
 
 class EventStorage:
     """
@@ -115,8 +135,8 @@ class EventStorage:
                 # 插入事件主表。
                 self._conn.execute(
                     """
-                    INSERT OR IGNORE INTO events (id, month_stamp, content, is_major, is_story)
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT OR IGNORE INTO events (id, month_stamp, content, is_major, is_story, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     (
                         event.id,
@@ -124,6 +144,7 @@ class EventStorage:
                         event.content,
                         event.is_major,
                         event.is_story,
+                        _format_time(event.created_at),
                     )
                 )
 
@@ -193,7 +214,7 @@ class EventStorage:
                 # Pair 查询：两个角色都相关的事件。
                 id1, id2 = avatar_id_pair
                 base_query = """
-                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                     FROM events e
                     JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                     JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -202,7 +223,7 @@ class EventStorage:
             elif avatar_id:
                 # 单角色查询。
                 base_query = """
-                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                     FROM events e
                     JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 """
@@ -210,7 +231,7 @@ class EventStorage:
             else:
                 # 全部事件。
                 base_query = """
-                    SELECT rowid, id, month_stamp, content, is_major, is_story
+                    SELECT rowid, id, month_stamp, content, is_major, is_story, e.created_at
                     FROM events e
                 """
 
@@ -259,6 +280,7 @@ class EventStorage:
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
+                    created_at=_parse_time(row["created_at"]),
                 )
                 events.append(event)
                 last_rowid = row["rowid"]
@@ -304,7 +326,7 @@ class EventStorage:
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                 FROM events e
                 JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 WHERE e.is_major = TRUE AND e.is_story = FALSE
@@ -329,6 +351,7 @@ class EventStorage:
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
+                    created_at=_parse_time(row["created_at"]),
                 )
                 events.append(event)
 
@@ -348,7 +371,7 @@ class EventStorage:
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                 FROM events e
                 JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 WHERE e.is_major = FALSE OR e.is_story = TRUE
@@ -373,6 +396,7 @@ class EventStorage:
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
+                    created_at=_parse_time(row["created_at"]),
                 )
                 events.append(event)
 
@@ -392,7 +416,7 @@ class EventStorage:
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -418,6 +442,7 @@ class EventStorage:
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
+                    created_at=_parse_time(row["created_at"]),
                 )
                 events.append(event)
 
@@ -437,7 +462,7 @@ class EventStorage:
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -463,6 +488,7 @@ class EventStorage:
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
+                    created_at=_parse_time(row["created_at"]),
                 )
                 events.append(event)
 

@@ -196,6 +196,9 @@ export interface GameEvent {
   isMajor: boolean;
   isStory: boolean;
   
+  // 真实创建时间 (用于精确排序)
+  createdAt?: number;
+
   // 运行时辅助字段
   _seq?: number; 
 }

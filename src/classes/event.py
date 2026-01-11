@@ -4,6 +4,8 @@ event class
 from dataclasses import dataclass, field
 from typing import List, Optional
 import uuid
+import time
+from datetime import datetime
 
 from src.classes.calendar import Month, Year, MonthStamp
 
@@ -19,6 +21,8 @@ class Event:
     is_story: bool = False
     # 唯一ID，用于去重
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    # 创建时间戳 (Unix timestamp float)
+    created_at: float = field(default_factory=time.time)
 
     def __str__(self) -> str:
         year = self.month_stamp.get_year()
@@ -33,7 +37,8 @@ class Event:
             "related_avatars": self.related_avatars,
             "is_major": self.is_major,
             "is_story": self.is_story,
-            "id": self.id
+            "id": self.id,
+            "created_at": self.created_at
         }
     
     @classmethod
@@ -45,7 +50,8 @@ class Event:
             related_avatars=data.get("related_avatars"),
             is_major=data.get("is_major", False),
             is_story=data.get("is_story", False),
-            id=data.get("id", str(uuid.uuid4()))
+            id=data.get("id", str(uuid.uuid4())),
+            created_at=data.get("created_at", time.time())
         )
 
 class NullEvent:

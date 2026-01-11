@@ -202,6 +202,7 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
             "related_avatar_ids": related_ids,
             "is_major": bool(getattr(event, "is_major", False)),
             "is_story": bool(getattr(event, "is_story", False)),
+            "created_at": getattr(event, "created_at", 0.0),
         })
     return serialized
 
