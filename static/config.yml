@@ -10,6 +10,7 @@ llm:
     relation_resolver: "fast"
     story_teller: "fast"
     interaction_feedback: "fast"
+    history_influence: "normal"
 
 paths:
   templates: static/templates/

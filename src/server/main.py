@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from src.sim.simulator import Simulator
 from src.classes.world import World
+from src.classes.history import HistoryManager
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.load_map import load_cultivation_world_map
 from src.sim.new_avatar import make_avatars as _new_make_random, create_avatar_from_request
@@ -286,10 +287,11 @@ def check_llm_connectivity() -> tuple[bool, str]:
 INIT_PHASE_NAMES = {
     0: "scanning_assets",
     1: "loading_map",
-    2: "initializing_sects",
-    3: "generating_avatars",
-    4: "checking_llm",
-    5: "generating_initial_events",
+    2: "processing_history",
+    3: "initializing_sects",
+    4: "generating_avatars",
+    5: "checking_llm",
+    6: "generating_initial_events",
 }
 
 def update_init_progress(phase: int, phase_name: str = ""):
@@ -297,8 +299,8 @@ def update_init_progress(phase: int, phase_name: str = ""):
     game_instance["init_phase"] = phase
     game_instance["init_phase_name"] = phase_name or INIT_PHASE_NAMES.get(phase, "")
     # 最后一阶段到 100%
-    progress_map = {0: 0, 1: 10, 2: 20, 3: 30, 4: 40, 5: 50}
-    game_instance["init_progress"] = progress_map.get(phase, phase * 17)
+    progress_map = {0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85}
+    game_instance["init_progress"] = progress_map.get(phase, phase * 14)
     print(f"[Init] Phase {phase}: {game_instance['init_phase_name']} ({game_instance['init_progress']}%)")
 
 async def init_game_async():
@@ -337,8 +339,20 @@ async def init_game_async():
         )
         sim = Simulator(world)
 
-        # 阶段 2: 宗门初始化
-        update_init_progress(2, "initializing_sects")
+        # 阶段 2: 历史背景影响 (如果配置了历史)
+        update_init_progress(2, "processing_history")
+        world_history = getattr(CONFIG.game, "world_history", "")
+        if world_history and world_history.strip():
+            print(f"正在根据历史背景重塑世界: {world_history[:50]}...")
+            try:
+                history_mgr = HistoryManager(world)
+                await history_mgr.apply_history_influence(world_history)
+                print("历史背景应用完成 ✓")
+            except Exception as e:
+                print(f"[警告] 历史背景应用失败: {e}")
+        
+        # 阶段 3: 宗门初始化
+        update_init_progress(3, "initializing_sects")
         all_sects = list(sects_by_id.values())
         needed_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
         existed_sects = []
@@ -347,8 +361,8 @@ async def init_game_async():
             random.shuffle(pool)
             existed_sects = pool[:needed_sects]
 
-        # 阶段 3: 角色生成
-        update_init_progress(3, "generating_avatars")
+        # 阶段 4: 角色生成
+        update_init_progress(4, "generating_avatars")
         protagonist_mode = getattr(CONFIG.avatar, "protagonist", "none")
         target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
         final_avatars = {}
@@ -385,8 +399,8 @@ async def init_game_async():
         game_instance["world"] = world
         game_instance["sim"] = sim
 
-        # 阶段 4: LLM 连通性检测
-        update_init_progress(4, "checking_llm")
+        # 阶段 5: LLM 连通性检测
+        update_init_progress(5, "checking_llm")
         print("正在检测 LLM 连通性...")
         # 使用线程池执行，避免阻塞事件循环，让 /api/init-status 可以响应
         success, error_msg = await asyncio.to_thread(check_llm_connectivity)
@@ -400,8 +414,8 @@ async def init_game_async():
             game_instance["llm_check_failed"] = False
             game_instance["llm_error_message"] = ""
 
-        # 阶段 5: 生成初始事件（第一次 sim.step）
-        update_init_progress(5, "generating_initial_events")
+        # 阶段 6: 生成初始事件（第一次 sim.step）
+        update_init_progress(6, "generating_initial_events")
         print("正在生成初始事件...")
         
         # 取消暂停，执行第一步来生成初始事件
@@ -906,6 +920,7 @@ class GameStartRequest(BaseModel):
     sect_num: int
     protagonist: str
     npc_awakening_rate_per_month: float
+    world_history: Optional[str] = None
 
 @app.get("/api/config/current")
 def get_current_config():
@@ -914,7 +929,8 @@ def get_current_config():
         "game": {
             "init_npc_num": getattr(CONFIG.game, "init_npc_num", 12),
             "sect_num": getattr(CONFIG.game, "sect_num", 3),
-            "npc_awakening_rate_per_month": getattr(CONFIG.game, "npc_awakening_rate_per_month", 0.01)
+            "npc_awakening_rate_per_month": getattr(CONFIG.game, "npc_awakening_rate_per_month", 0.01),
+            "world_history": getattr(CONFIG.game, "world_history", "")
         },
         "avatar": {
             "protagonist": getattr(CONFIG.avatar, "protagonist", "none")
@@ -956,6 +972,7 @@ async def start_game(req: GameStartRequest):
     conf.game.init_npc_num = req.init_npc_num
     conf.game.sect_num = req.sect_num
     conf.game.npc_awakening_rate_per_month = req.npc_awakening_rate_per_month
+    conf.game.world_history = req.world_history or ""
     conf.avatar.protagonist = req.protagonist
     
     # 写入文件

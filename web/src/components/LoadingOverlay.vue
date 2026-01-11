@@ -10,6 +10,7 @@ const props = defineProps<{
 const phaseTexts: Record<string, string | string[]> = {
   'scanning_assets': '扫描天地资源',
   'loading_map': '构建洪荒山川',
+  'processing_history': '推演天道历史',
   'initializing_sects': '宗门入世',
   'generating_avatars': '众修士降临',
   'checking_llm': '连通天道意志',
@@ -54,7 +55,7 @@ const tips = [
   '丹药有生效的时间限制',
   '由于大模型需要思考，游戏启动可能耗时较久',
   '模拟世界对大模型token消耗较大，请注意',
-  '设定开局历史，世界也会随之而改变',
+  '开局时设定历史，整个修仙世界也会随之而改变',
 ]
 
 const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
@@ -125,8 +126,8 @@ function startTimers() {
     // 伪进度逻辑
     if (props.status?.status === 'in_progress' && displayProgress.value < 99) {
       const currentPhase = props.status?.phase ?? 0
-      // 后端定义的进度节点: {0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83}
-      const progressMap: Record<number, number> = { 0: 0, 1: 17, 2: 33, 3: 50, 4: 67, 5: 83 }
+      // 后端定义的进度节点: {0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85}
+      const progressMap: Record<number, number> = { 0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85 }
       const nextPhaseStart = progressMap[currentPhase + 1] ?? 100
       
       // 每1秒增加 1%
@@ -134,8 +135,8 @@ function startTimers() {
         // 如果还没达到下一阶段的起点前 1%，就继续自增
         if (displayProgress.value < nextPhaseStart - 1) {
           displayProgress.value++
-        } else if (currentPhase === 5 && displayProgress.value < 99) {
-          // 最后一个阶段（5阶段）允许一直增加到 99%
+        } else if (currentPhase === 6 && displayProgress.value < 99) {
+          // 最后一个阶段（6阶段）允许一直增加到 99%
           displayProgress.value++
         }
       }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { NForm, NFormItem, NInputNumber, NSelect, NButton, useMessage } from 'naive-ui'
+import { NForm, NFormItem, NInputNumber, NSelect, NButton, NInput, useMessage } from 'naive-ui'
 import { systemApi } from '../../../../api'
 
 const props = defineProps<{
@@ -14,7 +14,8 @@ const config = ref({
   init_npc_num: 12,
   sect_num: 3,
   protagonist: 'none',
-  npc_awakening_rate_per_month: 0.01
+  npc_awakening_rate_per_month: 0.01,
+  world_history: ''
 })
 
 const loading = ref(false)
@@ -34,7 +35,8 @@ async function fetchConfig() {
       init_npc_num: res.game.init_npc_num,
       sect_num: res.game.sect_num,
       protagonist: res.avatar.protagonist,
-      npc_awakening_rate_per_month: res.game.npc_awakening_rate_per_month
+      npc_awakening_rate_per_month: res.game.npc_awakening_rate_per_month,
+      world_history: res.game.world_history || ''
     }
   } catch (e) {
     message.error('加载配置失败')
@@ -109,6 +111,18 @@ onMounted(() => {
             :parse="(val: string) => parseFloat(val) / 100"
         />
       </n-form-item>
+
+      <n-form-item label="世界历史背景" path="world_history">
+        <n-input
+          v-model:value="config.world_history"
+          type="textarea"
+          placeholder="请输入修仙界历史背景（可选）。"
+          :autosize="{ minRows: 3, maxRows: 6 }"
+        />
+      </n-form-item>
+      <div class="tip-text" style="margin-top: -12px;">
+        可以包括上古、中古、近古。注意：启用此功能会调用LLM，初始化时间会显著增加。
+      </div>
 
       <div class="actions" v-if="!readonly">
         <n-button type="primary" size="large" @click="startGame" :loading="loading">
