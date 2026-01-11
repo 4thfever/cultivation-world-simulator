@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onMounted } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, h } from 'vue'
 import { useWorldStore } from '../../stores/world'
 import { NSelect, NSpin, NButton } from 'naive-ui'
-import { highlightAvatarNames, buildAvatarColorMap } from '../../utils/eventHelper'
+import type { SelectOption } from 'naive-ui'
+import { highlightAvatarNames, buildAvatarColorMap, avatarIdToColor } from '../../utils/eventHelper'
 import type { GameEvent } from '../../types/core'
 
 const worldStore = useWorldStore()
@@ -30,6 +31,25 @@ const filterOptions2 = computed(() =>
 
 // 直接使用 store 中的事件（已由 API 过滤）
 const displayEvents = computed(() => worldStore.events || [])
+
+// 渲染带颜色圆点的选项标签
+const renderLabel = (option: SelectOption) => {
+  if (option.value === 'all') return option.label as string
+  
+  const color = avatarIdToColor(option.value as string)
+  return h('div', { style: { display: 'flex', alignItems: 'center', gap: '6px' } }, [
+    h('span', {
+      style: {
+        width: '8px',
+        height: '8px',
+        borderRadius: '50%',
+        backgroundColor: color,
+        flexShrink: 0
+      }
+    }),
+    option.label as string
+  ])
+}
 
 // 向上滚动加载更多
 function handleScroll(e: Event) {
@@ -154,6 +174,7 @@ function renderEventContent(event: GameEvent): string {
         <n-select
           v-model:value="filterValue1"
           :options="filterOptions"
+          :render-label="renderLabel"
           size="tiny"
           class="event-filter"
         />
@@ -162,6 +183,7 @@ function renderEventContent(event: GameEvent): string {
           <n-select
             v-model:value="filterValue2"
             :options="filterOptions2"
+            :render-label="renderLabel"
             size="tiny"
             class="event-filter"
           />

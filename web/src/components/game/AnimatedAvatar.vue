@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useTextures } from './composables/useTextures'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { Graphics } from 'pixi.js'
 import type { AvatarSummary } from '../../types/core'
 import { useSharedTicker } from './composables/useSharedTicker'
+import { avatarIdToColor } from '../../utils/eventHelper'
 
 const props = defineProps<{
   avatar: AvatarSummary
@@ -101,11 +102,11 @@ const drawFallback = (g: Graphics) => {
     g.stroke({ width: 2, color: 0x000000 })
 }
 
-const nameStyle = {
+const nameStyle = computed(() => ({
     fontFamily: '"Microsoft YaHei", sans-serif',
     fontSize: 50,
     fontWeight: 'bold',
-    fill: '#ffffff',
+    fill: avatarIdToColor(props.avatar.id),
     stroke: { color: '#000000', width: 4 },
     align: 'center',
     dropShadow: {
@@ -115,7 +116,7 @@ const nameStyle = {
         distance: 2,
         alpha: 0.8
     }
-} as any
+} as any))
 
 function handlePointerTap() {
     emit('select', {
