@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { gameApi, type SaveFileDTO } from '../../../../api/game'
+import { systemApi, type SaveFileDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useUiStore } from '../../../../stores/ui'
 import { useMessage } from 'naive-ui'
@@ -22,7 +22,7 @@ const saves = ref<SaveFileDTO[]>([])
 async function fetchSaves() {
   loading.value = true
   try {
-    const res = await gameApi.fetchSaves()
+    const res = await systemApi.fetchSaves()
     saves.value = res.saves
   } catch (e) {
     message.error('获取存档列表失败')
@@ -34,7 +34,7 @@ async function fetchSaves() {
 async function handleSave() {
   loading.value = true
   try {
-    const res = await gameApi.saveGame()
+    const res = await systemApi.saveGame()
     message.success(`存档成功: ${res.filename}`)
     await fetchSaves()
   } catch (e) {
@@ -49,7 +49,7 @@ async function handleLoad(filename: string) {
 
   loading.value = true
   try {
-    await gameApi.loadGame(filename)
+    await systemApi.loadGame(filename)
     worldStore.reset()
     uiStore.clearSelection()
     await worldStore.initialize()

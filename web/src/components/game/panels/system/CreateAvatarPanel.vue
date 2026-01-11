@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import { gameApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api/game'
+import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
 
@@ -120,13 +120,13 @@ async function fetchData() {
   loading.value = true
   try {
     if (!gameData.value) {
-      gameData.value = await gameApi.fetchGameData()
+      gameData.value = await avatarApi.fetchGameData()
     }
     if (!avatarMeta.value) {
-      avatarMeta.value = await gameApi.fetchAvatarMeta()
+      avatarMeta.value = await avatarApi.fetchAvatarMeta()
     }
     // 获取角色列表用于关系选择
-    const res = await gameApi.fetchAvatarList()
+    const res = await avatarApi.fetchAvatarList()
     avatarList.value = res.avatars
   } catch (e) {
     message.error('获取游戏数据失败')
@@ -153,7 +153,7 @@ async function handleCreateAvatar() {
 
   loading.value = true
   try {
-    await gameApi.createAvatar(createForm.value)
+    await avatarApi.createAvatar(createForm.value)
     message.success('角色创建成功')
     await worldStore.fetchState?.()
     

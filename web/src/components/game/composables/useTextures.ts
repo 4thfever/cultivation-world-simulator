@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
-import { gameApi } from '@/api/game'
+import { avatarApi } from '@/api'
 import { getClusteredTileVariant } from '@/utils/procedural'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
@@ -35,7 +35,7 @@ export function useTextures() {
     // 1. 获取最新的 Avatar Meta 并检查是否有变化
     let metaChanged = false
     try {
-        const meta = await gameApi.fetchAvatarMeta()
+        const meta = await avatarApi.fetchAvatarMeta()
         
         // 对比当前缓存的列表和新获取的列表
         const newMalesStr = JSON.stringify(meta.males || [])

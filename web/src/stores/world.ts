@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
 import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
-import type { FetchEventsParams } from '../api/game';
-import { gameApi } from '../api/game';
+import type { FetchEventsParams } from '../types/api';
+import { worldApi, eventApi } from '../api';
 import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
 
 export const useWorldStore = defineStore('world', () => {
@@ -126,7 +126,7 @@ export const useWorldStore = defineStore('world', () => {
   // 提前加载地图数据（在 LLM 初始化期间可用）。
   async function preloadMap() {
     try {
-      const mapRes = await gameApi.fetchMap();
+      const mapRes = await worldApi.fetchMap();
       mapData.value = mapRes.data;
       if (mapRes.config) {
         frontendConfig.value = mapRes.config;
@@ -145,7 +145,7 @@ export const useWorldStore = defineStore('world', () => {
   // 提前加载角色数据（在 checking_llm 阶段 world 已创建）。
   async function preloadAvatars() {
     try {
-      const stateRes = await gameApi.fetchInitialState();
+      const stateRes = await worldApi.fetchInitialState();
       // 只更新角色，不标记完全初始化。
       const avatarMap = new Map();
       if (stateRes.avatars) {
@@ -166,8 +166,8 @@ export const useWorldStore = defineStore('world', () => {
       
       if (needMapLoad) {
         const [stateRes, mapRes] = await Promise.all([
-          gameApi.fetchInitialState(),
-          gameApi.fetchMap()
+          worldApi.fetchInitialState(),
+          worldApi.fetchMap()
         ]);
 
         mapData.value = mapRes.data;
@@ -181,7 +181,7 @@ export const useWorldStore = defineStore('world', () => {
         applyStateSnapshot(stateRes);
       } else {
         // 地图已预加载，只需获取状态。
-        const stateRes = await gameApi.fetchInitialState();
+        const stateRes = await worldApi.fetchInitialState();
         applyStateSnapshot(stateRes);
       }
 
@@ -195,7 +195,7 @@ export const useWorldStore = defineStore('world', () => {
 
   async function fetchState() {
     try {
-      const stateRes = await gameApi.fetchInitialState();
+      const stateRes = await worldApi.fetchInitialState();
       applyStateSnapshot(stateRes);
     } catch (e) {
       console.error('Failed to fetch state snapshot', e);
@@ -226,7 +226,7 @@ export const useWorldStore = defineStore('world', () => {
         params.cursor = eventsCursor.value;
       }
 
-      const res = await gameApi.fetchEvents(params);
+      const res = await eventApi.fetchEvents(params);
 
       // 转换为 GameEvent 格式
       const newEvents: GameEvent[] = res.events.map(e => ({
@@ -282,7 +282,7 @@ export const useWorldStore = defineStore('world', () => {
   async function getPhenomenaList() {
     if (phenomenaList.value.length > 0) return phenomenaList.value;
     try {
-      const res = await gameApi.fetchPhenomenaList();
+      const res = await worldApi.fetchPhenomenaList();
       // The API returns DTOs which match CelestialPhenomenon structure enough for frontend display
       phenomenaList.value = res.phenomena as CelestialPhenomenon[];
       return phenomenaList.value;
@@ -293,7 +293,7 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   async function changePhenomenon(id: number) {
-    await gameApi.setPhenomenon(id);
+    await worldApi.setPhenomenon(id);
     // 乐观更新：直接从列表里找到并设置，不等下一次 tick
     const p = phenomenaList.value.find(item => item.id === id);
     if (p) {

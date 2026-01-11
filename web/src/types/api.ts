@@ -66,3 +66,120 @@ export interface SaveFileDTO {
   game_time: string;
   version: string;
 }
+
+// --- Game Data Metadata ---
+
+export interface GameDataDTO {
+  sects: Array<{ id: number; name: string; alignment: string }>;
+  personas: Array<{ id: number; name: string; desc: string; rarity: string }>;
+  realms: string[];
+  techniques: Array<{ id: number; name: string; grade: string; attribute: string; sect: string | null }>;
+  weapons: Array<{ id: number; name: string; grade: string; type: string }>;
+  auxiliaries: Array<{ id: number; name: string; grade: string }>;
+  alignments: Array<{ value: string; label: string }>;
+}
+
+export interface SimpleAvatarDTO {
+  id: string;
+  name: string;
+  sect_name: string;
+  realm: string;
+  gender: string;
+  age: number;
+}
+
+export interface CreateAvatarParams {
+  surname?: string;
+  given_name?: string;
+  gender?: string;
+  age?: number;
+  level?: number;
+  sect_id?: number;
+  persona_ids?: number[];
+  pic_id?: number;
+  technique_id?: number;
+  weapon_id?: number;
+  auxiliary_id?: number;
+  alignment?: string;
+  appearance?: number;
+  relations?: Array<{ target_id: string; relation: string }>;
+}
+
+export interface PhenomenonDTO {
+  id: number;
+  name: string;
+  desc: string;
+  rarity: string;
+  duration_years: number;
+  effect_desc: string;
+}
+
+// --- Config ---
+
+export interface LLMConfigDTO {
+  base_url: string;
+  api_key: string;
+  model_name: string;
+  fast_model_name: string;
+  mode: string;
+}
+
+export interface GameStartConfigDTO {
+  init_npc_num: number;
+  sect_num: number;
+  protagonist: string;
+  npc_awakening_rate_per_month: number;
+}
+
+export interface CurrentConfigDTO {
+  game: {
+    init_npc_num: number;
+    sect_num: number;
+    npc_awakening_rate_per_month: number;
+  };
+  avatar: {
+    protagonist: string;
+  };
+}
+
+// --- Events ---
+
+export interface EventDTO {
+  id: string;
+  text: string;
+  content: string;
+  year: number;
+  month: number;
+  month_stamp: number;
+  related_avatar_ids: string[];
+  is_major: boolean;
+  is_story: boolean;
+  created_at: number;
+}
+
+export interface EventsResponseDTO {
+  events: EventDTO[];
+  next_cursor: string | null;
+  has_more: boolean;
+}
+
+export interface FetchEventsParams {
+  avatar_id?: string;
+  avatar_id_1?: string;
+  avatar_id_2?: string;
+  cursor?: string;
+  limit?: number;
+}
+
+// --- Status ---
+
+export interface InitStatusDTO {
+  status: 'idle' | 'pending' | 'in_progress' | 'ready' | 'error';
+  phase: number;
+  phase_name: string;
+  progress: number;
+  elapsed_seconds: number;
+  error: string | null;
+  llm_check_failed: boolean;
+  llm_error_message: string;
+}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { NForm, NFormItem, NInputNumber, NSelect, NButton, useMessage } from 'naive-ui'
-import { gameApi } from '../../../../api/game'
+import { systemApi } from '../../../../api'
 
 const props = defineProps<{
   readonly: boolean
@@ -29,7 +29,7 @@ const protagonistOptions = [
 async function fetchConfig() {
   try {
     loading.value = true
-    const res = await gameApi.fetchCurrentConfig()
+    const res = await systemApi.fetchCurrentConfig()
     config.value = {
       init_npc_num: res.game.init_npc_num,
       sect_num: res.game.sect_num,
@@ -47,7 +47,7 @@ async function fetchConfig() {
 async function startGame() {
   try {
     loading.value = true
-    await gameApi.startGame(config.value)
+    await systemApi.startGame(config.value)
     message.success('配置已保存，正在初始化世界...')
     // 父组件会通过 polling 检测到状态变化，从而自动关闭菜单并显示 loading
   } catch (e) {

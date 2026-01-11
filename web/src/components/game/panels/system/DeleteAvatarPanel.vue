@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { gameApi, type SimpleAvatarDTO } from '../../../../api/game'
+import { avatarApi, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NButton } from 'naive-ui'
 
@@ -21,7 +21,7 @@ const filteredAvatars = computed(() => {
 async function fetchAvatarList() {
   loading.value = true
   try {
-    const res = await gameApi.fetchAvatarList()
+    const res = await avatarApi.fetchAvatarList()
     avatarList.value = res.avatars
   } catch (e) {
     message.error('获取角色列表失败')
@@ -35,7 +35,7 @@ async function handleDeleteAvatar(id: string, name: string) {
   
   loading.value = true
   try {
-    await gameApi.deleteAvatar(id)
+    await avatarApi.deleteAvatar(id)
     message.success('删除成功')
     await Promise.all([
       fetchAvatarList(),

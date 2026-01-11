@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { gameApi, type InitStatusDTO } from '../api/game'
+import { systemApi, type InitStatusDTO } from '../api'
 
 const props = defineProps<{
   status: InitStatusDTO | null
@@ -105,7 +105,7 @@ async function handleRetry() {
   localElapsed.value = 0
   displayProgress.value = 0
   try {
-    await gameApi.reinitGame()
+    await systemApi.reinitGame()
   } catch (e: any) {
     console.error('Reinit failed:', e)
   }

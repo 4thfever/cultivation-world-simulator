@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { gameApi, type LLMConfigDTO } from '../../../../api/game'
+import { llmApi, type LLMConfigDTO } from '../../../../api'
 import { useMessage } from 'naive-ui'
 
 const message = useMessage()
@@ -52,7 +52,7 @@ const presets = [
 async function fetchConfig() {
   loading.value = true
   try {
-    const res = await gameApi.fetchLLMConfig()
+    const res = await llmApi.fetchConfig()
     // 确保 API Key 在前端展示为空，增加安全性提示
     config.value = { ...res, api_key: '' }
   } catch (e) {
@@ -86,11 +86,11 @@ async function handleTestAndSave() {
   testing.value = true
   try {
     // 1. 测试连接
-    await gameApi.testLLMConnection(config.value)
+    await llmApi.testConnection(config.value)
     message.success('连接测试成功')
     
     // 2. 保存配置
-    await gameApi.saveLLMConfig(config.value)
+    await llmApi.saveConfig(config.value)
     message.success('配置已保存')
     emit('config-saved')
   } catch (e: any) {

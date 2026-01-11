@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { gameApi } from '../api/game';
+import { avatarApi } from '../api';
 import type { AvatarDetail, RegionDetail, SectDetail } from '../types/core';
 
 export type SelectionType = 'avatar' | 'region' | 'sect';
@@ -52,7 +52,7 @@ export const useUiStore = defineStore('ui', () => {
     detailError.value = null;
 
     try {
-      const data = await gameApi.fetchDetailInfo(target);
+      const data = await avatarApi.fetchDetailInfo(target);
       
       // Race condition check: user might have changed selection
       if (

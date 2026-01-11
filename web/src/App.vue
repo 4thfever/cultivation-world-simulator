@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
-import { NConfigProvider, darkTheme, NMessageProvider, createDiscreteApi } from 'naive-ui'
-import { useWorldStore } from './stores/world'
+import { onMounted, onUnmounted, watch } from 'vue'
+import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
 import { useUiStore } from './stores/ui'
-import { useSocketStore } from './stores/socket'
-import { gameApi, type InitStatusDTO } from './api/game'
 
+// Components
 import GameCanvas from './components/game/GameCanvas.vue'
 import InfoPanelContainer from './components/game/panels/info/InfoPanelContainer.vue'
 import StatusBar from './components/layout/StatusBar.vue'
@@ -13,226 +11,74 @@ import EventPanel from './components/panels/EventPanel.vue'
 import SystemMenu from './components/SystemMenu.vue'
 import LoadingOverlay from './components/LoadingOverlay.vue'
 
+// Composables
+import { useGameInit } from './composables/useGameInit'
+import { useGameControl } from './composables/useGameControl'
+
 // Stores
-const worldStore = useWorldStore()
 const uiStore = useUiStore()
-const socketStore = useSocketStore()
 
-// 初始化状态 - 持续轮询
-const initStatus = ref<InitStatusDTO | null>(null)
-const gameInitialized = ref(false)
-const mapPreloaded = ref(false)
-let pollInterval: ReturnType<typeof setInterval> | null = null
-const canCloseMenu = ref(true)
-const { message } = createDiscreteApi(['message'], {
-  configProviderProps: {
-    theme: darkTheme
-  }
-})
+// 1. 游戏初始化逻辑
+const { 
+  initStatus, 
+  gameInitialized, 
+  showLoading,
+} = useGameInit()
 
-// 根据 spec: showLoading = initStatus !== 'ready'
-// 注意：
-// 1. initStatus 为 null 时显示加载界面（还没获取到状态）
-// 2. initStatus 不是 ready 且不是 idle 时显示加载界面
-// 3. 前端还没初始化完成时也要显示加载界面（如果后端 ready）
-const showLoading = computed(() => {
-  if (initStatus.value === null) return true
-  // idle 状态下，不显示全屏 loading，而是显示菜单供用户配置
-  if (initStatus.value.status === 'idle') return false
-  if (initStatus.value.status !== 'ready') return true
-  if (!gameInitialized.value) return true
-  return false
-})
+// 2. 游戏控制逻辑
+// 依赖 gameInitialized 状态来决定是否允许暂停等
+const {
+  showMenu,
+  isManualPaused,
+  menuDefaultTab,
+  canCloseMenu,
+  handleKeydown: controlHandleKeydown,
+  performStartupCheck,
+  handleLLMReady,
+  handleMenuClose,
+  toggleManualPause
+} = useGameControl(gameInitialized)
 
-const showMenu = ref(false)
-const isManualPaused = ref(true)
-const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>('load')
+// 3. 胶水逻辑：连接 Init 和 Control
 
-// 可以提前加载地图的阶段（宗门初始化后地图数据就 ready 了）。
-const MAP_READY_PHASES = ['initializing_sects', 'generating_avatars', 'checking_llm', 'generating_initial_events']
-// 可以提前加载角色的阶段（world 创建后）。
-const AVATAR_READY_PHASES = ['checking_llm', 'generating_initial_events']
-
-const avatarsPreloaded = ref(false)
-
-// 轮询初始化状态
-async function pollInitStatus() {
-  try {
-    const res = await gameApi.fetchInitStatus()
-    const prevStatus = initStatus.value?.status
-    initStatus.value = res
-    
-    // 如果是从 null -> idle，或者一直保持 idle 但菜单没打开
-    // 这里我们只在第一次检测到 idle 时执行启动检查
-    if (res.status === 'idle' && !showMenu.value && prevStatus !== 'idle') {
+// 当检测到 idle 状态时，执行启动检查
+watch(initStatus, (newVal, oldVal) => {
+  // Idle check
+  if (newVal?.status === 'idle' && oldVal?.status !== 'idle') {
+    if (!showMenu.value) {
       performStartupCheck()
     }
-
-    // 提前加载地图：当进入特定阶段且还没预加载过时。
-    if (!mapPreloaded.value && MAP_READY_PHASES.includes(res.phase_name)) {
-      mapPreloaded.value = true
-      worldStore.preloadMap()
-    }
-    
-    // 提前加载角色：当进入 checking_llm 或之后阶段。
-    if (!avatarsPreloaded.value && AVATAR_READY_PHASES.includes(res.phase_name)) {
-      avatarsPreloaded.value = true
-      worldStore.preloadAvatars()
-    }
-    
-    // 从非 ready 变为 ready 时，初始化前端
-    // 注意：prevStatus 为 undefined 时也算"非 ready"
-    if (prevStatus !== 'ready' && res.status === 'ready') {
-      await initializeGame()
-      // ready 后停止轮询
-      stopPolling()
-      // 游戏准备就绪，关闭菜单
-      showMenu.value = false
-    }
-  } catch (e) {
-    console.error('Failed to fetch init status:', e)
   }
-}
 
-async function performStartupCheck() {
-  try {
-    const res = await gameApi.fetchLLMStatus()
-    
-    if (!res.configured) {
-      // 未配置 -> 强制进入 LLM 配置，禁止关闭
-      showMenu.value = true
-      menuDefaultTab.value = 'llm'
-      canCloseMenu.value = false
-      message.warning('检测到 LLM 未配置，请先完成设置')
-    } else {
-      // 已配置 -> 验证连通性
-      try {
-        const configRes = await gameApi.fetchLLMConfig()
-        await gameApi.testLLMConnection(configRes)
-        
-        // 测试通过 -> 允许进入开始游戏
-        menuDefaultTab.value = 'start'
-        canCloseMenu.value = true
-        // 确保菜单显示在 Start 页
-        showMenu.value = true
-      } catch (connErr) {
-        // 连接失败 -> 强制进入配置
-        console.error('LLM Connection check failed:', connErr)
-        showMenu.value = true
-        menuDefaultTab.value = 'llm'
-        canCloseMenu.value = false
-        message.error('LLM 连接测试失败，请重新配置')
-      }
-    }
-  } catch (e) {
-    console.error('Failed to check LLM status:', e)
-    // Fallback
-    showMenu.value = true
-    menuDefaultTab.value = 'llm'
-    canCloseMenu.value = false
-    message.error('无法获取系统状态')
+  // Ready check (原逻辑: stopPolling 由 useGameInit 处理, 这里只负责 UI)
+  if (oldVal?.status !== 'ready' && newVal?.status === 'ready') {
+    showMenu.value = false
   }
-}
-
-function handleLLMReady() {
-  canCloseMenu.value = true
-  menuDefaultTab.value = 'start'
-  message.success('LLM 配置成功，请开始游戏')
-}
-
-async function initializeGame() {
-  if (gameInitialized.value) {
-    // 重新加载存档时，重新初始化
-    worldStore.reset()
-    uiStore.clearSelection()
-  }
-  
-  // 初始化 Socket 连接（如果未连接）
-  if (!socketStore.isConnected) {
-    socketStore.init()
-  }
-  // 初始化世界状态（获取地图、角色等数据）
-  await worldStore.initialize()
-  
-  gameInitialized.value = true
-  // 自动取消暂停，让游戏开始运行
-  isManualPaused.value = false
-  console.log('[App] Game initialized.')
-}
-
-function startPolling() {
-  // 立即获取一次
-  pollInitStatus()
-  // 每秒轮询
-  pollInterval = setInterval(pollInitStatus, 1000)
-}
-
-function stopPolling() {
-  if (pollInterval) {
-    clearInterval(pollInterval)
-    pollInterval = null
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-  startPolling()
 })
 
-// 导出方法供 socket store 调用
-function openLLMConfig() {
-  menuDefaultTab.value = 'llm'
-  showMenu.value = true
-}
-
-// 暴露给全局以便 socket store 可以调用
-;(window as any).__openLLMConfig = openLLMConfig
-
-onUnmounted(() => {
-  socketStore.disconnect()
-  window.removeEventListener('keydown', handleKeydown)
-  stopPolling()
+// 自动取消暂停：当游戏初始化完成后，自动开始运行
+watch(gameInitialized, (val) => {
+  if (val) {
+    isManualPaused.value = false
+  }
 })
 
-function handleKeydown(e: KeyboardEvent) {
-  // 只在游戏界面响应键盘事件
+// 事件处理
+function onKeydown(e: KeyboardEvent) {
   if (showLoading.value) return
-  
-  if (e.key === 'Escape') {
-    if (uiStore.selectedTarget) {
-      uiStore.clearSelection()
-    } else {
-      showMenu.value = !showMenu.value
-      // 如果打开菜单，默认切到 load (或者保持上一次的状态，这里暂定 load)
-      if (showMenu.value) {
-        menuDefaultTab.value = 'load'
-      }
-    }
-  }
+  controlHandleKeydown(e)
 }
 
 function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?: string }) {
   uiStore.select(target.type, target.id)
 }
 
-function handleMenuClose() {
-  showMenu.value = false
-}
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+})
 
-function toggleManualPause() {
-  isManualPaused.value = !isManualPaused.value
-}
-
-// 监听菜单状态和手动暂停状态，控制游戏暂停/继续
-watch([showMenu, isManualPaused], ([menuVisible, manualPaused]) => {
-  // 只在游戏已准备好时控制暂停
-  if (!gameInitialized.value) return
-  
-  if (menuVisible || manualPaused) {
-    gameApi.pauseGame().catch(console.error)
-  } else {
-    gameApi.resumeGame().catch(console.error)
-  }
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown)
 })
 </script>
 

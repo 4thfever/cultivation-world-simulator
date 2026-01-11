@@ -7,7 +7,7 @@ import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
-import { gameApi } from '@/api/game';
+import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 
 const props = defineProps<{
@@ -38,7 +38,7 @@ function jumpToSect(id: string) {
 async function handleSetObjective() {
   if (!objectiveContent.value.trim()) return;
   try {
-    await gameApi.setLongTermObjective(props.data.id, objectiveContent.value);
+    await avatarApi.setLongTermObjective(props.data.id, objectiveContent.value);
     showObjectiveModal.value = false;
     objectiveContent.value = '';
     uiStore.refreshDetail();
@@ -51,7 +51,7 @@ async function handleSetObjective() {
 async function handleClearObjective() {
   if (!confirm('确定要清空该角色的长期目标吗？')) return;
   try {
-    await gameApi.clearLongTermObjective(props.data.id);
+    await avatarApi.clearLongTermObjective(props.data.id);
     uiStore.refreshDetail();
   } catch (e) {
     console.error(e);
