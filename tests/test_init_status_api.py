@@ -155,12 +155,19 @@ class TestUpdateInitProgress:
 
 
 class TestNewGameEndpoint:
-    """Tests for /api/game/new endpoint."""
+    """Tests for /api/game/start endpoint."""
 
     def test_new_game_starts_initialization(self, client, reset_game_instance):
-        """Test /api/game/new starts initialization process."""
+        """Test /api/game/start starts initialization process."""
         with patch.object(main, 'init_game_async', new_callable=AsyncMock) as mock_init:
-            response = client.post("/api/game/new")
+            # Prepare minimal valid request data
+            payload = {
+                "init_npc_num": 10,
+                "sect_num": 2,
+                "protagonist": "none",
+                "npc_awakening_rate_per_month": 0.01
+            }
+            response = client.post("/api/game/start", json=payload)
             
             assert response.status_code == 200
             data = response.json()
@@ -169,16 +176,22 @@ class TestNewGameEndpoint:
             assert game_instance["init_status"] == "pending"
 
     def test_new_game_rejects_when_in_progress(self, client, reset_game_instance):
-        """Test /api/game/new rejects request when already initializing."""
+        """Test /api/game/start rejects request when already initializing."""
         game_instance["init_status"] = "in_progress"
         
-        response = client.post("/api/game/new")
+        payload = {
+            "init_npc_num": 10,
+            "sect_num": 2,
+            "protagonist": "none",
+            "npc_awakening_rate_per_month": 0.01
+        }
+        response = client.post("/api/game/start", json=payload)
         
         assert response.status_code == 400
         assert "already initializing" in response.json()["detail"].lower()
 
     def test_new_game_clears_existing_state(self, client, reset_game_instance):
-        """Test /api/game/new clears existing game state when ready."""
+        """Test /api/game/start clears existing game state when ready."""
         mock_world = MagicMock()
         mock_sim = MagicMock()
         game_instance["world"] = mock_world
@@ -186,7 +199,13 @@ class TestNewGameEndpoint:
         game_instance["init_status"] = "ready"
         
         with patch.object(main, 'init_game_async', new_callable=AsyncMock):
-            response = client.post("/api/game/new")
+            payload = {
+                "init_npc_num": 10,
+                "sect_num": 2,
+                "protagonist": "none",
+                "npc_awakening_rate_per_month": 0.01
+            }
+            response = client.post("/api/game/start", json=payload)
             
             assert response.status_code == 200
             assert game_instance["world"] is None
