@@ -16,6 +16,9 @@
 修炼区域信息：
 {cultivate_regions}
 
+宗门区域信息：
+{sect_regions}
+
 功法信息：
 {techniques}
 
@@ -39,6 +42,7 @@
         }},
     "normal_regions_change": {{}} // dict, 结构同上
     "cultivate_regions_change": {{}} // dict, 结构同上 
+    "sect_regions_change": {{}} // dict, 结构同上 
     "techniques_change": {{}} // dict, 结构同上
     "weapons_change": {{}} // dict, 结构同上
     "auxiliarys_change": {{}} // dict, 结构同上

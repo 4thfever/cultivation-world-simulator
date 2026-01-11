@@ -35,6 +35,7 @@ class HistoryManager:
             "city_regions": self._read_csv("city_region.csv"),
             "normal_regions": self._read_csv("normal_region.csv"),
             "cultivate_regions": self._read_csv("cultivate_region.csv"),
+            "sect_regions": self._read_csv("sect_region.csv"),
             "techniques": self._read_csv("technique.csv"),
             "weapons": self._read_csv("weapon.csv"),
             "auxiliarys": self._read_csv("auxiliary.csv"),
@@ -78,6 +79,7 @@ class HistoryManager:
         self._update_regions(result.get("city_regions_change", {}))
         self._update_regions(result.get("normal_regions_change", {}))
         self._update_regions(result.get("cultivate_regions_change", {}))
+        self._update_regions(result.get("sect_regions_change", {}))
         
         # 3.2 功法变更
         self._update_techniques(result.get("techniques_change", {}))

@@ -106,6 +106,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
 - [ ] Support multi-language localization
+- [ ] Game settings panel at startup
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
@@ -204,8 +205,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 
 ### 🏛️ World Lore
 - ✅ Inject basic world knowledge
-- [ ] Dynamic worldview generation
-- [ ] Dynamic generation of techniques, equipment, sects, and maps based on user input history
+- ✅ User input history, dynamic generation of techniques, equipment, sects, and region info
 
 ### Specials
 - ✅ Fortuitous encounters
@@ -221,7 +221,6 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - [ ] World Secrets & World Laws (Flexible customization)
 - [ ] Gu Refining
 - [ ] World-ending Crisis
-- [ ] Become a Legend of Later Ages
 
 ### 🔭 Long-term
 - [ ] Novelization/imagery/video for history and events

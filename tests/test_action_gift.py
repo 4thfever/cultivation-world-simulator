@@ -31,7 +31,7 @@ def target_avatar(base_world):
 def gift_action(dummy_avatar, base_world):
     """初始化 Gift 动作"""
     # 模拟 _call_llm_feedback，避免 step 中调用 asyncio.get_running_loop()
-    with patch.object(Gift, '_call_llm_feedback') as mock_llm:
+    with patch.object(Gift, '_call_llm_feedback', new_callable=MagicMock) as mock_llm:
          # 返回一个 mock task，确保 task.done() 初始为 False，
          # 但在这里我们主要是为了让 step 不报错
          mock_llm.return_value = {} 

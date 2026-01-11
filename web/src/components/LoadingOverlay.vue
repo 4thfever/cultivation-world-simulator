@@ -55,7 +55,7 @@ const tips = [
   '丹药有生效的时间限制',
   '由于大模型需要思考，游戏启动可能耗时较久',
   '模拟世界对大模型token消耗较大，请注意',
-  '设定开局历史，世界也会随之而改变',
+  '开局时设定历史，整个修仙世界也会随之而改变',
 ]
 
 const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
