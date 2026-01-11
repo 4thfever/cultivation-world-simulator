@@ -4,7 +4,7 @@ import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPheno
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
 import type { FetchEventsParams } from '../api/game';
 import { gameApi } from '../api/game';
-import { processNewEvents } from '../utils/eventHelper';
+import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
 
 export const useWorldStore = defineStore('world', () => {
   // --- State ---
@@ -91,13 +91,8 @@ export const useWorldStore = defineStore('world', () => {
 
     if (newEvents.length === 0) return;
 
-    // WebSocket 推送的新事件直接追加到末尾（最新事件在底部）
-    // 使用 Set 去重（基于 id）
-    const existingIds = new Set(events.value.map(e => e.id));
-    const uniqueNewEvents = newEvents.filter(e => !existingIds.has(e.id));
-    if (uniqueNewEvents.length > 0) {
-      events.value = [...events.value, ...uniqueNewEvents];
-    }
+    // 使用通用合并排序函数，确保顺序正确（基于 createdAt 或时间戳）
+    events.value = mergeAndSortEvents(events.value, newEvents);
   }
 
   function handleTick(payload: TickPayloadDTO) {
@@ -245,6 +240,7 @@ export const useWorldStore = defineStore('world', () => {
         relatedAvatarIds: e.related_avatar_ids,
         isMajor: e.is_major,
         isStory: e.is_story,
+        createdAt: e.created_at,
       }));
 
       // API 返回倒序（最新在前），反转成时间正序（最旧在前，最新在后）

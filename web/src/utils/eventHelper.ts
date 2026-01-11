@@ -18,20 +18,37 @@ export function processNewEvents(rawEvents: any[], currentYear: number, currentM
     relatedAvatarIds: e.related_avatar_ids || [],
     isMajor: e.is_major,
     isStory: e.is_story,
+    createdAt: e.created_at,
     _seq: index 
   }));
 }
 
 /**
  * 合并并排序事件列表
- * 1. 按时间戳升序
- * 2. 时间戳相同时，按序列号升序
- * 3. 保留最新的 MAX_EVENTS 条
+ * 1. 优先使用 createdAt (精确时间戳) 升序
+ * 2. 其次按月时间戳升序
+ * 3. 最后按序列号升序
+ * 4. 保留最新的 MAX_EVENTS 条
  */
 export function mergeAndSortEvents(existingEvents: GameEvent[], newEvents: GameEvent[]): GameEvent[] {
-  const combined = [...newEvents, ...existingEvents];
+  // 合并
+  const combined = [...existingEvents]; // Copy existing
+  // Add new ones only if not exists (by id)
+  const existingIds = new Set(existingEvents.map(e => e.id));
+  for (const ev of newEvents) {
+      if (!existingIds.has(ev.id)) {
+          combined.push(ev);
+      }
+  }
   
   combined.sort((a, b) => {
+    // 0. 如果都有 createdAt，优先比较
+    // 注意：SQLite 可能没有返回历史数据的 createdAt，或者为 0
+    if (a.createdAt && b.createdAt && a.createdAt > 0 && b.createdAt > 0) {
+        // float comparison
+        return a.createdAt - b.createdAt;
+    }
+
     // 1. 先按时间戳升序（最旧的月在上面）
     const ta = a.timestamp;
     const tb = b.timestamp;
@@ -40,17 +57,19 @@ export function mergeAndSortEvents(existingEvents: GameEvent[], newEvents: GameE
     }
     
     // 2. 时间相同时，按原始逻辑顺序升序（先发生的在上面）
-    // 旧事件通常没有 _seq (undefined)，视为最旧 (-1)
+    // 如果其中一个有 createdAt 而另一个没有（不太可能，除非混合了旧数据）
+    // 假设 tick 数据有 createdAt，API 数据也有。
+    
+    // 如果没有 createdAt，回退到 _seq
     const seqA = a._seq ?? -1;
     const seqB = b._seq ?? -1;
     
-    // 如果都是旧事件，保持相对顺序 (Stable)
     if (seqA === -1 && seqB === -1) return 0;
     
     return seqA - seqB;
   });
   
-  // 保留最新的 N 条 (因为是升序，最新的在最后，所以取最后 N 条)
+  // 保留最新的 N 条
   if (combined.length > MAX_EVENTS) {
     return combined.slice(-MAX_EVENTS);
   }
