@@ -96,6 +96,7 @@ export interface EventDTO {
   related_avatar_ids: string[];
   is_major: boolean;
   is_story: boolean;
+  created_at: number;
 }
 
 export interface EventsResponseDTO {

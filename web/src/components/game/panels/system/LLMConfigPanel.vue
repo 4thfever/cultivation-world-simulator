@@ -27,7 +27,7 @@ const presets = [
     name: '通义千问',
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
     model_name: 'qwen-plus',
-    fast_model_name: 'qwen-turbo'
+    fast_model_name: 'qwen-flash'
   },
   {
     name: 'DeepSeek',
@@ -174,7 +174,7 @@ onMounted(() => {
           <input 
             v-model="config.fast_model_name" 
             type="text" 
-            placeholder="例如: gpt-3.5-turbo, qwen-turbo"
+            placeholder="例如: gpt-3.5-turbo, qwen-flash"
             class="input-field"
           />
         </div>
