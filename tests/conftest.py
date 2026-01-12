@@ -70,11 +70,18 @@ def mock_llm_managers():
     """
     Mock 所有涉及 LLM 调用的管理器和函数，防止测试中意外调用 LLM。
     """
+    # 创建 mock LLM 配置
+    mock_llm_config = MagicMock()
+    mock_llm_config.api_key = "test_key"
+    mock_llm_config.base_url = "http://test.api/v1"
+    mock_llm_config.model_name = "test-model"
+    
     with patch("src.sim.simulator.llm_ai") as mock_ai, \
          patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
          patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
          patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
-         patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist:
+         patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist, \
+         patch("src.utils.llm.config.LLMConfig.from_mode", return_value=mock_llm_config) as mock_config:
         
         mock_ai.decide = AsyncMock(return_value={})
         mock_lto.return_value = None
@@ -87,7 +94,8 @@ def mock_llm_managers():
             "lto": mock_lto,
             "nick": mock_nick,
             "rr": mock_rr,
-            "hist": mock_hist
+            "hist": mock_hist,
+            "config": mock_config
         }
 
 # --- Shared Helpers for Item Creation ---
