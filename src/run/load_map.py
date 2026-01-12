@@ -104,6 +104,7 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
             elif type_tag == "cultivate":
                 params["essence_type"] = EssenceType.from_str(get_str(row, "root_type"))
                 params["essence_density"] = get_int(row, "root_density")
+                params["sub_type"] = get_str(row, "sub_type") or "cave"
             elif type_tag == "city":
                 sell_ids_str = get_str(row, "sell_item_ids")
                 if sell_ids_str:

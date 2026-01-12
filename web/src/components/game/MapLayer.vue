@@ -224,18 +224,18 @@ async function preloadRegionTextures() {
     )
   )
   
-  // Cities
-  const cityNames = Array.from(
+  // Cities - use city id
+  const cityIds = Array.from(
     new Set(
       regions
-        .filter(region => region.type === 'city')
-        .map(region => region.name)
+        .filter(region => region.type === 'city' && region.id)
+        .map(region => region.id)
     )
   )
 
   await Promise.all([
       ...sectIds.map(id => loadSectTexture(id)),
-      ...cityNames.map(name => loadCityTexture(name))
+      ...cityIds.map(id => loadCityTexture(id))
   ])
 }
 
@@ -244,17 +244,15 @@ function renderLargeRegions() {
     for (const region of regions) {
         let baseName: string | null = null;
         
-        if (region.type === 'city') {
-            baseName = region.name
+        if (region.type === 'city' && region.id) {
+            // Use city_id instead of city_name
+            baseName = `city_${region.id}`
         } else if (region.type === 'sect' && region.sect_id) {
             // Use sect_id instead of sect_name
             baseName = `sect_${region.sect_id}`
-        } else if (region.type === 'cultivate') {
-            if (region.name.includes('遗迹')) {
-                baseName = 'ruin'
-            } else if (region.name.includes('洞') || region.name.includes('府') || region.name.includes('秘境') || region.name.includes('宫')) {
-                baseName = 'cave'
-            }
+        } else if (region.type === 'cultivate' && region.sub_type) {
+            // Use sub_type from backend instead of name matching
+            baseName = region.sub_type  // "cave" or "ruin"
         }
 
         if (baseName && mapContainer.value) {
