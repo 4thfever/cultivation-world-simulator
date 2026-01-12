@@ -26,6 +26,8 @@ class World():
     phenomenon_start_year: int = 0
     # 出世物品流通管理器
     circulation: CirculationManager = field(default_factory=CirculationManager)
+    # 世界历史文本
+    history: str = ""
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -47,6 +49,10 @@ class World():
     def get_observable_avatars(self, avatar: "Avatar"):
         return self.avatar_manager.get_observable_avatars(avatar)
 
+    def set_history(self, history_text: str):
+        """设置世界历史文本"""
+        self.history = history_text
+
     @property
     def static_info(self) -> dict:
         desc = {
@@ -65,6 +71,8 @@ class World():
             "装备与丹药": "通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服用好的丹药，能获得很大好处。",
             "购物": "在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器类型为顺手的类型。",
         }
+        if self.history:
+            desc["历史"] = self.history
         return desc
 
     @classmethod

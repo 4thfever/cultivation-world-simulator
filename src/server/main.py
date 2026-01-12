@@ -343,6 +343,7 @@ async def init_game_async():
         update_init_progress(2, "processing_history")
         world_history = getattr(CONFIG.game, "world_history", "")
         if world_history and world_history.strip():
+            world.set_history(world_history)
             print(f"正在根据历史背景重塑世界: {world_history[:50]}...")
             try:
                 history_mgr = HistoryManager(world)
