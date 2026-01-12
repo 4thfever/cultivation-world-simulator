@@ -1,23 +1,11 @@
 你是一个仙侠世界的创作者，我会给你一个原始的世界背景，以及一段历史。
-你需要基于世界背景，根据这段历史，修改这个世界中存在的部分功法、兵器、辅助装备、区域信息。
+你需要基于世界背景，根据这段历史，修改这个世界中存在的功法、兵器、辅助装备信息。
 
 世界背景：
 {world_info}
 
 历史文本：
 {history_str}
-
-城市区域信息：
-{city_regions}
-
-普通区域信息：
-{normal_regions}
-
-修炼区域信息：
-{cultivate_regions}
-
-宗门区域信息：
-{sect_regions}
 
 功法信息：
 {techniques}
@@ -33,25 +21,20 @@
 返回JSON格式：
 {{
     "thinking": "分析应该有怎么样的修改",
-    "city_regions_change": 
+    "techniques_change": 
         {{
             "id": {{ //原来的id
                 "name": str // 新的名字
                 "desc": desc // 新的desc
             }}
         }},
-    "normal_regions_change": {{}} // dict, 结构同上
-    "cultivate_regions_change": {{}} // dict, 结构同上 
-    "sect_regions_change": {{}} // dict, 结构同上 
-    "techniques_change": {{}} // dict, 结构同上
     "weapons_change": {{}} // dict, 结构同上
     "auxiliarys_change": {{}} // dict, 结构同上
 }}
 
 要求：
 1. thinking是你的思考过程，要详细分析
-2. 要参考history的内容进行修改，言之有理，比如。
+2. 要参考history的内容进行修改，言之有理。
 3. history的文本内容多，就多修改点，少的话就少修改点
 4. 某项没有修改的话，就返回空字典{{}}
 5. 要修改的项，只返回name和desc，不返回别的key
-

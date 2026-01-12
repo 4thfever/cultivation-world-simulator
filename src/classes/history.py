@@ -1,12 +1,13 @@
 import asyncio
-import json
-from pathlib import Path
-from typing import Dict, Any, Optional, TYPE_CHECKING
 import logging
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, Any, Optional, Callable, TYPE_CHECKING, Coroutine
 
 from src.classes.item_registry import ItemRegistry
 from src.classes.technique import techniques_by_id, techniques_by_name
 from src.classes.weapon import weapons_by_name
+from src.classes.sect import sects_by_id, sects_by_name
 from src.utils.llm.client import call_llm_with_task_name
 from src.run.log import get_logger
 
@@ -17,48 +18,93 @@ class HistoryManager:
     """
     历史管理器
     在游戏开局时，根据历史文本一次性修改世界中的对象数据。
+    支持并发调用 LLM 分别处理不同领域的数据（地图、宗门、物品）。
     """
     def __init__(self, world: "World"):
         self.world = world
-        # 配置目录路径
         self.config_dir = Path("static/game_configs")
         self.logger = get_logger().logger
 
     async def apply_history_influence(self, history_text: str):
         """
-        核心方法：读取 CSV -> LLM 分析 -> 更新内存对象
+        核心方法：读取 CSV -> 并发 LLM 分析 -> 更新内存对象
         """
-        # 1. 准备 Prompt 参数：直接读取 CSV 原始内容
-        infos = {
-            "world_info": str(self.world.static_info) if self.world else "",
-            "history_str": history_text,
-            "city_regions": self._read_csv("city_region.csv"),
-            "normal_regions": self._read_csv("normal_region.csv"),
-            "cultivate_regions": self._read_csv("cultivate_region.csv"),
-            "sect_regions": self._read_csv("sect_region.csv"),
-            "techniques": self._read_csv("technique.csv"),
-            "weapons": self._read_csv("weapon.csv"),
-            "auxiliarys": self._read_csv("auxiliary.csv"),
-        }
+        self.logger.info("[History] 正在根据历史推演世界变化 (并发模式)...")
+        
+        world_info = str(self.world.static_info) if self.world else ""
+        
+        # 1. 构建并发任务
+        tasks = []
 
-        # 2. 调用 LLM
-        self.logger.info("[History] 正在根据历史推演世界变化...")
+        # Task 1: Map (Regions)
+        tasks.append(self._create_task(
+            task_suffix="map",
+            template="static/templates/history_influence_map.txt",
+            infos={
+                "world_info": world_info,
+                "history_str": history_text,
+                "city_regions": self._read_csv("city_region.csv"),
+                "normal_regions": self._read_csv("normal_region.csv"),
+                "cultivate_regions": self._read_csv("cultivate_region.csv"),
+            },
+            handler=self._apply_map_changes
+        ))
+
+        # Task 2: Sects & Sect Regions
+        tasks.append(self._create_task(
+            task_suffix="sect",
+            template="static/templates/history_influence_sect.txt",
+            infos={
+                "world_info": world_info,
+                "history_str": history_text,
+                "sects": self._read_csv("sect.csv"),
+                "sect_regions": self._read_csv("sect_region.csv"),
+            },
+            handler=self._apply_sect_changes
+        ))
+
+        # Task 3: Items (Techniques, Weapons, Auxiliarys)
+        tasks.append(self._create_task(
+            task_suffix="item",
+            template="static/templates/history_influence_item.txt",
+            infos={
+                "world_info": world_info,
+                "history_str": history_text,
+                "techniques": self._read_csv("technique.csv"),
+                "weapons": self._read_csv("weapon.csv"),
+                "auxiliarys": self._read_csv("auxiliary.csv"),
+            },
+            handler=self._apply_item_changes
+        ))
+
+        # 2. 并发执行并等待所有结果
+        await asyncio.gather(*tasks)
+        self.logger.info("[History] 历史推演完成")
+
+    async def _create_task(
+        self, 
+        task_suffix: str, 
+        template: str, 
+        infos: Dict[str, Any], 
+        handler: Callable[[Dict[str, Any]], None]
+    ):
+        """
+        创建一个执行单元：调用 LLM -> 处理回调
+        """
+        task_name = f"history_influence_{task_suffix}"
         try:
             result = await call_llm_with_task_name(
-                task_name="history_influence",
-                template_path="static/templates/history_influence.txt",
+                task_name=task_name,
+                template_path=template,
                 infos=infos,
-                max_retries=3 # 增加重试次数，确保 JSON 格式正确
+                max_retries=3
             )
+            if result:
+                handler(result)
+            else:
+                self.logger.info(f"[History] {task_name} 返回为空，未进行修改")
         except Exception as e:
-            self.logger.error(f"[History] LLM 调用或解析失败: {e}")
-            return
-
-        # 3. 应用变更到内存对象
-        if result:
-            self._apply_changes(result)
-        else:
-            self.logger.info("[History] LLM 返回为空，未进行任何修改")
+            self.logger.error(f"[History] {task_name} 任务失败: {e}")
 
     def _read_csv(self, filename: str) -> str:
         """读取 CSV 文件原始内容"""
@@ -72,21 +118,53 @@ class HistoryManager:
             self.logger.error(f"[History] 读取文件 {filename} 失败: {e}")
             return ""
 
-    def _apply_changes(self, result: Dict[str, Any]):
-        """分发并应用变更"""
-        
-        # 3.1 区域变更
+    # --- Handlers ---
+
+    def _apply_map_changes(self, result: Dict[str, Any]):
+        """处理地图区域变更"""
         self._update_regions(result.get("city_regions_change", {}))
         self._update_regions(result.get("normal_regions_change", {}))
         self._update_regions(result.get("cultivate_regions_change", {}))
+
+    def _apply_sect_changes(self, result: Dict[str, Any]):
+        """处理宗门及宗门驻地变更"""
+        # 1. 宗门驻地 (从 Map 任务移过来)
         self._update_regions(result.get("sect_regions_change", {}))
-        
-        # 3.2 功法变更
+
+        # 2. 宗门本体
+        changes = result.get("sects_change", {})
+        if not changes: return
+
+        count = 0
+        for sid_str, data in changes.items():
+            try:
+                sid = int(sid_str)
+                sect = sects_by_id.get(sid)
+                if sect:
+                    old_name = sect.name
+                    self._update_obj_attrs(sect, data)
+                    
+                    # 同步 sects_by_name 索引
+                    if sect.name != old_name:
+                        if old_name in sects_by_name:
+                            del sects_by_name[old_name]
+                        sects_by_name[sect.name] = sect
+                    
+                    self.logger.info(f"[History] 宗门变更 - ID: {sid}, Name: {sect.name}, Desc: {sect.desc}")
+                    count += 1
+            except Exception as e:
+                self.logger.error(f"[History] 宗门更新失败 - ID: {sid_str}, Error: {e}")
+                continue
+        if count > 0:
+            self.logger.info(f"[History] 更新了 {count} 个宗门")
+
+    def _apply_item_changes(self, result: Dict[str, Any]):
+        """处理物品/功法变更"""
         self._update_techniques(result.get("techniques_change", {}))
-        
-        # 3.3 装备变更
         self._update_items(result.get("weapons_change", {}), weapons_by_name)
-        self._update_items(result.get("auxiliarys_change", {}), None) # 辅助装备可能没有全局 name 索引
+        self._update_items(result.get("auxiliarys_change", {}), None)
+
+    # --- Update Logic ---
 
     def _update_regions(self, changes: Dict[str, Any]):
         """更新区域 (Map.regions)"""
@@ -96,7 +174,6 @@ class HistoryManager:
         for rid_str, data in changes.items():
             try:
                 rid = int(rid_str)
-                # 从 World.Map 获取区域
                 if self.world and self.world.map:
                     region = self.world.map.regions.get(rid)
                     if region:
@@ -122,7 +199,6 @@ class HistoryManager:
                     old_name = tech.name
                     self._update_obj_attrs(tech, data)
                     
-                    # 同步 techniques_by_name 索引
                     if tech.name != old_name:
                         if old_name in techniques_by_name:
                             del techniques_by_name[old_name]
@@ -149,7 +225,6 @@ class HistoryManager:
                     old_name = item.name
                     self._update_obj_attrs(item, data)
                     
-                    # 同步可选的 name 索引 (如 weapons_by_name)
                     if by_name_index is not None and item.name != old_name:
                         if old_name in by_name_index:
                             del by_name_index[old_name]
@@ -172,7 +247,4 @@ class HistoryManager:
 
 if __name__ == "__main__":
     # 模拟运行
-    history_str = "上古时期..."
-    # 注意：这里直接运行可能会报错，因为需要 World 对象
-    # 这里只是为了保留文件结构的完整性
     pass
