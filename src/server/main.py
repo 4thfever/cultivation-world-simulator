@@ -866,8 +866,12 @@ def get_map():
             # 如果是宗门区域，传递 sect_id 用于前端加载图片资源
             if hasattr(r, 'sect_id'):
                 region_dict["sect_id"] = r.sect_id
-                
-                regions_data.append(region_dict)
+            
+            # 如果是修炼区域（洞府/遗迹），传递 sub_type
+            if hasattr(r, 'sub_type'):
+                region_dict["sub_type"] = r.sub_type
+            
+            regions_data.append(region_dict)
         
     return {
         "width": w,

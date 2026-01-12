@@ -224,14 +224,18 @@ async function preloadRegionTextures() {
     )
   )
   
-  // Cities - use city id
+  // Cities - use city id (convert to number)
   const cityIds = Array.from(
     new Set(
       regions
         .filter(region => region.type === 'city' && region.id)
-        .map(region => region.id)
+        .map(region => {
+          const id = typeof region.id === 'string' ? parseInt(region.id) : region.id
+          return isNaN(id) ? null : id
+        })
+        .filter(id => id !== null)
     )
-  )
+  ) as number[]
 
   await Promise.all([
       ...sectIds.map(id => loadSectTexture(id)),
@@ -245,8 +249,11 @@ function renderLargeRegions() {
         let baseName: string | null = null;
         
         if (region.type === 'city' && region.id) {
-            // Use city_id instead of city_name
-            baseName = `city_${region.id}`
+            // Use city_id instead of city_name (convert to number)
+            const cityId = typeof region.id === 'string' ? parseInt(region.id) : region.id
+            if (!isNaN(cityId)) {
+                baseName = `city_${cityId}`
+            }
         } else if (region.type === 'sect' && region.sect_id) {
             // Use sect_id instead of sect_name
             baseName = `sect_${region.sect_id}`
