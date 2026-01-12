@@ -145,7 +145,7 @@ export type MapMatrix = string[][];
 
 export interface RegionSummary extends EntityBase, Coordinates {
   type: string;
-  sect_name?: string;
+  sect_id?: number;
 }
 
 export interface RegionDetail extends EntityBase {

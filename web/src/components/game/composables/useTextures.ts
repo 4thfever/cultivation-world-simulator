@@ -166,21 +166,18 @@ export function useTextures() {
   }
 
   // 动态加载宗门纹理（按需）- 加载4个切片用于渲染
-  const loadSectTexture = async (sectName: string) => {
+  const loadSectTexture = async (sectId: number) => {
       // 加载4个切片 _0, _1, _2, _3
       const slicePromises = [0, 1, 2, 3].map(async (i) => {
-          const key = `${sectName}_${i}`
+          const key = `sect_${sectId}_${i}`
           if (textures.value[key]) return
           
-          const url = `/assets/sects/${sectName}_${i}.png`
+          const url = `/assets/sects/sect_${sectId}_${i}.png`
           try {
               const tex = await Assets.load(url)
               textures.value[key] = tex
           } catch (e) {
-              // 尝试 URL 编码后加载
-              const encodedUrl = `/assets/sects/${encodeURIComponent(`${sectName}_${i}`)}.png`
-              const tex = await Assets.load(encodedUrl)
-              textures.value[key] = tex
+              console.warn(`Failed to load sect texture: ${url}`, e)
           }
       })
       

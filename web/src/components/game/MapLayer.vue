@@ -215,12 +215,12 @@ async function renderMap() {
 async function preloadRegionTextures() {
   const regions = Array.from(worldStore.regions.values());
   
-  // Sects
-  const sectNames = Array.from(
+  // Sects - use sect_id instead of sect_name
+  const sectIds = Array.from(
     new Set(
       regions
-        .filter(region => region.type === 'sect' && region.sect_name)
-        .map(region => region.sect_name as string)
+        .filter(region => region.type === 'sect' && region.sect_id)
+        .map(region => region.sect_id as number)
     )
   )
   
@@ -234,7 +234,7 @@ async function preloadRegionTextures() {
   )
 
   await Promise.all([
-      ...sectNames.map(name => loadSectTexture(name)),
+      ...sectIds.map(id => loadSectTexture(id)),
       ...cityNames.map(name => loadCityTexture(name))
   ])
 }
@@ -246,8 +246,9 @@ function renderLargeRegions() {
         
         if (region.type === 'city') {
             baseName = region.name
-        } else if (region.type === 'sect' && region.sect_name) {
-            baseName = region.sect_name
+        } else if (region.type === 'sect' && region.sect_id) {
+            // Use sect_id instead of sect_name
+            baseName = `sect_${region.sect_id}`
         } else if (region.type === 'cultivate') {
             if (region.name.includes('遗迹')) {
                 baseName = 'ruin'
