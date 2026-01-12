@@ -90,7 +90,7 @@
   </tr>
 </table>
 
-### 为什么要做这个？
+### 💭 为什么要做这个？
 修仙网文中的世界很精彩，但读者永远只能观察到一隅。
 
 修仙品类游戏要么是完全的预设剧本，要么依靠人工设计的简单规则状态机，有许许多多牵强和降智的表现。
@@ -99,12 +99,73 @@
 
 希望能够创造出纯粹的、快乐的、直接的、活着的修仙世界的沉浸感。不是像一些游戏公司的纯粹宣传工具，也不是像斯坦福小镇那样的纯粹研究，而是能给玩家提供真实代入感和沉浸感的实际世界。
 
-## 联系方式
+## 📞 联系方式
 如果您对项目有任何问题或建议，欢迎提交 Issue 或 Pull Request。  
 欢迎给我的[B站账号](https://space.bilibili.com/527346837)留言！  
-也可以加入QQ群进行讨论：1071821688。进群需要输入我的B站昵称。  
+也可以加入QQ群进行讨论：1071821688。进群问题的答案：肥桥今天吃什么
 
-## 功能开发进度
+## 🚀 使用方法
+
+### ⚙️ 运行步骤
+1. 克隆项目到本地：
+   ```bash
+   git clone https://github.com/your-username/cultivation-world-simulator.git
+   cd cultivation-world-simulator
+   ```
+
+2. 安装依赖：
+   ```bash
+   # 后端依赖
+   pip install -r requirements.txt
+   
+   # 前端依赖 (需Node.js环境)
+   cd web && npm install
+   ```
+
+3. 配置LLM：
+   在 `static/config.yml` 中配置LLM参数（OpenAI格式）：
+   ```yaml
+    llm:
+      key: "your-api-key-here"           # 你的API密钥
+      base_url: "https://api.xxx.com"    # API地址
+      model_name: "normal_model_name"    # 智能模型名称
+      fast_model_name: "fast_model_name" # 快速模型名称
+   ```
+
+   也支持在前端直接配入LLM参数：
+   
+   <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
+
+4. 运行：
+   ```bash
+   # 启动服务 (推荐开发模式，会自动启动前端)
+   python src/server/main.py --dev
+   ```
+   浏览器会自动打开网页前端。
+
+
+## 📊 项目状态
+
+![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
+
+## ⭐ Star History
+
+如果你觉得这个项目有趣，请给我们一个 Star ⭐！这将激励我们持续改进和添加新功能。
+
+<div align="center">
+  <a href="https://star-history.com/#4thfever/cultivation-world-simulator&Date">
+    <img src="https://api.star-history.com/svg?repos=4thfever/cultivation-world-simulator&type=Date" alt="Star History Chart" width="600">
+  </a>
+</div>
+
+## 👥 贡献者
+* Aku, 世界观\玩法设计与讨论
+* [@xzhseh](https://github.com/xzhseh), 贡献代码
+
+## 🙏 致谢
+- 参考了ai life engine部分ui
+
+## 📋 功能开发进度
 
 ### 🏗️ 基础系统
 - ✅ 基础世界地图、时间、事件系统
@@ -218,7 +279,7 @@
 - ✅ 注入基础世界知识
 - ✅ 用户输入历史，动态生成功法、装备、宗门、区域信息
 
-### 特殊
+### ✨ 特殊
 - ✅ 奇遇
 - ✅ 天劫 & 心魔
 - [ ] 夺舍 & 重生
@@ -236,50 +297,3 @@
 ### 🔭 远期展望
 - [ ] 历史/事件的小说化&图片化&视频化
 - [ ] MCP agent化，修士自行调用工具
-
-## 使用方法
-
-### 运行步骤
-1. 克隆项目到本地：
-   ```bash
-   git clone https://github.com/your-username/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. 安装依赖：
-   ```bash
-   # 后端依赖
-   pip install -r requirements.txt
-   
-   # 前端依赖 (需Node.js环境)
-   cd web && npm install
-   ```
-
-3. 配置LLM：
-   在 `static/config.yml` 中配置LLM参数（OpenAI格式）：
-   ```yaml
-    llm:
-      key: "your-api-key-here"           # 你的API密钥
-      base_url: "https://api.xxx.com"    # API地址
-      model_name: "normal_model_name"    # 智能模型名称
-      fast_model_name: "fast_model_name" # 快速模型名称
-   ```
-
-   也支持在前端直接配入LLM参数：
-   
-   <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
-
-4. 运行：
-   ```bash
-   # 启动服务 (推荐开发模式，会自动启动前端)
-   python src/server/main.py --dev
-   ```
-   浏览器会自动打开网页前端。
-
-
-## 贡献者
-* Aku, 世界观\玩法设计与讨论
-* [@xzhseh](https://github.com/xzhseh), 贡献代码
-
-## 致谢
-- 参考了ai life engine部分ui

@@ -78,7 +78,7 @@ You don't need to personally fight monsters or level up. Instead, you observe al
   </tr>
 </table>
 
-### Why make this?
+### 💭 Why make this?
 The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
 
 Cultivation games are either completely scripted or rely on simple state machines designed by humans, often resulting in forced and unintelligent behaviors.
@@ -87,13 +87,75 @@ With the advent of Large Language Models, the goal of making "every character al
 
 I hope to create a pure, joyful, direct, and living sense of immersion in a cultivation world. Not a pure marketing tool for some game company, nor pure research like "Stanford Town", but an actual world that provides players with real immersion.
 
-## Contact
+## 📞 Contact
 
 If you have any questions or suggestions, feel free to open an Issue or Pull Request.  
 You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!  
-You can also join the QQ group for discussion: 1071821688. Verification answer is my Bilibili nickname.  
+You can also join the QQ group for discussion: 1071821688. Verification answer: 肥桥今天吃什么 
 
-## Development Progress
+## 🚀 Usage
+
+### ⚙️ Run Steps
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/cultivation-world-simulator.git
+   cd cultivation-world-simulator
+   ```
+
+2. Install dependencies:
+   ```bash
+   # Backend dependencies
+   pip install -r requirements.txt
+   
+   # Frontend dependencies (Node.js environment required)
+   cd web && npm install
+   ```
+
+3. Configure LLM:
+   Edit `static/config.yml`:
+   ```yaml
+    llm:
+      key: "your-api-key-here"           # your api key
+      base_url: "https://api.xxx.com"    # API addr 
+      model_name: "normal_model_name"    
+      fast_model_name: "fast_model_name" 
+   ```
+   Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
+
+   You can also configure LLM parameters directly in the frontend:
+   
+   <img src="assets/llm_config.png" alt="Frontend LLM Config" width="100%">
+
+4. Run:
+   ```bash
+   # Start service (Recommended dev mode, automatically starts frontend)
+   python src/server/main.py --dev
+   ```
+   The browser will automatically open the web frontend.
+
+
+## 📊 Project Status
+
+![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
+
+## ⭐ Star History
+
+If you find this project interesting, please give us a Star ⭐! It will motivate us to keep improving and adding new features.
+
+<div align="center">
+  <a href="https://star-history.com/#4thfever/cultivation-world-simulator&Date">
+    <img src="https://api.star-history.com/svg?repos=4thfever/cultivation-world-simulator&type=Date" alt="Star History Chart" width="600">
+  </a>
+</div>
+
+## 👥 Contributors
+- Aku, for world design & discussion
+- [@xzhseh](https://github.com/xzhseh), contributed code
+
+## 🙏 Acknowledgments
+- Referenced some UI elements from ailifeengine
+
+## 📋 Development Progress
 
 ### 🏗️ Foundation
 - ✅ World map basics, time, event system
@@ -207,7 +269,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 - ✅ Inject basic world knowledge
 - ✅ User input history, dynamic generation of techniques, equipment, sects, and region info
 
-### Specials
+### ✨ Specials
 - ✅ Fortuitous encounters
 - ✅ Tribulations & Heart devils
 - [ ] Possession & Rebirth
@@ -225,51 +287,3 @@ You can also join the QQ group for discussion: 1071821688. Verification answer i
 ### 🔭 Long-term
 - [ ] Novelization/imagery/video for history and events
 - [ ] Avatar calling MCP tools on their own
-
-## Usage
-
-### Run Steps
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/your-username/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. Install dependencies:
-   ```bash
-   # Backend dependencies
-   pip install -r requirements.txt
-   
-   # Frontend dependencies (Node.js environment required)
-   cd web && npm install
-   ```
-
-3. Configure LLM:
-   Edit `static/config.yml`:
-   ```yaml
-    llm:
-      key: "your-api-key-here"           # your api key
-      base_url: "https://api.xxx.com"    # API addr 
-      model_name: "normal_model_name"    
-      fast_model_name: "fast_model_name" 
-   ```
-   Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
-
-   You can also configure LLM parameters directly in the frontend:
-   
-   <img src="assets/llm_config.png" alt="Frontend LLM Config" width="100%">
-
-4. Run:
-   ```bash
-   # Start service (Recommended dev mode, automatically starts frontend)
-   python src/server/main.py --dev
-   ```
-   The browser will automatically open the web frontend.
-
-
-## Contributors
-- Aku, for world design & discussion
-- [@xzhseh](https://github.com/xzhseh), contributed code
-
-## Acknowledgments
-- Referenced some UI elements from ailifeengine
