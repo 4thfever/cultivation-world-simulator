@@ -102,6 +102,9 @@ def test_store_init_mixed_ids_and_names(mock_item_data):
     original_registry = ItemRegistry._items_by_id.copy()
     ItemRegistry._items_by_id.clear()
     
+    from src.classes.weapon import weapons_by_name
+    original_weapons_by_name = weapons_by_name.copy()
+    
     try:
         # We need `resolve_query` to work for names, which relies on 
         # weapons_by_name etc. populated in conftest or manually here.
@@ -119,7 +122,6 @@ def test_store_init_mixed_ids_and_names(mock_item_data):
         # We need to mock `src.utils.resolution.resolve_query` or make `resolve_query` find it.
         # Ideally, `StoreMixin` uses `resolve_query` for strings.
         
-        from src.classes.weapon import weapons_by_name
         weapons_by_name[weapon.name] = weapon
         
         shop = MockShop()
@@ -133,6 +135,8 @@ def test_store_init_mixed_ids_and_names(mock_item_data):
         
     finally:
         ItemRegistry._items_by_id = original_registry
+        weapons_by_name.clear()
+        weapons_by_name.update(original_weapons_by_name)
 
 # --- Test Item Instantiation ---
 

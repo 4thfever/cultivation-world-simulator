@@ -200,7 +200,7 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             technique_names = [
                 get_str(t, "name")
                 for t in tech_df
-                if get_str(t, "sect") == name and get_str(t, "name")
+                if get_int(t, "sect_id") == sid and get_str(t, "name")
             ]
 
         weight = get_float(row, "weight", 1.0)

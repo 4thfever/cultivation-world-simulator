@@ -108,6 +108,11 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             events_db_path=events_db_path,
         )
         
+        # 恢复世界历史
+        history = world_data.get("history", "")
+        if history:
+            world.set_history(history)
+        
         # 重建天地灵机
         from src.classes.celestial_phenomenon import celestial_phenomena_by_id
         phenomenon_id = world_data.get("current_phenomenon_id")

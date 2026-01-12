@@ -170,9 +170,10 @@ class NormalRegion(Region):
 
 @dataclass(eq=False)
 class CultivateRegion(Region):
-    """修炼区域"""
+    """修炼区域（洞府/遗迹）"""
     essence_type: EssenceType = EssenceType.GOLD # 默认值避免 dataclass 继承错误
     essence_density: int = 0
+    sub_type: str = "cave"  # "cave" 或 "ruin"
     essence: Essence = field(init=False)
     
     # 洞府主人：默认为空（无主）
@@ -195,11 +196,12 @@ class CultivateRegion(Region):
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
-        info["type_name"] = "修炼区域"
+        info["type_name"] = "洞府" if self.sub_type == "cave" else "遗迹"
         info["essence"] = {
             "type": str(self.essence_type),
             "density": self.essence_density
         }
+        info["sub_type"] = self.sub_type
         
         if self.host_avatar:
             info["host"] = {

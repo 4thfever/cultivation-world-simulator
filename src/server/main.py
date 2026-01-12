@@ -343,6 +343,7 @@ async def init_game_async():
         update_init_progress(2, "processing_history")
         world_history = getattr(CONFIG.game, "world_history", "")
         if world_history and world_history.strip():
+            world.set_history(world_history)
             print(f"正在根据历史背景重塑世界: {world_history[:50]}...")
             try:
                 history_mgr = HistoryManager(world)
@@ -856,18 +857,22 @@ def get_map():
                 if hasattr(r, 'get_region_type'):
                     rtype = r.get_region_type()
                 
-                region_dict = {
-                    "id": r.id,
-                    "name": r.name,
-                    "type": rtype,
-                    "x": r.center_loc[0],
-                    "y": r.center_loc[1]
-                }
-                # 如果是宗门区域，额外传递 sect_name 用于前端加载图片
-                if hasattr(r, 'sect_name'):
-                    region_dict["sect_name"] = r.sect_name
-                
-                regions_data.append(region_dict)
+            region_dict = {
+                "id": r.id,
+                "name": r.name,
+                "type": rtype,
+                "x": r.center_loc[0],
+                "y": r.center_loc[1]
+            }
+            # 如果是宗门区域，传递 sect_id 用于前端加载图片资源
+            if hasattr(r, 'sect_id'):
+                region_dict["sect_id"] = r.sect_id
+            
+            # 如果是修炼区域（洞府/遗迹），传递 sub_type
+            if hasattr(r, 'sub_type'):
+                region_dict["sub_type"] = r.sub_type
+            
+            regions_data.append(region_dict)
         
     return {
         "width": w,

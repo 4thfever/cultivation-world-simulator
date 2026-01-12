@@ -215,27 +215,31 @@ async function renderMap() {
 async function preloadRegionTextures() {
   const regions = Array.from(worldStore.regions.values());
   
-  // Sects
-  const sectNames = Array.from(
+  // Sects - use sect_id instead of sect_name
+  const sectIds = Array.from(
     new Set(
       regions
-        .filter(region => region.type === 'sect' && region.sect_name)
-        .map(region => region.sect_name as string)
+        .filter(region => region.type === 'sect' && region.sect_id)
+        .map(region => region.sect_id as number)
     )
   )
   
-  // Cities
-  const cityNames = Array.from(
+  // Cities - use city id (convert to number)
+  const cityIds = Array.from(
     new Set(
       regions
-        .filter(region => region.type === 'city')
-        .map(region => region.name)
+        .filter(region => region.type === 'city' && region.id)
+        .map(region => {
+          const id = typeof region.id === 'string' ? parseInt(region.id) : region.id
+          return isNaN(id) ? null : id
+        })
+        .filter(id => id !== null)
     )
-  )
+  ) as number[]
 
   await Promise.all([
-      ...sectNames.map(name => loadSectTexture(name)),
-      ...cityNames.map(name => loadCityTexture(name))
+      ...sectIds.map(id => loadSectTexture(id)),
+      ...cityIds.map(id => loadCityTexture(id))
   ])
 }
 
@@ -244,16 +248,18 @@ function renderLargeRegions() {
     for (const region of regions) {
         let baseName: string | null = null;
         
-        if (region.type === 'city') {
-            baseName = region.name
-        } else if (region.type === 'sect' && region.sect_name) {
-            baseName = region.sect_name
-        } else if (region.type === 'cultivate') {
-            if (region.name.includes('遗迹')) {
-                baseName = 'ruin'
-            } else if (region.name.includes('洞') || region.name.includes('府') || region.name.includes('秘境') || region.name.includes('宫')) {
-                baseName = 'cave'
+        if (region.type === 'city' && region.id) {
+            // Use city_id instead of city_name (convert to number)
+            const cityId = typeof region.id === 'string' ? parseInt(region.id) : region.id
+            if (!isNaN(cityId)) {
+                baseName = `city_${cityId}`
             }
+        } else if (region.type === 'sect' && region.sect_id) {
+            // Use sect_id instead of sect_name
+            baseName = `sect_${region.sect_id}`
+        } else if (region.type === 'cultivate' && region.sub_type) {
+            // Use sub_type from backend instead of name matching
+            baseName = region.sub_type  // "cave" or "ruin"
         }
 
         if (baseName && mapContainer.value) {

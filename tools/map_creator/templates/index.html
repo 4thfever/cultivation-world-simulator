@@ -140,7 +140,7 @@
                 <!-- 绑定地形预览图 (主展示) -->
                 <img 
                     v-if="region.bindTile"
-                    :src="`/${region.bindTileType === 'sect' ? 'sects' : (region.bindTileType === 'city' ? 'cities' : 'tiles')}/${region.bindTileType === 'city' ? cityTilesMap[region.bindTile] : region.bindTile + '.png'}`" 
+                    :src="getRegionPreviewSrc(region)" 
                     class="preview-img"
                 >
                 <div v-else class="preview-img bg-gray-700"></div>
@@ -598,6 +598,31 @@ createApp({
             requestAnimationFrame(drawLoop);
         }
 
+        // --- Helper Functions ---
+        function getRegionPreviewSrc(region) {
+            const tile = region.bindTile;
+            const type = region.bindTileType;
+            
+            // For sect/city, use first slice (_0)
+            if (type === 'sect') {
+                return `/sects/${tile}_0.png`;
+            } else if (type === 'city') {
+                // city tiles might have jpg or png, check cityTilesMap
+                const baseFile = cityTilesMap.value[tile];
+                if (baseFile) {
+                    const ext = baseFile.split('.').pop();
+                    return `/cities/${tile}_0.${ext}`;
+                }
+                return `/cities/${tile}_0.png`;
+            } else {
+                // For cultivate (cave/ruin) and normal tiles
+                if (tile === 'cave' || tile === 'ruin') {
+                    return `/tiles/${tile}_0.png`;
+                }
+                return `/tiles/${tile}.png`;
+            }
+        }
+        
         // --- Actions ---
         async function saveMap() {
             const payload = {
@@ -626,6 +651,7 @@ createApp({
             saveMap,
             hoverX, hoverY, isShiftDown,
             selectTile,
+            getRegionPreviewSrc,
             canvas, container
         };
     }

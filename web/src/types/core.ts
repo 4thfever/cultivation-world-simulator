@@ -145,7 +145,8 @@ export type MapMatrix = string[][];
 
 export interface RegionSummary extends EntityBase, Coordinates {
   type: string;
-  sect_name?: string;
+  sect_id?: number;
+  sub_type?: string; // for cultivate regions: "cave" or "ruin"
 }
 
 export interface RegionDetail extends EntityBase {
