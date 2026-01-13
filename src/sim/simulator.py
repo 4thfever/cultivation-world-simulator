@@ -261,6 +261,13 @@ class Simulator:
         events = [e for e in results if e]
         return events
     
+    async def _phase_process_gatherings(self):
+        """
+        Gathering 结算阶段：
+        检查并执行注册的多人聚集事件（如拍卖会、大比等）。
+        """
+        return await self.world.gathering_manager.check_and_run_all(self.world)
+    
     def _phase_update_celestial_phenomenon(self):
         """
         更新天地灵机：
@@ -393,48 +400,60 @@ class Simulator:
         """
         events = [] # list of Event
 
-        # 0. 感知与认知更新阶段（包括自动占据洞府）
+        # 1. 感知与认知更新阶段（包括自动占据洞府）
         #    在思考和决策之前，先让角色感知世界
         self._phase_update_perception_and_knowledge()
 
-        # 0.5 长期目标思考阶段（在决策之前）
+        # 2. 长期目标思考阶段（在决策之前）
         events.extend(await self._phase_long_term_objective_thinking())
 
-        # 1. 决策阶段
+        # 3. Gathering 结算阶段
+        events.extend(await self._phase_process_gatherings())
+
+        # 4. 决策阶段
         await self._phase_decide_actions()
 
-        # 2. 提交阶段
+        # 5. 提交阶段
         events.extend(self._phase_commit_next_plans())
 
-        # 3. 执行阶段
+        # 6. 执行阶段
         events.extend(await self._phase_execute_actions())
 
-        # 4. 关系演化阶段
+        # 7. 关系演化阶段
         events.extend(await self._phase_evolve_relations())
 
-        # 5. 结算死亡
+        # 8. 结算死亡
         events.extend(self._phase_resolve_death())
 
-        # 6. 年龄与新生
+        # 9. 年龄与新生
         events.extend(self._phase_update_age_and_birth())
 
-        # 7. 被动结算（时间效果+奇遇）
+        # 10. 被动结算（时间效果+奇遇）
         events.extend(await self._phase_passive_effects())
 
-        # 8. 绰号生成
+        # 11. 绰号生成
         events.extend(await self._phase_nickname_generation())
 
-        # 9. 更新天地灵机
+        # 12. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 10. 日志
+        # 13. 日志
+        # 去重：基于 ID 去重，防止同一个事件对象（或相同ID的事件）被多次添加
+        # 常见情况：Gathering 既返回了事件，又将其加入了 Avatar 的 pending_events
+        unique_events = {}
+        for e in events:
+            if e.id not in unique_events:
+                unique_events[e.id] = e
+        # 保持原有顺序（Python 3.7+ dict 保持插入序）
+        events = list(unique_events.values())
+
         # 统一写入事件管理器
         if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
             for e in events:
                 self.world.event_manager.add_event(e)
         self._phase_log_events(events)
 
-        # 11. 时间推进
+        # 14. 时间推进
         self.world.month_stamp = self.world.month_stamp + 1
 
 

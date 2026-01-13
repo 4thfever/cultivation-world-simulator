@@ -7,6 +7,7 @@ from src.classes.calendar import Year, Month, MonthStamp
 from src.classes.avatar_manager import AvatarManager
 from src.classes.event_manager import EventManager
 from src.classes.circulation import CirculationManager
+from src.classes.gathering.gathering import GatheringManager
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -26,6 +27,8 @@ class World():
     phenomenon_start_year: int = 0
     # 出世物品流通管理器
     circulation: CirculationManager = field(default_factory=CirculationManager)
+    # Gathering 管理器
+    gathering_manager: GatheringManager = field(default_factory=GatheringManager)
     # 世界历史文本
     history: str = ""
 

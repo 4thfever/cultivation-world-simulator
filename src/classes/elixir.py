@@ -35,6 +35,9 @@ class Elixir(Item):
     effects: Union[dict[str, object], list[dict[str, object]]] = field(default_factory=dict)
     effect_desc: str = ""
 
+    def __hash__(self):
+        return hash((self.id, self.name))
+
     def get_info(self, detailed: bool = False) -> str:
         """获取信息"""
         if detailed:

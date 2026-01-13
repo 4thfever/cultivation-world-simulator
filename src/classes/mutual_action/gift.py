@@ -231,11 +231,13 @@ class Gift(MutualAction):
                     old_item = target.auxiliary
                     target.auxiliary = new_equip
                 
-                # 旧装备简单处理：折价变成灵石加给目标
+                # 旧装备处理：直接调用 sell_X 接口
+                # 这样既能获得灵石，也能自动触发 CirculationManager 记录流出物品
                 if old_item:
-                    refund = int(getattr(old_item, "price", 0) * 0.5)
-                    if refund > 0:
-                        target.magic_stone += refund
+                    if isinstance(old_item, Weapon):
+                        target.sell_weapon(old_item)
+                    elif isinstance(old_item, Auxiliary):
+                        target.sell_auxiliary(old_item)
                     
             else:
                 # 素材：发起者移除 -> 目标添加

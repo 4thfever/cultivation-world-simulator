@@ -19,6 +19,7 @@ from src.classes.technique import get_technique_by_sect, attribute_to_root, Tech
 from src.classes.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
 from src.classes.persona import Persona, personas_by_id, personas_by_name
+from src.classes.magic_stone import MagicStone
 
 
 # —— 参数常量（便于调参）——
@@ -437,6 +438,7 @@ class AvatarFactory:
             sect=plan.sect,
         )
 
+        avatar.magic_stone = MagicStone(50)
         avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
 
         SectRankAssigner.assign_one(avatar, world)
@@ -550,6 +552,7 @@ class AvatarFactory:
                 sect=sect,
             )
 
+            avatar.magic_stone = MagicStone(50)
             avatar.tile = world.map.get_tile(x, y)
 
             if sect is not None:

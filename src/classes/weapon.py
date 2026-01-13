@@ -30,6 +30,9 @@ class Weapon(Item):
     # 特殊属性（如万魂幡的吞噬魂魄计数）
     special_data: dict = field(default_factory=dict)
 
+    def __hash__(self):
+        return hash((self.id, self.name))
+
     def get_info(self, detailed: bool = False) -> str:
         """获取信息"""
         if detailed:

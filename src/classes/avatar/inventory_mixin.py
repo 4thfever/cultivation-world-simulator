@@ -162,6 +162,9 @@ class InventoryMixin:
         """
         from src.classes.prices import prices
         
+        # 记录流转
+        self.world.circulation.add_elixir(elixir)
+        
         # 使用统一的卖出价格接口
         total = prices.get_selling_price(elixir, self)
         self.magic_stone = self.magic_stone + total

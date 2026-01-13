@@ -24,7 +24,8 @@ def target_avatar(base_world):
         age=Age(20, Realm.Qi_Refinement),
         gender=Gender.FEMALE,
         pos_x=0,
-        pos_y=0
+        pos_y=0,
+        personas=[],  # 避免随机特质影响价格测试
     )
 
 @pytest.fixture
@@ -158,8 +159,8 @@ class TestGiftAction:
         new_weapon = mock_item_data["obj_weapon"]
         dummy_avatar.weapon = new_weapon
         
-        old_weapon = create_test_weapon("旧铁剑", Realm.Qi_Refinement, weapon_id=999)
-        old_weapon.price = 100
+        old_weapon = create_test_weapon("旧铁剑", Realm.Qi_Refinement, weapon_id=999)     
+        # old_weapon.price = 100 # Prices 系统接管后，价格由 Realm 决定 (练气期=150)，不再手动指定
         target_avatar.weapon = old_weapon
         target_avatar.magic_stone = 0
         
@@ -169,8 +170,8 @@ class TestGiftAction:
         gift_action._settle_feedback(target_avatar, "Accept")
         
         assert target_avatar.weapon == new_weapon
-        # 50% refund
-        assert target_avatar.magic_stone == 50
+        # 练气期武器基准价 150，卖出倍率 1.0 (无特质加成) -> 150
+        assert target_avatar.magic_stone == 150
 
     # --- 4. 上下文与描述 ---
 
