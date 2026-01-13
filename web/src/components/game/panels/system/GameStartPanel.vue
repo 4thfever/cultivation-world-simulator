@@ -118,6 +118,8 @@ onMounted(() => {
           type="textarea"
           placeholder="请输入修仙界历史背景（可选）。"
           :autosize="{ minRows: 3, maxRows: 6 }"
+          maxlength="800"
+          show-count
         />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">

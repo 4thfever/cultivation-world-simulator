@@ -886,6 +886,18 @@ def get_map():
     }
 
 
+@app.post("/api/control/reset")
+def reset_game():
+    """重置游戏到 Idle 状态（回到主菜单）"""
+    game_instance["world"] = None
+    game_instance["sim"] = None
+    game_instance["is_paused"] = True
+    game_instance["init_status"] = "idle"
+    game_instance["init_phase"] = 0
+    game_instance["init_progress"] = 0
+    game_instance["init_error"] = None
+    return {"status": "ok", "message": "Game reset to idle"}
+
 @app.post("/api/control/pause")
 def pause_game():
     """暂停游戏循环"""
@@ -1565,6 +1577,11 @@ async def api_load_game(req: LoadGameRequest):
         game_instance["init_start_time"] = time.time()
         game_instance["init_error"] = None
         game_instance["init_phase"] = 0
+        
+        # 0. 扫描资源 (修复读取存档不加载头像的问题)
+        game_instance["init_phase_name"] = "scanning_assets"
+        await asyncio.to_thread(scan_avatar_assets)
+
         game_instance["init_phase_name"] = "loading_save"
         game_instance["init_progress"] = 10
 

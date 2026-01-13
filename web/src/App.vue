@@ -64,6 +64,11 @@ watch(initStatus, (newVal, oldVal) => {
 // 自动取消暂停：当游戏初始化完成后，自动开始运行
 watch(gameInitialized, (val) => {
   if (val) {
+    // 如果游戏已初始化完成（可能是刷新页面后恢复），确保关闭 Splash
+    if (showSplash.value) {
+      showSplash.value = false
+    }
+
     isManualPaused.value = false
     openedFromSplash.value = false // 游戏开始，清除 Splash 来源标记
   }
@@ -118,6 +123,20 @@ function handleMenuCloseWrapper() {
   } else {
     // 正常游戏内关闭
     handleMenuClose()
+  }
+}
+
+async function handleReturnToMain() {
+  try {
+    await systemApi.resetGame()
+    // 关闭菜单
+    showMenu.value = false
+    // 显示 Splash
+    showSplash.value = true
+    // 重置来源标记（虽然显示Splash后，点击按钮会重新设置，但这里为了逻辑清晰先重置）
+    openedFromSplash.value = false 
+  } catch (e) {
+    console.error('Reset game failed', e)
   }
 }
 
@@ -195,6 +214,8 @@ onUnmounted(() => {
           :closable="canCloseMenu"
           @close="handleMenuCloseWrapper"
           @llm-ready="handleLLMReady"
+          @return-to-main="handleReturnToMain"
+          @exit-game="() => handleSplashAction('exit')"
         />
       </div>
     </n-message-provider>

@@ -49,5 +49,9 @@ export const systemApi = {
 
   shutdown() {
     return httpClient.post<{ status: string; message: string }>('/api/control/shutdown', {});
+  },
+
+  resetGame() {
+    return httpClient.post<{ status: string; message: string }>('/api/control/reset', {});
   }
 };

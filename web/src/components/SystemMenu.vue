@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { NButton } from 'naive-ui'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
 import DeleteAvatarPanel from './game/panels/system/DeleteAvatarPanel.vue'
@@ -16,9 +17,11 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'llm-ready'): void
+  (e: 'return-to-main'): void
+  (e: 'exit-game'): void
 }>()
 
-const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>(props.defaultTab || 'load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'other'>(props.defaultTab || 'load')
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab
@@ -89,6 +92,12 @@ watch(() => props.visible, (val) => {
         >
           LLM设置
         </button>
+        <button 
+          :class="{ active: activeTab === 'other' }"
+          @click="switchTab('other')"
+        >
+          其他
+        </button>
       </div>
 
       <div class="menu-content">
@@ -114,12 +123,85 @@ watch(() => props.visible, (val) => {
           v-else-if="activeTab === 'llm'" 
           @config-saved="emit('llm-ready')"
         />
+
+        <div v-else-if="activeTab === 'other'" class="other-panel-container">
+           <div class="panel-header">
+             <h3>其他选项</h3>
+             <p class="description">管理游戏进程和退出。</p>
+           </div>
+           
+           <div class="other-actions">
+              <button class="custom-action-btn" @click="emit('return-to-main')">
+                <div class="btn-content">
+                  <div class="btn-icon">🏠</div>
+                  <div class="btn-text-group">
+                    <span class="btn-title">回到主菜单</span>
+                    <span class="btn-desc">返回标题画面（未保存的进度将丢失）</span>
+                  </div>
+                </div>
+                <div class="btn-arrow">❯</div>
+              </button>
+              
+              <button class="custom-action-btn danger-hover" @click="emit('exit-game')">
+                <div class="btn-content">
+                  <div class="btn-icon">🚪</div>
+                  <div class="btn-text-group">
+                    <span class="btn-title">结束游戏</span>
+                    <span class="btn-desc">关闭程序并退出到桌面</span>
+                  </div>
+                </div>
+                <div class="btn-arrow">❯</div>
+              </button>
+           </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.other-panel-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+.panel-header {
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+.panel-header h3 {
+  margin: 0 0 0.5em 0;
+  font-size: 1.5em;
+  color: #eee;
+}
+
+.description {
+  color: #888;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.other-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.action-btn {
+  height: 60px;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+}
+
+.icon {
+  font-size: 1.2em;
+  margin-right: 4px;
+}
+
 .system-menu-overlay {
   position: fixed;
   top: 0;
