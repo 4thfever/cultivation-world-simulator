@@ -438,6 +438,15 @@ class Simulator:
         events.extend(self._phase_update_celestial_phenomenon())
 
         # 13. 日志
+        # 去重：基于 ID 去重，防止同一个事件对象（或相同ID的事件）被多次添加
+        # 常见情况：Gathering 既返回了事件，又将其加入了 Avatar 的 pending_events
+        unique_events = {}
+        for e in events:
+            if e.id not in unique_events:
+                unique_events[e.id] = e
+        # 保持原有顺序（Python 3.7+ dict 保持插入序）
+        events = list(unique_events.values())
+
         # 统一写入事件管理器
         if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
             for e in events:

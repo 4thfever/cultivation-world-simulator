@@ -244,7 +244,9 @@ class Auction(Gathering):
                 is_major=False
             )
             events.append(deal_event)
-            winner.add_event(deal_event)
+            # to_sidebar=False: 不加入 _pending_events，防止重复提交给 Simulator
+            # 但仍会执行关系计数的更新逻辑
+            winner.add_event(deal_event, to_sidebar=False)
             
         return events
 
@@ -279,9 +281,9 @@ class Auction(Gathering):
                 is_major=False
             )
             events.append(rivalry_event)
-            # 给双方都添加这个互动事件
-            winner_avatar.add_event(rivalry_event)
-            runner_up_avatar.add_event(rivalry_event)
+            # 给双方都添加这个互动事件 (to_sidebar=False 防止重复提交)
+            winner_avatar.add_event(rivalry_event, to_sidebar=False)
+            runner_up_avatar.add_event(rivalry_event, to_sidebar=False)
             
         return events
 
@@ -389,7 +391,7 @@ class Auction(Gathering):
         events.append(story_event)
         
         for av in related_avatars:
-            av.add_event(story_event)
+            av.add_event(story_event, to_sidebar=False)
             
         return events
 
