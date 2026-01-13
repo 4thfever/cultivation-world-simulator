@@ -73,6 +73,24 @@ class CirculationManager:
             self.add_elixir(item)
         # 未来扩展其他类型...
 
+    def remove_item(self, item: Any) -> None:
+        """
+        从流通池移除物品
+        """
+        from src.classes.weapon import Weapon
+        from src.classes.auxiliary import Auxiliary
+        from src.classes.elixir import Elixir
+        
+        if isinstance(item, Weapon):
+            if item in self.sold_weapons:
+                self.sold_weapons.remove(item)
+        elif isinstance(item, Auxiliary):
+            if item in self.sold_auxiliaries:
+                self.sold_auxiliaries.remove(item)
+        elif isinstance(item, Elixir):
+            if item in self.sold_elixirs:
+                self.sold_elixirs.remove(item)
+    
     def to_save_dict(self) -> dict:
         """序列化为字典以便存档"""
         return {

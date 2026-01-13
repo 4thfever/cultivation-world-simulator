@@ -41,6 +41,7 @@ class StoryTeller:
     
     TEMPLATE_SINGLE_PATH = CONFIG.paths.templates / "story_single.txt"
     TEMPLATE_DUAL_PATH = CONFIG.paths.templates / "story_dual.txt"
+    TEMPLATE_GATHERING_PATH = CONFIG.paths.templates / "story_gathering.txt"
 
     @staticmethod
     def _build_avatar_infos(*actors: "Avatar") -> Dict[str, dict]:
@@ -126,6 +127,49 @@ class StoryTeller:
             return story
         
         return StoryTeller._make_fallback_story(event, res, infos["style"])
+
+    @staticmethod
+    async def tell_gathering_story(
+        gathering_info: str,
+        events_text: str,
+        details_text: str,
+        related_avatars: list["Avatar"],
+        prompt: str = ""
+    ) -> str:
+        """
+        生成聚会/拍卖会等多人事件的故事。
+        通用接口，适配 story_gathering.txt 模板。
+        
+        Args:
+            gathering_info: 事件本身的设定信息（如地点、背景、规则等）
+            events_text: 发生的具体事件/交互记录
+            details_text: 详细信息（包括角色信息、物品信息等）
+            related_avatars: 参与的角色列表（主要用于获取世界背景信息）
+            prompt: 额外提示词
+        """
+        if not related_avatars:
+            return events_text
+
+        # 使用第一个角色的世界信息
+        world_info = related_avatars[0].world.static_info
+            
+        infos = {
+            "world_info": world_info,
+            "gathering_info": gathering_info,
+            "events": events_text,
+            "details": details_text,
+            "style": random.choice(story_styles),
+            "story_prompt": prompt
+        }
+        
+        # 增加 token 上限以支持长故事
+        data = await call_llm_with_task_name("story_teller", StoryTeller.TEMPLATE_GATHERING_PATH, infos)
+        story = data.get("story", "").strip()
+        
+        if story:
+            return story
+            
+        return events_text
 
 
 __all__ = ["StoryTeller"]

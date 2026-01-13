@@ -261,12 +261,12 @@ class Simulator:
         events = [e for e in results if e]
         return events
     
-    def _phase_process_gatherings(self):
+    async def _phase_process_gatherings(self):
         """
         Gathering 结算阶段：
         检查并执行注册的多人聚集事件（如拍卖会、大比等）。
         """
-        return self.world.gathering_manager.check_and_run_all(self.world)
+        return await self.world.gathering_manager.check_and_run_all(self.world)
     
     def _phase_update_celestial_phenomenon(self):
         """
@@ -408,7 +408,7 @@ class Simulator:
         events.extend(await self._phase_long_term_objective_thinking())
 
         # 3. Gathering 结算阶段
-        events.extend(self._phase_process_gatherings())
+        events.extend(await self._phase_process_gatherings())
 
         # 4. 决策阶段
         await self._phase_decide_actions()

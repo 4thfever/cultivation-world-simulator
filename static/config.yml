@@ -27,6 +27,8 @@ game:
   npc_awakening_rate_per_month: 0.01
   fortune_probability: 0.005
   misfortune_probability: 0.005
+  gathering:
+    auction_trigger_count: 10
 
 df:
   ids_separator: ";"

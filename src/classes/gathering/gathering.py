@@ -35,7 +35,7 @@ class Gathering(ABC):
         pass
 
     @abstractmethod
-    def execute(self, world: "World") -> List[Event]:
+    async def execute(self, world: "World") -> List[Event]:
         """
         执行 Gathering 的具体逻辑。
         
@@ -60,7 +60,7 @@ class GatheringManager:
         # 实例化所有注册的 Gathering
         self.gatherings: List[Gathering] = [cls() for cls in GATHERING_REGISTRY]
 
-    def check_and_run_all(self, world: "World") -> List[Event]:
+    async def check_and_run_all(self, world: "World") -> List[Event]:
         """
         检查所有 Gathering，若满足条件则执行
         """
@@ -68,7 +68,7 @@ class GatheringManager:
         for gathering in self.gatherings:
             if gathering.is_start(world):
                 # 执行 Gathering 逻辑
-                gathering_events = gathering.execute(world)
+                gathering_events = await gathering.execute(world)
                 if gathering_events:
                     events.extend(gathering_events)
         return events
