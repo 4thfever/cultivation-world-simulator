@@ -186,15 +186,95 @@ watch(() => props.visible, (val) => {
 .other-actions {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px; /* 间距调整 */
   width: 100%;
   padding: 0 40px;
 }
 
-.action-btn {
-  height: 60px;
-  font-size: 1.2em;
-  letter-spacing: 2px;
+/* 新的自定义按钮样式 */
+.custom-action-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: #eee;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-icon {
+  font-size: 24px;
+  opacity: 0.8;
+  width: 32px;
+  text-align: center;
+}
+
+.btn-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.btn-desc {
+  font-size: 12px;
+  color: #888;
+  transition: color 0.3s;
+}
+
+.btn-arrow {
+  font-size: 18px;
+  opacity: 0.3;
+  transform: translateX(0);
+  transition: all 0.3s ease;
+}
+
+.custom-action-btn:hover .btn-arrow {
+  opacity: 0.8;
+  transform: translateX(5px);
+}
+
+.custom-action-btn:hover .btn-desc {
+  color: #aaa;
+}
+
+/* 危险操作（结束游戏）的微调 - 只有在 Hover 时才显露一点红色 */
+.custom-action-btn.danger-hover:hover {
+  border-color: rgba(255, 80, 80, 0.4);
+  background: linear-gradient(90deg, rgba(255, 80, 80, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+.custom-action-btn.danger-hover:hover .btn-title {
+  color: #ff6666;
+}
+
+.custom-action-btn.danger-hover:hover .btn-icon {
+  color: #ff6666;
 }
 
 .icon {
