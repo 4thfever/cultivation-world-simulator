@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
 import { useUiStore } from './stores/ui'
 
 // Components
+import SplashLayer from './components/SplashLayer.vue'
 import GameCanvas from './components/game/GameCanvas.vue'
 import InfoPanelContainer from './components/game/panels/info/InfoPanelContainer.vue'
 import StatusBar from './components/layout/StatusBar.vue'
@@ -18,8 +19,10 @@ import { useGameControl } from './composables/useGameControl'
 // Stores
 const uiStore = useUiStore()
 
+const showSplash = ref(true)
+
 // 1. 游戏初始化逻辑
-const { 
+const {  
   initStatus, 
   gameInitialized, 
   showLoading,
@@ -85,14 +88,16 @@ onUnmounted(() => {
 <template>
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
+      <SplashLayer v-if="showSplash" />
+      
       <!-- Loading Overlay - 盖在游戏上面 -->
       <LoadingOverlay 
-        v-if="showLoading"
+        v-if="!showSplash && showLoading"
         :status="initStatus"
       />
 
       <!-- Game UI - 始终渲染 -->
-      <div class="app-layout">
+      <div v-if="!showSplash" class="app-layout">
         <StatusBar />
         
         <div class="main-content">
