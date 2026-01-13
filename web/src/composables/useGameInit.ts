@@ -56,8 +56,18 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       if (!res) return
 
       // Idle check
-      if (res.status === 'idle' && prevStatus !== 'idle') {
-        options.onIdle?.()
+      if (res.status === 'idle') {
+        if (prevStatus !== 'idle') {
+          options.onIdle?.()
+        }
+        // 如果后端是 idle，确保前端状态也是重置的
+        if (isInitialized.value) {
+            systemStore.setInitialized(false)
+            worldStore.reset()
+        }
+        // 重置预加载标记
+        mapPreloaded.value = false
+        avatarsPreloaded.value = false
       }
 
       // 提前加载地图
@@ -75,7 +85,8 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       // 状态跃迁：非 Ready -> Ready
       if (prevStatus !== 'ready' && res.status === 'ready') {
         await initializeGame()
-        stopPolling()
+        // 不要停止轮询，否则 reset 之后无法检测到状态变化
+        // stopPolling()
       }
     } catch (e) {
       console.error('Failed to fetch init status:', e)

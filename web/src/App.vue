@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
 import { useUiStore } from './stores/ui'
+import { systemApi } from './api/modules/system'
 
 // Components
+import SplashLayer from './components/SplashLayer.vue'
 import GameCanvas from './components/game/GameCanvas.vue'
 import InfoPanelContainer from './components/game/panels/info/InfoPanelContainer.vue'
 import StatusBar from './components/layout/StatusBar.vue'
@@ -17,6 +19,9 @@ import { useGameControl } from './composables/useGameControl'
 
 // Stores
 const uiStore = useUiStore()
+
+const showSplash = ref(true)
+const openedFromSplash = ref(false)
 
 // 1. 游戏初始化逻辑
 const { 
@@ -59,18 +64,80 @@ watch(initStatus, (newVal, oldVal) => {
 // 自动取消暂停：当游戏初始化完成后，自动开始运行
 watch(gameInitialized, (val) => {
   if (val) {
+    // 如果游戏已初始化完成（可能是刷新页面后恢复），确保关闭 Splash
+    if (showSplash.value) {
+      showSplash.value = false
+    }
+
     isManualPaused.value = false
+    openedFromSplash.value = false // 游戏开始，清除 Splash 来源标记
   }
 })
 
 // 事件处理
 function onKeydown(e: KeyboardEvent) {
   if (showLoading.value) return
+  if (showSplash.value) return
   controlHandleKeydown(e)
 }
 
 function handleSelection(target: { type: 'avatar' | 'region'; id: string; name?: string }) {
   uiStore.select(target.type, target.id)
+}
+
+async function handleSplashAction(key: string) {
+  if (key === 'exit') {
+    try {
+      await systemApi.shutdown()
+      window.close()
+      document.body.innerHTML = '<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">游戏已关闭，您可以安全关闭此标签页。</div>'
+    } catch (e) {
+      console.error('Shutdown failed', e)
+    }
+    return
+  }
+
+  openedFromSplash.value = true // 标记来源
+  // 关闭 Splash
+  showSplash.value = false
+
+  // 确保系统菜单是打开的
+  showMenu.value = true
+
+  // 根据按键跳转到对应 Tab
+  if (key === 'start') {
+    menuDefaultTab.value = 'start'
+  } else if (key === 'load') {
+    menuDefaultTab.value = 'load'
+  }
+}
+
+function handleMenuCloseWrapper() {
+  // 如果是从 Splash 打开的，关闭菜单时应回到 Splash
+  if (openedFromSplash.value) {
+    showMenu.value = false
+    showSplash.value = true
+    // 保持 openedFromSplash 为 true 或 false?
+    // 如果回到 Splash，下次点击 Start 又是重新流程。
+    // 这里不需要重置，因为下次点击 handleSplashAction 会再次设置。
+  } else {
+    // 正常游戏内关闭
+    handleMenuClose()
+  }
+}
+
+async function handleReturnToMain() {
+  try {
+    await systemApi.resetGame()
+    // 关闭菜单
+    showMenu.value = false
+    // 显示 Splash
+    showSplash.value = true
+    // 重置来源标记（虽然显示Splash后，点击按钮会重新设置，但这里为了逻辑清晰先重置）
+    openedFromSplash.value = false 
+  } catch (e) {
+    console.error('Reset game failed', e)
+  }
 }
 
 onMounted(() => {
@@ -85,14 +152,19 @@ onUnmounted(() => {
 <template>
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
+      <SplashLayer 
+        v-if="showSplash" 
+        @action="handleSplashAction"
+      />
+      
       <!-- Loading Overlay - 盖在游戏上面 -->
       <LoadingOverlay 
-        v-if="showLoading"
+        v-if="!showSplash && showLoading"
         :status="initStatus"
       />
 
       <!-- Game UI - 始终渲染 -->
-      <div class="app-layout">
+      <div v-if="!showSplash" class="app-layout">
         <StatusBar />
         
         <div class="main-content">
@@ -140,8 +212,10 @@ onUnmounted(() => {
           :default-tab="menuDefaultTab"
           :game-initialized="gameInitialized"
           :closable="canCloseMenu"
-          @close="handleMenuClose"
+          @close="handleMenuCloseWrapper"
           @llm-ready="handleLLMReady"
+          @return-to-main="handleReturnToMain"
+          @exit-game="() => handleSplashAction('exit')"
         />
       </div>
     </n-message-provider>

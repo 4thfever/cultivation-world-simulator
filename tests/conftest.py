@@ -61,6 +61,8 @@ def dummy_avatar(base_world):
 
     # 强制清空特质（因为 __post_init__ 会在 personas 为空时自动随机生成）
     av.personas = []
+    # 强制清空功法，防止随机出的功法带有移动步长加成（如逍遥游）
+    av.technique = None
     av.recalc_effects()
     
     return av
