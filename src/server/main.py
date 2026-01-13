@@ -4,7 +4,10 @@ import asyncio
 import webbrowser
 import subprocess
 import time
+import threading
+import signal
 from contextlib import asynccontextmanager
+
 from typing import List, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -894,6 +897,17 @@ def resume_game():
     """恢复游戏循环"""
     game_instance["is_paused"] = False
     return {"status": "ok", "message": "Game resumed"}
+
+@app.post("/api/control/shutdown")
+async def shutdown_server():
+    def _shutdown():
+        time.sleep(1) # 给前端一点时间接收 200 OK 响应
+        # 这种方式适用于 uvicorn 运行环境，或者直接杀进程
+        os.kill(os.getpid(), signal.SIGINT)
+    
+    # 异步执行关闭，确保先返回响应
+    threading.Thread(target=_shutdown).start()
+    return {"status": "shutting_down", "message": "Server is shutting down..."}
 
 
 # --- 初始化状态 API ---

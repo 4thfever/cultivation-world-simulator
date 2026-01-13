@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { NButton, NSpace } from 'naive-ui'
 
+// 定义事件
+const emit = defineEmits<{
+  (e: 'action', key: string): void
+}>()
+
 // 定义按钮列表
 const menuOptions = [
-  { label: '开始游戏', subLabel: 'Start Game', key: 'start', disabled: true },
-  { label: '加载游戏', subLabel: 'Load Game', key: 'load', disabled: true },
+  { label: '开始游戏', subLabel: 'Start Game', key: 'start', disabled: false },
+  { label: '加载游戏', subLabel: 'Load Game', key: 'load', disabled: false },
   { label: '成就', subLabel: 'Achievements', key: 'achievements', disabled: true },
   { label: '设置', subLabel: 'Settings', key: 'settings', disabled: true },
-  { label: '离开', subLabel: 'Exit', key: 'exit', disabled: true }
+  { label: '离开', subLabel: 'Exit', key: 'exit', disabled: false }
 ]
+
+function handleClick(key: string) {
+  emit('action', key)
+}
 </script>
 
 <template>
@@ -31,6 +40,7 @@ const menuOptions = [
             text-color="#fff"
             class="menu-btn"
             :disabled="opt.disabled"
+            @click="handleClick(opt.key)"
           >
             <div class="btn-content">
               <span class="btn-label">{{ opt.label }}</span>

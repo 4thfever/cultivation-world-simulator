@@ -45,5 +45,9 @@ export const systemApi = {
 
   startGame(config: GameStartConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/game/start', config);
+  },
+
+  shutdown() {
+    return httpClient.post<{ status: string; message: string }>('/api/control/shutdown', {});
   }
 };
