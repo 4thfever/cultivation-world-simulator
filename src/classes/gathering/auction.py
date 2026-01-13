@@ -81,7 +81,7 @@ class Auction(Gathering):
             
             # 创建并发任务
             task = call_llm_with_template(
-                template_path="auction_need.txt",
+                template_path=CONFIG.paths.templates / "auction_need.txt",
                 infos=template_params
             )
             tasks.append(task)

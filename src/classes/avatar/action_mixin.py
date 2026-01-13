@@ -95,7 +95,15 @@ class ActionMixin:
                 continue
 
             params_for_can_start = filter_kwargs_for_callable(action.can_start, plan.params)
-            can_start, reason = action.can_start(**params_for_can_start)
+            try:
+                can_start, reason = action.can_start(**params_for_can_start)
+            except TypeError as e:
+                get_logger().logger.warning(
+                    "动作启动失败: Avatar(name=%s) 动作 %s 参数校验异常: %s",
+                    self.name, plan.action_name, e
+                )
+                continue
+
             if not can_start:
                 # 记录不合法动作
                 logger = get_logger().logger

@@ -28,7 +28,7 @@ game:
   fortune_probability: 0.005
   misfortune_probability: 0.005
   gathering:
-    auction_trigger_count: 10
+    auction_trigger_count: 1
 
 df:
   ids_separator: ";"
