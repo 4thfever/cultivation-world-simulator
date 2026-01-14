@@ -1,5 +1,5 @@
 meta:
-  version: "1.1.0"
+  version: "1.2.0"
 
 llm:
   default_modes:
@@ -28,7 +28,7 @@ game:
   fortune_probability: 0.005
   misfortune_probability: 0.005
   gathering:
-    auction_trigger_count: 10
+    auction_trigger_count: 5
 
 df:
   ids_separator: ";"

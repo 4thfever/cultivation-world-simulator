@@ -179,11 +179,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
         event = Event(self._start_month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
         
-        # 仅手动添加给 Target，Self的部分由ActionMixin通过返回值处理
-        # 默认不推Target侧边栏，因为发起事件通常只在发起者侧重要，或者作为"收到发起"的通知
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
-            
         return event
 
     def step(self, target_avatar: "Avatar|str") -> ActionResult:

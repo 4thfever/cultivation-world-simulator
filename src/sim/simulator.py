@@ -33,11 +33,10 @@ class Simulator:
         from src.classes.observe import get_avatar_observation_radius
         from src.classes.region import CultivateRegion
 
+        events = []
         # 1. 缓存当前有洞府的角色ID
         avatars_with_home = set()
-        # 注意：这里我们只关心 CultivateRegion 的 host
-        # map.cultivate_regions 可能需要确保被正确初始化，如果没有，可以回退到遍历所有 regions
-        # 为了稳妥，遍历所有 Region 筛选
+        # ...
         cultivate_regions = [
             r for r in self.world.map.regions.values() 
             if isinstance(r, CultivateRegion)
@@ -49,13 +48,11 @@ class Simulator:
 
         # 2. 遍历所有存活角色
         for avatar in self.world.avatar_manager.get_living_avatars():
+            # ...
             # 计算感知半径（曼哈顿距离）
             radius = get_avatar_observation_radius(avatar)
             
-            # 扫描范围内的坐标
-            # 优化：只扫描半径内的坐标可能比遍历所有region快，也可能慢，取决于地图大小和半径
-            # 地图可能很大，半径通常很小（<10），所以基于坐标扫描更优
-            
+            # ...
             # 获取范围内的有效坐标
             start_x = max(0, avatar.pos_x - radius)
             end_x = min(self.world.map.width - 1, avatar.pos_x + radius)
@@ -91,8 +88,9 @@ class Simulator:
                                 f"{avatar.name} 路过 {region.name}，发现无主，将其占据。",
                                 related_avatars=[avatar.id]
                             )
-                            avatar.add_event(event)
-                            
+                            events.append(event)
+        return events
+
     async def _phase_decide_actions(self):
         """
         决策阶段：仅对需要新计划的角色调用 AI（当前无动作且无计划），
@@ -328,6 +326,34 @@ class Simulator:
         for event in events:
             logger.info("EVENT: %s", str(event))
 
+    def _phase_process_interactions(self, events: list[Event]):
+        """
+        处理事件中的交互逻辑：
+        遍历所有事件，如果事件涉及多个角色，自动更新这些角色之间的交互计数。
+        """
+        for event in events:
+            if not event.related_avatars or len(event.related_avatars) < 2:
+                continue
+            
+            # 只有当事件涉及 >=2 个角色时才视为交互
+            for aid in event.related_avatars:
+                avatar = self.world.avatar_manager.get_avatar(aid)
+                if avatar:
+                    avatar.process_interaction_from_event(event)
+
+    def _phase_handle_interactions(self, events: list[Event], processed_ids: set[str]):
+        """
+        从事件列表中提取尚未处理过的交互事件，并更新交互计数。
+        """
+        new_interactions = []
+        for e in events:
+            if e.id not in processed_ids:
+                if e.related_avatars and len(e.related_avatars) >= 2:
+                    new_interactions.append(e)
+                processed_ids.add(e.id)
+        
+        if new_interactions:
+            self._phase_process_interactions(new_interactions)
 
     async def _phase_evolve_relations(self):
         """
@@ -351,15 +377,8 @@ class Simulator:
                     continue
 
                 # 判定是否触发
-                count = state["count"]
-                should_trigger = False
-                
                 threshold = CONFIG.social.relation_check_threshold
-                
-                if count >= threshold:
-                    should_trigger = True
-                
-                if should_trigger:
+                if state["count"] >= threshold:
                     # 确保唯一性
                     id1, id2 = sorted([str(avatar.id), str(target.id)])
                     pair_key = (id1, id2)
@@ -369,17 +388,14 @@ class Simulator:
                         pairs_to_resolve.append((avatar, target))
                         
                         # 重置双方的计数器，防止重复触发
-                        
                         # 1. 重置 A 侧
                         state["count"] = 0
                         state["checked_times"] += 1
                         
-                        # 2. 重置 B 侧 (如果 B 也有状态记录)
-                        if hasattr(target, "relation_interaction_states"):
-                            # target 对 avatar 的记录
-                            t_state = target.relation_interaction_states[str(avatar.id)]
-                            t_state["count"] = 0
-                            t_state["checked_times"] += 1
+                        # 2. 重置 B 侧
+                        t_state = target.relation_interaction_states[str(avatar.id)]
+                        t_state["count"] = 0
+                        t_state["checked_times"] += 1
         
         events = []
         if pairs_to_resolve:
@@ -392,22 +408,33 @@ class Simulator:
 
     async def step(self):
         """
-        前进一步（每步模拟是一个月时间）
-        结算这个时间内的所有情况。
-        角色行为、世界变化、重大事件、etc。
-        先结算多个角色间互相交互的事件。
-        再去结算单个角色的事件。
+        前进一个时间步（一个月）：
+        1.  感知与认知更新（及自动占据洞府）
+        2.  长期目标思考
+        3.  Gathering 多人聚集结算
+        4.  决策阶段 (AI 选择动作)
+        5.  提交阶段 (开始执行动作)
+        6.  执行阶段 (动作 Tick)
+        7.  处理初步交互计数 (用于后续关系演化)
+        8.  关系演化阶段
+        9.  结算死亡
+        10. 年龄与新生
+        11. 被动结算 (丹药、时间效果、奇遇)
+        12. 绰号生成
+        13. 天地灵机更新
+        14. 处理剩余交互计数 (如奇遇产生的交互)
+        15. 归档与时间推进
         """
-        events = [] # list of Event
+        events: list[Event] = []
+        processed_event_ids: set[str] = set()
 
-        # 1. 感知与认知更新阶段（包括自动占据洞府）
-        #    在思考和决策之前，先让角色感知世界
-        self._phase_update_perception_and_knowledge()
+        # 1. 感知与认知更新
+        events.extend(self._phase_update_perception_and_knowledge())
 
-        # 2. 长期目标思考阶段（在决策之前）
+        # 2. 长期目标思考
         events.extend(await self._phase_long_term_objective_thinking())
 
-        # 3. Gathering 结算阶段
+        # 3. Gathering 结算
         events.extend(await self._phase_process_gatherings())
 
         # 4. 决策阶段
@@ -419,42 +446,53 @@ class Simulator:
         # 6. 执行阶段
         events.extend(await self._phase_execute_actions())
 
-        # 7. 关系演化阶段
+        # 7. 处理初步交互计数
+        self._phase_handle_interactions(events, processed_event_ids)
+
+        # 8. 关系演化
         events.extend(await self._phase_evolve_relations())
 
-        # 8. 结算死亡
+        # 9. 结算死亡
         events.extend(self._phase_resolve_death())
 
-        # 9. 年龄与新生
+        # 10. 年龄与新生
         events.extend(self._phase_update_age_and_birth())
 
-        # 10. 被动结算（时间效果+奇遇）
+        # 11. 被动结算
         events.extend(await self._phase_passive_effects())
 
-        # 11. 绰号生成
+        # 12. 绰号生成
         events.extend(await self._phase_nickname_generation())
 
-        # 12. 更新天地灵机
+        # 13. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 13. 日志
-        # 去重：基于 ID 去重，防止同一个事件对象（或相同ID的事件）被多次添加
-        # 常见情况：Gathering 既返回了事件，又将其加入了 Avatar 的 pending_events
-        unique_events = {}
+        # 14. 处理剩余阶段的交互计数
+        self._phase_handle_interactions(events, processed_event_ids)
+
+        # 15. 归档与时间推进
+        return self._finalize_step(events)
+
+    def _finalize_step(self, events: list[Event]) -> list[Event]:
+        """
+        本轮步进的最终归档：去重、入库、打日志、推进时间。
+        """
+        # 1. 基于 ID 去重（防止同一个事件对象被多次添加）
+        unique_events: dict[str, Event] = {}
         for e in events:
             if e.id not in unique_events:
                 unique_events[e.id] = e
-        # 保持原有顺序（Python 3.7+ dict 保持插入序）
-        events = list(unique_events.values())
+        final_events = list(unique_events.values())
 
-        # 统一写入事件管理器
-        if hasattr(self.world, "event_manager") and self.world.event_manager is not None:
-            for e in events:
+        # 2. 统一写入事件管理器
+        if self.world.event_manager:
+            for e in final_events:
                 self.world.event_manager.add_event(e)
-        self._phase_log_events(events)
+        
+        # 3. 记录日志
+        self._phase_log_events(final_events)
 
-        # 14. 时间推进
+        # 4. 时间推进
         self.world.month_stamp = self.world.month_stamp + 1
-
-
-        return events
+        
+        return final_events
