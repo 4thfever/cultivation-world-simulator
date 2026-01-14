@@ -87,7 +87,7 @@ class Avatar(
     tile: Optional[Tile] = None
 
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
-    personas: List[Persona] = field(default_factory=list)
+    personas: List[Persona] = field(default=None)  # type: ignore
     technique: Technique | None = None
     _pending_events: List[Event] = field(default_factory=list)
     current_action: Optional[ActionInstance] = None
@@ -325,7 +325,7 @@ class Avatar(
         max_hp = HP_MAX_BY_REALM.get(self.cultivation_progress.realm, 100)
         self.hp = HP(max_hp, max_hp)
         
-        if not self.personas:
+        if self.personas is None:
             self.personas = get_random_compatible_personas(persona_num, avatar=self)
 
         if self.technique is None:

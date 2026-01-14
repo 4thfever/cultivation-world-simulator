@@ -16,7 +16,7 @@ from src.classes.calendar import create_month_stamp, Year, Month
 @pytest.fixture
 def target_avatar(base_world):
     """创建第二个角色作为赠送目标"""
-    return Avatar(
+    av = Avatar(
         world=base_world,
         name="TargetNPC",
         id=get_avatar_id(),
@@ -25,8 +25,11 @@ def target_avatar(base_world):
         gender=Gender.FEMALE,
         pos_x=0,
         pos_y=0,
-        personas=[],  # 避免随机特质影响价格测试
+        personas=[],  # 显式清空特质，避免随机特质影响价格测试
     )
+    # 强制重算一次效果，确保属性干净
+    av.recalc_effects()
+    return av
 
 @pytest.fixture
 def gift_action(dummy_avatar, base_world):
