@@ -14,16 +14,6 @@ const phaseTexts: Record<string, string | string[]> = {
   'initializing_sects': '宗门入世',
   'generating_avatars': '众修士降临',
   'checking_llm': '连通天道意志',
-  'generating_initial_events': [
-    '天道轮转，命运初显',
-    '因果交织，机缘暗涌',
-    '气运流转，风云将起',
-    '众生沉浮，天机莫测',
-    '劫数将至，各凭造化',
-    '红尘万丈，道心初定',
-    '缘起缘灭，皆是天意',
-    '大道无形，万法归一',
-  ],
   'loading_save': '读取前世因果',
   'parsing_data': '解析天地法则',
   'restoring_state': '恢复时空位面',
@@ -31,9 +21,6 @@ const phaseTexts: Record<string, string | string[]> = {
   'complete': '天地初开',
   '': '混沌初始',
 }
-
-// 用于 generating_initial_events 阶段的轮换文案。
-const eventPhaseTextIndex = ref(0)
 
 // Tips 列表
 const tips = [
@@ -56,6 +43,7 @@ const tips = [
   '由于大模型需要思考，游戏启动可能耗时较久',
   '模拟世界对大模型token消耗较大，请注意',
   '开局时设定历史，整个修仙世界也会随之而改变',
+  '拍卖会中拍到的珍宝可能大大提升你的实力，但是要留好灵石',
 ]
 
 const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
@@ -67,11 +55,7 @@ let elapsedInterval: ReturnType<typeof setInterval> | null = null
 const progress = computed(() => displayProgress.value)
 const phaseText = computed(() => {
   const phaseName = props.status?.phase_name || ''
-  const text = phaseTexts[phaseName] || phaseTexts['']
-  if (Array.isArray(text)) {
-    return text[eventPhaseTextIndex.value % text.length]
-  }
-  return text
+  return phaseTexts[phaseName] || phaseTexts['']
 })
 const isError = computed(() => props.status?.status === 'error')
 const errorMessage = computed(() => props.status?.error || '未知错误')
@@ -140,11 +124,6 @@ function startTimers() {
           displayProgress.value++
         }
       }
-    }
-
-    // 每 5 秒切换一次 generating_initial_events 的文案。
-    if (localElapsed.value % 5 === 0) {
-      eventPhaseTextIndex.value++
     }
   }, 1000)
 }

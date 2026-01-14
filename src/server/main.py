@@ -6,6 +6,7 @@ import subprocess
 import time
 import threading
 import signal
+import logging
 from contextlib import asynccontextmanager
 
 from typing import List, Optional
@@ -43,6 +44,12 @@ import random
 from omegaconf import OmegaConf
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
+
+class EndpointFilter(logging.Filter):
+    """用于过滤掉特定端点的访问日志（如高频轮询）"""
+    def filter(self, record: logging.LogRecord) -> bool:
+        # 如果日志消息中包含 /api/init-status，则不记录（返回 False）
+        return "/api/init-status" not in record.getMessage()
 
 # 全局游戏实例
 game_instance = {
@@ -1658,6 +1665,9 @@ else:
 
 def start():
     """启动服务的入口函数"""
+    # 过滤掉高频轮询的访问日志，让终端清爽一点
+    logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
+
     # 改为 8002 端口
     # 使用 127.0.0.1 更加安全且避免防火墙弹窗
     # 注意：直接传递 app 对象而不是字符串，避免 PyInstaller 打包后找不到模块的问题

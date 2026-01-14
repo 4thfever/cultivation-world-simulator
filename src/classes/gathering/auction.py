@@ -225,59 +225,39 @@ class Auction(Gathering):
             
         return deal_results, unsold_items, all_willing_prices
 
-    def _generate_deal_events(
+    def _generate_auction_events(
         self,
         world: "World",
-        deal_results: Dict["Item", tuple["Avatar", int]]
+        deal_results: Dict["Item", tuple["Avatar", int]],
+        willing_prices: Dict["Item", Dict["Avatar", int]]
     ) -> List[Event]:
         """
-        生成成交事件
+        生成拍卖事件（合并成交与竞争信息）
         """
         events = []
         month_stamp = world.month_stamp
         
         for item, (winner, deal_price) in deal_results.items():
-            deal_event = Event(
-                month_stamp=month_stamp,
-                content=f"在拍卖会上，{winner.name}以 {deal_price} 灵石拍下了{item.name}。",
-                related_avatars=[winner.id],
-                is_major=False
-            )
-            events.append(deal_event)
-            
-        return events
-
-    def _generate_rivalry_events(
-        self,
-        world: "World",
-        willing_prices: Dict["Item", Dict["Avatar", int]],
-        deal_results: Dict["Item", tuple["Avatar", int]]
-    ) -> List[Event]:
-        """
-        生成竞争（压一头）事件
-        """
-        events = []
-        month_stamp = world.month_stamp
-        
-        for item in deal_results.keys():
             bids = willing_prices.get(item, {})
-            if len(bids) < 2:
-                continue
+            # 检查是否有竞争者（出价人数 >= 2）
+            if len(bids) >= 2:
+                # 获取出价第二名
+                sorted_bids = sorted(bids.items(), key=lambda x: x[1], reverse=True)
+                runner_up = sorted_bids[1][0]
                 
-            # 获取出价前两名
-            sorted_bids = sorted(bids.items(), key=lambda x: x[1], reverse=True)
-            winner_avatar = sorted_bids[0][0]
-            runner_up_avatar = sorted_bids[1][0]
-            
-            # 生成压一头事件
-            rivalry_content = f"在{item.name}的竞拍中，{winner_avatar.name}力压{runner_up_avatar.name}一头，最终将其收入囊中。"
-            rivalry_event = Event(
+                content = f"在{item.name}的竞拍中，{winner.name}以 {deal_price} 灵石力压{runner_up.name}一头，将其收入囊中。"
+                related_avatars = [winner.id, runner_up.id]
+            else:
+                content = f"在拍卖会上，{winner.name}以 {deal_price} 灵石拍下了{item.name}。"
+                related_avatars = [winner.id]
+                
+            event = Event(
                 month_stamp=month_stamp,
-                content=rivalry_content,
-                related_avatars=[winner_avatar.id, runner_up_avatar.id],
+                content=content,
+                related_avatars=related_avatars,
                 is_major=False
             )
-            events.append(rivalry_event)
+            events.append(event)
             
         return events
 
@@ -459,12 +439,9 @@ class Auction(Gathering):
         for item in unsold_items:
             world.circulation.remove_item(item)
             
-        # 5. 生成基础事件
-        deal_events = self._generate_deal_events(world, deal_results)
-        rivalry_events = self._generate_rivalry_events(world, willing_prices, deal_results)
-        
-        events.extend(deal_events)
-        events.extend(rivalry_events)
+        # 5. 生成基础事件（合并成交与竞争信息）
+        auction_events = self._generate_auction_events(world, deal_results, willing_prices)
+        events.extend(auction_events)
         
         # 6. 生成故事 (StoryTeller)
         story_events = await self._generate_story(world, deal_results, willing_prices)
