@@ -65,10 +65,6 @@ class Impart(MutualAction):
             f"{self.avatar.name} 向徒弟 {target_name} 传道授业",
             related_avatars=rel_ids
         )
-        # 仅写入历史
-        self.avatar.add_event(event, to_sidebar=False)
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
         # 初始化内部标记
         self._impart_success = False
         self._impart_exp_gain = 0

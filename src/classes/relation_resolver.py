@@ -121,10 +121,6 @@ class RelationResolver:
                 event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
 
         if event:
-            # 手动调用 add_event(to_sidebar=False) 来更新统计数据，但不加入 pending_events
-            # 因为事件将由 Simulator 统一处理
-            avatar_a.add_event(event, to_sidebar=False)
-            avatar_b.add_event(event, to_sidebar=False)
             return event
             
         return None

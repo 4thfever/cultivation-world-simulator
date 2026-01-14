@@ -181,11 +181,6 @@ class Gift(MutualAction):
             related_avatars=rel_ids
         )
         
-        # 写入历史
-        self.avatar.add_event(event, to_sidebar=False)
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
-            
         self._gift_success = False
         return event
 

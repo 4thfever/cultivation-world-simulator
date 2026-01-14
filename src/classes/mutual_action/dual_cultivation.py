@@ -55,10 +55,6 @@ class DualCultivation(MutualAction):
             
         event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修", related_avatars=rel_ids, is_major=True)
         
-        # 仅手动添加给 Target，Self的部分由ActionMixin通过返回值处理
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
-            
         # 记录开始文本用于故事生成
         self._start_event_content = event.content
         # 初始化内部标记，避免后续 getattr

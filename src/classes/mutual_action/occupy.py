@@ -81,10 +81,6 @@ class Occupy(MutualAction):
             related_avatars=rel_ids,
             is_major=self.IS_MAJOR
         )
-        # 记录到历史，侧边栏推送由 ActionMixin.commit_next_plan 统一处理
-        self.avatar.add_event(event, to_sidebar=False)
-        if host:
-            host.add_event(event, to_sidebar=False)
 
         return event
 

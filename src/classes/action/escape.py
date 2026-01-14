@@ -35,11 +35,6 @@ class Escape(InstantAction):
         avatar.clear_plans()
         avatar.current_action = None
 
-    def _add_event_pair(self, event: Event, initiator: "Avatar", target: "Avatar|None") -> None:
-        initiator.add_event(event)
-        if target is not None:
-            target.add_event(event, to_sidebar=False)
-
     def _execute(self, avatar_name: str) -> None:
         target = self._find_avatar_by_name(avatar_name)
         if target is None:
