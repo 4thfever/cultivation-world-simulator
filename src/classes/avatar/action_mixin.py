@@ -181,9 +181,8 @@ class ActionMixin:
                 continue
             
             # self.id 与 aid 有交互
-            # 确保 aid 在记录中（理论上初始化时已建立所有关系，但防防御性编程）
-            if aid in self.relation_interaction_states:
-                self.relation_interaction_states[aid]["count"] += 1
+            # relation_interaction_states 是 defaultdict，会自动初始化新条目
+            self.relation_interaction_states[aid]["count"] += 1
 
     def get_planned_actions_str(self: "Avatar") -> str:
         """
