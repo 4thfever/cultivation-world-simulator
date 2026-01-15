@@ -80,12 +80,16 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
 
   // LLM 相关控制逻辑
   async function performStartupCheck() {
+    // 乐观设置：先假设可以进入开始页面并打开菜单
+    showMenu.value = true
+    menuDefaultTab.value = 'start'
+    canCloseMenu.value = true
+
     try {
       const res = await llmApi.fetchStatus()
       
       if (!res.configured) {
         // 未配置 -> 强制进入 LLM 配置，禁止关闭
-        showMenu.value = true
         menuDefaultTab.value = 'llm'
         canCloseMenu.value = false
         message.warning('检测到 LLM 未配置，请先完成设置')
@@ -95,14 +99,10 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
           const configRes = await llmApi.fetchConfig()
           await llmApi.testConnection(configRes)
           
-          // 测试通过 -> 允许进入开始游戏
-          menuDefaultTab.value = 'start'
-          canCloseMenu.value = true
-          showMenu.value = true
+          // 测试通过 -> 保持在 start 页面即可
         } catch (connErr) {
           // 连接失败 -> 强制进入配置
           console.error('LLM Connection check failed:', connErr)
-          showMenu.value = true
           menuDefaultTab.value = 'llm'
           canCloseMenu.value = false
           message.error('LLM 连接测试失败，请重新配置')
@@ -111,7 +111,6 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
     } catch (e) {
       console.error('Failed to check LLM status:', e)
       // Fallback
-      showMenu.value = true
       menuDefaultTab.value = 'llm'
       canCloseMenu.value = false
       message.error('无法获取系统状态')

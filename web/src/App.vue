@@ -101,14 +101,12 @@ async function handleSplashAction(key: string) {
   // 关闭 Splash
   showSplash.value = false
 
-  // 确保系统菜单是打开的
-  showMenu.value = true
-
   // 根据按键跳转到对应 Tab
   if (key === 'start') {
-    menuDefaultTab.value = 'start'
+    performStartupCheck()
   } else if (key === 'load') {
     menuDefaultTab.value = 'load'
+    showMenu.value = true
   }
 }
 
