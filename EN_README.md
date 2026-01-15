@@ -52,28 +52,39 @@ You don't need to personally fight monsters or level up. Instead, you observe al
 <table border="0">
   <tr>
     <td width="33%" valign="top">
-      <h4 align="center">Character Panel</h4>
-      <img src="assets/角色.png" width="100%" />
-      <br/><br/>
-      <h4 align="center">Personality Traits</h4>
-      <img src="assets/特质.png" width="100%" />
-    </td>
-    <td width="33%" valign="top">
       <h4 align="center">Sect System</h4>
-      <img src="assets/宗门.png" width="100%" />
+      <img src="assets/screenshots/宗门.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">City Regions</h4>
+      <img src="assets/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">Life Experiences</h4>
-      <img src="assets/经历.png" width="100%" />
+      <img src="assets/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
-      <h4 align="center">Independent Thinking</h4>
-      <img src="assets/思考.png" width="100%" />
+      <h4 align="center">Character Panel</h4>
+      <img src="assets/screenshots/角色.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Short/Long Term Goals</h4>
-      <img src="assets/目标.png" width="100%" />
+      <h4 align="center">Personality Traits</h4>
+      <img src="assets/screenshots/特质.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Independent Thinking</h4>
+      <img src="assets/screenshots/思考.png" width="100%" />
       <br/><br/>
       <h4 align="center">Nicknames</h4>
-      <img src="assets/绰号.png" width="100%" />
+      <img src="assets/screenshots/绰号.png" width="100%" />
+    </td>
+    <td width="33%" valign="top">
+      <h4 align="center">Cave Exploration</h4>
+      <img src="assets/screenshots/洞府.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Short/Long Term Goals</h4>
+      <img src="assets/screenshots/目标.png" width="100%" />
+      <br/><br/>
+      <h4 align="center">Elixirs/Artifacts/Weapons</h4>
+      <img src="assets/screenshots/丹药.png" width="100%" />
+      <img src="assets/screenshots/法宝.png" width="100%" />
+      <img src="assets/screenshots/武器.png" width="100%" />
     </td>
   </tr>
 </table>
@@ -168,7 +179,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
 - [ ] Support multi-language localization
-- [ ] Game settings panel at startup
+- ✅ Start Game Page
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
@@ -200,7 +211,6 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
   - [ ] Taming
   - [ ] Evolving skills
 - [ ] Mortals
-- [ ] Prodigies (stronger abilities and AI)
 
 ### 🏛️ Organizations
 - [ ] Sect system
@@ -227,7 +237,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 ### 🎭 Event System
 - ✅ Heaven-earth Qi fluctuations
 - [ ] World-scale events:
-  - [ ] Auctions
+  - ✅ Auctions
   - [ ] Secret realm exploration
   - [ ] Martial tournaments
   - [ ] Sect grand competition
@@ -277,7 +287,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - [ ] Divination & Prophecy
 - [ ] Male appearance female traits & Female appearance male traits
 - [ ] Character Secrets & Two-faced
-- [ ] Ascension to Upper Realm
+- [ ] Ascension to Heaven
 - [ ] Formations
 - [ ] Paths/Daos
 - [ ] World Secrets & World Laws (Flexible customization)
