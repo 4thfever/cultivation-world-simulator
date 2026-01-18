@@ -46,18 +46,27 @@ export const useSystemStore = defineStore('system', () => {
     isInitialized.value = val;
   }
 
+  // 切换手动暂停状态（用户点击暂停按钮时调用）
   async function togglePause() {
-    if (isManualPaused.value) {
-      await resume();
-    } else {
-      await pause();
+    const newState = !isManualPaused.value;
+    isManualPaused.value = newState;
+    try {
+      if (newState) {
+        await systemApi.pauseGame();
+      } else {
+        await systemApi.resumeGame();
+      }
+    } catch (e) {
+      // API 失败时回滚状态
+      isManualPaused.value = !newState;
+      console.error(e);
     }
   }
 
+  // 仅调用后端 API，不修改 isManualPaused（用于菜单打开/关闭等系统行为）
   async function pause() {
     try {
       await systemApi.pauseGame();
-      isManualPaused.value = true;
     } catch (e) {
       console.error(e);
     }
@@ -66,7 +75,6 @@ export const useSystemStore = defineStore('system', () => {
   async function resume() {
     try {
       await systemApi.resumeGame();
-      isManualPaused.value = false;
     } catch (e) {
       console.error(e);
     }

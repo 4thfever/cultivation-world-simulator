@@ -69,7 +69,9 @@ watch(gameInitialized, (val) => {
       showSplash.value = false
     }
 
+    // 设置前端状态并恢复后端
     isManualPaused.value = false
+    systemApi.resumeGame().catch(console.error)
     openedFromSplash.value = false // 游戏开始，清除 Splash 来源标记
   }
 })
