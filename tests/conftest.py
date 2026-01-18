@@ -83,6 +83,7 @@ def mock_llm_managers():
          patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
          patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
          patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist, \
+         patch("src.classes.story_teller.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story, \
          patch("src.utils.llm.config.LLMConfig.from_mode", return_value=mock_llm_config) as mock_config:
         
         mock_ai.decide = AsyncMock(return_value={})
@@ -90,6 +91,7 @@ def mock_llm_managers():
         mock_nick.return_value = None
         mock_rr.return_value = []
         mock_hist.return_value = None
+        mock_story.return_value = "测试故事"
 
         yield {
             "ai": mock_ai,
@@ -97,6 +99,7 @@ def mock_llm_managers():
             "nick": mock_nick,
             "rr": mock_rr,
             "hist": mock_hist,
+            "story": mock_story,
             "config": mock_config
         }
 

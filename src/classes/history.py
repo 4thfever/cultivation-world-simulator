@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Any, Optional, Callable, TYPE_CHECKING, Coroutine
 
@@ -13,6 +13,11 @@ from src.run.log import get_logger
 
 if TYPE_CHECKING:
     from src.classes.world import World
+
+@dataclass
+class History:
+    text: str = ""
+    modifications: dict = field(default_factory=dict)
 
 class HistoryManager:
     """
@@ -142,7 +147,7 @@ class HistoryManager:
                 sect = sects_by_id.get(sid)
                 if sect:
                     old_name = sect.name
-                    self._update_obj_attrs(sect, data)
+                    self._update_obj_attrs(sect, data, "sects", sid_str)
                     
                     # 同步 sects_by_name 索引
                     if sect.name != old_name:
@@ -161,8 +166,8 @@ class HistoryManager:
     def _apply_item_changes(self, result: Dict[str, Any]):
         """处理物品/功法变更"""
         self._update_techniques(result.get("techniques_change", {}))
-        self._update_items(result.get("weapons_change", {}), weapons_by_name)
-        self._update_items(result.get("auxiliarys_change", {}), None)
+        self._update_items(result.get("weapons_change", {}), weapons_by_name, "weapons")
+        self._update_items(result.get("auxiliarys_change", {}), None, "auxiliaries")
 
     # --- Update Logic ---
 
@@ -177,7 +182,7 @@ class HistoryManager:
                 if self.world and self.world.map:
                     region = self.world.map.regions.get(rid)
                     if region:
-                        self._update_obj_attrs(region, data)
+                        self._update_obj_attrs(region, data, "regions", rid_str)
                         self.logger.info(f"[History] 区域变更 - ID: {rid}, Name: {region.name}, Desc: {region.desc}")
                         count += 1
             except Exception as e:
@@ -197,7 +202,7 @@ class HistoryManager:
                 tech = techniques_by_id.get(tid)
                 if tech:
                     old_name = tech.name
-                    self._update_obj_attrs(tech, data)
+                    self._update_obj_attrs(tech, data, "techniques", tid_str)
                     
                     if tech.name != old_name:
                         if old_name in techniques_by_name:
@@ -212,7 +217,7 @@ class HistoryManager:
         if count > 0:
             self.logger.info(f"[History] 更新了 {count} 本功法")
 
-    def _update_items(self, changes: Dict[str, Any], by_name_index: Optional[Dict[str, Any]]):
+    def _update_items(self, changes: Dict[str, Any], by_name_index: Optional[Dict[str, Any]], category: str):
         """更新物品 (ItemRegistry)"""
         if not changes: return
 
@@ -223,7 +228,7 @@ class HistoryManager:
                 item = ItemRegistry.get(iid)
                 if item:
                     old_name = item.name
-                    self._update_obj_attrs(item, data)
+                    self._update_obj_attrs(item, data, category, iid_str)
                     
                     if by_name_index is not None and item.name != old_name:
                         if old_name in by_name_index:
@@ -238,12 +243,25 @@ class HistoryManager:
         if count > 0:
             self.logger.info(f"[History] 更新了 {count} 件装备")
 
-    def _update_obj_attrs(self, obj: Any, data: Dict[str, Any]):
-        """通用属性更新 helper"""
+    def _update_obj_attrs(self, obj: Any, data: Dict[str, Any], category: str = None, id_str: str = None):
+        """通用属性更新 helper，并记录差分"""
+        
+        recorded_changes = {}
+        
         if "name" in data and data["name"]:
-            obj.name = str(data["name"])
+            val = str(data["name"])
+            obj.name = val
+            recorded_changes["name"] = val
+            
         if "desc" in data and data["desc"]:
-            obj.desc = str(data["desc"])
+            val = str(data["desc"])
+            obj.desc = val
+            recorded_changes["desc"] = val
+
+        # 记录差分到 World
+        if category and id_str and recorded_changes and self.world:
+            self.world.record_modification(category, id_str, recorded_changes)
+
 
 if __name__ == "__main__":
     # 模拟运行

@@ -166,10 +166,12 @@ def _split_names(value: object) -> list[str]:
     return parts
 
 
-def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
-    """从配表加载 sect 数据"""
-    sects_by_id: dict[int, Sect] = {}
-    sects_by_name: dict[str, Sect] = {}
+def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
+    """从配表加载 sect 数据
+    返回：新的 (sects_by_id, sects_by_name)
+    """
+    new_by_id: dict[int, Sect] = {}
+    new_by_name: dict[str, Sect] = {}
 
     df = game_configs["sect"]
     # 读取宗门驻地映射（优先从 sect_region.csv 获取驻地地名/描述）
@@ -256,14 +258,27 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             effect_desc=effect_desc,
             rank_names=rank_names_map,
         )
-        sects_by_id[sect.id] = sect
-        sects_by_name[sect.name] = sect
+        new_by_id[sect.id] = sect
+        new_by_name[sect.name] = sect
 
-    return sects_by_id, sects_by_name
+    return new_by_id, new_by_name
 
+# 全局容器（保持引用不变）
+sects_by_id: dict[int, Sect] = {}
+sects_by_name: dict[str, Sect] = {}
 
-# 导出：从配表加载 sect 数据
-sects_by_id, sects_by_name = _load_sects()
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_sects_data()
+    
+    sects_by_id.clear()
+    sects_by_id.update(new_id)
+    
+    sects_by_name.clear()
+    sects_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 
 def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:

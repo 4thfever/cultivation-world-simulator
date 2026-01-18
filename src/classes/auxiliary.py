@@ -68,16 +68,16 @@ class Auxiliary(Item):
         }
 
 
-def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
+def _load_auxiliaries_data() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
     """从配表加载 auxiliary 数据。
-    返回：(按ID、按名称 的映射)。
+    返回：新的 (按ID、按名称 的映射)。
     """
-    auxiliaries_by_id: Dict[int, Auxiliary] = {}
-    auxiliaries_by_name: Dict[str, Auxiliary] = {}
+    new_by_id: Dict[int, Auxiliary] = {}
+    new_by_name: Dict[str, Auxiliary] = {}
 
     df = game_configs.get("auxiliary")
     if df is None:
-        return auxiliaries_by_id, auxiliaries_by_name
+        return new_by_id, new_by_name
 
     for row in df:
         effects = load_effect_from_str(get_str(row, "effects"))
@@ -100,17 +100,31 @@ def _load_auxiliaries() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]]:
             effect_desc=effect_desc,
         )
 
-        auxiliaries_by_id[a.id] = a
-        auxiliaries_by_name[a.name] = a
+        new_by_id[a.id] = a
+        new_by_name[a.name] = a
         
         # 注册到全局注册表
         from src.classes.item_registry import ItemRegistry
         ItemRegistry.register(a.id, a)
 
-    return auxiliaries_by_id, auxiliaries_by_name
+    return new_by_id, new_by_name
 
+# 全局容器
+auxiliaries_by_id: Dict[int, Auxiliary] = {}
+auxiliaries_by_name: Dict[str, Auxiliary] = {}
 
-auxiliaries_by_id, auxiliaries_by_name = _load_auxiliaries()
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_auxiliaries_data()
+    
+    auxiliaries_by_id.clear()
+    auxiliaries_by_id.update(new_id)
+    
+    auxiliaries_by_name.clear()
+    auxiliaries_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 
 def get_random_auxiliary_by_realm(realm: Realm) -> Optional[Auxiliary]:
