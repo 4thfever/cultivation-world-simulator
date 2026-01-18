@@ -14,48 +14,21 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
   const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>('load')
   const canCloseMenu = ref(true)
 
-  // 监听菜单状态和手动暂停状态，控制游戏暂停/继续
-  watch([showMenu, isManualPaused], ([menuVisible, manualPaused]) => {
-    // 只在游戏已准备好时控制暂停
+  // 统一的暂停控制逻辑：
+  // - 菜单打开时：暂停后端（不影响 isManualPaused）
+  // - 菜单关闭时：如果没有手动暂停，恢复后端
+  watch(showMenu, (menuVisible) => {
     if (!gameInitialized.value) return
     
-    if (menuVisible || manualPaused) {
-      // 如果不是因为菜单打开而暂停（即用户手动暂停），则不需额外操作，因为状态已经在 store 里了
-      // 但如果是菜单打开导致需要暂停，我们需要调用 pause
-      if (menuVisible && !manualPaused) {
-         systemStore.pause().catch(console.error)
-      } else if (!menuVisible && !manualPaused) {
-         // 菜单关闭且非手动暂停 -> 恢复
-         systemStore.resume().catch(console.error)
-      } else if (manualPaused) {
-         // 只要是手动暂停，就确保是暂停状态
-         systemStore.pause().catch(console.error)
-      }
+    if (menuVisible) {
+      // 菜单打开，暂停后端
+      systemStore.pause().catch(console.error)
     } else {
-      systemStore.resume().catch(console.error)
+      // 菜单关闭，只有在非手动暂停时才恢复
+      if (!isManualPaused.value) {
+        systemStore.resume().catch(console.error)
+      }
     }
-  })
-
-  // 优化：简化 Watch 逻辑
-  // 核心规则：菜单打开 OR 手动暂停 => 必须暂停
-  // 菜单关闭 AND 手动播放 => 恢复
-  watch([showMenu], ([menuVisible]) => {
-     if (!gameInitialized.value) return
-     if (menuVisible) {
-        systemStore.pause().catch(console.error)
-     } else {
-        // 关闭菜单时，如果不是手动暂停状态，则恢复
-        if (!isManualPaused.value) {
-            systemStore.resume().catch(console.error)
-        }
-     }
-  })
-  
-  // Watch 手动暂停状态的变化，同步到后端
-  watch(isManualPaused, (val) => {
-      if (!gameInitialized.value) return
-      if (val) systemStore.pause().catch(console.error)
-      else if (!showMenu.value) systemStore.resume().catch(console.error)
   })
 
   // 快捷键处理
