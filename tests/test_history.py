@@ -159,6 +159,17 @@ async def test_history_influence(base_world):
             assert cult_region.name == "NewCave"
             assert cult_region.desc == "New Cave Desc"
             
+            # 2.1 resolve_query can find regions by new names
+            from src.utils.resolution import resolve_query
+            from src.classes.region import Region
+            assert resolve_query("NewCity", base_world, expected_types=[Region]).obj == city_region
+            assert resolve_query("NewWild", base_world, expected_types=[Region]).obj == normal_region
+            assert resolve_query("NewCave", base_world, expected_types=[Region]).obj == cult_region
+            # Old names should no longer resolve (region objects have new names)
+            assert resolve_query("OldCity", base_world, expected_types=[Region]).obj is None
+            assert resolve_query("OldWild", base_world, expected_types=[Region]).obj is None
+            assert resolve_query("OldCave", base_world, expected_types=[Region]).obj is None
+            
             # 3. Sect & Sect Region Updated
             assert sect.name == "NewSect"
             assert sect.desc == "New Sect Desc"
@@ -276,3 +287,50 @@ def test_history_persistence_in_save_load(base_world, tmp_path):
     static_info = loaded_world.static_info
     assert "历史" in static_info, "加载后的 static_info 应该包含历史"
     assert static_info["历史"] == history_text, "加载后的历史文本应该正确"
+
+
+@pytest.mark.asyncio
+async def test_move_to_region_after_history_rename(base_world, dummy_avatar):
+    """
+    测试 MoveToRegion action 在 history 修改 region 名称后能正确工作。
+    
+    这是对以下失败场景的回归测试：
+    WARNING - 非法动作: Avatar(name=苏梦蝶) 的动作 MoveToRegion 
+    参数={'region': '沧澜潮汐城'} 无法启动，原因=无法解析区域: 沧澜潮汐城
+    """
+    from src.classes.action.move_to_region import MoveToRegion
+    
+    # 准备：创建一个城市区域
+    city_region = CityRegion(id=304, name="沧澜城", desc="原始描述")
+    base_world.map.regions = {304: city_region}
+    
+    # 模拟 history 修改了城市名称（如 LLM 返回的新名称）
+    manager = HistoryManager(base_world)
+    manager._read_csv = MagicMock(return_value="dummy")
+    
+    map_response = {
+        "city_regions_change": {"304": {"name": "沧澜潮汐城", "desc": "新描述"}}
+    }
+    
+    def side_effect(**kwargs):
+        if kwargs.get("task_name") == "history_influence_map":
+            return map_response
+        return {}
+    
+    with patch("src.classes.history.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+        mock_llm.side_effect = side_effect
+        await manager.apply_history_influence("测试历史")
+    
+    # 验证名称已修改
+    assert city_region.name == "沧澜潮汐城"
+    
+    # 核心测试：MoveToRegion 使用新名称应该能成功
+    move_action = MoveToRegion(dummy_avatar, base_world)
+    can_start, reason = move_action.can_start("沧澜潮汐城")
+    
+    assert can_start is True, f"MoveToRegion 应该能解析新名称，但失败了: {reason}"
+    
+    # 旧名称应该无法解析（因为 region 对象的 name 已经变了）
+    can_start_old, reason_old = move_action.can_start("沧澜城")
+    assert can_start_old is False, "旧名称不应该能解析"
+    assert "无法解析区域" in reason_old

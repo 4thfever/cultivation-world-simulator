@@ -145,27 +145,27 @@ def _resolve_realm(name: str) -> Realm | None:
     return None
 
 def _resolve_region(name: str, world: Any) -> Any | None:
-    """解析区域"""
+    """解析区域 - 遍历 regions.values() 查找，避免维护额外的 name 索引"""
     if not hasattr(world, 'map'):
         return None
-        
-    # 1. 精确匹配
-    by_name = getattr(world.map, "region_names", {})
-    if name in by_name:
-        return by_name[name]
-        
-    # 2. 规范化匹配
+    
+    regions = getattr(world.map, "regions", {})
+    if not regions:
+        return None
+    
     norm = normalize_name(name)
-    if norm in by_name:
-        return by_name[norm]
-        
-    # 3. 包含匹配 (如果有唯一解)
-    candidates = [k for k in by_name.keys() if (norm in k) or (name in k)]
+    
+    # 1. 精确匹配 / 规范化匹配
+    for region in regions.values():
+        if region.name == name or region.name == norm:
+            return region
+    
+    # 2. 包含匹配 (如果有唯一解)
+    candidates = [r for r in regions.values() if (norm in r.name) or (name in r.name)]
     if len(candidates) == 1:
-        return by_name[candidates[0]]
+        return candidates[0]
         
-    # 4. 宗门名称匹配 (解析到宗门驻地)
-    # 避免循环引用，这里动态导入或假设 sects_by_name 可用
+    # 3. 宗门名称匹配 (解析到宗门驻地)
     from src.classes.sect import sects_by_name
     sect = sects_by_name.get(name) or sects_by_name.get(norm)
     if sect:

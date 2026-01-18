@@ -52,7 +52,7 @@ def test_normalize_weapon_type():
 class MockWorld:
     def __init__(self):
         self.map = Mock()
-        self.map.region_names = {}
+        self.map.regions = {}
         self.map.sect_regions = {}
         self.avatar_manager = Mock()
         self.avatar_manager.avatars = {}
@@ -107,10 +107,10 @@ def test_resolve_query_unsupported_type():
 
 def test_resolve_region_mock(mock_world):
     """测试区域解析（Mock环境）"""
-    # 准备数据
+    # 准备数据 - 使用 regions[id] 字典而非 region_names
     mock_region = Mock()
     mock_region.name = "青云山"
-    mock_world.map.region_names = {"青云山": mock_region}
+    mock_world.map.regions = {1: mock_region}
     
     # 1. 精确匹配
     res = resolve_query("青云山", world=mock_world, expected_types=[type(mock_region)]) # 动态类型模拟 Region
