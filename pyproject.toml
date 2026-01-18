@@ -2,4 +2,5 @@
 pythonpath = "."
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 norecursedirs = ["tmp", "assets", "node_modules", "dist", "build", "web", "tools"]
