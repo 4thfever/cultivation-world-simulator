@@ -8,6 +8,7 @@ from src.classes.avatar_manager import AvatarManager
 from src.classes.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
+from src.classes.history import History
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -29,8 +30,8 @@ class World():
     circulation: CirculationManager = field(default_factory=CirculationManager)
     # Gathering 管理器
     gathering_manager: GatheringManager = field(default_factory=GatheringManager)
-    # 世界历史文本
-    history: str = ""
+    # 世界历史
+    history: "History" = field(default_factory=lambda: History())
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -54,7 +55,25 @@ class World():
 
     def set_history(self, history_text: str):
         """设置世界历史文本"""
-        self.history = history_text
+        self.history.text = history_text
+        
+    def record_modification(self, category: str, id_str: str, changes: dict):
+        """
+        记录历史修改差分
+        
+        Args:
+            category: 修改类别 (sects, regions, techniques, weapons, auxiliaries)
+            id_str: 对象 ID 字符串
+            changes: 修改的属性字典
+        """
+        if category not in self.history.modifications:
+            self.history.modifications[category] = {}
+            
+        if id_str not in self.history.modifications[category]:
+            self.history.modifications[category][id_str] = {}
+            
+        # 累加修改（后来的覆盖前面的）
+        self.history.modifications[category][id_str].update(changes)
 
     @property
     def static_info(self) -> dict:
@@ -75,8 +94,8 @@ class World():
             "购物": "在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器类型为顺手的类型。",
             "拍卖会": "每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。"
         }
-        if self.history:
-            desc["历史"] = self.history
+        if self.history.text:
+            desc["历史"] = self.history.text
         return desc
 
     @classmethod

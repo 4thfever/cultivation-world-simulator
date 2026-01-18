@@ -123,7 +123,10 @@ def save_game(
             # 出世物品流转
             "circulation": world.circulation.to_save_dict(),
             # 世界历史
-            "history": world.history,
+            "history": {
+                "text": world.history.text,
+                "modifications": world.history.modifications
+            },
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

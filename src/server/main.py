@@ -6,6 +6,8 @@ import subprocess
 import time
 import threading
 import signal
+import random
+from omegaconf import OmegaConf
 from contextlib import asynccontextmanager
 
 from typing import List, Optional
@@ -39,8 +41,6 @@ from src.classes.long_term_objective import set_user_long_term_objective, clear_
 from src.sim.save.save_game import save_game, list_saves
 from src.sim.load.load_game import load_game
 from src.utils import protagonist as prot_utils
-import random
-from omegaconf import OmegaConf
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data

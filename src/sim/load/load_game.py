@@ -41,6 +41,103 @@ from src.classes.relation import Relation
 from src.utils.config import CONFIG
 
 
+def apply_history_modifications(world, modifications):
+    """
+    回放历史修改记录，恢复世界状态
+    """
+    if not modifications:
+        return
+        
+    print(f"正在回放历史差分 ({len(modifications)} 个分类)...")
+    
+    # 导入需要修改的对象容器
+    from src.classes.sect import sects_by_id, sects_by_name
+    from src.classes.technique import techniques_by_id, techniques_by_name
+    from src.classes.item_registry import ItemRegistry
+    
+    # 1. 宗门修改
+    sects_mod = modifications.get("sects", {})
+    for sid_str, changes in sects_mod.items():
+        try:
+            sid = int(sid_str)
+            sect = sects_by_id.get(sid)
+            if sect:
+                old_name = sect.name
+                # 应用修改
+                if "name" in changes: sect.name = changes["name"]
+                if "desc" in changes: sect.desc = changes["desc"]
+                # 同步索引
+                if sect.name != old_name:
+                    if old_name in sects_by_name: del sects_by_name[old_name]
+                    sects_by_name[sect.name] = sect
+        except Exception:
+            pass
+
+    # 2. 区域修改
+    regions_mod = modifications.get("regions", {})
+    for rid_str, changes in regions_mod.items():
+        try:
+            rid = int(rid_str)
+            region = world.map.regions.get(rid)
+            if region:
+                if "name" in changes: region.name = changes["name"]
+                if "desc" in changes: region.desc = changes["desc"]
+        except Exception:
+            pass
+
+    # 3. 功法修改
+    techniques_mod = modifications.get("techniques", {})
+    for tid_str, changes in techniques_mod.items():
+        try:
+            tid = int(tid_str)
+            tech = techniques_by_id.get(tid)
+            if tech:
+                old_name = tech.name
+                if "name" in changes: tech.name = changes["name"]
+                if "desc" in changes: tech.desc = changes["desc"]
+                if tech.name != old_name:
+                    if old_name in techniques_by_name: del techniques_by_name[old_name]
+                    techniques_by_name[tech.name] = tech
+        except Exception:
+            pass
+
+    # 4. 武器修改 (通过 ItemRegistry)
+    weapons_mod = modifications.get("weapons", {})
+    from src.classes.weapon import weapons_by_name
+    for iid_str, changes in weapons_mod.items():
+        try:
+            iid = int(iid_str)
+            item = ItemRegistry.get(iid)
+            if item:
+                old_name = item.name
+                if "name" in changes: item.name = changes["name"]
+                if "desc" in changes: item.desc = changes["desc"]
+                if item.name != old_name:
+                    if old_name in weapons_by_name: del weapons_by_name[old_name]
+                    weapons_by_name[item.name] = item
+        except Exception:
+            pass
+
+    # 5. 辅助装备修改 (通过 ItemRegistry)
+    aux_mod = modifications.get("auxiliaries", {})
+    from src.classes.auxiliary import auxiliaries_by_name
+    for iid_str, changes in aux_mod.items():
+        try:
+            iid = int(iid_str)
+            item = ItemRegistry.get(iid)
+            if item:
+                old_name = item.name
+                if "name" in changes: item.name = changes["name"]
+                if "desc" in changes: item.desc = changes["desc"]
+                if item.name != old_name:
+                    if old_name in auxiliaries_by_name: del auxiliaries_by_name[old_name]
+                    auxiliaries_by_name[item.name] = item
+        except Exception:
+            pass
+            
+    print("历史差分回放完成。")
+
+
 def get_events_db_path(save_path: Path) -> Path:
     """
     根据存档路径计算事件数据库路径。
@@ -109,9 +206,13 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         )
         
         # 恢复世界历史
-        history = world_data.get("history", "")
-        if history:
-            world.set_history(history)
+        history_data = world_data.get("history", {})
+        world.history.text = history_data.get("text", "")
+        world.history.modifications = history_data.get("modifications", {})
+            
+        # 恢复并回放历史修改记录（关键修复：在加载角色前还原规则）
+        if world.history.modifications:
+            apply_history_modifications(world, world.history.modifications)
         
         # 重建天地灵机
         from src.classes.celestial_phenomenon import celestial_phenomena_by_id
