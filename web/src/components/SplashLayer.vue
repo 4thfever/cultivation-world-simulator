@@ -1,10 +1,38 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { NButton, NSpace } from 'naive-ui'
 
 // 定义事件
 const emit = defineEmits<{
   (e: 'action', key: string): void
 }>()
+
+const videoRef = ref<HTMLVideoElement | null>(null)
+
+// 视频播放控制逻辑
+onMounted(() => {
+  if (!videoRef.value) return
+  
+  const video = videoRef.value
+  // 整体基础速度设为 0.8
+  video.playbackRate = 0.8
+
+  const handleTimeUpdate = () => {
+    const duration = video.duration
+    if (!duration) return
+
+    const remaining = duration - video.currentTime
+    
+    // 当剩余时间小于 2 秒时开始线性减速
+    if (remaining < 2 && remaining > 0) {
+      // 从 0.8 逐渐降低，最低保持在 0.35 左右避免视觉卡顿感
+      const targetRate = 0.35 + (0.8 - 0.35) * (remaining / 2)
+      video.playbackRate = targetRate
+    }
+  }
+
+  video.addEventListener('timeupdate', handleTimeUpdate)
+})
 
 // 定义按钮列表
 const menuOptions = [
@@ -22,6 +50,16 @@ function handleClick(key: string) {
 
 <template>
   <div class="splash-container">
+    <video
+      ref="videoRef"
+      class="splash-video"
+      autoplay
+      muted
+      playsinline
+      :poster="'/assets/splash.png'"
+    >
+      <source :src="'/assets/splash.mp4'" type="video/mp4" />
+    </video>
     <!-- 左侧模糊层 -->
     <div class="glass-panel">
       <div class="title-area">
@@ -60,19 +98,27 @@ function handleClick(key: string) {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* 背景图设置 */
-  background-image: url('/assets/splash.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   z-index: 9999;
   display: flex;
   align-items: center;
-  background-color: #000; /* 图片加载前的底色 */
+  background-color: #000; /* 视频加载前的底色 */
+  overflow: hidden;
+}
+
+.splash-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 /* 左侧毛玻璃面板 */
 .glass-panel {
+  position: relative;
+  z-index: 1;
   width: 400px;
   height: 100%;
   background: rgba(0, 0, 0, 0.4); /* 半透明黑底 */
