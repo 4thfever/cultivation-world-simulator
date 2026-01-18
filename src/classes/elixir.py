@@ -147,7 +147,6 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
 
     df = game_configs["elixir"]
     for row in df:
-        elixir_id = get_int(row, "id")
         name = get_str(row, "name")
         desc = get_str(row, "desc")
         price = get_int(row, "price")

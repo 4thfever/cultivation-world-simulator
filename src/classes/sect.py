@@ -180,8 +180,8 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
             sid = get_int(sr, "sect_id", -1)
             if sid == -1:
                 continue
-            hq_name = get_str(sr, "headquarter_name")
-            hq_desc = get_str(sr, "headquarter_desc")
+            hq_name = get_str(sr, "name")
+            hq_desc = get_str(sr, "desc")
             hq_by_sect_id[sid] = (hq_name, hq_desc)
     
     # 可能不存在 technique 配表或未添加 sect 列，做容错
@@ -191,12 +191,14 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
     for row in df:
         name = get_str(row, "name")
         image_path = assets_base / f"{name}.png"
+        
+        # 先读取当前宗门 ID，供后续使用
+        sid = get_int(row, "id")
 
         # 收集该宗门下配置的功法名称
         technique_names: list[str] = []
         # 检查 tech_df 是否存在以及是否有数据
         if tech_df:
-            # 检查是否存在 sect 字段 (检查第一行或当前行)
             technique_names = [
                 get_str(t, "name")
                 for t in tech_df
@@ -229,7 +231,6 @@ def _load_sects() -> tuple[dict[int, Sect], dict[str, Sect]]:
                 }
 
         # 从 sect_region.csv 中优先取驻地名称/描述；否则兼容旧列或退回宗门名
-        sid = get_int(row, "id")
         csv_hq = hq_by_sect_id.get(sid)
         hq_name_from_csv = (csv_hq[0] if csv_hq else "").strip() if csv_hq else ""
         hq_desc_from_csv = (csv_hq[1] if csv_hq else "").strip() if csv_hq else ""

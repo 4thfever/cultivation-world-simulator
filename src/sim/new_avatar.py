@@ -459,12 +459,6 @@ class AvatarFactory:
                 #          自己.relations[师傅] = MASTER (自己认为师傅是师傅)
                 plan.master_avatar.set_relation(avatar, Relation.APPRENTICE)
 
-        # 宗门弟子天生知道宗门总部位置
-        if avatar.sect is not None:
-            res = resolve_query(avatar.sect.headquarter.name, world, expected_types=[Region])
-            hq_region = res.obj
-            avatar.known_regions.add(hq_region.id)
-
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
             if mapped is not None:
