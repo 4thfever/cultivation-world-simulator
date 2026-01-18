@@ -1191,7 +1191,7 @@ def get_game_data():
             "name": t.name,
             "grade": t.grade.value,
             "attribute": t.attribute.value,
-            "sect": t.sect
+            "sect_id": t.sect_id
         }
         for t in techniques_by_id.values()
     ]

@@ -1,0 +1,106 @@
+"""
+测试 CSV 数据加载的正确性。
+验证代码中使用的列名与 CSV 文件中的实际列名匹配。
+"""
+import pytest
+from src.classes.sect import sects_by_id, sects_by_name, Sect
+from src.classes.technique import techniques_by_id, techniques_by_name, Technique
+
+
+class TestSectLoading:
+    """测试宗门数据加载"""
+
+    def test_sect_headquarter_name_loaded(self):
+        """测试宗门驻地名称正确加载（来自 sect_region.csv 的 name 列）"""
+        # 不夜城 (sect_id=12) 的驻地应该是 "大千光极城"
+        sect = sects_by_id.get(12)
+        assert sect is not None, "宗门 ID=12 应该存在"
+        assert sect.name == "不夜城", "宗门名称应该是 '不夜城'"
+        assert sect.headquarter.name == "大千光极城", (
+            f"驻地名称应该是 '大千光极城'，而不是 '{sect.headquarter.name}'"
+        )
+
+    def test_sect_headquarter_desc_loaded(self):
+        """测试宗门驻地描述正确加载（来自 sect_region.csv 的 desc 列）"""
+        sect = sects_by_id.get(12)
+        assert sect is not None
+        # 验证描述不为空且包含关键词
+        assert sect.headquarter.desc, "驻地描述不应为空"
+        assert "极光" in sect.headquarter.desc, "驻地描述应该包含 '极光'"
+
+    def test_all_sects_have_headquarters(self):
+        """测试所有宗门都有驻地信息"""
+        for sect_id, sect in sects_by_id.items():
+            assert sect.headquarter is not None, f"宗门 {sect.name} (ID={sect_id}) 应该有驻地"
+            assert sect.headquarter.name, f"宗门 {sect.name} 的驻地名称不应为空"
+
+    def test_sect_techniques_loaded(self):
+        """测试宗门功法列表正确加载"""
+        # 明心剑宗 (sect_id=1) 应该有功法
+        sect = sects_by_id.get(1)
+        assert sect is not None, "宗门 ID=1 应该存在"
+        assert len(sect.technique_names) > 0, (
+            f"宗门 '{sect.name}' 应该有独门功法，但 technique_names 为空"
+        )
+
+    def test_sect_without_techniques(self):
+        """测试没有配置功法的宗门（不夜城 sect_id=12）"""
+        sect = sects_by_id.get(12)
+        assert sect is not None
+        # 不夜城在 technique.csv 中没有配置功法，所以应该是空列表
+        assert sect.technique_names == [], (
+            f"宗门 '{sect.name}' 不应该有独门功法"
+        )
+
+
+class TestTechniqueLoading:
+    """测试功法数据加载"""
+
+    def test_technique_sect_id_loaded(self):
+        """测试功法的 sect_id 正确加载（来自 technique.csv 的 sect_id 列）"""
+        # 草字剑诀 (id=30) 属于明心剑宗 (sect_id=1)
+        technique = techniques_by_id.get(30)
+        assert technique is not None, "功法 ID=30 应该存在"
+        assert technique.name == "草字剑诀", f"功法名称应该是 '草字剑诀'，而不是 '{technique.name}'"
+        assert technique.sect_id == 1, (
+            f"功法 '草字剑诀' 的 sect_id 应该是 1，而不是 {technique.sect_id}"
+        )
+
+    def test_technique_without_sect(self):
+        """测试散修功法（没有宗门限制）的 sect_id 为 None"""
+        # 金刚不坏体 (id=1) 是散修功法
+        technique = techniques_by_id.get(1)
+        assert technique is not None, "功法 ID=1 应该存在"
+        assert technique.sect_id is None, (
+            f"散修功法 '{technique.name}' 的 sect_id 应该是 None，而不是 {technique.sect_id}"
+        )
+
+    def test_sect_techniques_match(self):
+        """测试宗门功法和功法的宗门ID相互匹配"""
+        for sect_id, sect in sects_by_id.items():
+            for tech_name in sect.technique_names:
+                technique = techniques_by_name.get(tech_name)
+                assert technique is not None, f"功法 '{tech_name}' 应该存在"
+                assert technique.sect_id == sect_id, (
+                    f"功法 '{tech_name}' 的 sect_id ({technique.sect_id}) "
+                    f"应该匹配宗门 '{sect.name}' 的 ID ({sect_id})"
+                )
+
+
+class TestElixirLoading:
+    """测试丹药数据加载"""
+
+    def test_elixir_loaded_with_item_id(self):
+        """测试丹药使用 item_id 列正确加载"""
+        from src.classes.elixir import elixirs_by_id
+        
+        # 验证丹药已加载且 ID 不为 0（如果用错误的列名会得到默认值 0）
+        assert len(elixirs_by_id) > 0, "应该加载到丹药数据"
+        
+        for elixir_id, elixir in elixirs_by_id.items():
+            assert elixir_id > 0, f"丹药 '{elixir.name}' 的 ID 应该大于 0"
+            assert elixir.id == elixir_id, f"丹药 ID 不匹配: {elixir.id} != {elixir_id}"
+
+
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])
