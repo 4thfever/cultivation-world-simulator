@@ -62,8 +62,8 @@ class Technique:
     desc: str
     weight: float
     condition: str
-    # 归属宗门名称；None/空表示无宗门要求（散修可修）
-    sect: Optional[str] = None
+    # 归属宗门ID；None 表示无宗门要求（散修可修）
+    sect_id: Optional[int] = None
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
@@ -125,9 +125,8 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
         condition = get_str(row, "condition")
         weight = get_float(row, "weight", 1.0)
         
-        sect = get_str(row, "sect")
-        if not sect:
-            sect = None
+        sect_id_raw = get_int(row, "sect_id", -1)
+        sect_id = sect_id_raw if sect_id_raw > 0 else None
             
         effects = load_effect_from_str(get_str(row, "effects"))
         from src.classes.effect import format_effects_to_text
@@ -141,7 +140,7 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             desc=get_str(row, "desc"),
             weight=weight,
             condition=condition,
-            sect=sect,
+            sect_id=sect_id,
             effects=effects,
             effect_desc=effect_desc,
         )
@@ -232,24 +231,22 @@ def get_random_upper_technique_for_avatar(avatar) -> Technique | None:
 def get_technique_by_sect(sect) -> Technique:
     """
     简化版：仅按宗门筛选并按权重抽样，不考虑灵根与 condition。
-    - 散修（sect 为 None/空）：只从无宗门要求（sect 为空）的功法中抽样；
-    - 有宗门：从“无宗门 + 该宗门”的功法中抽样；
+    - 散修（sect 为 None）：只从无宗门要求（sect_id 为 None）的功法中抽样；
+    - 有宗门：从"无宗门 + 该宗门"的功法中抽样；
     若集合为空，则退回全量功法。
     """
     import random
 
-    sect_name: Optional[str] = None
+    target_sect_id: Optional[int] = None
     if sect is not None:
-        sect_name = getattr(sect, "name", sect)
-        if isinstance(sect_name, str):
-            sect_name = sect_name.strip() or None
+        target_sect_id = getattr(sect, "id", None)
 
-    allowed_sects: set[Optional[str]] = {None, ""}
-    if sect_name is not None:
-        allowed_sects.add(sect_name)
+    allowed_sect_ids: set[Optional[int]] = {None}
+    if target_sect_id is not None:
+        allowed_sect_ids.add(target_sect_id)
 
     def _in_allowed_sect(t: Technique) -> bool:
-        return (t.sect in allowed_sects) or (t.sect is None) or (t.sect == "")
+        return t.sect_id in allowed_sect_ids
 
     candidates: List[Technique] = [t for t in techniques_by_id.values() if _in_allowed_sect(t)]
     if not candidates:
