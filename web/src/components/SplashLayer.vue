@@ -63,8 +63,8 @@ function handleClick(key: string) {
     <!-- 左侧模糊层 -->
     <div class="glass-panel">
       <div class="title-area">
-        <h1>修仙模拟器</h1>
-        <p>Cultivation World Simulator</p>
+        <h1>AI修仙世界模拟器</h1>
+        <p>AI Cultivation World Simulator</p>
       </div>
       
       <div class="menu-area">
