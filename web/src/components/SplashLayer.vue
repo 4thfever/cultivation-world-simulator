@@ -12,26 +12,7 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 // 视频播放控制逻辑
 onMounted(() => {
   if (!videoRef.value) return
-  
-  const video = videoRef.value
-  // 整体基础速度设为 0.8
-  video.playbackRate = 0.8
-
-  const handleTimeUpdate = () => {
-    const duration = video.duration
-    if (!duration) return
-
-    const remaining = duration - video.currentTime
-    
-    // 当剩余时间小于 2 秒时开始线性减速
-    if (remaining < 2 && remaining > 0) {
-      // 从 0.8 逐渐降低，最低保持在 0.35 左右避免视觉卡顿感
-      const targetRate = 0.35 + (0.8 - 0.35) * (remaining / 2)
-      video.playbackRate = targetRate
-    }
-  }
-
-  video.addEventListener('timeupdate', handleTimeUpdate)
+  videoRef.value.playbackRate = 0.8
 })
 
 // 定义按钮列表
@@ -55,6 +36,7 @@ function handleClick(key: string) {
       class="splash-video"
       autoplay
       muted
+      loop
       playsinline
       :poster="'/assets/splash.png'"
     >
