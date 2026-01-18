@@ -20,18 +20,14 @@ class Map():
         self.region_cors: dict[int, list[tuple[int, int]]] = {}
         
         # 区域字典，由外部加载器 (load_map.py) 填充
+        # 只维护 regions[id] 作为唯一的 source of truth，按名称查找通过遍历实现
         self.regions = {}
-        self.region_names = {}
         self.sect_regions = {}
         
-        # 这些分类字典可能暂时不再自动维护，或者需要 load_map.py 手动维护
-        # 为了兼容性，先初始化为空
+        # 分类字典（暂未使用，保留以备兼容）
         self.normal_regions = {}
-        self.normal_region_names = {}
         self.cultivate_regions = {}
-        self.cultivate_region_names = {}
         self.city_regions = {}
-        self.city_region_names = {}
 
     def update_sect_regions(self) -> None:
         """根据当前 self.regions 动态刷新宗门总部区域字典。"""

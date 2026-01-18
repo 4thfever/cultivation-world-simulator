@@ -132,7 +132,6 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
             try:
                 region_obj = cls(**params)
                 game_map.regions[rid] = region_obj
-                game_map.region_names[region_obj.name] = region_obj
                 
                 # 写入 Map 缓存 (region_cors)
                 game_map.region_cors[rid] = cors
