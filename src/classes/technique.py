@@ -114,9 +114,12 @@ SUPPRESSION: dict[TechniqueAttribute, set[TechniqueAttribute]] = {
 }
 
 
-def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
-    techniques_by_id: dict[int, Technique] = {}
-    techniques_by_name: dict[str, Technique] = {}
+def _load_techniques_data() -> tuple[dict[int, Technique], dict[str, Technique]]:
+    """从配表加载 technique 数据
+    返回：新的 (techniques_by_id, techniques_by_name)
+    """
+    new_by_id: dict[int, Technique] = {}
+    new_by_name: dict[str, Technique] = {}
     df = game_configs["technique"]
     for row in df:
         attr = TechniqueAttribute(get_str(row, "technique_root"))
@@ -144,12 +147,27 @@ def loads() -> tuple[dict[int, Technique], dict[str, Technique]]:
             effects=effects,
             effect_desc=effect_desc,
         )
-        techniques_by_id[t.id] = t
-        techniques_by_name[t.name] = t
-    return techniques_by_id, techniques_by_name
+        new_by_id[t.id] = t
+        new_by_name[t.name] = t
+    return new_by_id, new_by_name
 
 
-techniques_by_id, techniques_by_name = loads()
+# 全局容器（保持引用不变）
+techniques_by_id: dict[int, Technique] = {}
+techniques_by_name: dict[str, Technique] = {}
+
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_techniques_data()
+    
+    techniques_by_id.clear()
+    techniques_by_id.update(new_id)
+    
+    techniques_by_name.clear()
+    techniques_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 
 def is_attribute_compatible_with_root(attr: TechniqueAttribute, root: Root) -> bool:

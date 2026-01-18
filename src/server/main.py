@@ -43,6 +43,7 @@ import random
 from omegaconf import OmegaConf
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
+from src.run.data_loader import reload_all_static_data
 
 # 全局游戏实例
 game_instance = {
@@ -315,6 +316,11 @@ async def init_game_async():
     try:
         # 阶段 0: 资源扫描
         update_init_progress(0, "scanning_assets")
+        
+        # === 重置所有静态数据，清除历史修改污染 ===
+        print("正在重置世界规则数据...")
+        reload_all_static_data()
+        
         await asyncio.to_thread(scan_avatar_assets)
 
         # 阶段 1: 地图加载

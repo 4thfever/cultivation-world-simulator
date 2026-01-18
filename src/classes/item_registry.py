@@ -22,3 +22,8 @@ class ItemRegistry:
     @classmethod
     def get_all(cls) -> Dict[int, "Item"]:
         return cls._items_by_id
+    
+    @classmethod
+    def reset(cls):
+        """重置注册表，清空所有注册的物品"""
+        cls._items_by_id.clear()
