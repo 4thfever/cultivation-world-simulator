@@ -102,5 +102,58 @@ class TestElixirLoading:
             assert elixir.id == elixir_id, f"丹药 ID 不匹配: {elixir.id} != {elixir_id}"
 
 
+class TestGameDataAPI:
+    """测试 /api/meta/game_data API 返回正确的数据结构"""
+
+    @pytest.fixture
+    def client(self):
+        """创建测试客户端"""
+        from fastapi.testclient import TestClient
+        from src.server.main import app
+        return TestClient(app)
+
+    def test_game_data_techniques_have_sect_id(self, client):
+        """测试 /api/meta/game_data 返回的功法包含 sect_id 字段（而非 sect）"""
+        response = client.get("/api/meta/game_data")
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert "techniques" in data, "响应应该包含 techniques 字段"
+        
+        techniques = data["techniques"]
+        assert len(techniques) > 0, "应该有功法数据"
+        
+        for tech in techniques:
+            # 确保使用 sect_id 而非 sect
+            assert "sect_id" in tech, (
+                f"功法 '{tech.get('name', 'unknown')}' 应该有 sect_id 字段"
+            )
+            assert "sect" not in tech, (
+                f"功法 '{tech.get('name', 'unknown')}' 不应该有 sect 字段（应使用 sect_id）"
+            )
+            
+            # 验证 sect_id 的值类型正确
+            sect_id = tech["sect_id"]
+            assert sect_id is None or isinstance(sect_id, int), (
+                f"功法 '{tech.get('name')}' 的 sect_id 应该是 None 或 int，而不是 {type(sect_id)}"
+            )
+
+    def test_game_data_sects_structure(self, client):
+        """测试 /api/meta/game_data 返回的宗门数据结构正确"""
+        response = client.get("/api/meta/game_data")
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert "sects" in data, "响应应该包含 sects 字段"
+        
+        sects = data["sects"]
+        assert len(sects) > 0, "应该有宗门数据"
+        
+        for sect in sects:
+            assert "id" in sect, "宗门应该有 id 字段"
+            assert "name" in sect, "宗门应该有 name 字段"
+            assert sect["id"] > 0, f"宗门 '{sect.get('name')}' 的 ID 应该大于 0"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
