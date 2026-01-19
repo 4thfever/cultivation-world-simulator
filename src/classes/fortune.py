@@ -280,12 +280,10 @@ def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
     """
     candidates: list[Technique] = []
     
-    # 确定允许的宗门范围
-    allowed_sects: set[Optional[str]] = {None, ""}
+    # 确定允许的宗门 ID 范围
+    allowed_sect_ids: set[Optional[int]] = {None}
     if avatar.sect is not None:
-        sect_name = avatar.sect.name.strip() if avatar.sect.name else None
-        if sect_name:
-            allowed_sects.add(sect_name)
+        allowed_sect_ids.add(avatar.sect.id)
     
     # 筛选功法
     for t in techniques_by_id.values():
@@ -294,8 +292,7 @@ def _get_fortune_technique_for_avatar(avatar: Avatar) -> Optional[Technique]:
             continue
         
         # 宗门限制：宗门弟子只能获得本宗门或无宗门的功法
-        tech_sect = t.sect.strip() if t.sect else None
-        if tech_sect not in allowed_sects:
+        if t.sect_id not in allowed_sect_ids:
             continue
         
         # condition 检查
