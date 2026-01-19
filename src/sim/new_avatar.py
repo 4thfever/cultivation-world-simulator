@@ -236,7 +236,9 @@ class PopulationPlanner:
                     planned_surname[a] = surname
                     planned_surname[b] = surname
                     planned_gender[a] = Gender.MALE
-                    planned_relations[(a, b)] = Relation.CHILD
+                    # 设定 a 为父，b 为子
+                    # (a, b) = PARENT -> a.relations[b] = PARENT (a 视 b 为子)
+                    planned_relations[(a, b)] = Relation.PARENT
                 else:
                     mother = a if random.random() < 0.5 else b
                     child = b if mother == a else a
@@ -248,7 +250,8 @@ class PopulationPlanner:
                         if s != mom_surname:
                             planned_surname[child] = s
                             break
-                    planned_relations[(mother, child)] = Relation.CHILD
+                    # (mother, child) = PARENT -> mother.relations[child] = PARENT
+                    planned_relations[(mother, child)] = Relation.PARENT
 
         leftover = unused_indices[:]
 
@@ -448,10 +451,11 @@ class AvatarFactory:
         if attach_relations:
             if plan.parent_avatar is not None:
                 # plan.parent_avatar 是长辈
-                # 设置关系：长辈.set_relation(自己, CHILD)
-                # 底层逻辑：长辈.relations[自己] = CHILD (长辈认为自己是孩子)
-                #          自己.relations[长辈] = PARENT (自己认为长辈是父母)
-                plan.parent_avatar.set_relation(avatar, Relation.CHILD)
+                # 设置关系：长辈.set_relation(自己, PARENT)
+                # 底层逻辑：长辈.relations[自己] = PARENT (长辈认为自己是父母 -> 错误，是长辈认为自己是子女？)
+                # 修正：Relation.PARENT 映射显示为“儿子/女儿”，即 relations[X]=PARENT 意味着 X 是儿子/女儿
+                # 所以 plan.parent_avatar.relations[avatar] = PARENT 是正确的，表示 parent 视 avatar 为子女
+                plan.parent_avatar.set_relation(avatar, Relation.PARENT)
             if plan.master_avatar is not None:
                 # plan.master_avatar 是师傅
                 # 设置关系：师傅.set_relation(自己, APPRENTICE)
