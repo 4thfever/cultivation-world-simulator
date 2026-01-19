@@ -1,4 +1,4 @@
-import { vi, beforeEach, afterEach, beforeAll, afterAll } from 'vitest'
+import { vi, beforeEach, afterEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 
 // Use fake timers globally for consistent async testing.

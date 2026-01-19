@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useSystemStore } from '@/stores/system'
+import type { InitStatusDTO } from '@/types/api'
 
 // Mock the API module.
 vi.mock('@/api', () => ({
@@ -11,6 +12,18 @@ vi.mock('@/api', () => ({
 }))
 
 import { systemApi } from '@/api'
+
+const createMockStatus = (overrides: Partial<InitStatusDTO> = {}): InitStatusDTO => ({
+  status: 'idle',
+  phase: 0,
+  phase_name: '',
+  progress: 0,
+  elapsed_seconds: 0,
+  error: null,
+  llm_check_failed: false,
+  llm_error_message: '',
+  ...overrides,
+})
 
 describe('useSystemStore', () => {
   let store: ReturnType<typeof useSystemStore>
@@ -35,17 +48,17 @@ describe('useSystemStore', () => {
     })
 
     it('should return false when status is idle', () => {
-      store.initStatus = { status: 'idle', progress: 0 }
+      store.initStatus = createMockStatus({ status: 'idle', progress: 0 })
       expect(store.isLoading).toBe(false)
     })
 
     it('should return true when status is in_progress', () => {
-      store.initStatus = { status: 'in_progress', progress: 50 }
+      store.initStatus = createMockStatus({ status: 'in_progress', progress: 50 })
       expect(store.isLoading).toBe(true)
     })
 
     it('should return false when status is ready and initialized', () => {
-      store.initStatus = { status: 'ready', progress: 100 }
+      store.initStatus = createMockStatus({ status: 'ready', progress: 100 })
       store.setInitialized(true)
       expect(store.isLoading).toBe(false)
     })
@@ -53,12 +66,12 @@ describe('useSystemStore', () => {
 
   describe('isReady', () => {
     it('should return false when not initialized', () => {
-      store.initStatus = { status: 'ready', progress: 100 }
+      store.initStatus = createMockStatus({ status: 'ready', progress: 100 })
       expect(store.isReady).toBe(false)
     })
 
     it('should return true when status is ready and initialized', () => {
-      store.initStatus = { status: 'ready', progress: 100 }
+      store.initStatus = createMockStatus({ status: 'ready', progress: 100 })
       store.setInitialized(true)
       expect(store.isReady).toBe(true)
     })

@@ -6,6 +6,7 @@ import {
   buildAvatarColorMap,
   highlightAvatarNames,
   MAX_EVENTS,
+  type AvatarColorInfo,
 } from '@/utils/eventHelper'
 import type { GameEvent } from '@/types/core'
 
@@ -56,7 +57,7 @@ describe('eventHelper', () => {
       month: timestamp % 12,
       text: `Event ${id}`,
       relatedAvatarIds: [],
-    })
+    } as any) // Partial mock is enough for sorting logic
 
     it('should merge events without duplicates', () => {
       const existing = [createEvent('1', 100), createEvent('2', 101)]
@@ -155,7 +156,9 @@ describe('eventHelper', () => {
     })
 
     it('should highlight avatar names with color spans', () => {
-      const colorMap = new Map([['Alice', 'hsl(100, 70%, 65%)']])
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['Alice', { id: 'Alice', color: 'hsl(100, 70%, 65%)' }]
+      ])
       const text = 'Alice defeated the enemy'
 
       const result = highlightAvatarNames(text, colorMap)
@@ -166,7 +169,9 @@ describe('eventHelper', () => {
     })
 
     it('should escape HTML in names', () => {
-      const colorMap = new Map([['<script>', 'hsl(0, 70%, 65%)']])
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['<script>', { id: 'script', color: 'hsl(0, 70%, 65%)' }]
+      ])
       const text = 'User <script> logged in'
 
       const result = highlightAvatarNames(text, colorMap)
@@ -176,9 +181,9 @@ describe('eventHelper', () => {
     })
 
     it('should match longer names first to avoid partial matches', () => {
-      const colorMap = new Map([
-        ['张三', 'hsl(100, 70%, 65%)'],
-        ['张三丰', 'hsl(200, 70%, 65%)'],
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['张三', { id: 'zhangsan', color: 'hsl(100, 70%, 65%)' }],
+        ['张三丰', { id: 'zhangsanfeng', color: 'hsl(200, 70%, 65%)' }],
       ])
       const text = '张三丰是一位大师'
 
