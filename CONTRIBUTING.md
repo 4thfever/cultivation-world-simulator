@@ -1,8 +1,8 @@
 # 贡献指南 (Contributing Guide)
 
-感谢你对 **Cultivation World Simulator** (修仙模拟器) 感兴趣！欢迎任何形式的贡献，包括修复 Bug、改进文档或开发新功能。
+感谢你对 **Cultivation World Simulator** (修仙模拟器) 感兴趣！欢迎任何形式的贡献，包括提出Bug、修复 Bug、改进文档或开发新功能。
 
-> **重要**：任何新功能提交请务必提前在 issue 中讨论清楚，得到维护者确认后，再进行贡献。
+> **重要**：任何新功能提交，特别是业务功能体检，请务必提前在 issue 中讨论清楚，得到维护者确认后，再进行贡献。
 
 为了保持代码库的健康和风格统一，请在贡献前阅读以下指南。
 
@@ -19,9 +19,38 @@
 在提交 Pull Request 之前，请务必确保所有测试通过。这是保证代码质量的关键。
 
 **运行后端测试：**
-```bash
-pytest tests/
-```
+
+本项目在 CI 环境中使用 Python 3.11。
+
+1. 确保已安装测试依赖（包含在 requirements.txt 中）：
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. 运行测试并检查覆盖率（需满足 60% 覆盖率要求）：
+   ```bash
+   pytest -v --cov=src --cov-report=term --cov-fail-under=60
+   ```
+
+**运行前端测试 (Vue/Vitest)：**
+
+前端测试位于 `web/` 目录。
+
+1. 进入前端目录并安装依赖：
+   ```bash
+   cd web
+   npm install
+   ```
+
+2. 运行单元测试：
+   ```bash
+   npm run test:run
+   ```
+
+3. 运行测试并查看覆盖率：
+   ```bash
+   npm run test:coverage
+   ```
 
 请确保所有测试用例都能通过（PASS）。如果你添加了新功能，建议同时也添加相应的测试用例。
 
@@ -52,4 +81,4 @@ pytest tests/
 5. 推送 (Push) 到你的远程分支。
 6. 在 GitHub 上发起 **Pull Request**。
 
-感谢你的贡献！一起打造更好的修仙世界。
+感谢你的贡献！一起打造更好玩有趣的AI修仙世界。
