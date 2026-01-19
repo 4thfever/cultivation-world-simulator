@@ -147,12 +147,6 @@
 
 ## 📊 项目状态
 
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=4thfever&repo=cultivation-world-simulator&theme=github-compact&hide_border=true&area=true" width="100%" alt="Activity Graph" />
-</div>
-
-<br/>
-
 ![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
 
 ## ⭐ Star History
@@ -172,7 +166,7 @@
 </a>
 
 * **Aku** - 世界观 & 玩法设计与讨论
-* **[@xzhseh](https://github.com/xzhseh)** - 贡献代码
+* **[@xzhseh](https://github.com/xzhseh)** - 代码与repo维护
 
 ## 🙏 致谢
 - 参考了ai life engine部分ui
@@ -189,6 +183,7 @@
 - ✅ 菜单栏 & 存档 & 读档
 - ✅ 灵活自定义LLM接口
 - ✅ 支持mac os
+- [ ] 安卓支持
 - [ ] 多语言本地化
 - ✅ 开始游戏页
 

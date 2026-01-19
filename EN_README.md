@@ -14,6 +14,7 @@
 ![Commit Activity](https://img.shields.io/github/commit-activity/y/4thfever/cultivation-world-simulator)
 ![Repo Size](https://img.shields.io/github/repo-size/4thfever/cultivation-world-simulator)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![codecov](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator/graph/badge.svg)](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator)
 
 ![Status](https://img.shields.io/badge/Status-Alpha-tomato)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
@@ -55,7 +56,7 @@ You don't need to personally fight monsters or level up. Instead, you observe al
       <h4 align="center">Sect System</h4>
       <img src="assets/screenshots/宗门.png" width="100%" />
       <br/><br/>
-      <h4 align="center">City Regions</h4>
+      <h4 align="center">City Region</h4>
       <img src="assets/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">Life Experiences</h4>
@@ -75,13 +76,13 @@ You don't need to personally fight monsters or level up. Instead, you observe al
       <img src="assets/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
-      <h4 align="center">Cave Exploration</h4>
+      <h4 align="center">Dungeon Exploration</h4>
       <img src="assets/screenshots/洞府.png" width="100%" />
       <br/><br/>
       <h4 align="center">Short/Long Term Goals</h4>
       <img src="assets/screenshots/目标.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Elixirs/Artifacts/Weapons</h4>
+      <h4 align="center">Elixirs/Treasures/Weapons</h4>
       <img src="assets/screenshots/丹药.png" width="100%" />
       <img src="assets/screenshots/法宝.png" width="100%" />
       <img src="assets/screenshots/武器.png" width="100%" />
@@ -160,8 +161,13 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 </div>
 
 ## 👥 Contributors
-- Aku, for world design & discussion
-- [@xzhseh](https://github.com/xzhseh), contributed code
+
+<a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=12" />
+</a>
+
+- **Aku** - World design & discussion
+- **[@xzhseh](https://github.com/xzhseh)** - Code & Repo maintenance
 
 ## 🙏 Acknowledgments
 - Referenced some UI elements from ailifeengine
@@ -178,6 +184,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - ✅ Menu bar & Save & Load
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
+- [ ] Android support
 - [ ] Support multi-language localization
 - ✅ Start Game Page
 
@@ -287,7 +294,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - [ ] Divination & Prophecy
 - [ ] Male appearance female traits & Female appearance male traits
 - [ ] Character Secrets & Two-faced
-- [ ] Ascension to Heaven
+- [ ] Ascension to Upper Realm
 - [ ] Formations
 - [ ] Paths/Daos
 - [ ] World Secrets & World Laws (Flexible customization)
