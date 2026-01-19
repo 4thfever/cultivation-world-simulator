@@ -90,16 +90,21 @@ export function avatarIdToColor(id: string): string {
   return `hsl(${hue}, 70%, 65%)`;
 }
 
+export interface AvatarColorInfo {
+  id: string;
+  color: string;
+}
+
 /**
- * 根据角色列表构建 name -> color 映射表。
+ * 根据角色列表构建 name -> { id, color } 映射表。
  */
 export function buildAvatarColorMap(
   avatars: Array<{ id: string; name?: string }>
-): Map<string, string> {
-  const map = new Map<string, string>();
+): Map<string, AvatarColorInfo> {
+  const map = new Map<string, AvatarColorInfo>();
   for (const av of avatars) {
     if (av.name) {
-      map.set(av.name, avatarIdToColor(av.id));
+      map.set(av.name, { id: av.id, color: avatarIdToColor(av.id) });
     }
   }
   return map;
@@ -115,10 +120,11 @@ const HTML_ESCAPE_MAP: Record<string, string> = {
 
 /**
  * 高亮文本中的角色名，返回 HTML 字符串。
+ * 生成的 span 带有 data-avatar-id 属性，可用于点击跳转。
  */
 export function highlightAvatarNames(
   text: string,
-  colorMap: Map<string, string>
+  colorMap: Map<string, AvatarColorInfo>
 ): string {
   if (!text || colorMap.size === 0) return text;
 
@@ -127,9 +133,12 @@ export function highlightAvatarNames(
 
   let result = text;
   for (const name of names) {
-    const color = colorMap.get(name)!;
+    const info = colorMap.get(name)!;
     const escaped = name.replace(/[&<>"']/g, c => HTML_ESCAPE_MAP[c] || c);
-    result = result.replaceAll(name, `<span style="color:${color}">${escaped}</span>`);
+    result = result.replaceAll(
+      name,
+      `<span class="clickable-avatar" data-avatar-id="${info.id}" style="color:${info.color};cursor:pointer">${escaped}</span>`
+    );
   }
   return result;
 }
