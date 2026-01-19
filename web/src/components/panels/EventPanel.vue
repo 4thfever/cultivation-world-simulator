@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, h } from 'vue'
 import { useWorldStore } from '../../stores/world'
+import { useUiStore } from '../../stores/ui'
 import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { highlightAvatarNames, buildAvatarColorMap, avatarIdToColor } from '../../utils/eventHelper'
 import type { GameEvent } from '../../types/core'
 
 const worldStore = useWorldStore()
+const uiStore = useUiStore()
 const filterValue1 = ref('all')
 const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛选
 const eventListRef = ref<HTMLElement | null>(null)
@@ -164,6 +166,15 @@ function renderEventContent(event: GameEvent): string {
   const text = event.content || event.text || ''
   return highlightAvatarNames(text, avatarColorMap.value)
 }
+
+// 处理事件列表中的点击，使用事件委托检测角色名点击。
+function handleEventListClick(e: MouseEvent) {
+  const target = e.target as HTMLElement
+  const avatarId = target.dataset?.avatarId
+  if (avatarId) {
+    uiStore.select('avatar', avatarId)
+  }
+}
 </script>
 
 <template>
@@ -208,7 +219,7 @@ function renderEventContent(event: GameEvent): string {
       <span>加载中...</span>
     </div>
     <div v-else-if="displayEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
-    <div v-else class="event-list" ref="eventListRef" @scroll="handleScroll">
+    <div v-else class="event-list" ref="eventListRef" @scroll="handleScroll" @click="handleEventListClick">
       <!-- 顶部加载指示器 -->
       <div v-if="worldStore.eventsHasMore" class="load-more-hint">
         <span v-if="worldStore.eventsLoading">加载中...</span>
@@ -327,5 +338,16 @@ function renderEventContent(event: GameEvent): string {
   color: #666;
   font-size: 11px;
   border-bottom: 1px solid #2a2a2a;
+}
+
+/* 可点击的角色名样式 */
+.event-content :deep(.clickable-avatar) {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.event-content :deep(.clickable-avatar:hover) {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 </style>
