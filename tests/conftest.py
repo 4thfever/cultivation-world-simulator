@@ -1,7 +1,18 @@
 import pytest
+import random
 from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.map import Map
+
+
+@pytest.fixture(autouse=True)
+def fixed_random_seed():
+    """
+    Ensure all tests have deterministic random behavior.
+    This fixture is automatically applied to all tests.
+    """
+    random.seed(42)
+    yield
 from src.classes.tile import TileType, Tile
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp
