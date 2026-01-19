@@ -146,6 +146,12 @@
 
 ## 📊 项目状态
 
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=4thfever&repo=cultivation-world-simulator&theme=github-compact&hide_border=true&area=true" width="100%" alt="Activity Graph" />
+</div>
+
+<br/>
+
 ![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
 
 ## ⭐ Star History
@@ -159,8 +165,13 @@
 </div>
 
 ## 👥 贡献者
-* Aku, 世界观\玩法设计与讨论
-* [@xzhseh](https://github.com/xzhseh), 贡献代码
+
+<a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=12" />
+</a>
+
+* **Aku** - 世界观 & 玩法设计与讨论
+* **[@xzhseh](https://github.com/xzhseh)** - 贡献代码
 
 ## 🙏 致谢
 - 参考了ai life engine部分ui
