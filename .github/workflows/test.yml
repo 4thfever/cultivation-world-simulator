@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # --- Backend Tests ---
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,17 +26,34 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "requirements.txt"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           uv pip install --system -r requirements.txt
           uv pip install --system pytest pytest-cov
 
-      - name: Run tests with coverage
+      - name: Run backend tests with coverage
         run: pytest -v --cov=src --cov-report=xml --cov-report=term --cov-fail-under=60
 
+      # --- Frontend Tests ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Run frontend tests with coverage
+        working-directory: web
+        run: npm run test:coverage
+
+      # --- Upload Coverage ---
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          files: ./coverage.xml
+          files: ./coverage.xml,./web/coverage/coverage-final.json
           fail_ci_if_error: false
-          token: ${{ secrets.CODECOV_TOKEN }}  # Optional for public repos, but recommended
+          token: ${{ secrets.CODECOV_TOKEN }}
