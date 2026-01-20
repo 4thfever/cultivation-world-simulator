@@ -34,8 +34,10 @@ def cooldown_action(cls: type) -> type:
     if hasattr(cls, "finish"):
         original_finish = cls.finish
 
-        def finish(self, **params):  # type: ignore[no-redef]
-            events = original_finish(self, **params)
+        async def finish(self, **params):  # type: ignore[no-redef]
+            # Must await original_finish first, then record cooldown.
+            # This ensures cooldown is only recorded after finish() succeeds.
+            events = await original_finish(self, **params)
             last_map = getattr(self.avatar, "_action_cd_last_months", None)
             if last_map is not None:
                 last_map[self.__class__.__name__] = self.world.month_stamp
