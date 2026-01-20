@@ -13,8 +13,10 @@ llm:
     history_influence: "normal"
 
 paths:
-  templates: static/templates/
-  game_configs: static/game_configs/
+  locales: static/locales/
+  shared_game_configs: static/game_configs/
+  # templates: static/templates/  <-- Managed by code now
+  # game_configs: static/game_configs/ <-- Managed by code now
   saves: assets/saves/
 
 ai:

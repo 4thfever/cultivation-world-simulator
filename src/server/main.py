@@ -44,6 +44,7 @@ from src.utils import protagonist as prot_utils
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
+from src.classes.language import language_manager
 
 # 全局游戏实例
 game_instance = {
@@ -560,6 +561,25 @@ async def game_loop():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # 初始化语言设置
+    from src.utils.config import update_paths_for_language
+    from src.utils.df import reload_game_configs
+    
+    system_conf = getattr(CONFIG, "system", None)
+    if system_conf:
+        # OmegaConf 对象支持 get 或者 . 访问，这里用 getattr 安全一点
+        lang_code = getattr(system_conf, "language", "zh-CN")
+        language_manager.set_language(str(lang_code))
+    else:
+        language_manager.set_language("zh-CN")
+    
+    # 根据语言初始化路径
+    update_paths_for_language()
+    # 路径更新后，必须重载一次 df 数据，因为模块导入时路径可能还是空的或旧的
+    reload_game_configs()
+    
+    print(f"Current Language: {language_manager}")
+
     # 启动时不再自动开始初始化游戏，等待前端指令
     # 保持 init_status 为 idle
     print("服务器启动，等待开始游戏指令...")
@@ -1403,6 +1423,57 @@ def delete_avatar(req: DeleteAvatarRequest):
 
 
 # --- LLM Config API ---
+
+class LanguageRequest(BaseModel):
+    lang: str
+
+@app.get("/api/config/language")
+def get_language_api():
+    """获取当前语言设置"""
+    return {"lang": str(language_manager)}
+
+@app.post("/api/config/language")
+def set_language_api(req: LanguageRequest):
+    """设置并保存语言设置"""
+    # 1. 更新内存
+    language_manager.set_language(req.lang)
+    
+    # 2. 更新路径配置
+    from src.utils.config import update_paths_for_language
+    update_paths_for_language(req.lang)
+    
+    # 3. 重新加载 CSV 数据
+    from src.utils.df import reload_game_configs
+    reload_game_configs()
+    
+    # 4. 重新加载所有业务静态数据 (Sects, Techniques, etc.)
+    reload_all_static_data()
+    
+    # 5. 持久化到 local_config.yml
+    local_config_path = "static/local_config.yml"
+    try:
+        if os.path.exists(local_config_path):
+            conf = OmegaConf.load(local_config_path)
+        else:
+            conf = OmegaConf.create({})
+        
+        if "system" not in conf:
+            conf.system = {}
+            
+        conf.system.language = str(language_manager)
+        
+        OmegaConf.save(conf, local_config_path)
+        
+        # 同时更新全局 CONFIG (虽然下次重启才会完全生效，但保持一致性)
+        if not hasattr(CONFIG, "system"):
+            # 这是一个 hack，因为 DictConfig 可能不支持动态添加属性，除非是 struct mode=false
+            # OmegaConf 默认加载出来的通常是开放的
+            pass 
+        
+        return {"status": "ok"}
+    except Exception as e:
+        print(f"Error saving language config: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to save language config: {e}")
 
 class LLMConfigDTO(BaseModel):
     base_url: str

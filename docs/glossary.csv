@@ -37,152 +37,11 @@ chinese,english,category,subcategory,notes
 正,Righteous,alignment,,Orthodox sects
 中立,Neutral,alignment,,
 邪,Evil,alignment,,Demonic/Unorthodox
-明心剑宗,Bright Heart Sword Sect,sect,name,Sword cultivation specialists
-百兽宗,Hundred Beasts Sect,sect,name,Beast taming specialists
-水镜宗,Water Mirror Sect,sect,name,Divination and foresight
-冥王宗,Underworld King Sect,sect,name,Death and netherworld arts
-朱勾宗,Crimson Hook Sect,sect,name,Assassination and hidden weapons
-合欢宗,Joy Union Sect,sect,name,Dual cultivation specialists
-镇魂宗,Soul Suppression Sect,sect,name,Exorcism and soul arts
-幽魂噬影宗,Phantom Shadow Sect,sect,name,Stealth and shadow arts
-千帆城,Thousand Sails City,sect,name,Artifact crafting and commerce
-妙化宗,Mystic Harmony Sect,sect,name,Sound-based cultivation
-回玄宗,Returning Mystery Sect,sect,name,Formation specialists
-不夜城,Nightless City,sect,name,Defense and longevity
-天行健宗,Heavenly Vigor Sect,sect,name,Righteous qi cultivation
-噬魔宗,Demon Devouring Sect,sect,name,Demonic cultivation - plunder
 掌门,Sect Master,sect,rank,Also: Sect Leader
 长老,Elder,sect,rank,
 内门弟子,Inner Disciple,sect,rank,
 外门弟子,Outer Disciple,sect,rank,
 弟子,Disciple,sect,rank,Generic
-谷主,Valley Master,sect,rank,Hundred Beasts Sect
-供奉,Grand Elder,sect,rank,Honorary position
-镜主,Mirror Master,sect,rank,Water Mirror Sect
-殿主,Hall Master,sect,rank,Underworld King Sect
-楼主,Tower Master,sect,rank,Crimson Hook Sect
-宫主,Palace Master,sect,rank,Joy Union Sect
-住持,Abbot,sect,rank,Soul Suppression Sect
-门主,Gate Master,sect,rank,Phantom Shadow Sect
-城主,City Lord,sect,rank,Thousand Sails City / Nightless City
-连霞山,Lianxia Mountain,sect,headquarters,Bright Heart Sword Sect
-玄灵洞,Mysterious Spirit Cave,sect,headquarters,Hundred Beasts Sect
-碧波湖,Azure Wave Lake,sect,headquarters,Water Mirror Sect
-七鬼角,Seven Ghost Horns,sect,headquarters,Underworld King Sect - Island archipelago
-明玉山,Bright Jade Mountain,sect,headquarters,Crimson Hook Sect
-桃花岛,Peach Blossom Island,sect,headquarters,Joy Union Sect
-落魂海,Soul-Calming Sea,sect,headquarters,Soul Suppression Sect
-鬼门湖,Ghost Gate Lake,sect,headquarters,Phantom Shadow Sect
-天星海,Celestial Star Sea,sect,headquarters,Thousand Sails City - Floating island
-心园,Heart Garden,sect,headquarters,Mystic Harmony Sect
-诸隐山,Hidden Mountains,sect,headquarters,Returning Mystery Sect
-大千光极城,Great Aurora City,sect,headquarters,Nightless City
-浩然峰,Haoran Peak,sect,headquarters,Heavenly Vigor Sect
-陷空山,Sinking Void Mountain,sect,headquarters,Demon Devouring Sect
-青云城,Azure Cloud City,geography,city,
-沙州城,Sand State City,geography,city,
-翠林城,Emerald Forest City,geography,city,
-沧澜城,Azure Wave City,geography,city,
-揽月城,Moon Embrace City,geography,city,
-平原地带,Plains,geography,region,
-西域流沙,Western Desert,geography,region,
-南疆蛮荒,Southern Wilderness,geography,region,
-极北冰原,Northern Glacier,geography,region,
-无边碧海,Endless Azure Sea,geography,region,
-天河奔流,Heavenly River,geography,region,
-青峰山脉,Azure Peak Mountains,geography,region,
-万丈雪峰,Ten Thousand Zhang Snow Peaks,geography,region,
-碧野千里,Thousand Li Grasslands,geography,region,
-青云林海,Azure Cloud Forest Sea,geography,region,
-炎狱火山,Inferno Volcano,geography,region,
-沃土良田,Fertile Farmlands,geography,region,
-幽冥毒泽,Netherworld Poison Marsh,geography,region,
-十万大山,Hundred Thousand Mountains,geography,region,
-紫竹幽境,Purple Bamboo Sanctuary,geography,region,
-凛霜荒原,Frost Desolation,geography,region,
-碎星戈壁,Shattered Star Gobi,geography,region,
-蓬莱遗岛,Penglai Remnant Isle,geography,region,
-灵兔,Spirit Rabbit,creature,beast,Qi Refinement
-魔狼,Demonic Wolf,creature,beast,Foundation
-青云鹿,Azure Cloud Deer,creature,beast,Qi Refinement
-暗影豹,Shadow Leopard,creature,beast,Foundation
-碧海龙龟,Azure Sea Dragon Turtle,creature,beast,Core
-石甲山熊,Stone Armor Mountain Bear,creature,beast,Foundation
-风速马,Wind Speed Horse,creature,beast,Qi Refinement
-熔岩蜥蜴,Lava Lizard,creature,beast,Foundation
-毒瘴蛙,Miasma Poison Frog,creature,beast,Foundation
-撼地神牛,Earth-Shaking Divine Bull,creature,beast,Core
-冰魄骨蛇,Ice Soul Bone Serpent,creature,beast,Core
-奇草,Wonder Grass,creature,plant,Qi Refinement
-灵木,Spirit Wood,creature,plant,Foundation
-沙漠仙人掌,Desert Immortal Cactus,creature,plant,Qi Refinement
-寒霜雪莲,Frost Snow Lotus,creature,plant,Foundation
-水灵芝,Water Spirit Mushroom,creature,plant,Foundation
-雪绒花,Snow Velvet Flower,creature,plant,Qi Refinement
-千年古松,Millennial Ancient Pine,creature,plant,Foundation
-五谷灵稀,Five Grain Spirit Rice,creature,plant,Qi Refinement
-九曲清音竹,Nine Curve Pure Sound Bamboo,creature,plant,Core
-聚星草,Star Gathering Grass,creature,plant,Core
-涅盘赤果,Nirvana Crimson Fruit,creature,plant,Nascent
-玄铁矿脉,Black Iron Vein,resource,mine,Qi Refinement
-赤铜矿脉,Red Copper Vein,resource,mine,Foundation
-秘银矿床,Mithril Deposit,resource,mine,Core
-庚金矿洞,Geng Metal Cave,resource,mine,Nascent
-灵兔毛,Spirit Rabbit Fur,material,beast,Qi Refinement
-魔狼牙,Demonic Wolf Fang,material,beast,Foundation
-青云鹿角,Azure Cloud Deer Antler,material,beast,Qi Refinement
-暗影豹爪,Shadow Leopard Claw,material,beast,Foundation
-龙龟甲片,Dragon Turtle Shell Fragment,material,beast,Core
-山熊胆,Mountain Bear Gallbladder,material,beast,Foundation
-风速马鬃,Wind Speed Horse Mane,material,beast,Foundation
-熔岩鳞片,Lava Lizard Scale,material,beast,Core
-毒瘴囊,Miasma Poison Sac,material,beast,Foundation
-神牛角,Divine Bull Horn,material,beast,Core
-冰魄蛇胆,Ice Soul Serpent Gallbladder,material,beast,Core
-奇草精华,Wonder Grass Essence,material,plant,Qi Refinement
-灵木心,Spirit Wood Heart,material,plant,Foundation
-仙人掌刺,Immortal Cactus Spine,material,plant,Qi Refinement
-雪莲花瓣,Snow Lotus Petal,material,plant,Foundation
-灵芝孢子,Spirit Mushroom Spore,material,plant,Foundation
-雪绒花蕊,Snow Velvet Flower Stamen,material,plant,Qi Refinement
-古松松脂,Ancient Pine Resin,material,plant,Core
-灵稻精华,Spirit Rice Essence,material,plant,Qi Refinement
-清音竹节,Pure Sound Bamboo Section,material,plant,Core
-星纹叶,Star Pattern Leaf,material,plant,Foundation
-赤果核,Crimson Fruit Pit,material,plant,Core
-玄铁,Black Iron,material,mineral,Qi Refinement
-赤精铜,Crimson Essence Copper,material,mineral,Foundation
-秘银,Mithril,material,mineral,Core
-庚金,Geng Metal,material,mineral,Nascent
-太白金府,Taibai Metal Palace,geography,cave,Metal element
-青木洞天,Verdant Wood Grotto,geography,cave,Wood element
-玄水秘境,Mystic Water Secret Realm,geography,cave,Water element
-离火洞府,Departing Fire Cave Dwelling,geography,cave,Fire element
-厚土玄宫,Thick Earth Mystery Palace,geography,cave,Earth element
-古越遗迹,Ancient Yue Ruins,geography,cave,Wood/Metal
-沧海遗迹,Azure Sea Ruins,geography,cave,Water
-紫气东来,Purple Qi from the East,event,celestial,R
-金煞之年,Year of Metal Killing,event,celestial,R
-木灵盛世,Era of Wood Spirit Prosperity,event,celestial,R
-水德之纪,Age of Water Virtue,event,celestial,R
-火劫时代,Era of Fire Tribulation,event,celestial,R
-土厚之世,Age of Thick Earth,event,celestial,R
-五行逆乱,Five Elements in Chaos,event,celestial,SR
-天道均衡,Heavenly Dao Balance,event,celestial,SR
-劫数将至,Tribulation Approaches,event,celestial,SR
-灵气复苏,Spiritual Energy Revival,event,celestial,SSR
-灵气枯竭,Spiritual Energy Depletion,event,celestial,R
-魔道兴盛,Demonic Path Ascendant,event,celestial,R
-正气浩然,Righteous Qi Flourishing,event,celestial,R
-神兵出世,Divine Weapons Emerge,event,celestial,SR
-阴阳交泰,Yin-Yang Harmony,event,celestial,R
-杀劫降临,Killing Tribulation Descends,event,celestial,SR
-太平盛世,Era of Great Peace,event,celestial,R
-气运加身,Fortune Bestowed,event,celestial,R
-血月当空,Blood Moon Rises,event,celestial,SR
-飞升之门,Gate of Ascension,event,celestial,SSR
-法则显化,Laws Manifest,event,celestial,SSR
-时空乱流,Spacetime Turbulence,event,celestial,SSR
 生命恢复速率,HP Recovery Rate,effect,,extra_hp_recovery_rate
 最大生命值,Max HP,effect,,extra_max_hp
 最大寿元,Max Lifespan,effect,,extra_max_lifespan
@@ -212,71 +71,6 @@ chinese,english,category,subcategory,notes
 铸造成功率,Forging Success Rate,effect,,extra_cast_success_rate
 炼丹成功率,Alchemy Success Rate,effect,,extra_refine_success_rate
 自愈效率,Self-Heal Efficiency,effect,,extra_self_heal_efficiency
-理性,Rational,persona,basic,Logical thinking
-无常,Fickle,persona,basic,Unpredictable goals
-怠惰,Slothful,persona,basic,Lazy - avoids effort
-冒险,Adventurous,persona,basic,Risk-taking
-随性,Carefree,persona,basic,Goes with the flow
-贪财,Greedy,persona,basic,Desires wealth
-沉思,Contemplative,persona,basic,Deep thinker
-惜命,Life-Cherishing,persona,basic,Values own life
-友爱,Friendly,persona,basic,Values harmony
-复仇,Vengeful,persona,basic,Seeks revenge
-孤僻,Reclusive,persona,basic,Prefers solitude
-淡漠,Indifferent,persona,basic,Emotionally detached
-好斗,Combative,persona,basic,Enjoys fighting
-鲁莽,Reckless,persona,basic,Acts without thinking
-胆小,Timid,persona,basic,Avoids conflict
-霸道,Domineering,persona,basic,Forceful - selfish
-内向,Introverted,persona,basic,Prefers self-reflection
-外向,Extroverted,persona,basic,Social - outgoing
-刻薄,Caustic,persona,basic,Sharp-tongued
-热情,Enthusiastic,persona,basic,Warm and friendly
-开放,Open-minded,persona,basic,Casual about relationships
-腼腆,Shy,persona,basic,Reserved about relationships
-嫉妒,Envious,persona,basic,Jealous of others
-好色,Lustful,persona,basic,Attracted to beauty
-无欲,Ascetic,persona,basic,No worldly desires
-情绪化,Emotional,persona,basic,Mood swings
-妒忌,Jealous,persona,basic,Envious of success
-采集者,Gatherer,persona,advanced,Bonus to herb gathering
-猎人,Hunter,persona,advanced,Bonus to beast hunting
-修行痴迷,Cultivation Maniac,persona,advanced,Obsessed with training
-舔狗,Simp,persona,advanced,Overly nice to attractive people
-极端正义,Extreme Righteous,persona,advanced,Fanatical about justice
-极端邪恶,Extreme Evil,persona,advanced,Ruthless and cruel
-心机深沉,Scheming,persona,advanced,Calculating and secretive
-忠诚,Loyal,persona,advanced,Never betrays
-狠辣,Ruthless,persona,advanced,Merciless
-疑心重,Suspicious,persona,advanced,Trusts no one
-探险家,Explorer,persona,advanced,Loves discovering new places
-死宅,Homebody,persona,advanced,Hates traveling
-扫把星,Jinxed,persona,advanced,Attracts misfortune
-大器晚成,Late Bloomer,persona,advanced,Struggles early - thrives later
-矿工,Miner,persona,advanced,Bonus to mining
-苟,Cautious,persona,advanced,Extremely risk-averse
-穿越者,Transmigrator,persona,legendary,From modern world
-气运之子,Child of Destiny,persona,legendary,Heaven's chosen one
-重生者,Reborn,persona,legendary,Lived a previous life
-福缘深厚,Blessed,persona,legendary,Natural good fortune
-剑修,Sword Cultivator,persona,weapon,Sword specialist
-剑痴,Sword Fanatic,persona,weapon,Obsessed with swords
-刀修,Saber Cultivator,persona,weapon,Saber specialist
-刀痴,Saber Fanatic,persona,weapon,Obsessed with sabers
-枪修,Spear Cultivator,persona,weapon,Spear specialist
-枪痴,Spear Fanatic,persona,weapon,Obsessed with spears
-棍修,Staff Cultivator,persona,weapon,Staff specialist
-棍圣,Staff Saint,persona,weapon,Staff master
-扇修,Fan Cultivator,persona,weapon,Fan specialist
-扇痴,Fan Fanatic,persona,weapon,Obsessed with fans
-鞭修,Whip Cultivator,persona,weapon,Whip specialist
-鞭痴,Whip Fanatic,persona,weapon,Obsessed with whips
-暗器高手,Hidden Weapon Expert,persona,weapon,Hidden weapon specialist
-刺客宗师,Assassin Grandmaster,persona,weapon,Master assassin
-音律大师,Music Master,persona,weapon,Zither/flute specialist
-炼丹师,Alchemist,persona,profession,Elixir crafting bonus
-炼器师,Artificer,persona,profession,Weapon crafting bonus
-体修,Body Cultivator,persona,profession,Physical cultivation
 道侣,Dao Companion,relation,,Cultivation partner/spouse
 师傅,Master,relation,,Teacher in cultivation
 徒弟,Disciple,relation,,Student of a master
@@ -297,53 +91,6 @@ chinese,english,category,subcategory,notes
 上品,Superior Grade,grade,,Also: High-grade
 中品,Medium Grade,grade,,Also: Mid-grade
 下品,Inferior Grade,grade,,Also: Low-grade
-金刚不坏体,Indestructible Vajra Body,technique,inferior,Metal - Shaolin technique
-长春功,Eternal Spring Art,technique,inferior,Wood - Basic longevity technique
-若水诀,Flowing Water Scripture,technique,inferior,Water - Soft and yielding
-火灵诀,Fire Spirit Scripture,technique,inferior,Fire - Basic fire technique
-搬山诀,Mountain Moving Scripture,technique,inferior,Earth - Strength technique
-冰心诀,Ice Heart Scripture,technique,inferior,Ice - Calming technique
-神行百变,Divine Movement Hundred Changes,technique,inferior,Wind - Movement technique
-敛息术,Breath Concealment Art,technique,inferior,Dark - Stealth technique
-掌心雷,Palm Thunder,technique,inferior,Thunder - Daoist technique
-燃血大法,Blood Burning Art,technique,inferior,Evil - Temporary power boost
-金钟罩,Golden Bell Shield,technique,medium,Metal - Defensive technique
-青帝木皇功,Azure Emperor Wood Sovereign Art,technique,medium,Wood - Wood element mastery
-黑帝水皇拳,Black Emperor Water Sovereign Fist,technique,medium,Water - Water element mastery
-纯阳无极功,Pure Yang Limitless Art,technique,medium,Fire - Yang-based technique
-不动明王诀,Immovable Wisdom King Scripture,technique,medium,Earth - Buddhist technique
-玄冰劲,Profound Ice Force,technique,medium,Ice - Ice attack technique
-梯云纵,Cloud Ascending Steps,technique,medium,Wind - Wudang movement technique
-鬼影迷踪,Ghost Shadow Trackless,technique,medium,Dark - Stealth movement
-五雷正法,Five Thunder Righteous Method,technique,medium,Thunder - Orthodox thunder arts
-吸星大法,Star Absorbing Art,technique,medium,Evil - Absorbs others' power
-草字剑诀,Grass Script Sword Scripture,technique,superior,Bright Heart - Legendary sword art
-神剑御雷真诀,Divine Sword Thunder Control Scripture,technique,superior,Bright Heart - Thunder sword art
-大河剑意,Great River Sword Intent,technique,superior,Bright Heart - Flowing sword art
-青帝长生诀,Azure Emperor Longevity Scripture,technique,superior,Hundred Beasts - Wood longevity art
-神象镇狱劲,Divine Elephant Prison Suppression Force,technique,superior,Hundred Beasts - Strength technique
-鲲鹏宝术,Kunpeng Treasure Art,technique,superior,Hundred Beasts - Transformation art
-虚空经,Void Scripture,technique,superior,Water Mirror - Space manipulation
-太上忘情录,Supreme Forgetfulness Record,technique,superior,Water Mirror - Emotional detachment
-逍遥游,Carefree Wandering,technique,superior,Water Mirror - Freedom technique
-吞天魔功,Heaven Devouring Demonic Art,technique,superior,Underworld King - Absorption technique
-天魔策,Heavenly Demon Strategy,technique,superior,Underworld King - Demonic technique
-冥河真经,Styx River True Scripture,technique,superior,Underworld King - Blood technique
-焚诀,Burning Scripture,technique,superior,Crimson Hook - Fire absorption
-道心种魔大法,Dao Heart Demon Planting Art,technique,superior,Crimson Hook - Mind control
-大衍决,Great Derivation Scripture,technique,superior,Crimson Hook - Puppet control
-大乐赋,Great Bliss Rhapsody,technique,superior,Joy Union - Dual cultivation
-天魔舞,Heavenly Demon Dance,technique,superior,Joy Union - Charm technique
-凌波微步,Rippling Steps,technique,superior,Joy Union - Movement technique
-过去弥陀经,Past Amitabha Sutra,technique,superior,Soul Suppression - Buddhist technique
-神霄雷法,Divine Firmament Thunder Method,technique,superior,Soul Suppression - Orthodox thunder
-九字真言,Nine Word Mantra,technique,superior,Soul Suppression - Daoist mantra
-幽冥鬼爪,Netherworld Ghost Claw,technique,superior,Phantom Shadow - Assassination art
-三千雷动,Three Thousand Thunders,technique,superior,Phantom Shadow - Speed technique
-血神经,Blood Spirit Scripture,technique,superior,Phantom Shadow - Blood technique
-神机百炼,Divine Mechanism Hundred Refinements,technique,superior,Thousand Sails - Crafting technique
-周天星斗大阵,Cosmic Star Formation,technique,superior,Thousand Sails - Formation technique
-纵地金光,Earth-Spanning Golden Light,technique,superior,Thousand Sails - Speed technique
 剑,Sword,weapon,type,
 刀,Saber,weapon,type,Also: Blade
 枪,Spear,weapon,type,
@@ -353,77 +100,12 @@ chinese,english,category,subcategory,notes
 琴,Zither,weapon,type,Musical weapon
 笛,Flute,weapon,type,Musical weapon
 暗器,Hidden Weapon,weapon,type,
-青霜剑,Cyan Frost Sword,weapon,named,Sword - Foundation
-井中月,Moon in the Well,weapon,named,Saber - Foundation
-火尖枪,Flame Tip Spear,weapon,named,Spear - Foundation
-囚龙棒,Dragon Binding Staff,weapon,named,Staff - Foundation
-桃花扇,Peach Blossom Fan,weapon,named,Fan - Foundation
-打神鞭,God-Beating Whip,weapon,named,Whip - Foundation
-天魔琴,Heavenly Demon Zither,weapon,named,Zither - Foundation
-鬼笛陈情,Ghost Flute Chenqing,weapon,named,Flute - Foundation
-无影针,Shadowless Needle,weapon,named,Hidden - Foundation
-万兽笛,Myriad Beast Flute,weapon,named,Flute - Foundation
-血饮狂刀,Blood-Drinking Mad Saber,weapon,named,Saber - Foundation
-玄铁重剑,Black Iron Heavy Sword,weapon,named,Sword - Foundation
-紫薇软剑,Purple Star Soft Sword,weapon,named,Sword - Foundation
-水火囚龙棍,Water-Fire Dragon Staff,weapon,named,Staff - Foundation
-青竹蜂云剑,Green Bamboo Bee Cloud Sword,weapon,named,Sword - Core
-随心铁杆兵,Compliant Golden-Hooped Rod,weapon,named,Staff - Core
-五火七禽扇,Five Fire Seven Bird Fan,weapon,named,Fan - Core
-斩仙飞刀,Immortal-Slaying Flying Dagger,weapon,named,Hidden - Core
-干将莫邪,Ganjiang and Moye,weapon,named,Sword - Core
-芭蕉扇,Banana Leaf Fan,weapon,named,Fan - Core
-紫金降魔杵,Purple-Gold Demon Subduing Pestle,weapon,named,Staff - Core
-弑神枪,God-Slaying Spear,weapon,named,Spear - Nascent
-赤锋矛,Crimson Edge Spear,weapon,named,Spear - Nascent
-诛仙剑,Immortal Execution Sword,weapon,named,Sword - Nascent
-木灵甲,Wood Spirit Armor,auxiliary,,Foundation - Defense
-血菩提,Blood Bodhi,auxiliary,,Foundation - Healing
-人参果(伪),Pseudo Ginseng Fruit,auxiliary,,Foundation - Lifespan
-万宝令,Myriad Treasures Token,auxiliary,,Foundation - Trading bonus
-铁精,Refined Iron Essence,auxiliary,,Foundation - Crafting material
-源天神眼,Origin Heaven Divine Eye,auxiliary,,Foundation - Detection
-踏云靴,Cloud-Treading Boots,auxiliary,,Foundation - Movement
-菩提子,Bodhi Seed,auxiliary,,Foundation - Breakthrough bonus
-金丝软甲,Golden Silk Soft Armor,auxiliary,,Foundation - Defense
-寒玉床,Cold Jade Bed,auxiliary,,Foundation - Cultivation bonus
-无相面具,Formless Mask,auxiliary,,Foundation - Disguise
-神风舟,Divine Wind Boat,auxiliary,,Core - Flying vehicle
-昆仑镜,Kunlun Mirror,auxiliary,,Core - Far-seeing
-龙凤呈祥戒,Dragon-Phoenix Harmony Ring,auxiliary,,Core - Dual cultivation
-隐形披风,Invisibility Cloak,auxiliary,,Core - Stealth
-御兽环,Beast Control Ring,auxiliary,,Core - Taming bonus
-太虚甲,Supreme Void Armor,auxiliary,,Core - Defense
-八卦炉,Eight Trigrams Furnace,auxiliary,,Core - Alchemy bonus
-聚宝盆,Treasure Gathering Basin,auxiliary,,Core - Wealth generation
-天地烘炉,Heaven-Earth Furnace,auxiliary,,Core - Crafting bonus
-六道剑匣,Six Paths Sword Case,auxiliary,,Core - Cultivation bonus
-掌天瓶,Heaven-Grasping Vial,auxiliary,,Nascent - Cultivation boost
-传国玉玺,Imperial Jade Seal,auxiliary,,Nascent - Suppression bonus
-灵眼之泉,Spirit Eye Spring,auxiliary,,Core - Cultivation area
-万魂幡,Myriad Soul Banner,auxiliary,,Nascent - Soul devouring
-神木王鼎,Divine Wood King Cauldron,auxiliary,,Nascent - Alchemy
 破境丹,Breakthrough Pill,elixir,type,For breaking through bottlenecks
 延寿丹,Longevity Pill,elixir,type,Extends lifespan
 长生丹,Longevity Pill,elixir,type,Extends lifespan
 燃血丹,Blood Burning Pill,elixir,type,Temporary power boost
 疗伤丹,Healing Pill,elixir,type,Restores HP
 回春丹,Rejuvenation Pill,elixir,type,Healing over time
-练气破境丹,Qi Refinement Breakthrough Pill,elixir,named,Qi Refinement - Breakthrough
-筑基破境丹,Foundation Breakthrough Pill,elixir,named,Foundation - Breakthrough
-金丹破境丹,Core Formation Breakthrough Pill,elixir,named,Core - Breakthrough
-练气长生丹,Qi Refinement Longevity Pill,elixir,named,Qi Refinement - Lifespan
-筑基长生丹,Foundation Longevity Pill,elixir,named,Foundation - Lifespan
-金丹长生丹,Core Formation Longevity Pill,elixir,named,Core - Lifespan
-元婴长生丹,Nascent Soul Longevity Pill,elixir,named,Nascent - Lifespan
-练气燃血丹,Qi Refinement Blood Burning Pill,elixir,named,Qi Refinement - Combat
-筑基燃血丹,Foundation Blood Burning Pill,elixir,named,Foundation - Combat
-金丹燃血丹,Core Formation Blood Burning Pill,elixir,named,Core - Combat
-元婴燃血丹,Nascent Soul Blood Burning Pill,elixir,named,Nascent - Combat
-练气回春丹,Qi Refinement Rejuvenation Pill,elixir,named,Qi Refinement - Healing
-筑基回春丹,Foundation Rejuvenation Pill,elixir,named,Foundation - Healing
-金丹回春丹,Core Formation Rejuvenation Pill,elixir,named,Core - Healing
-元婴回春丹,Nascent Soul Rejuvenation Pill,elixir,named,Nascent - Healing
 灵石,Spirit Stone,item,,Currency
 丹药,Elixir,item,,Also: Pill - Medicine
 法宝,Artifact,item,,Magical treasure
