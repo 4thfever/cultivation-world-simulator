@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { systemApi, type SaveFileDTO } from '../../../../api'
+import { systemApi } from '../../../../api'
+import type { SaveFileDTO } from '../../../../types/api'
 import { useWorldStore } from '../../../../stores/world'
 import { useUiStore } from '../../../../stores/ui'
 import { useMessage } from 'naive-ui'

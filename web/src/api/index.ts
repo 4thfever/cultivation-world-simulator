@@ -18,6 +18,3 @@ export type {
   EventDTO,
   EventsResponseDTO
 } from '../types/api';
-
-// 保持向后兼容的聚合对象 (Optional, for transition)
-// 但这次我们直接重构，不再保留大对象，鼓励按需引用
