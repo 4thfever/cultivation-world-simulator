@@ -46,6 +46,13 @@ const presets = [
     base_url: 'https://openrouter.ai/api/v1',
     model_name: 'anthropic/claude-3.5-sonnet',
     fast_model_name: 'google/gemini-3-flash'
+  },
+  {
+    name: 'Ollama (本地)',
+    base_url: 'http://localhost:11434/v1',
+    model_name: 'qwen2.5:7b',
+    fast_model_name: 'qwen2.5:7b',
+    isLocal: true
   }
 ]
 
@@ -66,7 +73,13 @@ function applyPreset(preset: typeof presets[0]) {
   config.value.base_url = preset.base_url
   config.value.model_name = preset.model_name
   config.value.fast_model_name = preset.fast_model_name
-  message.info(`已应用 ${preset.name} 预设 (请填写 API Key)`)
+  // Ollama doesn't require a real API key, auto-fill a placeholder.
+  if ('isLocal' in preset && preset.isLocal) {
+    config.value.api_key = 'ollama'
+    message.info(`已应用 ${preset.name} 预设 (请确保 Ollama 已启动)`)
+  } else {
+    message.info(`已应用 ${preset.name} 预设 (请填写 API Key)`)
+  }
 }
 
 const emit = defineEmits<{
