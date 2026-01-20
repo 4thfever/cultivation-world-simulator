@@ -121,6 +121,13 @@ const HTML_ESCAPE_MAP: Record<string, string> = {
 /**
  * 高亮文本中的角色名，返回 HTML 字符串。
  * 生成的 span 带有 data-avatar-id 属性，可用于点击跳转。
+ *
+ * 实现说明：
+ * - 使用单次正则替换（而非多次 replaceAll），避免重叠名字问题。
+ * - 例如 "张三" 和 "张三丰"，多次 replaceAll 会导致 "张三丰" 中的 "张三" 被错误匹配。
+ * - 单次正则 /(张三丰|张三)/g 配合长名字优先排序，正则引擎匹配 "张三丰" 后会跳过这3个字符，
+ *   不会再回头匹配 "张三"。
+ * - /g flag 确保所有出现都被替换（一次扫描，callback 被调用多次）。
  */
 export function highlightAvatarNames(
   text: string,
@@ -128,18 +135,20 @@ export function highlightAvatarNames(
 ): string {
   if (!text || colorMap.size === 0) return text;
 
-  // 按名字长度倒序排列，避免部分匹配（如 "张三" 匹配到 "张三丰"）。
+  // 按名字长度倒序排列，确保正则中长名字在前，优先匹配。
   const names = [...colorMap.keys()].sort((a, b) => b.length - a.length);
 
-  let result = text;
-  for (const name of names) {
-    const info = colorMap.get(name)!;
-    const escaped = name.replace(/[&<>"']/g, c => HTML_ESCAPE_MAP[c] || c);
-    result = result.replaceAll(
-      name,
-      `<span class="clickable-avatar" data-avatar-id="${info.id}" style="color:${info.color};cursor:pointer">${escaped}</span>`
-    );
-  }
-  return result;
+  // 转义正则特殊字符。
+  const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  // 构建单一正则: /(name1|name2|name3)/g
+  // 正则引擎从左到右扫描，匹配成功后消费该位置，不会被更短的名字重复匹配。
+  const pattern = new RegExp(names.map(escapeRegex).join('|'), 'g');
+
+  return text.replace(pattern, (match) => {
+    const info = colorMap.get(match)!;
+    const escaped = match.replace(/[&<>"']/g, c => HTML_ESCAPE_MAP[c] || c);
+    return `<span class="clickable-avatar" data-avatar-id="${info.id}" style="color:${info.color};cursor:pointer">${escaped}</span>`;
+  });
 }
 

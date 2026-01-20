@@ -180,8 +180,7 @@ describe('eventHelper', () => {
       expect(result).toContain('&lt;script&gt;')
     })
 
-    // TODO: Fix highlightAvatarNames to handle overlapping names properly.
-    it.skip('should match longer names first to avoid partial matches', () => {
+    it('should match longer names first to avoid partial matches', () => {
       const colorMap = new Map<string, AvatarColorInfo>([
         ['张三', { id: 'zhangsan', color: 'hsl(100, 70%, 65%)' }],
         ['张三丰', { id: 'zhangsanfeng', color: 'hsl(200, 70%, 65%)' }],
@@ -195,6 +194,56 @@ describe('eventHelper', () => {
       // 张三 should not be separately highlighted within 张三丰.
       const matches = result.match(/hsl\(100/g)
       expect(matches).toBeNull()
+    })
+
+    it('should highlight multiple occurrences of the same name', () => {
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['张三丰', { id: 'zhangsanfeng', color: 'hsl(200, 70%, 65%)' }],
+        ['李白', { id: 'libai', color: 'hsl(300, 70%, 65%)' }],
+      ])
+      const text = '张三丰和李白聊天，张三丰说了个笑话，李白笑了'
+
+      const result = highlightAvatarNames(text, colorMap)
+
+      // 张三丰 appears twice.
+      const zhangMatches = result.match(/hsl\(200/g)
+      expect(zhangMatches).toHaveLength(2)
+      // 李白 appears twice.
+      const liMatches = result.match(/hsl\(300/g)
+      expect(liMatches).toHaveLength(2)
+    })
+
+    it('should handle both overlapping names appearing in text', () => {
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['张三', { id: 'zhangsan', color: 'hsl(100, 70%, 65%)' }],
+        ['张三丰', { id: 'zhangsanfeng', color: 'hsl(200, 70%, 65%)' }],
+      ])
+      const text = '张三丰和张三是朋友'
+
+      const result = highlightAvatarNames(text, colorMap)
+
+      // 张三丰 should be highlighted with hsl(200).
+      const zhangfengMatches = result.match(/hsl\(200/g)
+      expect(zhangfengMatches).toHaveLength(1)
+      // 张三 should be highlighted with hsl(100) exactly once (not inside 张三丰).
+      const zhangsanMatches = result.match(/hsl\(100/g)
+      expect(zhangsanMatches).toHaveLength(1)
+    })
+
+    it('should escape regex special characters in names', () => {
+      const colorMap = new Map<string, AvatarColorInfo>([
+        ['张三(test)', { id: 'zhangsan', color: 'hsl(100, 70%, 65%)' }],
+        ['李白[1]', { id: 'libai', color: 'hsl(200, 70%, 65%)' }],
+      ])
+      const text = '张三(test)和李白[1]见面了'
+
+      const result = highlightAvatarNames(text, colorMap)
+
+      // Both names should be highlighted despite having regex special chars.
+      expect(result).toContain('hsl(100, 70%, 65%)')
+      expect(result).toContain('hsl(200, 70%, 65%)')
+      expect(result).toContain('data-avatar-id="zhangsan"')
+      expect(result).toContain('data-avatar-id="libai"')
     })
   })
 })
