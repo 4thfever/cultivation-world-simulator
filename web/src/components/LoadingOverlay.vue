@@ -9,8 +9,8 @@ const props = defineProps<{
   status: InitStatusDTO | null
 }>()
 
-const tipsList = computed(() => {
-  const list = tm('loading.tips')
+const tipsList = computed<string[]>(() => {
+  const list = (tm as any)('loading.tips')
   return Array.isArray(list) ? list : []
 })
 

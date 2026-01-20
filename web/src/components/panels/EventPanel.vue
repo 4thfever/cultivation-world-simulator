@@ -6,7 +6,9 @@ import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { highlightAvatarNames, buildAvatarColorMap, avatarIdToColor } from '../../utils/eventHelper'
 import type { GameEvent } from '../../types/core'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const worldStore = useWorldStore()
 const uiStore = useUiStore()
 const filterValue1 = ref('all')
@@ -14,9 +16,9 @@ const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛�
 const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
-  { label: '所有人', value: 'all' },
+  { label: t('game.event_panel.filter_all'), value: 'all' },
   ...worldStore.avatarList.map(avatar => ({
-    label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''),
+    label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ` ${t('game.event_panel.deceased')}` : ''),
     value: avatar.id
   }))
 ])
@@ -26,7 +28,7 @@ const filterOptions2 = computed(() =>
   worldStore.avatarList
     .filter(avatar => avatar.id !== filterValue1.value)
     .map(avatar => ({
-      label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ' (已故)' : ''),
+      label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ` ${t('game.event_panel.deceased')}` : ''),
       value: avatar.id
     }))
 )
@@ -149,13 +151,13 @@ onMounted(async () => {
 })
 
 const emptyEventMessage = computed(() => {
-  if (filterValue2.value) return '这两人之间暂无事件'
-  if (filterValue1.value !== 'all') return '该修士暂无事件'
-  return '暂无事件'
+  if (filterValue2.value) return t('game.event_panel.empty_dual')
+  if (filterValue1.value !== 'all') return t('game.event_panel.empty_single')
+  return t('game.event_panel.empty_none')
 })
 
 function formatEventDate(event: { year: number; month: number }) {
-  return `${event.year}年${event.month}月`
+  return `${event.year}${t('common.year')}${event.month}${t('common.month')}`
 }
 
 // 构建角色名 -> 颜色映射表。
@@ -180,7 +182,7 @@ function handleEventListClick(e: MouseEvent) {
 <template>
   <section class="sidebar-section">
     <div class="sidebar-header">
-      <h3>事件记录</h3>
+      <h3>{{ t('game.event_panel.title') }}</h3>
       <div class="filter-group">
         <n-select
           v-model:value="filterValue1"
@@ -210,20 +212,20 @@ function handleEventListClick(e: MouseEvent) {
           @click="addSecondFilter"
           class="add-btn"
         >
-          + 添加第二人
+          {{ t('game.event_panel.add_second') }}
         </n-button>
       </div>
     </div>
     <div v-if="worldStore.eventsLoading && displayEvents.length === 0" class="loading">
       <n-spin size="small" />
-      <span>加载中...</span>
+      <span>{{ t('common.loading') }}</span>
     </div>
     <div v-else-if="displayEvents.length === 0" class="empty">{{ emptyEventMessage }}</div>
     <div v-else class="event-list" ref="eventListRef" @scroll="handleScroll" @click="handleEventListClick">
       <!-- 顶部加载指示器 -->
       <div v-if="worldStore.eventsHasMore" class="load-more-hint">
-        <span v-if="worldStore.eventsLoading">加载中...</span>
-        <span v-else>向上滚动加载更多</span>
+        <span v-if="worldStore.eventsLoading">{{ t('common.loading') }}</span>
+        <span v-else>{{ t('game.event_panel.load_more') }}</span>
       </div>
       <div v-for="event in displayEvents" :key="event.id" class="event-item">
         <div class="event-date">{{ formatEventDate(event) }}</div>

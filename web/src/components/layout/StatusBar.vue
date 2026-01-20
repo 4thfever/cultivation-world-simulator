@@ -3,7 +3,9 @@ import { useWorldStore } from '../../stores/world'
 import { gameSocket } from '../../api/socket'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { NPopover, NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const store = useWorldStore()
 const message = useMessage()
 const isConnected = ref(false)
@@ -46,18 +48,18 @@ async function openPhenomenonSelector() {
 async function handleSelect(id: number, name: string) {
   await store.changePhenomenon(id);
   showSelector.value = false;
-  message.success(`天象已更易为：${name}`);
+  message.success(t('game.status_bar.change_success', { name }));
 }
 </script>
 
 <template>
   <header class="top-bar">
     <div class="left">
-      <span class="title">AI修仙世界模拟器</span>
+      <span class="title">{{ t('splash.title') }}</span>
       <span class="status-dot" :class="{ connected: isConnected }"></span>
     </div>
     <div class="center">
-      <span class="time">{{ store.year }}年 {{ store.month }}月</span>
+      <span class="time">{{ store.year }}{{ t('common.year') }} {{ store.month }}{{ t('common.month') }}</span>
       
       <!-- 天地灵机 -->
       <div class="phenomenon" v-if="store.currentPhenomenon">
@@ -73,22 +75,22 @@ async function handleSelect(id: number, name: string) {
             </span>
           </template>
           <div class="phenomenon-card">
-             <div class="p-header" :style="{ color: phenomenonColor }">
-               <span class="p-title">{{ store.currentPhenomenon.name }}</span>
-               <span class="p-rarity">{{ store.currentPhenomenon.rarity }}</span>
-             </div>
-             <div class="p-desc">{{ store.currentPhenomenon.desc }}</div>
-             
-             <!-- 效果描述 -->
-             <div class="effect-block" v-if="store.currentPhenomenon.effect_desc">
-               <div class="effect-label">效果：</div>
-               <div class="effect-content">{{ store.currentPhenomenon.effect_desc }}</div>
-             </div>
+            <div class="p-header" :style="{ color: phenomenonColor }">
+              <span class="p-title">{{ store.currentPhenomenon.name }}</span>
+              <span class="p-rarity">{{ store.currentPhenomenon.rarity }}</span>
+            </div>
+            <div class="p-desc">{{ store.currentPhenomenon.desc }}</div>
+            
+            <!-- 效果描述 -->
+            <div class="effect-block" v-if="store.currentPhenomenon.effect_desc">
+              <div class="effect-label">{{ t('game.status_bar.effect') }}</div>
+              <div class="effect-content">{{ store.currentPhenomenon.effect_desc }}</div>
+            </div>
 
-             <div class="p-duration" v-if="store.currentPhenomenon.duration_years">
-                持续 {{ store.currentPhenomenon.duration_years }} 年
-             </div>
-             <div class="click-tip">（点击可更易天象）</div>
+            <div class="p-duration" v-if="store.currentPhenomenon.duration_years">
+               {{ t('game.status_bar.duration', { years: store.currentPhenomenon.duration_years }) }}
+            </div>
+            <div class="click-tip">{{ t('game.status_bar.click_to_change') }}</div>
           </div>
         </n-popover>
       </div>
@@ -98,7 +100,7 @@ async function handleSelect(id: number, name: string) {
     <n-modal
       v-model:show="showSelector"
       preset="card"
-      title="天道干涉：更易天象"
+      :title="t('game.status_bar.selector_title')"
       style="width: 700px; max-height: 80vh; overflow-y: auto;"
     >
       <n-list hoverable clickable>
@@ -118,28 +120,28 @@ async function handleSelect(id: number, name: string) {
             </div>
           </div>
         </n-list-item>
-        <n-empty v-if="store.phenomenaList.length === 0" description="暂无天象数据" />
+        <n-empty v-if="store.phenomenaList.length === 0" :description="t('game.status_bar.empty_data')" />
       </n-list>
     </n-modal>
 
     <div class="author">
-      肥桥今天吃什么的<a
+      {{ t('splash.title') }}<a
         class="author-link"
         href="https://space.bilibili.com/527346837"
         target="_blank"
         rel="noopener"
-      >B站空间</a>
+      >{{ t('game.status_bar.author_bilibili') }}</a>
       <a
         class="author-link"
         href="https://github.com/4thfever/cultivation-world-simulator"
         target="_blank"
         rel="noopener"
       >
-        Github仓库
+        {{ t('game.status_bar.author_github') }}
       </a>
     </div>
     <div class="right">
-      <span>修士: {{ store.avatarList.length }}</span>
+      <span>{{ t('game.status_bar.cultivators', { count: store.avatarList.length }) }}</span>
     </div>
   </header>
 </template>

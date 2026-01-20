@@ -5,7 +5,9 @@ import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import { useUiStore } from '@/stores/ui';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 defineProps<{
   data: RegionDetail;
 }>();
@@ -42,33 +44,33 @@ function jumpToAvatar(id: string) {
       
       <!-- Sect Jump Button -->
       <div v-if="data.sect_id" class="actions">
-         <button class="btn primary" @click="jumpToSect(data.sect_id!)">查看宗门详情</button>
+         <button class="btn primary" @click="jumpToSect(data.sect_id!)">{{ t('game.info_panel.region.view_sect') }}</button>
       </div>
     </div>
 
     <!-- Essence -->
     <div class="section" v-if="data.essence">
-      <div class="section-title">灵气环境</div>
+      <div class="section-title">{{ t('game.info_panel.region.essence_title') }}</div>
       <div class="essence-info">
-        {{ data.essence.type }}行灵气 · 浓度 {{ data.essence.density }}
+        {{ t('game.info_panel.region.essence_info', { type: data.essence.type, density: data.essence.density }) }}
       </div>
     </div>
 
     <!-- Host (洞府主人) -->
     <div class="section" v-if="data.type === 'cultivate'">
-      <div class="section-title">洞府主人</div>
+      <div class="section-title">{{ t('game.info_panel.region.sections.host') }}</div>
       <RelationRow 
         v-if="data.host"
         :name="data.host.name"
-        meta="主人"
+        :meta="t('game.info_panel.region.host_meta')"
         @click="jumpToAvatar(data.host.id)"
       />
-      <div v-else class="empty-hint">无主（可占据）</div>
+      <div v-else class="empty-hint">{{ t('game.info_panel.region.no_host') }}</div>
     </div>
 
     <!-- Animals -->
     <div class="section" v-if="data.animals?.length">
-      <div class="section-title">动物分布</div>
+      <div class="section-title">{{ t('game.info_panel.region.sections.animals') }}</div>
       <div class="list">
         <EntityRow 
           v-for="animal in data.animals"
@@ -82,7 +84,7 @@ function jumpToAvatar(id: string) {
 
     <!-- Plants -->
     <div class="section" v-if="data.plants?.length">
-      <div class="section-title">植物分布</div>
+      <div class="section-title">{{ t('game.info_panel.region.sections.plants') }}</div>
       <div class="list">
         <EntityRow 
           v-for="plant in data.plants"
@@ -96,7 +98,7 @@ function jumpToAvatar(id: string) {
 
     <!-- Lodes -->
     <div class="section" v-if="data.lodes?.length">
-      <div class="section-title">矿脉分布</div>
+      <div class="section-title">{{ t('game.info_panel.region.sections.lodes') }}</div>
       <div class="list">
         <EntityRow 
           v-for="lode in data.lodes"
@@ -110,13 +112,13 @@ function jumpToAvatar(id: string) {
 
     <!-- Store Items -->
     <div class="section" v-if="data.store_items?.length">
-      <div class="section-title">坊市交易</div>
+      <div class="section-title">{{ t('game.info_panel.region.sections.market') }}</div>
       <div class="list">
         <EntityRow 
           v-for="item in data.store_items"
           :key="item.id || item.name"
           :item="item"
-          :meta="`${item.price}灵石`"
+          :meta="t('game.info_panel.region.price_meta', { price: item.price })"
           compact
           @click="showDetail(item)"
         />

@@ -25,6 +25,99 @@
     "quit_game": "结束游戏",
     "quit_game_desc": "关闭程序并退出到桌面"
   },
+  "save_load": {
+    "loading": "加载中...",
+    "new_save": "新建存档",
+    "new_save_desc": "点击创建一个新的存档文件",
+    "empty": "暂无存档",
+    "game_time": "游戏时间: {time}",
+    "load": "加载",
+    "save_success": "存档成功: {filename}",
+    "save_failed": "存档失败",
+    "load_confirm": "确定要加载存档 {filename} 吗？当前未保存的进度将丢失。",
+    "load_success": "读档成功",
+    "load_failed": "读档失败",
+    "fetch_failed": "获取存档列表失败"
+  },
+  "llm": {
+    "loading": "加载中...",
+    "fetch_failed": "获取配置失败",
+    "test_success": "连接测试成功",
+    "save_success": "配置已保存",
+    "test_save_failed": "测试或保存失败: {error}",
+    "api_key_required": "请填写 API Key",
+    "base_url_required": "请填写 Base URL",
+    "preset_applied": "已应用 {name} 预设 ({extra})",
+    "preset_extra_key": "请填写 API Key",
+    "preset_extra_local": "请确保 Ollama 已启动",
+    "sections": {
+      "quick_fill": "快速填充",
+      "api_config": "API 配置",
+      "model_selection": "模型选择",
+      "run_mode": "运行模式"
+    },
+    "labels": {
+      "api_key": "API Key",
+      "base_url": "Base URL",
+      "normal_model": "智能模型 (Normal)",
+      "fast_model": "快速模型 (Fast)",
+      "what_is_api": "什么是 API / 如何获取?"
+    },
+    "descs": {
+      "normal_model": "用于处理复杂逻辑、剧情生成等任务",
+      "fast_model": "用于简单判定、频繁交互等任务"
+    },
+    "placeholders": {
+      "api_key": "在此填入你自己的 API Key (通常以 sk- 开头)",
+      "base_url": "https://api.example.com/v1",
+      "normal_model": "例如: gpt-4, claude-3-opus, qwen-plus",
+      "fast_model": "例如: gpt-3.5-turbo, qwen-flash"
+    },
+    "modes": {
+      "default": "均衡 (Default)",
+      "default_desc": "自动选择模型（推荐）",
+      "normal": "智能 (Normal)",
+      "normal_desc": "全用智能模型",
+      "fast": "快速 (Fast)",
+      "fast_desc": "全用快速模型"
+    },
+    "actions": {
+      "testing": "测试连接中...",
+      "test_and_save": "测试连通性并保存"
+    },
+    "help": {
+      "title": "什么是 API? 新手配置指南",
+      "q1_title": "🌐 1. 什么是 API?",
+      "q1_content": "API (应用程序接口) 就像是一条“电话线”。本游戏本身不具备思考能力，它通过这条线连接到远端的 AI 大脑 (如 Qwen 或 DeepSeek 的服务器)。当游戏进行每月结算并决定 NPC 动作时，会将相关信息通过 API 发给 AI，AI 思考后再把结果传回来。",
+      "q2_title": "⚡ 2. 推荐的模型 (2025版)",
+      "q2_qwen": "国内大厂 (阿里)，稳定且免费额度大，适合入门。",
+      "q2_deepseek": "性价比极高，中文叙事逻辑更符合国人习惯。",
+      "q2_gemini": "Google 出品，综合性能顶尖。",
+      "q3_title": "📝 3. 如何填入配置?",
+      "q3_content": "获得 API 后，你需要填入以下三大核心参数才能使用，通常你可以在api提供方的文档中找到 these 参数怎么填：",
+      "q3_base_url": "API Base URL (接口地址): AI 的访问大门，通常由厂商提供 (如 https://api.deepseek.com)。",
+      "q3_api_key": "API Key (密钥): 你的身份凭证，就像账号密码。",
+      "q3_model_name": "Model Name (模型名称): 告诉服务器你想用哪颗大脑，如 deepseek-chat 或 gemini-3-flash-preview。",
+      "q4_title": "🔗 4. 从哪里获取 Key?",
+      "q5_title": "🛡️ 5. 安全说明",
+      "q5_p1": "您的 API Key 仅保存在您的本地电脑配置文件中 (`static/local_config.yml`)，由本地运行的游戏后端直接与模型厂商通信。本游戏 (Cultivation World Simulator) 是完全开源的程序，绝不会将您的 Key 上传至任何第三方服务器。也请注意不要把local_config.yml文件分享给任何人。",
+      "q5_p2": "使用token会产生费用，请自行评估使用成本。",
+      "confirm": "我明白了"
+    },
+    "presets": {
+      "qwen": "通义千问",
+      "deepseek": "DeepSeek",
+      "siliconflow": "硅基流动",
+      "openrouter": "OpenRouter",
+      "ollama": "Ollama (本地)"
+    },
+    "help_links": {
+      "qwen": "阿里云百炼 (Qwen / 最推荐)",
+      "deepseek": "DeepSeek 开放平台 (国内推荐，便宜)",
+      "openrouter": "OpenRouter (全机型聚合，推荐)",
+      "siliconflow": "硅基流动 (国内聚合)"
+    }
+  },
   "game_start": {
     "title": "开始游戏",
     "description": "设定世界的初始状态。注意：游戏开始后，这些设定将无法更改。",
@@ -79,7 +172,8 @@
       "restoring_state": "恢复时空位面",
       "finalizing": "万象归位",
       "complete": "天地初开",
-      "chaos": "混沌初始"
+      "chaos": "混沌初始",
+      "generating_initial_events": "推演初始因果"
     },
     "error": "初始化失败",
     "unknown_error": "未知错误",
@@ -108,5 +202,117 @@
       "开局时设定历史，整个修仙世界也会随之而改变",
       "拍卖会中拍到的珍宝可能大大提升你的实力，但是要留好灵石"
     ]
+  },
+  "common": {
+    "year": "年",
+    "month": "月",
+    "none": "无",
+    "loading": "加载中...",
+    "version": "版本",
+    "confirm": "确认",
+    "cancel": "取消",
+    "error": "错误",
+    "success": "成功"
+  },
+  "game": {
+    "status_bar": {
+      "phenomenon": "天地灵机",
+      "effect": "效果：",
+      "duration": "持续 {years} 年",
+      "selector_title": "天道干涉：更易天象",
+      "empty_data": "暂无天象数据",
+      "cultivators": "修士: {count}",
+      "change_success": "天象已更易为：{name}",
+      "click_to_change": "（点击可更易天象）",
+      "author_bilibili": "B站空间",
+      "author_github": "Github仓库"
+    },
+    "controls": {
+      "resume": "继续游戏",
+      "pause": "暂停游戏",
+      "paused": "已暂停",
+      "closed_msg": "游戏已关闭，您可以安全关闭此标签页。"
+    },
+    "event_panel": {
+      "title": "事件记录",
+      "filter_all": "所有人",
+      "deceased": "(已故)",
+      "add_second": "+ 添加第二人",
+      "load_more": "向上滚动加载更多",
+      "empty_dual": "这两人之间暂无事件",
+      "empty_single": "该修士暂无事件",
+      "empty_none": "暂无事件"
+    },
+    "info_panel": {
+      "avatar": {
+        "set_objective": "设定目标",
+        "clear_objective": "清空目标",
+        "dead_with_reason": "已故 ({reason})",
+        "unknown_reason": "未知原因",
+        "long_term_objective": "长期目标",
+        "short_term_objective": "短期目标",
+        "stats": {
+          "realm": "境界",
+          "age": "年龄",
+          "hp": "HP",
+          "gender": "性别",
+          "alignment": "阵营",
+          "sect": "宗门",
+          "rogue": "散修",
+          "root": "灵根",
+          "magic_stone": "灵石",
+          "appearance": "颜值",
+          "battle_strength": "基础战力",
+          "emotion": "情绪"
+        },
+        "sections": {
+          "thinking": "当前思考",
+          "traits": "特质",
+          "techniques_equipment": "功法与装备",
+          "materials": "材料",
+          "relations": "关系",
+          "current_effects": "当前效果"
+        },
+        "weapon_meta": "熟练度 {value}",
+        "relation_meta": "{owner}的{relation}",
+        "modals": {
+          "set_long_term": "设定长期目标",
+          "placeholder": "请输入目标...",
+          "set_failed": "设定失败",
+          "clear_confirm": "确定要清空该角色的长期目标吗？"
+        }
+      },
+      "region": {
+        "view_sect": "查看宗门详情",
+        "essence_title": "灵气环境",
+        "essence_info": "{type}行灵气 · 浓度 {density}",
+        "sections": {
+          "host": "洞府主人",
+          "animals": "动物分布",
+          "plants": "植物分布",
+          "lodes": "矿脉分布",
+          "market": "坊市交易"
+        },
+        "host_meta": "主人",
+        "no_host": "无主（可占据）",
+        "price_meta": "{price}灵石"
+      },
+      "sect": {
+        "stats": {
+          "alignment": "阵营",
+          "style": "风格",
+          "preferred": "擅长",
+          "members": "成员"
+        },
+        "sections": {
+          "intro": "宗门简介",
+          "hq": "驻地：{name}",
+          "bonus": "宗门加成",
+          "techniques": "独门绝学",
+          "members": "门下弟子"
+        },
+        "no_bonus": "无特殊加成"
+      }
+    }
   }
 }

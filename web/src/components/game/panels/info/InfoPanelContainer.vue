@@ -2,6 +2,9 @@
 import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { useUiStore } from '../../../../stores/ui';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // Sub-components
 import AvatarDetailView from './AvatarDetail.vue';
@@ -103,7 +106,7 @@ watch(() => uiStore.selectedTarget, (val) => {
     <!-- Body -->
     <div class="panel-body">
       <div v-if="uiStore.isLoadingDetail && !uiStore.detailData" class="state-msg">
-        加载中...
+        {{ t('common.loading') }}
       </div>
       
       <div v-else-if="uiStore.detailError" class="state-msg error">
