@@ -10,14 +10,14 @@ from src.classes.avatar import Gender
 class LastName:
     """姓氏"""
     name: str
-    sect: Optional[str]
+    sect_id: Optional[int]
     
 @dataclass
 class GivenName:
     """名字"""
     name: str
     gender: Gender
-    sect: Optional[int]
+    sect_id: Optional[int]
 
 
 class NameManager:
@@ -26,8 +26,8 @@ class NameManager:
     def __init__(self):
         # 散修通用姓氏
         self.common_last_names: list[str] = []
-        # 按宗门分类的姓氏 {宗门名: [姓氏列表]}
-        self.sect_last_names: dict[str, list[str]] = {}
+        # 按宗门分类的姓氏 {宗门ID: [姓氏列表]}
+        self.sect_last_names: dict[int, list[str]] = {}
         
         # 散修通用名字 {Gender: [名字列表]}
         self.common_given_names: dict[Gender, list[str]] = {
@@ -41,41 +41,44 @@ class NameManager:
     
     def _load_names(self):
         """从CSV加载姓名数据"""
-        # 加载姓氏 (保留使用 name 引用)
-        last_name_df = game_configs["last_name"]
-        for row in last_name_df:
-            name = get_str(row, "last_name")
-            sect = get_str(row, "sect")
-            
-            if sect:
-                if sect not in self.sect_last_names:
-                    self.sect_last_names[sect] = []
-                self.sect_last_names[sect].append(name)
-            else:
-                self.common_last_names.append(name)
+        # 加载姓氏
+        if "last_name" in game_configs:
+            last_name_df = game_configs["last_name"]
+            for row in last_name_df:
+                name = get_str(row, "last_name")
+                sect_id = get_int(row, "sect_id")
+                
+                if sect_id > 0:
+                    if sect_id not in self.sect_last_names:
+                        self.sect_last_names[sect_id] = []
+                    self.sect_last_names[sect_id].append(name)
+                else:
+                    self.common_last_names.append(name)
         
-        # 加载名字 (使用 sect_id 引用)
-        given_name_df = game_configs["given_name"]
-        for row in given_name_df:
-            name = get_str(row, "given_name")
-            gender_str = get_str(row, "gender")
-            gender = Gender.MALE if gender_str == "男" else Gender.FEMALE
-            # 尝试读取 sect_id，兼容旧的 sect 列（虽然已经被迁移脚本改了）
-            sect_id = get_int(row, "sect_id")
-            
-            if sect_id > 0:
-                if sect_id not in self.sect_given_names:
-                    self.sect_given_names[sect_id] = {Gender.MALE: [], Gender.FEMALE: []}
-                self.sect_given_names[sect_id][gender].append(name)
-            else:
-                self.common_given_names[gender].append(name)
+        # 加载名字
+        if "given_name" in game_configs:
+            given_name_df = game_configs["given_name"]
+            for row in given_name_df:
+                name = get_str(row, "given_name")
+                gender_val = get_int(row, "gender") # 0 or 1
+                # 假设 1=Male, 0=Female
+                gender = Gender.MALE if gender_val == 1 else Gender.FEMALE
+                
+                sect_id = get_int(row, "sect_id")
+                
+                if sect_id > 0:
+                    if sect_id not in self.sect_given_names:
+                        self.sect_given_names[sect_id] = {Gender.MALE: [], Gender.FEMALE: []}
+                    self.sect_given_names[sect_id][gender].append(name)
+                else:
+                    self.common_given_names[gender].append(name)
     
-    def get_random_last_name(self, sect_name: Optional[str] = None) -> str:
+    def get_random_last_name(self, sect_id: Optional[int] = None) -> str:
         """
         获取随机姓氏
         """
-        if sect_name and sect_name in self.sect_last_names:
-            return random.choice(self.sect_last_names[sect_name])
+        if sect_id and sect_id in self.sect_last_names:
+            return random.choice(self.sect_last_names[sect_id])
         return random.choice(self.common_last_names)
     
     def get_random_given_name(self, gender: Gender, sect_id: Optional[int] = None) -> str:
@@ -88,11 +91,11 @@ class NameManager:
                 return random.choice(sect_names)
         return random.choice(self.common_given_names[gender])
     
-    def get_random_full_name(self, gender: Gender, sect_name: Optional[str] = None, sect_id: Optional[int] = None) -> str:
+    def get_random_full_name(self, gender: Gender, sect_id: Optional[int] = None) -> str:
         """
         获取随机全名
         """
-        last_name = self.get_random_last_name(sect_name)
+        last_name = self.get_random_last_name(sect_id)
         given_name = self.get_random_given_name(gender, sect_id)
         return last_name + given_name
     
@@ -106,9 +109,8 @@ class NameManager:
         使用指定姓氏生成随机全名
         """
         if not surname:
-            # 如果没有提供姓氏，回退到随机全名（这里假设没有 sect_name 传进来，因为这个函数签名里没有）
-            # 为了严谨，这里只能生成随机名
-            return self.get_random_full_name(gender, None, sect_id)
+            # 如果没有提供姓氏，回退到随机全名
+            return self.get_random_full_name(gender, sect_id)
             
         given_name = self.get_random_given_name(gender, sect_id)
         return surname + given_name
@@ -120,24 +122,25 @@ _name_manager = NameManager()
 
 def get_random_name(gender: Gender, sect_name: Optional[str] = None, sect_id: Optional[int] = None) -> str:
     """获取随机全名"""
-    return _name_manager.get_random_full_name(gender, sect_name, sect_id)
+    # 兼容性处理：如果只给了 sect_name 没给 sect_id，这里没办法直接转 ID (需要额外映射表)
+    # 但调用方应该已经被更新或者只使用 sect 对象
+    return _name_manager.get_random_full_name(gender, sect_id)
 
 
 def get_random_name_for_sect(gender: Gender, sect) -> str:
     """
     基于宗门生成姓名（兼容旧接口）
     """
-    sect_name = sect.name if sect is not None else None
     sect_id = sect.id if sect is not None else None
-    return _name_manager.get_random_full_name(gender, sect_name, sect_id)
+    return _name_manager.get_random_full_name(gender, sect_id)
 
 
 def pick_surname_for_sect(sect) -> str:
     """
     从宗门常见姓或全局库中挑选一个姓氏（兼容旧接口）
     """
-    sect_name = sect.name if sect is not None else None
-    return _name_manager.get_random_last_name(sect_name)
+    sect_id = sect.id if sect is not None else None
+    return _name_manager.get_random_last_name(sect_id)
 
 
 def get_random_name_with_surname(
