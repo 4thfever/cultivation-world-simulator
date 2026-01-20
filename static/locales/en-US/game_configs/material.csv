@@ -1,0 +1,28 @@
+id,name,desc,stage_id
+,,,
+1,Spirit Rabbit Fur,Fine fur from a rabbit brimming with spirituality, soft and warm texture, suitable for weaving cold-proof clothing,1
+2,Demonic Wolf Fang,Sharp fang from a fierce demonic wolf, containing demonic power, a precious material for forging sharp weapons,2
+3,Qingyun Antler,Jade-like antler from a Qingyun Deer, containing clear spiritual qi, a superior medicinal material for alchemy,1
+4,Shadow Leopard Claw,Sharp claw from a Shadow Leopard, light and agile, can enhance weapon agility,2
+5,Dragon Turtle Shell Plate,Ancient shell plate from an Azure Sea Dragon Turtle, indestructible, containing ocean spiritual power, a top-tier material for armor,3
+6,Mountain Bear Gallbladder,Precious gallbladder from a Stone Armored Bear, can enhance constitution and strength, a precious medicinal material for body cultivators,2
+7,Wind Speed Horse Mane,Flowing mane from a Wind Speed Horse, light as a wind feather, can be used to refine speed-type artifacts,2
+8,Lava Scale,Red scale from a Lava Lizard, high-temperature resistant and containing fire-element spiritual power, a core material for fire-attribute artifacts,3
+9,Poisonous Miasma Sac,Toxin sac from a Poisonous Miasma Frog, containing deadly poison, a rare material for refining poisonous pills,2
+10,Strange Herb Essence,Essence extracted from strange herbs, with magical healing effects,1
+11,Spirit Wood Heart,Precious wood heart of spiritual wood, containing dense spiritual power, a core material for making artifacts,2
+12,Cactus Spine,Spiritual medicinal spine of a desert cactus, can detoxify a hundred poisons, with significant effects when made into injections,1
+13,Snow Lotus Petal,Pure white petal of a Freezing Frost Snow Lotus, containing extreme cold qi, the best choice for cold-attribute medicinal materials,2
+14,Lingzhi Spore,Blue spore of a Water Lingzhi, can enhance spiritual power circulation for water-element practitioners,2
+15,Snowball Flower Stamen,Pure white stamen of a Snowball Flower, with calming and sedative effects, an ideal medicinal material for meditation assistance,1
+16,Ancient Pine Resin,Precious resin from a thousand-year-old pine, crystal clear like amber, containing dense spiritual power, a rare material for high-level artifact refining,3
+17,Spirit Rice Essence,Essence extracted from five-grain spiritual rice, can quickly strengthen constitution, a main ingredient for body cultivation pills,1
+18,Divine Cow Horn,Single horn of an Earth Shaking Divine Cow, containing thick earth power, a top-tier material for refining heavy artifacts and defensive arrays,3
+19,Qingyin Bamboo Joint,The most essential joint of a Nine-Bend Qingyin Bamboo, emitting a calming clear sound when struck, an excellent material for making sound-wave artifacts,2
+20,Ice Spirit Snake Gallbladder,Location of the inner core of an Ice Spirit Bone Snake; although an extremely cold object, swallowing it can greatly enhance a cultivator's affinity for cold qi, a treasure for practicing cold-system techniques,2
+21,Star Pattern Leaf,Grass leaf naturally bearing star patterns on its surface, containing pure star power, a main material for refining star-attribute pills,2
+22,Red Fruit Core,Fruit core of a Nirvana Red Fruit; even if the flesh withers, the core still locks in a trace of indestructible life force, a key for refining longevity pills and supreme healing medicine,3
+101,Black Iron,Common black iron ore, hard texture, suitable for crafting Qi Refinement stage artifacts,1
+102,Red Essence Copper,Completely red copper ore, containing fire spiritual power, a common material for Foundation Establishment stage artifact refining,2
+103,Mithril,Silver-white rare metal, excellent ductility and can conduct spiritual power, suitable for Core Formation stage artifacts,3
+104,Gengjin,Sharp golden ore, indestructible, a top-tier material for Nascent Soul stage natal artifact refining,4

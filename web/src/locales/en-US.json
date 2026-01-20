@@ -81,6 +81,10 @@
       "fast": "Fast (Fast)",
       "fast_desc": "Use fast model for all tasks"
     },
+    "actions": {
+      "testing": "Testing connection...",
+      "test_and_save": "Test Connectivity and Save"
+    },
     "help": {
       "title": "What is API? Configuration Guide",
       "q1_title": "🌐 1. What is API?",

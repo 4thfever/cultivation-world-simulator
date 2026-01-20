@@ -1,0 +1,13 @@
+id,name,desc,stage_id,material_ids
+,,,"Item ID corresponding to this plant"
+1,Strange Herb,A strange medicinal herb growing in places with abundant spiritual qi, with light blue leaves and magical healing effects,1,10
+2,Spirit Wood,Formed by thousand-year-old ancient trees absorbing heaven and earth spiritual qi, with hard wood and dense spiritual power,2,11
+3,Desert Cactus,A magical plant growing in the Western Quicksand, able to store large amounts of spiritual qi and water, with spiritual medicine in its spines,1,12
+4,Freezing Frost Snow Lotus,A precious spiritual medicine of the Far North Ice Field, with petals white as snow, containing extreme cold qi, able to clear heat and detoxify,2,13
+5,Water Lingzhi,A water-system spiritual medicine growing at the bottom of the Tianhe River, translucent blue, able to enhance the water-element spiritual power of the practitioner,2,14
+6,Snowball Flower,An alpine plant of the Ten Thousand Zhang Snow Peak, with small white petals, able to resist severe cold and possessing calming and sedative effects,1,15
+7,Thousand-Year Ancient Pine,An ancient giant tree in the Qingyun Forest Sea, over a thousand years old, with resin containing rich spiritual power,3,16
+8,Five-Grain Spirit Rice,Spiritual rice cultivated in fertile farmland, each grain full of spiritual qi, able to enhance the practitioner's constitution,1,17
+9,Nine-Bend Qingyin Bamboo,A mutated species in the Purple Bamboo Forest, with a nine-bend body, hollow inside and hard outside. It emits nine different clear sounds when the wind blows, reaching directly to the soul and cleansing heart demons,2,19
+10,Star Gathering Grass,A strange plant growing tenaciously in the rock crevices of the Gobi, with leaves as hard as swords, able to attract and devour starlight at night,2,21
+11,Nirvana Red Fruit,Grows on the companion divine tree at the Eye of the Spirit Spring on Penglai Island, blooming every three hundred years and fruiting every three hundred years, containing immense life force,3,22

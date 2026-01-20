@@ -1,0 +1,35 @@
+item_id,name,weapon_type,grade,desc,effects
+,Name,Weapon Type,Grade(Qi Refinement/Foundation Establishment/Core Formation/Nascent Soul),Description/Prompt,JSON Effects
+1001,Qi Refinement Sword,Sword,Qi Refinement,An iron sword forged by a local blacksmith, barely usable.,{extra_battle_strength_points: 1}
+1002,Qi Refinement Saber,Saber,Qi Refinement,A thick-backed chopper, a favorite of ordinary martial artists.,{extra_battle_strength_points: 1}
+1003,Qi Refinement Spear,Spear,Qi Refinement,Made of white wax wood, with a red tassel on the spearhead.,{extra_battle_strength_points: 1}
+1004,Qi Refinement Staff,Staff,Qi Refinement,A common hardwood staff, as long as the eyebrows.,{extra_battle_strength_points: 1}
+1005,Qi Refinement Fan,Fan,Qi Refinement,A folding fan commonly used by scholars and literati for elegance.,{extra_battle_strength_points: 1}
+1006,Qi Refinement Whip,Whip,Qi Refinement,A common leather whip, mostly used for driving carts or punishment.,{extra_battle_strength_points: 1}
+1007,Qi Refinement Zither,Zither,Qi Refinement,An ancient zither made of paulownia wood, with fair sound quality.,{extra_battle_strength_points: 1}
+1008,Qi Refinement Flute,Flute,Qi Refinement,Carved from purple bamboo, with a crisp sound.,{extra_battle_strength_points: 1}
+1009,Qi Refinement Hidden Weapon,Hidden Weapon,Qi Refinement,Commonly seen iron hidden weapons.,{extra_battle_strength_points: 1}
+1021,Azure Frost Sword,Sword,Foundation Establishment,The sword qi is bone-chillingly cold.,{extra_battle_strength_points: 2}
+1022,Moon in the Well,Saber,Foundation Establishment,The saber light is like the moon reflected in a well, unpredictable.,{extra_battle_strength_points: 2}
+1023,Fire Tipped Spear,Spear,Foundation Establishment,Faint fire light on the spearhead, able to trigger common fire.,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+1024,Dragon Capturing Rod,Staff,Foundation Establishment,Forged from refined iron, weighing a thousand jin, usable by those with great strength.,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+1025,Peach Blossom Fan,Fan,Foundation Establishment,Falling peach blossom shadows like flying divine swords; peach blossoms painted on the fan, hiding killing intent.,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+1026,God Striking Whip,Whip,Foundation Establishment,An imitation; although lacking the power to strike gods, it can wound the soul.,{extra_battle_strength_points: 2}
+1027,Heavenly Demonic Zither,Zither,Foundation Establishment,The zither sound is demonic, disturbing the mind.,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+1028,Ghost Flute Chenqing,Flute,Foundation Establishment,Said to be able to control corpse puppets with this flute.,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+1029,Shadowless Needle,Hidden Weapon,Foundation Establishment,Fine as a cow's hair, coming and going without a trace, impossible to guard against.,{extra_battle_strength_points: 2}
+1030,Ten Thousand Beasts Flute,Flute,Foundation Establishment,Specially made by the Baishou Sect; the flute sound can soothe or provoke beasts.,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
+1031,Blood Drinker Mad Saber,Saber,Foundation Establishment,The saber body is red, appearing to crave blood.,{extra_battle_strength_points: 2}
+1032,Black Iron Heavy Sword,Sword,Foundation Establishment,Heavy sword without edge, great skill requires no craftsmanship, Dugu Qiubai's favorite.,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
+1033,Ziwei Soft Sword,Sword,Foundation Establishment,Soft as a belt, moving like a spiritual snake.,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
+1034,Water and Fire Dragon Capturing Staff,Staff,Foundation Establishment,A standard weapon of the Zhenhun Sect, combining water and fire to trap enemies and lock souls.,{extra_battle_strength_points: 2}
+1051,Green Bamboo Bee Cloud Sword,Sword,Core Formation,A set of flying swords containing evil-warding divine thunder, restraining all evil in the world.,{extra_battle_strength_points: 3}
+1052,As-You-Will Iron Rod,Staff,Core Formation,The weapon of the Six-Eared Macaque, changing as desired, as large or small as one wishes.,"{extra_battle_strength_points: 3, extra_observation_radius: 1}"
+1053,Five Fires Seven Poultry Fan,Fan,Core Formation,The fan surface features five fires including air fire, stone fire, and wood fire, turning things to ashes in one wave.,"{extra_battle_strength_points: 3, extra_observation_radius: 2}"
+1054,God Killer Spear,Spear,Nascent Soul,Surging killing intent, once stained with the blood of demon gods; the spear never returns once thrown.,{extra_battle_strength_points: '3 + avatar.weapon_proficiency * 0.02'}
+1055,Red Point Spear,Spear,Nascent Soul,Red point spear, immortal shield, slaying all immortal kings and destroying nine heavens.,"[{extra_battle_strength_points: 3}, {when: 'avatar.cultivation_progress.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
+1056,Immortal Slaying Flying Dagger,Hidden Weapon,Core Formation,A trace of light hidden in a red gourd, with eyebrows and eyes. Please turn around, treasure, for gods and ghosts cannot escape.,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
+1057,Immortal Slaying Sword,Sword,Nascent Soul,Neither copper, iron, nor steel, once hidden under Mount Sumeru. Sharp qi pierces directly into the nine heavens.,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.1}"
+1058,Gan Jiang and Mo Ye,Sword,Core Formation,Swords of true love, one female and one male, killing when separated, amorous when together.,"{extra_battle_strength_points: 3, extra_max_hp: 150}"
+1059,Plantain Fan,Fan,Core Formation,Essence leaf of Taiyin; one wave stops fire, two waves create wind, three waves bring rain.,"{extra_battle_strength_points: 3, extra_observation_radius: 2, extra_move_step: 1}"
+1060,Purple Gold Demon Subduing Pestle,Staff,Core Formation,Wei Hu's weapon; although light and agile, it hits with the weight of Mount Tai.,"{extra_battle_strength_points: 3, damage_reduction: 0.1}"

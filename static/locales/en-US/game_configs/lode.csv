@@ -1,0 +1,6 @@
+id,name,desc,stage_id,material_ids
+,,,"Item ID corresponding to this lode"
+1,Black Iron Lode,A common lode containing black iron, often found in shallow surface layers,1,101
+2,Red Copper Lode,A red copper lode buried deep underground, often accompanied by fiery heat qi,2,102
+3,Mithril Deposit,An extremely rare mithril accumulation, shimmering with silver light and brimming with spiritual qi,3,103
+4,Gengjin Mine,A Gengjin lode located deep in absolute cliffs, extremely difficult to mine but worth a fortune,4,104
