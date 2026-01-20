@@ -74,9 +74,9 @@ watch(() => props.status?.progress, (newVal) => {
 const bgOpacity = computed(() => {
   const elapsed = localElapsed.value
   if (elapsed <= 5) return 1
-  if (elapsed >= 20) return 0.8
-  // 5秒 -> 1.0, 20秒 -> 0.8 (线性插值)。
-  return 1 - (elapsed - 5) / 15 * 0.2
+  if (elapsed >= 20) return 0.9
+  // 5秒 -> 1.0, 20秒 -> 0.9 (线性插值)。
+  return 1 - (elapsed - 5) / 15 * 0.1
 })
 
 // SVG 圆环参数
@@ -259,9 +259,9 @@ onUnmounted(() => {
 .bg-layer {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 18, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10, 10, 18, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: opacity 0.5s ease;
 }
 
