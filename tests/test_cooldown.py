@@ -7,6 +7,7 @@ Tests the cooldown_action decorator behavior.
 import pytest
 from unittest.mock import MagicMock, patch
 
+from src.classes.action.cooldown import cooldown_action
 from src.classes.mutual_action.impart import Impart
 
 
@@ -88,3 +89,50 @@ class TestCooldownAction:
         
         # Should not fail due to cooldown.
         assert "冷却" not in reason
+
+    @pytest.mark.asyncio
+    async def test_cooldown_not_recorded_on_finish_failure(self):
+        """
+        Test that cooldown is NOT recorded if finish() raises an exception.
+        
+        This is the key test that reveals the async/await bug:
+        - Buggy code: records cooldown BEFORE awaiting, so cooldown is recorded even on failure
+        - Fixed code: awaits first, so exception prevents cooldown from being recorded
+        """
+
+        class ActionError(Exception):
+            pass
+
+        # Create a simple action class with finish that raises.
+        @cooldown_action
+        class FailingAction:
+            ACTION_CD_MONTHS = 6
+
+            def __init__(self, avatar, world):
+                self.avatar = avatar
+                self.world = world
+
+            def can_start(self, **params):
+                return True, ""
+
+            async def finish(self, **params):
+                raise ActionError("Action failed!")
+
+        world = MagicMock()
+        world.month_stamp = 100
+
+        avatar = MagicMock()
+        avatar.name = "Test"
+        avatar._action_cd_last_months = {}
+
+        action = FailingAction(avatar, world)
+
+        # Before calling finish, no cooldown recorded.
+        assert "FailingAction" not in avatar._action_cd_last_months
+
+        # Call finish - should raise.
+        with pytest.raises(ActionError):
+            await action.finish()
+
+        # Cooldown should NOT be recorded because action failed.
+        assert "FailingAction" not in avatar._action_cd_last_months
