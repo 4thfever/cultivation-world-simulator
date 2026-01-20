@@ -13,7 +13,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/4thfever/cultivation-world-simulator)
 ![Commit Activity](https://img.shields.io/github/commit-activity/y/4thfever/cultivation-world-simulator)
 ![Repo Size](https://img.shields.io/github/repo-size/4thfever/cultivation-world-simulator)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
 [![codecov](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator/graph/badge.svg)](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator)
 
 ![Status](https://img.shields.io/badge/Status-Alpha-tomato)
