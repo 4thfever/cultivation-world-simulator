@@ -1,0 +1,112 @@
+{
+  "ui": {
+    "system_menu": "系统菜单",
+    "system_menu_title": "系统菜单",
+    "start_game": "开始游戏",
+    "load_game": "加载游戏",
+    "save_game": "保存游戏",
+    "create_character": "新建角色",
+    "delete_character": "删除角色",
+    "settings": "设置",
+    "achievements": "成就",
+    "exit": "离开",
+    "other": "其他",
+    "language": "语言",
+    "chinese": "简体中文",
+    "english": "English",
+    "back": "返回",
+    "confirm": "确定",
+    "cancel": "取消",
+    "llm_settings": "LLM设置",
+    "other_options": "其他选项",
+    "other_options_desc": "管理游戏进程和退出。",
+    "return_to_main": "回到主菜单",
+    "return_to_main_desc": "返回标题画面（未保存的进度将丢失）",
+    "quit_game": "结束游戏",
+    "quit_game_desc": "关闭程序并退出到桌面"
+  },
+  "game_start": {
+    "title": "开始游戏",
+    "description": "设定世界的初始状态。注意：游戏开始后，这些设定将无法更改。",
+    "labels": {
+      "init_npc_num": "初始修士数量",
+      "sect_num": "活跃宗门数量",
+      "protagonist_mode": "主角引入模式",
+      "new_npc_rate": "每月新生修士概率",
+      "world_history": "世界历史背景"
+    },
+    "tips": {
+      "sect_num": "宗门数量建议少于角色数量的一半",
+      "protagonist_random": "随机引入：每次生成角色时，有 5% 的概率使用预设的“小说主角”模板。",
+      "protagonist_all": "全部引入：开局时强制生成所有预设的“小说主角”。",
+      "world_history": "可以包括上古、中古、近古。注意：启用此功能会调用LLM，初始化时间会显著增加。"
+    },
+    "placeholders": {
+      "world_history": "请输入修仙界历史背景（可选）。"
+    },
+    "options": {
+      "protagonist_none": "不引入主角",
+      "protagonist_random": "随机引入主角",
+      "protagonist_all": "全部引入主角"
+    },
+    "actions": {
+      "start": "开始"
+    },
+    "messages": {
+      "load_failed": "加载配置失败",
+      "start_success": "配置已保存，正在初始化世界...",
+      "start_failed": "开始游戏失败"
+    }
+  },
+  "splash": {
+    "title": "AI修仙世界模拟器",
+    "start": "开始修仙",
+    "continue": "继续道途",
+    "settings": "系统设置"
+  },
+  "loading": {
+    "title": "AI修仙世界模拟器",
+    "subtitle": "AI Cultivation World Simulator",
+    "phase": {
+      "scanning_assets": "扫描天地资源",
+      "loading_map": "构建洪荒山川",
+      "processing_history": "推演天道历史",
+      "initializing_sects": "宗门入世",
+      "generating_avatars": "众修士降临",
+      "checking_llm": "连通天道意志",
+      "loading_save": "读取前世因果",
+      "parsing_data": "解析天地法则",
+      "restoring_state": "恢复时空位面",
+      "finalizing": "万象归位",
+      "complete": "天地初开",
+      "chaos": "混沌初始"
+    },
+    "error": "初始化失败",
+    "unknown_error": "未知错误",
+    "retry": "重新初始化",
+    "tips_label": "修行小贴士",
+    "elapsed": "已等待 {seconds} 秒",
+    "tips": [
+      "修改角色目标，可以改变该角色的行事风格",
+      "角色的性格特质，会极大影响角色的行事风格",
+      "在符合角色灵根的洞府修行，事半功倍",
+      "天灵根角色在任何洞府修行，都事半功倍",
+      "改变天地灵机，不仅会影响加成，还会微妙调整角色行事风格",
+      "偶尔会有修仙小说中的主角穿越进此方世界",
+      "每个角色都有自己的真实思考和情绪",
+      "除了修炼，炼丹和练气也很重要",
+      "参加拍卖会可能捡漏，但要小心恶人的衔尾追杀",
+      "江湖同道会根据你的行为取一个绰号",
+      "双修虽好，还请克制",
+      "在宗门驻地回血，可以回满HP",
+      "不同境界之间，战力差距极大，越阶挑战难于登天",
+      "天命之子特质的角色，好运连连，奇遇不断",
+      "现代世界的穿越者，只想回到现实世界，但这是不可能的",
+      "丹药有生效的时间限制",
+      "由于大模型需要思考，游戏启动可能耗时较久",
+      "模拟世界对大模型token消耗较大，请注意",
+      "开局时设定历史，整个修仙世界也会随之而改变",
+      "拍卖会中拍到的珍宝可能大大提升你的实力，但是要留好灵石"
+    ]
+  }
+}

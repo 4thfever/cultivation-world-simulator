@@ -1,0 +1,112 @@
+{
+  "ui": {
+    "system_menu": "System Menu",
+    "system_menu_title": "System Menu",
+    "start_game": "Start Game",
+    "load_game": "Load Game",
+    "save_game": "Save Game",
+    "create_character": "Create Character",
+    "delete_character": "Delete Character",
+    "settings": "Settings",
+    "achievements": "Achievements",
+    "exit": "Exit",
+    "other": "Other",
+    "language": "Language",
+    "chinese": "Simplified Chinese",
+    "english": "English",
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "llm_settings": "LLM Settings",
+    "other_options": "Other Options",
+    "other_options_desc": "Manage game process and exit.",
+    "return_to_main": "Return to Main Menu",
+    "return_to_main_desc": "Return to title screen (Unsaved progress will be lost)",
+    "quit_game": "Quit Game",
+    "quit_game_desc": "Close application and exit to desktop"
+  },
+  "game_start": {
+    "title": "Start Game",
+    "description": "Configure initial world state. Note: These settings cannot be changed once the game starts.",
+    "labels": {
+      "init_npc_num": "Initial Cultivators",
+      "sect_num": "Active Sects",
+      "protagonist_mode": "Protagonist Mode",
+      "new_npc_rate": "Monthly New Cultivator Rate",
+      "world_history": "World History Background"
+    },
+    "tips": {
+      "sect_num": "Sect number should be less than half of initial cultivators.",
+      "protagonist_random": "Random: 5% chance to use preset 'Novel Protagonist' template when generating characters.",
+      "protagonist_all": "All: Force generation of all preset 'Novel Protagonists' at start.",
+      "world_history": "Can include ancient, medieval, or recent history. Note: Enabling this calls LLM and significantly increases initialization time."
+    },
+    "placeholders": {
+      "world_history": "Enter cultivation world history background (Optional)."
+    },
+    "options": {
+      "protagonist_none": "No Protagonists",
+      "protagonist_random": "Random Introduction",
+      "protagonist_all": "Introduce All"
+    },
+    "actions": {
+      "start": "Start"
+    },
+    "messages": {
+      "load_failed": "Failed to load configuration",
+      "start_success": "Configuration saved, initializing world...",
+      "start_failed": "Failed to start game"
+    }
+  },
+  "splash": {
+    "title": "AI Cultivation World Simulator",
+    "start": "Start Cultivation",
+    "continue": "Continue Path",
+    "settings": "Settings"
+  },
+  "loading": {
+    "title": "AI Cultivation World Simulator",
+    "subtitle": "AI Cultivation World Simulator",
+    "phase": {
+      "scanning_assets": "Scanning World Assets",
+      "loading_map": "Building Primordial Map",
+      "processing_history": "Deducing Heavenly Dao History",
+      "initializing_sects": "Sects Entering World",
+      "generating_avatars": "Cultivators Descending",
+      "checking_llm": "Connecting Heavenly Will",
+      "loading_save": "Loading Karmic Ties",
+      "parsing_data": "Parsing Laws of Heaven and Earth",
+      "restoring_state": "Restoring Spacetime Plane",
+      "finalizing": "All Phenomena Returning to Position",
+      "complete": "Heaven and Earth Opening",
+      "chaos": "Primordial Chaos"
+    },
+    "error": "Initialization Failed",
+    "unknown_error": "Unknown Error",
+    "retry": "Retry Initialization",
+    "tips_label": "Cultivation Tips",
+    "elapsed": "Waited {seconds} seconds",
+    "tips": [
+      "Modifying character goals can change their behavior style.",
+      "Character traits greatly influence their behavior style.",
+      "Cultivating in a cave dwelling matching your spiritual root doubles efficiency.",
+      "Heavenly Spiritual Root characters have double efficiency in any cave dwelling.",
+      "Changing world spirit density affects bonuses and subtly adjusts character behavior.",
+      "Occasionally, protagonists from cultivation novels may transmigrate into this world.",
+      "Every character has their own real thoughts and emotions.",
+      "Besides cultivation, alchemy and qi refinement are also important.",
+      "Participating in auctions may yield bargains, but beware of villains chasing you.",
+      "Jianghu peers will give you a nickname based on your actions.",
+      "Dual cultivation is good, but please exercise restraint.",
+      "Recovering at the sect headquarters can fully restore HP.",
+      "The gap between realms is immense; challenging a higher realm is as hard as ascending to heaven.",
+      "Characters with the Child of Destiny trait have continuous good luck and fortuitous encounters.",
+      "Modern world transmigrators only want to return to reality, but it is impossible.",
+      "Elixirs have a time limit for their effects.",
+      "Because the LLM needs to think, game startup may take a long time.",
+      "Simulating the world consumes a lot of LLM tokens, please be aware.",
+      "Setting history at the start will change the entire cultivation world accordingly.",
+      "Treasures won at auctions can greatly enhance your strength, but save your spirit stones."
+    ]
+  }
+}
