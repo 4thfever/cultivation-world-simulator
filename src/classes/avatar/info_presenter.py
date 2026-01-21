@@ -18,6 +18,7 @@ from src.utils.config import CONFIG
 
 def _get_effects_text(avatar: "Avatar") -> str:
     """获取格式化的效果文本"""
+    from src.i18n import t
     from src.classes.effect import format_effects_to_text
     breakdown = avatar.get_effect_breakdown()
     effect_parts = []
@@ -25,80 +26,83 @@ def _get_effects_text(avatar: "Avatar") -> str:
         desc_str = format_effects_to_text(effects)
         if desc_str:
             effect_parts.append(f"[{source_name}] {desc_str}")
-    return "\n".join(effect_parts) if effect_parts else "无"
+    return "\n".join(effect_parts) if effect_parts else t("None")
 
 
 def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     """
     获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。
     """
+    from src.i18n import t
     region = avatar.tile.region if avatar.tile is not None else None
     from src.classes.relation import get_relations_strs
     relation_lines = get_relations_strs(avatar, max_lines=8)
-    relations_info = "；".join(relation_lines) if relation_lines else "无"
+    relations_info = t("relation_separator").join(relation_lines) if relation_lines else t("None")
     magic_stone_info = str(avatar.magic_stone)
 
     from src.classes.sect import get_sect_info_with_rank
     
     if detailed:
-        weapon_info = f"{avatar.weapon.get_detailed_info()}，熟练度：{avatar.weapon_proficiency:.1f}%" if avatar.weapon else "无"
-        auxiliary_info = avatar.auxiliary.get_detailed_info() if avatar.auxiliary else "无"
+        weapon_info = t("{weapon_name}, Proficiency: {proficiency}%", 
+                       weapon_name=avatar.weapon.get_detailed_info(), 
+                       proficiency=f"{avatar.weapon_proficiency:.1f}") if avatar.weapon else t("None")
+        auxiliary_info = avatar.auxiliary.get_detailed_info() if avatar.auxiliary else t("None")
         sect_info = get_sect_info_with_rank(avatar, detailed=True)
-        alignment_info = avatar.alignment.get_detailed_info() if avatar.alignment is not None else "未知"
-        region_info = region.get_detailed_info() if region is not None else "无"
+        alignment_info = avatar.alignment.get_detailed_info() if avatar.alignment is not None else t("Unknown")
+        region_info = region.get_detailed_info() if region is not None else t("None")
         root_info = avatar.root.get_detailed_info()
-        technique_info = avatar.technique.get_detailed_info() if avatar.technique is not None else "无"
+        technique_info = avatar.technique.get_detailed_info() if avatar.technique is not None else t("None")
         cultivation_info = avatar.cultivation_progress.get_detailed_info()
-        personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else "无"
-        materials_info = "，".join([f"{mat.get_detailed_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else "无"
+        personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else t("None")
+        materials_info = t("material_separator").join([f"{mat.get_detailed_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else t("None")
         appearance_info = avatar.appearance.get_detailed_info(avatar.gender)
-        spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else "无"
+        spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else t("None")
     else:
-        weapon_info = avatar.weapon.get_info() if avatar.weapon is not None else "无"
-        auxiliary_info = avatar.auxiliary.get_info() if avatar.auxiliary is not None else "无"
+        weapon_info = avatar.weapon.get_info() if avatar.weapon is not None else t("None")
+        auxiliary_info = avatar.auxiliary.get_info() if avatar.auxiliary is not None else t("None")
         sect_info = get_sect_info_with_rank(avatar, detailed=False)
-        region_info = region.get_info() if region is not None else "无"
-        alignment_info = avatar.alignment.get_info() if avatar.alignment is not None else "未知"
+        region_info = region.get_info() if region is not None else t("None")
+        alignment_info = avatar.alignment.get_info() if avatar.alignment is not None else t("Unknown")
         root_info = avatar.root.get_info()
-        technique_info = avatar.technique.get_info() if avatar.technique is not None else "无"
+        technique_info = avatar.technique.get_info() if avatar.technique is not None else t("None")
         cultivation_info = avatar.cultivation_progress.get_info()
-        personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else "无"
-        materials_info = "，".join([f"{mat.get_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else "无"
+        personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else t("None")
+        materials_info = t("material_separator").join([f"{mat.get_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else t("None")
         appearance_info = avatar.appearance.get_info()
-        spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else "无"
+        spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else t("None")
 
     info_dict = {
-        "名字": avatar.name,
-        "性别": str(avatar.gender),
-        "年龄": str(avatar.age),
-        "hp": str(avatar.hp),
-        "灵石": magic_stone_info,
-        "关系": relations_info,
-        "宗门": sect_info,
-        "阵营": alignment_info,
-        "地区": region_info,
-        "灵根": root_info,
-        "功法": technique_info,
-        "境界": cultivation_info,
-        "特质": personas_info,
-        "材料": materials_info,
-        "外貌": appearance_info,
-        "兵器": weapon_info,
-        "辅助装备": auxiliary_info,
-        "情绪": avatar.emotion.value,
-        "长期目标": avatar.long_term_objective.content if avatar.long_term_objective else "无",
-        "短期目标": avatar.short_term_objective if avatar.short_term_objective else "无",
+        t("Name"): avatar.name,
+        t("Gender"): str(avatar.gender),
+        t("Age"): str(avatar.age),
+        t("HP"): str(avatar.hp),
+        t("Spirit Stones"): magic_stone_info,
+        t("Relations"): relations_info,
+        t("Sect"): sect_info,
+        t("Alignment"): alignment_info,
+        t("Region"): region_info,
+        t("Spirit Root"): root_info,
+        t("Technique"): technique_info,
+        t("Realm"): cultivation_info,
+        t("Traits"): personas_info,
+        t("Materials"): materials_info,
+        t("Appearance"): appearance_info,
+        t("Weapon"): weapon_info,
+        t("Auxiliary"): auxiliary_info,
+        t("Emotion"): avatar.emotion.value,
+        t("Long-term Goal"): avatar.long_term_objective.content if avatar.long_term_objective else t("None"),
+        t("Short-term Goal"): avatar.short_term_objective if avatar.short_term_objective else t("None"),
     }
     
     if detailed:
-        info_dict["当前效果"] = _get_effects_text(avatar)
+        info_dict[t("Current Effects")] = _get_effects_text(avatar)
 
     # 绰号：仅在存在时显示
     if avatar.nickname is not None:
-        info_dict["绰号"] = avatar.nickname.value
+        info_dict[t("Nickname")] = avatar.nickname.value
     # 灵兽：仅在存在时显示
     if avatar.spirit_animal is not None:
-        info_dict["灵兽"] = spirit_animal_info
+        info_dict[t("Spirit Animal")] = spirit_animal_info
     return info_dict
 
 
@@ -107,6 +111,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     获取结构化的角色信息，用于前端展示和交互。
     """
     # 基础信息
+    from src.i18n import t
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
     
     info = {
@@ -118,7 +123,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "realm": avatar.cultivation_progress.get_info(),
         "level": avatar.cultivation_progress.level,
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
-        "alignment": str(avatar.alignment) if avatar.alignment else "未知",
+        "alignment": str(avatar.alignment) if avatar.alignment else t("Unknown"),
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
         "emotion": {
@@ -133,7 +138,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "nickname_reason": avatar.nickname.reason if avatar.nickname else None,
         "is_dead": avatar.is_dead,
         "death_info": avatar.death_info,
-        "action_state": f"正在{avatar.current_action_name}"
+        "action_state": t("Performing {action}", action=avatar.current_action_name)
     }
 
     # 1. 特质 (Personas)
@@ -152,14 +157,14 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             from src.classes.sect_ranks import get_rank_display_name
             sect_info["rank"] = get_rank_display_name(avatar.sect_rank, avatar.sect)
         else:
-            sect_info["rank"] = "弟子"
+            sect_info["rank"] = t("Disciple")
         info["sect"] = sect_info
     else:
         info["sect"] = None
         
     # 补充：阵营详情
     from src.classes.alignment import alignment_infos, alignment_strs
-    info["alignment"] = str(avatar.alignment) if avatar.alignment else "未知"
+    info["alignment"] = str(avatar.alignment) if avatar.alignment else t("Unknown")
     if avatar.alignment:
         cn_name = alignment_strs.get(avatar.alignment, avatar.alignment.value)
         desc = alignment_infos.get(avatar.alignment, "")
@@ -197,7 +202,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
             "realm": other.cultivation_progress.get_info(),
-            "sect": other.sect.name if other.sect else "散修"
+            "sect": other.sect.name if other.sect else t("Rogue Cultivator")
         })
     info["relations"] = relations_list
     
@@ -210,7 +215,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     info["root"] = root_str
     info["root_detail"] = {
          "name": root_str,
-         "desc": f"包含元素：{'、'.join(str(e) for e in avatar.root.elements)}",
+         "desc": t("Contains elements: {elements}", elements=t("element_separator").join(str(e) for e in avatar.root.elements)),
          "effect_desc": avatar.root.effect_desc
     }
     
@@ -219,7 +224,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
          info["spirit_animal"] = avatar.spirit_animal.get_structured_info()
 
     # 当前效果
-    info["当前效果"] = _get_effects_text(avatar)
+    info[t("Current Effects")] = _get_effects_text(avatar)
 
     return info
 
@@ -239,12 +244,13 @@ def get_avatar_expanded_info(
         other_avatar: 另一个角色，如果提供则返回两人共同经历的事件，否则返回单人事件
         detailed: 是否返回详细信息
     """
+    from src.i18n import t
     info = get_avatar_info(avatar, detailed=detailed)
 
     observed: list[str] = []
     if co_region_avatars:
         for other in co_region_avatars[:8]:
-            observed.append(f"{other.name}，境界：{other.cultivation_progress.get_info()}")
+            observed.append(t("{name}, Realm: {realm}", name=other.name, realm=other.cultivation_progress.get_info()))
 
     # 历史事件改为从全局事件管理器分类查询
     em = avatar.world.event_manager
@@ -262,9 +268,9 @@ def get_avatar_expanded_info(
     major_list = [str(e) for e in major_events]
     minor_list = [str(e) for e in minor_events]
 
-    info["周围角色"] = observed
-    info["重大事件"] = major_list
-    info["短期事件"] = minor_list
+    info[t("Nearby Avatars")] = observed
+    info[t("Major Events")] = major_list
+    info[t("Recent Events")] = minor_list
     return info
 
 
@@ -272,20 +278,30 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
     """
     仅显示几个字段：名字、绰号、境界、关系、宗门、阵营、外貌、功法、武器、辅助装备、HP
     """
-    nickname = to_avatar.nickname.value if to_avatar.nickname else "无"
-    sect = to_avatar.sect.name if to_avatar.sect else "散修"
-    tech = to_avatar.technique.get_info() if to_avatar.technique else "无"
-    weapon = to_avatar.weapon.get_info() if to_avatar.weapon else "无"
-    aux = to_avatar.auxiliary.get_info() if to_avatar.auxiliary else "无"
+    from src.i18n import t
+    nickname = to_avatar.nickname.value if to_avatar.nickname else t("None")
+    sect = to_avatar.sect.name if to_avatar.sect else t("Rogue Cultivator")
+    tech = to_avatar.technique.get_info() if to_avatar.technique else t("None")
+    weapon = to_avatar.weapon.get_info() if to_avatar.weapon else t("None")
+    aux = to_avatar.auxiliary.get_info() if to_avatar.auxiliary else t("None")
     alignment = to_avatar.alignment
     
     # 关系可能为空
-    relation = from_avatar.get_relation(to_avatar) or "无"
+    relation = from_avatar.get_relation(to_avatar) or t("None")
 
-    return (
-        f"{to_avatar.name}，绰号：{nickname}，境界：{to_avatar.cultivation_progress.get_info()}，"
-        f"关系：{relation}，宗门：{sect}，阵营：{alignment}，"
-        f"外貌：{to_avatar.appearance.get_info()}，功法：{tech}，兵器：{weapon}，辅助：{aux}，HP：{to_avatar.hp}"
+    return t(
+        "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
+        name=to_avatar.name,
+        nickname=nickname,
+        realm=to_avatar.cultivation_progress.get_info(),
+        relation=relation,
+        sect=sect,
+        alignment=alignment,
+        appearance=to_avatar.appearance.get_info(),
+        technique=tech,
+        weapon=weapon,
+        aux=aux,
+        hp=to_avatar.hp
     )
 
 
@@ -294,20 +310,21 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     获取角色的文本描述。
     detailed=True 时包含详细的效果来源分析。
     """
+    from src.i18n import t
     # 基础描述
-    lines = [f"【{avatar.name}】 {avatar.gender} {avatar.age}岁"]
-    lines.append(f"境界: {avatar.cultivation_progress.get_info()}")
+    lines = [t("【{name}】 {gender} {age} years old", name=avatar.name, gender=avatar.gender, age=avatar.age)]
+    lines.append(t("Realm: {realm}", realm=avatar.cultivation_progress.get_info()))
     if avatar.sect:
-        lines.append(f"身份: {avatar.get_sect_str()}")
+        lines.append(t("Identity: {identity}", identity=avatar.get_sect_str()))
     
     if detailed:
-        lines.append("\n--- 当前效果明细 ---")
+        lines.append(t("\n--- Current Effects Detail ---"))
         breakdown = avatar.get_effect_breakdown()
         
         from src.classes.effect import format_effects_to_text
         
         if not breakdown:
-            lines.append("无额外效果")
+            lines.append(t("No additional effects"))
         else:
             for source_name, effects in breakdown:
                 # 使用现有的 format_effects_to_text 将字典转为中文描述

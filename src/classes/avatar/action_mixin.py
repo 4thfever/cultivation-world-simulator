@@ -188,8 +188,9 @@ class ActionMixin:
         """
         获取易读的计划动作列表字符串。
         """
+        from src.i18n import t
         if not self.planned_actions:
-            return "无"
+            return t("None")
         
         lines = []
         for i, plan in enumerate(self.planned_actions, 1):

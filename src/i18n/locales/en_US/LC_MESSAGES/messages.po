@@ -1245,3 +1245,178 @@ msgstr "Heaven and Earth Phenomenon"
 
 msgid "Elixir [{name}]"
 msgstr "Elixir [{name}]"
+
+# ============================================================================
+# Avatar System
+# ============================================================================
+
+# Field Labels (info_dict keys)
+msgid "Name"
+msgstr "Name"
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Age"
+msgstr "Age"
+
+msgid "HP"
+msgstr "HP"
+
+msgid "Spirit Stones"
+msgstr "Spirit Stones"
+
+msgid "Relations"
+msgstr "Relations"
+
+msgid "Sect"
+msgstr "Sect"
+
+msgid "Alignment"
+msgstr "Alignment"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "Technique"
+msgstr "Technique"
+
+msgid "Realm"
+msgstr "Realm"
+
+msgid "Traits"
+msgstr "Traits"
+
+msgid "Materials"
+msgstr "Materials"
+
+msgid "Appearance"
+msgstr "Appearance"
+
+msgid "Weapon"
+msgstr "Weapon"
+
+msgid "Auxiliary"
+msgstr "Auxiliary"
+
+msgid "Emotion"
+msgstr "Emotion"
+
+msgid "Long-term Goal"
+msgstr "Long-term Goal"
+
+msgid "Short-term Goal"
+msgstr "Short-term Goal"
+
+msgid "Current Effects"
+msgstr "Current Effects"
+
+msgid "Nickname"
+msgstr "Nickname"
+
+msgid "Spirit Animal"
+msgstr "Spirit Animal"
+
+msgid "Nearby Avatars"
+msgstr "Nearby Avatars"
+
+msgid "Major Events"
+msgstr "Major Events"
+
+msgid "Recent Events"
+msgstr "Recent Events"
+
+# Default Values
+msgid "None"
+msgstr "None"
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Rogue Cultivator"
+msgstr "Rogue Cultivator"
+
+msgid "Disciple"
+msgstr "Disciple"
+
+# Separators
+msgid "relation_separator"
+msgstr "; "
+
+msgid "element_separator"
+msgstr ", "
+
+msgid "material_separator"
+msgstr ", "
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}, Proficiency: {proficiency}%"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}, Realm: {realm}"
+
+msgid "Performing {action}"
+msgstr "Performing {action}"
+
+msgid "Contains elements: {elements}"
+msgstr "Contains elements: {elements}"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age} years old"
+
+msgid "Realm: {realm}"
+msgstr "Realm: {realm}"
+
+msgid "Identity: {identity}"
+msgstr "Identity: {identity}"
+
+msgid "\n--- Current Effects Detail ---"
+msgstr "\n--- Current Effects Detail ---"
+
+msgid "No additional effects"
+msgstr "No additional effects"
+
+# Complex Formatted String (get_other_avatar_info)
+msgid "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+
+# ============================================================================
+# Gathering System - Auction
+# ============================================================================
+
+# Status Text
+msgid "Auction is in progress..."
+msgstr "Auction is in progress..."
+
+# Event Content
+msgid "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item."
+msgstr "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item."
+
+msgid "At the auction, {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "At the auction, {winner_name} acquired {item_name} for {price} spirit stones."
+
+# Story Generation Text
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+
+msgid "Competition: In the auction for {item_name}, {winner_name} outbid {runner_up_name} (bid: {bid})."
+msgstr "Competition: In the auction for {item_name}, {winner_name} outbid {runner_up_name} (bid: {bid})."
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "Item: {item_name}, Description: {description}"
+
+# Scene Setting
+msgid "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+
+# Labels
+msgid "【Auction Items Information】"
+msgstr "【Auction Items Information】"
+
+msgid "\n【Related Avatars Information】"
+msgstr "\n【Related Avatars Information】"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr "Select the most interesting aspect or bidding moment to describe, no need to cover everything."

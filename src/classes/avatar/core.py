@@ -190,8 +190,9 @@ class Avatar(
 
     def get_sect_str(self) -> str:
         """获取宗门显示名：有宗门则返回"宗门名+职位"，否则返回"散修"。"""
+        from src.i18n import t
         if self.sect is None:
-            return "散修"
+            return t("Rogue Cultivator")
         if self.sect_rank is None:
             return self.sect.name
         from src.classes.sect_ranks import get_rank_display_name
@@ -200,8 +201,9 @@ class Avatar(
 
     def get_sect_rank_name(self) -> str:
         """获取宗门职位的显示名称"""
+        from src.i18n import t
         if self.sect is None or self.sect_rank is None:
-            return "散修"
+            return t("Rogue Cultivator")
         from src.classes.sect_ranks import get_rank_display_name
         return get_rank_display_name(self.sect_rank, self.sect)
 

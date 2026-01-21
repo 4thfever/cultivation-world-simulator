@@ -1245,3 +1245,178 @@ msgstr "天地灵机"
 
 msgid "Elixir [{name}]"
 msgstr "丹药【{name}】"
+
+# ============================================================================
+# Avatar 系统
+# ============================================================================
+
+# 字段标签 (info_dict 键名)
+msgid "Name"
+msgstr "名字"
+
+msgid "Gender"
+msgstr "性别"
+
+msgid "Age"
+msgstr "年龄"
+
+msgid "HP"
+msgstr "hp"
+
+msgid "Spirit Stones"
+msgstr "灵石"
+
+msgid "Relations"
+msgstr "关系"
+
+msgid "Sect"
+msgstr "宗门"
+
+msgid "Alignment"
+msgstr "阵营"
+
+msgid "Region"
+msgstr "地区"
+
+msgid "Technique"
+msgstr "功法"
+
+msgid "Realm"
+msgstr "境界"
+
+msgid "Traits"
+msgstr "特质"
+
+msgid "Materials"
+msgstr "材料"
+
+msgid "Appearance"
+msgstr "外貌"
+
+msgid "Weapon"
+msgstr "兵器"
+
+msgid "Auxiliary"
+msgstr "辅助装备"
+
+msgid "Emotion"
+msgstr "情绪"
+
+msgid "Long-term Goal"
+msgstr "长期目标"
+
+msgid "Short-term Goal"
+msgstr "短期目标"
+
+msgid "Current Effects"
+msgstr "当前效果"
+
+msgid "Nickname"
+msgstr "绰号"
+
+msgid "Spirit Animal"
+msgstr "灵兽"
+
+msgid "Nearby Avatars"
+msgstr "周围角色"
+
+msgid "Major Events"
+msgstr "重大事件"
+
+msgid "Recent Events"
+msgstr "短期事件"
+
+# 默认值
+msgid "None"
+msgstr "无"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Rogue Cultivator"
+msgstr "散修"
+
+msgid "Disciple"
+msgstr "弟子"
+
+# 分隔符
+msgid "relation_separator"
+msgstr "；"
+
+msgid "element_separator"
+msgstr "、"
+
+msgid "material_separator"
+msgstr "，"
+
+# 格式化字符串
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}，熟练度：{proficiency}%"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}，境界：{realm}"
+
+msgid "Performing {action}"
+msgstr "正在{action}"
+
+msgid "Contains elements: {elements}"
+msgstr "包含元素：{elements}"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age}岁"
+
+msgid "Realm: {realm}"
+msgstr "境界: {realm}"
+
+msgid "Identity: {identity}"
+msgstr "身份: {identity}"
+
+msgid "\n--- Current Effects Detail ---"
+msgstr "\n--- 当前效果明细 ---"
+
+msgid "No additional effects"
+msgstr "无额外效果"
+
+# 复杂格式化字符串 (get_other_avatar_info)
+msgid "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr "{name}，绰号：{nickname}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，辅助：{aux}，HP：{hp}"
+
+# ============================================================================
+# Gathering 系统 - 拍卖会
+# ============================================================================
+
+# 状态文本
+msgid "Auction is in progress..."
+msgstr "拍卖会正在举行..."
+
+# 事件内容
+msgid "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item."
+msgstr "在{item_name}的竞拍中，{winner_name}以 {price} 灵石力压{runner_up_name}一头，将其收入囊中。"
+
+msgid "At the auction, {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "在拍卖会上，{winner_name}以 {price} 灵石拍下了{item_name}。"
+
+# 故事生成文本
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "成交：{winner_name}以{price}灵石拍下{item_name}。"
+
+msgid "Competition: In the auction for {item_name}, {winner_name} outbid {runner_up_name} (bid: {bid})."
+msgstr "竞争：在{item_name}的竞拍中，{winner_name}力压{runner_up_name}（出价{bid}）。"
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "物品：{item_name}，介绍：{description}"
+
+# 场景设定
+msgid "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr "事件类型：神秘拍卖会\n场景设定：拍卖会发生在一处神秘空间，由一位面目模糊、气息深不可测的神秘人主持。"
+
+# 标签
+msgid "【Auction Items Information】"
+msgstr "【涉及拍品信息】"
+
+msgid "\n【Related Avatars Information】"
+msgstr "\n【相关角色信息】"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr "选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。"
