@@ -286,13 +286,13 @@ msgstr "Evil"
 
 # Technique Grade
 msgid "lower_grade"
-msgstr "Lower Grade"
+msgstr "Inferior Grade"
 
 msgid "middle_grade"
-msgstr "Middle Grade"
+msgstr "Medium Grade"
 
 msgid "upper_grade"
-msgstr "Upper Grade"
+msgstr "Superior Grade"
 
 # Sect Rank
 msgid "patriarch"
@@ -669,7 +669,7 @@ msgstr "{avatar} successfully cast {realm}-tier {label} '{item}'"
 
 # Action: HelpMortals
 msgid "help_mortals_action_name"
-msgstr "Help Mortals"
+msgstr "Aid Mortals"
 
 msgid "help_mortals_description"
 msgstr "Help mortals in town, consumes small amount of spirit stones"
@@ -684,7 +684,7 @@ msgid "Insufficient spirit stones"
 msgstr "Insufficient spirit stones"
 
 msgid "{avatar} begins helping mortals in town"
-msgstr "{avatar} begins helping mortals in town"
+msgstr "{avatar} begins aiding mortals in town"
 
 # Action: PlunderMortals
 msgid "plunder_mortals_action_name"
@@ -973,7 +973,7 @@ msgid "talk_action_name"
 msgstr "Talk"
 
 msgid "talk_description"
-msgstr "Initiate conversation with someone, cannot be self"
+msgstr "Initiate a talk with someone, cannot be self"
 
 msgid "talk_requirements"
 msgstr "Target within interaction range"
@@ -1436,7 +1436,7 @@ msgid "fortune_theme_entered_trial"
 msgstr "Entered Trial"
 
 msgid "fortune_theme_phenomenon_appeared"
-msgstr "Phenomenon Appeared"
+msgstr "Witnessed Strange Phenomenon"
 
 msgid "fortune_theme_gifted_by_master"
 msgstr "Gifted by Master"
@@ -1457,7 +1457,7 @@ msgid "fortune_theme_impressed_by_character"
 msgstr "Impressed by Character"
 
 msgid "fortune_theme_showed_talent"
-msgstr "Showed Talent"
+msgstr "Displayed Talent"
 
 msgid "fortune_theme_chance_encounter"
 msgstr "Chance Encounter"
@@ -1466,16 +1466,16 @@ msgid "fortune_theme_passed_test"
 msgstr "Passed Test"
 
 msgid "fortune_theme_found_spirit_vein"
-msgstr "Found Spirit Vein"
+msgstr "Found Spirit Mine"
 
 msgid "fortune_theme_cave_treasure"
 msgstr "Cave Treasure"
 
 msgid "fortune_theme_slayed_beast"
-msgstr "Slayed Beast"
+msgstr "Slew Monster"
 
 msgid "fortune_theme_trade_profit"
-msgstr "Trade Profit"
+msgstr "Profitable Trade"
 
 msgid "fortune_theme_stone_gambling"
 msgstr "Stone Gambling"
@@ -1487,7 +1487,7 @@ msgid "fortune_theme_sudden_enlightenment"
 msgstr "Sudden Enlightenment"
 
 msgid "fortune_theme_ancient_stele"
-msgstr "Ancient Stele"
+msgstr "Insight from Ancient Stele"
 
 msgid "fortune_theme_consumed_spirit_herb"
 msgstr "Consumed Spirit Herb"
@@ -1496,7 +1496,7 @@ msgid "fortune_theme_secret_realm"
 msgstr "Secret Realm"
 
 msgid "fortune_theme_empowerment"
-msgstr "Empowerment"
+msgstr "Empowerment from Senior"
 
 msgid "fortune_theme_spirit_spring"
 msgstr "Spirit Spring"
@@ -1526,7 +1526,7 @@ msgstr "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
 
 # Fortune Event Text - Technique
 msgid "You comprehended an upper-grade technique『{technique_name}』in your fortune."
-msgstr "You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "You comprehended a superior-grade technique『{technique_name}』in your fortune."
 
 msgid " This conflicts with your current technique『{technique_name}』."
 msgstr " This conflicts with your current technique『{technique_name}』."
@@ -1704,3 +1704,16 @@ msgstr "{avatar_name} sold newly obtained {item_name}, gained {price} spirit sto
 
 msgid "{avatar_name} abandoned {item_name}."
 msgstr "{avatar_name} abandoned {item_name}."
+
+# ============================================================================
+# Additional Missing Translations
+# ============================================================================
+
+msgid "Unsupported item type: {item_type}"
+msgstr "Unsupported item type: {item_type}"
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} gained cultivation experience +{exp} points"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} defeated {loser}"

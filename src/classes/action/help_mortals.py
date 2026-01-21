@@ -12,10 +12,11 @@ class HelpMortals(TimedAction):
     仅正阵营可执行。
     """
 
-    ACTION_NAME = "帮助凡人"
+    ACTION_NAME_ID = "help_mortals_action_name"
+    DESC_ID = "help_mortals_description"
+    REQUIREMENTS_ID = "help_mortals_requirements"
+    
     EMOJI = "🤝"
-    DESC = "在城镇帮助凡人，消耗少量灵石"
-    DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘正’，并且灵石足够"
     PARAMS = {}
     COST = 10
 
@@ -50,5 +51,4 @@ class HelpMortals(TimedAction):
 
     async def finish(self) -> list[Event]:
         return []
-
 

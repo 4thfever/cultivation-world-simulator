@@ -144,7 +144,12 @@ class TestTranslationKeysDefinition:
             content = po_file.read_text(encoding='utf-8')
             pattern = r'msgid\s+"([^"]*)"'
             matches = re.findall(pattern, content)
-            msgids = set(m for m in matches if m)  # 排除空字符串
+            # 手动处理常见的转义序列
+            for m in matches:
+                if m:  # 排除空字符串
+                    # 只替换常见的转义序列，保留Unicode字符
+                    decoded = m.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
+                    msgids.add(decoded)
         except Exception as e:
             print(f"Warning: Could not read {po_file}: {e}")
         
@@ -191,7 +196,7 @@ class TestTranslationKeysDefinition:
             print("\n这些翻译键需要添加到 PO 文件中")
             sys.exit(1)
         else:
-            print("✓ 所有使用的 msgid 都已在 PO 文件中定义")
+            print("[OK] 所有使用的 msgid 都已在 PO 文件中定义")
 
 
 class TestFormatParameterConsistency:
@@ -274,7 +279,7 @@ class TestFormatParameterConsistency:
             if len(inconsistencies) > 10:
                 print(f"\n  ... 还有 {len(inconsistencies) - 10} 个")
         else:
-            print("✓ 所有翻译的格式化参数都一致")
+            print("[OK] 所有翻译的格式化参数都一致")
 
 
 def main():

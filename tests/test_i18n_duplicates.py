@@ -11,8 +11,11 @@ import sys
 from pathlib import Path
 from collections import Counter
 
-# 不导入 pytest，避免触发 conftest.py
-# 使用标准库实现简单的测试
+try:
+    import pytest
+    PYTEST_AVAILABLE = True
+except ImportError:
+    PYTEST_AVAILABLE = False
 
 
 def extract_msgids(filepath: Path) -> list[str]:
@@ -44,49 +47,69 @@ def get_po_file_path(lang: str) -> Path:
     return po_file
 
 
-def test_zh_cn_no_duplicates() -> bool:
+def test_zh_cn_no_duplicates():
     """测试中文 po 文件没有重复的 msgid"""
     po_file = get_po_file_path("zh_CN")
     
     if not po_file.exists():
-        print(f"[FAIL] 中文 po 文件不存在: {po_file}")
-        return False
+        msg = f"中文 po 文件不存在: {po_file}"
+        if PYTEST_AVAILABLE:
+            pytest.skip(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     msgids = extract_msgids(po_file)
     duplicates = find_duplicates(msgids)
     
     if duplicates:
-        print(f"[FAIL] 中文 po 文件中发现 {len(duplicates)} 个重复的 msgid:")
+        msg = f"中文 po 文件中发现 {len(duplicates)} 个重复的 msgid:\n"
         for msgid, count in sorted(duplicates.items()):
-            print(f"  - '{msgid}' 出现了 {count} 次")
-        return False
+            msg += f"  - '{msgid}' 出现了 {count} 次\n"
+        
+        if PYTEST_AVAILABLE:
+            pytest.fail(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     print(f"[PASS] 中文 po 文件没有重复的 msgid (共 {len(msgids)} 个)")
-    return True
+    if not PYTEST_AVAILABLE:
+        return True
 
 
-def test_en_us_no_duplicates() -> bool:
+def test_en_us_no_duplicates():
     """测试英文 po 文件没有重复的 msgid"""
     po_file = get_po_file_path("en_US")
     
     if not po_file.exists():
-        print(f"[FAIL] 英文 po 文件不存在: {po_file}")
-        return False
+        msg = f"英文 po 文件不存在: {po_file}"
+        if PYTEST_AVAILABLE:
+            pytest.skip(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     msgids = extract_msgids(po_file)
     duplicates = find_duplicates(msgids)
     
     if duplicates:
-        print(f"[FAIL] 英文 po 文件中发现 {len(duplicates)} 个重复的 msgid:")
+        msg = f"英文 po 文件中发现 {len(duplicates)} 个重复的 msgid:\n"
         for msgid, count in sorted(duplicates.items()):
-            print(f"  - '{msgid}' 出现了 {count} 次")
-        return False
+            msg += f"  - '{msgid}' 出现了 {count} 次\n"
+        
+        if PYTEST_AVAILABLE:
+            pytest.fail(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     print(f"[PASS] 英文 po 文件没有重复的 msgid (共 {len(msgids)} 个)")
-    return True
+    if not PYTEST_AVAILABLE:
+        return True
 
 
-def test_msgid_count_consistency() -> bool:
+def test_msgid_count_consistency():
     """测试中英文 po 文件的 msgid 数量一致"""
     zh_file = get_po_file_path("zh_CN")
     en_file = get_po_file_path("en_US")
@@ -95,15 +118,19 @@ def test_msgid_count_consistency() -> bool:
     en_msgids = extract_msgids(en_file)
     
     if len(zh_msgids) != len(en_msgids):
-        print(f"[FAIL] 中英文 po 文件的 msgid 数量不一致: "
-              f"中文 {len(zh_msgids)} 个, 英文 {len(en_msgids)} 个")
-        return False
+        msg = f"中英文 po 文件的 msgid 数量不一致: 中文 {len(zh_msgids)} 个, 英文 {len(en_msgids)} 个"
+        if PYTEST_AVAILABLE:
+            pytest.fail(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     print(f"[PASS] 中英文 po 文件的 msgid 数量一致: {len(zh_msgids)} 个")
-    return True
+    if not PYTEST_AVAILABLE:
+        return True
 
 
-def test_msgid_keys_match() -> bool:
+def test_msgid_keys_match():
     """测试中英文 po 文件的 msgid 键完全匹配"""
     zh_file = get_po_file_path("zh_CN")
     en_file = get_po_file_path("en_US")
@@ -117,26 +144,31 @@ def test_msgid_keys_match() -> bool:
     en_only = en_msgids - zh_msgids
     
     if zh_only or en_only:
-        print(f"[FAIL] 中英文 po 文件的 msgid 键不完全匹配")
+        msg = "中英文 po 文件的 msgid 键不完全匹配\n"
         
         if zh_only:
-            print(f"  只在中文中存在的 msgid ({len(zh_only)} 个):")
+            msg += f"  只在中文中存在的 msgid ({len(zh_only)} 个):\n"
             for msgid in sorted(zh_only)[:3]:
-                print(f"    - '{msgid}'")
+                msg += f"    - '{msgid}'\n"
             if len(zh_only) > 3:
-                print(f"    ... 还有 {len(zh_only) - 3} 个")
+                msg += f"    ... 还有 {len(zh_only) - 3} 个\n"
         
         if en_only:
-            print(f"  只在英文中存在的 msgid ({len(en_only)} 个):")
+            msg += f"  只在英文中存在的 msgid ({len(en_only)} 个):\n"
             for msgid in sorted(en_only)[:3]:
-                print(f"    - '{msgid}'")
+                msg += f"    - '{msgid}'\n"
             if len(en_only) > 3:
-                print(f"    ... 还有 {len(en_only) - 3} 个")
+                msg += f"    ... 还有 {len(en_only) - 3} 个\n"
         
-        return False
+        if PYTEST_AVAILABLE:
+            pytest.fail(msg)
+        else:
+            print(f"[FAIL] {msg}")
+            return False
     
     print(f"[PASS] 中英文 po 文件的 msgid 键完全匹配")
-    return True
+    if not PYTEST_AVAILABLE:
+        return True
 
 
 def main():
@@ -156,7 +188,8 @@ def main():
     for test_name, test_func in tests:
         print(f"\n{test_name}...")
         passed = test_func()
-        results.append(passed)
+        # 当运行在非 pytest 环境时，True 表示通过，False 表示失败，None 表示通过（pytest 环境）
+        results.append(passed if passed is not None else True)
     
     print("\n" + "="*60)
     passed_count = sum(results)

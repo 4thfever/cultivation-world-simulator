@@ -15,10 +15,10 @@ ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 
 def _build_action_info(action):
     info = {
-        "desc": action.DESC,
-        "require": action.DOABLES_REQUIREMENTS,
+        "desc": action.get_desc(),
+        "require": action.get_requirements(),
     }
-    if action.PARAMS:
+    if hasattr(action, 'PARAMS') and action.PARAMS:
         info["params"] = action.PARAMS
 
     cd = int(getattr(action, "ACTION_CD_MONTHS", 0) or 0)

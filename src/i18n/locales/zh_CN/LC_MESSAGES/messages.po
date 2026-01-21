@@ -1704,3 +1704,16 @@ msgstr "{avatar_name} 卖掉了新获得的{item_name}，获利 {price} 灵石�
 
 msgid "{avatar_name} abandoned {item_name}."
 msgstr "{avatar_name} 放弃了{item_name}。"
+
+# ============================================================================
+# 补充的缺失翻译
+# ============================================================================
+
+msgid "Unsupported item type: {item_type}"
+msgstr "不支持的物品类型：{item_type}"
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} 修为增长 {exp} 点"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} 战胜了 {loser}"
