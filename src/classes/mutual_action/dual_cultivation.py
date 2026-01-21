@@ -16,44 +16,45 @@ if TYPE_CHECKING:
 
 @cooldown_action
 class DualCultivation(MutualAction):
-    """双修：合欢宗弟子可与交互范围内的修士尝试双修。
+    """双修：修士可与交互范围内的修士尝试双修。
 
-    - 仅限发起方为合欢宗成员
     - 仅当目标在交互范围内
     - 目标可以选择 接受 或 拒绝
     - 若接受：发起者获得大量修为（约为修炼的 3~5 倍，随对方等级浮动），目标不获得修为
     - 成功进入后生成一段"恋爱/双修"的小故事
     """
-
-    ACTION_NAME = "双修"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "dual_cultivation_action_name"
+    DESC_ID = "dual_cultivation_description"
+    REQUIREMENTS_ID = "dual_cultivation_requirements"
+    STORY_PROMPT_ID = "dual_cultivation_story_prompt"
+    
+    # 不需要翻译的常量
     EMOJI = "💕"
-    DESC = "以情入道的双修之术，仅合欢宗弟子可发起，对象可接受或拒绝"
-    DOABLES_REQUIREMENTS = "发起者为合欢宗；目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
-    # 提供用于故事生成的提示词，供 StoryTeller 模板参考
-    STORY_PROMPT: str | None = "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
     # 双修的社交冷却：避免频繁请求
     ACTION_CD_MONTHS: int = 3
     # 双修是大事（长期记忆）
     IS_MAJOR: bool = True
-
-    def _get_template_path(self) -> Path:
-        # 复用 mutual_action 模板，仅需返回 Accept/Reject
-        return CONFIG.paths.templates / "mutual_action.txt"
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查双修特有的启动条件"""
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:
+        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-            
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 邀请 {target_name} 进行双修", related_avatars=rel_ids, is_major=True)
+        
+        # 双修有特殊的邀请语义
+        content = t("{initiator} invites {target} for dual cultivation",
+                   initiator=self.avatar.name, target=target_name)
+        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=True)
         
         # 记录开始文本用于故事生成
         self._start_event_content = event.content
@@ -92,6 +93,7 @@ class DualCultivation(MutualAction):
         self._dual_exp_gain = exp_gain
 
     async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         events: list[Event] = []
         success = self._dual_cultivation_success
@@ -100,16 +102,23 @@ class DualCultivation(MutualAction):
 
         if success:
             gain = int(self._dual_exp_gain)
-            result_text = f"{self.avatar.name} 获得修为经验 +{gain} 点"
-            result_event = Event(self.world.month_stamp, result_text, related_avatars=[self.avatar.id, target.id], is_major=True)
+            result_text = t("{avatar} gained cultivation experience +{exp} points",
+                          avatar=self.avatar.name, exp=gain)
+            result_event = Event(self.world.month_stamp, result_text, 
+                               related_avatars=[self.avatar.id, target.id], is_major=True)
             
             events.append(result_event)
 
             # 生成恋爱/双修小故事
             start_text = self._start_event_content or result_event.content
             # 双修强制双人模式，允许改变关系
-            story = await StoryTeller.tell_story(start_text, result_event.content, self.avatar, target, prompt=self.STORY_PROMPT, allow_relation_changes=True)
-            story_event = Event(self.world.month_stamp, story, related_avatars=[self.avatar.id, target.id], is_story=True)
+            story = await StoryTeller.tell_story(
+                start_text, result_event.content, self.avatar, target,
+                prompt=self.get_story_prompt(),  # 使用 classmethod
+                allow_relation_changes=True
+            )
+            story_event = Event(self.world.month_stamp, story, 
+                              related_avatars=[self.avatar.id, target.id], is_story=True)
             
             events.append(story_event)
 

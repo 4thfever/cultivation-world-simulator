@@ -16,5 +16,19 @@ class WeaponType(Enum):
     HIDDEN_WEAPON = "暗器"  # 暗器，如飞针、袖箭等
     
     def __str__(self) -> str:
-        return self.value
+        from src.i18n import t
+        return t(weapon_type_msg_ids.get(self, self.value))
+
+
+weapon_type_msg_ids = {
+    WeaponType.SWORD: "sword",
+    WeaponType.SABER: "saber",
+    WeaponType.SPEAR: "spear",
+    WeaponType.STAFF: "staff",
+    WeaponType.FAN: "fan",
+    WeaponType.WHIP: "whip",
+    WeaponType.ZITHER: "zither",
+    WeaponType.FLUTE: "flute",
+    WeaponType.HIDDEN_WEAPON: "hidden_weapon",
+}
 

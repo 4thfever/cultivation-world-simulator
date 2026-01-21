@@ -38,15 +38,18 @@ class PlunderMortals(TimedAction):
         self.avatar.magic_stone = self.avatar.magic_stone + gain
 
     def can_start(self) -> tuple[bool, str]:
+        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False, "仅能在城市区域执行"
+            return False, t("Can only execute in city areas")
         if self.avatar.alignment != Alignment.EVIL:
-            return False, "仅邪阵营可执行"
+            return False, t("Only evil alignment can execute")
         return True, ""
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始搜刮凡人", related_avatars=[self.avatar.id])
+        from src.i18n import t
+        content = t("{avatar} begins plundering mortals in town", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

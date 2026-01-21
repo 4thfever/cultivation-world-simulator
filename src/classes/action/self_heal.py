@@ -10,11 +10,14 @@ class SelfHeal(TimedAction):
     静养疗伤。
     单月动作。非宗门总部恢复一定比例HP，在宗门总部则回满HP。
     """
-
-    ACTION_NAME = "疗伤"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "self_heal_action_name"
+    DESC_ID = "self_heal_description"
+    REQUIREMENTS_ID = "self_heal_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "💚"
-    DESC = "运功疗伤，宗门总部可完全恢复"
-    DOABLES_REQUIREMENTS = "当前HP未满"
     PARAMS = {}
 
     # 单月动作
@@ -67,25 +70,32 @@ class SelfHeal(TimedAction):
         return bool(hq_name) and region and region.name == hq_name
 
     def can_start(self) -> tuple[bool, str]:
+        from src.i18n import t
         # 任何人任何地方都可疗伤，只要HP未满
         
         hp_obj = getattr(self.avatar, "hp", None)
         if hp_obj is None:
-            return False, "缺少HP信息"
+            return False, t("Missing HP information")
         if not (hp_obj.cur < hp_obj.max):
-            return False, "当前HP已满"
+            return False, t("Current HP is full")
         return True, ""
 
     def start(self) -> Event:
+        from src.i18n import t
         region = getattr(getattr(self.avatar, "tile", None), "region", None)
-        region_name = getattr(region, "name", "荒郊野外")
+        region_name = getattr(region, "name", t("wilderness"))
         # 重置累计量
         self._healed_total = 0
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {region_name} 开始静养疗伤", related_avatars=[self.avatar.id])
+        content = t("{avatar} begins resting and healing at {location}",
+                   avatar=self.avatar.name, location=region_name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
+        from src.i18n import t
         healed_total = int(getattr(self, "_healed_total", 0))
         # 统一用一次事件简要反馈
-        return [Event(self.world.month_stamp, f"{self.avatar.name} 疗伤完成（本次恢复{healed_total}点，当前HP {self.avatar.hp}）", related_avatars=[self.avatar.id])]
+        content = t("{avatar} healing completed (recovered {amount} HP, current HP {hp})",
+                   avatar=self.avatar.name, amount=healed_total, hp=self.avatar.hp)
+        return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]

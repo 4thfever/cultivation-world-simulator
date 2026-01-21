@@ -8,10 +8,13 @@ class Move(DefineAction, ChunkActionMixin):
     """
     最基础的移动动作，在tile之间进行切换。
     """
-
-    ACTION_NAME = "移动"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "move_action_name"
+    DESC_ID = "move_description"
+    
+    # 不需要翻译的常量
     EMOJI = "🏃"
-    DESC = "移动到某个相对位置"
     PARAMS = {"delta_x": "int", "delta_y": "int"}
 
     def _execute(self, delta_x: int, delta_y: int) -> None:

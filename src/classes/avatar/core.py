@@ -54,12 +54,13 @@ class Gender(Enum):
     FEMALE = "female"
 
     def __str__(self) -> str:
-        return gender_strs.get(self, self.value)
+        from src.i18n import t
+        return t(gender_msg_ids.get(self, self.value))
 
 
-gender_strs = {
-    Gender.MALE: "男",
-    Gender.FEMALE: "女",
+gender_msg_ids = {
+    Gender.MALE: "male",
+    Gender.FEMALE: "female",
 }
 
 

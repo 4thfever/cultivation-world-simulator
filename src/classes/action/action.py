@@ -48,6 +48,11 @@ class Action(ABC):
     角色可以执行的动作。
     比如，移动、攻击、采集、建造、etc。
     """
+    
+    # 多语言支持的类变量（子类覆盖）
+    ACTION_NAME_ID: str = ""
+    DESC_ID: str = ""
+    REQUIREMENTS_ID: str = ""
 
     def __init__(self, avatar: Avatar, world: World):
         """
@@ -70,6 +75,30 @@ class Action(ABC):
         return str(self.__class__.__name__)
 
     EMOJI: str = ""
+    
+    @classmethod
+    def get_action_name(cls) -> str:
+        """获取动作名称的翻译"""
+        if cls.ACTION_NAME_ID:
+            from src.i18n import t
+            return t(cls.ACTION_NAME_ID)
+        return cls.__name__
+    
+    @classmethod
+    def get_desc(cls) -> str:
+        """获取动作描述的翻译"""
+        if cls.DESC_ID:
+            from src.i18n import t
+            return t(cls.DESC_ID)
+        return ""
+    
+    @classmethod
+    def get_requirements(cls) -> str:
+        """获取可执行条件的翻译"""
+        if cls.REQUIREMENTS_ID:
+            from src.i18n import t
+            return t(cls.REQUIREMENTS_ID)
+        return ""
 
     def get_save_data(self) -> dict:
         """获取需要存档的运行时数据"""

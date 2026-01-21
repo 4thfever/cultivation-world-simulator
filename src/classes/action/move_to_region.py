@@ -15,11 +15,14 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     """
     移动到某个region
     """
-
-    ACTION_NAME = "移动到区域"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "move_to_region_action_name"
+    DESC_ID = "move_to_region_description"
+    REQUIREMENTS_ID = "move_to_region_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🏃"
-    DESC = "移动到某个区域"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "region_name"}
 
     def __init__(self, avatar, world):
@@ -62,26 +65,31 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: Region | str) -> tuple[bool, str]:
+        from src.i18n import t
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         if not r:
-            return False, f"无法解析区域: {region}"
+            return False, t("Cannot resolve region: {region}", region=region)
             
         # 宗门总部限制：非本门弟子禁止入内
         if isinstance(r, SectRegion):
             if self.avatar.sect is None or self.avatar.sect.id != r.sect_id:
-                return False, f"【{r.name}】是其他宗门驻地，你并非该宗门弟子。"
+                return False, t("[{region}] is another sect's territory, you are not a disciple of that sect", region=r.name)
         
         return True, ""
 
     def start(self, region: Region | str) -> Event:
+        from src.i18n import t
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         # 这里理论上在 can_start 已经校验过，但为了安全再校验一次，如果None则不处理（实际上不会发生）
         if r:
             region_name = r.name
             # 在开始时就确定目标点
             self._get_target_loc(r)
-            return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {region_name}", related_avatars=[self.avatar.id])
-        return Event(self.world.month_stamp, f"{self.avatar.name} 试图移动但目标无效", related_avatars=[self.avatar.id])
+            content = t("{avatar} begins moving toward {region}",
+                       avatar=self.avatar.name, region=region_name)
+            return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
+        content = t("{avatar} attempted to move but target is invalid", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     def step(self, region: Region | str) -> ActionResult:
         self.execute(region=region)

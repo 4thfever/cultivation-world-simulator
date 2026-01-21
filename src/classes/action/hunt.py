@@ -10,11 +10,14 @@ class Hunt(TimedAction):
     狩猎动作，在有动物的区域进行狩猎，持续6个月
     可以获得动物对应的材料
     """
-
-    ACTION_NAME = "狩猎"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "hunt_action_name"
+    DESC_ID = "hunt_description"
+    REQUIREMENTS_ID = "hunt_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🏹"
-    DESC = "在当前区域狩猎动物，获取动物材料"
-    DOABLES_REQUIREMENTS = "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
     PARAMS = {}
 
     duration_months = 6
@@ -35,15 +38,21 @@ class Hunt(TimedAction):
         return check_can_start_gather(self.avatar, "animals", "动物")
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 开始狩猎", related_avatars=[self.avatar.id])
+        from src.i18n import t
+        content = t("{avatar} begins hunting at {location}",
+                   avatar=self.avatar.name, location=self.avatar.tile.location_name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
+        from src.i18n import t
         # 必定有产出
-        materials_desc = "、".join([f"{k}x{v}" for k, v in self.gained_materials.items()])
+        materials_desc = ", ".join([f"{k}x{v}" for k, v in self.gained_materials.items()])
+        content = t("{avatar} finished hunting, obtained: {materials}",
+                   avatar=self.avatar.name, materials=materials_desc)
         return [Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 结束了狩猎，获得了：{materials_desc}",
+            content,
             related_avatars=[self.avatar.id]
         )]

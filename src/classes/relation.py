@@ -20,7 +20,8 @@ class Relation(Enum):
     ENEMY = "enemy"                # 仇人/敌人（对称）
 
     def __str__(self) -> str:
-        return relation_display_names.get(self, self.value)
+        from src.i18n import t
+        return t(relation_msg_ids.get(self, self.value))
 
     @classmethod
     def from_chinese(cls, name_cn: str) -> "Relation|None":
@@ -36,6 +37,19 @@ class Relation(Enum):
         return None
 
 
+relation_msg_ids = {
+    Relation.PARENT: "parent",
+    Relation.CHILD: "child",
+    Relation.SIBLING: "sibling",
+    Relation.KIN: "kin",
+    Relation.MASTER: "master",
+    Relation.APPRENTICE: "apprentice",
+    Relation.LOVERS: "lovers",
+    Relation.FRIEND: "friend",
+    Relation.ENEMY: "enemy",
+}
+
+# 兼容性：保留旧的dict用于from_chinese方法
 relation_display_names = {
     # 血缘（先天）
     Relation.PARENT: "父母",

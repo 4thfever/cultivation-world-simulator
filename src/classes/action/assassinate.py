@@ -18,26 +18,34 @@ if TYPE_CHECKING:
 
 @cooldown_action
 class Assassinate(InstantAction, TargetingMixin):
-    ACTION_NAME = "暗杀"
+    # 多语言 ID
+    ACTION_NAME_ID = "assassinate_action_name"
+    DESC_ID = "assassinate_description"
+    REQUIREMENTS_ID = "assassinate_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🗡️"
-    DESC = "暗杀目标，失败则变为战斗"
-    DOABLES_REQUIREMENTS = "无限制；需要冷却"
     PARAMS = {"avatar_name": "AvatarName"}
     ACTION_CD_MONTHS = 12
     
-    # 成功与失败的提示词
-    STORY_PROMPT_SUCCESS = (
-        "这是关于一次成功的暗杀。不需要描写战斗过程，重点描写刺客如何潜伏、接近，以及最后那一击的致命与悄无声息。"
-        "目标甚至没有反应过来就已经陨落。"
-    )
-    STORY_PROMPT_FAIL = (
-        "这是关于一次失败的暗杀。刺客试图暗杀目标，但被目标敏锐地察觉了。"
-        "双方随后爆发了激烈的正面冲突。"
-        "不要出现具体血量数值。"
-    )
+    # LLM 提示词 ID
+    STORY_PROMPT_SUCCESS_ID = "assassinate_story_prompt_success"
+    STORY_PROMPT_FAIL_ID = "assassinate_story_prompt_fail"
     
     # 暗杀是大事（长期记忆）
     IS_MAJOR: bool = True
+    
+    @classmethod
+    def get_story_prompt_success(cls) -> str:
+        """获取成功提示词的翻译"""
+        from src.i18n import t
+        return t(cls.STORY_PROMPT_SUCCESS_ID)
+    
+    @classmethod
+    def get_story_prompt_fail(cls) -> str:
+        """获取失败提示词的翻译"""
+        from src.i18n import t
+        return t(cls.STORY_PROMPT_FAIL_ID)
 
     def _execute(self, avatar_name: str) -> None:
         target = self.find_avatar_by_name(avatar_name)
@@ -74,10 +82,13 @@ class Assassinate(InstantAction, TargetingMixin):
         return ok, reason
 
     def start(self, avatar_name: str) -> Event:
+        from src.i18n import t
         target = self.find_avatar_by_name(avatar_name)
         target_name = target.name if target is not None else avatar_name
         
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 潜伏在阴影中，试图暗杀 {target_name}...", related_avatars=[self.avatar.id, target.id] if target else [self.avatar.id], is_major=True)
+        content = t("{avatar} lurks in the shadows, attempting to assassinate {target}...", 
+                   avatar=self.avatar.name, target=target_name)
+        event = Event(self.world.month_stamp, content, related_avatars=[self.avatar.id, target.id] if target else [self.avatar.id], is_major=True)
         self._start_event_content = event.content
         return event
 
@@ -90,7 +101,9 @@ class Assassinate(InstantAction, TargetingMixin):
         
         if getattr(self, '_is_assassinate_success', False):
             # --- 暗杀成功 ---
-            result_text = f"{self.avatar.name} 暗杀成功！{target.name} 在毫无防备中陨落。"
+            from src.i18n import t
+            result_text = t("{avatar} assassinated successfully! {target} fell without any defense.",
+                           avatar=self.avatar.name, target=target.name)
             
             # 杀人夺宝
             loot_text = await kill_and_grab(self.avatar, target)
@@ -104,7 +117,7 @@ class Assassinate(InstantAction, TargetingMixin):
                 result_event.content, 
                 self.avatar, 
                 target, 
-                prompt=self.STORY_PROMPT_SUCCESS,
+                prompt=self.get_story_prompt_success(),
                 allow_relation_changes=True
             )
             story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
@@ -122,6 +135,7 @@ class Assassinate(InstantAction, TargetingMixin):
                 
             start_text = getattr(self, '_start_event_content', "")
             
+            from src.i18n import t
             from src.classes.battle import handle_battle_finish
             return await handle_battle_finish(
                 self.world,
@@ -129,8 +143,8 @@ class Assassinate(InstantAction, TargetingMixin):
                 target,
                 res,
                 start_text,
-                self.STORY_PROMPT_FAIL,
-                prefix="暗杀失败！双方爆发激战。",
+                self.get_story_prompt_fail(),
+                prefix=t("Assassination failed! Both sides engaged in fierce battle."),
                 check_loot=True
             )
 

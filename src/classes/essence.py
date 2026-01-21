@@ -13,8 +13,9 @@ class EssenceType(Enum):
     EARTH = "earth" # 土
 
     def __str__(self) -> str:
-        """返回灵气类型的中文名称"""
-        return essence_names.get(self, self.value)
+        """返回灵气类型的翻译名称"""
+        from src.i18n import t
+        return t(essence_msg_ids.get(self, self.value))
     
     @classmethod
     def from_str(cls, essence_str: str) -> 'EssenceType':
@@ -42,6 +43,15 @@ class EssenceType(Enum):
                 
         raise ValueError(f"Unknown essence type: {essence_str}")
 
+essence_msg_ids = {
+    EssenceType.GOLD: "gold_essence",
+    EssenceType.WOOD: "wood_essence",
+    EssenceType.WATER: "water_essence",
+    EssenceType.FIRE: "fire_essence",
+    EssenceType.EARTH: "earth_essence"
+}
+
+# 兼容性：保留旧的dict用于from_str方法
 essence_names = {
     EssenceType.GOLD: "金",
     EssenceType.WOOD: "木",

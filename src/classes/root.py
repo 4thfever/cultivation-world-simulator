@@ -21,7 +21,17 @@ class RootElement(Enum):
     EARTH = "土"
 
     def __str__(self) -> str:
-        return self.value
+        from src.i18n import t
+        return t(root_element_msg_ids.get(self, self.value))
+
+
+root_element_msg_ids = {
+    RootElement.GOLD: "gold_element",
+    RootElement.WOOD: "wood_element",
+    RootElement.WATER: "water_element",
+    RootElement.FIRE: "fire_element",
+    RootElement.EARTH: "earth_element",
+}
 
 
 class _RootMixin:

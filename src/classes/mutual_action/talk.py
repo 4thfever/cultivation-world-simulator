@@ -17,19 +17,29 @@ class Talk(MutualAction):
     攀谈：向交互范围内的某个NPC发起攀谈。
     - 接受后自动进入 Conversation
     """
-
-    ACTION_NAME = "攀谈"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "talk_action_name"
+    DESC_ID = "talk_description"
+    REQUIREMENTS_ID = "talk_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "👋"
-    DESC = "向某人发起攀谈，对象不能是自己"
-    DOABLES_REQUIREMENTS = "对象在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
     
+    # 自定义反馈标签
+    FEEDBACK_LABEL_IDS: dict[str, str] = {
+        "Talk": "feedback_talk",
+        "Reject": "feedback_reject",
+    }
+    
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攀谈无额外检查条件"""
+        from src.i18n import t
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
-            return False, "目标不在交互范围内"
+            return False, t("Target not within interaction range")
         return True, ""
     
     def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
@@ -41,11 +51,14 @@ class Talk(MutualAction):
         events_to_return = []
         
         # 处理反馈
+        from src.i18n import t
         if feedback == "Talk":
             # 接受攀谈，自动进入 Conversation
+            content = t("{target} accepted {initiator}'s talk invitation",
+                       target=target.name, initiator=self.avatar.name)
             accept_event = Event(
                 self.world.month_stamp, 
-                f"{target.name} 接受了 {self.avatar.name} 的攀谈", 
+                content, 
                 related_avatars=[self.avatar.id, target.id]
             )
             
@@ -65,9 +78,11 @@ class Talk(MutualAction):
 
         else:
             # 拒绝攀谈
+            content = t("{target} rejected {initiator}'s talk invitation",
+                       target=target.name, initiator=self.avatar.name)
             reject_event = Event(
                 self.world.month_stamp, 
-                f"{target.name} 拒绝了 {self.avatar.name} 的攀谈", 
+                content, 
                 related_avatars=[self.avatar.id, target.id]
             )
             events_to_return.append(reject_event)

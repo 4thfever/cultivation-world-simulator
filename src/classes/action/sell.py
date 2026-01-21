@@ -19,22 +19,26 @@ class Sell(InstantAction):
     如果是装备：卖出当前装备的（如果是当前装备）。
     收益通过 avatar.sell_material() / sell_weapon() / sell_auxiliary() 结算。
     """
-
-    ACTION_NAME = "出售"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "sell_action_name"
+    DESC_ID = "sell_description"
+    REQUIREMENTS_ID = "sell_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "💰"
-    DESC = "在城镇出售持有的某类物品的全部，或当前装备"
-    DOABLES_REQUIREMENTS = "在城镇且持有可出售物品/装备"
     PARAMS = {"target_name": "str"}
 
     def can_start(self, target_name: str) -> tuple[bool, str]:
+        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False, "仅能在城市区域执行"
+            return False, t("Can only execute in city areas")
         
         # 使用通用解析逻辑获取物品原型和类型
         res = resolve_query(target_name, expected_types=[Material, Weapon, Auxiliary])
         if not res.is_valid:
-            return False, f"未持有物品/装备: {target_name}"
+            return False, t("Do not possess item/equipment: {name}", name=target_name)
         
         obj = res.obj
         normalized_name = normalize_goods_name(target_name)
@@ -44,24 +48,24 @@ class Sell(InstantAction):
             if self.avatar.get_material_quantity(obj) > 0:
                 pass # 检查通过
             else:
-                 return False, f"未持有材料: {target_name}"
+                 return False, t("Do not possess material: {name}", name=target_name)
 
         # 2. 如果是兵器，检查当前装备
         elif isinstance(obj, Weapon):
             if self.avatar.weapon and normalize_goods_name(self.avatar.weapon.name) == normalized_name:
                 pass # 检查通过
             else:
-                return False, f"未持有装备: {target_name}"
+                return False, t("Do not possess equipment: {name}", name=target_name)
 
         # 3. 如果是辅助装备，检查当前装备
         elif isinstance(obj, Auxiliary):
             if self.avatar.auxiliary and normalize_goods_name(self.avatar.auxiliary.name) == normalized_name:
                 pass # 检查通过
             else:
-                return False, f"未持有装备: {target_name}"
+                return False, t("Do not possess equipment: {name}", name=target_name)
         
         else:
-            return False, f"无法出售此类型: {target_name}"
+            return False, t("Cannot sell this type: {name}", name=target_name)
             
         return True, ""
 
@@ -92,11 +96,14 @@ class Sell(InstantAction):
                 self.avatar.change_auxiliary(None) # 卖出后卸下
 
     def start(self, target_name: str) -> Event:
+        from src.i18n import t
         res = resolve_query(target_name)
         display_name = res.name if res.is_valid else target_name
+        content = t("{avatar} sold {item} in town",
+                   avatar=self.avatar.name, item=display_name)
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 在城镇出售了 {display_name}", 
+            content, 
             related_avatars=[self.avatar.id]
         )
 

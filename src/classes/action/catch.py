@@ -22,11 +22,14 @@ class Catch(TimedAction):
     结果：
     - 按动物境界映射成功率尝试捕捉，成功则成为灵兽（覆盖旧灵兽）。
     """
-
-    ACTION_NAME = "御兽"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "catch_action_name"
+    DESC_ID = "catch_description"
+    REQUIREMENTS_ID = "catch_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🕸️"
-    DESC = "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级。"
-    DOABLES_REQUIREMENTS = "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
     PARAMS = {}
 
     duration_months = 4
@@ -65,34 +68,41 @@ class Catch(TimedAction):
             self._caught_result = (None, None, "fail")
 
     def can_start(self) -> tuple[bool, str]:
+        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
-            return False, "当前不在普通区域"
+            return False, t("Not currently in normal area")
         animals = region.animals
         if len(animals) == 0:
-            return False, f"当前区域{region.name}没有动物"
+            return False, t("Current area {region} has no animals", region=region.name)
         # 动物境界是否可御
         available_animals = [animal for animal in animals if self.avatar.cultivation_progress.realm >= animal.realm]
         if len(available_animals) == 0:
-            return False, "当前区域的动物境界于角色境界"
+            return False, t("Animal realms in current area exceed character realm")
         return True, ""
 
     def start(self) -> Event:
+        from src.i18n import t
         # 清理状态
         self._caught_result = None
         region = self.avatar.tile.region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 尝试御兽", related_avatars=[self.avatar.id])
+        content = t("{avatar} attempts to tame spirit beast at {location}",
+                   avatar=self.avatar.name, location=self.avatar.tile.location_name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
+        from src.i18n import t
         res = self._caught_result
         if not (isinstance(res, tuple) and len(res) == 3):
             return []
         target_name, target_realm, result = res[0], res[1], res[2]
         if result == "fail":
-            return [Event(self.world.month_stamp, f"{self.avatar.name} 御兽失败", related_avatars=[self.avatar.id])]
+            content = t("{avatar} failed to tame spirit beast", avatar=self.avatar.name)
+            return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]
         else:
-            realm_label = target_realm.value
-            text = f"{self.avatar.name} 御兽成功，{realm_label}境的{target_name}成为其灵兽"
-            return [Event(self.world.month_stamp, text, related_avatars=[self.avatar.id])]
+            realm_label = str(target_realm)
+            content = t("{avatar} successfully tamed spirit beast, {realm} realm {beast} became their spirit beast",
+                       avatar=self.avatar.name, realm=realm_label, beast=target_name)
+            return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]
 
 

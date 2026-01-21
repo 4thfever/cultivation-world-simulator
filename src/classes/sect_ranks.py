@@ -22,6 +22,10 @@ class SectRank(Enum):
     InnerDisciple = "inner"      # 内门弟子
     OuterDisciple = "outer"      # 外门弟子
     
+    def __str__(self) -> str:
+        from src.i18n import t
+        return t(sect_rank_msg_ids.get(self, self.value))
+    
     def __lt__(self, other):
         if not isinstance(other, SectRank):
             return NotImplemented
@@ -53,6 +57,13 @@ RANK_ORDER = {
     SectRank.OuterDisciple: 3,
 }
 
+# msgid映射
+sect_rank_msg_ids = {
+    SectRank.Patriarch: "patriarch",
+    SectRank.Elder: "elder",
+    SectRank.InnerDisciple: "inner_disciple",
+    SectRank.OuterDisciple: "outer_disciple",
+}
 
 # 默认职位名称（可被宗门自定义覆盖）
 DEFAULT_RANK_NAMES = {

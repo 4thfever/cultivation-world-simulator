@@ -30,18 +30,21 @@ class HelpMortals(TimedAction):
             self.avatar.magic_stone = self.avatar.magic_stone - cost
 
     def can_start(self) -> tuple[bool, str]:
+        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False, "仅能在城市区域执行"
+            return False, t("Can only execute in city areas")
         if self.avatar.alignment != Alignment.RIGHTEOUS:
-            return False, "仅正阵营可执行"
+            return False, t("Only righteous alignment can execute")
         cost = self.COST
         if not (self.avatar.magic_stone >= cost):
-            return False, "灵石不足"
+            return False, t("Insufficient spirit stones")
         return True, ""
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始帮助凡人", related_avatars=[self.avatar.id])
+        from src.i18n import t
+        content = t("{avatar} begins helping mortals in town", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

@@ -25,13 +25,32 @@ class TechniqueAttribute(Enum):
     EVIL = "邪"
 
     def __str__(self) -> str:
-        return self.value
+        from src.i18n import t
+        return t(technique_attribute_msg_ids.get(self, self.value))
+
+
+technique_attribute_msg_ids = {
+    TechniqueAttribute.GOLD: "gold_attribute",
+    TechniqueAttribute.WOOD: "wood_attribute",
+    TechniqueAttribute.WATER: "water_attribute",
+    TechniqueAttribute.FIRE: "fire_attribute",
+    TechniqueAttribute.EARTH: "earth_attribute",
+    TechniqueAttribute.ICE: "ice_attribute",
+    TechniqueAttribute.WIND: "wind_attribute",
+    TechniqueAttribute.DARK: "dark_attribute",
+    TechniqueAttribute.THUNDER: "thunder_attribute",
+    TechniqueAttribute.EVIL: "evil_attribute",
+}
 
 
 class TechniqueGrade(Enum):
     LOWER = "下品"
     MIDDLE = "中品"
     UPPER = "上品"
+
+    def __str__(self) -> str:
+        from src.i18n import t
+        return t(technique_grade_msg_ids.get(self, self.value))
 
     @staticmethod
     def from_str(s: str) -> "TechniqueGrade":
@@ -51,6 +70,13 @@ class TechniqueGrade(Enum):
             TechniqueGrade.UPPER: TECHNIQUE_GRADE_COLORS["UPPER"],
         }
         return color_map.get(self, Color.COMMON_WHITE)
+
+
+technique_grade_msg_ids = {
+    TechniqueGrade.LOWER: "lower_grade",
+    TechniqueGrade.MIDDLE: "middle_grade",
+    TechniqueGrade.UPPER: "upper_grade",
+}
 
 
 @dataclass

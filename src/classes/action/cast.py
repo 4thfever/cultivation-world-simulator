@@ -20,9 +20,15 @@ class Cast(TimedAction):
     铸造动作：消耗同阶材料，尝试打造同阶宝物（兵器或辅助装备）。
     持续时间：3个月
     """
-    ACTION_NAME = "铸造"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "cast_action_name"
+    DESC_ID = "cast_description"
+    REQUIREMENTS_ID = "cast_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🔥"
-    DESC = "消耗材料尝试铸造法宝"
+    PARAMS = {"target_realm": "str"}
 
     COST = 5
     SUCCESS_RATES = {
@@ -32,8 +38,6 @@ class Cast(TimedAction):
         Realm.Nascent_Soul: 0.1,
     }
 
-    DOABLES_REQUIREMENTS = f"拥有{COST}个同境界材料"
-    PARAMS = {"target_realm": "目标境界名称（'练气'、'筑基'、'金丹'、'元婴'）"}
     IS_MAJOR = False
 
     duration_months = 3
@@ -56,12 +60,13 @@ class Cast(TimedAction):
         return count
 
     def can_start(self, target_realm: str) -> tuple[bool, str]:
+        from src.i18n import t
         if not target_realm:
-            return False, "未指定目标境界"
+            return False, t("Target realm not specified")
         
         res = resolve_query(target_realm, expected_types=[Realm])
         if not res.is_valid:
-            return False, f"无效的境界: {target_realm}"
+            return False, t("Invalid realm: {realm}", realm=target_realm)
             
         realm = res.obj
 
@@ -69,7 +74,8 @@ class Cast(TimedAction):
         count = self._count_materials(realm)
         
         if count < cost:
-            return False, f"材料不足，需要 {cost} 个{target_realm}阶材料，当前拥有 {count} 个"
+            return False, t("Insufficient materials, need {cost} {realm}-tier materials, currently have {count}",
+                          cost=cost, realm=target_realm, count=count)
             
         return True, ""
 
@@ -96,10 +102,12 @@ class Cast(TimedAction):
         for material, take in materials_to_modify:
             self.avatar.remove_material(material, take)
 
-        realm_val = self.target_realm.value if self.target_realm else target_realm
+        realm_val = str(self.target_realm) if self.target_realm else target_realm
+        content = t("{avatar} begins attempting to cast {realm}-tier treasure",
+                   avatar=self.avatar.name, realm=realm_val)
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 开始尝试铸造{realm_val}阶法宝。", 
+            content, 
             related_avatars=[self.avatar.id]
         )
 
@@ -121,9 +129,12 @@ class Cast(TimedAction):
         # 2. 判定结果
         if random.random() > success_rate:
             # 失败
+            from src.i18n import t
+            content = t("{avatar} failed to cast {realm}-tier treasure, all materials turned to ash",
+                       avatar=self.avatar.name, realm=str(self.target_realm))
             fail_event = Event(
                 self.world.month_stamp,
-                f"{self.avatar.name} 铸造{self.target_realm.value}阶法宝失败，所有材料化为灰烬。",
+                content,
                 related_avatars=[self.avatar.id],
                 is_major=False
             )
@@ -131,6 +142,7 @@ class Cast(TimedAction):
             return events
 
         # 3. 成功：生成物品
+        from src.i18n import t
         # 50% 兵器，50% 辅助装备
         is_weapon = random.random() < 0.5
         new_item = None
@@ -140,19 +152,23 @@ class Cast(TimedAction):
         if is_weapon:
             new_item = get_random_weapon_by_realm(self.target_realm)
             item_type = "weapon"
-            item_label = "兵器"
+            item_label = t("weapon")
         else:
             new_item = get_random_auxiliary_by_realm(self.target_realm)
             item_type = "auxiliary"
-            item_label = "辅助装备"
+            item_label = t("auxiliary")
             
         # 4. 决策：保留还是卖出
-        base_desc = f"铸造成功！获得了{self.target_realm.value}{item_label}『{new_item.name}』。"
+        base_desc = t("Casting succeeded! Obtained {realm} {label} '{item}'",
+                     realm=str(self.target_realm), label=item_label, item=new_item.name)
         
         # 事件1：铸造成功
+        content = t("{avatar} successfully cast {realm}-tier {label} '{item}'",
+                   avatar=self.avatar.name, realm=str(self.target_realm), 
+                   label=item_label, item=new_item.name)
         events.append(Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 成功铸造{self.target_realm.value}{item_label}『{new_item.name}』。",
+            content,
             related_avatars=[self.avatar.id],
             is_major=True
         ))

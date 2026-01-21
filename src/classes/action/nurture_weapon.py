@@ -9,11 +9,14 @@ class NurtureWeapon(TimedAction):
     """
     温养兵器：花时间温养兵器，可以较多增加熟练度
     """
-
-    ACTION_NAME = "温养兵器"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "nurture_weapon_action_name"
+    DESC_ID = "nurture_weapon_description"
+    REQUIREMENTS_ID = "nurture_weapon_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "✨"
-    DESC = "温养兵器，增加兵器熟练度"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}
 
     duration_months = 3
@@ -47,9 +50,12 @@ class NurtureWeapon(TimedAction):
                     self.avatar.weapon_proficiency = old_proficiency
                     # 记录升华事件
                     from src.classes.event import Event
+                    from src.i18n import t
+                    content = t("{avatar} nurturing {old_weapon}, the weapon's spirituality greatly increased, evolved into {new_weapon}!",
+                               avatar=self.avatar.name, old_weapon=old_weapon_name, new_weapon=treasure_weapon.name)
                     self.avatar.add_event(Event(
                         self.world.month_stamp,
-                        f"{self.avatar.name} 温养{old_weapon_name}时，兵器灵性大增，升华为{treasure_weapon.name}！",
+                        content,
                         related_avatars=[self.avatar.id]
                     ))
 
@@ -58,21 +64,27 @@ class NurtureWeapon(TimedAction):
         return (True, "")
 
     def start(self) -> Event:
-        weapon_name = self.avatar.weapon.name if self.avatar.weapon else "兵器"
+        from src.i18n import t
+        weapon_name = self.avatar.weapon.name if self.avatar.weapon else t("weapon")
+        content = t("{avatar} begins nurturing {weapon}",
+                   avatar=self.avatar.name, weapon=weapon_name)
         return Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 开始温养{weapon_name}",
+            content,
             related_avatars=[self.avatar.id]
         )
 
     async def finish(self) -> list[Event]:
-        weapon_name = self.avatar.weapon.name if self.avatar.weapon else "兵器"
+        from src.i18n import t
+        weapon_name = self.avatar.weapon.name if self.avatar.weapon else t("weapon")
         proficiency = self.avatar.weapon_proficiency
         # 注意：升华事件已经在_execute中添加，这里只添加完成事件
+        content = t("{avatar} finished nurturing {weapon}, proficiency increased to {proficiency}%",
+                   avatar=self.avatar.name, weapon=weapon_name, proficiency=f"{proficiency:.1f}")
         return [
             Event(
                 self.world.month_stamp,
-                f"{self.avatar.name} 完成温养{weapon_name}，熟练度提升至{proficiency:.1f}%",
+                content,
                 related_avatars=[self.avatar.id]
             )
         ]

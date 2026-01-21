@@ -10,6 +10,11 @@ class Realm(Enum):
     Core_Formation = "金丹"
     Nascent_Soul = "元婴"
 
+    def __str__(self) -> str:
+        """返回境界的翻译名称"""
+        from src.i18n import t
+        return t(realm_msg_ids.get(self, self.value))
+
     @property
     def color_rgb(self) -> tuple[int, int, int]:
         """返回境界对应的RGB颜色值"""
@@ -55,6 +60,11 @@ class Stage(Enum):
     Middle_Stage = "中期"
     Late_Stage = "后期"
 
+    def __str__(self) -> str:
+        """返回阶段的翻译名称"""
+        from src.i18n import t
+        return t(stage_msg_ids.get(self, self.value))
+
     def __lt__(self, other):
         if not isinstance(other, Stage):
             return NotImplemented
@@ -74,6 +84,20 @@ class Stage(Enum):
         if not isinstance(other, Stage):
             return NotImplemented
         return STAGE_RANK[self] >= STAGE_RANK[other]
+
+# msgid映射
+realm_msg_ids = {
+    Realm.Qi_Refinement: "qi_refinement",
+    Realm.Foundation_Establishment: "foundation_establishment",
+    Realm.Core_Formation: "core_formation",
+    Realm.Nascent_Soul: "nascent_soul",
+}
+
+stage_msg_ids = {
+    Stage.Early_Stage: "early_stage",
+    Stage.Middle_Stage: "middle_stage",
+    Stage.Late_Stage: "late_stage",
+}
 
 # 统一的境界顺序与排名，避免重复定义
 REALM_ORDER: tuple[Realm, ...] = (

@@ -57,10 +57,13 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     向某个方向移动探索（固定时长6个月）
     """
     
-    ACTION_NAME = "移动探索"
+    # 多语言 ID
+    ACTION_NAME_ID = "move_to_direction_action_name"
+    DESC_ID = "move_to_direction_description"
+    REQUIREMENTS_ID = "move_to_direction_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🧭"
-    DESC = "向某个方向探索未知区域"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"direction": "direction (North/South/East/West)"}
     IS_MAJOR = False
     
@@ -74,15 +77,23 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         self.direction = None
 
     def can_start(self, direction: str) -> tuple[bool, str]:
+        from src.i18n import t
         if not Direction.is_valid(direction):
-            return False, f"无效的方向: {direction}"
+            return False, t("Invalid direction: {direction}", direction=direction)
         return True, ""
 
     def start(self, direction: str) -> Event:
+        from src.i18n import t
         self.start_monthstamp = self.world.month_stamp
         self.direction = direction
-        direction_cn = Direction.get_cn_name(direction)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始向{direction_cn}方移动", related_avatars=[self.avatar.id])
+        # 翻译方向名
+        direction_msgids = {"North": "north", "South": "south", "East": "east", "West": "west",
+                           "北": "north", "南": "south", "东": "east", "西": "west"}
+        dir_msgid = direction_msgids.get(direction, direction)
+        direction_translated = t(dir_msgid)
+        content = t("{avatar} begins moving toward {direction}",
+                   avatar=self.avatar.name, direction=direction_translated)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     def step(self, direction: str) -> ActionResult:
         # 确保方向已设置
@@ -107,8 +118,15 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         return ActionResult(status=(ActionStatus.COMPLETED if is_done else ActionStatus.RUNNING), events=[])
 
     async def finish(self, direction: str) -> list[Event]:
-        direction_cn = Direction.get_cn_name(direction)
-        return [Event(self.world.month_stamp, f"{self.avatar.name} 结束了向{direction_cn}方的移动", related_avatars=[self.avatar.id])]
+        from src.i18n import t
+        # 翻译方向名
+        direction_msgids = {"North": "north", "South": "south", "East": "east", "West": "west",
+                           "北": "north", "南": "south", "东": "east", "西": "west"}
+        dir_msgid = direction_msgids.get(direction, direction)
+        direction_translated = t(dir_msgid)
+        content = t("{avatar} finished moving toward {direction}",
+                   avatar=self.avatar.name, direction=direction_translated)
+        return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]
 
     def _execute(self, *args, **kwargs):
         pass
