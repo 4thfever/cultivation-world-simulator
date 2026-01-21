@@ -674,6 +674,93 @@ class TestInitGameAsyncEdgeCases:
             call_kwargs = mock_make_random.call_args
             assert len(call_kwargs[1]["existed_sects"]) == 2
 
+    @pytest.mark.asyncio
+    async def test_init_handles_world_creation_error(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that World.create_with_db failure sets error status."""
+        mock_map = MagicMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.CONFIG") as mock_config:
+
+            mock_world_class.create_with_db.side_effect = Exception("Database connection failed")
+            mock_config.paths.saves = temp_saves_dir
+
+            await init_game_async()
+
+            assert game_instance["init_status"] == "error"
+            assert "Database connection failed" in game_instance["init_error"]
+
+    @pytest.mark.asyncio
+    async def test_init_protagonist_mode_none_skips_spawn(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that protagonist mode 'none' does not call spawn_protagonists."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 5
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # spawn_protagonists should NOT be called when mode is "none".
+            mock_prot_utils.spawn_protagonists.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_init_empty_history_skips_history_manager(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that empty world_history does not invoke HistoryManager."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.HistoryManager") as mock_history_manager, \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 5
+            mock_config.game.world_history = ""  # Empty history.
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # HistoryManager should NOT be instantiated when history is empty.
+            mock_history_manager.assert_not_called()
+            # set_history should NOT be called either.
+            mock_world.set_history.assert_not_called()
+
 
 class TestInitPhaseNames:
     """Tests for phase name constants."""
