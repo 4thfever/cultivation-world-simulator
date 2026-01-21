@@ -1,0 +1,81 @@
+# Chinese (Simplified) translations for cultivation-world-simulator.
+# Copyright (C) 2024
+# This file is distributed under the same license as the project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Battle messages
+msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
+msgstr "{winner} 战胜了 {loser}，造成 {damage} 点伤害。{loser} 遭受重创，当场陨落。"
+
+msgid "{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also took {winner_dmg} damage."
+msgstr "{winner} 战胜了 {loser}，{loser} 受伤 {loser_dmg} 点，{winner} 也受伤 {winner_dmg} 点。"
+
+# Fortune messages
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "遭遇奇遇（{theme}），{result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "发现了兵器『{weapon}』，{exchange_result}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "发现了辅助装备『{auxiliary}』，{exchange_result}"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "领悟了功法『{technique}』，{exchange_result}"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} 获得灵石 {amount} 枚"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} 修为增长 {exp} 点"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} 拜 {master} 为师"
+
+# Misfortune messages
+msgid "Encountered misfortune ({theme}), {result}"
+msgstr "遭遇霉运（{theme}），{result}"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} 损失灵石 {amount} 枚"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} 受到伤害 {damage} 点，剩余HP {current}/{max}"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} 修为倒退 {amount} 点"
+
+# Death reasons
+msgid "Killed by {killer}"
+msgstr "被{killer}杀害"
+
+msgid "Died from severe injuries"
+msgstr "重伤不治身亡"
+
+msgid "Died of old age"
+msgstr "寿元耗尽而亡"
+
+# Item exchange
+msgid "decided to equip it"
+msgstr "决定更换装备"
+
+msgid "decided to keep current equipment"
+msgstr "决定保留原装备"
+
+msgid "decided to learn it"
+msgstr "决定修炼"
+
+msgid "decided to keep current technique"
+msgstr "决定保留原功法"
