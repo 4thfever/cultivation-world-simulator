@@ -67,7 +67,7 @@ msgstr "重伤不治身亡"
 msgid "Died of old age"
 msgstr "寿元耗尽而亡"
 
-# Item exchange
+# Item exchange - general
 msgid "decided to equip it"
 msgstr "决定更换装备"
 
@@ -79,3 +79,83 @@ msgstr "决定修炼"
 
 msgid "decided to keep current technique"
 msgstr "决定保留原功法"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} 获得了{grade}{label}『{item_name}』并装备。"
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} 装备了{grade}{label}『{item_name}』。"
+
+msgid "{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr "{name} 卖掉了新获得的{item_name}，获利 {price} 灵石。"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} 放弃了{item_name}。"
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "你在奇遇中发现了{realm}兵器『{weapon}』。"
+
+msgid " But you already have '{current_weapon}'."
+msgstr " 但你手中已有『{current_weapon}』。"
+
+msgid "You discovered a {realm} auxiliary equipment '{auxiliary}' during the fortune."
+msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary}』。"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " 但你手中已有『{current_auxiliary}』。"
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "你在奇遇中领悟了上品功法『{technique}』。"
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " 这与你当前主修的『{current_technique}』冲突。"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "战胜了"
+
+# Single choice - context and options
+msgid "Current situation: {context}\n\n{choices}"
+msgstr "【当前情境】：{context}\n\n{choices}"
+
+msgid "New {label}: {info}"
+msgstr "新{label}：{info}"
+
+msgid "Current {label}: {info}"
+msgstr "现有{label}：{info}"
+
+msgid "(Choosing to replace will sell the old {label})"
+msgstr "（选择替换将卖出旧{label}）"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "装备新{label}『{new_name}』"
+
+msgid ", sell old {label} '{old_name}'"
+msgstr "，卖掉旧{label}『{old_name}』"
+
+msgid ", replace old {label} '{old_name}'"
+msgstr "，替换旧{label}『{old_name}』"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+
+msgid "Discard '{new_name}'"
+msgstr "放弃『{new_name}』"
+
+msgid ", keep current '{old_name}'"
+msgstr "，保留身上的『{old_name}』"
+
+# Labels
+msgid "weapon"
+msgstr "兵器"
+
+msgid "auxiliary"
+msgstr "辅助装备"
+
+msgid "technique"
+msgstr "功法"
+
+msgid "elixir"
+msgstr "丹药"
