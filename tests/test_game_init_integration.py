@@ -761,6 +761,253 @@ class TestInitGameAsyncEdgeCases:
             # set_history should NOT be called either.
             mock_world.set_history.assert_not_called()
 
+    @pytest.mark.asyncio
+    async def test_init_whitespace_only_history_skips_history_manager(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that whitespace-only world_history does not invoke HistoryManager."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.HistoryManager") as mock_history_manager, \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 5
+            mock_config.game.world_history = "   \n\t  "  # Whitespace only.
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # HistoryManager should NOT be instantiated for whitespace-only history.
+            mock_history_manager.assert_not_called()
+            mock_world.set_history.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_init_handles_simulator_creation_error(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that Simulator construction failure sets error status."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator") as mock_sim_class, \
+             patch("src.server.main.CONFIG") as mock_config:
+
+            mock_world_class.create_with_db.return_value = mock_world
+            mock_sim_class.side_effect = Exception("Simulator init failed")
+            mock_config.paths.saves = temp_saves_dir
+
+            await init_game_async()
+
+            assert game_instance["init_status"] == "error"
+            assert "Simulator init failed" in game_instance["init_error"]
+
+    @pytest.mark.asyncio
+    async def test_init_sets_current_save_path(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that current_save_path is set during initialization."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 0
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # current_save_path should be set.
+            assert game_instance["current_save_path"] is not None
+            assert str(temp_saves_dir) in str(game_instance["current_save_path"])
+            assert game_instance["current_save_path"].suffix == ".json"
+
+    @pytest.mark.asyncio
+    async def test_init_sets_start_time(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that init_start_time is set at the beginning of initialization."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        import time
+        before_init = time.time()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 0
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+        after_init = time.time()
+
+        # init_start_time should be set and within the expected range.
+        assert game_instance["init_start_time"] is not None
+        assert before_init <= game_instance["init_start_time"] <= after_init
+
+    @pytest.mark.asyncio
+    async def test_init_clears_previous_error(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that init_error is cleared at the start of initialization."""
+        # Set a previous error.
+        game_instance["init_error"] = "Previous error"
+
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 0
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Previous error should be cleared.
+            assert game_instance["init_error"] is None
+
+    @pytest.mark.asyncio
+    async def test_init_handles_reload_static_data_error(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that reload_all_static_data failure sets error status."""
+        with patch.object(main, "reload_all_static_data", side_effect=Exception("Static data corrupted")), \
+             patch("src.server.main.CONFIG") as mock_config:
+
+            mock_config.paths.saves = temp_saves_dir
+
+            await init_game_async()
+
+            assert game_instance["init_status"] == "error"
+            assert "Static data corrupted" in game_instance["init_error"]
+
+    @pytest.mark.asyncio
+    async def test_init_zero_npc_count(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test initialization with zero NPC count."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 0  # Zero NPCs.
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # _new_make_random should NOT be called when count is 0.
+            mock_make_random.assert_not_called()
+            assert game_instance["init_status"] == "ready"
+
+    @pytest.mark.asyncio
+    async def test_init_protagonists_exceed_target_count(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test when spawned protagonists exceed target NPC count."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        # Spawn 10 protagonists but target is only 5.
+        mock_protagonists = {f"p{i}": MagicMock() for i in range(10)}
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_prot_utils.spawn_protagonists.return_value = mock_protagonists
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 5  # Target 5, but 10 protagonists.
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "random"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # remaining_count = max(0, 5 - 10) = 0, so no random NPCs.
+            mock_make_random.assert_not_called()
+            assert game_instance["init_status"] == "ready"
+
 
 class TestInitPhaseNames:
     """Tests for phase name constants."""
