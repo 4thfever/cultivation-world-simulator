@@ -169,9 +169,12 @@ class CultivationProgress:
         return REALM_TO_MOVE_STEP[self.realm]
 
     def get_detailed_info(self) -> str:
+        from src.i18n import t
         can_break_through = self.can_break_through()
-        can_break_through_str = "需要突破" if can_break_through else "未到瓶颈无需突破"
-        return f"{self.realm.value}{self.stage.value}({self.level}级){can_break_through_str}"
+        can_break_through_str = t("Needs breakthrough") if can_break_through else t("Not at bottleneck, no breakthrough needed")
+        return t("{realm}{stage}(Level {level}){status}", 
+                realm=self.realm.value, stage=self.stage.value, 
+                level=self.level, status=can_break_through_str)
 
     def get_info(self) -> str:
         return f"{self.realm.value}{self.stage.value}"
@@ -278,7 +281,11 @@ class CultivationProgress:
         return self.exp >= exp_required
 
     def __str__(self) -> str:
-        return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{'是' if self.is_in_bottleneck() else '否'}"
+        from src.i18n import t
+        bottleneck_status = t("Yes") if self.is_in_bottleneck() else t("No")
+        return t("{realm}{stage}(Level {level}). At bottleneck: {status}",
+                realm=self.realm.value, stage=self.stage.value,
+                level=self.level, status=bottleneck_status)
 
     def get_breakthrough_success_rate(self) -> float:
         return breakthrough_success_rate_by_realm[self.realm]

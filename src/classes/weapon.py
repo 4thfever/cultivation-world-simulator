@@ -41,7 +41,8 @@ class Weapon(Item):
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"{self.name}（{self.weapon_type}·{self.realm.value}，{self.desc}）{effect_part}"
     
     def get_colored_info(self) -> str:
@@ -86,7 +87,9 @@ def _load_weapons_data() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
                 break
         
         if weapon_type is None:
-            raise ValueError(f"武器 {get_str(row, 'name')} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型")
+            from src.i18n import t
+            raise ValueError(t("Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid weapon type",
+                              name=get_str(row, 'name'), weapon_type_str=weapon_type_str))
 
         # 解析grade
         grade_str = get_str(row, "grade", "练气")

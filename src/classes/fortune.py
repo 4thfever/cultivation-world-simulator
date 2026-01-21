@@ -34,56 +34,63 @@ class FortuneKind(Enum):
     CULTIVATION = "cultivation"     # 修为奇遇
 
 
-F_WEAPON_THEMES: list[str] = [
-    "误入洞府",
-    "巧捡神兵",
-    "误入试炼",
-    "异象出世",
-    "高人赠予",
+# Fortune theme msgids (for i18n)
+F_WEAPON_THEME_IDS: list[str] = [
+    "fortune_theme_wandered_into_cave",
+    "fortune_theme_found_divine_weapon",
+    "fortune_theme_entered_trial",
+    "fortune_theme_phenomenon_appeared",
+    "fortune_theme_gifted_by_master",
 ]
 
-F_AUXILIARY_THEMES: list[str] = [
-    "误入洞府",
-    "巧捡奇物",
-    "误入试炼",
-    "异象出世",
-    "高人指点",
+F_AUXILIARY_THEME_IDS: list[str] = [
+    "fortune_theme_wandered_into_cave",
+    "fortune_theme_found_treasure",
+    "fortune_theme_entered_trial",
+    "fortune_theme_phenomenon_appeared",
+    "fortune_theme_guided_by_master",
 ]
 
-F_TECHNIQUE_THEMES: list[str] = [
-    "误入洞府",
-    "巧捡奇物",
-    "误入试炼",
-    "高人指点",
-    "玄妙感悟",
+F_TECHNIQUE_THEME_IDS: list[str] = [
+    "fortune_theme_wandered_into_cave",
+    "fortune_theme_found_treasure",
+    "fortune_theme_entered_trial",
+    "fortune_theme_guided_by_master",
+    "fortune_theme_profound_insight",
 ]
 
-F_FIND_MASTER_THEMES: list[str] = [
-    "危难相救",
-    "品行打动",
-    "展露天赋",
-    "机缘巧合",
-    "通过考验",
+F_FIND_MASTER_THEME_IDS: list[str] = [
+    "fortune_theme_rescued_from_danger",
+    "fortune_theme_impressed_by_character",
+    "fortune_theme_showed_talent",
+    "fortune_theme_chance_encounter",
+    "fortune_theme_passed_test",
 ]
 
-F_SPIRIT_STONE_THEMES: list[str] = [
-    "偶遇灵矿",
-    "洞府遗财",
-    "击杀妖兽",
-    "交易获利",
-    "赌石得宝",
-    "拾遗藏宝",
+F_SPIRIT_STONE_THEME_IDS: list[str] = [
+    "fortune_theme_found_spirit_vein",
+    "fortune_theme_cave_treasure",
+    "fortune_theme_slayed_beast",
+    "fortune_theme_trade_profit",
+    "fortune_theme_stone_gambling",
+    "fortune_theme_found_cache",
 ]
 
-F_CULTIVATION_THEMES: list[str] = [
-    "顿悟玄机",
-    "古碑感悟",
-    "服食灵药",
-    "秘境修炼",
-    "前辈灌顶",
-    "灵泉淬体",
-    "传承记忆",
+F_CULTIVATION_THEME_IDS: list[str] = [
+    "fortune_theme_sudden_enlightenment",
+    "fortune_theme_ancient_stele",
+    "fortune_theme_consumed_spirit_herb",
+    "fortune_theme_secret_realm",
+    "fortune_theme_empowerment",
+    "fortune_theme_spirit_spring",
+    "fortune_theme_inherited_memory",
 ]
+
+
+def _get_fortune_theme(theme_id: str) -> str:
+    """获取翻译后的奇遇主题文本"""
+    from src.i18n import t
+    return t(theme_id)
 
 
 def _has_master(avatar: Avatar) -> bool:
@@ -230,19 +237,22 @@ def _choose_kind(avatar: Avatar) -> FortuneKind:
 
 
 def _pick_theme(kind: FortuneKind) -> str:
+    """选择并返回翻译后的主题文本"""
+    theme_id = ""
     if kind == FortuneKind.WEAPON:
-        return random.choice(F_WEAPON_THEMES)
+        theme_id = random.choice(F_WEAPON_THEME_IDS)
     elif kind == FortuneKind.AUXILIARY:
-        return random.choice(F_AUXILIARY_THEMES)
+        theme_id = random.choice(F_AUXILIARY_THEME_IDS)
     elif kind == FortuneKind.TECHNIQUE:
-        return random.choice(F_TECHNIQUE_THEMES)
+        theme_id = random.choice(F_TECHNIQUE_THEME_IDS)
     elif kind == FortuneKind.FIND_MASTER:
-        return random.choice(F_FIND_MASTER_THEMES)
+        theme_id = random.choice(F_FIND_MASTER_THEME_IDS)
     elif kind == FortuneKind.SPIRIT_STONE:
-        return random.choice(F_SPIRIT_STONE_THEMES)
+        theme_id = random.choice(F_SPIRIT_STONE_THEME_IDS)
     elif kind == FortuneKind.CULTIVATION:
-        return random.choice(F_CULTIVATION_THEMES)
-    return ""
+        theme_id = random.choice(F_CULTIVATION_THEME_IDS)
+    
+    return _get_fortune_theme(theme_id) if theme_id else ""
 
 
 def _get_weapon_for_avatar(avatar: Avatar) -> Optional[Weapon]:
@@ -401,9 +411,11 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            intro = f"你在奇遇中发现了{weapon.realm.value}兵器『{weapon.name}』。"
+            from src.i18n import t
+            intro = t("You discovered a {realm} weapon『{weapon_name}』in your fortune.", 
+                     realm=weapon.realm.value, weapon_name=weapon.name)
             if avatar.weapon:
-                intro += f" 但你手中已有『{avatar.weapon.name}』。"
+                intro += t(" But you already have『{weapon_name}』.", weapon_name=avatar.weapon.name)
 
             _, exchange_text = await handle_item_exchange(
                 avatar=avatar,
@@ -412,7 +424,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
                 context_intro=intro,
                 can_sell_new=False
             )
-            res_text = f"发现了兵器『{weapon.name}』，{exchange_text}"
+            res_text = t("Discovered weapon『{weapon_name}』, {exchange_text}", 
+                        weapon_name=weapon.name, exchange_text=exchange_text)
 
     if kind == FortuneKind.AUXILIARY:
         auxiliary = _get_auxiliary_for_avatar(avatar)
@@ -421,9 +434,11 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             kind = FortuneKind.TECHNIQUE
             theme = _pick_theme(kind)
         else:
-            intro = f"你在奇遇中发现了{auxiliary.realm.value}辅助装备『{auxiliary.name}』。"
+            from src.i18n import t
+            intro = t("You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune.",
+                     realm=auxiliary.realm.value, auxiliary_name=auxiliary.name)
             if avatar.auxiliary:
-                intro += f" 但你手中已有『{avatar.auxiliary.name}』。"
+                intro += t(" But you already have『{auxiliary_name}』.", auxiliary_name=avatar.auxiliary.name)
 
             _, exchange_text = await handle_item_exchange(
                 avatar=avatar,
@@ -432,16 +447,20 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
                 context_intro=intro,
                 can_sell_new=False
             )
-            res_text = f"发现了辅助装备『{auxiliary.name}』，{exchange_text}"
+            res_text = t("Discovered auxiliary『{auxiliary_name}』, {exchange_text}",
+                        auxiliary_name=auxiliary.name, exchange_text=exchange_text)
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)
         if tech is None:
             return []
-            
-        intro = f"你在奇遇中领悟了上品功法『{tech.name}』。"
+        
+        from src.i18n import t
+        intro = t("You comprehended an upper-grade technique『{technique_name}』in your fortune.",
+                 technique_name=tech.name)
         if avatar.technique:
-            intro += f" 这与你当前主修的『{avatar.technique.name}』冲突。"
+            intro += t(" This conflicts with your current technique『{technique_name}』.",
+                      technique_name=avatar.technique.name)
 
         _, exchange_text = await handle_item_exchange(
             avatar=avatar,
@@ -450,7 +469,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             context_intro=intro,
             can_sell_new=False
         )
-        res_text = f"领悟了功法『{tech.name}』，{exchange_text}"
+        res_text = t("Comprehended technique『{technique_name}』, {exchange_text}",
+                    technique_name=tech.name, exchange_text=exchange_text)
 
     elif kind == FortuneKind.FIND_MASTER:
         master = _find_potential_master(avatar)
@@ -460,23 +480,31 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
         # 建立师徒关系：avatar 是徒弟，master 是师傅
         # avatar 视 master 为 MASTER，master 视 avatar 为 APPRENTICE（自动设置对偶）。
         avatar.set_relation(master, Relation.MASTER)
-        res_text = f"{avatar.name} 拜 {master.name} 为师"
+        from src.i18n import t
+        res_text = t("{avatar_name} became disciple of {master_name}",
+                    avatar_name=avatar.name, master_name=master.name)
         related_avatars.append(master.id)
         actors_for_story = [avatar, master]  # 拜师奇遇需要两个人的信息
 
     elif kind == FortuneKind.SPIRIT_STONE:
         amount = _get_spirit_stone_amount(avatar)
         avatar.magic_stone.value += amount
-        res_text = f"{avatar.name} 获得灵石 {amount} 枚"
+        from src.i18n import t
+        res_text = t("{avatar_name} obtained {amount} spirit stones",
+                    avatar_name=avatar.name, amount=amount)
 
     elif kind == FortuneKind.CULTIVATION:
         exp_gain = get_cultivation_exp_reward(avatar)
         avatar.cultivation_progress.add_exp(exp_gain)
-        res_text = f"{avatar.name} 修为增长 {exp_gain} 点"
+        from src.i18n import t
+        res_text = t("{avatar_name} gained {exp_gain} cultivation experience",
+                    avatar_name=avatar.name, exp_gain=exp_gain)
 
     # 生成故事（异步，等待完成）
-    event_text = f"遭遇奇遇（{theme}），{res_text}"
-    story_prompt = "请据此写100~300字小故事。"
+    from src.i18n import t
+    event_text = t("Encountered fortune ({theme}), {result}",
+                   theme=theme, result=res_text)
+    story_prompt = t("fortune_story_prompt")
 
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)

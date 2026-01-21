@@ -72,14 +72,19 @@ class Sect:
             del self.members[avatar.id]
 
     def get_info(self) -> str:
+        from src.i18n import t
         hq = self.headquarter
-        return f"{self.name}（阵营：{self.alignment}，驻地：{hq.name}）"
+        return t("{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})",
+                sect_name=self.name, alignment=self.alignment, hq_name=hq.name)
 
     def get_detailed_info(self) -> str:
         # 详细描述：风格、阵营、驻地
+        from src.i18n import t
         hq = self.headquarter
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）{effect_part}"
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return t("{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                sect_name=self.name, alignment=self.alignment, 
+                style=self.member_act_style, hq_name=hq.name, effect=effect_part)
     
     def get_rank_name(self, rank: "SectRank") -> str:
         """
@@ -92,8 +97,9 @@ class Sect:
             职位名称字符串
         """
         from src.classes.sect_ranks import SectRank, DEFAULT_RANK_NAMES
+        from src.i18n import t
         # 优先使用自定义名称，否则使用默认名称
-        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
+        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, t("Disciple")))
 
     def get_structured_info(self) -> dict:
         hq = self.headquarter

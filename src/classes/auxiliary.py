@@ -37,11 +37,12 @@ class Auxiliary(Item):
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
+        from src.i18n import t
         souls = ""
         if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
-            souls = f" 吞噬魂魄：{self.special_data['devoured_souls']}"
+            souls = t(" Devoured Souls: {count}", count=self.special_data['devoured_souls'])
         
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"{self.name}（{self.realm.value}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
@@ -56,7 +57,8 @@ class Auxiliary(Item):
         if self.name == "万魂幡":
             souls = self.special_data.get("devoured_souls", 0)
             if souls > 0:
-                full_desc = f"{full_desc} (已吞噬魂魄：{souls})"
+                from src.i18n import t
+                full_desc = t("{desc} (Devoured Souls: {souls})", desc=full_desc, souls=souls)
 
         return {
             "id": str(self.id),

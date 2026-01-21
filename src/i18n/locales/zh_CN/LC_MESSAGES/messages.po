@@ -1420,3 +1420,294 @@ msgstr "\n【相关角色信息】"
 # LLM Prompt
 msgid "auction_story_prompt"
 msgstr "选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。"
+
+# ============================================================================
+# Fortune 系统 - 奇遇
+# ============================================================================
+
+# 奇遇主题
+msgid "fortune_theme_wandered_into_cave"
+msgstr "误入洞府"
+
+msgid "fortune_theme_found_divine_weapon"
+msgstr "巧捡神兵"
+
+msgid "fortune_theme_entered_trial"
+msgstr "误入试炼"
+
+msgid "fortune_theme_phenomenon_appeared"
+msgstr "异象出世"
+
+msgid "fortune_theme_gifted_by_master"
+msgstr "高人赠予"
+
+msgid "fortune_theme_found_treasure"
+msgstr "巧捡奇物"
+
+msgid "fortune_theme_guided_by_master"
+msgstr "高人指点"
+
+msgid "fortune_theme_profound_insight"
+msgstr "玄妙感悟"
+
+msgid "fortune_theme_rescued_from_danger"
+msgstr "危难相救"
+
+msgid "fortune_theme_impressed_by_character"
+msgstr "品行打动"
+
+msgid "fortune_theme_showed_talent"
+msgstr "展露天赋"
+
+msgid "fortune_theme_chance_encounter"
+msgstr "机缘巧合"
+
+msgid "fortune_theme_passed_test"
+msgstr "通过考验"
+
+msgid "fortune_theme_found_spirit_vein"
+msgstr "偶遇灵矿"
+
+msgid "fortune_theme_cave_treasure"
+msgstr "洞府遗财"
+
+msgid "fortune_theme_slayed_beast"
+msgstr "击杀妖兽"
+
+msgid "fortune_theme_trade_profit"
+msgstr "交易获利"
+
+msgid "fortune_theme_stone_gambling"
+msgstr "赌石得宝"
+
+msgid "fortune_theme_found_cache"
+msgstr "拾遗藏宝"
+
+msgid "fortune_theme_sudden_enlightenment"
+msgstr "顿悟玄机"
+
+msgid "fortune_theme_ancient_stele"
+msgstr "古碑感悟"
+
+msgid "fortune_theme_consumed_spirit_herb"
+msgstr "服食灵药"
+
+msgid "fortune_theme_secret_realm"
+msgstr "秘境修炼"
+
+msgid "fortune_theme_empowerment"
+msgstr "前辈灌顶"
+
+msgid "fortune_theme_spirit_spring"
+msgstr "灵泉淬体"
+
+msgid "fortune_theme_inherited_memory"
+msgstr "传承记忆"
+
+# 奇遇事件文本 - 兵器
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "你在奇遇中发现了{realm}兵器『{weapon_name}』。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " 但你手中已有『{weapon_name}』。"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "发现了兵器『{weapon_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 辅助装备
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary_name}』。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " 但你手中已有『{auxiliary_name}』。"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "发现了辅助装备『{auxiliary_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 功法
+msgid "You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "你在奇遇中领悟了上品功法『{technique_name}』。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " 这与你当前主修的『{technique_name}』冲突。"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "领悟了功法『{technique_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 其他类型
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} 拜 {master_name} 为师"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} 获得灵石 {amount} 枚"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} 修为增长 {exp_gain} 点"
+
+# 奇遇总结
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "遭遇奇遇（{theme}），{result}"
+
+# LLM Prompt
+msgid "fortune_story_prompt"
+msgstr "请据此写100~300字小故事。"
+
+# ============================================================================
+# Cultivation 系统 - 境界
+# ============================================================================
+
+# 境界状态
+msgid "Needs breakthrough"
+msgstr "需要突破"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "未到瓶颈无需突破"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}({level}级){status}"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}({level}级)。在瓶颈期：{status}"
+
+# ============================================================================
+# Technique 系统 - 功法
+# ============================================================================
+
+msgid " Effect: {effect_desc}"
+msgstr " 效果：{effect_desc}"
+
+# ============================================================================
+# Weapon 系统 - 武器
+# ============================================================================
+
+msgid "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid weapon type"
+msgstr "武器 {name} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型"
+
+# ============================================================================
+# Auxiliary 系统 - 辅助装备
+# ============================================================================
+
+msgid " Devoured Souls: {count}"
+msgstr " 吞噬魂魄：{count}"
+
+msgid "{desc} (Devoured Souls: {souls})"
+msgstr "{desc} (已吞噬魂魄：{souls})"
+
+# ============================================================================
+# Elixir 系统 - 丹药
+# ============================================================================
+
+msgid "elixir_type_breakthrough"
+msgstr "破境"
+
+msgid "elixir_type_lifespan"
+msgstr "延寿"
+
+msgid "elixir_type_burn_blood"
+msgstr "燃血"
+
+msgid "elixir_type_heal"
+msgstr "疗伤"
+
+# ============================================================================
+# Sect 系统 - 宗门
+# ============================================================================
+
+msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"
+
+msgid "{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "{sect_name}（阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+
+# ============================================================================
+# SingleChoice 系统 - 物品决策
+# ============================================================================
+
+# 决策界面
+msgid "【Current Situation】: {context}\n\n{choices}"
+msgstr "【当前情境】：{context}\n\n{choices}"
+
+# 物品标签
+msgid "item_label_weapon"
+msgstr "兵器"
+
+msgid "item_label_auxiliary"
+msgstr "辅助装备"
+
+msgid "item_label_technique"
+msgstr "功法"
+
+msgid "item_label_elixir"
+msgstr "丹药"
+
+# 物品动词
+msgid "item_verb_equip"
+msgstr "装备"
+
+msgid "item_verb_equipped"
+msgstr "换上了"
+
+msgid "item_verb_practice"
+msgstr "修炼"
+
+msgid "item_verb_switched"
+msgstr "改修了"
+
+msgid "item_verb_consume"
+msgstr "服用"
+
+msgid "item_verb_consumed"
+msgstr "服用了"
+
+msgid "item_verb_replace"
+msgstr "替换"
+
+# 自动装备消息
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} 获得了{grade}{label}『{item_name}』并{action}。"
+
+# 决策描述
+msgid "New {label}: {info}"
+msgstr "新{label}：{info}"
+
+msgid "Current {label}: {old_info}\n{new_desc}"
+msgstr "现有{label}：{old_info}\n{new_desc}"
+
+msgid "\n(Selecting {replace} will sell old {label})"
+msgstr "\n（选择{replace}将卖出旧{label}）"
+
+# 选项 A
+msgid "{action} new {label}『{new_name}』"
+msgstr "{action}新{label}『{new_name}』"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr "，卖掉旧{label}『{old_name}』"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr "，{replace}旧{label}『{old_name}』"
+
+# 选项 B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+
+msgid "Abandon『{new_name}』"
+msgstr "放弃『{new_name}』"
+
+msgid ", keep current『{old_name}』"
+msgstr "，保留身上的『{old_name}』"
+
+# 执行结果
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"
+
+msgid "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr "{avatar_name} 卖掉了新获得的{item_name}，获利 {price} 灵石。"
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} 放弃了{item_name}。"

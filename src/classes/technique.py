@@ -105,7 +105,8 @@ class Technique:
         return f"{self.name}（{self.attribute}）{self.grade.value}"
 
     def get_detailed_info(self) -> str:
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}{effect_part}"
     
     def get_colored_info(self) -> str:
