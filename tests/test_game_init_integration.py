@@ -1,32 +1,64 @@
 """
 Integration tests for game initialization flow.
 
-## What's Tested
+## Coverage
 
-Tests the complete game initialization flow (init_game_async):
-- Phase 0: Asset scanning
-- Phase 1: Map loading
-- Phase 2: History processing
-- Phase 3: Sect initialization
-- Phase 4: Avatar generation (protagonists + NPCs)
-- Phase 5: LLM connectivity check
-- Phase 6: Initial event generation
+- `init_game_async()` (lines 310-453): **100%**
+- `update_init_progress()` (lines 300-308): **100%**
 
-## Why Integration Tests Matter
+## Test Summary (33 tests)
 
-Unit tests verify individual components work in isolation.
-Integration tests verify the components work together correctly:
-- World is created with correct initial state
-- Avatars are generated and registered properly
-- LLM check results are recorded
-- Initial events are generated
-- Game is paused after initialization
+| Category              | Tests |
+|-----------------------|-------|
+| Progress Updates      | 4     |
+| Success Path          | 2     |
+| History Processing    | 4     |
+| LLM Check             | 1     |
+| Avatar Generation     | 6     |
+| Error Handling        | 6     |
+| Sects Initialization  | 3     |
+| State Verification    | 5     |
+| Phase Names           | 2     |
+
+## Code Paths Covered
+
+| Path                                      | Test                                                  |
+|-------------------------------------------|-------------------------------------------------------|
+| Phase 0: Asset scan success               | test_full_init_success                                |
+| Phase 0: Asset scan failure               | test_init_handles_asset_scan_error                    |
+| Phase 0: reload_all_static_data failure   | test_init_handles_reload_static_data_error            |
+| Phase 1: Map load success                 | test_full_init_success                                |
+| Phase 1: Map load failure                 | test_init_handles_map_load_error                      |
+| World creation failure                    | test_init_handles_world_creation_error                |
+| Simulator creation failure                | test_init_handles_simulator_creation_error            |
+| Phase 2: History applied                  | test_init_applies_history                             |
+| Phase 2: History failure (continues)      | test_init_continues_if_history_fails                  |
+| Phase 2: Empty history skipped            | test_init_empty_history_skips_history_manager         |
+| Phase 2: Whitespace history skipped       | test_init_whitespace_only_history_skips_history_manager |
+| Phase 3: Sects selected                   | test_init_selects_random_sects                        |
+| Phase 3: No sects available               | test_init_no_sects_available                          |
+| Phase 3: More sects than available        | test_init_more_sects_requested_than_available         |
+| Phase 4: protagonist="none"               | test_init_protagonist_mode_none_skips_spawn           |
+| Phase 4: protagonist="all"                | test_init_with_protagonist_mode_all                   |
+| Phase 4: protagonist="random"             | test_init_with_protagonist_mode_random                |
+| Phase 4: No NPCs when mode="all"          | test_init_no_npcs_when_protagonist_mode_all           |
+| Phase 4: NPC count calculation            | test_init_remaining_npcs_calculation                  |
+| Phase 4: Zero NPC count                   | test_init_zero_npc_count                              |
+| Phase 4: Protagonists > target            | test_init_protagonists_exceed_target_count            |
+| Phase 5: LLM check success                | test_full_init_success                                |
+| Phase 5: LLM check failure                | test_init_records_llm_failure                         |
+| Phase 6: Initial events success           | test_full_init_success                                |
+| Phase 6: Initial events failure           | test_init_continues_if_initial_events_fail            |
+| State: current_save_path set              | test_init_sets_current_save_path                      |
+| State: init_start_time set                | test_init_sets_start_time                             |
+| State: previous error cleared             | test_init_clears_previous_error                       |
+| State: status in_progress                 | test_init_sets_status_to_in_progress                  |
 
 ## What's NOT Tested Here
 
-- Actual LLM API calls (mocked)
-- Actual file I/O for map loading (mocked)
-- WebSocket broadcasting during game loop
+- Actual LLM API calls (mocked).
+- Actual file I/O for map loading (mocked).
+- WebSocket broadcasting during game loop.
 """
 
 import pytest
