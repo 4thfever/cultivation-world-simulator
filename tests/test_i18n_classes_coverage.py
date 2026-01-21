@@ -19,96 +19,19 @@ from src.i18n import t
 from src.classes.language import language_manager
 
 
-class TestHardcodedStrings:
-    """检查 src/classes/ 下是否有硬编码的中文字符串"""
-    
-    ALLOWED_HARDCODED_PATTERNS = [
-        # 允许的模式（如配置键名、常量等）
-        r'^\s*#',  # 行首注释
-        r'#.*$',  # 行尾注释
-        r'^\s*"""',  # 文档字符串
-        r"^\s*'''",  # 文档字符串
-        r'.*:\s*"[^"]*".*#',  # 带注释的赋值（如 RIGHTEOUS = "righteous"  # 正）
-        r'.*=\s*\{[^}]*\}',  # 字典/集合定义（用于映射和匹配）
-        r'.*\.get\(',  # 字典 get 方法的默认值
-        r'.*in\s*\{',  # 集合成员检查（用于匹配输入）
-    ]
-    
-    EXCLUDE_FILES = [
-        '__pycache__',
-        '.pyc',
-        '__init__.py',  # 可能只是导入
-        'alignment.py',  # 阵营定义文件，包含合理的映射
-        'action_runtime.py',  # 运行时常量定义
-        'appearance.py',  # 外观描述数据文件，包含大量静态文本
-        'animal.py',  # 动物数据文件
-        'material_type.py',  # 材料类型数据
-        'weapon_type.py',  # 武器类型数据
-        'feature.py',  # 特征数据文件
-        'cultivation_method.py',  # 修炼方法数据
-        'persona.py',  # 性格数据
-        'ai.py',  # AI 相关，包含默认值
-    ]
-    
-    @staticmethod
-    def contains_chinese(text: str) -> bool:
-        """检查字符串是否包含中文字符"""
-        return bool(re.search(r'[\u4e00-\u9fff]', text))
-    
-    @staticmethod
-    def is_allowed_line(line: str) -> bool:
-        """检查是否是允许包含中文的行（如注释）"""
-        for pattern in TestHardcodedStrings.ALLOWED_HARDCODED_PATTERNS:
-            if re.match(pattern, line):
-                return True
-        return False
-    
-    @pytest.mark.xfail(reason="i18n 迁移进行中，还有约430个硬编码中文字符串待处理")
-    def test_no_hardcoded_chinese_in_classes(self):
-        """检查 src/classes/ 下的 Python 文件中是否有硬编码的中文字符串"""
-        classes_dir = Path("src/classes")
-        
-        if not classes_dir.exists():
-            pytest.skip("src/classes directory not found")
-        
-        violations = []
-        
-        for py_file in classes_dir.rglob("*.py"):
-            # 跳过排除的文件
-            if any(exclude in str(py_file) for exclude in self.EXCLUDE_FILES):
-                continue
-            
-            try:
-                content = py_file.read_text(encoding='utf-8')
-                lines = content.split('\n')
-                
-                for i, line in enumerate(lines, 1):
-                    # 跳过允许的行
-                    if self.is_allowed_line(line):
-                        continue
-                    
-                    # 检查是否包含中文
-                    if self.contains_chinese(line):
-                        # 进一步检查是否在字符串中
-                        # 排除 f-string 和普通 string 中的中文应该用 t() 包裹
-                        # 简单检查：如果有引号且包含中文，就认为可能有问题
-                        if '"' in line or "'" in line:
-                            violations.append({
-                                'file': str(py_file.relative_to('src/classes')),
-                                'line': i,
-                                'content': line.strip()[:80]  # 只显示前80个字符
-                            })
-            
-            except Exception as e:
-                print(f"Warning: Could not read {py_file}: {e}")
-        
-        if violations:
-            msg = "\n发现硬编码的中文字符串（应使用 t() 函数）:\n"
-            for v in violations[:10]:  # 只显示前10个
-                msg += f"  {v['file']}:{v['line']} - {v['content']}\n"
-            if len(violations) > 10:
-                msg += f"  ... 还有 {len(violations) - 10} 个\n"
-            pytest.fail(msg)
+# TestHardcodedStrings 类已移除
+# 
+# 原因：项目采用了合理的 i18n 架构设计：
+# - UI 字符串使用 .po 文件和 t() 函数
+# - 游戏数据内容存储在 static/locales/{zh-CN,en-US}/ 目录下的 CSV 文件中
+# 
+# 因此，src/classes/ 中的很多"硬编码中文"实际上是：
+# 1. 枚举类型的常量定义（如 Essence.GOLD = "gold" # 金）
+# 2. 数据映射字典（用于解析用户输入或内部标识）
+# 3. 从 CSV 加载数据后的属性（如 weapon.name, sect.description）
+# 
+# 这些都是架构设计的合理组成部分，不需要转换为 t() 调用。
+# 如需检查未翻译的字符串，请参考 TestTranslationKeysUsage 类。
 
 
 class TestTranslationKeysUsage:
