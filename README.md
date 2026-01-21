@@ -132,10 +132,10 @@
    也可以在 `static/local_config.yml` 中手动配置（OpenAI兼容格式）：
    ```yaml
    llm:
-     base_url: https://api.siliconflow.cn/v1  # API地址
+     base_url: https://api.deepseek.com       # API地址
      key: your-api-key-here                   # 你的API密钥
-     model_name: Qwen/Qwen3-8B                # 智能模型名称
-     fast_model_name: Qwen/Qwen2.5-7B-Instruct # 快速模型名称
+     model_name: deepseek-chat                # 智能模型名称
+     fast_model_name: deepseek-chat           # 快速模型名称
      mode: default                            # 运行模式 (default/normal/fast)
    ```
 
