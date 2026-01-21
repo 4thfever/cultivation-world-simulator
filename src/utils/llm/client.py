@@ -90,7 +90,7 @@ async def call_llm_json(
     if max_retries is None:
         max_retries = int(getattr(CONFIG.ai, "max_parse_retries", 0))
     
-    last_error = None
+    last_error: ParseError | None = None
     for attempt in range(max_retries + 1):
         response = await call_llm(prompt, mode)
         try:
@@ -100,7 +100,8 @@ async def call_llm_json(
             if attempt < max_retries:
                 continue
             raise LLMError(f"解析失败（重试 {max_retries} 次后）", cause=last_error) from last_error
-            
+    
+    # This should never be reached, but satisfies type checker.
     raise LLMError("未知错误")
 
 
