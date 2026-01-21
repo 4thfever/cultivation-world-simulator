@@ -1,0 +1,161 @@
+# English translations for cultivation-world-simulator.
+# Copyright (C) 2024
+# This file is distributed under the same license as the project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Battle messages
+msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
+msgstr "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
+
+msgid "{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also took {winner_dmg} damage."
+msgstr "{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also took {winner_dmg} damage."
+
+# Fortune messages
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "Encountered fortune ({theme}), {result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "Found weapon '{weapon}', {exchange_result}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "Comprehended technique '{technique}', {exchange_result}"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} obtained {amount} spirit stones"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} cultivation increased by {exp} points"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} became disciple of {master}"
+
+# Misfortune messages
+msgid "Encountered misfortune ({theme}), {result}"
+msgstr "Encountered misfortune ({theme}), {result}"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} lost {amount} spirit stones"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} took {damage} damage, HP remaining {current}/{max}"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} cultivation regressed by {amount} points"
+
+# Death reasons
+msgid "Killed by {killer}"
+msgstr "Killed by {killer}"
+
+msgid "Died from severe injuries"
+msgstr "Died from severe injuries"
+
+msgid "Died of old age"
+msgstr "Died of old age"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "decided to equip it"
+
+msgid "decided to keep current equipment"
+msgstr "decided to keep current equipment"
+
+msgid "decided to learn it"
+msgstr "decided to learn it"
+
+msgid "decided to keep current technique"
+msgstr "decided to keep current technique"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} obtained {grade}{label} '{item_name}' and equipped it."
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} equipped {grade}{label} '{item_name}'."
+
+msgid "{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr "{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} discarded {item_name}."
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "You discovered a {realm} weapon '{weapon}' during the fortune."
+
+msgid " But you already have '{current_weapon}'."
+msgstr " But you already have '{current_weapon}'."
+
+msgid "You discovered a {realm} auxiliary equipment '{auxiliary}' during the fortune."
+msgstr "You discovered a {realm} auxiliary equipment '{auxiliary}' during the fortune."
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " But you already have '{current_auxiliary}'."
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "You comprehended superior technique '{technique}' during the fortune."
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " This conflicts with your current technique '{current_technique}'."
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "defeated"
+
+# Single choice - context and options
+msgid "Current situation: {context}\n\n{choices}"
+msgstr "Current situation: {context}\n\n{choices}"
+
+msgid "New {label}: {info}"
+msgstr "New {label}: {info}"
+
+msgid "Current {label}: {info}"
+msgstr "Current {label}: {info}"
+
+msgid "(Choosing to replace will sell the old {label})"
+msgstr "(Choosing to replace will sell the old {label})"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "Equip new {label} '{new_name}'"
+
+msgid ", sell old {label} '{old_name}'"
+msgstr ", sell old {label} '{old_name}'"
+
+msgid ", replace old {label} '{old_name}'"
+msgstr ", replace old {label} '{old_name}'"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr "Sell new {label} '{new_name}' for spirit stones, keep current"
+
+msgid "Discard '{new_name}'"
+msgstr "Discard '{new_name}'"
+
+msgid ", keep current '{old_name}'"
+msgstr ", keep current '{old_name}'"
+
+# Labels
+msgid "weapon"
+msgstr "weapon"
+
+msgid "auxiliary"
+msgstr "auxiliary equipment"
+
+msgid "technique"
+msgstr "technique"
+
+msgid "elixir"
+msgstr "elixir"

@@ -14,11 +14,18 @@ class LanguageManager:
 
     def set_language(self, lang_code: str):
         try:
-            # 尝试直接通过值匹配
+            # 尝试直接通过值匹配.
             self._current = LanguageType(lang_code)
         except ValueError:
-            # 如果匹配失败，默认为 zh-CN
+            # 如果匹配失败，默认为 zh-CN.
             self._current = LanguageType.ZH_CN
+        
+        # Reload i18n translations when language changes.
+        try:
+            from src.i18n import reload_translations
+            reload_translations()
+        except ImportError:
+            pass
 
     def __str__(self):
         return self._current.value
