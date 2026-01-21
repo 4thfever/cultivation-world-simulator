@@ -3,8 +3,100 @@ Tests for the i18n dynamic text translation module.
 """
 
 import pytest
+from pathlib import Path
 from src.i18n import t, reload_translations
 from src.classes.language import language_manager
+
+
+class TestPoFileIntegrity:
+    """Tests for .po file syntax and completeness."""
+    
+    PO_FILES = [
+        Path("src/i18n/locales/zh_CN/LC_MESSAGES/messages.po"),
+        Path("src/i18n/locales/en_US/LC_MESSAGES/messages.po"),
+    ]
+    
+    def test_po_files_exist(self):
+        """Test that all .po files exist."""
+        for po_file in self.PO_FILES:
+            assert po_file.exists(), f"Missing .po file: {po_file}"
+    
+    def test_po_files_valid_syntax(self):
+        """Test that .po files have valid syntax."""
+        for po_file in self.PO_FILES:
+            content = po_file.read_text(encoding="utf-8")
+            
+            # Check header exists.
+            assert 'msgid ""' in content, f"{po_file}: Missing header"
+            assert 'msgstr ""' in content, f"{po_file}: Missing header msgstr"
+            assert "Content-Type:" in content, f"{po_file}: Missing Content-Type header"
+            
+            # Check no syntax errors (unbalanced quotes).
+            lines = content.split("\n")
+            for i, line in enumerate(lines, 1):
+                stripped = line.strip()
+                if stripped.startswith(("msgid ", "msgstr ")) and stripped.count('"') % 2 != 0:
+                    pytest.fail(f"{po_file}:{i}: Unbalanced quotes in: {line}")
+    
+    def test_po_files_msgid_msgstr_pairs(self):
+        """Test that every msgid has a corresponding msgstr."""
+        for po_file in self.PO_FILES:
+            content = po_file.read_text(encoding="utf-8")
+            lines = content.split("\n")
+            
+            i = 0
+            while i < len(lines):
+                line = lines[i].strip()
+                
+                # Found a msgid line (not the header).
+                if line.startswith("msgid ") and line != 'msgid ""':
+                    msgid_line = i + 1  # 1-indexed for error messages.
+                    
+                    # Skip continuation lines.
+                    i += 1
+                    while i < len(lines) and lines[i].strip().startswith('"'):
+                        i += 1
+                    
+                    # Next non-empty line should be msgstr.
+                    while i < len(lines) and not lines[i].strip():
+                        i += 1
+                    
+                    if i >= len(lines) or not lines[i].strip().startswith("msgstr "):
+                        pytest.fail(f"{po_file}:{msgid_line}: msgid without msgstr")
+                else:
+                    i += 1
+    
+    def test_en_us_has_translations(self):
+        """Test that en_US .po file has non-empty msgstr for entries."""
+        po_file = Path("src/i18n/locales/en_US/LC_MESSAGES/messages.po")
+        content = po_file.read_text(encoding="utf-8")
+        lines = content.split("\n")
+        
+        empty_translations = []
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            
+            # Found a msgid (not header).
+            if line.startswith("msgid ") and line != 'msgid ""':
+                msgid = line[7:].strip('"')
+                
+                # Skip to msgstr.
+                i += 1
+                while i < len(lines) and (lines[i].strip().startswith('"') or not lines[i].strip()):
+                    i += 1
+                
+                if i < len(lines) and lines[i].strip().startswith("msgstr "):
+                    msgstr = lines[i].strip()[8:].strip('"')
+                    if not msgstr:
+                        empty_translations.append(msgid[:50])
+                i += 1
+            else:
+                i += 1
+        
+        # en_US should have translations (msgstr should not be empty).
+        assert len(empty_translations) == 0, \
+            f"en_US has {len(empty_translations)} empty translations: {empty_translations[:5]}..."
 
 
 class TestI18nModule:
