@@ -124,18 +124,22 @@
    ```
 
 3. 配置LLM：
-   在 `static/config.yml` 中配置LLM参数（OpenAI格式）：
-   ```yaml
-    llm:
-      key: "your-api-key-here"           # 你的API密钥
-      base_url: "https://api.xxx.com"    # API地址
-      model_name: "normal_model_name"    # 智能模型名称
-      fast_model_name: "fast_model_name" # 快速模型名称
-   ```
 
-   也支持在前端直接配入LLM参数：
+   **推荐方式：在前端直接配置（支持快速填充预设）**
    
    <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
+
+   也可以在 `static/local_config.yml` 中手动配置（OpenAI兼容格式）：
+   ```yaml
+   llm:
+     base_url: https://api.siliconflow.cn/v1  # API地址
+     key: your-api-key-here                   # 你的API密钥
+     model_name: Qwen/Qwen3-8B                # 智能模型名称
+     fast_model_name: Qwen/Qwen2.5-7B-Instruct # 快速模型名称
+     mode: default                            # 运行模式 (default/normal/fast)
+   ```
+
+   **本地部署 (Ollama)：** 也支持对接本地 Ollama，在前端选择 "Ollama (本地)" 预设即可。
 
 4. 运行：
    ```bash
