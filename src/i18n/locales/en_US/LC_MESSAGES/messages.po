@@ -1098,3 +1098,150 @@ msgstr ", successfully seized {region}"
 
 msgid ", defended {region}"
 msgstr ", defended {region}"
+
+# ============================================================================
+# Effect System
+# ============================================================================
+
+# Effect Names
+msgid "effect_extra_hp_recovery_rate"
+msgstr "HP Recovery Rate"
+
+msgid "effect_extra_max_hp"
+msgstr "Max HP"
+
+msgid "effect_extra_max_lifespan"
+msgstr "Max Lifespan"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "Weapon Proficiency Gain"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "Dual Cultivation Experience"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "Breakthrough Success Rate"
+
+msgid "effect_extra_fortune_probability"
+msgstr "Fortune Probability"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "Misfortune Probability"
+
+msgid "effect_extra_harvest_materials"
+msgstr "Harvest Materials"
+
+msgid "effect_extra_hunt_materials"
+msgstr "Hunt Materials"
+
+msgid "effect_extra_mine_materials"
+msgstr "Mine Materials"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "Item Sell Price"
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "Purchase Discount"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "Weapon Upgrade Chance"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "Plunder Gain"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "Catch Success Rate"
+
+msgid "effect_extra_cultivate_exp"
+msgstr "Cultivation Experience"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "Battle Strength"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "Escape Success Rate"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "Assassinate Success Rate"
+
+msgid "effect_extra_observation_radius"
+msgstr "Observation Range"
+
+msgid "effect_extra_move_step"
+msgstr "Move Step"
+
+msgid "effect_legal_actions"
+msgstr "Special Abilities"
+
+msgid "effect_damage_reduction"
+msgstr "Damage Reduction"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "Realm Suppression"
+
+msgid "effect_cultivate_duration_reduction"
+msgstr "Cultivation Duration Reduction"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "Cast Success Rate"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "Refine Success Rate"
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "Dual Cultivation"
+
+msgid "action_devourmortals_short_name"
+msgstr "Devour Mortals"
+
+# Effect Formatting
+msgid "action_list_separator"
+msgstr ", "
+
+msgid "effect_separator"
+msgstr "; "
+
+msgid "Special effect (dynamic)"
+msgstr "Special effect (dynamic)"
+
+# Condition Translation
+msgid "Conditional effect"
+msgstr "Conditional effect"
+
+msgid "Has [{trait}] trait"
+msgstr "Has [{trait}] trait"
+
+msgid "When {condition}"
+msgstr "When {condition}"
+
+msgid "[{condition}] {effects}"
+msgstr "[{condition}] {effects}"
+
+# Effect Source Labels
+msgid "Sect [{name}]"
+msgstr "Sect [{name}]"
+
+msgid "Technique [{name}]"
+msgstr "Technique [{name}]"
+
+msgid "Spirit Root"
+msgstr "Spirit Root"
+
+msgid "Trait [{name}]"
+msgstr "Trait [{name}]"
+
+msgid "Weapon [{name}]"
+msgstr "Weapon [{name}]"
+
+msgid "Auxiliary [{name}]"
+msgstr "Auxiliary [{name}]"
+
+msgid "Spirit Animal [{name}]"
+msgstr "Spirit Animal [{name}]"
+
+msgid "Heaven and Earth Phenomenon"
+msgstr "Heaven and Earth Phenomenon"
+
+msgid "Elixir [{name}]"
+msgstr "Elixir [{name}]"
