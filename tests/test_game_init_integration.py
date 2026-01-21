@@ -491,6 +491,190 @@ class TestInitGameAsyncWithSects:
             assert len(existed_sects) == 2  # Should have selected 2 sects.
 
 
+class TestInitGameAsyncEdgeCases:
+    """Tests for edge cases in game initialization."""
+
+    @pytest.mark.asyncio
+    async def test_init_with_protagonist_mode_random(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test initialization with protagonist mode 'random' uses probability 0.05."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        mock_protagonists = {"prot1": MagicMock()}
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_prot_utils.spawn_protagonists.return_value = mock_protagonists
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 10
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "random"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Should use probability 0.05 for random mode.
+            call_kwargs = mock_prot_utils.spawn_protagonists.call_args
+            assert call_kwargs[1]["probability"] == 0.05
+
+    @pytest.mark.asyncio
+    async def test_init_no_npcs_when_protagonist_mode_all(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that no random NPCs are generated when protagonist mode is 'all'."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random") as mock_make_random, \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_prot_utils.spawn_protagonists.return_value = {"p1": MagicMock()}
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 100  # High number, but should be ignored.
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "all"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # _new_make_random should NOT be called when protagonist mode is "all".
+            mock_make_random.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_init_remaining_npcs_calculation(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that remaining NPCs = target - protagonists for non-'all' modes."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        # Spawn 3 protagonists.
+        mock_protagonists = {"p1": MagicMock(), "p2": MagicMock(), "p3": MagicMock()}
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_prot_utils.spawn_protagonists.return_value = mock_protagonists
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 10  # Target 10 total.
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "random"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Should request 10 - 3 = 7 random NPCs.
+            call_kwargs = mock_make_random.call_args
+            assert call_kwargs[1]["count"] == 7
+
+    @pytest.mark.asyncio
+    async def test_init_no_sects_available(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test initialization when no sects are available."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):  # Empty sects.
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 5  # Request 5 sects, but none available.
+            mock_config.game.init_npc_num = 3
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Should still complete successfully.
+            assert game_instance["init_status"] == "ready"
+            # existed_sects should be empty.
+            call_kwargs = mock_make_random.call_args
+            assert call_kwargs[1]["existed_sects"] == []
+
+    @pytest.mark.asyncio
+    async def test_init_more_sects_requested_than_available(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test when more sects are requested than available."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        mock_sect1 = MagicMock()
+        mock_sect2 = MagicMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {"s1": mock_sect1, "s2": mock_sect2}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 10  # Request 10, only 2 available.
+            mock_config.game.init_npc_num = 3
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "none"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Should use all available sects (2).
+            call_kwargs = mock_make_random.call_args
+            assert len(call_kwargs[1]["existed_sects"]) == 2
+
+
 class TestInitPhaseNames:
     """Tests for phase name constants."""
 
