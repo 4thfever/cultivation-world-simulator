@@ -1544,10 +1544,6 @@ msgstr "{avatar_name} 获得灵石 {amount} 枚"
 msgid "{avatar_name} gained {exp_gain} cultivation experience"
 msgstr "{avatar_name} 修为增长 {exp_gain} 点"
 
-# 奇遇总结
-msgid "Encountered fortune ({theme}), {result}"
-msgstr "遭遇奇遇（{theme}），{result}"
-
 # LLM Prompt
 msgid "fortune_story_prompt"
 msgstr "请据此写100~300字小故事。"
@@ -1673,9 +1669,6 @@ msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
 msgstr "{avatar_name} 获得了{grade}{label}『{item_name}』并{action}。"
 
 # 决策描述
-msgid "New {label}: {info}"
-msgstr "新{label}：{info}"
-
 msgid "Current {label}: {old_info}\n{new_desc}"
 msgstr "现有{label}：{old_info}\n{new_desc}"
 
