@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import NormalRegion
@@ -68,7 +69,6 @@ class Catch(TimedAction):
             self._caught_result = (None, None, "fail")
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, NormalRegion):
             return False, t("Not currently in normal area")
@@ -82,7 +82,6 @@ class Catch(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        from src.i18n import t
         # 清理状态
         self._caught_result = None
         region = self.avatar.tile.region
@@ -91,7 +90,6 @@ class Catch(TimedAction):
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
-        from src.i18n import t
         res = self._caught_result
         if not (isinstance(res, tuple) and len(res) == 3):
             return []

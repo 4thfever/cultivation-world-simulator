@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.action import Move
@@ -49,7 +50,6 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        from src.i18n import t
         target = self._get_target(avatar_name)
         target_name = target.name if target is not None else avatar_name
         rel_ids = [self.avatar.id]

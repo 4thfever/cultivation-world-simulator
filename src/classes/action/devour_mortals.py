@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 import random
@@ -31,13 +32,11 @@ class DevourMortals(TimedAction):
             auxiliary.special_data["devoured_souls"] = min(10000, int(current_souls) + gain)
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         legal = self.avatar.effects.get("legal_actions", [])
         ok = "DevourMortals" in legal
         return (ok, "" if ok else t("Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"))
 
     def start(self) -> Event:
-        from src.i18n import t
         content = t("{avatar} begins devouring mortals in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 

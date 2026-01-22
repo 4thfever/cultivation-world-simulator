@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import InstantAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -42,13 +43,11 @@ class MoveAwayFromRegion(InstantAction):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: str) -> tuple[bool, str]:
-        from src.i18n import t
         if resolve_query(region, self.world, expected_types=[Region]).obj:
             return True, ""
         return False, t("Cannot resolve region: {region}", region=region)
 
     def start(self, region: str) -> Event:
-        from src.i18n import t
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         region_name = r.name if r else region
         content = t("{avatar} begins leaving {region}",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
@@ -27,7 +28,6 @@ class Attack(InstantAction, TargetingMixin):
     @classmethod
     def get_story_prompt(cls) -> str:
         """获取故事提示词的翻译"""
-        from src.i18n import t
         return t(cls.STORY_PROMPT_ID)
 
     def _execute(self, avatar_name: str) -> None:
@@ -50,7 +50,6 @@ class Attack(InstantAction, TargetingMixin):
         self._last_result = (winner, loser, loser_damage, winner_damage)
 
     def can_start(self, avatar_name: str) -> tuple[bool, str]:
-        from src.i18n import t
         if not avatar_name:
             return False, t("Missing target parameter")
             
@@ -64,7 +63,6 @@ class Attack(InstantAction, TargetingMixin):
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        from src.i18n import t
         from src.classes.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         target_name = target.name if target is not None else avatar_name

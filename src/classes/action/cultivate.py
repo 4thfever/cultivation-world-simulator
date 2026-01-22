@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.root import get_essence_types_for_root
@@ -66,7 +67,6 @@ class Cultivate(TimedAction):
         return self.BASE_EXP_LOW_EFFICIENCY
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         # 瓶颈检查
         if not self.avatar.cultivation_progress.can_cultivate():
             return False, t("Cultivation has reached bottleneck, cannot continue cultivating")
@@ -82,7 +82,6 @@ class Cultivate(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        from src.i18n import t
         # 计算修炼时长缩减
         reduction = float(self.avatar.effects.get("cultivate_duration_reduction", 0.0))
         reduction = max(0.0, min(0.9, reduction))

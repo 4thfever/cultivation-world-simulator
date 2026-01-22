@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import random
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.action.targeting_mixin import TargetingMixin
@@ -38,13 +39,11 @@ class Assassinate(InstantAction, TargetingMixin):
     @classmethod
     def get_story_prompt_success(cls) -> str:
         """获取成功提示词的翻译"""
-        from src.i18n import t
         return t(cls.STORY_PROMPT_SUCCESS_ID)
     
     @classmethod
     def get_story_prompt_fail(cls) -> str:
         """获取失败提示词的翻译"""
-        from src.i18n import t
         return t(cls.STORY_PROMPT_FAIL_ID)
 
     def _execute(self, avatar_name: str) -> None:
@@ -82,7 +81,6 @@ class Assassinate(InstantAction, TargetingMixin):
         return ok, reason
 
     def start(self, avatar_name: str) -> Event:
-        from src.i18n import t
         target = self.find_avatar_by_name(avatar_name)
         target_name = target.name if target is not None else avatar_name
         
@@ -101,7 +99,6 @@ class Assassinate(InstantAction, TargetingMixin):
         
         if getattr(self, '_is_assassinate_success', False):
             # --- 暗杀成功 ---
-            from src.i18n import t
             result_text = t("{avatar} assassinated successfully! {target} fell without any defense.",
                            avatar=self.avatar.name, target=target.name)
             
@@ -135,7 +132,6 @@ class Assassinate(InstantAction, TargetingMixin):
                 
             start_text = getattr(self, '_start_event_content', "")
             
-            from src.i18n import t
             from src.classes.battle import handle_battle_finish
             return await handle_battle_finish(
                 self.world,

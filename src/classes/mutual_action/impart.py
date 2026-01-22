@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
@@ -41,7 +42,6 @@ class Impart(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查传道特有的启动条件"""
-        from src.i18n import t
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
             return False, t("Target not within interaction range")
@@ -60,7 +60,6 @@ class Impart(MutualAction):
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:
-        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         rel_ids = [self.avatar.id]
@@ -104,7 +103,6 @@ class Impart(MutualAction):
             return events
 
         if success:
-            from src.i18n import t
             gain = int(self._impart_exp_gain)
             result_text = t("{avatar} gained cultivation experience +{exp} points",
                           avatar=target.name, exp=gain)

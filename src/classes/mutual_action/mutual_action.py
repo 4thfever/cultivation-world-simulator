@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 import asyncio
 
+from src.i18n import t
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.event import Event
 from src.utils.llm import call_llm_with_task_name
@@ -55,7 +56,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def get_action_name(cls) -> str:
         """获取动作名称的翻译"""
         if cls.ACTION_NAME_ID:
-            from src.i18n import t
             return t(cls.ACTION_NAME_ID)
         return cls.__name__
     
@@ -63,7 +63,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def get_desc(cls) -> str:
         """获取动作描述的翻译"""
         if cls.DESC_ID:
-            from src.i18n import t
             return t(cls.DESC_ID)
         return ""
     
@@ -71,14 +70,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def get_requirements(cls) -> str:
         """获取可执行条件的翻译"""
         if cls.REQUIREMENTS_ID:
-            from src.i18n import t
             return t(cls.REQUIREMENTS_ID)
         return ""
     
     @classmethod
     def get_feedback_label(cls, feedback_name: str) -> str:
         """获取反馈标签的翻译"""
-        from src.i18n import t
         msgid = cls.FEEDBACK_LABEL_IDS.get(feedback_name, "")
         if msgid:
             return t(msgid)
@@ -88,7 +85,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def get_story_prompt(cls) -> str:
         """获取故事提示词的翻译"""
         if cls.STORY_PROMPT_ID:
-            from src.i18n import t
             return t(cls.STORY_PROMPT_ID)
         return ""
 
@@ -188,7 +184,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         注意：此方法未使用 TargetingMixin.validate_target_avatar()，
         因为需要额外检查 target == self.avatar 和调用子类的 _can_start()。
         """
-        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         if target is None:
             return False, t("Target does not exist")
@@ -211,7 +206,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         """
         启动互动动作，返回开始事件
         """
-        from src.i18n import t
         # 记录开始时间
         self._start_month_stamp = self.world.month_stamp
 
@@ -250,7 +244,6 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             self._feedback_task = None
 
         if self._feedback_cached is not None:
-            from src.i18n import t
             res = self._feedback_cached
             self._feedback_cached = None
             r = res.get(target.name, {})

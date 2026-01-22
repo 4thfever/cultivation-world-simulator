@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.relations import (
     process_relation_changes,
@@ -93,7 +94,6 @@ class Conversation(MutualAction):
 
         # 记录对话内容
         if conversation_content:
-            from src.i18n import t
             content = t("{avatar1} conversation with {avatar2}: {content}",
                        avatar1=self.avatar.name, avatar2=target.name, content=conversation_content)
             content_event = Event(

@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.battle import decide_battle
 from src.classes.event import Event
@@ -56,7 +57,6 @@ class Spar(MutualAction):
         # 记录结果供 finish 使用
         self._last_result = (winner, loser, winner_gain, loser_gain)
         
-        from src.i18n import t
         result_text = t("{winner} gained slight advantage in sparring, defeated {loser}. ({winner} proficiency +{w_gain}, {loser} proficiency +{l_gain})",
                        winner=winner.name, loser=loser.name, 
                        w_gain=f"{winner_gain:.1f}", l_gain=f"{loser_gain:.1f}")
@@ -80,7 +80,6 @@ class Spar(MutualAction):
 
         winner, loser, w_gain, l_gain = self._last_result
         
-        from src.i18n import t
         # 构造故事输入
         start_text = t("{initiator} challenges {target} to spar",
                       initiator=self.avatar.name, target=target.name)

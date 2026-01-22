@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.region import Region
@@ -65,7 +66,6 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         Move(self.avatar, self.world).execute(dx, dy)
 
     def can_start(self, region: Region | str) -> tuple[bool, str]:
-        from src.i18n import t
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         if not r:
             return False, t("Cannot resolve region: {region}", region=region)
@@ -78,7 +78,6 @@ class MoveToRegion(DefineAction, ActualActionMixin):
         return True, ""
 
     def start(self, region: Region | str) -> Event:
-        from src.i18n import t
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         # 这里理论上在 can_start 已经校验过，但为了安全再校验一次，如果None则不处理（实际上不会发生）
         if r:

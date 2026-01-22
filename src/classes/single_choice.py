@@ -1,7 +1,9 @@
 from typing import Any, Dict, List, TYPE_CHECKING, Tuple, Optional, Callable
+import json
+
+from src.i18n import t
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
-import json
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -18,7 +20,6 @@ async def make_decision(
     avatar_infos = str(avatar.get_info(detailed=True))
     
     # 2. 格式化选项字符串
-    from src.i18n import t
     choices_list = [f"{opt.get('key', '')}: {opt.get('desc', '')}" for opt in options]
     choices_str = "\n".join(choices_list)
     full_choices_str = t("【Current Situation】: {context}\n\n{choices}", 
@@ -74,7 +75,6 @@ async def make_decision(
 
 def _get_item_ops(avatar: "Avatar", item_type: str) -> dict:
     """根据物品类型返回对应的操作函数和标签"""
-    from src.i18n import t
     if item_type == "weapon":
         return {
             "label": t("item_label_weapon"),
@@ -147,7 +147,6 @@ async def handle_item_exchange(
     Returns:
         (swapped, result_text)
     """
-    from src.i18n import t
     ops = _get_item_ops(avatar, item_type)
     label = ops["label"]
     verbs = ops["verbs"]

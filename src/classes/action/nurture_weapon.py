@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 import random
@@ -50,7 +51,6 @@ class NurtureWeapon(TimedAction):
                     self.avatar.weapon_proficiency = old_proficiency
                     # 记录升华事件
                     from src.classes.event import Event
-                    from src.i18n import t
                     content = t("{avatar} nurturing {old_weapon}, the weapon's spirituality greatly increased, evolved into {new_weapon}!",
                                avatar=self.avatar.name, old_weapon=old_weapon_name, new_weapon=treasure_weapon.name)
                     self.avatar.add_event(Event(
@@ -64,7 +64,6 @@ class NurtureWeapon(TimedAction):
         return (True, "")
 
     def start(self) -> Event:
-        from src.i18n import t
         weapon_name = self.avatar.weapon.name if self.avatar.weapon else t("weapon")
         content = t("{avatar} begins nurturing {weapon}",
                    avatar=self.avatar.name, weapon=weapon_name)
@@ -75,7 +74,6 @@ class NurtureWeapon(TimedAction):
         )
 
     async def finish(self) -> list[Event]:
-        from src.i18n import t
         weapon_name = self.avatar.weapon.name if self.avatar.weapon else t("weapon")
         proficiency = self.avatar.weapon_proficiency
         # 注意：升华事件已经在_execute中添加，这里只添加完成事件

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -54,7 +55,6 @@ class MoveAwayFromAvatar(TimedAction):
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        from src.i18n import t as translate
         target_name = avatar_name
         try:
             target = self._find_avatar_by_name(avatar_name)
@@ -69,8 +69,8 @@ class MoveAwayFromAvatar(TimedAction):
                 rel_ids.append(target.id)
         except Exception:
             pass
-        content = translate("{avatar} begins moving away from {target}",
-                           avatar=self.avatar.name, target=target_name)
+        content = t("{avatar} begins moving away from {target}",
+                   avatar=self.avatar.name, target=target_name)
         return Event(self.world.month_stamp, content, related_avatars=rel_ids)
 
     # TimedAction 已统一 step 逻辑

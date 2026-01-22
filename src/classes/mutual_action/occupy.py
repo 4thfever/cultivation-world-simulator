@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
@@ -48,7 +49,6 @@ class Occupy(MutualAction):
 
     def _get_region_and_host(self, region_name: str) -> tuple[CultivateRegion | None, "Avatar | None", str]:
         """解析区域并获取主人"""
-        from src.i18n import t
         res = resolve_query(region_name, self.world, expected_types=[CultivateRegion])
         
         # resolve_query 可能返回普通 Region，这里需要严格检查是否为 CultivateRegion
@@ -64,7 +64,6 @@ class Occupy(MutualAction):
         return region, region.host_avatar, ""
 
     def can_start(self, region_name: str) -> tuple[bool, str]:
-        from src.i18n import t
         region, host, err = self._get_region_and_host(region_name)
         if err:
             return False, err
@@ -73,7 +72,6 @@ class Occupy(MutualAction):
         return super().can_start(target_avatar=host)
 
     def start(self, region_name: str) -> Event:
-        from src.i18n import t
         region, host, _ = self._get_region_and_host(region_name)
 
         self._start_month_stamp = self.world.month_stamp
@@ -107,7 +105,6 @@ class Occupy(MutualAction):
         
         if feedback_name == "Yield":
             # 对方让步：直接转移所有权
-            from src.i18n import t
             if region:
                 region.host_avatar = self.avatar
             
@@ -150,7 +147,6 @@ class Occupy(MutualAction):
         
         target = loser if winner == self.avatar else winner
         
-        from src.i18n import t
         start_text = t("{initiator} attempted to seize {target}'s cave dwelling {region}, {target} rejected and engaged in battle",
                       initiator=self.avatar.name, target=target.name, region=r_name)
         

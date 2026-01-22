@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.event import Event
 from src.utils.config import CONFIG
@@ -53,7 +54,6 @@ class Gift(MutualAction):
         解析赠送意图，返回 (物品对象/None, 显示名称, 实际数量)。
         物品对象为 None 代表是灵石。
         """
-        from src.i18n import t
         # 1. 灵石
         if item_name == "灵石" or item_name == "spirit stones" or not item_name:
             return None, t("spirit stones"), max(1, amount)
@@ -110,7 +110,6 @@ class Gift(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """检查赠送条件：物品是否存在且足够"""
-        from src.i18n import t
         obj = self._current_gift_context.get("obj")
         name = self._current_gift_context.get("name")
         amount = self._current_gift_context.get("amount", 0)
@@ -118,9 +117,9 @@ class Gift(MutualAction):
         
         # 如果 name 为空，说明 resolve 失败
         if not name:
-             if original_name and original_name not in ["灵石", "spirit stones"]:
-                 return False, t("Item not found: {name}", name=original_name)
-             # 如果是灵石但没解析出来（不应该发生，除非amount有问题，但max(1)了），或者是默认情况
+            if original_name and original_name not in ["灵石", "spirit stones"]:
+                return False, t("Item not found: {name}", name=original_name)
+            # 如果是灵石但没解析出来（不应该发生，除非amount有问题，但max(1)了），或者是默认情况
 
         # 1. 灵石
         spirit_stones_text = t("spirit stones")
@@ -156,7 +155,6 @@ class Gift(MutualAction):
         """
         重写：构建传给 LLM 的 prompt 信息。
         """
-        from src.i18n import t
         infos = super()._build_prompt_infos(target_avatar)
         
         gift_desc = self._get_gift_description()
@@ -165,7 +163,6 @@ class Gift(MutualAction):
         return infos
 
     def start(self, target_avatar: "Avatar|str", item_name: str = "灵石", amount: int = 100) -> Event:
-        from src.i18n import t
         # start 也会接收参数，同样需要设置上下文
         obj, name, real_amount = self._resolve_gift(item_name, amount)
         self._current_gift_context = {
@@ -257,7 +254,6 @@ class Gift(MutualAction):
             return events
 
         if self._gift_success:
-            from src.i18n import t
             gift_desc = self._get_gift_description()
             result_text = t("{initiator} successfully gifted {item} to {target}",
                           initiator=self.avatar.name, item=gift_desc, target=target.name)

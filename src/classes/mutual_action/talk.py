@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.event import Event
 from src.classes.action.event_helper import EventHelper
@@ -36,7 +37,6 @@ class Talk(MutualAction):
     
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攀谈无额外检查条件"""
-        from src.i18n import t
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
             return False, t("Target not within interaction range")
@@ -51,7 +51,6 @@ class Talk(MutualAction):
         events_to_return = []
         
         # 处理反馈
-        from src.i18n import t
         if feedback == "Talk":
             # 接受攀谈，自动进入 Conversation
             content = t("{target} accepted {initiator}'s talk invitation",

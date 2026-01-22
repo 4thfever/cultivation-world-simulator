@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin, Move
 from src.classes.event import Event
 from src.classes.action_runtime import ActionResult, ActionStatus
@@ -77,13 +78,11 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         self.direction = None
 
     def can_start(self, direction: str) -> tuple[bool, str]:
-        from src.i18n import t
         if not Direction.is_valid(direction):
             return False, t("Invalid direction: {direction}", direction=direction)
         return True, ""
 
     def start(self, direction: str) -> Event:
-        from src.i18n import t
         self.start_monthstamp = self.world.month_stamp
         self.direction = direction
         # 翻译方向名
@@ -118,7 +117,6 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         return ActionResult(status=(ActionStatus.COMPLETED if is_done else ActionStatus.RUNNING), events=[])
 
     async def finish(self, direction: str) -> list[Event]:
-        from src.i18n import t
         # 翻译方向名
         direction_msgids = {"North": "north", "South": "south", "East": "east", "West": "west",
                            "北": "north", "南": "south", "东": "east", "西": "west"}

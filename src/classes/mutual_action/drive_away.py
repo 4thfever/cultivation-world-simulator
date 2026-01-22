@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .mutual_action import MutualAction
+from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
 
@@ -26,7 +27,6 @@ class DriveAway(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """驱赶无额外检查条件"""
-        from src.i18n import t
         # 必须在有效区域内才能驱赶（因为需要指定 MoveAwayFromRegion 的目标区域）
         if self.avatar.tile.region is None:
             return False, t("Cannot drive away in wilderness")

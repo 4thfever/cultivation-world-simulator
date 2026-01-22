@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import get_escape_success_rate
@@ -39,7 +40,6 @@ class Escape(InstantAction):
         avatar.current_action = None
 
     def _execute(self, avatar_name: str) -> None:
-        from src.i18n import t
         target = self._find_avatar_by_name(avatar_name)
         if target is None:
             return
@@ -69,7 +69,6 @@ class Escape(InstantAction):
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        from src.i18n import t
         target = self._find_avatar_by_name(avatar_name)
         target_name = target.name if target is not None else avatar_name
         rel_ids = [self.avatar.id]

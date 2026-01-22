@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
@@ -99,12 +100,10 @@ class Breakthrough(TimedAction):
         self.avatar.hp.recover(hp_increase)  # 突破时完全恢复HP
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         ok = self.avatar.cultivation_progress.can_break_through()
         return (ok, "" if ok else t("Not at bottleneck, cannot breakthrough"))
 
     def start(self) -> Event:
-        from src.i18n import t
         # 初始化状态
         self._last_result = None
         self._success_rate_cached = None
@@ -123,7 +122,6 @@ class Breakthrough(TimedAction):
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
-        from src.i18n import t
         if not self._last_result:
             return []
         result_ok = self._last_result[0] == "success"

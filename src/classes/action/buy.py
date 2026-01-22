@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Tuple, Any
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
@@ -35,7 +36,6 @@ class Buy(InstantAction):
     PARAMS = {"target_name": "str"}
 
     def can_start(self, target_name: str) -> tuple[bool, str]:
-        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, t("Can only execute in city areas")
@@ -65,7 +65,6 @@ class Buy(InstantAction):
         self.avatar.buy_item(res.obj)
 
     def start(self, target_name: str) -> Event:
-        from src.i18n import t
         res = resolve_query(target_name, expected_types=[Elixir, Weapon, Auxiliary, Material])
         obj = res.obj
         display_name = res.name

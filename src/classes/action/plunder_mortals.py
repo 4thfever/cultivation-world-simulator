@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
@@ -39,7 +40,6 @@ class PlunderMortals(TimedAction):
         self.avatar.magic_stone = self.avatar.magic_stone + gain
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, t("Can only execute in city areas")
@@ -48,7 +48,6 @@ class PlunderMortals(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        from src.i18n import t
         content = t("{avatar} begins plundering mortals in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 

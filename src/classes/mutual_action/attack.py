@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .mutual_action import MutualAction
+from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
 
@@ -28,7 +29,6 @@ class MutualAttack(MutualAction):
 
     def _can_start(self, target: "Avatar") -> tuple[bool, str]:
         """攻击无额外检查条件"""
-        from src.i18n import t
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
             return False, t("Target not within interaction range")

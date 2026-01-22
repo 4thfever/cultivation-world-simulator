@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 
@@ -32,7 +33,6 @@ class Play(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        from src.i18n import t
         content = t("{avatar} begins leisure activities", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 

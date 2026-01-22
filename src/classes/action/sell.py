@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Tuple, Any
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
@@ -30,7 +31,6 @@ class Sell(InstantAction):
     PARAMS = {"target_name": "str"}
 
     def can_start(self, target_name: str) -> tuple[bool, str]:
-        from src.i18n import t
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, t("Can only execute in city areas")
@@ -48,7 +48,7 @@ class Sell(InstantAction):
             if self.avatar.get_material_quantity(obj) > 0:
                 pass # 检查通过
             else:
-                 return False, t("Do not possess material: {name}", name=target_name)
+                return False, t("Do not possess material: {name}", name=target_name)
 
         # 2. 如果是兵器，检查当前装备
         elif isinstance(obj, Weapon):
@@ -96,7 +96,6 @@ class Sell(InstantAction):
                 self.avatar.change_auxiliary(None) # 卖出后卸下
 
     def start(self, target_name: str) -> Event:
-        from src.i18n import t
         res = resolve_query(target_name)
         display_name = res.name if res.is_valid else target_name
         content = t("{avatar} sold {item} in town",

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.sect_region import SectRegion
@@ -70,7 +71,6 @@ class SelfHeal(TimedAction):
         return bool(hq_name) and region and region.name == hq_name
 
     def can_start(self) -> tuple[bool, str]:
-        from src.i18n import t
         # 任何人任何地方都可疗伤，只要HP未满
         
         hp_obj = getattr(self.avatar, "hp", None)
@@ -81,7 +81,6 @@ class SelfHeal(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        from src.i18n import t
         region = getattr(getattr(self.avatar, "tile", None), "region", None)
         region_name = getattr(region, "name", t("wilderness"))
         # 重置累计量
@@ -93,7 +92,6 @@ class SelfHeal(TimedAction):
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
-        from src.i18n import t
         healed_total = int(getattr(self, "_healed_total", 0))
         # 统一用一次事件简要反馈
         content = t("{avatar} healing completed (recovered {amount} HP, current HP {hp})",

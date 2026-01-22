@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.event import Event
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.utils.params import filter_kwargs_for_callable
@@ -80,7 +81,6 @@ class Action(ABC):
     def get_action_name(cls) -> str:
         """获取动作名称的翻译"""
         if cls.ACTION_NAME_ID:
-            from src.i18n import t
             return t(cls.ACTION_NAME_ID)
         return cls.__name__
     
@@ -88,7 +88,6 @@ class Action(ABC):
     def get_desc(cls) -> str:
         """获取动作描述的翻译"""
         if cls.DESC_ID:
-            from src.i18n import t
             return t(cls.DESC_ID)
         return ""
     
@@ -96,7 +95,6 @@ class Action(ABC):
     def get_requirements(cls) -> str:
         """获取可执行条件的翻译"""
         if cls.REQUIREMENTS_ID:
-            from src.i18n import t
             return t(cls.REQUIREMENTS_ID)
         return ""
 

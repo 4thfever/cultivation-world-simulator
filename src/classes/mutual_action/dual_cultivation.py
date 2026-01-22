@@ -4,6 +4,7 @@ import random
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
@@ -44,7 +45,6 @@ class DualCultivation(MutualAction):
         return True, ""
 
     def start(self, target_avatar: "Avatar|str") -> Event:
-        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         rel_ids = [self.avatar.id]
@@ -93,7 +93,6 @@ class DualCultivation(MutualAction):
         self._dual_exp_gain = exp_gain
 
     async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
-        from src.i18n import t
         target = self._get_target_avatar(target_avatar)
         events: list[Event] = []
         success = self._dual_cultivation_success
