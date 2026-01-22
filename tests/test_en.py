@@ -103,6 +103,22 @@ def test_en_csv_integrity():
             if animal_ids and len(str(animal_ids)) > 50:
                  pytest.fail(f"Normal Region {rid}: animal_ids seems too long ('{animal_ids}'). Likely CSV parsing error shifted description into this column.")
 
+        # 4. Verify Personas (Check condition)
+        persona_data = game_configs.get("persona", [])
+        assert len(persona_data) > 0, "No persona data loaded"
+        
+        for row in persona_data:
+            pid = row.get("id")
+            condition = row.get("condition")
+            # If CSV is shifted, condition might be part of desc or empty when it shouldn't be
+            # Check for obvious syntax errors if it's not empty
+            if condition:
+                try:
+                    # Just check if it compiles, don't eval
+                    compile(condition, "<string>", "eval")
+                except SyntaxError as e:
+                     pytest.fail(f"Persona {pid}: Invalid python syntax in condition '{condition}'. Likely CSV parsing error shifted description into this column. Error: {e}")
+
     finally:
         # Restore language
         language_manager.set_language(original_lang.value)
