@@ -112,11 +112,13 @@ def get_rank_display_name(rank: SectRank, sect: Optional["Sect"] = None) -> str:
     Returns:
         职位的显示名称
     """
+    from src.i18n import t
     if sect is not None:
         custom_name = sect.get_rank_name(rank)
         if custom_name:
-            return custom_name
-    return DEFAULT_RANK_NAMES.get(rank, "弟子")
+            return t(custom_name)
+    val = DEFAULT_RANK_NAMES.get(rank, "弟子")
+    return t(val)
 
 
 def should_auto_promote(old_realm: "Realm", new_realm: "Realm") -> bool:

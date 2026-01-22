@@ -13,6 +13,21 @@ def fixed_random_seed():
     """
     random.seed(42)
     yield
+
+@pytest.fixture(scope="session", autouse=True)
+def force_chinese_language():
+    """
+    Force language to Chinese for all tests to match expected string outputs.
+    """
+    from src.classes.language import language_manager
+    from src.utils.config import update_paths_for_language
+    
+    # Force language to Chinese
+    language_manager.set_language("zh-CN")
+    # Update paths to point to Chinese configs
+    update_paths_for_language("zh-CN")
+    
+    yield
 from src.classes.tile import TileType, Tile
 from src.classes.world import World
 from src.classes.calendar import Month, Year, create_month_stamp

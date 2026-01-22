@@ -1725,9 +1725,6 @@ msgstr "{winner} 战胜了 {loser}"
 msgid "Sect Headquarters"
 msgstr "宗门驻地"
 
-msgid "Region"
-msgstr "区域"
-
 msgid "Normal Region"
 msgstr "普通区域"
 
@@ -1752,3 +1749,10 @@ msgstr "{avatar_name} 经过深思熟虑，重新确定了自己的长期目标�
 
 msgid "{avatar_name} determined their long-term objective: {objective}"
 msgstr "{avatar_name} 确定了自己的长期目标：{objective}"
+
+msgid "world_creation_phenomenon"
+msgstr "世界初开，天降异象！{name}：{desc}。"
+
+msgid "phenomenon_change"
+msgstr "{old_name}消散，天地异象再现！{new_name}：{new_desc}。"
+

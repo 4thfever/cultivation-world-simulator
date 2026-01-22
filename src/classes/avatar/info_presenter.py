@@ -127,9 +127,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
         "emotion": {
-            "name": avatar.emotion.value,
+            "name": t(avatar.emotion.value),
             "emoji": emoji,
-            "desc": avatar.emotion.value
+            "desc": t(avatar.emotion.value)
         },
         "thinking": avatar.thinking,
         "short_term_objective": avatar.short_term_objective,

@@ -296,9 +296,20 @@ class TestI18nConsistency:
                 zh_params = set(re.findall(r'\{(\w+)\}', zh_pairs[msgid]))
                 en_params = set(re.findall(r'\{(\w+)\}', en_pairs[msgid]))
                 msgid_params = set(re.findall(r'\{(\w+)\}', msgid))
-                
-                # 检查中英文翻译的参数是否与原始 msgid 一致
-                if zh_params != msgid_params or en_params != msgid_params:
+
+                # 1. 首先检查中英文翻译之间的参数是否一致
+                if zh_params != en_params:
+                    inconsistent.append({
+                        'msgid': msgid,
+                        'msgid_params': msgid_params,
+                        'zh_params': zh_params,
+                        'en_params': en_params
+                    })
+                    continue
+
+                # 2. 如果 msgid 本身包含参数，那么翻译必须包含完全相同的参数
+                # 如果 msgid 不包含参数（可能是 key），则允许翻译包含参数（只要中英文一致即可）
+                if msgid_params and (zh_params != msgid_params):
                     inconsistent.append({
                         'msgid': msgid,
                         'msgid_params': msgid_params,

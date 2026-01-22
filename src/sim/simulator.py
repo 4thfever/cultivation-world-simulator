@@ -18,6 +18,7 @@ from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
+from src.i18n import t
 
 class Simulator:
     def __init__(self, world: World):
@@ -305,9 +306,9 @@ class Simulator:
                 
                 desc = ""
                 if is_init:
-                    desc = f"世界初开，天降异象！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                    desc = t("world_creation_phenomenon", name=new_phenomenon.name, desc=new_phenomenon.desc)
                 else:
-                    desc = f"{old_phenomenon.name}消散，天地异象再现！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                    desc = t("phenomenon_change", old_name=old_phenomenon.name, new_name=new_phenomenon.name, new_desc=new_phenomenon.desc)
                 
                 event = Event(
                     self.world.month_stamp,

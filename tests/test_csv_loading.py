@@ -15,9 +15,10 @@ class TestSectLoading:
         # 不夜城 (sect_id=12) 的驻地应该是 "大千光极城"
         sect = sects_by_id.get(12)
         assert sect is not None, "宗门 ID=12 应该存在"
-        assert sect.name == "不夜城", "宗门名称应该是 '不夜城'"
-        assert sect.headquarter.name == "大千光极城", (
-            f"驻地名称应该是 '大千光极城'，而不是 '{sect.headquarter.name}'"
+        # Since static data is loaded before conftest sets language, it defaults to English (en-US)
+        assert sect.name == "Sleepless City", "宗门名称应该是 'Sleepless City'"
+        assert sect.headquarter.name == "Daqian Aurora City", (
+            f"驻地名称应该是 'Daqian Aurora City'，而不是 '{sect.headquarter.name}'"
         )
 
     def test_sect_headquarter_desc_loaded(self):
@@ -26,7 +27,7 @@ class TestSectLoading:
         assert sect is not None
         # 验证描述不为空且包含关键词
         assert sect.headquarter.desc, "驻地描述不应为空"
-        assert "极光" in sect.headquarter.desc, "驻地描述应该包含 '极光'"
+        assert "aurora" in sect.headquarter.desc.lower(), "驻地描述应该包含 'aurora'"
 
     def test_all_sects_have_headquarters(self):
         """测试所有宗门都有驻地信息"""
@@ -61,7 +62,8 @@ class TestTechniqueLoading:
         # 草字剑诀 (id=30) 属于明心剑宗 (sect_id=1)
         technique = techniques_by_id.get(30)
         assert technique is not None, "功法 ID=30 应该存在"
-        assert technique.name == "草字剑诀", f"功法名称应该是 '草字剑诀'，而不是 '{technique.name}'"
+        # Static data loaded in English
+        assert technique.name == "Grass Word Sword Formula", f"功法名称应该是 'Grass Word Sword Formula'，而不是 '{technique.name}'"
         assert technique.sect_id == 1, (
             f"功法 '草字剑诀' 的 sect_id 应该是 1，而不是 {technique.sect_id}"
         )

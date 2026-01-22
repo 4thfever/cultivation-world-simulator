@@ -1725,9 +1725,6 @@ msgstr "{winner} defeated {loser}"
 msgid "Sect Headquarters"
 msgstr "Sect Headquarters"
 
-msgid "Region"
-msgstr "Region"
-
 msgid "Normal Region"
 msgstr "Normal Region"
 
@@ -1752,3 +1749,10 @@ msgstr "{avatar_name} deliberated and redefined their long-term objective: {obje
 
 msgid "{avatar_name} determined their long-term objective: {objective}"
 msgstr "{avatar_name} determined their long-term objective: {objective}"
+
+msgid "world_creation_phenomenon"
+msgstr "The world is born, celestial phenomena descend! {name}: {desc}."
+
+msgid "phenomenon_change"
+msgstr "{old_name} dissipates, celestial phenomena reappear! {new_name}: {new_desc}."
+
