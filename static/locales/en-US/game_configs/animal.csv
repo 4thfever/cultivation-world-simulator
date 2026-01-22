@@ -1,13 +1,13 @@
 id,name,desc,stage_id,material_ids
 ,,,"Item ID corresponding to this animal"
-1,Spirit Rabbit,A spiritual rabbit with a naturally clever temperament, snow-white fur, containing weak spiritual power, gentle and easy to tame,1,1
-2,Demonic Wolf,A fierce demonic wolf tribe, huge in size, possessing powerful demonic power and sharp claws and teeth,2,2
-3,Qingyun Deer,A gentle spiritual beast inhabiting the plains, with an all-blue body and jade-like antlers, good at sensing spiritual qi changes,1,3
-4,Shadow Leopard,An agile hunter in the wild Southern Border, with a body like a shadow and sharp claws and teeth, skilled at stealth hunting,2,4
-5,Azure Sea Dragon Turtle,An ancient spiritual beast of the boundless azure sea, with a shell like green jade, able to control seawater, having an extremely long lifespan,3,5
-6,Stone Armored Bear,A strong guardian of the Qingfeng Mountains, with fur as hard as a rock, immense strength, and a simple and honest nature,2,6
-7,Wind Speed Horse,A majestic spiritual beast galloping across thousands of miles of green fields, with wind-born hooves, lightning speed, and flowing mane,2,7
-8,Lava Lizard,A fire-attribute spiritual beast in the Lava Volcano, with scales red as fire, able to swim in magma and spit flames,3,8
-9,Poisonous Miasma Frog,A highly poisonous creature from the Foggy Swamp, with colorful body patterns, able to release deadly poisonous gas, skilled at hiding,2,9
-10,Earth Shaking Divine Cow,A giant demonic beast with ancient bloodline, fur as hard as iron, causing the ground to shake with every step, with immense strength,3,18
-11,Ice Spirit Bone Snake,A cold-blooded demonic beast living deep in the permafrost, its body composed of translucent bones and frost, silent, able to freeze prey instantly,2,20
+1,Spirit Rabbit,"A spiritual rabbit with a naturally clever temperament, snow-white fur, containing weak spiritual power, gentle and easy to tame",1,1
+2,Demonic Wolf,"A fierce demonic wolf tribe, huge in size, possessing powerful demonic power and sharp claws and teeth",2,2
+3,Qingyun Deer,"A gentle spiritual beast inhabiting the plains, with an all-blue body and jade-like antlers, good at sensing spiritual qi changes",1,3
+4,Shadow Leopard,"An agile hunter in the wild Southern Border, with a body like a shadow and sharp claws and teeth, skilled at stealth hunting",2,4
+5,Azure Sea Dragon Turtle,"An ancient spiritual beast of the boundless azure sea, with a shell like green jade, able to control seawater, having an extremely long lifespan",3,5
+6,Stone Armored Bear,"A strong guardian of the Qingfeng Mountains, with fur as hard as a rock, immense strength, and a simple and honest nature",2,6
+7,Wind Speed Horse,"A majestic spiritual beast galloping across thousands of miles of green fields, with wind-born hooves, lightning speed, and flowing mane",2,7
+8,Lava Lizard,"A fire-attribute spiritual beast in the Lava Volcano, with scales red as fire, able to swim in magma and spit flames",3,8
+9,Poisonous Miasma Frog,"A highly poisonous creature from the Foggy Swamp, with colorful body patterns, able to release deadly poisonous gas, skilled at hiding",2,9
+10,Earth Shaking Divine Cow,"A giant demonic beast with ancient bloodline, fur as hard as iron, causing the ground to shake with every step, with immense strength",3,18
+11,Ice Spirit Bone Snake,"A cold-blooded demonic beast living deep in the permafrost, its body composed of translucent bones and frost, silent, able to freeze prey instantly",2,20

@@ -5,15 +5,28 @@ from src.classes.color import Color
 
 @total_ordering
 class Realm(Enum):
-    Qi_Refinement = "练气"
-    Foundation_Establishment = "筑基"
-    Core_Formation = "金丹"
-    Nascent_Soul = "元婴"
+    Qi_Refinement = "QI_REFINEMENT"           # 练气
+    Foundation_Establishment = "FOUNDATION_ESTABLISHMENT"  # 筑基
+    Core_Formation = "CORE_FORMATION"        # 金丹
+    Nascent_Soul = "NASCENT_SOUL"            # 元婴
 
     def __str__(self) -> str:
         """返回境界的翻译名称"""
         from src.i18n import t
         return t(realm_msg_ids.get(self, self.value))
+
+    @staticmethod
+    def from_str(s: str) -> "Realm":
+        s = str(s).strip().replace(" ", "_").upper()
+        # 建立映射以兼容多种输入格式
+        mapping = {
+            "练气": "QI_REFINEMENT", "QI_REFINEMENT": "QI_REFINEMENT", "QI REFINEMENT": "QI_REFINEMENT",
+            "筑基": "FOUNDATION_ESTABLISHMENT", "FOUNDATION_ESTABLISHMENT": "FOUNDATION_ESTABLISHMENT", "FOUNDATION ESTABLISHMENT": "FOUNDATION_ESTABLISHMENT",
+            "金丹": "CORE_FORMATION", "CORE_FORMATION": "CORE_FORMATION", "CORE FORMATION": "CORE_FORMATION",
+            "元婴": "NASCENT_SOUL", "NASCENT_SOUL": "NASCENT_SOUL", "NASCENT SOUL": "NASCENT_SOUL"
+        }
+        realm_id = mapping.get(s, "QI_REFINEMENT")
+        return Realm(realm_id)
 
     @property
     def color_rgb(self) -> tuple[int, int, int]:
@@ -56,14 +69,25 @@ class Realm(Enum):
 
 @total_ordering
 class Stage(Enum):
-    Early_Stage = "前期"
-    Middle_Stage = "中期"
-    Late_Stage = "后期"
+    Early_Stage = "EARLY_STAGE"    # 前期
+    Middle_Stage = "MIDDLE_STAGE"  # 中期
+    Late_Stage = "LATE_STAGE"      # 后期
 
     def __str__(self) -> str:
         """返回阶段的翻译名称"""
         from src.i18n import t
         return t(stage_msg_ids.get(self, self.value))
+
+    @staticmethod
+    def from_str(s: str) -> "Stage":
+        s = str(s).strip().replace(" ", "_").upper()
+        mapping = {
+            "前期": "EARLY_STAGE", "EARLY_STAGE": "EARLY_STAGE", "EARLY STAGE": "EARLY_STAGE",
+            "中期": "MIDDLE_STAGE", "MIDDLE_STAGE": "MIDDLE_STAGE", "MIDDLE STAGE": "MIDDLE_STAGE",
+            "后期": "LATE_STAGE", "LATE_STAGE": "LATE_STAGE", "LATE STAGE": "LATE_STAGE"
+        }
+        stage_id = mapping.get(s, "EARLY_STAGE")
+        return Stage(stage_id)
 
     def __lt__(self, other):
         if not isinstance(other, Stage):

@@ -1,67 +1,67 @@
-id,name,exclusion_names,desc,rarity,condition,effects
-,名称,和本persona互斥的persona的名称,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件(可用avatar字段/Alignment中文或英文等),JSON形式（支持宽松格式，见effects.py说明）
-1,理性,无常;随性,你总是会用逻辑来思考问题，做事会谋定而后动。,N,
-2,无常,理性;极端正义;极端邪恶;沉思,目标飘忽不定，不会长期坚持一个目标。,N,
-3,怠惰,冒险;极端正义;极端邪恶,你总是会拖延，不想努力，更热衷于享受人生。,N,,{extra_cast_success_rate: -0.05}
-4,冒险,怠惰;惜命,你总是会冒险，喜欢刺激，总想放手一搏。,N,
-5,随性,理性;极端正义;极端邪恶,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,
-6,贪财,,你对灵石和财富有着强烈的渴望。,N,,{extra_item_sell_price_multiplier: 0.1}
-7,采集者,,喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。你认为大自然的恩赐需要用心去发现和珍惜。,R,,{extra_harvest_materials: 1}
-8,猎人,,享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌，喜欢捕猎野兽。情况允许也会御兽。,R,,{extra_hunt_materials: 1}
-9,沉思,无常,你总是会深思熟虑，思考问题比较有哲理。,N,
-10,惜命,冒险;极端正义;极端邪恶,你总是会珍惜自己的生命，不会轻易冒险。,R,,{extra_escape_success_rate: 0.15}
-11,友爱,孤僻;淡漠;好斗;复仇;极端正义;极端邪恶,你重视同伴与和谐，乐于助人，倾向通过协作与沟通化解矛盾。,N,
-12,复仇,友爱;淡漠,你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。你必须立刻进行复仇行动。,N,,
-13,孤僻,友爱,你喜欢独处，避免与人深交，更信赖自己的判断与行动。,N,
-14,淡漠,友爱;复仇;好斗;极端正义;极端邪恶,你情感克制，对外界冷静疏离，不轻易被他人或事件影响。,N,
-15,好斗,友爱;淡漠;惜命;胆小,你直面冲突，偏好以力量与对抗解决问题，并格外热衷增加己身战力。,R,,{extra_battle_strength_points: 1}
-16,鲁莽,理性;沉思;惜命,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,{extra_cast_success_rate: -0.05}
-17,胆小,冒险;好斗;复仇;极端正义;极端邪恶,你谨小慎微，容易畏惧风险，倾向回避正面冲突。,N,,{extra_escape_success_rate: 0.1}
-18,霸道,友爱;胆小,你行事强势，不讲道理，习惯以自己的利益为先，倾向多吃多占、压人一步，对他人的反对不以为意。,N,
-19,修行痴迷,无常;怠惰;随性,你将绝大多数时间用于修炼，厌恶与修行无关的社交与享乐。,R,,{extra_cultivate_exp: 30}
-20,内向,外向,你更享受独处与自我思考，倾向回避不必要的社交与长谈。,N,
-21,外向,孤僻;淡漠;内向,你乐于与人交流，主动结识伙伴，倾向接受对话和合作。,N,
-22,刻薄,友爱;热情,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己，更容易引发冲突与对立；你通常不愿迅速进入友好关系，更可能在不顺利的交流后滋生敌意或结仇。,N,
-23,热情,孤僻;淡漠;刻薄,你待人友好、积极回应，倾向用鼓励与赞美拉近距离；你更愿意主动展开善意的交流，乐于合作与分享,N,
-24,极端正义,内向;极端邪恶,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,"avatar.alignment == ""正""",{extra_breakthrough_success_rate: 0.05}
-25,极端邪恶,内向;极端正义,你推崇权力与恐惧，为达目的不择手段，对善良嗤之以鼻。,SR,"avatar.alignment == ""邪""","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
-26,开放,腼腆,你对待和他人结为道侣或者双修比较随意,R,,{extra_dual_cultivation_exp: 30}
-27,腼腆,开放,你对待和他人结为道侣或者双修比较谨慎,N,
-28,舔狗,孤僻;淡漠;刻薄;腼腆,你对异性中外貌出众者格外友善，倾向主动接近、帮助与合作。,N,
-29,嫉妒,友爱;热情,你对在修为、外貌或财富等方面远超于你的人容易产生敌意，更倾向对其冷淡、挑衅或打压。,N,
-30,穿越者,,你来自现代社会，怀念现代社会的一切，你的思考都还是现代化的思考模式,SR,
-31,气运之子,,天生气运加身，更易遇到奇遇，战斗力也略有提升,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
-32,剑痴,怠惰;胆小,以剑入道，剑即是命。你认为剑道至上，战力强悍，但对剑道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-33,心机深沉,鲁莽;热情;外向,深藏不露，行事谨慎，善于算计。你不轻易暴露实力和想法，观察力敏锐，总在暗中盘算。,R,
-34,忠诚,孤僻;淡漠;刻薄,重承诺守信义，对认定的人绝不背叛，愿为之赴死。你视背叛为最大耻辱。,R,
-35,狠辣,友爱;热情;胆小,行事果决狠辣，不留后患，斩草必除根。你认为心慈手软只会害了自己。,N,
-36,重生者,无常;随性,经历过一世，对未来有模糊预知，行事更有目的性。你比常人更清楚什么重要，什么是陷阱。,SSR,
-37,疑心重,热情;外向;友爱,对任何人都保持怀疑，不轻易信任，时刻警惕他人可能的背叛和算计。,N,
-38,体修,惜命;胆小,专注肉身淬炼，体魄强健，近战无敌。你相信肉身才是修行的根本，法术只是旁门左道。,R,,"[{when: 'avatar.weapon is None', extra_battle_strength_points: 5}]"
-39,炼丹师,好斗,精通丹道，对灵药敏感，擅长炼制丹药。你认为丹药是修行的关键，战斗并非你的专长。,R,,{extra_refine_success_rate: 0.15}
-40,福缘深厚,,天生福运，逢凶化吉。虽不如气运之子，但也常有小幸运眷顾。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
-41,剑修,怠惰,对剑道有着深厚的兴趣和独特的天赋，持剑修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SWORD', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-42,刀修,怠惰,专精刀法，对刀道有着独特的理解，持刀修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-43,枪修,怠惰,精通枪法，百兵之王在手，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-44,棍修,怠惰,棍棒在手，天下我有。对棍法有着天生的悟性。,R,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-45,音律大师,怠惰,精通音律之道，琴笛在手，可攻可守，修炼速度远超常人。,SR,,"[{when: 'avatar.weapon.type == WeaponType.ZITHER or avatar.weapon.type == WeaponType.FLUTE', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-46,暗器高手,怠惰,擅长使用暗器，出手诡秘莫测，修炼暗器技巧时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-47,扇修,怠惰,精通扇法，举手投足间尽显风流，持扇修炼时事半功倍。,R,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-48,鞭修,怠惰,精通鞭法，软兵器在手，刚柔并济，修炼速度远超常人。,R,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
-49,刀痴,怠惰;胆小,以刀入道，刀即是命。你认为刀法至上，战力强悍，但对刀道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SABER', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-50,枪痴,怠惰;胆小,以枪入道，枪即是命。你认为枪法至上，战力强悍，但对枪道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.SPEAR', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-51,棍圣,怠惰;胆小,以棍入道，棍即是命。棍法通神，一棍在手，天下无敌，但对棍道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.STAFF', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-52,扇痴,怠惰;胆小,以扇入道，扇即是命。你认为扇法至上，战力强悍，但对扇道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.FAN', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-53,鞭痴,怠惰;胆小,以鞭入道，鞭即是命。你认为鞭法至上，战力强悍，但对鞭道之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.WHIP', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-54,刺客宗师,怠惰;胆小,暗器之道登峰造极，杀人于无形。出手必见血，战力惊人，但对暗器之外的事物兴趣寥寥。,SR,,"[{when: 'avatar.weapon.type == WeaponType.HIDDEN_WEAPON', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
-55,好色,无欲,你对美色有着强烈的渴求，容易被外貌出众的异性吸引，行事往往受欲望驱使。,N,,
-56,无欲,好色,你清心寡欲，对男女之事毫无兴趣，面对美色心如止水，不为所动。,N,,
-57,探险家,死宅,你对未知的世界充满好奇，热衷于探索地图上未被点亮的区域，难以忍受长时间待在同一个地方。,SR,,
-58,死宅,探险家;冒险,你认为外面的世界充满危险且麻烦，除了必要的宗门任务，你极度排斥长途跋涉，更喜欢待在熟悉的区域修炼。,N,,
-59,扫把星,福缘深厚;气运之子,天生霉运缠身，喝凉水都塞牙。虽然活着不易，但也磨练了心性。,N,,"{extra_misfortune_probability: 0.005, extra_item_sell_price_multiplier: -0.1}"
-60,大器晚成,,早年修行多舛，霉运连连；但若能坚持至金丹元婴，便可否极泰来，气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""练气"", ""筑基""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""金丹"", ""元婴""]', extra_fortune_probability: 0.01}]"
-61,炼器师,好斗,精通炼器之道，对材料敏锐，擅长铸造法宝。你认为法宝是修行的关键，战斗并非你的专长。,R,,{extra_cast_success_rate: 0.15}
-62,情绪化,理性;淡漠,你的情绪波动很大，极易受外界事件影响而改变心情，做事也更随心所欲。,N,,
-63,矿工,怠惰,擅长勘探挖掘，对矿脉有着独特的直觉。你认为地下的宝藏才是最实在的财富。,R,,{extra_mine_materials: 1}
-64,苟,冒险;鲁莽;好斗,你躲避风险和风头，尽力不担上任何风险。虽然别人议论嘲笑你，但是你只自称“稳健”。,R,,{extra_self_heal_efficiency: 0.5, extra_escape_success_rate: 0.1}
-65,妒忌,友爱;热情,心胸狭窄，见不得别人比自己好。当看到他人成功或获得机缘时，内心会产生强烈的不满和怨恨。,N,,
+id,key,name,exclusion_keys,desc,rarity,condition,effects
+,Key,名称,互斥Key,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件,JSON形式
+1,RATIONAL,理性,FICKLE;CASUAL,你总是会用逻辑来思考问题，做事会谋定而后动。,N,,
+2,FICKLE,无常,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,目标飘忽不定，不会长期坚持一个目标。,N,,
+3,LAZY,怠惰,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会拖延，不想努力，更热衷于享受人生。,N,,{extra_cast_success_rate: -0.05}
+4,ADVENTUROUS,冒险,LAZY;LIFE_CHERISHING,你总是会冒险，喜欢刺激，总想放手一搏。,N,,
+5,CASUAL,随性,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,,
+6,GREEDY,贪财,,你对灵石和财富有着强烈的渴望。,N,,{extra_item_sell_price_multiplier: 0.1}
+7,GATHERER,采集者,,喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。,R,,{extra_harvest_materials: 1}
+8,HUNTER,猎人,,享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌。,R,,{extra_hunt_materials: 1}
+9,PENSIVE,沉思,FICKLE,你总是会深思熟虑，思考问题比较有哲理。,N,,
+10,LIFE_CHERISHING,惜命,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会珍惜自己的生命，不会轻易冒险。,R,,{extra_escape_success_rate: 0.15}
+11,FRIENDLY,友爱,ALOOF;INDIFFERENT;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你重视同伴与和谐，乐于助人。,N,,
+12,VENGEFUL,复仇,FRIENDLY;INDIFFERENT,你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。,N,,
+13,ALOOF,孤僻,FRIENDLY,你喜欢独处，避免与人深交。,N,,
+14,INDIFFERENT,淡漠,FRIENDLY;VENGEFUL;AGGRESSIVE;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你情感克制，对外界冷静疏离。,N,,
+15,AGGRESSIVE,好斗,FRIENDLY;INDIFFERENT;LIFE_CHERISHING;TIMID,你直面冲突，偏好以力量与对抗解决问题。,R,,{extra_battle_strength_points: 1}
+16,RASH,鲁莽,RATIONAL;PENSIVE;LIFE_CHERISHING,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,{extra_cast_success_rate: -0.05}
+17,TIMID,胆小,ADVENTUROUS;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你谨小慎微，容易畏惧风险。,N,,{extra_escape_success_rate: 0.1}
+18,OVERBEARING,霸道,FRIENDLY;TIMID,你行事强势，不讲道理，习惯以自己的利益为先。,N,,
+19,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,{extra_cultivate_exp: 30}
+20,INTROVERTED,内向,EXTROVERTED,你更享受独处与自我思考，倾向回避不必要的社交。,N,,
+21,EXTROVERTED,外向,ALOOF;INDIFFERENT;INTROVERTED,你乐于与人交流，主动结识伙伴。,N,,
+22,MEAN,刻薄,FRIENDLY;ENTHUSIASTIC,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己。,N,,
+23,ENTHUSIASTIC,热情,ALOOF;INDIFFERENT;MEAN,你待人友好、积极回应，倾向用鼓励与赞美拉近距离。,N,,
+24,EXTREMELY_RIGHTEOUS,极端正义,INTROVERTED;EXTREMELY_EVIL,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,"avatar.alignment == ""RIGHTEOUS""",{extra_breakthrough_success_rate: 0.05}
+25,EXTREMELY_EVIL,极端邪恶,INTROVERTED;EXTREMELY_RIGHTEOUS,你推崇权力与恐惧，为达目的不择手段。,SR,"avatar.alignment == ""EVIL""","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
+26,OPEN_MINDED,开放,SHY,你对待和他人结为道侣或者双修比较随意,R,,{extra_dual_cultivation_exp: 30}
+27,SHY,腼腆,OPEN_MINDED,你对待和他人结为道侣或者双修比较谨慎,N,,
+28,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,
+29,ENVIOUS,嫉妒,FRIENDLY;ENTHUSIASTIC,你对远超于你的人容易产生敌意。,N,,
+30,TRANSMIGRATOR,穿越者,,你来自现代社会，怀念现代社会的一切。,SR,,
+31,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
+32,SWORD_FANATIC,剑痴,LAZY;TIMID,以剑入道，剑即是命。你认为剑道至上。,SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+33,SCHEMING,心机深沉,RASH;ENTHUSIASTIC;EXTROVERTED,深藏不露，行事谨慎，善于算计。,R,,
+34,LOYAL,忠诚,ALOOF;INDIFFERENT;MEAN,重承诺守信义，对认定的人绝不背叛。,R,,
+35,RUTHLESS,狠辣,FRIENDLY;ENTHUSIASTIC;TIMID,行事果决狠辣，不留后患，斩草必除根。,N,,
+36,REINCARNATOR,重生者,FICKLE;CASUAL,经历过一世，对未来有模糊预知。,SSR,,
+37,SUSPICIOUS,疑心重,ENTHUSIASTIC;EXTROVERTED;FRIENDLY,对任何人都保持怀疑，不轻易信任。,N,,
+38,BODY_CULTIVATOR,体修,LIFE_CHERISHING;TIMID,专注肉身淬炼，体魄强健，近战无敌。,R,,"[{when: 'avatar.weapon is None', extra_battle_strength_points: 5}]"
+39,ALCHEMIST,炼丹师,AGGRESSIVE,精通丹道，对灵药敏感。,R,,{extra_refine_success_rate: 0.15}
+40,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,,天生福运，逢凶化吉。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
+41,SWORD_CULTIVATOR,剑修,LAZY,对剑道有着深厚的兴趣和独特的天赋。,R,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+42,SABER_CULTIVATOR,刀修,LAZY,专精刀法，对刀道有着独特的理解。,R,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+43,SPEAR_CULTIVATOR,枪修,LAZY,精通枪法，百兵之王在手。,R,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+44,STAFF_CULTIVATOR,棍修,LAZY,棍棒在手，天下我有。,R,,"[{when: 'avatar.weapon.type == ""STAFF""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+45,MUSICAL_MASTER,音律大师,LAZY,精通音律之道，琴笛在手，可攻可守。,SR,,"[{when: 'avatar.weapon.type == ""ZITHER"" or avatar.weapon.type == ""FLUTE""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+46,HIDDEN_WEAPON_EXPERT,暗器高手,LAZY,擅长使用暗器，出手诡秘莫测。,R,,"[{when: 'avatar.weapon.type == ""HIDDEN_WEAPON""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+47,FAN_CULTIVATOR,扇修,LAZY,精通扇法，举手投足间尽显风流。,R,,"[{when: 'avatar.weapon.type == ""FAN""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+48,WHIP_CULTIVATOR,鞭修,LAZY,精通鞭法，软兵器在手，刚柔并济。,R,,"[{when: 'avatar.weapon.type == ""WHIP""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+49,SABER_FANATIC,刀痴,LAZY;TIMID,以刀入道，刀即是命。你认为刀法至上。,SR,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+50,SPEAR_FANATIC,枪痴,LAZY;TIMID,以枪入道，枪即是命。你认为枪法至上。,SR,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+51,STAFF_SAINT,棍圣,LAZY;TIMID,以棍入道，棍即是命。棍法通神。,SR,,"[{when: 'avatar.weapon.type == ""STAFF""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+52,FAN_FANATIC,扇痴,LAZY;TIMID,以扇入道，扇即是命。你认为扇法至上。,SR,,"[{when: 'avatar.weapon.type == ""FAN""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+53,WHIP_FANATIC,鞭痴,LAZY;TIMID,以鞭入道，鞭即是命。你认为鞭法至上。,SR,,"[{when: 'avatar.weapon.type == ""WHIP""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+54,MASTER_ASSASSIN,刺客宗师,LAZY;TIMID,暗器之道登峰造极，杀人于无形。,SR,,"[{when: 'avatar.weapon.type == ""HIDDEN_WEAPON""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+55,LUSTFUL,好色,DESIRELESS,你对美色有着强烈的渴求。,N,,
+56,DESIRELESS,无欲,LUSTFUL,你清心寡欲，对男女之事毫无兴趣。,N,,
+57,EXPLORER,探险家,HOMEBODY,你对未知的世界充满好奇。,SR,,
+58,HOMEBODY,死宅,EXPLORER;ADVENTUROUS,你极度排斥长途跋涉，更喜欢待在熟悉的区域。,N,,
+59,JINX,扫把星,BLESSED_WITH_GOOD_FORTUNE;CHILD_OF_FORTUNE,天生霉运缠身。,N,,"{extra_misfortune_probability: 0.005, extra_item_sell_price_multiplier: -0.1}"
+60,LATE_BLOOMER,大器晚成,,早年修行多舛；但若能坚持至金丹元婴，便可气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""QI_REFINEMENT"", ""FOUNDATION_ESTABLISHMENT""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""CORE_FORMATION"", ""NASCENT_SOUL""]', extra_fortune_probability: 0.01}]"
+61,ARTIFACT_REFINER,炼器师,AGGRESSIVE,精通炼器之道，对材料敏锐。,R,,{extra_cast_success_rate: 0.15}
+62,EMOTIONAL,情绪化,RATIONAL;INDIFFERENT,你的情绪波动很大。,N,,
+63,MINER,矿工,LAZY,擅长勘探挖掘，对矿脉有着独特的直觉。,R,,{extra_mine_materials: 1}
+64,STEADY,苟,ADVENTUROUS;RASH;AGGRESSIVE,你躲避风险和风头，尽力不担上任何风险。,R,,{extra_self_heal_efficiency: 0.5, extra_escape_success_rate: 0.1}
+65,ENVIOUS_2,妒忌,FRIENDLY;ENTHUSIASTIC,心胸狭窄，见不得别人比自己好。,N,,

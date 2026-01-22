@@ -80,23 +80,11 @@ def _load_weapons_data() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
 
         # 解析weapon_type
         weapon_type_str = get_str(row, "weapon_type")
-        weapon_type = None
-        for wt in WeaponType:
-            if wt.value == weapon_type_str:
-                weapon_type = wt
-                break
+        weapon_type = WeaponType.from_str(weapon_type_str)
         
-        if weapon_type is None:
-            from src.i18n import t
-            raise ValueError(t("Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid weapon type",
-                              name=get_str(row, 'name'), weapon_type_str=weapon_type_str))
-
         # 解析grade
-        grade_str = get_str(row, "grade", "练气")
-        try:
-            realm = next(r for r in Realm if r.value == grade_str)
-        except StopIteration:
-            realm = Realm.Qi_Refinement
+        grade_str = get_str(row, "grade", "QI_REFINEMENT")
+        realm = Realm.from_str(grade_str)
 
         w = Weapon(
             id=get_int(row, "item_id"),

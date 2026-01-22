@@ -10,13 +10,13 @@ id,name,rarity,effects,desc,duration_years
 9,劫数将至,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",劫数降临戾气弥漫，虽战力激增但福缘浅薄，宜如履薄冰谨慎行事,5
 10,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进,5
 11,灵气枯竭,R,"{extra_cultivate_exp: -20}",灵气枯竭末法将至，修炼如逆水行舟，宜节约资源稳固道心,5
-12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: -5}]",魔气滔天邪道大昌，魔修如鱼得水，正道修士当避其锋芒潜心积淀,5
-13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.GOOD', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -5}]",浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头,5
+12,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.RIGHTEOUS', extra_battle_strength_points: -5}]",魔气滔天邪道大昌，魔修如鱼得水，正道修士当避其锋芒潜心积淀,5
+13,正气浩然,R,"[{when: 'avatar.alignment == Alignment.RIGHTEOUS', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -5}]",浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头,5
 14,神兵出世,SR,"{extra_weapon_proficiency_gain: 1.0}",神兵有灵百兵齐鸣，兵器熟练度提升极快，宜勤练武艺磨砺锋芒,5
 15,阴阳交泰,R,"{extra_dual_cultivation_exp: 20}",阴阳交泰天地和合，彼此互补进境神速，最宜寻觅道侣共参双修之乐,5
 16,杀劫降临,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",血光冲天杀意难抑，虽杀伐之力大增但机缘断绝，宜主动出击以杀证道,5
 17,太平盛世,R,"{extra_cultivate_exp: -10, extra_fortune_probability: 0.01}",天下太平万物安宁，虽苦修进境缓慢但机缘频出，宜游历天下寻找奇遇,5
-18,气运加身,R,"[{when: 'any(p.name == ""气运之子"" for p in avatar.personas)', extra_cultivate_exp: 25, extra_fortune_probability: 0.005}]",天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求,5
+18,气运加身,R,"[{when: 'any(p.key == ""CHILD_OF_FORTUNE"" for p in avatar.personas)', extra_cultivate_exp: 25, extra_fortune_probability: 0.005}]",天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求,5
 19,血月当空,SR,"{extra_battle_strength_points: 7, extra_cultivate_exp: -10}",血月高悬人心躁动，战力虽强但静修困难，宜以战养战掠夺资源,5
 20,飞升之门,SSR,"{extra_cultivate_exp: 30, extra_breakthrough_success_rate: 0.2}",天门大开大道显现，感悟修行皆如有神助，正是冲击境界飞升成仙之时,7
 21,法则显化,SSR,"{extra_breakthrough_success_rate: 0.5}",天地法则清晰可触，瓶颈如纸一捅即破，万勿错过此突破天赐良机,3

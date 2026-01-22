@@ -44,9 +44,9 @@ technique_attribute_msg_ids = {
 
 
 class TechniqueGrade(Enum):
-    LOWER = "下品"
-    MIDDLE = "中品"
-    UPPER = "上品"
+    LOWER = "LOWER"    # 下品
+    MIDDLE = "MIDDLE"  # 中品
+    UPPER = "UPPER"    # 上品
 
     def __str__(self) -> str:
         from src.i18n import t
@@ -54,12 +54,15 @@ class TechniqueGrade(Enum):
 
     @staticmethod
     def from_str(s: str) -> "TechniqueGrade":
-        s = str(s).strip()
-        if s == "上品":
-            return TechniqueGrade.UPPER
-        if s == "中品":
-            return TechniqueGrade.MIDDLE
-        return TechniqueGrade.LOWER
+        s = str(s).strip().upper()
+        # 兼容旧的中文配置（可选，但为了稳妥建议保留映射或直接转换）
+        mapping = {
+            "上品": "UPPER", "UPPER": "UPPER",
+            "中品": "MIDDLE", "MIDDLE": "MIDDLE",
+            "下品": "LOWER", "LOWER": "LOWER"
+        }
+        grade_id = mapping.get(s, "LOWER")
+        return TechniqueGrade(grade_id)
     
     @property
     def color_rgb(self) -> tuple[int, int, int]:

@@ -6,11 +6,11 @@ class EssenceType(Enum):
     """
     灵气类型
     """
-    GOLD = "gold" # 金
-    WOOD = "wood" # 木
-    WATER = "water" # 水
-    FIRE = "fire" # 火
-    EARTH = "earth" # 土
+    GOLD = "GOLD"  # 金
+    WOOD = "WOOD"  # 木
+    WATER = "WATER"  # 水
+    FIRE = "FIRE"  # 火
+    EARTH = "EARTH"  # 土
 
     def __str__(self) -> str:
         """返回灵气类型的翻译名称"""
@@ -23,23 +23,25 @@ class EssenceType(Enum):
         从字符串创建EssenceType实例
         
         Args:
-            essence_str: 灵气的字符串表示，如 "金", "木", "水", "火", "土"
+            essence_str: 灵气的字符串表示
             
         Returns:
             对应的EssenceType枚举值
-            
-        Raises:
-            ValueError: 如果字符串不匹配任何已知的灵气类型
         """
-        # 首先尝试匹配中文名称
-        for essence_type, chinese_name in essence_names.items():
-            if chinese_name == essence_str:
-                return essence_type
+        s = str(essence_str).strip().upper()
         
-        # 然后尝试匹配英文值
-        for essence_type in cls:
-            if essence_type.value == essence_str:
-                return essence_type
+        # 建立映射
+        mapping = {
+            "金": "GOLD", "GOLD": "GOLD",
+            "木": "WOOD", "WOOD": "WOOD",
+            "水": "WATER", "WATER": "WATER",
+            "火": "FIRE", "FIRE": "FIRE",
+            "土": "EARTH", "EARTH": "EARTH"
+        }
+        
+        etype_id = mapping.get(s)
+        if etype_id:
+            return cls(etype_id)
                 
         raise ValueError(f"Unknown essence type: {essence_str}")
 

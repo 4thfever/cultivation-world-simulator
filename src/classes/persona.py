@@ -18,9 +18,10 @@ class Persona:
     包含个性、天赋等角色特征
     """
     id: int
+    key: str
     name: str
     desc: str
-    exclusion_names: List[str]
+    exclusion_keys: List[str]
     rarity: Rarity
     condition: str
     effects: dict[str, object]
@@ -48,6 +49,7 @@ class Persona:
         return {
             "name": self.name,
             "desc": self.desc,
+            "key": self.key,
             "rarity": self.rarity.level.value,
             "color": self.rarity.color_rgb,
             "effect_desc": self.effect_desc,
@@ -60,15 +62,12 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     
     persona_df = game_configs["persona"]
     for row in persona_df:
-        # 解析exclusion_names字符串，转换为字符串列表
-        exclusion_names = get_list_str(row, "exclusion_names")
+        # 解析exclusion_keys字符串，转换为字符串列表
+        exclusion_keys = get_list_str(row, "exclusion_keys")
         
-        # 解析稀有度（缺失或为 NaN 时默认为 N）
+        # 解析稀有度
         rarity_str = get_str(row, "rarity", "N").upper()
-        rarity = get_rarity_from_str(rarity_str) if rarity_str and rarity_str != "NAN" else get_rarity_from_str("N")
-        
-        # 条件
-        condition = get_str(row, "condition")
+        rarity = get_rarity_from_str(rarity_str)
         
         # 解析effects
         effects = load_effect_from_str(get_str(row, "effects"))
@@ -77,11 +76,12 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
         
         persona = Persona(
             id=get_int(row, "id"),
+            key=get_str(row, "key").upper(),
             name=get_str(row, "name"),
             desc=get_str(row, "desc"),
-            exclusion_names=exclusion_names,
+            exclusion_keys=exclusion_keys,
             rarity=rarity,
-            condition=condition,
+            condition=get_str(row, "condition"),
             effects=effects,
             effect_desc=effect_desc,
         )
@@ -96,8 +96,6 @@ personas_by_id, personas_by_name = _load_personas()
 def _is_persona_allowed(persona_id: int, already_selected_ids: set[int], avatar: Optional["Avatar"]) -> bool:
     """
     统一判断：persona 是否允许被选择（条件 + 互斥）。
-    - 条件：当存在 avatar 且配置了 condition 时，通过安全 eval 判断。
-    - 互斥：与已选 persona 双向互斥（通过名字比较）。
     """
     persona = personas_by_id[persona_id]
     # 条件判定
@@ -105,11 +103,10 @@ def _is_persona_allowed(persona_id: int, already_selected_ids: set[int], avatar:
         allowed = bool(eval(persona.condition, {"__builtins__": {}}, {"avatar": avatar}))
         if not allowed:
             return False
-    # 与已选互斥检查（双向，通过名字）
+    # 与已选互斥检查（双向，通过 Key）
     for sid in already_selected_ids:
         other = personas_by_id[sid]
-        # 检查当前persona是否在对方的互斥列表中，或对方是否在当前persona的互斥列表中
-        if (persona.name in other.exclusion_names) or (other.name in persona.exclusion_names):
+        if (persona.key in other.exclusion_keys) or (other.key in persona.exclusion_keys):
             return False
     return True
 

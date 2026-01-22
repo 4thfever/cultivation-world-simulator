@@ -7,11 +7,12 @@ from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
 from src.utils.config import CONFIG
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
     from src.classes.technique import Technique
     from src.classes.sect_ranks import SectRank
+    from src.classes.weapon_type import WeaponType
 
 """
 宗门、宗门总部基础数据。
@@ -44,8 +45,8 @@ class Sect:
     technique_names: list[str]
     # 随机选择宗门时使用的权重（默认1）
     weight: float = 1.0
-    # 宗门倾向的兵器类型（字符串，如"剑"、"刀"等）
-    preferred_weapon: str = ""
+    # 宗门倾向的兵器类型
+    preferred_weapon: Optional["WeaponType"] = None
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
@@ -161,7 +162,7 @@ class Sect:
             "techniques": techniques_data,
             # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
             "technique_names": self.technique_names,
-            "preferred_weapon": self.preferred_weapon,
+            "preferred_weapon": self.preferred_weapon.value if self.preferred_weapon else "",
             "members": members_list
         }
 
@@ -221,7 +222,9 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
         effect_desc = format_effects_to_text(effects)
 
         # 读取倾向兵器类型
-        preferred_weapon = get_str(row, "preferred_weapon")
+        from src.classes.weapon_type import WeaponType
+        preferred_weapon_str = get_str(row, "preferred_weapon")
+        preferred_weapon = WeaponType.from_str(preferred_weapon_str) if preferred_weapon_str else None
 
         # 解析自定义职位
         raw_ranks = get_str(row, "rank_names")
