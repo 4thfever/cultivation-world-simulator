@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import Optional, TYPE_CHECKING, List
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.cultivation import Realm
 from src.classes.event import Event
@@ -60,7 +61,6 @@ class Cast(TimedAction):
         return count
 
     def can_start(self, target_realm: str) -> tuple[bool, str]:
-        from src.i18n import t
         if not target_realm:
             return False, t("Target realm not specified")
         
@@ -129,7 +129,6 @@ class Cast(TimedAction):
         # 2. 判定结果
         if random.random() > success_rate:
             # 失败
-            from src.i18n import t
             content = t("{avatar} failed to cast {realm}-tier treasure, all materials turned to ash",
                        avatar=self.avatar.name, realm=str(self.target_realm))
             fail_event = Event(
@@ -142,7 +141,6 @@ class Cast(TimedAction):
             return events
 
         # 3. 成功：生成物品
-        from src.i18n import t
         # 50% 兵器，50% 辅助装备
         is_weapon = random.random() < 0.5
         new_item = None

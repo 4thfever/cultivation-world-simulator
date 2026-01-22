@@ -49,9 +49,19 @@ def update_paths_for_language(lang_code: str = None):
         # 尝试从配置中同步语言状态到 language_manager (针对 CLI/Test 等非 server 环境)
         if hasattr(CONFIG, "system") and hasattr(CONFIG.system, "language"):
             saved_lang = CONFIG.system.language
-            language_manager.set_language(saved_lang)
             
-        lang_code = str(language_manager)
+            # Avoid triggering set_language -> df import loop during initialization
+            try:
+                from src.classes.language import LanguageType
+                language_manager._current = LanguageType(saved_lang)
+            except (ValueError, ImportError):
+                pass
+            
+            # Reload translations only (safe)
+            from src.i18n import reload_translations
+            reload_translations()
+            
+            lang_code = saved_lang
     
     # 默认 locales 目录
     locales_dir = CONFIG.paths.get("locales", Path("static/locales"))

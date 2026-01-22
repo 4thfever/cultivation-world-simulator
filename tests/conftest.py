@@ -24,8 +24,10 @@ def force_chinese_language():
     
     # Force language to Chinese
     language_manager.set_language("zh-CN")
-    # Update paths to point to Chinese configs
-    update_paths_for_language("zh-CN")
+    
+    # Ensure game configs are reloaded (in case set_language skipped it due to circular import protection)
+    from src.utils.df import reload_game_configs
+    reload_game_configs()
     
     yield
 from src.classes.tile import TileType, Tile

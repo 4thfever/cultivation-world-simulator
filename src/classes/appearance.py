@@ -16,18 +16,20 @@ class Appearance:
     desc_female: str
 
     def get_info(self) -> str:
-        return f"{self.name}({self.level})"
+        from src.i18n import t
+        return f"{t(self.name)}({self.level})"
 
     def get_detailed_info(self, gender: object | None = None) -> str:
         """
         根据性别返回更贴切的描述；若未提供性别或无法识别，则默认使用男性描述。
         不依赖具体 Gender 类型，避免循环导入。
         """
+        from src.i18n import t
         g = str(gender) if gender is not None else ""
         s = g.lower()
         use_female = (g == "女") or (s == "female")
         desc = self.desc_female if use_female else self.desc_male
-        return f"{self.name}({self.level}) - {desc}"
+        return f"{t(self.name)}({self.level}) - {t(desc)}"
 
 
 _LEVEL_DATA: Tuple[Tuple[int, str, str, str], ...] = (

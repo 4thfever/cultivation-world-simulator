@@ -21,11 +21,20 @@ class LanguageManager:
             self._current = LanguageType.ZH_CN
         
         # Reload i18n translations when language changes.
+        from src.i18n import reload_translations
+        reload_translations()
+
+        # Update paths and reload game configs
+        from src.utils.config import update_paths_for_language
+        update_paths_for_language(self._current.value)
+
         try:
-            from src.i18n import reload_translations
-            reload_translations()
+            from src.utils.df import reload_game_configs
+            reload_game_configs()
         except ImportError:
+            # Prevent circular import crash during initialization
             pass
+
 
     def __str__(self):
         return self._current.value
