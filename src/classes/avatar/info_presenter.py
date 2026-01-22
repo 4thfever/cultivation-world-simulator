@@ -163,14 +163,13 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         info["sect"] = None
         
     # 补充：阵营详情
-    from src.classes.alignment import alignment_infos, alignment_strs
+    from src.classes.alignment import alignment_info_msg_ids
     info["alignment"] = str(avatar.alignment) if avatar.alignment else t("Unknown")
     if avatar.alignment:
-        cn_name = alignment_strs.get(avatar.alignment, avatar.alignment.value)
-        desc = alignment_infos.get(avatar.alignment, "")
+        desc_id = alignment_info_msg_ids.get(avatar.alignment, "")
         info["alignment_detail"] = {
-            "name": cn_name,
-            "desc": desc,
+            "name": str(avatar.alignment),
+            "desc": t(desc_id) if desc_id else "",
         }
 
     # 4. 装备 (Weapon & Auxiliary)

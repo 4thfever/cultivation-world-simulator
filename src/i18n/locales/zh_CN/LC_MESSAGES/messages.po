@@ -1717,3 +1717,38 @@ msgstr "{avatar} 修为增长 {exp} 点"
 
 msgid "{winner} defeated {loser}"
 msgstr "{winner} 战胜了 {loser}"
+
+# ============================================================================
+# Frontend UI Translations
+# ============================================================================
+
+msgid "Sect Headquarters"
+msgstr "宗门驻地"
+
+msgid "Region"
+msgstr "区域"
+
+msgid "Normal Region"
+msgstr "普通区域"
+
+msgid "Cave Dwelling"
+msgstr "洞府"
+
+msgid "Ruins"
+msgstr "遗迹"
+
+msgid "City Region"
+msgstr "城市区域"
+
+# ============================================================================
+# Simulator & Event Translations
+# ============================================================================
+
+msgid "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+msgstr "{avatar_name} 路过 {region_name}，发现无主，将其占据。"
+
+msgid "{avatar_name} deliberated and redefined their long-term objective: {objective}"
+msgstr "{avatar_name} 经过深思熟虑，重新确定了自己的长期目标：{objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} 确定了自己的长期目标：{objective}"

@@ -12,6 +12,7 @@ from src.classes.plant import Plant, plants_by_id
 from src.classes.lode import Lode, lodes_by_id
 from src.classes.sect import sects_by_name
 from src.classes.store import StoreMixin
+from src.i18n import t
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -96,7 +97,7 @@ class Region(ABC):
             "name": self.name,
             "desc": self.desc,
             "type": self.get_region_type(),
-            "type_name": "区域" 
+            "type_name": t("Region")
         }
 
 
@@ -158,7 +159,7 @@ class NormalRegion(Region):
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
-        info["type_name"] = "普通区域"
+        info["type_name"] = t("Normal Region")
         
         # Assuming animals and plants are populated in __post_init__
         info["animals"] = [a.get_structured_info() for a in self.animals] if self.animals else []
@@ -196,7 +197,7 @@ class CultivateRegion(Region):
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
-        info["type_name"] = "洞府" if self.sub_type == "cave" else "遗迹"
+        info["type_name"] = t("Cave Dwelling") if self.sub_type == "cave" else t("Ruins")
         info["essence"] = {
             "type": str(self.essence_type),
             "density": self.essence_density
@@ -239,7 +240,7 @@ class CityRegion(Region, StoreMixin):
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
-        info["type_name"] = "城市区域"
+        info["type_name"] = t("City Region")
         
         store_items_info = []
         if hasattr(self, 'store_items'):

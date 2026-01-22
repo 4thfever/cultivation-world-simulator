@@ -1717,3 +1717,38 @@ msgstr "{avatar} gained cultivation experience +{exp} points"
 
 msgid "{winner} defeated {loser}"
 msgstr "{winner} defeated {loser}"
+
+# ============================================================================
+# Frontend UI Translations
+# ============================================================================
+
+msgid "Sect Headquarters"
+msgstr "Sect Headquarters"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "Normal Region"
+msgstr "Normal Region"
+
+msgid "Cave Dwelling"
+msgstr "Cave Dwelling"
+
+msgid "Ruins"
+msgstr "Ruins"
+
+msgid "City Region"
+msgstr "City Region"
+
+# ============================================================================
+# Simulator & Event Translations
+# ============================================================================
+
+msgid "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+msgstr "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+
+msgid "{avatar_name} deliberated and redefined their long-term objective: {objective}"
+msgstr "{avatar_name} deliberated and redefined their long-term objective: {objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} determined their long-term objective: {objective}"
