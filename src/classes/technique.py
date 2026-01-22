@@ -13,16 +13,16 @@ from src.classes.root import Root, RootElement
 
 
 class TechniqueAttribute(Enum):
-    GOLD = "金"
-    WOOD = "木"
-    WATER = "水"
-    FIRE = "火"
-    EARTH = "土"
-    ICE = "冰"
-    WIND = "风"
-    DARK = "暗"
-    THUNDER = "雷"
-    EVIL = "邪"
+    GOLD = "GOLD"  # 金
+    WOOD = "WOOD"  # 木
+    WATER = "WATER"#水
+    FIRE = "FIRE"  # 火
+    EARTH = "EARTH"# 土
+    ICE = "ICE"    # 冰
+    WIND = "WIND"  # 风
+    DARK = "DARK"  # 暗
+    THUNDER = "THUNDER"  # 雷
+    EVIL = "EVIL"  # 邪
 
     def __str__(self) -> str:
         from src.i18n import t

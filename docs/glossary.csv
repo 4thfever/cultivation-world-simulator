@@ -10,7 +10,7 @@ chinese,english,category,subcategory,notes
 稀有,Rare,rarity,,Uncommon items/traits
 超稀有,Super Rare,rarity,,Rare items/traits
 传说,Legendary,rarity,,Legendary items/traits
-金,Gold,element,,Also: Metal
+金,Gold,element,,
 木,Wood,element,,
 水,Water,element,,
 火,Fire,element,,
@@ -20,7 +20,7 @@ chinese,english,category,subcategory,notes
 暗,Dark,element,,Extended element
 雷,Thunder,element,,Also: Lightning
 邪,Evil,element,,Dark arts attribute
-金灵根,Metal Spiritual Root,root,,
+金灵根,Gold Spiritual Root,root,,
 木灵根,Wood Spiritual Root,root,,
 水灵根,Water Spiritual Root,root,,
 火灵根,Fire Spiritual Root,root,,

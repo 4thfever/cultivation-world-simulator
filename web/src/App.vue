@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
-import { useUiStore } from './stores/ui'
 import { systemApi } from './api/modules/system'
 import { useI18n } from 'vue-i18n'
 
@@ -21,7 +20,11 @@ import { useGameInit } from './composables/useGameInit'
 import { useGameControl } from './composables/useGameControl'
 
 // Stores
+import { useUiStore } from './stores/ui'
+import { useSettingStore } from './stores/setting'
+
 const uiStore = useUiStore()
+const settingStore = useSettingStore()
 
 const showSplash = ref(true)
 const openedFromSplash = ref(false)
@@ -145,6 +148,8 @@ async function handleReturnToMain() {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeydown)
+  // Ensure backend language setting matches frontend preference
+  settingStore.syncBackend()
 })
 
 onUnmounted(() => {

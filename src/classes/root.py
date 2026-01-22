@@ -14,11 +14,11 @@ from src.classes.essence import EssenceType
 
 
 class RootElement(Enum):
-    GOLD = "金"
-    WOOD = "木"
-    WATER = "水"
-    FIRE = "火"
-    EARTH = "土"
+    GOLD = "GOLD"  # 原：金
+    WOOD = "WOOD"  # 原：木
+    WATER = "WATER"  # 原：水
+    FIRE = "FIRE"  # 原：火
+    EARTH = "EARTH"  # 原：土
 
     def __str__(self) -> str:
         from src.i18n import t
