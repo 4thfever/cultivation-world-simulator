@@ -244,6 +244,22 @@
       "empty_none": "暂无事件"
     },
     "info_panel": {
+      "popup": {
+        "effect": "效果：",
+        "drops": "掉落/产出：",
+        "hq": "驻地：",
+        "types": {
+          "animal": "动物",
+          "plant": "植物",
+          "lode": "矿脉",
+          "item": "物品",
+          "weapon": "兵器",
+          "auxiliary": "辅助装备",
+          "technique": "功法",
+          "sect": "宗门",
+          "persona": "特质"
+        }
+      },
       "avatar": {
         "set_objective": "设定目标",
         "clear_objective": "清空目标",

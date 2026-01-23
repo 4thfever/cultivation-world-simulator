@@ -244,6 +244,22 @@
       "empty_none": "No events"
     },
     "info_panel": {
+      "popup": {
+        "effect": "Effect: ",
+        "drops": "Drops: ",
+        "hq": "HQ: ",
+        "types": {
+          "animal": "Animal",
+          "plant": "Plant",
+          "lode": "Lode",
+          "item": "Item",
+          "weapon": "Weapon",
+          "auxiliary": "Auxiliary",
+          "technique": "Art",
+          "sect": "Sect",
+          "persona": "Trait"
+        }
+      },
       "avatar": {
         "set_objective": "Set Objective",
         "clear_objective": "Clear Objective",
