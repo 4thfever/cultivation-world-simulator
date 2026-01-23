@@ -7,11 +7,21 @@ const mockOnStatusChange = vi.fn(() => vi.fn())
 const mockConnect = vi.fn()
 const mockDisconnect = vi.fn()
 
+// Store callbacks for testing message handling.
+let messageCallback: ((data: any) => void) | null = null
+let statusCallback: ((connected: boolean) => void) | null = null
+
 // Mock the gameSocket before imports.
 vi.mock('@/api/socket', () => ({
   gameSocket: {
-    on: () => mockOn(),
-    onStatusChange: () => mockOnStatusChange(),
+    on: (cb: (data: any) => void) => {
+      messageCallback = cb
+      return mockOn()
+    },
+    onStatusChange: (cb: (connected: boolean) => void) => {
+      statusCallback = cb
+      return mockOnStatusChange()
+    },
     connect: () => mockConnect(),
     disconnect: () => mockDisconnect(),
   },
@@ -45,11 +55,13 @@ describe('useSocketStore', () => {
     setActivePinia(createPinia())
     store = useSocketStore()
     
-    // Reset mocks.
+    // Reset mocks and callbacks.
     vi.clearAllMocks()
     mockUiStore.selectedTarget = null
     mockOn.mockReturnValue(vi.fn())
     mockOnStatusChange.mockReturnValue(vi.fn())
+    messageCallback = null
+    statusCallback = null
   })
 
   afterEach(() => {
@@ -68,6 +80,27 @@ describe('useSocketStore', () => {
       store.init()
 
       expect(mockConnect).toHaveBeenCalled()
+    })
+
+    it('should not reinitialize if already initialized', () => {
+      store.init()
+      store.init()
+      store.init()
+
+      // connect should only be called once due to guard.
+      expect(mockConnect).toHaveBeenCalledTimes(1)
+    })
+
+    it('should setup status change listener', () => {
+      store.init()
+
+      expect(mockOnStatusChange).toHaveBeenCalled()
+    })
+
+    it('should setup message listener', () => {
+      store.init()
+
+      expect(mockOn).toHaveBeenCalled()
     })
   })
 
@@ -97,6 +130,79 @@ describe('useSocketStore', () => {
 
   describe('lastError', () => {
     it('should start as null', () => {
+      expect(store.lastError).toBeNull()
+    })
+  })
+
+  describe('message handling', () => {
+    it('should call worldStore.handleTick on tick message', () => {
+      store.init()
+
+      const tickPayload = {
+        type: 'tick',
+        year: 100,
+        month: 5,
+        avatars: [],
+        events: [],
+      }
+
+      messageCallback?.(tickPayload)
+
+      expect(mockWorldStore.handleTick).toHaveBeenCalledWith(tickPayload)
+    })
+
+    it('should refresh detail on tick if target is selected', () => {
+      store.init()
+      mockUiStore.selectedTarget = { type: 'avatar', id: 'a1' }
+
+      messageCallback?.({ type: 'tick', year: 100, month: 5, avatars: [], events: [] })
+
+      expect(mockUiStore.refreshDetail).toHaveBeenCalled()
+    })
+
+    it('should not refresh detail on tick if no target selected', () => {
+      store.init()
+      mockUiStore.selectedTarget = null
+
+      messageCallback?.({ type: 'tick', year: 100, month: 5, avatars: [], events: [] })
+
+      expect(mockUiStore.refreshDetail).not.toHaveBeenCalled()
+    })
+
+    it('should call worldStore.initialize on game_reinitialized message', () => {
+      store.init()
+
+      messageCallback?.({ type: 'game_reinitialized', message: 'Game reinitialized' })
+
+      expect(mockWorldStore.initialize).toHaveBeenCalled()
+    })
+  })
+
+  describe('status change handling', () => {
+    it('should update isConnected when status changes to connected', () => {
+      store.init()
+
+      statusCallback?.(true)
+
+      expect(store.isConnected).toBe(true)
+    })
+
+    it('should update isConnected when status changes to disconnected', () => {
+      store.init()
+      statusCallback?.(true)
+
+      statusCallback?.(false)
+
+      expect(store.isConnected).toBe(false)
+    })
+
+    it('should clear lastError when connected', () => {
+      store.init()
+      // Simulate having an error.
+      store.lastError = 'Some error'
+
+      statusCallback?.(true)
+
       expect(store.lastError).toBeNull()
     })
   })
