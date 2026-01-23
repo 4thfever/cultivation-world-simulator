@@ -80,5 +80,18 @@ def _load_plants() -> tuple[dict[int, Plant], dict[str, Plant]]:
     
     return plants_by_id, plants_by_name
 
-# 从配表加载plant数据
-plants_by_id, plants_by_name = _load_plants()
+plants_by_id: dict[int, Plant] = {}
+plants_by_name: dict[str, Plant] = {}
+
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_plants()
+    
+    plants_by_id.clear()
+    plants_by_id.update(new_id)
+    
+    plants_by_name.clear()
+    plants_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()

@@ -194,8 +194,21 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
     return elixirs_by_id, elixirs_by_name
 
 
-# 导出全局变量
-elixirs_by_id, elixirs_by_name = _load_elixirs()
+elixirs_by_id: Dict[int, Elixir] = {}
+elixirs_by_name: Dict[str, List[Elixir]] = {}
+
+def reload():
+    """重新加载数据"""
+    new_id, new_name = _load_elixirs()
+    
+    elixirs_by_id.clear()
+    elixirs_by_id.update(new_id)
+    
+    elixirs_by_name.clear()
+    elixirs_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 
 def get_elixirs_by_realm(realm: Realm) -> List[Elixir]:

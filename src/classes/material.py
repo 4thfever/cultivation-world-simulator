@@ -67,3 +67,11 @@ def _load_materials() -> tuple[dict[int, Material], dict[str, Material]]:
 
 # 从配表加载 material 数据
 materials_by_id, materials_by_name = _load_materials()
+
+def reload():
+    """重新加载数据"""
+    new_id, new_name = _load_materials()
+    materials_by_id.clear()
+    materials_by_id.update(new_id)
+    materials_by_name.clear()
+    materials_by_name.update(new_name)

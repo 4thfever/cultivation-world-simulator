@@ -80,5 +80,18 @@ def _load_animals() -> tuple[dict[int, Animal], dict[str, Animal]]:
     
     return animals_by_id, animals_by_name
 
-# 从配表加载animal数据
-animals_by_id, animals_by_name = _load_animals()
+animals_by_id: dict[int, Animal] = {}
+animals_by_name: dict[str, Animal] = {}
+
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_animals()
+    
+    animals_by_id.clear()
+    animals_by_id.update(new_id)
+    
+    animals_by_name.clear()
+    animals_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
