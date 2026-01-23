@@ -281,6 +281,63 @@ describe('useWorldStore', () => {
       // Should be the same reference since no change.
       expect(store.avatars).toBe(original)
     })
+
+    it('should ignore avatars without id', () => {
+      store.isLoaded = true
+      store.avatars = new Map()
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [{ name: 'No ID Avatar' } as any], // Missing id.
+        events: [],
+      }
+
+      store.handleTick(payload)
+
+      // Should not add avatar without id.
+      expect(store.avatars.size).toBe(0)
+    })
+
+    it('should handle empty events array', () => {
+      store.isLoaded = true
+      store.events = [createMockEvent({ id: 'existing' })]
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [],
+        events: [],
+      }
+
+      store.handleTick(payload)
+
+      // Events should remain unchanged.
+      expect(store.events).toHaveLength(1)
+    })
+
+    it('should not add events when all are filtered out', () => {
+      store.isLoaded = true
+      store.eventsFilter = { avatar_id: 'a1' }
+      store.events = []
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [],
+        events: [
+          { id: 'e1', text: 'Event', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: ['a2'] },
+        ],
+      }
+
+      store.handleTick(payload)
+
+      // All events filtered out, should remain empty.
+      expect(store.events).toHaveLength(0)
+    })
   })
 
   describe('reset', () => {
