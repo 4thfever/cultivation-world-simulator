@@ -176,6 +176,43 @@ describe('useSocketStore', () => {
 
       expect(mockWorldStore.initialize).toHaveBeenCalled()
     })
+
+    it('should call __openLLMConfig on llm_config_required message', () => {
+      const mockOpenLLMConfig = vi.fn()
+      ;(window as any).__openLLMConfig = mockOpenLLMConfig
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      store.init()
+      messageCallback?.({ type: 'llm_config_required', error: 'LLM not configured' })
+
+      expect(mockOpenLLMConfig).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalled()
+
+      consoleSpy.mockRestore()
+      delete (window as any).__openLLMConfig
+    })
+
+    it('should handle llm_config_required when __openLLMConfig is not defined', () => {
+      delete (window as any).__openLLMConfig
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      store.init()
+      // Should not throw.
+      messageCallback?.({ type: 'llm_config_required', error: 'LLM error' })
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+
+    it('should ignore unknown message types', () => {
+      store.init()
+
+      // Should not throw.
+      messageCallback?.({ type: 'unknown_type', data: 'something' })
+
+      expect(mockWorldStore.handleTick).not.toHaveBeenCalled()
+      expect(mockWorldStore.initialize).not.toHaveBeenCalled()
+    })
   })
 
   describe('status change handling', () => {
