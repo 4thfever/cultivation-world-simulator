@@ -163,6 +163,45 @@ describe('useSystemStore', () => {
       expect(consoleSpy).toHaveBeenCalled()
       consoleSpy.mockRestore()
     })
+
+    it('should ignore stale response when called rapidly (race condition fix)', async () => {
+      // Scenario:
+      // 1. fetchInitStatus() called, request R1 starts (slow, returns 'in_progress')
+      // 2. fetchInitStatus() called again, request R2 starts (fast, returns 'ready')
+      // 3. R2 returns first -> initStatus = 'ready', isGameRunning = true
+      // 4. R1 returns later -> should be ignored (requestId mismatch)
+      
+      let resolveR1: (value: any) => void
+      const r1Promise = new Promise(resolve => { resolveR1 = resolve })
+      
+      let callCount = 0
+      vi.mocked(systemApi.fetchInitStatus).mockImplementation(async () => {
+        callCount++
+        if (callCount === 1) {
+          await r1Promise
+          return createMockStatus({ status: 'in_progress', progress: 50 })
+        }
+        return createMockStatus({ status: 'ready', progress: 100 })
+      })
+
+      // Start R1 (slow)
+      const fetch1 = store.fetchInitStatus()
+      
+      // Start R2 (fast) - this should be the "truth"
+      const result2 = await store.fetchInitStatus()
+      expect(result2?.status).toBe('ready')
+      expect(store.initStatus?.status).toBe('ready')
+      expect(store.isGameRunning).toBe(true)
+      
+      // R1 completes with stale data - should be ignored
+      resolveR1!(undefined)
+      const result1 = await fetch1
+      
+      // Stale response should return null and not update state
+      expect(result1).toBeNull()
+      expect(store.initStatus?.status).toBe('ready') // Still fresh data
+      expect(store.isGameRunning).toBe(true) // Still correct
+    })
   })
 
   describe('pause', () => {
