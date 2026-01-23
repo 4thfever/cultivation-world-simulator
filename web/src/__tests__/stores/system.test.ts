@@ -118,4 +118,109 @@ describe('useSystemStore', () => {
       expect(store.isInitialized).toBe(false)
     })
   })
+
+  describe('fetchInitStatus', () => {
+    it('should update initStatus on success', async () => {
+      const mockStatus = createMockStatus({ status: 'ready', progress: 100 })
+      vi.mocked(systemApi.fetchInitStatus).mockResolvedValue(mockStatus)
+
+      const result = await store.fetchInitStatus()
+
+      expect(result).toEqual(mockStatus)
+      expect(store.initStatus).toEqual(mockStatus)
+    })
+
+    it('should set isGameRunning to true when status is ready', async () => {
+      const mockStatus = createMockStatus({ status: 'ready', progress: 100 })
+      vi.mocked(systemApi.fetchInitStatus).mockResolvedValue(mockStatus)
+
+      await store.fetchInitStatus()
+
+      expect(store.isGameRunning).toBe(true)
+    })
+
+    it('should set isGameRunning to false when status is not ready', async () => {
+      const mockStatus = createMockStatus({ status: 'in_progress', progress: 50 })
+      vi.mocked(systemApi.fetchInitStatus).mockResolvedValue(mockStatus)
+
+      await store.fetchInitStatus()
+
+      expect(store.isGameRunning).toBe(false)
+    })
+
+    it('should return null and log error on failure', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      vi.mocked(systemApi.fetchInitStatus).mockRejectedValue(new Error('Network error'))
+
+      const result = await store.fetchInitStatus()
+
+      expect(result).toBeNull()
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+  })
+
+  describe('pause', () => {
+    it('should call pauseGame API', async () => {
+      vi.mocked(systemApi.pauseGame).mockResolvedValue(undefined)
+
+      await store.pause()
+
+      expect(systemApi.pauseGame).toHaveBeenCalled()
+    })
+
+    it('should not modify isManualPaused state', async () => {
+      store.isManualPaused = false
+      vi.mocked(systemApi.pauseGame).mockResolvedValue(undefined)
+
+      await store.pause()
+
+      expect(store.isManualPaused).toBe(false)
+    })
+
+    it('should log error on failure', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      vi.mocked(systemApi.pauseGame).mockRejectedValue(new Error('API error'))
+
+      await store.pause()
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+  })
+
+  describe('resume', () => {
+    it('should call resumeGame API', async () => {
+      vi.mocked(systemApi.resumeGame).mockResolvedValue(undefined)
+
+      await store.resume()
+
+      expect(systemApi.resumeGame).toHaveBeenCalled()
+    })
+
+    it('should not modify isManualPaused state', async () => {
+      store.isManualPaused = true
+      vi.mocked(systemApi.resumeGame).mockResolvedValue(undefined)
+
+      await store.resume()
+
+      expect(store.isManualPaused).toBe(true)
+    })
+
+    it('should log error on failure', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      vi.mocked(systemApi.resumeGame).mockRejectedValue(new Error('API error'))
+
+      await store.resume()
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+  })
+
+  describe('isGameRunning', () => {
+    it('should have initial value of false', () => {
+      expect(store.isGameRunning).toBe(false)
+    })
+  })
 })
