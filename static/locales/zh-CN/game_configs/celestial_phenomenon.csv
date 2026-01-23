@@ -1,4 +1,5 @@
 id,name,rarity,effects,desc,duration_years
+,,稀有度(N/R/SR/SSR),,描述,持续年数
 1,紫气东来,R,{extra_cultivate_exp: 15},天地灵气充沛，修士修行速度大增，修行欲望提高,5
 2,金煞之年,R,"{extra_battle_strength_points: 3}",金煞充盈天地肃杀，修士更大可能嗜血而相互攻伐,5
 3,木灵盛世,R,"{extra_harvest_materials: 2, extra_hp_recovery_rate: 0.5}",木德滋养生机盎然，采集收获倍增且伤势恢复极快，宜四处搜罗天材地宝,5

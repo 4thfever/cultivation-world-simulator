@@ -1,4 +1,5 @@
 id,name,rarity,effects,desc,duration_years
+,,Rarity(N/R/SR/SSR),,Description,Duration Years
 1,Purple Qi from the East,R,{extra_cultivate_exp: 15},"Heavenly spiritual qi is abundant, cultivators' cultivation speed greatly increases, and the desire to cultivate improves",5
 2,Year of Golden Malice,R,"{extra_battle_strength_points: 3}","Golden malice fills the world with solemnity, cultivators are more likely to be bloodthirsty and attack each other",5
 3,Era of Wood Spirit,R,"{extra_harvest_materials: 2, extra_hp_recovery_rate: 0.5}","Wood virtue nourishes with vitality, harvesting yields double and injuries heal extremely fast, ideal for searching for heavenly materials and earthly treasures everywhere",5
