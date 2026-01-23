@@ -35,6 +35,8 @@ export const useWorldStore = defineStore('world', () => {
 
   // 请求计数器，用于处理 loadEvents 的竞态条件。
   let eventsRequestId = 0;
+  // 请求计数器，用于处理 fetchState 的竞态条件。
+  let fetchStateRequestId = 0;
 
   // --- Getters ---
 
@@ -197,10 +199,19 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   async function fetchState() {
+    const currentRequestId = ++fetchStateRequestId;
     try {
       const stateRes = await worldApi.fetchInitialState();
+      // 如果不是最新请求，丢弃响应。
+      if (currentRequestId !== fetchStateRequestId) {
+        return;
+      }
       applyStateSnapshot(stateRes);
     } catch (e) {
+      // 如果不是最新请求，不处理错误。
+      if (currentRequestId !== fetchStateRequestId) {
+        return;
+      }
       console.error('Failed to fetch state snapshot', e);
     }
   }

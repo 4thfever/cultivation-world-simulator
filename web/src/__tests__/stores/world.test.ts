@@ -433,6 +433,44 @@ describe('useWorldStore', () => {
       expect(consoleSpy).toHaveBeenCalled()
       consoleSpy.mockRestore()
     })
+
+    it('should ignore stale response when called rapidly (race condition fix)', async () => {
+      // Scenario:
+      // 1. fetchState() called, request R1 starts (slow, returns year=100)
+      // 2. fetchState() called again, request R2 starts (fast, returns year=200)
+      // 3. R2 returns first -> year = 200
+      // 4. R1 returns later -> should be ignored (requestId mismatch)
+      
+      let resolveR1: (value: any) => void
+      const r1Promise = new Promise(resolve => { resolveR1 = resolve })
+      
+      let callCount = 0
+      vi.mocked(worldApi.fetchInitialState).mockImplementation(async () => {
+        callCount++
+        if (callCount === 1) {
+          await r1Promise
+          return { year: 100, month: 1, avatars: [] }
+        }
+        return { year: 200, month: 2, avatars: [] }
+      })
+
+      // Start R1 (slow).
+      const fetch1 = store.fetchState()
+      
+      // Start R2 (fast) - this should be the "truth".
+      await store.fetchState()
+      expect(store.year).toBe(200)
+      expect(store.month).toBe(2)
+      
+      // R1 completes with stale data.
+      resolveR1!(undefined)
+      await fetch1
+      
+      // R1's stale response is ignored due to requestId check.
+      // Year should still be 200 from R2.
+      expect(store.year).toBe(200)
+      expect(store.month).toBe(2)
+    })
   })
 
   describe('loadEvents', () => {
