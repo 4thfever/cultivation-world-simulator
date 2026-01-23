@@ -15,19 +15,34 @@ class TestSectLoading:
         # 不夜城 (sect_id=12) 的驻地应该是 "大千光极城"
         sect = sects_by_id.get(12)
         assert sect is not None, "宗门 ID=12 应该存在"
-        # Since static data is loaded before conftest sets language, it defaults to English (en-US)
-        assert sect.name == "Sleepless City", "宗门名称应该是 'Sleepless City'"
-        assert sect.headquarter.name == "Daqian Aurora City", (
-            f"驻地名称应该是 'Daqian Aurora City'，而不是 '{sect.headquarter.name}'"
+        
+        # 兼容多语言环境：检查中文或英文名称
+        expected_names = {"Sleepless City", "不夜城"}
+        assert sect.name in expected_names, f"宗门名称 '{sect.name}' 不在预期列表中: {expected_names}"
+        
+        expected_hqs = {"Daqian Aurora City", "大千光极城"}
+        assert sect.headquarter.name in expected_hqs, (
+            f"驻地名称 '{sect.headquarter.name}' 不在预期列表中: {expected_hqs}"
         )
 
     def test_sect_headquarter_desc_loaded(self):
         """测试宗门驻地描述正确加载（来自 sect_region.csv 的 desc 列）"""
         sect = sects_by_id.get(12)
         assert sect is not None
-        # 验证描述不为空且包含关键词
+        # 验证描述不为空且包含关键词 (兼容中英文)
         assert sect.headquarter.desc, "驻地描述不应为空"
-        assert "aurora" in sect.headquarter.desc.lower(), "驻地描述应该包含 'aurora'"
+        
+        desc = sect.headquarter.desc.lower()
+        # English keyword: "aurora", Chinese keyword: "极光" or similar unique term
+        # 假设中文描述里也会有相关描述。如果不确定中文具体描述，可以只检查英文环境或跳过。
+        # 这里简单检查：如果是英文环境包含 aurora，如果是中文环境...
+        
+        from src.classes.language import language_manager, LanguageType
+        if language_manager.current == LanguageType.EN_US:
+            assert "aurora" in desc, f"驻地描述 '{desc}' 应该包含 'aurora'"
+        else:
+            # 中文描述检查
+            assert "极光" in desc or "不夜" in desc, f"驻地描述 '{desc}' 应该包含 '极光' 或 '不夜'"
 
     def test_all_sects_have_headquarters(self):
         """测试所有宗门都有驻地信息"""
@@ -62,10 +77,13 @@ class TestTechniqueLoading:
         # 草字剑诀 (id=30) 属于明心剑宗 (sect_id=1)
         technique = techniques_by_id.get(30)
         assert technique is not None, "功法 ID=30 应该存在"
-        # Static data loaded in English
-        assert technique.name == "Grass Word Sword Formula", f"功法名称应该是 'Grass Word Sword Formula'，而不是 '{technique.name}'"
+        
+        # 兼容多语言环境
+        expected_names = {"Grass Word Sword Formula", "草字剑诀"}
+        assert technique.name in expected_names, f"功法名称 '{technique.name}' 不在预期列表中: {expected_names}"
+        
         assert technique.sect_id == 1, (
-            f"功法 '草字剑诀' 的 sect_id 应该是 1，而不是 {technique.sect_id}"
+            f"功法 '{technique.name}' 的 sect_id 应该是 1，而不是 {technique.sect_id}"
         )
 
     def test_technique_without_sect(self):

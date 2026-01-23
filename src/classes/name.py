@@ -41,6 +41,13 @@ class NameManager:
     
     def _load_names(self):
         """从CSV加载姓名数据"""
+        # 清空现有数据
+        self.common_last_names.clear()
+        self.sect_last_names.clear()
+        for g_list in self.common_given_names.values():
+            g_list.clear()
+        self.sect_given_names.clear()
+
         # 加载姓氏
         if "last_name" in game_configs:
             last_name_df = game_configs["last_name"]
@@ -163,3 +170,8 @@ def get_random_name_with_surname(
     """
     sect_id = sect.id if sect is not None else None
     return _name_manager.get_random_full_name_with_surname(gender, surname, sect_id)
+
+
+def reload():
+    """重新加载数据"""
+    _name_manager._load_names()

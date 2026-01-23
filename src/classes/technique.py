@@ -127,9 +127,9 @@ class Technique:
         return {
             "name": self.name,
             "desc": self.desc,
-            "grade": self.grade.value,
+            "grade": str(self.grade),
             "color": self.grade.color_rgb,
-            "attribute": self.attribute.value,
+            "attribute": str(self.attribute),
             "effect_desc": self.effect_desc,
         }
 
