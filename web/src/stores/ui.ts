@@ -20,6 +20,9 @@ export const useUiStore = defineStore('ui', () => {
   const isLoadingDetail = ref(false);
   const detailError = ref<string | null>(null);
 
+  // 请求计数器，用于处理竞态条件。
+  let detailRequestId = 0;
+
   // --- Actions ---
 
   async function select(type: SelectionType, id: string) {
@@ -47,32 +50,30 @@ export const useUiStore = defineStore('ui', () => {
   async function refreshDetail() {
     if (!selectedTarget.value) return;
 
+    // 每次请求增加计数器，只接受最新请求的响应。
+    const currentRequestId = ++detailRequestId;
     const target = { ...selectedTarget.value };
     isLoadingDetail.value = true;
     detailError.value = null;
 
+    // 检查是否应该接受响应：requestId 匹配且 target 未变化。
+    const shouldAcceptResponse = () =>
+      currentRequestId === detailRequestId &&
+      selectedTarget.value?.type === target.type &&
+      selectedTarget.value?.id === target.id;
+
     try {
       const data = await avatarApi.fetchDetailInfo(target);
       
-      // Race condition check: user might have changed selection
-      if (
-        selectedTarget.value?.type === target.type && 
-        selectedTarget.value?.id === target.id
-      ) {
-        detailData.value = data as any; // Cast DTO to Domain Model (assuming compatibility for now)
+      if (shouldAcceptResponse()) {
+        detailData.value = data as any;
       }
     } catch (e) {
-      if (
-        selectedTarget.value?.type === target.type && 
-        selectedTarget.value?.id === target.id
-      ) {
+      if (shouldAcceptResponse()) {
         detailError.value = e instanceof Error ? e.message : 'Failed to load detail';
       }
     } finally {
-      if (
-        selectedTarget.value?.type === target.type && 
-        selectedTarget.value?.id === target.id
-      ) {
+      if (shouldAcceptResponse()) {
         isLoadingDetail.value = false;
       }
     }

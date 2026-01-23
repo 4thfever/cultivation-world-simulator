@@ -9,6 +9,9 @@ export const useSystemStore = defineStore('system', () => {
   const isInitialized = ref(false); // 前端是否完成初始化 (world store loaded, socket connected)
   const isManualPaused = ref(true); // 用户手动暂停
   const isGameRunning = ref(false); // 游戏是否处于 Running 阶段 (Init Status ready)
+
+  // 请求计数器，用于处理竞态条件。
+  let fetchStatusRequestId = 0;
   
   // --- Getters ---
   const isLoading = computed(() => {
@@ -26,8 +29,15 @@ export const useSystemStore = defineStore('system', () => {
   // --- Actions ---
   
   async function fetchInitStatus() {
+    const currentRequestId = ++fetchStatusRequestId;
     try {
       const res = await systemApi.fetchInitStatus();
+      
+      // 只接受最新请求的响应。
+      if (currentRequestId !== fetchStatusRequestId) {
+        return null;
+      }
+      
       initStatus.value = res;
       
       if (res.status === 'ready') {
@@ -37,7 +47,9 @@ export const useSystemStore = defineStore('system', () => {
       }
       return res;
     } catch (e) {
-      console.error('Failed to fetch init status', e);
+      if (currentRequestId === fetchStatusRequestId) {
+        console.error('Failed to fetch init status', e);
+      }
       return null;
     }
   }

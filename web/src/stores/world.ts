@@ -33,6 +33,11 @@ export const useWorldStore = defineStore('world', () => {
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
 
+  // 请求计数器，用于处理 loadEvents 的竞态条件。
+  let eventsRequestId = 0;
+  // 请求计数器，用于处理 fetchState 的竞态条件。
+  let fetchStateRequestId = 0;
+
   // --- Getters ---
 
   const avatarList = computed(() => Array.from(avatars.value.values()));
@@ -194,10 +199,19 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   async function fetchState() {
+    const currentRequestId = ++fetchStateRequestId;
     try {
       const stateRes = await worldApi.fetchInitialState();
+      // 如果不是最新请求，丢弃响应。
+      if (currentRequestId !== fetchStateRequestId) {
+        return;
+      }
       applyStateSnapshot(stateRes);
     } catch (e) {
+      // 如果不是最新请求，不处理错误。
+      if (currentRequestId !== fetchStateRequestId) {
+        return;
+      }
       console.error('Failed to fetch state snapshot', e);
     }
   }
@@ -218,6 +232,9 @@ export const useWorldStore = defineStore('world', () => {
 
   async function loadEvents(filter: FetchEventsParams = {}, append = false) {
     if (eventsLoading.value) return;
+    
+    // 每次请求增加计数器，只接受最新请求的响应。
+    const currentRequestId = ++eventsRequestId;
     eventsLoading.value = true;
 
     try {
@@ -227,6 +244,11 @@ export const useWorldStore = defineStore('world', () => {
       }
 
       const res = await eventApi.fetchEvents(params);
+
+      // 如果不是最新请求，丢弃响应。
+      if (currentRequestId !== eventsRequestId) {
+        return;
+      }
 
       // 转换为 GameEvent 格式
       const newEvents: GameEvent[] = res.events.map(e => ({
@@ -250,8 +272,7 @@ export const useWorldStore = defineStore('world', () => {
         // 加载更旧的事件，添加到顶部。
         events.value = [...sortedNewEvents, ...events.value];
       } else {
-        // 切换筛选条件：直接用 API 数据替换，不做 merge。
-        // TODO: API 请求期间 WebSocket 推送的事件可能丢失，用户可手动刷新。
+        // 切换筛选条件：直接用 API 数据替换。
         events.value = sortedNewEvents;
         eventsFilter.value = filter;
       }
@@ -259,9 +280,16 @@ export const useWorldStore = defineStore('world', () => {
       eventsCursor.value = res.next_cursor;
       eventsHasMore.value = res.has_more;
     } catch (e) {
+      // 如果不是最新请求，不处理错误。
+      if (currentRequestId !== eventsRequestId) {
+        return;
+      }
       console.error('Failed to load events', e);
     } finally {
-      eventsLoading.value = false;
+      // 只有最新请求才更新 loading 状态。
+      if (currentRequestId === eventsRequestId) {
+        eventsLoading.value = false;
+      }
     }
   }
 
@@ -271,7 +299,9 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   async function resetEvents(filter: FetchEventsParams = {}) {
-    eventsLoading.value = false;  // 强制允许新请求，避免被旧请求阻塞。
+    // 使旧请求失效，允许新请求。
+    eventsRequestId++;
+    eventsLoading.value = false;
     eventsCursor.value = null;
     eventsHasMore.value = false;
     events.value = [];  // 清空旧数据，避免筛选切换时显示残留。
