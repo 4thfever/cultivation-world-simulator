@@ -97,6 +97,8 @@ class Map():
                 if isinstance(r, cls) and (known_region_ids is None or rid in known_region_ids)
             }
 
+        from src.i18n import t
+
         def build_regions_info(regions_dict) -> list[str]:
             infos = []
             step_len = avatar.move_step_length if avatar else 1
@@ -106,8 +108,8 @@ class Map():
             return infos
 
         return {
-            "修炼区域（可以修炼以增进修为）": build_regions_info(filter_regions(CultivateRegion)),
-            "普通区域（可以狩猎、采集、挖矿）": build_regions_info(filter_regions(NormalRegion)),
-            "城市区域（可以交易）": build_regions_info(filter_regions(CityRegion)),
-            "宗门总部（宗门弟子在此疗伤事半功倍）": build_regions_info(filter_regions(SectRegion)),
+            t("Cultivate Region (can cultivate to increase cultivation)"): build_regions_info(filter_regions(CultivateRegion)),
+            t("Normal Region (can hunt, gather, mine)"): build_regions_info(filter_regions(NormalRegion)),
+            t("City Region (can trade)"): build_regions_info(filter_regions(CityRegion)),
+            t("Sect Headquarters (sect disciples heal faster here)"): build_regions_info(filter_regions(SectRegion)),
         }

@@ -1756,3 +1756,91 @@ msgstr "世界初开，天降异象！{name}：{desc}。"
 msgid "phenomenon_change"
 msgstr "{old_name}消散，天地异象再现！{new_name}：{new_desc}。"
 
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+
+msgid "Cultivate Region (can cultivate to increase cultivation)"
+msgstr "修炼区域（可以修炼以增进修为）"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "普通区域（可以狩猎、采集、挖矿）"
+
+msgid "City Region (can trade)"
+msgstr "城市区域（可以交易）"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "宗门总部（宗门弟子在此疗伤事半功倍）"
+
+msgid " (Distance: {months} months)"
+msgstr "（距离：{months}月）"
+
+msgid "No special resources"
+msgstr "无特色资源"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr "（资源分布：{species_info}）"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "普通区域：{name} - {desc} | 资源分布：{species_info}"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr "（{essence_type}行灵气：{essence_density}）"
+
+msgid "Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - {desc}"
+msgstr "修炼区域：{name}（{essence_type}行灵气：{essence_density}）- {desc}"
+
+msgid " ({store_info})"
+msgstr "（{store_info}）"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "城市区域：{name} - {desc}{desc_part}"
+
+msgid "{value} Spirit Stones"
+msgstr "{value}灵石"
+
+msgid " ({desc})"
+msgstr "（{desc}）"
+
+msgid "\nEffect: {effect_desc}"
+msgstr "\n效果：{effect_desc}"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names}（{price}灵石）"
+
+msgid "Sell: "
+msgstr "出售："
+
+msgid "平静"
+msgstr "平静"
+
+msgid "开心"
+msgstr "开心"
+
+msgid "愤怒"
+msgstr "愤怒"
+
+msgid "悲伤"
+msgstr "悲伤"
+
+msgid "恐惧"
+msgstr "恐惧"
+
+msgid "惊讶"
+msgstr "惊讶"
+
+msgid "期待"
+msgstr "期待"
+
+msgid "厌恶"
+msgstr "厌恶"
+
+msgid "疑惑"
+msgstr "疑惑"
+
+msgid "疲惫"
+msgstr "疲惫"
+

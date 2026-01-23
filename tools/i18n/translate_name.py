@@ -56,8 +56,8 @@ def translate_names():
             chinese_name = row[0]
             # 转换为拼音，Style.NORMAL 表示不带声调
             py_list = pinyin(chinese_name, style=Style.NORMAL)
-            # 拼接并首字母大写，例如 "si", "ma" -> "Sima"
-            py_name = "".join([p[0].capitalize() for p in py_list])
+            # 拼接，首字母大写，其余小写，例如 "si", "ma" -> "Sima"
+            py_name = "".join([p[0] for p in py_list]).capitalize()
             
             new_row = [py_name] + row[1:]
             rows.append(new_row)

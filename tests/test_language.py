@@ -101,3 +101,98 @@ class TestLanguage:
             assert "sect" in game_configs or "region_map" in game_configs
         except Exception as e:
             pytest.fail(f"reload_game_configs failed: {e}")
+
+    def test_i18n_objects_output(self):
+        """测试对象输出的国际化"""
+        from src.classes.language import language_manager
+        from src.i18n import t, reload_translations
+        from src.classes.magic_stone import MagicStone
+        from src.classes.region import NormalRegion
+        from src.classes.persona import Persona
+        from src.classes.rarity import Rarity, RarityLevel
+        from src.classes.avatar.info_presenter import get_avatar_info
+        from src.classes.emotions import EmotionType
+        from unittest.mock import MagicMock
+
+        # 切换到英文
+        language_manager.set_language("en-US")
+        reload_translations()
+
+        try:
+            # 1. MagicStone
+            ms = MagicStone(100)
+            assert str(ms) == "100 Spirit Stones"
+
+            # 2. Region
+            region = NormalRegion(id=1, name="TestRegion", desc="TestDesc")
+            # Assuming current_loc is None
+            assert "Normal Region" in str(region)
+            assert "Resource Distribution" in str(region)
+            
+            # Distance check
+            # We mock chebyshev_distance or just rely on it working
+            # Distance from (0,0) to (0,0) is 0, months = 1
+            assert "Distance" in region.get_info(current_loc=(0,0), step_len=1)
+
+            # 3. Persona
+            p = Persona(
+                id=1, key="TEST", name="TestPersona", desc="TestDesc", 
+                exclusion_keys=[], rarity=Rarity(RarityLevel.N, 1.0, (255,255,255), "#FFFFFF", "Common"), 
+                condition="", effects={}, effect_desc="TestEffect"
+            )
+            assert "Effect: TestEffect" in p.get_detailed_info()
+
+            # 4. Avatar Emotion
+            # Mock Avatar
+            avatar = MagicMock()
+            avatar.emotion = EmotionType.CALM
+            # Mock other attributes used in get_avatar_info to avoid errors
+            avatar.name = "TestAvatar"
+            avatar.gender = "Male"
+            avatar.age = MagicMock()
+            avatar.age.__str__.return_value = "20"
+            avatar.hp = MagicMock()
+            avatar.hp.__str__.return_value = "100/100"
+            avatar.magic_stone = MagicStone(0)
+            avatar.relations = {}
+            avatar.sect = None
+            avatar.alignment = None
+            avatar.root = MagicMock()
+            avatar.root.get_info.return_value = "Fire"
+            avatar.technique = None
+            avatar.cultivation_progress = MagicMock()
+            avatar.cultivation_progress.get_info.return_value = "Qi Refinement"
+            avatar.personas = []
+            avatar.materials = {}
+            avatar.appearance = MagicMock()
+            avatar.appearance.get_info.return_value = "Handsome"
+            avatar.weapon = None
+            avatar.auxiliary = None
+            avatar.long_term_objective = None
+            avatar.short_term_objective = None
+            avatar.nickname = None
+            avatar.spirit_animal = None
+            avatar.tile = None # Fix AttributeError: Mock object has no attribute 'tile' if accessed directly without setup, but get_avatar_info handles it via avatar.tile check? 
+            # Actually get_avatar_info accesses avatar.tile.region
+            avatar.tile = MagicMock()
+            avatar.tile.region = None
+
+            # We need to ensure t("平静") returns "Calm" (based on my PO update)
+            info = get_avatar_info(avatar)
+            # Emotion key might be translated too "Emotion" -> "Emotion"
+            assert info["Emotion"] == "Calm"
+
+            # 切换回中文验证
+            language_manager.set_language("zh-CN")
+            reload_translations()
+            
+            assert str(ms) == "100灵石"
+            assert "普通区域" in str(region)
+            assert "效果：TestEffect" in p.get_detailed_info()
+            info_zh = get_avatar_info(avatar)
+            assert info_zh["情绪"] == "平静"
+            
+        finally:
+            # Restore to default just in case
+            language_manager.set_language("zh-CN")
+            reload_translations()

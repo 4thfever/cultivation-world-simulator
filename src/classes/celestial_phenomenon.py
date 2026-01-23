@@ -59,7 +59,8 @@ class CelestialPhenomenon:
     
     def get_detailed_info(self) -> str:
         """获取详细信息"""
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"{self.name}（{self.desc}{effect_part}）"
 
 

@@ -83,7 +83,7 @@ class Region(ABC):
         months = (dist + step_len - 1) // step_len
         # 避免显示 0 个月
         months = max(1, months)
-        return f"（距离：{months}月）"
+        return t(" (Distance: {months} months)", months=months)
 
     def get_info(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
         return f"{self.name}{self._get_distance_desc(current_loc, step_len)}"
@@ -135,15 +135,16 @@ class NormalRegion(Region):
             info_parts.extend([p.get_info() for p in self.plants])
         if self.lodes:
             info_parts.extend([l.get_info() for l in self.lodes])
-        return "; ".join(info_parts) if info_parts else "无特色资源"
+        return "; ".join(info_parts) if info_parts else t("No special resources")
 
     def _get_desc(self) -> str:
         species_info = self.get_species_info()
-        return f"（资源分布：{species_info}）"
+        return t(" (Resource Distribution: {species_info})", species_info=species_info)
 
     def __str__(self) -> str:
         species_info = self.get_species_info()
-        return f"普通区域：{self.name} - {self.desc} | 资源分布：{species_info}"
+        return t("Normal Region: {name} - {desc} | Resource Distribution: {species_info}",
+                 name=self.name, desc=self.desc, species_info=species_info)
 
     @property
     def is_huntable(self) -> bool:
@@ -190,10 +191,11 @@ class CultivateRegion(Region):
         return "cultivate"
 
     def _get_desc(self) -> str:
-        return f"（{self.essence_type}行灵气：{self.essence_density}）"
+        return t(" ({essence_type} Essence: {essence_density})", essence_type=self.essence_type, essence_density=self.essence_density)
 
     def __str__(self) -> str:
-        return f"修炼区域：{self.name}（{self.essence_type}行灵气：{self.essence_density}）- {self.desc}"
+        return t("Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - {desc}", 
+                 name=self.name, essence_type=self.essence_type, essence_density=self.essence_density, desc=self.desc)
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
@@ -230,13 +232,13 @@ class CityRegion(Region, StoreMixin):
     def _get_desc(self) -> str:
         store_info = self.get_store_info()
         if store_info:
-            return f"（{store_info}）"
+            return t(" ({store_info})", store_info=store_info)
         return ""
 
     def __str__(self) -> str:
         store_info = self.get_store_info()
-        desc_part = f" | {store_info}" if store_info else ""
-        return f"城市区域：{self.name} - {self.desc}{desc_part}"
+        desc_part = t(" | {store_info}", store_info=store_info) if store_info else ""
+        return t("City Region: {name} - {desc}{desc_part}", name=self.name, desc=self.desc, desc_part=desc_part)
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()

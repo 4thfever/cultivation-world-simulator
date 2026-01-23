@@ -44,7 +44,7 @@ from src.utils import protagonist as prot_utils
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
-from src.classes.language import language_manager
+from src.classes.language import language_manager, LanguageType
 
 # 全局游戏实例
 game_instance = {
@@ -1340,7 +1340,10 @@ def create_avatar(req: CreateAvatarRequest):
         given_name = (req.given_name or "").strip()
         if surname or given_name:
             if surname and given_name:
-                final_name = f"{surname}{given_name}"
+                if language_manager.current == LanguageType.EN_US:
+                    final_name = f"{surname} {given_name}"
+                else:
+                    final_name = f"{surname}{given_name}"
                 have_name = True
             elif surname:
                 final_name = f"{surname}某"

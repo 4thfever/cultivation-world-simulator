@@ -1756,3 +1756,91 @@ msgstr "The world is born, celestial phenomena descend! {name}: {desc}."
 msgid "phenomenon_change"
 msgstr "{old_name} dissipates, celestial phenomena reappear! {new_name}: {new_desc}."
 
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+
+msgid "Cultivate Region (can cultivate to increase cultivation)"
+msgstr "Cultivate Region (can cultivate to increase cultivation)"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "Normal Region (can hunt, gather, mine)"
+
+msgid "City Region (can trade)"
+msgstr "City Region (can trade)"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "Sect Headquarters (sect disciples heal faster here)"
+
+msgid " (Distance: {months} months)"
+msgstr " (Distance: {months} months)"
+
+msgid "No special resources"
+msgstr "No special resources"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " (Resource Distribution: {species_info})"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " ({essence_type} Essence: {essence_density})"
+
+msgid "Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - {desc}"
+msgstr "Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - {desc}"
+
+msgid " ({store_info})"
+msgstr " ({store_info})"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "City Region: {name} - {desc}{desc_part}"
+
+msgid "{value} Spirit Stones"
+msgstr "{value} Spirit Stones"
+
+msgid " ({desc})"
+msgstr " ({desc})"
+
+msgid "\nEffect: {effect_desc}"
+msgstr "\nEffect: {effect_desc}"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names} ({price} Spirit Stones)"
+
+msgid "Sell: "
+msgstr "Sell: "
+
+msgid "平静"
+msgstr "Calm"
+
+msgid "开心"
+msgstr "Happy"
+
+msgid "愤怒"
+msgstr "Angry"
+
+msgid "悲伤"
+msgstr "Sad"
+
+msgid "恐惧"
+msgstr "Fearful"
+
+msgid "惊讶"
+msgstr "Surprised"
+
+msgid "期待"
+msgstr "Anticipating"
+
+msgid "厌恶"
+msgstr "Disgusted"
+
+msgid "疑惑"
+msgstr "Confused"
+
+msgid "疲惫"
+msgstr "Tired"
+

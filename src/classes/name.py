@@ -97,6 +97,11 @@ class NameManager:
         """
         last_name = self.get_random_last_name(sect_id)
         given_name = self.get_random_given_name(gender, sect_id)
+        
+        # 处理 i18n 拼接逻辑
+        from src.classes.language import language_manager, LanguageType
+        if language_manager.current == LanguageType.EN_US:
+            return f"{last_name} {given_name}"
         return last_name + given_name
     
     def get_random_full_name_with_surname(
@@ -113,6 +118,11 @@ class NameManager:
             return self.get_random_full_name(gender, sect_id)
             
         given_name = self.get_random_given_name(gender, sect_id)
+        
+        # 处理 i18n 拼接逻辑
+        from src.classes.language import language_manager, LanguageType
+        if language_manager.current == LanguageType.EN_US:
+            return f"{surname} {given_name}"
         return surname + given_name
 
 

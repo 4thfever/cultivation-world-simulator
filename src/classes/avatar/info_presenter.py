@@ -89,7 +89,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         t("Appearance"): appearance_info,
         t("Weapon"): weapon_info,
         t("Auxiliary"): auxiliary_info,
-        t("Emotion"): avatar.emotion.value,
+        t("Emotion"): t(avatar.emotion.value),
         t("Long-term Goal"): avatar.long_term_objective.content if avatar.long_term_objective else t("None"),
         t("Short-term Goal"): avatar.short_term_objective if avatar.short_term_objective else t("None"),
     }
