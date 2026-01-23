@@ -2124,6 +2124,7 @@ msgid "(Unknown technique)"
 msgstr "(Unknown technique)"
 
 
+
 msgid "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
 msgstr "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
 

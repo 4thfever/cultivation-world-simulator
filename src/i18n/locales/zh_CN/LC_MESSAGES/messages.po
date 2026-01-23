@@ -2124,6 +2124,7 @@ msgid "(Unknown technique)"
 msgstr "（未知功法）"
 
 
+
 msgid "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
 msgstr "（阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
 
@@ -2131,7 +2132,7 @@ msgid "Drops: {materials}"
 msgstr "掉落：{materials}"
 
 msgid "[{name}] ({realm})"
-msgstr "【{name}】（{realm}�?
+msgstr "【{name}】（{realm}）"
 
 msgid "{name} ({attribute}) {grade}"
 msgstr "{name}（{attribute}）{grade}"
@@ -2140,7 +2141,7 @@ msgid "{name} ({attribute}) {grade} {desc}{effect}"
 msgstr "{name}（{attribute}）{grade} {desc}{effect}"
 
 msgid "{name} ({attribute}·{grade})"
-msgstr "{name}（{attribute}·{grade}�?
+msgstr "{name}（{attribute}·{grade}）"
 
 msgid "{name} ({type}·{realm}, {desc}){effect}"
 msgstr "{name}（{type}·{realm}，{desc}）{effect}"
