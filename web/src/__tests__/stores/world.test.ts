@@ -202,6 +202,85 @@ describe('useWorldStore', () => {
       expect(store.events).toHaveLength(1)
       expect(store.events[0].id).toBe('e1')
     })
+
+    it('should filter events by avatar_id_1 and avatar_id_2 when both are set', () => {
+      store.isLoaded = true
+      store.eventsFilter = { avatar_id_1: 'a1', avatar_id_2: 'a2' }
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [],
+        events: [
+          { id: 'e1', text: 'Event 1', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: ['a1', 'a2'] },
+          { id: 'e2', text: 'Event 2', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: ['a1'] },
+          { id: 'e3', text: 'Event 3', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: ['a2', 'a3'] },
+        ],
+      }
+
+      store.handleTick(payload)
+
+      // Only event with both a1 and a2 should be added.
+      expect(store.events).toHaveLength(1)
+      expect(store.events[0].id).toBe('e1')
+    })
+
+    it('should handle null avatars in payload', () => {
+      store.isLoaded = true
+      const initialAvatars = new Map([['a1', createMockAvatar()]])
+      store.avatars = initialAvatars
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: null as any,
+        events: [],
+      }
+
+      store.handleTick(payload)
+
+      // Avatars should remain unchanged.
+      expect(store.avatars.size).toBe(1)
+    })
+
+    it('should handle null events in payload', () => {
+      store.isLoaded = true
+      store.events = [createMockEvent()]
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [],
+        events: null as any,
+      }
+
+      store.handleTick(payload)
+
+      // Events should remain unchanged.
+      expect(store.events).toHaveLength(1)
+    })
+
+    it('should not update avatars map when no changes occur', () => {
+      store.isLoaded = true
+      const original = new Map([['a1', createMockAvatar()]])
+      store.avatars = original
+
+      const payload: TickPayloadDTO = {
+        type: 'tick',
+        year: 100,
+        month: 1,
+        avatars: [{ id: 'unknown-id' }], // No name, will be ignored.
+        events: [],
+      }
+
+      store.handleTick(payload)
+
+      // Should be the same reference since no change.
+      expect(store.avatars).toBe(original)
+    })
   })
 
   describe('reset', () => {

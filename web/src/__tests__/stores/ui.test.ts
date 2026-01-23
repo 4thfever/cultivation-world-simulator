@@ -155,6 +155,16 @@ describe('useUiStore', () => {
       expect(store.isLoadingDetail).toBe(false)
     })
 
+    it('should set generic error message for non-Error exceptions', async () => {
+      store.selectedTarget = { type: 'avatar', id: 'avatar-1' }
+      vi.mocked(avatarApi.fetchDetailInfo).mockRejectedValue('string error')
+
+      await store.refreshDetail()
+
+      expect(store.detailError).toBe('Failed to load detail')
+      expect(store.isLoadingDetail).toBe(false)
+    })
+
     it('should handle race condition - ignore stale response', async () => {
       store.selectedTarget = { type: 'avatar', id: 'avatar-1' }
       

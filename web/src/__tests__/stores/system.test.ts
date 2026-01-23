@@ -62,6 +62,11 @@ describe('useSystemStore', () => {
       store.setInitialized(true)
       expect(store.isLoading).toBe(false)
     })
+
+    it('should return true when status is error', () => {
+      store.initStatus = createMockStatus({ status: 'error' as any, progress: 0 })
+      expect(store.isLoading).toBe(true)
+    })
   })
 
   describe('isReady', () => {
