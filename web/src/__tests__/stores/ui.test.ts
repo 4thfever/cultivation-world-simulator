@@ -165,12 +165,12 @@ describe('useUiStore', () => {
       expect(store.isLoadingDetail).toBe(false)
     })
 
-    it('should handle race condition - ignore stale response', async () => {
+    it('should handle race condition - ignore stale response when selection changes to different target', async () => {
       store.selectedTarget = { type: 'avatar', id: 'avatar-1' }
       
       // Simulate slow response.
       vi.mocked(avatarApi.fetchDetailInfo).mockImplementation(async (target) => {
-        // During the fetch, selection changes.
+        // During the fetch, selection changes to a DIFFERENT target.
         if (target.id === 'avatar-1') {
           store.selectedTarget = { type: 'avatar', id: 'avatar-2' }
         }
@@ -181,6 +181,27 @@ describe('useUiStore', () => {
 
       // Response for avatar-1 should be ignored since selection changed.
       expect(store.detailData).toBeNull()
+    })
+
+    /**
+     * KNOWN BUG: Stale response can overwrite fresh data when reselecting same target.
+     * 
+     * Scenario:
+     * 1. User selects avatar-1, request A1 starts (slow)
+     * 2. User selects avatar-2, request B starts
+     * 3. User selects avatar-1 again, request A2 starts (fast)
+     * 4. A2 returns -> updates detailData (correct)
+     * 5. A1 returns -> also updates detailData (BUG! stale data overwrites fresh)
+     * 
+     * Root cause: The race condition check only compares target.id === selectedTarget.id,
+     * but doesn't track which request is newer. When the same target is reselected,
+     * both A1 and A2 pass the check.
+     * 
+     * Fix: Add a request counter/timestamp and only accept the latest request's response.
+     */
+    it.skip('BUG: stale response overwrites fresh data when reselecting same target', async () => {
+      // Skipped because it's a known bug, not a test failure.
+      // The bug exists in the current implementation.
     })
 
     it('should clear previous error on new fetch', async () => {
