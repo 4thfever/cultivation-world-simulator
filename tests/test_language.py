@@ -112,6 +112,8 @@ class TestLanguage:
         from src.classes.rarity import Rarity, RarityLevel
         from src.classes.avatar.info_presenter import get_avatar_info
         from src.classes.emotions import EmotionType
+        from src.classes.root import Root
+        from src.classes.appearance import get_appearance_by_level
         from unittest.mock import MagicMock
 
         # 切换到英文
@@ -125,13 +127,10 @@ class TestLanguage:
 
             # 2. Region
             region = NormalRegion(id=1, name="TestRegion", desc="TestDesc")
-            # Assuming current_loc is None
             assert "Normal Region" in str(region)
             assert "Resource Distribution" in str(region)
             
             # Distance check
-            # We mock chebyshev_distance or just rely on it working
-            # Distance from (0,0) to (0,0) is 0, months = 1
             assert "Distance" in region.get_info(current_loc=(0,0), step_len=1)
 
             # 3. Persona
@@ -146,7 +145,6 @@ class TestLanguage:
             # Mock Avatar
             avatar = MagicMock()
             avatar.emotion = EmotionType.CALM
-            # Mock other attributes used in get_avatar_info to avoid errors
             avatar.name = "TestAvatar"
             avatar.gender = "Male"
             avatar.age = MagicMock()
@@ -172,15 +170,27 @@ class TestLanguage:
             avatar.short_term_objective = None
             avatar.nickname = None
             avatar.spirit_animal = None
-            avatar.tile = None # Fix AttributeError: Mock object has no attribute 'tile' if accessed directly without setup, but get_avatar_info handles it via avatar.tile check? 
-            # Actually get_avatar_info accesses avatar.tile.region
             avatar.tile = MagicMock()
             avatar.tile.region = None
 
-            # We need to ensure t("平静") returns "Calm" (based on my PO update)
             info = get_avatar_info(avatar)
-            # Emotion key might be translated too "Emotion" -> "Emotion"
             assert info["Emotion"] == "Calm"
+            
+            # 5. Root (New check)
+            # The logic in format_root_cn removes "Root" suffix, so we expect "Thunder"
+            assert "Thunder" in Root.THUNDER.get_info()
+            assert "Water" in Root.THUNDER.get_info()
+            assert "Earth" in Root.THUNDER.get_info()
+            
+            # 6. Appearance (New check)
+            app = get_appearance_by_level(7) # 7 is 俊美/Handsome
+            assert "Handsome" in app.get_info()
+
+            # 7. Cultivation Progress (New check)
+            from src.classes.cultivation import CultivationProgress
+            cp = CultivationProgress(1)
+            # In English, we expect space separated translated values
+            assert cp.get_info() == "Qi Refinement Early Stage"
 
             # 切换回中文验证
             language_manager.set_language("zh-CN")
@@ -191,6 +201,12 @@ class TestLanguage:
             assert "效果：TestEffect" in p.get_detailed_info()
             info_zh = get_avatar_info(avatar)
             assert info_zh["情绪"] == "平静"
+            # 中文逻辑去掉了"灵根"后缀
+            assert "雷" in Root.THUNDER.get_info()
+            assert "俊美" in app.get_info()
+            
+            # In Chinese, we now expect translated values with space
+            assert cp.get_info() == "练气 前期"
             
         finally:
             # Restore to default just in case

@@ -67,10 +67,10 @@ sect_rank_msg_ids = {
 
 # 默认职位名称（可被宗门自定义覆盖）
 DEFAULT_RANK_NAMES = {
-    SectRank.Patriarch: "掌门",
-    SectRank.Elder: "长老",
-    SectRank.InnerDisciple: "内门弟子",
-    SectRank.OuterDisciple: "外门弟子",
+    SectRank.Patriarch: "patriarch",
+    SectRank.Elder: "elder",
+    SectRank.InnerDisciple: "inner_disciple",
+    SectRank.OuterDisciple: "outer_disciple",
 }
 
 

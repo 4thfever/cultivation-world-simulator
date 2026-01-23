@@ -105,17 +105,23 @@ class Technique:
     def get_info(self, detailed: bool = False) -> str:
         if detailed:
             return self.get_detailed_info()
-        return f"{self.name}（{self.attribute}）{self.grade.value}"
+        from src.i18n import t
+        return t("{name} ({attribute}) {grade}", name=t(self.name), attribute=self.attribute, grade=self.grade.value)
 
     def get_detailed_info(self) -> str:
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}{effect_part}"
+        return t("{name} ({attribute}) {grade} {desc}{effect}", 
+                 name=t(self.name), attribute=self.attribute, grade=self.grade.value, 
+                 desc=t(self.desc), effect=effect_part)
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
+        from src.i18n import t
         r, g, b = self.grade.color_rgb
-        return f"<color:{r},{g},{b}>{self.name}（{self.attribute}·{self.grade.value}）</color>"
+        # 使用与 get_info 相同的格式，但带有颜色标签
+        info = t("{name} ({attribute}·{grade})", name=t(self.name), attribute=self.attribute, grade=self.grade.value)
+        return f"<color:{r},{g},{b}>{info}</color>"
 
     def get_structured_info(self) -> dict:
         return {

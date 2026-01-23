@@ -138,30 +138,30 @@ if TYPE_CHECKING:
 
 GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     # 我 -> 对方：CHILD（我为子，对方为父/母） → 显示对方为 父亲/母亲
-    (Relation.CHILD, "male"): "父亲",
-    (Relation.CHILD, "female"): "母亲",
+    (Relation.CHILD, "male"): "relation_father",
+    (Relation.CHILD, "female"): "relation_mother",
     # 我 -> 对方：PARENT（我为父/母，对方为子） → 显示对方为 儿子/女儿
-    (Relation.PARENT, "male"): "儿子",
-    (Relation.PARENT, "female"): "女儿",
+    (Relation.PARENT, "male"): "relation_son",
+    (Relation.PARENT, "female"): "relation_daughter",
 }
 
 # 显示顺序配置
 DISPLAY_ORDER = [
-    "师傅", "徒弟", "道侣",
-    "父亲", "母亲",
-    "儿子", "女儿",
-    "哥哥", "弟弟", "姐姐", "妹妹",
-    "兄弟", "姐妹", "兄弟姐妹", # 兜底
-    "朋友", "仇人",
-    "亲属"
+    "master", "apprentice", "lovers",
+    "relation_father", "relation_mother",
+    "relation_son", "relation_daughter",
+    "relation_older_brother", "relation_younger_brother", "relation_older_sister", "relation_younger_sister",
+    "sibling", # 兜底
+    "friend", "enemy",
+    "kin"
 ]
 
 def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: "Avatar") -> str:
     """
     获取 self_avatar 视角的 other_avatar 的称谓。
-    例如：relation=CHILD (self是子), other是男 -> "父亲"
-    relation=SIBLING, other比self大, other是女 -> "姐姐"
     """
+    from src.i18n import t
+    
     # 1. 处理兄弟姐妹 (涉及长幼比较)
     if relation == Relation.SIBLING:
         is_older = False
@@ -176,20 +176,22 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
         gender_val = getattr(getattr(other_avatar, "gender", None), "value", "male")
         
         if gender_val == "male":
-            return "哥哥" if is_older else "弟弟"
+            return t("relation_older_brother") if is_older else t("relation_younger_brother")
         else:
-            return "姐姐" if is_older else "妹妹"
+            return t("relation_older_sister") if is_older else t("relation_younger_sister")
 
     # 2. 查表处理通用性别化称谓
     other_gender = getattr(other_avatar, "gender", None)
     gender_val = getattr(other_gender, "value", "male")
     
-    label = GENDERED_DISPLAY.get((relation, gender_val))
-    if label:
-        return label
+    label_key = GENDERED_DISPLAY.get((relation, gender_val))
+    if label_key:
+        return t(label_key)
 
     # 3. 回退到默认显示名
-    return relation_display_names.get(relation, relation.value)
+    # 使用 relation_msg_ids 获取 msgid
+    key = relation_msg_ids.get(relation, relation.value)
+    return t(key)
 
 
 def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
@@ -206,10 +208,10 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
         display_name = other.name
         # 死亡标记
         if getattr(other, "is_dead", False):
-            # death_info 是一个可选的字典，其中 'reason' 已经被 handle_death 格式化好了
             d_info = getattr(other, "death_info", None)
-            reason = d_info["reason"] if d_info and "reason" in d_info else "未知原因"
-            display_name = f"{other.name}(已故：{reason})"
+            reason = d_info["reason"] if d_info and "reason" in d_info else t("Unknown reason")
+            # 注意：这里的 label 已经是翻译过的了，display_name 也应该是 localized 的格式
+            display_name = t("{name} (Deceased: {reason})", name=other.name, reason=reason)
             
         grouped[label].append(display_name)
 
@@ -217,29 +219,35 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     processed_labels = set()
 
     # 2. 按照预定义顺序输出
-    for label in DISPLAY_ORDER:
+    # DISPLAY_ORDER 里的都是 msgid，需要翻译后才能去 grouped 里查
+    from src.i18n import t
+    for msgid in DISPLAY_ORDER:
+        label = t(msgid)
         if label in grouped:
-            names = "，".join(grouped[label])
-            lines.append(f"{label}：{names}")
+            names = t("comma_separator").join(grouped[label])
+            lines.append(t("{label}: {names}", label=label, names=names))
             processed_labels.add(label)
 
     # 3. 处理未在配置中列出的其他关系（按字典序）
     for label in sorted(grouped.keys()):
         if label not in processed_labels:
-            names = "，".join(grouped[label])
-            lines.append(f"{label}：{names}")
+            names = t("comma_separator").join(grouped[label])
+            lines.append(t("{label}: {names}", label=label, names=names))
             processed_labels.add(label)
 
     # 4. 若无任何关系
     if not lines:
-        return ["无"]
+        return [t("None")]
 
     return lines[:max_lines]
 
 
-def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:
+def relations_to_str(avatar: "Avatar", sep: str = None, max_lines: int = 6) -> str:
+    from src.i18n import t
+    if sep is None:
+        sep = t("semicolon_separator")
     lines = get_relations_strs(avatar, max_lines=max_lines)
     # 如果只有一行且是"无"，直接返回
-    if len(lines) == 1 and lines[0] == "无":
-        return "无"
+    if len(lines) == 1 and lines[0] == t("None"):
+        return t("None")
     return sep.join(lines)

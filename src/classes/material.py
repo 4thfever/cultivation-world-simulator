@@ -30,11 +30,17 @@ class Material(Item):
         return f"{self.name} - {self.desc}（{self.realm.value}）"
 
     def get_structured_info(self) -> dict:
+        from src.classes.language import language_manager
+        grade_display = self.realm.value
+        if str(language_manager) == "en-US":
+             # 英文状态下，使用翻译后的境界名称 (例如 "Qi Refinement" 而不是 "QI_REFINEMENT")
+            grade_display = str(self.realm)
+
         return {
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": grade_display,
             "effect_desc": "" # 材料暂时没有效果字段
         }
 

@@ -1844,3 +1844,253 @@ msgstr "疑惑"
 msgid "疲惫"
 msgstr "疲惫"
 
+# ============================================================================
+# Relation & Root & Appearance & Sect (Refined)
+# ============================================================================
+
+msgid "Unknown reason"
+msgstr "未知原因"
+
+msgid "{name} (Deceased: {reason})"
+msgstr "{name}(已故：{reason})"
+
+# Relations
+msgid "relation_father"
+msgstr "父亲"
+
+msgid "relation_mother"
+msgstr "母亲"
+
+msgid "relation_son"
+msgstr "儿子"
+
+msgid "relation_daughter"
+msgstr "女儿"
+
+msgid "relation_older_brother"
+msgstr "哥哥"
+
+msgid "relation_younger_brother"
+msgstr "弟弟"
+
+msgid "relation_older_sister"
+msgstr "姐姐"
+
+msgid "relation_younger_sister"
+msgstr "妹妹"
+
+# Root Keys
+msgid "root_gold"
+msgstr "金灵根"
+
+msgid "root_wood"
+msgstr "木灵根"
+
+msgid "root_water"
+msgstr "水灵根"
+
+msgid "root_fire"
+msgstr "火灵根"
+
+msgid "root_earth"
+msgstr "土灵根"
+
+msgid "root_thunder"
+msgstr "雷灵根"
+
+msgid "root_ice"
+msgstr "冰灵根"
+
+msgid "root_wind"
+msgstr "风灵根"
+
+msgid "root_dark"
+msgstr "暗灵根"
+
+msgid "root_heaven"
+msgstr "天灵根"
+
+# Sect Ranks Keys
+msgid "patriarch"
+msgstr "掌门"
+
+msgid "elder"
+msgstr "长老"
+
+msgid "inner_disciple"
+msgstr "内门弟子"
+
+msgid "outer_disciple"
+msgstr "外门弟子"
+
+# Appearance Keys
+msgid "appearance_1_name"
+msgstr "奇丑"
+msgid "appearance_1_desc_male"
+msgstr "你长得很丑，五官不协调，常被人躲着走。"
+msgid "appearance_1_desc_female"
+msgstr "你长得很丑，五官不协调，旁人多会躲开。"
+
+msgid "appearance_2_name"
+msgstr "丑陋"
+msgid "appearance_2_desc_male"
+msgstr "你五官粗糙，鼻梁塌，下巴有点外凸。"
+msgid "appearance_2_desc_female"
+msgstr "你五官粗糙，颧骨偏高，嘴唇线条乱。"
+
+msgid "appearance_3_name"
+msgstr "粗陋"
+msgid "appearance_3_desc_male"
+msgstr "你相貌粗陋，看久也不太顺眼。"
+msgid "appearance_3_desc_female"
+msgstr "你相貌粗陋，神情略显刻薄。"
+
+msgid "appearance_4_name"
+msgstr "寒素"
+msgid "appearance_4_desc_male"
+msgstr "你长相普通，眉目淡，穿着朴素，不显眼。"
+msgid "appearance_4_desc_female"
+msgstr "你长相普通，气色淡，打扮简单，不出挑。"
+
+msgid "appearance_5_name"
+msgstr "清秀"
+msgid "appearance_5_desc_male"
+msgstr "你眉眼清秀，看着顺眼。"
+msgid "appearance_5_desc_female"
+msgstr "你眉眼清秀，挺耐看。"
+
+msgid "appearance_6_name"
+msgstr "秀致"
+msgid "appearance_6_desc_male"
+msgstr "你五官精致，气质端正。"
+msgid "appearance_6_desc_female"
+msgstr "你五官精致，气质温雅。"
+
+msgid "appearance_7_name"
+msgstr "俊美"
+msgid "appearance_7_desc_male"
+msgstr "你长得很俊，回头率很高。"
+msgid "appearance_7_desc_female"
+msgstr "你长得很美，很抢眼。"
+
+msgid "appearance_8_name"
+msgstr "倾城"
+msgid "appearance_8_desc_male"
+msgstr "你外形出众，走到哪都很惹眼。"
+msgid "appearance_8_desc_female"
+msgstr "你漂亮到让人惊艳。"
+
+msgid "appearance_9_name"
+msgstr "绝色"
+msgid "appearance_9_desc_male"
+msgstr "你长相和气质都很顶，常引人侧目。"
+msgid "appearance_9_desc_female"
+msgstr "你美得很惊人，几乎一眼难忘。"
+
+msgid "appearance_10_name"
+msgstr "惊艳"
+msgid "appearance_10_desc_male"
+msgstr "你漂亮得像不食人间烟火。"
+msgid "appearance_10_desc_female"
+msgstr "你美到让人惊艳，一眼就记住你。"
+
+# ============================================================================
+# Relation & Root & Appearance & Sect (New)
+# ============================================================================
+
+msgid "comma_separator"
+msgstr "，"
+
+msgid "semicolon_separator"
+msgstr "；"
+
+msgid "{label}: {names}"
+msgstr "{label}：{names}"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name}（{elements}）"
+
+msgid "{sect} {rank}"
+msgstr "{sect}{rank}"
+
+# 灵根
+msgid "金灵根"
+msgstr "金灵根"
+
+msgid "木灵根"
+msgstr "木灵根"
+
+msgid "水灵根"
+msgstr "水灵根"
+
+msgid "火灵根"
+msgstr "火灵根"
+
+msgid "土灵根"
+msgstr "土灵根"
+
+msgid "雷灵根"
+msgstr "雷灵根"
+
+msgid "冰灵根"
+msgstr "冰灵根"
+
+msgid "风灵根"
+msgstr "风灵根"
+
+msgid "暗灵根"
+msgstr "暗灵根"
+
+msgid "天灵根"
+msgstr "天灵根"
+
+# 宗门职位
+msgid "掌门"
+msgstr "掌门"
+
+msgid "长老"
+msgstr "长老"
+
+msgid "内门弟子"
+msgstr "内门弟子"
+
+msgid "外门弟子"
+msgstr "外门弟子"
+
+# 外貌
+msgid "奇丑"
+msgstr "奇丑"
+
+msgid "丑陋"
+msgstr "丑陋"
+
+msgid "粗陋"
+msgstr "粗陋"
+
+msgid "寒素"
+msgstr "寒素"
+
+msgid "清秀"
+msgstr "清秀"
+
+msgid "秀致"
+msgstr "秀致"
+
+msgid "俊美"
+msgstr "俊美"
+
+msgid "倾城"
+msgstr "倾城"
+
+msgid "绝色"
+msgstr "绝色"
+
+msgid "惊艳"
+msgstr "惊艳"
+
+msgid "你长得很俊，回头率很高。"
+msgstr "你长得很俊，回头率很高。"
+
+msgid "你长得很美，很抢眼。"
+msgstr "你长得很美，很抢眼。"
+

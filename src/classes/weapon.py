@@ -43,7 +43,9 @@ class Weapon(Item):
         """获取详细信息"""
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{self.weapon_type}·{self.realm.value}，{self.desc}）{effect_part}"
+        return t("{name} ({type}·{realm}, {desc}){effect}",
+                 name=t(self.name), type=self.weapon_type, realm=self.realm.value, 
+                 desc=t(self.desc), effect=effect_part)
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -51,11 +53,21 @@ class Weapon(Item):
         return f"<color:{r},{g},{b}>{self.get_info()}</color>"
 
     def get_structured_info(self) -> dict:
+        from src.classes.language import language_manager
+        grade_display = self.realm.value
+        if str(language_manager) == "en-US":
+             # 英文状态下，构造更易读的格式：Realm Stage (用空格分隔)
+            # 由于 self.realm.value 可能是 "CORE_FORMATION"，需要把它转换得好看一点，或者直接用 Realm 的 __str__ (前提是__str__已经被正确修改)
+            # 根据之前的修改，CultivationProgress.get_info() 已经处理了空格。
+            # 这里 Weapon 的 realm 是 Realm 枚举，它也有自己的 __str__。
+            # 如果直接用 str(self.realm)，会得到翻译后的 "Core Formation"
+            grade_display = str(self.realm)
+            
         return {
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": grade_display,
             "color": self.realm.color_rgb,
             "type": self.weapon_type.value,
             "effect_desc": self.effect_desc,

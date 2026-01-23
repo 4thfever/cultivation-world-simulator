@@ -36,11 +36,15 @@ class Animal:
         """
         获取动物的详细信息，包括名字、描述、境界和材料
         """
-        info_parts = [f"【{self.name}】({self.realm.value})", self.desc]
+        from src.i18n import t
+        # 使用格式化字符串 msgid
+        base_info = t("[{name}] ({realm})", name=t(self.name), realm=self.realm.value)
+        info_parts = [base_info, t(self.desc)]
         
         if self.materials:
-            material_names = [material.name for material in self.materials]
-            info_parts.append(f"可获得材料：{', '.join(material_names)}")
+            material_names = [t(material.name) for material in self.materials]
+            materials_str = t("comma_separator").join(material_names)
+            info_parts.append(t("Drops: {materials}", materials=materials_str))
         
         return " - ".join(info_parts)
 

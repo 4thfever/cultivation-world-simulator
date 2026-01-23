@@ -308,8 +308,9 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
         from src.classes.avatar import Avatar
     
     # 散修直接返回
+    from src.i18n import t
     if avatar.sect is None:
-        return "散修"
+        return t("Rogue Cultivator")
     
     # 获取职位+宗门名（如"明心剑宗长老"）
     sect_rank_str = avatar.get_sect_str()
@@ -319,12 +320,17 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
         return sect_rank_str
     
     # 需要详细信息：拼接宗门的详细描述
-    sect_detail = avatar.sect.get_detailed_info()  # "明心剑宗（阵营：正，...）"
+    # 不解析字符串，而是重新构造
+    hq = avatar.sect.headquarter
+    effect_part = t(" Effect: {effect_desc}", effect_desc=avatar.sect.effect_desc) if avatar.sect.effect_desc else ""
     
-    # 提取括号及其内容
-    if "（" in sect_detail:
-        detail_part = sect_detail[sect_detail.index("（"):]
-        return f"{sect_rank_str}{detail_part}"
+    # 构造括号内的详细信息
+    # 格式参考 Sect.get_detailed_info，但不包含 sect_name，因为 sect_rank_str 已经包含了
+    # "{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+    detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                       alignment=avatar.sect.alignment, 
+                       style=avatar.sect.member_act_style, 
+                       hq_name=hq.name, 
+                       effect=effect_part)
     
-    # 如果没有括号（理论上不应该出现），直接返回职位字符串
-    return sect_rank_str
+    return f"{sect_rank_str} {detail_content}"

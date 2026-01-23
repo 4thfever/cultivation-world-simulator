@@ -201,7 +201,7 @@ class CultivationProgress:
                 level=self.level, status=can_break_through_str)
 
     def get_info(self) -> str:
-        return f"{self.realm.value}{self.stage.value}"
+        return f"{self.realm} {self.stage}"
 
     def get_exp_required(self) -> int:
         """

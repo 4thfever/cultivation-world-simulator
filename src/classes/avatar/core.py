@@ -197,7 +197,7 @@ class Avatar(
             return self.sect.name
         from src.classes.sect_ranks import get_rank_display_name
         rank_name = get_rank_display_name(self.sect_rank, self.sect)
-        return f"{self.sect.name}{rank_name}"
+        return t("{sect} {rank}", sect=self.sect.name, rank=rank_name)
 
     def get_sect_rank_name(self) -> str:
         """获取宗门职位的显示名称"""

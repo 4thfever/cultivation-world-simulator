@@ -1844,3 +1844,253 @@ msgstr "Confused"
 msgid "疲惫"
 msgstr "Tired"
 
+# ============================================================================
+# Relation & Root & Appearance & Sect (Refined)
+# ============================================================================
+
+msgid "Unknown reason"
+msgstr "Unknown reason"
+
+msgid "{name} (Deceased: {reason})"
+msgstr "{name} (Deceased: {reason})"
+
+# Relations
+msgid "relation_father"
+msgstr "Father"
+
+msgid "relation_mother"
+msgstr "Mother"
+
+msgid "relation_son"
+msgstr "Son"
+
+msgid "relation_daughter"
+msgstr "Daughter"
+
+msgid "relation_older_brother"
+msgstr "Older Brother"
+
+msgid "relation_younger_brother"
+msgstr "Younger Brother"
+
+msgid "relation_older_sister"
+msgstr "Older Sister"
+
+msgid "relation_younger_sister"
+msgstr "Younger Sister"
+
+# Root Keys
+msgid "root_gold"
+msgstr "Gold Root"
+
+msgid "root_wood"
+msgstr "Wood Root"
+
+msgid "root_water"
+msgstr "Water Root"
+
+msgid "root_fire"
+msgstr "Fire Root"
+
+msgid "root_earth"
+msgstr "Earth Root"
+
+msgid "root_thunder"
+msgstr "Thunder Root"
+
+msgid "root_ice"
+msgstr "Ice Root"
+
+msgid "root_wind"
+msgstr "Wind Root"
+
+msgid "root_dark"
+msgstr "Dark Root"
+
+msgid "root_heaven"
+msgstr "Heaven Root"
+
+# Sect Ranks Keys
+msgid "patriarch"
+msgstr "Patriarch"
+
+msgid "elder"
+msgstr "Elder"
+
+msgid "inner_disciple"
+msgstr "Inner Disciple"
+
+msgid "outer_disciple"
+msgstr "Outer Disciple"
+
+# Appearance Keys
+msgid "appearance_1_name"
+msgstr "Hideous"
+msgid "appearance_1_desc_male"
+msgstr "You are very ugly, with uncoordinated features, and people often avoid you."
+msgid "appearance_1_desc_female"
+msgstr "You are very ugly, with uncoordinated features, and people often stay away."
+
+msgid "appearance_2_name"
+msgstr "Ugly"
+msgid "appearance_2_desc_male"
+msgstr "Your features are rough, with a collapsed nose bridge and a slightly protruding chin."
+msgid "appearance_2_desc_female"
+msgstr "Your features are rough, with high cheekbones and messy lip lines."
+
+msgid "appearance_3_name"
+msgstr "Crude"
+msgid "appearance_3_desc_male"
+msgstr "Your appearance is crude and not pleasing to the eye."
+msgid "appearance_3_desc_female"
+msgstr "Your appearance is crude, with a slightly mean expression."
+
+msgid "appearance_4_name"
+msgstr "Plain"
+msgid "appearance_4_desc_male"
+msgstr "You look ordinary, with faint features, dressed simply and unobtrusively."
+msgid "appearance_4_desc_female"
+msgstr "You look ordinary, with a faint complexion, dressed simply and not standing out."
+
+msgid "appearance_5_name"
+msgstr "Delicate"
+msgid "appearance_5_desc_male"
+msgstr "You have delicate features and look pleasing to the eye."
+msgid "appearance_5_desc_female"
+msgstr "You have delicate features and look quite attractive."
+
+msgid "appearance_6_name"
+msgstr "Refined"
+msgid "appearance_6_desc_male"
+msgstr "You have exquisite features and a dignified temperament."
+msgid "appearance_6_desc_female"
+msgstr "You have exquisite features and a gentle temperament."
+
+msgid "appearance_7_name"
+msgstr "Handsome"
+msgid "appearance_7_desc_male"
+msgstr "You are very handsome and turn heads wherever you go."
+msgid "appearance_7_desc_female"
+msgstr "You are very beautiful and eye-catching."
+
+msgid "appearance_8_name"
+msgstr "Alluring"
+msgid "appearance_8_desc_male"
+msgstr "Your appearance is outstanding and eye-catching wherever you go."
+msgid "appearance_8_desc_female"
+msgstr "You are stunningly beautiful."
+
+msgid "appearance_9_name"
+msgstr "Stunning"
+msgid "appearance_9_desc_male"
+msgstr "Your looks and temperament are top-notch, often attracting attention."
+msgid "appearance_9_desc_female"
+msgstr "You are breathtakingly beautiful, unforgettable at first sight."
+
+msgid "appearance_10_name"
+msgstr "Breathtaking"
+msgid "appearance_10_desc_male"
+msgstr "You are so beautiful that you seem not of this world."
+msgid "appearance_10_desc_female"
+msgstr "You are breathtakingly beautiful, remembered at a glance."
+
+# ============================================================================
+# Relation & Root & Appearance & Sect (New)
+# ============================================================================
+
+msgid "comma_separator"
+msgstr ", "
+
+msgid "semicolon_separator"
+msgstr "; "
+
+msgid "{label}: {names}"
+msgstr "{label}: {names}"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} ({elements})"
+
+msgid "{sect} {rank}"
+msgstr "{sect} {rank}"
+
+# Spirit Root
+msgid "金灵根"
+msgstr "Gold Root"
+
+msgid "木灵根"
+msgstr "Wood Root"
+
+msgid "水灵根"
+msgstr "Water Root"
+
+msgid "火灵根"
+msgstr "Fire Root"
+
+msgid "土灵根"
+msgstr "Earth Root"
+
+msgid "雷灵根"
+msgstr "Thunder Root"
+
+msgid "冰灵根"
+msgstr "Ice Root"
+
+msgid "风灵根"
+msgstr "Wind Root"
+
+msgid "暗灵根"
+msgstr "Dark Root"
+
+msgid "天灵根"
+msgstr "Heaven Root"
+
+# Sect Ranks
+msgid "掌门"
+msgstr "Patriarch"
+
+msgid "长老"
+msgstr "Elder"
+
+msgid "内门弟子"
+msgstr "Inner Disciple"
+
+msgid "外门弟子"
+msgstr "Outer Disciple"
+
+# Appearance
+msgid "奇丑"
+msgstr "Hideous"
+
+msgid "丑陋"
+msgstr "Ugly"
+
+msgid "粗陋"
+msgstr "Crude"
+
+msgid "寒素"
+msgstr "Plain"
+
+msgid "清秀"
+msgstr "Delicate"
+
+msgid "秀致"
+msgstr "Refined"
+
+msgid "俊美"
+msgstr "Handsome"
+
+msgid "倾城"
+msgstr "Alluring"
+
+msgid "绝色"
+msgstr "Stunning"
+
+msgid "惊艳"
+msgstr "Breathtaking"
+
+msgid "你长得很俊，回头率很高。"
+msgstr "You are very handsome and turn heads."
+
+msgid "你长得很美，很抢眼。"
+msgstr "You are very beautiful and eye-catching."
+

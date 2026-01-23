@@ -60,11 +60,17 @@ class Auxiliary(Item):
                 from src.i18n import t
                 full_desc = t("{desc} (Devoured Souls: {souls})", desc=full_desc, souls=souls)
 
+        from src.classes.language import language_manager
+        grade_display = self.realm.value
+        if str(language_manager) == "en-US":
+             # 英文状态下，使用翻译后的境界名称
+            grade_display = str(self.realm)
+
         return {
             "id": str(self.id),
             "name": self.name,
             "desc": full_desc,
-            "grade": self.realm.value,
+            "grade": grade_display,
             "color": self.realm.color_rgb,
             "effect_desc": self.effect_desc,
         }
