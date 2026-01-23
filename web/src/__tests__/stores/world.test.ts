@@ -406,6 +406,33 @@ describe('useWorldStore', () => {
       expect(consoleSpy).toHaveBeenCalled()
       consoleSpy.mockRestore()
     })
+
+    it('should handle concurrent calls (no built-in deduplication)', async () => {
+      let fetchStateCallCount = 0
+      let fetchMapCallCount = 0
+
+      vi.mocked(worldApi.fetchInitialState).mockImplementation(() => {
+        fetchStateCallCount++
+        return Promise.resolve({ year: 100, month: 1, avatars: [] })
+      })
+      vi.mocked(worldApi.fetchMap).mockImplementation(() => {
+        fetchMapCallCount++
+        return Promise.resolve({ data: [[{ type: 'grass' }]], regions: [], config: {} } as any)
+      })
+      vi.mocked(eventApi.fetchEvents).mockResolvedValue({
+        events: [],
+        next_cursor: null,
+        has_more: false,
+      })
+
+      // Call initialize twice concurrently.
+      await Promise.all([store.initialize(), store.initialize()])
+
+      // Both calls go through (no built-in deduplication).
+      // This documents current behavior - not necessarily a bug.
+      expect(fetchStateCallCount).toBe(2)
+      expect(fetchMapCallCount).toBe(2)
+    })
   })
 
   describe('fetchState', () => {
@@ -639,6 +666,26 @@ describe('useWorldStore', () => {
       expect(result).toEqual([])
       consoleSpy.mockRestore()
     })
+
+    it('should make duplicate API calls when called concurrently (no deduplication)', async () => {
+      let callCount = 0
+      vi.mocked(worldApi.fetchPhenomenaList).mockImplementation(() => {
+        callCount++
+        return Promise.resolve({ phenomena: [{ id: 1, name: 'Moon', description: 'Moon' }] })
+      })
+
+      // Call twice concurrently before cache is populated.
+      const [result1, result2] = await Promise.all([
+        store.getPhenomenaList(),
+        store.getPhenomenaList(),
+      ])
+
+      // Both calls go through because cache check happens before await.
+      // This documents current behavior - a minor inefficiency, not a bug.
+      expect(callCount).toBe(2)
+      expect(result1).toHaveLength(1)
+      expect(result2).toHaveLength(1)
+    })
   })
 
   describe('changePhenomenon', () => {
@@ -663,6 +710,20 @@ describe('useWorldStore', () => {
 
       expect(worldApi.setPhenomenon).toHaveBeenCalledWith(99)
       expect(store.currentPhenomenon).toBeNull()
+    })
+
+    it('should not update currentPhenomenon if API fails', async () => {
+      store.phenomenaList = [
+        { id: 1, name: 'Full Moon', description: 'A full moon' },
+        { id: 2, name: 'Eclipse', description: 'Solar eclipse' },
+      ]
+      store.currentPhenomenon = { id: 1, name: 'Full Moon', description: 'A full moon' }
+      vi.mocked(worldApi.setPhenomenon).mockRejectedValue(new Error('API error'))
+
+      await expect(store.changePhenomenon(2)).rejects.toThrow('API error')
+
+      // Should remain unchanged because API failed before update.
+      expect(store.currentPhenomenon?.id).toBe(1)
     })
   })
 })
