@@ -22,7 +22,9 @@ class Alignment(Enum):
     def get_detailed_info(self) -> str:
         # 详细版：短文本 + 详细描述
         from src.i18n import t
-        return f"{t(alignment_msg_ids[self])}：{t(alignment_info_msg_ids[self])}"
+        return t("{alignment}: {description}", 
+                 alignment=t(alignment_msg_ids[self]), 
+                 description=t(alignment_info_msg_ids[self]))
 
     def __hash__(self) -> int:
         return hash(self.value)

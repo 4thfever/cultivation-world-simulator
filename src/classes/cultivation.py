@@ -196,8 +196,8 @@ class CultivationProgress:
         from src.i18n import t
         can_break_through = self.can_break_through()
         can_break_through_str = t("Needs breakthrough") if can_break_through else t("Not at bottleneck, no breakthrough needed")
-        return t("{realm}{stage}(Level {level}){status}", 
-                realm=self.realm.value, stage=self.stage.value, 
+        return t("{realm} {stage} (Level {level}) {status}", 
+                realm=str(self.realm), stage=str(self.stage), 
                 level=self.level, status=can_break_through_str)
 
     def get_info(self) -> str:
@@ -307,8 +307,8 @@ class CultivationProgress:
     def __str__(self) -> str:
         from src.i18n import t
         bottleneck_status = t("Yes") if self.is_in_bottleneck() else t("No")
-        return t("{realm}{stage}(Level {level}). At bottleneck: {status}",
-                realm=self.realm.value, stage=self.stage.value,
+        return t("{realm} {stage} (Level {level}). At bottleneck: {status}",
+                realm=str(self.realm), stage=str(self.stage),
                 level=self.level, status=bottleneck_status)
 
     def get_breakthrough_success_rate(self) -> float:

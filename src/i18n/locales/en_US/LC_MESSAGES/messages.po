@@ -1911,17 +1911,6 @@ msgid "root_heaven"
 msgstr "Heaven Root"
 
 # Sect Ranks Keys
-msgid "patriarch"
-msgstr "Patriarch"
-
-msgid "elder"
-msgstr "Elder"
-
-msgid "inner_disciple"
-msgstr "Inner Disciple"
-
-msgid "outer_disciple"
-msgstr "Outer Disciple"
 
 # Appearance Keys
 msgid "appearance_1_name"
@@ -2094,3 +2083,64 @@ msgstr "You are very handsome and turn heads."
 msgid "你长得很美，很抢眼。"
 msgstr "You are very beautiful and eye-catching."
 
+# ============================================================================
+# Additional (New)
+# ============================================================================
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}: {description}"
+
+msgid "{name} ({realm})"
+msgstr "{name} ({realm})"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc} ({realm})"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage} (Level {level}) {status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage} (Level {level}). At bottleneck: {status}"
+
+msgid "Unknown character"
+msgstr "Unknown character"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name} ({desc}{effect})"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} has ascended to a cultivator."
+
+msgid "old_age"
+msgstr "Old Age"
+
+msgid "battle"
+msgstr "Battle"
+
+msgid "serious_injury"
+msgstr "Serious Injury"
+
+msgid "(Unknown technique)"
+msgstr "(Unknown technique)"
+
+
+msgid "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+
+msgid "Drops: {materials}"
+msgstr "Drops: {materials}"
+
+msgid "[{name}] ({realm})"
+msgstr "[{name}] ({realm})"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name} ({attribute}) {grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name} ({attribute}) {grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name} ({attribute}·{grade})"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name} ({type}·{realm}, {desc}){effect}"

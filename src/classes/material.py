@@ -24,10 +24,12 @@ class Material(Item):
         return self.name
 
     def get_info(self) -> str:
-        return f"{self.name} -（{self.realm.value}）"
+        from src.i18n import t
+        return t("{name} ({realm})", name=t(self.name), realm=str(self.realm))
 
     def get_detailed_info(self) -> str:
-        return f"{self.name} - {self.desc}（{self.realm.value}）"
+        from src.i18n import t
+        return t("{name}: {desc} ({realm})", name=t(self.name), desc=t(self.desc), realm=str(self.realm))
 
     def get_structured_info(self) -> dict:
         from src.classes.language import language_manager

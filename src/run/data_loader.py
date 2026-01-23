@@ -2,6 +2,8 @@ from src.classes.sect import reload as reload_sects
 from src.classes.technique import reload as reload_techniques
 from src.classes.weapon import reload as reload_weapons
 from src.classes.auxiliary import reload as reload_auxiliaries
+from src.classes.persona import reload as reload_personas
+from src.classes.celestial_phenomenon import reload as reload_phenomena
 from src.classes.item_registry import ItemRegistry
 from src.run.log import get_logger
 
@@ -22,5 +24,7 @@ def reload_all_static_data():
     reload_techniques()
     reload_weapons() 
     reload_auxiliaries()
+    reload_personas()
+    reload_phenomena()
     
     logger.info("[DataLoader] 静态数据重置完成，环境已净化。")

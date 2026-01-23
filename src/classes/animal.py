@@ -38,7 +38,7 @@ class Animal:
         """
         from src.i18n import t
         # 使用格式化字符串 msgid
-        base_info = t("[{name}] ({realm})", name=t(self.name), realm=self.realm.value)
+        base_info = t("[{name}] ({realm})", name=t(self.name), realm=str(self.realm))
         info_parts = [base_info, t(self.desc)]
         
         if self.materials:

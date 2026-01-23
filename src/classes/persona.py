@@ -92,7 +92,21 @@ def _load_personas() -> tuple[dict[int, Persona], dict[str, Persona]]:
     return personas_by_id, personas_by_name
 
 # 从配表加载persona数据
-personas_by_id, personas_by_name = _load_personas()
+personas_by_id: dict[int, Persona] = {}
+personas_by_name: dict[str, Persona] = {}
+
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_id, new_name = _load_personas()
+    
+    personas_by_id.clear()
+    personas_by_id.update(new_id)
+    
+    personas_by_name.clear()
+    personas_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 def _is_persona_allowed(persona_id: int, already_selected_ids: set[int], avatar: Optional["Avatar"]) -> bool:
     """

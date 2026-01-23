@@ -198,6 +198,7 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     """
     以“我”的视角整理关系，输出若干行。
     """
+    from src.i18n import t
     relations = getattr(avatar, "relations", {}) or {}
 
     # 1. 收集并根据标签分组所有关系
@@ -220,7 +221,6 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
 
     # 2. 按照预定义顺序输出
     # DISPLAY_ORDER 里的都是 msgid，需要翻译后才能去 grouped 里查
-    from src.i18n import t
     for msgid in DISPLAY_ORDER:
         label = t(msgid)
         if label in grouped:

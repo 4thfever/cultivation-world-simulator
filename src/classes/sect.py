@@ -104,7 +104,7 @@ class Sect:
 
     def get_structured_info(self) -> dict:
         hq = self.headquarter
-        
+        from src.i18n import t
         from src.classes.sect_ranks import RANK_ORDER
         from src.server.main import resolve_avatar_pic_id
         from src.classes.technique import techniques_by_name
@@ -123,7 +123,7 @@ class Sect:
                 "pic_id": resolve_avatar_pic_id(a),
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
-                "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else "未知",
+                "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else t("Unknown"),
                 "_sort_val": sort_val
             })
         # 按职位排序
@@ -143,7 +143,7 @@ class Sect:
                 # Fallback for missing techniques: create a minimal structure
                 techniques_data.append({
                     "name": t_name,
-                    "desc": "（未知功法）",
+                    "desc": t("(Unknown technique)"),
                     "grade": "",
                     "color": (200, 200, 200), # Gray
                     "attribute": "",
@@ -324,13 +324,11 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     hq = avatar.sect.headquarter
     effect_part = t(" Effect: {effect_desc}", effect_desc=avatar.sect.effect_desc) if avatar.sect.effect_desc else ""
     
-    # 构造括号内的详细信息
-    # 格式参考 Sect.get_detailed_info，但不包含 sect_name，因为 sect_rank_str 已经包含了
-    # "{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+    # 构造详细信息，使用标准空格和括号
     detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                        alignment=avatar.sect.alignment, 
-                       style=avatar.sect.member_act_style, 
-                       hq_name=hq.name, 
+                       style=t(avatar.sect.member_act_style), 
+                       hq_name=t(hq.name), 
                        effect=effect_part)
     
     return f"{sect_rank_str} {detail_content}"

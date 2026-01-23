@@ -1911,17 +1911,6 @@ msgid "root_heaven"
 msgstr "天灵根"
 
 # Sect Ranks Keys
-msgid "patriarch"
-msgstr "掌门"
-
-msgid "elder"
-msgstr "长老"
-
-msgid "inner_disciple"
-msgstr "内门弟子"
-
-msgid "outer_disciple"
-msgstr "外门弟子"
 
 # Appearance Keys
 msgid "appearance_1_name"
@@ -2094,3 +2083,64 @@ msgstr "你长得很俊，回头率很高。"
 msgid "你长得很美，很抢眼。"
 msgstr "你长得很美，很抢眼。"
 
+# ============================================================================
+# Additional (New)
+# ============================================================================
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}：{description}"
+
+msgid "{name} ({realm})"
+msgstr "{name}（{realm}）"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}：{desc}（{realm}）"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm}{stage}({level}级){status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}({level}级)。在瓶颈期：{status}"
+
+msgid "Unknown character"
+msgstr "未知角色"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}（{desc}{effect}）"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name}晋升为修士了。"
+
+msgid "old_age"
+msgstr "老死"
+
+msgid "battle"
+msgstr "战死"
+
+msgid "serious_injury"
+msgstr "重伤"
+
+msgid "(Unknown technique)"
+msgstr "（未知功法）"
+
+
+msgid "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "（阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+
+msgid "Drops: {materials}"
+msgstr "掉落：{materials}"
+
+msgid "[{name}] ({realm})"
+msgstr "【{name}】（{realm}�?
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name}（{attribute}）{grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name}（{attribute}）{grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name}（{attribute}·{grade}�?
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name}（{type}·{realm}，{desc}）{effect}"

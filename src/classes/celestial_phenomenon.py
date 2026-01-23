@@ -61,7 +61,7 @@ class CelestialPhenomenon:
         """获取详细信息"""
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{self.desc}{effect_part}）"
+        return t("{name} ({desc}{effect})", name=self.name, desc=self.desc, effect=effect_part)
 
 
 def _load_celestial_phenomena() -> dict[int, CelestialPhenomenon]:
@@ -96,8 +96,17 @@ def _load_celestial_phenomena() -> dict[int, CelestialPhenomenon]:
     return phenomena_by_id
 
 
-# 从配表加载天地灵机数据
-celestial_phenomena_by_id = _load_celestial_phenomena()
+# 全局容器
+celestial_phenomena_by_id: dict[int, CelestialPhenomenon] = {}
+
+def reload():
+    """重新加载数据，保留全局字典引用"""
+    new_data = _load_celestial_phenomena()
+    celestial_phenomena_by_id.clear()
+    celestial_phenomena_by_id.update(new_data)
+
+# 模块初始化时执行一次
+reload()
 
 
 def get_random_celestial_phenomenon() -> Optional[CelestialPhenomenon]:

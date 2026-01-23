@@ -106,13 +106,13 @@ class Technique:
         if detailed:
             return self.get_detailed_info()
         from src.i18n import t
-        return t("{name} ({attribute}) {grade}", name=t(self.name), attribute=self.attribute, grade=self.grade.value)
+        return t("{name} ({attribute}) {grade}", name=t(self.name), attribute=str(self.attribute), grade=str(self.grade))
 
     def get_detailed_info(self) -> str:
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return t("{name} ({attribute}) {grade} {desc}{effect}", 
-                 name=t(self.name), attribute=self.attribute, grade=self.grade.value, 
+                 name=t(self.name), attribute=str(self.attribute), grade=str(self.grade), 
                  desc=t(self.desc), effect=effect_part)
     
     def get_colored_info(self) -> str:
