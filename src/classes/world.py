@@ -96,7 +96,7 @@ class World():
                 desc[t_val] = d_val
         
         if self.history.text:
-            key = "History" if language_manager.current == LanguageType.EN_US else "历史"
+            key = t("History")
             desc[key] = self.history.text
         return desc
 

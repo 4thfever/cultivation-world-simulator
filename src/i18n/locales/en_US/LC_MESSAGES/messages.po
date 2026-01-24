@@ -2161,3 +2161,70 @@ msgstr "{name}: {desc}"
 
 msgid "Wilderness"
 msgstr "Wilderness"
+
+msgid "relation_rule_establish_title"
+msgstr "[Establish Relation Rules]"
+msgid "relation_rule_cancel_title"
+msgstr "[Cancel Relation Rules]"
+msgid "relation_rule_lovers_add"
+msgstr "[Dao Companion] Requires opposite genders. Must be mutual deep recognition and affection."
+msgid "relation_rule_friend_add"
+msgstr "[Friend] Friendly interactions (chat, spar without killing, heal). No substantial conflict of interest."
+msgid "relation_rule_enemy_add"
+msgstr "[Enemy] Substantial harm occurred (injury, theft, humiliation). Single severe harm or multiple minor frictions."
+msgid "relation_rule_master_add"
+msgstr "[Master] Realm must be significantly higher than apprentice (e.g. Golden Core vs Qi Refinement)."
+msgid "relation_rule_apprentice_add"
+msgstr "[Apprentice] Relative to Master, usually established automatically with Master relation."
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+msgid "relation_rule_friend_cancel"
+msgstr "[Break Off] Conflict of interest, betrayal, or estrangement due to lack of interaction."
+msgid "relation_rule_enemy_cancel"
+msgstr "[Reconcile] One side initiates kindness and is accepted, or shared life-and-death experience, or hatred fades."
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+msgid "History"
+msgstr "History"
+
+msgid "relation_rule_establish_title"
+msgstr "[Establish Relation Rules]"
+
+msgid "relation_rule_cancel_title"
+msgstr "[Cancel Relation Rules]"
+
+msgid "relation_rule_lovers_add"
+msgstr "[Dao Companion] Requires opposite genders. Must be mutual deep recognition and affection."
+
+msgid "relation_rule_friend_add"
+msgstr "[Friend] Friendly interactions (chat, spar without killing, heal). No substantial conflict of interest."
+
+msgid "relation_rule_enemy_add"
+msgstr "[Enemy] Substantial harm occurred (injury, theft, humiliation). Single severe harm or multiple minor frictions."
+
+msgid "relation_rule_master_add"
+msgstr "[Master] Realm must be significantly higher than apprentice (e.g. Golden Core vs Qi Refinement)."
+
+msgid "relation_rule_apprentice_add"
+msgstr "[Apprentice] Relative to Master, usually established automatically with Master relation."
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+
+msgid "relation_rule_friend_cancel"
+msgstr "[Break Off] Conflict of interest, betrayal, or estrangement due to lack of interaction."
+
+msgid "relation_rule_enemy_cancel"
+msgstr "[Reconcile] One side initiates kindness and is accepted, or shared life-and-death experience, or hatred fades."
+
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+
+msgid "History"
+msgstr "History"
+
