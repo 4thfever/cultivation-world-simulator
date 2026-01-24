@@ -120,7 +120,7 @@ class Technique:
         from src.i18n import t
         r, g, b = self.grade.color_rgb
         # 使用与 get_info 相同的格式，但带有颜色标签
-        info = t("{name} ({attribute}·{grade})", name=t(self.name), attribute=self.attribute, grade=self.grade.value)
+        info = t("{name} ({attribute}·{grade})", name=t(self.name), attribute=str(self.attribute), grade=str(self.grade))
         return f"<color:{r},{g},{b}>{info}</color>"
 
     def get_structured_info(self) -> dict:

@@ -53,7 +53,7 @@ class Lode:
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": str(self.realm),
             "drops": materials_info,
             "type": "lode"
         }

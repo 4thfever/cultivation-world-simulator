@@ -76,7 +76,7 @@ class Sect:
         from src.i18n import t
         hq = self.headquarter
         return t("{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})",
-                sect_name=self.name, alignment=self.alignment, hq_name=hq.name)
+                sect_name=self.name, alignment=str(self.alignment), hq_name=hq.name)
 
     def get_detailed_info(self) -> str:
         # 详细描述：风格、阵营、驻地
@@ -84,7 +84,7 @@ class Sect:
         hq = self.headquarter
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return t("{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
-                sect_name=self.name, alignment=self.alignment, 
+                sect_name=self.name, alignment=str(self.alignment), 
                 style=self.member_act_style, hq_name=hq.name, effect=effect_part)
     
     def get_rank_name(self, rank: "SectRank") -> str:
@@ -162,7 +162,7 @@ class Sect:
             "techniques": techniques_data,
             # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
             "technique_names": self.technique_names,
-            "preferred_weapon": self.preferred_weapon.value if self.preferred_weapon else "",
+            "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
             "members": members_list
         }
 

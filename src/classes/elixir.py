@@ -48,7 +48,7 @@ class Elixir(Item):
         """获取详细信息"""
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{self.realm}·{self._get_type_name()}，{self.desc}）{effect_part}"
+        return f"{self.name}（{str(self.realm)}·{self._get_type_name()}，{self.desc}）{effect_part}"
     
     def _get_type_name(self) -> str:
         from src.i18n import t
@@ -72,7 +72,7 @@ class Elixir(Item):
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": str(self.realm),
             "type": self.type.value,
             "type_name": self._get_type_name(),
             "price": self.price,

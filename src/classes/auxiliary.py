@@ -43,7 +43,7 @@ class Auxiliary(Item):
             souls = t(" Devoured Souls: {count}", count=self.special_data['devoured_souls'])
         
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{self.realm.value}，{self.desc}{souls}）{effect_part}"
+        return f"{self.name}（{str(self.realm)}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -60,11 +60,7 @@ class Auxiliary(Item):
                 from src.i18n import t
                 full_desc = t("{desc} (Devoured Souls: {souls})", desc=full_desc, souls=souls)
 
-        from src.classes.language import language_manager
-        grade_display = self.realm.value
-        if str(language_manager) == "en-US":
-             # 英文状态下，使用翻译后的境界名称
-            grade_display = str(self.realm)
+        grade_display = str(self.realm)
 
         return {
             "id": str(self.id),
