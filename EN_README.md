@@ -184,9 +184,10 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - ✅ Menu bar & Save & Load
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
-- [ ] Android support
 - ✅ Support multi-language localization
 - ✅ Start Game Page
+- [ ] Android support
+- [ ] Mod Support
 
 ### 🗺️ World System
 - ✅ Basic tile mechanics
