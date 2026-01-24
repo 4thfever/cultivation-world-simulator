@@ -257,7 +257,16 @@
           "auxiliary": "辅助装备",
           "technique": "功法",
           "sect": "宗门",
-          "persona": "特质"
+          "persona": "特质",
+          "SWORD": "剑",
+          "SABER": "刀",
+          "SPEAR": "枪",
+          "STAFF": "棍",
+          "FAN": "扇",
+          "WHIP": "鞭",
+          "ZITHER": "琴",
+          "FLUTE": "笛",
+          "HIDDEN_WEAPON": "暗器"
         }
       },
       "avatar": {

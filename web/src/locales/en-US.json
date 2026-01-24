@@ -257,7 +257,16 @@
           "auxiliary": "Auxiliary",
           "technique": "Art",
           "sect": "Sect",
-          "persona": "Trait"
+          "persona": "Trait",
+          "SWORD": "Sword",
+          "SABER": "Saber",
+          "SPEAR": "Spear",
+          "STAFF": "Staff",
+          "FAN": "Fan",
+          "WHIP": "Whip",
+          "ZITHER": "Zither",
+          "FLUTE": "Flute",
+          "HIDDEN_WEAPON": "Hidden Weapon"
         }
       },
       "avatar": {

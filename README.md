@@ -55,38 +55,38 @@
   <tr>
     <td width="33%" valign="top">
       <h4 align="center">宗门体系</h4>
-      <img src="assets/screenshots/宗门.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/宗门.png" width="100%" />
       <br/><br/>
       <h4 align="center">城市区域</h4>
-      <img src="assets/screenshots/城市.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">生平经历</h4>
-      <img src="assets/screenshots/经历.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
-      <img src="assets/screenshots/角色.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/角色.png" width="100%" />
       <br/><br/>
       <h4 align="center">性格特质</h4>
-      <img src="assets/screenshots/特质.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">自主思考</h4>
-      <img src="assets/screenshots/思考.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/思考.png" width="100%" />
       <br/><br/>
       <h4 align="center">江湖绰号</h4>
-      <img src="assets/screenshots/绰号.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">洞府探秘</h4>
-      <img src="assets/screenshots/洞府.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/洞府.png" width="100%" />
       <br/><br/>
       <h4 align="center">长短期目标</h4>
-      <img src="assets/screenshots/目标.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/目标.png" width="100%" />
       <br/><br/>
       <h4 align="center">丹药/法宝/武器</h4>
-      <img src="assets/screenshots/丹药.png" width="100%" />
-      <img src="assets/screenshots/法宝.png" width="100%" />
-      <img src="assets/screenshots/武器.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/丹药.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/法宝.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/武器.png" width="100%" />
     </td>
   </tr>
 </table>
@@ -135,7 +135,7 @@
 
    也支持在前端直接配入LLM参数：
    
-   <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
+   <img src="assets/zh-CN/llm_config.png" alt="前端LLM配置" width="100%">
 
 4. 运行：
    ```bash
