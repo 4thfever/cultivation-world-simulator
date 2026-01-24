@@ -73,7 +73,7 @@ class Elixir(Item):
             "name": self.name,
             "desc": self.desc,
             "grade": str(self.realm),
-            "type": self.type.value,
+            "type": "elixir",
             "type_name": self._get_type_name(),
             "price": self.price,
             "color": self.realm.color_rgb,

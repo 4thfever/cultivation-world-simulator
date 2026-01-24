@@ -249,7 +249,7 @@
         "drops": "掉落/产出：",
         "hq": "驻地：",
         "types": {
-          "animal": "动物",
+          "elixir": "丹药",
           "plant": "植物",
           "lode": "矿脉",
           "item": "物品",
@@ -266,8 +266,7 @@
           "WHIP": "鞭",
           "ZITHER": "琴",
           "FLUTE": "笛",
-          "HIDDEN_WEAPON": "暗器",
-          "暗器": "暗器"
+          "HIDDEN_WEAPON": "暗器"
         }
       },
       "avatar": {

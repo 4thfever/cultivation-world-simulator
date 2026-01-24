@@ -249,7 +249,7 @@
         "drops": "Drops: ",
         "hq": "HQ: ",
         "types": {
-          "animal": "Animal",
+          "elixir": "Elixir",
           "plant": "Plant",
           "lode": "Lode",
           "item": "Item",
@@ -266,8 +266,7 @@
           "WHIP": "Whip",
           "ZITHER": "Zither",
           "FLUTE": "Flute",
-          "HIDDEN_WEAPON": "Hidden Weapon",
-          "暗器": "Hidden Weapon"
+          "HIDDEN_WEAPON": "Hidden Weapon"
         }
       },
       "avatar": {

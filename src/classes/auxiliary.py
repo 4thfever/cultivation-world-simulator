@@ -66,7 +66,7 @@ class Auxiliary(Item):
             "id": str(self.id),
             "name": self.name,
             "desc": full_desc,
-            "grade": grade_display,
+            "type": "auxiliary",
             "color": self.realm.color_rgb,
             "effect_desc": self.effect_desc,
         }

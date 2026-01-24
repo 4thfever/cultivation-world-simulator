@@ -125,7 +125,7 @@ class Technique:
 
     def get_structured_info(self) -> dict:
         return {
-            "name": self.name,
+            "type": "technique",
             "desc": self.desc,
             "grade": str(self.grade),
             "color": self.grade.color_rgb,
