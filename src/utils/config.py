@@ -63,6 +63,12 @@ def update_paths_for_language(lang_code: str = None):
             
             lang_code = saved_lang
     
+    if lang_code is None:
+        lang_code = "zh-CN"
+        
+    # Normalize lang_code (e.g. zh_CN -> zh-CN) to match folder structure in static/locales
+    lang_code = lang_code.replace("_", "-")
+    
     # 默认 locales 目录
     locales_dir = CONFIG.paths.get("locales", Path("static/locales"))
     
