@@ -1,4 +1,5 @@
 from enum import Enum
+from src.i18n import t
 
 class Month(Enum):
     JANUARY = 1
@@ -46,4 +47,4 @@ def create_month_stamp(year: Year, month: Month) -> MonthStamp:
 def get_date_str(stamp: int) -> str:
     """将 MonthStamp (int) 转换为 'X年Y月' 格式"""
     ms = MonthStamp(stamp)
-    return f"{ms.get_year()}年{ms.get_month().value}月"
+    return t("date_format_year_month", year=ms.get_year(), month=ms.get_month().value)

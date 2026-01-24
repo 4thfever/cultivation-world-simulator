@@ -578,6 +578,11 @@ async def lifespan(app: FastAPI):
     # 路径更新后，必须重载一次 df 数据，因为模块导入时路径可能还是空的或旧的
     reload_game_configs()
     
+    # 关键修复：重新加载所有业务静态数据 (Sect, Technique等)
+    # 确保内存中的对象与当前的语言设置一致。
+    # 因为模块导入(import)时可能使用的是默认配置，必须在启动时强制刷新一次。
+    reload_all_static_data()
+    
     print(f"Current Language: {language_manager}")
 
     # 启动时不再自动开始初始化游戏，等待前端指令
@@ -1659,37 +1664,47 @@ async def api_load_game(req: LoadGameRequest):
             save_lang = save_meta.get("language")
             current_lang = str(language_manager)
             
-            if save_lang and save_lang != current_lang:
-                print(f"[Auto-Switch] Detected save language {save_lang}, switching from {current_lang}...")
+            print(f"[Debug] Load Game - Save Lang: {save_lang}, Current Lang: {current_lang}")
+
+            # 无论后端是否已经是该语言，都强制通知前端切换
+            # 这样可以解决 "前端手动刷新回中文，但后端还是英文，导致不再发送切换指令" 的问题
+            if save_lang:
+                print(f"[Auto-Switch] Enforcing language sync to {save_lang}...")
                 
                 # 1. 通知前端
                 await manager.broadcast({
                     "type": "toast",
                     "level": "info",
-                    "message": f"检测到存档语言为 {save_lang}，正在切换系统语言...",
+                    "message": f"正在同步语言设置: {save_lang}...",
                     "language": save_lang
                 })
 
-                # Yield control to event loop to ensure message is sent before blocking IO
+                # Yield control to event loop
                 await asyncio.sleep(0.2)
                 
-                # 2. 切换语言 (放到线程池执行，避免阻塞事件循环)
-                await asyncio.to_thread(language_manager.set_language, save_lang)
-                
-                # 3. 持久化语言设置 (防止刷新后变回原语言)
-                local_config_path = "static/local_config.yml"
-                try:
-                    if os.path.exists(local_config_path):
-                        conf = OmegaConf.load(local_config_path)
-                    else:
-                        conf = OmegaConf.create({})
+                # 2. 只有当后端语言确实不同步时，才执行后端切换逻辑
+                if save_lang != current_lang:
+                    print(f"[Auto-Switch] Switching backend language from {current_lang} to {save_lang}...")
+                    # 切换语言 (放到线程池执行)
+                    await asyncio.to_thread(language_manager.set_language, save_lang)
                     
-                    if "system" not in conf:
-                        conf.system = OmegaConf.create({})
-                    conf.system.language = save_lang
-                    OmegaConf.save(conf, local_config_path)
-                except Exception as e:
-                    print(f"Warning: Failed to persist language switch: {e}")
+                    # 重新加载所有静态业务数据
+                    await asyncio.to_thread(reload_all_static_data)
+                    
+                    # 持久化语言设置
+                    local_config_path = "static/local_config.yml"
+                    try:
+                        if os.path.exists(local_config_path):
+                            conf = OmegaConf.load(local_config_path)
+                        else:
+                            conf = OmegaConf.create({})
+                        
+                        if "system" not in conf:
+                            conf.system = OmegaConf.create({})
+                        conf.system.language = save_lang
+                        OmegaConf.save(conf, local_config_path)
+                    except Exception as e:
+                        print(f"Warning: Failed to persist language switch: {e}")
         # -----------------------
 
         # 设置加载状态

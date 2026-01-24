@@ -177,6 +177,9 @@ class TestSaveLoadLanguage:
             req = LoadGameRequest(filename=save_filename)
             await api_load_game(req)
             
-            # 3. Verify NO switch
-            assert not mock_broadcast.called
+            # 3. Verify
+            # Broadcast IS called to enforce sync (toast), even if same language
+            assert mock_broadcast.called
+            
+            # But actual backend switch (expensive operation) should NOT be called
             assert not mock_set_lang.called

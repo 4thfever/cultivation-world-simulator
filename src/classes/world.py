@@ -11,6 +11,7 @@ from src.classes.gathering.gathering import GatheringManager
 from src.classes.history import History
 from src.utils.df import game_configs
 from src.classes.language import language_manager, LanguageType
+from src.i18n import t
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
@@ -45,7 +46,14 @@ class World():
         world_info = {**map_info, **static_info}
 
         if self.current_phenomenon:
-            world_info["当前天地灵机"] = f"【{self.current_phenomenon.name}】{self.current_phenomenon.desc}"
+            # 使用翻译 Key
+            key = t("Current World Phenomenon")
+            # 格式化内容，注意这里我们假设 name 和 desc 已经是当前语言的（它们是对象属性，加载时确定）
+            # 但如果需要在 Prompt 中有特定的格式（如中文用【】，英文不用），也可以引入 key
+            # 为了简单起见，我们把格式也放入翻译
+            # "phenomenon_format": "【{name}】{desc}" (ZH) vs "{name}: {desc}" (EN)
+            value = t("phenomenon_format", name=self.current_phenomenon.name, desc=self.current_phenomenon.desc)
+            world_info[key] = value
 
         return world_info
 
@@ -82,10 +90,10 @@ class World():
         info_list = game_configs.get("world_info", [])
         desc = {}
         for row in info_list:
-            t = row.get("title")
-            d = row.get("desc")
-            if t and d:
-                desc[t] = d
+            t_val = row.get("title")
+            d_val = row.get("desc")
+            if t_val and d_val:
+                desc[t_val] = d_val
         
         if self.history.text:
             key = "History" if language_manager.current == LanguageType.EN_US else "历史"

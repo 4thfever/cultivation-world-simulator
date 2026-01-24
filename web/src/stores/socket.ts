@@ -53,12 +53,26 @@ export const useSocketStore = defineStore('socket', () => {
 
         // 如果包含语言字段，则切换前端语言
         if (language) {
-          // @ts-ignore: i18n composition api mode
-          if (i18n.global.locale.value !== language) {
-             // @ts-ignore
-             i18n.global.locale.value = language;
-             localStorage.setItem('app_locale', language);
-             console.log(`[Socket] Frontend language switched to ${language}`);
+          try {
+            const currentLang = i18n.mode === 'legacy' 
+                ? (i18n.global.locale as any) 
+                : (i18n.global.locale as any).value;
+            
+            if (currentLang !== language) {
+               if (i18n.mode === 'legacy') {
+                   (i18n.global.locale as any) = language;
+               } else {
+                   (i18n.global.locale as any).value = language;
+               }
+               localStorage.setItem('app_locale', language);
+               
+               // 更新 HTML lang 属性
+               document.documentElement.lang = language === 'zh-CN' ? 'zh-CN' : 'en';
+               
+               console.log(`[Socket] Frontend language switched to ${language}`);
+            }
+          } catch (e) {
+            console.error('[Socket] Failed to switch language:', e);
           }
         }
       }
