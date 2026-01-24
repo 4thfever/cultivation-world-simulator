@@ -266,7 +266,8 @@
           "WHIP": "鞭",
           "ZITHER": "琴",
           "FLUTE": "笛",
-          "HIDDEN_WEAPON": "暗器"
+          "HIDDEN_WEAPON": "暗器",
+          "暗器": "暗器"
         }
       },
       "avatar": {

@@ -4336,3 +4336,8 @@ msgstr "[End Apprenticeship] Same as above."
 msgid "History"
 msgstr "History"
 
+msgid "When alignment is {align}"
+msgstr "When alignment is {align}"
+
+msgid "When using {weapon_type}"
+msgstr "When using {weapon_type}"

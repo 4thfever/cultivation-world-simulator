@@ -78,21 +78,71 @@ def format_value(key: str, value: Any) -> str:
 
 def translate_condition(condition: str) -> str:
     """
-    将代码形式的条件表达式转换为易读描述（简化方案：保持代码形式）
+    将代码形式的条件表达式转换为易读描述
     """
     from src.i18n import t
-    
+    import re
+
     if not condition:
         return t("Conditional effect")
+
+    # 1. 处理 Persona 判断 (特质)
+    # 模式: any(p.key == "CHILD_OF_FORTUNE" for p in avatar.personas)
+    if "avatar.personas" in condition:
+        # 优先匹配 key
+        m_key = re.search(r'p\.key\s*==\s*["\'](.*?)["\']', condition)
+        if m_key:
+            key = m_key.group(1)
+            # 尝试从全局数据中查找对应的 Persona Name
+            from src.classes.persona import personas_by_id
+            trait_name = key # 默认显示key，如果找到则显示name
+            for p in personas_by_id.values():
+                if p.key == key:
+                    trait_name = p.name
+                    break
+            return t("Has [{trait}] trait", trait=trait_name)
+        
+        # 兼容旧的 name 匹配
+        m_name = re.search(r'p\.name\s*==\s*["\'](.*?)["\']', condition)
+        if m_name:
+            return t("Has [{trait}] trait", trait=m_name.group(1))
+
+    # 2. 处理 Alignment 判断 (阵营)
+    # 模式: avatar.alignment == Alignment.RIGHTEOUS
+    if "avatar.alignment" in condition:
+        m_align = re.search(r'Alignment\.([A-Z_]+)', condition)
+        if m_align:
+            align_key = m_align.group(1)
+            from src.classes.alignment import Alignment
+            try:
+                # 获取枚举并调用 str() 进行翻译
+                align_enum = Alignment[align_key]
+                return t("When alignment is {align}", align=str(align_enum))
+            except KeyError:
+                pass
+
+    # 3. 处理 WeaponType 判断 (兵器类型)
+    # 模式: avatar.weapon.type == WeaponType.SWORD
+    if "avatar.weapon.type" in condition:
+        m_weapon = re.search(r'WeaponType\.([A-Z_]+)', condition)
+        if m_weapon:
+            w_key = m_weapon.group(1)
+            from src.classes.weapon_type import WeaponType
+            try:
+                w_enum = WeaponType[w_key]
+                return t("When using {weapon_type}", weapon_type=str(w_enum))
+            except KeyError:
+                pass
+
+    # 4. 兜底简化
+    # 移除代码前缀和符号，使未识别的条件稍微可读一些
+    simple_cond = condition
+    simple_cond = simple_cond.replace("avatar.", "")
+    simple_cond = simple_cond.replace("Alignment.", "")
+    simple_cond = simple_cond.replace("WeaponType.", "")
+    simple_cond = simple_cond.replace("==", ":")
     
-    # 特殊模式：any(p.name == "xxx" for p in avatar.personas)
-    if "avatar.personas" in condition and "any" in condition:
-        m = re.search(r'p\.name\s*==\s*["\'](.*?)["\']', condition)
-        if m:
-            return t("Has [{trait}] trait", trait=m.group(1))
-    
-    # 简化方案：保持代码形式，仅添加前缀
-    return t("When {condition}", condition=condition)
+    return t("When {condition}", condition=simple_cond)
 
 def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> str:
     """

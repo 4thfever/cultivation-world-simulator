@@ -2200,3 +2200,9 @@ msgstr "【出师/断绝】同上。"
 
 msgid "History"
 msgstr "历史"
+
+msgid "When alignment is {align}"
+msgstr "当阵营为{align}时"
+
+msgid "When using {weapon_type}"
+msgstr "当使用{weapon_type}时"

@@ -266,7 +266,8 @@
           "WHIP": "Whip",
           "ZITHER": "Zither",
           "FLUTE": "Flute",
-          "HIDDEN_WEAPON": "Hidden Weapon"
+          "HIDDEN_WEAPON": "Hidden Weapon",
+          "暗器": "Hidden Weapon"
         }
       },
       "avatar": {
