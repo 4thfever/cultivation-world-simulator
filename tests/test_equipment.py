@@ -22,7 +22,7 @@ class TestEquipment:
         
         detailed = weapon.get_detailed_info()
         assert weapon.name in detailed
-        assert weapon.realm.value in detailed
+        assert str(weapon.realm) in detailed
 
     def test_weapon_random_generation(self):
         """测试按境界随机生成兵器"""
@@ -79,7 +79,7 @@ class TestEquipment:
         
         detailed = aux.get_detailed_info()
         assert aux.name in detailed
-        assert aux.realm.value in detailed
+        assert str(aux.realm) in detailed
 
     def test_grade_renaming_compatibility(self):
         """测试 realm 改名后的兼容性（如果有必要）"""
