@@ -2158,3 +2158,6 @@ msgstr "Current World Phenomenon"
 
 msgid "phenomenon_format"
 msgstr "{name}: {desc}"
+
+msgid "Wilderness"
+msgstr "Wilderness"

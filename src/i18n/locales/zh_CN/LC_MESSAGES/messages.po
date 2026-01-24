@@ -2158,3 +2158,6 @@ msgstr "当前天地灵机"
 
 msgid "phenomenon_format"
 msgstr "【{name}】{desc}"
+
+msgid "Wilderness"
+msgstr "荒野"

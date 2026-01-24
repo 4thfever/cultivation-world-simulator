@@ -185,7 +185,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
 - [ ] Android support
-- [ ] Support multi-language localization
+- ✅ Support multi-language localization
 - ✅ Start Game Page
 
 ### 🗺️ World System
