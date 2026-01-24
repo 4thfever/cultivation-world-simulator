@@ -1652,6 +1652,46 @@ async def api_load_game(req: LoadGameRequest):
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
+        # --- 语言环境自动切换 ---
+        from src.sim.save.save_game import get_save_info
+        save_meta = get_save_info(target_path)
+        if save_meta:
+            save_lang = save_meta.get("language")
+            current_lang = str(language_manager)
+            
+            if save_lang and save_lang != current_lang:
+                print(f"[Auto-Switch] Detected save language {save_lang}, switching from {current_lang}...")
+                
+                # 1. 通知前端
+                await manager.broadcast({
+                    "type": "toast",
+                    "level": "info",
+                    "message": f"检测到存档语言为 {save_lang}，正在切换系统语言...",
+                    "language": save_lang
+                })
+
+                # Yield control to event loop to ensure message is sent before blocking IO
+                await asyncio.sleep(0.2)
+                
+                # 2. 切换语言 (放到线程池执行，避免阻塞事件循环)
+                await asyncio.to_thread(language_manager.set_language, save_lang)
+                
+                # 3. 持久化语言设置 (防止刷新后变回原语言)
+                local_config_path = "static/local_config.yml"
+                try:
+                    if os.path.exists(local_config_path):
+                        conf = OmegaConf.load(local_config_path)
+                    else:
+                        conf = OmegaConf.create({})
+                    
+                    if "system" not in conf:
+                        conf.system = OmegaConf.create({})
+                    conf.system.language = save_lang
+                    OmegaConf.save(conf, local_config_path)
+                except Exception as e:
+                    print(f"Warning: Failed to persist language switch: {e}")
+        # -----------------------
+
         # 设置加载状态
         game_instance["init_status"] = "in_progress"
         game_instance["init_start_time"] = time.time()

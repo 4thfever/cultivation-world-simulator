@@ -5,6 +5,28 @@ from unittest.mock import MagicMock, AsyncMock, patch
 from src.classes.map import Map
 
 
+@pytest.fixture(scope="session", autouse=True)
+def mock_saves_dir(tmp_path_factory):
+    """
+    Redirect save path to temp dir for all tests to avoid polluting assets/saves/
+    """
+    from src.utils.config import CONFIG
+    
+    # Create temp dir for saves
+    temp_saves = tmp_path_factory.mktemp("saves")
+    
+    # Backup original path
+    original_path = CONFIG.paths.saves
+    
+    # Redirect
+    CONFIG.paths.saves = temp_saves
+    print(f"\n[Test Setup] Redirecting saves to: {temp_saves}")
+    
+    yield temp_saves
+    
+    # Restore
+    CONFIG.paths.saves = original_path
+
 @pytest.fixture(autouse=True)
 def fixed_random_seed():
     """
