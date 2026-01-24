@@ -57,3 +57,5 @@ save:
 frontend:
   water_speed: low
   cloud_freq: low
+system:
+  language: zh-CN
