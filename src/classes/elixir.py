@@ -46,17 +46,20 @@ class Elixir(Item):
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（{self.realm.value}·{self._get_type_name()}，{self.desc}）{effect_part}"
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return f"{self.name}（{str(self.realm)}·{self._get_type_name()}，{self.desc}）{effect_part}"
     
     def _get_type_name(self) -> str:
-        type_names = {
-            ElixirType.Breakthrough: "破境",
-            ElixirType.Lifespan: "延寿",
-            ElixirType.BurnBlood: "燃血",
-            ElixirType.Heal: "疗伤",
+        from src.i18n import t
+        type_name_ids = {
+            ElixirType.Breakthrough: "elixir_type_breakthrough",
+            ElixirType.Lifespan: "elixir_type_lifespan",
+            ElixirType.BurnBlood: "elixir_type_burn_blood",
+            ElixirType.Heal: "elixir_type_heal",
         }
-        return type_names.get(self.type, "未知")
+        msgid = type_name_ids.get(self.type, "Unknown")
+        return t(msgid)
 
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -69,8 +72,8 @@ class Elixir(Item):
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
-            "type": self.type.value,
+            "grade": str(self.realm),
+            "type": "elixir",
             "type_name": self._get_type_name(),
             "price": self.price,
             "color": self.realm.color_rgb,
@@ -191,8 +194,21 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
     return elixirs_by_id, elixirs_by_name
 
 
-# 导出全局变量
-elixirs_by_id, elixirs_by_name = _load_elixirs()
+elixirs_by_id: Dict[int, Elixir] = {}
+elixirs_by_name: Dict[str, List[Elixir]] = {}
+
+def reload():
+    """重新加载数据"""
+    new_id, new_name = _load_elixirs()
+    
+    elixirs_by_id.clear()
+    elixirs_by_id.update(new_id)
+    
+    elixirs_by_name.clear()
+    elixirs_by_name.update(new_name)
+
+# 模块初始化时执行一次
+reload()
 
 
 def get_elixirs_by_realm(realm: Realm) -> List[Elixir]:

@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { NButton } from 'naive-ui'
+import { NButton, NSelect } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+import { useSettingStore } from '../stores/setting'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
 import DeleteAvatarPanel from './game/panels/system/DeleteAvatarPanel.vue'
 import LLMConfigPanel from './game/panels/system/LLMConfigPanel.vue'
 import GameStartPanel from './game/panels/system/GameStartPanel.vue'
 
+const { t } = useI18n()
+const settingStore = useSettingStore()
+
 const props = defineProps<{
   visible: boolean
-  defaultTab?: 'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'
+  defaultTab?: 'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'settings'
   gameInitialized: boolean
   closable?: boolean
 }>()
@@ -21,7 +26,12 @@ const emit = defineEmits<{
   (e: 'exit-game'): void
 }>()
 
-const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'other'>(props.defaultTab || 'load')
+const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'settings' | 'other'>(props.defaultTab || 'load')
+
+const languageOptions = [
+  { label: '简体中文', value: 'zh-CN' },
+  { label: 'English', value: 'en-US' }
+]
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab
@@ -46,7 +56,7 @@ watch(() => props.visible, (val) => {
   <div v-if="visible" class="system-menu-overlay">
     <div class="system-menu">
       <div class="menu-header">
-        <h2>系统菜单</h2>
+        <h2>{{ t('ui.system_menu_title') }}</h2>
         <!-- 只有在游戏未开始且处于 start/llm 界面时才可能无法关闭（如果是强制引导） -->
         <!-- 但为了用户体验，通常保留关闭按钮，用户如果没配置好就关闭，也只是回到 idle 状态的空界面 -->
         <button class="close-btn" @click="emit('close')" v-if="closable !== false">×</button>
@@ -57,46 +67,52 @@ watch(() => props.visible, (val) => {
           :class="{ active: activeTab === 'start' }"
           @click="switchTab('start')"
         >
-          开始游戏
+          {{ t('ui.start_game') }}
         </button>
         <button 
           :class="{ active: activeTab === 'load' }"
           @click="switchTab('load')"
         >
-          加载游戏
+          {{ t('ui.load_game') }}
         </button>
         <button 
           :class="{ active: activeTab === 'save' }"
           @click="switchTab('save')"
           :disabled="!gameInitialized"
         >
-          保存游戏
+          {{ t('ui.save_game') }}
         </button>
         <button 
           :class="{ active: activeTab === 'create' }"
           @click="switchTab('create')"
           :disabled="!gameInitialized"
         >
-          新建角色
+          {{ t('ui.create_character') }}
         </button>
         <button 
           :class="{ active: activeTab === 'delete' }"
           @click="switchTab('delete')"
           :disabled="!gameInitialized"
         >
-          删除角色
+          {{ t('ui.delete_character') }}
         </button>
         <button 
           :class="{ active: activeTab === 'llm' }"
           @click="switchTab('llm')"
         >
-          LLM设置
+          {{ t('ui.llm_settings') }}
+        </button>
+        <button 
+          :class="{ active: activeTab === 'settings' }"
+          @click="switchTab('settings')"
+        >
+          {{ t('ui.settings') }}
         </button>
         <button 
           :class="{ active: activeTab === 'other' }"
           @click="switchTab('other')"
         >
-          其他
+          {{ t('ui.other') }}
         </button>
       </div>
 
@@ -124,10 +140,29 @@ watch(() => props.visible, (val) => {
           @config-saved="emit('llm-ready')"
         />
 
+        <div v-else-if="activeTab === 'settings'" class="settings-panel-container">
+          <div class="panel-header">
+            <h3>{{ t('ui.settings') }}</h3>
+            <p class="description">{{ t('ui.language') }}</p>
+          </div>
+          
+          <div class="settings-form">
+            <div class="setting-item">
+              <span class="setting-label">{{ t('ui.language') }}</span>
+              <n-select
+                v-model:value="settingStore.locale"
+                :options="languageOptions"
+                @update:value="settingStore.setLocale"
+                style="width: 200px"
+              />
+            </div>
+          </div>
+        </div>
+
         <div v-else-if="activeTab === 'other'" class="other-panel-container">
            <div class="panel-header">
-             <h3>其他选项</h3>
-             <p class="description">管理游戏进程和退出。</p>
+             <h3>{{ t('ui.other_options') }}</h3>
+             <p class="description">{{ t('ui.other_options_desc') }}</p>
            </div>
            
            <div class="other-actions">
@@ -135,8 +170,8 @@ watch(() => props.visible, (val) => {
                 <div class="btn-content">
                   <div class="btn-icon">🏠</div>
                   <div class="btn-text-group">
-                    <span class="btn-title">回到主菜单</span>
-                    <span class="btn-desc">返回标题画面（未保存的进度将丢失）</span>
+                    <span class="btn-title">{{ t('ui.return_to_main') }}</span>
+                    <span class="btn-desc">{{ t('ui.return_to_main_desc') }}</span>
                   </div>
                 </div>
                 <div class="btn-arrow">❯</div>
@@ -146,8 +181,8 @@ watch(() => props.visible, (val) => {
                 <div class="btn-content">
                   <div class="btn-icon">🚪</div>
                   <div class="btn-text-group">
-                    <span class="btn-title">结束游戏</span>
-                    <span class="btn-desc">关闭程序并退出到桌面</span>
+                    <span class="btn-title">{{ t('ui.quit_game') }}</span>
+                    <span class="btn-desc">{{ t('ui.quit_game_desc') }}</span>
                   </div>
                 </div>
                 <div class="btn-arrow">❯</div>
@@ -160,6 +195,27 @@ watch(() => props.visible, (val) => {
 </template>
 
 <style scoped>
+.settings-panel-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-label {
+  font-size: 1.1em;
+  color: #eee;
+}
+
 .other-panel-container {
   max-width: 600px;
   margin: 0 auto;

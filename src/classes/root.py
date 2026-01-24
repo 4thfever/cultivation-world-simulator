@@ -14,14 +14,24 @@ from src.classes.essence import EssenceType
 
 
 class RootElement(Enum):
-    GOLD = "金"
-    WOOD = "木"
-    WATER = "水"
-    FIRE = "火"
-    EARTH = "土"
+    GOLD = "GOLD"  # 原：金
+    WOOD = "WOOD"  # 原：木
+    WATER = "WATER"  # 原：水
+    FIRE = "FIRE"  # 原：火
+    EARTH = "EARTH"  # 原：土
 
     def __str__(self) -> str:
-        return self.value
+        from src.i18n import t
+        return t(root_element_msg_ids.get(self, self.value))
+
+
+root_element_msg_ids = {
+    RootElement.GOLD: "gold_element",
+    RootElement.WOOD: "wood_element",
+    RootElement.WATER: "water_element",
+    RootElement.FIRE: "fire_element",
+    RootElement.EARTH: "earth_element",
+}
 
 
 class _RootMixin:
@@ -60,17 +70,17 @@ class Root(_RootMixin, Enum):
     - HEAVEN: 天灵根 -> 金;木;水;火;土（额外突破+0.1）
     """
 
-    GOLD = ("金灵根", (RootElement.GOLD,))
-    WOOD = ("木灵根", (RootElement.WOOD,))
-    WATER = ("水灵根", (RootElement.WATER,))
-    FIRE = ("火灵根", (RootElement.FIRE,))
-    EARTH = ("土灵根", (RootElement.EARTH,))
-    THUNDER = ("雷灵根", (RootElement.WATER, RootElement.EARTH))
-    ICE = ("冰灵根", (RootElement.GOLD, RootElement.WATER))
-    WIND = ("风灵根", (RootElement.WOOD, RootElement.WATER))
-    DARK = ("暗灵根", (RootElement.FIRE, RootElement.EARTH))
+    GOLD = ("root_gold", (RootElement.GOLD,))
+    WOOD = ("root_wood", (RootElement.WOOD,))
+    WATER = ("root_water", (RootElement.WATER,))
+    FIRE = ("root_fire", (RootElement.FIRE,))
+    EARTH = ("root_earth", (RootElement.EARTH,))
+    THUNDER = ("root_thunder", (RootElement.WATER, RootElement.EARTH))
+    ICE = ("root_ice", (RootElement.GOLD, RootElement.WATER))
+    WIND = ("root_wind", (RootElement.WOOD, RootElement.WATER))
+    DARK = ("root_dark", (RootElement.FIRE, RootElement.EARTH))
     HEAVEN = (
-        "天灵根",
+        "root_heaven",
         (
             RootElement.GOLD,
             RootElement.WOOD,
@@ -143,12 +153,22 @@ def format_root_cn(root: "Root") -> str:
     - 金（金）
     回退：若无法获取组成则仅显示短名。
     """
-    # Root 成员的 value 为中文名（如“风灵根”、“天灵根”）
-    name = getattr(root, "value", str(root))
-    short_name = name.replace("灵根", "") if isinstance(name, str) else str(root)
+    from src.i18n import t
+    # Root 成员的 value 为 msgid (如 "root_wind")
+    name_key = getattr(root, "value", str(root))
+    translated_name = t(name_key)
+    
+    # 尝试获取短名（不带 "Root" 或 "灵根"）
+    # 我们可以在翻译文件中另外定义短名 keys，或者在这里处理字符串
+    # 为了简单优雅，我们可以假设 Root 的翻译不包含 "Root"/"灵根" 后缀，或者我们在 key 上区分
+    # 方案：定义 root_short_wind -> "风" / "Wind"
+    # 但为了兼容现有结构，我们先简单处理翻译后的字符串。
+    
+    short_name = translated_name.replace("灵根", "").replace(" Root", "")
+    
     elements = getattr(root, "elements", None)
     if not elements:
         return short_name
-    # RootElement.__str__ 返回其中文值，因此直接 str(e)
-    elements_cn = "、".join(str(e) for e in elements)
-    return f"{short_name}（{elements_cn}）"
+    # RootElement.__str__ 返回翻译后的值
+    elements_cn = t("element_separator").join(str(e) for e in elements)
+    return t("{root_name} ({elements})", root_name=short_name, elements=elements_cn)

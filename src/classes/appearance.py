@@ -16,32 +16,34 @@ class Appearance:
     desc_female: str
 
     def get_info(self) -> str:
-        return f"{self.name}({self.level})"
+        from src.i18n import t
+        return f"{t(self.name)}({self.level})"
 
     def get_detailed_info(self, gender: object | None = None) -> str:
         """
         根据性别返回更贴切的描述；若未提供性别或无法识别，则默认使用男性描述。
         不依赖具体 Gender 类型，避免循环导入。
         """
+        from src.i18n import t
         g = str(gender) if gender is not None else ""
         s = g.lower()
         use_female = (g == "女") or (s == "female")
         desc = self.desc_female if use_female else self.desc_male
-        return f"{self.name}({self.level}) - {desc}"
+        return f"{t(self.name)}({self.level}) - {t(desc)}"
 
 
 _LEVEL_DATA: Tuple[Tuple[int, str, str, str], ...] = (
     # level, name, desc_male, desc_female
-    (1, "奇丑", "你长得很丑，五官不协调，常被人躲着走。", "你长得很丑，五官不协调，旁人多会躲开。"),
-    (2, "丑陋", "你五官粗糙，鼻梁塌，下巴有点外凸。", "你五官粗糙，颧骨偏高，嘴唇线条乱。"),
-    (3, "粗陋", "你相貌粗陋，看久也不太顺眼。", "你相貌粗陋，神情略显刻薄。"),
-    (4, "寒素", "你长相普通，眉目淡，穿着朴素，不显眼。", "你长相普通，气色淡，打扮简单，不出挑。"),
-    (5, "清秀", "你眉眼清秀，看着顺眼。", "你眉眼清秀，挺耐看。"),
-    (6, "秀致", "你五官精致，气质端正。", "你五官精致，气质温雅。"),
-    (7, "俊美", "你长得很俊，回头率很高。", "你长得很美，很抢眼。"),
-    (8, "倾城", "你外形出众，走到哪都很惹眼。", "你漂亮到让人惊艳。"), 
-    (9, "绝色", "你长相和气质都很顶，常引人侧目。", "你美得很惊人，几乎一眼难忘。"),
-    (10, "惊艳", "你漂亮得像不食人间烟火。", "你美到让人惊艳，一眼就记住你。"),
+    (1, "appearance_1_name", "appearance_1_desc_male", "appearance_1_desc_female"),
+    (2, "appearance_2_name", "appearance_2_desc_male", "appearance_2_desc_female"),
+    (3, "appearance_3_name", "appearance_3_desc_male", "appearance_3_desc_female"),
+    (4, "appearance_4_name", "appearance_4_desc_male", "appearance_4_desc_female"),
+    (5, "appearance_5_name", "appearance_5_desc_male", "appearance_5_desc_female"),
+    (6, "appearance_6_name", "appearance_6_desc_male", "appearance_6_desc_female"),
+    (7, "appearance_7_name", "appearance_7_desc_male", "appearance_7_desc_female"),
+    (8, "appearance_8_name", "appearance_8_desc_male", "appearance_8_desc_female"), 
+    (9, "appearance_9_name", "appearance_9_desc_male", "appearance_9_desc_female"),
+    (10, "appearance_10_name", "appearance_10_desc_male", "appearance_10_desc_female"),
 )
 
 

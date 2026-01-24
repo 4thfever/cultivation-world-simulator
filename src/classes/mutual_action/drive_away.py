@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .mutual_action import MutualAction
+from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
 
@@ -11,14 +12,16 @@ if TYPE_CHECKING:
 @cooldown_action
 class DriveAway(MutualAction):
     """驱赶：试图让对方离开当前区域。"""
-
-    ACTION_NAME = "驱赶"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "drive_away_action_name"
+    DESC_ID = "drive_away_description"
+    REQUIREMENTS_ID = "drive_away_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "😤"
-    DESC = "以武力威慑对方离开此地。"
-    DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Attack"]
-    STORY_PROMPT: str = ""
     # 驱赶冷却：避免反复驱赶刷屏
     ACTION_CD_MONTHS: int = 3
 
@@ -26,11 +29,11 @@ class DriveAway(MutualAction):
         """驱赶无额外检查条件"""
         # 必须在有效区域内才能驱赶（因为需要指定 MoveAwayFromRegion 的目标区域）
         if self.avatar.tile.region is None:
-            return False, "荒野之中无法驱赶"
+            return False, t("Cannot drive away in wilderness")
             
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
-            return False, "目标不在交互范围内"
+            return False, t("Target not within interaction range")
         return True, ""
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:

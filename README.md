@@ -2,6 +2,9 @@
 <h3 align="center">
   <a href="README.md">🇨🇳 中文</a> · <a href="EN_README.md">🇺🇸 English</a>
 </h3>
+<blockquote align="center">
+  This project now supports English. Don't hesitate to give it a try!
+</blockquote>
 <p align="center">— ✦ —</p>
 
 # 修仙世界模拟器 (Cultivation World Simulator)
@@ -55,38 +58,38 @@
   <tr>
     <td width="33%" valign="top">
       <h4 align="center">宗门体系</h4>
-      <img src="assets/screenshots/宗门.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/宗门.png" width="100%" />
       <br/><br/>
       <h4 align="center">城市区域</h4>
-      <img src="assets/screenshots/城市.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">生平经历</h4>
-      <img src="assets/screenshots/经历.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
-      <img src="assets/screenshots/角色.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/角色.png" width="100%" />
       <br/><br/>
       <h4 align="center">性格特质</h4>
-      <img src="assets/screenshots/特质.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">自主思考</h4>
-      <img src="assets/screenshots/思考.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/思考.png" width="100%" />
       <br/><br/>
       <h4 align="center">江湖绰号</h4>
-      <img src="assets/screenshots/绰号.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">洞府探秘</h4>
-      <img src="assets/screenshots/洞府.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/洞府.png" width="100%" />
       <br/><br/>
       <h4 align="center">长短期目标</h4>
-      <img src="assets/screenshots/目标.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/目标.png" width="100%" />
       <br/><br/>
       <h4 align="center">丹药/法宝/武器</h4>
-      <img src="assets/screenshots/丹药.png" width="100%" />
-      <img src="assets/screenshots/法宝.png" width="100%" />
-      <img src="assets/screenshots/武器.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/丹药.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/法宝.png" width="100%" />
+      <img src="assets/zh-CN/screenshots/武器.png" width="100%" />
     </td>
   </tr>
 </table>
@@ -127,7 +130,7 @@
 
    **推荐方式：在前端直接配置（支持快速填充预设）**
    
-   <img src="assets/llm_config.png" alt="前端LLM配置" width="100%">
+   <img src="assets/zh-CN/llm_config.png" alt="前端LLM配置" width="100%">
 
    也可以在 `static/local_config.yml` 中手动配置（OpenAI兼容格式）：
    ```yaml
@@ -188,7 +191,7 @@
 - ✅ 灵活自定义LLM接口
 - ✅ 支持mac os
 - [ ] 安卓支持
-- [ ] 多语言本地化
+- ✅ 多语言本地化
 - ✅ 开始游戏页
 
 ### 🗺️ 世界系统

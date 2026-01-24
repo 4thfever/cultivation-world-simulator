@@ -7,11 +7,12 @@ from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
 from src.utils.config import CONFIG
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
     from src.classes.technique import Technique
     from src.classes.sect_ranks import SectRank
+    from src.classes.weapon_type import WeaponType
 
 """
 宗门、宗门总部基础数据。
@@ -44,8 +45,8 @@ class Sect:
     technique_names: list[str]
     # 随机选择宗门时使用的权重（默认1）
     weight: float = 1.0
-    # 宗门倾向的兵器类型（字符串，如"剑"、"刀"等）
-    preferred_weapon: str = ""
+    # 宗门倾向的兵器类型
+    preferred_weapon: Optional["WeaponType"] = None
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
@@ -72,14 +73,19 @@ class Sect:
             del self.members[avatar.id]
 
     def get_info(self) -> str:
+        from src.i18n import t
         hq = self.headquarter
-        return f"{self.name}（阵营：{self.alignment}，驻地：{hq.name}）"
+        return t("{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})",
+                sect_name=self.name, alignment=str(self.alignment), hq_name=hq.name)
 
     def get_detailed_info(self) -> str:
         # 详细描述：风格、阵营、驻地
+        from src.i18n import t
         hq = self.headquarter
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（阵营：{self.alignment}，风格：{self.member_act_style}，驻地：{hq.name}）{effect_part}"
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return t("{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                sect_name=self.name, alignment=str(self.alignment), 
+                style=self.member_act_style, hq_name=hq.name, effect=effect_part)
     
     def get_rank_name(self, rank: "SectRank") -> str:
         """
@@ -92,12 +98,13 @@ class Sect:
             职位名称字符串
         """
         from src.classes.sect_ranks import SectRank, DEFAULT_RANK_NAMES
+        from src.i18n import t
         # 优先使用自定义名称，否则使用默认名称
-        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, "弟子"))
+        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, t("Disciple")))
 
     def get_structured_info(self) -> dict:
         hq = self.headquarter
-        
+        from src.i18n import t
         from src.classes.sect_ranks import RANK_ORDER
         from src.server.main import resolve_avatar_pic_id
         from src.classes.technique import techniques_by_name
@@ -116,7 +123,7 @@ class Sect:
                 "pic_id": resolve_avatar_pic_id(a),
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
-                "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else "未知",
+                "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else t("Unknown"),
                 "_sort_val": sort_val
             })
         # 按职位排序
@@ -136,7 +143,7 @@ class Sect:
                 # Fallback for missing techniques: create a minimal structure
                 techniques_data.append({
                     "name": t_name,
-                    "desc": "（未知功法）",
+                    "desc": t("(Unknown technique)"),
                     "grade": "",
                     "color": (200, 200, 200), # Gray
                     "attribute": "",
@@ -155,7 +162,7 @@ class Sect:
             "techniques": techniques_data,
             # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
             "technique_names": self.technique_names,
-            "preferred_weapon": self.preferred_weapon,
+            "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
             "members": members_list
         }
 
@@ -215,7 +222,9 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
         effect_desc = format_effects_to_text(effects)
 
         # 读取倾向兵器类型
-        preferred_weapon = get_str(row, "preferred_weapon")
+        from src.classes.weapon_type import WeaponType
+        preferred_weapon_str = get_str(row, "preferred_weapon")
+        preferred_weapon = WeaponType.from_str(preferred_weapon_str) if preferred_weapon_str else None
 
         # 解析自定义职位
         raw_ranks = get_str(row, "rank_names")
@@ -299,8 +308,9 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
         from src.classes.avatar import Avatar
     
     # 散修直接返回
+    from src.i18n import t
     if avatar.sect is None:
-        return "散修"
+        return t("Rogue Cultivator")
     
     # 获取职位+宗门名（如"明心剑宗长老"）
     sect_rank_str = avatar.get_sect_str()
@@ -310,12 +320,15 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
         return sect_rank_str
     
     # 需要详细信息：拼接宗门的详细描述
-    sect_detail = avatar.sect.get_detailed_info()  # "明心剑宗（阵营：正，...）"
+    # 不解析字符串，而是重新构造
+    hq = avatar.sect.headquarter
+    effect_part = t(" Effect: {effect_desc}", effect_desc=avatar.sect.effect_desc) if avatar.sect.effect_desc else ""
     
-    # 提取括号及其内容
-    if "（" in sect_detail:
-        detail_part = sect_detail[sect_detail.index("（"):]
-        return f"{sect_rank_str}{detail_part}"
+    # 构造详细信息，使用标准空格和括号
+    detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                       alignment=avatar.sect.alignment, 
+                       style=t(avatar.sect.member_act_style), 
+                       hq_name=t(hq.name), 
+                       effect=effect_part)
     
-    # 如果没有括号（理论上不应该出现），直接返回职位字符串
-    return sect_rank_str
+    return f"{sect_rank_str} {detail_content}"

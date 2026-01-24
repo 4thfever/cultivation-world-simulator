@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.relations import (
     process_relation_changes,
@@ -24,14 +25,16 @@ class Conversation(MutualAction):
     - LLM 可决策是否进入新关系或取消旧关系
     - 会将对话内容写入事件系统
     """
-
-    ACTION_NAME = "交谈"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "conversation_action_name"
+    DESC_ID = "conversation_description"
+    REQUIREMENTS_ID = "conversation_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🗣️"
-    DESC = "与对方进行一段交流对话"
-    DOABLES_REQUIREMENTS = "目标在交互范围内"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS: list[str] = []  # Conversation 自动触发，不需要对方决策
-    STORY_PROMPT: str = ""
 
     def _get_template_path(self) -> Path:
         # 使用专门的 conversation.txt 模板
@@ -91,9 +94,11 @@ class Conversation(MutualAction):
 
         # 记录对话内容
         if conversation_content:
+            content = t("{avatar1} conversation with {avatar2}: {content}",
+                       avatar1=self.avatar.name, avatar2=target.name, content=conversation_content)
             content_event = Event(
                 month_stamp, 
-                f"{self.avatar.name} 与 {target.name} 的交谈：{conversation_content}", 
+                content, 
                 related_avatars=[self.avatar.id, target.id]
             )
             events_to_return.append(content_event)

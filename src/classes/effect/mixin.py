@@ -77,6 +77,7 @@ class EffectsMixin:
         获取效果明细，返回 [(来源名称, 生效的效果字典), ...]
         用于 get_desc 展示。
         """
+        from src.i18n import t
         breakdown = []
         
         def _collect(name: str, source_obj=None, explicit_effects=None):
@@ -100,35 +101,42 @@ class EffectsMixin:
             if evaluated:
                 breakdown.append((name, evaluated))
 
-        # 按照优先级或逻辑顺序收集
+        # 按照优先级或逻辑顺序收集（使用翻译）
         if self.sect:
-            _collect(f"宗门【{self.sect.name}】", source_obj=self.sect)
+            label = t("Sect [{name}]", name=self.sect.name)
+            _collect(label, source_obj=self.sect)
             
         if self.technique:
-            _collect(f"功法【{self.technique.name}】", source_obj=self.technique)
+            label = t("Technique [{name}]", name=self.technique.name)
+            _collect(label, source_obj=self.technique)
             
         if self.root:
-            _collect("灵根", source_obj=self.root)
+            _collect(t("Spirit Root"), source_obj=self.root)
             
         for p in self.personas:
-            _collect(f"特质【{p.name}】", source_obj=p)
+            label = t("Trait [{name}]", name=p.name)
+            _collect(label, source_obj=p)
             
         if self.weapon:
-            _collect(f"兵器【{self.weapon.name}】", source_obj=self.weapon)
+            label = t("Weapon [{name}]", name=self.weapon.name)
+            _collect(label, source_obj=self.weapon)
             
         if self.auxiliary:
-            _collect(f"辅助【{self.auxiliary.name}】", source_obj=self.auxiliary)
+            label = t("Auxiliary [{name}]", name=self.auxiliary.name)
+            _collect(label, source_obj=self.auxiliary)
             
         if self.spirit_animal:
-            _collect(f"灵兽【{self.spirit_animal.name}】", source_obj=self.spirit_animal)
+            label = t("Spirit Animal [{name}]", name=self.spirit_animal.name)
+            _collect(label, source_obj=self.spirit_animal)
             
         if self.world.current_phenomenon:
-            _collect("天地灵机", source_obj=self.world.current_phenomenon)
+            _collect(t("Heaven and Earth Phenomenon"), source_obj=self.world.current_phenomenon)
 
         for consumed in self.elixirs:
             # 使用 get_active_effects 获取当前生效的效果
             active = consumed.get_active_effects(int(self.world.month_stamp))
-            _collect(f"丹药【{consumed.elixir.name}】", explicit_effects=active)
+            label = t("Elixir [{name}]", name=consumed.elixir.name)
+            _collect(label, explicit_effects=active)
 
         return breakdown
 

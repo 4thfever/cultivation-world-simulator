@@ -7,9 +7,11 @@ from src.classes.sect_region import SectRegion
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.essence import EssenceType
 from src.classes.sect import sects_by_id  # 直接导入已加载的宗门数据
+from src.utils.config import CONFIG
 
 # 静态配置路径
-CONFIG_DIR = os.path.join(os.path.dirname(__file__), "../../static/game_configs")
+# 使用共享配置目录，因为 tile_map 和 region_map 是语言无关的
+CONFIG_DIR = CONFIG.paths.shared_game_configs
 
 def load_cultivation_world_map() -> Map:
     """
@@ -17,10 +19,10 @@ def load_cultivation_world_map() -> Map:
     读取: tile_map.csv, region_map.csv
     以及: normal/city/cultivate/sect_region.csv
     """
-    tile_csv = os.path.join(CONFIG_DIR, "tile_map.csv")
-    region_csv = os.path.join(CONFIG_DIR, "region_map.csv")
+    tile_csv = CONFIG_DIR / "tile_map.csv"
+    region_csv = CONFIG_DIR / "region_map.csv"
     
-    if not os.path.exists(tile_csv) or not os.path.exists(region_csv):
+    if not tile_csv.exists() or not region_csv.exists():
         raise FileNotFoundError(f"Map data files not found in {CONFIG_DIR}")
 
     # 1. 读取 Tile Map 以确定尺寸

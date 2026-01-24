@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.region import CityRegion
@@ -12,10 +13,11 @@ class HelpMortals(TimedAction):
     仅正阵营可执行。
     """
 
-    ACTION_NAME = "帮助凡人"
+    ACTION_NAME_ID = "help_mortals_action_name"
+    DESC_ID = "help_mortals_description"
+    REQUIREMENTS_ID = "help_mortals_requirements"
+    
     EMOJI = "🤝"
-    DESC = "在城镇帮助凡人，消耗少量灵石"
-    DOABLES_REQUIREMENTS = "仅限城市区域，且角色阵营为‘正’，并且灵石足够"
     PARAMS = {}
     COST = 10
 
@@ -32,20 +34,20 @@ class HelpMortals(TimedAction):
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
-            return False, "仅能在城市区域执行"
+            return False, t("Can only execute in city areas")
         if self.avatar.alignment != Alignment.RIGHTEOUS:
-            return False, "仅正阵营可执行"
+            return False, t("Only righteous alignment can execute")
         cost = self.COST
         if not (self.avatar.magic_stone >= cost):
-            return False, "灵石不足"
+            return False, t("Insufficient spirit stones")
         return True, ""
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在城镇开始帮助凡人", related_avatars=[self.avatar.id])
+        content = t("{avatar} begins helping mortals in town", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
         return []
-
 

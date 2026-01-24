@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import Optional, TYPE_CHECKING, List
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.cultivation import Realm
 from src.classes.event import Event
@@ -18,9 +19,15 @@ class Refine(TimedAction):
     炼丹动作：消耗同阶材料，尝试炼制同阶丹药。
     持续时间：3个月
     """
-    ACTION_NAME = "炼丹"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "refine_action_name"
+    DESC_ID = "refine_description"
+    REQUIREMENTS_ID = "refine_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "💊"
-    DESC = "消耗材料尝试炼制丹药"
+    PARAMS = {"target_realm": "str"}
 
     COST = 3
     SUCCESS_RATES = {
@@ -30,8 +37,6 @@ class Refine(TimedAction):
         Realm.Nascent_Soul: 0.1,
     }
 
-    DOABLES_REQUIREMENTS = f"拥有{COST}个同境界材料"
-    PARAMS = {"target_realm": "目标境界名称（'练气'、'筑基'、'金丹'、'元婴'）"}
     IS_MAJOR = False
 
     duration_months = 2
@@ -56,11 +61,11 @@ class Refine(TimedAction):
 
     def can_start(self, target_realm: str) -> tuple[bool, str]:
         if not target_realm:
-            return False, "未指定目标境界"
+            return False, t("Target realm not specified")
         
         res = resolve_query(target_realm, expected_types=[Realm])
         if not res.is_valid:
-            return False, f"无效的境界: {target_realm}"
+            return False, t("Invalid realm: {realm}", realm=target_realm)
         
         realm = res.obj
 
@@ -68,7 +73,8 @@ class Refine(TimedAction):
         count = self._count_materials(realm)
         
         if count < cost:
-            return False, f"材料不足，需要 {cost} 个{target_realm}阶材料，当前拥有 {count} 个"
+            return False, t("Insufficient materials, need {cost} {realm}-tier materials, currently have {count}",
+                          cost=cost, realm=target_realm, count=count)
             
         return True, ""
 
@@ -95,10 +101,12 @@ class Refine(TimedAction):
         for material, take in materials_to_modify:
             self.avatar.remove_material(material, take)
 
-        realm_val = self.target_realm.value if self.target_realm else target_realm
+        realm_val = str(self.target_realm) if self.target_realm else target_realm
+        content = t("{avatar} begins attempting to refine {realm}-tier elixir",
+                   avatar=self.avatar.name, realm=realm_val)
         return Event(
             self.world.month_stamp, 
-            f"{self.avatar.name} 开始尝试炼制{realm_val}阶丹药。", 
+            content, 
             related_avatars=[self.avatar.id]
         )
 
@@ -121,9 +129,11 @@ class Refine(TimedAction):
         # 2. 判定结果
         if random.random() > success_rate:
             # 失败
+            content = t("{avatar} failed to refine {realm}-tier elixir, all materials turned to ash",
+                       avatar=self.avatar.name, realm=str(self.target_realm))
             fail_event = Event(
                 self.world.month_stamp,
-                f"{self.avatar.name} 炼制{self.target_realm.value}阶丹药失败，所有材料化为灰烬。",
+                content,
                 related_avatars=[self.avatar.id],
                 is_major=False
             )
@@ -134,12 +144,15 @@ class Refine(TimedAction):
         new_item = get_random_elixir_by_realm(self.target_realm)
 
         # 4. 决策：保留（服用）还是卖出
-        base_desc = f"炼丹成功！获得了{self.target_realm.value}丹药『{new_item.name}』。"
+        base_desc = t("Refining succeeded! Obtained {realm} elixir '{item}'",
+                     realm=str(self.target_realm), item=new_item.name)
         
         # 事件1：炼丹成功
+        content = t("{avatar} successfully refined {realm}-tier elixir '{item}'",
+                   avatar=self.avatar.name, realm=str(self.target_realm), item=new_item.name)
         events.append(Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 成功炼制{self.target_realm.value}丹药『{new_item.name}』。",
+            content,
             related_avatars=[self.avatar.id],
             is_major=True
         ))

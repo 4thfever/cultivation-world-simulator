@@ -13,34 +13,56 @@ from src.classes.root import Root, RootElement
 
 
 class TechniqueAttribute(Enum):
-    GOLD = "金"
-    WOOD = "木"
-    WATER = "水"
-    FIRE = "火"
-    EARTH = "土"
-    ICE = "冰"
-    WIND = "风"
-    DARK = "暗"
-    THUNDER = "雷"
-    EVIL = "邪"
+    GOLD = "GOLD"  # 金
+    WOOD = "WOOD"  # 木
+    WATER = "WATER"#水
+    FIRE = "FIRE"  # 火
+    EARTH = "EARTH"# 土
+    ICE = "ICE"    # 冰
+    WIND = "WIND"  # 风
+    DARK = "DARK"  # 暗
+    THUNDER = "THUNDER"  # 雷
+    EVIL = "EVIL"  # 邪
 
     def __str__(self) -> str:
-        return self.value
+        from src.i18n import t
+        return t(technique_attribute_msg_ids.get(self, self.value))
+
+
+technique_attribute_msg_ids = {
+    TechniqueAttribute.GOLD: "gold_attribute",
+    TechniqueAttribute.WOOD: "wood_attribute",
+    TechniqueAttribute.WATER: "water_attribute",
+    TechniqueAttribute.FIRE: "fire_attribute",
+    TechniqueAttribute.EARTH: "earth_attribute",
+    TechniqueAttribute.ICE: "ice_attribute",
+    TechniqueAttribute.WIND: "wind_attribute",
+    TechniqueAttribute.DARK: "dark_attribute",
+    TechniqueAttribute.THUNDER: "thunder_attribute",
+    TechniqueAttribute.EVIL: "evil_attribute",
+}
 
 
 class TechniqueGrade(Enum):
-    LOWER = "下品"
-    MIDDLE = "中品"
-    UPPER = "上品"
+    LOWER = "LOWER"    # 下品
+    MIDDLE = "MIDDLE"  # 中品
+    UPPER = "UPPER"    # 上品
+
+    def __str__(self) -> str:
+        from src.i18n import t
+        return t(technique_grade_msg_ids.get(self, self.value))
 
     @staticmethod
     def from_str(s: str) -> "TechniqueGrade":
-        s = str(s).strip()
-        if s == "上品":
-            return TechniqueGrade.UPPER
-        if s == "中品":
-            return TechniqueGrade.MIDDLE
-        return TechniqueGrade.LOWER
+        s = str(s).strip().upper()
+        # 兼容旧的中文配置（可选，但为了稳妥建议保留映射或直接转换）
+        mapping = {
+            "上品": "UPPER", "UPPER": "UPPER",
+            "中品": "MIDDLE", "MIDDLE": "MIDDLE",
+            "下品": "LOWER", "LOWER": "LOWER"
+        }
+        grade_id = mapping.get(s, "LOWER")
+        return TechniqueGrade(grade_id)
     
     @property
     def color_rgb(self) -> tuple[int, int, int]:
@@ -51,6 +73,13 @@ class TechniqueGrade(Enum):
             TechniqueGrade.UPPER: TECHNIQUE_GRADE_COLORS["UPPER"],
         }
         return color_map.get(self, Color.COMMON_WHITE)
+
+
+technique_grade_msg_ids = {
+    TechniqueGrade.LOWER: "lower_grade",
+    TechniqueGrade.MIDDLE: "middle_grade",
+    TechniqueGrade.UPPER: "upper_grade",
+}
 
 
 @dataclass
@@ -76,24 +105,31 @@ class Technique:
     def get_info(self, detailed: bool = False) -> str:
         if detailed:
             return self.get_detailed_info()
-        return f"{self.name}（{self.attribute}）{self.grade.value}"
+        from src.i18n import t
+        return t("{name} ({attribute}) {grade}", name=t(self.name), attribute=str(self.attribute), grade=str(self.grade))
 
     def get_detailed_info(self) -> str:
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（{self.attribute}）{self.grade.value} {self.desc}{effect_part}"
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return t("{name} ({attribute}) {grade} {desc}{effect}", 
+                 name=t(self.name), attribute=str(self.attribute), grade=str(self.grade), 
+                 desc=t(self.desc), effect=effect_part)
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
+        from src.i18n import t
         r, g, b = self.grade.color_rgb
-        return f"<color:{r},{g},{b}>{self.name}（{self.attribute}·{self.grade.value}）</color>"
+        # 使用与 get_info 相同的格式，但带有颜色标签
+        info = t("{name} ({attribute}·{grade})", name=t(self.name), attribute=str(self.attribute), grade=str(self.grade))
+        return f"<color:{r},{g},{b}>{info}</color>"
 
     def get_structured_info(self) -> dict:
         return {
-            "name": self.name,
+            "type": "technique",
             "desc": self.desc,
-            "grade": self.grade.value,
+            "grade": str(self.grade),
             "color": self.grade.color_rgb,
-            "attribute": self.attribute.value,
+            "attribute": str(self.attribute),
             "effect_desc": self.effect_desc,
         }
 

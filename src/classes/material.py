@@ -24,17 +24,19 @@ class Material(Item):
         return self.name
 
     def get_info(self) -> str:
-        return f"{self.name} -（{self.realm.value}）"
+        from src.i18n import t
+        return t("{name} ({realm})", name=t(self.name), realm=str(self.realm))
 
     def get_detailed_info(self) -> str:
-        return f"{self.name} - {self.desc}（{self.realm.value}）"
+        from src.i18n import t
+        return t("{name}: {desc} ({realm})", name=t(self.name), desc=t(self.desc), realm=str(self.realm))
 
     def get_structured_info(self) -> dict:
         return {
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": str(self.realm),
             "effect_desc": "" # 材料暂时没有效果字段
         }
 
@@ -59,3 +61,11 @@ def _load_materials() -> tuple[dict[int, Material], dict[str, Material]]:
 
 # 从配表加载 material 数据
 materials_by_id, materials_by_name = _load_materials()
+
+def reload():
+    """重新加载数据"""
+    new_id, new_name = _load_materials()
+    materials_by_id.clear()
+    materials_by_id.update(new_id)
+    materials_by_name.clear()
+    materials_by_name.update(new_name)

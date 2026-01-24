@@ -1,0 +1,39 @@
+You are a creator of a Xianxia world. I will provide you with an original world background and a piece of history.
+Based on the world background and this history, you need to modify the information of techniques, weapons, and auxiliary equipment existing in this world.
+
+World Background:
+{world_info}
+
+History Text:
+{history_str}
+
+Technique Information:
+{techniques}
+
+Weapon Information:
+{weapons}
+
+Auxiliary Equipment Information:
+{auxiliarys}
+
+Based on the above information, analyze and return modification suggestions.
+
+Return in JSON format:
+{{
+    "thinking": "Analyze what kind of modifications should be made",
+    "techniques_change": 
+        {{
+            "id": {{ // original id
+                "name": str // new name
+                "desc": desc // new desc
+            }}
+        }},
+    "weapons_change": {{}}, // dict, structure as above
+    "auxiliarys_change": {{}} // dict, structure as above
+}}
+
+Requirements:
+1. "thinking" is your thought process; please provide a detailed analysis.
+2. Modifications should be based on the content of the history and be logically sound.
+3. If an item has no modifications, return an empty dictionary {{}}.
+4. For items to be modified, only return "name" and "desc", and no other keys.

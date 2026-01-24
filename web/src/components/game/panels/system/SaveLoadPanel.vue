@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { systemApi, type SaveFileDTO } from '../../../../api'
+import { systemApi } from '../../../../api'
+import type { SaveFileDTO } from '../../../../types/api'
 import { useWorldStore } from '../../../../stores/world'
 import { useUiStore } from '../../../../stores/ui'
 import { useMessage } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   mode: 'save' | 'load'
@@ -25,7 +29,7 @@ async function fetchSaves() {
     const res = await systemApi.fetchSaves()
     saves.value = res.saves
   } catch (e) {
-    message.error('获取存档列表失败')
+    message.error(t('save_load.fetch_failed'))
   } finally {
     loading.value = false
   }
@@ -35,17 +39,17 @@ async function handleSave() {
   loading.value = true
   try {
     const res = await systemApi.saveGame()
-    message.success(`存档成功: ${res.filename}`)
+    message.success(t('save_load.save_success', { filename: res.filename }))
     await fetchSaves()
   } catch (e) {
-    message.error('存档失败')
+    message.error(t('save_load.save_failed'))
   } finally {
     loading.value = false
   }
 }
 
 async function handleLoad(filename: string) {
-  if (!confirm(`确定要加载存档 ${filename} 吗？当前未保存的进度将丢失。`)) return
+  if (!confirm(t('save_load.load_confirm', { filename }))) return
 
   loading.value = true
   try {
@@ -53,10 +57,10 @@ async function handleLoad(filename: string) {
     worldStore.reset()
     uiStore.clearSelection()
     await worldStore.initialize()
-    message.success('读档成功')
+    message.success(t('save_load.load_success'))
     emit('close')
   } catch (e) {
-    message.error('读档失败')
+    message.error(t('save_load.load_failed'))
   } finally {
     loading.value = false
   }
@@ -73,19 +77,19 @@ onMounted(() => {
 
 <template>
   <div :class="mode === 'save' ? 'save-panel' : 'load-panel'">
-    <div v-if="loading && saves.length === 0" class="loading">加载中...</div>
+    <div v-if="loading && saves.length === 0" class="loading">{{ t('save_load.loading') }}</div>
     
     <!-- Save Mode: New Save Button -->
     <template v-if="mode === 'save'">
       <div class="new-save-card" @click="handleSave">
         <div class="icon">+</div>
-        <div>新建存档</div>
-        <div class="sub">点击创建一个新的存档文件</div>
+        <div>{{ t('save_load.new_save') }}</div>
+        <div class="sub">{{ t('save_load.new_save_desc') }}</div>
       </div>
     </template>
 
     <!-- Save List -->
-    <div v-if="!loading && saves.length === 0" class="empty">暂无存档</div>
+    <div v-if="!loading && saves.length === 0" class="empty">{{ t('save_load.empty') }}</div>
     <div 
       v-for="save in saves" 
       :key="save.filename"
@@ -94,10 +98,10 @@ onMounted(() => {
     >
       <div class="save-info">
         <div class="save-time">{{ save.save_time }}</div>
-        <div class="game-time">游戏时间: {{ save.game_time }}</div>
+        <div class="game-time">{{ t('save_load.game_time', { time: save.game_time }) }}</div>
         <div class="filename">{{ save.filename }}</div>
       </div>
-      <div v-if="mode === 'load'" class="load-btn">加载</div>
+      <div v-if="mode === 'load'" class="load-btn">{{ t('save_load.load') }}</div>
     </div>
   </div>
 </template>

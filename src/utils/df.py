@@ -65,12 +65,32 @@ def load_csv(path: Path) -> List[Dict[str, Any]]:
 
 def load_game_configs() -> dict[str, List[Dict[str, Any]]]:
     game_configs = {}
-    for path in CONFIG.paths.game_configs.glob("*.csv"):
-        data = load_csv(path)
-        game_configs[path.stem] = data
+    
+    # 1. 加载共享配置 (Shared)
+    if hasattr(CONFIG.paths, "shared_game_configs") and CONFIG.paths.shared_game_configs.exists():
+        for path in CONFIG.paths.shared_game_configs.glob("*.csv"):
+            data = load_csv(path)
+            game_configs[path.stem] = data
+            
+    # 2. 加载本地化配置 (Localized) - 会覆盖同名文件
+    if hasattr(CONFIG.paths, "game_configs") and CONFIG.paths.game_configs.exists():
+        for path in CONFIG.paths.game_configs.glob("*.csv"):
+            data = load_csv(path)
+            # 如果存在同名配置，这里会进行覆盖
+            game_configs[path.stem] = data
+            
     return game_configs
 
 game_configs = load_game_configs()
+
+def reload_game_configs():
+    """重新加载所有 CSV 配置"""
+    print("[DF] Reloading game configs from csv...")
+    new_data = load_game_configs()
+    game_configs.clear()
+    game_configs.update(new_data)
+    print(f"[DF] Loaded {len(game_configs)} config files.")
+
 
 # =============================================================================
 # 辅助函数：让业务层代码更简洁

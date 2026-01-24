@@ -10,7 +10,8 @@ class MagicStone(int):
         self.value = value
 
     def __str__(self) -> str:
-        return f"{self.value}灵石"
+        from src.i18n import t
+        return t("{value} Spirit Stones", value=self.value)
 
     def get_info(self) -> str:
         return str(self)

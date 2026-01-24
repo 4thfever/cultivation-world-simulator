@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import InstantAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -9,10 +10,13 @@ from src.utils.resolution import resolve_query
 
 
 class MoveAwayFromRegion(InstantAction):
-    ACTION_NAME = "离开区域"
+    # 多语言 ID
+    ACTION_NAME_ID = "move_away_from_region_action_name"
+    DESC_ID = "move_away_from_region_description"
+    REQUIREMENTS_ID = "move_away_from_region_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🏃"
-    DESC = "离开指定区域"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"region": "RegionName"}
 
     def _execute(self, region: str) -> None:
@@ -41,12 +45,14 @@ class MoveAwayFromRegion(InstantAction):
     def can_start(self, region: str) -> tuple[bool, str]:
         if resolve_query(region, self.world, expected_types=[Region]).obj:
             return True, ""
-        return False, f"无法解析区域: {region}"
+        return False, t("Cannot resolve region: {region}", region=region)
 
     def start(self, region: str) -> Event:
         r = resolve_query(region, self.world, expected_types=[Region]).obj
         region_name = r.name if r else region
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始离开 {region_name}", related_avatars=[self.avatar.id])
+        content = t("{avatar} begins leaving {region}",
+                   avatar=self.avatar.name, region=region_name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # InstantAction 已实现 step 完成
 

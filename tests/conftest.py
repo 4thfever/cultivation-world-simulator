@@ -5,6 +5,28 @@ from unittest.mock import MagicMock, AsyncMock, patch
 from src.classes.map import Map
 
 
+@pytest.fixture(scope="session", autouse=True)
+def mock_saves_dir(tmp_path_factory):
+    """
+    Redirect save path to temp dir for all tests to avoid polluting assets/saves/
+    """
+    from src.utils.config import CONFIG
+    
+    # Create temp dir for saves
+    temp_saves = tmp_path_factory.mktemp("saves")
+    
+    # Backup original path
+    original_path = CONFIG.paths.saves
+    
+    # Redirect
+    CONFIG.paths.saves = temp_saves
+    print(f"\n[Test Setup] Redirecting saves to: {temp_saves}")
+    
+    yield temp_saves
+    
+    # Restore
+    CONFIG.paths.saves = original_path
+
 @pytest.fixture(autouse=True)
 def fixed_random_seed():
     """
@@ -12,6 +34,23 @@ def fixed_random_seed():
     This fixture is automatically applied to all tests.
     """
     random.seed(42)
+    yield
+
+@pytest.fixture(scope="session", autouse=True)
+def force_chinese_language():
+    """
+    Force language to Chinese for all tests to match expected string outputs.
+    """
+    from src.classes.language import language_manager
+    from src.utils.config import update_paths_for_language
+    
+    # Force language to Chinese
+    language_manager.set_language("zh-CN")
+    
+    # Ensure game configs are reloaded (in case set_language skipped it due to circular import protection)
+    from src.utils.df import reload_game_configs
+    reload_game_configs()
+    
     yield
 from src.classes.tile import TileType, Tile
 from src.classes.world import World

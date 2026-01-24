@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 
@@ -8,11 +9,14 @@ class Play(TimedAction):
     """
     消遣动作，持续半年时间
     """
-
-    ACTION_NAME = "消遣"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "play_action_name"
+    DESC_ID = "play_description"
+    REQUIREMENTS_ID = "play_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🪁"
-    DESC = "消遣，放松身心"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {}
 
     duration_months = 6
@@ -29,7 +33,8 @@ class Play(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始消遣", related_avatars=[self.avatar.id])
+        content = t("{avatar} begins leisure activities", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 

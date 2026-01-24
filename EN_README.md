@@ -54,38 +54,38 @@ You don't need to personally fight monsters or level up. Instead, you observe al
   <tr>
     <td width="33%" valign="top">
       <h4 align="center">Sect System</h4>
-      <img src="assets/screenshots/宗门.png" width="100%" />
+      <img src="assets/en-US/screenshots/宗门.png" width="100%" />
       <br/><br/>
       <h4 align="center">City Region</h4>
-      <img src="assets/screenshots/城市.png" width="100%" />
+      <img src="assets/en-US/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">Life Experiences</h4>
-      <img src="assets/screenshots/经历.png" width="100%" />
+      <img src="assets/en-US/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">Character Panel</h4>
-      <img src="assets/screenshots/角色.png" width="100%" />
+      <img src="assets/en-US/screenshots/角色.png" width="100%" />
       <br/><br/>
       <h4 align="center">Personality Traits</h4>
-      <img src="assets/screenshots/特质.png" width="100%" />
+      <img src="assets/en-US/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">Independent Thinking</h4>
-      <img src="assets/screenshots/思考.png" width="100%" />
+      <img src="assets/en-US/screenshots/思考.png" width="100%" />
       <br/><br/>
       <h4 align="center">Nicknames</h4>
-      <img src="assets/screenshots/绰号.png" width="100%" />
+      <img src="assets/en-US/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">Dungeon Exploration</h4>
-      <img src="assets/screenshots/洞府.png" width="100%" />
+      <img src="assets/en-US/screenshots/洞府.png" width="100%" />
       <br/><br/>
       <h4 align="center">Short/Long Term Goals</h4>
-      <img src="assets/screenshots/目标.png" width="100%" />
+      <img src="assets/en-US/screenshots/目标.png" width="100%" />
       <br/><br/>
       <h4 align="center">Elixirs/Treasures/Weapons</h4>
-      <img src="assets/screenshots/丹药.png" width="100%" />
-      <img src="assets/screenshots/法宝.png" width="100%" />
-      <img src="assets/screenshots/武器.png" width="100%" />
+      <img src="assets/en-US/screenshots/丹药.png" width="100%" />
+      <img src="assets/en-US/screenshots/法宝.png" width="100%" />
+      <img src="assets/en-US/screenshots/武器.png" width="100%" />
     </td>
   </tr>
 </table>
@@ -136,7 +136,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer: 
 
    You can also configure LLM parameters directly in the frontend:
    
-   <img src="assets/llm_config.png" alt="Frontend LLM Config" width="100%">
+   <img src="assets/en-US/llm_config.png" alt="Frontend LLM Config" width="100%">
 
 4. Run:
    ```bash
@@ -185,7 +185,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 - ✅ Flexible custom LLM interface
 - ✅ Support macOS
 - [ ] Android support
-- [ ] Support multi-language localization
+- ✅ Support multi-language localization
 - ✅ Start Game Page
 
 ### 🗺️ World System

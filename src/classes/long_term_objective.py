@@ -15,6 +15,7 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.run.log import get_logger
 from src.classes.actions import ACTION_INFOS_STR
+from src.i18n import t
 
 logger = get_logger().logger
 
@@ -142,7 +143,7 @@ async def process_avatar_long_term_objective(avatar: "Avatar") -> Optional[Event
         # 更新目标
         event = Event(
             avatar.world.month_stamp,
-            f"{avatar.name}经过深思熟虑，重新确定了自己的长期目标：{new_objective.content}",
+            t("{avatar_name} deliberated and redefined their long-term objective: {objective}", avatar_name=avatar.name, objective=new_objective.content),
             related_avatars=[avatar.id],
             is_major=False
         )
@@ -150,7 +151,7 @@ async def process_avatar_long_term_objective(avatar: "Avatar") -> Optional[Event
         # 首次设定目标
         event = Event(
             avatar.world.month_stamp,
-            f"{avatar.name}确定了自己的长期目标：{new_objective.content}",
+            t("{avatar_name} determined their long-term objective: {objective}", avatar_name=avatar.name, objective=new_objective.content),
             related_avatars=[avatar.id],
             is_major=False
         )

@@ -18,6 +18,8 @@ from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
+from src.i18n import t
+from src.i18n import t
 
 class Simulator:
     def __init__(self, world: World):
@@ -85,7 +87,8 @@ class Simulator:
                             # 记录事件
                             event = Event(
                                 self.world.month_stamp,
-                                f"{avatar.name} 路过 {region.name}，发现无主，将其占据。",
+                                t("{avatar_name} passed by {region_name}, found it ownerless, and occupied it.", 
+                                  avatar_name=avatar.name, region_name=region.name),
                                 related_avatars=[avatar.id]
                             )
                             events.append(event)
@@ -204,7 +207,7 @@ class Simulator:
             # create_random_mortal 内部会获取 existing_avatars，需要确保它处理活人
             new_avatar = create_random_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
             self.world.avatar_manager.register_avatar(new_avatar, is_newly_born=True)
-            event = Event(self.world.month_stamp, f"{new_avatar.name}晋升为修士了。", related_avatars=[new_avatar.id])
+            event = Event(self.world.month_stamp, t("{name} has ascended to a cultivator.", name=new_avatar.name), related_avatars=[new_avatar.id])
             events.append(event)
         return events
 
@@ -305,9 +308,9 @@ class Simulator:
                 
                 desc = ""
                 if is_init:
-                    desc = f"世界初开，天降异象！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                    desc = t("world_creation_phenomenon", name=new_phenomenon.name, desc=new_phenomenon.desc)
                 else:
-                    desc = f"{old_phenomenon.name}消散，天地异象再现！{new_phenomenon.name}：{new_phenomenon.desc}。"
+                    desc = t("phenomenon_change", old_name=old_phenomenon.name, new_name=new_phenomenon.name, new_desc=new_phenomenon.desc)
                 
                 event = Event(
                     self.world.month_stamp,

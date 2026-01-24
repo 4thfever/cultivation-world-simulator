@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
+from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.event import Event
 from src.utils.config import CONFIG
@@ -22,11 +23,14 @@ class Gift(MutualAction):
     - 若接受：物品从发起者转移给目标（装备会自动穿戴并顶替旧装备）。
     - 非灵石物品一次只能赠送1个。
     """
-
-    ACTION_NAME = "赠送"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "gift_action_name"
+    DESC_ID = "gift_description"
+    REQUIREMENTS_ID = "gift_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🎁"
-    DESC = "向对方赠送灵石或物品"
-    DOABLES_REQUIREMENTS = "发起者持有该物品；目标在交互范围内"
     
     PARAMS = {
         "target_avatar": "Avatar",
@@ -51,8 +55,8 @@ class Gift(MutualAction):
         物品对象为 None 代表是灵石。
         """
         # 1. 灵石
-        if item_name == "灵石" or not item_name:
-            return None, "灵石", max(1, amount)
+        if item_name == "灵石" or item_name == "spirit stones" or not item_name:
+            return None, t("spirit stones"), max(1, amount)
         
         # 非灵石强制数量为 1
         forced_amount = 1
@@ -113,14 +117,16 @@ class Gift(MutualAction):
         
         # 如果 name 为空，说明 resolve 失败
         if not name:
-             if original_name and original_name != "灵石":
-                 return False, f"未找到物品：{original_name}"
-             # 如果是灵石但没解析出来（不应该发生，除非amount有问题，但max(1)了），或者是默认情况
+            if original_name and original_name not in ["灵石", "spirit stones"]:
+                return False, t("Item not found: {name}", name=original_name)
+            # 如果是灵石但没解析出来（不应该发生，除非amount有问题，但max(1)了），或者是默认情况
 
         # 1. 灵石
-        if obj is None and name == "灵石":
+        spirit_stones_text = t("spirit stones")
+        if obj is None and name == spirit_stones_text:
             if self.avatar.magic_stone < amount:
-                return False, f"灵石不足（当前：{self.avatar.magic_stone}，需要：{amount}）"
+                return False, t("Insufficient spirit stones (current: {current}, need: {need})",
+                              current=self.avatar.magic_stone, need=amount)
             return True, ""
             
         # 2. 物品 (装备/素材)
@@ -129,19 +135,19 @@ class Gift(MutualAction):
         
         if isinstance(obj, (Weapon, Auxiliary)):
             if self.avatar.weapon is not obj and self.avatar.auxiliary is not obj:
-                 return False, f"未装备该物品：{name}"
+                 return False, t("Item not equipped: {name}", name=name)
         elif obj is not None:
             # Material
             qty = self.avatar.materials.get(obj, 0)
             if qty < amount:
-                 return False, f"物品不足：{name}"
+                 return False, t("Insufficient item: {name}", name=name)
         else:
-             return False, f"未找到物品：{original_name}"
+             return False, t("Item not found: {name}", name=original_name)
 
         # 检查交互范围 (父类 MutualAction.can_start 已经检查了，但这里是 _can_start 额外检查)
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
-            return False, "目标不在交互范围内"
+            return False, t("Target not within interaction range")
             
         return True, ""
 
@@ -152,7 +158,7 @@ class Gift(MutualAction):
         infos = super()._build_prompt_infos(target_avatar)
         
         gift_desc = self._get_gift_description()
-        infos["action_info"] = f"向你赠送 {gift_desc}"
+        infos["action_info"] = t("Gift you {item}", item=gift_desc)
         
         return infos
 
@@ -174,10 +180,12 @@ class Gift(MutualAction):
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-            
+        
+        content = t("{initiator} attempts to gift {item} to {target}",
+                   initiator=self.avatar.name, item=gift_desc, target=target_name)
         event = Event(
             self.world.month_stamp,
-            f"{self.avatar.name} 试图向 {target_name} 赠送 {gift_desc}",
+            content,
             related_avatars=rel_ids
         )
         
@@ -247,7 +255,8 @@ class Gift(MutualAction):
 
         if self._gift_success:
             gift_desc = self._get_gift_description()
-            result_text = f"{self.avatar.name} 成功赠送了 {gift_desc} 给 {target.name}"
+            result_text = t("{initiator} successfully gifted {item} to {target}",
+                          initiator=self.avatar.name, item=gift_desc, target=target.name)
             
             result_event = Event(
                 self.world.month_stamp,

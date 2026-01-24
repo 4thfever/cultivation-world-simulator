@@ -99,7 +99,8 @@ class Tile():
         优雅地获取当前地点的名称。
         如果属于某个区域，返回区域名；否则返回'荒野'。
         """
-        return self.region.name if self.region else "荒野"
+        from src.i18n import t
+        return self.region.name if self.region else t("Wilderness")
 
 
 from src.utils.distance import manhattan_distance

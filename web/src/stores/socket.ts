@@ -4,6 +4,8 @@ import { gameSocket } from '../api/socket';
 import { useWorldStore } from './world';
 import { useUiStore } from './ui';
 import type { TickPayloadDTO } from '../types/api';
+import { message } from '../utils/discreteApi';
+import i18n from '../locales';
 
 export const useSocketStore = defineStore('socket', () => {
   const isConnected = ref(false);
@@ -37,6 +39,41 @@ export const useSocketStore = defineStore('socket', () => {
         // Refresh Detail if open (Silent update)
         if (uiStore.selectedTarget) {
           uiStore.refreshDetail(); 
+        }
+      }
+      // ===== 处理 Toast 消息 (含语言切换) =====
+      else if (data.type === 'toast') {
+        const { level, message: msg, language } = data;
+        
+        // 显示 Toast
+        if (level === 'error') message.error(msg);
+        else if (level === 'warning') message.warning(msg);
+        else if (level === 'success') message.success(msg);
+        else message.info(msg);
+
+        // 如果包含语言字段，则切换前端语言
+        if (language) {
+          try {
+            const currentLang = i18n.mode === 'legacy' 
+                ? (i18n.global.locale as any) 
+                : (i18n.global.locale as any).value;
+            
+            if (currentLang !== language) {
+               if (i18n.mode === 'legacy') {
+                   (i18n.global.locale as any) = language;
+               } else {
+                   (i18n.global.locale as any).value = language;
+               }
+               localStorage.setItem('app_locale', language);
+               
+               // 更新 HTML lang 属性
+               document.documentElement.lang = language === 'zh-CN' ? 'zh-CN' : 'en';
+               
+               console.log(`[Socket] Frontend language switched to ${language}`);
+            }
+          } catch (e) {
+            console.error('[Socket] Failed to switch language:', e);
+          }
         }
       }
       // ===== 处理 LLM 配置要求消息 =====

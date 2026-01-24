@@ -1,0 +1,21 @@
+You are a novelist in a Xianxia world; you need to expand an event into a story of about 200-500 words.
+
+World Background:
+{world_info}
+
+The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+{avatar_infos}
+
+Writing style prompt: {style}
+Extra theme prompt: {story_prompt}
+
+The event that occurred is:
+{event}
+The result is:
+{res}
+
+Note: Return the results in JSON format only, in the format:
+{{
+    "thinking": ..., // Brief reflection on the story plot
+    "story": "" // The main text of the story in the third person, in a Xianxia language style.
+}}

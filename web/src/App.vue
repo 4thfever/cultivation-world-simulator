@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
-import { useUiStore } from './stores/ui'
 import { systemApi } from './api/modules/system'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // Components
 import SplashLayer from './components/SplashLayer.vue'
@@ -18,7 +20,11 @@ import { useGameInit } from './composables/useGameInit'
 import { useGameControl } from './composables/useGameControl'
 
 // Stores
+import { useUiStore } from './stores/ui'
+import { useSettingStore } from './stores/setting'
+
 const uiStore = useUiStore()
+const settingStore = useSettingStore()
 
 const showSplash = ref(true)
 const openedFromSplash = ref(false)
@@ -92,7 +98,7 @@ async function handleSplashAction(key: string) {
     try {
       await systemApi.shutdown()
       window.close()
-      document.body.innerHTML = '<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">游戏已关闭，您可以安全关闭此标签页。</div>'
+      document.body.innerHTML = `<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">${t('game.controls.closed_msg')}</div>`
     } catch (e) {
       console.error('Shutdown failed', e)
     }
@@ -142,6 +148,8 @@ async function handleReturnToMain() {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeydown)
+  // Ensure backend language setting matches frontend preference
+  settingStore.syncBackend()
 })
 
 onUnmounted(() => {
@@ -172,7 +180,7 @@ onUnmounted(() => {
             <!-- 顶部控制栏 -->
             <div class="top-controls">
               <!-- 暂停/播放按钮 -->
-              <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? '继续游戏' : '暂停游戏'">
+              <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
                 <!-- 播放图标 (当暂停时显示) -->
                 <svg v-if="isManualPaused" viewBox="0 0 24 24" width="24" height="24">
                   <path fill="currentColor" d="M8 5v14l11-7z"/>
@@ -193,7 +201,7 @@ onUnmounted(() => {
 
             <!-- 暂停状态提示 -->
             <div v-if="isManualPaused" class="pause-indicator">
-              <div class="pause-text">已暂停</div>
+              <div class="pause-text">{{ t('game.controls.paused') }}</div>
             </div>
 
             <GameCanvas

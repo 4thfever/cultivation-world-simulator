@@ -37,12 +37,13 @@ class Auxiliary(Item):
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
+        from src.i18n import t
         souls = ""
         if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
-            souls = f" 吞噬魂魄：{self.special_data['devoured_souls']}"
+            souls = t(" Devoured Souls: {count}", count=self.special_data['devoured_souls'])
         
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（{self.realm.value}，{self.desc}{souls}）{effect_part}"
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return f"{self.name}（{str(self.realm)}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -56,13 +57,16 @@ class Auxiliary(Item):
         if self.name == "万魂幡":
             souls = self.special_data.get("devoured_souls", 0)
             if souls > 0:
-                full_desc = f"{full_desc} (已吞噬魂魄：{souls})"
+                from src.i18n import t
+                full_desc = t("{desc} (Devoured Souls: {souls})", desc=full_desc, souls=souls)
+
+        grade_display = str(self.realm)
 
         return {
             "id": str(self.id),
             "name": self.name,
             "desc": full_desc,
-            "grade": self.realm.value,
+            "type": "auxiliary",
             "color": self.realm.color_rgb,
             "effect_desc": self.effect_desc,
         }

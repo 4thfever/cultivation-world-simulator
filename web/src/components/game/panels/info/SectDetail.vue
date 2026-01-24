@@ -6,7 +6,9 @@ import StatItem from './components/StatItem.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const props = defineProps<{
   data: SectDetail;
 }>();
@@ -37,33 +39,33 @@ const alignmentText = props.data.alignment;
     <div class="content-scroll">
        <!-- Stats Grid -->
        <div class="stats-grid">
-          <StatItem label="阵营" :value="alignmentText" :class="data.alignment" />
-          <StatItem label="风格" :value="data.style" />
-          <StatItem label="擅长" :value="data.preferred_weapon || '无'" />
-          <StatItem label="成员" :value="data.members?.length || 0" />
+          <StatItem :label="t('game.info_panel.sect.stats.alignment')" :value="alignmentText" :class="data.alignment" />
+          <StatItem :label="t('game.info_panel.sect.stats.style')" :value="data.style" />
+          <StatItem :label="t('game.info_panel.sect.stats.preferred')" :value="data.preferred_weapon || t('common.none')" />
+          <StatItem :label="t('game.info_panel.sect.stats.members')" :value="data.members?.length || 0" />
        </div>
 
        <!-- Intro -->
        <div class="section">
-          <div class="section-title">宗门简介</div>
+          <div class="section-title">{{ t('game.info_panel.sect.sections.intro') }}</div>
           <div class="text-content">{{ data.desc }}</div>
        </div>
        
        <!-- HQ -->
        <div class="section">
-          <div class="section-title">驻地：{{ data.hq_name }}</div>
+          <div class="section-title">{{ t('game.info_panel.sect.sections.hq', { name: data.hq_name }) }}</div>
           <div class="text-content">{{ data.hq_desc }}</div>
        </div>
 
        <!-- Effects -->
        <div class="section">
-         <div class="section-title">宗门加成</div>
-         <div class="text-content highlight">{{ data.effect_desc || '无特殊加成' }}</div>
+         <div class="section-title">{{ t('game.info_panel.sect.sections.bonus') }}</div>
+         <div class="text-content highlight">{{ data.effect_desc || t('game.info_panel.sect.no_bonus') }}</div>
        </div>
 
        <!-- Techniques -->
        <div class="section">
-         <div class="section-title">独门绝学</div>
+         <div class="section-title">{{ t('game.info_panel.sect.sections.techniques') }}</div>
          <div class="list-container" v-if="data.techniques?.length">
             <EntityRow 
               v-for="t in data.techniques" 
@@ -72,12 +74,12 @@ const alignmentText = props.data.alignment;
               @click="showDetail(t)"
             />
          </div>
-         <div v-else class="text-content">无</div>
+         <div v-else class="text-content">{{ t('common.none') }}</div>
        </div>
 
        <!-- Members -->
        <div class="section" v-if="data.members?.length">
-          <div class="section-title">门下弟子</div>
+          <div class="section-title">{{ t('game.info_panel.sect.sections.members') }}</div>
           <div class="list-container">
              <RelationRow 
                v-for="m in data.members" 

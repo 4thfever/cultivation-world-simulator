@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
@@ -24,11 +25,14 @@ class Breakthrough(TimedAction):
     成功率由 `CultivationProgress.get_breakthrough_success_rate()` 决定；
     失败时按 `CultivationProgress.get_breakthrough_fail_reduce_lifespan()` 减少寿元（年）。
     """
-
-    ACTION_NAME = "突破"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "breakthrough_action_name"
+    DESC_ID = "breakthrough_description"
+    REQUIREMENTS_ID = "breakthrough_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "⚡"
-    DESC = "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低。）"
-    DOABLES_REQUIREMENTS = "角色处于瓶颈时；不能连续执行"
     PARAMS = {}
     # 冷却：突破应当有CD，避免连刷
     ACTION_CD_MONTHS: int = 3
@@ -97,7 +101,7 @@ class Breakthrough(TimedAction):
 
     def can_start(self) -> tuple[bool, str]:
         ok = self.avatar.cultivation_progress.can_break_through()
-        return (ok, "" if ok else "当前不处于瓶颈，无法突破")
+        return (ok, "" if ok else t("Not at bottleneck, cannot breakthrough"))
 
     def start(self) -> Event:
         # 初始化状态
@@ -112,7 +116,8 @@ class Breakthrough(TimedAction):
         else:
             self._calamity = None
             self._calamity_other = None
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始尝试突破境界", related_avatars=[self.avatar.id], is_major=True)
+        content = t("{avatar} begins attempting breakthrough", avatar=self.avatar.name)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id], is_major=True)
 
     # TimedAction 已统一 step 逻辑
 
@@ -122,11 +127,15 @@ class Breakthrough(TimedAction):
         result_ok = self._last_result[0] == "success"
         if not self._gen_story:
             # 不生成故事：不出现劫难，仅简单结果
-            core_text = f"{self.avatar.name} 突破{'成功' if result_ok else '失败'}"
+            result_text = t("Breakthrough succeeded") if result_ok else t("Breakthrough failed")
+            core_text = t("{avatar} breakthrough result: {result}", 
+                         avatar=self.avatar.name, result=result_text)
             return [Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id], is_major=True)]
 
         calamity = self._calamity
-        core_text = f"{self.avatar.name} 遭遇了{calamity}劫难，突破{'成功' if result_ok else '失败'}"
+        result_text = t("succeeded") if result_ok else t("failed")
+        core_text = t("{avatar} encountered {calamity} tribulation, breakthrough {result}",
+                     avatar=self.avatar.name, calamity=calamity, result=result_text)
         rel_ids = [self.avatar.id]
         if self._calamity_other is not None:
             try:
@@ -138,6 +147,7 @@ class Breakthrough(TimedAction):
         # 故事参与者：本体 +（可选）相关角色
         prompt = TribulationSelector.get_story_prompt(str(calamity))
         # 突破强制单人模式，不改变关系（因为没有双修/战斗那样的互动）
-        story = await StoryTeller.tell_story(core_text, ("突破成功" if result_ok else "突破失败"), self.avatar, self._calamity_other, prompt=prompt, allow_relation_changes=False)
+        story_result = t("Breakthrough succeeded") if result_ok else t("Breakthrough failed")
+        story = await StoryTeller.tell_story(core_text, story_result, self.avatar, self._calamity_other, prompt=prompt, allow_relation_changes=False)
         events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True))
         return events

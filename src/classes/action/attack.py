@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
@@ -11,17 +12,23 @@ if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
 class Attack(InstantAction, TargetingMixin):
-    ACTION_NAME = "发起战斗"
+    # 多语言 ID
+    ACTION_NAME_ID = "attack_action_name"
+    DESC_ID = "attack_description"
+    REQUIREMENTS_ID = "attack_requirements"
+    STORY_PROMPT_ID = "attack_story_prompt"
+    
+    # 不需要翻译的常量
     EMOJI = "⚔️"
-    DESC = "攻击目标，进行对战"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
-    # 提供用于故事生成的提示词：不出现血量/伤害等数值描述
-    STORY_PROMPT: str | None = (
-        "不要出现具体血量、伤害点数或任何数值表达。战斗要体现出双方的功法、境界、装备等。"
-    )
+    
     # 战斗是大事（长期记忆）
     IS_MAJOR: bool = True
+    
+    @classmethod
+    def get_story_prompt(cls) -> str:
+        """获取故事提示词的翻译"""
+        return t(cls.STORY_PROMPT_ID)
 
     def _execute(self, avatar_name: str) -> None:
         from src.classes.avatar import Avatar
@@ -44,14 +51,14 @@ class Attack(InstantAction, TargetingMixin):
 
     def can_start(self, avatar_name: str) -> tuple[bool, str]:
         if not avatar_name:
-            return False, "缺少目标参数"
+            return False, t("Missing target parameter")
             
         from src.classes.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         if target is None:
-            return False, "目标不存在"
+            return False, t("Target does not exist")
         if target.is_dead:
-            return False, "目标已死亡"
+            return False, t("Target is already dead")
             
         return True, ""
 
@@ -67,7 +74,10 @@ class Attack(InstantAction, TargetingMixin):
                 rel_ids.append(target.id)
             except Exception:
                 pass
-        event = Event(self.world.month_stamp, f"{self.avatar.name} 对 {target_name} 发起战斗（战斗力：{self.avatar.name} {int(s_att)} vs {target_name} {int(s_def)}）", related_avatars=rel_ids, is_major=True)
+        content = t("{attacker} initiates battle against {target} (Power: {attacker} {att_power} vs {target} {def_power})",
+                   attacker=self.avatar.name, target=target_name, 
+                   att_power=int(s_att), def_power=int(s_def))
+        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=True)
         # 记录开始事件内容，供故事生成使用
         self._start_event_content = event.content
         return event
@@ -90,6 +100,6 @@ class Attack(InstantAction, TargetingMixin):
             target,
             res,
             start_text,
-            self.STORY_PROMPT,
+            self.get_story_prompt(),
             check_loot=True
         )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.root import get_essence_types_for_root
@@ -10,11 +11,14 @@ class Cultivate(TimedAction):
     """
     修炼动作，可以增加修仙进度。
     """
-
-    ACTION_NAME = "修炼"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "cultivate_action_name"
+    DESC_ID = "cultivate_description"
+    REQUIREMENTS_ID = "cultivate_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🧘"
-    DESC = "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差。"
-    DOABLES_REQUIREMENTS = "角色未到瓶颈；若在洞府区域，则该洞府需无主或归自己所有。"
     PARAMS = {}
 
     duration_months = 10
@@ -65,14 +69,15 @@ class Cultivate(TimedAction):
     def can_start(self) -> tuple[bool, str]:
         # 瓶颈检查
         if not self.avatar.cultivation_progress.can_cultivate():
-            return False, "修为已达瓶颈，无法继续修炼"
+            return False, t("Cultivation has reached bottleneck, cannot continue cultivating")
         
         region = self.avatar.tile.region
         
         # 如果在修炼区域，检查洞府所有权
         if isinstance(region, CultivateRegion):
             if region.host_avatar is not None and region.host_avatar != self.avatar:
-                return False, f"该洞府已被 {region.host_avatar.name} 占据，无法修炼"
+                return False, t("This cave dwelling has been occupied by {name}, cannot cultivate",
+                               name=region.host_avatar.name)
         
         return True, ""
 
@@ -90,13 +95,15 @@ class Cultivate(TimedAction):
         region = self.avatar.tile.region
         
         if matched_density > 0:
-            efficiency = "进境颇佳"
+            efficiency = t("excellent progress")
         elif isinstance(region, CultivateRegion) and region.essence_density > 0:
-            efficiency = "进境缓慢（灵气不匹配）"
+            efficiency = t("slow progress (essence mismatch)")
         else:
-            efficiency = "进境缓慢（灵气稀薄）"
+            efficiency = t("slow progress (sparse essence)")
 
-        return Event(self.world.month_stamp, f"{self.avatar.name} 在 {self.avatar.tile.location_name} 开始修炼，{efficiency}", related_avatars=[self.avatar.id])
+        content = t("{avatar} begins cultivating at {location}, {efficiency}",
+                   avatar=self.avatar.name, location=self.avatar.tile.location_name, efficiency=efficiency)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
         return []

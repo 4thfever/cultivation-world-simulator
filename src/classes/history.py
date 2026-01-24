@@ -10,6 +10,7 @@ from src.classes.weapon import weapons_by_name
 from src.classes.sect import sects_by_id, sects_by_name
 from src.utils.llm.client import call_llm_with_task_name
 from src.run.log import get_logger
+from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.world import World
@@ -27,7 +28,7 @@ class HistoryManager:
     """
     def __init__(self, world: "World"):
         self.world = world
-        self.config_dir = Path("static/game_configs")
+        self.config_dir = CONFIG.paths.game_configs
         self.logger = get_logger().logger
 
     async def apply_history_influence(self, history_text: str):
@@ -44,7 +45,7 @@ class HistoryManager:
         # Task 1: Map (Regions)
         tasks.append(self._create_task(
             task_suffix="map",
-            template="static/templates/history_influence_map.txt",
+            template=str(CONFIG.paths.templates / "history_influence_map.txt"),
             infos={
                 "world_info": world_info,
                 "history_str": history_text,
@@ -58,7 +59,7 @@ class HistoryManager:
         # Task 2: Sects & Sect Regions
         tasks.append(self._create_task(
             task_suffix="sect",
-            template="static/templates/history_influence_sect.txt",
+            template=str(CONFIG.paths.templates / "history_influence_sect.txt"),
             infos={
                 "world_info": world_info,
                 "history_str": history_text,
@@ -71,7 +72,7 @@ class HistoryManager:
         # Task 3: Items (Techniques, Weapons, Auxiliarys)
         tasks.append(self._create_task(
             task_suffix="item",
-            template="static/templates/history_influence_item.txt",
+            template=str(CONFIG.paths.templates / "history_influence_item.txt"),
             infos={
                 "world_info": world_info,
                 "history_str": history_text,

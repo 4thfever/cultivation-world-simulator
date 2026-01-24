@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { llmApi, type LLMConfigDTO } from '../../../../api'
+import { ref, onMounted, computed } from 'vue'
+import { llmApi } from '../../../../api'
+import type { LLMConfigDTO } from '../../../../types/api'
 import { useMessage } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const message = useMessage()
 const loading = ref(false)
 const testing = ref(false)
@@ -16,45 +19,45 @@ const config = ref<LLMConfigDTO>({
   mode: 'default'
 })
 
-const modeOptions = [
-  { label: '均衡 (Default)', value: 'default', desc: '自动选择模型（推荐）' },
-  { label: '智能 (Normal)', value: 'normal', desc: '全用智能模型' },
-  { label: '快速 (Fast)', value: 'fast', desc: '全用快速模型' }
-]
+const modeOptions = computed(() => [
+  { label: t('llm.modes.default'), value: 'default', desc: t('llm.modes.default_desc') },
+  { label: t('llm.modes.normal'), value: 'normal', desc: t('llm.modes.normal_desc') },
+  { label: t('llm.modes.fast'), value: 'fast', desc: t('llm.modes.fast_desc') }
+])
 
-const presets = [
+const presets = computed(() => [
   {
-    name: '通义千问',
+    name: t('llm.presets.qwen'),
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
     model_name: 'qwen-plus',
     fast_model_name: 'qwen-flash'
   },
   {
-    name: 'DeepSeek',
+    name: t('llm.presets.deepseek'),
     base_url: 'https://api.deepseek.com',
     model_name: 'deepseek-chat',
     fast_model_name: 'deepseek-chat'
   },
   {
-    name: '硅基流动',
+    name: t('llm.presets.siliconflow'),
     base_url: 'https://api.siliconflow.cn/v1',
     model_name: 'Qwen/Qwen2.5-72B-Instruct',
     fast_model_name: 'Qwen/Qwen2.5-7B-Instruct'
   },
   {
-    name: 'OpenRouter',
+    name: t('llm.presets.openrouter'),
     base_url: 'https://openrouter.ai/api/v1',
     model_name: 'anthropic/claude-3.5-sonnet',
     fast_model_name: 'google/gemini-3-flash'
   },
   {
-    name: 'Ollama (本地)',
+    name: t('llm.presets.ollama'),
     base_url: 'http://localhost:11434/v1',
     model_name: 'qwen2.5:7b',
     fast_model_name: 'qwen2.5:7b',
     isLocal: true
   }
-]
+])
 
 async function fetchConfig() {
   loading.value = true
@@ -63,22 +66,23 @@ async function fetchConfig() {
     // 确保 API Key 在前端展示为空，增加安全性提示
     config.value = { ...res, api_key: '' }
   } catch (e) {
-    message.error('获取配置失败')
+    message.error(t('llm.fetch_failed'))
   } finally {
     loading.value = false
   }
 }
 
-function applyPreset(preset: typeof presets[0]) {
+function applyPreset(preset: any) {
   config.value.base_url = preset.base_url
   config.value.model_name = preset.model_name
   config.value.fast_model_name = preset.fast_model_name
   // Ollama doesn't require a real API key, auto-fill a placeholder.
   if ('isLocal' in preset && preset.isLocal) {
     config.value.api_key = 'ollama'
-    message.info(`已应用 ${preset.name} 预设 (请确保 Ollama 已启动)`)
+    message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_local') }))
   } else {
-    message.info(`已应用 ${preset.name} 预设 (请填写 API Key)`)
+    config.value.api_key = ''
+    message.info(t('llm.preset_applied', { name: preset.name, extra: t('llm.preset_extra_key') }))
   }
 }
 
@@ -88,11 +92,11 @@ const emit = defineEmits<{
 
 async function handleTestAndSave() {
   if (!config.value.api_key) {
-    message.warning('请填写 API Key')
+    message.warning(t('llm.api_key_required'))
     return
   }
   if (!config.value.base_url) {
-    message.warning('请填写 Base URL')
+    message.warning(t('llm.base_url_required'))
     return
   }
 
@@ -100,14 +104,15 @@ async function handleTestAndSave() {
   try {
     // 1. 测试连接
     await llmApi.testConnection(config.value)
-    message.success('连接测试成功')
+    message.success(t('llm.test_success'))
     
     // 2. 保存配置
     await llmApi.saveConfig(config.value)
-    message.success('配置已保存')
+    message.success(t('llm.save_success'))
     emit('config-saved')
   } catch (e: any) {
-    message.error('测试或保存失败: ' + (e.response?.data?.detail || e.message))
+    const errorMsg = e.response?.data?.detail || e.message
+    message.error(t('llm.test_save_failed', { error: errorMsg }))
   } finally {
     testing.value = false
   }
@@ -120,12 +125,12 @@ onMounted(() => {
 
 <template>
   <div class="llm-panel">
-    <div v-if="loading" class="loading">加载中...</div>
+    <div v-if="loading" class="loading">{{ t('llm.loading') }}</div>
     <div v-else class="config-form">
       
       <!-- 预设按钮 -->
       <div class="section">
-        <div class="section-title">快速填充</div>
+        <div class="section-title">{{ t('llm.sections.quick_fill') }}</div>
         <div class="preset-buttons">
           <button 
             v-for="preset in presets" 
@@ -140,27 +145,27 @@ onMounted(() => {
 
       <!-- 核心配置 -->
       <div class="section">
-        <div class="section-title">API 配置</div>
+        <div class="section-title">{{ t('llm.sections.api_config') }}</div>
         
         <div class="form-item">
           <div class="label-row">
-            <label>API Key</label>
-            <button class="help-btn" @click="showHelpModal = true">什么是 API / 如何获取?</button>
+            <label>{{ t('llm.labels.api_key') }}</label>
+            <button class="help-btn" @click="showHelpModal = true">{{ t('llm.labels.what_is_api') }}</button>
           </div>
           <input 
             v-model="config.api_key" 
             type="password" 
-            placeholder="在此填入你自己的 API Key (通常以 sk- 开头)"
+            :placeholder="t('llm.placeholders.api_key')"
             class="input-field"
           />
         </div>
 
         <div class="form-item">
-          <label>Base URL</label>
+          <label>{{ t('llm.labels.base_url') }}</label>
           <input 
             v-model="config.base_url" 
             type="text" 
-            placeholder="https://api.example.com/v1"
+            :placeholder="t('llm.placeholders.base_url')"
             class="input-field"
           />
         </div>
@@ -168,26 +173,26 @@ onMounted(() => {
 
       <!-- 模型配置 -->
       <div class="section">
-        <div class="section-title">模型选择</div>
+        <div class="section-title">{{ t('llm.sections.model_selection') }}</div>
         
         <div class="form-item">
-          <label>智能模型 (Normal)</label>
-          <div class="desc">用于处理复杂逻辑、剧情生成等任务</div>
+          <label>{{ t('llm.labels.normal_model') }}</label>
+          <div class="desc">{{ t('llm.descs.normal_model') }}</div>
           <input 
             v-model="config.model_name" 
             type="text" 
-            placeholder="例如: gpt-4, claude-3-opus, qwen-plus"
+            :placeholder="t('llm.placeholders.normal_model')"
             class="input-field"
           />
         </div>
 
         <div class="form-item">
-          <label>快速模型 (Fast)</label>
-          <div class="desc">用于简单判定、频繁交互等任务</div>
+          <label>{{ t('llm.labels.fast_model') }}</label>
+          <div class="desc">{{ t('llm.descs.fast_model') }}</div>
           <input 
             v-model="config.fast_model_name" 
             type="text" 
-            placeholder="例如: gpt-3.5-turbo, qwen-flash"
+            :placeholder="t('llm.placeholders.fast_model')"
             class="input-field"
           />
         </div>
@@ -195,7 +200,7 @@ onMounted(() => {
 
       <!-- 模式选择 -->
       <div class="section">
-        <div class="section-title">运行模式</div>
+        <div class="section-title">{{ t('llm.sections.run_mode') }}</div>
         <div class="mode-options horizontal">
           <label 
             v-for="opt in modeOptions" 
@@ -224,7 +229,7 @@ onMounted(() => {
           :disabled="testing"
           @click="handleTestAndSave"
         >
-          {{ testing ? '测试连接中...' : '测试连通性并保存' }}
+          {{ testing ? t('llm.actions.testing') : t('llm.actions.test_and_save') }}
         </button>
       </div>
 
@@ -234,69 +239,69 @@ onMounted(() => {
     <div v-if="showHelpModal" class="modal-overlay" @click.self="showHelpModal = false">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>什么是 API? 新手配置指南</h3>
+          <h3>{{ t('llm.help.title') }}</h3>
           <button class="close-btn" @click="showHelpModal = false">×</button>
         </div>
         
         <div class="modal-body">
           <div class="help-section">
-            <h4>🌐 1. 什么是 API?</h4>
+            <h4>{{ t('llm.help.q1_title') }}</h4>
             <p>
-              API (应用程序接口) 就像是一条“电话线”。本游戏本身不具备思考能力，它通过这条线连接到远端的 <strong>AI 大脑</strong> (如 Qwen 或 DeepSeek 的服务器)。当游戏进行每月结算并决定 NPC 动作时，会将相关信息通过 API 发给 AI，AI 思考后再把结果传回来。
+              {{ t('llm.help.q1_content') }}
             </p>
           </div>
 
           <div class="help-section">
-            <h4>⚡ 2. 推荐的模型 (2025版)</h4>
+            <h4>{{ t('llm.help.q2_title') }}</h4>
             <div class="model-cards">
               <div class="card">
                 <h5>Qwen-Plus / Fast</h5>
-                <p>国内大厂 (阿里)，稳定且免费额度大，适合入门。</p>
+                <p>{{ t('llm.help.q2_qwen') }}</p>
               </div>
               <div class="card">
                 <h5>DeepSeek V3</h5>
-                <p>性价比极高，中文叙事逻辑更符合国人习惯。</p>
+                <p>{{ t('llm.help.q2_deepseek') }}</p>
               </div>
               <div class="card">
                 <h5>Gemini 3 Pro / Fast</h5>
-                <p>Google 出品，综合性能顶尖。</p>
+                <p>{{ t('llm.help.q2_gemini') }}</p>
               </div>
             </div>
           </div>
 
           <div class="help-section">
-            <h4>📝 3. 如何填入配置?</h4>
-            <p>获得 API 后，你需要填入以下三大核心参数才能使用，通常你可以在api提供方的文档中找到这些参数怎么填：</p>
+            <h4>{{ t('llm.help.q3_title') }}</h4>
+            <p>{{ t('llm.help.q3_content') }}</p>
             <div class="code-block">
-              <p><strong>API Base URL (接口地址):</strong> AI 的访问大门，通常由厂商提供 (如 <code>https://api.deepseek.com</code>)。</p>
-              <p><strong>API Key (密钥):</strong> 你的身份凭证，就像账号密码。</p>
-              <p><strong>Model Name (模型名称):</strong> 告诉服务器你想用哪颗大脑，如 <code>deepseek-chat</code> 或 <code>gemini-3-flash-preview</code>。</p>
+              <p>{{ t('llm.help.q3_base_url') }}</p>
+              <p>{{ t('llm.help.q3_api_key') }}</p>
+              <p>{{ t('llm.help.q3_model_name') }}</p>
             </div>
           </div>
 
           <div class="help-section">
-            <h4>🔗 4. 从哪里获取 Key?</h4>
+            <h4>{{ t('llm.help.q4_title') }}</h4>
             <ul class="link-list">
-               <li><a href="https://bailian.console.aliyun.com/" target="_blank">阿里云百炼 (Qwen / 最推荐)</a></li>
-               <li><a href="https://platform.deepseek.com/" target="_blank">DeepSeek 开放平台 (国内推荐，便宜)</a></li>
-               <li><a href="https://openrouter.ai/" target="_blank">OpenRouter (全机型聚合，推荐)</a></li>
-               <li><a href="https://cloud.siliconflow.cn/" target="_blank">硅基流动 (国内聚合)</a></li>
+               <li><a href="https://bailian.console.aliyun.com/" target="_blank">{{ t('llm.help_links.qwen') }}</a></li>
+               <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
+               <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
+               <li><a href="https://cloud.siliconflow.cn/" target="_blank">{{ t('llm.help_links.siliconflow') }}</a></li>
             </ul>
           </div>
 
           <div class="help-section">
-            <h4>🛡️ 5. 安全说明</h4>
+            <h4>{{ t('llm.help.q5_title') }}</h4>
             <p>
-              您的 API Key 仅保存在您的本地电脑配置文件中 (`static/local_config.yml`)，由本地运行的游戏后端直接与模型厂商通信。本游戏 (Cultivation World Simulator) 是完全开源的程序，绝不会将您的 Key 上传至任何第三方服务器。也请注意不要把local_config.yml文件分享给任何人。
+              {{ t('llm.help.q5_p1') }}
             </p>
             <p>
-              使用token会产生费用，请自行评估使用成本。
+              {{ t('llm.help.q5_p2') }}
             </p>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button class="confirm-btn" @click="showHelpModal = false">我明白了</button>
+          <button class="confirm-btn" @click="showHelpModal = false">{{ t('llm.help.confirm') }}</button>
         </div>
       </div>
     </div>

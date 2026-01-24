@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { NForm, NFormItem, NInputNumber, NSelect, NButton, NInput, useMessage } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 import { systemApi } from '../../../../api'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   readonly: boolean
@@ -21,11 +24,11 @@ const config = ref({
 const loading = ref(false)
 
 // 选项
-const protagonistOptions = [
-  { label: '不引入主角', value: 'none' },
-  { label: '随机引入主角', value: 'random' },
-  { label: '全部引入主角', value: 'all' }
-]
+const protagonistOptions = computed(() => [
+  { label: t('game_start.options.protagonist_none'), value: 'none' },
+  { label: t('game_start.options.protagonist_random'), value: 'random' },
+  { label: t('game_start.options.protagonist_all'), value: 'all' }
+])
 
 async function fetchConfig() {
   try {
@@ -39,7 +42,7 @@ async function fetchConfig() {
       world_history: res.game.world_history || ''
     }
   } catch (e) {
-    message.error('加载配置失败')
+    message.error(t('game_start.messages.load_failed'))
     console.error(e)
   } finally {
     loading.value = false
@@ -50,10 +53,10 @@ async function startGame() {
   try {
     loading.value = true
     await systemApi.startGame(config.value)
-    message.success('配置已保存，正在初始化世界...')
+    message.success(t('game_start.messages.start_success'))
     // 父组件会通过 polling 检测到状态变化，从而自动关闭菜单并显示 loading
   } catch (e) {
-    message.error('开始游戏失败')
+    message.error(t('game_start.messages.start_failed'))
     console.error(e)
     loading.value = false
   }
@@ -67,8 +70,8 @@ onMounted(() => {
 <template>
   <div class="game-start-panel">
     <div class="panel-header">
-      <h3>开始游戏</h3>
-      <p class="description">设定世界的初始状态。注意：游戏开始后，这些设定将无法更改。</p>
+      <h3>{{ t('game_start.title') }}</h3>
+      <p class="description">{{ t('game_start.description') }}</p>
     </div>
 
     <n-form
@@ -77,31 +80,31 @@ onMounted(() => {
       require-mark-placement="right-hanging"
       :disabled="readonly"
     >
-      <n-form-item label="初始修士数量" path="init_npc_num">
+      <n-form-item :label="t('game_start.labels.init_npc_num')" path="init_npc_num">
         <n-input-number v-model:value="config.init_npc_num" :min="0" :max="100" />
       </n-form-item>
 
-      <n-form-item label="活跃宗门数量" path="sect_num">
+      <n-form-item :label="t('game_start.labels.sect_num')" path="sect_num">
         <n-input-number v-model:value="config.sect_num" :min="0" :max="10" />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
-        宗门数量建议少于角色数量的一半
+        {{ t('game_start.tips.sect_num') }}
       </div>
 
-      <n-form-item label="主角引入模式" path="protagonist">
+      <n-form-item :label="t('game_start.labels.protagonist_mode')" path="protagonist">
         <n-select v-model:value="config.protagonist" :options="protagonistOptions" />
       </n-form-item>
       
       <div class="tip-text" v-if="config.protagonist !== 'none'">
         <span v-if="config.protagonist === 'random'">
-          随机引入：每次生成角色时，有 5% 的概率使用预设的“小说主角”模板。
+          {{ t('game_start.tips.protagonist_random') }}
         </span>
         <span v-if="config.protagonist === 'all'">
-          全部引入：开局时强制生成所有预设的“小说主角”。
+          {{ t('game_start.tips.protagonist_all') }}
         </span>
       </div>
 
-      <n-form-item label="每月新生修士概率" path="npc_awakening_rate_per_month">
+      <n-form-item :label="t('game_start.labels.new_npc_rate')" path="npc_awakening_rate_per_month">
         <n-input-number 
             v-model:value="config.npc_awakening_rate_per_month" 
             :min="0" 
@@ -112,23 +115,23 @@ onMounted(() => {
         />
       </n-form-item>
 
-      <n-form-item label="世界历史背景" path="world_history">
+      <n-form-item :label="t('game_start.labels.world_history')" path="world_history">
         <n-input
           v-model:value="config.world_history"
           type="textarea"
-          placeholder="请输入修仙界历史背景（可选）。"
+          :placeholder="t('game_start.placeholders.world_history')"
           :autosize="{ minRows: 3, maxRows: 6 }"
           maxlength="800"
           show-count
         />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
-        可以包括上古、中古、近古。注意：启用此功能会调用LLM，初始化时间会显著增加。
+        {{ t('game_start.tips.world_history') }}
       </div>
 
       <div class="actions" v-if="!readonly">
         <n-button type="primary" size="large" @click="startGame" :loading="loading">
-          开始
+          {{ t('game_start.actions.start') }}
         </n-button>
       </div>
     </n-form>

@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 import asyncio
 
+from src.i18n import t
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.event import Event
 from src.utils.llm import call_llm_with_task_name
@@ -23,30 +24,69 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     """
     互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
     子类需要定义：
-      - ACTION_NAME: 当前动作名（给模板展示）
-      - DESC: 动作语义说明（给模板展示）
+      - ACTION_NAME_ID: 当前动作名的 msgid
+      - DESC_ID: 动作语义说明的 msgid
+      - REQUIREMENTS_ID: 可执行条件的 msgid
       - FEEDBACK_ACTIONS: 反馈可选的 action name 列表（直接可执行）
       - PARAMS: 参数，需要包含 target_avatar
-      - FEEDBACK_ACTIONS: 反馈可选的 action name 列表（直接可执行）
     """
-
-    ACTION_NAME: str = "MutualAction"
+    
+    # 多语言 ID（子类覆盖）
+    ACTION_NAME_ID: str = "mutual_action_name"
+    DESC_ID: str = ""
+    REQUIREMENTS_ID: str = "mutual_action_requirements"
+    STORY_PROMPT_ID: str = ""
+    
+    # 不需要翻译的常量
     EMOJI: str = "💬"
-    DESC: str = ""
-    DOABLES_REQUIREMENTS: str = "交互范围内可互动"
     PARAMS: dict = {"target_avatar": "Avatar"}
     FEEDBACK_ACTIONS: list[str] = []
-    # 反馈动作 -> 中文标签 的映射，供事件展示复用
-    FEEDBACK_LABELS: dict[str, str] = {
-        "Accept": "接受",
-        "Reject": "拒绝",
-        "MoveAwayFromAvatar": "试图远离",
-        "MoveAwayFromRegion": "试图离开区域",
-        "Escape": "逃离",
-        "Attack": "战斗",
+    
+    # 反馈动作 -> msgid 的映射（子类可覆盖）
+    FEEDBACK_LABEL_IDS: dict[str, str] = {
+        "Accept": "feedback_accept",
+        "Reject": "feedback_reject",
+        "MoveAwayFromAvatar": "feedback_move_away_from_avatar",
+        "MoveAwayFromRegion": "feedback_move_away_from_region",
+        "Escape": "feedback_escape",
+        "Attack": "feedback_attack",
     }
-    # 若该互动动作可能生成小故事，可在子类中覆盖该提示词
-    STORY_PROMPT: str | None = None
+    
+    @classmethod
+    def get_action_name(cls) -> str:
+        """获取动作名称的翻译"""
+        if cls.ACTION_NAME_ID:
+            return t(cls.ACTION_NAME_ID)
+        return cls.__name__
+    
+    @classmethod
+    def get_desc(cls) -> str:
+        """获取动作描述的翻译"""
+        if cls.DESC_ID:
+            return t(cls.DESC_ID)
+        return ""
+    
+    @classmethod
+    def get_requirements(cls) -> str:
+        """获取可执行条件的翻译"""
+        if cls.REQUIREMENTS_ID:
+            return t(cls.REQUIREMENTS_ID)
+        return ""
+    
+    @classmethod
+    def get_feedback_label(cls, feedback_name: str) -> str:
+        """获取反馈标签的翻译"""
+        msgid = cls.FEEDBACK_LABEL_IDS.get(feedback_name, "")
+        if msgid:
+            return t(msgid)
+        return feedback_name
+    
+    @classmethod
+    def get_story_prompt(cls) -> str:
+        """获取故事提示词的翻译"""
+        if cls.STORY_PROMPT_ID:
+            return t(cls.STORY_PROMPT_ID)
+        return ""
 
     def __init__(self, avatar: "Avatar", world: "World"):
         super().__init__(avatar, world)
@@ -74,8 +114,8 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         world_info = self.world.static_info
 
         feedback_actions = self.FEEDBACK_ACTIONS
-        desc = self.DESC
-        action_name = self.ACTION_NAME
+        desc = self.get_desc()  # 使用 classmethod 获取翻译
+        action_name = self.get_action_name()  # 使用 classmethod 获取翻译
         return {
             "world_info": world_info,
             "avatar_infos": avatar_infos,
@@ -146,11 +186,11 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         """
         target = self._get_target_avatar(target_avatar)
         if target is None:
-            return False, "目标不存在"
+            return False, t("Target does not exist")
         if target == self.avatar:
-            return False, "不能对自己发起互动"
+            return False, t("Cannot initiate interaction with self")
         if target.is_dead:
-            return False, "目标已死亡"
+            return False, t("Target is already dead")
         # 调用子类的额外检查
         return self._can_start(target)
 
@@ -171,13 +211,16 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
 
         target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
-        action_name = self.ACTION_NAME
+        action_name = self.get_action_name()
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
         # 根据IS_MAJOR类变量设置事件类型
         is_major = self.__class__.IS_MAJOR if hasattr(self.__class__, 'IS_MAJOR') else False
-        event = Event(self._start_month_stamp, f"{self.avatar.name} 对 {target_name} 发起 {action_name}", related_avatars=rel_ids, is_major=is_major)
+        
+        content = t("{initiator} initiates {action} with {target}",
+                   initiator=self.avatar.name, action=action_name, target=target_name)
+        event = Event(self._start_month_stamp, content, related_avatars=rel_ids, is_major=is_major)
         
         return event
 
@@ -209,11 +252,15 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
 
             target.thinking = thinking
             self._settle_feedback(target, feedback)
-            fb_label = self.FEEDBACK_LABELS.get(str(feedback).strip(), str(feedback))
+            
+            # 使用 classmethod 获取翻译后的反馈标签
+            fb_label = self.get_feedback_label(str(feedback).strip())
             
             # 使用开始时间戳
             month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
-            feedback_event = Event(month_stamp, f"{target.name} 对 {self.avatar.name} 的反馈：{fb_label}", related_avatars=[self.avatar.id, target.id])
+            content = t("{target} feedback to {initiator}: {feedback}",
+                       target=target.name, initiator=self.avatar.name, feedback=fb_label)
+            feedback_event = Event(month_stamp, content, related_avatars=[self.avatar.id, target.id])
             
             self._apply_feedback(target, feedback)
             return ActionResult(status=ActionStatus.COMPLETED, events=[feedback_event])

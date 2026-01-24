@@ -5,10 +5,28 @@ from src.classes.color import Color
 
 @total_ordering
 class Realm(Enum):
-    Qi_Refinement = "练气"
-    Foundation_Establishment = "筑基"
-    Core_Formation = "金丹"
-    Nascent_Soul = "元婴"
+    Qi_Refinement = "QI_REFINEMENT"           # 练气
+    Foundation_Establishment = "FOUNDATION_ESTABLISHMENT"  # 筑基
+    Core_Formation = "CORE_FORMATION"        # 金丹
+    Nascent_Soul = "NASCENT_SOUL"            # 元婴
+
+    def __str__(self) -> str:
+        """返回境界的翻译名称"""
+        from src.i18n import t
+        return t(realm_msg_ids.get(self, self.value))
+
+    @staticmethod
+    def from_str(s: str) -> "Realm":
+        s = str(s).strip().replace(" ", "_").upper()
+        # 建立映射以兼容多种输入格式
+        mapping = {
+            "练气": "QI_REFINEMENT", "QI_REFINEMENT": "QI_REFINEMENT", "QI REFINEMENT": "QI_REFINEMENT",
+            "筑基": "FOUNDATION_ESTABLISHMENT", "FOUNDATION_ESTABLISHMENT": "FOUNDATION_ESTABLISHMENT", "FOUNDATION ESTABLISHMENT": "FOUNDATION_ESTABLISHMENT",
+            "金丹": "CORE_FORMATION", "CORE_FORMATION": "CORE_FORMATION", "CORE FORMATION": "CORE_FORMATION",
+            "元婴": "NASCENT_SOUL", "NASCENT_SOUL": "NASCENT_SOUL", "NASCENT SOUL": "NASCENT_SOUL"
+        }
+        realm_id = mapping.get(s, "QI_REFINEMENT")
+        return Realm(realm_id)
 
     @property
     def color_rgb(self) -> tuple[int, int, int]:
@@ -51,9 +69,25 @@ class Realm(Enum):
 
 @total_ordering
 class Stage(Enum):
-    Early_Stage = "前期"
-    Middle_Stage = "中期"
-    Late_Stage = "后期"
+    Early_Stage = "EARLY_STAGE"    # 前期
+    Middle_Stage = "MIDDLE_STAGE"  # 中期
+    Late_Stage = "LATE_STAGE"      # 后期
+
+    def __str__(self) -> str:
+        """返回阶段的翻译名称"""
+        from src.i18n import t
+        return t(stage_msg_ids.get(self, self.value))
+
+    @staticmethod
+    def from_str(s: str) -> "Stage":
+        s = str(s).strip().replace(" ", "_").upper()
+        mapping = {
+            "前期": "EARLY_STAGE", "EARLY_STAGE": "EARLY_STAGE", "EARLY STAGE": "EARLY_STAGE",
+            "中期": "MIDDLE_STAGE", "MIDDLE_STAGE": "MIDDLE_STAGE", "MIDDLE STAGE": "MIDDLE_STAGE",
+            "后期": "LATE_STAGE", "LATE_STAGE": "LATE_STAGE", "LATE STAGE": "LATE_STAGE"
+        }
+        stage_id = mapping.get(s, "EARLY_STAGE")
+        return Stage(stage_id)
 
     def __lt__(self, other):
         if not isinstance(other, Stage):
@@ -74,6 +108,20 @@ class Stage(Enum):
         if not isinstance(other, Stage):
             return NotImplemented
         return STAGE_RANK[self] >= STAGE_RANK[other]
+
+# msgid映射
+realm_msg_ids = {
+    Realm.Qi_Refinement: "qi_refinement",
+    Realm.Foundation_Establishment: "foundation_establishment",
+    Realm.Core_Formation: "core_formation",
+    Realm.Nascent_Soul: "nascent_soul",
+}
+
+stage_msg_ids = {
+    Stage.Early_Stage: "early_stage",
+    Stage.Middle_Stage: "middle_stage",
+    Stage.Late_Stage: "late_stage",
+}
 
 # 统一的境界顺序与排名，避免重复定义
 REALM_ORDER: tuple[Realm, ...] = (
@@ -145,12 +193,15 @@ class CultivationProgress:
         return REALM_TO_MOVE_STEP[self.realm]
 
     def get_detailed_info(self) -> str:
+        from src.i18n import t
         can_break_through = self.can_break_through()
-        can_break_through_str = "需要突破" if can_break_through else "未到瓶颈无需突破"
-        return f"{self.realm.value}{self.stage.value}({self.level}级){can_break_through_str}"
+        can_break_through_str = t("Needs breakthrough") if can_break_through else t("Not at bottleneck, no breakthrough needed")
+        return t("{realm} {stage} (Level {level}) {status}", 
+                realm=str(self.realm), stage=str(self.stage), 
+                level=self.level, status=can_break_through_str)
 
     def get_info(self) -> str:
-        return f"{self.realm.value}{self.stage.value}"
+        return f"{self.realm} {self.stage}"
 
     def get_exp_required(self) -> int:
         """
@@ -254,7 +305,11 @@ class CultivationProgress:
         return self.exp >= exp_required
 
     def __str__(self) -> str:
-        return f"{self.realm.value}{self.stage.value}({self.level}级)。在瓶颈期：{'是' if self.is_in_bottleneck() else '否'}"
+        from src.i18n import t
+        bottleneck_status = t("Yes") if self.is_in_bottleneck() else t("No")
+        return t("{realm} {stage} (Level {level}). At bottleneck: {status}",
+                realm=str(self.realm), stage=str(self.stage),
+                level=self.level, status=bottleneck_status)
 
     def get_breakthrough_success_rate(self) -> float:
         return breakthrough_success_rate_by_realm[self.realm]

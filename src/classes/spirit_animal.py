@@ -29,7 +29,7 @@ class SpiritAnimal:
         return mapping.get(self.realm, 0)
 
     def get_info(self) -> str:
-        return f"{self.name}（{self.realm.value}）"
+        return f"{self.name}（{str(self.realm)}）"
 
     @property
     def effects(self) -> dict[str, object]:
@@ -43,8 +43,8 @@ class SpiritAnimal:
         from src.classes.effect import format_effects_to_text
         return {
             "name": self.name,
-            "desc": f"境界：{self.realm.value}",
-            "grade": self.realm.value,
+            "desc": f"境界：{str(self.realm)}",
+            "grade": str(self.realm),
             "effect_desc": format_effects_to_text(self.effects),
         }
 

@@ -1,0 +1,343 @@
+{
+  "ui": {
+    "system_menu": "System Menu",
+    "system_menu_title": "System Menu",
+    "start_game": "Start Game",
+    "load_game": "Load Game",
+    "save_game": "Save Game",
+    "create_character": "Create Character",
+    "delete_character": "Delete Character",
+    "settings": "Settings",
+    "achievements": "Achievements",
+    "exit": "Exit",
+    "other": "Other",
+    "language": "Language",
+    "chinese": "Simplified Chinese",
+    "english": "English",
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "llm_settings": "LLM Settings",
+    "other_options": "Other Options",
+    "other_options_desc": "Manage game process and exit.",
+    "return_to_main": "Return to Main Menu",
+    "return_to_main_desc": "Return to title screen (Unsaved progress will be lost)",
+    "quit_game": "Quit Game",
+    "quit_game_desc": "Close application and exit to desktop"
+  },
+  "save_load": {
+    "loading": "Loading...",
+    "new_save": "New Save",
+    "new_save_desc": "Click to create a new save file",
+    "empty": "No saves found",
+    "game_time": "Game Time: {time}",
+    "load": "Load",
+    "save_success": "Saved successfully: {filename}",
+    "save_failed": "Failed to save",
+    "load_confirm": "Are you sure you want to load save {filename}? Unsaved progress will be lost.",
+    "load_success": "Loaded successfully",
+    "load_failed": "Failed to load",
+    "fetch_failed": "Failed to fetch save list"
+  },
+  "llm": {
+    "loading": "Loading...",
+    "fetch_failed": "Failed to fetch configuration",
+    "test_success": "Connection test successful",
+    "save_success": "Configuration saved",
+    "test_save_failed": "Test or save failed: {error}",
+    "api_key_required": "Please fill in API Key",
+    "base_url_required": "Please fill in Base URL",
+    "preset_applied": "Applied {name} preset ({extra})",
+    "preset_extra_key": "Please fill in API Key",
+    "preset_extra_local": "Please ensure Ollama is running",
+    "sections": {
+      "quick_fill": "Quick Fill",
+      "api_config": "API Configuration",
+      "model_selection": "Model Selection",
+      "run_mode": "Run Mode"
+    },
+    "labels": {
+      "api_key": "API Key",
+      "base_url": "Base URL",
+      "normal_model": "Normal Model (Normal)",
+      "fast_model": "Fast Model (Fast)",
+      "what_is_api": "What is API / How to get?"
+    },
+    "descs": {
+      "normal_model": "Used for complex logic, story generation, etc.",
+      "fast_model": "Used for simple judgments, frequent interactions, etc."
+    },
+    "placeholders": {
+      "api_key": "Enter your API Key here (usually starts with sk-)",
+      "base_url": "https://api.example.com/v1",
+      "normal_model": "e.g., gpt-4, claude-3-opus, qwen-plus",
+      "fast_model": "e.g., gpt-3.5-turbo, qwen-flash"
+    },
+    "modes": {
+      "default": "Balanced (Default)",
+      "default_desc": "Auto-select models (Recommended)",
+      "normal": "Intelligent (Normal)",
+      "normal_desc": "Use intelligent model for all tasks",
+      "fast": "Fast (Fast)",
+      "fast_desc": "Use fast model for all tasks"
+    },
+    "actions": {
+      "testing": "Testing connection...",
+      "test_and_save": "Test Connectivity and Save"
+    },
+    "help": {
+      "title": "What is API? Configuration Guide",
+      "q1_title": "🌐 1. What is API?",
+      "q1_content": "API (Application Programming Interface) is like a 'phone line'. This game itself doesn't have thinking capabilities; it connects to a remote AI 'brain' (like Qwen or DeepSeek servers) through this line. When the game settles monthly and decides NPC actions, it sends relevant information through the API to the AI, which thinks and returns the result.",
+      "q2_title": "⚡ 2. Recommended Models (2025)",
+      "q2_qwen": "Major domestic player (Alibaba), stable with large free quotas, good for beginners.",
+      "q2_deepseek": "Extremely high cost-performance, logic fits Chinese context well.",
+      "q2_gemini": "Produced by Google, top-tier comprehensive performance.",
+      "q3_title": "📝 3. How to fill configuration?",
+      "q3_content": "Once you have an API, you need to fill in these three core parameters. Usually, you can find them in the provider's documentation:",
+      "q3_base_url": "API Base URL: The entry point to AI, usually provided by the vendor (e.g., https://api.deepseek.com).",
+      "q3_api_key": "API Key: Your identity credential, like an account password.",
+      "q3_model_name": "Model Name: Tell the server which 'brain' to use, e.g., deepseek-chat or gemini-3-flash-preview.",
+      "q4_title": "🔗 4. Where to get Key?",
+      "q5_title": "🛡️ 5. Security Note",
+      "q5_p1": "Your API Key is only saved in your local computer's configuration file (`static/local_config.yml`), and the locally running game backend communicates directly with the model vendor. This game (Cultivation World Simulator) is completely open-source and will never upload your Key to any third-party server. Also, please do not share your local_config.yml file with anyone.",
+      "q5_p2": "Token usage incurs costs; please evaluate the cost of use yourself.",
+      "confirm": "I understand"
+    },
+    "presets": {
+      "qwen": "Qwen",
+      "deepseek": "DeepSeek",
+      "siliconflow": "SiliconFlow",
+      "openrouter": "OpenRouter",
+      "ollama": "Ollama (Local)"
+    },
+    "help_links": {
+      "qwen": "Aliyun Bailian (Qwen / Recommended)",
+      "deepseek": "DeepSeek Platform (Fast & Cheap)",
+      "openrouter": "OpenRouter (All-in-one, Recommended)",
+      "siliconflow": "SiliconFlow (Domestic Aggregation)"
+    }
+  },
+  "game_start": {
+    "title": "Start Game",
+    "description": "Configure initial world state. Note: These settings cannot be changed once the game starts.",
+    "labels": {
+      "init_npc_num": "Initial Cultivators",
+      "sect_num": "Active Sects",
+      "protagonist_mode": "Protagonist Mode",
+      "new_npc_rate": "Monthly New Cultivator Rate",
+      "world_history": "World History Background"
+    },
+    "tips": {
+      "sect_num": "Sect number should be less than half of initial cultivators.",
+      "protagonist_random": "Random: 5% chance to use preset 'Novel Protagonist' template when generating characters.",
+      "protagonist_all": "All: Force generation of all preset 'Novel Protagonists' at start.",
+      "world_history": "Can include ancient, medieval, or recent history. Note: Enabling this calls LLM and significantly increases initialization time."
+    },
+    "placeholders": {
+      "world_history": "Enter cultivation world history background (Optional)."
+    },
+    "options": {
+      "protagonist_none": "No Protagonists",
+      "protagonist_random": "Random Introduction",
+      "protagonist_all": "Introduce All"
+    },
+    "actions": {
+      "start": "Start"
+    },
+    "messages": {
+      "load_failed": "Failed to load configuration",
+      "start_success": "Configuration saved, initializing world...",
+      "start_failed": "Failed to start game"
+    }
+  },
+  "splash": {
+    "title": "AI Cultivation World Simulator",
+    "start": "Start Cultivation",
+    "continue": "Continue Path",
+    "settings": "Settings"
+  },
+  "loading": {
+    "title": "AI Cultivation World Simulator",
+    "subtitle": "AI Cultivation World Simulator",
+    "phase": {
+      "scanning_assets": "Scanning World Assets",
+      "loading_map": "Building Primordial Map",
+      "processing_history": "Deducing Heavenly Dao History",
+      "initializing_sects": "Sects Entering World",
+      "generating_avatars": "Cultivators Descending",
+      "checking_llm": "Connecting Heavenly Will",
+      "loading_save": "Loading Karmic Ties",
+      "parsing_data": "Parsing Laws of Heaven and Earth",
+      "restoring_state": "Restoring Spacetime Plane",
+      "finalizing": "All Phenomena Returning to Position",
+      "complete": "Heaven and Earth Opening",
+      "chaos": "Primordial Chaos",
+      "generating_initial_events": "Generating Initial Events"
+    },
+    "error": "Initialization Failed",
+    "unknown_error": "Unknown Error",
+    "retry": "Retry Initialization",
+    "tips_label": "Cultivation Tips",
+    "elapsed": "Waited {seconds} seconds",
+    "tips": [
+      "Modifying character goals can change their behavior style.",
+      "Character traits greatly influence their behavior style.",
+      "Cultivating in a cave dwelling matching your spiritual root doubles efficiency.",
+      "Heavenly Spiritual Root characters have double efficiency in any cave dwelling.",
+      "Changing world spirit density affects bonuses and subtly adjusts character behavior.",
+      "Occasionally, protagonists from cultivation novels may transmigrate into this world.",
+      "Every character has their own real thoughts and emotions.",
+      "Besides cultivation, alchemy and qi refinement are also important.",
+      "Participating in auctions may yield bargains, but beware of villains chasing you.",
+      "Jianghu peers will give you a nickname based on your actions.",
+      "Dual cultivation is good, but please exercise restraint.",
+      "Recovering at the sect headquarters can fully restore HP.",
+      "The gap between realms is immense; challenging a higher realm is as hard as ascending to heaven.",
+      "Characters with the Child of Destiny trait have continuous good luck and fortuitous encounters.",
+      "Modern world transmigrators only want to return to reality, but it is impossible.",
+      "Elixirs have a time limit for their effects.",
+      "Because the LLM needs to think, game startup may take a long time.",
+      "Simulating the world consumes a lot of LLM tokens, please be aware.",
+      "Setting history at the start will change the entire cultivation world accordingly.",
+      "Treasures won at auctions can greatly enhance your strength, but save your spirit stones."
+    ]
+  },
+  "common": {
+    "year": "Y",
+    "month": "M",
+    "none": "None",
+    "loading": "Loading...",
+    "version": "Version",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "error": "Error",
+    "success": "Success"
+  },
+  "game": {
+    "status_bar": {
+      "phenomenon": "World Phenomenon",
+      "effect": "Effect: ",
+      "duration": "Lasts {years} Years",
+      "selector_title": "Intervention: Change Phenomenon",
+      "empty_data": "No phenomenon data",
+      "cultivators": "Cultivators: {count}",
+      "change_success": "Phenomenon changed to: {name}",
+      "click_to_change": "(Click to change phenomenon)",
+      "author_bilibili": "Bilibili",
+      "author_github": "Github"
+    },
+    "controls": {
+      "resume": "Resume Game",
+      "pause": "Pause Game",
+      "paused": "Paused",
+      "closed_msg": "Game closed. You can safely close this tab."
+    },
+    "event_panel": {
+      "title": "Event Logs",
+      "filter_all": "All",
+      "deceased": "(Deceased)",
+      "add_second": "+ Add Second",
+      "load_more": "Scroll up to load more",
+      "empty_dual": "No events between these two",
+      "empty_single": "No events for this cultivator",
+      "empty_none": "No events"
+    },
+    "info_panel": {
+      "popup": {
+        "effect": "Effect: ",
+        "drops": "Drops: ",
+        "hq": "HQ: ",
+        "types": {
+          "elixir": "Elixir",
+          "plant": "Plant",
+          "lode": "Lode",
+          "item": "Item",
+          "weapon": "Weapon",
+          "auxiliary": "Auxiliary",
+          "technique": "Art",
+          "sect": "Sect",
+          "persona": "Trait",
+          "SWORD": "Sword",
+          "SABER": "Saber",
+          "SPEAR": "Spear",
+          "STAFF": "Staff",
+          "FAN": "Fan",
+          "WHIP": "Whip",
+          "ZITHER": "Zither",
+          "FLUTE": "Flute",
+          "HIDDEN_WEAPON": "Hidden Weapon"
+        }
+      },
+      "avatar": {
+        "set_objective": "Set Objective",
+        "clear_objective": "Clear Objective",
+        "dead_with_reason": "Deceased ({reason})",
+        "unknown_reason": "Unknown",
+        "long_term_objective": "Long-term",
+        "short_term_objective": "Short-term",
+        "stats": {
+          "realm": "Realm",
+          "age": "Age",
+          "hp": "HP",
+          "gender": "Gender",
+          "alignment": "Alignment",
+          "sect": "Sect",
+          "rogue": "Rogue",
+          "root": "Root",
+          "magic_stone": "Stones",
+          "appearance": "Look",
+          "battle_strength": "Power",
+          "emotion": "Emotion"
+        },
+        "sections": {
+          "thinking": "Thinking",
+          "traits": "Traits",
+          "techniques_equipment": "Arts & Gear",
+          "materials": "Materials",
+          "relations": "Relations",
+          "current_effects": "Current Effects"
+        },
+        "weapon_meta": "Proficiency {value}",
+        "relation_meta": "{relation} of {owner}",
+        "modals": {
+          "set_long_term": "Set Long-term Objective",
+          "placeholder": "Enter objective...",
+          "set_failed": "Failed to set",
+          "clear_confirm": "Are you sure you want to clear the long-term objective?"
+        }
+      },
+      "region": {
+        "view_sect": "View Sect Details",
+        "essence_title": "Qi Environment",
+        "essence_info": "{type} Qi · Density {density}",
+        "sections": {
+          "host": "Cave Owner",
+          "animals": "Animals",
+          "plants": "Plants",
+          "lodes": "Minerals",
+          "market": "Market"
+        },
+        "host_meta": "Owner",
+        "no_host": "Unowned",
+        "price_meta": "{price} Stones"
+      },
+      "sect": {
+        "stats": {
+          "alignment": "Alignment",
+          "style": "Style",
+          "preferred": "Weapon",
+          "members": "Members"
+        },
+        "sections": {
+          "intro": "Introduction",
+          "hq": "HQ: {name}",
+          "bonus": "Sect Bonus",
+          "techniques": "Unique Arts",
+          "members": "Disciples"
+        },
+        "no_bonus": "No special bonus"
+      }
+    }
+  }
+}

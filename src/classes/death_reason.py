@@ -4,9 +4,9 @@ from dataclasses import dataclass
 from typing import Optional
 
 class DeathType(Enum):
-    OLD_AGE = "老死"
-    BATTLE = "战死"
-    SERIOUS_INJURY = "重伤"
+    OLD_AGE = "old_age"
+    BATTLE = "battle"
+    SERIOUS_INJURY = "serious_injury"
 
 @dataclass
 class DeathReason:
@@ -14,11 +14,12 @@ class DeathReason:
     killer_name: Optional[str] = None
 
     def __str__(self) -> str:
+        from src.i18n import t
         if self.death_type == DeathType.BATTLE:
-            killer = self.killer_name if self.killer_name else "未知角色"
-            return f"被{killer}杀害"
+            killer = self.killer_name if self.killer_name else t("Unknown character")
+            return t("Killed by {killer}", killer=killer)
         elif self.death_type == DeathType.SERIOUS_INJURY:
-            return "重伤不治身亡"
+            return t("Died from severe injuries")
         elif self.death_type == DeathType.OLD_AGE:
-            return "寿元耗尽而亡"
-        return self.death_type.value
+            return t("Died of old age")
+        return t(self.death_type.value)

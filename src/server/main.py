@@ -44,6 +44,7 @@ from src.utils import protagonist as prot_utils
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
+from src.classes.language import language_manager, LanguageType
 
 # 全局游戏实例
 game_instance = {
@@ -560,6 +561,30 @@ async def game_loop():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # 初始化语言设置
+    from src.utils.config import update_paths_for_language
+    from src.utils.df import reload_game_configs
+    
+    system_conf = getattr(CONFIG, "system", None)
+    if system_conf:
+        # OmegaConf 对象支持 get 或者 . 访问，这里用 getattr 安全一点
+        lang_code = getattr(system_conf, "language", "zh-CN")
+        language_manager.set_language(str(lang_code))
+    else:
+        language_manager.set_language("zh-CN")
+    
+    # 根据语言初始化路径
+    update_paths_for_language()
+    # 路径更新后，必须重载一次 df 数据，因为模块导入时路径可能还是空的或旧的
+    reload_game_configs()
+    
+    # 关键修复：重新加载所有业务静态数据 (Sect, Technique等)
+    # 确保内存中的对象与当前的语言设置一致。
+    # 因为模块导入(import)时可能使用的是默认配置，必须在启动时强制刷新一次。
+    reload_all_static_data()
+    
+    print(f"Current Language: {language_manager}")
+
     # 启动时不再自动开始初始化游戏，等待前端指令
     # 保持 init_status 为 idle
     print("服务器启动，等待开始游戏指令...")
@@ -1320,7 +1345,10 @@ def create_avatar(req: CreateAvatarRequest):
         given_name = (req.given_name or "").strip()
         if surname or given_name:
             if surname and given_name:
-                final_name = f"{surname}{given_name}"
+                if language_manager.current == LanguageType.EN_US:
+                    final_name = f"{surname} {given_name}"
+                else:
+                    final_name = f"{surname}{given_name}"
                 have_name = True
             elif surname:
                 final_name = f"{surname}某"
@@ -1403,6 +1431,57 @@ def delete_avatar(req: DeleteAvatarRequest):
 
 
 # --- LLM Config API ---
+
+class LanguageRequest(BaseModel):
+    lang: str
+
+@app.get("/api/config/language")
+def get_language_api():
+    """获取当前语言设置"""
+    return {"lang": str(language_manager)}
+
+@app.post("/api/config/language")
+def set_language_api(req: LanguageRequest):
+    """设置并保存语言设置"""
+    # 1. 更新内存
+    language_manager.set_language(req.lang)
+    
+    # 2. 更新路径配置
+    from src.utils.config import update_paths_for_language
+    update_paths_for_language(req.lang)
+    
+    # 3. 重新加载 CSV 数据
+    from src.utils.df import reload_game_configs
+    reload_game_configs()
+    
+    # 4. 重新加载所有业务静态数据 (Sects, Techniques, etc.)
+    reload_all_static_data()
+    
+    # 5. 持久化到 local_config.yml
+    local_config_path = "static/local_config.yml"
+    try:
+        if os.path.exists(local_config_path):
+            conf = OmegaConf.load(local_config_path)
+        else:
+            conf = OmegaConf.create({})
+        
+        if "system" not in conf:
+            conf.system = {}
+            
+        conf.system.language = str(language_manager)
+        
+        OmegaConf.save(conf, local_config_path)
+        
+        # 同时更新全局 CONFIG (虽然下次重启才会完全生效，但保持一致性)
+        if not hasattr(CONFIG, "system"):
+            # 这是一个 hack，因为 DictConfig 可能不支持动态添加属性，除非是 struct mode=false
+            # OmegaConf 默认加载出来的通常是开放的
+            pass 
+        
+        return {"status": "ok"}
+    except Exception as e:
+        print(f"Error saving language config: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to save language config: {e}")
 
 class LLMConfigDTO(BaseModel):
     base_url: str
@@ -1577,6 +1656,56 @@ async def api_load_game(req: LoadGameRequest):
         
         if not target_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
+
+        # --- 语言环境自动切换 ---
+        from src.sim.save.save_game import get_save_info
+        save_meta = get_save_info(target_path)
+        if save_meta:
+            save_lang = save_meta.get("language")
+            current_lang = str(language_manager)
+            
+            print(f"[Debug] Load Game - Save Lang: {save_lang}, Current Lang: {current_lang}")
+
+            # 无论后端是否已经是该语言，都强制通知前端切换
+            # 这样可以解决 "前端手动刷新回中文，但后端还是英文，导致不再发送切换指令" 的问题
+            if save_lang:
+                print(f"[Auto-Switch] Enforcing language sync to {save_lang}...")
+                
+                # 1. 通知前端
+                await manager.broadcast({
+                    "type": "toast",
+                    "level": "info",
+                    "message": f"正在同步语言设置: {save_lang}...",
+                    "language": save_lang
+                })
+
+                # Yield control to event loop
+                await asyncio.sleep(0.2)
+                
+                # 2. 只有当后端语言确实不同步时，才执行后端切换逻辑
+                if save_lang != current_lang:
+                    print(f"[Auto-Switch] Switching backend language from {current_lang} to {save_lang}...")
+                    # 切换语言 (放到线程池执行)
+                    await asyncio.to_thread(language_manager.set_language, save_lang)
+                    
+                    # 重新加载所有静态业务数据
+                    await asyncio.to_thread(reload_all_static_data)
+                    
+                    # 持久化语言设置
+                    local_config_path = "static/local_config.yml"
+                    try:
+                        if os.path.exists(local_config_path):
+                            conf = OmegaConf.load(local_config_path)
+                        else:
+                            conf = OmegaConf.create({})
+                        
+                        if "system" not in conf:
+                            conf.system = OmegaConf.create({})
+                        conf.system.language = save_lang
+                        OmegaConf.save(conf, local_config_path)
+                    except Exception as e:
+                        print(f"Warning: Failed to persist language switch: {e}")
+        # -----------------------
 
         # 设置加载状态
         game_instance["init_status"] = "in_progress"

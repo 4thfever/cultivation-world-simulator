@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .mutual_action import MutualAction
+from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
 
@@ -11,14 +12,16 @@ if TYPE_CHECKING:
 @cooldown_action
 class MutualAttack(MutualAction):
     """攻击另一个NPC"""
-
-    ACTION_NAME = "攻击"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "mutual_attack_action_name"
+    DESC_ID = "mutual_attack_description"
+    REQUIREMENTS_ID = "mutual_attack_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "⚔️"
-    DESC = "对目标进行攻击。"
-    DOABLES_REQUIREMENTS = "目标在交互范围内；不能连续执行"
     PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Escape", "Attack"]
-    STORY_PROMPT: str = ""
     # 攻击冷却：避免同月连刷攻击
     ACTION_CD_MONTHS: int = 3
     # 攻击是大事（长期记忆）
@@ -28,7 +31,7 @@ class MutualAttack(MutualAction):
         """攻击无额外检查条件"""
         from src.classes.observe import is_within_observation
         if not is_within_observation(self.avatar, target):
-            return False, "目标不在交互范围内"
+            return False, t("Target not within interaction range")
         return True, ""
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:

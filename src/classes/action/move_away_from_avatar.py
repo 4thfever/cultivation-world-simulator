@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import TimedAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
@@ -16,11 +17,14 @@ class MoveAwayFromAvatar(TimedAction):
     - 规则：每月尝试使与目标的曼哈顿距离增大一步
     - 任何时候都可以启动
     """
-
-    ACTION_NAME = "远离角色"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "move_away_from_avatar_action_name"
+    DESC_ID = "move_away_from_avatar_description"
+    REQUIREMENTS_ID = "move_away_from_avatar_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🏃"
-    DESC = "持续远离指定角色"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar | None":
@@ -53,19 +57,21 @@ class MoveAwayFromAvatar(TimedAction):
     def start(self, avatar_name: str) -> Event:
         target_name = avatar_name
         try:
-            t = self._find_avatar_by_name(avatar_name)
-            if t is not None:
-                target_name = t.name
+            target = self._find_avatar_by_name(avatar_name)
+            if target is not None:
+                target_name = target.name
         except Exception:
             pass
         rel_ids = [self.avatar.id]
         try:
-            t = self._find_avatar_by_name(avatar_name)
-            if t is not None:
-                rel_ids.append(t.id)
+            target = self._find_avatar_by_name(avatar_name)
+            if target is not None:
+                rel_ids.append(target.id)
         except Exception:
             pass
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始远离 {target_name}", related_avatars=rel_ids)
+        content = t("{avatar} begins moving away from {target}",
+                   avatar=self.avatar.name, target=target_name)
+        return Event(self.world.month_stamp, content, related_avatars=rel_ids)
 
     # TimedAction 已统一 step 逻辑
 

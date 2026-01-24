@@ -54,16 +54,17 @@ class StoreMixin:
             return ""
 
         # 格式化输出
+        from src.i18n import t
         parts = []
         # 按价格从低到高排序
         for price in sorted(items_by_price.keys()):
             names = items_by_price[price]
             # 去重并保持顺序 
             unique_names = list(dict.fromkeys(names))
-            names_str = "、".join(unique_names)
-            parts.append(f"{names_str}（{price}灵石）")
+            names_str = t("element_separator").join(unique_names)
+            parts.append(t("{names} ({price} Spirit Stones)", names=names_str, price=price))
             
-        return "出售：" + "；".join(parts)
+        return t("Sell: ") + t("effect_separator").join(parts)
 
     def is_selling(self, item_name: str) -> bool:
         """

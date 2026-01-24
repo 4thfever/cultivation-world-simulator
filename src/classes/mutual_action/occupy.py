@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
@@ -28,16 +29,23 @@ class Occupy(MutualAction):
     占据指定的洞府。如果是无主洞府直接占据；如果是有主洞府，则发起抢夺。
     对方拒绝则进入战斗，进攻方胜利则洞府易主。
     """
-    ACTION_NAME = "抢夺洞府"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "occupy_action_name"
+    DESC_ID = "occupy_description"
+    REQUIREMENTS_ID = "occupy_requirements"
+    STORY_PROMPT_ID = "occupy_story_prompt"
+    
+    # 不需要翻译的常量
     EMOJI = "🚩"
-    DESC = "占据或抢夺洞府"
     PARAMS = {"region_name": "str"}
     FEEDBACK_ACTIONS = ["Yield", "Reject"]
-    FEEDBACK_LABELS = {"Yield": "让步", "Reject": "拒绝"}
+    
+    # 自定义反馈标签
+    FEEDBACK_LABEL_IDS = {"Yield": "feedback_yield", "Reject": "feedback_reject"}
+    
     IS_MAJOR = True
     ACTION_CD_MONTHS = 6
-    
-    STORY_PROMPT = "这是一场争夺洞府的战斗。不要出现具体血量或伤害数值。"
 
     def _get_region_and_host(self, region_name: str) -> tuple[CultivateRegion | None, "Avatar | None", str]:
         """解析区域并获取主人"""
@@ -47,10 +55,11 @@ class Occupy(MutualAction):
         region = res.obj
         
         if not res.is_valid or region is None:
-            return None, None, f"无法找到区域：{region_name}"
+            return None, None, t("Cannot find region: {region}", region=region_name)
             
         if not isinstance(region, CultivateRegion):
-            return None, None, f"{region.name if region else '荒野'} 不是修炼区域，无法占据"
+            return None, None, t("{region} is not a cultivation area, cannot occupy",
+                                region=region.name if region else t("wilderness"))
             
         return region, region.host_avatar, ""
 
@@ -59,7 +68,7 @@ class Occupy(MutualAction):
         if err:
             return False, err
         if region.host_avatar == self.avatar:
-            return False, "已经是该洞府的主人了"
+            return False, t("Already the owner of this cave dwelling")
         return super().can_start(target_avatar=host)
 
     def start(self, region_name: str) -> Event:
@@ -69,7 +78,8 @@ class Occupy(MutualAction):
         self.target_region_name = region_name
 
         region_display_name = region.name if region else self.avatar.tile.location_name
-        event_text = f"{self.avatar.name} 对 {host.name} 的 {region_display_name} 发起抢夺"
+        content = t("{initiator} attempts to seize {region} from {host}",
+                   initiator=self.avatar.name, region=region_display_name, host=host.name)
 
         rel_ids = [self.avatar.id]
         if host:
@@ -77,7 +87,7 @@ class Occupy(MutualAction):
 
         event = Event(
             self._start_month_stamp,
-            event_text,
+            content,
             related_avatars=rel_ids,
             is_major=self.IS_MAJOR
         )
@@ -99,7 +109,8 @@ class Occupy(MutualAction):
                 region.host_avatar = self.avatar
             
             # 共用一个事件
-            event_text = f"{self.avatar.name} 逼迫 {target_avatar.name} 让出了 {region_name}。"
+            event_text = t("{initiator} forced {target} to yield {region}",
+                          initiator=self.avatar.name, target=target_avatar.name, region=region_name)
             event = Event(
                 self.world.month_stamp, 
                 event_text, 
@@ -136,9 +147,10 @@ class Occupy(MutualAction):
         
         target = loser if winner == self.avatar else winner
         
-        start_text = f"{self.avatar.name} 试图抢夺 {target.name} 的洞府 {r_name}，{target.name} 拒绝并应战"
+        start_text = t("{initiator} attempted to seize {target}'s cave dwelling {region}, {target} rejected and engaged in battle",
+                      initiator=self.avatar.name, target=target.name, region=r_name)
         
-        postfix = f"，成功夺取了 {r_name}" if attacker_won else f"，守住了 {r_name}"
+        postfix = t(", successfully seized {region}", region=r_name) if attacker_won else t(", defended {region}", region=r_name)
 
         from src.classes.battle import handle_battle_finish
         return await handle_battle_finish(
@@ -147,7 +159,7 @@ class Occupy(MutualAction):
             target,
             battle_res,
             start_text,
-            self.STORY_PROMPT,
-            action_desc="击败了",
+            self.get_story_prompt(),  # 使用 classmethod
+            action_desc=t("defeated"),
             postfix=postfix
         )

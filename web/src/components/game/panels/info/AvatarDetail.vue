@@ -9,7 +9,9 @@ import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const props = defineProps<{
   data: AvatarDetail;
 }>();
@@ -44,12 +46,12 @@ async function handleSetObjective() {
     uiStore.refreshDetail();
   } catch (e) {
     console.error(e);
-    alert('设定失败');
+    alert(t('game.info_panel.avatar.modals.set_failed'));
   }
 }
 
 async function handleClearObjective() {
-  if (!confirm('确定要清空该角色的长期目标吗？')) return;
+  if (!confirm(t('game.info_panel.avatar.modals.clear_confirm'))) return;
   try {
     await avatarApi.clearLongTermObjective(props.data.id);
     uiStore.refreshDetail();
@@ -68,23 +70,23 @@ async function handleClearObjective() {
 
     <!-- Actions Bar -->
     <div class="actions-bar" v-if="!data.is_dead">
-      <button class="btn primary" @click="showObjectiveModal = true">设定目标</button>
-      <button class="btn" @click="handleClearObjective">清空目标</button>
+      <button class="btn primary" @click="showObjectiveModal = true">{{ t('game.info_panel.avatar.set_objective') }}</button>
+      <button class="btn" @click="handleClearObjective">{{ t('game.info_panel.avatar.clear_objective') }}</button>
     </div>
     <div class="dead-banner" v-else>
-      已故 ({{ data.death_info?.reason || '未知原因' }})
+      {{ t('game.info_panel.avatar.dead_with_reason', { reason: data.death_info?.reason || t('game.info_panel.avatar.unknown_reason') }) }}
     </div>
 
     <div class="content-scroll">
       <!-- Objectives -->
       <div v-if="!data.is_dead" class="objectives-banner">
         <div class="objective-item">
-          <span class="label">长期目标</span>
-          <span class="value">{{ data.long_term_objective || '无' }}</span>
+          <span class="label">{{ t('game.info_panel.avatar.long_term_objective') }}</span>
+          <span class="value">{{ data.long_term_objective || t('common.none') }}</span>
         </div>
         <div class="objective-item">
-          <span class="label">短期目标</span>
-          <span class="value">{{ data.short_term_objective || '无' }}</span>
+          <span class="label">{{ t('game.info_panel.avatar.short_term_objective') }}</span>
+          <span class="value">{{ data.short_term_objective || t('common.none') }}</span>
         </div>
       </div>
 
@@ -95,34 +97,34 @@ async function handleClearObjective() {
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <StatItem label="境界" :value="data.realm" :sub-value="data.level" />
-        <StatItem label="年龄" :value="`${data.age} / ${data.lifespan}`" />
+        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="data.realm" :sub-value="data.level" />
+        <StatItem :label="t('game.info_panel.avatar.stats.age')" :value="`${data.age} / ${data.lifespan}`" />
         
-        <StatItem label="HP" :value="formatHp(data.hp.cur, data.hp.max)" />
-        <StatItem label="性别" :value="data.gender" />
+        <StatItem :label="t('game.info_panel.avatar.stats.hp')" :value="formatHp(data.hp.cur, data.hp.max)" />
+        <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="data.gender" />
         
         <StatItem 
-          label="阵营" 
+          :label="t('game.info_panel.avatar.stats.alignment')" 
           :value="data.alignment" 
           :on-click="() => showDetail(data.alignment_detail)"
         />
         <StatItem 
-          label="宗门" 
-          :value="data.sect?.name || '散修'" 
+          :label="t('game.info_panel.avatar.stats.sect')" 
+          :value="data.sect?.name || t('game.info_panel.avatar.stats.rogue')" 
           :sub-value="data.sect?.rank"
           :on-click="data.sect ? () => jumpToSect(data.sect!.id) : undefined"
         />
         
         <StatItem 
-          label="灵根" 
+          :label="t('game.info_panel.avatar.stats.root')" 
           :value="data.root" 
           :on-click="() => showDetail(data.root_detail)"
         />
-        <StatItem label="灵石" :value="data.magic_stone" />
-        <StatItem label="颜值" :value="data.appearance" />
-        <StatItem label="基础战力" :value="data.base_battle_strength" />
+        <StatItem :label="t('game.info_panel.avatar.stats.magic_stone')" :value="data.magic_stone" />
+        <StatItem :label="t('game.info_panel.avatar.stats.appearance')" :value="data.appearance" />
+        <StatItem :label="t('game.info_panel.avatar.stats.battle_strength')" :value="data.base_battle_strength" />
         <StatItem 
-          label="情绪" 
+          :label="t('game.info_panel.avatar.stats.emotion')" 
           :value="data.emotion.emoji" 
           :sub-value="data.emotion.name"
         />
@@ -130,19 +132,19 @@ async function handleClearObjective() {
 
       <!-- Thinking -->
       <div class="section" v-if="data.thinking">
-        <div class="section-title">当前思考</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.thinking') }}</div>
         <div class="text-content">{{ data.thinking }}</div>
       </div>
 
       <!-- Personas -->
       <div class="section" v-if="data.personas?.length">
-        <div class="section-title">特质</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
         <TagList :tags="data.personas" @click="showDetail" />
       </div>
 
       <!-- Equipment & Sect -->
       <div class="section">
-        <div class="section-title">功法与装备</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.techniques_equipment') }}</div>
         <EntityRow 
           v-if="data.technique" 
           :item="data.technique" 
@@ -151,7 +153,7 @@ async function handleClearObjective() {
         <EntityRow 
           v-if="data.weapon" 
           :item="data.weapon" 
-          :meta="`熟练度 ${data.weapon.proficiency}`"
+          :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
           @click="showDetail(data.weapon)" 
         />
         <EntityRow 
@@ -168,7 +170,7 @@ async function handleClearObjective() {
 
       <!-- Materials -->
       <div class="section" v-if="data.materials?.length">
-        <div class="section-title">材料</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.materials') }}</div>
         <div class="list-container">
           <EntityRow 
             v-for="item in data.materials"
@@ -183,13 +185,13 @@ async function handleClearObjective() {
 
       <!-- Relations -->
       <div class="section" v-if="data.relations?.length">
-        <div class="section-title">关系</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.relations') }}</div>
         <div class="list-container">
           <RelationRow 
             v-for="rel in data.relations"
             :key="rel.target_id"
             :name="rel.name"
-            :meta="`${data.name}的${rel.relation}`"
+            :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
             :sub="`${rel.sect} · ${rel.realm}`"
             @click="jumpToAvatar(rel.target_id)"
           />
@@ -198,10 +200,10 @@ async function handleClearObjective() {
 
       <!-- Effects -->
       <div class="section" v-if="data['当前效果'] && data['当前效果'] !== '无'">
-        <div class="section-title">当前效果</div>
+        <div class="section-title">{{ t('game.info_panel.avatar.sections.current_effects') }}</div>
         <div class="effects-grid">
           <template v-for="(line, idx) in data['当前效果'].split('\n')" :key="idx">
-            <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || '其他' }}</div>
+            <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || t('ui.other') }}</div>
             <div class="effect-content">
               <div v-for="(segment, sIdx) in line.replace(/^\[.*?\]\s*/, '').split(/[;；]/)" :key="sIdx">
                 {{ segment.trim() }}
@@ -215,11 +217,11 @@ async function handleClearObjective() {
     <!-- Modal -->
     <div v-if="showObjectiveModal" class="modal-overlay">
       <div class="modal">
-        <h3>设定长期目标</h3>
-        <textarea v-model="objectiveContent" placeholder="请输入目标..."></textarea>
+        <h3>{{ t('game.info_panel.avatar.modals.set_long_term') }}</h3>
+        <textarea v-model="objectiveContent" :placeholder="t('game.info_panel.avatar.modals.placeholder')"></textarea>
         <div class="modal-footer">
-          <button class="btn primary" @click="handleSetObjective">确认</button>
-          <button class="btn" @click="showObjectiveModal = false">取消</button>
+          <button class="btn primary" @click="handleSetObjective">{{ t('common.confirm') }}</button>
+          <button class="btn" @click="showObjectiveModal = false">{{ t('common.cancel') }}</button>
         </div>
       </div>
     </div>

@@ -1,52 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { systemApi, type InitStatusDTO } from '../api'
+import { useI18n } from 'vue-i18n'
+
+const { t, tm } = useI18n()
 
 const props = defineProps<{
   status: InitStatusDTO | null
 }>()
 
-// 阶段文案（鬼谷八荒风格）
-const phaseTexts: Record<string, string | string[]> = {
-  'scanning_assets': '扫描天地资源',
-  'loading_map': '构建洪荒山川',
-  'processing_history': '推演天道历史',
-  'initializing_sects': '宗门入世',
-  'generating_avatars': '众修士降临',
-  'checking_llm': '连通天道意志',
-  'loading_save': '读取前世因果',
-  'parsing_data': '解析天地法则',
-  'restoring_state': '恢复时空位面',
-  'finalizing': '万象归位',
-  'complete': '天地初开',
-  '': '混沌初始',
-}
+const tipsList = computed<string[]>(() => {
+  const list = (tm as any)('loading.tips')
+  return Array.isArray(list) ? list : []
+})
 
-// Tips 列表
-const tips = [
-  '修改角色目标，可以改变该角色的行事风格',
-  '角色的性格特质，会极大影响角色的行事风格',
-  '在符合角色灵根的洞府修行，事半功倍',
-  '天灵根角色在任何洞府修行，都事半功倍',
-  '改变天地灵机，不仅会影响加成，还会微妙调整角色行事风格',
-  '偶尔会有修仙小说中的主角穿越进此方世界',
-  '每个角色都有自己的真实思考和情绪',
-  '除了修炼，炼丹和练气也很重要',
-  '参加拍卖会可能捡漏，但要小心恶人的衔尾追杀',
-  '江湖同道会根据你的行为取一个绰号',
-  '双修虽好，还请克制',
-  '在宗门驻地回血，可以回满HP',
-  '不同境界之间，战力差距极大，越阶挑战难于登天',
-  '天命之子特质的角色，好运连连，奇遇不断',
-  '现代世界的穿越者，只想回到现实世界，但这是不可能的',
-  '丹药有生效的时间限制',
-  '由于大模型需要思考，游戏启动可能耗时较久',
-  '模拟世界对大模型token消耗较大，请注意',
-  '开局时设定历史，整个修仙世界也会随之而改变',
-  '拍卖会中拍到的珍宝可能大大提升你的实力，但是要留好灵石',
-]
-
-const currentTip = ref(tips[Math.floor(Math.random() * tips.length)])
+const currentTip = ref('')
 const displayProgress = ref(0) // 实际显示的进度
 const localElapsed = ref(0)
 let tipInterval: ReturnType<typeof setInterval> | null = null
@@ -55,10 +23,18 @@ let elapsedInterval: ReturnType<typeof setInterval> | null = null
 const progress = computed(() => displayProgress.value)
 const phaseText = computed(() => {
   const phaseName = props.status?.phase_name || ''
-  return phaseTexts[phaseName] || phaseTexts['']
+  if (!phaseName) return t('loading.phase.chaos')
+  return t(`loading.phase.${phaseName}`)
 })
 const isError = computed(() => props.status?.status === 'error')
-const errorMessage = computed(() => props.status?.error || '未知错误')
+const errorMessage = computed(() => props.status?.error || t('loading.unknown_error'))
+
+// 初始化随机 Tip
+watch(tipsList, (list) => {
+  if (list.length > 0 && !currentTip.value) {
+    currentTip.value = list[Math.floor(Math.random() * list.length)]
+  }
+}, { immediate: true })
 
 // 监听后端进度，如果后端进度领先，则同步
 watch(() => props.status?.progress, (newVal) => {
@@ -99,8 +75,10 @@ async function handleRetry() {
 function startTimers() {
   // Tips 切换
   tipInterval = setInterval(() => {
-    const idx = Math.floor(Math.random() * tips.length)
-    currentTip.value = tips[idx]
+    if (tipsList.value.length > 0) {
+      const idx = Math.floor(Math.random() * tipsList.value.length)
+      currentTip.value = tipsList.value[idx]
+    }
   }, 5000)
   
   // 本地计时器 + 阶段文案轮换 + 伪进度自增
@@ -173,8 +151,8 @@ onUnmounted(() => {
     <!-- 主内容 -->
     <div class="content">
       <!-- 标题 -->
-      <h1 class="title">AI 修仙世界模拟器</h1>
-      <p class="subtitle">AI Cultivation World Simulator</p>
+      <h1 class="title">{{ t('loading.title') }}</h1>
+      <p class="subtitle">{{ t('loading.subtitle') }}</p>
 
       <!-- 进度圆环 -->
       <div class="progress-ring">
@@ -217,7 +195,7 @@ onUnmounted(() => {
           <div class="percentage" :class="{ error: isError }">
             {{ isError ? '!' : progress + '%' }}
           </div>
-          <div class="phase-text">{{ isError ? '初始化失败' : phaseText }}</div>
+          <div class="phase-text">{{ isError ? t('loading.error') : phaseText }}</div>
         </div>
       </div>
 
@@ -225,21 +203,21 @@ onUnmounted(() => {
       <div v-if="isError" class="error-section">
         <p class="error-message">{{ errorMessage }}</p>
         <button class="retry-btn" @click="handleRetry">
-          重新初始化
+          {{ t('loading.retry') }}
         </button>
       </div>
 
       <!-- Tips -->
       <div v-else class="tips-section">
-        <div class="tips-label">修行小贴士</div>
+        <div class="tips-label">{{ t('loading.tips_label') }}</div>
         <div class="tips">{{ currentTip }}</div>
       </div>
     </div>
 
     <!-- 底部信息 -->
     <div class="footer">
-      <div class="elapsed">已等待 {{ localElapsed }} 秒</div>
-      <div class="version">v1.1.0</div>
+      <div class="elapsed">{{ t('loading.elapsed', { seconds: localElapsed }) }}</div>
+      <div class="version">{{ t('common.version', 'Version') }} v1.1.0</div>
     </div>
   </div>
 </template>

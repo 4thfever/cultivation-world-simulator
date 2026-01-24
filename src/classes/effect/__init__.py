@@ -36,5 +36,5 @@ from .process import (
     _merge_effects,
 )
 from .mixin import EffectsMixin
-from .desc import format_effects_to_text, translate_condition, EFFECT_DESC_MAP
+from .desc import format_effects_to_text, translate_condition
 

@@ -58,6 +58,7 @@ async function renderMap() {
   
   await preloadRegionTextures()
 
+  if (!mapContainer.value) return // Check again after await
   const rows = worldStore.mapData.length
   const cols = worldStore.mapData[0]?.length ?? 0
   const mapWidth = cols * TILE_SIZE

@@ -1,0 +1,12 @@
+id,key,name,element_list,desc,effects
+,,,Element list separated by semicolons (e.g., Metal;Wood),Description (not used in code),JSON Effects
+1,GOLD,Metal Spiritual Root,GOLD,Strong and decisive; strong attack power, suitable for sword cultivators,
+2,WOOD,Wood Spiritual Root,WOOD,Kind and resilient; good at recovery, poisonous techniques, and wood-attribute spells,
+3,WATER,Water Spiritual Root,WATER,Wise and smooth; light movement, good at support and stealth,
+4,FIRE,Fire Spiritual Root,FIRE,Passionate and violent; high-burst offensive techniques, fire-system techniques,
+5,EARTH,Earth Spiritual Root,EARTH,Steady and practical; high defense, body cultivators or puppetry,
+6,THUNDER,Thunder Spiritual Root,WATER;EARTH,Extremely explosive; top-tier in combat,
+7,ICE,Ice Spiritual Root,GOLD;WATER,Strong control; good persistence,
+8,WIND,Wind Spiritual Root,WOOD;WATER,Exceptional movement; elusive,
+9,DARK,Dark Spiritual Root,FIRE;EARTH,Stealth-oriented; good at illusions and deceit,
+10,HEAVEN,Heavenly Spiritual Root,GOLD;WOOD;WATER;FIRE;EARTH,Peerless aptitude; proficient in all five elements, comprehensive cultivation,{extra_breakthrough_success_rate: 0.1}

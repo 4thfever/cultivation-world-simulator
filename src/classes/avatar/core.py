@@ -54,12 +54,13 @@ class Gender(Enum):
     FEMALE = "female"
 
     def __str__(self) -> str:
-        return gender_strs.get(self, self.value)
+        from src.i18n import t
+        return t(gender_msg_ids.get(self, self.value))
 
 
-gender_strs = {
-    Gender.MALE: "男",
-    Gender.FEMALE: "女",
+gender_msg_ids = {
+    Gender.MALE: "male",
+    Gender.FEMALE: "female",
 }
 
 
@@ -189,18 +190,20 @@ class Avatar(
 
     def get_sect_str(self) -> str:
         """获取宗门显示名：有宗门则返回"宗门名+职位"，否则返回"散修"。"""
+        from src.i18n import t
         if self.sect is None:
-            return "散修"
+            return t("Rogue Cultivator")
         if self.sect_rank is None:
             return self.sect.name
         from src.classes.sect_ranks import get_rank_display_name
         rank_name = get_rank_display_name(self.sect_rank, self.sect)
-        return f"{self.sect.name}{rank_name}"
+        return t("{sect} {rank}", sect=self.sect.name, rank=rank_name)
 
     def get_sect_rank_name(self) -> str:
         """获取宗门职位的显示名称"""
+        from src.i18n import t
         if self.sect is None or self.sect_rank is None:
-            return "散修"
+            return t("Rogue Cultivator")
         from src.classes.sect_ranks import get_rank_display_name
         return get_rank_display_name(self.sect_rank, self.sect)
 
@@ -314,8 +317,8 @@ class Avatar(
         """获取当前动作名称，默认返回'思考'"""
         if self.current_action and self.current_action.action:
             action = self.current_action.action
-            # 优先取 ACTION_NAME (中文名)，如果没有则使用类名
-            return getattr(action, "ACTION_NAME", getattr(action, "name", "思考"))
+            # 使用 get_action_name() 获取翻译后的动作名称
+            return action.get_action_name()
         return "思考"
 
     def __post_init__(self):

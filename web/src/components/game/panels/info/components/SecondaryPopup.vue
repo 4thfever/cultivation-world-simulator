@@ -2,6 +2,9 @@
 import type { EffectEntity } from '@/types/core';
 import { getEntityColor } from '@/utils/theme';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   item: EffectEntity | null;
@@ -9,22 +12,10 @@ const props = defineProps<{
 
 defineEmits(['close']);
 
-const typeMap: Record<string, string> = {
-  'animal': '动物',
-  'plant': '植物',
-  'lode': '矿脉',
-  'item': '物品',
-  'weapon': '兵器',
-  'auxiliary': '辅助装备',
-  'technique': '功法',
-  'sect': '宗门',
-  'persona': '特质'
-};
-
 const displayType = computed(() => {
   if (props.item?.type_name) return props.item.type_name; // 优先使用后端传回的中文类型名
   if (!props.item?.type) return '';
-  return typeMap[props.item.type] || props.item.type;
+  return t(`game.info_panel.popup.types.${props.item.type}`) || props.item.type;
 });
 </script>
 
@@ -47,13 +38,13 @@ const displayType = computed(() => {
         <div class="sec-desc" v-if="item.desc">{{ item.desc }}</div>
         
         <div v-if="item.effect_desc" class="effect-box">
-          <div class="label">效果：</div>
+          <div class="label">{{ t('game.info_panel.popup.effect') }}</div>
           <div class="effect-text">{{ item.effect_desc }}</div>
         </div>
 
         <!-- Drops Display -->
         <div v-if="item.drops?.length" class="drops-box">
-          <div class="label">掉落/产出：</div>
+          <div class="label">{{ t('game.info_panel.popup.drops') }}</div>
           <div class="drop-list">
             <span 
               v-for="drop in item.drops" 
@@ -68,7 +59,7 @@ const displayType = computed(() => {
         
         <!-- 动态字段展示 (Extensibility) -->
         <div v-if="item.hq_name" class="extra-info">
-          <div><strong>驻地:</strong> {{ item.hq_name }}</div>
+          <div><strong>{{ t('game.info_panel.popup.hq') }}</strong> {{ item.hq_name }}</div>
           <div class="sub-desc">{{ item.hq_desc }}</div>
         </div>
       </div>

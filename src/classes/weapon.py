@@ -41,8 +41,11 @@ class Weapon(Item):
 
     def get_detailed_info(self) -> str:
         """获取详细信息"""
-        effect_part = f" 效果：{self.effect_desc}" if self.effect_desc else ""
-        return f"{self.name}（{self.weapon_type}·{self.realm.value}，{self.desc}）{effect_part}"
+        from src.i18n import t
+        effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
+        return t("{name} ({type}·{realm}, {desc}){effect}",
+                 name=t(self.name), type=str(self.weapon_type), realm=str(self.realm), 
+                 desc=t(self.desc), effect=effect_part)
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
@@ -54,7 +57,7 @@ class Weapon(Item):
             "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
-            "grade": self.realm.value,
+            "grade": str(self.realm),
             "color": self.realm.color_rgb,
             "type": self.weapon_type.value,
             "effect_desc": self.effect_desc,
@@ -79,21 +82,11 @@ def _load_weapons_data() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
 
         # 解析weapon_type
         weapon_type_str = get_str(row, "weapon_type")
-        weapon_type = None
-        for wt in WeaponType:
-            if wt.value == weapon_type_str:
-                weapon_type = wt
-                break
+        weapon_type = WeaponType.from_str(weapon_type_str)
         
-        if weapon_type is None:
-            raise ValueError(f"武器 {get_str(row, 'name')} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型")
-
         # 解析grade
-        grade_str = get_str(row, "grade", "练气")
-        try:
-            realm = next(r for r in Realm if r.value == grade_str)
-        except StopIteration:
-            realm = Realm.Qi_Refinement
+        grade_str = get_str(row, "grade", "QI_REFINEMENT")
+        realm = Realm.from_str(grade_str)
 
         w = Weapon(
             id=get_int(row, "item_id"),

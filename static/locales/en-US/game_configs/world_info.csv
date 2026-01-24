@@ -1,0 +1,17 @@
+title,desc
+Title,Description
+Introduction,This is a cultivation world where many cultivators compete to ascend.
+Realm,"Cultivation realms from weak to strong: Qi Refinement, Foundation Establishment, Core Formation, Nascent Soul. Each realm is divided into Early, Middle, and Late stages. The gap between realms is immense."
+Lifespan,Every character has a lifespan. Exceeding it leads to death by old age. Advancing realms and certain treasures or elixirs can increase lifespan.
+Death,You will also die if HP drops below 0.
+Region,Different regions have different effects. Doing the right thing in the right region yields double the results with half the effort.
+Cultivate,Cultivation increases experience until reaching a bottleneck. Breakthrough is probabilistic; success leads to the next realm.
+Spiritual Root,Determines your affinity with spiritual Qi. Cultivating in a region matching your root (e.g., Fire Root in a Fire Abode) is most efficient.
+Celestial Phenomenon,The world undergoes celestial changes (like Qi Tides) every few years, affecting character abilities.
+Spirit Stones,The currency of the cultivation world. Used to buy artifacts and elixirs; obtained through harvesting, trading, or plundering.
+Sect,A sanctuary for cultivators. Joining a sect grants unique techniques and protection; rogue cultivators are free but lack resources.
+Combat,"Survival of the fittest. Realm suppression is massive; higher realms have absolute advantage. Winners can plunder the loser's belongings upon death."
+Action,You have a series of actionable commands. Pay attention to effects, restrictions, regions, and time.
+Equipment & Elixir,Weapons, auxiliary equipment, and elixirs provide stat bonuses. Owning good gear or taking high-quality elixirs brings great benefits.
+Shopping,You can buy Qi Refinement level elixirs and weapons in City regions. Elixirs are consumed immediately for buffs. Buying weapons switches your weapon type.
+Auction,Mysterious auctions occur at uncertain intervals, potentially offering rare goods.

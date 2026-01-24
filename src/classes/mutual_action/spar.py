@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.battle import decide_battle
 from src.classes.event import Event
@@ -20,21 +21,20 @@ class Spar(MutualAction):
     """
     切磋动作：双方切磋，不造成伤害，增加武器熟练度。
     """
-    ACTION_NAME = "切磋"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "spar_action_name"
+    DESC_ID = "spar_description"
+    REQUIREMENTS_ID = "spar_requirements"
+    STORY_PROMPT_ID = "spar_story_prompt"
+    
+    # 不需要翻译的常量
     EMOJI = "🤺"
-    DESC = "与目标切磋武艺，点到为止（大幅增加武器熟练度，不造成伤害）"
-    DOABLES_REQUIREMENTS = "交互范围内可互动；不能连续执行"
+    PARAMS = {"target_avatar": "AvatarName"}
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
     
     # 切磋冷却：12个月
     ACTION_CD_MONTHS: int = 12
-
-    # 专门的提示词，强调友好比试
-    STORY_PROMPT = (
-        "这是两人之间的友好切磋，点到为止，没有真正的伤害。"
-        "重点描写双方招式的精妙和互相的印证启发。"
-        "不要出现血腥或重伤描述。"
-    )
 
     def _settle_feedback(self, target_avatar: Avatar, feedback_name: str) -> None:
         if feedback_name != "Accept":
@@ -57,10 +57,9 @@ class Spar(MutualAction):
         # 记录结果供 finish 使用
         self._last_result = (winner, loser, winner_gain, loser_gain)
         
-        result_text = (
-            f"{winner.name} 在切磋中略胜一筹，战胜了 {loser.name}。"
-            f"（{winner.name} 熟练度+{winner_gain:.1f}，{loser.name} 熟练度+{loser_gain:.1f}）"
-        )
+        result_text = t("{winner} gained slight advantage in sparring, defeated {loser}. ({winner} proficiency +{w_gain}, {loser} proficiency +{l_gain})",
+                       winner=winner.name, loser=loser.name, 
+                       w_gain=f"{winner_gain:.1f}", l_gain=f"{loser_gain:.1f}")
         
         # 添加结果事件
         event = Event(
@@ -82,8 +81,10 @@ class Spar(MutualAction):
         winner, loser, w_gain, l_gain = self._last_result
         
         # 构造故事输入
-        start_text = f"{self.avatar.name} 向 {target.name} 发起切磋"
-        result_text = f"{winner.name} 战胜了 {loser.name}"
+        start_text = t("{initiator} challenges {target} to spar",
+                      initiator=self.avatar.name, target=target.name)
+        result_text = t("{winner} defeated {loser}",
+                       winner=winner.name, loser=loser.name)
 
         # 生成故事
         story = await StoryTeller.tell_story(
@@ -91,7 +92,7 @@ class Spar(MutualAction):
             result_text, 
             self.avatar, 
             target, 
-            prompt=self.STORY_PROMPT, 
+            prompt=self.get_story_prompt(),  # 使用 classmethod
             allow_relation_changes=True
         )
         

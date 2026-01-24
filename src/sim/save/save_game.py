@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from src.classes.sect import Sect
 
 from src.utils.config import CONFIG
+from src.classes.language import language_manager
 from src.sim.load.load_game import get_events_db_path
 
 
@@ -99,6 +100,7 @@ def save_game(
             "version": CONFIG.meta.version,
             "save_time": datetime.now().isoformat(),
             "game_time": f"{world.month_stamp.get_year()}年{world.month_stamp.get_month().value}月",
+            "language": str(language_manager),
             # SQLite 事件数据库信息。
             "events_db": str(events_db_path.name),
             "event_count": world.event_manager.count(),

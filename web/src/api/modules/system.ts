@@ -51,6 +51,14 @@ export const systemApi = {
     return httpClient.post<{ status: string; message: string }>('/api/control/shutdown', {});
   },
 
+  setLanguage(lang: string) {
+    return httpClient.post<{ status: string }>('/api/config/language', { lang });
+  },
+
+  fetchLanguage() {
+    return httpClient.get<{ lang: string }>('/api/config/language');
+  },
+
   resetGame() {
     return httpClient.post<{ status: string; message: string }>('/api/control/reset', {});
   }

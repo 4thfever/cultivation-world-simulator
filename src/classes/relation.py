@@ -20,7 +20,8 @@ class Relation(Enum):
     ENEMY = "enemy"                # 仇人/敌人（对称）
 
     def __str__(self) -> str:
-        return relation_display_names.get(self, self.value)
+        from src.i18n import t
+        return t(relation_msg_ids.get(self, self.value))
 
     @classmethod
     def from_chinese(cls, name_cn: str) -> "Relation|None":
@@ -36,6 +37,19 @@ class Relation(Enum):
         return None
 
 
+relation_msg_ids = {
+    Relation.PARENT: "parent",
+    Relation.CHILD: "child",
+    Relation.SIBLING: "sibling",
+    Relation.KIN: "kin",
+    Relation.MASTER: "master",
+    Relation.APPRENTICE: "apprentice",
+    Relation.LOVERS: "lovers",
+    Relation.FRIEND: "friend",
+    Relation.ENEMY: "enemy",
+}
+
+# 兼容性：保留旧的dict用于from_chinese方法
 relation_display_names = {
     # 血缘（先天）
     Relation.PARENT: "父母",
@@ -60,30 +74,31 @@ INNATE_RELATIONS: set[Relation] = {
 # —— 规则定义 ——
 
 ADD_RELATION_RULES: dict[Relation, str] = {
-    Relation.LOVERS: "【道侣】需双方为异性。必须是双方非常相互认可且情投意合。",
-    Relation.FRIEND: "【朋友】友善互动（交谈、切磋点到为止、治疗）。无实质利益冲突。",
-    Relation.ENEMY: "【仇人】发生过实质性伤害（攻击致伤、偷窃、羞辱）。单次严重伤害或多次轻微摩擦。",
-    Relation.MASTER: "【师傅】需境界显著高于徒弟（例如金丹vs练气）。",
-    Relation.APPRENTICE: "【徒弟】相对于师傅的身份，通常由师傅关系自动确立。",
+    Relation.LOVERS: "relation_rule_lovers_add",
+    Relation.FRIEND: "relation_rule_friend_add",
+    Relation.ENEMY: "relation_rule_enemy_add",
+    Relation.MASTER: "relation_rule_master_add",
+    Relation.APPRENTICE: "relation_rule_apprentice_add",
 }
 
 CANCEL_RELATION_RULES: dict[Relation, str] = {
-    Relation.LOVERS: "【解除道侣】冲突、感情破裂、发生严重背叛。",
-    Relation.FRIEND: "【绝交】发生利益冲突、背叛或长期无互动导致疏远。",
-    Relation.ENEMY: "【化敌为友】一方主动示好并被接受，或共同经历生死患难，或仇恨被冲淡。",
-    Relation.MASTER: "【逐出师门/叛出师门】徒弟大逆不道或师傅无力教导。",
-    Relation.APPRENTICE: "【解除师徒】同上。",
+    Relation.LOVERS: "relation_rule_lovers_cancel",
+    Relation.FRIEND: "relation_rule_friend_cancel",
+    Relation.ENEMY: "relation_rule_enemy_cancel",
+    Relation.MASTER: "relation_rule_master_cancel",
+    Relation.APPRENTICE: "relation_rule_apprentice_cancel",
 }
 
 
 def get_relation_rules_desc() -> str:
     """获取关系规则的描述文本，用于 Prompt"""
-    lines = ["【建立关系规则】"]
+    from src.i18n import t
+    lines = [t("relation_rule_establish_title")]
     for rel, desc in ADD_RELATION_RULES.items():
-        lines.append(f"- {desc}")
-    lines.append("\n【取消关系规则】")
+        lines.append(f"- {t(desc)}")
+    lines.append(f"\n{t('relation_rule_cancel_title')}")
     for rel, desc in CANCEL_RELATION_RULES.items():
-        lines.append(f"- {desc}")
+        lines.append(f"- {t(desc)}")
     return "\n".join(lines)
 
 
@@ -124,30 +139,30 @@ if TYPE_CHECKING:
 
 GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     # 我 -> 对方：CHILD（我为子，对方为父/母） → 显示对方为 父亲/母亲
-    (Relation.CHILD, "male"): "父亲",
-    (Relation.CHILD, "female"): "母亲",
+    (Relation.CHILD, "male"): "relation_father",
+    (Relation.CHILD, "female"): "relation_mother",
     # 我 -> 对方：PARENT（我为父/母，对方为子） → 显示对方为 儿子/女儿
-    (Relation.PARENT, "male"): "儿子",
-    (Relation.PARENT, "female"): "女儿",
+    (Relation.PARENT, "male"): "relation_son",
+    (Relation.PARENT, "female"): "relation_daughter",
 }
 
 # 显示顺序配置
 DISPLAY_ORDER = [
-    "师傅", "徒弟", "道侣",
-    "父亲", "母亲",
-    "儿子", "女儿",
-    "哥哥", "弟弟", "姐姐", "妹妹",
-    "兄弟", "姐妹", "兄弟姐妹", # 兜底
-    "朋友", "仇人",
-    "亲属"
+    "master", "apprentice", "lovers",
+    "relation_father", "relation_mother",
+    "relation_son", "relation_daughter",
+    "relation_older_brother", "relation_younger_brother", "relation_older_sister", "relation_younger_sister",
+    "sibling", # 兜底
+    "friend", "enemy",
+    "kin"
 ]
 
 def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: "Avatar") -> str:
     """
     获取 self_avatar 视角的 other_avatar 的称谓。
-    例如：relation=CHILD (self是子), other是男 -> "父亲"
-    relation=SIBLING, other比self大, other是女 -> "姐姐"
     """
+    from src.i18n import t
+    
     # 1. 处理兄弟姐妹 (涉及长幼比较)
     if relation == Relation.SIBLING:
         is_older = False
@@ -162,26 +177,29 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
         gender_val = getattr(getattr(other_avatar, "gender", None), "value", "male")
         
         if gender_val == "male":
-            return "哥哥" if is_older else "弟弟"
+            return t("relation_older_brother") if is_older else t("relation_younger_brother")
         else:
-            return "姐姐" if is_older else "妹妹"
+            return t("relation_older_sister") if is_older else t("relation_younger_sister")
 
     # 2. 查表处理通用性别化称谓
     other_gender = getattr(other_avatar, "gender", None)
     gender_val = getattr(other_gender, "value", "male")
     
-    label = GENDERED_DISPLAY.get((relation, gender_val))
-    if label:
-        return label
+    label_key = GENDERED_DISPLAY.get((relation, gender_val))
+    if label_key:
+        return t(label_key)
 
     # 3. 回退到默认显示名
-    return relation_display_names.get(relation, relation.value)
+    # 使用 relation_msg_ids 获取 msgid
+    key = relation_msg_ids.get(relation, relation.value)
+    return t(key)
 
 
 def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     """
     以“我”的视角整理关系，输出若干行。
     """
+    from src.i18n import t
     relations = getattr(avatar, "relations", {}) or {}
 
     # 1. 收集并根据标签分组所有关系
@@ -192,10 +210,10 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
         display_name = other.name
         # 死亡标记
         if getattr(other, "is_dead", False):
-            # death_info 是一个可选的字典，其中 'reason' 已经被 handle_death 格式化好了
             d_info = getattr(other, "death_info", None)
-            reason = d_info["reason"] if d_info and "reason" in d_info else "未知原因"
-            display_name = f"{other.name}(已故：{reason})"
+            reason = d_info["reason"] if d_info and "reason" in d_info else t("Unknown reason")
+            # 注意：这里的 label 已经是翻译过的了，display_name 也应该是 localized 的格式
+            display_name = t("{name} (Deceased: {reason})", name=other.name, reason=reason)
             
         grouped[label].append(display_name)
 
@@ -203,29 +221,34 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     processed_labels = set()
 
     # 2. 按照预定义顺序输出
-    for label in DISPLAY_ORDER:
+    # DISPLAY_ORDER 里的都是 msgid，需要翻译后才能去 grouped 里查
+    for msgid in DISPLAY_ORDER:
+        label = t(msgid)
         if label in grouped:
-            names = "，".join(grouped[label])
-            lines.append(f"{label}：{names}")
+            names = t("comma_separator").join(grouped[label])
+            lines.append(t("{label}: {names}", label=label, names=names))
             processed_labels.add(label)
 
     # 3. 处理未在配置中列出的其他关系（按字典序）
     for label in sorted(grouped.keys()):
         if label not in processed_labels:
-            names = "，".join(grouped[label])
-            lines.append(f"{label}：{names}")
+            names = t("comma_separator").join(grouped[label])
+            lines.append(t("{label}: {names}", label=label, names=names))
             processed_labels.add(label)
 
     # 4. 若无任何关系
     if not lines:
-        return ["无"]
+        return [t("None")]
 
     return lines[:max_lines]
 
 
-def relations_to_str(avatar: "Avatar", sep: str = "；", max_lines: int = 6) -> str:
+def relations_to_str(avatar: "Avatar", sep: str = None, max_lines: int = 6) -> str:
+    from src.i18n import t
+    if sep is None:
+        sep = t("semicolon_separator")
     lines = get_relations_strs(avatar, max_lines=max_lines)
     # 如果只有一行且是"无"，直接返回
-    if len(lines) == 1 and lines[0] == "无":
-        return "无"
+    if len(lines) == 1 and lines[0] == t("None"):
+        return t("None")
     return sep.join(lines)

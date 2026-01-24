@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
 from src.classes.action import Move
@@ -12,11 +13,14 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     """
     朝另一个角色当前位置移动。
     """
-
-    ACTION_NAME = "移动到角色"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "move_to_avatar_action_name"
+    DESC_ID = "move_to_avatar_description"
+    REQUIREMENTS_ID = "move_to_avatar_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "🏃"
-    DESC = "移动到某个角色所在位置"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "str"}
 
     def _get_target(self, avatar_name: str):
@@ -51,7 +55,9 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 开始移动向 {target_name}", related_avatars=rel_ids)
+        content = t("{avatar} begins moving toward {target}",
+                   avatar=self.avatar.name, target=target_name)
+        return Event(self.world.month_stamp, content, related_avatars=rel_ids)
 
     def step(self, avatar_name: str) -> ActionResult:
         self.execute(avatar_name=avatar_name)

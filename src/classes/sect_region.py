@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from src.classes.region import Region
+from src.i18n import t
 
 
 @dataclass(eq=False)
@@ -18,11 +19,11 @@ class SectRegion(Region):
         return "sect"
 
     def _get_desc(self) -> str:
-        return f"（【{self.sect_name}】宗门驻地）"
+        return t("sect_headquarters_desc_format", sect_name=self.sect_name)
 
     def get_structured_info(self) -> dict:
         info = super().get_structured_info()
-        info["type_name"] = "宗门驻地"
+        info["type_name"] = t("Sect Headquarters")
         info["sect_name"] = self.sect_name
         info["sect_id"] = self.sect_id
         return info

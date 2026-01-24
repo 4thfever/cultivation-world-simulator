@@ -16,6 +16,15 @@ class Auction(Gathering):
     拍卖会事件
     """
     
+    # 类变量 - LLM Prompt
+    STORY_PROMPT_ID = "auction_story_prompt"
+    
+    @classmethod
+    def get_story_prompt(cls) -> str:
+        """获取故事生成提示词"""
+        from src.i18n import t
+        return t(cls.STORY_PROMPT_ID)
+    
     def is_start(self, world: "World") -> bool:
         """
         检测拍卖会是否开始
@@ -31,8 +40,8 @@ class Auction(Gathering):
         return [avatar.id for avatar in world.avatar_manager.get_living_avatars()]
 
     def get_info(self, world: "World") -> str:
-        # TODO: Implement get_info
-        return "拍卖会正在举行..."
+        from src.i18n import t
+        return t("Auction is in progress...")
 
     async def get_needs(self, world: "World", avatars: List["Avatar"]) -> Dict["Item", Dict["Avatar", int]]:
         """
@@ -234,6 +243,7 @@ class Auction(Gathering):
         """
         生成拍卖事件（合并成交与竞争信息）
         """
+        from src.i18n import t
         events = []
         month_stamp = world.month_stamp
         
@@ -245,10 +255,21 @@ class Auction(Gathering):
                 sorted_bids = sorted(bids.items(), key=lambda x: x[1], reverse=True)
                 runner_up = sorted_bids[1][0]
                 
-                content = f"在{item.name}的竞拍中，{winner.name}以 {deal_price} 灵石力压{runner_up.name}一头，将其收入囊中。"
+                content = t(
+                    "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item.",
+                    item_name=item.name,
+                    winner_name=winner.name,
+                    runner_up_name=runner_up.name,
+                    price=deal_price
+                )
                 related_avatars = [winner.id, runner_up.id]
             else:
-                content = f"在拍卖会上，{winner.name}以 {deal_price} 灵石拍下了{item.name}。"
+                content = t(
+                    "At the auction, {winner_name} acquired {item_name} for {price} spirit stones.",
+                    winner_name=winner.name,
+                    item_name=item.name,
+                    price=deal_price
+                )
                 related_avatars = [winner.id]
                 
             event = Event(
@@ -272,6 +293,7 @@ class Auction(Gathering):
         将本次拍卖的所有重要信息（成交、竞争）汇总传给 LLM，
         让 LLM 自行选取切入点生成故事。
         """
+        from src.i18n import t
         events = []
         
         # 1. 收集所有相关事件文本
@@ -279,7 +301,10 @@ class Auction(Gathering):
         
         # 收集成交信息
         for item, (winner, deal_price) in deal_results.items():
-            interaction_lines.append(f"成交：{winner.name}以{deal_price}灵石拍下{item.name}。")
+            interaction_lines.append(
+                t("Deal: {winner_name} acquired {item_name} for {price} spirit stones.",
+                  winner_name=winner.name, item_name=item.name, price=deal_price)
+            )
             
         # 收集竞争信息（压一头）
         # 这里为了避免重复太琐碎，只记录竞争激烈（参与者>=2）的情况
@@ -290,7 +315,11 @@ class Auction(Gathering):
             sorted_bids = sorted(bids.items(), key=lambda x: x[1], reverse=True)
             winner = sorted_bids[0][0]
             runner_up = sorted_bids[1][0]
-            interaction_lines.append(f"竞争：在{item.name}的竞拍中，{winner.name}力压{runner_up.name}（出价{sorted_bids[1][1]}）。")
+            interaction_lines.append(
+                t("Competition: In the auction for {item_name}, {winner_name} outbid {runner_up_name} (bid: {bid}).",
+                  item_name=item.name, winner_name=winner.name, 
+                  runner_up_name=runner_up.name, bid=sorted_bids[1][1])
+            )
             rivalry_avatars.add(winner)
             rivalry_avatars.add(runner_up)
             
@@ -309,7 +338,10 @@ class Auction(Gathering):
         items_info_list = []
         for item in related_items:
             info = getattr(item, "get_detailed_info", lambda: str(item))()
-            items_info_list.append(f"物品：{item.name}，介绍：{info}")
+            items_info_list.append(
+                t("Item: {item_name}, Description: {description}",
+                  item_name=item.name, description=info)
+            )
         items_info_str = "\n".join(items_info_list)
         
         # 3. 收集相关 avatars
@@ -326,20 +358,19 @@ class Auction(Gathering):
         from src.classes.story_teller import StoryTeller
         
         # 准备模板参数
-        gathering_info = (
-            "事件类型：神秘拍卖会\n"
-            "场景设定：拍卖会发生在一处神秘空间，由一位面目模糊、气息深不可测的神秘人主持。"
+        gathering_info = t(
+            "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
         )
         
         # 构建 details (物品信息 + 角色信息)
         # 物品信息
         details_list = []
         if items_info_str:
-            details_list.append("【涉及拍品信息】")
+            details_list.append(t("【Auction Items Information】"))
             details_list.append(items_info_str)
             
         # 角色信息
-        details_list.append("\n【相关角色信息】")
+        details_list.append(t("\n【Related Avatars Information】"))
         for av in related_avatars:
             # 获取详细信息
             info = av.get_info(detailed=True)
@@ -352,7 +383,7 @@ class Auction(Gathering):
             events_text=interaction_result,
             details_text=details_text,
             related_avatars=list(related_avatars),
-            prompt="选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。"
+            prompt=self.get_story_prompt()
         )
         
         # 5. 生成并分发事件

@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { NButton, NSpace } from 'naive-ui'
+import { ref, onMounted, computed } from 'vue'
+import { NButton, NSpace, NModal, NCard, NForm, NFormItem, NSelect } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+import { useSettingStore } from '../stores/setting'
 
 // 定义事件
 const emit = defineEmits<{
   (e: 'action', key: string): void
 }>()
 
+const { t } = useI18n()
+const settingStore = useSettingStore()
+const showSettings = ref(false)
 const videoRef = ref<HTMLVideoElement | null>(null)
 
 // 视频播放控制逻辑
@@ -34,16 +39,25 @@ onMounted(() => {
   video.addEventListener('timeupdate', handleTimeUpdate)
 })
 
-// 定义按钮列表
-const menuOptions = [
-  { label: '开始游戏', subLabel: 'Start Game', key: 'start', disabled: false },
-  { label: '加载游戏', subLabel: 'Load Game', key: 'load', disabled: false },
-  { label: '成就', subLabel: 'Achievements', key: 'achievements', disabled: true },
-  { label: '设置', subLabel: 'Settings', key: 'settings', disabled: true },
-  { label: '离开', subLabel: 'Exit', key: 'exit', disabled: false }
+const languageOptions = [
+  { label: '简体中文', value: 'zh-CN' },
+  { label: 'English', value: 'en-US' }
 ]
 
+// 定义按钮列表
+const menuOptions = computed(() => [
+  { label: t('ui.start_game'), subLabel: 'Start Game', key: 'start', disabled: false },
+  { label: t('ui.load_game'), subLabel: 'Load Game', key: 'load', disabled: false },
+  { label: t('ui.achievements'), subLabel: 'Achievements', key: 'achievements', disabled: true },
+  { label: t('ui.settings'), subLabel: 'Settings', key: 'settings', disabled: false },
+  { label: t('ui.exit'), subLabel: 'Exit', key: 'exit', disabled: false }
+])
+
 function handleClick(key: string) {
+  if (key === 'settings') {
+    showSettings.value = true
+    return
+  }
   emit('action', key)
 }
 </script>
@@ -63,7 +77,7 @@ function handleClick(key: string) {
     <!-- 左侧模糊层 -->
     <div class="glass-panel">
       <div class="title-area">
-        <h1>AI修仙世界模拟器</h1>
+        <h1>{{ t('splash.title') }}</h1>
         <p>AI Cultivation World Simulator</p>
       </div>
       
@@ -88,6 +102,28 @@ function handleClick(key: string) {
         </n-space>
       </div>
     </div>
+
+    <!-- Settings Modal -->
+    <n-modal v-model:show="showSettings">
+        <n-card
+          style="width: 400px"
+          :title="t('ui.settings')"
+          :bordered="false"
+          size="huge"
+          role="dialog"
+          aria-modal="true"
+        >
+          <n-form>
+            <n-form-item :label="t('ui.language')">
+              <n-select
+                v-model:value="settingStore.locale"
+                :options="languageOptions"
+                @update:value="settingStore.setLocale"
+              />
+            </n-form-item>
+          </n-form>
+        </n-card>
+    </n-modal>
   </div>
 </template>
 
@@ -98,7 +134,7 @@ function handleClick(key: string) {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
+  z-index: 500;
   display: flex;
   align-items: center;
   background-color: #000; /* 视频加载前的底色 */

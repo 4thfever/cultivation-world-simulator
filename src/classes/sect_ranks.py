@@ -22,6 +22,10 @@ class SectRank(Enum):
     InnerDisciple = "inner"      # 内门弟子
     OuterDisciple = "outer"      # 外门弟子
     
+    def __str__(self) -> str:
+        from src.i18n import t
+        return t(sect_rank_msg_ids.get(self, self.value))
+    
     def __lt__(self, other):
         if not isinstance(other, SectRank):
             return NotImplemented
@@ -53,13 +57,20 @@ RANK_ORDER = {
     SectRank.OuterDisciple: 3,
 }
 
+# msgid映射
+sect_rank_msg_ids = {
+    SectRank.Patriarch: "patriarch",
+    SectRank.Elder: "elder",
+    SectRank.InnerDisciple: "inner_disciple",
+    SectRank.OuterDisciple: "outer_disciple",
+}
 
 # 默认职位名称（可被宗门自定义覆盖）
 DEFAULT_RANK_NAMES = {
-    SectRank.Patriarch: "掌门",
-    SectRank.Elder: "长老",
-    SectRank.InnerDisciple: "内门弟子",
-    SectRank.OuterDisciple: "外门弟子",
+    SectRank.Patriarch: "patriarch",
+    SectRank.Elder: "elder",
+    SectRank.InnerDisciple: "inner_disciple",
+    SectRank.OuterDisciple: "outer_disciple",
 }
 
 
@@ -101,11 +112,13 @@ def get_rank_display_name(rank: SectRank, sect: Optional["Sect"] = None) -> str:
     Returns:
         职位的显示名称
     """
+    from src.i18n import t
     if sect is not None:
         custom_name = sect.get_rank_name(rank)
         if custom_name:
-            return custom_name
-    return DEFAULT_RANK_NAMES.get(rank, "弟子")
+            return t(custom_name)
+    val = DEFAULT_RANK_NAMES.get(rank, "弟子")
+    return t(val)
 
 
 def should_auto_promote(old_realm: "Realm", new_realm: "Realm") -> bool:

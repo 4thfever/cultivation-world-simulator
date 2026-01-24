@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
 from src.classes.battle import get_escape_success_rate
@@ -13,11 +14,14 @@ class Escape(InstantAction):
     成功：抢占并进入 MoveAwayFromAvatar(6个月)。
     失败：抢占并进入 Attack。
     """
-
-    ACTION_NAME = "逃离"
+    
+    # 多语言 ID
+    ACTION_NAME_ID = "escape_action_name"
+    DESC_ID = "escape_description"
+    REQUIREMENTS_ID = "escape_requirements"
+    
+    # 不需要翻译的常量
     EMOJI = "💨"
-    DESC = "逃离对方（基于成功率判定）"
-    DOABLES_REQUIREMENTS = "无限制"
     PARAMS = {"avatar_name": "AvatarName"}
 
     def _find_avatar_by_name(self, name: str) -> "Avatar|None":
@@ -43,8 +47,10 @@ class Escape(InstantAction):
         import random as _r
 
         success = _r.random() < escape_rate
-        result_text = "成功" if success else "失败"
-        result_event = Event(self.world.month_stamp, f"{self.avatar.name} 试图从 {target.name} 逃离：{result_text}", related_avatars=[self.avatar.id, target.id])
+        result_text = t("succeeded") if success else t("failed")
+        content = t("{avatar} attempted to escape from {target}: {result}",
+                   avatar=self.avatar.name, target=target.name, result=result_text)
+        result_event = Event(self.world.month_stamp, content, related_avatars=[self.avatar.id, target.id])
         EventHelper.push_pair(result_event, initiator=self.avatar, target=target, to_sidebar_once=True)
         if success:
             self._preempt_avatar(self.avatar)
@@ -68,7 +74,9 @@ class Escape(InstantAction):
         rel_ids = [self.avatar.id]
         if target is not None:
             rel_ids.append(target.id)
-        return Event(self.world.month_stamp, f"{self.avatar.name} 尝试从 {target_name} 逃离", related_avatars=rel_ids)
+        content = t("{avatar} attempts to escape from {target}", 
+                   avatar=self.avatar.name, target=target_name)
+        return Event(self.world.month_stamp, content, related_avatars=rel_ids)
 
     # InstantAction 已实现 step 完成
 
