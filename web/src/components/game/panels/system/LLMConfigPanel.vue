@@ -53,7 +53,9 @@ const presets = computed(() => [
   {
     name: t('llm.presets.gemini'),
     // Note: The `/openai` suffix is required to use Google's OpenAI-compatible API.
-    // Without it, Google expects native Gemini API format instead of OpenAI format.
+    // Our backend (src/utils/llm/client.py) uses OpenAI-compatible format with
+    // Bearer token auth and /chat/completions endpoint, so we need this suffix
+    // to make Google API accept OpenAI-style requests instead of native Gemini format.
     base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
     model_name: 'gemini-3-pro-preview',
     fast_model_name: 'gemini-3-flash-preview'
