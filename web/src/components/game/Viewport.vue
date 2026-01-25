@@ -70,10 +70,10 @@ function fitMap() {
     }
 }
 
-watch(() => [props.screenWidth, props.screenHeight], ([w, h]) => {
+watch(() => [props.screenWidth, props.screenHeight], () => {
   if (viewport) {
-    // 窗口尺寸变化时，直接重新适配地图，确保自动 Zoom 和居中
-    fitMap()
+    // 屏幕尺寸变化时，只更新 viewport 的可视区域，保持地图缩放和位置不变。
+    viewport.resize(props.screenWidth, props.screenHeight)
   }
 })
 
