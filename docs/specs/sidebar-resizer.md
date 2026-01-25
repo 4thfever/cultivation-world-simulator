@@ -25,13 +25,15 @@
 
 ### 修改文件
 
-- `web/src/App.vue`
+- `web/src/App.vue` - resizer 逻辑
+- `web/src/components/game/GameCanvas.vue` - canvas 尺寸调整
 
 ### 技术方案
 
 1. 在 `.main-content` 中，在 `.map-container` 和 `.sidebar` 之间插入一个 `.resizer` 元素。
 2. 使用 `mousedown` / `mousemove` / `mouseup` 事件实现拖曳逻辑。
 3. 拖曳时动态计算并设置 sidebar 宽度。
+4. Canvas 使用窗口大小而非容器大小，确保拖曳 sidebar 时地图不会被缩放，只改变可视区域。
 
 ### UI 细节
 
