@@ -51,6 +51,16 @@ const presets = computed(() => [
     fast_model_name: 'google/gemini-3-flash'
   },
   {
+    name: t('llm.presets.gemini'),
+    // Note: The `/openai` suffix is required to use Google's OpenAI-compatible API.
+    // Our backend (src/utils/llm/client.py) uses OpenAI-compatible format with
+    // Bearer token auth and /chat/completions endpoint, so we need this suffix
+    // to make Google API accept OpenAI-style requests instead of native Gemini format.
+    base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+    model_name: 'gemini-3-pro-preview',
+    fast_model_name: 'gemini-3-flash-preview'
+  },
+  {
     name: t('llm.presets.ollama'),
     base_url: 'http://localhost:11434/v1',
     model_name: 'qwen2.5:7b',
@@ -286,6 +296,7 @@ onMounted(() => {
                <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
                <li><a href="https://cloud.siliconflow.cn/" target="_blank">{{ t('llm.help_links.siliconflow') }}</a></li>
+               <li><a href="https://aistudio.google.com/" target="_blank">{{ t('llm.help_links.gemini') }}</a></li>
             </ul>
           </div>
 

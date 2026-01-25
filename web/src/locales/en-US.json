@@ -109,13 +109,15 @@
       "deepseek": "DeepSeek",
       "siliconflow": "SiliconFlow",
       "openrouter": "OpenRouter",
+      "gemini": "Gemini",
       "ollama": "Ollama (Local)"
     },
     "help_links": {
       "qwen": "Aliyun Bailian (Qwen / Recommended)",
       "deepseek": "DeepSeek Platform (Fast & Cheap)",
       "openrouter": "OpenRouter (All-in-one, Recommended)",
-      "siliconflow": "SiliconFlow (Domestic Aggregation)"
+      "siliconflow": "SiliconFlow (Domestic Aggregation)",
+      "gemini": "Google AI Studio (Gemini)"
     }
   },
   "game_start": {
