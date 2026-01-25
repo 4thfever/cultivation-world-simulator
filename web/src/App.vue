@@ -27,6 +27,35 @@ const uiStore = useUiStore()
 const settingStore = useSettingStore()
 
 const showSplash = ref(true)
+
+// Sidebar resizer 状态。
+const sidebarWidth = ref(400)
+const isResizing = ref(false)
+const MIN_SIDEBAR_WIDTH = 300
+
+function getMaxSidebarWidth() {
+  return Math.floor(window.innerWidth * 0.5)
+}
+
+function onResizerMouseDown(e: MouseEvent) {
+  e.preventDefault()
+  isResizing.value = true
+  document.addEventListener('mousemove', onResizerMouseMove)
+  document.addEventListener('mouseup', onResizerMouseUp)
+}
+
+function onResizerMouseMove(e: MouseEvent) {
+  if (!isResizing.value) return
+  const newWidth = window.innerWidth - e.clientX
+  const maxWidth = getMaxSidebarWidth()
+  sidebarWidth.value = Math.max(MIN_SIDEBAR_WIDTH, Math.min(newWidth, maxWidth))
+}
+
+function onResizerMouseUp() {
+  isResizing.value = false
+  document.removeEventListener('mousemove', onResizerMouseMove)
+  document.removeEventListener('mouseup', onResizerMouseUp)
+}
 const openedFromSplash = ref(false)
 
 // 1. 游戏初始化逻辑
@@ -146,14 +175,26 @@ async function handleReturnToMain() {
   }
 }
 
+// 窗口 resize 时，确保 sidebar 宽度不超过最大值。
+function onWindowResize() {
+  const maxWidth = getMaxSidebarWidth()
+  if (sidebarWidth.value > maxWidth) {
+    sidebarWidth.value = maxWidth
+  }
+}
+
 onMounted(() => {
   window.addEventListener('keydown', onKeydown)
+  window.addEventListener('resize', onWindowResize)
   // Ensure backend language setting matches frontend preference
   settingStore.syncBackend()
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('resize', onWindowResize)
+  document.removeEventListener('mousemove', onResizerMouseMove)
+  document.removeEventListener('mouseup', onResizerMouseUp)
 })
 </script>
 
@@ -210,7 +251,12 @@ onUnmounted(() => {
             />
             <InfoPanelContainer />
           </div>
-          <aside class="sidebar">
+          <div
+            class="sidebar-resizer"
+            :class="{ 'is-resizing': isResizing }"
+            @mousedown="onResizerMouseDown"
+          ></div>
+          <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
             <EventPanel />
           </aside>
         </div>
@@ -305,12 +351,25 @@ onUnmounted(() => {
   backdrop-filter: blur(4px);
 }
 
+.sidebar-resizer {
+  width: 4px;
+  background: transparent;
+  cursor: col-resize;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.sidebar-resizer:hover,
+.sidebar-resizer.is-resizing {
+  background: #555;
+}
+
 .sidebar {
-  width: 400px;
   background: #181818;
   border-left: 1px solid #333;
   display: flex;
   flex-direction: column;
   z-index: 20;
+  flex-shrink: 0;
 }
 </style>

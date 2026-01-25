@@ -70,9 +70,9 @@ function fitMap() {
     }
 }
 
-watch(() => [props.screenWidth, props.screenHeight], ([w, h]) => {
+watch(() => [props.screenWidth, props.screenHeight], () => {
   if (viewport) {
-    // 窗口尺寸变化时，直接重新适配地图，确保自动 Zoom 和居中
+    // 窗口尺寸变化时，重新适配地图。
     fitMap()
   }
 })
