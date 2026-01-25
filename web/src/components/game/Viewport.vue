@@ -72,8 +72,8 @@ function fitMap() {
 
 watch(() => [props.screenWidth, props.screenHeight], () => {
   if (viewport) {
-    // 屏幕尺寸变化时，只更新 viewport 的可视区域，保持地图缩放和位置不变。
-    viewport.resize(props.screenWidth, props.screenHeight)
+    // 窗口尺寸变化时，重新适配地图。
+    fitMap()
   }
 })
 
