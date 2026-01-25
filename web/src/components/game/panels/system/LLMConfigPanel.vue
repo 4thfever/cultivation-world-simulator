@@ -51,6 +51,12 @@ const presets = computed(() => [
     fast_model_name: 'google/gemini-3-flash'
   },
   {
+    name: t('llm.presets.gemini'),
+    base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+    model_name: 'gemini-2.5-pro',
+    fast_model_name: 'gemini-2.5-flash'
+  },
+  {
     name: t('llm.presets.ollama'),
     base_url: 'http://localhost:11434/v1',
     model_name: 'qwen2.5:7b',
@@ -286,6 +292,7 @@ onMounted(() => {
                <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
                <li><a href="https://cloud.siliconflow.cn/" target="_blank">{{ t('llm.help_links.siliconflow') }}</a></li>
+               <li><a href="https://aistudio.google.com/" target="_blank">{{ t('llm.help_links.gemini') }}</a></li>
             </ul>
           </div>
 
