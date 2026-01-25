@@ -23,9 +23,10 @@ class MockItem:
     def __init__(self, name, item_type="weapon"):
         self.name = name
         self.item_type = item_type
-        # Weapon/Auxiliary/Elixir usually have realm or grade
+        # Weapon/Auxiliary/Elixir usually have realm or grade.
         self.realm = Mock()
         self.realm.value = "TestRealm"
+        self.realm.__str__ = Mock(return_value="TestRealm")
         
     def get_info(self, detailed=False):
         return f"Info({self.name})"

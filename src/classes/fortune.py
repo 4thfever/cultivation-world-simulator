@@ -412,8 +412,9 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             theme = _pick_theme(kind)
         else:
             from src.i18n import t
-            intro = t("You discovered a {realm} weapon『{weapon_name}』in your fortune.", 
-                     realm=weapon.realm.value, weapon_name=weapon.name)
+            # 使用 str() 来触发 Realm 的 __str__ 方法进行 i18n 翻译。
+            intro = t("You discovered a {realm} weapon『{weapon_name}』in your fortune.",
+                     realm=str(weapon.realm), weapon_name=weapon.name)
             if avatar.weapon:
                 intro += t(" But you already have『{weapon_name}』.", weapon_name=avatar.weapon.name)
 
@@ -435,8 +436,9 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             theme = _pick_theme(kind)
         else:
             from src.i18n import t
+            # 使用 str() 来触发 Realm 的 __str__ 方法进行 i18n 翻译。
             intro = t("You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune.",
-                     realm=auxiliary.realm.value, auxiliary_name=auxiliary.name)
+                     realm=str(auxiliary.realm), auxiliary_name=auxiliary.name)
             if avatar.auxiliary:
                 intro += t(" But you already have『{auxiliary_name}』.", auxiliary_name=avatar.auxiliary.name)
 

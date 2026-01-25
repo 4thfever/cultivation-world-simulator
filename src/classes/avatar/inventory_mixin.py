@@ -190,7 +190,8 @@ class InventoryMixin:
         if isinstance(obj, Elixir):
             # 境界限制
             if obj.realm > self.cultivation_progress.realm:
-                return False, f"境界不足，无法承受药力 ({obj.realm.value})"
+                # 使用 str() 来触发 Realm 的 __str__ 方法进行 i18n 翻译。
+                return False, f"境界不足，无法承受药力 ({str(obj.realm)})"
 
             # 耐药性/生效中检查
             for consumed in self.elixirs:

@@ -8,6 +8,20 @@ def test_realm_comparison():
     assert Realm.Core_Formation < Realm.Nascent_Soul
     assert Realm.Nascent_Soul > Realm.Qi_Refinement
 
+def test_realm_str_returns_translated_text_not_value():
+    """Test that str(Realm) returns i18n translated text, not the raw enum value."""
+    # str() should NOT return the uppercase enum value.
+    assert str(Realm.Qi_Refinement) != "QI_REFINEMENT"
+    assert str(Realm.Foundation_Establishment) != "FOUNDATION_ESTABLISHMENT"
+    assert str(Realm.Core_Formation) != "CORE_FORMATION"
+    assert str(Realm.Nascent_Soul) != "NASCENT_SOUL"
+
+    # str() should return non-empty translated text.
+    assert len(str(Realm.Qi_Refinement)) > 0
+    assert len(str(Realm.Foundation_Establishment)) > 0
+    assert len(str(Realm.Core_Formation)) > 0
+    assert len(str(Realm.Nascent_Soul)) > 0
+
 def test_realm_from_id():
     assert Realm.from_id(1) == Realm.Qi_Refinement
     assert Realm.from_id(4) == Realm.Nascent_Soul
@@ -18,6 +32,18 @@ def test_realm_from_id():
 def test_stage_comparison():
     assert Stage.Early_Stage < Stage.Middle_Stage
     assert Stage.Middle_Stage < Stage.Late_Stage
+
+def test_stage_str_returns_translated_text_not_value():
+    """Test that str(Stage) returns i18n translated text, not the raw enum value."""
+    # str() should NOT return the uppercase enum value.
+    assert str(Stage.Early_Stage) != "EARLY_STAGE"
+    assert str(Stage.Middle_Stage) != "MIDDLE_STAGE"
+    assert str(Stage.Late_Stage) != "LATE_STAGE"
+
+    # str() should return non-empty translated text.
+    assert len(str(Stage.Early_Stage)) > 0
+    assert len(str(Stage.Middle_Stage)) > 0
+    assert len(str(Stage.Late_Stage)) > 0
 
 # ================= CultivationProgress Tests =================
 def test_cp_initialization():

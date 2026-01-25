@@ -153,7 +153,8 @@ async def handle_item_exchange(
     current_item = ops["get_current"]()
     
     new_name = new_item.name
-    new_grade = getattr(new_item, "realm", getattr(new_item, "grade", None)).value
+    # 使用 str() 来触发 Realm/Stage 的 __str__ 方法进行 i18n 翻译。
+    new_grade = str(getattr(new_item, "realm", getattr(new_item, "grade", None)))
     
     # 1. 自动装备：当前无装备且不强制考虑卖新
     if current_item is None and not can_sell_new:
