@@ -35,7 +35,7 @@
 
 
 <p align="center">
-  <img src="assets/screenshot.gif" alt="游戏演示" width="100%">
+  <img src="assets/zh-CN/screenshot.gif" alt="游戏演示" width="100%">
 </p>
 
 > **一个AI驱动的修仙世界模拟器，旨在创造一个真正活着的、有沉浸感的仙侠世界。**

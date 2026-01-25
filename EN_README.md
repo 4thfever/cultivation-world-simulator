@@ -31,7 +31,7 @@
 ![PixiJS](https://img.shields.io/badge/PixiJS-E72264?style=flat&logo=pixijs&logoColor=white)
 
 <p align="center">
-  <img src="assets/screenshot.gif" alt="Game Demo" width="100%">
+  <img src="assets/en-US/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
 > **An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.**
