@@ -559,6 +559,31 @@ async def game_loop():
             print(f"Game loop error: {e}")
             get_logger().logger.error(f"Game loop error: {e}", exc_info=True)
 
+
+def ensure_npm_dependencies(web_dir: str) -> bool:
+    """
+    确保 npm 依赖是最新的。
+    
+    Args:
+        web_dir: web 目录路径。
+        
+    Returns:
+        True 如果安装成功，False 如果失败。
+    """
+    import platform
+    print("📦 正在检查前端依赖...")
+    try:
+        if platform.system() == "Windows":
+            subprocess.run("npm install", cwd=web_dir, shell=True, check=True)
+        else:
+            subprocess.run(["npm", "install"], cwd=web_dir, shell=False, check=True)
+        print("✅ 前端依赖已就绪")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"⚠️ npm install 失败: {e}，继续启动...")
+        return False
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 初始化语言设置
@@ -602,6 +627,9 @@ async def lifespan(app: FastAPI):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
         web_dir = os.path.join(project_root, 'web')
+        
+        # 确保 npm 依赖是最新的（npm install 会自动跳过已安装的包，通常 <1s）。
+        ensure_npm_dependencies(web_dir)
         
         print(f"正在启动前端开发服务 (npm run dev) 于: {web_dir}")
         # 跨平台兼容：Windows 用 shell=True + 字符串，macOS/Linux 用 shell=False + 列表。
