@@ -1,28 +1,15 @@
 <script setup lang="ts">
 import { useWorldStore } from '../../stores/world'
-import { gameSocket } from '../../api/socket'
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useSocketStore } from '../../stores/socket'
+import { ref, computed } from 'vue'
 import { NPopover, NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const store = useWorldStore()
+const socketStore = useSocketStore()
 const message = useMessage()
-const isConnected = ref(false)
 const showSelector = ref(false)
-
-// Update status locally since socket store is bare-bones
-let cleanup: (() => void) | undefined;
-
-onMounted(() => {
-  cleanup = gameSocket.onStatusChange((status) => {
-    isConnected.value = status
-  })
-})
-
-onUnmounted(() => {
-  if (cleanup) cleanup()
-})
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
@@ -56,7 +43,7 @@ async function handleSelect(id: number, name: string) {
   <header class="top-bar">
     <div class="left">
       <span class="title">{{ t('splash.title') }}</span>
-      <span class="status-dot" :class="{ connected: isConnected }"></span>
+      <span class="status-dot" :class="{ connected: socketStore.isConnected }"></span>
     </div>
     <div class="center">
       <span class="time">{{ store.year }}{{ t('common.year') }} {{ store.month }}{{ t('common.month') }}</span>
