@@ -246,6 +246,7 @@ onUnmounted(() => {
             </div>
 
             <GameCanvas
+              :sidebar-width="sidebarWidth"
               @avatarSelected="handleSelection"
               @regionSelected="handleSelection"
             />

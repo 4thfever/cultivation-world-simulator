@@ -18,6 +18,10 @@ const { loadBaseTextures, isLoaded } = useTextures()
 
 const mapSize = ref({ width: 2000, height: 2000 })
 
+defineProps<{
+  sidebarWidth?: number
+}>()
+
 const emit = defineEmits<{
   (e: 'avatarSelected', payload: { type: 'avatar'; id: string; name?: string }): void
   (e: 'regionSelected', payload: { type: 'region'; id: string; name?: string }): void
@@ -64,6 +68,7 @@ onMounted(() => {
         :screen-height="height"
         :world-width="mapSize.width"
         :world-height="mapSize.height"
+        :padding-right="sidebarWidth"
       >
         <!-- 
           注意：之前使用的 store.worldVersion 已移除。

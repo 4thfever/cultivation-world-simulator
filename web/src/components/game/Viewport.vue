@@ -9,6 +9,7 @@ const props = defineProps<{
   screenHeight: number
   worldWidth: number
   worldHeight: number
+  paddingRight?: number
 }>()
 
 const app = useApplication()
@@ -51,7 +52,8 @@ function fitMap() {
     if (worldWidth < 100) return 
 
     // 1. 先计算新的缩放限制
-    const fitScale = Math.min(props.screenWidth / worldWidth, props.screenHeight / worldHeight)
+    const availWidth = props.screenWidth - (props.paddingRight || 0)
+    const fitScale = Math.min(availWidth / worldWidth, props.screenHeight / worldHeight)
     
     // 2. 重要：在 fit() 之前先设置新的 clampZoom，或者先暂时移除旧的限制
     // 这里我们直接设置新的宽松限制
@@ -63,6 +65,13 @@ function fitMap() {
     // 4. 执行适配，并在中心位置
     viewport.fit(true, worldWidth, worldHeight)
     viewport.moveCenter(worldWidth / 2, worldHeight / 2)
+    
+    // 修正偏移：将地图向左平移，以抵消 Sidebar 的占用
+    // 屏幕中心在 screenWidth/2，我们希望视觉中心在 (screenWidth - padding)/2
+    // 偏移量 = padding / 2
+    if (props.paddingRight) {
+        viewport.x -= props.paddingRight / 2
+    }
     
     // 5. 如果当前缩放比预期的还要大（虽然 fit 应该已经处理了，但双保险），强制设置
     if (viewport.scaled > fitScale * 1.1) { // 允许一点误差
