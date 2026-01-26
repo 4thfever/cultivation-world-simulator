@@ -1,25 +1,25 @@
 id,key,name,exclusion_keys,desc,rarity,condition,effects
 ,Key,Name,Exclusion Keys,Description/LLM Input Text,Rarity(N/R/SR/SSR),Condition,JSON Effects
-1,RATIONAL,Rational,FICKLE;CASUAL,"You always use logic to think through problems and act only after planning.",N,,
-2,FICKLE,Fickle,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,"Goals are unstable; you will not stick to a single goal for long.",N,,
-3,LAZY,Lazy,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You always procrastinate, don't want to work hard, and are more keen on enjoying life.",N,,{extra_cast_success_rate: -0.05}
+1,RATIONAL,Rational,FICKLE;CASUAL,"You always use logic to think through problems and act only after planning.",N,,{extra_retreat_success_rate: 0.05}
+2,FICKLE,Fickle,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,"Goals are unstable; you will not stick to a single goal for long.",N,,{extra_retreat_success_rate: -0.1}
+3,LAZY,Lazy,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You always procrastinate, don't want to work hard, and are more keen on enjoying life.",N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
 4,ADVENTUROUS,Adventurous,LAZY;LIFE_CHERISHING,"You always take risks, love excitement, and always want to give it your all.",N,,
 5,CASUAL,Casual,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You always adapt to circumstances; wherever your mood goes, you follow, with no fixed rules.",N,,
 6,GREEDY,Greedy,,"You have a strong desire for spirit stones and wealth.",N,,{extra_item_sell_price_multiplier: 0.1}
 7,GATHERER,Gatherer,,"Likes to find various strange flowers, herbs, and spiritual medicines in mountains and forests.",R,,{extra_harvest_materials: 1}
 8,HUNTER,Hunter,,"Enjoys the excitement of tracking prey in the wild, knows the habits of various animals well.",R,,{extra_hunt_materials: 1}
-9,PENSIVE,Pensive,FICKLE,"You always think deeply, and your approach to problems is more philosophical.",N,,
+9,PENSIVE,Pensive,FICKLE,"You always think deeply, and your approach to problems is more philosophical.",N,,{extra_retreat_success_rate: 0.1}
 10,LIFE_CHERISHING,Life-cherishing,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You always value your own life and will not take risks easily.",R,,{extra_escape_success_rate: 0.15}
 11,FRIENDLY,Friendly,ALOOF;INDIFFERENT;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You value companions and harmony, are helpful.",N,,
 12,VENGEFUL,Vengeful,FRIENDLY;INDIFFERENT,"You never easily let go of a grudge and are willing to pay the price and time for revenge.",N,,
 13,ALOOF,Aloof,FRIENDLY,"You prefer being alone, avoid deep involvement with others.",N,,
 14,INDIFFERENT,Indifferent,FRIENDLY;VENGEFUL;AGGRESSIVE;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You are emotionally restrained, calm and detached from the outside world.",N,,
 15,AGGRESSIVE,Aggressive,FRIENDLY;INDIFFERENT;LIFE_CHERISHING;TIMID,"You face conflicts directly, prefer resolving problems through power and confrontation.",R,,{extra_battle_strength_points: 1}
-16,RASH,Rash,RATIONAL;PENSIVE;LIFE_CHERISHING,"You act impulsively with little regard for consequences.",N,,{extra_cast_success_rate: -0.05}
+16,RASH,Rash,RATIONAL;PENSIVE;LIFE_CHERISHING,"You act impulsively with little regard for consequences.",N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
 17,TIMID,Timid,ADVENTUROUS;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,"You are cautious and meticulous, easily afraid of risks.",N,,{extra_escape_success_rate: 0.1}
 18,OVERBEARING,Overbearing,FRIENDLY;TIMID,"You act strongly and unreasonably, habitually putting your own interests first.",N,,
-19,CULTIVATION_OBSESSED,Cultivation Obsessed,FICKLE;LAZY;CASUAL,"You spend the vast majority of your time on cultivation.",R,,{extra_cultivate_exp: 30}
-20,INTROVERTED,Introverted,EXTROVERTED,"You enjoy solitude and self-reflection more.",N,,
+19,CULTIVATION_OBSESSED,Cultivation Obsessed,FICKLE;LAZY;CASUAL,"You spend the vast majority of your time on cultivation.",R,,"{extra_cultivate_exp: 30, extra_retreat_success_rate: 0.15}"
+20,INTROVERTED,Introverted,EXTROVERTED,"You enjoy solitude and self-reflection more.",N,,{extra_retreat_success_rate: 0.05}
 21,EXTROVERTED,Extroverted,ALOOF;INDIFFERENT;INTROVERTED,"You enjoy communicating with others, proactively making friends.",N,,
 22,MEAN,Mean,FRIENDLY;ENTHUSIASTIC,"In dialogue, you tend to express yourself through irony, mockery, and sarcasm.",N,,
 23,ENTHUSIASTIC,Enthusiastic,ALOOF;INDIFFERENT;MEAN,"You are friendly to others and respond positively.",N,,

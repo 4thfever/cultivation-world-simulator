@@ -17,6 +17,14 @@ from src.classes.hp import HP_MAX_BY_REALM
 class EffectsMixin:
     """效果计算相关方法"""
     
+    def get_active_temporary_effects(self: "Avatar") -> list[dict[str, Any]]:
+        """获取当前生效的临时效果列表"""
+        current_month = int(self.world.month_stamp)
+        return [
+            eff for eff in getattr(self, "temporary_effects", [])
+            if current_month < eff.get("start_month", 0) + eff.get("duration", 0)
+        ]
+
     def _evaluate_values(self, effects: dict[str, Any]) -> dict[str, Any]:
         """
         评估效果字典中的动态值（字符串表达式）。
@@ -137,6 +145,13 @@ class EffectsMixin:
             active = consumed.get_active_effects(int(self.world.month_stamp))
             label = t("Elixir [{name}]", name=consumed.elixir.name)
             _collect(label, explicit_effects=active)
+
+        # 处理临时效果（如闭关获得的短期加成）
+        for temp_eff in self.get_active_temporary_effects():
+            # 来源显示，支持翻译
+            source_key = temp_eff.get("source", "Unknown")
+            label = t(source_key)
+            _collect(label, explicit_effects=temp_eff.get("effects", {}))
 
         return breakdown
 

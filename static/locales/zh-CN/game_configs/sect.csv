@@ -3,7 +3,7 @@ id,name,desc,member_act_style,alignment,weight,preferred_weapon,effects,rank_nam
 1,明心剑宗,"通玄界东方第一宗，以无上剑道称雄于世。云纹阵法为不传心法。【剑道专精】作为剑修，你使用剑类兵器时战力惊人，且在剑道上的感悟速度远超常人。",清明克己，行止如一。重剑与心法并重，讲究明心见性。,RIGHTEOUS,1,SWORD,"{extra_battle_strength_points: 3, extra_weapon_proficiency_gain: 0.5}",
 2,百兽宗,"以驯养灵兽闻名，豢养各种妖兽灵怪为战力。【御兽大师】你拥有独特的御兽天赋，捕捉妖兽对你来说轻而易举，善于驱使兽群为你而战。",言语直接，重视力量与血性，崇尚狩猎与搏斗。,EVIL,1,WHIP,"{extra_catch_success_rate: 0.25, extra_hunt_materials: 1}",谷主;供奉;驭兽师;扈从
 3,水镜宗,"正道十宗之一，实则严守中立。拥有仙界异宝""彻天水镜""可预知未来。【趋吉避凶】你拥有超乎常人的直觉，视野开阔，且极易在探索中发现奇遇。",处事冷静圆融，喜以柔克刚，擅借力与反制。,NEUTRAL,1,FAN,"{extra_observation_radius: 2, extra_fortune_probability: 0.002, extra_refine_success_rate: 0.05}",镜主;掌镜人;传人;侍镜
-4,冥王宗,"行走幽冥之道，术法阴冷狠厉。【通幽】你修行幽冥之法，心志坚定，突破瓶颈时心无杂念，成功率更高。",言辞冷厉少情，敬畏因果而不惧杀伐，偏向效率与结果。,EVIL,1,FAN,"{extra_breakthrough_success_rate: 0.1}",殿主;判官;无常;鬼卒
+4,冥王宗,"行走幽冥之道，术法阴冷狠厉。【通幽】你修行幽冥之法，心志坚定，突破瓶颈时心无杂念，成功率更高。",言辞冷厉少情，敬畏因果而不惧杀伐，偏向效率与结果。,EVIL,1,FAN,"{extra_breakthrough_success_rate: 0.1, extra_retreat_success_rate: 0.1}",殿主;判官;无常;鬼卒
 5,朱勾宗,"邪宗大派。以炼器、机关、暗杀闻名于世，素来阴毒冷僻。【暗杀专家】你精通潜伏与刺杀，对于强敌，避开正面交锋、伺机暗杀往往是你最佳的制胜之道。",直面欲望与代价，不惧黑暗，以攻伐见长。,EVIL,1,HIDDEN_WEAPON,"{extra_assassinate_success_rate: 0.15, extra_battle_strength_points: 1, extra_cast_success_rate: 0.05}",楼主;掌刑使;影刺;探子
 6,合欢宗,"以情入道，靠双修增进修为，善驭人心，长于权变。【双修秘术】你的体质特殊，通过双修能获得远超常人的修为提升，这是你提升境界的最佳捷径。",辞令婉转，善于拿捏人欲与局势，以柔制刚。,NEUTRAL,1,ZITHER,"{extra_dual_cultivation_exp: 150, shop_buy_price_reduction: 0.1}",宫主;护法;媚仙;侍童
 7,镇魂宗,"铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇压之术。【金刚不坏】你修习护体神功，拥有极强的肉身防御与伤害减免能力，如山岳般不可撼动。",肃穆沉稳，重安魂镇邪，少言而果决。,RIGHTEOUS,1,STAFF,"{extra_max_hp: 100, damage_reduction: 0.15}",住持;首座;行者;居士

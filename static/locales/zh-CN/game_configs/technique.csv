@@ -10,7 +10,7 @@ id,name,technique_root,grade,desc,weight,condition,sect_id,effects
 11,纯阳无极功,FIRE,MIDDLE,纯阳之气，刚猛无铸，克制阴邪。,1,,,"{""extra_battle_strength_points"": 3}"
 13,搬山诀,EARTH,LOWER,力能扛鼎，气力悠长，如下山猛虎。,1,,,
 14,不动明王诀,EARTH,MIDDLE,不动如山，动如雷震，佛门护法神功。,1,,,"{""extra_battle_strength_points"": 3}"
-16,冰心诀,ICE,LOWER,心若冰清，天塌不惊，凝神静气。,1,,,
+16,冰心诀,ICE,LOWER,心若冰清，天塌不惊，凝神静气。,1,,,{extra_retreat_success_rate: 0.1}
 17,玄冰劲,ICE,MIDDLE,寒气透骨，冻结经脉，阴狠霸道。,1,,,"{""extra_battle_strength_points"": 3}"
 19,神行百变,WIND,LOWER,身法灵动，变幻莫测，逃跑一流。,1,,,
 20,梯云纵,WIND,MIDDLE,武当绝学，左脚踩右脚，直上青云。,1,,,"{""extra_battle_strength_points"": 3}"

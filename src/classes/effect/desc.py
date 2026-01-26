@@ -14,6 +14,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_weapon_proficiency_gain": "effect_extra_weapon_proficiency_gain",
         "extra_dual_cultivation_exp": "effect_extra_dual_cultivation_exp",
         "extra_breakthrough_success_rate": "effect_extra_breakthrough_success_rate",
+        "extra_retreat_success_rate": "effect_extra_retreat_success_rate",
         "extra_fortune_probability": "effect_extra_fortune_probability",
         "extra_misfortune_probability": "effect_extra_misfortune_probability",
         "extra_harvest_materials": "effect_extra_harvest_materials",

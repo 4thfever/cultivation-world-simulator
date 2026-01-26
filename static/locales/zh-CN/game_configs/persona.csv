@@ -1,25 +1,25 @@
 id,key,name,exclusion_keys,desc,rarity,condition,effects
 ,Key,名称,互斥Key,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件,JSON形式
-1,RATIONAL,理性,FICKLE;CASUAL,你总是会用逻辑来思考问题，做事会谋定而后动。,N,,
-2,FICKLE,无常,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,目标飘忽不定，不会长期坚持一个目标。,N,,
-3,LAZY,怠惰,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会拖延，不想努力，更热衷于享受人生。,N,,{extra_cast_success_rate: -0.05}
+1,RATIONAL,理性,FICKLE;CASUAL,你总是会用逻辑来思考问题，做事会谋定而后动。,N,,{extra_retreat_success_rate: 0.05}
+2,FICKLE,无常,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,目标飘忽不定，不会长期坚持一个目标。,N,,{extra_retreat_success_rate: -0.1}
+3,LAZY,怠惰,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会拖延，不想努力，更热衷于享受人生。,N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
 4,ADVENTUROUS,冒险,LAZY;LIFE_CHERISHING,你总是会冒险，喜欢刺激，总想放手一搏。,N,,
 5,CASUAL,随性,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,,
 6,GREEDY,贪财,,你对灵石和财富有着强烈的渴望。,N,,{extra_item_sell_price_multiplier: 0.1}
 7,GATHERER,采集者,,喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。,R,,{extra_harvest_materials: 1}
 8,HUNTER,猎人,,享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌。,R,,{extra_hunt_materials: 1}
-9,PENSIVE,沉思,FICKLE,你总是会深思熟虑，思考问题比较有哲理。,N,,
+9,PENSIVE,沉思,FICKLE,你总是会深思熟虑，思考问题比较有哲理。,N,,{extra_retreat_success_rate: 0.1}
 10,LIFE_CHERISHING,惜命,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会珍惜自己的生命，不会轻易冒险。,R,,{extra_escape_success_rate: 0.15}
 11,FRIENDLY,友爱,ALOOF;INDIFFERENT;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你重视同伴与和谐，乐于助人。,N,,
 12,VENGEFUL,复仇,FRIENDLY;INDIFFERENT,你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。,N,,
 13,ALOOF,孤僻,FRIENDLY,你喜欢独处，避免与人深交。,N,,
 14,INDIFFERENT,淡漠,FRIENDLY;VENGEFUL;AGGRESSIVE;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你情感克制，对外界冷静疏离。,N,,
 15,AGGRESSIVE,好斗,FRIENDLY;INDIFFERENT;LIFE_CHERISHING;TIMID,你直面冲突，偏好以力量与对抗解决问题。,R,,{extra_battle_strength_points: 1}
-16,RASH,鲁莽,RATIONAL;PENSIVE;LIFE_CHERISHING,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,{extra_cast_success_rate: -0.05}
+16,RASH,鲁莽,RATIONAL;PENSIVE;LIFE_CHERISHING,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
 17,TIMID,胆小,ADVENTUROUS;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你谨小慎微，容易畏惧风险。,N,,{extra_escape_success_rate: 0.1}
 18,OVERBEARING,霸道,FRIENDLY;TIMID,你行事强势，不讲道理，习惯以自己的利益为先。,N,,
-19,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,{extra_cultivate_exp: 30}
-20,INTROVERTED,内向,EXTROVERTED,你更享受独处与自我思考，倾向回避不必要的社交。,N,,
+19,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,"{extra_cultivate_exp: 30, extra_retreat_success_rate: 0.15}"
+20,INTROVERTED,内向,EXTROVERTED,你更享受独处与自我思考，倾向回避不必要的社交。,N,,{extra_retreat_success_rate: 0.05}
 21,EXTROVERTED,外向,ALOOF;INDIFFERENT;INTROVERTED,你乐于与人交流，主动结识伙伴。,N,,
 22,MEAN,刻薄,FRIENDLY;ENTHUSIASTIC,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己。,N,,
 23,ENTHUSIASTIC,热情,ALOOF;INDIFFERENT;MEAN,你待人友好、积极回应，倾向用鼓励与赞美拉近距离。,N,,

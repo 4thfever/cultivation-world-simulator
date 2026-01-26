@@ -10,7 +10,7 @@ id,name,technique_root,grade,desc,weight,condition,sect_id,effects
 11,Pure Yang Infinite Art,FIRE,MIDDLE,"Pure Yang qi, fierce and unyielding, restraining cold and evil.",1,,,"{""extra_battle_strength_points"": 3}"
 13,Mountain Moving Formula,EARTH,LOWER,"Able to lift a tripod with strength, with long physical power, like a tiger coming down the mountain.",1,,,
 14,Immovable Wisdom King Formula,EARTH,MIDDLE,"Immovable as a mountain, moving like a thunderbolt, a Buddhist guardian divine skill.",1,,,"{""extra_battle_strength_points"": 3}"
-16,Ice Heart Formula,ICE,LOWER,"The heart is clear as ice, heaven falling will not startle, focusing and calming the mind.",1,,,
+16,Ice Heart Formula,ICE,LOWER,"The heart is clear as ice, heaven falling will not startle, focusing and calming the mind.",1,,,{extra_retreat_success_rate: 0.1}
 17,Profound Ice Power,ICE,MIDDLE,"Cold qi reaches the bone, freezing meridians, sinister and overbearing.",1,,,"{""extra_battle_strength_points"": 3}"
 19,Divine Movement Hundred Transformations,WIND,LOWER,"Agile movement, ever-changing, first-rate for escaping.",1,,,
 20,Cloud Treading Step,WIND,MIDDLE,"Wudang's supreme skill, left foot stepping on the right foot, directly up to the green clouds.",1,,,"{""extra_battle_strength_points"": 3}"

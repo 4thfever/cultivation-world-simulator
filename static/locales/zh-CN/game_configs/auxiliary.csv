@@ -7,9 +7,9 @@ item_id,name,grade,desc,effects
 2005,铁精,筑基,提炼百斤凡铁才得一两，提升法器品质的基础材料.,{extra_weapon_upgrade_chance: 0.05}
 2006,源天神眼,筑基,可勘破虚妄，直视本源，寻龙定穴.,"{extra_observation_radius: 1, extra_fortune_probability: 0.005}"
 2007,踏云靴,筑基,步履生云，身轻如燕，赶路必备.,"{extra_escape_success_rate: 0.15, extra_move_step: 1}"
-2008,菩提子,筑基,佛门至宝，持之可灵台清明，悟性大增.,{extra_breakthrough_success_rate: 0.1}
+2008,菩提子,筑基,佛门至宝，持之可灵台清明，悟性大增.,"{extra_breakthrough_success_rate: 0.1, extra_retreat_success_rate: 0.15}"
 2009,金丝软甲,筑基,刀枪不入，水火不侵，贴身软甲.,"{extra_max_hp: 100, damage_reduction: 0.05}"
-2010,寒玉床,筑基,古墓派至宝，在此床上修炼，事半功倍，且无心魔之虞.,{cultivate_duration_reduction: 0.2}
+2010,寒玉床,筑基,古墓派至宝，在此床上修炼，事半功倍，且无心魔之虞.,"{cultivate_duration_reduction: 0.2, extra_retreat_success_rate: 0.15}"
 2011,无相面具,筑基,千人千面，不仅掩盖容貌，更能掩盖气息.,{extra_plunder_multiplier: 0.5}
 2051,神风舟,金丹,飞行法器，速度极快，居家旅行杀人越货必备.,"{extra_move_step: 2, extra_escape_success_rate: 0.15}"
 2052,昆仑镜,金丹,上古神器，拥有穿梭时空之力，此为仿品，仅能窥探远方.,{extra_observation_radius: 2}

@@ -91,6 +91,18 @@ EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
   - 大量: 0.3 (30%)
 """
 
+EXTRA_RETREAT_SUCCESS_RATE = "extra_retreat_success_rate"
+"""
+额外闭关成功率
+类型: float
+结算: src/classes/action/retreat.py
+说明: 闭关判定成功率的加成。
+数值参考: 
+  - 微量: 0.05 (5%)
+  - 中量: 0.1 (10%)
+  - 大量: 0.2 (20%)
+"""
+
 # --- 双修相关 ---
 EXTRA_DUAL_CULTIVATION_EXP = "extra_dual_cultivation_exp"
 """
@@ -424,6 +436,7 @@ ALL_EFFECTS = [
     "extra_cultivate_exp",               # int - 额外修炼经验
     "cultivate_duration_reduction",      # float - 修炼时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
+    "extra_retreat_success_rate",        # float - 额外闭关成功率
     
     # 双修相关
     "extra_dual_cultivation_exp",        # int - 额外双修经验
