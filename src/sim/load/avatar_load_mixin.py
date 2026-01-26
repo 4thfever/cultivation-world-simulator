@@ -223,6 +223,9 @@ class AvatarLoadMixin:
                 consume_time = elixir_data["time"]
                 avatar.elixirs.append(ConsumedElixir(elixir_obj, consume_time))
 
+        # 恢复临时效果
+        avatar.temporary_effects = data.get("temporary_effects", [])
+
         # 加载完成后重新计算effects（确保数值正确）
         avatar.recalc_effects()
         

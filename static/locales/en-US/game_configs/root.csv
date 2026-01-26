@@ -9,4 +9,4 @@ id,key,name,element_list,desc,effects
 7,ICE,Ice Spiritual Root,GOLD;WATER,Strong control; good persistence,
 8,WIND,Wind Spiritual Root,WOOD;WATER,Exceptional movement; elusive,
 9,DARK,Dark Spiritual Root,FIRE;EARTH,Stealth-oriented; good at illusions and deceit,
-10,HEAVEN,Heavenly Spiritual Root,GOLD;WOOD;WATER;FIRE;EARTH,Peerless aptitude; proficient in all five elements, comprehensive cultivation,{extra_breakthrough_success_rate: 0.1}
+10,HEAVEN,Heavenly Spiritual Root,GOLD;WOOD;WATER;FIRE;EARTH,Peerless aptitude; proficient in all five elements, comprehensive cultivation,"{extra_breakthrough_success_rate: 0.1, extra_retreat_success_rate: 0.1}"

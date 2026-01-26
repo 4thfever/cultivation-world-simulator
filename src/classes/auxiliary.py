@@ -90,10 +90,7 @@ def _load_auxiliaries_data() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]
         
         # 解析grade
         grade_str = get_str(row, "grade", "练气")
-        try:
-            realm = next(r for r in Realm if r.value == grade_str)
-        except StopIteration:
-            realm = Realm.Qi_Refinement
+        realm = Realm.from_str(grade_str)
 
         a = Auxiliary(
             id=get_int(row, "item_id"),

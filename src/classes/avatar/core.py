@@ -113,6 +113,8 @@ class Avatar(
     custom_pic_id: Optional[int] = None
     
     elixirs: List[ConsumedElixir] = field(default_factory=list)
+    # 临时效果列表: [{"source": str, "effects": dict, "start_month": int, "duration": int}]
+    temporary_effects: List[dict] = field(default_factory=list)
 
     is_dead: bool = False
     death_info: Optional[dict] = None
@@ -157,18 +159,30 @@ class Avatar(
         1. 移除已完全过期的丹药
         2. 如果有移除，触发属性重算
         """
-        if not self.elixirs:
-            return
-
-        original_count = len(self.elixirs)
-        # 过滤掉完全过期的
-        self.elixirs = [
-            e for e in self.elixirs 
-            if not e.is_completely_expired(current_month)
-        ]
+        need_recalc = False
         
-        # 如果数量减少，说明有过期，重算属性（主要是寿命、MaxHP）
-        if len(self.elixirs) < original_count:
+        # 处理丹药
+        if self.elixirs:
+            original_count = len(self.elixirs)
+            self.elixirs = [
+                e for e in self.elixirs 
+                if not e.is_completely_expired(current_month)
+            ]
+            if len(self.elixirs) < original_count:
+                need_recalc = True
+
+        # 处理临时效果
+        if self.temporary_effects:
+            original_temp_count = len(self.temporary_effects)
+            self.temporary_effects = [
+                eff for eff in self.temporary_effects
+                if current_month < (eff.get("start_month", 0) + eff.get("duration", 0))
+            ]
+            if len(self.temporary_effects) < original_temp_count:
+                need_recalc = True
+        
+        # 如果有过期，重算属性
+        if need_recalc:
             self.recalc_effects()
 
     def join_sect(self, sect: Sect, rank: "SectRank") -> None:

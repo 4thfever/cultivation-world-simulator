@@ -2246,6 +2246,12 @@ msgstr "Breakthrough Success Rate"
 
 
 
+msgid "effect_extra_retreat_success_rate"
+
+msgstr "Retreat Success Rate"
+
+
+
 msgid "effect_extra_fortune_probability"
 
 msgstr "Fortune Probability"
@@ -3438,8 +3444,43 @@ msgstr "{winner} defeated {loser}"
 
 
 
-# ============================================================================
+msgid "retreat_action_name"
+msgstr "Retreat"
 
+msgid "retreat_desc"
+msgstr "Retreat, to breakthrough self. Extremely risky, only for those with great perseverance."
+
+msgid "retreat_requirements"
+msgstr "No restrictions; cooldown required"
+
+msgid "retreat_start"
+msgstr "{avatar} begins retreat, breakthrough time unknown."
+
+msgid "retreat_success"
+msgstr "Retreat successfully completed! Cultivation improved, understanding of Heavenly Dao deepened."
+
+msgid "retreat_fail"
+msgstr "Retreat failed! Vitality greatly damaged, lost {years} years of lifespan."
+
+msgid "retreat_death_append"
+msgstr " And exhausted the last trace of vitality during retreat, passed away."
+
+msgid "retreat_story_prompt_success"
+msgstr "This is about a successful retreat. Describe how the cultivator overcame loneliness, comprehended the Heavenly Dao, and finally broke through the state of mind during the retreat. No combat description needed."
+
+msgid "retreat_story_prompt_fail"
+msgstr "This is about a failed retreat. Describe how the cultivator was troubled by inner demons, self-doubt, and finally suffered backlash during the retreat. No combat description needed."
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} finished retreat successfully."
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} failed retreat and lost {years} years of lifespan."
+
+msgid "Retreat Bonus"
+msgstr "Retreat Insight"
+
+# ============================================================================
 # Frontend UI Translations
 
 # ============================================================================

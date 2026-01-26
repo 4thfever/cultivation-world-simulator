@@ -116,5 +116,6 @@ class AvatarSaveMixin:
                 }
                 for consumed in self.elixirs
             ],
+            "temporary_effects": self.temporary_effects,
         }
 
