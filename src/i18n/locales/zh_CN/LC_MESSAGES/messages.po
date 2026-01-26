@@ -1734,7 +1734,7 @@ msgid "retreat_start"
 msgstr "{avatar} 开始闭关，预计持续 {months} 个月。"
 
 msgid "retreat_success"
-msgstr "闭关圆满结束！修为精进，对天道的感悟加深了。"
+msgstr "闭关成功！修为精进，对天道的感悟加深了。"
 
 msgid "retreat_fail"
 msgstr "闭关失败！元气大伤，折损了 {years} 年阳寿。"
@@ -1749,7 +1749,7 @@ msgid "retreat_story_prompt_fail"
 msgstr "这是关于一次失败的闭关。描写修士在闭关期间如何被心魔困扰、自我怀疑，最终导致反噬的过程。不需要描写战斗。"
 
 msgid "{avatar} finished retreat successfully."
-msgstr "{avatar} 闭关圆满结束，修为大增。"
+msgstr "{avatar} 闭关成功，修为大增。"
 
 msgid "{avatar} failed retreat and lost {years} years of lifespan."
 msgstr "{avatar} 闭关失败，折损了 {years} 年阳寿。"
