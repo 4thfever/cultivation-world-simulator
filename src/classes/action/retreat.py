@@ -28,6 +28,10 @@ class Retreat(TimedAction):
     # 闭关结束后1年内不能再次闭关
     ACTION_CD_MONTHS = 12
     IS_MAJOR = True
+    
+    # 闭关期间，不问世事，不染因果
+    ALLOW_GATHERING = False
+    ALLOW_WORLD_EVENTS = False
 
     def __init__(self, avatar, world):
         super().__init__(avatar, world)

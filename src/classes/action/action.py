@@ -55,6 +55,12 @@ class Action(ABC):
     DESC_ID: str = ""
     REQUIREMENTS_ID: str = ""
 
+    # 是否允许参与聚会（如拍卖会、大比）
+    ALLOW_GATHERING: bool = True
+    
+    # 是否允许触发世界随机事件（如奇遇、霉运）
+    ALLOW_WORLD_EVENTS: bool = True
+
     def __init__(self, avatar: Avatar, world: World):
         """
         传一个avatar的ref

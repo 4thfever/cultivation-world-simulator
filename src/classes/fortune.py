@@ -386,6 +386,10 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     prob = base_prob + extra_prob
     if prob <= 0.0:
         return []
+
+    # 检查当前动作状态是否允许触发世界事件
+    if not avatar.can_trigger_world_event:
+        return []
     
     if random.random() >= prob:
         return []

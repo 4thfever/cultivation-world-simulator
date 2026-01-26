@@ -35,9 +35,13 @@ class Auction(Gathering):
 
     def get_related_avatars(self, world: "World") -> List[int]:
         """
-        所有存活的 avatar 都参与
+        所有存活且允许参加聚会的 avatar 都参与
         """
-        return [avatar.id for avatar in world.avatar_manager.get_living_avatars()]
+        return [
+            avatar.id 
+            for avatar in world.avatar_manager.get_living_avatars()
+            if avatar.can_join_gathering
+        ]
 
     def get_info(self, world: "World") -> str:
         from src.i18n import t

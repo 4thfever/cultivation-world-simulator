@@ -211,3 +211,18 @@ class ActionMixin:
             
         return "\n".join(lines)
 
+    @property
+    def can_join_gathering(self: "Avatar") -> bool:
+        """是否可以参加聚会"""
+        if self.current_action and self.current_action.action:
+            return getattr(self.current_action.action, 'ALLOW_GATHERING', True)
+        return True # 空闲状态默认可以
+
+    @property
+    def can_trigger_world_event(self: "Avatar") -> bool:
+        """是否可以触发奇遇/霉运"""
+        if self.current_action and self.current_action.action:
+            return getattr(self.current_action.action, 'ALLOW_WORLD_EVENTS', True)
+        return True
+
+

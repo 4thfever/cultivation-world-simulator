@@ -116,3 +116,25 @@ class TestActionRetreat:
         # Nascent Soul: 0.5 - 0.3 = 0.2
         retreat_avatar.cultivation_progress.realm = Realm.Nascent_Soul
         assert action.calc_success_rate() == pytest.approx(0.2)
+
+    def test_retreat_isolation(self, retreat_avatar):
+        """测试闭关的隔离性（不参与聚会，不触发奇遇）"""
+        action = Retreat(retreat_avatar, retreat_avatar.world)
+        
+        # 1. 验证 Action 类属性配置
+        assert action.ALLOW_GATHERING is False
+        assert action.ALLOW_WORLD_EVENTS is False
+        
+        # 2. 验证 Avatar 状态检查
+        # 模拟角色正在执行闭关动作
+        from src.classes.action_runtime import ActionInstance
+        retreat_avatar.current_action = ActionInstance(action=action, params={}, status="running")
+        
+        assert retreat_avatar.can_join_gathering is False
+        assert retreat_avatar.can_trigger_world_event is False
+        
+        # 3. 验证解除动作后恢复正常
+        retreat_avatar.current_action = None
+        assert retreat_avatar.can_join_gathering is True
+        assert retreat_avatar.can_trigger_world_event is True
+
