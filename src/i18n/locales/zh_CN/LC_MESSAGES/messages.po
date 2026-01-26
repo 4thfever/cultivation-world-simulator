@@ -1731,7 +1731,7 @@ msgid "retreat_requirements"
 msgstr "无限制；需要冷却"
 
 msgid "retreat_start"
-msgstr "{avatar} 开始闭关，预计持续 {months} 个月。"
+msgstr "{avatar} 开始闭关，破关时间不详。"
 
 msgid "retreat_success"
 msgstr "闭关成功！修为精进，对天道的感悟加深了。"

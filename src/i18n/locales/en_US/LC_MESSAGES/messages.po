@@ -3454,7 +3454,7 @@ msgid "retreat_requirements"
 msgstr "No restrictions; cooldown required"
 
 msgid "retreat_start"
-msgstr "{avatar} begins retreat, expected to last {months} months."
+msgstr "{avatar} begins retreat, breakthrough time unknown."
 
 msgid "retreat_success"
 msgstr "Retreat successfully completed! Cultivation improved, understanding of Heavenly Dao deepened."
