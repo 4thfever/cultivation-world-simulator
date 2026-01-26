@@ -3448,7 +3448,7 @@ msgid "retreat_action_name"
 msgstr "Retreat"
 
 msgid "retreat_desc"
-msgstr "Find a secluded place to attempt to breakthrough self. Extremely risky, only for those with great perseverance."
+msgstr "Retreat, to breakthrough self. Extremely risky, only for those with great perseverance."
 
 msgid "retreat_requirements"
 msgstr "No restrictions; cooldown required"

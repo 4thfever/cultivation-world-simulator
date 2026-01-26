@@ -1725,7 +1725,7 @@ msgid "retreat_action_name"
 msgstr "闭关"
 
 msgid "retreat_desc"
-msgstr "寻找一处僻静之地，尝试突破自我。风险极大，非大毅力者不可为。"
+msgstr "闭关，尝试突破自我。风险极大，非大毅力者不可为。"
 
 msgid "retreat_requirements"
 msgstr "无限制；需要冷却"
