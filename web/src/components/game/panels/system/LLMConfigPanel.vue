@@ -27,6 +27,12 @@ const modeOptions = computed(() => [
 
 const presets = computed(() => [
   {
+    name: t('llm.presets.openai'),
+    base_url: 'https://api.openai.com/v1',
+    model_name: 'gpt-4o',
+    fast_model_name: 'gpt-4o-mini'
+  },
+  {
     name: t('llm.presets.qwen'),
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
     model_name: 'qwen-plus',
@@ -282,6 +288,9 @@ onMounted(() => {
           <div class="help-section">
             <h4>{{ t('llm.help.q3_title') }}</h4>
             <p>{{ t('llm.help.q3_content') }}</p>
+            <div class="format-note">
+              <p>{{ t('llm.help.q3_format_note') }}</p>
+            </div>
             <div class="code-block">
               <p>{{ t('llm.help.q3_base_url') }}</p>
               <p>{{ t('llm.help.q3_api_key') }}</p>
@@ -292,6 +301,7 @@ onMounted(() => {
           <div class="help-section">
             <h4>{{ t('llm.help.q4_title') }}</h4>
             <ul class="link-list">
+               <li><a href="https://platform.openai.com/" target="_blank">{{ t('llm.help_links.openai') }}</a></li>
                <li><a href="https://bailian.console.aliyun.com/" target="_blank">{{ t('llm.help_links.qwen') }}</a></li>
                <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
@@ -599,6 +609,22 @@ onMounted(() => {
   font-size: 0.85em;
   color: #777;
   margin: 0;
+}
+
+.format-note {
+  background: #1a1f2e;
+  border: 1px solid #4a5a7a;
+  border-left: 0.3em solid #ffa500;
+  border-radius: 0.5em;
+  padding: 0.8em 1em;
+  margin: 0.8em 0;
+}
+
+.format-note p {
+  margin: 0;
+  color: #ffd700;
+  font-size: 0.9em;
+  line-height: 1.5;
 }
 
 .code-block {

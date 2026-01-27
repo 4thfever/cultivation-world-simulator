@@ -95,6 +95,7 @@
       "q2_gemini": "Google 出品，综合性能顶尖。",
       "q3_title": "📝 3. 如何填入配置?",
       "q3_content": "获得 API 后，你需要填入以下三大核心参数才能使用，通常你可以在api提供方的文档中找到 these 参数怎么填：",
+      "q3_format_note": "⚠️ 重要提示：本游戏仅支持 OpenAI 兼容格式的 API。如果某个服务不支持 OpenAI 兼容格式，将无法使用。推荐使用预设中的服务（它们都已确认兼容）。如需使用其他服务，请确认其提供 OpenAI 兼容接口。",
       "q3_base_url": "API Base URL (接口地址): AI 的访问大门，通常由厂商提供 (如 https://api.deepseek.com)。",
       "q3_api_key": "API Key (密钥): 你的身份凭证，就像账号密码。",
       "q3_model_name": "Model Name (模型名称): 告诉服务器你想用哪颗大脑，如 deepseek-chat 或 gemini-3-flash-preview。",
@@ -105,6 +106,7 @@
       "confirm": "我明白了"
     },
     "presets": {
+      "openai": "OpenAI",
       "qwen": "通义千问",
       "deepseek": "DeepSeek",
       "siliconflow": "硅基流动",
@@ -113,6 +115,7 @@
       "ollama": "Ollama (本地)"
     },
     "help_links": {
+      "openai": "OpenAI Platform",
       "qwen": "阿里云百炼 (Qwen / 最推荐)",
       "deepseek": "DeepSeek 开放平台 (国内推荐，便宜)",
       "openrouter": "OpenRouter (全机型聚合，推荐)",

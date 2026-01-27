@@ -95,6 +95,7 @@
       "q2_gemini": "Produced by Google, top-tier comprehensive performance.",
       "q3_title": "📝 3. How to fill configuration?",
       "q3_content": "Once you have an API, you need to fill in these three core parameters. Usually, you can find them in the provider's documentation:",
+      "q3_format_note": "⚠️ Important: This game only supports OpenAI-compatible API format. Services that don't support OpenAI-compatible format cannot be used. We recommend using the presets (they are all confirmed compatible). If you want to use other services, please confirm they provide OpenAI-compatible interfaces.",
       "q3_base_url": "API Base URL: The entry point to AI, usually provided by the vendor (e.g., https://api.deepseek.com).",
       "q3_api_key": "API Key: Your identity credential, like an account password.",
       "q3_model_name": "Model Name: Tell the server which 'brain' to use, e.g., deepseek-chat or gemini-3-flash-preview.",
@@ -105,6 +106,7 @@
       "confirm": "I understand"
     },
     "presets": {
+      "openai": "OpenAI",
       "qwen": "Qwen",
       "deepseek": "DeepSeek",
       "siliconflow": "SiliconFlow",
@@ -113,6 +115,7 @@
       "ollama": "Ollama (Local)"
     },
     "help_links": {
+      "openai": "OpenAI Platform",
       "qwen": "Aliyun Bailian (Qwen / Recommended)",
       "deepseek": "DeepSeek Platform (Fast & Cheap)",
       "openrouter": "OpenRouter (All-in-one, Recommended)",
