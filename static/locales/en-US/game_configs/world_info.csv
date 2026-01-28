@@ -6,7 +6,7 @@ Lifespan,Every character has a lifespan. Exceeding it leads to death by old age.
 Death,You will also die if HP drops below 0.
 Region,Different regions have different effects. Doing the right thing in the right region yields double the results with half the effort.
 Cultivate,Cultivation increases experience until reaching a bottleneck. Breakthrough is probabilistic; success leads to the next realm.
-Spiritual Root,Determines your affinity with spiritual Qi. Cultivating in a region matching your root (e.g., Fire Root in a Fire Abode) is most efficient.
+Spiritual Root,Spiritual Roots are composed of the Five Elements (Gold, Wood, Water, Fire, Earth), divided into Single, Dual, and Heavenly Spiritual Roots. The Five Elements suppress each other in a cycle: Gold suppresses Wood, Wood suppresses Earth, Earth suppresses Water, Water suppresses Fire, and Fire suppresses Gold. The Heavenly Spiritual Root contains all Five Elements and grants an additional breakthrough bonus. Cultivating in regions matching your root attributes is most efficient.
 Celestial Phenomenon,The world undergoes celestial changes (like Qi Tides) every few years, affecting character abilities.
 Spirit Stones,The currency of the cultivation world. Used to buy artifacts and elixirs; obtained through harvesting, trading, or plundering.
 Sect,A sanctuary for cultivators. Joining a sect grants unique techniques and protection; rogue cultivators are free but lack resources.

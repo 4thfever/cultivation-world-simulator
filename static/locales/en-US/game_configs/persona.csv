@@ -65,3 +65,9 @@ id,key,name,exclusion_keys,desc,rarity,condition,effects
 63,MINER,Miner,LAZY,"Good at prospecting and digging, with a unique intuition for lodes.",R,,{extra_mine_materials: 1}
 64,STEADY,Steady,ADVENTUROUS;RASH;AGGRESSIVE,"You avoid risks and the spotlight.",R,,{extra_self_heal_efficiency: 0.5, extra_escape_success_rate: 0.1}
 65,ENVIOUS_2,Envious,FRIENDLY;ENTHUSIASTIC,"Narrow-minded, unable to see others doing better than yourself.",N,,
+66,FAMILY_ORIENTED,Family-oriented,INDIFFERENT,"You value family and blood relationships, putting family interests first.",N,,
+67,RIGHTEOUS,Righteous,ALOOF;INDIFFERENT;MEAN,"You value friendship and loyalty, willing to go to great lengths for your friends.",N,,
+68,FRIENDLESS,Friendless,FRIENDLY;EXTROVERTED;ENTHUSIASTIC,"You are accustomed to being alone, not easily forming deep connections with others.",N,,
+69,DEVOTED,Devoted,LUSTFUL;ROMANTIC;HEARTLESS,"You are devoted in love, once committed, you will not change.",N,,
+70,ROMANTIC,Romantic,DESIRELESS;HEARTLESS;DEVOTED,"You are easily moved by emotions, full of longing for beautiful feelings.",N,,
+71,HEARTLESS,Heartless,DEVOTED;ROMANTIC;FRIENDLY,"You are indifferent to emotions, not easily moved.",N,,

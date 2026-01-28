@@ -65,3 +65,9 @@ id,key,name,exclusion_keys,desc,rarity,condition,effects
 63,MINER,矿工,LAZY,擅长勘探挖掘，对矿脉有着独特的直觉。,R,,{extra_mine_materials: 1}
 64,STEADY,苟,ADVENTUROUS;RASH;AGGRESSIVE,你躲避风险和风头，尽力不担上任何风险。,R,,{extra_self_heal_efficiency: 0.5, extra_escape_success_rate: 0.1}
 65,ENVIOUS_2,妒忌,FRIENDLY;ENTHUSIASTIC,心胸狭窄，见不得别人比自己好。,N,,
+66,FAMILY_ORIENTED,重亲情,INDIFFERENT,你重视家庭和血缘关系，以家族利益为重。,N,,
+67,RIGHTEOUS,重义气,ALOOF;INDIFFERENT;MEAN,你重视朋友义气，为朋友可以两肋插刀。,N,,
+68,FRIENDLESS,孤身一人,FRIENDLY;EXTROVERTED;ENTHUSIASTIC,你习惯独来独往，不轻易与人深交。,N,,
+69,DEVOTED,专情,LUSTFUL;ROMANTIC;HEARTLESS,你对爱情专一，一旦认定便不会改变。,N,,
+70,ROMANTIC,多情,DESIRELESS;HEARTLESS;DEVOTED,你容易动情，对美好的感情充满向往。,N,,
+71,HEARTLESS,薄情,DEVOTED;ROMANTIC;FRIENDLY,你对感情淡漠，不会轻易动心。,N,,
