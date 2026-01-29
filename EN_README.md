@@ -36,6 +36,8 @@
 
 > **An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.**
 
+<a href="https://hellogithub.com/repository/AI-Cultivation/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 ## 📖 Introduction
 
 This is an **AI-driven open-world cultivation simulator**.
