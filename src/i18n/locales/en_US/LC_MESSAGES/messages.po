@@ -2879,53 +2879,34 @@ msgid "Sell: "
 msgstr "Sell: "
 
 
-msgid "平静"
-
+msgid "emotion_calm"
 msgstr "Calm"
 
-
-msgid "开心"
-
+msgid "emotion_happy"
 msgstr "Happy"
 
-
-msgid "愤怒"
-
+msgid "emotion_angry"
 msgstr "Angry"
 
-
-msgid "悲伤"
-
+msgid "emotion_sad"
 msgstr "Sad"
 
-
-msgid "恐惧"
-
+msgid "emotion_fearful"
 msgstr "Fearful"
 
-
-msgid "惊讶"
-
+msgid "emotion_surprised"
 msgstr "Surprised"
 
-
-msgid "期待"
-
+msgid "emotion_anticipating"
 msgstr "Anticipating"
 
-
-msgid "厌恶"
-
+msgid "emotion_disgusted"
 msgstr "Disgusted"
 
-
-msgid "疑惑"
-
+msgid "emotion_confused"
 msgstr "Confused"
 
-
-msgid "疲惫"
-
+msgid "emotion_tired"
 msgstr "Tired"
 
 
@@ -3040,79 +3021,16 @@ msgid "root_heaven"
 msgstr "Heaven Root"
 
 
-# Sect Ranks
-
-msgid "掌门"
-msgstr "Sect Master"
-
-
-msgid "长老"
-msgstr "Elder"
-
-
-msgid "内门弟子"
-msgstr "Inner Disciple"
-
-
-msgid "外门弟子"
-msgstr "Outer Disciple"
-
-
-# Appearance
-
-msgid "奇丑"
-msgstr "Hideous"
-
-
-msgid "丑陋"
-msgstr "Ugly"
-
-
-msgid "粗陋"
-msgstr "Coarse"
-
-
-msgid "寒素"
-msgstr "Plain"
-
-
-msgid "清秀"
-msgstr "Delicate"
-
-
-msgid "秀致"
-msgstr "Elegant"
-
-
-msgid "俊美"
-msgstr "Handsome/Beautiful"
-
-
-msgid "倾城"
-msgstr "Stunning"
-
-
-msgid "绝色"
-msgstr "Exquisite"
-
-
-msgid "惊艳"
-msgstr "Breathtaking"
-
-
-msgid "你长得很俊，回头率很高。"
-msgstr "You are very handsome, with a high head-turning rate."
-
-
-msgid "你长得很美，很抢眼。"
-msgstr "You are very beautiful and eye-catching."
-
-
 # ============================================================================
 
 # Additional (New)
 
 # ============================================================================
+
+
+msgid "action_thinking"
+
+msgstr "Thinking"
 
 
 msgid "{alignment}: {description}"
@@ -3434,37 +3352,6 @@ msgstr "{root_name} ({elements})"
 
 msgid "{sect} {rank}"
 msgstr "{sect} {rank}"
-
-msgid "金灵根"
-msgstr "金灵根"
-
-msgid "木灵根"
-msgstr "木灵根"
-
-msgid "水灵根"
-msgstr "水灵根"
-
-msgid "火灵根"
-msgstr "火灵根"
-
-msgid "土灵根"
-msgstr "土灵根"
-
-msgid "雷灵根"
-msgstr "雷灵根"
-
-msgid "冰灵根"
-msgstr "冰灵根"
-
-msgid "风灵根"
-msgstr "风灵根"
-
-msgid "暗灵根"
-msgstr "暗灵根"
-
-msgid "天灵根"
-msgstr "天灵根"
-
 
 msgid "action_reading_desc"
 msgstr "Read ancient books to gain knowledge."

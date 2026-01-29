@@ -345,7 +345,8 @@ class Avatar(
             action = self.current_action.action
             # 使用 get_action_name() 获取翻译后的动作名称
             return action.get_action_name()
-        return "思考"
+        from src.i18n import t
+        return t("action_thinking")
 
     def __post_init__(self):
         """在Avatar创建后自动初始化tile和HP"""

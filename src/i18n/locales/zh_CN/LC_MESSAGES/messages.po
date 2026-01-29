@@ -1853,34 +1853,34 @@ msgstr "{names}（{price}灵石）"
 msgid "Sell: "
 msgstr "出售："
 
-msgid "平静"
+msgid "emotion_calm"
 msgstr "平静"
 
-msgid "开心"
+msgid "emotion_happy"
 msgstr "开心"
 
-msgid "愤怒"
+msgid "emotion_angry"
 msgstr "愤怒"
 
-msgid "悲伤"
+msgid "emotion_sad"
 msgstr "悲伤"
 
-msgid "恐惧"
+msgid "emotion_fearful"
 msgstr "恐惧"
 
-msgid "惊讶"
+msgid "emotion_surprised"
 msgstr "惊讶"
 
-msgid "期待"
+msgid "emotion_anticipating"
 msgstr "期待"
 
-msgid "厌恶"
+msgid "emotion_disgusted"
 msgstr "厌恶"
 
-msgid "疑惑"
+msgid "emotion_confused"
 msgstr "疑惑"
 
-msgid "疲惫"
+msgid "emotion_tired"
 msgstr "疲惫"
 
 # ============================================================================
@@ -2041,90 +2041,12 @@ msgstr "{root_name}（{elements}）"
 msgid "{sect} {rank}"
 msgstr "{sect}{rank}"
 
-# 灵根
-msgid "金灵根"
-msgstr "金灵根"
-
-msgid "木灵根"
-msgstr "木灵根"
-
-msgid "水灵根"
-msgstr "水灵根"
-
-msgid "火灵根"
-msgstr "火灵根"
-
-msgid "土灵根"
-msgstr "土灵根"
-
-msgid "雷灵根"
-msgstr "雷灵根"
-
-msgid "冰灵根"
-msgstr "冰灵根"
-
-msgid "风灵根"
-msgstr "风灵根"
-
-msgid "暗灵根"
-msgstr "暗灵根"
-
-msgid "天灵根"
-msgstr "天灵根"
-
-# 宗门职位
-msgid "掌门"
-msgstr "掌门"
-
-msgid "长老"
-msgstr "长老"
-
-msgid "内门弟子"
-msgstr "内门弟子"
-
-msgid "外门弟子"
-msgstr "外门弟子"
-
-# 外貌
-msgid "奇丑"
-msgstr "奇丑"
-
-msgid "丑陋"
-msgstr "丑陋"
-
-msgid "粗陋"
-msgstr "粗陋"
-
-msgid "寒素"
-msgstr "寒素"
-
-msgid "清秀"
-msgstr "清秀"
-
-msgid "秀致"
-msgstr "秀致"
-
-msgid "俊美"
-msgstr "俊美"
-
-msgid "倾城"
-msgstr "倾城"
-
-msgid "绝色"
-msgstr "绝色"
-
-msgid "惊艳"
-msgstr "惊艳"
-
-msgid "你长得很俊，回头率很高。"
-msgstr "你长得很俊，回头率很高。"
-
-msgid "你长得很美，很抢眼。"
-msgstr "你长得很美，很抢眼。"
-
 # ============================================================================
 # Additional (New)
 # ============================================================================
+
+msgid "action_thinking"
+msgstr "思考"
 
 msgid "{alignment}: {description}"
 msgstr "{alignment}：{description}"
