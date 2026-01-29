@@ -22,7 +22,7 @@ from .move_away_from_region import MoveAwayFromRegion
 from .escape import Escape
 from .cultivate import Cultivate
 from .breakthrough import Breakthrough
-from .play import Play
+from .play import Reading, TeaTasting, Traveling, ZitherPlaying
 from .hunt import Hunt
 from .harvest import Harvest
 from .sell import Sell
@@ -58,7 +58,10 @@ register_action(actual=True)(MoveAwayFromRegion)
 register_action(actual=False)(Escape)
 register_action(actual=True)(Cultivate)
 register_action(actual=True)(Breakthrough)
-register_action(actual=True)(Play)
+register_action(actual=True)(Reading)
+register_action(actual=True)(TeaTasting)
+register_action(actual=True)(Traveling)
+register_action(actual=True)(ZitherPlaying)
 register_action(actual=True)(Hunt)
 register_action(actual=True)(Harvest)
 register_action(actual=True)(Sell)
@@ -97,7 +100,10 @@ __all__ = [
     "Escape",
     "Cultivate",
     "Breakthrough",
-    "Play",
+    "Reading",
+    "TeaTasting",
+    "Traveling",
+    "ZitherPlaying",
     "Hunt",
     "Harvest",
     "Sell",
@@ -116,5 +122,3 @@ __all__ = [
     "Mine",
     "Retreat",
 ]
-
-

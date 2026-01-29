@@ -10,6 +10,7 @@ from .impart import Impart
 from .gift import Gift
 from .spar import Spar
 from .occupy import Occupy
+from .play import TeaParty, Chess
 from src.classes.action.registry import register_action
 
 __all__ = [
@@ -23,6 +24,8 @@ __all__ = [
     "Gift",
     "Spar",
     "Occupy",
+    "TeaParty",
+    "Chess",
 ]
 
 # 注册 mutual actions（均为实际动作）
@@ -35,5 +38,5 @@ register_action(actual=True)(Impart)
 register_action(actual=True)(Gift)
 register_action(actual=True)(Spar)
 register_action(actual=True)(Occupy)
-
-
+register_action(actual=True)(TeaParty)
+register_action(actual=True)(Chess)

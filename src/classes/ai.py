@@ -103,9 +103,9 @@ class LLMAI(AI):
             
             # 更新情绪
             from src.classes.emotions import EmotionType
-            raw_emotion = r.get("current_emotion", "平静")
+            raw_emotion = r.get("current_emotion", "emotion_calm")
             try:
-                # 尝试通过 value (中文) 获取枚举
+                # 尝试通过 value 获取枚举
                 avatar.emotion = EmotionType(raw_emotion)
             except ValueError:
                 avatar.emotion = EmotionType.CALM

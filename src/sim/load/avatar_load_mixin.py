@@ -158,7 +158,7 @@ class AvatarLoadMixin:
 
         # 恢复情绪
         from src.classes.emotions import EmotionType
-        emotion_str = data.get("emotion", "平静")
+        emotion_str = data.get("emotion", "emotion_calm")
         try:
             avatar.emotion = EmotionType(emotion_str)
         except ValueError:

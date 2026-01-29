@@ -21,7 +21,7 @@ Testing Strategy:
                 "AvatarName": {
                     "action_name_params_pairs": [["cultivate", {"duration": 10}]],
                     "avatar_thinking": "...",
-                    "current_emotion": "平静"
+                    "current_emotion": "emotion_calm"
                 }
             }
             results = await ai._decide(world, [avatar])
@@ -67,7 +67,7 @@ class TestLLMAIDecide:
                 ],
                 "avatar_thinking": "I should cultivate to get stronger.",
                 "short_term_objective": "Reach Foundation Establishment",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -96,7 +96,7 @@ class TestLLMAIDecide:
                 ],
                 "avatar_thinking": "Time to rest after cultivation.",
                 "short_term_objective": "Recover energy",
-                "current_emotion": "疲惫"
+                "current_emotion": "emotion_tired"
             }
         }
 
@@ -124,7 +124,7 @@ class TestLLMAIDecide:
                 ],
                 "avatar_thinking": "Just cultivating.",
                 "short_term_objective": "Get stronger",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -155,7 +155,7 @@ class TestLLMAIDecide:
                 ],
                 "avatar_thinking": "Mixed formats.",
                 "short_term_objective": "Test edge cases",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -201,7 +201,7 @@ class TestLLMAIDecide:
                 "action_name_params_pairs": [["cultivate", {}]],
                 "avatar_thinking": "Should not be used.",
                 "short_term_objective": "Not for test avatar",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -224,7 +224,7 @@ class TestLLMAIDecide:
                 ],
                 "avatar_thinking": "All invalid.",
                 "short_term_objective": "Test",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -258,15 +258,15 @@ class TestLLMAIEmotionUpdate:
     async def test_decide_updates_emotion_with_valid_value(self, mock_world, test_avatar):
         """Test that valid emotion string updates avatar.emotion correctly."""
         emotions_to_test = [
-            ("开心", EmotionType.HAPPY),
-            ("愤怒", EmotionType.ANGRY),
-            ("悲伤", EmotionType.SAD),
-            ("恐惧", EmotionType.FEARFUL),
-            ("惊讶", EmotionType.SURPRISED),
-            ("期待", EmotionType.ANTICIPATING),
-            ("厌恶", EmotionType.DISGUSTED),
-            ("疑惑", EmotionType.CONFUSED),
-            ("疲惫", EmotionType.TIRED),
+            ("emotion_happy", EmotionType.HAPPY),
+            ("emotion_angry", EmotionType.ANGRY),
+            ("emotion_sad", EmotionType.SAD),
+            ("emotion_fearful", EmotionType.FEARFUL),
+            ("emotion_surprised", EmotionType.SURPRISED),
+            ("emotion_anticipating", EmotionType.ANTICIPATING),
+            ("emotion_disgusted", EmotionType.DISGUSTED),
+            ("emotion_confused", EmotionType.CONFUSED),
+            ("emotion_tired", EmotionType.TIRED),
         ]
 
         ai = LLMAI()
@@ -329,7 +329,7 @@ class TestLLMAIEmotionUpdate:
             mock_llm.return_value = mock_response
             await ai._decide(mock_world, [test_avatar])
 
-        # Default is "平静" which maps to CALM.
+        # Default is "emotion_calm" which maps to CALM.
         assert test_avatar.emotion == EmotionType.CALM
 
 
@@ -419,7 +419,7 @@ class TestLLMAIBatchProcessing:
                         "action_name_params_pairs": [["cultivate", {"duration": 10}]],
                         "avatar_thinking": "A is cultivating.",
                         "short_term_objective": "A's goal",
-                        "current_emotion": "开心"
+                        "current_emotion": "emotion_happy"
                     }
                 }
             else:
@@ -428,7 +428,7 @@ class TestLLMAIBatchProcessing:
                         "action_name_params_pairs": [["move", {"target_x": 2, "target_y": 2}]],
                         "avatar_thinking": "B is moving.",
                         "short_term_objective": "B's goal",
-                        "current_emotion": "愤怒"
+                        "current_emotion": "emotion_angry"
                     }
                 }
 
@@ -492,7 +492,7 @@ class TestAIDecideWrapper:
                 "action_name_params_pairs": [["cultivate", {}]],
                 "avatar_thinking": "Testing.",
                 "short_term_objective": "Test",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -539,7 +539,7 @@ class TestLLMAIThinkingFieldVariants:
                 "action_name_params_pairs": [["cultivate", {}]],
                 "thinking": "Using thinking field.",  # Not avatar_thinking
                 "short_term_objective": "Test",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -561,7 +561,7 @@ class TestLLMAIThinkingFieldVariants:
                 "avatar_thinking": "Preferred field.",
                 "thinking": "Fallback field.",
                 "short_term_objective": "Test",
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
@@ -581,7 +581,7 @@ class TestLLMAIThinkingFieldVariants:
             test_avatar.name: {
                 "action_name_params_pairs": [["cultivate", {}]],
                 # No avatar_thinking, thinking, or short_term_objective
-                "current_emotion": "平静"
+                "current_emotion": "emotion_calm"
             }
         }
 
