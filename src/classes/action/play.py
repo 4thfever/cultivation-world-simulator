@@ -3,7 +3,8 @@ import random
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from src.classes.action import TimedAction, ActionStatus
+from src.classes.action.action import TimedAction
+from src.classes.action_runtime import ActionStatus
 from src.classes.event import Event
 from src.utils.config import CONFIG
 
@@ -21,9 +22,6 @@ class BasePlayAction(TimedAction):
     def _try_trigger_benefit(self) -> str:
         """尝试触发额外收益 (突破概率)"""
         prob = CONFIG.play.base_benefit_probability if hasattr(CONFIG, 'play') else 0.05
-        
-        # Persona 加成逻辑 (例如 LUCKY 等，暂时先不加，保持简洁，后续可以在 Persona effect 中扩展)
-        # if self.avatar.has_persona("LUCKY"): prob += 0.02
         
         if random.random() < prob:
             rate = 0.2

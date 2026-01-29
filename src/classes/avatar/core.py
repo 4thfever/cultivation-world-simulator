@@ -127,6 +127,18 @@ class Avatar(
     # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
 
+    def add_breakthrough_rate(self, rate: float, duration: int = 1) -> None:
+        """
+        增加突破成功率（临时效果）
+        """
+        self.temporary_effects.append({
+            "source": "play_benefit",
+            "effects": {"extra_breakthrough_success_rate": rate},
+            "start_month": int(self.world.month_stamp),
+            "duration": duration
+        })
+        self.recalc_effects()
+
     # ========== 宗门相关 ==========
 
     def consume_elixir(self, elixir: Elixir) -> bool:
