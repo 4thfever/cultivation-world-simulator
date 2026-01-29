@@ -10,10 +10,10 @@ class Age:
     
     # 各境界的基础期望寿命（年）
     REALM_LIFESPAN = {
-        Realm.Qi_Refinement: 80,      # 练气期：100年
-        Realm.Foundation_Establishment: 120,  # 筑基期：200年
-        Realm.Core_Formation: 200,      # 金丹期：500年
-        Realm.Nascent_Soul: 500,      # 元婴期：1000年
+        Realm.Qi_Refinement: 100,      # 练气期：100年
+        Realm.Foundation_Establishment: 150,  # 筑基期：150年
+        Realm.Core_Formation: 200,      # 金丹期：200年
+        Realm.Nascent_Soul: 500,      # 元婴期：500年
     }
 
     
@@ -71,21 +71,28 @@ class Age:
         """
         计算当月老死的概率
         
-        返回:
-            老死概率，范围0.0-0.1
+        逻辑变更:
+        1. age >= max_lifespan: 必死 (概率 1.0)
+        2. age >= max_lifespan - 20: 进入衰老期，有概率死亡
+        3. 其他: 安全
         """
         expected = self.max_lifespan if realm is None else self.get_expected_lifespan(realm)
-        if self.age < expected:
-            return 0.0
         
-        # 超过期望寿命的年数
-        years_over_lifespan = self.age - expected
+        # 1. 超过大限，必死
+        if self.age >= expected:
+            return 1.0
+            
+        # 2. 距离大限20年内 (Twilight Years)
+        start_decay_age = max(0, expected - 20)
         
-        # 基础概率：每超过1年增加0.01的概率
-        prob_add = 0.01
-        death_probability = min(years_over_lifespan * prob_add, 0.01)
-
-        return death_probability
+        if self.age >= start_decay_age:
+            # 概率设计：随年龄线性递增
+            decay_years = self.age - start_decay_age
+            # 每接近大限一年，月死亡率增加 0.5%
+            return decay_years * 0.005
+            
+        # 3. 安全期
+        return 0.0
         
     def death_by_old_age(self, realm: Realm) -> bool:
         """

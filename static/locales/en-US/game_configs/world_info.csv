@@ -2,7 +2,7 @@ title,desc
 Title,Description
 Introduction,This is a cultivation world where many cultivators compete to ascend.
 Realm,"Cultivation realms from weak to strong: Qi Refinement, Foundation Establishment, Core Formation, Nascent Soul. Each realm is divided into Early, Middle, and Late stages. The gap between realms is immense."
-Lifespan,Every character has a lifespan. Exceeding it leads to death by old age. Advancing realms and certain treasures or elixirs can increase lifespan.
+Lifespan,Every character has a maximum lifespan. In the 20 years before this limit, the body weakens, risking death by old age. Upon reaching or exceeding the limit, death is certain. Advancing realms and certain treasures or elixirs can increase maximum lifespan.
 Death,You will also die if HP drops below 0.
 Region,Different regions have different effects. Doing the right thing in the right region yields double the results with half the effort.
 Cultivate,Cultivation increases experience until reaching a bottleneck. Breakthrough is probabilistic; success leads to the next realm.

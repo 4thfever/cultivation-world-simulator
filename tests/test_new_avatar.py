@@ -28,16 +28,28 @@ class TestAgeLifespanConstraint:
             )
 
     def test_batch_creation_no_immediate_death(self, base_world):
-        """批量创建的角色不应该一出生就处于老死状态."""
+        """批量创建的角色不应该一出生就处于必死状态.
+        
+        注：新机制下，大限前20年会有死亡概率，所以不能断言概率为0，
+        只能断言概率不为1.0（即没死透）。
+        """
         avatars = make_avatars(base_world, count=100)
 
         for avatar in avatars.values():
-            # 不应该有老死概率
             death_prob = avatar.age.get_death_probability()
-            assert death_prob == 0.0, (
-                f"角色 {avatar.name} 年龄 {avatar.age.age}/"
-                f"{avatar.age.max_lifespan} 有老死概率 {death_prob}"
+            
+            # 1. 刚生成的活人角色不应该必死
+            assert death_prob < 1.0, (
+                f"角色 {avatar.name} 刚生成就必死 (prob={death_prob})"
             )
+            
+            # 2. 如果在安全期，概率应为0
+            safe_limit = avatar.age.max_lifespan - 20
+            if avatar.age.age < safe_limit:
+                assert death_prob == 0.0, (
+                    f"角色 {avatar.name} 处于安全期 ({avatar.age.age}/{safe_limit}) "
+                    f"却有老死概率 {death_prob}"
+                )
 
     def test_multiple_batch_creations_consistent(self, base_world):
         """多次批量创建应该都满足年龄约束."""
@@ -54,7 +66,7 @@ class TestRealmLifespanMapping:
     """测试各境界的寿命上限映射."""
 
     def test_qi_refinement_lifespan(self, base_world):
-        """练气期角色年龄应不超过80岁."""
+        """练气期角色年龄应不超过100岁."""
         from src.classes.cultivation import Realm
 
         avatars = make_avatars(base_world, count=100)
@@ -63,13 +75,16 @@ class TestRealmLifespanMapping:
             if av.cultivation_progress.realm == Realm.Qi_Refinement
         ]
 
+        # 获取当前配置的寿命
+        limit = Age.REALM_LIFESPAN[Realm.Qi_Refinement]
+        
         for avatar in qi_refinement_avatars:
-            assert avatar.age.age < 80, (
-                f"练气期角色 {avatar.name} 年龄 {avatar.age.age} 超过 80"
+            assert avatar.age.age < limit, (
+                f"练气期角色 {avatar.name} 年龄 {avatar.age.age} 超过 {limit}"
             )
 
     def test_foundation_establishment_lifespan(self, base_world):
-        """筑基期角色年龄应不超过120岁."""
+        """筑基期角色年龄应不超过150岁."""
         from src.classes.cultivation import Realm
 
         avatars = make_avatars(base_world, count=100)
@@ -78,7 +93,10 @@ class TestRealmLifespanMapping:
             if av.cultivation_progress.realm == Realm.Foundation_Establishment
         ]
 
+        # 获取当前配置的寿命
+        limit = Age.REALM_LIFESPAN[Realm.Foundation_Establishment]
+
         for avatar in fe_avatars:
-            assert avatar.age.age < 120, (
-                f"筑基期角色 {avatar.name} 年龄 {avatar.age.age} 超过 120"
+            assert avatar.age.age < limit, (
+                f"筑基期角色 {avatar.name} 年龄 {avatar.age.age} 超过 {limit}"
             )
