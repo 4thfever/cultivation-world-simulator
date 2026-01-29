@@ -480,6 +480,11 @@ class Simulator:
         """
         本轮步进的最终归档：去重、入库、打日志、推进时间。
         """
+        # 0. 为启用追踪的 Avatar 记录每月快照
+        for avatar in self.world.avatar_manager.avatars.values():
+            if avatar.enable_metrics_tracking:
+                avatar.record_metrics()
+
         # 1. 基于 ID 去重（防止同一个事件对象被多次添加）
         unique_events: dict[str, Event] = {}
         for e in events:
