@@ -951,7 +951,7 @@ msgstr "Leisure activities to relax body and mind"
 
 
 msgid "play_requirements"
-msgstr "No restrictions"
+msgstr "Target within interaction range"
 
 
 msgid "{avatar} begins leisure activities"
@@ -3043,84 +3043,68 @@ msgstr "Heaven Root"
 # Sect Ranks
 
 msgid "掌门"
-
-msgstr "Patriarch"
+msgstr "Sect Master"
 
 
 msgid "长老"
-
 msgstr "Elder"
 
 
 msgid "内门弟子"
-
 msgstr "Inner Disciple"
 
 
 msgid "外门弟子"
-
 msgstr "Outer Disciple"
 
 
 # Appearance
 
 msgid "奇丑"
-
 msgstr "Hideous"
 
 
 msgid "丑陋"
-
 msgstr "Ugly"
 
 
 msgid "粗陋"
-
-msgstr "Crude"
+msgstr "Coarse"
 
 
 msgid "寒素"
-
 msgstr "Plain"
 
 
 msgid "清秀"
-
 msgstr "Delicate"
 
 
 msgid "秀致"
-
-msgstr "Refined"
+msgstr "Elegant"
 
 
 msgid "俊美"
-
-msgstr "Handsome"
+msgstr "Handsome/Beautiful"
 
 
 msgid "倾城"
-
-msgstr "Alluring"
-
-
-msgid "绝色"
-
 msgstr "Stunning"
 
 
-msgid "惊艳"
+msgid "绝色"
+msgstr "Exquisite"
 
+
+msgid "惊艳"
 msgstr "Breathtaking"
 
 
 msgid "你长得很俊，回头率很高。"
-
-msgstr "You are very handsome and turn heads."
+msgstr "You are very handsome, with a high head-turning rate."
 
 
 msgid "你长得很美，很抢眼。"
-
 msgstr "You are very beautiful and eye-catching."
 
 
@@ -3340,7 +3324,168 @@ msgid "{avatar} finished {action}."
 msgstr "{avatar} finished {action}."
 
 msgid "gained {val} cultivation"
-msgstr "gained {val} cultivation"
+msgstr "Gained {val} cultivation."
 
 msgid "breakthrough probability increased by {val:.1%}"
-msgstr "breakthrough probability increased by {val:.1%}"
+msgstr "Breakthrough probability increased by {val:.1%}."
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "Hideous"
+
+msgid "appearance_1_desc_male"
+msgstr "You are very ugly, with discordant features, often drawing stares."
+
+msgid "appearance_1_desc_female"
+msgstr "You are very ugly, with discordant features, making people avoid you."
+
+msgid "appearance_2_name"
+msgstr "Ugly"
+
+msgid "appearance_2_desc_male"
+msgstr "Your appearance is crude, with some features appearing quite abrupt."
+
+msgid "appearance_2_desc_female"
+msgstr "Your appearance is crude, with some features appearing quite abrupt."
+
+msgid "appearance_3_name"
+msgstr "Coarse"
+
+msgid "appearance_3_desc_male"
+msgstr "Your appearance is mediocre and not very pleasant to look at."
+
+msgid "appearance_3_desc_female"
+msgstr "Your appearance is mediocre and not very pleasant to look at."
+
+msgid "appearance_4_name"
+msgstr "Plain"
+
+msgid "appearance_4_desc_male"
+msgstr "You look very ordinary, easily lost in a crowd."
+
+msgid "appearance_4_desc_female"
+msgstr "You look very ordinary, easily lost in a crowd."
+
+msgid "appearance_5_name"
+msgstr "Delicate"
+
+msgid "appearance_5_desc_male"
+msgstr "You have delicate features and are quite pleasant to look at."
+
+msgid "appearance_5_desc_female"
+msgstr "You have delicate features and are quite pleasant to look at."
+
+msgid "appearance_6_name"
+msgstr "Elegant"
+
+msgid "appearance_6_desc_male"
+msgstr "You have regular features and look very energetic."
+
+msgid "appearance_6_desc_female"
+msgstr "You have regular features and look very energetic."
+
+msgid "appearance_7_name"
+msgstr "Handsome/Beautiful"
+
+msgid "appearance_7_desc_male"
+msgstr "You are very handsome, with a high head-turning rate."
+
+msgid "appearance_7_desc_female"
+msgstr "You are very beautiful and eye-catching."
+
+msgid "appearance_8_name"
+msgstr "Stunning"
+
+msgid "appearance_8_desc_male"
+msgstr "You have an outstanding appearance and are eye-catching wherever you go."
+
+msgid "appearance_8_desc_female"
+msgstr "You are so beautiful that it's stunning."
+
+msgid "appearance_9_name"
+msgstr "Exquisite"
+
+msgid "appearance_9_desc_male"
+msgstr "Both your looks and aura are top-tier, often attracting side glances."
+
+msgid "appearance_9_desc_female"
+msgstr "Your beauty is breathtaking, almost unforgettable at first sight."
+
+msgid "appearance_10_name"
+msgstr "Breathtaking"
+
+msgid "appearance_10_desc_male"
+msgstr "You are so beautiful that you seem otherworldly."
+
+msgid "appearance_10_desc_female"
+msgstr "Your beauty is so breathtaking that one remembers you at a single glance."
+
+msgid "comma_separator"
+msgstr ", "
+
+msgid "semicolon_separator"
+msgstr "; "
+
+msgid "{label}: {names}"
+msgstr "{label}: {names}"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} ({elements})"
+
+msgid "{sect} {rank}"
+msgstr "{sect} {rank}"
+
+msgid "金灵根"
+msgstr "金灵根"
+
+msgid "木灵根"
+msgstr "木灵根"
+
+msgid "水灵根"
+msgstr "水灵根"
+
+msgid "火灵根"
+msgstr "火灵根"
+
+msgid "土灵根"
+msgstr "土灵根"
+
+msgid "雷灵根"
+msgstr "雷灵根"
+
+msgid "冰灵根"
+msgstr "冰灵根"
+
+msgid "风灵根"
+msgstr "风灵根"
+
+msgid "暗灵根"
+msgstr "暗灵根"
+
+msgid "天灵根"
+msgstr "天灵根"
+
+
+msgid "action_reading_desc"
+msgstr "Read ancient books to gain knowledge."
+
+msgid "action_tea_tasting_desc"
+msgstr "Taste fine tea and cultivate a peaceful mind."
+
+msgid "action_traveling_desc"
+msgstr "Travel around to experience the world."
+
+msgid "action_zither_playing_desc"
+msgstr "Play the zither and nurture your temperament."
+
+msgid "action_tea_party_desc"
+msgstr "Share tea with friends."
+
+msgid "action_chess_desc"
+msgstr "Play chess to sharpen your mind."
+
+msgid "action_tea_party_story_prompt"
+msgstr "Two people are holding an elegant tea party."
+
+msgid "action_chess_story_prompt"
+msgstr "Two people are playing chess."

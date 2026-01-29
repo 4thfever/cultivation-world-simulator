@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 class BasePlayAction(TimedAction):
     """消遣动作基类"""
     duration_months = 1
+    REQUIREMENTS_ID = "play_requirements"
 
     def __init__(self, avatar: Avatar, world: World):
         super().__init__(avatar, world)
@@ -48,16 +49,20 @@ class BasePlayAction(TimedAction):
 # 具体动作实现
 class Reading(BasePlayAction):
     ACTION_NAME_ID = "action_reading"
+    DESC_ID = "action_reading_desc"
     EMOJI = "📖"
 
 class TeaTasting(BasePlayAction):
     ACTION_NAME_ID = "action_tea_tasting"
+    DESC_ID = "action_tea_tasting_desc"
     EMOJI = "🍵"
 
 class Traveling(BasePlayAction):
     ACTION_NAME_ID = "action_traveling"
+    DESC_ID = "action_traveling_desc"
     EMOJI = "🧳"
 
 class ZitherPlaying(BasePlayAction):
     ACTION_NAME_ID = "action_zither_playing"
+    DESC_ID = "action_zither_playing_desc"
     EMOJI = "🎵"

@@ -25,6 +25,9 @@ def try_trigger_play_benefit(avatar: Avatar) -> str:
 class TeaParty(MutualAction):
     """茶会：双人互动"""
     ACTION_NAME_ID = "action_tea_party"
+    DESC_ID = "action_tea_party_desc"
+    STORY_PROMPT_ID = "action_tea_party_story_prompt"
+    REQUIREMENTS_ID = "play_requirements"
     EMOJI = "🍵"
     FEEDBACK_ACTIONS = ["Accept", "Reject"] 
     
@@ -37,6 +40,9 @@ class TeaParty(MutualAction):
 class Chess(MutualAction):
     """下棋：双人互动"""
     ACTION_NAME_ID = "action_chess"
+    DESC_ID = "action_chess_desc"
+    STORY_PROMPT_ID = "action_chess_story_prompt"
+    REQUIREMENTS_ID = "play_requirements"
     EMOJI = "♟️"
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
 
