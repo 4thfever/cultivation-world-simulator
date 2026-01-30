@@ -53,6 +53,7 @@ class AvatarLoadMixin:
         from src.classes.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
         from src.classes.elixir import elixirs_by_id, ConsumedElixir
+        from src.classes.avatar_metrics import AvatarMetrics
         
         # 重建基本对象
         gender = Gender(data["gender"])
@@ -225,6 +226,14 @@ class AvatarLoadMixin:
 
         # 恢复临时效果
         avatar.temporary_effects = data.get("temporary_effects", [])
+
+        # 重建 metrics_history
+        metrics_history_data = data.get("metrics_history", [])
+        avatar.metrics_history = [
+            AvatarMetrics.from_save_dict(metrics_data)
+            for metrics_data in metrics_history_data
+        ]
+        avatar.enable_metrics_tracking = data.get("enable_metrics_tracking", False)
 
         # 加载完成后重新计算effects（确保数值正确）
         avatar.recalc_effects()
