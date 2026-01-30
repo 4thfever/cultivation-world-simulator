@@ -1,5 +1,5 @@
 """
-測試 Avatar 狀態追蹤功能
+测试 Avatar 状态追踪功能
 """
 import pytest
 from src.classes.avatar_metrics import AvatarMetrics, MetricTag
@@ -7,7 +7,7 @@ from src.classes.calendar import MonthStamp
 
 
 def test_avatar_metrics_creation():
-    """測試狀態快照創建"""
+    """测试状态快照创建"""
     metrics = AvatarMetrics(
         timestamp=MonthStamp(100),
         age=20,
@@ -34,7 +34,7 @@ def test_avatar_metrics_creation():
 
 
 def test_avatar_metrics_serialization():
-    """測試序列化與反序列化"""
+    """测试序列化与反序列化"""
     original = AvatarMetrics(
         timestamp=MonthStamp(200),
         age=30,
@@ -66,7 +66,7 @@ def test_avatar_metrics_serialization():
 
 
 def test_metric_tag_enum():
-    """測試 MetricTag 枚舉"""
+    """测试 MetricTag 枚举"""
     assert MetricTag.BREAKTHROUGH.value == "breakthrough"
     assert MetricTag.INJURED.value == "injured"
     assert MetricTag.RECOVERED.value == "recovered"
@@ -79,7 +79,7 @@ def test_metric_tag_enum():
 
 
 def test_avatar_metrics_with_standard_tags():
-    """測試使用標準標籤"""
+    """测试使用标准标签"""
     metrics = AvatarMetrics(
         timestamp=MonthStamp(50),
         age=25,
@@ -99,7 +99,7 @@ def test_avatar_metrics_with_standard_tags():
 
 
 def test_avatar_metrics_empty_tags():
-    """測試空標籤列表"""
+    """测试空标签列表"""
     metrics = AvatarMetrics(
         timestamp=MonthStamp(0),
         age=0,
@@ -118,12 +118,12 @@ def test_avatar_metrics_empty_tags():
 
 
 def test_avatar_metrics_multiple_tags():
-    """測試多個標籤"""
+    """测试多个标签"""
     tags = [
         MetricTag.BREAKTHROUGH.value,
         MetricTag.INJURED.value,
         MetricTag.BATTLE.value,
-        "custom_event",  # 允許自定義標籤
+        "custom_event",  # 允许自定义标签
     ]
 
     metrics = AvatarMetrics(

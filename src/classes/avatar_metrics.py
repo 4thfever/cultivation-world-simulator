@@ -30,20 +30,20 @@ class AvatarMetrics:
     timestamp: MonthStamp
     age: int
 
-    # 修為相關
+    # 修为相关
     cultivation_level: int
     cultivation_progress: int
 
-    # 資源相關
+    # 资源相关
     hp: float
     hp_max: float
     spirit_stones: int
 
-    # 社會相關
+    # 社会相关
     relations_count: int
     known_regions_count: int
 
-    # 標記
+    # 标记
     tags: List[str]
 
     def to_save_dict(self) -> dict:
