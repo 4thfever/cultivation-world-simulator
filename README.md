@@ -178,11 +178,7 @@
   <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=12" />
 </a>
 
-* **Aku** - 世界观 & 玩法设计与讨论
-* **[@xzhseh](https://github.com/xzhseh)** - 代码与repo维护
-
-## 🙏 致谢
-- 参考了ai life engine部分ui
+更多贡献细节请查看 [CONTRIBUTORS.md](CONTRIBUTORS.md)。
 
 ## 📋 功能开发进度
 

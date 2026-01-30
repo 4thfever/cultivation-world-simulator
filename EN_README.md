@@ -172,11 +172,8 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
   <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=12" />
 </a>
 
-- **Aku** - World design & discussion
-- **[@xzhseh](https://github.com/xzhseh)** - Code & Repo maintenance
+For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
-## 🙏 Acknowledgments
-- Referenced some UI elements from ailifeengine
 
 ## 📋 Development Progress
 
