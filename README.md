@@ -117,9 +117,32 @@
 ## 🚀 使用方法
 
 ### ⚙️ 运行步骤
+
+#### 方式一：Docker Compose 一键部署（推荐）
+
+如果你已经安装了 Docker，这是最简单的方式：
+
+# 1. 克隆项目
+```bash
+
+git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+cd cultivation-world-simulator
+```
+# 2. 启动服务（自动构建并运行）
+```bash
+docker-compose up -d --build
+```
+# 3. 访问应用
+
+前端：`http://localhost:8123`
+后端 API：`http://localhost:8002`
+```
+
+#### 方式二：手动安装运行
+
 1. 克隆项目到本地：
    ```bash
-   git clone https://github.com/your-username/cultivation-world-simulator.git
+   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
    cd cultivation-world-simulator
    ```
 
@@ -127,7 +150,7 @@
    ```bash
    # 后端依赖
    pip install -r requirements.txt
-   
+
    # 前端依赖 (需Node.js环境)
    cd web && npm install
    ```
@@ -135,7 +158,7 @@
 3. 配置LLM：
 
    **推荐方式：在前端直接配置（支持快速填充预设）**
-   
+
    <img src="assets/zh-CN/llm_config.png" alt="前端LLM配置" width="100%">
 
    也可以在 `static/local_config.yml` 中手动配置（OpenAI兼容格式）：

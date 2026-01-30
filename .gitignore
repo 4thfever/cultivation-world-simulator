@@ -153,3 +153,17 @@ local_config.yml
 台本/
 笔记/
 tmp*/
+
+#############################
+# Docker
+#############################
+
+# Docker data directories
+saves/
+logs/
+
+# Docker environment files
+.env
+
+# Docker build cache
+.dockerignore
