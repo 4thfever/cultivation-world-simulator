@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from src.utils.config import CONFIG
+from src.i18n import t
 
 
 def load_csv(path: Path) -> List[Dict[str, Any]]:
@@ -59,6 +60,26 @@ def load_csv(path: Path) -> List[Dict[str, Any]]:
             else:
                 row_dict[header] = None
         
+        # -----------------------------------------------------------
+        # I18N Translation Injection
+        # -----------------------------------------------------------
+        # Try to translate name and desc using their IDs.
+        # If translation exists (and is not just the key itself), overwrite the value.
+        # Fallback is keeping the original value from CSV (usually Chinese reference).
+        
+        name_id = row_dict.get("name_id")
+        if name_id and isinstance(name_id, str):
+            trans = t(name_id)
+            if trans != name_id and trans:
+                row_dict["name"] = trans
+        
+        desc_id = row_dict.get("desc_id")
+        if desc_id and isinstance(desc_id, str):
+            trans = t(desc_id)
+            if trans != desc_id and trans:
+                row_dict["desc"] = trans
+        # -----------------------------------------------------------
+
         data.append(row_dict)
 
     return data
@@ -66,17 +87,17 @@ def load_csv(path: Path) -> List[Dict[str, Any]]:
 def load_game_configs() -> dict[str, List[Dict[str, Any]]]:
     game_configs = {}
     
-    # 1. 加载共享配置 (Shared)
+    # 1. 加载共享配置 (static/game_configs/*.csv)
     if hasattr(CONFIG.paths, "shared_game_configs") and CONFIG.paths.shared_game_configs.exists():
         for path in CONFIG.paths.shared_game_configs.glob("*.csv"):
             data = load_csv(path)
             game_configs[path.stem] = data
-            
-    # 2. 加载本地化配置 (Localized) - 会覆盖同名文件
-    if hasattr(CONFIG.paths, "game_configs") and CONFIG.paths.game_configs.exists():
-        for path in CONFIG.paths.game_configs.glob("*.csv"):
+
+    # 2. 加载本地化配置 (static/locales/{lang}/game_configs/*.csv)
+    # 如果文件名相同，覆盖共享配置
+    if hasattr(CONFIG.paths, "localized_game_configs") and CONFIG.paths.localized_game_configs.exists():
+        for path in CONFIG.paths.localized_game_configs.glob("*.csv"):
             data = load_csv(path)
-            # 如果存在同名配置，这里会进行覆盖
             game_configs[path.stem] = data
             
     return game_configs

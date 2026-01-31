@@ -1,0 +1,79 @@
+id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
+,名称ID,描述ID,Key,名称,互斥Key,描述/用于LLM输入的文本,稀有度(N/R/SR/SSR),选取条件,JSON形式
+1,PERSONA_1_NAME,PERSONA_1_DESC,RATIONAL,理性,FICKLE;CASUAL,你总是会用逻辑来思考问题，做事会谋定而后动。,N,,{extra_retreat_success_rate: 0.05}
+2,PERSONA_2_NAME,PERSONA_2_DESC,FICKLE,无常,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL;PENSIVE,目标飘忽不定，不会长期坚持一个目标。,N,,{extra_retreat_success_rate: -0.1}
+3,PERSONA_3_NAME,PERSONA_3_DESC,LAZY,怠惰,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会拖延，不想努力，更热衷于享受人生。,N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
+4,PERSONA_4_NAME,PERSONA_4_DESC,ADVENTUROUS,冒险,LAZY;LIFE_CHERISHING,你总是会冒险，喜欢刺激，总想放手一搏。,N,,
+5,PERSONA_5_NAME,PERSONA_5_DESC,CASUAL,随性,RATIONAL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会随机应变，性子到哪里了就是哪里，没有一定之规。,N,,
+6,PERSONA_6_NAME,PERSONA_6_DESC,GREEDY,贪财,,你对灵石和财富有着强烈的渴望。,N,,{extra_item_sell_price_multiplier: 0.1}
+7,PERSONA_7_NAME,PERSONA_7_DESC,GATHERER,采集者,,喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。,R,,{extra_harvest_materials: 1}
+8,PERSONA_8_NAME,PERSONA_8_DESC,HUNTER,猎人,,享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌。,R,,{extra_hunt_materials: 1}
+9,PERSONA_9_NAME,PERSONA_9_DESC,PENSIVE,沉思,FICKLE,你总是会深思熟虑，思考问题比较有哲理。,N,,{extra_retreat_success_rate: 0.1}
+10,PERSONA_10_NAME,PERSONA_10_DESC,LIFE_CHERISHING,惜命,ADVENTUROUS;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你总是会珍惜自己的生命，不会轻易冒险。,R,,{extra_escape_success_rate: 0.15}
+11,PERSONA_11_NAME,PERSONA_11_DESC,FRIENDLY,友爱,ALOOF;INDIFFERENT;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你重视同伴与和谐，乐于助人。,N,,
+12,PERSONA_12_NAME,PERSONA_12_DESC,VENGEFUL,复仇,FRIENDLY;INDIFFERENT,你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。,N,,
+13,PERSONA_13_NAME,PERSONA_13_DESC,ALOOF,孤僻,FRIENDLY,你喜欢独处，避免与人深交。,N,,
+14,PERSONA_14_NAME,PERSONA_14_DESC,INDIFFERENT,淡漠,FRIENDLY;VENGEFUL;AGGRESSIVE;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你情感克制，对外界冷静疏离。,N,,
+15,PERSONA_15_NAME,PERSONA_15_DESC,AGGRESSIVE,好斗,FRIENDLY;INDIFFERENT;LIFE_CHERISHING;TIMID,你直面冲突，偏好以力量与对抗解决问题。,R,,{extra_battle_strength_points: 1}
+16,PERSONA_16_NAME,PERSONA_16_DESC,RASH,鲁莽,RATIONAL;PENSIVE;LIFE_CHERISHING,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
+17,PERSONA_17_NAME,PERSONA_17_DESC,TIMID,胆小,ADVENTUROUS;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你谨小慎微，容易畏惧风险。,N,,{extra_escape_success_rate: 0.1}
+18,PERSONA_18_NAME,PERSONA_18_DESC,OVERBEARING,霸道,FRIENDLY;TIMID,你行事强势，不讲道理，习惯以自己的利益为先。,N,,
+19,PERSONA_19_NAME,PERSONA_19_DESC,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,"{extra_cultivate_exp: 30, extra_retreat_success_rate: 0.15}"
+20,PERSONA_20_NAME,PERSONA_20_DESC,INTROVERTED,内向,EXTROVERTED,你更享受独处与自我思考，倾向回避不必要的社交。,N,,{extra_retreat_success_rate: 0.05}
+21,PERSONA_21_NAME,PERSONA_21_DESC,EXTROVERTED,外向,ALOOF;INDIFFERENT;INTROVERTED,你乐于与人交流，主动结识伙伴。,N,,
+22,PERSONA_22_NAME,PERSONA_22_DESC,MEAN,刻薄,FRIENDLY;ENTHUSIASTIC,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己。,N,,
+23,PERSONA_23_NAME,PERSONA_23_DESC,ENTHUSIASTIC,热情,ALOOF;INDIFFERENT;MEAN,你待人友好、积极回应，倾向用鼓励与赞美拉近距离。,N,,
+24,PERSONA_24_NAME,PERSONA_24_DESC,EXTREMELY_RIGHTEOUS,极端正义,INTROVERTED;EXTREMELY_EVIL,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,"avatar.alignment == ""RIGHTEOUS""",{extra_breakthrough_success_rate: 0.05}
+25,PERSONA_25_NAME,PERSONA_25_DESC,EXTREMELY_EVIL,极端邪恶,INTROVERTED;EXTREMELY_RIGHTEOUS,你推崇权力与恐惧，为达目的不择手段。,SR,"avatar.alignment == ""EVIL""","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
+26,PERSONA_26_NAME,PERSONA_26_DESC,OPEN_MINDED,开放,SHY,你对待和他人结为道侣或者双修比较随意,R,,{extra_dual_cultivation_exp: 30}
+27,PERSONA_27_NAME,PERSONA_27_DESC,SHY,腼腆,OPEN_MINDED,你对待和他人结为道侣或者双修比较谨慎,N,,
+28,PERSONA_28_NAME,PERSONA_28_DESC,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,
+29,PERSONA_29_NAME,PERSONA_29_DESC,ENVIOUS,嫉妒,FRIENDLY;ENTHUSIASTIC,你对远超于你的人容易产生敌意。,N,,
+30,PERSONA_30_NAME,PERSONA_30_DESC,TRANSMIGRATOR,穿越者,,你来自现代社会，怀念现代社会的一切。,SR,,
+31,PERSONA_31_NAME,PERSONA_31_DESC,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05, extra_hidden_domain_drop_prob: 0.2, extra_hidden_domain_danger_prob: -0.1}"
+32,PERSONA_32_NAME,PERSONA_32_DESC,SWORD_FANATIC,剑痴,LAZY;TIMID,以剑入道，剑即是命。你认为剑道至上。,SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+33,PERSONA_33_NAME,PERSONA_33_DESC,SCHEMING,心机深沉,RASH;ENTHUSIASTIC;EXTROVERTED,深藏不露，行事谨慎，善于算计。,R,,
+34,PERSONA_34_NAME,PERSONA_34_DESC,LOYAL,忠诚,ALOOF;INDIFFERENT;MEAN,重承诺守信义，对认定的人绝不背叛。,R,,
+35,PERSONA_35_NAME,PERSONA_35_DESC,RUTHLESS,狠辣,FRIENDLY;ENTHUSIASTIC;TIMID,行事果决狠辣，不留后患，斩草必除根。,N,,
+36,PERSONA_36_NAME,PERSONA_36_DESC,REINCARNATOR,重生者,FICKLE;CASUAL,经历过一世，对未来有模糊预知。,SSR,,
+37,PERSONA_37_NAME,PERSONA_37_DESC,SUSPICIOUS,疑心重,ENTHUSIASTIC;EXTROVERTED;FRIENDLY,对任何人都保持怀疑，不轻易信任。,N,,
+38,PERSONA_38_NAME,PERSONA_38_DESC,BODY_CULTIVATOR,体修,LIFE_CHERISHING;TIMID,专注肉身淬炼，体魄强健，近战无敌。,R,,"[{when: 'avatar.weapon is None', extra_battle_strength_points: 5}]"
+39,PERSONA_39_NAME,PERSONA_39_DESC,ALCHEMIST,炼丹师,AGGRESSIVE,精通丹道，对灵药敏感。,R,,{extra_refine_success_rate: 0.15}
+40,PERSONA_40_NAME,PERSONA_40_DESC,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,,天生福运，逢凶化吉。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
+41,PERSONA_41_NAME,PERSONA_41_DESC,SWORD_CULTIVATOR,剑修,LAZY,对剑道有着深厚的兴趣和独特的天赋。,R,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+42,PERSONA_42_NAME,PERSONA_42_DESC,SABER_CULTIVATOR,刀修,LAZY,专精刀法，对刀道有着独特的理解。,R,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+43,PERSONA_43_NAME,PERSONA_43_DESC,SPEAR_CULTIVATOR,枪修,LAZY,精通枪法，百兵之王在手。,R,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+44,PERSONA_44_NAME,PERSONA_44_DESC,STAFF_CULTIVATOR,棍修,LAZY,棍棒在手，天下我有。,R,,"[{when: 'avatar.weapon.type == ""STAFF""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+45,PERSONA_45_NAME,PERSONA_45_DESC,MUSICAL_MASTER,音律大师,LAZY,精通音律之道，琴笛在手，可攻可守。,SR,,"[{when: 'avatar.weapon.type == ""ZITHER"" or avatar.weapon.type == ""FLUTE""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+46,PERSONA_46_NAME,PERSONA_46_DESC,HIDDEN_WEAPON_EXPERT,暗器高手,LAZY,擅长使用暗器，出手诡秘莫测。,R,,"[{when: 'avatar.weapon.type == ""HIDDEN_WEAPON""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+47,PERSONA_47_NAME,PERSONA_47_DESC,FAN_CULTIVATOR,扇修,LAZY,精通扇法，举手投足间尽显风流。,R,,"[{when: 'avatar.weapon.type == ""FAN""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+48,PERSONA_48_NAME,PERSONA_48_DESC,WHIP_CULTIVATOR,鞭修,LAZY,精通鞭法，软兵器在手，刚柔并济。,R,,"[{when: 'avatar.weapon.type == ""WHIP""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
+49,PERSONA_49_NAME,PERSONA_49_DESC,SABER_FANATIC,刀痴,LAZY;TIMID,以刀入道，刀即是命。你认为刀法至上。,SR,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+50,PERSONA_50_NAME,PERSONA_50_DESC,SPEAR_FANATIC,枪痴,LAZY;TIMID,以枪入道，枪即是命。你认为枪法至上。,SR,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+51,PERSONA_51_NAME,PERSONA_51_DESC,STAFF_SAINT,棍圣,LAZY;TIMID,以棍入道，棍即是命。棍法通神。,SR,,"[{when: 'avatar.weapon.type == ""STAFF""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+52,PERSONA_52_NAME,PERSONA_52_DESC,FAN_FANATIC,扇痴,LAZY;TIMID,以扇入道，扇即是命。你认为扇法至上。,SR,,"[{when: 'avatar.weapon.type == ""FAN""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+53,PERSONA_53_NAME,PERSONA_53_DESC,WHIP_FANATIC,鞭痴,LAZY;TIMID,以鞭入道，鞭即是命。你认为鞭法至上。,SR,,"[{when: 'avatar.weapon.type == ""WHIP""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+54,PERSONA_54_NAME,PERSONA_54_DESC,MASTER_ASSASSIN,刺客宗师,LAZY;TIMID,暗器之道登峰造极，杀人于无形。,SR,,"[{when: 'avatar.weapon.type == ""HIDDEN_WEAPON""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
+55,PERSONA_55_NAME,PERSONA_55_DESC,LUSTFUL,好色,DESIRELESS,你对美色有着强烈的渴求。,N,,
+56,PERSONA_56_NAME,PERSONA_56_DESC,DESIRELESS,无欲,LUSTFUL,你清心寡欲，对男女之事毫无兴趣。,N,,
+57,PERSONA_57_NAME,PERSONA_57_DESC,EXPLORER,探险家,HOMEBODY,你对未知的世界充满好奇。,SR,,
+58,PERSONA_58_NAME,PERSONA_58_DESC,HOMEBODY,死宅,EXPLORER;ADVENTUROUS,你极度排斥长途跋涉，更喜欢待在熟悉的区域。,N,,
+59,PERSONA_59_NAME,PERSONA_59_DESC,JINX,扫把星,BLESSED_WITH_GOOD_FORTUNE;CHILD_OF_FORTUNE,天生霉运缠身。,N,,"{extra_misfortune_probability: 0.005, extra_item_sell_price_multiplier: -0.1}"
+60,PERSONA_60_NAME,PERSONA_60_DESC,LATE_BLOOMER,大器晚成,,早年修行多舛；但若能坚持至金丹元婴，便可气运亨通。,SR,,"[{when: 'avatar.cultivation_progress.realm.value in [""QI_REFINEMENT"", ""FOUNDATION_ESTABLISHMENT""]', extra_misfortune_probability: 0.005}, {when: 'avatar.cultivation_progress.realm.value in [""CORE_FORMATION"", ""NASCENT_SOUL""]', extra_fortune_probability: 0.01}]"
+61,PERSONA_61_NAME,PERSONA_61_DESC,ARTIFACT_REFINER,炼器师,AGGRESSIVE,精通炼器之道，对材料敏锐。,R,,{extra_cast_success_rate: 0.15}
+62,PERSONA_62_NAME,PERSONA_62_DESC,EMOTIONAL,情绪化,RATIONAL;INDIFFERENT,你的情绪波动很大。,N,,
+63,PERSONA_63_NAME,PERSONA_63_DESC,MINER,矿工,LAZY,擅长勘探挖掘，对矿脉有着独特的直觉。,R,,{extra_mine_materials: 1}
+64,PERSONA_64_NAME,PERSONA_64_DESC,STEADY,苟,ADVENTUROUS;RASH;AGGRESSIVE,你躲避风险和风头，尽力不担上任何风险。,R,,{extra_self_heal_efficiency: 0.5
+65,PERSONA_65_NAME,PERSONA_65_DESC,ENVIOUS_2,妒忌,FRIENDLY;ENTHUSIASTIC,心胸狭窄，见不得别人比自己好。,N,,
+66,PERSONA_66_NAME,PERSONA_66_DESC,FAMILY_ORIENTED,重亲情,INDIFFERENT,你重视家庭和血缘关系，以家族利益为重。,N,,
+67,PERSONA_67_NAME,PERSONA_67_DESC,RIGHTEOUS,重义气,ALOOF;INDIFFERENT;MEAN,你重视朋友义气，为朋友可以两肋插刀。,N,,
+68,PERSONA_68_NAME,PERSONA_68_DESC,FRIENDLESS,孤身一人,FRIENDLY;EXTROVERTED;ENTHUSIASTIC,你习惯独来独往，不轻易与人深交。,N,,
+69,PERSONA_69_NAME,PERSONA_69_DESC,DEVOTED,专情,LUSTFUL;ROMANTIC;HEARTLESS,你对爱情专一，一旦认定便不会改变。,N,,
+70,PERSONA_70_NAME,PERSONA_70_DESC,ROMANTIC,多情,DESIRELESS;HEARTLESS;DEVOTED,你容易动情，对美好的感情充满向往。,N,,
+71,PERSONA_71_NAME,PERSONA_71_DESC,HEARTLESS,薄情,DEVOTED;ROMANTIC;FRIENDLY,你对感情淡漠，不会轻易动心。,N,,
+1001,PERSONA_1001_NAME,PERSONA_1001_DESC,PLAYFUL,贪玩,RATIONAL;CULTIVATION_OBSESSED,沉迷玩乐，不思进取。,N,,
+1002,PERSONA_1002_NAME,PERSONA_1002_DESC,BOOKWORM,书痴,RASH,嗜书如命。,R,,
+1003,PERSONA_1003_NAME,PERSONA_1003_DESC,TEA_LOVER,茶痴,,宁可三日无食，不可一日无茶。,R,,
+1004,PERSONA_1004_NAME,PERSONA_1004_DESC,MUSICIAN,琴师,,善抚琴。,R,,
+1005,PERSONA_1005_NAME,PERSONA_1005_DESC,TRAVELER,游历者,HOMEBODY,读万卷书不如行万里路。,R,,
+1006,PERSONA_1006_NAME,PERSONA_1006_DESC,CHESS_PLAYER,棋痴,,善弈者长生。,R,,

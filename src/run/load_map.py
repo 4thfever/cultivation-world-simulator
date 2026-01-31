@@ -10,8 +10,7 @@ from src.classes.sect import sects_by_id  # 直接导入已加载的宗门数据
 from src.utils.config import CONFIG
 
 # 静态配置路径
-# 使用共享配置目录，因为 tile_map 和 region_map 是语言无关的
-CONFIG_DIR = CONFIG.paths.shared_game_configs
+CONFIG_DIR = CONFIG.paths.game_configs
 
 def load_cultivation_world_map() -> Map:
     """

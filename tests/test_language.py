@@ -6,6 +6,10 @@ from src.utils.config import CONFIG, update_paths_for_language
 from src.utils.df import load_game_configs, reload_game_configs, game_configs
 
 class TestLanguage:
+    def setup_method(self):
+        # Reset language to default before each test
+        language_manager.set_language("zh-CN")
+
     def test_language_manager_defaults(self):
         """测试语言管理器默认状态"""
         # 默认应该是 zh-CN
@@ -28,7 +32,8 @@ class TestLanguage:
         language_manager.set_language("en-US")
         update_paths_for_language("en-US")
         
-        expected_game_configs = Path("static/locales/en-US/game_configs")
+        # 重构后，game_configs 指向单一源 static/game_configs
+        expected_game_configs = Path("static/game_configs")
         # 注意：Path 比较在不同系统上可能需要 resolve
         assert CONFIG.paths.game_configs.resolve() == expected_game_configs.resolve()
         assert CONFIG.paths.shared_game_configs.resolve() == Path("static/game_configs").resolve()
@@ -36,60 +41,62 @@ class TestLanguage:
         # 切回 zh-CN
         language_manager.set_language("zh-CN")
         update_paths_for_language("zh-CN")
-        expected_zh = Path("static/locales/zh-CN/game_configs")
+        # 依然指向单一源
+        expected_zh = Path("static/game_configs")
         assert CONFIG.paths.game_configs.resolve() == expected_zh.resolve()
 
     def test_game_config_loading_and_override(self, tmp_path):
-        """测试配置加载的合并与覆盖逻辑"""
+        """测试配置加载的 I18n 翻译逻辑"""
         # 1. 准备目录结构
-        shared_dir = tmp_path / "shared"
-        shared_dir.mkdir()
+        # 现在不再有 shared/localized 分离，只有一个 game_configs 目录
+        game_configs_dir = tmp_path / "game_configs"
+        game_configs_dir.mkdir()
         
-        locales_dir = tmp_path / "locales"
-        zh_dir = locales_dir / "zh-CN" / "game_configs"
-        zh_dir.mkdir(parents=True)
+        # 2. 创建测试文件 test.csv
+        # 包含 name_id/desc_id
+        csv_content = (
+            "id,name_id,name,desc_id,desc\n"
+            "名称ID,名称,描述ID,描述\n"
+            "test_item,TEST_ITEM_NAME,TestItemCN,TEST_ITEM_DESC,TestDescCN"
+        )
+        (game_configs_dir / "test.csv").write_text(csv_content, encoding="utf-8")
         
-        # 2. 创建测试文件
-        # shared/common.csv - 只有共享有
-        (shared_dir / "common.csv").write_text("id,val\ndesc,val_desc\n1,common_val", encoding="utf-8")
-        
-        # shared/override_me.csv - 共享有，将被覆盖
-        (shared_dir / "override_me.csv").write_text("id,val\ndesc,val_desc\n1,original_val", encoding="utf-8")
-        
-        # locales/zh-CN/game_configs/override_me.csv - 覆盖版本
-        (zh_dir / "override_me.csv").write_text("id,val\ndesc,val_desc\n1,localized_val", encoding="utf-8")
-        
-        # locales/zh-CN/game_configs/local_only.csv - 只有本地有
-        (zh_dir / "local_only.csv").write_text("id,val\ndesc,val_desc\n1,local_val", encoding="utf-8")
-
         # 3. 临时修改 CONFIG.paths 指向测试目录
-        original_shared = CONFIG.paths.shared_game_configs
-        original_localized = CONFIG.paths.game_configs
+        original_game_configs = CONFIG.paths.game_configs
         
         try:
-            CONFIG.paths.shared_game_configs = shared_dir
-            CONFIG.paths.game_configs = zh_dir
+            CONFIG.paths.game_configs = game_configs_dir
             
-            # 4. 执行加载
-            loaded = load_game_configs()
+            # Mock src.utils.df.t to simulate translation
+            # We need to patch 'src.utils.df.t'
+            from unittest.mock import patch
             
-            # 5. 验证
-            # 验证 common.csv 存在
-            assert "common" in loaded
-            assert loaded["common"][0]["val"] == "common_val"
-            
-            # 验证 override_me.csv 被覆盖
-            assert "override_me" in loaded
-            assert loaded["override_me"][0]["val"] == "localized_val"
-            
-            # 验证 local_only.csv 存在
-            assert "local_only" in loaded
-            assert loaded["local_only"][0]["val"] == "local_val"
+            # Case 1: Translation exists (Simulating English)
+            with patch('src.utils.df.t') as mock_t:
+                mock_t.side_effect = lambda x: "TestItemEN" if x == "TEST_ITEM_NAME" else ("TestDescEN" if x == "TEST_ITEM_DESC" else x)
+                
+                loaded = load_game_configs()
+                
+                assert "test" in loaded
+                item = loaded["test"][0]
+                assert item["name"] == "TestItemEN"
+                assert item["desc"] == "TestDescEN"
+                
+            # Case 2: No translation (Simulating Fallback/Chinese)
+            with patch('src.utils.df.t') as mock_t:
+                # If t returns the key itself (or empty), df.py keeps the original CSV value
+                mock_t.side_effect = lambda x: x 
+                
+                loaded = load_game_configs()
+                
+                item = loaded["test"][0]
+                # Should fallback to CSV values
+                assert item["name"] == "TestItemCN"
+                assert item["desc"] == "TestDescCN"
             
         finally:
             # 恢复配置
-            CONFIG.paths.shared_game_configs = original_shared
-            CONFIG.paths.game_configs = original_localized
+            CONFIG.paths.game_configs = original_game_configs
 
     def test_reload_game_configs_integration(self):
         """集成测试：测试 reload_game_configs 是否真的更新了全局变量"""
