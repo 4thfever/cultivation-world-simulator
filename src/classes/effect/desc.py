@@ -189,7 +189,7 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
     # 如果有条件，添加条件描述
     if effects.get("when"):
         cond = translate_condition(str(effects["when"]))
-        return t("[{condition}] {effects}", condition=cond, effects=text)
+        return f"[{cond}] {text}"
         
     return text
 

@@ -185,7 +185,7 @@ class HiddenDomain(Gathering):
             return events
 
         # 记录本次秘境的事件文本和相关角色
-        event_texts: List[str] = []
+        event_texts: List[str] = [open_event_content]
         related_avatars_set: set["Avatar"] = set()
         
         # 2. 遍历角色执行逻辑
