@@ -3419,3 +3419,6 @@ msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entr
 
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
 msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+
+msgid "【Related Avatars Information】"
+msgstr "【Related Avatars Information】"

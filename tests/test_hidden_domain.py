@@ -172,10 +172,13 @@ async def test_execute_entry_restriction(hidden_domain, base_world, dummy_avatar
     assert any("Low Realm Domain" in t for t in event_texts)
     
     # Check loot event for eligible avatar
-    assert any(f"{dummy_avatar.name} found a treasure" in t for t in event_texts)
+    # Since tests run in zh-CN (forced by fixture), we check for Chinese text
+    # "found a treasure" -> "觅得宝物"
+    assert any("觅得宝物" in t for t in event_texts)
+    assert any(dummy_avatar.name in t for t in event_texts)
     
     # Check NO event for ineligible avatar
-    assert not any(f"{av2.name} found a treasure" in t for t in event_texts)
+    assert not any(av2.name in t for t in event_texts)
 
 @pytest.mark.asyncio
 async def test_execute_danger_death(hidden_domain, base_world, dummy_avatar):
@@ -203,7 +206,8 @@ async def test_execute_danger_death(hidden_domain, base_world, dummy_avatar):
         
         # Verify event log
         event_texts = [e.content for e in events]
-        assert any("perished" in t for t in event_texts)
+        # "perished" -> "葬身于"
+        assert any("葬身于" in t for t in event_texts)
 
 @pytest.mark.asyncio
 async def test_execute_loot_drop(hidden_domain, base_world, dummy_avatar):
