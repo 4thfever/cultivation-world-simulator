@@ -26,6 +26,7 @@ ai:
 game:
   init_npc_num: 9
   sect_num: 3 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
+  start_year: 100 # 世界开始年份
   npc_awakening_rate_per_month: 0.01
   fortune_probability: 0.005
   misfortune_probability: 0.005

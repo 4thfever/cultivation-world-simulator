@@ -342,10 +342,12 @@ async def init_game_async():
         game_instance["current_save_path"] = save_path
         print(f"事件数据库: {events_db_path}")
 
+        start_year = getattr(CONFIG.game, "start_year", 100)
         world = World.create_with_db(
             map=game_map,
-            month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+            month_stamp=create_month_stamp(Year(start_year), Month.JANUARY),
             events_db_path=events_db_path,
+            start_year=start_year,
         )
         sim = Simulator(world)
 

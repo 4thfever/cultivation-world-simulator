@@ -35,6 +35,8 @@ class World():
     gathering_manager: GatheringManager = field(default_factory=GatheringManager)
     # 世界历史
     history: "History" = field(default_factory=lambda: History())
+    # 世界开始年份
+    start_year: int = 0
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -106,6 +108,7 @@ class World():
         map: "Map",
         month_stamp: MonthStamp,
         events_db_path: Path,
+        start_year: int = 0,
     ) -> "World":
         """
         工厂方法：创建使用 SQLite 持久化事件的 World 实例。
@@ -114,6 +117,7 @@ class World():
             map: 地图对象。
             month_stamp: 时间戳。
             events_db_path: 事件数据库文件路径。
+            start_year: 世界开始年份。
 
         Returns:
             配置好的 World 实例。
@@ -123,4 +127,5 @@ class World():
             map=map,
             month_stamp=month_stamp,
             event_manager=event_manager,
+            start_year=start_year,
         )
