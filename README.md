@@ -13,11 +13,10 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A7%86%E9%A2%91-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
-
 ![Genre: Xianxia](https://img.shields.io/badge/Genre-Xianxia-red)
-![Powered by LLM](https://img.shields.io/badge/Powered%20by-LLM-0077B5)
 ![AI Agent](https://img.shields.io/badge/AI-Agent-orange)
 
+![Powered by LLM](https://img.shields.io/badge/Powered%20by-LLM-0077B5)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
