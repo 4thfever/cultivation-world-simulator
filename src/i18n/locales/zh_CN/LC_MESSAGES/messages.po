@@ -2261,5 +2261,13 @@ msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。进入�
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
 msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。无修士进入。"
 
-msgid "【Related Avatars Information】"
-msgstr "【相关角色信息】"
+
+msgid "{}: {}"
+msgstr "{}：{}"
+
+msgid "found a treasure"
+msgstr "觅得宝物"
+
+msgid "perished"
+msgstr "葬身于"
+

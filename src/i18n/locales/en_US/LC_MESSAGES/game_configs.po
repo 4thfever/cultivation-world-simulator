@@ -2843,131 +2843,130 @@ msgstr "Peacock Plume"
 msgid "WEAPON_1077_DESC"
 msgstr "Although it is just a hidden weapon, its beauty is unapproachable. When it blooms, it is the enemy's death date."
 
-#. world_info.csv: 简介
-msgid "WORLD_INFO_简介_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_INTRO_NAME"
 msgstr ""
 
-#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。...
-msgid "WORLD_INFO_简介_DESC"
+#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
 msgstr ""
 
-#. world_info.csv: 境界
-msgid "WORLD_INFO_境界_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_REALM_NAME"
 msgstr ""
 
-#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元...
-msgid "WORLD_INFO_境界_DESC"
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
 msgstr ""
 
-#. world_info.csv: 寿元
-msgid "WORLD_INFO_寿元_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr ""
 
-#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20...
-msgid "WORLD_INFO_寿元_DESC"
+#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+msgid "WORLD_INFO_LIFESPAN_DESC"
 msgstr ""
 
-#. world_info.csv: 死亡
-msgid "WORLD_INFO_死亡_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_DEATH_NAME"
 msgstr ""
 
-#. world_info.csv: HP降至0以下也会死亡。...
-msgid "WORLD_INFO_死亡_DESC"
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
 msgstr ""
 
-#. world_info.csv: 区域
-msgid "WORLD_INFO_区域_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_REGION_NAME"
 msgstr ""
 
-#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的...
-msgid "WORLD_INFO_区域_DESC"
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
 msgstr ""
 
-#. world_info.csv: 修炼
-msgid "WORLD_INFO_修炼_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_CULTIVATION_NAME"
 msgstr ""
 
-#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。...
-msgid "WORLD_INFO_修炼_DESC"
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
 msgstr ""
 
-#. world_info.csv: 灵根
-msgid "WORLD_INFO_灵根_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_ROOT_NAME"
 msgstr ""
 
-#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成...
-msgid "WORLD_INFO_灵根_DESC"
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
 msgstr ""
 
-#. world_info.csv: 天地灵机
-msgid "WORLD_INFO_天地灵机_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_WORLD_QI_NAME"
 msgstr ""
 
-#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐...
-msgid "WORLD_INFO_天地灵机_DESC"
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
 msgstr ""
 
-#. world_info.csv: 灵石
-msgid "WORLD_INFO_灵石_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
 msgstr ""
 
-#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通...
-msgid "WORLD_INFO_灵石_DESC"
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
 msgstr ""
 
-#. world_info.csv: 宗门
-msgid "WORLD_INFO_宗门_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_SECT_NAME"
 msgstr ""
 
-#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获...
-msgid "WORLD_INFO_宗门_DESC"
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
 msgstr ""
 
-#. world_info.csv: 战斗
-msgid "WORLD_INFO_战斗_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_BATTLE_NAME"
 msgstr ""
 
-#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界...
-msgid "WORLD_INFO_战斗_DESC"
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
 msgstr ""
 
-#. world_info.csv: 动作
-msgid "WORLD_INFO_动作_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_ACTION_NAME"
 msgstr ""
 
-#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效...
-msgid "WORLD_INFO_动作_DESC"
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
 msgstr ""
 
-#. world_info.csv: 装备与丹药
-msgid "WORLD_INFO_装备与丹药_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
 msgstr ""
 
-#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得...
-msgid "WORLD_INFO_装备与丹药_DESC"
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
 msgstr ""
 
-#. world_info.csv: 购物
-msgid "WORLD_INFO_购物_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_SHOPPING_NAME"
 msgstr ""
 
-#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购...
-msgid "WORLD_INFO_购物_DESC"
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
 msgstr ""
 
-#. world_info.csv: 拍卖会
-msgid "WORLD_INFO_拍卖会_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_AUCTION_NAME"
 msgstr ""
 
-#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖...
-msgid "WORLD_INFO_拍卖会_DESC"
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
 msgstr ""
 
-#. world_info.csv: 秘境
-msgid "WORLD_INFO_秘境_NAME"
+#. world_info.csv:
+msgid "WORLD_INFO_SECRET_REALM_NAME"
 msgstr ""
 
-#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶...
-msgid "WORLD_INFO_秘境_DESC"
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
 msgstr ""
-

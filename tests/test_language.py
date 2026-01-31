@@ -63,9 +63,13 @@ class TestLanguage:
         
         # 3. 临时修改 CONFIG.paths 指向测试目录
         original_game_configs = CONFIG.paths.game_configs
+        original_shared = getattr(CONFIG.paths, "shared_game_configs", None)
+        original_localized = getattr(CONFIG.paths, "localized_game_configs", None)
         
         try:
             CONFIG.paths.game_configs = game_configs_dir
+            CONFIG.paths.shared_game_configs = game_configs_dir
+            CONFIG.paths.localized_game_configs = game_configs_dir
             
             # Mock src.utils.df.t to simulate translation
             # We need to patch 'src.utils.df.t'
@@ -97,6 +101,10 @@ class TestLanguage:
         finally:
             # 恢复配置
             CONFIG.paths.game_configs = original_game_configs
+            if original_shared:
+                CONFIG.paths.shared_game_configs = original_shared
+            if original_localized:
+                CONFIG.paths.localized_game_configs = original_localized
 
     def test_reload_game_configs_integration(self):
         """集成测试：测试 reload_game_configs 是否真的更新了全局变量"""
