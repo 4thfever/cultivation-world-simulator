@@ -3402,5 +3402,8 @@ msgstr "Perished in a Hidden Domain"
 msgid "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
 msgstr "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
 
-msgid "【Related Avatars Information】"
-msgstr "【Related Avatars Information】"
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."

@@ -327,8 +327,8 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     # 构造详细信息，使用标准空格和括号
     detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                        alignment=avatar.sect.alignment, 
-                       style=t(avatar.sect.member_act_style), 
-                       hq_name=t(hq.name), 
+                       style=avatar.sect.member_act_style, 
+                       hq_name=hq.name, 
                        effect=effect_part)
     
     return f"{sect_rank_str} {detail_content}"

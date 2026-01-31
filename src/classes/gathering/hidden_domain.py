@@ -160,21 +160,29 @@ class HiddenDomain(Gathering):
         events = []
         month_stamp = world.month_stamp
         
-        # 添加开启事件
-        open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} and below.", 
-                               name=domain.name, 
-                               realm=str(domain.max_realm))
-        events.append(Event(month_stamp, open_event_content))
-        
         # 1. 筛选进入秘境的角色
         entrants: List["Avatar"] = []
         for av in world.avatar_manager.get_living_avatars():
             # 境界判定：realm <= max (取消最低限制，允许越阶挑战)
             if av.cultivation_progress.realm <= domain.max_realm:
                 entrants.append(av)
+
+        # 添加开启事件
+        entrants_names = [av.name for av in entrants]
+        if entrants_names:
+            entrants_str = ", ".join(entrants_names)
+            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}", 
+                                   name=domain.name, 
+                                   realm=str(domain.max_realm),
+                                   entrants=entrants_str)
+        else:
+            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered.", 
+                                   name=domain.name, 
+                                   realm=str(domain.max_realm))
+        events.append(Event(month_stamp, open_event_content))
                 
         if not entrants:
-            return []
+            return events
 
         # 记录本次秘境的事件文本和相关角色
         event_texts: List[str] = []

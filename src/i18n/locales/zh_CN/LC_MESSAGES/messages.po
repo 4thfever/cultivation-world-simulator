@@ -2249,5 +2249,8 @@ msgstr "在秘境中陨落"
 msgid "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
 msgstr "事件：秘境开启\n名称：{name}\n描述：{desc}"
 
-msgid "【Related Avatars Information】"
-msgstr "【相关角色信息】"
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。进入者：{entrants}。"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。无修士进入。"
