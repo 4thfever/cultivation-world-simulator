@@ -30,7 +30,7 @@ id,key,name,exclusion_keys,desc,rarity,condition,effects
 28,SIMP,Simp,ALOOF;INDIFFERENT;MEAN;SHY,"You are exceptionally friendly to those of the opposite sex with outstanding appearance.",N,,
 29,ENVIOUS,Envious,FRIENDLY;ENTHUSIASTIC,"You easily harbor hostility towards those who far exceed you.",N,,
 30,TRANSMIGRATOR,Transmigrator,,"You come from modern society and miss everything about it.",SR,,
-31,CHILD_OF_FORTUNE,Child of Fortune,,"Naturally blessed with fortune, more likely to encounter lucky breaks.",SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
+31,CHILD_OF_FORTUNE,Child of Fortune,,"Naturally blessed with fortune, more likely to encounter lucky breaks.",SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05, extra_hidden_domain_drop_prob: 0.2, extra_hidden_domain_danger_prob: -0.1}"
 32,SWORD_FANATIC,Sword Fanatic,LAZY;TIMID,"Entering the Dao through the sword, the sword is your life.",SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 33,SCHEMING,Scheming,RASH;ENTHUSIASTIC;EXTROVERTED,"Hiding your true self, acting cautiously, and good at calculating.",R,,
 34,LOYAL,Loyal,ALOOF;INDIFFERENT;MEAN,"Values promises and integrity, never betrays the person you've acknowledged.",R,,

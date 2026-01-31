@@ -116,7 +116,7 @@ def get_rank_display_name(rank: SectRank, sect: Optional["Sect"] = None) -> str:
     if sect is not None:
         custom_name = sect.get_rank_name(rank)
         if custom_name:
-            return t(custom_name)
+            return custom_name
     val = DEFAULT_RANK_NAMES.get(rank, "弟子")
     return t(val)
 

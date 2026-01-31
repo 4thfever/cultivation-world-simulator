@@ -1,2 +1,3 @@
 from .gathering import Gathering, GatheringManager
 from .auction import Auction
+from .hidden_domain import HiddenDomain

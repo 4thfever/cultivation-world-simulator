@@ -364,6 +364,30 @@ EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
   - 大量: 2
 """
 
+# 秘境相关
+EXTRA_HIDDEN_DOMAIN_DROP_PROB = "extra_hidden_domain_drop_prob"
+"""
+额外秘境掉落概率
+类型: float
+结算: src/classes/gathering/hidden_domain.py
+说明: 增加在秘境中获得宝物的概率。
+数值参考:
+  - 微量: 0.05
+  - 中量: 0.1
+  - 大量: 0.2
+"""
+
+EXTRA_HIDDEN_DOMAIN_DANGER_PROB = "extra_hidden_domain_danger_prob"
+"""
+额外秘境危险概率
+类型: float
+结算: src/classes/gathering/hidden_domain.py
+说明: 增加（或减少，负值）在秘境中遇到危险的概率。
+数值参考:
+  - 降低危险: -0.1 (降低10%危险率)
+  - 增加危险: 0.1
+"""
+
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"
 """
@@ -479,6 +503,10 @@ ALL_EFFECTS = [
     "shop_buy_price_reduction",          # float - 商铺购买价格倍率减免
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
     
+    # 秘境相关
+    "extra_hidden_domain_drop_prob",     # float - 额外秘境掉落概率
+    "extra_hidden_domain_danger_prob",   # float - 额外秘境危险概率
+
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表
 ]

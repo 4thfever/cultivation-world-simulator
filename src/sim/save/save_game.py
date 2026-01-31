@@ -117,6 +117,7 @@ def save_game(
 
         world_data = {
             "month_stamp": int(world.month_stamp),
+            "start_year": world.start_year,
             "existed_sect_ids": [sect.id for sect in existed_sects],
             # 天地灵机
             "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
