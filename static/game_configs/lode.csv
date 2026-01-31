@@ -1,0 +1,6 @@
+id,name_id,desc_id,name,desc,stage_id,material_ids
+,名称ID,描述ID,,,该矿脉对应的物品ID
+1,LODE_1_NAME,LODE_1_DESC,玄铁矿脉,蕴含玄铁的普通矿脉，常见于浅层地表,1,101
+2,LODE_2_NAME,LODE_2_DESC,赤铜矿脉,深埋地下的赤铜矿脉，周围往往伴生火热之气,2,102
+3,LODE_3_NAME,LODE_3_DESC,秘银矿床,极其罕见的秘银富集地，银光闪烁，灵气逼人,3,103
+4,LODE_4_NAME,LODE_4_DESC,庚金矿洞,位于绝壁深处的庚金矿脉，开采极为困难，但价值连城,4,104

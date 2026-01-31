@@ -1,0 +1,17 @@
+item_id,name_id,desc_id,name,realm,type,desc,price,effects
+,名称ID,描述ID,名称,境界(练气/筑基/金丹/元婴),类型(Breakthrough/Lifespan/BurnBlood/Heal),描述,价格,JSON形式Effects
+3001,ELIXIR_3001_NAME,ELIXIR_3001_DESC,练气破境丹,QI_REFINEMENT,Breakthrough,凝聚灵气，辅助练气期修士突破瓶颈的丹药（药效5年）。,50,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+3002,ELIXIR_3002_NAME,ELIXIR_3002_DESC,筑基破境丹,FOUNDATION_ESTABLISHMENT,Breakthrough,蕴含筑基真意，辅助筑基期修士突破瓶颈的灵丹（药效5年）。,200,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+3003,ELIXIR_3003_NAME,ELIXIR_3003_DESC,金丹破境丹,CORE_FORMATION,Breakthrough,凝结金丹之气，辅助金丹期修士碎丹成婴（药效5年）。,500,"{duration_month: 60, extra_breakthrough_success_rate: 0.1}"
+3005,ELIXIR_3005_NAME,ELIXIR_3005_DESC,练气长生丹,QI_REFINEMENT,Lifespan,采用凡间珍草炼制，略微延缓衰老（限服一颗）。,100,{extra_max_lifespan: 5}
+3006,ELIXIR_3006_NAME,ELIXIR_3006_DESC,筑基长生丹,FOUNDATION_ESTABLISHMENT,Lifespan,取天地灵草炼制，可延寿十载（限服一颗）。,500,{extra_max_lifespan: 10}
+3007,ELIXIR_3007_NAME,ELIXIR_3007_DESC,金丹长生丹,CORE_FORMATION,Lifespan,夺天地造化，凡人服之立毙，金丹修士服之延寿半甲子（限服一颗）。,200,{extra_max_lifespan: 30}
+3008,ELIXIR_3008_NAME,ELIXIR_3008_DESC,元婴长生丹,NASCENT_SOUL,Lifespan,蕴含一丝长生之气，元婴老怪以此续命（限服一颗）。,5000,{extra_max_lifespan: 100}
+3009,ELIXIR_3009_NAME,ELIXIR_3009_DESC,练气燃血丹,QI_REFINEMENT,BurnBlood,燃烧精血换取短暂爆发。3年内战力提升，但10年内经脉受损战力下降。,50,"[{duration_month: 36, extra_battle_strength_points: 3}, {duration_month: 120, extra_battle_strength_points: -1}]"
+3010,ELIXIR_3010_NAME,ELIXIR_3010_DESC,筑基燃血丹,FOUNDATION_ESTABLISHMENT,BurnBlood,激发潜能的猛药。3年内战力大增，但10年内虚弱。,100,"[{duration_month: 36, extra_battle_strength_points: 5}, {duration_month: 120, extra_battle_strength_points: -2}]"
+3011,ELIXIR_3011_NAME,ELIXIR_3011_DESC,金丹燃血丹,CORE_FORMATION,BurnBlood,金丹修士拼命时的选择。3年内战力暴涨，但10年内重伤。,200,"[{duration_month: 36, extra_battle_strength_points: 7}, {duration_month: 120, extra_battle_strength_points: -3}]"
+3012,ELIXIR_3012_NAME,ELIXIR_3012_DESC,元婴燃血丹,NASCENT_SOUL,BurnBlood,燃烧元婴本源。3年内获得毁天灭地的力量，但10年内几乎废人。,300,"[{duration_month: 36, extra_battle_strength_points: 10}, {duration_month: 120, extra_battle_strength_points: -5}]"
+3013,ELIXIR_3013_NAME,ELIXIR_3013_DESC,练气回春丹,QI_REFINEMENT,Heal,普通的疗伤丹药，可恢复练气期修士的伤势（持续5年）。,20,"{duration_month: 60, extra_hp_recovery_rate: 0.5}"
+3014,ELIXIR_3014_NAME,ELIXIR_3014_DESC,筑基回春丹,FOUNDATION_ESTABLISHMENT,Heal,药力温和醇厚，能快速愈合筑基期修士的肉身损伤（持续5年）。,50,"{duration_month: 60, extra_hp_recovery_rate: 1.0}"
+3015,ELIXIR_3015_NAME,ELIXIR_3015_DESC,金丹回春丹,CORE_FORMATION,Heal,蕴含生机之力，疗伤圣药（持续5年）。,100,"{duration_month: 60, extra_hp_recovery_rate: 2.0}"
+3016,ELIXIR_3016_NAME,ELIXIR_3016_DESC,元婴回春丹,NASCENT_SOUL,Heal,蕴含造化生机，肉身修复极快（持续5年）。,200,"{duration_month: 60, extra_hp_recovery_rate: 5.0}"

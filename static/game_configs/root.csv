@@ -1,0 +1,12 @@
+id,name_id,desc_id,key,name,element_list,desc,effects
+,名称ID,描述ID,,,元素列表以分号分隔（示例：金;木）,描述不会在代码中使用,JSON形式（支持宽松格式，见effects.py说明）
+1,ROOT_1_NAME,ROOT_1_DESC,GOLD,金灵根,GOLD,刚强果断；攻击力强，适合剑修,
+2,ROOT_2_NAME,ROOT_2_DESC,WOOD,木灵根,WOOD,仁厚坚韧；擅恢复、毒术与木属性法术,
+3,ROOT_3_NAME,ROOT_3_DESC,WATER,水灵根,WATER,智慧圆融；身法轻盈，善辅助与隐匿,
+4,ROOT_4_NAME,ROOT_4_DESC,FIRE,火灵根,FIRE,激情暴烈；高爆发攻术，火系功法,
+5,ROOT_5_NAME,ROOT_5_DESC,EARTH,土灵根,EARTH,稳重踏实；防御高，体修或傀儡术,
+6,ROOT_6_NAME,ROOT_6_DESC,THUNDER,雷灵根,WATER;EARTH,爆发性极强；战斗系顶尖,
+7,ROOT_7_NAME,ROOT_7_DESC,ICE,冰灵根,GOLD;WATER,控制力强；持久性好,
+8,ROOT_8_NAME,ROOT_8_DESC,WIND,风灵根,WOOD;WATER,身法卓绝；难以捉摸,
+9,ROOT_9_NAME,ROOT_9_DESC,DARK,暗灵根,FIRE;EARTH,隐匿系；擅幻术与诡道,
+10,ROOT_10_NAME,ROOT_10_DESC,HEAVEN,天灵根,GOLD;WOOD;WATER;FIRE;EARTH,资质通天；五行皆通，修行全面,"{extra_breakthrough_success_rate: 0.1, extra_retreat_success_rate: 0.1}"

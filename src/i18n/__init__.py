@@ -68,10 +68,23 @@ def _get_translation() -> Optional[gettext.GNUTranslations]:
                 localedir=str(locale_dir),
                 languages=[locale_name]
             )
-            _translations[lang] = trans
         except FileNotFoundError:
-            # No translation file found, will use message as-is.
-            _translations[lang] = None
+            trans = None
+
+        try:
+            config_trans = gettext.translation(
+                "game_configs",
+                localedir=str(locale_dir),
+                languages=[locale_name]
+            )
+            if trans:
+                trans.add_fallback(config_trans)
+            else:
+                trans = config_trans
+        except FileNotFoundError:
+            pass
+
+        _translations[lang] = trans
     
     return _translations.get(lang)
 

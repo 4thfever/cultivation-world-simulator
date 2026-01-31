@@ -1,0 +1,49 @@
+id,name_id,desc_id,name,technique_root,grade,desc,weight,condition,sect_id,effects
+,名称ID,描述ID,名称,属性,品阶（上中下）,描述/提示词,抽样权重,条件,宗门ID(空=散修),JSON形式（支持宽松格式，见effects.py说明）
+1,TECHNIQUE_1_NAME,TECHNIQUE_1_DESC,金刚不坏体,GOLD,LOWER,少林七十二绝技之一，浑身坚若金刚，刀枪不入。,1,,,
+2,TECHNIQUE_2_NAME,TECHNIQUE_2_DESC,金钟罩,GOLD,MIDDLE,运气成钟，护持周身，反震外力。,1,,,"{""extra_battle_strength_points"": 3}"
+4,TECHNIQUE_4_NAME,TECHNIQUE_4_DESC,长春功,WOOD,LOWER,养生延年，气息绵长，凡人修仙的基础功法。,1,,,
+5,TECHNIQUE_5_NAME,TECHNIQUE_5_DESC,青帝木皇功,WOOD,MIDDLE,汲取草木精气，生机不绝，皇气浩荡。,1,,,"{""extra_battle_strength_points"": 3}"
+7,TECHNIQUE_7_NAME,TECHNIQUE_7_DESC,若水诀,WATER,LOWER,上善若水，水利万物而不争，绵柔醇厚。,1,,,
+8,TECHNIQUE_8_NAME,TECHNIQUE_8_DESC,黑帝水皇拳,WATER,MIDDLE,驾驭滔滔黑水，如帝亲临，大气磅礴。,1,,,"{""extra_battle_strength_points"": 3}"
+10,TECHNIQUE_10_NAME,TECHNIQUE_10_DESC,火灵诀,FIRE,LOWER,最基础的法术，凝聚火炎伤敌，简单实用。,1,,,
+11,TECHNIQUE_11_NAME,TECHNIQUE_11_DESC,纯阳无极功,FIRE,MIDDLE,纯阳之气，刚猛无铸，克制阴邪。,1,,,"{""extra_battle_strength_points"": 3}"
+13,TECHNIQUE_13_NAME,TECHNIQUE_13_DESC,搬山诀,EARTH,LOWER,力能扛鼎，气力悠长，如下山猛虎。,1,,,
+14,TECHNIQUE_14_NAME,TECHNIQUE_14_DESC,不动明王诀,EARTH,MIDDLE,不动如山，动如雷震，佛门护法神功。,1,,,"{""extra_battle_strength_points"": 3}"
+16,TECHNIQUE_16_NAME,TECHNIQUE_16_DESC,冰心诀,ICE,LOWER,心若冰清，天塌不惊，凝神静气。,1,,,{extra_retreat_success_rate: 0.1}
+17,TECHNIQUE_17_NAME,TECHNIQUE_17_DESC,玄冰劲,ICE,MIDDLE,寒气透骨，冻结经脉，阴狠霸道。,1,,,"{""extra_battle_strength_points"": 3}"
+19,TECHNIQUE_19_NAME,TECHNIQUE_19_DESC,神行百变,WIND,LOWER,身法灵动，变幻莫测，逃跑一流。,1,,,
+20,TECHNIQUE_20_NAME,TECHNIQUE_20_DESC,梯云纵,WIND,MIDDLE,武当绝学，左脚踩右脚，直上青云。,1,,,"{""extra_battle_strength_points"": 3}"
+22,TECHNIQUE_22_NAME,TECHNIQUE_22_DESC,敛息术,DARK,LOWER,收敛气息，如枯木死灰，令人难以察觉。,1,,,
+23,TECHNIQUE_23_NAME,TECHNIQUE_23_DESC,鬼影迷踪,DARK,MIDDLE,如鬼魅般难以捉摸，步法诡异。,1,,,"{""extra_battle_strength_points"": 3}"
+25,TECHNIQUE_25_NAME,TECHNIQUE_25_DESC,掌心雷,THUNDER,LOWER,道家正宗法术，掌心发雷，震慑妖邪。,1,,,
+26,TECHNIQUE_26_NAME,TECHNIQUE_26_DESC,五雷正法,THUNDER,MIDDLE,役使五行之雷，刚猛霸道，无坚不摧。,1,,,"{""extra_battle_strength_points"": 3}"
+28,TECHNIQUE_28_NAME,TECHNIQUE_28_DESC,燃血大法,EVIL,LOWER,燃烧精血，短暂爆发实力，事后虚弱。,1,,,"{extra_breakthrough_success_rate: -0.1, extra_cultivate_exp: 50, extra_battle_strength_points: 2}"
+29,TECHNIQUE_29_NAME,TECHNIQUE_29_DESC,吸星大法,EVIL,MIDDLE,吸取他人内力为己用，霸道异常，常有反噬。,1,,,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 3}"
+30,TECHNIQUE_30_NAME,TECHNIQUE_30_DESC,草字剑诀,GOLD,UPPER,一株草斩尽日月星辰，完美世界三大剑诀之一。,10,,1,"{""extra_battle_strength_points"": 6}"
+31,TECHNIQUE_31_NAME,TECHNIQUE_31_DESC,神剑御雷真诀,THUNDER,UPPER,九天玄刹，化为神雷。煌煌天威，以剑引之。,10,,1,"{""extra_battle_strength_points"": 6}"
+32,TECHNIQUE_32_NAME,TECHNIQUE_32_DESC,大河剑意,FIRE,UPPER,君不见黄河之水天上来，奔流到海不复回。,10,,1,"{""extra_battle_strength_points"": 6}"
+33,TECHNIQUE_33_NAME,TECHNIQUE_33_DESC,青帝长生诀,WOOD,UPPER,青帝所创，木系至高功法，生生不息，枯木逢春。,10,,2,"{""extra_battle_strength_points"": 5, ""extra_refine_success_rate"": 0.1}"
+34,TECHNIQUE_34_NAME,TECHNIQUE_34_DESC,神象镇狱劲,EARTH,UPPER,以气引神，以神成象，举手投足，镇压地狱。,10,,2,"{""extra_battle_strength_points"": 6}"
+35,TECHNIQUE_35_NAME,TECHNIQUE_35_DESC,鲲鹏宝术,EVIL,UPPER,入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬。,10,,2,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6, ""extra_move_step"": 1}"
+36,TECHNIQUE_36_NAME,TECHNIQUE_36_DESC,虚空经,WATER,UPPER,以无限虚空证道，掌控空间，先天立于不败。,10,,3,"{""extra_battle_strength_points"": 6}"
+37,TECHNIQUE_37_NAME,TECHNIQUE_37_DESC,太上忘情录,ICE,UPPER,太上忘情，非无情，乃忘情。至公至正，威力无穷。,10,,3,"{""extra_battle_strength_points"": 6}"
+38,TECHNIQUE_38_NAME,TECHNIQUE_38_DESC,逍遥游,WIND,UPPER,乘天地之正，而御六气之辩，以游无穷。,10,,3,"{""extra_battle_strength_points"": 6, ""extra_move_step"": 1}"
+39,TECHNIQUE_39_NAME,TECHNIQUE_39_DESC,吞天魔功,DARK,UPPER,狠人大帝所创，吞噬万千体质，铸就混沌体。,10,,4,"{""extra_battle_strength_points"": 6}"
+40,TECHNIQUE_40_NAME,TECHNIQUE_40_DESC,天魔策,EVIL,UPPER,魔门至高宝典，包罗万象，直指破碎虚空。,10,,4,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
+41,TECHNIQUE_41_NAME,TECHNIQUE_41_DESC,冥河真经,ICE,UPPER,血海不枯，冥河不死。演化四亿八千万血神子。,10,,4,"{""extra_battle_strength_points"": 6}"
+42,TECHNIQUE_42_NAME,TECHNIQUE_42_DESC,焚诀,FIRE,UPPER,通过吞噬异火进化功法，潜力无限，号令万火。,10,,5,"{""extra_battle_strength_points"": 6, ""extra_cast_success_rate"": 0.1, ""extra_refine_success_rate"": 0.1}"
+43,TECHNIQUE_43_NAME,TECHNIQUE_43_DESC,道心种魔大法,DARK,UPPER,以他人为炉鼎，种魔种，夺天地造化。,10,,5,"{""extra_battle_strength_points"": 6}"
+44,TECHNIQUE_44_NAME,TECHNIQUE_44_DESC,大衍决,GOLD,UPPER,专修神识，能分心多用，操控万千傀儡。,10,,5,"{""extra_battle_strength_points"": 6}"
+45,TECHNIQUE_45_NAME,TECHNIQUE_45_DESC,大乐赋,WATER,UPPER,阴阳大道，极乐飞升。双修之至高法门。,10,,6,"{""extra_battle_strength_points"": 6}"
+46,TECHNIQUE_46_NAME,TECHNIQUE_46_DESC,天魔舞,DARK,UPPER,域外天魔之舞，勾魂摄魄，乱人心智。,10,,6,"{""extra_battle_strength_points"": 6}"
+47,TECHNIQUE_47_NAME,TECHNIQUE_47_DESC,凌波微步,WIND,UPPER,体迅飞凫，飘忽若神，罗袜生尘。,10,,6,"{""extra_battle_strength_points"": 6, ""extra_escape_success_rate"": 0.2}"
+48,TECHNIQUE_48_NAME,TECHNIQUE_48_DESC,过去弥陀经,EARTH,UPPER,神魂不灭，超脱彼岸。修成过去二竖，万劫不磨。,10,,7,"{""extra_battle_strength_points"": 6}"
+49,TECHNIQUE_49_NAME,TECHNIQUE_49_DESC,神霄雷法,THUNDER,UPPER,道家雷法正宗，役使神霄天雷，诛邪灭魔。,10,,7,"{""extra_battle_strength_points"": 6}"
+50,TECHNIQUE_50_NAME,TECHNIQUE_50_DESC,九字真言,GOLD,UPPER,临兵斗者皆阵列前行。道家无上咒法。,10,,7,"{""extra_battle_strength_points"": 6}"
+51,TECHNIQUE_51_NAME,TECHNIQUE_51_DESC,幽冥鬼爪,DARK,UPPER,阴损毒辣，专破内家真气，触之即死。,10,,8,"{""extra_battle_strength_points"": 6}"
+52,TECHNIQUE_52_NAME,TECHNIQUE_52_DESC,三千雷动,WIND,UPPER,身化雷霆，瞬息千里，残影重重。,10,,8,"{""extra_battle_strength_points"": 6}"
+53,TECHNIQUE_53_NAME,TECHNIQUE_53_DESC,血神经,EVIL,UPPER,人皮为纸，鲜血为墨。修炼者必先剥皮噬血。,10,,8,"{""extra_breakthrough_success_rate"": -0.1, ""extra_cultivate_exp"": 50, ""extra_battle_strength_points"": 6}"
+54,TECHNIQUE_54_NAME,TECHNIQUE_54_DESC,神机百炼,GOLD,UPPER,炼器极致，化腐朽为神奇，万物皆可为兵。,10,,9,"{""extra_battle_strength_points"": 4, ""extra_cast_success_rate"": 0.2}"
+55,TECHNIQUE_55_NAME,TECHNIQUE_55_DESC,周天星斗大阵,EARTH,UPPER,引周天星力，演化宇宙洪荒，攻防一体。,10,,9,"{""extra_battle_strength_points"": 6}"
+56,TECHNIQUE_56_NAME,TECHNIQUE_56_DESC,纵地金光,WIND,UPPER,阐教绝学，化作一道金光，瞬息万里。,10,,9,"{""extra_battle_strength_points"": 6, ""extra_move_step"": 2}"

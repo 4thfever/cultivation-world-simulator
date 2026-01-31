@@ -47,10 +47,11 @@ class NameManager:
         for g_list in self.common_given_names.values():
             g_list.clear()
         self.sect_given_names.clear()
-
-        # 加载姓氏
-        if "last_name" in game_configs:
-            last_name_df = game_configs["last_name"]
+        
+        # 加载姓氏 (不再区分 _en 后缀，因为 config/df 已经处理了加载逻辑)
+        last_name_df = game_configs.get("last_name", [])
+            
+        if last_name_df:
             for row in last_name_df:
                 name = get_str(row, "last_name")
                 sect_id = get_int(row, "sect_id")
@@ -63,8 +64,9 @@ class NameManager:
                     self.common_last_names.append(name)
         
         # 加载名字
-        if "given_name" in game_configs:
-            given_name_df = game_configs["given_name"]
+        given_name_df = game_configs.get("given_name", [])
+            
+        if given_name_df:
             for row in given_name_df:
                 name = get_str(row, "given_name")
                 gender_val = get_int(row, "gender") # 0 or 1

@@ -130,6 +130,28 @@ ImportError: cannot import name 'EFFECT_DESC_MAP' from 'src.classes.effect.desc'
 
 ---
 
+### 5. 🌍 `test_csv_i18n.py` - CSV 配置国际化测试
+
+**状态**: 已创建并通过测试
+
+**功能**:
+- 测试 CSV 配置的单源加载机制（Single Source of Truth）
+- 验证 `load_game_configs` 时自动注入翻译
+- 测试中英文切换时配置值的正确变化
+- 验证随机姓名生成器的国际化支持
+
+**特点**:
+- 包含 Mock 单元测试（无需真实文件）
+- 包含集成测试（使用真实 `static/game_configs`）
+- 覆盖了重构后的配置加载核心逻辑
+
+**运行方式**:
+```bash
+python -m pytest tests/test_csv_i18n.py
+```
+
+---
+
 ## 测试覆盖的方面
 
 ### ✅ 已覆盖
@@ -145,7 +167,12 @@ ImportError: cannot import name 'EFFECT_DESC_MAP' from 'src.classes.effect.desc'
    - 翻译键定义检查 ✅
    - AST 静态分析 ✅
 
-3. **文档和工具**
+3. **配置国际化**
+   - CSV 单源加载机制 ✅
+   - 动态翻译注入 ✅
+   - 姓名生成器适配 ✅
+
+4. **文档和工具**
    - 详细测试文档 ✅
    - 独立检查工具 ✅
    - CI/CD 集成示例 ✅

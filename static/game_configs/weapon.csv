@@ -1,0 +1,47 @@
+item_id,name_id,desc_id,name,weapon_type,grade,desc,effects
+,名称ID,描述ID,名称,兵器类型,等级(练气/筑基/金丹/元婴),描述/提示词,JSON形式（支持宽松格式，见effects.py说明）
+1001,WEAPON_1001_NAME,WEAPON_1001_DESC,练气剑,SWORD,QI_REFINEMENT,市井铁匠铺打造的铁剑，勉强能用。,{extra_battle_strength_points: 1}
+1002,WEAPON_1002_NAME,WEAPON_1002_DESC,练气刀,SABER,QI_REFINEMENT,厚背砍刀，寻常武夫的最爱。,{extra_battle_strength_points: 1}
+1003,WEAPON_1003_NAME,WEAPON_1003_DESC,练气枪,SPEAR,QI_REFINEMENT,白蜡杆制成，枪头挂着红缨。,{extra_battle_strength_points: 1}
+1004,WEAPON_1004_NAME,WEAPON_1004_DESC,练气棍,STAFF,QI_REFINEMENT,普通的硬木棍，长与眉齐。,{extra_battle_strength_points: 1}
+1005,WEAPON_1005_NAME,WEAPON_1005_DESC,练气扇,FAN,QI_REFINEMENT,文人雅士常用的折扇，附庸风雅。,{extra_battle_strength_points: 1}
+1006,WEAPON_1006_NAME,WEAPON_1006_DESC,练气鞭,WHIP,QI_REFINEMENT,普通的皮鞭，多用于赶车或刑罚。,{extra_battle_strength_points: 1}
+1007,WEAPON_1007_NAME,WEAPON_1007_DESC,练气琴,ZITHER,QI_REFINEMENT,桐木制成的古琴，音色尚可。,{extra_battle_strength_points: 1}
+1008,WEAPON_1008_NAME,WEAPON_1008_DESC,练气笛,FLUTE,QI_REFINEMENT,紫竹削制，声音清脆。,{extra_battle_strength_points: 1}
+1009,WEAPON_1009_NAME,WEAPON_1009_DESC,练气暗器,HIDDEN_WEAPON,QI_REFINEMENT,随处可见的铁制暗器。,{extra_battle_strength_points: 1}
+1021,WEAPON_1021_NAME,WEAPON_1021_DESC,青霜剑,SWORD,FOUNDATION_ESTABLISHMENT,剑气森寒。,{extra_battle_strength_points: 2}
+1022,WEAPON_1022_NAME,WEAPON_1022_DESC,井中月,SABER,FOUNDATION_ESTABLISHMENT,刀光如井中映月，虚实难测。,{extra_battle_strength_points: 2}
+1023,WEAPON_1023_NAME,WEAPON_1023_DESC,火尖枪,SPEAR,FOUNDATION_ESTABLISHMENT,枪头隐有火光，能引动凡火。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+1024,WEAPON_1024_NAME,WEAPON_1024_DESC,囚龙棒,STAFF,FOUNDATION_ESTABLISHMENT,精铁铸造，重达千斤，力大者可用。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
+1025,WEAPON_1025_NAME,WEAPON_1025_DESC,桃花扇,FAN,FOUNDATION_ESTABLISHMENT,桃花影落飞神剑，扇面绘有桃花，暗藏杀机。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
+1026,WEAPON_1026_NAME,WEAPON_1026_DESC,打神鞭,WHIP,FOUNDATION_ESTABLISHMENT,仿品，虽无打神之能，却可伤人神魂。,{extra_battle_strength_points: 2}
+1027,WEAPON_1027_NAME,WEAPON_1027_DESC,天魔琴,ZITHER,FOUNDATION_ESTABLISHMENT,琴音魔性，扰乱心智。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+1028,WEAPON_1028_NAME,WEAPON_1028_DESC,鬼笛陈情,FLUTE,FOUNDATION_ESTABLISHMENT,据说能以此笛操控尸傀。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+1029,WEAPON_1029_NAME,WEAPON_1029_DESC,无影针,HIDDEN_WEAPON,FOUNDATION_ESTABLISHMENT,细若牛毛，来去无影，防不胜防。,{extra_battle_strength_points: 2}
+1030,WEAPON_1030_NAME,WEAPON_1030_DESC,万兽笛,FLUTE,FOUNDATION_ESTABLISHMENT,百兽宗秘制，笛声可安抚或激怒野兽。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
+1031,WEAPON_1031_NAME,WEAPON_1031_DESC,血饮狂刀,SABER,FOUNDATION_ESTABLISHMENT,刀身赤红，似渴望饮血。,{extra_battle_strength_points: 2}
+1032,WEAPON_1032_NAME,WEAPON_1032_DESC,玄铁重剑,SWORD,FOUNDATION_ESTABLISHMENT,重剑无锋，大巧不工，独孤求败。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
+1033,WEAPON_1033_NAME,WEAPON_1033_DESC,紫薇软剑,SWORD,FOUNDATION_ESTABLISHMENT,软若束带，动若灵蛇。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
+1034,WEAPON_1034_NAME,WEAPON_1034_DESC,水火囚龙棍,STAFF,FOUNDATION_ESTABLISHMENT,镇魂宗制式兵器，水火相济，困敌锁魂。,{extra_battle_strength_points: 2}
+1051,WEAPON_1051_NAME,WEAPON_1051_DESC,青竹蜂云剑,SWORD,CORE_FORMATION,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
+1052,WEAPON_1052_NAME,WEAPON_1052_DESC,随心铁杆兵,STAFF,CORE_FORMATION,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 3, extra_observation_radius: 1}"
+1053,WEAPON_1053_NAME,WEAPON_1053_DESC,五火七禽扇,FAN,CORE_FORMATION,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{extra_battle_strength_points: 3, extra_observation_radius: 2}"
+1054,WEAPON_1054_NAME,WEAPON_1054_DESC,弑神枪,SPEAR,NASCENT_SOUL,杀气滔天，曾染魔神之血，枪出无回。,{extra_battle_strength_points: '3 + avatar.weapon_proficiency * 0.02'}
+1055,WEAPON_1055_NAME,WEAPON_1055_DESC,赤锋矛,SPEAR,NASCENT_SOUL,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 3}, {when: 'avatar.cultivation_progress.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
+1056,WEAPON_1056_NAME,WEAPON_1056_DESC,斩仙飞刀,HIDDEN_WEAPON,CORE_FORMATION,红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
+1057,WEAPON_1057_NAME,WEAPON_1057_DESC,诛仙剑,SWORD,NASCENT_SOUL,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.1}"
+1058,WEAPON_1058_NAME,WEAPON_1058_DESC,干将莫邪,SWORD,CORE_FORMATION,挚情之剑，一雌一雄，分则为杀，合则为情。,"{extra_battle_strength_points: 3, extra_max_hp: 150}"
+1059,WEAPON_1059_NAME,WEAPON_1059_DESC,芭蕉扇,FAN,CORE_FORMATION,太阴之精叶，一扇息火，二扇生风，三扇下雨。,"{extra_battle_strength_points: 3, extra_observation_radius: 2, extra_move_step: 1}"
+1060,WEAPON_1060_NAME,WEAPON_1060_DESC,紫金降魔杵,STAFF,CORE_FORMATION,韦护的兵器，虽然轻灵，打在人身却重如泰山。,"{extra_battle_strength_points: 3, damage_reduction: 0.1}"
+1061,WEAPON_1061_NAME,WEAPON_1061_DESC,九环金背刀,SABER,CORE_FORMATION,刀背嵌入九个金环，挥舞时金环碰撞，声若雷鸣，摄人心魄。,"{extra_battle_strength_points: 3, damage_reduction: 0.05}"
+1062,WEAPON_1062_NAME,WEAPON_1062_DESC,寒铁银枪,SPEAR,CORE_FORMATION,通体由万年寒铁打造，枪身银白，触之冰冷刺骨。,"{extra_battle_strength_points: 3, extra_max_hp: 80}"
+1063,WEAPON_1063_NAME,WEAPON_1063_DESC,七节紫竹鞭,WHIP,CORE_FORMATION,采自南海紫竹林，共七节，坚韧异常，不仅能伤敌，亦可缚妖。,"{extra_battle_strength_points: 3, extra_catch_success_rate: 0.1}"
+1064,WEAPON_1064_NAME,WEAPON_1064_DESC,玉琵琶,ZITHER,CORE_FORMATION,白玉雕琢而成，弹奏时有金石之声，能洗涤心魔。,"{extra_battle_strength_points: 3, cultivate_duration_reduction: 0.1}"
+1065,WEAPON_1065_NAME,WEAPON_1065_DESC,碧海潮生笛,FLUTE,CORE_FORMATION,东海龙宫流出的宝物，吹奏时如闻海潮之声，往往能引来奇遇。,"{extra_battle_strength_points: 3, extra_fortune_probability: 0.005}"
+1071,WEAPON_1071_NAME,WEAPON_1071_DESC,虎魄,SABER,NASCENT_SOUL,上古凶兵，内封白虎战魂，出鞘必饮血，不仅伤敌肉身，更吞噬气运。,"{extra_battle_strength_points: 4, extra_plunder_multiplier: 0.5}"
+1072,WEAPON_1072_NAME,WEAPON_1072_DESC,擎天白玉柱,STAFF,NASCENT_SOUL,疑似上古天庭的柱石残片炼制，重如山岳，非大能者不能舞动。,"{extra_battle_strength_points: 4, extra_max_hp: 200}"
+1073,WEAPON_1073_NAME,WEAPON_1073_DESC,阴阳扇,FAN,NASCENT_SOUL,一面纯白主生，一面漆黑主死。扇动间阴阳逆转，缩地成寸。,"{extra_battle_strength_points: 4, extra_move_step: 1}"
+1074,WEAPON_1074_NAME,WEAPON_1074_DESC,龙骨鞭,WHIP,NASCENT_SOUL,以上古真龙之脊骨炼制，挥动时隐有龙吟，对低阶生灵有天然压制。,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.05}"
+1075,WEAPON_1075_NAME,WEAPON_1075_DESC,伏羲琴,ZITHER,NASCENT_SOUL,上古十大神器之一的仿品，拥有支配万物心灵之神秘力量。,"{extra_battle_strength_points: 4, cultivate_duration_reduction: 0.2}"
+1076,WEAPON_1076_NAME,WEAPON_1076_DESC,唤魔笛,FLUTE,NASCENT_SOUL,魔界至宝，笛声诡谲，能驱使魔物与凶兽为己所用。,"{extra_battle_strength_points: 4, extra_hunt_materials: 2}"
+1077,WEAPON_1077_NAME,WEAPON_1077_DESC,孔雀翎,HIDDEN_WEAPON,NASCENT_SOUL,虽然只是暗器，但其美艳不可方物。当它绽放时，便是敌人的死期。,"{extra_battle_strength_points: 4, extra_assassinate_success_rate: 0.1}"

@@ -1,7 +1,0 @@
-id,name,desc,sell_item_ids
-Must start with 3,,,
-301,Qingyun City,"A bustling metropolis with a dense population and a gathering of merchants. This place is an important venue for trading heavenly materials and earthly treasures and seeking opportunities.","[3001, 3005]"
-302,Shazhou City,"A major trade town in a desert oasis where various caravans assemble, serving as an important supply and exchange point for cultivators.","[3009, 3013]"
-303,Cuilin City,"A major cultivation town deep in the forest where many cultivators reside, an ideal place for cultivation and artifact refining.","[1001, 1002, 1003]"
-304,Canglan City,"Located at the delta where a large river enters the sea, where hundreds of rivers return to the ocean and water transport flourishes; it is a precious land most frequently visited by water-attribute cultivators.","[1004, 1005, 1006]"
-305,Lanyue City,"Standing at the peak of continuous mountains, shrouded in mist all year round with pure spiritual qi, an excellent place for ascetic practitioners to comprehend the Heavenly Dao.","[1007, 1008, 1009]"

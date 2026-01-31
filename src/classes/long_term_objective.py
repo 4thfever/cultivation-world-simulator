@@ -14,7 +14,7 @@ from src.classes.event import Event
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.run.log import get_logger
-from src.classes.actions import ACTION_INFOS_STR
+from src.classes.actions import get_action_infos_str
 from src.i18n import t
 
 logger = get_logger().logger
@@ -90,7 +90,7 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     infos = {
         "world_info": world_info,
         "avatar_info": expanded_info,
-        "general_action_infos": ACTION_INFOS_STR,
+        "general_action_infos": get_action_infos_str(),
     }
     
     # 调用LLM并自动解析JSON（使用配置的模型模式）

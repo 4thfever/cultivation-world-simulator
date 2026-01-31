@@ -1,9 +1,0 @@
-id,name,desc,sub_type,root_type,root_density
-Must start with 2,,,,,
-201,Taibai Gold Mansion,"A Gold-element cave dwelling deep in the Qingfeng Mountains, where Gold essence qi condenses and the sound of swords never ceases; it is the supreme holy land for Gold-attribute cultivators.",cave,GOLD,10
-202,Qingmu Grotto-Heaven,"A Wood-element cave dwelling in the Qingyun Forest, full of vitality and spiritual herbs; it is the supreme holy land for Wood-attribute cultivators.",cave,WOOD,10
-203,Xuanshui Secret Realm,"A Water-element cave dwelling deep in the boundless azure sea, with ten thousand miles of blue waves and Water essence for soul condensation; it is the supreme holy land for Water-attribute cultivators.",cave,WATER,10
-204,Lihuo Cave Dwelling,"A Fire-element cave dwelling beside the Lava Volcano, with flames reaching the sky and pure true fire; it is the supreme holy land for Fire-attribute cultivators.",cave,FIRE,10
-205,Houtu Mystic Palace,"A Earth-element cave dwelling in the Qingfeng Mountains, where thick earth carries all things and mountains resonate; it is the supreme holy land for Earth-attribute cultivators.",cave,EARTH,10
-206,Guyue Ruins,"Ancient ruins deep in the rainforest, with ancient vines entangling, where Wood-element and Gold-element spiritual qi blend. Contains ancient cultivation techniques and spiritual herb formulas.",ruin,WOOD,8
-207,Canghai Ruins,"Ancient civilization ruins submerged in the sea, with dense Water-element spiritual qi; treasures occasionally appear during the tides.",ruin,WATER,9
