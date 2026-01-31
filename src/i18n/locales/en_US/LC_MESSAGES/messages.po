@@ -2086,7 +2086,7 @@ msgstr "\n【Related Avatars Information】"
 
 msgid "auction_story_prompt"
 
-msgstr "Select the most interesting aspect or bidding moment to describe, no need to cover everything."
+msgstr "Select the most interesting aspect or a single bid to describe, without needing to cover everything. Focus on describing the tense atmosphere during the bidding process."
 
 
 

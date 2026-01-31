@@ -182,15 +182,15 @@ class HiddenDomain(Gathering):
         
         # 2. 遍历角色执行逻辑
         for av in entrants:
-            # --- 气运之子判定 ---
-            is_fortune_child = any(p.key == "CHILD_OF_FORTUNE" for p in av.personas)
+            # --- 效果结算 ---
+            extra_drop = float(av.effects.get("extra_hidden_domain_drop_prob", 0.0))
+            extra_danger = float(av.effects.get("extra_hidden_domain_danger_prob", 0.0))
+
+            drop_prob = domain.drop_prob + extra_drop
+            danger_prob = domain.danger_prob + extra_danger
             
-            danger_prob = domain.danger_prob
-            drop_prob = domain.drop_prob
-            
-            if is_fortune_child:
-                danger_prob *= 0.5
-                drop_prob += 0.2
+            # 确保概率合理
+            danger_prob = max(0.0, danger_prob)
                 
             # --- 凶险判定 ---
             if random.random() < danger_prob:
