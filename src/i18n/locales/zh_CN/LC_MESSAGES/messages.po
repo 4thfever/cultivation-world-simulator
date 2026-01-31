@@ -1191,6 +1191,12 @@ msgstr "铸造成功率"
 msgid "effect_extra_refine_success_rate"
 msgstr "炼丹成功率"
 
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "秘境掉落概率"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "秘境凶险概率"
+
 # Action 简短名称（用于 legal_actions）
 msgid "action_dualcultivation_short_name"
 msgstr "双修"

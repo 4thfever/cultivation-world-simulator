@@ -1626,6 +1626,18 @@ msgstr "Refine Success Rate"
 
 
 
+msgid "effect_extra_hidden_domain_drop_prob"
+
+msgstr "Hidden Domain Drop Rate"
+
+
+
+msgid "effect_extra_hidden_domain_danger_prob"
+
+msgstr "Hidden Domain Danger Rate"
+
+
+
 # Action Short Names (for legal_actions)
 
 msgid "action_dualcultivation_short_name"
