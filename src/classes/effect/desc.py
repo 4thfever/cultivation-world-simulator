@@ -37,6 +37,8 @@ def get_effect_desc(effect_key: str) -> str:
         "cultivate_duration_reduction": "effect_cultivate_duration_reduction",
         "extra_cast_success_rate": "effect_extra_cast_success_rate",
         "extra_refine_success_rate": "effect_extra_refine_success_rate",
+        "extra_hidden_domain_drop_prob": "effect_extra_hidden_domain_drop_prob",
+        "extra_hidden_domain_danger_prob": "effect_extra_hidden_domain_danger_prob",
     }
     
     msgid = msgid_map.get(effect_key, effect_key)
