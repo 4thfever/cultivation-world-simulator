@@ -8,11 +8,14 @@ Usage:
 """
 
 import gettext
+import logging
 from pathlib import Path
 from typing import Optional
 
 # Cache for loaded translations.
 _translations: dict[str, Optional[gettext.GNUTranslations]] = {}
+
+logger = logging.getLogger(__name__)
 
 
 def _get_locale_dir() -> Path:
@@ -98,6 +101,10 @@ def t(message: str, **kwargs) -> str:
         translated = trans.gettext(message)
     else:
         translated = message
+    
+    # Check for missing translation if not in English
+    if _get_current_lang() != "en-US" and translated == message and message.strip():
+        logger.warning(f"[i18n] Missing translation for msgid: '{message}'")
     
     if kwargs:
         try:
