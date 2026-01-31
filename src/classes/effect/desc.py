@@ -37,6 +37,8 @@ def get_effect_desc(effect_key: str) -> str:
         "cultivate_duration_reduction": "effect_cultivate_duration_reduction",
         "extra_cast_success_rate": "effect_extra_cast_success_rate",
         "extra_refine_success_rate": "effect_extra_refine_success_rate",
+        "extra_hidden_domain_drop_prob": "effect_extra_hidden_domain_drop_prob",
+        "extra_hidden_domain_danger_prob": "effect_extra_hidden_domain_danger_prob",
     }
     
     msgid = msgid_map.get(effect_key, effect_key)
@@ -189,7 +191,7 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
     # 如果有条件，添加条件描述
     if effects.get("when"):
         cond = translate_condition(str(effects["when"]))
-        return t("[{condition}] {effects}", condition=cond, effects=text)
+        return f"[{cond}] {text}"
         
     return text
 

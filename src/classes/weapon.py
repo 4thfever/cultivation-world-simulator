@@ -44,8 +44,8 @@ class Weapon(Item):
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return t("{name} ({type}·{realm}, {desc}){effect}",
-                 name=t(self.name), type=str(self.weapon_type), realm=str(self.realm), 
-                 desc=t(self.desc), effect=effect_part)
+                 name=self.name, type=str(self.weapon_type), realm=str(self.realm), 
+                 desc=self.desc, effect=effect_part)
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""

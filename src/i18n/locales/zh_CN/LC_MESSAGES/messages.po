@@ -1191,6 +1191,12 @@ msgstr "铸造成功率"
 msgid "effect_extra_refine_success_rate"
 msgstr "炼丹成功率"
 
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "秘境掉落概率"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "秘境凶险概率"
+
 # Action 简短名称（用于 legal_actions）
 msgid "action_dualcultivation_short_name"
 msgstr "双修"
@@ -1422,7 +1428,7 @@ msgstr "\n【相关角色信息】"
 
 # LLM Prompt
 msgid "auction_story_prompt"
-msgstr "选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。"
+msgstr "选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。重点描写竞价过程中的紧张气氛。"
 
 # ============================================================================
 # Fortune 系统 - 奇遇
@@ -2222,3 +2228,38 @@ msgstr "两人正在举行一场雅致的茶会。"
 
 msgid "action_chess_story_prompt"
 msgstr "两人正在对弈下棋。"
+
+
+# ============================================================================
+# Hidden Domain (秘境)
+# ============================================================================
+
+msgid "hidden_domain_story_prompt"
+msgstr "描述探索秘境的过程，侧重于遭遇的凶险或获得的机缘，营造神秘和紧张的氛围。"
+
+msgid "Hidden Domains opened: {names}"
+msgstr "{names}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below."
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} 葬身于秘境【{domain}】。"
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} 在秘境【{domain}】中觅得宝物【{loot}】！"
+
+msgid "Perished in a Hidden Domain"
+msgstr "在秘境中陨落"
+
+msgid "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
+msgstr "事件：秘境开启\n名称：{name}\n描述：{desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。进入者：{entrants}。"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。无修士进入。"
+
+msgid "【Related Avatars Information】"
+msgstr "【相关角色信息】"

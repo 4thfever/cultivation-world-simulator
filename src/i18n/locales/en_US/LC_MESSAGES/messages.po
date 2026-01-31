@@ -1626,6 +1626,18 @@ msgstr "Refine Success Rate"
 
 
 
+msgid "effect_extra_hidden_domain_drop_prob"
+
+msgstr "Hidden Domain Drop Rate"
+
+
+
+msgid "effect_extra_hidden_domain_danger_prob"
+
+msgstr "Hidden Domain Danger Rate"
+
+
+
 # Action Short Names (for legal_actions)
 
 msgid "action_dualcultivation_short_name"
@@ -2086,7 +2098,7 @@ msgstr "\n【Related Avatars Information】"
 
 msgid "auction_story_prompt"
 
-msgstr "Select the most interesting aspect or bidding moment to describe, no need to cover everything."
+msgstr "Select the most interesting aspect or a single bid to describe, without needing to cover everything. Focus on describing the tense atmosphere during the bidding process."
 
 
 
@@ -3376,3 +3388,37 @@ msgstr "Two people are holding an elegant tea party."
 
 msgid "action_chess_story_prompt"
 msgstr "Two people are playing chess."
+
+# ============================================================================
+# Hidden Domain
+# ============================================================================
+
+msgid "hidden_domain_story_prompt"
+msgstr "Describe the exploration of the hidden domain, focusing on the dangers encountered or the opportunities seized, creating a mysterious and tense atmosphere."
+
+msgid "Hidden Domains opened: {names}"
+msgstr "{names}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below."
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below."
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} perished in the hidden domain {domain}."
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} found a treasure {loot} in {domain}!"
+
+msgid "Perished in a Hidden Domain"
+msgstr "Perished in a Hidden Domain"
+
+msgid "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
+msgstr "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
+
+msgid "【Related Avatars Information】"
+msgstr "【Related Avatars Information】"

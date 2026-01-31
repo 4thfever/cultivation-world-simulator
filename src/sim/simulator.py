@@ -267,6 +267,10 @@ class Simulator:
         Gathering 结算阶段：
         检查并执行注册的多人聚集事件（如拍卖会、大比等）。
         """
+        # 第一年不触发聚集事件，给予发育缓冲
+        if self.world.month_stamp.get_year() <= self.world.start_year:
+            return []
+
         return await self.world.gathering_manager.check_and_run_all(self.world)
     
     def _phase_update_celestial_phenomenon(self):

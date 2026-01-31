@@ -30,7 +30,7 @@ id,key,name,exclusion_keys,desc,rarity,condition,effects
 28,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,
 29,ENVIOUS,嫉妒,FRIENDLY;ENTHUSIASTIC,你对远超于你的人容易产生敌意。,N,,
 30,TRANSMIGRATOR,穿越者,,你来自现代社会，怀念现代社会的一切。,SR,,
-31,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05}"
+31,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05, extra_hidden_domain_drop_prob: 0.2, extra_hidden_domain_danger_prob: -0.1}"
 32,SWORD_FANATIC,剑痴,LAZY;TIMID,以剑入道，剑即是命。你认为剑道至上。,SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 33,SCHEMING,心机深沉,RASH;ENTHUSIASTIC;EXTROVERTED,深藏不露，行事谨慎，善于算计。,R,,
 34,LOYAL,忠诚,ALOOF;INDIFFERENT;MEAN,重承诺守信义，对认定的人绝不背叛。,R,,
