@@ -13,18 +13,11 @@
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A7%86%E9%A2%91-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 
-![Last Commit](https://img.shields.io/github/last-commit/4thfever/cultivation-world-simulator)
-![Commit Activity](https://img.shields.io/github/commit-activity/y/4thfever/cultivation-world-simulator)
-![Repo Size](https://img.shields.io/github/repo-size/4thfever/cultivation-world-simulator)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
-[![codecov](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator/graph/badge.svg)](https://codecov.io/gh/AI-Cultivation/cultivation-world-simulator)
 
-![Status](https://img.shields.io/badge/Status-Alpha-tomato)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 ![Genre: Xianxia](https://img.shields.io/badge/Genre-Xianxia-red)
 ![Powered by LLM](https://img.shields.io/badge/Powered%20by-LLM-0077B5)
 ![AI Agent](https://img.shields.io/badge/AI-Agent-orange)
-![OpenAI Compatible](https://img.shields.io/badge/OpenAI%20API-Compatible-412991)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi&logoColor=white)
@@ -254,7 +247,7 @@
 - ✅ 天地灵气变动
 - ✅ 多人大事件：
   - ✅ 拍卖会
-  - [ ] 秘境探索
+  - ✅ 秘境探索
   - [ ] 比武大会
   - [ ] 宗门大比
 - [ ] 突发事件
