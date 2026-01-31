@@ -63,9 +63,15 @@ def load_csv(path: Path) -> List[Dict[str, Any]]:
         # -----------------------------------------------------------
         # I18N Translation Injection
         # -----------------------------------------------------------
-        # Try to translate name and desc using their IDs.
+        # Try to translate name, desc and title using their IDs.
         # If translation exists (and is not just the key itself), overwrite the value.
         # Fallback is keeping the original value from CSV (usually Chinese reference).
+        
+        title_id = row_dict.get("title_id")
+        if title_id and isinstance(title_id, str):
+            trans = t(title_id)
+            if trans != title_id and trans:
+                row_dict["title"] = trans
         
         name_id = row_dict.get("name_id")
         if name_id and isinstance(name_id, str):
