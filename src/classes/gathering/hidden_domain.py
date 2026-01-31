@@ -304,7 +304,7 @@ class HiddenDomain(Gathering):
         
         # 3. 角色信息 (可选，增加故事细节)
         details_list = []
-        details_list.append(t("【Related Avatars Information】"))
+        details_list.append(t("\n【Related Avatars Information】"))
         for av in related_avatars:
             info = av.get_info(detailed=True)
             details_list.append(f"- {av.name}: {info}")

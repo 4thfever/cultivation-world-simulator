@@ -113,53 +113,65 @@ class TestCsvI18n:
         Requires actual static/game_configs files and compiled .mo files.
         """
         # Ensure we are using the real paths
-        # 1. Switch to zh-CN
-        language_manager.set_language("zh-CN")
-        # Ensure reload happens
-        reload_game_configs()
-        
-        # Check a known item (e.g. hidden_domain)
-        domains = game_configs.get("hidden_domain")
-        if not domains:
-            pytest.skip("hidden_domain.csv not found or empty")
+        try:
+            # 1. Switch to zh-CN
+            language_manager.set_language("zh-CN")
+            # Ensure reload happens
+            reload_game_configs()
             
-        first_domain_zh = domains[0]
-        # zh-CN name should be Chinese
-        # Heuristic: Check for Chinese char range
-        assert any("\u4e00" <= c <= "\u9fff" for c in first_domain_zh["name"]), f"Expected Chinese name, got {first_domain_zh['name']}"
-        
-        # 2. Switch to en-US
-        language_manager.set_language("en-US")
-        reload_game_configs()
-        
-        domains_en = game_configs.get("hidden_domain")
-        first_domain_en = domains_en[0]
-        
-        # en-US name should NOT be Chinese
-        assert not any("\u4e00" <= c <= "\u9fff" for c in first_domain_en["name"]), f"Expected English name, got {first_domain_en['name']}"
-        assert first_domain_en["name"] != first_domain_zh["name"]
+            # Check a known item (e.g. hidden_domain)
+            domains = game_configs.get("hidden_domain")
+            if not domains:
+                pytest.skip("hidden_domain.csv not found or empty")
+                
+            first_domain_zh = domains[0]
+            # zh-CN name should be Chinese
+            # Heuristic: Check for Chinese char range
+            assert any("\u4e00" <= c <= "\u9fff" for c in first_domain_zh["name"]), f"Expected Chinese name, got {first_domain_zh['name']}"
+            
+            # 2. Switch to en-US
+            language_manager.set_language("en-US")
+            reload_game_configs()
+            
+            domains_en = game_configs.get("hidden_domain")
+            first_domain_en = domains_en[0]
+            
+            # en-US name should NOT be Chinese
+            assert not any("\u4e00" <= c <= "\u9fff" for c in first_domain_en["name"]), f"Expected English name, got {first_domain_en['name']}"
+            assert first_domain_en["name"] != first_domain_zh["name"]
+
+        finally:
+            # Reset to zh-CN
+            language_manager.set_language("zh-CN")
+            reload_game_configs()
 
     def test_name_manager_i18n(self):
         """
         Integration test: Verify NameManager loads correct files based on language.
         """
-        # 1. zh-CN
-        language_manager.set_language("zh-CN")
-        # NameManager auto-reloads on init, but we need to force reload since it's a singleton
-        from src.classes.name import reload as reload_names, _name_manager
-        reload_names()
-        
-        # Check internal lists
-        # common_last_names should contain "李", "王" etc.
-        assert len(_name_manager.common_last_names) > 0
-        assert "李" in _name_manager.common_last_names or "王" in _name_manager.common_last_names
-        
-        # 2. en-US
-        language_manager.set_language("en-US")
-        reload_names()
-        
-        # common_last_names should contain "Li", "Wang" etc. (from last_name_en.csv)
-        assert len(_name_manager.common_last_names) > 0
-        # Check that it's NOT Chinese chars
-        first_name = _name_manager.common_last_names[0]
-        assert not any("\u4e00" <= c <= "\u9fff" for c in first_name)
+        try:
+            # 1. zh-CN
+            language_manager.set_language("zh-CN")
+            # NameManager auto-reloads on init, but we need to force reload since it's a singleton
+            from src.classes.name import reload as reload_names, _name_manager
+            reload_names()
+            
+            # Check internal lists
+            # common_last_names should contain "李", "王" etc.
+            assert len(_name_manager.common_last_names) > 0
+            assert "李" in _name_manager.common_last_names or "王" in _name_manager.common_last_names
+            
+            # 2. en-US
+            language_manager.set_language("en-US")
+            reload_names()
+            
+            # common_last_names should contain "Li", "Wang" etc. (from last_name_en.csv)
+            assert len(_name_manager.common_last_names) > 0
+            # Check that it's NOT Chinese chars
+            first_name = _name_manager.common_last_names[0]
+            assert not any("\u4e00" <= c <= "\u9fff" for c in first_name)
+        finally:
+            # Reset to zh-CN
+            language_manager.set_language("zh-CN")
+            from src.classes.name import reload as reload_names
+            reload_names()
