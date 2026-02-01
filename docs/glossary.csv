@@ -1,250 +1,250 @@
-chinese,english,category,subcategory,notes
-练气,Qi Refinement,cultivation,realm,First realm - refining qi
-筑基,Foundation Establishment,cultivation,realm,Building the foundation
-金丹,Core Formation,cultivation,realm,Forming the golden core
-元婴,Nascent Soul,cultivation,realm,Nascent soul emerges
-前期,Early Stage,cultivation,stage,
-中期,Middle Stage,cultivation,stage,
-后期,Late Stage,cultivation,stage,
-普通,Normal,rarity,,Common items/traits
-稀有,Rare,rarity,,Uncommon items/traits
-超稀有,Super Rare,rarity,,Rare items/traits
-传说,Legendary,rarity,,Legendary items/traits
-金,Gold,element,,
-木,Wood,element,,
-水,Water,element,,
-火,Fire,element,,
-土,Earth,element,,
-冰,Ice,element,,Extended element
-风,Wind,element,,Extended element
-暗,Dark,element,,Extended element
-雷,Thunder,element,,Also: Lightning
-邪,Evil,element,,Dark arts attribute
-金灵根,Gold Spiritual Root,root,,
-木灵根,Wood Spiritual Root,root,,
-水灵根,Water Spiritual Root,root,,
-火灵根,Fire Spiritual Root,root,,
-土灵根,Earth Spiritual Root,root,,
-天灵根,Heavenly Spiritual Root,root,,Rare - all-element affinity
-雷灵根,Thunder Spiritual Root,root,,
-冰灵根,Ice Spiritual Root,root,,
-风灵根,Wind Spiritual Root,root,,
-暗灵根,Dark Spiritual Root,root,,
-东,East,direction,,
-南,South,direction,,
-西,West,direction,,
-北,North,direction,,
-正,Righteous,alignment,,Orthodox sects
-中立,Neutral,alignment,,
-邪,Evil,alignment,,Demonic/Unorthodox
-掌门,Sect Master,sect,rank,Also: Sect Leader
-长老,Elder,sect,rank,
-内门弟子,Inner Disciple,sect,rank,
-外门弟子,Outer Disciple,sect,rank,
-弟子,Disciple,sect,rank,Generic
-生命恢复速率,HP Recovery Rate,effect,,extra_hp_recovery_rate
-最大生命值,Max HP,effect,,extra_max_hp
-最大寿元,Max Lifespan,effect,,extra_max_lifespan
-兵器熟练度获取,Weapon Proficiency Gain,effect,,extra_weapon_proficiency_gain
-双修经验,Dual Cultivation Experience,effect,,extra_dual_cultivation_exp
-突破成功率,Breakthrough Success Rate,effect,,extra_breakthrough_success_rate
-奇遇概率,Fortune Probability,effect,,extra_fortune_probability
-霉运概率,Misfortune Probability,effect,,extra_misfortune_probability
-采集获取材料,Harvest Material Bonus,effect,,extra_harvest_materials
-狩猎获取材料,Hunt Material Bonus,effect,,extra_hunt_materials
-挖矿获取材料,Mining Material Bonus,effect,,extra_mine_materials
-物品出售价格,Item Sell Price,effect,,extra_item_sell_price_multiplier
-购买折扣,Purchase Discount,effect,,shop_buy_price_reduction
-兵器升级概率,Weapon Upgrade Chance,effect,,extra_weapon_upgrade_chance
-搜刮收益,Plunder Multiplier,effect,,extra_plunder_multiplier
-捕捉灵兽成功率,Beast Capture Success Rate,effect,,extra_catch_success_rate
-修炼经验,Cultivation Experience,effect,,extra_cultivate_exp
-战力点数,Combat Power Points,effect,,extra_battle_strength_points
-逃跑成功率,Escape Success Rate,effect,,extra_escape_success_rate
-暗杀成功率,Assassination Success Rate,effect,,extra_assassinate_success_rate
-感知范围,Observation Radius,effect,,extra_observation_radius
-移动步长,Movement Range,effect,,extra_move_step
-特殊能力,Special Abilities,effect,,legal_actions
-伤害减免,Damage Reduction,effect,,damage_reduction
-境界压制,Realm Suppression,effect,,realm_suppression_bonus
-修炼时长缩减,Cultivation Duration Reduction,effect,,cultivate_duration_reduction
-铸造成功率,Forging Success Rate,effect,,extra_cast_success_rate
-炼丹成功率,Alchemy Success Rate,effect,,extra_refine_success_rate
-自愈效率,Self-Heal Efficiency,effect,,extra_self_heal_efficiency
-道侣,Dao Companion,relation,,Cultivation partner/spouse
-师傅,Master,relation,,Teacher in cultivation
-徒弟,Disciple,relation,,Student of a master
-父母,Parent,relation,,
-子女,Child,relation,,
-父亲,Father,relation,,
-母亲,Mother,relation,,
-儿子,Son,relation,,
-女儿,Daughter,relation,,
-兄弟姐妹,Sibling,relation,,
-哥哥,Elder Brother,relation,,
-弟弟,Younger Brother,relation,,
-姐姐,Elder Sister,relation,,
-妹妹,Younger Sister,relation,,
-朋友,Friend,relation,,
-仇人,Enemy,relation,,Also: Foe
-亲属,Kin,relation,,Extended family
-上品,Superior Grade,grade,,Also: High-grade
-中品,Medium Grade,grade,,Also: Mid-grade
-下品,Inferior Grade,grade,,Also: Low-grade
-剑,Sword,weapon,type,
-刀,Saber,weapon,type,Also: Blade
-枪,Spear,weapon,type,
-棍,Staff,weapon,type,
-扇,Fan,weapon,type,
-鞭,Whip,weapon,type,
-琴,Zither,weapon,type,Musical weapon
-笛,Flute,weapon,type,Musical weapon
-暗器,Hidden Weapon,weapon,type,
-破境丹,Breakthrough Pill,elixir,type,For breaking through bottlenecks
-延寿丹,Longevity Pill,elixir,type,Extends lifespan
-长生丹,Longevity Pill,elixir,type,Extends lifespan
-燃血丹,Blood Burning Pill,elixir,type,Temporary power boost
-疗伤丹,Healing Pill,elixir,type,Restores HP
-回春丹,Rejuvenation Pill,elixir,type,Healing over time
-灵石,Spirit Stone,item,,Currency
-丹药,Elixir,item,,Also: Pill - Medicine
-法宝,Artifact,item,,Magical treasure
-兵器,Weapon,item,,
-功法,Cultivation Technique,item,,Also: Art - Manual
-辅助装备,Auxiliary Equipment,item,,Accessories
-修炼,Cultivate,action,solo,Gain experience
-突破,Breakthrough,action,solo,Advance realm
-疗伤,Self Heal,action,solo,Recover HP
-采集,Harvest,action,solo,Gather plants
-狩猎,Hunt,action,solo,Hunt animals
-挖矿,Mine,action,solo,Extract ore
-炼丹,Refine Elixir,action,solo,Craft pills
-铸造,Forge,action,solo,Craft equipment
-温养兵器,Nurture Weapon,action,solo,Increase proficiency
-购买,Buy,action,solo,Purchase items
-出售,Sell,action,solo,Sell items
-消遣,Play,action,solo,Relax
-御兽,Tame Beast,action,solo,Capture spirit beast
-移动,Move,action,solo,Travel
-移动到区域,Move to Region,action,solo,Travel to location
-移动到角色,Move to Character,action,solo,Travel to person
-移动探索,Explore,action,solo,Explore direction
-离开区域,Leave Region,action,solo,Depart area
-远离角色,Move Away,action,solo,Distance from person
-帮助凡人,Aid Mortals,action,solo,Righteous action
-搜刮凡人,Plunder Mortals,action,solo,Evil action
-吞噬凡人,Devour Mortals,action,solo,Consume souls
-攀谈,Converse,action,mutual,Chat
-交谈,Talk,action,mutual,Dialogue
-切磋,Spar,action,mutual,Friendly combat
-攻击,Attack,action,mutual,Initiate combat
-发起战斗,Initiate Battle,action,mutual,Start fight
-暗杀,Assassinate,action,mutual,Stealth kill
-逃离,Escape,action,mutual,Flee combat
-双修,Dual Cultivation,action,mutual,Partner cultivation
-传道,Impart,action,mutual,Teach disciple
-赠送,Gift,action,mutual,Give items
-抢夺洞府,Seize Cave,action,mutual,Contest dwelling
-驱赶,Drive Away,action,mutual,Force to leave
-接受,Accept,action,feedback,
-拒绝,Reject,action,feedback,
-让步,Yield,action,feedback,
-试图远离,Try to Distance,action,feedback,
-试图离开区域,Try to Leave Area,action,feedback,
-逃离,Flee,action,feedback,
-战斗,Fight,action,feedback,
-误入洞府,Stumbled into Cave Dwelling,event,fortune,Equipment
-巧捡神兵,Found Divine Weapon,event,fortune,Equipment
-巧捡奇物,Found Treasure,event,fortune,Equipment
-误入试炼,Entered Trial Ground,event,fortune,Equipment
-异象出世,Witnessed Strange Phenomenon,event,fortune,Equipment
-高人赠予,Gift from Expert,event,fortune,Equipment
-高人指点,Guidance from Expert,event,fortune,Technique
-玄妙感悟,Mystical Insight,event,fortune,Technique
-危难相救,Rescued from Danger,event,fortune,Find Master
-品行打动,Impressed by Character,event,fortune,Find Master
-展露天赋,Displayed Talent,event,fortune,Find Master
-机缘巧合,Fateful Coincidence,event,fortune,Find Master
-通过考验,Passed Trial,event,fortune,Find Master
-偶遇灵矿,Found Spirit Mine,event,fortune,Spirit Stones
-洞府遗财,Cave Dwelling Treasure,event,fortune,Spirit Stones
-击杀妖兽,Slew Monster,event,fortune,Spirit Stones
-交易获利,Profitable Trade,event,fortune,Spirit Stones
-赌石得宝,Won Stone Gambling,event,fortune,Spirit Stones
-拾遗藏宝,Found Hidden Treasure,event,fortune,Spirit Stones
-顿悟玄机,Sudden Enlightenment,event,fortune,Cultivation
-古碑感悟,Insight from Ancient Stele,event,fortune,Cultivation
-服食灵药,Consumed Spirit Medicine,event,fortune,Cultivation
-秘境修炼,Cultivated in Secret Realm,event,fortune,Cultivation
-前辈灌顶,Empowerment from Senior,event,fortune,Cultivation
-灵泉淬体,Tempered by Spirit Spring,event,fortune,Cultivation
-传承记忆,Inherited Memory,event,fortune,Cultivation
-遭遇扒手,Encountered Pickpocket,event,misfortune,Loss - Spirit stones
-误买假货,Bought Counterfeit Goods,event,misfortune,Loss - Spirit stones
-遭人勒索,Was Extorted,event,misfortune,Loss - Spirit stones
-洞府失窃,Cave Dwelling Robbed,event,misfortune,Loss - Spirit stones
-赌石惨败,Lost Stone Gambling,event,misfortune,Loss - Spirit stones
-投资失败,Failed Investment,event,misfortune,Loss - Spirit stones
-修炼岔气,Cultivation Deviation,event,misfortune,Injury - Qi went astray
-出门摔伤,Fell and Got Injured,event,misfortune,Injury
-妖兽偷袭,Ambushed by Beast,event,misfortune,Injury
-仇家闷棍,Ambushed by Enemy,event,misfortune,Injury
-误触机关,Triggered Trap,event,misfortune,Injury
-天降横祸,Unexpected Disaster,event,misfortune,Injury
-心魔滋生,Heart Demon Arose,event,misfortune,Backlash
-灵气逆行,Qi Reversal,event,misfortune,Backlash
-感悟错乱,Confused Insight,event,misfortune,Backlash
-急火攻心,Overcome by Rage,event,misfortune,Backlash
-心魔,Heart Demon Tribulation,event,tribulation,Inner demon - self-doubt
-雷劫,Thunder Tribulation,event,tribulation,Heavenly lightning
-肉身,Body Tribulation,event,tribulation,Physical transformation
-寻仇,Vengeance Tribulation,event,tribulation,Past enemies return
-情劫,Emotion Tribulation,event,tribulation,Love/attachment trial
-阳罡,Yang Force Tribulation,event,tribulation,Scorching yang energy
-雷火,Thunder-Fire Tribulation,event,tribulation,Combined lightning and fire
-风灾,Wind Disaster Tribulation,event,tribulation,Violent tempest
-阴狱,Yin Prison Tribulation,event,tribulation,Netherworld judgment
-魔劫,Demonic Tribulation,event,tribulation,Inner demons manifest
-老死,Died of Old Age,event,death,Lifespan exhausted
-战死,Died in Battle,event,death,
-重伤不治,Died from Severe Injuries,event,death,
-平静,Calm,emotion,,
-开心,Happy,emotion,,
-愤怒,Angry,emotion,,
-悲伤,Sad,emotion,,
-恐惧,Fearful,emotion,,
-惊讶,Surprised,emotion,,
-期待,Expectant,emotion,,
-厌恶,Disgusted,emotion,,
-疑惑,Confused,emotion,,
-疲惫,Exhausted,emotion,,
-系统菜单,System Menu,ui,,
-开始游戏,Start Game,ui,,
-加载游戏,Load Game,ui,,
-保存游戏,Save Game,ui,,
-新建角色,Create Character,ui,,
-删除角色,Delete Character,ui,,
-设置,Settings,ui,,
-其他,Other,ui,,
-境界,Realm,ui,,
-年龄,Age,ui,,
-性别,Gender,ui,,
-男,Male,ui,,
-女,Female,ui,,
-宗门,Sect,ui,,
-散修,Rogue Cultivator,ui,,Independent - no sect
-灵根,Spiritual Root,ui,,
-灵石,Spirit Stones,ui,,
-颜值,Appearance,ui,,
-基础战力,Base Combat Power,ui,,
-情绪,Emotion,ui,,
-当前思考,Current Thoughts,ui,,
-特质,Traits,ui,,Also: Persona
-功法与装备,Techniques & Equipment,ui,,
-长期目标,Long-term Objective,ui,,
-短期目标,Short-term Objective,ui,,
-设定目标,Set Objective,ui,,
-清空目标,Clear Objective,ui,,
-语言,Language,ui,,
-中文,Chinese,ui,,
-英文,English,ui,,
+chinese,chinese_tw,english,category,subcategory,notes
+练气,練氣,cultivation,realm,First realm - refining qi,
+筑基,築基,cultivation,realm,Building the foundation,
+金丹,金丹,cultivation,realm,Forming the golden core,
+元婴,元嬰,cultivation,realm,Nascent soul emerges,
+前期,前期,cultivation,stage,,
+中期,中期,cultivation,stage,,
+后期,後期,cultivation,stage,,
+普通,普通,rarity,,Common items/traits,
+稀有,稀有,rarity,,Uncommon items/traits,
+超稀有,超稀有,rarity,,Rare items/traits,
+传说,傳說,rarity,,Legendary items/traits,
+金,金,element,,,
+木,木,element,,,
+水,水,element,,,
+火,火,element,,,
+土,土,element,,,
+冰,冰,element,,Extended element,
+风,風,element,,Extended element,
+暗,暗,element,,Extended element,
+雷,雷,element,,Also: Lightning,
+邪,邪,element,,Dark arts attribute,
+金灵根,金靈根,root,,,
+木灵根,木靈根,root,,,
+水灵根,水靈根,root,,,
+火灵根,火靈根,root,,,
+土灵根,土靈根,root,,,
+天灵根,天靈根,root,,Rare - all-element affinity,
+雷灵根,雷靈根,root,,,
+冰灵根,冰靈根,root,,,
+风灵根,風靈根,root,,,
+暗灵根,暗靈根,root,,,
+东,東,direction,,,
+南,南,direction,,,
+西,西,direction,,,
+北,北,direction,,,
+正,正,alignment,,Orthodox sects,
+中立,中立,alignment,,,
+邪,邪,alignment,,Demonic/Unorthodox,
+掌门,掌門,sect,rank,Also: Sect Leader,
+长老,長老,sect,rank,,
+内门弟子,內門弟子,sect,rank,,
+外门弟子,外門弟子,sect,rank,,
+弟子,弟子,sect,rank,Generic,
+生命恢复速率,生命恢復速率,effect,,extra_hp_recovery_rate,
+最大生命值,最大生命值,effect,,extra_max_hp,
+最大寿元,最大壽元,effect,,extra_max_lifespan,
+兵器熟练度获取,兵器熟練度獲取,effect,,extra_weapon_proficiency_gain,
+双修经验,雙修經驗,effect,,extra_dual_cultivation_exp,
+突破成功率,突破成功率,effect,,extra_breakthrough_success_rate,
+奇遇概率,奇遇概率,effect,,extra_fortune_probability,
+霉运概率,黴運概率,effect,,extra_misfortune_probability,
+采集获取材料,採集獲取材料,effect,,extra_harvest_materials,
+狩猎获取材料,狩獵獲取材料,effect,,extra_hunt_materials,
+挖矿获取材料,挖礦獲取材料,effect,,extra_mine_materials,
+物品出售价格,物品出售價格,effect,,extra_item_sell_price_multiplier,
+购买折扣,購買折扣,effect,,shop_buy_price_reduction,
+兵器升级概率,兵器升級概率,effect,,extra_weapon_upgrade_chance,
+搜刮收益,搜刮收益,effect,,extra_plunder_multiplier,
+捕捉灵兽成功率,捕捉靈獸成功率,effect,,extra_catch_success_rate,
+修炼经验,修煉經驗,effect,,extra_cultivate_exp,
+战力点数,戰力點數,effect,,extra_battle_strength_points,
+逃跑成功率,逃跑成功率,effect,,extra_escape_success_rate,
+暗杀成功率,暗殺成功率,effect,,extra_assassinate_success_rate,
+感知范围,感知範圍,effect,,extra_observation_radius,
+移动步长,移動步長,effect,,extra_move_step,
+特殊能力,特殊能力,effect,,legal_actions,
+伤害减免,傷害減免,effect,,damage_reduction,
+境界压制,境界壓制,effect,,realm_suppression_bonus,
+修炼时长缩减,修煉時長縮減,effect,,cultivate_duration_reduction,
+铸造成功率,鑄造成功率,effect,,extra_cast_success_rate,
+炼丹成功率,煉丹成功率,effect,,extra_refine_success_rate,
+自愈效率,自愈效率,effect,,extra_self_heal_efficiency,
+道侣,道侶,relation,,Cultivation partner/spouse,
+师傅,師傅,relation,,Teacher in cultivation,
+徒弟,徒弟,relation,,Student of a master,
+父母,父母,relation,,,
+子女,子女,relation,,,
+父亲,父親,relation,,,
+母亲,母親,relation,,,
+儿子,兒子,relation,,,
+女儿,女兒,relation,,,
+兄弟姐妹,兄弟姐妹,relation,,,
+哥哥,哥哥,relation,,,
+弟弟,弟弟,relation,,,
+姐姐,姐姐,relation,,,
+妹妹,妹妹,relation,,,
+朋友,朋友,relation,,,
+仇人,仇人,relation,,Also: Foe,
+亲属,親屬,relation,,Extended family,
+上品,上品,grade,,Also: High-grade,
+中品,中品,grade,,Also: Mid-grade,
+下品,下品,grade,,Also: Low-grade,
+剑,劍,weapon,type,,
+刀,刀,weapon,type,Also: Blade,
+枪,槍,weapon,type,,
+棍,棍,weapon,type,,
+扇,扇,weapon,type,,
+鞭,鞭,weapon,type,,
+琴,琴,weapon,type,Musical weapon,
+笛,笛,weapon,type,Musical weapon,
+暗器,暗器,weapon,type,,
+破境丹,破境丹,elixir,type,For breaking through bottlenecks,
+延寿丹,延壽丹,elixir,type,Extends lifespan,
+长生丹,長生丹,elixir,type,Extends lifespan,
+燃血丹,燃血丹,elixir,type,Temporary power boost,
+疗伤丹,療傷丹,elixir,type,Restores HP,
+回春丹,回春丹,elixir,type,Healing over time,
+灵石,靈石,item,,Currency,
+丹药,丹藥,item,,Also: Pill - Medicine,
+法宝,法寶,item,,Magical treasure,
+兵器,兵器,item,,,
+功法,功法,item,,Also: Art - Manual,
+辅助装备,輔助裝備,item,,Accessories,
+修炼,修煉,action,solo,Gain experience,
+突破,突破,action,solo,Advance realm,
+疗伤,療傷,action,solo,Recover HP,
+采集,採集,action,solo,Gather plants,
+狩猎,狩獵,action,solo,Hunt animals,
+挖矿,挖礦,action,solo,Extract ore,
+炼丹,煉丹,action,solo,Craft pills,
+铸造,鑄造,action,solo,Craft equipment,
+温养兵器,溫養兵器,action,solo,Increase proficiency,
+购买,購買,action,solo,Purchase items,
+出售,出售,action,solo,Sell items,
+消遣,消遣,action,solo,Relax,
+御兽,御獸,action,solo,Capture spirit beast,
+移动,移動,action,solo,Travel,
+移动到区域,移動到區域,action,solo,Travel to location,
+移动到角色,移動到角色,action,solo,Travel to person,
+移动探索,移動探索,action,solo,Explore direction,
+离开区域,離開區域,action,solo,Depart area,
+远离角色,遠離角色,action,solo,Distance from person,
+帮助凡人,幫助凡人,action,solo,Righteous action,
+搜刮凡人,搜刮凡人,action,solo,Evil action,
+吞噬凡人,吞噬凡人,action,solo,Consume souls,
+攀谈,攀談,action,mutual,Chat,
+交谈,交談,action,mutual,Dialogue,
+切磋,切磋,action,mutual,Friendly combat,
+攻击,攻擊,action,mutual,Initiate combat,
+发起战斗,發起戰鬥,action,mutual,Start fight,
+暗杀,暗殺,action,mutual,Stealth kill,
+逃离,逃離,action,mutual,Flee combat,
+双修,雙修,action,mutual,Partner cultivation,
+传道,傳道,action,mutual,Teach disciple,
+赠送,贈送,action,mutual,Give items,
+抢夺洞府,搶奪洞府,action,mutual,Contest dwelling,
+驱赶,驅趕,action,mutual,Force to leave,
+接受,接受,action,feedback,,
+拒绝,拒絕,action,feedback,,
+让步,讓步,action,feedback,,
+试图远离,試圖遠離,action,feedback,,
+试图离开区域,試圖離開區域,action,feedback,,
+逃离,逃離,action,feedback,,
+战斗,戰鬥,action,feedback,,
+误入洞府,誤入洞府,event,fortune,Equipment,
+巧捡神兵,巧撿神兵,event,fortune,Equipment,
+巧捡奇物,巧撿奇物,event,fortune,Equipment,
+误入试炼,誤入試煉,event,fortune,Equipment,
+异象出世,異象出世,event,fortune,Equipment,
+高人赠予,高人贈予,event,fortune,Equipment,
+高人指点,高人指點,event,fortune,Technique,
+玄妙感悟,玄妙感悟,event,fortune,Technique,
+危难相救,危難相救,event,fortune,Find Master,
+品行打动,品行打動,event,fortune,Find Master,
+展露天赋,展露天賦,event,fortune,Find Master,
+机缘巧合,機緣巧合,event,fortune,Find Master,
+通过考验,通過考驗,event,fortune,Find Master,
+偶遇灵矿,偶遇靈礦,event,fortune,Spirit Stones,
+洞府遗财,洞府遺財,event,fortune,Spirit Stones,
+击杀妖兽,擊殺妖獸,event,fortune,Spirit Stones,
+交易获利,交易獲利,event,fortune,Spirit Stones,
+赌石得宝,賭石得寶,event,fortune,Spirit Stones,
+拾遗藏宝,拾遺藏寶,event,fortune,Spirit Stones,
+顿悟玄机,頓悟玄機,event,fortune,Cultivation,
+古碑感悟,古碑感悟,event,fortune,Cultivation,
+服食灵药,服食靈藥,event,fortune,Cultivation,
+秘境修炼,祕境修煉,event,fortune,Cultivation,
+前辈灌顶,前輩灌頂,event,fortune,Cultivation,
+灵泉淬体,靈泉淬體,event,fortune,Cultivation,
+传承记忆,傳承記憶,event,fortune,Cultivation,
+遭遇扒手,遭遇扒手,event,misfortune,Loss - Spirit stones,
+误买假货,誤買假貨,event,misfortune,Loss - Spirit stones,
+遭人勒索,遭人勒索,event,misfortune,Loss - Spirit stones,
+洞府失窃,洞府失竊,event,misfortune,Loss - Spirit stones,
+赌石惨败,賭石慘敗,event,misfortune,Loss - Spirit stones,
+投资失败,投資失敗,event,misfortune,Loss - Spirit stones,
+修炼岔气,修煉岔氣,event,misfortune,Injury - Qi went astray,
+出门摔伤,出門摔傷,event,misfortune,Injury,
+妖兽偷袭,妖獸偷襲,event,misfortune,Injury,
+仇家闷棍,仇家悶棍,event,misfortune,Injury,
+误触机关,誤觸機關,event,misfortune,Injury,
+天降横祸,天降橫禍,event,misfortune,Injury,
+心魔滋生,心魔滋生,event,misfortune,Backlash,
+灵气逆行,靈氣逆行,event,misfortune,Backlash,
+感悟错乱,感悟錯亂,event,misfortune,Backlash,
+急火攻心,急火攻心,event,misfortune,Backlash,
+心魔,心魔,event,tribulation,Inner demon - self-doubt,
+雷劫,雷劫,event,tribulation,Heavenly lightning,
+肉身,肉身,event,tribulation,Physical transformation,
+寻仇,尋仇,event,tribulation,Past enemies return,
+情劫,情劫,event,tribulation,Love/attachment trial,
+阳罡,陽罡,event,tribulation,Scorching yang energy,
+雷火,雷火,event,tribulation,Combined lightning and fire,
+风灾,風災,event,tribulation,Violent tempest,
+阴狱,陰獄,event,tribulation,Netherworld judgment,
+魔劫,魔劫,event,tribulation,Inner demons manifest,
+老死,老死,event,death,Lifespan exhausted,
+战死,戰死,event,death,,
+重伤不治,重傷不治,event,death,,
+平静,平靜,emotion,,,
+开心,開心,emotion,,,
+愤怒,憤怒,emotion,,,
+悲伤,悲傷,emotion,,,
+恐惧,恐懼,emotion,,,
+惊讶,驚訝,emotion,,,
+期待,期待,emotion,,,
+厌恶,厭惡,emotion,,,
+疑惑,疑惑,emotion,,,
+疲惫,疲憊,emotion,,,
+系统菜单,系統選單,ui,,,
+开始游戏,開始遊戲,ui,,,
+加载游戏,載入遊戲,ui,,,
+保存游戏,儲存遊戲,ui,,,
+新建角色,新建角色,ui,,,
+删除角色,刪除角色,ui,,,
+设置,設定,ui,,,
+其他,其他,ui,,,
+境界,境界,ui,,,
+年龄,年齡,ui,,,
+性别,性別,ui,,,
+男,男,ui,,,
+女,女,ui,,,
+宗门,宗門,ui,,,
+散修,散修,ui,,Independent - no sect,
+灵根,靈根,ui,,,
+灵石,靈石,ui,,,
+颜值,顏值,ui,,,
+基础战力,基礎戰力,ui,,,
+情绪,情緒,ui,,,
+当前思考,當前思考,ui,,,
+特质,特質,ui,,Also: Persona,
+功法与装备,功法與裝備,ui,,,
+长期目标,長期目標,ui,,,
+短期目标,短期目標,ui,,,
+设定目标,設定目標,ui,,,
+清空目标,清空目標,ui,,,
+语言,語言,ui,,,
+中文,中文,ui,,,
+英文,英文,ui,,,
