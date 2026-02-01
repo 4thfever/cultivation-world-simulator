@@ -1,1447 +1,1447 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh_CN\n"
+"Language: zh_TW\n"
 
-#. animal.csv: 灵兔
+#. animal.csv: 靈兔
 msgid "ANIMAL_1_NAME"
-msgstr "灵兔"
+msgstr "靈兔"
 
-#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+#. animal.csv: 天性機敏的靈性兔子，毛色雪白，蘊含微弱靈...
 msgid "ANIMAL_1_DESC"
-msgstr "天性机敏的灵性兔子，毛色雪白，蕴含微弱灵力，性情温和易驯服"
+msgstr "天性機敏的靈性兔子，毛色雪白，蘊含微弱靈力，性情溫和易馴服"
 
 #. animal.csv: 魔狼
 msgid "ANIMAL_2_NAME"
 msgstr "魔狼"
 
-#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+#. animal.csv: 兇猛的魔性狼族，體型巨大，擁有強大的魔力...
 msgid "ANIMAL_2_DESC"
-msgstr "凶猛的魔性狼族，体型巨大，拥有强大的魔力和锋利的爪牙"
+msgstr "兇猛的魔性狼族，體型巨大，擁有強大的魔力和鋒利的爪牙"
 
-#. animal.csv: 青云鹿
+#. animal.csv: 青雲鹿
 msgid "ANIMAL_3_NAME"
-msgstr "青云鹿"
+msgstr "青雲鹿"
 
-#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+#. animal.csv: 棲息於平原地帶的溫和靈獸，通體青色，角如...
 msgid "ANIMAL_3_DESC"
-msgstr "栖息于平原地带的温和灵兽，通体青色，角如玉石，善于感知灵气变化"
+msgstr "棲息於平原地帶的溫和靈獸，通體青色，角如玉石，善於感知靈氣變化"
 
 #. animal.csv: 暗影豹
 msgid "ANIMAL_4_NAME"
 msgstr "暗影豹"
 
-#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+#. animal.csv: 南疆蠻荒中的敏捷獵手，身形如影，爪牙鋒利...
 msgid "ANIMAL_4_DESC"
-msgstr "南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利，擅长潜行狩猎"
+msgstr "南疆蠻荒中的敏捷獵手，身形如影，爪牙鋒利，擅長潛行狩獵"
 
-#. animal.csv: 碧海龙龟
+#. animal.csv: 碧海龍龜
 msgid "ANIMAL_5_NAME"
-msgstr "碧海龙龟"
+msgstr "碧海龍龜"
 
-#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+#. animal.csv: 無邊碧海的古老靈獸，龜甲如碧玉，能操控海...
 msgid "ANIMAL_5_DESC"
-msgstr "无边碧海的古老灵兽，龟甲如碧玉，能操控海水，寿命极长"
+msgstr "無邊碧海的古老靈獸，龜甲如碧玉，能操控海水，壽命極長"
 
 #. animal.csv: 石甲山熊
 msgid "ANIMAL_6_NAME"
 msgstr "石甲山熊"
 
-#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+#. animal.csv: 青峯山脈的強壯守護者，皮毛堅如磐石，力大...
 msgid "ANIMAL_6_DESC"
-msgstr "青峰山脉的强壮守护者，皮毛坚如磐石，力大无穷，性情憨厚"
+msgstr "青峯山脈的強壯守護者，皮毛堅如磐石，力大無窮，性情憨厚"
 
-#. animal.csv: 风速马
+#. animal.csv: 風速馬
 msgid "ANIMAL_7_NAME"
-msgstr "风速马"
+msgstr "風速馬"
 
-#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+#. animal.csv: 馳騁於碧野千里的神駿靈獸，四蹄生風，速度...
 msgid "ANIMAL_7_DESC"
-msgstr "驰骋于碧野千里的神骏灵兽，四蹄生风，速度如电，鬃毛飘逸"
+msgstr "馳騁於碧野千里的神駿靈獸，四蹄生風，速度如電，鬃毛飄逸"
 
 #. animal.csv: 熔岩蜥蜴
 msgid "ANIMAL_8_NAME"
 msgstr "熔岩蜥蜴"
 
-#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+#. animal.csv: 炎獄火山中的火系靈獸，鱗片赤紅如火，能在...
 msgid "ANIMAL_8_DESC"
-msgstr "炎狱火山中的火系灵兽，鳞片赤红如火，能在岩浆中游泳，喷吐烈焰"
+msgstr "炎獄火山中的火系靈獸，鱗片赤紅如火，能在岩漿中游泳，噴吐烈焰"
 
 #. animal.csv: 毒瘴蛙
 msgid "ANIMAL_9_NAME"
 msgstr "毒瘴蛙"
 
-#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+#. animal.csv: 迷霧沼澤的劇毒生物，體色斑斕，能釋放致命...
 msgid "ANIMAL_9_DESC"
-msgstr "迷雾沼泽的剧毒生物，体色斑斓，能释放致命毒气，善于隐匿"
+msgstr "迷霧沼澤的劇毒生物，體色斑斕，能釋放致命毒氣，善於隱匿"
 
 #. animal.csv: 撼地神牛
 msgid "ANIMAL_10_NAME"
 msgstr "撼地神牛"
 
-#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+#. animal.csv: 擁有上古血脈的巨型妖獸，皮毛如鐵，行走間...
 msgid "ANIMAL_10_DESC"
-msgstr "拥有上古血脉的巨型妖兽，皮毛如铁，行走间地动山摇，力大无穷"
+msgstr "擁有上古血脈的巨型妖獸，皮毛如鐵，行走間地動山搖，力大無窮"
 
 #. animal.csv: 冰魄骨蛇
 msgid "ANIMAL_11_NAME"
 msgstr "冰魄骨蛇"
 
-#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+#. animal.csv: 生存於凍土深處的冷血妖獸，身軀由半透明的...
 msgid "ANIMAL_11_DESC"
-msgstr "生存于冻土深处的冷血妖兽，身躯由半透明的骨骼和冰霜构成，无声无息，能瞬间冻结猎物"
+msgstr "生存於凍土深處的冷血妖獸，身軀由半透明的骨骼和冰霜構成，無聲無息，能瞬間凍結獵物"
 
-#. auxiliary.csv: 木灵甲
+#. auxiliary.csv: 木靈甲
 msgid "AUXILIARY_2001_NAME"
-msgstr "木灵甲"
+msgstr "木靈甲"
 
-#. auxiliary.csv: 以灵木纤维编织，生机盎然，防御尚可....
+#. auxiliary.csv: 以靈木纖維編織，生機盎然，防禦尚可....
 msgid "AUXILIARY_2001_DESC"
-msgstr "以灵木纤维编织，生机盎然，防御尚可."
+msgstr "以靈木纖維編織，生機盎然，防禦尚可."
 
 #. auxiliary.csv: 血菩提
 msgid "AUXILIARY_2002_NAME"
 msgstr "血菩提"
 
-#. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
+#. auxiliary.csv: 生於火麒麟滴血之處，重傷必治，無傷增功....
 msgid "AUXILIARY_2002_DESC"
-msgstr "生于火麒麟滴血之处，重伤必治，无伤增功."
+msgstr "生於火麒麟滴血之處，重傷必治，無傷增功."
 
-#. auxiliary.csv: 人参果(伪)
+#. auxiliary.csv: 人蔘果(僞)
 msgid "AUXILIARY_2003_NAME"
-msgstr "人参果(伪)"
+msgstr "人蔘果(僞)"
 
-#. auxiliary.csv: 虽不及真品，闻一闻也能活三百六十岁....
+#. auxiliary.csv: 雖不及真品，聞一聞也能活三百六十歲....
 msgid "AUXILIARY_2003_DESC"
-msgstr "虽不及真品，闻一闻也能活三百六十岁."
+msgstr "雖不及真品，聞一聞也能活三百六十歲."
 
-#. auxiliary.csv: 万宝令
+#. auxiliary.csv: 萬寶令
 msgid "AUXILIARY_2004_NAME"
-msgstr "万宝令"
+msgstr "萬寶令"
 
-#. auxiliary.csv: 千帆城通用的高级商令。...
+#. auxiliary.csv: 千帆城通用的高級商令。...
 msgid "AUXILIARY_2004_DESC"
-msgstr "千帆城通用的高级商令。"
+msgstr "千帆城通用的高級商令。"
 
-#. auxiliary.csv: 铁精
+#. auxiliary.csv: 鐵精
 msgid "AUXILIARY_2005_NAME"
-msgstr "铁精"
+msgstr "鐵精"
 
-#. auxiliary.csv: 提炼百斤凡铁才得一两，提升法器品质的基础...
+#. auxiliary.csv: 提煉百斤凡鐵才得一兩，提升法器品質的基礎...
 msgid "AUXILIARY_2005_DESC"
-msgstr "提炼百斤凡铁才得一两，提升法器品质的基础材料."
+msgstr "提煉百斤凡鐵才得一兩，提升法器品質的基礎材料."
 
 #. auxiliary.csv: 源天神眼
 msgid "AUXILIARY_2006_NAME"
 msgstr "源天神眼"
 
-#. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
+#. auxiliary.csv: 可勘破虛妄，直視本源，尋龍定穴....
 msgid "AUXILIARY_2006_DESC"
-msgstr "可勘破虚妄，直视本源，寻龙定穴."
+msgstr "可勘破虛妄，直視本源，尋龍定穴."
 
-#. auxiliary.csv: 踏云靴
+#. auxiliary.csv: 踏雲靴
 msgid "AUXILIARY_2007_NAME"
-msgstr "踏云靴"
+msgstr "踏雲靴"
 
-#. auxiliary.csv: 步履生云，身轻如燕，赶路必备....
+#. auxiliary.csv: 步履生雲，身輕如燕，趕路必備....
 msgid "AUXILIARY_2007_DESC"
-msgstr "步履生云，身轻如燕，赶路必备."
+msgstr "步履生雲，身輕如燕，趕路必備."
 
 #. auxiliary.csv: 菩提子
 msgid "AUXILIARY_2008_NAME"
 msgstr "菩提子"
 
-#. auxiliary.csv: 佛门至宝，持之可灵台清明，悟性大增....
+#. auxiliary.csv: 佛門至寶，持之可靈臺清明，悟性大增....
 msgid "AUXILIARY_2008_DESC"
-msgstr "佛门至宝，持之可灵台清明，悟性大增."
+msgstr "佛門至寶，持之可靈臺清明，悟性大增."
 
-#. auxiliary.csv: 金丝软甲
+#. auxiliary.csv: 金絲軟甲
 msgid "AUXILIARY_2009_NAME"
-msgstr "金丝软甲"
+msgstr "金絲軟甲"
 
-#. auxiliary.csv: 刀枪不入，水火不侵，贴身软甲....
+#. auxiliary.csv: 刀槍不入，水火不侵，貼身軟甲....
 msgid "AUXILIARY_2009_DESC"
-msgstr "刀枪不入，水火不侵，贴身软甲."
+msgstr "刀槍不入，水火不侵，貼身軟甲."
 
-#. auxiliary.csv: 寒玉床
+#. auxiliary.csv: 寒玉牀
 msgid "AUXILIARY_2010_NAME"
-msgstr "寒玉床"
+msgstr "寒玉牀"
 
-#. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
+#. auxiliary.csv: 古墓派至寶，在此牀上修煉，事半功倍，且無...
 msgid "AUXILIARY_2010_DESC"
-msgstr "古墓派至宝，在此床上修炼，事半功倍，且无心魔之虞."
+msgstr "古墓派至寶，在此牀上修煉，事半功倍，且無心魔之虞."
 
-#. auxiliary.csv: 无相面具
+#. auxiliary.csv: 無相面具
 msgid "AUXILIARY_2011_NAME"
-msgstr "无相面具"
+msgstr "無相面具"
 
-#. auxiliary.csv: 千人千面，不仅掩盖容貌，更能掩盖气息....
+#. auxiliary.csv: 千人千面，不僅掩蓋容貌，更能掩蓋氣息....
 msgid "AUXILIARY_2011_DESC"
-msgstr "千人千面，不仅掩盖容貌，更能掩盖气息."
+msgstr "千人千面，不僅掩蓋容貌，更能掩蓋氣息."
 
-#. auxiliary.csv: 神风舟
+#. auxiliary.csv: 神風舟
 msgid "AUXILIARY_2051_NAME"
-msgstr "神风舟"
+msgstr "神風舟"
 
-#. auxiliary.csv: 飞行法器，速度极快，居家旅行杀人越货必备...
+#. auxiliary.csv: 飛行法器，速度極快，居家旅行殺人越貨必備...
 msgid "AUXILIARY_2051_DESC"
-msgstr "飞行法器，速度极快，居家旅行杀人越货必备."
+msgstr "飛行法器，速度極快，居家旅行殺人越貨必備."
 
-#. auxiliary.csv: 昆仑镜
+#. auxiliary.csv: 崑崙鏡
 msgid "AUXILIARY_2052_NAME"
-msgstr "昆仑镜"
+msgstr "崑崙鏡"
 
-#. auxiliary.csv: 上古神器，拥有穿梭时空之力，此为仿品，仅...
+#. auxiliary.csv: 上古神器，擁有穿梭時空之力，此爲仿品，僅...
 msgid "AUXILIARY_2052_DESC"
-msgstr "上古神器，拥有穿梭时空之力，此为仿品，仅能窥探远方."
+msgstr "上古神器，擁有穿梭時空之力，此爲仿品，僅能窺探遠方."
 
 #. auxiliary.csv: 掌天瓶
 msgid "AUXILIARY_2053_NAME"
 msgstr "掌天瓶"
 
-#. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
+#. auxiliary.csv: 奪天地之造化，聚日月之精華，催熟萬物....
 msgid "AUXILIARY_2053_DESC"
-msgstr "夺天地之造化，聚日月之精华，催熟万物."
+msgstr "奪天地之造化，聚日月之精華，催熟萬物."
 
-#. auxiliary.csv: 龙凤呈祥戒
+#. auxiliary.csv: 龍鳳呈祥戒
 msgid "AUXILIARY_2054_NAME"
-msgstr "龙凤呈祥戒"
+msgstr "龍鳳呈祥戒"
 
-#. auxiliary.csv: 龙凤和鸣，心意相通，双修进境一日千里....
+#. auxiliary.csv: 龍鳳和鳴，心意相通，雙修進境一日千里....
 msgid "AUXILIARY_2054_DESC"
-msgstr "龙凤和鸣，心意相通，双修进境一日千里."
+msgstr "龍鳳和鳴，心意相通，雙修進境一日千里."
 
-#. auxiliary.csv: 隐形披风
+#. auxiliary.csv: 隱形披風
 msgid "AUXILIARY_2055_NAME"
-msgstr "隐形披风"
+msgstr "隱形披風"
 
-#. auxiliary.csv: 披上后身形尽隐，连神识也难以察觉....
+#. auxiliary.csv: 披上後身形盡隱，連神識也難以察覺....
 msgid "AUXILIARY_2055_DESC"
-msgstr "披上后身形尽隐，连神识也难以察觉."
+msgstr "披上後身形盡隱，連神識也難以察覺."
 
-#. auxiliary.csv: 御兽环
+#. auxiliary.csv: 御獸環
 msgid "AUXILIARY_2056_NAME"
-msgstr "御兽环"
+msgstr "御獸環"
 
-#. auxiliary.csv: 套在妖兽颈上，任其凶焰滔天，也要乖乖听命...
+#. auxiliary.csv: 套在妖獸頸上，任其兇焰滔天，也要乖乖聽命...
 msgid "AUXILIARY_2056_DESC"
-msgstr "套在妖兽颈上，任其凶焰滔天，也要乖乖听命."
+msgstr "套在妖獸頸上，任其兇焰滔天，也要乖乖聽命."
 
-#. auxiliary.csv: 太虚甲
+#. auxiliary.csv: 太虛甲
 msgid "AUXILIARY_2057_NAME"
-msgstr "太虚甲"
+msgstr "太虛甲"
 
-#. auxiliary.csv: 太虚幻境所化，万法不沾，防御力惊人....
+#. auxiliary.csv: 太虛幻境所化，萬法不沾，防禦力驚人....
 msgid "AUXILIARY_2057_DESC"
-msgstr "太虚幻境所化，万法不沾，防御力惊人."
+msgstr "太虛幻境所化，萬法不沾，防禦力驚人."
 
-#. auxiliary.csv: 八卦炉
+#. auxiliary.csv: 八卦爐
 msgid "AUXILIARY_2058_NAME"
-msgstr "八卦炉"
+msgstr "八卦爐"
 
-#. auxiliary.csv: 仿太上老君炼丹炉，丹成九转，药效倍增....
+#. auxiliary.csv: 仿太上老君煉丹爐，丹成九轉，藥效倍增....
 msgid "AUXILIARY_2058_DESC"
-msgstr "仿太上老君炼丹炉，丹成九转，药效倍增."
+msgstr "仿太上老君煉丹爐，丹成九轉，藥效倍增."
 
-#. auxiliary.csv: 聚宝盆
+#. auxiliary.csv: 聚寶盆
 msgid "AUXILIARY_2059_NAME"
-msgstr "聚宝盆"
+msgstr "聚寶盆"
 
-#. auxiliary.csv: 放入一文，取出万贯，财源滚滚....
+#. auxiliary.csv: 放入一文，取出萬貫，財源滾滾....
 msgid "AUXILIARY_2059_DESC"
-msgstr "放入一文，取出万贯，财源滚滚."
+msgstr "放入一文，取出萬貫，財源滾滾."
 
-#. auxiliary.csv: 天地烘炉
+#. auxiliary.csv: 天地烘爐
 msgid "AUXILIARY_2060_NAME"
-msgstr "天地烘炉"
+msgstr "天地烘爐"
 
-#. auxiliary.csv: 以天地为炉，造化为工，炼制万物....
+#. auxiliary.csv: 以天地爲爐，造化爲工，煉製萬物....
 msgid "AUXILIARY_2060_DESC"
-msgstr "以天地为炉，造化为工，炼制万物."
+msgstr "以天地爲爐，造化爲工，煉製萬物."
 
-#. auxiliary.csv: 六道剑匣
+#. auxiliary.csv: 六道劍匣
 msgid "AUXILIARY_2061_NAME"
-msgstr "六道剑匣"
+msgstr "六道劍匣"
 
-#. auxiliary.csv: 背负六道，剑出轮回，悟剑良伴....
+#. auxiliary.csv: 揹負六道，劍出輪迴，悟劍良伴....
 msgid "AUXILIARY_2061_DESC"
-msgstr "背负六道，剑出轮回，悟剑良伴."
+msgstr "揹負六道，劍出輪迴，悟劍良伴."
 
-#. auxiliary.csv: 传国玉玺
+#. auxiliary.csv: 傳國玉璽
 msgid "AUXILIARY_2062_NAME"
-msgstr "传国玉玺"
+msgstr "傳國玉璽"
 
-#. auxiliary.csv: 受命于天，既寿永昌。皇威浩荡，震慑宵小....
+#. auxiliary.csv: 受命於天，既壽永昌。皇威浩蕩，震懾宵小....
 msgid "AUXILIARY_2062_DESC"
-msgstr "受命于天，既寿永昌。皇威浩荡，震慑宵小."
+msgstr "受命於天，既壽永昌。皇威浩蕩，震懾宵小."
 
-#. auxiliary.csv: 灵眼之泉
+#. auxiliary.csv: 靈眼之泉
 msgid "AUXILIARY_2063_NAME"
-msgstr "灵眼之泉"
+msgstr "靈眼之泉"
 
-#. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
+#. auxiliary.csv: 可移動的靈氣之源，隨身攜帶的洞天福地....
 msgid "AUXILIARY_2063_DESC"
-msgstr "可移动的灵气之源，随身携带的洞天福地."
+msgstr "可移動的靈氣之源，隨身攜帶的洞天福地."
 
-#. auxiliary.csv: 万魂幡
+#. auxiliary.csv: 萬魂幡
 msgid "AUXILIARY_2064_NAME"
-msgstr "万魂幡"
+msgstr "萬魂幡"
 
-#. auxiliary.csv: 血海不枯，冥河不死。极度邪恶的掠夺法宝....
+#. auxiliary.csv: 血海不枯，冥河不死。極度邪惡的掠奪法寶....
 msgid "AUXILIARY_2064_DESC"
-msgstr "血海不枯，冥河不死。极度邪恶的掠夺法宝."
+msgstr "血海不枯，冥河不死。極度邪惡的掠奪法寶."
 
 #. auxiliary.csv: 神木王鼎
 msgid "AUXILIARY_2065_NAME"
 msgstr "神木王鼎"
 
-#. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
+#. auxiliary.csv: 木系至寶，不僅可煉製神丹，鼎中更自成一界...
 msgid "AUXILIARY_2065_DESC"
-msgstr "木系至宝，不仅可炼制神丹，鼎中更自成一界，可催熟灵药。"
+msgstr "木系至寶，不僅可煉製神丹，鼎中更自成一界，可催熟靈藥。"
 
-#. celestial_phenomenon.csv: 紫气东来
+#. celestial_phenomenon.csv: 紫氣東來
 msgid "CELESTIAL_PHENOMENON_1_NAME"
-msgstr "紫气东来"
+msgstr "紫氣東來"
 
-#. celestial_phenomenon.csv: 天地灵气充沛，修士修行速度大增，修行欲望...
+#. celestial_phenomenon.csv: 天地靈氣充沛，修士修行速度大增，修行慾望...
 msgid "CELESTIAL_PHENOMENON_1_DESC"
-msgstr "天地灵气充沛，修士修行速度大增，修行欲望提高"
+msgstr "天地靈氣充沛，修士修行速度大增，修行慾望提高"
 
 #. celestial_phenomenon.csv: 金煞之年
 msgid "CELESTIAL_PHENOMENON_2_NAME"
 msgstr "金煞之年"
 
-#. celestial_phenomenon.csv: 金煞充盈天地肃杀，修士更大可能嗜血而相互...
+#. celestial_phenomenon.csv: 金煞充盈天地肅殺，修士更大可能嗜血而相互...
 msgid "CELESTIAL_PHENOMENON_2_DESC"
-msgstr "金煞充盈天地肃杀，修士更大可能嗜血而相互攻伐"
+msgstr "金煞充盈天地肅殺，修士更大可能嗜血而相互攻伐"
 
-#. celestial_phenomenon.csv: 木灵盛世
+#. celestial_phenomenon.csv: 木靈盛世
 msgid "CELESTIAL_PHENOMENON_3_NAME"
-msgstr "木灵盛世"
+msgstr "木靈盛世"
 
-#. celestial_phenomenon.csv: 木德滋养生机盎然，采集收获倍增且伤势恢复...
+#. celestial_phenomenon.csv: 木德滋養生機盎然，採集收穫倍增且傷勢恢復...
 msgid "CELESTIAL_PHENOMENON_3_DESC"
-msgstr "木德滋养生机盎然，采集收获倍增且伤势恢复极快，宜四处搜罗天材地宝"
+msgstr "木德滋養生機盎然，採集收穫倍增且傷勢恢復極快，宜四處蒐羅天材地寶"
 
-#. celestial_phenomenon.csv: 水德之纪
+#. celestial_phenomenon.csv: 水德之紀
 msgid "CELESTIAL_PHENOMENON_4_NAME"
-msgstr "水德之纪"
+msgstr "水德之紀"
 
-#. celestial_phenomenon.csv: 水行流转通达无碍，修炼效率与速度双重提升...
+#. celestial_phenomenon.csv: 水行流轉通達無礙，修煉效率與速度雙重提升...
 msgid "CELESTIAL_PHENOMENON_4_DESC"
-msgstr "水行流转通达无碍，修炼效率与速度双重提升，正是闭关苦修的大好时机"
+msgstr "水行流轉通達無礙，修煉效率與速度雙重提升，正是閉關苦修的大好時機"
 
-#. celestial_phenomenon.csv: 火劫时代
+#. celestial_phenomenon.csv: 火劫時代
 msgid "CELESTIAL_PHENOMENON_5_NAME"
-msgstr "火劫时代"
+msgstr "火劫時代"
 
-#. celestial_phenomenon.csv: 天火燃烧劫数降临，战力暴涨但寿元流逝，当...
+#. celestial_phenomenon.csv: 天火燃燒劫數降臨，戰力暴漲但壽元流逝，當...
 msgid "CELESTIAL_PHENOMENON_5_DESC"
-msgstr "天火燃烧劫数降临，战力暴涨但寿元流逝，当速战速决以命搏天"
+msgstr "天火燃燒劫數降臨，戰力暴漲但壽元流逝，當速戰速決以命搏天"
 
 #. celestial_phenomenon.csv: 土厚之世
 msgid "CELESTIAL_PHENOMENON_6_NAME"
 msgstr "土厚之世"
 
-#. celestial_phenomenon.csv: 土德厚重载物无疆，身躯坚韧血气充盈，可无...
+#. celestial_phenomenon.csv: 土德厚重載物無疆，身軀堅韌血氣充盈，可無...
 msgid "CELESTIAL_PHENOMENON_6_DESC"
-msgstr "土德厚重载物无疆，身躯坚韧血气充盈，可无惧强敌正面争锋"
+msgstr "土德厚重載物無疆，身軀堅韌血氣充盈，可無懼強敵正面爭鋒"
 
-#. celestial_phenomenon.csv: 五行逆乱
+#. celestial_phenomenon.csv: 五行逆亂
 msgid "CELESTIAL_PHENOMENON_7_NAME"
-msgstr "五行逆乱"
+msgstr "五行逆亂"
 
-#. celestial_phenomenon.csv: 五行失序天地大乱，常规修炼事倍功半，然瓶...
+#. celestial_phenomenon.csv: 五行失序天地大亂，常規修煉事倍功半，然瓶...
 msgid "CELESTIAL_PHENOMENON_7_DESC"
-msgstr "五行失序天地大乱，常规修炼事倍功半，然瓶颈松动宜尝试突破"
+msgstr "五行失序天地大亂，常規修煉事倍功半，然瓶頸鬆動宜嘗試突破"
 
 #. celestial_phenomenon.csv: 天道均衡
 msgid "CELESTIAL_PHENOMENON_8_NAME"
 msgstr "天道均衡"
 
-#. celestial_phenomenon.csv: 天道显化损有余而补不足，高阶修士进境受阻...
+#. celestial_phenomenon.csv: 天道顯化損有餘而補不足，高階修士進境受阻...
 msgid "CELESTIAL_PHENOMENON_8_DESC"
-msgstr "天道显化损有余而补不足，高阶修士进境受阻，低阶修士宜抓紧良机追赶"
+msgstr "天道顯化損有餘而補不足，高階修士進境受阻，低階修士宜抓緊良機追趕"
 
-#. celestial_phenomenon.csv: 劫数将至
+#. celestial_phenomenon.csv: 劫數將至
 msgid "CELESTIAL_PHENOMENON_9_NAME"
-msgstr "劫数将至"
+msgstr "劫數將至"
 
-#. celestial_phenomenon.csv: 劫数降临戾气弥漫，虽战力激增但福缘浅薄，...
+#. celestial_phenomenon.csv: 劫數降臨戾氣瀰漫，雖戰力激增但福緣淺薄，...
 msgid "CELESTIAL_PHENOMENON_9_DESC"
-msgstr "劫数降临戾气弥漫，虽战力激增但福缘浅薄，宜如履薄冰谨慎行事"
+msgstr "劫數降臨戾氣瀰漫，雖戰力激增但福緣淺薄，宜如履薄冰謹慎行事"
 
-#. celestial_phenomenon.csv: 灵气复苏
+#. celestial_phenomenon.csv: 靈氣復甦
 msgid "CELESTIAL_PHENOMENON_10_NAME"
-msgstr "灵气复苏"
+msgstr "靈氣復甦"
 
-#. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
+#. celestial_phenomenon.csv: 天地靈氣井噴復甦，修爲進境一日千里，萬物...
 msgid "CELESTIAL_PHENOMENON_10_DESC"
-msgstr "天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进"
+msgstr "天地靈氣井噴復甦，修爲進境一日千里，萬物競發宜全力精進"
 
-#. celestial_phenomenon.csv: 灵气枯竭
+#. celestial_phenomenon.csv: 靈氣枯竭
 msgid "CELESTIAL_PHENOMENON_11_NAME"
-msgstr "灵气枯竭"
+msgstr "靈氣枯竭"
 
-#. celestial_phenomenon.csv: 灵气枯竭末法将至，修炼如逆水行舟，宜节约...
+#. celestial_phenomenon.csv: 靈氣枯竭末法將至，修煉如逆水行舟，宜節約...
 msgid "CELESTIAL_PHENOMENON_11_DESC"
-msgstr "灵气枯竭末法将至，修炼如逆水行舟，宜节约资源稳固道心"
+msgstr "靈氣枯竭末法將至，修煉如逆水行舟，宜節約資源穩固道心"
 
-#. celestial_phenomenon.csv: 魔道兴盛
+#. celestial_phenomenon.csv: 魔道興盛
 msgid "CELESTIAL_PHENOMENON_12_NAME"
-msgstr "魔道兴盛"
+msgstr "魔道興盛"
 
-#. celestial_phenomenon.csv: 魔气滔天邪道大昌，魔修如鱼得水，正道修士...
+#. celestial_phenomenon.csv: 魔氣滔天邪道大昌，魔修如魚得水，正道修士...
 msgid "CELESTIAL_PHENOMENON_12_DESC"
-msgstr "魔气滔天邪道大昌，魔修如鱼得水，正道修士当避其锋芒潜心积淀"
+msgstr "魔氣滔天邪道大昌，魔修如魚得水，正道修士當避其鋒芒潛心積澱"
 
-#. celestial_phenomenon.csv: 正气浩然
+#. celestial_phenomenon.csv: 正氣浩然
 msgid "CELESTIAL_PHENOMENON_13_NAME"
-msgstr "正气浩然"
+msgstr "正氣浩然"
 
-#. celestial_phenomenon.csv: 浩然正气镇压邪祟，正道修士如有神助，魔修...
+#. celestial_phenomenon.csv: 浩然正氣鎮壓邪祟，正道修士如有神助，魔修...
 msgid "CELESTIAL_PHENOMENON_13_DESC"
-msgstr "浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头"
+msgstr "浩然正氣鎮壓邪祟，正道修士如有神助，魔修宜韜光養晦莫觸黴頭"
 
 #. celestial_phenomenon.csv: 神兵出世
 msgid "CELESTIAL_PHENOMENON_14_NAME"
 msgstr "神兵出世"
 
-#. celestial_phenomenon.csv: 神兵有灵百兵齐鸣，兵器熟练度提升极快，宜...
+#. celestial_phenomenon.csv: 神兵有靈百兵齊鳴，兵器熟練度提升極快，宜...
 msgid "CELESTIAL_PHENOMENON_14_DESC"
-msgstr "神兵有灵百兵齐鸣，兵器熟练度提升极快，宜勤练武艺磨砺锋芒"
+msgstr "神兵有靈百兵齊鳴，兵器熟練度提升極快，宜勤練武藝磨礪鋒芒"
 
-#. celestial_phenomenon.csv: 阴阳交泰
+#. celestial_phenomenon.csv: 陰陽交泰
 msgid "CELESTIAL_PHENOMENON_15_NAME"
-msgstr "阴阳交泰"
+msgstr "陰陽交泰"
 
-#. celestial_phenomenon.csv: 阴阳交泰天地和合，彼此互补进境神速，最宜...
+#. celestial_phenomenon.csv: 陰陽交泰天地和合，彼此互補進境神速，最宜...
 msgid "CELESTIAL_PHENOMENON_15_DESC"
-msgstr "阴阳交泰天地和合，彼此互补进境神速，最宜寻觅道侣共参双修之乐"
+msgstr "陰陽交泰天地和合，彼此互補進境神速，最宜尋覓道侶共參雙修之樂"
 
-#. celestial_phenomenon.csv: 杀劫降临
+#. celestial_phenomenon.csv: 殺劫降臨
 msgid "CELESTIAL_PHENOMENON_16_NAME"
-msgstr "杀劫降临"
+msgstr "殺劫降臨"
 
-#. celestial_phenomenon.csv: 血光冲天杀意难抑，虽杀伐之力大增但机缘断...
+#. celestial_phenomenon.csv: 血光沖天殺意難抑，雖殺伐之力大增但機緣斷...
 msgid "CELESTIAL_PHENOMENON_16_DESC"
-msgstr "血光冲天杀意难抑，虽杀伐之力大增但机缘断绝，宜主动出击以杀证道"
+msgstr "血光沖天殺意難抑，雖殺伐之力大增但機緣斷絕，宜主動出擊以殺證道"
 
 #. celestial_phenomenon.csv: 太平盛世
 msgid "CELESTIAL_PHENOMENON_17_NAME"
 msgstr "太平盛世"
 
-#. celestial_phenomenon.csv: 天下太平万物安宁，虽苦修进境缓慢但机缘频...
+#. celestial_phenomenon.csv: 天下太平萬物安寧，雖苦修進境緩慢但機緣頻...
 msgid "CELESTIAL_PHENOMENON_17_DESC"
-msgstr "天下太平万物安宁，虽苦修进境缓慢但机缘频出，宜游历天下寻找奇遇"
+msgstr "天下太平萬物安寧，雖苦修進境緩慢但機緣頻出，宜遊歷天下尋找奇遇"
 
-#. celestial_phenomenon.csv: 气运加身
+#. celestial_phenomenon.csv: 氣運加身
 msgid "CELESTIAL_PHENOMENON_18_NAME"
-msgstr "气运加身"
+msgstr "氣運加身"
 
-#. celestial_phenomenon.csv: 天命眷顾气运所钟，天选之人万事皆顺，常人...
+#. celestial_phenomenon.csv: 天命眷顧氣運所鍾，天選之人萬事皆順，常人...
 msgid "CELESTIAL_PHENOMENON_18_DESC"
-msgstr "天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求"
+msgstr "天命眷顧氣運所鍾，天選之人萬事皆順，常人只可仰望不可強求"
 
-#. celestial_phenomenon.csv: 血月当空
+#. celestial_phenomenon.csv: 血月當空
 msgid "CELESTIAL_PHENOMENON_19_NAME"
-msgstr "血月当空"
+msgstr "血月當空"
 
-#. celestial_phenomenon.csv: 血月高悬人心躁动，战力虽强但静修困难，宜...
+#. celestial_phenomenon.csv: 血月高懸人心躁動，戰力雖強但靜修困難，宜...
 msgid "CELESTIAL_PHENOMENON_19_DESC"
-msgstr "血月高悬人心躁动，战力虽强但静修困难，宜以战养战掠夺资源"
+msgstr "血月高懸人心躁動，戰力雖強但靜修困難，宜以戰養戰掠奪資源"
 
-#. celestial_phenomenon.csv: 飞升之门
+#. celestial_phenomenon.csv: 飛昇之門
 msgid "CELESTIAL_PHENOMENON_20_NAME"
-msgstr "飞升之门"
+msgstr "飛昇之門"
 
-#. celestial_phenomenon.csv: 天门大开大道显现，感悟修行皆如有神助，正...
+#. celestial_phenomenon.csv: 天門大開大道顯現，感悟修行皆如有神助，正...
 msgid "CELESTIAL_PHENOMENON_20_DESC"
-msgstr "天门大开大道显现，感悟修行皆如有神助，正是冲击境界飞升成仙之时"
+msgstr "天門大開大道顯現，感悟修行皆如有神助，正是衝擊境界飛昇成仙之時"
 
-#. celestial_phenomenon.csv: 法则显化
+#. celestial_phenomenon.csv: 法則顯化
 msgid "CELESTIAL_PHENOMENON_21_NAME"
-msgstr "法则显化"
+msgstr "法則顯化"
 
-#. celestial_phenomenon.csv: 天地法则清晰可触，瓶颈如纸一捅即破，万勿...
+#. celestial_phenomenon.csv: 天地法則清晰可觸，瓶頸如紙一捅即破，萬勿...
 msgid "CELESTIAL_PHENOMENON_21_DESC"
-msgstr "天地法则清晰可触，瓶颈如纸一捅即破，万勿错过此突破天赐良机"
+msgstr "天地法則清晰可觸，瓶頸如紙一捅即破，萬勿錯過此突破天賜良機"
 
-#. celestial_phenomenon.csv: 时空乱流
+#. celestial_phenomenon.csv: 時空亂流
 msgid "CELESTIAL_PHENOMENON_22_NAME"
-msgstr "时空乱流"
+msgstr "時空亂流"
 
-#. celestial_phenomenon.csv: 时空错乱异象频生，险地亦藏无上机缘，宜富...
+#. celestial_phenomenon.csv: 時空錯亂異象頻生，險地亦藏無上機緣，宜富...
 msgid "CELESTIAL_PHENOMENON_22_DESC"
-msgstr "时空错乱异象频生，险地亦藏无上机缘，宜富贵险中求探索未知"
+msgstr "時空錯亂異象頻生，險地亦藏無上機緣，宜富貴險中求探索未知"
 
-#. city_region.csv: 青云城
+#. city_region.csv: 青雲城
 msgid "CITY_REGION_301_NAME"
-msgstr "青云城"
+msgstr "青雲城"
 
-#. city_region.csv: 繁华都市，人烟稠密，商贾云集。此地是交易...
+#. city_region.csv: 繁華都市，人煙稠密，商賈雲集。此地是交易...
 msgid "CITY_REGION_301_DESC"
-msgstr "繁华都市，人烟稠密，商贾云集。此地是交易天材地宝、寻找机缘的重要场所。"
+msgstr "繁華都市，人煙稠密，商賈雲集。此地是交易天材地寶、尋找機緣的重要場所。"
 
 #. city_region.csv: 沙州城
 msgid "CITY_REGION_302_NAME"
 msgstr "沙州城"
 
-#. city_region.csv: 沙漠绿洲中的贸易重镇，各路商队在此集结，...
+#. city_region.csv: 沙漠綠洲中的貿易重鎮，各路商隊在此集結，...
 msgid "CITY_REGION_302_DESC"
-msgstr "沙漠绿洲中的贸易重镇，各路商队在此集结，是修士补给和交流的重要据点。"
+msgstr "沙漠綠洲中的貿易重鎮，各路商隊在此集結，是修士補給和交流的重要據點。"
 
 #. city_region.csv: 翠林城
 msgid "CITY_REGION_303_NAME"
 msgstr "翠林城"
 
-#. city_region.csv: 森林深处的修仙重镇，众多修士在此栖居，是...
+#. city_region.csv: 森林深處的修仙重鎮，衆多修士在此棲居，是...
 msgid "CITY_REGION_303_DESC"
-msgstr "森林深处的修仙重镇，众多修士在此栖居，是修炼和炼宝的理想之地。"
+msgstr "森林深處的修仙重鎮，衆多修士在此棲居，是修煉和煉寶的理想之地。"
 
-#. city_region.csv: 沧澜城
+#. city_region.csv: 滄瀾城
 msgid "CITY_REGION_304_NAME"
-msgstr "沧澜城"
+msgstr "滄瀾城"
 
-#. city_region.csv: 坐落于大河入海口的三角洲，百川归海，水运...
+#. city_region.csv: 坐落於大河入海口的三角洲，百川歸海，水運...
 msgid "CITY_REGION_304_DESC"
-msgstr "坐落于大河入海口的三角洲，百川归海，水运昌隆，是水系修士往来最为频繁的宝地。"
+msgstr "坐落於大河入海口的三角洲，百川歸海，水運昌隆，是水系修士往來最爲頻繁的寶地。"
 
-#. city_region.csv: 揽月城
+#. city_region.csv: 攬月城
 msgid "CITY_REGION_305_NAME"
-msgstr "揽月城"
+msgstr "攬月城"
 
-#. city_region.csv: 屹立于连绵群山之巅，终年云雾缭绕，灵气纯...
+#. city_region.csv: 屹立於連綿羣山之巔，終年雲霧繚繞，靈氣純...
 msgid "CITY_REGION_305_DESC"
-msgstr "屹立于连绵群山之巅，终年云雾缭绕，灵气纯净，是苦修之士感悟天道的绝佳场所。"
+msgstr "屹立於連綿羣山之巔，終年雲霧繚繞，靈氣純淨，是苦修之士感悟天道的絕佳場所。"
 
 #. cultivate_region.csv: 太白金府
 msgid "CULTIVATE_REGION_201_NAME"
 msgstr "太白金府"
 
-#. cultivate_region.csv: 青峰山脉深处的金行洞府，金精气凝，刀剑鸣...
+#. cultivate_region.csv: 青峯山脈深處的金行洞府，金精氣凝，刀劍鳴...
 msgid "CULTIVATE_REGION_201_DESC"
-msgstr "青峰山脉深处的金行洞府，金精气凝，刀剑鸣音不绝，乃金系修士的最高圣地。"
+msgstr "青峯山脈深處的金行洞府，金精氣凝，刀劍鳴音不絕，乃金系修士的最高聖地。"
 
 #. cultivate_region.csv: 青木洞天
 msgid "CULTIVATE_REGION_202_NAME"
 msgstr "青木洞天"
 
-#. cultivate_region.csv: 青云林海中的木行洞府，生机盎然，灵药遍地...
+#. cultivate_region.csv: 青雲林海中的木行洞府，生機盎然，靈藥遍地...
 msgid "CULTIVATE_REGION_202_DESC"
-msgstr "青云林海中的木行洞府，生机盎然，灵药遍地，乃木系修士的最高圣地。"
+msgstr "青雲林海中的木行洞府，生機盎然，靈藥遍地，乃木系修士的最高聖地。"
 
-#. cultivate_region.csv: 玄水秘境
+#. cultivate_region.csv: 玄水祕境
 msgid "CULTIVATE_REGION_203_NAME"
-msgstr "玄水秘境"
+msgstr "玄水祕境"
 
-#. cultivate_region.csv: 无边碧海深处的水行洞府，碧波万里，水精凝...
+#. cultivate_region.csv: 無邊碧海深處的水行洞府，碧波萬里，水精凝...
 msgid "CULTIVATE_REGION_203_DESC"
-msgstr "无边碧海深处的水行洞府，碧波万里，水精凝神，乃水系修士的最高圣地。"
+msgstr "無邊碧海深處的水行洞府，碧波萬里，水精凝神，乃水系修士的最高聖地。"
 
-#. cultivate_region.csv: 离火洞府
+#. cultivate_region.csv: 離火洞府
 msgid "CULTIVATE_REGION_204_NAME"
-msgstr "离火洞府"
+msgstr "離火洞府"
 
-#. cultivate_region.csv: 炎狱火山旁的火行洞府，烈焰冲天，真火精纯...
+#. cultivate_region.csv: 炎獄火山旁的火行洞府，烈焰沖天，真火精純...
 msgid "CULTIVATE_REGION_204_DESC"
-msgstr "炎狱火山旁的火行洞府，烈焰冲天，真火精纯，乃火系修士的最高圣地。"
+msgstr "炎獄火山旁的火行洞府，烈焰沖天，真火精純，乃火系修士的最高聖地。"
 
-#. cultivate_region.csv: 厚土玄宫
+#. cultivate_region.csv: 厚土玄宮
 msgid "CULTIVATE_REGION_205_NAME"
-msgstr "厚土玄宫"
+msgstr "厚土玄宮"
 
-#. cultivate_region.csv: 青峰山脉的土行洞府，厚德载物，山岳共鸣，...
+#. cultivate_region.csv: 青峯山脈的土行洞府，厚德載物，山嶽共鳴，...
 msgid "CULTIVATE_REGION_205_DESC"
-msgstr "青峰山脉的土行洞府，厚德载物，山岳共鸣，乃土系修士的最高圣地。"
+msgstr "青峯山脈的土行洞府，厚德載物，山嶽共鳴，乃土系修士的最高聖地。"
 
-#. cultivate_region.csv: 古越遗迹
+#. cultivate_region.csv: 古越遺蹟
 msgid "CULTIVATE_REGION_206_NAME"
-msgstr "古越遗迹"
+msgstr "古越遺蹟"
 
-#. cultivate_region.csv: 雨林深处的上古遗迹，古藤缠绕，木行灵气与...
+#. cultivate_region.csv: 雨林深處的上古遺蹟，古藤纏繞，木行靈氣與...
 msgid "CULTIVATE_REGION_206_DESC"
-msgstr "雨林深处的上古遗迹，古藤缠绕，木行灵气与金行灵气交融。蕴藏古老功法与灵药配方。"
+msgstr "雨林深處的上古遺蹟，古藤纏繞，木行靈氣與金行靈氣交融。蘊藏古老功法與靈藥配方。"
 
-#. cultivate_region.csv: 沧海遗迹
+#. cultivate_region.csv: 滄海遺蹟
 msgid "CULTIVATE_REGION_207_NAME"
-msgstr "沧海遗迹"
+msgstr "滄海遺蹟"
 
-#. cultivate_region.csv: 沉没在海中的远古文明遗迹，水行灵气浓郁，...
+#. cultivate_region.csv: 沉沒在海中的遠古文明遺蹟，水行靈氣濃郁，...
 msgid "CULTIVATE_REGION_207_DESC"
-msgstr "沉没在海中的远古文明遗迹，水行灵气浓郁，潮汐间偶有宝物现世。"
+msgstr "沉沒在海中的遠古文明遺蹟，水行靈氣濃郁，潮汐間偶有寶物現世。"
 
-#. elixir.csv: 练气破境丹
+#. elixir.csv: 練氣破境丹
 msgid "ELIXIR_3001_NAME"
-msgstr "练气破境丹"
+msgstr "練氣破境丹"
 
-#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+#. elixir.csv: 凝聚靈氣，輔助練氣期修士突破瓶頸的丹藥（...
 msgid "ELIXIR_3001_DESC"
-msgstr "凝聚灵气，辅助练气期修士突破瓶颈的丹药（药效5年）。"
+msgstr "凝聚靈氣，輔助練氣期修士突破瓶頸的丹藥（藥效5年）。"
 
-#. elixir.csv: 筑基破境丹
+#. elixir.csv: 築基破境丹
 msgid "ELIXIR_3002_NAME"
-msgstr "筑基破境丹"
+msgstr "築基破境丹"
 
-#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+#. elixir.csv: 蘊含築基真意，輔助築基期修士突破瓶頸的靈...
 msgid "ELIXIR_3002_DESC"
-msgstr "蕴含筑基真意，辅助筑基期修士突破瓶颈的灵丹（药效5年）。"
+msgstr "蘊含築基真意，輔助築基期修士突破瓶頸的靈丹（藥效5年）。"
 
 #. elixir.csv: 金丹破境丹
 msgid "ELIXIR_3003_NAME"
 msgstr "金丹破境丹"
 
-#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+#. elixir.csv: 凝結金丹之氣，輔助金丹期修士碎丹成嬰（藥...
 msgid "ELIXIR_3003_DESC"
-msgstr "凝结金丹之气，辅助金丹期修士碎丹成婴（药效5年）。"
+msgstr "凝結金丹之氣，輔助金丹期修士碎丹成嬰（藥效5年）。"
 
-#. elixir.csv: 练气长生丹
+#. elixir.csv: 練氣長生丹
 msgid "ELIXIR_3005_NAME"
-msgstr "练气长生丹"
+msgstr "練氣長生丹"
 
-#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+#. elixir.csv: 採用凡間珍草煉製，略微延緩衰老（限服一顆...
 msgid "ELIXIR_3005_DESC"
-msgstr "采用凡间珍草炼制，略微延缓衰老（限服一颗）。"
+msgstr "採用凡間珍草煉製，略微延緩衰老（限服一顆）。"
 
-#. elixir.csv: 筑基长生丹
+#. elixir.csv: 築基長生丹
 msgid "ELIXIR_3006_NAME"
-msgstr "筑基长生丹"
+msgstr "築基長生丹"
 
-#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+#. elixir.csv: 取天地靈草煉製，可延壽十載（限服一顆）。...
 msgid "ELIXIR_3006_DESC"
-msgstr "取天地灵草炼制，可延寿十载（限服一颗）。"
+msgstr "取天地靈草煉製，可延壽十載（限服一顆）。"
 
-#. elixir.csv: 金丹长生丹
+#. elixir.csv: 金丹長生丹
 msgid "ELIXIR_3007_NAME"
-msgstr "金丹长生丹"
+msgstr "金丹長生丹"
 
-#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+#. elixir.csv: 奪天地造化，凡人服之立斃，金丹修士服之延...
 msgid "ELIXIR_3007_DESC"
-msgstr "夺天地造化，凡人服之立毙，金丹修士服之延寿半甲子（限服一颗）。"
+msgstr "奪天地造化，凡人服之立斃，金丹修士服之延壽半甲子（限服一顆）。"
 
-#. elixir.csv: 元婴长生丹
+#. elixir.csv: 元嬰長生丹
 msgid "ELIXIR_3008_NAME"
-msgstr "元婴长生丹"
+msgstr "元嬰長生丹"
 
-#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+#. elixir.csv: 蘊含一絲長生之氣，元嬰老怪以此續命（限服...
 msgid "ELIXIR_3008_DESC"
-msgstr "蕴含一丝长生之气，元婴老怪以此续命（限服一颗）。"
+msgstr "蘊含一絲長生之氣，元嬰老怪以此續命（限服一顆）。"
 
-#. elixir.csv: 练气燃血丹
+#. elixir.csv: 練氣燃血丹
 msgid "ELIXIR_3009_NAME"
-msgstr "练气燃血丹"
+msgstr "練氣燃血丹"
 
-#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+#. elixir.csv: 燃燒精血換取短暫爆發。3年內戰力提升，但...
 msgid "ELIXIR_3009_DESC"
-msgstr "燃烧精血换取短暂爆发。3年内战力提升，但10年内经脉受损战力下降。"
+msgstr "燃燒精血換取短暫爆發。3年內戰力提升，但10年內經脈受損戰力下降。"
 
-#. elixir.csv: 筑基燃血丹
+#. elixir.csv: 築基燃血丹
 msgid "ELIXIR_3010_NAME"
-msgstr "筑基燃血丹"
+msgstr "築基燃血丹"
 
-#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+#. elixir.csv: 激發潛能的猛藥。3年內戰力大增，但10年...
 msgid "ELIXIR_3010_DESC"
-msgstr "激发潜能的猛药。3年内战力大增，但10年内虚弱。"
+msgstr "激發潛能的猛藥。3年內戰力大增，但10年內虛弱。"
 
 #. elixir.csv: 金丹燃血丹
 msgid "ELIXIR_3011_NAME"
 msgstr "金丹燃血丹"
 
-#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+#. elixir.csv: 金丹修士拼命時的選擇。3年內戰力暴漲，但...
 msgid "ELIXIR_3011_DESC"
-msgstr "金丹修士拼命时的选择。3年内战力暴涨，但10年内重伤。"
+msgstr "金丹修士拼命時的選擇。3年內戰力暴漲，但10年內重傷。"
 
-#. elixir.csv: 元婴燃血丹
+#. elixir.csv: 元嬰燃血丹
 msgid "ELIXIR_3012_NAME"
-msgstr "元婴燃血丹"
+msgstr "元嬰燃血丹"
 
-#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+#. elixir.csv: 燃燒元嬰本源。3年內獲得毀天滅地的力量，...
 msgid "ELIXIR_3012_DESC"
-msgstr "燃烧元婴本源。3年内获得毁天灭地的力量，但10年内几乎废人。"
+msgstr "燃燒元嬰本源。3年內獲得毀天滅地的力量，但10年內幾乎廢人。"
 
-#. elixir.csv: 练气回春丹
+#. elixir.csv: 練氣回春丹
 msgid "ELIXIR_3013_NAME"
-msgstr "练气回春丹"
+msgstr "練氣回春丹"
 
-#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+#. elixir.csv: 普通的療傷丹藥，可恢復練氣期修士的傷勢（...
 msgid "ELIXIR_3013_DESC"
-msgstr "普通的疗伤丹药，可恢复练气期修士的伤势（持续5年）。"
+msgstr "普通的療傷丹藥，可恢復練氣期修士的傷勢（持續5年）。"
 
-#. elixir.csv: 筑基回春丹
+#. elixir.csv: 築基回春丹
 msgid "ELIXIR_3014_NAME"
-msgstr "筑基回春丹"
+msgstr "築基回春丹"
 
-#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+#. elixir.csv: 藥力溫和醇厚，能快速癒合築基期修士的肉身...
 msgid "ELIXIR_3014_DESC"
-msgstr "药力温和醇厚，能快速愈合筑基期修士的肉身损伤（持续5年）。"
+msgstr "藥力溫和醇厚，能快速癒合築基期修士的肉身損傷（持續5年）。"
 
 #. elixir.csv: 金丹回春丹
 msgid "ELIXIR_3015_NAME"
 msgstr "金丹回春丹"
 
-#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+#. elixir.csv: 蘊含生機之力，療傷聖藥（持續5年）。...
 msgid "ELIXIR_3015_DESC"
-msgstr "蕴含生机之力，疗伤圣药（持续5年）。"
+msgstr "蘊含生機之力，療傷聖藥（持續5年）。"
 
-#. elixir.csv: 元婴回春丹
+#. elixir.csv: 元嬰回春丹
 msgid "ELIXIR_3016_NAME"
-msgstr "元婴回春丹"
+msgstr "元嬰回春丹"
 
-#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+#. elixir.csv: 蘊含造化生機，肉身修復極快（持續5年）。...
 msgid "ELIXIR_3016_DESC"
-msgstr "蕴含造化生机，肉身修复极快（持续5年）。"
+msgstr "蘊含造化生機，肉身修復極快（持續5年）。"
 
-#. hidden_domain.csv: 万木残界
+#. hidden_domain.csv: 萬木殘界
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
-msgstr "万木残界"
+msgstr "萬木殘界"
 
-#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎後遺落的一角碎...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
-msgstr "此乃上古丹宗“青帝苑”崩碎后遗落的一角碎片，终年笼罩在七彩斑斓的剧毒瘴气之中。界内法则破碎，导致灵植疯狂生长，更有化形的妖藤食人花潜伏于阴影伺机而动。传闻若能穿过外围的“死寂林”，寻得核心处尚未枯竭的‘乙木灵泉’，凡草亦可化仙药，洗髓伐骨不在话下。但也需时刻提防那些被药渣滋养万年、早已畸变扭曲的守护妖兽，它们对鲜血有着病态的渴望。"
+msgstr "此乃上古丹宗“青帝苑”崩碎後遺落的一角碎片，終年籠罩在七彩斑斕的劇毒瘴氣之中。界內法則破碎，導致靈植瘋狂生長，更有化形的妖藤食人花潛伏於陰影伺機而動。傳聞若能穿過外圍的“死寂林”，尋得核心處尚未枯竭的‘乙木靈泉’，凡草亦可化仙藥，洗髓伐骨不在話下。但也需時刻提防那些被藥渣滋養萬年、早已畸變扭曲的守護妖獸，它們對鮮血有着病態的渴望。"
 
-#. hidden_domain.csv: 陨仙焚谷
+#. hidden_domain.csv: 隕仙焚谷
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
-msgstr "陨仙焚谷"
+msgstr "隕仙焚谷"
 
-#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+#. hidden_domain.csv: 萬年前人族大能與炎魔皇同歸於盡之地，至今...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
-msgstr "万年前人族大能与炎魔皇同归于尽之地，至今地脉仍喷涌着不灭的地煞真火，将苍穹染成血红。焦土之下掩埋着无数断剑残戟，夜半时分更有战魂嘶吼，重演当年的惨烈厮杀。在此历练虽需时刻忍受火毒噬心之苦，甚至可能被狂暴的火灵力焚为灰烬，却极易感悟上古战意。若机缘深厚，甚至能从岩浆深处拾得古修遗落的法宝残片，或窥见一丝大道法则。"
+msgstr "萬年前人族大能與炎魔皇同歸於盡之地，至今地脈仍噴湧着不滅的地煞真火，將蒼穹染成血紅。焦土之下掩埋着無數斷劍殘戟，夜半時分更有戰魂嘶吼，重演當年的慘烈廝殺。在此歷練雖需時刻忍受火毒噬心之苦，甚至可能被狂暴的火靈力焚爲灰燼，卻極易感悟上古戰意。若機緣深厚，甚至能從岩漿深處拾得古修遺落的法寶殘片，或窺見一絲大道法則。"
 
-#. hidden_domain.csv: 九天虚空殿
+#. hidden_domain.csv: 九天虛空殿
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
-msgstr "九天虚空殿"
+msgstr "九天虛空殿"
 
-#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+#. hidden_domain.csv: 漂浮於九天罡風層之上的宏偉宮殿羣，非有大...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
-msgstr "漂浮于九天罡风层之上的宏伟宫殿群，非有大毅力者不可通过外围撕裂肉身的空间裂缝。殿内布满上古禁制与层叠幻阵，一步踏错便是形神俱灭，永坠虚空。虽藏经阁已在岁月中坍塌，但那些飘散在虚空乱流中的每一页金书玉册，都记载着足以引发修真界血雨腥风的无上神通。唯有金丹巅峰修士，方能勉强抵御那股来自远古的威压，窥探一丝仙机。"
+msgstr "漂浮於九天罡風層之上的宏偉宮殿羣，非有大毅力者不可通過外圍撕裂肉身的空間裂縫。殿內佈滿上古禁制與層疊幻陣，一步踏錯便是形神俱滅，永墜虛空。雖藏經閣已在歲月中坍塌，但那些飄散在虛空亂流中的每一頁金書玉冊，都記載着足以引發修真界血雨腥風的無上神通。唯有金丹巔峯修士，方能勉強抵禦那股來自遠古的威壓，窺探一絲仙機。"
 
-#. lode.csv: 玄铁矿脉
+#. lode.csv: 玄鐵礦脈
 msgid "LODE_1_NAME"
-msgstr "玄铁矿脉"
+msgstr "玄鐵礦脈"
 
-#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+#. lode.csv: 蘊含玄鐵的普通礦脈，常見於淺層地表...
 msgid "LODE_1_DESC"
-msgstr "蕴含玄铁的普通矿脉，常见于浅层地表"
+msgstr "蘊含玄鐵的普通礦脈，常見於淺層地表"
 
-#. lode.csv: 赤铜矿脉
+#. lode.csv: 赤銅礦脈
 msgid "LODE_2_NAME"
-msgstr "赤铜矿脉"
+msgstr "赤銅礦脈"
 
-#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+#. lode.csv: 深埋地下的赤銅礦脈，周圍往往伴生火熱之氣...
 msgid "LODE_2_DESC"
-msgstr "深埋地下的赤铜矿脉，周围往往伴生火热之气"
+msgstr "深埋地下的赤銅礦脈，周圍往往伴生火熱之氣"
 
-#. lode.csv: 秘银矿床
+#. lode.csv: 祕銀礦牀
 msgid "LODE_3_NAME"
-msgstr "秘银矿床"
+msgstr "祕銀礦牀"
 
-#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+#. lode.csv: 極其罕見的祕銀富集地，銀光閃爍，靈氣逼人...
 msgid "LODE_3_DESC"
-msgstr "极其罕见的秘银富集地，银光闪烁，灵气逼人"
+msgstr "極其罕見的祕銀富集地，銀光閃爍，靈氣逼人"
 
-#. lode.csv: 庚金矿洞
+#. lode.csv: 庚金礦洞
 msgid "LODE_4_NAME"
-msgstr "庚金矿洞"
+msgstr "庚金礦洞"
 
-#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+#. lode.csv: 位於絕壁深處的庚金礦脈，開採極爲困難，但...
 msgid "LODE_4_DESC"
-msgstr "位于绝壁深处的庚金矿脉，开采极为困难，但价值连城"
+msgstr "位於絕壁深處的庚金礦脈，開採極爲困難，但價值連城"
 
-#. material.csv: 灵兔毛
+#. material.csv: 靈兔毛
 msgid "MATERIAL_1_NAME"
-msgstr "灵兔毛"
+msgstr "靈兔毛"
 
-#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+#. material.csv: 靈性充沛的兔子細毛，質地柔軟溫暖，適合編...
 msgid "MATERIAL_1_DESC"
-msgstr "灵性充沛的兔子细毛，质地柔软温暖，适合编织防寒衣物"
+msgstr "靈性充沛的兔子細毛，質地柔軟溫暖，適合編織防寒衣物"
 
 #. material.csv: 魔狼牙
 msgid "MATERIAL_2_NAME"
 msgstr "魔狼牙"
 
-#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+#. material.csv: 兇猛魔狼的鋒利狼牙，蘊含魔力，是鍛造利器...
 msgid "MATERIAL_2_DESC"
-msgstr "凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器的珍贵材料"
+msgstr "兇猛魔狼的鋒利狼牙，蘊含魔力，是鍛造利器的珍貴材料"
 
-#. material.csv: 青云鹿角
+#. material.csv: 青雲鹿角
 msgid "MATERIAL_3_NAME"
-msgstr "青云鹿角"
+msgstr "青雲鹿角"
 
-#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+#. material.csv: 青雲鹿的羼玉之角，蘊含清靈之氣，是煉丹的...
 msgid "MATERIAL_3_DESC"
-msgstr "青云鹿的羼玉之角，蕴含清灵之气，是炼丹的上品药材"
+msgstr "青雲鹿的羼玉之角，蘊含清靈之氣，是煉丹的上品藥材"
 
 #. material.csv: 暗影豹爪
 msgid "MATERIAL_4_NAME"
 msgstr "暗影豹爪"
 
-#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+#. material.csv: 暗影豹的鋒利爪子，輕盈而德，能增強武器的...
 msgid "MATERIAL_4_DESC"
-msgstr "暗影豹的锋利爪子，轻盈而德，能增强武器的敏捷度"
+msgstr "暗影豹的鋒利爪子，輕盈而德，能增強武器的敏捷度"
 
-#. material.csv: 龙龟甲片
+#. material.csv: 龍龜甲片
 msgid "MATERIAL_5_NAME"
-msgstr "龙龟甲片"
+msgstr "龍龜甲片"
 
-#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+#. material.csv: 碧海龍龜的古老甲片，堅不可摧，蘊含海洋靈...
 msgid "MATERIAL_5_DESC"
-msgstr "碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵力，是顶级防具材料"
+msgstr "碧海龍龜的古老甲片，堅不可摧，蘊含海洋靈力，是頂級防具材料"
 
-#. material.csv: 山熊胆
+#. material.csv: 山熊膽
 msgid "MATERIAL_6_NAME"
-msgstr "山熊胆"
+msgstr "山熊膽"
 
-#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+#. material.csv: 石甲山熊的珍貴熊膽，能增強體質和力量，是...
 msgid "MATERIAL_6_DESC"
-msgstr "石甲山熊的珍贵熊胆，能增强体质和力量，是体修者的珍贵药材"
+msgstr "石甲山熊的珍貴熊膽，能增強體質和力量，是體修者的珍貴藥材"
 
-#. material.csv: 风速马鬃
+#. material.csv: 風速馬鬃
 msgid "MATERIAL_7_NAME"
-msgstr "风速马鬃"
+msgstr "風速馬鬃"
 
-#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+#. material.csv: 風速馬的飄逸鬃毛，輕如風羽，能用於煉製速...
 msgid "MATERIAL_7_DESC"
-msgstr "风速马的飘逸鬃毛，轻如风羽，能用于炼制速度类法器"
+msgstr "風速馬的飄逸鬃毛，輕如風羽，能用於煉製速度類法器"
 
-#. material.csv: 熔岩鳞片
+#. material.csv: 熔岩鱗片
 msgid "MATERIAL_8_NAME"
-msgstr "熔岩鳞片"
+msgstr "熔岩鱗片"
 
-#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+#. material.csv: 熔岩蜥蜴的赤紅鱗片，耐高溫且蘊含火系靈力...
 msgid "MATERIAL_8_DESC"
-msgstr "熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力，是火属性法器的核心材料"
+msgstr "熔岩蜥蜴的赤紅鱗片，耐高溫且蘊含火系靈力，是火屬性法器的核心材料"
 
 #. material.csv: 毒瘴囊
 msgid "MATERIAL_9_NAME"
 msgstr "毒瘴囊"
 
-#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+#. material.csv: 毒瘴蛙的毒素囊袋，內含劇毒，是煉製毒類丹...
 msgid "MATERIAL_9_DESC"
-msgstr "毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹药的稀有材料"
+msgstr "毒瘴蛙的毒素囊袋，內含劇毒，是煉製毒類丹藥的稀有材料"
 
-#. material.csv: 奇草精华
+#. material.csv: 奇草精華
 msgid "MATERIAL_10_NAME"
-msgstr "奇草精华"
+msgstr "奇草精華"
 
-#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+#. material.csv: 奇草提煉的精華，具有神奇的治癒效果...
 msgid "MATERIAL_10_DESC"
-msgstr "奇草提炼的精华，具有神奇的治愈效果"
+msgstr "奇草提煉的精華，具有神奇的治癒效果"
 
-#. material.csv: 灵木心
+#. material.csv: 靈木心
 msgid "MATERIAL_11_NAME"
-msgstr "灵木心"
+msgstr "靈木心"
 
-#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+#. material.csv: 靈木的珍貴木心，蘊含濃郁靈力，是製作法器...
 msgid "MATERIAL_11_DESC"
-msgstr "灵木的珍贵木心，蕴含浓郁灵力，是制作法器的核心材料"
+msgstr "靈木的珍貴木心，蘊含濃郁靈力，是製作法器的核心材料"
 
 #. material.csv: 仙人掌刺
 msgid "MATERIAL_12_NAME"
 msgstr "仙人掌刺"
 
-#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+#. material.csv: 沙漠仙人掌的靈藥刻刺，能解百毒，製成針劑...
 msgid "MATERIAL_12_DESC"
-msgstr "沙漠仙人掌的灵药刻刺，能解百毒，制成针剂后效果显著"
+msgstr "沙漠仙人掌的靈藥刻刺，能解百毒，製成針劑後效果顯著"
 
-#. material.csv: 雪莲花瓣
+#. material.csv: 雪蓮花瓣
 msgid "MATERIAL_13_NAME"
-msgstr "雪莲花瓣"
+msgstr "雪蓮花瓣"
 
-#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+#. material.csv: 寒霜雪蓮的潔白花瓣，蘊含極寒之氣，是寒性...
 msgid "MATERIAL_13_DESC"
-msgstr "寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性药材的最佳选择"
+msgstr "寒霜雪蓮的潔白花瓣，蘊含極寒之氣，是寒性藥材的最佳選擇"
 
-#. material.csv: 灵芝孢子
+#. material.csv: 靈芝孢子
 msgid "MATERIAL_14_NAME"
-msgstr "灵芝孢子"
+msgstr "靈芝孢子"
 
-#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+#. material.csv: 水靈芝的藍色孢子，能增強水行修煉者的靈力...
 msgid "MATERIAL_14_DESC"
-msgstr "水灵芝的蓝色孢子，能增强水行修炼者的灵力流通"
+msgstr "水靈芝的藍色孢子，能增強水行修煉者的靈力流通"
 
-#. material.csv: 雪绒花蕊
+#. material.csv: 雪絨花蕊
 msgid "MATERIAL_15_NAME"
-msgstr "雪绒花蕊"
+msgstr "雪絨花蕊"
 
-#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+#. material.csv: 雪絨花的純白花蕊，具有安神鎮靜功效，是冥...
 msgid "MATERIAL_15_DESC"
-msgstr "雪绒花的纯白花蕊，具有安神镇静功效，是冥想辅助的理想药材"
+msgstr "雪絨花的純白花蕊，具有安神鎮靜功效，是冥想輔助的理想藥材"
 
-#. material.csv: 古松松脂
+#. material.csv: 古鬆鬆脂
 msgid "MATERIAL_16_NAME"
-msgstr "古松松脂"
+msgstr "古鬆鬆脂"
 
-#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+#. material.csv: 千年古松的珍貴松脂，晶瑩如琥珀，蘊含濃郁...
 msgid "MATERIAL_16_DESC"
-msgstr "千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁灵力，是高级炼器的稀有材料"
+msgstr "千年古松的珍貴松脂，晶瑩如琥珀，蘊含濃郁靈力，是高級煉器的稀有材料"
 
-#. material.csv: 灵稻精华
+#. material.csv: 靈稻精華
 msgid "MATERIAL_17_NAME"
-msgstr "灵稻精华"
+msgstr "靈稻精華"
 
-#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+#. material.csv: 五穀靈稻提煉的精華，能快速強化體質，是體...
 msgid "MATERIAL_17_DESC"
-msgstr "五谷灵稻提炼的精华，能快速强化体质，是体修丹药的主要成分"
+msgstr "五穀靈稻提煉的精華，能快速強化體質，是體修丹藥的主要成分"
 
 #. material.csv: 神牛角
 msgid "MATERIAL_18_NAME"
 msgstr "神牛角"
 
-#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+#. material.csv: 撼地神牛的獨角，蘊含厚重的大地之力，是煉...
 msgid "MATERIAL_18_DESC"
-msgstr "撼地神牛的独角，蕴含厚重的大地之力，是炼制重型法宝和防御阵盘的极品材料"
+msgstr "撼地神牛的獨角，蘊含厚重的大地之力，是煉製重型法寶和防禦陣盤的極品材料"
 
-#. material.csv: 清音竹节
+#. material.csv: 清音竹節
 msgid "MATERIAL_19_NAME"
-msgstr "清音竹节"
+msgstr "清音竹節"
 
-#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+#. material.csv: 九曲清音竹中最精華的一節，敲擊時能發出安...
 msgid "MATERIAL_19_DESC"
-msgstr "九曲清音竹中最精华的一节，敲击时能发出安神定志的清音，是制作音波类法宝的绝佳材料"
+msgstr "九曲清音竹中最精華的一節，敲擊時能發出安神定志的清音，是製作音波類法寶的絕佳材料"
 
-#. material.csv: 冰魄蛇胆
+#. material.csv: 冰魄蛇膽
 msgid "MATERIAL_20_NAME"
-msgstr "冰魄蛇胆"
+msgstr "冰魄蛇膽"
 
-#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+#. material.csv: 冰魄骨蛇的內丹所在，雖爲極寒之物，但吞服...
 msgid "MATERIAL_20_DESC"
-msgstr "冰魄骨蛇的内丹所在，虽为极寒之物，但吞服后能大幅增强修士对寒气的亲和力，是修炼寒系功法的至宝"
+msgstr "冰魄骨蛇的內丹所在，雖爲極寒之物，但吞服後能大幅增強修士對寒氣的親和力，是修煉寒系功法的至寶"
 
-#. material.csv: 星纹叶
+#. material.csv: 星紋葉
 msgid "MATERIAL_21_NAME"
-msgstr "星纹叶"
+msgstr "星紋葉"
 
-#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+#. material.csv: 葉面上天生帶有星辰紋路的草葉，蘊含純淨的...
 msgid "MATERIAL_21_DESC"
-msgstr "叶面上天生带有星辰纹路的草叶，蕴含纯净的星辰之力，是炼制星辰属性丹药的主材"
+msgstr "葉面上天生帶有星辰紋路的草葉，蘊含純淨的星辰之力，是煉製星辰屬性丹藥的主材"
 
 #. material.csv: 赤果核
 msgid "MATERIAL_22_NAME"
 msgstr "赤果核"
 
-#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+#. material.csv: 涅盤赤果的果核，即便果肉枯萎，核心仍鎖有...
 msgid "MATERIAL_22_DESC"
-msgstr "涅盘赤果的果核，即便果肉枯萎，核心仍锁有一丝不灭生机，是炼制延寿丹和疗伤圣药的关键"
+msgstr "涅盤赤果的果核，即便果肉枯萎，核心仍鎖有一絲不滅生機，是煉製延壽丹和療傷聖藥的關鍵"
 
-#. material.csv: 玄铁
+#. material.csv: 玄鐵
 msgid "MATERIAL_101_NAME"
-msgstr "玄铁"
+msgstr "玄鐵"
 
-#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+#. material.csv: 普通的黑色鐵礦，質地堅硬，適合打造練氣期...
 msgid "MATERIAL_101_DESC"
-msgstr "普通的黑色铁矿，质地坚硬，适合打造练气期法器"
+msgstr "普通的黑色鐵礦，質地堅硬，適合打造練氣期法器"
 
-#. material.csv: 赤精铜
+#. material.csv: 赤精銅
 msgid "MATERIAL_102_NAME"
-msgstr "赤精铜"
+msgstr "赤精銅"
 
-#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+#. material.csv: 通體赤紅的銅礦，蘊含火靈之力，是築基期煉...
 msgid "MATERIAL_102_DESC"
-msgstr "通体赤红的铜矿，蕴含火灵之力，是筑基期炼器的常用材料"
+msgstr "通體赤紅的銅礦，蘊含火靈之力，是築基期煉器的常用材料"
 
-#. material.csv: 秘银
+#. material.csv: 祕銀
 msgid "MATERIAL_103_NAME"
-msgstr "秘银"
+msgstr "祕銀"
 
-#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+#. material.csv: 銀白色的稀有金屬，延展性極佳且能傳導靈力...
 msgid "MATERIAL_103_DESC"
-msgstr "银白色的稀有金属，延展性极佳且能传导灵力，适用于金丹期法宝"
+msgstr "銀白色的稀有金屬，延展性極佳且能傳導靈力，適用於金丹期法寶"
 
 #. material.csv: 庚金
 msgid "MATERIAL_104_NAME"
 msgstr "庚金"
 
-#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+#. material.csv: 銳氣逼人的金色礦石，堅不可摧，乃是元嬰期...
 msgid "MATERIAL_104_DESC"
-msgstr "锐气逼人的金色矿石，坚不可摧，乃是元婴期炼制本命法宝的顶级材料"
+msgstr "銳氣逼人的金色礦石，堅不可摧，乃是元嬰期煉製本命法寶的頂級材料"
 
-#. normal_region.csv: 平原地带
+#. normal_region.csv: 平原地帶
 msgid "NORMAL_REGION_101_NAME"
-msgstr "平原地带"
+msgstr "平原地帶"
 
-#. normal_region.csv: 位于大陆中部，地势平坦，灵气平和。是初学...
+#. normal_region.csv: 位於大陸中部，地勢平坦，靈氣平和。是初學...
 msgid "NORMAL_REGION_101_DESC"
-msgstr "位于大陆中部，地势平坦，灵气平和。是初学修炼者打基础和建立宗门的理想之地。"
+msgstr "位於大陸中部，地勢平坦，靈氣平和。是初學修煉者打基礎和建立宗門的理想之地。"
 
 #. normal_region.csv: 西域流沙
 msgid "NORMAL_REGION_102_NAME"
 msgstr "西域流沙"
 
-#. normal_region.csv: 位于大陆极西，茫茫大漠，黄沙漫天。此地气...
+#. normal_region.csv: 位於大陸極西，茫茫大漠，黃沙漫天。此地氣...
 msgid "NORMAL_REGION_102_DESC"
-msgstr "位于大陆极西，茫茫大漠，黄沙漫天。此地气候干燥，日夜温差极大，是沙漠商队的必经之路。"
+msgstr "位於大陸極西，茫茫大漠，黃沙漫天。此地氣候乾燥，日夜溫差極大，是沙漠商隊的必經之路。"
 
-#. normal_region.csv: 南疆蛮荒
+#. normal_region.csv: 南疆蠻荒
 msgid "NORMAL_REGION_103_NAME"
-msgstr "南疆蛮荒"
+msgstr "南疆蠻荒"
 
-#. normal_region.csv: 位于大陆西南，古木参天，藤蔓缠绕。此地森...
+#. normal_region.csv: 位於大陸西南，古木參天，藤蔓纏繞。此地森...
 msgid "NORMAL_REGION_103_DESC"
-msgstr "位于大陆西南，古木参天，藤蔓缠绕。此地森林茂密，野兽众多，是采集药材和狩猎的危险之地。"
+msgstr "位於大陸西南，古木參天，藤蔓纏繞。此地森林茂密，野獸衆多，是採集藥材和狩獵的危險之地。"
 
-#. normal_region.csv: 极北冰原
+#. normal_region.csv: 極北冰原
 msgid "NORMAL_REGION_104_NAME"
-msgstr "极北冰原"
+msgstr "極北冰原"
 
-#. normal_region.csv: 位于大陆极北，千里冰封，万年不化。此地严...
+#. normal_region.csv: 位於大陸極北，千里冰封，萬年不化。此地嚴...
 msgid "NORMAL_REGION_104_DESC"
-msgstr "位于大陆极北，千里冰封，万年不化。此地严寒刺骨，风雪交加，只有最坚韧的冒险者才能在此生存。"
+msgstr "位於大陸極北，千里冰封，萬年不化。此地嚴寒刺骨，風雪交加，只有最堅韌的冒險者才能在此生存。"
 
-#. normal_region.csv: 无边碧海
+#. normal_region.csv: 無邊碧海
 msgid "NORMAL_REGION_105_NAME"
-msgstr "无边碧海"
+msgstr "無邊碧海"
 
-#. normal_region.csv: 位于大陆极东，浩瀚无垠，波涛汹涌。此地风...
+#. normal_region.csv: 位於大陸極東，浩瀚無垠，波濤洶湧。此地風...
 msgid "NORMAL_REGION_105_DESC"
-msgstr "位于大陆极东，浩瀚无垠，波涛汹涌。此地风浪险恶，暗礁密布，是海商和渔民的挑战之海。"
+msgstr "位於大陸極東，浩瀚無垠，波濤洶湧。此地風浪險惡，暗礁密佈，是海商和漁民的挑戰之海。"
 
 #. normal_region.csv: 天河奔流
 msgid "NORMAL_REGION_106_NAME"
 msgstr "天河奔流"
 
-#. normal_region.csv: 横贯大陆东西，一江春水向东流，奔腾不息入...
+#. normal_region.csv: 橫貫大陸東西，一江春水向東流，奔騰不息入...
 msgid "NORMAL_REGION_106_DESC"
-msgstr "横贯大陆东西，一江春水向东流，奔腾不息入东海。此河贯穿东西，水流湍急，是重要的交通要道。"
+msgstr "橫貫大陸東西，一江春水向東流，奔騰不息入東海。此河貫穿東西，水流湍急，是重要的交通要道。"
 
-#. normal_region.csv: 青峰山脉
+#. normal_region.csv: 青峯山脈
 msgid "NORMAL_REGION_107_NAME"
-msgstr "青峰山脉"
+msgstr "青峯山脈"
 
-#. normal_region.csv: 位于大陆东部，连绵起伏，直插云霄。此地山...
+#. normal_region.csv: 位於大陸東部，連綿起伏，直插雲霄。此地山...
 msgid "NORMAL_REGION_107_DESC"
-msgstr "位于大陆东部，连绵起伏，直插云霄。此地山势险峻，多有奇石异洞，是探险者寻宝的热门之地。"
+msgstr "位於大陸東部，連綿起伏，直插雲霄。此地山勢險峻，多有奇石異洞，是探險者尋寶的熱門之地。"
 
-#. normal_region.csv: 万丈雪峰
+#. normal_region.csv: 萬丈雪峯
 msgid "NORMAL_REGION_108_NAME"
-msgstr "万丈雪峰"
+msgstr "萬丈雪峯"
 
-#. normal_region.csv: 位于大陆西北，雪峰皑皑，寒风刺骨。此地终...
+#. normal_region.csv: 位於大陸西北，雪峯皚皚，寒風刺骨。此地終...
 msgid "NORMAL_REGION_108_DESC"
-msgstr "位于大陆西北，雪峰皑皑，寒风刺骨。此地终年积雪，山路崎岖，是登山者的终极挑战。"
+msgstr "位於大陸西北，雪峯皚皚，寒風刺骨。此地終年積雪，山路崎嶇，是登山者的終極挑戰。"
 
 #. normal_region.csv: 碧野千里
 msgid "NORMAL_REGION_109_NAME"
 msgstr "碧野千里"
 
-#. normal_region.csv: 位于大陆西部，芳草萋萋，一望无际。此地水...
+#. normal_region.csv: 位於大陸西部，芳草萋萋，一望無際。此地水...
 msgid "NORMAL_REGION_109_DESC"
-msgstr "位于大陆西部，芳草萋萋，一望无际。此地水草丰美，牛羊成群，是游牧民族的天然牧场。"
+msgstr "位於大陸西部，芳草萋萋，一望無際。此地水草豐美，牛羊成羣，是遊牧民族的天然牧場。"
 
-#. normal_region.csv: 青云林海
+#. normal_region.csv: 青雲林海
 msgid "NORMAL_REGION_110_NAME"
-msgstr "青云林海"
+msgstr "青雲林海"
 
-#. normal_region.csv: 位于大陆中部，古树参天，绿意盎然。此地森...
+#. normal_region.csv: 位於大陸中部，古樹參天，綠意盎然。此地森...
 msgid "NORMAL_REGION_110_DESC"
-msgstr "位于大陆中部，古树参天，绿意盎然。此地森林广袤，物产丰富，是伐木工和猎人的主要活动区域。"
+msgstr "位於大陸中部，古樹參天，綠意盎然。此地森林廣袤，物產豐富，是伐木工和獵人的主要活動區域。"
 
-#. normal_region.csv: 炎狱火山
+#. normal_region.csv: 炎獄火山
 msgid "NORMAL_REGION_111_NAME"
-msgstr "炎狱火山"
+msgstr "炎獄火山"
 
-#. normal_region.csv: 位于大陆东北，烈焰冲天，岩浆奔流。此地火...
+#. normal_region.csv: 位於大陸東北，烈焰沖天，岩漿奔流。此地火...
 msgid "NORMAL_REGION_111_DESC"
-msgstr "位于大陆东北，烈焰冲天，岩浆奔流。此地火山活跃，地热丰富，是铁匠锻造的理想之地，但也极其危险。"
+msgstr "位於大陸東北，烈焰沖天，岩漿奔流。此地火山活躍，地熱豐富，是鐵匠鍛造的理想之地，但也極其危險。"
 
 #. normal_region.csv: 沃土良田
 msgid "NORMAL_REGION_112_NAME"
 msgstr "沃土良田"
 
-#. normal_region.csv: 位于大陆东部，土地肥沃，五谷丰登。此地土...
+#. normal_region.csv: 位於大陸東部，土地肥沃，五穀豐登。此地土...
 msgid "NORMAL_REGION_112_DESC"
-msgstr "位于大陆东部，土地肥沃，五谷丰登。此地土壤深厚，雨水充沛，是农民耕种的黄金宝地。"
+msgstr "位於大陸東部，土地肥沃，五穀豐登。此地土壤深厚，雨水充沛，是農民耕種的黃金寶地。"
 
-#. normal_region.csv: 幽冥毒泽
+#. normal_region.csv: 幽冥毒澤
 msgid "NORMAL_REGION_113_NAME"
-msgstr "幽冥毒泽"
+msgstr "幽冥毒澤"
 
-#. normal_region.csv: 位于大陆正南，终年被五色瘴气笼罩，毒虫遍...
+#. normal_region.csv: 位於大陸正南，終年被五色瘴氣籠罩，毒蟲遍...
 msgid "NORMAL_REGION_113_DESC"
-msgstr "位于大陆正南，终年被五色瘴气笼罩，毒虫遍地。凡人入之即化为白骨，唯有修习毒功者视此处为无上洞天。"
+msgstr "位於大陸正南，終年被五色瘴氣籠罩，毒蟲遍地。凡人入之即化爲白骨，唯有修習毒功者視此處爲無上洞天。"
 
-#. normal_region.csv: 十万大山
+#. normal_region.csv: 十萬大山
 msgid "NORMAL_REGION_114_NAME"
-msgstr "十万大山"
+msgstr "十萬大山"
 
-#. normal_region.csv: 位于大陆南部，苍茫群山连绵不绝，乃是妖族...
+#. normal_region.csv: 位於大陸南部，蒼茫羣山連綿不絕，乃是妖族...
 msgid "NORMAL_REGION_114_DESC"
-msgstr "位于大陆南部，苍茫群山连绵不绝，乃是妖族祖地。山势险峻，道路难行。"
+msgstr "位於大陸南部，蒼茫羣山連綿不絕，乃是妖族祖地。山勢險峻，道路難行。"
 
 #. normal_region.csv: 紫竹幽境
 msgid "NORMAL_REGION_115_NAME"
 msgstr "紫竹幽境"
 
-#. normal_region.csv: 位于大陆中北，紫竹成林，灵气清冽。风过林...
+#. normal_region.csv: 位於大陸中北，紫竹成林，靈氣清冽。風過林...
 msgid "NORMAL_REGION_115_DESC"
-msgstr "位于大陆中北，紫竹成林，灵气清冽。风过林间若奏仙乐，在此静修可涤荡心魔，感悟天地自然之道。"
+msgstr "位於大陸中北，紫竹成林，靈氣清冽。風過林間若奏仙樂，在此靜修可滌盪心魔，感悟天地自然之道。"
 
-#. normal_region.csv: 凛霜荒原
+#. normal_region.csv: 凜霜荒原
 msgid "NORMAL_REGION_116_NAME"
-msgstr "凛霜荒原"
+msgstr "凜霜荒原"
 
-#. normal_region.csv: 位于大陆东北，寸草不生，冻土千尺。此地生...
+#. normal_region.csv: 位於大陸東北，寸草不生，凍土千尺。此地生...
 msgid "NORMAL_REGION_116_DESC"
-msgstr "位于大陆东北，寸草不生，冻土千尺。此地生机绝灭，却蕴含着极致的阴寒灵气，偶有万年玄冰出世。"
+msgstr "位於大陸東北，寸草不生，凍土千尺。此地生機絕滅，卻蘊含着極致的陰寒靈氣，偶有萬年玄冰出世。"
 
 #. normal_region.csv: 碎星戈壁
 msgid "NORMAL_REGION_117_NAME"
 msgstr "碎星戈壁"
 
-#. normal_region.csv: 位于大陆西南，飞沙走石，狂风如刀。传说曾...
+#. normal_region.csv: 位於大陸西南，飛沙走石，狂風如刀。傳說曾...
 msgid "NORMAL_REGION_117_DESC"
-msgstr "位于大陆西南，飞沙走石，狂风如刀。传说曾有星辰陨落于此，至今仍残存着狂暴的星辰之力与天外陨铁。"
+msgstr "位於大陸西南，飛沙走石，狂風如刀。傳說曾有星辰隕落於此，至今仍殘存着狂暴的星辰之力與天外隕鐵。"
 
-#. normal_region.csv: 蓬莱遗岛
+#. normal_region.csv: 蓬萊遺島
 msgid "NORMAL_REGION_118_NAME"
-msgstr "蓬莱遗岛"
+msgstr "蓬萊遺島"
 
-#. normal_region.csv: 位于极东海外，孤悬海外，云雾缭绕。岛上灵...
+#. normal_region.csv: 位於極東海外，孤懸海外，雲霧繚繞。島上靈...
 msgid "NORMAL_REGION_118_DESC"
-msgstr "位于极东海外，孤悬海外，云雾缭绕。岛上灵泉喷涌，奇花异草遍布，灵气浓郁远超内陆，是海外散修向往之地。"
+msgstr "位於極東海外，孤懸海外，雲霧繚繞。島上靈泉噴湧，奇花異草遍佈，靈氣濃郁遠超內陸，是海外散修嚮往之地。"
 
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "理性"
 
-#. persona.csv: 你总是会用逻辑来思考问题，做事会谋定而后...
+#. persona.csv: 你總是會用邏輯來思考問題，做事會謀定而後...
 msgid "PERSONA_1_DESC"
-msgstr "你总是会用逻辑来思考问题，做事会谋定而后动。"
+msgstr "你總是會用邏輯來思考問題，做事會謀定而後動。"
 
-#. persona.csv: 无常
+#. persona.csv: 無常
 msgid "PERSONA_2_NAME"
-msgstr "无常"
+msgstr "無常"
 
-#. persona.csv: 目标飘忽不定，不会长期坚持一个目标。...
+#. persona.csv: 目標飄忽不定，不會長期堅持一個目標。...
 msgid "PERSONA_2_DESC"
-msgstr "目标飘忽不定，不会长期坚持一个目标。"
+msgstr "目標飄忽不定，不會長期堅持一個目標。"
 
 #. persona.csv: 怠惰
 msgid "PERSONA_3_NAME"
 msgstr "怠惰"
 
-#. persona.csv: 你总是会拖延，不想努力，更热衷于享受人生...
+#. persona.csv: 你總是會拖延，不想努力，更熱衷於享受人生...
 msgid "PERSONA_3_DESC"
-msgstr "你总是会拖延，不想努力，更热衷于享受人生。"
+msgstr "你總是會拖延，不想努力，更熱衷於享受人生。"
 
-#. persona.csv: 冒险
+#. persona.csv: 冒險
 msgid "PERSONA_4_NAME"
-msgstr "冒险"
+msgstr "冒險"
 
-#. persona.csv: 你总是会冒险，喜欢刺激，总想放手一搏。...
+#. persona.csv: 你總是會冒險，喜歡刺激，總想放手一搏。...
 msgid "PERSONA_4_DESC"
-msgstr "你总是会冒险，喜欢刺激，总想放手一搏。"
+msgstr "你總是會冒險，喜歡刺激，總想放手一搏。"
 
-#. persona.csv: 随性
+#. persona.csv: 隨性
 msgid "PERSONA_5_NAME"
-msgstr "随性"
+msgstr "隨性"
 
-#. persona.csv: 你总是会随机应变，性子到哪里了就是哪里，...
+#. persona.csv: 你總是會隨機應變，性子到哪裏了就是哪裏，...
 msgid "PERSONA_5_DESC"
-msgstr "你总是会随机应变，性子到哪里了就是哪里，没有一定之规。"
+msgstr "你總是會隨機應變，性子到哪裏了就是哪裏，沒有一定之規。"
 
-#. persona.csv: 贪财
+#. persona.csv: 貪財
 msgid "PERSONA_6_NAME"
-msgstr "贪财"
+msgstr "貪財"
 
-#. persona.csv: 你对灵石和财富有着强烈的渴望。...
+#. persona.csv: 你對靈石和財富有着強烈的渴望。...
 msgid "PERSONA_6_DESC"
-msgstr "你对灵石和财富有着强烈的渴望。"
+msgstr "你對靈石和財富有着強烈的渴望。"
 
-#. persona.csv: 采集者
+#. persona.csv: 採集者
 msgid "PERSONA_7_NAME"
-msgstr "采集者"
+msgstr "採集者"
 
-#. persona.csv: 喜欢在山林中寻找各种奇花异草和灵药，对植...
+#. persona.csv: 喜歡在山林中尋找各種奇花異草和靈藥，對植...
 msgid "PERSONA_7_DESC"
-msgstr "喜欢在山林中寻找各种奇花异草和灵药，对植物有着敏锐的直觉和深厚的兴趣。"
+msgstr "喜歡在山林中尋找各種奇花異草和靈藥，對植物有着敏銳的直覺和深厚的興趣。"
 
-#. persona.csv: 猎人
+#. persona.csv: 獵人
 msgid "PERSONA_8_NAME"
-msgstr "猎人"
+msgstr "獵人"
 
-#. persona.csv: 享受在野外追踪猎物的刺激感，对各种动物的...
+#. persona.csv: 享受在野外追蹤獵物的刺激感，對各種動物的...
 msgid "PERSONA_8_DESC"
-msgstr "享受在野外追踪猎物的刺激感，对各种动物的习性了如指掌。"
+msgstr "享受在野外追蹤獵物的刺激感，對各種動物的習性瞭如指掌。"
 
 #. persona.csv: 沉思
 msgid "PERSONA_9_NAME"
 msgstr "沉思"
 
-#. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
+#. persona.csv: 你總是會深思熟慮，思考問題比較有哲理。...
 msgid "PERSONA_9_DESC"
-msgstr "你总是会深思熟虑，思考问题比较有哲理。"
+msgstr "你總是會深思熟慮，思考問題比較有哲理。"
 
 #. persona.csv: 惜命
 msgid "PERSONA_10_NAME"
 msgstr "惜命"
 
-#. persona.csv: 你总是会珍惜自己的生命，不会轻易冒险。...
+#. persona.csv: 你總是會珍惜自己的生命，不會輕易冒險。...
 msgid "PERSONA_10_DESC"
-msgstr "你总是会珍惜自己的生命，不会轻易冒险。"
+msgstr "你總是會珍惜自己的生命，不會輕易冒險。"
 
-#. persona.csv: 友爱
+#. persona.csv: 友愛
 msgid "PERSONA_11_NAME"
-msgstr "友爱"
+msgstr "友愛"
 
-#. persona.csv: 你重视同伴与和谐，乐于助人。...
+#. persona.csv: 你重視同伴與和諧，樂於助人。...
 msgid "PERSONA_11_DESC"
-msgstr "你重视同伴与和谐，乐于助人。"
+msgstr "你重視同伴與和諧，樂於助人。"
 
-#. persona.csv: 复仇
+#. persona.csv: 復仇
 msgid "PERSONA_12_NAME"
-msgstr "复仇"
+msgstr "復仇"
 
-#. persona.csv: 你绝不轻易放下仇怨，为了复仇愿意付出代价...
+#. persona.csv: 你絕不輕易放下仇怨，爲了復仇願意付出代價...
 msgid "PERSONA_12_DESC"
-msgstr "你绝不轻易放下仇怨，为了复仇愿意付出代价与时间。"
+msgstr "你絕不輕易放下仇怨，爲了復仇願意付出代價與時間。"
 
 #. persona.csv: 孤僻
 msgid "PERSONA_13_NAME"
 msgstr "孤僻"
 
-#. persona.csv: 你喜欢独处，避免与人深交。...
+#. persona.csv: 你喜歡獨處，避免與人深交。...
 msgid "PERSONA_13_DESC"
-msgstr "你喜欢独处，避免与人深交。"
+msgstr "你喜歡獨處，避免與人深交。"
 
 #. persona.csv: 淡漠
 msgid "PERSONA_14_NAME"
 msgstr "淡漠"
 
-#. persona.csv: 你情感克制，对外界冷静疏离。...
+#. persona.csv: 你情感剋制，對外界冷靜疏離。...
 msgid "PERSONA_14_DESC"
-msgstr "你情感克制，对外界冷静疏离。"
+msgstr "你情感剋制，對外界冷靜疏離。"
 
-#. persona.csv: 好斗
+#. persona.csv: 好鬥
 msgid "PERSONA_15_NAME"
-msgstr "好斗"
+msgstr "好鬥"
 
-#. persona.csv: 你直面冲突，偏好以力量与对抗解决问题。...
+#. persona.csv: 你直面衝突，偏好以力量與對抗解決問題。...
 msgid "PERSONA_15_DESC"
-msgstr "你直面冲突，偏好以力量与对抗解决问题。"
+msgstr "你直面衝突，偏好以力量與對抗解決問題。"
 
-#. persona.csv: 鲁莽
+#. persona.csv: 魯莽
 msgid "PERSONA_16_NAME"
-msgstr "鲁莽"
+msgstr "魯莽"
 
-#. persona.csv: 你行事冲动、少考虑后果，常凭直觉立刻行动...
+#. persona.csv: 你行事衝動、少考慮後果，常憑直覺立刻行動...
 msgid "PERSONA_16_DESC"
-msgstr "你行事冲动、少考虑后果，常凭直觉立刻行动。"
+msgstr "你行事衝動、少考慮後果，常憑直覺立刻行動。"
 
-#. persona.csv: 胆小
+#. persona.csv: 膽小
 msgid "PERSONA_17_NAME"
-msgstr "胆小"
+msgstr "膽小"
 
-#. persona.csv: 你谨小慎微，容易畏惧风险。...
+#. persona.csv: 你謹小慎微，容易畏懼風險。...
 msgid "PERSONA_17_DESC"
-msgstr "你谨小慎微，容易畏惧风险。"
+msgstr "你謹小慎微，容易畏懼風險。"
 
 #. persona.csv: 霸道
 msgid "PERSONA_18_NAME"
 msgstr "霸道"
 
-#. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
+#. persona.csv: 你行事強勢，不講道理，習慣以自己的利益爲...
 msgid "PERSONA_18_DESC"
-msgstr "你行事强势，不讲道理，习惯以自己的利益为先。"
+msgstr "你行事強勢，不講道理，習慣以自己的利益爲先。"
 
-#. persona.csv: 修行痴迷
+#. persona.csv: 修行癡迷
 msgid "PERSONA_19_NAME"
-msgstr "修行痴迷"
+msgstr "修行癡迷"
 
-#. persona.csv: 你将绝大多数时间用于修炼，厌恶享乐。...
+#. persona.csv: 你將絕大多數時間用於修煉，厭惡享樂。...
 msgid "PERSONA_19_DESC"
-msgstr "你将绝大多数时间用于修炼，厌恶享乐。"
+msgstr "你將絕大多數時間用於修煉，厭惡享樂。"
 
-#. persona.csv: 内向
+#. persona.csv: 內向
 msgid "PERSONA_20_NAME"
-msgstr "内向"
+msgstr "內向"
 
-#. persona.csv: 你更享受独处与自我思考，倾向回避不必要的...
+#. persona.csv: 你更享受獨處與自我思考，傾向迴避不必要的...
 msgid "PERSONA_20_DESC"
-msgstr "你更享受独处与自我思考，倾向回避不必要的社交。"
+msgstr "你更享受獨處與自我思考，傾向迴避不必要的社交。"
 
 #. persona.csv: 外向
 msgid "PERSONA_21_NAME"
 msgstr "外向"
 
-#. persona.csv: 你乐于与人交流，主动结识伙伴。...
+#. persona.csv: 你樂於與人交流，主動結識夥伴。...
 msgid "PERSONA_21_DESC"
-msgstr "你乐于与人交流，主动结识伙伴。"
+msgstr "你樂於與人交流，主動結識夥伴。"
 
 #. persona.csv: 刻薄
 msgid "PERSONA_22_NAME"
 msgstr "刻薄"
 
-#. persona.csv: 你在对话中倾向以讽刺、嘲弄、挖苦的方式表...
+#. persona.csv: 你在對話中傾向以諷刺、嘲弄、挖苦的方式表...
 msgid "PERSONA_22_DESC"
-msgstr "你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己。"
+msgstr "你在對話中傾向以諷刺、嘲弄、挖苦的方式表達自己。"
 
-#. persona.csv: 热情
+#. persona.csv: 熱情
 msgid "PERSONA_23_NAME"
-msgstr "热情"
+msgstr "熱情"
 
-#. persona.csv: 你待人友好、积极回应，倾向用鼓励与赞美拉...
+#. persona.csv: 你待人友好、積極回應，傾向用鼓勵與讚美拉...
 msgid "PERSONA_23_DESC"
-msgstr "你待人友好、积极回应，倾向用鼓励与赞美拉近距离。"
+msgstr "你待人友好、積極回應，傾向用鼓勵與讚美拉近距離。"
 
-#. persona.csv: 极端正义
+#. persona.csv: 極端正義
 msgid "PERSONA_24_NAME"
-msgstr "极端正义"
+msgstr "極端正義"
 
-#. persona.csv: 你对邪恶深恶痛绝，对正义的理想抱有近乎偏...
+#. persona.csv: 你對邪惡深惡痛絕，對正義的理想抱有近乎偏...
 msgid "PERSONA_24_DESC"
-msgstr "你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。"
+msgstr "你對邪惡深惡痛絕，對正義的理想抱有近乎偏執的追求。"
 
-#. persona.csv: 极端邪恶
+#. persona.csv: 極端邪惡
 msgid "PERSONA_25_NAME"
-msgstr "极端邪恶"
+msgstr "極端邪惡"
 
-#. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
+#. persona.csv: 你推崇權力與恐懼，爲達目的不擇手段。...
 msgid "PERSONA_25_DESC"
-msgstr "你推崇权力与恐惧，为达目的不择手段。"
+msgstr "你推崇權力與恐懼，爲達目的不擇手段。"
 
-#. persona.csv: 开放
+#. persona.csv: 開放
 msgid "PERSONA_26_NAME"
-msgstr "开放"
+msgstr "開放"
 
-#. persona.csv: 你对待和他人结为道侣或者双修比较随意...
+#. persona.csv: 你對待和他人結爲道侶或者雙修比較隨意...
 msgid "PERSONA_26_DESC"
-msgstr "你对待和他人结为道侣或者双修比较随意"
+msgstr "你對待和他人結爲道侶或者雙修比較隨意"
 
-#. persona.csv: 腼腆
+#. persona.csv: 靦腆
 msgid "PERSONA_27_NAME"
-msgstr "腼腆"
+msgstr "靦腆"
 
-#. persona.csv: 你对待和他人结为道侣或者双修比较谨慎...
+#. persona.csv: 你對待和他人結爲道侶或者雙修比較謹慎...
 msgid "PERSONA_27_DESC"
-msgstr "你对待和他人结为道侣或者双修比较谨慎"
+msgstr "你對待和他人結爲道侶或者雙修比較謹慎"
 
 #. persona.csv: 舔狗
 msgid "PERSONA_28_NAME"
 msgstr "舔狗"
 
-#. persona.csv: 你对异性中外貌出众者格外友善。...
+#. persona.csv: 你對異性中外貌出衆者格外友善。...
 msgid "PERSONA_28_DESC"
-msgstr "你对异性中外貌出众者格外友善。"
+msgstr "你對異性中外貌出衆者格外友善。"
 
 #. persona.csv: 嫉妒
 msgid "PERSONA_29_NAME"
 msgstr "嫉妒"
 
-#. persona.csv: 你对远超于你的人容易产生敌意。...
+#. persona.csv: 你對遠超於你的人容易產生敵意。...
 msgid "PERSONA_29_DESC"
-msgstr "你对远超于你的人容易产生敌意。"
+msgstr "你對遠超於你的人容易產生敵意。"
 
 #. persona.csv: 穿越者
 msgid "PERSONA_30_NAME"
 msgstr "穿越者"
 
-#. persona.csv: 你来自现代社会，怀念现代社会的一切。...
+#. persona.csv: 你來自現代社會，懷念現代社會的一切。...
 msgid "PERSONA_30_DESC"
-msgstr "你来自现代社会，怀念现代社会的一切。"
+msgstr "你來自現代社會，懷念現代社會的一切。"
 
-#. persona.csv: 气运之子
+#. persona.csv: 氣運之子
 msgid "PERSONA_31_NAME"
-msgstr "气运之子"
+msgstr "氣運之子"
 
-#. persona.csv: 天生气运加身，更易遇到奇遇。...
+#. persona.csv: 天生氣運加身，更易遇到奇遇。...
 msgid "PERSONA_31_DESC"
-msgstr "天生气运加身，更易遇到奇遇。"
+msgstr "天生氣運加身，更易遇到奇遇。"
 
-#. persona.csv: 剑痴
+#. persona.csv: 劍癡
 msgid "PERSONA_32_NAME"
-msgstr "剑痴"
+msgstr "劍癡"
 
-#. persona.csv: 以剑入道，剑即是命。你认为剑道至上。...
+#. persona.csv: 以劍入道，劍即是命。你認爲劍道至上。...
 msgid "PERSONA_32_DESC"
-msgstr "以剑入道，剑即是命。你认为剑道至上。"
+msgstr "以劍入道，劍即是命。你認爲劍道至上。"
 
-#. persona.csv: 心机深沉
+#. persona.csv: 心機深沉
 msgid "PERSONA_33_NAME"
-msgstr "心机深沉"
+msgstr "心機深沉"
 
-#. persona.csv: 深藏不露，行事谨慎，善于算计。...
+#. persona.csv: 深藏不露，行事謹慎，善於算計。...
 msgid "PERSONA_33_DESC"
-msgstr "深藏不露，行事谨慎，善于算计。"
+msgstr "深藏不露，行事謹慎，善於算計。"
 
-#. persona.csv: 忠诚
+#. persona.csv: 忠誠
 msgid "PERSONA_34_NAME"
-msgstr "忠诚"
+msgstr "忠誠"
 
-#. persona.csv: 重承诺守信义，对认定的人绝不背叛。...
+#. persona.csv: 重承諾守信義，對認定的人絕不背叛。...
 msgid "PERSONA_34_DESC"
-msgstr "重承诺守信义，对认定的人绝不背叛。"
+msgstr "重承諾守信義，對認定的人絕不背叛。"
 
 #. persona.csv: 狠辣
 msgid "PERSONA_35_NAME"
 msgstr "狠辣"
 
-#. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
+#. persona.csv: 行事果決狠辣，不留後患，斬草必除根。...
 msgid "PERSONA_35_DESC"
-msgstr "行事果决狠辣，不留后患，斩草必除根。"
+msgstr "行事果決狠辣，不留後患，斬草必除根。"
 
 #. persona.csv: 重生者
 msgid "PERSONA_36_NAME"
 msgstr "重生者"
 
-#. persona.csv: 经历过一世，对未来有模糊预知。...
+#. persona.csv: 經歷過一世，對未來有模糊預知。...
 msgid "PERSONA_36_DESC"
-msgstr "经历过一世，对未来有模糊预知。"
+msgstr "經歷過一世，對未來有模糊預知。"
 
 #. persona.csv: 疑心重
 msgid "PERSONA_37_NAME"
 msgstr "疑心重"
 
-#. persona.csv: 对任何人都保持怀疑，不轻易信任。...
+#. persona.csv: 對任何人都保持懷疑，不輕易信任。...
 msgid "PERSONA_37_DESC"
-msgstr "对任何人都保持怀疑，不轻易信任。"
+msgstr "對任何人都保持懷疑，不輕易信任。"
 
-#. persona.csv: 体修
+#. persona.csv: 體修
 msgid "PERSONA_38_NAME"
-msgstr "体修"
+msgstr "體修"
 
-#. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
+#. persona.csv: 專注肉身淬鍊，體魄強健，近戰無敵。...
 msgid "PERSONA_38_DESC"
-msgstr "专注肉身淬炼，体魄强健，近战无敌。"
+msgstr "專注肉身淬鍊，體魄強健，近戰無敵。"
 
-#. persona.csv: 炼丹师
+#. persona.csv: 煉丹師
 msgid "PERSONA_39_NAME"
-msgstr "炼丹师"
+msgstr "煉丹師"
 
-#. persona.csv: 精通丹道，对灵药敏感。...
+#. persona.csv: 精通丹道，對靈藥敏感。...
 msgid "PERSONA_39_DESC"
-msgstr "精通丹道，对灵药敏感。"
+msgstr "精通丹道，對靈藥敏感。"
 
-#. persona.csv: 福缘深厚
+#. persona.csv: 福緣深厚
 msgid "PERSONA_40_NAME"
-msgstr "福缘深厚"
+msgstr "福緣深厚"
 
-#. persona.csv: 天生福运，逢凶化吉。...
+#. persona.csv: 天生福運，逢凶化吉。...
 msgid "PERSONA_40_DESC"
-msgstr "天生福运，逢凶化吉。"
+msgstr "天生福運，逢凶化吉。"
 
-#. persona.csv: 剑修
+#. persona.csv: 劍修
 msgid "PERSONA_41_NAME"
-msgstr "剑修"
+msgstr "劍修"
 
-#. persona.csv: 对剑道有着深厚的兴趣和独特的天赋。...
+#. persona.csv: 對劍道有着深厚的興趣和獨特的天賦。...
 msgid "PERSONA_41_DESC"
-msgstr "对剑道有着深厚的兴趣和独特的天赋。"
+msgstr "對劍道有着深厚的興趣和獨特的天賦。"
 
 #. persona.csv: 刀修
 msgid "PERSONA_42_NAME"
 msgstr "刀修"
 
-#. persona.csv: 专精刀法，对刀道有着独特的理解。...
+#. persona.csv: 專精刀法，對刀道有着獨特的理解。...
 msgid "PERSONA_42_DESC"
-msgstr "专精刀法，对刀道有着独特的理解。"
+msgstr "專精刀法，對刀道有着獨特的理解。"
 
-#. persona.csv: 枪修
+#. persona.csv: 槍修
 msgid "PERSONA_43_NAME"
-msgstr "枪修"
+msgstr "槍修"
 
-#. persona.csv: 精通枪法，百兵之王在手。...
+#. persona.csv: 精通槍法，百兵之王在手。...
 msgid "PERSONA_43_DESC"
-msgstr "精通枪法，百兵之王在手。"
+msgstr "精通槍法，百兵之王在手。"
 
 #. persona.csv: 棍修
 msgid "PERSONA_44_NAME"
@@ -1451,9 +1451,9 @@ msgstr "棍修"
 msgid "PERSONA_44_DESC"
 msgstr "棍棒在手，天下我有。"
 
-#. persona.csv: 音律大师
+#. persona.csv: 音律大師
 msgid "PERSONA_45_NAME"
-msgstr "音律大师"
+msgstr "音律大師"
 
 #. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
 msgid "PERSONA_45_DESC"
@@ -1463,1225 +1463,1225 @@ msgstr "精通音律之道，琴笛在手，可攻可守。"
 msgid "PERSONA_46_NAME"
 msgstr "暗器高手"
 
-#. persona.csv: 擅长使用暗器，出手诡秘莫测。...
+#. persona.csv: 擅長使用暗器，出手詭祕莫測。...
 msgid "PERSONA_46_DESC"
-msgstr "擅长使用暗器，出手诡秘莫测。"
+msgstr "擅長使用暗器，出手詭祕莫測。"
 
 #. persona.csv: 扇修
 msgid "PERSONA_47_NAME"
 msgstr "扇修"
 
-#. persona.csv: 精通扇法，举手投足间尽显风流。...
+#. persona.csv: 精通扇法，舉手投足間盡顯風流。...
 msgid "PERSONA_47_DESC"
-msgstr "精通扇法，举手投足间尽显风流。"
+msgstr "精通扇法，舉手投足間盡顯風流。"
 
 #. persona.csv: 鞭修
 msgid "PERSONA_48_NAME"
 msgstr "鞭修"
 
-#. persona.csv: 精通鞭法，软兵器在手，刚柔并济。...
+#. persona.csv: 精通鞭法，軟兵器在手，剛柔並濟。...
 msgid "PERSONA_48_DESC"
-msgstr "精通鞭法，软兵器在手，刚柔并济。"
+msgstr "精通鞭法，軟兵器在手，剛柔並濟。"
 
-#. persona.csv: 刀痴
+#. persona.csv: 刀癡
 msgid "PERSONA_49_NAME"
-msgstr "刀痴"
+msgstr "刀癡"
 
-#. persona.csv: 以刀入道，刀即是命。你认为刀法至上。...
+#. persona.csv: 以刀入道，刀即是命。你認爲刀法至上。...
 msgid "PERSONA_49_DESC"
-msgstr "以刀入道，刀即是命。你认为刀法至上。"
+msgstr "以刀入道，刀即是命。你認爲刀法至上。"
 
-#. persona.csv: 枪痴
+#. persona.csv: 槍癡
 msgid "PERSONA_50_NAME"
-msgstr "枪痴"
+msgstr "槍癡"
 
-#. persona.csv: 以枪入道，枪即是命。你认为枪法至上。...
+#. persona.csv: 以槍入道，槍即是命。你認爲槍法至上。...
 msgid "PERSONA_50_DESC"
-msgstr "以枪入道，枪即是命。你认为枪法至上。"
+msgstr "以槍入道，槍即是命。你認爲槍法至上。"
 
-#. persona.csv: 棍圣
+#. persona.csv: 棍聖
 msgid "PERSONA_51_NAME"
-msgstr "棍圣"
+msgstr "棍聖"
 
 #. persona.csv: 以棍入道，棍即是命。棍法通神。...
 msgid "PERSONA_51_DESC"
 msgstr "以棍入道，棍即是命。棍法通神。"
 
-#. persona.csv: 扇痴
+#. persona.csv: 扇癡
 msgid "PERSONA_52_NAME"
-msgstr "扇痴"
+msgstr "扇癡"
 
-#. persona.csv: 以扇入道，扇即是命。你认为扇法至上。...
+#. persona.csv: 以扇入道，扇即是命。你認爲扇法至上。...
 msgid "PERSONA_52_DESC"
-msgstr "以扇入道，扇即是命。你认为扇法至上。"
+msgstr "以扇入道，扇即是命。你認爲扇法至上。"
 
-#. persona.csv: 鞭痴
+#. persona.csv: 鞭癡
 msgid "PERSONA_53_NAME"
-msgstr "鞭痴"
+msgstr "鞭癡"
 
-#. persona.csv: 以鞭入道，鞭即是命。你认为鞭法至上。...
+#. persona.csv: 以鞭入道，鞭即是命。你認爲鞭法至上。...
 msgid "PERSONA_53_DESC"
-msgstr "以鞭入道，鞭即是命。你认为鞭法至上。"
+msgstr "以鞭入道，鞭即是命。你認爲鞭法至上。"
 
-#. persona.csv: 刺客宗师
+#. persona.csv: 刺客宗師
 msgid "PERSONA_54_NAME"
-msgstr "刺客宗师"
+msgstr "刺客宗師"
 
-#. persona.csv: 暗器之道登峰造极，杀人于无形。...
+#. persona.csv: 暗器之道登峯造極，殺人於無形。...
 msgid "PERSONA_54_DESC"
-msgstr "暗器之道登峰造极，杀人于无形。"
+msgstr "暗器之道登峯造極，殺人於無形。"
 
 #. persona.csv: 好色
 msgid "PERSONA_55_NAME"
 msgstr "好色"
 
-#. persona.csv: 你对美色有着强烈的渴求。...
+#. persona.csv: 你對美色有着強烈的渴求。...
 msgid "PERSONA_55_DESC"
-msgstr "你对美色有着强烈的渴求。"
+msgstr "你對美色有着強烈的渴求。"
 
-#. persona.csv: 无欲
+#. persona.csv: 無慾
 msgid "PERSONA_56_NAME"
-msgstr "无欲"
+msgstr "無慾"
 
-#. persona.csv: 你清心寡欲，对男女之事毫无兴趣。...
+#. persona.csv: 你清心寡慾，對男女之事毫無興趣。...
 msgid "PERSONA_56_DESC"
-msgstr "你清心寡欲，对男女之事毫无兴趣。"
+msgstr "你清心寡慾，對男女之事毫無興趣。"
 
-#. persona.csv: 探险家
+#. persona.csv: 探險家
 msgid "PERSONA_57_NAME"
-msgstr "探险家"
+msgstr "探險家"
 
-#. persona.csv: 你对未知的世界充满好奇。...
+#. persona.csv: 你對未知的世界充滿好奇。...
 msgid "PERSONA_57_DESC"
-msgstr "你对未知的世界充满好奇。"
+msgstr "你對未知的世界充滿好奇。"
 
 #. persona.csv: 死宅
 msgid "PERSONA_58_NAME"
 msgstr "死宅"
 
-#. persona.csv: 你极度排斥长途跋涉，更喜欢待在熟悉的区域...
+#. persona.csv: 你極度排斥長途跋涉，更喜歡待在熟悉的區域...
 msgid "PERSONA_58_DESC"
-msgstr "你极度排斥长途跋涉，更喜欢待在熟悉的区域。"
+msgstr "你極度排斥長途跋涉，更喜歡待在熟悉的區域。"
 
-#. persona.csv: 扫把星
+#. persona.csv: 掃把星
 msgid "PERSONA_59_NAME"
-msgstr "扫把星"
+msgstr "掃把星"
 
-#. persona.csv: 天生霉运缠身。...
+#. persona.csv: 天生黴運纏身。...
 msgid "PERSONA_59_DESC"
-msgstr "天生霉运缠身。"
+msgstr "天生黴運纏身。"
 
 #. persona.csv: 大器晚成
 msgid "PERSONA_60_NAME"
 msgstr "大器晚成"
 
-#. persona.csv: 早年修行多舛；但若能坚持至金丹元婴，便可...
+#. persona.csv: 早年修行多舛；但若能堅持至金丹元嬰，便可...
 msgid "PERSONA_60_DESC"
-msgstr "早年修行多舛；但若能坚持至金丹元婴，便可气运亨通。"
+msgstr "早年修行多舛；但若能堅持至金丹元嬰，便可氣運亨通。"
 
-#. persona.csv: 炼器师
+#. persona.csv: 煉器師
 msgid "PERSONA_61_NAME"
-msgstr "炼器师"
+msgstr "煉器師"
 
-#. persona.csv: 精通炼器之道，对材料敏锐。...
+#. persona.csv: 精通煉器之道，對材料敏銳。...
 msgid "PERSONA_61_DESC"
-msgstr "精通炼器之道，对材料敏锐。"
+msgstr "精通煉器之道，對材料敏銳。"
 
-#. persona.csv: 情绪化
+#. persona.csv: 情緒化
 msgid "PERSONA_62_NAME"
-msgstr "情绪化"
+msgstr "情緒化"
 
-#. persona.csv: 你的情绪波动很大。...
+#. persona.csv: 你的情緒波動很大。...
 msgid "PERSONA_62_DESC"
-msgstr "你的情绪波动很大。"
+msgstr "你的情緒波動很大。"
 
-#. persona.csv: 矿工
+#. persona.csv: 礦工
 msgid "PERSONA_63_NAME"
-msgstr "矿工"
+msgstr "礦工"
 
-#. persona.csv: 擅长勘探挖掘，对矿脉有着独特的直觉。...
+#. persona.csv: 擅長勘探挖掘，對礦脈有着獨特的直覺。...
 msgid "PERSONA_63_DESC"
-msgstr "擅长勘探挖掘，对矿脉有着独特的直觉。"
+msgstr "擅長勘探挖掘，對礦脈有着獨特的直覺。"
 
 #. persona.csv: 苟
 msgid "PERSONA_64_NAME"
 msgstr "苟"
 
-#. persona.csv: 你躲避风险和风头，尽力不担上任何风险。...
+#. persona.csv: 你躲避風險和風頭，盡力不擔上任何風險。...
 msgid "PERSONA_64_DESC"
-msgstr "你躲避风险和风头，尽力不担上任何风险。"
+msgstr "你躲避風險和風頭，盡力不擔上任何風險。"
 
 #. persona.csv: 妒忌
 msgid "PERSONA_65_NAME"
 msgstr "妒忌"
 
-#. persona.csv: 心胸狭窄，见不得别人比自己好。...
+#. persona.csv: 心胸狹窄，見不得別人比自己好。...
 msgid "PERSONA_65_DESC"
-msgstr "心胸狭窄，见不得别人比自己好。"
+msgstr "心胸狹窄，見不得別人比自己好。"
 
-#. persona.csv: 重亲情
+#. persona.csv: 重親情
 msgid "PERSONA_66_NAME"
-msgstr "重亲情"
+msgstr "重親情"
 
-#. persona.csv: 你重视家庭和血缘关系，以家族利益为重。...
+#. persona.csv: 你重視家庭和血緣關係，以家族利益爲重。...
 msgid "PERSONA_66_DESC"
-msgstr "你重视家庭和血缘关系，以家族利益为重。"
+msgstr "你重視家庭和血緣關係，以家族利益爲重。"
 
-#. persona.csv: 重义气
+#. persona.csv: 重義氣
 msgid "PERSONA_67_NAME"
-msgstr "重义气"
+msgstr "重義氣"
 
-#. persona.csv: 你重视朋友义气，为朋友可以两肋插刀。...
+#. persona.csv: 你重視朋友義氣，爲朋友可以兩肋插刀。...
 msgid "PERSONA_67_DESC"
-msgstr "你重视朋友义气，为朋友可以两肋插刀。"
+msgstr "你重視朋友義氣，爲朋友可以兩肋插刀。"
 
 #. persona.csv: 孤身一人
 msgid "PERSONA_68_NAME"
 msgstr "孤身一人"
 
-#. persona.csv: 你习惯独来独往，不轻易与人深交。...
+#. persona.csv: 你習慣獨來獨往，不輕易與人深交。...
 msgid "PERSONA_68_DESC"
-msgstr "你习惯独来独往，不轻易与人深交。"
+msgstr "你習慣獨來獨往，不輕易與人深交。"
 
-#. persona.csv: 专情
+#. persona.csv: 專情
 msgid "PERSONA_69_NAME"
-msgstr "专情"
+msgstr "專情"
 
-#. persona.csv: 你对爱情专一，一旦认定便不会改变。...
+#. persona.csv: 你對愛情專一，一旦認定便不會改變。...
 msgid "PERSONA_69_DESC"
-msgstr "你对爱情专一，一旦认定便不会改变。"
+msgstr "你對愛情專一，一旦認定便不會改變。"
 
 #. persona.csv: 多情
 msgid "PERSONA_70_NAME"
 msgstr "多情"
 
-#. persona.csv: 你容易动情，对美好的感情充满向往。...
+#. persona.csv: 你容易動情，對美好的感情充滿嚮往。...
 msgid "PERSONA_70_DESC"
-msgstr "你容易动情，对美好的感情充满向往。"
+msgstr "你容易動情，對美好的感情充滿嚮往。"
 
 #. persona.csv: 薄情
 msgid "PERSONA_71_NAME"
 msgstr "薄情"
 
-#. persona.csv: 你对感情淡漠，不会轻易动心。...
+#. persona.csv: 你對感情淡漠，不會輕易動心。...
 msgid "PERSONA_71_DESC"
-msgstr "你对感情淡漠，不会轻易动心。"
+msgstr "你對感情淡漠，不會輕易動心。"
 
-#. persona.csv: 贪玩
+#. persona.csv: 貪玩
 msgid "PERSONA_1001_NAME"
-msgstr "贪玩"
+msgstr "貪玩"
 
-#. persona.csv: 沉迷玩乐，不思进取。...
+#. persona.csv: 沉迷玩樂，不思進取。...
 msgid "PERSONA_1001_DESC"
-msgstr "沉迷玩乐，不思进取。"
+msgstr "沉迷玩樂，不思進取。"
 
-#. persona.csv: 书痴
+#. persona.csv: 書癡
 msgid "PERSONA_1002_NAME"
-msgstr "书痴"
+msgstr "書癡"
 
-#. persona.csv: 嗜书如命。...
+#. persona.csv: 嗜書如命。...
 msgid "PERSONA_1002_DESC"
-msgstr "嗜书如命。"
+msgstr "嗜書如命。"
 
-#. persona.csv: 茶痴
+#. persona.csv: 茶癡
 msgid "PERSONA_1003_NAME"
-msgstr "茶痴"
+msgstr "茶癡"
 
-#. persona.csv: 宁可三日无食，不可一日无茶。...
+#. persona.csv: 寧可三日無食，不可一日無茶。...
 msgid "PERSONA_1003_DESC"
-msgstr "宁可三日无食，不可一日无茶。"
+msgstr "寧可三日無食，不可一日無茶。"
 
-#. persona.csv: 琴师
+#. persona.csv: 琴師
 msgid "PERSONA_1004_NAME"
-msgstr "琴师"
+msgstr "琴師"
 
-#. persona.csv: 善抚琴。...
+#. persona.csv: 善撫琴。...
 msgid "PERSONA_1004_DESC"
-msgstr "善抚琴。"
+msgstr "善撫琴。"
 
-#. persona.csv: 游历者
+#. persona.csv: 遊歷者
 msgid "PERSONA_1005_NAME"
-msgstr "游历者"
+msgstr "遊歷者"
 
-#. persona.csv: 读万卷书不如行万里路。...
+#. persona.csv: 讀萬卷書不如行萬里路。...
 msgid "PERSONA_1005_DESC"
-msgstr "读万卷书不如行万里路。"
+msgstr "讀萬卷書不如行萬里路。"
 
-#. persona.csv: 棋痴
+#. persona.csv: 棋癡
 msgid "PERSONA_1006_NAME"
-msgstr "棋痴"
+msgstr "棋癡"
 
-#. persona.csv: 善弈者长生。...
+#. persona.csv: 善弈者長生。...
 msgid "PERSONA_1006_DESC"
-msgstr "善弈者长生。"
+msgstr "善弈者長生。"
 
 #. plant.csv: 奇草
 msgid "PLANT_1_NAME"
 msgstr "奇草"
 
-#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+#. plant.csv: 生長在靈氣充沛之地的奇異草藥，葉片呈淡藍...
 msgid "PLANT_1_DESC"
-msgstr "生长在灵气充沛之地的奇异草药，叶片呈淡蓝色，具有神奇的治愈效果"
+msgstr "生長在靈氣充沛之地的奇異草藥，葉片呈淡藍色，具有神奇的治癒效果"
 
-#. plant.csv: 灵木
+#. plant.csv: 靈木
 msgid "PLANT_2_NAME"
-msgstr "灵木"
+msgstr "靈木"
 
-#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+#. plant.csv: 千年古樹吸收天地靈氣而成，木質堅硬且蘊含...
 msgid "PLANT_2_DESC"
-msgstr "千年古树吸收天地灵气而成，木质坚硬且蕴含浓郁灵力"
+msgstr "千年古樹吸收天地靈氣而成，木質堅硬且蘊含濃郁靈力"
 
 #. plant.csv: 沙漠仙人掌
 msgid "PLANT_3_NAME"
 msgstr "沙漠仙人掌"
 
-#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+#. plant.csv: 生長於西域流沙的神奇植物，能儲存大量靈氣...
 msgid "PLANT_3_DESC"
-msgstr "生长于西域流沙的神奇植物，能储存大量灵气和水分，刺中含灵药"
+msgstr "生長於西域流沙的神奇植物，能儲存大量靈氣和水分，刺中含靈藥"
 
-#. plant.csv: 寒霜雪莲
+#. plant.csv: 寒霜雪蓮
 msgid "PLANT_4_NAME"
-msgstr "寒霜雪莲"
+msgstr "寒霜雪蓮"
 
-#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+#. plant.csv: 極北冰原的珍貴靈藥，花瓣潔白如雪，蘊含極...
 msgid "PLANT_4_DESC"
-msgstr "极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极寒之气，能清热解毒"
+msgstr "極北冰原的珍貴靈藥，花瓣潔白如雪，蘊含極寒之氣，能清熱解毒"
 
-#. plant.csv: 水灵芝
+#. plant.csv: 水靈芝
 msgid "PLANT_5_NAME"
-msgstr "水灵芝"
+msgstr "水靈芝"
 
-#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+#. plant.csv: 生長於天河河底的水系靈藥，呈半透明藍色，...
 msgid "PLANT_5_DESC"
-msgstr "生长于天河河底的水系灵药，呈半透明蓝色，能增强修炼者水行灵力"
+msgstr "生長於天河河底的水系靈藥，呈半透明藍色，能增強修煉者水行靈力"
 
-#. plant.csv: 雪绒花
+#. plant.csv: 雪絨花
 msgid "PLANT_6_NAME"
-msgstr "雪绒花"
+msgstr "雪絨花"
 
-#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+#. plant.csv: 萬丈雪峯的高山植物，花瓣細小潔白，能抗嚴...
 msgid "PLANT_6_DESC"
-msgstr "万丈雪峰的高山植物，花瓣细小洁白，能抗严寒，具有安神镇静功效"
+msgstr "萬丈雪峯的高山植物，花瓣細小潔白，能抗嚴寒，具有安神鎮靜功效"
 
 #. plant.csv: 千年古松
 msgid "PLANT_7_NAME"
 msgstr "千年古松"
 
-#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+#. plant.csv: 青雲林海中的古老巨樹，樹齡超過千年，樹脂...
 msgid "PLANT_7_DESC"
-msgstr "青云林海中的古老巨树，树龄超过千年，树脂含有丰富灵力"
+msgstr "青雲林海中的古老巨樹，樹齡超過千年，樹脂含有豐富靈力"
 
-#. plant.csv: 五谷灵稻
+#. plant.csv: 五穀靈稻
 msgid "PLANT_8_NAME"
-msgstr "五谷灵稻"
+msgstr "五穀靈稻"
 
-#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+#. plant.csv: 沃土良田中培育的靈性稻穀，粒粒飽滿靈氣，...
 msgid "PLANT_8_DESC"
-msgstr "沃土良田中培育的灵性稻谷，粒粒饱满灵气，能增强修炼者体质"
+msgstr "沃土良田中培育的靈性稻穀，粒粒飽滿靈氣，能增強修煉者體質"
 
 #. plant.csv: 九曲清音竹
 msgid "PLANT_9_NAME"
 msgstr "九曲清音竹"
 
-#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+#. plant.csv: 紫竹林中的變異異種，竹身九曲，內空外堅。...
 msgid "PLANT_9_DESC"
-msgstr "紫竹林中的变异异种，竹身九曲，内空外坚。风吹过时能发出九种不同的清越之音，直抵神魂，可涤荡心魔"
+msgstr "紫竹林中的變異異種，竹身九曲，內空外堅。風吹過時能發出九種不同的清越之音，直抵神魂，可滌盪心魔"
 
 #. plant.csv: 聚星草
 msgid "PLANT_10_NAME"
 msgstr "聚星草"
 
-#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+#. plant.csv: 頑強生長在戈壁巖縫中的奇異植物，葉片堅硬...
 msgid "PLANT_10_DESC"
-msgstr "顽强生长在戈壁岩缝中的奇异植物，叶片坚硬如剑，夜间能引动并吞噬星辉"
+msgstr "頑強生長在戈壁巖縫中的奇異植物，葉片堅硬如劍，夜間能引動併吞噬星輝"
 
-#. plant.csv: 涅盘赤果
+#. plant.csv: 涅盤赤果
 msgid "PLANT_11_NAME"
-msgstr "涅盘赤果"
+msgstr "涅盤赤果"
 
-#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+#. plant.csv: 生長在蓬萊島靈泉之眼的伴生神樹上，三百年...
 msgid "PLANT_11_DESC"
-msgstr "生长在蓬莱岛灵泉之眼的伴生神树上，三百年一开花，三百年一结果，蕴含庞大生机"
+msgstr "生長在蓬萊島靈泉之眼的伴生神樹上，三百年一開花，三百年一結果，蘊含龐大生機"
 
-#. root.csv: 金灵根
+#. root.csv: 金靈根
 msgid "ROOT_1_NAME"
-msgstr "金灵根"
+msgstr "金靈根"
 
-#. root.csv: 刚强果断；攻击力强，适合剑修...
+#. root.csv: 剛強果斷；攻擊力強，適合劍修...
 msgid "ROOT_1_DESC"
-msgstr "刚强果断；攻击力强，适合剑修"
+msgstr "剛強果斷；攻擊力強，適合劍修"
 
-#. root.csv: 木灵根
+#. root.csv: 木靈根
 msgid "ROOT_2_NAME"
-msgstr "木灵根"
+msgstr "木靈根"
 
-#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+#. root.csv: 仁厚堅韌；擅恢復、毒術與木屬性法術...
 msgid "ROOT_2_DESC"
-msgstr "仁厚坚韧；擅恢复、毒术与木属性法术"
+msgstr "仁厚堅韌；擅恢復、毒術與木屬性法術"
 
-#. root.csv: 水灵根
+#. root.csv: 水靈根
 msgid "ROOT_3_NAME"
-msgstr "水灵根"
+msgstr "水靈根"
 
-#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+#. root.csv: 智慧圓融；身法輕盈，善輔助與隱匿...
 msgid "ROOT_3_DESC"
-msgstr "智慧圆融；身法轻盈，善辅助与隐匿"
+msgstr "智慧圓融；身法輕盈，善輔助與隱匿"
 
-#. root.csv: 火灵根
+#. root.csv: 火靈根
 msgid "ROOT_4_NAME"
-msgstr "火灵根"
+msgstr "火靈根"
 
-#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+#. root.csv: 激情暴烈；高爆發攻術，火系功法...
 msgid "ROOT_4_DESC"
-msgstr "激情暴烈；高爆发攻术，火系功法"
+msgstr "激情暴烈；高爆發攻術，火系功法"
 
-#. root.csv: 土灵根
+#. root.csv: 土靈根
 msgid "ROOT_5_NAME"
-msgstr "土灵根"
+msgstr "土靈根"
 
-#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+#. root.csv: 穩重踏實；防禦高，體修或傀儡術...
 msgid "ROOT_5_DESC"
-msgstr "稳重踏实；防御高，体修或傀儡术"
+msgstr "穩重踏實；防禦高，體修或傀儡術"
 
-#. root.csv: 雷灵根
+#. root.csv: 雷靈根
 msgid "ROOT_6_NAME"
-msgstr "雷灵根"
+msgstr "雷靈根"
 
-#. root.csv: 爆发性极强；战斗系顶尖...
+#. root.csv: 爆發性極強；戰鬥系頂尖...
 msgid "ROOT_6_DESC"
-msgstr "爆发性极强；战斗系顶尖"
+msgstr "爆發性極強；戰鬥系頂尖"
 
-#. root.csv: 冰灵根
+#. root.csv: 冰靈根
 msgid "ROOT_7_NAME"
-msgstr "冰灵根"
+msgstr "冰靈根"
 
-#. root.csv: 控制力强；持久性好...
+#. root.csv: 控制力強；持久性好...
 msgid "ROOT_7_DESC"
-msgstr "控制力强；持久性好"
+msgstr "控制力強；持久性好"
 
-#. root.csv: 风灵根
+#. root.csv: 風靈根
 msgid "ROOT_8_NAME"
-msgstr "风灵根"
+msgstr "風靈根"
 
-#. root.csv: 身法卓绝；难以捉摸...
+#. root.csv: 身法卓絕；難以捉摸...
 msgid "ROOT_8_DESC"
-msgstr "身法卓绝；难以捉摸"
+msgstr "身法卓絕；難以捉摸"
 
-#. root.csv: 暗灵根
+#. root.csv: 暗靈根
 msgid "ROOT_9_NAME"
-msgstr "暗灵根"
+msgstr "暗靈根"
 
-#. root.csv: 隐匿系；擅幻术与诡道...
+#. root.csv: 隱匿系；擅幻術與詭道...
 msgid "ROOT_9_DESC"
-msgstr "隐匿系；擅幻术与诡道"
+msgstr "隱匿系；擅幻術與詭道"
 
-#. root.csv: 天灵根
+#. root.csv: 天靈根
 msgid "ROOT_10_NAME"
-msgstr "天灵根"
+msgstr "天靈根"
 
-#. root.csv: 资质通天；五行皆通，修行全面...
+#. root.csv: 資質通天；五行皆通，修行全面...
 msgid "ROOT_10_DESC"
-msgstr "资质通天；五行皆通，修行全面"
+msgstr "資質通天；五行皆通，修行全面"
 
-#. sect.csv: 明心剑宗
+#. sect.csv: 明心劍宗
 msgid "SECT_1_NAME"
-msgstr "明心剑宗"
+msgstr "明心劍宗"
 
-#. sect.csv: 通玄界东方第一宗，以无上剑道称雄于世。云...
+#. sect.csv: 通玄界東方第一宗，以無上劍道稱雄於世。雲...
 msgid "SECT_1_DESC"
-msgstr "通玄界东方第一宗，以无上剑道称雄于世。云纹阵法为不传心法。【剑道专精】作为剑修，你使用剑类兵器时战力惊人，且在剑道上的感悟速度远超常人。"
+msgstr "通玄界東方第一宗，以無上劍道稱雄於世。雲紋陣法爲不傳心法。【劍道專精】作爲劍修，你使用劍類兵器時戰力驚人，且在劍道上的感悟速度遠超常人。"
 
-#. sect.csv: 百兽宗
+#. sect.csv: 百獸宗
 msgid "SECT_2_NAME"
-msgstr "百兽宗"
+msgstr "百獸宗"
 
-#. sect.csv: 以驯养灵兽闻名，豢养各种妖兽灵怪为战力。...
+#. sect.csv: 以馴養靈獸聞名，豢養各種妖獸靈怪爲戰力。...
 msgid "SECT_2_DESC"
-msgstr "以驯养灵兽闻名，豢养各种妖兽灵怪为战力。【御兽大师】你拥有独特的御兽天赋，捕捉妖兽对你来说轻而易举，善于驱使兽群为你而战。"
+msgstr "以馴養靈獸聞名，豢養各種妖獸靈怪爲戰力。【御獸大師】你擁有獨特的御獸天賦，捕捉妖獸對你來說輕而易舉，善於驅使獸羣爲你而戰。"
 
-#. sect.csv: 水镜宗
+#. sect.csv: 水鏡宗
 msgid "SECT_3_NAME"
-msgstr "水镜宗"
+msgstr "水鏡宗"
 
-#. sect.csv: 正道十宗之一，实则严守中立。拥有仙界异宝...
+#. sect.csv: 正道十宗之一，實則嚴守中立。擁有仙界異寶...
 msgid "SECT_3_DESC"
-msgstr "正道十宗之一，实则严守中立。拥有仙界异宝\"彻天水镜\"可预知未来。【趋吉避凶】你拥有超乎常人的直觉，视野开阔，且极易在探索中发现奇遇。"
+msgstr "正道十宗之一，實則嚴守中立。擁有仙界異寶\"徹天水鏡\"可預知未來。【趨吉避凶】你擁有超乎常人的直覺，視野開闊，且極易在探索中發現奇遇。"
 
 #. sect.csv: 冥王宗
 msgid "SECT_4_NAME"
 msgstr "冥王宗"
 
-#. sect.csv: 行走幽冥之道，术法阴冷狠厉。【通幽】你修...
+#. sect.csv: 行走幽冥之道，術法陰冷狠厲。【通幽】你修...
 msgid "SECT_4_DESC"
-msgstr "行走幽冥之道，术法阴冷狠厉。【通幽】你修行幽冥之法，心志坚定，突破瓶颈时心无杂念，成功率更高。"
+msgstr "行走幽冥之道，術法陰冷狠厲。【通幽】你修行幽冥之法，心志堅定，突破瓶頸時心無雜念，成功率更高。"
 
 #. sect.csv: 朱勾宗
 msgid "SECT_5_NAME"
 msgstr "朱勾宗"
 
-#. sect.csv: 邪宗大派。以炼器、机关、暗杀闻名于世，素...
+#. sect.csv: 邪宗大派。以煉器、機關、暗殺聞名於世，素...
 msgid "SECT_5_DESC"
-msgstr "邪宗大派。以炼器、机关、暗杀闻名于世，素来阴毒冷僻。【暗杀专家】你精通潜伏与刺杀，对于强敌，避开正面交锋、伺机暗杀往往是你最佳的制胜之道。"
+msgstr "邪宗大派。以煉器、機關、暗殺聞名於世，素來陰毒冷僻。【暗殺專家】你精通潛伏與刺殺，對於強敵，避開正面交鋒、伺機暗殺往往是你最佳的制勝之道。"
 
-#. sect.csv: 合欢宗
+#. sect.csv: 合歡宗
 msgid "SECT_6_NAME"
-msgstr "合欢宗"
+msgstr "合歡宗"
 
-#. sect.csv: 以情入道，靠双修增进修为，善驭人心，长于...
+#. sect.csv: 以情入道，靠雙修增進修爲，善馭人心，長於...
 msgid "SECT_6_DESC"
-msgstr "以情入道，靠双修增进修为，善驭人心，长于权变。【双修秘术】你的体质特殊，通过双修能获得远超常人的修为提升，这是你提升境界的最佳捷径。"
+msgstr "以情入道，靠雙修增進修爲，善馭人心，長於權變。【雙修祕術】你的體質特殊，通過雙修能獲得遠超常人的修爲提升，這是你提升境界的最佳捷徑。"
 
-#. sect.csv: 镇魂宗
+#. sect.csv: 鎮魂宗
 msgid "SECT_7_NAME"
-msgstr "镇魂宗"
+msgstr "鎮魂宗"
 
-#. sect.csv: 铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇...
+#. sect.csv: 鐵血風格，擅安魂、封邪、渡厄，兼有剛烈鎮...
 msgid "SECT_7_DESC"
-msgstr "铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇压之术。【金刚不坏】你修习护体神功，拥有极强的肉身防御与伤害减免能力，如山岳般不可撼动。"
+msgstr "鐵血風格，擅安魂、封邪、渡厄，兼有剛烈鎮壓之術。【金剛不壞】你修習護體神功，擁有極強的肉身防禦與傷害減免能力，如山嶽般不可撼動。"
 
 #. sect.csv: 幽魂噬影宗
 msgid "SECT_8_NAME"
 msgstr "幽魂噬影宗"
 
-#. sect.csv: 镇宗典籍《幽冥录》。幽明气为根基。【如影...
+#. sect.csv: 鎮宗典籍《幽冥錄》。幽明氣爲根基。【如影...
 msgid "SECT_8_DESC"
-msgstr "镇宗典籍《幽冥录》。幽明气为根基。【如影随形】你极擅身法与遁术，遇到危险时总能全身而退，亦能伺机刺杀落单之敌。"
+msgstr "鎮宗典籍《幽冥錄》。幽明氣爲根基。【如影隨形】你極擅身法與遁術，遇到危險時總能全身而退，亦能伺機刺殺落單之敵。"
 
 #. sect.csv: 千帆城
 msgid "SECT_9_NAME"
 msgstr "千帆城"
 
-#. sect.csv: 炼器大宗，巧匠云集。著名法宝有灵灭丝、定...
+#. sect.csv: 煉器大宗，巧匠雲集。著名法寶有靈滅絲、定...
 msgid "SECT_9_DESC"
-msgstr "炼器大宗，巧匠云集。著名法宝有灵灭丝、定魂蓝星等。商旅云集，自成体系。【巧夺天工】你深谙炼器与经商之道，温养兵器时常能使其脱胎换骨，且在交易中总能获利。"
+msgstr "煉器大宗，巧匠雲集。著名法寶有靈滅絲、定魂藍星等。商旅雲集，自成體系。【巧奪天工】你深諳煉器與經商之道，溫養兵器時常能使其脫胎換骨，且在交易中總能獲利。"
 
 #. sect.csv: 妙化宗
 msgid "SECT_10_NAME"
 msgstr "妙化宗"
 
-#. sect.csv: 精擅音律杀伐与精神操控，功法诡谲阴柔，以...
+#. sect.csv: 精擅音律殺伐與精神操控，功法詭譎陰柔，以...
 msgid "SECT_10_DESC"
-msgstr "精擅音律杀伐与精神操控，功法诡谲阴柔，以无形琴音乱人心智，杀人于无形。【魔音贯耳】你擅长以音律乱人心智，灵力深厚绵长，虽不擅肉搏，但手段诡谲。"
+msgstr "精擅音律殺伐與精神操控，功法詭譎陰柔，以無形琴音亂人心智，殺人於無形。【魔音貫耳】你擅長以音律亂人心智，靈力深厚綿長，雖不擅肉搏，但手段詭譎。"
 
 #. sect.csv: 回玄宗
 msgid "SECT_11_NAME"
 msgstr "回玄宗"
 
-#. sect.csv: 当世第一阵法大派，以阵法阵诀独步天下，讲...
+#. sect.csv: 當世第一陣法大派，以陣法陣訣獨步天下，講...
 msgid "SECT_11_DESC"
-msgstr "当世第一阵法大派，以阵法阵诀独步天下，讲究阵法推演与巧思妙用。【阵法聚灵】你善用阵法辅助修炼，能够聚集天地灵气，修炼速度快于常人，且常有意外收获。"
+msgstr "當世第一陣法大派，以陣法陣訣獨步天下，講究陣法推演與巧思妙用。【陣法聚靈】你善用陣法輔助修煉，能夠聚集天地靈氣，修煉速度快於常人，且常有意外收穫。"
 
 #. sect.csv: 不夜城
 msgid "SECT_12_NAME"
 msgstr "不夜城"
 
-#. sect.csv: 修习极光玄真法，以万里极光壁的绝对防御闻...
+#. sect.csv: 修習極光玄真法，以萬里極光壁的絕對防禦聞...
 msgid "SECT_12_DESC"
-msgstr "修习极光玄真法，以万里极光壁的绝对防御闻名于世。【生生不息】你的生命力极其顽强，疗伤效果倍增，寿元亦远超同阶修士。"
+msgstr "修習極光玄真法，以萬里極光壁的絕對防禦聞名於世。【生生不息】你的生命力極其頑強，療傷效果倍增，壽元亦遠超同階修士。"
 
 #. sect.csv: 天行健宗
 msgid "SECT_13_NAME"
 msgstr "天行健宗"
 
-#. sect.csv: 专修浩然之气，行事正大光明，刚健果决，对...
+#. sect.csv: 專修浩然之氣，行事正大光明，剛健果決，對...
 msgid "SECT_13_DESC"
-msgstr "专修浩然之气，行事正大光明，刚健果决，对邪魔外道有极强的克制力。【浩然正气】你养浩然之气，气脉悠长，面对境界低于自己的敌人时，能发挥出极强的压制力。"
+msgstr "專修浩然之氣，行事正大光明，剛健果決，對邪魔外道有極強的剋制力。【浩然正氣】你養浩然之氣，氣脈悠長，面對境界低於自己的敵人時，能發揮出極強的壓制力。"
 
 #. sect.csv: 噬魔宗
 msgid "SECT_14_NAME"
 msgstr "噬魔宗"
 
-#. sect.csv: 通玄界第一魔宗，行事霸道残忍，擅长搜精噬...
+#. sect.csv: 通玄界第一魔宗，行事霸道殘忍，擅長搜精噬...
 msgid "SECT_14_DESC"
-msgstr "通玄界第一魔宗，行事霸道残忍，擅长搜精噬血与肉体魔功。【搜刮成性】你崇尚力量与掠夺，搜刮凡人虽有伤天和，但能为你带来惊人的财富与资源。"
+msgstr "通玄界第一魔宗，行事霸道殘忍，擅長搜精噬血與肉體魔功。【搜刮成性】你崇尚力量與掠奪，搜刮凡人雖有傷天和，但能爲你帶來驚人的財富與資源。"
 
-#. sect_region.csv: 连霞山
+#. sect_region.csv: 連霞山
 msgid "SECT_REGION_401_NAME"
-msgstr "连霞山"
+msgstr "連霞山"
 
-#. sect_region.csv: 连霞山坐忘峰下，是名门仙山的主峰。山上设...
+#. sect_region.csv: 連霞山坐忘峯下，是名門仙山的主峯。山上設...
 msgid "SECT_REGION_401_DESC"
-msgstr "连霞山坐忘峰下，是名门仙山的主峰。山上设有弟子修炼之地，环境清幽。"
+msgstr "連霞山坐忘峯下，是名門仙山的主峯。山上設有弟子修煉之地，環境清幽。"
 
-#. sect_region.csv: 玄灵洞
+#. sect_region.csv: 玄靈洞
 msgid "SECT_REGION_402_NAME"
-msgstr "玄灵洞"
+msgstr "玄靈洞"
 
-#. sect_region.csv: 玄灵洞位于十万大山深处，洞府依托一座千丈...
+#. sect_region.csv: 玄靈洞位於十萬大山深處，洞府依託一座千丈...
 msgid "SECT_REGION_402_DESC"
-msgstr "玄灵洞位于十万大山深处，洞府依托一座千丈高的灵山开凿而成，洞口宽达百丈，形似猛兽张口。洞内纵横交错，共有九十九层洞天，每层都驯养着不同品阶的灵兽妖兽。"
+msgstr "玄靈洞位於十萬大山深處，洞府依託一座千丈高的靈山開鑿而成，洞口寬達百丈，形似猛獸張口。洞內縱橫交錯，共有九十九層洞天，每層都馴養着不同品階的靈獸妖獸。"
 
 #. sect_region.csv: 碧波湖
 msgid "SECT_REGION_403_NAME"
 msgstr "碧波湖"
 
-#. sect_region.csv: 水镜宗建于碧波湖心的三座仙岛之上，湖水清...
+#. sect_region.csv: 水鏡宗建於碧波湖心的三座仙島之上，湖水清...
 msgid "SECT_REGION_403_DESC"
-msgstr "水镜宗建于碧波湖心的三座仙岛之上，湖水清澈如镜，终年波澜不兴。三岛之间以水晶长桥相连，宫殿楼阁皆为水晶琉璃所筑，通体透明，倒映湖中，虚实难辨。"
+msgstr "水鏡宗建於碧波湖心的三座仙島之上，湖水清澈如鏡，終年波瀾不興。三島之間以水晶長橋相連，宮殿樓閣皆爲水晶琉璃所築，通體透明，倒映湖中，虛實難辨。"
 
 #. sect_region.csv: 七鬼角
 msgid "SECT_REGION_404_NAME"
 msgstr "七鬼角"
 
-#. sect_region.csv: 冥王宗位于七鬼角群岛上，宗门四面临海，周...
+#. sect_region.csv: 冥王宗位於七鬼角羣島上，宗門四面臨海，周...
 msgid "SECT_REGION_404_DESC"
-msgstr "冥王宗位于七鬼角群岛上，宗门四面临海，周围暗礁密布，巨浪狂潮起落之间，在暗礁周围生成无数令人望而生畏的暗流漩涡。群岛周围千万年来投入了多少凶魂厉鬼，海浪起啸之时，万鬼齐哭，遮天蔽日。"
+msgstr "冥王宗位於七鬼角羣島上，宗門四面臨海，周圍暗礁密佈，巨浪狂潮起落之間，在暗礁周圍生成無數令人望而生畏的暗流漩渦。羣島周圍千萬年來投入了多少兇魂厲鬼，海浪起嘯之時，萬鬼齊哭，遮天蔽日。"
 
 #. sect_region.csv: 明玉山
 msgid "SECT_REGION_405_NAME"
 msgstr "明玉山"
 
-#. sect_region.csv: 明玉山通体由罕见的明玉石构成，山体呈现出...
+#. sect_region.csv: 明玉山通體由罕見的明玉石構成，山體呈現出...
 msgid "SECT_REGION_405_DESC"
-msgstr "明玉山通体由罕见的明玉石构成，山体呈现出诡异的青白色泽，在月光下更是泛着幽冷的光芒。山中宫殿楼阁皆为玉石所筑，看似华丽却处处暗藏杀机。殿宇之间机关重重，暗道密布。"
+msgstr "明玉山通體由罕見的明玉石構成，山體呈現出詭異的青白色澤，在月光下更是泛着幽冷的光芒。山中宮殿樓閣皆爲玉石所築，看似華麗卻處處暗藏殺機。殿宇之間機關重重，暗道密佈。"
 
-#. sect_region.csv: 桃花岛
+#. sect_region.csv: 桃花島
 msgid "SECT_REGION_406_NAME"
-msgstr "桃花岛"
+msgstr "桃花島"
 
-#. sect_region.csv: 合欢宗坐落于东海桃花岛上，岛上四季桃花盛...
+#. sect_region.csv: 合歡宗坐落於東海桃花島上，島上四季桃花盛...
 msgid "SECT_REGION_406_DESC"
-msgstr "合欢宗坐落于东海桃花岛上，岛上四季桃花盛开，永不凋零，花瓣随风飘舞，铺满整座仙岛。宗门建筑以粉红色调为主，雕梁画栋，极尽奢华。殿宇楼阁之间云雾缭绕，隐约可见成双成对的弟子在其间修炼。"
+msgstr "合歡宗坐落於東海桃花島上，島上四季桃花盛開，永不凋零，花瓣隨風飄舞，鋪滿整座仙島。宗門建築以粉紅色調爲主，雕樑畫棟，極盡奢華。殿宇樓閣之間雲霧繚繞，隱約可見成雙成對的弟子在其間修煉。"
 
 #. sect_region.csv: 落魂海
 msgid "SECT_REGION_407_NAME"
 msgstr "落魂海"
 
-#. sect_region.csv: 位于极南海上。镇魂海常年有妖兽作乱，海域...
+#. sect_region.csv: 位於極南海上。鎮魂海常年有妖獸作亂，海域...
 msgid "SECT_REGION_407_DESC"
-msgstr "位于极南海上。镇魂海常年有妖兽作乱，海域凶险。宗门建筑立于海中礁岛之上，以镇魂钟为中心，钟声可震慑方圆千里之内的妖魂。"
+msgstr "位於極南海上。鎮魂海常年有妖獸作亂，海域兇險。宗門建築立於海中礁島之上，以鎮魂鍾爲中心，鐘聲可震懾方圓千里之內的妖魂。"
 
-#. sect_region.csv: 鬼门湖
+#. sect_region.csv: 鬼門湖
 msgid "SECT_REGION_408_NAME"
-msgstr "鬼门湖"
+msgstr "鬼門湖"
 
-#. sect_region.csv: 鬼门湖位于原始森林深处，重重大山围拢的平...
+#. sect_region.csv: 鬼門湖位於原始森林深處，重重大山圍攏的平...
 msgid "SECT_REGION_408_DESC"
-msgstr "鬼门湖位于原始森林深处，重重大山围拢的平原地带。参天巨木、缠绕藤蔓、终日浮游不散的瘴气，还有因宗门秘法而生就的层层迷雾，将这里与外界完全隔离，透不进一点光来。"
+msgstr "鬼門湖位於原始森林深處，重重大山圍攏的平原地帶。參天巨木、纏繞藤蔓、終日浮游不散的瘴氣，還有因宗門祕法而生就的層層迷霧，將這裏與外界完全隔離，透不進一點光來。"
 
 #. sect_region.csv: 天星海
 msgid "SECT_REGION_409_NAME"
 msgstr "天星海"
 
-#. sect_region.csv: 千帆城建于天星海中央的巨型浮岛之上，整座...
+#. sect_region.csv: 千帆城建於天星海中央的巨型浮島之上，整座...
 msgid "SECT_REGION_409_DESC"
-msgstr "千帆城建于天星海中央的巨型浮岛之上，整座城池由无数法器拼接而成，城外海面上停泊着数以千计的法器灵舟，帆樯如林，蔚为壮观。城中高塔林立，每座塔顶都有炼器炉火日夜不息，烟柱冲天。"
+msgstr "千帆城建於天星海中央的巨型浮島之上，整座城池由無數法器拼接而成，城外海面上停泊着數以千計的法器靈舟，帆檣如林，蔚爲壯觀。城中高塔林立，每座塔頂都有煉器爐火日夜不息，煙柱沖天。"
 
-#. sect_region.csv: 心园
+#. sect_region.csv: 心園
 msgid "SECT_REGION_410_NAME"
-msgstr "心园"
+msgstr "心園"
 
-#. sect_region.csv: 四季如春，百花不谢。园内亭台楼阁错落，丝...
+#. sect_region.csv: 四季如春，百花不謝。園內亭臺樓閣錯落，絲...
 msgid "SECT_REGION_410_DESC"
-msgstr "四季如春，百花不谢。园内亭台楼阁错落，丝竹之声终日不绝，看似人间仙境，实则暗藏无数音杀阵法。"
+msgstr "四季如春，百花不謝。園內亭臺樓閣錯落，絲竹之聲終日不絕，看似人間仙境，實則暗藏無數音殺陣法。"
 
-#. sect_region.csv: 诸隐山
+#. sect_region.csv: 諸隱山
 msgid "SECT_REGION_411_NAME"
-msgstr "诸隐山"
+msgstr "諸隱山"
 
-#. sect_region.csv: 诸隐山云雾缭绕，山势晦暗不明。整座山脉被...
+#. sect_region.csv: 諸隱山雲霧繚繞，山勢晦暗不明。整座山脈被...
 msgid "SECT_REGION_411_DESC"
-msgstr "诸隐山云雾缭绕，山势晦暗不明。整座山脉被无数重叠的阵法大阵覆盖，一步一景，一步一险，若无通形令牌，外人踏入半步便会迷失其中。"
+msgstr "諸隱山雲霧繚繞，山勢晦暗不明。整座山脈被無數重疊的陣法大陣覆蓋，一步一景，一步一險，若無通形令牌，外人踏入半步便會迷失其中。"
 
-#. sect_region.csv: 大千光极城
+#. sect_region.csv: 大千光極城
 msgid "SECT_REGION_412_NAME"
-msgstr "大千光极城"
+msgstr "大千光極城"
 
-#. sect_region.csv: 常年笼罩在绚丽的极光之下。城池由万年寒冰...
+#. sect_region.csv: 常年籠罩在絢麗的極光之下。城池由萬年寒冰...
 msgid "SECT_REGION_412_DESC"
-msgstr "常年笼罩在绚丽的极光之下。城池由万年寒冰与玄铁铸就，在漫天极光的映照下流光溢彩，宛如神迹，是极寒之地唯一的温暖所在。"
+msgstr "常年籠罩在絢麗的極光之下。城池由萬年寒冰與玄鐵鑄就，在漫天極光的映照下流光溢彩，宛如神蹟，是極寒之地唯一的溫暖所在。"
 
-#. sect_region.csv: 浩然峰
+#. sect_region.csv: 浩然峯
 msgid "SECT_REGION_413_NAME"
-msgstr "浩然峰"
+msgstr "浩然峯"
 
-#. sect_region.csv: 位于通玄界中腹，山势雄奇挺拔，直插云霄。...
+#. sect_region.csv: 位於通玄界中腹，山勢雄奇挺拔，直插雲霄。...
 msgid "SECT_REGION_413_DESC"
-msgstr "位于通玄界中腹，山势雄奇挺拔，直插云霄。峰顶常年白云浩渺，紫气东来，书声琅琅之声可传十里，是天下浩然正气汇聚之地。"
+msgstr "位於通玄界中腹，山勢雄奇挺拔，直插雲霄。峯頂常年白雲浩渺，紫氣東來，書聲琅琅之聲可傳十里，是天下浩然正氣匯聚之地。"
 
 #. sect_region.csv: 陷空山
 msgid "SECT_REGION_414_NAME"
 msgstr "陷空山"
 
-#. sect_region.csv: 位于极西之地的险恶山脉，山势如犬牙交错，...
+#. sect_region.csv: 位於極西之地的險惡山脈，山勢如犬牙交錯，...
 msgid "SECT_REGION_414_DESC"
-msgstr "位于极西之地的险恶山脉，山势如犬牙交错，穷山恶水。山中常有血雾弥漫，怪石嶙峋，随处可见被吸干精血的兽骨枯尸，令人闻风丧胆。"
+msgstr "位於極西之地的險惡山脈，山勢如犬牙交錯，窮山惡水。山中常有血霧瀰漫，怪石嶙峋，隨處可見被吸乾精血的獸骨枯屍，令人聞風喪膽。"
 
-#. technique.csv: 金刚不坏体
+#. technique.csv: 金剛不壞體
 msgid "TECHNIQUE_1_NAME"
-msgstr "金刚不坏体"
+msgstr "金剛不壞體"
 
-#. technique.csv: 少林七十二绝技之一，浑身坚若金刚，刀枪不...
+#. technique.csv: 少林七十二絕技之一，渾身堅若金剛，刀槍不...
 msgid "TECHNIQUE_1_DESC"
-msgstr "少林七十二绝技之一，浑身坚若金刚，刀枪不入。"
+msgstr "少林七十二絕技之一，渾身堅若金剛，刀槍不入。"
 
-#. technique.csv: 金钟罩
+#. technique.csv: 金鐘罩
 msgid "TECHNIQUE_2_NAME"
-msgstr "金钟罩"
+msgstr "金鐘罩"
 
-#. technique.csv: 运气成钟，护持周身，反震外力。...
+#. technique.csv: 運氣成鍾，護持周身，反震外力。...
 msgid "TECHNIQUE_2_DESC"
-msgstr "运气成钟，护持周身，反震外力。"
+msgstr "運氣成鍾，護持周身，反震外力。"
 
-#. technique.csv: 长春功
+#. technique.csv: 長春功
 msgid "TECHNIQUE_4_NAME"
-msgstr "长春功"
+msgstr "長春功"
 
-#. technique.csv: 养生延年，气息绵长，凡人修仙的基础功法。...
+#. technique.csv: 養生延年，氣息綿長，凡人修仙的基礎功法。...
 msgid "TECHNIQUE_4_DESC"
-msgstr "养生延年，气息绵长，凡人修仙的基础功法。"
+msgstr "養生延年，氣息綿長，凡人修仙的基礎功法。"
 
 #. technique.csv: 青帝木皇功
 msgid "TECHNIQUE_5_NAME"
 msgstr "青帝木皇功"
 
-#. technique.csv: 汲取草木精气，生机不绝，皇气浩荡。...
+#. technique.csv: 汲取草木精氣，生機不絕，皇氣浩蕩。...
 msgid "TECHNIQUE_5_DESC"
-msgstr "汲取草木精气，生机不绝，皇气浩荡。"
+msgstr "汲取草木精氣，生機不絕，皇氣浩蕩。"
 
-#. technique.csv: 若水诀
+#. technique.csv: 若水訣
 msgid "TECHNIQUE_7_NAME"
-msgstr "若水诀"
+msgstr "若水訣"
 
-#. technique.csv: 上善若水，水利万物而不争，绵柔醇厚。...
+#. technique.csv: 上善若水，水利萬物而不爭，綿柔醇厚。...
 msgid "TECHNIQUE_7_DESC"
-msgstr "上善若水，水利万物而不争，绵柔醇厚。"
+msgstr "上善若水，水利萬物而不爭，綿柔醇厚。"
 
 #. technique.csv: 黑帝水皇拳
 msgid "TECHNIQUE_8_NAME"
 msgstr "黑帝水皇拳"
 
-#. technique.csv: 驾驭滔滔黑水，如帝亲临，大气磅礴。...
+#. technique.csv: 駕馭滔滔黑水，如帝親臨，大氣磅礴。...
 msgid "TECHNIQUE_8_DESC"
-msgstr "驾驭滔滔黑水，如帝亲临，大气磅礴。"
+msgstr "駕馭滔滔黑水，如帝親臨，大氣磅礴。"
 
-#. technique.csv: 火灵诀
+#. technique.csv: 火靈訣
 msgid "TECHNIQUE_10_NAME"
-msgstr "火灵诀"
+msgstr "火靈訣"
 
-#. technique.csv: 最基础的法术，凝聚火炎伤敌，简单实用。...
+#. technique.csv: 最基礎的法術，凝聚火炎傷敵，簡單實用。...
 msgid "TECHNIQUE_10_DESC"
-msgstr "最基础的法术，凝聚火炎伤敌，简单实用。"
+msgstr "最基礎的法術，凝聚火炎傷敵，簡單實用。"
 
-#. technique.csv: 纯阳无极功
+#. technique.csv: 純陽無極功
 msgid "TECHNIQUE_11_NAME"
-msgstr "纯阳无极功"
+msgstr "純陽無極功"
 
-#. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
+#. technique.csv: 純陽之氣，剛猛無鑄，剋制陰邪。...
 msgid "TECHNIQUE_11_DESC"
-msgstr "纯阳之气，刚猛无铸，克制阴邪。"
+msgstr "純陽之氣，剛猛無鑄，剋制陰邪。"
 
-#. technique.csv: 搬山诀
+#. technique.csv: 搬山訣
 msgid "TECHNIQUE_13_NAME"
-msgstr "搬山诀"
+msgstr "搬山訣"
 
-#. technique.csv: 力能扛鼎，气力悠长，如下山猛虎。...
+#. technique.csv: 力能扛鼎，氣力悠長，如下山猛虎。...
 msgid "TECHNIQUE_13_DESC"
-msgstr "力能扛鼎，气力悠长，如下山猛虎。"
+msgstr "力能扛鼎，氣力悠長，如下山猛虎。"
 
-#. technique.csv: 不动明王诀
+#. technique.csv: 不動明王訣
 msgid "TECHNIQUE_14_NAME"
-msgstr "不动明王诀"
+msgstr "不動明王訣"
 
-#. technique.csv: 不动如山，动如雷震，佛门护法神功。...
+#. technique.csv: 不動如山，動如雷震，佛門護法神功。...
 msgid "TECHNIQUE_14_DESC"
-msgstr "不动如山，动如雷震，佛门护法神功。"
+msgstr "不動如山，動如雷震，佛門護法神功。"
 
-#. technique.csv: 冰心诀
+#. technique.csv: 冰心訣
 msgid "TECHNIQUE_16_NAME"
-msgstr "冰心诀"
+msgstr "冰心訣"
 
-#. technique.csv: 心若冰清，天塌不惊，凝神静气。...
+#. technique.csv: 心若冰清，天塌不驚，凝神靜氣。...
 msgid "TECHNIQUE_16_DESC"
-msgstr "心若冰清，天塌不惊，凝神静气。"
+msgstr "心若冰清，天塌不驚，凝神靜氣。"
 
-#. technique.csv: 玄冰劲
+#. technique.csv: 玄冰勁
 msgid "TECHNIQUE_17_NAME"
-msgstr "玄冰劲"
+msgstr "玄冰勁"
 
-#. technique.csv: 寒气透骨，冻结经脉，阴狠霸道。...
+#. technique.csv: 寒氣透骨，凍結經脈，陰狠霸道。...
 msgid "TECHNIQUE_17_DESC"
-msgstr "寒气透骨，冻结经脉，阴狠霸道。"
+msgstr "寒氣透骨，凍結經脈，陰狠霸道。"
 
-#. technique.csv: 神行百变
+#. technique.csv: 神行百變
 msgid "TECHNIQUE_19_NAME"
-msgstr "神行百变"
+msgstr "神行百變"
 
-#. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
+#. technique.csv: 身法靈動，變幻莫測，逃跑一流。...
 msgid "TECHNIQUE_19_DESC"
-msgstr "身法灵动，变幻莫测，逃跑一流。"
+msgstr "身法靈動，變幻莫測，逃跑一流。"
 
-#. technique.csv: 梯云纵
+#. technique.csv: 梯雲縱
 msgid "TECHNIQUE_20_NAME"
-msgstr "梯云纵"
+msgstr "梯雲縱"
 
-#. technique.csv: 武当绝学，左脚踩右脚，直上青云。...
+#. technique.csv: 武當絕學，左腳踩右腳，直上青雲。...
 msgid "TECHNIQUE_20_DESC"
-msgstr "武当绝学，左脚踩右脚，直上青云。"
+msgstr "武當絕學，左腳踩右腳，直上青雲。"
 
-#. technique.csv: 敛息术
+#. technique.csv: 斂息術
 msgid "TECHNIQUE_22_NAME"
-msgstr "敛息术"
+msgstr "斂息術"
 
-#. technique.csv: 收敛气息，如枯木死灰，令人难以察觉。...
+#. technique.csv: 收斂氣息，如枯木死灰，令人難以察覺。...
 msgid "TECHNIQUE_22_DESC"
-msgstr "收敛气息，如枯木死灰，令人难以察觉。"
+msgstr "收斂氣息，如枯木死灰，令人難以察覺。"
 
-#. technique.csv: 鬼影迷踪
+#. technique.csv: 鬼影迷蹤
 msgid "TECHNIQUE_23_NAME"
-msgstr "鬼影迷踪"
+msgstr "鬼影迷蹤"
 
-#. technique.csv: 如鬼魅般难以捉摸，步法诡异。...
+#. technique.csv: 如鬼魅般難以捉摸，步法詭異。...
 msgid "TECHNIQUE_23_DESC"
-msgstr "如鬼魅般难以捉摸，步法诡异。"
+msgstr "如鬼魅般難以捉摸，步法詭異。"
 
 #. technique.csv: 掌心雷
 msgid "TECHNIQUE_25_NAME"
 msgstr "掌心雷"
 
-#. technique.csv: 道家正宗法术，掌心发雷，震慑妖邪。...
+#. technique.csv: 道家正宗法術，掌心發雷，震懾妖邪。...
 msgid "TECHNIQUE_25_DESC"
-msgstr "道家正宗法术，掌心发雷，震慑妖邪。"
+msgstr "道家正宗法術，掌心發雷，震懾妖邪。"
 
 #. technique.csv: 五雷正法
 msgid "TECHNIQUE_26_NAME"
 msgstr "五雷正法"
 
-#. technique.csv: 役使五行之雷，刚猛霸道，无坚不摧。...
+#. technique.csv: 役使五行之雷，剛猛霸道，無堅不摧。...
 msgid "TECHNIQUE_26_DESC"
-msgstr "役使五行之雷，刚猛霸道，无坚不摧。"
+msgstr "役使五行之雷，剛猛霸道，無堅不摧。"
 
 #. technique.csv: 燃血大法
 msgid "TECHNIQUE_28_NAME"
 msgstr "燃血大法"
 
-#. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
+#. technique.csv: 燃燒精血，短暫爆發實力，事後虛弱。...
 msgid "TECHNIQUE_28_DESC"
-msgstr "燃烧精血，短暂爆发实力，事后虚弱。"
+msgstr "燃燒精血，短暫爆發實力，事後虛弱。"
 
 #. technique.csv: 吸星大法
 msgid "TECHNIQUE_29_NAME"
 msgstr "吸星大法"
 
-#. technique.csv: 吸取他人内力为己用，霸道异常，常有反噬。...
+#. technique.csv: 吸取他人內力爲己用，霸道異常，常有反噬。...
 msgid "TECHNIQUE_29_DESC"
-msgstr "吸取他人内力为己用，霸道异常，常有反噬。"
+msgstr "吸取他人內力爲己用，霸道異常，常有反噬。"
 
-#. technique.csv: 草字剑诀
+#. technique.csv: 草字劍訣
 msgid "TECHNIQUE_30_NAME"
-msgstr "草字剑诀"
+msgstr "草字劍訣"
 
-#. technique.csv: 一株草斩尽日月星辰，完美世界三大剑诀之一...
+#. technique.csv: 一株草斬盡日月星辰，完美世界三大劍訣之一...
 msgid "TECHNIQUE_30_DESC"
-msgstr "一株草斩尽日月星辰，完美世界三大剑诀之一。"
+msgstr "一株草斬盡日月星辰，完美世界三大劍訣之一。"
 
-#. technique.csv: 神剑御雷真诀
+#. technique.csv: 神劍御雷真訣
 msgid "TECHNIQUE_31_NAME"
-msgstr "神剑御雷真诀"
+msgstr "神劍御雷真訣"
 
-#. technique.csv: 九天玄刹，化为神雷。煌煌天威，以剑引之。...
+#. technique.csv: 九天玄剎，化爲神雷。煌煌天威，以劍引之。...
 msgid "TECHNIQUE_31_DESC"
-msgstr "九天玄刹，化为神雷。煌煌天威，以剑引之。"
+msgstr "九天玄剎，化爲神雷。煌煌天威，以劍引之。"
 
-#. technique.csv: 大河剑意
+#. technique.csv: 大河劍意
 msgid "TECHNIQUE_32_NAME"
-msgstr "大河剑意"
+msgstr "大河劍意"
 
-#. technique.csv: 君不见黄河之水天上来，奔流到海不复回。...
+#. technique.csv: 君不見黃河之水天上來，奔流到海不復回。...
 msgid "TECHNIQUE_32_DESC"
-msgstr "君不见黄河之水天上来，奔流到海不复回。"
+msgstr "君不見黃河之水天上來，奔流到海不復回。"
 
-#. technique.csv: 青帝长生诀
+#. technique.csv: 青帝長生訣
 msgid "TECHNIQUE_33_NAME"
-msgstr "青帝长生诀"
+msgstr "青帝長生訣"
 
-#. technique.csv: 青帝所创，木系至高功法，生生不息，枯木逢...
+#. technique.csv: 青帝所創，木系至高功法，生生不息，枯木逢...
 msgid "TECHNIQUE_33_DESC"
-msgstr "青帝所创，木系至高功法，生生不息，枯木逢春。"
+msgstr "青帝所創，木系至高功法，生生不息，枯木逢春。"
 
-#. technique.csv: 神象镇狱劲
+#. technique.csv: 神象鎮獄勁
 msgid "TECHNIQUE_34_NAME"
-msgstr "神象镇狱劲"
+msgstr "神象鎮獄勁"
 
-#. technique.csv: 以气引神，以神成象，举手投足，镇压地狱。...
+#. technique.csv: 以氣引神，以神成象，舉手投足，鎮壓地獄。...
 msgid "TECHNIQUE_34_DESC"
-msgstr "以气引神，以神成象，举手投足，镇压地狱。"
+msgstr "以氣引神，以神成象，舉手投足，鎮壓地獄。"
 
-#. technique.csv: 鲲鹏宝术
+#. technique.csv: 鯤鵬寶術
 msgid "TECHNIQUE_35_NAME"
-msgstr "鲲鹏宝术"
+msgstr "鯤鵬寶術"
 
-#. technique.csv: 入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬...
+#. technique.csv: 入海爲鯤，扶搖爲鵬。陰陽變化，極速與吞噬...
 msgid "TECHNIQUE_35_DESC"
-msgstr "入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬。"
+msgstr "入海爲鯤，扶搖爲鵬。陰陽變化，極速與吞噬。"
 
-#. technique.csv: 虚空经
+#. technique.csv: 虛空經
 msgid "TECHNIQUE_36_NAME"
-msgstr "虚空经"
+msgstr "虛空經"
 
-#. technique.csv: 以无限虚空证道，掌控空间，先天立于不败。...
+#. technique.csv: 以無限虛空證道，掌控空間，先天立於不敗。...
 msgid "TECHNIQUE_36_DESC"
-msgstr "以无限虚空证道，掌控空间，先天立于不败。"
+msgstr "以無限虛空證道，掌控空間，先天立於不敗。"
 
-#. technique.csv: 太上忘情录
+#. technique.csv: 太上忘情錄
 msgid "TECHNIQUE_37_NAME"
-msgstr "太上忘情录"
+msgstr "太上忘情錄"
 
-#. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
+#. technique.csv: 太上忘情，非無情，乃忘情。至公至正，威力...
 msgid "TECHNIQUE_37_DESC"
-msgstr "太上忘情，非无情，乃忘情。至公至正，威力无穷。"
+msgstr "太上忘情，非無情，乃忘情。至公至正，威力無窮。"
 
-#. technique.csv: 逍遥游
+#. technique.csv: 逍遙遊
 msgid "TECHNIQUE_38_NAME"
-msgstr "逍遥游"
+msgstr "逍遙遊"
 
-#. technique.csv: 乘天地之正，而御六气之辩，以游无穷。...
+#. technique.csv: 乘天地之正，而御六氣之辯，以遊無窮。...
 msgid "TECHNIQUE_38_DESC"
-msgstr "乘天地之正，而御六气之辩，以游无穷。"
+msgstr "乘天地之正，而御六氣之辯，以遊無窮。"
 
 #. technique.csv: 吞天魔功
 msgid "TECHNIQUE_39_NAME"
 msgstr "吞天魔功"
 
-#. technique.csv: 狠人大帝所创，吞噬万千体质，铸就混沌体。...
+#. technique.csv: 狠人大帝所創，吞噬萬千體質，鑄就混沌體。...
 msgid "TECHNIQUE_39_DESC"
-msgstr "狠人大帝所创，吞噬万千体质，铸就混沌体。"
+msgstr "狠人大帝所創，吞噬萬千體質，鑄就混沌體。"
 
 #. technique.csv: 天魔策
 msgid "TECHNIQUE_40_NAME"
 msgstr "天魔策"
 
-#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空。...
+#. technique.csv: 魔門至高寶典，包羅萬象，直指破碎虛空。...
 msgid "TECHNIQUE_40_DESC"
-msgstr "魔门至高宝典，包罗万象，直指破碎虚空。"
+msgstr "魔門至高寶典，包羅萬象，直指破碎虛空。"
 
-#. technique.csv: 冥河真经
+#. technique.csv: 冥河真經
 msgid "TECHNIQUE_41_NAME"
-msgstr "冥河真经"
+msgstr "冥河真經"
 
-#. technique.csv: 血海不枯，冥河不死。演化四亿八千万血神子...
+#. technique.csv: 血海不枯，冥河不死。演化四億八千萬血神子...
 msgid "TECHNIQUE_41_DESC"
-msgstr "血海不枯，冥河不死。演化四亿八千万血神子。"
+msgstr "血海不枯，冥河不死。演化四億八千萬血神子。"
 
-#. technique.csv: 焚诀
+#. technique.csv: 焚訣
 msgid "TECHNIQUE_42_NAME"
-msgstr "焚诀"
+msgstr "焚訣"
 
-#. technique.csv: 通过吞噬异火进化功法，潜力无限，号令万火...
+#. technique.csv: 通過吞噬異火進化功法，潛力無限，號令萬火...
 msgid "TECHNIQUE_42_DESC"
-msgstr "通过吞噬异火进化功法，潜力无限，号令万火。"
+msgstr "通過吞噬異火進化功法，潛力無限，號令萬火。"
 
-#. technique.csv: 道心种魔大法
+#. technique.csv: 道心種魔大法
 msgid "TECHNIQUE_43_NAME"
-msgstr "道心种魔大法"
+msgstr "道心種魔大法"
 
-#. technique.csv: 以他人为炉鼎，种魔种，夺天地造化。...
+#. technique.csv: 以他人爲爐鼎，種魔種，奪天地造化。...
 msgid "TECHNIQUE_43_DESC"
-msgstr "以他人为炉鼎，种魔种，夺天地造化。"
+msgstr "以他人爲爐鼎，種魔種，奪天地造化。"
 
-#. technique.csv: 大衍决
+#. technique.csv: 大衍決
 msgid "TECHNIQUE_44_NAME"
-msgstr "大衍决"
+msgstr "大衍決"
 
-#. technique.csv: 专修神识，能分心多用，操控万千傀儡。...
+#. technique.csv: 專修神識，能分心多用，操控萬千傀儡。...
 msgid "TECHNIQUE_44_DESC"
-msgstr "专修神识，能分心多用，操控万千傀儡。"
+msgstr "專修神識，能分心多用，操控萬千傀儡。"
 
-#. technique.csv: 大乐赋
+#. technique.csv: 大樂賦
 msgid "TECHNIQUE_45_NAME"
-msgstr "大乐赋"
+msgstr "大樂賦"
 
-#. technique.csv: 阴阳大道，极乐飞升。双修之至高法门。...
+#. technique.csv: 陰陽大道，極樂飛昇。雙修之至高法門。...
 msgid "TECHNIQUE_45_DESC"
-msgstr "阴阳大道，极乐飞升。双修之至高法门。"
+msgstr "陰陽大道，極樂飛昇。雙修之至高法門。"
 
 #. technique.csv: 天魔舞
 msgid "TECHNIQUE_46_NAME"
 msgstr "天魔舞"
 
-#. technique.csv: 域外天魔之舞，勾魂摄魄，乱人心智。...
+#. technique.csv: 域外天魔之舞，勾魂攝魄，亂人心智。...
 msgid "TECHNIQUE_46_DESC"
-msgstr "域外天魔之舞，勾魂摄魄，乱人心智。"
+msgstr "域外天魔之舞，勾魂攝魄，亂人心智。"
 
 #. technique.csv: 凌波微步
 msgid "TECHNIQUE_47_NAME"
 msgstr "凌波微步"
 
-#. technique.csv: 体迅飞凫，飘忽若神，罗袜生尘。...
+#. technique.csv: 體迅飛鳧，飄忽若神，羅襪生塵。...
 msgid "TECHNIQUE_47_DESC"
-msgstr "体迅飞凫，飘忽若神，罗袜生尘。"
+msgstr "體迅飛鳧，飄忽若神，羅襪生塵。"
 
-#. technique.csv: 过去弥陀经
+#. technique.csv: 過去彌陀經
 msgid "TECHNIQUE_48_NAME"
-msgstr "过去弥陀经"
+msgstr "過去彌陀經"
 
-#. technique.csv: 神魂不灭，超脱彼岸。修成过去二竖，万劫不...
+#. technique.csv: 神魂不滅，超脫彼岸。修成過去二豎，萬劫不...
 msgid "TECHNIQUE_48_DESC"
-msgstr "神魂不灭，超脱彼岸。修成过去二竖，万劫不磨。"
+msgstr "神魂不滅，超脫彼岸。修成過去二豎，萬劫不磨。"
 
 #. technique.csv: 神霄雷法
 msgid "TECHNIQUE_49_NAME"
 msgstr "神霄雷法"
 
-#. technique.csv: 道家雷法正宗，役使神霄天雷，诛邪灭魔。...
+#. technique.csv: 道家雷法正宗，役使神霄天雷，誅邪滅魔。...
 msgid "TECHNIQUE_49_DESC"
-msgstr "道家雷法正宗，役使神霄天雷，诛邪灭魔。"
+msgstr "道家雷法正宗，役使神霄天雷，誅邪滅魔。"
 
 #. technique.csv: 九字真言
 msgid "TECHNIQUE_50_NAME"
 msgstr "九字真言"
 
-#. technique.csv: 临兵斗者皆阵列前行。道家无上咒法。...
+#. technique.csv: 臨兵鬥者皆陣列前行。道家無上咒法。...
 msgid "TECHNIQUE_50_DESC"
-msgstr "临兵斗者皆阵列前行。道家无上咒法。"
+msgstr "臨兵鬥者皆陣列前行。道家無上咒法。"
 
 #. technique.csv: 幽冥鬼爪
 msgid "TECHNIQUE_51_NAME"
 msgstr "幽冥鬼爪"
 
-#. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
+#. technique.csv: 陰損毒辣，專破內家真氣，觸之即死。...
 msgid "TECHNIQUE_51_DESC"
-msgstr "阴损毒辣，专破内家真气，触之即死。"
+msgstr "陰損毒辣，專破內家真氣，觸之即死。"
 
-#. technique.csv: 三千雷动
+#. technique.csv: 三千雷動
 msgid "TECHNIQUE_52_NAME"
-msgstr "三千雷动"
+msgstr "三千雷動"
 
-#. technique.csv: 身化雷霆，瞬息千里，残影重重。...
+#. technique.csv: 身化雷霆，瞬息千里，殘影重重。...
 msgid "TECHNIQUE_52_DESC"
-msgstr "身化雷霆，瞬息千里，残影重重。"
+msgstr "身化雷霆，瞬息千里，殘影重重。"
 
-#. technique.csv: 血神经
+#. technique.csv: 血神經
 msgid "TECHNIQUE_53_NAME"
-msgstr "血神经"
+msgstr "血神經"
 
-#. technique.csv: 人皮为纸，鲜血为墨。修炼者必先剥皮噬血。...
+#. technique.csv: 人皮爲紙，鮮血爲墨。修煉者必先剝皮噬血。...
 msgid "TECHNIQUE_53_DESC"
-msgstr "人皮为纸，鲜血为墨。修炼者必先剥皮噬血。"
+msgstr "人皮爲紙，鮮血爲墨。修煉者必先剝皮噬血。"
 
-#. technique.csv: 神机百炼
+#. technique.csv: 神機百鍊
 msgid "TECHNIQUE_54_NAME"
-msgstr "神机百炼"
+msgstr "神機百鍊"
 
-#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可为兵。...
+#. technique.csv: 煉器極致，化腐朽爲神奇，萬物皆可爲兵。...
 msgid "TECHNIQUE_54_DESC"
-msgstr "炼器极致，化腐朽为神奇，万物皆可为兵。"
+msgstr "煉器極致，化腐朽爲神奇，萬物皆可爲兵。"
 
-#. technique.csv: 周天星斗大阵
+#. technique.csv: 周天星斗大陣
 msgid "TECHNIQUE_55_NAME"
-msgstr "周天星斗大阵"
+msgstr "周天星斗大陣"
 
-#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
+#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一體。...
 msgid "TECHNIQUE_55_DESC"
-msgstr "引周天星力，演化宇宙洪荒，攻防一体。"
+msgstr "引周天星力，演化宇宙洪荒，攻防一體。"
 
-#. technique.csv: 纵地金光
+#. technique.csv: 縱地金光
 msgid "TECHNIQUE_56_NAME"
-msgstr "纵地金光"
+msgstr "縱地金光"
 
-#. technique.csv: 阐教绝学，化作一道金光，瞬息万里。...
+#. technique.csv: 闡教絕學，化作一道金光，瞬息萬里。...
 msgid "TECHNIQUE_56_DESC"
-msgstr "阐教绝学，化作一道金光，瞬息万里。"
+msgstr "闡教絕學，化作一道金光，瞬息萬里。"
 
-#. weapon.csv: 练气剑
+#. weapon.csv: 練氣劍
 msgid "WEAPON_1001_NAME"
-msgstr "练气剑"
+msgstr "練氣劍"
 
-#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+#. weapon.csv: 市井鐵匠鋪打造的鐵劍，勉強能用。...
 msgid "WEAPON_1001_DESC"
-msgstr "市井铁匠铺打造的铁剑，勉强能用。"
+msgstr "市井鐵匠鋪打造的鐵劍，勉強能用。"
 
-#. weapon.csv: 练气刀
+#. weapon.csv: 練氣刀
 msgid "WEAPON_1002_NAME"
-msgstr "练气刀"
+msgstr "練氣刀"
 
-#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+#. weapon.csv: 厚背砍刀，尋常武夫的最愛。...
 msgid "WEAPON_1002_DESC"
-msgstr "厚背砍刀，寻常武夫的最爱。"
+msgstr "厚背砍刀，尋常武夫的最愛。"
 
-#. weapon.csv: 练气枪
+#. weapon.csv: 練氣槍
 msgid "WEAPON_1003_NAME"
-msgstr "练气枪"
+msgstr "練氣槍"
 
-#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+#. weapon.csv: 白蠟杆製成，槍頭掛着紅纓。...
 msgid "WEAPON_1003_DESC"
-msgstr "白蜡杆制成，枪头挂着红缨。"
+msgstr "白蠟杆製成，槍頭掛着紅纓。"
 
-#. weapon.csv: 练气棍
+#. weapon.csv: 練氣棍
 msgid "WEAPON_1004_NAME"
-msgstr "练气棍"
+msgstr "練氣棍"
 
-#. weapon.csv: 普通的硬木棍，长与眉齐。...
+#. weapon.csv: 普通的硬木棍，長與眉齊。...
 msgid "WEAPON_1004_DESC"
-msgstr "普通的硬木棍，长与眉齐。"
+msgstr "普通的硬木棍，長與眉齊。"
 
-#. weapon.csv: 练气扇
+#. weapon.csv: 練氣扇
 msgid "WEAPON_1005_NAME"
-msgstr "练气扇"
+msgstr "練氣扇"
 
-#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+#. weapon.csv: 文人雅士常用的摺扇，附庸風雅。...
 msgid "WEAPON_1005_DESC"
-msgstr "文人雅士常用的折扇，附庸风雅。"
+msgstr "文人雅士常用的摺扇，附庸風雅。"
 
-#. weapon.csv: 练气鞭
+#. weapon.csv: 練氣鞭
 msgid "WEAPON_1006_NAME"
-msgstr "练气鞭"
+msgstr "練氣鞭"
 
-#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+#. weapon.csv: 普通的皮鞭，多用於趕車或刑罰。...
 msgid "WEAPON_1006_DESC"
-msgstr "普通的皮鞭，多用于赶车或刑罚。"
+msgstr "普通的皮鞭，多用於趕車或刑罰。"
 
-#. weapon.csv: 练气琴
+#. weapon.csv: 練氣琴
 msgid "WEAPON_1007_NAME"
-msgstr "练气琴"
+msgstr "練氣琴"
 
-#. weapon.csv: 桐木制成的古琴，音色尚可。...
+#. weapon.csv: 桐木製成的古琴，音色尚可。...
 msgid "WEAPON_1007_DESC"
-msgstr "桐木制成的古琴，音色尚可。"
+msgstr "桐木製成的古琴，音色尚可。"
 
-#. weapon.csv: 练气笛
+#. weapon.csv: 練氣笛
 msgid "WEAPON_1008_NAME"
-msgstr "练气笛"
+msgstr "練氣笛"
 
-#. weapon.csv: 紫竹削制，声音清脆。...
+#. weapon.csv: 紫竹削制，聲音清脆。...
 msgid "WEAPON_1008_DESC"
-msgstr "紫竹削制，声音清脆。"
+msgstr "紫竹削制，聲音清脆。"
 
-#. weapon.csv: 练气暗器
+#. weapon.csv: 練氣暗器
 msgid "WEAPON_1009_NAME"
-msgstr "练气暗器"
+msgstr "練氣暗器"
 
-#. weapon.csv: 随处可见的铁制暗器。...
+#. weapon.csv: 隨處可見的鐵製暗器。...
 msgid "WEAPON_1009_DESC"
-msgstr "随处可见的铁制暗器。"
+msgstr "隨處可見的鐵製暗器。"
 
-#. weapon.csv: 青霜剑
+#. weapon.csv: 青霜劍
 msgid "WEAPON_1021_NAME"
-msgstr "青霜剑"
+msgstr "青霜劍"
 
-#. weapon.csv: 剑气森寒。...
+#. weapon.csv: 劍氣森寒。...
 msgid "WEAPON_1021_DESC"
-msgstr "剑气森寒。"
+msgstr "劍氣森寒。"
 
 #. weapon.csv: 井中月
 msgid "WEAPON_1022_NAME"
 msgstr "井中月"
 
-#. weapon.csv: 刀光如井中映月，虚实难测。...
+#. weapon.csv: 刀光如井中映月，虛實難測。...
 msgid "WEAPON_1022_DESC"
-msgstr "刀光如井中映月，虚实难测。"
+msgstr "刀光如井中映月，虛實難測。"
 
-#. weapon.csv: 火尖枪
+#. weapon.csv: 火尖槍
 msgid "WEAPON_1023_NAME"
-msgstr "火尖枪"
+msgstr "火尖槍"
 
-#. weapon.csv: 枪头隐有火光，能引动凡火。...
+#. weapon.csv: 槍頭隱有火光，能引動凡火。...
 msgid "WEAPON_1023_DESC"
-msgstr "枪头隐有火光，能引动凡火。"
+msgstr "槍頭隱有火光，能引動凡火。"
 
-#. weapon.csv: 囚龙棒
+#. weapon.csv: 囚龍棒
 msgid "WEAPON_1024_NAME"
-msgstr "囚龙棒"
+msgstr "囚龍棒"
 
-#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+#. weapon.csv: 精鐵鑄造，重達千斤，力大者可用。...
 msgid "WEAPON_1024_DESC"
-msgstr "精铁铸造，重达千斤，力大者可用。"
+msgstr "精鐵鑄造，重達千斤，力大者可用。"
 
 #. weapon.csv: 桃花扇
 msgid "WEAPON_1025_NAME"
 msgstr "桃花扇"
 
-#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+#. weapon.csv: 桃花影落飛神劍，扇面繪有桃花，暗藏殺機。...
 msgid "WEAPON_1025_DESC"
-msgstr "桃花影落飞神剑，扇面绘有桃花，暗藏杀机。"
+msgstr "桃花影落飛神劍，扇面繪有桃花，暗藏殺機。"
 
 #. weapon.csv: 打神鞭
 msgid "WEAPON_1026_NAME"
 msgstr "打神鞭"
 
-#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+#. weapon.csv: 仿品，雖無打神之能，卻可傷人神魂。...
 msgid "WEAPON_1026_DESC"
-msgstr "仿品，虽无打神之能，却可伤人神魂。"
+msgstr "仿品，雖無打神之能，卻可傷人神魂。"
 
 #. weapon.csv: 天魔琴
 msgid "WEAPON_1027_NAME"
 msgstr "天魔琴"
 
-#. weapon.csv: 琴音魔性，扰乱心智。...
+#. weapon.csv: 琴音魔性，擾亂心智。...
 msgid "WEAPON_1027_DESC"
-msgstr "琴音魔性，扰乱心智。"
+msgstr "琴音魔性，擾亂心智。"
 
-#. weapon.csv: 鬼笛陈情
+#. weapon.csv: 鬼笛陳情
 msgid "WEAPON_1028_NAME"
-msgstr "鬼笛陈情"
+msgstr "鬼笛陳情"
 
-#. weapon.csv: 据说能以此笛操控尸傀。...
+#. weapon.csv: 據說能以此笛操控屍傀。...
 msgid "WEAPON_1028_DESC"
-msgstr "据说能以此笛操控尸傀。"
+msgstr "據說能以此笛操控屍傀。"
 
-#. weapon.csv: 无影针
+#. weapon.csv: 無影針
 msgid "WEAPON_1029_NAME"
-msgstr "无影针"
+msgstr "無影針"
 
-#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+#. weapon.csv: 細若牛毛，來去無影，防不勝防。...
 msgid "WEAPON_1029_DESC"
-msgstr "细若牛毛，来去无影，防不胜防。"
+msgstr "細若牛毛，來去無影，防不勝防。"
 
-#. weapon.csv: 万兽笛
+#. weapon.csv: 萬獸笛
 msgid "WEAPON_1030_NAME"
-msgstr "万兽笛"
+msgstr "萬獸笛"
 
-#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+#. weapon.csv: 百獸宗祕製，笛聲可安撫或激怒野獸。...
 msgid "WEAPON_1030_DESC"
-msgstr "百兽宗秘制，笛声可安抚或激怒野兽。"
+msgstr "百獸宗祕製，笛聲可安撫或激怒野獸。"
 
-#. weapon.csv: 血饮狂刀
+#. weapon.csv: 血飲狂刀
 msgid "WEAPON_1031_NAME"
-msgstr "血饮狂刀"
+msgstr "血飲狂刀"
 
-#. weapon.csv: 刀身赤红，似渴望饮血。...
+#. weapon.csv: 刀身赤紅，似渴望飲血。...
 msgid "WEAPON_1031_DESC"
-msgstr "刀身赤红，似渴望饮血。"
+msgstr "刀身赤紅，似渴望飲血。"
 
-#. weapon.csv: 玄铁重剑
+#. weapon.csv: 玄鐵重劍
 msgid "WEAPON_1032_NAME"
-msgstr "玄铁重剑"
+msgstr "玄鐵重劍"
 
-#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+#. weapon.csv: 重劍無鋒，大巧不工，獨孤求敗。...
 msgid "WEAPON_1032_DESC"
-msgstr "重剑无锋，大巧不工，独孤求败。"
+msgstr "重劍無鋒，大巧不工，獨孤求敗。"
 
-#. weapon.csv: 紫薇软剑
+#. weapon.csv: 紫薇軟劍
 msgid "WEAPON_1033_NAME"
-msgstr "紫薇软剑"
+msgstr "紫薇軟劍"
 
-#. weapon.csv: 软若束带，动若灵蛇。...
+#. weapon.csv: 軟若束帶，動若靈蛇。...
 msgid "WEAPON_1033_DESC"
-msgstr "软若束带，动若灵蛇。"
+msgstr "軟若束帶，動若靈蛇。"
 
-#. weapon.csv: 水火囚龙棍
+#. weapon.csv: 水火囚龍棍
 msgid "WEAPON_1034_NAME"
-msgstr "水火囚龙棍"
+msgstr "水火囚龍棍"
 
-#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+#. weapon.csv: 鎮魂宗制式兵器，水火相濟，困敵鎖魂。...
 msgid "WEAPON_1034_DESC"
-msgstr "镇魂宗制式兵器，水火相济，困敌锁魂。"
+msgstr "鎮魂宗制式兵器，水火相濟，困敵鎖魂。"
 
-#. weapon.csv: 青竹蜂云剑
+#. weapon.csv: 青竹蜂雲劍
 msgid "WEAPON_1051_NAME"
-msgstr "青竹蜂云剑"
+msgstr "青竹蜂雲劍"
 
-#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+#. weapon.csv: 成套飛劍，內蘊辟邪神雷，剋制天下邪祟。...
 msgid "WEAPON_1051_DESC"
-msgstr "成套飞剑，内蕴辟邪神雷，克制天下邪祟。"
+msgstr "成套飛劍，內蘊辟邪神雷，剋制天下邪祟。"
 
-#. weapon.csv: 随心铁杆兵
+#. weapon.csv: 隨心鐵桿兵
 msgid "WEAPON_1052_NAME"
-msgstr "随心铁杆兵"
+msgstr "隨心鐵桿兵"
 
-#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+#. weapon.csv: 六耳獼猴的兵器，隨心變化，大小如意。...
 msgid "WEAPON_1052_DESC"
-msgstr "六耳猕猴的兵器，随心变化，大小如意。"
+msgstr "六耳獼猴的兵器，隨心變化，大小如意。"
 
 #. weapon.csv: 五火七禽扇
 msgid "WEAPON_1053_NAME"
@@ -2689,284 +2689,284 @@ msgstr "五火七禽扇"
 
 #. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
 msgid "WEAPON_1053_DESC"
-msgstr "扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。"
+msgstr "扇面有空中火、石中火、木中火等五火，一扇灰飛煙滅。"
 
-#. weapon.csv: 弑神枪
+#. weapon.csv: 弒神槍
 msgid "WEAPON_1054_NAME"
-msgstr "弑神枪"
+msgstr "弒神槍"
 
-#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+#. weapon.csv: 殺氣滔天，曾染魔神之血，槍出無回。...
 msgid "WEAPON_1054_DESC"
-msgstr "杀气滔天，曾染魔神之血，枪出无回。"
+msgstr "殺氣滔天，曾染魔神之血，槍出無回。"
 
-#. weapon.csv: 赤锋矛
+#. weapon.csv: 赤鋒矛
 msgid "WEAPON_1055_NAME"
-msgstr "赤锋矛"
+msgstr "赤鋒矛"
 
-#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+#. weapon.csv: 赤鋒矛，不朽盾，斬盡仙王滅九天。...
 msgid "WEAPON_1055_DESC"
-msgstr "赤锋矛，不朽盾，斩尽仙王灭九天。"
+msgstr "赤鋒矛，不朽盾，斬盡仙王滅九天。"
 
-#. weapon.csv: 斩仙飞刀
+#. weapon.csv: 斬仙飛刀
 msgid "WEAPON_1056_NAME"
-msgstr "斩仙飞刀"
+msgstr "斬仙飛刀"
 
-#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+#. weapon.csv: 紅葫蘆內藏一線毫光，有眉有目。請寶貝轉身...
 msgid "WEAPON_1056_DESC"
-msgstr "红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。"
+msgstr "紅葫蘆內藏一線毫光，有眉有目。請寶貝轉身，神鬼難逃。"
 
-#. weapon.csv: 诛仙剑
+#. weapon.csv: 誅仙劍
 msgid "WEAPON_1057_NAME"
-msgstr "诛仙剑"
+msgstr "誅仙劍"
 
-#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+#. weapon.csv: 非銅非鐵亦非鋼，曾在須彌山下藏。利氣直透...
 msgid "WEAPON_1057_DESC"
-msgstr "非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。"
+msgstr "非銅非鐵亦非鋼，曾在須彌山下藏。利氣直透九重天。"
 
-#. weapon.csv: 干将莫邪
+#. weapon.csv: 干將莫邪
 msgid "WEAPON_1058_NAME"
-msgstr "干将莫邪"
+msgstr "干將莫邪"
 
-#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+#. weapon.csv: 摯情之劍，一雌一雄，分則爲殺，合則爲情。...
 msgid "WEAPON_1058_DESC"
-msgstr "挚情之剑，一雌一雄，分则为杀，合则为情。"
+msgstr "摯情之劍，一雌一雄，分則爲殺，合則爲情。"
 
 #. weapon.csv: 芭蕉扇
 msgid "WEAPON_1059_NAME"
 msgstr "芭蕉扇"
 
-#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+#. weapon.csv: 太陰之精葉，一扇息火，二扇生風，三扇下雨...
 msgid "WEAPON_1059_DESC"
-msgstr "太阴之精叶，一扇息火，二扇生风，三扇下雨。"
+msgstr "太陰之精葉，一扇息火，二扇生風，三扇下雨。"
 
 #. weapon.csv: 紫金降魔杵
 msgid "WEAPON_1060_NAME"
 msgstr "紫金降魔杵"
 
-#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+#. weapon.csv: 韋護的兵器，雖然輕靈，打在人身卻重如泰山...
 msgid "WEAPON_1060_DESC"
-msgstr "韦护的兵器，虽然轻灵，打在人身却重如泰山。"
+msgstr "韋護的兵器，雖然輕靈，打在人身卻重如泰山。"
 
-#. weapon.csv: 九环金背刀
+#. weapon.csv: 九環金背刀
 msgid "WEAPON_1061_NAME"
-msgstr "九环金背刀"
+msgstr "九環金背刀"
 
-#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+#. weapon.csv: 刀背嵌入九個金環，揮舞時金環碰撞，聲若雷...
 msgid "WEAPON_1061_DESC"
-msgstr "刀背嵌入九个金环，挥舞时金环碰撞，声若雷鸣，摄人心魄。"
+msgstr "刀背嵌入九個金環，揮舞時金環碰撞，聲若雷鳴，攝人心魄。"
 
-#. weapon.csv: 寒铁银枪
+#. weapon.csv: 寒鐵銀槍
 msgid "WEAPON_1062_NAME"
-msgstr "寒铁银枪"
+msgstr "寒鐵銀槍"
 
-#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+#. weapon.csv: 通體由萬年寒鐵打造，槍身銀白，觸之冰冷刺...
 msgid "WEAPON_1062_DESC"
-msgstr "通体由万年寒铁打造，枪身银白，触之冰冷刺骨。"
+msgstr "通體由萬年寒鐵打造，槍身銀白，觸之冰冷刺骨。"
 
-#. weapon.csv: 七节紫竹鞭
+#. weapon.csv: 七節紫竹鞭
 msgid "WEAPON_1063_NAME"
-msgstr "七节紫竹鞭"
+msgstr "七節紫竹鞭"
 
-#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+#. weapon.csv: 採自南海紫竹林，共七節，堅韌異常，不僅能...
 msgid "WEAPON_1063_DESC"
-msgstr "采自南海紫竹林，共七节，坚韧异常，不仅能伤敌，亦可缚妖。"
+msgstr "採自南海紫竹林，共七節，堅韌異常，不僅能傷敵，亦可縛妖。"
 
 #. weapon.csv: 玉琵琶
 msgid "WEAPON_1064_NAME"
 msgstr "玉琵琶"
 
-#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+#. weapon.csv: 白玉雕琢而成，彈奏時有金石之聲，能洗滌心...
 msgid "WEAPON_1064_DESC"
-msgstr "白玉雕琢而成，弹奏时有金石之声，能洗涤心魔。"
+msgstr "白玉雕琢而成，彈奏時有金石之聲，能洗滌心魔。"
 
 #. weapon.csv: 碧海潮生笛
 msgid "WEAPON_1065_NAME"
 msgstr "碧海潮生笛"
 
-#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+#. weapon.csv: 東海龍宮流出的寶物，吹奏時如聞海潮之聲，...
 msgid "WEAPON_1065_DESC"
-msgstr "东海龙宫流出的宝物，吹奏时如闻海潮之声，往往能引来奇遇。"
+msgstr "東海龍宮流出的寶物，吹奏時如聞海潮之聲，往往能引來奇遇。"
 
 #. weapon.csv: 虎魄
 msgid "WEAPON_1071_NAME"
 msgstr "虎魄"
 
-#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+#. weapon.csv: 上古兇兵，內封白虎戰魂，出鞘必飲血，不僅...
 msgid "WEAPON_1071_DESC"
-msgstr "上古凶兵，内封白虎战魂，出鞘必饮血，不仅伤敌肉身，更吞噬气运。"
+msgstr "上古兇兵，內封白虎戰魂，出鞘必飲血，不僅傷敵肉身，更吞噬氣運。"
 
 #. weapon.csv: 擎天白玉柱
 msgid "WEAPON_1072_NAME"
 msgstr "擎天白玉柱"
 
-#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+#. weapon.csv: 疑似上古天庭的柱石殘片煉製，重如山嶽，非...
 msgid "WEAPON_1072_DESC"
-msgstr "疑似上古天庭的柱石残片炼制，重如山岳，非大能者不能舞动。"
+msgstr "疑似上古天庭的柱石殘片煉製，重如山嶽，非大能者不能舞動。"
 
-#. weapon.csv: 阴阳扇
+#. weapon.csv: 陰陽扇
 msgid "WEAPON_1073_NAME"
-msgstr "阴阳扇"
+msgstr "陰陽扇"
 
-#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+#. weapon.csv: 一面純白主生，一面漆黑主死。扇動間陰陽逆...
 msgid "WEAPON_1073_DESC"
-msgstr "一面纯白主生，一面漆黑主死。扇动间阴阳逆转，缩地成寸。"
+msgstr "一面純白主生，一面漆黑主死。扇動間陰陽逆轉，縮地成寸。"
 
-#. weapon.csv: 龙骨鞭
+#. weapon.csv: 龍骨鞭
 msgid "WEAPON_1074_NAME"
-msgstr "龙骨鞭"
+msgstr "龍骨鞭"
 
-#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+#. weapon.csv: 以上古真龍之脊骨煉製，揮動時隱有龍吟，對...
 msgid "WEAPON_1074_DESC"
-msgstr "以上古真龙之脊骨炼制，挥动时隐有龙吟，对低阶生灵有天然压制。"
+msgstr "以上古真龍之脊骨煉製，揮動時隱有龍吟，對低階生靈有天然壓制。"
 
 #. weapon.csv: 伏羲琴
 msgid "WEAPON_1075_NAME"
 msgstr "伏羲琴"
 
-#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+#. weapon.csv: 上古十大神器之一的仿品，擁有支配萬物心靈...
 msgid "WEAPON_1075_DESC"
-msgstr "上古十大神器之一的仿品，拥有支配万物心灵之神秘力量。"
+msgstr "上古十大神器之一的仿品，擁有支配萬物心靈之神祕力量。"
 
-#. weapon.csv: 唤魔笛
+#. weapon.csv: 喚魔笛
 msgid "WEAPON_1076_NAME"
-msgstr "唤魔笛"
+msgstr "喚魔笛"
 
-#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+#. weapon.csv: 魔界至寶，笛聲詭譎，能驅使魔物與兇獸爲己...
 msgid "WEAPON_1076_DESC"
-msgstr "魔界至宝，笛声诡谲，能驱使魔物与凶兽为己所用。"
+msgstr "魔界至寶，笛聲詭譎，能驅使魔物與兇獸爲己所用。"
 
 #. weapon.csv: 孔雀翎
 msgid "WEAPON_1077_NAME"
 msgstr "孔雀翎"
 
-#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+#. weapon.csv: 雖然只是暗器，但其美豔不可方物。當它綻放...
 msgid "WEAPON_1077_DESC"
-msgstr "虽然只是暗器，但其美艳不可方物。当它绽放时，便是敌人的死期。"
+msgstr "雖然只是暗器，但其美豔不可方物。當它綻放時，便是敵人的死期。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_INTRO_NAME"
-msgstr "简介"
+msgstr "簡介"
 
-#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+#. world_info.csv: 這是一個諸多修士競相修行的修仙世界。
 msgid "WORLD_INFO_INTRO_DESC"
-msgstr "这是一个诸多修士竞相修行的修仙世界。"
+msgstr "這是一個諸多修士競相修行的修仙世界。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_REALM_NAME"
 msgstr "境界"
 
-#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+#. world_info.csv: 修仙的境界從弱到強：練氣、築基、金丹、元嬰。每個境界分前期、中期、後期。境界間差距很大。
 msgid "WORLD_INFO_REALM_DESC"
-msgstr "修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。"
+msgstr "修仙的境界從弱到強：練氣、築基、金丹、元嬰。每個境界分前期、中期、後期。境界間差距很大。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_LIFESPAN_NAME"
-msgstr "寿元"
+msgstr "壽元"
 
-#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+#. world_info.csv: 每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，...
 msgid "WORLD_INFO_LIFESPAN_DESC"
-msgstr "每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，则必死无疑。提升境界和某些宝物、丹药能提高寿元上限。"
+msgstr "每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，則必死無疑。提升境界和某些寶物、丹藥能提高壽元上限。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_DEATH_NAME"
 msgstr "死亡"
 
-#. world_info.csv: HP降至0以下也会死亡。
+#. world_info.csv: HP降至0以下也會死亡。
 msgid "WORLD_INFO_DEATH_DESC"
-msgstr "HP降至0以下也会死亡。"
+msgstr "HP降至0以下也會死亡。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_REGION_NAME"
-msgstr "区域"
+msgstr "區域"
 
-#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+#. world_info.csv: 不同區域有不同效果，在適當的區域做適當的事情事半功倍。
 msgid "WORLD_INFO_REGION_DESC"
-msgstr "不同区域有不同效果，在适当的区域做适当的事情事半功倍。"
+msgstr "不同區域有不同效果，在適當的區域做適當的事情事半功倍。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_CULTIVATION_NAME"
-msgstr "修炼"
+msgstr "修煉"
 
-#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+#. world_info.csv: 修煉可以增加經驗，直到到達突破前的瓶頸。突破是概率事件，突破後會進入下一個境界。
 msgid "WORLD_INFO_CULTIVATION_DESC"
-msgstr "修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。"
+msgstr "修煉可以增加經驗，直到到達突破前的瓶頸。突破是概率事件，突破後會進入下一個境界。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_ROOT_NAME"
-msgstr "灵根"
+msgstr "靈根"
 
-#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+#. world_info.csv: 靈根由五行元素（金、木、水、火、土）組成，分爲單靈根、雙靈根和天靈根。五行相剋：金克木，木克土...
 msgid "WORLD_INFO_ROOT_DESC"
-msgstr "灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土，土克水，水克火，火克金。天灵根包含全部五行元素且突破时有额外加成。在与自身灵根属性匹配的区域修炼效率最高。"
+msgstr "靈根由五行元素（金、木、水、火、土）組成，分爲單靈根、雙靈根和天靈根。五行相剋：金克木，木克土，土克水，水克火，火克金。天靈根包含全部五行元素且突破時有額外加成。在與自身靈根屬性匹配的區域修煉效率最高。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_WORLD_QI_NAME"
-msgstr "天地灵机"
+msgstr "天地靈機"
 
-#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+#. world_info.csv: 世界每隔數年會有一次天象變動（如靈氣潮汐），影響角色能力。
 msgid "WORLD_INFO_WORLD_QI_DESC"
-msgstr "世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。"
+msgstr "世界每隔數年會有一次天象變動（如靈氣潮汐），影響角色能力。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_SPIRIT_STONE_NAME"
-msgstr "灵石"
+msgstr "靈石"
 
-#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+#. world_info.csv: 修仙界的通用貨幣。可用於購買法寶丹藥，通過採集、交易或掠奪獲取。
 msgid "WORLD_INFO_SPIRIT_STONE_DESC"
-msgstr "修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。"
+msgstr "修仙界的通用貨幣。可用於購買法寶丹藥，通過採集、交易或掠奪獲取。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_SECT_NAME"
-msgstr "宗门"
+msgstr "宗門"
 
-#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+#. world_info.csv: 修士的庇護所。加入宗門可習得獨門功法、獲同門庇護；散修自由但資源匱乏。
 msgid "WORLD_INFO_SECT_DESC"
-msgstr "修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。"
+msgstr "修士的庇護所。加入宗門可習得獨門功法、獲同門庇護；散修自由但資源匱乏。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_BATTLE_NAME"
-msgstr "战斗"
+msgstr "戰鬥"
 
-#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+#. world_info.csv: 弱肉強食，境界壓制極大，高境界者對低境界者有絕對優勢。若對方死亡，勝者可掠奪敗者財物。
 msgid "WORLD_INFO_BATTLE_DESC"
-msgstr "弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。"
+msgstr "弱肉強食，境界壓制極大，高境界者對低境界者有絕對優勢。若對方死亡，勝者可掠奪敗者財物。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_ACTION_NAME"
-msgstr "动作"
+msgstr "動作"
 
-#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+#. world_info.csv: 你有一系列可以執行的動作。要注意動作的效果、限制條件、區域和時間。
 msgid "WORLD_INFO_ACTION_DESC"
-msgstr "你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。"
+msgstr "你有一系列可以執行的動作。要注意動作的效果、限制條件、區域和時間。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
-msgstr "装备与丹药"
+msgstr "裝備與丹藥"
 
-#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+#. world_info.csv: 通過兵器、輔助裝備、丹藥等裝備，可以獲得額外的屬性加成，獲得或小或大的增益。擁有好的裝備或者服...
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
-msgstr "通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服用好的丹药，能获得很大好处。"
+msgstr "通過兵器、輔助裝備、丹藥等裝備，可以獲得額外的屬性加成，獲得或小或大的增益。擁有好的裝備或者服用好的丹藥，能獲得很大好處。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_SHOPPING_NAME"
-msgstr "购物"
+msgstr "購物"
 
-#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+#. world_info.csv: 在城市區域可以購買練氣級別丹藥、兵器。購買丹藥後會立刻服用強化自身。購買兵器可以幫自己切換兵器...
 msgid "WORLD_INFO_SHOPPING_DESC"
-msgstr "在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器类型为顺手的类型。"
+msgstr "在城市區域可以購買練氣級別丹藥、兵器。購買丹藥後會立刻服用強化自身。購買兵器可以幫自己切換兵器類型爲順手的類型。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_AUCTION_NAME"
-msgstr "拍卖会"
+msgstr "拍賣會"
 
-#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+#. world_info.csv: 每隔一段不確定的時間會有神祕人組織的拍賣會，或許有好貨出售。
 msgid "WORLD_INFO_AUCTION_DESC"
-msgstr "每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。"
+msgstr "每隔一段不確定的時間會有神祕人組織的拍賣會，或許有好貨出售。"
 
 #. world_info.csv:
 msgid "WORLD_INFO_SECRET_REALM_NAME"
-msgstr "秘境"
+msgstr "祕境"
 
-#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+#. world_info.csv: 每隔數年會有祕境開啓。進入祕境可能遭遇兇險，也可能獲得高階法寶和功法。
 msgid "WORLD_INFO_SECRET_REALM_DESC"
-msgstr "每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。"
+msgstr "每隔數年會有祕境開啓。進入祕境可能遭遇兇險，也可能獲得高階法寶和功法。"

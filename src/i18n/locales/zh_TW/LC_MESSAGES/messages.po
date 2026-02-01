@@ -1,4 +1,4 @@
-# Chinese (Simplified) translations for cultivation-world-simulator.
+# Chinese (Traditional) translations for cultivation-world-simulator.
 # Copyright (C) 2024
 # This file is distributed under the same license as the project.
 #
@@ -10,139 +10,139 @@ msgstr ""
 "PO-Revision-Date: 2024-01-20 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
-"Language: zh_CN\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 # Battle messages
 msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
-msgstr "{winner} 战胜了 {loser}，造成 {damage} 点伤害。{loser} 遭受重创，当场陨落。"
+msgstr "{winner} 戰勝了 {loser}，造成 {damage} 點傷害。{loser} 遭受重創，當場隕落。"
 
 msgid "{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also took {winner_dmg} damage."
-msgstr "{winner} 战胜了 {loser}，{loser} 受伤 {loser_dmg} 点，{winner} 也受伤 {winner_dmg} 点。"
+msgstr "{winner} 戰勝了 {loser}，{loser} 受傷 {loser_dmg} 點，{winner} 也受傷 {winner_dmg} 點。"
 
 # Fortune messages
 msgid "Encountered fortune ({theme}), {result}"
 msgstr "遭遇奇遇（{theme}），{result}"
 
 msgid "Found weapon '{weapon}', {exchange_result}"
-msgstr "发现了兵器『{weapon}』，{exchange_result}"
+msgstr "發現了兵器『{weapon}』，{exchange_result}"
 
 msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
-msgstr "发现了辅助装备『{auxiliary}』，{exchange_result}"
+msgstr "發現了輔助裝備『{auxiliary}』，{exchange_result}"
 
 msgid "Comprehended technique '{technique}', {exchange_result}"
-msgstr "领悟了功法『{technique}』，{exchange_result}"
+msgstr "領悟了功法『{technique}』，{exchange_result}"
 
 msgid "{name} obtained {amount} spirit stones"
-msgstr "{name} 获得灵石 {amount} 枚"
+msgstr "{name} 獲得靈石 {amount} 枚"
 
 msgid "{name} cultivation increased by {exp} points"
-msgstr "{name} 修为增长 {exp} 点"
+msgstr "{name} 修爲增長 {exp} 點"
 
 msgid "{apprentice} became disciple of {master}"
-msgstr "{apprentice} 拜 {master} 为师"
+msgstr "{apprentice} 拜 {master} 爲師"
 
 # Misfortune messages
 msgid "Encountered misfortune ({theme}), {result}"
-msgstr "遭遇霉运（{theme}），{result}"
+msgstr "遭遇黴運（{theme}），{result}"
 
 msgid "{name} lost {amount} spirit stones"
-msgstr "{name} 损失灵石 {amount} 枚"
+msgstr "{name} 損失靈石 {amount} 枚"
 
 msgid "{name} took {damage} damage, HP remaining {current}/{max}"
-msgstr "{name} 受到伤害 {damage} 点，剩余HP {current}/{max}"
+msgstr "{name} 受到傷害 {damage} 點，剩餘HP {current}/{max}"
 
 msgid "{name} cultivation regressed by {amount} points"
-msgstr "{name} 修为倒退 {amount} 点"
+msgstr "{name} 修爲倒退 {amount} 點"
 
 # Death reasons
 msgid "Killed by {killer}"
-msgstr "被{killer}杀害"
+msgstr "被{killer}殺害"
 
 msgid "Died from severe injuries"
-msgstr "重伤不治身亡"
+msgstr "重傷不治身亡"
 
 msgid "Died of old age"
-msgstr "寿元耗尽而亡"
+msgstr "壽元耗盡而亡"
 
 # Item exchange - general
 msgid "decided to equip it"
-msgstr "决定更换装备"
+msgstr "決定更換裝備"
 
 msgid "decided to keep current equipment"
-msgstr "决定保留原装备"
+msgstr "決定保留原裝備"
 
 msgid "decided to learn it"
-msgstr "决定修炼"
+msgstr "決定修煉"
 
 msgid "decided to keep current technique"
-msgstr "决定保留原功法"
+msgstr "決定保留原功法"
 
 # Item exchange - detailed messages
 msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
-msgstr "{name} 获得了{grade}{label}『{item_name}』并装备。"
+msgstr "{name} 獲得了{grade}{label}『{item_name}』並裝備。"
 
 msgid "{name} equipped {grade}{label} '{item_name}'."
-msgstr "{name} 装备了{grade}{label}『{item_name}』。"
+msgstr "{name} 裝備了{grade}{label}『{item_name}』。"
 
 msgid "{name} sold the newly obtained {item_name}, earning {price} spirit stones."
-msgstr "{name} 卖掉了新获得的{item_name}，获利 {price} 灵石。"
+msgstr "{name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
 
 msgid "{name} discarded {item_name}."
-msgstr "{name} 放弃了{item_name}。"
+msgstr "{name} 放棄了{item_name}。"
 
 # Fortune - discovery intro messages
 msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
-msgstr "你在奇遇中发现了{realm}兵器『{weapon}』。"
+msgstr "你在奇遇中發現了{realm}兵器『{weapon}』。"
 
 msgid " But you already have '{current_weapon}'."
 msgstr " 但你手中已有『{current_weapon}』。"
 
 msgid "You discovered a {realm} auxiliary equipment '{auxiliary}' during the fortune."
-msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary}』。"
+msgstr "你在奇遇中發現了{realm}輔助裝備『{auxiliary}』。"
 
 msgid " But you already have '{current_auxiliary}'."
 msgstr " 但你手中已有『{current_auxiliary}』。"
 
 msgid "You comprehended superior technique '{technique}' during the fortune."
-msgstr "你在奇遇中领悟了上品功法『{technique}』。"
+msgstr "你在奇遇中領悟了上品功法『{technique}』。"
 
 msgid " This conflicts with your current technique '{current_technique}'."
-msgstr " 这与你当前主修的『{current_technique}』冲突。"
+msgstr " 這與你當前主修的『{current_technique}』衝突。"
 
 # Battle - action descriptions
 msgid "defeated"
-msgstr "战胜了"
+msgstr "戰勝了"
 
 # Single choice - context and options
 msgid "Current situation: {context}\n\n{choices}"
-msgstr "【当前情境】：{context}\n\n{choices}"
+msgstr "【當前情境】：{context}\n\n{choices}"
 
 msgid "New {label}: {info}"
 msgstr "新{label}：{info}"
 
 msgid "Current {label}: {info}"
-msgstr "现有{label}：{info}"
+msgstr "現有{label}：{info}"
 
 msgid "(Choosing to replace will sell the old {label})"
-msgstr "（选择替换将卖出旧{label}）"
+msgstr "（選擇替換將賣出舊{label}）"
 
 msgid "Equip new {label} '{new_name}'"
-msgstr "装备新{label}『{new_name}』"
+msgstr "裝備新{label}『{new_name}』"
 
 msgid ", sell old {label} '{old_name}'"
-msgstr "，卖掉旧{label}『{old_name}』"
+msgstr "，賣掉舊{label}『{old_name}』"
 
 msgid ", replace old {label} '{old_name}'"
-msgstr "，替换旧{label}『{old_name}』"
+msgstr "，替換舊{label}『{old_name}』"
 
 msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
-msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 
 msgid "Discard '{new_name}'"
-msgstr "放弃『{new_name}』"
+msgstr "放棄『{new_name}』"
 
 msgid ", keep current '{old_name}'"
 msgstr "，保留身上的『{old_name}』"
@@ -152,13 +152,13 @@ msgid "weapon"
 msgstr "兵器"
 
 msgid "auxiliary"
-msgstr "辅助装备"
+msgstr "輔助裝備"
 
 msgid "technique"
 msgstr "功法"
 
 msgid "elixir"
-msgstr "丹药"
+msgstr "丹藥"
 
 # Alignment
 msgid "righteous"
@@ -171,13 +171,13 @@ msgid "evil"
 msgstr "邪"
 
 msgid "Righteous alignment follows the principles of helping the weak, maintaining order, and vanquishing evil."
-msgstr "正义阵营的理念是：扶助弱小，维护秩序，除魔卫道。"
+msgstr "正義陣營的理念是：扶助弱小，維護秩序，除魔衛道。"
 
 msgid "Neutral alignment follows the principles of going with the flow, seeking benefit and avoiding harm, valuing self-cultivation and balance, and not easily taking sides."
-msgstr "中立阵营的理念是：顺势而为，趋利避害，重视自度与平衡，不轻易站队。"
+msgstr "中立陣營的理念是：順勢而爲，趨利避害，重視自度與平衡，不輕易站隊。"
 
 msgid "Evil alignment follows the principles of survival of the fittest, prioritizing self-interest above all, disdaining rules, and venerating power and fear. Acts ruthlessly, often resorting to murder and plunder."
-msgstr "邪恶阵营的理念是：弱肉强食，以自身利益为先，蔑视规则，推崇权力与恐惧。行事狠辣，常有杀人夺宝之举。"
+msgstr "邪惡陣營的理念是：弱肉強食，以自身利益爲先，蔑視規則，推崇權力與恐懼。行事狠辣，常有殺人奪寶之舉。"
 
 # Gender
 msgid "male"
@@ -204,16 +204,16 @@ msgstr "土"
 
 # Realm
 msgid "qi_refinement"
-msgstr "练气"
+msgstr "練氣"
 
 msgid "foundation_establishment"
-msgstr "筑基"
+msgstr "築基"
 
 msgid "core_formation"
 msgstr "金丹"
 
 msgid "nascent_soul"
-msgstr "元婴"
+msgstr "元嬰"
 
 # Stage
 msgid "early_stage"
@@ -223,17 +223,17 @@ msgid "middle_stage"
 msgstr "中期"
 
 msgid "late_stage"
-msgstr "后期"
+msgstr "後期"
 
 # Weapon Type
 msgid "sword"
-msgstr "剑"
+msgstr "劍"
 
 msgid "saber"
 msgstr "刀"
 
 msgid "spear"
-msgstr "枪"
+msgstr "槍"
 
 msgid "staff"
 msgstr "棍"
@@ -273,7 +273,7 @@ msgid "ice_attribute"
 msgstr "冰"
 
 msgid "wind_attribute"
-msgstr "风"
+msgstr "風"
 
 msgid "dark_attribute"
 msgstr "暗"
@@ -296,16 +296,16 @@ msgstr "上品"
 
 # Sect Rank
 msgid "patriarch"
-msgstr "掌门"
+msgstr "掌門"
 
 msgid "elder"
-msgstr "长老"
+msgstr "長老"
 
 msgid "inner_disciple"
-msgstr "内门弟子"
+msgstr "內門弟子"
 
 msgid "outer_disciple"
-msgstr "外门弟子"
+msgstr "外門弟子"
 
 # Relation
 msgid "parent"
@@ -318,16 +318,16 @@ msgid "sibling"
 msgstr "兄弟姐妹"
 
 msgid "kin"
-msgstr "亲属"
+msgstr "親屬"
 
 msgid "master"
-msgstr "师傅"
+msgstr "師傅"
 
 msgid "apprentice"
 msgstr "徒弟"
 
 msgid "lovers"
-msgstr "道侣"
+msgstr "道侶"
 
 msgid "friend"
 msgstr "朋友"
@@ -353,75 +353,75 @@ msgstr "土"
 
 # Action: Assassinate
 msgid "assassinate_action_name"
-msgstr "暗杀"
+msgstr "暗殺"
 
 msgid "assassinate_description"
-msgstr "暗杀目标，失败则变为战斗"
+msgstr "暗殺目標，失敗則變爲戰鬥"
 
 msgid "assassinate_requirements"
-msgstr "无限制；需要冷却"
+msgstr "無限制；需要冷卻"
 
 msgid "assassinate_story_prompt_success"
-msgstr "这是关于一次成功的暗杀。不需要描写战斗过程，重点描写刺客如何潜伏、接近，以及最后那一击的致命与悄无声息。目标甚至没有反应过来就已经陨落。"
+msgstr "這是關於一次成功的暗殺。不需要描寫戰鬥過程，重點描寫刺客如何潛伏、接近，以及最後那一擊的致命與悄無聲息。目標甚至沒有反應過來就已經隕落。"
 
 msgid "assassinate_story_prompt_fail"
-msgstr "这是关于一次失败的暗杀。刺客试图暗杀目标，但被目标敏锐地察觉了。双方随后爆发了激烈的正面冲突。不要出现具体血量数值。"
+msgstr "這是關於一次失敗的暗殺。刺客試圖暗殺目標，但被目標敏銳地察覺了。雙方隨後爆發了激烈的正面衝突。不要出現具體血量數值。"
 
 msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
-msgstr "{avatar} 潜伏在阴影中，试图暗杀 {target}..."
+msgstr "{avatar} 潛伏在陰影中，試圖暗殺 {target}..."
 
 msgid "{avatar} assassinated successfully! {target} fell without any defense."
-msgstr "{avatar} 暗杀成功！{target} 在毫无防备中陨落。"
+msgstr "{avatar} 暗殺成功！{target} 在毫無防備中隕落。"
 
 msgid "Assassination failed! Both sides engaged in fierce battle."
-msgstr "暗杀失败！双方爆发激战。"
+msgstr "暗殺失敗！雙方爆發激戰。"
 
 # Action: Attack
 msgid "attack_action_name"
-msgstr "发起战斗"
+msgstr "發起戰鬥"
 
 msgid "attack_description"
-msgstr "攻击目标，进行对战"
+msgstr "攻擊目標，進行對戰"
 
 msgid "attack_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "attack_story_prompt"
-msgstr "不要出现具体血量、伤害点数或任何数值表达。战斗要体现出双方的功法、境界、装备等。"
+msgstr "不要出現具體血量、傷害點數或任何數值表達。戰鬥要體現出雙方的功法、境界、裝備等。"
 
 msgid "Missing target parameter"
-msgstr "缺少目标参数"
+msgstr "缺少目標參數"
 
 msgid "Target does not exist"
-msgstr "目标不存在"
+msgstr "目標不存在"
 
 msgid "Target is already dead"
-msgstr "目标已死亡"
+msgstr "目標已死亡"
 
 msgid "{attacker} initiates battle against {target} (Power: {attacker} {att_power} vs {target} {def_power})"
-msgstr "{attacker} 对 {target} 发起战斗（战斗力：{attacker} {att_power} vs {target} {def_power}）"
+msgstr "{attacker} 對 {target} 發起戰鬥（戰鬥力：{attacker} {att_power} vs {target} {def_power}）"
 
 # Action: Breakthrough
 msgid "breakthrough_action_name"
 msgstr "突破"
 
 msgid "breakthrough_description"
-msgstr "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低）"
+msgstr "嘗試突破境界（成功增加壽元上限，失敗折損壽元上限；境界越高，成功率越低）"
 
 msgid "breakthrough_requirements"
-msgstr "角色处于瓶颈时；不能连续执行"
+msgstr "角色處於瓶頸時；不能連續執行"
 
 msgid "Not at bottleneck, cannot breakthrough"
-msgstr "当前不处于瓶颈，无法突破"
+msgstr "當前不處於瓶頸，無法突破"
 
 msgid "{avatar} begins attempting breakthrough"
-msgstr "{avatar} 开始尝试突破境界"
+msgstr "{avatar} 開始嘗試突破境界"
 
 msgid "Breakthrough succeeded"
 msgstr "突破成功"
 
 msgid "Breakthrough failed"
-msgstr "突破失败"
+msgstr "突破失敗"
 
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} 突破{result}"
@@ -430,92 +430,92 @@ msgid "succeeded"
 msgstr "成功"
 
 msgid "failed"
-msgstr "失败"
+msgstr "失敗"
 
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
-msgstr "{avatar} 遭遇了{calamity}劫难，突破{result}"
+msgstr "{avatar} 遭遇了{calamity}劫難，突破{result}"
 
 # Action: Cultivate
 msgid "cultivate_action_name"
-msgstr "修炼"
+msgstr "修煉"
 
 msgid "cultivate_description"
-msgstr "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差"
+msgstr "修煉，增進修爲。在修煉區域（洞府）且靈氣匹配時效果最佳，否則效果很差"
 
 msgid "cultivate_requirements"
-msgstr "角色未到瓶颈；若在洞府区域，则该洞府需无主或归自己所有"
+msgstr "角色未到瓶頸；若在洞府區域，則該洞府需無主或歸自己所有"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
-msgstr "修为已达瓶颈，无法继续修炼"
+msgstr "修爲已達瓶頸，無法繼續修煉"
 
 msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
-msgstr "该洞府已被 {name} 占据，无法修炼"
+msgstr "該洞府已被 {name} 佔據，無法修煉"
 
 msgid "excellent progress"
-msgstr "进境颇佳"
+msgstr "進境頗佳"
 
 msgid "slow progress (essence mismatch)"
-msgstr "进境缓慢（灵气不匹配）"
+msgstr "進境緩慢（靈氣不匹配）"
 
 msgid "slow progress (sparse essence)"
-msgstr "进境缓慢（灵气稀薄）"
+msgstr "進境緩慢（靈氣稀薄）"
 
 msgid "{avatar} begins cultivating at {location}, {efficiency}"
-msgstr "{avatar} 在 {location} 开始修炼，{efficiency}"
+msgstr "{avatar} 在 {location} 開始修煉，{efficiency}"
 
 # Action: Escape
 msgid "escape_action_name"
-msgstr "逃离"
+msgstr "逃離"
 
 msgid "escape_description"
-msgstr "逃离对方（基于成功率判定）"
+msgstr "逃離對方（基於成功率判定）"
 
 msgid "escape_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "{avatar} attempted to escape from {target}: {result}"
-msgstr "{avatar} 试图从 {target} 逃离：{result}"
+msgstr "{avatar} 試圖從 {target} 逃離：{result}"
 
 msgid "{avatar} attempts to escape from {target}"
-msgstr "{avatar} 尝试从 {target} 逃离"
+msgstr "{avatar} 嘗試從 {target} 逃離"
 
 # Action: SelfHeal
 msgid "self_heal_action_name"
-msgstr "疗伤"
+msgstr "療傷"
 
 msgid "self_heal_description"
-msgstr "运功疗伤，宗门总部可完全恢复"
+msgstr "運功療傷，宗門總部可完全恢復"
 
 msgid "self_heal_requirements"
-msgstr "当前HP未满"
+msgstr "當前HP未滿"
 
 msgid "Missing HP information"
 msgstr "缺少HP信息"
 
 msgid "Current HP is full"
-msgstr "当前HP已满"
+msgstr "當前HP已滿"
 
 msgid "wilderness"
 msgstr "荒郊野外"
 
 msgid "{avatar} begins resting and healing at {location}"
-msgstr "{avatar} 在 {location} 开始静养疗伤"
+msgstr "{avatar} 在 {location} 開始靜養療傷"
 
 msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
-msgstr "{avatar} 疗伤完成（本次恢复{amount}点，当前HP {hp}）"
+msgstr "{avatar} 療傷完成（本次恢復{amount}點，當前HP {hp}）"
 
 # Action: Buy
 msgid "buy_action_name"
-msgstr "购买"
+msgstr "購買"
 
 msgid "buy_description"
-msgstr "在城镇购买物品/装备/丹药"
+msgstr "在城鎮購買物品/裝備/丹藥"
 
 msgid "buy_requirements"
-msgstr "在城镇且金钱足够"
+msgstr "在城鎮且金錢足夠"
 
 msgid "Can only execute in city areas"
-msgstr "仅能在城市区域执行"
+msgstr "僅能在城市區域執行"
 
 msgid "Unknown item: {name}"
 msgstr "未知物品：{name}"
@@ -524,259 +524,259 @@ msgid "{region} does not sell {item}"
 msgstr "{region} 不出售 {item}"
 
 msgid "This area has no shop"
-msgstr "该区域没有商店"
+msgstr "該區域沒有商店"
 
 msgid "bought"
-msgstr "购买了"
+msgstr "購買了"
 
 msgid "bought and consumed"
-msgstr "购买并服用了"
+msgstr "購買並服用了"
 
 msgid "bought and equipped"
-msgstr "购买并装备了"
+msgstr "購買並裝備了"
 
 msgid " (and sold old {item} at reduced price)"
-msgstr "（并将原有的{item}折价售出）"
+msgstr "（並將原有的{item}折價售出）"
 
 msgid "{avatar} spent {price} spirit stones in town, {action} {item}{suffix}"
-msgstr "{avatar} 在城镇花费 {price} 灵石{action} {item}{suffix}"
+msgstr "{avatar} 在城鎮花費 {price} 靈石{action} {item}{suffix}"
 
 # Action: Sell
 msgid "sell_action_name"
 msgstr "出售"
 
 msgid "sell_description"
-msgstr "在城镇出售持有的某类物品的全部，或当前装备"
+msgstr "在城鎮出售持有的某類物品的全部，或當前裝備"
 
 msgid "sell_requirements"
-msgstr "在城镇且持有可出售物品/装备"
+msgstr "在城鎮且持有可出售物品/裝備"
 
 msgid "Do not possess item/equipment: {name}"
-msgstr "未持有物品/装备：{name}"
+msgstr "未持有物品/裝備：{name}"
 
 msgid "Do not possess material: {name}"
 msgstr "未持有材料：{name}"
 
 msgid "Do not possess equipment: {name}"
-msgstr "未持有装备：{name}"
+msgstr "未持有裝備：{name}"
 
 msgid "Cannot sell this type: {name}"
-msgstr "无法出售此类型：{name}"
+msgstr "無法出售此類型：{name}"
 
 msgid "{avatar} sold {item} in town"
-msgstr "{avatar} 在城镇出售了 {item}"
+msgstr "{avatar} 在城鎮出售了 {item}"
 
 # Action: Harvest
 msgid "harvest_action_name"
-msgstr "采集"
+msgstr "採集"
 
 msgid "harvest_description"
-msgstr "在当前区域采集植物，获取植物材料"
+msgstr "在當前區域採集植物，獲取植物材料"
 
 msgid "harvest_requirements"
-msgstr "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
+msgstr "在有植物的普通區域，且avatar的境界必須大於等於植物的境界"
 
 msgid "{avatar} begins harvesting at {location}"
-msgstr "{avatar} 在 {location} 开始采集"
+msgstr "{avatar} 在 {location} 開始採集"
 
 msgid "{avatar} finished harvesting, obtained: {materials}"
-msgstr "{avatar} 结束了采集，获得了：{materials}"
+msgstr "{avatar} 結束了採集，獲得了：{materials}"
 
 # Action: Mine
 msgid "mine_action_name"
-msgstr "挖矿"
+msgstr "挖礦"
 
 msgid "mine_description"
-msgstr "在当前区域挖掘矿脉，获取矿石材料"
+msgstr "在當前區域挖掘礦脈，獲取礦石材料"
 
 msgid "mine_requirements"
-msgstr "在有矿脉的普通区域，且avatar的境界必须大于等于矿脉的境界"
+msgstr "在有礦脈的普通區域，且avatar的境界必須大於等於礦脈的境界"
 
 msgid "{avatar} begins mining at {location}"
-msgstr "{avatar} 在 {location} 开始挖矿"
+msgstr "{avatar} 在 {location} 開始挖礦"
 
 msgid "{avatar} finished mining, obtained: {materials}"
-msgstr "{avatar} 结束了挖矿，获得了：{materials}"
+msgstr "{avatar} 結束了挖礦，獲得了：{materials}"
 
 # Action: Hunt
 msgid "hunt_action_name"
-msgstr "狩猎"
+msgstr "狩獵"
 
 msgid "hunt_description"
-msgstr "在当前区域狩猎动物，获取动物材料"
+msgstr "在當前區域狩獵動物，獲取動物材料"
 
 msgid "hunt_requirements"
-msgstr "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
+msgstr "在有動物的普通區域，且avatar的境界必須大於等於動物的境界"
 
 msgid "{avatar} begins hunting at {location}"
-msgstr "{avatar} 在 {location} 开始狩猎"
+msgstr "{avatar} 在 {location} 開始狩獵"
 
 msgid "{avatar} finished hunting, obtained: {materials}"
-msgstr "{avatar} 结束了狩猎，获得了：{materials}"
+msgstr "{avatar} 結束了狩獵，獲得了：{materials}"
 
 # Action: Refine
 msgid "refine_action_name"
-msgstr "炼丹"
+msgstr "煉丹"
 
 msgid "refine_description"
-msgstr "消耗材料尝试炼制丹药"
+msgstr "消耗材料嘗試煉製丹藥"
 
 msgid "refine_requirements"
-msgstr "拥有3个同境界材料"
+msgstr "擁有3個同境界材料"
 
 msgid "Target realm not specified"
-msgstr "未指定目标境界"
+msgstr "未指定目標境界"
 
 msgid "Invalid realm: {realm}"
-msgstr "无效的境界：{realm}"
+msgstr "無效的境界：{realm}"
 
 msgid "Insufficient materials, need {cost} {realm}-tier materials, currently have {count}"
-msgstr "材料不足，需要 {cost} 个{realm}阶材料，当前拥有 {count} 个"
+msgstr "材料不足，需要 {cost} 個{realm}階材料，當前擁有 {count} 個"
 
 msgid "{avatar} begins attempting to refine {realm}-tier elixir"
-msgstr "{avatar} 开始尝试炼制{realm}阶丹药"
+msgstr "{avatar} 開始嘗試煉製{realm}階丹藥"
 
 msgid "{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
-msgstr "{avatar} 炼制{realm}阶丹药失败，所有材料化为灰烬"
+msgstr "{avatar} 煉製{realm}階丹藥失敗，所有材料化爲灰燼"
 
 msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
-msgstr "炼丹成功！获得了{realm}丹药『{item}』"
+msgstr "煉丹成功！獲得了{realm}丹藥『{item}』"
 
 msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
-msgstr "{avatar} 成功炼制{realm}阶丹药『{item}』"
+msgstr "{avatar} 成功煉製{realm}階丹藥『{item}』"
 
 # Action: Cast
 msgid "cast_action_name"
-msgstr "铸造"
+msgstr "鑄造"
 
 msgid "cast_description"
-msgstr "消耗材料尝试铸造法宝"
+msgstr "消耗材料嘗試鑄造法寶"
 
 msgid "cast_requirements"
-msgstr "拥有5个同境界材料"
+msgstr "擁有5個同境界材料"
 
 msgid "{avatar} begins attempting to cast {realm}-tier treasure"
-msgstr "{avatar} 开始尝试铸造{realm}阶法宝"
+msgstr "{avatar} 開始嘗試鑄造{realm}階法寶"
 
 msgid "{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
-msgstr "{avatar} 铸造{realm}阶法宝失败，所有材料化为灰烬"
+msgstr "{avatar} 鑄造{realm}階法寶失敗，所有材料化爲灰燼"
 
 msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
-msgstr "铸造成功！获得了{realm}{label}『{item}』"
+msgstr "鑄造成功！獲得了{realm}{label}『{item}』"
 
 msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
-msgstr "{avatar} 成功铸造{realm}阶{label}『{item}』"
+msgstr "{avatar} 成功鑄造{realm}階{label}『{item}』"
 
 # Action: HelpMortals
 msgid "help_mortals_action_name"
-msgstr "帮助凡人"
+msgstr "幫助凡人"
 
 msgid "help_mortals_description"
-msgstr "在城镇帮助凡人，消耗少量灵石"
+msgstr "在城鎮幫助凡人，消耗少量靈石"
 
 msgid "help_mortals_requirements"
-msgstr "仅限城市区域，且角色阵营为'正'，并且灵石足够"
+msgstr "僅限城市區域，且角色陣營爲'正'，並且靈石足夠"
 
 msgid "Only righteous alignment can execute"
-msgstr "仅正阵营可执行"
+msgstr "僅正陣營可執行"
 
 msgid "Insufficient spirit stones"
-msgstr "灵石不足"
+msgstr "靈石不足"
 
 msgid "{avatar} begins helping mortals in town"
-msgstr "{avatar} 在城镇开始帮助凡人"
+msgstr "{avatar} 在城鎮開始幫助凡人"
 
 # Action: PlunderMortals
 msgid "plunder_mortals_action_name"
 msgstr "搜刮凡人"
 
 msgid "plunder_mortals_description"
-msgstr "在城镇搜刮凡人，获取少量灵石"
+msgstr "在城鎮搜刮凡人，獲取少量靈石"
 
 msgid "plunder_mortals_requirements"
-msgstr "仅限城市区域，且角色阵营为'邪'"
+msgstr "僅限城市區域，且角色陣營爲'邪'"
 
 msgid "Only evil alignment can execute"
-msgstr "仅邪阵营可执行"
+msgstr "僅邪陣營可執行"
 
 msgid "{avatar} begins plundering mortals in town"
-msgstr "{avatar} 在城镇开始搜刮凡人"
+msgstr "{avatar} 在城鎮開始搜刮凡人"
 
 # Action: DevourMortals
 msgid "devour_mortals_action_name"
 msgstr "吞噬凡人"
 
 msgid "devour_mortals_description"
-msgstr "吞噬凡人，较多增加战力"
+msgstr "吞噬凡人，較多增加戰力"
 
 msgid "devour_mortals_requirements"
-msgstr "持有万魂幡"
+msgstr "持有萬魂幡"
 
 msgid "Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
-msgstr "未被允许的非法动作（缺少万魂幡或权限）"
+msgstr "未被允許的非法動作（缺少萬魂幡或權限）"
 
 msgid "{avatar} begins devouring mortals in town"
-msgstr "{avatar} 在城镇开始吞噬凡人"
+msgstr "{avatar} 在城鎮開始吞噬凡人"
 
 # Action: Play
 msgid "play_action_name"
 msgstr "消遣"
 
 msgid "play_description"
-msgstr "消遣，放松身心"
+msgstr "消遣，放鬆身心"
 
 msgid "play_requirements"
-msgstr "目标在交互范围内"
+msgstr "目標在交互範圍內"
 
 msgid "{avatar} begins leisure activities"
-msgstr "{avatar} 开始消遣"
+msgstr "{avatar} 開始消遣"
 
 # Action: NurtureWeapon
 msgid "nurture_weapon_action_name"
-msgstr "温养兵器"
+msgstr "溫養兵器"
 
 msgid "nurture_weapon_description"
-msgstr "温养兵器，增加兵器熟练度"
+msgstr "溫養兵器，增加兵器熟練度"
 
 msgid "nurture_weapon_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "{avatar} nurturing {old_weapon}, the weapon's spirituality greatly increased, evolved into {new_weapon}!"
-msgstr "{avatar} 温养{old_weapon}时，兵器灵性大增，升华为{new_weapon}！"
+msgstr "{avatar} 溫養{old_weapon}時，兵器靈性大增，昇華爲{new_weapon}！"
 
 msgid "{avatar} begins nurturing {weapon}"
-msgstr "{avatar} 开始温养{weapon}"
+msgstr "{avatar} 開始溫養{weapon}"
 
 msgid "{avatar} finished nurturing {weapon}, proficiency increased to {proficiency}%"
-msgstr "{avatar} 完成温养{weapon}，熟练度提升至{proficiency}%"
+msgstr "{avatar} 完成溫養{weapon}，熟練度提升至{proficiency}%"
 
 # Action: Catch
 msgid "catch_action_name"
-msgstr "御兽"
+msgstr "御獸"
 
 msgid "catch_description"
-msgstr "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级"
+msgstr "嘗試馴服一隻靈獸，成爲自身靈獸。只能有一隻靈獸，但是可以高級替換低級"
 
 msgid "catch_requirements"
-msgstr "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
+msgstr "僅百獸宗；在有動物的普通區域；目標動物境界不高於角色"
 
 msgid "Not currently in normal area"
-msgstr "当前不在普通区域"
+msgstr "當前不在普通區域"
 
 msgid "Current area {region} has no animals"
-msgstr "当前区域{region}没有动物"
+msgstr "當前區域{region}沒有動物"
 
 msgid "Animal realms in current area exceed character realm"
-msgstr "当前区域的动物境界高于角色境界"
+msgstr "當前區域的動物境界高於角色境界"
 
 msgid "{avatar} attempts to tame spirit beast at {location}"
-msgstr "{avatar} 在 {location} 尝试御兽"
+msgstr "{avatar} 在 {location} 嘗試御獸"
 
 msgid "{avatar} failed to tame spirit beast"
-msgstr "{avatar} 御兽失败"
+msgstr "{avatar} 御獸失敗"
 
 msgid "{avatar} successfully tamed spirit beast, {realm} realm {beast} became their spirit beast"
-msgstr "{avatar} 御兽成功，{realm}境的{beast}成为其灵兽"
+msgstr "{avatar} 御獸成功，{realm}境的{beast}成爲其靈獸"
 
 # Direction names
 msgid "north"
@@ -786,420 +786,420 @@ msgid "south"
 msgstr "南"
 
 msgid "east"
-msgstr "东"
+msgstr "東"
 
 msgid "west"
 msgstr "西"
 
 # Action: MoveToDirection
 msgid "move_to_direction_action_name"
-msgstr "移动探索"
+msgstr "移動探索"
 
 msgid "move_to_direction_description"
-msgstr "向某个方向探索未知区域"
+msgstr "向某個方向探索未知區域"
 
 msgid "move_to_direction_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "Invalid direction: {direction}"
-msgstr "无效的方向：{direction}"
+msgstr "無效的方向：{direction}"
 
 msgid "{avatar} begins moving toward {direction}"
-msgstr "{avatar} 开始向{direction}方移动"
+msgstr "{avatar} 開始向{direction}方移動"
 
 msgid "{avatar} finished moving toward {direction}"
-msgstr "{avatar} 结束了向{direction}方的移动"
+msgstr "{avatar} 結束了向{direction}方的移動"
 
 # Action: MoveToRegion
 msgid "move_to_region_action_name"
-msgstr "移动到区域"
+msgstr "移動到區域"
 
 msgid "move_to_region_description"
-msgstr "移动到某个区域"
+msgstr "移動到某個區域"
 
 msgid "move_to_region_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "Cannot resolve region: {region}"
-msgstr "无法解析区域：{region}"
+msgstr "無法解析區域：{region}"
 
 msgid "[{region}] is another sect's territory, you are not a disciple of that sect"
-msgstr "【{region}】是其他宗门驻地，你并非该宗门弟子"
+msgstr "【{region}】是其他宗門駐地，你並非該宗門弟子"
 
 msgid "{avatar} begins moving toward {region}"
-msgstr "{avatar} 开始移动向 {region}"
+msgstr "{avatar} 開始移動向 {region}"
 
 msgid "{avatar} attempted to move but target is invalid"
-msgstr "{avatar} 试图移动但目标无效"
+msgstr "{avatar} 試圖移動但目標無效"
 
 # Action: MoveToAvatar
 msgid "move_to_avatar_action_name"
-msgstr "移动到角色"
+msgstr "移動到角色"
 
 msgid "move_to_avatar_description"
-msgstr "移动到某个角色所在位置"
+msgstr "移動到某個角色所在位置"
 
 msgid "move_to_avatar_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "{avatar} begins moving toward {target}"
-msgstr "{avatar} 开始移动向 {target}"
+msgstr "{avatar} 開始移動向 {target}"
 
 # Action: MoveAwayFromAvatar
 msgid "move_away_from_avatar_action_name"
-msgstr "远离角色"
+msgstr "遠離角色"
 
 msgid "move_away_from_avatar_description"
-msgstr "持续远离指定角色"
+msgstr "持續遠離指定角色"
 
 msgid "move_away_from_avatar_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "{avatar} begins moving away from {target}"
-msgstr "{avatar} 开始远离 {target}"
+msgstr "{avatar} 開始遠離 {target}"
 
 # Action: MoveAwayFromRegion
 msgid "move_away_from_region_action_name"
-msgstr "离开区域"
+msgstr "離開區域"
 
 msgid "move_away_from_region_description"
-msgstr "离开指定区域"
+msgstr "離開指定區域"
 
 msgid "move_away_from_region_requirements"
-msgstr "无限制"
+msgstr "無限制"
 
 msgid "{avatar} begins leaving {region}"
-msgstr "{avatar} 开始离开 {region}"
+msgstr "{avatar} 開始離開 {region}"
 
 # Action: Move (Base)
 msgid "move_action_name"
-msgstr "移动"
+msgstr "移動"
 
 msgid "move_description"
-msgstr "移动到某个相对位置"
+msgstr "移動到某個相對位置"
 
 # MutualAction Base
 msgid "mutual_action_name"
-msgstr "互动动作"
+msgstr "互動動作"
 
 msgid "mutual_action_requirements"
-msgstr "交互范围内可互动"
+msgstr "交互範圍內可互動"
 
 msgid "Cannot initiate interaction with self"
-msgstr "不能对自己发起互动"
+msgstr "不能對自己發起互動"
 
 msgid "{initiator} initiates {action} with {target}"
-msgstr "{initiator} 对 {target} 发起 {action}"
+msgstr "{initiator} 對 {target} 發起 {action}"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} 对 {initiator} 的反馈：{feedback}"
+msgstr "{target} 對 {initiator} 的反饋：{feedback}"
 
 # Feedback labels
 msgid "feedback_accept"
 msgstr "接受"
 
 msgid "feedback_reject"
-msgstr "拒绝"
+msgstr "拒絕"
 
 msgid "feedback_move_away_from_avatar"
-msgstr "试图远离"
+msgstr "試圖遠離"
 
 msgid "feedback_move_away_from_region"
-msgstr "试图离开区域"
+msgstr "試圖離開區域"
 
 msgid "feedback_escape"
-msgstr "逃离"
+msgstr "逃離"
 
 msgid "feedback_attack"
-msgstr "战斗"
+msgstr "戰鬥"
 
 # Action: DualCultivation
 msgid "dual_cultivation_action_name"
-msgstr "双修"
+msgstr "雙修"
 
 msgid "dual_cultivation_description"
-msgstr "以情入道的双修之术，对象可接受或拒绝"
+msgstr "以情入道的雙修之術，對象可接受或拒絕"
 
 msgid "dual_cultivation_requirements"
-msgstr "目标在交互范围内；不能连续执行"
+msgstr "目標在交互範圍內；不能連續執行"
 
 msgid "dual_cultivation_story_prompt"
-msgstr "两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
+msgstr "兩位修士在雙修過程中情愫暗生，以含蓄、雅緻的文字描繪一段曖昧而不露骨的雙修體驗，體現彼此性格、境界差異與甜蜜的戀愛時光。不要體現經驗的數值。"
 
 msgid "{initiator} invites {target} for dual cultivation"
-msgstr "{initiator} 邀请 {target} 进行双修"
+msgstr "{initiator} 邀請 {target} 進行雙修"
 
 # MutualAction: Attack
 msgid "mutual_attack_action_name"
-msgstr "攻击"
+msgstr "攻擊"
 
 msgid "mutual_attack_description"
-msgstr "对目标进行攻击"
+msgstr "對目標進行攻擊"
 
 msgid "mutual_attack_requirements"
-msgstr "目标在交互范围内；不能连续执行"
+msgstr "目標在交互範圍內；不能連續執行"
 
 msgid "Target not within interaction range"
-msgstr "目标不在交互范围内"
+msgstr "目標不在交互範圍內"
 
 # MutualAction: DriveAway
 msgid "drive_away_action_name"
-msgstr "驱赶"
+msgstr "驅趕"
 
 msgid "drive_away_description"
-msgstr "以武力威慑对方离开此地"
+msgstr "以武力威懾對方離開此地"
 
 msgid "drive_away_requirements"
-msgstr "目标在交互范围内；不能连续执行"
+msgstr "目標在交互範圍內；不能連續執行"
 
 msgid "Cannot drive away in wilderness"
-msgstr "荒野之中无法驱赶"
+msgstr "荒野之中無法驅趕"
 
 # MutualAction: Conversation
 msgid "conversation_action_name"
-msgstr "交谈"
+msgstr "交談"
 
 msgid "conversation_description"
-msgstr "与对方进行一段交流对话"
+msgstr "與對方進行一段交流對話"
 
 msgid "conversation_requirements"
-msgstr "目标在交互范围内"
+msgstr "目標在交互範圍內"
 
 msgid "{avatar1} conversation with {avatar2}: {content}"
-msgstr "{avatar1} 与 {avatar2} 的交谈：{content}"
+msgstr "{avatar1} 與 {avatar2} 的交談：{content}"
 
 # MutualAction: Talk
 msgid "talk_action_name"
-msgstr "攀谈"
+msgstr "攀談"
 
 msgid "talk_description"
-msgstr "向某人发起攀谈，对象不能是自己"
+msgstr "向某人發起攀談，對象不能是自己"
 
 msgid "talk_requirements"
-msgstr "对象在交互范围内"
+msgstr "對象在交互範圍內"
 
 msgid "feedback_talk"
-msgstr "接受攀谈"
+msgstr "接受攀談"
 
 msgid "{target} accepted {initiator}'s talk invitation"
-msgstr "{target} 接受了 {initiator} 的攀谈"
+msgstr "{target} 接受了 {initiator} 的攀談"
 
 msgid "{target} rejected {initiator}'s talk invitation"
-msgstr "{target} 拒绝了 {initiator} 的攀谈"
+msgstr "{target} 拒絕了 {initiator} 的攀談"
 
 # MutualAction: Spar
 msgid "spar_action_name"
 msgstr "切磋"
 
 msgid "spar_description"
-msgstr "与目标切磋武艺，点到为止（大幅增加武器熟练度，不造成伤害）"
+msgstr "與目標切磋武藝，點到爲止（大幅增加武器熟練度，不造成傷害）"
 
 msgid "spar_requirements"
-msgstr "交互范围内可互动；不能连续执行"
+msgstr "交互範圍內可互動；不能連續執行"
 
 msgid "spar_story_prompt"
-msgstr "这是两人之间的友好切磋，点到为止，没有真正的伤害。重点描写双方招式的精妙和互相的印证启发。不要出现血腥或重伤描述。"
+msgstr "這是兩人之間的友好切磋，點到爲止，沒有真正的傷害。重點描寫雙方招式的精妙和互相的印證啓發。不要出現血腥或重傷描述。"
 
 msgid "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} proficiency +{w_gain}, {loser} proficiency +{l_gain})"
-msgstr "{winner} 在切磋中略胜一筹，战胜了 {loser}。（{winner} 熟练度+{w_gain}，{loser} 熟练度+{l_gain}）"
+msgstr "{winner} 在切磋中略勝一籌，戰勝了 {loser}。（{winner} 熟練度+{w_gain}，{loser} 熟練度+{l_gain}）"
 
 msgid "{initiator} challenges {target} to spar"
-msgstr "{initiator} 向 {target} 发起切磋"
+msgstr "{initiator} 向 {target} 發起切磋"
 
 # MutualAction: Gift
 msgid "gift_action_name"
-msgstr "赠送"
+msgstr "贈送"
 
 msgid "gift_description"
-msgstr "向对方赠送灵石或物品"
+msgstr "向對方贈送靈石或物品"
 
 msgid "gift_requirements"
-msgstr "发起者持有该物品；目标在交互范围内"
+msgstr "發起者持有該物品；目標在交互範圍內"
 
 msgid "spirit stones"
-msgstr "灵石"
+msgstr "靈石"
 
 msgid "Item not found: {name}"
 msgstr "未找到物品：{name}"
 
 msgid "Insufficient spirit stones (current: {current}, need: {need})"
-msgstr "灵石不足（当前：{current}，需要：{need}）"
+msgstr "靈石不足（當前：{current}，需要：{need}）"
 
 msgid "Item not equipped: {name}"
-msgstr "未装备该物品：{name}"
+msgstr "未裝備該物品：{name}"
 
 msgid "Insufficient item: {name}"
 msgstr "物品不足：{name}"
 
 msgid "Gift you {item}"
-msgstr "向你赠送 {item}"
+msgstr "向你贈送 {item}"
 
 msgid "{initiator} attempts to gift {item} to {target}"
-msgstr "{initiator} 试图向 {target} 赠送 {item}"
+msgstr "{initiator} 試圖向 {target} 贈送 {item}"
 
 msgid "{initiator} successfully gifted {item} to {target}"
-msgstr "{initiator} 成功赠送了 {item} 给 {target}"
+msgstr "{initiator} 成功贈送了 {item} 給 {target}"
 
 # MutualAction: Impart
 msgid "impart_action_name"
-msgstr "传道"
+msgstr "傳道"
 
 msgid "impart_description"
-msgstr "师傅向徒弟传授修炼经验，徒弟可获得大量修为"
+msgstr "師傅向徒弟傳授修煉經驗，徒弟可獲得大量修爲"
 
 msgid "impart_requirements"
-msgstr "发起者是目标的师傅；师傅等级 > 徒弟等级 + 20；目标在交互范围内；不能连续执行"
+msgstr "發起者是目標的師傅；師傅等級 > 徒弟等級 + 20；目標在交互範圍內；不能連續執行"
 
 msgid "Target is not your apprentice"
-msgstr "目标不是自己的徒弟"
+msgstr "目標不是自己的徒弟"
 
 msgid "Level difference insufficient, need 20 levels (current gap: {diff} levels)"
-msgstr "等级差不足20级（当前差距：{diff}级）"
+msgstr "等級差不足20級（當前差距：{diff}級）"
 
 msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
-msgstr "{master} 向徒弟 {apprentice} 传道授业"
+msgstr "{master} 向徒弟 {apprentice} 傳道授業"
 
 # MutualAction: Occupy
 msgid "occupy_action_name"
-msgstr "抢夺洞府"
+msgstr "搶奪洞府"
 
 msgid "occupy_description"
-msgstr "占据或抢夺洞府"
+msgstr "佔據或搶奪洞府"
 
 msgid "occupy_requirements"
-msgstr "目标在交互范围内；不能连续执行"
+msgstr "目標在交互範圍內；不能連續執行"
 
 msgid "occupy_story_prompt"
-msgstr "这是一场争夺洞府的战斗。不要出现具体血量或伤害数值。"
+msgstr "這是一場爭奪洞府的戰鬥。不要出現具體血量或傷害數值。"
 
 msgid "feedback_yield"
-msgstr "让步"
+msgstr "讓步"
 
 msgid "Cannot find region: {region}"
-msgstr "无法找到区域：{region}"
+msgstr "無法找到區域：{region}"
 
 msgid "{region} is not a cultivation area, cannot occupy"
-msgstr "{region} 不是修炼区域，无法占据"
+msgstr "{region} 不是修煉區域，無法佔據"
 
 msgid "Already the owner of this cave dwelling"
-msgstr "已经是该洞府的主人了"
+msgstr "已經是該洞府的主人了"
 
 msgid "{initiator} attempts to seize {region} from {host}"
-msgstr "{initiator} 对 {host} 的 {region} 发起抢夺"
+msgstr "{initiator} 對 {host} 的 {region} 發起搶奪"
 
 msgid "{initiator} forced {target} to yield {region}"
-msgstr "{initiator} 逼迫 {target} 让出了 {region}"
+msgstr "{initiator} 逼迫 {target} 讓出了 {region}"
 
 msgid "{initiator} attempted to seize {target}'s cave dwelling {region}, {target} rejected and engaged in battle"
-msgstr "{initiator} 试图抢夺 {target} 的洞府 {region}，{target} 拒绝并应战"
+msgstr "{initiator} 試圖搶奪 {target} 的洞府 {region}，{target} 拒絕並應戰"
 
 msgid ", successfully seized {region}"
-msgstr "，成功夺取了 {region}"
+msgstr "，成功奪取了 {region}"
 
 msgid ", defended {region}"
 msgstr "，守住了 {region}"
 
 # ============================================================================
-# Effect 系统
+# Effect 系統
 # ============================================================================
 
-# Effect 名称
+# Effect 名稱
 msgid "effect_extra_hp_recovery_rate"
-msgstr "生命恢复速率"
+msgstr "生命恢復速率"
 
 msgid "effect_extra_max_hp"
 msgstr "最大生命值"
 
 msgid "effect_extra_max_lifespan"
-msgstr "最大寿元"
+msgstr "最大壽元"
 
 msgid "effect_extra_weapon_proficiency_gain"
-msgstr "兵器熟练度获取"
+msgstr "兵器熟練度獲取"
 
 msgid "effect_extra_dual_cultivation_exp"
-msgstr "双修经验"
+msgstr "雙修經驗"
 
 msgid "effect_extra_breakthrough_success_rate"
 msgstr "突破成功率"
 
 msgid "effect_extra_retreat_success_rate"
-msgstr "闭关成功率"
+msgstr "閉關成功率"
 
 msgid "effect_extra_fortune_probability"
 msgstr "奇遇概率"
 
 msgid "effect_extra_misfortune_probability"
-msgstr "霉运概率"
+msgstr "黴運概率"
 
 msgid "effect_extra_harvest_materials"
-msgstr "采集获取材料"
+msgstr "採集獲取材料"
 
 msgid "effect_extra_hunt_materials"
-msgstr "狩猎获取材料"
+msgstr "狩獵獲取材料"
 
 msgid "effect_extra_mine_materials"
-msgstr "挖矿获取材料"
+msgstr "挖礦獲取材料"
 
 msgid "effect_extra_item_sell_price_multiplier"
-msgstr "物品出售价格"
+msgstr "物品出售價格"
 
 msgid "effect_shop_buy_price_reduction"
-msgstr "购买折扣"
+msgstr "購買折扣"
 
 msgid "effect_extra_weapon_upgrade_chance"
-msgstr "兵器升级概率"
+msgstr "兵器升級概率"
 
 msgid "effect_extra_plunder_multiplier"
 msgstr "搜刮收益"
 
 msgid "effect_extra_catch_success_rate"
-msgstr "捕捉灵兽成功率"
+msgstr "捕捉靈獸成功率"
 
 msgid "effect_extra_cultivate_exp"
-msgstr "修炼经验"
+msgstr "修煉經驗"
 
 msgid "effect_extra_battle_strength_points"
-msgstr "战力点数"
+msgstr "戰力點數"
 
 msgid "effect_extra_escape_success_rate"
 msgstr "逃跑成功率"
 
 msgid "effect_extra_assassinate_success_rate"
-msgstr "暗杀成功率"
+msgstr "暗殺成功率"
 
 msgid "effect_extra_observation_radius"
-msgstr "感知范围"
+msgstr "感知範圍"
 
 msgid "effect_extra_move_step"
-msgstr "移动步长"
+msgstr "移動步長"
 
 msgid "effect_legal_actions"
 msgstr "特殊能力"
 
 msgid "effect_damage_reduction"
-msgstr "伤害减免"
+msgstr "傷害減免"
 
 msgid "effect_realm_suppression_bonus"
-msgstr "境界压制"
+msgstr "境界壓制"
 
 msgid "effect_cultivate_duration_reduction"
-msgstr "修炼时长缩减"
+msgstr "修煉時長縮減"
 
 msgid "effect_extra_cast_success_rate"
-msgstr "铸造成功率"
+msgstr "鑄造成功率"
 
 msgid "effect_extra_refine_success_rate"
-msgstr "炼丹成功率"
+msgstr "煉丹成功率"
 
 msgid "effect_extra_hidden_domain_drop_prob"
-msgstr "秘境掉落概率"
+msgstr "祕境掉落概率"
 
 msgid "effect_extra_hidden_domain_danger_prob"
-msgstr "秘境凶险概率"
+msgstr "祕境兇險概率"
 
-# Action 简短名称（用于 legal_actions）
+# Action 簡短名稱（用於 legal_actions）
 msgid "action_dualcultivation_short_name"
-msgstr "双修"
+msgstr "雙修"
 
 msgid "action_devourmortals_short_name"
 msgstr "吞噬凡人"
@@ -1212,80 +1212,80 @@ msgid "effect_separator"
 msgstr "；"
 
 msgid "Special effect (dynamic)"
-msgstr "特殊效果（动态）"
+msgstr "特殊效果（動態）"
 
-# 条件翻译
+# 條件翻譯
 msgid "Conditional effect"
-msgstr "条件触发"
+msgstr "條件觸發"
 
 msgid "Has [{trait}] trait"
-msgstr "拥有【{trait}】特质"
+msgstr "擁有【{trait}】特質"
 
 msgid "When {condition}"
-msgstr "当{condition}"
+msgstr "當{condition}"
 
 msgid "[{condition}] {effects}"
 msgstr "[{condition}] {effects}"
 
-# Effect 来源标签
+# Effect 來源標籤
 msgid "Sect [{name}]"
-msgstr "宗门【{name}】"
+msgstr "宗門【{name}】"
 
 msgid "Technique [{name}]"
 msgstr "功法【{name}】"
 
 msgid "Spirit Root"
-msgstr "灵根"
+msgstr "靈根"
 
 msgid "Trait [{name}]"
-msgstr "特质【{name}】"
+msgstr "特質【{name}】"
 
 msgid "Weapon [{name}]"
 msgstr "兵器【{name}】"
 
 msgid "Auxiliary [{name}]"
-msgstr "辅助【{name}】"
+msgstr "輔助【{name}】"
 
 msgid "Spirit Animal [{name}]"
-msgstr "灵兽【{name}】"
+msgstr "靈獸【{name}】"
 
 msgid "Heaven and Earth Phenomenon"
-msgstr "天地灵机"
+msgstr "天地靈機"
 
 msgid "Elixir [{name}]"
-msgstr "丹药【{name}】"
+msgstr "丹藥【{name}】"
 
 # ============================================================================
-# Avatar 系统
+# Avatar 系統
 # ============================================================================
 
-# 字段标签 (info_dict 键名)
+# 字段標籤 (info_dict 鍵名)
 msgid "Name"
 msgstr "名字"
 
 msgid "Gender"
-msgstr "性别"
+msgstr "性別"
 
 msgid "Age"
-msgstr "年龄"
+msgstr "年齡"
 
 msgid "HP"
 msgstr "hp"
 
 msgid "Spirit Stones"
-msgstr "灵石"
+msgstr "靈石"
 
 msgid "Relations"
-msgstr "关系"
+msgstr "關係"
 
 msgid "Sect"
-msgstr "宗门"
+msgstr "宗門"
 
 msgid "Alignment"
-msgstr "阵营"
+msgstr "陣營"
 
 msgid "Region"
-msgstr "地区"
+msgstr "地區"
 
 msgid "Technique"
 msgstr "功法"
@@ -1294,7 +1294,7 @@ msgid "Realm"
 msgstr "境界"
 
 msgid "Traits"
-msgstr "特质"
+msgstr "特質"
 
 msgid "Materials"
 msgstr "材料"
@@ -1306,28 +1306,28 @@ msgid "Weapon"
 msgstr "兵器"
 
 msgid "Auxiliary"
-msgstr "辅助装备"
+msgstr "輔助裝備"
 
 msgid "Emotion"
-msgstr "情绪"
+msgstr "情緒"
 
 msgid "Long-term Goal"
-msgstr "长期目标"
+msgstr "長期目標"
 
 msgid "Short-term Goal"
-msgstr "短期目标"
+msgstr "短期目標"
 
 msgid "Current Effects"
-msgstr "当前效果"
+msgstr "當前效果"
 
 msgid "Nickname"
-msgstr "绰号"
+msgstr "綽號"
 
 msgid "Spirit Animal"
-msgstr "灵兽"
+msgstr "靈獸"
 
 msgid "Nearby Avatars"
-msgstr "周围角色"
+msgstr "周圍角色"
 
 msgid "Major Events"
 msgstr "重大事件"
@@ -1335,9 +1335,9 @@ msgstr "重大事件"
 msgid "Recent Events"
 msgstr "短期事件"
 
-# 默认值
+# 默認值
 msgid "None"
-msgstr "无"
+msgstr "無"
 
 msgid "Unknown"
 msgstr "未知"
@@ -1360,7 +1360,7 @@ msgstr "，"
 
 # 格式化字符串
 msgid "{weapon_name}, Proficiency: {proficiency}%"
-msgstr "{weapon_name}，熟练度：{proficiency}%"
+msgstr "{weapon_name}，熟練度：{proficiency}%"
 
 msgid "{name}, Realm: {realm}"
 msgstr "{name}，境界：{realm}"
@@ -1372,7 +1372,7 @@ msgid "Contains elements: {elements}"
 msgstr "包含元素：{elements}"
 
 msgid "【{name}】 {gender} {age} years old"
-msgstr "【{name}】 {gender} {age}岁"
+msgstr "【{name}】 {gender} {age}歲"
 
 msgid "Realm: {realm}"
 msgstr "境界: {realm}"
@@ -1381,195 +1381,195 @@ msgid "Identity: {identity}"
 msgstr "身份: {identity}"
 
 msgid "\n--- Current Effects Detail ---"
-msgstr "\n--- 当前效果明细 ---"
+msgstr "\n--- 當前效果明細 ---"
 
 msgid "No additional effects"
-msgstr "无额外效果"
+msgstr "無額外效果"
 
-# 复杂格式化字符串 (get_other_avatar_info)
+# 複雜格式化字符串 (get_other_avatar_info)
 msgid "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
-msgstr "{name}，绰号：{nickname}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，辅助：{aux}，HP：{hp}"
+msgstr "{name}，綽號：{nickname}，境界：{realm}，關係：{relation}，宗門：{sect}，陣營：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，輔助：{aux}，HP：{hp}"
 
 # ============================================================================
-# Gathering 系统 - 拍卖会
+# Gathering 系統 - 拍賣會
 # ============================================================================
 
-# 状态文本
+# 狀態文本
 msgid "Auction is in progress..."
-msgstr "拍卖会正在举行..."
+msgstr "拍賣會正在舉行..."
 
-# 事件内容
+# 事件內容
 msgid "In the auction for {item_name}, {winner_name} outbid {runner_up_name} with {price} spirit stones and won the item."
-msgstr "在{item_name}的竞拍中，{winner_name}以 {price} 灵石力压{runner_up_name}一头，将其收入囊中。"
+msgstr "在{item_name}的競拍中，{winner_name}以 {price} 靈石力壓{runner_up_name}一頭，將其收入囊中。"
 
 msgid "At the auction, {winner_name} acquired {item_name} for {price} spirit stones."
-msgstr "在拍卖会上，{winner_name}以 {price} 灵石拍下了{item_name}。"
+msgstr "在拍賣會上，{winner_name}以 {price} 靈石拍下了{item_name}。"
 
 # 故事生成文本
 msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
-msgstr "成交：{winner_name}以{price}灵石拍下{item_name}。"
+msgstr "成交：{winner_name}以{price}靈石拍下{item_name}。"
 
 msgid "Competition: In the auction for {item_name}, {winner_name} outbid {runner_up_name} (bid: {bid})."
-msgstr "竞争：在{item_name}的竞拍中，{winner_name}力压{runner_up_name}（出价{bid}）。"
+msgstr "競爭：在{item_name}的競拍中，{winner_name}力壓{runner_up_name}（出價{bid}）。"
 
 msgid "Item: {item_name}, Description: {description}"
-msgstr "物品：{item_name}，介绍：{description}"
+msgstr "物品：{item_name}，介紹：{description}"
 
-# 场景设定
+# 場景設定
 msgid "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
-msgstr "事件类型：神秘拍卖会\n场景设定：拍卖会发生在一处神秘空间，由一位面目模糊、气息深不可测的神秘人主持。"
+msgstr "事件類型：神祕拍賣會\n場景設定：拍賣會發生在一處神祕空間，由一位面目模糊、氣息深不可測的神祕人主持。"
 
-# 标签
+# 標籤
 msgid "【Auction Items Information】"
 msgstr "【涉及拍品信息】"
 
 msgid "\n【Related Avatars Information】"
-msgstr "\n【相关角色信息】"
+msgstr "\n【相關角色信息】"
 
 # LLM Prompt
 msgid "auction_story_prompt"
-msgstr "选取其中最有趣的一个侧面或一次竞价进行描写，无需面面俱到。重点描写竞价过程中的紧张气氛。"
+msgstr "選取其中最有趣的一個側面或一次競價進行描寫，無需面面俱到。重點描寫競價過程中的緊張氣氛。"
 
 # ============================================================================
-# Fortune 系统 - 奇遇
+# Fortune 系統 - 奇遇
 # ============================================================================
 
-# 奇遇主题
+# 奇遇主題
 msgid "fortune_theme_wandered_into_cave"
-msgstr "误入洞府"
+msgstr "誤入洞府"
 
 msgid "fortune_theme_found_divine_weapon"
-msgstr "巧捡神兵"
+msgstr "巧撿神兵"
 
 msgid "fortune_theme_entered_trial"
-msgstr "误入试炼"
+msgstr "誤入試煉"
 
 msgid "fortune_theme_phenomenon_appeared"
-msgstr "异象出世"
+msgstr "異象出世"
 
 msgid "fortune_theme_gifted_by_master"
-msgstr "高人赠予"
+msgstr "高人贈予"
 
 msgid "fortune_theme_found_treasure"
-msgstr "巧捡奇物"
+msgstr "巧撿奇物"
 
 msgid "fortune_theme_guided_by_master"
-msgstr "高人指点"
+msgstr "高人指點"
 
 msgid "fortune_theme_profound_insight"
 msgstr "玄妙感悟"
 
 msgid "fortune_theme_rescued_from_danger"
-msgstr "危难相救"
+msgstr "危難相救"
 
 msgid "fortune_theme_impressed_by_character"
-msgstr "品行打动"
+msgstr "品行打動"
 
 msgid "fortune_theme_showed_talent"
-msgstr "展露天赋"
+msgstr "展露天賦"
 
 msgid "fortune_theme_chance_encounter"
-msgstr "机缘巧合"
+msgstr "機緣巧合"
 
 msgid "fortune_theme_passed_test"
-msgstr "通过考验"
+msgstr "通過考驗"
 
 msgid "fortune_theme_found_spirit_vein"
-msgstr "偶遇灵矿"
+msgstr "偶遇靈礦"
 
 msgid "fortune_theme_cave_treasure"
-msgstr "洞府遗财"
+msgstr "洞府遺財"
 
 msgid "fortune_theme_slayed_beast"
-msgstr "击杀妖兽"
+msgstr "擊殺妖獸"
 
 msgid "fortune_theme_trade_profit"
-msgstr "交易获利"
+msgstr "交易獲利"
 
 msgid "fortune_theme_stone_gambling"
-msgstr "赌石得宝"
+msgstr "賭石得寶"
 
 msgid "fortune_theme_found_cache"
-msgstr "拾遗藏宝"
+msgstr "拾遺藏寶"
 
 msgid "fortune_theme_sudden_enlightenment"
-msgstr "顿悟玄机"
+msgstr "頓悟玄機"
 
 msgid "fortune_theme_ancient_stele"
 msgstr "古碑感悟"
 
 msgid "fortune_theme_consumed_spirit_herb"
-msgstr "服食灵药"
+msgstr "服食靈藥"
 
 msgid "fortune_theme_secret_realm"
-msgstr "秘境修炼"
+msgstr "祕境修煉"
 
 msgid "fortune_theme_empowerment"
-msgstr "前辈灌顶"
+msgstr "前輩灌頂"
 
 msgid "fortune_theme_spirit_spring"
-msgstr "灵泉淬体"
+msgstr "靈泉淬體"
 
 msgid "fortune_theme_inherited_memory"
-msgstr "传承记忆"
+msgstr "傳承記憶"
 
 # 奇遇事件文本 - 兵器
 msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
-msgstr "你在奇遇中发现了{realm}兵器『{weapon_name}』。"
+msgstr "你在奇遇中發現了{realm}兵器『{weapon_name}』。"
 
 msgid " But you already have『{weapon_name}』."
 msgstr " 但你手中已有『{weapon_name}』。"
 
 msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
-msgstr "发现了兵器『{weapon_name}』，{exchange_text}"
+msgstr "發現了兵器『{weapon_name}』，{exchange_text}"
 
-# 奇遇事件文本 - 辅助装备
+# 奇遇事件文本 - 輔助裝備
 msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
-msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary_name}』。"
+msgstr "你在奇遇中發現了{realm}輔助裝備『{auxiliary_name}』。"
 
 msgid " But you already have『{auxiliary_name}』."
 msgstr " 但你手中已有『{auxiliary_name}』。"
 
 msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
-msgstr "发现了辅助装备『{auxiliary_name}』，{exchange_text}"
+msgstr "發現了輔助裝備『{auxiliary_name}』，{exchange_text}"
 
 # 奇遇事件文本 - 功法
 msgid "You comprehended an upper-grade technique『{technique_name}』in your fortune."
-msgstr "你在奇遇中领悟了上品功法『{technique_name}』。"
+msgstr "你在奇遇中領悟了上品功法『{technique_name}』。"
 
 msgid " This conflicts with your current technique『{technique_name}』."
-msgstr " 这与你当前主修的『{technique_name}』冲突。"
+msgstr " 這與你當前主修的『{technique_name}』衝突。"
 
 msgid "Comprehended technique『{technique_name}』, {exchange_text}"
-msgstr "领悟了功法『{technique_name}』，{exchange_text}"
+msgstr "領悟了功法『{technique_name}』，{exchange_text}"
 
-# 奇遇事件文本 - 其他类型
+# 奇遇事件文本 - 其他類型
 msgid "{avatar_name} became disciple of {master_name}"
-msgstr "{avatar_name} 拜 {master_name} 为师"
+msgstr "{avatar_name} 拜 {master_name} 爲師"
 
 msgid "{avatar_name} obtained {amount} spirit stones"
-msgstr "{avatar_name} 获得灵石 {amount} 枚"
+msgstr "{avatar_name} 獲得靈石 {amount} 枚"
 
 msgid "{avatar_name} gained {exp_gain} cultivation experience"
-msgstr "{avatar_name} 修为增长 {exp_gain} 点"
+msgstr "{avatar_name} 修爲增長 {exp_gain} 點"
 
 # LLM Prompt
 msgid "fortune_story_prompt"
-msgstr "请据此写100~300字小故事。"
+msgstr "請據此寫100~300字小故事。"
 
 # ============================================================================
-# Cultivation 系统 - 境界
+# Cultivation 系統 - 境界
 # ============================================================================
 
-# 境界状态
+# 境界狀態
 msgid "Needs breakthrough"
 msgstr "需要突破"
 
 msgid "Not at bottleneck, no breakthrough needed"
-msgstr "未到瓶颈无需突破"
+msgstr "未到瓶頸無需突破"
 
 msgid "{realm}{stage}(Level {level}){status}"
-msgstr "{realm}{stage}({level}级){status}"
+msgstr "{realm}{stage}({level}級){status}"
 
 msgid "Yes"
 msgstr "是"
@@ -1578,24 +1578,24 @@ msgid "No"
 msgstr "否"
 
 msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
-msgstr "{realm}{stage}({level}级)。在瓶颈期：{status}"
+msgstr "{realm}{stage}({level}級)。在瓶頸期：{status}"
 
 # ============================================================================
-# Technique 系统 - 功法
+# Technique 系統 - 功法
 # ============================================================================
 
 msgid " Effect: {effect_desc}"
 msgstr " 效果：{effect_desc}"
 
 # ============================================================================
-# Weapon 系统 - 武器
+# Weapon 系統 - 武器
 # ============================================================================
 
 msgid "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid weapon type"
-msgstr "武器 {name} 的weapon_type '{weapon_type_str}' 无效，必须是有效的兵器类型"
+msgstr "武器 {name} 的weapon_type '{weapon_type_str}' 無效，必須是有效的兵器類型"
 
 # ============================================================================
-# Auxiliary 系统 - 辅助装备
+# Auxiliary 系統 - 輔助裝備
 # ============================================================================
 
 msgid " Devoured Souls: {count}"
@@ -1605,61 +1605,61 @@ msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (已吞噬魂魄：{souls})"
 
 # ============================================================================
-# Elixir 系统 - 丹药
+# Elixir 系統 - 丹藥
 # ============================================================================
 
 msgid "elixir_type_breakthrough"
 msgstr "破境"
 
 msgid "elixir_type_lifespan"
-msgstr "延寿"
+msgstr "延壽"
 
 msgid "elixir_type_burn_blood"
 msgstr "燃血"
 
 msgid "elixir_type_heal"
-msgstr "疗伤"
+msgstr "療傷"
 
 # ============================================================================
-# Sect 系统 - 宗门
+# Sect 系統 - 宗門
 # ============================================================================
 
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
-msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"
+msgstr "{sect_name}（陣營：{alignment}，駐地：{hq_name}）"
 
 msgid "{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
-msgstr "{sect_name}（阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+msgstr "{sect_name}（陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
 
 # ============================================================================
-# SingleChoice 系统 - 物品决策
+# SingleChoice 系統 - 物品決策
 # ============================================================================
 
-# 决策界面
+# 決策界面
 msgid "【Current Situation】: {context}\n\n{choices}"
-msgstr "【当前情境】：{context}\n\n{choices}"
+msgstr "【當前情境】：{context}\n\n{choices}"
 
-# 物品标签
+# 物品標籤
 msgid "item_label_weapon"
 msgstr "兵器"
 
 msgid "item_label_auxiliary"
-msgstr "辅助装备"
+msgstr "輔助裝備"
 
 msgid "item_label_technique"
 msgstr "功法"
 
 msgid "item_label_elixir"
-msgstr "丹药"
+msgstr "丹藥"
 
-# 物品动词
+# 物品動詞
 msgid "item_verb_equip"
-msgstr "装备"
+msgstr "裝備"
 
 msgid "item_verb_equipped"
-msgstr "换上了"
+msgstr "換上了"
 
 msgid "item_verb_practice"
-msgstr "修炼"
+msgstr "修煉"
 
 msgid "item_verb_switched"
 msgstr "改修了"
@@ -1671,169 +1671,169 @@ msgid "item_verb_consumed"
 msgstr "服用了"
 
 msgid "item_verb_replace"
-msgstr "替换"
+msgstr "替換"
 
-# 自动装备消息
+# 自動裝備消息
 msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
-msgstr "{avatar_name} 获得了{grade}{label}『{item_name}』并{action}。"
+msgstr "{avatar_name} 獲得了{grade}{label}『{item_name}』並{action}。"
 
-# 决策描述
+# 決策描述
 msgid "Current {label}: {old_info}\n{new_desc}"
-msgstr "现有{label}：{old_info}\n{new_desc}"
+msgstr "現有{label}：{old_info}\n{new_desc}"
 
 msgid "\n(Selecting {replace} will sell old {label})"
-msgstr "\n（选择{replace}将卖出旧{label}）"
+msgstr "\n（選擇{replace}將賣出舊{label}）"
 
-# 选项 A
+# 選項 A
 msgid "{action} new {label}『{new_name}』"
 msgstr "{action}新{label}『{new_name}』"
 
 msgid ", sell old {label}『{old_name}』"
-msgstr "，卖掉旧{label}『{old_name}』"
+msgstr "，賣掉舊{label}『{old_name}』"
 
 msgid ", {replace} old {label}『{old_name}』"
-msgstr "，{replace}旧{label}『{old_name}』"
+msgstr "，{replace}舊{label}『{old_name}』"
 
-# 选项 B
+# 選項 B
 msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
-msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 
 msgid "Abandon『{new_name}』"
-msgstr "放弃『{new_name}』"
+msgstr "放棄『{new_name}』"
 
 msgid ", keep current『{old_name}』"
 msgstr "，保留身上的『{old_name}』"
 
-# 执行结果
+# 執行結果
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
 msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"
 
 msgid "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
-msgstr "{avatar_name} 卖掉了新获得的{item_name}，获利 {price} 灵石。"
+msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
 
 msgid "{avatar_name} abandoned {item_name}."
-msgstr "{avatar_name} 放弃了{item_name}。"
+msgstr "{avatar_name} 放棄了{item_name}。"
 
 # ============================================================================
-# 补充的缺失翻译
+# 補充的缺失翻譯
 # ============================================================================
 
 msgid "Unsupported item type: {item_type}"
-msgstr "不支持的物品类型：{item_type}"
+msgstr "不支持的物品類型：{item_type}"
 
 msgid "{avatar} gained cultivation experience +{exp} points"
-msgstr "{avatar} 修为增长 {exp} 点"
+msgstr "{avatar} 修爲增長 {exp} 點"
 
 msgid "{winner} defeated {loser}"
-msgstr "{winner} 战胜了 {loser}"
+msgstr "{winner} 戰勝了 {loser}"
 
 msgid "retreat_action_name"
-msgstr "闭关"
+msgstr "閉關"
 
 msgid "retreat_desc"
-msgstr "闭关，尝试突破自我。风险极大，非大毅力者不可为。"
+msgstr "閉關，嘗試突破自我。風險極大，非大毅力者不可爲。"
 
 msgid "retreat_requirements"
-msgstr "无限制；需要冷却"
+msgstr "無限制；需要冷卻"
 
 msgid "retreat_start"
-msgstr "{avatar} 开始闭关，破关时间不详。"
+msgstr "{avatar} 開始閉關，破關時間不詳。"
 
 msgid "retreat_success"
-msgstr "闭关成功！修为精进，对天道的感悟加深了。"
+msgstr "閉關成功！修爲精進，對天道的感悟加深了。"
 
 msgid "retreat_fail"
-msgstr "闭关失败！元气大伤，折损了 {years} 年阳寿。"
+msgstr "閉關失敗！元氣大傷，折損了 {years} 年陽壽。"
 
 msgid "retreat_death_append"
-msgstr "并且在闭关中耗尽了最后一丝生机，坐化了。"
+msgstr "並且在閉關中耗盡了最後一絲生機，坐化了。"
 
 msgid "retreat_story_prompt_success"
-msgstr "这是关于一次成功的闭关。描写修士在闭关期间如何战胜孤独、感悟天道，最终突破心境的过程。不需要描写战斗。"
+msgstr "這是關於一次成功的閉關。描寫修士在閉關期間如何戰勝孤獨、感悟天道，最終突破心境的過程。不需要描寫戰鬥。"
 
 msgid "retreat_story_prompt_fail"
-msgstr "这是关于一次失败的闭关。描写修士在闭关期间如何被心魔困扰、自我怀疑，最终导致反噬的过程。不需要描写战斗。"
+msgstr "這是關於一次失敗的閉關。描寫修士在閉關期間如何被心魔困擾、自我懷疑，最終導致反噬的過程。不需要描寫戰鬥。"
 
 msgid "{avatar} finished retreat successfully."
-msgstr "{avatar} 闭关成功，修为大增。"
+msgstr "{avatar} 閉關成功，修爲大增。"
 
 msgid "{avatar} failed retreat and lost {years} years of lifespan."
-msgstr "{avatar} 闭关失败，折损了 {years} 年阳寿。"
+msgstr "{avatar} 閉關失敗，折損了 {years} 年陽壽。"
 
 msgid "Retreat Bonus"
-msgstr "闭关感悟"
+msgstr "閉關感悟"
 
 # ============================================================================
 # Frontend UI Translations
 # ============================================================================
 
 msgid "Sect Headquarters"
-msgstr "宗门驻地"
+msgstr "宗門駐地"
 
 msgid "Normal Region"
-msgstr "普通区域"
+msgstr "普通區域"
 
 msgid "Cave Dwelling"
 msgstr "洞府"
 
 msgid "Ruins"
-msgstr "遗迹"
+msgstr "遺蹟"
 
 msgid "City Region"
-msgstr "城市区域"
+msgstr "城市區域"
 
 # ============================================================================
 # Simulator & Event Translations
 # ============================================================================
 
 msgid "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
-msgstr "{avatar_name} 路过 {region_name}，发现无主，将其占据。"
+msgstr "{avatar_name} 路過 {region_name}，發現無主，將其佔據。"
 
 msgid "{avatar_name} deliberated and redefined their long-term objective: {objective}"
-msgstr "{avatar_name} 经过深思熟虑，重新确定了自己的长期目标：{objective}"
+msgstr "{avatar_name} 經過深思熟慮，重新確定了自己的長期目標：{objective}"
 
 msgid "{avatar_name} determined their long-term objective: {objective}"
-msgstr "{avatar_name} 确定了自己的长期目标：{objective}"
+msgstr "{avatar_name} 確定了自己的長期目標：{objective}"
 
 msgid "world_creation_phenomenon"
-msgstr "世界初开，天降异象！{name}：{desc}。"
+msgstr "世界初開，天降異象！{name}：{desc}。"
 
 msgid "phenomenon_change"
-msgstr "{old_name}消散，天地异象再现！{new_name}：{new_desc}。"
+msgstr "{old_name}消散，天地異象再現！{new_name}：{new_desc}。"
 
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
 
 msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "修炼区域（可以修炼以增进修为）"
+msgstr "修煉區域（可以修煉以增進修爲）"
 
 msgid "Normal Region (can hunt, gather, mine)"
-msgstr "普通区域（可以狩猎、采集、挖矿）"
+msgstr "普通區域（可以狩獵、採集、挖礦）"
 
 msgid "City Region (can trade)"
-msgstr "城市区域（可以交易）"
+msgstr "城市區域（可以交易）"
 
 msgid "Sect Headquarters (sect disciples heal faster here)"
-msgstr "宗门总部（宗门弟子在此疗伤事半功倍）"
+msgstr "宗門總部（宗門弟子在此療傷事半功倍）"
 
 msgid " (Distance: {months} months)"
-msgstr "（距离：{months}月）"
+msgstr "（距離：{months}月）"
 
 msgid "No special resources"
-msgstr "无特色资源"
+msgstr "無特色資源"
 
 msgid " (Resource Distribution: {species_info})"
-msgstr "（资源分布：{species_info}）"
+msgstr "（資源分佈：{species_info}）"
 
 msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
-msgstr "普通区域：{name} - {desc} | 资源分布：{species_info}"
+msgstr "普通區域：{name} - {desc} | 資源分佈：{species_info}"
 
 msgid " ({essence_type} Essence: {essence_density})"
-msgstr "（{essence_type}行灵气：{essence_density}）"
+msgstr "（{essence_type}行靈氣：{essence_density}）"
 
 msgid "Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - {desc}"
-msgstr "修炼区域：{name}（{essence_type}行灵气：{essence_density}）- {desc}"
+msgstr "修煉區域：{name}（{essence_type}行靈氣：{essence_density}）- {desc}"
 
 msgid " ({store_info})"
 msgstr "（{store_info}）"
@@ -1842,10 +1842,10 @@ msgid " | {store_info}"
 msgstr " | {store_info}"
 
 msgid "City Region: {name} - {desc}{desc_part}"
-msgstr "城市区域：{name} - {desc}{desc_part}"
+msgstr "城市區域：{name} - {desc}{desc_part}"
 
 msgid "{value} Spirit Stones"
-msgstr "{value}灵石"
+msgstr "{value}靈石"
 
 msgid " ({desc})"
 msgstr "（{desc}）"
@@ -1854,40 +1854,40 @@ msgid "\nEffect: {effect_desc}"
 msgstr "\n效果：{effect_desc}"
 
 msgid "{names} ({price} Spirit Stones)"
-msgstr "{names}（{price}灵石）"
+msgstr "{names}（{price}靈石）"
 
 msgid "Sell: "
 msgstr "出售："
 
 msgid "emotion_calm"
-msgstr "平静"
+msgstr "平靜"
 
 msgid "emotion_happy"
-msgstr "开心"
+msgstr "開心"
 
 msgid "emotion_angry"
-msgstr "愤怒"
+msgstr "憤怒"
 
 msgid "emotion_sad"
-msgstr "悲伤"
+msgstr "悲傷"
 
 msgid "emotion_fearful"
-msgstr "恐惧"
+msgstr "恐懼"
 
 msgid "emotion_surprised"
-msgstr "惊讶"
+msgstr "驚訝"
 
 msgid "emotion_anticipating"
 msgstr "期待"
 
 msgid "emotion_disgusted"
-msgstr "厌恶"
+msgstr "厭惡"
 
 msgid "emotion_confused"
 msgstr "疑惑"
 
 msgid "emotion_tired"
-msgstr "疲惫"
+msgstr "疲憊"
 
 # ============================================================================
 # Relation & Root & Appearance & Sect (Refined)
@@ -1901,16 +1901,16 @@ msgstr "{name}(已故：{reason})"
 
 # Relations
 msgid "relation_father"
-msgstr "父亲"
+msgstr "父親"
 
 msgid "relation_mother"
-msgstr "母亲"
+msgstr "母親"
 
 msgid "relation_son"
-msgstr "儿子"
+msgstr "兒子"
 
 msgid "relation_daughter"
-msgstr "女儿"
+msgstr "女兒"
 
 msgid "relation_older_brother"
 msgstr "哥哥"
@@ -1926,107 +1926,107 @@ msgstr "妹妹"
 
 # Root Keys
 msgid "root_gold"
-msgstr "金灵根"
+msgstr "金靈根"
 
 msgid "root_wood"
-msgstr "木灵根"
+msgstr "木靈根"
 
 msgid "root_water"
-msgstr "水灵根"
+msgstr "水靈根"
 
 msgid "root_fire"
-msgstr "火灵根"
+msgstr "火靈根"
 
 msgid "root_earth"
-msgstr "土灵根"
+msgstr "土靈根"
 
 msgid "root_thunder"
-msgstr "雷灵根"
+msgstr "雷靈根"
 
 msgid "root_ice"
-msgstr "冰灵根"
+msgstr "冰靈根"
 
 msgid "root_wind"
-msgstr "风灵根"
+msgstr "風靈根"
 
 msgid "root_dark"
-msgstr "暗灵根"
+msgstr "暗靈根"
 
 msgid "root_heaven"
-msgstr "天灵根"
+msgstr "天靈根"
 
 # Sect Ranks Keys
 
 # Appearance Keys
 msgid "appearance_1_name"
-msgstr "奇丑"
+msgstr "奇醜"
 msgid "appearance_1_desc_male"
-msgstr "你长得很丑，五官不协调，常被人躲着走。"
+msgstr "你長得很醜，五官不協調，常被人躲着走。"
 msgid "appearance_1_desc_female"
-msgstr "你长得很丑，五官不协调，旁人多会躲开。"
+msgstr "你長得很醜，五官不協調，旁人多會躲開。"
 
 msgid "appearance_2_name"
-msgstr "丑陋"
+msgstr "醜陋"
 msgid "appearance_2_desc_male"
-msgstr "你五官粗糙，鼻梁塌，下巴有点外凸。"
+msgstr "你五官粗糙，鼻樑塌，下巴有點外凸。"
 msgid "appearance_2_desc_female"
-msgstr "你五官粗糙，颧骨偏高，嘴唇线条乱。"
+msgstr "你五官粗糙，顴骨偏高，嘴脣線條亂。"
 
 msgid "appearance_3_name"
 msgstr "粗陋"
 msgid "appearance_3_desc_male"
-msgstr "你相貌粗陋，看久也不太顺眼。"
+msgstr "你相貌粗陋，看久也不太順眼。"
 msgid "appearance_3_desc_female"
-msgstr "你相貌粗陋，神情略显刻薄。"
+msgstr "你相貌粗陋，神情略顯刻薄。"
 
 msgid "appearance_4_name"
 msgstr "寒素"
 msgid "appearance_4_desc_male"
-msgstr "你长相普通，眉目淡，穿着朴素，不显眼。"
+msgstr "你長相普通，眉目淡，穿着樸素，不顯眼。"
 msgid "appearance_4_desc_female"
-msgstr "你长相普通，气色淡，打扮简单，不出挑。"
+msgstr "你長相普通，氣色淡，打扮簡單，不出挑。"
 
 msgid "appearance_5_name"
 msgstr "清秀"
 msgid "appearance_5_desc_male"
-msgstr "你眉眼清秀，看着顺眼。"
+msgstr "你眉眼清秀，看着順眼。"
 msgid "appearance_5_desc_female"
 msgstr "你眉眼清秀，挺耐看。"
 
 msgid "appearance_6_name"
 msgstr "秀致"
 msgid "appearance_6_desc_male"
-msgstr "你五官精致，气质端正。"
+msgstr "你五官精緻，氣質端正。"
 msgid "appearance_6_desc_female"
-msgstr "你五官精致，气质温雅。"
+msgstr "你五官精緻，氣質溫雅。"
 
 msgid "appearance_7_name"
 msgstr "俊美"
 msgid "appearance_7_desc_male"
-msgstr "你长得很俊，回头率很高。"
+msgstr "你長得很俊，回頭率很高。"
 msgid "appearance_7_desc_female"
-msgstr "你长得很美，很抢眼。"
+msgstr "你長得很美，很搶眼。"
 
 msgid "appearance_8_name"
-msgstr "倾城"
+msgstr "傾城"
 msgid "appearance_8_desc_male"
-msgstr "你外形出众，走到哪都很惹眼。"
+msgstr "你外形出衆，走到哪都很惹眼。"
 msgid "appearance_8_desc_female"
-msgstr "你漂亮到让人惊艳。"
+msgstr "你漂亮到讓人驚豔。"
 
 msgid "appearance_9_name"
-msgstr "绝色"
+msgstr "絕色"
 msgid "appearance_9_desc_male"
-msgstr "你长相和气质都很顶，常引人侧目。"
+msgstr "你長相和氣質都很頂，常引人側目。"
 msgid "appearance_9_desc_female"
-msgstr "你美得很惊人，几乎一眼难忘。"
+msgstr "你美得很驚人，幾乎一眼難忘。"
 
 msgid "appearance_10_name"
-msgstr "惊艳"
+msgstr "驚豔"
 msgid "appearance_10_desc_male"
-msgstr "你漂亮得像不食人间烟火。"
+msgstr "你漂亮得像不食人間煙火。"
 msgid "appearance_10_desc_female"
-msgstr "你美到让人惊艳，一眼就记住你。"
+msgstr "你美到讓人驚豔，一眼就記住你。"
 
 # ============================================================================
 # Relation & Root & Appearance & Sect (New)
@@ -2064,10 +2064,10 @@ msgid "{name}: {desc} ({realm})"
 msgstr "{name}：{desc}（{realm}）"
 
 msgid "{realm} {stage} (Level {level}) {status}"
-msgstr "{realm}{stage}({level}级){status}"
+msgstr "{realm}{stage}({level}級){status}"
 
 msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
-msgstr "{realm}{stage}({level}级)。在瓶颈期：{status}"
+msgstr "{realm}{stage}({level}級)。在瓶頸期：{status}"
 
 msgid "Unknown character"
 msgstr "未知角色"
@@ -2076,16 +2076,16 @@ msgid "{name} ({desc}{effect})"
 msgstr "{name}（{desc}{effect}）"
 
 msgid "{name} has ascended to a cultivator."
-msgstr "{name}晋升为修士了。"
+msgstr "{name}晉升爲修士了。"
 
 msgid "old_age"
 msgstr "老死"
 
 msgid "battle"
-msgstr "战死"
+msgstr "戰死"
 
 msgid "serious_injury"
-msgstr "重伤"
+msgstr "重傷"
 
 msgid "(Unknown technique)"
 msgstr "（未知功法）"
@@ -2093,7 +2093,7 @@ msgstr "（未知功法）"
 
 
 msgid "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
-msgstr "（阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+msgstr "（陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
 
 msgid "Drops: {materials}"
 msgstr "掉落：{materials}"
@@ -2118,10 +2118,10 @@ msgid "date_format_year_month"
 msgstr "{year}年{month}月"
 
 msgid "sect_headquarters_desc_format"
-msgstr "（【{sect_name}】宗门驻地）"
+msgstr "（【{sect_name}】宗門駐地）"
 
 msgid "Current World Phenomenon"
-msgstr "当前天地灵机"
+msgstr "當前天地靈機"
 
 msgid "phenomenon_format"
 msgstr "【{name}】{desc}"
@@ -2130,144 +2130,144 @@ msgid "Wilderness"
 msgstr "荒野"
 
 msgid "relation_rule_establish_title"
-msgstr "【建立关系规则】"
+msgstr "【建立關係規則】"
 
 msgid "relation_rule_cancel_title"
-msgstr "【解除关系规则】"
+msgstr "【解除關係規則】"
 
 msgid "relation_rule_lovers_add"
-msgstr "【道侣】需异性。必须有相互的深度认可和爱慕。"
+msgstr "【道侶】需異性。必須有相互的深度認可和愛慕。"
 
 msgid "relation_rule_friend_add"
-msgstr "【朋友】友好互动（交谈、切磋不致死、疗伤）。无实质利益冲突。"
+msgstr "【朋友】友好互動（交談、切磋不致死、療傷）。無實質利益衝突。"
 
 msgid "relation_rule_enemy_add"
-msgstr "【仇人】发生实质伤害（受伤、偷窃、羞辱）。单次严重伤害或多次微小摩擦。"
+msgstr "【仇人】發生實質傷害（受傷、偷竊、羞辱）。單次嚴重傷害或多次微小摩擦。"
 
 msgid "relation_rule_master_add"
-msgstr "【师傅】境界需显著高于徒弟（如金丹vs练气）。"
+msgstr "【師傅】境界需顯著高於徒弟（如金丹vs練氣）。"
 
 msgid "relation_rule_apprentice_add"
-msgstr "【徒弟】相对于师傅，通常随师傅关系自动建立。"
+msgstr "【徒弟】相對於師傅，通常隨師傅關係自動建立。"
 
 msgid "relation_rule_lovers_cancel"
-msgstr "【分手】发生冲突、感情破裂、严重背叛。"
+msgstr "【分手】發生衝突、感情破裂、嚴重背叛。"
 
 msgid "relation_rule_friend_cancel"
-msgstr "【绝交】利益冲突、背叛、或者长期无互动导致疏远。"
+msgstr "【絕交】利益衝突、背叛、或者長期無互動導致疏遠。"
 
 msgid "relation_rule_enemy_cancel"
-msgstr "【和解】一方主动示好并被接受，或共同经历生死，或仇恨淡化。"
+msgstr "【和解】一方主動示好並被接受，或共同經歷生死，或仇恨淡化。"
 
 msgid "relation_rule_master_cancel"
-msgstr "【逐出/背叛】徒弟忤逆或师傅无力教导。"
+msgstr "【逐出/背叛】徒弟忤逆或師傅無力教導。"
 
 msgid "relation_rule_apprentice_cancel"
-msgstr "【出师/断绝】同上。"
+msgstr "【出師/斷絕】同上。"
 
 msgid "History"
-msgstr "历史"
+msgstr "歷史"
 
 msgid "When alignment is {align}"
-msgstr "当阵营为{align}时"
+msgstr "當陣營爲{align}時"
 
 msgid "When using {weapon_type}"
-msgstr "当使用{weapon_type}时"
+msgstr "當使用{weapon_type}時"
 
 # Action: Play Extended
 msgid "action_reading"
-msgstr "读书"
+msgstr "讀書"
 
 msgid "action_tea_tasting"
 msgstr "品茶"
 
 msgid "action_traveling"
-msgstr "游历"
+msgstr "遊歷"
 
 msgid "action_zither_playing"
-msgstr "抚琴"
+msgstr "撫琴"
 
 msgid "action_tea_party"
-msgstr "茶会"
+msgstr "茶會"
 
 msgid "action_chess"
 msgstr "下棋"
 
 msgid "{avatar} starts {action}"
-msgstr "{avatar} 开始{action}"
+msgstr "{avatar} 開始{action}"
 
 msgid "{avatar} finished {action}."
 msgstr "{avatar} 完成了{action}。"
 
 msgid "gained {val} cultivation"
-msgstr "若有所悟，修为增加 {val}"
+msgstr "若有所悟，修爲增加 {val}"
 
 msgid "breakthrough probability increased by {val:.1%}"
 msgstr "心境提升，突破概率增加 {val:.1%}"
 
 msgid "action_reading_desc"
-msgstr "研读古籍，增长见闻。"
+msgstr "研讀古籍，增長見聞。"
 
 msgid "action_tea_tasting_desc"
-msgstr "品味清茶，静心养性。"
+msgstr "品味清茶，靜心養性。"
 
 msgid "action_traveling_desc"
-msgstr "游历四方，感悟天地。"
+msgstr "遊歷四方，感悟天地。"
 
 msgid "action_zither_playing_desc"
-msgstr "抚琴奏乐，陶冶情操。"
+msgstr "撫琴奏樂，陶冶情操。"
 
 msgid "action_tea_party_desc"
-msgstr "与友共品清茶。"
+msgstr "與友共品清茶。"
 
 msgid "action_chess_desc"
-msgstr "对弈博弈，磨砺心智。"
+msgstr "對弈博弈，磨礪心智。"
 
 msgid "action_tea_party_story_prompt"
-msgstr "两人正在举行一场雅致的茶会。"
+msgstr "兩人正在舉行一場雅緻的茶會。"
 
 msgid "action_chess_story_prompt"
-msgstr "两人正在对弈下棋。"
+msgstr "兩人正在對弈下棋。"
 
 
 # ============================================================================
-# Hidden Domain (秘境)
+# Hidden Domain (祕境)
 # ============================================================================
 
 msgid "hidden_domain_story_prompt"
-msgstr "描述探索秘境的过程，侧重于遭遇的凶险或获得的机缘，营造神秘和紧张的氛围。"
+msgstr "描述探索祕境的過程，側重於遭遇的兇險或獲得的機緣，營造神祕和緊張的氛圍。"
 
 msgid "Hidden Domains opened: {names}"
 msgstr "{names}"
 
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below."
-msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。"
+msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。"
 
 msgid "{name} perished in the hidden domain {domain}."
-msgstr "{name} 葬身于秘境【{domain}】。"
+msgstr "{name} 葬身於祕境【{domain}】。"
 
 msgid "{name} found a treasure {loot} in {domain}!"
-msgstr "{name} 在秘境【{domain}】中觅得宝物【{loot}】！"
+msgstr "{name} 在祕境【{domain}】中覓得寶物【{loot}】！"
 
 msgid "Perished in a Hidden Domain"
-msgstr "在秘境中陨落"
+msgstr "在祕境中隕落"
 
 msgid "Event: Hidden Domain Opening\nName: {name}\nDescription: {desc}"
-msgstr "事件：秘境开启\n名称：{name}\n描述：{desc}"
+msgstr "事件：祕境開啓\n名稱：{name}\n描述：{desc}"
 
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}"
-msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。进入者：{entrants}。"
+msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。進入者：{entrants}。"
 
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered."
-msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。无修士进入。"
+msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。無修士進入。"
 
 
 msgid "{}: {}"
 msgstr "{}：{}"
 
 msgid "found a treasure"
-msgstr "觅得宝物"
+msgstr "覓得寶物"
 
 msgid "perished"
-msgstr "葬身于"
+msgstr "葬身於"
 
