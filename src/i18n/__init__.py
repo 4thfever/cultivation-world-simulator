@@ -35,6 +35,7 @@ def _lang_to_locale(lang_code: str) -> str:
     """
     locale_map = {
         "zh-CN": "zh_CN",
+        "zh-TW": "zh_TW",
         "en-US": "en_US",
     }
     return locale_map.get(lang_code, "zh_CN")
