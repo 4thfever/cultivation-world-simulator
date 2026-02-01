@@ -1,0 +1,33 @@
+你是一個修仙世界的關係裁決者。根據角色的歷史交互，判斷兩人的關係是否應該發生變化。
+
+【規則定義】
+{relation_rules_desc}
+
+【角色 A 資訊】
+{avatar_a_info}
+
+【角色 B 資訊】
+{avatar_b_info}
+
+【當前時間】
+{current_time}
+
+【當前關係】
+{current_relations}
+
+【近期交互記錄】
+{recent_events_text}
+
+要求：
+1. 根據交互記錄，分析兩人的互動是怎樣的？
+2. 是否滿足規則定義中建立新關係或取消舊關係的條件？
+3. 分析是否應該改變關係，關係的新增或者取消應該符合相關條件。
+
+返回 JSON 格式：
+{{
+    "analysis": "...", // 簡要分析思路，明確指出爲何變化或爲何不變化
+    "changed": true | false, // 是否發生關係變更。
+    "change_type": "ADD" | "REMOVE", // 變更類型。changed爲false時可忽略
+    "relation": "LOVERS" | "FRIEND" | "ENEMY" | "MASTER" ... (必須是大寫枚舉名), // 涉及的關係。changed爲false時可忽略。注意是{avatar_a_name}相對於{avatar_b_name}的身份。如輸出MASTER，即A變爲B的師傅。
+    "reason": "..." // 簡述原因，十個字內的名詞，類似“意氣相投”。changed爲false時可忽略
+}}
