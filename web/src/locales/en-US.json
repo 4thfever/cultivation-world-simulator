@@ -230,7 +230,15 @@
       "change_success": "Phenomenon changed to: {name}",
       "click_to_change": "(Click to change phenomenon)",
       "author_bilibili": "Bilibili",
-      "author_github": "Github"
+      "author_github": "Github",
+      "hidden_domain": {
+        "label": "[Hidden Domain]",
+        "label_active": "[Domain Opened: {count}]",
+        "title": "Opened Hidden Domains",
+        "empty": "No hidden domains currently open",
+        "danger": "Danger",
+        "drop": "Fortune"
+      }
     },
     "controls": {
       "resume": "Resume Game",

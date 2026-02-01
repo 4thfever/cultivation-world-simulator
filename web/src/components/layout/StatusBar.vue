@@ -4,6 +4,7 @@ import { useSocketStore } from '../../stores/socket'
 import { ref, computed } from 'vue'
 import { NPopover, NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import StatusWidget from './StatusWidget.vue'
 
 const { t } = useI18n()
 const store = useWorldStore()
@@ -17,6 +18,17 @@ const phenomenonColor = computed(() => {
   return getRarityColor(p.rarity);
 })
 
+const domainLabel = computed(() => {
+  const count = store.activeDomains.length;
+  return count > 0 
+    ? t('game.status_bar.hidden_domain.label_active', { count }) 
+    : t('game.status_bar.hidden_domain.label');
+});
+
+const domainColor = computed(() => {
+  return store.activeDomains.length > 0 ? '#fa8c16' : '#666'; // 有秘境时亮橙色，否则灰色
+});
+
 function getRarityColor(rarity: string) {
   switch (rarity) {
     case 'N': return '#ccc';
@@ -26,17 +38,8 @@ function getRarityColor(rarity: string) {
     default: return '#ccc';
   }
 }
-
-async function openPhenomenonSelector() {
-  showSelector.value = true;
-  await store.getPhenomenaList();
-}
-
-async function handleSelect(id: number, name: string) {
-  await store.changePhenomenon(id);
-  showSelector.value = false;
-  message.success(t('game.status_bar.change_success', { name }));
-}
+// ...
+// ...
 </script>
 
 <template>
@@ -49,18 +52,14 @@ async function handleSelect(id: number, name: string) {
       <span class="time">{{ store.year }}{{ t('common.year') }} {{ store.month }}{{ t('common.month') }}</span>
       
       <!-- 天地灵机 -->
-      <div class="phenomenon" v-if="store.currentPhenomenon">
-        <span class="divider">|</span>
-        <n-popover trigger="hover" placement="bottom" style="max-width: 300px;">
-          <template #trigger>
-            <span 
-              class="phenomenon-name" 
-              :style="{ color: phenomenonColor }"
-              @click="openPhenomenonSelector"
-            >
-              [{{ store.currentPhenomenon.name }}]
-            </span>
-          </template>
+      <StatusWidget 
+        v-if="store.currentPhenomenon"
+        :label="`[${store.currentPhenomenon.name}]`"
+        :color="phenomenonColor"
+        mode="single"
+        @trigger-click="openPhenomenonSelector"
+      >
+        <template #single>
           <div class="phenomenon-card">
             <div class="p-header" :style="{ color: phenomenonColor }">
               <span class="p-title">{{ store.currentPhenomenon.name }}</span>
@@ -79,8 +78,18 @@ async function handleSelect(id: number, name: string) {
             </div>
             <div class="click-tip">{{ t('game.status_bar.click_to_change') }}</div>
           </div>
-        </n-popover>
-      </div>
+        </template>
+      </StatusWidget>
+
+      <!-- 秘境 -->
+      <StatusWidget
+        :label="domainLabel"
+        :color="domainColor"
+        mode="list"
+        :title="t('game.status_bar.hidden_domain.title')"
+        :items="store.activeDomains"
+        :empty-text="t('game.status_bar.hidden_domain.empty')"
+      />
     </div>
 
     <!-- 天象选择器 Modal -->
@@ -158,26 +167,7 @@ async function handleSelect(id: number, name: string) {
   gap: 10px;
 }
 
-.phenomenon {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.divider {
-  color: #444;
-}
-
-.phenomenon-name {
-  cursor: pointer;
-  font-weight: bold;
-  transition: opacity 0.2s;
-}
-
-.phenomenon-name:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-}
+/* .phenomenon, .divider, .phenomenon-name REMOVED (moved to StatusWidget) */
 
 .phenomenon-card {
   padding: 4px 0;

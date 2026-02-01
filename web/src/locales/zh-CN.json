@@ -230,7 +230,15 @@
       "change_success": "天象已更易为：{name}",
       "click_to_change": "（点击可更易天象）",
       "author_bilibili": "B站空间",
-      "author_github": "Github仓库"
+      "author_github": "Github仓库",
+      "hidden_domain": {
+        "label": "[秘境]",
+        "label_active": "[秘境开启: {count}]",
+        "title": "当前开启秘境",
+        "empty": "当前暂无秘境开启",
+        "danger": "凶险",
+        "drop": "机缘"
+      }
     },
     "controls": {
       "resume": "继续游戏",

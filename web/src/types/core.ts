@@ -183,6 +183,18 @@ export interface CelestialPhenomenon {
   effect_desc?: string;
 }
 
+// web/src/types/core.ts
+
+// 新增秘境信息接口
+export interface HiddenDomainInfo {
+  id: string;
+  name: string;
+  desc: string;
+  max_realm: string; // 限制境界
+  danger_prob: number; // 凶险度 (0.0 - 1.0)
+  drop_prob: number;   // 机缘度 (0.0 - 1.0)
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {

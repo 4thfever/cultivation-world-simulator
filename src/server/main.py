@@ -172,6 +172,29 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
+def serialize_active_domains(world: World) -> List[dict]:
+    """序列化当前开启的秘境列表"""
+    domains_data = []
+    if not world or not world.gathering_manager:
+        return []
+    
+    for gathering in world.gathering_manager.gatherings:
+        # Check by class name to avoid circular imports
+        if gathering.__class__.__name__ == "HiddenDomain":
+            # Accessing _active_domains safely
+            active_domains = getattr(gathering, "_active_domains", [])
+            for d in active_domains:
+                domains_data.append({
+                    "id": d.id,
+                    "name": d.name,
+                    "desc": d.desc,
+                    # Use str() to trigger Realm.__str__ which returns translated text
+                    "max_realm": str(d.max_realm), 
+                    "danger_prob": d.danger_prob,
+                    "drop_prob": d.drop_prob
+                })
+    return domains_data
+
 def serialize_events_for_client(events: List[Event]) -> List[dict]:
     """将事件转换为前端可用的结构。"""
     serialized: List[dict] = []
@@ -553,7 +576,8 @@ async def game_loop():
                     "month": world.month_stamp.get_month().value,
                     "events": serialize_events_for_client(events),
                     "avatars": avatar_updates,
-                    "phenomenon": serialize_phenomenon(world.current_phenomenon)
+                    "phenomenon": serialize_phenomenon(world.current_phenomenon),
+                    "active_domains": serialize_active_domains(world)
                 }
                 await manager.broadcast(state)
         except Exception as e:
