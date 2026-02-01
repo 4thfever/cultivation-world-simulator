@@ -1,0 +1,39 @@
+你是一個仙俠世界的創作者，我會給你一個原始的世界背景，以及一段歷史。
+你需要基於世界背景，根據這段歷史，修改這個世界中存在的功法、兵器、輔助裝備資訊。
+
+世界背景：
+{world_info}
+
+歷史文本：
+{history_str}
+
+功法資訊：
+{techniques}
+
+兵器資訊：
+{weapons}
+
+輔助裝備資訊:
+{auxiliarys}
+
+基於以上資訊，分析，並返回修改意見。
+
+返回JSON格式：
+{{
+    "thinking": "分析應該有怎麼樣的修改",
+    "techniques_change": 
+        {{
+            "id": {{ //原來的id
+                "name": str // 新的名字
+                "desc": desc // 新的desc
+            }}
+        }},
+    "weapons_change": {{}} // dict, 結構同上
+    "auxiliarys_change": {{}} // dict, 結構同上
+}}
+
+要求：
+1. thinking是你的思考過程，要詳細分析
+2. 要參考history的內容進行修改，言之有理。
+3. 某項沒有修改的話，就返回空字典{{}}
+4. 要修改的項，只返回name和desc，不返回別的key

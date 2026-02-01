@@ -1,0 +1,17 @@
+你是一個決策者，這是一個修仙世界，你需要幫一個修仙者做一個決策。
+
+世界背景：
+{world_info}
+
+你需要進行決策的NPC的dict[AvatarName, info]爲
+{avatar_infos}
+
+你的可選選項爲
+{choices}
+
+注意，只返回json格式的結果，格式爲：
+{{
+    "thinking": ..., // 簡單思考
+    "choice": "" // 你的決策，注意只返回對應的選項字母
+}}
+

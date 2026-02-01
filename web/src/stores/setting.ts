@@ -6,7 +6,7 @@ import { systemApi } from '../api/modules/system';
 export const useSettingStore = defineStore('setting', () => {
   const locale = ref(localStorage.getItem('app_locale') || 'zh-CN');
 
-  async function setLocale(lang: 'zh-CN' | 'en-US') {
+  async function setLocale(lang: 'zh-CN' | 'zh-TW' | 'en-US') {
     // 1. Optimistic UI update
     locale.value = lang;
     localStorage.setItem('app_locale', lang);
@@ -16,7 +16,12 @@ export const useSettingStore = defineStore('setting', () => {
         (i18n.global.locale as any).value = lang;
     }
     // Update HTML lang attribute for accessibility
-    document.documentElement.lang = lang === 'zh-CN' ? 'zh-CN' : 'en';
+    const langMap: Record<string, string> = {
+      'zh-CN': 'zh-CN',
+      'zh-TW': 'zh-TW',
+      'en-US': 'en'
+    };
+    document.documentElement.lang = langMap[lang] || 'en';
 
     // 2. Sync with backend
     await syncBackend();
