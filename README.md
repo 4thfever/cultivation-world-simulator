@@ -124,11 +124,6 @@
    docker-compose up -d --build
    ```
 
-3. **访问应用**
-
-   前端：`http://localhost:8123`
-   后端 API：`http://localhost:8002`
-
 #### 方式二：手动安装运行
 
 1. 克隆项目到本地：
@@ -170,6 +165,13 @@
    python src/server/main.py --dev
    ```
    浏览器会自动打开网页前端。
+
+### 🌐 访问应用
+
+无论使用哪种方式运行，启动后都可以通过以下地址访问：
+
+前端：`http://localhost:8123`
+后端 API：`http://localhost:8002`
 
 
 ## 📊 项目状态

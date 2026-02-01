@@ -105,6 +105,24 @@ You can also join the QQ group for discussion: 1071821688. Verification answer: 
 ## 🚀 Usage
 
 ### ⚙️ Run Steps
+
+#### Option 1: Docker Compose (Recommended)
+
+If you have Docker installed, this is the easiest way:
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+   cd cultivation-world-simulator
+   ```
+
+2. **Start Service (Auto build & run)**
+   ```bash
+   docker-compose up -d --build
+   ```
+
+#### Option 2: Manual Installation
+
 1. Clone the repo:
    ```bash
    git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
@@ -145,6 +163,11 @@ You can also join the QQ group for discussion: 1071821688. Verification answer: 
    python src/server/main.py --dev
    ```
    The browser will automatically open the web frontend.
+
+### 🌐 Access Application
+
+Frontend: `http://localhost:8123`
+Backend API: `http://localhost:8002`
 
 
 ## 📊 Project Status
