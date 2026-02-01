@@ -113,21 +113,21 @@
 
 如果你已经安装了 Docker，这是最简单的方式：
 
-# 1. 克隆项目
-```bash
+1. **克隆项目**
+   ```bash
+   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+   cd cultivation-world-simulator
+   ```
 
-git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
-cd cultivation-world-simulator
-```
-# 2. 启动服务（自动构建并运行）
-```bash
-docker-compose up -d --build
-```
-# 3. 访问应用
+2. **启动服务（自动构建并运行）**
+   ```bash
+   docker-compose up -d --build
+   ```
 
-前端：`http://localhost:8123`
-后端 API：`http://localhost:8002`
-```
+3. **访问应用**
+
+   前端：`http://localhost:8123`
+   后端 API：`http://localhost:8002`
 
 #### 方式二：手动安装运行
 

@@ -107,7 +107,7 @@ You can also join the QQ group for discussion: 1071821688. Verification answer: 
 ### ⚙️ Run Steps
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/cultivation-world-simulator.git
+   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
    cd cultivation-world-simulator
    ```
 
@@ -121,19 +121,23 @@ You can also join the QQ group for discussion: 1071821688. Verification answer: 
    ```
 
 3. Configure LLM:
-   Edit `static/config.yml`:
+   
+   **Recommended: Configure directly in the frontend (supports quick preset filling)**
+   
+   <img src="assets/en-US/llm_config.png" alt="Frontend LLM Config" width="100%">
+
+   You can also manually configure it in `static/local_config.yml` (OpenAI compatible format):
    ```yaml
-    llm:
-      key: "your-api-key-here"           # your api key
-      base_url: "https://api.xxx.com"    # API addr 
-      model_name: "normal_model_name"    
-      fast_model_name: "fast_model_name" 
+   llm:
+     base_url: https://api.deepseek.com       # API addr
+     key: your-api-key-here                   # your api key
+     model_name: deepseek-chat                # normal model name
+     fast_model_name: deepseek-chat           # fast model name
+     mode: default                            # run mode (default/normal/fast)
    ```
    Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
 
-   You can also configure LLM parameters directly in the frontend:
-   
-   <img src="assets/en-US/llm_config.png" alt="Frontend LLM Config" width="100%">
+   **Local Deployment (Ollama):** Also supports connecting to local Ollama, just select "Ollama (Local)" preset in the frontend.
 
 4. Run:
    ```bash
