@@ -18,7 +18,9 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-
+    volumes:
+      - ./assets/saves:/app/assets/saves
+      - ./logs:/app/logs
   # 前端服务
   frontend:
     build:

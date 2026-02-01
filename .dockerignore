@@ -1,0 +1,40 @@
+# 忽略不需要的文件
+.git
+.gitignore
+node_modules
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+
+# 开发文件
+README.md
+ROADMAP.md
+CONTRIBUTING.md
+.github/
+.vscode/
+.idea/
+*.md
+
+# 构建产物
+web/dist/
+web/node_modules/
+dist/
+build/
+
+# 日志
+*.log
+logs/
+
+# 测试
+tests/
+pytest_cache/
+.coverage
+htmlcov/

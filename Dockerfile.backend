@@ -23,7 +23,7 @@ COPY static/ ./static/
 COPY assets/ ./assets/
 
 # 创建必要的目录
-RUN mkdir -p /app/saves /app/logs
+RUN mkdir -p /app/assets/saves /app/logs
 
 # 暴露端口
 EXPOSE 8002

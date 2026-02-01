@@ -165,5 +165,3 @@ logs/
 # Docker environment files
 .env
 
-# Docker build cache
-.dockerignore
