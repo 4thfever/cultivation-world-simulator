@@ -79,14 +79,19 @@ def update_paths_for_language(lang_code: str = None):
     # 语言无关的配置目录
     CONFIG.paths.shared_game_configs = Path("static/game_configs")
     # 语言相关的配置目录
-    CONFIG.paths.game_configs = target_dir / "game_configs"
+    CONFIG.paths.localized_game_configs = target_dir / "game_configs"
+    
+    # CONFIG.paths.game_configs 指向统一的数据源，不再区分语言目录
+    # 这里我们保留 CONFIG.paths.game_configs 作为"逻辑概念上的"配置集合根目录（虽然物理上分开了）
+    # 但实际上加载逻辑会在 df.py 中处理合并
+    CONFIG.paths.game_configs = Path("static/game_configs")
     CONFIG.paths.templates = target_dir / "templates"
     
     # 简单的存在性检查日志
     if not CONFIG.paths.game_configs.exists():
         print(f"[Config] Warning: Game configs dir not found at {CONFIG.paths.game_configs}")
     else:
-        print(f"[Config] Switched paths to {lang_code}")
+        print(f"[Config] Switched language context to {lang_code} (Configs using Single Source)")
 
 # 模块加载时自动初始化默认路径，确保 CONFIG.paths.game_configs 存在，避免 import 时 KeyError
 update_paths_for_language()

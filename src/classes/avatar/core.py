@@ -40,6 +40,7 @@ from src.classes.nickname_data import Nickname
 from src.classes.emotions import EmotionType
 from src.utils.config import CONFIG
 from src.classes.elixir import ConsumedElixir, Elixir
+from src.classes.avatar_metrics import AvatarMetrics
 
 # Mixin 导入
 from src.classes.effect import EffectsMixin
@@ -123,6 +124,11 @@ class Avatar(
     _action_cd_last_months: dict[str, int] = field(default_factory=dict)
     
     known_regions: set[int] = field(default_factory=set)
+
+    # 状态追踪（可选）
+    metrics_history: List[AvatarMetrics] = field(default_factory=list)
+    enable_metrics_tracking: bool = False
+    max_metrics_history: int = 1200  # 最多 100 年
 
     # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
@@ -259,6 +265,58 @@ class Avatar(
     def death_by_old_age(self) -> bool:
         """检查是否老死"""
         return self.age.death_by_old_age(self.cultivation_progress.realm)
+
+    # ========== 状态追踪 ==========
+
+    def record_metrics(self, tags: Optional[List[str]] = None) -> Optional[AvatarMetrics]:
+        """
+        记录当前状态快照。
+
+        Args:
+            tags: 可选的事件标记
+
+        Returns:
+            创建的快照，如果追踪未启用则返回 None
+        """
+        if not self.enable_metrics_tracking:
+            return None
+
+        metrics = AvatarMetrics(
+            timestamp=self.world.month_stamp,
+            age=self.age.value,
+            cultivation_level=self.cultivation_progress.level,
+            cultivation_progress=self.cultivation_progress.progress,
+            hp=self.hp.value,
+            hp_max=self.hp.max_value,
+            spirit_stones=self.magic_stone.amount,
+            relations_count=len(self.relations),
+            known_regions_count=len(self.known_regions),
+            tags=tags or [],
+        )
+
+        self.metrics_history.append(metrics)
+
+        # 自动清理旧记录
+        if len(self.metrics_history) > self.max_metrics_history:
+            self.metrics_history = self.metrics_history[-self.max_metrics_history:]
+
+        return metrics
+
+    def get_metrics_summary(self) -> dict:
+        """获取状态追踪摘要"""
+        if not self.metrics_history:
+            return {"enabled": self.enable_metrics_tracking, "count": 0}
+
+        return {
+            "enabled": self.enable_metrics_tracking,
+            "count": len(self.metrics_history),
+            "first_record": self.metrics_history[0].timestamp,
+            "latest_record": self.metrics_history[-1].timestamp,
+            "cultivation_growth": (
+                self.metrics_history[-1].cultivation_level -
+                self.metrics_history[0].cultivation_level
+            ),
+        }
 
     # ========== 年龄与修为 ==========
 

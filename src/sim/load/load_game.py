@@ -194,6 +194,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 读取世界数据
         world_data = save_data.get("world", {})
         month_stamp = MonthStamp(world_data["month_stamp"])
+        start_year = world_data.get("start_year", 100)
         
         # 计算事件数据库路径。
         events_db_path = get_events_db_path(save_path)
@@ -203,6 +204,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             map=game_map,
             month_stamp=month_stamp,
             events_db_path=events_db_path,
+            start_year=start_year,
         )
         
         # 恢复世界历史

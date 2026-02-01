@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
-import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon } from '../types/core';
+import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon, HiddenDomainInfo } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
 import type { FetchEventsParams } from '../types/api';
 import { worldApi, eventApi } from '../api';
@@ -32,6 +32,9 @@ export const useWorldStore = defineStore('world', () => {
   
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
+
+  // 秘境列表
+  const activeDomains = shallowRef<HiddenDomainInfo[]>([]);
 
   // 请求计数器，用于处理 loadEvents 的竞态条件。
   let eventsRequestId = 0;
@@ -110,6 +113,13 @@ export const useWorldStore = defineStore('world', () => {
     if (payload.phenomenon !== undefined) {
         currentPhenomenon.value = payload.phenomenon;
     }
+    // 处理秘境同步
+    if (payload.active_domains !== undefined) {
+        activeDomains.value = payload.active_domains;
+    } else {
+        // 如果后端不传，说明本回合无秘境，清空
+        activeDomains.value = [];
+    }
   }
 
   function applyStateSnapshot(stateRes: InitialStateDTO) {
@@ -126,6 +136,7 @@ export const useWorldStore = defineStore('world', () => {
     eventsFilter.value = {};
     currentPhenomenon.value = stateRes.phenomenon || null;
     isLoaded.value = true;
+    activeDomains.value = [];
   }
 
   // 提前加载地图数据（在 LLM 初始化期间可用）。
@@ -226,6 +237,7 @@ export const useWorldStore = defineStore('world', () => {
     eventsFilter.value = {};
     isLoaded.value = false;
     currentPhenomenon.value = null;
+    activeDomains.value = [];
   }
 
   // --- 事件分页 ---
@@ -358,6 +370,7 @@ export const useWorldStore = defineStore('world', () => {
     loadMoreEvents,
     resetEvents,
     getPhenomenaList,
-    changePhenomenon
+    changePhenomenon,
+    activeDomains
   };
 });

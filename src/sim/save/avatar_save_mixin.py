@@ -107,7 +107,14 @@ class AvatarSaveMixin:
             } if self.long_term_objective else None,
             "_action_cd_last_months": self._action_cd_last_months,
             "known_regions": list(self.known_regions),
-            
+
+            # 状态追踪
+            "metrics_history": [
+                metrics.to_save_dict()
+                for metrics in self.metrics_history
+            ] if self.enable_metrics_tracking else [],
+            "enable_metrics_tracking": self.enable_metrics_tracking,
+
             # 丹药
             "elixirs": [
                 {

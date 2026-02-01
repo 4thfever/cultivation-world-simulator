@@ -267,6 +267,10 @@ class Simulator:
         Gathering 结算阶段：
         检查并执行注册的多人聚集事件（如拍卖会、大比等）。
         """
+        # 第一年不触发聚集事件，给予发育缓冲
+        if self.world.month_stamp.get_year() <= self.world.start_year:
+            return []
+
         return await self.world.gathering_manager.check_and_run_all(self.world)
     
     def _phase_update_celestial_phenomenon(self):
@@ -480,6 +484,11 @@ class Simulator:
         """
         本轮步进的最终归档：去重、入库、打日志、推进时间。
         """
+        # 0. 为启用追踪的 Avatar 记录每月快照
+        for avatar in self.world.avatar_manager.avatars.values():
+            if avatar.enable_metrics_tracking:
+                avatar.record_metrics()
+
         # 1. 基于 ID 去重（防止同一个事件对象被多次添加）
         unique_events: dict[str, Event] = {}
         for e in events:

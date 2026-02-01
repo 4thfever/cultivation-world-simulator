@@ -15,6 +15,10 @@ from src.classes.sect import Sect, SectHeadQuarter
 from src.classes.alignment import Alignment
 from src.sim.load.load_game import apply_history_modifications
 
+# 保存原始方法，因为 conftest 中全局 mock 了它，导致部分集成测试失效
+# 我们需要在这个变量中保存引用，以便在特定测试中恢复它
+_real_apply_history_influence = HistoryManager.apply_history_influence
+
 # 假设这些全局字典在模块层级
 from src.classes import technique as technique_module
 from src.classes import weapon as weapon_module
@@ -379,7 +383,10 @@ async def test_move_to_region_after_history_rename(base_world, dummy_avatar):
     
     with patch("src.classes.history.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
         mock_llm.side_effect = side_effect
-        await manager.apply_history_influence("测试历史")
+        
+        # 临时恢复真实的 apply_history_influence 方法，因为 conftest 把它 mock 掉了
+        with patch.object(HistoryManager, 'apply_history_influence', new=_real_apply_history_influence):
+            await manager.apply_history_influence("测试历史")
     
     # 验证名称已修改
     assert city_region.name == "沧澜潮汐城"

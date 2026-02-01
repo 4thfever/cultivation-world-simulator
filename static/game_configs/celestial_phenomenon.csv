@@ -1,0 +1,24 @@
+id,name_id,desc_id,name,rarity,effects,desc,duration_years
+,名称ID,描述ID,,稀有度(N/R/SR/SSR),,描述,持续年数
+1,CELESTIAL_PHENOMENON_1_NAME,CELESTIAL_PHENOMENON_1_DESC,紫气东来,R,{extra_cultivate_exp: 15},天地灵气充沛，修士修行速度大增，修行欲望提高,5
+2,CELESTIAL_PHENOMENON_2_NAME,CELESTIAL_PHENOMENON_2_DESC,金煞之年,R,{extra_battle_strength_points: 3},金煞充盈天地肃杀，修士更大可能嗜血而相互攻伐,5
+3,CELESTIAL_PHENOMENON_3_NAME,CELESTIAL_PHENOMENON_3_DESC,木灵盛世,R,"{extra_harvest_materials: 2, extra_hp_recovery_rate: 0.5}",木德滋养生机盎然，采集收获倍增且伤势恢复极快，宜四处搜罗天材地宝,5
+4,CELESTIAL_PHENOMENON_4_NAME,CELESTIAL_PHENOMENON_4_DESC,水德之纪,R,"{extra_cultivate_exp: 20, cultivate_duration_reduction: 0.2, extra_retreat_success_rate: 0.15}",水行流转通达无碍，修炼效率与速度双重提升，正是闭关苦修的大好时机,5
+5,CELESTIAL_PHENOMENON_5_NAME,CELESTIAL_PHENOMENON_5_DESC,火劫时代,R,"{extra_battle_strength_points: 5, extra_max_lifespan: -20}",天火燃烧劫数降临，战力暴涨但寿元流逝，当速战速决以命搏天,5
+6,CELESTIAL_PHENOMENON_6_NAME,CELESTIAL_PHENOMENON_6_DESC,土厚之世,R,"{damage_reduction: 0.15, extra_max_hp: 150}",土德厚重载物无疆，身躯坚韧血气充盈，可无惧强敌正面争锋,5
+7,CELESTIAL_PHENOMENON_7_NAME,CELESTIAL_PHENOMENON_7_DESC,五行逆乱,SR,"{extra_cultivate_exp: -10, extra_breakthrough_success_rate: 0.3}",五行失序天地大乱，常规修炼事倍功半，然瓶颈松动宜尝试突破,5
+8,CELESTIAL_PHENOMENON_8_NAME,CELESTIAL_PHENOMENON_8_DESC,天道均衡,SR,"[{when: 'avatar.cultivation_progress.realm.value >= 6', extra_cultivate_exp: -25}, {when: 'avatar.cultivation_progress.realm.value < 6', extra_cultivate_exp: 10}]",天道显化损有余而补不足，高阶修士进境受阻，低阶修士宜抓紧良机追赶,5
+9,CELESTIAL_PHENOMENON_9_NAME,CELESTIAL_PHENOMENON_9_DESC,劫数将至,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",劫数降临戾气弥漫，虽战力激增但福缘浅薄，宜如履薄冰谨慎行事,5
+10,CELESTIAL_PHENOMENON_10_NAME,CELESTIAL_PHENOMENON_10_DESC,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进,5
+11,CELESTIAL_PHENOMENON_11_NAME,CELESTIAL_PHENOMENON_11_DESC,灵气枯竭,R,{extra_cultivate_exp: -20},灵气枯竭末法将至，修炼如逆水行舟，宜节约资源稳固道心,5
+12,CELESTIAL_PHENOMENON_12_NAME,CELESTIAL_PHENOMENON_12_DESC,魔道兴盛,R,"[{when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.RIGHTEOUS', extra_battle_strength_points: -5}]",魔气滔天邪道大昌，魔修如鱼得水，正道修士当避其锋芒潜心积淀,5
+13,CELESTIAL_PHENOMENON_13_NAME,CELESTIAL_PHENOMENON_13_DESC,正气浩然,R,"[{when: 'avatar.alignment == Alignment.RIGHTEOUS', extra_battle_strength_points: 5, extra_cultivate_exp: 10}, {when: 'avatar.alignment == Alignment.EVIL', extra_battle_strength_points: -5}]",浩然正气镇压邪祟，正道修士如有神助，魔修宜韬光养晦莫触霉头,5
+14,CELESTIAL_PHENOMENON_14_NAME,CELESTIAL_PHENOMENON_14_DESC,神兵出世,SR,{extra_weapon_proficiency_gain: 1.0},神兵有灵百兵齐鸣，兵器熟练度提升极快，宜勤练武艺磨砺锋芒,5
+15,CELESTIAL_PHENOMENON_15_NAME,CELESTIAL_PHENOMENON_15_DESC,阴阳交泰,R,{extra_dual_cultivation_exp: 20},阴阳交泰天地和合，彼此互补进境神速，最宜寻觅道侣共参双修之乐,5
+16,CELESTIAL_PHENOMENON_16_NAME,CELESTIAL_PHENOMENON_16_DESC,杀劫降临,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",血光冲天杀意难抑，虽杀伐之力大增但机缘断绝，宜主动出击以杀证道,5
+17,CELESTIAL_PHENOMENON_17_NAME,CELESTIAL_PHENOMENON_17_DESC,太平盛世,R,"{extra_cultivate_exp: -10, extra_fortune_probability: 0.01}",天下太平万物安宁，虽苦修进境缓慢但机缘频出，宜游历天下寻找奇遇,5
+18,CELESTIAL_PHENOMENON_18_NAME,CELESTIAL_PHENOMENON_18_DESC,气运加身,R,"[{when: 'any(p.key == ""CHILD_OF_FORTUNE"" for p in avatar.personas)', extra_cultivate_exp: 25, extra_fortune_probability: 0.005}]",天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求,5
+19,CELESTIAL_PHENOMENON_19_NAME,CELESTIAL_PHENOMENON_19_DESC,血月当空,SR,"{extra_battle_strength_points: 7, extra_cultivate_exp: -10, extra_retreat_success_rate: -0.2}",血月高悬人心躁动，战力虽强但静修困难，宜以战养战掠夺资源,5
+20,CELESTIAL_PHENOMENON_20_NAME,CELESTIAL_PHENOMENON_20_DESC,飞升之门,SSR,"{extra_cultivate_exp: 30, extra_breakthrough_success_rate: 0.2}",天门大开大道显现，感悟修行皆如有神助，正是冲击境界飞升成仙之时,7
+21,CELESTIAL_PHENOMENON_21_NAME,CELESTIAL_PHENOMENON_21_DESC,法则显化,SSR,{extra_breakthrough_success_rate: 0.5},天地法则清晰可触，瓶颈如纸一捅即破，万勿错过此突破天赐良机,3
+22,CELESTIAL_PHENOMENON_22_NAME,CELESTIAL_PHENOMENON_22_DESC,时空乱流,SSR,{extra_fortune_probability: 0.005},时空错乱异象频生，险地亦藏无上机缘，宜富贵险中求探索未知,5

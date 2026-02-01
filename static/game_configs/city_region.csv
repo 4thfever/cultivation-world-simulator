@@ -1,0 +1,7 @@
+id,name_id,desc_id,name,desc,sell_item_ids
+ID必须以3开头,名称ID,描述ID,,,
+301,CITY_REGION_301_NAME,CITY_REGION_301_DESC,青云城,繁华都市，人烟稠密，商贾云集。此地是交易天材地宝、寻找机缘的重要场所。,"[3001, 3005]"
+302,CITY_REGION_302_NAME,CITY_REGION_302_DESC,沙州城,沙漠绿洲中的贸易重镇，各路商队在此集结，是修士补给和交流的重要据点。,"[3009, 3013]"
+303,CITY_REGION_303_NAME,CITY_REGION_303_DESC,翠林城,森林深处的修仙重镇，众多修士在此栖居，是修炼和炼宝的理想之地。,"[1001, 1002, 1003]"
+304,CITY_REGION_304_NAME,CITY_REGION_304_DESC,沧澜城,坐落于大河入海口的三角洲，百川归海，水运昌隆，是水系修士往来最为频繁的宝地。,"[1004, 1005, 1006]"
+305,CITY_REGION_305_NAME,CITY_REGION_305_DESC,揽月城,屹立于连绵群山之巅，终年云雾缭绕，灵气纯净，是苦修之士感悟天道的绝佳场所。,"[1007, 1008, 1009]"

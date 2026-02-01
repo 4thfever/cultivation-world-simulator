@@ -8,11 +8,14 @@ Usage:
 """
 
 import gettext
+import logging
 from pathlib import Path
 from typing import Optional
 
 # Cache for loaded translations.
 _translations: dict[str, Optional[gettext.GNUTranslations]] = {}
+
+logger = logging.getLogger(__name__)
 
 
 def _get_locale_dir() -> Path:
@@ -65,10 +68,23 @@ def _get_translation() -> Optional[gettext.GNUTranslations]:
                 localedir=str(locale_dir),
                 languages=[locale_name]
             )
-            _translations[lang] = trans
         except FileNotFoundError:
-            # No translation file found, will use message as-is.
-            _translations[lang] = None
+            trans = None
+
+        try:
+            config_trans = gettext.translation(
+                "game_configs",
+                localedir=str(locale_dir),
+                languages=[locale_name]
+            )
+            if trans:
+                trans.add_fallback(config_trans)
+            else:
+                trans = config_trans
+        except FileNotFoundError:
+            pass
+
+        _translations[lang] = trans
     
     return _translations.get(lang)
 
@@ -98,6 +114,10 @@ def t(message: str, **kwargs) -> str:
         translated = trans.gettext(message)
     else:
         translated = message
+    
+    # Check for missing translation if not in English
+    if _get_current_lang() != "en-US" and translated == message and message.strip():
+        logger.warning(f"[i18n] Missing translation for msgid: '{message}'")
     
     if kwargs:
         try:

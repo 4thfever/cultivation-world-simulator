@@ -34,6 +34,12 @@ class LanguageManager:
         except ImportError:
             # Prevent circular import crash during initialization
             pass
+            
+        try:
+            from src.classes.name import reload as reload_names
+            reload_names()
+        except ImportError:
+            pass
 
 
     def __str__(self):

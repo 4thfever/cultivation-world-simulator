@@ -1,0 +1,9 @@
+id,name_id,desc_id,name,desc,sub_type,root_type,root_density
+ID必须以2开头,名称ID,描述ID,,,,,
+201,CULTIVATE_REGION_201_NAME,CULTIVATE_REGION_201_DESC,太白金府,青峰山脉深处的金行洞府，金精气凝，刀剑鸣音不绝，乃金系修士的最高圣地。,cave,GOLD,10
+202,CULTIVATE_REGION_202_NAME,CULTIVATE_REGION_202_DESC,青木洞天,青云林海中的木行洞府，生机盎然，灵药遍地，乃木系修士的最高圣地。,cave,WOOD,10
+203,CULTIVATE_REGION_203_NAME,CULTIVATE_REGION_203_DESC,玄水秘境,无边碧海深处的水行洞府，碧波万里，水精凝神，乃水系修士的最高圣地。,cave,WATER,10
+204,CULTIVATE_REGION_204_NAME,CULTIVATE_REGION_204_DESC,离火洞府,炎狱火山旁的火行洞府，烈焰冲天，真火精纯，乃火系修士的最高圣地。,cave,FIRE,10
+205,CULTIVATE_REGION_205_NAME,CULTIVATE_REGION_205_DESC,厚土玄宫,青峰山脉的土行洞府，厚德载物，山岳共鸣，乃土系修士的最高圣地。,cave,EARTH,10
+206,CULTIVATE_REGION_206_NAME,CULTIVATE_REGION_206_DESC,古越遗迹,雨林深处的上古遗迹，古藤缠绕，木行灵气与金行灵气交融。蕴藏古老功法与灵药配方。,ruin,WOOD,8
+207,CULTIVATE_REGION_207_NAME,CULTIVATE_REGION_207_DESC,沧海遗迹,沉没在海中的远古文明遗迹，水行灵气浓郁，潮汐间偶有宝物现世。,ruin,WATER,9

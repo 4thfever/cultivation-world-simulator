@@ -172,6 +172,45 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
+def serialize_active_domains(world: World) -> List[dict]:
+    """序列化所有秘境列表（包括开启和未开启的）"""
+    domains_data = []
+    if not world or not world.gathering_manager:
+        return []
+    
+    # 找到 HiddenDomain 实例
+    hidden_domain_gathering = None
+    for gathering in world.gathering_manager.gatherings:
+        if gathering.__class__.__name__ == "HiddenDomain":
+            hidden_domain_gathering = gathering
+            break
+            
+    if hidden_domain_gathering:
+        # 获取所有配置（假设 _load_configs 开销不大，或者已缓存）
+        # 这里为了确保获取最新状态，重新加载配置
+        # 注意：访问受保护方法 _load_configs
+        all_configs = hidden_domain_gathering._load_configs()
+        
+        # 获取当前开启的 ID 集合
+        active_ids = {d.id for d in hidden_domain_gathering._active_domains}
+        
+        for d in all_configs:
+            is_open = d.id in active_ids
+            
+            domains_data.append({
+                "id": d.id,
+                "name": d.name,
+                "desc": d.desc,
+                "max_realm": str(d.max_realm), 
+                "danger_prob": d.danger_prob,
+                "drop_prob": d.drop_prob,
+                "is_open": is_open,
+                "cd_years": d.cd_years,
+                "open_prob": d.open_prob
+            })
+            
+    return domains_data
+
 def serialize_events_for_client(events: List[Event]) -> List[dict]:
     """将事件转换为前端可用的结构。"""
     serialized: List[dict] = []
@@ -342,10 +381,12 @@ async def init_game_async():
         game_instance["current_save_path"] = save_path
         print(f"事件数据库: {events_db_path}")
 
+        start_year = getattr(CONFIG.game, "start_year", 100)
         world = World.create_with_db(
             map=game_map,
-            month_stamp=create_month_stamp(Year(100), Month.JANUARY),
+            month_stamp=create_month_stamp(Year(start_year), Month.JANUARY),
             events_db_path=events_db_path,
+            start_year=start_year,
         )
         sim = Simulator(world)
 
@@ -551,7 +592,8 @@ async def game_loop():
                     "month": world.month_stamp.get_month().value,
                     "events": serialize_events_for_client(events),
                     "avatars": avatar_updates,
-                    "phenomenon": serialize_phenomenon(world.current_phenomenon)
+                    "phenomenon": serialize_phenomenon(world.current_phenomenon),
+                    "active_domains": serialize_active_domains(world)
                 }
                 await manager.broadcast(state)
         except Exception as e:
