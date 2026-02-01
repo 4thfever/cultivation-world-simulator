@@ -141,7 +141,10 @@ class TestI18nZhTW(unittest.TestCase):
 
     def test_translation_coverage_zh_tw(self):
         """驗證 zh-TW 翻譯覆蓋率"""
-        import polib
+        try:
+            import polib
+        except ImportError:
+            self.skipTest('polib 未安裝')
 
         locale_dir = Path('src/i18n/locales/zh_TW/LC_MESSAGES')
 
