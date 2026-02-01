@@ -236,7 +236,9 @@
         "title": "Hidden Domains List",
         "empty": "No hidden domains data",
         "danger": "Danger",
-        "drop": "Fortune"
+        "drop": "Fortune",
+        "status_open": "Open",
+        "status_closed": "Closed"
       }
     },
     "controls": {

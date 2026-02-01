@@ -236,7 +236,9 @@
         "title": "秘境列表",
         "empty": "暂无秘境数据",
         "danger": "凶险",
-        "drop": "机缘"
+        "drop": "机缘",
+        "status_open": "开启中",
+        "status_closed": "未开启"
       }
     },
     "controls": {

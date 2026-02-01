@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { NPopover, NList, NListItem, NTag, NEmpty } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 import type { HiddenDomainInfo } from '../../types/core'
+
+const { t } = useI18n()
 
 interface Props {
   // 触发器显示
@@ -56,8 +59,12 @@ const emit = defineEmits(['trigger-click'])
                 <div class="d-header">
                   <div class="d-title-group">
                     <span class="d-name">{{ item.name }}</span>
-                    <n-tag v-if="!item.is_open" size="small" :bordered="false" class="d-status closed">未开启</n-tag>
-                    <n-tag v-else size="small" :bordered="false" type="success" class="d-status open">开启中</n-tag>
+                    <n-tag v-if="!item.is_open" size="small" :bordered="false" class="d-status closed">
+                      {{ t('game.status_bar.hidden_domain.status_closed') }}
+                    </n-tag>
+                    <n-tag v-else size="small" :bordered="false" type="success" class="d-status open">
+                      {{ t('game.status_bar.hidden_domain.status_open') }}
+                    </n-tag>
                   </div>
                   <n-tag size="small" :bordered="false" type="warning" class="d-tag">
                     {{ item.max_realm }}
@@ -67,6 +74,8 @@ const emit = defineEmits(['trigger-click'])
                 <div class="d-stats">
                   <span>💀 {{ (item.danger_prob * 100).toFixed(0) }}%</span>
                   <span>🎁 {{ (item.drop_prob * 100).toFixed(0) }}%</span>
+                  <span>⏱️ {{ item.cd_years }}年</span>
+                  <span>🎲 {{ (item.open_prob * 100).toFixed(0) }}%</span>
                 </div>
               </div>
             </n-list-item>
@@ -95,20 +104,58 @@ const emit = defineEmits(['trigger-click'])
   font-size: 14px;
 }
 
-.domain-item { padding: 4px 0; }
-.domain-item.is-closed { opacity: 0.5; filter: grayscale(0.8); }
+.domain-item { 
+  padding: 8px; 
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 4px;
+}
+
+/* 移除之前的 opacity 和 grayscale，改用颜色控制 */
+.domain-item.is-closed { 
+  background: rgba(0, 0, 0, 0.2); 
+}
+
+/* 未开启时的标题颜色变暗 */
+.domain-item.is-closed .d-name {
+  color: #888;
+}
+
+/* 开启时背景稍微亮一点 */
+.domain-item:not(.is-closed) {
+  background: rgba(250, 219, 20, 0.05); /* 淡淡的金色背景 */
+  border: 1px solid rgba(250, 219, 20, 0.1);
+}
 
 .d-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .d-title-group { display: flex; align-items: center; gap: 8px; }
-.d-name { font-weight: bold; color: #fadb14; font-size: 14px; }
+.d-name { font-weight: bold; color: #fadb14; font-size: 14px; transition: color 0.3s; }
 .d-tag { font-size: 10px; height: 18px; line-height: 18px; }
 .d-status { font-size: 10px; height: 18px; line-height: 18px; padding: 0 4px; }
-.d-desc { font-size: 12px; color: #aaa; margin-bottom: 8px; line-height: 1.4; }
-.d-stats { display: flex; gap: 12px; font-size: 12px; color: #888; }
+/* 描述文字颜色调整，未开启时不要太暗 */
+.d-desc { 
+  font-size: 12px; 
+  color: #ccc; 
+  margin-bottom: 8px; 
+  line-height: 1.4; 
+}
+.domain-item.is-closed .d-desc {
+  color: #999;
+}
+
+.d-stats { display: flex; gap: 12px; font-size: 12px; color: #888; flex-wrap: wrap; }
+/* 统计数据在开启状态下高亮一点 */
+.domain-item:not(.is-closed) .d-stats {
+  color: #aaa;
+}
+
 .empty-state { padding: 20px; }
 
 /* Naive UI List Override */
 :deep(.n-list-item) {
-  padding: 8px 12px !important;
+  padding: 4px !important; /* 减少 list item 自身的 padding，由 domain-item 控制 */
+}
+:deep(.n-list-item:hover) {
+  background: transparent !important; /* 避免双重 hover 背景 */
 }
 </style>
