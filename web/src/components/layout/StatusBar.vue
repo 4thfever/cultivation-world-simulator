@@ -19,14 +19,13 @@ const phenomenonColor = computed(() => {
 })
 
 const domainLabel = computed(() => {
-  const count = store.activeDomains.length;
-  return count > 0 
-    ? t('game.status_bar.hidden_domain.label_active', { count }) 
-    : t('game.status_bar.hidden_domain.label');
+  return t('game.status_bar.hidden_domain.label');
 });
 
 const domainColor = computed(() => {
-  return store.activeDomains.length > 0 ? '#fa8c16' : '#666'; // 有秘境时亮橙色，否则灰色
+  // 如果有任意一个秘境是开启状态，则亮色
+  const anyOpen = store.activeDomains.some(d => d.is_open);
+  return anyOpen ? '#fa8c16' : '#666'; // 有开启亮橙色，全关闭灰色
 });
 
 function getRarityColor(rarity: string) {

@@ -233,9 +233,8 @@
       "author_github": "Github仓库",
       "hidden_domain": {
         "label": "[秘境]",
-        "label_active": "[秘境开启: {count}]",
-        "title": "当前开启秘境",
-        "empty": "当前暂无秘境开启",
+        "title": "秘境列表",
+        "empty": "暂无秘境数据",
         "danger": "凶险",
         "drop": "机缘"
       }

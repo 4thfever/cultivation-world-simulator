@@ -52,9 +52,13 @@ const emit = defineEmits(['trigger-click'])
           
           <n-list v-if="items.length > 0" hoverable clickable>
             <n-list-item v-for="item in items" :key="item.id">
-              <div class="domain-item">
+              <div class="domain-item" :class="{ 'is-closed': !item.is_open }">
                 <div class="d-header">
-                  <span class="d-name">{{ item.name }}</span>
+                  <div class="d-title-group">
+                    <span class="d-name">{{ item.name }}</span>
+                    <n-tag v-if="!item.is_open" size="small" :bordered="false" class="d-status closed">未开启</n-tag>
+                    <n-tag v-else size="small" :bordered="false" type="success" class="d-status open">开启中</n-tag>
+                  </div>
                   <n-tag size="small" :bordered="false" type="warning" class="d-tag">
                     {{ item.max_realm }}
                   </n-tag>
@@ -92,9 +96,13 @@ const emit = defineEmits(['trigger-click'])
 }
 
 .domain-item { padding: 4px 0; }
+.domain-item.is-closed { opacity: 0.5; filter: grayscale(0.8); }
+
 .d-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.d-title-group { display: flex; align-items: center; gap: 8px; }
 .d-name { font-weight: bold; color: #fadb14; font-size: 14px; }
 .d-tag { font-size: 10px; height: 18px; line-height: 18px; }
+.d-status { font-size: 10px; height: 18px; line-height: 18px; padding: 0 4px; }
 .d-desc { font-size: 12px; color: #aaa; margin-bottom: 8px; line-height: 1.4; }
 .d-stats { display: flex; gap: 12px; font-size: 12px; color: #888; }
 .empty-state { padding: 20px; }

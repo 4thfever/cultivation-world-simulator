@@ -233,9 +233,8 @@
       "author_github": "Github",
       "hidden_domain": {
         "label": "[Hidden Domain]",
-        "label_active": "[Domain Opened: {count}]",
-        "title": "Opened Hidden Domains",
-        "empty": "No hidden domains currently open",
+        "title": "Hidden Domains List",
+        "empty": "No hidden domains data",
         "danger": "Danger",
         "drop": "Fortune"
       }

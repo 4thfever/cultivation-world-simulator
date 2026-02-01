@@ -173,26 +173,40 @@ manager = ConnectionManager()
 
 
 def serialize_active_domains(world: World) -> List[dict]:
-    """序列化当前开启的秘境列表"""
+    """序列化所有秘境列表（包括开启和未开启的）"""
     domains_data = []
     if not world or not world.gathering_manager:
         return []
     
+    # 找到 HiddenDomain 实例
+    hidden_domain_gathering = None
     for gathering in world.gathering_manager.gatherings:
-        # Check by class name to avoid circular imports
         if gathering.__class__.__name__ == "HiddenDomain":
-            # Accessing _active_domains safely
-            active_domains = getattr(gathering, "_active_domains", [])
-            for d in active_domains:
-                domains_data.append({
-                    "id": d.id,
-                    "name": d.name,
-                    "desc": d.desc,
-                    # Use str() to trigger Realm.__str__ which returns translated text
-                    "max_realm": str(d.max_realm), 
-                    "danger_prob": d.danger_prob,
-                    "drop_prob": d.drop_prob
-                })
+            hidden_domain_gathering = gathering
+            break
+            
+    if hidden_domain_gathering:
+        # 获取所有配置（假设 _load_configs 开销不大，或者已缓存）
+        # 这里为了确保获取最新状态，重新加载配置
+        # 注意：访问受保护方法 _load_configs
+        all_configs = hidden_domain_gathering._load_configs()
+        
+        # 获取当前开启的 ID 集合
+        active_ids = {d.id for d in hidden_domain_gathering._active_domains}
+        
+        for d in all_configs:
+            is_open = d.id in active_ids
+            
+            domains_data.append({
+                "id": d.id,
+                "name": d.name,
+                "desc": d.desc,
+                "max_realm": str(d.max_realm), 
+                "danger_prob": d.danger_prob,
+                "drop_prob": d.drop_prob,
+                "is_open": is_open
+            })
+            
     return domains_data
 
 def serialize_events_for_client(events: List[Event]) -> List[dict]:
