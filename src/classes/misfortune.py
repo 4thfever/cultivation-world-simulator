@@ -16,29 +16,29 @@ class MisfortuneKind(Enum):
     CULTIVATION_BACKLASH = "backlash"       # 修为倒退
 
 
-MF_LOSS_SPIRIT_STONE_THEMES: list[str] = [
-    "遭遇扒手",
-    "误买假货",
-    "遭人勒索",
-    "洞府失窃",
-    "赌石惨败",
-    "投资失败",
+MF_LOSS_SPIRIT_STONE_THEME_IDS: list[str] = [
+    "misfortune_theme_pickpocket",
+    "misfortune_theme_fake_goods",
+    "misfortune_theme_blackmail",
+    "misfortune_theme_theft",
+    "misfortune_theme_gambling_loss",
+    "misfortune_theme_bad_investment",
 ]
 
-MF_INJURY_THEMES: list[str] = [
-    "修炼岔气",
-    "出门摔伤",
-    "妖兽偷袭",
-    "仇家闷棍",
-    "误触机关",
-    "天降横祸",
+MF_INJURY_THEME_IDS: list[str] = [
+    "misfortune_theme_cultivation_accident",
+    "misfortune_theme_trip_fall",
+    "misfortune_theme_beast_ambush",
+    "misfortune_theme_enemy_attack",
+    "misfortune_theme_trap",
+    "misfortune_theme_disaster",
 ]
 
-MF_BACKLASH_THEMES: list[str] = [
-    "心魔滋生",
-    "灵气逆行",
-    "感悟错乱",
-    "急火攻心",
+MF_BACKLASH_THEME_IDS: list[str] = [
+    "misfortune_theme_heart_demon",
+    "misfortune_theme_qi_deviation",
+    "misfortune_theme_confusion",
+    "misfortune_theme_anxiety",
 ]
 
 
@@ -63,14 +63,22 @@ def _choose_misfortune_kind(avatar: Avatar) -> Optional[MisfortuneKind]:
     return random.choice(candidates)
 
 
+def _get_misfortune_theme(theme_id: str) -> str:
+    """获取翻译后的霉运主题文本"""
+    from src.i18n import t
+    return t(theme_id)
+
+
 def _pick_misfortune_theme(kind: MisfortuneKind) -> str:
+    theme_id = ""
     if kind == MisfortuneKind.LOSS_SPIRIT_STONE:
-        return random.choice(MF_LOSS_SPIRIT_STONE_THEMES)
+        theme_id = random.choice(MF_LOSS_SPIRIT_STONE_THEME_IDS)
     elif kind == MisfortuneKind.INJURY:
-        return random.choice(MF_INJURY_THEMES)
+        theme_id = random.choice(MF_INJURY_THEME_IDS)
     elif kind == MisfortuneKind.CULTIVATION_BACKLASH:
-        return random.choice(MF_BACKLASH_THEMES)
-    return ""
+        theme_id = random.choice(MF_BACKLASH_THEME_IDS)
+    
+    return _get_misfortune_theme(theme_id) if theme_id else ""
 
 
 async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
@@ -103,6 +111,8 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
     theme = _pick_misfortune_theme(kind)
     res_text: str = ""
     
+    from src.i18n import t
+
     if kind == MisfortuneKind.LOSS_SPIRIT_STONE:
         # 破财：随机数，不超过总量
         max_loss = avatar.magic_stone.value
@@ -111,7 +121,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         loss = random.randint(50, 300)
         loss = min(loss, max_loss)
         avatar.magic_stone.value -= loss
-        res_text = f"{avatar.name} 损失灵石 {loss} 枚"
+        res_text = t("misfortune_result_loss_spirit_stone", name=avatar.name, amount=loss)
         
     elif kind == MisfortuneKind.INJURY:
         # 受伤：扣减HP
@@ -122,7 +132,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         
         avatar.hp.cur -= damage
         # 注意：这里可能扣成负数，simulator 会在 _phase_resolve_death 中处理
-        res_text = f"{avatar.name} 受到伤害 {damage} 点，剩余HP {avatar.hp.cur}/{max_hp}"
+        res_text = t("misfortune_result_injury", name=avatar.name, damage=damage, current=avatar.hp.cur, max=max_hp)
         
     elif kind == MisfortuneKind.CULTIVATION_BACKLASH:
         # 修为倒退
@@ -135,11 +145,11 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
         actual_loss = min(current_exp, loss)
         avatar.cultivation_progress.exp -= actual_loss
         
-        res_text = f"{avatar.name} 修为倒退 {actual_loss} 点"
+        res_text = t("misfortune_result_backlash", name=avatar.name, amount=actual_loss)
         
     # 生成故事
-    event_text = f"遭遇霉运（{theme}），{res_text}"
-    story_prompt = "请据此写100~300字小故事。只描述倒霉事件本身，不要描述角色的心理活动或者愈挫愈勇，不要有数值。"
+    event_text = t("misfortune_event_format", theme=theme, result=res_text)
+    story_prompt = t("misfortune_story_prompt")
     
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=[avatar.id], is_major=True)

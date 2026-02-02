@@ -3426,3 +3426,68 @@ msgstr "found a treasure"
 
 msgid "perished"
 msgstr "perished"
+
+# Misfortune System
+msgid "misfortune_event_format"
+msgstr "Encountered misfortune ({theme}), {result}"
+
+msgid "misfortune_story_prompt"
+msgstr "Please write a short story (100-300 words) about this unfortunate event. Focus on the incident itself, do not mention stats."
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} lost {amount} spirit stones"
+
+msgid "misfortune_result_injury"
+msgstr "{name} took {damage} damage, HP remaining {current}/{max}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} cultivation regressed by {amount} points"
+
+msgid "misfortune_theme_pickpocket"
+msgstr "Encountered a pickpocket"
+
+msgid "misfortune_theme_fake_goods"
+msgstr "Bought fake goods"
+
+msgid "misfortune_theme_blackmail"
+msgstr "Blackmailed"
+
+msgid "misfortune_theme_theft"
+msgstr "Cave dwelling theft"
+
+msgid "misfortune_theme_gambling_loss"
+msgstr "Gambling loss"
+
+msgid "misfortune_theme_bad_investment"
+msgstr "Investment failure"
+
+msgid "misfortune_theme_cultivation_accident"
+msgstr "Cultivation accident"
+
+msgid "misfortune_theme_trip_fall"
+msgstr "Tripped and fell"
+
+msgid "misfortune_theme_beast_ambush"
+msgstr "Ambushed by beast"
+
+msgid "misfortune_theme_enemy_attack"
+msgstr "Attacked by enemy"
+
+msgid "misfortune_theme_trap"
+msgstr "Triggered trap"
+
+msgid "misfortune_theme_disaster"
+msgstr "Sudden disaster"
+
+msgid "misfortune_theme_heart_demon"
+msgstr "Heart demon emerged"
+
+msgid "misfortune_theme_qi_deviation"
+msgstr "Qi deviation"
+
+msgid "misfortune_theme_confusion"
+msgstr "Cultivation confusion"
+
+msgid "misfortune_theme_anxiety"
+msgstr "Anxiety attack"
+

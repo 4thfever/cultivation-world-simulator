@@ -115,7 +115,7 @@ function handleClick(key: string) {
           aria-modal="true"
         >
           <n-form>
-            <n-form-item :label="t('ui.language')">
+            <n-form-item label="语言 / Language">
               <n-select
                 v-model:value="settingStore.locale"
                 :options="languageOptions"

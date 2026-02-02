@@ -2289,3 +2289,68 @@ msgstr "九天虛空殿"
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
 msgstr "漂浮於九天罡風層之上的宏偉宮殿群，非有大毅力者不可通過外圍撕裂肉身的空間裂縫。殿內佈滿上古禁制與層疊幻陣，一步踏錯便是形神俱滅，永墜虛空。雖藏經閣已在歲月中坍塌，但那些飄散在虛空亂流中的每一頁金書玉冊，都記載著足以引發修真界血雨腥風的無上神通。唯有金丹巔峰修士，方能勉強抵禦那股來自遠古的威壓，窺探一絲仙機。"
 
+# Misfortune System
+msgid "misfortune_event_format"
+msgstr "遭遇黴運（{theme}），{result}"
+
+msgid "misfortune_story_prompt"
+msgstr "請據此寫100~300字小故事。只描述倒黴事件本身，不要描述角色的心理活動或者愈挫愈勇，不要有數值。"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} 損失靈石 {amount} 枚"
+
+msgid "misfortune_result_injury"
+msgstr "{name} 受到傷害 {damage} 點，剩餘HP {current}/{max}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} 修爲倒退 {amount} 點"
+
+msgid "misfortune_theme_pickpocket"
+msgstr "遭遇扒手"
+
+msgid "misfortune_theme_fake_goods"
+msgstr "誤買假貨"
+
+msgid "misfortune_theme_blackmail"
+msgstr "遭人勒索"
+
+msgid "misfortune_theme_theft"
+msgstr "洞府失竊"
+
+msgid "misfortune_theme_gambling_loss"
+msgstr "賭石慘敗"
+
+msgid "misfortune_theme_bad_investment"
+msgstr "投資失敗"
+
+msgid "misfortune_theme_cultivation_accident"
+msgstr "修煉岔氣"
+
+msgid "misfortune_theme_trip_fall"
+msgstr "出門摔傷"
+
+msgid "misfortune_theme_beast_ambush"
+msgstr "妖獸偷襲"
+
+msgid "misfortune_theme_enemy_attack"
+msgstr "仇家悶棍"
+
+msgid "misfortune_theme_trap"
+msgstr "誤觸機關"
+
+msgid "misfortune_theme_disaster"
+msgstr "天降橫禍"
+
+msgid "misfortune_theme_heart_demon"
+msgstr "心魔滋生"
+
+msgid "misfortune_theme_qi_deviation"
+msgstr "靈氣逆行"
+
+msgid "misfortune_theme_confusion"
+msgstr "感悟錯亂"
+
+msgid "misfortune_theme_anxiety"
+msgstr "急火攻心"
+
+
