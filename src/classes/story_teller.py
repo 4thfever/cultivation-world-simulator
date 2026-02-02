@@ -12,24 +12,25 @@ from src.classes.relations import (
     process_relation_changes,
     get_relation_change_context
 )
+from src.i18n import t
 
 story_styles = [
-    "平淡叙述：语句克制、少修饰、像旁观者记录。",
-    "寓情于景：以景见情，情随境迁，情景交融。",
-    "写意古风：重意象与比兴，点到为止，少生僻文言。",
-    "市井烟火：行文接地气，多用口语化表达，朴实自然，不拿腔拿调。",
-    "诗意抒情：短句与对仗点缀，少量用典，不堆砌辞藻。",
-    "哲思寓言：借事设问，含一两句点睛之语，不说教。",
-    "编年纪事：近史官笔法，记事有序，少形容词。",
-    "景物拟人：对景施以轻微拟人，景中含志，不滥。",
-    "道法自然：以道家语汇点染，不艰涩，收束于一念。",
-    "佛理空相：无常、空相的领悟穿插事中，轻淡不玄。",
-    "民间说书：似说书人口吻但用书面语，叙事节奏明快，生动有趣。",
-    "雅致书卷：书卷气、引文气息浅尝辄止，不显摆。",
-    "豪放旷达：用词大开大合，气势磅礴，不拘小节，直抒胸臆。",
-    "绮丽诡谲：重感官描写，辞藻华丽妖冶，强调光影与色彩的奇异感。",
-    "冷峻简练：短句为主，字字珠玑，如金石相击，不做多余情感渲染。",
-    "细笔白描：不加藻饰，通过捕捉极细微的动作与神态来传神，真实细腻。",
+    "Plain narration: Restrained language, minimal embellishment, recording like a bystander.",
+    "Emotion in scenery: Expressing emotion through scenery, blending feelings with the setting.",
+    "Freehand ancient style: Focus on imagery and metaphor, concise, avoiding obscure archaic language.",
+    "Marketplace life: Grounded writing, using colloquialisms, simple and natural, without pretension.",
+    "Poetic lyricism: Short sentences and parallelism, sparse use of allusions, avoiding flowery language.",
+    "Philosophical fable: Asking questions through events, containing one or two punchlines, without preaching.",
+    "Chronicle style: Like a historian's record, orderly events, few adjectives.",
+    "Personification of scenery: Slight personification of scenery, embedding aspirations in the view, not overused.",
+    "Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a single thought.",
+    "Buddhist emptiness: Insights of impermanence and emptiness interwoven, light and not mysterious.",
+    "Folk storytelling: Like a storyteller's tone but in written language, fast-paced, vivid and interesting.",
+    "Elegant scholarly: Scholarly atmosphere, slight touch of citations, without showing off.",
+    "Bold and open: Grand words, majestic momentum, informal, expressing feelings directly.",
+    "Gorgeous and bizarre: Heavy sensory description, ornate and seductive language, emphasizing the strangeness of light and color.",
+    "Cold and concise: Mainly short sentences, every word counts, like metal striking stone, no extra emotional rendering.",
+    "Fine line drawing: No decoration, capturing subtle movements and expressions to convey spirit, real and delicate.",
 ]
 
 
@@ -84,7 +85,7 @@ class StoryTeller:
             "avatar_name_2": avatar_name_2,
             "event": event,
             "res": res,
-            "style": random.choice(story_styles),
+            "style": t(random.choice(story_styles)),
             "story_prompt": prompt,
         }
 
@@ -158,7 +159,7 @@ class StoryTeller:
             "gathering_info": gathering_info,
             "events": events_text,
             "details": details_text,
-            "style": random.choice(story_styles),
+            "style": t(random.choice(story_styles)),
             "story_prompt": prompt
         }
         
