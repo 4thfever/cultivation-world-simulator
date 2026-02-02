@@ -33,7 +33,7 @@ const emit = defineEmits(['trigger-click'])
 <template>
   <div class="status-widget">
     <span class="divider">|</span>
-    <n-popover trigger="click" placement="bottom" style="max-width: 350px;">
+    <n-popover trigger="click" placement="bottom" style="max-width: 600px;">
       <template #trigger>
         <span 
           class="widget-trigger" 
