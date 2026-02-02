@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Dict, TYPE_CHECKING
+from pathlib import Path
 import random
 
 if TYPE_CHECKING:
@@ -40,9 +41,14 @@ class StoryTeller:
     同时负责处理可能的后天关系变化。
     """
     
-    TEMPLATE_SINGLE_PATH = CONFIG.paths.templates / "story_single.txt"
-    TEMPLATE_DUAL_PATH = CONFIG.paths.templates / "story_dual.txt"
-    TEMPLATE_GATHERING_PATH = CONFIG.paths.templates / "story_gathering.txt"
+    TEMPLATE_SINGLE_FILE = "story_single.txt"
+    TEMPLATE_DUAL_FILE = "story_dual.txt"
+    TEMPLATE_GATHERING_FILE = "story_gathering.txt"
+
+    @staticmethod
+    def _get_template_path(filename: str) -> Path:
+        """获取当前语言环境下的模板路径"""
+        return CONFIG.paths.templates / filename
 
     @staticmethod
     def _build_avatar_infos(*actors: "Avatar") -> Dict[str, dict]:
@@ -115,7 +121,8 @@ class StoryTeller:
         # 只有当允许关系变化且有至少2个角色时，才使用双人模板
         is_dual = allow_relation_changes and len(non_null) >= 2
         
-        template_path = StoryTeller.TEMPLATE_DUAL_PATH if is_dual else StoryTeller.TEMPLATE_SINGLE_PATH
+        template_file = StoryTeller.TEMPLATE_DUAL_FILE if is_dual else StoryTeller.TEMPLATE_SINGLE_FILE
+        template_path = StoryTeller._get_template_path(template_file)
         
         avatar_infos = StoryTeller._build_avatar_infos(*actors)
         infos = StoryTeller._build_template_data(event, res, avatar_infos, prompt, *actors)
@@ -164,7 +171,8 @@ class StoryTeller:
         }
         
         # 增加 token 上限以支持长故事
-        data = await call_llm_with_task_name("story_teller", StoryTeller.TEMPLATE_GATHERING_PATH, infos)
+        template_path = StoryTeller._get_template_path(StoryTeller.TEMPLATE_GATHERING_FILE)
+        data = await call_llm_with_task_name("story_teller", template_path, infos)
         story = data.get("story", "").strip()
         
         if story:
