@@ -17,13 +17,17 @@ interface Props {
   
   // 模式: 'single' (天地灵机) 或 'list' (秘境)
   mode?: 'single' | 'list'
+  
+  // 是否禁用 Popover (直接点击触发)
+  disablePopover?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   color: '#ccc',
   items: () => [],
   mode: 'list',
-  emptyText: '暂无数据'
+  emptyText: '暂无数据',
+  disablePopover: false
 })
 
 // 发射点击事件（用于天地灵机的"更易天象"）
@@ -33,7 +37,18 @@ const emit = defineEmits(['trigger-click'])
 <template>
   <div class="status-widget">
     <span class="divider">|</span>
-    <n-popover trigger="click" placement="bottom" style="max-width: 600px;">
+    <!-- 分支A: 禁用 Popover，直接显示 Trigger -->
+    <span 
+      v-if="disablePopover"
+      class="widget-trigger" 
+      :style="{ color: props.color }"
+      @click="emit('trigger-click')"
+    >
+      {{ props.label }}
+    </span>
+
+    <!-- 分支B: 启用 Popover -->
+    <n-popover v-else trigger="click" placement="bottom" style="max-width: 600px;">
       <template #trigger>
         <span 
           class="widget-trigger" 

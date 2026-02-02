@@ -2,7 +2,7 @@
 import { useWorldStore } from '../../stores/world'
 import { useSocketStore } from '../../stores/socket'
 import { ref, computed } from 'vue'
-import { NPopover, NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
+import { NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
 
@@ -37,8 +37,20 @@ function getRarityColor(rarity: string) {
     default: return '#ccc';
   }
 }
-// ...
-// ...
+async function openPhenomenonSelector() {
+  await store.getPhenomenaList()
+  showSelector.value = true
+}
+
+async function handleSelect(id: number, name: string) {
+  try {
+    await store.changePhenomenon(id)
+    message.success(t('game.status_bar.change_success', { name }))
+    showSelector.value = false
+  } catch (e) {
+    message.error(t('common.error'))
+  }
+}
 </script>
 
 <template>
@@ -56,29 +68,9 @@ function getRarityColor(rarity: string) {
         :label="`[${store.currentPhenomenon.name}]`"
         :color="phenomenonColor"
         mode="single"
+        :disable-popover="true"
         @trigger-click="openPhenomenonSelector"
-      >
-        <template #single>
-          <div class="phenomenon-card">
-            <div class="p-header" :style="{ color: phenomenonColor }">
-              <span class="p-title">{{ store.currentPhenomenon.name }}</span>
-              <span class="p-rarity">{{ store.currentPhenomenon.rarity }}</span>
-            </div>
-            <div class="p-desc">{{ store.currentPhenomenon.desc }}</div>
-            
-            <!-- 效果描述 -->
-            <div class="effect-block" v-if="store.currentPhenomenon.effect_desc">
-              <div class="effect-label">{{ t('game.status_bar.effect') }}</div>
-              <div class="effect-content">{{ store.currentPhenomenon.effect_desc }}</div>
-            </div>
-
-            <div class="p-duration" v-if="store.currentPhenomenon.duration_years">
-               {{ t('game.status_bar.duration', { years: store.currentPhenomenon.duration_years }) }}
-            </div>
-            <div class="click-tip">{{ t('game.status_bar.click_to_change') }}</div>
-          </div>
-        </template>
-      </StatusWidget>
+      />
 
       <!-- 秘境 -->
       <StatusWidget
