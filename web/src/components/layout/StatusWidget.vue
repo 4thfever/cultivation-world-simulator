@@ -74,7 +74,7 @@ const emit = defineEmits(['trigger-click'])
                 <div class="d-stats">
                   <span>💀 {{ (item.danger_prob * 100).toFixed(0) }}%</span>
                   <span>🎁 {{ (item.drop_prob * 100).toFixed(0) }}%</span>
-                  <span>⏱️ {{ item.cd_years }}年</span>
+                  <span>⏱️ {{ item.cd_years }}{{ t('common.year') }}</span>
                   <span>🎲 {{ (item.open_prob * 100).toFixed(0) }}%</span>
                 </div>
               </div>

@@ -230,7 +230,16 @@
       "change_success": "天象已更易爲：{name}",
       "click_to_change": "（點擊可更易天象）",
       "author_bilibili": "B站空間",
-      "author_github": "Github倉庫"
+      "author_github": "Github倉庫",
+      "hidden_domain": {
+        "label": "[祕境]",
+        "title": "祕境列表",
+        "empty": "暫無祕境數據",
+        "danger": "凶險",
+        "drop": "機緣",
+        "status_open": "開啟中",
+        "status_closed": "未開啟"
+      }
     },
     "controls": {
       "resume": "繼續遊戲",
