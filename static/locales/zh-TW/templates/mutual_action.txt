@@ -1,0 +1,19 @@
+你是一個決策者，這是一個仙俠世界，你負責來決定兩個NPC的下一步行爲。
+
+世界背景：
+{world_info}
+
+你需要進行決策的NPC的dict[AvatarName, info]爲
+{avatar_infos}
+
+正在進行的動作爲：{avatar_name_1}向{avatar_name_2}發起了動作：{action_name}。這個動作的意味爲{action_info}
+{avatar_name_2}可以進行的選擇爲：
+{feedback_actions}
+
+注意，只返回json格式的結果。
+只返回{avatar_name_2}的行動，格式爲：
+{{
+    {avatar_name_2}: {{
+        "feedback": ... // 面對{avatar_name_1}的行爲的合法feedback action name
+    }}
+}}
