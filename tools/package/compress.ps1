@@ -91,7 +91,7 @@ if ($SaveDirs) {
 # ==============================================================================
 # 5. Compress
 # ==============================================================================
-$ZipFileName = "${AppName}_${tag}.zip"
+$ZipFileName = "AI_Cultivation_World_Simulator_${tag}.zip"
 $ZipPath = Join-Path $RepoRoot "tmp\$ZipFileName"
 
 if (Test-Path $ZipPath) {
