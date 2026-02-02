@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { NButton, NSelect } from 'naive-ui'
+import { NButton, NSelect, NIcon } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from '../stores/setting'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
@@ -149,7 +149,14 @@ watch(() => props.visible, (val) => {
           
           <div class="settings-form">
             <div class="setting-item">
-              <span class="setting-label">{{ t('ui.language') }}</span>
+              <div class="setting-label-group">
+                <n-icon size="24" color="#eee" class="setting-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M256 48C141.13 48 48 141.13 48 256s93.13 208 208 208s208-93.13 208-208S370.87 48 256 48m0 46.54c33.4 0 63.87 11.23 88.63 30.17c-22.56 31.84-51.48 59.7-88.63 80.64c-37.15-20.94-66.07-48.8-88.63-80.64C192.13 105.77 222.6 94.54 256 94.54m-80 32.14c22.76 27.65 49.77 52.37 80 71.95c-30.23 19.58-57.24 44.3-80 71.95c-20.78-22.38-38.35-46.73-52.09-72c13.73-25.26 31.31-49.61 52.09-71.9ZM256 417.46c-33.4 0-63.87-11.23-88.63-30.17c22.56-31.84 51.48-59.7 88.63-80.64c37.15 20.94 66.07 48.8 88.63 80.64c-24.76 18.94-55.23 30.17-88.63 30.17m80-32.14c-22.76-27.65-49.77-52.37-80-71.95c30.23-19.58 57.24-44.3 80-71.95c20.78 22.38 38.35 46.73 52.09 72c-13.74 25.26-31.31 49.61-52.09 71.95M256 244.64c-25.68-18.3-48.46-41.22-67.45-66.52c19.64-18.79 42.41-32.58 67.45-39.72c25.04 7.14 47.81 20.93 67.45 39.72c-18.99 25.3-41.77 48.22-67.45 66.52m0 109.24c-25.04-7.14-47.81-20.93-67.45-39.72c18.99-25.3 41.77-48.22 67.45-66.52c25.68 18.3 48.46 41.22 67.45 66.52c-19.64 18.79-42.41 32.58-67.45 39.72M81.56 238.15c13.29 27.23 30.76 52.92 51.64 76.54c-15.65-17.65-28.77-37.15-38.74-58.12c-5.18-10.9-9.17-22.03-11.96-33.37c3.15 5.06 6.13 10.05 9.06 14.95m24.16-52.53c9.97-20.97 23.09-40.47 38.74-58.12c-20.88 23.62-38.35 49.31-51.64 76.54c-2.93 4.9-5.91 9.89-9.06 14.95c2.79-11.34 6.78-22.47 11.96-33.37M406.28 273.85c-9.97 20.97-23.09 40.47-38.74 58.12c20.88-23.62 38.35-49.31 51.64-76.54c2.93-4.9 5.91-9.89 9.06-14.95c-2.79 11.34-6.78 22.47-11.96 33.37m-24.16 52.53c-13.29-27.23-30.76-52.92-51.64-76.54c15.65 17.65 28.77 37.15 38.74 58.12c5.18 10.9 9.17 22.03 11.96 33.37c-3.15-5.06-6.13-10.05-9.06-14.95"/>
+                  </svg>
+                </n-icon>
+                <span class="setting-label">{{ t('ui.language') }}</span>
+              </div>
               <n-select
                 v-model:value="settingStore.locale"
                 :options="languageOptions"
@@ -210,6 +217,19 @@ watch(() => props.visible, (val) => {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-label-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.setting-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
 }
 
 .setting-label {

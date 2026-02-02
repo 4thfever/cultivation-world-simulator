@@ -114,10 +114,12 @@ class AvatarManager:
             avatar.clear_relation(other)
 
         # 2. 清理占据的洞府
-        if getattr(avatar, "world", None) and hasattr(avatar.world, "map"):
-            for region in avatar.world.map.regions.values():
-                if getattr(region, "host_avatar", None) == avatar:
+        if hasattr(avatar, "owned_regions") and avatar.owned_regions:
+            for region in list(avatar.owned_regions):
+                # 仅解除关系，不触发其他逻辑
+                if region.host_avatar == avatar:
                     region.host_avatar = None
+            avatar.owned_regions.clear()
             
         # 3. 扫一遍所有角色（含死者），确保清除反向引用
         for other in self._iter_all_avatars():

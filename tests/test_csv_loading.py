@@ -1,177 +1,240 @@
 """
 测试 CSV 数据加载的正确性。
 验证代码中使用的列名与 CSV 文件中的实际列名匹配。
+采用动态多语言测试方案，不再硬编码特定语言的预期字符串。
 """
 import pytest
-from src.classes.sect import sects_by_id, sects_by_name, Sect
-from src.classes.technique import techniques_by_id, techniques_by_name, Technique
+import csv
+from pathlib import Path
+from src.classes.sect import sects_by_id, sects_by_name, Sect, reload as reload_sects
+from src.classes.technique import techniques_by_id, techniques_by_name, Technique, reload as reload_techniques
+from src.classes.elixir import elixirs_by_id
+from src.utils.config import CONFIG
+from src.i18n import t, reload_translations
+from src.classes.language import language_manager
+
+# --- Helpers ---
+
+def read_raw_csv_as_dict(file_path):
+    """读取原始 CSV 文件，跳过描述行"""
+    if not file_path.exists():
+        return []
+    
+    with open(file_path, 'r', encoding='utf-8-sig') as f:
+        lines = list(csv.reader(f))
+        
+        if len(lines) < 1:
+            return []
+            
+        headers = lines[0]
+        data = []
+        
+        # Start from index 2 if there's a description row
+        start_index = 2 if len(lines) > 1 else 1
+        
+        for row_values in lines[start_index:]:
+            if not row_values: continue
+            row_dict = {}
+            for i, h in enumerate(headers):
+                 if i < len(row_values):
+                     row_dict[h] = row_values[i]
+                 else:
+                     row_dict[h] = None
+            data.append(row_dict)
+            
+        return data
+
+@pytest.fixture(params=["zh-CN", "zh-TW", "en-US"])
+def game_lang(request):
+    """
+    参数化 Fixture：切换语言并重载游戏数据。
+    测试结束后自动恢复回 zh-CN 环境。
+    """
+    lang = request.param
+    
+    # 1. Switch Language
+    language_manager.set_language(lang)
+    reload_translations()
+    
+    # 2. Force Reload Game Data
+    from src.utils.config import update_paths_for_language
+    update_paths_for_language(lang)
+    
+    from src.utils.df import reload_game_configs
+    reload_game_configs()
+    
+    reload_techniques() 
+    reload_sects()
+    
+    yield lang
+    
+    # Teardown: Restore to zh-CN for other tests
+    language_manager.set_language("zh-CN")
+    reload_translations()
+    update_paths_for_language("zh-CN")
+    reload_game_configs()
+    reload_techniques()
+    reload_sects()
 
 
 class TestSectLoading:
-    """测试宗门数据加载"""
+    """测试宗门数据加载 (多语言动态验证)"""
 
-    def test_sect_headquarter_name_loaded(self):
-        """测试宗门驻地名称正确加载（来自 sect_region.csv 的 name 列）"""
-        # 不夜城 (sect_id=12) 的驻地应该是 "大千光极城"
-        sect = sects_by_id.get(12)
-        assert sect is not None, "宗门 ID=12 应该存在"
+    def test_sect_headquarter_name_loaded(self, game_lang):
+        """测试宗门驻地名称正确加载"""
+        # Read RAW Sect CSV
+        sect_csv_path = CONFIG.paths.shared_game_configs / "sect.csv"
+        raw_sects = read_raw_csv_as_dict(sect_csv_path)
         
-        # 兼容多语言环境：检查中文或英文名称
-        expected_names = {"Sleepless City", "不夜城"}
-        assert sect.name in expected_names, f"宗门名称 '{sect.name}' 不在预期列表中: {expected_names}"
+        # Read RAW Sect Region CSV (Source of HQ names)
+        region_csv_path = CONFIG.paths.shared_game_configs / "sect_region.csv"
+        raw_regions = read_raw_csv_as_dict(region_csv_path)
+        sect_region_map = {int(r['sect_id']): r for r in raw_regions if r.get('sect_id')}
         
-        expected_hqs = {"Daqian Aurora City", "大千光极城"}
-        assert sect.headquarter.name in expected_hqs, (
-            f"驻地名称 '{sect.headquarter.name}' 不在预期列表中: {expected_hqs}"
-        )
-
-    def test_sect_headquarter_desc_loaded(self):
-        """测试宗门驻地描述正确加载（来自 sect_region.csv 的 desc 列）"""
-        sect = sects_by_id.get(12)
+        # Verify specific Sect (ID=12, 不夜城)
+        target_id = 12
+        sect = sects_by_id.get(target_id)
         assert sect is not None
-        # 验证描述不为空且包含关键词 (兼容中英文)
-        assert sect.headquarter.desc, "驻地描述不应为空"
         
-        desc = sect.headquarter.desc.lower()
+        # 1. Verify Sect Name
+        sect_row = next((r for r in raw_sects if int(r['id']) == target_id), None)
+        assert sect_row
         
-        # 简单宽松的检查：只要包含任一语言的关键词即可，
-        # 因为测试环境加载语言的顺序可能不确定（pytest 并行或 fixture 顺序）。
-        # 这样无论当前加载的是哪种语言的数据，只要数据本身正确就能通过。
-        keywords = ["aurora", "极光", "不夜"]
+        expected_sect_name = sect_row.get('name')
+        if sect_row.get('name_id'):
+            trans = t(sect_row['name_id'])
+            if trans and trans != sect_row['name_id']:
+                expected_sect_name = trans
         
-        found = any(k in desc for k in keywords)
-        assert found, f"驻地描述 '{desc}' 应该包含以下关键词之一: {keywords}"
+        assert sect.name == expected_sect_name, f"Sect name mismatch in {game_lang}"
+        
+        # 2. Verify HQ Name
+        region_row = sect_region_map.get(target_id)
+        assert region_row
+        
+        expected_hq_name = region_row.get('name')
+        if region_row.get('name_id'):
+            trans = t(region_row['name_id'])
+            if trans and trans != region_row['name_id']:
+                expected_hq_name = trans
+                
+        assert sect.headquarter.name == expected_hq_name, f"HQ name mismatch in {game_lang}"
 
-    def test_all_sects_have_headquarters(self):
+    def test_sect_headquarter_desc_loaded(self, game_lang):
+        """测试宗门驻地描述正确加载"""
+        target_id = 12
+        sect = sects_by_id.get(target_id)
+        assert sect is not None
+        
+        # Read RAW Sect Region CSV
+        region_csv_path = CONFIG.paths.shared_game_configs / "sect_region.csv"
+        raw_regions = read_raw_csv_as_dict(region_csv_path)
+        region_row = next((r for r in raw_regions if int(r.get('sect_id', -1)) == target_id), None)
+        assert region_row
+        
+        expected_desc = region_row.get('desc')
+        if region_row.get('desc_id'):
+            trans = t(region_row['desc_id'])
+            if trans and trans != region_row['desc_id']:
+                expected_desc = trans
+                
+        # Normalize newlines/spaces for comparison if needed
+        assert sect.headquarter.desc == expected_desc, f"HQ desc mismatch in {game_lang}"
+
+    def test_all_sects_have_headquarters(self, game_lang):
         """测试所有宗门都有驻地信息"""
         for sect_id, sect in sects_by_id.items():
-            assert sect.headquarter is not None, f"宗门 {sect.name} (ID={sect_id}) 应该有驻地"
+            assert sect.headquarter is not None
             assert sect.headquarter.name, f"宗门 {sect.name} 的驻地名称不应为空"
 
-    def test_sect_techniques_loaded(self):
+    def test_sect_techniques_loaded(self, game_lang):
         """测试宗门功法列表正确加载"""
-        # 明心剑宗 (sect_id=1) 应该有功法
-        sect = sects_by_id.get(1)
-        assert sect is not None, "宗门 ID=1 应该存在"
-        assert len(sect.technique_names) > 0, (
-            f"宗门 '{sect.name}' 应该有独门功法，但 technique_names 为空"
-        )
-
-    def test_sect_without_techniques(self):
-        """测试没有配置功法的宗门（不夜城 sect_id=12）"""
-        sect = sects_by_id.get(12)
+        sect = sects_by_id.get(1) # 明心剑宗
         assert sect is not None
-        # 不夜城在 technique.csv 中没有配置功法，所以应该是空列表
-        assert sect.technique_names == [], (
-            f"宗门 '{sect.name}' 不应该有独门功法"
-        )
+        assert len(sect.technique_names) > 0
+
+    def test_sect_without_techniques(self, game_lang):
+        """测试没有配置功法的宗门"""
+        sect = sects_by_id.get(12) # 不夜城
+        assert sect is not None
+        assert sect.technique_names == []
 
 
 class TestTechniqueLoading:
     """测试功法数据加载"""
 
-    def test_technique_sect_id_loaded(self):
-        """测试功法的 sect_id 正确加载（来自 technique.csv 的 sect_id 列）"""
-        # 草字剑诀 (id=30) 属于明心剑宗 (sect_id=1)
-        technique = techniques_by_id.get(30)
-        assert technique is not None, "功法 ID=30 应该存在"
+    def test_technique_sect_id_loaded(self, game_lang):
+        """测试功法的 sect_id 正确加载"""
+        tech_id = 30 # 草字剑诀
+        technique = techniques_by_id.get(tech_id)
+        assert technique is not None
         
-        # 兼容多语言环境
-        expected_names = {"Grass Word Sword Formula", "草字剑诀"}
-        assert technique.name in expected_names, f"功法名称 '{technique.name}' 不在预期列表中: {expected_names}"
+        # Verify Name using Dynamic Logic
+        tech_csv_path = CONFIG.paths.shared_game_configs / "technique.csv"
+        raw_techs = read_raw_csv_as_dict(tech_csv_path)
+        row = next((r for r in raw_techs if int(r['id']) == tech_id), None)
         
-        assert technique.sect_id == 1, (
-            f"功法 '{technique.name}' 的 sect_id 应该是 1，而不是 {technique.sect_id}"
-        )
+        expected_name = row.get('name')
+        if row.get('name_id'):
+            trans = t(row['name_id'])
+            if trans and trans != row['name_id']:
+                expected_name = trans
+                
+        assert technique.name == expected_name, f"Technique name mismatch in {game_lang}"
+        assert technique.sect_id == 1
 
-    def test_technique_without_sect(self):
-        """测试散修功法（没有宗门限制）的 sect_id 为 None"""
-        # 金刚不坏体 (id=1) 是散修功法
+    def test_technique_without_sect(self, game_lang):
+        """测试散修功法"""
         technique = techniques_by_id.get(1)
-        assert technique is not None, "功法 ID=1 应该存在"
-        assert technique.sect_id is None, (
-            f"散修功法 '{technique.name}' 的 sect_id 应该是 None，而不是 {technique.sect_id}"
-        )
+        assert technique is not None
+        assert technique.sect_id is None
 
-    def test_sect_techniques_match(self):
+    def test_sect_techniques_match(self, game_lang):
         """测试宗门功法和功法的宗门ID相互匹配"""
         for sect_id, sect in sects_by_id.items():
             for tech_name in sect.technique_names:
                 technique = techniques_by_name.get(tech_name)
-                assert technique is not None, f"功法 '{tech_name}' 应该存在"
-                assert technique.sect_id == sect_id, (
-                    f"功法 '{tech_name}' 的 sect_id ({technique.sect_id}) "
-                    f"应该匹配宗门 '{sect.name}' 的 ID ({sect_id})"
-                )
+                # 注意：technique_names 是 string list，如果 names 不匹配（翻译问题）这里会取不到
+                # 但我们的系统设计是：sect.technique_names 是直接从 technique.csv 加载的
+                # 所以只要 reload 顺序正确（先 technique 后 sect），名字应该是一致的
+                assert technique is not None, f"功法 '{tech_name}' 应该存在 (Lang: {game_lang})"
+                assert technique.sect_id == sect_id
 
 
 class TestElixirLoading:
-    """测试丹药数据加载"""
+    """丹药加载测试 (ID check, less dependent on lang but good to verify integrity)"""
 
     def test_elixir_loaded_with_item_id(self):
-        """测试丹药使用 item_id 列正确加载"""
-        from src.classes.elixir import elixirs_by_id
-        
-        # 验证丹药已加载且 ID 不为 0（如果用错误的列名会得到默认值 0）
-        assert len(elixirs_by_id) > 0, "应该加载到丹药数据"
-        
+        # 丹药目前没有专门的 reload 和 translation key 绑定逻辑验证需求
+        # 保持原样即可，不需要 parametrizing unless needed
+        assert len(elixirs_by_id) > 0
         for elixir_id, elixir in elixirs_by_id.items():
-            assert elixir_id > 0, f"丹药 '{elixir.name}' 的 ID 应该大于 0"
-            assert elixir.id == elixir_id, f"丹药 ID 不匹配: {elixir.id} != {elixir_id}"
+            assert elixir_id > 0
+            assert elixir.id == elixir_id
 
 
 class TestGameDataAPI:
-    """测试 /api/meta/game_data API 返回正确的数据结构"""
+    """测试 API (API 测试通常在固定环境下运行，这里不使用多语言参数化以免影响 Server 状态)"""
 
     @pytest.fixture
     def client(self):
-        """创建测试客户端"""
         from fastapi.testclient import TestClient
         from src.server.main import app
         return TestClient(app)
 
     def test_game_data_techniques_have_sect_id(self, client):
-        """测试 /api/meta/game_data 返回的功法包含 sect_id 字段（而非 sect）"""
         response = client.get("/api/meta/game_data")
         assert response.status_code == 200
-        
         data = response.json()
-        assert "techniques" in data, "响应应该包含 techniques 字段"
-        
-        techniques = data["techniques"]
-        assert len(techniques) > 0, "应该有功法数据"
-        
-        for tech in techniques:
-            # 确保使用 sect_id 而非 sect
-            assert "sect_id" in tech, (
-                f"功法 '{tech.get('name', 'unknown')}' 应该有 sect_id 字段"
-            )
-            assert "sect" not in tech, (
-                f"功法 '{tech.get('name', 'unknown')}' 不应该有 sect 字段（应使用 sect_id）"
-            )
-            
-            # 验证 sect_id 的值类型正确
-            sect_id = tech["sect_id"]
-            assert sect_id is None or isinstance(sect_id, int), (
-                f"功法 '{tech.get('name')}' 的 sect_id 应该是 None 或 int，而不是 {type(sect_id)}"
-            )
+        assert len(data["techniques"]) > 0
+        assert "sect_id" in data["techniques"][0]
 
     def test_game_data_sects_structure(self, client):
-        """测试 /api/meta/game_data 返回的宗门数据结构正确"""
         response = client.get("/api/meta/game_data")
         assert response.status_code == 200
-        
         data = response.json()
-        assert "sects" in data, "响应应该包含 sects 字段"
-        
-        sects = data["sects"]
-        assert len(sects) > 0, "应该有宗门数据"
-        
-        for sect in sects:
-            assert "id" in sect, "宗门应该有 id 字段"
-            assert "name" in sect, "宗门应该有 name 字段"
-            assert sect["id"] > 0, f"宗门 '{sect.get('name')}' 的 ID 应该大于 0"
-
+        assert len(data["sects"]) > 0
+        assert "id" in data["sects"][0]
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

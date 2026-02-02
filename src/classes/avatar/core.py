@@ -11,6 +11,7 @@ from typing import Optional, List, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.classes.sect_ranks import SectRank
+    from src.classes.region import CultivateRegion
 
 from src.classes.calendar import MonthStamp
 from src.classes.world import World
@@ -132,6 +133,39 @@ class Avatar(
 
     # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
+
+    # 拥有的洞府列表（不参与序列化，通过 load_game 重建）
+    owned_regions: List["CultivateRegion"] = field(default_factory=list, init=False)
+
+    def occupy_region(self, region: "CultivateRegion") -> None:
+        """
+        占据一个洞府，处理双向绑定和旧主清理。
+        """
+        # 如果已经是我的，无需操作
+        if region.host_avatar == self:
+            if region not in self.owned_regions:
+                self.owned_regions.append(region)
+            return
+
+        # 如果有旧主，先让旧主释放
+        if region.host_avatar is not None:
+            region.host_avatar.release_region(region)
+
+        # 建立新关系
+        region.host_avatar = self
+        if region not in self.owned_regions:
+            self.owned_regions.append(region)
+
+    def release_region(self, region: "CultivateRegion") -> None:
+        """
+        放弃一个洞府的所有权。
+        """
+        if region in self.owned_regions:
+            self.owned_regions.remove(region)
+        
+        # 只有当 region 的主人确实是自己时才置空（防止误伤新主人）
+        if region.host_avatar == self:
+            region.host_avatar = None
 
     def add_breakthrough_rate(self, rate: float, duration: int = 1) -> None:
         """
@@ -259,6 +293,11 @@ class Avatar(
         self.thinking = ""
         self.short_term_objective = ""
         
+        # 释放所有拥有的洞府
+        # 复制列表进行遍历，因为 release_region 会修改列表
+        for region in list(self.owned_regions):
+            self.release_region(region)
+
         if self.sect:
             self.sect.remove_member(self)
 

@@ -261,7 +261,9 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             if rid in game_map.regions:
                 region = game_map.regions[rid]
                 if isinstance(region, CultivateRegion) and avatar_id in all_avatars:
-                    region.host_avatar = all_avatars[avatar_id]
+                    avatar = all_avatars[avatar_id]
+                    # 使用 occupy_region 建立双向绑定
+                    avatar.occupy_region(region)
         
         # 重建宗门成员关系与功法列表
         from src.classes.technique import techniques_by_name

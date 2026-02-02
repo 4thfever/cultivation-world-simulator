@@ -106,7 +106,7 @@ class Occupy(MutualAction):
         if feedback_name == "Yield":
             # 对方让步：直接转移所有权
             if region:
-                region.host_avatar = self.avatar
+                self.avatar.occupy_region(region)
             
             # 共用一个事件
             event_text = t("{initiator} forced {target} to yield {region}",
@@ -131,7 +131,7 @@ class Occupy(MutualAction):
             # 进攻方胜利则洞府易主
             attacker_won = winner == self.avatar
             if attacker_won and region:
-                region.host_avatar = self.avatar
+                self.avatar.occupy_region(region)
             
             self._last_result = (winner, loser, loser_dmg, winner_dmg, region_name, attacker_won)
 

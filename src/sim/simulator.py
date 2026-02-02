@@ -82,7 +82,7 @@ class Simulator:
                     if region.host_avatar is None:
                         if avatar.id not in avatars_with_home:
                             # 占据
-                            region.host_avatar = avatar
+                            avatar.occupy_region(region)
                             avatars_with_home.add(avatar.id)
                             # 记录事件
                             event = Event(
