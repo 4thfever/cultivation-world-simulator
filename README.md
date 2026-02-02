@@ -12,6 +12,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A7%86%E9%A2%91-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/shhRWmZR)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
 ![Genre: Xianxia](https://img.shields.io/badge/Genre-Xianxia-red)
 ![AI Agent](https://img.shields.io/badge/AI-Agent-orange)
@@ -103,7 +104,8 @@
 ## 📞 联系方式
 如果您对项目有任何问题或建议，欢迎提交 Issue 或 Pull Request。  
 欢迎给我的[B站账号](https://space.bilibili.com/527346837)留言！  
-也可以加入QQ群进行讨论：1071821688。进群问题的答案：肥桥今天吃什么
+也可以加入QQ群进行讨论：1071821688。进群问题的答案：肥桥今天吃什么  
+加入 Discord 社区：[https://discord.gg/shhRWmZR](https://discord.gg/shhRWmZR)
 
 ## 🚀 使用方法
 

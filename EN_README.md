@@ -9,6 +9,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
 [![Bilibili](https://img.shields.io/badge/Bilibili-Watch_Video-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/shhRWmZR)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE)
 ![Genre: Xianxia](https://img.shields.io/badge/Genre-Xianxia-red)
 ![AI Agent](https://img.shields.io/badge/AI-Agent-orange)
@@ -100,7 +101,8 @@ I hope to create a pure, joyful, direct, and living sense of immersion in a cult
 
 If you have any questions or suggestions, feel free to open an Issue or Pull Request.  
 You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!  
-You can also join the QQ group for discussion: 1071821688. Verification answer: 肥桥今天吃什么 
+You can also join the QQ group for discussion: 1071821688. Verification answer: 肥桥今天吃什么  
+Join our Discord community: [https://discord.gg/shhRWmZR](https://discord.gg/shhRWmZR) 
 
 ## 🚀 Usage
 
