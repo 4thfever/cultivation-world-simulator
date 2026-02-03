@@ -209,7 +209,6 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - ✅ Support macOS
 - ✅ Support multi-language localization
 - ✅ Start Game Page
-- [ ] Android support
 - [ ] Mod Support
 
 ### 🗺️ World System
