@@ -304,5 +304,5 @@ async def handle_battle_finish(
     
     # 处理死亡
     if is_fatal:
-        handle_death(world, loser, DeathReason(DeathType.BATTLE, killer_name=attacker.name))
+        handle_death(world, loser, DeathReason(DeathType.BATTLE, killer_name=winner.name))
     return [result_event, story_event]
