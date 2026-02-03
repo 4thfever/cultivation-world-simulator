@@ -5,7 +5,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: deploy/Dockerfile.backend
     container_name: cultivation-backend
     ports:
       - "8002:8002"
@@ -25,7 +25,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: deploy/Dockerfile.frontend
     container_name: cultivation-frontend
     ports:
       - "8123:80"
