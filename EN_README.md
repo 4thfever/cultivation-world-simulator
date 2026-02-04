@@ -171,6 +171,48 @@ If you have Docker installed, this is the easiest way:
 Frontend: `http://localhost:8123`
 Backend API: `http://localhost:8002`
 
+### 📱 Mobile / LAN Access
+
+You can access the game from other devices on the same network (e.g., phone, tablet).
+
+> ⚠️ **Note**: The mobile UI is not optimized yet. See [Issue #130](https://github.com/4thfever/cultivation-world-simulator/issues/130).
+
+**Configuration steps:**
+
+1. Add to `static/local_config.yml`:
+   ```yaml
+   system:
+     host: "0.0.0.0"  # Allow LAN access
+   ```
+
+2. If using dev mode (`--dev`), also add to `web/vite.config.ts` in the `server` config:
+   ```typescript
+   server: {
+     host: '0.0.0.0',  // Add this line
+     proxy: { ... }
+   }
+   ```
+
+3. After starting the server, access from your phone:
+   ```
+   http://<your-computer-lan-ip>:5173  # Dev mode
+   http://<your-computer-lan-ip>:8002  # Production mode
+   ```
+
+4. Find your computer's LAN IP:
+   ```bash
+   # macOS
+   ipconfig getifaddr en0
+
+   # Linux
+   hostname -I
+
+   # Windows
+   ipconfig
+   ```
+
+> 💡 Make sure your phone and computer are on the same WiFi, and the firewall allows the corresponding port.
+
 
 ## 📊 Project Status
 
