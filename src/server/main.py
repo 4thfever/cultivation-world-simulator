@@ -660,7 +660,8 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(game_loop())
     
     npm_process = None
-    host = "127.0.0.1"
+    # 从环境变量或配置文件读取 host。
+    host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
     
     if IS_DEV_MODE:
         print("🚀 启动开发模式 (Dev Mode)...")
@@ -1863,10 +1864,14 @@ else:
 
 def start():
     """启动服务的入口函数"""
-    # 改为 8002 端口
-    # 使用 127.0.0.1 更加安全且避免防火墙弹窗
-    # 注意：直接传递 app 对象而不是字符串，避免 PyInstaller 打包后找不到模块的问题
-    uvicorn.run(app, host="127.0.0.1", port=8002)
+    # 从环境变量或配置文件读取服务器配置。
+    # 优先级：环境变量 > 配置文件 > 默认值。
+    # 设置 host 为 "0.0.0.0" 可允许局域网访问。
+    host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
+    port = int(os.environ.get("SERVER_PORT") or getattr(getattr(CONFIG, "system", None), "port", None) or 8002)
+
+    # 注意：直接传递 app 对象而不是字符串，避免 PyInstaller 打包后找不到模块的问题。
+    uvicorn.run(app, host=host, port=port)
 
 if __name__ == "__main__":
     start()

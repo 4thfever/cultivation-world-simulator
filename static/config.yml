@@ -60,6 +60,8 @@ frontend:
   cloud_freq: low
 system:
   language: zh-CN
+  host: "127.0.0.1"  # 服务器绑定地址，设为 "0.0.0.0" 允许局域网访问。
+  port: 8002         # 服务器端口。
 
 play:
   base_benefit_probability: 0.05
