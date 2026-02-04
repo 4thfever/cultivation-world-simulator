@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
-import { NModal, NInput, NButton, NIcon, NSpin, NTooltip } from 'naive-ui'
+import { NModal, NInput, NButton, NSpin, NTooltip } from 'naive-ui'
 import { systemApi } from '../../../../api'
 import type { SaveFileDTO } from '../../../../types/api'
 import { useWorldStore } from '../../../../stores/world'
