@@ -66,6 +66,14 @@ export interface SaveFileDTO {
   save_time: string;
   game_time: string;
   version: string;
+  // 新增字段。
+  language: string;
+  avatar_count: number;
+  alive_count: number;
+  dead_count: number;
+  protagonist_name: string | null;
+  custom_name: string | null;
+  event_count: number;
 }
 
 // --- Game Data Metadata ---

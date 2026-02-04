@@ -7,6 +7,7 @@ import time
 import threading
 import signal
 import random
+import re
 from omegaconf import OmegaConf
 from contextlib import asynccontextmanager
 
@@ -1670,8 +1671,17 @@ async def save_llm_config(req: LLMConfigDTO):
 
 # --- 存档系统 API ---
 
+def validate_save_name(name: str) -> bool:
+    """验证存档名称是否合法。"""
+    if not name or len(name) > 50:
+        return False
+    # 只允许中文、字母、数字和下划线。
+    pattern = r'^[\w\u4e00-\u9fff]+$'
+    return bool(re.match(pattern, name))
+
+
 class SaveGameRequest(BaseModel):
-    filename: Optional[str] = None
+    custom_name: Optional[str] = None  # 自定义存档名称
 
 class LoadGameRequest(BaseModel):
     filename: str
@@ -1680,14 +1690,22 @@ class LoadGameRequest(BaseModel):
 def get_saves():
     """获取存档列表"""
     saves_list = list_saves()
-    # 转换 Path 为 str，并整理格式
+    # 转换 Path 为 str，并整理格式。
     result = []
     for path, meta in saves_list:
         result.append({
             "filename": path.name,
             "save_time": meta.get("save_time", ""),
             "game_time": meta.get("game_time", ""),
-            "version": meta.get("version", "")
+            "version": meta.get("version", ""),
+            # 新增字段。
+            "language": meta.get("language", ""),
+            "avatar_count": meta.get("avatar_count", 0),
+            "alive_count": meta.get("alive_count", 0),
+            "dead_count": meta.get("dead_count", 0),
+            "protagonist_name": meta.get("protagonist_name"),
+            "custom_name": meta.get("custom_name"),
+            "event_count": meta.get("event_count", 0),
         })
     return {"saves": result}
 
@@ -1699,15 +1717,22 @@ def api_save_game(req: SaveGameRequest):
     if not world or not sim:
         raise HTTPException(status_code=503, detail="Game not initialized")
 
-    # 尝试从 world 属性获取（如果以后添加了）
+    # 尝试从 world 属性获取（如果以后添加了）。
     existed_sects = getattr(world, "existed_sects", [])
     if not existed_sects:
-        # fallback: 所有 sects
+        # fallback: 所有 sects.
         existed_sects = list(sects_by_id.values())
 
-    # 使用当前存档路径（保持 SQLite 数据库关联）
-    current_save_path = game_instance.get("current_save_path")
-    success, filename = save_game(world, sim, existed_sects, save_path=current_save_path)
+    # 名称验证。
+    custom_name = req.custom_name
+    if custom_name and not validate_save_name(custom_name):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid save name"
+        )
+
+    # 新存档（不使用 current_save_path，每次创建新文件）。
+    success, filename = save_game(world, sim, existed_sects, custom_name=custom_name)
     if success:
         return {"status": "ok", "filename": filename}
     else:
