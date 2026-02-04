@@ -144,4 +144,254 @@ describe('useGameInit', () => {
       wrapper.unmount()
     })
   })
+
+  describe('pollInitStatus', () => {
+    it('should call onIdle callback when status changes to idle', async () => {
+      const onIdleMock = vi.fn()
+
+      // First call returns non-idle, second call returns idle.
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValueOnce(createMockStatus({ status: 'initializing' }))
+        .mockResolvedValueOnce(createMockStatus({ status: 'idle' }))
+
+      const TestComponent = createTestComponent({ onIdle: onIdleMock })
+      const wrapper = mount(TestComponent)
+
+      // First poll - initializing.
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Second poll - idle.
+      await vi.advanceTimersByTimeAsync(1000)
+      await nextTick()
+
+      expect(onIdleMock).toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+
+    it('should reset world and system when returning to idle from initialized state', async () => {
+      const resetSpy = vi.spyOn(worldStore, 'reset')
+      const setInitializedSpy = vi.spyOn(systemStore, 'setInitialized')
+
+      // Simulate already initialized.
+      systemStore.setInitialized(true)
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({ status: 'idle' }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      expect(setInitializedSpy).toHaveBeenCalledWith(false)
+      expect(resetSpy).toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+
+    it('should preload map when phase is in MAP_READY', async () => {
+      const preloadMapSpy = vi.spyOn(worldStore, 'preloadMap')
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({
+          status: 'initializing',
+          phase_name: 'initializing_sects' // This is in MAP_READY.
+        }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      expect(preloadMapSpy).toHaveBeenCalled()
+      expect(wrapper.vm.mapPreloaded).toBe(true)
+
+      wrapper.unmount()
+    })
+
+    it('should not preload map twice', async () => {
+      const preloadMapSpy = vi.spyOn(worldStore, 'preloadMap')
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({
+          status: 'initializing',
+          phase_name: 'initializing_sects'
+        }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      // First poll.
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Second poll.
+      await vi.advanceTimersByTimeAsync(1000)
+      await nextTick()
+
+      // Should only be called once.
+      expect(preloadMapSpy).toHaveBeenCalledTimes(1)
+
+      wrapper.unmount()
+    })
+
+    it('should preload avatars when phase is in AVATAR_READY', async () => {
+      const preloadAvatarsSpy = vi.spyOn(worldStore, 'preloadAvatars')
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({
+          status: 'initializing',
+          phase_name: 'checking_llm' // This is in AVATAR_READY.
+        }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      expect(preloadAvatarsSpy).toHaveBeenCalled()
+      expect(wrapper.vm.avatarsPreloaded).toBe(true)
+
+      wrapper.unmount()
+    })
+
+    it('should initialize game when status transitions to ready', async () => {
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+      const setInitializedSpy = vi.spyOn(systemStore, 'setInitialized')
+
+      // First call returns initializing, second call returns ready.
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValueOnce(createMockStatus({ status: 'initializing' }))
+        .mockResolvedValueOnce(createMockStatus({ status: 'ready' }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      // First poll - initializing.
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Second poll - ready.
+      await vi.advanceTimersByTimeAsync(1000)
+      await nextTick()
+
+      expect(initializeSpy).toHaveBeenCalled()
+      expect(setInitializedSpy).toHaveBeenCalledWith(true)
+      expect(mockLoadBaseTextures).toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+
+    it('should handle fetch error gracefully', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockRejectedValue(new Error('Network error'))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to fetch init status:', expect.any(Error))
+
+      consoleSpy.mockRestore()
+      wrapper.unmount()
+    })
+
+    it('should return early if fetchInitStatus returns null', async () => {
+      const preloadMapSpy = vi.spyOn(worldStore, 'preloadMap')
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(null as any)
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Nothing should be called because res is null.
+      expect(preloadMapSpy).not.toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+  })
+
+  describe('initializeGame', () => {
+    it('should reset world when already initialized', async () => {
+      const resetSpy = vi.spyOn(worldStore, 'reset')
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+
+      // Mark as initialized.
+      systemStore.setInitialized(true)
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({ status: 'idle' }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Manually call initializeGame.
+      await wrapper.vm.initializeGame()
+
+      expect(resetSpy).toHaveBeenCalled()
+      expect(initializeSpy).toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+
+    it('should init socket if not connected', async () => {
+      const initSpy = vi.spyOn(socketStore, 'init')
+      const initializeSpy = vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+
+      vi.spyOn(systemStore, 'fetchInitStatus')
+        .mockResolvedValue(createMockStatus({ status: 'idle' }))
+
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Ensure socket is not connected.
+      expect(socketStore.isConnected).toBe(false)
+
+      await wrapper.vm.initializeGame()
+
+      expect(initSpy).toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+  })
+
+  describe('stopPolling', () => {
+    it('should clear interval when called', async () => {
+      const TestComponent = createTestComponent()
+      const wrapper = mount(TestComponent)
+
+      await vi.advanceTimersByTimeAsync(0)
+      await nextTick()
+
+      // Stop polling.
+      wrapper.vm.stopPolling()
+
+      // Verify no more polls happen.
+      vi.clearAllMocks()
+      await vi.advanceTimersByTimeAsync(2000)
+
+      expect(systemStore.fetchInitStatus).not.toHaveBeenCalled()
+
+      wrapper.unmount()
+    })
+  })
 })
