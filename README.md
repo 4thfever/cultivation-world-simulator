@@ -175,6 +175,48 @@
 前端：`http://localhost:8123`
 后端 API：`http://localhost:8002`
 
+### 📱 手机/局域网访问
+
+支持从局域网内的其他设备（如手机、平板）访问游戏。
+
+> ⚠️ **注意**：移动端 UI 目前未做适配优化，体验可能不佳。详见 [Issue #130](https://github.com/4thfever/cultivation-world-simulator/issues/130)。
+
+**配置步骤：**
+
+1. 在 `static/local_config.yml` 中添加：
+   ```yaml
+   system:
+     host: "0.0.0.0"  # 允许局域网访问
+   ```
+
+2. 如果使用开发模式（`--dev`），还需在 `web/vite.config.ts` 的 `server` 配置中添加：
+   ```typescript
+   server: {
+     host: '0.0.0.0',  // 添加这一行
+     proxy: { ... }
+   }
+   ```
+
+3. 启动服务器后，在手机浏览器访问：
+   ```
+   http://<电脑局域网IP>:5173  # 开发模式
+   http://<电脑局域网IP>:8002  # 生产模式
+   ```
+
+4. 查看电脑局域网 IP：
+   ```bash
+   # macOS
+   ipconfig getifaddr en0
+
+   # Linux
+   hostname -I
+
+   # Windows
+   ipconfig
+   ```
+
+> 💡 确保手机和电脑连接同一个 WiFi，且防火墙已放行对应端口。
+
 
 ## 📊 项目状态
 

@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'web_static', // 避免与游戏原本的 /assets 目录冲突
     },
     server: {
+      host: '0.0.0.0', // 允许局域网访问
       proxy: {
         '/api': {
           target: API_TARGET,
