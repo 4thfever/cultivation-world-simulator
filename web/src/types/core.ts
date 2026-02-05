@@ -135,6 +135,7 @@ export interface RelationInfo {
   target_id: string;
   name: string;
   relation: string;
+  relation_type: string;
   realm: string;
   sect: string;
 }

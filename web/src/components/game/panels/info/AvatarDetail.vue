@@ -193,6 +193,7 @@ async function handleClearObjective() {
             :name="rel.name"
             :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
             :sub="`${rel.sect} · ${rel.realm}`"
+            :type="rel.relation_type"
             @click="jumpToAvatar(rel.target_id)"
           />
         </div>

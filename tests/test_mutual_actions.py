@@ -18,7 +18,7 @@ from src.classes.mutual_action.talk import Talk
 from src.classes.mutual_action.spar import Spar
 from src.classes.mutual_action.impart import Impart
 from src.classes.action_runtime import ActionStatus
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 
 
 class TestTalk:

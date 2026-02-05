@@ -11,7 +11,7 @@ from src.classes.calendar import MonthStamp
 from src.classes.avatar import Avatar
 from src.classes.event import Event
 from src.classes.sect import sects_by_id, Sect
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.sim.simulator import Simulator
 from src.run.load_map import load_cultivation_world_map
 from src.utils.config import CONFIG

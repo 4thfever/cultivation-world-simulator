@@ -32,7 +32,7 @@ from src.classes.weapon import Weapon
 from src.classes.auxiliary import Auxiliary
 from src.classes.magic_stone import MagicStone
 from src.classes.hp import HP, HP_MAX_BY_REALM
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.classes.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.spirit_animal import SpiritAnimal
@@ -102,6 +102,8 @@ class Avatar(
     materials: dict[Material, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))
     relations: dict["Avatar", Relation] = field(default_factory=dict)
+    # 缓存的二阶关系 (由 Simulator 定期计算)
+    computed_relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment | None = None
     sect: Sect | None = None
     sect_rank: "SectRank | None" = None
@@ -392,17 +394,17 @@ class Avatar(
 
     def set_relation(self, other: "Avatar", relation: Relation) -> None:
         """设置与另一个角色的关系。"""
-        from src.classes.relations import set_relation
+        from src.classes.relation.relations import set_relation
         set_relation(self, other, relation)
 
     def get_relation(self, other: "Avatar") -> Optional[Relation]:
         """获取与另一个角色的关系。"""
-        from src.classes.relations import get_relation
+        from src.classes.relation.relations import get_relation
         return get_relation(self, other)
 
     def clear_relation(self, other: "Avatar") -> None:
         """清除与另一个角色的关系。"""
-        from src.classes.relations import clear_relation
+        from src.classes.relation.relations import clear_relation
         clear_relation(self, other)
 
     # ========== 信息展示（委托） ==========

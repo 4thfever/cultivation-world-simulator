@@ -19,7 +19,7 @@ from src.classes.technique import (
 )
 from src.classes.weapon import Weapon, get_random_weapon_by_realm
 from src.classes.auxiliary import Auxiliary, get_random_auxiliary_by_realm
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.classes.alignment import Alignment
 from src.classes.cultivation import Realm
 

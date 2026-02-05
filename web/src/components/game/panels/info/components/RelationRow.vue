@@ -3,6 +3,7 @@ defineProps<{
   name: string;
   meta?: string;
   sub?: string;
+  type?: string;
 }>();
 
 defineEmits(['click']);
@@ -54,4 +55,3 @@ defineEmits(['click']);
   color: #666;
 }
 </style>
-

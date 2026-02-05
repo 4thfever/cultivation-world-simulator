@@ -5,7 +5,7 @@ from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.avatar import Avatar, Gender
 from src.classes.age import Age
 from src.classes.cultivation import Realm
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.utils.id_generator import get_avatar_id
 from src.classes.calendar import create_month_stamp, Year, Month
 

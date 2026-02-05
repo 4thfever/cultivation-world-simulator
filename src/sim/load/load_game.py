@@ -37,7 +37,7 @@ if TYPE_CHECKING:
 
 from src.classes.calendar import MonthStamp
 from src.classes.event import Event
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.utils.config import CONFIG
 
 

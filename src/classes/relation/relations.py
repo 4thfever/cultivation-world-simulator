@@ -5,12 +5,83 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, List
 
-from src.classes.relation import Relation, INNATE_RELATIONS, get_reciprocal, is_innate, relation_display_names
+from src.classes.relation.relation import (
+    Relation, 
+    INNATE_RELATIONS, 
+    get_reciprocal, 
+    is_innate, 
+    CALCULATED_RELATIONS
+)
 from src.classes.event import Event
 from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
+
+
+def update_second_degree_relations(avatar: "Avatar") -> None:
+    """
+    计算并更新角色的二阶关系缓存。
+    覆盖 SIBLING, GRAND_PARENT, MARTIAL_SIBLING 等。
+    """
+    computed = {}
+    
+    # 1. 预筛选一阶关键人 (中间节点)
+    relations = getattr(avatar, "relations", {})
+    
+    parents = [t for t, r in relations.items() if r == Relation.PARENT]
+    children = [t for t, r in relations.items() if r == Relation.CHILD]
+    masters = [t for t, r in relations.items() if r == Relation.MASTER]
+    apprentices = [t for t, r in relations.items() if r == Relation.APPRENTICE]
+
+    # 2. 血缘推导
+    # Sibling: 父母的子女 (排除自己)
+    for p in parents:
+        # 注意：这里需要访问 parent 的 relations
+        # 如果 parent 是死者或者未完全加载，需要确保其 relations 可用
+        p_relations = getattr(p, "relations", {})
+        for sib, r in p_relations.items():
+            if r == Relation.CHILD and sib.id != avatar.id:
+                computed[sib] = Relation.SIBLING
+                
+    # Grandparent: 父母的父母
+    for p in parents:
+        p_relations = getattr(p, "relations", {})
+        for gp, r in p_relations.items():
+            if r == Relation.PARENT:
+                computed[gp] = Relation.GRAND_PARENT
+
+    # Grandchild: 子女的子女
+    for c in children:
+        c_relations = getattr(c, "relations", {})
+        for gc, r in c_relations.items():
+            if r == Relation.CHILD:
+                computed[gc] = Relation.GRAND_CHILD
+
+    # 3. 师门推导
+    # Martial Sibling: 师傅的徒弟 (排除自己)
+    for m in masters:
+        m_relations = getattr(m, "relations", {})
+        for fellow, r in m_relations.items():
+            if r == Relation.APPRENTICE and fellow.id != avatar.id:
+                computed[fellow] = Relation.MARTIAL_SIBLING
+                
+    # Martial Grandmaster: 师傅的师傅
+    for m in masters:
+        m_relations = getattr(m, "relations", {})
+        for mgm, r in m_relations.items():
+            if r == Relation.MASTER:
+                computed[mgm] = Relation.MARTIAL_GRANDMASTER
+
+    # Martial Grandchild: 徒弟的徒弟
+    for app in apprentices:
+        app_relations = getattr(app, "relations", {})
+        for mgc, r in app_relations.items():
+            if r == Relation.APPRENTICE:
+                computed[mgc] = Relation.MARTIAL_GRANDCHILD
+
+    # 4. 更新缓存
+    avatar.computed_relations = computed
 
 
 def get_possible_new_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> List[Relation]:
@@ -138,8 +209,8 @@ def get_relation_change_context(avatar1: "Avatar", avatar2: "Avatar") -> tuple[l
     new_rels = get_possible_new_relations(avatar1, avatar2)
     cancel_rels = get_possible_cancel_relations(avatar1, avatar2)
     
-    new_strs = [relation_display_names[r] for r in new_rels]
-    cancel_strs = [relation_display_names[r] for r in cancel_rels]
+    new_strs = [str(r) for r in new_rels]
+    cancel_strs = [str(r) for r in cancel_rels]
     
     return new_strs, cancel_strs
 
@@ -162,7 +233,7 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
             set_relation(target, initiator, rel)
             set_event = Event(
                 month_stamp, 
-                f"{target.name} 与 {initiator.name} 的关系变为：{relation_display_names.get(rel, str(rel))}", 
+                f"{target.name} 与 {initiator.name} 的关系变为：{str(rel)}", 
                 related_avatars=[initiator.id, target.id],
                 is_major=True
             )
@@ -176,7 +247,7 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
             if success:
                 cancel_event = Event(
                     month_stamp, 
-                    f"{target.name} 与 {initiator.name} 取消了关系：{relation_display_names.get(rel, str(rel))}", 
+                    f"{target.name} 与 {initiator.name} 取消了关系：{str(rel)}", 
                     related_avatars=[initiator.id, target.id],
                     is_major=True
                 )

@@ -18,6 +18,16 @@ class Relation(Enum):
     LOVERS = "lovers"              # 道侣（对称）
     FRIEND = "friend"              # 朋友（对称）
     ENEMY = "enemy"                # 仇人/敌人（对称）
+    
+    # —— 二阶衍生关系 (Calculated) ——
+    GRAND_PARENT = "grand_parent"    # Parent's Parent
+    GRAND_CHILD = "grand_child"      # Child's Child
+    # SIBLING 也可以是 calculated
+    
+    # 师门系 (Distance: 2)
+    MARTIAL_GRANDMASTER = "martial_grandmaster" # Master's Master
+    MARTIAL_GRANDCHILD = "martial_grandchild"   # Apprentice's Apprentice
+    MARTIAL_SIBLING = "martial_sibling"         # Shared Master
 
     def __str__(self) -> str:
         from src.i18n import t
@@ -31,8 +41,15 @@ class Relation(Enum):
         if not name_cn:
             return None
         s = str(name_cn).strip()
-        for rel, cn in relation_display_names.items():
-            if s == cn:
+        
+        # 动态查找：遍历所有关系，翻译后比对
+        from src.i18n import t
+        for rel, msg_id in relation_msg_ids.items():
+            # 这里假设当前环境语言是中文，或者我们需要强制用中文比对
+            # 如果 name_cn 是 LLM 返回的中文，我们需要确保 t() 返回的是中文
+            # 由于 gettext 通常基于全局上下文，这里依赖全局语言设置
+            # 如果需要强制中文，可能需要临时切换 locale，但这里简化处理，假设 LLM 输出语言与当前 locale 一致
+            if s == t(msg_id):
                 return rel
         return None
 
@@ -47,27 +64,25 @@ relation_msg_ids = {
     Relation.LOVERS: "lovers",
     Relation.FRIEND: "friend",
     Relation.ENEMY: "enemy",
-}
-
-# 兼容性：保留旧的dict用于from_chinese方法
-relation_display_names = {
-    # 血缘（先天）
-    Relation.PARENT: "父母",
-    Relation.CHILD: "子女",
-    Relation.SIBLING: "兄弟姐妹",
-    Relation.KIN: "亲属",
-
-    # 后天（社会/情感）
-    Relation.MASTER: "师傅",
-    Relation.APPRENTICE: "徒弟",
-    Relation.LOVERS: "道侣",
-    Relation.FRIEND: "朋友",
-    Relation.ENEMY: "仇人",
+    
+    Relation.GRAND_PARENT: "grand_parent",
+    Relation.GRAND_CHILD: "grand_child",
+    Relation.MARTIAL_GRANDMASTER: "martial_grandmaster",
+    Relation.MARTIAL_GRANDCHILD: "martial_grandchild",
+    Relation.MARTIAL_SIBLING: "martial_sibling",
 }
 
 # 关系是否属于“先天”（血缘），其余为“后天”
 INNATE_RELATIONS: set[Relation] = {
     Relation.PARENT, Relation.CHILD, Relation.SIBLING, Relation.KIN,
+    Relation.GRAND_PARENT, Relation.GRAND_CHILD
+}
+
+# 自动计算的关系集合
+CALCULATED_RELATIONS: set[Relation] = {
+    Relation.GRAND_PARENT, Relation.GRAND_CHILD,
+    Relation.MARTIAL_GRANDMASTER, Relation.MARTIAL_GRANDCHILD, Relation.MARTIAL_SIBLING,
+    Relation.SIBLING 
 }
 
 
@@ -113,6 +128,8 @@ RECIPROCAL_RELATION: dict[Relation, Relation] = {
     Relation.CHILD: Relation.PARENT,  # 子女 -> 父母
     Relation.SIBLING: Relation.SIBLING,  # 兄弟姐妹 -> 兄弟姐妹
     Relation.KIN: Relation.KIN,  # 亲属 -> 亲属
+    Relation.GRAND_PARENT: Relation.GRAND_CHILD,
+    Relation.GRAND_CHILD: Relation.GRAND_PARENT,
 
     # 后天
     Relation.MASTER: Relation.APPRENTICE,  # 师傅 -> 徒弟
@@ -120,6 +137,9 @@ RECIPROCAL_RELATION: dict[Relation, Relation] = {
     Relation.LOVERS: Relation.LOVERS,  # 道侣 -> 道侣
     Relation.FRIEND: Relation.FRIEND,  # 朋友 -> 朋友
     Relation.ENEMY: Relation.ENEMY,  # 仇人 -> 仇人
+    Relation.MARTIAL_GRANDMASTER: Relation.MARTIAL_GRANDCHILD,
+    Relation.MARTIAL_GRANDCHILD: Relation.MARTIAL_GRANDMASTER,
+    Relation.MARTIAL_SIBLING: Relation.MARTIAL_SIBLING,
 }
 
 
@@ -144,15 +164,24 @@ GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     # 我 -> 对方：PARENT（我为父/母，对方为子） → 显示对方为 儿子/女儿
     (Relation.PARENT, "male"): "relation_son",
     (Relation.PARENT, "female"): "relation_daughter",
+    # 祖父母
+    (Relation.GRAND_PARENT, "male"): "relation_grandfather",
+    (Relation.GRAND_PARENT, "female"): "relation_grandmother",
+    # 孙辈
+    (Relation.GRAND_CHILD, "male"): "relation_grandson",
+    (Relation.GRAND_CHILD, "female"): "relation_granddaughter",
 }
 
 # 显示顺序配置
 DISPLAY_ORDER = [
-    "master", "apprentice", "lovers",
+    "martial_grandmaster", "master", "martial_sibling", "apprentice", "martial_grandchild",
+    "lovers",
+    "relation_grandfather", "relation_grandmother", "grand_parent", # 祖父母
     "relation_father", "relation_mother",
-    "relation_son", "relation_daughter",
     "relation_older_brother", "relation_younger_brother", "relation_older_sister", "relation_younger_sister",
-    "sibling", # 兜底
+    "sibling", 
+    "relation_son", "relation_daughter",
+    "relation_grandson", "relation_granddaughter", "grand_child", # 孙辈
     "friend", "enemy",
     "kin"
 ]
@@ -163,8 +192,8 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
     """
     from src.i18n import t
     
-    # 1. 处理兄弟姐妹 (涉及长幼比较)
-    if relation == Relation.SIBLING:
+    # 1. 处理兄弟姐妹/同门 (涉及长幼比较)
+    if relation == Relation.SIBLING or relation == Relation.MARTIAL_SIBLING:
         is_older = False
         # 比较出生时间 (MonthStamp 越小越早出生，年龄越大)
         if hasattr(other_avatar, "birth_month_stamp") and hasattr(self_avatar, "birth_month_stamp"):
@@ -176,10 +205,18 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
         
         gender_val = getattr(getattr(other_avatar, "gender", None), "value", "male")
         
-        if gender_val == "male":
-            return t("relation_older_brother") if is_older else t("relation_younger_brother")
-        else:
-            return t("relation_older_sister") if is_older else t("relation_younger_sister")
+        if relation == Relation.SIBLING:
+            if gender_val == "male":
+                return t("relation_older_brother") if is_older else t("relation_younger_brother")
+            else:
+                return t("relation_older_sister") if is_older else t("relation_younger_sister")
+        else: # MARTIAL_SIBLING
+            # 这里简单复用兄弟姐妹的 key，或者需要定义新的 key 如 martial_older_brother
+            # 暂时使用通用的 sibling 称谓，或者如果有专用的 key
+            if gender_val == "male":
+                return t("relation_martial_older_brother") if is_older else t("relation_martial_younger_brother")
+            else:
+                return t("relation_martial_older_sister") if is_older else t("relation_martial_younger_sister")
 
     # 2. 查表处理通用性别化称谓
     other_gender = getattr(other_avatar, "gender", None)
@@ -200,7 +237,11 @@ def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     以“我”的视角整理关系，输出若干行。
     """
     from src.i18n import t
-    relations = getattr(avatar, "relations", {}) or {}
+    # 融合 relations 和 computed_relations
+    # 优先显示一阶关系（如果同一个key在两个字典都存在，relations 覆盖 computed_relations）
+    # 但一般不会有重叠，除了 SIBLING 可能被提升为一阶
+    relations = getattr(avatar, "computed_relations", {}).copy()
+    relations.update(getattr(avatar, "relations", {}) or {})
 
     # 1. 收集并根据标签分组所有关系
     grouped: dict[str, list[str]] = defaultdict(list)

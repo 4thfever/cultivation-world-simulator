@@ -7,7 +7,7 @@ from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:

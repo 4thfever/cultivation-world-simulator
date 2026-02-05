@@ -3,7 +3,7 @@ from src.classes.world import World
 from src.classes.calendar import MonthStamp
 from src.classes.age import Age
 from src.classes.avatar import Avatar, Gender
-from src.classes.relation import Relation, get_relation_label
+from src.classes.relation.relation import Relation, get_relation_label
 from src.classes.cultivation import CultivationProgress, Realm
 from src.utils.id_generator import get_avatar_id
 from src.sim.new_avatar import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner

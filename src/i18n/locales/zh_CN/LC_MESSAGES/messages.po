@@ -1924,6 +1924,45 @@ msgstr "姐姐"
 msgid "relation_younger_sister"
 msgstr "妹妹"
 
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "grand_child"
+msgstr "孙辈"
+
+msgid "martial_grandmaster"
+msgstr "师祖"
+
+msgid "martial_grandchild"
+msgstr "徒孙"
+
+msgid "martial_sibling"
+msgstr "同门"
+
+msgid "relation_grandfather"
+msgstr "爷爷"
+
+msgid "relation_grandmother"
+msgstr "奶奶"
+
+msgid "relation_grandson"
+msgstr "孙子"
+
+msgid "relation_granddaughter"
+msgstr "孙女"
+
+msgid "relation_martial_older_brother"
+msgstr "师兄"
+
+msgid "relation_martial_younger_brother"
+msgstr "师弟"
+
+msgid "relation_martial_older_sister"
+msgstr "师姐"
+
+msgid "relation_martial_younger_sister"
+msgstr "师妹"
+
 # Root Keys
 msgid "root_gold"
 msgstr "金灵根"

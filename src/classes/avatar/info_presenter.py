@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from src.classes.avatar.core import Avatar
 
 from src.classes.battle import get_base_strength
-from src.classes.relation import get_relation_label
+from src.classes.relation.relation import get_relation_label
 from src.classes.emotions import EMOTION_EMOJIS, EmotionType
 from src.utils.config import CONFIG
 
@@ -35,7 +35,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     """
     from src.i18n import t
     region = avatar.tile.region if avatar.tile is not None else None
-    from src.classes.relation import get_relations_strs
+    from src.classes.relation.relation import get_relations_strs
     relation_lines = get_relations_strs(avatar, max_lines=8)
     relations_info = t("relation_separator").join(relation_lines) if relation_lines else t("None")
     magic_stone_info = str(avatar.magic_stone)
@@ -200,6 +200,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "target_id": other.id,
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
+            "relation_type": relation.value,
             "realm": other.cultivation_progress.get_info(),
             "sect": other.sect.name if other.sect else t("Rogue Cultivator")
         })

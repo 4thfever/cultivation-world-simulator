@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.death import handle_death
-from src.classes.relation import Relation, get_relations_strs
+from src.classes.relation.relation import Relation, get_relations_strs
 from src.classes.event import Event
 
 def test_death_reason_str():
