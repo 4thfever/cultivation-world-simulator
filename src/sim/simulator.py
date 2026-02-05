@@ -366,7 +366,7 @@ class Simulator:
         """
         关系演化阶段：检查并处理满足条件的角色关系变化
         """
-        from src.classes.relation_resolver import RelationResolver
+        from src.classes.relation.relation_resolver import RelationResolver
         
         pairs_to_resolve = []
         processed_pairs = set() # (id1, id2) id1 < id2
@@ -477,8 +477,25 @@ class Simulator:
         # 14. 处理剩余阶段的交互计数
         self._phase_handle_interactions(events, processed_event_ids)
 
-        # 15. 归档与时间推进
+        # 15. (每年1月) 更新计算关系 (二阶关系)
+        self._phase_update_calculated_relations()
+
+        # 16. 归档与时间推进
         return self._finalize_step(events)
+
+    def _phase_update_calculated_relations(self):
+        """
+        每年 1 月刷新全服角色的二阶关系缓存
+        """
+        # 仅在 1 月执行
+        if self.world.month_stamp.get_month() != Month.JANUARY:
+            return
+
+        from src.classes.relation.relations import update_second_degree_relations
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+        
+        for avatar in living_avatars:
+            update_second_degree_relations(avatar)
 
     def _finalize_step(self, events: list[Event]) -> list[Event]:
         """

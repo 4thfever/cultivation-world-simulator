@@ -2,12 +2,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Tuple, Optional
 import asyncio
 
-from src.classes.relation import (
+from src.classes.relation.relation import (
     Relation,
-    get_relation_rules_desc,
-    relation_display_names
+    get_relation_rules_desc
 )
-from src.classes.relations import (
+from src.classes.relation.relations import (
     set_relation,
     cancel_relation,
 )
@@ -40,7 +39,7 @@ class RelationResolver:
         current_rel = avatar_a.get_relation(avatar_b)
         rel_desc = "无"
         if current_rel:
-            rel_name = relation_display_names.get(current_rel, current_rel.value)
+            rel_name = str(current_rel)
             rel_desc = f"{rel_name}"
         
         # 获取当前世界时间
@@ -85,7 +84,7 @@ class RelationResolver:
         except KeyError:
             return None
             
-        display_name = relation_display_names.get(rel, rel_name)
+        display_name = str(rel)
         event = None
             
         if c_type == "ADD":

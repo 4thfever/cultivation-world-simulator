@@ -140,7 +140,7 @@ def test_save_load_with_relations(temp_save_dir):
     world.avatar_manager.avatars[av2.id] = av2
     
     # Add relationship
-    from src.classes.relation import Relation
+    from src.classes.relation.relation import Relation
     
     # Manually adding relation for test (usually done via helper methods)
     # relation value is integer

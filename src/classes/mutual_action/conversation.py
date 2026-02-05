@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from src.i18n import t
 from .mutual_action import MutualAction
-from src.classes.relations import (
+from src.classes.relation.relations import (
     process_relation_changes,
     get_relation_change_context,
 )

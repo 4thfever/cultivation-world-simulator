@@ -2403,3 +2403,42 @@ msgstr "冷峻簡練：短句為主，字字珠璣，如金石相擊，不做多
 
 msgid "Fine line drawing: No decoration, capturing subtle movements and expressions to convey spirit, real and delicate."
 msgstr "細筆白描：不加藻飾，通過捕捉極細微的動作與神態來傳神，真實細膩。"
+
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "grand_child"
+msgstr "孫輩"
+
+msgid "martial_grandmaster"
+msgstr "師祖"
+
+msgid "martial_grandchild"
+msgstr "徒孫"
+
+msgid "martial_sibling"
+msgstr "同門"
+
+msgid "relation_grandfather"
+msgstr "爺爺"
+
+msgid "relation_grandmother"
+msgstr "奶奶"
+
+msgid "relation_grandson"
+msgstr "孫子"
+
+msgid "relation_granddaughter"
+msgstr "孫女"
+
+msgid "relation_martial_older_brother"
+msgstr "師兄"
+
+msgid "relation_martial_younger_brother"
+msgstr "師弟"
+
+msgid "relation_martial_older_sister"
+msgstr "師姐"
+
+msgid "relation_martial_younger_sister"
+msgstr "師妹"

@@ -9,8 +9,8 @@ from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
 from src.classes.event import Event
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
-from src.classes.relation import relation_display_names, Relation
-from src.classes.relations import get_possible_new_relations
+from src.classes.relation.relation import Relation
+from src.classes.relation.relations import get_possible_new_relations
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.event_helper import EventHelper
 from src.classes.action.targeting_mixin import TargetingMixin

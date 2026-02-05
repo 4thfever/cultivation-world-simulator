@@ -3,7 +3,7 @@ import random
 from src.classes.avatar import Avatar
 from src.classes.world import World
 from src.classes.calendar import MonthStamp
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.sim.new_avatar import create_avatar_from_request
 
 # ==========================================

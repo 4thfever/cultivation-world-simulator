@@ -14,7 +14,7 @@ from src.classes.age import Age
 from src.classes.name import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
 from src.classes.sect import Sect, sects_by_id, sects_by_name
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name

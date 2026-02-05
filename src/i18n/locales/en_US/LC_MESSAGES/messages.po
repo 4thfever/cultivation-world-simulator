@@ -3540,3 +3540,42 @@ msgstr "Cold and concise: Mainly short sentences, every word counts, like metal 
 
 msgid "Fine line drawing: No decoration, capturing subtle movements and expressions to convey spirit, real and delicate."
 msgstr "Fine line drawing: No decoration, capturing subtle movements and expressions to convey spirit, real and delicate."
+
+msgid "grand_parent"
+msgstr "Grandparent"
+
+msgid "grand_child"
+msgstr "Grandchild"
+
+msgid "martial_grandmaster"
+msgstr "Martial Grandmaster"
+
+msgid "martial_grandchild"
+msgstr "Martial Grandchild"
+
+msgid "martial_sibling"
+msgstr "Martial Sibling"
+
+msgid "relation_grandfather"
+msgstr "Grandfather"
+
+msgid "relation_grandmother"
+msgstr "Grandmother"
+
+msgid "relation_grandson"
+msgstr "Grandson"
+
+msgid "relation_granddaughter"
+msgstr "Granddaughter"
+
+msgid "relation_martial_older_brother"
+msgstr "Senior Martial Brother"
+
+msgid "relation_martial_younger_brother"
+msgstr "Junior Martial Brother"
+
+msgid "relation_martial_older_sister"
+msgstr "Senior Martial Sister"
+
+msgid "relation_martial_younger_sister"
+msgstr "Junior Martial Sister"

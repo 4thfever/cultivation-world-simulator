@@ -131,7 +131,7 @@ def mock_llm_managers():
     with patch("src.sim.simulator.llm_ai") as mock_ai, \
          patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
          patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
-         patch("src.classes.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
+         patch("src.classes.relation.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
          patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist, \
          patch("src.classes.story_teller.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story, \
          patch("src.classes.story_teller.StoryTeller.tell_gathering_story", new_callable=AsyncMock) as mock_gathering_story, \

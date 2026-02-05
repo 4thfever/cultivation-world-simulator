@@ -10,7 +10,7 @@ from dataclasses import dataclass
 if TYPE_CHECKING:
     from src.classes.avatar import Avatar
 
-from src.classes.relation import Relation
+from src.classes.relation.relation import Relation
 
 
 @dataclass
