@@ -6,48 +6,16 @@
     python tools/i18n/build_mo.py
 """
 
-import subprocess
 import sys
 from pathlib import Path
 
 
 def compile_po_to_mo(po_file: Path) -> bool:
-    """编译单个 PO 文件为 MO 文件"""
-    mo_file = po_file.with_suffix('.mo')
-    
-    try:
-        # 使用 msgfmt 编译 PO 文件
-        result = subprocess.run(
-            ['msgfmt', '-o', str(mo_file), str(po_file)],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        
-        print(f"[OK] {po_file.relative_to(Path.cwd())} -> {mo_file.name}")
-        return True
-        
-    except FileNotFoundError:
-        print("[ERROR] msgfmt 工具未找到。请安装 gettext 工具集。")
-        print("\n安装方法:")
-        print("  - Ubuntu/Debian: sudo apt-get install gettext")
-        print("  - macOS: brew install gettext")
-        print("  - Windows: 下载 gettext-iconv-windows 或使用 WSL")
-        return False
-        
-    except subprocess.CalledProcessError as e:
-        print(f"[ERROR] 编译失败: {po_file}")
-        if e.stderr:
-            print(f"  错误信息: {e.stderr}")
-        return False
-
-
-def compile_po_to_mo_python(po_file: Path) -> bool:
-    """使用 Python polib 库编译 PO 文件为 MO 文件（备用方案）"""
+    """使用 Python polib 库编译 PO 文件为 MO 文件"""
     try:
         import polib
     except ImportError:
-        print("[ERROR] polib 库未安装。尝试使用 msgfmt...")
+        print("[ERROR] polib 库未安装。请运行 pip install polib 安装。")
         return False
     
     mo_file = po_file.with_suffix('.mo')
@@ -93,22 +61,10 @@ def main():
     print("\n开始编译...")
     print("-"*60)
     
-    # 尝试使用 msgfmt（推荐）
     success_count = 0
-    use_msgfmt = True
     
     for po_file in po_files:
-        if use_msgfmt:
-            result = compile_po_to_mo(po_file)
-            if not result and success_count == 0:
-                # 第一次失败，尝试使用 polib
-                print("\n切换到 polib 库...")
-                use_msgfmt = False
-                result = compile_po_to_mo_python(po_file)
-        else:
-            result = compile_po_to_mo_python(po_file)
-        
-        if result:
+        if compile_po_to_mo(po_file):
             success_count += 1
     
     # 输出结果
