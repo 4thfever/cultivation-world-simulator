@@ -61,17 +61,20 @@
       "base_url": "Base URL",
       "normal_model": "智能模型 (Normal)",
       "fast_model": "快速模型 (Fast)",
+      "max_concurrent_requests": "最大并发数",
       "what_is_api": "什么是 API / 如何获取?"
     },
     "descs": {
       "normal_model": "用于处理复杂逻辑、剧情生成等任务",
-      "fast_model": "用于简单判定、频繁交互等任务"
+      "fast_model": "用于简单判定、频繁交互等任务",
+      "max_concurrent_requests": "同时请求 AI 的线程数。调大可加快速度，但可能触发 API 速率限制 (Rate Limit)。建议值：5-20。"
     },
     "placeholders": {
       "api_key": "在此填入你自己的 API Key (通常以 sk- 开头)",
       "base_url": "https://api.example.com/v1",
       "normal_model": "例如: gpt-4, claude-3-opus, qwen-plus",
-      "fast_model": "例如: gpt-3.5-turbo, qwen-flash"
+      "fast_model": "例如: gpt-3.5-turbo, qwen-flash",
+      "max_concurrent_requests": "默认: 10"
     },
     "modes": {
       "default": "均衡 (Default)",

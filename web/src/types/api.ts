@@ -123,6 +123,7 @@ export interface LLMConfigDTO {
   model_name: string;
   fast_model_name: string;
   mode: string;
+  max_concurrent_requests?: number;
 }
 
 export interface GameStartConfigDTO {

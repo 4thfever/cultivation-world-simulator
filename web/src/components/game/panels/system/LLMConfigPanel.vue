@@ -16,7 +16,8 @@ const config = ref<LLMConfigDTO>({
   api_key: '',
   model_name: '',
   fast_model_name: '',
-  mode: 'default'
+  mode: 'default',
+  max_concurrent_requests: 10
 })
 
 const modeOptions = computed(() => [
@@ -107,10 +108,6 @@ const emit = defineEmits<{
 }>()
 
 async function handleTestAndSave() {
-  if (!config.value.api_key) {
-    message.warning(t('llm.api_key_required'))
-    return
-  }
   if (!config.value.base_url) {
     message.warning(t('llm.base_url_required'))
     return
@@ -182,6 +179,19 @@ onMounted(() => {
             v-model="config.base_url" 
             type="text" 
             :placeholder="t('llm.placeholders.base_url')"
+            class="input-field"
+          />
+        </div>
+
+        <div class="form-item">
+          <label>{{ t('llm.labels.max_concurrent_requests') }}</label>
+          <div class="desc">{{ t('llm.descs.max_concurrent_requests') }}</div>
+          <input 
+            v-model.number="config.max_concurrent_requests" 
+            type="number" 
+            min="1"
+            max="50"
+            :placeholder="t('llm.placeholders.max_concurrent_requests')"
             class="input-field"
           />
         </div>

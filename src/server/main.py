@@ -1556,14 +1556,15 @@ def set_language_api(req: LanguageRequest):
 
 class LLMConfigDTO(BaseModel):
     base_url: str
-    api_key: str
+    api_key: Optional[str] = ""
     model_name: str
     fast_model_name: str
     mode: str
+    max_concurrent_requests: Optional[int] = 10
 
 class TestConnectionRequest(BaseModel):
     base_url: str
-    api_key: str
+    api_key: Optional[str] = ""
     model_name: str
 
 @app.get("/api/config/llm")
@@ -1574,7 +1575,8 @@ def get_llm_config():
         "api_key": getattr(CONFIG.llm, "key", ""),
         "model_name": getattr(CONFIG.llm, "model_name", ""),
         "fast_model_name": getattr(CONFIG.llm, "fast_model_name", ""),
-        "mode": getattr(CONFIG.llm, "mode", "default")
+        "mode": getattr(CONFIG.llm, "mode", "default"),
+        "max_concurrent_requests": getattr(CONFIG.ai, "max_concurrent_requests", 10)
     }
 
 @app.post("/api/config/llm/test")
@@ -1619,6 +1621,12 @@ async def save_llm_config(req: LLMConfigDTO):
         CONFIG.llm.fast_model_name = req.fast_model_name
         CONFIG.llm.mode = req.mode
 
+        # 更新 ai 配置
+        if req.max_concurrent_requests:
+            if not hasattr(CONFIG, "ai"):
+                 CONFIG.ai = OmegaConf.create({})
+            CONFIG.ai.max_concurrent_requests = req.max_concurrent_requests
+
         # 2. Persist to local_config.yml
         # 使用 src/utils/config.py 中类似的路径逻辑
         # 注意：这里我们假设是在项目根目录下运行，或者静态文件路径是相对固定的
@@ -1641,6 +1649,12 @@ async def save_llm_config(req: LLMConfigDTO):
         conf.llm.model_name = req.model_name
         conf.llm.fast_model_name = req.fast_model_name
         conf.llm.mode = req.mode
+
+        # Ensure ai section exists and update
+        if req.max_concurrent_requests:
+            if "ai" not in conf:
+                conf.ai = {}
+            conf.ai.max_concurrent_requests = req.max_concurrent_requests
         
         OmegaConf.save(conf, local_config_path)
         
