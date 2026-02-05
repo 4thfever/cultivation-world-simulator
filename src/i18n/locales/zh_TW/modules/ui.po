@@ -1,0 +1,31 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Frontend UI Translations
+# ============================================================================
+msgid "Sect Headquarters"
+msgstr "宗門駐地"
+
+msgid "Normal Region"
+msgstr "普通區域"
+
+msgid "Cave Dwelling"
+msgstr "洞府"
+
+msgid "Ruins"
+msgstr "遺蹟"
+
+msgid "City Region"
+msgstr "城市區域"

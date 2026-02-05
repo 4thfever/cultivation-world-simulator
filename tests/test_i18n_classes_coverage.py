@@ -74,20 +74,28 @@ class TestTranslationKeysUsage:
         msgids = set()
         
         try:
-            content = po_file.read_text(encoding='utf-8')
-            pattern = r'msgid\s+"([^"]*)"'
-            matches = re.findall(pattern, content)
-            # 将 po 文件中的转义序列（如 \\n \\t等）转换为实际字符
-            # 使用字符串替换而不是 decode，避免中文字符编码问题
-            decoded_msgids = set()
-            for m in matches:
-                if m:  # 排除空字符串
-                    # 替换常见的转义序列
-                    decoded = m.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r').replace('\\"', '"').replace("\\'", "'").replace('\\\\', '\\')
-                    decoded_msgids.add(decoded)
-            msgids = decoded_msgids
+            import polib
+            po = polib.pofile(str(po_file))
+            for entry in po:
+                msgids.add(entry.msgid)
         except Exception as e:
-            print(f"Warning: Could not read {po_file}: {e}")
+            print(f"Warning: Could not read {po_file} with polib: {e}")
+            # Fallback to regex
+            try:
+                content = po_file.read_text(encoding='utf-8')
+                pattern = r'msgid\s+"([^"]*)"'
+                matches = re.findall(pattern, content)
+                # 将 po 文件中的转义序列（如 \\n \\t等）转换为实际字符
+                # 使用字符串替换而不是 decode，避免中文字符编码问题
+                decoded_msgids = set()
+                for m in matches:
+                    if m:  # 排除空字符串
+                        # 替换常见的转义序列
+                        decoded = m.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r').replace('\\"', '"').replace("\\'", "'").replace('\\\\', '\\')
+                        decoded_msgids.add(decoded)
+                msgids = decoded_msgids
+            except Exception as e:
+                print(f"Warning: Could not read {po_file}: {e}")
         
         return msgids
     
@@ -263,25 +271,30 @@ class TestI18nConsistency:
         
         def extract_msgid_msgstr_pairs(po_file):
             """提取 msgid 和 msgstr 对"""
-            content = po_file.read_text(encoding='utf-8')
             pairs = {}
-            
-            lines = content.split('\n')
-            i = 0
-            while i < len(lines):
-                line = lines[i].strip()
-                if line.startswith('msgid "') and line != 'msgid ""':
-                    msgid = line[7:-1]  # 提取引号内的内容
-                    
-                    # 查找对应的 msgstr
-                    i += 1
-                    while i < len(lines) and not lines[i].strip().startswith('msgstr '):
+            try:
+                import polib
+                po = polib.pofile(str(po_file))
+                for entry in po:
+                    pairs[entry.msgid] = entry.msgstr
+            except Exception:
+                content = po_file.read_text(encoding='utf-8')
+                lines = content.split('\n')
+                i = 0
+                while i < len(lines):
+                    line = lines[i].strip()
+                    if line.startswith('msgid "') and line != 'msgid ""':
+                        msgid = line[7:-1]  # 提取引号内的内容
+                        
+                        # 查找对应的 msgstr
                         i += 1
-                    
-                    if i < len(lines):
-                        msgstr = lines[i].strip()[8:-1]  # 提取引号内的内容
-                        pairs[msgid] = msgstr
-                i += 1
+                        while i < len(lines) and not lines[i].strip().startswith('msgstr '):
+                            i += 1
+                        
+                        if i < len(lines):
+                            msgstr = lines[i].strip()[8:-1]  # 提取引号内的内容
+                            pairs[msgid] = msgstr
+                    i += 1
             
             return pairs
         

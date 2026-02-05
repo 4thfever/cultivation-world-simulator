@@ -1,0 +1,62 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Hidden Domain (秘境)
+# ============================================================================
+msgid "hidden_domain_story_prompt"
+msgstr "描述探索秘境的过程，侧重于遭遇的凶险或获得的机缘，营造神秘和紧张的氛围。"
+
+msgid "Hidden Domains opened: {names}"
+msgstr "{names}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below."
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} 葬身于秘境【{domain}】。"
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} 在秘境【{domain}】中觅得宝物【{loot}】！"
+
+msgid "Perished in a Hidden Domain"
+msgstr "在秘境中陨落"
+
+msgid ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+msgstr ""
+"事件：秘境开启\n"
+"名称：{name}\n"
+"描述：{desc}"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} and below. "
+"Entrants: {entrants}"
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。进入者：{entrants}。"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} and below. No one "
+"entered."
+msgstr "秘境【{name}】现世！限制{realm}及以下修士进入。无修士进入。"
+
+msgid "{}: {}"
+msgstr "{}：{}"
+
+msgid "found a treasure"
+msgstr "觅得宝物"
+
+msgid "perished"
+msgstr "葬身于"

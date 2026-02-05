@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Story Styles
+msgid ""
+"Plain narration: Restrained language, minimal embellishment, recording like "
+"a bystander."
+msgstr "平淡叙述：语句克制、少修饰、像旁观者记录。"
+
+msgid ""
+"Emotion in scenery: Expressing emotion through scenery, blending feelings "
+"with the setting."
+msgstr "寓情于景：以景见情，情随境迁，情景交融。"
+
+msgid ""
+"Freehand ancient style: Focus on imagery and metaphor, concise, avoiding "
+"obscure archaic language."
+msgstr "写意古风：重意象与比兴，点到为止，少生僻文言。"
+
+msgid ""
+"Marketplace life: Grounded writing, using colloquialisms, simple and "
+"natural, without pretension."
+msgstr "市井烟火：行文接地气，多用口语化表达，朴实自然，不拿腔拿调。"
+
+msgid ""
+"Poetic lyricism: Short sentences and parallelism, sparse use of allusions, "
+"avoiding flowery language."
+msgstr "诗意抒情：短句与对仗点缀，少量用典，不堆砌辞藻。"
+
+msgid ""
+"Philosophical fable: Asking questions through events, containing one or two "
+"punchlines, without preaching."
+msgstr "哲思寓言：借事设问，含一两句点睛之语，不说教。"
+
+msgid ""
+"Chronicle style: Like a historian's record, orderly events, few adjectives."
+msgstr "编年纪事：近史官笔法，记事有序，少形容词。"
+
+msgid ""
+"Personification of scenery: Slight personification of scenery, embedding "
+"aspirations in the view, not overused."
+msgstr "景物拟人：对景施以轻微拟人，景中含志，不滥。"
+
+msgid ""
+"Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
+"single thought."
+msgstr "道法自然：以道家语汇点染，不艰涩，收束于一念。"
+
+msgid ""
+"Buddhist emptiness: Insights of impermanence and emptiness interwoven, light"
+" and not mysterious."
+msgstr "佛理空相：无常、空相的领悟穿插事中，轻淡不玄。"
+
+msgid ""
+"Folk storytelling: Like a storyteller's tone but in written language, fast-"
+"paced, vivid and interesting."
+msgstr "民间说书：似说书人口吻但用书面语，叙事节奏明快，生动有趣。"
+
+msgid ""
+"Elegant scholarly: Scholarly atmosphere, slight touch of citations, without "
+"showing off."
+msgstr "雅致书卷：书卷气、引文气息浅尝辄止，不显摆。"
+
+msgid ""
+"Bold and open: Grand words, majestic momentum, informal, expressing feelings"
+" directly."
+msgstr "豪放旷达：用词大开大合，气势磅礴，不拘小节，直抒胸臆。"
+
+msgid ""
+"Gorgeous and bizarre: Heavy sensory description, ornate and seductive "
+"language, emphasizing the strangeness of light and color."
+msgstr "绮丽诡谲：重感官描写，辞藻华丽妖冶，强调光影与色彩的奇异感。"
+
+msgid ""
+"Cold and concise: Mainly short sentences, every word counts, like metal "
+"striking stone, no extra emotional rendering."
+msgstr "冷峻简练：短句为主，字字珠玑，如金石相击，不做多余情感渲染。"
+
+msgid ""
+"Fine line drawing: No decoration, capturing subtle movements and expressions"
+" to convey spirit, real and delicate."
+msgstr "细笔白描：不加藻饰，通过捕捉极细微的动作与神态来传神，真实细腻。"

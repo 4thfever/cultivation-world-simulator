@@ -1,0 +1,60 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Technique Attribute
+msgid "gold_attribute"
+msgstr "金"
+
+msgid "wood_attribute"
+msgstr "木"
+
+msgid "water_attribute"
+msgstr "水"
+
+msgid "fire_attribute"
+msgstr "火"
+
+msgid "earth_attribute"
+msgstr "土"
+
+msgid "ice_attribute"
+msgstr "冰"
+
+msgid "wind_attribute"
+msgstr "風"
+
+msgid "dark_attribute"
+msgstr "暗"
+
+msgid "thunder_attribute"
+msgstr "雷"
+
+msgid "evil_attribute"
+msgstr "邪"
+
+# Technique Grade
+msgid "lower_grade"
+msgstr "下品"
+
+msgid "middle_grade"
+msgstr "中品"
+
+msgid "upper_grade"
+msgstr "上品"
+
+# ============================================================================
+# Technique 系統 - 功法
+# ============================================================================
+msgid " Effect: {effect_desc}"
+msgstr " 效果：{effect_desc}"

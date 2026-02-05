@@ -1,0 +1,40 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Alignment
+msgid "righteous"
+msgstr "正"
+
+msgid "neutral"
+msgstr "中立"
+
+msgid "evil"
+msgstr "邪"
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr "正義陣營的理念是：扶助弱小，維護秩序，除魔衛道。"
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr "中立陣營的理念是：順勢而爲，趨利避害，重視自度與平衡，不輕易站隊。"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr "邪惡陣營的理念是：弱肉強食，以自身利益爲先，蔑視規則，推崇權力與恐懼。行事狠辣，常有殺人奪寶之舉。"

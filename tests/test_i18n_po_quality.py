@@ -141,17 +141,26 @@ class TestTranslationKeysDefinition:
         
         msgids = set()
         try:
-            content = po_file.read_text(encoding='utf-8')
-            pattern = r'msgid\s+"([^"]*)"'
-            matches = re.findall(pattern, content)
-            # 手动处理常见的转义序列
-            for m in matches:
-                if m:  # 排除空字符串
-                    # 只替换常见的转义序列，保留Unicode字符
-                    decoded = m.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
-                    msgids.add(decoded)
+            import polib
+            po = polib.pofile(str(po_file))
+            for entry in po:
+                msgids.add(entry.msgid)
+        except ImportError:
+            print("Warning: polib not installed, falling back to regex (less accurate)")
+            try:
+                content = po_file.read_text(encoding='utf-8')
+                pattern = r'msgid\s+"([^"]*)"'
+                matches = re.findall(pattern, content)
+                # 手动处理常见的转义序列
+                for m in matches:
+                    if m:  # 排除空字符串
+                        # 只替换常见的转义序列，保留Unicode字符
+                        decoded = m.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
+                        msgids.add(decoded)
+            except Exception as e:
+                print(f"Warning: Could not read {po_file}: {e}")
         except Exception as e:
-            print(f"Warning: Could not read {po_file}: {e}")
+            print(f"Warning: Could not read {po_file} with polib: {e}")
         
         return msgids
     

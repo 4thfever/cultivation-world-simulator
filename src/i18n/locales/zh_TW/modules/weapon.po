@@ -1,0 +1,49 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Weapon Type
+msgid "sword"
+msgstr "劍"
+
+msgid "saber"
+msgstr "刀"
+
+msgid "spear"
+msgstr "槍"
+
+msgid "staff"
+msgstr "棍"
+
+msgid "fan"
+msgstr "扇"
+
+msgid "whip"
+msgstr "鞭"
+
+msgid "zither"
+msgstr "琴"
+
+msgid "flute"
+msgstr "笛"
+
+msgid "hidden_weapon"
+msgstr "暗器"
+
+# ============================================================================
+# Weapon 系統 - 武器
+# ============================================================================
+msgid ""
+"Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
+"weapon type"
+msgstr "武器 {name} 的weapon_type '{weapon_type_str}' 無效，必須是有效的兵器類型"

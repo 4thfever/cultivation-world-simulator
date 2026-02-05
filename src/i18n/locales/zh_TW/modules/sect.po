@@ -1,0 +1,280 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Sect Rank
+msgid "patriarch"
+msgstr "掌門"
+
+msgid "elder"
+msgstr "長老"
+
+msgid "inner_disciple"
+msgstr "內門弟子"
+
+msgid "outer_disciple"
+msgstr "外門弟子"
+
+# ============================================================================
+# Sect 系統 - 宗門
+# ============================================================================
+msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name}（陣營：{alignment}，駐地：{hq_name}）"
+
+msgid ""
+"{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: "
+"{hq_name}){effect}"
+msgstr "{sect_name}（陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
+# ============================================================================
+# Relation & Root & Appearance & Sect (Refined)
+# ============================================================================
+msgid "Unknown reason"
+msgstr "未知原因"
+
+msgid "{name} (Deceased: {reason})"
+msgstr "{name}(已故：{reason})"
+
+# Sect Ranks Keys
+# Appearance Keys
+msgid "appearance_1_name"
+msgstr "奇醜"
+
+msgid "appearance_1_desc_male"
+msgstr "你長得很醜，五官不協調，常被人躲着走。"
+
+msgid "appearance_1_desc_female"
+msgstr "你長得很醜，五官不協調，旁人多會躲開。"
+
+msgid "appearance_2_name"
+msgstr "醜陋"
+
+msgid "appearance_2_desc_male"
+msgstr "你五官粗糙，鼻樑塌，下巴有點外凸。"
+
+msgid "appearance_2_desc_female"
+msgstr "你五官粗糙，顴骨偏高，嘴脣線條亂。"
+
+msgid "appearance_3_name"
+msgstr "粗陋"
+
+msgid "appearance_3_desc_male"
+msgstr "你相貌粗陋，看久也不太順眼。"
+
+msgid "appearance_3_desc_female"
+msgstr "你相貌粗陋，神情略顯刻薄。"
+
+msgid "appearance_4_name"
+msgstr "寒素"
+
+msgid "appearance_4_desc_male"
+msgstr "你長相普通，眉目淡，穿着樸素，不顯眼。"
+
+msgid "appearance_4_desc_female"
+msgstr "你長相普通，氣色淡，打扮簡單，不出挑。"
+
+msgid "appearance_5_name"
+msgstr "清秀"
+
+msgid "appearance_5_desc_male"
+msgstr "你眉眼清秀，看着順眼。"
+
+msgid "appearance_5_desc_female"
+msgstr "你眉眼清秀，挺耐看。"
+
+msgid "appearance_6_name"
+msgstr "秀致"
+
+msgid "appearance_6_desc_male"
+msgstr "你五官精緻，氣質端正。"
+
+msgid "appearance_6_desc_female"
+msgstr "你五官精緻，氣質溫雅。"
+
+msgid "appearance_7_name"
+msgstr "俊美"
+
+msgid "appearance_7_desc_male"
+msgstr "你長得很俊，回頭率很高。"
+
+msgid "appearance_7_desc_female"
+msgstr "你長得很美，很搶眼。"
+
+msgid "appearance_8_name"
+msgstr "傾城"
+
+msgid "appearance_8_desc_male"
+msgstr "你外形出衆，走到哪都很惹眼。"
+
+msgid "appearance_8_desc_female"
+msgstr "你漂亮到讓人驚豔。"
+
+msgid "appearance_9_name"
+msgstr "絕色"
+
+msgid "appearance_9_desc_male"
+msgstr "你長相和氣質都很頂，常引人側目。"
+
+msgid "appearance_9_desc_female"
+msgstr "你美得很驚人，幾乎一眼難忘。"
+
+msgid "appearance_10_name"
+msgstr "驚豔"
+
+msgid "appearance_10_desc_male"
+msgstr "你漂亮得像不食人間煙火。"
+
+msgid "appearance_10_desc_female"
+msgstr "你美到讓人驚豔，一眼就記住你。"
+
+# ============================================================================
+# Relation & Root & Appearance & Sect (New)
+# ============================================================================
+msgid "comma_separator"
+msgstr "，"
+
+msgid "semicolon_separator"
+msgstr "；"
+
+msgid "{label}: {names}"
+msgstr "{label}：{names}"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name}（{elements}）"
+
+msgid "{sect} {rank}"
+msgstr "{sect}{rank}"
+
+# ============================================================================
+# Additional (New)
+# ============================================================================
+msgid "action_thinking"
+msgstr "思考"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}：{description}"
+
+msgid "{name} ({realm})"
+msgstr "{name}（{realm}）"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}：{desc}（{realm}）"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm}{stage}({level}級){status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}({level}級)。在瓶頸期：{status}"
+
+msgid "Unknown character"
+msgstr "未知角色"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}（{desc}{effect}）"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name}晉升爲修士了。"
+
+msgid "old_age"
+msgstr "老死"
+
+msgid "battle"
+msgstr "戰死"
+
+msgid "serious_injury"
+msgstr "重傷"
+
+msgid "(Unknown technique)"
+msgstr "（未知功法）"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "（陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
+msgid "Drops: {materials}"
+msgstr "掉落：{materials}"
+
+msgid "[{name}] ({realm})"
+msgstr "【{name}】（{realm}）"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name}（{attribute}）{grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name}（{attribute}）{grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name}（{attribute}·{grade}）"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name}（{type}·{realm}，{desc}）{effect}"
+
+msgid "date_format_year_month"
+msgstr "{year}年{month}月"
+
+msgid "sect_headquarters_desc_format"
+msgstr "（【{sect_name}】宗門駐地）"
+
+msgid "Current World Phenomenon"
+msgstr "當前天地靈機"
+
+msgid "phenomenon_format"
+msgstr "【{name}】{desc}"
+
+msgid "Wilderness"
+msgstr "荒野"
+
+msgid "relation_rule_establish_title"
+msgstr "【建立關係規則】"
+
+msgid "relation_rule_cancel_title"
+msgstr "【解除關係規則】"
+
+msgid "relation_rule_lovers_add"
+msgstr "【道侶】需異性。必須有相互的深度認可和愛慕。"
+
+msgid "relation_rule_friend_add"
+msgstr "【朋友】友好互動（交談、切磋不致死、療傷）。無實質利益衝突。"
+
+msgid "relation_rule_enemy_add"
+msgstr "【仇人】發生實質傷害（受傷、偷竊、羞辱）。單次嚴重傷害或多次微小摩擦。"
+
+msgid "relation_rule_master_add"
+msgstr "【師傅】境界需顯著高於徒弟（如金丹vs練氣）。"
+
+msgid "relation_rule_apprentice_add"
+msgstr "【徒弟】相對於師傅，通常隨師傅關係自動建立。"
+
+msgid "relation_rule_lovers_cancel"
+msgstr "【分手】發生衝突、感情破裂、嚴重背叛。"
+
+msgid "relation_rule_friend_cancel"
+msgstr "【絕交】利益衝突、背叛、或者長期無互動導致疏遠。"
+
+msgid "relation_rule_enemy_cancel"
+msgstr "【和解】一方主動示好並被接受，或共同經歷生死，或仇恨淡化。"
+
+msgid "relation_rule_master_cancel"
+msgstr "【逐出/背叛】徒弟忤逆或師傅無力教導。"
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "【出師/斷絕】同上。"
+
+msgid "History"
+msgstr "歷史"
+
+msgid "When alignment is {align}"
+msgstr "當陣營爲{align}時"
+
+msgid "When using {weapon_type}"
+msgstr "當使用{weapon_type}時"

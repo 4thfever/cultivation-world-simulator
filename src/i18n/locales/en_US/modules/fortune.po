@@ -1,0 +1,183 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Fortune messages
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "Encountered fortune ({theme}), {result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "Found weapon '{weapon}', {exchange_result}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "Comprehended technique '{technique}', {exchange_result}"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} obtained {amount} spirit stones"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} cultivation increased by {exp} points"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} became disciple of {master}"
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "You discovered a {realm} weapon '{weapon}' during the fortune."
+
+msgid " But you already have '{current_weapon}'."
+msgstr " But you already have '{current_weapon}'."
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " But you already have '{current_auxiliary}'."
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "You comprehended superior technique '{technique}' during the fortune."
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " This conflicts with your current technique '{current_technique}'."
+
+# ============================================================================
+# Fortune System - Adventures
+# ============================================================================
+# Fortune Themes
+msgid "fortune_theme_wandered_into_cave"
+msgstr "Wandered into Cave"
+
+msgid "fortune_theme_found_divine_weapon"
+msgstr "Found Divine Weapon"
+
+msgid "fortune_theme_entered_trial"
+msgstr "Entered Trial"
+
+msgid "fortune_theme_phenomenon_appeared"
+msgstr "Witnessed Strange Phenomenon"
+
+msgid "fortune_theme_gifted_by_master"
+msgstr "Gifted by Master"
+
+msgid "fortune_theme_found_treasure"
+msgstr "Found Treasure"
+
+msgid "fortune_theme_guided_by_master"
+msgstr "Guided by Master"
+
+msgid "fortune_theme_profound_insight"
+msgstr "Profound Insight"
+
+msgid "fortune_theme_rescued_from_danger"
+msgstr "Rescued from Danger"
+
+msgid "fortune_theme_impressed_by_character"
+msgstr "Impressed by Character"
+
+msgid "fortune_theme_showed_talent"
+msgstr "Displayed Talent"
+
+msgid "fortune_theme_chance_encounter"
+msgstr "Chance Encounter"
+
+msgid "fortune_theme_passed_test"
+msgstr "Passed Test"
+
+msgid "fortune_theme_found_spirit_vein"
+msgstr "Found Spirit Mine"
+
+msgid "fortune_theme_cave_treasure"
+msgstr "Cave Treasure"
+
+msgid "fortune_theme_slayed_beast"
+msgstr "Slew Monster"
+
+msgid "fortune_theme_trade_profit"
+msgstr "Profitable Trade"
+
+msgid "fortune_theme_stone_gambling"
+msgstr "Stone Gambling"
+
+msgid "fortune_theme_found_cache"
+msgstr "Found Cache"
+
+msgid "fortune_theme_sudden_enlightenment"
+msgstr "Sudden Enlightenment"
+
+msgid "fortune_theme_ancient_stele"
+msgstr "Insight from Ancient Stele"
+
+msgid "fortune_theme_consumed_spirit_herb"
+msgstr "Consumed Spirit Herb"
+
+msgid "fortune_theme_secret_realm"
+msgstr "Secret Realm"
+
+msgid "fortune_theme_empowerment"
+msgstr "Empowerment from Senior"
+
+msgid "fortune_theme_spirit_spring"
+msgstr "Spirit Spring"
+
+msgid "fortune_theme_inherited_memory"
+msgstr "Inherited Memory"
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+
+msgid " But you already have『{weapon_name}』."
+msgstr " But you already have『{weapon_name}』."
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "Discovered weapon『{weapon_name}』, {exchange_text}"
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " But you already have『{auxiliary_name}』."
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr ""
+"You comprehended a superior-grade technique『{technique_name}』in your "
+"fortune."
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " This conflicts with your current technique『{technique_name}』."
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "Comprehended technique『{technique_name}』, {exchange_text}"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} became disciple of {master_name}"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} obtained {amount} spirit stones"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} gained {exp_gain} cultivation experience"

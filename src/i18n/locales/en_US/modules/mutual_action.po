@@ -1,0 +1,221 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# MutualAction Base
+msgid "mutual_action_name"
+msgstr "Mutual Action"
+
+msgid "mutual_action_requirements"
+msgstr "Target within interaction range"
+
+msgid "Cannot initiate interaction with self"
+msgstr "Cannot initiate interaction with self"
+
+msgid "{initiator} initiates {action} with {target}"
+msgstr "{initiator} initiates {action} with {target}"
+
+msgid "{target} feedback to {initiator}: {feedback}"
+msgstr "{target} feedback to {initiator}: {feedback}"
+
+# MutualAction: Attack
+msgid "mutual_attack_action_name"
+msgstr "Attack"
+
+msgid "mutual_attack_description"
+msgstr "Attack the target"
+
+msgid "mutual_attack_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "Target not within interaction range"
+msgstr "Target not within interaction range"
+
+# MutualAction: DriveAway
+msgid "drive_away_action_name"
+msgstr "Drive Away"
+
+msgid "drive_away_description"
+msgstr "Intimidate opponent to leave this place with force"
+
+msgid "drive_away_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "Cannot drive away in wilderness"
+msgstr "Cannot drive away in wilderness"
+
+# MutualAction: Conversation
+msgid "conversation_action_name"
+msgstr "Conversation"
+
+msgid "conversation_description"
+msgstr "Have an exchange conversation with opponent"
+
+msgid "conversation_requirements"
+msgstr "Target within interaction range"
+
+msgid "{avatar1} conversation with {avatar2}: {content}"
+msgstr "{avatar1} conversation with {avatar2}: {content}"
+
+# MutualAction: Talk
+msgid "talk_action_name"
+msgstr "Talk"
+
+msgid "talk_description"
+msgstr "Initiate a talk with someone, cannot be self"
+
+msgid "talk_requirements"
+msgstr "Target within interaction range"
+
+msgid "feedback_talk"
+msgstr "Talk"
+
+msgid "{target} accepted {initiator}'s talk invitation"
+msgstr "{target} accepted {initiator}'s talk invitation"
+
+msgid "{target} rejected {initiator}'s talk invitation"
+msgstr "{target} rejected {initiator}'s talk invitation"
+
+# MutualAction: Spar
+msgid "spar_action_name"
+msgstr "Spar"
+
+msgid "spar_description"
+msgstr ""
+"Spar with target, stop at the right moment (greatly increases weapon "
+"proficiency, no damage)"
+
+msgid "spar_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "spar_story_prompt"
+msgstr ""
+"This is a friendly sparring between two people, stopping at the right "
+"moment, without real harm. Focus on describing the exquisite moves of both "
+"sides and their mutual inspiration. Do not include bloody or severe injury "
+"descriptions."
+
+msgid ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+msgstr ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+
+msgid "{initiator} challenges {target} to spar"
+msgstr "{initiator} challenges {target} to spar"
+
+# MutualAction: Gift
+msgid "gift_action_name"
+msgstr "Gift"
+
+msgid "gift_description"
+msgstr "Gift spirit stones or items to opponent"
+
+msgid "gift_requirements"
+msgstr "Initiator possesses the item; target within interaction range"
+
+msgid "spirit stones"
+msgstr "spirit stones"
+
+msgid "Item not found: {name}"
+msgstr "Item not found: {name}"
+
+msgid "Insufficient spirit stones (current: {current}, need: {need})"
+msgstr "Insufficient spirit stones (current: {current}, need: {need})"
+
+msgid "Item not equipped: {name}"
+msgstr "Item not equipped: {name}"
+
+msgid "Insufficient item: {name}"
+msgstr "Insufficient item: {name}"
+
+msgid "Gift you {item}"
+msgstr "Gift you {item}"
+
+msgid "{initiator} attempts to gift {item} to {target}"
+msgstr "{initiator} attempts to gift {item} to {target}"
+
+msgid "{initiator} successfully gifted {item} to {target}"
+msgstr "{initiator} successfully gifted {item} to {target}"
+
+# MutualAction: Impart
+msgid "impart_action_name"
+msgstr "Impart Knowledge"
+
+msgid "impart_description"
+msgstr ""
+"Master imparts cultivation experience to apprentice, apprentice can gain "
+"large amount of cultivation"
+
+msgid "impart_requirements"
+msgstr ""
+"Initiator is target's master; master level > apprentice level + 20; target "
+"within interaction range; cannot execute consecutively"
+
+msgid "Target is not your apprentice"
+msgstr "Target is not your apprentice"
+
+msgid ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgstr ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+
+msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
+msgstr "{master} imparts cultivation knowledge to apprentice {apprentice}"
+
+# MutualAction: Occupy
+msgid "occupy_action_name"
+msgstr "Seize Cave Dwelling"
+
+msgid "occupy_description"
+msgstr "Occupy or seize cave dwelling"
+
+msgid "occupy_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "occupy_story_prompt"
+msgstr ""
+"This is a battle for cave dwelling. Do not mention specific HP or damage "
+"values."
+
+msgid "feedback_yield"
+msgstr "Yield"
+
+msgid "Cannot find region: {region}"
+msgstr "Cannot find region: {region}"
+
+msgid "{region} is not a cultivation area, cannot occupy"
+msgstr "{region} is not a cultivation area, cannot occupy"
+
+msgid "Already the owner of this cave dwelling"
+msgstr "Already the owner of this cave dwelling"
+
+msgid "{initiator} attempts to seize {region} from {host}"
+msgstr "{initiator} attempts to seize {region} from {host}"
+
+msgid "{initiator} forced {target} to yield {region}"
+msgstr "{initiator} forced {target} to yield {region}"
+
+msgid ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+msgstr ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+
+msgid ", successfully seized {region}"
+msgstr ", successfully seized {region}"
+
+msgid ", defended {region}"
+msgstr ", defended {region}"

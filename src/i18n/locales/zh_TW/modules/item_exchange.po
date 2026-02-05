@@ -1,0 +1,40 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "決定更換裝備"
+
+msgid "decided to keep current equipment"
+msgstr "決定保留原裝備"
+
+msgid "decided to learn it"
+msgstr "決定修煉"
+
+msgid "decided to keep current technique"
+msgstr "決定保留原功法"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} 獲得了{grade}{label}『{item_name}』並裝備。"
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} 裝備了{grade}{label}『{item_name}』。"
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr "{name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} 放棄了{item_name}。"

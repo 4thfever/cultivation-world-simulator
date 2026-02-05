@@ -1,0 +1,109 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+msgid "Cultivate Region (can cultivate to increase cultivation)"
+msgstr "Cultivate Region (can cultivate to increase cultivation)"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "Normal Region (can hunt, gather, mine)"
+
+msgid "City Region (can trade)"
+msgstr "City Region (can trade)"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "Sect Headquarters (sect disciples heal faster here)"
+
+msgid " (Distance: {months} months)"
+msgstr " (Distance: {months} months)"
+
+msgid "No special resources"
+msgstr "No special resources"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " (Resource Distribution: {species_info})"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr ""
+"Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " ({essence_type} Essence: {essence_density})"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+
+msgid " ({store_info})"
+msgstr " ({store_info})"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "City Region: {name} - {desc}{desc_part}"
+
+msgid "{value} Spirit Stones"
+msgstr "{value} Spirit Stones"
+
+msgid " ({desc})"
+msgstr " ({desc})"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"Effect: {effect_desc}"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names} ({price} Spirit Stones)"
+
+msgid "Sell: "
+msgstr "Sell: "
+
+msgid "emotion_calm"
+msgstr "Calm"
+
+msgid "emotion_happy"
+msgstr "Happy"
+
+msgid "emotion_angry"
+msgstr "Angry"
+
+msgid "emotion_sad"
+msgstr "Sad"
+
+msgid "emotion_fearful"
+msgstr "Fearful"
+
+msgid "emotion_surprised"
+msgstr "Surprised"
+
+msgid "emotion_anticipating"
+msgstr "Anticipating"
+
+msgid "emotion_disgusted"
+msgstr "Disgusted"
+
+msgid "emotion_confused"
+msgstr "Confused"
+
+msgid "emotion_tired"
+msgstr "Tired"

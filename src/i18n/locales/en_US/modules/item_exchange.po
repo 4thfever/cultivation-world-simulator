@@ -1,0 +1,41 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "decided to equip it"
+
+msgid "decided to keep current equipment"
+msgstr "decided to keep current equipment"
+
+msgid "decided to learn it"
+msgstr "decided to learn it"
+
+msgid "decided to keep current technique"
+msgstr "decided to keep current technique"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} obtained {grade}{label} '{item_name}' and equipped it."
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} equipped {grade}{label} '{item_name}'."
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} discarded {item_name}."

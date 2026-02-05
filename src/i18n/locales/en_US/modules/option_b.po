@@ -1,0 +1,23 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Option B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "Sell new {label}『{new_name}』for spirit stones, keep current status"
+
+msgid "Abandon『{new_name}』"
+msgstr "Abandon『{new_name}』"
+
+msgid ", keep current『{old_name}』"
+msgstr ", keep current『{old_name}』"

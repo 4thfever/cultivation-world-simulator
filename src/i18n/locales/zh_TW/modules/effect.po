@@ -1,0 +1,148 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Effect 系統
+# ============================================================================
+# Effect 名稱
+msgid "effect_extra_hp_recovery_rate"
+msgstr "生命恢復速率"
+
+msgid "effect_extra_max_hp"
+msgstr "最大生命值"
+
+msgid "effect_extra_max_lifespan"
+msgstr "最大壽元"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "兵器熟練度獲取"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "雙修經驗"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "突破成功率"
+
+msgid "effect_extra_retreat_success_rate"
+msgstr "閉關成功率"
+
+msgid "effect_extra_fortune_probability"
+msgstr "奇遇概率"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "黴運概率"
+
+msgid "effect_extra_harvest_materials"
+msgstr "採集獲取材料"
+
+msgid "effect_extra_hunt_materials"
+msgstr "狩獵獲取材料"
+
+msgid "effect_extra_mine_materials"
+msgstr "挖礦獲取材料"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "物品出售價格"
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "購買折扣"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "兵器升級概率"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "搜刮收益"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "捕捉靈獸成功率"
+
+msgid "effect_extra_cultivate_exp"
+msgstr "修煉經驗"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "戰力點數"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "逃跑成功率"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "暗殺成功率"
+
+msgid "effect_extra_observation_radius"
+msgstr "感知範圍"
+
+msgid "effect_extra_move_step"
+msgstr "移動步長"
+
+msgid "effect_legal_actions"
+msgstr "特殊能力"
+
+msgid "effect_damage_reduction"
+msgstr "傷害減免"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "境界壓制"
+
+msgid "effect_cultivate_duration_reduction"
+msgstr "修煉時長縮減"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "鑄造成功率"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "煉丹成功率"
+
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "祕境掉落概率"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "祕境兇險概率"
+
+# Effect 格式化
+msgid "action_list_separator"
+msgstr "、"
+
+msgid "effect_separator"
+msgstr "；"
+
+msgid "Special effect (dynamic)"
+msgstr "特殊效果（動態）"
+
+# Effect 來源標籤
+msgid "Sect [{name}]"
+msgstr "宗門【{name}】"
+
+msgid "Technique [{name}]"
+msgstr "功法【{name}】"
+
+msgid "Spirit Root"
+msgstr "靈根"
+
+msgid "Trait [{name}]"
+msgstr "特質【{name}】"
+
+msgid "Weapon [{name}]"
+msgstr "兵器【{name}】"
+
+msgid "Auxiliary [{name}]"
+msgstr "輔助【{name}】"
+
+msgid "Spirit Animal [{name}]"
+msgstr "靈獸【{name}】"
+
+msgid "Heaven and Earth Phenomenon"
+msgstr "天地靈機"
+
+msgid "Elixir [{name}]"
+msgstr "丹藥【{name}】"

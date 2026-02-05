@@ -1,0 +1,66 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Relation
+msgid "parent"
+msgstr "Parent"
+
+msgid "child"
+msgstr "Child"
+
+msgid "sibling"
+msgstr "Sibling"
+
+msgid "kin"
+msgstr "Kin"
+
+msgid "master"
+msgstr "Master"
+
+msgid "apprentice"
+msgstr "Apprentice"
+
+msgid "lovers"
+msgstr "Lovers"
+
+msgid "friend"
+msgstr "Friend"
+
+msgid "enemy"
+msgstr "Enemy"
+
+# Relations
+msgid "relation_father"
+msgstr "Father"
+
+msgid "relation_mother"
+msgstr "Mother"
+
+msgid "relation_son"
+msgstr "Son"
+
+msgid "relation_daughter"
+msgstr "Daughter"
+
+msgid "relation_older_brother"
+msgstr "Older Brother"
+
+msgid "relation_younger_brother"
+msgstr "Younger Brother"
+
+msgid "relation_older_sister"
+msgstr "Older Sister"
+
+msgid "relation_younger_sister"
+msgstr "Younger Sister"

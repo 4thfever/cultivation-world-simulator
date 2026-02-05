@@ -1,0 +1,35 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Cultivation 系統 - 境界
+# ============================================================================
+# 境界狀態
+msgid "Needs breakthrough"
+msgstr "需要突破"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "未到瓶頸無需突破"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}({level}級){status}"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}({level}級)。在瓶頸期：{status}"

@@ -1,0 +1,106 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+msgid "Cultivate Region (can cultivate to increase cultivation)"
+msgstr "修煉區域（可以修煉以增進修爲）"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "普通區域（可以狩獵、採集、挖礦）"
+
+msgid "City Region (can trade)"
+msgstr "城市區域（可以交易）"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "宗門總部（宗門弟子在此療傷事半功倍）"
+
+msgid " (Distance: {months} months)"
+msgstr "（距離：{months}月）"
+
+msgid "No special resources"
+msgstr "無特色資源"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr "（資源分佈：{species_info}）"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "普通區域：{name} - {desc} | 資源分佈：{species_info}"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr "（{essence_type}行靈氣：{essence_density}）"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr "修煉區域：{name}（{essence_type}行靈氣：{essence_density}）- {desc}"
+
+msgid " ({store_info})"
+msgstr "（{store_info}）"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "城市區域：{name} - {desc}{desc_part}"
+
+msgid "{value} Spirit Stones"
+msgstr "{value}靈石"
+
+msgid " ({desc})"
+msgstr "（{desc}）"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"效果：{effect_desc}"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names}（{price}靈石）"
+
+msgid "Sell: "
+msgstr "出售："
+
+msgid "emotion_calm"
+msgstr "平靜"
+
+msgid "emotion_happy"
+msgstr "開心"
+
+msgid "emotion_angry"
+msgstr "憤怒"
+
+msgid "emotion_sad"
+msgstr "悲傷"
+
+msgid "emotion_fearful"
+msgstr "恐懼"
+
+msgid "emotion_surprised"
+msgstr "驚訝"
+
+msgid "emotion_anticipating"
+msgstr "期待"
+
+msgid "emotion_disgusted"
+msgstr "厭惡"
+
+msgid "emotion_confused"
+msgstr "疑惑"
+
+msgid "emotion_tired"
+msgstr "疲憊"

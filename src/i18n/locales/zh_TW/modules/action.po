@@ -1,0 +1,622 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "暗殺"
+
+msgid "assassinate_description"
+msgstr "暗殺目標，失敗則變爲戰鬥"
+
+msgid "assassinate_requirements"
+msgstr "無限制；需要冷卻"
+
+msgid "assassinate_story_prompt_success"
+msgstr "這是關於一次成功的暗殺。不需要描寫戰鬥過程，重點描寫刺客如何潛伏、接近，以及最後那一擊的致命與悄無聲息。目標甚至沒有反應過來就已經隕落。"
+
+msgid "assassinate_story_prompt_fail"
+msgstr "這是關於一次失敗的暗殺。刺客試圖暗殺目標，但被目標敏銳地察覺了。雙方隨後爆發了激烈的正面衝突。不要出現具體血量數值。"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} 潛伏在陰影中，試圖暗殺 {target}..."
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr "{avatar} 暗殺成功！{target} 在毫無防備中隕落。"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "暗殺失敗！雙方爆發激戰。"
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "發起戰鬥"
+
+msgid "attack_description"
+msgstr "攻擊目標，進行對戰"
+
+msgid "attack_requirements"
+msgstr "無限制"
+
+msgid "attack_story_prompt"
+msgstr "不要出現具體血量、傷害點數或任何數值表達。戰鬥要體現出雙方的功法、境界、裝備等。"
+
+msgid "Missing target parameter"
+msgstr "缺少目標參數"
+
+msgid "Target does not exist"
+msgstr "目標不存在"
+
+msgid "Target is already dead"
+msgstr "目標已死亡"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} 對 {target} 發起戰鬥（戰鬥力：{attacker} {att_power} vs {target} "
+"{def_power}）"
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "突破"
+
+msgid "breakthrough_description"
+msgstr "嘗試突破境界（成功增加壽元上限，失敗折損壽元上限；境界越高，成功率越低）"
+
+msgid "breakthrough_requirements"
+msgstr "角色處於瓶頸時；不能連續執行"
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "當前不處於瓶頸，無法突破"
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} 開始嘗試突破境界"
+
+msgid "Breakthrough succeeded"
+msgstr "突破成功"
+
+msgid "Breakthrough failed"
+msgstr "突破失敗"
+
+msgid "{avatar} breakthrough result: {result}"
+msgstr "{avatar} 突破{result}"
+
+msgid "succeeded"
+msgstr "成功"
+
+msgid "failed"
+msgstr "失敗"
+
+msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
+msgstr "{avatar} 遭遇了{calamity}劫難，突破{result}"
+
+# Action: Cultivate
+msgid "cultivate_action_name"
+msgstr "修煉"
+
+msgid "cultivate_description"
+msgstr "修煉，增進修爲。在修煉區域（洞府）且靈氣匹配時效果最佳，否則效果很差"
+
+msgid "cultivate_requirements"
+msgstr "角色未到瓶頸；若在洞府區域，則該洞府需無主或歸自己所有"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "修爲已達瓶頸，無法繼續修煉"
+
+msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
+msgstr "該洞府已被 {name} 佔據，無法修煉"
+
+msgid "excellent progress"
+msgstr "進境頗佳"
+
+msgid "slow progress (essence mismatch)"
+msgstr "進境緩慢（靈氣不匹配）"
+
+msgid "slow progress (sparse essence)"
+msgstr "進境緩慢（靈氣稀薄）"
+
+msgid "{avatar} begins cultivating at {location}, {efficiency}"
+msgstr "{avatar} 在 {location} 開始修煉，{efficiency}"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "逃離"
+
+msgid "escape_description"
+msgstr "逃離對方（基於成功率判定）"
+
+msgid "escape_requirements"
+msgstr "無限制"
+
+msgid "{avatar} attempted to escape from {target}: {result}"
+msgstr "{avatar} 試圖從 {target} 逃離：{result}"
+
+msgid "{avatar} attempts to escape from {target}"
+msgstr "{avatar} 嘗試從 {target} 逃離"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "療傷"
+
+msgid "self_heal_description"
+msgstr "運功療傷，宗門總部可完全恢復"
+
+msgid "self_heal_requirements"
+msgstr "當前HP未滿"
+
+msgid "Missing HP information"
+msgstr "缺少HP信息"
+
+msgid "Current HP is full"
+msgstr "當前HP已滿"
+
+msgid "wilderness"
+msgstr "荒郊野外"
+
+msgid "{avatar} begins resting and healing at {location}"
+msgstr "{avatar} 在 {location} 開始靜養療傷"
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} 療傷完成（本次恢復{amount}點，當前HP {hp}）"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "購買"
+
+msgid "buy_description"
+msgstr "在城鎮購買物品/裝備/丹藥"
+
+msgid "buy_requirements"
+msgstr "在城鎮且金錢足夠"
+
+msgid "Can only execute in city areas"
+msgstr "僅能在城市區域執行"
+
+msgid "Unknown item: {name}"
+msgstr "未知物品：{name}"
+
+msgid "{region} does not sell {item}"
+msgstr "{region} 不出售 {item}"
+
+msgid "This area has no shop"
+msgstr "該區域沒有商店"
+
+msgid "bought"
+msgstr "購買了"
+
+msgid "bought and consumed"
+msgstr "購買並服用了"
+
+msgid "bought and equipped"
+msgstr "購買並裝備了"
+
+msgid " (and sold old {item} at reduced price)"
+msgstr "（並將原有的{item}折價售出）"
+
+msgid "{avatar} spent {price} spirit stones in town, {action} {item}{suffix}"
+msgstr "{avatar} 在城鎮花費 {price} 靈石{action} {item}{suffix}"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "出售"
+
+msgid "sell_description"
+msgstr "在城鎮出售持有的某類物品的全部，或當前裝備"
+
+msgid "sell_requirements"
+msgstr "在城鎮且持有可出售物品/裝備"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "未持有物品/裝備：{name}"
+
+msgid "Do not possess material: {name}"
+msgstr "未持有材料：{name}"
+
+msgid "Do not possess equipment: {name}"
+msgstr "未持有裝備：{name}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "無法出售此類型：{name}"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} 在城鎮出售了 {item}"
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "採集"
+
+msgid "harvest_description"
+msgstr "在當前區域採集植物，獲取植物材料"
+
+msgid "harvest_requirements"
+msgstr "在有植物的普通區域，且avatar的境界必須大於等於植物的境界"
+
+msgid "{avatar} begins harvesting at {location}"
+msgstr "{avatar} 在 {location} 開始採集"
+
+msgid "{avatar} finished harvesting, obtained: {materials}"
+msgstr "{avatar} 結束了採集，獲得了：{materials}"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "挖礦"
+
+msgid "mine_description"
+msgstr "在當前區域挖掘礦脈，獲取礦石材料"
+
+msgid "mine_requirements"
+msgstr "在有礦脈的普通區域，且avatar的境界必須大於等於礦脈的境界"
+
+msgid "{avatar} begins mining at {location}"
+msgstr "{avatar} 在 {location} 開始挖礦"
+
+msgid "{avatar} finished mining, obtained: {materials}"
+msgstr "{avatar} 結束了挖礦，獲得了：{materials}"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "狩獵"
+
+msgid "hunt_description"
+msgstr "在當前區域狩獵動物，獲取動物材料"
+
+msgid "hunt_requirements"
+msgstr "在有動物的普通區域，且avatar的境界必須大於等於動物的境界"
+
+msgid "{avatar} begins hunting at {location}"
+msgstr "{avatar} 在 {location} 開始狩獵"
+
+msgid "{avatar} finished hunting, obtained: {materials}"
+msgstr "{avatar} 結束了狩獵，獲得了：{materials}"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "煉丹"
+
+msgid "refine_description"
+msgstr "消耗材料嘗試煉製丹藥"
+
+msgid "refine_requirements"
+msgstr "擁有3個同境界材料"
+
+msgid "Target realm not specified"
+msgstr "未指定目標境界"
+
+msgid "Invalid realm: {realm}"
+msgstr "無效的境界：{realm}"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr "材料不足，需要 {cost} 個{realm}階材料，當前擁有 {count} 個"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} 開始嘗試煉製{realm}階丹藥"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr "{avatar} 煉製{realm}階丹藥失敗，所有材料化爲灰燼"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "煉丹成功！獲得了{realm}丹藥『{item}』"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} 成功煉製{realm}階丹藥『{item}』"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "鑄造"
+
+msgid "cast_description"
+msgstr "消耗材料嘗試鑄造法寶"
+
+msgid "cast_requirements"
+msgstr "擁有5個同境界材料"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} 開始嘗試鑄造{realm}階法寶"
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr "{avatar} 鑄造{realm}階法寶失敗，所有材料化爲灰燼"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "鑄造成功！獲得了{realm}{label}『{item}』"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} 成功鑄造{realm}階{label}『{item}』"
+
+# Action: HelpMortals
+msgid "help_mortals_action_name"
+msgstr "幫助凡人"
+
+msgid "help_mortals_description"
+msgstr "在城鎮幫助凡人，消耗少量靈石"
+
+msgid "help_mortals_requirements"
+msgstr "僅限城市區域，且角色陣營爲'正'，並且靈石足夠"
+
+msgid "Only righteous alignment can execute"
+msgstr "僅正陣營可執行"
+
+msgid "Insufficient spirit stones"
+msgstr "靈石不足"
+
+msgid "{avatar} begins helping mortals in town"
+msgstr "{avatar} 在城鎮開始幫助凡人"
+
+# Action: PlunderMortals
+msgid "plunder_mortals_action_name"
+msgstr "搜刮凡人"
+
+msgid "plunder_mortals_description"
+msgstr "在城鎮搜刮凡人，獲取少量靈石"
+
+msgid "plunder_mortals_requirements"
+msgstr "僅限城市區域，且角色陣營爲'邪'"
+
+msgid "Only evil alignment can execute"
+msgstr "僅邪陣營可執行"
+
+msgid "{avatar} begins plundering mortals in town"
+msgstr "{avatar} 在城鎮開始搜刮凡人"
+
+# Action: DevourMortals
+msgid "devour_mortals_action_name"
+msgstr "吞噬凡人"
+
+msgid "devour_mortals_description"
+msgstr "吞噬凡人，較多增加戰力"
+
+msgid "devour_mortals_requirements"
+msgstr "持有萬魂幡"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr "未被允許的非法動作（缺少萬魂幡或權限）"
+
+msgid "{avatar} begins devouring mortals in town"
+msgstr "{avatar} 在城鎮開始吞噬凡人"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "消遣"
+
+msgid "play_description"
+msgstr "消遣，放鬆身心"
+
+msgid "play_requirements"
+msgstr "目標在交互範圍內"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} 開始消遣"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "溫養兵器"
+
+msgid "nurture_weapon_description"
+msgstr "溫養兵器，增加兵器熟練度"
+
+msgid "nurture_weapon_requirements"
+msgstr "無限制"
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr "{avatar} 溫養{old_weapon}時，兵器靈性大增，昇華爲{new_weapon}！"
+
+msgid "{avatar} begins nurturing {weapon}"
+msgstr "{avatar} 開始溫養{weapon}"
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr "{avatar} 完成溫養{weapon}，熟練度提升至{proficiency}%"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "御獸"
+
+msgid "catch_description"
+msgstr "嘗試馴服一隻靈獸，成爲自身靈獸。只能有一隻靈獸，但是可以高級替換低級"
+
+msgid "catch_requirements"
+msgstr "僅百獸宗；在有動物的普通區域；目標動物境界不高於角色"
+
+msgid "Not currently in normal area"
+msgstr "當前不在普通區域"
+
+msgid "Current area {region} has no animals"
+msgstr "當前區域{region}沒有動物"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr "當前區域的動物境界高於角色境界"
+
+msgid "{avatar} attempts to tame spirit beast at {location}"
+msgstr "{avatar} 在 {location} 嘗試御獸"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} 御獸失敗"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr "{avatar} 御獸成功，{realm}境的{beast}成爲其靈獸"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "移動探索"
+
+msgid "move_to_direction_description"
+msgstr "向某個方向探索未知區域"
+
+msgid "move_to_direction_requirements"
+msgstr "無限制"
+
+msgid "Invalid direction: {direction}"
+msgstr "無效的方向：{direction}"
+
+msgid "{avatar} begins moving toward {direction}"
+msgstr "{avatar} 開始向{direction}方移動"
+
+msgid "{avatar} finished moving toward {direction}"
+msgstr "{avatar} 結束了向{direction}方的移動"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "移動到區域"
+
+msgid "move_to_region_description"
+msgstr "移動到某個區域"
+
+msgid "move_to_region_requirements"
+msgstr "無限制"
+
+msgid "Cannot resolve region: {region}"
+msgstr "無法解析區域：{region}"
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr "【{region}】是其他宗門駐地，你並非該宗門弟子"
+
+msgid "{avatar} begins moving toward {region}"
+msgstr "{avatar} 開始移動向 {region}"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} 試圖移動但目標無效"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "移動到角色"
+
+msgid "move_to_avatar_description"
+msgstr "移動到某個角色所在位置"
+
+msgid "move_to_avatar_requirements"
+msgstr "無限制"
+
+msgid "{avatar} begins moving toward {target}"
+msgstr "{avatar} 開始移動向 {target}"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "遠離角色"
+
+msgid "move_away_from_avatar_description"
+msgstr "持續遠離指定角色"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "無限制"
+
+msgid "{avatar} begins moving away from {target}"
+msgstr "{avatar} 開始遠離 {target}"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "離開區域"
+
+msgid "move_away_from_region_description"
+msgstr "離開指定區域"
+
+msgid "move_away_from_region_requirements"
+msgstr "無限制"
+
+msgid "{avatar} begins leaving {region}"
+msgstr "{avatar} 開始離開 {region}"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "移動"
+
+msgid "move_description"
+msgstr "移動到某個相對位置"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "雙修"
+
+msgid "dual_cultivation_description"
+msgstr "以情入道的雙修之術，對象可接受或拒絕"
+
+msgid "dual_cultivation_requirements"
+msgstr "目標在交互範圍內；不能連續執行"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"兩位修士在雙修過程中情愫暗生，以含蓄、雅緻的文字描繪一段曖昧而不露骨的雙修體驗，體現彼此性格、境界差異與甜蜜的戀愛時光。不要體現經驗的數值。"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} 邀請 {target} 進行雙修"
+
+# Action 簡短名稱（用於 legal_actions）
+msgid "action_dualcultivation_short_name"
+msgstr "雙修"
+
+msgid "action_devourmortals_short_name"
+msgstr "吞噬凡人"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "讀書"
+
+msgid "action_tea_tasting"
+msgstr "品茶"
+
+msgid "action_traveling"
+msgstr "遊歷"
+
+msgid "action_zither_playing"
+msgstr "撫琴"
+
+msgid "action_tea_party"
+msgstr "茶會"
+
+msgid "action_chess"
+msgstr "下棋"
+
+msgid "{avatar} starts {action}"
+msgstr "{avatar} 開始{action}"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} 完成了{action}。"
+
+msgid "gained {val} cultivation"
+msgstr "若有所悟，修爲增加 {val}"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "心境提升，突破概率增加 {val:.1%}"
+
+msgid "action_reading_desc"
+msgstr "研讀古籍，增長見聞。"
+
+msgid "action_tea_tasting_desc"
+msgstr "品味清茶，靜心養性。"
+
+msgid "action_traveling_desc"
+msgstr "遊歷四方，感悟天地。"
+
+msgid "action_zither_playing_desc"
+msgstr "撫琴奏樂，陶冶情操。"
+
+msgid "action_tea_party_desc"
+msgstr "與友共品清茶。"
+
+msgid "action_chess_desc"
+msgstr "對弈博弈，磨礪心智。"
+
+msgid "action_tea_party_story_prompt"
+msgstr "兩人正在舉行一場雅緻的茶會。"
+
+msgid "action_chess_story_prompt"
+msgstr "兩人正在對弈下棋。"

@@ -1,0 +1,50 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Labels
+msgid "weapon"
+msgstr "weapon"
+
+msgid "auxiliary"
+msgstr "auxiliary equipment"
+
+msgid "technique"
+msgstr "technique"
+
+msgid "elixir"
+msgstr "elixir"
+
+# Labels
+msgid "【Auction Items Information】"
+msgstr "【Auction Items Information】"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【Related Avatars Information】"
+
+# Item Labels
+msgid "item_label_weapon"
+msgstr "Weapon"
+
+msgid "item_label_auxiliary"
+msgstr "Auxiliary"
+
+msgid "item_label_technique"
+msgstr "Technique"
+
+msgid "item_label_elixir"
+msgstr "Elixir"

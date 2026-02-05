@@ -1,0 +1,21 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr "選取其中最有趣的一個側面或一次競價進行描寫，無需面面俱到。重點描寫競價過程中的緊張氣氛。"
+
+# LLM Prompt
+msgid "fortune_story_prompt"
+msgstr "請據此寫100~300字小故事。"

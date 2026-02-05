@@ -1,0 +1,29 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Essence Type
+msgid "gold_essence"
+msgstr "金"
+
+msgid "wood_essence"
+msgstr "木"
+
+msgid "water_essence"
+msgstr "水"
+
+msgid "fire_essence"
+msgstr "火"
+
+msgid "earth_essence"
+msgstr "土"

@@ -18,19 +18,24 @@ except ImportError:
     PYTEST_AVAILABLE = False
 
 
+import polib
+
 def extract_msgids(filepath: Path) -> list[str]:
     """从 po 文件中提取所有 msgid"""
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # 匹配 msgid "..." 模式
-    pattern = r'msgid\s+"([^"]*)"'
-    matches = re.findall(pattern, content)
-    
-    # 过滤掉空字符串（文件头的 msgid ""）
-    msgids = [m for m in matches if m]
-    
-    return msgids
+    if not filepath.exists():
+        return []
+        
+    try:
+        po = polib.pofile(str(filepath))
+        return [entry.msgid for entry in po]
+    except Exception as e:
+        print(f"Warning: Could not read {filepath} with polib: {e}")
+        # Fallback to regex
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+        pattern = r'msgid\s+"([^"]*)"'
+        matches = re.findall(pattern, content)
+        return [m for m in matches if m]
 
 
 def find_duplicates(msgids: list[str]) -> dict[str, int]:

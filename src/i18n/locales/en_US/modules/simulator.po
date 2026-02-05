@@ -1,0 +1,38 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Simulator & Event Translations
+# ============================================================================
+msgid ""
+"{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+msgstr ""
+"{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+
+msgid ""
+"{avatar_name} deliberated and redefined their long-term objective: "
+"{objective}"
+msgstr ""
+"{avatar_name} deliberated and redefined their long-term objective: "
+"{objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} determined their long-term objective: {objective}"
+
+msgid "world_creation_phenomenon"
+msgstr "The world is born, celestial phenomena descend! {name}: {desc}."
+
+msgid "phenomenon_change"
+msgstr ""
+"{old_name} dissipates, celestial phenomena reappear! {new_name}: {new_desc}."

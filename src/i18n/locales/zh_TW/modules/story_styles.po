@@ -1,0 +1,132 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Story Styles
+msgid ""
+"Plain narration: Restrained language, minimal embellishment, recording like "
+"a bystander."
+msgstr "平淡敘述：語句克制、少修飾、像旁觀者記錄。"
+
+msgid ""
+"Emotion in scenery: Expressing emotion through scenery, blending feelings "
+"with the setting."
+msgstr "寓情於景：以景見情，情隨境遷，情景交融。"
+
+msgid ""
+"Freehand ancient style: Focus on imagery and metaphor, concise, avoiding "
+"obscure archaic language."
+msgstr "寫意古風：重意象與比興，點到為止，少生僻文言。"
+
+msgid ""
+"Marketplace life: Grounded writing, using colloquialisms, simple and "
+"natural, without pretension."
+msgstr "市井煙火：行文接地氣，多用口語化表達，樸實自然，不拿腔拿調。"
+
+msgid ""
+"Poetic lyricism: Short sentences and parallelism, sparse use of allusions, "
+"avoiding flowery language."
+msgstr "詩意抒情：短句與對仗點綴，少量用典，不堆砌辭藻。"
+
+msgid ""
+"Philosophical fable: Asking questions through events, containing one or two "
+"punchlines, without preaching."
+msgstr "哲思寓言：借事設問，含一兩句畫龍點睛之語，不說教。"
+
+msgid ""
+"Chronicle style: Like a historian's record, orderly events, few adjectives."
+msgstr "編年記事：近史官筆法，記事有序，少形容詞。"
+
+msgid ""
+"Personification of scenery: Slight personification of scenery, embedding "
+"aspirations in the view, not overused."
+msgstr "景物擬人：對景施以輕微擬人，景中含志，不濫。"
+
+msgid ""
+"Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
+"single thought."
+msgstr "道法自然：以道家語彙點染，不艱澀，收束於一念。"
+
+msgid ""
+"Buddhist emptiness: Insights of impermanence and emptiness interwoven, light"
+" and not mysterious."
+msgstr "佛理空相：無常、空相的領悟穿插事中，輕淡不玄。"
+
+msgid ""
+"Folk storytelling: Like a storyteller's tone but in written language, fast-"
+"paced, vivid and interesting."
+msgstr "民間說書：似說書人口吻但用書面語，敘事節奏明快，生動有趣。"
+
+msgid ""
+"Elegant scholarly: Scholarly atmosphere, slight touch of citations, without "
+"showing off."
+msgstr "雅致書卷：書卷氣、引文氣息淺嘗輒止，不顯擺。"
+
+msgid ""
+"Bold and open: Grand words, majestic momentum, informal, expressing feelings"
+" directly."
+msgstr "豪放曠達：用詞大開大合，氣勢磅礴，不拘小節，直抒胸臆。"
+
+msgid ""
+"Gorgeous and bizarre: Heavy sensory description, ornate and seductive "
+"language, emphasizing the strangeness of light and color."
+msgstr "綺麗詭譎：重感官描寫，辭藻華麗妖冶，強調光影與色彩的奇異感。"
+
+msgid ""
+"Cold and concise: Mainly short sentences, every word counts, like metal "
+"striking stone, no extra emotional rendering."
+msgstr "冷峻簡練：短句為主，字字珠璣，如金石相擊，不做多餘情感渲染。"
+
+msgid ""
+"Fine line drawing: No decoration, capturing subtle movements and expressions"
+" to convey spirit, real and delicate."
+msgstr "細筆白描：不加藻飾，通過捕捉極細微的動作與神態來傳神，真實細膩。"
+
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "grand_child"
+msgstr "孫輩"
+
+msgid "martial_grandmaster"
+msgstr "師祖"
+
+msgid "martial_grandchild"
+msgstr "徒孫"
+
+msgid "martial_sibling"
+msgstr "同門"
+
+msgid "relation_grandfather"
+msgstr "爺爺"
+
+msgid "relation_grandmother"
+msgstr "奶奶"
+
+msgid "relation_grandson"
+msgstr "孫子"
+
+msgid "relation_granddaughter"
+msgstr "孫女"
+
+msgid "relation_martial_older_brother"
+msgstr "師兄"
+
+msgid "relation_martial_younger_brother"
+msgstr "師弟"
+
+msgid "relation_martial_older_sister"
+msgstr "師姐"
+
+msgid "relation_martial_younger_sister"
+msgstr "師妹"

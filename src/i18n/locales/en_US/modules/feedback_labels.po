@@ -1,0 +1,32 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Feedback labels
+msgid "feedback_accept"
+msgstr "Accept"
+
+msgid "feedback_reject"
+msgstr "Reject"
+
+msgid "feedback_move_away_from_avatar"
+msgstr "Attempt to move away"
+
+msgid "feedback_move_away_from_region"
+msgstr "Attempt to leave area"
+
+msgid "feedback_escape"
+msgstr "Escape"
+
+msgid "feedback_attack"
+msgstr "Attack"

@@ -1,0 +1,90 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Misfortune messages
+msgid "Encountered misfortune ({theme}), {result}"
+msgstr "遭遇霉运（{theme}），{result}"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} 损失灵石 {amount} 枚"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} 受到伤害 {damage} 点，剩余HP {current}/{max}"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} 修为倒退 {amount} 点"
+
+# Misfortune System
+msgid "misfortune_event_format"
+msgstr "遭遇霉运（{theme}），{result}"
+
+msgid "misfortune_story_prompt"
+msgstr "请据此写100~300字小故事。只描述倒霉事件本身，不要描述角色的心理活动或者愈挫愈勇，不要有数值。"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} 损失灵石 {amount} 枚"
+
+msgid "misfortune_result_injury"
+msgstr "{name} 受到伤害 {damage} 点，剩余HP {current}/{max}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} 修为倒退 {amount} 点"
+
+msgid "misfortune_theme_pickpocket"
+msgstr "遭遇扒手"
+
+msgid "misfortune_theme_fake_goods"
+msgstr "误买假货"
+
+msgid "misfortune_theme_blackmail"
+msgstr "遭人勒索"
+
+msgid "misfortune_theme_theft"
+msgstr "洞府失窃"
+
+msgid "misfortune_theme_gambling_loss"
+msgstr "赌石惨败"
+
+msgid "misfortune_theme_bad_investment"
+msgstr "投资失败"
+
+msgid "misfortune_theme_cultivation_accident"
+msgstr "修炼岔气"
+
+msgid "misfortune_theme_trip_fall"
+msgstr "出门摔伤"
+
+msgid "misfortune_theme_beast_ambush"
+msgstr "妖兽偷袭"
+
+msgid "misfortune_theme_enemy_attack"
+msgstr "仇家闷棍"
+
+msgid "misfortune_theme_trap"
+msgstr "误触机关"
+
+msgid "misfortune_theme_disaster"
+msgstr "天降横祸"
+
+msgid "misfortune_theme_heart_demon"
+msgstr "心魔滋生"
+
+msgid "misfortune_theme_qi_deviation"
+msgstr "灵气逆行"
+
+msgid "misfortune_theme_confusion"
+msgstr "感悟错乱"
+
+msgid "misfortune_theme_anxiety"
+msgstr "急火攻心"

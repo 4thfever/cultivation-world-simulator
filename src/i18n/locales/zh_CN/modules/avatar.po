@@ -1,0 +1,92 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Avatar 系统
+# ============================================================================
+# 字段标签 (info_dict 键名)
+msgid "Name"
+msgstr "名字"
+
+msgid "Gender"
+msgstr "性别"
+
+msgid "Age"
+msgstr "年龄"
+
+msgid "HP"
+msgstr "hp"
+
+msgid "Spirit Stones"
+msgstr "灵石"
+
+msgid "Relations"
+msgstr "关系"
+
+msgid "Sect"
+msgstr "宗门"
+
+msgid "Alignment"
+msgstr "阵营"
+
+msgid "Region"
+msgstr "地区"
+
+msgid "Technique"
+msgstr "功法"
+
+msgid "Realm"
+msgstr "境界"
+
+msgid "Traits"
+msgstr "特质"
+
+msgid "Materials"
+msgstr "材料"
+
+msgid "Appearance"
+msgstr "外貌"
+
+msgid "Weapon"
+msgstr "兵器"
+
+msgid "Auxiliary"
+msgstr "辅助装备"
+
+msgid "Emotion"
+msgstr "情绪"
+
+msgid "Long-term Goal"
+msgstr "长期目标"
+
+msgid "Short-term Goal"
+msgstr "短期目标"
+
+msgid "Current Effects"
+msgstr "当前效果"
+
+msgid "Nickname"
+msgstr "绰号"
+
+msgid "Spirit Animal"
+msgstr "灵兽"
+
+msgid "Nearby Avatars"
+msgstr "周围角色"
+
+msgid "Major Events"
+msgstr "重大事件"
+
+msgid "Recent Events"
+msgstr "短期事件"

@@ -1,0 +1,24 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr ""
+"Select the most interesting aspect or a single bid to describe, without "
+"needing to cover everything. Focus on describing the tense atmosphere during"
+" the bidding process."
+
+# LLM Prompt
+msgid "fortune_story_prompt"
+msgstr "Please write a 100-300 word short story based on this."

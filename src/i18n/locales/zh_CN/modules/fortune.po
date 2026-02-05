@@ -1,0 +1,138 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Fortune messages
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "遭遇奇遇（{theme}），{result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "发现了兵器『{weapon}』，{exchange_result}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "发现了辅助装备『{auxiliary}』，{exchange_result}"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "领悟了功法『{technique}』，{exchange_result}"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} 获得灵石 {amount} 枚"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} 修为增长 {exp} 点"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} 拜 {master} 为师"
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "你在奇遇中发现了{realm}兵器『{weapon}』。"
+
+msgid " But you already have '{current_weapon}'."
+msgstr " 但你手中已有『{current_weapon}』。"
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary}』。"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " 但你手中已有『{current_auxiliary}』。"
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "你在奇遇中领悟了上品功法『{technique}』。"
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " 这与你当前主修的『{current_technique}』冲突。"
+
+# ============================================================================
+# Fortune 系统 - 奇遇
+# ============================================================================
+# 奇遇主题
+msgid "fortune_theme_wandered_into_cave"
+msgstr "误入洞府"
+
+msgid "fortune_theme_found_divine_weapon"
+msgstr "巧捡神兵"
+
+msgid "fortune_theme_entered_trial"
+msgstr "误入试炼"
+
+msgid "fortune_theme_phenomenon_appeared"
+msgstr "异象出世"
+
+msgid "fortune_theme_gifted_by_master"
+msgstr "高人赠予"
+
+msgid "fortune_theme_found_treasure"
+msgstr "巧捡奇物"
+
+msgid "fortune_theme_guided_by_master"
+msgstr "高人指点"
+
+msgid "fortune_theme_profound_insight"
+msgstr "玄妙感悟"
+
+msgid "fortune_theme_rescued_from_danger"
+msgstr "危难相救"
+
+msgid "fortune_theme_impressed_by_character"
+msgstr "品行打动"
+
+msgid "fortune_theme_showed_talent"
+msgstr "展露天赋"
+
+msgid "fortune_theme_chance_encounter"
+msgstr "机缘巧合"
+
+msgid "fortune_theme_passed_test"
+msgstr "通过考验"
+
+msgid "fortune_theme_found_spirit_vein"
+msgstr "偶遇灵矿"
+
+msgid "fortune_theme_cave_treasure"
+msgstr "洞府遗财"
+
+msgid "fortune_theme_slayed_beast"
+msgstr "击杀妖兽"
+
+msgid "fortune_theme_trade_profit"
+msgstr "交易获利"
+
+msgid "fortune_theme_stone_gambling"
+msgstr "赌石得宝"
+
+msgid "fortune_theme_found_cache"
+msgstr "拾遗藏宝"
+
+msgid "fortune_theme_sudden_enlightenment"
+msgstr "顿悟玄机"
+
+msgid "fortune_theme_ancient_stele"
+msgstr "古碑感悟"
+
+msgid "fortune_theme_consumed_spirit_herb"
+msgstr "服食灵药"
+
+msgid "fortune_theme_secret_realm"
+msgstr "秘境修炼"
+
+msgid "fortune_theme_empowerment"
+msgstr "前辈灌顶"
+
+msgid "fortune_theme_spirit_spring"
+msgstr "灵泉淬体"
+
+msgid "fortune_theme_inherited_memory"
+msgstr "传承记忆"

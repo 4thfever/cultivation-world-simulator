@@ -1,0 +1,199 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Root Element
+msgid "gold_element"
+msgstr "Gold"
+
+msgid "wood_element"
+msgstr "Wood"
+
+msgid "water_element"
+msgstr "Water"
+
+msgid "fire_element"
+msgstr "Fire"
+
+msgid "earth_element"
+msgstr "Earth"
+
+# Root Keys
+msgid "root_gold"
+msgstr "Gold Root"
+
+msgid "root_wood"
+msgstr "Wood Root"
+
+msgid "root_water"
+msgstr "Water Root"
+
+msgid "root_fire"
+msgstr "Fire Root"
+
+msgid "root_earth"
+msgstr "Earth Root"
+
+msgid "root_thunder"
+msgstr "Thunder Root"
+
+msgid "root_ice"
+msgstr "Ice Root"
+
+msgid "root_wind"
+msgstr "Wind Root"
+
+msgid "root_dark"
+msgstr "Dark Root"
+
+msgid "root_heaven"
+msgstr "Heaven Root"
+
+# ============================================================================
+# Additional (New)
+# ============================================================================
+msgid "action_thinking"
+msgstr "Thinking"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}: {description}"
+
+msgid "{name} ({realm})"
+msgstr "{name} ({realm})"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc} ({realm})"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage} (Level {level}) {status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage} (Level {level}). At bottleneck: {status}"
+
+msgid "Unknown character"
+msgstr "Unknown character"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name} ({desc}{effect})"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} has ascended to a cultivator."
+
+msgid "old_age"
+msgstr "Old Age"
+
+msgid "battle"
+msgstr "Battle"
+
+msgid "serious_injury"
+msgstr "Serious Injury"
+
+msgid "(Unknown technique)"
+msgstr "(Unknown technique)"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+
+msgid "Drops: {materials}"
+msgstr "Drops: {materials}"
+
+msgid "[{name}] ({realm})"
+msgstr "[{name}] ({realm})"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name} ({attribute}) {grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name} ({attribute}) {grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name} ({attribute}·{grade})"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name} ({type}·{realm}, {desc}){effect}"
+
+msgid "date_format_year_month"
+msgstr "Year {year} Month {month}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "({sect_name} HQ)"
+
+msgid "Current World Phenomenon"
+msgstr "Current World Phenomenon"
+
+msgid "phenomenon_format"
+msgstr "{name}: {desc}"
+
+msgid "Wilderness"
+msgstr "Wilderness"
+
+msgid "relation_rule_establish_title"
+msgstr "[Establish Relation Rules]"
+
+msgid "relation_rule_cancel_title"
+msgstr "[Cancel Relation Rules]"
+
+msgid "relation_rule_lovers_add"
+msgstr ""
+"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
+"and affection."
+
+msgid "relation_rule_friend_add"
+msgstr ""
+"[Friend] Friendly interactions (chat, spar without killing, heal). No "
+"substantial conflict of interest."
+
+msgid "relation_rule_enemy_add"
+msgstr ""
+"[Enemy] Substantial harm occurred (injury, theft, humiliation). Single "
+"severe harm or multiple minor frictions."
+
+msgid "relation_rule_master_add"
+msgstr ""
+"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
+"Core vs Qi Refinement)."
+
+msgid "relation_rule_apprentice_add"
+msgstr ""
+"[Apprentice] Relative to Master, usually established automatically with "
+"Master relation."
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+
+msgid "relation_rule_friend_cancel"
+msgstr ""
+"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
+"interaction."
+
+msgid "relation_rule_enemy_cancel"
+msgstr ""
+"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
+"death experience, or hatred fades."
+
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+
+msgid "History"
+msgstr "History"
+
+msgid "When alignment is {align}"
+msgstr "When alignment is {align}"
+
+msgid "When using {weapon_type}"
+msgstr "When using {weapon_type}"
