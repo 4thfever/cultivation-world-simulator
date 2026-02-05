@@ -200,6 +200,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "target_id": other.id,
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
+            "relation_type": relation.value,
             "realm": other.cultivation_progress.get_info(),
             "sect": other.sect.name if other.sect else t("Rogue Cultivator")
         })
