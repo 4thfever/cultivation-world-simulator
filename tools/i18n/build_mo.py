@@ -117,7 +117,7 @@ def main():
     # 查找项目根目录
     script_dir = Path(__file__).parent
     project_root = script_dir.parent.parent
-    i18n_dir = project_root / "src" / "i18n" / "locales"
+    i18n_dir = project_root / "static" / "locales"
     
     if not i18n_dir.exists():
         print(f"[ERROR] 找不到 i18n 目录: {i18n_dir}")

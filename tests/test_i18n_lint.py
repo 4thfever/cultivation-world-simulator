@@ -8,8 +8,8 @@ ZH_PATTERN = re.compile(r'[\u4e00-\u9fff]')
 MSGID_PATTERN = re.compile(r'^msgid\s+"(.*)"')
 
 def get_po_files():
-    """Get all .po files in src/i18n/locales"""
-    root_dir = Path(__file__).parent.parent / "src" / "i18n" / "locales"
+    """Get all .po files in static/locales"""
+    root_dir = Path(__file__).parent.parent / "static" / "locales"
     return list(root_dir.rglob("*.po"))
 
 @pytest.mark.parametrize("po_file", get_po_files())

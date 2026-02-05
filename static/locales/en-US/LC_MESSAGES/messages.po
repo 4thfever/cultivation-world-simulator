@@ -2357,6 +2357,184 @@ msgstr "Unknown reason"
 msgid "{name} (Deceased: {reason})"
 msgstr "{name} (Deceased: {reason})"
 
+msgid "SECT_1_STYLE"
+msgstr ""
+"Clear-minded and self-disciplined, actions matching words. Valuing both "
+"sword and heart, emphasizing understanding one's true nature."
+
+msgid "SECT_2_STYLE"
+msgstr ""
+"Direct in speech, valuing strength and bloodlines, worshipping hunting and "
+"combat."
+
+msgid "SECT_2_RANK_PATRIARCH"
+msgstr "Valley Master"
+
+msgid "SECT_2_RANK_ELDER"
+msgstr "Grand Elder"
+
+msgid "SECT_2_RANK_INNER"
+msgstr "Beast Tamer"
+
+msgid "SECT_2_RANK_OUTER"
+msgstr "Retainer"
+
+msgid "SECT_3_STYLE"
+msgstr ""
+"Calm and tactful, preferring softness to overcome hardness, skilled in "
+"borrowing force and counter-control."
+
+msgid "SECT_3_RANK_PATRIARCH"
+msgstr "Mirror Master"
+
+msgid "SECT_3_RANK_ELDER"
+msgstr "Mirror Holder"
+
+msgid "SECT_3_RANK_INNER"
+msgstr "Successor"
+
+msgid "SECT_3_RANK_OUTER"
+msgstr "Mirror Attendant"
+
+msgid "SECT_4_STYLE"
+msgstr ""
+"Cold and emotionless in speech, revering karma but fearless in slaughter, "
+"favoring efficiency and results."
+
+msgid "SECT_4_RANK_PATRIARCH"
+msgstr "Hall Master"
+
+msgid "SECT_4_RANK_ELDER"
+msgstr "Judge"
+
+msgid "SECT_4_RANK_INNER"
+msgstr "Impermanence"
+
+msgid "SECT_4_RANK_OUTER"
+msgstr "Ghost Soldier"
+
+msgid "SECT_5_STYLE"
+msgstr ""
+"Facing desires and costs directly, fearless of darkness, excelling in "
+"offensive warfare."
+
+msgid "SECT_5_RANK_PATRIARCH"
+msgstr "Tower Lord"
+
+msgid "SECT_5_RANK_ELDER"
+msgstr "Punishment Officer"
+
+msgid "SECT_5_RANK_INNER"
+msgstr "Shadow Assassin"
+
+msgid "SECT_5_RANK_OUTER"
+msgstr "Scout"
+
+msgid "SECT_6_STYLE"
+msgstr ""
+"Tactful in speech, skilled in manipulating desires and situations, "
+"overcoming hardness with softness."
+
+msgid "SECT_6_RANK_PATRIARCH"
+msgstr "Palace Master"
+
+msgid "SECT_6_RANK_ELDER"
+msgstr "Protector"
+
+msgid "SECT_6_RANK_INNER"
+msgstr "Charming Immortal"
+
+msgid "SECT_6_RANK_OUTER"
+msgstr "Attendant Boy"
+
+msgid "SECT_7_STYLE"
+msgstr ""
+"Solemn and steady, focusing on soothing souls and suppressing evil, few "
+"words but decisive."
+
+msgid "SECT_7_RANK_PATRIARCH"
+msgstr "Abbot"
+
+msgid "SECT_7_RANK_ELDER"
+msgstr "Chief Monk"
+
+msgid "SECT_7_RANK_INNER"
+msgstr "Walker"
+
+msgid "SECT_7_RANK_OUTER"
+msgstr "Layman"
+
+msgid "SECT_8_STYLE"
+msgstr ""
+"Secretive and decisive, valuing results over reputation, skilled in stealth "
+"and surprise attacks."
+
+msgid "SECT_8_RANK_PATRIARCH"
+msgstr "Sect Master"
+
+msgid "SECT_8_RANK_ELDER"
+msgstr "Protector"
+
+msgid "SECT_8_RANK_INNER"
+msgstr "Shadow Guard"
+
+msgid "SECT_8_RANK_OUTER"
+msgstr "Scout"
+
+msgid "SECT_9_STYLE"
+msgstr ""
+"Pragmatic and shrewd, valuing trade and reputation, upholding rules and "
+"order."
+
+msgid "SECT_9_RANK_PATRIARCH"
+msgstr "City Lord"
+
+msgid "SECT_9_RANK_ELDER"
+msgstr "Grand Elder"
+
+msgid "SECT_9_RANK_INNER"
+msgstr "Deacon"
+
+msgid "SECT_9_RANK_OUTER"
+msgstr "Apprentice"
+
+msgid "SECT_10_STYLE"
+msgstr ""
+"Calculating beneath elegance, preferring to control situations with words "
+"and melody, killing without smoke and fire."
+
+msgid "SECT_11_STYLE"
+msgstr ""
+"Rigorous and meticulous, pursuing technical perfection, skilled in counter-"
+"attacking with formations, advancing step by step."
+
+msgid "SECT_12_STYLE"
+msgstr ""
+"Resilient and tenacious, striving in adversity, open and aboveboard but far-"
+"sighted, extremely protective of their own."
+
+msgid "SECT_12_RANK_PATRIARCH"
+msgstr "City Lord"
+
+msgid "SECT_12_RANK_ELDER"
+msgstr "Pavilion Elder"
+
+msgid "SECT_12_RANK_INNER"
+msgstr "Commander"
+
+msgid "SECT_12_RANK_OUTER"
+msgstr "Night Watchman"
+
+msgid "SECT_13_STYLE"
+msgstr ""
+"Adhering to principles, stressing justice, leading in exorcising demons, "
+"rather break than bend."
+
+msgid "SECT_14_STYLE"
+msgstr ""
+"Might makes right, doing as one pleases, worshipping absolute power and "
+"slaughter, viewing all beings as food."
+
 # Separators
 msgid "relation_separator"
 msgstr "; "

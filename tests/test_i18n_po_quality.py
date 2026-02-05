@@ -167,7 +167,7 @@ class TestTranslationKeysDefinition:
     def test_all_used_msgids_are_defined_in_po(self):
         """检查所有代码中使用的 msgid 都在 PO 文件中定义"""
         src_dir = Path("src")
-        po_file = Path("src/i18n/locales/zh_CN/LC_MESSAGES/messages.po")
+        po_file = Path("static/locales/zh-CN/LC_MESSAGES/messages.po")
         
         if not src_dir.exists() or not po_file.exists():
             print("SKIP: Required directories not found")
@@ -218,8 +218,8 @@ class TestFormatParameterConsistency:
     
     def test_format_params_consistency(self):
         """检查中英文翻译的格式化参数与原始 msgid 一致"""
-        zh_po = Path("src/i18n/locales/zh_CN/LC_MESSAGES/messages.po")
-        en_po = Path("src/i18n/locales/en_US/LC_MESSAGES/messages.po")
+        zh_po = Path("static/locales/zh-CN/LC_MESSAGES/messages.po")
+        en_po = Path("static/locales/en-US/LC_MESSAGES/messages.po")
         
         if not zh_po.exists() or not en_po.exists():
             print("SKIP: PO files not found")

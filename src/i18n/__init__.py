@@ -20,25 +20,22 @@ logger = logging.getLogger(__name__)
 
 def _get_locale_dir() -> Path:
     """Get the locales directory path."""
-    return Path(__file__).parent / "locales"
+    # src/i18n/__init__.py -> src/i18n -> src -> root
+    return Path(__file__).resolve().parent.parent.parent / "static" / "locales"
 
 
 def _lang_to_locale(lang_code: str) -> str:
     """
     Convert language code to gettext locale name.
+    Now we use the same code as folder name (e.g. zh-CN).
     
     Args:
         lang_code: Language code like "zh-CN" or "en-US".
         
     Returns:
-        Locale name like "zh_CN" or "en_US".
+        Locale name like "zh-CN" or "en-US".
     """
-    locale_map = {
-        "zh-CN": "zh_CN",
-        "zh-TW": "zh_TW",
-        "en-US": "en_US",
-    }
-    return locale_map.get(lang_code, "zh_CN")
+    return lang_code
 
 
 def _get_current_lang() -> str:

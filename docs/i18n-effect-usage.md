@@ -256,7 +256,7 @@ print(get_effect_desc("extra_max_hp"))  # 输出：Max HP
 1. **新增 Effect 时同步添加翻译**：
    - 在 `consts.py` 定义新 effect
    - 在 `desc.py` 的 `get_effect_desc()` 添加 msgid 映射
-   - 在 PO 文件添加中英文翻译
+   - 在 `static/locales/{lang}/modules/effect.po` 添加中英文翻译
 
 2. **保持命名规范**：
    - Effect msgid: `effect_{effect_key}`

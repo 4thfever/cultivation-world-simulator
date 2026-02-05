@@ -85,7 +85,7 @@ class Sect:
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return t("{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                 sect_name=self.name, alignment=str(self.alignment), 
-                style=self.member_act_style, hq_name=hq.name, effect=effect_part)
+                style=t(self.member_act_style), hq_name=hq.name, effect=effect_part)
     
     def get_rank_name(self, rank: "SectRank") -> str:
         """
@@ -100,7 +100,8 @@ class Sect:
         from src.classes.sect_ranks import SectRank, DEFAULT_RANK_NAMES
         from src.i18n import t
         # 优先使用自定义名称，否则使用默认名称
-        return self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, t("Disciple")))
+        val = self.rank_names.get(rank.value, DEFAULT_RANK_NAMES.get(rank, t("Disciple")))
+        return t(val)
 
     def get_structured_info(self) -> dict:
         hq = self.headquarter
@@ -327,7 +328,7 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     # 构造详细信息，使用标准空格和括号
     detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                        alignment=avatar.sect.alignment, 
-                       style=avatar.sect.member_act_style, 
+                       style=t(avatar.sect.member_act_style), 
                        hq_name=hq.name, 
                        effect=effect_part)
     

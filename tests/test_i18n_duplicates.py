@@ -48,7 +48,9 @@ def find_duplicates(msgids: list[str]) -> dict[str, int]:
 def get_po_file_path(lang: str) -> Path:
     """获取指定语言的 po 文件路径"""
     project_root = Path(__file__).parent.parent
-    po_file = project_root / "src" / "i18n" / "locales" / lang / "LC_MESSAGES" / "messages.po"
+    # Ensure hyphen is used for folder name (zh_CN -> zh-CN)
+    lang_folder = lang.replace('_', '-')
+    po_file = project_root / "static" / "locales" / lang_folder / "LC_MESSAGES" / "messages.po"
     return po_file
 
 

@@ -2292,6 +2292,156 @@ msgstr "当阵营为{align}时"
 msgid "When using {weapon_type}"
 msgstr "当使用{weapon_type}时"
 
+msgid "SECT_1_STYLE"
+msgstr "娓呮槑鍏嬪繁锛岃姝㈠涓€銆傞噸鍓戜笌蹇冩硶骞堕噸锛岃绌舵槑蹇冭鎬с€"
+
+msgid "SECT_2_STYLE"
+msgstr "瑷€璇洿鎺ワ紝閲嶈鍔涢噺涓庤鎬э紝宕囧皻鐙╃寧涓庢悘鏂椼€"
+
+msgid "SECT_2_RANK_PATRIARCH"
+msgstr "璋蜂富"
+
+msgid "SECT_2_RANK_ELDER"
+msgstr "渚涘"
+
+msgid "SECT_2_RANK_INNER"
+msgstr "椹吔甯"
+
+msgid "SECT_2_RANK_OUTER"
+msgstr "鎵堜粠"
+
+msgid "SECT_3_STYLE"
+msgstr "澶勪簨鍐烽潤鍦嗚瀺锛屽枩浠ユ煍鍏嬪垰锛屾搮鍊熷姏涓庡弽鍒躲€"
+
+msgid "SECT_3_RANK_PATRIARCH"
+msgstr "闀滀富"
+
+msgid "SECT_3_RANK_ELDER"
+msgstr "鎺岄暅浜"
+
+msgid "SECT_3_RANK_INNER"
+msgstr "浼犱汉"
+
+msgid "SECT_3_RANK_OUTER"
+msgstr "渚嶉暅"
+
+msgid "SECT_4_STYLE"
+msgstr "瑷€杈炲喎鍘夊皯鎯咃紝鏁晱鍥犳灉鑰屼笉鎯ф潃浼愶紝鍋忓悜鏁堢巼涓庣粨鏋溿€"
+
+msgid "SECT_4_RANK_PATRIARCH"
+msgstr "娈夸富"
+
+msgid "SECT_4_RANK_ELDER"
+msgstr "鍒ゅ畼"
+
+msgid "SECT_4_RANK_INNER"
+msgstr "鏃犲父"
+
+msgid "SECT_4_RANK_OUTER"
+msgstr "楝煎崚"
+
+msgid "SECT_5_STYLE"
+msgstr "鐩撮潰娆叉湜涓庝唬浠凤紝涓嶆儳榛戞殫锛屼互鏀讳紣瑙侀暱銆"
+
+msgid "SECT_5_RANK_PATRIARCH"
+msgstr "妤间富"
+
+msgid "SECT_5_RANK_ELDER"
+msgstr "鎺屽垜浣"
+
+msgid "SECT_5_RANK_INNER"
+msgstr "褰卞埡"
+
+msgid "SECT_5_RANK_OUTER"
+msgstr "鎺㈠瓙"
+
+msgid "SECT_6_STYLE"
+msgstr "杈炰护濠夎浆锛屽杽浜庢嬁鎹忎汉娆蹭笌灞€鍔匡紝浠ユ煍鍒跺垰銆"
+
+msgid "SECT_6_RANK_PATRIARCH"
+msgstr "瀹富"
+
+msgid "SECT_6_RANK_ELDER"
+msgstr "鎶ゆ硶"
+
+msgid "SECT_6_RANK_INNER"
+msgstr "濯氫粰"
+
+msgid "SECT_6_RANK_OUTER"
+msgstr "渚嶇"
+
+msgid "SECT_7_STYLE"
+msgstr "鑲冪﹩娌夌ǔ锛岄噸瀹夐瓊闀囬偑锛屽皯瑷€鑰屾灉鍐炽€"
+
+msgid "SECT_7_RANK_PATRIARCH"
+msgstr "浣忔寔"
+
+msgid "SECT_7_RANK_ELDER"
+msgstr "棣栧骇"
+
+msgid "SECT_7_RANK_INNER"
+msgstr "琛岃€"
+
+msgid "SECT_7_RANK_OUTER"
+msgstr "灞呭＋"
+
+msgid "SECT_8_STYLE"
+msgstr "琛屼簨闅愮鏋滄柇锛岄噸缁撴灉杞昏櫄鍚嶏紝鎿呮綔琛屼笌鍑哄叾涓嶆剰銆"
+
+msgid "SECT_8_RANK_PATRIARCH"
+msgstr "闂ㄤ富"
+
+msgid "SECT_8_RANK_ELDER"
+msgstr "鎶ゆ硶"
+
+msgid "SECT_8_RANK_INNER"
+msgstr "褰卞崼"
+
+msgid "SECT_8_RANK_OUTER"
+msgstr "鎺㈠瓙"
+
+msgid "SECT_9_STYLE"
+msgstr "鍔″疄绮炬槑锛岄噸浜ゆ槗涓庝俊瑾夛紝宕囧皻瑙勫垯涓庣З搴忋€"
+
+msgid "SECT_9_RANK_PATRIARCH"
+msgstr "鍩庝富"
+
+msgid "SECT_9_RANK_ELDER"
+msgstr "澶т緵濂"
+
+msgid "SECT_9_RANK_INNER"
+msgstr "鎵т簨"
+
+msgid "SECT_9_RANK_OUTER"
+msgstr "瀛﹀緬"
+
+msgid "SECT_10_STYLE"
+msgstr "鏂囬泤缂ョ紙涓繁钘忕畻璁★紝鍠滅敤瑷€璇笌闊冲緥鎺屾帶灞€鍔匡紝鏉€浼愪笉娌剧儫鐏皵銆"
+
+msgid "SECT_11_STYLE"
+msgstr "涓ヨ皑缁嗚嚧锛岃拷姹傛妧鏈瀬鑷达紝鎴樻枟涓搮闀夸互鍚庢墜闃垫硶鍙嶅埗鏁屼汉锛屾姝ヤ负钀ャ€"
+
+msgid "SECT_12_STYLE"
+msgstr "鍧氶煣椤藉己锛屽湪閫嗗涓浘寮猴紝琛屼簨鍏夋槑纾婅惤浣嗕篃娣辫皨杩滆檻锛屾瀬鍏舵姢鐭€"
+
+msgid "SECT_12_RANK_PATRIARCH"
+msgstr "鍩庝富"
+
+msgid "SECT_12_RANK_ELDER"
+msgstr "闃佽€"
+
+msgid "SECT_12_RANK_INNER"
+msgstr "鎵т护"
+
+msgid "SECT_12_RANK_OUTER"
+msgstr "瀹堝浜"
+
+msgid "SECT_13_STYLE"
+msgstr "鎭畧鍘熷垯锛岃绌堕亾涔夛紝闄ら瓟鍗亾涓€椹綋鍏堬紝瀹佹姌涓嶅集銆"
+
+msgid "SECT_14_STYLE"
+msgstr "寮鸿€呬负灏婏紝闅忓績鎵€娆诧紝宕囧皻缁濆鐨勫姏閲忎笌鏉€鎴紝瑙嗕紬鐢熶负琛€椋熴€"
+
 # ============================================================================
 # Simulator & Event Translations
 # ============================================================================

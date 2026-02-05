@@ -26,14 +26,14 @@ id,name_id,name,desc_id,desc,danger_prob
 hidden_domain_wood,HIDDEN_DOMAIN_WOOD_NAME,万木残界,HIDDEN_DOMAIN_WOOD_DESC,此乃...,0.3
 ```
 
-### 2. Translation Files (`src/i18n/locales/`)
+### 2. Translation Files (`static/locales/`)
 - **`game_configs.po`**: Contains translations for config IDs.
     - Generated/Updated via tool scanning CSVs.
 - **`messages.po`**: Contains translations for dynamic code strings (existing).
 
 ### 3. Build Process
-- `tools/i18n/build_mo.py` merges `messages.po` and `game_configs.po` into a single `messages.mo` for runtime efficiency.
-- Or loads them as separate domains (Current decision: Merge for simplicity).
+- `tools/i18n/build_mo.py` compiles `game_configs.po` into `game_configs.mo`.
+- Runtime uses separate domains: `messages` (default) and `game_configs` (fallback).
 
 ### 4. Runtime Loading (`src/utils/df.py`)
 1. Load CSV from `static/game_configs/`.
@@ -50,8 +50,8 @@ hidden_domain_wood,HIDDEN_DOMAIN_WOOD_NAME,万木残界,HIDDEN_DOMAIN_WOOD_DESC,
 3. Fill `name`/`desc` with Chinese text (Reference).
 4. Fill `name_id`/`desc_id` (Convention: `{FILE}_{ID}_NAME`).
 5. Run extraction tool (to be created) to update `game_configs.pot` and `.po` files.
-6. Add English translation in `src/i18n/locales/en_US/LC_MESSAGES/game_configs.po`.
-7. (Optional) Run `build_mo.py` to test locally (Auto-run in build pipeline).
+6. Add English translation in `static/locales/en-US/LC_MESSAGES/game_configs.po`.
+7. Run `python tools/i18n/build_mo.py` to compile translation files.
 
 ## Tools
 

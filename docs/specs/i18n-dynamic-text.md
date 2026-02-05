@@ -49,15 +49,24 @@ Use Python's standard `gettext` module with `.po/.mo` translation files.
 ```
 src/i18n/
 ├── __init__.py                    # Export t() function
-└── locales/
-    ├── zh_CN/
-    │   └── LC_MESSAGES/
-    │       ├── messages.po        # Chinese translations (source)
-    │       └── messages.mo        # Compiled binary (runtime)
-    └── en_US/
-        └── LC_MESSAGES/
-            ├── messages.po        # English translations (source)
-            └── messages.mo        # Compiled binary (runtime)
+└── ... (locales moved to static/locales)
+
+static/locales/
+    ├── zh-CN/
+    │   ├── LC_MESSAGES/
+    │   │   ├── messages.po        # Merged Chinese translations (do not edit directly)
+    │   │   └── messages.mo        # Compiled binary (runtime)
+    │   └── modules/               # Source translation modules
+    │       ├── battle.po
+    │       ├── fortune.po
+    │       └── ...
+    └── en-US/
+        ├── LC_MESSAGES/
+        │   ├── messages.po        # Merged English translations
+        │   └── messages.mo        # Compiled binary
+        └── modules/
+            ├── battle.po
+            └── ...
 ```
 
 #### 1.2 Create `src/i18n/__init__.py`
@@ -77,14 +86,15 @@ def _get_translation() -> Optional[gettext.GNUTranslations]:
     lang = str(language_manager)
     
     if lang not in _translations:
-        locale_dir = Path(__file__).parent / "locales"
+        # Point to static/locales
+        locale_dir = Path(__file__).resolve().parent.parent.parent / "static" / "locales"
         
-        # Map language codes to gettext locale names
+        # Map language codes to gettext locale names (now same as folder names)
         locale_map = {
-            "zh-CN": "zh_CN",
-            "en-US": "en_US",
+            "zh-CN": "zh-CN",
+            "en-US": "en-US",
         }
-        locale_name = locale_map.get(lang, "zh_CN")
+        locale_name = locale_map.get(lang, "zh-CN")
         
         try:
             trans = gettext.translation(
@@ -190,7 +200,7 @@ From `death_reason.py`:
 
 ---
 
-### Phase 3: Create .po Files
+### Phase 3: Create Modular .po Files
 
 #### 3.1 Message Key Convention
 
@@ -201,99 +211,49 @@ msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally w
 msgstr ""
 ```
 
-#### 3.2 Chinese Translation File
+#### 3.2 Chinese Translation Modules
 
+Create separate files in `static/locales/zh-CN/modules/`:
+
+**`battle.po`**:
 ```po
-# src/i18n/locales/zh_CN/LC_MESSAGES/messages.po
-
-# Header
+# static/locales/zh-CN/modules/battle.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh_CN\n"
 
-# Battle messages
 msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
 msgstr "{winner} 战胜了 {loser}，造成 {damage} 点伤害。{loser} 遭受重创，当场陨落。"
 
 msgid "{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also took {winner_dmg} damage."
 msgstr "{winner} 战胜了 {loser}，{loser} 受伤 {loser_dmg} 点，{winner} 也受伤 {winner_dmg} 点。"
-
-# Fortune messages
-msgid "Encountered fortune ({theme}), {result}"
-msgstr "遭遇奇遇（{theme}），{result}"
-
-msgid "Found weapon '{weapon}', {exchange_result}"
-msgstr "发现了兵器『{weapon}』，{exchange_result}"
-
-msgid "{name} obtained {amount} spirit stones"
-msgstr "{name} 获得灵石 {amount} 枚"
-
-msgid "{name} cultivation increased by {exp} points"
-msgstr "{name} 修为增长 {exp} 点"
-
-msgid "{apprentice} became disciple of {master}"
-msgstr "{apprentice} 拜 {master} 为师"
-
-# Misfortune messages
-msgid "Encountered misfortune ({theme}), {result}"
-msgstr "遭遇霉运（{theme}），{result}"
-
-msgid "{name} lost {amount} spirit stones"
-msgstr "{name} 损失灵石 {amount} 枚"
-
-msgid "{name} took {damage} damage, HP remaining {current}/{max}"
-msgstr "{name} 受到伤害 {damage} 点，剩余HP {current}/{max}"
-
-msgid "{name} cultivation regressed by {amount} points"
-msgstr "{name} 修为倒退 {amount} 点"
-
-# Death reasons
-msgid "Killed by {killer}"
-msgstr "被{killer}杀害"
-
-msgid "Died from severe injuries"
-msgstr "重伤不治身亡"
-
-msgid "Died of old age"
-msgstr "寿元耗尽而亡"
 ```
 
-#### 3.3 English Translation File
-
+**`fortune.po`**:
 ```po
-# src/i18n/locales/en_US/LC_MESSAGES/messages.po
-
-# Header
+# static/locales/zh-CN/modules/fortune.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: en_US\n"
 
-# Battle messages
-msgid "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
-msgstr "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally wounded and perished."
-
-# ... (msgid == msgstr for English)
+msgid "Encountered fortune ({theme}), {result}"
+msgstr "遭遇奇遇（{theme}），{result}"
+# ... other fortune messages
 ```
+
+#### 3.3 English Translation Modules
+
+Create similar files in `static/locales/en-US/modules/`.
 
 #### 3.4 Compile .po to .mo
 
+Use the build script to merge modules and compile:
+
 ```bash
-# Install gettext tools if needed (macOS)
-brew install gettext
-
-# Compile
-msgfmt src/i18n/locales/zh_CN/LC_MESSAGES/messages.po -o src/i18n/locales/zh_CN/LC_MESSAGES/messages.mo
-msgfmt src/i18n/locales/en_US/LC_MESSAGES/messages.po -o src/i18n/locales/en_US/LC_MESSAGES/messages.mo
+# Merges modules/*.po -> LC_MESSAGES/messages.po -> messages.mo
+python tools/i18n/build_mo.py
 ```
 
-Add to Makefile or script:
-```makefile
-compile-i18n:
-	msgfmt src/i18n/locales/zh_CN/LC_MESSAGES/messages.po -o src/i18n/locales/zh_CN/LC_MESSAGES/messages.mo
-	msgfmt src/i18n/locales/en_US/LC_MESSAGES/messages.po -o src/i18n/locales/en_US/LC_MESSAGES/messages.mo
-```
 
 ---
 
@@ -428,10 +388,10 @@ def load_save(path: str):
 | File | Description |
 |------|-------------|
 | `src/i18n/__init__.py` | Translation module with `t()` function |
-| `src/i18n/locales/zh_CN/LC_MESSAGES/messages.po` | Chinese translations |
-| `src/i18n/locales/zh_CN/LC_MESSAGES/messages.mo` | Compiled Chinese |
-| `src/i18n/locales/en_US/LC_MESSAGES/messages.po` | English translations |
-| `src/i18n/locales/en_US/LC_MESSAGES/messages.mo` | Compiled English |
+| `static/locales/zh-CN/LC_MESSAGES/messages.po` | Generated Chinese translations (Merged) |
+| `static/locales/zh-CN/LC_MESSAGES/messages.mo` | Compiled Chinese |
+| `static/locales/en-US/LC_MESSAGES/messages.po` | Generated English translations (Merged) |
+| `static/locales/en-US/LC_MESSAGES/messages.mo` | Compiled English |
 | `tests/test_i18n.py` | Unit tests |
 
 ### Modified Files

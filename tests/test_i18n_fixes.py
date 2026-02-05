@@ -66,7 +66,7 @@ def use_english_language():
     original_lang = str(language_manager)
     
     # Path to the PO file we updated
-    po_path = Path("src/i18n/locales/en_US/LC_MESSAGES/game_configs.po")
+    po_path = Path("static/locales/en-US/LC_MESSAGES/game_configs.po")
     mock_trans = MockTranslations(po_path)
     
     # Patch gettext.translation to return our mock

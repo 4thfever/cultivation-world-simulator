@@ -330,7 +330,7 @@ print(Auction.get_story_prompt())  # 输出英文提示词
 1. **新增 Gathering 类型时同步添加翻译**：
    - 如果添加新的 Gathering 实现（如"宗门大比"、"秘境开启"）
    - 遵循相同的模式：类变量 + classmethod
-   - 在 PO 文件添加对应翻译
+   - 在 `static/locales/{lang}/modules/gathering.po` 添加对应翻译
 
 2. **保持命名规范**：
    - LLM Prompt msgid 格式：`{gathering_type}_story_prompt`
@@ -398,7 +398,7 @@ class SectCompetition(Gathering):
     # ... 其他方法使用 t() 翻译所有文本
 ```
 
-然后在 PO 文件添加对应翻译即可。
+然后在 `static/locales/{lang}/modules/gathering.po` 添加对应翻译即可。
 
 ---
 

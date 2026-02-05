@@ -125,9 +125,11 @@ def start(self, target_name: str) -> Event:
 
 ## 添加翻译
 
-### 1. 在 po 文件中添加条目
+### 1. 在模块化 po 文件中添加条目
 
-**英文** (`src/i18n/locales/en_US/LC_MESSAGES/messages.po`)：
+请在 `static/locales/{lang}/modules/action.po` 文件中添加翻译，而不是直接修改 `messages.po`。
+
+**英文** (`static/locales/en-US/modules/action.po`)：
 ```po
 # Action: MyAction
 msgid "my_action_name"
@@ -140,7 +142,7 @@ msgid "{avatar} starts attacking {target}!"
 msgstr "{avatar} starts attacking {target}!"
 ```
 
-**中文** (`src/i18n/locales/zh_CN/LC_MESSAGES/messages.po`)：
+**中文** (`static/locales/zh-CN/modules/action.po`)：
 ```po
 # Action: MyAction
 msgid "my_action_name"
@@ -153,17 +155,14 @@ msgid "{avatar} starts attacking {target}!"
 msgstr "{avatar} 开始攻击 {target}！"
 ```
 
-### 2. 编译 po 文件
+### 2. 编译并合并
+
+运行项目根目录下的构建脚本，它会将模块文件合并并编译：
 
 ```bash
-# Windows (需要安装 gettext)
-msgfmt src/i18n/locales/zh_CN/LC_MESSAGES/messages.po -o src/i18n/locales/zh_CN/LC_MESSAGES/messages.mo
-msgfmt src/i18n/locales/en_US/LC_MESSAGES/messages.po -o src/i18n/locales/en_US/LC_MESSAGES/messages.mo
-
-# macOS/Linux
-msgfmt src/i18n/locales/zh_CN/LC_MESSAGES/messages.po -o src/i18n/locales/zh_CN/LC_MESSAGES/messages.mo
-msgfmt src/i18n/locales/en_US/LC_MESSAGES/messages.po -o src/i18n/locales/en_US/LC_MESSAGES/messages.mo
+python tools/i18n/build_mo.py
 ```
+
 
 ## 迁移现有 Action
 

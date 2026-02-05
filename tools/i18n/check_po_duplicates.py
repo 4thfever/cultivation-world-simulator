@@ -88,8 +88,8 @@ def main():
     project_root = script_dir.parent.parent
     
     # po 文件路径
-    zh_file = project_root / "src" / "i18n" / "locales" / "zh_CN" / "LC_MESSAGES" / "messages.po"
-    en_file = project_root / "src" / "i18n" / "locales" / "en_US" / "LC_MESSAGES" / "messages.po"
+    zh_file = project_root / "static" / "locales" / "zh-CN" / "LC_MESSAGES" / "messages.po"
+    en_file = project_root / "static" / "locales" / "en-US" / "LC_MESSAGES" / "messages.po"
     
     # 检查中文文件
     zh_count, zh_dups = check_file(zh_file, "中文 (zh_CN)")

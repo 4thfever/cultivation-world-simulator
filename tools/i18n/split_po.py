@@ -150,7 +150,7 @@ def split_po_file(po_path: Path):
         # print(f"    -> {out_path.name} ({len(entries)} entries)")
 
 def main():
-    root_dir = Path("src/i18n/locales")
+    root_dir = Path("static/locales")
     if not root_dir.exists():
         print(f"Directory not found: {root_dir}")
         return

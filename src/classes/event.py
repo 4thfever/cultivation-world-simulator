@@ -7,7 +7,7 @@ import uuid
 import time
 from datetime import datetime
 
-from src.classes.calendar import Month, Year, MonthStamp
+from src.classes.calendar import Month, Year, MonthStamp, get_date_str
 
 @dataclass
 class Event:
@@ -25,9 +25,7 @@ class Event:
     created_at: float = field(default_factory=time.time)
 
     def __str__(self) -> str:
-        year = self.month_stamp.get_year()
-        month = self.month_stamp.get_month()
-        return f"{year}年{month}月: {self.content}"
+        return f"{get_date_str(int(self.month_stamp))}: {self.content}"
     
     def to_dict(self) -> dict:
         """转换为可序列化的字典"""

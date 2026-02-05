@@ -105,7 +105,7 @@ class TestI18nZhTW(unittest.TestCase):
         """驗證 zh-TW locale 檔案存在"""
         from pathlib import Path
 
-        locale_dir = Path('src/i18n/locales/zh_TW/LC_MESSAGES')
+        locale_dir = Path('static/locales/zh-TW/LC_MESSAGES')
 
         # 檢查 .po 檔案
         messages_po = locale_dir / 'messages.po'
@@ -128,7 +128,7 @@ class TestI18nZhTW(unittest.TestCase):
         except ImportError:
             self.skipTest('polib 未安裝')
 
-        locale_dir = Path('src/i18n/locales/zh_TW/LC_MESSAGES')
+        locale_dir = Path('static/locales/zh-TW/LC_MESSAGES')
 
         # 檢查 messages.po
         messages_po = polib.pofile(str(locale_dir / 'messages.po'))
@@ -146,7 +146,7 @@ class TestI18nZhTW(unittest.TestCase):
         except ImportError:
             self.skipTest('polib 未安裝')
 
-        locale_dir = Path('src/i18n/locales/zh_TW/LC_MESSAGES')
+        locale_dir = Path('static/locales/zh-TW/LC_MESSAGES')
 
         # 檢查 messages.po
         messages_po = polib.pofile(str(locale_dir / 'messages.po'))

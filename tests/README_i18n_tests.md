@@ -1,467 +1,128 @@
-# i18n 国际化测试套件
+# i18n 测试说明
 
 ## 概述
 
-本测试套件用于确保项目的国际化(i18n)工作质量，包括翻译完整性、代码规范和翻译文件的一致性。
+针对 `src/classes/` 的本地化工作，本项目添加了以下测试逻辑来确保国际化的质量和完整性。
 
 ## 测试文件
 
-### 1. `test_i18n_duplicates.py` - PO 文件重复项检查
+### 1. ✅ `test_i18n_duplicates.py` - PO 文件重复项检查
 
-**独立测试**，不依赖 conftest.py，可直接运行。
+**状态**: 已创建并通过测试
 
-#### 测试内容
-- ✅ 检查中文 PO 文件没有重复的 msgid
-- ✅ 检查英文 PO 文件没有重复的 msgid  
-- ✅ 检查中英文 msgid 数量一致
-- ✅ 检查中英文 msgid 键完全匹配
+**功能**:
+- 检查中英文 PO 文件中是否有重复的 msgid
+- 检查中英文 msgid 数量是否一致
+- 检查中英文 msgid 键是否完全匹配
 
-#### 运行方式
+**特点**:
+- 独立运行，不依赖 conftest.py
+- 快速执行（< 5秒）
+- 适合 pre-commit hook
+
+**运行方式**:
 ```bash
 python tests/test_i18n_duplicates.py
 ```
 
-#### 输出示例
-```
-============================================================
-i18n PO 文件重复项检查
-============================================================
-
-检查中文 po 文件没有重复...
-[PASS] 中文 po 文件没有重复的 msgid (共 519 个)
-
-检查英文 po 文件没有重复...
-[PASS] 英文 po 文件没有重复的 msgid (共 519 个)
-
-检查中英文 msgid 数量一致...
-[PASS] 中英文 po 文件的 msgid 数量一致: 519 个
-
-检查中英文 msgid 键完全匹配...
-[PASS] 中英文 po 文件的 msgid 键完全匹配
-
-============================================================
-[OK] 所有测试通过 (4/4)
-```
-
 ---
 
-### 2. `test_i18n_po_quality.py` - PO 文件质量和代码检查
+### 2. ⚠️ `test_i18n_po_quality.py` - PO 文件质量和代码检查
 
-**独立测试**，专注于静态分析，不依赖项目导入。
+**状态**: 已创建，发现需要修复的问题
 
-#### 测试内容
-- 🔍 检查源代码中是否有硬编码的中文字符串（应使用 `t()` 函数）
-- 🔍 检查代码中使用的所有翻译键是否都在 PO 文件中定义
-- 🔍 检查格式化参数在 msgid 和 msgstr 中的一致性
+**功能**:
+- 🔍 检测硬编码的中文字符串（应使用 `t()` 函数）
+- 🔍 检测代码中使用但 PO 文件中未定义的翻译键
+- 🔍 检测格式化参数不一致问题
 
-#### 运行方式
+**特点**:
+- 使用 AST 解析器静态分析代码
+- 不依赖项目导入，避免循环依赖
+- 提供详细的问题定位信息
+
+**运行方式**:
 ```bash
 python tests/test_i18n_po_quality.py
 ```
 
-#### 检查项目详情
+**当前发现的问题**:
 
-##### 1. 硬编码中文字符串检查
-扫描 `src/` 目录下的所有 Python 文件，查找可能硬编码的中文字符串。
+#### 1. 硬编码中文字符串
+主要在以下文件:
+- `classes/appearance.py` - 外貌描述数据
+- `classes/alignment.py` - 枚举注释
+- `classes/animal.py` - 动物信息
 
-**规则：**
-- 跳过注释和文档字符串
-- 跳过测试文件
-- 检测字符串字面量中的中文字符
-- 如果不在 `t()` 调用中，可能需要修复
+**分析**:
+- 大部分是**数据文件**中的内容（如 appearance.py 中的外貌描述）
+- 一些是**枚举常量的注释**（可接受）
 
-**常见误报：**
-- 枚举值的注释（如 `RIGHTEOUS = "righteous"  # 正`）
-- 测试数据
-- 配置键名
+#### 2. 缺失的翻译键
+代码中使用但 PO 文件中未定义，需要在两个 PO 文件中添加这些 msgid 及其翻译。
 
-##### 2. 翻译键定义检查
-使用 AST 解析器提取代码中所有 `t()` 函数调用，并与 PO 文件中定义的 msgid 对比。
+---
 
-**检查逻辑：**
-```python
-# 代码中使用
-result = t("{name} obtained {amount} spirit stones", name="张三", amount=100)
+### 3. 📝 `test_i18n_classes_coverage.py` - Classes 模块深度测试
 
-# 必须在 messages.po 中有定义
-msgid "{name} obtained {amount} spirit stones"
-msgstr "{name} 获得灵石 {amount} 枚"
-```
+**状态**: (已移除，原版本依赖过时 API)
 
-**如果发现缺失：**
-需要在两个 PO 文件中都添加这个翻译键。
+建议使用 `test_i18n_po_quality.py` 进行静态分析。
 
-##### 3. 格式化参数一致性检查
-确保翻译文本中的占位符参数与原始 msgid 一致。
+---
 
-**示例：**
-```
-✅ 正确：
-msgid "{name} lost {amount} spirit stones"
-msgstr "{name} 损失灵石 {amount} 枚"  (参数: name, amount)
+### 4. 🌍 `test_csv_i18n.py` - CSV 配置国际化测试
 
-❌ 错误：
-msgid "{name} lost {amount} spirit stones"
-msgstr "{user} 损失灵石 {count} 枚"    (参数: user, count) - 不匹配！
-```
+**状态**: 已创建并通过测试
 
-#### 输出示例
-```
-============================================================
-PO 文件质量和翻译键使用检查
-============================================================
+**功能**:
+- 测试 CSV 配置的单源加载机制（Single Source of Truth）
+- 验证 `load_game_configs` 时自动注入翻译
+- 测试中英文切换时配置值的正确变化
+- 验证随机姓名生成器的国际化支持
 
-============================================================
-测试: 检查硬编码中文字符串
-============================================================
+**特点**:
+- 包含 Mock 单元测试（无需真实文件）
+- 包含集成测试（使用真实 `static/game_configs`）
+- 覆盖了重构后的配置加载核心逻辑
 
-警告：发现可能的硬编码中文字符串（应使用 t() 函数）:
-============================================================
-  classes\appearance.py:35
-    (1, "俊朗", "你长得很成熟，举止协调，给人从容踏实感。", ...)
-  ... 还有 448 个
-
-注意：这可能包括误报，请手动检查
-
-============================================================
-测试: 检查翻译键定义
-============================================================
-
-PO 文件中定义了 519 个 msgid
-代码中使用了 239 个唯一的 msgid
-
-✓ 所有使用的 msgid 都已在 PO 文件中定义
-
-============================================================
-测试: 检查格式化参数一致性
-============================================================
-
-检查 519 个翻译条目的格式化参数一致性...
-✓ 所有翻译的格式化参数都一致
-
-============================================================
-测试完成
-============================================================
+**运行方式**:
+```bash
+python -m pytest tests/test_csv_i18n.py
 ```
 
 ---
 
-### 3. `test_i18n_classes_coverage.py` - Classes 模块国际化覆盖率
+## 推荐的工作流程
 
-**需要完整项目环境**，用于深度测试 classes 模块的国际化集成。
-
-#### 测试内容
-- 🧪 测试各种枚举类型的翻译（境界、性别、阵营等）
-- 🧪 测试动作名称的翻译
-- 🧪 测试效果名称的翻译
-- 🧪 测试带参数的翻译
-- 🧪 测试中英文切换
-
-#### 运行方式
-```bash
-python -m pytest tests/test_i18n_classes_coverage.py -v
-```
-
-**注意：** 此测试依赖项目完整环境，如果有导入错误请先修复项目依赖。
-
----
-
-### 4. `test_i18n_dynamic.py` - 动态文本翻译测试
-
-**标准 pytest 测试**，测试 i18n 模块的基本功能。
-
-#### 测试内容
-- ✅ PO 文件语法和完整性
-- ✅ 中英文基本翻译功能
-- ✅ 战斗消息翻译
-- ✅ 奇遇消息翻译
-- ✅ 死亡原因翻译
-- ✅ 语言切换功能
-
-#### 运行方式
-```bash
-python -m pytest tests/test_i18n_dynamic.py -v
-```
-
----
-
-## 快速检查清单
-
-### 添加新功能时
-
-1. **编写代码时：**
-   - ✅ 所有用户可见的文本都使用 `t()` 函数
-   - ✅ 不要硬编码中文或英文字符串
-   - ✅ 使用有意义的 msgid（通常是英文描述）
-
-2. **添加翻译：**
-   ```python
-   # 代码中
-   message = t("{name} obtained {amount} spirit stones", name=avatar.name, amount=100)
-   ```
-   
-   ```po
-   # messages.po 中（两个语言文件都要加）
-   msgid "{name} obtained {amount} spirit stones"
-   msgstr "{name} 获得灵石 {amount} 枚"  # zh_CN
-   msgstr "{name} obtained {amount} spirit stones"  # en_US
-   ```
-
-3. **运行测试：**
-   ```bash
-   # 快速检查
-   python tests/test_i18n_duplicates.py
-   python tests/test_i18n_po_quality.py
-   
-   # 完整测试
-   python -m pytest tests/test_i18n_*.py -v
-   ```
-
-### 修复常见问题
-
-#### 问题 1: 发现重复的 msgid
-```bash
-# 运行重复检查
-python tests/test_i18n_duplicates.py
-
-# 输出会显示重复的行号
-[FAIL] 中文 po 文件中发现 2 个重复的 msgid:
-  - 'Encountered fortune ({theme}), {result}' 出现了 2 次
-```
-
-**解决方法：** 手动编辑 PO 文件，删除重复的条目
-
-#### 问题 2: 代码中使用但未定义的 msgid
-```bash
-python tests/test_i18n_po_quality.py
-
-# 输出
-错误：发现 9 个未在 PO 文件中定义的 msgid:
-  - 'Unsupported item type: {item_type}'
-  - '{avatar} gained cultivation experience +{exp} points'
-```
-
-**解决方法：** 在两个 PO 文件中添加这些 msgid 及其翻译
-
-#### 问题 3: 格式化参数不一致
-```bash
-# 输出
-警告：发现 3 个格式化参数不一致的条目:
-
-msgid: {name} lost {amount} spirit stones
-  原始参数: {'name', 'amount'}
-  中文参数: {'user', 'count'}  # 错误！
-  英文参数: {'name', 'amount'}
-```
-
-**解决方法：** 修改中文翻译，使用相同的参数名
-
----
-
-## CI/CD 集成
-
-### GitHub Actions 示例
-
-```yaml
-name: i18n Tests
-
-on: [push, pull_request]
-
-jobs:
-  i18n-check:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
-      
-      - name: Check PO duplicates
-        run: python tests/test_i18n_duplicates.py
-      
-      - name: Check PO quality
-        run: python tests/test_i18n_po_quality.py
-      
-      - name: Run i18n tests
-        run: |
-          pip install pytest
-          pytest tests/test_i18n_*.py -v
-```
-
----
-
-## 相关工具
-
-### `tools/i18n/check_po_duplicates.py`
-
-独立的检查工具，提供更详细的输出。
+### 日常开发
 
 ```bash
-python tools/i18n/check_po_duplicates.py
-```
+# 1. 编写代码，使用 t() 函数
+code = t("{name} obtained {amount} spirit stones", name=name, amount=100)
 
-**功能：**
-- 检查重复 msgid
-- 检查数量一致性
-- 检查键匹配
-- 返回适合 CI 的退出码
-
----
-
-## 最佳实践
-
-### DO ✅
-
-1. **使用 t() 函数包裹所有用户可见文本**
-   ```python
-   # 好
-   message = t("{name} obtained {amount} spirit stones", name=name, amount=100)
-   
-   # 不好
-   message = f"{name} 获得灵石 {amount} 枚"
-   ```
-
-2. **使用描述性的 msgid**
-   ```python
-   # 好 - 清晰描述
-   t("cultivate_action_name")
-   t("{name} cultivation increased by {exp} points", ...)
-   
-   # 不好 - 含义不明
-   t("msg1")
-   t("text_001")
-   ```
-
-3. **保持参数名一致**
-   ```python
-   # 好 - 统一使用 name
-   t("{name} defeated {loser}", name=winner, loser=loser)
-   
-   # 不好 - 混用
-   t("{name} defeated {loser}", user=winner, target=loser)
-   ```
-
-### DON'T ❌
-
-1. **不要硬编码文本**
-   ```python
-   # 错误
-   return "修炼"
-   
-   # 正确
-   return t("cultivate_action_name")
-   ```
-
-2. **不要在 PO 文件中使用不同的参数名**
-   ```po
-   # 错误
-   msgid "{name} lost {amount} spirit stones"
-   msgstr "{user} 损失灵石 {count} 枚"
-   
-   # 正确
-   msgid "{name} lost {amount} spirit stones"
-   msgstr "{name} 损失灵石 {amount} 枚"
-   ```
-
-3. **不要忘记更新两个语言文件**
-   - 添加 msgid 时，zh_CN 和 en_US 都要更新
-   - 保持两个文件的 msgid 完全一致
-
----
-
-## 维护指南
-
-### 定期检查
-
-建议每次提交前运行：
-
-```bash
-# 快速检查（< 10秒）
+# 2. 运行快速检查（提交前）
 python tests/test_i18n_duplicates.py
 python tests/test_i18n_po_quality.py
 
-# 如果有变更，运行完整测试
+# 3. 如果发现缺失的翻译，添加到 PO 文件
+
+# 4. 重新运行测试确认
+python tests/test_i18n_duplicates.py
+```
+
+### 大规模修改后
+
+```bash
+# 运行完整测试套件
 python -m pytest tests/test_i18n_*.py -v
 ```
 
-### 修复工作流
-
-1. 发现问题 → 运行测试获取详细信息
-2. 根据测试输出定位问题
-3. 修复代码或 PO 文件
-4. 重新运行测试确认
-5. 提交更改
-
 ---
 
-## 技术细节
+## 相关文件
 
-### 工具和技术栈
-
-- **PO 文件解析**: 正则表达式 `msgid\s+"([^"]*)"`
-- **代码分析**: Python AST (抽象语法树)
-- **中文检测**: Unicode 范围 `\u4e00-\u9fff`
-- **翻译系统**: Python gettext
-
-### 文件结构
-
-```
-src/
-├── i18n/
-│   ├── __init__.py           # t() 函数定义
-│   └── locales/
-│       ├── zh_CN/LC_MESSAGES/
-│       │   ├── messages.po   # 中文翻译
-│       │   └── messages.mo   # 编译后的翻译
-│       └── en_US/LC_MESSAGES/
-│           ├── messages.po   # 英文翻译
-│           └── messages.mo   # 编译后的翻译
-│
-tests/
-├── test_i18n_duplicates.py          # 重复项检查
-├── test_i18n_po_quality.py          # 质量检查
-├── test_i18n_classes_coverage.py    # 覆盖率测试
-└── test_i18n_dynamic.py              # 功能测试
-
-tools/
-└── i18n/
-    └── check_po_duplicates.py       # 独立检查工具
-```
-
----
-
-## 常见问题
-
-### Q: 测试报告硬编码中文，但那是注释怎么办？
-A: 注释中的中文是允许的，测试会跳过。如果误报，可以忽略。
-
-### Q: 如何批量添加缺失的翻译？
-A: 
-1. 运行 `python tests/test_i18n_po_quality.py` 获取缺失列表
-2. 在两个 PO 文件末尾添加
-3. 重新运行测试确认
-
-### Q: PO 文件太大，如何组织？
-A: 考虑按模块添加注释分隔：
-```po
-# ============================================================================
-# Avatar System
-# ============================================================================
-
-msgid "Name"
-msgstr "名字"
-```
-
-### Q: 如何在代码中动态生成 msgid？
-A: 不推荐。msgid 应该是静态的字符串字面量，便于提取和管理。
-
----
-
-## 更多资源
-
-- [Python gettext 文档](https://docs.python.org/3/library/gettext.html)
-- [GNU gettext 手册](https://www.gnu.org/software/gettext/manual/)
-- [项目 i18n 使用指南](../docs/i18n-action-usage.md)
+- ✅ `tests/test_i18n_duplicates.py` - 重复项检查
+- ✅ `tests/test_i18n_po_quality.py` - 质量检查
+- ✅ `tests/README_i18n_tests.md` - 本文档
+- ✅ `tools/i18n/check_po_duplicates.py` - 独立工具

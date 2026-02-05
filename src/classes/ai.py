@@ -11,7 +11,7 @@ from src.classes.world import World
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import call_llm_with_task_name
 from src.classes.typings import ACTION_NAME_PARAMS_PAIRS
-from src.classes.actions import ACTION_INFOS_STR
+from src.classes.actions import get_action_infos_str
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -51,7 +51,7 @@ class LLMAI(AI):
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
-        general_action_infos = ACTION_INFOS_STR
+        general_action_infos = get_action_infos_str()
         
         async def decide_one(avatar: Avatar):
             # 获取基于该角色已知区域的世界信息（包含距离计算）

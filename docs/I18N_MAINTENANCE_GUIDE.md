@@ -14,32 +14,44 @@
 
 ---
 
-## 2. 正确的增补方式
+## 2. 正确的增补方式 (Source Split, Build Merge)
 
-### 方法 A：直接使用 IDE 编辑 (推荐)
-最安全、最简单的方法。直接在 Cursor / VSCode 中打开 `src/i18n/locales/xx_XX/LC_MESSAGES/messages.po`，在文件末尾手动粘贴或输入新的翻译条目。
+项目现已采用 **"Source Split, Build Merge"** 策略，将庞大的 `messages.po` 拆分为多个模块文件。
 
-### 方法 B：使用 Python 脚本追加
-如果必须通过脚本自动化，请务必使用 Python 并显式指定 UTF-8 编码。
+**请勿直接修改 `LC_MESSAGES/messages.po`！该文件现由构建脚本自动生成。**
 
-```python
-# correct_append.py
-content = """
-msgid "new_key"
-msgstr "Translation"
-"""
+### 方法 A：修改模块文件 (推荐)
 
-with open("path/to/messages.po", "a", encoding="utf-8") as f:
-    f.write(content)
-```
+所有源文件位于 `static/locales/{lang}/modules/` 目录下。请根据内容分类修改对应的 `.po` 文件：
 
-### 方法 C：Linux/Bash 环境
-在 Git Bash 或 WSL 中使用 `cat >>` 是安全的，因为它们默认处理 UTF-8 流。
+*   `static/locales/zh-CN/modules/battle.po` - 战斗相关
+*   `static/locales/zh-CN/modules/action.po` - 动作相关
+*   `static/locales/zh-CN/modules/fortune.po` - 奇遇相关
+*   `static/locales/zh-CN/modules/ui.po` - 界面相关
+*   ... (以及其他分类)
+
+直接使用编辑器打开相应的模块文件进行修改或追加。
+
+### 方法 B：构建与合并
+
+修改完成后，必须运行构建脚本将模块合并并编译为 MO 文件：
 
 ```bash
-# Git Bash / WSL only
-cat temp.po >> messages.po
+# 在项目根目录下运行
+python tools/i18n/build_mo.py
 ```
+
+该脚本会：
+1.  合并 `modules/*.po` 到 `LC_MESSAGES/messages.po`
+2.  编译生成 `LC_MESSAGES/messages.mo`
+3.  编译其他独立文件 (如 `game_configs.po`)
+
+### 方法 C：添加新模块
+
+如果需要添加新的分类：
+1.  在 `static/locales/{lang}/modules/` 下新建 `{category}.po`。
+2.  确保包含标准 Header (参考其他模块)。
+3.  运行 `build_mo.py` 即可自动识别并合并。
 
 ---
 

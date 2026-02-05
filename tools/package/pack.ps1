@@ -83,7 +83,6 @@ $AdditionalHooksPath = $ScriptDir
 
 # Source path
 $SrcPath = Join-Path $RepoRoot "src"
-$I18nLocalesPath = Join-Path $SrcPath "i18n\locales"
 
 # Assemble PyInstaller arguments
 $argsList = @(
@@ -102,7 +101,6 @@ $argsList = @(
     
     # Data Files
     "--add-data", "${AssetsPath};assets",       # Game Assets (Images) -> _internal/assets
-    "--add-data", "${I18nLocalesPath};src/i18n/locales", # i18n Locales -> _internal/src/i18n/locales
     # REMOVED: "--add-data", "${WebDistDir};web_dist",  (We will copy this manually to outside)
     "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
     

@@ -9,8 +9,8 @@ def test_i18n_modules_structure():
     Test that the i18n modules structure is correct.
     """
     locale_dir = _get_locale_dir()
-    # Directory names use underscores (zh_CN), not hyphens (zh-CN)
-    languages = ["zh_CN", "en_US", "zh_TW"]
+    # Directory names now use hyphens (zh-CN) to match static assets convention
+    languages = ["zh-CN", "en-US", "zh-TW"]
     
     for lang in languages:
         lang_dir = locale_dir / lang
@@ -34,7 +34,7 @@ def test_merged_messages_po_integrity():
     Test that the merged messages.po file in LC_MESSAGES exists and contains entries from modules.
     """
     locale_dir = _get_locale_dir()
-    lang = "zh_CN" # Test with one language (underscore)
+    lang = "zh-CN" # Test with one language (hyphen)
     
     lc_messages_dir = locale_dir / lang / "LC_MESSAGES"
     messages_po_path = lc_messages_dir / "messages.po"

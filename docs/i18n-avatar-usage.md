@@ -392,7 +392,7 @@ print(info[t("Name")])  # 输出键名为英文的字典
 1. **新增字段时同步添加翻译**：
    - 在 `info_presenter.py` 添加新字段时
    - 使用 `t("New Field Label")` 作为键名
-   - 在 PO 文件添加对应翻译
+   - 在 `static/locales/{lang}/modules/avatar.po` (或 `ui.po`) 添加对应翻译
 
 2. **保持命名规范**：
    - 字段名使用英文，首字母大写（如 `"Spirit Root"`）
