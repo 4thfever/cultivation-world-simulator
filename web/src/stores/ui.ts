@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 import { avatarApi } from '../api';
 import type { AvatarDetail, RegionDetail, SectDetail } from '../types/core';
 
@@ -16,7 +16,8 @@ export const useUiStore = defineStore('ui', () => {
   const selectedTarget = ref<Selection | null>(null);
   
   // 详情数据 (可能为空，或正在加载)
-  const detailData = ref<AvatarDetail | RegionDetail | SectDetail | null>(null);
+  // 使用 shallowRef 避免深层响应式转换带来的性能开销 (对于大型嵌套对象，如 AvatarDetail)
+  const detailData = shallowRef<AvatarDetail | RegionDetail | SectDetail | null>(null);
   const isLoadingDetail = ref(false);
   const detailError = ref<string | null>(null);
 
