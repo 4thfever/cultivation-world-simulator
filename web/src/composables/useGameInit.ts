@@ -40,12 +40,12 @@ export function useGameInit(options: UseGameInitOptions = {}) {
     // 初始化世界状态
     await worldStore.initialize()
     
-    systemStore.setInitialized(true)
-    console.log('[GameInit] Game initialized.')
-
     // 重新加载纹理以确保新生成的角色头像被加载
     console.log('[GameInit] Reloading textures for new avatars...')
     await loadBaseTextures()
+    
+    systemStore.setInitialized(true)
+    console.log('[GameInit] Game initialized.')
   }
 
   async function pollInitStatus() {
