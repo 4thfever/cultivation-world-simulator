@@ -75,11 +75,8 @@ def test_couple_birth_logic(base_world, dummy_avatar):
     assert str(mother.id) in child.parents
     
     # 验证事件
-    birth_events = [e for e in events if "gave birth to a" in str(e)] # 这里用英文key匹配，因为测试环境可能没载入中文
-    # 或者用 "诞下" 如果是中文环境
-    # 由于测试环境 force_chinese_language fixture，应该是中文
-    # 但我们代码里用的 t() key 是英文，如果没有对应的 po 文件，就会显示英文 Key
-    # 只要验证有事件生成即可
+    # 兼容中英文环境
+    birth_events = [e for e in events if "gave birth to a" in str(e) or "诞下" in str(e)]
     assert len(birth_events) > 0
     
     # 6. 验证上限 (再次运行不应新增，因为 max_children_per_couple = 1)
