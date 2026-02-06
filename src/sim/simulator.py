@@ -479,6 +479,14 @@ class Simulator:
 
         # 15. (每年1月) 更新计算关系 (二阶关系)
         self._phase_update_calculated_relations()
+        
+        # 15.5 (每年1月) 清理由于时间久远而被遗忘的死者
+        if self.world.month_stamp.get_month() == Month.JANUARY:
+            # 20年写死或者做成 CONFIG.game.dead_cleanup_years
+            cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(self.world.month_stamp, 20)
+            if cleaned_count > 0:
+                # 记录日志，但不产生游戏内事件
+                get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
         # 16. 归档与时间推进
         return self._finalize_step(events)

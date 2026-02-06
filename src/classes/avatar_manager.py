@@ -97,6 +97,38 @@ class AvatarManager:
         """辅助方法：遍历所有角色（活人+死者）"""
         return itertools.chain(self.avatars.values(), self.dead_avatars.values())
 
+    def cleanup_long_dead_avatars(self, current_time: "MonthStamp", threshold_years: int = 20) -> int:
+        """
+        清理长期已故的角色。
+        
+        Args:
+            current_time: 当前时间戳
+            threshold_years: 死亡超过多少年则清理 (默认20年)
+            
+        Returns:
+            清理的角色数量
+        """
+        if not self.dead_avatars:
+            return 0
+            
+        to_remove = []
+        for aid, avatar in self.dead_avatars.items():
+            if avatar.death_info:
+                death_time = avatar.death_info.get("time") # int 类型的时间戳
+                if death_time is not None:
+                    # 计算时间差 (MonthStamp 本质是 int, 表示总月数)
+                    elapsed_months = int(current_time) - death_time
+                    elapsed_years = elapsed_months // 12
+                    
+                    if elapsed_years >= threshold_years:
+                        to_remove.append(aid)
+        
+        # 批量删除
+        if to_remove:
+            self.remove_avatars(to_remove)
+            
+        return len(to_remove)
+
     def remove_avatar(self, avatar_id: str) -> None:
         """
         从管理器中彻底删除一个 avatar（无论是死是活），并清理所有与其相关的双向关系。

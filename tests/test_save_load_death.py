@@ -5,7 +5,7 @@ from src.sim.save.save_game import save_game
 from src.sim.load.load_game import load_game
 from src.classes.avatar import Avatar
 from src.classes.death_reason import DeathReason, DeathType
-from src.classes.calendar import MonthStamp
+from src.classes.calendar import MonthStamp, Month, Year, create_month_stamp
 
 def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
     """
@@ -13,41 +13,29 @@ def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
     而不是复活出现在活人列表中。
     """
     # 1. 准备环境
-    # 移除 mock 武器以支持 JSON 序列化
     dummy_avatar.weapon = None
-    
-    # 将角色注册到 avatar_manager (dummy_avatar 默认未注册)
     base_world.avatar_manager.register_avatar(dummy_avatar)
     
-    # 确认角色是活的
     assert dummy_avatar.id in base_world.avatar_manager.avatars
     assert dummy_avatar.id not in base_world.avatar_manager.dead_avatars
     assert not dummy_avatar.is_dead
     
     # 2. 杀死角色
-    # 使用 set_dead 标记死亡
     death_time = base_world.month_stamp
     dummy_avatar.set_dead("Test Death", death_time)
-    
-    # 使用 handle_death 将其移动到 dead_avatars
     base_world.avatar_manager.handle_death(dummy_avatar.id)
     
-    # 验证死亡状态
     assert dummy_avatar.is_dead
     assert dummy_avatar.id not in base_world.avatar_manager.avatars
     assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
     
     # 3. 保存游戏
-    # 构造一个模拟器对象 (save_game 需要)
     from src.sim.simulator import Simulator
     simulator = Simulator(base_world)
     
-    # 保存
     success, save_filename = save_game(base_world, simulator, existed_sects=[])
     assert success
-    assert save_filename is not None
     
-    # 获取存档完整路径
     from src.utils.config import CONFIG
     save_path = CONFIG.paths.saves / save_filename
     
@@ -59,11 +47,38 @@ def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
     assert loaded_avatar is not None
     assert loaded_avatar.is_dead
     
-    # 关键验证：死者不应该在活人列表中
-    # 在 Bug 修复前，这里预期会失败，因为所有角色都被放进了 avatars
     assert loaded_avatar.id not in loaded_world.avatar_manager.avatars, "死者不应出现在活人列表 avatars 中"
     assert loaded_avatar.id in loaded_world.avatar_manager.dead_avatars, "死者应该出现在死者列表 dead_avatars 中"
     
-    # 验证 get_living_avatars 不包含该角色
     living_ids = [a.id for a in loaded_world.avatar_manager.get_living_avatars()]
     assert loaded_avatar.id not in living_ids, "死者不应被 get_living_avatars() 返回"
+
+def test_cleanup_long_dead_avatars(base_world, dummy_avatar):
+    """
+    测试清理死亡超过20年的角色逻辑
+    """
+    # 1. 准备环境
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    
+    # 2. 模拟角色死亡（死亡时间为 Year 1, Month 1）
+    death_time = create_month_stamp(Year(1), Month.JANUARY)
+    dummy_avatar.set_dead("Old Age", death_time)
+    base_world.avatar_manager.handle_death(dummy_avatar.id)
+    
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    
+    # 3. 未满20年，不应清理
+    # Year 20, Month 1 (经过19年)
+    current_time_19y = create_month_stamp(Year(20), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_19y, threshold_years=20)
+    assert cleaned_count == 0
+    assert dummy_avatar.id in base_world.avatar_manager.dead_avatars
+    
+    # 4. 满20年，应清理
+    # Year 21, Month 1 (经过20年)
+    current_time_20y = create_month_stamp(Year(21), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_20y, threshold_years=20)
+    
+    assert cleaned_count == 1
+    assert dummy_avatar.id not in base_world.avatar_manager.dead_avatars
+    assert base_world.avatar_manager.get_avatar(dummy_avatar.id) is None
