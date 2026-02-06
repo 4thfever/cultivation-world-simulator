@@ -330,6 +330,9 @@
         },
         "weapon_meta": "Proficiency {value}",
         "relation_meta": "{relation} of {owner}",
+        "father_short": "Father",
+        "mother_short": "Mother",
+        "mortal_realm": "Mortal",
         "modals": {
           "set_long_term": "Set Long-term Objective",
           "placeholder": "Enter objective...",

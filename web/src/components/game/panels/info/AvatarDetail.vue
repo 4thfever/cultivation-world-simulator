@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import type { AvatarDetail, EffectEntity } from '@/types/core';
 import { formatHp } from '@/utils/formatters/number';
 import StatItem from './components/StatItem.vue';
@@ -20,6 +20,62 @@ const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
 const showObjectiveModal = ref(false);
 const objectiveContent = ref('');
+
+// --- Computeds ---
+
+const groupedRelations = computed(() => {
+  const rels = props.data.relations || [];
+  
+  // 1. 父母 (Parents) - 对应 relation_type === 'child' (我是子)
+  const existingParents = rels.filter(r => r.relation_type === 'child');
+  const displayParents = [...existingParents];
+  
+  // 补全凡人父母占位符
+  // Check genders of existing parents
+  const hasFather = existingParents.some(p => p.target_gender === 'male');
+  const hasMother = existingParents.some(p => p.target_gender === 'female');
+  
+  // 如果现有的不足2个，尝试补全
+  if (existingParents.length < 2) {
+    if (!hasFather) {
+      displayParents.unshift({ // Father usually first
+        target_id: `mortal_father_placeholder`,
+        name: '', 
+        relation: '', 
+        relation_type: 'child',
+        realm: '',
+        sect: '',
+        is_mortal: true, 
+        label_key: 'father_short'
+      } as any);
+    }
+    
+    if (!hasMother) {
+      displayParents.push({
+        target_id: `mortal_mother_placeholder`,
+        name: '', 
+        relation: '', 
+        relation_type: 'child',
+        realm: '',
+        sect: '',
+        is_mortal: true, 
+        label_key: 'mother_short'
+      } as any);
+    }
+  }
+  
+  // 2. 子女 (Children) - 对应 relation_type === 'parent' (我是父)
+  const children = rels.filter(r => r.relation_type === 'parent');
+  
+  // 3. 其他 (Others)
+  const others = rels.filter(r => r.relation_type !== 'parent' && r.relation_type !== 'child');
+
+  return {
+    parents: displayParents,
+    children: children,
+    others: others
+  };
+});
 
 // --- Actions ---
 
@@ -183,19 +239,67 @@ async function handleClearObjective() {
         </div>
       </div>
 
-      <!-- Relations -->
-      <div class="section" v-if="data.relations?.length">
+      <!-- Relations (Refactored) -->
+      <div class="section" v-if="data.relations?.length || groupedRelations.parents.length">
         <div class="section-title">{{ t('game.info_panel.avatar.sections.relations') }}</div>
+        
         <div class="list-container">
-          <RelationRow 
-            v-for="rel in data.relations"
-            :key="rel.target_id"
-            :name="rel.name"
-            :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
-            :sub="`${rel.sect} · ${rel.realm}`"
-            :type="rel.relation_type"
-            @click="jumpToAvatar(rel.target_id)"
-          />
+          <!-- Parents Group -->
+          <template v-if="groupedRelations.parents.length">
+            <!-- Title Removed as requested -->
+            <template v-for="rel in groupedRelations.parents" :key="rel.target_id">
+              <!-- Mortal Parent / Placeholder -->
+              <div v-if="rel.is_mortal" class="mortal-row">
+                <span class="label">{{ t(`game.info_panel.avatar.${rel.label_key}`) }}</span>
+                <span class="value">{{ t('game.info_panel.avatar.mortal_realm') }}</span>
+              </div>
+              <!-- Cultivator Parent -->
+              <RelationRow 
+                v-else
+                :relation="rel" 
+                :name="rel.name"
+                :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+                :sub="`${rel.sect} · ${rel.realm}`"
+                :type="rel.relation_type"
+                @click="jumpToAvatar(rel.target_id)"
+              />
+            </template>
+          </template>
+
+          <!-- Children Group -->
+          <template v-if="groupedRelations.children.length">
+            <template v-for="rel in groupedRelations.children" :key="rel.target_id">
+              <!-- Mortal Child -->
+              <div v-if="rel.is_mortal" class="mortal-row">
+                <span class="label">{{ rel.name }} ({{ rel.relation }})</span>
+                <span class="value">{{ t('game.info_panel.avatar.mortal_realm') }}</span>
+              </div>
+              <!-- Cultivator Child -->
+              <RelationRow 
+                v-else
+                :relation="rel"
+                :name="rel.name"
+                :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+                :sub="`${rel.sect} · ${rel.realm}`"
+                :type="rel.relation_type" 
+                @click="jumpToAvatar(rel.target_id)"
+              />
+            </template>
+          </template>
+
+          <!-- Others Group -->
+          <template v-if="groupedRelations.others.length">
+            <RelationRow 
+              v-for="rel in groupedRelations.others"
+              :key="rel.target_id"
+              :relation="rel"
+              :name="rel.name"
+              :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+              :sub="`${rel.sect} · ${rel.realm}`"
+              :type="rel.relation_type"
+              @click="jumpToAvatar(rel.target_id)"
+            />
+          </template>
         </div>
       </div>
 
@@ -339,6 +443,36 @@ async function handleClearObjective() {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+/* Relation specific styles */
+.relation-group-label {
+  font-size: 11px;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  padding-left: 4px;
+}
+
+.mortal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0.6;
+  cursor: default;
+}
+
+.mortal-row .label {
+  color: #aaa;
+}
+
+.mortal-row .value {
+  color: #666;
+  font-size: 11px;
 }
 
 /* Buttons */

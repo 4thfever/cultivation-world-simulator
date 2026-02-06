@@ -330,6 +330,9 @@
         },
         "weapon_meta": "熟練度 {value}",
         "relation_meta": "{owner}的{relation}",
+        "father_short": "父",
+        "mother_short": "母",
+        "mortal_realm": "凡人",
         "modals": {
           "set_long_term": "設定長期目標",
           "placeholder": "請輸入目標...",

@@ -195,15 +195,43 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     
     # 6. 关系 (Relations)
     relations_list = []
+    
+    # 6.1 添加现有的修仙者关系
+    existing_ids = set()
     for other, relation in avatar.relations.items():
+        existing_ids.add(other.id)
         relations_list.append({
             "target_id": other.id,
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
             "relation_type": relation.value,
             "realm": other.cultivation_progress.get_info(),
-            "sect": other.sect.name if other.sect else t("Rogue Cultivator")
+            "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
+            "is_mortal": False,
+            "target_gender": other.gender.value
         })
+    
+    # 6.2 [新增] 添加凡人子女
+    from src.classes.relation.relation import Relation, GENDERED_DISPLAY
+    for child in avatar.children:
+        if child.id not in existing_ids:
+            # 凡人子女: Owner is Parent -> relation should be Relation.PARENT
+            # Label should be Son/Daughter
+            gender_val = child.gender.value
+            # 查找对应的翻译 key (Relation.PARENT, "male") -> "relation_son"
+            label_key = GENDERED_DISPLAY.get((Relation.PARENT, gender_val), "child")
+            
+            relations_list.append({
+                "target_id": child.id,
+                "name": child.name,
+                "relation": t(label_key), 
+                "relation_type": Relation.PARENT.value, # 这里的类型应该是 PARENT (Owner is Parent)
+                "realm": t("Mortal"),
+                "sect": t("None"),
+                "is_mortal": True,
+                "target_gender": gender_val
+            })
+
     info["relations"] = relations_list
     
     # 7. 外貌

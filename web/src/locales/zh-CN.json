@@ -333,6 +333,9 @@
         },
         "weapon_meta": "熟练度 {value}",
         "relation_meta": "{owner}的{relation}",
+        "father_short": "父",
+        "mother_short": "母",
+        "mortal_realm": "凡人",
         "modals": {
           "set_long_term": "设定长期目标",
           "placeholder": "请输入目标...",

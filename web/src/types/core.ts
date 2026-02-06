@@ -138,6 +138,8 @@ export interface RelationInfo {
   relation_type: string;
   realm: string;
   sect: string;
+  is_mortal?: boolean;
+  target_gender?: string;
 }
 
 // --- 地图与区域 (Map & Region) ---
