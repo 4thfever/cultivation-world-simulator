@@ -917,6 +917,15 @@ msgstr ""
 msgid "defeated"
 msgstr "defeated"
 
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} and {p2} gave birth to a {gender} named {child}."
+
+msgid "son"
+msgstr "son"
+
+msgid "daughter"
+msgstr "daughter"
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "Conditional effect"

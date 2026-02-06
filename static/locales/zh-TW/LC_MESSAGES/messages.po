@@ -752,6 +752,15 @@ msgstr ""
 msgid "defeated"
 msgstr "戰勝了"
 
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} 與 {p2} 誕下一{gender}，取名為 {child}。"
+
+msgid "son"
+msgstr "子"
+
+msgid "daughter"
+msgstr "女"
+
 # ============================================================================
 # Cultivation 系統 - 境界
 # ============================================================================

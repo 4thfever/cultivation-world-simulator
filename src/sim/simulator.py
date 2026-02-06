@@ -200,6 +200,8 @@ class Simulator:
         events = []
         for avatar in self.world.avatar_manager.get_living_avatars():
             avatar.update_age(self.world.month_stamp)
+        
+        # 1. 凡人觉醒
         if random.random() < self.awakening_rate:
             age = random.randint(16, 60)
             gender = random.choice(list(Gender))
@@ -209,6 +211,13 @@ class Simulator:
             self.world.avatar_manager.register_avatar(new_avatar, is_newly_born=True)
             event = Event(self.world.month_stamp, t("{name} has ascended to a cultivator.", name=new_avatar.name), related_avatars=[new_avatar.id])
             events.append(event)
+            
+        # 2. 道侣生子
+        from src.classes.birth import process_births
+        birth_events = process_births(self.world)
+        if birth_events:
+            events.extend(birth_events)
+            
         return events
 
     async def _phase_passive_effects(self):

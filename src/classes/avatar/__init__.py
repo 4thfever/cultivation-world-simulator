@@ -5,8 +5,8 @@ Avatar 模块
 """
 from src.classes.avatar.core import (
     Avatar,
-    Gender,
 )
+from src.classes.gender import Gender
 
 from src.classes.avatar.info_presenter import (
     get_avatar_info,

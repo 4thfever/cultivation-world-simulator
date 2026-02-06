@@ -141,6 +141,14 @@ def set_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation)
     from_avatar.relations[to_avatar] = relation
     # 写入对方的对偶关系（对称关系会得到同一枚举值）
     to_avatar.relations[from_avatar] = get_reciprocal(relation)
+    
+    # [新增] 如果是道侣关系，记录开始时间
+    if relation == Relation.LOVERS:
+        current_time = int(from_avatar.world.month_stamp)
+        # 双方都记录
+        from_avatar.relation_start_dates[to_avatar.id] = current_time
+        to_avatar.relation_start_dates[from_avatar.id] = current_time
+
 
 
 def get_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> Relation | None:
@@ -156,6 +164,11 @@ def clear_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> None:
     """
     from_avatar.relations.pop(to_avatar, None)
     to_avatar.relations.pop(from_avatar, None)
+
+    # [新增] 清理时间记录
+    from_avatar.relation_start_dates.pop(to_avatar.id, None)
+    to_avatar.relation_start_dates.pop(from_avatar.id, None)
+
 
 
 def cancel_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> bool:

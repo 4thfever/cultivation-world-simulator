@@ -42,6 +42,8 @@ from src.classes.emotions import EmotionType
 from src.utils.config import CONFIG
 from src.classes.elixir import ConsumedElixir, Elixir
 from src.classes.avatar_metrics import AvatarMetrics
+from src.classes.mortal import Mortal
+from src.classes.gender import Gender
 
 # Mixin 导入
 from src.classes.effect import EffectsMixin
@@ -49,21 +51,6 @@ from src.classes.avatar.inventory_mixin import InventoryMixin
 from src.classes.avatar.action_mixin import ActionMixin
 
 persona_num = CONFIG.avatar.persona_num
-
-
-class Gender(Enum):
-    MALE = "male"
-    FEMALE = "female"
-
-    def __str__(self) -> str:
-        from src.i18n import t
-        return t(gender_msg_ids.get(self, self.value))
-
-
-gender_msg_ids = {
-    Gender.MALE: "male",
-    Gender.FEMALE: "female",
-}
 
 
 @dataclass
@@ -135,6 +122,13 @@ class Avatar(
 
     # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
+
+    # [新增] 子女列表
+    children: List["Mortal"] = field(default_factory=list)
+
+    # [新增] 关系开始时间缓存
+    # Key: 对方Avatar ID, Value: 开始时的 MonthStamp (int)
+    relation_start_dates: dict[str, int] = field(default_factory=dict)
 
     # 拥有的洞府列表（不参与序列化，通过 load_game 重建）
     owned_regions: List["CultivateRegion"] = field(default_factory=list, init=False)

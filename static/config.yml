@@ -30,6 +30,8 @@ game:
   npc_awakening_rate_per_month: 0.01
   fortune_probability: 0.005
   misfortune_probability: 0.005
+  birth_rate_per_month: 0.005 # 每月生育概率 (0.5%)
+  max_children_per_couple: 2 # 每对道侣最大子女数量
   gathering:
     auction_trigger_count: 5
 
