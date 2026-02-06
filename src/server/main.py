@@ -38,8 +38,7 @@ from src.classes.alignment import Alignment
 from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
-from src.sim.save.save_game import save_game, list_saves
-from src.sim.load.load_game import load_game
+from src.sim import save_game, list_saves, load_game, get_events_db_path, check_save_compatibility
 from src.utils import protagonist as prot_utils
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
@@ -369,7 +368,7 @@ async def init_game_async():
 
         # 初始化 SQLite 事件数据库
         from datetime import datetime
-        from src.sim.load_game import get_events_db_path
+        from src.sim import get_events_db_path
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M")
         save_name = f"save_{timestamp}"
@@ -1743,7 +1742,7 @@ async def api_load_game(req: LoadGameRequest):
             raise HTTPException(status_code=404, detail="File not found")
 
         # --- 语言环境自动切换 ---
-        from src.sim.save.save_game import get_save_info
+        from src.sim import get_save_info
         save_meta = get_save_info(target_path)
         if save_meta:
             save_lang = save_meta.get("language")
