@@ -234,9 +234,18 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 第一阶段：重建所有Avatar（不含relations）
         avatars_data = save_data.get("avatars", [])
         all_avatars = {}
+        living_avatars = {}
+        dead_avatars = {}
+
         for avatar_data in avatars_data:
             avatar = Avatar.from_save_dict(avatar_data, world)
             all_avatars[avatar.id] = avatar
+            
+            # 分流：生者与死者
+            if avatar.is_dead:
+                dead_avatars[avatar.id] = avatar
+            else:
+                living_avatars[avatar.id] = avatar
         
         # 第二阶段：重建relations（需要所有avatar都已加载）
         for avatar_data in avatars_data:
@@ -251,7 +260,8 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                     avatar.relations[other_avatar] = relation
         
         # 将所有avatar添加到world
-        world.avatar_manager.avatars = all_avatars
+        world.avatar_manager.avatars = living_avatars
+        world.avatar_manager.dead_avatars = dead_avatars
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})
