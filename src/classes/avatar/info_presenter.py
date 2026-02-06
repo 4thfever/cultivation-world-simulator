@@ -110,6 +110,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     """
     获取结构化的角色信息，用于前端展示和交互。
     """
+    import time
+    t_start = time.time()
+
     # 基础信息
     from src.i18n import t
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
@@ -193,6 +196,8 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         materials_list.append(m_info)
     info["materials"] = materials_list
     
+    t_mid = time.time()
+
     # 6. 关系 (Relations)
     relations_list = []
     for other, relation in avatar.relations.items():
@@ -206,6 +211,8 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         })
     info["relations"] = relations_list
     
+    t_rel = time.time()
+
     # 7. 外貌
     info["appearance"] = avatar.appearance.get_info()
     
@@ -225,6 +232,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
 
     # 当前效果
     info[t("Current Effects")] = _get_effects_text(avatar)
+
+    t_end = time.time()
+    print(f"[Perf] Total: {t_end - t_start:.4f}s | Relations: {t_rel - t_mid:.4f}s | Effects: {t_end - t_rel:.4f}s | Other: {t_mid - t_start:.4f}s")
 
     return info
 

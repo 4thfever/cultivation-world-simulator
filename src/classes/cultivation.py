@@ -288,6 +288,10 @@ class CultivationProgress:
         """
         检查是否可以突破
         """
+        # 动态检测目前最高级别的修为：如果已经是最高境界的最高等级，则不能突破
+        max_level = len(REALM_ORDER) * LEVELS_PER_REALM
+        if self.level >= max_level:
+            return False
         return self.is_in_bottleneck()
 
     def can_cultivate(self) -> bool:
