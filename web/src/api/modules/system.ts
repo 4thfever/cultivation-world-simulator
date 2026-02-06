@@ -19,8 +19,11 @@ export const systemApi = {
     return httpClient.get<{ saves: SaveFileDTO[] }>('/api/saves');
   },
 
-  saveGame(filename?: string) {
-    return httpClient.post<{ status: string; filename: string }>('/api/game/save', { filename });
+  saveGame(customName?: string) {
+    return httpClient.post<{ status: string; filename: string }>(
+      '/api/game/save',
+      { custom_name: customName }
+    );
   },
 
   loadGame(filename: string) {

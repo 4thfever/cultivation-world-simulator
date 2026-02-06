@@ -25,6 +25,7 @@
 - 事件实时写入SQLite，JSON中的events字段仅用于旧存档迁移
 """
 import json
+import re
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional, TYPE_CHECKING
@@ -38,22 +39,45 @@ from src.utils.config import CONFIG
 from src.classes.language import language_manager
 from src.sim.load.load_game import get_events_db_path
 
+# 主角特质 ID: 穿越者=30, 气运之子=31.
+PROTAGONIST_PERSONA_IDS = {30, 31}
+
+
+def sanitize_save_name(name: str) -> str:
+    """清理存档名称，只保留安全字符。"""
+    # 移除文件系统不允许的字符。
+    safe_name = re.sub(r'[\\/:*?"<>|]', '', name)
+    # 只保留中文、字母、数字和下划线。
+    safe_name = re.sub(r'[^\w\u4e00-\u9fff]', '_', safe_name)
+    return safe_name[:50] if safe_name else "save"
+
+
+def find_protagonist_name(world: "World") -> Optional[str]:
+    """查找主角名字（具有气运之子或穿越者特质的存活角色）。"""
+    for avatar in world.avatar_manager.avatars.values():
+        persona_ids = [p.id for p in avatar.personas] if avatar.personas else []
+        if any(pid in PROTAGONIST_PERSONA_IDS for pid in persona_ids):
+            return avatar.name
+    return None
+
 
 def save_game(
     world: "World",
     simulator: "Simulator",
     existed_sects: List["Sect"],
-    save_path: Optional[Path] = None
+    save_path: Optional[Path] = None,
+    custom_name: Optional[str] = None
 ) -> tuple[bool, Optional[str]]:
     """
     保存游戏状态到文件
-    
+
     Args:
         world: 世界对象
         simulator: 模拟器对象
         existed_sects: 本局启用的宗门列表
         save_path: 保存路径，默认为saves/时间戳_游戏时间.json
-        
+        custom_name: 用户自定义的存档名称
+
     Returns:
         (保存是否成功, 保存的文件名)
     """
@@ -62,15 +86,21 @@ def save_game(
         if save_path is None:
             saves_dir = CONFIG.paths.saves
             saves_dir.mkdir(parents=True, exist_ok=True)
-            
-            # 生成友好的文件名：20251111_193000_Y100M1.json
+
+            # 生成友好的文件名。
             now = datetime.now()
             time_str = now.strftime("%Y%m%d_%H%M%S")
             year = world.month_stamp.get_year()
             month = world.month_stamp.get_month().value
             game_time_str = f"Y{year}M{month}"
-            
-            filename = f"{time_str}_{game_time_str}.json"
+
+            # 处理自定义名称。
+            if custom_name:
+                safe_name = sanitize_save_name(custom_name)
+                filename = f"{safe_name}_{time_str}.json"
+            else:
+                filename = f"{time_str}_{game_time_str}.json"
+
             save_path = saves_dir / filename
         else:
             save_path = Path(save_path)
@@ -95,6 +125,12 @@ def save_game(
                  else:
                      print(f"警告: 当前事件数据库不存在: {current_db_path}")
 
+        # 计算角色统计。
+        alive_count = len(world.avatar_manager.avatars)
+        dead_count = len(world.avatar_manager.dead_avatars)
+        total_count = alive_count + dead_count
+        protagonist_name = find_protagonist_name(world)
+
         # 构建元信息
         meta = {
             "version": CONFIG.meta.version,
@@ -104,6 +140,12 @@ def save_game(
             # SQLite 事件数据库信息。
             "events_db": str(events_db_path.name),
             "event_count": world.event_manager.count(),
+            # 新增元数据。
+            "avatar_count": total_count,
+            "alive_count": alive_count,
+            "dead_count": dead_count,
+            "protagonist_name": protagonist_name,
+            "custom_name": custom_name,
         }
         
         # 构建世界数据
