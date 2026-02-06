@@ -8,6 +8,7 @@ import threading
 import signal
 import random
 import re
+import logging
 from omegaconf import OmegaConf
 from contextlib import asynccontextmanager
 
@@ -131,6 +132,14 @@ def resolve_avatar_action_emoji(avatar) -> str:
 
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
 IS_DEV_MODE = "--dev" in sys.argv
+
+class EndpointFilter(logging.Filter):
+    """
+    Log filter to hide successful /api/init-status requests (polling)
+    to reduce console noise.
+    """
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.getMessage().find("GET /api/init-status") == -1
 
 class ConnectionManager:
     def __init__(self):
@@ -628,6 +637,9 @@ def ensure_npm_dependencies(web_dir: str) -> bool:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Filter out health check / polling logs
+    logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
+
     # 初始化语言设置
     from src.utils.config import update_paths_for_language
     from src.utils.df import reload_game_configs
