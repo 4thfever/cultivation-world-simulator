@@ -112,6 +112,21 @@ async function handleLoad(filename: string) {
   }
 }
 
+async function handleDelete(filename: string) {
+  if (!confirm(t('save_load.delete_confirm', { filename }))) return
+
+  loading.value = true
+  try {
+    await systemApi.deleteSave(filename)
+    message.success(t('save_load.delete_success'))
+    await fetchSaves()
+  } catch (e) {
+    message.error(t('save_load.delete_failed'))
+  } finally {
+    loading.value = false
+  }
+}
+
 // 格式化保存时间
 function formatSaveTime(isoTime: string): string {
   if (!isoTime) return ''
@@ -199,7 +214,22 @@ onMounted(() => {
             <span class="version">v{{ save.version }}</span>
           </div>
         </div>
-        <div v-if="mode === 'load'" class="load-btn">{{ t('save_load.load') }}</div>
+        <div v-if="mode === 'load'" class="load-actions">
+           <NButton 
+             type="error" 
+             size="small" 
+             secondary 
+             @click.stop="handleDelete(save.filename)"
+           >
+             {{ t('save_load.delete') }}
+           </NButton>
+           <NButton
+             size="small"
+             @click.stop="handleLoad(save.filename)"
+           >
+             {{ t('save_load.load') }}
+           </NButton>
+        </div>
       </div>
     </div>
 
@@ -250,7 +280,7 @@ onMounted(() => {
   flex-direction: column;
 }
 
-.save-panel {
+.save-panel, .load-panel {
   align-items: center;
   padding-top: 2em;
 }
@@ -392,19 +422,10 @@ onMounted(() => {
   font-family: monospace;
 }
 
-.load-btn {
-  background: #333;
-  color: #ddd;
-  border: 1px solid #444;
-  padding: 0.4em 1em;
-  border-radius: 0.3em;
-  font-size: 0.9em;
-  transition: all 0.2s;
-}
-
-.load-btn:hover {
-  background: #444;
-  border-color: #555;
+.load-actions {
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 
 .loading {

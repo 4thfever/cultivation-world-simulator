@@ -49,7 +49,11 @@
     "name_placeholder": "Enter save name...",
     "name_tip": "Leave empty to use auto-generated name",
     "name_too_long": "Name cannot exceed 50 characters",
-    "name_invalid_chars": "Name can only contain letters, numbers, Chinese characters and underscores"
+    "name_invalid_chars": "Name can only contain letters, numbers, Chinese characters and underscores",
+    "delete": "Delete",
+    "delete_confirm": "Are you sure you want to permanently delete save {filename}? This action cannot be undone.",
+    "delete_success": "Save deleted",
+    "delete_failed": "Failed to delete"
   },
   "llm": {
     "loading": "Loading...",

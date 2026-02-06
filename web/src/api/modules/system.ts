@@ -26,6 +26,10 @@ export const systemApi = {
     );
   },
 
+  deleteSave(filename: string) {
+    return httpClient.post<{ status: string; message: string }>('/api/game/delete', { filename });
+  },
+
   loadGame(filename: string) {
     return httpClient.post<{ status: string; message: string }>('/api/game/load', { filename });
   },

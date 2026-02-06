@@ -49,7 +49,11 @@
     "name_placeholder": "输入存档名称...",
     "name_tip": "留空将使用自动生成的名称",
     "name_too_long": "名称不能超过50个字符",
-    "name_invalid_chars": "名称只能包含中文、字母、数字和下划线"
+    "name_invalid_chars": "名称只能包含中文、字母、数字和下划线",
+    "delete": "删除",
+    "delete_confirm": "确定要彻底删除存档 {filename} 及其所有数据吗？此操作无法撤销。",
+    "delete_success": "存档已删除",
+    "delete_failed": "删除失败"
   },
   "llm": {
     "loading": "加载中...",

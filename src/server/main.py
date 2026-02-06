@@ -1697,6 +1697,9 @@ def validate_save_name(name: str) -> bool:
 class SaveGameRequest(BaseModel):
     custom_name: Optional[str] = None  # 自定义存档名称
 
+class DeleteSaveRequest(BaseModel):
+    filename: str
+
 class LoadGameRequest(BaseModel):
     filename: str
 
@@ -1751,6 +1754,37 @@ def api_save_game(req: SaveGameRequest):
         return {"status": "ok", "filename": filename}
     else:
         raise HTTPException(status_code=500, detail="Save failed")
+
+@app.post("/api/game/delete")
+def api_delete_game(req: DeleteSaveRequest):
+    """删除存档及其关联文件"""
+    # 安全检查
+    if ".." in req.filename or "/" in req.filename or "\\" in req.filename:
+         raise HTTPException(status_code=400, detail="Invalid filename")
+
+    try:
+        saves_dir = CONFIG.paths.saves
+        target_path = saves_dir / req.filename
+        
+        # 1. 删除 JSON 存档文件
+        if target_path.exists():
+            os.remove(target_path)
+            
+        # 2. 删除对应的 SQL 数据库文件
+        events_db_path = get_events_db_path(target_path)
+        if os.path.exists(events_db_path):
+            try:
+                os.remove(events_db_path)
+            except Exception as e:
+                print(f"[Warning] Failed to delete db file {events_db_path}: {e}")
+                
+        # 3. 删除可能存在的其他关联文件（如果有）
+        
+        return {"status": "ok", "message": "Save deleted"}
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Delete failed: {str(e)}")
 
 @app.post("/api/game/load")
 async def api_load_game(req: LoadGameRequest):
