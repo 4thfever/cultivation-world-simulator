@@ -24,3 +24,6 @@ msgstr "Core Formation"
 
 msgid "nascent_soul"
 msgstr "Nascent Soul"
+
+msgid "Mortal"
+msgstr "Mortal"

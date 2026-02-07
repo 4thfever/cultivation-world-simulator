@@ -24,3 +24,6 @@ msgstr "金丹"
 
 msgid "nascent_soul"
 msgstr "元婴"
+
+msgid "Mortal"
+msgstr "凡人"
