@@ -1,0 +1,213 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. auxiliary.csv: 木靈甲
+msgid "AUXILIARY_2001_NAME"
+msgstr "木靈甲"
+
+#. auxiliary.csv: 以靈木纖維編織，生機盎然，防禦尚可....
+msgid "AUXILIARY_2001_DESC"
+msgstr "以靈木纖維編織，生機盎然，防禦尚可."
+
+#. auxiliary.csv: 血菩提
+msgid "AUXILIARY_2002_NAME"
+msgstr "血菩提"
+
+#. auxiliary.csv: 生於火麒麟滴血之處，重傷必治，無傷增功....
+msgid "AUXILIARY_2002_DESC"
+msgstr "生於火麒麟滴血之處，重傷必治，無傷增功."
+
+#. auxiliary.csv: 人蔘果(僞)
+msgid "AUXILIARY_2003_NAME"
+msgstr "人蔘果(僞)"
+
+#. auxiliary.csv: 雖不及真品，聞一聞也能活三百六十歲....
+msgid "AUXILIARY_2003_DESC"
+msgstr "雖不及真品，聞一聞也能活三百六十歲."
+
+#. auxiliary.csv: 萬寶令
+msgid "AUXILIARY_2004_NAME"
+msgstr "萬寶令"
+
+#. auxiliary.csv: 千帆城通用的高級商令。...
+msgid "AUXILIARY_2004_DESC"
+msgstr "千帆城通用的高級商令。"
+
+#. auxiliary.csv: 鐵精
+msgid "AUXILIARY_2005_NAME"
+msgstr "鐵精"
+
+#. auxiliary.csv: 提煉百斤凡鐵才得一兩，提升法器品質的基礎...
+msgid "AUXILIARY_2005_DESC"
+msgstr "提煉百斤凡鐵才得一兩，提升法器品質的基礎材料."
+
+#. auxiliary.csv: 源天神眼
+msgid "AUXILIARY_2006_NAME"
+msgstr "源天神眼"
+
+#. auxiliary.csv: 可勘破虛妄，直視本源，尋龍定穴....
+msgid "AUXILIARY_2006_DESC"
+msgstr "可勘破虛妄，直視本源，尋龍定穴."
+
+#. auxiliary.csv: 踏雲靴
+msgid "AUXILIARY_2007_NAME"
+msgstr "踏雲靴"
+
+#. auxiliary.csv: 步履生雲，身輕如燕，趕路必備....
+msgid "AUXILIARY_2007_DESC"
+msgstr "步履生雲，身輕如燕，趕路必備."
+
+#. auxiliary.csv: 菩提子
+msgid "AUXILIARY_2008_NAME"
+msgstr "菩提子"
+
+#. auxiliary.csv: 佛門至寶，持之可靈臺清明，悟性大增....
+msgid "AUXILIARY_2008_DESC"
+msgstr "佛門至寶，持之可靈臺清明，悟性大增."
+
+#. auxiliary.csv: 金絲軟甲
+msgid "AUXILIARY_2009_NAME"
+msgstr "金絲軟甲"
+
+#. auxiliary.csv: 刀槍不入，水火不侵，貼身軟甲....
+msgid "AUXILIARY_2009_DESC"
+msgstr "刀槍不入，水火不侵，貼身軟甲."
+
+#. auxiliary.csv: 寒玉牀
+msgid "AUXILIARY_2010_NAME"
+msgstr "寒玉牀"
+
+#. auxiliary.csv: 古墓派至寶，在此牀上修煉，事半功倍，且無...
+msgid "AUXILIARY_2010_DESC"
+msgstr "古墓派至寶，在此牀上修煉，事半功倍，且無心魔之虞."
+
+#. auxiliary.csv: 無相面具
+msgid "AUXILIARY_2011_NAME"
+msgstr "無相面具"
+
+#. auxiliary.csv: 千人千面，不僅掩蓋容貌，更能掩蓋氣息....
+msgid "AUXILIARY_2011_DESC"
+msgstr "千人千面，不僅掩蓋容貌，更能掩蓋氣息."
+
+#. auxiliary.csv: 神風舟
+msgid "AUXILIARY_2051_NAME"
+msgstr "神風舟"
+
+#. auxiliary.csv: 飛行法器，速度極快，居家旅行殺人越貨必備...
+msgid "AUXILIARY_2051_DESC"
+msgstr "飛行法器，速度極快，居家旅行殺人越貨必備."
+
+#. auxiliary.csv: 崑崙鏡
+msgid "AUXILIARY_2052_NAME"
+msgstr "崑崙鏡"
+
+#. auxiliary.csv: 上古神器，擁有穿梭時空之力，此爲仿品，僅...
+msgid "AUXILIARY_2052_DESC"
+msgstr "上古神器，擁有穿梭時空之力，此爲仿品，僅能窺探遠方."
+
+#. auxiliary.csv: 掌天瓶
+msgid "AUXILIARY_2053_NAME"
+msgstr "掌天瓶"
+
+#. auxiliary.csv: 奪天地之造化，聚日月之精華，催熟萬物....
+msgid "AUXILIARY_2053_DESC"
+msgstr "奪天地之造化，聚日月之精華，催熟萬物."
+
+#. auxiliary.csv: 龍鳳呈祥戒
+msgid "AUXILIARY_2054_NAME"
+msgstr "龍鳳呈祥戒"
+
+#. auxiliary.csv: 龍鳳和鳴，心意相通，雙修進境一日千里....
+msgid "AUXILIARY_2054_DESC"
+msgstr "龍鳳和鳴，心意相通，雙修進境一日千里."
+
+#. auxiliary.csv: 隱形披風
+msgid "AUXILIARY_2055_NAME"
+msgstr "隱形披風"
+
+#. auxiliary.csv: 披上後身形盡隱，連神識也難以察覺....
+msgid "AUXILIARY_2055_DESC"
+msgstr "披上後身形盡隱，連神識也難以察覺."
+
+#. auxiliary.csv: 御獸環
+msgid "AUXILIARY_2056_NAME"
+msgstr "御獸環"
+
+#. auxiliary.csv: 套在妖獸頸上，任其兇焰滔天，也要乖乖聽命...
+msgid "AUXILIARY_2056_DESC"
+msgstr "套在妖獸頸上，任其兇焰滔天，也要乖乖聽命."
+
+#. auxiliary.csv: 太虛甲
+msgid "AUXILIARY_2057_NAME"
+msgstr "太虛甲"
+
+#. auxiliary.csv: 太虛幻境所化，萬法不沾，防禦力驚人....
+msgid "AUXILIARY_2057_DESC"
+msgstr "太虛幻境所化，萬法不沾，防禦力驚人."
+
+#. auxiliary.csv: 八卦爐
+msgid "AUXILIARY_2058_NAME"
+msgstr "八卦爐"
+
+#. auxiliary.csv: 仿太上老君煉丹爐，丹成九轉，藥效倍增....
+msgid "AUXILIARY_2058_DESC"
+msgstr "仿太上老君煉丹爐，丹成九轉，藥效倍增."
+
+#. auxiliary.csv: 聚寶盆
+msgid "AUXILIARY_2059_NAME"
+msgstr "聚寶盆"
+
+#. auxiliary.csv: 放入一文，取出萬貫，財源滾滾....
+msgid "AUXILIARY_2059_DESC"
+msgstr "放入一文，取出萬貫，財源滾滾."
+
+#. auxiliary.csv: 天地烘爐
+msgid "AUXILIARY_2060_NAME"
+msgstr "天地烘爐"
+
+#. auxiliary.csv: 以天地爲爐，造化爲工，煉製萬物....
+msgid "AUXILIARY_2060_DESC"
+msgstr "以天地爲爐，造化爲工，煉製萬物."
+
+#. auxiliary.csv: 六道劍匣
+msgid "AUXILIARY_2061_NAME"
+msgstr "六道劍匣"
+
+#. auxiliary.csv: 揹負六道，劍出輪迴，悟劍良伴....
+msgid "AUXILIARY_2061_DESC"
+msgstr "揹負六道，劍出輪迴，悟劍良伴."
+
+#. auxiliary.csv: 傳國玉璽
+msgid "AUXILIARY_2062_NAME"
+msgstr "傳國玉璽"
+
+#. auxiliary.csv: 受命於天，既壽永昌。皇威浩蕩，震懾宵小....
+msgid "AUXILIARY_2062_DESC"
+msgstr "受命於天，既壽永昌。皇威浩蕩，震懾宵小."
+
+#. auxiliary.csv: 靈眼之泉
+msgid "AUXILIARY_2063_NAME"
+msgstr "靈眼之泉"
+
+#. auxiliary.csv: 可移動的靈氣之源，隨身攜帶的洞天福地....
+msgid "AUXILIARY_2063_DESC"
+msgstr "可移動的靈氣之源，隨身攜帶的洞天福地."
+
+#. auxiliary.csv: 萬魂幡
+msgid "AUXILIARY_2064_NAME"
+msgstr "萬魂幡"
+
+#. auxiliary.csv: 血海不枯，冥河不死。極度邪惡的掠奪法寶....
+msgid "AUXILIARY_2064_DESC"
+msgstr "血海不枯，冥河不死。極度邪惡的掠奪法寶."
+
+#. auxiliary.csv: 神木王鼎
+msgid "AUXILIARY_2065_NAME"
+msgstr "神木王鼎"
+
+#. auxiliary.csv: 木系至寶，不僅可煉製神丹，鼎中更自成一界...
+msgid "AUXILIARY_2065_DESC"
+msgstr "木系至寶，不僅可煉製神丹，鼎中更自成一界，可催熟靈藥。"

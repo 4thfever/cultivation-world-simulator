@@ -1,0 +1,80 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. cultivate_region.csv: 太白金府
+msgid "CULTIVATE_REGION_201_NAME"
+msgstr "Taibai Gold Mansion"
+
+#. cultivate_region.csv: 青峰山脉深处的金行洞府，金精气凝，刀剑鸣...
+msgid "CULTIVATE_REGION_201_DESC"
+msgstr ""
+"A Gold-element cave dwelling deep in the Qingfeng Mountains, where Gold "
+"essence qi condenses and the sound of swords never ceases; it is the supreme"
+" holy land for Gold-attribute cultivators."
+
+#. cultivate_region.csv: 青木洞天
+msgid "CULTIVATE_REGION_202_NAME"
+msgstr "Qingmu Grotto-Heaven"
+
+#. cultivate_region.csv: 青云林海中的木行洞府，生机盎然，灵药遍地...
+msgid "CULTIVATE_REGION_202_DESC"
+msgstr ""
+"A Wood-element cave dwelling in the Qingyun Forest, full of vitality and "
+"spiritual herbs; it is the supreme holy land for Wood-attribute cultivators."
+
+#. cultivate_region.csv: 玄水秘境
+msgid "CULTIVATE_REGION_203_NAME"
+msgstr "Xuanshui Secret Realm"
+
+#. cultivate_region.csv: 无边碧海深处的水行洞府，碧波万里，水精凝...
+msgid "CULTIVATE_REGION_203_DESC"
+msgstr ""
+"A Water-element cave dwelling deep in the boundless azure sea, with ten "
+"thousand miles of blue waves and Water essence for soul condensation; it is "
+"the supreme holy land for Water-attribute cultivators."
+
+#. cultivate_region.csv: 离火洞府
+msgid "CULTIVATE_REGION_204_NAME"
+msgstr "Lihuo Cave Dwelling"
+
+#. cultivate_region.csv: 炎狱火山旁的火行洞府，烈焰冲天，真火精纯...
+msgid "CULTIVATE_REGION_204_DESC"
+msgstr ""
+"A Fire-element cave dwelling beside the Lava Volcano, with flames reaching "
+"the sky and pure true fire; it is the supreme holy land for Fire-attribute "
+"cultivators."
+
+#. cultivate_region.csv: 厚土玄宫
+msgid "CULTIVATE_REGION_205_NAME"
+msgstr "Houtu Mystic Palace"
+
+#. cultivate_region.csv: 青峰山脉的土行洞府，厚德载物，山岳共鸣，...
+msgid "CULTIVATE_REGION_205_DESC"
+msgstr ""
+"A Earth-element cave dwelling in the Qingfeng Mountains, where thick earth "
+"carries all things and mountains resonate; it is the supreme holy land for "
+"Earth-attribute cultivators."
+
+#. cultivate_region.csv: 古越遗迹
+msgid "CULTIVATE_REGION_206_NAME"
+msgstr "Guyue Ruins"
+
+#. cultivate_region.csv: 雨林深处的上古遗迹，古藤缠绕，木行灵气与...
+msgid "CULTIVATE_REGION_206_DESC"
+msgstr ""
+"Ancient ruins deep in the rainforest, with ancient vines entangling, where "
+"Wood-element and Gold-element spiritual qi blend. Contains ancient "
+"cultivation techniques and spiritual herb formulas."
+
+#. cultivate_region.csv: 沧海遗迹
+msgid "CULTIVATE_REGION_207_NAME"
+msgstr "Canghai Ruins"
+
+#. cultivate_region.csv: 沉没在海中的远古文明遗迹，水行灵气浓郁，...
+msgid "CULTIVATE_REGION_207_DESC"
+msgstr ""
+"Ancient civilization ruins submerged in the sea, with dense Water-element "
+"spiritual qi; treasures occasionally appear during the tides."

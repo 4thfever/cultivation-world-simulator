@@ -1,0 +1,240 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. celestial_phenomenon.csv: 紫气东来
+msgid "CELESTIAL_PHENOMENON_1_NAME"
+msgstr "Purple Qi from the East"
+
+#. celestial_phenomenon.csv: 天地灵气充沛，修士修行速度大增，修行欲望...
+msgid "CELESTIAL_PHENOMENON_1_DESC"
+msgstr ""
+"Heavenly spiritual qi is abundant, cultivators' cultivation speed greatly "
+"increases, and the desire to cultivate improves"
+
+#. celestial_phenomenon.csv: 金煞之年
+msgid "CELESTIAL_PHENOMENON_2_NAME"
+msgstr "Year of Golden Malice"
+
+#. celestial_phenomenon.csv: 金煞充盈天地肃杀，修士更大可能嗜血而相互...
+msgid "CELESTIAL_PHENOMENON_2_DESC"
+msgstr ""
+"Golden malice fills the world with solemnity, cultivators are more likely to"
+" be bloodthirsty and attack each other"
+
+#. celestial_phenomenon.csv: 木灵盛世
+msgid "CELESTIAL_PHENOMENON_3_NAME"
+msgstr "Era of Wood Spirit"
+
+#. celestial_phenomenon.csv: 木德滋养生机盎然，采集收获倍增且伤势恢复...
+msgid "CELESTIAL_PHENOMENON_3_DESC"
+msgstr ""
+"Wood virtue nourishes with vitality, harvesting yields double and injuries "
+"heal extremely fast, ideal for searching for heavenly materials and earthly "
+"treasures everywhere"
+
+#. celestial_phenomenon.csv: 水德之纪
+msgid "CELESTIAL_PHENOMENON_4_NAME"
+msgstr "Age of Water Virtue"
+
+#. celestial_phenomenon.csv: 水行流转通达无碍，修炼效率与速度双重提升...
+msgid "CELESTIAL_PHENOMENON_4_DESC"
+msgstr ""
+"Water element flows without hindrance, cultivation efficiency and speed both"
+" improve, making it a great time for secluded cultivation"
+
+#. celestial_phenomenon.csv: 火劫时代
+msgid "CELESTIAL_PHENOMENON_5_NAME"
+msgstr "Era of Fire Calamity"
+
+#. celestial_phenomenon.csv: 天火燃烧劫数降临，战力暴涨但寿元流逝，当...
+msgid "CELESTIAL_PHENOMENON_5_DESC"
+msgstr ""
+"Heavenly fire burns and calamity arrives, combat power surges but lifespan "
+"drains, one should decide battles quickly to fight for life against heaven"
+
+#. celestial_phenomenon.csv: 土厚之世
+msgid "CELESTIAL_PHENOMENON_6_NAME"
+msgstr "World of Thick Earth"
+
+#. celestial_phenomenon.csv: 土德厚重载物无疆，身躯坚韧血气充盈，可无...
+msgid "CELESTIAL_PHENOMENON_6_DESC"
+msgstr ""
+"Earth virtue is thick and carries all things, the body is resilient and "
+"blood qi is full, allowing one to face strong enemies without fear"
+
+#. celestial_phenomenon.csv: 五行逆乱
+msgid "CELESTIAL_PHENOMENON_7_NAME"
+msgstr "Five Elements Chaos"
+
+#. celestial_phenomenon.csv: 五行失序天地大乱，常规修炼事倍功半，然瓶...
+msgid "CELESTIAL_PHENOMENON_7_DESC"
+msgstr ""
+"Five elements are out of order and heaven and earth are in chaos, "
+"conventional cultivation yields half the result with twice the effort, but "
+"bottlenecks loosen and it is suitable to attempt breakthroughs"
+
+#. celestial_phenomenon.csv: 天道均衡
+msgid "CELESTIAL_PHENOMENON_8_NAME"
+msgstr "Heavenly Dao Balance"
+
+#. celestial_phenomenon.csv: 天道显化损有余而补不足，高阶修士进境受阻...
+msgid "CELESTIAL_PHENOMENON_8_DESC"
+msgstr ""
+"Heavenly Dao manifests to take from those who have too much and give to "
+"those who have too little, high-level cultivators' progress is hindered, "
+"low-level cultivators should seize the opportunity to catch up"
+
+#. celestial_phenomenon.csv: 劫数将至
+msgid "CELESTIAL_PHENOMENON_9_NAME"
+msgstr "Calamity Approaches"
+
+#. celestial_phenomenon.csv: 劫数降临戾气弥漫，虽战力激增但福缘浅薄，...
+msgid "CELESTIAL_PHENOMENON_9_DESC"
+msgstr ""
+"Calamity arrives and hostility spreads, although combat power surges, "
+"fortune is shallow, one should act cautiously as if walking on thin ice"
+
+#. celestial_phenomenon.csv: 灵气复苏
+msgid "CELESTIAL_PHENOMENON_10_NAME"
+msgstr "Qi Recovery"
+
+#. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
+msgid "CELESTIAL_PHENOMENON_10_DESC"
+msgstr ""
+"Heaven and earth spiritual qi erupts and recovers, cultivation progress "
+"advances rapidly, all things compete to grow, suitable for full effort in "
+"progress"
+
+#. celestial_phenomenon.csv: 灵气枯竭
+msgid "CELESTIAL_PHENOMENON_11_NAME"
+msgstr "Qi Depletion"
+
+#. celestial_phenomenon.csv: 灵气枯竭末法将至，修炼如逆水行舟，宜节约...
+msgid "CELESTIAL_PHENOMENON_11_DESC"
+msgstr ""
+"Spiritual qi is depleted and the Dharma-ending age approaches, cultivation "
+"is like rowing against the current, suitable for saving resources and "
+"stabilizing the Dao heart"
+
+#. celestial_phenomenon.csv: 魔道兴盛
+msgid "CELESTIAL_PHENOMENON_12_NAME"
+msgstr "Rise of the Demonic Path"
+
+#. celestial_phenomenon.csv: 魔气滔天邪道大昌，魔修如鱼得水，正道修士...
+msgid "CELESTIAL_PHENOMENON_12_DESC"
+msgstr ""
+"Demonic qi towers and the evil path prospers, demonic cultivators are like "
+"fish in water, righteous cultivators should avoid their edge and focus on "
+"accumulation"
+
+#. celestial_phenomenon.csv: 正气浩然
+msgid "CELESTIAL_PHENOMENON_13_NAME"
+msgstr "Righteous Spirit"
+
+#. celestial_phenomenon.csv: 浩然正气镇压邪祟，正道修士如有神助，魔修...
+msgid "CELESTIAL_PHENOMENON_13_DESC"
+msgstr ""
+"Innocent righteous spirit suppresses evil, righteous cultivators are helped "
+"as if by gods, demonic cultivators should keep a low profile to avoid bad "
+"luck"
+
+#. celestial_phenomenon.csv: 神兵出世
+msgid "CELESTIAL_PHENOMENON_14_NAME"
+msgstr "Divine Weapon Birth"
+
+#. celestial_phenomenon.csv: 神兵有灵百兵齐鸣，兵器熟练度提升极快，宜...
+msgid "CELESTIAL_PHENOMENON_14_DESC"
+msgstr ""
+"Divine weapons have spirits and all weapons chime, weapon proficiency "
+"improves extremely fast, suitable for practicing martial arts and sharpening"
+" the edge"
+
+#. celestial_phenomenon.csv: 阴阳交泰
+msgid "CELESTIAL_PHENOMENON_15_NAME"
+msgstr "Yin-Yang Harmony"
+
+#. celestial_phenomenon.csv: 阴阳交泰天地和合，彼此互补进境神速，最宜...
+msgid "CELESTIAL_PHENOMENON_15_DESC"
+msgstr ""
+"Yin and Yang harmonize and heaven and earth unite, mutual complement leads "
+"to rapid progress, most suitable for finding a Dao companion to share the "
+"joy of dual cultivation"
+
+#. celestial_phenomenon.csv: 杀劫降临
+msgid "CELESTIAL_PHENOMENON_16_NAME"
+msgstr "Killing Calamity Descends"
+
+#. celestial_phenomenon.csv: 血光冲天杀意难抑，虽杀伐之力大增但机缘断...
+msgid "CELESTIAL_PHENOMENON_16_DESC"
+msgstr ""
+"Blood light reaches the sky and the intent to kill is hard to suppress, "
+"although killing power greatly increases, opportunities are cut off, "
+"suitable for taking the initiative to prove the Dao through killing"
+
+#. celestial_phenomenon.csv: 太平盛世
+msgid "CELESTIAL_PHENOMENON_17_NAME"
+msgstr "Era of Peace"
+
+#. celestial_phenomenon.csv: 天下太平万物安宁，虽苦修进境缓慢但机缘频...
+msgid "CELESTIAL_PHENOMENON_17_DESC"
+msgstr ""
+"The world is at peace and all things are tranquil, although bitter "
+"cultivation is slow, opportunities arise frequently, suitable for traveling "
+"the world to find encounters"
+
+#. celestial_phenomenon.csv: 气运加身
+msgid "CELESTIAL_PHENOMENON_18_NAME"
+msgstr "Blessed by Luck"
+
+#. celestial_phenomenon.csv: 天命眷顾气运所钟，天选之人万事皆顺，常人...
+msgid "CELESTIAL_PHENOMENON_18_DESC"
+msgstr ""
+"Favored by destiny and centered by luck, everything goes well for the chosen"
+" one, ordinary people can only look up and not force it"
+
+#. celestial_phenomenon.csv: 血月当空
+msgid "CELESTIAL_PHENOMENON_19_NAME"
+msgstr "Blood Moon in the Sky"
+
+#. celestial_phenomenon.csv: 血月高悬人心躁动，战力虽强但静修困难，宜...
+msgid "CELESTIAL_PHENOMENON_19_DESC"
+msgstr ""
+"The blood moon hangs high and hearts are restless, combat power is strong "
+"but quiet cultivation is difficult, suitable for plundering resources "
+"through battle"
+
+#. celestial_phenomenon.csv: 飞升之门
+msgid "CELESTIAL_PHENOMENON_20_NAME"
+msgstr "Gate of Ascension"
+
+#. celestial_phenomenon.csv: 天门大开大道显现，感悟修行皆如有神助，正...
+msgid "CELESTIAL_PHENOMENON_20_DESC"
+msgstr ""
+"The heavenly gate opens wide and the Great Dao manifests, comprehension and "
+"cultivation are helped as if by gods, it is the time to impact realms and "
+"ascend to immortality"
+
+#. celestial_phenomenon.csv: 法则显化
+msgid "CELESTIAL_PHENOMENON_21_NAME"
+msgstr "Law Manifestation"
+
+#. celestial_phenomenon.csv: 天地法则清晰可触，瓶颈如纸一捅即破，万勿...
+msgid "CELESTIAL_PHENOMENON_21_DESC"
+msgstr ""
+"Heaven and earth laws are clearly touchable, bottlenecks are like paper that"
+" can be pierced with a touch, do not miss this heaven-sent opportunity for "
+"breakthrough"
+
+#. celestial_phenomenon.csv: 时空乱流
+msgid "CELESTIAL_PHENOMENON_22_NAME"
+msgstr "Spacetime Turbulence"
+
+#. celestial_phenomenon.csv: 时空错乱异象频生，险地亦藏无上机缘，宜富...
+msgid "CELESTIAL_PHENOMENON_22_DESC"
+msgstr ""
+"Spacetime is out of order and strange phenomena frequently occur, dangerous "
+"places also hide supreme opportunities, suitable for seeking wealth in "
+"danger and exploring the unknown"

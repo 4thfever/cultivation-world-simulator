@@ -1,0 +1,213 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. material.csv: 靈兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "靈兔毛"
+
+#. material.csv: 靈性充沛的兔子細毛，質地柔軟溫暖，適合編...
+msgid "MATERIAL_1_DESC"
+msgstr "靈性充沛的兔子細毛，質地柔軟溫暖，適合編織防寒衣物"
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "魔狼牙"
+
+#. material.csv: 兇猛魔狼的鋒利狼牙，蘊含魔力，是鍛造利器...
+msgid "MATERIAL_2_DESC"
+msgstr "兇猛魔狼的鋒利狼牙，蘊含魔力，是鍛造利器的珍貴材料"
+
+#. material.csv: 青雲鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "青雲鹿角"
+
+#. material.csv: 青雲鹿的羼玉之角，蘊含清靈之氣，是煉丹的...
+msgid "MATERIAL_3_DESC"
+msgstr "青雲鹿的羼玉之角，蘊含清靈之氣，是煉丹的上品藥材"
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "暗影豹爪"
+
+#. material.csv: 暗影豹的鋒利爪子，輕盈而德，能增強武器的...
+msgid "MATERIAL_4_DESC"
+msgstr "暗影豹的鋒利爪子，輕盈而德，能增強武器的敏捷度"
+
+#. material.csv: 龍龜甲片
+msgid "MATERIAL_5_NAME"
+msgstr "龍龜甲片"
+
+#. material.csv: 碧海龍龜的古老甲片，堅不可摧，蘊含海洋靈...
+msgid "MATERIAL_5_DESC"
+msgstr "碧海龍龜的古老甲片，堅不可摧，蘊含海洋靈力，是頂級防具材料"
+
+#. material.csv: 山熊膽
+msgid "MATERIAL_6_NAME"
+msgstr "山熊膽"
+
+#. material.csv: 石甲山熊的珍貴熊膽，能增強體質和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr "石甲山熊的珍貴熊膽，能增強體質和力量，是體修者的珍貴藥材"
+
+#. material.csv: 風速馬鬃
+msgid "MATERIAL_7_NAME"
+msgstr "風速馬鬃"
+
+#. material.csv: 風速馬的飄逸鬃毛，輕如風羽，能用於煉製速...
+msgid "MATERIAL_7_DESC"
+msgstr "風速馬的飄逸鬃毛，輕如風羽，能用於煉製速度類法器"
+
+#. material.csv: 熔岩鱗片
+msgid "MATERIAL_8_NAME"
+msgstr "熔岩鱗片"
+
+#. material.csv: 熔岩蜥蜴的赤紅鱗片，耐高溫且蘊含火系靈力...
+msgid "MATERIAL_8_DESC"
+msgstr "熔岩蜥蜴的赤紅鱗片，耐高溫且蘊含火系靈力，是火屬性法器的核心材料"
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "毒瘴囊"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，內含劇毒，是煉製毒類丹...
+msgid "MATERIAL_9_DESC"
+msgstr "毒瘴蛙的毒素囊袋，內含劇毒，是煉製毒類丹藥的稀有材料"
+
+#. material.csv: 奇草精華
+msgid "MATERIAL_10_NAME"
+msgstr "奇草精華"
+
+#. material.csv: 奇草提煉的精華，具有神奇的治癒效果...
+msgid "MATERIAL_10_DESC"
+msgstr "奇草提煉的精華，具有神奇的治癒效果"
+
+#. material.csv: 靈木心
+msgid "MATERIAL_11_NAME"
+msgstr "靈木心"
+
+#. material.csv: 靈木的珍貴木心，蘊含濃郁靈力，是製作法器...
+msgid "MATERIAL_11_DESC"
+msgstr "靈木的珍貴木心，蘊含濃郁靈力，是製作法器的核心材料"
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "仙人掌刺"
+
+#. material.csv: 沙漠仙人掌的靈藥刻刺，能解百毒，製成針劑...
+msgid "MATERIAL_12_DESC"
+msgstr "沙漠仙人掌的靈藥刻刺，能解百毒，製成針劑後效果顯著"
+
+#. material.csv: 雪蓮花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "雪蓮花瓣"
+
+#. material.csv: 寒霜雪蓮的潔白花瓣，蘊含極寒之氣，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr "寒霜雪蓮的潔白花瓣，蘊含極寒之氣，是寒性藥材的最佳選擇"
+
+#. material.csv: 靈芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "靈芝孢子"
+
+#. material.csv: 水靈芝的藍色孢子，能增強水行修煉者的靈力...
+msgid "MATERIAL_14_DESC"
+msgstr "水靈芝的藍色孢子，能增強水行修煉者的靈力流通"
+
+#. material.csv: 雪絨花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "雪絨花蕊"
+
+#. material.csv: 雪絨花的純白花蕊，具有安神鎮靜功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr "雪絨花的純白花蕊，具有安神鎮靜功效，是冥想輔助的理想藥材"
+
+#. material.csv: 古鬆鬆脂
+msgid "MATERIAL_16_NAME"
+msgstr "古鬆鬆脂"
+
+#. material.csv: 千年古松的珍貴松脂，晶瑩如琥珀，蘊含濃郁...
+msgid "MATERIAL_16_DESC"
+msgstr "千年古松的珍貴松脂，晶瑩如琥珀，蘊含濃郁靈力，是高級煉器的稀有材料"
+
+#. material.csv: 靈稻精華
+msgid "MATERIAL_17_NAME"
+msgstr "靈稻精華"
+
+#. material.csv: 五穀靈稻提煉的精華，能快速強化體質，是體...
+msgid "MATERIAL_17_DESC"
+msgstr "五穀靈稻提煉的精華，能快速強化體質，是體修丹藥的主要成分"
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "神牛角"
+
+#. material.csv: 撼地神牛的獨角，蘊含厚重的大地之力，是煉...
+msgid "MATERIAL_18_DESC"
+msgstr "撼地神牛的獨角，蘊含厚重的大地之力，是煉製重型法寶和防禦陣盤的極品材料"
+
+#. material.csv: 清音竹節
+msgid "MATERIAL_19_NAME"
+msgstr "清音竹節"
+
+#. material.csv: 九曲清音竹中最精華的一節，敲擊時能發出安...
+msgid "MATERIAL_19_DESC"
+msgstr "九曲清音竹中最精華的一節，敲擊時能發出安神定志的清音，是製作音波類法寶的絕佳材料"
+
+#. material.csv: 冰魄蛇膽
+msgid "MATERIAL_20_NAME"
+msgstr "冰魄蛇膽"
+
+#. material.csv: 冰魄骨蛇的內丹所在，雖爲極寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr "冰魄骨蛇的內丹所在，雖爲極寒之物，但吞服後能大幅增強修士對寒氣的親和力，是修煉寒系功法的至寶"
+
+#. material.csv: 星紋葉
+msgid "MATERIAL_21_NAME"
+msgstr "星紋葉"
+
+#. material.csv: 葉面上天生帶有星辰紋路的草葉，蘊含純淨的...
+msgid "MATERIAL_21_DESC"
+msgstr "葉面上天生帶有星辰紋路的草葉，蘊含純淨的星辰之力，是煉製星辰屬性丹藥的主材"
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "赤果核"
+
+#. material.csv: 涅盤赤果的果核，即便果肉枯萎，核心仍鎖有...
+msgid "MATERIAL_22_DESC"
+msgstr "涅盤赤果的果核，即便果肉枯萎，核心仍鎖有一絲不滅生機，是煉製延壽丹和療傷聖藥的關鍵"
+
+#. material.csv: 玄鐵
+msgid "MATERIAL_101_NAME"
+msgstr "玄鐵"
+
+#. material.csv: 普通的黑色鐵礦，質地堅硬，適合打造練氣期...
+msgid "MATERIAL_101_DESC"
+msgstr "普通的黑色鐵礦，質地堅硬，適合打造練氣期法器"
+
+#. material.csv: 赤精銅
+msgid "MATERIAL_102_NAME"
+msgstr "赤精銅"
+
+#. material.csv: 通體赤紅的銅礦，蘊含火靈之力，是築基期煉...
+msgid "MATERIAL_102_DESC"
+msgstr "通體赤紅的銅礦，蘊含火靈之力，是築基期煉器的常用材料"
+
+#. material.csv: 祕銀
+msgid "MATERIAL_103_NAME"
+msgstr "祕銀"
+
+#. material.csv: 銀白色的稀有金屬，延展性極佳且能傳導靈力...
+msgid "MATERIAL_103_DESC"
+msgstr "銀白色的稀有金屬，延展性極佳且能傳導靈力，適用於金丹期法寶"
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "庚金"
+
+#. material.csv: 銳氣逼人的金色礦石，堅不可摧，乃是元嬰期...
+msgid "MATERIAL_104_DESC"
+msgstr "銳氣逼人的金色礦石，堅不可摧，乃是元嬰期煉製本命法寶的頂級材料"

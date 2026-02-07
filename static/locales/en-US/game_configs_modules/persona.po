@@ -1,0 +1,665 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. persona.csv: 理性
+msgid "PERSONA_1_NAME"
+msgstr "Rational"
+
+#. persona.csv: 你总是会用逻辑来思考问题，做事会谋定而后...
+msgid "PERSONA_1_DESC"
+msgstr ""
+"You always use logic to think through problems and act only after planning."
+
+#. persona.csv: 无常
+msgid "PERSONA_2_NAME"
+msgstr "Fickle"
+
+#. persona.csv: 目标飘忽不定，不会长期坚持一个目标。...
+msgid "PERSONA_2_DESC"
+msgstr "Goals are unstable; you will not stick to a single goal for long."
+
+#. persona.csv: 怠惰
+msgid "PERSONA_3_NAME"
+msgstr "Lazy"
+
+#. persona.csv: 你总是会拖延，不想努力，更热衷于享受人生...
+msgid "PERSONA_3_DESC"
+msgstr ""
+"You always procrastinate, don't want to work hard, and are more keen on "
+"enjoying life."
+
+#. persona.csv: 冒险
+msgid "PERSONA_4_NAME"
+msgstr "Adventurous"
+
+#. persona.csv: 你总是会冒险，喜欢刺激，总想放手一搏。...
+msgid "PERSONA_4_DESC"
+msgstr ""
+"You always take risks, love excitement, and always want to give it your all."
+
+#. persona.csv: 随性
+msgid "PERSONA_5_NAME"
+msgstr "Casual"
+
+#. persona.csv: 你总是会随机应变，性子到哪里了就是哪里，...
+msgid "PERSONA_5_DESC"
+msgstr ""
+"You always adapt to circumstances; wherever your mood goes, you follow, with"
+" no fixed rules."
+
+#. persona.csv: 贪财
+msgid "PERSONA_6_NAME"
+msgstr "Greedy"
+
+#. persona.csv: 你对灵石和财富有着强烈的渴望。...
+msgid "PERSONA_6_DESC"
+msgstr "You have a strong desire for spirit stones and wealth."
+
+#. persona.csv: 采集者
+msgid "PERSONA_7_NAME"
+msgstr "Gatherer"
+
+#. persona.csv: 喜欢在山林中寻找各种奇花异草和灵药，对植...
+msgid "PERSONA_7_DESC"
+msgstr ""
+"Likes to find various strange flowers, herbs, and spiritual medicines in "
+"mountains and forests."
+
+#. persona.csv: 猎人
+msgid "PERSONA_8_NAME"
+msgstr "Hunter"
+
+#. persona.csv: 享受在野外追踪猎物的刺激感，对各种动物的...
+msgid "PERSONA_8_DESC"
+msgstr ""
+"Enjoys the excitement of tracking prey in the wild, knows the habits of "
+"various animals well."
+
+#. persona.csv: 沉思
+msgid "PERSONA_9_NAME"
+msgstr "Pensive"
+
+#. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
+msgid "PERSONA_9_DESC"
+msgstr ""
+"You always think deeply, and your approach to problems is more "
+"philosophical."
+
+#. persona.csv: 惜命
+msgid "PERSONA_10_NAME"
+msgstr "Life-cherishing"
+
+#. persona.csv: 你总是会珍惜自己的生命，不会轻易冒险。...
+msgid "PERSONA_10_DESC"
+msgstr "You always value your own life and will not take risks easily."
+
+#. persona.csv: 友爱
+msgid "PERSONA_11_NAME"
+msgstr "Friendly"
+
+#. persona.csv: 你重视同伴与和谐，乐于助人。...
+msgid "PERSONA_11_DESC"
+msgstr "You value companions and harmony, are helpful."
+
+#. persona.csv: 复仇
+msgid "PERSONA_12_NAME"
+msgstr "Vengeful"
+
+#. persona.csv: 你绝不轻易放下仇怨，为了复仇愿意付出代价...
+msgid "PERSONA_12_DESC"
+msgstr ""
+"You never easily let go of a grudge and are willing to pay the price and "
+"time for revenge."
+
+#. persona.csv: 孤僻
+msgid "PERSONA_13_NAME"
+msgstr "Aloof"
+
+#. persona.csv: 你喜欢独处，避免与人深交。...
+msgid "PERSONA_13_DESC"
+msgstr "You prefer being alone, avoid deep involvement with others."
+
+#. persona.csv: 淡漠
+msgid "PERSONA_14_NAME"
+msgstr "Indifferent"
+
+#. persona.csv: 你情感克制，对外界冷静疏离。...
+msgid "PERSONA_14_DESC"
+msgstr ""
+"You are emotionally restrained, calm and detached from the outside world."
+
+#. persona.csv: 好斗
+msgid "PERSONA_15_NAME"
+msgstr "Aggressive"
+
+#. persona.csv: 你直面冲突，偏好以力量与对抗解决问题。...
+msgid "PERSONA_15_DESC"
+msgstr ""
+"You face conflicts directly, prefer resolving problems through power and "
+"confrontation."
+
+#. persona.csv: 鲁莽
+msgid "PERSONA_16_NAME"
+msgstr "Rash"
+
+#. persona.csv: 你行事冲动、少考虑后果，常凭直觉立刻行动...
+msgid "PERSONA_16_DESC"
+msgstr "You act impulsively with little regard for consequences."
+
+#. persona.csv: 胆小
+msgid "PERSONA_17_NAME"
+msgstr "Timid"
+
+#. persona.csv: 你谨小慎微，容易畏惧风险。...
+msgid "PERSONA_17_DESC"
+msgstr "You are cautious and meticulous, easily afraid of risks."
+
+#. persona.csv: 霸道
+msgid "PERSONA_18_NAME"
+msgstr "Overbearing"
+
+#. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
+msgid "PERSONA_18_DESC"
+msgstr ""
+"You act strongly and unreasonably, habitually putting your own interests "
+"first."
+
+#. persona.csv: 修行痴迷
+msgid "PERSONA_19_NAME"
+msgstr "Cultivation Obsessed"
+
+#. persona.csv: 你将绝大多数时间用于修炼，厌恶享乐。...
+msgid "PERSONA_19_DESC"
+msgstr "You spend the vast majority of your time on cultivation."
+
+#. persona.csv: 内向
+msgid "PERSONA_20_NAME"
+msgstr "Introverted"
+
+#. persona.csv: 你更享受独处与自我思考，倾向回避不必要的...
+msgid "PERSONA_20_DESC"
+msgstr "You enjoy solitude and self-reflection more."
+
+#. persona.csv: 外向
+msgid "PERSONA_21_NAME"
+msgstr "Extroverted"
+
+#. persona.csv: 你乐于与人交流，主动结识伙伴。...
+msgid "PERSONA_21_DESC"
+msgstr "You enjoy communicating with others, proactively making friends."
+
+#. persona.csv: 刻薄
+msgid "PERSONA_22_NAME"
+msgstr "Mean"
+
+#. persona.csv: 你在对话中倾向以讽刺、嘲弄、挖苦的方式表...
+msgid "PERSONA_22_DESC"
+msgstr ""
+"In dialogue, you tend to express yourself through irony, mockery, and "
+"sarcasm."
+
+#. persona.csv: 热情
+msgid "PERSONA_23_NAME"
+msgstr "Enthusiastic"
+
+#. persona.csv: 你待人友好、积极回应，倾向用鼓励与赞美拉...
+msgid "PERSONA_23_DESC"
+msgstr "You are friendly to others and respond positively."
+
+#. persona.csv: 极端正义
+msgid "PERSONA_24_NAME"
+msgstr "Extremely Righteous"
+
+#. persona.csv: 你对邪恶深恶痛绝，对正义的理想抱有近乎偏...
+msgid "PERSONA_24_DESC"
+msgstr "You have a deep-seated hatred for evil."
+
+#. persona.csv: 极端邪恶
+msgid "PERSONA_25_NAME"
+msgstr "Extremely Evil"
+
+#. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
+msgid "PERSONA_25_DESC"
+msgstr "You promote power and fear, stop at nothing to achieve your goals."
+
+#. persona.csv: 开放
+msgid "PERSONA_26_NAME"
+msgstr "Open-minded"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较随意...
+msgid "PERSONA_26_DESC"
+msgstr ""
+"You are relatively casual about becoming Dao companions or dual cultivating "
+"with others."
+
+#. persona.csv: 腼腆
+msgid "PERSONA_27_NAME"
+msgstr "Shy"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较谨慎...
+msgid "PERSONA_27_DESC"
+msgstr ""
+"You are relatively cautious about becoming Dao companions or dual "
+"cultivating with others."
+
+#. persona.csv: 舔狗
+msgid "PERSONA_28_NAME"
+msgstr "Simp"
+
+#. persona.csv: 你对异性中外貌出众者格外友善。...
+msgid "PERSONA_28_DESC"
+msgstr ""
+"You are exceptionally friendly to those of the opposite sex with outstanding"
+" appearance."
+
+#. persona.csv: 嫉妒
+msgid "PERSONA_29_NAME"
+msgstr "Envious"
+
+#. persona.csv: 你对远超于你的人容易产生敌意。...
+msgid "PERSONA_29_DESC"
+msgstr "You easily harbor hostility towards those who far exceed you."
+
+#. persona.csv: 穿越者
+msgid "PERSONA_30_NAME"
+msgstr "Transmigrator"
+
+#. persona.csv: 你来自现代社会，怀念现代社会的一切。...
+msgid "PERSONA_30_DESC"
+msgstr "You come from modern society and miss everything about it."
+
+#. persona.csv: 气运之子
+msgid "PERSONA_31_NAME"
+msgstr "Child of Fortune"
+
+#. persona.csv: 天生气运加身，更易遇到奇遇。...
+msgid "PERSONA_31_DESC"
+msgstr ""
+"Naturally blessed with fortune, more likely to encounter lucky breaks."
+
+#. persona.csv: 剑痴
+msgid "PERSONA_32_NAME"
+msgstr "Sword Fanatic"
+
+#. persona.csv: 以剑入道，剑即是命。你认为剑道至上。...
+msgid "PERSONA_32_DESC"
+msgstr "Entering the Dao through the sword, the sword is your life."
+
+#. persona.csv: 心机深沉
+msgid "PERSONA_33_NAME"
+msgstr "Scheming"
+
+#. persona.csv: 深藏不露，行事谨慎，善于算计。...
+msgid "PERSONA_33_DESC"
+msgstr "Hiding your true self, acting cautiously, and good at calculating."
+
+#. persona.csv: 忠诚
+msgid "PERSONA_34_NAME"
+msgstr "Loyal"
+
+#. persona.csv: 重承诺守信义，对认定的人绝不背叛。...
+msgid "PERSONA_34_DESC"
+msgstr ""
+"Values promises and integrity, never betrays the person you've acknowledged."
+
+#. persona.csv: 狠辣
+msgid "PERSONA_35_NAME"
+msgstr "Ruthless"
+
+#. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
+msgid "PERSONA_35_DESC"
+msgstr "Acts decisively and ruthlessly, leaving no future troubles."
+
+#. persona.csv: 重生者
+msgid "PERSONA_36_NAME"
+msgstr "Reincarnator"
+
+#. persona.csv: 经历过一世，对未来有模糊预知。...
+msgid "PERSONA_36_DESC"
+msgstr ""
+"Having experienced a previous life, you have a vague premonition of the "
+"future."
+
+#. persona.csv: 疑心重
+msgid "PERSONA_37_NAME"
+msgstr "Suspicious"
+
+#. persona.csv: 对任何人都保持怀疑，不轻易信任。...
+msgid "PERSONA_37_DESC"
+msgstr "Maintains suspicion towards anyone, does not easily trust."
+
+#. persona.csv: 体修
+msgid "PERSONA_38_NAME"
+msgstr "Body Cultivator"
+
+#. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
+msgid "PERSONA_38_DESC"
+msgstr ""
+"Focuses on physical tempering, with a strong physique and invincible in "
+"close combat."
+
+#. persona.csv: 炼丹师
+msgid "PERSONA_39_NAME"
+msgstr "Alchemist"
+
+#. persona.csv: 精通丹道，对灵药敏感。...
+msgid "PERSONA_39_DESC"
+msgstr "Proficient in the Way of Alchemy, sensitive to spiritual herbs."
+
+#. persona.csv: 福缘深厚
+msgid "PERSONA_40_NAME"
+msgstr "Blessed with Good Fortune"
+
+#. persona.csv: 天生福运，逢凶化吉。...
+msgid "PERSONA_40_DESC"
+msgstr "Naturally lucky, turning misfortune into good."
+
+#. persona.csv: 剑修
+msgid "PERSONA_41_NAME"
+msgstr "Sword Cultivator"
+
+#. persona.csv: 对剑道有着深厚的兴趣和独特的天赋。...
+msgid "PERSONA_41_DESC"
+msgstr "Possesses a deep interest and unique talent for the Way of the Sword."
+
+#. persona.csv: 刀修
+msgid "PERSONA_42_NAME"
+msgstr "Saber Cultivator"
+
+#. persona.csv: 专精刀法，对刀道有着独特的理解。...
+msgid "PERSONA_42_DESC"
+msgstr ""
+"Specializes in saber techniques, with a unique understanding of the Way of "
+"the Saber."
+
+#. persona.csv: 枪修
+msgid "PERSONA_43_NAME"
+msgstr "Spear Cultivator"
+
+#. persona.csv: 精通枪法，百兵之王在手。...
+msgid "PERSONA_43_DESC"
+msgstr "Proficient in spear techniques; with the king of all weapons in hand."
+
+#. persona.csv: 棍修
+msgid "PERSONA_44_NAME"
+msgstr "Staff Cultivator"
+
+#. persona.csv: 棍棒在手，天下我有。...
+msgid "PERSONA_44_DESC"
+msgstr "With a staff in hand, the world is mine."
+
+#. persona.csv: 音律大师
+msgid "PERSONA_45_NAME"
+msgstr "Musical Master"
+
+#. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
+msgid "PERSONA_45_DESC"
+msgstr "Proficient in the Way of Music; with a zither or flute in hand."
+
+#. persona.csv: 暗器高手
+msgid "PERSONA_46_NAME"
+msgstr "Hidden Weapon Expert"
+
+#. persona.csv: 擅长使用暗器，出手诡秘莫测。...
+msgid "PERSONA_46_DESC"
+msgstr ""
+"Good at using hidden weapons, with mysterious and unpredictable moves."
+
+#. persona.csv: 扇修
+msgid "PERSONA_47_NAME"
+msgstr "Fan Cultivator"
+
+#. persona.csv: 精通扇法，举手投足间尽显风流。...
+msgid "PERSONA_47_DESC"
+msgstr "Proficient in fan techniques, showing elegance in every move."
+
+#. persona.csv: 鞭修
+msgid "PERSONA_48_NAME"
+msgstr "Whip Cultivator"
+
+#. persona.csv: 精通鞭法，软兵器在手，刚柔并济。...
+msgid "PERSONA_48_DESC"
+msgstr "Proficient in whip techniques; with a soft weapon in hand."
+
+#. persona.csv: 刀痴
+msgid "PERSONA_49_NAME"
+msgstr "Saber Fanatic"
+
+#. persona.csv: 以刀入道，刀即是命。你认为刀法至上。...
+msgid "PERSONA_49_DESC"
+msgstr "Entering the Dao through the saber, the saber is your life."
+
+#. persona.csv: 枪痴
+msgid "PERSONA_50_NAME"
+msgstr "Spear Fanatic"
+
+#. persona.csv: 以枪入道，枪即是命。你认为枪法至上。...
+msgid "PERSONA_50_DESC"
+msgstr "Entering the Dao through the spear, the spear is your life."
+
+#. persona.csv: 棍圣
+msgid "PERSONA_51_NAME"
+msgstr "Staff Saint"
+
+#. persona.csv: 以棍入道，棍即是命。棍法通神。...
+msgid "PERSONA_51_DESC"
+msgstr "Entering the Dao through the staff, the staff is your life."
+
+#. persona.csv: 扇痴
+msgid "PERSONA_52_NAME"
+msgstr "Fan Fanatic"
+
+#. persona.csv: 以扇入道，扇即是命。你认为扇法至上。...
+msgid "PERSONA_52_DESC"
+msgstr "Entering the Dao through the fan, the fan is your life."
+
+#. persona.csv: 鞭痴
+msgid "PERSONA_53_NAME"
+msgstr "Whip Fanatic"
+
+#. persona.csv: 以鞭入道，鞭即是命。你认为鞭法至上。...
+msgid "PERSONA_53_DESC"
+msgstr "Entering the Dao through the whip, the whip is your life."
+
+#. persona.csv: 刺客宗师
+msgid "PERSONA_54_NAME"
+msgstr "Master Assassin"
+
+#. persona.csv: 暗器之道登峰造极，杀人于无形。...
+msgid "PERSONA_54_DESC"
+msgstr "The Way of Hidden Weapons has reached its peak, killing invisibly."
+
+#. persona.csv: 好色
+msgid "PERSONA_55_NAME"
+msgstr "Lustful"
+
+#. persona.csv: 你对美色有着强烈的渴求。...
+msgid "PERSONA_55_DESC"
+msgstr "You have a strong craving for beauty."
+
+#. persona.csv: 无欲
+msgid "PERSONA_56_NAME"
+msgstr "Desireless"
+
+#. persona.csv: 你清心寡欲，对男女之事毫无兴趣。...
+msgid "PERSONA_56_DESC"
+msgstr ""
+"You are pure-hearted and have no interest in matters between men and women."
+
+#. persona.csv: 探险家
+msgid "PERSONA_57_NAME"
+msgstr "Explorer"
+
+#. persona.csv: 你对未知的世界充满好奇。...
+msgid "PERSONA_57_DESC"
+msgstr "You are full of curiosity about the unknown world."
+
+#. persona.csv: 死宅
+msgid "PERSONA_58_NAME"
+msgstr "Homebody"
+
+#. persona.csv: 你极度排斥长途跋涉，更喜欢待在熟悉的区域...
+msgid "PERSONA_58_DESC"
+msgstr "You are extremely reluctant to travel long distances."
+
+#. persona.csv: 扫把星
+msgid "PERSONA_59_NAME"
+msgstr "Jinx"
+
+#. persona.csv: 天生霉运缠身。...
+msgid "PERSONA_59_DESC"
+msgstr "Born with bad luck, everything goes wrong."
+
+#. persona.csv: 大器晚成
+msgid "PERSONA_60_NAME"
+msgstr "Late Bloomer"
+
+#. persona.csv: 早年修行多舛；但若能坚持至金丹元婴，便可...
+msgid "PERSONA_60_DESC"
+msgstr "Early cultivation was fraught with misfortune."
+
+#. persona.csv: 炼器师
+msgid "PERSONA_61_NAME"
+msgstr "Artifact Refiner"
+
+#. persona.csv: 精通炼器之道，对材料敏锐。...
+msgid "PERSONA_61_DESC"
+msgstr "Proficient in the Way of Artifact Refining."
+
+#. persona.csv: 情绪化
+msgid "PERSONA_62_NAME"
+msgstr "Emotional"
+
+#. persona.csv: 你的情绪波动很大。...
+msgid "PERSONA_62_DESC"
+msgstr "Your emotions fluctuate greatly."
+
+#. persona.csv: 矿工
+msgid "PERSONA_63_NAME"
+msgstr "Miner"
+
+#. persona.csv: 擅长勘探挖掘，对矿脉有着独特的直觉。...
+msgid "PERSONA_63_DESC"
+msgstr "Good at prospecting and digging, with a unique intuition for lodes."
+
+#. persona.csv: 苟
+msgid "PERSONA_64_NAME"
+msgstr "Steady"
+
+#. persona.csv: 你躲避风险和风头，尽力不担上任何风险。...
+msgid "PERSONA_64_DESC"
+msgstr "You avoid risks and the spotlight."
+
+#. persona.csv: 妒忌
+msgid "PERSONA_65_NAME"
+msgstr "Envious"
+
+#. persona.csv: 心胸狭窄，见不得别人比自己好。...
+msgid "PERSONA_65_DESC"
+msgstr "Narrow-minded, unable to see others doing better than yourself."
+
+#. persona.csv: 重亲情
+msgid "PERSONA_66_NAME"
+msgstr "Family-oriented"
+
+#. persona.csv: 你重视家庭和血缘关系，以家族利益为重。...
+msgid "PERSONA_66_DESC"
+msgstr ""
+"You value family and blood relationships, putting family interests first."
+
+#. persona.csv: 重义气
+msgid "PERSONA_67_NAME"
+msgstr "Righteous"
+
+#. persona.csv: 你重视朋友义气，为朋友可以两肋插刀。...
+msgid "PERSONA_67_DESC"
+msgstr ""
+"You value friendship and loyalty, willing to go to great lengths for your "
+"friends."
+
+#. persona.csv: 孤身一人
+msgid "PERSONA_68_NAME"
+msgstr "Friendless"
+
+#. persona.csv: 你习惯独来独往，不轻易与人深交。...
+msgid "PERSONA_68_DESC"
+msgstr ""
+"You are accustomed to being alone, not easily forming deep connections with "
+"others."
+
+#. persona.csv: 专情
+msgid "PERSONA_69_NAME"
+msgstr "Devoted"
+
+#. persona.csv: 你对爱情专一，一旦认定便不会改变。...
+msgid "PERSONA_69_DESC"
+msgstr "You are devoted in love, once committed, you will not change."
+
+#. persona.csv: 多情
+msgid "PERSONA_70_NAME"
+msgstr "Romantic"
+
+#. persona.csv: 你容易动情，对美好的感情充满向往。...
+msgid "PERSONA_70_DESC"
+msgstr ""
+"You are easily moved by emotions, full of longing for beautiful feelings."
+
+#. persona.csv: 薄情
+msgid "PERSONA_71_NAME"
+msgstr "Heartless"
+
+#. persona.csv: 你对感情淡漠，不会轻易动心。...
+msgid "PERSONA_71_DESC"
+msgstr "You are indifferent to emotions, not easily moved."
+
+#. persona.csv: 贪玩
+msgid "PERSONA_1001_NAME"
+msgstr "Playful"
+
+#. persona.csv: 沉迷玩乐，不思进取。...
+msgid "PERSONA_1001_DESC"
+msgstr "Indulging in fun, not thinking about progress."
+
+#. persona.csv: 书痴
+msgid "PERSONA_1002_NAME"
+msgstr "Bookworm"
+
+#. persona.csv: 嗜书如命。...
+msgid "PERSONA_1002_DESC"
+msgstr "Addicted to books."
+
+#. persona.csv: 茶痴
+msgid "PERSONA_1003_NAME"
+msgstr "Tea Lover"
+
+#. persona.csv: 宁可三日无食，不可一日无茶。...
+msgid "PERSONA_1003_DESC"
+msgstr "Can't go a day without tea."
+
+#. persona.csv: 琴师
+msgid "PERSONA_1004_NAME"
+msgstr "Musician"
+
+#. persona.csv: 善抚琴。...
+msgid "PERSONA_1004_DESC"
+msgstr "Good at playing the zither."
+
+#. persona.csv: 游历者
+msgid "PERSONA_1005_NAME"
+msgstr "Traveler"
+
+#. persona.csv: 读万卷书不如行万里路。...
+msgid "PERSONA_1005_DESC"
+msgstr ""
+"Reading ten thousand books is not as good as traveling ten thousand miles."
+
+#. persona.csv: 棋痴
+msgid "PERSONA_1006_NAME"
+msgstr "Chess Player"
+
+#. persona.csv: 善弈者长生。...
+msgid "PERSONA_1006_DESC"
+msgstr "Good chess players live long."

@@ -1,0 +1,61 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. cultivate_region.csv: 太白金府
+msgid "CULTIVATE_REGION_201_NAME"
+msgstr "太白金府"
+
+#. cultivate_region.csv: 青峯山脈深處的金行洞府，金精氣凝，刀劍鳴...
+msgid "CULTIVATE_REGION_201_DESC"
+msgstr "青峯山脈深處的金行洞府，金精氣凝，刀劍鳴音不絕，乃金系修士的最高聖地。"
+
+#. cultivate_region.csv: 青木洞天
+msgid "CULTIVATE_REGION_202_NAME"
+msgstr "青木洞天"
+
+#. cultivate_region.csv: 青雲林海中的木行洞府，生機盎然，靈藥遍地...
+msgid "CULTIVATE_REGION_202_DESC"
+msgstr "青雲林海中的木行洞府，生機盎然，靈藥遍地，乃木系修士的最高聖地。"
+
+#. cultivate_region.csv: 玄水祕境
+msgid "CULTIVATE_REGION_203_NAME"
+msgstr "玄水祕境"
+
+#. cultivate_region.csv: 無邊碧海深處的水行洞府，碧波萬里，水精凝...
+msgid "CULTIVATE_REGION_203_DESC"
+msgstr "無邊碧海深處的水行洞府，碧波萬里，水精凝神，乃水系修士的最高聖地。"
+
+#. cultivate_region.csv: 離火洞府
+msgid "CULTIVATE_REGION_204_NAME"
+msgstr "離火洞府"
+
+#. cultivate_region.csv: 炎獄火山旁的火行洞府，烈焰沖天，真火精純...
+msgid "CULTIVATE_REGION_204_DESC"
+msgstr "炎獄火山旁的火行洞府，烈焰沖天，真火精純，乃火系修士的最高聖地。"
+
+#. cultivate_region.csv: 厚土玄宮
+msgid "CULTIVATE_REGION_205_NAME"
+msgstr "厚土玄宮"
+
+#. cultivate_region.csv: 青峯山脈的土行洞府，厚德載物，山嶽共鳴，...
+msgid "CULTIVATE_REGION_205_DESC"
+msgstr "青峯山脈的土行洞府，厚德載物，山嶽共鳴，乃土系修士的最高聖地。"
+
+#. cultivate_region.csv: 古越遺蹟
+msgid "CULTIVATE_REGION_206_NAME"
+msgstr "古越遺蹟"
+
+#. cultivate_region.csv: 雨林深處的上古遺蹟，古藤纏繞，木行靈氣與...
+msgid "CULTIVATE_REGION_206_DESC"
+msgstr "雨林深處的上古遺蹟，古藤纏繞，木行靈氣與金行靈氣交融。蘊藏古老功法與靈藥配方。"
+
+#. cultivate_region.csv: 滄海遺蹟
+msgid "CULTIVATE_REGION_207_NAME"
+msgstr "滄海遺蹟"
+
+#. cultivate_region.csv: 沉沒在海中的遠古文明遺蹟，水行靈氣濃郁，...
+msgid "CULTIVATE_REGION_207_DESC"
+msgstr "沉沒在海中的遠古文明遺蹟，水行靈氣濃郁，潮汐間偶有寶物現世。"

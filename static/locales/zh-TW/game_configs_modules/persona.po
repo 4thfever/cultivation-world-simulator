@@ -1,0 +1,621 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. persona.csv: 理性
+msgid "PERSONA_1_NAME"
+msgstr "理性"
+
+#. persona.csv: 你總是會用邏輯來思考問題，做事會謀定而後...
+msgid "PERSONA_1_DESC"
+msgstr "你總是會用邏輯來思考問題，做事會謀定而後動。"
+
+#. persona.csv: 無常
+msgid "PERSONA_2_NAME"
+msgstr "無常"
+
+#. persona.csv: 目標飄忽不定，不會長期堅持一個目標。...
+msgid "PERSONA_2_DESC"
+msgstr "目標飄忽不定，不會長期堅持一個目標。"
+
+#. persona.csv: 怠惰
+msgid "PERSONA_3_NAME"
+msgstr "怠惰"
+
+#. persona.csv: 你總是會拖延，不想努力，更熱衷於享受人生...
+msgid "PERSONA_3_DESC"
+msgstr "你總是會拖延，不想努力，更熱衷於享受人生。"
+
+#. persona.csv: 冒險
+msgid "PERSONA_4_NAME"
+msgstr "冒險"
+
+#. persona.csv: 你總是會冒險，喜歡刺激，總想放手一搏。...
+msgid "PERSONA_4_DESC"
+msgstr "你總是會冒險，喜歡刺激，總想放手一搏。"
+
+#. persona.csv: 隨性
+msgid "PERSONA_5_NAME"
+msgstr "隨性"
+
+#. persona.csv: 你總是會隨機應變，性子到哪裏了就是哪裏，...
+msgid "PERSONA_5_DESC"
+msgstr "你總是會隨機應變，性子到哪裏了就是哪裏，沒有一定之規。"
+
+#. persona.csv: 貪財
+msgid "PERSONA_6_NAME"
+msgstr "貪財"
+
+#. persona.csv: 你對靈石和財富有着強烈的渴望。...
+msgid "PERSONA_6_DESC"
+msgstr "你對靈石和財富有着強烈的渴望。"
+
+#. persona.csv: 採集者
+msgid "PERSONA_7_NAME"
+msgstr "採集者"
+
+#. persona.csv: 喜歡在山林中尋找各種奇花異草和靈藥，對植...
+msgid "PERSONA_7_DESC"
+msgstr "喜歡在山林中尋找各種奇花異草和靈藥，對植物有着敏銳的直覺和深厚的興趣。"
+
+#. persona.csv: 獵人
+msgid "PERSONA_8_NAME"
+msgstr "獵人"
+
+#. persona.csv: 享受在野外追蹤獵物的刺激感，對各種動物的...
+msgid "PERSONA_8_DESC"
+msgstr "享受在野外追蹤獵物的刺激感，對各種動物的習性瞭如指掌。"
+
+#. persona.csv: 沉思
+msgid "PERSONA_9_NAME"
+msgstr "沉思"
+
+#. persona.csv: 你總是會深思熟慮，思考問題比較有哲理。...
+msgid "PERSONA_9_DESC"
+msgstr "你總是會深思熟慮，思考問題比較有哲理。"
+
+#. persona.csv: 惜命
+msgid "PERSONA_10_NAME"
+msgstr "惜命"
+
+#. persona.csv: 你總是會珍惜自己的生命，不會輕易冒險。...
+msgid "PERSONA_10_DESC"
+msgstr "你總是會珍惜自己的生命，不會輕易冒險。"
+
+#. persona.csv: 友愛
+msgid "PERSONA_11_NAME"
+msgstr "友愛"
+
+#. persona.csv: 你重視同伴與和諧，樂於助人。...
+msgid "PERSONA_11_DESC"
+msgstr "你重視同伴與和諧，樂於助人。"
+
+#. persona.csv: 復仇
+msgid "PERSONA_12_NAME"
+msgstr "復仇"
+
+#. persona.csv: 你絕不輕易放下仇怨，爲了復仇願意付出代價...
+msgid "PERSONA_12_DESC"
+msgstr "你絕不輕易放下仇怨，爲了復仇願意付出代價與時間。"
+
+#. persona.csv: 孤僻
+msgid "PERSONA_13_NAME"
+msgstr "孤僻"
+
+#. persona.csv: 你喜歡獨處，避免與人深交。...
+msgid "PERSONA_13_DESC"
+msgstr "你喜歡獨處，避免與人深交。"
+
+#. persona.csv: 淡漠
+msgid "PERSONA_14_NAME"
+msgstr "淡漠"
+
+#. persona.csv: 你情感剋制，對外界冷靜疏離。...
+msgid "PERSONA_14_DESC"
+msgstr "你情感剋制，對外界冷靜疏離。"
+
+#. persona.csv: 好鬥
+msgid "PERSONA_15_NAME"
+msgstr "好鬥"
+
+#. persona.csv: 你直面衝突，偏好以力量與對抗解決問題。...
+msgid "PERSONA_15_DESC"
+msgstr "你直面衝突，偏好以力量與對抗解決問題。"
+
+#. persona.csv: 魯莽
+msgid "PERSONA_16_NAME"
+msgstr "魯莽"
+
+#. persona.csv: 你行事衝動、少考慮後果，常憑直覺立刻行動...
+msgid "PERSONA_16_DESC"
+msgstr "你行事衝動、少考慮後果，常憑直覺立刻行動。"
+
+#. persona.csv: 膽小
+msgid "PERSONA_17_NAME"
+msgstr "膽小"
+
+#. persona.csv: 你謹小慎微，容易畏懼風險。...
+msgid "PERSONA_17_DESC"
+msgstr "你謹小慎微，容易畏懼風險。"
+
+#. persona.csv: 霸道
+msgid "PERSONA_18_NAME"
+msgstr "霸道"
+
+#. persona.csv: 你行事強勢，不講道理，習慣以自己的利益爲...
+msgid "PERSONA_18_DESC"
+msgstr "你行事強勢，不講道理，習慣以自己的利益爲先。"
+
+#. persona.csv: 修行癡迷
+msgid "PERSONA_19_NAME"
+msgstr "修行癡迷"
+
+#. persona.csv: 你將絕大多數時間用於修煉，厭惡享樂。...
+msgid "PERSONA_19_DESC"
+msgstr "你將絕大多數時間用於修煉，厭惡享樂。"
+
+#. persona.csv: 內向
+msgid "PERSONA_20_NAME"
+msgstr "內向"
+
+#. persona.csv: 你更享受獨處與自我思考，傾向迴避不必要的...
+msgid "PERSONA_20_DESC"
+msgstr "你更享受獨處與自我思考，傾向迴避不必要的社交。"
+
+#. persona.csv: 外向
+msgid "PERSONA_21_NAME"
+msgstr "外向"
+
+#. persona.csv: 你樂於與人交流，主動結識夥伴。...
+msgid "PERSONA_21_DESC"
+msgstr "你樂於與人交流，主動結識夥伴。"
+
+#. persona.csv: 刻薄
+msgid "PERSONA_22_NAME"
+msgstr "刻薄"
+
+#. persona.csv: 你在對話中傾向以諷刺、嘲弄、挖苦的方式表...
+msgid "PERSONA_22_DESC"
+msgstr "你在對話中傾向以諷刺、嘲弄、挖苦的方式表達自己。"
+
+#. persona.csv: 熱情
+msgid "PERSONA_23_NAME"
+msgstr "熱情"
+
+#. persona.csv: 你待人友好、積極回應，傾向用鼓勵與讚美拉...
+msgid "PERSONA_23_DESC"
+msgstr "你待人友好、積極回應，傾向用鼓勵與讚美拉近距離。"
+
+#. persona.csv: 極端正義
+msgid "PERSONA_24_NAME"
+msgstr "極端正義"
+
+#. persona.csv: 你對邪惡深惡痛絕，對正義的理想抱有近乎偏...
+msgid "PERSONA_24_DESC"
+msgstr "你對邪惡深惡痛絕，對正義的理想抱有近乎偏執的追求。"
+
+#. persona.csv: 極端邪惡
+msgid "PERSONA_25_NAME"
+msgstr "極端邪惡"
+
+#. persona.csv: 你推崇權力與恐懼，爲達目的不擇手段。...
+msgid "PERSONA_25_DESC"
+msgstr "你推崇權力與恐懼，爲達目的不擇手段。"
+
+#. persona.csv: 開放
+msgid "PERSONA_26_NAME"
+msgstr "開放"
+
+#. persona.csv: 你對待和他人結爲道侶或者雙修比較隨意...
+msgid "PERSONA_26_DESC"
+msgstr "你對待和他人結爲道侶或者雙修比較隨意"
+
+#. persona.csv: 靦腆
+msgid "PERSONA_27_NAME"
+msgstr "靦腆"
+
+#. persona.csv: 你對待和他人結爲道侶或者雙修比較謹慎...
+msgid "PERSONA_27_DESC"
+msgstr "你對待和他人結爲道侶或者雙修比較謹慎"
+
+#. persona.csv: 舔狗
+msgid "PERSONA_28_NAME"
+msgstr "舔狗"
+
+#. persona.csv: 你對異性中外貌出衆者格外友善。...
+msgid "PERSONA_28_DESC"
+msgstr "你對異性中外貌出衆者格外友善。"
+
+#. persona.csv: 嫉妒
+msgid "PERSONA_29_NAME"
+msgstr "嫉妒"
+
+#. persona.csv: 你對遠超於你的人容易產生敵意。...
+msgid "PERSONA_29_DESC"
+msgstr "你對遠超於你的人容易產生敵意。"
+
+#. persona.csv: 穿越者
+msgid "PERSONA_30_NAME"
+msgstr "穿越者"
+
+#. persona.csv: 你來自現代社會，懷念現代社會的一切。...
+msgid "PERSONA_30_DESC"
+msgstr "你來自現代社會，懷念現代社會的一切。"
+
+#. persona.csv: 氣運之子
+msgid "PERSONA_31_NAME"
+msgstr "氣運之子"
+
+#. persona.csv: 天生氣運加身，更易遇到奇遇。...
+msgid "PERSONA_31_DESC"
+msgstr "天生氣運加身，更易遇到奇遇。"
+
+#. persona.csv: 劍癡
+msgid "PERSONA_32_NAME"
+msgstr "劍癡"
+
+#. persona.csv: 以劍入道，劍即是命。你認爲劍道至上。...
+msgid "PERSONA_32_DESC"
+msgstr "以劍入道，劍即是命。你認爲劍道至上。"
+
+#. persona.csv: 心機深沉
+msgid "PERSONA_33_NAME"
+msgstr "心機深沉"
+
+#. persona.csv: 深藏不露，行事謹慎，善於算計。...
+msgid "PERSONA_33_DESC"
+msgstr "深藏不露，行事謹慎，善於算計。"
+
+#. persona.csv: 忠誠
+msgid "PERSONA_34_NAME"
+msgstr "忠誠"
+
+#. persona.csv: 重承諾守信義，對認定的人絕不背叛。...
+msgid "PERSONA_34_DESC"
+msgstr "重承諾守信義，對認定的人絕不背叛。"
+
+#. persona.csv: 狠辣
+msgid "PERSONA_35_NAME"
+msgstr "狠辣"
+
+#. persona.csv: 行事果決狠辣，不留後患，斬草必除根。...
+msgid "PERSONA_35_DESC"
+msgstr "行事果決狠辣，不留後患，斬草必除根。"
+
+#. persona.csv: 重生者
+msgid "PERSONA_36_NAME"
+msgstr "重生者"
+
+#. persona.csv: 經歷過一世，對未來有模糊預知。...
+msgid "PERSONA_36_DESC"
+msgstr "經歷過一世，對未來有模糊預知。"
+
+#. persona.csv: 疑心重
+msgid "PERSONA_37_NAME"
+msgstr "疑心重"
+
+#. persona.csv: 對任何人都保持懷疑，不輕易信任。...
+msgid "PERSONA_37_DESC"
+msgstr "對任何人都保持懷疑，不輕易信任。"
+
+#. persona.csv: 體修
+msgid "PERSONA_38_NAME"
+msgstr "體修"
+
+#. persona.csv: 專注肉身淬鍊，體魄強健，近戰無敵。...
+msgid "PERSONA_38_DESC"
+msgstr "專注肉身淬鍊，體魄強健，近戰無敵。"
+
+#. persona.csv: 煉丹師
+msgid "PERSONA_39_NAME"
+msgstr "煉丹師"
+
+#. persona.csv: 精通丹道，對靈藥敏感。...
+msgid "PERSONA_39_DESC"
+msgstr "精通丹道，對靈藥敏感。"
+
+#. persona.csv: 福緣深厚
+msgid "PERSONA_40_NAME"
+msgstr "福緣深厚"
+
+#. persona.csv: 天生福運，逢凶化吉。...
+msgid "PERSONA_40_DESC"
+msgstr "天生福運，逢凶化吉。"
+
+#. persona.csv: 劍修
+msgid "PERSONA_41_NAME"
+msgstr "劍修"
+
+#. persona.csv: 對劍道有着深厚的興趣和獨特的天賦。...
+msgid "PERSONA_41_DESC"
+msgstr "對劍道有着深厚的興趣和獨特的天賦。"
+
+#. persona.csv: 刀修
+msgid "PERSONA_42_NAME"
+msgstr "刀修"
+
+#. persona.csv: 專精刀法，對刀道有着獨特的理解。...
+msgid "PERSONA_42_DESC"
+msgstr "專精刀法，對刀道有着獨特的理解。"
+
+#. persona.csv: 槍修
+msgid "PERSONA_43_NAME"
+msgstr "槍修"
+
+#. persona.csv: 精通槍法，百兵之王在手。...
+msgid "PERSONA_43_DESC"
+msgstr "精通槍法，百兵之王在手。"
+
+#. persona.csv: 棍修
+msgid "PERSONA_44_NAME"
+msgstr "棍修"
+
+#. persona.csv: 棍棒在手，天下我有。...
+msgid "PERSONA_44_DESC"
+msgstr "棍棒在手，天下我有。"
+
+#. persona.csv: 音律大師
+msgid "PERSONA_45_NAME"
+msgstr "音律大師"
+
+#. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
+msgid "PERSONA_45_DESC"
+msgstr "精通音律之道，琴笛在手，可攻可守。"
+
+#. persona.csv: 暗器高手
+msgid "PERSONA_46_NAME"
+msgstr "暗器高手"
+
+#. persona.csv: 擅長使用暗器，出手詭祕莫測。...
+msgid "PERSONA_46_DESC"
+msgstr "擅長使用暗器，出手詭祕莫測。"
+
+#. persona.csv: 扇修
+msgid "PERSONA_47_NAME"
+msgstr "扇修"
+
+#. persona.csv: 精通扇法，舉手投足間盡顯風流。...
+msgid "PERSONA_47_DESC"
+msgstr "精通扇法，舉手投足間盡顯風流。"
+
+#. persona.csv: 鞭修
+msgid "PERSONA_48_NAME"
+msgstr "鞭修"
+
+#. persona.csv: 精通鞭法，軟兵器在手，剛柔並濟。...
+msgid "PERSONA_48_DESC"
+msgstr "精通鞭法，軟兵器在手，剛柔並濟。"
+
+#. persona.csv: 刀癡
+msgid "PERSONA_49_NAME"
+msgstr "刀癡"
+
+#. persona.csv: 以刀入道，刀即是命。你認爲刀法至上。...
+msgid "PERSONA_49_DESC"
+msgstr "以刀入道，刀即是命。你認爲刀法至上。"
+
+#. persona.csv: 槍癡
+msgid "PERSONA_50_NAME"
+msgstr "槍癡"
+
+#. persona.csv: 以槍入道，槍即是命。你認爲槍法至上。...
+msgid "PERSONA_50_DESC"
+msgstr "以槍入道，槍即是命。你認爲槍法至上。"
+
+#. persona.csv: 棍聖
+msgid "PERSONA_51_NAME"
+msgstr "棍聖"
+
+#. persona.csv: 以棍入道，棍即是命。棍法通神。...
+msgid "PERSONA_51_DESC"
+msgstr "以棍入道，棍即是命。棍法通神。"
+
+#. persona.csv: 扇癡
+msgid "PERSONA_52_NAME"
+msgstr "扇癡"
+
+#. persona.csv: 以扇入道，扇即是命。你認爲扇法至上。...
+msgid "PERSONA_52_DESC"
+msgstr "以扇入道，扇即是命。你認爲扇法至上。"
+
+#. persona.csv: 鞭癡
+msgid "PERSONA_53_NAME"
+msgstr "鞭癡"
+
+#. persona.csv: 以鞭入道，鞭即是命。你認爲鞭法至上。...
+msgid "PERSONA_53_DESC"
+msgstr "以鞭入道，鞭即是命。你認爲鞭法至上。"
+
+#. persona.csv: 刺客宗師
+msgid "PERSONA_54_NAME"
+msgstr "刺客宗師"
+
+#. persona.csv: 暗器之道登峯造極，殺人於無形。...
+msgid "PERSONA_54_DESC"
+msgstr "暗器之道登峯造極，殺人於無形。"
+
+#. persona.csv: 好色
+msgid "PERSONA_55_NAME"
+msgstr "好色"
+
+#. persona.csv: 你對美色有着強烈的渴求。...
+msgid "PERSONA_55_DESC"
+msgstr "你對美色有着強烈的渴求。"
+
+#. persona.csv: 無慾
+msgid "PERSONA_56_NAME"
+msgstr "無慾"
+
+#. persona.csv: 你清心寡慾，對男女之事毫無興趣。...
+msgid "PERSONA_56_DESC"
+msgstr "你清心寡慾，對男女之事毫無興趣。"
+
+#. persona.csv: 探險家
+msgid "PERSONA_57_NAME"
+msgstr "探險家"
+
+#. persona.csv: 你對未知的世界充滿好奇。...
+msgid "PERSONA_57_DESC"
+msgstr "你對未知的世界充滿好奇。"
+
+#. persona.csv: 死宅
+msgid "PERSONA_58_NAME"
+msgstr "死宅"
+
+#. persona.csv: 你極度排斥長途跋涉，更喜歡待在熟悉的區域...
+msgid "PERSONA_58_DESC"
+msgstr "你極度排斥長途跋涉，更喜歡待在熟悉的區域。"
+
+#. persona.csv: 掃把星
+msgid "PERSONA_59_NAME"
+msgstr "掃把星"
+
+#. persona.csv: 天生黴運纏身。...
+msgid "PERSONA_59_DESC"
+msgstr "天生黴運纏身。"
+
+#. persona.csv: 大器晚成
+msgid "PERSONA_60_NAME"
+msgstr "大器晚成"
+
+#. persona.csv: 早年修行多舛；但若能堅持至金丹元嬰，便可...
+msgid "PERSONA_60_DESC"
+msgstr "早年修行多舛；但若能堅持至金丹元嬰，便可氣運亨通。"
+
+#. persona.csv: 煉器師
+msgid "PERSONA_61_NAME"
+msgstr "煉器師"
+
+#. persona.csv: 精通煉器之道，對材料敏銳。...
+msgid "PERSONA_61_DESC"
+msgstr "精通煉器之道，對材料敏銳。"
+
+#. persona.csv: 情緒化
+msgid "PERSONA_62_NAME"
+msgstr "情緒化"
+
+#. persona.csv: 你的情緒波動很大。...
+msgid "PERSONA_62_DESC"
+msgstr "你的情緒波動很大。"
+
+#. persona.csv: 礦工
+msgid "PERSONA_63_NAME"
+msgstr "礦工"
+
+#. persona.csv: 擅長勘探挖掘，對礦脈有着獨特的直覺。...
+msgid "PERSONA_63_DESC"
+msgstr "擅長勘探挖掘，對礦脈有着獨特的直覺。"
+
+#. persona.csv: 苟
+msgid "PERSONA_64_NAME"
+msgstr "苟"
+
+#. persona.csv: 你躲避風險和風頭，盡力不擔上任何風險。...
+msgid "PERSONA_64_DESC"
+msgstr "你躲避風險和風頭，盡力不擔上任何風險。"
+
+#. persona.csv: 妒忌
+msgid "PERSONA_65_NAME"
+msgstr "妒忌"
+
+#. persona.csv: 心胸狹窄，見不得別人比自己好。...
+msgid "PERSONA_65_DESC"
+msgstr "心胸狹窄，見不得別人比自己好。"
+
+#. persona.csv: 重親情
+msgid "PERSONA_66_NAME"
+msgstr "重親情"
+
+#. persona.csv: 你重視家庭和血緣關係，以家族利益爲重。...
+msgid "PERSONA_66_DESC"
+msgstr "你重視家庭和血緣關係，以家族利益爲重。"
+
+#. persona.csv: 重義氣
+msgid "PERSONA_67_NAME"
+msgstr "重義氣"
+
+#. persona.csv: 你重視朋友義氣，爲朋友可以兩肋插刀。...
+msgid "PERSONA_67_DESC"
+msgstr "你重視朋友義氣，爲朋友可以兩肋插刀。"
+
+#. persona.csv: 孤身一人
+msgid "PERSONA_68_NAME"
+msgstr "孤身一人"
+
+#. persona.csv: 你習慣獨來獨往，不輕易與人深交。...
+msgid "PERSONA_68_DESC"
+msgstr "你習慣獨來獨往，不輕易與人深交。"
+
+#. persona.csv: 專情
+msgid "PERSONA_69_NAME"
+msgstr "專情"
+
+#. persona.csv: 你對愛情專一，一旦認定便不會改變。...
+msgid "PERSONA_69_DESC"
+msgstr "你對愛情專一，一旦認定便不會改變。"
+
+#. persona.csv: 多情
+msgid "PERSONA_70_NAME"
+msgstr "多情"
+
+#. persona.csv: 你容易動情，對美好的感情充滿嚮往。...
+msgid "PERSONA_70_DESC"
+msgstr "你容易動情，對美好的感情充滿嚮往。"
+
+#. persona.csv: 薄情
+msgid "PERSONA_71_NAME"
+msgstr "薄情"
+
+#. persona.csv: 你對感情淡漠，不會輕易動心。...
+msgid "PERSONA_71_DESC"
+msgstr "你對感情淡漠，不會輕易動心。"
+
+#. persona.csv: 貪玩
+msgid "PERSONA_1001_NAME"
+msgstr "貪玩"
+
+#. persona.csv: 沉迷玩樂，不思進取。...
+msgid "PERSONA_1001_DESC"
+msgstr "沉迷玩樂，不思進取。"
+
+#. persona.csv: 書癡
+msgid "PERSONA_1002_NAME"
+msgstr "書癡"
+
+#. persona.csv: 嗜書如命。...
+msgid "PERSONA_1002_DESC"
+msgstr "嗜書如命。"
+
+#. persona.csv: 茶癡
+msgid "PERSONA_1003_NAME"
+msgstr "茶癡"
+
+#. persona.csv: 寧可三日無食，不可一日無茶。...
+msgid "PERSONA_1003_DESC"
+msgstr "寧可三日無食，不可一日無茶。"
+
+#. persona.csv: 琴師
+msgid "PERSONA_1004_NAME"
+msgstr "琴師"
+
+#. persona.csv: 善撫琴。...
+msgid "PERSONA_1004_DESC"
+msgstr "善撫琴。"
+
+#. persona.csv: 遊歷者
+msgid "PERSONA_1005_NAME"
+msgstr "遊歷者"
+
+#. persona.csv: 讀萬卷書不如行萬里路。...
+msgid "PERSONA_1005_DESC"
+msgstr "讀萬卷書不如行萬里路。"
+
+#. persona.csv: 棋癡
+msgid "PERSONA_1006_NAME"
+msgstr "棋癡"
+
+#. persona.csv: 善弈者長生。...
+msgid "PERSONA_1006_DESC"
+msgstr "善弈者長生。"

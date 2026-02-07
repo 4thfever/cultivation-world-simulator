@@ -1,0 +1,45 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. city_region.csv: 青云城
+msgid "CITY_REGION_301_NAME"
+msgstr "青云城"
+
+#. city_region.csv: 繁华都市，人烟稠密，商贾云集。此地是交易...
+msgid "CITY_REGION_301_DESC"
+msgstr "繁华都市，人烟稠密，商贾云集。此地是交易天材地宝、寻找机缘的重要场所。"
+
+#. city_region.csv: 沙州城
+msgid "CITY_REGION_302_NAME"
+msgstr "沙州城"
+
+#. city_region.csv: 沙漠绿洲中的贸易重镇，各路商队在此集结，...
+msgid "CITY_REGION_302_DESC"
+msgstr "沙漠绿洲中的贸易重镇，各路商队在此集结，是修士补给和交流的重要据点。"
+
+#. city_region.csv: 翠林城
+msgid "CITY_REGION_303_NAME"
+msgstr "翠林城"
+
+#. city_region.csv: 森林深处的修仙重镇，众多修士在此栖居，是...
+msgid "CITY_REGION_303_DESC"
+msgstr "森林深处的修仙重镇，众多修士在此栖居，是修炼和炼宝的理想之地。"
+
+#. city_region.csv: 沧澜城
+msgid "CITY_REGION_304_NAME"
+msgstr "沧澜城"
+
+#. city_region.csv: 坐落于大河入海口的三角洲，百川归海，水运...
+msgid "CITY_REGION_304_DESC"
+msgstr "坐落于大河入海口的三角洲，百川归海，水运昌隆，是水系修士往来最为频繁的宝地。"
+
+#. city_region.csv: 揽月城
+msgid "CITY_REGION_305_NAME"
+msgstr "揽月城"
+
+#. city_region.csv: 屹立于连绵群山之巅，终年云雾缭绕，灵气纯...
+msgid "CITY_REGION_305_DESC"
+msgstr "屹立于连绵群山之巅，终年云雾缭绕，灵气纯净，是苦修之士感悟天道的绝佳场所。"

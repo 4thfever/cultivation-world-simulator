@@ -1,0 +1,180 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. sect_region.csv: 连霞山
+msgid "SECT_REGION_401_NAME"
+msgstr "Lianxia Mountain"
+
+#. sect_region.csv: 连霞山坐忘峰下，是名门仙山的主峰。山上设...
+msgid "SECT_REGION_401_DESC"
+msgstr ""
+"Below the Zuowang Peak of Lianxia Mountain, it is the main peak of the "
+"famous immortal mountain. It features a place for disciples to cultivate, "
+"with a tranquil environment."
+
+#. sect_region.csv: 玄灵洞
+msgid "SECT_REGION_402_NAME"
+msgstr "Xuanling Cave"
+
+#. sect_region.csv: 玄灵洞位于十万大山深处，洞府依托一座千丈...
+msgid "SECT_REGION_402_DESC"
+msgstr ""
+"Located deep in the One Hundred Thousand Mountains, the cave dwelling is "
+"carved into a thousand-zhang high spiritual mountain, with an entrance as "
+"wide as a hundred zhang, shaped like a wild beast's open mouth. The interior"
+" is crisscrossed with ninety-nine layers of grotto-heavens, each housing "
+"different grades of spiritual and demonic beasts."
+
+#. sect_region.csv: 碧波湖
+msgid "SECT_REGION_403_NAME"
+msgstr "Bibo Lake"
+
+#. sect_region.csv: 水镜宗建于碧波湖心的三座仙岛之上，湖水清...
+msgid "SECT_REGION_403_DESC"
+msgstr ""
+"The Shuijing Sect is built on three immortal islands in the center of Bibo "
+"Lake, with water as clear as a mirror and calm all year round. The three "
+"islands are connected by crystal long bridges, and the palaces and pavilions"
+" are built of crystal and colored glaze, completely transparent and "
+"reflected in the lake, making it hard to distinguish reality from illusion."
+
+#. sect_region.csv: 七鬼角
+msgid "SECT_REGION_404_NAME"
+msgstr "Seven Ghost Horns"
+
+#. sect_region.csv: 冥王宗位于七鬼角群岛上，宗门四面临海，周...
+msgid "SECT_REGION_404_DESC"
+msgstr ""
+"The Mingwang Sect is located on the Seven Ghost Horns archipelago, "
+"surrounded by the sea on all sides with hidden reefs everywhere. Between the"
+" rising and falling of giant waves and mad tides, numerous daunting "
+"undercurrent vortices are formed around the reefs. Over thousands of years, "
+"countless fierce ghosts have been cast around the islands; when the waves "
+"howl, ten thousand ghosts cry together, blotting out the sun."
+
+#. sect_region.csv: 明玉山
+msgid "SECT_REGION_405_NAME"
+msgstr "Mingyu Mountain"
+
+#. sect_region.csv: 明玉山通体由罕见的明玉石构成，山体呈现出...
+msgid "SECT_REGION_405_DESC"
+msgstr ""
+"Mingyu Mountain is entirely composed of rare Mingyu stone, the mountain body"
+" showing a strange blue-white color, emitting a cold glow under moonlight. "
+"The palaces and pavilions in the mountain are all built of jade stone, "
+"appearing magnificent but hiding killing intent everywhere. Mechanisms are "
+"layered between the buildings with dense secret passages."
+
+#. sect_region.csv: 桃花岛
+msgid "SECT_REGION_406_NAME"
+msgstr "Peach Blossom Island"
+
+#. sect_region.csv: 合欢宗坐落于东海桃花岛上，岛上四季桃花盛...
+msgid "SECT_REGION_406_DESC"
+msgstr ""
+"The Hehuan Sect is located on Peach Blossom Island in the East Sea, where "
+"peach blossoms bloom in all four seasons and never wither, with petals "
+"dancing in the wind and covering the entire immortal island. The sect "
+"buildings are mainly in pink tones, with carved beams and painted rafters, "
+"extremely luxurious. Mist swirls between the palaces and pavilions, with "
+"pairs of disciples faintly visible cultivating within."
+
+#. sect_region.csv: 落魂海
+msgid "SECT_REGION_407_NAME"
+msgstr "Luohun Sea"
+
+#. sect_region.csv: 位于极南海上。镇魂海常年有妖兽作乱，海域...
+msgid "SECT_REGION_407_DESC"
+msgstr ""
+"Located in the extreme southern sea. The Luohun Sea is often troubled by "
+"demonic beasts, and the sea area is dangerous. The sect buildings stand on "
+"reef islands in the sea, centered around the Soul Suppressing Bell, whose "
+"chime can intimidate demonic souls within a thousand miles."
+
+#. sect_region.csv: 鬼门湖
+msgid "SECT_REGION_408_NAME"
+msgstr "Guimen Lake"
+
+#. sect_region.csv: 鬼门湖位于原始森林深处，重重大山围拢的平...
+msgid "SECT_REGION_408_DESC"
+msgstr ""
+"Guimen Lake is located deep in the primitive forest, in a plain surrounded "
+"by massive mountains. Towering trees, entangling vines, miasma floating all "
+"day long, and layers of mist created by the sect's secret methods completely"
+" isolate this place from the outside world, letting in no light."
+
+#. sect_region.csv: 天星海
+msgid "SECT_REGION_409_NAME"
+msgstr "Tianxing Sea"
+
+#. sect_region.csv: 千帆城建于天星海中央的巨型浮岛之上，整座...
+msgid "SECT_REGION_409_DESC"
+msgstr ""
+"Thousand Sails City is built on a giant floating island in the center of the"
+" Tianxing Sea, the entire city composed of countless artifacts spliced "
+"together. On the sea surface outside the city, thousands of artifact spirit "
+"boats are anchored, with masts like forests, a magnificent sight. High "
+"towers stand in the city, each with an alchemy furnace fire that never goes "
+"out day or night, and smoke columns reaching the sky."
+
+#. sect_region.csv: 心园
+msgid "SECT_REGION_410_NAME"
+msgstr "Xinyuan Garden"
+
+#. sect_region.csv: 四季如春，百花不谢。园内亭台楼阁错落，丝...
+msgid "SECT_REGION_410_DESC"
+msgstr ""
+"Like spring in all four seasons, with hundreds of flowers never withering. "
+"Pavilions and towers are scattered in the garden, and the sounds of silk and"
+" bamboo never cease all day long. It appears like a paradise on earth, but "
+"actually hides numerous sound-killing arrays."
+
+#. sect_region.csv: 诸隐山
+msgid "SECT_REGION_411_NAME"
+msgstr "Zhuyin Mountain"
+
+#. sect_region.csv: 诸隐山云雾缭绕，山势晦暗不明。整座山脉被...
+msgid "SECT_REGION_411_DESC"
+msgstr ""
+"Zhuyin Mountain is shrouded in mist, the mountain terrain dark and unclear. "
+"The entire mountain range is covered by numerous overlapping arrays; every "
+"step is a scene, every step a danger. Without a passage token, an outsider "
+"would get lost in half a step."
+
+#. sect_region.csv: 大千光极城
+msgid "SECT_REGION_412_NAME"
+msgstr "Daqian Aurora City"
+
+#. sect_region.csv: 常年笼罩在绚丽的极光之下。城池由万年寒冰...
+msgid "SECT_REGION_412_DESC"
+msgstr ""
+"Shrouded in magnificent auroras all year round. The city is cast from ten-"
+"thousand-year cold ice and black iron, shimmering under the vast aurora like"
+" a miracle, the only warm place in the extreme cold land."
+
+#. sect_region.csv: 浩然峰
+msgid "SECT_REGION_413_NAME"
+msgstr "Haoran Peak"
+
+#. sect_region.csv: 位于通玄界中腹，山势雄奇挺拔，直插云霄。...
+msgid "SECT_REGION_413_DESC"
+msgstr ""
+"Located in the center of the Tongxuan Realm, the mountain is majestic and "
+"upright, piercing into the clouds. The peak is shrouded in vast white clouds"
+" and purple qi from the east year-round, and the sound of reading can be "
+"heard for ten miles, the gathering place for the world's righteous spirit."
+
+#. sect_region.csv: 陷空山
+msgid "SECT_REGION_414_NAME"
+msgstr "Xiankong Mountain"
+
+#. sect_region.csv: 位于极西之地的险恶山脉，山势如犬牙交错，...
+msgid "SECT_REGION_414_DESC"
+msgstr ""
+"A treacherous mountain range in the far west, with terrain like crisscrossed"
+" dog teeth, poor mountains and evil waters. Blood mist often fills the "
+"mountain, with rugged stones and desiccated animal bones everywhere, making "
+"people flee at the mere mention of its name."

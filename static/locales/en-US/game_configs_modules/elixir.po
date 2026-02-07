@@ -1,0 +1,146 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "Qi Refinement Breakthrough Pill"
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr ""
+"A pill that condenses spiritual qi to help Qi Refinement stage cultivators "
+"break through bottlenecks (effect lasts 5 years)."
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "Foundation Establishment Breakthrough Pill"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr ""
+"A spiritual pill containing the true intent of Foundation Establishment to "
+"help Foundation Establishment stage cultivators break through bottlenecks "
+"(effect lasts 5 years)."
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "Core Formation Breakthrough Pill"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr ""
+"Condenses the qi of Core Formation to help Core Formation stage cultivators "
+"shatter the core and form the soul (effect lasts 5 years)."
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "Qi Refinement Longevity Pill"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr "Refined using common precious herbs"
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "Foundation Establishment Longevity Pill"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "Refined from heavenly and earthly spiritual herbs"
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "Core Formation Longevity Pill"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr ""
+"Seizes the creation of heaven and earth; mortals die instantly upon "
+"consumption"
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "Nascent Soul Longevity Pill"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "Contains a trace of longevity qi"
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "Qi Refinement Blood Burning Pill"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr ""
+"Burns essence blood in exchange for a short burst of power. Combat power "
+"increases within 3 years, but meridians are damaged and combat power "
+"decreases within 10 years."
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "Foundation Establishment Blood Burning Pill"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr ""
+"A potent medicine to stimulate potential. Combat power increases greatly "
+"within 3 years, but weakens within 10 years."
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "Core Formation Blood Burning Pill"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr ""
+"The choice for Core Formation cultivators when fighting for their lives. "
+"Combat power surges within 3 years, but severe injury within 10 years."
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "Nascent Soul Blood Burning Pill"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr ""
+"Burns the Nascent Soul origin. Gains world-destroying power within 3 years, "
+"but becomes almost a cripple within 10 years."
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "Qi Refinement Rejuvenation Pill"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr ""
+"A common healing pill that can restore the injuries of Qi Refinement stage "
+"cultivators (lasts 5 years)."
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "Foundation Establishment Rejuvenation Pill"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "The medicinal power is gentle and mellow"
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "Core Formation Rejuvenation Pill"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr ""
+"A supreme healing medicine containing the power of vitality (lasts 5 years)."
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "Nascent Soul Rejuvenation Pill"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "Contains the creation of vitality"

@@ -55,10 +55,16 @@ static/locales/
     ├── zh-CN/
     │   ├── LC_MESSAGES/
     │   │   ├── messages.po        # Merged Chinese translations (do not edit directly)
-    │   │   └── messages.mo        # Compiled binary (runtime)
-    │   └── modules/               # Source translation modules
-    │       ├── battle.po
-    │       ├── fortune.po
+    │   │   ├── messages.mo        # Compiled binary (runtime)
+    │   │   ├── game_configs.po    # Merged game configs (do not edit directly)
+    │   │   └── game_configs.mo    # Compiled game configs
+    │   ├── modules/               # Source translation modules (for messages.po)
+    │   │   ├── battle.po
+    │   │   ├── fortune.po
+    │   │   └── ...
+    │   └── game_configs_modules/  # Source translation modules (for game_configs.po)
+    │       ├── animal.po
+    │       ├── item.po
     │       └── ...
     └── en-US/
         ├── LC_MESSAGES/
@@ -245,12 +251,24 @@ msgstr "遭遇奇遇（{theme}），{result}"
 
 Create similar files in `static/locales/en-US/modules/`.
 
-#### 3.4 Compile .po to .mo
+#### 3.4 Game Config Modules
+
+For `game_configs.po` (large file containing CSV/Excel data translations), we split it into modules in `game_configs_modules/`:
+
+- `animal.po`
+- `item.po`
+- `skill.po`
+- ...
+
+These are merged into `LC_MESSAGES/game_configs.po` during build.
+
+#### 3.5 Compile .po to .mo
 
 Use the build script to merge modules and compile:
 
 ```bash
 # Merges modules/*.po -> LC_MESSAGES/messages.po -> messages.mo
+# Merges game_configs_modules/*.po -> LC_MESSAGES/game_configs.po -> game_configs.mo
 python tools/i18n/build_mo.py
 ```
 
@@ -390,6 +408,8 @@ def load_save(path: str):
 | `src/i18n/__init__.py` | Translation module with `t()` function |
 | `static/locales/zh-CN/LC_MESSAGES/messages.po` | Generated Chinese translations (Merged) |
 | `static/locales/zh-CN/LC_MESSAGES/messages.mo` | Compiled Chinese |
+| `static/locales/zh-CN/LC_MESSAGES/game_configs.po` | Generated Game Configs (Merged) |
+| `static/locales/zh-CN/LC_MESSAGES/game_configs.mo` | Compiled Game Configs |
 | `static/locales/en-US/LC_MESSAGES/messages.po` | Generated English translations (Merged) |
 | `static/locales/en-US/LC_MESSAGES/messages.mo` | Compiled English |
 | `tests/test_i18n.py` | Unit tests |
@@ -403,7 +423,7 @@ def load_save(path: str):
 | `src/classes/fortune.py` | Replace f-strings with `t()` |
 | `src/classes/misfortune.py` | Replace f-strings with `t()` |
 | `src/classes/death_reason.py` | Replace f-strings with `t()` |
-| Save/Load code | Add language persistence |
+| `Save/Load code` | Add language persistence |
 
 ---
 
@@ -435,3 +455,5 @@ def load_save(path: str):
    # Wrapper string needs t()
    event_text = t("Encountered fortune ({theme}), {result}", theme=theme, result=res_text)
    ```
+
+4. **Game Config Modularization** - `game_configs.po` is split into smaller modules (`animal.po`, `item.po`, etc.) in `game_configs_modules/` folder. The `build_mo.py` script automatically merges them. This allows for easier "vibe coding" and AI interactions by scoping context to specific configuration files.

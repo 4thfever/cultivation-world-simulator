@@ -1,0 +1,125 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. elixir.csv: 練氣破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "練氣破境丹"
+
+#. elixir.csv: 凝聚靈氣，輔助練氣期修士突破瓶頸的丹藥（...
+msgid "ELIXIR_3001_DESC"
+msgstr "凝聚靈氣，輔助練氣期修士突破瓶頸的丹藥（藥效5年）。"
+
+#. elixir.csv: 築基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "築基破境丹"
+
+#. elixir.csv: 蘊含築基真意，輔助築基期修士突破瓶頸的靈...
+msgid "ELIXIR_3002_DESC"
+msgstr "蘊含築基真意，輔助築基期修士突破瓶頸的靈丹（藥效5年）。"
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "金丹破境丹"
+
+#. elixir.csv: 凝結金丹之氣，輔助金丹期修士碎丹成嬰（藥...
+msgid "ELIXIR_3003_DESC"
+msgstr "凝結金丹之氣，輔助金丹期修士碎丹成嬰（藥效5年）。"
+
+#. elixir.csv: 練氣長生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "練氣長生丹"
+
+#. elixir.csv: 採用凡間珍草煉製，略微延緩衰老（限服一顆...
+msgid "ELIXIR_3005_DESC"
+msgstr "採用凡間珍草煉製，略微延緩衰老（限服一顆）。"
+
+#. elixir.csv: 築基長生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "築基長生丹"
+
+#. elixir.csv: 取天地靈草煉製，可延壽十載（限服一顆）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "取天地靈草煉製，可延壽十載（限服一顆）。"
+
+#. elixir.csv: 金丹長生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "金丹長生丹"
+
+#. elixir.csv: 奪天地造化，凡人服之立斃，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr "奪天地造化，凡人服之立斃，金丹修士服之延壽半甲子（限服一顆）。"
+
+#. elixir.csv: 元嬰長生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "元嬰長生丹"
+
+#. elixir.csv: 蘊含一絲長生之氣，元嬰老怪以此續命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "蘊含一絲長生之氣，元嬰老怪以此續命（限服一顆）。"
+
+#. elixir.csv: 練氣燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "練氣燃血丹"
+
+#. elixir.csv: 燃燒精血換取短暫爆發。3年內戰力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr "燃燒精血換取短暫爆發。3年內戰力提升，但10年內經脈受損戰力下降。"
+
+#. elixir.csv: 築基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "築基燃血丹"
+
+#. elixir.csv: 激發潛能的猛藥。3年內戰力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr "激發潛能的猛藥。3年內戰力大增，但10年內虛弱。"
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "金丹燃血丹"
+
+#. elixir.csv: 金丹修士拼命時的選擇。3年內戰力暴漲，但...
+msgid "ELIXIR_3011_DESC"
+msgstr "金丹修士拼命時的選擇。3年內戰力暴漲，但10年內重傷。"
+
+#. elixir.csv: 元嬰燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "元嬰燃血丹"
+
+#. elixir.csv: 燃燒元嬰本源。3年內獲得毀天滅地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr "燃燒元嬰本源。3年內獲得毀天滅地的力量，但10年內幾乎廢人。"
+
+#. elixir.csv: 練氣回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "練氣回春丹"
+
+#. elixir.csv: 普通的療傷丹藥，可恢復練氣期修士的傷勢（...
+msgid "ELIXIR_3013_DESC"
+msgstr "普通的療傷丹藥，可恢復練氣期修士的傷勢（持續5年）。"
+
+#. elixir.csv: 築基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "築基回春丹"
+
+#. elixir.csv: 藥力溫和醇厚，能快速癒合築基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "藥力溫和醇厚，能快速癒合築基期修士的肉身損傷（持續5年）。"
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "金丹回春丹"
+
+#. elixir.csv: 蘊含生機之力，療傷聖藥（持續5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr "蘊含生機之力，療傷聖藥（持續5年）。"
+
+#. elixir.csv: 元嬰回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "元嬰回春丹"
+
+#. elixir.csv: 蘊含造化生機，肉身修復極快（持續5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "蘊含造化生機，肉身修復極快（持續5年）。"

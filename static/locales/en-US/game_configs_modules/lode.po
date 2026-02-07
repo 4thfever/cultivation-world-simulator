@@ -1,0 +1,44 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. lode.csv: 玄铁矿脉
+msgid "LODE_1_NAME"
+msgstr "Black Iron Lode"
+
+#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+msgid "LODE_1_DESC"
+msgstr ""
+"A common lode containing black iron, often found in shallow surface layers"
+
+#. lode.csv: 赤铜矿脉
+msgid "LODE_2_NAME"
+msgstr "Red Copper Lode"
+
+#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+msgid "LODE_2_DESC"
+msgstr ""
+"A red copper lode buried deep underground, often accompanied by fiery heat "
+"qi"
+
+#. lode.csv: 秘银矿床
+msgid "LODE_3_NAME"
+msgstr "Mithril Deposit"
+
+#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+msgid "LODE_3_DESC"
+msgstr ""
+"An extremely rare mithril accumulation, shimmering with silver light and "
+"brimming with spiritual qi"
+
+#. lode.csv: 庚金矿洞
+msgid "LODE_4_NAME"
+msgstr "Gengjin Mine"
+
+#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+msgid "LODE_4_DESC"
+msgstr ""
+"A Gengjin lode located deep in absolute cliffs, extremely difficult to mine "
+"but worth a fortune"

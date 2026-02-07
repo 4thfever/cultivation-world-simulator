@@ -1,0 +1,424 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "Qi Refinement Sword"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr "An iron sword forged by a local blacksmith, barely usable."
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "Qi Refinement Saber"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "A thick-backed chopper, a favorite of ordinary martial artists."
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "Qi Refinement Spear"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr "Made of white wax wood, with a red tassel on the spearhead."
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "Qi Refinement Staff"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "A common hardwood staff, as long as the eyebrows."
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "Qi Refinement Fan"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "A folding fan commonly used by scholars and literati for elegance."
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "Qi Refinement Whip"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr "A common leather whip, mostly used for driving carts or punishment."
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "Qi Refinement Zither"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "An ancient zither made of paulownia wood, with fair sound quality."
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "Qi Refinement Flute"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "Carved from purple bamboo, with a crisp sound."
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "Qi Refinement Hidden Weapon"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "Commonly seen iron hidden weapons."
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "Azure Frost Sword"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "The sword qi is bone-chillingly cold."
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "Moon in the Well"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr "The saber light is like the moon reflected in a well, unpredictable."
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "Fire Tipped Spear"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "Faint fire light on the spearhead, able to trigger common fire."
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "Dragon Capturing Rod"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr ""
+"Forged from refined iron, weighing a thousand jin, usable by those with "
+"great strength."
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "Peach Blossom Fan"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr ""
+"Falling peach blossom shadows like flying divine swords; peach blossoms "
+"painted on the fan, hiding killing intent."
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "God Striking Whip"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr ""
+"An imitation; although lacking the power to strike gods, it can wound the "
+"soul."
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "Heavenly Demonic Zither"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "The zither sound is demonic, disturbing the mind."
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "Ghost Flute Chenqing"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr "Said to be able to control corpse puppets with this flute."
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "Shadowless Needle"
+
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr ""
+"Fine as a cow's hair, coming and going without a trace, impossible to guard "
+"against."
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "Ten Thousand Beasts Flute"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr ""
+"Specially made by the Baishou Sect; the flute sound can soothe or provoke "
+"beasts."
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "Blood Drinker Mad Saber"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr "The saber body is red, appearing to crave blood."
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "Black Iron Heavy Sword"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr ""
+"Heavy sword without edge, great skill requires no craftsmanship, Dugu "
+"Qiubai's favorite."
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "Ziwei Soft Sword"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr "Soft as a belt, moving like a spiritual snake."
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "Water and Fire Dragon Capturing Staff"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr ""
+"A standard weapon of the Zhenhun Sect, combining water and fire to trap "
+"enemies and lock souls."
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "Green Bamboo Bee Cloud Sword"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr ""
+"A set of flying swords containing evil-warding divine thunder, restraining "
+"all evil in the world."
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "As-You-Will Iron Rod"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr ""
+"The weapon of the Six-Eared Macaque, changing as desired, as large or small "
+"as one wishes."
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "Five Fires Seven Poultry Fan"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr ""
+"The fan surface features five fires including air fire, stone fire, and wood"
+" fire, turning things to ashes in one wave."
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "God Killer Spear"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr ""
+"Surging killing intent, once stained with the blood of demon gods; the spear"
+" never returns once thrown."
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "Red Point Spear"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr ""
+"Red point spear, immortal shield, slaying all immortal kings and destroying "
+"nine heavens."
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "Immortal Slaying Flying Dagger"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr ""
+"A trace of light hidden in a red gourd, with eyebrows and eyes. Please turn "
+"around, treasure, for gods and ghosts cannot escape."
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "Immortal Slaying Sword"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr ""
+"Neither copper, iron, nor steel, once hidden under Mount Sumeru. Sharp qi "
+"pierces directly into the nine heavens."
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "Gan Jiang and Mo Ye"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr ""
+"Swords of true love, one female and one male, killing when separated, "
+"amorous when together."
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "Plantain Fan"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr ""
+"Essence leaf of Taiyin; one wave stops fire, two waves create wind, three "
+"waves bring rain."
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "Purple Gold Demon Subduing Pestle"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr ""
+"Wei Hu's weapon; although light and agile, it hits with the weight of Mount "
+"Tai."
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "Nine-Ring Golden Saber"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr ""
+"The back of the saber is embedded with nine golden rings. When waved, the "
+"rings collide with a thunderous sound that strikes fear into the heart."
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "Cold Iron Silver Spear"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr ""
+"Made entirely of ten-thousand-year-old cold iron, the spear body is silvery "
+"white and bone-chilling to the touch."
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "Seven-Section Purple Bamboo Whip"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr ""
+"Harvested from the Purple Bamboo Forest in the South Sea, it has seven "
+"sections and is exceptionally tough. It can wound enemies and bind demons."
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "Jade Pipa"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr ""
+"Carved from white jade, it produces the sound of metal and stone when "
+"played, cleansing inner demons."
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "Jade Sea Tide Flute"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr ""
+"A treasure from the East Sea Dragon Palace. When played, it sounds like the "
+"tide of the sea and often attracts fortuitous encounters."
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "Tiger Soul"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr ""
+"An ancient fierce weapon sealing the soul of a White Tiger. It must drink "
+"blood when unsheathed, wounding the enemy's body and devouring their luck."
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "Sky Optimus Pillar"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr ""
+"Refined from fragments of pillars suspected to be from the Ancient Heavenly "
+"Court. It is as heavy as a mountain and cannot be wielded by those without "
+"great power."
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "Yin Yang Fan"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr ""
+"One side is pure white for life, the other pitch black for death. Waving it "
+"reverses Yin and Yang, shrinking the earth to inches."
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "Dragon Spine Whip"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr ""
+"Refined from the spine of an ancient true dragon. When waved, there is a "
+"faint dragon roar, naturally suppressing lower-level beings."
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "Fuxi Zither"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr ""
+"An imitation of one of the Ten Great Ancient Artifacts, possessing the "
+"mysterious power to dominate the minds of all things."
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "Demon Calling Flute"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr ""
+"A supreme treasure of the Demon Realm. The flute sound is treacherous and "
+"can drive monsters and fierce beasts for one's own use."
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "Peacock Plume"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr ""
+"Although it is just a hidden weapon, its beauty is unapproachable. When it "
+"blooms, it is the enemy's death date."

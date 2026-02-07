@@ -1,0 +1,365 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. weapon.csv: 練氣劍
+msgid "WEAPON_1001_NAME"
+msgstr "練氣劍"
+
+#. weapon.csv: 市井鐵匠鋪打造的鐵劍，勉強能用。...
+msgid "WEAPON_1001_DESC"
+msgstr "市井鐵匠鋪打造的鐵劍，勉強能用。"
+
+#. weapon.csv: 練氣刀
+msgid "WEAPON_1002_NAME"
+msgstr "練氣刀"
+
+#. weapon.csv: 厚背砍刀，尋常武夫的最愛。...
+msgid "WEAPON_1002_DESC"
+msgstr "厚背砍刀，尋常武夫的最愛。"
+
+#. weapon.csv: 練氣槍
+msgid "WEAPON_1003_NAME"
+msgstr "練氣槍"
+
+#. weapon.csv: 白蠟杆製成，槍頭掛着紅纓。...
+msgid "WEAPON_1003_DESC"
+msgstr "白蠟杆製成，槍頭掛着紅纓。"
+
+#. weapon.csv: 練氣棍
+msgid "WEAPON_1004_NAME"
+msgstr "練氣棍"
+
+#. weapon.csv: 普通的硬木棍，長與眉齊。...
+msgid "WEAPON_1004_DESC"
+msgstr "普通的硬木棍，長與眉齊。"
+
+#. weapon.csv: 練氣扇
+msgid "WEAPON_1005_NAME"
+msgstr "練氣扇"
+
+#. weapon.csv: 文人雅士常用的摺扇，附庸風雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "文人雅士常用的摺扇，附庸風雅。"
+
+#. weapon.csv: 練氣鞭
+msgid "WEAPON_1006_NAME"
+msgstr "練氣鞭"
+
+#. weapon.csv: 普通的皮鞭，多用於趕車或刑罰。...
+msgid "WEAPON_1006_DESC"
+msgstr "普通的皮鞭，多用於趕車或刑罰。"
+
+#. weapon.csv: 練氣琴
+msgid "WEAPON_1007_NAME"
+msgstr "練氣琴"
+
+#. weapon.csv: 桐木製成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "桐木製成的古琴，音色尚可。"
+
+#. weapon.csv: 練氣笛
+msgid "WEAPON_1008_NAME"
+msgstr "練氣笛"
+
+#. weapon.csv: 紫竹削制，聲音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "紫竹削制，聲音清脆。"
+
+#. weapon.csv: 練氣暗器
+msgid "WEAPON_1009_NAME"
+msgstr "練氣暗器"
+
+#. weapon.csv: 隨處可見的鐵製暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "隨處可見的鐵製暗器。"
+
+#. weapon.csv: 青霜劍
+msgid "WEAPON_1021_NAME"
+msgstr "青霜劍"
+
+#. weapon.csv: 劍氣森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "劍氣森寒。"
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "井中月"
+
+#. weapon.csv: 刀光如井中映月，虛實難測。...
+msgid "WEAPON_1022_DESC"
+msgstr "刀光如井中映月，虛實難測。"
+
+#. weapon.csv: 火尖槍
+msgid "WEAPON_1023_NAME"
+msgstr "火尖槍"
+
+#. weapon.csv: 槍頭隱有火光，能引動凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "槍頭隱有火光，能引動凡火。"
+
+#. weapon.csv: 囚龍棒
+msgid "WEAPON_1024_NAME"
+msgstr "囚龍棒"
+
+#. weapon.csv: 精鐵鑄造，重達千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr "精鐵鑄造，重達千斤，力大者可用。"
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "桃花扇"
+
+#. weapon.csv: 桃花影落飛神劍，扇面繪有桃花，暗藏殺機。...
+msgid "WEAPON_1025_DESC"
+msgstr "桃花影落飛神劍，扇面繪有桃花，暗藏殺機。"
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "打神鞭"
+
+#. weapon.csv: 仿品，雖無打神之能，卻可傷人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr "仿品，雖無打神之能，卻可傷人神魂。"
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "天魔琴"
+
+#. weapon.csv: 琴音魔性，擾亂心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "琴音魔性，擾亂心智。"
+
+#. weapon.csv: 鬼笛陳情
+msgid "WEAPON_1028_NAME"
+msgstr "鬼笛陳情"
+
+#. weapon.csv: 據說能以此笛操控屍傀。...
+msgid "WEAPON_1028_DESC"
+msgstr "據說能以此笛操控屍傀。"
+
+#. weapon.csv: 無影針
+msgid "WEAPON_1029_NAME"
+msgstr "無影針"
+
+#. weapon.csv: 細若牛毛，來去無影，防不勝防。...
+msgid "WEAPON_1029_DESC"
+msgstr "細若牛毛，來去無影，防不勝防。"
+
+#. weapon.csv: 萬獸笛
+msgid "WEAPON_1030_NAME"
+msgstr "萬獸笛"
+
+#. weapon.csv: 百獸宗祕製，笛聲可安撫或激怒野獸。...
+msgid "WEAPON_1030_DESC"
+msgstr "百獸宗祕製，笛聲可安撫或激怒野獸。"
+
+#. weapon.csv: 血飲狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "血飲狂刀"
+
+#. weapon.csv: 刀身赤紅，似渴望飲血。...
+msgid "WEAPON_1031_DESC"
+msgstr "刀身赤紅，似渴望飲血。"
+
+#. weapon.csv: 玄鐵重劍
+msgid "WEAPON_1032_NAME"
+msgstr "玄鐵重劍"
+
+#. weapon.csv: 重劍無鋒，大巧不工，獨孤求敗。...
+msgid "WEAPON_1032_DESC"
+msgstr "重劍無鋒，大巧不工，獨孤求敗。"
+
+#. weapon.csv: 紫薇軟劍
+msgid "WEAPON_1033_NAME"
+msgstr "紫薇軟劍"
+
+#. weapon.csv: 軟若束帶，動若靈蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr "軟若束帶，動若靈蛇。"
+
+#. weapon.csv: 水火囚龍棍
+msgid "WEAPON_1034_NAME"
+msgstr "水火囚龍棍"
+
+#. weapon.csv: 鎮魂宗制式兵器，水火相濟，困敵鎖魂。...
+msgid "WEAPON_1034_DESC"
+msgstr "鎮魂宗制式兵器，水火相濟，困敵鎖魂。"
+
+#. weapon.csv: 青竹蜂雲劍
+msgid "WEAPON_1051_NAME"
+msgstr "青竹蜂雲劍"
+
+#. weapon.csv: 成套飛劍，內蘊辟邪神雷，剋制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr "成套飛劍，內蘊辟邪神雷，剋制天下邪祟。"
+
+#. weapon.csv: 隨心鐵桿兵
+msgid "WEAPON_1052_NAME"
+msgstr "隨心鐵桿兵"
+
+#. weapon.csv: 六耳獼猴的兵器，隨心變化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr "六耳獼猴的兵器，隨心變化，大小如意。"
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "五火七禽扇"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr "扇面有空中火、石中火、木中火等五火，一扇灰飛煙滅。"
+
+#. weapon.csv: 弒神槍
+msgid "WEAPON_1054_NAME"
+msgstr "弒神槍"
+
+#. weapon.csv: 殺氣滔天，曾染魔神之血，槍出無回。...
+msgid "WEAPON_1054_DESC"
+msgstr "殺氣滔天，曾染魔神之血，槍出無回。"
+
+#. weapon.csv: 赤鋒矛
+msgid "WEAPON_1055_NAME"
+msgstr "赤鋒矛"
+
+#. weapon.csv: 赤鋒矛，不朽盾，斬盡仙王滅九天。...
+msgid "WEAPON_1055_DESC"
+msgstr "赤鋒矛，不朽盾，斬盡仙王滅九天。"
+
+#. weapon.csv: 斬仙飛刀
+msgid "WEAPON_1056_NAME"
+msgstr "斬仙飛刀"
+
+#. weapon.csv: 紅葫蘆內藏一線毫光，有眉有目。請寶貝轉身...
+msgid "WEAPON_1056_DESC"
+msgstr "紅葫蘆內藏一線毫光，有眉有目。請寶貝轉身，神鬼難逃。"
+
+#. weapon.csv: 誅仙劍
+msgid "WEAPON_1057_NAME"
+msgstr "誅仙劍"
+
+#. weapon.csv: 非銅非鐵亦非鋼，曾在須彌山下藏。利氣直透...
+msgid "WEAPON_1057_DESC"
+msgstr "非銅非鐵亦非鋼，曾在須彌山下藏。利氣直透九重天。"
+
+#. weapon.csv: 干將莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "干將莫邪"
+
+#. weapon.csv: 摯情之劍，一雌一雄，分則爲殺，合則爲情。...
+msgid "WEAPON_1058_DESC"
+msgstr "摯情之劍，一雌一雄，分則爲殺，合則爲情。"
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "芭蕉扇"
+
+#. weapon.csv: 太陰之精葉，一扇息火，二扇生風，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr "太陰之精葉，一扇息火，二扇生風，三扇下雨。"
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "紫金降魔杵"
+
+#. weapon.csv: 韋護的兵器，雖然輕靈，打在人身卻重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr "韋護的兵器，雖然輕靈，打在人身卻重如泰山。"
+
+#. weapon.csv: 九環金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "九環金背刀"
+
+#. weapon.csv: 刀背嵌入九個金環，揮舞時金環碰撞，聲若雷...
+msgid "WEAPON_1061_DESC"
+msgstr "刀背嵌入九個金環，揮舞時金環碰撞，聲若雷鳴，攝人心魄。"
+
+#. weapon.csv: 寒鐵銀槍
+msgid "WEAPON_1062_NAME"
+msgstr "寒鐵銀槍"
+
+#. weapon.csv: 通體由萬年寒鐵打造，槍身銀白，觸之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr "通體由萬年寒鐵打造，槍身銀白，觸之冰冷刺骨。"
+
+#. weapon.csv: 七節紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "七節紫竹鞭"
+
+#. weapon.csv: 採自南海紫竹林，共七節，堅韌異常，不僅能...
+msgid "WEAPON_1063_DESC"
+msgstr "採自南海紫竹林，共七節，堅韌異常，不僅能傷敵，亦可縛妖。"
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "玉琵琶"
+
+#. weapon.csv: 白玉雕琢而成，彈奏時有金石之聲，能洗滌心...
+msgid "WEAPON_1064_DESC"
+msgstr "白玉雕琢而成，彈奏時有金石之聲，能洗滌心魔。"
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "碧海潮生笛"
+
+#. weapon.csv: 東海龍宮流出的寶物，吹奏時如聞海潮之聲，...
+msgid "WEAPON_1065_DESC"
+msgstr "東海龍宮流出的寶物，吹奏時如聞海潮之聲，往往能引來奇遇。"
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "虎魄"
+
+#. weapon.csv: 上古兇兵，內封白虎戰魂，出鞘必飲血，不僅...
+msgid "WEAPON_1071_DESC"
+msgstr "上古兇兵，內封白虎戰魂，出鞘必飲血，不僅傷敵肉身，更吞噬氣運。"
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "擎天白玉柱"
+
+#. weapon.csv: 疑似上古天庭的柱石殘片煉製，重如山嶽，非...
+msgid "WEAPON_1072_DESC"
+msgstr "疑似上古天庭的柱石殘片煉製，重如山嶽，非大能者不能舞動。"
+
+#. weapon.csv: 陰陽扇
+msgid "WEAPON_1073_NAME"
+msgstr "陰陽扇"
+
+#. weapon.csv: 一面純白主生，一面漆黑主死。扇動間陰陽逆...
+msgid "WEAPON_1073_DESC"
+msgstr "一面純白主生，一面漆黑主死。扇動間陰陽逆轉，縮地成寸。"
+
+#. weapon.csv: 龍骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "龍骨鞭"
+
+#. weapon.csv: 以上古真龍之脊骨煉製，揮動時隱有龍吟，對...
+msgid "WEAPON_1074_DESC"
+msgstr "以上古真龍之脊骨煉製，揮動時隱有龍吟，對低階生靈有天然壓制。"
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "伏羲琴"
+
+#. weapon.csv: 上古十大神器之一的仿品，擁有支配萬物心靈...
+msgid "WEAPON_1075_DESC"
+msgstr "上古十大神器之一的仿品，擁有支配萬物心靈之神祕力量。"
+
+#. weapon.csv: 喚魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "喚魔笛"
+
+#. weapon.csv: 魔界至寶，笛聲詭譎，能驅使魔物與兇獸爲己...
+msgid "WEAPON_1076_DESC"
+msgstr "魔界至寶，笛聲詭譎，能驅使魔物與兇獸爲己所用。"
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "孔雀翎"
+
+#. weapon.csv: 雖然只是暗器，但其美豔不可方物。當它綻放...
+msgid "WEAPON_1077_DESC"
+msgstr "雖然只是暗器，但其美豔不可方物。當它綻放時，便是敵人的死期。"

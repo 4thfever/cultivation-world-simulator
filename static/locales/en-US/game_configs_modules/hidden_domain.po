@@ -1,0 +1,56 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "Remnant of Myriad Woods"
+
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"A fragment of the ancient Azure Emperor's Garden that shattered eons ago, "
+"now perpetually shrouded in multicolored, toxic miasma. The broken laws "
+"within cause spirit plants to grow madly, with shapeshifting demon vines and"
+" man-eating flowers lurking in the shadows. Rumor has it that if one can "
+"traverse the outer \"Dead Silence Forest\" and find the \"Azure Wood Spirit "
+"Spring\" at the core, even mortal grass can become immortal medicine. "
+"However, one must beware of the guardian beasts, twisted by millennia of "
+"consuming medicinal dregs, who thirst for fresh blood."
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "Valley of Fallen Immortals"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"The site where a human mighty figure perished together with the Flame Demon "
+"Emperor ten thousand years ago. To this day, the earth veins still spew "
+"unextinguishable Earthly Baleful Fire, dyeing the sky blood-red. Buried "
+"beneath the scorched earth are countless broken swords and halberds, and at "
+"midnight, battle souls roar, reenacting the tragic slaughter of the past. "
+"Training here requires enduring the constant pain of fire poison eroding the"
+" heart, but it is excellent for comprehending ancient battle intent. Those "
+"with deep destiny might even pick up fragment artifacts left by ancient "
+"cultivators from the magma depths or glimpse a trace of the Great Dao."
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "Nine Heavens Void Palace"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"A magnificent complex of palaces floating above the Nine Heavens Wind Layer."
+" Only those with great perseverance can pass through the spatial rifts on "
+"the periphery that tear at the flesh. The interior is filled with ancient "
+"restrictions and layered illusion arrays; one wrong step means body and soul"
+" destruction, lost forever in the void. Although the Scripture Pavilion has "
+"collapsed over time, every page of the golden books and jade scrolls "
+"scattering in the void turbulence records supreme supernatural powers "
+"capable of causing a bloodbath in the cultivation world. Only peak Core "
+"Formation cultivators can barely withstand the pressure from the ancient "
+"times to spy a glimpse of immortal opportunity."

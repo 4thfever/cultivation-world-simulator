@@ -1,0 +1,207 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. normal_region.csv: 平原地带
+msgid "NORMAL_REGION_101_NAME"
+msgstr "Plains Region"
+
+#. normal_region.csv: 位于大陆中部，地势平坦，灵气平和。是初学...
+msgid "NORMAL_REGION_101_DESC"
+msgstr ""
+"Located in the center of the continent, with flat terrain and peaceful "
+"spiritual qi. An ideal place for beginners to build a foundation and "
+"establish sects."
+
+#. normal_region.csv: 西域流沙
+msgid "NORMAL_REGION_102_NAME"
+msgstr "Western Quicksand"
+
+#. normal_region.csv: 位于大陆极西，茫茫大漠，黄沙漫天。此地气...
+msgid "NORMAL_REGION_102_DESC"
+msgstr ""
+"Located in the far west of the continent, a vast desert with yellow sand "
+"filling the sky. The climate is dry with a huge temperature difference "
+"between day and night, a mandatory route for desert caravans."
+
+#. normal_region.csv: 南疆蛮荒
+msgid "NORMAL_REGION_103_NAME"
+msgstr "Southern Wilds"
+
+#. normal_region.csv: 位于大陆西南，古木参天，藤蔓缠绕。此地森...
+msgid "NORMAL_REGION_103_DESC"
+msgstr ""
+"Located in the southwest of the continent, with ancient trees reaching the "
+"sky and vines entangling. The forest is dense with many wild beasts, a "
+"dangerous place for gathering medicinal herbs and hunting."
+
+#. normal_region.csv: 极北冰原
+msgid "NORMAL_REGION_104_NAME"
+msgstr "Far North Ice Field"
+
+#. normal_region.csv: 位于大陆极北，千里冰封，万年不化。此地严...
+msgid "NORMAL_REGION_104_DESC"
+msgstr ""
+"Located in the far north of the continent, frozen for thousands of miles and"
+" unchanging for ten thousand years. It is bone-chillingly cold with wind and"
+" snow; only the most resilient adventurers can survive here."
+
+#. normal_region.csv: 无边碧海
+msgid "NORMAL_REGION_105_NAME"
+msgstr "Boundless Azure Sea"
+
+#. normal_region.csv: 位于大陆极东，浩瀚无垠，波涛汹涌。此地风...
+msgid "NORMAL_REGION_105_DESC"
+msgstr ""
+"Located in the far east of the continent, vast and boundless with surging "
+"waves. The wind and waves are treacherous with hidden reefs; it is a sea of "
+"challenge for maritime merchants and fishermen."
+
+#. normal_region.csv: 天河奔流
+msgid "NORMAL_REGION_106_NAME"
+msgstr "Tianhe River Flow"
+
+#. normal_region.csv: 横贯大陆东西，一江春水向东流，奔腾不息入...
+msgid "NORMAL_REGION_106_DESC"
+msgstr ""
+"Traverses the continent from east to west, a river of spring water flowing "
+"east, rushing endlessly into the East Sea. This river cuts across east and "
+"west with rapid flow, serving as an important transportation route."
+
+#. normal_region.csv: 青峰山脉
+msgid "NORMAL_REGION_107_NAME"
+msgstr "Qingfeng Mountains"
+
+#. normal_region.csv: 位于大陆东部，连绵起伏，直插云霄。此地山...
+msgid "NORMAL_REGION_107_DESC"
+msgstr ""
+"Located in the east of the continent, undulating and piercing into the "
+"clouds. The mountains are steep with many strange stones and caves, a "
+"popular place for adventurers to find treasures."
+
+#. normal_region.csv: 万丈雪峰
+msgid "NORMAL_REGION_108_NAME"
+msgstr "Ten Thousand Zhang Snow Peak"
+
+#. normal_region.csv: 位于大陆西北，雪峰皑皑，寒风刺骨。此地终...
+msgid "NORMAL_REGION_108_DESC"
+msgstr ""
+"Located in the northwest of the continent, with snowy peaks and bone-"
+"chilling winds. Shrouded in snow all year round with rugged mountain paths, "
+"the ultimate challenge for climbers."
+
+#. normal_region.csv: 碧野千里
+msgid "NORMAL_REGION_109_NAME"
+msgstr "Thousands of Miles of Green Fields"
+
+#. normal_region.csv: 位于大陆西部，芳草萋萋，一望无际。此地水...
+msgid "NORMAL_REGION_109_DESC"
+msgstr ""
+"Located in the west of the continent, with lush grass stretching as far as "
+"the eye can see. The water and grass are abundant with herds of cattle and "
+"sheep, a natural pasture for nomadic peoples."
+
+#. normal_region.csv: 青云林海
+msgid "NORMAL_REGION_110_NAME"
+msgstr "Qingyun Forest Sea"
+
+#. normal_region.csv: 位于大陆中部，古树参天，绿意盎然。此地森...
+msgid "NORMAL_REGION_110_DESC"
+msgstr ""
+"Located in the center of the continent, with ancient trees reaching the sky "
+"and vibrant greenery. The forest is vast and rich in resources, a main "
+"activity area for loggers and hunters."
+
+#. normal_region.csv: 炎狱火山
+msgid "NORMAL_REGION_111_NAME"
+msgstr "Lava Volcano"
+
+#. normal_region.csv: 位于大陆东北，烈焰冲天，岩浆奔流。此地火...
+msgid "NORMAL_REGION_111_DESC"
+msgstr ""
+"Located in the northeast of the continent, with flames reaching the sky and "
+"magma flowing. The volcano is active with abundant geothermal energy, an "
+"ideal place for blacksmiths to forge, but also extremely dangerous."
+
+#. normal_region.csv: 沃土良田
+msgid "NORMAL_REGION_112_NAME"
+msgstr "Fertile Farmland"
+
+#. normal_region.csv: 位于大陆东部，土地肥沃，五谷丰登。此地土...
+msgid "NORMAL_REGION_112_DESC"
+msgstr ""
+"Located in the east of the continent, with fertile land and abundant crops. "
+"The soil is deep and rain is plentiful, a golden treasure land for farmers "
+"to cultivate."
+
+#. normal_region.csv: 幽冥毒泽
+msgid "NORMAL_REGION_113_NAME"
+msgstr "Underworld Poisonous Swamp"
+
+#. normal_region.csv: 位于大陆正南，终年被五色瘴气笼罩，毒虫遍...
+msgid "NORMAL_REGION_113_DESC"
+msgstr ""
+"Located in the south of the continent, shrouded in five-colored miasma all "
+"year round with poisonous insects everywhere. Mortals dissolve into bones "
+"upon entry; only those practicing poisonous techniques view this as a "
+"supreme grotto-heaven."
+
+#. normal_region.csv: 十万大山
+msgid "NORMAL_REGION_114_NAME"
+msgstr "One Hundred Thousand Mountains"
+
+#. normal_region.csv: 位于大陆南部，苍茫群山连绵不绝，乃是妖族...
+msgid "NORMAL_REGION_114_DESC"
+msgstr ""
+"Located in the south of the continent, vast mountains stretching endlessly, "
+"the ancestral land of the Yao tribe. The mountains are steep and the roads "
+"are difficult to traverse."
+
+#. normal_region.csv: 紫竹幽境
+msgid "NORMAL_REGION_115_NAME"
+msgstr "Purple Bamboo Secluded Realm"
+
+#. normal_region.csv: 位于大陆中北，紫竹成林，灵气清冽。风过林...
+msgid "NORMAL_REGION_115_DESC"
+msgstr ""
+"Located in the north-central continent, with purple bamboo forming forests "
+"and clear spiritual qi. The wind through the forest sounds like immortal "
+"music; quiet cultivation here can cleanse heart demons and comprehend the "
+"Dao of heaven and earth."
+
+#. normal_region.csv: 凛霜荒原
+msgid "NORMAL_REGION_116_NAME"
+msgstr "Freezing Frost Wasteland"
+
+#. normal_region.csv: 位于大陆东北，寸草不生，冻土千尺。此地生...
+msgid "NORMAL_REGION_116_DESC"
+msgstr ""
+"Located in the northeast of the continent, where no grass grows and the "
+"permafrost is a thousand feet deep. Life is extinguished here, yet it "
+"contains the ultimate cold spiritual qi, with ten-thousand-year profound ice"
+" occasionally appearing."
+
+#. normal_region.csv: 碎星戈壁
+msgid "NORMAL_REGION_117_NAME"
+msgstr "Shattered Star Gobi"
+
+#. normal_region.csv: 位于大陆西南，飞沙走石，狂风如刀。传说曾...
+msgid "NORMAL_REGION_117_DESC"
+msgstr ""
+"Located in the southwest of the continent, with flying sand and stones and "
+"wind as sharp as a knife. Legend has it that stars once fell here, and "
+"violent star power and extraterrestrial meteoric iron still remain."
+
+#. normal_region.csv: 蓬莱遗岛
+msgid "NORMAL_REGION_118_NAME"
+msgstr "Penglai Lost Island"
+
+#. normal_region.csv: 位于极东海外，孤悬海外，云雾缭绕。岛上灵...
+msgid "NORMAL_REGION_118_DESC"
+msgstr ""
+"Located in the far eastern overseas, hanging alone overseas and shrouded in "
+"clouds. Spiritual springs gush on the island, with strange flowers and herbs"
+" everywhere, and spiritual qi density far exceeding the mainland, a place "
+"yearned for by overseas rogue cultivators."

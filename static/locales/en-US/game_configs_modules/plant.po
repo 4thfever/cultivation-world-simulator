@@ -1,0 +1,119 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "Strange Herb"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr ""
+"A strange medicinal herb growing in places with abundant spiritual qi, with "
+"light blue leaves and magical healing effects"
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "Spirit Wood"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr ""
+"Formed by thousand-year-old ancient trees absorbing heaven and earth "
+"spiritual qi, with hard wood and dense spiritual power"
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "Desert Cactus"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr ""
+"A magical plant growing in the Western Quicksand, able to store large "
+"amounts of spiritual qi and water, with spiritual medicine in its spines"
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "Freezing Frost Snow Lotus"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr ""
+"A precious spiritual medicine of the Far North Ice Field, with petals white "
+"as snow, containing extreme cold qi, able to clear heat and detoxify"
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "Water Lingzhi"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr ""
+"A water-system spiritual medicine growing at the bottom of the Tianhe River,"
+" translucent blue, able to enhance the water-element spiritual power of the "
+"practitioner"
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "Snowball Flower"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr ""
+"An alpine plant of the Ten Thousand Zhang Snow Peak, with small white "
+"petals, able to resist severe cold and possessing calming and sedative "
+"effects"
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "Thousand-Year Ancient Pine"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr ""
+"An ancient giant tree in the Qingyun Forest Sea, over a thousand years old, "
+"with resin containing rich spiritual power"
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "Five-Grain Spirit Rice"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr ""
+"Spiritual rice cultivated in fertile farmland, each grain full of spiritual "
+"qi, able to enhance the practitioner's constitution"
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "Nine-Bend Qingyin Bamboo"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr ""
+"A mutated species in the Purple Bamboo Forest, with a nine-bend body, hollow"
+" inside and hard outside. It emits nine different clear sounds when the wind"
+" blows, reaching directly to the soul and cleansing heart demons"
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "Star Gathering Grass"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr ""
+"A strange plant growing tenaciously in the rock crevices of the Gobi, with "
+"leaves as hard as swords, able to attract and devour starlight at night"
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "Nirvana Red Fruit"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr ""
+"Grows on the companion divine tree at the Eye of the Spirit Spring on "
+"Penglai Island, blooming every three hundred years and fruiting every three "
+"hundred years, containing immense life force"

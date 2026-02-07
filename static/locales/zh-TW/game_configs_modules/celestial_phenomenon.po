@@ -1,0 +1,181 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. celestial_phenomenon.csv: 紫氣東來
+msgid "CELESTIAL_PHENOMENON_1_NAME"
+msgstr "紫氣東來"
+
+#. celestial_phenomenon.csv: 天地靈氣充沛，修士修行速度大增，修行慾望...
+msgid "CELESTIAL_PHENOMENON_1_DESC"
+msgstr "天地靈氣充沛，修士修行速度大增，修行慾望提高"
+
+#. celestial_phenomenon.csv: 金煞之年
+msgid "CELESTIAL_PHENOMENON_2_NAME"
+msgstr "金煞之年"
+
+#. celestial_phenomenon.csv: 金煞充盈天地肅殺，修士更大可能嗜血而相互...
+msgid "CELESTIAL_PHENOMENON_2_DESC"
+msgstr "金煞充盈天地肅殺，修士更大可能嗜血而相互攻伐"
+
+#. celestial_phenomenon.csv: 木靈盛世
+msgid "CELESTIAL_PHENOMENON_3_NAME"
+msgstr "木靈盛世"
+
+#. celestial_phenomenon.csv: 木德滋養生機盎然，採集收穫倍增且傷勢恢復...
+msgid "CELESTIAL_PHENOMENON_3_DESC"
+msgstr "木德滋養生機盎然，採集收穫倍增且傷勢恢復極快，宜四處蒐羅天材地寶"
+
+#. celestial_phenomenon.csv: 水德之紀
+msgid "CELESTIAL_PHENOMENON_4_NAME"
+msgstr "水德之紀"
+
+#. celestial_phenomenon.csv: 水行流轉通達無礙，修煉效率與速度雙重提升...
+msgid "CELESTIAL_PHENOMENON_4_DESC"
+msgstr "水行流轉通達無礙，修煉效率與速度雙重提升，正是閉關苦修的大好時機"
+
+#. celestial_phenomenon.csv: 火劫時代
+msgid "CELESTIAL_PHENOMENON_5_NAME"
+msgstr "火劫時代"
+
+#. celestial_phenomenon.csv: 天火燃燒劫數降臨，戰力暴漲但壽元流逝，當...
+msgid "CELESTIAL_PHENOMENON_5_DESC"
+msgstr "天火燃燒劫數降臨，戰力暴漲但壽元流逝，當速戰速決以命搏天"
+
+#. celestial_phenomenon.csv: 土厚之世
+msgid "CELESTIAL_PHENOMENON_6_NAME"
+msgstr "土厚之世"
+
+#. celestial_phenomenon.csv: 土德厚重載物無疆，身軀堅韌血氣充盈，可無...
+msgid "CELESTIAL_PHENOMENON_6_DESC"
+msgstr "土德厚重載物無疆，身軀堅韌血氣充盈，可無懼強敵正面爭鋒"
+
+#. celestial_phenomenon.csv: 五行逆亂
+msgid "CELESTIAL_PHENOMENON_7_NAME"
+msgstr "五行逆亂"
+
+#. celestial_phenomenon.csv: 五行失序天地大亂，常規修煉事倍功半，然瓶...
+msgid "CELESTIAL_PHENOMENON_7_DESC"
+msgstr "五行失序天地大亂，常規修煉事倍功半，然瓶頸鬆動宜嘗試突破"
+
+#. celestial_phenomenon.csv: 天道均衡
+msgid "CELESTIAL_PHENOMENON_8_NAME"
+msgstr "天道均衡"
+
+#. celestial_phenomenon.csv: 天道顯化損有餘而補不足，高階修士進境受阻...
+msgid "CELESTIAL_PHENOMENON_8_DESC"
+msgstr "天道顯化損有餘而補不足，高階修士進境受阻，低階修士宜抓緊良機追趕"
+
+#. celestial_phenomenon.csv: 劫數將至
+msgid "CELESTIAL_PHENOMENON_9_NAME"
+msgstr "劫數將至"
+
+#. celestial_phenomenon.csv: 劫數降臨戾氣瀰漫，雖戰力激增但福緣淺薄，...
+msgid "CELESTIAL_PHENOMENON_9_DESC"
+msgstr "劫數降臨戾氣瀰漫，雖戰力激增但福緣淺薄，宜如履薄冰謹慎行事"
+
+#. celestial_phenomenon.csv: 靈氣復甦
+msgid "CELESTIAL_PHENOMENON_10_NAME"
+msgstr "靈氣復甦"
+
+#. celestial_phenomenon.csv: 天地靈氣井噴復甦，修爲進境一日千里，萬物...
+msgid "CELESTIAL_PHENOMENON_10_DESC"
+msgstr "天地靈氣井噴復甦，修爲進境一日千里，萬物競發宜全力精進"
+
+#. celestial_phenomenon.csv: 靈氣枯竭
+msgid "CELESTIAL_PHENOMENON_11_NAME"
+msgstr "靈氣枯竭"
+
+#. celestial_phenomenon.csv: 靈氣枯竭末法將至，修煉如逆水行舟，宜節約...
+msgid "CELESTIAL_PHENOMENON_11_DESC"
+msgstr "靈氣枯竭末法將至，修煉如逆水行舟，宜節約資源穩固道心"
+
+#. celestial_phenomenon.csv: 魔道興盛
+msgid "CELESTIAL_PHENOMENON_12_NAME"
+msgstr "魔道興盛"
+
+#. celestial_phenomenon.csv: 魔氣滔天邪道大昌，魔修如魚得水，正道修士...
+msgid "CELESTIAL_PHENOMENON_12_DESC"
+msgstr "魔氣滔天邪道大昌，魔修如魚得水，正道修士當避其鋒芒潛心積澱"
+
+#. celestial_phenomenon.csv: 正氣浩然
+msgid "CELESTIAL_PHENOMENON_13_NAME"
+msgstr "正氣浩然"
+
+#. celestial_phenomenon.csv: 浩然正氣鎮壓邪祟，正道修士如有神助，魔修...
+msgid "CELESTIAL_PHENOMENON_13_DESC"
+msgstr "浩然正氣鎮壓邪祟，正道修士如有神助，魔修宜韜光養晦莫觸黴頭"
+
+#. celestial_phenomenon.csv: 神兵出世
+msgid "CELESTIAL_PHENOMENON_14_NAME"
+msgstr "神兵出世"
+
+#. celestial_phenomenon.csv: 神兵有靈百兵齊鳴，兵器熟練度提升極快，宜...
+msgid "CELESTIAL_PHENOMENON_14_DESC"
+msgstr "神兵有靈百兵齊鳴，兵器熟練度提升極快，宜勤練武藝磨礪鋒芒"
+
+#. celestial_phenomenon.csv: 陰陽交泰
+msgid "CELESTIAL_PHENOMENON_15_NAME"
+msgstr "陰陽交泰"
+
+#. celestial_phenomenon.csv: 陰陽交泰天地和合，彼此互補進境神速，最宜...
+msgid "CELESTIAL_PHENOMENON_15_DESC"
+msgstr "陰陽交泰天地和合，彼此互補進境神速，最宜尋覓道侶共參雙修之樂"
+
+#. celestial_phenomenon.csv: 殺劫降臨
+msgid "CELESTIAL_PHENOMENON_16_NAME"
+msgstr "殺劫降臨"
+
+#. celestial_phenomenon.csv: 血光沖天殺意難抑，雖殺伐之力大增但機緣斷...
+msgid "CELESTIAL_PHENOMENON_16_DESC"
+msgstr "血光沖天殺意難抑，雖殺伐之力大增但機緣斷絕，宜主動出擊以殺證道"
+
+#. celestial_phenomenon.csv: 太平盛世
+msgid "CELESTIAL_PHENOMENON_17_NAME"
+msgstr "太平盛世"
+
+#. celestial_phenomenon.csv: 天下太平萬物安寧，雖苦修進境緩慢但機緣頻...
+msgid "CELESTIAL_PHENOMENON_17_DESC"
+msgstr "天下太平萬物安寧，雖苦修進境緩慢但機緣頻出，宜遊歷天下尋找奇遇"
+
+#. celestial_phenomenon.csv: 氣運加身
+msgid "CELESTIAL_PHENOMENON_18_NAME"
+msgstr "氣運加身"
+
+#. celestial_phenomenon.csv: 天命眷顧氣運所鍾，天選之人萬事皆順，常人...
+msgid "CELESTIAL_PHENOMENON_18_DESC"
+msgstr "天命眷顧氣運所鍾，天選之人萬事皆順，常人只可仰望不可強求"
+
+#. celestial_phenomenon.csv: 血月當空
+msgid "CELESTIAL_PHENOMENON_19_NAME"
+msgstr "血月當空"
+
+#. celestial_phenomenon.csv: 血月高懸人心躁動，戰力雖強但靜修困難，宜...
+msgid "CELESTIAL_PHENOMENON_19_DESC"
+msgstr "血月高懸人心躁動，戰力雖強但靜修困難，宜以戰養戰掠奪資源"
+
+#. celestial_phenomenon.csv: 飛昇之門
+msgid "CELESTIAL_PHENOMENON_20_NAME"
+msgstr "飛昇之門"
+
+#. celestial_phenomenon.csv: 天門大開大道顯現，感悟修行皆如有神助，正...
+msgid "CELESTIAL_PHENOMENON_20_DESC"
+msgstr "天門大開大道顯現，感悟修行皆如有神助，正是衝擊境界飛昇成仙之時"
+
+#. celestial_phenomenon.csv: 法則顯化
+msgid "CELESTIAL_PHENOMENON_21_NAME"
+msgstr "法則顯化"
+
+#. celestial_phenomenon.csv: 天地法則清晰可觸，瓶頸如紙一捅即破，萬勿...
+msgid "CELESTIAL_PHENOMENON_21_DESC"
+msgstr "天地法則清晰可觸，瓶頸如紙一捅即破，萬勿錯過此突破天賜良機"
+
+#. celestial_phenomenon.csv: 時空亂流
+msgid "CELESTIAL_PHENOMENON_22_NAME"
+msgstr "時空亂流"
+
+#. celestial_phenomenon.csv: 時空錯亂異象頻生，險地亦藏無上機緣，宜富...
+msgid "CELESTIAL_PHENOMENON_22_DESC"
+msgstr "時空錯亂異象頻生，險地亦藏無上機緣，宜富貴險中求探索未知"

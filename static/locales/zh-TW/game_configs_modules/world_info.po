@@ -1,0 +1,199 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. world_info.csv:
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "簡介"
+
+#. world_info.csv: 這是一個諸多修士競相修行的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr "這是一個諸多修士競相修行的修仙世界。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "境界"
+
+#. world_info.csv: 修仙的境界從弱到強：練氣、築基、金丹、元嬰。每個境界分前期、中期、後期。境界間差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr "修仙的境界從弱到強：練氣、築基、金丹、元嬰。每個境界分前期、中期、後期。境界間差距很大。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "壽元"
+
+#. world_info.csv: 每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，...
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr ""
+"每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，則必死無疑。提升境界和某些寶物、丹藥能提高壽元上限。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "死亡"
+
+#. world_info.csv: HP降至0以下也會死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "HP降至0以下也會死亡。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "區域"
+
+#. world_info.csv: 不同區域有不同效果，在適當的區域做適當的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr "不同區域有不同效果，在適當的區域做適當的事情事半功倍。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "修煉"
+
+#. world_info.csv: 修煉可以增加經驗，直到到達突破前的瓶頸。突破是概率事件，突破後會進入下一個境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr "修煉可以增加經驗，直到到達突破前的瓶頸。突破是概率事件，突破後會進入下一個境界。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "靈根"
+
+#. world_info.csv: 靈根由五行元素（金、木、水、火、土）組成，分爲單靈根、雙靈根和天靈根。五行相剋：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr ""
+"靈根由五行元素（金、木、水、火、土）組成，分爲單靈根、雙靈根和天靈根。五行相剋：金克木，木克土，土克水，水克火，火克金。天靈根包含全部五行元素且突破時有額外加成。在與自身靈根屬性匹配的區域修煉效率最高。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "天地靈機"
+
+#. world_info.csv: 世界每隔數年會有一次天象變動（如靈氣潮汐），影響角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr "世界每隔數年會有一次天象變動（如靈氣潮汐），影響角色能力。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "靈石"
+
+#. world_info.csv: 修仙界的通用貨幣。可用於購買法寶丹藥，通過採集、交易或掠奪獲取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr "修仙界的通用貨幣。可用於購買法寶丹藥，通過採集、交易或掠奪獲取。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "宗門"
+
+#. world_info.csv: 修士的庇護所。加入宗門可習得獨門功法、獲同門庇護；散修自由但資源匱乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr "修士的庇護所。加入宗門可習得獨門功法、獲同門庇護；散修自由但資源匱乏。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "戰鬥"
+
+#. world_info.csv: 弱肉強食，境界壓制極大，高境界者對低境界者有絕對優勢。若對方死亡，勝者可掠奪敗者財物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr "弱肉強食，境界壓制極大，高境界者對低境界者有絕對優勢。若對方死亡，勝者可掠奪敗者財物。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "動作"
+
+#. world_info.csv: 你有一系列可以執行的動作。要注意動作的效果、限制條件、區域和時間。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr "你有一系列可以執行的動作。要注意動作的效果、限制條件、區域和時間。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "裝備與丹藥"
+
+#. world_info.csv: 通過兵器、輔助裝備、丹藥等裝備，可以獲得額外的屬性加成，獲得或小或大的增益。擁有好的裝備或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr "通過兵器、輔助裝備、丹藥等裝備，可以獲得額外的屬性加成，獲得或小或大的增益。擁有好的裝備或者服用好的丹藥，能獲得很大好處。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "購物"
+
+#. world_info.csv: 在城市區域可以購買練氣級別丹藥、兵器。購買丹藥後會立刻服用強化自身。購買兵器可以幫自己切換兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr "在城市區域可以購買練氣級別丹藥、兵器。購買丹藥後會立刻服用強化自身。購買兵器可以幫自己切換兵器類型爲順手的類型。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "拍賣會"
+
+#. world_info.csv: 每隔一段不確定的時間會有神祕人組織的拍賣會，或許有好貨出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr "每隔一段不確定的時間會有神祕人組織的拍賣會，或許有好貨出售。"
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "祕境"
+
+#. world_info.csv: 每隔數年會有祕境開啓。進入祕境可能遭遇兇險，也可能獲得高階法寶和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr "每隔數年會有祕境開啓。進入祕境可能遭遇兇險，也可能獲得高階法寶和功法。"
+
+#. world_info.csv: 简介
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "简介"
+
+#. world_info.csv: 境界
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "境界"
+
+#. world_info.csv: 寿元
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "寿元"
+
+#. world_info.csv: 死亡
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "死亡"
+
+#. world_info.csv: 区域
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "区域"
+
+#. world_info.csv: 修炼
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "修炼"
+
+#. world_info.csv: 灵根
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "灵根"
+
+#. world_info.csv: 天地灵机
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "天地灵机"
+
+#. world_info.csv: 灵石
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "灵石"
+
+#. world_info.csv: 宗门
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "宗门"
+
+#. world_info.csv: 战斗
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "战斗"
+
+#. world_info.csv: 动作
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "动作"
+
+#. world_info.csv: 装备与丹药
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "装备与丹药"
+
+#. world_info.csv: 购物
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "购物"
+
+#. world_info.csv: 拍卖会
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "拍卖会"
+
+#. world_info.csv: 秘境
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "秘境"

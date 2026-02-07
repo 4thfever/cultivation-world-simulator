@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. animal.csv: 靈兔
+msgid "ANIMAL_1_NAME"
+msgstr "靈兔"
+
+#. animal.csv: 天性機敏的靈性兔子，毛色雪白，蘊含微弱靈...
+msgid "ANIMAL_1_DESC"
+msgstr "天性機敏的靈性兔子，毛色雪白，蘊含微弱靈力，性情溫和易馴服"
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "魔狼"
+
+#. animal.csv: 兇猛的魔性狼族，體型巨大，擁有強大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr "兇猛的魔性狼族，體型巨大，擁有強大的魔力和鋒利的爪牙"
+
+#. animal.csv: 青雲鹿
+msgid "ANIMAL_3_NAME"
+msgstr "青雲鹿"
+
+#. animal.csv: 棲息於平原地帶的溫和靈獸，通體青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr "棲息於平原地帶的溫和靈獸，通體青色，角如玉石，善於感知靈氣變化"
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "暗影豹"
+
+#. animal.csv: 南疆蠻荒中的敏捷獵手，身形如影，爪牙鋒利...
+msgid "ANIMAL_4_DESC"
+msgstr "南疆蠻荒中的敏捷獵手，身形如影，爪牙鋒利，擅長潛行狩獵"
+
+#. animal.csv: 碧海龍龜
+msgid "ANIMAL_5_NAME"
+msgstr "碧海龍龜"
+
+#. animal.csv: 無邊碧海的古老靈獸，龜甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr "無邊碧海的古老靈獸，龜甲如碧玉，能操控海水，壽命極長"
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "石甲山熊"
+
+#. animal.csv: 青峯山脈的強壯守護者，皮毛堅如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr "青峯山脈的強壯守護者，皮毛堅如磐石，力大無窮，性情憨厚"
+
+#. animal.csv: 風速馬
+msgid "ANIMAL_7_NAME"
+msgstr "風速馬"
+
+#. animal.csv: 馳騁於碧野千里的神駿靈獸，四蹄生風，速度...
+msgid "ANIMAL_7_DESC"
+msgstr "馳騁於碧野千里的神駿靈獸，四蹄生風，速度如電，鬃毛飄逸"
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "熔岩蜥蜴"
+
+#. animal.csv: 炎獄火山中的火系靈獸，鱗片赤紅如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr "炎獄火山中的火系靈獸，鱗片赤紅如火，能在岩漿中游泳，噴吐烈焰"
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "毒瘴蛙"
+
+#. animal.csv: 迷霧沼澤的劇毒生物，體色斑斕，能釋放致命...
+msgid "ANIMAL_9_DESC"
+msgstr "迷霧沼澤的劇毒生物，體色斑斕，能釋放致命毒氣，善於隱匿"
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "撼地神牛"
+
+#. animal.csv: 擁有上古血脈的巨型妖獸，皮毛如鐵，行走間...
+msgid "ANIMAL_10_DESC"
+msgstr "擁有上古血脈的巨型妖獸，皮毛如鐵，行走間地動山搖，力大無窮"
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "冰魄骨蛇"
+
+#. animal.csv: 生存於凍土深處的冷血妖獸，身軀由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr "生存於凍土深處的冷血妖獸，身軀由半透明的骨骼和冰霜構成，無聲無息，能瞬間凍結獵物"

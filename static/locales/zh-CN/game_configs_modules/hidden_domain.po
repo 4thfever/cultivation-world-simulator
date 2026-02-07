@@ -1,0 +1,32 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "万木残界"
+
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"此乃上古丹宗“青帝苑”崩碎后遗落的一角碎片，终年笼罩在七彩斑斓的剧毒瘴气之中。界内法则破碎，导致灵植疯狂生长，更有化形的妖藤食人花潜伏于阴影伺机而动。传闻若能穿过外围的“死寂林”，寻得核心处尚未枯竭的‘乙木灵泉’，凡草亦可化仙药，洗髓伐骨不在话下。但也需时刻提防那些被药渣滋养万年、早已畸变扭曲的守护妖兽，它们对鲜血有着病态的渴望。"
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "陨仙焚谷"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"万年前人族大能与炎魔皇同归于尽之地，至今地脉仍喷涌着不灭的地煞真火，将苍穹染成血红。焦土之下掩埋着无数断剑残戟，夜半时分更有战魂嘶吼，重演当年的惨烈厮杀。在此历练虽需时刻忍受火毒噬心之苦，甚至可能被狂暴的火灵力焚为灰烬，却极易感悟上古战意。若机缘深厚，甚至能从岩浆深处拾得古修遗落的法宝残片，或窥见一丝大道法则。"
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "九天虚空殿"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"漂浮于九天罡风层之上的宏伟宫殿群，非有大毅力者不可通过外围撕裂肉身的空间裂缝。殿内布满上古禁制与层叠幻阵，一步踏错便是形神俱灭，永坠虚空。虽藏经阁已在岁月中坍塌，但那些飘散在虚空乱流中的每一页金书玉册，都记载着足以引发修真界血雨腥风的无上神通。唯有金丹巅峰修士，方能勉强抵御那股来自远古的威压，窥探一丝仙机。"

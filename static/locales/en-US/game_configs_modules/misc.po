@@ -1,0 +1,53 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "Introduction"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "Realm"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "Lifespan"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "Death"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "Region"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "Cultivation"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "Spirit Root"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "World Qi"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "Spirit Stone"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "Sect"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "Battle"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "Action"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "Equipment & Elixir"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "Shopping"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "Auction"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "Secret Realm"

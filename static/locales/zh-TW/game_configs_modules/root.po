@@ -1,0 +1,85 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. root.csv: 金靈根
+msgid "ROOT_1_NAME"
+msgstr "金靈根"
+
+#. root.csv: 剛強果斷；攻擊力強，適合劍修...
+msgid "ROOT_1_DESC"
+msgstr "剛強果斷；攻擊力強，適合劍修"
+
+#. root.csv: 木靈根
+msgid "ROOT_2_NAME"
+msgstr "木靈根"
+
+#. root.csv: 仁厚堅韌；擅恢復、毒術與木屬性法術...
+msgid "ROOT_2_DESC"
+msgstr "仁厚堅韌；擅恢復、毒術與木屬性法術"
+
+#. root.csv: 水靈根
+msgid "ROOT_3_NAME"
+msgstr "水靈根"
+
+#. root.csv: 智慧圓融；身法輕盈，善輔助與隱匿...
+msgid "ROOT_3_DESC"
+msgstr "智慧圓融；身法輕盈，善輔助與隱匿"
+
+#. root.csv: 火靈根
+msgid "ROOT_4_NAME"
+msgstr "火靈根"
+
+#. root.csv: 激情暴烈；高爆發攻術，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "激情暴烈；高爆發攻術，火系功法"
+
+#. root.csv: 土靈根
+msgid "ROOT_5_NAME"
+msgstr "土靈根"
+
+#. root.csv: 穩重踏實；防禦高，體修或傀儡術...
+msgid "ROOT_5_DESC"
+msgstr "穩重踏實；防禦高，體修或傀儡術"
+
+#. root.csv: 雷靈根
+msgid "ROOT_6_NAME"
+msgstr "雷靈根"
+
+#. root.csv: 爆發性極強；戰鬥系頂尖...
+msgid "ROOT_6_DESC"
+msgstr "爆發性極強；戰鬥系頂尖"
+
+#. root.csv: 冰靈根
+msgid "ROOT_7_NAME"
+msgstr "冰靈根"
+
+#. root.csv: 控制力強；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "控制力強；持久性好"
+
+#. root.csv: 風靈根
+msgid "ROOT_8_NAME"
+msgstr "風靈根"
+
+#. root.csv: 身法卓絕；難以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "身法卓絕；難以捉摸"
+
+#. root.csv: 暗靈根
+msgid "ROOT_9_NAME"
+msgstr "暗靈根"
+
+#. root.csv: 隱匿系；擅幻術與詭道...
+msgid "ROOT_9_DESC"
+msgstr "隱匿系；擅幻術與詭道"
+
+#. root.csv: 天靈根
+msgid "ROOT_10_NAME"
+msgstr "天靈根"
+
+#. root.csv: 資質通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "資質通天；五行皆通，修行全面"

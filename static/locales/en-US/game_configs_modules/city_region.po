@@ -1,0 +1,58 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. city_region.csv: 青云城
+msgid "CITY_REGION_301_NAME"
+msgstr "Qingyun City"
+
+#. city_region.csv: 繁华都市，人烟稠密，商贾云集。此地是交易...
+msgid "CITY_REGION_301_DESC"
+msgstr ""
+"A bustling metropolis with a dense population and a gathering of merchants. "
+"This place is an important venue for trading heavenly materials and earthly "
+"treasures and seeking opportunities."
+
+#. city_region.csv: 沙州城
+msgid "CITY_REGION_302_NAME"
+msgstr "Shazhou City"
+
+#. city_region.csv: 沙漠绿洲中的贸易重镇，各路商队在此集结，...
+msgid "CITY_REGION_302_DESC"
+msgstr ""
+"A major trade town in a desert oasis where various caravans assemble, "
+"serving as an important supply and exchange point for cultivators."
+
+#. city_region.csv: 翠林城
+msgid "CITY_REGION_303_NAME"
+msgstr "Cuilin City"
+
+#. city_region.csv: 森林深处的修仙重镇，众多修士在此栖居，是...
+msgid "CITY_REGION_303_DESC"
+msgstr ""
+"A major cultivation town deep in the forest where many cultivators reside, "
+"an ideal place for cultivation and artifact refining."
+
+#. city_region.csv: 沧澜城
+msgid "CITY_REGION_304_NAME"
+msgstr "Canglan City"
+
+#. city_region.csv: 坐落于大河入海口的三角洲，百川归海，水运...
+msgid "CITY_REGION_304_DESC"
+msgstr ""
+"Located at the delta where a large river enters the sea, where hundreds of "
+"rivers return to the ocean and water transport flourishes; it is a precious "
+"land most frequently visited by water-attribute cultivators."
+
+#. city_region.csv: 揽月城
+msgid "CITY_REGION_305_NAME"
+msgstr "Lanyue City"
+
+#. city_region.csv: 屹立于连绵群山之巅，终年云雾缭绕，灵气纯...
+msgid "CITY_REGION_305_DESC"
+msgstr ""
+"Standing at the peak of continuous mountains, shrouded in mist all year "
+"round with pure spiritual qi, an excellent place for ascetic practitioners "
+"to comprehend the Heavenly Dao."

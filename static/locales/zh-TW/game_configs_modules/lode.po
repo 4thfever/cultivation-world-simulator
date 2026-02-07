@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. lode.csv: 玄鐵礦脈
+msgid "LODE_1_NAME"
+msgstr "玄鐵礦脈"
+
+#. lode.csv: 蘊含玄鐵的普通礦脈，常見於淺層地表...
+msgid "LODE_1_DESC"
+msgstr "蘊含玄鐵的普通礦脈，常見於淺層地表"
+
+#. lode.csv: 赤銅礦脈
+msgid "LODE_2_NAME"
+msgstr "赤銅礦脈"
+
+#. lode.csv: 深埋地下的赤銅礦脈，周圍往往伴生火熱之氣...
+msgid "LODE_2_DESC"
+msgstr "深埋地下的赤銅礦脈，周圍往往伴生火熱之氣"
+
+#. lode.csv: 祕銀礦牀
+msgid "LODE_3_NAME"
+msgstr "祕銀礦牀"
+
+#. lode.csv: 極其罕見的祕銀富集地，銀光閃爍，靈氣逼人...
+msgid "LODE_3_DESC"
+msgstr "極其罕見的祕銀富集地，銀光閃爍，靈氣逼人"
+
+#. lode.csv: 庚金礦洞
+msgid "LODE_4_NAME"
+msgstr "庚金礦洞"
+
+#. lode.csv: 位於絕壁深處的庚金礦脈，開採極爲困難，但...
+msgid "LODE_4_DESC"
+msgstr "位於絕壁深處的庚金礦脈，開採極爲困難，但價值連城"

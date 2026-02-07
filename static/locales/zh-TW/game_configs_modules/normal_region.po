@@ -1,0 +1,149 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. normal_region.csv: 平原地帶
+msgid "NORMAL_REGION_101_NAME"
+msgstr "平原地帶"
+
+#. normal_region.csv: 位於大陸中部，地勢平坦，靈氣平和。是初學...
+msgid "NORMAL_REGION_101_DESC"
+msgstr "位於大陸中部，地勢平坦，靈氣平和。是初學修煉者打基礎和建立宗門的理想之地。"
+
+#. normal_region.csv: 西域流沙
+msgid "NORMAL_REGION_102_NAME"
+msgstr "西域流沙"
+
+#. normal_region.csv: 位於大陸極西，茫茫大漠，黃沙漫天。此地氣...
+msgid "NORMAL_REGION_102_DESC"
+msgstr "位於大陸極西，茫茫大漠，黃沙漫天。此地氣候乾燥，日夜溫差極大，是沙漠商隊的必經之路。"
+
+#. normal_region.csv: 南疆蠻荒
+msgid "NORMAL_REGION_103_NAME"
+msgstr "南疆蠻荒"
+
+#. normal_region.csv: 位於大陸西南，古木參天，藤蔓纏繞。此地森...
+msgid "NORMAL_REGION_103_DESC"
+msgstr "位於大陸西南，古木參天，藤蔓纏繞。此地森林茂密，野獸衆多，是採集藥材和狩獵的危險之地。"
+
+#. normal_region.csv: 極北冰原
+msgid "NORMAL_REGION_104_NAME"
+msgstr "極北冰原"
+
+#. normal_region.csv: 位於大陸極北，千里冰封，萬年不化。此地嚴...
+msgid "NORMAL_REGION_104_DESC"
+msgstr "位於大陸極北，千里冰封，萬年不化。此地嚴寒刺骨，風雪交加，只有最堅韌的冒險者才能在此生存。"
+
+#. normal_region.csv: 無邊碧海
+msgid "NORMAL_REGION_105_NAME"
+msgstr "無邊碧海"
+
+#. normal_region.csv: 位於大陸極東，浩瀚無垠，波濤洶湧。此地風...
+msgid "NORMAL_REGION_105_DESC"
+msgstr "位於大陸極東，浩瀚無垠，波濤洶湧。此地風浪險惡，暗礁密佈，是海商和漁民的挑戰之海。"
+
+#. normal_region.csv: 天河奔流
+msgid "NORMAL_REGION_106_NAME"
+msgstr "天河奔流"
+
+#. normal_region.csv: 橫貫大陸東西，一江春水向東流，奔騰不息入...
+msgid "NORMAL_REGION_106_DESC"
+msgstr "橫貫大陸東西，一江春水向東流，奔騰不息入東海。此河貫穿東西，水流湍急，是重要的交通要道。"
+
+#. normal_region.csv: 青峯山脈
+msgid "NORMAL_REGION_107_NAME"
+msgstr "青峯山脈"
+
+#. normal_region.csv: 位於大陸東部，連綿起伏，直插雲霄。此地山...
+msgid "NORMAL_REGION_107_DESC"
+msgstr "位於大陸東部，連綿起伏，直插雲霄。此地山勢險峻，多有奇石異洞，是探險者尋寶的熱門之地。"
+
+#. normal_region.csv: 萬丈雪峯
+msgid "NORMAL_REGION_108_NAME"
+msgstr "萬丈雪峯"
+
+#. normal_region.csv: 位於大陸西北，雪峯皚皚，寒風刺骨。此地終...
+msgid "NORMAL_REGION_108_DESC"
+msgstr "位於大陸西北，雪峯皚皚，寒風刺骨。此地終年積雪，山路崎嶇，是登山者的終極挑戰。"
+
+#. normal_region.csv: 碧野千里
+msgid "NORMAL_REGION_109_NAME"
+msgstr "碧野千里"
+
+#. normal_region.csv: 位於大陸西部，芳草萋萋，一望無際。此地水...
+msgid "NORMAL_REGION_109_DESC"
+msgstr "位於大陸西部，芳草萋萋，一望無際。此地水草豐美，牛羊成羣，是遊牧民族的天然牧場。"
+
+#. normal_region.csv: 青雲林海
+msgid "NORMAL_REGION_110_NAME"
+msgstr "青雲林海"
+
+#. normal_region.csv: 位於大陸中部，古樹參天，綠意盎然。此地森...
+msgid "NORMAL_REGION_110_DESC"
+msgstr "位於大陸中部，古樹參天，綠意盎然。此地森林廣袤，物產豐富，是伐木工和獵人的主要活動區域。"
+
+#. normal_region.csv: 炎獄火山
+msgid "NORMAL_REGION_111_NAME"
+msgstr "炎獄火山"
+
+#. normal_region.csv: 位於大陸東北，烈焰沖天，岩漿奔流。此地火...
+msgid "NORMAL_REGION_111_DESC"
+msgstr "位於大陸東北，烈焰沖天，岩漿奔流。此地火山活躍，地熱豐富，是鐵匠鍛造的理想之地，但也極其危險。"
+
+#. normal_region.csv: 沃土良田
+msgid "NORMAL_REGION_112_NAME"
+msgstr "沃土良田"
+
+#. normal_region.csv: 位於大陸東部，土地肥沃，五穀豐登。此地土...
+msgid "NORMAL_REGION_112_DESC"
+msgstr "位於大陸東部，土地肥沃，五穀豐登。此地土壤深厚，雨水充沛，是農民耕種的黃金寶地。"
+
+#. normal_region.csv: 幽冥毒澤
+msgid "NORMAL_REGION_113_NAME"
+msgstr "幽冥毒澤"
+
+#. normal_region.csv: 位於大陸正南，終年被五色瘴氣籠罩，毒蟲遍...
+msgid "NORMAL_REGION_113_DESC"
+msgstr "位於大陸正南，終年被五色瘴氣籠罩，毒蟲遍地。凡人入之即化爲白骨，唯有修習毒功者視此處爲無上洞天。"
+
+#. normal_region.csv: 十萬大山
+msgid "NORMAL_REGION_114_NAME"
+msgstr "十萬大山"
+
+#. normal_region.csv: 位於大陸南部，蒼茫羣山連綿不絕，乃是妖族...
+msgid "NORMAL_REGION_114_DESC"
+msgstr "位於大陸南部，蒼茫羣山連綿不絕，乃是妖族祖地。山勢險峻，道路難行。"
+
+#. normal_region.csv: 紫竹幽境
+msgid "NORMAL_REGION_115_NAME"
+msgstr "紫竹幽境"
+
+#. normal_region.csv: 位於大陸中北，紫竹成林，靈氣清冽。風過林...
+msgid "NORMAL_REGION_115_DESC"
+msgstr "位於大陸中北，紫竹成林，靈氣清冽。風過林間若奏仙樂，在此靜修可滌盪心魔，感悟天地自然之道。"
+
+#. normal_region.csv: 凜霜荒原
+msgid "NORMAL_REGION_116_NAME"
+msgstr "凜霜荒原"
+
+#. normal_region.csv: 位於大陸東北，寸草不生，凍土千尺。此地生...
+msgid "NORMAL_REGION_116_DESC"
+msgstr "位於大陸東北，寸草不生，凍土千尺。此地生機絕滅，卻蘊含着極致的陰寒靈氣，偶有萬年玄冰出世。"
+
+#. normal_region.csv: 碎星戈壁
+msgid "NORMAL_REGION_117_NAME"
+msgstr "碎星戈壁"
+
+#. normal_region.csv: 位於大陸西南，飛沙走石，狂風如刀。傳說曾...
+msgid "NORMAL_REGION_117_DESC"
+msgstr "位於大陸西南，飛沙走石，狂風如刀。傳說曾有星辰隕落於此，至今仍殘存着狂暴的星辰之力與天外隕鐵。"
+
+#. normal_region.csv: 蓬萊遺島
+msgid "NORMAL_REGION_118_NAME"
+msgstr "蓬萊遺島"
+
+#. normal_region.csv: 位於極東海外，孤懸海外，雲霧繚繞。島上靈...
+msgid "NORMAL_REGION_118_DESC"
+msgstr "位於極東海外，孤懸海外，雲霧繚繞。島上靈泉噴湧，奇花異草遍佈，靈氣濃郁遠超內陸，是海外散修嚮往之地。"

@@ -1,0 +1,267 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. material.csv: 灵兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "Spirit Rabbit Fur"
+
+#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+msgid "MATERIAL_1_DESC"
+msgstr ""
+"Fine fur from a rabbit brimming with spirituality, soft and warm texture, "
+"suitable for weaving cold-proof clothing"
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "Demonic Wolf Fang"
+
+#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+msgid "MATERIAL_2_DESC"
+msgstr ""
+"Sharp fang from a fierce demonic wolf, containing demonic power, a precious "
+"material for forging sharp weapons"
+
+#. material.csv: 青云鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "Qingyun Antler"
+
+#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+msgid "MATERIAL_3_DESC"
+msgstr ""
+"Jade-like antler from a Qingyun Deer, containing clear spiritual qi, a "
+"superior medicinal material for alchemy"
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "Shadow Leopard Claw"
+
+#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+msgid "MATERIAL_4_DESC"
+msgstr ""
+"Sharp claw from a Shadow Leopard, light and agile, can enhance weapon "
+"agility"
+
+#. material.csv: 龙龟甲片
+msgid "MATERIAL_5_NAME"
+msgstr "Dragon Turtle Shell Plate"
+
+#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+msgid "MATERIAL_5_DESC"
+msgstr ""
+"Ancient shell plate from an Azure Sea Dragon Turtle, indestructible, "
+"containing ocean spiritual power, a top-tier material for armor"
+
+#. material.csv: 山熊胆
+msgid "MATERIAL_6_NAME"
+msgstr "Mountain Bear Gallbladder"
+
+#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr ""
+"Precious gallbladder from a Stone Armored Bear, can enhance constitution and"
+" strength, a precious medicinal material for body cultivators"
+
+#. material.csv: 风速马鬃
+msgid "MATERIAL_7_NAME"
+msgstr "Wind Speed Horse Mane"
+
+#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+msgid "MATERIAL_7_DESC"
+msgstr ""
+"Flowing mane from a Wind Speed Horse, light as a wind feather, can be used "
+"to refine speed-type artifacts"
+
+#. material.csv: 熔岩鳞片
+msgid "MATERIAL_8_NAME"
+msgstr "Lava Scale"
+
+#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+msgid "MATERIAL_8_DESC"
+msgstr ""
+"Red scale from a Lava Lizard, high-temperature resistant and containing "
+"fire-element spiritual power, a core material for fire-attribute artifacts"
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "Poisonous Miasma Sac"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+msgid "MATERIAL_9_DESC"
+msgstr ""
+"Toxin sac from a Poisonous Miasma Frog, containing deadly poison, a rare "
+"material for refining poisonous pills"
+
+#. material.csv: 奇草精华
+msgid "MATERIAL_10_NAME"
+msgstr "Strange Herb Essence"
+
+#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+msgid "MATERIAL_10_DESC"
+msgstr "Essence extracted from strange herbs, with magical healing effects"
+
+#. material.csv: 灵木心
+msgid "MATERIAL_11_NAME"
+msgstr "Spirit Wood Heart"
+
+#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+msgid "MATERIAL_11_DESC"
+msgstr ""
+"Precious wood heart of spiritual wood, containing dense spiritual power, a "
+"core material for making artifacts"
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "Cactus Spine"
+
+#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+msgid "MATERIAL_12_DESC"
+msgstr ""
+"Spiritual medicinal spine of a desert cactus, can detoxify a hundred "
+"poisons, with significant effects when made into injections"
+
+#. material.csv: 雪莲花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "Snow Lotus Petal"
+
+#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr ""
+"Pure white petal of a Freezing Frost Snow Lotus, containing extreme cold qi,"
+" the best choice for cold-attribute medicinal materials"
+
+#. material.csv: 灵芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "Lingzhi Spore"
+
+#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+msgid "MATERIAL_14_DESC"
+msgstr ""
+"Blue spore of a Water Lingzhi, can enhance spiritual power circulation for "
+"water-element practitioners"
+
+#. material.csv: 雪绒花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "Snowball Flower Stamen"
+
+#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr ""
+"Pure white stamen of a Snowball Flower, with calming and sedative effects, "
+"an ideal medicinal material for meditation assistance"
+
+#. material.csv: 古松松脂
+msgid "MATERIAL_16_NAME"
+msgstr "Ancient Pine Resin"
+
+#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+msgid "MATERIAL_16_DESC"
+msgstr ""
+"Precious resin from a thousand-year-old pine, crystal clear like amber, "
+"containing dense spiritual power, a rare material for high-level artifact "
+"refining"
+
+#. material.csv: 灵稻精华
+msgid "MATERIAL_17_NAME"
+msgstr "Spirit Rice Essence"
+
+#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+msgid "MATERIAL_17_DESC"
+msgstr ""
+"Essence extracted from five-grain spiritual rice, can quickly strengthen "
+"constitution, a main ingredient for body cultivation pills"
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "Divine Cow Horn"
+
+#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+msgid "MATERIAL_18_DESC"
+msgstr ""
+"Single horn of an Earth Shaking Divine Cow, containing thick earth power, a "
+"top-tier material for refining heavy artifacts and defensive arrays"
+
+#. material.csv: 清音竹节
+msgid "MATERIAL_19_NAME"
+msgstr "Qingyin Bamboo Joint"
+
+#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+msgid "MATERIAL_19_DESC"
+msgstr ""
+"The most essential joint of a Nine-Bend Qingyin Bamboo, emitting a calming "
+"clear sound when struck, an excellent material for making sound-wave "
+"artifacts"
+
+#. material.csv: 冰魄蛇胆
+msgid "MATERIAL_20_NAME"
+msgstr "Ice Spirit Snake Gallbladder"
+
+#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr ""
+"Location of the inner core of an Ice Spirit Bone Snake; although an "
+"extremely cold object, swallowing it can greatly enhance a cultivator's "
+"affinity for cold qi, a treasure for practicing cold-system techniques"
+
+#. material.csv: 星纹叶
+msgid "MATERIAL_21_NAME"
+msgstr "Star Pattern Leaf"
+
+#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+msgid "MATERIAL_21_DESC"
+msgstr ""
+"Grass leaf naturally bearing star patterns on its surface, containing pure "
+"star power, a main material for refining star-attribute pills"
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "Red Fruit Core"
+
+#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+msgid "MATERIAL_22_DESC"
+msgstr ""
+"Fruit core of a Nirvana Red Fruit; even if the flesh withers, the core still"
+" locks in a trace of indestructible life force, a key for refining longevity"
+" pills and supreme healing medicine"
+
+#. material.csv: 玄铁
+msgid "MATERIAL_101_NAME"
+msgstr "Black Iron"
+
+#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+msgid "MATERIAL_101_DESC"
+msgstr ""
+"Common black iron ore, hard texture, suitable for crafting Qi Refinement "
+"stage artifacts"
+
+#. material.csv: 赤精铜
+msgid "MATERIAL_102_NAME"
+msgstr "Red Essence Copper"
+
+#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+msgid "MATERIAL_102_DESC"
+msgstr ""
+"Completely red copper ore, containing fire spiritual power, a common "
+"material for Foundation Establishment stage artifact refining"
+
+#. material.csv: 秘银
+msgid "MATERIAL_103_NAME"
+msgstr "Mithril"
+
+#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+msgid "MATERIAL_103_DESC"
+msgstr ""
+"Silver-white rare metal, excellent ductility and can conduct spiritual "
+"power, suitable for Core Formation stage artifacts"
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "Gengjin"
+
+#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+msgid "MATERIAL_104_DESC"
+msgstr ""
+"Sharp golden ore, indestructible, a top-tier material for Nascent Soul stage"
+" natal artifact refining"

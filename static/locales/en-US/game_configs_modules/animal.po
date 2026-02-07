@@ -1,0 +1,116 @@
+#
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "Spirit Rabbit"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr ""
+"A spiritual rabbit with a naturally clever temperament, snow-white fur, "
+"containing weak spiritual power, gentle and easy to tame"
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "Demonic Wolf"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr ""
+"A fierce demonic wolf tribe, huge in size, possessing powerful demonic power"
+" and sharp claws and teeth"
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "Qingyun Deer"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr ""
+"A gentle spiritual beast inhabiting the plains, with an all-blue body and "
+"jade-like antlers, good at sensing spiritual qi changes"
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "Shadow Leopard"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr ""
+"An agile hunter in the wild Southern Border, with a body like a shadow and "
+"sharp claws and teeth, skilled at stealth hunting"
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "Azure Sea Dragon Turtle"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr ""
+"An ancient spiritual beast of the boundless azure sea, with a shell like "
+"green jade, able to control seawater, having an extremely long lifespan"
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "Stone Armored Bear"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr ""
+"A strong guardian of the Qingfeng Mountains, with fur as hard as a rock, "
+"immense strength, and a simple and honest nature"
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "Wind Speed Horse"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr ""
+"A majestic spiritual beast galloping across thousands of miles of green "
+"fields, with wind-born hooves, lightning speed, and flowing mane"
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "Lava Lizard"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr ""
+"A fire-attribute spiritual beast in the Lava Volcano, with scales red as "
+"fire, able to swim in magma and spit flames"
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "Poisonous Miasma Frog"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr ""
+"A highly poisonous creature from the Foggy Swamp, with colorful body "
+"patterns, able to release deadly poisonous gas, skilled at hiding"
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "Earth Shaking Divine Cow"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr ""
+"A giant demonic beast with ancient bloodline, fur as hard as iron, causing "
+"the ground to shake with every step, with immense strength"
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "Ice Spirit Bone Snake"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr ""
+"A cold-blooded demonic beast living deep in the permafrost, its body "
+"composed of translucent bones and frost, silent, able to freeze prey "
+"instantly"

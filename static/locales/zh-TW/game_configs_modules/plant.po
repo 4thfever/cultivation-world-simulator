@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "奇草"
+
+#. plant.csv: 生長在靈氣充沛之地的奇異草藥，葉片呈淡藍...
+msgid "PLANT_1_DESC"
+msgstr "生長在靈氣充沛之地的奇異草藥，葉片呈淡藍色，具有神奇的治癒效果"
+
+#. plant.csv: 靈木
+msgid "PLANT_2_NAME"
+msgstr "靈木"
+
+#. plant.csv: 千年古樹吸收天地靈氣而成，木質堅硬且蘊含...
+msgid "PLANT_2_DESC"
+msgstr "千年古樹吸收天地靈氣而成，木質堅硬且蘊含濃郁靈力"
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "沙漠仙人掌"
+
+#. plant.csv: 生長於西域流沙的神奇植物，能儲存大量靈氣...
+msgid "PLANT_3_DESC"
+msgstr "生長於西域流沙的神奇植物，能儲存大量靈氣和水分，刺中含靈藥"
+
+#. plant.csv: 寒霜雪蓮
+msgid "PLANT_4_NAME"
+msgstr "寒霜雪蓮"
+
+#. plant.csv: 極北冰原的珍貴靈藥，花瓣潔白如雪，蘊含極...
+msgid "PLANT_4_DESC"
+msgstr "極北冰原的珍貴靈藥，花瓣潔白如雪，蘊含極寒之氣，能清熱解毒"
+
+#. plant.csv: 水靈芝
+msgid "PLANT_5_NAME"
+msgstr "水靈芝"
+
+#. plant.csv: 生長於天河河底的水系靈藥，呈半透明藍色，...
+msgid "PLANT_5_DESC"
+msgstr "生長於天河河底的水系靈藥，呈半透明藍色，能增強修煉者水行靈力"
+
+#. plant.csv: 雪絨花
+msgid "PLANT_6_NAME"
+msgstr "雪絨花"
+
+#. plant.csv: 萬丈雪峯的高山植物，花瓣細小潔白，能抗嚴...
+msgid "PLANT_6_DESC"
+msgstr "萬丈雪峯的高山植物，花瓣細小潔白，能抗嚴寒，具有安神鎮靜功效"
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "千年古松"
+
+#. plant.csv: 青雲林海中的古老巨樹，樹齡超過千年，樹脂...
+msgid "PLANT_7_DESC"
+msgstr "青雲林海中的古老巨樹，樹齡超過千年，樹脂含有豐富靈力"
+
+#. plant.csv: 五穀靈稻
+msgid "PLANT_8_NAME"
+msgstr "五穀靈稻"
+
+#. plant.csv: 沃土良田中培育的靈性稻穀，粒粒飽滿靈氣，...
+msgid "PLANT_8_DESC"
+msgstr "沃土良田中培育的靈性稻穀，粒粒飽滿靈氣，能增強修煉者體質"
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "九曲清音竹"
+
+#. plant.csv: 紫竹林中的變異異種，竹身九曲，內空外堅。...
+msgid "PLANT_9_DESC"
+msgstr "紫竹林中的變異異種，竹身九曲，內空外堅。風吹過時能發出九種不同的清越之音，直抵神魂，可滌盪心魔"
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "聚星草"
+
+#. plant.csv: 頑強生長在戈壁巖縫中的奇異植物，葉片堅硬...
+msgid "PLANT_10_DESC"
+msgstr "頑強生長在戈壁巖縫中的奇異植物，葉片堅硬如劍，夜間能引動併吞噬星輝"
+
+#. plant.csv: 涅盤赤果
+msgid "PLANT_11_NAME"
+msgstr "涅盤赤果"
+
+#. plant.csv: 生長在蓬萊島靈泉之眼的伴生神樹上，三百年...
+msgid "PLANT_11_DESC"
+msgstr "生長在蓬萊島靈泉之眼的伴生神樹上，三百年一開花，三百年一結果，蘊含龐大生機"
