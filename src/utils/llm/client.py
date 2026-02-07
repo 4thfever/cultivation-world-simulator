@@ -30,7 +30,8 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
     """使用原生 urllib 调用 (OpenAI 兼容接口)"""
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {config.api_key}"
+        "Authorization": f"Bearer {config.api_key}",
+        "User-Agent": "CultivationWorldSimulator/1.0"
     }
     model_name = config.model_name
     data = {
