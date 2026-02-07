@@ -308,6 +308,7 @@
         "short_term_objective": "Short-term",
         "stats": {
           "realm": "Realm",
+          "origin": "Origin",
           "age": "Age",
           "hp": "HP",
           "gender": "Gender",

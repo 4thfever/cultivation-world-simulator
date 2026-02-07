@@ -155,6 +155,7 @@ async function handleClearObjective() {
       <div class="stats-grid">
         <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="data.realm" :sub-value="data.level" />
         <StatItem :label="t('game.info_panel.avatar.stats.age')" :value="`${data.age} / ${data.lifespan}`" />
+        <StatItem :label="t('game.info_panel.avatar.stats.origin')" :value="data.origin" />
         
         <StatItem :label="t('game.info_panel.avatar.stats.hp')" :value="formatHp(data.hp.cur, data.hp.max)" />
         <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="data.gender" />

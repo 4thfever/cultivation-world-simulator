@@ -49,6 +49,7 @@ export interface AvatarDetail extends EntityBase {
   // 基础信息
   gender: string;
   age: number;
+  origin: string;
   lifespan: number;
   nickname?: string;
   appearance: string; // 外貌描述
@@ -139,6 +140,7 @@ export interface RelationInfo {
   realm: string;
   sect: string;
   is_mortal?: boolean;
+  label_key?: string;
   target_gender?: string;
 }
 
