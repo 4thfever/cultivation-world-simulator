@@ -736,6 +736,14 @@ msgstr "重大事件"
 msgid "Recent Events"
 msgstr "短期事件"
 
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "一名散修 {name} 现身于世。"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr "{name} 觉醒了灵根，踏上了修行之路。"
+
 # Battle messages
 msgid ""
 "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "

@@ -6,7 +6,7 @@ from src.classes.avatar import Avatar, Gender
 from src.classes.relation.relation import Relation, get_relation_label
 from src.classes.cultivation import CultivationProgress, Realm
 from src.utils.id_generator import get_avatar_id
-from src.sim.new_avatar import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner
+from src.sim.avatar_init import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner
 
 @pytest.fixture
 def mock_world(base_world):

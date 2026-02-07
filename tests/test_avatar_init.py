@@ -1,6 +1,6 @@
 """测试 new_avatar 模块的角色创建逻辑."""
 import pytest
-from src.sim.new_avatar import make_avatars, AvatarFactory, PopulationPlanner
+from src.sim.avatar_init import make_avatars, AvatarFactory, PopulationPlanner
 from src.classes.age import Age
 from src.classes.cultivation import CultivationProgress
 

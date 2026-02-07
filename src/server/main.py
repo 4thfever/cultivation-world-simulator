@@ -27,7 +27,7 @@ from src.classes.world import World
 from src.classes.history import HistoryManager
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.run.load_map import load_cultivation_world_map
-from src.sim.new_avatar import make_avatars as _new_make_random, create_avatar_from_request
+from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG, load_config
 from src.classes.sect import sects_by_id
 from src.classes.technique import techniques_by_id

@@ -898,6 +898,16 @@ msgstr "Major Events"
 msgid "Recent Events"
 msgstr "Recent Events"
 
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "A rogue cultivator {name} has appeared in the world."
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+
 # Battle messages
 msgid ""
 "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "

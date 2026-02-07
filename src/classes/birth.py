@@ -102,7 +102,10 @@ def _create_child_for_couple(world: World, parent1: Avatar, parent2: Avatar) -> 
     parent1.children.append(child)
     parent2.children.append(child)
     
-    # 5. 生成事件文本
+    # 5. 注册到世界凡人管理器
+    world.mortal_manager.register_mortal(child)
+    
+    # 6. 生成事件文本
     # key: "{p1} and {p2} gave birth to a {gender} named {child}."
     gender_str_key = "son" if child_gender == Gender.MALE else "daughter"
     gender_str = t(gender_str_key)

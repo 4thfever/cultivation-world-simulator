@@ -13,7 +13,7 @@ from src.classes.sect import sects_by_name
 from src.classes.world import World
 from src.classes.map import Map
 from src.classes.calendar import MonthStamp
-from src.sim.new_avatar import make_avatars
+from src.sim.avatar_init import make_avatars
 
 
 def test_rank_from_realm():

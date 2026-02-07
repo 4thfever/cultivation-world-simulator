@@ -4,7 +4,7 @@ from src.classes.avatar import Avatar
 from src.classes.world import World
 from src.classes.calendar import MonthStamp
 from src.classes.relation.relation import Relation
-from src.sim.new_avatar import create_avatar_from_request
+from src.sim.avatar_init import create_avatar_from_request
 
 # ==========================================
 # 1. 主角与配角配置列表

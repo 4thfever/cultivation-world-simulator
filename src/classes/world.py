@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from src.classes.map import Map
 from src.classes.calendar import Year, Month, MonthStamp
 from src.classes.avatar_manager import AvatarManager
+from src.classes.mortal_manager import MortalManager
 from src.classes.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
@@ -23,6 +24,8 @@ class World():
     map: Map
     month_stamp: MonthStamp
     avatar_manager: AvatarManager = field(default_factory=AvatarManager)
+    # 凡人管理器
+    mortal_manager: MortalManager = field(default_factory=MortalManager)
     # 全局事件管理器
     event_manager: EventManager = field(default_factory=EventManager)
     # 当前天地灵机（世界级buff/debuff）

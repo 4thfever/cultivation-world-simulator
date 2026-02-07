@@ -67,6 +67,7 @@ def random_gender() -> Gender:
 class EquipmentAllocator:
     """
     负责所有初始装备分配逻辑，提供兵器与辅助装备的统一接口。
+    （仅用于世界生成或完整角色生成，觉醒逻辑使用简化配置）
     """
 
     @staticmethod
@@ -237,7 +238,6 @@ class PopulationPlanner:
                     planned_surname[b] = surname
                     planned_gender[a] = Gender.MALE
                     # 设定 a 为父，b 为子
-                    # (a, b) = PARENT -> a.relations[b] = PARENT (a 视 b 为子)
                     planned_relations[(a, b)] = Relation.PARENT
                 else:
                     mother = a if random.random() < 0.5 else b
@@ -250,7 +250,6 @@ class PopulationPlanner:
                         if s != mom_surname:
                             planned_surname[child] = s
                             break
-                    # (mother, child) = PARENT -> mother.relations[child] = PARENT
                     planned_relations[(mother, child)] = Relation.PARENT
 
         leftover = unused_indices[:]
@@ -289,7 +288,6 @@ class PopulationPlanner:
                     if random.random() < MASTER_PAIR_PROB:
                         master, apprentice = members[j], members[j + 1]
                         if (master, apprentice) not in planned_relations and (apprentice, master) not in planned_relations:
-                            # MASTER -> APPRENTICE (Master.relations[Apprentice] = APPRENTICE)
                             planned_relations[(master, apprentice)] = Relation.APPRENTICE
                     j += 2
 
@@ -450,17 +448,8 @@ class AvatarFactory:
 
         if attach_relations:
             if plan.parent_avatar is not None:
-                # plan.parent_avatar 是长辈
-                # 设置关系：长辈.set_relation(自己, PARENT)
-                # 底层逻辑：长辈.relations[自己] = PARENT (长辈认为自己是父母 -> 错误，是长辈认为自己是子女？)
-                # 修正：Relation.PARENT 映射显示为“儿子/女儿”，即 relations[X]=PARENT 意味着 X 是儿子/女儿
-                # 所以 plan.parent_avatar.relations[avatar] = PARENT 是正确的，表示 parent 视 avatar 为子女
                 plan.parent_avatar.set_relation(avatar, Relation.PARENT)
             if plan.master_avatar is not None:
-                # plan.master_avatar 是师傅
-                # 设置关系：师傅.set_relation(自己, APPRENTICE)
-                # 底层逻辑：师傅.relations[自己] = APPRENTICE (师傅认为自己是徒弟)
-                #          自己.relations[师傅] = MASTER (自己认为师傅是师傅)
                 plan.master_avatar.set_relation(avatar, Relation.APPRENTICE)
 
         if avatar.technique is not None:
@@ -507,13 +496,10 @@ class AvatarFactory:
                 if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
 
-        # 确保年龄不超过境界寿命上限，避免角色一出生就老死
-        # 放在所有关系调整之后，因为关系调整可能会修改年龄和等级
         for i in range(n):
             realm = CultivationProgress(levels[i]).realm
             max_lifespan = Age.REALM_LIFESPAN.get(realm, 100)
             if ages[i] >= max_lifespan:
-                # 将年龄限制为寿命上限的 80%-95%，保留一定的生存空间
                 ages[i] = int(max_lifespan * random.uniform(0.8, 0.95))
 
         avatars_by_index: list[Avatar] = [None] * n  # type: ignore

@@ -51,6 +51,7 @@ async def test_simulator_birth_logic(base_world):
     from src.classes.avatar import Avatar
     from src.classes.age import Age
     from src.classes.cultivation import Realm, CultivationProgress
+    from src.classes.event import Event
     
     # 构造一个简单的模拟返回值
     mock_avatar = Avatar(
@@ -63,10 +64,16 @@ async def test_simulator_birth_logic(base_world):
     )
     
     sim = Simulator(base_world)
-    sim.awakening_rate = 1.0 # 必生
+    # sim.awakening_rate 不再直接控制，而是由 process_awakening 内部读取配置
+    # 我们这里直接 patch process_awakening 来模拟命中
     
-    # Patch 掉 create_random_mortal，避免依赖复杂的宗门/地图数据
-    with patch('src.sim.simulator.create_random_mortal', return_value=mock_avatar):
+    def mock_process_awakening(world):
+        # 模拟内部行为：注册角色并返回事件
+        world.avatar_manager.register_avatar(mock_avatar, is_newly_born=True)
+        return [Event(world.month_stamp, f"{mock_avatar.name} awakened", related_avatars=[mock_avatar.id])]
+
+    # Patch process_awakening
+    with patch('src.sim.simulator.process_awakening', side_effect=mock_process_awakening):
         # 执行一次更新
         events = sim._phase_update_age_and_birth()
     
@@ -78,5 +85,4 @@ async def test_simulator_birth_logic(base_world):
     # 验证新角色在管理器中
     avatar = base_world.avatar_manager.get_avatar(mock_avatar.id)
     assert avatar is mock_avatar
-    assert avatar.name in events[0].content # 确保事件也生成了
-
+    assert mock_avatar.name in events[0].content # 确保事件也生成了

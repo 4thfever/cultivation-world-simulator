@@ -3,7 +3,7 @@ import asyncio
 
 from src.classes.calendar import Month, Year, MonthStamp
 from src.classes.avatar import Avatar, Gender
-from src.sim.new_avatar import create_random_mortal
+from src.sim.avatar_awake import process_awakening
 from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.classes.world import World
@@ -200,19 +200,16 @@ class Simulator:
         events = []
         for avatar in self.world.avatar_manager.get_living_avatars():
             avatar.update_age(self.world.month_stamp)
-        
-        # 1. 凡人觉醒
-        if random.random() < self.awakening_rate:
-            age = random.randint(16, 60)
-            gender = random.choice(list(Gender))
-            name = get_random_name(gender)
-            # create_random_mortal 内部会获取 existing_avatars，需要确保它处理活人
-            new_avatar = create_random_mortal(self.world, self.world.month_stamp, name, Age(age, Realm.Qi_Refinement))
-            self.world.avatar_manager.register_avatar(new_avatar, is_newly_born=True)
-            event = Event(self.world.month_stamp, t("{name} has ascended to a cultivator.", name=new_avatar.name), related_avatars=[new_avatar.id])
-            events.append(event)
             
-        # 2. 道侣生子
+        # 1. 凡人管理：清理老死凡人
+        self.world.mortal_manager.cleanup_dead_mortals(self.world.month_stamp)
+        
+        # 2. 凡人觉醒 (血脉 + 野生)
+        awakening_events = process_awakening(self.world)
+        if awakening_events:
+            events.extend(awakening_events)
+            
+        # 3. 道侣生子
         from src.classes.birth import process_births
         birth_events = process_births(self.world)
         if birth_events:
