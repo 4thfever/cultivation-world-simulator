@@ -21,7 +21,7 @@ from src.classes.age import Age
 from src.classes.cultivation import Realm
 from src.classes.event import Event
 from src.classes.event_storage import EventStorage
-from src.classes.event_manager import EventManager
+from src.sim.managers.event_manager import EventManager
 from src.sim.simulator import Simulator
 from src.sim.save.save_game import save_game
 from src.sim.load.load_game import load_game

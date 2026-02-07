@@ -103,9 +103,13 @@ def reset_game_instance():
 
 @pytest.fixture
 def temp_saves_dir():
-    """Create a temporary saves directory."""
+    """Create a temporary saves directory and patch global config."""
+    from src.utils.config import CONFIG
     with tempfile.TemporaryDirectory() as tmpdir:
-        yield Path(tmpdir)
+        path = Path(tmpdir)
+        # Patch the global CONFIG to ensure init_game_async writes to temp dir
+        with patch.object(CONFIG.paths, "saves", path):
+            yield path
 
 
 class TestUpdateInitProgress:

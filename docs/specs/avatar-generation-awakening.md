@@ -22,7 +22,7 @@ Responsible for generating new cultivators during the **Game Simulation Loop**.
   - **Bloodline Awakening**: Existing `Mortal` offspring (managed by `MortalManager`) have a chance to awaken spiritual roots upon reaching age 16.
   - **Wild Awakening**: Random "Wild" (Rogue) cultivators appear spontaneously based on world configuration.
 
-### 3. Mortal Management (`src.classes.mortal_manager`)
+### 3. Mortal Management (`src.sim.managers.mortal_manager`)
 A centralized manager for non-cultivator humans in the world.
 - **Purpose**: Previously, mortals were just transient objects or lost references. Now, `World.mortal_manager` tracks them.
 - **Lifecycle**:

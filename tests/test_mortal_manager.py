@@ -1,6 +1,6 @@
 import pytest
 from src.classes.mortal import Mortal
-from src.classes.mortal_manager import MortalManager
+from src.sim.managers.mortal_manager import MortalManager
 from src.classes.calendar import MonthStamp
 from src.classes.gender import Gender
 

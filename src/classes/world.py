@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING, Optional
 
 from src.classes.map import Map
 from src.classes.calendar import Year, Month, MonthStamp
-from src.classes.avatar_manager import AvatarManager
-from src.classes.mortal_manager import MortalManager
-from src.classes.event_manager import EventManager
+from src.sim.managers.avatar_manager import AvatarManager
+from src.sim.managers.mortal_manager import MortalManager
+from src.sim.managers.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
 from src.classes.history import History

@@ -21,7 +21,7 @@ from src.classes.tile import TileType
 from src.classes.calendar import Month, Year, create_month_stamp
 from src.classes.event import Event
 from src.classes.event_storage import EventStorage
-from src.classes.event_manager import EventManager
+from src.sim.managers.event_manager import EventManager
 
 
 def create_test_map():
