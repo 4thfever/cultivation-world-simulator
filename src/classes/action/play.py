@@ -9,8 +9,8 @@ from src.classes.event import Event
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
-    from src.classes.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 class BasePlayAction(TimedAction):
     """消遣动作基类"""

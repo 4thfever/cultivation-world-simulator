@@ -2,11 +2,11 @@ from collections import defaultdict
 from typing import Any, List, Union
 
 from src.utils.resolution import resolve_query
-from src.classes.elixir import Elixir
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
+from src.classes.items.elixir import Elixir
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
 from src.classes.prices import prices
-from src.classes.item_registry import ItemRegistry
+from src.classes.items.registry import ItemRegistry
 
 class StoreMixin:
     """

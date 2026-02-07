@@ -6,11 +6,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, Any, Union
 
 if TYPE_CHECKING:
-    from src.classes.avatar.core import Avatar
+    from src.classes.core.avatar.core import Avatar
     from src.classes.material import Material
-    from src.classes.weapon import Weapon
-    from src.classes.auxiliary import Auxiliary
-    from src.classes.elixir import Elixir
+    from src.classes.items.weapon import Weapon
+    from src.classes.items.auxiliary import Auxiliary
+    from src.classes.items.elixir import Elixir
 
 
 class InventoryMixin:
@@ -177,9 +177,9 @@ class InventoryMixin:
         检查是否可以购买指定物品。
         涵盖价格检查、境界限制、耐药性等。
         """
-        from src.classes.elixir import Elixir
+        from src.classes.items.elixir import Elixir
         from src.classes.prices import prices
-        from src.classes.cultivation import Realm
+        from src.systems.cultivation import Realm
         
         # 1. 检查价格
         price = prices.get_buying_price(obj, self)
@@ -207,9 +207,9 @@ class InventoryMixin:
         包括扣款、获得物品（服用/入包/装备）、以旧换新。
         返回交易报告 dict。
         """
-        from src.classes.elixir import Elixir
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
         from src.classes.material import Material
         from src.classes.prices import prices
         
@@ -256,8 +256,8 @@ class InventoryMixin:
         内部方法：装备新物品，并尝试卖出旧物品（如果有）。
         返回: (旧物品名称, 卖出金额)
         """
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
         
         sold_name = None
         refund = 0

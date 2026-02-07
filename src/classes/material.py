@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from src.classes.item import Item
+from src.classes.items.item import Item
 from src.utils.df import game_configs, get_str, get_int
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 @dataclass
 class Material(Item):

@@ -2,7 +2,7 @@
 import pytest
 from src.sim.avatar_init import make_avatars, AvatarFactory, PopulationPlanner
 from src.classes.age import Age
-from src.classes.cultivation import CultivationProgress
+from src.systems.cultivation import CultivationProgress
 
 
 class TestAgeLifespanConstraint:
@@ -67,7 +67,7 @@ class TestRealmLifespanMapping:
 
     def test_qi_refinement_lifespan(self, base_world):
         """练气期角色年龄应不超过100岁."""
-        from src.classes.cultivation import Realm
+        from src.systems.cultivation import Realm
 
         avatars = make_avatars(base_world, count=100)
         qi_refinement_avatars = [
@@ -85,7 +85,7 @@ class TestRealmLifespanMapping:
 
     def test_foundation_establishment_lifespan(self, base_world):
         """筑基期角色年龄应不超过150岁."""
-        from src.classes.cultivation import Realm
+        from src.systems.cultivation import Realm
 
         avatars = make_avatars(base_world, count=100)
         fe_avatars = [

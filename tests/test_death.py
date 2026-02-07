@@ -55,13 +55,13 @@ def test_handle_death(base_world, dummy_avatar):
 def test_relation_display_with_death(base_world, dummy_avatar):
     """测试关系列表中的死亡显示"""
     # 创建另一个角色作为朋友
-    from src.classes.avatar import Avatar, Gender
+    from src.classes.core.avatar import Avatar, Gender
     from src.classes.age import Age
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     from src.utils.id_generator import get_avatar_id
     from src.classes.root import Root
     from src.classes.alignment import Alignment
-    from src.classes.calendar import create_month_stamp, Year, Month
+    from src.systems.time import create_month_stamp, Year, Month
     
     friend = Avatar(
         world=base_world,

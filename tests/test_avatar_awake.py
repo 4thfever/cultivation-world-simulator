@@ -1,10 +1,10 @@
 import pytest
 import random
 from unittest.mock import MagicMock, patch
-from src.classes.world import World
+from src.classes.core.world import World
 from src.classes.mortal import Mortal
-from src.classes.avatar import Avatar, Gender
-from src.classes.calendar import MonthStamp
+from src.classes.core.avatar import Avatar, Gender
+from src.systems.time import MonthStamp
 from src.classes.relation.relation import Relation
 from src.sim.avatar_awake import process_awakening, _process_bloodline_awakening, _process_wild_awakening
 from src.utils.config import CONFIG

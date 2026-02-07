@@ -5,7 +5,7 @@ import random
 from src.classes.single_choice import handle_item_exchange
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:

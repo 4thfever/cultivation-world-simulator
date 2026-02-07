@@ -4,7 +4,7 @@ import json
 from typing import Any, Callable, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 def load_effect_from_str(value: object) -> dict[str, Any] | list[dict[str, Any]]:
@@ -103,7 +103,7 @@ def _evaluate_conditional_effect(effect: dict[str, Any] | list[dict[str, Any]], 
         评估后实际生效的effect dict（合并所有满足条件的effects）
     """
     from src.classes.weapon_type import WeaponType
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     from src.classes.alignment import Alignment
     
     # 构建安全的eval上下文

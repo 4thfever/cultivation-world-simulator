@@ -13,10 +13,10 @@ Coverage:
 import pytest
 from unittest.mock import Mock, patch, AsyncMock
 
-from src.classes.cultivation import Realm, Stage, CultivationProgress
-from src.classes.weapon import weapons_by_id, Weapon
-from src.classes.auxiliary import auxiliaries_by_id
-from src.classes.elixir import elixirs_by_id
+from src.systems.cultivation import Realm, Stage, CultivationProgress
+from src.classes.items.weapon import weapons_by_id, Weapon
+from src.classes.items.auxiliary import auxiliaries_by_id
+from src.classes.items.elixir import elixirs_by_id
 from src.classes.single_choice import handle_item_exchange
 from src.classes.kill_and_grab import kill_and_grab
 

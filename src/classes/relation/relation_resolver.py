@@ -10,13 +10,13 @@ from src.classes.relation.relations import (
     set_relation,
     cancel_relation,
 )
-from src.classes.calendar import get_date_str
+from src.systems.time import get_date_str
 from src.classes.event import Event
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 class RelationResolver:
     TEMPLATE_PATH = CONFIG.paths.templates / "relation_update.txt"

@@ -3,7 +3,7 @@ from typing import Optional, Union
 from dataclasses import dataclass
 
 from src.utils.df import game_configs, get_str, get_int
-from src.classes.avatar import Gender
+from src.classes.core.avatar import Gender
 
 
 @dataclass

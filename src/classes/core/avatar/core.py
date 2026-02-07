@@ -11,15 +11,15 @@ from typing import Optional, List, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.classes.sect_ranks import SectRank
-    from src.classes.region import CultivateRegion
+    from src.classes.environment.region import CultivateRegion
 
-from src.classes.calendar import MonthStamp
-from src.classes.world import World
+from src.systems.time import MonthStamp
+from src.classes.core.world import World
 from src.sim.save.avatar_save_mixin import AvatarSaveMixin
 from src.sim.load.avatar_load_mixin import AvatarLoadMixin
-from src.classes.tile import Tile
-from src.classes.region import Region
-from src.classes.cultivation import CultivationProgress
+from src.classes.environment.tile import Tile
+from src.classes.environment.region import Region
+from src.systems.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.technique import Technique, get_technique_by_sect
 from src.classes.age import Age
@@ -28,27 +28,27 @@ from src.classes.action_runtime import ActionPlan, ActionInstance
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, get_random_compatible_personas
 from src.classes.material import Material
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
-from src.classes.magic_stone import MagicStone
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
+from src.classes.items.magic_stone import MagicStone
 from src.classes.hp import HP, HP_MAX_BY_REALM
 from src.classes.relation.relation import Relation
-from src.classes.sect import Sect
+from src.classes.core.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.spirit_animal import SpiritAnimal
 from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
 from src.classes.emotions import EmotionType
 from src.utils.config import CONFIG
-from src.classes.elixir import ConsumedElixir, Elixir
+from src.classes.items.elixir import ConsumedElixir, Elixir
 from src.classes.avatar_metrics import AvatarMetrics
 from src.classes.mortal import Mortal
 from src.classes.gender import Gender
 
 # Mixin 导入
 from src.classes.effect import EffectsMixin
-from src.classes.avatar.inventory_mixin import InventoryMixin
-from src.classes.avatar.action_mixin import ActionMixin
+from src.classes.core.avatar.inventory_mixin import InventoryMixin
+from src.classes.core.avatar.action_mixin import ActionMixin
 
 persona_num = CONFIG.avatar.persona_num
 
@@ -125,6 +125,9 @@ class Avatar(
 
     # [新增] 子女列表
     children: List["Mortal"] = field(default_factory=list)
+
+    # [新增] 出身地ID
+    born_region_id: Optional[int] = None
 
     # [新增] 关系开始时间缓存
     # Key: 对方Avatar ID, Value: 开始时的 MonthStamp (int)
@@ -404,11 +407,11 @@ class Avatar(
     # ========== 信息展示（委托） ==========
 
     def get_info(self, detailed: bool = False) -> dict:
-        from src.classes.avatar.info_presenter import get_avatar_info
+        from src.classes.core.avatar.info_presenter import get_avatar_info
         return get_avatar_info(self, detailed)
 
     def get_structured_info(self) -> dict:
-        from src.classes.avatar.info_presenter import get_avatar_structured_info
+        from src.classes.core.avatar.info_presenter import get_avatar_structured_info
         return get_avatar_structured_info(self)
 
     def get_expanded_info(
@@ -417,16 +420,16 @@ class Avatar(
         other_avatar: Optional["Avatar"] = None,
         detailed: bool = False
     ) -> dict:
-        from src.classes.avatar.info_presenter import get_avatar_expanded_info
+        from src.classes.core.avatar.info_presenter import get_avatar_expanded_info
         return get_avatar_expanded_info(self, co_region_avatars, other_avatar, detailed)
 
     def get_other_avatar_info(self, other_avatar: "Avatar") -> str:
-        from src.classes.avatar.info_presenter import get_other_avatar_info
+        from src.classes.core.avatar.info_presenter import get_other_avatar_info
         return get_other_avatar_info(self, other_avatar)
 
     def get_desc(self, detailed: bool = False) -> str:
         """获取角色的文本描述（包含效果明细）"""
-        from src.classes.avatar.info_presenter import get_avatar_desc
+        from src.classes.core.avatar.info_presenter import get_avatar_desc
         return get_avatar_desc(self, detailed=detailed)
 
     # ========== 魔法方法 ==========

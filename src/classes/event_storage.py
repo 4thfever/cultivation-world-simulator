@@ -201,7 +201,7 @@ class EventStorage:
             (events, next_cursor)，next_cursor 为 None 表示没有更多。
         """
         from src.classes.event import Event
-        from src.classes.calendar import MonthStamp
+        from src.systems.time import MonthStamp
 
         if self._conn is None:
             return [], None
@@ -318,7 +318,7 @@ class EventStorage:
     def get_major_events_by_avatar(self, avatar_id: str, limit: int = 10) -> list["Event"]:
         """获取角色的大事（长期记忆）。"""
         from src.classes.event import Event
-        from src.classes.calendar import MonthStamp
+        from src.systems.time import MonthStamp
 
         if self._conn is None:
             return []
@@ -363,7 +363,7 @@ class EventStorage:
     def get_minor_events_by_avatar(self, avatar_id: str, limit: int = 10) -> list["Event"]:
         """获取角色的小事（短期记忆，包括故事）。"""
         from src.classes.event import Event
-        from src.classes.calendar import MonthStamp
+        from src.systems.time import MonthStamp
 
         if self._conn is None:
             return []
@@ -408,7 +408,7 @@ class EventStorage:
     def get_major_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
         """获取两个角色之间的大事（长期记忆）。"""
         from src.classes.event import Event
-        from src.classes.calendar import MonthStamp
+        from src.systems.time import MonthStamp
 
         if self._conn is None:
             return []
@@ -454,7 +454,7 @@ class EventStorage:
     def get_minor_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
         """获取两个角色之间的小事（短期记忆）。"""
         from src.classes.event import Event
-        from src.classes.calendar import MonthStamp
+        from src.systems.time import MonthStamp
 
         if self._conn is None:
             return []

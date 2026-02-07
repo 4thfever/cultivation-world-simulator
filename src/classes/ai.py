@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 import asyncio
 
-from src.classes.world import World
+from src.classes.core.world import World
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import call_llm_with_task_name
 from src.classes.typings import ACTION_NAME_PARAMS_PAIRS
@@ -15,7 +15,7 @@ from src.classes.actions import get_action_infos_str
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 class AI(ABC):
     """

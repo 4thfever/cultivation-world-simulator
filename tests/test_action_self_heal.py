@@ -2,10 +2,10 @@ import pytest
 from unittest.mock import MagicMock, patch
 
 from src.classes.action.self_heal import SelfHeal
-from src.classes.sect_region import SectRegion
-from src.classes.region import NormalRegion
-from src.classes.tile import Tile, TileType
-from src.classes.sect import Sect
+from src.classes.environment.sect_region import SectRegion
+from src.classes.environment.region import NormalRegion
+from src.classes.environment.tile import Tile, TileType
+from src.classes.core.sect import Sect
 from src.classes.hp import HP
 
 class TestSelfHealAction:

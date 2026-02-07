@@ -5,8 +5,8 @@ from typing import Optional, Dict
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
-from src.classes.cultivation import Realm
-from src.classes.item import Item
+from src.systems.cultivation import Realm
+from src.classes.items.item import Item
 
 
 @dataclass
@@ -105,7 +105,7 @@ def _load_auxiliaries_data() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]
         new_by_name[a.name] = a
         
         # 注册到全局注册表
-        from src.classes.item_registry import ItemRegistry
+        from src.classes.items.registry import ItemRegistry
         ItemRegistry.register(a.id, a)
 
     return new_by_id, new_by_name

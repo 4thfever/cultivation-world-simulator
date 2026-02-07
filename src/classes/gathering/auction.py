@@ -6,9 +6,9 @@ from src.utils.config import CONFIG
 from src.utils.llm.client import call_llm_with_template
 
 if TYPE_CHECKING:
-    from src.classes.world import World
-    from src.classes.avatar import Avatar
-    from src.classes.item import Item
+    from src.classes.core.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.items.item import Item
 
 @register_gathering
 class Auction(Gathering):
@@ -426,9 +426,9 @@ class Auction(Gathering):
         deal_results, unsold_items, willing_prices = self.resolve_auctions(needs)
         
         # 3. 执行交易 (扣钱、给物品、移除 circulation)
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
-        from src.classes.elixir import Elixir
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
         from src.classes.material import Material
         from src.classes.prices import prices
         

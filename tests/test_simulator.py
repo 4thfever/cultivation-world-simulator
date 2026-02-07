@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock, AsyncMock
 
 from src.sim.simulator import Simulator
 from src.classes.action.move_to_direction import MoveToDirection
-from src.classes.tile import TileType
+from src.classes.environment.tile import TileType
 from src.classes.action_runtime import ActionInstance
 
 @pytest.mark.asyncio
@@ -50,10 +50,10 @@ async def test_simulator_step_moves_avatar_and_sets_tile(base_world, dummy_avata
 async def test_simulator_interaction_counting(base_world, dummy_avatar, mock_llm_managers):
     """测试交互计数在 step 中被正确处理且去重"""
     from src.classes.event import Event
-    from src.classes.avatar import Avatar, Gender
+    from src.classes.core.avatar import Avatar, Gender
     from src.classes.age import Age
-    from src.classes.cultivation import Realm
-    from src.classes.calendar import create_month_stamp, Year, Month
+    from src.systems.cultivation import Realm
+    from src.systems.time import create_month_stamp, Year, Month
     from src.classes.root import Root
     from src.classes.alignment import Alignment
     

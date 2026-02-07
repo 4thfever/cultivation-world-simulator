@@ -3,14 +3,14 @@ import random
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 def check_can_start_gather(
     avatar: Avatar,
     resource_attr: str,  # "lodes", "animals", "plants"
     resource_name_cn: str  # "矿脉", "动物", "植物"
 ) -> tuple[bool, str]:
-    from src.classes.region import NormalRegion
+    from src.classes.environment.region import NormalRegion
     
     region = avatar.tile.region
     if not isinstance(region, NormalRegion):
@@ -39,7 +39,7 @@ def execute_gather(
     执行采集逻辑。
     返回: {material_name: count}
     """
-    from src.classes.region import NormalRegion
+    from src.classes.environment.region import NormalRegion
     region = avatar.tile.region
     
     # 再次校验类型，防止运行时环境变化

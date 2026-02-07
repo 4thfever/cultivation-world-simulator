@@ -2,11 +2,11 @@ import pytest
 import asyncio
 from typing import Dict
 
-from src.classes.elixir import Elixir, ElixirType, ConsumedElixir, _load_elixirs
-from src.classes.avatar import Avatar
-from src.classes.cultivation import Realm
+from src.classes.items.elixir import Elixir, ElixirType, ConsumedElixir, _load_elixirs
+from src.classes.core.avatar import Avatar
+from src.systems.cultivation import Realm
 from src.classes.effect import EffectsMixin
-from src.classes.calendar import create_month_stamp, Year, Month
+from src.systems.time import create_month_stamp, Year, Month
 
 # ==========================================
 # Fixtures

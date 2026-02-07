@@ -2,17 +2,17 @@
 测试宗门等级系统
 """
 import pytest
-from src.classes.cultivation import CultivationProgress, Realm
+from src.systems.cultivation import CultivationProgress, Realm
 from src.classes.sect_ranks import (
     SectRank,
     get_rank_from_realm,
     get_rank_display_name,
     should_auto_promote,
 )
-from src.classes.sect import sects_by_name
-from src.classes.world import World
-from src.classes.map import Map
-from src.classes.calendar import MonthStamp
+from src.classes.core.sect import sects_by_name
+from src.classes.core.world import World
+from src.classes.environment.map import Map
+from src.systems.time import MonthStamp
 from src.sim.avatar_init import make_avatars
 
 

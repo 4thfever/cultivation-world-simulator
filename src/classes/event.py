@@ -7,7 +7,7 @@ import uuid
 import time
 from datetime import datetime
 
-from src.classes.calendar import Month, Year, MonthStamp, get_date_str
+from src.systems.time import Month, Year, MonthStamp, get_date_str
 
 @dataclass
 class Event:

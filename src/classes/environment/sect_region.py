@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from src.classes.region import Region
+from src.classes.environment.region import Region
 from src.i18n import t
 
 

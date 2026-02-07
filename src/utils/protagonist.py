@@ -1,8 +1,8 @@
 from typing import List, Dict, Optional
 import random
-from src.classes.avatar import Avatar
-from src.classes.world import World
-from src.classes.calendar import MonthStamp
+from src.classes.core.avatar import Avatar
+from src.classes.core.world import World
+from src.systems.time import MonthStamp
 from src.classes.relation.relation import Relation
 from src.sim.avatar_init import create_avatar_from_request
 

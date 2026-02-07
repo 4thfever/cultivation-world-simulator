@@ -6,7 +6,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, List
 
 if TYPE_CHECKING:
-    from src.classes.avatar.core import Avatar
+    from src.classes.core.avatar.core import Avatar
 
 from src.classes.action import Action
 from src.classes.action_runtime import ActionStatus, ActionResult, ActionPlan, ActionInstance

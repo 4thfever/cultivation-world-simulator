@@ -1,7 +1,7 @@
 import pytest
 import math
 from unittest.mock import MagicMock
-from src.classes.battle import (
+from src.systems.battle import (
     get_base_strength, 
     _combat_strength_vs, 
     _strength_diff, 
@@ -10,7 +10,7 @@ from src.classes.battle import (
     _STAGE_BONUS_STRENGTH,
     _SUPPRESSION_POINTS
 )
-from src.classes.cultivation import Realm, Stage
+from src.systems.cultivation import Realm, Stage
 from src.classes.technique import TechniqueAttribute
 
 # Helper to create a mock avatar

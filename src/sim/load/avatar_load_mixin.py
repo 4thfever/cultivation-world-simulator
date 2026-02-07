@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 import copy
 
 if TYPE_CHECKING:
-    from src.classes.world import World
+    from src.classes.core.world import World
 
 
 class AvatarLoadMixin:
@@ -35,24 +35,24 @@ class AvatarLoadMixin:
         Returns:
             重建的Avatar对象（relations为空，需要外部第二阶段填充）
         """
-        from src.classes.avatar import Gender
-        from src.classes.calendar import MonthStamp
-        from src.classes.cultivation import Realm, CultivationProgress
+        from src.classes.core.avatar import Gender
+        from src.systems.time import MonthStamp
+        from src.systems.cultivation import Realm, CultivationProgress
         from src.classes.age import Age
         from src.classes.hp import HP
         from src.classes.technique import techniques_by_id
         from src.classes.material import materials_by_id
-        from src.classes.weapon import weapons_by_id
-        from src.classes.auxiliary import auxiliaries_by_id
-        from src.classes.sect import sects_by_id
+        from src.classes.items.weapon import weapons_by_id
+        from src.classes.items.auxiliary import auxiliaries_by_id
+        from src.classes.core.sect import sects_by_id
         from src.classes.sect_ranks import SectRank
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.classes.persona import personas_by_id
         from src.classes.appearance import get_appearance_by_level
-        from src.classes.magic_stone import MagicStone
+        from src.classes.items.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
-        from src.classes.elixir import elixirs_by_id, ConsumedElixir
+        from src.classes.items.elixir import elixirs_by_id, ConsumedElixir
         from src.classes.avatar_metrics import AvatarMetrics
         
         # 重建基本对象

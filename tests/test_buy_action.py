@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import patch
 from src.classes.action.buy import Buy
-from src.classes.region import CityRegion
-from src.classes.elixir import ElixirType, ConsumedElixir
-from src.classes.cultivation import Realm
+from src.classes.environment.region import CityRegion
+from src.classes.items.elixir import ElixirType, ConsumedElixir
+from src.systems.cultivation import Realm
 from tests.conftest import create_test_weapon # Explicitly import if needed, or rely on conftest being auto-loaded (it is)
 
 def test_buy_item_success(avatar_in_city, mock_item_data):
@@ -181,7 +181,7 @@ def test_buy_weapon_trade_in(avatar_in_city, mock_item_data):
     """测试购买新武器时自动卖出旧武器"""
     # 这里需要构造一个旧武器，mock_item_data里只有一套新武器
     from tests.conftest import create_test_weapon
-    from src.classes.weapon import Weapon, WeaponType
+    from src.classes.items.weapon import Weapon, WeaponType
     
     elixirs_mock = mock_item_data["elixirs"]
     materials_mock = mock_item_data["materials"]

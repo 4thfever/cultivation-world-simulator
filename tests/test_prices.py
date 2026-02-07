@@ -3,10 +3,10 @@ import copy
 from unittest.mock import MagicMock, patch
 
 from src.classes.prices import prices, Prices
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.material import materials_by_id
-from src.classes.weapon import weapons_by_id, Weapon, get_random_weapon_by_realm
-from src.classes.auxiliary import auxiliaries_by_id, Auxiliary, get_random_auxiliary_by_realm
+from src.classes.items.weapon import weapons_by_id, Weapon, get_random_weapon_by_realm
+from src.classes.items.auxiliary import auxiliaries_by_id, Auxiliary, get_random_auxiliary_by_realm
 
 
 class TestPrices:
@@ -154,7 +154,7 @@ class TestAvatarSell:
         
         # 模拟 20% 加成 (0.2)
         # 这里的 effects 是 property，需要用 PropertyMock
-        with patch("src.classes.avatar.core.Avatar.effects", new_callable=lambda: {"extra_item_sell_price_multiplier": 0.2}):
+        with patch("src.classes.core.avatar.core.Avatar.effects", new_callable=lambda: {"extra_item_sell_price_multiplier": 0.2}):
              # 注意：由于 Avatar 分布在多个 mixin 中，patch 的位置取决于 effects 定义的位置
              # effects 定义在 EffectsMixin 中，但混入后是在 Avatar 类上
              # 如果 patch 比较麻烦，我们可以利用 Prices.get_selling_price 的逻辑

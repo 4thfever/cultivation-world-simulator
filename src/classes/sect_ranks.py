@@ -7,8 +7,8 @@ from functools import total_ordering
 from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.cultivation import Realm
-    from src.classes.sect import Sect
+    from src.systems.cultivation import Realm
+    from src.classes.core.sect import Sect
 
 
 @total_ordering
@@ -90,7 +90,7 @@ def get_rank_from_realm(realm: "Realm") -> SectRank:
     Returns:
         对应的宗门职位
     """
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     
     mapping = {
         Realm.Qi_Refinement: SectRank.OuterDisciple,
@@ -135,7 +135,7 @@ def should_auto_promote(old_realm: "Realm", new_realm: "Realm") -> bool:
     if old_realm == new_realm:
         return False
     
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     
     # 检查境界是否提升
     old_rank = get_rank_from_realm(old_realm)

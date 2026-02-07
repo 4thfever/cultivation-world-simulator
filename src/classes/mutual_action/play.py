@@ -7,8 +7,8 @@ from src.i18n import t
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
-    from src.classes.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 def try_trigger_play_benefit(avatar: Avatar) -> str:
     """

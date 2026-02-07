@@ -3,9 +3,9 @@ from __future__ import annotations
 from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
-from src.classes.battle import get_escape_success_rate
+from src.systems.battle import get_escape_success_rate
 from src.classes.action.event_helper import EventHelper
-from src.classes.normalize import normalize_avatar_name
+from src.utils.normalize import normalize_avatar_name
 
 
 class Escape(InstantAction):

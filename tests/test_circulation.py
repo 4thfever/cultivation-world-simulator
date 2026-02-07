@@ -1,20 +1,20 @@
 import pytest
 import copy
 from unittest.mock import MagicMock, patch
-from src.classes.world import World
+from src.classes.core.world import World
 from src.classes.circulation import CirculationManager
-from src.classes.weapon import Weapon, WeaponType
-from src.classes.auxiliary import Auxiliary
-from src.classes.cultivation import Realm
-from src.classes.avatar import Avatar, Gender
+from src.classes.items.weapon import Weapon, WeaponType
+from src.classes.items.auxiliary import Auxiliary
+from src.systems.cultivation import Realm
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.calendar import Month, Year, create_month_stamp
+from src.systems.time import Month, Year, create_month_stamp
 from src.utils.id_generator import get_avatar_id
 from src.sim.save.save_game import save_game
 from src.sim.load.load_game import load_game
 from src.sim.simulator import Simulator
-from src.classes.map import Map
-from src.classes.tile import TileType
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
 
 # --- Helper Objects ---
 
@@ -132,8 +132,8 @@ def test_circulation_serialization():
     mock_weapons_db = {101: DummyItem(101, "RareSword_Proto")} # Proto doesn't have special_data usually
     mock_aux_db = {202: DummyItem(202, "RareRing_Proto")}
     
-    with patch("src.classes.weapon.weapons_by_id", mock_weapons_db), \
-         patch("src.classes.auxiliary.auxiliaries_by_id", mock_aux_db):
+    with patch("src.classes.items.weapon.weapons_by_id", mock_weapons_db), \
+         patch("src.classes.items.auxiliary.auxiliaries_by_id", mock_aux_db):
         
         new_cm.load_from_dict(saved_data)
         
@@ -246,8 +246,8 @@ def test_save_load_circulation(temp_save_dir, empty_world):
     mock_weapons_db = {10: SimpleItem(10, "LostSword_Proto")}
     
     with patch("src.run.load_map.load_cultivation_world_map", return_value=create_test_map()), \
-         patch("src.classes.weapon.weapons_by_id", mock_weapons_db), \
-         patch("src.classes.auxiliary.auxiliaries_by_id", {}):
+         patch("src.classes.items.weapon.weapons_by_id", mock_weapons_db), \
+         patch("src.classes.items.auxiliary.auxiliaries_by_id", {}):
         
         loaded_world, _, _ = load_game(save_path)
         

@@ -14,7 +14,7 @@ from pathlib import Path
 from src.classes.event import Event, NULL_EVENT
 from src.classes.event_storage import EventStorage
 from src.sim.managers.event_manager import EventManager
-from src.classes.calendar import MonthStamp, Year, Month, create_month_stamp
+from src.systems.time import MonthStamp, Year, Month, create_month_stamp
 
 
 # --- Fixtures ---

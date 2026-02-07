@@ -4,14 +4,14 @@ from unittest.mock import MagicMock, AsyncMock, patch
 from pathlib import Path
 
 from src.classes.history import HistoryManager, History
-from src.classes.region import CityRegion, NormalRegion, CultivateRegion
-from src.classes.sect_region import SectRegion
+from src.classes.environment.region import CityRegion, NormalRegion, CultivateRegion
+from src.classes.environment.sect_region import SectRegion
 from src.classes.technique import Technique, TechniqueAttribute, TechniqueGrade
-from src.classes.weapon import Weapon, WeaponType
-from src.classes.auxiliary import Auxiliary
-from src.classes.cultivation import Realm
-from src.classes.item_registry import ItemRegistry
-from src.classes.sect import Sect, SectHeadQuarter
+from src.classes.items.weapon import Weapon, WeaponType
+from src.classes.items.auxiliary import Auxiliary
+from src.systems.cultivation import Realm
+from src.classes.items.registry import ItemRegistry
+from src.classes.core.sect import Sect, SectHeadQuarter
 from src.classes.alignment import Alignment
 from src.sim.load.load_game import apply_history_modifications
 
@@ -20,10 +20,10 @@ from src.sim.load.load_game import apply_history_modifications
 _real_apply_history_influence = HistoryManager.apply_history_influence
 
 # 假设这些全局字典在模块层级
-from src.classes import technique as technique_module
-from src.classes import weapon as weapon_module
-from src.classes import sect as sect_module
-from src.classes import auxiliary as auxiliary_module
+import src.classes.technique as technique_module
+import src.classes.items.weapon as weapon_module
+import src.classes.core.sect as sect_module
+import src.classes.items.auxiliary as auxiliary_module
 
 # --- 1. 基础数据结构测试 (Plan 1) ---
 
@@ -166,7 +166,7 @@ def test_apply_history_modifications_logic(base_world):
 #     #     
 #     #     # 2.1 resolve_query can find regions by new names
 #     #     from src.utils.resolution import resolve_query
-#     #     from src.classes.region import Region
+#     #     from src.classes.environment.region import Region
 #     #     assert resolve_query("NewCity", base_world, expected_types=[Region]).obj == city_region
 #     #     assert resolve_query("NewWild", base_world, expected_types=[Region]).obj == normal_region
 #     #     assert resolve_query("NewCave", base_world, expected_types=[Region]).obj == cult_region

@@ -9,9 +9,9 @@ from src.classes.event import Event
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
     from src.classes.action_runtime import ActionResult
-    from src.classes.world import World
+    from src.classes.core.world import World
 
 
 class Gift(MutualAction):
@@ -80,8 +80,8 @@ class Gift(MutualAction):
         amount = self._current_gift_context.get("amount", 0)
         obj = self._current_gift_context.get("obj")
         
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
         
         if obj is None: # 灵石
             return f"{amount} 灵石"
@@ -130,8 +130,8 @@ class Gift(MutualAction):
             return True, ""
             
         # 2. 物品 (装备/素材)
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
         
         if isinstance(obj, (Weapon, Auxiliary)):
             if self.avatar.weapon is not obj and self.avatar.auxiliary is not obj:
@@ -211,8 +211,8 @@ class Gift(MutualAction):
                 self.avatar.magic_stone -= amount
                 target.magic_stone += amount
         else:
-            from src.classes.weapon import Weapon
-            from src.classes.auxiliary import Auxiliary
+            from src.classes.items.weapon import Weapon
+            from src.classes.items.auxiliary import Auxiliary
             
             if isinstance(obj, (Weapon, Auxiliary)):
                 # 装备：发起者卸下 -> 目标装备（旧装备自动处理）

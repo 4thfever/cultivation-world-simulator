@@ -2,8 +2,8 @@ import pytest
 from unittest.mock import patch, MagicMock
 from src.classes.action.attack import Attack
 from src.classes.event import Event
-from src.classes.cultivation import Realm
-from src.classes.avatar import Avatar
+from src.systems.cultivation import Realm
+from src.classes.core.avatar import Avatar
 
 # 定义一个简单的 Result Mock
 class MockResolutionResult:

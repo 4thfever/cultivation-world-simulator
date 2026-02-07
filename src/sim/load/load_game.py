@@ -31,11 +31,11 @@ from pathlib import Path
 from typing import Tuple, List, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.world import World
+    from src.classes.core.world import World
     from src.sim.simulator import Simulator
-    from src.classes.sect import Sect
+    from src.classes.core.sect import Sect
 
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 from src.classes.event import Event
 from src.classes.relation.relation import Relation
 from src.utils.config import CONFIG
@@ -51,9 +51,9 @@ def apply_history_modifications(world, modifications):
     print(f"正在回放历史差分 ({len(modifications)} 个分类)...")
     
     # 导入需要修改的对象容器
-    from src.classes.sect import sects_by_id, sects_by_name
+    from src.classes.core.sect import sects_by_id, sects_by_name
     from src.classes.technique import techniques_by_id, techniques_by_name
-    from src.classes.item_registry import ItemRegistry
+    from src.classes.items.registry import ItemRegistry
     
     # 1. 宗门修改
     sects_mod = modifications.get("sects", {})
@@ -103,7 +103,7 @@ def apply_history_modifications(world, modifications):
 
     # 4. 武器修改 (通过 ItemRegistry)
     weapons_mod = modifications.get("weapons", {})
-    from src.classes.weapon import weapons_by_name
+    from src.classes.items.weapon import weapons_by_name
     for iid_str, changes in weapons_mod.items():
         try:
             iid = int(iid_str)
@@ -120,7 +120,7 @@ def apply_history_modifications(world, modifications):
 
     # 5. 辅助装备修改 (通过 ItemRegistry)
     aux_mod = modifications.get("auxiliaries", {})
-    from src.classes.auxiliary import auxiliaries_by_name
+    from src.classes.items.auxiliary import auxiliaries_by_name
     for iid_str, changes in aux_mod.items():
         try:
             iid = int(iid_str)
@@ -173,9 +173,9 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
     
     try:
         # 运行时导入，避免循环依赖
-        from src.classes.world import World
-        from src.classes.avatar import Avatar
-        from src.classes.sect import sects_by_id
+        from src.classes.core.world import World
+        from src.classes.core.avatar import Avatar
+        from src.classes.core.sect import sects_by_id
         from src.sim.simulator import Simulator
         from src.run.load_map import load_cultivation_world_map
         
@@ -265,7 +265,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})
-        from src.classes.region import CultivateRegion
+        from src.classes.environment.region import CultivateRegion
         for rid_str, avatar_id in cultivate_regions_hosts.items():
             rid = int(rid_str)
             if rid in game_map.regions:

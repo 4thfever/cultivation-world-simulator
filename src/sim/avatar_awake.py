@@ -1,20 +1,21 @@
 import random
 from typing import List, Optional
 
-from src.classes.world import World
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.world import World
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.mortal import Mortal
-from src.classes.calendar import MonthStamp
-from src.classes.cultivation import CultivationProgress, Realm
+from src.systems.time import MonthStamp
+from src.systems.cultivation import CultivationProgress, Realm
 from src.classes.age import Age
 from src.classes.relation.relation import Relation
 from src.classes.root import Root
-from src.classes.magic_stone import MagicStone
+from src.classes.items.magic_stone import MagicStone
 from src.classes.event import Event
 from src.utils.id_generator import get_avatar_id
 from src.classes.technique import attribute_to_root
-from src.classes.weapon import get_random_weapon_by_realm
+from src.classes.items.weapon import get_random_weapon_by_realm
 from src.utils.config import CONFIG
+from src.utils.born_region import get_born_region_id
 from src.i18n import t
 
 # 常量
@@ -71,13 +72,14 @@ def _process_bloodline_awakening(world: World) -> List[Event]:
 def _process_wild_awakening(world: World) -> Optional[Event]:
     # 随机生成一个新的野生角色
     gender = random.choice(list(Gender))
-    from src.classes.name import get_random_name
+    from src.utils.name_generator import get_random_name
     name = get_random_name(gender)
     
     age_val = random.randint(MIN_AWAKENING_AGE, 30)
     
     # 构造 Avatar
-    avatar = _create_simple_avatar(world, name, gender, age_val, parents=[])
+    born_id = get_born_region_id(world)
+    avatar = _create_simple_avatar(world, name, gender, age_val, parents=[], born_region_id=born_id)
     
     # 注册
     world.avatar_manager.register_avatar(avatar, is_newly_born=True)
@@ -96,7 +98,8 @@ def _promote_mortal_to_avatar(world: World, mortal: Mortal) -> Avatar:
         mortal.gender, 
         age_years, 
         parents=mortal.parents,
-        mortal_id=mortal.id # 复用 ID
+        mortal_id=mortal.id, # 复用 ID
+        born_region_id=mortal.born_region_id
     )
     
     return avatar
@@ -107,7 +110,8 @@ def _create_simple_avatar(
     gender: Gender, 
     age_years: int, 
     parents: List[str],
-    mortal_id: Optional[str] = None
+    mortal_id: Optional[str] = None,
+    born_region_id: Optional[int] = None
 ) -> Avatar:
     # 1. 基础属性
     level = 1
@@ -134,7 +138,8 @@ def _create_simple_avatar(
         pos_x=x,
         pos_y=y,
         root=random.choice(list(Root)),
-        sect=None # 刚觉醒默认为散修
+        sect=None, # 刚觉醒默认为散修
+        born_region_id=born_region_id
     )
     
     avatar.magic_stone = MagicStone(10) # 少量灵石

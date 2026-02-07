@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from src.classes.gender import Gender
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 
 @dataclass
 class Mortal:
@@ -13,3 +13,4 @@ class Mortal:
     gender: Gender          # 性别
     birth_month_stamp: MonthStamp  # 出生时间戳
     parents: list[str] = field(default_factory=list)      # 父母的 Avatar ID
+    born_region_id: int = -1  # 出身地区域ID (-1表示未知)

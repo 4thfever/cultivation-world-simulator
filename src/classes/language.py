@@ -37,7 +37,7 @@ class LanguageManager:
             pass
             
         try:
-            from src.classes.name import reload as reload_names
+            from src.utils.name_generator import reload as reload_names
             reload_names()
         except ImportError:
             pass

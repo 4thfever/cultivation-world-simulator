@@ -3,7 +3,7 @@ from __future__ import annotations
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
-from src.classes.region import CityRegion
+from src.classes.environment.region import CityRegion
 from src.classes.alignment import Alignment
 
 

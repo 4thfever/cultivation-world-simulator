@@ -1,10 +1,10 @@
 from typing import TYPE_CHECKING, Optional
 
-from src.classes.tile import Tile, TileType
-from src.classes.sect_region import SectRegion
+from src.classes.environment.tile import Tile, TileType
+from src.classes.environment.sect_region import SectRegion
 
 if TYPE_CHECKING:
-    from src.classes.region import Region
+    from src.classes.environment.region import Region
 
 
 class Map():
@@ -84,9 +84,9 @@ class Map():
                2. 计算并在描述中追加从 avatar 当前位置到各区域的距离
         """
         if TYPE_CHECKING:
-             from src.classes.avatar import Avatar
+             from src.classes.core.avatar import Avatar
 
-        from src.classes.region import NormalRegion, CultivateRegion, CityRegion
+        from src.classes.environment.region import NormalRegion, CultivateRegion, CityRegion
         
         known_region_ids = avatar.known_regions if avatar else None
         current_loc = (avatar.pos_x, avatar.pos_y) if avatar else None

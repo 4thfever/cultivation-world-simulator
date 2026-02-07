@@ -8,7 +8,7 @@ from typing import Optional, TYPE_CHECKING
 import random
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 from src.classes.event import Event
 from src.utils.config import CONFIG

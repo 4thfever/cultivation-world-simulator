@@ -1,7 +1,7 @@
 import pytest
 from src.classes.mortal import Mortal
 from src.sim.managers.mortal_manager import MortalManager
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 from src.classes.gender import Gender
 
 @pytest.fixture

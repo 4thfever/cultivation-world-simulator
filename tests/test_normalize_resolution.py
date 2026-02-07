@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock, Mock
-from src.classes.normalize import (
+from src.utils.normalize import (
     remove_parentheses,
     normalize_name,
     normalize_goods_name,
@@ -11,7 +11,7 @@ from src.utils.resolution import (
     ResolutionResult
 )
 from src.classes.material import Material
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 # ==================== Normalize Tests ====================
 

@@ -6,7 +6,7 @@ from src.classes.event import Event
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
-from src.classes.normalize import normalize_avatar_name
+from src.utils.normalize import normalize_avatar_name
 
 
 class MoveToAvatar(DefineAction, ActualActionMixin):

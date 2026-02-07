@@ -1,6 +1,6 @@
 import random
-from src.classes.calendar import Month, Year, MonthStamp
-from src.classes.cultivation import Realm
+from src.systems.time import Month, Year, MonthStamp
+from src.systems.cultivation import Realm
 
 class Age:
     """

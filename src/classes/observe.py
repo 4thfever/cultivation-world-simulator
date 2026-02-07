@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import Iterable, List, TYPE_CHECKING
 
-from src.classes.cultivation import Realm
-from src.classes.tile import get_avatar_distance
+from src.systems.cultivation import Realm
+from src.classes.environment.tile import get_avatar_distance
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 _OBSERVATION_RADIUS_BY_REALM: dict[Realm, int] = {

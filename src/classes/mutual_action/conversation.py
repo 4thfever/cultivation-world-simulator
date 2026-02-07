@@ -14,7 +14,7 @@ from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 class Conversation(MutualAction):

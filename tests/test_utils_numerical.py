@@ -1,6 +1,6 @@
 import pytest
 from src.classes.hp import HP
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.utils.distance import chebyshev_distance, manhattan_distance, euclidean_distance
 from src.utils.id_generator import get_avatar_id
 from src.utils.df import get_int, get_bool, get_list_int, get_float

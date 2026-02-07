@@ -4,7 +4,7 @@ from src.i18n import t
 from src.classes.action import InstantAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
-from src.classes.region import Region
+from src.classes.environment.region import Region
 from src.utils.distance import euclidean_distance
 from src.utils.resolution import resolve_query
 

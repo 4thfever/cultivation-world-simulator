@@ -4,16 +4,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Any, Optional, Callable, TYPE_CHECKING, Coroutine
 
-from src.classes.item_registry import ItemRegistry
+from src.classes.items.registry import ItemRegistry
 from src.classes.technique import techniques_by_id, techniques_by_name
-from src.classes.weapon import weapons_by_name
-from src.classes.sect import sects_by_id, sects_by_name
+from src.classes.items.weapon import weapons_by_name
+from src.classes.core.sect import sects_by_id, sects_by_name
 from src.utils.llm.client import call_llm_with_task_name
 from src.run.log import get_logger
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.world import World
+    from src.classes.core.world import World
 
 @dataclass
 class History:

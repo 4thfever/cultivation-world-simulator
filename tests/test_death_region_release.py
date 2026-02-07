@@ -2,7 +2,7 @@
 import pytest
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.death import handle_death
-from src.classes.region import CultivateRegion, EssenceType
+from src.classes.environment.region import CultivateRegion, EssenceType
 
 def test_death_releases_region(base_world, dummy_avatar):
     """测试死亡时释放占领的洞府"""
@@ -35,13 +35,13 @@ def test_death_releases_region(base_world, dummy_avatar):
 
 def test_occupy_region_logic(base_world, dummy_avatar):
     """测试占领逻辑的双向绑定和抢夺"""
-    from src.classes.avatar import Avatar, Gender
+    from src.classes.core.avatar import Avatar, Gender
     from src.classes.age import Age
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     from src.utils.id_generator import get_avatar_id
     from src.classes.root import Root
     from src.classes.alignment import Alignment
-    from src.classes.calendar import create_month_stamp, Year, Month
+    from src.systems.time import create_month_stamp, Year, Month
 
     # 创建第二个角色
     other_avatar = Avatar(

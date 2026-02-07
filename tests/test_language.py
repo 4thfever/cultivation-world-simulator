@@ -121,11 +121,11 @@ class TestLanguage:
         """测试对象输出的国际化"""
         from src.classes.language import language_manager
         from src.i18n import t, reload_translations
-        from src.classes.magic_stone import MagicStone
-        from src.classes.region import NormalRegion
+        from src.classes.items.magic_stone import MagicStone
+        from src.classes.environment.region import NormalRegion
         from src.classes.persona import Persona
         from src.classes.rarity import Rarity, RarityLevel
-        from src.classes.avatar.info_presenter import get_avatar_info
+        from src.classes.core.avatar.info_presenter import get_avatar_info
         from src.classes.emotions import EmotionType
         from src.classes.root import Root
         from src.classes.appearance import get_appearance_by_level
@@ -202,7 +202,7 @@ class TestLanguage:
             assert "Handsome" in app.get_info()
 
             # 7. Cultivation Progress (New check)
-            from src.classes.cultivation import CultivationProgress
+            from src.systems.cultivation import CultivationProgress
             cp = CultivationProgress(1)
             # In English, we expect space separated translated values
             assert cp.get_info() == "Qi Refinement Early Stage"

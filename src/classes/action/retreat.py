@@ -5,7 +5,7 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
-from src.classes.cultivation import REALM_RANK
+from src.systems.cultivation import REALM_RANK
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.story_teller import StoryTeller
 

@@ -1,12 +1,12 @@
 import os
 import csv
-from src.classes.map import Map
-from src.classes.tile import TileType
-from src.classes.region import Region, NormalRegion, CultivateRegion, CityRegion
-from src.classes.sect_region import SectRegion
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
+from src.classes.environment.region import Region, NormalRegion, CultivateRegion, CityRegion
+from src.classes.environment.sect_region import SectRegion
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.essence import EssenceType
-from src.classes.sect import sects_by_id  # 直接导入已加载的宗门数据
+from src.classes.core.sect import sects_by_id  # 直接导入已加载的宗门数据
 from src.utils.config import CONFIG
 
 # 静态配置路径

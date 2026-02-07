@@ -27,10 +27,10 @@ class TestTalk:
     @pytest.fixture
     def target_avatar(self, base_world, dummy_avatar):
         """Create a target avatar for talk tests."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id
@@ -181,10 +181,10 @@ class TestSpar:
     @pytest.fixture
     def target_avatar(self, base_world, dummy_avatar):
         """Create a target avatar for spar tests."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id
@@ -303,10 +303,10 @@ class TestImpart:
         Note: Avatar's cultivation_progress defaults to level 0.
         We must manually set level to ensure level diff >= 20 for Impart.
         """
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm, CultivationProgress
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm, CultivationProgress
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id
@@ -336,10 +336,10 @@ class TestImpart:
     @pytest.fixture
     def disciple_avatar(self, base_world):
         """Create a disciple avatar (low level)."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm, CultivationProgress
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm, CultivationProgress
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id
@@ -505,10 +505,10 @@ class TestMutualActionBase:
     @pytest.fixture
     def target_avatar(self, base_world, dummy_avatar):
         """Create a generic target avatar."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id

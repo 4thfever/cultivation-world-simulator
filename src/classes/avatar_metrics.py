@@ -1,7 +1,7 @@
 from dataclasses import dataclass, asdict
 from typing import List, Optional
 from enum import Enum
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 
 
 class MetricTag(Enum):

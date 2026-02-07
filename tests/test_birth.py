@@ -2,10 +2,10 @@ import pytest
 import copy
 from unittest.mock import patch, MagicMock
 from src.classes.relation.relation import Relation
-from src.classes.avatar import Gender
+from src.classes.core.avatar import Gender
 from src.utils.config import CONFIG
 from src.sim.simulator import Simulator
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 
 def test_couple_birth_logic(base_world, dummy_avatar):
     """

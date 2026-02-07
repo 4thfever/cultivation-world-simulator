@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 @dataclass
 class HP:

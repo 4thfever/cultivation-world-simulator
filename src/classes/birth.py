@@ -1,12 +1,13 @@
 import random
-from src.classes.world import World
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.world import World
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.relation.relation import Relation
 from src.classes.mortal import Mortal
 from src.classes.event import Event
 from src.utils.config import CONFIG
-from src.classes.name import get_random_name_with_surname
+from src.utils.name_generator import get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
+from src.utils.born_region import get_born_region_id
 from src.i18n import t
 
 def process_births(world: World) -> list[Event]:
@@ -95,7 +96,8 @@ def _create_child_for_couple(world: World, parent1: Avatar, parent2: Avatar) -> 
         name=child_name,
         gender=child_gender,
         birth_month_stamp=world.month_stamp,
-        parents=[str(parent1.id), str(parent2.id)]
+        parents=[str(parent1.id), str(parent2.id)],
+        born_region_id=get_born_region_id(world, parents=[parent1, parent2])
     )
     
     # 4. 绑定关系

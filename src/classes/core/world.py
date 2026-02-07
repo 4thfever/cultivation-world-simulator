@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 
-from src.classes.map import Map
-from src.classes.calendar import Year, Month, MonthStamp
+from src.classes.environment.map import Map
+from src.systems.time import Year, Month, MonthStamp
 from src.sim.managers.avatar_manager import AvatarManager
 from src.sim.managers.mortal_manager import MortalManager
 from src.sim.managers.event_manager import EventManager
@@ -15,7 +15,7 @@ from src.classes.language import language_manager, LanguageType
 from src.i18n import t
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
     from src.classes.celestial_phenomenon import CelestialPhenomenon
 
 

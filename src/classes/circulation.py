@@ -3,9 +3,9 @@ from typing import Dict, List, TYPE_CHECKING, Any
 import copy
 
 if TYPE_CHECKING:
-    from src.classes.weapon import Weapon
-    from src.classes.auxiliary import Auxiliary
-    from src.classes.elixir import Elixir
+    from src.classes.items.weapon import Weapon
+    from src.classes.items.auxiliary import Auxiliary
+    from src.classes.items.elixir import Elixir
 
 
 class CirculationManager:
@@ -61,9 +61,9 @@ class CirculationManager:
         if item is None:
             return
             
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
-        from src.classes.elixir import Elixir
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
         
         if isinstance(item, Weapon):
             self.add_weapon(item)
@@ -77,9 +77,9 @@ class CirculationManager:
         """
         从流通池移除物品
         """
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
-        from src.classes.elixir import Elixir
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
         
         if isinstance(item, Weapon):
             if item in self.sold_weapons:
@@ -101,9 +101,9 @@ class CirculationManager:
     
     def load_from_dict(self, data: dict) -> None:
         """从字典恢复数据"""
-        from src.classes.weapon import weapons_by_id
-        from src.classes.auxiliary import auxiliaries_by_id
-        from src.classes.elixir import elixirs_by_id
+        from src.classes.items.weapon import weapons_by_id
+        from src.classes.items.auxiliary import auxiliaries_by_id
+        from src.classes.items.elixir import elixirs_by_id
         
         self.sold_weapons = []
         for w_data in data.get("weapons", []):

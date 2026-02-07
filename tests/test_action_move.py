@@ -2,7 +2,7 @@
 import pytest
 from unittest.mock import MagicMock, patch, PropertyMock
 from src.classes.action.move import Move
-from src.classes.tile import TileType
+from src.classes.environment.tile import TileType
 from src.classes.action_runtime import ActionStatus
 
 class TestActionMove:

@@ -8,9 +8,9 @@ from src.classes.mutual_action.mutual_action import MutualAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
 from src.classes.action.cooldown import cooldown_action
-from src.classes.region import CultivateRegion
+from src.classes.environment.region import CultivateRegion
 from src.classes.action_runtime import ActionResult, ActionStatus
-from src.classes.battle import decide_battle
+from src.systems.battle import decide_battle
 from src.classes.story_teller import StoryTeller
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason
@@ -18,7 +18,7 @@ from src.classes.action.event_helper import EventHelper
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action
@@ -152,7 +152,7 @@ class Occupy(MutualAction):
         
         postfix = t(", successfully seized {region}", region=r_name) if attacker_won else t(", defended {region}", region=r_name)
 
-        from src.classes.battle import handle_battle_finish
+        from src.systems.battle import handle_battle_finish
         return await handle_battle_finish(
             self.world,
             self.avatar,

@@ -661,6 +661,12 @@ msgstr "{desc} (已吞噬魂魄：{souls})"
 # Avatar 系统
 # ============================================================================
 # 字段标签 (info_dict 键名)
+msgid "Origin"
+msgstr "出身"
+
+msgid "Origin: {origin}"
+msgstr "出身：{origin}"
+
 msgid "Name"
 msgstr "名字"
 

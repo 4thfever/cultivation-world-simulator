@@ -5,16 +5,16 @@ from typing import Optional, TYPE_CHECKING, List
 
 from src.i18n import t
 from src.classes.action import TimedAction
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.event import Event
 from src.classes.material import Material
-from src.classes.weapon import get_random_weapon_by_realm
-from src.classes.auxiliary import get_random_auxiliary_by_realm
+from src.classes.items.weapon import get_random_weapon_by_realm
+from src.classes.items.auxiliary import get_random_auxiliary_by_realm
 from src.classes.single_choice import handle_item_exchange
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 class Cast(TimedAction):
     """

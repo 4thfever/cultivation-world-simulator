@@ -346,10 +346,10 @@ class TestLLMAIBatchProcessing:
     @pytest.fixture
     def avatar_a(self, mock_world):
         """Create first test avatar."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id
@@ -376,10 +376,10 @@ class TestLLMAIBatchProcessing:
     @pytest.fixture
     def avatar_b(self, mock_world):
         """Create second test avatar."""
-        from src.classes.avatar import Avatar, Gender
+        from src.classes.core.avatar import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
-        from src.classes.calendar import Year, Month, create_month_stamp
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.utils.id_generator import get_avatar_id

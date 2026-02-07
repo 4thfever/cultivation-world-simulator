@@ -823,6 +823,12 @@ msgstr "{desc} (Devoured Souls: {souls})"
 # Avatar System
 # ============================================================================
 # Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "Origin"
+
+msgid "Origin: {origin}"
+msgstr "Origin: {origin}"
+
 msgid "Name"
 msgstr "Name"
 

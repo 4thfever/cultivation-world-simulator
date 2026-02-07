@@ -152,7 +152,7 @@ def get_reciprocal(relation: Relation) -> Relation:
 
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 # ——— 显示层：性别化称谓映射与标签工具 ———

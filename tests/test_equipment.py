@@ -1,7 +1,7 @@
 import pytest
-from src.classes.weapon import Weapon, get_random_weapon_by_realm, weapons_by_id
-from src.classes.auxiliary import Auxiliary, get_random_auxiliary_by_realm, auxiliaries_by_id
-from src.classes.cultivation import Realm
+from src.classes.items.weapon import Weapon, get_random_weapon_by_realm, weapons_by_id
+from src.classes.items.auxiliary import Auxiliary, get_random_auxiliary_by_realm, auxiliaries_by_id
+from src.systems.cultivation import Realm
 from src.classes.weapon_type import WeaponType
 
 class TestEquipment:

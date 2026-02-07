@@ -6,9 +6,9 @@
 import pytest
 import csv
 from pathlib import Path
-from src.classes.sect import sects_by_id, sects_by_name, Sect, reload as reload_sects
+from src.classes.core.sect import sects_by_id, sects_by_name, Sect, reload as reload_sects
 from src.classes.technique import techniques_by_id, techniques_by_name, Technique, reload as reload_techniques
-from src.classes.elixir import elixirs_by_id
+from src.classes.items.elixir import elixirs_by_id
 from src.utils.config import CONFIG
 from src.i18n import t, reload_translations
 from src.classes.language import language_manager

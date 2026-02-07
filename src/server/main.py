@@ -23,19 +23,19 @@ from pydantic import BaseModel
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from src.sim.simulator import Simulator
-from src.classes.world import World
+from src.classes.core.world import World
 from src.classes.history import HistoryManager
-from src.classes.calendar import Month, Year, create_month_stamp
+from src.systems.time import Month, Year, create_month_stamp
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG, load_config
-from src.classes.sect import sects_by_id
+from src.classes.core.sect import sects_by_id
 from src.classes.technique import techniques_by_id
-from src.classes.weapon import weapons_by_id
-from src.classes.auxiliary import auxiliaries_by_id
+from src.classes.items.weapon import weapons_by_id
+from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.appearance import get_appearance_by_level
 from src.classes.persona import personas_by_id
-from src.classes.cultivation import REALM_ORDER
+from src.systems.cultivation import REALM_ORDER
 from src.classes.alignment import Alignment
 from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id

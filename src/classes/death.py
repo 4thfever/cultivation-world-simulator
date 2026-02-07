@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING, Union
 from src.classes.death_reason import DeathReason
 
 if TYPE_CHECKING:
-    from src.classes.world import World
-    from src.classes.avatar import Avatar
+    from src.classes.core.world import World
+    from src.classes.core.avatar import Avatar
 
 def handle_death(world: World, avatar: Avatar, reason: Union[str, DeathReason]) -> None:
     """

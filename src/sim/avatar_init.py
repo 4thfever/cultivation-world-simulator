@@ -2,24 +2,25 @@ import random
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Tuple, Union
 
-from src.classes.world import World
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.world import World
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.appearance import get_appearance_by_level
-from src.classes.calendar import MonthStamp
-from src.classes.region import Region
+from src.systems.time import MonthStamp
+from src.classes.environment.region import Region
 from src.utils.resolution import resolve_query
-from src.classes.cultivation import CultivationProgress
+from src.systems.cultivation import CultivationProgress
 from src.classes.root import Root
 from src.classes.age import Age
-from src.classes.name import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
+from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
-from src.classes.sect import Sect, sects_by_id, sects_by_name
+from src.classes.core.sect import Sect, sects_by_id, sects_by_name
 from src.classes.relation.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
-from src.classes.weapon import Weapon, weapons_by_id, weapons_by_name
-from src.classes.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
+from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
+from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
 from src.classes.persona import Persona, personas_by_id, personas_by_name
-from src.classes.magic_stone import MagicStone
+from src.classes.items.magic_stone import MagicStone
+from src.utils.born_region import get_born_region_id
 
 
 # —— 参数常量（便于调参）——
@@ -77,7 +78,7 @@ class EquipmentAllocator:
         - 80% 继承宗门偏好兵器类型，否则完全随机
         - 根据境界随机生成一把兵器
         """
-        from src.classes.weapon import get_random_weapon_by_realm
+        from src.classes.items.weapon import get_random_weapon_by_realm
         from src.classes.weapon_type import WeaponType
 
         weapon_type = None
@@ -96,7 +97,7 @@ class EquipmentAllocator:
         初始辅助装备逻辑：
         - 根据境界随机生成一件辅助装备
         """
-        from src.classes.auxiliary import get_random_auxiliary_by_realm
+        from src.classes.items.auxiliary import get_random_auxiliary_by_realm
         
         avatar.auxiliary = get_random_auxiliary_by_realm(avatar.cultivation_progress.realm)
 
@@ -149,7 +150,7 @@ class MortalPlanner:
             
         if existed_sects is None:
             try:
-                from src.classes.sect import sects_by_id as _sects_by_id
+                from src.classes.core.sect import sects_by_id as _sects_by_id
                 existed_sects = list(_sects_by_id.values())
             except Exception:
                 existed_sects = []
@@ -442,6 +443,12 @@ class AvatarFactory:
         avatar.magic_stone = MagicStone(50)
         avatar.tile = world.map.get_tile(avatar.pos_x, avatar.pos_y)
 
+        # 确定出生地
+        parents_list = []
+        if plan.parent_avatar:
+            parents_list.append(plan.parent_avatar)
+        avatar.born_region_id = get_born_region_id(world, parents=parents_list, sect=plan.sect)
+
         SectRankAssigner.assign_one(avatar, world)
         EquipmentAllocator.assign_weapon(avatar)
         EquipmentAllocator.assign_auxiliary(avatar)
@@ -538,6 +545,16 @@ class AvatarFactory:
 
             avatar.magic_stone = MagicStone(50)
             avatar.tile = world.map.get_tile(x, y)
+
+            # 确定出生地
+            current_parents = []
+            for (p_idx, c_idx), rel in planned_relations.items():
+                 if rel == Relation.PARENT and c_idx == i:
+                     # 只有当父母已经被创建时才能作为参考（通常索引较小的先创建）
+                     if p_idx < len(avatars_by_index) and avatars_by_index[p_idx]:
+                         current_parents.append(avatars_by_index[p_idx])
+            
+            avatar.born_region_id = get_born_region_id(world, parents=current_parents, sect=sect)
 
             if sect is not None:
                 avatar.alignment = sect.alignment

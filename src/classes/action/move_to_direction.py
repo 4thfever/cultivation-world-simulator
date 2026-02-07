@@ -6,7 +6,7 @@ from src.classes.action import DefineAction, ActualActionMixin, Move
 from src.classes.event import Event
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.utils.distance import manhattan_distance
-from src.classes.region import Region
+from src.classes.environment.region import Region
 
 class Direction:
     """

@@ -4,7 +4,7 @@ import gettext
 from unittest.mock import patch, MagicMock
 from pathlib import Path
 
-from src.classes.world import World
+from src.classes.core.world import World
 from src.classes.actions import get_action_infos, get_action_infos_str
 from src.classes.language import language_manager
 from src.utils.df import reload_game_configs

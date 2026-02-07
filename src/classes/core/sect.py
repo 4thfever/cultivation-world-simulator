@@ -9,7 +9,7 @@ from src.utils.config import CONFIG
 
 from typing import TYPE_CHECKING, Optional
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
     from src.classes.technique import Technique
     from src.classes.sect_ranks import SectRank
     from src.classes.weapon_type import WeaponType
@@ -306,7 +306,7 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     """
     from typing import TYPE_CHECKING
     if TYPE_CHECKING:
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
     
     # 散修直接返回
     from src.i18n import t

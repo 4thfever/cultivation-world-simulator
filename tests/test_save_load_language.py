@@ -4,10 +4,10 @@ import os
 from pathlib import Path
 from unittest.mock import patch, MagicMock, AsyncMock
 
-from src.classes.world import World
-from src.classes.map import Map
-from src.classes.tile import TileType
-from src.classes.calendar import Month, Year, create_month_stamp
+from src.classes.core.world import World
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
+from src.systems.time import Month, Year, create_month_stamp
 from src.sim.simulator import Simulator
 from src.sim.save.save_game import save_game
 from src.classes.language import language_manager, LanguageType

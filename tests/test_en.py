@@ -1,7 +1,7 @@
 import pytest
 from src.classes.language import language_manager, LanguageType
-from src.classes.avatar import Avatar
-from src.classes.world import World
+from src.classes.core.avatar import Avatar
+from src.classes.core.world import World
 from src.utils.config import CONFIG, update_paths_for_language
 from src.utils.df import reload_game_configs, game_configs
 from src.classes.essence import EssenceType

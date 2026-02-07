@@ -2,9 +2,9 @@ import pytest
 import random
 from unittest.mock import MagicMock, patch, AsyncMock
 from src.classes.gathering.hidden_domain import HiddenDomain
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.death_reason import DeathReason, DeathType
-from src.classes.item import Item
+from src.classes.items.item import Item
 
 @pytest.fixture
 def mock_domain_config():
@@ -224,7 +224,7 @@ async def test_execute_loot_drop(hidden_domain, base_world, dummy_avatar):
     
     # Mock generation to return a specific item type to trigger specific logic
     # Let's use Weapon
-    from src.classes.weapon import Weapon
+    from src.classes.items.weapon import Weapon
     mock_weapon = MagicMock(spec=Weapon)
     mock_weapon.name = "GodSlayer"
     

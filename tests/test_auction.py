@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import MagicMock, patch, AsyncMock
 from src.classes.gathering.auction import Auction
-from src.classes.item import Item
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
+from src.classes.items.item import Item
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
 from src.classes.prices import prices
 from src.utils.config import CONFIG
 
@@ -214,11 +214,11 @@ async def test_execute_flow(base_world, dummy_avatar, mock_item_data):
 
 def test_items_are_hashable():
     """测试物品类是否可哈希（用作字典键）"""
-    from src.classes.weapon import Weapon
+    from src.classes.items.weapon import Weapon
     from src.classes.weapon_type import WeaponType
-    from src.classes.auxiliary import Auxiliary
-    from src.classes.elixir import Elixir, ElixirType
-    from src.classes.cultivation import Realm
+    from src.classes.items.auxiliary import Auxiliary
+    from src.classes.items.elixir import Elixir, ElixirType
+    from src.systems.cultivation import Realm
 
     # Weapon
     w = Weapon(

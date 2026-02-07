@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import Optional, Iterable, TYPE_CHECKING
 
-from src.classes.tile import get_avatar_distance
+from src.classes.environment.tile import get_avatar_distance
 from src.classes.observe import get_observable_avatars
-from src.classes.normalize import normalize_avatar_name
+from src.utils.normalize import normalize_avatar_name
 from src.utils.resolution import resolve_query
 # 注意：避免在此处直接引入 Avatar 导致循环引用，使用 TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 class TargetingMixin:
@@ -26,7 +26,7 @@ class TargetingMixin:
             
         # 动态导入 Avatar 类以进行类型检查，或者直接依赖 resolve_query 的内部逻辑
         # 这里 resolve_query 需要 world 上下文
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
         res = resolve_query(name, self.world, expected_types=[Avatar])
         return res.obj
 

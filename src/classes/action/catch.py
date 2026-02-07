@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
-from src.classes.region import NormalRegion
+from src.classes.environment.region import NormalRegion
 from src.classes.spirit_animal import SpiritAnimal
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 if TYPE_CHECKING:
     from src.classes.animal import Animal

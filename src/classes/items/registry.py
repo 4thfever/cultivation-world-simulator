@@ -1,7 +1,7 @@
 from typing import Dict, Type, TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from src.classes.item import Item
+    from src.classes.items.item import Item
 
 class ItemRegistry:
     """全局物品注册表"""

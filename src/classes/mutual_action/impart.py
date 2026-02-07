@@ -11,7 +11,7 @@ from src.classes.relation.relation import Relation
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action

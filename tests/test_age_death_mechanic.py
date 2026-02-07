@@ -1,6 +1,6 @@
 import pytest
 from src.classes.age import Age
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 class TestAgeDeathMechanic:
     """测试新的寿命与老死机制"""

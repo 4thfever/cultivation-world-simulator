@@ -12,13 +12,13 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-from src.classes.world import World
-from src.classes.map import Map
-from src.classes.tile import TileType
-from src.classes.calendar import Month, Year, create_month_stamp, MonthStamp
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.world import World
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
+from src.systems.time import Month, Year, create_month_stamp, MonthStamp
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.event import Event
 from src.classes.event_storage import EventStorage
 from src.sim.managers.event_manager import EventManager

@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import MagicMock, patch, ANY
 from src.classes.action.retreat import Retreat
 from src.classes.action_runtime import ActionStatus
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.i18n import t
 
 class TestActionRetreat:

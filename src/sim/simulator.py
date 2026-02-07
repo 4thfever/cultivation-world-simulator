@@ -1,19 +1,19 @@
 import random
 import asyncio
 
-from src.classes.calendar import Month, Year, MonthStamp
-from src.classes.avatar import Avatar, Gender
+from src.systems.time import Month, Year, MonthStamp
+from src.classes.core.avatar import Avatar, Gender
 from src.sim.avatar_awake import process_awakening
 from src.classes.age import Age
-from src.classes.cultivation import Realm
-from src.classes.world import World
+from src.systems.cultivation import Realm
+from src.classes.core.world import World
 from src.classes.event import Event, is_null_event
 from src.classes.ai import llm_ai
-from src.classes.name import get_random_name
+from src.utils.name_generator import get_random_name
 from src.utils.config import CONFIG
 from src.run.log import get_logger
-from src.classes.fortune import try_trigger_fortune
-from src.classes.misfortune import try_trigger_misfortune
+from src.systems.fortune import try_trigger_fortune
+from src.systems.fortune import try_trigger_misfortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
@@ -33,7 +33,7 @@ class Simulator:
         2. 自动占据无主洞府（如果自己没有洞府）
         """
         from src.classes.observe import get_avatar_observation_radius
-        from src.classes.region import CultivateRegion
+        from src.classes.environment.region import CultivateRegion
 
         events = []
         # 1. 缓存当前有洞府的角色ID

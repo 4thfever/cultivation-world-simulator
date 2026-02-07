@@ -3,7 +3,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 from src.classes.language import language_manager
 from src.utils.df import load_game_configs, game_configs, reload_game_configs
-from src.classes.name import get_random_name, Gender
+from src.utils.name_generator import get_random_name, Gender
 
 class TestCsvI18n:
     """
@@ -153,7 +153,7 @@ class TestCsvI18n:
             # 1. zh-CN
             language_manager.set_language("zh-CN")
             # NameManager auto-reloads on init, but we need to force reload since it's a singleton
-            from src.classes.name import reload as reload_names, _name_manager
+            from src.utils.name_generator import reload as reload_names, _name_manager
             reload_names()
             
             # Check internal lists
@@ -173,5 +173,5 @@ class TestCsvI18n:
         finally:
             # Reset to zh-CN
             language_manager.set_language("zh-CN")
-            from src.classes.name import reload as reload_names
+            from src.utils.name_generator import reload as reload_names
             reload_names()

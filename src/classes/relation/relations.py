@@ -16,7 +16,7 @@ from src.classes.event import Event
 from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 def update_second_degree_relations(avatar: "Avatar") -> None:

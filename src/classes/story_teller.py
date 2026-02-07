@@ -5,7 +5,7 @@ from pathlib import Path
 import random
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name

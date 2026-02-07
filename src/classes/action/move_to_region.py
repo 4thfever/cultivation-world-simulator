@@ -4,8 +4,8 @@ import random
 from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
 from src.classes.event import Event
-from src.classes.region import Region
-from src.classes.sect_region import SectRegion
+from src.classes.environment.region import Region
+from src.classes.environment.sect_region import SectRegion
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority

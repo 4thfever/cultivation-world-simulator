@@ -3,9 +3,9 @@ import os
 from pathlib import Path
 from src.sim.save.save_game import save_game
 from src.sim.load.load_game import load_game
-from src.classes.avatar import Avatar
+from src.classes.core.avatar import Avatar
 from src.classes.death_reason import DeathReason, DeathType
-from src.classes.calendar import MonthStamp, Month, Year, create_month_stamp
+from src.systems.time import MonthStamp, Month, Year, create_month_stamp
 
 def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
     """

@@ -6,9 +6,9 @@ from typing import Optional, Dict
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.weapon_type import WeaponType
-from src.classes.item import Item
+from src.classes.items.item import Item
 
 
 @dataclass
@@ -102,7 +102,7 @@ def _load_weapons_data() -> tuple[Dict[int, Weapon], Dict[str, Weapon]]:
         new_by_name[w.name] = w
         
         # 注册到全局注册表 (注意：ItemRegistry 在外部 reset 之后，这里会重新注册)
-        from src.classes.item_registry import ItemRegistry
+        from src.classes.items.registry import ItemRegistry
         ItemRegistry.register(w.id, w)
 
     return new_by_id, new_by_name

@@ -1,5 +1,5 @@
 import pytest
-from src.classes.cultivation import CultivationProgress, Realm, Stage, REALM_ORDER, LEVELS_PER_REALM
+from src.systems.cultivation import CultivationProgress, Realm, Stage, REALM_ORDER, LEVELS_PER_REALM
 
 def test_breakthrough_normal(dummy_avatar):
     """

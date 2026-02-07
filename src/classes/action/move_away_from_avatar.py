@@ -4,11 +4,11 @@ from src.i18n import t
 from src.classes.action import TimedAction, Move
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
-from src.classes.normalize import normalize_avatar_name
+from src.utils.normalize import normalize_avatar_name
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 class MoveAwayFromAvatar(TimedAction):

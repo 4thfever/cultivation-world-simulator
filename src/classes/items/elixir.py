@@ -7,8 +7,8 @@ from typing import Dict, List, Union, Optional
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.effect import load_effect_from_str, format_effects_to_text
-from src.classes.cultivation import Realm
-from src.classes.item import Item
+from src.systems.cultivation import Realm
+from src.classes.items.item import Item
 
 
 class ElixirType(Enum):
@@ -188,7 +188,7 @@ def _load_elixirs() -> tuple[Dict[int, Elixir], Dict[str, List[Elixir]]]:
         elixirs_by_name[name].append(elixir)
         
         # 注册到全局注册表
-        from src.classes.item_registry import ItemRegistry
+        from src.classes.items.registry import ItemRegistry
         ItemRegistry.register(elixir.id, elixir)
 
     return elixirs_by_id, elixirs_by_name

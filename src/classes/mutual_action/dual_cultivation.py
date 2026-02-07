@@ -12,7 +12,7 @@ from src.classes.story_teller import StoryTeller
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action

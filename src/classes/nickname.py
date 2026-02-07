@@ -5,8 +5,8 @@
 from typing import Optional, List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
-    from src.classes.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 from src.classes.event import Event
 from src.utils.config import CONFIG

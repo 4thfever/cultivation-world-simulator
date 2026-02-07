@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from src.utils.gather import execute_gather, check_can_start_gather
-from src.classes.cultivation import Realm
-from src.classes.region import NormalRegion
+from src.systems.cultivation import Realm
+from src.classes.environment.region import NormalRegion
 
 @pytest.fixture
 def mock_region(dummy_avatar):

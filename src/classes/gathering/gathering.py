@@ -4,7 +4,7 @@ from typing import List, Type, TYPE_CHECKING
 from src.classes.event import Event
 
 if TYPE_CHECKING:
-    from src.classes.world import World
+    from src.classes.core.world import World
 
 class Gathering(ABC):
     """

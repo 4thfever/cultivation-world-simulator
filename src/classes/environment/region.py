@@ -8,14 +8,14 @@ from src.utils.config import CONFIG
 from src.utils.distance import chebyshev_distance
 from src.classes.essence import EssenceType, Essence
 from src.classes.animal import Animal, animals_by_id
-from src.classes.plant import Plant, plants_by_id
-from src.classes.lode import Lode, lodes_by_id
-from src.classes.sect import sects_by_name
-from src.classes.store import StoreMixin
+from src.classes.environment.plant import Plant, plants_by_id
+from src.classes.environment.lode import Lode, lodes_by_id
+from src.classes.core.sect import sects_by_name
+from src.classes.items.store import StoreMixin
 from src.i18n import t
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 

@@ -31,9 +31,9 @@ from datetime import datetime
 from typing import List, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.world import World
+    from src.classes.core.world import World
     from src.sim.simulator import Simulator
-    from src.classes.sect import Sect
+    from src.classes.core.sect import Sect
 
 from src.utils.config import CONFIG
 from src.classes.language import language_manager
@@ -150,7 +150,7 @@ def save_game(
         
         # 构建世界数据
         # 收集有主洞府信息
-        from src.classes.region import CultivateRegion
+        from src.classes.environment.region import CultivateRegion
         cultivate_regions_hosts = {}
         if hasattr(world.map, 'regions'):
              for rid, region in world.map.regions.items():

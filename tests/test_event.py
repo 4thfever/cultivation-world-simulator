@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import MagicMock, patch
 from src.classes.event import Event
 from src.sim.simulator import Simulator
-from src.classes.calendar import create_month_stamp, Year, Month
+from src.systems.time import create_month_stamp, Year, Month
 
 class TestEventLogic:
     
@@ -17,9 +17,9 @@ class TestEventLogic:
 
     @pytest.fixture
     def avatar_b(self, base_world):
-        from src.classes.avatar.core import Avatar, Gender
+        from src.classes.core.avatar.core import Avatar, Gender
         from src.classes.age import Age
-        from src.classes.cultivation import Realm
+        from src.systems.cultivation import Realm
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         

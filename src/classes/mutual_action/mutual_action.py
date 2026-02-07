@@ -16,8 +16,8 @@ from src.classes.action.event_helper import EventHelper
 from src.classes.action.targeting_mixin import TargetingMixin
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
-    from src.classes.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 
 class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):

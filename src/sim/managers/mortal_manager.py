@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 from src.classes.mortal import Mortal
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 
 class MortalManager:
     """

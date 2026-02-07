@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.region import Region
-    from src.classes.avatar import Avatar
+    from src.classes.environment.region import Region
+    from src.classes.core.avatar import Avatar
 
 class TileType(Enum):
     PLAIN = "plain" # 平原
@@ -92,6 +92,10 @@ class Tile():
     x: int
     y: int
     region: 'Region' = None # 可以是一个region的一部分，也可以不属于任何region
+
+    @property
+    def coordinate(self) -> tuple[int, int]:
+        return (self.x, self.y)
 
     @property
     def location_name(self) -> str:

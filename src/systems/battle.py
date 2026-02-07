@@ -7,7 +7,7 @@ from typing import Tuple, TYPE_CHECKING, Callable, Awaitable, Optional
 from src.classes.technique import TechniqueGrade, get_suppression_bonus
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
     from src.classes.event import Event
 
 
@@ -182,7 +182,7 @@ def get_assassination_success_rate(attacker: "Avatar", defender: "Avatar") -> fl
     - 每高一个大境界 +5%，每低一个大境界 -5%
     - 范围 [1%, 100%]
     """
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     realm_order = {
         Realm.Qi_Refinement: 1,
         Realm.Foundation_Establishment: 2,

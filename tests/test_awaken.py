@@ -1,10 +1,10 @@
 import pytest
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm, CultivationProgress
+from src.systems.cultivation import Realm, CultivationProgress
 from src.utils.id_generator import get_avatar_id
 from src.classes.root import Root
-from src.classes.calendar import create_month_stamp, Year, Month
+from src.systems.time import create_month_stamp, Year, Month
 
 def test_register_avatar_buffer(base_world):
     """测试注册新角色时的缓冲区逻辑"""
@@ -48,9 +48,9 @@ async def test_simulator_birth_logic(base_world):
     """测试模拟器中的生子逻辑集成"""
     from src.sim.simulator import Simulator
     from unittest.mock import patch
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
     from src.classes.age import Age
-    from src.classes.cultivation import Realm, CultivationProgress
+    from src.systems.cultivation import Realm, CultivationProgress
     from src.classes.event import Event
     
     # 构造一个简单的模拟返回值

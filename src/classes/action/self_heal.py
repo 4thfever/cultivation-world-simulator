@@ -3,7 +3,7 @@ from __future__ import annotations
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
-from src.classes.sect_region import SectRegion
+from src.classes.environment.sect_region import SectRegion
 
 
 class SelfHeal(TimedAction):

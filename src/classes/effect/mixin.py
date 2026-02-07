@@ -8,7 +8,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from src.classes.avatar.core import Avatar
+    from src.classes.core.avatar.core import Avatar
 
 from .process import _merge_effects, _evaluate_conditional_effect
 from src.classes.hp import HP_MAX_BY_REALM

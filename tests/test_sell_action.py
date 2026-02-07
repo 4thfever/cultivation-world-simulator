@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 from src.classes.action.sell import Sell
-from src.classes.region import CityRegion
+from src.classes.environment.region import CityRegion
 from tests.conftest import create_test_material # Explicit import if needed
 
 def test_sell_material_success(avatar_in_city, mock_item_data):
@@ -159,7 +159,7 @@ def test_sell_priority(avatar_in_city, mock_item_data):
     
     # 构造一个同名的材料
     # 需要从 conftest 导入
-    from src.classes.cultivation import Realm
+    from src.systems.cultivation import Realm
     fake_sword_material = create_test_material("青云剑", Realm.Qi_Refinement)
     
     # 修改 mock，让 "青云剑" 在 materials 里也能找到

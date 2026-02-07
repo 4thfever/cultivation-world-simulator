@@ -8,9 +8,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, List
 
 if TYPE_CHECKING:
-    from src.classes.avatar.core import Avatar
+    from src.classes.core.avatar.core import Avatar
 
-from src.classes.battle import get_base_strength
+from src.systems.battle import get_base_strength
 from src.classes.relation.relation import get_relation_label
 from src.classes.emotions import EMOTION_EMOJIS, EmotionType
 from src.utils.config import CONFIG
@@ -40,7 +40,13 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     relations_info = t("relation_separator").join(relation_lines) if relation_lines else t("None")
     magic_stone_info = str(avatar.magic_stone)
 
-    from src.classes.sect import get_sect_info_with_rank
+    born_region_name = t("Unknown")
+    if avatar.born_region_id and avatar.born_region_id != -1:
+         r = avatar.world.map.regions.get(avatar.born_region_id)
+         if r:
+             born_region_name = r.name
+
+    from src.classes.core.sect import get_sect_info_with_rank
     
     if detailed:
         weapon_info = t("{weapon_name}, Proficiency: {proficiency}%", 
@@ -73,6 +79,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
 
     info_dict = {
         t("Name"): avatar.name,
+        t("Origin"): born_region_name,
         t("Gender"): str(avatar.gender),
         t("Age"): str(avatar.age),
         t("HP"): str(avatar.hp),
@@ -114,9 +121,17 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     from src.i18n import t
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
     
+    born_region_name = t("Unknown")
+    if avatar.born_region_id and avatar.born_region_id != -1:
+         r = avatar.world.map.regions.get(avatar.born_region_id)
+         if r:
+             born_region_name = r.name
+
     info = {
         "id": avatar.id,
         "name": avatar.name,
+        "origin": born_region_name,
+        "born_region_id": avatar.born_region_id,
         "gender": str(avatar.gender),
         "age": avatar.age.age,
         "lifespan": avatar.age.max_lifespan,
@@ -339,8 +354,16 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     detailed=True 时包含详细的效果来源分析。
     """
     from src.i18n import t
+    
+    born_region_name = t("Unknown")
+    if avatar.born_region_id and avatar.born_region_id != -1:
+         r = avatar.world.map.regions.get(avatar.born_region_id)
+         if r:
+             born_region_name = r.name
+
     # 基础描述
     lines = [t("【{name}】 {gender} {age} years old", name=avatar.name, gender=avatar.gender, age=avatar.age)]
+    lines.append(t("Origin: {origin}", origin=born_region_name))
     lines.append(t("Realm: {realm}", realm=avatar.cultivation_progress.get_info()))
     if avatar.sect:
         lines.append(t("Identity: {identity}", identity=avatar.get_sect_str()))

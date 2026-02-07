@@ -2,12 +2,12 @@ import pytest
 from unittest.mock import patch, MagicMock
 from src.classes.mutual_action.gift import Gift
 from src.classes.action_runtime import ActionResult, ActionStatus
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.relation.relation import Relation
 from src.utils.id_generator import get_avatar_id
-from src.classes.calendar import create_month_stamp, Year, Month
+from src.systems.time import create_month_stamp, Year, Month
 
 # -----------------------------------------------------------------------------
 # Fixtures
@@ -157,7 +157,7 @@ class TestGiftAction:
     def test_gift_weapon_target_trade_in(self, gift_action, dummy_avatar, target_avatar, mock_item_data):
         """测试目标已有装备时，收到新装备会自动折价卖出旧的"""
         from tests.conftest import create_test_weapon
-        from src.classes.cultivation import Realm
+        from src.systems.cultivation import Realm
         
         new_weapon = mock_item_data["obj_weapon"]
         dummy_avatar.weapon = new_weapon

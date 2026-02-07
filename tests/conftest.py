@@ -2,7 +2,7 @@ import pytest
 import random
 from unittest.mock import MagicMock, AsyncMock, patch
 
-from src.classes.map import Map
+from src.classes.environment.map import Map
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -52,24 +52,24 @@ def force_chinese_language():
     reload_game_configs()
     
     yield
-from src.classes.tile import TileType, Tile
-from src.classes.world import World
-from src.classes.calendar import Month, Year, create_month_stamp
-from src.classes.avatar import Avatar, Gender
+from src.classes.environment.tile import TileType, Tile
+from src.classes.core.world import World
+from src.systems.time import Month, Year, create_month_stamp
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.utils.id_generator import get_avatar_id
-from src.classes.name import get_random_name
+from src.utils.name_generator import get_random_name
 from src.classes.root import Root
 from src.classes.alignment import Alignment
 
 # Action related imports
-from src.classes.elixir import Elixir, ElixirType
+from src.classes.items.elixir import Elixir, ElixirType
 from src.classes.material import Material
-from src.classes.weapon import Weapon
+from src.classes.items.weapon import Weapon
 from src.classes.weapon_type import WeaponType
-from src.classes.auxiliary import Auxiliary
-from src.classes.region import CityRegion
+from src.classes.items.auxiliary import Auxiliary
+from src.classes.environment.region import CityRegion
 
 @pytest.fixture
 def base_map():

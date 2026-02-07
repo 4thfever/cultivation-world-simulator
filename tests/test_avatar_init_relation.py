@@ -1,10 +1,10 @@
 import pytest
-from src.classes.world import World
-from src.classes.calendar import MonthStamp
+from src.classes.core.world import World
+from src.systems.time import MonthStamp
 from src.classes.age import Age
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.relation.relation import Relation, get_relation_label
-from src.classes.cultivation import CultivationProgress, Realm
+from src.systems.cultivation import CultivationProgress, Realm
 from src.utils.id_generator import get_avatar_id
 from src.sim.avatar_init import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner
 

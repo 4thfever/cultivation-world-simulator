@@ -8,18 +8,18 @@
 import pytest
 from unittest.mock import MagicMock
 
-from src.classes.map import Map
-from src.classes.tile import TileType
-from src.classes.world import World
-from src.classes.calendar import Month, Year, create_month_stamp
-from src.classes.avatar import Avatar, Gender
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
+from src.classes.core.world import World
+from src.systems.time import Month, Year, create_month_stamp
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.root import Root
 from src.classes.alignment import Alignment
-from src.classes.sect import sects_by_id
-from src.classes.sect_region import SectRegion
-from src.classes.region import NormalRegion
+from src.classes.core.sect import sects_by_id
+from src.classes.environment.sect_region import SectRegion
+from src.classes.environment.region import NormalRegion
 from src.utils.id_generator import get_avatar_id
 
 

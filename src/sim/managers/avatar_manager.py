@@ -4,7 +4,7 @@ from typing import Dict, List, TYPE_CHECKING, Iterable
 import itertools
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 from src.classes.observe import get_observable_avatars
 

@@ -6,16 +6,16 @@ from dataclasses import dataclass
 from src.classes.gathering.gathering import Gathering, register_gathering
 from src.classes.event import Event
 if TYPE_CHECKING:
-    from src.classes.world import World
-    from src.classes.avatar import Avatar
+    from src.classes.core.world import World
+    from src.classes.core.avatar import Avatar
 
-from src.classes.item import Item
+from src.classes.items.item import Item
 from src.utils.df import game_configs, get_str, get_float, get_int
-from src.classes.cultivation import Realm, REALM_ORDER, REALM_RANK
+from src.systems.cultivation import Realm, REALM_ORDER, REALM_RANK
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.death import handle_death
-from src.classes.weapon import get_random_weapon_by_realm
-from src.classes.auxiliary import get_random_auxiliary_by_realm
+from src.classes.items.weapon import get_random_weapon_by_realm
+from src.classes.items.auxiliary import get_random_auxiliary_by_realm
 from src.classes.technique import get_random_technique_for_avatar
 from src.i18n import t
 from src.run.log import get_logger
@@ -235,8 +235,8 @@ class HiddenDomain(Gathering):
                 
                 if loot:
                     # 发放奖励
-                    from src.classes.weapon import Weapon
-                    from src.classes.auxiliary import Auxiliary
+                    from src.classes.items.weapon import Weapon
+                    from src.classes.items.auxiliary import Auxiliary
                     from src.classes.technique import Technique
                     from src.classes.prices import prices
                     

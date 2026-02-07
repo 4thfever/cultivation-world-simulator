@@ -5,11 +5,11 @@ from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
-from src.classes.battle import decide_battle, get_effective_strength_pair
+from src.systems.battle import decide_battle, get_effective_strength_pair
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 class Attack(InstantAction, TargetingMixin):
     # 多语言 ID
@@ -31,7 +31,7 @@ class Attack(InstantAction, TargetingMixin):
         return t(cls.STORY_PROMPT_ID)
 
     def _execute(self, avatar_name: str) -> None:
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         if target is None:
             return
@@ -53,7 +53,7 @@ class Attack(InstantAction, TargetingMixin):
         if not avatar_name:
             return False, t("Missing target parameter")
             
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         if target is None:
             return False, t("Target does not exist")
@@ -63,7 +63,7 @@ class Attack(InstantAction, TargetingMixin):
         return True, ""
 
     def start(self, avatar_name: str) -> Event:
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         target_name = target.name if target is not None else avatar_name
         # 展示双方折算战斗力（基于对手、含克制）
@@ -89,11 +89,11 @@ class Attack(InstantAction, TargetingMixin):
         if not (isinstance(res, tuple) and len(res) == 4):
             return []
         
-        from src.classes.avatar import Avatar
+        from src.classes.core.avatar import Avatar
         target = resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
         start_text = getattr(self, '_start_event_content', "")
         
-        from src.classes.battle import handle_battle_finish
+        from src.systems.battle import handle_battle_finish
         return await handle_battle_finish(
             self.world,
             self.avatar,

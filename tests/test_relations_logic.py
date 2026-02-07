@@ -1,10 +1,10 @@
 import pytest
 from src.classes.relation.relation import Relation
 from src.classes.relation.relations import update_second_degree_relations, set_relation
-from src.classes.avatar import Avatar, Gender
+from src.classes.core.avatar import Avatar, Gender
 from src.classes.age import Age
-from src.classes.cultivation import Realm
-from src.classes.calendar import MonthStamp
+from src.systems.cultivation import Realm
+from src.systems.time import MonthStamp
 from src.utils.id_generator import get_avatar_id
 
 def create_avatar(world, name, gender=Gender.MALE):

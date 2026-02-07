@@ -6,7 +6,7 @@ from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action

@@ -5,14 +5,14 @@ from typing import Optional, TYPE_CHECKING, List
 
 from src.i18n import t
 from src.classes.action import TimedAction
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.event import Event
-from src.classes.elixir import get_random_elixir_by_realm
+from src.classes.items.elixir import get_random_elixir_by_realm
 from src.classes.single_choice import handle_item_exchange
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 class Refine(TimedAction):
     """

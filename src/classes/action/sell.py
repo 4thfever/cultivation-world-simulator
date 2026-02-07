@@ -5,12 +5,12 @@ from typing import Tuple, Any
 from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
-from src.classes.region import CityRegion
-from src.classes.normalize import normalize_goods_name
+from src.classes.environment.region import CityRegion
+from src.utils.normalize import normalize_goods_name
 from src.utils.resolution import resolve_query
 from src.classes.material import Material
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
 
 
 class Sell(InstantAction):

@@ -8,7 +8,7 @@ from src.classes.event import Event
 from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 from .mutual_action import MutualAction
 

@@ -3,7 +3,7 @@
 """
 import pytest
 from src.classes.avatar_metrics import AvatarMetrics, MetricTag
-from src.classes.calendar import MonthStamp
+from src.systems.time import MonthStamp
 
 
 def test_avatar_metrics_creation():

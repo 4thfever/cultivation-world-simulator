@@ -5,16 +5,16 @@ from typing import TYPE_CHECKING, Tuple, Any
 from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.event import Event
-from src.classes.region import CityRegion
-from src.classes.elixir import Elixir
+from src.classes.environment.region import CityRegion
+from src.classes.items.elixir import Elixir
 from src.classes.prices import prices
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
 from src.classes.material import Material
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 class Buy(InstantAction):

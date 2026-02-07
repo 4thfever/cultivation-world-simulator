@@ -7,14 +7,14 @@ from src.classes.action import InstantAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
-from src.classes.battle import decide_battle, get_assassination_success_rate
+from src.systems.battle import decide_battle, get_assassination_success_rate
 from src.classes.story_teller import StoryTeller
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.kill_and_grab import kill_and_grab
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action
@@ -132,7 +132,7 @@ class Assassinate(InstantAction, TargetingMixin):
                 
             start_text = getattr(self, '_start_event_content', "")
             
-            from src.classes.battle import handle_battle_finish
+            from src.systems.battle import handle_battle_finish
             return await handle_battle_finish(
                 self.world,
                 self.avatar,

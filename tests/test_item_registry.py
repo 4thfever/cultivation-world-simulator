@@ -1,13 +1,13 @@
 import pytest
-from src.classes.item import Item
-from src.classes.item_registry import ItemRegistry
-from src.classes.weapon import Weapon
-from src.classes.auxiliary import Auxiliary
-from src.classes.elixir import Elixir
-from src.classes.store import StoreMixin
-from src.classes.cultivation import Realm
+from src.classes.items.item import Item
+from src.classes.items.registry import ItemRegistry
+from src.classes.items.weapon import Weapon
+from src.classes.items.auxiliary import Auxiliary
+from src.classes.items.elixir import Elixir
+from src.classes.items.store import StoreMixin
+from src.systems.cultivation import Realm
 from src.classes.weapon_type import WeaponType
-from src.classes.elixir import ElixirType
+from src.classes.items.elixir import ElixirType
 
 # Mock concrete implementations for testing
 class MockItem(Item):
@@ -102,7 +102,7 @@ def test_store_init_mixed_ids_and_names(mock_item_data):
     original_registry = ItemRegistry._items_by_id.copy()
     ItemRegistry._items_by_id.clear()
     
-    from src.classes.weapon import weapons_by_name
+    from src.classes.items.weapon import weapons_by_name
     original_weapons_by_name = weapons_by_name.copy()
     
     try:

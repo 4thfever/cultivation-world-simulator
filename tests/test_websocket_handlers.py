@@ -456,7 +456,7 @@ class TestSerializeEvents:
         """Test serializing event with all fields."""
         from src.server.main import serialize_events_for_client
         from src.classes.event import Event
-        from src.classes.calendar import create_month_stamp, Year, Month
+        from src.systems.time import create_month_stamp, Year, Month
 
         month_stamp = create_month_stamp(Year(100), Month.MARCH)
         event = Event(
@@ -483,7 +483,7 @@ class TestSerializeEvents:
         """Test serializing event with minimal fields."""
         from src.server.main import serialize_events_for_client
         from src.classes.event import Event
-        from src.classes.calendar import create_month_stamp, Year, Month
+        from src.systems.time import create_month_stamp, Year, Month
 
         month_stamp = create_month_stamp(Year(50), Month.JANUARY)
         event = Event(

@@ -6,7 +6,7 @@ from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 async def make_decision(
     avatar: "Avatar", 

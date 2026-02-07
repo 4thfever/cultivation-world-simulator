@@ -16,6 +16,12 @@ msgstr ""
 # Avatar 系統
 # ============================================================================
 # 字段標籤 (info_dict 鍵名)
+msgid "Origin"
+msgstr "出身"
+
+msgid "Origin: {origin}"
+msgstr "出身：{origin}"
+
 msgid "Name"
 msgstr "名字"
 

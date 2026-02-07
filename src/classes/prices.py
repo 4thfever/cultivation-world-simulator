@@ -14,13 +14,13 @@ from __future__ import annotations
 
 from typing import Union, TYPE_CHECKING
 
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 if TYPE_CHECKING:
     from src.classes.material import Material
-    from src.classes.weapon import Weapon
-    from src.classes.auxiliary import Auxiliary
-    from src.classes.avatar import Avatar
+    from src.classes.items.weapon import Weapon
+    from src.classes.items.auxiliary import Auxiliary
+    from src.classes.core.avatar import Avatar
 
 # 类型别名
 Sellable = Union["Material", "Weapon", "Auxiliary"]
@@ -78,9 +78,9 @@ class Prices:
         注意：这是物品的【基准价值】，通常等于玩家【卖出给系统】的基础价格。
         """
         from src.classes.material import Material
-        from src.classes.weapon import Weapon
-        from src.classes.auxiliary import Auxiliary
-        from src.classes.elixir import Elixir
+        from src.classes.items.weapon import Weapon
+        from src.classes.items.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
         
         if isinstance(obj, Material):
             return self.get_material_price(obj)

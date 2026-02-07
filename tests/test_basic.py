@@ -1,4 +1,4 @@
-from src.classes.avatar import Avatar
+from src.classes.core.avatar import Avatar
 # test_basic is now simplified using fixtures
 def test_basic(base_world, dummy_avatar):
     """

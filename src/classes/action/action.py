@@ -9,8 +9,8 @@ from src.classes.action_runtime import ActionResult, ActionStatus
 from src.utils.params import filter_kwargs_for_callable
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
-    from src.classes.world import World
+    from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 
 def long_action(step_month: int):
@@ -155,7 +155,7 @@ class DefineAction(Action):
         if 'start_monthstamp' in data:
             val = data['start_monthstamp']
             if val is not None:
-                from src.classes.calendar import MonthStamp
+                from src.systems.time import MonthStamp
                 self.start_monthstamp = MonthStamp(val)
             else:
                 self.start_monthstamp = None

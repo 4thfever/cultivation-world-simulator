@@ -9,7 +9,7 @@ from src.classes.rarity import Rarity, get_rarity_from_str
 
 if TYPE_CHECKING:
     # 仅用于类型检查，避免运行时循环导入
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 @dataclass
 class Persona:

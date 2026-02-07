@@ -2,8 +2,8 @@
 import pytest
 from unittest.mock import MagicMock, patch, PropertyMock
 from src.classes.action.cultivate import Cultivate
-from src.classes.tile import TileType
-from src.classes.region import CultivateRegion, NormalRegion
+from src.classes.environment.tile import TileType
+from src.classes.environment.region import CultivateRegion, NormalRegion
 from src.classes.event import Event
 from src.classes.root import Root
 from src.classes.essence import EssenceType
@@ -18,7 +18,7 @@ class TestActionCultivate:
         
         # 使用 patch mock 掉 effects 属性
         # 注意：这里会影响 Avatar 类，但在 fixture 作用域结束后会还原
-        with patch('src.classes.avatar.Avatar.effects', new_callable=PropertyMock) as mock_effects:
+        with patch('src.classes.core.avatar.Avatar.effects', new_callable=PropertyMock) as mock_effects:
             mock_effects.return_value = {}
             
             # 重置修炼进度

@@ -1,5 +1,5 @@
 import pytest
-from src.classes.cultivation import Realm, Stage, CultivationProgress
+from src.systems.cultivation import Realm, Stage, CultivationProgress
 
 # ================= Realm Tests =================
 def test_realm_comparison():

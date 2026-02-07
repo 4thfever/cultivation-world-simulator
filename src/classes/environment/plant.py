@@ -4,7 +4,7 @@ from typing import Optional
 from src.utils.df import game_configs, get_str, get_int, get_list_int
 from src.utils.config import CONFIG
 from src.classes.material import Material, materials_by_id
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 @dataclass
 class Plant:

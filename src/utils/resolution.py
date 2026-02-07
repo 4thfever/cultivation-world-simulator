@@ -2,12 +2,12 @@ from __future__ import annotations
 from typing import Any, Type, Optional, List, Union
 from dataclasses import dataclass
 
-from src.classes.normalize import normalize_goods_name, normalize_name, normalize_avatar_name
-from src.classes.elixir import elixirs_by_name, Elixir
-from src.classes.weapon import weapons_by_name, Weapon
-from src.classes.auxiliary import auxiliaries_by_name, Auxiliary
+from src.utils.normalize import normalize_goods_name, normalize_name, normalize_avatar_name
+from src.classes.items.elixir import elixirs_by_name, Elixir
+from src.classes.items.weapon import weapons_by_name, Weapon
+from src.classes.items.auxiliary import auxiliaries_by_name, Auxiliary
 from src.classes.material import materials_by_name, Material
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 
 @dataclass
 class ResolutionResult:
@@ -166,7 +166,7 @@ def _resolve_region(name: str, world: Any) -> Any | None:
         return candidates[0]
         
     # 3. 宗门名称匹配 (解析到宗门驻地)
-    from src.classes.sect import sects_by_name
+    from src.classes.core.sect import sects_by_name
     sect = sects_by_name.get(name) or sects_by_name.get(norm)
     if sect:
         sect_regions = getattr(world.map, "sect_regions", {})

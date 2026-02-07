@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
-from src.classes.battle import decide_battle
+from src.systems.battle import decide_battle
 from src.classes.event import Event
 from src.classes.story_teller import StoryTeller
 from src.classes.action.cooldown import cooldown_action
@@ -13,7 +13,7 @@ from src.classes.action.cooldown import cooldown_action
 from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 
 @cooldown_action

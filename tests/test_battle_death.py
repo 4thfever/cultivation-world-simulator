@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock, AsyncMock, patch
-from src.classes.battle import handle_battle_finish
+from src.systems.battle import handle_battle_finish
 from src.classes.death_reason import DeathType
 
 @pytest.mark.asyncio

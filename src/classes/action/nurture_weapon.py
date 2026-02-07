@@ -23,8 +23,8 @@ class NurtureWeapon(TimedAction):
     duration_months = 3
 
     def _execute(self) -> None:
-        from src.classes.cultivation import Realm
-        from src.classes.weapon import get_random_weapon_by_realm
+        from src.systems.cultivation import Realm
+        from src.classes.items.weapon import get_random_weapon_by_realm
         
         # 温养兵器增加较多熟练度（5-10）
         proficiency_gain = random.uniform(5.0, 10.0)

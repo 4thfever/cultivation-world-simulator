@@ -6,9 +6,9 @@ import sys
 # Ensure project root is in sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.classes.calendar import get_date_str
-from src.classes.sect_region import SectRegion
-from src.classes.world import World
+from src.systems.time import get_date_str
+from src.classes.environment.sect_region import SectRegion
+from src.classes.core.world import World
 from src.classes.language import language_manager
 from src.classes.celestial_phenomenon import CelestialPhenomenon
 from src.run.data_loader import reload_all_static_data

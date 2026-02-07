@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional
 from dataclasses import dataclass
 
 if TYPE_CHECKING:
-    from src.classes.avatar import Avatar
+    from src.classes.core.avatar import Avatar
 
 from src.classes.relation.relation import Relation
 

@@ -15,10 +15,10 @@ from unittest.mock import patch, MagicMock
 
 from fastapi.testclient import TestClient
 
-from src.classes.world import World
-from src.classes.map import Map
-from src.classes.tile import TileType
-from src.classes.calendar import Month, Year, create_month_stamp
+from src.classes.core.world import World
+from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
+from src.systems.time import Month, Year, create_month_stamp
 from src.classes.event import Event
 from src.classes.event_storage import EventStorage
 from src.sim.managers.event_manager import EventManager

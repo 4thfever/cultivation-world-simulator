@@ -5,9 +5,9 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
-from src.classes.cultivation import Realm
+from src.systems.cultivation import Realm
 from src.classes.story_teller import StoryTeller
-from src.classes.tribulation import TribulationSelector
+from src.systems.tribulation import TribulationSelector
 from src.classes.hp import HP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
 
