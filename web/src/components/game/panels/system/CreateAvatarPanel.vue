@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
@@ -8,6 +9,7 @@ const emit = defineEmits<{
   (e: 'created'): void
 }>()
 
+const { t } = useI18n()
 const worldStore = useWorldStore()
 const message = useMessage()
 const loading = ref(false)
@@ -59,23 +61,23 @@ const personaOptions = computed(() => {
 const realmOptions = computed(() => {
   if (!gameData.value) return []
   return gameData.value.realms.map((r, idx) => ({
-    label: r,
+    label: t(`realms.${r}`),
     value: idx * 30 + 1
   }))
 })
 
 const techniqueOptions = computed(() => {
   if (!gameData.value) return []
-  return gameData.value.techniques.map(t => ({
-    label: `${t.name}（${t.attribute}·${t.grade}）`,
-    value: t.id
+  return gameData.value.techniques.map(item => ({
+    label: `${item.name}（${t('attributes.' + item.attribute)}·${t('technique_grades.' + item.grade)}）`,
+    value: item.id
   }))
 })
 
 const weaponOptions = computed(() => {
   if (!gameData.value) return []
   return gameData.value.weapons.map(w => ({
-    label: `${w.name}（${w.type}·${w.grade}）`,
+    label: `${w.name}（${t('game.info_panel.popup.types.' + w.type)}·${t('realms.' + w.grade)}）`,
     value: w.id
   }))
 })
@@ -83,7 +85,7 @@ const weaponOptions = computed(() => {
 const auxiliaryOptions = computed(() => {
   if (!gameData.value) return []
   return gameData.value.auxiliaries.map(a => ({
-    label: `${a.name}（${a.grade}）`,
+    label: `${a.name}（${t('realms.' + a.grade)}）`,
     value: a.id
   }))
 })

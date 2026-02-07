@@ -373,5 +373,28 @@
         "no_bonus": "無特殊加成"
       }
     }
+  },
+  "realms": {
+    "QI_REFINEMENT": "練氣",
+    "FOUNDATION_ESTABLISHMENT": "築基",
+    "CORE_FORMATION": "金丹",
+    "NASCENT_SOUL": "元嬰"
+  },
+  "technique_grades": {
+    "LOWER": "下品",
+    "MIDDLE": "中品",
+    "UPPER": "上品"
+  },
+  "attributes": {
+    "GOLD": "金",
+    "WOOD": "木",
+    "WATER": "水",
+    "FIRE": "火",
+    "EARTH": "土",
+    "ICE": "冰",
+    "WIND": "風",
+    "DARK": "暗",
+    "THUNDER": "雷",
+    "EVIL": "邪"
   }
 }

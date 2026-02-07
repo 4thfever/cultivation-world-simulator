@@ -373,5 +373,28 @@
         "no_bonus": "No special bonus"
       }
     }
+  },
+  "realms": {
+    "QI_REFINEMENT": "Qi Refinement",
+    "FOUNDATION_ESTABLISHMENT": "Foundation Establishment",
+    "CORE_FORMATION": "Core Formation",
+    "NASCENT_SOUL": "Nascent Soul"
+  },
+  "technique_grades": {
+    "LOWER": "Lower",
+    "MIDDLE": "Middle",
+    "UPPER": "Upper"
+  },
+  "attributes": {
+    "GOLD": "Gold",
+    "WOOD": "Wood",
+    "WATER": "Water",
+    "FIRE": "Fire",
+    "EARTH": "Earth",
+    "ICE": "Ice",
+    "WIND": "Wind",
+    "DARK": "Dark",
+    "THUNDER": "Thunder",
+    "EVIL": "Evil"
   }
 }
