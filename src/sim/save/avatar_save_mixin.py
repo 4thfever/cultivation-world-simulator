@@ -65,6 +65,7 @@ class AvatarSaveMixin:
             "gender": self.gender.value,
             "pos_x": self.pos_x,
             "pos_y": self.pos_y,
+            "born_region_id": self.born_region_id,
             
             # 修炼相关
             "age": self.age.to_dict(),

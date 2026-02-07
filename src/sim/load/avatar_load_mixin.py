@@ -78,6 +78,7 @@ class AvatarLoadMixin:
             pos_x=data["pos_x"],
             pos_y=data["pos_y"],
         )
+        avatar.born_region_id = data.get("born_region_id")
         
         # 设置灵根
         avatar.root = Root[data["root"]]
@@ -234,6 +235,12 @@ class AvatarLoadMixin:
             for metrics_data in metrics_history_data
         ]
         avatar.enable_metrics_tracking = data.get("enable_metrics_tracking", False)
+
+        # 恢复子女
+        children_data = data.get("children", [])
+        from src.classes.mortal import Mortal
+        avatar.children = [Mortal.from_dict(child_data) for child_data in children_data]
+        avatar.relation_start_dates = data.get("relation_start_dates", {})
 
         # 加载完成后重新计算effects（确保数值正确）
         avatar.recalc_effects()
