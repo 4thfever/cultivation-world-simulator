@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "Increases Battle Strength based on Spear Proficiency"
+
+msgid "condition_has_spirit_animal"
+msgstr "When possessing a Spirit Animal"
+
+msgid "condition_level_ge_30"
+msgstr "When Level >= 30"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "When unarmed"
+
+msgid "condition_realm_early"
+msgstr "At Qi Refinement or Foundation Establishment stage"
+
+msgid "condition_realm_late"
+msgstr "At Core Formation or Nascent Soul stage"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "At Divinity Transformation stage or higher"
+
+msgid "condition_realm_low"
+msgstr "Below Divinity Transformation stage"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr "Devour souls to plunder lifespan and items; Increases Battle Strength based on soul count"

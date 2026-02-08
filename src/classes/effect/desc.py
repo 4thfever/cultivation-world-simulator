@@ -165,9 +165,13 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
                 parts.append(text)
         return "\n".join(parts)
     
+    # 1. 优先检查是否有自定义的整体描述覆盖
+    if "_desc" in effects:
+        return t(effects["_desc"])
+
     desc_list = []
     for k, v in effects.items():
-        if k in ["when", "duration_month"]:
+        if k in ["when", "duration_month", "when_desc"]:
             continue
             
         # 使用翻译函数获取名称
@@ -190,7 +194,10 @@ def format_effects_to_text(effects: dict[str, Any] | list[dict[str, Any]]) -> st
     
     # 如果有条件，添加条件描述
     if effects.get("when"):
-        cond = translate_condition(str(effects["when"]))
+        if "when_desc" in effects:
+            cond = t(effects["when_desc"])
+        else:
+            cond = translate_condition(str(effects["when"]))
         return f"[{cond}] {text}"
         
     return text

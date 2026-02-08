@@ -198,6 +198,51 @@ text = format_effects_to_text(effects)
 # 英文: "[When avatar.weapon.type == WeaponType.SWORD] Battle Strength +3"
 ```
 
+### 自定义描述与条件 (高级用法)
+
+对于复杂的动态效果（如包含公式）或特殊的代码条件判断，自动生成的文本可能难以阅读。此时可在 effects 配置中使用特殊字段进行覆盖。
+
+#### 1. 覆盖整体描述 (`_desc`)
+
+使用 `_desc` 字段指定一个翻译 Key，该 Key 对应的文本将直接替代整个 Effect 的自动生成描述。常用于隐藏复杂的计算公式。效果采用白描的叙述，不要参杂感情或者氛围叙述。
+
+**CSV 配置示例**:
+```json
+{
+    "extra_battle_strength_points": "3 + avatar.weapon_proficiency * 0.02",
+    "_desc": "effect_god_slaying_spear_desc"
+}
+```
+
+**PO 文件 (`static/locales/zh-CN/game_configs_modules/manual_effects.po`)**:
+```po
+msgid "effect_god_slaying_spear_desc"
+msgstr "基于枪法资质提升战力"
+```
+
+**显示效果**: "基于枪法资质提升战力"
+
+#### 2. 覆盖条件描述 (`when_desc`)
+
+使用 `when_desc` 字段指定一个翻译 Key，用于替代 `when` 字段的代码表达式显示。
+
+**CSV 配置示例**:
+```json
+{
+    "when": "avatar.spirit_animal is not None",
+    "when_desc": "condition_has_spirit_animal",
+    "extra_battle_strength_points": 2
+}
+```
+
+**PO 文件**:
+```po
+msgid "condition_has_spirit_animal"
+msgstr "拥有本命灵兽时"
+```
+
+**显示效果**: "[拥有本命灵兽时] 战力点数 +2"
+
 ### 获取 Effect 来源明细
 
 ```python

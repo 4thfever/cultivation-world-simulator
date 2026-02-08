@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "基于枪法资质提升战力"
+
+msgid "condition_has_spirit_animal"
+msgstr "拥有本命灵兽时"
+
+msgid "condition_level_ge_30"
+msgstr "等级达到30级时"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "未装备武器时"
+
+msgid "condition_realm_early"
+msgstr "处于炼气或筑基期时"
+
+msgid "condition_realm_late"
+msgstr "处于结丹或元婴期时"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "化神期及以上时"
+
+msgid "condition_realm_low"
+msgstr "化神期以下时"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr "吞噬生魂可掠夺寿命与物品；基于生魂数量提升战力"

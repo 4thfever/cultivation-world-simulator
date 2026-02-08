@@ -7,7 +7,7 @@ id,name_id,desc_id,name,rarity,effects,desc,duration_years
 5,CELESTIAL_PHENOMENON_5_NAME,CELESTIAL_PHENOMENON_5_DESC,火劫时代,R,"{extra_battle_strength_points: 5, extra_max_lifespan: -20}",天火燃烧劫数降临，战力暴涨但寿元流逝，当速战速决以命搏天,5
 6,CELESTIAL_PHENOMENON_6_NAME,CELESTIAL_PHENOMENON_6_DESC,土厚之世,R,"{damage_reduction: 0.15, extra_max_hp: 150}",土德厚重载物无疆，身躯坚韧血气充盈，可无惧强敌正面争锋,5
 7,CELESTIAL_PHENOMENON_7_NAME,CELESTIAL_PHENOMENON_7_DESC,五行逆乱,SR,"{extra_cultivate_exp: -10, extra_breakthrough_success_rate: 0.3}",五行失序天地大乱，常规修炼事倍功半，然瓶颈松动宜尝试突破,5
-8,CELESTIAL_PHENOMENON_8_NAME,CELESTIAL_PHENOMENON_8_DESC,天道均衡,SR,"[{when: 'avatar.cultivation_progress.realm.value >= 6', extra_cultivate_exp: -25}, {when: 'avatar.cultivation_progress.realm.value < 6', extra_cultivate_exp: 10}]",天道显化损有余而补不足，高阶修士进境受阻，低阶修士宜抓紧良机追赶,5
+8,CELESTIAL_PHENOMENON_8_NAME,CELESTIAL_PHENOMENON_8_DESC,天道均衡,SR,"[{when: 'avatar.cultivation_progress.realm.value >= 6', when_desc: 'condition_realm_high', extra_cultivate_exp: -25}, {when: 'avatar.cultivation_progress.realm.value < 6', when_desc: 'condition_realm_low', extra_cultivate_exp: 10}]",天道显化损有余而补不足，高阶修士进境受阻，低阶修士宜抓紧良机追赶,5
 9,CELESTIAL_PHENOMENON_9_NAME,CELESTIAL_PHENOMENON_9_DESC,劫数将至,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",劫数降临戾气弥漫，虽战力激增但福缘浅薄，宜如履薄冰谨慎行事,5
 10,CELESTIAL_PHENOMENON_10_NAME,CELESTIAL_PHENOMENON_10_DESC,灵气复苏,SSR,"{extra_cultivate_exp: 25, extra_breakthrough_success_rate: 0.1}",天地灵气井喷复苏，修为进境一日千里，万物竞发宜全力精进,5
 11,CELESTIAL_PHENOMENON_11_NAME,CELESTIAL_PHENOMENON_11_DESC,灵气枯竭,R,{extra_cultivate_exp: -20},灵气枯竭末法将至，修炼如逆水行舟，宜节约资源稳固道心,5

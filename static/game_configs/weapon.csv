@@ -18,7 +18,7 @@ item_id,name_id,desc_id,name,weapon_type,grade,desc,effects
 1027,WEAPON_1027_NAME,WEAPON_1027_DESC,天魔琴,ZITHER,FOUNDATION_ESTABLISHMENT,琴音魔性，扰乱心智。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
 1028,WEAPON_1028_NAME,WEAPON_1028_DESC,鬼笛陈情,FLUTE,FOUNDATION_ESTABLISHMENT,据说能以此笛操控尸傀。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
 1029,WEAPON_1029_NAME,WEAPON_1029_DESC,无影针,HIDDEN_WEAPON,FOUNDATION_ESTABLISHMENT,细若牛毛，来去无影，防不胜防。,{extra_battle_strength_points: 2}
-1030,WEAPON_1030_NAME,WEAPON_1030_DESC,万兽笛,FLUTE,FOUNDATION_ESTABLISHMENT,百兽宗秘制，笛声可安抚或激怒野兽。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', extra_battle_strength_points: 2}]"
+1030,WEAPON_1030_NAME,WEAPON_1030_DESC,万兽笛,FLUTE,FOUNDATION_ESTABLISHMENT,百兽宗秘制，笛声可安抚或激怒野兽。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', when_desc: 'condition_has_spirit_animal', extra_battle_strength_points: 2}]"
 1031,WEAPON_1031_NAME,WEAPON_1031_DESC,血饮狂刀,SABER,FOUNDATION_ESTABLISHMENT,刀身赤红，似渴望饮血。,{extra_battle_strength_points: 2}
 1032,WEAPON_1032_NAME,WEAPON_1032_DESC,玄铁重剑,SWORD,FOUNDATION_ESTABLISHMENT,重剑无锋，大巧不工，独孤求败。,"{extra_battle_strength_points: 2, extra_max_hp: 100}"
 1033,WEAPON_1033_NAME,WEAPON_1033_DESC,紫薇软剑,SWORD,FOUNDATION_ESTABLISHMENT,软若束带，动若灵蛇。,"{extra_battle_strength_points: 2, extra_escape_success_rate: 0.1}"
@@ -26,8 +26,8 @@ item_id,name_id,desc_id,name,weapon_type,grade,desc,effects
 1051,WEAPON_1051_NAME,WEAPON_1051_DESC,青竹蜂云剑,SWORD,CORE_FORMATION,成套飞剑，内蕴辟邪神雷，克制天下邪祟。,{extra_battle_strength_points: 3}
 1052,WEAPON_1052_NAME,WEAPON_1052_DESC,随心铁杆兵,STAFF,CORE_FORMATION,六耳猕猴的兵器，随心变化，大小如意。,"{extra_battle_strength_points: 3, extra_observation_radius: 1}"
 1053,WEAPON_1053_NAME,WEAPON_1053_DESC,五火七禽扇,FAN,CORE_FORMATION,扇面有空中火、石中火、木中火等五火，一扇灰飞烟灭。,"{extra_battle_strength_points: 3, extra_observation_radius: 2}"
-1054,WEAPON_1054_NAME,WEAPON_1054_DESC,弑神枪,SPEAR,NASCENT_SOUL,杀气滔天，曾染魔神之血，枪出无回。,{extra_battle_strength_points: '3 + avatar.weapon_proficiency * 0.02'}
-1055,WEAPON_1055_NAME,WEAPON_1055_DESC,赤锋矛,SPEAR,NASCENT_SOUL,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 3}, {when: 'avatar.cultivation_progress.level >= 30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
+1054,WEAPON_1054_NAME,WEAPON_1054_DESC,弑神枪,SPEAR,NASCENT_SOUL,杀气滔天，曾染魔神之血，枪出无回。,"{extra_battle_strength_points: '3 + avatar.weapon_proficiency * 0.02', _desc: 'effect_god_slaying_spear_desc'}"
+1055,WEAPON_1055_NAME,WEAPON_1055_DESC,赤锋矛,SPEAR,NASCENT_SOUL,赤锋矛，不朽盾，斩尽仙王灭九天。,"[{extra_battle_strength_points: 3}, {when: 'avatar.cultivation_progress.level >= 30', when_desc: 'condition_level_ge_30', extra_battle_strength_points: 2, realm_suppression_bonus: 0.1}]"
 1056,WEAPON_1056_NAME,WEAPON_1056_DESC,斩仙飞刀,HIDDEN_WEAPON,CORE_FORMATION,红葫芦内藏一线毫光，有眉有目。请宝贝转身，神鬼难逃。,"{extra_battle_strength_points: 3, extra_observation_radius: 1, extra_escape_success_rate: 0.15}"
 1057,WEAPON_1057_NAME,WEAPON_1057_DESC,诛仙剑,SWORD,NASCENT_SOUL,非铜非铁亦非钢，曾在须弥山下藏。利气直透九重天。,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.1}"
 1058,WEAPON_1058_NAME,WEAPON_1058_DESC,干将莫邪,SWORD,CORE_FORMATION,挚情之剑，一雌一雄，分则为杀，合则为情。,"{extra_battle_strength_points: 3, extra_max_hp: 150}"
