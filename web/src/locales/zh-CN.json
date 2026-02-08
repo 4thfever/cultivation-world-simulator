@@ -236,10 +236,10 @@
     "confirm": "确认",
     "cancel": "取消",
     "error": "错误",
-    "success": "成功",
-    "prosperity": "繁荣度"
+    "success": "成功"
   },
   "game": {
+    "prosperity": "繁荣度",
     "status_bar": {
       "phenomenon": "天地灵机",
       "effect": "效果：",

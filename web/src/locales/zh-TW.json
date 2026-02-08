@@ -233,10 +233,10 @@
     "confirm": "確認",
     "cancel": "取消",
     "error": "錯誤",
-    "success": "成功",
-    "prosperity": "繁榮度"
+    "success": "成功"
   },
   "game": {
+    "prosperity": "繁榮度",
     "status_bar": {
       "phenomenon": "天地靈機",
       "effect": "效果：",

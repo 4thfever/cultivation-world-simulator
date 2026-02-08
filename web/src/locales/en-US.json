@@ -233,10 +233,10 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "error": "Error",
-    "success": "Success",
-    "prosperity": "Prosperity"
+    "success": "Success"
   },
   "game": {
+    "prosperity": "Prosperity",
     "status_bar": {
       "phenomenon": "World Phenomenon",
       "effect": "Effect: ",

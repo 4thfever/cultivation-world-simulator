@@ -75,7 +75,8 @@ async def test_simulator_birth_logic(base_world):
     # Patch process_awakening
     with patch('src.sim.simulator.process_awakening', side_effect=mock_process_awakening):
         # 执行一次更新
-        events = sim._phase_update_age_and_birth()
+        living_avatars = base_world.avatar_manager.get_living_avatars()
+        events = sim._phase_update_age_and_birth(living_avatars)
     
     # 验证产生了一个新角色
     newly_born = base_world.avatar_manager.pop_newly_born()

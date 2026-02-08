@@ -150,12 +150,21 @@ def save_game(
         
         # 构建世界数据
         # 收集有主洞府信息
-        from src.classes.environment.region import CultivateRegion
+        from src.classes.environment.region import CultivateRegion, CityRegion
         cultivate_regions_hosts = {}
+        regions_status = {}
+        
         if hasattr(world.map, 'regions'):
              for rid, region in world.map.regions.items():
+                 # 保存洞府主人
                  if isinstance(region, CultivateRegion) and region.host_avatar:
                      cultivate_regions_hosts[str(rid)] = region.host_avatar.id
+                 
+                 # 保存城市繁荣度
+                 if isinstance(region, CityRegion):
+                     regions_status[str(rid)] = {
+                         "prosperity": region.prosperity
+                     }
 
         world_data = {
             "month_stamp": int(world.month_stamp),
@@ -165,6 +174,7 @@ def save_game(
             "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
             "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,
             "cultivate_regions_hosts": cultivate_regions_hosts,
+            "regions_status": regions_status,
             # 出世物品流转
             "circulation": world.circulation.to_save_dict(),
             # 世界历史

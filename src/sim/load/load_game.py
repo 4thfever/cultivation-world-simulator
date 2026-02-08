@@ -265,7 +265,9 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         
         # 恢复洞府主人关系
         cultivate_regions_hosts = world_data.get("cultivate_regions_hosts", {})
-        from src.classes.environment.region import CultivateRegion
+        regions_status = world_data.get("regions_status", {})
+        
+        from src.classes.environment.region import CultivateRegion, CityRegion
         for rid_str, avatar_id in cultivate_regions_hosts.items():
             rid = int(rid_str)
             if rid in game_map.regions:
@@ -274,6 +276,14 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                     avatar = all_avatars[avatar_id]
                     # 使用 occupy_region 建立双向绑定
                     avatar.occupy_region(region)
+        
+        # 恢复区域状态 (如城市繁荣度)
+        for rid_str, status in regions_status.items():
+            rid = int(rid_str)
+            if rid in game_map.regions:
+                region = game_map.regions[rid]
+                if isinstance(region, CityRegion):
+                    region.prosperity = status.get("prosperity", 50)
         
         # 重建宗门成员关系与功法列表
         from src.classes.technique import techniques_by_name

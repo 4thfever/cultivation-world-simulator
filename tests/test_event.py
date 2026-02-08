@@ -146,7 +146,8 @@ class TestEventLogic:
         mock_llm_managers["rr"].return_value = [Event(base_world.month_stamp, "关系进化了", related_avatars=[avatar_a.id, avatar_b.id])]
         
         # 3. 执行关系演化阶段
-        events = await sim._phase_evolve_relations()
+        living_avatars = base_world.avatar_manager.get_living_avatars()
+        events = await sim._phase_evolve_relations(living_avatars)
         
         # 4. 验证
         assert len(events) == 1

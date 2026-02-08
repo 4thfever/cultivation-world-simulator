@@ -104,3 +104,59 @@ class TestProsperity:
         city.prosperity = 100
         sim._phase_update_region_prosperity()
         assert city.prosperity == 100
+
+    def test_save_load_prosperity(self, base_world, mock_saves_dir):
+        """测试繁荣度状态的存档和读档"""
+        from src.sim.save.save_game import save_game
+        from src.sim.load.load_game import load_game
+        from src.classes.environment.tile import Tile, TileType
+        from src.utils.config import CONFIG
+        
+        sim = Simulator(base_world)
+        
+        # 1. 设置世界状态：包含一个自定义繁荣度的城市
+        city = CityRegion(id=999, name="SaveLoadCity", desc="Test")
+        city.prosperity = 88  # 非默认值
+        
+        # 注入到地图
+        tile = Tile(0, 0, TileType.CITY)
+        tile.region = city
+        base_world.map.tiles[(0, 0)] = tile
+        base_world.map.regions[999] = city
+        
+        # 2. 保存游戏
+        save_path = mock_saves_dir / "test_prosperity_save.json"
+        success, _ = save_game(base_world, sim, [], save_path=save_path)
+        assert success
+        
+        # 3. 加载游戏
+        # load_game 会重新加载地图数据，我们需要 patch load_map 
+        # 或者 确保我们的 mock map 数据能被 load 逻辑覆盖
+        # 但 load_game 内部调用 load_cultivation_world_map() 重新生成地图
+        # 所以我们必须 mock load_cultivation_world_map 来返回我们需要验证的地图结构
+        # 或者，更简单地，我们只验证 logic 是否尝试恢复
+        
+        # 为了进行真正的集成测试，我们需要 mock load_cultivation_world_map 
+        # 让它返回一个包含我们目标 ID 的地图
+        
+        with pytest.MonkeyPatch.context() as m:
+            # 创建一个新的空地图用于加载
+            from src.classes.environment.map import Map
+            empty_map = Map(10, 10)
+            # 在新地图中预置该城市（初始繁荣度默认为50）
+            new_city = CityRegion(id=999, name="SaveLoadCity", desc="Test")
+            new_tile = Tile(0, 0, TileType.CITY)
+            new_tile.region = new_city
+            empty_map.tiles[(0, 0)] = new_tile
+            empty_map.regions[999] = new_city
+            
+            # Mock load_cultivation_world_map
+            # 注意：load_game 内部是从 src.run.load_map 导入的，所以我们需要 patch 那个位置
+            # 或者 patch sys.modules 中的 src.run.load_map
+            m.setattr("src.run.load_map.load_cultivation_world_map", lambda: empty_map)
+            
+            loaded_world, _, _ = load_game(save_path)
+            
+            # 4. 验证加载后的繁荣度
+            loaded_city = loaded_world.map.regions[999]
+            assert loaded_city.prosperity == 88

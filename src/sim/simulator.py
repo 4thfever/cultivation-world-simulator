@@ -1,5 +1,6 @@
 import random
 import asyncio
+from typing import TYPE_CHECKING
 
 from src.systems.time import Month, Year, MonthStamp
 from src.classes.core.avatar import Avatar, Gender
@@ -17,24 +18,26 @@ from src.systems.fortune import try_trigger_misfortune
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
-from src.classes.death_reason import DeathReason
+from src.classes.death_reason import DeathReason, DeathType
 from src.i18n import t
-from src.i18n import t
+from src.classes.observe import get_avatar_observation_radius
+from src.classes.environment.region import CultivateRegion, CityRegion
+from src.classes.birth import process_births
+from src.classes.nickname import process_avatar_nickname
+from src.classes.relation.relation_resolver import RelationResolver
+from src.classes.relation.relations import update_second_degree_relations
 
 class Simulator:
     def __init__(self, world: World):
         self.world = world
         self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month  # 从配置文件读取NPC每月觉醒率（凡人晋升修士）
 
-    def _phase_update_perception_and_knowledge(self):
+    def _phase_update_perception_and_knowledge(self, living_avatars: list[Avatar]):
         """
         感知更新阶段：
         1. 基于感知范围更新 known_regions
         2. 自动占据无主洞府（如果自己没有洞府）
         """
-        from src.classes.observe import get_avatar_observation_radius
-        from src.classes.environment.region import CultivateRegion
-
         events = []
         # 1. 缓存当前有洞府的角色ID
         avatars_with_home = set()
@@ -49,7 +52,7 @@ class Simulator:
                 avatars_with_home.add(r.host_avatar.id)
 
         # 2. 遍历所有存活角色
-        for avatar in self.world.avatar_manager.get_living_avatars():
+        for avatar in living_avatars:
             # ...
             # 计算感知半径（曼哈顿距离）
             radius = get_avatar_observation_radius(avatar)
@@ -94,13 +97,13 @@ class Simulator:
                             events.append(event)
         return events
 
-    async def _phase_decide_actions(self):
+    async def _phase_decide_actions(self, living_avatars: list[Avatar]):
         """
         决策阶段：仅对需要新计划的角色调用 AI（当前无动作且无计划），
         将 AI 的决策结果加载为角色的计划链。
         """
         avatars_to_decide = []
-        for avatar in self.world.avatar_manager.get_living_avatars():
+        for avatar in living_avatars:
             if avatar.current_action is None and not avatar.has_plans():
                 avatars_to_decide.append(avatar)
         if not avatars_to_decide:
@@ -112,38 +115,43 @@ class Simulator:
             # 仅入队计划，不在此处添加开始事件，避免与提交阶段重复
             avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, short_term_objective)
 
-    def _phase_commit_next_plans(self):
+    def _phase_commit_next_plans(self, living_avatars: list[Avatar]):
         """
         提交阶段：为空闲角色提交计划中的下一个可执行动作，返回开始事件集合。
         """
         events = []
-        for avatar in self.world.avatar_manager.get_living_avatars():
+        for avatar in living_avatars:
             if avatar.current_action is None:
                 start_event = avatar.commit_next_plan()
                 if start_event is not None and not is_null_event(start_event):
                     events.append(start_event)
         return events
 
-    async def _phase_execute_actions(self):
+    async def _phase_execute_actions(self, living_avatars: list[Avatar]):
         """
         执行阶段：推进当前动作，支持同月链式抢占即时结算，返回期间产生的事件。
-
-        TODO: 为单个角色的 tick_action() 添加 try-except 处理。
         """
         events = []
-        MAX_LOCAL_ROUNDS = 3
+        MAX_LOCAL_ROUNDS = CONFIG.game.max_action_rounds_per_turn
         
         # Round 1: 全员执行一次
         avatars_needing_retry = set()
-        for avatar in self.world.avatar_manager.get_living_avatars():
-            new_events = await avatar.tick_action()
-            if new_events:
-                events.extend(new_events)
-            
-            # 检查是否有新动作产生（抢占/连招），如果有则加入下一轮
-            # 注意：tick_action 内部已处理标记清除逻辑，仅当动作发生切换时才会保留 True
-            if getattr(avatar, "_new_action_set_this_step", False):
-                avatars_needing_retry.add(avatar)
+        for avatar in living_avatars:
+            try:
+                new_events = await avatar.tick_action()
+                if new_events:
+                    events.extend(new_events)
+                
+                # 检查是否有新动作产生（抢占/连招），如果有则加入下一轮
+                # 注意：tick_action 内部已处理标记清除逻辑，仅当动作发生切换时才会保留 True
+                if getattr(avatar, "_new_action_set_this_step", False):
+                    avatars_needing_retry.add(avatar)
+            except Exception as e:
+                # 记录详细错误日志
+                get_logger().logger.error(f"Avatar {avatar.name}({avatar.id}) tick_action failed: {e}", exc_info=True)
+                # 确保不会进入重试逻辑
+                if hasattr(avatar, "_new_action_set_this_step"):
+                     avatar._new_action_set_this_step = False
 
         # Round 2+: 仅执行有新动作的角色，避免无辜角色重复执行
         round_count = 1
@@ -152,33 +160,40 @@ class Simulator:
             avatars_needing_retry.clear()
             
             for avatar in current_avatars:
-                new_events = await avatar.tick_action()
-                if new_events:
-                    events.extend(new_events)
-                
-                # 再次检查
-                if getattr(avatar, "_new_action_set_this_step", False):
-                    avatars_needing_retry.add(avatar)
+                try:
+                    new_events = await avatar.tick_action()
+                    if new_events:
+                        events.extend(new_events)
+                    
+                    # 再次检查
+                    if getattr(avatar, "_new_action_set_this_step", False):
+                        avatars_needing_retry.add(avatar)
+                except Exception as e:
+                    get_logger().logger.error(f"Avatar {avatar.name}({avatar.id}) retry tick_action failed: {e}", exc_info=True)
+                    if hasattr(avatar, "_new_action_set_this_step"):
+                        avatar._new_action_set_this_step = False
             
             round_count += 1
             
         return events
 
-    def _phase_resolve_death(self):
+    def _phase_resolve_death(self, living_avatars: list[Avatar]):
         """
         结算死亡：
         - 战斗死亡已在 Action 中结算
         - 此时剩下的 avatars 都是存活的，只需检查非战斗因素（如老死、被动掉血）
+        
+        注意：如果发现死亡，会从传入的 living_avatars 列表中移除，避免后续阶段继续处理。
         """
-        from src.classes.death_reason import DeathReason, DeathType
-
         events = []
-        for avatar in self.world.avatar_manager.get_living_avatars():
+        dead_avatars = []
+        
+        for avatar in living_avatars:
             is_dead = False
             death_reason: DeathReason | None = None
             
             # 优先判定重伤（可能是被动效果导致）
-            if avatar.hp.cur <= 0: # 注意：这里应该是 avatar.hp.cur 或者 avatar.hp <= 0 取决于 HP 类的实现，原代码是 avatar.hp <= 0
+            if avatar.hp.cur <= 0:
                 is_dead = True
                 death_reason = DeathReason(DeathType.SERIOUS_INJURY)
             # 其次判定寿元
@@ -190,15 +205,21 @@ class Simulator:
                 event = Event(self.world.month_stamp, f"{avatar.name}{death_reason}", related_avatars=[avatar.id])
                 events.append(event)
                 handle_death(self.world, avatar, death_reason)
+                dead_avatars.append(avatar)
+        
+        # 从当前引用的列表中移除，确保后续 Phase 不再处理
+        for dead in dead_avatars:
+            if dead in living_avatars:
+                living_avatars.remove(dead)
                 
         return events
 
-    def _phase_update_age_and_birth(self):
+    def _phase_update_age_and_birth(self, living_avatars: list[Avatar]):
         """
         更新存活角色年龄，并以一定概率生成新修士，返回期间产生的事件集合。
         """
         events = []
-        for avatar in self.world.avatar_manager.get_living_avatars():
+        for avatar in living_avatars:
             avatar.update_age(self.world.month_stamp)
             
         # 1. 凡人管理：清理老死凡人
@@ -210,14 +231,13 @@ class Simulator:
             events.extend(awakening_events)
             
         # 3. 道侣生子
-        from src.classes.birth import process_births
         birth_events = process_births(self.world)
         if birth_events:
             events.extend(birth_events)
             
         return events
 
-    async def _phase_passive_effects(self):
+    async def _phase_passive_effects(self, living_avatars: list[Avatar]):
         """
         被动结算阶段：
         - 处理丹药过期
@@ -225,7 +245,6 @@ class Simulator:
         - 触发奇遇（非动作）
         """
         events = []
-        living_avatars = self.world.avatar_manager.get_living_avatars()
         for avatar in living_avatars:
             # 1. 处理丹药过期
             avatar.process_elixir_expiration(int(self.world.month_stamp))
@@ -241,27 +260,23 @@ class Simulator:
                 
         return events
     
-    async def _phase_nickname_generation(self):
+    async def _phase_nickname_generation(self, living_avatars: list[Avatar]):
         """
         绰号生成阶段
         """
-        from src.classes.nickname import process_avatar_nickname
-        
         # 并发执行
-        living_avatars = self.world.avatar_manager.get_living_avatars()
         tasks = [process_avatar_nickname(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
         events = [e for e in results if e]
         return events
     
-    async def _phase_long_term_objective_thinking(self):
+    async def _phase_long_term_objective_thinking(self, living_avatars: list[Avatar]):
         """
         长期目标思考阶段
         检查角色是否需要生成/更新长期目标
         """
         # 并发执行
-        living_avatars = self.world.avatar_manager.get_living_avatars()
         tasks = [process_avatar_long_term_objective(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
@@ -335,7 +350,6 @@ class Simulator:
         """
         每月城市繁荣度自然恢复
         """
-        from src.classes.environment.region import CityRegion
         for region in self.world.map.regions.values():
             if isinstance(region, CityRegion):
                 region.change_prosperity(1)
@@ -377,16 +391,12 @@ class Simulator:
         if new_interactions:
             self._phase_process_interactions(new_interactions)
 
-    async def _phase_evolve_relations(self):
+    async def _phase_evolve_relations(self, living_avatars: list[Avatar]):
         """
         关系演化阶段：检查并处理满足条件的角色关系变化
         """
-        from src.classes.relation.relation_resolver import RelationResolver
-        
         pairs_to_resolve = []
         processed_pairs = set() # (id1, id2) id1 < id2
-        
-        living_avatars = self.world.avatar_manager.get_living_avatars()
         
         for avatar in living_avatars:
             target_ids = list(avatar.relation_interaction_states.keys())
@@ -450,44 +460,47 @@ class Simulator:
         17. (每年1月) 清理由于时间久远而被遗忘的死者
         18. 归档与时间推进
         """
+        # 0. 缓存本月存活角色列表 (在后续阶段中复用，并在死亡阶段维护)
+        living_avatars = self.world.avatar_manager.get_living_avatars()
+
         events: list[Event] = []
         processed_event_ids: set[str] = set()
 
         # 1. 感知与认知更新
-        events.extend(self._phase_update_perception_and_knowledge())
+        events.extend(self._phase_update_perception_and_knowledge(living_avatars))
 
         # 2. 长期目标思考
-        events.extend(await self._phase_long_term_objective_thinking())
+        events.extend(await self._phase_long_term_objective_thinking(living_avatars))
 
         # 3. Gathering 结算
         events.extend(await self._phase_process_gatherings())
 
         # 4. 决策阶段
-        await self._phase_decide_actions()
+        await self._phase_decide_actions(living_avatars)
 
         # 5. 提交阶段
-        events.extend(self._phase_commit_next_plans())
+        events.extend(self._phase_commit_next_plans(living_avatars))
 
         # 6. 执行阶段
-        events.extend(await self._phase_execute_actions())
+        events.extend(await self._phase_execute_actions(living_avatars))
 
         # 7. 处理初步交互计数
         self._phase_handle_interactions(events, processed_event_ids)
 
         # 8. 关系演化
-        events.extend(await self._phase_evolve_relations())
+        events.extend(await self._phase_evolve_relations(living_avatars))
 
-        # 9. 结算死亡
-        events.extend(self._phase_resolve_death())
+        # 9. 结算死亡 (注意：此处会修改 living_avatars 列表)
+        events.extend(self._phase_resolve_death(living_avatars))
 
         # 10. 年龄与新生
-        events.extend(self._phase_update_age_and_birth())
+        events.extend(self._phase_update_age_and_birth(living_avatars))
 
         # 11. 被动结算
-        events.extend(await self._phase_passive_effects())
+        events.extend(await self._phase_passive_effects(living_avatars))
 
         # 12. 绰号生成
-        events.extend(await self._phase_nickname_generation())
+        events.extend(await self._phase_nickname_generation(living_avatars))
 
         # 13. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
@@ -499,12 +512,14 @@ class Simulator:
         self._phase_handle_interactions(events, processed_event_ids)
 
         # 16. (每年1月) 更新计算关系 (二阶关系)
-        self._phase_update_calculated_relations()
+        self._phase_update_calculated_relations(living_avatars)
         
         # 17. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:
-            # 20年写死或者做成 CONFIG.game.dead_cleanup_years
-            cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(self.world.month_stamp, 20)
+            cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(
+                self.world.month_stamp, 
+                CONFIG.game.long_dead_cleanup_years
+            )
             if cleaned_count > 0:
                 # 记录日志，但不产生游戏内事件
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
@@ -512,7 +527,7 @@ class Simulator:
         # 18. 归档与时间推进
         return self._finalize_step(events)
 
-    def _phase_update_calculated_relations(self):
+    def _phase_update_calculated_relations(self, living_avatars: list[Avatar]):
         """
         每年 1 月刷新全服角色的二阶关系缓存
         """
@@ -520,9 +535,6 @@ class Simulator:
         if self.world.month_stamp.get_month() != Month.JANUARY:
             return
 
-        from src.classes.relation.relations import update_second_degree_relations
-        living_avatars = self.world.avatar_manager.get_living_avatars()
-        
         for avatar in living_avatars:
             update_second_degree_relations(avatar)
 

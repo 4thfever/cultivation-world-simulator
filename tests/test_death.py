@@ -126,7 +126,7 @@ async def test_simulator_resolve_death(base_world, dummy_avatar):
     dummy_avatar.hp.cur = -10
     
     # 执行死亡结算
-    events = sim._phase_resolve_death()
+    events = sim._phase_resolve_death([dummy_avatar])
     
     # 验证
     assert dummy_avatar.is_dead is True

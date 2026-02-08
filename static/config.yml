@@ -32,6 +32,8 @@ game:
   misfortune_probability: 0.005
   birth_rate_per_month: 0.005 # 每月生育概率 (0.5%)
   max_children_per_couple: 2 # 每对道侣最大子女数量
+  max_action_rounds_per_turn: 3 # 每回合动作最大轮数（处理抢占/连招）
+  long_dead_cleanup_years: 20 # 多少年后清理已经完全没有影响力的死者
   gathering:
     auction_trigger_count: 5
 
