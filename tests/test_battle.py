@@ -1,17 +1,19 @@
 import pytest
 import math
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, AsyncMock, patch
 from src.systems.battle import (
     get_base_strength, 
     _combat_strength_vs, 
     _strength_diff, 
     calc_win_rate,
+    handle_battle_finish,
     _REALM_BASE_STRENGTH,
     _STAGE_BONUS_STRENGTH,
     _SUPPRESSION_POINTS
 )
 from src.systems.cultivation import Realm, Stage
 from src.classes.technique import TechniqueAttribute
+from src.classes.death_reason import DeathType
 
 # Helper to create a mock avatar
 def create_mock_avatar(level, realm=None, stage=None, effects=None, technique_attr=None):
@@ -86,6 +88,7 @@ class TestBattleStrength:
         # Test extra strength points from effects
         avatar = create_mock_avatar(1, Realm.Qi_Refinement, Stage.Early_Stage, effects={"extra_battle_strength_points": 5.0})
         strength = get_base_strength(avatar)
+        strength = get_base_strength(avatar)
         assert strength == 15.0
 
 class TestCombatMechanics:
@@ -148,3 +151,53 @@ class TestCombatMechanics:
         expected_diff = 0.0
         assert diff == pytest.approx(expected_diff)
 
+class TestBattleResolution:
+    @pytest.mark.asyncio
+    async def test_attacker_dies_killer_is_winner(self):
+        # Setup mocks
+        world = MagicMock()
+        world.month_stamp = 100
+
+        attacker = MagicMock()
+        attacker.id = "attacker"
+        attacker.name = "Attacker"
+        attacker.hp = -10 # Dead
+
+        defender = MagicMock()
+        defender.id = "defender"
+        defender.name = "Defender"
+        defender.hp = 50 # Alive
+
+        # res: (winner, loser, loser_damage, winner_damage)
+        # Defender wins, Attacker loses
+        res = (defender, attacker, 110, 10)
+
+        start_content = "Battle start"
+        story_prompt = "Story prompt"
+
+        # Patch StoryTeller and handle_death
+        with patch("src.classes.story_teller.StoryTeller.tell_story", new_callable=AsyncMock) as mock_tell_story, \
+             patch("src.classes.death.handle_death") as mock_handle_death:
+            
+            mock_tell_story.return_value = "Story content"
+
+            await handle_battle_finish(
+                world,
+                attacker,
+                defender,
+                res,
+                start_content,
+                story_prompt
+            )
+
+            # Assert handle_death called
+            assert mock_handle_death.called
+
+            # Get the DeathReason object passed to handle_death
+            # handle_death(world, loser, death_reason)
+            call_args = mock_handle_death.call_args
+            death_reason = call_args[0][2]
+
+            assert death_reason.death_type == DeathType.BATTLE
+            # This verifies the fix: it should be winner.name (Defender)
+            assert death_reason.killer_name == defender.name

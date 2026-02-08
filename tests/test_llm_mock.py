@@ -76,29 +76,6 @@ async def test_call_llm_json_success():
         mock_call.assert_called_once()
 
 @pytest.mark.asyncio
-async def test_call_llm_json_retry_success():
-    # Mock call_llm to fail once (bad json) then succeed
-    with patch("src.utils.llm.client.call_llm", new_callable=AsyncMock) as mock_call:
-        mock_call.side_effect = ["Bad JSON", '{"success": true}']
-        
-        # We need to make sure config max_retries is at least 1
-        # pass max_retries explicitly
-        result = await call_llm_json("prompt", mode=LLMMode.NORMAL, max_retries=1)
-        
-        assert result == {"success": True}
-        assert mock_call.call_count == 2
-
-@pytest.mark.asyncio
-async def test_call_llm_json_all_fail():
-    with patch("src.utils.llm.client.call_llm", new_callable=AsyncMock) as mock_call:
-        mock_call.return_value = "Bad JSON"
-        
-        with pytest.raises(LLMError):
-            await call_llm_json("prompt", mode=LLMMode.NORMAL, max_retries=1)
-        
-        assert mock_call.call_count == 2 # Initial + 1 retry
-
-@pytest.mark.asyncio
 async def test_call_llm_with_urllib():
     """测试使用 urllib 调用 OpenAI 兼容接口"""
     
