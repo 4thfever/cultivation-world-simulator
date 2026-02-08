@@ -233,7 +233,8 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "prosperity": "Prosperity"
   },
   "game": {
     "status_bar": {

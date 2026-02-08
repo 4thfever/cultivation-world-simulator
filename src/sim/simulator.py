@@ -331,6 +331,15 @@ class Simulator:
         
         return events
 
+    def _phase_update_region_prosperity(self):
+        """
+        每月城市繁荣度自然恢复
+        """
+        from src.classes.environment.region import CityRegion
+        for region in self.world.map.regions.values():
+            if isinstance(region, CityRegion):
+                region.change_prosperity(1)
+
     def _phase_log_events(self, events):
         """
         将事件写入日志。
@@ -435,8 +444,11 @@ class Simulator:
         11. 被动结算 (丹药、时间效果、奇遇)
         12. 绰号生成
         13. 天地灵机更新
-        14. 处理剩余交互计数 (如奇遇产生的交互)
-        15. 归档与时间推进
+        14. 城市繁荣度更新
+        15. 处理剩余交互计数 (如奇遇产生的交互)
+        16. (每年1月) 更新计算关系 (二阶关系)
+        17. (每年1月) 清理由于时间久远而被遗忘的死者
+        18. 归档与时间推进
         """
         events: list[Event] = []
         processed_event_ids: set[str] = set()
@@ -480,13 +492,16 @@ class Simulator:
         # 13. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 14. 处理剩余阶段的交互计数
+        # 14. 更新城市繁荣度
+        self._phase_update_region_prosperity()
+
+        # 15. 处理剩余阶段的交互计数
         self._phase_handle_interactions(events, processed_event_ids)
 
-        # 15. (每年1月) 更新计算关系 (二阶关系)
+        # 16. (每年1月) 更新计算关系 (二阶关系)
         self._phase_update_calculated_relations()
         
-        # 15.5 (每年1月) 清理由于时间久远而被遗忘的死者
+        # 17. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:
             # 20年写死或者做成 CONFIG.game.dead_cleanup_years
             cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(self.world.month_stamp, 20)
@@ -494,7 +509,7 @@ class Simulator:
                 # 记录日志，但不产生游戏内事件
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
-        # 16. 归档与时间推进
+        # 18. 归档与时间推进
         return self._finalize_step(events)
 
     def _phase_update_calculated_relations(self):

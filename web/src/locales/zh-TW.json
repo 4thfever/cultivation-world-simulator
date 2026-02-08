@@ -233,7 +233,8 @@
     "confirm": "確認",
     "cancel": "取消",
     "error": "錯誤",
-    "success": "成功"
+    "success": "成功",
+    "prosperity": "繁榮度"
   },
   "game": {
     "status_bar": {

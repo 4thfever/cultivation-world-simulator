@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
+from src.classes.environment.region import CityRegion
 import random
 
 
@@ -30,6 +31,11 @@ class DevourPeople(TimedAction):
             gain = random.randint(10, 100)
             current_souls = auxiliary.special_data.get("devoured_souls", 0)
             auxiliary.special_data["devoured_souls"] = min(10000, int(current_souls) + gain)
+            
+            # 若在城市中，大幅降低繁荣度
+            region = self.avatar.tile.region
+            if isinstance(region, CityRegion):
+                region.change_prosperity(-15)
 
     def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])

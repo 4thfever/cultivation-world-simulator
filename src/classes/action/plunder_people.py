@@ -38,6 +38,9 @@ class PlunderPeople(TimedAction):
         # 计算最终收益
         gain = int(base_gain * multiplier)
         self.avatar.magic_stone = self.avatar.magic_stone + gain
+        
+        # 降低繁荣度
+        region.change_prosperity(-5)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

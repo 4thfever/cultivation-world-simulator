@@ -28,8 +28,9 @@ class HelpPeople(TimedAction):
         if not isinstance(region, CityRegion):
             return
         cost = self.COST
-        if getattr(self.avatar.magic_stone, "value", 0) >= cost:
+        if self.avatar.magic_stone >= cost:
             self.avatar.magic_stone = self.avatar.magic_stone - cost
+            region.change_prosperity(3)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

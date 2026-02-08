@@ -221,10 +221,15 @@ class CultivateRegion(Region):
 class CityRegion(Region, StoreMixin):
     """城市区域"""
     sell_item_ids: list[int] = field(default_factory=list)
+    prosperity: int = 50
 
     def __post_init__(self):
         super().__post_init__()
         self.init_store(self.sell_item_ids)
+
+    def change_prosperity(self, delta: int) -> None:
+        """安全修改繁荣度，限制在 0-100 之间"""
+        self.prosperity = max(0, min(100, self.prosperity + delta))
 
     def get_region_type(self) -> str:
         return "city"
@@ -254,4 +259,5 @@ class CityRegion(Region, StoreMixin):
                 store_items_info.append(item_info)
         
         info["store_items"] = store_items_info
+        info["prosperity"] = self.prosperity
         return info

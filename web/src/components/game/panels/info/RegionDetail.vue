@@ -41,6 +41,15 @@ function jumpToAvatar(id: string) {
     <div class="section">
       <div class="section-title">{{ data.type_name }}</div>
       <div class="desc">{{ data.desc }}</div>
+
+      <!-- Prosperity -->
+      <div class="prosperity-container" v-if="data.prosperity !== undefined">
+        <div class="section-title">{{ t('game.prosperity') }}</div>
+        <div class="prosperity-bar">
+          <div class="fill" :style="{ width: data.prosperity + '%', backgroundColor: data.prosperity > 80 ? '#52c41a' : (data.prosperity > 30 ? '#1890ff' : '#ff4d4f') }"></div>
+          <div class="text">{{ data.prosperity }}/100</div>
+        </div>
+      </div>
       
       <!-- Sect Jump Button -->
       <div v-if="data.sect_id" class="actions">
@@ -203,5 +212,39 @@ function jumpToAvatar(id: string) {
 
 .btn.primary:hover {
   background: #1890ff;
+}
+
+.prosperity-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.prosperity-bar {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.prosperity-bar .fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.prosperity-bar .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 </style>
