@@ -187,6 +187,7 @@ class HiddenDomain(Gathering):
         # 记录本次秘境的事件文本和相关角色
         event_texts: List[str] = [open_event_content]
         related_avatars_set: set["Avatar"] = set()
+        empty_handed_avatars: List["Avatar"] = []
         
         # 2. 遍历角色执行逻辑
         for av in entrants:
@@ -201,7 +202,10 @@ class HiddenDomain(Gathering):
             danger_prob = max(0.0, danger_prob)
                 
             # --- 凶险判定 ---
+            triggered_event = False
+            
             if random.random() < danger_prob:
+                triggered_event = True
                 loss_percent = domain.hp_loss_percent
                 damage = int(av.hp.max * loss_percent)
                 av.hp.cur -= damage
@@ -225,6 +229,7 @@ class HiddenDomain(Gathering):
             
             # --- 机缘判定 ---
             if random.random() < drop_prob:
+                triggered_event = True
                 # 获取奖励阶位（高一阶）
                 target_realm = self._get_next_realm(av.cultivation_progress.realm)
                 # 如果已经是最高阶，则维持当前阶位
@@ -271,6 +276,28 @@ class HiddenDomain(Gathering):
                     
                     event_texts.append(event_content)
                     related_avatars_set.add(av)
+
+            if not triggered_event:
+                # 既没死也没拿东西，一无所获
+                empty_handed_avatars.append(av)
+        
+        # 处理一无所获的人
+        if empty_handed_avatars:
+            empty_names = ", ".join([av.name for av in empty_handed_avatars])
+            empty_event_content = t("{names} returned from {domain} empty-handed.", names=empty_names, domain=domain.name)
+            
+            # 作为一个聚合事件添加（避免刷屏）
+            # 或者仅添加到 event_texts 用于生成故事，不作为独立 Event 显示？
+            # 按照需求 "显示所有人的名字 + 均一无所获的文字"，应该也是一条 Log
+            events.append(Event(
+                month_stamp,
+                empty_event_content,
+                related_avatars=[av.id for av in empty_handed_avatars]
+            ))
+            event_texts.append(empty_event_content)
+            # 也要加入 related_avatars_set 以便 story teller 知道他们参与了
+            related_avatars_set.update(empty_handed_avatars)
+
 
         # 3. 生成故事 (StoryTeller)
         # 只有当发生了一些值得记录的事情（死人、或者有人获得重宝）才生成故事，避免刷屏

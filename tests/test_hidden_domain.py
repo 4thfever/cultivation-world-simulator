@@ -244,3 +244,42 @@ async def test_execute_loot_drop(hidden_domain, base_world, dummy_avatar):
     # Check event
     event_texts = [e.content for e in events]
     assert any("GodSlayer" in t for t in event_texts)
+
+@pytest.mark.asyncio
+async def test_execute_empty_handed(hidden_domain, base_world, dummy_avatar):
+    """Test that avatars getting nothing receive an 'empty-handed' event."""
+    # Setup domain: Safe and stingy
+    configs = hidden_domain._load_configs()
+    domain = configs[0]
+    domain.danger_prob = 0.0
+    domain.drop_prob = 0.0
+    hidden_domain._active_domains = [domain]
+    
+    # Setup avatar
+    dummy_avatar.cultivation_progress.realm = Realm.Qi_Refinement
+    base_world.avatar_manager.get_living_avatars = MagicMock(return_value=[dummy_avatar])
+    
+    # Mock story generation to capture inputs
+    hidden_domain._generate_story = AsyncMock(return_value=None)
+    
+    # Execute
+    events = await hidden_domain.execute(base_world)
+    
+    # Extract event texts
+    event_texts = [e.content for e in events]
+    
+    # Verify "empty-handed" event exists
+    # Based on zh-CN: "{names} 在秘境【{domain}】中一无所获，空手而归。"
+    expected_text_part = "一无所获，空手而归"
+    assert any(expected_text_part in t for t in event_texts), f"Expected '{expected_text_part}' in events: {event_texts}"
+    assert any(dummy_avatar.name in t for t in event_texts)
+    
+    # Verify that _generate_story was called
+    # This implies that even with no loot/death, the system considers it a valid story-worthy execution
+    hidden_domain._generate_story.assert_called_once()
+    
+    # Verify the empty-handed event was passed to story generator
+    call_args = hidden_domain._generate_story.call_args
+    # args: (world, domain, event_texts, related_avatars)
+    passed_event_texts = call_args[0][2]
+    assert any(expected_text_part in t for t in passed_event_texts)

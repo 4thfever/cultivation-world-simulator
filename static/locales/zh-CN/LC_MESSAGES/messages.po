@@ -1148,7 +1148,8 @@ msgstr "女"
 # Hidden Domain (秘境)
 # ============================================================================
 msgid "hidden_domain_story_prompt"
-msgstr "描述探索秘境的过程，侧重于遭遇的凶险或获得的机缘，营造神秘和紧张的氛围。"
+msgstr ""
+"描述探索秘境的过程。可以聚焦于单人的经历，也可以描述多人间的互动（如相遇、合作、竞争甚至相互攻击）。内容应涵盖遭遇的凶险、获得的机缘，或是空手而归的失落与遗憾，营造神秘、紧张或充满变数的氛围。"
 
 msgid "Hidden Domains opened: {names}"
 msgstr "{names}"
@@ -1161,6 +1162,9 @@ msgstr "{name} 葬身于秘境【{domain}】。"
 
 msgid "{name} found a treasure {loot} in {domain}!"
 msgstr "{name} 在秘境【{domain}】中觅得宝物【{loot}】！"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} 在秘境【{domain}】中一无所获，空手而归。"
 
 msgid "Perished in a Hidden Domain"
 msgstr "在秘境中陨落"

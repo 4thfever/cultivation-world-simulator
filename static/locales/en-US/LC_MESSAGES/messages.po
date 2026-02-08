@@ -1531,9 +1531,11 @@ msgstr "Female"
 # ============================================================================
 msgid "hidden_domain_story_prompt"
 msgstr ""
-"Describe the exploration of the hidden domain, focusing on the dangers "
-"encountered or the opportunities seized, creating a mysterious and tense "
-"atmosphere."
+"Describe the exploration of the hidden domain. Focus on individual "
+"experiences or interactions between multiple people (such as encounters, "
+"cooperation, competition, or even attacks). Cover dangers encountered, "
+"opportunities gained, or the disappointment of returning empty-handed, "
+"creating a mysterious, tense, or unpredictable atmosphere."
 
 msgid "Hidden Domains opened: {names}"
 msgstr "{names}"
@@ -1546,6 +1548,9 @@ msgstr "{name} perished in the hidden domain {domain}."
 
 msgid "{name} found a treasure {loot} in {domain}!"
 msgstr "{name} found a treasure {loot} in {domain}!"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} returned from {domain} empty-handed."
 
 msgid "Perished in a Hidden Domain"
 msgstr "Perished in a Hidden Domain"
