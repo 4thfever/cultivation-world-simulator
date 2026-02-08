@@ -1161,6 +1161,9 @@ msgstr "Heaven and Earth Phenomenon"
 msgid "Elixir [{name}]"
 msgstr "Elixir [{name}]"
 
+msgid "play_benefit"
+msgstr "Leisure Benefit"
+
 # ============================================================================
 # Elixir System - Elixirs
 # ============================================================================

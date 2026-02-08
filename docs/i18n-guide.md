@@ -1,4 +1,5 @@
 # I18n Maintenance & Development Guide
+注意目前有三个语言：zh-cn, zh-tw, en-us.
 
 ## 1. Critical Warning (PowerShell Users)
 

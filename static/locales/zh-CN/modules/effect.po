@@ -146,3 +146,6 @@ msgstr "天地灵机"
 
 msgid "Elixir [{name}]"
 msgstr "丹药【{name}】"
+
+msgid "play_benefit"
+msgstr "消遣收益"
