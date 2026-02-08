@@ -7,15 +7,15 @@ from src.classes.environment.region import CityRegion
 from src.classes.alignment import Alignment
 
 
-class PlunderMortals(TimedAction):
+class PlunderPeople(TimedAction):
     """
-    在城镇对凡人进行搜刮，获取少量灵石。
+    在城镇对百姓进行搜刮，获取少量灵石。
     仅邪阵营可执行。
     """
 
-    ACTION_NAME_ID = "plunder_mortals_action_name"
-    DESC_ID = "plunder_mortals_description"
-    REQUIREMENTS_ID = "plunder_mortals_requirements"
+    ACTION_NAME_ID = "plunder_people_action_name"
+    DESC_ID = "plunder_people_description"
+    REQUIREMENTS_ID = "plunder_people_requirements"
     
     EMOJI = "💀"
     PARAMS = {}
@@ -48,11 +48,10 @@ class PlunderMortals(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        content = t("{avatar} begins plundering mortals in town", avatar=self.avatar.name)
+        content = t("{avatar} begins plundering people in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
         return []
-

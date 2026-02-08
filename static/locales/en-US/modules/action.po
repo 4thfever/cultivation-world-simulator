@@ -365,16 +365,16 @@ msgstr "Casting succeeded! Obtained {realm} {label} '{item}'"
 msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
 msgstr "{avatar} successfully cast {realm}-tier {label} '{item}'"
 
-# Action: HelpMortals
-msgid "help_mortals_action_name"
-msgstr "Aid Mortals"
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Help People"
 
-msgid "help_mortals_description"
-msgstr "Help mortals in town, consumes small amount of spirit stones"
+msgid "help_people_description"
+msgstr "Help people in town, consumes small amount of spirit stones"
 
-msgid "help_mortals_requirements"
+msgid "help_people_requirements"
 msgstr ""
-"Only in city areas, character alignment must be 'righteous', and have enough"
+"Only in city areas, and have enough"
 " spirit stones"
 
 msgid "Only righteous alignment can execute"
@@ -383,33 +383,33 @@ msgstr "Only righteous alignment can execute"
 msgid "Insufficient spirit stones"
 msgstr "Insufficient spirit stones"
 
-msgid "{avatar} begins helping mortals in town"
-msgstr "{avatar} begins aiding mortals in town"
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} begins aiding people in town"
 
-# Action: PlunderMortals
-msgid "plunder_mortals_action_name"
-msgstr "Plunder Mortals"
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Plunder People"
 
-msgid "plunder_mortals_description"
-msgstr "Plunder mortals in town to obtain small amount of spirit stones"
+msgid "plunder_people_description"
+msgstr "Plunder people in town to obtain small amount of spirit stones"
 
-msgid "plunder_mortals_requirements"
+msgid "plunder_people_requirements"
 msgstr "Only in city areas, and character alignment must be 'evil'"
 
 msgid "Only evil alignment can execute"
 msgstr "Only evil alignment can execute"
 
-msgid "{avatar} begins plundering mortals in town"
-msgstr "{avatar} begins plundering mortals in town"
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} begins plundering people in town"
 
-# Action: DevourMortals
-msgid "devour_mortals_action_name"
-msgstr "Devour Mortals"
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "Devour People"
 
-msgid "devour_mortals_description"
-msgstr "Devour mortals to significantly increase combat power"
+msgid "devour_people_description"
+msgstr "Devour people to significantly increase combat power"
 
-msgid "devour_mortals_requirements"
+msgid "devour_people_requirements"
 msgstr "Possess Ten Thousand Souls Banner"
 
 msgid ""
@@ -417,8 +417,8 @@ msgid ""
 msgstr ""
 "Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
 
-msgid "{avatar} begins devouring mortals in town"
-msgstr "{avatar} begins devouring mortals in town"
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} begins devouring people in town"
 
 # Action: Play
 msgid "play_action_name"
@@ -609,8 +609,8 @@ msgstr "{initiator} invites {target} for dual cultivation"
 msgid "action_dualcultivation_short_name"
 msgstr "Dual Cultivation"
 
-msgid "action_devourmortals_short_name"
-msgstr "Devour Mortals"
+msgid "action_devourpeople_short_name"
+msgstr "Devour People"
 
 # Action: Play Extended
 msgid "action_reading"

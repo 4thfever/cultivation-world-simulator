@@ -27,9 +27,9 @@ from .hunt import Hunt
 from .harvest import Harvest
 from .sell import Sell
 from .attack import Attack
-from .plunder_mortals import PlunderMortals
-from .help_mortals import HelpMortals
-from .devour_mortals import DevourMortals
+from .plunder_people import PlunderPeople
+from .help_people import HelpPeople
+from .devour_people import DevourPeople
 from .self_heal import SelfHeal
 from .catch import Catch
 from .nurture_weapon import NurtureWeapon
@@ -66,9 +66,9 @@ register_action(actual=True)(Hunt)
 register_action(actual=True)(Harvest)
 register_action(actual=True)(Sell)
 register_action(actual=False)(Attack)
-register_action(actual=True)(PlunderMortals)
-register_action(actual=True)(HelpMortals)
-register_action(actual=True)(DevourMortals)
+register_action(actual=True)(PlunderPeople)
+register_action(actual=True)(HelpPeople)
+register_action(actual=True)(DevourPeople)
 register_action(actual=True)(SelfHeal)
 register_action(actual=True)(Catch)
 register_action(actual=True)(NurtureWeapon)
@@ -108,9 +108,9 @@ __all__ = [
     "Harvest",
     "Sell",
     "Attack",
-    "PlunderMortals",
-    "HelpMortals",
-    "DevourMortals",
+    "PlunderPeople",
+    "HelpPeople",
+    "DevourPeople",
     "SelfHeal",
     "Catch",
     "NurtureWeapon",

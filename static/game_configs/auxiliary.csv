@@ -24,5 +24,5 @@ item_id,name_id,desc_id,name,grade,desc,effects
 2061,AUXILIARY_2061_NAME,AUXILIARY_2061_DESC,六道剑匣,金丹,背负六道，剑出轮回，悟剑良伴.,"{extra_breakthrough_success_rate: 0.2, extra_cultivate_exp: 100}"
 2062,AUXILIARY_2062_NAME,AUXILIARY_2062_DESC,传国玉玺,元婴,受命于天，既寿永昌。皇威浩荡，震慑宵小.,{realm_suppression_bonus: 0.15}
 2063,AUXILIARY_2063_NAME,AUXILIARY_2063_DESC,灵眼之泉,金丹,可移动的灵气之源，随身携带的洞天福地.,"{cultivate_duration_reduction: 0.3, extra_cultivate_exp: 50}"
-2064,AUXILIARY_2064_NAME,AUXILIARY_2064_DESC,万魂幡,元婴,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{legal_actions: ['DevourMortals'], extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.15, extra_battle_strength_points: 'avatar.auxiliary.special_data.get(""devoured_souls"", 0) // 100 * 0.1', _desc: 'effect_ten_thousand_souls_banner_desc'}"
+2064,AUXILIARY_2064_NAME,AUXILIARY_2064_DESC,万魂幡,元婴,血海不枯，冥河不死。极度邪恶的掠夺法宝.,"{legal_actions: ['DevourPeople'], extra_plunder_multiplier: 1.0, realm_suppression_bonus: 0.15, extra_battle_strength_points: 'avatar.auxiliary.special_data.get(""devoured_souls"", 0) // 100 * 0.1', _desc: 'effect_ten_thousand_souls_banner_desc'}"
 2065,AUXILIARY_2065_NAME,AUXILIARY_2065_DESC,神木王鼎,元婴,木系至宝，不仅可炼制神丹，鼎中更自成一界，可催熟灵药。,"{extra_refine_success_rate: 0.25, cultivate_duration_reduction: 0.15}"

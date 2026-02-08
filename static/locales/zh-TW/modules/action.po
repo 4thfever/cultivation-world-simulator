@@ -337,14 +337,14 @@ msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
 msgstr "{avatar} 成功鑄造{realm}階{label}『{item}』"
 
 # Action: HelpMortals
-msgid "help_mortals_action_name"
-msgstr "幫助凡人"
+msgid "help_people_action_name"
+msgstr "救濟百姓"
 
-msgid "help_mortals_description"
-msgstr "在城鎮幫助凡人，消耗少量靈石"
+msgid "help_people_description"
+msgstr "在城鎮救濟百姓，消耗少量靈石"
 
-msgid "help_mortals_requirements"
-msgstr "僅限城市區域，且角色陣營爲'正'，並且靈石足夠"
+msgid "help_people_requirements"
+msgstr "僅限城市區域，並且靈石足夠"
 
 msgid "Only righteous alignment can execute"
 msgstr "僅正陣營可執行"
@@ -352,41 +352,41 @@ msgstr "僅正陣營可執行"
 msgid "Insufficient spirit stones"
 msgstr "靈石不足"
 
-msgid "{avatar} begins helping mortals in town"
-msgstr "{avatar} 在城鎮開始幫助凡人"
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} 在城鎮開始救濟百姓"
 
 # Action: PlunderMortals
-msgid "plunder_mortals_action_name"
-msgstr "搜刮凡人"
+msgid "plunder_people_action_name"
+msgstr "搜刮民脂"
 
-msgid "plunder_mortals_description"
-msgstr "在城鎮搜刮凡人，獲取少量靈石"
+msgid "plunder_people_description"
+msgstr "在城鎮搜刮民脂，獲取少量靈石"
 
-msgid "plunder_mortals_requirements"
+msgid "plunder_people_requirements"
 msgstr "僅限城市區域，且角色陣營爲'邪'"
 
 msgid "Only evil alignment can execute"
 msgstr "僅邪陣營可執行"
 
-msgid "{avatar} begins plundering mortals in town"
-msgstr "{avatar} 在城鎮開始搜刮凡人"
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} 在城鎮開始搜刮民脂"
 
 # Action: DevourMortals
-msgid "devour_mortals_action_name"
-msgstr "吞噬凡人"
+msgid "devour_people_action_name"
+msgstr "吞噬生靈"
 
-msgid "devour_mortals_description"
-msgstr "吞噬凡人，較多增加戰力"
+msgid "devour_people_description"
+msgstr "吞噬生靈，較多增加戰力"
 
-msgid "devour_mortals_requirements"
+msgid "devour_people_requirements"
 msgstr "持有萬魂幡"
 
 msgid ""
 "Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
 msgstr "未被允許的非法動作（缺少萬魂幡或權限）"
 
-msgid "{avatar} begins devouring mortals in town"
-msgstr "{avatar} 在城鎮開始吞噬凡人"
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} 在城鎮開始吞噬生靈"
 
 # Action: Play
 msgid "play_action_name"
@@ -563,8 +563,8 @@ msgstr "{initiator} 邀請 {target} 進行雙修"
 msgid "action_dualcultivation_short_name"
 msgstr "雙修"
 
-msgid "action_devourmortals_short_name"
-msgstr "吞噬凡人"
+msgid "action_devourpeople_short_name"
+msgstr "吞噬生靈"
 
 # Action: Play Extended
 msgid "action_reading"

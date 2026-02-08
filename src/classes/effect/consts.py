@@ -356,7 +356,7 @@ EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
 """
 额外搜刮收益倍率
 类型: float
-结算: src/classes/action/plunder_mortals.py
+结算: src/classes/action/plunder_people.py
 说明: 搜刮凡人时的收益倍率。
 数值参考: 
   - 微量: 0.5 
@@ -396,7 +396,7 @@ LEGAL_ACTIONS = "legal_actions"
 结算: 各个 action 的权限检查
 说明: 允许角色执行的特殊动作列表。
 可用值:
-  - "DevourMortals": 吞噬凡人（邪道法宝万魂幡）
+  - "DevourPeople": 吞噬生灵（邪道法宝万魂幡）
 """
 
 # =============================================================================
@@ -409,7 +409,7 @@ CSV 中 effects 列的写法（支持宽松JSON格式）:
 基础格式（推荐无引号key）:
   {extra_battle_strength_points: 3}
   {extra_battle_strength_points: 2, extra_max_hp: 50}
-  {legal_actions: ['DevourMortals']}
+  {legal_actions: ['DevourPeople']}
 
 条件effect（when字段）:
   [{when: 'avatar.weapon.type == WeaponType.SWORD', extra_battle_strength_points: 3}]

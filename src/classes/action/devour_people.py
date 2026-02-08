@@ -6,15 +6,15 @@ from src.classes.event import Event
 import random
 
 
-class DevourMortals(TimedAction):
+class DevourPeople(TimedAction):
     """
-    吞噬凡人：需持有万魂幡，吞噬魂魄可较多增加战力。
+    吞噬生灵：需持有万魂幡，吞噬魂魄可较多增加战力。
     """
     
     # 多语言 ID
-    ACTION_NAME_ID = "devour_mortals_action_name"
-    DESC_ID = "devour_mortals_description"
-    REQUIREMENTS_ID = "devour_mortals_requirements"
+    ACTION_NAME_ID = "devour_people_action_name"
+    DESC_ID = "devour_people_description"
+    REQUIREMENTS_ID = "devour_people_requirements"
     
     # 不需要翻译的常量
     EMOJI = "🩸"
@@ -33,14 +33,12 @@ class DevourMortals(TimedAction):
 
     def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])
-        ok = "DevourMortals" in legal
+        ok = "DevourPeople" in legal
         return (ok, "" if ok else t("Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"))
 
     def start(self) -> Event:
-        content = t("{avatar} begins devouring mortals in town", avatar=self.avatar.name)
+        content = t("{avatar} begins devouring people in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
         return []
-
-

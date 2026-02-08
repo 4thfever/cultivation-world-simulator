@@ -15,7 +15,7 @@ def load_effect_from_str(value: object) -> dict[str, Any] | list[dict[str, Any]]
     1. 标准JSON: {"extra_battle_strength_points": 3}
     2. 单引号: {'extra_battle_strength_points': 3}
     3. 无引号key: {extra_battle_strength_points: 3}
-    4. 混合格式: {extra_battle_strength_points: 3, 'legal_actions': ['DevourMortals']}
+    4. 混合格式: {extra_battle_strength_points: 3, 'legal_actions': ['DevourPeople']}
     5. 条件数组: [{when: 'condition', effect1: value1}, ...]
     
     - value 为 None/空字符串/'nan' 时返回 {}
