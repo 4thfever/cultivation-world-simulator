@@ -243,10 +243,34 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
     if new_relation_str:
         rel = Relation.from_chinese(new_relation_str)
         if rel is not None:
-            set_relation(target, initiator, rel)
+            # 逻辑：new_relation_str 是显示名（如"朋友"），解析为 Relation.IS_FRIEND
+            # 意味着 initiator 和 target 建立这个关系。
+            # 通常 StoryTeller 的语境是：initiator (我) 认为 target (对方) 是 new_relation_str
+            # 所以调用 initiator.set_relation(target, rel)
+            
+            # 使用新语义方法
+            if rel == Relation.IS_MASTER:
+                # initiator 视 target 为 Master -> initiator 拜 target 为师
+                initiator.acknowledge_master(target)
+            elif rel == Relation.IS_DISCIPLE:
+                # initiator 视 target 为 Disciple -> initiator 收 target 为徒
+                initiator.accept_disciple(target)
+            elif rel == Relation.IS_PARENT:
+                initiator.acknowledge_parent(target)
+            elif rel == Relation.IS_CHILD:
+                initiator.acknowledge_child(target)
+            elif rel == Relation.IS_LOVER:
+                initiator.become_lovers_with(target)
+            elif rel == Relation.IS_FRIEND:
+                initiator.make_friend_with(target)
+            elif rel == Relation.IS_ENEMY:
+                initiator.make_enemy_of(target)
+            else:
+                initiator.set_relation(target, rel)
+
             set_event = Event(
                 month_stamp, 
-                f"{target.name} 与 {initiator.name} 的关系变为：{str(rel)}", 
+                f"{initiator.name} 与 {target.name} 的关系变为：{str(rel)}", 
                 related_avatars=[initiator.id, target.id],
                 is_major=True
             )
@@ -256,11 +280,11 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
     if cancel_relation_str:
         rel = Relation.from_chinese(cancel_relation_str)
         if rel is not None:
-            success = cancel_relation(target, initiator, rel)
+            success = cancel_relation(initiator, target, rel)
             if success:
                 cancel_event = Event(
                     month_stamp, 
-                    f"{target.name} 与 {initiator.name} 取消了关系：{str(rel)}", 
+                    f"{initiator.name} 与 {target.name} 取消了关系：{str(rel)}", 
                     related_avatars=[initiator.id, target.id],
                     is_major=True
                 )

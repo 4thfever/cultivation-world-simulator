@@ -80,6 +80,7 @@ class RelationResolver:
 
         # 解析关系枚举
         try:
+            # 尝试通过新名称获取
             rel = Relation[rel_name]
         except KeyError:
             return None
@@ -88,32 +89,42 @@ class RelationResolver:
         event = None
             
         if c_type == "ADD":
-            # 检查是否已有
-            # Prompt 定义：输出 MASTER 意味着 A 是 B 的师傅
-            # 代码逻辑：set_relation(from, to, rel) -> from.relations[to] = rel (from 认为 to 是 rel)
-            # 因此，如果 LLM 输出 MASTER (A 是师傅)，意味着 A 认为 B 是徒弟(APPRENTICE)，B 认为 A 是师傅(MASTER)
-            # 所以我们要调用 set_relation(B, A, MASTER) 或者 set_relation(A, B, APPRENTICE)
-            # 统一逻辑：以“谁视谁为某个关系”来思考。
-            # 如果 rel 是 A 的身份（如 MASTER），则 B 视 A 为 rel。
-            # 调用 set_relation(B, A, rel) 会设置 B.relations[A] = rel
-            # set_relation 内部会自动处理对偶关系，所以 A.relations[B] 也会被设为 APPRENTICE
+            # 逻辑说明：如果 LLM 输出 "IS_MASTER" (Key) 或 "master" (Value)
+            # 意味着 A 是 B 的 Master。
+            # set_relation(from, to, rel) 意为：from 认为 to 是 rel。
+            # 如果 A 是 B 的 Master，那么 B 应该认为 A 是 IS_MASTER。
+            # 所以调用 set_relation(B, A, IS_MASTER)。
             
-            # 但要注意对称关系（LOVERS, FRIEND, ENEMY）。
-            # A 是 B 的朋友 -> B 视 A 为 FRIEND。 set_relation(B, A, FRIEND) -> A.relations[B] = FRIEND (正确)
-            
-            # 结论：始终调用 set_relation(avatar_b, avatar_a, rel)
-            
-            current_rel = avatar_b.get_relation(avatar_a)
-            if current_rel == rel:
-                return None
-                
-            set_relation(avatar_b, avatar_a, rel)
+            # 使用新语义方法更安全
+            target_method = None
+            if rel == Relation.IS_MASTER:
+                # A 是 B 的 Master -> B 拜 A 为师
+                avatar_b.acknowledge_master(avatar_a)
+            elif rel == Relation.IS_DISCIPLE:
+                # A 是 B 的 Disciple -> B 收 A 为徒
+                avatar_b.accept_disciple(avatar_a)
+            elif rel == Relation.IS_PARENT:
+                # A 是 B 的 Parent -> B 认 A 为父/母
+                avatar_b.acknowledge_parent(avatar_a)
+            elif rel == Relation.IS_CHILD:
+                # A 是 B 的 Child -> B 认 A 为子/女
+                avatar_b.acknowledge_child(avatar_a)
+            elif rel == Relation.IS_LOVER:
+                avatar_b.become_lovers_with(avatar_a)
+            elif rel == Relation.IS_FRIEND:
+                avatar_b.make_friend_with(avatar_a)
+            elif rel == Relation.IS_ENEMY:
+                avatar_b.make_enemy_of(avatar_a)
+            else:
+                # 回退到底层方法 (set_relation(B, A, rel))
+                avatar_b.set_relation(avatar_a, rel)
             
             event_text = f"因为{reason}，{avatar_a.name}成为{avatar_b.name}的{display_name}。"
             event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
             
         elif c_type == "REMOVE":
             # 同样反转调用
+            # 移除关系只能用底层 cancel_relation
             success = cancel_relation(avatar_b, avatar_a, rel)
             if success:
                 event_text = f"因为{reason}，{avatar_a.name}不再是{avatar_b.name}的{display_name}。"
