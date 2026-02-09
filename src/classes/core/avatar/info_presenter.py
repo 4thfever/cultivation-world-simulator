@@ -234,13 +234,13 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             # Label should be Son/Daughter
             gender_val = child.gender.value
             # 查找对应的翻译 key (Relation.PARENT, "male") -> "relation_son"
-            label_key = GENDERED_DISPLAY.get((Relation.PARENT, gender_val), "child")
+            label_key = GENDERED_DISPLAY.get((Relation.IS_PARENT, gender_val), "child")
             
             relations_list.append({
                 "target_id": child.id,
                 "name": child.name,
                 "relation": t(label_key), 
-                "relation_type": Relation.PARENT.value, # 这里的类型应该是 PARENT (Owner is Parent)
+                "relation_type": Relation.IS_PARENT.value, # 这里的类型应该是 PARENT (Owner is Parent)
                 "realm": t("Mortal"),
                 "sect": t("None"),
                 "is_mortal": True,

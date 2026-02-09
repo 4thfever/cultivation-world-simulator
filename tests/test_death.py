@@ -78,7 +78,7 @@ def test_relation_display_with_death(base_world, dummy_avatar):
     base_world.avatar_manager.register_avatar(friend)
     
     # 建立关系
-    dummy_avatar.set_relation(friend, Relation.FRIEND)
+    dummy_avatar.make_friend_with(friend)
     
     # 初始状态：显示正常名字
     strs_before = get_relations_strs(dummy_avatar)

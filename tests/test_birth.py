@@ -36,7 +36,7 @@ def test_couple_birth_logic(base_world, dummy_avatar):
     base_world.avatar_manager.register_avatar(mother)
     
     # 2. 建立关系并回溯时间
-    father.set_relation(mother, Relation.LOVERS)
+    father.become_lovers_with(mother)
     
     # 验证关系建立时记录了时间
     current_time = int(base_world.month_stamp)
@@ -98,7 +98,7 @@ def test_birth_time_restriction(base_world, dummy_avatar):
     mother.id = "mother_id_2"
     base_world.avatar_manager.register_avatar(mother)
     
-    father.set_relation(mother, Relation.LOVERS)
+    father.become_lovers_with(mother)
     
     # 此时时间刚刚建立，不满一年
     CONFIG.game.birth_rate_per_month = 1.0

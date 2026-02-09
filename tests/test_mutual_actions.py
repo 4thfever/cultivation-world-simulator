@@ -376,7 +376,7 @@ class TestImpart:
         action = Impart(master_avatar, master_avatar.world)
         
         # Mock relation check: master has MASTER relation to disciple
-        master_avatar.get_relation = MagicMock(return_value=Relation.MASTER)
+        master_avatar.get_relation = MagicMock(return_value=Relation.IS_DISCIPLE)
         
         with patch("src.classes.observe.is_within_observation", return_value=True):
             can_start, reason = action.can_start(target_avatar=disciple_avatar)
@@ -389,7 +389,7 @@ class TestImpart:
         action = Impart(master_avatar, master_avatar.world)
         
         # Mock relation check: not master-disciple
-        master_avatar.get_relation = MagicMock(return_value=Relation.FRIEND)
+        master_avatar.get_relation = MagicMock(return_value=Relation.IS_FRIEND)
         
         with patch("src.classes.observe.is_within_observation", return_value=True):
             can_start, reason = action.can_start(target_avatar=disciple_avatar)
@@ -402,7 +402,7 @@ class TestImpart:
         action = Impart(master_avatar, master_avatar.world)
         
         # Mock relation check
-        master_avatar.get_relation = MagicMock(return_value=Relation.MASTER)
+        master_avatar.get_relation = MagicMock(return_value=Relation.IS_DISCIPLE)
         
         # Set levels close together
         master_avatar.cultivation_progress.level = 25
@@ -418,7 +418,7 @@ class TestImpart:
         """Test Impart cannot start when target out of range."""
         action = Impart(master_avatar, master_avatar.world)
         
-        master_avatar.get_relation = MagicMock(return_value=Relation.MASTER)
+        master_avatar.get_relation = MagicMock(return_value=Relation.IS_DISCIPLE)
         
         with patch("src.classes.observe.is_within_observation", return_value=False):
             can_start, reason = action.can_start(target_avatar=disciple_avatar)

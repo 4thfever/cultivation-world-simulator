@@ -349,33 +349,35 @@ def spawn_protagonists(
     if "han_li" in created_avatars:
         han = created_avatars["han_li"]
         if "li_fei_yu" in created_avatars:
-            han.set_relation(created_avatars["li_fei_yu"], Relation.FRIEND)
+            han.make_friend_with(created_avatars["li_fei_yu"])
         if "nangong_wan" in created_avatars:
-            han.set_relation(created_avatars["nangong_wan"], Relation.LOVERS)
+            han.become_lovers_with(created_avatars["nangong_wan"])
 
     # 【斗破组】
     if "xiao_yan" in created_avatars:
         xiao = created_avatars["xiao_yan"]
         if "nalan_yanran" in created_avatars:
-            xiao.set_relation(created_avatars["nalan_yanran"], Relation.ENEMY)
+            xiao.make_enemy_of(created_avatars["nalan_yanran"])
         if "xiao_xun_er" in created_avatars:
-            xiao.set_relation(created_avatars["xiao_xun_er"], Relation.LOVERS)
+            xiao.become_lovers_with(created_avatars["xiao_xun_er"])
 
     # 【一世组】
     if "meng_qi" in created_avatars:
         meng = created_avatars["meng_qi"]
         if "gu_xiao_sang" in created_avatars:
-            meng.set_relation(created_avatars["gu_xiao_sang"], Relation.LOVERS)
+            meng.become_lovers_with(created_avatars["gu_xiao_sang"])
         if "jiang_zhi_wei" in created_avatars:
-            meng.set_relation(created_avatars["jiang_zhi_wei"], Relation.FRIEND)
+            meng.make_friend_with(created_avatars["jiang_zhi_wei"])
 
     # 【道诡组】
     if "li_huo_wang" in created_avatars and "bai_ling_miao" in created_avatars:
-        created_avatars["li_huo_wang"].set_relation(created_avatars["bai_ling_miao"], Relation.LOVERS)
+        created_avatars["li_huo_wang"].become_lovers_with(created_avatars["bai_ling_miao"])
 
     # 【玄鉴组】李通崖 <-> 李曦明 (长辈)
     if "li_tong_ya" in created_avatars and "li_xi_ming" in created_avatars:
-        created_avatars["li_tong_ya"].set_relation(created_avatars["li_xi_ming"], Relation.PARENT)
+        # 李通崖是长辈，认李曦明为子（虽然原著是孙辈，这里简化为父子或需要 IS_GRAND_CHILD）
+        # 假设这里用 PARENT 表示长辈
+        created_avatars["li_tong_ya"].acknowledge_child(created_avatars["li_xi_ming"])
 
     # 返回 ID -> Avatar 字典，方便合并
     return {av.id: av for av in created_avatars.values()}

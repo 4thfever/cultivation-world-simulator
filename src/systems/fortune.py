@@ -96,7 +96,7 @@ def _get_fortune_theme(theme_id: str) -> str:
 def _has_master(avatar: Avatar) -> bool:
     """检查是否已有师傅"""
     for other, rel in avatar.relations.items():
-        if rel == Relation.MASTER:
+        if rel == Relation.IS_MASTER:
             return True
     return False
 
@@ -484,8 +484,8 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             # 找不到合适的师傅
             return []
         # 建立师徒关系：avatar 是徒弟，master 是师傅
-        # avatar 视 master 为 MASTER，master 视 avatar 为 APPRENTICE（自动设置对偶）。
-        avatar.set_relation(master, Relation.MASTER)
+        # avatar 视 master 为 MASTER，master 视 avatar 为 DISCIPLE（自动设置对偶）。
+        avatar.acknowledge_master(master)
         from src.i18n import t
         res_text = t("{avatar_name} became disciple of {master_name}",
                     avatar_name=avatar.name, master_name=master.name)

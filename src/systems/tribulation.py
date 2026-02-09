@@ -43,13 +43,13 @@ TRIBULATION_TYPES = {
         name="寻仇",
         description="仇人旧怨不散，刀光在心底回响，一念之差改写因果。因果纠缠，宿怨难消，突破之际正是因果清算之时。",
         requires_other_avatar=True,
-        relation_type=Relation.ENEMY
+        relation_type=Relation.IS_ENEMY
     ),
     "情劫": TribulationType(
         name="情劫",
         description="柔情即刃，难舍难分，念头被拉回人间烟火。情丝缠绕，斩不断理还乱，一念执着便是万劫不复。",
         requires_other_avatar=True,
-        relation_type=Relation.LOVERS
+        relation_type=Relation.IS_LOVER
     ),
     "阳罡": TribulationType(
         name="阳罡",
@@ -104,8 +104,8 @@ class TribulationSelector:
         available_tribulations = base_tribulations.copy()
         
         rels = getattr(avatar, "relations", {})
-        has_enemy = any(rel is Relation.ENEMY for rel in rels.values())
-        has_lover = any(rel is Relation.LOVERS for rel in rels.values())
+        has_enemy = any(rel is Relation.IS_ENEMY for rel in rels.values())
+        has_lover = any(rel is Relation.IS_LOVER for rel in rels.values())
         
         if has_enemy:
             available_tribulations.append("寻仇")

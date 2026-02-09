@@ -49,17 +49,17 @@ def test_single_mortal_relation(mock_world):
     )
 
     # 3. 验证关系
-    # 父母看子女：应该是 PARENT (映射为 儿子/女儿)
+    # 父母看子女：应该是 IS_PARENT (映射为 儿子/女儿)
     rel_from_parent = parent_avatar.get_relation(child_avatar)
-    assert rel_from_parent == Relation.PARENT, f"父母看子女应该是 PARENT, 但得到了 {rel_from_parent}"
+    assert rel_from_parent == Relation.IS_PARENT, f"父母看子女应该是 IS_PARENT, 但得到了 {rel_from_parent}"
     
     label_from_parent = get_relation_label(rel_from_parent, parent_avatar, child_avatar)
     # 因为 child 性别随机，可能是 儿子 或 女儿
     assert label_from_parent in ["儿子", "女儿"], f"父母看子女的称谓错误: {label_from_parent}"
 
-    # 子女看父母：应该是 CHILD (映射为 父亲/母亲)
+    # 子女看父母：应该是 IS_CHILD (映射为 父亲/母亲)
     rel_from_child = child_avatar.get_relation(parent_avatar)
-    assert rel_from_child == Relation.CHILD, f"子女看父母应该是 CHILD, 但得到了 {rel_from_child}"
+    assert rel_from_child == Relation.IS_CHILD, f"子女看父母应该是 IS_CHILD, 但得到了 {rel_from_child}"
 
     label_from_child = get_relation_label(rel_from_child, child_avatar, parent_avatar)
     assert label_from_child == "母亲", f"子女看母亲的称谓错误: {label_from_child}" # parent 是 FEMALE
@@ -84,14 +84,14 @@ def test_population_planner_relations(mock_world):
     found_parent_relation = False
     
     for (a_idx, b_idx), rel in relations.items():
-        if rel == Relation.PARENT:
+        if rel == Relation.IS_PARENT:
             found_parent_relation = True
-            # 在 plan_group 中，(a, b) = PARENT 意味着 a 是父母，b 是子女
-            # 这里的语义是：a 的 relations 中，对 b 的记录是 PARENT
+            # 在 plan_group 中，(a, b) = IS_PARENT 意味着 a 是父母，b 是子女
+            # 这里的语义是：a 的 relations 中，对 b 的记录是 IS_PARENT
             pass
             
-    # 如果找到了 PARENT 关系，说明代码中使用了 Relation.PARENT 而不是之前的 Relation.CHILD
-    # 之前的代码是用 Relation.CHILD，修正后应该是 Relation.PARENT
+    # 如果找到了 IS_PARENT 关系，说明代码中使用了 Relation.IS_PARENT 而不是之前的 Relation.CHILD
+    # 之前的代码是用 Relation.CHILD，修正后应该是 Relation.IS_PARENT
     
     # 进一步：实际构建角色并验证
     avatars_map = AvatarFactory.build_group(mock_world, mock_world.month_stamp, avatars_dict)
@@ -102,7 +102,7 @@ def test_population_planner_relations(mock_world):
     
     for av in avatars:
         for target, rel in av.relations.items():
-            if rel == Relation.PARENT:
+            if rel == Relation.IS_PARENT:
                 # av 认为是父母 -> target 是子女
                 # 验证年龄：父母应该比子女大
                 assert av.age.age > target.age.age, f"父母({av.name}, {av.age.age}) 应该比子女({target.name}, {target.age.age}) 大"
@@ -111,7 +111,7 @@ def test_population_planner_relations(mock_world):
                 label = get_relation_label(rel, av, target)
                 assert label in ["儿子", "女儿"]
                 
-            elif rel == Relation.CHILD:
+            elif rel == Relation.IS_CHILD:
                 # av 认为是子女 -> target 是父母
                 # 验证年龄：子女应该比父母小
                 assert av.age.age < target.age.age, f"子女({av.name}, {av.age.age}) 应该比父母({target.name}, {target.age.age}) 小"

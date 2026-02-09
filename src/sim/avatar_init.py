@@ -239,7 +239,7 @@ class PopulationPlanner:
                     planned_surname[b] = surname
                     planned_gender[a] = Gender.MALE
                     # 设定 a 为父，b 为子
-                    planned_relations[(a, b)] = Relation.PARENT
+                    planned_relations[(a, b)] = Relation.IS_PARENT
                 else:
                     mother = a if random.random() < 0.5 else b
                     child = b if mother == a else a
@@ -251,7 +251,7 @@ class PopulationPlanner:
                         if s != mom_surname:
                             planned_surname[child] = s
                             break
-                    planned_relations[(mother, child)] = Relation.PARENT
+                    planned_relations[(mother, child)] = Relation.IS_PARENT
 
         leftover = unused_indices[:]
 
@@ -272,7 +272,7 @@ class PopulationPlanner:
                     elif planned_gender[b] is None:
                         planned_gender[b] = Gender.MALE if planned_gender[a] is Gender.FEMALE else Gender.FEMALE
                     if planned_gender[a] != planned_gender[b]:
-                        planned_relations[(a, b)] = Relation.LOVERS
+                        planned_relations[(a, b)] = Relation.IS_LOVER
                 lovers_budget -= 1
             i += 2
 
@@ -289,7 +289,7 @@ class PopulationPlanner:
                     if random.random() < MASTER_PAIR_PROB:
                         master, apprentice = members[j], members[j + 1]
                         if (master, apprentice) not in planned_relations and (apprentice, master) not in planned_relations:
-                            planned_relations[(master, apprentice)] = Relation.APPRENTICE
+                            planned_relations[(master, apprentice)] = Relation.IS_DISCIPLE
                     j += 2
 
         # — 朋友/仇人 —
@@ -303,9 +303,9 @@ class PopulationPlanner:
                 continue
             r = random.random()
             if r < FRIEND_PROB:
-                planned_relations[(a, b)] = Relation.FRIEND
+                planned_relations[(a, b)] = Relation.IS_FRIEND
             elif r < FRIEND_PROB + ENEMY_PROB:
-                planned_relations[(a, b)] = Relation.ENEMY
+                planned_relations[(a, b)] = Relation.IS_ENEMY
             k += 2
 
         for idx in range(n):
@@ -455,9 +455,9 @@ class AvatarFactory:
 
         if attach_relations:
             if plan.parent_avatar is not None:
-                plan.parent_avatar.set_relation(avatar, Relation.PARENT)
+                plan.parent_avatar.acknowledge_child(avatar)
             if plan.master_avatar is not None:
-                plan.master_avatar.set_relation(avatar, Relation.APPRENTICE)
+                plan.master_avatar.accept_disciple(avatar)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
@@ -487,19 +487,19 @@ class AvatarFactory:
         levels: list[int] = [random.randint(LEVEL_MIN, LEVEL_MAX) for _ in range(n)]
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.CHILD:
+            if rel is Relation.IS_CHILD:
                 if ages[a] <= ages[b] + (PARENT_MIN_DIFF - 1):
                     ages[a] = min(PARENT_AGE_CAP, ages[b] + random.randint(PARENT_MIN_DIFF, PARENT_MAX_DIFF))
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.CHILD:
+            if rel is Relation.IS_CHILD:
                 if levels[a] <= levels[b]:
                     levels[a] = min(LEVEL_MAX, levels[b] + 1)
                 if levels[a] < levels[b] + PARENT_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + PARENT_LEVEL_MIN_DIFF + random.randint(0, PARENT_LEVEL_EXTRA_MAX))
 
         for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.APPRENTICE:
+            if rel is Relation.IS_DISCIPLE:
                 if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
                     levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
 
@@ -549,7 +549,7 @@ class AvatarFactory:
             # 确定出生地
             current_parents = []
             for (p_idx, c_idx), rel in planned_relations.items():
-                 if rel == Relation.PARENT and c_idx == i:
+                 if rel == Relation.IS_PARENT and c_idx == i:
                      # 只有当父母已经被创建时才能作为参考（通常索引较小的先创建）
                      if p_idx < len(avatars_by_index) and avatars_by_index[p_idx]:
                          current_parents.append(avatars_by_index[p_idx])

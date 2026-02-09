@@ -160,6 +160,7 @@ def _create_simple_avatar(
         parent = world.avatar_manager.get_avatar(pid)
         if parent:
             # 建立关系 (Parent -> Child)
-            parent.set_relation(avatar, Relation.CHILD)
+            # 语义：Parent 认 Avatar 为子
+            parent.acknowledge_child(avatar)
             
     return avatar
