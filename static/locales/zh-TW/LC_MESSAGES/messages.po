@@ -2287,154 +2287,154 @@ msgid "When using {weapon_type}"
 msgstr "當使用{weapon_type}時"
 
 msgid "SECT_1_STYLE"
-msgstr "娓呮槑鍏嬪繁锛岃姝㈠涓€銆傞噸鍔嶈垏蹇冩硶涓﹂噸锛岃瑳绌舵槑蹇冭鎬с€"
+msgstr "清明克己，行止如一。重劍與心法並重，講究明心見性。"
 
 msgid "SECT_2_STYLE"
-msgstr "瑷€瑾炵洿鎺ワ紝閲嶈鍔涢噺鑸囪鎬э紝宕囧皻鐙╃嵉鑸囨悘楝ャ€"
+msgstr "言語直接，重視力量與血性，崇尚狩獵與搏鬥。"
 
 msgid "SECT_2_RANK_PATRIARCH"
-msgstr "璋蜂富"
+msgstr "谷主"
 
 msgid "SECT_2_RANK_ELDER"
-msgstr "渚涘"
+msgstr "供奉"
 
 msgid "SECT_2_RANK_INNER"
-msgstr "棣嵏甯"
+msgstr "御獸師"
 
 msgid "SECT_2_RANK_OUTER"
-msgstr "鎵堝緸"
+msgstr "扈從"
 
 msgid "SECT_3_STYLE"
-msgstr "铏曚簨鍐烽潨鍦撹瀺锛屽枩浠ユ煍鍏嬪墰锛屾搮鍊熷姏鑸囧弽鍒躲€"
+msgstr "處事冷靜圓融，喜以柔克剛，擅借力與反制。"
 
 msgid "SECT_3_RANK_PATRIARCH"
-msgstr "閺′富"
+msgstr "鏡主"
 
 msgid "SECT_3_RANK_ELDER"
-msgstr "鎺岄彙浜"
+msgstr "掌鏡人"
 
 msgid "SECT_3_RANK_INNER"
-msgstr "鍌充汉"
+msgstr "傳人"
 
 msgid "SECT_3_RANK_OUTER"
-msgstr "渚嶉彙"
+msgstr "侍鏡"
 
 msgid "SECT_4_STYLE"
-msgstr "瑷€杈喎鍘插皯鎯咃紝鏁晱鍥犳灉鑰屼笉鎳兼浼愶紝鍋忓悜鏁堢巼鑸囩祼鏋溿€"
+msgstr "言辭冷厲少情，敬畏因果而不懼殺伐，偏向效率與結果。"
 
 msgid "SECT_4_RANK_PATRIARCH"
-msgstr "娈夸富"
+msgstr "殿主"
 
 msgid "SECT_4_RANK_ELDER"
-msgstr "鍒ゅ畼"
+msgstr "判官"
 
 msgid "SECT_4_RANK_INNER"
-msgstr "鐒″父"
+msgstr "無常"
 
 msgid "SECT_4_RANK_OUTER"
-msgstr "楝煎崚"
+msgstr "鬼卒"
 
 msgid "SECT_5_STYLE"
-msgstr "鐩撮潰鎱炬湜鑸囦唬鍍癸紝涓嶆嚰榛戞殫锛屼互鏀讳紣瑕嬮暦銆"
+msgstr "直面慾望與代價，不懼黑暗，以攻伐見長。"
 
 msgid "SECT_5_RANK_PATRIARCH"
-msgstr "妯撲富"
+msgstr "樓主"
 
 msgid "SECT_5_RANK_ELDER"
-msgstr "鎺屽垜浣"
+msgstr "掌刑使"
 
 msgid "SECT_5_RANK_INNER"
-msgstr "褰卞埡"
+msgstr "影刺"
 
 msgid "SECT_5_RANK_OUTER"
-msgstr "鎺㈠瓙"
+msgstr "探子"
 
 msgid "SECT_6_STYLE"
-msgstr "杈护濠夎綁锛屽杽鏂兼嬁鎹忎汉鎱捐垏灞€鍕紝浠ユ煍鍒跺墰銆"
+msgstr "辭令婉轉，善於拿捏人慾與局勢，以柔制剛。"
 
 msgid "SECT_6_RANK_PATRIARCH"
-msgstr "瀹富"
+msgstr "宮主"
 
 msgid "SECT_6_RANK_ELDER"
-msgstr "璀锋硶"
+msgstr "護法"
 
 msgid "SECT_6_RANK_INNER"
-msgstr "濯氫粰"
+msgstr "媚仙"
 
 msgid "SECT_6_RANK_OUTER"
-msgstr "渚嶇"
+msgstr "侍童"
 
 msgid "SECT_7_STYLE"
-msgstr "鑲呯﹩娌夌┅锛岄噸瀹夐瓊閹偑锛屽皯瑷€鑰屾灉姹恒€"
+msgstr "肅穆沉穩，重安魂鎮邪，少言而果決。"
 
 msgid "SECT_7_RANK_PATRIARCH"
-msgstr "浣忔寔"
+msgstr "住持"
 
 msgid "SECT_7_RANK_ELDER"
-msgstr "棣栧骇"
+msgstr "首座"
 
 msgid "SECT_7_RANK_INNER"
-msgstr "琛岃€"
+msgstr "行者"
 
 msgid "SECT_7_RANK_OUTER"
-msgstr "灞呭＋"
+msgstr "居士"
 
 msgid "SECT_8_STYLE"
-msgstr "琛屼簨闅辩鏋滄柗锛岄噸绲愭灉杓曡櫅鍚嶏紝鎿呮經琛岃垏鍑哄叾涓嶆剰銆"
+msgstr "行事隱祕果斷，重結果輕虛名，擅潛行與出其不意。"
 
 msgid "SECT_8_RANK_PATRIARCH"
-msgstr "闁€涓"
+msgstr "門主"
 
 msgid "SECT_8_RANK_ELDER"
-msgstr "璀锋硶"
+msgstr "護法"
 
 msgid "SECT_8_RANK_INNER"
-msgstr "褰辫"
+msgstr "影衛"
 
 msgid "SECT_8_RANK_OUTER"
-msgstr "鎺㈠瓙"
+msgstr "探子"
 
 msgid "SECT_9_STYLE"
-msgstr "鍕欏绮炬槑锛岄噸浜ゆ槗鑸囦俊璀斤紝宕囧皻瑕忓墖鑸囩З搴忋€"
+msgstr "務實精明，重交易與信譽，崇尚規則與秩序。"
 
 msgid "SECT_9_RANK_PATRIARCH"
-msgstr "鍩庝富"
+msgstr "城主"
 
 msgid "SECT_9_RANK_ELDER"
-msgstr "澶т緵濂"
+msgstr "大供奉"
 
 msgid "SECT_9_RANK_INNER"
-msgstr "鍩蜂簨"
+msgstr "執事"
 
 msgid "SECT_9_RANK_OUTER"
-msgstr "瀛稿緬"
+msgstr "學徒"
 
 msgid "SECT_10_STYLE"
-msgstr "鏂囬泤绺圭凡涓繁钘忕畻瑷堬紝鍠滅敤瑷€瑾炶垏闊冲緥鎺屾帶灞€鍕紝娈轰紣涓嶆簿鐓欑伀姘ｃ€"
+msgstr "文雅綺麗中深藏算計，喜用言語與音律掌控局勢，殺伐不沾煙火氣。"
 
 msgid "SECT_11_STYLE"
-msgstr "鍤磋绱扮坊锛岃拷姹傛妧琛撴サ鑷达紝鎴伴涓搮闀蜂互寰屾墜闄ｆ硶鍙嶅埗鏁典汉锛屾姝ョ偤鐕熴€"
+msgstr "嚴謹細緻，追求技術極致，戰鬥中擅長以後手陣法反制敵人，步步為營。"
 
 msgid "SECT_12_STYLE"
-msgstr "鍫呴煂闋戝挤锛屽湪閫嗗涓湒寮凤紝琛屼簨鍏夋槑纾婅惤浣嗕篃娣辫瑎閬犳叜锛屾サ鍏惰鐭€"
+msgstr "堅韌頑強，在逆境中圖強，行事光明磊落但也深謀遠慮，極其護短。"
 
 msgid "SECT_12_RANK_PATRIARCH"
-msgstr "鍩庝富"
+msgstr "城主"
 
 msgid "SECT_12_RANK_ELDER"
-msgstr "闁ｈ€"
+msgstr "閣老"
 
 msgid "SECT_12_RANK_INNER"
-msgstr "鍩蜂护"
+msgstr "執令"
 
 msgid "SECT_12_RANK_OUTER"
-msgstr "瀹堝浜"
+msgstr "守夜人"
 
 msgid "SECT_13_STYLE"
-msgstr "鎭畧鍘熷墖锛岃瑳绌堕亾缇╋紝闄ら瓟琛涢亾涓€棣暥鍏堬紝瀵ф姌涓嶅綆銆"
+msgstr "恪守原則，講究道義，除魔衛道一馬當先，寧折不彎。"
 
 msgid "SECT_14_STYLE"
-msgstr "寮疯€呯偤灏婏紝闅ㄥ績鎵€娆诧紝宕囧皻绲曞皪鐨勫姏閲忚垏娈烘埉锛岃鐪剧敓鐐鸿椋熴€"
+msgstr "強者為尊，隨心所欲，崇尚絕對的力量與殺戮，視眾生為血食。"
 
 # ============================================================================
 # Simulator & Event Translations

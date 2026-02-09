@@ -156,7 +156,7 @@ class Sect:
             "name": self.name,
             "desc": self.desc,
             "alignment": str(self.alignment), # 直接返回中文
-            "style": self.member_act_style,
+            "style": t(self.member_act_style),
             "hq_name": hq.name,
             "hq_desc": hq.desc,
             "effect_desc": self.effect_desc,
