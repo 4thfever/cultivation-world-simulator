@@ -49,17 +49,17 @@ def test_single_mortal_relation(mock_world):
     )
 
     # 3. 验证关系
-    # 父母看子女：应该是 IS_PARENT (映射为 儿子/女儿)
+    # 父母看子女：应该是 IS_CHILD (对方是我的子女)
     rel_from_parent = parent_avatar.get_relation(child_avatar)
-    assert rel_from_parent == Relation.IS_PARENT, f"父母看子女应该是 IS_PARENT, 但得到了 {rel_from_parent}"
+    assert rel_from_parent == Relation.IS_CHILD, f"父母看子女应该是 IS_CHILD, 但得到了 {rel_from_parent}"
     
     label_from_parent = get_relation_label(rel_from_parent, parent_avatar, child_avatar)
     # 因为 child 性别随机，可能是 儿子 或 女儿
     assert label_from_parent in ["儿子", "女儿"], f"父母看子女的称谓错误: {label_from_parent}"
 
-    # 子女看父母：应该是 IS_CHILD (映射为 父亲/母亲)
+    # 子女看父母：应该是 IS_PARENT (对方是我的父母)
     rel_from_child = child_avatar.get_relation(parent_avatar)
-    assert rel_from_child == Relation.IS_CHILD, f"子女看父母应该是 IS_CHILD, 但得到了 {rel_from_child}"
+    assert rel_from_child == Relation.IS_PARENT, f"子女看父母应该是 IS_PARENT, 但得到了 {rel_from_child}"
 
     label_from_child = get_relation_label(rel_from_child, child_avatar, parent_avatar)
     assert label_from_child == "母亲", f"子女看母亲的称谓错误: {label_from_child}" # parent 是 FEMALE
@@ -102,8 +102,8 @@ def test_population_planner_relations(mock_world):
     
     for av in avatars:
         for target, rel in av.relations.items():
-            if rel == Relation.IS_PARENT:
-                # av 认为是父母 -> target 是子女
+            if rel == Relation.IS_CHILD:
+                # av 认为是子女 -> target 是子女
                 # 验证年龄：父母应该比子女大
                 assert av.age.age > target.age.age, f"父母({av.name}, {av.age.age}) 应该比子女({target.name}, {target.age.age}) 大"
                 
@@ -111,8 +111,8 @@ def test_population_planner_relations(mock_world):
                 label = get_relation_label(rel, av, target)
                 assert label in ["儿子", "女儿"]
                 
-            elif rel == Relation.IS_CHILD:
-                # av 认为是子女 -> target 是父母
+            elif rel == Relation.IS_PARENT:
+                # av 认为是父母 -> target 是父母
                 # 验证年龄：子女应该比父母小
                 assert av.age.age < target.age.age, f"子女({av.name}, {av.age.age}) 应该比父母({target.name}, {target.age.age}) 小"
                 
