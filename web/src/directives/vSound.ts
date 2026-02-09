@@ -7,12 +7,17 @@ export const vSound: Directive = {
     const { play } = useAudio();
     const type = (binding.arg || binding.value || 'click') as SoundType;
     
+    // 标记该元素已有专用音效，全局监听器应跳过
+    el.setAttribute('data-has-sound', type);
+
     el.addEventListener('click', (e) => {
       // 阻止事件冒泡可能会影响业务逻辑，所以这里不阻止
       play(type);
     });
-    
-    // 如果需要 hover 音效，可以在这里添加 mouseenter 监听
-    // 但根据需求，不需要 hover 音效
+  },
+  // 动态更新
+  updated(el: HTMLElement, binding) {
+     const type = (binding.arg || binding.value || 'click') as SoundType;
+     el.setAttribute('data-has-sound', type);
   }
 };

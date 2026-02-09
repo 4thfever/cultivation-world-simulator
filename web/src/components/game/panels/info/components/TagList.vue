@@ -19,6 +19,7 @@ defineEmits<{
       class="tag"
       :style="{ borderColor: getEntityColor(tag) }"
       @click="$emit('click', tag)"
+      v-sound
     >
       {{ tag.name }}
     </span>

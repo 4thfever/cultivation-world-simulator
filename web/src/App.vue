@@ -18,6 +18,7 @@ import LoadingOverlay from './components/LoadingOverlay.vue'
 // Composables
 import { useGameInit } from './composables/useGameInit'
 import { useGameControl } from './composables/useGameControl'
+import { useAudio } from './composables/useAudio'
 
 // Stores
 import { useUiStore } from './stores/ui'
@@ -188,6 +189,9 @@ onMounted(() => {
   window.addEventListener('resize', onWindowResize)
   // Ensure backend language setting matches frontend preference
   settingStore.syncBackend()
+  
+  // Initialize audio system
+  useAudio().init()
 })
 
 onUnmounted(() => {

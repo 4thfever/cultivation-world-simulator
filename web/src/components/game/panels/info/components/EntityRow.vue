@@ -16,6 +16,7 @@ defineEmits(['click']);
     class="entity-row" 
     :class="{ 'compact': compact }"
     @click="$emit('click')"
+    v-sound
   >
     <span class="name" :style="{ color: getEntityColor(item) }">
       {{ item.name }}

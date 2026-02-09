@@ -5,6 +5,7 @@ import { Graphics } from 'pixi.js'
 import type { AvatarSummary } from '../../types/core'
 import { useSharedTicker } from './composables/useSharedTicker'
 import { avatarIdToColor } from '../../utils/eventHelper'
+import { useAudio } from '../../composables/useAudio'
 
 const props = defineProps<{
   avatar: AvatarSummary
@@ -119,6 +120,7 @@ const nameStyle = computed(() => ({
 } as any))
 
 function handlePointerTap() {
+    useAudio().play('select')
     emit('select', {
         type: 'avatar',
         id: props.avatar.id,
