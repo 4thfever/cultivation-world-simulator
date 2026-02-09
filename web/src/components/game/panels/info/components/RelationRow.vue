@@ -10,7 +10,7 @@ defineEmits(['click']);
 </script>
 
 <template>
-  <div class="relation-row" @click="$emit('click')">
+  <div class="relation-row" @click="$emit('click')" v-sound>
     <div class="rel-head">
       <span class="rel-name">{{ name }}</span>
       <span v-if="meta" class="rel-type">{{ meta }}</span>

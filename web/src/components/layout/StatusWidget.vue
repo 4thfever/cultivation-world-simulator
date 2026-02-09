@@ -43,6 +43,7 @@ const emit = defineEmits(['trigger-click'])
       class="widget-trigger" 
       :style="{ color: props.color }"
       @click="emit('trigger-click')"
+      v-sound="'open'"
     >
       {{ props.label }}
     </span>
@@ -54,6 +55,7 @@ const emit = defineEmits(['trigger-click'])
           class="widget-trigger" 
           :style="{ color: props.color }"
           @click="emit('trigger-click')"
+          v-sound="'open'"
         >
           {{ props.label }}
         </span>

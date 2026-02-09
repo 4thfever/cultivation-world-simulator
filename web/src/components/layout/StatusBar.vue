@@ -91,7 +91,7 @@ async function handleSelect(id: number, name: string) {
       style="width: 700px; max-height: 80vh; overflow-y: auto;"
     >
       <n-list hoverable clickable>
-        <n-list-item v-for="p in store.phenomenaList" :key="p.id" @click="handleSelect(p.id, p.name)">
+        <n-list-item v-for="p in store.phenomenaList" :key="p.id" @click="handleSelect(p.id, p.name)" v-sound:select>
           <div class="list-item-content">
             <div class="item-left">
               <div class="item-name" :style="{ color: getRarityColor(p.rarity) }">

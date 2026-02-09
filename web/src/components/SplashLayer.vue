@@ -93,6 +93,7 @@ function handleClick(key: string) {
             text-color="#fff"
             class="menu-btn"
             :disabled="opt.disabled"
+            v-sound="'click'"
             @click="handleClick(opt.key)"
           >
             <div class="btn-content">

@@ -4,6 +4,7 @@ import { Container, Sprite, TilingSprite, Graphics, Ticker } from 'pixi.js'
 import { useTextures } from './composables/useTextures'
 import { useWorldStore } from '../../stores/world'
 import { getRegionTextStyle } from '../../utils/mapStyles'
+import { useAudio } from '../../composables/useAudio'
 import type { RegionSummary } from '../../types/core'
 
 const TILE_SIZE = 64
@@ -292,6 +293,7 @@ function renderLargeRegions() {
 }
 
 function handleRegionSelect(region: RegionSummary) {
+  useAudio().play('select')
   emit('regionSelected', {
     type: 'region',
     id: String(region.id),
