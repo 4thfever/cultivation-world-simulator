@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@testing-library/vue": "^8.1.0",
