@@ -19,6 +19,7 @@ import LoadingOverlay from './components/LoadingOverlay.vue'
 import { useGameInit } from './composables/useGameInit'
 import { useGameControl } from './composables/useGameControl'
 import { useAudio } from './composables/useAudio'
+import { useBgm } from './composables/useBgm'
 
 // Stores
 import { useUiStore } from './stores/ui'
@@ -100,6 +101,9 @@ watch(initStatus, (newVal, oldVal) => {
 // 自动取消暂停：当游戏初始化完成后，自动开始运行
 watch(gameInitialized, (val) => {
   if (val) {
+    // 切换到游戏背景音乐
+    useBgm().play('map')
+
     // 如果游戏已初始化完成（可能是刷新页面后恢复），确保关闭 Splash
     if (showSplash.value) {
       showSplash.value = false

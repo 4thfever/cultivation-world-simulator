@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { NButton, NSpace, NModal, NCard, NForm, NFormItem, NSelect } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from '../stores/setting'
+import { useBgm } from '../composables/useBgm'
 
 // 定义事件
 const emit = defineEmits<{
@@ -16,6 +17,9 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 
 // 视频播放控制逻辑
 onMounted(() => {
+  // 播放背景音乐
+  useBgm().play('splash')
+
   if (!videoRef.value) return
   
   const video = videoRef.value

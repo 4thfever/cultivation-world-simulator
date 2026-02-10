@@ -7,17 +7,17 @@ export const useSettingStore = defineStore('setting', () => {
   const locale = ref(localStorage.getItem('app_locale') || 'zh-CN');
   
   // Sound settings
-  const sfxEnabled = ref(localStorage.getItem('app_sfx_enabled') !== 'false'); // Default true
   const sfxVolume = ref(parseFloat(localStorage.getItem('app_sfx_volume') || '0.5'));
-
-  function setSfxEnabled(enabled: boolean) {
-    sfxEnabled.value = enabled;
-    localStorage.setItem('app_sfx_enabled', String(enabled));
-  }
+  const bgmVolume = ref(parseFloat(localStorage.getItem('app_bgm_volume') || '0.5'));
 
   function setSfxVolume(volume: number) {
     sfxVolume.value = volume;
     localStorage.setItem('app_sfx_volume', String(volume));
+  }
+
+  function setBgmVolume(volume: number) {
+    bgmVolume.value = volume;
+    localStorage.setItem('app_bgm_volume', String(volume));
   }
 
   async function setLocale(lang: 'zh-CN' | 'zh-TW' | 'en-US') {
@@ -53,9 +53,9 @@ export const useSettingStore = defineStore('setting', () => {
     locale,
     setLocale,
     syncBackend,
-    sfxEnabled,
     sfxVolume,
-    setSfxEnabled,
-    setSfxVolume
+    bgmVolume,
+    setSfxVolume,
+    setBgmVolume
   };
 });
