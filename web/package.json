@@ -10,18 +10,14 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-v8": "^2.1.8",
     "@vue/test-utils": "^2.4.6",
-    "husky": "^9.1.7",
     "jsdom": "^25.0.1",
-    "lint-staged": "^16.2.7",
     "msw": "^2.7.0",
     "sass": "^1.94.1",
     "typescript": "~5.9.3",
