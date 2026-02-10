@@ -132,9 +132,31 @@ export function useBgm() {
             await nextTrack.play();
             performCrossfade(nextTrack, currentTrack, crossfadeOutgoing);
             currentTrackIndex = nextIndex;
-        } catch (e) {
+        } catch (e: any) {
             console.warn('Track switch failed', e);
+            
+            // 自动播放策略被阻止
+            if (e.name === 'NotAllowedError') {
+                handleAutoPlayPolicy(songName, crossfadeOutgoing);
+            }
         }
+    }
+
+    // 处理自动播放策略
+    function handleAutoPlayPolicy(songName: string, crossfadeOutgoing: boolean) {
+        console.log('Waiting for user interaction to resume audio...');
+        
+        const resumeAudio = () => {
+             // 移除所有监听器
+             window.removeEventListener('click', resumeAudio);
+             window.removeEventListener('keydown', resumeAudio);
+             
+             // 再次尝试播放
+             switchTrack(songName, crossfadeOutgoing);
+        };
+
+        window.addEventListener('click', resumeAudio);
+        window.addEventListener('keydown', resumeAudio);
     }
 
     // 淡入淡出动画
@@ -150,11 +172,17 @@ export function useBgm() {
             const progress = Math.min(elapsed / FADE_DURATION, 1);
 
             // 淡入
-            fadeIn.volume = progress * targetVol;
+            const newFadeInVol = progress * targetVol;
+            if (newFadeInVol >= 0 && newFadeInVol <= 1) {
+                fadeIn.volume = newFadeInVol;
+            }
 
             // 淡出
             if (fadeOutEnabled && !fadeOut.paused) {
-                fadeOut.volume = Math.max(0, (1 - progress) * targetVol);
+                const newFadeOutVol = Math.max(0, (1 - progress) * targetVol);
+                if (newFadeOutVol >= 0 && newFadeOutVol <= 1) {
+                    fadeOut.volume = newFadeOutVol;
+                }
             }
 
             if (progress < 1) {

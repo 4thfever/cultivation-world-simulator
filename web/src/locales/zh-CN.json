@@ -12,6 +12,8 @@
     "exit": "离开",
     "other": "其他",
     "sound": "音效",
+    "bgm_volume": "背景音乐",
+    "sfx_volume": "UI音效",
     "language": "语言",
     "chinese": "简体中文",
     "english": "English",

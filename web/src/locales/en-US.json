@@ -11,6 +11,8 @@
     "achievements": "Achievements",
     "exit": "Exit",
     "other": "Other",
+    "bgm_volume": "Music",
+    "sfx_volume": "Sound FX",
     "language": "Language",
     "chinese": "Simplified Chinese",
     "english": "English",

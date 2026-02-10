@@ -167,7 +167,7 @@ watch(() => props.visible, (val) => {
               <div class="sound-controls">
                 <!-- BGM Control -->
                 <div class="volume-row">
-                  <span class="volume-label">BGM</span>
+                  <span class="volume-label">{{ t('ui.bgm_volume') }}</span>
                   <div class="slider-container">
                     <n-slider
                       v-model:value="settingStore.bgmVolume"
@@ -183,7 +183,7 @@ watch(() => props.visible, (val) => {
                 
                 <!-- SFX Control -->
                 <div class="volume-row">
-                  <span class="volume-label">SFX</span>
+                  <span class="volume-label">{{ t('ui.sfx_volume') }}</span>
                   <div class="slider-container">
                     <n-slider
                       v-model:value="settingStore.sfxVolume"
@@ -302,10 +302,11 @@ watch(() => props.visible, (val) => {
 }
 
 .volume-label {
-  width: 40px;
+  width: 80px;
   color: #aaa;
   font-size: 0.9em;
   text-align: right;
+  white-space: nowrap;
 }
 
 .slider-container {
