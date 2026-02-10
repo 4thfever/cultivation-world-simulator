@@ -10,7 +10,7 @@ export const vSound: Directive = {
     // 标记该元素已有专用音效，全局监听器应跳过
     el.setAttribute('data-has-sound', type);
 
-    el.addEventListener('click', (e) => {
+    el.addEventListener('click', () => {
       // 阻止事件冒泡可能会影响业务逻辑，所以这里不阻止
       play(type);
     });

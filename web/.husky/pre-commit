@@ -1,0 +1,3 @@
+#!/bin/sh
+cd web
+npm run type-check
