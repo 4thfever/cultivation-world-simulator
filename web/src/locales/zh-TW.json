@@ -11,6 +11,8 @@
     "achievements": "成就",
     "exit": "離開",
     "other": "其他",
+    "bgm_volume": "背景音樂",
+    "sfx_volume": "UI音效",
     "language": "語言",
     "chinese": "繁體中文",
     "english": "English",

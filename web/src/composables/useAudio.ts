@@ -53,7 +53,7 @@ export function useAudio() {
 
   // 2. 播放逻辑
   function play(type: SoundType = 'click') {
-    if (!settingStore.sfxEnabled || !audioContext || !buffers[type]) return;
+    if (settingStore.sfxVolume <= 0 || !audioContext || !buffers[type]) return;
 
     // 浏览器策略：如果 Context 被暂停（通常发生在无交互的页面加载时），需要恢复
     // 必须在用户交互事件中调用 resume

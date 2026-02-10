@@ -46,6 +46,10 @@ jobs:
         working-directory: web
         run: npm ci
 
+      - name: Run frontend type check
+        working-directory: web
+        run: npm run type-check
+
       - name: Run frontend tests with coverage
         working-directory: web
         run: npm run test:coverage

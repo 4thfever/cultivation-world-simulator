@@ -163,12 +163,28 @@ watch(() => props.visible, (val) => {
                 </n-icon>
                 <span class="setting-label">{{ t('ui.sound') }}</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 16px;">
-                 <n-switch
-                   v-model:value="settingStore.sfxEnabled"
-                   @update:value="settingStore.setSfxEnabled"
-                 />
-                 <div v-if="settingStore.sfxEnabled" style="width: 100px;">
+              
+              <div class="sound-controls">
+                <!-- BGM Control -->
+                <div class="volume-row">
+                  <span class="volume-label">{{ t('ui.bgm_volume') }}</span>
+                  <div class="slider-container">
+                    <n-slider
+                      v-model:value="settingStore.bgmVolume"
+                      :min="0"
+                      :max="1"
+                      :step="0.05"
+                      :tooltip="false"
+                      @update:value="settingStore.setBgmVolume"
+                    />
+                  </div>
+                  <span class="volume-value">{{ Math.round(settingStore.bgmVolume * 100) }}%</span>
+                </div>
+                
+                <!-- SFX Control -->
+                <div class="volume-row">
+                  <span class="volume-label">{{ t('ui.sfx_volume') }}</span>
+                  <div class="slider-container">
                     <n-slider
                       v-model:value="settingStore.sfxVolume"
                       :min="0"
@@ -177,7 +193,9 @@ watch(() => props.visible, (val) => {
                       :tooltip="false"
                       @update:value="settingStore.setSfxVolume"
                     />
-                 </div>
+                  </div>
+                  <span class="volume-value">{{ Math.round(settingStore.sfxVolume * 100) }}%</span>
+                </div>
               </div>
             </div>
 
@@ -268,6 +286,37 @@ watch(() => props.visible, (val) => {
 .setting-label {
   font-size: 1.1em;
   color: #eee;
+}
+
+.sound-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 250px;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.volume-label {
+  width: 80px;
+  color: #aaa;
+  font-size: 0.9em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.slider-container {
+  width: 150px;
+}
+
+.volume-value {
+  width: 40px;
+  color: #888;
+  font-size: 0.8em;
 }
 
 .other-panel-container {
