@@ -194,9 +194,10 @@ onMounted(() => {
   // Ensure backend language setting matches frontend preference
   settingStore.syncBackend()
   
-  // Initialize audio system
-  useAudio().init()
-})
+    // Initialize audio system
+    useAudio().init()
+    useBgm().init() // 确保 BGM 系统在 App 层级初始化，避免 Watcher 被子组件卸载
+  })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)

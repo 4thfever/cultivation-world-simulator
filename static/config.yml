@@ -1,5 +1,5 @@
 meta:
-  version: "1.5.1"
+  version: "1.5.2"
 
 llm:
   default_modes:

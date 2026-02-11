@@ -283,7 +283,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
   - [ ] Planting
   - [ ] Taming
   - [ ] Evolving skills
-- [ ] Mortals
+- ✅ People (Mortals)
 
 ### 🏛️ Organizations
 - [ ] Sect system

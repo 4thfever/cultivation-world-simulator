@@ -162,7 +162,7 @@ export function useBgm() {
     // 淡入淡出动画
     function performCrossfade(fadeIn: HTMLAudioElement, fadeOut: HTMLAudioElement, fadeOutEnabled: boolean) {
         const start = performance.now();
-        const targetVol = settingStore.bgmVolume;
+        // remove static targetVol capture
         
         fadeIn.dataset.fading = 'true';
         if (fadeOutEnabled) fadeOut.dataset.fading = 'true';
@@ -170,16 +170,17 @@ export function useBgm() {
         function step(now: number) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / FADE_DURATION, 1);
+            const currentTargetVol = settingStore.bgmVolume; // Dynamic volume check
 
             // 淡入
-            const newFadeInVol = progress * targetVol;
+            const newFadeInVol = progress * currentTargetVol;
             if (newFadeInVol >= 0 && newFadeInVol <= 1) {
                 fadeIn.volume = newFadeInVol;
             }
 
             // 淡出
             if (fadeOutEnabled && !fadeOut.paused) {
-                const newFadeOutVol = Math.max(0, (1 - progress) * targetVol);
+                const newFadeOutVol = Math.max(0, (1 - progress) * currentTargetVol);
                 if (newFadeOutVol >= 0 && newFadeOutVol <= 1) {
                     fadeOut.volume = newFadeOutVol;
                 }
@@ -197,7 +198,7 @@ export function useBgm() {
                     fadeOut.currentTime = 0;
                 }
                 // 确保最终音量准确
-                fadeIn.volume = targetVol;
+                fadeIn.volume = settingStore.bgmVolume;
             }
         }
         requestAnimationFrame(step);
