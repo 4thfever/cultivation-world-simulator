@@ -1,4 +1,4 @@
-import { watch } from 'vue';
+import { watch, effectScope } from 'vue';
 import { useSettingStore } from '../stores/setting';
 
 // 配置
@@ -37,9 +37,12 @@ export function useBgm() {
             t.addEventListener('ended', () => onTrackEnded(i));
         });
 
-        // 监听音量变化
-        watch(() => settingStore.bgmVolume, (newVol) => {
-            updateVolume(newVol);
+        // 监听音量变化 - 使用 detached scope 防止被组件卸载时清理
+        const scope = effectScope(true);
+        scope.run(() => {
+            watch(() => settingStore.bgmVolume, (newVol) => {
+                updateVolume(newVol);
+            });
         });
 
         // 初始化音量
