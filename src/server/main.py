@@ -432,17 +432,18 @@ async def init_game_async():
         if protagonist_mode in ["all", "random"]:
             prob = 1.0 if protagonist_mode == "all" else 0.05
             def _spawn_protagonists_sync():
-                return prot_utils.spawn_protagonists(world, world.month_stamp, probability=prob)
+                return prot_utils.spawn_protagonists(
+                    world, 
+                    world.month_stamp, 
+                    probability=prob,
+                    limit_count=target_total_count if protagonist_mode == "all" else None
+                )
             prot_avatars = await asyncio.to_thread(_spawn_protagonists_sync)
             final_avatars.update(prot_avatars)
             spawned_protagonists_count = len(prot_avatars)
             print(f"生成了 {spawned_protagonists_count} 位主角 (Mode: {protagonist_mode})")
 
-        remaining_count = 0
-        if protagonist_mode == "all":
-            remaining_count = 0
-        else:
-            remaining_count = max(0, target_total_count - spawned_protagonists_count)
+        remaining_count = max(0, target_total_count - spawned_protagonists_count)
 
         if remaining_count > 0:
             def _make_random_sync():

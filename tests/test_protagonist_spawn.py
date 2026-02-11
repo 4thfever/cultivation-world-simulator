@@ -165,6 +165,18 @@ def test_spawn_probability(base_world, mock_game_configs):
     avatars_dict = spawn_protagonists(base_world, month, probability=0.0)
     assert len(avatars_dict) == 0
 
+def test_spawn_limit_count(base_world, mock_game_configs):
+    """验证数量限制参数生效"""
+    month = create_month_stamp(Year(100), Month.JANUARY)
+    
+    # 限制只生成 2 个（Mock 数据有 4 个）
+    avatars_dict = spawn_protagonists(base_world, month, probability=1.0, limit_count=2)
+    assert len(avatars_dict) == 2
+    
+    # 限制 10 个（超过 4 个），应生成全部 4 个
+    avatars_dict_all = spawn_protagonists(base_world, month, probability=1.0, limit_count=10)
+    assert len(avatars_dict_all) == 4
+
 def test_spawn_exception_handling(base_world):
     """验证当生成过程发生异常时是否能优雅降级（不崩溃并跳过该角色）"""
     

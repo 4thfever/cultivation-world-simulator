@@ -14,17 +14,24 @@ from src.utils.df import game_configs, get_int, get_str, get_list_int
 def spawn_protagonists(
     world: World, 
     current_month_stamp: MonthStamp, 
-    probability: float = 1.0
+    probability: float = 1.0,
+    limit_count: Optional[int] = None
 ) -> Dict[str, Avatar]:
     """
     遍历配置生成角色，并处理特殊关系。
     :param probability: 每个角色生成的概率 (0.0 - 1.0)。
+    :param limit_count: 最大生成数量限制，如果配置数量超过此限制，则随机抽取。
     """
     created_avatars = {}
     
     # 1. 批量生成
     # 从全局配置中读取 protagonist.csv 加载的数据
     configs = game_configs.get("protagonist", [])
+
+    # 如果指定了上限，且配置数量超过上限，则随机抽取
+    if limit_count is not None and limit_count > 0:
+        if len(configs) > limit_count:
+            configs = random.sample(configs, limit_count)
 
     for config in configs:
         # 概率判定

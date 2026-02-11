@@ -568,8 +568,8 @@ class TestInitGameAsyncEdgeCases:
             assert call_kwargs[1]["probability"] == 0.05
 
     @pytest.mark.asyncio
-    async def test_init_no_npcs_when_protagonist_mode_all(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
-        """Test that no random NPCs are generated when protagonist mode is 'all'."""
+    async def test_init_backfills_npcs_when_protagonist_mode_all_has_few_protagonists(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that random NPCs ARE generated when protagonist mode is 'all' but we have fewer protagonists than target."""
         mock_map = MagicMock()
         mock_world = MagicMock()
         mock_world.avatar_manager.avatars = {}
@@ -581,7 +581,7 @@ class TestInitGameAsyncEdgeCases:
              patch.object(main, "scan_avatar_assets"), \
              patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
              patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
-             patch.object(main, "_new_make_random") as mock_make_random, \
+             patch.object(main, "_new_make_random", return_value={}) as mock_make_random, \
              patch("src.server.main.prot_utils") as mock_prot_utils, \
              patch("src.server.main.World") as mock_world_class, \
              patch("src.server.main.Simulator", return_value=mock_sim), \
@@ -591,15 +591,52 @@ class TestInitGameAsyncEdgeCases:
             mock_prot_utils.spawn_protagonists.return_value = {"p1": MagicMock()}
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 100  # High number, but should be ignored.
+            mock_config.game.init_npc_num = 100  # Target 100
             mock_config.game.world_history = ""
             mock_config.avatar.protagonist = "all"
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
 
-            # _new_make_random should NOT be called when protagonist mode is "all".
-            mock_make_random.assert_not_called()
+            # Should request 100 - 1 = 99 random NPCs.
+            mock_make_random.assert_called_once()
+            call_kwargs = mock_make_random.call_args
+            assert call_kwargs[1]["count"] == 99
+
+    @pytest.mark.asyncio
+    async def test_init_limits_protagonists_when_mode_all(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """Test that limit_count is passed to spawn_protagonists when mode is 'all'."""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.prot_utils") as mock_prot_utils, \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {}):
+
+            mock_prot_utils.spawn_protagonists.return_value = {}
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 0
+            mock_config.game.init_npc_num = 12
+            mock_config.game.world_history = ""
+            mock_config.avatar.protagonist = "all"
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            # Check that limit_count was passed
+            call_kwargs = mock_prot_utils.spawn_protagonists.call_args
+            assert call_kwargs[1]["limit_count"] == 12
 
     @pytest.mark.asyncio
     async def test_init_remaining_npcs_calculation(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
