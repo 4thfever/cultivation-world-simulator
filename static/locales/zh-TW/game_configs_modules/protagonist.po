@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-22 12:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "PROTAGONIST_JIANG_WANG_NAME"
+msgstr "姜望"
+
+msgid "PROTAGONIST_HAN_LI_NAME"
+msgstr "韓立"
+
+msgid "PROTAGONIST_NANGONG_WAN_NAME"
+msgstr "南宮婉"
+
+msgid "PROTAGONIST_LI_FEI_YU_NAME"
+msgstr "厲飛雨"
+
+msgid "PROTAGONIST_XIAO_YAN_NAME"
+msgstr "蕭炎"
+
+msgid "PROTAGONIST_XIAO_XUN_ER_NAME"
+msgstr "蕭薰兒"
+
+msgid "PROTAGONIST_NALAN_YANRAN_NAME"
+msgstr "納蘭嫣然"
+
+msgid "PROTAGONIST_MENG_QI_NAME"
+msgstr "孟奇"
+
+msgid "PROTAGONIST_GU_XIAO_SANG_NAME"
+msgstr "顧小桑"
+
+msgid "PROTAGONIST_JIANG_ZHI_WEI_NAME"
+msgstr "江芷微"
+
+msgid "PROTAGONIST_QI_XIU_NAME"
+msgstr "齊休"
+
+msgid "PROTAGONIST_YANG_JIAN_NAME"
+msgstr "楊間"
+
+msgid "PROTAGONIST_LI_HUO_WANG_NAME"
+msgstr "李火旺"
+
+msgid "PROTAGONIST_BAI_LING_MIAO_NAME"
+msgstr "白靈淼"
+
+msgid "PROTAGONIST_RUTHLESS_EMPRESS_NAME"
+msgstr "狠人大帝"
+
+msgid "PROTAGONIST_LU_XUE_QI_NAME"
+msgstr "陸雪琪"
+
+msgid "PROTAGONIST_LI_TONG_YA_NAME"
+msgstr "李通崖"
+
+msgid "PROTAGONIST_LI_XI_MING_NAME"
+msgstr "李曦明"

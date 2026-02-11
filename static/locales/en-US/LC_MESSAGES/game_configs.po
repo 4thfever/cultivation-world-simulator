@@ -2238,6 +2238,60 @@ msgstr ""
 "Penglai Island, blooming every three hundred years and fruiting every three "
 "hundred years, containing immense life force"
 
+msgid "PROTAGONIST_JIANG_WANG_NAME"
+msgstr "Jiang Wang"
+
+msgid "PROTAGONIST_HAN_LI_NAME"
+msgstr "Han Li"
+
+msgid "PROTAGONIST_NANGONG_WAN_NAME"
+msgstr "Nangong Wan"
+
+msgid "PROTAGONIST_LI_FEI_YU_NAME"
+msgstr "Li Feiyu"
+
+msgid "PROTAGONIST_XIAO_YAN_NAME"
+msgstr "Xiao Yan"
+
+msgid "PROTAGONIST_XIAO_XUN_ER_NAME"
+msgstr "Xiao Xun'er"
+
+msgid "PROTAGONIST_NALAN_YANRAN_NAME"
+msgstr "Nalan Yanran"
+
+msgid "PROTAGONIST_MENG_QI_NAME"
+msgstr "Meng Qi"
+
+msgid "PROTAGONIST_GU_XIAO_SANG_NAME"
+msgstr "Gu Xiaosang"
+
+msgid "PROTAGONIST_JIANG_ZHI_WEI_NAME"
+msgstr "Jiang Zhiwei"
+
+msgid "PROTAGONIST_QI_XIU_NAME"
+msgstr "Qi Xiu"
+
+msgid "PROTAGONIST_YANG_JIAN_NAME"
+msgstr "Yang Jian"
+
+msgid "PROTAGONIST_LI_HUO_WANG_NAME"
+msgstr "Li Huowang"
+
+msgid "PROTAGONIST_BAI_LING_MIAO_NAME"
+msgstr "Bai Lingmiao"
+
+msgid "PROTAGONIST_RUTHLESS_EMPRESS_NAME"
+msgstr "Ruthless Empress"
+
+msgid "PROTAGONIST_LU_XUE_QI_NAME"
+msgstr "Lu Xueqi"
+
+msgid "PROTAGONIST_LI_TONG_YA_NAME"
+msgstr "Li Tongya"
+
+msgid "PROTAGONIST_LI_XI_MING_NAME"
+msgstr "Li Ximing"
+
 #. root.csv: 金灵根
 msgid "ROOT_1_NAME"
 msgstr "Metal Spiritual Root"

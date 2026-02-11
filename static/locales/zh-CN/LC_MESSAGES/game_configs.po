@@ -1838,6 +1838,60 @@ msgstr "涅盘赤果"
 msgid "PLANT_11_DESC"
 msgstr "生长在蓬莱岛灵泉之眼的伴生神树上，三百年一开花，三百年一结果，蕴含庞大生机"
 
+msgid "PROTAGONIST_JIANG_WANG_NAME"
+msgstr "姜望"
+
+msgid "PROTAGONIST_HAN_LI_NAME"
+msgstr "韩立"
+
+msgid "PROTAGONIST_NANGONG_WAN_NAME"
+msgstr "南宫婉"
+
+msgid "PROTAGONIST_LI_FEI_YU_NAME"
+msgstr "厉飞雨"
+
+msgid "PROTAGONIST_XIAO_YAN_NAME"
+msgstr "萧炎"
+
+msgid "PROTAGONIST_XIAO_XUN_ER_NAME"
+msgstr "萧薰儿"
+
+msgid "PROTAGONIST_NALAN_YANRAN_NAME"
+msgstr "纳兰嫣然"
+
+msgid "PROTAGONIST_MENG_QI_NAME"
+msgstr "孟奇"
+
+msgid "PROTAGONIST_GU_XIAO_SANG_NAME"
+msgstr "顾小桑"
+
+msgid "PROTAGONIST_JIANG_ZHI_WEI_NAME"
+msgstr "江芷微"
+
+msgid "PROTAGONIST_QI_XIU_NAME"
+msgstr "齐休"
+
+msgid "PROTAGONIST_YANG_JIAN_NAME"
+msgstr "杨间"
+
+msgid "PROTAGONIST_LI_HUO_WANG_NAME"
+msgstr "李火旺"
+
+msgid "PROTAGONIST_BAI_LING_MIAO_NAME"
+msgstr "白灵淼"
+
+msgid "PROTAGONIST_RUTHLESS_EMPRESS_NAME"
+msgstr "狠人大帝"
+
+msgid "PROTAGONIST_LU_XUE_QI_NAME"
+msgstr "陆雪琪"
+
+msgid "PROTAGONIST_LI_TONG_YA_NAME"
+msgstr "李通崖"
+
+msgid "PROTAGONIST_LI_XI_MING_NAME"
+msgstr "李曦明"
+
 #. root.csv: 金灵根
 msgid "ROOT_1_NAME"
 msgstr "金灵根"

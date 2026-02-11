@@ -36,8 +36,31 @@ Referenced parts of the UI from AI Life Engine.
 
 ---
 
+## 📚 Referenced Novels / 致敬参考小说
+
+本项目中的部分特殊NPC（主角/配角）原型来自以下经典网文作品，特此致敬。
+Some special NPCs (protagonists/supporting characters) in this project are based on characters from the following classic web novels. We pay tribute to these works.
+
+| Novel Title / 小说名称 | Author / 作者 | Referenced Characters / 相关角色 |
+| :--- | :--- | :--- |
+| **《赤心巡天》** | 情何以甚 | 姜望 |
+| **《凡人修仙传》** | 忘语 | 韩立, 厉飞雨, 南宫婉 |
+| **《斗破苍穹》** | 天蚕土豆 | 萧炎, 萧薰儿, 纳兰嫣然 |
+| **《一世之尊》** | 爱潜水的乌贼 | 孟奇, 顾小桑, 江芷微 |
+| **《修真门派掌门路》** | 齐可休 | 齐休 |
+| **《神秘复苏》** | 佛前献花 | 杨间 |
+| **《道诡异仙》** | 狐尾的笔 | 李火旺, 白灵淼 |
+| **《遮天》** | 辰东 | 狠人大帝 |
+| **《诛仙》** | 萧鼎 | 陆雪琪 |
+| **《玄鉴仙族》** | 季越人 | 李通崖, 李曦明 |
+
+---
+
 ## ⚖️ License Summary
 
 本文件列出的所有资产均由其各自的作者拥有版权。本项目的代码许可证（如 MIT 或其他）**不包含**这些媒体资产。这些资产的使用必须遵守上述特定的知识共享（Creative Commons）协议。
 
 The code license of this project does NOT cover these media assets. Usage of these assets must comply with the specific Creative Commons licenses listed above.
+
+如果著作者认为侵权，请和我联系，我会立刻处理。
+If the authors believe this constitutes infringement, please contact me and I will address it immediately.
