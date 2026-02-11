@@ -362,9 +362,8 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - [ ] Character Secrets & Two-faced
 - [ ] Ascension to Upper Realm
 - [ ] Formations
-- [ ] Puppetry
 - [ ] Conspiracies
-- [ ] World Secrets & World Laws (Flexible customization)
+- [ ] World Secrets & World Laws
 - [ ] Gu Refining
 - [ ] World-ending Crisis
 
