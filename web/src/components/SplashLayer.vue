@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { NButton, NSpace, NModal, NCard, NForm, NFormItem, NSelect } from 'naive-ui'
+import { NButton, NSpace } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { useSettingStore } from '../stores/setting'
 import { useBgm } from '../composables/useBgm'
 
 // 定义事件
@@ -11,8 +10,6 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const settingStore = useSettingStore()
-const showSettings = ref(false)
 const videoRef = ref<HTMLVideoElement | null>(null)
 
 // 视频播放控制逻辑
@@ -43,12 +40,6 @@ onMounted(() => {
   video.addEventListener('timeupdate', handleTimeUpdate)
 })
 
-const languageOptions = [
-  { label: '简体中文', value: 'zh-CN' },
-  { label: '繁體中文', value: 'zh-TW' },
-  { label: 'English', value: 'en-US' }
-]
-
 // 定义按钮列表
 const menuOptions = computed(() => [
   { label: t('ui.start_game'), subLabel: 'Start Game', key: 'start', disabled: false },
@@ -59,10 +50,6 @@ const menuOptions = computed(() => [
 ])
 
 function handleClick(key: string) {
-  if (key === 'settings') {
-    showSettings.value = true
-    return
-  }
   emit('action', key)
 }
 </script>
@@ -108,28 +95,6 @@ function handleClick(key: string) {
         </n-space>
       </div>
     </div>
-
-    <!-- Settings Modal -->
-    <n-modal v-model:show="showSettings">
-        <n-card
-          style="width: 400px"
-          :title="t('ui.settings')"
-          :bordered="false"
-          size="huge"
-          role="dialog"
-          aria-modal="true"
-        >
-          <n-form>
-            <n-form-item label="语言 / Language">
-              <n-select
-                v-model:value="settingStore.locale"
-                :options="languageOptions"
-                @update:value="settingStore.setLocale"
-              />
-            </n-form-item>
-          </n-form>
-        </n-card>
-    </n-modal>
   </div>
 </template>
 

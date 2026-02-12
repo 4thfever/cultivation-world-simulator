@@ -11,7 +11,7 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
   
   const { isManualPaused } = storeToRefs(systemStore)
   const showMenu = ref(false)
-  const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start'>('load')
+  const menuDefaultTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'settings' | 'other'>('load')
   const canCloseMenu = ref(true)
 
   // 统一的暂停控制逻辑：
