@@ -29,6 +29,14 @@ This project makes use of the following free/open-source assets. We extend our s
 
 ---
 
+## 🔊 Sound Effects / 音效
+
+| Asset Name | Artist | Source / Download | License |
+| :--- | :--- | :--- | :--- |
+| **UI Audio** | Kenney | [kenney.nl](https://kenney.nl/assets/ui-audio) | CC0 1.0 Universal |
+
+---
+
 ## 🎨 UI & Graphics / 界面与图像
 
 参考了AI Life Engine的部分UI。
