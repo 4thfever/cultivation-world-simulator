@@ -309,7 +309,9 @@ msgid "refine_action_name"
 msgstr "Refine Elixir"
 
 msgid "refine_description"
-msgstr "Consume materials to attempt refining elixirs"
+msgstr ""
+"Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, "
+"FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
 
 msgid "refine_requirements"
 msgstr "Possess 3 materials of the same realm"
@@ -346,7 +348,9 @@ msgid "cast_action_name"
 msgstr "Cast Treasure"
 
 msgid "cast_description"
-msgstr "Consume materials to attempt casting treasures"
+msgstr ""
+"Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT,"
+" FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
 
 msgid "cast_requirements"
 msgstr "Possess 5 materials of the same realm"

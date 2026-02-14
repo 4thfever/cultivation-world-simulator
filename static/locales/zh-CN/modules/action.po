@@ -284,7 +284,7 @@ msgid "refine_action_name"
 msgstr "炼丹"
 
 msgid "refine_description"
-msgstr "消耗材料尝试炼制丹药"
+msgstr "消耗材料尝试炼制丹药（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
 
 msgid "refine_requirements"
 msgstr "拥有3个同境界材料"
@@ -318,7 +318,7 @@ msgid "cast_action_name"
 msgstr "铸造"
 
 msgid "cast_description"
-msgstr "消耗材料尝试铸造法宝"
+msgstr "消耗材料尝试铸造法宝（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
 
 msgid "cast_requirements"
 msgstr "拥有5个同境界材料"
