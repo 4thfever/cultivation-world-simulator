@@ -1916,7 +1916,7 @@ msgid "conversation_action_name"
 msgstr "Conversation"
 
 msgid "conversation_description"
-msgstr "Have an exchange conversation with opponent"
+msgstr "Have an exchange conversation with other"
 
 msgid "conversation_requirements"
 msgstr "Target within interaction range"
@@ -1977,7 +1977,9 @@ msgid "gift_action_name"
 msgstr "Gift"
 
 msgid "gift_description"
-msgstr "Gift spirit stones or items to opponent"
+msgstr ""
+"Gift spirit stones or items to other. Use 'item_id' parameter: Item ID (int)"
+" or 'SPIRIT_STONE'."
 
 msgid "gift_requirements"
 msgstr "Initiator possesses the item; target within interaction range"

@@ -1816,7 +1816,7 @@ msgid "gift_action_name"
 msgstr "贈送"
 
 msgid "gift_description"
-msgstr "向對方贈送靈石或物品"
+msgstr "向對方贈送靈石或物品。參數 'item_id' 請填入物品 ID（數字）或 'SPIRIT_STONE'（靈石）。"
 
 msgid "gift_requirements"
 msgstr "發起者持有該物品；目標在交互範圍內"

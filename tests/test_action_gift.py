@@ -71,7 +71,7 @@ class TestGiftAction:
         
         # Mock asyncio loop just to pass the step() check
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name="灵石", amount=100)
+            gift_action.step(target_avatar, item_id="SPIRIT_STONE", amount=100)
             
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is True, f"Should be able to start: {reason}"
@@ -88,7 +88,7 @@ class TestGiftAction:
         dummy_avatar.magic_stone = 50
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-             gift_action.step(target_avatar, item_name="灵石", amount=100)
+             gift_action.step(target_avatar, item_id="SPIRIT_STONE", amount=100)
              
         can_start, reason = gift_action._can_start(target_avatar)
         
@@ -104,7 +104,7 @@ class TestGiftAction:
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
             # 非灵石强制数量 1
-            gift_action.step(target_avatar, item_name=test_material.name, amount=999) 
+            gift_action.step(target_avatar, item_id=str(test_material.id), amount=999) 
         
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is True
@@ -120,7 +120,7 @@ class TestGiftAction:
         test_material = mock_item_data["obj_material"]
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name=test_material.name, amount=1)
+            gift_action.step(target_avatar, item_id=str(test_material.id), amount=1)
             
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is False
@@ -134,7 +134,7 @@ class TestGiftAction:
         assert target_avatar.weapon is None
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name=test_weapon.name, amount=1)
+            gift_action.step(target_avatar, item_id=str(test_weapon.id), amount=1)
         
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is True
@@ -149,7 +149,7 @@ class TestGiftAction:
         test_weapon = mock_item_data["obj_weapon"]
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name=test_weapon.name, amount=1)
+            gift_action.step(target_avatar, item_id=str(test_weapon.id), amount=1)
             
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is False
@@ -168,7 +168,7 @@ class TestGiftAction:
         target_avatar.magic_stone = 0
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name=new_weapon.name, amount=1)
+            gift_action.step(target_avatar, item_id=str(new_weapon.id), amount=1)
             
         gift_action._settle_feedback(target_avatar, "Accept")
         
@@ -184,7 +184,7 @@ class TestGiftAction:
         dummy_avatar.weapon = test_weapon
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name=test_weapon.name)
+            gift_action.step(target_avatar, item_id=str(test_weapon.id))
             
         infos = gift_action._build_prompt_infos(target_avatar)
         
@@ -195,7 +195,16 @@ class TestGiftAction:
         dummy_avatar.magic_stone = 1000
         
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
-            gift_action.step(target_avatar, item_name="灵石", amount=500)
+            gift_action.step(target_avatar, item_id="SPIRIT_STONE", amount=500)
             
         infos = gift_action._build_prompt_infos(target_avatar)
         assert "500 灵石" in infos["action_info"]
+    
+    def test_gift_invalid_id(self, gift_action, dummy_avatar, target_avatar):
+        """测试传入无效 ID"""
+        with patch("asyncio.get_running_loop", return_value=MagicMock()):
+            gift_action.step(target_avatar, item_id="invalid_id_999", amount=1)
+            
+        can_start, reason = gift_action._can_start(target_avatar)
+        assert can_start is False
+        assert "Item not found" in reason or "未找到物品" in reason

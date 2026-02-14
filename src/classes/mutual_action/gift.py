@@ -31,10 +31,11 @@ class Gift(MutualAction):
     
     # 不需要翻译的常量
     EMOJI = "🎁"
+    SPIRIT_STONE_KEY = "SPIRIT_STONE"
     
     PARAMS = {
         "target_avatar": "Avatar",
-        "item_name": "str", 
+        "item_id": "str", 
         "amount": "int"
     }
     
@@ -49,27 +50,34 @@ class Gift(MutualAction):
     def _get_template_path(self) -> Path:
         return CONFIG.paths.templates / "mutual_action.txt"
 
-    def _resolve_gift(self, item_name: str, amount: int) -> tuple[Any, str, int]:
+    def _resolve_gift(self, item_id_str: str, amount: int) -> tuple[Any, str, int]:
         """
         解析赠送意图，返回 (物品对象/None, 显示名称, 实际数量)。
         物品对象为 None 代表是灵石。
         """
         # 1. 灵石
-        if item_name == "灵石" or item_name == "spirit stones" or not item_name:
+        if not item_id_str or str(item_id_str).strip().upper() == self.SPIRIT_STONE_KEY:
             return None, t("spirit stones"), max(1, amount)
         
         # 非灵石强制数量为 1
         forced_amount = 1
         
+        # 解析 ID
+        try:
+            target_id = int(item_id_str)
+        except (ValueError, TypeError):
+            # ID 必须是数字，否则视为无效
+            return None, "", 0
+        
         # 2. 检查装备 (Weapon/Auxiliary)
-        if self.avatar.weapon and self.avatar.weapon.name == item_name:
+        if self.avatar.weapon and self.avatar.weapon.id == target_id:
             return self.avatar.weapon, self.avatar.weapon.name, forced_amount
-        if self.avatar.auxiliary and self.avatar.auxiliary.name == item_name:
+        if self.avatar.auxiliary and self.avatar.auxiliary.id == target_id:
             return self.avatar.auxiliary, self.avatar.auxiliary.name, forced_amount
             
         # 3. 检查背包素材 (Materials)
         for mat, qty in self.avatar.materials.items():
-            if mat.name == item_name:
+            if mat.id == target_id:
                 return mat, mat.name, forced_amount
                 
         # 未找到
@@ -90,19 +98,19 @@ class Gift(MutualAction):
         else:
             return f"{amount} {name}"
 
-    def step(self, target_avatar: "Avatar|str", item_name: str = "灵石", amount: int = 100) -> ActionResult:
+    def step(self, target_avatar: "Avatar|str", item_id: str = "SPIRIT_STONE", amount: int = 100) -> ActionResult:
         """
         重写 step 以接收额外参数。
         将参数存入 self，然后调用父类 step 执行通用逻辑（LLM交互）。
         """
         # 每一帧都会传入参数，更新上下文
-        obj, name, real_amount = self._resolve_gift(item_name, amount)
+        obj, name, real_amount = self._resolve_gift(item_id, amount)
         
         self._current_gift_context = {
             "obj": obj,
             "name": name,
             "amount": real_amount,
-            "original_item_name": item_name
+            "original_item_id": item_id
         }
         
         # 调用父类 step，父类会调用 _build_prompt_infos -> _can_start 等
@@ -113,13 +121,22 @@ class Gift(MutualAction):
         obj = self._current_gift_context.get("obj")
         name = self._current_gift_context.get("name")
         amount = self._current_gift_context.get("amount", 0)
-        original_name = self._current_gift_context.get("original_item_name")
+        original_id = self._current_gift_context.get("original_item_id")
+        
+        # 修复：如果上下文未初始化（step/start 尚未执行），尝试从当前动作参数回溯
+        if name is None and original_id is None:
+            cur = self.avatar.current_action
+            if cur and cur.action is self:
+                p_item = cur.params.get("item_id", "SPIRIT_STONE")
+                p_amount = cur.params.get("amount", 100)
+                original_id = p_item
+                obj, name, amount = self._resolve_gift(p_item, p_amount)
+            else:
+                return True, ""
         
         # 如果 name 为空，说明 resolve 失败
         if not name:
-            if original_name and original_name not in ["灵石", "spirit stones"]:
-                return False, t("Item not found: {name}", name=original_name)
-            # 如果是灵石但没解析出来（不应该发生，除非amount有问题，但max(1)了），或者是默认情况
+            return False, t("Item not found: {name}", name=original_id)
 
         # 1. 灵石
         spirit_stones_text = t("spirit stones")
@@ -142,12 +159,10 @@ class Gift(MutualAction):
             if qty < amount:
                  return False, t("Insufficient item: {name}", name=name)
         else:
-             return False, t("Item not found: {name}", name=original_name)
+             return False, t("Item not found: {name}", name=original_id)
 
         # 检查交互范围 (父类 MutualAction.can_start 已经检查了，但这里是 _can_start 额外检查)
         from src.classes.observe import is_within_observation
-        if not is_within_observation(self.avatar, target):
-            return False, t("Target not within interaction range")
             
         return True, ""
 
@@ -162,14 +177,14 @@ class Gift(MutualAction):
         
         return infos
 
-    def start(self, target_avatar: "Avatar|str", item_name: str = "灵石", amount: int = 100) -> Event:
+    def start(self, target_avatar: "Avatar|str", item_id: str = "SPIRIT_STONE", amount: int = 100) -> Event:
         # start 也会接收参数，同样需要设置上下文
-        obj, name, real_amount = self._resolve_gift(item_name, amount)
+        obj, name, real_amount = self._resolve_gift(item_id, amount)
         self._current_gift_context = {
             "obj": obj, 
             "name": name, 
             "amount": real_amount, 
-            "original_item_name": item_name
+            "original_item_id": item_id
         }
         
         target = self._get_target_avatar(target_avatar)

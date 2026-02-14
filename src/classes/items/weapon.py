@@ -31,7 +31,7 @@ class Weapon(Item):
     special_data: dict = field(default_factory=dict)
 
     def __hash__(self):
-        return hash((self.id, self.name))
+        return hash(self.id)
 
     def get_info(self, detailed: bool = False) -> str:
         """获取信息"""
@@ -43,7 +43,7 @@ class Weapon(Item):
         """获取详细信息"""
         from src.i18n import t
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return t("{name} ({type}·{realm}, {desc}){effect}",
+        return f"[{self.id}] " + t("{name} ({type}·{realm}, {desc}){effect}",
                  name=self.name, type=str(self.weapon_type), realm=str(self.realm), 
                  desc=self.desc, effect=effect_part)
     

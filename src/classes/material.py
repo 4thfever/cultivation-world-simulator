@@ -25,11 +25,11 @@ class Material(Item):
 
     def get_info(self) -> str:
         from src.i18n import t
-        return t("{name} ({realm})", name=self.name, realm=str(self.realm))
+        return f"[{self.id}] " + t("{name} ({realm})", name=self.name, realm=str(self.realm))
 
     def get_detailed_info(self) -> str:
         from src.i18n import t
-        return t("{name}: {desc} ({realm})", name=self.name, desc=self.desc, realm=str(self.realm))
+        return f"[{self.id}] " + t("{name}: {desc} ({realm})", name=self.name, desc=self.desc, realm=str(self.realm))
 
     def get_structured_info(self) -> dict:
         return {

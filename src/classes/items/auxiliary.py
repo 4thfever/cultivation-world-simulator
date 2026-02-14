@@ -27,7 +27,7 @@ class Auxiliary(Item):
     special_data: dict = field(default_factory=dict)
 
     def __hash__(self):
-        return hash((self.id, self.name))
+        return hash(self.id)
 
     def get_info(self, detailed: bool = False) -> str:
         """获取信息"""
@@ -43,7 +43,7 @@ class Auxiliary(Item):
             souls = t(" Devoured Souls: {count}", count=self.special_data['devoured_souls'])
         
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}（{str(self.realm)}，{self.desc}{souls}）{effect_part}"
+        return f"[{self.id}] {self.name}（{str(self.realm)}，{self.desc}{souls}）{effect_part}"
     
     def get_colored_info(self) -> str:
         """获取带颜色标记的信息，供前端渲染使用"""
