@@ -48,7 +48,7 @@ class Impart(MutualAction):
 
         # 检查是否是师徒关系：师傅对徒弟的关系应该是 MASTER
         relation = self.avatar.get_relation(target)
-        if relation != Relation.IS_DISCIPLE:
+        if relation != Relation.IS_DISCIPLE_OF:
             return False, t("Target is not your apprentice")
         
         # 检查等级差

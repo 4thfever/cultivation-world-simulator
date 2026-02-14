@@ -401,46 +401,46 @@ class Avatar(
         [我] 拜 [teacher] 为师。
         语义：确立对方是我的 MASTER (老师)。
         """
-        self.set_relation(teacher, Relation.IS_MASTER)
+        self.set_relation(teacher, Relation.IS_MASTER_OF)
 
     def accept_disciple(self, student: "Avatar") -> None:
         """
         [我] 收 [student] 为徒。
         语义：确立对方是我的 DISCIPLE (徒弟)。
         """
-        self.set_relation(student, Relation.IS_DISCIPLE)
+        self.set_relation(student, Relation.IS_DISCIPLE_OF)
 
     def acknowledge_parent(self, parent: "Avatar") -> None:
         """
         [我] 认 [parent] 为父/母。
         语义：确立对方是我的 PARENT (父母)。
         """
-        self.set_relation(parent, Relation.IS_PARENT)
+        self.set_relation(parent, Relation.IS_PARENT_OF)
         
     def acknowledge_child(self, child: "Avatar") -> None:
         """
         [我] 认 [child] 为子/女。
         语义：确立对方是我的 CHILD (子女)。
         """
-        self.set_relation(child, Relation.IS_CHILD)
+        self.set_relation(child, Relation.IS_CHILD_OF)
 
     def become_lovers_with(self, other: "Avatar") -> None:
         """
         [我] 与 [other] 结为道侣。
         """
-        self.set_relation(other, Relation.IS_LOVER)
+        self.set_relation(other, Relation.IS_LOVER_OF)
 
     def make_friend_with(self, other: "Avatar") -> None:
         """
         [我] 与 [other] 结为好友。
         """
-        self.set_relation(other, Relation.IS_FRIEND)
+        self.set_relation(other, Relation.IS_FRIEND_OF)
 
     def make_enemy_of(self, other: "Avatar") -> None:
         """
         [我] 将 [other] 视为仇敌。
         """
-        self.set_relation(other, Relation.IS_ENEMY)
+        self.set_relation(other, Relation.IS_ENEMY_OF)
 
     def get_relation(self, other: "Avatar") -> Optional[Relation]:
         """获取与另一个角色的关系。"""

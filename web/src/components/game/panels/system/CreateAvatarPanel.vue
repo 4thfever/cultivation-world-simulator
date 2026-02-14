@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { RelationType } from '@/constants/relations'
 import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
@@ -37,14 +38,14 @@ const createForm = ref<CreateAvatarParams>({
 })
 
 const relationOptions = [
-  { label: '父母', value: 'parent' },
-  { label: '子女', value: 'child' },
-  { label: '兄弟姐妹', value: 'sibling' },
-  { label: '师傅', value: 'master' },
-  { label: '徒弟', value: 'apprentice' },
-  { label: '道侣', value: 'lovers' },
-  { label: '朋友', value: 'friend' },
-  { label: '仇人', value: 'enemy' }
+  { label: '父母', value: RelationType.TO_ME_IS_PARENT },
+  { label: '子女', value: RelationType.TO_ME_IS_CHILD },
+  { label: '兄弟姐妹', value: RelationType.TO_ME_IS_SIBLING },
+  { label: '师傅', value: RelationType.TO_ME_IS_MASTER },
+  { label: '徒弟', value: RelationType.TO_ME_IS_DISCIPLE },
+  { label: '道侣', value: RelationType.TO_ME_IS_LOVER },
+  { label: '朋友', value: RelationType.TO_ME_IS_FRIEND },
+  { label: '仇人', value: RelationType.TO_ME_IS_ENEMY }
 ]
 
 // --- Computed Options ---
@@ -141,7 +142,7 @@ function addRelation() {
   if (!createForm.value.relations) {
     createForm.value.relations = []
   }
-  createForm.value.relations.push({ target_id: '', relation: 'friend' })
+  createForm.value.relations.push({ target_id: '', relation: RelationType.TO_ME_IS_FRIEND })
 }
 
 function removeRelation(index: number) {

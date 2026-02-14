@@ -89,31 +89,31 @@ class RelationResolver:
         event = None
             
         if c_type == "ADD":
-            # 逻辑说明：如果 LLM 输出 "IS_MASTER" (Key) 或 "master" (Value)
+            # 逻辑说明：如果 LLM 输出 "IS_MASTER_OF" (Key) 或 "master" (Value)
             # 意味着 A 是 B 的 Master。
             # set_relation(from, to, rel) 意为：from 认为 to 是 rel。
-            # 如果 A 是 B 的 Master，那么 B 应该认为 A 是 IS_MASTER。
-            # 所以调用 set_relation(B, A, IS_MASTER)。
+            # 如果 A 是 B 的 Master，那么 B 应该认为 A 是 IS_MASTER_OF。
+            # 所以调用 set_relation(B, A, IS_MASTER_OF)。
             
             # 使用新语义方法更安全
             target_method = None
-            if rel == Relation.IS_MASTER:
+            if rel == Relation.IS_MASTER_OF:
                 # A 是 B 的 Master -> B 拜 A 为师
                 avatar_b.acknowledge_master(avatar_a)
-            elif rel == Relation.IS_DISCIPLE:
+            elif rel == Relation.IS_DISCIPLE_OF:
                 # A 是 B 的 Disciple -> B 收 A 为徒
                 avatar_b.accept_disciple(avatar_a)
-            elif rel == Relation.IS_PARENT:
+            elif rel == Relation.IS_PARENT_OF:
                 # A 是 B 的 Parent -> B 认 A 为父/母
                 avatar_b.acknowledge_parent(avatar_a)
-            elif rel == Relation.IS_CHILD:
+            elif rel == Relation.IS_CHILD_OF:
                 # A 是 B 的 Child -> B 认 A 为子/女
                 avatar_b.acknowledge_child(avatar_a)
-            elif rel == Relation.IS_LOVER:
+            elif rel == Relation.IS_LOVER_OF:
                 avatar_b.become_lovers_with(avatar_a)
-            elif rel == Relation.IS_FRIEND:
+            elif rel == Relation.IS_FRIEND_OF:
                 avatar_b.make_friend_with(avatar_a)
-            elif rel == Relation.IS_ENEMY:
+            elif rel == Relation.IS_ENEMY_OF:
                 avatar_b.make_enemy_of(avatar_a)
             else:
                 # 回退到底层方法 (set_relation(B, A, rel))

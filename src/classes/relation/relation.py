@@ -7,27 +7,27 @@ from collections import defaultdict
 
 class Relation(Enum):
     # —— 血缘（先天） ——
-    IS_PARENT = "parent"              # 对方是我的父/母（有向）
-    IS_CHILD = "child"                # 对方是我的子/女（有向）
-    IS_SIBLING = "sibling"            # 对方是我的兄弟姐妹（对称）
-    IS_KIN = "kin"                    # 对方是我的其他亲属（对称，泛化）
+    IS_PARENT_OF = "parent"              # 对方是我的父/母（有向）
+    IS_CHILD_OF = "child"                # 对方是我的子/女（有向）
+    IS_SIBLING_OF = "sibling"            # 对方是我的兄弟姐妹（对称）
+    IS_KIN_OF = "kin"                    # 对方是我的其他亲属（对称，泛化）
 
     # —— 后天（社会/情感） ——
-    IS_MASTER = "master"              # 对方是我的师傅（有向）
-    IS_DISCIPLE = "apprentice"        # 对方是我的徒弟（有向）
-    IS_LOVER = "lovers"               # 对方是我的道侣（对称）
-    IS_FRIEND = "friend"              # 对方是我的朋友（对称）
-    IS_ENEMY = "enemy"                # 对方是我的仇人/敌人（对称）
+    IS_MASTER_OF = "master"              # 对方是我的师傅（有向）
+    IS_DISCIPLE_OF = "apprentice"        # 对方是我的徒弟（有向）
+    IS_LOVER_OF = "lovers"               # 对方是我的道侣（对称）
+    IS_FRIEND_OF = "friend"              # 对方是我的朋友（对称）
+    IS_ENEMY_OF = "enemy"                # 对方是我的仇人/敌人（对称）
     
     # —— 二阶衍生关系 (Calculated) ——
-    IS_GRAND_PARENT = "grand_parent"    # Parent's Parent (对方是我的祖父母)
-    IS_GRAND_CHILD = "grand_child"      # Child's Child (对方是我的孙辈)
-    # IS_SIBLING 也可以是 calculated
+    IS_GRAND_PARENT_OF = "grand_parent"    # Parent's Parent (对方是我的祖父母)
+    IS_GRAND_CHILD_OF = "grand_child"      # Child's Child (对方是我的孙辈)
+    # IS_SIBLING_OF 也可以是 calculated
     
     # 师门系 (Distance: 2)
-    IS_MARTIAL_GRANDMASTER = "martial_grandmaster" # Master's Master (对方是我的师祖)
-    IS_MARTIAL_GRANDCHILD = "martial_grandchild"   # Apprentice's Apprentice (对方是我的徒孙)
-    IS_MARTIAL_SIBLING = "martial_sibling"         # Shared Master (对方是我的同门)
+    IS_MARTIAL_GRANDMASTER_OF = "martial_grandmaster" # Master's Master (对方是我的师祖)
+    IS_MARTIAL_GRANDCHILD_OF = "martial_grandchild"   # Apprentice's Apprentice (对方是我的徒孙)
+    IS_MARTIAL_SIBLING_OF = "martial_sibling"         # Shared Master (对方是我的同门)
 
     def __str__(self) -> str:
         from src.i18n import t
@@ -55,53 +55,53 @@ class Relation(Enum):
 
 
 relation_msg_ids = {
-    Relation.IS_PARENT: "parent",
-    Relation.IS_CHILD: "child",
-    Relation.IS_SIBLING: "sibling",
-    Relation.IS_KIN: "kin",
-    Relation.IS_MASTER: "master",
-    Relation.IS_DISCIPLE: "apprentice",
-    Relation.IS_LOVER: "lovers",
-    Relation.IS_FRIEND: "friend",
-    Relation.IS_ENEMY: "enemy",
+    Relation.IS_PARENT_OF: "parent",
+    Relation.IS_CHILD_OF: "child",
+    Relation.IS_SIBLING_OF: "sibling",
+    Relation.IS_KIN_OF: "kin",
+    Relation.IS_MASTER_OF: "master",
+    Relation.IS_DISCIPLE_OF: "apprentice",
+    Relation.IS_LOVER_OF: "lovers",
+    Relation.IS_FRIEND_OF: "friend",
+    Relation.IS_ENEMY_OF: "enemy",
     
-    Relation.IS_GRAND_PARENT: "grand_parent",
-    Relation.IS_GRAND_CHILD: "grand_child",
-    Relation.IS_MARTIAL_GRANDMASTER: "martial_grandmaster",
-    Relation.IS_MARTIAL_GRANDCHILD: "martial_grandchild",
-    Relation.IS_MARTIAL_SIBLING: "martial_sibling",
+    Relation.IS_GRAND_PARENT_OF: "grand_parent",
+    Relation.IS_GRAND_CHILD_OF: "grand_child",
+    Relation.IS_MARTIAL_GRANDMASTER_OF: "martial_grandmaster",
+    Relation.IS_MARTIAL_GRANDCHILD_OF: "martial_grandchild",
+    Relation.IS_MARTIAL_SIBLING_OF: "martial_sibling",
 }
 
 # 关系是否属于“先天”（血缘），其余为“后天”
 INNATE_RELATIONS: set[Relation] = {
-    Relation.IS_PARENT, Relation.IS_CHILD, Relation.IS_SIBLING, Relation.IS_KIN,
-    Relation.IS_GRAND_PARENT, Relation.IS_GRAND_CHILD
+    Relation.IS_PARENT_OF, Relation.IS_CHILD_OF, Relation.IS_SIBLING_OF, Relation.IS_KIN_OF,
+    Relation.IS_GRAND_PARENT_OF, Relation.IS_GRAND_CHILD_OF
 }
 
 # 自动计算的关系集合
 CALCULATED_RELATIONS: set[Relation] = {
-    Relation.IS_GRAND_PARENT, Relation.IS_GRAND_CHILD,
-    Relation.IS_MARTIAL_GRANDMASTER, Relation.IS_MARTIAL_GRANDCHILD, Relation.IS_MARTIAL_SIBLING,
-    Relation.IS_SIBLING 
+    Relation.IS_GRAND_PARENT_OF, Relation.IS_GRAND_CHILD_OF,
+    Relation.IS_MARTIAL_GRANDMASTER_OF, Relation.IS_MARTIAL_GRANDCHILD_OF, Relation.IS_MARTIAL_SIBLING_OF,
+    Relation.IS_SIBLING_OF 
 }
 
 
 # —— 规则定义 ——
 
 ADD_RELATION_RULES: dict[Relation, str] = {
-    Relation.IS_LOVER: "relation_rule_lovers_add",
-    Relation.IS_FRIEND: "relation_rule_friend_add",
-    Relation.IS_ENEMY: "relation_rule_enemy_add",
-    Relation.IS_MASTER: "relation_rule_master_add",
-    Relation.IS_DISCIPLE: "relation_rule_apprentice_add",
+    Relation.IS_LOVER_OF: "relation_rule_lovers_add",
+    Relation.IS_FRIEND_OF: "relation_rule_friend_add",
+    Relation.IS_ENEMY_OF: "relation_rule_enemy_add",
+    Relation.IS_MASTER_OF: "relation_rule_master_add",
+    Relation.IS_DISCIPLE_OF: "relation_rule_apprentice_add",
 }
 
 CANCEL_RELATION_RULES: dict[Relation, str] = {
-    Relation.IS_LOVER: "relation_rule_lovers_cancel",
-    Relation.IS_FRIEND: "relation_rule_friend_cancel",
-    Relation.IS_ENEMY: "relation_rule_enemy_cancel",
-    Relation.IS_MASTER: "relation_rule_master_cancel",
-    Relation.IS_DISCIPLE: "relation_rule_apprentice_cancel",
+    Relation.IS_LOVER_OF: "relation_rule_lovers_cancel",
+    Relation.IS_FRIEND_OF: "relation_rule_friend_cancel",
+    Relation.IS_ENEMY_OF: "relation_rule_enemy_cancel",
+    Relation.IS_MASTER_OF: "relation_rule_master_cancel",
+    Relation.IS_DISCIPLE_OF: "relation_rule_apprentice_cancel",
 }
 
 
@@ -124,22 +124,22 @@ def is_innate(relation: Relation) -> bool:
 # 有向关系的对偶映射；对称关系映射到自身
 RECIPROCAL_RELATION: dict[Relation, Relation] = {
     # 血缘
-    Relation.IS_PARENT: Relation.IS_CHILD,  # 对方是我的父母 -> 对方看我是子女
-    Relation.IS_CHILD: Relation.IS_PARENT,  # 对方是我的子女 -> 对方看我是父母
-    Relation.IS_SIBLING: Relation.IS_SIBLING,  # 对方是我的兄弟姐妹 -> 对方看我是兄弟姐妹
-    Relation.IS_KIN: Relation.IS_KIN,  # 亲属 -> 亲属
-    Relation.IS_GRAND_PARENT: Relation.IS_GRAND_CHILD,
-    Relation.IS_GRAND_CHILD: Relation.IS_GRAND_PARENT,
+    Relation.IS_PARENT_OF: Relation.IS_CHILD_OF,  # 对方是我的父母 -> 对方看我是子女
+    Relation.IS_CHILD_OF: Relation.IS_PARENT_OF,  # 对方是我的子女 -> 对方看我是父母
+    Relation.IS_SIBLING_OF: Relation.IS_SIBLING_OF,  # 对方是我的兄弟姐妹 -> 对方看我是兄弟姐妹
+    Relation.IS_KIN_OF: Relation.IS_KIN_OF,  # 亲属 -> 亲属
+    Relation.IS_GRAND_PARENT_OF: Relation.IS_GRAND_CHILD_OF,
+    Relation.IS_GRAND_CHILD_OF: Relation.IS_GRAND_PARENT_OF,
 
     # 后天
-    Relation.IS_MASTER: Relation.IS_DISCIPLE,  # 对方是我的师傅 -> 对方看我是徒弟
-    Relation.IS_DISCIPLE: Relation.IS_MASTER,  # 对方是我的徒弟 -> 对方看我是师傅
-    Relation.IS_LOVER: Relation.IS_LOVER,  # 道侣 -> 道侣
-    Relation.IS_FRIEND: Relation.IS_FRIEND,  # 朋友 -> 朋友
-    Relation.IS_ENEMY: Relation.IS_ENEMY,  # 仇人 -> 仇人
-    Relation.IS_MARTIAL_GRANDMASTER: Relation.IS_MARTIAL_GRANDCHILD,
-    Relation.IS_MARTIAL_GRANDCHILD: Relation.IS_MARTIAL_GRANDMASTER,
-    Relation.IS_MARTIAL_SIBLING: Relation.IS_MARTIAL_SIBLING,
+    Relation.IS_MASTER_OF: Relation.IS_DISCIPLE_OF,  # 对方是我的师傅 -> 对方看我是徒弟
+    Relation.IS_DISCIPLE_OF: Relation.IS_MASTER_OF,  # 对方是我的徒弟 -> 对方看我是师傅
+    Relation.IS_LOVER_OF: Relation.IS_LOVER_OF,  # 道侣 -> 道侣
+    Relation.IS_FRIEND_OF: Relation.IS_FRIEND_OF,  # 朋友 -> 朋友
+    Relation.IS_ENEMY_OF: Relation.IS_ENEMY_OF,  # 仇人 -> 仇人
+    Relation.IS_MARTIAL_GRANDMASTER_OF: Relation.IS_MARTIAL_GRANDCHILD_OF,
+    Relation.IS_MARTIAL_GRANDCHILD_OF: Relation.IS_MARTIAL_GRANDMASTER_OF,
+    Relation.IS_MARTIAL_SIBLING_OF: Relation.IS_MARTIAL_SIBLING_OF,
 }
 
 
@@ -160,18 +160,18 @@ if TYPE_CHECKING:
 GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
     # 我 -> 对方：CHILD（我为子，对方为父/母） → 显示对方为 父亲/母亲
     # NOW: 对方 IS_PARENT -> 显示对方为 父亲/母亲
-    (Relation.IS_PARENT, "male"): "relation_father",
-    (Relation.IS_PARENT, "female"): "relation_mother",
+    (Relation.IS_PARENT_OF, "male"): "relation_father",
+    (Relation.IS_PARENT_OF, "female"): "relation_mother",
     # 我 -> 对方：PARENT（我为父/母，对方为子） → 显示对方为 儿子/女儿
-    # NOW: 对方 IS_CHILD -> 显示对方为 儿子/女儿
-    (Relation.IS_CHILD, "male"): "relation_son",
-    (Relation.IS_CHILD, "female"): "relation_daughter",
-    # 祖父母 (对方 IS_GRAND_PARENT)
-    (Relation.IS_GRAND_PARENT, "male"): "relation_grandfather",
-    (Relation.IS_GRAND_PARENT, "female"): "relation_grandmother",
-    # 孙辈 (对方 IS_GRAND_CHILD)
-    (Relation.IS_GRAND_CHILD, "male"): "relation_grandson",
-    (Relation.IS_GRAND_CHILD, "female"): "relation_granddaughter",
+    # NOW: 对方 IS_CHILD_OF -> 显示对方为 儿子/女儿
+    (Relation.IS_CHILD_OF, "male"): "relation_son",
+    (Relation.IS_CHILD_OF, "female"): "relation_daughter",
+    # 祖父母 (对方 IS_GRAND_PARENT_OF)
+    (Relation.IS_GRAND_PARENT_OF, "male"): "relation_grandfather",
+    (Relation.IS_GRAND_PARENT_OF, "female"): "relation_grandmother",
+    # 孙辈 (对方 IS_GRAND_CHILD_OF)
+    (Relation.IS_GRAND_CHILD_OF, "male"): "relation_grandson",
+    (Relation.IS_GRAND_CHILD_OF, "female"): "relation_granddaughter",
 }
 
 # 显示顺序配置
@@ -195,7 +195,7 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
     from src.i18n import t
     
     # 1. 处理兄弟姐妹/同门 (涉及长幼比较)
-    if relation == Relation.IS_SIBLING or relation == Relation.IS_MARTIAL_SIBLING:
+    if relation == Relation.IS_SIBLING_OF or relation == Relation.IS_MARTIAL_SIBLING_OF:
         is_older = False
         # 比较出生时间 (MonthStamp 越小越早出生，年龄越大)
         if hasattr(other_avatar, "birth_month_stamp") and hasattr(self_avatar, "birth_month_stamp"):
@@ -207,7 +207,7 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
         
         gender_val = getattr(getattr(other_avatar, "gender", None), "value", "male")
         
-        if relation == Relation.IS_SIBLING:
+        if relation == Relation.IS_SIBLING_OF:
             if gender_val == "male":
                 return t("relation_older_brother") if is_older else t("relation_younger_brother")
             else:

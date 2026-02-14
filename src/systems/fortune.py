@@ -96,7 +96,7 @@ def _get_fortune_theme(theme_id: str) -> str:
 def _has_master(avatar: Avatar) -> bool:
     """检查是否已有师傅"""
     for other, rel in avatar.relations.items():
-        if rel == Relation.IS_MASTER:
+        if rel == Relation.IS_MASTER_OF:
             return True
     return False
 

@@ -29,10 +29,10 @@ def update_second_degree_relations(avatar: "Avatar") -> None:
     # 1. 预筛选一阶关键人 (中间节点)
     relations = getattr(avatar, "relations", {})
     
-    parents = [t for t, r in relations.items() if r == Relation.IS_PARENT]
-    children = [t for t, r in relations.items() if r == Relation.IS_CHILD]
-    masters = [t for t, r in relations.items() if r == Relation.IS_MASTER]
-    apprentices = [t for t, r in relations.items() if r == Relation.IS_DISCIPLE]
+    parents = [t for t, r in relations.items() if r == Relation.IS_PARENT_OF]
+    children = [t for t, r in relations.items() if r == Relation.IS_CHILD_OF]
+    masters = [t for t, r in relations.items() if r == Relation.IS_MASTER_OF]
+    apprentices = [t for t, r in relations.items() if r == Relation.IS_DISCIPLE_OF]
 
     # 2. 血缘推导
     # Sibling: 父母的子女 (排除自己)
@@ -41,44 +41,44 @@ def update_second_degree_relations(avatar: "Avatar") -> None:
         # 如果 parent 是死者或者未完全加载，需要确保其 relations 可用
         p_relations = getattr(p, "relations", {})
         for sib, r in p_relations.items():
-            if r == Relation.IS_CHILD and sib.id != avatar.id:
-                computed[sib] = Relation.IS_SIBLING
+            if r == Relation.IS_CHILD_OF and sib.id != avatar.id:
+                computed[sib] = Relation.IS_SIBLING_OF
                 
     # Grandparent: 父母的父母
     for p in parents:
         p_relations = getattr(p, "relations", {})
         for gp, r in p_relations.items():
-            if r == Relation.IS_PARENT:
-                computed[gp] = Relation.IS_GRAND_PARENT
+            if r == Relation.IS_PARENT_OF:
+                computed[gp] = Relation.IS_GRAND_PARENT_OF
 
     # Grandchild: 子女的子女
     for c in children:
         c_relations = getattr(c, "relations", {})
         for gc, r in c_relations.items():
-            if r == Relation.IS_CHILD:
-                computed[gc] = Relation.IS_GRAND_CHILD
+            if r == Relation.IS_CHILD_OF:
+                computed[gc] = Relation.IS_GRAND_CHILD_OF
 
     # 3. 师门推导
     # Martial Sibling: 师傅的徒弟 (排除自己)
     for m in masters:
         m_relations = getattr(m, "relations", {})
         for fellow, r in m_relations.items():
-            if r == Relation.IS_DISCIPLE and fellow.id != avatar.id:
-                computed[fellow] = Relation.IS_MARTIAL_SIBLING
+            if r == Relation.IS_DISCIPLE_OF and fellow.id != avatar.id:
+                computed[fellow] = Relation.IS_MARTIAL_SIBLING_OF
                 
     # Martial Grandmaster: 师傅的师傅
     for m in masters:
         m_relations = getattr(m, "relations", {})
         for mgm, r in m_relations.items():
-            if r == Relation.IS_MASTER:
-                computed[mgm] = Relation.IS_MARTIAL_GRANDMASTER
+            if r == Relation.IS_MASTER_OF:
+                computed[mgm] = Relation.IS_MARTIAL_GRANDMASTER_OF
 
     # Martial Grandchild: 徒弟的徒弟
     for app in apprentices:
         app_relations = getattr(app, "relations", {})
         for mgc, r in app_relations.items():
-            if r == Relation.IS_DISCIPLE:
-                computed[mgc] = Relation.IS_MARTIAL_GRANDCHILD
+            if r == Relation.IS_DISCIPLE_OF:
+                computed[mgc] = Relation.IS_MARTIAL_GRANDCHILD_OF
 
     # 4. 更新缓存
     avatar.computed_relations = computed
@@ -108,24 +108,24 @@ def get_possible_new_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> Li
     level_to = to_avatar.cultivation_progress.level
 
     # - FRIEND
-    if existing_to_from != Relation.IS_FRIEND:
-        candidates.append(Relation.IS_FRIEND)
+    if existing_to_from != Relation.IS_FRIEND_OF:
+        candidates.append(Relation.IS_FRIEND_OF)
 
     # - ENEMY
-    if existing_to_from != Relation.IS_ENEMY:
-        candidates.append(Relation.IS_ENEMY)
+    if existing_to_from != Relation.IS_ENEMY_OF:
+        candidates.append(Relation.IS_ENEMY_OF)
 
     # - LOVERS：异性（Avatar 定义确保性别存在）
-    if from_avatar.gender != to_avatar.gender and existing_to_from != Relation.IS_LOVER:
-        candidates.append(Relation.IS_LOVER)
+    if from_avatar.gender != to_avatar.gender and existing_to_from != Relation.IS_LOVER_OF:
+        candidates.append(Relation.IS_LOVER_OF)
 
     # - 师徒（方向性）：
     #   MASTER：to 是 from 的师傅 → to.level >= from.level + 20
     #   APPRENTICE：to 是 from 的徒弟 → to.level <= from.level - 20
-    if level_to >= level_from + 20 and existing_to_from != Relation.IS_MASTER:
-        candidates.append(Relation.IS_MASTER)
-    if level_to <= level_from - 20 and existing_to_from != Relation.IS_DISCIPLE:
-        candidates.append(Relation.IS_DISCIPLE)
+    if level_to >= level_from + 20 and existing_to_from != Relation.IS_MASTER_OF:
+        candidates.append(Relation.IS_MASTER_OF)
+    if level_to <= level_from - 20 and existing_to_from != Relation.IS_DISCIPLE_OF:
+        candidates.append(Relation.IS_DISCIPLE_OF)
 
     return candidates
 
@@ -143,7 +143,7 @@ def set_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation)
     to_avatar.relations[from_avatar] = get_reciprocal(relation)
     
     # [新增] 如果是道侣关系，记录开始时间
-    if relation == Relation.IS_LOVER:
+    if relation == Relation.IS_LOVER_OF:
         current_time = int(from_avatar.world.month_stamp)
         # 双方都记录
         from_avatar.relation_start_dates[to_avatar.id] = current_time
@@ -243,27 +243,27 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
     if new_relation_str:
         rel = Relation.from_chinese(new_relation_str)
         if rel is not None:
-            # 逻辑：new_relation_str 是显示名（如"朋友"），解析为 Relation.IS_FRIEND
+            # 逻辑：new_relation_str 是显示名（如"朋友"），解析为 Relation.IS_FRIEND_OF
             # 意味着 initiator 和 target 建立这个关系。
             # 通常 StoryTeller 的语境是：initiator (我) 认为 target (对方) 是 new_relation_str
             # 所以调用 initiator.set_relation(target, rel)
             
             # 使用新语义方法
-            if rel == Relation.IS_MASTER:
+            if rel == Relation.IS_MASTER_OF:
                 # initiator 视 target 为 Master -> initiator 拜 target 为师
                 initiator.acknowledge_master(target)
-            elif rel == Relation.IS_DISCIPLE:
+            elif rel == Relation.IS_DISCIPLE_OF:
                 # initiator 视 target 为 Disciple -> initiator 收 target 为徒
                 initiator.accept_disciple(target)
-            elif rel == Relation.IS_PARENT:
+            elif rel == Relation.IS_PARENT_OF:
                 initiator.acknowledge_parent(target)
-            elif rel == Relation.IS_CHILD:
+            elif rel == Relation.IS_CHILD_OF:
                 initiator.acknowledge_child(target)
-            elif rel == Relation.IS_LOVER:
+            elif rel == Relation.IS_LOVER_OF:
                 initiator.become_lovers_with(target)
-            elif rel == Relation.IS_FRIEND:
+            elif rel == Relation.IS_FRIEND_OF:
                 initiator.make_friend_with(target)
-            elif rel == Relation.IS_ENEMY:
+            elif rel == Relation.IS_ENEMY_OF:
                 initiator.make_enemy_of(target)
             else:
                 initiator.set_relation(target, rel)

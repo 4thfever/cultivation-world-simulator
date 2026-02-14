@@ -6,7 +6,7 @@ import asyncio
 
 from src.i18n import t
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
-from src.classes.event import Event
+from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 from src.classes.relation.relation import Relation
@@ -206,10 +206,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         """
         启动互动动作，返回开始事件
         """
+        target = self._get_target_avatar(target_avatar)
+        if target is not None and target.is_dead:
+            return NULL_EVENT
+
         # 记录开始时间
         self._start_month_stamp = self.world.month_stamp
-
-        target = self._get_target_avatar(target_avatar)
         target_name = target.name if target is not None else str(target_avatar)
         action_name = self.get_action_name()
         rel_ids = [self.avatar.id]
@@ -229,7 +231,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地反馈并完成。
         """
         target = self._get_target_avatar(target_avatar)
-        if target is None:
+        if target is None or target.is_dead:
             return ActionResult(status=ActionStatus.FAILED, events=[])
 
         # 若无任务，创建异步任务

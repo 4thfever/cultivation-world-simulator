@@ -40,21 +40,21 @@ def test_family_relations(base_world):
     
     # 1. Sibling check (Son <-> Daughter)
     # Son perspective
-    assert son.computed_relations.get(daughter) == Relation.IS_SIBLING
+    assert son.computed_relations.get(daughter) == Relation.IS_SIBLING_OF
     # Daughter perspective
-    assert daughter.computed_relations.get(son) == Relation.IS_SIBLING
+    assert daughter.computed_relations.get(son) == Relation.IS_SIBLING_OF
     
     # 2. Grandparent check (Son/Daughter -> Grandpa)
-    assert son.computed_relations.get(grandpa) == Relation.IS_GRAND_PARENT
-    assert daughter.computed_relations.get(grandpa) == Relation.IS_GRAND_PARENT
+    assert son.computed_relations.get(grandpa) == Relation.IS_GRAND_PARENT_OF
+    assert daughter.computed_relations.get(grandpa) == Relation.IS_GRAND_PARENT_OF
     
     # 3. Grandchild check (Grandpa -> Son/Daughter)
-    assert grandpa.computed_relations.get(son) == Relation.IS_GRAND_CHILD
-    assert grandpa.computed_relations.get(daughter) == Relation.IS_GRAND_CHILD
+    assert grandpa.computed_relations.get(son) == Relation.IS_GRAND_CHILD_OF
+    assert grandpa.computed_relations.get(daughter) == Relation.IS_GRAND_CHILD_OF
     
     # 4. Father should not have Sibling/Grandparent (in this limited set)
-    assert Relation.IS_SIBLING not in father.computed_relations.values()
-    assert Relation.IS_GRAND_PARENT not in father.computed_relations.values()
+    assert Relation.IS_SIBLING_OF not in father.computed_relations.values()
+    assert Relation.IS_GRAND_PARENT_OF not in father.computed_relations.values()
 
 def test_sect_relations(base_world):
     master = create_avatar(base_world, "Master")
@@ -79,13 +79,13 @@ def test_sect_relations(base_world):
     # Assertions
     
     # 1. Martial Sibling (A <-> B)
-    assert disciple_a.computed_relations.get(disciple_b) == Relation.IS_MARTIAL_SIBLING
-    assert disciple_b.computed_relations.get(disciple_a) == Relation.IS_MARTIAL_SIBLING
+    assert disciple_a.computed_relations.get(disciple_b) == Relation.IS_MARTIAL_SIBLING_OF
+    assert disciple_b.computed_relations.get(disciple_a) == Relation.IS_MARTIAL_SIBLING_OF
     
     # 2. Martial Grandmaster (A/B -> GrandMaster)
-    assert disciple_a.computed_relations.get(grand_master) == Relation.IS_MARTIAL_GRANDMASTER
-    assert disciple_b.computed_relations.get(grand_master) == Relation.IS_MARTIAL_GRANDMASTER
+    assert disciple_a.computed_relations.get(grand_master) == Relation.IS_MARTIAL_GRANDMASTER_OF
+    assert disciple_b.computed_relations.get(grand_master) == Relation.IS_MARTIAL_GRANDMASTER_OF
     
     # 3. Martial Grandchild (GrandMaster -> A/B)
-    assert grand_master.computed_relations.get(disciple_a) == Relation.IS_MARTIAL_GRANDCHILD
-    assert grand_master.computed_relations.get(disciple_b) == Relation.IS_MARTIAL_GRANDCHILD
+    assert grand_master.computed_relations.get(disciple_a) == Relation.IS_MARTIAL_GRANDCHILD_OF
+    assert grand_master.computed_relations.get(disciple_b) == Relation.IS_MARTIAL_GRANDCHILD_OF

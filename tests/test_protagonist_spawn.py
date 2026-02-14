@@ -122,15 +122,15 @@ def test_spawn_relations(base_world, mock_game_configs):
     # 检查 p1 的关系列表中是否有 p2，且类型为 LOVER
     # 注意：Avatar.get_relation 接受 Avatar 对象，返回 Relation 枚举
     p1_p2_relation = p1.get_relation(p2)
-    assert p1_p2_relation == Relation.IS_LOVER
+    assert p1_p2_relation == Relation.IS_LOVER_OF
     
     # 检查 p2 的关系列表中是否有 p1 (双向验证)
     p2_p1_relation = p2.get_relation(p1)
-    assert p2_p1_relation == Relation.IS_LOVER
+    assert p2_p1_relation == Relation.IS_LOVER_OF
 
     # 2. Friend 关系
     p1_p3_relation = p1.get_relation(p3)
-    assert p1_p3_relation == Relation.IS_FRIEND
+    assert p1_p3_relation == Relation.IS_FRIEND_OF
     
     # -------------------------------------------
     # 验证 P3 配置: "p2:child"
@@ -139,23 +139,23 @@ def test_spawn_relations(base_world, mock_game_configs):
     # 3. Enemy 关系 (现在由 p4 测试)
     # p4 视 p1 为敌人
     p4_p1_relation = p4.get_relation(p1)
-    assert p4_p1_relation == Relation.IS_ENEMY
+    assert p4_p1_relation == Relation.IS_ENEMY_OF
 
     # 检查反向关系 (Enemy 是对称的)
     p1_p4_relation = p1.get_relation(p4)
-    assert p1_p4_relation == Relation.IS_ENEMY
+    assert p1_p4_relation == Relation.IS_ENEMY_OF
     
     # 4. Child 关系 (Parent-Child)
     # 配置: p3 "p2:child" -> p3 acknowledge child p2 -> p3 是 p2 的长辈 (Parent)
-    # 所以 p3 -> p2 是 CHILD (Relation.IS_CHILD 表示 "对方是我的孩子")
-    # p2 -> p3 是 PARENT (Relation.IS_PARENT 表示 "对方是我的父母")
+    # 所以 p3 -> p2 是 CHILD (Relation.IS_CHILD_OF 表示 "对方是我的孩子")
+    # p2 -> p3 是 PARENT (Relation.IS_PARENT_OF 表示 "对方是我的父母")
     
     p3_p2_relation = p3.get_relation(p2)
     # 注意：根据 acknowledge_child 实现，主语(p3)添加 CHILD 关系指向对象(p2)
-    assert p3_p2_relation == Relation.IS_CHILD
+    assert p3_p2_relation == Relation.IS_CHILD_OF
     
     p2_p3_relation = p2.get_relation(p3)
-    assert p2_p3_relation == Relation.IS_PARENT
+    assert p2_p3_relation == Relation.IS_PARENT_OF
 
 def test_spawn_probability(base_world, mock_game_configs):
     """验证概率参数生效"""

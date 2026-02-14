@@ -39,7 +39,7 @@ def base_avatars(base_world):
 def test_relation_rules_lovers(base_avatars):
     """
     测试道侣关系的建立规则：
-    1. 异性可以结为道侣 (IS_LOVER)
+    1. 异性可以结为道侣 (IS_LOVER_OF)
     2. 同性不可结为道侣
     3. 已是道侣则不再出现在候选列表中
     """
@@ -50,21 +50,21 @@ def test_relation_rules_lovers(base_avatars):
     # 1. 异性
     # f 相对于 m 的可能关系
     candidates = get_possible_new_relations(m, f)
-    assert Relation.IS_LOVER in candidates
+    assert Relation.IS_LOVER_OF in candidates
     
     # 2. 同性
     candidates_same = get_possible_new_relations(m, m2)
-    assert Relation.IS_LOVER not in candidates_same
+    assert Relation.IS_LOVER_OF not in candidates_same
     
     # 3. 已存在
     m.become_lovers_with(f)
     candidates_exist = get_possible_new_relations(m, f)
-    assert Relation.IS_LOVER not in candidates_exist
+    assert Relation.IS_LOVER_OF not in candidates_exist
 
 def test_relation_rules_master(base_avatars):
     """
     测试拜师关系的等级限制 (MASTER)：
-    1. 对方等级 >= 己方 + 20：可以拜师 (IS_MASTER)
+    1. 对方等级 >= 己方 + 20：可以拜师 (IS_MASTER_OF)
     2. 对方等级 < 己方 + 20：不可拜师
     """
     low = base_avatars["male_low"]   # Lv 10
@@ -74,16 +74,16 @@ def test_relation_rules_master(base_avatars):
     # get_possible_new_relations(from, to) 返回的是 to 相对于 from 的关系
     # 即：检查 high 是否可以是 low 的 MASTER
     candidates = get_possible_new_relations(low, high)
-    assert Relation.IS_MASTER in candidates
+    assert Relation.IS_MASTER_OF in candidates
     
     # 2. 等级不足 (low 是 high 的师傅?) -> 不可能
     candidates_rev = get_possible_new_relations(high, low)
-    assert Relation.IS_MASTER not in candidates_rev
+    assert Relation.IS_MASTER_OF not in candidates_rev
 
 def test_relation_rules_disciple(base_avatars):
     """
     测试收徒关系的等级限制 (DISCIPLE)：
-    1. 对方等级 <= 己方 - 20：可以收徒 (IS_DISCIPLE)
+    1. 对方等级 <= 己方 - 20：可以收徒 (IS_DISCIPLE_OF)
     2. 对方等级 > 己方 - 20：不可收徒
     """
     low = base_avatars["male_low"]   # Lv 10
@@ -93,26 +93,26 @@ def test_relation_rules_disciple(base_avatars):
     # get_possible_new_relations(from, to) -> to 是 from 的 ???
     # 检查 low 是否可以是 high 的 DISCIPLE
     candidates = get_possible_new_relations(high, low)
-    assert Relation.IS_DISCIPLE in candidates
+    assert Relation.IS_DISCIPLE_OF in candidates
     
     # 2. 等级过高 (high 是 low 的徒弟?) -> 不可能
     candidates_rev = get_possible_new_relations(low, high)
-    assert Relation.IS_DISCIPLE not in candidates_rev
+    assert Relation.IS_DISCIPLE_OF not in candidates_rev
 
 def test_relation_reciprocal_consistency(base_avatars):
     """
     测试新语义方法的双向一致性：
-    1. A acknowledge_master(B) -> A存 IS_MASTER, B存 IS_DISCIPLE
-    2. A acknowledge_parent(B) -> A存 IS_PARENT, B存 IS_CHILD
-    3. A make_friend_with(B) -> 双方都存 IS_FRIEND
+    1. A acknowledge_master(B) -> A存 IS_MASTER_OF, B存 IS_DISCIPLE_OF
+    2. A acknowledge_parent(B) -> A存 IS_PARENT, B存 IS_CHILD_OF
+    3. A make_friend_with(B) -> 双方都存 IS_FRIEND_OF
     """
     a = base_avatars["male_low"]
     b = base_avatars["female_high"]
     
     # 1. Master/Disciple
     a.acknowledge_master(b)
-    assert a.get_relation(b) == Relation.IS_MASTER
-    assert b.get_relation(a) == Relation.IS_DISCIPLE
+    assert a.get_relation(b) == Relation.IS_MASTER_OF
+    assert b.get_relation(a) == Relation.IS_DISCIPLE_OF
     
     # 清理
     a.clear_relation(b)
@@ -120,15 +120,15 @@ def test_relation_reciprocal_consistency(base_avatars):
     
     # 2. Parent/Child
     a.acknowledge_parent(b)
-    assert a.get_relation(b) == Relation.IS_PARENT
-    assert b.get_relation(a) == Relation.IS_CHILD
+    assert a.get_relation(b) == Relation.IS_PARENT_OF
+    assert b.get_relation(a) == Relation.IS_CHILD_OF
     
     a.clear_relation(b)
     
     # 3. Friend (Symmetric)
     a.make_friend_with(b)
-    assert a.get_relation(b) == Relation.IS_FRIEND
-    assert b.get_relation(a) == Relation.IS_FRIEND
+    assert a.get_relation(b) == Relation.IS_FRIEND_OF
+    assert b.get_relation(a) == Relation.IS_FRIEND_OF
 
 def test_relation_cancel_rules(base_avatars):
     """
@@ -141,15 +141,15 @@ def test_relation_cancel_rules(base_avatars):
     
     # 1. 后天关系 (Friend)
     a.make_friend_with(b)
-    success = cancel_relation(a, b, Relation.IS_FRIEND)
+    success = cancel_relation(a, b, Relation.IS_FRIEND_OF)
     assert success is True
     assert a.get_relation(b) is None
     
     # 2. 先天关系 (Parent)
     # 先验证 PARENT 是先天关系
-    assert is_innate(Relation.IS_PARENT) is True
+    assert is_innate(Relation.IS_PARENT_OF) is True
     
     a.acknowledge_parent(b)
-    success = cancel_relation(a, b, Relation.IS_PARENT)
+    success = cancel_relation(a, b, Relation.IS_PARENT_OF)
     assert success is False # 应该失败
-    assert a.get_relation(b) == Relation.IS_PARENT # 关系依然存在
+    assert a.get_relation(b) == Relation.IS_PARENT_OF # 关系依然存在
