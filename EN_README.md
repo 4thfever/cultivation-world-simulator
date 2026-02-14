@@ -231,7 +231,7 @@ If you find this project interesting, please give us a Star ⭐! It will motivat
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=12" />
+  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=11" />
 </a>
 
 For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md).
@@ -290,10 +290,11 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
   - ✅ Settings, techniques, healing, base, styles
   - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming)
   - ✅ Sect tiers
-  - [ ] Sect will AI
-  - [ ] Sect tasks
+  - [ ] Dao traditions
 - [ ] Clans
 - [ ] Court/Empire (TBD)
+- [ ] Organization Will AI
+- [ ] Organization tasks, resources, functions
 - [ ] Inter-organization relations
 
 ### ⚡ Action System
@@ -309,7 +310,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ### 🎭 Event System
 - ✅ Heaven-earth Qi fluctuations
-- [ ] World-scale events:
+- ✅ World-scale events:
   - ✅ Auctions
   - ✅ Hidden domain exploration
   - [ ] Martial tournaments
@@ -358,11 +359,9 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - [ ] Possession & Rebirth
 - [ ] Opportunities & Karma
 - [ ] Divination & Prophecy
-- [ ] Male appearance female traits & Female appearance male traits
-- [ ] Character Secrets & Two-faced
+- [ ] Character Secrets & Conspiracies
 - [ ] Ascension to Upper Realm
 - [ ] Formations
-- [ ] Conspiracies
 - [ ] World Secrets & World Laws
 - [ ] Gu Refining
 - [ ] World-ending Crisis
