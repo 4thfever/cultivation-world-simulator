@@ -366,6 +366,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - [ ] World Secrets & World Laws
 - [ ] Gu Refining
 - [ ] World-ending Crisis
+- [ ] Establish Sect/Clan
 
 ### 🔭 Long-term
 - [ ] Novelization/imagery/video for history and events
