@@ -71,7 +71,6 @@ export interface SaveFileDTO {
   avatar_count: number;
   alive_count: number;
   dead_count: number;
-  protagonist_name: string | null;
   custom_name: string | null;
   event_count: number;
 }
@@ -137,7 +136,6 @@ export interface LLMConfigDTO {
 export interface GameStartConfigDTO {
   init_npc_num: number;
   sect_num: number;
-  protagonist: string;
   npc_awakening_rate_per_month: number;
   world_history?: string;
 }
@@ -149,9 +147,7 @@ export interface CurrentConfigDTO {
     npc_awakening_rate_per_month: number;
     world_history?: string;
   };
-  avatar: {
-    protagonist: string;
-  };
+  avatar: {};
 }
 
 // --- Events ---

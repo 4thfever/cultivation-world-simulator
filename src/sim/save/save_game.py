@@ -39,8 +39,6 @@ from src.utils.config import CONFIG
 from src.classes.language import language_manager
 from src.sim.load.load_game import get_events_db_path
 
-# 主角特质 ID: 穿越者=30, 气运之子=31.
-PROTAGONIST_PERSONA_IDS = {30, 31}
 
 
 def sanitize_save_name(name: str) -> str:
@@ -50,15 +48,6 @@ def sanitize_save_name(name: str) -> str:
     # 只保留中文、字母、数字和下划线。
     safe_name = re.sub(r'[^\w\u4e00-\u9fff]', '_', safe_name)
     return safe_name[:50] if safe_name else "save"
-
-
-def find_protagonist_name(world: "World") -> Optional[str]:
-    """查找主角名字（具有气运之子或穿越者特质的存活角色）。"""
-    for avatar in world.avatar_manager.avatars.values():
-        persona_ids = [p.id for p in avatar.personas] if avatar.personas else []
-        if any(pid in PROTAGONIST_PERSONA_IDS for pid in persona_ids):
-            return avatar.name
-    return None
 
 
 def save_game(
@@ -129,7 +118,6 @@ def save_game(
         alive_count = len(world.avatar_manager.avatars)
         dead_count = len(world.avatar_manager.dead_avatars)
         total_count = alive_count + dead_count
-        protagonist_name = find_protagonist_name(world)
 
         # 构建元信息
         meta = {
@@ -144,7 +132,6 @@ def save_game(
             "avatar_count": total_count,
             "alive_count": alive_count,
             "dead_count": dead_count,
-            "protagonist_name": protagonist_name,
             "custom_name": custom_name,
         }
         

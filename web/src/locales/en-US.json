@@ -38,7 +38,6 @@
     "game_time": "Game Time: {time}",
     "avatar_count": "Characters: {alive}/{total}",
     "event_count": "{count} events",
-    "protagonist_tooltip": "Protagonist (Child of Destiny/Transmigrator)",
     "load": "Load",
     "save_success": "Saved successfully: {filename}",
     "save_failed": "Failed to save",
@@ -148,24 +147,17 @@
     "labels": {
       "init_npc_num": "Initial Cultivators",
       "sect_num": "Active Sects",
-      "protagonist_mode": "Protagonist Mode",
       "new_npc_rate": "Monthly New Cultivator Rate",
       "world_history": "World History Background"
     },
     "tips": {
       "sect_num": "Sect number should be less than half of initial cultivators.",
-      "protagonist_random": "Random: 5% chance to use preset 'Novel Protagonist' template when generating characters.",
-      "protagonist_all": "All: Force generation of all preset 'Novel Protagonists' at start.",
       "world_history": "Can include ancient, medieval, or recent history. Note: Enabling this calls LLM and significantly increases initialization time."
     },
     "placeholders": {
       "world_history": "Enter cultivation world history background (Optional)."
     },
-    "options": {
-      "protagonist_none": "No Protagonists",
-      "protagonist_random": "Random Introduction",
-      "protagonist_all": "Introduce All"
-    },
+    "options": {},
     "actions": {
       "start": "Start"
     },
@@ -210,7 +202,6 @@
       "Cultivating in a cave dwelling matching your spiritual root doubles efficiency.",
       "Heavenly Spiritual Root characters have double efficiency in any cave dwelling.",
       "Changing world spirit density affects bonuses and subtly adjusts character behavior.",
-      "Occasionally, protagonists from cultivation novels may transmigrate into this world.",
       "Every character has their own real thoughts and emotions.",
       "Besides cultivation, alchemy and qi refinement are also important.",
       "Participating in auctions may yield bargains, but beware of villains chasing you.",

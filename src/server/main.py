@@ -41,7 +41,6 @@ from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim import save_game, list_saves, load_game, get_events_db_path, check_save_compatibility
-from src.utils import protagonist as prot_utils
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
@@ -424,32 +423,14 @@ async def init_game_async():
 
         # 阶段 4: 角色生成
         update_init_progress(4, "generating_avatars")
-        protagonist_mode = getattr(CONFIG.avatar, "protagonist", "none")
         target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
         final_avatars = {}
 
-        spawned_protagonists_count = 0
-        if protagonist_mode in ["all", "random"]:
-            prob = 1.0 if protagonist_mode == "all" else 0.05
-            def _spawn_protagonists_sync():
-                return prot_utils.spawn_protagonists(
-                    world, 
-                    world.month_stamp, 
-                    probability=prob,
-                    limit_count=target_total_count if protagonist_mode == "all" else None
-                )
-            prot_avatars = await asyncio.to_thread(_spawn_protagonists_sync)
-            final_avatars.update(prot_avatars)
-            spawned_protagonists_count = len(prot_avatars)
-            print(f"生成了 {spawned_protagonists_count} 位主角 (Mode: {protagonist_mode})")
-
-        remaining_count = max(0, target_total_count - spawned_protagonists_count)
-
-        if remaining_count > 0:
+        if target_total_count > 0:
             def _make_random_sync():
                 return _new_make_random(
                     world,
-                    count=remaining_count,
+                    count=target_total_count,
                     current_month_stamp=world.month_stamp,
                     existed_sects=existed_sects
                 )
@@ -1037,7 +1018,6 @@ def get_init_status():
 class GameStartRequest(BaseModel):
     init_npc_num: int
     sect_num: int
-    protagonist: str
     npc_awakening_rate_per_month: float
     world_history: Optional[str] = None
 
@@ -1051,9 +1031,7 @@ def get_current_config():
             "npc_awakening_rate_per_month": getattr(CONFIG.game, "npc_awakening_rate_per_month", 0.01),
             "world_history": getattr(CONFIG.game, "world_history", "")
         },
-        "avatar": {
-            "protagonist": getattr(CONFIG.avatar, "protagonist", "none")
-        }
+        "avatar": {}
     }
 
 @app.get("/api/config/llm/status")
@@ -1092,7 +1070,6 @@ async def start_game(req: GameStartRequest):
     conf.game.sect_num = req.sect_num
     conf.game.npc_awakening_rate_per_month = req.npc_awakening_rate_per_month
     conf.game.world_history = req.world_history or ""
-    conf.avatar.protagonist = req.protagonist
     
     # 写入文件
     try:
@@ -1706,7 +1683,6 @@ def get_saves():
             "avatar_count": meta.get("avatar_count", 0),
             "alive_count": meta.get("alive_count", 0),
             "dead_count": meta.get("dead_count", 0),
-            "protagonist_name": meta.get("protagonist_name"),
             "custom_name": meta.get("custom_name"),
             "event_count": meta.get("event_count", 0),
         })

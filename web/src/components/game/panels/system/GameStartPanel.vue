@@ -16,7 +16,6 @@ const message = useMessage()
 const config = ref({
   init_npc_num: 12,
   sect_num: 3,
-  protagonist: 'none',
   npc_awakening_rate_per_month: 0.01,
   world_history: ''
 })
@@ -24,11 +23,6 @@ const config = ref({
 const loading = ref(false)
 
 // 选项
-const protagonistOptions = computed(() => [
-  { label: t('game_start.options.protagonist_none'), value: 'none' },
-  { label: t('game_start.options.protagonist_random'), value: 'random' },
-  { label: t('game_start.options.protagonist_all'), value: 'all' }
-])
 
 async function fetchConfig() {
   try {
@@ -37,7 +31,6 @@ async function fetchConfig() {
     config.value = {
       init_npc_num: res.game.init_npc_num,
       sect_num: res.game.sect_num,
-      protagonist: res.avatar.protagonist,
       npc_awakening_rate_per_month: res.game.npc_awakening_rate_per_month,
       world_history: res.game.world_history || ''
     }
@@ -89,19 +82,6 @@ onMounted(() => {
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
         {{ t('game_start.tips.sect_num') }}
-      </div>
-
-      <n-form-item :label="t('game_start.labels.protagonist_mode')" path="protagonist">
-        <n-select v-model:value="config.protagonist" :options="protagonistOptions" />
-      </n-form-item>
-      
-      <div class="tip-text" v-if="config.protagonist !== 'none'">
-        <span v-if="config.protagonist === 'random'">
-          {{ t('game_start.tips.protagonist_random') }}
-        </span>
-        <span v-if="config.protagonist === 'all'">
-          {{ t('game_start.tips.protagonist_all') }}
-        </span>
       </div>
 
       <n-form-item :label="t('game_start.labels.new_npc_rate')" path="npc_awakening_rate_per_month">

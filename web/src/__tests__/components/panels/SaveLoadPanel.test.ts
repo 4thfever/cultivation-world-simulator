@@ -89,7 +89,6 @@ const i18n = createI18n({
         game_time: 'Game Time: {time}',
         avatar_count: 'Characters: {alive}/{total}',
         event_count: '{count} events',
-        protagonist_tooltip: 'Protagonist',
         load: 'Load',
         save_success: 'Saved: {filename}',
         save_failed: 'Save failed',
@@ -121,7 +120,6 @@ const createMockSave = (overrides: Partial<SaveFileDTO> = {}): SaveFileDTO => ({
   avatar_count: 10,
   alive_count: 8,
   dead_count: 2,
-  protagonist_name: null,
   custom_name: null,
   event_count: 50,
   ...overrides,
@@ -284,34 +282,6 @@ describe('SaveLoadPanel', () => {
       expect(wrapper.find('.save-name').text()).toBe('20260101_120000')
     })
 
-    it('should display protagonist badge when protagonist exists', async () => {
-      const mockSaves = [createMockSave({ protagonist_name: '林动' })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
-
-      const wrapper = mount(SaveLoadPanel, {
-        props: { mode: 'load' },
-        global: { plugins: [i18n] },
-      })
-
-      await flushPromises()
-
-      expect(wrapper.find('.protagonist-badge').exists()).toBe(true)
-      expect(wrapper.text()).toContain('林动')
-    })
-
-    it('should not display protagonist badge when no protagonist', async () => {
-      const mockSaves = [createMockSave({ protagonist_name: null })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
-
-      const wrapper = mount(SaveLoadPanel, {
-        props: { mode: 'load' },
-        global: { plugins: [i18n] },
-      })
-
-      await flushPromises()
-
-      expect(wrapper.find('.protagonist-badge').exists()).toBe(false)
-    })
 
     it('should display avatar counts', async () => {
       const mockSaves = [createMockSave({ alive_count: 15, avatar_count: 20 })]

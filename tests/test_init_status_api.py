@@ -165,7 +165,6 @@ class TestNewGameEndpoint:
             payload = {
                 "init_npc_num": 10,
                 "sect_num": 2,
-                "protagonist": "none",
                 "npc_awakening_rate_per_month": 0.01,
                 "world_history": "Some history"
             }
@@ -184,7 +183,6 @@ class TestNewGameEndpoint:
         payload = {
             "init_npc_num": 10,
             "sect_num": 2,
-            "protagonist": "none",
             "npc_awakening_rate_per_month": 0.01
         }
         response = client.post("/api/game/start", json=payload)
@@ -204,7 +202,6 @@ class TestNewGameEndpoint:
             payload = {
                 "init_npc_num": 10,
                 "sect_num": 2,
-                "protagonist": "none",
                 "npc_awakening_rate_per_month": 0.01
             }
             response = client.post("/api/game/start", json=payload)
@@ -340,7 +337,6 @@ class TestInitGameAsync:
             
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.avatar.protagonist = "none"
             
             mock_map = MagicMock()
             mock_load_map.return_value = mock_map
@@ -369,7 +365,6 @@ class TestInitGameAsync:
             
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.avatar.protagonist = "none"
             
             mock_map = MagicMock()
             mock_load_map.return_value = mock_map
@@ -402,7 +397,6 @@ class TestInitGameAsync:
             
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.avatar.protagonist = "none"
             mock_config.game.world_history = "Ancient times..."
             
             mock_map = MagicMock()
@@ -441,7 +435,6 @@ class TestInitGameAsync:
             
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.avatar.protagonist = "none"
             
             mock_map = MagicMock()
             mock_load_map.return_value = mock_map

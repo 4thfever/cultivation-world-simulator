@@ -18,8 +18,6 @@ from src.sim.simulator import Simulator
 from src.sim.save.save_game import (
     save_game,
     sanitize_save_name,
-    find_protagonist_name,
-    PROTAGONIST_PERSONA_IDS,
 )
 from src.sim.load.load_game import load_game, get_events_db_path
 from src.utils.id_generator import get_avatar_id
@@ -125,103 +123,6 @@ class TestSanitizeSaveName:
 
 
 # =============================================================================
-# Tests for find_protagonist_name function
-# =============================================================================
-
-
-class TestFindProtagonistName:
-    """Tests for the find_protagonist_name helper function."""
-
-    def test_no_protagonists(self, temp_save_dir):
-        """Test with no protagonist avatars."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add regular avatar without protagonist traits.
-        avatar = Avatar(
-            world=world,
-            name="RegularAvatar",
-            id=get_avatar_id(),
-            birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-            age=Age(20, Realm.Qi_Refinement),
-            gender=Gender.MALE,
-        )
-        avatar.personas = []
-        world.avatar_manager.avatars[avatar.id] = avatar
-
-        result = find_protagonist_name(world)
-        assert result is None
-
-    def test_finds_protagonist_with_trait_30(self, temp_save_dir):
-        """Test finding protagonist with trait ID 30 (穿越者)."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add protagonist avatar with trait 30.
-        avatar = Avatar(
-            world=world,
-            name="穿越者主角",
-            id=get_avatar_id(),
-            birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-            age=Age(20, Realm.Qi_Refinement),
-            gender=Gender.MALE,
-        )
-        # Mock persona with ID 30.
-        mock_persona = MagicMock()
-        mock_persona.id = 30
-        avatar.personas = [mock_persona]
-        world.avatar_manager.avatars[avatar.id] = avatar
-
-        result = find_protagonist_name(world)
-        assert result == "穿越者主角"
-
-    def test_finds_protagonist_with_trait_31(self, temp_save_dir):
-        """Test finding protagonist with trait ID 31 (气运之子)."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add protagonist avatar with trait 31.
-        avatar = Avatar(
-            world=world,
-            name="气运之子",
-            id=get_avatar_id(),
-            birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-            age=Age(20, Realm.Qi_Refinement),
-            gender=Gender.MALE,
-        )
-        mock_persona = MagicMock()
-        mock_persona.id = 31
-        avatar.personas = [mock_persona]
-        world.avatar_manager.avatars[avatar.id] = avatar
-
-        result = find_protagonist_name(world)
-        assert result == "气运之子"
-
-    def test_finds_first_protagonist_when_multiple(self, temp_save_dir):
-        """Test that it returns one protagonist when multiple exist."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add two protagonist avatars.
-        for i, name in enumerate(["主角一", "主角二"]):
-            avatar = Avatar(
-                world=world,
-                name=name,
-                id=get_avatar_id(),
-                birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-                age=Age(20, Realm.Qi_Refinement),
-                gender=Gender.MALE,
-            )
-            mock_persona = MagicMock()
-            mock_persona.id = 30
-            avatar.personas = [mock_persona]
-            world.avatar_manager.avatars[avatar.id] = avatar
-
-        result = find_protagonist_name(world)
-        assert result in ["主角一", "主角二"]
-
-
-# =============================================================================
 # Tests for save_game with custom name
 # =============================================================================
 
@@ -314,7 +215,7 @@ class TestSaveGameWithCustomName:
 
 
 class TestEnhancedMetadata:
-    """Tests for enhanced save metadata (avatar counts, protagonist)."""
+    """Tests for enhanced save metadata (avatar counts)."""
 
     def test_avatar_counts_in_meta(self, temp_save_dir):
         """Test that avatar counts are correctly stored."""
@@ -359,63 +260,6 @@ class TestEnhancedMetadata:
         assert meta["dead_count"] == 3
         assert meta["avatar_count"] == 8  # total
 
-    def test_protagonist_name_in_meta(self, temp_save_dir):
-        """Test that protagonist name is stored in metadata."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add protagonist avatar.
-        avatar = Avatar(
-            world=world,
-            name="林动",
-            id=get_avatar_id(),
-            birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-            age=Age(20, Realm.Qi_Refinement),
-            gender=Gender.MALE,
-        )
-        mock_persona = MagicMock()
-        mock_persona.id = 31  # 气运之子
-        avatar.personas = [mock_persona]
-        world.avatar_manager.avatars[avatar.id] = avatar
-
-        sim = Simulator(world)
-        save_path = temp_save_dir / "test_protagonist.json"
-        success, _ = save_game(world, sim, [], save_path)
-
-        assert success
-
-        with open(save_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        assert data["meta"]["protagonist_name"] == "林动"
-
-    def test_no_protagonist_in_meta(self, temp_save_dir):
-        """Test that protagonist_name is None when no protagonist exists."""
-        game_map = create_test_map()
-        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
-
-        # Add regular avatar.
-        avatar = Avatar(
-            world=world,
-            name="普通人",
-            id=get_avatar_id(),
-            birth_month_stamp=create_month_stamp(Year(80), Month.JANUARY),
-            age=Age(20, Realm.Qi_Refinement),
-            gender=Gender.MALE,
-        )
-        avatar.personas = []
-        world.avatar_manager.avatars[avatar.id] = avatar
-
-        sim = Simulator(world)
-        save_path = temp_save_dir / "test_no_prot.json"
-        success, _ = save_game(world, sim, [], save_path)
-
-        assert success
-
-        with open(save_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        assert data["meta"]["protagonist_name"] is None
 
 
 # =============================================================================
@@ -581,7 +425,6 @@ class TestSavesListApiWithMetadata:
         assert "avatar_count" in save_item
         assert "alive_count" in save_item
         assert "dead_count" in save_item
-        assert "protagonist_name" in save_item
         assert "custom_name" in save_item
         assert "event_count" in save_item
         assert "language" in save_item
@@ -634,7 +477,6 @@ class TestSavesListApiWithMetadata:
         assert legacy_item["avatar_count"] == 0
         assert legacy_item["alive_count"] == 0
         assert legacy_item["dead_count"] == 0
-        assert legacy_item["protagonist_name"] is None
         assert legacy_item["custom_name"] is None
         assert legacy_item["event_count"] == 0
 
