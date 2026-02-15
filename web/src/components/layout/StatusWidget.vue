@@ -84,7 +84,7 @@ const emit = defineEmits(['trigger-click'])
                     </n-tag>
                   </div>
                   <n-tag size="small" :bordered="false" type="warning" class="d-tag">
-                    {{ item.max_realm }}
+                    {{ item.required_realm }}
                   </n-tag>
                 </div>
                 <div class="d-desc">{{ item.desc }}</div>

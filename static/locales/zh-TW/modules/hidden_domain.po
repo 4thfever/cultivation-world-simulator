@@ -21,8 +21,8 @@ msgstr "描述探索祕境的過程。可以聚焦於單人的經歷，也可以
 msgid "Hidden Domains opened: {names}"
 msgstr "{names}"
 
-msgid "Hidden Domain {name} opened! Entry restricted to {realm} and below."
-msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。"
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "祕境【{name}】現世！僅限{realm}修士進入。"
 
 msgid "{name} perished in the hidden domain {domain}."
 msgstr "{name} 葬身於祕境【{domain}】。"
@@ -46,14 +46,14 @@ msgstr ""
 "描述：{desc}"
 
 msgid ""
-"Hidden Domain {name} opened! Entry restricted to {realm} and below. "
+"Hidden Domain {name} opened! Entry restricted to {realm} only. "
 "Entrants: {entrants}"
-msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。進入者：{entrants}。"
+msgstr "祕境【{name}】現世！僅限{realm}修士進入。進入者：{entrants}。"
 
 msgid ""
-"Hidden Domain {name} opened! Entry restricted to {realm} and below. No one "
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
 "entered."
-msgstr "祕境【{name}】現世！限制{realm}及以下修士進入。無修士進入。"
+msgstr "祕境【{name}】現世！僅限{realm}修士進入。無修士進入。"
 
 msgid "{}: {}"
 msgstr "{}：{}"

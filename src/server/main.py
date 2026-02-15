@@ -209,7 +209,7 @@ def serialize_active_domains(world: World) -> List[dict]:
                 "id": d.id,
                 "name": d.name,
                 "desc": d.desc,
-                "max_realm": str(d.max_realm), 
+                "required_realm": str(d.required_realm), 
                 "danger_prob": d.danger_prob,
                 "drop_prob": d.drop_prob,
                 "is_open": is_open,

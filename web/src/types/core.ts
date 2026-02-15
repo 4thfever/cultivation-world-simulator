@@ -195,7 +195,7 @@ export interface HiddenDomainInfo {
   id: string;
   name: string;
   desc: string;
-  max_realm: string; // 限制境界
+  required_realm: string; // 限制境界
   danger_prob: number; // 凶险度 (0.0 - 1.0)
   drop_prob: number;   // 机缘度 (0.0 - 1.0)
   is_open: boolean;    // 是否开启

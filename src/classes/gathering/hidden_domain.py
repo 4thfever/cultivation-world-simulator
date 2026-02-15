@@ -27,7 +27,7 @@ class DomainConfig:
     id: str
     name: str
     desc: str
-    max_realm: Realm
+    required_realm: Realm
     danger_prob: float
     hp_loss_percent: float
     drop_prob: float
@@ -38,7 +38,7 @@ class DomainConfig:
 class HiddenDomain(Gathering):
     """
     秘境系统 (Hidden Domain)
-    定期开启，符合境界条件的修士可进入探索，面临凶险或获得机缘。
+    定期开启，只有对应境界的修士可进入探索，面临凶险或获得机缘。
     """
     
     # 记录每个秘境上次开启的年份 {domain_id: last_open_year}
@@ -68,7 +68,7 @@ class HiddenDomain(Gathering):
                     id=get_str(row, "id"),
                     name=get_str(row, "name"),
                     desc=get_str(row, "desc"),
-                    max_realm=Realm.from_str(get_str(row, "max_realm")),
+                    required_realm=Realm.from_str(get_str(row, "required_realm")),
                     danger_prob=get_float(row, "danger_prob"),
                     hp_loss_percent=get_float(row, "hp_loss_percent"),
                     drop_prob=get_float(row, "drop_prob"),
@@ -112,9 +112,9 @@ class HiddenDomain(Gathering):
     def get_info(self, world: "World") -> str:
         details = []
         for conf in self._active_domains:
-            detail = t("Hidden Domain {name} opened! Entry restricted to {realm} and below.", 
+            detail = t("Hidden Domain {name} opened! Entry restricted to {realm} only.", 
                        name=conf.name, 
-                       realm=str(conf.max_realm))
+                       realm=str(conf.required_realm))
             details.append(detail)
         return t("Hidden Domains opened: {names}", names="\n".join(details))
 
@@ -163,22 +163,22 @@ class HiddenDomain(Gathering):
         # 1. 筛选进入秘境的角色
         entrants: List["Avatar"] = []
         for av in world.avatar_manager.get_living_avatars():
-            # 境界判定：realm <= max (取消最低限制，允许越阶挑战)
-            if av.cultivation_progress.realm <= domain.max_realm:
+            # 境界判定：只能是对应境界进入
+            if av.cultivation_progress.realm == domain.required_realm:
                 entrants.append(av)
 
         # 添加开启事件
         entrants_names = [av.name for av in entrants]
         if entrants_names:
             entrants_str = ", ".join(entrants_names)
-            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} and below. Entrants: {entrants}", 
+            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: {entrants}", 
                                    name=domain.name, 
-                                   realm=str(domain.max_realm),
+                                   realm=str(domain.required_realm),
                                    entrants=entrants_str)
         else:
-            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} and below. No one entered.", 
+            open_event_content = t("Hidden Domain {name} opened! Entry restricted to {realm} only. No one entered.", 
                                    name=domain.name, 
-                                   realm=str(domain.max_realm))
+                                   realm=str(domain.required_realm))
         events.append(Event(month_stamp, open_event_content))
                 
         if not entrants:

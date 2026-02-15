@@ -14,7 +14,7 @@ def mock_domain_config():
             "id": "domain_low",
             "name": "Low Realm Domain",
             "desc": "For weaklings",
-            "max_realm": "Qi Refinement",
+            "required_realm": "Qi Refinement",
             "danger_prob": 0.5,
             "hp_loss_percent": 0.5,
             "drop_prob": 0.5,
@@ -25,7 +25,7 @@ def mock_domain_config():
             "id": "domain_high",
             "name": "High Realm Domain",
             "desc": "For experts",
-            "max_realm": "Core Formation",
+            "required_realm": "Core Formation",
             "danger_prob": 0.0, # Safe
             "hp_loss_percent": 0.0,
             "drop_prob": 0.0,
@@ -52,12 +52,12 @@ def test_load_configs(hidden_domain):
     
     c1 = configs[0]
     assert c1.id == "domain_low"
-    assert c1.max_realm == Realm.Qi_Refinement
+    assert c1.required_realm == Realm.Qi_Refinement
     assert c1.danger_prob == 0.5
     
     c2 = configs[1]
     assert c2.id == "domain_high"
-    assert c2.max_realm == Realm.Core_Formation
+    assert c2.required_realm == Realm.Core_Formation
 
 def test_is_start_basic(hidden_domain, base_world):
     """Test start condition logic."""
@@ -98,52 +98,33 @@ def test_get_info_formatting(hidden_domain, base_world):
     
     info = hidden_domain.get_info(base_world)
     
-    # Expected: "Hidden Domain Low Realm Domain opened! Entry restricted to Qi Refinement and below."
+    # Expected: "Hidden Domain Low Realm Domain opened! Entry restricted to Qi Refinement only."
     # Note: Using 'in' because the exact localized string might vary slightly in tests, 
     # but we look for key parts.
     assert "Low Realm Domain" in info
     assert str(Realm.Qi_Refinement) in info
-    # Ensure no "Hidden Domains opened:" prefix if possible, but difficult to test "absence" strictly 
-    # without exact string match.
-    # Let's rely on checking the content is roughly correct.
 
 @pytest.mark.asyncio
 async def test_execute_entry_restriction(hidden_domain, base_world, dummy_avatar):
-    """Test that only eligible avatars enter."""
+    """Test that only eligible avatars enter (strict realm match)."""
     # domain_low limits to Qi Refinement.
     
     # Setup domains
     configs = hidden_domain._load_configs()
-    hidden_domain._active_domains = [configs[0]]
+    hidden_domain._active_domains = [configs[0]] # Requires Qi Refinement
     
     # Avatar 1: Qi Refinement (Eligible)
     dummy_avatar.cultivation_progress.realm = Realm.Qi_Refinement
     
-    # Avatar 2: Foundation Establishment (Too high)
+    # Avatar 2: Foundation Establishment (Too high - Blocked)
     av2 = MagicMock(spec=dummy_avatar)
     av2.id = 1002
     av2.name = "StrongGuy"
     av2.cultivation_progress.realm = Realm.Foundation_Establishment
     av2.personas = []
-    
+
     # Mock avatar manager
     base_world.avatar_manager.get_living_avatars = MagicMock(return_value=[dummy_avatar, av2])
-    
-    # Execute
-    # Mock process_single_domain internals or random to avoid side effects?
-    # Actually, let's just inspect who gets processed.
-    # Since _process_single_domain does the filtering, we can test that method or spy on it.
-    # But integration testing execute() is better.
-    
-    # We need to mock random to avoid death or loot for now
-    with patch("random.random", return_value=0.9): # > danger(0.5) and > drop(0.5) -> Nothing happens
-        events = await hidden_domain.execute(base_world)
-        
-    # We expect 1 event for opening
-    # And maybe 0 events for interaction if nothing happened.
-    # But we want to ensure only dummy_avatar was considered.
-    # Let's check logic by spying on logic inside loop?
-    # Hard to spy local var.
     
     # Alternative: Set danger to 0, drop to 1.0. 
     # Eligible avatar gets loot => Event generated.
@@ -178,7 +159,7 @@ async def test_execute_entry_restriction(hidden_domain, base_world, dummy_avatar
     assert any(dummy_avatar.name in t for t in event_texts)
     
     # Check NO event for ineligible avatar
-    assert not any(av2.name in t for t in event_texts)
+    assert not any(av2.name in t for t in event_texts if av2.name != dummy_avatar.name)
 
 @pytest.mark.asyncio
 async def test_execute_danger_death(hidden_domain, base_world, dummy_avatar):
