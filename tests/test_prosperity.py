@@ -105,7 +105,7 @@ class TestProsperity:
         sim._phase_update_region_prosperity()
         assert city.prosperity == 100
 
-    def test_save_load_prosperity(self, base_world, mock_saves_dir):
+    def test_save_load_prosperity(self, base_world, tmp_path):
         """测试繁荣度状态的存档和读档"""
         from src.sim.save.save_game import save_game
         from src.sim.load.load_game import load_game
@@ -125,7 +125,9 @@ class TestProsperity:
         base_world.map.regions[999] = city
         
         # 2. 保存游戏
-        save_path = mock_saves_dir / "test_prosperity_save.json"
+        # isolate_save_path fixture 已经自动 patch 了 CONFIG.paths.saves
+        # 但这里我们显式指定 save_path 以便后续读取
+        save_path = tmp_path / "test_prosperity_save.json"
         success, _ = save_game(base_world, sim, [], save_path=save_path)
         assert success
         
@@ -151,8 +153,8 @@ class TestProsperity:
             empty_map.regions[999] = new_city
             
             # Mock load_cultivation_world_map
-            # 注意：load_game 内部是从 src.run.load_map 导入的，所以我们需要 patch 那个位置
-            # 或者 patch sys.modules 中的 src.run.load_map
+            # load_game 内部是从 src.run.load_map 导入的
+            # 我们需要 patch 源头
             m.setattr("src.run.load_map.load_cultivation_world_map", lambda: empty_map)
             
             loaded_world, _, _ = load_game(save_path)

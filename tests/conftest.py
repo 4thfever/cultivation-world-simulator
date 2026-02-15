@@ -1,31 +1,87 @@
 import pytest
 import random
+import logging
+import sys
 from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.environment.map import Map
 
 
 @pytest.fixture(scope="session", autouse=True)
-def mock_saves_dir(tmp_path_factory):
+def configure_test_logging(tmp_path_factory):
     """
-    Redirect save path to temp dir for all tests to avoid polluting assets/saves/
+    Configure logging to prevent pollution of project root logs.
+    1. Redirect src.run.log to temp directory.
+    2. Configure root logger to output to stderr for pytest capture.
+    """
+    # 1. Setup root logger for pytest
+    root_logger = logging.getLogger()
+    for handler in list(root_logger.handlers):
+        root_logger.removeHandler(handler)
+    
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setLevel(logging.WARNING)
+    formatter = logging.Formatter('%(levelname)s: %(message)s')
+    handler.setFormatter(formatter)
+    root_logger.addHandler(handler)
+    
+    # 2. Patch src.run.log to use temp directory
+    temp_log_dir = tmp_path_factory.mktemp("logs")
+    
+    # Import here to avoid circular dependencies if any
+    import src.run.log
+    
+    # Reset singleton to ensure it gets re-initialized with patched method
+    src.run.log._logger = None
+    
+    original_setup = src.run.log.Logger._setup_current_logger
+    
+    def safe_setup(self):
+        # Redirect to temp dir
+        self.log_dir = temp_log_dir
+        # Ensure dir exists
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Call original (will create file in temp dir)
+        original_setup(self)
+        
+        # Allow propagation so pytest can capture logs via root logger
+        self.logger.propagate = True
+        
+    with patch("src.run.log.Logger._setup_current_logger", side_effect=safe_setup, autospec=True):
+        yield
+
+@pytest.fixture(autouse=True)
+def isolate_save_path(monkeypatch, tmp_path):
+    """
+    Redirect save path to temp dir for each test to prevent pollution.
+    Uses monkeypatch for safe rollback.
     """
     from src.utils.config import CONFIG
+    import src.utils.config
     
     # Create temp dir for saves
-    temp_saves = tmp_path_factory.mktemp("saves")
+    # Use a unique name to avoid conflict with tests that create "saves" dir manually
+    temp_saves = tmp_path / "test_isolation_saves"
+    temp_saves.mkdir(parents=True, exist_ok=True)
     
-    # Backup original path
-    original_path = CONFIG.paths.saves
+    # 1. Patch current CONFIG
+    # CONFIG.paths is likely an OmegaConf object or dict-like
+    monkeypatch.setattr(CONFIG.paths, "saves", temp_saves)
     
-    # Redirect
-    CONFIG.paths.saves = temp_saves
-    print(f"\n[Test Setup] Redirecting saves to: {temp_saves}")
+    # 2. Patch load_config to ensure any reloads also use temp dir
+    original_load_config = src.utils.config.load_config
+    
+    def safe_load_config():
+        config = original_load_config()
+        if hasattr(config, "paths"):
+            config.paths.saves = temp_saves
+        return config
+    
+    monkeypatch.setattr(src.utils.config, "load_config", safe_load_config)
     
     yield temp_saves
-    
-    # Restore
-    CONFIG.paths.saves = original_path
+
 
 @pytest.fixture(autouse=True)
 def fixed_random_seed():

@@ -10,6 +10,7 @@ Covers:
 import pytest
 import tempfile
 from pathlib import Path
+from unittest.mock import MagicMock
 
 from src.classes.event import Event, NULL_EVENT
 from src.classes.event_storage import EventStorage
@@ -69,8 +70,7 @@ def make_event(
     if event_id is not None:
         kwargs["id"] = event_id
     return Event(**kwargs)
-
-
+    
 # --- EventStorage Tests ---
 
 class TestEventStorageBasic:
@@ -649,6 +649,9 @@ class TestEdgeCases:
         """Test that operations on closed storage fail gracefully."""
         storage = EventStorage(temp_db_path)
         storage.close()
+
+        # Mock logger to suppress expected errors
+        storage._logger = MagicMock()
 
         # Should return False/empty rather than throwing
         assert storage.add_event(make_event(100, 1, "Test")) is False
