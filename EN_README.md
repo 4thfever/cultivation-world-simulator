@@ -168,6 +168,8 @@ If you have Docker installed, this is the easiest way:
 
 ### 🌐 Access Application
 
+No matter which method you use to run it, you can access it via the following addresses after startup:
+
 Frontend: `http://localhost:8123`
 Backend API: `http://localhost:8002`
 
