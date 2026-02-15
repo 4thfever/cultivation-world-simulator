@@ -1972,240 +1972,232 @@ msgstr "天灵根"
 msgid "ROOT_10_DESC"
 msgstr "资质通天；五行皆通，修行全面"
 
-#. sect.csv: 明心剑宗
+#. sect.csv: SECT_1_NAME
 msgid "SECT_1_NAME"
-msgstr "明心剑宗"
+msgstr "凌霄剑宗"
 
-#. sect.csv: 通玄界东方第一宗，以无上剑道称雄于世。云...
+#. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
-msgstr "通玄界东方第一宗，以无上剑道称雄于世。云纹阵法为不传心法。【剑道专精】作为剑修，你使用剑类兵器时战力惊人，且在剑道上的感悟速度远超常人。"
+msgstr ""
+"修真界东方第一宗，以无上剑道称雄于世。镇派绝学为“九霄御雷剑诀”。【剑心通明】作为剑修，你使用剑类兵器时战力惊人，且在剑道上的感悟速度远超常人。"
 
-#. sect.csv: 百兽宗
+#. sect.csv: SECT_2_NAME
 msgid "SECT_2_NAME"
-msgstr "百兽宗"
+msgstr "万兽魔山"
 
-#. sect.csv: 以驯养灵兽闻名，豢养各种妖兽灵怪为战力。...
+#. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
-msgstr "以驯养灵兽闻名，豢养各种妖兽灵怪为战力。【御兽大师】你拥有独特的御兽天赋，捕捉妖兽对你来说轻而易举，善于驱使兽群为你而战。"
+msgstr "以驯养凶兽闻名，豢养各种妖兽灵怪为战力。【万兽之主】你拥有独特的御兽天赋，捕捉妖兽对你来说轻而易举，善于驱使兽群为你而战。"
 
-#. sect.csv: 水镜宗
+#. sect.csv: SECT_3_NAME
 msgid "SECT_3_NAME"
-msgstr "水镜宗"
+msgstr "听涛阁"
 
-#. sect.csv: 正道十宗之一，实则严守中立。拥有仙界异宝...
+#. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
-msgstr "正道十宗之一，实则严守中立。拥有仙界异宝\"彻天水镜\"可预知未来。【趋吉避凶】你拥有超乎常人的直觉，视野开阔，且极易在探索中发现奇遇。"
+msgstr "居于海外孤岛，实则严守中立。拥有一块上古奇石“观海玉璧”，可窥探天机。【知天命】你拥有超乎常人的直觉，视野开阔，且极易在探索中发现奇遇。"
 
-#. sect.csv: 冥王宗
+#. sect.csv: SECT_4_NAME
 msgid "SECT_4_NAME"
-msgstr "冥王宗"
+msgstr "九幽黄泉道"
 
-#. sect.csv: 行走幽冥之道，术法阴冷狠厉。【通幽】你修...
+#. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
-msgstr "行走幽冥之道，术法阴冷狠厉。【通幽】你修行幽冥之法，心志坚定，突破瓶颈时心无杂念，成功率更高。"
+msgstr "参悟生死枯荣，接引黄泉之力，术法阴冷狠厉。【黄泉渡魂】你修行黄泉之法，心志坚定，突破瓶颈时心无杂念，成功率更高。"
 
-#. sect.csv: 朱勾宗
+#. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
-msgstr "朱勾宗"
+msgstr "千机诡门"
 
-#. sect.csv: 邪宗大派。以炼器、机关、暗杀闻名于世，素...
+#. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
-msgstr "邪宗大派。以炼器、机关、暗杀闻名于世，素来阴毒冷僻。【暗杀专家】你精通潜伏与刺杀，对于强敌，避开正面交锋、伺机暗杀往往是你最佳的制胜之道。"
+msgstr "邪宗大派。以机关、傀儡、毒杀闻名于世，素来行踪诡秘。【诡道刺杀】你精通潜伏与刺杀，对于强敌，避开正面交锋、伺机暗杀往往是你最佳的制胜之道。"
 
-#. sect.csv: 合欢宗
+#. sect.csv: SECT_6_NAME
 msgid "SECT_6_NAME"
-msgstr "合欢宗"
+msgstr "醉梦楼"
 
-#. sect.csv: 以情入道，靠双修增进修为，善驭人心，长于...
+#. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
-msgstr "以情入道，靠双修增进修为，善驭人心，长于权变。【双修秘术】你的体质特殊，通过双修能获得远超常人的修为提升，这是你提升境界的最佳捷径。"
+msgstr "以情入道，靠双修增进修为，善驭人心，长于权变。【红尘炼心】你的体质特殊，通过双修能获得远超常人的修为提升，这是你提升境界的最佳捷径。"
 
-#. sect.csv: 镇魂宗
+#. sect.csv: SECT_7_NAME
 msgid "SECT_7_NAME"
-msgstr "镇魂宗"
+msgstr "须弥禅院"
 
-#. sect.csv: 铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇...
+#. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
-msgstr "铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇压之术。【金刚不坏】你修习护体神功，拥有极强的肉身防御与伤害减免能力，如山岳般不可撼动。"
+msgstr "佛门圣地，体修大宗。以金刚之躯镇压世间妖邪。【金身罗汉】你修习护体神功，拥有极强的肉身防御与伤害减免能力，如山岳般不可撼动。"
 
-#. sect.csv: 幽魂噬影宗
+#. sect.csv: SECT_8_NAME
 msgid "SECT_8_NAME"
-msgstr "幽魂噬影宗"
+msgstr "影煞殿"
 
-#. sect.csv: 镇宗典籍《幽冥录》。幽明气为根基。【如影...
+#. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
-msgstr "镇宗典籍《幽冥录》。幽明气为根基。【如影随形】你极擅身法与遁术，遇到危险时总能全身而退，亦能伺机刺杀落单之敌。"
+msgstr "镇宗典籍《影杀真经》。以地煞阴气为根基。【如影随形】你极擅身法与遁术，遇到危险时总能全身而退，亦能伺机刺杀落单之敌。"
 
-#. sect.csv: 千帆城
+#. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
-msgstr "千帆城"
+msgstr "万宝仙盟"
 
-#. sect.csv: 炼器大宗，巧匠云集。著名法宝有灵灭丝、定...
+#. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
 msgstr ""
-"炼器大宗，巧匠云集。著名法宝有灵灭丝、定魂蓝星等。商旅云集，自成体系。【巧夺天工】你深谙炼器与经商之道，温养兵器时常能使其脱胎换骨，且在交易中总能获利。"
+"由商会发展而来的庞大势力。拥有“流云飞舟”商队，富甲天下。【财通鬼神】你深谙炼器与经商之道，温养兵器时常能使其脱胎换骨，且在交易中总能获利。"
 
-#. sect.csv: 妙化宗
+#. sect.csv: SECT_10_NAME
 msgid "SECT_10_NAME"
-msgstr "妙化宗"
+msgstr "摄魂音宗"
 
-#. sect.csv: 精擅音律杀伐与精神操控，功法诡谲阴柔，以...
+#. sect.csv: SECT_10_DESC
 msgid "SECT_10_DESC"
-msgstr ""
-"精擅音律杀伐与精神操控，功法诡谲阴柔，以无形琴音乱人心智，杀人于无形。【魔音贯耳】你擅长以音律乱人心智，灵力深厚绵长，虽不擅肉搏，但手段诡谲。"
+msgstr "精擅天魔音律与精神操控，功法阴柔诡谲，以无形魔音乱人心智。【魔音摄魂】你擅长以音律乱人心智，灵力深厚绵长，虽不擅肉搏，但手段诡谲。"
 
-#. sect.csv: 回玄宗
+#. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
-msgstr "回玄宗"
+msgstr "天衍阵宗"
 
-#. sect.csv: 当世第一阵法大派，以阵法阵诀独步天下，讲...
+#. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
-msgstr ""
-"当世第一阵法大派，以阵法阵诀独步天下，讲究阵法推演与巧思妙用。【阵法聚灵】你善用阵法辅助修炼，能够聚集天地灵气，修炼速度快于常人，且常有意外收获。"
+msgstr "当世第一阵法大派，讲究天道演算，以万物为棋，山川为阵。【阵法通神】你善用阵法辅助修炼，能够聚集天地灵气，修炼速度快于常人，且常有意外收获。"
 
-#. sect.csv: 不夜城
+#. sect.csv: SECT_12_NAME
 msgid "SECT_12_NAME"
-msgstr "不夜城"
+msgstr "长明宫"
 
-#. sect.csv: 修习极光玄真法，以万里极光壁的绝对防御闻...
+#. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
-msgstr "修习极光玄真法，以万里极光壁的绝对防御闻名于世。【生生不息】你的生命力极其顽强，疗伤效果倍增，寿元亦远超同阶修士。"
+msgstr "修习“大光明典”，信奉光明不灭。拥有极强的生命秘术。【光耀长生】你的生命力极其顽强，疗伤效果倍增，寿元亦远超同阶修士。"
 
-#. sect.csv: 天行健宗
+#. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
-msgstr "天行健宗"
+msgstr "浩然书院"
 
-#. sect.csv: 专修浩然之气，行事正大光明，刚健果决，对...
+#. sect.csv: SECT_13_DESC
 msgid "SECT_13_DESC"
-msgstr ""
-"专修浩然之气，行事正大光明，刚健果决，对邪魔外道有极强的克制力。【浩然正气】你养浩然之气，气脉悠长，面对境界低于自己的敌人时，能发挥出极强的压制力。"
+msgstr "儒家正统，养浩然之气。行事刚正，言出法随，克制邪魔。【吾善养气】你养浩然之气，气脉悠长，面对境界低于自己的敌人时，能发挥出极强的压制力。"
 
-#. sect.csv: 噬魔宗
+#. sect.csv: SECT_14_NAME
 msgid "SECT_14_NAME"
-msgstr "噬魔宗"
+msgstr "罗刹血宗"
 
-#. sect.csv: 通玄界第一魔宗，行事霸道残忍，擅长搜精噬...
+#. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
-msgstr "通玄界第一魔宗，行事霸道残忍，擅长搜精噬血与肉体魔功。【搜刮成性】你崇尚力量与掠夺，搜刮凡人虽有伤天和，但能为你带来惊人的财富与资源。"
+msgstr ""
+"修真界第一魔宗，行事霸道残忍，崇尚“弱肉强食”，通过掠夺与血祭提升修为。【血海滔天】你崇尚力量与掠夺，搜刮凡人虽有伤天和，但能为你带来惊人的财富与资源。"
 
-#. sect_region.csv: 连霞山
+#. sect_region.csv: SECT_REGION_401_NAME
 msgid "SECT_REGION_401_NAME"
-msgstr "连霞山"
+msgstr "绝云峰"
 
-#. sect_region.csv: 连霞山坐忘峰下，是名门仙山的主峰。山上设...
+#. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"
-msgstr "连霞山坐忘峰下，是名门仙山的主峰。山上设有弟子修炼之地，环境清幽。"
+msgstr "绝云峰高耸入云，四周罡风环绕，唯有剑修可御剑而上。山上设有弟子修炼之地，环境清幽。"
 
-#. sect_region.csv: 玄灵洞
+#. sect_region.csv: SECT_REGION_402_NAME
 msgid "SECT_REGION_402_NAME"
-msgstr "玄灵洞"
+msgstr "万兽窟"
 
-#. sect_region.csv: 玄灵洞位于十万大山深处，洞府依托一座千丈...
+#. sect_region.csv: SECT_REGION_402_DESC
 msgid "SECT_REGION_402_DESC"
-msgstr ""
-"玄灵洞位于十万大山深处，洞府依托一座千丈高的灵山开凿而成，洞口宽达百丈，形似猛兽张口。洞内纵横交错，共有九十九层洞天，每层都驯养着不同品阶的灵兽妖兽。"
+msgstr "万兽窟位于十万大山腹地，洞窟内妖气冲天，在此可闻万兽咆哮。洞内纵横交错，共有九十九层洞天，每层都驯养着不同品阶的灵兽妖兽。"
 
-#. sect_region.csv: 碧波湖
+#. sect_region.csv: SECT_REGION_403_NAME
 msgid "SECT_REGION_403_NAME"
-msgstr "碧波湖"
+msgstr "静海涯"
 
-#. sect_region.csv: 水镜宗建于碧波湖心的三座仙岛之上，湖水清...
+#. sect_region.csv: SECT_REGION_403_DESC
 msgid "SECT_REGION_403_DESC"
-msgstr ""
-"水镜宗建于碧波湖心的三座仙岛之上，湖水清澈如镜，终年波澜不兴。三岛之间以水晶长桥相连，宫殿楼阁皆为水晶琉璃所筑，通体透明，倒映湖中，虚实难辨。"
+msgstr "听涛阁悬于海边绝壁之上，终年听潮。阁中玉璧倒映星辰大海，宫殿楼阁皆为寒冰灵玉所筑，通体透明，虚实难辨。"
 
-#. sect_region.csv: 七鬼角
+#. sect_region.csv: SECT_REGION_404_NAME
 msgid "SECT_REGION_404_NAME"
-msgstr "七鬼角"
+msgstr "死寂海"
 
-#. sect_region.csv: 冥王宗位于七鬼角群岛上，宗门四面临海，周...
+#. sect_region.csv: SECT_REGION_404_DESC
 msgid "SECT_REGION_404_DESC"
-msgstr ""
-"冥王宗位于七鬼角群岛上，宗门四面临海，周围暗礁密布，巨浪狂潮起落之间，在暗礁周围生成无数令人望而生畏的暗流漩涡。群岛周围千万年来投入了多少凶魂厉鬼，海浪起啸之时，万鬼齐哭，遮天蔽日。"
+msgstr "九幽黄泉道位于死寂海群岛上，海水漆黑如墨，无风起浪。传闻海底直通九幽黄泉。海浪起啸之时，万魂齐哭，遮天蔽日。"
 
-#. sect_region.csv: 明玉山
+#. sect_region.csv: SECT_REGION_405_NAME
 msgid "SECT_REGION_405_NAME"
-msgstr "明玉山"
+msgstr "千机谷"
 
-#. sect_region.csv: 明玉山通体由罕见的明玉石构成，山体呈现出...
+#. sect_region.csv: SECT_REGION_405_DESC
 msgid "SECT_REGION_405_DESC"
-msgstr ""
-"明玉山通体由罕见的明玉石构成，山体呈现出诡异的青白色泽，在月光下更是泛着幽冷的光芒。山中宫殿楼阁皆为玉石所筑，看似华丽却处处暗藏杀机。殿宇之间机关重重，暗道密布。"
+msgstr "千机谷中遍布机关陷阱，看似寻常山谷，踏错一步即死无葬身之地。谷中宫殿楼阁看似华丽却处处暗藏杀机。"
 
-#. sect_region.csv: 桃花岛
+#. sect_region.csv: SECT_REGION_406_NAME
 msgid "SECT_REGION_406_NAME"
-msgstr "桃花岛"
+msgstr "销金窟"
 
-#. sect_region.csv: 合欢宗坐落于东海桃花岛上，岛上四季桃花盛...
+#. sect_region.csv: SECT_REGION_406_DESC
 msgid "SECT_REGION_406_DESC"
-msgstr ""
-"合欢宗坐落于东海桃花岛上，岛上四季桃花盛开，永不凋零，花瓣随风飘舞，铺满整座仙岛。宗门建筑以粉红色调为主，雕梁画栋，极尽奢华。殿宇楼阁之间云雾缭绕，隐约可见成双成对的弟子在其间修炼。"
+msgstr "醉梦楼建于繁华闹市之中的独立洞天，歌舞升平，终日不散的迷醉香气。宗门建筑极尽奢华，殿宇楼阁之间云雾缭绕，隐约可见成双成对的弟子在其间修炼。"
 
-#. sect_region.csv: 落魂海
+#. sect_region.csv: SECT_REGION_407_NAME
 msgid "SECT_REGION_407_NAME"
-msgstr "落魂海"
+msgstr "普渡岛"
 
-#. sect_region.csv: 位于极南海上。镇魂海常年有妖兽作乱，海域...
+#. sect_region.csv: SECT_REGION_407_DESC
 msgid "SECT_REGION_407_DESC"
-msgstr "位于极南海上。镇魂海常年有妖兽作乱，海域凶险。宗门建筑立于海中礁岛之上，以镇魂钟为中心，钟声可震慑方圆千里之内的妖魂。"
+msgstr "位于海域风暴中心，金光漫天。钟声响起时，风暴止息。宗门建筑立于岛上，以金刚塔为中心，钟声可震慑方圆千里之内的妖魂。"
 
-#. sect_region.csv: 鬼门湖
+#. sect_region.csv: SECT_REGION_408_NAME
 msgid "SECT_REGION_408_NAME"
-msgstr "鬼门湖"
+msgstr "暗影沼泽"
 
-#. sect_region.csv: 鬼门湖位于原始森林深处，重重大山围拢的平...
+#. sect_region.csv: SECT_REGION_408_DESC
 msgid "SECT_REGION_408_DESC"
-msgstr ""
-"鬼门湖位于原始森林深处，重重大山围拢的平原地带。参天巨木、缠绕藤蔓、终日浮游不散的瘴气，还有因宗门秘法而生就的层层迷雾，将这里与外界完全隔离，透不进一点光来。"
+msgstr "终年迷雾笼罩的剧毒沼泽，这里没有光，只有潜藏在暗处的眼睛。参天巨木、缠绕藤蔓、终日浮游不散的瘴气，将这里与外界完全隔离。"
 
-#. sect_region.csv: 天星海
+#. sect_region.csv: SECT_REGION_409_NAME
 msgid "SECT_REGION_409_NAME"
-msgstr "天星海"
+msgstr "多宝浮空岛"
 
-#. sect_region.csv: 千帆城建于天星海中央的巨型浮岛之上，整座...
+#. sect_region.csv: SECT_REGION_409_DESC
 msgid "SECT_REGION_409_DESC"
-msgstr ""
-"千帆城建于天星海中央的巨型浮岛之上，整座城池由无数法器拼接而成，城外海面上停泊着数以千计的法器灵舟，帆樯如林，蔚为壮观。城中高塔林立，每座塔顶都有炼器炉火日夜不息，烟柱冲天。"
+msgstr "万宝仙盟建于多宝浮空岛之上，巨大的浮空岛屿群由无数锁链相连，往来飞舟如云，繁华至极。城中高塔林立，每座塔顶都有炼器炉火日夜不息。"
 
-#. sect_region.csv: 心园
+#. sect_region.csv: SECT_REGION_410_NAME
 msgid "SECT_REGION_410_NAME"
-msgstr "心园"
+msgstr "回音谷"
 
-#. sect_region.csv: 四季如春，百花不谢。园内亭台楼阁错落，丝...
+#. sect_region.csv: SECT_REGION_410_DESC
 msgid "SECT_REGION_410_DESC"
-msgstr "四季如春，百花不谢。园内亭台楼阁错落，丝竹之声终日不绝，看似人间仙境，实则暗藏无数音杀阵法。"
+msgstr "特殊的山谷构造使得声音凝而不散。风过之时，如鬼哭神嚎。谷内亭台楼阁错落，丝竹之声终日不绝，看似人间仙境，实则暗藏无数音杀阵法。"
 
-#. sect_region.csv: 诸隐山
+#. sect_region.csv: SECT_REGION_411_NAME
 msgid "SECT_REGION_411_NAME"
-msgstr "诸隐山"
+msgstr "迷踪天"
 
-#. sect_region.csv: 诸隐山云雾缭绕，山势晦暗不明。整座山脉被...
+#. sect_region.csv: SECT_REGION_411_DESC
 msgid "SECT_REGION_411_DESC"
-msgstr "诸隐山云雾缭绕，山势晦暗不明。整座山脉被无数重叠的阵法大阵覆盖，一步一景，一步一险，若无通形令牌，外人踏入半步便会迷失其中。"
+msgstr "看似只有一座山，实则包含无数折叠空间。不懂阵法者寸步难行。整座山脉被无数重叠的阵法大阵覆盖，一步一景，一步一险。"
 
-#. sect_region.csv: 大千光极城
+#. sect_region.csv: SECT_REGION_412_NAME
 msgid "SECT_REGION_412_NAME"
-msgstr "大千光极城"
+msgstr "极光天境"
 
-#. sect_region.csv: 常年笼罩在绚丽的极光之下。城池由万年寒冰...
+#. sect_region.csv: SECT_REGION_412_DESC
 msgid "SECT_REGION_412_DESC"
-msgstr "常年笼罩在绚丽的极光之下。城池由万年寒冰与玄铁铸就，在漫天极光的映照下流光溢彩，宛如神迹，是极寒之地唯一的温暖所在。"
+msgstr "位于极北永夜之地，却被万年不灭的极光笼罩，亮如白昼。城池由万年寒冰与玄铁铸就，在漫天极光的映照下流光溢彩，宛如神迹。"
 
-#. sect_region.csv: 浩然峰
+#. sect_region.csv: SECT_REGION_413_NAME
 msgid "SECT_REGION_413_NAME"
-msgstr "浩然峰"
+msgstr "圣贤林"
 
-#. sect_region.csv: 位于通玄界中腹，山势雄奇挺拔，直插云霄。...
+#. sect_region.csv: SECT_REGION_413_DESC
 msgid "SECT_REGION_413_DESC"
-msgstr "位于通玄界中腹，山势雄奇挺拔，直插云霄。峰顶常年白云浩渺，紫气东来，书声琅琅之声可传十里，是天下浩然正气汇聚之地。"
+msgstr "位于修真界中腹，古木参天，碑林林立，每块碑文都蕴含圣人微言大义。林中书声琅琅之声可传十里，是天下浩然正气汇聚之地。"
 
-#. sect_region.csv: 陷空山
+#. sect_region.csv: SECT_REGION_414_NAME
 msgid "SECT_REGION_414_NAME"
-msgstr "陷空山"
+msgstr "修罗血池"
 
-#. sect_region.csv: 位于极西之地的险恶山脉，山势如犬牙交错，...
+#. sect_region.csv: SECT_REGION_414_DESC
 msgid "SECT_REGION_414_DESC"
-msgstr "位于极西之地的险恶山脉，山势如犬牙交错，穷山恶水。山中常有血雾弥漫，怪石嶙峋，随处可见被吸干精血的兽骨枯尸，令人闻风丧胆。"
+msgstr "山体呈现暗红色，仿佛被鲜血浸透。宗门建于巨大的地下血池之上。山中常有血雾弥漫，怪石嶙峋，随处可见被吸干精血的兽骨枯尸。"
 
 #. technique.csv: 金刚不坏体
 msgid "TECHNIQUE_1_NAME"
