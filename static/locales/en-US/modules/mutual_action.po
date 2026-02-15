@@ -123,7 +123,7 @@ msgid "gift_description"
 msgstr "Gift spirit stones or items to other. Use 'item_id' parameter: Item ID (int) or 'SPIRIT_STONE'."
 
 msgid "gift_requirements"
-msgstr "Initiator possesses the item; target within interaction range"
+msgstr "Initiator possesses the item; target within interaction range; elixirs cannot be gifted"
 
 msgid "spirit stones"
 msgstr "spirit stones"
@@ -139,6 +139,9 @@ msgstr "Item not equipped: {name}"
 
 msgid "Insufficient item: {name}"
 msgstr "Insufficient item: {name}"
+
+msgid "Elixirs cannot be gifted"
+msgstr "Elixirs cannot be gifted"
 
 msgid "Gift you {item}"
 msgstr "Gift you {item}"

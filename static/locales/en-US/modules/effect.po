@@ -109,6 +109,9 @@ msgstr "Hidden Domain Drop Rate"
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "Hidden Domain Danger Rate"
 
+msgid "effect_extra_epiphany_probability"
+msgstr "Epiphany Probability"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr ", "

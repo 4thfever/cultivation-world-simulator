@@ -109,6 +109,9 @@ msgstr "秘境掉落概率"
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "秘境凶险概率"
 
+msgid "effect_extra_epiphany_probability"
+msgstr "顿悟概率"
+
 # Effect 格式化
 msgid "action_list_separator"
 msgstr "、"

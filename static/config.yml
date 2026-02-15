@@ -36,6 +36,8 @@ game:
   long_dead_cleanup_years: 20 # 多少年后清理已经完全没有影响力的死者
   gathering:
     auction_trigger_count: 5
+    sect_teaching_prob: 0.01
+    base_epiphany_prob: 0.01
 
 df:
   ids_separator: ";"

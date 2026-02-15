@@ -18,3 +18,22 @@ msgstr ""
 # 状态文本
 msgid "Auction is in progress..."
 msgstr "拍卖会正在举行..."
+
+# ============================================================================
+# Gathering 系统 - 宗门传道
+# ============================================================================
+
+msgid "sect_teaching_story_prompt"
+msgstr "请描写一场宗门传道大会。传道者分享了关于修行、天地和道的深刻见解。"
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name}传道大会"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name}正在登台讲道。"
+
+msgid "sect_teaching_context_prompt"
+msgstr "宗门：{sect_name}\n风格：{style}\n传道者：{teacher_name} ({teacher_realm})\n{epiphany_text}\n参考宗门和角色设定，描写传道者对天地、世界、道的理解，以及弟子们的反应。"
+
+msgid "epiphany_event_desc"
+msgstr "特殊事件：弟子 {names} 在听道中顿悟，直接学会了 {tech_name}！\n"

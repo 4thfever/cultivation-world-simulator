@@ -41,7 +41,7 @@ msgid "effect_extra_fortune_probability"
 msgstr "奇遇概率"
 
 msgid "effect_extra_misfortune_probability"
-msgstr "黴運概率"
+msgstr "霉運概率"
 
 msgid "effect_extra_harvest_materials"
 msgstr "採集獲取材料"
@@ -108,6 +108,9 @@ msgstr "祕境掉落概率"
 
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "祕境兇險概率"
+
+msgid "effect_extra_epiphany_probability"
+msgstr "頓悟概率"
 
 # Effect 格式化
 msgid "action_list_separator"

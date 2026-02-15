@@ -39,6 +39,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_refine_success_rate": "effect_extra_refine_success_rate",
         "extra_hidden_domain_drop_prob": "effect_extra_hidden_domain_drop_prob",
         "extra_hidden_domain_danger_prob": "effect_extra_hidden_domain_danger_prob",
+        "extra_epiphany_probability": "effect_extra_epiphany_probability",
     }
     
     msgid = msgid_map.get(effect_key, effect_key)

@@ -921,6 +921,9 @@ msgstr "秘境掉落概率"
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "秘境凶险概率"
 
+msgid "effect_extra_epiphany_probability"
+msgstr "顿悟概率"
+
 # Effect 格式化
 msgid "action_list_separator"
 msgstr "、"
@@ -1143,6 +1146,29 @@ msgstr "传承记忆"
 # 状态文本
 msgid "Auction is in progress..."
 msgstr "拍卖会正在举行..."
+
+# ============================================================================
+# Gathering 系统 - 宗门传道
+# ============================================================================
+msgid "sect_teaching_story_prompt"
+msgstr "请描写一场宗门传道大会。传道者分享了关于修行、天地和道的深刻见解。"
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name}传道大会"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name}正在登台讲道。"
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"宗门：{sect_name}\n"
+"风格：{style}\n"
+"传道者：{teacher_name} ({teacher_realm})\n"
+"{epiphany_text}\n"
+"参考宗门和角色设定，描写传道者对天地、世界、道的理解，以及弟子们的反应。"
+
+msgid "epiphany_event_desc"
+msgstr "特殊事件：弟子 {names} 在听道中顿悟，直接学会了 {tech_name}！\n"
 
 # Gender
 msgid "male"
@@ -1819,7 +1845,7 @@ msgid "gift_description"
 msgstr "向对方赠送灵石或物品。参数 'item_id' 请填入物品 ID（数字）或 'SPIRIT_STONE'（灵石）。"
 
 msgid "gift_requirements"
-msgstr "发起者持有该物品；目标在交互范围内"
+msgstr "发起者持有该物品；目标在交互范围内；丹药不可赠送"
 
 msgid "spirit stones"
 msgstr "灵石"
@@ -1835,6 +1861,9 @@ msgstr "未装备该物品：{name}"
 
 msgid "Insufficient item: {name}"
 msgstr "物品不足：{name}"
+
+msgid "Elixirs cannot be gifted"
+msgstr "丹药不可赠送"
 
 msgid "Gift you {item}"
 msgstr "向你赠送 {item}"

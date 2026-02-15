@@ -18,3 +18,22 @@ msgstr ""
 # Status Text
 msgid "Auction is in progress..."
 msgstr "Auction is in progress..."
+
+# ============================================================================
+# Gathering System - Sect Teaching
+# ============================================================================
+
+msgid "sect_teaching_story_prompt"
+msgstr "Please describe a sect teaching conference. The teacher shares profound insights on cultivation, the world, and the Dao."
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name} Teaching Conference"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} is taking the stage to preach."
+
+msgid "sect_teaching_context_prompt"
+msgstr "Sect: {sect_name}\nStyle: {style}\nTeacher: {teacher_name} ({teacher_realm})\n{epiphany_text}\nBased on the sect and character settings, describe the teacher's understanding of Heaven, Earth, the World, and the Dao, as well as the disciples' reactions."
+
+msgid "epiphany_event_desc"
+msgstr "Special Event: Disciples {names} had an epiphany during the lecture and directly learned {tech_name}!\n"

@@ -149,7 +149,11 @@ class Gift(MutualAction):
         # 2. 物品 (装备/素材)
         from src.classes.items.weapon import Weapon
         from src.classes.items.auxiliary import Auxiliary
+        from src.classes.items.elixir import Elixir
         
+        if isinstance(obj, Elixir):
+            return False, t("Elixirs cannot be gifted")
+            
         if isinstance(obj, (Weapon, Auxiliary)):
             if self.avatar.weapon is not obj and self.avatar.auxiliary is not obj:
                  return False, t("Item not equipped: {name}", name=name)

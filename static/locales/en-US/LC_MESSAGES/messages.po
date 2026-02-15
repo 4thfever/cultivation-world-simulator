@@ -1127,6 +1127,9 @@ msgstr "Hidden Domain Drop Rate"
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "Hidden Domain Danger Rate"
 
+msgid "effect_extra_epiphany_probability"
+msgstr "Epiphany Probability"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr ", "
@@ -1523,6 +1526,33 @@ msgstr "{avatar_name} gained {exp_gain} cultivation experience"
 # Status Text
 msgid "Auction is in progress..."
 msgstr "Auction is in progress..."
+
+# ============================================================================
+# Gathering System - Sect Teaching
+# ============================================================================
+msgid "sect_teaching_story_prompt"
+msgstr ""
+"Please describe a sect teaching conference. The teacher shares profound "
+"insights on cultivation, the world, and the Dao."
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name} Teaching Conference"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} is taking the stage to preach."
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"Sect: {sect_name}\n"
+"Style: {style}\n"
+"Teacher: {teacher_name} ({teacher_realm})\n"
+"{epiphany_text}\n"
+"Based on the sect and character settings, describe the teacher's understanding of Heaven, Earth, the World, and the Dao, as well as the disciples' reactions."
+
+msgid "epiphany_event_desc"
+msgstr ""
+"Special Event: Disciples {names} had an epiphany during the lecture and "
+"directly learned {tech_name}!\n"
 
 # Gender
 msgid "male"
@@ -1982,7 +2012,9 @@ msgstr ""
 " or 'SPIRIT_STONE'."
 
 msgid "gift_requirements"
-msgstr "Initiator possesses the item; target within interaction range"
+msgstr ""
+"Initiator possesses the item; target within interaction range; elixirs "
+"cannot be gifted"
 
 msgid "spirit stones"
 msgstr "spirit stones"
@@ -1998,6 +2030,9 @@ msgstr "Item not equipped: {name}"
 
 msgid "Insufficient item: {name}"
 msgstr "Insufficient item: {name}"
+
+msgid "Elixirs cannot be gifted"
+msgstr "Elixirs cannot be gifted"
 
 msgid "Gift you {item}"
 msgstr "Gift you {item}"

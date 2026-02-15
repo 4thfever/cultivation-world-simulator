@@ -388,6 +388,19 @@ EXTRA_HIDDEN_DOMAIN_DANGER_PROB = "extra_hidden_domain_danger_prob"
   - 增加危险: 0.1
 """
 
+# --- 宗门传道相关 ---
+EXTRA_EPIPHANY_PROBABILITY = "extra_epiphany_probability"
+"""
+额外顿悟概率
+类型: float
+结算: src/classes/gathering/sect_teaching.py
+说明: 在宗门传道大会等事件中，直接习得他人功法/经验的额外概率。
+数值参考: 
+  - 微量: 0.05
+  - 中量: 0.1
+  - 天才: 0.2
+"""
+
 # --- 特殊权限 ---
 LEGAL_ACTIONS = "legal_actions"
 """
@@ -506,6 +519,9 @@ ALL_EFFECTS = [
     # 秘境相关
     "extra_hidden_domain_drop_prob",     # float - 额外秘境掉落概率
     "extra_hidden_domain_danger_prob",   # float - 额外秘境危险概率
+
+    # 宗门传道相关
+    "extra_epiphany_probability",        # float - 额外顿悟概率
 
     # 特殊权限
     "legal_actions",                     # list[str] - 合法动作列表

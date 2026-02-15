@@ -116,7 +116,7 @@ msgid "gift_description"
 msgstr "向對方贈送靈石或物品。參數 'item_id' 請填入物品 ID（數字）或 'SPIRIT_STONE'（靈石）。"
 
 msgid "gift_requirements"
-msgstr "發起者持有該物品；目標在交互範圍內"
+msgstr "發起者持有該物品；目標在交互範圍內；丹藥不可贈送"
 
 msgid "spirit stones"
 msgstr "靈石"
@@ -132,6 +132,9 @@ msgstr "未裝備該物品：{name}"
 
 msgid "Insufficient item: {name}"
 msgstr "物品不足：{name}"
+
+msgid "Elixirs cannot be gifted"
+msgstr "丹藥不可贈送"
 
 msgid "Gift you {item}"
 msgstr "向你贈送 {item}"
