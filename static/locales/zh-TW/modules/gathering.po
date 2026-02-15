@@ -24,7 +24,7 @@ msgstr "拍賣會正在舉行..."
 # ============================================================================
 
 msgid "sect_teaching_story_prompt"
-msgstr "請描寫一場宗門傳道大會。傳道者分享了關於修行、天地和道的深刻見解。"
+msgstr "描寫一場宗門傳道大會。側重描寫大會的氛圍、傳道者的道韻流轉以及眾弟子的眾生百態。請避免提及具體的經驗數值。"
 
 msgid "sect_teaching_gathering_info"
 msgstr "{sect_name}傳道大會"
@@ -33,7 +33,13 @@ msgid "sect_teaching_event_desc"
 msgstr "{teacher_name}正在登台講道。"
 
 msgid "sect_teaching_context_prompt"
-msgstr "宗門：{sect_name}\n風格：{style}\n傳道者：{teacher_name} ({teacher_realm})\n{epiphany_text}\n參考宗門和角色設定，描寫傳道者對天地、世界、道的理解，以及弟子們的反應。"
+msgstr "宗門：{sect_name}\n風格：{style}\n傳道者：{teacher_name} ({teacher_realm})\n{epiphany_text}\n參考宗門和角色設定，描寫傳道者對天地、世界、道的理解，並描寫弟子們的不同反應。"
+
+msgid "sect_teaching_summary"
+msgstr "{sect_name}舉辦了傳道大會，由{teacher_name}主講。參與弟子：{student_names}。"
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} 獲得了 {exp} 點經驗。"
 
 msgid "epiphany_event_desc"
 msgstr "特殊事件：弟子 {names} 在聽道中頓悟，直接學會了 {tech_name}！\n"

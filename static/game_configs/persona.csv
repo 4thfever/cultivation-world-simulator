@@ -30,7 +30,7 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 28,PERSONA_28_NAME,PERSONA_28_DESC,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,
 29,PERSONA_29_NAME,PERSONA_29_DESC,ENVIOUS,嫉妒,FRIENDLY;ENTHUSIASTIC,你对远超于你的人容易产生敌意。,N,,
 30,PERSONA_30_NAME,PERSONA_30_DESC,TRANSMIGRATOR,穿越者,,你来自现代社会，怀念现代社会的一切。,SR,,
-31,PERSONA_31_NAME,PERSONA_31_DESC,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05, extra_hidden_domain_drop_prob: 0.2, extra_hidden_domain_danger_prob: -0.1}"
+31,PERSONA_31_NAME,PERSONA_31_DESC,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,"{extra_fortune_probability: 0.02, extra_battle_strength_points: 2, extra_breakthrough_success_rate: 0.05, extra_hidden_domain_drop_prob: 0.2, extra_hidden_domain_danger_prob: -0.1, extra_epiphany_probability: 0.05}"
 32,PERSONA_32_NAME,PERSONA_32_DESC,SWORD_FANATIC,剑痴,LAZY;TIMID,以剑入道，剑即是命。你认为剑道至上。,SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 33,PERSONA_33_NAME,PERSONA_33_DESC,SCHEMING,心机深沉,RASH;ENTHUSIASTIC;EXTROVERTED,深藏不露，行事谨慎，善于算计。,R,,
 34,PERSONA_34_NAME,PERSONA_34_DESC,LOYAL,忠诚,ALOOF;INDIFFERENT;MEAN,重承诺守信义，对认定的人绝不背叛。,R,,
@@ -39,7 +39,7 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 37,PERSONA_37_NAME,PERSONA_37_DESC,SUSPICIOUS,疑心重,ENTHUSIASTIC;EXTROVERTED;FRIENDLY,对任何人都保持怀疑，不轻易信任。,N,,
 38,PERSONA_38_NAME,PERSONA_38_DESC,BODY_CULTIVATOR,体修,LIFE_CHERISHING;TIMID,专注肉身淬炼，体魄强健，近战无敌。,R,,"[{when: 'avatar.weapon is None', when_desc: 'condition_unarmed', extra_battle_strength_points: 5}]"
 39,PERSONA_39_NAME,PERSONA_39_DESC,ALCHEMIST,炼丹师,AGGRESSIVE,精通丹道，对灵药敏感。,R,,{extra_refine_success_rate: 0.15}
-40,PERSONA_40_NAME,PERSONA_40_DESC,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,,天生福运，逢凶化吉。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1}"
+40,PERSONA_40_NAME,PERSONA_40_DESC,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,,天生福运，逢凶化吉。,SR,,"{extra_fortune_probability: 0.01, shop_buy_price_reduction: 0.1, extra_epiphany_probability: 0.02}"
 41,PERSONA_41_NAME,PERSONA_41_DESC,SWORD_CULTIVATOR,剑修,LAZY,对剑道有着深厚的兴趣和独特的天赋。,R,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 42,PERSONA_42_NAME,PERSONA_42_DESC,SABER_CULTIVATOR,刀修,LAZY,专精刀法，对刀道有着独特的理解。,R,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 43,PERSONA_43_NAME,PERSONA_43_DESC,SPEAR_CULTIVATOR,枪修,LAZY,精通枪法，百兵之王在手。,R,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"

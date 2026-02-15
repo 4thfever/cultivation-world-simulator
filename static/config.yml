@@ -37,7 +37,7 @@ game:
   gathering:
     auction_trigger_count: 5
     sect_teaching_prob: 0.01
-    base_epiphany_prob: 0.01
+    base_epiphany_prob: 0.02
 
 df:
   ids_separator: ";"

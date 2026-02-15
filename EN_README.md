@@ -316,7 +316,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
   - ✅ Auctions
   - ✅ Hidden domain exploration
   - [ ] Martial tournaments
-  - [ ] Sect grand competition
+  - ✅ Sect teaching
 - [ ] Sudden events
   - [ ] Treasure/cave emergence
 - [ ] Natural events:

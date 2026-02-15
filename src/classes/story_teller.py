@@ -9,10 +9,6 @@ if TYPE_CHECKING:
 
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
-from src.classes.relation.relations import (
-    process_relation_changes,
-    get_relation_change_context
-)
 from src.i18n import t
 
 story_styles = [

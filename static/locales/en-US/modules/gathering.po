@@ -24,7 +24,7 @@ msgstr "Auction is in progress..."
 # ============================================================================
 
 msgid "sect_teaching_story_prompt"
-msgstr "Please describe a sect teaching conference. The teacher shares profound insights on cultivation, the world, and the Dao."
+msgstr "Describe a sect teaching conference. Focus on the atmosphere, the profound Dao resonance of the teacher, and the varied reactions of the disciples. Please avoid mentioning specific experience point numbers."
 
 msgid "sect_teaching_gathering_info"
 msgstr "{sect_name} Teaching Conference"
@@ -33,7 +33,13 @@ msgid "sect_teaching_event_desc"
 msgstr "{teacher_name} is taking the stage to preach."
 
 msgid "sect_teaching_context_prompt"
-msgstr "Sect: {sect_name}\nStyle: {style}\nTeacher: {teacher_name} ({teacher_realm})\n{epiphany_text}\nBased on the sect and character settings, describe the teacher's understanding of Heaven, Earth, the World, and the Dao, as well as the disciples' reactions."
+msgstr "Sect: {sect_name}\nStyle: {style}\nTeacher: {teacher_name} ({teacher_realm})\n{epiphany_text}\nBased on the sect and character settings, describe the teacher's understanding of Heaven, Earth, the World, and the Dao, and describe the different reactions of the disciples."
+
+msgid "sect_teaching_summary"
+msgstr "{sect_name} held a teaching conference hosted by {teacher_name}. Participants: {student_names}."
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} gained {exp} experience."
 
 msgid "epiphany_event_desc"
 msgstr "Special Event: Disciples {names} had an epiphany during the lecture and directly learned {tech_name}!\n"
