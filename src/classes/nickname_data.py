@@ -12,6 +12,7 @@ class Nickname:
     """
     value: str
     reason: str
+    created_year: int
     
     def to_dict(self) -> dict:
         return asdict(self)
@@ -22,7 +23,8 @@ class Nickname:
             return None
         return cls(
             value=data["value"],
-            reason=data["reason"]
+            reason=data["reason"],
+            created_year=data.get("created_year", 0)
         )
     
     def __str__(self) -> str:

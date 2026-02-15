@@ -33,9 +33,12 @@ def can_get_nickname(avatar: "Avatar") -> bool:
     Returns:
         是否满足条件
     """
-    # 已有绰号，不再生成
+    # 检查是否已有绰号及其有效期
     if avatar.nickname is not None:
-        return False
+        current_year = avatar.world.month_stamp.get_year()
+        # 如果未满10年，则不生成
+        if current_year - avatar.nickname.created_year < 10:
+            return False
     
     # 检查事件数量
     em = avatar.world.event_manager
@@ -121,7 +124,8 @@ async def process_avatar_nickname(avatar: "Avatar") -> Optional[Event]:
     nickname_str = result["nickname"]
     reason = result["reason"]
     
-    avatar.nickname = Nickname(value=nickname_str, reason=reason)
+    current_year = avatar.world.month_stamp.get_year()
+    avatar.nickname = Nickname(value=nickname_str, reason=reason, created_year=current_year)
     
     # 生成事件：角色获得绰号
     event = Event(
