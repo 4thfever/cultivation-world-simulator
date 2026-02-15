@@ -7,13 +7,13 @@ This project makes use of the following free/open-source assets. We extend our s
 
 所有音乐素材均遵循 **Creative Commons Attribution (CC BY)** 协议，允许商业使用，仅需保留署名。
 
-| Track Name | Usage (Scene) | Artist | Source / Download | License |
+| Track Name |  Artist | Source / Download | License |
 | :--- | :--- | :--- | :--- | :--- |
 | **Healing** | 天道/核心 | Kevin MacLeod | [incompetech.com](http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1200048) | CC BY 4.0 |
-| **Ishikari Lore** | 混沌/探索 | Kevin MacLeod | [incompetech.com](http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100192) | CC BY 4.0 |
-| **Eastminster** | 世界推演 | Kevin MacLeod | [incompetech.com](http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100719) | CC BY 4.0 |
-| **Wuxia2** | 宗门/内政 | Peritune | [peritune.com](https://peritune.com/blog/2018/10/13/wuxia2/) | CC BY 4.0 |
-| **Sakuya2** | 盛世/平和 | Peritune | [peritune.com](https://peritune.com/blog/2016/01/01/sakuya2/) | CC BY 4.0 |
+| **Ishikari Lore** | Kevin MacLeod | [incompetech.com](http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100192) | CC BY 4.0 |
+| **Eastminster** | Kevin MacLeod | [incompetech.com](http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100719) | CC BY 4.0 |
+| **Wuxia2** | Peritune | [peritune.com](https://peritune.com/blog/2018/10/13/wuxia2/) | CC BY 4.0 |
+| **Sakuya2** | Peritune | [peritune.com](https://peritune.com/blog/2016/01/01/sakuya2/) | CC BY 4.0 |
 
 ### 详细署名信息 (Copy & Paste for Distribution)
 
@@ -41,26 +41,6 @@ This project makes use of the following free/open-source assets. We extend our s
 
 参考了AI Life Engine的部分UI。
 Referenced parts of the UI from AI Life Engine.
-
----
-
-## 📚 Referenced Novels / 致敬参考小说
-
-本项目中的部分特殊NPC（主角/配角）原型来自以下经典网文作品，特此致敬。
-Some special NPCs (protagonists/supporting characters) in this project are based on characters from the following classic web novels. We pay tribute to these works.
-
-| Novel Title / 小说名称 | Author / 作者 | Referenced Characters / 相关角色 |
-| :--- | :--- | :--- |
-| **《赤心巡天》** | 情何以甚 | 姜望 |
-| **《凡人修仙传》** | 忘语 | 韩立, 厉飞雨, 南宫婉 |
-| **《斗破苍穹》** | 天蚕土豆 | 萧炎, 萧薰儿, 纳兰嫣然 |
-| **《一世之尊》** | 爱潜水的乌贼 | 孟奇, 顾小桑, 江芷微 |
-| **《修真门派掌门路》** | 齐可休 | 齐休 |
-| **《神秘复苏》** | 佛前献花 | 杨间 |
-| **《道诡异仙》** | 狐尾的笔 | 李火旺, 白灵淼 |
-| **《遮天》** | 辰东 | 狠人大帝 |
-| **《诛仙》** | 萧鼎 | 陆雪琪 |
-| **《玄鉴仙族》** | 季越人 | 李通崖, 李曦明 |
 
 ---
 

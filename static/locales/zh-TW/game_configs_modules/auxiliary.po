@@ -14,11 +14,11 @@ msgstr "以靈木纖維編織，生機盎然，防禦尚可."
 
 #. auxiliary.csv: 血菩提
 msgid "AUXILIARY_2002_NAME"
-msgstr "血菩提"
+msgstr "血精果"
 
 #. auxiliary.csv: 生於火麒麟滴血之處，重傷必治，無傷增功....
 msgid "AUXILIARY_2002_DESC"
-msgstr "生於火麒麟滴血之處，重傷必治，無傷增功."
+msgstr "生於至陽之地，色澤如血，不僅治傷，更能增進功力。"
 
 #. auxiliary.csv: 人蔘果(僞)
 msgid "AUXILIARY_2003_NAME"
@@ -46,11 +46,11 @@ msgstr "提煉百斤凡鐵才得一兩，提升法器品質的基礎材料."
 
 #. auxiliary.csv: 源天神眼
 msgid "AUXILIARY_2006_NAME"
-msgstr "源天神眼"
+msgstr "通天法眼"
 
 #. auxiliary.csv: 可勘破虛妄，直視本源，尋龍定穴....
 msgid "AUXILIARY_2006_DESC"
-msgstr "可勘破虛妄，直視本源，尋龍定穴."
+msgstr "可勘破虛妄，洞察本源，尋覓天地靈機，直視大道。"
 
 #. auxiliary.csv: 踏雲靴
 msgid "AUXILIARY_2007_NAME"
@@ -78,11 +78,11 @@ msgstr "刀槍不入，水火不侵，貼身軟甲."
 
 #. auxiliary.csv: 寒玉牀
 msgid "AUXILIARY_2010_NAME"
-msgstr "寒玉牀"
+msgstr "玄冰玉榻"
 
 #. auxiliary.csv: 古墓派至寶，在此牀上修煉，事半功倍，且無...
 msgid "AUXILIARY_2010_DESC"
-msgstr "古墓派至寶，在此牀上修煉，事半功倍，且無心魔之虞."
+msgstr "極北玄冰所製，在此修煉可鎮壓心火，事半功倍。"
 
 #. auxiliary.csv: 無相面具
 msgid "AUXILIARY_2011_NAME"
@@ -110,11 +110,11 @@ msgstr "上古神器，擁有穿梭時空之力，此爲仿品，僅能窺探遠
 
 #. auxiliary.csv: 掌天瓶
 msgid "AUXILIARY_2053_NAME"
-msgstr "掌天瓶"
+msgstr "造化翠瓶"
 
 #. auxiliary.csv: 奪天地之造化，聚日月之精華，催熟萬物....
 msgid "AUXILIARY_2053_DESC"
-msgstr "奪天地之造化，聚日月之精華，催熟萬物."
+msgstr "奪天地之造化，聚日月之精華，瓶中靈液可催熟萬物。"
 
 #. auxiliary.csv: 龍鳳呈祥戒
 msgid "AUXILIARY_2054_NAME"
@@ -190,11 +190,11 @@ msgstr "受命於天，既壽永昌。皇威浩蕩，震懾宵小."
 
 #. auxiliary.csv: 靈眼之泉
 msgid "AUXILIARY_2063_NAME"
-msgstr "靈眼之泉"
+msgstr "靈泉之眼"
 
 #. auxiliary.csv: 可移動的靈氣之源，隨身攜帶的洞天福地....
 msgid "AUXILIARY_2063_DESC"
-msgstr "可移動的靈氣之源，隨身攜帶的洞天福地."
+msgstr "可移動的靈氣之眼，隨身攜帶的修行寶地。"
 
 #. auxiliary.csv: 萬魂幡
 msgid "AUXILIARY_2064_NAME"
@@ -206,8 +206,8 @@ msgstr "血海不枯，冥河不死。極度邪惡的掠奪法寶."
 
 #. auxiliary.csv: 神木王鼎
 msgid "AUXILIARY_2065_NAME"
-msgstr "神木王鼎"
+msgstr "青木神鼎"
 
 #. auxiliary.csv: 木系至寶，不僅可煉製神丹，鼎中更自成一界...
 msgid "AUXILIARY_2065_DESC"
-msgstr "木系至寶，不僅可煉製神丹，鼎中更自成一界，可催熟靈藥。"
+msgstr "上古神木雕琢而成，不僅可煉丹，更能自成空間催熟靈藥。"
