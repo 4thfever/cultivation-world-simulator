@@ -4,13 +4,13 @@ msgstr ""
 "Language: zh_CN\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#. technique.csv: 金刚不坏体
+#. technique.csv: 混元金身
 msgid "TECHNIQUE_1_NAME"
-msgstr "金刚不坏体"
+msgstr "混元金身"
 
-#. technique.csv: 少林七十二绝技之一，浑身坚若金刚，刀枪不...
+#. technique.csv: 佛门护教神功，浑身坚若金石，寻常兵刃难伤。
 msgid "TECHNIQUE_1_DESC"
-msgstr "少林七十二绝技之一，浑身坚若金刚，刀枪不入。"
+msgstr "佛门护教神功，浑身坚若金石，寻常兵刃难伤。"
 
 #. technique.csv: 金钟罩
 msgid "TECHNIQUE_2_NAME"
@@ -20,21 +20,21 @@ msgstr "金钟罩"
 msgid "TECHNIQUE_2_DESC"
 msgstr "运气成钟，护持周身，反震外力。"
 
-#. technique.csv: 长春功
+#. technique.csv: 青元长生功
 msgid "TECHNIQUE_4_NAME"
-msgstr "长春功"
+msgstr "青元长生功"
 
-#. technique.csv: 养生延年，气息绵长，凡人修仙的基础功法。...
+#. technique.csv: 木系基础功法，气息绵长，有驻颜延寿之效。
 msgid "TECHNIQUE_4_DESC"
-msgstr "养生延年，气息绵长，凡人修仙的基础功法。"
+msgstr "木系基础功法，气息绵长，有驻颜延寿之效。"
 
-#. technique.csv: 青帝木皇功
+#. technique.csv: 太乙青木气
 msgid "TECHNIQUE_5_NAME"
-msgstr "青帝木皇功"
+msgstr "太乙青木气"
 
-#. technique.csv: 汲取草木精气，生机不绝，皇气浩荡。...
+#. technique.csv: 汲取天地草木精气，生机浩荡，万木臣服。
 msgid "TECHNIQUE_5_DESC"
-msgstr "汲取草木精气，生机不绝，皇气浩荡。"
+msgstr "汲取天地草木精气，生机浩荡，万木臣服。"
 
 #. technique.csv: 若水诀
 msgid "TECHNIQUE_7_NAME"
@@ -44,13 +44,13 @@ msgstr "若水诀"
 msgid "TECHNIQUE_7_DESC"
 msgstr "上善若水，水利万物而不争，绵柔醇厚。"
 
-#. technique.csv: 黑帝水皇拳
+#. technique.csv: 北冥玄水拳
 msgid "TECHNIQUE_8_NAME"
-msgstr "黑帝水皇拳"
+msgstr "北冥玄水拳"
 
-#. technique.csv: 驾驭滔滔黑水，如帝亲临，大气磅礴。...
+#. technique.csv: 驾驭滔滔黑水，重若千钧，拳意如深海暗流。
 msgid "TECHNIQUE_8_DESC"
-msgstr "驾驭滔滔黑水，如帝亲临，大气磅礴。"
+msgstr "驾驭滔滔黑水，重若千钧，拳意如深海暗流。"
 
 #. technique.csv: 火灵诀
 msgid "TECHNIQUE_10_NAME"
@@ -60,9 +60,9 @@ msgstr "火灵诀"
 msgid "TECHNIQUE_10_DESC"
 msgstr "最基础的法术，凝聚火炎伤敌，简单实用。"
 
-#. technique.csv: 纯阳无极功
+#. technique.csv: 纯阳真功
 msgid "TECHNIQUE_11_NAME"
-msgstr "纯阳无极功"
+msgstr "纯阳真功"
 
 #. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
 msgid "TECHNIQUE_11_DESC"
@@ -84,9 +84,9 @@ msgstr "不动明王诀"
 msgid "TECHNIQUE_14_DESC"
 msgstr "不动如山，动如雷震，佛门护法神功。"
 
-#. technique.csv: 冰心诀
+#. technique.csv: 凝神冰心诀
 msgid "TECHNIQUE_16_NAME"
-msgstr "冰心诀"
+msgstr "凝神冰心诀"
 
 #. technique.csv: 心若冰清，天塌不惊，凝神静气。...
 msgid "TECHNIQUE_16_DESC"
@@ -100,21 +100,21 @@ msgstr "玄冰劲"
 msgid "TECHNIQUE_17_DESC"
 msgstr "寒气透骨，冻结经脉，阴狠霸道。"
 
-#. technique.csv: 神行百变
+#. technique.csv: 流云百变身
 msgid "TECHNIQUE_19_NAME"
-msgstr "神行百变"
+msgstr "流云百变身"
 
 #. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
 msgid "TECHNIQUE_19_DESC"
 msgstr "身法灵动，变幻莫测，逃跑一流。"
 
-#. technique.csv: 梯云纵
+#. technique.csv: 踏云步
 msgid "TECHNIQUE_20_NAME"
-msgstr "梯云纵"
+msgstr "踏云步"
 
-#. technique.csv: 武当绝学，左脚踩右脚，直上青云。...
+#. technique.csv: 借力腾空，左脚踩右脚，直上青云九霄。
 msgid "TECHNIQUE_20_DESC"
-msgstr "武当绝学，左脚踩右脚，直上青云。"
+msgstr "借力腾空，左脚踩右脚，直上青云九霄。"
 
 #. technique.csv: 敛息术
 msgid "TECHNIQUE_22_NAME"
@@ -124,13 +124,13 @@ msgstr "敛息术"
 msgid "TECHNIQUE_22_DESC"
 msgstr "收敛气息，如枯木死灰，令人难以察觉。"
 
-#. technique.csv: 鬼影迷踪
+#. technique.csv: 幻影迷踪步
 msgid "TECHNIQUE_23_NAME"
-msgstr "鬼影迷踪"
+msgstr "幻影迷踪步"
 
-#. technique.csv: 如鬼魅般难以捉摸，步法诡异。...
+#. technique.csv: 如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。
 msgid "TECHNIQUE_23_DESC"
-msgstr "如鬼魅般难以捉摸，步法诡异。"
+msgstr "如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。"
 
 #. technique.csv: 掌心雷
 msgid "TECHNIQUE_25_NAME"
@@ -148,81 +148,81 @@ msgstr "五雷正法"
 msgid "TECHNIQUE_26_DESC"
 msgstr "役使五行之雷，刚猛霸道，无坚不摧。"
 
-#. technique.csv: 燃血大法
+#. technique.csv: 燃血爆元术
 msgid "TECHNIQUE_28_NAME"
-msgstr "燃血大法"
+msgstr "燃血爆元术"
 
 #. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
 msgid "TECHNIQUE_28_DESC"
 msgstr "燃烧精血，短暂爆发实力，事后虚弱。"
 
-#. technique.csv: 吸星大法
+#. technique.csv: 吞灵归元功
 msgid "TECHNIQUE_29_NAME"
-msgstr "吸星大法"
+msgstr "吞灵归元功"
 
-#. technique.csv: 吸取他人内力为己用，霸道异常，常有反噬。...
+#. technique.csv: 强行吸取他人灵力为己用，霸道异常，常有反噬风险。
 msgid "TECHNIQUE_29_DESC"
-msgstr "吸取他人内力为己用，霸道异常，常有反噬。"
+msgstr "强行吸取他人灵力为己用，霸道异常，常有反噬风险。"
 
-#. technique.csv: 草字剑诀
+#. technique.csv: 斩星枯荣剑
 msgid "TECHNIQUE_30_NAME"
-msgstr "草字剑诀"
+msgstr "斩星枯荣剑"
 
-#. technique.csv: 一株草斩尽日月星辰，完美世界三大剑诀之一...
+#. technique.csv: 一剑枯荣，斩尽日月星辰，乃剑道至高境界。
 msgid "TECHNIQUE_30_DESC"
-msgstr "一株草斩尽日月星辰，完美世界三大剑诀之一。"
+msgstr "一剑枯荣，斩尽日月星辰，乃剑道至高境界。"
 
-#. technique.csv: 神剑御雷真诀
+#. technique.csv: 九霄御雷术
 msgid "TECHNIQUE_31_NAME"
-msgstr "神剑御雷真诀"
+msgstr "九霄御雷术"
 
-#. technique.csv: 九天玄刹，化为神雷。煌煌天威，以剑引之。...
+#. technique.csv: 引九天雷霆入剑，煌煌天威，荡尽群魔。...
 msgid "TECHNIQUE_31_DESC"
-msgstr "九天玄刹，化为神雷。煌煌天威，以剑引之。"
+msgstr "引九天雷霆入剑，煌煌天威，荡尽群魔。"
 
-#. technique.csv: 大河剑意
+#. technique.csv: 沧浪剑意
 msgid "TECHNIQUE_32_NAME"
-msgstr "大河剑意"
+msgstr "沧浪剑意"
 
-#. technique.csv: 君不见黄河之水天上来，奔流到海不复回。...
+#. technique.csv: 君不见沧浪之水天上来，奔流到海不复回。...
 msgid "TECHNIQUE_32_DESC"
-msgstr "君不见黄河之水天上来，奔流到海不复回。"
+msgstr "君不见沧浪之水天上来，奔流到海不复回。"
 
-#. technique.csv: 青帝长生诀
+#. technique.csv: 乙木长生诀
 msgid "TECHNIQUE_33_NAME"
-msgstr "青帝长生诀"
+msgstr "乙木长生诀"
 
-#. technique.csv: 青帝所创，木系至高功法，生生不息，枯木逢...
+#. technique.csv: 上古木系至高功法，生生不息，枯木逢春。
 msgid "TECHNIQUE_33_DESC"
-msgstr "青帝所创，木系至高功法，生生不息，枯木逢春。"
+msgstr "上古木系至高功法，生生不息，枯木逢春。"
 
-#. technique.csv: 神象镇狱劲
+#. technique.csv: 龙象镇魔功
 msgid "TECHNIQUE_34_NAME"
-msgstr "神象镇狱劲"
+msgstr "龙象镇魔功"
 
-#. technique.csv: 以气引神，以神成象，举手投足，镇压地狱。...
+#. technique.csv: 以气引神，力若龙象，举手投足，镇压诸邪。
 msgid "TECHNIQUE_34_DESC"
-msgstr "以气引神，以神成象，举手投足，镇压地狱。"
+msgstr "以气引神，力若龙象，举手投足，镇压诸邪。"
 
-#. technique.csv: 鲲鹏宝术
+#. technique.csv: 垂天阴阳翼
 msgid "TECHNIQUE_35_NAME"
-msgstr "鲲鹏宝术"
+msgstr "垂天阴阳翼"
 
-#. technique.csv: 入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬...
+#. technique.csv: 入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。
 msgid "TECHNIQUE_35_DESC"
-msgstr "入海为鲲，扶摇为鹏。阴阳变化，极速与吞噬。"
+msgstr "入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。"
 
-#. technique.csv: 虚空经
+#. technique.csv: 太虚行者录
 msgid "TECHNIQUE_36_NAME"
-msgstr "虚空经"
+msgstr "太虚行者录"
 
-#. technique.csv: 以无限虚空证道，掌控空间，先天立于不败。...
+#. technique.csv: 以无限空间证道，掌控虚空，先天立于不败之地。
 msgid "TECHNIQUE_36_DESC"
-msgstr "以无限虚空证道，掌控空间，先天立于不败。"
+msgstr "以无限空间证道，掌控虚空，先天立于不败之地。"
 
-#. technique.csv: 太上忘情录
+#. technique.csv: 太上忘情篇
 msgid "TECHNIQUE_37_NAME"
-msgstr "太上忘情录"
+msgstr "太上忘情篇"
 
 #. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
 msgid "TECHNIQUE_37_DESC"
@@ -236,53 +236,53 @@ msgstr "逍遥游"
 msgid "TECHNIQUE_38_DESC"
 msgstr "乘天地之正，而御六气之辩，以游无穷。"
 
-#. technique.csv: 吞天魔功
+#. technique.csv: 混沌噬灵诀
 msgid "TECHNIQUE_39_NAME"
-msgstr "吞天魔功"
+msgstr "混沌噬灵诀"
 
-#. technique.csv: 狠人大帝所创，吞噬万千体质，铸就混沌体。...
+#. technique.csv: 吞噬万千体质本源，以后天返先天，铸就混沌之躯。
 msgid "TECHNIQUE_39_DESC"
-msgstr "狠人大帝所创，吞噬万千体质，铸就混沌体。"
+msgstr "吞噬万千体质本源，以后天返先天，铸就混沌之躯。"
 
-#. technique.csv: 天魔策
+#. technique.csv: 罗刹魔典
 msgid "TECHNIQUE_40_NAME"
-msgstr "天魔策"
+msgstr "罗刹魔典"
 
-#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空。...
+#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空之境。
 msgid "TECHNIQUE_40_DESC"
-msgstr "魔门至高宝典，包罗万象，直指破碎虚空。"
+msgstr "魔门至高宝典，包罗万象，直指破碎虚空之境。"
 
-#. technique.csv: 冥河真经
+#. technique.csv: 血海不灭经
 msgid "TECHNIQUE_41_NAME"
-msgstr "冥河真经"
+msgstr "血海不灭经"
 
-#. technique.csv: 血海不枯，冥河不死。演化四亿八千万血神子...
+#. technique.csv: 血海不枯，真身不死。演化亿万血神子...
 msgid "TECHNIQUE_41_DESC"
-msgstr "血海不枯，冥河不死。演化四亿八千万血神子。"
+msgstr "血海不枯，真身不死。演化亿万血神子。"
 
-#. technique.csv: 焚诀
+#. technique.csv: 九转火源经
 msgid "TECHNIQUE_42_NAME"
-msgstr "焚诀"
+msgstr "九转火源经"
 
-#. technique.csv: 通过吞噬异火进化功法，潜力无限，号令万火...
+#. technique.csv: 通过吞噬天地异火进化功法，潜力无限，号令万火...
 msgid "TECHNIQUE_42_DESC"
-msgstr "通过吞噬异火进化功法，潜力无限，号令万火。"
+msgstr "通过吞噬天地异火进化功法，潜力无限，号令万火。"
 
-#. technique.csv: 道心种魔大法
+#. technique.csv: 种魔夺天诀
 msgid "TECHNIQUE_43_NAME"
-msgstr "道心种魔大法"
+msgstr "种魔夺天诀"
 
-#. technique.csv: 以他人为炉鼎，种魔种，夺天地造化。...
+#. technique.csv: 以天地为炉鼎，种魔种，夺天地造化，死中求生。
 msgid "TECHNIQUE_43_DESC"
-msgstr "以他人为炉鼎，种魔种，夺天地造化。"
+msgstr "以天地为炉鼎，种魔种，夺天地造化，死中求生。"
 
-#. technique.csv: 大衍决
+#. technique.csv: 千念分神术
 msgid "TECHNIQUE_44_NAME"
-msgstr "大衍决"
+msgstr "千念分神术"
 
-#. technique.csv: 专修神识，能分心多用，操控万千傀儡。...
+#. technique.csv: 专修神识，能分心多用，操控万千法器傀儡。...
 msgid "TECHNIQUE_44_DESC"
-msgstr "专修神识，能分心多用，操控万千傀儡。"
+msgstr "专修神识，能分心多用，操控万千法器傀儡。"
 
 #. technique.csv: 大乐赋
 msgid "TECHNIQUE_45_NAME"
@@ -300,21 +300,21 @@ msgstr "天魔舞"
 msgid "TECHNIQUE_46_DESC"
 msgstr "域外天魔之舞，勾魂摄魄，乱人心智。"
 
-#. technique.csv: 凌波微步
+#. technique.csv: 烟波渺步
 msgid "TECHNIQUE_47_NAME"
-msgstr "凌波微步"
+msgstr "烟波渺步"
 
-#. technique.csv: 体迅飞凫，飘忽若神，罗袜生尘。...
+#. technique.csv: 体迅飞凫，飘忽若神，动无常则，若危若安。
 msgid "TECHNIQUE_47_DESC"
-msgstr "体迅飞凫，飘忽若神，罗袜生尘。"
+msgstr "体迅飞凫，飘忽若神，动无常则，若危若安。"
 
-#. technique.csv: 过去弥陀经
+#. technique.csv: 无量寂灭经
 msgid "TECHNIQUE_48_NAME"
-msgstr "过去弥陀经"
+msgstr "无量寂灭经"
 
-#. technique.csv: 神魂不灭，超脱彼岸。修成过去二竖，万劫不...
+#. technique.csv: 神魂不灭，超脱彼岸。修成无量法身，万劫不磨。
 msgid "TECHNIQUE_48_DESC"
-msgstr "神魂不灭，超脱彼岸。修成过去二竖，万劫不磨。"
+msgstr "神魂不灭，超脱彼岸。修成无量法身，万劫不磨。"
 
 #. technique.csv: 神霄雷法
 msgid "TECHNIQUE_49_NAME"
@@ -332,50 +332,50 @@ msgstr "九字真言"
 msgid "TECHNIQUE_50_DESC"
 msgstr "临兵斗者皆阵列前行。道家无上咒法。"
 
-#. technique.csv: 幽冥鬼爪
+#. technique.csv: 幽冥玄阴爪
 msgid "TECHNIQUE_51_NAME"
-msgstr "幽冥鬼爪"
+msgstr "幽冥玄阴爪"
 
 #. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
 msgid "TECHNIQUE_51_DESC"
 msgstr "阴损毒辣，专破内家真气，触之即死。"
 
-#. technique.csv: 三千雷动
+#. technique.csv: 雷影瞬遁
 msgid "TECHNIQUE_52_NAME"
-msgstr "三千雷动"
+msgstr "雷影瞬遁"
 
-#. technique.csv: 身化雷霆，瞬息千里，残影重重。...
+#. technique.csv: 身化雷霆，瞬息千里，原地只留残影重重。
 msgid "TECHNIQUE_52_DESC"
-msgstr "身化雷霆，瞬息千里，残影重重。"
+msgstr "身化雷霆，瞬息千里，原地只留残影重重。"
 
-#. technique.csv: 血神经
+#. technique.csv: 修罗血煞功
 msgid "TECHNIQUE_53_NAME"
-msgstr "血神经"
+msgstr "修罗血煞功"
 
-#. technique.csv: 人皮为纸，鲜血为墨。修炼者必先剥皮噬血。...
+#. technique.csv: 以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。
 msgid "TECHNIQUE_53_DESC"
-msgstr "人皮为纸，鲜血为墨。修炼者必先剥皮噬血。"
+msgstr "以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。"
 
-#. technique.csv: 神机百炼
+#. technique.csv: 天工造物诀
 msgid "TECHNIQUE_54_NAME"
-msgstr "神机百炼"
+msgstr "天工造物诀"
 
-#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可为兵。...
+#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可随心炼化。
 msgid "TECHNIQUE_54_DESC"
-msgstr "炼器极致，化腐朽为神奇，万物皆可为兵。"
+msgstr "炼器极致，化腐朽为神奇，万物皆可随心炼化。"
 
-#. technique.csv: 周天星斗大阵
+#. technique.csv: 万星飞仙阵
 msgid "TECHNIQUE_55_NAME"
-msgstr "周天星斗大阵"
+msgstr "万星飞仙阵"
 
 #. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
 msgid "TECHNIQUE_55_DESC"
 msgstr "引周天星力，演化宇宙洪荒，攻防一体。"
 
-#. technique.csv: 纵地金光
+#. technique.csv: 金光遁法
 msgid "TECHNIQUE_56_NAME"
-msgstr "纵地金光"
+msgstr "金光遁法"
 
-#. technique.csv: 阐教绝学，化作一道金光，瞬息万里。...
+#. technique.csv: 化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。
 msgid "TECHNIQUE_56_DESC"
-msgstr "阐教绝学，化作一道金光，瞬息万里。"
+msgstr "化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。"

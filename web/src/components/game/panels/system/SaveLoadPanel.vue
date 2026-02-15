@@ -195,12 +195,6 @@ onMounted(() => {
         <div class="save-info">
           <div class="save-header">
             <span class="save-name">{{ getSaveDisplayName(save) }}</span>
-            <NTooltip v-if="save.protagonist_name" trigger="hover">
-              <template #trigger>
-                <span class="protagonist-badge">&#9733; {{ save.protagonist_name }}</span>
-              </template>
-              {{ t('save_load.protagonist_tooltip') }}
-            </NTooltip>
           </div>
           <div class="save-meta">
             <span class="game-time">{{ t('save_load.game_time', { time: save.game_time }) }}</span>
@@ -375,15 +369,6 @@ onMounted(() => {
   color: #fff;
   font-weight: bold;
   font-size: 1.05em;
-}
-
-.protagonist-badge {
-  background: linear-gradient(135deg, #5a4a2a 0%, #3a2a1a 100%);
-  color: #ffd700;
-  padding: 0.15em 0.5em;
-  border-radius: 0.3em;
-  font-size: 0.8em;
-  cursor: help;
 }
 
 .save-meta {

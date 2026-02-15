@@ -4,121 +4,121 @@ msgstr ""
 "Language: zh_TW\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#. sect_region.csv: 連霞山
+#. sect_region.csv: SECT_REGION_401_NAME
 msgid "SECT_REGION_401_NAME"
-msgstr "連霞山"
+msgstr "絕雲峰"
 
-#. sect_region.csv: 連霞山坐忘峯下，是名門仙山的主峯。山上設...
+#. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"
-msgstr "連霞山坐忘峯下，是名門仙山的主峯。山上設有弟子修煉之地，環境清幽。"
+msgstr "絕雲峰高聳入雲，四周罡風環繞，唯有劍修可御劍而上。山上設有弟子修煉之地，環境清幽。"
 
-#. sect_region.csv: 玄靈洞
+#. sect_region.csv: SECT_REGION_402_NAME
 msgid "SECT_REGION_402_NAME"
-msgstr "玄靈洞"
+msgstr "萬獸窟"
 
-#. sect_region.csv: 玄靈洞位於十萬大山深處，洞府依託一座千丈...
+#. sect_region.csv: SECT_REGION_402_DESC
 msgid "SECT_REGION_402_DESC"
 msgstr ""
-"玄靈洞位於十萬大山深處，洞府依託一座千丈高的靈山開鑿而成，洞口寬達百丈，形似猛獸張口。洞內縱橫交錯，共有九十九層洞天，每層都馴養着不同品階的靈獸妖獸。"
+"萬獸窟位於十萬大山腹地，洞窟內妖氣沖天，在此可聞萬獸咆哮。洞內縱橫交錯，共有九十九層洞天，每層都馴養著不同品階的靈獸妖獸。"
 
-#. sect_region.csv: 碧波湖
+#. sect_region.csv: SECT_REGION_403_NAME
 msgid "SECT_REGION_403_NAME"
-msgstr "碧波湖"
+msgstr "靜海涯"
 
-#. sect_region.csv: 水鏡宗建於碧波湖心的三座仙島之上，湖水清...
+#. sect_region.csv: SECT_REGION_403_DESC
 msgid "SECT_REGION_403_DESC"
 msgstr ""
-"水鏡宗建於碧波湖心的三座仙島之上，湖水清澈如鏡，終年波瀾不興。三島之間以水晶長橋相連，宮殿樓閣皆爲水晶琉璃所築，通體透明，倒映湖中，虛實難辨。"
+"聽濤閣懸於海邊絕壁之上，終年聽潮。閣中玉璧倒映星辰大海，宮殿樓閣皆為寒冰靈玉所築，通體透明，虛實難辨。"
 
-#. sect_region.csv: 七鬼角
+#. sect_region.csv: SECT_REGION_404_NAME
 msgid "SECT_REGION_404_NAME"
-msgstr "七鬼角"
+msgstr "死寂海"
 
-#. sect_region.csv: 冥王宗位於七鬼角羣島上，宗門四面臨海，周...
+#. sect_region.csv: SECT_REGION_404_DESC
 msgid "SECT_REGION_404_DESC"
 msgstr ""
-"冥王宗位於七鬼角羣島上，宗門四面臨海，周圍暗礁密佈，巨浪狂潮起落之間，在暗礁周圍生成無數令人望而生畏的暗流漩渦。羣島周圍千萬年來投入了多少兇魂厲鬼，海浪起嘯之時，萬鬼齊哭，遮天蔽日。"
+"九幽黃泉道位於死寂海群島上，海水漆黑如墨，無風起浪。傳聞海底直通九幽黃泉。海浪起嘯之時，萬魂齊哭，遮天蔽日。"
 
-#. sect_region.csv: 明玉山
+#. sect_region.csv: SECT_REGION_405_NAME
 msgid "SECT_REGION_405_NAME"
-msgstr "明玉山"
+msgstr "千機谷"
 
-#. sect_region.csv: 明玉山通體由罕見的明玉石構成，山體呈現出...
+#. sect_region.csv: SECT_REGION_405_DESC
 msgid "SECT_REGION_405_DESC"
 msgstr ""
-"明玉山通體由罕見的明玉石構成，山體呈現出詭異的青白色澤，在月光下更是泛着幽冷的光芒。山中宮殿樓閣皆爲玉石所築，看似華麗卻處處暗藏殺機。殿宇之間機關重重，暗道密佈。"
+"千機谷中遍布機關陷阱，看似尋常山谷，踏錯一步即死無葬身之地。谷中宮殿樓閣看似華麗卻處處暗藏殺機。"
 
-#. sect_region.csv: 桃花島
+#. sect_region.csv: SECT_REGION_406_NAME
 msgid "SECT_REGION_406_NAME"
-msgstr "桃花島"
+msgstr "銷金窟"
 
-#. sect_region.csv: 合歡宗坐落於東海桃花島上，島上四季桃花盛...
+#. sect_region.csv: SECT_REGION_406_DESC
 msgid "SECT_REGION_406_DESC"
 msgstr ""
-"合歡宗坐落於東海桃花島上，島上四季桃花盛開，永不凋零，花瓣隨風飄舞，鋪滿整座仙島。宗門建築以粉紅色調爲主，雕樑畫棟，極盡奢華。殿宇樓閣之間雲霧繚繞，隱約可見成雙成對的弟子在其間修煉。"
+"醉夢樓建於繁華鬧市之中的獨立洞天，歌舞昇平，終日不散的迷醉香氣。宗門建築極盡奢華，殿宇樓閣之間雲霧缭繞，隱約可見成雙成對的弟子在其間修煉。"
 
-#. sect_region.csv: 落魂海
+#. sect_region.csv: SECT_REGION_407_NAME
 msgid "SECT_REGION_407_NAME"
-msgstr "落魂海"
+msgstr "普渡島"
 
-#. sect_region.csv: 位於極南海上。鎮魂海常年有妖獸作亂，海域...
+#. sect_region.csv: SECT_REGION_407_DESC
 msgid "SECT_REGION_407_DESC"
-msgstr "位於極南海上。鎮魂海常年有妖獸作亂，海域兇險。宗門建築立於海中礁島之上，以鎮魂鍾爲中心，鐘聲可震懾方圓千里之內的妖魂。"
+msgstr "位於海域風暴中心，金光漫天。鐘聲響起時，風暴止息。宗門建築立於島上，以金剛塔為中心，鐘聲可震懾方圓千里之內的妖魂。"
 
-#. sect_region.csv: 鬼門湖
+#. sect_region.csv: SECT_REGION_408_NAME
 msgid "SECT_REGION_408_NAME"
-msgstr "鬼門湖"
+msgstr "暗影沼澤"
 
-#. sect_region.csv: 鬼門湖位於原始森林深處，重重大山圍攏的平...
+#. sect_region.csv: SECT_REGION_408_DESC
 msgid "SECT_REGION_408_DESC"
 msgstr ""
-"鬼門湖位於原始森林深處，重重大山圍攏的平原地帶。參天巨木、纏繞藤蔓、終日浮游不散的瘴氣，還有因宗門祕法而生就的層層迷霧，將這裏與外界完全隔離，透不進一點光來。"
+"終年迷霧籠罩的劇毒沼澤，這裡沒有光，只有潛藏在暗處的眼睛。參天巨木、纏繞藤蔓、終日浮游不散的瘴氣，將這裡與外界完全隔離。"
 
-#. sect_region.csv: 天星海
+#. sect_region.csv: SECT_REGION_409_NAME
 msgid "SECT_REGION_409_NAME"
-msgstr "天星海"
+msgstr "多寶浮空島"
 
-#. sect_region.csv: 千帆城建於天星海中央的巨型浮島之上，整座...
+#. sect_region.csv: SECT_REGION_409_DESC
 msgid "SECT_REGION_409_DESC"
 msgstr ""
-"千帆城建於天星海中央的巨型浮島之上，整座城池由無數法器拼接而成，城外海面上停泊着數以千計的法器靈舟，帆檣如林，蔚爲壯觀。城中高塔林立，每座塔頂都有煉器爐火日夜不息，煙柱沖天。"
+"萬寶仙盟建於多寶浮空島之上，巨大的浮空島嶼群由無數鎖鏈相連，往來飛舟如雲，繁華至極。城中高塔林立，每座塔頂都有煉器爐火日夜不息。"
 
-#. sect_region.csv: 心園
+#. sect_region.csv: SECT_REGION_410_NAME
 msgid "SECT_REGION_410_NAME"
-msgstr "心園"
+msgstr "回音谷"
 
-#. sect_region.csv: 四季如春，百花不謝。園內亭臺樓閣錯落，絲...
+#. sect_region.csv: SECT_REGION_410_DESC
 msgid "SECT_REGION_410_DESC"
-msgstr "四季如春，百花不謝。園內亭臺樓閣錯落，絲竹之聲終日不絕，看似人間仙境，實則暗藏無數音殺陣法。"
+msgstr "特殊的山谷構造使得聲音凝而不散。風過之時，如鬼哭神嚎。谷內亭臺樓閣錯落，絲竹之聲終日不絕，看似人間仙境，實則暗藏無數音殺陣法。"
 
-#. sect_region.csv: 諸隱山
+#. sect_region.csv: SECT_REGION_411_NAME
 msgid "SECT_REGION_411_NAME"
-msgstr "諸隱山"
+msgstr "迷蹤天"
 
-#. sect_region.csv: 諸隱山雲霧繚繞，山勢晦暗不明。整座山脈被...
+#. sect_region.csv: SECT_REGION_411_DESC
 msgid "SECT_REGION_411_DESC"
-msgstr "諸隱山雲霧繚繞，山勢晦暗不明。整座山脈被無數重疊的陣法大陣覆蓋，一步一景，一步一險，若無通形令牌，外人踏入半步便會迷失其中。"
+msgstr "看似只有一座山，實則包含無數摺疊空間。不懂陣法者寸步難行。整座山脈被無數重疊的陣法大陣覆蓋，一步一景，一步一險。"
 
-#. sect_region.csv: 大千光極城
+#. sect_region.csv: SECT_REGION_412_NAME
 msgid "SECT_REGION_412_NAME"
-msgstr "大千光極城"
+msgstr "極光天境"
 
-#. sect_region.csv: 常年籠罩在絢麗的極光之下。城池由萬年寒冰...
+#. sect_region.csv: SECT_REGION_412_DESC
 msgid "SECT_REGION_412_DESC"
-msgstr "常年籠罩在絢麗的極光之下。城池由萬年寒冰與玄鐵鑄就，在漫天極光的映照下流光溢彩，宛如神蹟，是極寒之地唯一的溫暖所在。"
+msgstr "位於極北永夜之地，卻被萬年不滅的極光籠罩，亮如白晝。城池由萬年寒冰與玄鐵鑄就，在漫天極光的映照下流光溢彩，宛如神蹟。"
 
-#. sect_region.csv: 浩然峯
+#. sect_region.csv: SECT_REGION_413_NAME
 msgid "SECT_REGION_413_NAME"
-msgstr "浩然峯"
+msgstr "聖賢林"
 
-#. sect_region.csv: 位於通玄界中腹，山勢雄奇挺拔，直插雲霄。...
+#. sect_region.csv: SECT_REGION_413_DESC
 msgid "SECT_REGION_413_DESC"
-msgstr "位於通玄界中腹，山勢雄奇挺拔，直插雲霄。峯頂常年白雲浩渺，紫氣東來，書聲琅琅之聲可傳十里，是天下浩然正氣匯聚之地。"
+msgstr "位於修真界中腹，古木參天，碑林林立，每塊碑文都蘊含聖人微言大義。林中書聲琅琅之聲可傳十里，是天下浩然正氣匯聚之地。"
 
-#. sect_region.csv: 陷空山
+#. sect_region.csv: SECT_REGION_414_NAME
 msgid "SECT_REGION_414_NAME"
-msgstr "陷空山"
+msgstr "修羅血池"
 
-#. sect_region.csv: 位於極西之地的險惡山脈，山勢如犬牙交錯，...
+#. sect_region.csv: SECT_REGION_414_DESC
 msgid "SECT_REGION_414_DESC"
-msgstr "位於極西之地的險惡山脈，山勢如犬牙交錯，窮山惡水。山中常有血霧瀰漫，怪石嶙峋，隨處可見被吸乾精血的獸骨枯屍，令人聞風喪膽。"
+msgstr "山體呈現暗紅色，彷彿被鮮血浸透。宗門建於巨大的地下血池之上。山中常有血霧瀰漫，怪石嶙峋，隨處可見被吸乾精血的獸骨枯尸。"

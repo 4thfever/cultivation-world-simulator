@@ -14,11 +14,11 @@ msgstr "Woven with spiritual wood fibers"
 
 #. auxiliary.csv: 血菩提
 msgid "AUXILIARY_2002_NAME"
-msgstr "Blood Bodhi"
+msgstr "Blood Essence Fruit"
 
 #. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
 msgid "AUXILIARY_2002_DESC"
-msgstr "Grown where the Fire Qilin dripped blood"
+msgstr "Born in the place of extreme yang, the color is like blood. It not only heals wounds but also improves cultivation."
 
 #. auxiliary.csv: 人参果(伪)
 msgid "AUXILIARY_2003_NAME"
@@ -46,11 +46,11 @@ msgstr "Refined from a hundred jin of common iron to get one tael"
 
 #. auxiliary.csv: 源天神眼
 msgid "AUXILIARY_2006_NAME"
-msgstr "Heavenly Origin Eye"
+msgstr "Heaven-Reaching Dharma Eye"
 
 #. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
 msgid "AUXILIARY_2006_DESC"
-msgstr "Able to see through falsehoods"
+msgstr "It can see through falsehoods, gain insight into the origin, seek the spiritual opportunities of heaven and earth, and look directly at the Great Dao."
 
 #. auxiliary.csv: 踏云靴
 msgid "AUXILIARY_2007_NAME"
@@ -78,11 +78,11 @@ msgstr "Invulnerable to swords and spears"
 
 #. auxiliary.csv: 寒玉床
 msgid "AUXILIARY_2010_NAME"
-msgstr "Cold Jade Bed"
+msgstr "Black Ice Jade Couch"
 
 #. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
 msgid "AUXILIARY_2010_DESC"
-msgstr "A supreme treasure of the Ancient Tomb Sect"
+msgstr "Made of extreme northern black ice. Cultivating on it can suppress the fire of the heart and yield twice the result with half the effort."
 
 #. auxiliary.csv: 无相面具
 msgid "AUXILIARY_2011_NAME"
@@ -112,11 +112,11 @@ msgstr ""
 
 #. auxiliary.csv: 掌天瓶
 msgid "AUXILIARY_2053_NAME"
-msgstr "Heavenly Essence Vial"
+msgstr "Creation Emerald Bottle"
 
 #. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
 msgid "AUXILIARY_2053_DESC"
-msgstr "Seizes the creation of heaven and earth"
+msgstr "Seizing the creation of heaven and earth, gathering the essence of the sun and moon. The spiritual liquid in the bottle can ripen all things."
 
 #. auxiliary.csv: 龙凤呈祥戒
 msgid "AUXILIARY_2054_NAME"
@@ -192,11 +192,11 @@ msgstr "Mandated by Heaven"
 
 #. auxiliary.csv: 灵眼之泉
 msgid "AUXILIARY_2063_NAME"
-msgstr "Spirit Eye Spring"
+msgstr "Spirit Spring Eye"
 
 #. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
 msgid "AUXILIARY_2063_DESC"
-msgstr "A portable source of spiritual qi"
+msgstr "A movable source of spiritual energy, a cultivation treasure land carried with you."
 
 #. auxiliary.csv: 万魂幡
 msgid "AUXILIARY_2064_NAME"
@@ -208,8 +208,8 @@ msgstr "The sea of blood never dries"
 
 #. auxiliary.csv: 神木王鼎
 msgid "AUXILIARY_2065_NAME"
-msgstr "Divine Wood King Tripod"
+msgstr "Green Wood Divine Cauldron"
 
 #. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
 msgid "AUXILIARY_2065_DESC"
-msgstr "A wood-attribute supreme treasure"
+msgstr "Carved from ancient divine wood. It can not only refine divine pills but also form a space of its own to ripen spirit herbs."

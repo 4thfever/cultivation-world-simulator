@@ -42,10 +42,6 @@ df:
 
 avatar:
   persona_num: 3
-  # all 引入所有主角不引入随机角色
-  # random，正常随机角色，但是有一定概率出主角
-  # none, 不引入主角（默认选项）
-  protagonist: "random"
 
 social:
   major_event_context_num: 10  # 大事（长期记忆）展示数量

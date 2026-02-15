@@ -86,11 +86,11 @@ msgstr "The sword qi is bone-chillingly cold."
 
 #. weapon.csv: 井中月
 msgid "WEAPON_1022_NAME"
-msgstr "Moon in the Well"
+msgstr "Water Moon Saber"
 
 #. weapon.csv: 刀光如井中映月，虚实难测。...
 msgid "WEAPON_1022_DESC"
-msgstr "The saber light is like the moon reflected in a well, unpredictable."
+msgstr "The blade is like water, reflecting the moon without a trace. It is hard to distinguish between reality and illusion, making it unpredictable for opponents."
 
 #. weapon.csv: 火尖枪
 msgid "WEAPON_1023_NAME"
@@ -112,13 +112,11 @@ msgstr ""
 
 #. weapon.csv: 桃花扇
 msgid "WEAPON_1025_NAME"
-msgstr "Peach Blossom Fan"
+msgstr "Crimson Flower Fan"
 
 #. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
 msgid "WEAPON_1025_DESC"
-msgstr ""
-"Falling peach blossom shadows like flying divine swords; peach blossoms "
-"painted on the fan, hiding killing intent."
+msgstr "The fan is painted with crimson petals. The flower shadows are blurred, hiding murderous intent, making it impossible to guard against."
 
 #. weapon.csv: 打神鞭
 msgid "WEAPON_1026_NAME"
@@ -140,11 +138,11 @@ msgstr "The zither sound is demonic, disturbing the mind."
 
 #. weapon.csv: 鬼笛陈情
 msgid "WEAPON_1028_NAME"
-msgstr "Ghost Flute Chenqing"
+msgstr "Spirit Controlling Flute"
 
 #. weapon.csv: 据说能以此笛操控尸傀。...
 msgid "WEAPON_1028_DESC"
-msgstr "Said to be able to control corpse puppets with this flute."
+msgstr "The sound of the flute is shrill and can control corpses, making people turn pale at the sound."
 
 #. weapon.csv: 无影针
 msgid "WEAPON_1029_NAME"
@@ -168,29 +166,27 @@ msgstr ""
 
 #. weapon.csv: 血饮狂刀
 msgid "WEAPON_1031_NAME"
-msgstr "Blood Drinker Mad Saber"
+msgstr "Bloodthirsty Saber"
 
 #. weapon.csv: 刀身赤红，似渴望饮血。...
 msgid "WEAPON_1031_DESC"
-msgstr "The saber body is red, appearing to crave blood."
+msgstr "The blade is crimson, seemingly thirsting for blood. It has a heavy killing intent and cannot be used by those with weak will."
 
 #. weapon.csv: 玄铁重剑
 msgid "WEAPON_1032_NAME"
-msgstr "Black Iron Heavy Sword"
+msgstr "Meteor Heavy Sword"
 
 #. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
 msgid "WEAPON_1032_DESC"
-msgstr ""
-"Heavy sword without edge, great skill requires no craftsmanship, Dugu "
-"Qiubai's favorite."
+msgstr "Cast from extraterrestrial meteoric iron. The heavy sword has no sharp edge, but great skill requires no workmanship. It can break all techniques with force."
 
 #. weapon.csv: 紫薇软剑
 msgid "WEAPON_1033_NAME"
-msgstr "Ziwei Soft Sword"
+msgstr "Spirit Snake Soft Sword"
 
 #. weapon.csv: 软若束带，动若灵蛇。...
 msgid "WEAPON_1033_DESC"
-msgstr "Soft as a belt, moving like a spiritual snake."
+msgstr "The sword is as soft as silk, but when infused with spiritual energy, it moves like a spirit snake, strange and unpredictable."
 
 #. weapon.csv: 水火囚龙棍
 msgid "WEAPON_1034_NAME"
@@ -204,13 +200,11 @@ msgstr ""
 
 #. weapon.csv: 青竹蜂云剑
 msgid "WEAPON_1051_NAME"
-msgstr "Green Bamboo Bee Cloud Sword"
+msgstr "Heavenly Thunder Bamboo Sword"
 
 #. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
 msgid "WEAPON_1051_DESC"
-msgstr ""
-"A set of flying swords containing evil-warding divine thunder, restraining "
-"all evil in the world."
+msgstr "A set of flying swords refined from Heavenly Thunder Bamboo, containing the Evil-Warding Divine Thunder to suppress all evil in the world."
 
 #. weapon.csv: 随心铁杆兵
 msgid "WEAPON_1052_NAME"
@@ -244,13 +238,11 @@ msgstr ""
 
 #. weapon.csv: 赤锋矛
 msgid "WEAPON_1055_NAME"
-msgstr "Red Point Spear"
+msgstr "Crimson Blood War Spear"
 
 #. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
 msgid "WEAPON_1055_DESC"
-msgstr ""
-"Red point spear, immortal shield, slaying all immortal kings and destroying "
-"nine heavens."
+msgstr "Crimson throughout, with overwhelming fighting spirit. It has been stained with the blood of countless strong men, and the spear strikes without regret."
 
 #. weapon.csv: 斩仙飞刀
 msgid "WEAPON_1056_NAME"
@@ -344,23 +336,19 @@ msgstr ""
 
 #. weapon.csv: 碧海潮生笛
 msgid "WEAPON_1065_NAME"
-msgstr "Jade Sea Tide Flute"
+msgstr "Ocean Dragon Flute"
 
 #. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
 msgid "WEAPON_1065_DESC"
-msgstr ""
-"A treasure from the East Sea Dragon Palace. When played, it sounds like the "
-"tide of the sea and often attracts fortuitous encounters."
+msgstr "Made of deep-sea cold jade. When played, it sounds like a dragon chanting in the ocean, shaking the surroundings."
 
 #. weapon.csv: 虎魄
 msgid "WEAPON_1071_NAME"
-msgstr "Tiger Soul"
+msgstr "Fierce Tiger Evil Blade"
 
 #. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
 msgid "WEAPON_1071_DESC"
-msgstr ""
-"An ancient fierce weapon sealing the soul of a White Tiger. It must drink "
-"blood when unsheathed, wounding the enemy's body and devouring their luck."
+msgstr "An ancient ominous weapon sealing the fierce soul of a White Tiger. It must drink blood when unsheathed and may backlash against its master."
 
 #. weapon.csv: 擎天白玉柱
 msgid "WEAPON_1072_NAME"
@@ -415,10 +403,8 @@ msgstr ""
 
 #. weapon.csv: 孔雀翎
 msgid "WEAPON_1077_NAME"
-msgstr "Peacock Plume"
+msgstr "Seven-Color Sparrow Feather"
 
 #. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
 msgid "WEAPON_1077_DESC"
-msgstr ""
-"Although it is just a hidden weapon, its beauty is unapproachable. When it "
-"blooms, it is the enemy's death date."
+msgstr "Beautiful beyond words, but hidden under the brilliant light is a fatal murderous intent."

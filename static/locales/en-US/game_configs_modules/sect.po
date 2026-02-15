@@ -4,178 +4,175 @@ msgstr ""
 "Language: en_US\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#. sect.csv: 明心剑宗
+#. sect.csv: SECT_1_NAME
 msgid "SECT_1_NAME"
-msgstr "Mingxin Sword Sect"
+msgstr "High Heaven Sword Sect"
 
-#. sect.csv: 通玄界东方第一宗，以无上剑道称雄于世。云...
+#. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
 msgstr ""
-"The number one sect in the east of the Tongxuan Realm, ruling the world with"
-" supreme sword path. The Cloud Pattern Array is their secret manual. [Sword "
-"Path Specialization] As a sword cultivator, your combat power is amazing "
-"when using sword-type weapons, and your comprehension speed in the sword "
-"path far exceeds ordinary people."
+"The number one sect in the east of the Cultivation World, ruling with supreme "
+"sword path. The sect's ultimate technique is the 'Nine Heavens Thunder "
+"Sword Art'. [Sword Heart Clarity] As a sword cultivator, your combat power "
+"is amazing when using sword-type weapons, and your comprehension speed in "
+"the sword path far exceeds ordinary people."
 
-#. sect.csv: 百兽宗
+#. sect.csv: SECT_2_NAME
 msgid "SECT_2_NAME"
-msgstr "Baishou Sect"
+msgstr "Ten Thousand Beasts Mountain"
 
-#. sect.csv: 以驯养灵兽闻名，豢养各种妖兽灵怪为战力。...
+#. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
 msgstr ""
-"Famous for taming spiritual beasts, keeping various demonic beasts and "
-"monsters as combat power. [Beast Taming Master] You have a unique beast "
-"taming talent; capturing demonic beasts is easy for you, and you are good at"
-" driving beast groups to fight for you."
+"Famous for taming fierce beasts, keeping various demonic beasts and monsters "
+"as combat power. [Master of Ten Thousand Beasts] You have a unique beast "
+"taming talent; capturing demonic beasts is easy for you, and you are good at "
+"driving beast groups to fight for you."
 
-#. sect.csv: 水镜宗
+#. sect.csv: SECT_3_NAME
 msgid "SECT_3_NAME"
-msgstr "Shuijing Sect"
+msgstr "Listening Tide Pavilion"
 
-#. sect.csv: 正道十宗之一，实则严守中立。拥有仙界异宝...
+#. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
 msgstr ""
-"One of the ten righteous sects, but actually strictly neutral. Possesses the"
-" immortal realm treasure \"Heaven-Piercing Water Mirror\" to predict the "
-"future. [Seeking Luck and Avoiding Evil] You have extraordinary intuition, a"
-" broad vision, and are extremely likely to find encounters during "
-"exploration."
+"Living on isolated islands overseas, strictly neutral. Possesses an ancient "
+"wonder 'Sea Viewing Jade Wall' to spy on heavenly secrets. [Knowing Destiny] "
+"You have extraordinary intuition, a broad vision, and are extremely likely to "
+"find encounters during exploration."
 
-#. sect.csv: 冥王宗
+#. sect.csv: SECT_4_NAME
 msgid "SECT_4_NAME"
-msgstr "Mingwang Sect"
+msgstr "Nine Underworlds Dao"
 
-#. sect.csv: 行走幽冥之道，术法阴冷狠厉。【通幽】你修...
+#. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
 msgstr ""
-"Walking the path of the underworld, with cold and fierce techniques. "
-"[Netherworld Access] You practice underworld laws with a firm mind, and when"
-" breaking through bottlenecks, you have no distractions, leading to a higher"
-" success rate."
+"Comprehending life and death, drawing power from the Yellow Springs (Underworld), "
+"with cold and fierce techniques. [Netherworld Ferry] You practice the way of "
+"Yellow Springs with a firm mind, and when breaking through bottlenecks, you "
+"have no distractions, leading to a higher success rate."
 
-#. sect.csv: 朱勾宗
+#. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
-msgstr "Zhugou Sect"
+msgstr "Thousand Mechanisms Sect"
 
-#. sect.csv: 邪宗大派。以炼器、机关、暗杀闻名于世，素...
+#. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
 msgstr ""
-"A major evil sect. Famous for artifact refining, mechanisms, and "
-"assassination, traditionally sinister and aloof. [Assassination Expert] You "
-"are proficient in stealth and assassination; for strong enemies, avoiding "
-"direct confrontation and seeking assassination is often your best winning "
-"strategy."
+"A major evil sect. Famous for mechanisms, puppets, and poison killing, always "
+"secretive in whereabouts. [Treacherous Assassination] You are proficient in "
+"stealth and assassination; for strong enemies, avoiding direct confrontation "
+"and seeking assassination is often your best winning strategy."
 
-#. sect.csv: 合欢宗
+#. sect.csv: SECT_6_NAME
 msgid "SECT_6_NAME"
-msgstr "Hehuan Sect"
+msgstr "Drunken Dream Pavilion"
 
-#. sect.csv: 以情入道，靠双修增进修为，善驭人心，长于...
+#. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
 msgstr ""
 "Entering the Dao through emotion, increasing cultivation through dual "
-"cultivation, good at manipulating people's hearts and long in power changes."
-" [Dual Cultivation Secret Technique] Your constitution is special; through "
-"dual cultivation, you can gain cultivation improvements far exceeding "
-"ordinary people, which is your best shortcut to raising your realm."
+"cultivation, good at manipulating people's hearts and long in power changes. "
+"[Red Dust Heart Refinement] Your constitution is special; through dual "
+"cultivation, you can gain cultivation improvements far exceeding ordinary "
+"people, which is your best shortcut to raising your realm."
 
-#. sect.csv: 镇魂宗
+#. sect.csv: SECT_7_NAME
 msgid "SECT_7_NAME"
-msgstr "Zhenhun Sect"
+msgstr "Sumeru Zen Temple"
 
-#. sect.csv: 铁血风格，擅安魂、封邪、渡厄，兼有刚烈镇...
+#. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
 msgstr ""
-"Iron-blooded style, good at calming souls, sealing evil, and delivering from"
-" distress, with fierce suppressing techniques. [Indestructible Vajra] You "
-"practice body protection divine skills, possessing extremely strong physical"
-" defense and damage reduction abilities, as immovable as a mountain."
+"A Buddhist holy land and major body cultivation sect. Suppressing worldly "
+"evils with a Vajra body. [Golden Body Arhat] You practice body protection "
+"divine skills, possessing extremely strong physical defense and damage "
+"reduction abilities, as immovable as a mountain."
 
-#. sect.csv: 幽魂噬影宗
+#. sect.csv: SECT_8_NAME
 msgid "SECT_8_NAME"
-msgstr "Ghost Soul Shadow Devouring Sect"
+msgstr "Shadow Fiend Hall"
 
-#. sect.csv: 镇宗典籍《幽冥录》。幽明气为根基。【如影...
+#. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
 msgstr ""
-"The sect's core manual is the \"Underworld Record\". Underworld qi is the "
-"foundation. [Always Following as a Shadow] You are extremely good at "
-"movement and escape techniques, always able to retreat safely from danger, "
-"and can also seek opportunities to assassinate isolated enemies."
+"The sect's core manual is the 'Shadow Killing True Scripture'. Based on Earth "
+"Fiend Yin Qi. [Follow Like a Shadow] You are extremely good at movement and "
+"escape techniques, always able to retreat safely from danger, and can also "
+"seek opportunities to assassinate isolated enemies."
 
-#. sect.csv: 千帆城
+#. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
-msgstr "Thousand Sails City"
+msgstr "Myriad Treasures Alliance"
 
-#. sect.csv: 炼器大宗，巧匠云集。著名法宝有灵灭丝、定...
+#. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
 msgstr ""
-"A major artifact refining sect, where skilled craftsmen gather. Famous "
-"artifacts include Soul-Extinguishing Silk and Soul-Fixing Blue Star. "
-"Merchants gather and it's self-sufficient. [Divine Craftsmanship] You are "
-"well-versed in artifact refining and business; nurturing weapons often "
+"A massive power developed from a chamber of commerce. Possesses the 'Flowing "
+"Cloud Flying Boat' caravan, wealthy beyond measure. [Wealth Reaches Gods] You "
+"are well-versed in artifact refining and business; nurturing weapons often "
 "transforms them, and you always profit in trades."
 
-#. sect.csv: 妙化宗
+#. sect.csv: SECT_10_NAME
 msgid "SECT_10_NAME"
-msgstr "Miaohua Sect"
+msgstr "Soul-Seizing Sound Sect"
 
-#. sect.csv: 精擅音律杀伐与精神操控，功法诡谲阴柔，以...
+#. sect.csv: SECT_10_DESC
 msgid "SECT_10_DESC"
 msgstr ""
-"Specializes in musical killing and mental control, with treacherous and "
-"feminine techniques, using invisible zither sounds to disturb people's minds"
-" and kill invisibly. [Demonic Sound in Ears] You are good at disturbing "
-"people's minds with music, with deep and long-lasting spiritual power; "
-"although not good at physical combat, your methods are treacherous."
+"Specializes in Heavenly Demon music and mental control, with treacherous and "
+"feminine techniques, using invisible demonic sounds to disturb people's minds. "
+"[Demonic Sound Soul Seizing] You are good at disturbing people's minds with "
+"music, with deep and long-lasting spiritual power; although not good at "
+"physical combat, your methods are treacherous."
 
-#. sect.csv: 回玄宗
+#. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
-msgstr "Huixuan Sect"
+msgstr "Heavenly Deduction Sect"
 
-#. sect.csv: 当世第一阵法大派，以阵法阵诀独步天下，讲...
+#. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
 msgstr ""
-"The world's number one array sect, unique with arrays and array formulas, "
-"focusing on array deduction and clever use. [Array Qi Gathering] You are "
-"good at using arrays to assist cultivation, able to gather heaven and earth "
-"spiritual qi, with cultivation speed faster than ordinary people and "
-"frequent unexpected gains."
+"The world's number one array sect, focusing on heavenly deduction, using all "
+"things as chess pieces and mountains and rivers as arrays. [Array Divinity] "
+"You are good at using arrays to assist cultivation, able to gather heaven "
+"and earth spiritual qi, with cultivation speed faster than ordinary people "
+"and frequent unexpected gains."
 
-#. sect.csv: 不夜城
+#. sect.csv: SECT_12_NAME
 msgid "SECT_12_NAME"
-msgstr "Sleepless City"
+msgstr "Everlasting Bright Palace"
 
-#. sect.csv: 修习极光玄真法，以万里极光壁的绝对防御闻...
+#. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
 msgstr ""
-"Practicing Aurora Mystic Truth Law, famous for the absolute defense of the "
-"Ten-Thousand-Mile Aurora Wall. [Never Ending Life] Your vitality is "
-"extremely tenacious, with doubled healing effects and lifespan far exceeding"
-" cultivators of the same rank."
+"Practicing the 'Great Brightness Manual', believing in inextinguishable light. "
+"Possesses extremely strong life secret techniques. [Glorious Longevity] Your "
+"vitality is extremely tenacious, with doubled healing effects and lifespan "
+"far exceeding cultivators of the same rank."
 
-#. sect.csv: 天行健宗
+#. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
-msgstr "Tianxingjian Sect"
+msgstr "Haoran Academy"
 
-#. sect.csv: 专修浩然之气，行事正大光明，刚健果决，对...
+#. sect.csv: SECT_13_DESC
 msgid "SECT_13_DESC"
 msgstr ""
-"Specializes in Haoran Qi, acting openly and righteously, firm and decisive, "
-"with strong restraint against evil and unorthodox ways. [Haoran Righteous "
-"Qi] You nurture Haoran Qi, with long qi pulses; when facing enemies of lower"
-" realm, you can exert extremely strong suppression."
+"Confucian orthodoxy, cultivating Haoran Qi. Acting openly and righteously, "
+"firm and decisive, with strong restraint against evil and unorthodox ways. "
+"[I Cultivate Qi] You nurture Haoran Qi, with long qi pulses; when facing "
+"enemies of lower realm, you can exert extremely strong suppression."
 
-#. sect.csv: 噬魔宗
+#. sect.csv: SECT_14_NAME
 msgid "SECT_14_NAME"
-msgstr "Shimo Sect"
+msgstr "Rakshasa Blood Sect"
 
-#. sect.csv: 通玄界第一魔宗，行事霸道残忍，擅长搜精噬...
+#. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
 msgstr ""
-"The number one demonic sect in the Tongxuan Realm, acting overbearingly and "
-"cruelly, good at searching for essence and devouring blood and physical "
-"demonic skills. [Habitual Plunder] You admire strength and plundering; "
-"although plundering mortals harms heaven and harmony, it brings you amazing "
-"wealth and resources."
+"The number one demonic sect in the Cultivation World, acting overbearingly "
+"and cruelly, advocating 'survival of the fittest', improving cultivation "
+"through plunder and blood sacrifice. [Monstrous Blood Sea] You admire strength "
+"and plundering; although plundering mortals harms heaven and harmony, it "
+"brings you amazing wealth and resources."

@@ -38,7 +38,6 @@
     "game_time": "游戏时间: {time}",
     "avatar_count": "角色: {alive}/{total}",
     "event_count": "{count} 条事件",
-    "protagonist_tooltip": "主角（气运之子/穿越者）",
     "load": "加载",
     "save_success": "存档成功: {filename}",
     "save_failed": "存档失败",
@@ -151,24 +150,17 @@
     "labels": {
       "init_npc_num": "初始修士数量",
       "sect_num": "活跃宗门数量",
-      "protagonist_mode": "主角引入模式",
       "new_npc_rate": "每月新生修士概率",
       "world_history": "世界历史背景"
     },
     "tips": {
       "sect_num": "宗门数量建议少于角色数量的一半",
-      "protagonist_random": "随机引入：每次生成角色时，有 5% 的概率使用预设的“小说主角”模板。",
-      "protagonist_all": "全部引入：开局时强制生成所有预设的“小说主角”。",
       "world_history": "可以包括上古、中古、近古。注意：启用此功能会调用LLM，初始化时间会显著增加。"
     },
     "placeholders": {
       "world_history": "请输入修仙界历史背景（可选）。"
     },
-    "options": {
-      "protagonist_none": "不引入主角",
-      "protagonist_random": "随机引入主角",
-      "protagonist_all": "全部引入主角"
-    },
+    "options": {},
     "actions": {
       "start": "开始"
     },
@@ -213,7 +205,6 @@
       "在符合角色灵根的洞府修行，事半功倍",
       "天灵根角色在任何洞府修行，都事半功倍",
       "改变天地灵机，不仅会影响加成，还会微妙调整角色行事风格",
-      "偶尔会有修仙小说中的主角穿越进此方世界",
       "每个角色都有自己的真实思考和情绪",
       "除了修炼，炼丹和练气也很重要",
       "参加拍卖会可能捡漏，但要小心恶人的衔尾追杀",
