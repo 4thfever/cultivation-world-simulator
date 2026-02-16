@@ -102,10 +102,11 @@
 希望能够创造出纯粹的、快乐的、直接的、活着的修仙世界的沉浸感。不是像一些游戏公司的纯粹宣传工具，也不是像斯坦福小镇那样的纯粹研究，而是能给玩家提供真实代入感和沉浸感的实际世界。
 
 ## 📞 联系方式
-如果您对项目有任何问题或建议，欢迎提交 Issue 或 Pull Request。  
-欢迎给我的[B站账号](https://space.bilibili.com/527346837)留言！  
-也可以加入QQ群进行讨论：1071821688。进群问题的答案：肥桥今天吃什么  
-加入 Discord 社区：[https://discord.gg/shhRWmZR](https://discord.gg/shhRWmZR)
+如果您对项目有任何问题或建议，欢迎提交 Issue。
+
+- **Bilibili**: [点击关注](https://space.bilibili.com/527346837)
+- **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
+- **Discord**: [加入社区](https://discord.gg/shhRWmZR)
 
 ## 🚀 使用方法
 

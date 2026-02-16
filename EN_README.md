@@ -99,10 +99,11 @@ I hope to create a pure, joyful, direct, and living sense of immersion in a cult
 
 ## 📞 Contact
 
-If you have any questions or suggestions, feel free to open an Issue or Pull Request.  
-You're also welcome to leave a message on my [Bilibili account](https://space.bilibili.com/527346837)!  
-You can also join the QQ group for discussion: 1071821688. Verification answer: 肥桥今天吃什么  
-Join our Discord community: [https://discord.gg/shhRWmZR](https://discord.gg/shhRWmZR) 
+If you have any questions or suggestions, feel free to open an Issue or Pull Request.
+
+- **Bilibili**: [Leave a message](https://space.bilibili.com/527346837)
+- **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
+- **Discord**: [Join Community](https://discord.gg/shhRWmZR) 
 
 ## 🚀 Usage
 
