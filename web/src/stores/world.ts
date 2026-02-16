@@ -1,49 +1,43 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
-import type { AvatarSummary, GameEvent, MapMatrix, RegionSummary, CelestialPhenomenon, HiddenDomainInfo } from '../types/core';
+import type { CelestialPhenomenon, HiddenDomainInfo } from '../types/core';
 import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
-import type { FetchEventsParams } from '../types/api';
-import { worldApi, eventApi } from '../api';
-import { processNewEvents, mergeAndSortEvents } from '../utils/eventHelper';
+import { worldApi } from '../api';
+import { useMapStore } from './map';
+import { useAvatarStore } from './avatar';
+import { useEventStore } from './event';
 
 export const useWorldStore = defineStore('world', () => {
-  // --- State ---
-  
+  const mapStore = useMapStore();
+  const avatarStore = useAvatarStore();
+  const eventStore = useEventStore();
+
   const year = ref(0);
   const month = ref(0);
-  
-  // 使用 shallowRef 存储大量数据以优化性能
-  // Key: Avatar ID
-  const avatars = shallowRef<Map<string, AvatarSummary>>(new Map());
-  
-  const events = shallowRef<GameEvent[]>([]);
-
-  // 分页状态
-  const eventsCursor = ref<string | null>(null);
-  const eventsHasMore = ref(false);
-  const eventsLoading = ref(false);
-  const eventsFilter = ref<FetchEventsParams>({});
-
-  const mapData = shallowRef<MapMatrix>([]);
-  const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
-  
-  const isLoaded = ref(false);
-  const frontendConfig = ref<Record<string, any>>({});
-  
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
-
-  // 秘境列表
   const activeDomains = shallowRef<HiddenDomainInfo[]>([]);
+  
+  // Is world loaded (map + initial state)
+  const isLoaded = ref(false);
 
-  // 请求计数器，用于处理 loadEvents 的竞态条件。
-  let eventsRequestId = 0;
-  // 请求计数器，用于处理 fetchState 的竞态条件。
+  // Request counter for fetchState
   let fetchStateRequestId = 0;
 
-  // --- Getters ---
-
-  const avatarList = computed(() => Array.from(avatars.value.values()));
+  // --- Proxies to other stores ---
+  // 注意：Pinia store 自动解包 ref，所以这里 computed 返回值即为实际值
+  const avatars = computed(() => avatarStore.avatars);
+  const avatarList = computed(() => avatarStore.avatarList);
+  
+  const mapData = computed(() => mapStore.mapData);
+  const regions = computed(() => mapStore.regions);
+  const frontendConfig = computed(() => mapStore.frontendConfig);
+  
+  const events = computed(() => eventStore.events);
+  const eventsCursor = computed(() => eventStore.eventsCursor);
+  const eventsHasMore = computed(() => eventStore.eventsHasMore);
+  const eventsLoading = computed(() => eventStore.eventsLoading);
+  const eventsFilter = computed(() => eventStore.eventsFilter);
 
   // --- Actions ---
 
@@ -52,157 +46,71 @@ export const useWorldStore = defineStore('world', () => {
     month.value = m;
   }
 
-  function updateAvatars(list: Partial<AvatarSummary>[]) {
-    const next = new Map(avatars.value);
-    let changed = false;
-
-    for (const av of list) {
-      if (!av.id) continue;
-      const existing = next.get(av.id);
-      if (existing) {
-        // Merge
-        next.set(av.id, { ...existing, ...av } as AvatarSummary);
-        changed = true;
-      } else {
-        // New Avatar? Only insert if it has enough info (at least name)
-        // This handles newly born avatars sent by backend
-        if (av.name) {
-           next.set(av.id, av as AvatarSummary);
-           changed = true;
-        }
-      }
-      // Else: ignore. Do NOT insert new avatars from tick updates unless they have full info.
-    }
-
-    if (changed) {
-      avatars.value = next;
-    }
-  }
-
-  function addEvents(rawEvents: any[]) {
-    if (!rawEvents || rawEvents.length === 0) return;
-
-    let newEvents = processNewEvents(rawEvents, year.value, month.value);
-
-    // 根据当前筛选条件过滤（数据在 SQLite 中不会丢失）
-    const filter = eventsFilter.value;
-    if (filter.avatar_id) {
-      newEvents = newEvents.filter(e =>
-        e.relatedAvatarIds?.includes(filter.avatar_id!)
-      );
-    } else if (filter.avatar_id_1 && filter.avatar_id_2) {
-      newEvents = newEvents.filter(e =>
-        e.relatedAvatarIds?.includes(filter.avatar_id_1!) &&
-        e.relatedAvatarIds?.includes(filter.avatar_id_2!)
-      );
-    }
-
-    if (newEvents.length === 0) return;
-
-    // 使用通用合并排序函数，确保顺序正确（基于 createdAt 或时间戳）
-    events.value = mergeAndSortEvents(events.value, newEvents);
-  }
-
   function handleTick(payload: TickPayloadDTO) {
     if (!isLoaded.value) return;
     
     setTime(payload.year, payload.month);
 
-    if (payload.avatars) updateAvatars(payload.avatars);
-    if (payload.events) addEvents(payload.events);
+    if (payload.avatars) avatarStore.updateAvatars(payload.avatars);
+    if (payload.events) eventStore.addEvents(payload.events, year.value, month.value);
+    
     if (payload.phenomenon !== undefined) {
         currentPhenomenon.value = payload.phenomenon;
     }
-    // 处理秘境同步
+    
     if (payload.active_domains !== undefined) {
         activeDomains.value = payload.active_domains;
     } else {
-        // 如果后端不传，说明本回合无秘境，清空
         activeDomains.value = [];
     }
   }
 
   function applyStateSnapshot(stateRes: InitialStateDTO) {
     setTime(stateRes.year, stateRes.month);
-    const avatarMap = new Map();
-    if (stateRes.avatars) {
-      stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
-    }
-    avatars.value = avatarMap;
-    // 事件通过 resetEvents() 从分页 API 加载，这里只重置状态。
-    events.value = [];
-    eventsCursor.value = null;
-    eventsHasMore.value = false;
-    eventsFilter.value = {};
+    avatarStore.setAvatarsFromState(stateRes);
+    
+    // Reset events via store
+    eventStore.reset();
+
     currentPhenomenon.value = stateRes.phenomenon || null;
     isLoaded.value = true;
     activeDomains.value = [];
   }
 
-  // 提前加载地图数据（在 LLM 初始化期间可用）。
   async function preloadMap() {
-    try {
-      const mapRes = await worldApi.fetchMap();
-      mapData.value = mapRes.data;
-      if (mapRes.config) {
-        frontendConfig.value = mapRes.config;
-      }
-      const regionMap = new Map();
-      mapRes.regions.forEach(r => regionMap.set(r.id, r));
-      regions.value = regionMap;
-      // 标记地图已加载，让 MapLayer 可以渲染。
-      isLoaded.value = true;
-      console.log('[WorldStore] Map preloaded');
-    } catch (e) {
-      console.warn('[WorldStore] Failed to preload map, will retry on initialize', e);
-    }
+    await mapStore.preloadMap();
   }
 
-  // 提前加载角色数据（在 checking_llm 阶段 world 已创建）。
   async function preloadAvatars() {
     try {
-      const stateRes = await worldApi.fetchInitialState();
-      // 只更新角色，不标记完全初始化。
-      const avatarMap = new Map();
-      if (stateRes.avatars) {
-        stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
+      const timeInfo = await avatarStore.preloadAvatars();
+      if (timeInfo) {
+        setTime(timeInfo.year, timeInfo.month);
       }
-      avatars.value = avatarMap;
-      setTime(stateRes.year, stateRes.month);
-      console.log('[WorldStore] Avatars preloaded:', avatarMap.size);
     } catch (e) {
-      console.warn('[WorldStore] Failed to preload avatars, will retry on initialize', e);
+      console.warn('[WorldStore] Failed to preload avatars', e);
     }
   }
 
   async function initialize() {
     try {
-      // 如果地图还没加载，一起加载。
-      const needMapLoad = mapData.value.length === 0;
+      const needMapLoad = mapStore.mapData.length === 0;
       
       if (needMapLoad) {
-        const [stateRes, mapRes] = await Promise.all([
+        // Load map and state in parallel
+        const [stateRes] = await Promise.all([
           worldApi.fetchInitialState(),
-          worldApi.fetchMap()
+          mapStore.preloadMap() // This handles mapRes internally
         ]);
-
-        mapData.value = mapRes.data;
-        if (mapRes.config) {
-          frontendConfig.value = mapRes.config;
-        }
-        const regionMap = new Map();
-        mapRes.regions.forEach(r => regionMap.set(r.id, r));
-        regions.value = regionMap;
-
         applyStateSnapshot(stateRes);
       } else {
-        // 地图已预加载，只需获取状态。
+        // Map already loaded
         const stateRes = await worldApi.fetchInitialState();
         applyStateSnapshot(stateRes);
       }
 
-      // 从分页 API 加载事件。
-      await resetEvents({});
+      // Load initial events
+      await eventStore.resetEvents({});
 
     } catch (e) {
       console.error('Failed to initialize world', e);
@@ -213,16 +121,10 @@ export const useWorldStore = defineStore('world', () => {
     const currentRequestId = ++fetchStateRequestId;
     try {
       const stateRes = await worldApi.fetchInitialState();
-      // 如果不是最新请求，丢弃响应。
-      if (currentRequestId !== fetchStateRequestId) {
-        return;
-      }
+      if (currentRequestId !== fetchStateRequestId) return;
       applyStateSnapshot(stateRes);
     } catch (e) {
-      // 如果不是最新请求，不处理错误。
-      if (currentRequestId !== fetchStateRequestId) {
-        return;
-      }
+      if (currentRequestId !== fetchStateRequestId) return;
       console.error('Failed to fetch state snapshot', e);
     }
   }
@@ -230,102 +132,19 @@ export const useWorldStore = defineStore('world', () => {
   function reset() {
     year.value = 0;
     month.value = 0;
-    avatars.value = new Map();
-    events.value = [];
-    eventsCursor.value = null;
-    eventsHasMore.value = false;
-    eventsFilter.value = {};
-    isLoaded.value = false;
     currentPhenomenon.value = null;
     activeDomains.value = [];
-  }
-
-  // --- 事件分页 ---
-
-  async function loadEvents(filter: FetchEventsParams = {}, append = false) {
-    if (eventsLoading.value) return;
+    isLoaded.value = false;
     
-    // 每次请求增加计数器，只接受最新请求的响应。
-    const currentRequestId = ++eventsRequestId;
-    eventsLoading.value = true;
-
-    try {
-      const params: FetchEventsParams = { ...filter, limit: 100 };
-      if (append && eventsCursor.value) {
-        params.cursor = eventsCursor.value;
-      }
-
-      const res = await eventApi.fetchEvents(params);
-
-      // 如果不是最新请求，丢弃响应。
-      if (currentRequestId !== eventsRequestId) {
-        return;
-      }
-
-      // 转换为 GameEvent 格式
-      const newEvents: GameEvent[] = res.events.map(e => ({
-        id: e.id,
-        text: e.text,
-        content: e.content,
-        year: e.year,
-        month: e.month,
-        timestamp: e.month_stamp,
-        monthStamp: e.month_stamp,
-        relatedAvatarIds: e.related_avatar_ids,
-        isMajor: e.is_major,
-        isStory: e.is_story,
-        createdAt: e.created_at,
-      }));
-
-      // API 返回倒序（最新在前），反转成时间正序（最旧在前，最新在后）
-      const sortedNewEvents = newEvents.reverse();
-
-      if (append) {
-        // 加载更旧的事件，添加到顶部。
-        events.value = [...sortedNewEvents, ...events.value];
-      } else {
-        // 切换筛选条件：直接用 API 数据替换。
-        events.value = sortedNewEvents;
-        eventsFilter.value = filter;
-      }
-
-      eventsCursor.value = res.next_cursor;
-      eventsHasMore.value = res.has_more;
-    } catch (e) {
-      // 如果不是最新请求，不处理错误。
-      if (currentRequestId !== eventsRequestId) {
-        return;
-      }
-      console.error('Failed to load events', e);
-    } finally {
-      // 只有最新请求才更新 loading 状态。
-      if (currentRequestId === eventsRequestId) {
-        eventsLoading.value = false;
-      }
-    }
-  }
-
-  async function loadMoreEvents() {
-    if (!eventsHasMore.value || eventsLoading.value) return;
-    await loadEvents(eventsFilter.value, true);
-  }
-
-  async function resetEvents(filter: FetchEventsParams = {}) {
-    // 使旧请求失效，允许新请求。
-    eventsRequestId++;
-    eventsLoading.value = false;
-    eventsCursor.value = null;
-    eventsHasMore.value = false;
-    events.value = [];  // 清空旧数据，避免筛选切换时显示残留。
-    eventsFilter.value = filter;  // 立即更新筛选条件，让 addEvents 也能正确过滤。
-    await loadEvents(filter, false);
+    avatarStore.reset();
+    eventStore.reset();
+    mapStore.reset();
   }
 
   async function getPhenomenaList() {
     if (phenomenaList.value.length > 0) return phenomenaList.value;
     try {
       const res = await worldApi.fetchPhenomenaList();
-      // The API returns DTOs which match CelestialPhenomenon structure enough for frontend display
       phenomenaList.value = res.phenomena as CelestialPhenomenon[];
       return phenomenaList.value;
     } catch (e) {
@@ -336,7 +155,6 @@ export const useWorldStore = defineStore('world', () => {
 
   async function changePhenomenon(id: number) {
     await worldApi.setPhenomenon(id);
-    // 乐观更新：直接从列表里找到并设置，不等下一次 tick
     const p = phenomenaList.value.find(item => item.id === id);
     if (p) {
       currentPhenomenon.value = p;
@@ -344,33 +162,39 @@ export const useWorldStore = defineStore('world', () => {
   }
 
   return {
+    // State
     year,
     month,
+    currentPhenomenon,
+    phenomenaList,
+    activeDomains,
+    isLoaded,
+    
+    // Proxies
     avatars,
     avatarList,
+    mapData,
+    regions,
+    frontendConfig,
     events,
     eventsCursor,
     eventsHasMore,
     eventsLoading,
     eventsFilter,
-    mapData,
-    regions,
-    isLoaded,
-    frontendConfig,
-    currentPhenomenon,
-    phenomenaList,
     
+    // Actions
     preloadMap,
     preloadAvatars,
     initialize,
     fetchState,
     handleTick,
     reset,
-    loadEvents,
-    loadMoreEvents,
-    resetEvents,
     getPhenomenaList,
     changePhenomenon,
-    activeDomains
+    
+    // Event Proxy Actions
+    loadEvents: eventStore.loadEvents,
+    loadMoreEvents: eventStore.loadMoreEvents,
+    resetEvents: eventStore.resetEvents
   };
 });

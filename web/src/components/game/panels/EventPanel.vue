@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, h } from 'vue'
-import { useWorldStore } from '../../stores/world'
-import { useUiStore } from '../../stores/ui'
+import { useWorldStore } from '../../../stores/world'
+import { useUiStore } from '../../../stores/ui'
 import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
-import { highlightAvatarNames, buildAvatarColorMap, avatarIdToColor } from '../../utils/eventHelper'
-import type { GameEvent } from '../../types/core'
+import { highlightAvatarNames, buildAvatarColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import type { GameEvent } from '../../../types/core'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
