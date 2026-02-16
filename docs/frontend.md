@@ -1,0 +1,113 @@
+# 前端架构与开发指南 (Frontend Architecture Guide)
+
+本文档旨在帮助开发者（及 AI 助手）快速理解 `web/` 目录下的前端架构、文件职责及核心数据流。在进行 Vibe Coding 或重构时，请参考此文档。
+
+## 1. 技术栈概览 (Tech Stack)
+
+*   **核心框架**: Vue 3 (Composition API + `<script setup>`) + TypeScript
+*   **构建工具**: Vite
+*   **状态管理**: Pinia (模块化 Store)
+*   **UI 组件库**: Naive UI (用于系统菜单、面板等常规 UI)
+*   **游戏渲染**: Vue3-Pixi (基于 Pixi.js 的 2D 渲染引擎，处理地图、角色动画)
+*   **网络请求**: Axios (RESTful API)
+*   **国际化**: Vue I18n
+
+## 2. 目录结构详解 (Directory Structure)
+
+根目录: `web/src/`
+
+### 2.1 API 层 (`src/api/`)
+封装所有与后端的 HTTP 交互。
+*   `index.ts`: 统一导出点。
+*   `modules/`:
+    *   `system.ts`: 系统级控制（启动、暂停、重置、存档）。
+    *   `world.ts`: 获取地图数据、初始状态、天象信息。
+    *   `event.ts`: 事件日志的分页拉取。
+
+### 2.2 组件层 (`src/components/`)
+*   **`game/` (核心游戏画面)**
+    *   `GameCanvas.vue`: Pixi.js 应用入口，管理视口 (`Viewport`) 和图层顺序。
+    *   `MapLayer.vue`: 负责地图瓦片渲染、动态水面效果 (Shader/Ticker)、区域标注。
+    *   `EntityLayer.vue`: 负责角色 (Avatar) 的渲染、移动动画插值。
+    *   `CloudLayer.vue`: 战争迷雾或装饰性云层。
+    *   `panels/`: 游戏内悬浮面板。
+        *   `EventPanel.vue`: 左侧事件日志，包含无限滚动、单人/双人筛选逻辑。
+        *   `info/`: 选中对象（角色/地块）的详细信息面板容器。
+        *   `system/`: 系统菜单内的子面板（存档、设置、LLM配置、创建角色）。
+*   **`layout/`**: 全局布局组件。
+    *   `StatusBar.vue`: 顶部状态栏（显示年份、资源等）。
+*   **`common/`**: 通用 UI 组件（如自定义按钮、加载条）。
+*   `SystemMenu.vue`: 按 ESC 呼出的模态菜单，用于挂载 `panels/system/` 下的子面板。
+*   `SplashLayer.vue`: 游戏启动时的封面/开始界面。
+
+### 2.3 逻辑复用层 (`src/composables/`)
+封装复杂的业务逻辑，使组件保持轻量。
+*   `useGameInit.ts`: 负责游戏启动流程检查、后端心跳检测。
+*   `useGameControl.ts`: 负责暂停/继续、菜单开关、全局快捷键绑定。
+*   `useSidebarResize.ts`: 负责侧边栏（事件面板）的拖拽调整宽度逻辑。
+*   `useAudio.ts` / `useBgm.ts`: 音效与背景音乐管理。
+*   `useTextures.ts`: Pixi 纹理的预加载与缓存管理。
+
+### 2.4 状态管理层 (`src/stores/`)
+基于 Pinia 的状态管理。
+*   **`world.ts` (聚合层)**: **核心 Store**。
+    *   职责：管理全局时间 (Year/Month)、天象、秘境。
+    *   作用：作为 Facade 模式的入口，聚合了 Map、Avatar、Event 三个子 Store 的数据，对外提供统一的 `initialize` 和 `handleTick` 方法。
+*   **`map.ts`**: 存储地图矩阵 (`mapData`) 和区域数据 (`regions`)。
+*   **`avatar.ts`**: 存储所有角色数据 (`avatars`)，处理增量更新。
+*   **`event.ts`**: 存储事件日志 (`events`)，处理分页加载、筛选、实时推送。
+*   `ui.ts`: 管理当前选中对象 (`selectedAvatarId`, `selectedRegionId`) 和 UI 显隐状态。
+*   `setting.ts`: 管理前端设置及与后端配置的同步。
+
+### 2.5 类型定义 (`src/types/`)
+*   `core.ts`: 前端核心领域模型（如 `AvatarSummary`, `RegionSummary`, `GameEvent`）。
+*   `api.ts`: 后端接口返回的数据结构 (DTO)。
+
+## 3. 核心机制与数据流 (Core Architecture)
+
+### 3.1 游戏初始化流程
+1.  **Entry**: `App.vue` 挂载。
+2.  **Check**: 调用 `useGameInit` 检查后端服务状态（Idle/Ready/Running）。
+3.  **Load**: 用户点击 "Start" -> 触发 `worldStore.initialize()`。
+    *   并行加载地图数据 (`mapStore.preloadMap`) 和初始状态 (`worldApi.fetchInitialState`)。
+    *   重置事件列表 (`eventStore.resetEvents`)。
+4.  **Render**: 数据就绪 (`isLoaded = true`) -> `GameCanvas` 和 `MapLayer` 开始渲染。
+
+### 3.2 游戏循环 (Tick Loop)
+游戏采用后端驱动模式（Server-Authoritative）。
+1.  **Source**: 后端通过 WebSocket 或轮询接口推送 `TickPayloadDTO`。
+2.  **Store Update**: `worldStore.handleTick(payload)` 接收数据。
+    *   更新时间 (`year`, `month`)。
+    *   调用 `avatarStore.updateAvatars` 进行角色状态增量合并。
+    *   调用 `eventStore.addEvents` 将新事件插入日志流。
+    *   更新天象 (`currentPhenomenon`)。
+3.  **Reactivity**: Vue 响应式系统检测到 Store 变化。
+    *   `EntityLayer` 检测到坐标变化 -> 触发平滑移动动画。
+    *   `EventPanel` 检测到新事件 -> 自动滚动到底部。
+    *   `InfoPanel` 检测到选中角色属性变化 -> 实时刷新数值。
+
+### 3.3 渲染架构
+*   **Vue3-Pixi**: 使用 Vue 组件声明式地编写 Pixi 对象。
+*   **性能优化**:
+    *   地图使用 `shallowRef` 存储，避免 Vue 深度监听 100x100 的地图数组。
+    *   地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新，仅在地图数据重载时重建。
+    *   动态效果（如水面流动）使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
+
+## 4. 关键文件索引 (Critical Files Index)
+
+| 文件路径 | 职责描述 | 修改频率 |
+| :--- | :--- | :--- |
+| `web/src/App.vue` | 应用根组件，负责各层级组件的组装、全局快捷键、胶水逻辑。 | 高 |
+| `web/src/stores/world.ts` | **世界状态总线**。处理 Tick 逻辑、初始化聚合。修改游戏核心数据流时必看。 | 高 |
+| `web/src/components/game/panels/EventPanel.vue` | 事件日志面板。涉及 UI 展示、筛选、性能优化（虚拟滚动/分页）。 | 中 |
+| `web/src/components/game/MapLayer.vue` | 地图渲染核心。涉及 Pixi 绘图、纹理管理、Shader/Mask 特效。 | 中 |
+| `web/src/composables/useGameControl.ts` | 游戏流程控制。涉及暂停、菜单、输入锁定逻辑。 | 低 |
+| `web/src/api/modules/*.ts` | 后端接口定义。新增 API 时需修改对应模块。 | 中 |
+| `web/src/locales/*.json` | 多语言文本。修改 UI 文字时必改。 | 高 |
+
+---
+
+**Vibe Coding 提示**:
+*   修改 UI 时，优先检查 `stores/ui.ts` 和对应的 Panel 组件。
+*   修改数据逻辑时，先看 `stores/world.ts` 及其拆分出的子 Store。
+*   涉及 Pixi 渲染问题时，直接关注 `web/src/components/game/` 下的 Layer 组件。
