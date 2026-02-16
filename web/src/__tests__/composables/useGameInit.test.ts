@@ -18,6 +18,26 @@ vi.mock('@/components/game/composables/useTextures', () => ({
   }),
 }))
 
+// Mock API modules to prevent network requests.
+vi.mock('@/api', () => ({
+  worldApi: {
+    fetchMap: vi.fn().mockResolvedValue({
+      data: [[{ type: 'grass' }]],
+      regions: [],
+      config: {},
+    }),
+    fetchInitialState: vi.fn().mockResolvedValue({
+      year: 0,
+      month: 0,
+      avatars: [],
+    }),
+  },
+  systemApi: {
+    fetchInitStatus: vi.fn(),
+    setInitialized: vi.fn(),
+  },
+}))
+
 import { useGameInit } from '@/composables/useGameInit'
 
 const createMockStatus = (overrides: Partial<InitStatusDTO> = {}): InitStatusDTO => ({
@@ -53,6 +73,15 @@ describe('useGameInit', () => {
     worldStore = useWorldStore()
     socketStore = useSocketStore()
     vi.clearAllMocks()
+    // Ensure store actions are mocked to avoid side effects
+    vi.spyOn(worldStore, 'preloadMap').mockResolvedValue(undefined)
+    vi.spyOn(worldStore, 'preloadAvatars').mockResolvedValue(undefined)
+    vi.spyOn(worldStore, 'initialize').mockResolvedValue(undefined)
+    vi.spyOn(worldStore, 'reset')
+    vi.spyOn(systemStore, 'setInitialized')
+    vi.spyOn(socketStore, 'init')
+    vi.spyOn(socketStore, 'disconnect')
+
     // Ensure systemStore.fetchInitStatus returns immediately.
     vi.spyOn(systemStore, 'fetchInitStatus').mockResolvedValue(createMockStatus())
   })
