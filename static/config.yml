@@ -67,3 +67,18 @@ system:
 
 play:
   base_benefit_probability: 0.05
+
+cave_heaven_risk:
+  soft_block_realm_delta: 1
+  hard_block_realm_delta: 2
+  soft_decay_multiplier: 0.5
+  reckless_override_prob: 0.1
+  reckless_trait_keys:
+    - ADVENTUROUS
+    - AGGRESSIVE
+    - RASH
+  reckless_trait_names:
+    - "冒险"
+    - "好斗"
+    - "鲁莽"
+  debug_log: false
