@@ -156,7 +156,12 @@ async function handleCreateAvatar() {
 
   loading.value = true
   try {
-    await avatarApi.createAvatar(createForm.value)
+    const payload = { ...createForm.value }
+    if (!payload.alignment) {
+      payload.alignment = 'NEUTRAL'
+    }
+    
+    await avatarApi.createAvatar(payload)
     message.success('角色创建成功')
     await worldStore.fetchState?.()
     
@@ -233,7 +238,7 @@ onMounted(() => {
             <n-select v-model:value="createForm.persona_ids" multiple :options="personaOptions" placeholder="选择个性" clearable max-tag-count="responsive" />
           </n-form-item>
           <n-form-item label="阵营">
-            <n-select v-model:value="createForm.alignment" :options="alignmentOptions" placeholder="选择正/中/邪 (可留空)" clearable />
+            <n-select v-model:value="createForm.alignment" :options="alignmentOptions" :placeholder="t('ui.create_alignment_placeholder')" clearable />
           </n-form-item>
           <n-form-item label="颜值">
             <div class="appearance-slider">
@@ -321,6 +326,9 @@ onMounted(() => {
   display: flex;
   gap: 1.5em;
   height: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .form-column {

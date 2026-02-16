@@ -6,6 +6,7 @@
     "load_game": "加载游戏",
     "save_game": "保存游戏",
     "create_character": "新建角色",
+    "create_alignment_placeholder": "选择正/中/邪 (留空为中立)",
     "delete_character": "删除角色",
     "settings": "设置",
     "achievements": "成就",

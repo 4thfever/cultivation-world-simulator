@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { avatarApi, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NButton } from 'naive-ui'
 
 const worldStore = useWorldStore()
 const message = useMessage()
+const { t } = useI18n()
 const loading = ref(false)
 
 // --- State ---
@@ -69,7 +71,7 @@ onMounted(() => {
          <div class="avatar-info">
            <div class="name">{{ avatar.name }}</div>
            <div class="details">
-              {{ avatar.gender }} | {{ avatar.age }}岁 | {{ avatar.realm }} | {{ avatar.sect_name }}
+              {{ avatar.gender }} | {{ avatar.age }}岁 | {{ t('realms.' + avatar.realm) }} | {{ avatar.sect_name }}
            </div>
          </div>
          <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">删除</n-button>
@@ -83,6 +85,9 @@ onMounted(() => {
   height: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .search-bar {

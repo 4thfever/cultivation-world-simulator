@@ -1491,6 +1491,12 @@ def set_language_api(req: LanguageRequest):
     # 4. 重新加载所有业务静态数据 (Sects, Techniques, etc.)
     reload_all_static_data()
     
+    # 修复运行时引用 (热重载后，运行时对象指向的静态对象引用过时)
+    world = game_instance.get("world")
+    if world:
+        from src.run.data_loader import fix_runtime_references
+        fix_runtime_references(world)
+    
     # 5. 持久化到 local_config.yml
     local_config_path = "static/local_config.yml"
     try:

@@ -6,6 +6,7 @@
     "load_game": "Load Game",
     "save_game": "Save Game",
     "create_character": "Create Character",
+    "create_alignment_placeholder": "Select Alignment (Leave empty for Neutral)",
     "delete_character": "Delete Character",
     "settings": "Settings",
     "achievements": "Achievements",
