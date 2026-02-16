@@ -101,9 +101,9 @@ I hope to create a pure, joyful, direct, and living sense of immersion in a cult
 
 If you have any questions or suggestions, feel free to open an Issue or Pull Request.
 
-- **Bilibili**: [Leave a message](https://space.bilibili.com/527346837)
+- **Bilibili**: [Subscribe](https://space.bilibili.com/527346837)
 - **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
-- **Discord**: [Join Community](https://discord.gg/shhRWmZR) 
+- **Discord**: [Join Community](https://discord.gg/shhRWmZR)
 
 ## 🚀 Usage
 
