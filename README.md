@@ -108,115 +108,53 @@
 - **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
 - **Discord**: [加入社区](https://discord.gg/shhRWmZR)
 
-## 🚀 使用方法
+## 🚀 快速开始
 
-### ⚙️ 运行步骤
+### 方式一：Docker 一键部署（推荐）
 
-#### 方式一：Docker Compose 一键部署（推荐）
+无需配置环境，直接运行即可：
 
-如果你已经安装了 Docker，这是最简单的方式：
+```bash
+git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
 
-1. **克隆项目**
+访问地址：前端 `http://localhost:8123` | 后端 `http://localhost:8002`
+
+### 方式二：源码部署（开发模式）
+
+适合需要修改代码或调试的开发者。
+
+1. **环境准备与启动**
    ```bash
-   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. **启动服务（自动构建并运行）**
-   ```bash
-   docker-compose up -d --build
-   ```
-
-#### 方式二：手动安装运行
-
-1. 克隆项目到本地：
-   ```bash
-   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. 安装依赖：
-   ```bash
-   # 后端依赖
+   # 1. 安装后端依赖
    pip install -r requirements.txt
 
-   # 前端依赖 (需Node.js环境)
-   cd web && npm install
-   ```
+   # 2. 安装前端依赖 (需 Node.js)
+   cd web && npm install && cd ..
 
-3. 配置LLM：
-
-   **推荐方式：在前端直接配置（支持快速填充预设）**
-
-   <img src="assets/zh-CN/llm_config.png" alt="前端LLM配置" width="100%">
-
-   也可以在 `static/local_config.yml` 中手动配置（OpenAI兼容格式）：
-   ```yaml
-   llm:
-     base_url: https://api.deepseek.com       # API地址
-     key: your-api-key-here                   # 你的API密钥
-     model_name: deepseek-chat                # 智能模型名称
-     fast_model_name: deepseek-chat           # 快速模型名称
-     mode: default                            # 运行模式 (default/normal/fast)
-   ```
-
-   **本地部署 (Ollama)：** 也支持对接本地 Ollama，在前端选择 "Ollama (本地)" 预设即可。
-
-4. 运行：
-   ```bash
-   # 启动服务 (推荐开发模式，会自动启动前端)
+   # 3. 启动服务 (自动拉起前后端)
    python src/server/main.py --dev
    ```
-   浏览器会自动打开网页前端。
 
-### 🌐 访问应用
+2. **模型配置**
+   服务启动后，浏览器会自动打开。**推荐直接在前端设置页面选择预设（如 DeepSeek/Ollama）**，也可手动修改 `static/local_config.yml`。
 
-无论使用哪种方式运行，启动后都可以通过以下地址访问：
+---
 
-前端：`http://localhost:8123`
-后端 API：`http://localhost:8002`
+### 📱 高级功能
 
-### 📱 手机/局域网访问
+<details>
+<summary><b>局域网/手机访问配置 (点击展开)</b></summary>
 
-支持从局域网内的其他设备（如手机、平板）访问游戏。
+> ⚠️ 移动端 UI 暂未完全适配，仅供尝鲜。
 
-> ⚠️ **注意**：移动端 UI 目前未做适配优化，体验可能不佳。详见 [Issue #130](https://github.com/4thfever/cultivation-world-simulator/issues/130)。
+1. **后端配置**：修改 `static/local_config.yml`，添加 `host: "0.0.0.0"`。
+2. **前端配置**：修改 `web/vite.config.ts`，在 server 块中添加 `host: '0.0.0.0'`。
+3. **访问方式**：确保手机与电脑在同一 WiFi 下，访问 `http://<电脑局域网IP>:5173`。
 
-**配置步骤：**
-
-1. 在 `static/local_config.yml` 中添加：
-   ```yaml
-   system:
-     host: "0.0.0.0"  # 允许局域网访问
-   ```
-
-2. 如果使用开发模式（`--dev`），还需在 `web/vite.config.ts` 的 `server` 配置中添加：
-   ```typescript
-   server: {
-     host: '0.0.0.0',  // 添加这一行
-     proxy: { ... }
-   }
-   ```
-
-3. 启动服务器后，在手机浏览器访问：
-   ```
-   http://<电脑局域网IP>:5173  # 开发模式
-   http://<电脑局域网IP>:8002  # 生产模式
-   ```
-
-4. 查看电脑局域网 IP：
-   ```bash
-   # macOS
-   ipconfig getifaddr en0
-
-   # Linux
-   hostname -I
-
-   # Windows
-   ipconfig
-   ```
-
-> 💡 确保手机和电脑连接同一个 WiFi，且防火墙已放行对应端口。
+</details>
 
 
 ## 📊 项目状态

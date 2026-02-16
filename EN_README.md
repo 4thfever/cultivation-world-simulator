@@ -105,116 +105,53 @@ If you have any questions or suggestions, feel free to open an Issue or Pull Req
 - **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
 - **Discord**: [Join Community](https://discord.gg/shhRWmZR)
 
-## 🚀 Usage
+## 🚀 Quick Start
 
-### ⚙️ Run Steps
+### Option 1: Docker (Recommended)
 
-#### Option 1: Docker Compose (Recommended)
+No environment configuration needed, just run:
 
-If you have Docker installed, this is the easiest way:
+```bash
+git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
 
-1. **Clone the repo**
+Access: Frontend `http://localhost:8123` | Backend `http://localhost:8002`
+
+### Option 2: Source Code (Development)
+
+Suitable for developers who need to modify code or debug.
+
+1. **Environment Setup & Start**
    ```bash
-   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. **Start Service (Auto build & run)**
-   ```bash
-   docker-compose up -d --build
-   ```
-
-#### Option 2: Manual Installation
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
-   cd cultivation-world-simulator
-   ```
-
-2. Install dependencies:
-   ```bash
-   # Backend dependencies
+   # 1. Install backend dependencies
    pip install -r requirements.txt
-   
-   # Frontend dependencies (Node.js environment required)
-   cd web && npm install
-   ```
 
-3. Configure LLM:
-   
-   **Recommended: Configure directly in the frontend (supports quick preset filling)**
-   
-   <img src="assets/en-US/llm_config.png" alt="Frontend LLM Config" width="100%">
+   # 2. Install frontend dependencies (Node.js required)
+   cd web && npm install && cd ..
 
-   You can also manually configure it in `static/local_config.yml` (OpenAI compatible format):
-   ```yaml
-   llm:
-     base_url: https://api.deepseek.com       # API addr
-     key: your-api-key-here                   # your api key
-     model_name: deepseek-chat                # normal model name
-     fast_model_name: deepseek-chat           # fast model name
-     mode: default                            # run mode (default/normal/fast)
-   ```
-   Supports all API providers compatible with OpenAI interface format (e.g., Qwen, DeepSeek, SiliconFlow, OpenRouter, etc.)
-
-   **Local Deployment (Ollama):** Also supports connecting to local Ollama, just select "Ollama (Local)" preset in the frontend.
-
-4. Run:
-   ```bash
-   # Start service (Recommended dev mode, automatically starts frontend)
+   # 3. Start service (Automatically starts both backend and frontend)
    python src/server/main.py --dev
    ```
-   The browser will automatically open the web frontend.
 
-### 🌐 Access Application
+2. **Model Configuration**
+   The browser will open automatically after startup. **It is recommended to select a preset (e.g., DeepSeek/Ollama) directly in the frontend settings page**, or manually modify `static/local_config.yml`.
 
-No matter which method you use to run it, you can access it via the following addresses after startup:
+---
 
-Frontend: `http://localhost:8123`
-Backend API: `http://localhost:8002`
+### 📱 Advanced Features
 
-### 📱 Mobile / LAN Access
+<details>
+<summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>
 
-You can access the game from other devices on the same network (e.g., phone, tablet).
+> ⚠️ Mobile UI is not yet fully optimized, for trial only.
 
-> ⚠️ **Note**: The mobile UI is not optimized yet. See [Issue #130](https://github.com/4thfever/cultivation-world-simulator/issues/130).
+1. **Backend Config**: Modify `static/local_config.yml`, add `host: "0.0.0.0"`.
+2. **Frontend Config**: Modify `web/vite.config.ts`, add `host: '0.0.0.0'` in the `server` block.
+3. **Access**: Ensure phone and computer are on the same WiFi, access `http://<Computer-LAN-IP>:5173`.
 
-**Configuration steps:**
-
-1. Add to `static/local_config.yml`:
-   ```yaml
-   system:
-     host: "0.0.0.0"  # Allow LAN access
-   ```
-
-2. If using dev mode (`--dev`), also add to `web/vite.config.ts` in the `server` config:
-   ```typescript
-   server: {
-     host: '0.0.0.0',  // Add this line
-     proxy: { ... }
-   }
-   ```
-
-3. After starting the server, access from your phone:
-   ```
-   http://<your-computer-lan-ip>:5173  # Dev mode
-   http://<your-computer-lan-ip>:8002  # Production mode
-   ```
-
-4. Find your computer's LAN IP:
-   ```bash
-   # macOS
-   ipconfig getifaddr en0
-
-   # Linux
-   hostname -I
-
-   # Windows
-   ipconfig
-   ```
-
-> 💡 Make sure your phone and computer are on the same WiFi, and the firewall allows the corresponding port.
+</details>
 
 
 ## 📊 Project Status
