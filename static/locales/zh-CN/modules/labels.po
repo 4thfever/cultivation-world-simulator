@@ -24,27 +24,3 @@ msgstr "功法"
 
 msgid "elixir"
 msgstr "丹药"
-
-# 标签
-msgid "【Auction Items Information】"
-msgstr "【涉及拍品信息】"
-
-msgid ""
-"\n"
-"【Related Avatars Information】"
-msgstr ""
-"\n"
-"【相关角色信息】"
-
-# 物品标签
-msgid "item_label_weapon"
-msgstr "兵器"
-
-msgid "item_label_auxiliary"
-msgstr "辅助装备"
-
-msgid "item_label_technique"
-msgstr "功法"
-
-msgid "item_label_elixir"
-msgstr "丹药"

@@ -42,6 +42,7 @@ from .mine import Mine
 from .retreat import Retreat
 from .meditate import Meditate
 from .educate import Educate
+from .temper import Temper
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -83,6 +84,7 @@ register_action(actual=True)(Mine)
 register_action(actual=True)(Retreat)
 register_action(actual=True)(Meditate)
 register_action(actual=True)(Educate)
+register_action(actual=True)(Temper)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -127,4 +129,5 @@ __all__ = [
     "Retreat",
     "Meditate",
     "Educate",
+    "Temper",
 ]

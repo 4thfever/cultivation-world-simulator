@@ -32,3 +32,10 @@ msgstr "Take Heaven and Earth as teacher, follow the Way of Nature."
 
 msgid "Orthodoxy [{name}]"
 msgstr "Orthodoxy [{name}]"
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "Entering the Dao through martial arts, tempering the body. Although progress is slow, the foundation is solid, and breaking through bottlenecks is as easy as eating and drinking."

@@ -1,0 +1,306 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# 條件翻譯
+msgid "Conditional effect"
+msgstr "條件觸發"
+
+msgid "Has [{trait}] trait"
+msgstr "擁有【{trait}】特質"
+
+msgid "When {condition}"
+msgstr "當{condition}"
+
+msgid "[{condition}] {effects}"
+msgstr "[{condition}] {effects}"
+
+# 決策描述
+msgid ""
+"Current {label}: {old_info}\n"
+"{new_desc}"
+msgstr ""
+"現有{label}：{old_info}\n"
+"{new_desc}"
+
+msgid ""
+"\n"
+"(Selecting {replace} will sell old {label})"
+msgstr ""
+"\n"
+"（選擇{replace}將賣出舊{label}）"
+
+# 默認值
+msgid "None"
+msgstr "無"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Rogue Cultivator"
+msgstr "散修"
+
+msgid "Disciple"
+msgstr "弟子"
+
+# 事件內容
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"在{item_name}的競拍中，{winner_name}以 {price} 靈石力壓{runner_up_name}一頭，將其收入囊中。"
+
+msgid ""
+"At the auction, {winner_name} acquired {item_name} for {price} spirit "
+"stones."
+msgstr "在拍賣會上，{winner_name}以 {price} 靈石拍下了{item_name}。"
+
+# 執行結果
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} 放棄了{item_name}。"
+
+# ============================================================================
+# 補充的缺失翻譯
+# ============================================================================
+msgid "Unsupported item type: {item_type}"
+msgstr "不支持的物品類型：{item_type}"
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} 修爲增長 {exp} 點"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} 戰勝了 {loser}"
+
+msgid "retreat_action_name"
+msgstr "閉關"
+
+msgid "retreat_desc"
+msgstr "閉關，嘗試突破自我。風險極大，非大毅力者不可爲。"
+
+msgid "retreat_requirements"
+msgstr "無限制；需要冷卻"
+
+msgid "retreat_start"
+msgstr "{avatar} 開始閉關，破關時間不詳。"
+
+msgid "retreat_success"
+msgstr "閉關成功！修爲精進，對天道的感悟加深了。"
+
+msgid "retreat_fail"
+msgstr "閉關失敗！元氣大傷，折損了 {years} 年陽壽。"
+
+msgid "retreat_death_append"
+msgstr "並且在閉關中耗盡了最後一絲生機，坐化了。"
+
+msgid "retreat_story_prompt_success"
+msgstr "這是關於一次成功的閉關。描寫修士在閉關期間如何戰勝孤獨、感悟天道，最終突破心境的過程。不需要描寫戰鬥。"
+
+msgid "retreat_story_prompt_fail"
+msgstr "這是關於一次失敗的閉關。描寫修士在閉關期間如何被心魔困擾、自我懷疑，最終導致反噬的過程。不需要描寫戰鬥。"
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} 閉關成功，修爲大增。"
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} 閉關失敗，折損了 {years} 年陽壽。"
+
+msgid "Retreat Bonus"
+msgstr "閉關感悟"
+
+# 格式化字符串
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}，熟練度：{proficiency}%"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}，境界：{realm}"
+
+msgid "Performing {action}"
+msgstr "正在{action}"
+
+msgid "Contains elements: {elements}"
+msgstr "包含元素：{elements}"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age}歲"
+
+msgid "Realm: {realm}"
+msgstr "境界: {realm}"
+
+msgid "Identity: {identity}"
+msgstr "身份: {identity}"
+
+msgid ""
+"\n"
+"--- Current Effects Detail ---"
+msgstr ""
+"\n"
+"--- 當前效果明細 ---"
+
+msgid "No additional effects"
+msgstr "無額外效果"
+
+# 複雜格式化字符串 (get_other_avatar_info)
+msgid ""
+"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
+"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr ""
+"{name}，綽號：{nickname}，境界：{realm}，關係：{relation}，宗門：{sect}，陣營：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，輔助：{aux}，HP：{hp}"
+
+# 奇遇事件文本 - 兵器
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "你在奇遇中發現了{realm}兵器『{weapon_name}』。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " 但你手中已有『{weapon_name}』。"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "發現了兵器『{weapon_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 輔助裝備
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "你在奇遇中發現了{realm}輔助裝備『{auxiliary_name}』。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " 但你手中已有『{auxiliary_name}』。"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "發現了輔助裝備『{auxiliary_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 功法
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "你在奇遇中領悟了上品功法『{technique_name}』。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " 這與你當前主修的『{technique_name}』衝突。"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "領悟了功法『{technique_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 其他類型
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} 拜 {master_name} 爲師"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} 獲得靈石 {amount} 枚"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} 修爲增長 {exp_gain} 點"
+
+# 物品動詞
+msgid "item_verb_equip"
+msgstr "裝備"
+
+msgid "item_verb_equipped"
+msgstr "換上了"
+
+msgid "item_verb_practice"
+msgstr "修煉"
+
+msgid "item_verb_switched"
+msgstr "改修了"
+
+msgid "item_verb_consume"
+msgstr "服用"
+
+msgid "item_verb_consumed"
+msgstr "服用了"
+
+msgid "item_verb_replace"
+msgstr "替換"
+
+# 自動裝備消息
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} 獲得了{grade}{label}『{item_name}』並{action}。"
+
+# 標籤
+msgid "【Auction Items Information】"
+msgstr "【涉及拍品信息】"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【相關角色信息】"
+
+# 物品標籤
+msgid "item_label_weapon"
+msgstr "兵器"
+
+msgid "item_label_auxiliary"
+msgstr "輔助裝備"
+
+msgid "item_label_technique"
+msgstr "功法"
+
+msgid "item_label_elixir"
+msgstr "丹藥"
+
+# 選項 A
+msgid "{action} new {label}『{new_name}』"
+msgstr "{action}新{label}『{new_name}』"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr "，賣掉舊{label}『{old_name}』"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr "，{replace}舊{label}『{old_name}』"
+
+# 選項 B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
+
+msgid "Abandon『{new_name}』"
+msgstr "放棄『{new_name}』"
+
+msgid ", keep current『{old_name}』"
+msgstr "，保留身上的『{old_name}』"
+
+# 場景設定
+msgid ""
+"Event Type: Mysterious Auction\n"
+"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr ""
+"事件類型：神祕拍賣會\n"
+"場景設定：拍賣會發生在一處神祕空間，由一位面目模糊、氣息深不可測的神祕人主持。"
+
+# 分隔符
+msgid "relation_separator"
+msgstr "；"
+
+msgid "element_separator"
+msgstr "、"
+
+msgid "material_separator"
+msgstr "，"
+
+# 故事生成文本
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "成交：{winner_name}以{price}靈石拍下{item_name}。"
+
+msgid ""
+"Competition: In the auction for {item_name}, {winner_name} outbid "
+"{runner_up_name} (bid: {bid})."
+msgstr "競爭：在{item_name}的競拍中，{winner_name}力壓{runner_up_name}（出價{bid}）。"
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "物品：{item_name}，介紹：{description}"

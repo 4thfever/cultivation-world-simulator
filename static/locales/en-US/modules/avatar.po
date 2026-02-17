@@ -99,3 +99,13 @@ msgstr "Recent Events"
 
 msgid "Orthodoxy"
 msgstr "Orthodoxy"
+
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "A rogue cultivator {name} has appeared in the world."
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."

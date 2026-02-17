@@ -24,7 +24,7 @@ class Meditate(TimedAction):
     
     # 经验常量
     BASE_EXP = 10       # 普通禅定经验（极少）
-    EPIPHANY_EXP = 1100 # 顿悟经验（极多，期望值约 40/月）
+    EPIPHANY_EXP = 1500 # 顿悟经验（极多，期望值约 50/月）
     BASE_PROB = 0.1     # 基础顿悟概率 10%
 
     def _execute(self) -> None:

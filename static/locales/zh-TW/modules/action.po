@@ -290,7 +290,9 @@ msgid "refine_action_name"
 msgstr "煉丹"
 
 msgid "refine_description"
-msgstr "消耗材料嘗試煉製丹藥（參數 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
+msgstr ""
+"消耗材料嘗試煉製丹藥（參數 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
 
 msgid "refine_requirements"
 msgstr "擁有3個同境界材料"
@@ -324,7 +326,9 @@ msgid "cast_action_name"
 msgstr "鑄造"
 
 msgid "cast_description"
-msgstr "消耗材料嘗試鑄造法寶（參數 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
+msgstr ""
+"消耗材料嘗試鑄造法寶（參數 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
 
 msgid "cast_requirements"
 msgstr "擁有5個同境界材料"
@@ -649,7 +653,9 @@ msgstr "您的道統不支持禪定。"
 msgid "{avatar} begins Zen Meditation."
 msgstr "{avatar} 開始坐禪入定。"
 
-msgid "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
 msgstr "{avatar} 在禪定中頓悟了！修為大增 (+{exp})。"
 
 msgid "{avatar} completed meditation with a peaceful mind."
@@ -679,3 +685,22 @@ msgstr "{avatar} 完成了教化，功德積累 (+{exp})。"
 
 msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
 msgstr "因 {avatar} 的教化，{city} 的繁榮度提升了。"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "打熬"
+
+msgid "temper_description"
+msgstr "通過極限鍛鍊打熬肉身氣力，不假外求，不食靈氣。"
+
+msgid "temper_requirements"
+msgstr "需要武道道統"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "您的道統不支持打熬肉身。"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} 開始打熬氣力"
+
+msgid "action_temper_short_name"
+msgstr "打熬"

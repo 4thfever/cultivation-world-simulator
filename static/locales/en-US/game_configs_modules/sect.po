@@ -147,10 +147,10 @@ msgstr "Everlasting Bright Palace"
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
 msgstr ""
-"Practicing the 'Great Brightness Manual', believing in inextinguishable light. "
-"Possesses extremely strong life secret techniques. [Glorious Longevity] Your "
-"vitality is extremely tenacious, with doubled healing effects and lifespan "
-"far exceeding cultivators of the same rank."
+"Practicing the 'Great Bright Golden Body', believing in inextinguishable light. "
+"Entering the Dao through martial arts, sanctifying the flesh. Possesses extremely strong life secret arts. "
+"[Glorious Longevity] Your vitality is extremely tenacious, healing effects are doubled, "
+"and your lifespan far exceeds that of cultivators of the same rank."
 
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"

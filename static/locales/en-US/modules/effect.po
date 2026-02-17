@@ -161,3 +161,6 @@ msgstr "Elixir [{name}]"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "Tempering Efficiency"

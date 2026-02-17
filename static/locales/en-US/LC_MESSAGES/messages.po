@@ -842,6 +842,27 @@ msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
 msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
 msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
 
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Temper"
+
+msgid "temper_description"
+msgstr ""
+"Tempering body strength through extreme exercise, seeking nothing from the "
+"outside, consuming no spiritual energy."
+
+msgid "temper_requirements"
+msgstr "Requires Martial Orthodoxy"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Your orthodoxy does not support Body Tempering."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} begins tempering body strength"
+
+msgid "action_temper_short_name"
+msgstr "Temper"
+
 # Alignment
 msgid "righteous"
 msgstr "Righteous"
@@ -1247,6 +1268,9 @@ msgstr "Elixir [{name}]"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "Tempering Efficiency"
 
 # ============================================================================
 # Elixir System - Elixirs

@@ -1,9 +1,0 @@
-msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-
-msgid "A rogue cultivator {name} has appeared in the world."
-msgstr "一名散修 {name} 現身於世。"
-
-msgid "{name} has awakened their spiritual roots and embarked on the path of cultivation."
-msgstr "{name} 覺醒了靈根，踏上了修行之路。"

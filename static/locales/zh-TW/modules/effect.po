@@ -161,3 +161,6 @@ msgstr "丹藥【{name}】"
 
 msgid "play_benefit"
 msgstr "消遣收益"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "打熬效率"

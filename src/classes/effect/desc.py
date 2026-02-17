@@ -43,6 +43,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_epiphany_probability": "effect_extra_epiphany_probability",
         "extra_educate_efficiency": "effect_extra_educate_efficiency",
         "extra_educate_prosperity_prob": "effect_extra_educate_prosperity_prob",
+        "extra_temper_exp_multiplier": "effect_extra_temper_exp_multiplier",
     }
     
     msgid = msgid_map.get(effect_key, effect_key)

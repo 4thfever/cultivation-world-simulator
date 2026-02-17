@@ -1514,6 +1514,16 @@ msgstr "Take Heaven and Earth as teacher, follow the Way of Nature."
 msgid "Orthodoxy [{name}]"
 msgstr "Orthodoxy [{name}]"
 
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Entering the Dao through martial arts, tempering the body. Although progress"
+" is slow, the foundation is solid, and breaking through bottlenecks is as "
+"easy as eating and drinking."
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "Rational"
@@ -2513,10 +2523,11 @@ msgstr "Everlasting Bright Palace"
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
 msgstr ""
-"Practicing the 'Great Brightness Manual', believing in inextinguishable "
-"light. Possesses extremely strong life secret techniques. [Glorious "
-"Longevity] Your vitality is extremely tenacious, with doubled healing "
-"effects and lifespan far exceeding cultivators of the same rank."
+"Practicing the 'Great Bright Golden Body', believing in inextinguishable "
+"light. Entering the Dao through martial arts, sanctifying the flesh. "
+"Possesses extremely strong life secret arts. [Glorious Longevity] Your "
+"vitality is extremely tenacious, healing effects are doubled, and your "
+"lifespan far exceeds that of cultivators of the same rank."
 
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
@@ -3197,12 +3208,35 @@ msgstr ""
 msgid "TECHNIQUE_59_NAME"
 msgstr "Law Follows Speech"
 
-#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
-msgid "TECHNIQUE_59_DESC"
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Sun Tempering Art"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
 msgstr ""
-"With the constitution of heaven in mouth, the law follows speech. Using the "
-"words of sages to mobilize the rules of heaven and earth, orders are "
-"strictly enforced, and no one dares to disobey."
+"Draws the purple qi of the rising sun to temper the skin, warming the body "
+"and filling it with vitality."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Radiant Glass Body"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Body like glazed glass, clear inside and out, invulnerable to evil and "
+"indestructible."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Great Bright Golden Body"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"The supreme technique of the Eternal Bright Palace. Sanctification of the "
+"flesh, an imperishable golden body that shines through the ages."
 
 #. weapon.csv: 练气剑
 msgid "WEAPON_1001_NAME"

@@ -22,7 +22,6 @@ msgstr "拍賣會正在舉行..."
 # ============================================================================
 # Gathering 系統 - 宗門傳道
 # ============================================================================
-
 msgid "sect_teaching_story_prompt"
 msgstr "描寫一場宗門傳道大會。側重描寫大會的氛圍、傳道者的道韻流轉以及眾弟子的眾生百態。請避免提及具體的經驗數值。"
 
@@ -33,7 +32,12 @@ msgid "sect_teaching_event_desc"
 msgstr "{teacher_name}正在登台講道。"
 
 msgid "sect_teaching_context_prompt"
-msgstr "宗門：{sect_name}\n風格：{style}\n傳道者：{teacher_name} ({teacher_realm})\n{epiphany_text}\n參考宗門和角色設定，描寫傳道者對天地、世界、道的理解，並描寫弟子們的不同反應。"
+msgstr ""
+"宗門：{sect_name}\n"
+"風格：{style}\n"
+"傳道者：{teacher_name} ({teacher_realm})\n"
+"{epiphany_text}\n"
+"參考宗門和角色設定，描寫傳道者對天地、世界、道的理解，並描寫弟子們的不同反應。"
 
 msgid "sect_teaching_summary"
 msgstr "{sect_name}舉辦了傳道大會，由{teacher_name}主講。參與弟子：{student_names}。"

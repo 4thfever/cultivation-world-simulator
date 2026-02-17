@@ -1165,6 +1165,13 @@ msgstr "以天地為師，道法自然"
 msgid "Orthodoxy [{name}]"
 msgstr "道統【{name}】"
 
+# 武 (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "武"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "以武入道，打熬筋骨。雖進境緩慢，但根基紮實，突破瓶頸如飲水吃飯。"
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "理性"
@@ -2045,7 +2052,8 @@ msgstr "長明宮"
 
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
-msgstr "修習「大光明典」，信奉光明不滅。擁有極強的生命秘術。【光耀長生】你的生命力極其頑強，療傷效果倍增，壽元亦遠超同階修士。"
+msgstr ""
+"修習「大光明金身」，信奉光明不滅。以武入道，肉身成聖。擁有極強的生命秘術。【光耀長生】你的生命力極其頑強，療傷效果倍增，壽元亦遠超同階修士。"
 
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
@@ -2572,9 +2580,29 @@ msgstr "筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一
 msgid "TECHNIQUE_59_NAME"
 msgstr "言出法隨"
 
-#. technique.csv: 口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。
-msgid "TECHNIQUE_59_DESC"
-msgstr "口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。"
+#. technique.csv: 旭日鍛體術
+msgid "TECHNIQUE_60_NAME"
+msgstr "旭日鍛體術"
+
+#. technique.csv: 引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。
+msgid "TECHNIQUE_60_DESC"
+msgstr "引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。"
+
+#. technique.csv: 聖光琉璃身
+msgid "TECHNIQUE_61_NAME"
+msgstr "聖光琉璃身"
+
+#. technique.csv: 身如琉璃，內外明澈，諸邪不侵，堅不可摧。
+msgid "TECHNIQUE_61_DESC"
+msgstr "身如琉璃，內外明澈，諸邪不侵，堅不可摧。"
+
+#. technique.csv: 大光明金身
+msgid "TECHNIQUE_62_NAME"
+msgstr "大光明金身"
+
+#. technique.csv: 長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。
+msgid "TECHNIQUE_62_DESC"
+msgstr "長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。"
 
 #. weapon.csv: 練氣劍
 msgid "WEAPON_1001_NAME"

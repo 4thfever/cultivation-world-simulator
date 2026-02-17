@@ -118,7 +118,9 @@ msgid "respire_action_name"
 msgstr "Respire"
 
 msgid "respire_description"
-msgstr "Conform to the Heavenly Dao and respire Qi. Best effect in Cultivation Regions (Cave Dwellings) with high essence density."
+msgstr ""
+"Conform to the Heavenly Dao and respire Qi. Best effect in Cultivation "
+"Regions (Cave Dwellings) with high essence density."
 
 msgid "respire_requirements"
 msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
@@ -311,7 +313,9 @@ msgid "refine_action_name"
 msgstr "Refine Elixir"
 
 msgid "refine_description"
-msgstr "Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+msgstr ""
+"Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, "
+"FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
 
 msgid "refine_requirements"
 msgstr "Possess 3 materials of the same realm"
@@ -348,7 +352,9 @@ msgid "cast_action_name"
 msgstr "Cast Treasure"
 
 msgid "cast_description"
-msgstr "Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+msgstr ""
+"Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT,"
+" FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
 
 msgid "cast_requirements"
 msgstr "Possess 5 materials of the same realm"
@@ -375,9 +381,7 @@ msgid "help_people_description"
 msgstr "Help people in town, consumes small amount of spirit stones"
 
 msgid "help_people_requirements"
-msgstr ""
-"Only in city areas, and have enough"
-" spirit stones"
+msgstr "Only in city areas, and have enough spirit stones"
 
 msgid "Only righteous alignment can execute"
 msgstr "Only righteous alignment can execute"
@@ -788,7 +792,9 @@ msgid "meditate_action_name"
 msgstr "Meditate"
 
 msgid "meditate_description"
-msgstr "Buddhist cultivation. Calm the mind through Zen meditation, with a chance of epiphany for massive cultivation gain."
+msgstr ""
+"Buddhist cultivation. Calm the mind through Zen meditation, with a chance of"
+" epiphany for massive cultivation gain."
 
 msgid "meditate_requirements"
 msgstr "Requires Buddhist orthodoxy"
@@ -799,8 +805,12 @@ msgstr "Your orthodoxy does not support Zen Meditation."
 msgid "{avatar} begins Zen Meditation."
 msgstr "{avatar} begins Zen Meditation."
 
-msgid "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
-msgstr "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} completed meditation with a peaceful mind."
@@ -810,7 +820,9 @@ msgid "educate_action_name"
 msgstr "Educate"
 
 msgid "educate_description"
-msgstr "Confucian cultivation. Educate people in the city to accumulate merit and luck."
+msgstr ""
+"Confucian cultivation. Educate people in the city to accumulate merit and "
+"luck."
 
 msgid "educate_requirements"
 msgstr "Requires Confucian orthodoxy and being in a City"
@@ -829,3 +841,24 @@ msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
 
 msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
 msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Temper"
+
+msgid "temper_description"
+msgstr ""
+"Tempering body strength through extreme exercise, seeking nothing from the "
+"outside, consuming no spiritual energy."
+
+msgid "temper_requirements"
+msgstr "Requires Martial Orthodoxy"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Your orthodoxy does not support Body Tempering."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} begins tempering body strength"
+
+msgid "action_temper_short_name"
+msgstr "Temper"

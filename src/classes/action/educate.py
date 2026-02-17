@@ -24,7 +24,7 @@ class Educate(TimedAction):
     duration_months = 3
     
     # 经验常量 (3个月基准)
-    BASE_EXP_TOTAL = 120 # 基准总经验 (40/月 * 3)
+    BASE_EXP_TOTAL = 150 # 基准总经验 (50/月 * 3)
     STANDARD_PROSPERITY = 50 # 标准繁荣度
 
     def _execute(self) -> None:
