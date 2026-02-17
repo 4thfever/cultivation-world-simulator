@@ -26,6 +26,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_plunder_multiplier": "effect_extra_plunder_multiplier",
         "extra_catch_success_rate": "effect_extra_catch_success_rate",
         "extra_cultivate_exp": "effect_extra_cultivate_exp",
+        "extra_cultivate_exp_multiplier": "effect_extra_cultivate_exp_multiplier",
         "extra_battle_strength_points": "effect_extra_battle_strength_points",
         "extra_escape_success_rate": "effect_extra_escape_success_rate",
         "extra_assassinate_success_rate": "effect_extra_assassinate_success_rate",

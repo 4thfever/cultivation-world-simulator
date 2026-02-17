@@ -2475,6 +2475,22 @@ msgstr "恪守原則，講究道義，除魔衛道一馬當先，寧折不彎。
 msgid "SECT_14_STYLE"
 msgstr "強者為尊，隨心所欲，崇尚絕對的力量與殺戮，視眾生為血食。"
 
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr "（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，駐地：{hq_name}）"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
 # ============================================================================
 # Simulator & Event Translations
 # ============================================================================

@@ -43,6 +43,11 @@ class Cultivate(TimedAction):
         extra_exp = int(self.avatar.effects.get("extra_cultivate_exp", 0) or 0)
         if extra_exp:
             exp += extra_exp
+
+        # 结算额外修炼经验倍率
+        multiplier = float(self.avatar.effects.get("extra_cultivate_exp_multiplier", 0.0) or 0.0)
+        if multiplier > 0:
+            exp = int(exp * (1 + multiplier))
             
         self.avatar.cultivation_progress.add_exp(exp)
 

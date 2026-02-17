@@ -1134,6 +1134,27 @@ msgstr "蓬莱遗岛"
 msgid "NORMAL_REGION_118_DESC"
 msgstr "位于极东海外，孤悬海外，云雾缭绕。岛上灵泉喷涌，奇花异草遍布，灵气浓郁远超内陆，是海外散修向往之地。"
 
+# 道 (Dao)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "道"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr "顺应天道，吐纳灵气，通过修行增进境界"
+
+# 佛 (Buddhism)
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "佛"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr "普渡众生，通过禅定后的顿悟增进境界"
+
+# 儒 (Confucianism)
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "儒"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr "教化世人，养浩然气，境界随之增加"
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "理性"

@@ -66,6 +66,18 @@ EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
   - 中量: 20~50 (基础修炼约每次100点经验)
   - 大量: 100+
 """
+    
+EXTRA_CULTIVATE_EXP_MULTIPLIER = "extra_cultivate_exp_multiplier"
+"""
+额外修炼经验倍率
+类型: float
+结算: src/classes/action/cultivate.py
+说明: 每次修炼结算时，额外增加的经验倍率。
+数值参考: 
+  - 微量: 0.1 (+10%)
+  - 中量: 0.5 (+50%)
+  - 大量: 1.0 (+100%)
+"""
 
 CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
 """
@@ -471,6 +483,7 @@ ALL_EFFECTS = [
     
     # 修炼相关
     "extra_cultivate_exp",               # int - 额外修炼经验
+    "extra_cultivate_exp_multiplier",    # float - 额外修炼经验倍率
     "cultivate_duration_reduction",      # float - 修炼时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     "extra_retreat_success_rate",        # float - 额外闭关成功率

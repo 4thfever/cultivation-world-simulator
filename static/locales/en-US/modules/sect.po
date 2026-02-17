@@ -197,3 +197,11 @@ msgstr "Adhering to principles, stressing justice, leading in exorcising demons,
 msgid "SECT_14_STYLE"
 msgstr "Might makes right, doing as one pleases, worshipping absolute power and slaughter, viewing all beings as food."
 
+msgid "(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+
+msgid "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: {hq_name})"
+
+msgid "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
