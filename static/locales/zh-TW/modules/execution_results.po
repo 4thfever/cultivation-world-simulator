@@ -1,0 +1,72 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# 執行結果
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} 放棄了{item_name}。"
+
+# ============================================================================
+# 補充的缺失翻譯
+# ============================================================================
+msgid "Unsupported item type: {item_type}"
+msgstr "不支持的物品類型：{item_type}"
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} 修爲增長 {exp} 點"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} 戰勝了 {loser}"
+
+msgid "retreat_action_name"
+msgstr "閉關"
+
+msgid "retreat_desc"
+msgstr "閉關，嘗試突破自我。風險極大，非大毅力者不可爲。"
+
+msgid "retreat_requirements"
+msgstr "無限制；需要冷卻"
+
+msgid "retreat_start"
+msgstr "{avatar} 開始閉關，破關時間不詳。"
+
+msgid "retreat_success"
+msgstr "閉關成功！修爲精進，對天道的感悟加深了。"
+
+msgid "retreat_fail"
+msgstr "閉關失敗！元氣大傷，折損了 {years} 年陽壽。"
+
+msgid "retreat_death_append"
+msgstr "並且在閉關中耗盡了最後一絲生機，坐化了。"
+
+msgid "retreat_story_prompt_success"
+msgstr "這是關於一次成功的閉關。描寫修士在閉關期間如何戰勝孤獨、感悟天道，最終突破心境的過程。不需要描寫戰鬥。"
+
+msgid "retreat_story_prompt_fail"
+msgstr "這是關於一次失敗的閉關。描寫修士在閉關期間如何被心魔困擾、自我懷疑，最終導致反噬的過程。不需要描寫戰鬥。"
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} 閉關成功，修爲大增。"
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} 閉關失敗，折損了 {years} 年陽壽。"
+
+msgid "Retreat Bonus"
+msgstr "閉關感悟"

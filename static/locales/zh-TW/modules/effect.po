@@ -115,6 +115,12 @@ msgstr "祕境兇險概率"
 msgid "effect_extra_epiphany_probability"
 msgstr "頓悟概率"
 
+msgid "effect_extra_educate_efficiency"
+msgstr "教化效率"
+
+msgid "effect_extra_educate_prosperity_prob"
+msgstr "教化繁榮度提升概率"
+
 # Effect 格式化
 msgid "action_list_separator"
 msgstr "、"

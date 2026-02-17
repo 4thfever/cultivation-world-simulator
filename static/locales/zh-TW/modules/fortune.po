@@ -136,3 +136,44 @@ msgstr "靈泉淬體"
 
 msgid "fortune_theme_inherited_memory"
 msgstr "傳承記憶"
+
+# 奇遇事件文本 - 兵器
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "你在奇遇中發現了{realm}兵器『{weapon_name}』。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " 但你手中已有『{weapon_name}』。"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "發現了兵器『{weapon_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 輔助裝備
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "你在奇遇中發現了{realm}輔助裝備『{auxiliary_name}』。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " 但你手中已有『{auxiliary_name}』。"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "發現了輔助裝備『{auxiliary_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 功法
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "你在奇遇中領悟了上品功法『{technique_name}』。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " 這與你當前主修的『{technique_name}』衝突。"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "領悟了功法『{technique_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 其他類型
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} 拜 {master_name} 爲師"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} 獲得靈石 {amount} 枚"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} 修爲增長 {exp_gain} 點"

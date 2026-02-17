@@ -115,6 +115,12 @@ msgstr "Hidden Domain Danger Rate"
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"
 
+msgid "effect_extra_educate_efficiency"
+msgstr "Education Efficiency"
+
+msgid "effect_extra_educate_prosperity_prob"
+msgstr "Education Prosperity Probability"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr ", "
