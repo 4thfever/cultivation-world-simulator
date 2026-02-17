@@ -3168,7 +3168,7 @@ msgstr "道統"
 
 #. world_info.csv: 道、佛、儒等根本理念，決定門派的根腳與修行起源。
 msgid "WORLD_INFO_ORTHODOXY_DESC"
-msgstr "道、佛、儒等根本理念，決定門派的根腳與修行起源。"
+msgstr "不同的道統有不同的修行方法。道家吐納，武家打熬，佛家禪定，儒家教化民衆。"
 
 #. world_info.csv: 道統
 msgid "WORLD_INFO_ORTHODOXY_TITLE"

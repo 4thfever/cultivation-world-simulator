@@ -105,7 +105,7 @@ msgid "respire_action_name"
 msgstr "吐纳"
 
 msgid "respire_description"
-msgstr "顺应天道，吐纳灵气。需要在【灵脉】或【洞府】中进行，灵气密度越高效果越好。"
+msgstr "顺应天道，吐纳灵气。灵气密度越高效果越好。"
 
 msgid "respire_requirements"
 msgstr "需要道门或散修道统"

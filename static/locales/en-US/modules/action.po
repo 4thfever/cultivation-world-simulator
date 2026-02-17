@@ -119,8 +119,7 @@ msgstr "Respire"
 
 msgid "respire_description"
 msgstr ""
-"Conform to the Heavenly Dao and respire Qi. Best effect in Cultivation "
-"Regions (Cave Dwellings) with high essence density."
+"Conform to the Heavenly Dao and respire Qi. The higher the spiritual energy density, the better the effect."
 
 msgid "respire_requirements"
 msgstr "Requires Daoist orthodoxy or Rogue cultivator status"

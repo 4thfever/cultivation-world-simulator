@@ -3850,8 +3850,9 @@ msgstr "Orthodoxy"
 #. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
 msgid "WORLD_INFO_ORTHODOXY_DESC"
 msgstr ""
-"Fundamental concepts like Daoism, Buddhism, and Confucianism, determining "
-"the origin and cultivation roots of a sect."
+"Different orthodoxies have different cultivation methods. Taoists respire, "
+"Martial Artists temper their bodies, Buddhists meditate, and Confucians "
+"educate the people."
 
 #. world_info.csv: 道统
 msgid "WORLD_INFO_ORTHODOXY_TITLE"
