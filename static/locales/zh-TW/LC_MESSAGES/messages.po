@@ -882,6 +882,9 @@ msgstr "捕捉靈獸成功率"
 msgid "effect_extra_cultivate_exp"
 msgstr "修煉經驗"
 
+msgid "effect_extra_cultivate_exp_multiplier"
+msgstr "額外修煉經驗倍率"
+
 msgid "effect_extra_battle_strength_points"
 msgstr "戰力點數"
 

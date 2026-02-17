@@ -107,3 +107,36 @@ class TestActionCultivate:
         assert can_start is False
         assert "Stranger" in reason
 
+    def test_cultivate_with_multiplier(self, cultivation_avatar):
+        """测试额外修炼经验倍率的效果"""
+        # 设置基础修炼环境 (匹配灵气)
+        region = CultivateRegion(id=4, name="Multiplier Cave", desc="Multiplier", essence_type=EssenceType.FIRE, essence_density=5)
+        cultivation_avatar.tile.region = region
+        
+        # 基础经验: 5 * 100 = 500
+        base_exp = 5 * Cultivate.BASE_EXP_PER_DENSITY
+        
+        # Mock effects to include multiplier
+        # 注意：conftest 中的 cultivation_avatar 已经 patch 了 effects，我们需要修改那个 mock 的返回值
+        # 或者直接重新 patch 一次
+        
+        with patch.object(cultivation_avatar.__class__, 'effects', new_callable=PropertyMock) as mock_effects:
+             # Case 1: 0.5 multiplier (+50%)
+            mock_effects.return_value = {"extra_cultivate_exp_multiplier": 0.5}
+            
+            action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+            action._execute()
+            
+            expected_exp_1 = base_exp * (1 + 0.5)
+            assert cultivation_avatar.cultivation_progress.exp == expected_exp_1
+            
+            # Reset exp
+            cultivation_avatar.cultivation_progress.exp = 0
+            
+            # Case 2: 1.0 multiplier (+100%)
+            mock_effects.return_value = {"extra_cultivate_exp_multiplier": 1.0}
+            action._execute()
+            
+            expected_exp_2 = base_exp * (1 + 1.0)
+            assert cultivation_avatar.cultivation_progress.exp == expected_exp_2
+

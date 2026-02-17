@@ -70,6 +70,9 @@ msgstr "Catch Success Rate"
 msgid "effect_extra_cultivate_exp"
 msgstr "Cultivation Experience"
 
+msgid "effect_extra_cultivate_exp_multiplier"
+msgstr "Extra Cultivation Exp Multiplier"
+
 msgid "effect_extra_battle_strength_points"
 msgstr "Battle Strength"
 

@@ -196,4 +196,16 @@ msgstr "拍卖会"
 
 #. world_info.csv: 秘境
 msgid "WORLD_INFO_SECRET_REALM_TITLE"
-msgstr "秘境"
+msgstr "祕境"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "道統"
+
+#. world_info.csv: 道、佛、儒等根本理念，決定門派的根腳與修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr "道、佛、儒等根本理念，決定門派的根腳與修行起源。"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "道統"

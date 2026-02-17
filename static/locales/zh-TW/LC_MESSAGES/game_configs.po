@@ -2478,21 +2478,21 @@ msgstr "無量寂滅經"
 msgid "TECHNIQUE_48_DESC"
 msgstr "神魂不滅，超脫彼岸。修成無量法身，萬劫不磨。"
 
-#. technique.csv: 神霄雷法
+#. technique.csv: 大威德金剛雷
 msgid "TECHNIQUE_49_NAME"
-msgstr "神霄雷法"
+msgstr "大威德金剛雷"
 
-#. technique.csv: 道家雷法正宗，役使神霄天雷，誅邪滅魔。...
+#. technique.csv: 佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。
 msgid "TECHNIQUE_49_DESC"
-msgstr "道家雷法正宗，役使神霄天雷，誅邪滅魔。"
+msgstr "佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。"
 
-#. technique.csv: 九字真言
+#. technique.csv: 六字大明咒
 msgid "TECHNIQUE_50_NAME"
-msgstr "九字真言"
+msgstr "六字大明咒"
 
-#. technique.csv: 臨兵鬥者皆陣列前行。道家無上咒法。...
+#. technique.csv: 唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。
 msgid "TECHNIQUE_50_DESC"
-msgstr "臨兵鬥者皆陣列前行。道家無上咒法。"
+msgstr "唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。"
 
 #. technique.csv: 幽冥玄陰爪
 msgid "TECHNIQUE_51_NAME"
@@ -2541,6 +2541,30 @@ msgstr "金光遁法"
 #. technique.csv: 化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。
 msgid "TECHNIQUE_56_DESC"
 msgstr "化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。"
+
+#. technique.csv: 浩然正氣歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "浩然正氣歌"
+
+#. technique.csv: 天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr "天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。"
+
+#. technique.csv: 春秋筆法
+msgid "TECHNIQUE_58_NAME"
+msgstr "春秋筆法"
+
+#. technique.csv: 筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr "筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。"
+
+#. technique.csv: 言出法隨
+msgid "TECHNIQUE_59_NAME"
+msgstr "言出法隨"
+
+#. technique.csv: 口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。
+msgid "TECHNIQUE_59_DESC"
+msgstr "口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。"
 
 #. weapon.csv: 練氣劍
 msgid "WEAPON_1001_NAME"
@@ -3094,4 +3118,16 @@ msgstr "拍卖会"
 
 #. world_info.csv: 秘境
 msgid "WORLD_INFO_SECRET_REALM_TITLE"
-msgstr "秘境"
+msgstr "祕境"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "道統"
+
+#. world_info.csv: 道、佛、儒等根本理念，決定門派的根腳與修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr "道、佛、儒等根本理念，決定門派的根腳與修行起源。"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "道統"
