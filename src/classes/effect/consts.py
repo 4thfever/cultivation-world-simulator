@@ -54,41 +54,68 @@ EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
   - 大量: 3
 """
 
-# --- 修炼相关 ---
-EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
+# --- 修炼相关 (仙道-吐纳) ---
+EXTRA_RESPIRE_EXP = "extra_respire_exp"
 """
-额外修炼经验
+额外吐纳经验
 类型: int
-结算: src/classes/action/cultivate.py
-说明: 每次修炼结算时，额外增加的固定经验值。
+结算: src/classes/action/respire.py
+说明: 每次吐纳结算时，额外增加的固定经验值。
 数值参考: 
   - 微量: 5~10
-  - 中量: 20~50 (基础修炼约每次100点经验)
+  - 中量: 20~50 (基础吐纳约每次100点经验)
   - 大量: 100+
 """
-    
-EXTRA_CULTIVATE_EXP_MULTIPLIER = "extra_cultivate_exp_multiplier"
+
+EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
 """
-额外修炼经验倍率
+额外修炼经验 (兼容旧版)
+类型: int
+说明: 兼容旧版配置，可能同时影响吐纳和打熬，具体看实现。
+"""
+    
+EXTRA_RESPIRE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
+"""
+额外吐纳经验倍率
 类型: float
-结算: src/classes/action/cultivate.py
-说明: 每次修炼结算时，额外增加的经验倍率。
+结算: src/classes/action/respire.py
+说明: 每次吐纳结算时，额外增加的经验倍率。
 数值参考: 
   - 微量: 0.1 (+10%)
   - 中量: 0.5 (+50%)
   - 大量: 1.0 (+100%)
 """
 
-CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
+RESPIRE_DURATION_REDUCTION = "respire_duration_reduction"
 """
-修炼时长缩减
+吐纳时长缩减
 类型: float
-结算: src/classes/action/cultivate.py
-说明: 修炼动作的时长缩减比例。
+结算: src/classes/action/respire.py
+说明: 吐纳动作的时长缩减比例。
 数值参考: 
   - 微量: 0.05~0.1 (缩减5%-10%)
   - 中量: 0.15 (15%)
   - 极限: 0.3 (30%)
+"""
+
+CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
+"""
+修炼时长缩减 (兼容旧版)
+类型: float
+说明: 兼容旧版配置。
+"""
+
+# --- 修炼相关 (武道-打熬) ---
+TEMPER_DURATION_REDUCTION = "temper_duration_reduction"
+"""
+打熬时长缩减
+类型: float
+结算: src/classes/action/temper.py
+说明: 打熬动作的时长缩减比例。
+数值参考:
+  - 微量: 0.05~0.1
+  - 中量: 0.15
+  - 极限: 0.3
 """
 
 EXTRA_BREAKTHROUGH_SUCCESS_RATE = "extra_breakthrough_success_rate"
@@ -482,9 +509,12 @@ ALL_EFFECTS = [
     "realm_suppression_bonus",           # float - 境界压制加成
     
     # 修炼相关
-    "extra_cultivate_exp",               # int - 额外修炼经验
-    "extra_cultivate_exp_multiplier",    # float - 额外修炼经验倍率
-    "cultivate_duration_reduction",      # float - 修炼时长缩减
+    "extra_respire_exp",                 # int - 额外吐纳经验
+    "extra_cultivate_exp",               # int - 额外修炼经验 (deprecated/compatibility)
+    "extra_respire_exp_multiplier",      # float - 额外吐纳经验倍率
+    "respire_duration_reduction",        # float - 吐纳时长缩减
+    "cultivate_duration_reduction",      # float - 修炼时长缩减 (deprecated/compatibility)
+    "temper_duration_reduction",         # float - 打熬时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     "extra_retreat_success_rate",        # float - 额外闭关成功率
     

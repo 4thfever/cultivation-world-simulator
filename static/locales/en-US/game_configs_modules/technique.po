@@ -487,6 +487,10 @@ msgstr ""
 msgid "TECHNIQUE_59_NAME"
 msgstr "Law Follows Speech"
 
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr "Speak the law. Mobilizing the rules of heaven and earth with the words of sages, orders are prohibited, and no one dares to disobey."
+
 #. technique.csv: Sun Tempering Art
 msgid "TECHNIQUE_60_NAME"
 msgstr "Sun Tempering Art"

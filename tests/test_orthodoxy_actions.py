@@ -85,10 +85,10 @@ def test_meditate_execution_epiphany(dummy_avatar):
     action._execute()
     
     # 练气期 multiplier = 1 (REALM_RANK.get(Qi_Refinement, 0) + 1 = 1)
-    # 顿悟经验 EPIPHANY_EXP = 1100
+    # 顿悟经验 EPIPHANY_EXP = 1500
     # 额外加成 multiplier = 0
-    # exp = 1100 * 1 * (1 + 0) = 1100
-    expected_gain = 1100 * 1
+    # exp = 1500 * 1 * (1 + 0) = 1500
+    expected_gain = 1500 * 1
     
     dummy_avatar.cultivation_progress.add_exp.assert_called_with(expected_gain)
     assert action._last_is_epiphany is True
@@ -181,15 +181,15 @@ def test_educate_execution(avatar_in_city):
     
     # 练气期 multiplier = 1
     # 繁荣度系数 = 50 / 50 = 1.0
-    # 基准经验 BASE_EXP_TOTAL = 120
-    # 120 * 1 * 1 = 120
-    # avatar_in_city.cultivation_progress.add_exp.assert_called_with(120)
+    # 基准经验 BASE_EXP_TOTAL = 150
+    # 150 * 1 * 1 = 150
+    # avatar_in_city.cultivation_progress.add_exp.assert_called_with(150)
     
     dummy_avatar = avatar_in_city
     dummy_avatar.cultivation_progress.add_exp.assert_called()
     args, _ = dummy_avatar.cultivation_progress.add_exp.call_args
     # 允许一定的误差，或者先断言调用了
-    assert args[0] == 120
+    assert args[0] == 150
 
 def test_educate_prosperity_effect(avatar_in_city):
     """测试教化对繁荣度的影响"""
@@ -241,8 +241,8 @@ def test_educate_high_prosperity_bonus(avatar_in_city):
     
     action._execute()
     
-    # 120 * 1 * (100/50) = 240
-    expected = 120 * 1 * 2.0
+    # 150 * 1 * (100/50) = 300
+    expected = 150 * 1 * 2.0
     # avatar_in_city.cultivation_progress.add_exp.assert_called_with(int(expected))
     
     dummy_avatar = avatar_in_city
