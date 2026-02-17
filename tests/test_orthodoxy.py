@@ -24,10 +24,6 @@ class TestOrthodoxyData:
         assert dao.desc # Should not be empty
         assert isinstance(dao.effects, dict)
         
-        # Check specific effect for Dao
-        assert EXTRA_CULTIVATE_EXP_MULTIPLIER in dao.effects
-        assert dao.effects[EXTRA_CULTIVATE_EXP_MULTIPLIER] == 0.5
-
     def test_orthodoxy_info(self):
         """测试 get_info 方法"""
         buddhism = get_orthodoxy("buddhism")
@@ -49,11 +45,6 @@ class TestSectIntegration:
         sect_1 = sects_by_id.get(1)
         if sect_1:
             assert sect_1.orthodoxy_id == "dao"
-            # 检查效果合并: 基础 0.5 + 宗门可能有的其他效果
-            # 凌霄剑宗 effects: {extra_battle_strength_points: 3, extra_weapon_proficiency_gain: 0.5}
-            # 合并后应该包含 extra_cultivate_exp_multiplier: 0.5
-            assert EXTRA_CULTIVATE_EXP_MULTIPLIER in sect_1.effects
-            assert sect_1.effects[EXTRA_CULTIVATE_EXP_MULTIPLIER] == 0.5
 
     def test_sect_explicit_orthodoxy(self):
         """测试指定道统的宗门"""

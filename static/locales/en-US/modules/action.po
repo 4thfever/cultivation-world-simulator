@@ -123,9 +123,7 @@ msgstr ""
 "dwellings) with matching essence, otherwise very poor effect"
 
 msgid "cultivate_requirements"
-msgstr ""
-"Character not at bottleneck; if in cave dwelling area, it must be unowned or"
-" belong to oneself"
+msgstr "Requires Daoist orthodoxy or Rogue cultivator status, and a valid cultivation spot."
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "Cultivation has reached bottleneck, cannot continue cultivating"
@@ -780,3 +778,57 @@ msgstr "Educate"
 
 msgid "action_meditate_short_name"
 msgstr "Meditate"
+
+msgid "action_cultivate_short_name"
+msgstr "Cultivate"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Meditate"
+
+msgid "meditate_description"
+msgstr "Buddhist cultivation. Calm the mind through Zen meditation, with a chance of epiphany for massive cultivation gain."
+
+msgid "meditate_requirements"
+msgstr "Requires Buddhist orthodoxy and no bottleneck."
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "Your orthodoxy does not support Zen Meditation."
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} begins Zen Meditation."
+
+msgid "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
+msgstr "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} completed meditation with a peaceful mind."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Educate"
+
+msgid "educate_description"
+msgstr "Confucian cultivation. Educate people in the city to accumulate merit and luck."
+
+msgid "educate_requirements"
+msgstr "Requires Confucian orthodoxy, being in a City, and no bottleneck."
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "Your orthodoxy does not support Confucian Education."
+
+msgid "Must be in a City to educate people."
+msgstr "Must be in a City to educate people."
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} begins educating people in {city}."
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
+
+# Action: Cultivate (Error msg)
+msgid "Your orthodoxy does not support Qi cultivation."
+msgstr "Your orthodoxy does not support Qi cultivation."

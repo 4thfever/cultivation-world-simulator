@@ -108,7 +108,7 @@ msgid "cultivate_description"
 msgstr "修煉，增進修爲。在修煉區域（洞府）且靈氣匹配時效果最佳，否則效果很差"
 
 msgid "cultivate_requirements"
-msgstr "角色未到瓶頸；若在洞府區域，則該洞府需無主或歸自己所有"
+msgstr "需道門道統或散修身份，以及合適的修煉地點。"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "修爲已達瓶頸，無法繼續修煉"
@@ -626,3 +626,57 @@ msgstr "教化"
 
 msgid "action_meditate_short_name"
 msgstr "禪定"
+
+msgid "action_cultivate_short_name"
+msgstr "修煉"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "禪定"
+
+msgid "meditate_description"
+msgstr "佛門修煉，通過坐禪平復心境，有概率頓悟獲得大量修為。"
+
+msgid "meditate_requirements"
+msgstr "需佛門道統，且無瓶頸。"
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "您的道統不支持禪定。"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} 開始坐禪入定。"
+
+msgid "{avatar} had an epiphany during meditation! Cultivation increased significantly (+{exp})."
+msgstr "{avatar} 在禪定中頓悟了！修為大增 (+{exp})。"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} 完成了禪定，心境平和。"
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "教化"
+
+msgid "educate_description"
+msgstr "儒門修煉，在城市中教化世人，積累功德氣運。"
+
+msgid "educate_requirements"
+msgstr "需儒門道統，位於城市，且無瓶頸。"
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "您的道統不支持教化世人。"
+
+msgid "Must be in a City to educate people."
+msgstr "必須在城市中才能教化世人。"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} 開始在 {city} 教化百姓。"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} 完成了教化，功德積累 (+{exp})。"
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "因 {avatar} 的教化，{city} 的繁榮度提升了。"
+
+# Action: Cultivate (Error msg)
+msgid "Your orthodoxy does not support Qi cultivation."
+msgstr "您的道統不支持吐納靈氣。"

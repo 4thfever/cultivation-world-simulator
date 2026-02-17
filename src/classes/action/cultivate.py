@@ -18,7 +18,7 @@ class Cultivate(TimedAction):
     REQUIREMENTS_ID = "cultivate_requirements"
     
     # 不需要翻译的常量
-    EMOJI = "🧘"
+    EMOJI = "🌀"
     PARAMS = {}
 
     duration_months = 10
@@ -75,6 +75,12 @@ class Cultivate(TimedAction):
         # 瓶颈检查
         if not self.avatar.cultivation_progress.can_cultivate():
             return False, t("Cultivation has reached bottleneck, cannot continue cultivating")
+            
+        # 权限检查 (道门或散修)
+        # 如果 legal_actions 不为空，且不包含 "Cultivate"，则禁止 (说明是其他道统，如佛/儒)
+        legal = self.avatar.effects.get("legal_actions", [])
+        if legal and "Cultivate" not in legal:
+            return False, t("Your orthodoxy does not support Qi cultivation.")
         
         region = self.avatar.tile.region
         
