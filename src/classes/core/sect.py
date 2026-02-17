@@ -79,7 +79,7 @@ class Sect:
         from src.i18n import t
         hq = self.headquarter
         orthodoxy = get_orthodoxy(self.orthodoxy_id)
-        orthodoxy_name = orthodoxy.name if orthodoxy else self.orthodoxy_id
+        orthodoxy_name = t(orthodoxy.name) if orthodoxy else self.orthodoxy_id
         return t("{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: {hq_name})",
                 sect_name=self.name, orthodoxy=orthodoxy_name, alignment=str(self.alignment), hq_name=hq.name)
 
@@ -90,7 +90,7 @@ class Sect:
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         
         orthodoxy = get_orthodoxy(self.orthodoxy_id)
-        orthodoxy_name = orthodoxy.name if orthodoxy else self.orthodoxy_id
+        orthodoxy_name = t(orthodoxy.name) if orthodoxy else self.orthodoxy_id
         
         return t("{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                 sect_name=self.name, orthodoxy=orthodoxy_name, alignment=str(self.alignment), 
@@ -376,7 +376,7 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     
     # 构造详细信息，使用标准空格和括号
     orthodoxy = get_orthodoxy(avatar.sect.orthodoxy_id)
-    orthodoxy_name = orthodoxy.name if orthodoxy else avatar.sect.orthodoxy_id
+    orthodoxy_name = t(orthodoxy.name) if orthodoxy else avatar.sect.orthodoxy_id
     
     detail_content = t("(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
                        orthodoxy=orthodoxy_name,

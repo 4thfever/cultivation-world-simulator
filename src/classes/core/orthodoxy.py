@@ -41,8 +41,8 @@ def _load_orthodoxy_data() -> Dict[str, Orthodoxy]:
         if not oid:
             continue
             
-        name = get_str(row, "name")
-        desc = get_str(row, "desc")
+        name = get_str(row, "name_id")
+        desc = get_str(row, "desc_id")
         
         # 解析 effects
         effects_str = get_str(row, "effects")

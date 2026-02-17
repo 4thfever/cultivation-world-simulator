@@ -774,3 +774,9 @@ msgstr "Two people are holding an elegant tea party."
 
 msgid "action_chess_story_prompt"
 msgstr "Two people are playing chess."
+
+msgid "action_educate_short_name"
+msgstr "Educate"
+
+msgid "action_meditate_short_name"
+msgstr "Meditate"

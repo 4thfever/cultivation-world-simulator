@@ -620,3 +620,9 @@ msgstr "两人正在举行一场雅致的茶会。"
 
 msgid "action_chess_story_prompt"
 msgstr "两人正在对弈下棋。"
+
+msgid "action_educate_short_name"
+msgstr "教化"
+
+msgid "action_meditate_short_name"
+msgstr "禅定"

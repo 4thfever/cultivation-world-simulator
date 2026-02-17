@@ -358,6 +358,7 @@
       "sect": {
         "stats": {
           "alignment": "阵营",
+          "orthodoxy": "道统",
           "style": "风格",
           "preferred": "擅长",
           "members": "成员"

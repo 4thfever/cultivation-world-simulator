@@ -355,6 +355,7 @@
       "sect": {
         "stats": {
           "alignment": "陣營",
+          "orthodoxy": "道統",
           "style": "風格",
           "preferred": "擅長",
           "members": "成員"

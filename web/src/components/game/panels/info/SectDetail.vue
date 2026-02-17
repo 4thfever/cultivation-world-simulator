@@ -40,6 +40,11 @@ const alignmentText = props.data.alignment;
        <!-- Stats Grid -->
        <div class="stats-grid">
           <StatItem :label="t('game.info_panel.sect.stats.alignment')" :value="alignmentText" :class="data.alignment" />
+          <StatItem 
+            :label="t('game.info_panel.sect.stats.orthodoxy')" 
+            :value="data.orthodoxy?.name || t('common.none')" 
+            :onClick="() => showDetail(data.orthodoxy)"
+          />
           <StatItem :label="t('game.info_panel.sect.stats.style')" :value="data.style" />
           <StatItem :label="t('game.info_panel.sect.stats.preferred')" :value="data.preferred_weapon || t('common.none')" />
           <StatItem :label="t('game.info_panel.sect.stats.members')" :value="data.members?.length || 0" />
