@@ -189,12 +189,10 @@ msgid "occupy_description"
 msgstr "Occupy or seize cave dwelling"
 
 msgid "occupy_requirements"
-msgstr "Target within interaction range; cannot execute consecutively"
+msgstr "Target within interaction range; cannot execute consecutively. Before deciding Occupy, check world_info -> Occupy Candidates, compare your_realm vs owner_realm and major_realm_gap_desc, and explicitly mention the gap in your reasoning. If owner rejects, battle is likely; losing may cause severe injury, death, and long-term losses. Persona guidance (not mandatory): ADVENTUROUS/AGGRESSIVE/RASH may take higher risks; LIFE_CHERISHING/TIMID should prefer safer actions."
 
 msgid "occupy_story_prompt"
-msgstr ""
-"This is a battle for cave dwelling. Do not mention specific HP or damage "
-"values."
+msgstr "This is a battle for cave dwelling. Highlight realm gap and risk consequences (rejection leads to battle; defeat may cause severe injury or death). Do not mention specific HP or damage values."
 
 msgid "feedback_yield"
 msgstr "Yield"

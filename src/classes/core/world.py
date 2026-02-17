@@ -40,6 +40,63 @@ class World():
     history: "History" = field(default_factory=lambda: History())
     # 世界开始年份
     start_year: int = 0
+    OCCUPY_CANDIDATES_KEY: str = "Occupy Candidates"
+
+    @staticmethod
+    def _describe_major_realm_gap(gap: int) -> str:
+        if gap > 0:
+            realm_unit = "major realm" if gap == 1 else "major realms"
+            return f"owner higher by {gap} {realm_unit}"
+        if gap < 0:
+            up = -gap
+            realm_unit = "major realm" if up == 1 else "major realms"
+            return f"you higher by {up} {realm_unit}"
+        return "same major realm"
+
+    def _build_occupy_candidates_for_avatar(self, avatar: "Avatar") -> list[dict]:
+        from src.classes.environment.region import CultivateRegion
+        from src.systems.cultivation import REALM_RANK
+
+        avatar_realm = avatar.cultivation_progress.realm
+        avatar_realm_rank = REALM_RANK.get(avatar_realm, 0)
+        avatar_realm_text = str(avatar_realm)
+        candidates: list[dict] = []
+
+        for region in self.map.regions.values():
+            if not isinstance(region, CultivateRegion):
+                continue
+
+            host = region.host_avatar
+            if host is None:
+                candidates.append(
+                    {
+                        "region_name": region.name,
+                        "owner_name": "None",
+                        "your_realm": avatar_realm_text,
+                        "owner_realm": "None",
+                        "major_realm_gap": None,
+                        "major_realm_gap_desc": "no owner",
+                        "risk_reminder": "If owner rejects, battle likely; losing may cause severe injury/death and major losses.",
+                    }
+                )
+                continue
+
+            owner_realm = host.cultivation_progress.realm
+            owner_rank = REALM_RANK.get(owner_realm, 0)
+            major_gap = owner_rank - avatar_realm_rank
+            candidates.append(
+                {
+                    "region_name": region.name,
+                    "owner_name": host.name,
+                    "your_realm": avatar_realm_text,
+                    "owner_realm": str(owner_realm),
+                    "major_realm_gap": major_gap,
+                    "major_realm_gap_desc": self._describe_major_realm_gap(major_gap),
+                    "risk_reminder": "If owner rejects, battle likely; losing may cause severe injury/death and major losses.",
+                }
+            )
+
+        return candidates
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -59,6 +116,9 @@ class World():
             # "phenomenon_format": "【{name}】{desc}" (ZH) vs "{name}: {desc}" (EN)
             value = t("phenomenon_format", name=self.current_phenomenon.name, desc=self.current_phenomenon.desc)
             world_info[key] = value
+
+        if avatar is not None:
+            world_info[self.OCCUPY_CANDIDATES_KEY] = self._build_occupy_candidates_for_avatar(avatar)
 
         return world_info
 

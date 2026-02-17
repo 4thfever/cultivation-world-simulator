@@ -2006,10 +2006,14 @@ msgid "occupy_description"
 msgstr "占据或抢夺洞府"
 
 msgid "occupy_requirements"
-msgstr "目标在交互范围内；不能连续执行"
+msgstr ""
+"目标在交互范围内；不能连续执行。决策前请先查看 world_info 的 Occupy Candidates，明确比较 your_realm 与 "
+"owner_realm 及 "
+"major_realm_gap_desc，并在理由中写出差距；若对方拒绝将进入战斗，败北可能导致重伤、死亡与长期损失，务必谨慎权衡。人格引导（非强制）：ADVENTUROUS/AGGRESSIVE/RASH"
+" 可更冒险，LIFE_CHERISHING/TIMID 应更倾向稳妥选择。"
 
 msgid "occupy_story_prompt"
-msgstr "这是一场争夺洞府的战斗。不要出现具体血量或伤害数值。"
+msgstr "这是一场争夺洞府的战斗。请体现双方境界差距与风险后果（拒绝即开战，败北可能重伤或死亡），不要出现具体血量或伤害数值。"
 
 msgid "feedback_yield"
 msgstr "让步"
