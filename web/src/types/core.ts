@@ -88,6 +88,7 @@ export interface AvatarDetail extends EntityBase {
   
   // 关联实体
   sect?: SectInfo;
+  orthodoxy?: EffectEntity; // 新增道统字段
   personas: EffectEntity[];
   technique?: EffectEntity;
   weapon?: EffectEntity & { proficiency: string };
@@ -130,6 +131,7 @@ export interface SectDetail extends EntityBase {
   techniques: EffectEntity[];
   preferred_weapon: string;
   members: SectMember[];
+  orthodoxy: EffectEntity;
 }
 
 export interface RelationInfo {

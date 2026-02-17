@@ -15,8 +15,8 @@ msgstr ""
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
-msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "Cultivate Region (can cultivate to increase cultivation)"
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Cultivate Region (can respire to increase cultivation)"
 
 msgid "Normal Region (can hunt, gather, mine)"
 msgstr "Normal Region (can hunt, gather, mine)"

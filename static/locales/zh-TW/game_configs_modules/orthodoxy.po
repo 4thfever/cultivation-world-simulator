@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+# 道 (Dao)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "道"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr "順應天道，吐納靈氣，通過修行增進境界"
+
+# 佛 (Buddhism)
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "佛"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr "普渡眾生，通過禪定後的頓悟增進境界"
+
+# 儒 (Confucianism)
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "儒"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr "教化世人，養浩然氣，境界隨之增加"
+
+# 天地 (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "天地"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "以天地為師，道法自然"
+
+msgid "Orthodoxy [{name}]"
+msgstr "道統【{name}】"
+
+# 武 (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "武"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "以武入道，打熬筋骨。雖進境緩慢，但根基紮實，突破瓶頸如飲水吃飯。"

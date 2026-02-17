@@ -25,7 +25,7 @@ class ActionMixin:
         根据动作名称创建新的action实例
         
         Args:
-            action_name: 动作类的名称（如 'Cultivate', 'Breakthrough' 等）
+            action_name: 动作类的名称（如 'Respire', 'Breakthrough' 等）
         
         Returns:
             新创建的Action实例

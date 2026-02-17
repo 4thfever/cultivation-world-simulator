@@ -172,3 +172,18 @@ msgid "WORLD_INFO_SECRET_REALM_DESC"
 msgstr ""
 "Secret realms open every few years. Entering a secret realm may encounter "
 "danger, but may also obtain high-level artifacts and techniques."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Orthodoxy"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Different orthodoxies have different cultivation methods. Taoists respire, "
+"Martial Artists temper their bodies, Buddhists meditate, and Confucians "
+"educate the people."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Orthodoxy"

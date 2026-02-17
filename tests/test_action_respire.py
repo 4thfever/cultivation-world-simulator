@@ -1,14 +1,13 @@
-
 import pytest
 from unittest.mock import MagicMock, patch, PropertyMock
-from src.classes.action.cultivate import Cultivate
+from src.classes.action.respire import Respire
 from src.classes.environment.tile import TileType
 from src.classes.environment.region import CultivateRegion, NormalRegion
 from src.classes.event import Event
 from src.classes.root import Root
 from src.classes.essence import EssenceType
 
-class TestActionCultivate:
+class TestActionRespire:
     
     @pytest.fixture
     def cultivation_avatar(self, dummy_avatar):
@@ -29,13 +28,13 @@ class TestActionCultivate:
             
             yield dummy_avatar
 
-    def test_cultivate_in_wild(self, cultivation_avatar):
-        """测试在野外（非修炼区域）修炼：低保经验"""
+    def test_respire_in_wild(self, cultivation_avatar):
+        """测试在野外（非修炼区域）吐纳：低保经验"""
         # 确保当前区域不是 CultivateRegion
         tile = cultivation_avatar.tile
         tile.region = NormalRegion(id=999, name="Wild", desc="Just Wild") # 普通区域
         
-        action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
         
         # Check
         can_start, reason = action.can_start()
@@ -45,55 +44,55 @@ class TestActionCultivate:
         action._execute()
         
         # Assert: 获得低保经验
-        expected_exp = Cultivate.BASE_EXP_LOW_EFFICIENCY
+        expected_exp = Respire.BASE_EXP_LOW_EFFICIENCY
         assert cultivation_avatar.cultivation_progress.exp == expected_exp
 
-    def test_cultivate_in_matching_region(self, cultivation_avatar):
-        """测试在匹配灵气的洞府修炼：高经验"""
+    def test_respire_in_matching_region(self, cultivation_avatar):
+        """测试在匹配灵气的洞府吐纳：高经验"""
         # 设置当前 Tile 为 CultivateRegion
         region = CultivateRegion(id=1, name="Fire Cave", desc="Hot", essence_type=EssenceType.FIRE, essence_density=5)
         
         cultivation_avatar.tile.region = region
         
-        action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
         action._execute()
         
         # Assert: density(5) * base(100) = 500
-        expected_exp = 5 * Cultivate.BASE_EXP_PER_DENSITY
+        expected_exp = 5 * Respire.BASE_EXP_PER_DENSITY
         
         assert cultivation_avatar.cultivation_progress.exp == expected_exp
 
-    def test_cultivate_in_mismatching_region(self, cultivation_avatar):
-        """测试在不匹配灵气的洞府修炼：低保经验"""
+    def test_respire_in_mismatching_region(self, cultivation_avatar):
+        """测试在不匹配灵气的洞府吐纳：低保经验"""
         # 设置水灵气，角色是火灵根
         region = CultivateRegion(id=2, name="Water Cave", desc="Wet", essence_type=EssenceType.WATER, essence_density=5)
         cultivation_avatar.tile.region = region
         
-        action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
         action._execute()
         
         # Assert: 0 * 100 -> fallback to LOW_EFFICIENCY
-        expected_exp = Cultivate.BASE_EXP_LOW_EFFICIENCY
+        expected_exp = Respire.BASE_EXP_LOW_EFFICIENCY
         assert cultivation_avatar.cultivation_progress.exp == expected_exp
 
-    def test_cultivate_bottleneck(self, cultivation_avatar):
-        """测试瓶颈期修炼：不增加经验"""
+    def test_respire_bottleneck(self, cultivation_avatar):
+        """测试瓶颈期吐纳：不增加经验"""
         # 设置为瓶颈等级
         cultivation_avatar.cultivation_progress.level = 30 
         initial_exp = cultivation_avatar.cultivation_progress.exp
         
-        action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
         
         # Check can_start
         can_start, reason = action.can_start()
         assert can_start is False
-        assert "瓶颈" in reason
+        assert "瓶颈" in reason or "bottleneck" in reason
         
         # Force execute (should return early)
         action._execute()
         assert cultivation_avatar.cultivation_progress.exp == initial_exp
 
-    def test_cultivate_occupied_region(self, cultivation_avatar):
+    def test_respire_occupied_region(self, cultivation_avatar):
         """测试修炼区域被他人占据"""
         region = CultivateRegion(id=3, name="Occupied", desc="Full", essence_type=EssenceType.FIRE, essence_density=5)
         other_avatar = MagicMock()
@@ -101,9 +100,41 @@ class TestActionCultivate:
         region.host_avatar = other_avatar # 占据者不是自己
         cultivation_avatar.tile.region = region
         
-        action = Cultivate(cultivation_avatar, cultivation_avatar.world)
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
         
         can_start, reason = action.can_start()
         assert can_start is False
         assert "Stranger" in reason
 
+    def test_respire_with_multiplier(self, cultivation_avatar):
+        """测试额外吐纳经验倍率的效果"""
+        # 设置基础修炼环境 (匹配灵气)
+        region = CultivateRegion(id=4, name="Multiplier Cave", desc="Multiplier", essence_type=EssenceType.FIRE, essence_density=5)
+        cultivation_avatar.tile.region = region
+        
+        # 基础经验: 5 * 100 = 500
+        base_exp = 5 * Respire.BASE_EXP_PER_DENSITY
+        
+        # Mock effects to include multiplier
+        # 注意：conftest 中的 cultivation_avatar 已经 patch 了 effects，我们需要修改那个 mock 的返回值
+        # 或者直接重新 patch 一次
+        
+        with patch.object(cultivation_avatar.__class__, 'effects', new_callable=PropertyMock) as mock_effects:
+             # Case 1: 0.5 multiplier (+50%)
+            mock_effects.return_value = {"extra_respire_exp_multiplier": 0.5}
+            
+            action = Respire(cultivation_avatar, cultivation_avatar.world)
+            action._execute()
+            
+            expected_exp_1 = base_exp * (1 + 0.5)
+            assert cultivation_avatar.cultivation_progress.exp == expected_exp_1
+            
+            # Reset exp
+            cultivation_avatar.cultivation_progress.exp = 0
+            
+            # Case 2: 1.0 multiplier (+100%)
+            mock_effects.return_value = {"extra_respire_exp_multiplier": 1.0}
+            action._execute()
+            
+            expected_exp_2 = base_exp * (1 + 1.0)
+            assert cultivation_avatar.cultivation_progress.exp == expected_exp_2

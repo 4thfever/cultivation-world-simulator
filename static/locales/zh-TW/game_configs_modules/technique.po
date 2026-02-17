@@ -316,21 +316,21 @@ msgstr "無量寂滅經"
 msgid "TECHNIQUE_48_DESC"
 msgstr "神魂不滅，超脫彼岸。修成無量法身，萬劫不磨。"
 
-#. technique.csv: 神霄雷法
+#. technique.csv: 大威德金剛雷
 msgid "TECHNIQUE_49_NAME"
-msgstr "神霄雷法"
+msgstr "大威德金剛雷"
 
-#. technique.csv: 道家雷法正宗，役使神霄天雷，誅邪滅魔。...
+#. technique.csv: 佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。
 msgid "TECHNIQUE_49_DESC"
-msgstr "道家雷法正宗，役使神霄天雷，誅邪滅魔。"
+msgstr "佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。"
 
-#. technique.csv: 九字真言
+#. technique.csv: 六字大明咒
 msgid "TECHNIQUE_50_NAME"
-msgstr "九字真言"
+msgstr "六字大明咒"
 
-#. technique.csv: 臨兵鬥者皆陣列前行。道家無上咒法。...
+#. technique.csv: 唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。
 msgid "TECHNIQUE_50_DESC"
-msgstr "臨兵鬥者皆陣列前行。道家無上咒法。"
+msgstr "唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。"
 
 #. technique.csv: 幽冥玄陰爪
 msgid "TECHNIQUE_51_NAME"
@@ -379,3 +379,51 @@ msgstr "金光遁法"
 #. technique.csv: 化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。
 msgid "TECHNIQUE_56_DESC"
 msgstr "化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。"
+
+#. technique.csv: 浩然正氣歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "浩然正氣歌"
+
+#. technique.csv: 天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr "天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。"
+
+#. technique.csv: 春秋筆法
+msgid "TECHNIQUE_58_NAME"
+msgstr "春秋筆法"
+
+#. technique.csv: 筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr "筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。"
+
+#. technique.csv: 言出法隨
+msgid "TECHNIQUE_59_NAME"
+msgstr "言出法隨"
+
+#. technique.csv: 口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。
+msgid "TECHNIQUE_59_DESC"
+msgstr "口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。"
+
+#. technique.csv: 旭日鍛體術
+msgid "TECHNIQUE_60_NAME"
+msgstr "旭日鍛體術"
+
+#. technique.csv: 引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。
+msgid "TECHNIQUE_60_DESC"
+msgstr "引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。"
+
+#. technique.csv: 聖光琉璃身
+msgid "TECHNIQUE_61_NAME"
+msgstr "聖光琉璃身"
+
+#. technique.csv: 身如琉璃，內外明澈，諸邪不侵，堅不可摧。
+msgid "TECHNIQUE_61_DESC"
+msgstr "身如琉璃，內外明澈，諸邪不侵，堅不可摧。"
+
+#. technique.csv: 大光明金身
+msgid "TECHNIQUE_62_NAME"
+msgstr "大光明金身"
+
+#. technique.csv: 長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。
+msgid "TECHNIQUE_62_DESC"
+msgstr "長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。"

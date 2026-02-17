@@ -355,6 +355,7 @@
       "sect": {
         "stats": {
           "alignment": "Alignment",
+          "orthodoxy": "Orthodoxy",
           "style": "Style",
           "preferred": "Weapon",
           "members": "Members"

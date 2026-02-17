@@ -1134,6 +1134,44 @@ msgstr "蓬萊遺島"
 msgid "NORMAL_REGION_118_DESC"
 msgstr "位於極東海外，孤懸海外，雲霧繚繞。島上靈泉噴湧，奇花異草遍佈，靈氣濃郁遠超內陸，是海外散修嚮往之地。"
 
+# 道 (Dao)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "道"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr "順應天道，吐納靈氣，通過修行增進境界"
+
+# 佛 (Buddhism)
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "佛"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr "普渡眾生，通過禪定後的頓悟增進境界"
+
+# 儒 (Confucianism)
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "儒"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr "教化世人，養浩然氣，境界隨之增加"
+
+# 天地 (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "天地"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "以天地為師，道法自然"
+
+msgid "Orthodoxy [{name}]"
+msgstr "道統【{name}】"
+
+# 武 (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "武"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "以武入道，打熬筋骨。雖進境緩慢，但根基紮實，突破瓶頸如飲水吃飯。"
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "理性"
@@ -2014,7 +2052,8 @@ msgstr "長明宮"
 
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
-msgstr "修習「大光明典」，信奉光明不滅。擁有極強的生命秘術。【光耀長生】你的生命力極其頑強，療傷效果倍增，壽元亦遠超同階修士。"
+msgstr ""
+"修習「大光明金身」，信奉光明不滅。以武入道，肉身成聖。擁有極強的生命秘術。【光耀長生】你的生命力極其頑強，療傷效果倍增，壽元亦遠超同階修士。"
 
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
@@ -2457,21 +2496,21 @@ msgstr "無量寂滅經"
 msgid "TECHNIQUE_48_DESC"
 msgstr "神魂不滅，超脫彼岸。修成無量法身，萬劫不磨。"
 
-#. technique.csv: 神霄雷法
+#. technique.csv: 大威德金剛雷
 msgid "TECHNIQUE_49_NAME"
-msgstr "神霄雷法"
+msgstr "大威德金剛雷"
 
-#. technique.csv: 道家雷法正宗，役使神霄天雷，誅邪滅魔。...
+#. technique.csv: 佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。
 msgid "TECHNIQUE_49_DESC"
-msgstr "道家雷法正宗，役使神霄天雷，誅邪滅魔。"
+msgstr "佛門護法金剛之怒，如雷霆萬鈞，震懾一切邪魔，蕩滌世間污穢。"
 
-#. technique.csv: 九字真言
+#. technique.csv: 六字大明咒
 msgid "TECHNIQUE_50_NAME"
-msgstr "九字真言"
+msgstr "六字大明咒"
 
-#. technique.csv: 臨兵鬥者皆陣列前行。道家無上咒法。...
+#. technique.csv: 唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。
 msgid "TECHNIQUE_50_DESC"
-msgstr "臨兵鬥者皆陣列前行。道家無上咒法。"
+msgstr "唵嘛呢叭咪吽。佛門至高咒語，蘊含無盡願力，能淨化世間一切罪業與災厄。"
 
 #. technique.csv: 幽冥玄陰爪
 msgid "TECHNIQUE_51_NAME"
@@ -2520,6 +2559,54 @@ msgstr "金光遁法"
 #. technique.csv: 化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。
 msgid "TECHNIQUE_56_DESC"
 msgstr "化作一道流金遁光，瞬息萬里，乃逃生趕路之絕學。"
+
+#. technique.csv: 浩然正氣歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "浩然正氣歌"
+
+#. technique.csv: 天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr "天地有正氣，雜然賦流形。養胸中浩然之氣，諸邪不侵，萬法不破。"
+
+#. technique.csv: 春秋筆法
+msgid "TECHNIQUE_58_NAME"
+msgstr "春秋筆法"
+
+#. technique.csv: 筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr "筆落驚風雨，詩成泣鬼神。以聖人之言判春秋功過，一字千金。"
+
+#. technique.csv: 言出法隨
+msgid "TECHNIQUE_59_NAME"
+msgstr "言出法隨"
+
+#. technique.csv: 口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。
+msgid "TECHNIQUE_59_DESC"
+msgstr "口含天憲，言出法隨。以聖賢之語調動天地規則，令行禁止，莫敢不從。"
+
+#. technique.csv: 旭日鍛體術
+msgid "TECHNIQUE_60_NAME"
+msgstr "旭日鍛體術"
+
+#. technique.csv: 引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。
+msgid "TECHNIQUE_60_DESC"
+msgstr "引旭日紫氣淬鍊皮膜，通體溫熱，氣血充盈。"
+
+#. technique.csv: 聖光琉璃身
+msgid "TECHNIQUE_61_NAME"
+msgstr "聖光琉璃身"
+
+#. technique.csv: 身如琉璃，內外明澈，諸邪不侵，堅不可摧。
+msgid "TECHNIQUE_61_DESC"
+msgstr "身如琉璃，內外明澈，諸邪不侵，堅不可摧。"
+
+#. technique.csv: 大光明金身
+msgid "TECHNIQUE_62_NAME"
+msgstr "大光明金身"
+
+#. technique.csv: 長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。
+msgid "TECHNIQUE_62_DESC"
+msgstr "長明宮鎮派絕學。肉身成聖，金身不滅，光耀萬古。"
 
 #. weapon.csv: 練氣劍
 msgid "WEAPON_1001_NAME"
@@ -3073,4 +3160,16 @@ msgstr "拍卖会"
 
 #. world_info.csv: 秘境
 msgid "WORLD_INFO_SECRET_REALM_TITLE"
-msgstr "秘境"
+msgstr "祕境"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "道統"
+
+#. world_info.csv: 道、佛、儒等根本理念，決定門派的根腳與修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr "不同的道統有不同的修行方法。道家吐納，武家打熬，佛家禪定，儒家教化民衆。"
+
+#. world_info.csv: 道統
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "道統"

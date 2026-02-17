@@ -22,7 +22,7 @@ class Retreat(TimedAction):
     DESC_ID = "retreat_desc"
     REQUIREMENTS_ID = "retreat_requirements"
     
-    EMOJI = "🧘"
+    EMOJI = "🛖"
     PARAMS = {}
     
     # 闭关结束后1年内不能再次闭关

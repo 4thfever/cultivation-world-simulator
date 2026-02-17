@@ -15,8 +15,8 @@ msgstr ""
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
-msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "修煉區域（可以修煉以增進修爲）"
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "修煉區域（可以吐納以增進修爲）"
 
 msgid "Normal Region (can hunt, gather, mine)"
 msgstr "普通區域（可以狩獵、採集、挖礦）"

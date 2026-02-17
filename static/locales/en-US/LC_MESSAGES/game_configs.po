@@ -1477,6 +1477,53 @@ msgstr ""
 " everywhere, and spiritual qi density far exceeding the mainland, a place "
 "yearned for by overseas rogue cultivators."
 
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Dao"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr ""
+"Conform to the Heavenly Dao, breathe in spiritual energy (Qi), and improve "
+"cultivation realm through practice."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Buddhism"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr ""
+"Save all sentient beings, and improve cultivation realm through meditation "
+"and sudden enlightenment."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Confucianism"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr ""
+"Educate the common people, cultivate the Noble Spirit (Haoran Qi), and the "
+"realm will increase accordingly."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Nature"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Take Heaven and Earth as teacher, follow the Way of Nature."
+
+msgid "Orthodoxy [{name}]"
+msgstr "Orthodoxy [{name}]"
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Entering the Dao through martial arts, tempering the body. Although progress"
+" is slow, the foundation is solid, and breaking through bottlenecks is as "
+"easy as eating and drinking."
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "Rational"
@@ -2476,10 +2523,11 @@ msgstr "Everlasting Bright Palace"
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
 msgstr ""
-"Practicing the 'Great Brightness Manual', believing in inextinguishable "
-"light. Possesses extremely strong life secret techniques. [Glorious "
-"Longevity] Your vitality is extremely tenacious, with doubled healing "
-"effects and lifespan far exceeding cultivators of the same rank."
+"Practicing the 'Great Bright Golden Body', believing in inextinguishable "
+"light. Entering the Dao through martial arts, sanctifying the flesh. "
+"Possesses extremely strong life secret arts. [Glorious Longevity] Your "
+"vitality is extremely tenacious, healing effects are doubled, and your "
+"lifespan far exceeds that of cultivators of the same rank."
 
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
@@ -3054,25 +3102,25 @@ msgstr ""
 "The soul is indestructible, transcending to the other shore. Cultivating the"
 " immeasurable dharma body, eternal through ten thousand calamities."
 
-#. technique.csv: 神霄雷法
+#. technique.csv: 大威德金刚雷
 msgid "TECHNIQUE_49_NAME"
-msgstr "Shenxiao Lightning Method"
+msgstr "Yamantaka Vajra Lightning"
 
-#. technique.csv: 道家雷法正宗，役使神霄天雷，诛邪灭魔。...
+#. technique.csv: 佛门护法金刚之怒，如雷霆万钧，震慑一切邪魔，荡涤世间污秽。
 msgid "TECHNIQUE_49_DESC"
 msgstr ""
-"The orthodox Daoist lightning method, employing Shenxiao heavenly thunder to"
-" eliminate evil."
+"The wrath of the Buddhist Guardian Vajra, like a thunderbolt of ten thousand"
+" jun, intimidating all demons and cleansing the world's filth."
 
-#. technique.csv: 九字真言
+#. technique.csv: 六字大明咒
 msgid "TECHNIQUE_50_NAME"
-msgstr "Nine Character Mantras"
+msgstr "Six Syllable Mantra"
 
-#. technique.csv: 临兵斗者皆阵列前行。道家无上咒法。...
+#. technique.csv: 唵嘛呢叭咪吽。佛门至高咒语，蕴含无尽愿力，能净化世间一切罪业与灾厄。
 msgid "TECHNIQUE_50_DESC"
 msgstr ""
-"Lin, Bing, Dou, Zhe, Jie, Zhen, Lie, Qian, Xing. The supreme incantation of "
-"the Daoist gate."
+"Om Mani Padme Hum. The supreme mantra of Buddhism, containing endless power "
+"of vows, capable of purifying all sins and calamities in the world."
 
 #. technique.csv: 幽冥玄阴爪
 msgid "TECHNIQUE_51_NAME"
@@ -3133,6 +3181,68 @@ msgid "TECHNIQUE_56_DESC"
 msgstr ""
 "Transforming into a stream of golden light, thousands of miles in an "
 "instant, a supreme skill for escaping and traveling."
+
+#. technique.csv: 浩然正气歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "Song of Righteousness"
+
+#. technique.csv: 天地有正气，杂然赋流形。养胸中浩然之气，诸邪不侵，万法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr ""
+"Heaven and earth possess righteousness, manifested in various forms. "
+"Cultivating the noble spirit within, evil cannot invade, and all laws cannot"
+" break it."
+
+#. technique.csv: 春秋笔法
+msgid "TECHNIQUE_58_NAME"
+msgstr "Spring and Autumn Brushwork"
+
+#. technique.csv: 笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr ""
+"With a stroke of the pen, wind and rain are startled, poems make ghosts and "
+"gods weep. Using the words of sages to judge the merits and faults of "
+"history, one word is worth a thousand gold."
+
+#. technique.csv: 言出法随
+msgid "TECHNIQUE_59_NAME"
+msgstr "Law Follows Speech"
+
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr ""
+"Speak the law. Mobilizing the rules of heaven and earth with the words of "
+"sages, orders are prohibited, and no one dares to disobey."
+
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Sun Tempering Art"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
+msgstr ""
+"Draws the purple qi of the rising sun to temper the skin, warming the body "
+"and filling it with vitality."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Radiant Glass Body"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Body like glazed glass, clear inside and out, invulnerable to evil and "
+"indestructible."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Great Bright Golden Body"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"The supreme technique of the Eternal Bright Palace. Sanctification of the "
+"flesh, an imperishable golden body that shines through the ages."
 
 #. weapon.csv: 练气剑
 msgid "WEAPON_1001_NAME"
@@ -3732,3 +3842,18 @@ msgid "WORLD_INFO_SECRET_REALM_DESC"
 msgstr ""
 "Secret realms open every few years. Entering a secret realm may encounter "
 "danger, but may also obtain high-level artifacts and techniques."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Orthodoxy"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Different orthodoxies have different cultivation methods. Taoists respire, "
+"Martial Artists temper their bodies, Buddhists meditate, and Confucians "
+"educate the people."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Orthodoxy"

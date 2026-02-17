@@ -200,3 +200,15 @@ msgstr "每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可
 #. world_info.csv: 秘境
 msgid "WORLD_INFO_SECRET_REALM_TITLE"
 msgstr "秘境"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "道统"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr "不同的道统有不同的修行方法。道家吐纳，武家打熬，佛家禅定，儒家教化民众。"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "道统"

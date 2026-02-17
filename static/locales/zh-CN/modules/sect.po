@@ -429,3 +429,18 @@ msgstr "恪守原则，讲究道义，除魔卫道一马当先，宁折不弯。
 msgid "SECT_14_STYLE"
 msgstr "强者为尊，随心所欲，崇尚绝对的力量与杀戮，视众生为血食。"
 
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr "（道统：{orthodoxy}，阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr "{sect_name}（道统：{orthodoxy}，阵营：{alignment}，驻地：{hq_name}）"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name}（道统：{orthodoxy}，阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"

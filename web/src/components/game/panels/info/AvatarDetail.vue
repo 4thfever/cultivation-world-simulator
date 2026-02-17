@@ -173,7 +173,7 @@ async function handleClearObjective() {
           :label="t('game.info_panel.avatar.stats.sect')" 
           :value="data.sect?.name || t('game.info_panel.avatar.stats.rogue')" 
           :sub-value="data.sect?.rank"
-          :on-click="data.sect ? () => jumpToSect(data.sect!.id) : undefined"
+          :on-click="data.sect ? () => jumpToSect(data.sect!.id) : (data.orthodoxy ? () => showDetail(data.orthodoxy) : undefined)"
         />
         
         <StatItem 

@@ -226,11 +226,11 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - ✅ People (Mortals)
 
 ### 🏛️ Organizations
-- [ ] Sect system
+- ✅ Sect system
   - ✅ Settings, techniques, healing, base, styles
   - ✅ Special sect actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming)
   - ✅ Sect tiers
-  - [ ] Dao traditions
+  - ✅ Orthodoxy
 - [ ] Clans
 - [ ] Court/Empire (TBD)
 - [ ] Organization Will AI

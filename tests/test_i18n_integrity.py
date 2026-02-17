@@ -214,12 +214,16 @@ class TestTranslationKeysIntegrity:
     def test_all_used_msgids_are_defined_in_po(self):
         """检查所有代码中使用的 msgid 都在 PO 文件中定义"""
         src_dir = get_project_root() / "src"
-        po_file = get_project_root() / "static/locales/zh-CN/LC_MESSAGES/messages.po"
+        locales_dir = get_project_root() / "static/locales/zh-CN"
         
-        if not src_dir.exists() or not po_file.exists():
+        if not src_dir.exists() or not locales_dir.exists():
             pytest.skip("Required directories not found")
         
-        defined_msgids = self.extract_msgids_from_po(po_file)
+        defined_msgids = set()
+        # 遍历所有 zh-CN 下的 PO 文件（包括 messages.po 和 game_configs_modules 下的）
+        for po_file in locales_dir.rglob("*.po"):
+            defined_msgids.update(self.extract_msgids_from_po(po_file))
+            
         used_msgids = set()
         
         for py_file in src_dir.rglob("*.py"):

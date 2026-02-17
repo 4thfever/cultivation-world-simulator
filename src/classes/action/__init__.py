@@ -20,7 +20,7 @@ from .move_to_avatar import MoveToAvatar
 from .move_away_from_avatar import MoveAwayFromAvatar
 from .move_away_from_region import MoveAwayFromRegion
 from .escape import Escape
-from .cultivate import Cultivate
+from .respire import Respire
 from .breakthrough import Breakthrough
 from .play import Reading, TeaTasting, Traveling, ZitherPlaying
 from .hunt import Hunt
@@ -40,6 +40,9 @@ from .refine import Refine
 from .buy import Buy
 from .mine import Mine
 from .retreat import Retreat
+from .meditate import Meditate
+from .educate import Educate
+from .temper import Temper
 
 # 注册到 ActionRegistry（标注是否为实际可执行动作）
 register_action(actual=False)(Action)
@@ -56,7 +59,7 @@ register_action(actual=True)(MoveToAvatar)
 register_action(actual=True)(MoveAwayFromAvatar)
 register_action(actual=True)(MoveAwayFromRegion)
 register_action(actual=False)(Escape)
-register_action(actual=True)(Cultivate)
+register_action(actual=True)(Respire)
 register_action(actual=True)(Breakthrough)
 register_action(actual=True)(Reading)
 register_action(actual=True)(TeaTasting)
@@ -79,6 +82,9 @@ register_action(actual=True)(Refine)
 register_action(actual=True)(Buy)
 register_action(actual=True)(Mine)
 register_action(actual=True)(Retreat)
+register_action(actual=True)(Meditate)
+register_action(actual=True)(Educate)
+register_action(actual=True)(Temper)
 # Talk 已移动到 mutual_action 模块，在那里注册
 
 __all__ = [
@@ -98,7 +104,7 @@ __all__ = [
     "MoveAwayFromAvatar",
     "MoveAwayFromRegion",
     "Escape",
-    "Cultivate",
+    "Respire",
     "Breakthrough",
     "Reading",
     "TeaTasting",
@@ -121,4 +127,7 @@ __all__ = [
     "Buy",
     "Mine",
     "Retreat",
+    "Meditate",
+    "Educate",
+    "Temper",
 ]

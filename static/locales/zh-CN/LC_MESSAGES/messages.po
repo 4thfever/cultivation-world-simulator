@@ -100,21 +100,27 @@ msgstr "失败"
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} 遭遇了{calamity}劫难，突破{result}"
 
-# Action: Cultivate
-msgid "cultivate_action_name"
-msgstr "修炼"
+# Action: Respire
+msgid "respire_action_name"
+msgstr "吐纳"
 
-msgid "cultivate_description"
-msgstr "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差"
+msgid "respire_description"
+msgstr "顺应天道，吐纳灵气。灵气密度越高效果越好。"
 
-msgid "cultivate_requirements"
-msgstr "角色未到瓶颈；若在洞府区域，则该洞府需无主或归自己所有"
+msgid "respire_requirements"
+msgstr "需要道门或散修道统"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "您的道统不支持吐纳灵气。"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "该洞府已被 {name} 占据，无法吐纳"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} 在 {location} 开始吐纳，{efficiency}"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "修为已达瓶颈，无法继续修炼"
-
-msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
-msgstr "该洞府已被 {name} 占据，无法修炼"
 
 msgid "excellent progress"
 msgstr "进境颇佳"
@@ -125,8 +131,8 @@ msgstr "进境缓慢（灵气不匹配）"
 msgid "slow progress (sparse essence)"
 msgstr "进境缓慢（灵气稀薄）"
 
-msgid "{avatar} begins cultivating at {location}, {efficiency}"
-msgstr "{avatar} 在 {location} 开始修炼，{efficiency}"
+msgid "action_respire_short_name"
+msgstr "吐纳"
 
 # Action: Escape
 msgid "escape_action_name"
@@ -625,6 +631,80 @@ msgstr "两人正在举行一场雅致的茶会。"
 msgid "action_chess_story_prompt"
 msgstr "两人正在对弈下棋。"
 
+msgid "action_educate_short_name"
+msgstr "教化"
+
+msgid "action_meditate_short_name"
+msgstr "禅定"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "禅定"
+
+msgid "meditate_description"
+msgstr "佛门修炼，通过坐禅平复心境，有概率顿悟获得大量修为。"
+
+msgid "meditate_requirements"
+msgstr "需要佛门道统"
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "您的道统不支持禅定。"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} 开始坐禅入定。"
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr "{avatar} 在禅定中顿悟了！修为大增 (+{exp})。"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} 完成了禅定，心境平和。"
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "教化"
+
+msgid "educate_description"
+msgstr "儒门修炼，在城市中教化世人，积累功德气运。"
+
+msgid "educate_requirements"
+msgstr "需要儒家道统，且身处城市"
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "您的道统不支持教化世人。"
+
+msgid "Must be in a City to educate people."
+msgstr "必须在城市中才能教化世人。"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} 开始在 {city} 教化百姓。"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} 完成了教化，功德积累 (+{exp})。"
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "因 {avatar} 的教化，{city} 的繁荣度提升了。"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "打熬"
+
+msgid "temper_description"
+msgstr "通过极限锻炼打熬肉身气力，不假外求，不食灵气。"
+
+msgid "temper_requirements"
+msgstr "需要武道道统"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "您的道统不支持打熬肉身。"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} 开始打熬气力"
+
+msgid "action_temper_short_name"
+msgstr "打熬"
+
 # Alignment
 msgid "righteous"
 msgstr "正"
@@ -745,6 +825,9 @@ msgstr "重大事件"
 
 msgid "Recent Events"
 msgstr "短期事件"
+
+msgid "Orthodoxy"
+msgstr "道统"
 
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "一名散修 {name} 现身于世。"
@@ -879,8 +962,11 @@ msgstr "搜刮收益"
 msgid "effect_extra_catch_success_rate"
 msgstr "捕捉灵兽成功率"
 
-msgid "effect_extra_cultivate_exp"
-msgstr "修炼经验"
+msgid "effect_extra_respire_exp"
+msgstr "吐纳经验"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "额外吐纳经验倍率"
 
 msgid "effect_extra_battle_strength_points"
 msgstr "战力点数"
@@ -906,8 +992,8 @@ msgstr "伤害减免"
 msgid "effect_realm_suppression_bonus"
 msgstr "境界压制"
 
-msgid "effect_cultivate_duration_reduction"
-msgstr "修炼时长缩减"
+msgid "effect_respire_duration_reduction"
+msgstr "吐纳时长缩减"
 
 msgid "effect_extra_cast_success_rate"
 msgstr "铸造成功率"
@@ -923,6 +1009,12 @@ msgstr "秘境凶险概率"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "顿悟概率"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "教化效率"
+
+msgid "effect_extra_educate_prosperity_prob"
+msgstr "教化繁荣度提升概率"
 
 # Effect 格式化
 msgid "action_list_separator"
@@ -964,6 +1056,12 @@ msgstr "丹药【{name}】"
 
 msgid "play_benefit"
 msgstr "消遣收益"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "打熬效率"
+
+msgid "effect_temper_duration_reduction"
+msgstr "打熬时长缩减"
 
 # ============================================================================
 # Elixir 系统 - 丹药
@@ -1287,8 +1385,8 @@ msgstr "请据此写100~300字小故事。"
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
-msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "修炼区域（可以修炼以增进修为）"
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "修炼区域（可以吐纳以增进修为）"
 
 msgid "Normal Region (can hunt, gather, mine)"
 msgstr "普通区域（可以狩猎、采集、挖矿）"
@@ -1390,192 +1488,6 @@ msgstr "当{condition}"
 msgid "[{condition}] {effects}"
 msgstr "[{condition}] {effects}"
 
-# 默认值
-msgid "None"
-msgstr "无"
-
-msgid "Unknown"
-msgstr "未知"
-
-msgid "Rogue Cultivator"
-msgstr "散修"
-
-msgid "Disciple"
-msgstr "弟子"
-
-# 分隔符
-msgid "relation_separator"
-msgstr "；"
-
-msgid "element_separator"
-msgstr "、"
-
-msgid "material_separator"
-msgstr "，"
-
-# 格式化字符串
-msgid "{weapon_name}, Proficiency: {proficiency}%"
-msgstr "{weapon_name}，熟练度：{proficiency}%"
-
-msgid "{name}, Realm: {realm}"
-msgstr "{name}，境界：{realm}"
-
-msgid "Performing {action}"
-msgstr "正在{action}"
-
-msgid "Contains elements: {elements}"
-msgstr "包含元素：{elements}"
-
-msgid "【{name}】 {gender} {age} years old"
-msgstr "【{name}】 {gender} {age}岁"
-
-msgid "Realm: {realm}"
-msgstr "境界: {realm}"
-
-msgid "Identity: {identity}"
-msgstr "身份: {identity}"
-
-msgid ""
-"\n"
-"--- Current Effects Detail ---"
-msgstr ""
-"\n"
-"--- 当前效果明细 ---"
-
-msgid "No additional effects"
-msgstr "无额外效果"
-
-# 复杂格式化字符串 (get_other_avatar_info)
-msgid ""
-"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
-"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
-"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
-msgstr ""
-"{name}，绰号：{nickname}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，辅助：{aux}，HP：{hp}"
-
-# 事件内容
-msgid ""
-"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
-"{price} spirit stones and won the item."
-msgstr ""
-"在{item_name}的竞拍中，{winner_name}以 {price} 灵石力压{runner_up_name}一头，将其收入囊中。"
-
-msgid ""
-"At the auction, {winner_name} acquired {item_name} for {price} spirit "
-"stones."
-msgstr "在拍卖会上，{winner_name}以 {price} 灵石拍下了{item_name}。"
-
-# 故事生成文本
-msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
-msgstr "成交：{winner_name}以{price}灵石拍下{item_name}。"
-
-msgid ""
-"Competition: In the auction for {item_name}, {winner_name} outbid "
-"{runner_up_name} (bid: {bid})."
-msgstr "竞争：在{item_name}的竞拍中，{winner_name}力压{runner_up_name}（出价{bid}）。"
-
-msgid "Item: {item_name}, Description: {description}"
-msgstr "物品：{item_name}，介绍：{description}"
-
-# 场景设定
-msgid ""
-"Event Type: Mysterious Auction\n"
-"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
-msgstr ""
-"事件类型：神秘拍卖会\n"
-"场景设定：拍卖会发生在一处神秘空间，由一位面目模糊、气息深不可测的神秘人主持。"
-
-# 标签
-msgid "【Auction Items Information】"
-msgstr "【涉及拍品信息】"
-
-msgid ""
-"\n"
-"【Related Avatars Information】"
-msgstr ""
-"\n"
-"【相关角色信息】"
-
-# 奇遇事件文本 - 兵器
-msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
-msgstr "你在奇遇中发现了{realm}兵器『{weapon_name}』。"
-
-msgid " But you already have『{weapon_name}』."
-msgstr " 但你手中已有『{weapon_name}』。"
-
-msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
-msgstr "发现了兵器『{weapon_name}』，{exchange_text}"
-
-# 奇遇事件文本 - 辅助装备
-msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
-msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary_name}』。"
-
-msgid " But you already have『{auxiliary_name}』."
-msgstr " 但你手中已有『{auxiliary_name}』。"
-
-msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
-msgstr "发现了辅助装备『{auxiliary_name}』，{exchange_text}"
-
-# 奇遇事件文本 - 功法
-msgid ""
-"You comprehended an upper-grade technique『{technique_name}』in your fortune."
-msgstr "你在奇遇中领悟了上品功法『{technique_name}』。"
-
-msgid " This conflicts with your current technique『{technique_name}』."
-msgstr " 这与你当前主修的『{technique_name}』冲突。"
-
-msgid "Comprehended technique『{technique_name}』, {exchange_text}"
-msgstr "领悟了功法『{technique_name}』，{exchange_text}"
-
-# 奇遇事件文本 - 其他类型
-msgid "{avatar_name} became disciple of {master_name}"
-msgstr "{avatar_name} 拜 {master_name} 为师"
-
-msgid "{avatar_name} obtained {amount} spirit stones"
-msgstr "{avatar_name} 获得灵石 {amount} 枚"
-
-msgid "{avatar_name} gained {exp_gain} cultivation experience"
-msgstr "{avatar_name} 修为增长 {exp_gain} 点"
-
-# 物品标签
-msgid "item_label_weapon"
-msgstr "兵器"
-
-msgid "item_label_auxiliary"
-msgstr "辅助装备"
-
-msgid "item_label_technique"
-msgstr "功法"
-
-msgid "item_label_elixir"
-msgstr "丹药"
-
-# 物品动词
-msgid "item_verb_equip"
-msgstr "装备"
-
-msgid "item_verb_equipped"
-msgstr "换上了"
-
-msgid "item_verb_practice"
-msgstr "修炼"
-
-msgid "item_verb_switched"
-msgstr "改修了"
-
-msgid "item_verb_consume"
-msgstr "服用"
-
-msgid "item_verb_consumed"
-msgstr "服用了"
-
-msgid "item_verb_replace"
-msgstr "替换"
-
-# 自动装备消息
-msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
-msgstr "{avatar_name} 获得了{grade}{label}『{item_name}』并{action}。"
-
 # 决策描述
 msgid ""
 "Current {label}: {old_info}\n"
@@ -1591,25 +1503,30 @@ msgstr ""
 "\n"
 "（选择{replace}将卖出旧{label}）"
 
-# 选项 A
-msgid "{action} new {label}『{new_name}』"
-msgstr "{action}新{label}『{new_name}』"
+# 默认值
+msgid "None"
+msgstr "无"
 
-msgid ", sell old {label}『{old_name}』"
-msgstr "，卖掉旧{label}『{old_name}』"
+msgid "Unknown"
+msgstr "未知"
 
-msgid ", {replace} old {label}『{old_name}』"
-msgstr "，{replace}旧{label}『{old_name}』"
+msgid "Rogue Cultivator"
+msgstr "散修"
 
-# 选项 B
-msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
-msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+msgid "Disciple"
+msgstr "弟子"
 
-msgid "Abandon『{new_name}』"
-msgstr "放弃『{new_name}』"
+# 事件内容
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"在{item_name}的竞拍中，{winner_name}以 {price} 灵石力压{runner_up_name}一头，将其收入囊中。"
 
-msgid ", keep current『{old_name}』"
-msgstr "，保留身上的『{old_name}』"
+msgid ""
+"At the auction, {winner_name} acquired {item_name} for {price} spirit "
+"stones."
+msgstr "在拍卖会上，{winner_name}以 {price} 灵石拍下了{item_name}。"
 
 # 执行结果
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
@@ -1669,6 +1586,187 @@ msgstr "{avatar} 闭关失败，折损了 {years} 年阳寿。"
 
 msgid "Retreat Bonus"
 msgstr "闭关感悟"
+
+# 格式化字符串
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}，熟练度：{proficiency}%"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}，境界：{realm}"
+
+msgid "Performing {action}"
+msgstr "正在{action}"
+
+msgid "Contains elements: {elements}"
+msgstr "包含元素：{elements}"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age}岁"
+
+msgid "Realm: {realm}"
+msgstr "境界: {realm}"
+
+msgid "Identity: {identity}"
+msgstr "身份: {identity}"
+
+msgid ""
+"\n"
+"--- Current Effects Detail ---"
+msgstr ""
+"\n"
+"--- 当前效果明细 ---"
+
+msgid "No additional effects"
+msgstr "无额外效果"
+
+# 复杂格式化字符串 (get_other_avatar_info)
+msgid ""
+"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
+"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr ""
+"{name}，绰号：{nickname}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，功法：{technique}，兵器：{weapon}，辅助：{aux}，HP：{hp}"
+
+# 奇遇事件文本 - 兵器
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "你在奇遇中发现了{realm}兵器『{weapon_name}』。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " 但你手中已有『{weapon_name}』。"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "发现了兵器『{weapon_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 辅助装备
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "你在奇遇中发现了{realm}辅助装备『{auxiliary_name}』。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " 但你手中已有『{auxiliary_name}』。"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "发现了辅助装备『{auxiliary_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 功法
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "你在奇遇中领悟了上品功法『{technique_name}』。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " 这与你当前主修的『{technique_name}』冲突。"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "领悟了功法『{technique_name}』，{exchange_text}"
+
+# 奇遇事件文本 - 其他类型
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} 拜 {master_name} 为师"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} 获得灵石 {amount} 枚"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} 修为增长 {exp_gain} 点"
+
+# 物品动词
+msgid "item_verb_equip"
+msgstr "装备"
+
+msgid "item_verb_equipped"
+msgstr "换上了"
+
+msgid "item_verb_practice"
+msgstr "修炼"
+
+msgid "item_verb_switched"
+msgstr "改修了"
+
+msgid "item_verb_consume"
+msgstr "服用"
+
+msgid "item_verb_consumed"
+msgstr "服用了"
+
+msgid "item_verb_replace"
+msgstr "替换"
+
+# 自动装备消息
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} 获得了{grade}{label}『{item_name}』并{action}。"
+
+# 标签
+msgid "【Auction Items Information】"
+msgstr "【涉及拍品信息】"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【相关角色信息】"
+
+# 物品标签
+msgid "item_label_weapon"
+msgstr "兵器"
+
+msgid "item_label_auxiliary"
+msgstr "辅助装备"
+
+msgid "item_label_technique"
+msgstr "功法"
+
+msgid "item_label_elixir"
+msgstr "丹药"
+
+# 选项 A
+msgid "{action} new {label}『{new_name}』"
+msgstr "{action}新{label}『{new_name}』"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr "，卖掉旧{label}『{old_name}』"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr "，{replace}旧{label}『{old_name}』"
+
+# 选项 B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "卖掉新{label}『{new_name}』换取灵石，保留现状"
+
+msgid "Abandon『{new_name}』"
+msgstr "放弃『{new_name}』"
+
+msgid ", keep current『{old_name}』"
+msgstr "，保留身上的『{old_name}』"
+
+# 场景设定
+msgid ""
+"Event Type: Mysterious Auction\n"
+"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr ""
+"事件类型：神秘拍卖会\n"
+"场景设定：拍卖会发生在一处神秘空间，由一位面目模糊、气息深不可测的神秘人主持。"
+
+# 分隔符
+msgid "relation_separator"
+msgstr "；"
+
+msgid "element_separator"
+msgstr "、"
+
+msgid "material_separator"
+msgstr "，"
+
+# 故事生成文本
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "成交：{winner_name}以{price}灵石拍下{item_name}。"
+
+msgid ""
+"Competition: In the auction for {item_name}, {winner_name} outbid "
+"{runner_up_name} (bid: {bid})."
+msgstr "竞争：在{item_name}的竞拍中，{winner_name}力压{runner_up_name}（出价{bid}）。"
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "物品：{item_name}，介绍：{description}"
 
 # Misfortune messages
 msgid "Encountered misfortune ({theme}), {result}"
@@ -2513,6 +2611,22 @@ msgstr "恪守原则，讲究道义，除魔卫道一马当先，宁折不弯。
 
 msgid "SECT_14_STYLE"
 msgstr "强者为尊，随心所欲，崇尚绝对的力量与杀戮，视众生为血食。"
+
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr "（道统：{orthodoxy}，阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr "{sect_name}（道统：{orthodoxy}，阵营：{alignment}，驻地：{hq_name}）"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name}（道统：{orthodoxy}，阵营：{alignment}，风格：{style}，驻地：{hq_name}）{effect}"
 
 # ============================================================================
 # Simulator & Event Translations

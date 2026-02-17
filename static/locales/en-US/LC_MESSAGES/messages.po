@@ -113,25 +113,29 @@ msgstr "failed"
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 
-# Action: Cultivate
-msgid "cultivate_action_name"
-msgstr "Cultivate"
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Respire"
 
-msgid "cultivate_description"
+msgid "respire_description"
 msgstr ""
-"Cultivate to increase cultivation. Best effect in cultivation areas (cave "
-"dwellings) with matching essence, otherwise very poor effect"
+"Conform to the Heavenly Dao and respire Qi. The higher the spiritual energy "
+"density, the better the effect."
 
-msgid "cultivate_requirements"
-msgstr ""
-"Character not at bottleneck; if in cave dwelling area, it must be unowned or"
-" belong to oneself"
+msgid "respire_requirements"
+msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "Your orthodoxy does not support Qi Respiration."
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "This cave dwelling has been occupied by {name}, cannot respire"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} begins respiring at {location}, {efficiency}"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "Cultivation has reached bottleneck, cannot continue cultivating"
-
-msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
-msgstr "This cave dwelling has been occupied by {name}, cannot cultivate"
 
 msgid "excellent progress"
 msgstr "excellent progress"
@@ -142,8 +146,8 @@ msgstr "slow progress (essence mismatch)"
 msgid "slow progress (sparse essence)"
 msgstr "slow progress (sparse essence)"
 
-msgid "{avatar} begins cultivating at {location}, {efficiency}"
-msgstr "{avatar} begins cultivating at {location}, {efficiency}"
+msgid "action_respire_short_name"
+msgstr "Respire"
 
 # Action: Escape
 msgid "escape_action_name"
@@ -777,6 +781,88 @@ msgstr "Two people are holding an elegant tea party."
 msgid "action_chess_story_prompt"
 msgstr "Two people are playing chess."
 
+msgid "action_educate_short_name"
+msgstr "Educate"
+
+msgid "action_meditate_short_name"
+msgstr "Meditate"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Meditate"
+
+msgid "meditate_description"
+msgstr ""
+"Buddhist cultivation. Calm the mind through Zen meditation, with a chance of"
+" epiphany for massive cultivation gain."
+
+msgid "meditate_requirements"
+msgstr "Requires Buddhist orthodoxy"
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "Your orthodoxy does not support Zen Meditation."
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} begins Zen Meditation."
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} completed meditation with a peaceful mind."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Educate"
+
+msgid "educate_description"
+msgstr ""
+"Confucian cultivation. Educate people in the city to accumulate merit and "
+"luck."
+
+msgid "educate_requirements"
+msgstr "Requires Confucian orthodoxy and being in a City"
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "Your orthodoxy does not support Confucian Education."
+
+msgid "Must be in a City to educate people."
+msgstr "Must be in a City to educate people."
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} begins educating people in {city}."
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Temper"
+
+msgid "temper_description"
+msgstr ""
+"Tempering body strength through extreme exercise, seeking nothing from the "
+"outside, consuming no spiritual energy."
+
+msgid "temper_requirements"
+msgstr "Requires Martial Orthodoxy"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Your orthodoxy does not support Body Tempering."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} begins tempering body strength"
+
+msgid "action_temper_short_name"
+msgstr "Temper"
+
 # Alignment
 msgid "righteous"
 msgstr "Righteous"
@@ -905,6 +991,9 @@ msgstr "Major Events"
 
 msgid "Recent Events"
 msgstr "Recent Events"
+
+msgid "Orthodoxy"
+msgstr "Orthodoxy"
 
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "A rogue cultivator {name} has appeared in the world."
@@ -1085,8 +1174,11 @@ msgstr "Plunder Gain"
 msgid "effect_extra_catch_success_rate"
 msgstr "Catch Success Rate"
 
-msgid "effect_extra_cultivate_exp"
-msgstr "Cultivation Experience"
+msgid "effect_extra_respire_exp"
+msgstr "Respire Experience"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "Extra Respire Exp Multiplier"
 
 msgid "effect_extra_battle_strength_points"
 msgstr "Battle Strength"
@@ -1112,8 +1204,8 @@ msgstr "Damage Reduction"
 msgid "effect_realm_suppression_bonus"
 msgstr "Realm Suppression"
 
-msgid "effect_cultivate_duration_reduction"
-msgstr "Cultivation Duration Reduction"
+msgid "effect_respire_duration_reduction"
+msgstr "Respire Duration Reduction"
 
 msgid "effect_extra_cast_success_rate"
 msgstr "Cast Success Rate"
@@ -1129,6 +1221,12 @@ msgstr "Hidden Domain Danger Rate"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "Education Efficiency"
+
+msgid "effect_extra_educate_prosperity_prob"
+msgstr "Education Prosperity Probability"
 
 # Effect Formatting
 msgid "action_list_separator"
@@ -1170,6 +1268,12 @@ msgstr "Elixir [{name}]"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "Tempering Efficiency"
+
+msgid "effect_temper_duration_reduction"
+msgstr "Temper Duration Reduction"
 
 # ============================================================================
 # Elixir System - Elixirs
@@ -1736,8 +1840,8 @@ msgstr "Please write a 100-300 word short story based on this."
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
-msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "Cultivate Region (can cultivate to increase cultivation)"
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Cultivate Region (can respire to increase cultivation)"
 
 msgid "Normal Region (can hunt, gather, mine)"
 msgstr "Normal Region (can hunt, gather, mine)"
@@ -2618,6 +2722,27 @@ msgid "SECT_14_STYLE"
 msgstr ""
 "Might makes right, doing as one pleases, worshipping absolute power and "
 "slaughter, viewing all beings as food."
+
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
 
 # Separators
 msgid "relation_separator"

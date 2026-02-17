@@ -75,12 +75,12 @@ class TestEffectDescI18n:
             {
                 "when": "avatar.cultivation_progress.realm.value >= 6",
                 "when_desc": "condition_realm_high",
-                "extra_cultivate_exp": -25
+                "extra_respire_exp": -25
             },
             {
                 "when": "avatar.cultivation_progress.realm.value < 6",
                 "when_desc": "condition_realm_low",
-                "extra_cultivate_exp": 10
+                "extra_respire_exp": 10
             }
         ]
         

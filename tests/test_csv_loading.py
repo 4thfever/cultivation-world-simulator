@@ -155,7 +155,7 @@ class TestSectLoading:
 
     def test_sect_without_techniques(self, game_lang):
         """测试没有配置功法的宗门"""
-        sect = sects_by_id.get(12) # 不夜城
+        sect = sects_by_id.get(10) # 摄魂音宗
         assert sect is not None
         assert sect.technique_names == []
 

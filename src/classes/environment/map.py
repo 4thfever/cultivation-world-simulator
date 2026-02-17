@@ -108,7 +108,7 @@ class Map():
             return infos
 
         return {
-            t("Cultivate Region (can cultivate to increase cultivation)"): build_regions_info(filter_regions(CultivateRegion)),
+            t("Cultivate Region (can respire to increase cultivation)"): build_regions_info(filter_regions(CultivateRegion)),
             t("Normal Region (can hunt, gather, mine)"): build_regions_info(filter_regions(NormalRegion)),
             t("City Region (can trade)"): build_regions_info(filter_regions(CityRegion)),
             t("Sect Headquarters (sect disciples heal faster here)"): build_regions_info(filter_regions(SectRegion)),

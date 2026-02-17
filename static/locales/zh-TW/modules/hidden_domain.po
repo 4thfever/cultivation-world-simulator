@@ -16,7 +16,8 @@ msgstr ""
 # Hidden Domain (祕境)
 # ============================================================================
 msgid "hidden_domain_story_prompt"
-msgstr "描述探索祕境的過程。可以聚焦於單人的經歷，也可以描述多人問的互動（如相遇、合作、競爭甚至相互攻擊）。內容應涵蓋遭遇的兇險、獲得的機緣，或是空手而歸的失落與遺憾，營造神祕、緊張或充滿變數的氛圍。"
+msgstr ""
+"描述探索祕境的過程。可以聚焦於單人的經歷，也可以描述多人問的互動（如相遇、合作、競爭甚至相互攻擊）。內容應涵蓋遭遇的兇險、獲得的機緣，或是空手而歸的失落與遺憾，營造神祕、緊張或充滿變數的氛圍。"
 
 msgid "Hidden Domains opened: {names}"
 msgstr "{names}"
@@ -46,8 +47,8 @@ msgstr ""
 "描述：{desc}"
 
 msgid ""
-"Hidden Domain {name} opened! Entry restricted to {realm} only. "
-"Entrants: {entrants}"
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
 msgstr "祕境【{name}】現世！僅限{realm}修士進入。進入者：{entrants}。"
 
 msgid ""

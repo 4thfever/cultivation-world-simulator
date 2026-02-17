@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Dao"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr "Conform to the Heavenly Dao, breathe in spiritual energy (Qi), and improve cultivation realm through practice."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Buddhism"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr "Save all sentient beings, and improve cultivation realm through meditation and sudden enlightenment."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Confucianism"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr "Educate the common people, cultivate the Noble Spirit (Haoran Qi), and the realm will increase accordingly."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Nature"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Take Heaven and Earth as teacher, follow the Way of Nature."
+
+msgid "Orthodoxy [{name}]"
+msgstr "Orthodoxy [{name}]"
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Martial"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "Entering the Dao through martial arts, tempering the body. Although progress is slow, the foundation is solid, and breaking through bottlenecks is as easy as eating and drinking."

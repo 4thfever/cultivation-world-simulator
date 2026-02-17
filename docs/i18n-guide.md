@@ -92,6 +92,8 @@ python tools/i18n/translate_name.py
 *   This generates/updates `static/locales/en-US/game_configs/last_name.csv` and `given_name.csv` directly.
 *   These files are **NOT** handled via the PO/MO system.
 
+增加新文件时，尽量走手动修改而非脚本。
+msgid用英文不用中文。
 ## 6. Development Rules
 
 1.  **Source Split Strategy**: We use split `.po` files in `modules/` to avoid merge conflicts. The build script merges them.

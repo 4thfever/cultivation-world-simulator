@@ -5,6 +5,7 @@ import json
 from src.classes.alignment import Alignment
 from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
+from src.classes.core.orthodoxy import get_orthodoxy
 from src.utils.config import CONFIG
 
 from typing import TYPE_CHECKING, Optional
@@ -52,6 +53,8 @@ class Sect:
     effect_desc: str = ""
     # 宗门自定义职位名称（可选）：SectRank -> 名称
     rank_names: dict[str, str] = field(default_factory=dict)
+    # 道统ID
+    orthodoxy_id: str = "dao"
     
     # 运行时成员列表：Avatar ID -> Avatar
     members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
@@ -75,16 +78,22 @@ class Sect:
     def get_info(self) -> str:
         from src.i18n import t
         hq = self.headquarter
-        return t("{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})",
-                sect_name=self.name, alignment=str(self.alignment), hq_name=hq.name)
+        orthodoxy = get_orthodoxy(self.orthodoxy_id)
+        orthodoxy_name = t(orthodoxy.name) if orthodoxy else self.orthodoxy_id
+        return t("{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: {hq_name})",
+                sect_name=self.name, orthodoxy=orthodoxy_name, alignment=str(self.alignment), hq_name=hq.name)
 
     def get_detailed_info(self) -> str:
         # 详细描述：风格、阵营、驻地
         from src.i18n import t
         hq = self.headquarter
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return t("{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
-                sect_name=self.name, alignment=str(self.alignment), 
+        
+        orthodoxy = get_orthodoxy(self.orthodoxy_id)
+        orthodoxy_name = t(orthodoxy.name) if orthodoxy else self.orthodoxy_id
+        
+        return t("{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                sect_name=self.name, orthodoxy=orthodoxy_name, alignment=str(self.alignment), 
                 style=t(self.member_act_style), hq_name=hq.name, effect=effect_part)
     
     def get_rank_name(self, rank: "SectRank") -> str:
@@ -151,6 +160,8 @@ class Sect:
                     "effect_desc": ""
                 })
 
+        orthodoxy = get_orthodoxy(self.orthodoxy_id)
+
         return {
             "id": self.id,
             "name": self.name,
@@ -164,7 +175,8 @@ class Sect:
             # 兼容旧字段，如果前端还要用的话（建议迁移后废弃）
             "technique_names": self.technique_names,
             "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
-            "members": members_list
+            "members": members_list,
+            "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id}
         }
 
 def _split_names(value: object) -> list[str]:
@@ -173,6 +185,31 @@ def _split_names(value: object) -> list[str]:
     parts = [x.strip() for x in raw.split(sep) if x.strip()] if raw else []
     return parts
 
+def _merge_effects_dict(base: dict[str, object], addition: dict[str, object]) -> dict[str, object]:
+    """合并两个 effects 字典（简单合并逻辑）"""
+    if not base and not addition:
+        return {}
+    merged: dict[str, object] = dict(base) if base else {}
+    for key, val in (addition or {}).items():
+        if key in merged:
+            old = merged[key]
+            if isinstance(old, list) and isinstance(val, list):
+                # 去重并集
+                seen = set(old)
+                result = list(old)
+                for x in val:
+                    if x not in seen:
+                        seen.add(x)
+                        result.append(x)
+                merged[key] = result
+            elif isinstance(old, (int, float)) and isinstance(val, (int, float)):
+                merged[key] = old + val
+            else:
+                # 默认覆盖
+                merged[key] = val
+        else:
+            merged[key] = val
+    return merged
 
 def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
     """从配表加载 sect 数据
@@ -218,9 +255,20 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
         weight = get_float(row, "weight", 1.0)
 
         # 读取 effects
-        effects = load_effect_from_str(get_str(row, "effects"))
+        base_effects = load_effect_from_str(get_str(row, "effects"))
+        
+        # 道统处理
+        orthodoxy_id = get_str(row, "orthodoxy_id") or "dao"
+        orthodoxy = get_orthodoxy(orthodoxy_id)
+        
+        # 合并道统 Effects 到宗门 Effects
+        final_effects = base_effects
+        if orthodoxy and orthodoxy.effects:
+             # 以道统为基础，宗门效果叠加/覆盖之
+             final_effects = _merge_effects_dict(orthodoxy.effects, base_effects)
+        
         from src.classes.effect import format_effects_to_text
-        effect_desc = format_effects_to_text(effects)
+        effect_desc = format_effects_to_text(final_effects)
 
         # 读取倾向兵器类型
         from src.classes.weapon_type import WeaponType
@@ -264,9 +312,10 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
             technique_names=technique_names,
             weight=weight,
             preferred_weapon=preferred_weapon,
-            effects=effects,
+            effects=final_effects,
             effect_desc=effect_desc,
             rank_names=rank_names_map,
+            orthodoxy_id=orthodoxy_id,
         )
         new_by_id[sect.id] = sect
         new_by_name[sect.name] = sect
@@ -326,7 +375,11 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
     effect_part = t(" Effect: {effect_desc}", effect_desc=avatar.sect.effect_desc) if avatar.sect.effect_desc else ""
     
     # 构造详细信息，使用标准空格和括号
-    detail_content = t("(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+    orthodoxy = get_orthodoxy(avatar.sect.orthodoxy_id)
+    orthodoxy_name = t(orthodoxy.name) if orthodoxy else avatar.sect.orthodoxy_id
+    
+    detail_content = t("(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}",
+                       orthodoxy=orthodoxy_name,
                        alignment=avatar.sect.alignment, 
                        style=t(avatar.sect.member_act_style), 
                        hq_name=hq.name, 

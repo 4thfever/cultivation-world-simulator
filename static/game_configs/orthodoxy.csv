@@ -1,0 +1,7 @@
+id,name_id,desc_id,name,desc,effects
+id,名称ID,描述ID,名称,描述,效果
+dao,ORTHODOXY_DAO_NAME,ORTHODOXY_DAO_DESC,道,顺应天道，吐纳灵气，通过修行增进境界,"{legal_actions: ['Respire'], extra_respire_exp_multiplier: 0.2}"
+buddhism,ORTHODOXY_BUDDHISM_NAME,ORTHODOXY_BUDDHISM_DESC,佛,普渡众生，通过禅定后的顿悟增进境界,"{legal_actions: ['Meditate']}"
+confucianism,ORTHODOXY_CONFUCIANISM_NAME,ORTHODOXY_CONFUCIANISM_DESC,儒,教化世人，养浩然气，境界随之增加,"{legal_actions: ['Educate']}"
+sanxiu,ORTHODOXY_SANXIU_NAME,ORTHODOXY_SANXIU_DESC,天地,以天地为师，道法自然,"{legal_actions: ['Respire']}"
+wu,ORTHODOXY_WU_NAME,ORTHODOXY_WU_DESC,武,以武入道，打熬筋骨。虽进境缓慢，但根基扎实，突破瓶颈如饮水吃饭。,"{legal_actions: ['Temper'], extra_breakthrough_success_rate: 0.15}"

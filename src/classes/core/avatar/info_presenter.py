@@ -48,6 +48,9 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
 
     from src.classes.core.sect import get_sect_info_with_rank
     
+    # [新增] 道统 (Orthodoxy)
+    orthodoxy_info = t(avatar.orthodoxy.name) if avatar.orthodoxy else t("None")
+
     if detailed:
         weapon_info = t("{weapon_name}, Proficiency: {proficiency}%", 
                        weapon_name=avatar.weapon.get_detailed_info(), 
@@ -86,6 +89,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         t("Spirit Stones"): magic_stone_info,
         t("Relations"): relations_info,
         t("Sect"): sect_info,
+        t("Orthodoxy"): orthodoxy_info,
         t("Alignment"): alignment_info,
         t("Region"): region_info,
         t("Spirit Root"): root_info,
@@ -176,6 +180,13 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         info["sect"] = sect_info
     else:
         info["sect"] = None
+        
+    # [新增] 道统 (Orthodoxy)
+    # 无论有无宗门，都返回道统信息（散修返回"天地"道统）
+    if avatar.orthodoxy:
+        info["orthodoxy"] = avatar.orthodoxy.get_info(detailed=True)
+    else:
+        info["orthodoxy"] = None
         
     # 补充：阵营详情
     from src.classes.alignment import alignment_info_msg_ids
