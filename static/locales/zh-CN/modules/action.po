@@ -100,21 +100,27 @@ msgstr "失败"
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} 遭遇了{calamity}劫难，突破{result}"
 
-# Action: Cultivate
-msgid "cultivate_action_name"
-msgstr "修炼"
+# Action: Respire
+msgid "respire_action_name"
+msgstr "吐纳"
 
-msgid "cultivate_description"
-msgstr "修炼，增进修为。在修炼区域（洞府）且灵气匹配时效果最佳，否则效果很差"
+msgid "respire_description"
+msgstr "顺应天道，吐纳灵气。需要在【灵脉】或【洞府】中进行，灵气密度越高效果越好。"
 
-msgid "cultivate_requirements"
-msgstr "需道门道统或散修身份，以及合适的修炼地点。"
+msgid "respire_requirements"
+msgstr "需要道门或散修道统"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "您的道统不支持吐纳灵气。"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "该洞府已被 {name} 占据，无法吐纳"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} 在 {location} 开始吐纳，{efficiency}"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "修为已达瓶颈，无法继续修炼"
-
-msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
-msgstr "该洞府已被 {name} 占据，无法修炼"
 
 msgid "excellent progress"
 msgstr "进境颇佳"
@@ -125,8 +131,8 @@ msgstr "进境缓慢（灵气不匹配）"
 msgid "slow progress (sparse essence)"
 msgstr "进境缓慢（灵气稀薄）"
 
-msgid "{avatar} begins cultivating at {location}, {efficiency}"
-msgstr "{avatar} 在 {location} 开始修炼，{efficiency}"
+msgid "action_respire_short_name"
+msgstr "吐纳"
 
 # Action: Escape
 msgid "escape_action_name"
@@ -627,9 +633,6 @@ msgstr "教化"
 msgid "action_meditate_short_name"
 msgstr "禅定"
 
-msgid "action_cultivate_short_name"
-msgstr "修炼"
-
 # Action: Meditate
 msgid "meditate_action_name"
 msgstr "禅定"
@@ -638,7 +641,7 @@ msgid "meditate_description"
 msgstr "佛门修炼，通过坐禅平复心境，有概率顿悟获得大量修为。"
 
 msgid "meditate_requirements"
-msgstr "需佛门道统，且无瓶颈。"
+msgstr "需要佛门道统"
 
 msgid "Your orthodoxy does not support Zen Meditation."
 msgstr "您的道统不支持禅定。"
@@ -660,7 +663,7 @@ msgid "educate_description"
 msgstr "儒门修炼，在城市中教化世人，积累功德气运。"
 
 msgid "educate_requirements"
-msgstr "需儒门道统，位于城市，且无瓶颈。"
+msgstr "需要儒家道统，且身处城市"
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "您的道统不支持教化世人。"
@@ -676,7 +679,3 @@ msgstr "{avatar} 完成了教化，功德积累 (+{exp})。"
 
 msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
 msgstr "因 {avatar} 的教化，{city} 的繁荣度提升了。"
-
-# Action: Cultivate (Error msg)
-msgid "Your orthodoxy does not support Qi cultivation."
-msgstr "您的道统不支持吐纳灵气。"

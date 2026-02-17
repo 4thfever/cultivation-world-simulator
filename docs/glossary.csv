@@ -430,7 +430,7 @@ chinese,chinese_tw,english,category,subcategory,notes
 兵器,兵器,Weapon,item,,
 功法,功法,Cultivation Technique,item,,Also: Art - Manual
 辅助装备,輔助裝備,Auxiliary Equipment,item,,Accessories
-修炼,修煉,Cultivate,action,solo,Gain experience
+吐纳,吐納,Respire,action,solo,Gain experience
 突破,突破,Breakthrough,action,solo,Advance realm
 疗伤,療傷,Self Heal,action,solo,Recover HP
 采集,採集,Harvest,action,solo,Gather plants
@@ -493,7 +493,7 @@ chinese,chinese_tw,english,category,subcategory,notes
 顿悟玄机,頓悟玄機,Sudden Enlightenment,event,fortune,Cultivation
 古碑感悟,古碑感悟,Insight from Ancient Stele,event,fortune,Cultivation
 服食灵药,服食靈藥,Consumed Spirit Medicine,event,fortune,Cultivation
-秘境修炼,祕境修煉,Cultivated in Secret Realm,event,fortune,Cultivation
+秘境吐纳,祕境吐納,Respired in Secret Realm,event,fortune,Cultivation
 前辈灌顶,前輩灌頂,Empowerment from Senior,event,fortune,Cultivation
 灵泉淬体,靈泉淬體,Tempered by Spirit Spring,event,fortune,Cultivation
 传承记忆,傳承記憶,Inherited Memory,event,fortune,Cultivation

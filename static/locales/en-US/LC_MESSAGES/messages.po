@@ -113,25 +113,29 @@ msgstr "failed"
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 
-# Action: Cultivate
-msgid "cultivate_action_name"
-msgstr "Cultivate"
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Respire"
 
-msgid "cultivate_description"
+msgid "respire_description"
 msgstr ""
-"Cultivate to increase cultivation. Best effect in cultivation areas (cave "
-"dwellings) with matching essence, otherwise very poor effect"
+"Conform to the Heavenly Dao and respire Qi. Best effect in Cultivation "
+"Regions (Cave Dwellings) with high essence density."
 
-msgid "cultivate_requirements"
-msgstr ""
-"Requires Daoist orthodoxy or Rogue cultivator status, and a valid "
-"cultivation spot."
+msgid "respire_requirements"
+msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "Your orthodoxy does not support Qi Respiration."
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "This cave dwelling has been occupied by {name}, cannot respire"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} begins respiring at {location}, {efficiency}"
 
 msgid "Cultivation has reached bottleneck, cannot continue cultivating"
 msgstr "Cultivation has reached bottleneck, cannot continue cultivating"
-
-msgid "This cave dwelling has been occupied by {name}, cannot cultivate"
-msgstr "This cave dwelling has been occupied by {name}, cannot cultivate"
 
 msgid "excellent progress"
 msgstr "excellent progress"
@@ -142,8 +146,8 @@ msgstr "slow progress (essence mismatch)"
 msgid "slow progress (sparse essence)"
 msgstr "slow progress (sparse essence)"
 
-msgid "{avatar} begins cultivating at {location}, {efficiency}"
-msgstr "{avatar} begins cultivating at {location}, {efficiency}"
+msgid "action_respire_short_name"
+msgstr "Respire"
 
 # Action: Escape
 msgid "escape_action_name"
@@ -783,9 +787,6 @@ msgstr "Educate"
 msgid "action_meditate_short_name"
 msgstr "Meditate"
 
-msgid "action_cultivate_short_name"
-msgstr "Cultivate"
-
 # Action: Meditate
 msgid "meditate_action_name"
 msgstr "Meditate"
@@ -796,7 +797,7 @@ msgstr ""
 " epiphany for massive cultivation gain."
 
 msgid "meditate_requirements"
-msgstr "Requires Buddhist orthodoxy and no bottleneck."
+msgstr "Requires Buddhist orthodoxy"
 
 msgid "Your orthodoxy does not support Zen Meditation."
 msgstr "Your orthodoxy does not support Zen Meditation."
@@ -824,7 +825,7 @@ msgstr ""
 "luck."
 
 msgid "educate_requirements"
-msgstr "Requires Confucian orthodoxy, being in a City, and no bottleneck."
+msgstr "Requires Confucian orthodoxy and being in a City"
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "Your orthodoxy does not support Confucian Education."
@@ -840,10 +841,6 @@ msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
 
 msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
 msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
-
-# Action: Cultivate (Error msg)
-msgid "Your orthodoxy does not support Qi cultivation."
-msgstr "Your orthodoxy does not support Qi cultivation."
 
 # Alignment
 msgid "righteous"
@@ -1816,8 +1813,8 @@ msgstr "Please write a 100-300 word short story based on this."
 # ============================================================================
 # Map & Region & Others (New)
 # ============================================================================
-msgid "Cultivate Region (can cultivate to increase cultivation)"
-msgstr "Cultivate Region (can cultivate to increase cultivation)"
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Cultivate Region (can respire to increase cultivation)"
 
 msgid "Normal Region (can hunt, gather, mine)"
 msgstr "Normal Region (can hunt, gather, mine)"

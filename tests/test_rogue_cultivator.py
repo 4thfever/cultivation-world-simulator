@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch, PropertyMock
 from src.classes.core.orthodoxy import get_orthodoxy
-from src.classes.action.cultivate import Cultivate
+from src.classes.action.respire import Respire
 
 class TestRogueCultivatorOrthodoxy:
     """测试散修（无宗门角色）的道统逻辑"""
@@ -27,14 +27,14 @@ class TestRogueCultivatorOrthodoxy:
         # 检查 legal_actions
         assert "legal_actions" in effects
         legal_actions = effects["legal_actions"]
-        assert "Cultivate" in legal_actions
+        assert "Respire" in legal_actions
         
     def test_rogue_can_cultivate(self, dummy_avatar):
         """测试散修可以进行修炼动作"""
         dummy_avatar.sect = None
         
         # 创建修炼动作
-        action = Cultivate(dummy_avatar, dummy_avatar.world)
+        action = Respire(dummy_avatar, dummy_avatar.world)
         
         # 模拟瓶颈检查通过
         dummy_avatar.cultivation_progress.can_cultivate = MagicMock(return_value=True)
@@ -54,7 +54,7 @@ class TestRogueCultivatorOrthodoxy:
         legal_actions = effects.get("legal_actions", [])
         
         # 散修应该只有 Cultivate，没有 Meditate
-        assert "Cultivate" in legal_actions
+        assert "Respire" in legal_actions
         assert "Meditate" not in legal_actions
 
     def test_join_sect_overrides_sanxiu(self, dummy_avatar):
@@ -91,4 +91,4 @@ class TestRogueCultivatorOrthodoxy:
         # 应该是佛门效果
         assert "Meditate" in legal_actions
         # 散修的 Cultivate 应该消失了（除非佛门也允许 Cultivate，但配置里佛门是 Meditate）
-        assert "Cultivate" not in legal_actions
+        assert "Respire" not in legal_actions

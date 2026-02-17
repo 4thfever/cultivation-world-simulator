@@ -7,15 +7,15 @@ from src.classes.root import get_essence_types_for_root
 from src.classes.environment.region import CultivateRegion
 
 
-class Cultivate(TimedAction):
+class Respire(TimedAction):
     """
-    修炼动作，可以增加修仙进度。
+    吐纳动作，可以增加修仙进度。
     """
     
     # 多语言 ID
-    ACTION_NAME_ID = "cultivate_action_name"
-    DESC_ID = "cultivate_description"
-    REQUIREMENTS_ID = "cultivate_requirements"
+    ACTION_NAME_ID = "respire_action_name"
+    DESC_ID = "respire_description"
+    REQUIREMENTS_ID = "respire_requirements"
     
     # 不需要翻译的常量
     EMOJI = "🌀"
@@ -29,7 +29,7 @@ class Cultivate(TimedAction):
 
     def _execute(self) -> None:
         """
-        修炼
+        吐纳
         获得的exp取决于区域类型和灵气匹配情况：
         - 修炼区域 + 匹配灵气：exp = BASE_EXP_PER_DENSITY * density
         - 修炼区域 + 无匹配灵气 或 非修炼区域：exp = BASE_EXP_LOW_EFFICIENCY
@@ -39,13 +39,13 @@ class Cultivate(TimedAction):
             
         exp = self._calculate_base_exp()
         
-        # 结算额外修炼经验（来自功法/宗门/灵根等）
-        extra_exp = int(self.avatar.effects.get("extra_cultivate_exp", 0) or 0)
+        # 结算额外吐纳经验（来自功法/宗门/灵根等）
+        extra_exp = int(self.avatar.effects.get("extra_respire_exp", 0) or 0)
         if extra_exp:
             exp += extra_exp
 
-        # 结算额外修炼经验倍率
-        multiplier = float(self.avatar.effects.get("extra_cultivate_exp_multiplier", 0.0) or 0.0)
+        # 结算额外吐纳经验倍率
+        multiplier = float(self.avatar.effects.get("extra_respire_exp_multiplier", 0.0) or 0.0)
         if multiplier > 0:
             exp = int(exp * (1 + multiplier))
             
@@ -77,27 +77,27 @@ class Cultivate(TimedAction):
             return False, t("Cultivation has reached bottleneck, cannot continue cultivating")
             
         # 权限检查 (道门或散修)
-        # 如果 legal_actions 不为空，且不包含 "Cultivate"，则禁止 (说明是其他道统，如佛/儒)
+        # 如果 legal_actions 不为空，且不包含 "Respire"，则禁止 (说明是其他道统，如佛/儒)
         legal = self.avatar.effects.get("legal_actions", [])
-        if legal and "Cultivate" not in legal:
-            return False, t("Your orthodoxy does not support Qi cultivation.")
+        if legal and "Respire" not in legal:
+            return False, t("Your orthodoxy does not support Qi Respiration.")
         
         region = self.avatar.tile.region
         
         # 如果在修炼区域，检查洞府所有权
         if isinstance(region, CultivateRegion):
             if region.host_avatar is not None and region.host_avatar != self.avatar:
-                return False, t("This cave dwelling has been occupied by {name}, cannot cultivate",
+                return False, t("This cave dwelling has been occupied by {name}, cannot respire",
                                name=region.host_avatar.name)
         
         return True, ""
 
     def start(self) -> Event:
-        # 计算修炼时长缩减
-        reduction = float(self.avatar.effects.get("cultivate_duration_reduction", 0.0))
+        # 计算吐纳时长缩减
+        reduction = float(self.avatar.effects.get("respire_duration_reduction", 0.0))
         reduction = max(0.0, min(0.9, reduction))
         
-        # 动态设置此次修炼的实际duration
+        # 动态设置此次吐纳的实际duration
         base_duration = self.__class__.duration_months
         actual_duration = max(1, round(base_duration * (1.0 - reduction)))
         self.duration_months = actual_duration
@@ -112,7 +112,7 @@ class Cultivate(TimedAction):
         else:
             efficiency = t("slow progress (sparse essence)")
 
-        content = t("{avatar} begins cultivating at {location}, {efficiency}",
+        content = t("{avatar} begins respiring at {location}, {efficiency}",
                    avatar=self.avatar.name, location=self.avatar.tile.location_name, efficiency=efficiency)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 

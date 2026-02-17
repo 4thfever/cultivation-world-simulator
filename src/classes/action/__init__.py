@@ -20,7 +20,7 @@ from .move_to_avatar import MoveToAvatar
 from .move_away_from_avatar import MoveAwayFromAvatar
 from .move_away_from_region import MoveAwayFromRegion
 from .escape import Escape
-from .cultivate import Cultivate
+from .respire import Respire
 from .breakthrough import Breakthrough
 from .play import Reading, TeaTasting, Traveling, ZitherPlaying
 from .hunt import Hunt
@@ -58,7 +58,7 @@ register_action(actual=True)(MoveToAvatar)
 register_action(actual=True)(MoveAwayFromAvatar)
 register_action(actual=True)(MoveAwayFromRegion)
 register_action(actual=False)(Escape)
-register_action(actual=True)(Cultivate)
+register_action(actual=True)(Respire)
 register_action(actual=True)(Breakthrough)
 register_action(actual=True)(Reading)
 register_action(actual=True)(TeaTasting)
@@ -102,7 +102,7 @@ __all__ = [
     "MoveAwayFromAvatar",
     "MoveAwayFromRegion",
     "Escape",
-    "Cultivate",
+    "Respire",
     "Breakthrough",
     "Reading",
     "TeaTasting",

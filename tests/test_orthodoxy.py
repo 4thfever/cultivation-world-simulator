@@ -3,9 +3,9 @@ from unittest.mock import MagicMock, patch, PropertyMock
 from src.classes.core.orthodoxy import get_orthodoxy, orthodoxy_by_id, Orthodoxy
 from src.classes.core.sect import Sect, sects_by_id
 from src.classes.core.avatar.core import Avatar
-from src.classes.action.cultivate import Cultivate
+from src.classes.action.respire import Respire
 from src.systems.cultivation import Realm
-from src.classes.effect.consts import EXTRA_CULTIVATE_EXP_MULTIPLIER
+EXTRA_CULTIVATE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
 
 class TestOrthodoxyData:
     """测试道统数据的加载和基本结构"""
@@ -85,7 +85,7 @@ class TestOrthodoxyEffects:
         dummy_avatar.cultivation_progress.is_in_bottleneck = MagicMock(return_value=False)
         dummy_avatar.cultivation_progress.add_exp = MagicMock()
         
-        action = Cultivate(dummy_avatar, dummy_avatar.world)
+        action = Respire(dummy_avatar, dummy_avatar.world)
         
         # Mock _get_matched_essence_density to return specific density for predictable base exp
         # BASE_EXP_PER_DENSITY = 100. Let's say density 1. Base exp = 100.
@@ -107,7 +107,7 @@ class TestOrthodoxyEffects:
             # Case 3: 1.0 multiplier + extra fixed exp
             mock_effects.return_value = {
                 EXTRA_CULTIVATE_EXP_MULTIPLIER: 1.0,
-                "extra_cultivate_exp": 50
+                "extra_respire_exp": 50
             }
             action._execute()
             # Base 100 + Extra 50 = 150.
