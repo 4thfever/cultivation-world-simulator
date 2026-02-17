@@ -199,7 +199,7 @@ chinese,chinese_tw,english,category,subcategory,notes
 兵器升级概率,兵器升級概率,Weapon Upgrade Chance,effect,,extra_weapon_upgrade_chance
 搜刮收益,搜刮收益,Plunder Multiplier,effect,,extra_plunder_multiplier
 捕捉灵兽成功率,捕捉靈獸成功率,Beast Capture Success Rate,effect,,extra_catch_success_rate
-修炼经验,修煉經驗,Cultivation Experience,effect,,extra_cultivate_exp
+修炼经验,修煉經驗,Cultivation Experience,effect,,extra_respire_exp
 战力点数,戰力點數,Combat Power Points,effect,,extra_battle_strength_points
 逃跑成功率,逃跑成功率,Escape Success Rate,effect,,extra_escape_success_rate
 暗杀成功率,暗殺成功率,Assassination Success Rate,effect,,extra_assassinate_success_rate
@@ -208,7 +208,7 @@ chinese,chinese_tw,english,category,subcategory,notes
 特殊能力,特殊能力,Special Abilities,effect,,legal_actions
 伤害减免,傷害減免,Damage Reduction,effect,,damage_reduction
 境界压制,境界壓制,Realm Suppression,effect,,realm_suppression_bonus
-修炼时长缩减,修煉時長縮減,Cultivation Duration Reduction,effect,,cultivate_duration_reduction
+修炼时长缩减,修煉時長縮減,Cultivation Duration Reduction,effect,,respire_duration_reduction
 铸造成功率,鑄造成功率,Forging Success Rate,effect,,extra_cast_success_rate
 炼丹成功率,煉丹成功率,Alchemy Success Rate,effect,,extra_refine_success_rate
 自愈效率,自癒效率,Self-Heal Efficiency,effect,,extra_self_heal_efficiency

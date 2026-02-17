@@ -25,6 +25,7 @@ class Orthodoxy:
         info = {
             "id": self.id,
             "name": t(self.name),
+            "type_name": t("Orthodoxy"),
         }
         if detailed:
             info["desc"] = t(self.desc)

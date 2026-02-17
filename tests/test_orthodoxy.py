@@ -5,7 +5,7 @@ from src.classes.core.sect import Sect, sects_by_id
 from src.classes.core.avatar.core import Avatar
 from src.classes.action.respire import Respire
 from src.systems.cultivation import Realm
-EXTRA_CULTIVATE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
+EXTRA_RESPIRE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
 
 class TestOrthodoxyData:
     """测试道统数据的加载和基本结构"""
@@ -76,7 +76,7 @@ class TestSectIntegration:
 class TestOrthodoxyEffects:
     """测试道统效果在游戏逻辑中的生效情况"""
 
-    def test_cultivate_exp_multiplier(self, dummy_avatar):
+    def test_respire_exp_multiplier(self, dummy_avatar):
         """测试修炼经验倍率加成"""
         # 1. 设置角色为道门宗门成员 (或者直接修改 effects)
         # 这里直接模拟 effects 字典，因为我们测的是 Cultivate action 对 effect 的响应
@@ -99,14 +99,14 @@ class TestOrthodoxyEffects:
             dummy_avatar.cultivation_progress.add_exp.assert_called_with(100)
             
             # Case 2: 0.5 multiplier (Dao)
-            mock_effects.return_value = {EXTRA_CULTIVATE_EXP_MULTIPLIER: 0.5}
+            mock_effects.return_value = {EXTRA_RESPIRE_EXP_MULTIPLIER: 0.5}
             action._execute()
             # Expect 100 * (1 + 0.5) = 150
             dummy_avatar.cultivation_progress.add_exp.assert_called_with(150)
             
             # Case 3: 1.0 multiplier + extra fixed exp
             mock_effects.return_value = {
-                EXTRA_CULTIVATE_EXP_MULTIPLIER: 1.0,
+                EXTRA_RESPIRE_EXP_MULTIPLIER: 1.0,
                 "extra_respire_exp": 50
             }
             action._execute()

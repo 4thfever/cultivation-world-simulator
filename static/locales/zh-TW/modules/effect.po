@@ -67,11 +67,11 @@ msgstr "搜刮收益"
 msgid "effect_extra_catch_success_rate"
 msgstr "捕捉靈獸成功率"
 
-msgid "effect_extra_cultivate_exp"
-msgstr "修煉經驗"
+msgid "effect_extra_respire_exp"
+msgstr "吐納經驗"
 
-msgid "effect_extra_cultivate_exp_multiplier"
-msgstr "額外修煉經驗倍率"
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "額外吐納經驗倍率"
 
 msgid "effect_extra_battle_strength_points"
 msgstr "戰力點數"
@@ -97,8 +97,8 @@ msgstr "傷害減免"
 msgid "effect_realm_suppression_bonus"
 msgstr "境界壓制"
 
-msgid "effect_cultivate_duration_reduction"
-msgstr "修煉時長縮減"
+msgid "effect_respire_duration_reduction"
+msgstr "吐納時長縮減"
 
 msgid "effect_extra_cast_success_rate"
 msgstr "鑄造成功率"
@@ -164,3 +164,6 @@ msgstr "消遣收益"
 
 msgid "effect_extra_temper_exp_multiplier"
 msgstr "打熬效率"
+
+msgid "effect_temper_duration_reduction"
+msgstr "打熬時長縮減"

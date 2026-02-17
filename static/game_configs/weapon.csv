@@ -15,8 +15,8 @@ item_id,name_id,desc_id,name,weapon_type,grade,desc,effects
 1024,WEAPON_1024_NAME,WEAPON_1024_DESC,囚龙棒,STAFF,FOUNDATION_ESTABLISHMENT,精铁铸造，重达千斤，力大者可用。,"{extra_battle_strength_points: 2, extra_max_hp: 50}"
 1025,WEAPON_1025_NAME,WEAPON_1025_DESC,绯花扇,FAN,FOUNDATION_ESTABLISHMENT,扇面绘有绯红花瓣，花影迷离，暗藏杀机，令人防不胜防。,"{extra_battle_strength_points: 2, extra_observation_radius: 1}"
 1026,WEAPON_1026_NAME,WEAPON_1026_DESC,打神鞭,WHIP,FOUNDATION_ESTABLISHMENT,仿品，虽无打神之能，却可伤人神魂。,{extra_battle_strength_points: 2}
-1027,WEAPON_1027_NAME,WEAPON_1027_DESC,天魔琴,ZITHER,FOUNDATION_ESTABLISHMENT,琴音魔性，扰乱心智。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
-1028,WEAPON_1028_NAME,WEAPON_1028_DESC,御鬼笛,FLUTE,FOUNDATION_ESTABLISHMENT,笛声凄厉，能以此笛操控尸傀，令人闻之色变。,"{extra_battle_strength_points: 2, cultivate_duration_reduction: 0.1}"
+1027,WEAPON_1027_NAME,WEAPON_1027_DESC,天魔琴,ZITHER,FOUNDATION_ESTABLISHMENT,琴音魔性，扰乱心智。,"{extra_battle_strength_points: 2, respire_duration_reduction: 0.1}"
+1028,WEAPON_1028_NAME,WEAPON_1028_DESC,御鬼笛,FLUTE,FOUNDATION_ESTABLISHMENT,笛声凄厉，能以此笛操控尸傀，令人闻之色变。,"{extra_battle_strength_points: 2, respire_duration_reduction: 0.1}"
 1029,WEAPON_1029_NAME,WEAPON_1029_DESC,无影针,HIDDEN_WEAPON,FOUNDATION_ESTABLISHMENT,细若牛毛，来去无影，防不胜防。,{extra_battle_strength_points: 2}
 1030,WEAPON_1030_NAME,WEAPON_1030_DESC,万兽笛,FLUTE,FOUNDATION_ESTABLISHMENT,百兽宗秘制，笛声可安抚或激怒野兽。,"[{extra_battle_strength_points: 1}, {when: 'avatar.spirit_animal is not None', when_desc: 'condition_has_spirit_animal', extra_battle_strength_points: 2}]"
 1031,WEAPON_1031_NAME,WEAPON_1031_DESC,嗜血狂刀,SABER,FOUNDATION_ESTABLISHMENT,刀身赤红，似渴望饮血，杀性极重，非心志坚定者不可用。,{extra_battle_strength_points: 2}
@@ -36,12 +36,12 @@ item_id,name_id,desc_id,name,weapon_type,grade,desc,effects
 1061,WEAPON_1061_NAME,WEAPON_1061_DESC,九环金背刀,SABER,CORE_FORMATION,刀背嵌入九个金环，挥舞时金环碰撞，声若雷鸣，摄人心魄。,"{extra_battle_strength_points: 3, damage_reduction: 0.05}"
 1062,WEAPON_1062_NAME,WEAPON_1062_DESC,寒铁银枪,SPEAR,CORE_FORMATION,通体由万年寒铁打造，枪身银白，触之冰冷刺骨。,"{extra_battle_strength_points: 3, extra_max_hp: 80}"
 1063,WEAPON_1063_NAME,WEAPON_1063_DESC,七节紫竹鞭,WHIP,CORE_FORMATION,采自南海紫竹林，共七节，坚韧异常，不仅能伤敌，亦可缚妖。,"{extra_battle_strength_points: 3, extra_catch_success_rate: 0.1}"
-1064,WEAPON_1064_NAME,WEAPON_1064_DESC,玉琵琶,ZITHER,CORE_FORMATION,白玉雕琢而成，弹奏时有金石之声，能洗涤心魔。,"{extra_battle_strength_points: 3, cultivate_duration_reduction: 0.1}"
+1064,WEAPON_1064_NAME,WEAPON_1064_DESC,玉琵琶,ZITHER,CORE_FORMATION,白玉雕琢而成，弹奏时有金石之声，能洗涤心魔。,"{extra_battle_strength_points: 3, respire_duration_reduction: 0.1}"
 1065,WEAPON_1065_NAME,WEAPON_1065_DESC,沧海龙吟笛,FLUTE,CORE_FORMATION,采深海寒玉制成，吹奏时如龙吟沧海，声震四野。,"{extra_battle_strength_points: 3, extra_fortune_probability: 0.005}"
 1071,WEAPON_1071_NAME,WEAPON_1071_DESC,凶虎煞刃,SABER,NASCENT_SOUL,上古凶兵，封印白虎凶魂，出鞘必见血，反噬其主。,"{extra_battle_strength_points: 4, extra_plunder_multiplier: 0.5}"
 1072,WEAPON_1072_NAME,WEAPON_1072_DESC,擎天白玉柱,STAFF,NASCENT_SOUL,疑似上古天庭的柱石残片炼制，重如山岳，非大能者不能舞动。,"{extra_battle_strength_points: 4, extra_max_hp: 200}"
 1073,WEAPON_1073_NAME,WEAPON_1073_DESC,阴阳扇,FAN,NASCENT_SOUL,一面纯白主生，一面漆黑主死。扇动间阴阳逆转，缩地成寸。,"{extra_battle_strength_points: 4, extra_move_step: 1}"
 1074,WEAPON_1074_NAME,WEAPON_1074_DESC,龙骨鞭,WHIP,NASCENT_SOUL,以上古真龙之脊骨炼制，挥动时隐有龙吟，对低阶生灵有天然压制。,"{extra_battle_strength_points: 4, realm_suppression_bonus: 0.05}"
-1075,WEAPON_1075_NAME,WEAPON_1075_DESC,伏羲琴,ZITHER,NASCENT_SOUL,上古十大神器之一的仿品，拥有支配万物心灵之神秘力量。,"{extra_battle_strength_points: 4, cultivate_duration_reduction: 0.2}"
+1075,WEAPON_1075_NAME,WEAPON_1075_DESC,伏羲琴,ZITHER,NASCENT_SOUL,上古十大神器之一的仿品，拥有支配万物心灵之神秘力量。,"{extra_battle_strength_points: 4, respire_duration_reduction: 0.2}"
 1076,WEAPON_1076_NAME,WEAPON_1076_DESC,唤魔笛,FLUTE,NASCENT_SOUL,魔界至宝，笛声诡谲，能驱使魔物与凶兽为己所用。,"{extra_battle_strength_points: 4, extra_hunt_materials: 2}"
 1077,WEAPON_1077_NAME,WEAPON_1077_DESC,七彩雀羽,HIDDEN_WEAPON,NASCENT_SOUL,美艳不可方物，绚烂的光芒下隐藏着致命的杀机。,"{extra_battle_strength_points: 4, extra_assassinate_success_rate: 0.1}"

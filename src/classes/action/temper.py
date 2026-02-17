@@ -52,8 +52,7 @@ class Temper(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        # 暂时复用通用的 cultivate_duration_reduction 如果有的话
-        reduction = float(self.avatar.effects.get("cultivate_duration_reduction", 0.0))
+        reduction = float(self.avatar.effects.get("temper_duration_reduction", 0.0))
         reduction = max(0.0, min(0.9, reduction))
         
         base_duration = self.__class__.duration_months

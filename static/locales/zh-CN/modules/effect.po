@@ -1,4 +1,3 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: cultivation-world-simulator 1.0\n"
@@ -67,11 +66,11 @@ msgstr "搜刮收益"
 msgid "effect_extra_catch_success_rate"
 msgstr "捕捉灵兽成功率"
 
-msgid "effect_extra_cultivate_exp"
-msgstr "修炼经验"
+msgid "effect_extra_respire_exp"
+msgstr "吐纳经验"
 
-msgid "effect_extra_cultivate_exp_multiplier"
-msgstr "额外修炼经验倍率"
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "额外吐纳经验倍率"
 
 msgid "effect_extra_battle_strength_points"
 msgstr "战力点数"
@@ -97,8 +96,8 @@ msgstr "伤害减免"
 msgid "effect_realm_suppression_bonus"
 msgstr "境界压制"
 
-msgid "effect_cultivate_duration_reduction"
-msgstr "修炼时长缩减"
+msgid "effect_respire_duration_reduction"
+msgstr "吐纳时长缩减"
 
 msgid "effect_extra_cast_success_rate"
 msgstr "铸造成功率"
@@ -164,3 +163,6 @@ msgstr "消遣收益"
 
 msgid "effect_extra_temper_exp_multiplier"
 msgstr "打熬效率"
+
+msgid "effect_temper_duration_reduction"
+msgstr "打熬时长缩减"

@@ -2580,6 +2580,10 @@ msgstr "笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一
 msgid "TECHNIQUE_59_NAME"
 msgstr "言出法随"
 
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr "口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。"
+
 #. technique.csv: 旭日锻体术
 msgid "TECHNIQUE_60_NAME"
 msgstr "旭日锻体术"

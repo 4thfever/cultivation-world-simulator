@@ -18,13 +18,13 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 16,PERSONA_16_NAME,PERSONA_16_DESC,RASH,鲁莽,RATIONAL;PENSIVE;LIFE_CHERISHING,你行事冲动、少考虑后果，常凭直觉立刻行动。,N,,"{extra_cast_success_rate: -0.05, extra_retreat_success_rate: -0.1}"
 17,PERSONA_17_NAME,PERSONA_17_DESC,TIMID,胆小,ADVENTUROUS;AGGRESSIVE;VENGEFUL;EXTREMELY_RIGHTEOUS;EXTREMELY_EVIL,你谨小慎微，容易畏惧风险。,N,,{extra_escape_success_rate: 0.1}
 18,PERSONA_18_NAME,PERSONA_18_DESC,OVERBEARING,霸道,FRIENDLY;TIMID,你行事强势，不讲道理，习惯以自己的利益为先。,N,,
-19,PERSONA_19_NAME,PERSONA_19_DESC,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,"{extra_cultivate_exp: 30, extra_retreat_success_rate: 0.15}"
+19,PERSONA_19_NAME,PERSONA_19_DESC,CULTIVATION_OBSESSED,修行痴迷,FICKLE;LAZY;CASUAL,你将绝大多数时间用于修炼，厌恶享乐。,R,,"{extra_respire_exp: 30, extra_retreat_success_rate: 0.15}"
 20,PERSONA_20_NAME,PERSONA_20_DESC,INTROVERTED,内向,EXTROVERTED,你更享受独处与自我思考，倾向回避不必要的社交。,N,,{extra_retreat_success_rate: 0.05}
 21,PERSONA_21_NAME,PERSONA_21_DESC,EXTROVERTED,外向,ALOOF;INDIFFERENT;INTROVERTED,你乐于与人交流，主动结识伙伴。,N,,
 22,PERSONA_22_NAME,PERSONA_22_DESC,MEAN,刻薄,FRIENDLY;ENTHUSIASTIC,你在对话中倾向以讽刺、嘲弄、挖苦的方式表达自己。,N,,
 23,PERSONA_23_NAME,PERSONA_23_DESC,ENTHUSIASTIC,热情,ALOOF;INDIFFERENT;MEAN,你待人友好、积极回应，倾向用鼓励与赞美拉近距离。,N,,
 24,PERSONA_24_NAME,PERSONA_24_DESC,EXTREMELY_RIGHTEOUS,极端正义,INTROVERTED;EXTREMELY_EVIL,你对邪恶深恶痛绝，对正义的理想抱有近乎偏执的追求。,SR,"avatar.alignment == ""RIGHTEOUS""",{extra_breakthrough_success_rate: 0.05}
-25,PERSONA_25_NAME,PERSONA_25_DESC,EXTREMELY_EVIL,极端邪恶,INTROVERTED;EXTREMELY_RIGHTEOUS,你推崇权力与恐惧，为达目的不择手段。,SR,"avatar.alignment == ""EVIL""","{extra_breakthrough_success_rate: -0.05, extra_cultivate_exp: 20}"
+25,PERSONA_25_NAME,PERSONA_25_DESC,EXTREMELY_EVIL,极端邪恶,INTROVERTED;EXTREMELY_RIGHTEOUS,你推崇权力与恐惧，为达目的不择手段。,SR,"avatar.alignment == ""EVIL""","{extra_breakthrough_success_rate: -0.05, extra_respire_exp: 20}"
 26,PERSONA_26_NAME,PERSONA_26_DESC,OPEN_MINDED,开放,SHY,你对待和他人结为道侣或者双修比较随意,R,,{extra_dual_cultivation_exp: 30}
 27,PERSONA_27_NAME,PERSONA_27_DESC,SHY,腼腆,OPEN_MINDED,你对待和他人结为道侣或者双修比较谨慎,N,,
 28,PERSONA_28_NAME,PERSONA_28_DESC,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,

@@ -1174,11 +1174,11 @@ msgstr "Plunder Gain"
 msgid "effect_extra_catch_success_rate"
 msgstr "Catch Success Rate"
 
-msgid "effect_extra_cultivate_exp"
-msgstr "Cultivation Experience"
+msgid "effect_extra_respire_exp"
+msgstr "Respire Experience"
 
-msgid "effect_extra_cultivate_exp_multiplier"
-msgstr "Extra Cultivation Exp Multiplier"
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "Extra Respire Exp Multiplier"
 
 msgid "effect_extra_battle_strength_points"
 msgstr "Battle Strength"
@@ -1204,8 +1204,8 @@ msgstr "Damage Reduction"
 msgid "effect_realm_suppression_bonus"
 msgstr "Realm Suppression"
 
-msgid "effect_cultivate_duration_reduction"
-msgstr "Cultivation Duration Reduction"
+msgid "effect_respire_duration_reduction"
+msgstr "Respire Duration Reduction"
 
 msgid "effect_extra_cast_success_rate"
 msgstr "Cast Success Rate"
@@ -1271,6 +1271,9 @@ msgstr "Leisure Benefit"
 
 msgid "effect_extra_temper_exp_multiplier"
 msgstr "Tempering Efficiency"
+
+msgid "effect_temper_duration_reduction"
+msgstr "Temper Duration Reduction"
 
 # ============================================================================
 # Elixir System - Elixirs
