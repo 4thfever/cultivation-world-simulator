@@ -96,3 +96,6 @@ msgstr "Major Events"
 
 msgid "Recent Events"
 msgstr "Recent Events"
+
+msgid "Orthodoxy"
+msgstr "Orthodoxy"

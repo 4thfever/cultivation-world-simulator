@@ -808,6 +808,9 @@ msgstr "重大事件"
 msgid "Recent Events"
 msgstr "短期事件"
 
+msgid "Orthodoxy"
+msgstr "道統"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "一名散修 {name} 現身於世。"
 

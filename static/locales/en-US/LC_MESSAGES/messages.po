@@ -974,6 +974,9 @@ msgstr "Major Events"
 msgid "Recent Events"
 msgstr "Recent Events"
 
+msgid "Orthodoxy"
+msgstr "Orthodoxy"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "A rogue cultivator {name} has appeared in the world."
 

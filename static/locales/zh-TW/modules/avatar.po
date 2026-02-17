@@ -96,3 +96,6 @@ msgstr "重大事件"
 
 msgid "Recent Events"
 msgstr "短期事件"
+
+msgid "Orthodoxy"
+msgstr "道統"

@@ -48,6 +48,9 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
 
     from src.classes.core.sect import get_sect_info_with_rank
     
+    # [新增] 道统 (Orthodoxy)
+    orthodoxy_info = t(avatar.orthodoxy.name) if avatar.orthodoxy else t("None")
+
     if detailed:
         weapon_info = t("{weapon_name}, Proficiency: {proficiency}%", 
                        weapon_name=avatar.weapon.get_detailed_info(), 
@@ -86,6 +89,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         t("Spirit Stones"): magic_stone_info,
         t("Relations"): relations_info,
         t("Sect"): sect_info,
+        t("Orthodoxy"): orthodoxy_info,
         t("Alignment"): alignment_info,
         t("Region"): region_info,
         t("Spirit Root"): root_info,
