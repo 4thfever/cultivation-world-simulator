@@ -177,6 +177,13 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     else:
         info["sect"] = None
         
+    # [新增] 道统 (Orthodoxy)
+    # 无论有无宗门，都返回道统信息（散修返回"天地"道统）
+    if avatar.orthodoxy:
+        info["orthodoxy"] = avatar.orthodoxy.get_info(detailed=True)
+    else:
+        info["orthodoxy"] = None
+        
     # 补充：阵营详情
     from src.classes.alignment import alignment_info_msg_ids
     info["alignment"] = str(avatar.alignment) if avatar.alignment else t("Unknown")

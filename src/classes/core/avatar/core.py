@@ -12,6 +12,7 @@ from typing import Optional, List, TYPE_CHECKING
 if TYPE_CHECKING:
     from src.classes.sect_ranks import SectRank
     from src.classes.environment.region import CultivateRegion
+    from src.classes.core.orthodoxy import Orthodoxy
 
 from src.systems.time import MonthStamp
 from src.classes.core.world import World
@@ -481,6 +482,18 @@ class Avatar(
         return get_avatar_desc(self, detailed=detailed)
 
     # ========== 魔法方法 ==========
+
+    @property
+    def orthodoxy(self) -> "Orthodoxy | None":
+        """获取角色的道统（有宗门则随宗门，无宗门则为散修）"""
+        from src.classes.core.orthodoxy import get_orthodoxy
+        
+        # 优先返回宗门的道统
+        if self.sect:
+            return get_orthodoxy(self.sect.orthodoxy_id)
+            
+        # 散修返回默认道统
+        return get_orthodoxy("sanxiu")
 
     @property
     def current_action_name(self) -> str:

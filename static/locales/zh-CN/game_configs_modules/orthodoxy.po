@@ -22,3 +22,13 @@ msgstr "儒"
 
 msgid "ORTHODOXY_CONFUCIANISM_DESC"
 msgstr "教化世人，养浩然气，境界随之增加"
+
+# 天地 (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "天地"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "以天地为师，道法自然"
+
+msgid "Orthodoxy [{name}]"
+msgstr "道统【{name}】"

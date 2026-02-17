@@ -1504,6 +1504,16 @@ msgstr ""
 "Educate the common people, cultivate the Noble Spirit (Haoran Qi), and the "
 "realm will increase accordingly."
 
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Nature"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Take Heaven and Earth as teacher, follow the Way of Nature."
+
+msgid "Orthodoxy [{name}]"
+msgstr "Orthodoxy [{name}]"
+
 #. persona.csv: 理性
 msgid "PERSONA_1_NAME"
 msgstr "Rational"

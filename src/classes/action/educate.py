@@ -58,7 +58,10 @@ class Educate(TimedAction):
         self.avatar.cultivation_progress.add_exp(exp)
         
         # 副作用：小概率增加城市繁荣度 (20%)
-        if random.random() < 0.2:
+        base_prob = 0.2
+        extra_prob = float(self.avatar.effects.get("extra_educate_prosperity_prob", 0.0))
+        
+        if random.random() < (base_prob + extra_prob):
             region.change_prosperity(0.2)
             self._prosperity_increased = True
         else:

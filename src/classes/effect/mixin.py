@@ -113,6 +113,13 @@ class EffectsMixin:
         if self.sect:
             label = t("Sect [{name}]", name=self.sect.name)
             _collect(label, source_obj=self.sect)
+        else:
+            # 散修应用默认道统效果
+            from src.classes.core.orthodoxy import get_orthodoxy
+            sanxiu_orthodoxy = get_orthodoxy("sanxiu")
+            if sanxiu_orthodoxy:
+                label = t("Orthodoxy [{name}]", name=t(sanxiu_orthodoxy.name))
+                _collect(label, source_obj=sanxiu_orthodoxy)
             
         if self.technique:
             label = t("Technique [{name}]", name=self.technique.name)
