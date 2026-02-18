@@ -2200,9 +2200,8 @@ msgstr ""
 
 msgid "occupy_story_prompt"
 msgstr ""
-"This is a battle for cave dwelling. Highlight realm gap and risk "
-"consequences (rejection leads to battle; defeat may cause severe injury or "
-"death). Do not mention specific HP or damage values."
+"This is a battle for cave dwelling. Do not mention specific HP or damage "
+"values."
 
 msgid "feedback_yield"
 msgstr "Yield"

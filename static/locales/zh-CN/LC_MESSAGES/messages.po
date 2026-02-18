@@ -2013,7 +2013,7 @@ msgstr ""
 " 可更冒险，LIFE_CHERISHING/TIMID 应更倾向稳妥选择。"
 
 msgid "occupy_story_prompt"
-msgstr "这是一场争夺洞府的战斗。请体现双方境界差距与风险后果（拒绝即开战，败北可能重伤或死亡），不要出现具体血量或伤害数值。"
+msgstr "这是一场争夺洞府的战斗。不要出现具体血量或伤害数值。"
 
 msgid "feedback_yield"
 msgstr "让步"
