@@ -107,3 +107,6 @@ msgstr "Confused"
 
 msgid "emotion_tired"
 msgstr "Tired"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr " (Owner: {owner}, {realm})"

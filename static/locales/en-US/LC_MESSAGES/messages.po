@@ -1933,6 +1933,9 @@ msgstr "Confused"
 msgid "emotion_tired"
 msgstr "Tired"
 
+msgid " (Owner: {owner}, {realm})"
+msgstr " (Owner: {owner}, {realm})"
+
 # Misfortune messages
 msgid "Encountered misfortune ({theme}), {result}"
 msgstr "Encountered misfortune ({theme}), {result}"
@@ -2186,7 +2189,9 @@ msgid "occupy_action_name"
 msgstr "Seize Cave Dwelling"
 
 msgid "occupy_description"
-msgstr "Occupy or seize cave dwelling"
+msgstr ""
+"Occupy or seize cave dwelling. Note: This may trigger a battle with the cave"
+" dwelling owner"
 
 msgid "occupy_requirements"
 msgstr "Target within interaction range; cannot execute consecutively"

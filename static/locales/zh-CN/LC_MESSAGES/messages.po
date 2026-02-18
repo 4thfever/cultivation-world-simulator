@@ -1475,6 +1475,9 @@ msgstr "疑惑"
 msgid "emotion_tired"
 msgstr "疲惫"
 
+msgid " (Owner: {owner}, {realm})"
+msgstr "（主人{owner}，{realm}）"
+
 # 条件翻译
 msgid "Conditional effect"
 msgstr "条件触发"
@@ -2003,7 +2006,7 @@ msgid "occupy_action_name"
 msgstr "抢夺洞府"
 
 msgid "occupy_description"
-msgstr "占据或抢夺洞府"
+msgstr "占据或抢夺洞府。注意可能引发和洞府主人的战斗"
 
 msgid "occupy_requirements"
 msgstr "目标在交互范围内；不能连续执行"

@@ -170,7 +170,7 @@ msgid "occupy_action_name"
 msgstr "搶奪洞府"
 
 msgid "occupy_description"
-msgstr "佔據或搶奪洞府"
+msgstr "佔據或搶奪洞府。注意可能引發和洞府主人的戰鬥"
 
 msgid "occupy_requirements"
 msgstr "目標在交互範圍內；不能連續執行"

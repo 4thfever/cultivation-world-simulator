@@ -190,6 +190,17 @@ class CultivateRegion(Region):
     def get_region_type(self) -> str:
         return "cultivate"
 
+    def _get_owner_desc(self) -> str:
+        if self.host_avatar:
+             return t(" (Owner: {owner}, {realm})", owner=self.host_avatar.name, realm=str(self.host_avatar.cultivation_progress.realm))
+        return ""
+
+    def get_info(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
+        return super().get_info(current_loc, step_len) + self._get_owner_desc()
+
+    def get_detailed_info(self, current_loc: tuple[int, int] = None, step_len: int = 1) -> str:
+        return super().get_detailed_info(current_loc, step_len) + self._get_owner_desc()
+
     def _get_desc(self) -> str:
         return t(" ({essence_type} Essence: {essence_density})", essence_type=self.essence_type, essence_density=self.essence_density)
 

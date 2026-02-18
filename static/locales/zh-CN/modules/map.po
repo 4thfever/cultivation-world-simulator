@@ -104,3 +104,6 @@ msgstr "疑惑"
 
 msgid "emotion_tired"
 msgstr "疲惫"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr "（主人{owner}，{realm}）"
