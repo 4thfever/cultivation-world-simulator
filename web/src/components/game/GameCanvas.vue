@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Application } from 'vue3-pixi'
-import { ref, onMounted, computed } from 'vue'
-import { useElementSize, useWindowSize } from '@vueuse/core'
+import { ref, onMounted } from 'vue'
+import { useElementSize } from '@vueuse/core'
 import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
@@ -9,11 +9,7 @@ import CloudLayer from './CloudLayer.vue'
 import { useTextures } from './composables/useTextures'
 
 const container = ref<HTMLElement>()
-const { width: containerWidth, height: containerHeight } = useElementSize(container)
-// 使用窗口大小作为 canvas 的固定尺寸，这样拖动 sidebar 时地图不会被缩放。
-const { width: windowWidth, height: windowHeight } = useWindowSize()
-const width = computed(() => windowWidth.value)
-const height = computed(() => windowHeight.value)
+const { width, height } = useElementSize(container)
 const { loadBaseTextures, isLoaded } = useTextures()
 
 const mapSize = ref({ width: 2000, height: 2000 })
@@ -68,7 +64,6 @@ onMounted(() => {
         :screen-height="height"
         :world-width="mapSize.width"
         :world-height="mapSize.height"
-        :padding-right="sidebarWidth"
       >
         <!-- 
           注意：之前使用的 store.worldVersion 已移除。

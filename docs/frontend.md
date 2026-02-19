@@ -111,3 +111,31 @@
 *   修改 UI 时，优先检查 `stores/ui.ts` 和对应的 Panel 组件。
 *   修改数据逻辑时，先看 `stores/world.ts` 及其拆分出的子 Store。
 *   涉及 Pixi 渲染问题时，直接关注 `web/src/components/game/` 下的 Layer 组件。
+
+## 5. 桌面版与 Steam 适配 (Desktop & Steam)
+
+为了支持 Steam 平台发布，我们从浏览器模式切换到了独立窗口模式。
+
+1.  **独立窗口架构 (Standalone Window)**:
+    *   使用 `pywebview` 将 Web 前端封装在一个原生的操作系统窗口中。
+    *   不再调用 `webbrowser.open()` 打开系统默认浏览器。
+    *   应用现在拥有独立的进程、任务栏图标和窗口标题，这对 Steam Overlay 集成至关重要。
+
+2.  **启动流程变更为**:
+    *   **Main Thread**: 运行 `pywebview` 的 GUI 循环 (`webview.start()`)。
+    *   **Background Thread**: 运行 `uvicorn` 后端服务器 (`Daemon Thread`)。
+    *   **Subprocess**: (仅开发模式) 运行 `npm run dev` 前端开发服务器。
+
+3.  **开发体验**:
+    *   运行 `python src/server/main.py --dev` 时，会自动开启 Debug 模式。
+    *   在窗口内点击右键 -> `Inspect` 依然可以调出开发者工具 (DevTools)。
+    *   HMR (热重载) 依然有效，修改 `web/src` 代码后窗口内容会自动刷新。
+
+4.  **打包与发布**:
+    *   在 `PyInstaller` 打包配置中，需确保 `webview` 及其后端依赖 (如 Edge WebView2 Loader) 被正确包含。
+    *   打包后的 `.exe` 即为最终交付给玩家的可执行文件。
+
+5.  **pywebview 下的画布尺寸原则**:
+    *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。pywebview 的 WebView2 在全屏切换时不触发该事件，导致画布无法跟随窗口扩大，右下角出现黑边。
+    *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`）。`ResizeObserver` 监听的是 DOM 元素的实际尺寸变化，在 WebView2 中可靠。
+    *   当前实现（`GameCanvas.vue`）：`width/height` 和 `Viewport` 的 `screenWidth/screenHeight` 均直接来自 `useElementSize`，与 `resizeTo="container"` 指向同一数据源，无冲突。

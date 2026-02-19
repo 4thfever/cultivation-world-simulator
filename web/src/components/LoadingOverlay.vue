@@ -217,7 +217,7 @@ onUnmounted(() => {
     <!-- 底部信息 -->
     <div class="footer">
       <div class="elapsed">{{ t('loading.elapsed', { seconds: localElapsed }) }}</div>
-      <div class="version">{{ t('common.version', 'Version') }} v1.1.0</div>
+      <div class="version" v-if="props.status?.version">{{ t('common.version', 'Version') }} v{{ props.status.version }}</div>
     </div>
   </div>
 </template>

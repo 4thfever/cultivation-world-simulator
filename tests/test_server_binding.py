@@ -167,7 +167,9 @@ class TestStartFunction:
 
         with patch.dict(os.environ, {}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
-             patch.object(main, "uvicorn") as mock_uvicorn:
+             patch.object(main, "uvicorn") as mock_uvicorn, \
+             patch.object(main, "webview"), \
+             patch("os.kill"):
 
             os.environ.pop("SERVER_HOST", None)
             os.environ.pop("SERVER_PORT", None)
@@ -191,7 +193,9 @@ class TestStartFunction:
 
         with patch.dict(os.environ, {"SERVER_HOST": "0.0.0.0", "SERVER_PORT": "8080"}), \
              patch.object(main, "CONFIG", mock_config), \
-             patch.object(main, "uvicorn") as mock_uvicorn:
+             patch.object(main, "uvicorn") as mock_uvicorn, \
+             patch.object(main, "webview"), \
+             patch("os.kill"):
 
             main.start()
 
@@ -212,7 +216,9 @@ class TestStartFunction:
 
         with patch.dict(os.environ, {}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
-             patch.object(main, "uvicorn") as mock_uvicorn:
+             patch.object(main, "uvicorn") as mock_uvicorn, \
+             patch.object(main, "webview"), \
+             patch("os.kill"):
 
             os.environ.pop("SERVER_HOST", None)
             os.environ.pop("SERVER_PORT", None)
@@ -237,7 +243,9 @@ class TestStartFunction:
         # Only set SERVER_HOST, not SERVER_PORT.
         with patch.dict(os.environ, {"SERVER_HOST": "0.0.0.0"}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
-             patch.object(main, "uvicorn") as mock_uvicorn:
+             patch.object(main, "uvicorn") as mock_uvicorn, \
+             patch.object(main, "webview"), \
+             patch("os.kill"):
 
             os.environ.pop("SERVER_PORT", None)
 

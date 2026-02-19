@@ -4,6 +4,7 @@ json5>=0.9.0
 fastapi>=0.100.0
 uvicorn>=0.20.0
 websockets>=11.0
+pywebview>=3.0.0
 
 # Testing
 pytest>=8.0.0

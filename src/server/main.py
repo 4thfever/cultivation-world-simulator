@@ -1,7 +1,7 @@
 import sys
 import os
 import asyncio
-import webbrowser
+import webview  # type: ignore
 import subprocess
 import time
 import threading
@@ -657,12 +657,12 @@ async def lifespan(app: FastAPI):
     else:
         target_url = f"http://{host}:8002"
     
-    # 自动打开浏览器
-    print(f"Ready! Opening browser at {target_url}")
-    try:
-        webbrowser.open(target_url)
-    except Exception as e:
-        print(f"Failed to open browser: {e}")
+    # 自动打开浏览器 (已替换为 pywebview 独立窗口，此处不再打开系统浏览器)
+    # print(f"Ready! Opening browser at {target_url}")
+    # try:
+    #     webbrowser.open(target_url)
+    # except Exception as e:
+    #     print(f"Failed to open browser: {e}")
         
     yield
     
@@ -1007,6 +1007,7 @@ def get_init_status():
         "progress": game_instance.get("init_progress", 0),
         "elapsed_seconds": round(elapsed, 1),
         "error": game_instance.get("init_error"),
+        "version": getattr(getattr(CONFIG, "meta", None), "version", ""),
         # 额外信息：LLM 状态
         "llm_check_failed": game_instance.get("llm_check_failed", False),
         "llm_error_message": game_instance.get("llm_error_message", ""),
@@ -1905,13 +1906,42 @@ else:
 def start():
     """启动服务的入口函数"""
     # 从环境变量或配置文件读取服务器配置。
-    # 优先级：环境变量 > 配置文件 > 默认值。
-    # 设置 host 为 "0.0.0.0" 可允许局域网访问。
     host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
     port = int(os.environ.get("SERVER_PORT") or getattr(getattr(CONFIG, "system", None), "port", None) or 8002)
 
-    # 注意：直接传递 app 对象而不是字符串，避免 PyInstaller 打包后找不到模块的问题。
-    uvicorn.run(app, host=host, port=port)
+    # 计算目标 URL (与 lifespan 中的逻辑保持一致)
+    target_url = f"http://{host}:{port}"
+    if IS_DEV_MODE:
+        # 开发模式下，前端通常运行在 5173
+        target_url = "http://localhost:5173"
+
+    def run_server():
+        """在子线程中运行 uvicorn 服务器"""
+        # log_level="error" 可以减少控制台噪音，根据需要调整
+        uvicorn.run(app, host=host, port=port, log_level="info")
+
+    # 1. 启动后端服务器线程 (daemon=True 确保主线程退出时子线程也退出)
+    server_thread = threading.Thread(target=run_server, daemon=True)
+    server_thread.start()
+
+    # 2. 创建独立窗口
+    # width/height 可根据游戏设计调整，min_size 确保布局不崩坏
+    webview.create_window(
+        title="Cultivation Simulator", 
+        url=target_url,
+        width=1280,
+        height=800,
+        min_size=(1024, 768),
+        confirm_close=True  # 关闭时确认
+    )
+
+    # 3. 启动 GUI (必须在主线程运行)
+    print(f"Starting GUI window loading {target_url}...")
+    webview.start(debug=False)
+
+    # 4. 窗口关闭后，通过杀进程方式确保 uvicorn 和 subprocess (npm) 彻底关闭
+    print("Window closed, shutting down...")
+    os.kill(os.getpid(), signal.SIGINT)
 
 if __name__ == "__main__":
     start()
