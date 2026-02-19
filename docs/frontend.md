@@ -134,3 +134,8 @@
 4.  **打包与发布**:
     *   在 `PyInstaller` 打包配置中，需确保 `webview` 及其后端依赖 (如 Edge WebView2 Loader) 被正确包含。
     *   打包后的 `.exe` 即为最终交付给玩家的可执行文件。
+
+5.  **pywebview 下的画布尺寸原则**:
+    *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。pywebview 的 WebView2 在全屏切换时不触发该事件，导致画布无法跟随窗口扩大，右下角出现黑边。
+    *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`）。`ResizeObserver` 监听的是 DOM 元素的实际尺寸变化，在 WebView2 中可靠。
+    *   当前实现（`GameCanvas.vue`）：`width/height` 和 `Viewport` 的 `screenWidth/screenHeight` 均直接来自 `useElementSize`，与 `resizeTo="container"` 指向同一数据源，无冲突。

@@ -188,6 +188,7 @@ export interface InitStatusDTO {
   progress: number;
   elapsed_seconds: number;
   error: string | null;
+  version?: string;
   llm_check_failed: boolean;
   llm_error_message: string;
 }
