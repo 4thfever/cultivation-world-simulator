@@ -150,10 +150,10 @@ msgid "impart_action_name"
 msgstr "传道"
 
 msgid "impart_description"
-msgstr "师傅向徒弟传授修炼经验，徒弟可获得大量修为"
+msgstr "向下游传承对象传授修炼经验，覆盖血缘子系与师门徒系（默认深度=2）。"
 
 msgid "impart_requirements"
-msgstr "发起者是目标的师傅；师傅等级 > 徒弟等级 + 20；目标在交互范围内；不能连续执行"
+msgstr "发起者与目标必须存在下游传承关系（血缘或师门，默认深度=2）；发起者等级 > 目标等级 + 20；目标在交互范围内；不能连续执行"
 
 msgid "Target is not your apprentice"
 msgstr "目标不是自己的徒弟"
@@ -165,6 +165,11 @@ msgstr "等级差不足20级（当前差距：{diff}级）"
 msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
 msgstr "{master} 向徒弟 {apprentice} 传道授业"
 
+msgid "Target is not in your downstream lineage"
+msgstr "目标不在你的下游传承关系中"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} 向 {receiver} 传道授业"
 # MutualAction: Occupy
 msgid "occupy_action_name"
 msgstr "抢夺洞府"
