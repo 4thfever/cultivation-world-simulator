@@ -1,0 +1,12 @@
+"appbuild"
+{
+	"appid" "${STEAM_APP_ID}"
+	"desc" "${BUILD_DESC}" // 这个会被 PowerShell 动态替换为当前的构建版本号
+	"buildoutput" "${BUILD_OUTPUT_DIR}" // Steamcmd 存放缓存和日志的地方
+	"contentroot" "" // 留空，我们在 depot 中指定
+	"setlive" "" // 默认不自动推送到某个分支，上传后在后台手动提交
+	"depots"
+	{
+		"${STEAM_DEPOT_ID}" "${DEPOT_BUILD_VDF_PATH}"
+	}
+}

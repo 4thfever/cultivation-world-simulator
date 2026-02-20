@@ -1,0 +1,12 @@
+"DepotBuildConfig"
+{
+	"DepotID" "${STEAM_DEPOT_ID}"
+	"contentroot" "${CONTENT_ROOT_DIR}" // 指向我们打包出来的 exe 所在的文件夹
+	"FileMapping"
+	{
+		"LocalPath" "*"
+		"DepotPath" "."
+		"recursive" "1"
+	}
+	"FileExclusion" "*.pdb"
+}
