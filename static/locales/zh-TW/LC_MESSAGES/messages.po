@@ -1986,16 +1986,18 @@ msgid "impart_action_name"
 msgstr "傳道"
 
 msgid "impart_description"
-msgstr "師傅向徒弟傳授修煉經驗，徒弟可獲得大量修爲"
+msgstr "向徒弟、徒孫、同門、子女、孫輩或朋友傳授修煉經驗。"
 
 msgid "impart_requirements"
-msgstr "發起者是目標的師傅；師傅等級 > 徒弟等級 + 20；目標在交互範圍內；不能連續執行"
+msgstr "目標必須是發起者的徒弟、徒孫、同門、子女、孫輩或朋友；發起者等級 > 目標等級 + 20；目標在交互範圍內；不能連續執行"
 
 msgid "Target is not your apprentice"
 msgstr "目標不是自己的徒弟"
 
-msgid "Target is not in your downstream lineage"
-msgstr "目標不在你的下游傳承關係中"
+msgid ""
+"Target is not your disciple, martial grandchild, martial sibling, child, "
+"grandchild, or friend"
+msgstr "目標不是你的徒弟、徒孫、同門、子女、孫輩或朋友"
 
 msgid ""
 "Level difference insufficient, need 20 levels (current gap: {diff} levels)"

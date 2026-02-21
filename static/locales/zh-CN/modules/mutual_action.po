@@ -150,23 +150,19 @@ msgid "impart_action_name"
 msgstr "传道"
 
 msgid "impart_description"
-msgstr "向下游传承对象传授修炼经验，覆盖血缘子系与师门徒系（默认深度=2）。"
+msgstr "向徒弟、徒孙、同门、子女、孙辈或朋友传授修炼经验。"
 
 msgid "impart_requirements"
-msgstr "发起者与目标必须存在下游传承关系（血缘或师门，默认深度=2）；发起者等级 > 目标等级 + 20；目标在交互范围内；不能连续执行"
+msgstr "目标必须是发起者的徒弟、徒孙、同门、子女、孙辈或朋友；发起者等级 > 目标等级 + 20；目标在交互范围内；不能连续执行"
 
 msgid "Target is not your apprentice"
 msgstr "目标不是自己的徒弟"
 
-msgid ""
-"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgid "Target is not your disciple, martial grandchild, martial sibling, child, grandchild, or friend"
+msgstr "目标不是你的徒弟、徒孙、同门、子女、孙辈或朋友"
+
+msgid "Level difference insufficient, need 20 levels (current gap: {diff} levels)"
 msgstr "等级差不足20级（当前差距：{diff}级）"
-
-msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
-msgstr "{master} 向徒弟 {apprentice} 传道授业"
-
-msgid "Target is not in your downstream lineage"
-msgstr "目标不在你的下游传承关系中"
 
 msgid "{giver} imparts cultivation knowledge to {receiver}"
 msgstr "{giver} 向 {receiver} 传道授业"

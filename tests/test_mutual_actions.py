@@ -384,18 +384,18 @@ class TestImpart:
         assert can_start is True
         assert reason == ""
 
-    def test_impart_cannot_start_not_disciple(self, master_avatar, disciple_avatar):
-        """Test Impart cannot start when target is not disciple."""
+    def test_impart_cannot_start_not_allowed_relation(self, master_avatar, disciple_avatar):
+        """Test Impart cannot start when target is not in allowed relations."""
         action = Impart(master_avatar, master_avatar.world)
         
-        # Mock relation check: not master-disciple
-        master_avatar.get_relation = MagicMock(return_value=Relation.IS_FRIEND_OF)
+        # Mock relation check: not allowed
+        master_avatar.get_relation = MagicMock(return_value=Relation.IS_ENEMY_OF)
         
         with patch("src.classes.observe.is_within_observation", return_value=True):
             can_start, reason = action.can_start(target_avatar=disciple_avatar)
         
         assert can_start is False
-        assert "徒弟" in reason
+        assert "目标不是你的徒弟" in reason
 
     def test_impart_cannot_start_level_diff_too_small(self, master_avatar, disciple_avatar):
         """Test Impart cannot start when level difference < 20."""
