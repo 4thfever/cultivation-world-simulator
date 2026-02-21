@@ -158,9 +158,15 @@ msgstr "發起者是目標的師傅；師傅等級 > 徒弟等級 + 20；目標�
 msgid "Target is not your apprentice"
 msgstr "目標不是自己的徒弟"
 
+msgid "Target is not in your downstream lineage"
+msgstr "目標不在你的下游傳承關係中"
+
 msgid ""
 "Level difference insufficient, need 20 levels (current gap: {diff} levels)"
 msgstr "等級差不足20級（當前差距：{diff}級）"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} 向 {receiver} 傳道授業"
 
 msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
 msgstr "{master} 向徒弟 {apprentice} 傳道授業"

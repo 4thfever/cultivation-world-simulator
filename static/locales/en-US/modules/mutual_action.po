@@ -173,10 +173,16 @@ msgstr ""
 msgid "Target is not your apprentice"
 msgstr "Target is not your apprentice"
 
+msgid "Target is not in your downstream lineage"
+msgstr "Target is not in your downstream lineage"
+
 msgid ""
 "Level difference insufficient, need 20 levels (current gap: {diff} levels)"
 msgstr ""
 "Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} imparts cultivation knowledge to {receiver}"
 
 msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
 msgstr "{master} imparts cultivation knowledge to apprentice {apprentice}"
