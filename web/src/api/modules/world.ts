@@ -20,5 +20,9 @@ export const worldApi = {
 
   setPhenomenon(id: number) {
     return httpClient.post('/api/control/set_phenomenon', { id });
+  },
+
+  fetchRankings() {
+    return httpClient.get<any>('/api/rankings');
   }
 };

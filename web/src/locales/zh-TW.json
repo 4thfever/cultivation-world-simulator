@@ -274,6 +274,24 @@
       "empty_single": "該修士暫無事件",
       "empty_none": "暫無事件"
     },
+    "ranking": {
+      "title_short": "[天地人榜]",
+      "title": "天地人榜",
+      "heaven": "天榜 (元嬰)",
+      "earth": "地榜 (金丹)",
+      "human": "人榜 (築基)",
+      "sect_ranking": "宗門榜",
+      "rank": "排名",
+      "name": "姓名",
+      "sect": "所屬宗門",
+      "realm": "修爲境界",
+      "power": "基礎戰力",
+      "sect_name": "宗門名稱",
+      "alignment": "行事陣營",
+      "member_count": "現存人數",
+      "total_power": "宗門總戰力",
+      "empty": "暫無資料"
+    },
     "info_panel": {
       "popup": {
         "effect": "效果：",

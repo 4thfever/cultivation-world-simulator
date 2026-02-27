@@ -372,6 +372,7 @@ class Avatar(
         old_realm = self.cultivation_progress.realm
         self.cultivation_progress.level = new_level
         self.cultivation_progress.realm = self.cultivation_progress.get_realm(new_level)
+        self.cultivation_progress.stage = self.cultivation_progress.get_stage(new_level)
         
         if self.cultivation_progress.realm != old_realm:
             self.age.update_realm(self.cultivation_progress.realm)

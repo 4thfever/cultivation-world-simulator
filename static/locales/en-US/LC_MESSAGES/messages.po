@@ -1011,6 +1011,12 @@ msgstr ""
 "{name} has awakened their spiritual roots and embarked on the path of "
 "cultivation."
 
+msgid "Backstory"
+msgstr "Backstory"
+
+msgid "Backstory: {backstory}"
+msgstr "Backstory: {backstory}"
+
 # Battle messages
 msgid ""
 "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
