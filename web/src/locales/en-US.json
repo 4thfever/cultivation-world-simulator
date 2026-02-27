@@ -274,6 +274,24 @@
       "empty_single": "No events for this cultivator",
       "empty_none": "No events"
     },
+    "ranking": {
+      "title_short": "[Rankings]",
+      "title": "Heaven, Earth & Human Rankings",
+      "heaven": "Heaven (Nascent Soul)",
+      "earth": "Earth (Core Formation)",
+      "human": "Human (Foundation)",
+      "sect_ranking": "Sects",
+      "rank": "Rank",
+      "name": "Name",
+      "sect": "Sect",
+      "realm": "Realm",
+      "power": "Power",
+      "sect_name": "Sect Name",
+      "alignment": "Alignment",
+      "member_count": "Members",
+      "total_power": "Total Power",
+      "empty": "No data"
+    },
     "info_panel": {
       "popup": {
         "effect": "Effect: ",

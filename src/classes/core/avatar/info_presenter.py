@@ -108,6 +108,8 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     
     if detailed:
         info_dict[t("Current Effects")] = _get_effects_text(avatar)
+        if avatar.backstory:
+            info_dict[t("Backstory")] = avatar.backstory
 
     # 绰号：仅在存在时显示
     if avatar.nickname is not None:
@@ -389,6 +391,8 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
         lines.append(t("Identity: {identity}", identity=avatar.get_sect_str()))
     
     if detailed:
+        if avatar.backstory:
+            lines.append(t("Backstory: {backstory}", backstory=avatar.backstory))
         lines.append(t("\n--- Current Effects Detail ---"))
         breakdown = avatar.get_effect_breakdown()
         

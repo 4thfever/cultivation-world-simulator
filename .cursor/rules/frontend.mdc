@@ -1,0 +1,29 @@
+---
+description: 前端架构与开发规范指南
+globs: web/src/**/*.{vue,ts,js}
+---
+# 前端架构与开发指南 (Frontend Architecture & Performance Guide)
+
+在修改 `web/src/` 目录下的代码时，必须严格遵循以下架构规范和性能最佳实践。
+
+## 1. 架构与数据流 (Architecture & Data Flow)
+- **Server-Authoritative (后端驱动)**: 游戏状态由后端驱动。前端通过接收 `TickPayloadDTO` 来更新状态。
+- **Store 职责划分**: 
+  - 必须遵循 Pinia Store 的职责划分。
+  - `world.ts` 是核心总线，聚合了 `map`, `avatar`, `event` 等子 Store 的数据。
+
+## 2. Vue 3 性能最佳实践 (Performance Best Practices)
+- **强制约束 (MUST)**: 对于从后端接收的大型只读对象（如 `AvatarDetail`, 游戏状态快照，地图数据），**必须使用 `shallowRef`** 而不是 `ref` 或 `reactive`。这能避免深层 Proxy 转换导致的性能卡顿 (10ms-100ms+ UI freezes)。
+- **长列表渲染**: 对于长列表（如事件日志、实体列表），**必须使用虚拟滚动 (Virtual Scrolling)**，避免使用 `v-for` 渲染所有 DOM 节点。
+- **Memoization**: 使用 `computed` 处理昂贵的派生状态，避免在模板中使用内联表达式或方法。
+
+## 3. 桌面版与 Steam 适配 (Desktop & Steam / pywebview)
+- **强制约束 (MUST)**: 监听画布/容器尺寸变化时，**严禁使用 `useWindowSize()`**（因为它依赖 `window.resize`，在 pywebview 全屏切换时不触发导致黑边）。
+- **必须使用 `useElementSize(container)`**（基于 `ResizeObserver`），以确保尺寸变化在 WebView2 中可靠。
+
+## 4. 异常恢复与渲染 (Error Recovery & Rendering)
+- **F5 强刷机制**: 游戏内置了全局按键监听劫持 F5 执行 `window.location.reload()` 强行刷新前端页面。
+- **防闪烁设计**: 依赖 `isAppReady` 状态。在收到后端 `initStatus` 接口第一次响应前，前端界面必须保持纯黑 (`display: none` 等效) 以防闪烁。
+- **Pixi 渲染优化**: 
+  - 动态效果（如水面流动）必须使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
+  - 地图使用 `shallowRef` 存储。地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新。

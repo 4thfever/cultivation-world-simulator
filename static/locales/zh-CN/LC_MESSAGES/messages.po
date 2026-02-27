@@ -843,6 +843,12 @@ msgid ""
 "cultivation."
 msgstr "{name} 觉醒了灵根，踏上了修行之路。"
 
+msgid "Backstory"
+msgstr "身世"
+
+msgid "Backstory: {backstory}"
+msgstr "身世：{backstory}"
+
 # Battle messages
 msgid ""
 "{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "

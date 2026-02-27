@@ -471,8 +471,9 @@ class Simulator:
         15. 城市繁荣度更新
         16. 处理剩余交互计数 (如奇遇产生的交互)
         17. (每年1月) 更新计算关系 (二阶关系)
-        18. (每年1月) 清理由于时间久远而被遗忘的死者
-        19. 归档与时间推进
+        18. (每年1月) 更新榜单
+        19. (每年1月) 清理由于时间久远而被遗忘的死者
+        20. 归档与时间推进
         """
         # 0. 缓存本月存活角色列表 (在后续阶段中复用，并在死亡阶段维护)
         living_avatars = self.world.avatar_manager.get_living_avatars()
@@ -530,8 +531,16 @@ class Simulator:
 
         # 17. (每年1月) 更新计算关系 (二阶关系)
         self._phase_update_calculated_relations(living_avatars)
+
+        ###########
+        # 每年执行的行为
+        ###########
         
-        # 18. (每年1月) 清理由于时间久远而被遗忘的死者
+        # 18. (每年1月) 更新榜单
+        if self.world.month_stamp.get_month() == Month.JANUARY:
+            self.world.ranking_manager.update_rankings(living_avatars)
+        
+        # 19. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:
             cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(
                 self.world.month_stamp, 
@@ -541,7 +550,7 @@ class Simulator:
                 # 记录日志，但不产生游戏内事件
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
-        # 19. 归档与时间推进
+        # 20. 归档与时间推进
         return self._finalize_step(events)
 
     def _phase_update_calculated_relations(self, living_avatars: list[Avatar]):

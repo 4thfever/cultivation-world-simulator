@@ -89,3 +89,42 @@ def test_sect_relations(base_world):
     # 3. Martial Grandchild (GrandMaster -> A/B)
     assert grand_master.computed_relations.get(disciple_a) == Relation.IS_MARTIAL_GRANDCHILD_OF
     assert grand_master.computed_relations.get(disciple_b) == Relation.IS_MARTIAL_GRANDCHILD_OF
+
+def test_master_disciple_sect_binding(base_world):
+    from src.classes.core.sect import Sect, SectHeadQuarter
+    from src.classes.alignment import Alignment
+    from src.classes.sect_ranks import SectRank
+    from pathlib import Path
+    
+    master = create_avatar(base_world, "Master")
+    disciple = create_avatar(base_world, "Disciple")
+    
+    # Create a simple sect
+    sect = Sect(
+        id=1,
+        name="TestSect",
+        desc="A test sect",
+        member_act_style="style",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=SectHeadQuarter(name="HQ", desc="HQ Desc", image=Path("")),
+        technique_names=[]
+    )
+    
+    # Master joins sect
+    master.join_sect(sect, SectRank.Elder)
+    
+    # Disciple acknowledges master
+    disciple.acknowledge_master(master)
+    
+    # Disciple should be in master's sect now
+    assert disciple.sect is sect
+    assert disciple.sect_rank is not None
+    
+    # Test accept_disciple logic as well
+    master2 = create_avatar(base_world, "Master2")
+    disciple2 = create_avatar(base_world, "Disciple2")
+    master2.join_sect(sect, SectRank.Elder)
+    
+    master2.accept_disciple(disciple2)
+    assert disciple2.sect is sect
+    assert disciple2.sect_rank is not None

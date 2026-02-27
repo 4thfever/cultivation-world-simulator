@@ -1,0 +1,53 @@
+---
+description: Vue 3 性能优化规范 (Vue 3 Performance Best Practices)
+globs: ["web/src/**/*.vue", "web/src/**/*.ts", "web/src/**/*.tsx"]
+---
+# Vue 3 Performance Best Practices
+
+在编写或修改前端组件（Vue/TS）时，必须严格遵守以下性能优化策略，避免 UI 卡顿和不必要的渲染开销。
+
+## 1. 处理大型对象 (`shallowRef`)
+
+### 问题背景
+当从后端接收大型、深层嵌套的 JSON 对象（如完整的头像详情、游戏状态快照）时，Vue 默认的响应式系统（`ref` 或 `reactive`）会将每一层的每一个属性都转换为 Proxy。这个过程是同步的，对于复杂对象会导致明显的 UI 卡顿（10ms - 100ms+）。
+
+### 解决方案
+对于这些大型、只读的数据结构，**必须**使用 `shallowRef` 代替 `ref`。
+
+```typescript
+import { shallowRef } from 'vue';
+
+// ❌ BAD: 深度转换，对于大对象非常慢
+const bigData = ref<ComplexType | null>(null);
+
+// ✅ GOOD: 只追踪 .value 的变化，没有深度转换
+const bigData = shallowRef<ComplexType | null>(null);
+```
+
+### 适用场景
+- **只读展示数据**：从 API 获取的数据，主要用于展示，前端不会逐个字段修改。
+- **大型列表/树形结构**：游戏状态、日志、物品列表、关系图谱等。
+
+### 重要权衡
+使用 `shallowRef` 时，**深度修改不会触发更新**。
+
+```typescript
+const data = shallowRef({ count: 1, nested: { name: 'foo' } });
+
+// ❌ 这不会更新 UI
+data.value.count++;
+data.value.nested.name = 'bar';
+
+// ✅ 这会更新 UI（替换整个对象）
+data.value = { ...data.value, count: data.value.count + 1 };
+// 或者直接赋值 API 响应
+data.value = apiResponse;
+```
+
+## 2. 组件渲染优化
+
+### 虚拟滚动 (Virtual Scrolling)
+对于可能无限增长的列表（如事件日志、实体列表），**避免**使用 `v-for` 渲染所有项。必须使用虚拟滚动（仅渲染可见项）以保持 DOM 轻量。
+
+### 记忆化 (Memoization)
+对于昂贵的派生状态，使用 `computed`，而不是在模板中使用方法调用或内联表达式。

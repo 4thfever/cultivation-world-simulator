@@ -1,0 +1,48 @@
+---
+description: Guide for writing pytest unit and integration tests
+globs: tests/**/*.py
+---
+
+# 测试编写规范 (Testing Guidelines)
+
+当你在 `tests/` 目录下编写或修改测试用例时，必须严格遵循以下规范。
+
+## 1. 核心 Fixtures (必须优先使用)
+
+在 `tests/conftest.py` 中已经定义了完善的测试环境，**禁止自己手动 mock 基础对象**，请直接在测试函数参数中引入以下 Fixture：
+
+- **`dummy_avatar`**: 标准测试角色（练气期、金灵根、正道）。已清空特质(personas)和功法，避免随机属性干扰测试结果。默认位于 (0,0)。
+- **`avatar_in_city`**: 基于 `dummy_avatar`，但位于城市中 (`TileType.CITY`)，且拥有初始资金 (`magic_stone = 1000`)，背包已清空。适合测试购买、拍卖等城市内行为。
+- **`mock_llm_managers` (Autouse)**: 自动拦截了所有 LLM 调用（包括 `llm_ai.decide`, `StoryTeller`, `HistoryManager` 等）。**严禁在测试中消耗真实 Token**。
+- **`mock_item_data`**: 提供了一组标准的测试物品（丹药、材料、武器、法宝），方便在测试中直接分发给角色。
+- **`base_world` / `base_map`**: 基础的 10x10 平原世界地图。
+
+## 2. 编写规范与最佳实践
+
+- **异步测试**: 所有测试异步动作（如 `action.execute()`）的函数，必须使用 `@pytest.mark.asyncio` 装饰器。
+- **LLM Mock**: 如果需要模拟特定的 LLM 回复来测试不同分支，请通过 `mock_ai = mock_llm_managers["ai"]` 获取 mock 对象，并设置其返回值：`mock_ai.decide.return_value = {"decision": "attack"}`。
+- **时间流逝**: 如果测试涉及时间流逝，可以直接修改 `dummy_avatar.world.month_stamp`。
+- **代码风格**: 测试代码同样需要保持简洁优雅、清晰易读。**避免过多的 `try...except`、`hasattr`、`getattr` 等过度设计 (over design)**。
+
+## 3. 示例结构
+
+```python
+import pytest
+from src.classes.action import ActionStatus
+
+@pytest.mark.asyncio
+async def test_example_action(dummy_avatar, mock_llm_managers):
+    # 1. 准备环境 (Arrange)
+    dummy_avatar.magic_stone = 100
+    
+    # 获取 mock 对象并设定预期返回值
+    mock_ai = mock_llm_managers["ai"]
+    mock_ai.decide.return_value = {"decision": "attack"}
+    
+    # 2. 执行动作 (Act)
+    # result = await do_something(dummy_avatar)
+    
+    # 3. 断言结果 (Assert)
+    # assert result.status == ActionStatus.SUCCESS
+    # mock_ai.decide.assert_called_once()
+```

@@ -13,6 +13,7 @@ from src.classes.history import History
 from src.utils.df import game_configs
 from src.classes.language import language_manager, LanguageType
 from src.i18n import t
+from src.classes.ranking import RankingManager
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -40,6 +41,8 @@ class World():
     history: "History" = field(default_factory=lambda: History())
     # 世界开始年份
     start_year: int = 0
+    # 榜单管理器
+    ranking_manager: RankingManager = field(default_factory=RankingManager)
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """

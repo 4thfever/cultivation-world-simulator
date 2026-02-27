@@ -124,6 +124,9 @@ import StatusBar from '@/components/layout/StatusBar.vue'
 describe('StatusBar', () => {
   const globalConfig = {
     global: {
+      directives: {
+        sound: () => {}
+      },
       stubs: {
         StatusWidget: StatusWidgetStub,
       },
@@ -226,9 +229,9 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // When phenomenon is null, v-if hides the widget.
-      // Only domain widget should exist.
+      // Domain widget and Ranking widget should exist.
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(1)
+      expect(widgets.length).toBe(2)
     })
   })
 

@@ -149,6 +149,18 @@ def set_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation)
         from_avatar.relation_start_dates[to_avatar.id] = current_time
         to_avatar.relation_start_dates[from_avatar.id] = current_time
 
+    # [新增] 师徒强绑定宗门
+    if relation == Relation.IS_MASTER_OF:
+        # from 认 to 为师傅 (to 是师傅)
+        if to_avatar.sect is not None and from_avatar.sect != to_avatar.sect:
+            from src.classes.sect_ranks import get_rank_from_realm
+            from_avatar.join_sect(to_avatar.sect, get_rank_from_realm(from_avatar.cultivation_progress.realm))
+    elif relation == Relation.IS_DISCIPLE_OF:
+        # from 收 to 为徒弟 (from 是师傅)
+        if from_avatar.sect is not None and to_avatar.sect != from_avatar.sect:
+            from src.classes.sect_ranks import get_rank_from_realm
+            to_avatar.join_sect(from_avatar.sect, get_rank_from_realm(to_avatar.cultivation_progress.realm))
+
 
 
 def get_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> Relation | None:

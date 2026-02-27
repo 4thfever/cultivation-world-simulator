@@ -970,6 +970,21 @@ def get_map():
     }
 
 
+@app.get("/api/rankings")
+def get_rankings():
+    """获取天、地、人及宗门榜单数据"""
+    world = game_instance.get("world")
+    if not world or not hasattr(world, 'ranking_manager'):
+        return {"heaven": [], "earth": [], "human": [], "sect": []}
+    
+    # 如果榜单为空（比如刚初始化或读档，还没经过1月），主动更新一次
+    rm = world.ranking_manager
+    if not rm.heaven_ranking and not rm.earth_ranking and not rm.human_ranking and not rm.sect_ranking:
+        rm.update_rankings(world.avatar_manager.get_living_avatars())
+        
+    return rm.get_rankings_data()
+
+
 @app.post("/api/control/reset")
 def reset_game():
     """重置游戏到 Idle 状态（回到主菜单）"""

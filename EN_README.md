@@ -2,6 +2,9 @@
 <h3 align="center">
   <a href="README.md">🇨🇳 中文</a> · <a href="EN_README.md">🇺🇸 English</a>
 </h3>
+<blockquote align="center">
+  This project now supports English. Don't hesitate to give it a try!
+</blockquote>
 <p align="center">— ✦ —</p>
 
 # Cultivation World Simulator
@@ -199,6 +202,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 - ✅ Same-tile NPC interactions
 - ✅ Qi distribution and yields
 - ✅ World event
+- ✅ Heaven, Earth, and Mortal Rankings
 
 ### 👤 Character System
 - ✅ Core attributes
@@ -223,6 +227,7 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
   - [ ] Taming
   - [ ] Evolving skills
 - ✅ People (Mortals)
+- [ ] Deity Transformation Realm
 
 ### 🏛️ Organizations
 - ✅ Sect system
@@ -308,4 +313,4 @@ For more details on contributions, please see [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ### 🔭 Long-term
 - [ ] Novelization/imagery/video for history and events
-- [ ] Avatar calling MCP tools on their own
+- [ ] Skill agentification, cultivators autonomously planning, analyzing, calling tools, and making decisions

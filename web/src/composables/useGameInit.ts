@@ -22,6 +22,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   // 内部变量
   const mapPreloaded = ref(false)
   const avatarsPreloaded = ref(false)
+  const texturesPreloaded = ref(false)
   
   let pollInterval: ReturnType<typeof setInterval> | null = null
 
@@ -68,6 +69,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
         // 重置预加载标记
         mapPreloaded.value = false
         avatarsPreloaded.value = false
+        texturesPreloaded.value = false
       }
 
       // 提前加载地图
@@ -80,6 +82,12 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       if (!avatarsPreloaded.value && GAME_PHASES.AVATAR_READY.includes(res.phase_name as any)) {
         avatarsPreloaded.value = true
         worldStore.preloadAvatars()
+      }
+      
+      // 提前加载纹理资源（利用后端生成事件等待期）
+      if (!texturesPreloaded.value && GAME_PHASES.TEXTURES_READY.includes(res.phase_name as any)) {
+        texturesPreloaded.value = true
+        loadBaseTextures().catch(e => console.warn('[GameInit] Failed to preload textures', e))
       }
       
       // 状态跃迁：非 Ready -> Ready

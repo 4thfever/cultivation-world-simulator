@@ -6,11 +6,14 @@ import { NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
 
+import RankingModal from '../game/panels/RankingModal.vue'
+
 const { t } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
 const message = useMessage()
 const showSelector = ref(false)
+const showRankingModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
@@ -81,7 +84,19 @@ async function handleSelect(id: number, name: string) {
         :items="store.activeDomains"
         :empty-text="t('game.status_bar.hidden_domain.empty')"
       />
+
+      <!-- 榜单 -->
+      <StatusWidget
+        :label="t('game.ranking.title_short')"
+        color="#d4b106"
+        mode="single"
+        :disable-popover="true"
+        @trigger-click="showRankingModal = true"
+      />
     </div>
+
+    <!-- 榜单 Modal -->
+    <RankingModal v-model:show="showRankingModal" />
 
     <!-- 天象选择器 Modal -->
     <n-modal

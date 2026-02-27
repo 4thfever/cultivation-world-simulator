@@ -29,7 +29,8 @@ import { useSettingStore } from './stores/setting'
 const uiStore = useUiStore()
 const settingStore = useSettingStore()
 
-const showSplash = ref(true)
+const showSplash = ref(false)
+const isAppReady = ref(false)
 
 // Sidebar resizer 状态
 const { sidebarWidth, isResizing, onResizerMouseDown } = useSidebarResize()
@@ -59,17 +60,32 @@ const {
 
 // 3. 胶水逻辑：连接 Init 和 Control
 
-// 当检测到 idle 状态时，执行启动检查
 watch(initStatus, (newVal, oldVal) => {
-  // Idle check
-  if (newVal?.status === 'idle' && oldVal?.status !== 'idle') {
-    if (!showMenu.value) {
+  if (!newVal) return
+
+  // 首次确认后端状态，避免 F5 刷新时闪烁 Splash
+  if (!isAppReady.value) {
+    if (newVal.status === 'ready' && !gameInitialized.value) {
+      // 如果后端已经在运行，前端还没初始化，继续保持 isLoading 状态等待初始化完成
+      // 但我们需要放行 isAppReady 让 Loading 界面接管，而不是全黑
+      isAppReady.value = true
+    } else if (newVal.status === 'idle') {
+      showSplash.value = true
+      isAppReady.value = true
+    } else {
+       isAppReady.value = true
+    }
+  }
+
+  // Idle check (非首次加载时)
+  if (newVal.status === 'idle' && oldVal && oldVal.status !== 'idle') {
+    if (!showMenu.value && !showSplash.value) {
       performStartupCheck()
     }
   }
 
-  // Ready check (原逻辑: stopPolling 由 useGameInit 处理, 这里只负责 UI)
-  if (oldVal?.status !== 'ready' && newVal?.status === 'ready') {
+  // Ready check
+  if (oldVal?.status !== 'ready' && newVal.status === 'ready') {
     showMenu.value = false
   }
 })
@@ -94,6 +110,12 @@ watch(gameInitialized, (val) => {
 
 // 事件处理
 function onKeydown(e: KeyboardEvent) {
+  // 内置 F5 刷新，防止 UI 卡死
+  if (e.key === 'F5') {
+    e.preventDefault()
+    window.location.reload()
+    return
+  }
   if (showLoading.value) return
   if (showSplash.value) return
   controlHandleKeydown(e)
@@ -180,19 +202,24 @@ onUnmounted(() => {
 <template>
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
-      <SplashLayer 
-        v-if="showSplash" 
-        @action="handleSplashAction"
-      />
+      <!-- 获取到后端状态前显示纯黑，防止 F5 刷新时画面闪烁 -->
+      <div v-if="!isAppReady" class="app-layout" style="background: #000;"></div>
       
-      <!-- Loading Overlay - 盖在游戏上面 -->
-      <LoadingOverlay 
-        v-if="!showSplash && showLoading"
-        :status="initStatus"
-      />
+      <template v-else>
+        <SplashLayer 
+          v-if="showSplash" 
+          @action="handleSplashAction"
+        />
+        
+        <!-- Loading Overlay - 盖在游戏上面 -->
+        <!-- 当 F5 刷新后端已经是 ready 时，由于前端未初始化完成(gameInitialized 为 false)，依然会显示 Loading。但为了更好的体验，如果是纯 F5 热重载，我们可以通过判断掩盖这段瞬间。由于 LoadingOverlay 里有动画和遮罩，这一瞬间的闪烁也会影响体验。-->
+        <LoadingOverlay 
+          v-if="!showSplash && showLoading && initStatus?.status !== 'ready'"
+          :status="initStatus"
+        />
 
-      <!-- Game UI - 始终渲染 -->
-      <div v-if="!showSplash" class="app-layout">
+        <!-- Game UI - 始终渲染 -->
+        <div v-if="!showSplash && (!showLoading || initStatus?.status === 'ready')" class="app-layout">
         <StatusBar />
         
         <div class="main-content">
@@ -252,6 +279,7 @@ onUnmounted(() => {
           @exit-game="() => handleSplashAction('exit')"
         />
       </div>
+      </template>
     </n-message-provider>
   </n-config-provider>
 </template>

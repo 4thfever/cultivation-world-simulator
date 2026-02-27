@@ -139,3 +139,29 @@
     *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。pywebview 的 WebView2 在全屏切换时不触发该事件，导致画布无法跟随窗口扩大，右下角出现黑边。
     *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`）。`ResizeObserver` 监听的是 DOM 元素的实际尺寸变化，在 WebView2 中可靠。
     *   当前实现（`GameCanvas.vue`）：`width/height` 和 `Viewport` 的 `screenWidth/screenHeight` 均直接来自 `useElementSize`，与 `resizeTo="container"` 指向同一数据源，无冲突。
+
+## 6. 异常恢复与防卡死设计 (Error Recovery)
+
+为了应对极少部分玩家设备可能出现的 WebView2 渲染卡顿、Vue 状态意外不同步等玄学问题，我们在前端全局实现了**内置重载 (F5 刷新)** 机制。
+
+1.  **全局按键监听 (`App.vue`)**:
+    *   劫持了键盘的 `F5` 事件，按下时执行 `window.location.reload()` 强行刷新前端页面。
+    *   此时后端 (`uvicorn` 和 Python 模拟器) 不受影响，依然在后台保持原状态。
+
+2.  **状态防闪烁设计 (`isAppReady`)**:
+    *   因为 F5 刷新会导致 Vue 状态被清空，默认的 `showSplash` 状态很容易在刷新期间闪烁出启动封面图。
+    *   通过引入 `isAppReady`（布尔值），**在页面刚加载、还未收到后端 `initStatus` 接口第一次响应时，前端界面保持纯黑 (`display: none` 等效)**。
+    *   收到后端响应后，若后端返回 `idle`，则展示 `SplashLayer`；若后端正在运行中（如 `ready` 或 `loading`），则直接进入对应的 `LoadingOverlay` 或游戏界面。
+    *   为了防止在 `ready` 状态下 F5 刷新时，前端初始化等待期间（`gameInitialized === false`）闪烁 Loading 界面，对 `LoadingOverlay` 的渲染条件增加了严格判断，使得 F5 后能更加平滑地直接呈现游戏画面。
+
+## 7. 前端资源预加载策略 (Preloading Strategy)
+
+在游戏开局初始化过程中，后端部分阶段（如调用 LLM 生成角色身世）需要消耗数秒乃至十几秒的时间。为了避免这段时间白白浪费，以及防止后端到达 100% 后前端还需要耗时加载图片而导致进度条“卡 100%”的临门一脚顿挫感，前端实现了一套异步预加载机制。
+
+1. **阶段监听**: 前端通过 `useGameInit` 持续轮询 `/api/init-status` 接口，不仅获取总体进度，还监听当前所处的 `phase_name`。
+2. **常量映射 (`GAME_PHASES`)**: 在 `constants/game.ts` 中，我们维护了不同资源可以开始加载的最小后端阶段要求：
+   *   `MAP_READY`: 当后端排布完宗门或生成完角色时，地图数据已经就绪。
+   *   `AVATAR_READY`: 当后端进入检查 LLM 或生成初始事件时，所有角色的基础信息（含头像 ID）已经完全确定。
+   *   `TEXTURES_READY`: 与角色就绪同步，此时可以拉取到所有相关角色的头像、以及对应的地块纹理等，直接执行 PixiJS 的 Assets 预加载。
+3. **“白嫖”等待时间**: 在轮询过程中，一旦后端状态进入 `TEXTURES_READY` 阶段（通常对应后端的长时间 LLM 阻塞操作），前端的 `useGameInit` 就会无阻塞地触发 `loadBaseTextures()`。
+4. **无缝进入**: 利用 PixiJS `Assets` 的内置缓存机制，当后端最终发出 `ready` 并将控制权交还给前端 `initializeGame()` 时，再次调用的 `await loadBaseTextures()` 会瞬间命中缓存，耗时降至 0 毫秒，从而实现 Loading 结束后画面的无缝秒进。

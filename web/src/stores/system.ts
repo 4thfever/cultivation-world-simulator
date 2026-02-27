@@ -17,9 +17,8 @@ export const useSystemStore = defineStore('system', () => {
   const isLoading = computed(() => {
     if (!initStatus.value) return true;
     if (initStatus.value.status === 'idle') return false;
-    if (initStatus.value.status !== 'ready') return true;
-    if (!isInitialized.value) return true;
-    return false;
+    if (initStatus.value.status === 'ready' && isInitialized.value) return false;
+    return true;
   });
 
   const isReady = computed(() => {
