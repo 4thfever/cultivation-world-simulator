@@ -1,0 +1,405 @@
+{
+  "ui": {
+    "system_menu": "Menu Hệ Thống",
+    "system_menu_title": "Menu Hệ Thống",
+    "start_game": "Bắt Đầu Game",
+    "load_game": "Tải Game",
+    "save_game": "Lưu Game",
+    "create_character": "Tạo Nhân Vật",
+    "create_alignment_placeholder": "Chọn Trận Doanh (Để trống = Trung lập)",
+    "delete_character": "Xóa Nhân Vật",
+    "settings": "Cài Đặt",
+    "achievements": "Thành Tựu",
+    "exit": "Thoát",
+    "other": "Khác",
+    "sound": "Âm thanh",
+    "bgm_volume": "Nhạc nền",
+    "sfx_volume": "Hiệu ứng âm thanh",
+    "language": "Ngôn ngữ",
+    "chinese": "Tiếng Trung giản thể",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "back": "Quay lại",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "llm_settings": "Cài đặt LLM",
+    "other_options": "Tùy chọn khác",
+    "other_options_desc": "Quản lý tiến trình game và thoát.",
+    "return_to_main": "Về Menu Chính",
+    "return_to_main_desc": "Quay về màn hình tiêu đề (Tiến trình chưa lưu sẽ mất)",
+    "quit_game": "Thoát Game",
+    "quit_game_desc": "Đóng ứng dụng và thoát",
+    "about": "Giới thiệu",
+    "about_github": "Ủng hộ trên GitHub",
+    "about_github_desc": "Đây là dự án mã nguồn mở. Nếu bạn có tài khoản GitHub, hãy ủng hộ chúng tôi bằng một Star!",
+    "about_contributors": "Người đóng góp",
+    "about_contributors_desc": "Cảm ơn tất cả các tác giả đã đóng góp cho dự án mã nguồn mở này!"
+  },
+  "save_load": {
+    "loading": "Đang tải...",
+    "new_save": "Lưu mới",
+    "new_save_desc": "Lưu với tên tùy chỉnh",
+    "quick_save": "Lưu nhanh",
+    "quick_save_desc": "Sử dụng tên tự tạo",
+    "empty": "Không tìm thấy bản lưu",
+    "game_time": "Thời gian game: {time}",
+    "avatar_count": "Nhân vật: {alive}/{total}",
+    "event_count": "{count} sự kiện",
+    "load": "Tải",
+    "save_success": "Lưu thành công: {filename}",
+    "save_failed": "Lưu thất bại",
+    "load_confirm": "Bạn có chắc muốn tải bản lưu {filename}? Tiến trình chưa lưu sẽ mất.",
+    "load_success": "Tải thành công",
+    "load_failed": "Tải thất bại",
+    "fetch_failed": "Không thể lấy danh sách bản lưu",
+    "save_modal_title": "Lưu Game",
+    "save_confirm": "Lưu",
+    "name_hint": "Nhập tên cho bản lưu này (tùy chọn)",
+    "name_placeholder": "Nhập tên bản lưu...",
+    "name_tip": "Để trống để sử dụng tên tự động",
+    "name_too_long": "Tên không được vượt quá 50 ký tự",
+    "name_invalid_chars": "Tên chỉ chứa chữ cái, số, chữ Hán và dấu gạch dưới",
+    "delete": "Xóa",
+    "delete_confirm": "Bạn có chắc muốn xóa vĩnh viễn bản lưu {filename}? Hành động này không thể hoàn tác.",
+    "delete_success": "Đã xóa bản lưu",
+    "delete_failed": "Xóa thất bại"
+  },
+  "llm": {
+    "loading": "Đang tải...",
+    "fetch_failed": "Không thể lấy cấu hình",
+    "test_success": "Kiểm tra kết nối thành công",
+    "save_success": "Đã lưu cấu hình",
+    "test_save_failed": "Kiểm tra hoặc lưu thất bại: {error}",
+    "api_key_required": "Vui lòng nhập API Key",
+    "base_url_required": "Vui lòng nhập Base URL",
+    "preset_applied": "Đã áp dụng preset {name} ({extra})",
+    "preset_extra_key": "Vui lòng nhập API Key",
+    "preset_extra_local": "Vui lòng đảm bảo Ollama đang chạy",
+    "sections": {
+      "quick_fill": "Điền nhanh",
+      "api_config": "Cấu hình API",
+      "model_selection": "Chọn mô hình",
+      "run_mode": "Chế độ chạy"
+    },
+    "labels": {
+      "api_key": "API Key",
+      "base_url": "Base URL",
+      "normal_model": "Mô hình Thông minh (Normal)",
+      "fast_model": "Mô hình Nhanh (Fast)",
+      "what_is_api": "API là gì / Cách lấy?"
+    },
+    "descs": {
+      "normal_model": "Dùng cho logic phức tạp, sinh truyện, v.v.",
+      "fast_model": "Dùng cho phán đoán đơn giản, tương tác thường xuyên, v.v."
+    },
+    "placeholders": {
+      "api_key": "Nhập API Key của bạn (thường bắt đầu bằng sk-)",
+      "base_url": "https://api.example.com/v1",
+      "normal_model": "VD: gpt-4, claude-3-opus, qwen-plus",
+      "fast_model": "VD: gpt-3.5-turbo, qwen-flash"
+    },
+    "modes": {
+      "default": "Cân bằng (Mặc định)",
+      "default_desc": "Tự động chọn mô hình (Khuyên dùng)",
+      "normal": "Thông minh (Normal)",
+      "normal_desc": "Dùng mô hình thông minh cho mọi tác vụ",
+      "fast": "Nhanh (Fast)",
+      "fast_desc": "Dùng mô hình nhanh cho mọi tác vụ"
+    },
+    "actions": {
+      "testing": "Đang kiểm tra kết nối...",
+      "test_and_save": "Kiểm tra kết nối và Lưu"
+    },
+    "help": {
+      "title": "API là gì? Hướng dẫn cấu hình",
+      "q1_title": "🌐 1. API là gì?",
+      "q1_content": "API (Application Programming Interface) giống như một 'đường dây điện thoại'. Game này tự nó không có khả năng suy nghĩ; nó kết nối với một 'bộ não' AI từ xa (như Qwen hoặc DeepSeek) thông qua đường dây này. Khi game xử lý hàng tháng và quyết định hành động NPC, nó gửi thông tin qua API cho AI, AI suy nghĩ và trả về kết quả.",
+      "q2_title": "⚡ 2. Mô hình khuyên dùng (2025)",
+      "q2_qwen": "Nhà cung cấp lớn (Alibaba), ổn định với quota miễn phí lớn, phù hợp người mới.",
+      "q2_deepseek": "Hiệu suất/giá cực cao, logic phù hợp ngữ cảnh tiếng Trung.",
+      "q2_gemini": "Sản phẩm của Google, hiệu suất tổng hợp hàng đầu.",
+      "q3_title": "📝 3. Cách điền cấu hình?",
+      "q3_content": "Khi đã có API, bạn cần điền 3 thông số cốt lõi. Thường có thể tìm trong tài liệu nhà cung cấp:",
+      "q3_format_note": "⚠️ Quan trọng: Game chỉ hỗ trợ API tương thích định dạng OpenAI. Dịch vụ không tương thích OpenAI không thể sử dụng. Khuyên dùng preset có sẵn (đã được xác nhận tương thích). Nếu muốn dùng dịch vụ khác, hãy xác nhận họ cung cấp giao diện tương thích OpenAI.",
+      "q3_base_url": "API Base URL: Điểm vào AI, thường do nhà cung cấp cung cấp (VD: https://api.deepseek.com).",
+      "q3_api_key": "API Key: Thông tin xác thực của bạn, giống như mật khẩu tài khoản.",
+      "q3_model_name": "Tên mô hình: Cho server biết dùng 'bộ não' nào, VD: deepseek-chat hoặc gemini-3-flash-preview.",
+      "q4_title": "🔗 4. Lấy Key ở đâu?",
+      "q5_title": "🛡️ 5. Lưu ý bảo mật",
+      "q5_p1": "API Key chỉ được lưu trong file cấu hình trên máy tính của bạn (`static/local_config.yml`), và game backend chạy cục bộ liên lạc trực tiếp với nhà cung cấp mô hình. Game này (Cultivation World Simulator) hoàn toàn mã nguồn mở và sẽ không bao giờ tải Key lên bất kỳ server bên thứ ba nào. Đồng thời, vui lòng không chia sẻ file local_config.yml với bất kỳ ai.",
+      "q5_p2": "Sử dụng token sẽ phát sinh chi phí; vui lòng tự đánh giá chi phí sử dụng.",
+      "confirm": "Tôi đã hiểu"
+    },
+    "presets": {
+      "openai": "OpenAI",
+      "qwen": "Qwen",
+      "deepseek": "DeepSeek",
+      "siliconflow": "SiliconFlow",
+      "openrouter": "OpenRouter",
+      "gemini": "Gemini",
+      "ollama": "Ollama (Cục bộ)"
+    },
+    "help_links": {
+      "openai": "Nền tảng OpenAI",
+      "qwen": "Aliyun Bailian (Qwen / Khuyên dùng)",
+      "deepseek": "Nền tảng DeepSeek (Nhanh & Rẻ)",
+      "openrouter": "OpenRouter (Tất cả trong một, Khuyên dùng)",
+      "siliconflow": "SiliconFlow (Tổng hợp nội địa)",
+      "gemini": "Google AI Studio (Gemini)"
+    }
+  },
+  "game_start": {
+    "title": "Bắt Đầu Game",
+    "description": "Cấu hình trạng thái thế giới ban đầu. Lưu ý: Các cài đặt này không thể thay đổi sau khi game bắt đầu.",
+    "labels": {
+      "init_npc_num": "Số Tu Sĩ ban đầu",
+      "sect_num": "Số Tông Phái",
+      "new_npc_rate": "Tỷ lệ Tu Sĩ mới mỗi tháng",
+      "world_history": "Bối cảnh lịch sử thế giới"
+    },
+    "tips": {
+      "sect_num": "Số tông phái phải nhỏ hơn một nửa số tu sĩ ban đầu.",
+      "world_history": "Có thể bao gồm lịch sử cổ đại, trung đại hoặc cận đại. Lưu ý: Bật tính năng này sẽ gọi LLM và tăng đáng kể thời gian khởi tạo."
+    },
+    "placeholders": {
+      "world_history": "Nhập bối cảnh lịch sử thế giới tu tiên (Tùy chọn)."
+    },
+    "options": {},
+    "actions": {
+      "start": "Bắt đầu"
+    },
+    "messages": {
+      "load_failed": "Không thể tải cấu hình",
+      "start_success": "Đã lưu cấu hình, đang khởi tạo thế giới...",
+      "start_failed": "Không thể bắt đầu game"
+    }
+  },
+  "splash": {
+    "title": "AI Mô Phỏng Thế Giới Tu Tiên",
+    "start": "Bắt Đầu Tu Luyện",
+    "continue": "Tiếp Tục Con Đường",
+    "settings": "Cài Đặt"
+  },
+  "loading": {
+    "title": "AI Mô Phỏng Thế Giới Tu Tiên",
+    "subtitle": "AI Mô Phỏng Thế Giới Tu Tiên",
+    "phase": {
+      "scanning_assets": "Quét tài nguyên thế giới",
+      "loading_map": "Kiến tạo bản đồ hồng hoang",
+      "processing_history": "Suy diễn lịch sử Thiên Đạo",
+      "initializing_sects": "Các tông phái nhập thế",
+      "generating_avatars": "Tu sĩ giáng lâm",
+      "checking_llm": "Kết nối Thiên Ý",
+      "loading_save": "Tải nghiệp duyên",
+      "parsing_data": "Giải mã quy luật trời đất",
+      "restoring_state": "Khôi phục không-thời gian",
+      "finalizing": "Vạn vật quy vị",
+      "complete": "Trời đất khai mở",
+      "chaos": "Hỗn Mang Sơ Khai",
+      "generating_initial_events": "Tạo sự kiện ban đầu"
+    },
+    "error": "Khởi tạo thất bại",
+    "unknown_error": "Lỗi không xác định",
+    "retry": "Thử lại khởi tạo",
+    "tips_label": "Bí kíp tu luyện",
+    "elapsed": "Đã chờ {seconds} giây",
+    "tips": [
+      "Thay đổi mục tiêu nhân vật có thể thay đổi phong cách hành động của họ.",
+      "Đặc tính nhân vật ảnh hưởng rất lớn đến phong cách hành xử.",
+      "Tu luyện trong động phủ phù hợp với linh căn sẽ tăng gấp đôi hiệu quả.",
+      "Nhân vật có Thiên Linh Căn tu luyện hiệu quả gấp đôi ở bất kỳ động phủ nào.",
+      "Thay đổi mật độ linh khí thế giới ảnh hưởng đến bonus và hành vi nhân vật.",
+      "Mỗi nhân vật đều có suy nghĩ và cảm xúc thực sự của riêng mình.",
+      "Ngoài tu luyện, luyện đan và luyện khí cũng rất quan trọng.",
+      "Tham gia đấu giá có thể mua được đồ rẻ, nhưng cẩn thận kẻ xấu truy đuổi.",
+      "Những người trong giang hồ sẽ đặt biệt hiệu cho bạn dựa trên hành động.",
+      "Song tu tuy tốt, nhưng hãy tiết chế.",
+      "Hồi phục tại tổng đàn tông phái có thể phục hồi toàn bộ HP.",
+      "Khoảng cách giữa các cảnh giới rất lớn; vượt cấp chiến đấu khó như lên trời.",
+      "Nhân vật có đặc tính Thiên Mệnh Chi Tử luôn gặp may mắn và cơ duyên.",
+      "Người xuyên không từ thế giới hiện đại chỉ muốn quay về thực tại, nhưng không thể.",
+      "Linh đan có thời hạn sử dụng.",
+      "Vì LLM cần suy nghĩ, việc khởi động game có thể mất nhiều thời gian.",
+      "Mô phỏng thế giới tiêu tốn nhiều token LLM, hãy lưu ý.",
+      "Thiết lập lịch sử khi bắt đầu sẽ thay đổi toàn bộ thế giới tu tiên.",
+      "Bảo vật đấu giá được có thể tăng mạnh sức chiến đấu, nhưng hãy tiết kiệm linh thạch."
+    ]
+  },
+  "common": {
+    "year": "Năm",
+    "month": "Tháng",
+    "none": "Không có",
+    "loading": "Đang tải...",
+    "version": "Phiên bản",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "error": "Lỗi",
+    "success": "Thành công"
+  },
+  "game": {
+    "prosperity": "Hưng thịnh",
+    "status_bar": {
+      "phenomenon": "Thiên Tượng",
+      "effect": "Hiệu ứng: ",
+      "duration": "Kéo dài {years} năm",
+      "selector_title": "Can thiệp: Thay đổi Thiên Tượng",
+      "empty_data": "Không có dữ liệu thiên tượng",
+      "cultivators": "Tu sĩ: {count}",
+      "change_success": "Thiên tượng đã đổi thành: {name}",
+      "click_to_change": "(Nhấn để thay đổi thiên tượng)",
+      "author_bilibili": "Bilibili",
+      "author_github": "Github",
+      "hidden_domain": {
+        "label": "[Bí Cảnh]",
+        "title": "Danh sách Bí Cảnh",
+        "empty": "Không có dữ liệu bí cảnh",
+        "danger": "Nguy hiểm",
+        "drop": "Cơ duyên",
+        "status_open": "Mở",
+        "status_closed": "Đóng"
+      }
+    },
+    "controls": {
+      "resume": "Tiếp tục Game",
+      "pause": "Tạm dừng Game",
+      "paused": "Đã tạm dừng",
+      "closed_msg": "Game đã đóng. Bạn có thể đóng tab này."
+    },
+    "event_panel": {
+      "title": "Nhật Ký Sự Kiện",
+      "filter_all": "Tất cả",
+      "deceased": "(Đã mất)",
+      "add_second": "+ Thêm người thứ hai",
+      "load_more": "Cuộn lên để tải thêm",
+      "empty_dual": "Không có sự kiện giữa hai người này",
+      "empty_single": "Không có sự kiện cho tu sĩ này",
+      "empty_none": "Không có sự kiện"
+    },
+    "info_panel": {
+      "popup": {
+        "effect": "Hiệu ứng: ",
+        "drops": "Vật phẩm: ",
+        "hq": "Tổng đàn: ",
+        "types": {
+          "elixir": "Linh Đan",
+          "plant": "Linh Thảo",
+          "lode": "Khoáng Mạch",
+          "item": "Vật Phẩm",
+          "weapon": "Pháp Khí",
+          "auxiliary": "Phụ Kiện",
+          "technique": "Công Pháp",
+          "sect": "Tông Phái",
+          "persona": "Đặc Tính",
+          "SWORD": "Kiếm",
+          "SABER": "Đao",
+          "SPEAR": "Thương",
+          "STAFF": "Côn",
+          "FAN": "Phiến",
+          "WHIP": "Tiên",
+          "ZITHER": "Cầm",
+          "FLUTE": "Tiêu",
+          "HIDDEN_WEAPON": "Ám Khí"
+        }
+      },
+      "avatar": {
+        "set_objective": "Đặt Mục Tiêu",
+        "clear_objective": "Xóa Mục Tiêu",
+        "dead_with_reason": "Đã mất ({reason})",
+        "unknown_reason": "Không rõ",
+        "long_term_objective": "Dài hạn",
+        "backstory": "Thân thế",
+        "short_term_objective": "Ngắn hạn",
+        "stats": {
+          "realm": "Cảnh Giới",
+          "origin": "Xuất thân",
+          "age": "Tuổi",
+          "awakened_age": "Tuổi nhập đạo",
+          "hp": "Sinh Lực",
+          "gender": "Giới tính",
+          "alignment": "Trận doanh",
+          "sect": "Tông phái",
+          "rogue": "Tản tu",
+          "root": "Linh căn",
+          "magic_stone": "Linh thạch",
+          "appearance": "Ngoại hình",
+          "battle_strength": "Chiến lực",
+          "emotion": "Cảm xúc"
+        },
+        "sections": {
+          "thinking": "Suy nghĩ",
+          "traits": "Đặc tính",
+          "techniques_equipment": "Công pháp & Trang bị",
+          "materials": "Vật liệu",
+          "relations": "Quan hệ",
+          "current_effects": "Hiệu ứng hiện tại"
+        },
+        "weapon_meta": "Thành thục {value}",
+        "relation_meta": "{relation} của {owner}",
+        "father_short": "Phụ thân",
+        "mother_short": "Mẫu thân",
+        "mortal_realm": "Phàm nhân",
+        "modals": {
+          "set_long_term": "Đặt Mục Tiêu Dài Hạn",
+          "placeholder": "Nhập mục tiêu...",
+          "set_failed": "Đặt thất bại",
+          "clear_confirm": "Bạn có chắc muốn xóa mục tiêu dài hạn?"
+        }
+      },
+      "region": {
+        "view_sect": "Xem chi tiết Tông Phái",
+        "essence_title": "Môi trường Linh Khí",
+        "essence_info": "Linh khí {type} · Mật độ {density}",
+        "sections": {
+          "host": "Chủ Động Phủ",
+          "animals": "Linh Thú",
+          "plants": "Linh Thảo",
+          "lodes": "Khoáng Mạch",
+          "market": "Chợ"
+        },
+        "host_meta": "Chủ nhân",
+        "no_host": "Vô chủ",
+        "price_meta": "{price} Linh Thạch"
+      },
+      "sect": {
+        "stats": {
+          "alignment": "Trận doanh",
+          "orthodoxy": "Chính thống",
+          "style": "Phong cách",
+          "preferred": "Binh khí",
+          "members": "Đệ tử"
+        },
+        "sections": {
+          "intro": "Giới thiệu",
+          "hq": "Tổng đàn: {name}",
+          "bonus": "Bonus Tông Phái",
+          "techniques": "Công Pháp Độc Môn",
+          "members": "Đệ Tử"
+        },
+        "no_bonus": "Không có bonus đặc biệt"
+      }
+    }
+  },
+  "realms": {
+    "QI_REFINEMENT": "Luyện Khí",
+    "FOUNDATION_ESTABLISHMENT": "Trúc Cơ",
+    "CORE_FORMATION": "Kết Đan",
+    "NASCENT_SOUL": "Nguyên Anh"
+  },
+  "technique_grades": {
+    "LOWER": "Hạ",
+    "MIDDLE": "Trung",
+    "UPPER": "Thượng"
+  },
+  "attributes": {
+    "GOLD": "Kim",
+    "WOOD": "Mộc",
+    "WATER": "Thủy",
+    "FIRE": "Hỏa",
+    "EARTH": "Thổ",
+    "ICE": "Băng",
+    "WIND": "Phong",
+    "DARK": "Ám",
+    "THUNDER": "Lôi",
+    "EVIL": "Tà"
+  }
+}

@@ -1,0 +1,19 @@
+Bạn là người ra quyết định trong thế giới tu tiên, chịu trách nhiệm quyết định hành động tiếp theo cho hai NPC.
+
+Bối cảnh thế giới:
+{world_info}
+
+dict[TênNhânVật, thông_tin] của các NPC bạn cần xử lý là:
+{avatar_infos}
+
+Hành động đang diễn ra là: {avatar_name_1} phát động hành động: {action_name} đối với {avatar_name_2}. Ý nghĩa của hành động này là: {action_info}
+Các lựa chọn mà {avatar_name_2} có thể thực hiện là:
+{feedback_actions}
+
+Lưu ý: Chỉ trả về kết quả dưới dạng JSON.
+Chỉ trả về hành động của {avatar_name_2}, định dạng:
+{{
+    {avatar_name_2}: {{
+        "feedback": ... // Một tên hành động phản hồi hợp lệ để đáp lại hành động của {avatar_name_1}.
+    }}
+}}

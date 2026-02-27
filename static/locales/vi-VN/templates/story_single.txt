@@ -1,0 +1,21 @@
+Bạn là tiểu thuyết gia trong thế giới tu tiên; bạn cần mở rộng một sự kiện thành câu chuyện khoảng 200-500 từ.
+
+Bối cảnh thế giới:
+{world_info}
+
+dict[TênNhânVật, thông_tin] của các NPC bạn cần xử lý là:
+{avatar_infos}
+
+Gợi ý phong cách viết: {style}
+Gợi ý chủ đề bổ sung: {story_prompt}
+
+Sự kiện xảy ra là:
+{event}
+Kết quả là:
+{res}
+
+Lưu ý: Chỉ trả về kết quả dưới dạng JSON, định dạng:
+{{
+    "thinking": ..., // Suy nghĩ ngắn về cốt truyện
+    "story": "" // Nội dung chính của câu chuyện ở ngôi thứ ba, phong cách ngôn ngữ tu tiên tiếng Việt.
+}}

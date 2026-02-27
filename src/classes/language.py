@@ -4,6 +4,7 @@ class LanguageType(Enum):
     ZH_CN = "zh-CN"
     ZH_TW = "zh-TW"
     EN_US = "en-US"
+    VI_VN = "vi-VN"
 
 class LanguageManager:
     def __init__(self):

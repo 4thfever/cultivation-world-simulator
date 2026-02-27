@@ -1,0 +1,27 @@
+Bạn là tiểu thuyết gia trong thế giới tu tiên; bạn cần lấy một sự kiện tập thể trong thế giới tu tiên này, chọn một góc độ hoặc quan điểm thú vị, và sáng tác một truyện ngắn 300-800 từ.
+
+Bối cảnh thế giới:
+{world_info}
+
+Bối cảnh sự kiện:
+{gathering_info}
+
+Các sự kiện:
+{events}
+
+Chi tiết sự kiện:
+{details}
+
+Gợi ý phong cách viết: {style}
+Gợi ý chủ đề bổ sung: {story_prompt}
+
+Lưu ý:
+1. Không cố gắng mô tả tất cả sự kiện một cách đầy đủ; hãy **tự chọn** những phần thú vị và kịch tính nhất để mở rộng.
+2. Tập trung mô tả tương tác giữa các nhân vật, mưu lược tâm lý, cạnh tranh hoặc hợp tác.
+3. Tập trung mô tả bầu không khí căng thẳng trong quá trình đấu giá.
+
+Chỉ trả về kết quả dưới dạng JSON, định dạng:
+{{
+    "thinking": ..., // Suy nghĩ ngắn về cốt truyện
+    "story": "" // Nội dung chính của câu chuyện ở ngôi thứ ba, phong cách ngôn ngữ tu tiên tiếng Việt.
+}}

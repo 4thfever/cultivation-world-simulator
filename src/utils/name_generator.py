@@ -109,7 +109,7 @@ class NameManager:
         
         # 处理 i18n 拼接逻辑
         from src.classes.language import language_manager, LanguageType
-        if language_manager.current == LanguageType.EN_US:
+        if language_manager.current in (LanguageType.EN_US, LanguageType.VI_VN):
             return f"{last_name} {given_name}"
         return last_name + given_name
     
@@ -130,7 +130,7 @@ class NameManager:
         
         # 处理 i18n 拼接逻辑
         from src.classes.language import language_manager, LanguageType
-        if language_manager.current == LanguageType.EN_US:
+        if language_manager.current in (LanguageType.EN_US, LanguageType.VI_VN):
             return f"{surname} {given_name}"
         return surname + given_name
 

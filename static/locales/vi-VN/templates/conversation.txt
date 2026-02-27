@@ -1,0 +1,20 @@
+Bạn là tiểu thuyết gia trong thế giới tu tiên, chịu trách nhiệm tạo nội dung đối thoại giữa hai NPC.
+
+dict[TênNhânVật, thông_tin] của các NPC bạn cần xử lý là:
+{avatar_infos}
+Các hành động dự kiến NPC sẽ thực hiện tiếp theo là:
+{planned_actions}
+
+Lưu ý: Chỉ trả về kết quả dưới dạng JSON.
+Định dạng là:
+{{
+    "{avatar_name_2}": {{
+        "thinking": ..., // Suy nghĩ ngắn về cách cuộc trò chuyện nên diễn ra.
+        "conversation_content": ... // Đoạn đối thoại nhiều lượt qua lại theo phong cách tiểu thuyết ngôi thứ ba, bao gồm mô tả biểu cảm và hành động, 100-300 từ.
+    }}
+}}
+
+Yêu cầu:
+1. Nhân vật có thể gọi nhau bằng tên hoặc biệt hiệu (nếu có).
+2. Nếu hai người đã từng trò chuyện trước đó, cuộc trò chuyện có thể tiếp nối nhưng không được lặp lại.
+3. Cuộc trò chuyện giữa {avatar_name_1} và {avatar_name_2} có thể thân thiện, ác ý, hoặc chỉ là tán gẫu.

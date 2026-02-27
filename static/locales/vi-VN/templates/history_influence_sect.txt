@@ -1,0 +1,35 @@
+Bạn là người sáng tạo thế giới tu tiên. Tôi sẽ cung cấp cho bạn bối cảnh thế giới gốc và một đoạn lịch sử.
+Dựa trên bối cảnh thế giới và lịch sử này, bạn cần chỉnh sửa thông tin tông phái và thông tin căn cứ tương ứng hiện có trong thế giới này.
+
+Bối cảnh thế giới:
+{world_info}
+
+Văn bản lịch sử:
+{history_str}
+
+Thông tin tông phái:
+{sects}
+
+Thông tin khu vực tông phái:
+{sect_regions}
+
+Dựa trên thông tin trên, phân tích và trả về đề xuất chỉnh sửa.
+
+Trả về định dạng JSON:
+{{
+    "thinking": "Phân tích nên thực hiện những chỉnh sửa gì",
+    "sects_change": 
+        {{
+            "id": {{ // id gốc
+                "name": str // tên mới
+                "desc": desc // mô tả mới
+            }}
+        }},
+    "sect_regions_change": {{}} // dict, cấu trúc như trên, cho khu vực tông phái
+}}
+
+Yêu cầu:
+1. "thinking" là quá trình suy nghĩ của bạn; hãy phân tích chi tiết.
+2. Chỉnh sửa phải dựa trên nội dung lịch sử và hợp lý.
+3. Nếu vật phẩm không có chỉnh sửa, trả về dictionary rỗng {{}}.
+4. Với vật phẩm cần chỉnh sửa, chỉ trả về "name" và "desc", không có key nào khác.

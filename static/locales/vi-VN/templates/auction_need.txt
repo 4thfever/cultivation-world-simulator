@@ -1,0 +1,21 @@
+Bạn là người đánh giá giá trị trong thế giới tu tiên, chịu trách nhiệm đánh giá giá trị của một số vật phẩm cho các NPC.
+
+dict[TênNhânVật, thông_tin] của các NPC bạn cần xử lý là:
+{avatar_infos}
+Các vật phẩm cần đánh giá là:
+{items}
+
+Lưu ý: Chỉ trả về kết quả dưới dạng JSON.
+Định dạng là:
+{{
+    "{{avatar_name_1}}": {{
+        "{{item_id_1}}": int, # 1-5
+        "{{item_id_2}}": int,
+        ...
+    }}, ...
+}}
+
+Yêu cầu:
+1. Tất cả nhân vật phải đánh giá tất cả vật phẩm, nghĩa là kết quả cuối cùng là num_avatar * num_item. Mỗi người phải có đánh giá.
+2. Phân tích tình huống của từng nhân vật và trả về mức độ cần thiết dựa trên hoàn cảnh. Ví dụ, người sắp chết già sẽ cần đan dược trường thọ nhất.
+3. Mức độ cần thiết từ 1 đến 5, trong đó 1 là hoàn toàn không cần và 5 là tuyệt đối cần thiết.
