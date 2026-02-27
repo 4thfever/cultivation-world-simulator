@@ -7,9 +7,16 @@ describe('RelationRow', () => {
     name: 'Test Name',
   }
 
+  const globalConfig = {
+    directives: {
+      sound: () => {}
+    }
+  }
+
   it('should render name prop', () => {
     const wrapper = mount(RelationRow, {
       props: defaultProps,
+      global: globalConfig,
     })
 
     expect(wrapper.text()).toContain('Test Name')
@@ -22,6 +29,7 @@ describe('RelationRow', () => {
         ...defaultProps,
         meta: 'Test Meta',
       },
+      global: globalConfig,
     })
 
     expect(wrapper.find('.rel-type').exists()).toBe(true)
@@ -31,6 +39,7 @@ describe('RelationRow', () => {
   it('should hide meta when not provided', () => {
     const wrapper = mount(RelationRow, {
       props: defaultProps,
+      global: globalConfig,
     })
 
     expect(wrapper.find('.rel-type').exists()).toBe(false)
@@ -42,6 +51,7 @@ describe('RelationRow', () => {
         ...defaultProps,
         sub: 'Subtitle text',
       },
+      global: globalConfig,
     })
 
     expect(wrapper.find('.rel-sub').exists()).toBe(true)
@@ -51,6 +61,7 @@ describe('RelationRow', () => {
   it('should hide sub when not provided', () => {
     const wrapper = mount(RelationRow, {
       props: defaultProps,
+      global: globalConfig,
     })
 
     expect(wrapper.find('.rel-sub').exists()).toBe(false)
@@ -59,6 +70,7 @@ describe('RelationRow', () => {
   it('should emit click on click', async () => {
     const wrapper = mount(RelationRow, {
       props: defaultProps,
+      global: globalConfig,
     })
 
     await wrapper.find('.relation-row').trigger('click')
@@ -70,6 +82,7 @@ describe('RelationRow', () => {
   it('should emit multiple clicks', async () => {
     const wrapper = mount(RelationRow, {
       props: defaultProps,
+      global: globalConfig,
     })
 
     await wrapper.find('.relation-row').trigger('click')
@@ -86,6 +99,7 @@ describe('RelationRow', () => {
         meta: 'Meta Info',
         sub: 'Sub Info',
       },
+      global: globalConfig,
     })
 
     expect(wrapper.find('.rel-name').text()).toBe('Full Name')
