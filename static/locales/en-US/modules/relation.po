@@ -158,3 +158,18 @@ msgstr "Younger Sister"
 
 msgid "sibling"
 msgstr "Sibling"
+
+msgid "relation_sworn_older_brother"
+msgstr "Sworn Older Brother"
+
+msgid "relation_sworn_older_sister"
+msgstr "Sworn Older Sister"
+
+msgid "relation_sworn_younger_brother"
+msgstr "Sworn Younger Brother"
+
+msgid "relation_sworn_younger_sister"
+msgstr "Sworn Younger Sister"
+
+msgid "sworn_sibling"
+msgstr "Sworn Sibling"

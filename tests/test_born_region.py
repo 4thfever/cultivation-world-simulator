@@ -88,6 +88,8 @@ def test_info_presenter_integration(mock_world):
     avatar.cultivation_progress = MagicMock()
     avatar.cultivation_progress.get_info.return_value = "Qi Refinement"
     avatar.world = mock_world
+    avatar.world.ranking_manager = MagicMock()
+    avatar.world.ranking_manager.get_avatar_rank.return_value = None
     
     # 设置出身为 CityA
     avatar.born_region_id = 1
@@ -115,6 +117,10 @@ def test_info_presenter_integration(mock_world):
     avatar.nickname = None
     avatar.hp = MagicMock()
     avatar.hp.__str__.return_value = "100/100"
+    avatar.id = 1
+    avatar.orthodoxy = None
+    avatar.emotion = MagicMock()
+    avatar.emotion.value = "calm"
 
     # 测试 info_dict
     from src.classes.core.avatar.info_presenter import get_avatar_info

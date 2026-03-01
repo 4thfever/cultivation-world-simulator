@@ -185,8 +185,12 @@ class TestLanguage:
             avatar.short_term_objective = None
             avatar.nickname = None
             avatar.spirit_animal = None
+            avatar.orthodoxy = None
+            avatar.emotion = EmotionType.CALM
             avatar.tile = MagicMock()
             avatar.tile.region = None
+            avatar.world = MagicMock()
+            avatar.world.ranking_manager.get_avatar_rank.return_value = None
 
             info = get_avatar_info(avatar)
             assert info["Emotion"] == "Calm"

@@ -265,3 +265,27 @@ msgstr "{target} accepted {initiator}'s confession, they became lovers"
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} rejected {initiator}'s confession"
 
+msgid "swear_brotherhood_action_name"
+msgstr "Swear Brotherhood"
+
+msgid "swear_brotherhood_description"
+msgstr "Propose to become sworn siblings with a cultivator in interaction range."
+
+msgid "swear_brotherhood_requirements"
+msgstr "Target within interaction range; not already sworn siblings."
+
+msgid "swear_brotherhood_story_prompt"
+msgstr "This is a heroic swearing of brotherhood. Describe their mutual appreciation and their vow to live and die together."
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator} proposes to become sworn siblings with {target}"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target} accepted {initiator}'s proposal, they became sworn siblings"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target} rejected {initiator}'s proposal to become sworn siblings"
+
+msgid "Already sworn siblings"
+msgstr "Already sworn siblings"
+

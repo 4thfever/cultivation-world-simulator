@@ -2148,6 +2148,30 @@ msgstr "{target}接受了{initiator}的表白，两人结为道侣"
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target}婉拒了{initiator}的表白"
 
+msgid "swear_brotherhood_action_name"
+msgstr "结拜"
+
+msgid "swear_brotherhood_description"
+msgstr "向交互范围内的修士发起结拜，若对方接受则结为义结金兰。"
+
+msgid "swear_brotherhood_requirements"
+msgstr "目标在交互范围内；对方不是你的结拜兄弟/姐妹"
+
+msgid "swear_brotherhood_story_prompt"
+msgstr "这是一场豪气干云的结拜，重点描写两人意气相投、誓言同生共死的场景。"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator}向{target}提出结拜为义结金兰"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target}接受了{initiator}的提议，两人结为义结金兰"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target}拒绝了{initiator}的结拜提议"
+
+msgid "Already sworn siblings"
+msgstr "已经是结拜兄弟/姐妹"
+
 msgid ", sell old {label}『{old_name}』"
 msgstr "，卖掉旧{label}『{old_name}』"
 
@@ -2315,6 +2339,21 @@ msgstr "妹妹"
 
 msgid "sibling"
 msgstr "兄弟姐妹"
+
+msgid "relation_sworn_older_brother"
+msgstr "结拜大哥"
+
+msgid "relation_sworn_older_sister"
+msgstr "结拜大姐"
+
+msgid "relation_sworn_younger_brother"
+msgstr "结拜小弟"
+
+msgid "relation_sworn_younger_sister"
+msgstr "结拜小妹"
+
+msgid "sworn_sibling"
+msgstr "结拜兄弟姐妹"
 
 msgid "earth_element"
 msgstr "土"

@@ -143,3 +143,18 @@ msgstr "妹妹"
 
 msgid "sibling"
 msgstr "兄弟姐妹"
+
+msgid "relation_sworn_older_brother"
+msgstr "結拜大哥"
+
+msgid "relation_sworn_older_sister"
+msgstr "結拜大姐"
+
+msgid "relation_sworn_younger_brother"
+msgstr "結拜小弟"
+
+msgid "relation_sworn_younger_sister"
+msgstr "結拜小妹"
+
+msgid "sworn_sibling"
+msgstr "結拜兄弟/姐妹"

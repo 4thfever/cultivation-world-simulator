@@ -240,3 +240,27 @@ msgstr "{target}接受了{initiator}的表白，兩人結為道侶"
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target}婉拒了{initiator}的表白"
 
+msgid "swear_brotherhood_action_name"
+msgstr "結拜"
+
+msgid "swear_brotherhood_description"
+msgstr "向交互範圍內的修士發起結拜，若對方接受則結為義結金蘭。"
+
+msgid "swear_brotherhood_requirements"
+msgstr "目標在交互範圍內；對方不是你的結拜兄弟/姐妹"
+
+msgid "swear_brotherhood_story_prompt"
+msgstr "這是一場豪氣干雲的結拜，重點描寫兩人意氣相投、誓言同生共死的場景。"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator}向{target}提出結拜為義結金蘭"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target}接受了{initiator}的提議，兩人結為義結金蘭"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target}拒絕了{initiator}的結拜提議"
+
+msgid "Already sworn siblings"
+msgstr "已經是結拜兄弟/姐妹"
+
