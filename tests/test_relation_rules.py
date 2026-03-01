@@ -153,3 +153,20 @@ def test_relation_cancel_rules(base_avatars):
     success = cancel_relation(a, b, Relation.IS_PARENT_OF)
     assert success is False # 应该失败
     assert a.get_relation(b) == Relation.IS_PARENT_OF # 关系依然存在
+
+def test_relation_rules_desc_contains_all_rules():
+    """
+    测试获取关系规则描述的函数是否正确包含了所有的规则翻译，
+    确保不会因为缺少翻译（原样返回英文 ID）而漏失信息。
+    """
+    from src.classes.relation.relation import get_relation_rules_desc, ADD_RELATION_RULES, CANCEL_RELATION_RULES
+    
+    desc = get_relation_rules_desc()
+    
+    # 所有的关系建立和解除规则，都应该被翻译成非全英文 id 的形式
+    # get_relation_rules_desc 内部调用了 t() 进行翻译
+    for rel, msgid in ADD_RELATION_RULES.items():
+        assert msgid not in desc, f"翻译缺失或描述中未包含建立规则翻译：{msgid}"
+        
+    for rel, msgid in CANCEL_RELATION_RULES.items():
+        assert msgid not in desc, f"翻译缺失或描述中未包含解除规则翻译：{msgid}"

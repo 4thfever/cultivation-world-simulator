@@ -122,6 +122,16 @@ msgstr ""
 msgid "relation_rule_master_cancel"
 msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
 
+msgid "relation_rule_sworn_sibling_add"
+msgstr ""
+"[Sworn Sibling] Share the same ideals, have experienced life and death "
+"together or significant events."
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr ""
+"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
+"beliefs."
+
 # Separators
 msgid "relation_separator"
 msgstr "; "

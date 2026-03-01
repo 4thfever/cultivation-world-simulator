@@ -107,6 +107,12 @@ msgstr "【师傅】境界需显著高于徒弟（如金丹vs练气）。"
 msgid "relation_rule_master_cancel"
 msgstr "【逐出/背叛】徒弟忤逆或师傅无力教导。"
 
+msgid "relation_rule_sworn_sibling_add"
+msgstr "【结义】意气相投，共同经历生死或重大事件。"
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr "【割袍断义】严重背叛，或观念产生无法调和的巨大冲突。"
+
 # 分隔符
 msgid "relation_separator"
 msgstr "；"

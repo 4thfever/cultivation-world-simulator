@@ -38,6 +38,7 @@
   },
   "ranking": {
     "title_short": "[Rankings]",
+    "tournament_short": "[Tournament]",
     "title": "Heaven, Earth & Human Rankings",
     "heaven": "Heaven (Nascent Soul)",
     "earth": "Earth (Core Formation)",
@@ -52,7 +53,12 @@
     "alignment": "Alignment",
     "member_count": "Members",
     "total_power": "Total Power",
-    "empty": "No data"
+    "empty": "No data",
+    "tournament_title": "World Martial Arts Tournament",
+    "tournament_next": "Next tournament in {years} years",
+    "heaven_first": "Heaven 1st",
+    "earth_first": "Earth 1st",
+    "human_first": "Human 1st"
   },
   "info_panel": {
     "popup": {

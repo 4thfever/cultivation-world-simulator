@@ -38,6 +38,7 @@
   },
   "ranking": {
     "title_short": "[天地人榜]",
+    "tournament_short": "[武道会]",
     "title": "天地人榜",
     "heaven": "天榜 (元婴)",
     "earth": "地榜 (金丹)",
@@ -52,7 +53,12 @@
     "alignment": "行事阵营",
     "member_count": "现存人数",
     "total_power": "宗门总战力",
-    "empty": "暂无数据"
+    "empty": "暂无数据",
+    "tournament_title": "天下武道会",
+    "tournament_next": "距离下一届还有 {years} 年",
+    "heaven_first": "天榜第一",
+    "earth_first": "地榜第一",
+    "human_first": "人榜第一"
   },
   "info_panel": {
     "popup": {

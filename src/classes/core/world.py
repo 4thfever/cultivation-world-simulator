@@ -129,9 +129,18 @@ class World():
             配置好的 World 实例。
         """
         event_manager = EventManager.create_with_db(events_db_path)
-        return cls(
+        world = cls(
             map=map,
             month_stamp=month_stamp,
             event_manager=event_manager,
             start_year=start_year,
         )
+        
+        # 初始化天下武道会的时间
+        world.ranking_manager.init_tournament_info(
+            start_year,
+            month_stamp.get_year(),
+            month_stamp.get_month().value
+        )
+        
+        return world

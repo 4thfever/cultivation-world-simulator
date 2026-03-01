@@ -12,6 +12,12 @@ class RankingManager:
     earth_ranking: List[Dict[str, Any]] = field(default_factory=list)
     human_ranking: List[Dict[str, Any]] = field(default_factory=list)
     sect_ranking: List[Dict[str, Any]] = field(default_factory=list)
+    tournament_info: Dict[str, Any] = field(default_factory=lambda: {
+        "next_year": 2,
+        "heaven_first": None,
+        "earth_first": None,
+        "human_first": None
+    })
 
     def update_rankings(self, living_avatars: List["Avatar"]) -> None:
         heaven = []
@@ -74,7 +80,8 @@ class RankingManager:
             "heaven": self.heaven_ranking,
             "earth": self.earth_ranking,
             "human": self.human_ranking,
-            "sect": self.sect_ranking
+            "sect": self.sect_ranking,
+            "tournament": self.tournament_info
         }
 
     def get_avatar_rank(self, avatar_id: str) -> Optional[tuple[str, int]]:
@@ -88,3 +95,24 @@ class RankingManager:
             if info["id"] == str(avatar_id):
                 return "human", i + 1
         return None
+
+    def init_tournament_info(self, start_year: int, current_year: int, current_month_value: int) -> None:
+        """
+        Initialize or recalculate the next tournament year based on current game time.
+        Tournament happens every 10 years starting from start_year + 1 in January.
+        """
+        target_first_year = start_year + 1
+        
+        if current_year < target_first_year or (current_year == target_first_year and current_month_value <= 1):
+            next_year = target_first_year
+        else:
+            diff = current_year - target_first_year
+            if diff % 10 == 0:
+                if current_month_value <= 1:
+                    next_year = current_year
+                else:
+                    next_year = current_year + 10
+            else:
+                next_year = target_first_year + ((diff // 10) + 1) * 10
+                
+        self.tournament_info["next_year"] = next_year

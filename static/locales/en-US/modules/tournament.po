@@ -1,0 +1,53 @@
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "World Martial Arts Tournament is in progress..."
+
+msgid "tournament_start_heaven"
+msgstr "The Heaven List tournament begins! Participants: {participants}."
+
+msgid "tournament_start_earth"
+msgstr "The Earth List tournament begins! Participants: {participants}."
+
+msgid "tournament_start_human"
+msgstr "The Human List tournament begins! Participants: {participants}."
+
+msgid "tournament_battle_result"
+msgstr "In the tournament match, {winner} defeated {loser}."
+
+msgid "tournament_end_heaven"
+msgstr "The Heaven List tournament has ended. The 1st place goes to: {winner}."
+
+msgid "tournament_end_earth"
+msgstr "The Earth List tournament has ended. The 1st place goes to: {winner}."
+
+msgid "tournament_end_human"
+msgstr "The Human List tournament has ended. The 1st place goes to: {winner}."
+
+msgid "effect_tournament_heaven_first"
+msgstr "Heaven 1st (Cultivation/Temper +50%, Epiphany +10%)"
+
+msgid "effect_tournament_earth_first"
+msgstr "Earth 1st (Cultivation/Temper +50%, Epiphany +10%)"
+
+msgid "effect_tournament_human_first"
+msgstr "Human 1st (Cultivation/Temper +50%, Epiphany +10%)"
+
+msgid "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
+
+msgid "\n【Tournament Information】\n"
+msgstr "\n【Tournament Information】\n"
+
+msgid "List: {list_name}\n"
+msgstr "List: {list_name}\n"
+
+msgid "Participants: {participants}\n"
+msgstr "Participants: {participants}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "Winner: {winner}\n"
+
+msgid "tournament_story_prompt"
+msgstr "Please write a vivid story (200-300 words) based on the tournament results above. Describe the intense battle scenes, the majestic presence of the final winner, and the reactions of the crowd. The tone should fit a cultivation world setting. Output plain text only without markdown syntax."
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr "The World Martial Arts Tournament is cancelled due to insufficient participants."

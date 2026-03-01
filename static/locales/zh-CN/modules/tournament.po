@@ -1,0 +1,53 @@
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "天下武道会正在进行中..."
+
+msgid "tournament_start_heaven"
+msgstr "天榜武道会展开，参与者：{participants}。"
+
+msgid "tournament_start_earth"
+msgstr "地榜武道会展开，参与者：{participants}。"
+
+msgid "tournament_start_human"
+msgstr "人榜武道会展开，参与者：{participants}。"
+
+msgid "tournament_battle_result"
+msgstr "武道会比决，{winner} 战胜了 {loser}。"
+
+msgid "tournament_end_heaven"
+msgstr "天榜武道会结束，第一名：{winner}。"
+
+msgid "tournament_end_earth"
+msgstr "地榜武道会结束，第一名：{winner}。"
+
+msgid "tournament_end_human"
+msgstr "人榜武道会结束，第一名：{winner}。"
+
+msgid "effect_tournament_heaven_first"
+msgstr "天榜第一（修炼、打熬气力效率+50%，顿悟概率+10%）"
+
+msgid "effect_tournament_earth_first"
+msgstr "地榜第一（修炼、打熬气力效率+50%，顿悟概率+10%）"
+
+msgid "effect_tournament_human_first"
+msgstr "人榜第一（修炼、打熬气力效率+50%，顿悟概率+10%）"
+
+msgid "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr "事件类型：天下武道会\n场景设定：这是为了决出各境界最强者而举办的盛大武道赛事，万众瞩目，激动人心。"
+
+msgid "\n【Tournament Information】\n"
+msgstr "\n【武道会信息】\n"
+
+msgid "List: {list_name}\n"
+msgstr "榜单：{list_name}\n"
+
+msgid "Participants: {participants}\n"
+msgstr "参与者：{participants}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "获胜者：{winner}\n"
+
+msgid "tournament_story_prompt"
+msgstr "请根据上述武道会的战况写一则生动的故事（200-300字）。描述战斗的激烈场面、最终获胜者的英姿以及众人的反应。语言风格需符合修仙世界的设定，注意不包含 markdown 语法，直接输出纯文本。"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr "本届天下武道会因人数不足取消。"

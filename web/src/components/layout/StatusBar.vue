@@ -7,6 +7,7 @@ import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
 
 import RankingModal from '../game/panels/RankingModal.vue'
+import TournamentModal from '../game/panels/TournamentModal.vue'
 
 const { t } = useI18n()
 const store = useWorldStore()
@@ -14,6 +15,7 @@ const socketStore = useSocketStore()
 const message = useMessage()
 const showSelector = ref(false)
 const showRankingModal = ref(false)
+const showTournamentModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
@@ -93,10 +95,22 @@ async function handleSelect(id: number, name: string) {
         :disable-popover="true"
         @trigger-click="showRankingModal = true"
       />
+
+      <!-- 武道会 -->
+      <StatusWidget
+        :label="t('game.ranking.tournament_short')"
+        color="#d4b106"
+        mode="single"
+        :disable-popover="true"
+        @trigger-click="showTournamentModal = true"
+      />
     </div>
 
     <!-- 榜单 Modal -->
     <RankingModal v-model:show="showRankingModal" />
+    
+    <!-- 武道会 Modal -->
+    <TournamentModal v-model:show="showTournamentModal" />
 
     <!-- 天象选择器 Modal -->
     <n-modal

@@ -148,3 +148,33 @@ def test_ranking_sorting(dummy_avatar):
     # 战斗力高的排在前面
     assert data["heaven"][0]["name"] == "Strong Nascent"
     assert data["heaven"][1]["name"] == "Weak Nascent"
+
+def test_init_tournament_info():
+    manager = RankingManager()
+    
+    # start_year = 100, first tournament should be year 101
+    
+    # Case 1: Before first tournament
+    manager.init_tournament_info(100, 100, 1)
+    assert manager.tournament_info["next_year"] == 101
+    
+    # Case 2: During first tournament month
+    manager.init_tournament_info(100, 101, 1)
+    assert manager.tournament_info["next_year"] == 101
+    
+    # Case 3: After first tournament month in the same year
+    manager.init_tournament_info(100, 101, 2)
+    assert manager.tournament_info["next_year"] == 111
+    
+    # Case 4: Between tournaments
+    manager.init_tournament_info(100, 105, 1)
+    assert manager.tournament_info["next_year"] == 111
+    
+    # Case 5: During second tournament month
+    manager.init_tournament_info(100, 111, 1)
+    assert manager.tournament_info["next_year"] == 111
+    
+    # Case 6: After second tournament month
+    manager.init_tournament_info(100, 111, 12)
+    assert manager.tournament_info["next_year"] == 121
+
