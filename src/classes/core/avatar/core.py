@@ -436,6 +436,12 @@ class Avatar(
         """
         self.set_relation(other, Relation.IS_LOVER_OF)
 
+    def become_sworn_sibling_with(self, other: "Avatar") -> None:
+        """
+        [我] 与 [other] 结为义结金兰（义兄弟/义姐妹）。
+        """
+        self.set_relation(other, Relation.IS_SWORN_SIBLING_OF)
+
     def make_friend_with(self, other: "Avatar") -> None:
         """
         [我] 与 [other] 结为好友。

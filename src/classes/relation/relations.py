@@ -119,6 +119,10 @@ def get_possible_new_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> Li
     if from_avatar.gender != to_avatar.gender and existing_to_from != Relation.IS_LOVER_OF:
         candidates.append(Relation.IS_LOVER_OF)
 
+    # - SWORN_SIBLING：结拜（不限性别）
+    if existing_to_from != Relation.IS_SWORN_SIBLING_OF:
+        candidates.append(Relation.IS_SWORN_SIBLING_OF)
+
     # - 师徒（方向性）：
     #   MASTER：to 是 from 的师傅 → to.level >= from.level + 20
     #   APPRENTICE：to 是 from 的徒弟 → to.level <= from.level - 20
@@ -273,6 +277,8 @@ def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict:
                 initiator.acknowledge_child(target)
             elif rel == Relation.IS_LOVER_OF:
                 initiator.become_lovers_with(target)
+            elif rel == Relation.IS_SWORN_SIBLING_OF:
+                initiator.become_sworn_sibling_with(target)
             elif rel == Relation.IS_FRIEND_OF:
                 initiator.make_friend_with(target)
             elif rel == Relation.IS_ENEMY_OF:

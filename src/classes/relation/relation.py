@@ -13,6 +13,7 @@ class Relation(Enum):
     IS_KIN_OF = "kin"                    # 对方是我的其他亲属（对称，泛化）
 
     # —— 后天（社会/情感） ——
+    IS_SWORN_SIBLING_OF = "sworn_sibling"  # 对方是我的义兄弟/义姐妹（对称）
     IS_MASTER_OF = "master"              # 对方是我的师傅（有向）
     IS_DISCIPLE_OF = "apprentice"        # 对方是我的徒弟（有向）
     IS_LOVER_OF = "lovers"               # 对方是我的道侣（对称）
@@ -64,6 +65,7 @@ relation_msg_ids = {
     Relation.IS_LOVER_OF: "lovers",
     Relation.IS_FRIEND_OF: "friend",
     Relation.IS_ENEMY_OF: "enemy",
+    Relation.IS_SWORN_SIBLING_OF: "sworn_sibling",
     
     Relation.IS_GRAND_PARENT_OF: "grand_parent",
     Relation.IS_GRAND_CHILD_OF: "grand_child",
@@ -94,6 +96,7 @@ ADD_RELATION_RULES: dict[Relation, str] = {
     Relation.IS_ENEMY_OF: "relation_rule_enemy_add",
     Relation.IS_MASTER_OF: "relation_rule_master_add",
     Relation.IS_DISCIPLE_OF: "relation_rule_apprentice_add",
+    Relation.IS_SWORN_SIBLING_OF: "relation_rule_sworn_sibling_add",
 }
 
 CANCEL_RELATION_RULES: dict[Relation, str] = {
@@ -102,6 +105,7 @@ CANCEL_RELATION_RULES: dict[Relation, str] = {
     Relation.IS_ENEMY_OF: "relation_rule_enemy_cancel",
     Relation.IS_MASTER_OF: "relation_rule_master_cancel",
     Relation.IS_DISCIPLE_OF: "relation_rule_apprentice_cancel",
+    Relation.IS_SWORN_SIBLING_OF: "relation_rule_sworn_sibling_cancel",
 }
 
 
@@ -140,6 +144,7 @@ RECIPROCAL_RELATION: dict[Relation, Relation] = {
     Relation.IS_MARTIAL_GRANDMASTER_OF: Relation.IS_MARTIAL_GRANDCHILD_OF,
     Relation.IS_MARTIAL_GRANDCHILD_OF: Relation.IS_MARTIAL_GRANDMASTER_OF,
     Relation.IS_MARTIAL_SIBLING_OF: Relation.IS_MARTIAL_SIBLING_OF,
+    Relation.IS_SWORN_SIBLING_OF: Relation.IS_SWORN_SIBLING_OF,
 }
 
 
@@ -178,6 +183,8 @@ GENDERED_DISPLAY: dict[tuple[Relation, str], str] = {
 DISPLAY_ORDER = [
     "martial_grandmaster", "master", "martial_sibling", "apprentice", "martial_grandchild",
     "lovers",
+    "relation_sworn_older_brother", "relation_sworn_younger_brother", "relation_sworn_older_sister", "relation_sworn_younger_sister",
+    "sworn_sibling",
     "relation_grandfather", "relation_grandmother", "grand_parent", # 祖父母
     "relation_father", "relation_mother",
     "relation_older_brother", "relation_younger_brother", "relation_older_sister", "relation_younger_sister",
@@ -195,7 +202,7 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
     from src.i18n import t
     
     # 1. 处理兄弟姐妹/同门 (涉及长幼比较)
-    if relation == Relation.IS_SIBLING_OF or relation == Relation.IS_MARTIAL_SIBLING_OF:
+    if relation == Relation.IS_SIBLING_OF or relation == Relation.IS_MARTIAL_SIBLING_OF or relation == Relation.IS_SWORN_SIBLING_OF:
         is_older = False
         # 比较出生时间 (MonthStamp 越小越早出生，年龄越大)
         if hasattr(other_avatar, "birth_month_stamp") and hasattr(self_avatar, "birth_month_stamp"):
@@ -212,6 +219,11 @@ def get_relation_label(relation: Relation, self_avatar: "Avatar", other_avatar: 
                 return t("relation_older_brother") if is_older else t("relation_younger_brother")
             else:
                 return t("relation_older_sister") if is_older else t("relation_younger_sister")
+        elif relation == Relation.IS_SWORN_SIBLING_OF:
+            if gender_val == "male":
+                return t("relation_sworn_older_brother") if is_older else t("relation_sworn_younger_brother")
+            else:
+                return t("relation_sworn_older_sister") if is_older else t("relation_sworn_younger_sister")
         else: # MARTIAL_SIBLING
             # 这里简单复用兄弟姐妹的 key，或者需要定义新的 key 如 martial_older_brother
             # 暂时使用通用的 sibling 称谓，或者如果有专用的 key
