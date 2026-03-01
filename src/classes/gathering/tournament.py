@@ -106,11 +106,12 @@ class Tournament(Gathering):
             # Final: winner1 vs winner2
             final_winner, final_loser, _, _ = decide_battle(winner1, winner2)
             
-            events.append(Event(
+            final_battle_event = Event(
                 world.month_stamp,
                 t("tournament_battle_result", winner=final_winner.name, loser=final_loser.name),
                 related_avatars=[final_winner.id, final_loser.id]
-            ))
+            )
+            events.append(final_battle_event)
             
             event_end = Event(
                 world.month_stamp,
@@ -143,9 +144,9 @@ class Tournament(Gathering):
             
             story_candidates.append({
                 "list_name": list_name,
-                "participants": participants,
                 "winner": final_winner,
-                "start_event": event_start,
+                "loser": final_loser,
+                "final_battle_event": final_battle_event,
                 "end_event": event_end
             })
 
@@ -164,34 +165,40 @@ class Tournament(Gathering):
         
         # Story Generation
         if story_candidates:
-            # Pick highest available (heaven > earth > human)
-            target = story_candidates[0]
             from src.classes.story_teller import StoryTeller
             
-            gathering_info = t("Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm.")
-            
-            details_text = t("\n【Tournament Information】\n")
-            details_text += t("List: {list_name}\n", list_name=target['list_name'])
-            details_text += t("Participants: {participants}\n", participants=", ".join([a.name for a in target["participants"]]))
-            details_text += t("Winner: {winner}\n", winner=target["winner"].name)
-            
-            events_text = f"{target['start_event'].content}\n{target['end_event'].content}"
-            
-            story = await StoryTeller.tell_gathering_story(
-                gathering_info=gathering_info,
-                events_text=events_text,
-                details_text=details_text,
-                related_avatars=target["participants"],
-                prompt=t(self.STORY_PROMPT_ID)
-            )
-            
-            story_event = Event(
-                month_stamp=world.month_stamp,
-                content=story,
-                related_avatars=[a.id for a in target["participants"]],
-                is_major=True 
-            )
-            events.append(story_event)
+            for target in story_candidates:
+                list_name_i18n = t(f"tournament_{target['list_name']}")
+                gathering_info = t("Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm.")
+                
+                details_text = t("\n【Tournament Information】\n")
+                details_text += t("List: {list_name}\n", list_name=list_name_i18n)
+                details_text += t("Final Match: {winner} vs {loser}\n", winner=target["winner"].name, loser=target["loser"].name)
+                details_text += t("Winner: {winner}\n", winner=target["winner"].name)
+                
+                details_text += t("\n【Finalists Information】\n")
+                details_text += f"{target['winner'].name}:\n"
+                details_text += f"{target['winner'].get_info(detailed=True)}\n\n"
+                details_text += f"{target['loser'].name}:\n"
+                details_text += f"{target['loser'].get_info(detailed=True)}\n\n"
+                
+                events_text = f"{target['final_battle_event'].content}\n{target['end_event'].content}"
+                
+                story = await StoryTeller.tell_gathering_story(
+                    gathering_info=gathering_info,
+                    events_text=events_text,
+                    details_text=details_text,
+                    related_avatars=[target["winner"], target["loser"]],
+                    prompt=t(self.STORY_PROMPT_ID)
+                )
+                
+                story_event = Event(
+                    month_stamp=world.month_stamp,
+                    content=story,
+                    related_avatars=[target["winner"].id, target["loser"].id],
+                    is_major=True 
+                )
+                events.append(story_event)
             
         if not events:
             events.append(Event(

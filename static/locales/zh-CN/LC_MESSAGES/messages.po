@@ -2903,19 +2903,35 @@ msgstr ""
 msgid "List: {list_name}\n"
 msgstr "榜单：{list_name}\n"
 
-msgid "Participants: {participants}\n"
-msgstr "参与者：{participants}\n"
-
 msgid "Winner: {winner}\n"
 msgstr "获胜者：{winner}\n"
 
+msgid ""
+"\n"
+"【Finalists Information】\n"
+msgstr ""
+"\n"
+"【决赛者信息】\n"
+
 msgid "tournament_story_prompt"
 msgstr ""
-"请根据上述武道会的战况写一则生动的故事（200-300字）。描述战斗的激烈场面、最终获胜者的英姿以及众人的反应。语言风格需符合修仙世界的设定，注意不包含"
+"请根据上述武道会的战况写一则生动的故事（约400-500字）。描述决赛两人功法对决的激烈场面、法宝碰撞的细节、最终获胜者的英姿以及众人的反应。语言风格需符合修仙世界的设定，注意不包含"
 " markdown 语法，直接输出纯文本。"
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "决赛对阵：{winner} vs {loser}\n"
 
 msgid "tournament_cancelled_due_to_insufficient_participants"
 msgstr "本届天下武道会因人数不足取消。"
+
+msgid "tournament_heaven"
+msgstr "天榜第一"
+
+msgid "tournament_earth"
+msgstr "地榜第一"
+
+msgid "tournament_human"
+msgstr "人榜第一"
 
 # ============================================================================
 # Frontend UI Translations

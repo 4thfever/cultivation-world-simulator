@@ -3134,23 +3134,40 @@ msgstr ""
 msgid "List: {list_name}\n"
 msgstr "List: {list_name}\n"
 
-msgid "Participants: {participants}\n"
-msgstr "Participants: {participants}\n"
-
 msgid "Winner: {winner}\n"
 msgstr "Winner: {winner}\n"
 
+msgid ""
+"\n"
+"【Finalists Information】\n"
+msgstr ""
+"\n"
+"【Finalists Information】\n"
+
 msgid "tournament_story_prompt"
 msgstr ""
-"Please write a vivid story (200-300 words) based on the tournament results "
-"above. Describe the intense battle scenes, the majestic presence of the "
-"final winner, and the reactions of the crowd. The tone should fit a "
+"Please write a vivid story (about 400-500 words) based on the tournament "
+"results above. Describe the intense martial arts clash between the two "
+"finalists, the details of their artifact collisions, the majestic presence "
+"of the final winner, and the reactions of the crowd. The tone should fit a "
 "cultivation world setting. Output plain text only without markdown syntax."
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "Final Match: {winner} vs {loser}\n"
 
 msgid "tournament_cancelled_due_to_insufficient_participants"
 msgstr ""
 "The World Martial Arts Tournament is cancelled due to insufficient "
 "participants."
+
+msgid "tournament_heaven"
+msgstr "Heaven List 1st Place"
+
+msgid "tournament_earth"
+msgstr "Earth List 1st Place"
+
+msgid "tournament_human"
+msgstr "Human List 1st Place"
 
 # ============================================================================
 # Frontend UI Translations

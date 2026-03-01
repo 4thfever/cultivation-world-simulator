@@ -40,14 +40,17 @@ msgstr "\n【武道會資訊】\n"
 msgid "List: {list_name}\n"
 msgstr "榜單：{list_name}\n"
 
-msgid "Participants: {participants}\n"
-msgstr "參與者：{participants}\n"
-
 msgid "Winner: {winner}\n"
 msgstr "獲勝者：{winner}\n"
 
+msgid "\n【Finalists Information】\n"
+msgstr "\n【決賽者資訊】\n"
+
 msgid "tournament_story_prompt"
-msgstr "請根據上述武道會的戰況寫一則生動的故事（200-300字）。描述戰鬥的激烈場面、最終獲勝者的英姿以及衆人的反應。語言風格需符合修仙世界的設定，注意不包含 markdown 語法，直接輸出純文字。"
+msgstr "請根據上述武道會的戰況寫一則生動的故事（約400-500字）。描述決賽兩人功法對決的激烈場面、法寶碰撞的細節、最終獲勝者的英姿以及眾人的反應。語言風格需符合修仙世界的設定，注意不包含 markdown 語法，直接輸出純文字。"
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "決賽對陣：{winner} vs {loser}\n"
 
 msgid "tournament_cancelled_due_to_insufficient_participants"
 msgstr "本屆天下武道會因人數不足取消。"
