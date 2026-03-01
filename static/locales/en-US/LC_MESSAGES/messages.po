@@ -2256,6 +2256,37 @@ msgstr ""
 "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
 "proficiency +{w_gain}, {loser} proficiency +{l_gain})"
 
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "Confess"
+
+msgid "confess_description"
+msgstr ""
+"Confess love to a target within interaction range. If accepted, they become "
+"lovers."
+
+msgid "confess_requirements"
+msgstr "Target within interaction range, and not already lovers."
+
+msgid "confess_story_prompt"
+msgstr ""
+"Describe the process of {initiator} confessing their love to {target}. "
+"Include their inner feelings and the atmosphere. If accepted, describe the "
+"romance of them becoming lovers. If rejected, describe the gentle refusal "
+"and regret."
+
+msgid "Already lovers"
+msgstr "Already lovers"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator} confesses their love to {target}"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr "{target} accepted {initiator}'s confession, they became lovers"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target} rejected {initiator}'s confession"
+
 msgid ", sell old {label}『{old_name}』"
 msgstr ", sell old {label}『{old_name}』"
 
@@ -2398,9 +2429,9 @@ msgstr "[Establish Relation Rules]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friend] Any friendly daily interactions (such as chatting, dual cultivation, "
-"sparring, healing, etc.) or a single display of goodwill is enough to "
-"establish this. No substantial conflict of interest."
+"[Friend] Any friendly daily interactions (such as chatting, dual "
+"cultivation, sparring, healing, etc.) or a single display of goodwill is "
+"enough to establish this. No substantial conflict of interest."
 
 msgid "relation_rule_friend_cancel"
 msgstr ""

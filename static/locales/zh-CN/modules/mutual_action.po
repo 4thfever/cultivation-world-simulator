@@ -214,3 +214,29 @@ msgid ""
 "proficiency +{w_gain}, {loser} proficiency +{l_gain})"
 msgstr ""
 "{winner} 在切磋中略胜一筹，战胜了 {loser}。（{winner} 熟练度+{w_gain}，{loser} 熟练度+{l_gain}）"
+
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "表白"
+
+msgid "confess_description"
+msgstr "向交互范围内的修士表白，若对方接受则结为道侣。"
+
+msgid "confess_requirements"
+msgstr "目标在交互范围内，且当前非道侣关系。"
+
+msgid "confess_story_prompt"
+msgstr "描述{initiator}向{target}表白的过程，包含内心的悸动、场景的氛围。如果接受，则描绘两情相悦结为道侣的浪漫；如果拒绝，则描绘婉拒与遗憾。"
+
+msgid "Already lovers"
+msgstr "已经是道侣了"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator}向{target}深情表白"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr "{target}接受了{initiator}的表白，两人结为道侣"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target}婉拒了{initiator}的表白"
+
