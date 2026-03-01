@@ -181,7 +181,7 @@ class Tournament(Gathering):
                 gathering_info=gathering_info,
                 events_text=events_text,
                 details_text=details_text,
-                related_avatars=[a.id for a in target["participants"]],
+                related_avatars=target["participants"],
                 prompt=t(self.STORY_PROMPT_ID)
             )
             

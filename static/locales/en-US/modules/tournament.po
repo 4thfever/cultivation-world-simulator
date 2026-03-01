@@ -51,3 +51,12 @@ msgstr "Please write a vivid story (200-300 words) based on the tournament resul
 
 msgid "tournament_cancelled_due_to_insufficient_participants"
 msgstr "The World Martial Arts Tournament is cancelled due to insufficient participants."
+
+msgid "tournament_heaven"
+msgstr "Heaven List 1st Place"
+
+msgid "tournament_earth"
+msgstr "Earth List 1st Place"
+
+msgid "tournament_human"
+msgstr "Human List 1st Place"
