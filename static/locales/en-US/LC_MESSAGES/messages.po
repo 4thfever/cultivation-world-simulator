@@ -2398,8 +2398,9 @@ msgstr "[Establish Relation Rules]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friend] Friendly interactions (chat, spar without killing, heal). No "
-"substantial conflict of interest."
+"[Friend] Any friendly daily interactions (such as chatting, dual cultivation, "
+"sparring, healing, etc.) or a single display of goodwill is enough to "
+"establish this. No substantial conflict of interest."
 
 msgid "relation_rule_friend_cancel"
 msgstr ""

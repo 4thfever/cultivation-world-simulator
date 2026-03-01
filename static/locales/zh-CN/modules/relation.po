@@ -111,7 +111,7 @@ msgid "relation_rule_establish_title"
 msgstr "【建立关系规则】"
 
 msgid "relation_rule_friend_add"
-msgstr "【朋友】友好互动（交谈、切磋不致死、疗伤）。无实质利益冲突。"
+msgstr "【朋友】只要有任何友好的日常互动（如攀谈、双修、切磋、疗伤等）或单次善意表现即可建立。无实质利益冲突。"
 
 msgid "relation_rule_friend_cancel"
 msgstr "【绝交】利益冲突、背叛、或者长期无互动导致疏远。"
