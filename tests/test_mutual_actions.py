@@ -17,6 +17,8 @@ from unittest.mock import MagicMock, AsyncMock, patch
 from src.classes.mutual_action.talk import Talk
 from src.classes.mutual_action.spar import Spar
 from src.classes.mutual_action.impart import Impart
+from src.classes.mutual_action.confess import Confess
+from src.classes.mutual_action.swear_brotherhood import SwearBrotherhood
 from src.classes.action_runtime import ActionStatus
 from src.classes.relation.relation import Relation
 
@@ -497,6 +499,234 @@ class TestImpart:
         events = await result
         
         assert events == []
+
+
+class TestConfess:
+    """Tests for Confess mutual action."""
+
+    @pytest.fixture
+    def target_avatar(self, base_world, dummy_avatar):
+        """Create a target avatar for confess tests."""
+        from src.classes.core.avatar import Avatar, Gender
+        from src.classes.age import Age
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
+        from src.classes.root import Root
+        from src.classes.alignment import Alignment
+        from src.utils.id_generator import get_avatar_id
+
+        target = Avatar(
+            world=base_world,
+            name="ConfessTarget",
+            id=get_avatar_id(),
+            birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+            age=Age(25, Realm.Qi_Refinement),
+            gender=Gender.FEMALE,
+            pos_x=0,
+            pos_y=0,
+            root=Root.WATER,
+            personas=[],
+            alignment=Alignment.NEUTRAL
+        )
+        target.weapon = MagicMock()
+        target.weapon.get_detailed_info.return_value = "Test Weapon"
+        target.thinking = ""
+        target.short_term_objective = ""
+        base_world.avatar_manager.avatars[target.name] = target
+        return target
+
+    def test_confess_has_cooldown(self):
+        """Test that Confess has cooldown configured."""
+        assert Confess.ACTION_CD_MONTHS == 6
+
+    def test_confess_can_start_success(self, dummy_avatar, target_avatar):
+        """Test Confess can start when target is in range and not already lovers."""
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.get_relation = MagicMock(return_value=None)
+        
+        with patch("src.classes.observe.is_within_observation", return_value=True):
+            can_start, reason = action.can_start(target_avatar=target_avatar)
+        
+        assert can_start is True
+        assert reason == ""
+
+    def test_confess_cannot_start_already_lovers(self, dummy_avatar, target_avatar):
+        """Test Confess cannot start when already lovers."""
+        from src.i18n import t
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.get_relation = MagicMock(return_value=Relation.IS_LOVER_OF)
+        
+        with patch("src.classes.observe.is_within_observation", return_value=True):
+            can_start, reason = action.can_start(target_avatar=target_avatar)
+        
+        assert can_start is False
+        assert t("Already lovers") in reason
+
+    def test_confess_start_returns_event(self, dummy_avatar, target_avatar):
+        """Test that Confess.start() returns proper major event."""
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        event = action.start(target_avatar)
+        
+        assert event is not None
+        assert dummy_avatar.name in event.content
+        assert target_avatar.name in event.content
+        assert dummy_avatar.id in event.related_avatars
+        assert target_avatar.id in event.related_avatars
+        assert event.is_major is True
+        assert hasattr(action, '_confess_success')
+        assert action._confess_success is False
+
+    def test_confess_settle_feedback_accept(self, dummy_avatar, target_avatar):
+        """Test that accepting confession updates relation."""
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.become_lovers_with = MagicMock()
+        
+        action._settle_feedback(target_avatar, "Accept")
+        
+        dummy_avatar.become_lovers_with.assert_called_once_with(target_avatar)
+        assert action._confess_success is True
+
+    def test_confess_settle_feedback_reject(self, dummy_avatar, target_avatar):
+        """Test that rejecting confession does not update relation."""
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.become_lovers_with = MagicMock()
+        
+        action._settle_feedback(target_avatar, "Reject")
+        
+        dummy_avatar.become_lovers_with.assert_not_called()
+        assert action._confess_success is False
+
+    @pytest.mark.asyncio
+    async def test_confess_finish_generates_story(self, dummy_avatar, target_avatar):
+        """Test Confess.finish() generates result and story events."""
+        action = Confess(dummy_avatar, dummy_avatar.world)
+        action._confess_success = True
+        
+        with patch("src.classes.mutual_action.confess.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
+            mock_story.return_value = "A romantic confession story."
+            
+            # cooldown_action wraps finish to accept **kwargs
+            result = action.finish(target_avatar=target_avatar)
+            events = await result
+            
+            assert len(events) == 2
+            assert events[0].is_major is True
+            assert events[1].is_story is True
+            assert "A romantic confession story." in events[1].content
+
+
+class TestSwearBrotherhood:
+    """Tests for SwearBrotherhood mutual action."""
+
+    @pytest.fixture
+    def target_avatar(self, base_world, dummy_avatar):
+        """Create a target avatar for swear brotherhood tests."""
+        from src.classes.core.avatar import Avatar, Gender
+        from src.classes.age import Age
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
+        from src.classes.root import Root
+        from src.classes.alignment import Alignment
+        from src.utils.id_generator import get_avatar_id
+
+        target = Avatar(
+            world=base_world,
+            name="SwearTarget",
+            id=get_avatar_id(),
+            birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+            age=Age(25, Realm.Qi_Refinement),
+            gender=Gender.MALE,
+            pos_x=0,
+            pos_y=0,
+            root=Root.FIRE,
+            personas=[],
+            alignment=Alignment.NEUTRAL
+        )
+        target.weapon = MagicMock()
+        target.weapon.get_detailed_info.return_value = "Test Weapon"
+        target.thinking = ""
+        target.short_term_objective = ""
+        base_world.avatar_manager.avatars[target.name] = target
+        return target
+
+    def test_swear_has_cooldown(self):
+        """Test that SwearBrotherhood has cooldown configured."""
+        assert SwearBrotherhood.ACTION_CD_MONTHS == 6
+
+    def test_swear_can_start_success(self, dummy_avatar, target_avatar):
+        """Test SwearBrotherhood can start when target is in range and not already sworn siblings."""
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.get_relation = MagicMock(return_value=Relation.IS_FRIEND_OF)
+        
+        with patch("src.classes.observe.is_within_observation", return_value=True):
+            can_start, reason = action.can_start(target_avatar=target_avatar)
+        
+        assert can_start is True
+        assert reason == ""
+
+    def test_swear_cannot_start_already_sworn(self, dummy_avatar, target_avatar):
+        """Test SwearBrotherhood cannot start when already sworn siblings."""
+        from src.i18n import t
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.get_relation = MagicMock(return_value=Relation.IS_SWORN_SIBLING_OF)
+        
+        with patch("src.classes.observe.is_within_observation", return_value=True):
+            can_start, reason = action.can_start(target_avatar=target_avatar)
+        
+        assert can_start is False
+        assert t("Already sworn siblings") in reason
+
+    def test_swear_start_returns_event(self, dummy_avatar, target_avatar):
+        """Test that SwearBrotherhood.start() returns proper major event."""
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        event = action.start(target_avatar)
+        
+        assert event is not None
+        assert dummy_avatar.name in event.content
+        assert target_avatar.name in event.content
+        assert dummy_avatar.id in event.related_avatars
+        assert target_avatar.id in event.related_avatars
+        assert event.is_major is True
+        assert hasattr(action, '_swear_success')
+        assert action._swear_success is False
+
+    def test_swear_settle_feedback_accept(self, dummy_avatar, target_avatar):
+        """Test that accepting swear brotherhood updates relation."""
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.become_sworn_sibling_with = MagicMock()
+        
+        action._settle_feedback(target_avatar, "Accept")
+        
+        dummy_avatar.become_sworn_sibling_with.assert_called_once_with(target_avatar)
+        assert action._swear_success is True
+
+    def test_swear_settle_feedback_reject(self, dummy_avatar, target_avatar):
+        """Test that rejecting swear brotherhood does not update relation."""
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        dummy_avatar.become_sworn_sibling_with = MagicMock()
+        
+        action._settle_feedback(target_avatar, "Reject")
+        
+        dummy_avatar.become_sworn_sibling_with.assert_not_called()
+        assert action._swear_success is False
+
+    @pytest.mark.asyncio
+    async def test_swear_finish_generates_story(self, dummy_avatar, target_avatar):
+        """Test SwearBrotherhood.finish() generates result and story events."""
+        action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
+        action._swear_success = True
+        
+        with patch("src.classes.mutual_action.swear_brotherhood.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
+            mock_story.return_value = "A legendary brotherhood story."
+            
+            # cooldown_action wraps finish to accept **kwargs
+            result = action.finish(target_avatar=target_avatar)
+            events = await result
+            
+            assert len(events) == 2
+            assert events[0].is_major is True
+            assert events[1].is_story is True
+            assert "A legendary brotherhood story." in events[1].content
 
 
 class TestMutualActionBase:
