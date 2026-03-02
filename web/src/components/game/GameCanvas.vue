@@ -5,6 +5,7 @@ import { useElementSize } from '@vueuse/core'
 import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
+import PerceptionLayer from './PerceptionLayer.vue'
 import CloudLayer from './CloudLayer.vue'
 import { useTextures } from './composables/useTextures'
 
@@ -77,6 +78,7 @@ onMounted(() => {
           @regionSelected="handleRegionSelected" 
         />
         <EntityLayer @avatarSelected="handleAvatarSelected" />
+        <PerceptionLayer :width="mapSize.width" :height="mapSize.height" />
         <CloudLayer :width="mapSize.width" :height="mapSize.height" />
       </Viewport>
     </Application>

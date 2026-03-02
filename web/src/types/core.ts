@@ -67,6 +67,7 @@ export interface AvatarDetail extends EntityBase {
   realm: string;
   level: number;
   hp: { cur: number; max: number };
+  observation_radius?: number;
   magic_stone: number;
   base_battle_strength: number;
   ranking?: { type: string; rank: number };

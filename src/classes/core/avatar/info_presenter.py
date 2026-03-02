@@ -142,6 +142,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     """
     # 基础信息
     from src.i18n import t
+    from src.classes.observe import get_avatar_observation_radius
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
     
     born_region_name = t("Unknown")
@@ -167,6 +168,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "realm": avatar.cultivation_progress.get_info(),
         "level": avatar.cultivation_progress.level,
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
+        "observation_radius": get_avatar_observation_radius(avatar),
         "alignment": str(avatar.alignment) if avatar.alignment else t("Unknown"),
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
