@@ -1,0 +1,29 @@
+---
+description: 存档与序列化规范 (Save/Load & Serialization)
+globs: src/sim/save/**/*.py, src/sim/load/**/*.py, src/classes/**/*.py
+---
+
+# 存档与序列化规范 (Save/Load & Serialization)
+
+本规范定义了游戏状态（如 Avatar、World 等）的持久化存储原则，确保存档的稳定性和向后兼容性。
+
+## 1. 序列化边界与引用管理
+
+*   **仅序列化基础类型**：`to_dict` 或 `to_save_dict` 方法返回的字典中，所有值必须是 JSON 可序列化的基础数据类型（`str`, `int`, `float`, `bool`, `list`, `dict`）。
+*   **禁止深拷贝引用**：涉及跨实体引用时（例如 `Avatar` 认识另一个 `Avatar`，或属于某个 `Sect`），**仅保存其 ID 字符串**。
+    *   *错误示例*：`"sect": self.sect.to_dict()`
+    *   *正确示例*：`"sect_id": self.sect.id if self.sect else None`
+*   **反序列化重建**：加载存档时，通过全局注册表或世界管理器，利用保存的 ID 重新建立对象引用。
+
+## 2. 代码组织与 Mixin 模式
+
+*   **分离读写逻辑**：对于复杂的实体类（如 `Avatar`），其序列化和反序列化逻辑必须剥离到独立的 Mixin 类中。
+    *   参考 `src/sim/save/avatar_save_mixin.py` (`AvatarSaveMixin`)
+    *   参考 `src/sim/load/avatar_load_mixin.py` (`AvatarLoadMixin`)
+*   **保持核心类纯粹**：不要在 `src/classes/core/avatar/core.py` 中堆砌几百行的 `to_dict` 逻辑。
+
+## 3. 向下兼容性 (Backward Compatibility)
+
+*   **安全提取**：在 `from_dict` 或 `load` 方法中读取存档数据时，必须使用字典的 `.get()` 方法并提供合理的默认值。
+    *   *错误示例*：`self.new_feature = data["new_feature"]` （旧存档会抛出 KeyError）
+    *   *正确示例*：`self.new_feature = data.get("new_feature", default_value)`

@@ -1,0 +1,33 @@
+---
+description: LLM 接入与提示词规范 (LLM Integration & Prompt)
+globs: src/utils/llm/**/*.py, src/**/*.py
+---
+
+# LLM 接入与提示词规范 (LLM Integration & Prompt)
+
+本规范定义了如何与项目中的大语言模型 (LLM) 进行交互、组织提示词及处理响应。核心模块位于 `src/utils/llm/`。
+
+## 1. 客户端调用规范 (Client Usage)
+
+*   **统一入口**：必须使用 `src.utils.llm.client` 中提供的异步方法。严禁直接使用第三方库如 `openai` 或 `requests`。
+    *   `call_llm`: 用于返回纯文本。
+    *   `call_llm_json`: 用于返回解析后的 JSON 对象。
+    *   `call_llm_with_template`: 结合外部模板文件使用，最常用。
+    *   `call_llm_with_task_name`: 根据任务名自动选择配置的模式（推荐业务层使用）。
+*   **并发控制**：客户端底层已使用 `asyncio.Semaphore` 处理并发，业务层可以放心使用 `asyncio.gather` 并行请求，无需手动限流。
+
+## 2. 模式与异常处理 (Mode & Exceptions)
+
+*   **模型选择**：
+    *   `LLMMode.FAST`: 适用于简单实体生成、轻量级推演、需要极低延迟的场景。
+    *   `LLMMode.NORMAL`: 适用于复杂推理、长文本生成、需要高准确率的场景。
+*   **重试机制**：使用 `call_llm_json` 或相关封装时，不要在业务层自己写 `while` 重试循环，依赖底层的 `max_retries` 机制即可。
+*   **异常捕获**：统一捕获 `LLMError` 或 `ParseError`。当捕获到这些异常时，必须提供优雅降级方案（如返回默认数据）。
+
+## 3. 提示词编写规范 (Prompt Engineering)
+
+*   **纯文本模板**：长提示词模板应抽离为纯文本或 `.pot` 文件（如 `src/i18n/locales/templates/`），避免在 Python 代码中拼接几百行的字符串。
+*   **上下文注入**：
+    *   传入的 `infos` 字典会自动通过 `src.utils.strings.intentify_prompt_infos` 处理。
+    *   此工具会将复杂的 Python 对象（如 bool, List, dict）转换为对 LLM 友好的可读字符串，业务代码应直接传入对象。
+*   **JSON 结构定义**：当要求 LLM 返回 JSON 时，提示词中必须包含清晰的 Schema 示例，如 `{"key": "value"}`，且要求其放在 markdown 代码块 ` ```json ` 中，以确保 `parse_json` 成功率。

@@ -1,0 +1,60 @@
+---
+description: 动作(Action)与互动动作(Mutual Action)的开发规范与说明
+globs: src/classes/action/**/*.py, src/classes/mutual_action/**/*.py
+---
+# 动作与互动动作开发规范 (Action & Mutual Action Development Guide)
+
+在本项目中开发新的角色动作 (Action) 或互动动作 (MutualAction) 时，必须遵循以下规范，确保多语言支持、AI 决策正常工作，并顺利整合进游戏循环。
+
+## 1. 核心概念分类
+
+*   **单人动作 (Action)**: 继承自 `InstantAction`（瞬时动作，一次执行完毕）或 `TimedAction`（长态动作，持续数个月）。位于 `src/classes/action/`。
+*   **互动动作 (MutualAction)**: 继承自 `MutualAction`。表示角色 A 对角色 B 发起的交互（如双修、切磋、送礼等），必定需要目标角色做出反馈。位于 `src/classes/mutual_action/`。
+
+## 2. 通用属性与方法 (所有 Action 必填)
+
+所有的动作（含单人和互动）类必须实现以下类变量，用于前端展示与多语言 (i18n)：
+
+*   **`ACTION_NAME_ID: str`**: 动作名称的多语言 key（例如 `"meditate_action_name"`）。
+*   **`DESC_ID: str`**: 动作具体描述的多语言 key（例如 `"meditate_description"`）。
+*   **`REQUIREMENTS_ID: str`**: 动作执行条件的多语言 key（例如 `"meditate_requirements"`）。
+*   **`EMOJI: str`**: 动作对应的 Emoji 图标（无需翻译，例如 `"🧘"`）。
+*   **`PARAMS: dict`**: 执行此动作需要的参数格式定义（例如 `{"target_realm": "str"}`。若无参数填 `{}`）。
+
+### 生命周期方法
+
+*   **`can_start(self, **kwargs) -> tuple[bool, str]`**:
+    *   检查动作此时能否开始。返回 `(True, "")` 或 `(False, "失败原因的翻译字符串")`。
+*   **`start(self, **kwargs) -> Event | None`**:
+    *   启动动作，通常在此创建并返回一个开始执行动作的世界 `Event`。
+*   **`_execute(self, **kwargs) -> None`** (单人动作):
+    *   具体的底层执行逻辑（如增加修为、扣除灵石、增减繁荣度等）。
+*   **`finish(self, **kwargs) -> list[Event]`** (异步):
+    *   动作执行结束时调用，返回执行结果相关的 `Event` 列表。
+*   **`can_possibly_start(self) -> bool`** (可选):
+    *   **非常重要**：用于前置过滤掉对于特定角色**绝对不可能**执行的动作（如正道绝对不搜刮百姓）。
+    *   这有助于大大缩短传给 LLM 的 `action_infos` prompt 长度。如果可能执行，返回 `True`；绝对不可能返回 `False`。默认返回 `True`。
+
+### 时间管理 (TimedAction)
+
+*   如果是 `TimedAction`，必须设置类变量 **`duration_months: int`** 来表示该动作默认耗时几个月。
+
+## 3. MutualAction 特有规范
+
+互动动作继承自 `MutualAction`，除上述通用规范外，还需遵循：
+
+*   **`PARAMS`**: 必须包含 `"target_avatar": "Avatar"` 或类似定义。
+*   **`FEEDBACK_ACTIONS: list[str]`**: 目标角色可选的反馈动作名称列表（如 `["Accept", "Reject"]`）。
+*   **`STORY_PROMPT_ID: str`** (可选): 如果该互动动作在结束后要生成一段小故事（如双修），应提供对应的 Prompt 多语言 key。
+*   **`_can_start(self, target: "Avatar") -> tuple[bool, str]`**:
+    *   MutualAction 中应重写此方法来进行启动条件判断（基类已经处理了目标不存在、目标是自己、目标死亡等基础检查）。
+*   **`_settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None`**:
+    *   核心结算逻辑。根据目标给出的 `feedback_name`（如 `"Accept"`），在此处应用具体的数值/状态变化。
+
+## 4. 注册与测试要求
+
+*   **注册装饰器**: 必须在类定义上方添加 `@register_action(actual=True)` 装饰器。
+*   **模块导出**: **必须**在当前目录的 `__init__.py` 中 `from .your_file import YourAction`，否则注册将无效！详细请参考 `.cursor/rules/python-registry.mdc`。
+*   **测试覆盖**:
+    *   新增动作必须在 `tests/` 中添加对应的测试（如 `test_action_my_action.py`）。
+    *   如果重写了 `can_possibly_start`，必须在 `tests/test_action_can_possibly_start.py` 中补充相关分支的测试。
