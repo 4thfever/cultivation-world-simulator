@@ -215,10 +215,10 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Character short and long-term memory
 - ✅ Character's short and long-term goals, supporting player active setting
 - ✅ Character nicknames
-- [ ] Life Skills
-  - ✅ Forging
+- ✅ Life Skills
+  - ✅ Harvesting, Hunting, Mining, Planting
+  - ✅ Casting
   - ✅ Refining
-  - [ ] Planting
 - ✅ Mortals
 - [ ] Deity Transformation Realm
 
