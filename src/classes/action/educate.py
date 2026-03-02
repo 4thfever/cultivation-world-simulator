@@ -27,6 +27,12 @@ class Educate(TimedAction):
     BASE_EXP_TOTAL = 150 # 基准总经验 (50/月 * 3)
     STANDARD_PROSPERITY = 50 # 标准繁荣度
 
+    def can_possibly_start(self) -> bool:
+        legal = self.avatar.effects.get("legal_actions", [])
+        if "Educate" not in legal:
+            return False
+        return True
+
     def _execute(self) -> None:
         """
         教化执行逻辑

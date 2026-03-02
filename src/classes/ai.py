@@ -51,9 +51,9 @@ class LLMAI(AI):
         """
         异步决策逻辑：通过LLM决定执行什么动作和参数
         """
-        general_action_infos = get_action_infos_str()
         
         async def decide_one(avatar: Avatar):
+            general_action_infos = get_action_infos_str(avatar)
             # 获取基于该角色已知区域的世界信息（包含距离计算）
             world_info = world.get_info(avatar=avatar, detailed=True)
             

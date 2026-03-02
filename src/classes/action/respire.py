@@ -27,6 +27,12 @@ class Respire(TimedAction):
     BASE_EXP_PER_DENSITY = 100   # 修炼区域每点灵气密度的基础经验
     BASE_EXP_LOW_EFFICIENCY = 50 # 无匹配灵气或非修炼区域的基础经验
 
+    def can_possibly_start(self) -> bool:
+        legal = self.avatar.effects.get("legal_actions", [])
+        if legal and "Respire" not in legal:
+            return False
+        return True
+
     def _execute(self) -> None:
         """
         吐纳

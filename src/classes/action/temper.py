@@ -22,6 +22,12 @@ class Temper(TimedAction):
     # 基础经验值
     BASE_EXP = 480
 
+    def can_possibly_start(self) -> bool:
+        legal = self.avatar.effects.get("legal_actions", [])
+        if legal and "Temper" not in legal:
+            return False
+        return True
+
     def _execute(self) -> None:
         if self.avatar.cultivation_progress.is_in_bottleneck():
             return

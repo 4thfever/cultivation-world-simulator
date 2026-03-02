@@ -27,6 +27,12 @@ class Meditate(TimedAction):
     EPIPHANY_EXP = 1500 # 顿悟经验（极多，期望值约 50/月）
     BASE_PROB = 0.1     # 基础顿悟概率 10%
 
+    def can_possibly_start(self) -> bool:
+        legal = self.avatar.effects.get("legal_actions", [])
+        if "Meditate" not in legal:
+            return False
+        return True
+
     def _execute(self) -> None:
         """
         禅定执行逻辑

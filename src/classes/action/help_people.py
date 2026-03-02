@@ -23,6 +23,11 @@ class HelpPeople(TimedAction):
 
     duration_months = 3
 
+    def can_possibly_start(self) -> bool:
+        if self.avatar.alignment != Alignment.RIGHTEOUS:
+            return False
+        return True
+
     def _execute(self) -> None:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):

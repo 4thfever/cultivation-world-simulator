@@ -48,6 +48,11 @@ class Catch(TimedAction):
         }
         return mapping.get(animal_realm, 0.1)
 
+    def can_possibly_start(self) -> bool:
+        if self.avatar.sect is None or self.avatar.sect.name != "百兽宗":
+            return False
+        return True
+
     def _execute(self) -> None:
         region = self.avatar.tile.region
         animals = region.animals

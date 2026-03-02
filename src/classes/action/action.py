@@ -112,6 +112,13 @@ class Action(ABC):
         """加载运行时数据"""
         pass
 
+    def can_possibly_start(self) -> bool:
+        """
+        判断是否有可能开始执行该动作。
+        用于在AI决策时过滤掉绝对不可能执行的动作，以减小prompt长度。
+        """
+        return True
+
 
 class DefineAction(Action):
     def __init__(self, avatar: Avatar, world: World):

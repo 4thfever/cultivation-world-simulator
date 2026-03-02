@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
-from typing import Dict, Any
+from typing import Dict, Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.classes.core.avatar import Avatar
 
 from src.classes.action.registry import ActionRegistry
 # 确保在收集注册表前加载所有动作模块（含 mutual actions）
@@ -27,20 +30,26 @@ def _build_action_info(action):
         info["cd_months"] = cd
     return info
 
-def get_action_infos() -> Dict[str, Any]:
+def get_action_infos(avatar: "Avatar" | None = None) -> Dict[str, Any]:
     """
-    动态获取当前语言环境下的动作描述信息
+    动态获取当前语言环境下的动作描述信息。
+    如果提供了 avatar，则会过滤掉该角色绝对不可能执行的动作。
     """
-    return {
-        action.__name__: _build_action_info(action)
-        for action in ALL_ACTUAL_ACTION_CLASSES
-    }
+    infos = {}
+    for action_cls in ALL_ACTUAL_ACTION_CLASSES:
+        if avatar is not None:
+            # 实例化动作以检查是否可能执行
+            action_inst = action_cls(avatar, avatar.world)
+            if not action_inst.can_possibly_start():
+                continue
+        infos[action_cls.__name__] = _build_action_info(action_cls)
+    return infos
 
-def get_action_infos_str() -> str:
+def get_action_infos_str(avatar: "Avatar" | None = None) -> str:
     """
     获取JSON格式的动作描述字符串
     """
-    return json.dumps(get_action_infos(), ensure_ascii=False, indent=2)
+    return json.dumps(get_action_infos(avatar), ensure_ascii=False, indent=2)
 
 # 为了兼容性保留 ACTION_INFOS_STR，但请注意这可能是旧的（导入时的快照），不会随语言切换更新
 # 建议使用 get_action_infos_str() 获取最新语言的描述

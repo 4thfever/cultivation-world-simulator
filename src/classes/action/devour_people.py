@@ -23,6 +23,12 @@ class DevourPeople(TimedAction):
 
     duration_months = 2
 
+    def can_possibly_start(self) -> bool:
+        legal = self.avatar.effects.get("legal_actions", [])
+        if "DevourPeople" not in legal:
+            return False
+        return True
+
     def _execute(self) -> None:
         # 若持有万魂幡：累积吞噬魂魄（10~100），上限10000
         # 万魂幡是辅助装备(auxiliary)

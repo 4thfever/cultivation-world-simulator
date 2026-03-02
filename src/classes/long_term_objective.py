@@ -90,7 +90,7 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     infos = {
         "world_info": world_info,
         "avatar_info": expanded_info,
-        "general_action_infos": get_action_infos_str(),
+        "general_action_infos": get_action_infos_str(avatar),
     }
     
     # 调用LLM并自动解析JSON（使用配置的模型模式）

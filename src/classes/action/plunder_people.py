@@ -23,6 +23,11 @@ class PlunderPeople(TimedAction):
 
     duration_months = 3
 
+    def can_possibly_start(self) -> bool:
+        if self.avatar.alignment != Alignment.EVIL:
+            return False
+        return True
+
     def _execute(self) -> None:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
