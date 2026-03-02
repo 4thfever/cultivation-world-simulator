@@ -188,6 +188,14 @@ EXTRA_MINE_MATERIALS = "extra_mine_materials"
 说明: 挖矿时额外获得的材料数量。
 """
 
+EXTRA_PLANT_INCOME = "extra_plant_income"
+"""
+额外种植灵石收益
+类型: int
+结算: src/classes/action/plant.py
+说明: 种植时额外获得的灵石数量。
+"""
+
 # --- 移动相关 ---
 EXTRA_MOVE_STEP = "extra_move_step"
 """
@@ -525,6 +533,7 @@ ALL_EFFECTS = [
     "extra_harvest_materials",           # int - 额外采集材料数量
     "extra_hunt_materials",              # int - 额外狩猎材料数量
     "extra_mine_materials",               # int - 额外挖矿材料数量
+    "extra_plant_income",                # int - 额外种植灵石收益
     
     # 移动相关
     "extra_move_step",                   # int - 额外移动步数

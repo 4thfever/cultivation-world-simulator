@@ -1751,6 +1751,14 @@ msgstr ""
 msgid "PERSONA_1006_DESC"
 msgstr ""
 
+#. persona.csv: 灵农
+msgid "PERSONA_1007_NAME"
+msgstr ""
+
+#. persona.csv: 你出身底层，对灵植种植颇有心得，能靠种田获得更多灵石。
+msgid "PERSONA_1007_DESC"
+msgstr ""
+
 #. plant.csv: 奇草
 msgid "PLANT_1_NAME"
 msgstr ""

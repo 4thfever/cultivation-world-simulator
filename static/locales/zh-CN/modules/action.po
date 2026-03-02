@@ -525,3 +525,18 @@ msgstr "{initiator} 邀请 {target} 进行双修"
 
 msgid "{root_name} ({elements})"
 msgstr "{root_name}（{elements}）"
+
+msgid "plant_action_name"
+msgstr "种植"
+
+msgid "plant_description"
+msgstr "种田以赚取微薄的灵石，持续6个月。"
+
+msgid "plant_requirements"
+msgstr "需要在普通区域"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} 在 {location} 开始种植"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} 完成种植，赚取了 {stones} 块灵石"

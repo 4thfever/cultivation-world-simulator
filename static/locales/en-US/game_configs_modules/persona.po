@@ -671,3 +671,9 @@ msgstr ""
 #. persona.csv: 沉思
 msgid "PERSONA_9_NAME"
 msgstr "Pensive"
+
+msgid "PERSONA_1007_DESC"
+msgstr "Coming from the bottom of society, you have a knack for spirit plant cultivation and can earn more spirit stones from farming."
+
+msgid "PERSONA_1007_NAME"
+msgstr "Farmer"

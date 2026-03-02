@@ -158,3 +158,6 @@ msgstr "Temper Duration Reduction"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"
+
+msgid "effect_extra_plant_income"
+msgstr "Extra Plant Income"

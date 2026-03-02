@@ -20,6 +20,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_harvest_materials": "effect_extra_harvest_materials",
         "extra_hunt_materials": "effect_extra_hunt_materials",
         "extra_mine_materials": "effect_extra_mine_materials",
+        "extra_plant_income": "effect_extra_plant_income",
         "extra_item_sell_price_multiplier": "effect_extra_item_sell_price_multiplier",
         "shop_buy_price_reduction": "effect_shop_buy_price_reduction",
         "extra_weapon_upgrade_chance": "effect_extra_weapon_upgrade_chance",

@@ -579,3 +579,18 @@ msgstr "{initiator} invites {target} for dual cultivation"
 
 msgid "{root_name} ({elements})"
 msgstr "{root_name} ({elements})"
+
+msgid "plant_action_name"
+msgstr "Plant"
+
+msgid "plant_description"
+msgstr "Plant spirit crops to earn a small amount of spirit stones. Lasts 6 months."
+
+msgid "plant_requirements"
+msgstr "Requires normal region"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} begins planting at {location}"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} finished planting, earned {stones} Spirit Stones"

@@ -158,3 +158,6 @@ msgstr "打熬時長縮減"
 
 msgid "play_benefit"
 msgstr "消遣收益"
+
+msgid "effect_extra_plant_income"
+msgstr "額外種植靈石收益"

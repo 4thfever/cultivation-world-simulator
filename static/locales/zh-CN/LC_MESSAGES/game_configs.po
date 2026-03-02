@@ -1796,6 +1796,12 @@ msgstr "你总是会深思熟虑，思考问题比较有哲理。"
 msgid "PERSONA_9_NAME"
 msgstr "沉思"
 
+msgid "PERSONA_1007_DESC"
+msgstr "你出身底层，对灵植种植颇有心得，能靠种田获得更多灵石。"
+
+msgid "PERSONA_1007_NAME"
+msgstr "灵农"
+
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"
 msgstr "顽强生长在戈壁岩缝中的奇异植物，叶片坚硬如剑，夜间能引动并吞噬星辉"

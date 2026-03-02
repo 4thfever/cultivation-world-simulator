@@ -627,3 +627,9 @@ msgstr "你总是会深思熟虑，思考问题比较有哲理。"
 #. persona.csv: 沉思
 msgid "PERSONA_9_NAME"
 msgstr "沉思"
+
+msgid "PERSONA_1007_DESC"
+msgstr "你出身底层，对灵植种植颇有心得，能靠种田获得更多灵石。"
+
+msgid "PERSONA_1007_NAME"
+msgstr "灵农"
