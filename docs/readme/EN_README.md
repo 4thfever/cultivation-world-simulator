@@ -188,6 +188,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Multi-language localization
 - ✅ Start game page
 - ✅ BGM & Sound effects
+- [ ] More player-controllable items
 
 ### 🗺️ World System
 - ✅ Basic tile system
@@ -196,6 +197,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Qi distribution and yield design
 - ✅ World events
 - ✅ Heaven, Earth, and Mortal Rankings
+- [ ] Larger and more beautiful maps & Random maps
 
 ### 👤 Character System
 - ✅ Character basic attributes system
@@ -217,8 +219,6 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
   - ✅ Forging
   - ✅ Refining
   - [ ] Planting
-  - [ ] Taming
-  - [ ] Evolvable skills
 - ✅ Mortals
 - [ ] Deity Transformation Realm
 

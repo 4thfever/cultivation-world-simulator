@@ -97,12 +97,12 @@
 希望能創造出純粹的、快樂的、直接的、活著的修仙世界的沉浸感。不是像一些遊戲公司的純粹宣傳工具，也不是像史丹福小鎮那樣的純粹研究，而是能給玩家提供真實代入感和沉浸感的實際世界。
 
 ## 📞 聯絡方式
-如果您對項目有任何問題或建議，歡迎提交 Issue。
+如果您對專案有任何問題或建議，歡迎提交 Issue。
 
 - **Steam**: [商店頁面](https://store.steampowered.com/app/4443180)
 - **Bilibili**: [點擊關注](https://space.bilibili.com/527346837)
 - **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
-- **Discord**: [加入社區](https://discord.gg/shhRWmZR)
+- **Discord**: [加入社群](https://discord.gg/shhRWmZR)
 
 ## 🚀 快速開始
 
@@ -142,18 +142,18 @@ docker-compose up -d --build
 ### 📱 高級功能
 
 <details>
-<summary><b>區域網/手機訪問配置 (點擊展開)</b></summary>
+<summary><b>區域網路/手機訪問配置 (點擊展開)</b></summary>
 
 > ⚠️ 移動端 UI 暫未完全適配，僅供嚐鮮。
 
 1. **後端配置**：修改 `static/local_config.yml`，添加 `host: "0.0.0.0"`。
 2. **前端配置**：修改 `web/vite.config.ts`，在 server 塊中添加 `host: '0.0.0.0'`。
-3. **訪問方式**：確保手機與電腦在同一 WiFi 下，訪問 `http://<電腦區域網IP>:5173`。
+3. **訪問方式**：確保手機與電腦在同一 WiFi 下，訪問 `http://<電腦區域網路IP>:5173`。
 
 </details>
 
 
-## 📊 項目狀態
+## 📊 專案狀態
 
 ![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
 
@@ -190,6 +190,7 @@ docker-compose up -d --build
 - ✅ 多語言本地化
 - ✅ 開始遊戲頁
 - ✅ BGM & 音效
+- [ ] 更多玩家可操作項
 
 ### 🗺️ 世界系統
 - ✅ 基礎 tile 地塊系統
@@ -198,6 +199,7 @@ docker-compose up -d --build
 - ✅ 靈氣分佈與產出設計
 - ✅ 世界事件
 - ✅ 天地人榜
+- [ ] 更大更美觀地圖 & 隨機地圖
 
 ### 👤 角色系統
 - ✅ 角色基礎屬性系統
@@ -219,8 +221,6 @@ docker-compose up -d --build
   - ✅ 鑄造
   - ✅ 煉丹
   - [ ] 種植
-  - [ ] 飼養
-  - [ ] 技能可升級
 - ✅ 凡人
 - [ ] 化神境界
 
