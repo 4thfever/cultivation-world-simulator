@@ -46,9 +46,9 @@ class Logger:
                 
                 if file_date < cutoff_date:
                     log_file.unlink()
-                    print(f"已删除过期日志文件: {log_file}")
+                    print(f"Deleted expired log file: {log_file}")
             except (ValueError, OSError) as e:
-                print(f"处理日志文件 {log_file} 时出错: {e}")
+                print(f"Error processing log file {log_file}: {e}")
     
     def _setup_current_logger(self):
         """设置当前日期的日志记录器"""

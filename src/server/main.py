@@ -166,7 +166,7 @@ class ConnectionManager:
         # 不再自动恢复游戏，让用户明确选择"新游戏"或"加载存档"。
         # 这样可以避免在用户加载存档前就生成初始化事件。
         if len(self.active_connections) == 1:
-            print("[Auto-Control] 检测到客户端连接，游戏保持暂停状态，等待用户操作。")
+            print("[Auto-Control] Client connection detected, game paused, waiting for user input.")
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
@@ -329,18 +329,18 @@ def check_llm_connectivity() -> tuple[bool, str]:
         
         if same_model:
             # 只测试一次
-            print(f"检测 LLM 连通性（单模型）: {normal_config.model_name}")
+            print(f"Testing LLM connectivity (Single Model): {normal_config.model_name}")
             success, error = test_connectivity(LLMMode.NORMAL, normal_config)
             if not success:
                 return False, f"连接失败：{error}"
         else:
             # 测试两次
-            print(f"检测智能模型连通性: {normal_config.model_name}")
+            print(f"Testing normal model connectivity: {normal_config.model_name}")
             success, error = test_connectivity(LLMMode.NORMAL, normal_config)
             if not success:
                 return False, f"智能模型连接失败：{error}"
             
-            print(f"检测快速模型连通性: {fast_config.model_name}")
+            print(f"Testing fast model connectivity: {fast_config.model_name}")
             success, error = test_connectivity(LLMMode.FAST, fast_config)
             if not success:
                 return False, f"快速模型连接失败：{error}"
@@ -381,7 +381,7 @@ async def init_game_async():
         update_init_progress(0, "scanning_assets")
         
         # === 重置所有静态数据，清除历史修改污染 ===
-        print("正在重置世界规则数据...")
+        print("Resetting world rule data...")
         reload_all_static_data()
         
         await asyncio.to_thread(scan_avatar_assets)
@@ -402,7 +402,7 @@ async def init_game_async():
         events_db_path = get_events_db_path(save_path)
         
         game_instance["current_save_path"] = save_path
-        print(f"事件数据库: {events_db_path}")
+        print(f"Events database: {events_db_path}")
 
         start_year = getattr(CONFIG.game, "start_year", 100)
         world = World.create_with_db(
@@ -418,13 +418,13 @@ async def init_game_async():
         world_history = getattr(CONFIG.game, "world_history", "")
         if world_history and world_history.strip():
             world.set_history(world_history)
-            print(f"正在根据历史背景重塑世界: {world_history[:50]}...")
+            print(f"Reshaping world based on historical background: {world_history[:50]}...")
             try:
                 history_mgr = HistoryManager(world)
                 await history_mgr.apply_history_influence(world_history)
-                print("历史背景应用完成")
+                print("Historical background applied")
             except Exception as e:
-                print(f"[警告] 历史背景应用失败: {e}")
+                print(f"[Warning] Failed to apply historical background: {e}")
         
         # 阶段 3: 宗门初始化
         update_init_progress(3, "initializing_sects")
@@ -451,7 +451,7 @@ async def init_game_async():
                 )
             random_avatars = await asyncio.to_thread(_make_random_sync)
             final_avatars.update(random_avatars)
-            print(f"生成了 {len(random_avatars)} 位随机路人")
+            print(f"Generated {len(random_avatars)} random NPCs")
 
         world.avatar_manager.avatars.update(final_avatars)
         game_instance["world"] = world
@@ -459,30 +459,30 @@ async def init_game_async():
 
         # 阶段 5: LLM 连通性检测
         update_init_progress(5, "checking_llm")
-        print("正在检测 LLM 连通性...")
+        print("Checking LLM connectivity...")
         # 使用线程池执行，避免阻塞事件循环，让 /api/init-status 可以响应
         success, error_msg = await asyncio.to_thread(check_llm_connectivity)
 
         if not success:
-            print(f"[警告] LLM 连通性检测失败: {error_msg}")
+            print(f"[Warning] LLM connectivity check failed: {error_msg}")
             game_instance["llm_check_failed"] = True
             game_instance["llm_error_message"] = error_msg
         else:
-            print("LLM 连通性检测通过")
+            print("LLM connectivity check passed")
             game_instance["llm_check_failed"] = False
             game_instance["llm_error_message"] = ""
 
         # 阶段 6: 生成初始事件（第一次 sim.step）
         update_init_progress(6, "generating_initial_events")
-        print("正在生成初始事件...")
+        print("Generating initial events...")
         
         # 取消暂停，执行第一步来生成初始事件
         game_instance["is_paused"] = False
         try:
             await sim.step()
-            print("初始事件生成完成")
+            print("Initial events generation completed")
         except Exception as e:
-            print(f"[警告] 初始事件生成失败: {e}")
+            print(f"[Warning] Initial events generation failed: {e}")
         finally:
             # 执行完后重新暂停，等待前端准备好
             game_instance["is_paused"] = True
@@ -490,30 +490,30 @@ async def init_game_async():
         # 完成
         game_instance["init_status"] = "ready"
         game_instance["init_progress"] = 100
-        print("游戏世界初始化完成！")
+        print("Game world initialization completed!")
 
     except Exception as e:
         import traceback
         traceback.print_exc()
         game_instance["init_status"] = "error"
         game_instance["init_error"] = str(e)
-        print(f"[Error] 初始化失败: {e}")
+        print(f"[Error] Initialization failed: {e}")
 
 
 
 async def game_loop():
     """后台自动运行游戏循环。"""
-    print("后台游戏循环已启动，等待初始化完成...")
+    print("Background game loop started, waiting for initialization...")
     
     # 等待初始化完成
     while game_instance.get("init_status") not in ("ready", "error"):
         await asyncio.sleep(0.5)
     
     if game_instance.get("init_status") == "error":
-        print("[game_loop] 初始化失败，游戏循环退出。")
+        print("[game_loop] Initialization failed, game loop exiting.")
         return
     
-    print("[game_loop] 初始化完成，开始游戏循环。")
+    print("[game_loop] Initialization completed, starting game loop.")
     
     while True:
         # 控制游戏速度，例如每秒 1 次更新
@@ -639,7 +639,7 @@ async def lifespan(app: FastAPI):
 
     # 启动时不再自动开始初始化游戏，等待前端指令
     # 保持 init_status 为 idle
-    print("服务器启动，等待开始游戏指令...")
+    print("Server started, waiting for start game command...")
     
     # 启动后台游戏循环（会自动等待初始化完成）
     asyncio.create_task(game_loop())
@@ -649,14 +649,14 @@ async def lifespan(app: FastAPI):
     host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
     
     if IS_DEV_MODE:
-        print("🚀 启动开发模式 (Dev Mode)...")
+        print("🚀 Starting Development Mode (Dev Mode)...")
         # 计算 web 目录 (假设在当前脚本的 ../../web)
         # 注意：这里直接重新计算路径，确保稳健
         current_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
         web_dir = os.path.join(project_root, 'web')
         
-        print(f"正在启动前端开发服务 (npm run dev) 于: {web_dir}")
+        print(f"Starting frontend dev server (npm run dev) at: {web_dir}")
         # 跨平台兼容：Windows 用 shell=True + 字符串，macOS/Linux 用 shell=False + 列表。
         try:
             import platform
@@ -667,7 +667,7 @@ async def lifespan(app: FastAPI):
             # 假设 Vite 默认端口是 5173
             target_url = "http://localhost:5173"
         except Exception as e:
-            print(f"启动前端服务失败: {e}")
+            print(f"Failed to start frontend server: {e}")
             target_url = f"http://{host}:8002"
     else:
         target_url = f"http://{host}:8002"
@@ -683,7 +683,7 @@ async def lifespan(app: FastAPI):
     
     # 关闭时清理
     if npm_process:
-        print("正在关闭前端开发服务...")
+        print("Closing frontend dev server...")
         try:
             import platform
             if platform.system() == "Windows":
@@ -693,7 +693,7 @@ async def lifespan(app: FastAPI):
                 # macOS/Linux 直接 terminate。
                 npm_process.terminate()
         except Exception as e:
-            print(f"关闭前端服务时出错: {e}")
+            print(f"Error closing frontend server: {e}")
 
 app = FastAPI(lifespan=lifespan)
 
@@ -747,7 +747,7 @@ async def websocket_endpoint(websocket: WebSocket):
             "type": "llm_config_required",
             "error": error_msg
         })
-        print(f"已向客户端发送 LLM 配置要求: {error_msg}")
+        print(f"Sent LLM configuration requirement to client: {error_msg}")
     # ===== 检测结束 =====
     
     try:
@@ -1666,14 +1666,14 @@ async def save_llm_config(req: LLMConfigDTO):
         
         # ===== 如果之前 LLM 连接失败，现在恢复运行 =====
         if game_instance.get("llm_check_failed", False):
-            print("检测到之前 LLM 连接失败，正在恢复 Simulator 运行...")
+            print("Detected previous LLM connection failure, resuming Simulator...")
             
             # 清除失败标志并恢复运行
             game_instance["llm_check_failed"] = False
             game_instance["llm_error_message"] = ""
             game_instance["is_paused"] = False
             
-            print("Simulator 已恢复运行")
+            print("Simulator resumed")
             
             # 通知所有客户端刷新
             await manager.broadcast({

@@ -110,9 +110,9 @@ def save_game(
                     events_db_path.parent.mkdir(parents=True, exist_ok=True)
                     # 复制数据库文件
                     shutil.copy2(current_db_path, events_db_path)
-                    print(f"已复制事件数据库: {current_db_path} -> {events_db_path}")
+                    print(f"Copied events database: {current_db_path} -> {events_db_path}")
                  else:
-                     print(f"警告: 当前事件数据库不存在: {current_db_path}")
+                     print(f"Warning: Current events database not found: {current_db_path}")
 
         # 计算角色统计。
         alive_count = len(world.avatar_manager.avatars)
@@ -202,11 +202,11 @@ def save_game(
         with open(save_path, "w", encoding="utf-8") as f:
             json.dump(save_data, f, ensure_ascii=False, indent=2)
         
-        print(f"游戏已保存到: {save_path}")
+        print(f"Game saved to: {save_path}")
         return True, save_path.name
         
     except Exception as e:
-        print(f"保存游戏失败: {e}")
+        print(f"Failed to save game: {e}")
         import traceback
         traceback.print_exc()
         return False, None

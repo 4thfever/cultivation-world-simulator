@@ -48,7 +48,7 @@ def apply_history_modifications(world, modifications):
     if not modifications:
         return
         
-    print(f"正在回放历史差分 ({len(modifications)} 个分类)...")
+    print(f"Replaying historical diffs ({len(modifications)} categories)...")
     
     # 导入需要修改的对象容器
     from src.classes.core.sect import sects_by_id, sects_by_name
@@ -135,7 +135,7 @@ def apply_history_modifications(world, modifications):
         except Exception:
             pass
             
-    print("历史差分回放完成。")
+    print("Historical diff replay completed.")
 
 
 def get_events_db_path(save_path: Path) -> Path:
@@ -185,7 +185,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         
         # 读取元信息
         meta = save_data.get("meta", {})
-        print(f"正在加载存档 (版本: {meta.get('version', 'unknown')}, "
+        print(f"Loading save (Version: {meta.get('version', 'unknown')}, "
               f"游戏时间: {meta.get('game_time', 'unknown')})")
         
         # 重建地图（地图本身不变，只需重建宗门总部位置）
@@ -309,13 +309,13 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
 
         if db_event_count == 0 and len(events_data) > 0:
             # SQLite 数据库是空的，但 JSON 中有事件，执行迁移。
-            print(f"正在从 JSON 迁移 {len(events_data)} 条事件到 SQLite...")
+            print(f"Migrating {len(events_data)} events from JSON to SQLite...")
             for event_data in events_data:
                 event = Event.from_dict(event_data)
                 world.event_manager.add_event(event)
-            print("事件迁移完成")
+            print("Event migration completed")
         else:
-            print(f"已从 SQLite 加载 {db_event_count} 条事件")
+            print(f"Loaded {db_event_count} events from SQLite")
 
         # 重建Simulator
         simulator_data = save_data.get("simulator", {})
@@ -323,11 +323,11 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 兼容旧存档 "birth_rate"
         simulator.awakening_rate = simulator_data.get("awakening_rate", simulator_data.get("birth_rate", CONFIG.game.npc_awakening_rate_per_month))
         
-        print(f"存档加载成功！共加载 {len(all_avatars)} 个角色")
+        print(f"Save loaded successfully! Loaded {len(all_avatars)} avatars")
         return world, simulator, existed_sects
         
     except Exception as e:
-        print(f"加载游戏失败: {e}")
+        print(f"Failed to load game: {e}")
         import traceback
         traceback.print_exc()
         raise
