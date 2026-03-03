@@ -20,7 +20,7 @@ interface Cloud {
   speedY: number
 }
 
-const activeClouds = ref<Cloud[]>([])
+const activeClouds: Cloud[] = []
 let ticker: Ticker | null = null
 
 // Config mappings
@@ -44,7 +44,7 @@ function spawnCloud(initial: boolean = false) {
   const freq = getCloudFreq()
   const max = MAX_CLOUDS[freq] || 0
   
-  if (activeClouds.value.length >= max) return
+  if (activeClouds.length >= max) return
 
   // 1. Pick random texture
   const cloudIdx = Math.floor(Math.random() * 9) // 0-8
@@ -115,7 +115,7 @@ function spawnCloud(initial: boolean = false) {
     // Add shadow first so it's below the cloud
     container.value.addChild(shadow)
     container.value.addChild(sprite)
-    activeClouds.value.push({ sprite, shadow, speedX, speedY })
+    activeClouds.push({ sprite, shadow, speedX, speedY })
   }
 }
 
@@ -123,8 +123,8 @@ function updateClouds(dt: number) {
   const bounds = { w: props.width, h: props.height }
   const verticalMargin = 300 // For Y-axis removal
   
-  for (let i = activeClouds.value.length - 1; i >= 0; i--) {
-    const cloud = activeClouds.value[i]
+  for (let i = activeClouds.length - 1; i >= 0; i--) {
+    const cloud = activeClouds[i]
     
     // Move Cloud
     cloud.sprite.x += cloud.speedX * dt
@@ -155,7 +155,12 @@ function updateClouds(dt: number) {
         container.value.removeChild(cloud.sprite)
         container.value.removeChild(cloud.shadow)
       }
-      activeClouds.value.splice(i, 1)
+      
+      // Destroy sprites to prevent memory leaks
+      cloud.sprite.destroy()
+      cloud.shadow.destroy()
+
+      activeClouds.splice(i, 1)
     }
   }
 
@@ -172,7 +177,7 @@ function startTicker() {
   ticker.start()
   
   // Initial population if empty
-  if (activeClouds.value.length === 0) {
+  if (activeClouds.length === 0) {
     const freq = getCloudFreq()
     const max = MAX_CLOUDS[freq] || 0
     // Spawn a few initial clouds randomly placed
@@ -191,10 +196,15 @@ function stopTicker() {
 }
 
 function clearClouds() {
+  activeClouds.forEach(cloud => {
+    cloud.sprite.destroy()
+    cloud.shadow.destroy()
+  })
+  activeClouds.length = 0
+
   if (container.value) {
     container.value.removeChildren()
   }
-  activeClouds.value = []
 }
 
 watch(() => mapStore.frontendConfig.cloud_freq, (val) => {
@@ -223,4 +233,3 @@ onUnmounted(() => {
   <!-- z-index 300 should be above entities (usually < 100) and map -->
   <container ref="container" :z-index="300" event-mode="none" />
 </template>
-

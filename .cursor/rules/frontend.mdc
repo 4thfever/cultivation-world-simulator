@@ -36,6 +36,7 @@ globs: web/src/**/*.{vue,ts,js}
   - 记录日志优先使用 `utils/appError.ts`（`logError/logWarn`），避免裸 `console.error/warn` 分散在业务代码中。
   - 用户提示统一通过 `message`，避免重复弹窗或风格不一致。
 - **Pixi 渲染优化**: 
+  - **强制约束 (MUST)**: **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑 Bug。若需保存实例引用，请使用普通变量或 `shallowRef`。
   - 动态效果（如水面流动）必须使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
   - 地图使用 `shallowRef` 存储。地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新。
 

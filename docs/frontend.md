@@ -107,7 +107,8 @@
 
 ### 3.5 渲染架构
 *   **Vue3-Pixi**: 使用 Vue 组件声明式地编写 Pixi 对象。
-*   **性能优化**:
+*   **性能优化与避坑 (Gotchas)**:
+    *   **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑堆积 Bug。若需在组件中保存实例引用，请使用普通变量或 `shallowRef`。
     *   地图使用 `shallowRef` 存储，避免 Vue 深度监听 100x100 的地图数组。
     *   地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新，仅在地图数据重载时重建。
     *   动态效果（如水面流动）使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
