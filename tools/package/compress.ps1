@@ -29,7 +29,7 @@ Write-Host "Target Version (Tag): $tag" -ForegroundColor Cyan
 # ==============================================================================
 # Instead of hardcoding the AppName (which may cause encoding issues with Chinese characters),
 # we dynamically find the directory in tmp/<tag>/
-$TagBaseDir = Join-Path $RepoRoot "tmp\$tag"
+$TagBaseDir = Join-Path $RepoRoot "tmp\${tag}_github"
 
 if (-not (Test-Path $TagBaseDir)) {
     Write-Error "Build directory for tag '$tag' not found at: $TagBaseDir"

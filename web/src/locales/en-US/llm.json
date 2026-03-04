@@ -74,7 +74,13 @@
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
+    "groq": "Groq",
+    "cerebras": "Cerebras",
     "ollama": "Ollama (Local)"
+  },
+  "badges": {
+    "recommended": "Rec",
+    "free": "Cheap"
   },
   "help_links": {
     "openai": "OpenAI Platform",

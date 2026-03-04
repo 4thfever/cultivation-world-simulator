@@ -21,10 +21,10 @@ if (-not $tag) {
     exit 1
 }
 
-# Paths and directories
-$DistDir = Join-Path $RepoRoot ("tmp\" + $tag)
-$BuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag)
-$SpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag)
+# Paths and directories (Use _steam suffix to differentiate)
+$DistDir = Join-Path $RepoRoot ("tmp\" + $tag + "_steam")
+$BuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag + "_steam")
+$SpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag + "_steam")
 New-Item -ItemType Directory -Force -Path $DistDir, $BuildDir, $SpecDir | Out-Null
 
 # --- Web Frontend Build ---
@@ -59,9 +59,8 @@ if (Test-Path $WebDir) {
 }
 
 # Entry and app name
-# CHANGED: Use server main.py instead of run.py
 $EntryPy = Join-Path $RepoRoot "src\server\main.py"
-$AppName = "AICultivationSimulator"
+$AppName = "AICultivationSimulator_Steam"
 
 if (-not (Test-Path $EntryPy)) {
     Write-Error "Entry script not found: $EntryPy"
@@ -92,7 +91,7 @@ $argsList = @(
     "--clean",
     "--noconfirm",
     "--windowed",
-    # "--console",
+    # Steam mode uses default --mode window (we don't need to specify as it's default in Python script, but we can't easily pass args via pyinstaller exe itself. The executable will just start window by default)
     "--distpath", $DistDir,
     "--workpath", $BuildDir,
     "--specpath", $SpecDir,
@@ -101,36 +100,35 @@ $argsList = @(
     
     # Data Files
     "--add-data", "${AssetsPath};assets",       # Game Assets (Images) -> _internal/assets
-    # REMOVED: "--add-data", "${WebDistDir};web_dist",  (We will copy this manually to outside)
     "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
     
     # Excludes
-    "--exclude-module", "litellm",              # Optional LLM client with heavy dependencies
-    "--exclude-module", "google",               # Google Cloud/AI libs
-    "--exclude-module", "scipy",                # Scientific computing
-    "--exclude-module", "pygame",               # Exclude heavy library not needed for server
-    "--exclude-module", "matplotlib",           # Plotting library often pulled by pandas
-    "--exclude-module", "tkinter",              # Python default GUI
-    "--exclude-module", "PyQt5",                # Qt GUI
+    "--exclude-module", "litellm",
+    "--exclude-module", "google",
+    "--exclude-module", "scipy",
+    "--exclude-module", "pygame",
+    "--exclude-module", "matplotlib",
+    "--exclude-module", "tkinter",
+    "--exclude-module", "PyQt5",
     "--exclude-module", "PyQt6",
     "--exclude-module", "PySide2",
     "--exclude-module", "PySide6",
-    "--exclude-module", "wx",                   # wxPython
-    "--exclude-module", "notebook",             # Jupyter notebook
+    "--exclude-module", "wx",
+    "--exclude-module", "notebook",
     "--exclude-module", "ipython",
-    "--exclude-module", "boto3",                # AWS SDK (huge, for Bedrock/S3)
+    "--exclude-module", "boto3",
     "--exclude-module", "botocore",
     "--exclude-module", "s3transfer",
-    "--exclude-module", "azure",                # Azure SDK
-    "--exclude-module", "huggingface_hub",      # HuggingFace (for local models)
-    "--exclude-module", "transformers",         # Transformers (huge)
+    "--exclude-module", "azure",
+    "--exclude-module", "huggingface_hub",
+    "--exclude-module", "transformers",
     "--exclude-module", "tensorflow",
-    "--exclude-module", "torch",                # PyTorch (massive if present)
-    "--exclude-module", "numpy",                # Numerics (not used in server)
-    "--exclude-module", "pandas",               # Data analysis (not used in server)
-    "--exclude-module", "PIL",                  # Image processing (not used in server)
+    "--exclude-module", "torch",
+    "--exclude-module", "numpy",
+    "--exclude-module", "pandas",
+    "--exclude-module", "PIL",
     "--exclude-module", "Pillow",
-    "--exclude-module", "tiktoken"              # Tokenizer (not used in server)
+    "--exclude-module", "tiktoken"
 )
 
 if (Test-Path $RuntimeHookPath) {
@@ -145,7 +143,7 @@ if (Test-Path $IconPath) {
 # Call PyInstaller
 Push-Location $RepoRoot
 try {
-    Write-Host "Executing PyInstaller..."
+    Write-Host "Executing PyInstaller for Steam..."
     & pyinstaller @argsList
     
     if ($LASTEXITCODE -ne 0) {
@@ -163,13 +161,9 @@ try {
         
         $ExeDir = Join-Path $DistDir $AppName
         
-        # Copy static to exe directory (Config needs to be next to exe for CWD access)
         if (Test-Path $ExeDir) {        
-            # NOTE: We DO NOT copy 'assets' to root anymore. They are inside _internal via --add-data.
-            
             if (Test-Path $StaticPath) {
                 Copy-Item -Path $StaticPath -Destination $ExeDir -Recurse -Force
-                # 删除 local_config.yml
                 $LocalConfigPath = Join-Path $ExeDir "static\local_config.yml"
                 if (Test-Path $LocalConfigPath) {
                     Remove-Item -Path $LocalConfigPath -Force
@@ -179,28 +173,25 @@ try {
                 }
             }
     
-            # 清理 _internal 中的 local_config.yml (防止敏感信息泄露)
             $InternalLocalConfigPath = Join-Path $ExeDir "_internal\static\local_config.yml"
             if (Test-Path $InternalLocalConfigPath) {
                 Remove-Item -Path $InternalLocalConfigPath -Force
                 Write-Host "✓ Removed sensitive local_config.yml from _internal" -ForegroundColor Green
             }
     
-            # Copy Web Dist to exe directory (Manual copy instead of PyInstaller bundle)
             if (Test-Path $WebDistDir) {
                  $DestWeb = Join-Path $ExeDir "web_static"
                  Copy-Item -Path $WebDistDir -Destination $DestWeb -Recurse -Force
                  Write-Host "✓ Copied web_dist to web_static in exe directory" -ForegroundColor Green
             }
             
-            # Clean up build and spec directories (delete entire directories)
             $BuildDirRoot = Join-Path $RepoRoot "tmp\build"
             if (Test-Path $BuildDirRoot) {
                 Remove-Item -Path $BuildDirRoot -Recurse -Force
                 Write-Host "✓ Deleted entire build directory: $BuildDirRoot" -ForegroundColor Green
             }
             
-            Write-Host "`n=== Package completed ===" -ForegroundColor Cyan
+            Write-Host "`n=== Package completed for Steam ===" -ForegroundColor Cyan
             Write-Host "Distribution directory: " (Resolve-Path $DistDir).Path
             if (Test-Path $ExeDir) {
                 Write-Host "Executable directory: " (Resolve-Path $ExeDir).Path

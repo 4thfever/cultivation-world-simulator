@@ -16,7 +16,10 @@ for stream_name in ('stdout', 'stderr'):
 # ==============================================================================
 
 import asyncio
-import webview  # type: ignore
+try:
+    import webview  # type: ignore
+except ImportError:
+    webview = None
 import subprocess
 import time
 import threading
@@ -158,10 +161,16 @@ class EndpointFilter(logging.Filter):
 class ConnectionManager:
     def __init__(self):
         self.active_connections: list[WebSocket] = []
+        self._shutdown_timer: threading.Timer = None
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
+        
+        # 取消可能存在的关机定时器
+        if self._shutdown_timer:
+            self._shutdown_timer.cancel()
+            self._shutdown_timer = None
         
         # 不再自动恢复游戏，让用户明确选择"新游戏"或"加载存档"。
         # 这样可以避免在用户加载存档前就生成初始化事件。
@@ -175,6 +184,15 @@ class ConnectionManager:
         # 当最后一个客户端断开时，自动暂停游戏
         if len(self.active_connections) == 0:
             self._set_pause_state(True, "所有客户端已断开，自动暂停游戏以节省资源。")
+            
+            # 在非开发模式下，如果所有客户端断开，自动关闭服务器
+            if not IS_DEV_MODE:
+                print("[Auto-Control] All clients disconnected. Server will shutdown in 5 seconds...")
+                def _do_shutdown():
+                    print("[Auto-Control] Auto shutdown triggered due to no active connections.")
+                    os._exit(0)
+                self._shutdown_timer = threading.Timer(5.0, _do_shutdown)
+                self._shutdown_timer.start()
 
     def _set_pause_state(self, should_pause: bool, log_msg: str):
         """辅助方法：切换暂停状态并打印日志"""
@@ -1939,8 +1957,34 @@ if not IS_DEV_MODE:
 else:
     print("Dev Mode: Skipping static file mount for '/' (using Vite dev server instead)")
 
+def _patch_sys_streams():
+    """修复无控制台模式下 sys.stdout/stderr 为 None 导致 uvicorn 报错的问题"""
+    import sys
+    class DummyStream:
+        def write(self, *args, **kwargs): pass
+        def flush(self, *args, **kwargs): pass
+        def isatty(self): return False
+        
+    if sys.stdout is None:
+        sys.stdout = DummyStream()
+    if sys.stderr is None:
+        sys.stderr = DummyStream()
+
 def start():
     """启动服务的入口函数"""
+    _patch_sys_streams()
+    import argparse
+    import webbrowser
+    import sys
+    
+    # 智能推断默认模式：如果是 Steam 版本的可执行文件，默认使用窗口模式，否则默认使用 Web 模式
+    is_steam_exe = "Steam" in sys.executable or "Steam" in sys.argv[0]
+    default_mode = "window" if is_steam_exe else "browser"
+
+    parser = argparse.ArgumentParser(description="Start the game server.")
+    parser.add_argument("--mode", choices=["window", "browser"], default=default_mode, help="Run in pywebview window or system browser")
+    args, _ = parser.parse_known_args()
+
     # 从环境变量或配置文件读取服务器配置。
     host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
     port = int(os.environ.get("SERVER_PORT") or getattr(getattr(CONFIG, "system", None), "port", None) or 8002)
@@ -1956,34 +2000,52 @@ def start():
         # log_level="error" 可以减少控制台噪音，根据需要调整
         uvicorn.run(app, host=host, port=port, log_level="info")
 
-    # 1. 启动后端服务器线程 (daemon=True 确保主线程退出时子线程也退出)
-    server_thread = threading.Thread(target=run_server, daemon=True)
-    server_thread.start()
-
-    # 2. 创建独立窗口
-    # width/height 可根据游戏设计调整，min_size 确保布局不崩坏
-    webview.create_window(
-        title="Cultivation Simulator", 
-        url=target_url,
-        width=1280,
-        height=800,
-        min_size=(1024, 768),
-        confirm_close=True  # 关闭时确认
-    )
-
-    # 3. 启动 GUI (必须在主线程运行)
-    print(f"Starting GUI window loading {target_url}...")
-    webview.start(debug=False)
-
-    # 4. 窗口关闭后，通过杀进程方式确保 uvicorn 和 subprocess彻底关闭
-    print("Window closed, shutting down...")
-    if IS_DEV_MODE:
+    if args.mode == "window":
         try:
-            os.kill(os.getpid(), signal.SIGINT)
-            time.sleep(1)
-        except Exception:
-            pass
-    os._exit(0)
+            import webview
+        except ImportError:
+            print("webview module not found, falling back to browser mode.")
+            args.mode = "browser"
+
+    if args.mode == "window":
+        # 1. 启动后端服务器线程 (daemon=True 确保主线程退出时子线程也退出)
+        server_thread = threading.Thread(target=run_server, daemon=True)
+        server_thread.start()
+
+        # 2. 创建独立窗口
+        # width/height 可根据游戏设计调整，min_size 确保布局不崩坏
+        webview.create_window(
+            title="Cultivation Simulator", 
+            url=target_url,
+            width=1280,
+            height=800,
+            min_size=(1024, 768),
+            confirm_close=True  # 关闭时确认
+        )
+
+        # 3. 启动 GUI (必须在主线程运行)
+        print(f"Starting GUI window loading {target_url}...")
+        webview.start(debug=False)
+
+        # 4. 窗口关闭后，通过杀进程方式确保 uvicorn 和 subprocess彻底关闭
+        print("Window closed, shutting down...")
+        if IS_DEV_MODE:
+            try:
+                os.kill(os.getpid(), signal.SIGINT)
+                time.sleep(1)
+            except Exception:
+                pass
+        os._exit(0)
+    else:
+        # Browser mode
+        print(f"Opening browser at {target_url}...")
+        try:
+            webbrowser.open(target_url)
+        except Exception as e:
+            print(f"Failed to open browser: {e}")
+        
+        # 在主线程中运行 uvicorn
+        uvicorn.run(app, host=host, port=port, log_level="info")
 
 if __name__ == "__main__":
     start()

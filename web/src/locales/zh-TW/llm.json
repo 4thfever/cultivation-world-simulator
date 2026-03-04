@@ -74,7 +74,13 @@
     "siliconflow": "硅基流動",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
+    "groq": "Groq",
+    "cerebras": "Cerebras",
     "ollama": "Ollama (本地)"
+  },
+  "badges": {
+    "recommended": "推薦",
+    "free": "便宜"
   },
   "help_links": {
     "openai": "OpenAI Platform",

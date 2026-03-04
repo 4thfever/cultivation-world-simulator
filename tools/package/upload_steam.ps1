@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 # ==============================================================================
 # 0. 环境与路径设置
@@ -73,8 +73,8 @@ Write-Host ">>> 目标上传版本 (Tag): $tag" -ForegroundColor Cyan
 # ==============================================================================
 # 3. 校验产物路径 & 准备输出目录
 # ==============================================================================
-$AppName = "AICultivationSimulator"
-$ContentRoot = Join-Path $RepoRoot "tmp\$tag\$AppName"
+$AppName = "AICultivationSimulator_Steam"
+$ContentRoot = Join-Path $RepoRoot "tmp\${tag}_steam\$AppName"
 
 if (-not (Test-Path $ContentRoot)) {
     Write-Error "找不到构建产物：$ContentRoot`n请先运行 pack.ps1 成功构建该版本后再执行上传。"

@@ -28,16 +28,42 @@ const modeOptions = computed(() => [
 
 const presets = computed(() => [
   {
+    name: t('llm.presets.qwen'),
+    base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    model_name: 'qwen-plus',
+    fast_model_name: 'qwen-flash',
+    badge: 'recommended'
+  },
+  {
+    name: t('llm.presets.gemini'),
+    // Note: The `/openai` suffix is required to use Google's OpenAI-compatible API.
+    // Our backend (src/utils/llm/client.py) uses OpenAI-compatible format with
+    // Bearer token auth and /chat/completions endpoint, so we need this suffix
+    // to make Google API accept OpenAI-style requests instead of native Gemini format.
+    base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+    model_name: 'gemini-3-pro-preview',
+    fast_model_name: 'gemini-3-flash-preview',
+    badge: 'recommended'
+  },
+  {
+    name: t('llm.presets.groq'),
+    base_url: 'https://api.groq.com/openai/v1',
+    model_name: 'llama-3.3-70b-versatile',
+    fast_model_name: 'llama-3.1-8b-instant',
+    badge: 'free'
+  },
+  {
+    name: t('llm.presets.cerebras'),
+    base_url: 'https://api.cerebras.ai/v1',
+    model_name: 'gpt-oss-120b',
+    fast_model_name: 'llama3.1-8b',
+    badge: 'free'
+  },
+  {
     name: t('llm.presets.openai'),
     base_url: 'https://api.openai.com/v1',
     model_name: 'gpt-4o',
     fast_model_name: 'gpt-4o-mini'
-  },
-  {
-    name: t('llm.presets.qwen'),
-    base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-    model_name: 'qwen-plus',
-    fast_model_name: 'qwen-flash'
   },
   {
     name: t('llm.presets.deepseek'),
@@ -56,16 +82,6 @@ const presets = computed(() => [
     base_url: 'https://openrouter.ai/api/v1',
     model_name: 'anthropic/claude-3.5-sonnet',
     fast_model_name: 'google/gemini-3-flash'
-  },
-  {
-    name: t('llm.presets.gemini'),
-    // Note: The `/openai` suffix is required to use Google's OpenAI-compatible API.
-    // Our backend (src/utils/llm/client.py) uses OpenAI-compatible format with
-    // Bearer token auth and /chat/completions endpoint, so we need this suffix
-    // to make Google API accept OpenAI-style requests instead of native Gemini format.
-    base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-    model_name: 'gemini-3-pro-preview',
-    fast_model_name: 'gemini-3-flash-preview'
   },
   {
     name: t('llm.presets.ollama'),
@@ -152,6 +168,7 @@ onMounted(() => {
             @click="applyPreset(preset)"
           >
             {{ preset.name }}
+            <span v-if="preset.badge" :class="['badge', preset.badge]">{{ t(`llm.badges.${preset.badge}`) }}</span>
           </button>
         </div>
       </div>
@@ -380,6 +397,32 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s;
   font-size: 0.85em;
+  position: relative;
+  overflow: visible;
+}
+
+.preset-btn .badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  font-size: 0.7em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.5em;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.preset-btn .badge.recommended {
+  background: #f39c12;
+  color: #fff;
+  border: 1px solid #e67e22;
+}
+
+.preset-btn .badge.free {
+  background: #2ecc71;
+  color: #fff;
+  border: 1px solid #27ae60;
 }
 
 .preset-btn:hover {

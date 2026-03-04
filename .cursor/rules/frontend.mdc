@@ -26,8 +26,8 @@ globs: web/src/**/*.{vue,ts,js}
 - **性能基线**: 对关键链路（初始化、事件合并/加载）保留可观测耗时指标，重构前后需比较并确保不退化。
 
 ## 3. 桌面版与 Steam 适配 (Desktop & Steam / pywebview)
-- **强制约束 (MUST)**: 监听画布/容器尺寸变化时，**严禁使用 `useWindowSize()`**（因为它依赖 `window.resize`，在 pywebview 全屏切换时不触发导致黑边）。
-- **必须使用 `useElementSize(container)`**（基于 `ResizeObserver`），以确保尺寸变化在 WebView2 中可靠。
+- **强制约束 (MUST)**: 虽然目前支持了常规浏览器模式（Web Mode）和 Steam 桌面版（pywebview）双轨打包，但因为前后端共享同一套前端代码，监听画布/容器尺寸变化时，**严禁使用 `useWindowSize()`**（它依赖 `window.resize`，在 pywebview 全屏切换时不触发导致黑边）。
+- **必须统一使用 `useElementSize(container)`**（基于 `ResizeObserver`），以确保尺寸变化在 WebView2 以及各平台浏览器中均可靠。
 
 ## 4. 异常恢复与渲染 (Error Recovery & Rendering)
 - **F5 强刷机制**: 游戏内置了全局按键监听劫持 F5 执行 `window.location.reload()` 强行刷新前端页面。
