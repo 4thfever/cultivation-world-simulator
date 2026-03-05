@@ -253,10 +253,10 @@ class Simulator:
             # 2. 更新被动效果 (如HP回复)
             avatar.update_time_effect()
         
-        # 过滤掉不应被动态事件打断的角色（如正在进行重大行为且配置不允许打断）
+        # 过滤掉不应被动态事件打断的角色
         target_avatars = [
             avatar for avatar in living_avatars 
-            if self.can_interrupt_major or not avatar.is_in_major_action
+            if avatar.can_trigger_world_event
         ]
         
         # 使用 gather 并行触发奇遇和霉运

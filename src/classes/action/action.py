@@ -56,10 +56,24 @@ class Action(ABC):
     REQUIREMENTS_ID: str = ""
 
     # 是否允许参与聚会（如拍卖会、大比）
-    ALLOW_GATHERING: bool = True
+    ALLOW_GATHERING: bool | None = None
     
     # 是否允许触发世界随机事件（如奇遇、霉运）
-    ALLOW_WORLD_EVENTS: bool = True
+    ALLOW_WORLD_EVENTS: bool | None = None
+
+    @classmethod
+    def can_gather(cls) -> bool:
+        """是否允许参加聚会：如果显式配置了则使用配置，否则重大行为默认不允许，非重大行为默认允许"""
+        if cls.ALLOW_GATHERING is not None:
+            return cls.ALLOW_GATHERING
+        return not getattr(cls, 'IS_MAJOR', False)
+
+    @classmethod
+    def can_trigger_events(cls) -> bool:
+        """是否允许奇遇/霉运：如果显式配置了则使用配置，否则重大行为默认不允许，非重大行为默认允许"""
+        if cls.ALLOW_WORLD_EVENTS is not None:
+            return cls.ALLOW_WORLD_EVENTS
+        return not getattr(cls, 'IS_MAJOR', False)
 
     def __init__(self, avatar: Avatar, world: World):
         """

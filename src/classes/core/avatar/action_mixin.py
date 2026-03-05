@@ -17,6 +17,8 @@ from src.utils.params import filter_kwargs_for_callable
 from src.run.log import get_logger
 
 
+from src.utils.config import CONFIG
+
 class ActionMixin:
     """动作管理相关方法"""
     
@@ -219,15 +221,33 @@ class ActionMixin:
     @property
     def can_join_gathering(self: "Avatar") -> bool:
         """是否可以参加聚会"""
+        can_interrupt = getattr(CONFIG.game, 'can_interrupt_major_events', False)
+        
         if self.current_action and self.current_action.action:
-            return getattr(self.current_action.action, 'ALLOW_GATHERING', True)
+            action_cls = self.current_action.action.__class__
+            if action_cls.can_gather():
+                return True
+            # 如果动作本身不允许参加聚会，但配置允许打断重大行为，且动作是没有显式拒绝的重大行为
+            if can_interrupt and getattr(action_cls, 'IS_MAJOR', False) and action_cls.ALLOW_GATHERING is None:
+                return True
+            return False
+            
         return True # 空闲状态默认可以
 
     @property
     def can_trigger_world_event(self: "Avatar") -> bool:
         """是否可以触发奇遇/霉运"""
+        can_interrupt = getattr(CONFIG.game, 'can_interrupt_major_events', False)
+        
         if self.current_action and self.current_action.action:
-            return getattr(self.current_action.action, 'ALLOW_WORLD_EVENTS', True)
+            action_cls = self.current_action.action.__class__
+            if action_cls.can_trigger_events():
+                return True
+            # 同上，处理全局打断配置
+            if can_interrupt and getattr(action_cls, 'IS_MAJOR', False) and action_cls.ALLOW_WORLD_EVENTS is None:
+                return True
+            return False
+            
         return True
 
     @property
