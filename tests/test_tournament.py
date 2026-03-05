@@ -108,6 +108,7 @@ async def test_tournament_execute_human_list(mock_get_strength, base_world, mock
     base_world.avatar_manager = MagicMock()
     base_world.avatar_manager.get_living_avatars.return_value = [av1, av2, av3, av4, av5]
     base_world.ranking_manager = MagicMock()
+    base_world.ranking_manager.get_avatar_rank.return_value = None
     del base_world.ranking_manager.tournament_info
     base_world.start_year = 1
     base_world.month_stamp = create_month_stamp(Year(2), Month.JANUARY)

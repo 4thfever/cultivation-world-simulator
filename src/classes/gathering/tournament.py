@@ -37,8 +37,8 @@ class Tournament(Gathering):
         return False
 
     def get_related_avatars(self, world: "World") -> List[int]:
-        # 所有存活角色都有资格
-        return [avatar.id for avatar in world.avatar_manager.get_living_avatars()]
+        # 所有存活且能参加聚会的角色都有资格
+        return [avatar.id for avatar in world.avatar_manager.get_living_avatars() if self._can_avatar_join(avatar)]
 
     def get_info(self, world: "World") -> str:
         from src.i18n import t
@@ -48,7 +48,7 @@ class Tournament(Gathering):
         from src.i18n import t
         events = []
         
-        living_avatars = world.avatar_manager.get_living_avatars()
+        living_avatars = [av for av in world.avatar_manager.get_living_avatars() if self._can_avatar_join(av)]
         
         heaven = []
         earth = []

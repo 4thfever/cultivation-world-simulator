@@ -28,8 +28,8 @@ class SectTeachingConference(Gathering):
         # 1. 筛选有效宗门 (成员数 >= 2)
         valid_sects = []
         for s in sects_by_id.values():
-            # 过滤死者
-            living_members = [m for m in s.members.values() if not m.is_dead]
+            # 过滤死者和不能参与的角色
+            living_members = [m for m in s.members.values() if not m.is_dead and self._can_avatar_join(m)]
             if len(living_members) >= 2:
                 valid_sects.append(s)
         
@@ -59,7 +59,7 @@ class SectTeachingConference(Gathering):
         if not sect:
             return []
             
-        return [m.id for m in sect.members.values() if not m.is_dead]
+        return [m.id for m in sect.members.values() if not m.is_dead and self._can_avatar_join(m)]
 
     def get_info(self, world: "World") -> str:
         sect_name = ""
@@ -86,8 +86,8 @@ class SectTeachingConference(Gathering):
         
         # 1. 选定角色 (逻辑复用，但只针对 target_sect)
         members = list(sect.members.values())
-        # 过滤掉死者（防御性编程）
-        members = [m for m in members if not m.is_dead]
+        # 过滤掉死者（防御性编程）和不能参与的角色
+        members = [m for m in members if not m.is_dead and self._can_avatar_join(m)]
         
         if len(members) < 2:
             return [] # 再次检查，防止状态变化

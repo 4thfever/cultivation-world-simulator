@@ -40,7 +40,7 @@ class Auction(Gathering):
         return [
             avatar.id 
             for avatar in world.avatar_manager.get_living_avatars()
-            if avatar.can_join_gathering
+            if self._can_avatar_join(avatar)
         ]
 
     def get_info(self, world: "World") -> str:

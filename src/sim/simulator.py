@@ -32,6 +32,7 @@ class Simulator:
     def __init__(self, world: World):
         self.world = world
         self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month  # 从配置文件读取NPC每月觉醒率（凡人晋升修士）
+        self.can_interrupt_major = getattr(CONFIG.game, 'can_interrupt_major_events', False)
 
     def _phase_update_perception_and_knowledge(self, living_avatars: list[Avatar]):
         """
@@ -252,9 +253,15 @@ class Simulator:
             # 2. 更新被动效果 (如HP回复)
             avatar.update_time_effect()
         
+        # 过滤掉不应被动态事件打断的角色（如正在进行重大行为且配置不允许打断）
+        target_avatars = [
+            avatar for avatar in living_avatars 
+            if self.can_interrupt_major or not avatar.is_in_major_action
+        ]
+        
         # 使用 gather 并行触发奇遇和霉运
-        tasks_fortune = [try_trigger_fortune(avatar) for avatar in living_avatars]
-        tasks_misfortune = [try_trigger_misfortune(avatar) for avatar in living_avatars]
+        tasks_fortune = [try_trigger_fortune(avatar) for avatar in target_avatars]
+        tasks_misfortune = [try_trigger_misfortune(avatar) for avatar in target_avatars]
         results = await asyncio.gather(*(tasks_fortune + tasks_misfortune))
         
         events.extend([e for res in results if res for e in res])

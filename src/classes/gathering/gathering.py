@@ -5,12 +5,29 @@ from src.classes.event import Event
 
 if TYPE_CHECKING:
     from src.classes.core.world import World
+    from src.classes.core.avatar import Avatar
 
 class Gathering(ABC):
     """
     多人聚集事件/场景的抽象基类。
     用于处理如“拍卖会”、“宗门大比”、“秘境开启”等多角色参与的复杂事件。
     """
+    
+    # 是否允许打断重大行为
+    CAN_INTERRUPT_MAJOR: bool = False
+    
+    def _can_avatar_join(self, avatar: "Avatar") -> bool:
+        """
+        判断角色是否可以参加该聚会。
+        综合判定 avatar.can_join_gathering 以及是否处于不可打断的重大行为中。
+        """
+        if not avatar.can_join_gathering:
+            return False
+            
+        if not self.CAN_INTERRUPT_MAJOR and avatar.is_in_major_action:
+            return False
+            
+        return True
     
     @abstractmethod
     def is_start(self, world: "World") -> bool:

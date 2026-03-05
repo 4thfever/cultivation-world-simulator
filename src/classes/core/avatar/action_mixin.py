@@ -230,4 +230,11 @@ class ActionMixin:
             return getattr(self.current_action.action, 'ALLOW_WORLD_EVENTS', True)
         return True
 
+    @property
+    def is_in_major_action(self: "Avatar") -> bool:
+        """是否正在执行重大行为"""
+        if self.current_action and self.current_action.action:
+            return getattr(self.current_action.action, 'IS_MAJOR', False)
+        return False
+
 

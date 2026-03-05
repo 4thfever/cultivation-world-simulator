@@ -169,6 +169,7 @@ class TestStartFunction:
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
              patch.object(main, "webview"), \
+             patch("webbrowser.open"), \
              patch("os.kill"):
 
             os.environ.pop("SERVER_HOST", None)
@@ -195,6 +196,7 @@ class TestStartFunction:
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
              patch.object(main, "webview"), \
+             patch("webbrowser.open"), \
              patch("os.kill"):
 
             main.start()
@@ -218,6 +220,7 @@ class TestStartFunction:
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
              patch.object(main, "webview"), \
+             patch("webbrowser.open"), \
              patch("os.kill"):
 
             os.environ.pop("SERVER_HOST", None)
@@ -245,6 +248,7 @@ class TestStartFunction:
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
              patch.object(main, "webview"), \
+             patch("webbrowser.open"), \
              patch("os.kill"):
 
             os.environ.pop("SERVER_PORT", None)

@@ -107,7 +107,7 @@ class HiddenDomain(Gathering):
         """
         获取所有可能参与的角色（即所有存活角色，具体筛选在 execute 中按秘境条件进行）
         """
-        return [av.id for av in world.avatar_manager.get_living_avatars()]
+        return [av.id for av in world.avatar_manager.get_living_avatars() if self._can_avatar_join(av)]
 
     def get_info(self, world: "World") -> str:
         details = []
@@ -163,6 +163,8 @@ class HiddenDomain(Gathering):
         # 1. 筛选进入秘境的角色
         entrants: List["Avatar"] = []
         for av in world.avatar_manager.get_living_avatars():
+            if not self._can_avatar_join(av):
+                continue
             # 境界判定：只能是对应境界进入
             if av.cultivation_progress.realm == domain.required_realm:
                 entrants.append(av)
