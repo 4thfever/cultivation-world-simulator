@@ -1,0 +1,14 @@
+id,participants,desc_id,comment
+唯一标识,参与人数,事由描述,说明
+1,1,minor_event_cause_1,心境偏移
+2,1,minor_event_cause_2,莫名执念
+3,1,minor_event_cause_3,与修真装备、武器、功法的日常互动
+4,1,minor_event_cause_4,对所在环境的感叹
+5,1,minor_event_cause_5,宗门事务
+6,1,minor_event_cause_6,修仙日常
+7,1,minor_event_cause_7,啼笑皆非的小插曲
+8,2,minor_event_cause_8,微观社交摩擦(互相打量/戒备/嘲讽)
+9,2,minor_event_cause_9,非对称互动(听到八卦/被人背后议论)
+10,2,minor_event_cause_10,关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+11,2,minor_event_cause_11,日常对话
+12,2,minor_event_cause_12,好感暗生

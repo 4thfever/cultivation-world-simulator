@@ -526,6 +526,12 @@ msgstr "{initiator} 邀请 {target} 进行双修"
 msgid "{root_name} ({elements})"
 msgstr "{root_name}（{elements}）"
 
+msgid "An anonymous passerby (extra)"
+msgstr "无名路人"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "当前世界天象：{name}"
+
 msgid "plant_action_name"
 msgstr "种植"
 

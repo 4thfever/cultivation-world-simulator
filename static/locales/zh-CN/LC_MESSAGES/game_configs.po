@@ -1890,6 +1890,54 @@ msgstr "紫竹林中的变异异种，竹身九曲，内空外坚。风吹过时
 msgid "PLANT_9_NAME"
 msgstr "九曲清音竹"
 
+#. random_minor_event.csv: 心境偏移
+msgid "minor_event_cause_1"
+msgstr "心境偏移"
+
+#. random_minor_event.csv: 莫名执念
+msgid "minor_event_cause_2"
+msgstr "莫名执念"
+
+#. random_minor_event.csv: 与修真装备、武器、功法的日常互动
+msgid "minor_event_cause_3"
+msgstr "与修真装备、武器、功法的日常互动"
+
+#. random_minor_event.csv: 对所在环境的感叹
+msgid "minor_event_cause_4"
+msgstr "对所在环境的感叹"
+
+#. random_minor_event.csv: 宗门事务
+msgid "minor_event_cause_5"
+msgstr "宗门事务"
+
+#. random_minor_event.csv: 修仙日常
+msgid "minor_event_cause_6"
+msgstr "修仙日常"
+
+#. random_minor_event.csv: 啼笑皆非的小插曲
+msgid "minor_event_cause_7"
+msgstr "啼笑皆非的小插曲"
+
+#. random_minor_event.csv: 微观社交摩擦(互相打量/戒备/嘲讽)
+msgid "minor_event_cause_8"
+msgstr "微观社交摩擦(互相打量/戒备/嘲讽)"
+
+#. random_minor_event.csv: 非对称互动(听到八卦/被人背后议论)
+msgid "minor_event_cause_9"
+msgstr "非对称互动(听到八卦/被人背后议论)"
+
+#. random_minor_event.csv: 关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+msgid "minor_event_cause_10"
+msgstr "关系网的日常投影(道侣传音/师徒考校/死仇互瞪)"
+
+#. random_minor_event.csv: 日常对话
+msgid "minor_event_cause_11"
+msgstr "日常对话"
+
+#. random_minor_event.csv: 好感暗生
+msgid "minor_event_cause_12"
+msgstr "好感暗生"
+
 #. root.csv: 资质通天；五行皆通，修行全面...
 msgid "ROOT_10_DESC"
 msgstr "资质通天；五行皆通，修行全面"

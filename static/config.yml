@@ -12,6 +12,7 @@ llm:
     interaction_feedback: "fast"
     history_influence: "normal"
     backstory: "fast"
+    random_minor_event: "fast"
 
 paths:
   locales: static/locales/
@@ -31,6 +32,7 @@ game:
   npc_awakening_rate_per_month: 0.01
   fortune_probability: 0.005
   misfortune_probability: 0.005
+  random_minor_event_prob: 0.05 # 随机小事每月触发概率 (5%)
   birth_rate_per_month: 0.005 # 每月生育概率 (0.5%)
   max_children_per_couple: 2 # 每对道侣最大子女数量
   max_action_rounds_per_turn: 3 # 每回合动作最大轮数（处理抢占/连招）

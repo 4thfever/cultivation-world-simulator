@@ -678,12 +678,16 @@ async def lifespan(app: FastAPI):
         # 跨平台兼容：Windows 用 shell=True + 字符串，macOS/Linux 用 shell=False + 列表。
         try:
             import platform
+            vite_port = os.environ.get("VITE_PORT", "5173")
             if platform.system() == "Windows":
-                npm_process = subprocess.Popen("npm run dev", cwd=web_dir, shell=True)
+                # Vite 有时候会在端口已经被占用的情况下报错并且 strictPort 不起作用
+                # 直接通过 npx vite --port XXX 可以避免 npm run dev 的参数传递问题
+                cmd = f"npx vite --port {vite_port} --strictPort"
+                npm_process = subprocess.Popen(cmd, cwd=web_dir, shell=True)
             else:
-                npm_process = subprocess.Popen(["npm", "run", "dev"], cwd=web_dir, shell=False)
-            # 假设 Vite 默认端口是 5173
-            target_url = "http://localhost:5173"
+                npm_process = subprocess.Popen(["npx", "vite", "--port", vite_port, "--strictPort"], cwd=web_dir, shell=False)
+            # 设置最终打开的URL
+            target_url = f"http://localhost:{vite_port}"
         except Exception as e:
             print(f"Failed to start frontend server: {e}")
             target_url = f"http://{host}:8002"
@@ -1992,8 +1996,25 @@ def start():
     # 计算目标 URL (与 lifespan 中的逻辑保持一致)
     target_url = f"http://{host}:{port}"
     if IS_DEV_MODE:
-        # 开发模式下，前端通常运行在 5173
-        target_url = "http://localhost:5173"
+        import socket
+        def get_free_port(start_port: int, max_port: int = 65535) -> int:
+            for p in range(start_port, max_port + 1):
+                try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.bind(('', p)) # Bind to all interfaces to accurately simulate what Vite does
+                    s.close()
+                    return p
+                except OSError:
+                    pass
+            return start_port
+            
+        free_port = get_free_port(5173)
+        os.environ["VITE_PORT"] = str(free_port)
+        target_url = f"http://localhost:{free_port}"
+        
+        # 调试输出确认后端解析出的目标URL
+        print(f"[Debug] Detected free port for Vite: {free_port}")
+        print(f"[Debug] Target URL set to: {target_url}")
 
     def run_server():
         """在子线程中运行 uvicorn 服务器"""

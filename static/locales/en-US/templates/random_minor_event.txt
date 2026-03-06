@@ -1,0 +1,19 @@
+You are participating in a sandbox simulation of a cultivation (Xianxia) world. You need to generate a short "random minor event" for a character.
+
+Character Info: {avatar_info}
+Current Location: {location}
+World State: {world_info}
+Event Cause: {cause}
+Target Person/Extra: {target_info}
+
+Requirements:
+1. Based on the information above and the cultivation background, generate a very brief event description, which can be interesting, bland, or just daily life (20~50 words).
+2. If there is a target person and the character info contains historical events/relations between them, seamlessly integrate this background into the minor event interaction.
+3. Only describe the minor event itself. Do not include any forced mechanical stat changes or major effects (e.g., "was severely injured" or "obtained a divine artifact").
+4. If the target person is an "anonymous passerby", invent a reasonable background for this passerby in a cultivation world.
+5. The response MUST be a strict JSON in the following format:
+```json
+{{
+  "event_text": "Fill in the event description here"
+}}
+```

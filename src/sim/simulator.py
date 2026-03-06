@@ -15,6 +15,7 @@ from src.utils.config import CONFIG
 from src.run.log import get_logger
 from src.systems.fortune import try_trigger_fortune
 from src.systems.fortune import try_trigger_misfortune
+from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
@@ -268,6 +269,15 @@ class Simulator:
                 
         return events
     
+    async def _phase_random_minor_events(self, living_avatars: list[Avatar]):
+        """
+        随机小事触发阶段
+        """
+        target_avatars = [av for av in living_avatars if av.can_trigger_world_event]
+        tasks = [try_trigger_random_minor_event(av, self.world) for av in target_avatars]
+        results = await asyncio.gather(*tasks)
+        return [e for e in results if e]
+
     async def _phase_nickname_generation(self, living_avatars: list[Avatar]):
         """
         绰号生成阶段
@@ -473,14 +483,15 @@ class Simulator:
         10. 年龄与新生
         11. 身世生成
         12. 被动结算 (丹药、时间效果、奇遇)
-        13. 绰号生成
-        14. 天地灵机更新
-        15. 城市繁荣度更新
-        16. 处理剩余交互计数 (如奇遇产生的交互)
-        17. (每年1月) 更新计算关系 (二阶关系)
-        18. (每年1月) 更新榜单
-        19. (每年1月) 清理由于时间久远而被遗忘的死者
-        20. 归档与时间推进
+        13. 随机小事
+        14. 绰号生成
+        15. 天地灵机更新
+        16. 城市繁荣度更新
+        17. 处理剩余交互计数 (如奇遇产生的交互)
+        18. (每年1月) 更新计算关系 (二阶关系)
+        19. (每年1月) 更新榜单
+        20. (每年1月) 清理由于时间久远而被遗忘的死者
+        21. 归档与时间推进
         """
         # 0. 缓存本月存活角色列表 (在后续阶段中复用，并在死亡阶段维护)
         living_avatars = self.world.avatar_manager.get_living_avatars()
@@ -524,30 +535,33 @@ class Simulator:
         # 12. 被动结算
         events.extend(await self._phase_passive_effects(living_avatars))
 
-        # 13. 绰号生成
+        # 13. 随机小事
+        events.extend(await self._phase_random_minor_events(living_avatars))
+
+        # 14. 绰号生成
         events.extend(await self._phase_nickname_generation(living_avatars))
 
-        # 14. 更新天地灵机
+        # 15. 更新天地灵机
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 15. 更新城市繁荣度
+        # 16. 更新城市繁荣度
         self._phase_update_region_prosperity()
 
-        # 16. 处理剩余阶段的交互计数
+        # 17. 处理剩余阶段的交互计数
         self._phase_handle_interactions(events, processed_event_ids)
 
-        # 17. (每年1月) 更新计算关系 (二阶关系)
+        # 18. (每年1月) 更新计算关系 (二阶关系)
         self._phase_update_calculated_relations(living_avatars)
 
         ###########
         # 每年执行的行为
         ###########
         
-        # 18. (每年1月) 更新榜单
+        # 19. (每年1月) 更新榜单
         if self.world.month_stamp.get_month() == Month.JANUARY:
             self.world.ranking_manager.update_rankings(living_avatars)
         
-        # 19. (每年1月) 清理由于时间久远而被遗忘的死者
+        # 20. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:
             cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(
                 self.world.month_stamp, 
@@ -557,7 +571,7 @@ class Simulator:
                 # 记录日志，但不产生游戏内事件
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
-        # 20. 归档与时间推进
+        # 21. 归档与时间推进
         return self._finalize_step(events)
 
     def _phase_update_calculated_relations(self, living_avatars: list[Avatar]):

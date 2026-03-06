@@ -580,6 +580,12 @@ msgstr "{initiator} invites {target} for dual cultivation"
 msgid "{root_name} ({elements})"
 msgstr "{root_name} ({elements})"
 
+msgid "An anonymous passerby (extra)"
+msgstr "An anonymous passerby"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "Current world celestial phenomenon: {name}"
+
 msgid "plant_action_name"
 msgstr "Plant"
 
