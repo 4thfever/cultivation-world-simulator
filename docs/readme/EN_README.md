@@ -7,7 +7,6 @@
 # Cultivation World Simulator
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
-[![Steam](https://img.shields.io/badge/Steam-Store_Page-2a475e?logo=steam&logoColor=white)](https://store.steampowered.com/app/4443180)
 [![Bilibili](https://img.shields.io/badge/Bilibili-Watch_Video-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
@@ -99,7 +98,6 @@ I hope to create a pure, joyful, direct, and living sense of immersion in a cult
 ## 📞 Contact
 If you have any questions or suggestions about the project, feel free to submit an Issue.
 
-- **Steam**: [Store Page](https://store.steampowered.com/app/4443180)
 - **Bilibili**: [Subscribe](https://space.bilibili.com/527346837)
 - **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
 - **Discord**: [Join Community](https://discord.gg/3Wnjvc7K)
