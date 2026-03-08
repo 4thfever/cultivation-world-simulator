@@ -31,5 +31,7 @@
   "about_github": "GitHub 源码支持",
   "about_github_desc": "本项目是开源项目，如果你有 GitHub 账号，请多多点 Star 支持！",
   "about_contributors": "贡献者名单",
-  "about_contributors_desc": "感谢所有参与了开源的创作者们！"
+  "about_contributors_desc": "感谢所有参与了开源的创作者们！",
+  "auto_save": "自动保存",
+  "auto_save_desc": "每逢十年的 1 月自动进行存档"
 }

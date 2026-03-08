@@ -50,6 +50,14 @@ export const systemApi = {
     return httpClient.get<CurrentConfigDTO>('/api/config/current');
   },
 
+  fetchAutoSave() {
+    return httpClient.get<{ enabled: boolean }>('/api/config/autosave');
+  },
+
+  setAutoSave(enabled: boolean) {
+    return httpClient.post<{ status: string }>('/api/config/autosave', { enabled });
+  },
+
   startGame(config: GameStartConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/game/start', config);
   },

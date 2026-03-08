@@ -75,6 +75,8 @@ export interface SaveFileDTO {
   dead_count: number;
   custom_name: string | null;
   event_count: number;
+  is_auto_save: boolean;
+  playthrough_id?: string;
 }
 
 // --- Game Data Metadata ---

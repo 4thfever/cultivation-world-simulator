@@ -55,7 +55,8 @@ def save_game(
     simulator: "Simulator",
     existed_sects: List["Sect"],
     save_path: Optional[Path] = None,
-    custom_name: Optional[str] = None
+    custom_name: Optional[str] = None,
+    is_auto_save: bool = False
 ) -> tuple[bool, Optional[str]]:
     """
     保存游戏状态到文件
@@ -133,6 +134,8 @@ def save_game(
             "alive_count": alive_count,
             "dead_count": dead_count,
             "custom_name": custom_name,
+            "playthrough_id": getattr(world, "playthrough_id", ""),
+            "is_auto_save": is_auto_save,
         }
         
         # 构建世界数据

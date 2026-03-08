@@ -31,5 +31,7 @@
   "about_github": "GitHub 源碼支持",
   "about_github_desc": "本項目是開源項目，如果你有 GitHub 帳號，請多多點 Star 支持！",
   "about_contributors": "貢獻者名單",
-  "about_contributors_desc": "感謝所有參與了開源的創作者們！"
+  "about_contributors_desc": "感謝所有參與了開源的創作者們！",
+  "auto_save": "自動保存",
+  "auto_save_desc": "每逢十年的 1 月自動進行存檔"
 }

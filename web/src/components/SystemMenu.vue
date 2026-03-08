@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { NButton, NSelect, NIcon, NSwitch, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from '../stores/setting'
@@ -11,6 +11,10 @@ import GameStartPanel from './game/panels/system/GameStartPanel.vue'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()
+
+onMounted(() => {
+  settingStore.fetchAutoSaveConfig()
+})
 
 const props = defineProps<{
   visible: boolean
@@ -223,6 +227,22 @@ watch(() => props.visible, (val) => {
                 :options="languageOptions"
                 @update:value="settingStore.setLocale"
                 style="width: 200px"
+              />
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-label-group">
+                <n-icon size="24" color="#eee" class="setting-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5l-5-5l1.41-1.41L11 12.67V3h2v9.67z"/></svg>
+                </n-icon>
+                <div style="display: flex; flex-direction: column;">
+                  <span class="setting-label">{{ t('ui.auto_save') }}</span>
+                  <span style="font-size: 0.8em; color: #888;">{{ t('ui.auto_save_desc') }}</span>
+                </div>
+              </div>
+              <n-switch
+                v-model:value="settingStore.isAutoSave"
+                @update:value="settingStore.setAutoSave"
               />
             </div>
           </div>

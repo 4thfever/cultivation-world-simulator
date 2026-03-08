@@ -31,5 +31,7 @@
   "about_github": "Support on GitHub",
   "about_github_desc": "This is an open-source project. If you have a GitHub account, please support us with a Star!",
   "about_contributors": "Contributors",
-  "about_contributors_desc": "Thanks to all the creators who contributed to this open-source project!"
+  "about_contributors_desc": "Thanks to all the creators who contributed to this open-source project!",
+  "auto_save": "Auto Save",
+  "auto_save_desc": "Automatically save the game every decade in January"
 }

@@ -207,6 +207,10 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             start_year=start_year,
         )
         
+        # 恢复 playthrough_id (如果旧存档没有，这里就保留默认生成的 uuid)
+        if "playthrough_id" in meta:
+            world.playthrough_id = meta["playthrough_id"]
+        
         # 恢复世界历史
         history_data = world_data.get("history", {})
         world.history.text = history_data.get("text", "")

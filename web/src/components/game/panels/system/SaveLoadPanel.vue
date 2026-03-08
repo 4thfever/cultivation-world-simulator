@@ -195,6 +195,7 @@ onMounted(() => {
         <div class="save-info">
           <div class="save-header">
             <span class="save-name">{{ getSaveDisplayName(save) }}</span>
+            <span v-if="save.is_auto_save" class="auto-save-badge">{{ t('ui.auto_save') }}</span>
           </div>
           <div class="save-meta">
             <span class="game-time">{{ t('save_load.game_time', { time: save.game_time }) }}</span>
@@ -369,6 +370,15 @@ onMounted(() => {
   color: #fff;
   font-weight: bold;
   font-size: 1.05em;
+}
+
+.auto-save-badge {
+  background: #3a5a3a;
+  color: #aaddaa;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.75em;
+  border: 1px solid #4a7a4a;
 }
 
 .save-meta {

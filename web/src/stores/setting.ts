@@ -6,6 +6,9 @@ import { systemApi } from '../api/modules/system';
 export const useSettingStore = defineStore('setting', () => {
   const locale = ref(localStorage.getItem('app_locale') || 'zh-CN');
   
+  // Auto Save
+  const isAutoSave = ref(false);
+
   // Sound settings
   const sfxVolume = ref(parseFloat(localStorage.getItem('app_sfx_volume') || '0.5'));
   const bgmVolume = ref(parseFloat(localStorage.getItem('app_bgm_volume') || '0.5'));
@@ -49,6 +52,24 @@ export const useSettingStore = defineStore('setting', () => {
       }
   }
 
+  async function fetchAutoSaveConfig() {
+    try {
+      const res = await systemApi.fetchAutoSave();
+      isAutoSave.value = res.enabled;
+    } catch (e) {
+      console.warn('Failed to fetch auto save config:', e);
+    }
+  }
+
+  async function setAutoSave(enabled: boolean) {
+    try {
+      isAutoSave.value = enabled;
+      await systemApi.setAutoSave(enabled);
+    } catch (e) {
+      console.warn('Failed to set auto save config:', e);
+    }
+  }
+
   return {
     locale,
     setLocale,
@@ -56,6 +77,9 @@ export const useSettingStore = defineStore('setting', () => {
     sfxVolume,
     bgmVolume,
     setSfxVolume,
-    setBgmVolume
+    setBgmVolume,
+    isAutoSave,
+    fetchAutoSaveConfig,
+    setAutoSave
   };
 });

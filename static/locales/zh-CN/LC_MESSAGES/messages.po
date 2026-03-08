@@ -2998,3 +2998,6 @@ msgstr "鞭"
 
 msgid "zither"
 msgstr "琴"
+
+msgid "Game automatically saved"
+msgstr "游戏已自动保存"

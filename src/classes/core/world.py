@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Optional
+import uuid
 
 from src.classes.environment.map import Map
 from src.systems.time import Year, Month, MonthStamp
@@ -43,6 +44,8 @@ class World():
     start_year: int = 0
     # 榜单管理器
     ranking_manager: RankingManager = field(default_factory=RankingManager)
+    # 游玩单局 ID，用于区分存档
+    playthrough_id: str = field(default_factory=lambda: str(uuid.uuid4()))
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """

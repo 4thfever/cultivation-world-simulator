@@ -522,6 +522,41 @@ async def init_game_async():
 
 
 
+def trigger_auto_save(world, sim):
+    """提取的自动保存逻辑，供 game_loop 和测试使用"""
+    playthrough_id = getattr(world, "playthrough_id", "")
+    
+    # 1. 获取当前局的所有自动存档
+    all_saves = list_saves()
+    auto_saves = []
+    for path, meta in all_saves:
+        if meta.get("is_auto_save", False) and meta.get("playthrough_id", "") == playthrough_id:
+            auto_saves.append((path, meta))
+            
+    # 2. 如果数量 >= 5，删除最老的
+    # list_saves 已经是按时间倒序排列的，所以最老的是在列表末尾
+    while len(auto_saves) >= 5:
+        oldest_path, oldest_meta = auto_saves.pop()
+        # 删除旧存档
+        if oldest_path.exists():
+            try:
+                import os
+                os.remove(oldest_path)
+                # 同时删除对应的 db 文件
+                db_path = get_events_db_path(oldest_path)
+                if db_path.exists():
+                    os.remove(db_path)
+                print(f"[Auto-Save] Removed old auto save: {oldest_path.name}")
+            except Exception as e:
+                print(f"[Auto-Save] Failed to remove old auto save: {e}")
+                
+    # 3. 创建新存档
+    existed_sects = getattr(world, "existed_sects", [])
+    if not existed_sects:
+        existed_sects = list(sects_by_id.values())
+    
+    save_game(world, sim, existed_sects, is_auto_save=True)
+
 async def game_loop():
     """后台自动运行游戏循环。"""
     print("Background game loop started, waiting for initialization...")
@@ -623,6 +658,29 @@ async def game_loop():
                     "active_domains": serialize_active_domains(world)
                 }
                 await manager.broadcast(state)
+                
+                # ======== 自动保存逻辑 ========
+                # 检查是否启用了自动保存
+                auto_save_enabled = getattr(getattr(CONFIG, "system", None), "auto_save", False)
+                year = int(world.month_stamp.get_year())
+                month = world.month_stamp.get_month().value
+                
+                # 触发条件：每10年的1月，且不是第一年
+                if auto_save_enabled and year % 10 == 0 and month == 1 and year > world.start_year:
+                    print(f"[Auto-Save] Triggering auto save for year {year}...")
+                    # 使用 asyncio.to_thread 防止阻塞主循环
+                    await asyncio.to_thread(trigger_auto_save, world, sim)
+                    
+                    # 通知前端
+                    from src.i18n import t
+                    await manager.broadcast({
+                        "type": "toast",
+                        "level": "info",
+                        "message": t("Game automatically saved")
+                    })
+                    print("[Auto-Save] Auto save completed.")
+                # ======== 自动保存逻辑结束 ========
+                
         except Exception as e:
             from src.run.log import get_logger
             print(f"Game loop error: {e}")
@@ -1585,6 +1643,44 @@ def set_language_api(req: LanguageRequest):
         print(f"Error saving language config: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to save language config: {e}")
 
+class AutoSaveRequest(BaseModel):
+    enabled: bool
+
+@app.get("/api/config/autosave")
+def get_autosave_config():
+    """获取当前自动保存设置"""
+    return {"enabled": getattr(getattr(CONFIG, "system", None), "auto_save", False)}
+
+@app.post("/api/config/autosave")
+def set_autosave_config(req: AutoSaveRequest):
+    """设置并保存自动保存设置"""
+    local_config_path = "static/local_config.yml"
+    try:
+        if os.path.exists(local_config_path):
+            conf = OmegaConf.load(local_config_path)
+        else:
+            conf = OmegaConf.create({})
+        
+        if "system" not in conf:
+            conf.system = {}
+            
+        conf.system.auto_save = req.enabled
+        
+        OmegaConf.save(conf, local_config_path)
+        
+        # 同步更新内存中的 CONFIG
+        if not hasattr(CONFIG, "system"):
+             # 这里不直接赋值给 CONFIG.system 因为它可能是 DictConfig，直接挂载会有类型问题，
+             # 但为了简单，这里依赖 OmegaConf 允许的做法。
+             pass
+        else:
+             CONFIG.system.auto_save = req.enabled
+        
+        return {"status": "ok"}
+    except Exception as e:
+        print(f"Error saving autosave config: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to save autosave config: {e}")
+
 class LLMConfigDTO(BaseModel):
     base_url: str
     api_key: Optional[str] = ""
@@ -1753,6 +1849,8 @@ def get_saves():
             "dead_count": meta.get("dead_count", 0),
             "custom_name": meta.get("custom_name"),
             "event_count": meta.get("event_count", 0),
+            "playthrough_id": meta.get("playthrough_id", ""),
+            "is_auto_save": meta.get("is_auto_save", False),
         })
     return {"saves": result}
 

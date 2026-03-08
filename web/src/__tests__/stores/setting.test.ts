@@ -2,8 +2,10 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
 // Use vi.hoisted to define mock functions that will be used by vi.mock.
-const { mockSetLanguage } = vi.hoisted(() => ({
+const { mockSetLanguage, mockFetchAutoSave, mockSetAutoSave } = vi.hoisted(() => ({
   mockSetLanguage: vi.fn().mockResolvedValue(undefined),
+  mockFetchAutoSave: vi.fn().mockResolvedValue({ enabled: false }),
+  mockSetAutoSave: vi.fn().mockResolvedValue({ status: 'ok' })
 }))
 
 // Create a fresh mock i18n object for each test.
@@ -25,6 +27,8 @@ vi.mock('@/locales', () => ({
 vi.mock('@/api/modules/system', () => ({
   systemApi: {
     setLanguage: mockSetLanguage,
+    fetchAutoSave: mockFetchAutoSave,
+    setAutoSave: mockSetAutoSave
   },
 }))
 
@@ -156,6 +160,54 @@ describe('useSettingStore', () => {
 
       // Should not throw.
       await expect(store.syncBackend()).resolves.not.toThrow()
+    })
+  })
+
+  describe('AutoSave Config', () => {
+    it('should have isAutoSave false by default', () => {
+      expect(store.isAutoSave).toBe(false)
+    })
+
+    it('should fetch auto save config and update state', async () => {
+      mockFetchAutoSave.mockResolvedValueOnce({ enabled: true })
+      
+      await store.fetchAutoSaveConfig()
+      
+      expect(mockFetchAutoSave).toHaveBeenCalled()
+      expect(store.isAutoSave).toBe(true)
+    })
+
+    it('should catch errors when fetching auto save config', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      mockFetchAutoSave.mockRejectedValueOnce(new Error('Network error'))
+      
+      await store.fetchAutoSaveConfig()
+      
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Failed to fetch auto save config:',
+        expect.any(Error)
+      )
+      consoleSpy.mockRestore()
+    })
+
+    it('should set auto save config and call systemApi', async () => {
+      await store.setAutoSave(true)
+      
+      expect(store.isAutoSave).toBe(true)
+      expect(mockSetAutoSave).toHaveBeenCalledWith(true)
+    })
+
+    it('should catch errors when setting auto save config', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      mockSetAutoSave.mockRejectedValueOnce(new Error('Network error'))
+      
+      await store.setAutoSave(false)
+      
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Failed to set auto save config:',
+        expect.any(Error)
+      )
+      consoleSpy.mockRestore()
     })
   })
 })

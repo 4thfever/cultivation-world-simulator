@@ -104,6 +104,9 @@ const i18n = createI18n({
         name_too_long: 'Name too long',
         name_invalid_chars: 'Invalid characters',
       },
+      ui: {
+        auto_save: 'Auto Save'
+      },
       common: {
         cancel: 'Cancel',
       },
@@ -122,6 +125,7 @@ const createMockSave = (overrides: Partial<SaveFileDTO> = {}): SaveFileDTO => ({
   dead_count: 2,
   custom_name: null,
   event_count: 50,
+  is_auto_save: false,
   ...overrides,
 })
 
@@ -282,6 +286,27 @@ describe('SaveLoadPanel', () => {
       expect(wrapper.find('.save-name').text()).toBe('20260101_120000')
     })
 
+
+    it('should show auto save badge when is_auto_save is true', async () => {
+      const mockSaves = [
+        createMockSave({ filename: 'auto_save.json', is_auto_save: true }),
+        createMockSave({ filename: 'manual_save.json', is_auto_save: false })
+      ]
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+
+      const wrapper = mount(SaveLoadPanel, {
+        props: { mode: 'load' },
+        global: { plugins: [i18n] },
+      })
+
+      await flushPromises()
+
+      const saveItems = wrapper.findAll('.save-item')
+      expect(saveItems[0].find('.auto-save-badge').exists()).toBe(true)
+      expect(saveItems[0].find('.auto-save-badge').text()).toBe('Auto Save')
+      
+      expect(saveItems[1].find('.auto-save-badge').exists()).toBe(false)
+    })
 
     it('should display avatar counts', async () => {
       const mockSaves = [createMockSave({ alive_count: 15, avatar_count: 20 })]
