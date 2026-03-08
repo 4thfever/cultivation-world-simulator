@@ -321,7 +321,7 @@ class TestConnectivityTest:
             success, error = llm_test_connectivity(config=mock_config)
 
         assert success is False
-        assert "API Key 无效" in error
+        assert "身份验证失败(401)" in error
 
     def test_connectivity_forbidden(self):
         """Test connectivity check with 403 Forbidden."""
@@ -342,7 +342,7 @@ class TestConnectivityTest:
             success, error = llm_test_connectivity(config=mock_config)
 
         assert success is False
-        assert "访问被拒绝" in error
+        assert "访问被拒绝(403)" in error
 
     def test_connectivity_not_found(self):
         """Test connectivity check with 404 Not Found."""
@@ -363,7 +363,7 @@ class TestConnectivityTest:
             success, error = llm_test_connectivity(config=mock_config)
 
         assert success is False
-        assert "服务地址不存在" in error
+        assert "找不到服务(404)" in error
 
     def test_connectivity_timeout(self):
         """Test connectivity check with timeout."""
@@ -377,7 +377,7 @@ class TestConnectivityTest:
             success, error = llm_test_connectivity(config=mock_config)
 
         assert success is False
-        assert "超时" in error
+        assert "网络连接失败" in error
 
     def test_connectivity_connection_error(self):
         """Test connectivity check with connection error."""
@@ -391,7 +391,7 @@ class TestConnectivityTest:
             success, error = llm_test_connectivity(config=mock_config)
 
         assert success is False
-        assert "无法连接" in error
+        assert "网络连接失败" in error
 
     def test_connectivity_with_mode_instead_of_config(self):
         """Test connectivity using mode parameter (config=None path)."""

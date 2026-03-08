@@ -4,6 +4,7 @@
   "test_success": "连接测试成功",
   "save_success": "配置已保存",
   "test_save_failed": "测试或保存失败: {error}",
+  "test_save_failed_title": "测试或保存失败",
   "api_key_required": "请填写 API Key",
   "base_url_required": "请填写 Base URL",
   "preset_applied": "已应用 {name} 预设 ({extra})",

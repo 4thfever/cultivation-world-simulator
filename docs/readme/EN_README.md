@@ -19,6 +19,7 @@
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white)
 ![PixiJS](https://img.shields.io/badge/PixiJS-E72264?style=flat&logo=pixijs&logoColor=white)
 
+
 <p align="center">
   <img src="../../assets/en-US/screenshot.gif" alt="Game Demo" width="100%">
 </p>

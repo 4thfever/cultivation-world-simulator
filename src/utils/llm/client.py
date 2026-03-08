@@ -62,9 +62,12 @@ def _call_with_requests(config: LLMConfig, prompt: str) -> str:
             return result['choices'][0]['message']['content']
     except urllib.error.HTTPError as e:
         error_body = e.read().decode('utf-8')
-        raise Exception(f"LLM Request failed {e.code}: {error_body}")
+        raise Exception(f"HTTP_{e.code}::{error_body}")
+    except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+        reason = getattr(e, 'reason', str(e))
+        raise Exception(f"NETWORK_ERROR::{reason}")
     except Exception as e:
-        raise Exception(f"LLM Request failed: {str(e)}")
+        raise Exception(f"UNKNOWN_ERROR::{str(e)}")
 
 
 async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
@@ -162,23 +165,54 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
         if config is None:
             config = LLMConfig.from_mode(mode)
             
-        _call_with_requests(config, "test")
+        _call_with_requests(config, "Hello, this is a connectivity test. Please reply 'OK'.")
         return True, ""
     except Exception as e:
-        error_msg = str(e)
-        print(f"Connectivity test failed: {error_msg}")
+        error_raw = str(e)
+        print(f"Connectivity test failed: {error_raw}")
         
-        # 解析常见错误并提供友好提示
-        if "401" in error_msg or "invalid_api_key" in error_msg or "Incorrect API key" in error_msg:
-            return False, "API Key 无效，请检查您的密钥是否正确"
-        elif "403" in error_msg or "Forbidden" in error_msg:
-            return False, "访问被拒绝，请检查您的权限或配额"
-        elif "404" in error_msg:
-            return False, "服务地址不存在，请检查 Base URL 是否正确"
-        elif "timeout" in error_msg.lower():
-            return False, "连接超时，请检查网络连接或服务地址"
-        elif "Connection" in error_msg or "connect" in error_msg.lower():
-            return False, "无法连接到服务器，请检查 Base URL 和网络"
-        else:
-            # 返回原始错误信息
-            return False, error_msg
+        # 1. 尝试解析网络错误
+        if error_raw.startswith("NETWORK_ERROR::"):
+            reason = error_raw.split("::", 1)[1]
+            return False, f"网络连接失败，请检查 Base URL 是否可达或本地代理设置。(底层错误: {reason})"
+            
+        # 2. 尝试解析 HTTP 错误
+        if error_raw.startswith("HTTP_"):
+            parts = error_raw.split("::", 1)
+            code_str = parts[0].replace("HTTP_", "")
+            body_str = parts[1] if len(parts) > 1 else ""
+            
+            # 尝试从 body 中提取真实的报错字段
+            provider_msg = body_str
+            try:
+                body_json = json.loads(body_str)
+                if isinstance(body_json, dict):
+                    # 兼容 OpenAI 和大部分厂商的 {"error": {"message": "..."}}
+                    if "error" in body_json and isinstance(body_json["error"], dict):
+                        provider_msg = body_json["error"].get("message") or body_json["error"].get("msg") or body_str
+                    # 兼容部分直接 {"message": "..."} 的厂商
+                    elif "message" in body_json:
+                        provider_msg = body_json["message"]
+            except Exception:
+                pass # 解析 JSON 失败则保留原字符串
+                
+            # 截断过长的 HTML/文本报错，防止前端炸版
+            if len(provider_msg) > 200:
+                provider_msg = provider_msg[:200] + "..."
+
+            # 3. 按照状态码归类
+            if code_str == "401":
+                return False, f"身份验证失败(401)，请检查 API Key 是否填写正确。服务商返回: {provider_msg}"
+            elif code_str == "403":
+                return False, f"访问被拒绝(403)，可能是模型未授权或 IP 受限。服务商返回: {provider_msg}"
+            elif code_str == "404":
+                return False, f"找不到服务(404)，请检查 Base URL 是否正确(通常需要以 /v1 结尾)，或模型名是否存在。服务商返回: {provider_msg}"
+            elif code_str == "429":
+                return False, f"额度超限或请求频繁(429)，请检查账号余额。服务商返回: {provider_msg}"
+            elif code_str.startswith("5"):
+                return False, f"服务商内部异常({code_str})，请稍后重试。服务商返回: {provider_msg}"
+            else:
+                return False, f"请求失败({code_str})。服务商返回: {provider_msg}"
+                
+        # 3. 未知错误兜底
+        return False, f"未知错误: {error_raw}"

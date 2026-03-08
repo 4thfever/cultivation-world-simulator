@@ -4,6 +4,7 @@
   "test_success": "Connection test successful",
   "save_success": "Configuration saved",
   "test_save_failed": "Test or save failed: {error}",
+  "test_save_failed_title": "Test or Save Failed",
   "api_key_required": "Please fill in API Key",
   "base_url_required": "Please fill in Base URL",
   "preset_applied": "Applied {name} preset ({extra})",

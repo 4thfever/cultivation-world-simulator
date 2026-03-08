@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
-import { NConfigProvider, darkTheme, NMessageProvider } from 'naive-ui'
+import { NConfigProvider, darkTheme, NMessageProvider, NDialogProvider } from 'naive-ui'
 import { systemApi } from './api/modules/system'
 import { useI18n } from 'vue-i18n'
 
@@ -135,8 +135,9 @@ onUnmounted(() => {
 
 <template>
   <n-config-provider :theme="darkTheme">
-    <n-message-provider>
-      <!-- 获取到后端状态前显示纯黑，防止 F5 刷新时画面闪烁 -->
+    <n-dialog-provider>
+      <n-message-provider>
+        <!-- 获取到后端状态前显示纯黑，防止 F5 刷新时画面闪烁 -->
       <div v-if="!isAppReady" class="app-layout" style="background: #000;"></div>
       
       <template v-else>
@@ -214,7 +215,8 @@ onUnmounted(() => {
         />
       </div>
       </template>
-    </n-message-provider>
+      </n-message-provider>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 

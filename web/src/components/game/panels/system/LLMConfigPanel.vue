@@ -2,11 +2,12 @@
 import { ref, onMounted, computed } from 'vue'
 import { llmApi } from '@/api'
 import type { LLMConfigDTO } from '@/types/api'
-import { useMessage } from 'naive-ui'
+import { useMessage, useDialog } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const message = useMessage()
+const dialog = useDialog()
 const loading = ref(false)
 const testing = ref(false)
 const showHelpModal = ref(false)
@@ -141,7 +142,11 @@ async function handleTestAndSave() {
     emit('config-saved')
   } catch (e: any) {
     const errorMsg = e.response?.data?.detail || e.message
-    message.error(t('llm.test_save_failed', { error: errorMsg }))
+    dialog.error({
+      title: t('llm.test_save_failed_title', '测试或保存失败'),
+      content: errorMsg,
+      positiveText: t('common.confirm', '确定')
+    })
   } finally {
     testing.value = false
   }

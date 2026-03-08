@@ -151,7 +151,6 @@ docker-compose up -d --build
 
 </details>
 
-
 ## 📊 專案狀態
 
 ![Repobeats analytics](https://repobeats.axiom.co/api/embed/91667dce0fca651a7427022b2d819d20dd17c5e3.svg "Repobeats analytics image")
@@ -265,7 +264,7 @@ docker-compose up -d --build
 - ✅ 基礎物品、靈石框架
 - ✅ 物品交易機制
 
-### 🌿 生態系統
+### 🌿 生態系统
 - ✅ 動植物
 - ✅ 狩獵、採集、材料系統
 - [ ] 魔獸
