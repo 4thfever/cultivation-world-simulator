@@ -25,6 +25,7 @@ import time
 import threading
 import signal
 import random
+import hashlib
 import re
 import logging
 from omegaconf import OmegaConf
@@ -114,9 +115,11 @@ def get_avatar_pic_id(avatar_id: str, gender_val: str) -> int:
     if not available:
         return 1
         
-    # Use hash to pick an index from available IDs
-    # Use abs() because hash can be negative
-    idx = abs(hash(str(avatar_id))) % len(available)
+    # 使用 hashlib.md5 生成跨进程稳定的整数 hash
+    hash_bytes = hashlib.md5(str(avatar_id).encode('utf-8')).digest()
+    # 取前4个字节转换为整数即可满足均匀分布的需求
+    hash_int = int.from_bytes(hash_bytes[:4], byteorder='little')
+    idx = hash_int % len(available)
     return available[idx]
 
 
