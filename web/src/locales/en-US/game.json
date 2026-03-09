@@ -152,7 +152,10 @@
         "orthodoxy": "Orthodoxy",
         "style": "Style",
         "preferred": "Weapon",
-        "members": "Members"
+        "members": "Members",
+        "total_battle_strength": "Power",
+        "influence_radius": "Radius",
+        "magic_stone": "Stones"
       },
       "sections": {
         "intro": "Introduction",

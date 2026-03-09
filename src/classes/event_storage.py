@@ -97,6 +97,18 @@ class EventStorage:
                     ON event_avatars(avatar_id);
                 CREATE INDEX IF NOT EXISTS idx_event_avatars_event_id
                     ON event_avatars(event_id);
+
+                CREATE TABLE IF NOT EXISTS event_sects (
+                    event_id TEXT NOT NULL,
+                    sect_id INTEGER NOT NULL,
+                    PRIMARY KEY (event_id, sect_id),
+                    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+                );
+
+                CREATE INDEX IF NOT EXISTS idx_event_sects_sect_id
+                    ON event_sects(sect_id);
+                CREATE INDEX IF NOT EXISTS idx_event_sects_event_id
+                    ON event_sects(event_id);
             """)
             self._conn.commit()
             self._logger.info(f"EventStorage initialized: {self._db_path}")
@@ -158,6 +170,17 @@ class EventStorage:
                             """,
                             (event.id, str(avatar_id))
                         )
+                
+                # 插入宗门关联表。
+                if getattr(event, "related_sects", None):
+                    for sect_id in event.related_sects:
+                        self._conn.execute(
+                            """
+                            INSERT OR IGNORE INTO event_sects (event_id, sect_id)
+                            VALUES (?, ?)
+                            """,
+                            (event.id, int(sect_id))
+                        )
             return True
         except Exception as e:
             self._logger.error(f"Failed to write event {event.id}: {e}")
@@ -185,6 +208,7 @@ class EventStorage:
         self,
         avatar_id: Optional[str] = None,
         avatar_id_pair: Optional[tuple[str, str]] = None,
+        sect_id: Optional[int] = None,
         cursor: Optional[str] = None,
         limit: int = 100,
     ) -> tuple[list["Event"], Optional[str]]:
@@ -194,6 +218,7 @@ class EventStorage:
         Args:
             avatar_id: 按单个角色筛选。
             avatar_id_pair: Pair 查询（两个角色之间的事件）。
+            sect_id: 按单个宗门筛选。
             cursor: 分页 cursor，获取该位置之前的事件。
             limit: 每页数量。
 
@@ -228,6 +253,14 @@ class EventStorage:
                     JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 """
                 params.append(avatar_id)
+            elif sect_id is not None:
+                # 宗门查询。
+                base_query = """
+                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                    FROM events e
+                    JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
+                """
+                params.append(sect_id)
             else:
                 # 全部事件。
                 base_query = """
@@ -273,10 +306,18 @@ class EventStorage:
                 ).fetchall()
                 related_avatars = [r["avatar_id"] for r in avatar_rows]
 
+                # 获取关联的 sect IDs。
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
+                related_sects = [r["sect_id"] for r in sect_rows]
+
                 event = Event(
                     month_stamp=MonthStamp(row["month_stamp"]),
                     content=row["content"],
                     related_avatars=related_avatars if related_avatars else None,
+                    related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
@@ -344,10 +385,17 @@ class EventStorage:
                 ).fetchall()
                 related_avatars = [r["avatar_id"] for r in avatar_rows]
 
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
+                related_sects = [r["sect_id"] for r in sect_rows]
+
                 event = Event(
                     month_stamp=MonthStamp(row["month_stamp"]),
                     content=row["content"],
                     related_avatars=related_avatars if related_avatars else None,
+                    related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
@@ -389,10 +437,17 @@ class EventStorage:
                 ).fetchall()
                 related_avatars = [r["avatar_id"] for r in avatar_rows]
 
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
+                related_sects = [r["sect_id"] for r in sect_rows]
+
                 event = Event(
                     month_stamp=MonthStamp(row["month_stamp"]),
                     content=row["content"],
                     related_avatars=related_avatars if related_avatars else None,
+                    related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
@@ -435,10 +490,17 @@ class EventStorage:
                 ).fetchall()
                 related_avatars = [r["avatar_id"] for r in avatar_rows]
 
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
+                related_sects = [r["sect_id"] for r in sect_rows]
+
                 event = Event(
                     month_stamp=MonthStamp(row["month_stamp"]),
                     content=row["content"],
                     related_avatars=related_avatars if related_avatars else None,
+                    related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],
@@ -481,10 +543,17 @@ class EventStorage:
                 ).fetchall()
                 related_avatars = [r["avatar_id"] for r in avatar_rows]
 
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
+                related_sects = [r["sect_id"] for r in sect_rows]
+
                 event = Event(
                     month_stamp=MonthStamp(row["month_stamp"]),
                     content=row["content"],
                     related_avatars=related_avatars if related_avatars else None,
+                    related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
                     id=row["id"],

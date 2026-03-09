@@ -281,6 +281,9 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
         related_raw = getattr(event, "related_avatars", None) or []
         related_ids = [str(a) for a in related_raw if a is not None]
 
+        related_sects_raw = getattr(event, "related_sects", None) or []
+        related_sect_ids = [int(s) for s in related_sects_raw if s is not None]
+
         serialized.append({
             "id": getattr(event, "id", None) or f"{stamp_int or 'evt'}-{idx}",
             "text": str(event),
@@ -289,6 +292,7 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
             "month": month,
             "month_stamp": stamp_int,
             "related_avatar_ids": related_ids,
+            "related_sects": related_sect_ids,
             "is_major": bool(getattr(event, "is_major", False)),
             "is_story": bool(getattr(event, "is_story", False)),
             "created_at": getattr(event, "created_at", 0.0),
@@ -932,6 +936,7 @@ def get_events(
     avatar_id: str = None,
     avatar_id_1: str = None,
     avatar_id_2: str = None,
+    sect_id: int = None,
     cursor: str = None,
     limit: int = 100,
 ):
@@ -942,6 +947,7 @@ def get_events(
         avatar_id: 按单个角色筛选。
         avatar_id_1: Pair 查询：角色 1。
         avatar_id_2: Pair 查询：角色 2（需同时提供 avatar_id_1）。
+        sect_id: 按宗门筛选。
         cursor: 分页 cursor，获取该位置之前的事件。
         limit: 每页数量，默认 100。
     """
@@ -962,6 +968,7 @@ def get_events(
     events, next_cursor, has_more = event_manager.get_events_paginated(
         avatar_id=avatar_id,
         avatar_id_pair=avatar_id_pair,
+        sect_id=sect_id,
         cursor=cursor,
         limit=limit,
     )

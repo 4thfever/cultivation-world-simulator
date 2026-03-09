@@ -152,7 +152,10 @@
         "orthodoxy": "道统",
         "style": "风格",
         "preferred": "擅长",
-        "members": "成员"
+        "members": "成员",
+        "total_battle_strength": "总战力",
+        "influence_radius": "势力半径",
+        "magic_stone": "灵石储量"
       },
       "sections": {
         "intro": "宗门简介",

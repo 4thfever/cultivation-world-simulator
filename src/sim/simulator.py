@@ -34,6 +34,9 @@ class Simulator:
         self.world = world
         self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month  # 从配置文件读取NPC每月觉醒率（凡人晋升修士）
         self.can_interrupt_major = getattr(CONFIG.game, 'can_interrupt_major_events', False)
+        
+        from src.sim.managers.sect_manager import SectManager
+        self.sect_manager = SectManager(world)
 
     def _phase_update_perception_and_knowledge(self, living_avatars: list[Avatar]):
         """
@@ -557,9 +560,14 @@ class Simulator:
         # 每年执行的行为
         ###########
         
-        # 19. (每年1月) 更新榜单
+        # 19. (每年1月) 更新榜单与宗门结算
         if self.world.month_stamp.get_month() == Month.JANUARY:
             self.world.ranking_manager.update_rankings(living_avatars)
+            
+            # 宗门年度结算（势力范围与灵石）
+            sect_events = self.sect_manager.update_sects()
+            if sect_events:
+                events.extend(sect_events)
         
         # 20. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:

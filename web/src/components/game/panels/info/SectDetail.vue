@@ -48,6 +48,9 @@ const alignmentText = props.data.alignment;
           <StatItem :label="t('game.info_panel.sect.stats.style')" :value="data.style" />
           <StatItem :label="t('game.info_panel.sect.stats.preferred')" :value="data.preferred_weapon || t('common.none')" />
           <StatItem :label="t('game.info_panel.sect.stats.members')" :value="data.members?.length || 0" />
+          <StatItem :label="t('game.info_panel.sect.stats.total_battle_strength')" :value="Math.floor(data.total_battle_strength || 0)" />
+          <StatItem :label="t('game.info_panel.sect.stats.influence_radius')" :value="data.influence_radius || 0" />
+          <StatItem :label="t('game.info_panel.sect.stats.magic_stone')" :value="data.magic_stone || 0" />
        </div>
 
        <!-- Intro -->

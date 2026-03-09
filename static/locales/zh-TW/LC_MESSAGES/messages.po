@@ -1345,6 +1345,13 @@ msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
 
+msgid "game.sect_update_event"
+msgstr ""
+"【{sect_name}】今年總戰力達到 {strength}，勢力半徑達到 {radius}，從勢力範圍內獲得了 {income} 靈石。"
+
+msgid "Game automatically saved"
+msgstr "遊戲已自動保存"
+
 # 執行結果
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
 msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"
@@ -2998,6 +3005,3 @@ msgstr "鞭"
 
 msgid "zither"
 msgstr "琴"
-
-msgid "Game automatically saved"
-msgstr "遊戲已自動保存"

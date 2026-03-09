@@ -56,6 +56,13 @@ class Sect:
     # 道统ID
     orthodoxy_id: str = "dao"
     
+    # 势力相关
+    magic_stone: int = 0
+    is_active: bool = True
+    total_battle_strength: float = 0.0
+    influence_radius: int = 0
+    color: str = "#FFFFFF"
+
     # 运行时成员列表：Avatar ID -> Avatar
     members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
     # 功法对象列表：Technique
@@ -176,7 +183,12 @@ class Sect:
             "technique_names": self.technique_names,
             "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
             "members": members_list,
-            "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id}
+            "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id},
+            "magic_stone": self.magic_stone,
+            "is_active": self.is_active,
+            "total_battle_strength": self.total_battle_strength,
+            "influence_radius": self.influence_radius,
+            "color": self.color
         }
 
 def _split_names(value: object) -> list[str]:
@@ -297,6 +309,8 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
         hq_name = hq_name_from_csv or get_str(row, "headquarter_name") or name
         hq_desc = hq_desc_from_csv or get_str(row, "headquarter_desc")
+        
+        color = get_str(row, "color") or "#FFFFFF"
 
         sect = Sect(
             id=sid,
@@ -316,6 +330,7 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
             effect_desc=effect_desc,
             rank_names=rank_names_map,
             orthodoxy_id=orthodoxy_id,
+            color=color,
         )
         new_by_id[sect.id] = sect
         new_by_name[sect.name] = sect

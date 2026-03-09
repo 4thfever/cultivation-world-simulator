@@ -137,6 +137,11 @@ export interface SectDetail extends EntityBase {
   preferred_weapon: string;
   members: SectMember[];
   orthodoxy: EffectEntity;
+  magic_stone: number;
+  is_active: boolean;
+  total_battle_strength: number;
+  influence_radius: number;
+  color: string;
 }
 
 export interface RelationInfo {
@@ -221,6 +226,7 @@ export interface GameEvent {
   // 排序权重
   timestamp: number; 
   relatedAvatarIds: string[];
+  relatedSects?: number[];
   isMajor: boolean;
   isStory: boolean;
   
