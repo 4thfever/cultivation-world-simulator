@@ -31,9 +31,9 @@ const filterOptions = computed(() => [
 
 const sectFilterOptions = computed(() => {
   const sects = Array.from(mapStore.regions.values())
-    .filter(r => r.type === 'sect' && r.sect_id)
+    .filter(r => r.type === 'sect' && r.sect_id && (r as any).sect_is_active !== false)
     .map(r => ({
-      label: r.name,
+      label: r.sect_name ?? r.name,
       value: r.sect_id as number
     }))
   
@@ -224,6 +224,7 @@ function handleAvatarClick(avatarId?: string) {
           :options="sectFilterOptions"
           size="tiny"
           class="event-filter"
+          data-testid="sect-filter"
         />
         <n-select
           v-model:value="filterValue1"

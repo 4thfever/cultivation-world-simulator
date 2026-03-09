@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import EventPanel from '@/components/game/panels/EventPanel.vue'
 import { createI18n } from 'vue-i18n'
 import { reactive } from 'vue'
+import { NSelect } from 'naive-ui'
 
 const avatarStoreMock = reactive({
   avatarList: [
@@ -22,6 +23,10 @@ const uiStoreMock = {
   select: vi.fn(),
 }
 
+const mapStoreMock = reactive({
+  regions: new Map<string | number, { id: string; name: string; type: string; sect_id?: number; sect_name?: string; x: number; y: number }>(),
+})
+
 vi.mock('@/stores/avatar', () => ({
   useAvatarStore: () => avatarStoreMock,
 }))
@@ -34,6 +39,10 @@ vi.mock('@/stores/ui', () => ({
   useUiStore: () => uiStoreMock,
 }))
 
+vi.mock('@/stores/map', () => ({
+  useMapStore: () => mapStoreMock,
+}))
+
 describe('EventPanel', () => {
   beforeEach(() => {
     eventStoreMock.events = []
@@ -42,6 +51,10 @@ describe('EventPanel', () => {
     eventStoreMock.resetEvents.mockClear()
     eventStoreMock.loadMoreEvents.mockClear()
     uiStoreMock.select.mockClear()
+    mapStoreMock.regions = new Map([
+      ['r1', { id: 'r1', name: '明心山', type: 'sect', sect_id: 1, sect_name: '青云门', x: 10, y: 10 }],
+      ['r2', { id: 'r2', name: '赤焰峰', type: 'sect', sect_id: 2, sect_name: '天火宗', x: 20, y: 20 }],
+    ])
   })
 
   it('should render successfully', () => {
@@ -115,5 +128,77 @@ describe('EventPanel', () => {
     expect(html).not.toContain('<img')
     expect(html).toContain('&lt;img src=x onerror=alert(1)&gt;')
     expect(wrapper.find('.clickable-avatar').text()).toBe('Alice')
+  })
+
+  it('sect filter options use sect_name as label', () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'zh',
+      messages: {
+        zh: {
+          game: {
+            event_panel: {
+              title: 'Events',
+              filter_all: 'All',
+              filter_all_sects: '所有宗门',
+              deceased: '(dead)',
+              add_second: '+1',
+              load_more: 'load',
+              empty_none: 'none',
+              empty_single: 'none',
+              empty_dual: 'none',
+            }
+          },
+          common: { loading: 'loading', year: '年', month: '月' },
+        }
+      }
+    })
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const sectSelect = wrapper.findComponent(NSelect)
+    expect(sectSelect.exists()).toBe(true)
+    const options = sectSelect.props('options') as Array<{ label: string; value: string | number }>
+    const sectOptions = options.filter(o => o.value !== 'all')
+    expect(sectOptions.map(o => o.label)).toContain('青云门')
+    expect(sectOptions.map(o => o.label)).toContain('天火宗')
+  })
+
+  it('selecting sect filter calls resetEvents with sect_id', async () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'zh',
+      messages: {
+        zh: {
+          game: {
+            event_panel: {
+              title: 'Events',
+              filter_all: 'All',
+              filter_all_sects: '所有宗门',
+              deceased: '(dead)',
+              add_second: '+1',
+              load_more: 'load',
+              empty_none: 'none',
+              empty_single: 'none',
+              empty_dual: 'none',
+            }
+          },
+          common: { loading: 'loading', year: '年', month: '月' },
+        }
+      }
+    })
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const sectSelect = wrapper.findComponent(NSelect)
+    expect(sectSelect.exists()).toBe(true)
+    await sectSelect.vm.$emit('update:value', 1)
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ sect_id: 1 }))
   })
 })

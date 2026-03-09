@@ -163,6 +163,9 @@ export type MapMatrix = string[][];
 export interface RegionSummary extends EntityBase, Coordinates {
   type: string;
   sect_id?: number;
+  sect_name?: string;
+  // 是否为激活宗门（由后端 /api/map 提供）。未提供时视为 true。
+  sect_is_active?: boolean;
   sub_type?: string; // for cultivate regions: "cave" or "ruin"
 }
 

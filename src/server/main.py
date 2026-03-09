@@ -479,6 +479,7 @@ async def init_game_async():
             print(f"Generated {len(random_avatars)} random NPCs")
 
         world.avatar_manager.avatars.update(final_avatars)
+        world.existed_sects = existed_sects
         game_instance["world"] = world
         game_instance["sim"] = sim
 
@@ -1039,11 +1040,19 @@ def get_map():
                 "name": r.name,
                 "type": rtype,
                 "x": r.center_loc[0],
-                "y": r.center_loc[1]
+                "y": r.center_loc[1],
             }
-            # 如果是宗门区域，传递 sect_id 用于前端加载图片资源
-            if hasattr(r, 'sect_id'):
+            # 如果是宗门区域，传递 sect_id、sect_name 以及是否激活状态，用于前端加载图片与筛选展示
+            if hasattr(r, "sect_id"):
                 region_dict["sect_id"] = r.sect_id
+                region_dict["sect_name"] = (
+                    getattr(r, "sect_name", None)
+                    or (sects_by_id.get(r.sect_id).name if r.sect_id in sects_by_id else None)
+                )
+                sect_obj = sects_by_id.get(r.sect_id)
+                if sect_obj is not None:
+                    # 标记该宗门当前是否仍为激活状态（用于事件面板筛选）
+                    region_dict["sect_is_active"] = getattr(sect_obj, "is_active", True)
             
             # 如果是修炼区域（洞府/遗迹），传递 sub_type
             if hasattr(r, 'sub_type'):

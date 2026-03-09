@@ -164,6 +164,7 @@ export interface EventDTO {
   month: number;
   month_stamp: number;
   related_avatar_ids: string[];
+  related_sects?: number[];
   is_major: boolean;
   is_story: boolean;
   created_at: number;
@@ -179,6 +180,7 @@ export interface FetchEventsParams {
   avatar_id?: string;
   avatar_id_1?: string;
   avatar_id_2?: string;
+  sect_id?: number;
   cursor?: string;
   limit?: number;
 }

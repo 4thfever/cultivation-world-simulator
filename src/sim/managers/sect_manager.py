@@ -1,6 +1,7 @@
 import math
 from typing import TYPE_CHECKING
 from src.classes.event import Event
+from src.systems.battle import get_base_strength
 
 if TYPE_CHECKING:
     from src.classes.core.world import World
@@ -37,7 +38,7 @@ class SectManager:
             # 为了数值稳定，使用 max trick
             total_strength = 0.0
             if members:
-                strengths = [float(getattr(m, "base_battle_strength", 0)) for m in members]
+                strengths = [float(get_base_strength(m)) for m in members]
                 if strengths:
                     max_str = max(strengths)
                     # 防止 exp 溢出，限制上限
@@ -55,8 +56,8 @@ class SectManager:
             r = sect.influence_radius
             area = 2 * (r ** 2) + 2 * r + 1
             
-            # 结算灵石
-            income = area * 100
+            # 结算灵石：每年每格 10 灵石
+            income = area * 10
             sect.magic_stone += income
             
             import src.i18n

@@ -16,6 +16,7 @@ export function processNewEvents(rawEvents: any[], currentYear: number, currentM
     month: e.month ?? currentMonth,
     timestamp: (e.year ?? currentYear) * 12 + (e.month ?? currentMonth),
     relatedAvatarIds: e.related_avatar_ids || [],
+    relatedSects: e.related_sects,
     isMajor: e.is_major,
     isStory: e.is_story,
     createdAt: e.created_at,

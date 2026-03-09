@@ -476,6 +476,42 @@ class TestInitGameAsyncWithSects:
             existed_sects = call_args[1]["existed_sects"]
             assert len(existed_sects) == 2  # Should have selected 2 sects.
 
+    @pytest.mark.asyncio
+    async def test_init_sets_world_existed_sects(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
+        """新开档时 world.existed_sects 必须被设置，否则每年一月宗门结算不会产生事件。"""
+        mock_map = MagicMock()
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {}
+        mock_world.month_stamp = MagicMock()
+        mock_sim = MagicMock()
+        mock_sim.step = AsyncMock()
+
+        mock_sect1 = MagicMock()
+        mock_sect2 = MagicMock()
+
+        with patch.object(main, "reload_all_static_data"), \
+             patch.object(main, "scan_avatar_assets"), \
+             patch.object(main, "load_cultivation_world_map", return_value=mock_map), \
+             patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
+             patch.object(main, "_new_make_random", return_value={}), \
+             patch("src.server.main.World") as mock_world_class, \
+             patch("src.server.main.Simulator", return_value=mock_sim), \
+             patch("src.server.main.CONFIG") as mock_config, \
+             patch("src.server.main.sects_by_id", {"s1": mock_sect1, "s2": mock_sect2}):
+
+            mock_config.paths.saves = temp_saves_dir
+            mock_config.game.sect_num = 2
+            mock_config.game.init_npc_num = 0
+            mock_config.game.world_history = ""
+            mock_world_class.create_with_db.return_value = mock_world
+
+            await init_game_async()
+
+            assert game_instance["init_status"] == "ready"
+            world = game_instance["world"]
+            assert getattr(world, "existed_sects", None) is not None
+            assert len(world.existed_sects) == 2
+
 
 class TestInitGameAsyncEdgeCases:
     """Tests for edge cases in game initialization."""
