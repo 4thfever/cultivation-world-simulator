@@ -1,9 +1,11 @@
 import math
 import pytest
+from pathlib import Path
 from unittest.mock import patch
 from src.classes.core.world import World
-from src.classes.core.sect import Sect
+from src.classes.core.sect import Sect, SectHeadQuarter
 from src.classes.core.avatar.core import Avatar
+from src.classes.alignment import Alignment
 from src.classes.age import Age
 from src.systems.time import MonthStamp
 from src.sim.managers.sect_manager import SectManager
@@ -16,14 +18,25 @@ def mock_world(base_world):
     """基于标准 base_world 构造一个带有两个宗门的世界。"""
 
     world: World = base_world
+    game_map = world.map
 
+    # 仅为 sect1 注册 SectRegion，使 sect1 有势力中心与收入；sect2 无总部则收入为 0
+    from src.classes.environment.sect_region import SectRegion
+    r1_id = 1001
+    cors1 = [(0, 0)]
+    r1 = SectRegion(id=r1_id, name="R1", desc="", sect_id=1, sect_name="测试宗门1", cors=cors1)
+    game_map.regions[r1_id] = r1
+    game_map.region_cors[r1_id] = cors1
+    game_map.update_sect_regions()
+
+    hq = SectHeadQuarter(name="测试驻地", desc="", image=Path(""))
     sect1 = Sect(
         id=1,
         name="测试宗门1",
         desc="",
         member_act_style="",
-        alignment=world.default_alignment,
-        headquarter=world.default_sect_headquarter,
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
         technique_names=[],
     )
     sect2 = Sect(
@@ -31,8 +44,8 @@ def mock_world(base_world):
         name="测试宗门2",
         desc="",
         member_act_style="",
-        alignment=world.default_alignment,
-        headquarter=world.default_sect_headquarter,
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
         technique_names=[],
     )
 
@@ -152,13 +165,14 @@ def test_sect_income_conflict_sharing(base_world):
     game_map.region_cors[r2_id] = cors2
     game_map.update_sect_regions()
 
+    hq = SectHeadQuarter(name="测试驻地", desc="", image=Path(""))
     sect1 = Sect(
         id=1,
         name="宗门A",
         desc="",
         member_act_style="",
-        alignment=world.default_alignment,
-        headquarter=world.default_sect_headquarter,
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
         technique_names=[],
     )
     sect2 = Sect(
@@ -166,8 +180,8 @@ def test_sect_income_conflict_sharing(base_world):
         name="宗门B",
         desc="",
         member_act_style="",
-        alignment=world.default_alignment,
-        headquarter=world.default_sect_headquarter,
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
         technique_names=[],
     )
 
@@ -178,9 +192,9 @@ def test_sect_income_conflict_sharing(base_world):
         manager = SectManager(world)
         events = manager.update_sects()
 
-    # 半径至少为1
-    assert sect1.influence_radius == 2  # int(10)//10+1 == 2
-    assert sect2.influence_radius == 2
+    # 无成员时战力为 0，半径 = int(0)//10+1 == 1
+    assert sect1.influence_radius == 1
+    assert sect2.influence_radius == 1
 
     # 有事件产生
     assert len(events) == 2

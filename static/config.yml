@@ -42,6 +42,9 @@ game:
     sect_teaching_prob: 0.05
     base_epiphany_prob: 0.02
 
+sect:
+  income_per_tile: 10  # 势力范围内每格每年基础灵石产出
+
 df:
   ids_separator: ";"
 
