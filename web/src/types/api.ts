@@ -50,7 +50,11 @@ export interface MapResponseDTO {
     x: number;
     y: number;
     type: string;
+    sect_id?: number;
     sect_name?: string;
+    sect_is_active?: boolean;
+    sect_color?: string;
+    sub_type?: string;
   }>;
   config?: FrontendConfigDTO;
 }

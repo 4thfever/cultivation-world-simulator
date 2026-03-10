@@ -6,7 +6,7 @@ import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
 import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
-import { tokenizeEventContent, buildAvatarColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
 import type { GameEvent } from '../../../types/core'
 import { useI18n } from 'vue-i18n'
 
@@ -200,16 +200,31 @@ function formatEventDate(event: { year: number; month: number }) {
 
 // 构建角色名 -> 颜色映射表。
 const avatarColorMap = computed(() => buildAvatarColorMap(avatarStore.avatarList))
+const sectColorMap = computed(() => buildSectColorMap(
+  Array.from(mapStore.regions.values())
+    .filter(region => region.type === 'sect')
+    .map(region => ({
+      sect_id: region.sect_id,
+      sect_name: region.sect_name,
+      sect_color: region.sect_color,
+    }))
+))
 
 // 渲染事件内容：拆分为安全 token，避免使用 v-html。
 function renderEventContent(event: GameEvent) {
   const text = event.content || event.text || ''
-  return tokenizeEventContent(text, avatarColorMap.value)
+  return tokenizeEventContent(text, avatarColorMap.value, sectColorMap.value)
 }
 
 function handleAvatarClick(avatarId?: string) {
   if (avatarId) {
     uiStore.select('avatar', avatarId)
+  }
+}
+
+function handleSectClick(sectId?: number) {
+  if (sectId != null) {
+    uiStore.select('sect', String(sectId))
   }
 }
 </script>
@@ -278,6 +293,14 @@ function handleAvatarClick(avatarId?: string) {
               class="clickable-avatar"
               :style="{ color: segment.color }"
               @click="handleAvatarClick(segment.avatarId)"
+            >
+              {{ segment.text }}
+            </span>
+            <span
+              v-else-if="segment.type === 'sect'"
+              class="clickable-sect"
+              :style="{ color: segment.color }"
+              @click="handleSectClick(segment.sectId)"
             >
               {{ segment.text }}
             </span>
@@ -402,7 +425,13 @@ function handleAvatarClick(avatarId?: string) {
   transition: opacity 0.15s;
 }
 
-.event-content :deep(.clickable-avatar:hover) {
+.event-content :deep(.clickable-sect) {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.event-content :deep(.clickable-avatar:hover),
+.event-content :deep(.clickable-sect:hover) {
   opacity: 0.8;
   text-decoration: underline;
 }

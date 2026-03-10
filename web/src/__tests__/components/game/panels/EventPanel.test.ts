@@ -24,7 +24,7 @@ const uiStoreMock = {
 }
 
 const mapStoreMock = reactive({
-  regions: new Map<string | number, { id: string; name: string; type: string; sect_id?: number; sect_name?: string; x: number; y: number }>(),
+  regions: new Map<string | number, { id: string; name: string; type: string; sect_id?: number; sect_name?: string; sect_color?: string; x: number; y: number }>(),
 })
 
 vi.mock('@/stores/avatar', () => ({
@@ -52,8 +52,8 @@ describe('EventPanel', () => {
     eventStoreMock.loadMoreEvents.mockClear()
     uiStoreMock.select.mockClear()
     mapStoreMock.regions = new Map([
-      ['r1', { id: 'r1', name: '明心山', type: 'sect', sect_id: 1, sect_name: '青云门', x: 10, y: 10 }],
-      ['r2', { id: 'r2', name: '赤焰峰', type: 'sect', sect_id: 2, sect_name: '天火宗', x: 20, y: 20 }],
+      ['r1', { id: 'r1', name: '明心山', type: 'sect', sect_id: 1, sect_name: '青云门', sect_color: '#4DD0E1', x: 10, y: 10 }],
+      ['r2', { id: 'r2', name: '赤焰峰', type: 'sect', sect_id: 2, sect_name: '天火宗', sect_color: '#8D6E63', x: 20, y: 20 }],
     ])
   })
 
@@ -128,6 +128,46 @@ describe('EventPanel', () => {
     expect(html).not.toContain('<img')
     expect(html).toContain('&lt;img src=x onerror=alert(1)&gt;')
     expect(wrapper.find('.clickable-avatar').text()).toBe('Alice')
+  })
+
+  it('should render clickable sect name with fixed color and jump to sect panel', async () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'zh',
+      messages: {
+        zh: {
+          game: { event_panel: { title: 'Events', filter_all: 'All', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
+          common: { loading: 'loading', year: '年', month: '月' },
+        },
+      },
+    })
+
+    eventStoreMock.events = [
+      {
+        id: 'e2',
+        text: '',
+        content: 'Alice joined 青云门',
+        year: 1,
+        month: 2,
+        timestamp: 14,
+        relatedAvatarIds: ['a1'],
+        relatedSects: [1],
+        isMajor: false,
+        isStory: false,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    const sectNode = wrapper.find('.clickable-sect')
+    expect(sectNode.exists()).toBe(true)
+    expect(sectNode.text()).toBe('青云门')
+    expect(sectNode.attributes('style')).toContain('rgb(77, 208, 225)')
+
+    await sectNode.trigger('click')
+    expect(uiStoreMock.select).toHaveBeenCalledWith('sect', '1')
   })
 
   it('sect filter options use sect_name as label', () => {

@@ -4,6 +4,7 @@ import {
   mergeAndSortEvents,
   avatarIdToColor,
   buildAvatarColorMap,
+  buildSectColorMap,
   tokenizeEventContent,
   escapeHtml,
   highlightAvatarNames,
@@ -150,6 +151,29 @@ describe('eventHelper', () => {
     })
   })
 
+  describe('buildSectColorMap', () => {
+    it('should build map from sect regions with fixed colors', () => {
+      const map = buildSectColorMap([
+        { sect_id: 1, sect_name: 'Azure Sect', sect_color: '#4DD0E1' },
+        { sect_id: 2, sect_name: 'Crimson Hall', sect_color: '#8D6E63' },
+      ])
+
+      expect(map.get('Azure Sect')).toEqual({ id: 1, color: '#4DD0E1' })
+      expect(map.get('Crimson Hall')).toEqual({ id: 2, color: '#8D6E63' })
+    })
+
+    it('should skip invalid sect entries and apply default color', () => {
+      const map = buildSectColorMap([
+        { sect_name: 'No Id Sect', sect_color: '#111111' },
+        { sect_id: 3, sect_color: '#222222' },
+        { sect_id: 4, sect_name: 'No Color Sect' },
+      ])
+
+      expect(map.has('No Id Sect')).toBe(false)
+      expect(map.get('No Color Sect')).toEqual({ id: 4, color: '#FFFFFF' })
+    })
+  })
+
   describe('highlightAvatarNames', () => {
     it('should escape html even when colorMap is empty', () => {
       const text = 'Hello World'
@@ -272,6 +296,24 @@ describe('eventHelper', () => {
         { type: 'text', text: '与' },
         { type: 'avatar', text: '李白', avatarId: 'libai', color: 'hsl(300, 70%, 65%)' },
         { type: 'text', text: '论道' },
+      ])
+    })
+
+    it('should tokenize sect names and keep avatar priority on duplicate names', () => {
+      const avatarMap = new Map<string, AvatarColorInfo>([
+        ['Azure Sect', { id: 'a1', color: 'hsl(100, 70%, 65%)' }],
+      ])
+      const sectMap = buildSectColorMap([
+        { sect_id: 1, sect_name: 'Azure Sect', sect_color: '#4DD0E1' },
+        { sect_id: 2, sect_name: 'Crimson Hall', sect_color: '#8D6E63' },
+      ])
+
+      const tokens = tokenizeEventContent('Azure Sect meets Crimson Hall', avatarMap, sectMap)
+
+      expect(tokens).toEqual([
+        { type: 'avatar', text: 'Azure Sect', avatarId: 'a1', color: 'hsl(100, 70%, 65%)' },
+        { type: 'text', text: ' meets ' },
+        { type: 'sect', text: 'Crimson Hall', sectId: 2, color: '#8D6E63' },
       ])
     })
   })

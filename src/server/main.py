@@ -1054,6 +1054,8 @@ def get_map():
                 if sect_obj is not None:
                     # 标记该宗门当前是否仍为激活状态（用于事件面板筛选）
                     region_dict["sect_is_active"] = getattr(sect_obj, "is_active", True)
+                    # 宗门固定颜色（来自 sect.csv），用于前端事件高亮等场景
+                    region_dict["sect_color"] = getattr(sect_obj, "color", "#FFFFFF")
             
             # 如果是修炼区域（洞府/遗迹），传递 sub_type
             if hasattr(r, 'sub_type'):
