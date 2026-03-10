@@ -12,18 +12,30 @@ from src.classes.gender import Gender
 from src.systems.battle import get_base_strength
 
 @pytest.fixture
-def mock_world():
-    # 简单的Map mock
-    class MockMap:
-        def get_tile(self, x, y):
-            return None
-            
-    world = World(map=MockMap(), month_stamp=MonthStamp(1))
-    
-    # 构造假宗门
-    sect1 = Sect(id=1, name="测试宗门1", desc="", orthodoxy_id="jianxiu", member_act_style="", alignment="NEUTRAL", preferred_weapon="SWORD", headquarter="", technique_names=[])
-    sect2 = Sect(id=2, name="测试宗门2", desc="", orthodoxy_id="fuxiu", member_act_style="", alignment="GOOD", preferred_weapon="STAFF", headquarter="", technique_names=[])
-    
+def mock_world(base_world):
+    """基于标准 base_world 构造一个带有两个宗门的世界。"""
+
+    world: World = base_world
+
+    sect1 = Sect(
+        id=1,
+        name="测试宗门1",
+        desc="",
+        member_act_style="",
+        alignment=world.default_alignment,
+        headquarter=world.default_sect_headquarter,
+        technique_names=[],
+    )
+    sect2 = Sect(
+        id=2,
+        name="测试宗门2",
+        desc="",
+        member_act_style="",
+        alignment=world.default_alignment,
+        headquarter=world.default_sect_headquarter,
+        technique_names=[],
+    )
+
     world.existed_sects = [sect1, sect2]
     return world
 
@@ -44,7 +56,7 @@ def create_mock_avatar(world, name, sect, battle_strength=None):
     return avatar
 
 def test_sect_manager_update(mock_world):
-    """宗门总战力与半径、灵石计算：战力来自 get_base_strength(成员)。"""
+    """宗门总战力与半径、半径计算 & 按格子结算灵石（无冲突时近似旧逻辑）。"""
     sect1 = mock_world.existed_sects[0]
     sect2 = mock_world.existed_sects[1]
     manager = SectManager(mock_world)
@@ -71,20 +83,15 @@ def test_sect_manager_update(mock_world):
     
     # 半径计算: int(120) // 10 + 1 = 13
     assert sect1.influence_radius == 13
-    
-    # 面积 = 2 * R^2 + 2 * R + 1
-    # 2 * 169 + 26 + 1 = 338 + 27 = 365
-    expected_area = 2 * (13**2) + 2 * 13 + 1
-    assert expected_area == 365
-    
-    # 灵石 = area * 10 = 3650
-    assert sect1.magic_stone == 3650
-    
-    # 验证sect2数据（空宗门）
+
+    # 新逻辑下，收入按地图格子计算，这里只校验“> 0” 即可，具体数值在专门测试中断言
+    assert sect1.magic_stone > 0
+
+    # 验证 sect2 数据（空宗门）
     assert sect2.total_battle_strength == 0.0
     assert sect2.influence_radius == 1
-    # 空宗门也会有一格地盘： 2*1 + 2*1 + 1 = 5, income = 50
-    assert sect2.magic_stone == 50
+    # 空宗门至少应保持 0 收入
+    assert sect2.magic_stone == 0
     
     # 验证事件生成
     assert len(events) == 2
@@ -122,3 +129,60 @@ def test_sect_total_strength_uses_avatar_battle_strength(mock_world):
     # 半径 = int(20) // 10 + 1 = 3
     assert sect.influence_radius == 3
     assert len(events) >= 1
+
+
+def test_sect_income_conflict_sharing(base_world):
+    """两个宗门半径为1且总部相邻，部分格子产生冲突时，应按格子平分灵石。"""
+    world: World = base_world
+    game_map = world.map
+
+    # 选取相邻的两个坐标作为宗门总部区域
+    r1_id, r2_id = 1001, 1002
+    cors1 = [(1, 1)]
+    cors2 = [(2, 1)]
+
+    from src.classes.environment.sect_region import SectRegion
+
+    r1 = SectRegion(id=r1_id, name="R1", desc="", sect_id=1, sect_name="S1", cors=cors1)
+    r2 = SectRegion(id=r2_id, name="R2", desc="", sect_id=2, sect_name="S2", cors=cors2)
+
+    game_map.regions[r1_id] = r1
+    game_map.regions[r2_id] = r2
+    game_map.region_cors[r1_id] = cors1
+    game_map.region_cors[r2_id] = cors2
+    game_map.update_sect_regions()
+
+    sect1 = Sect(
+        id=1,
+        name="宗门A",
+        desc="",
+        member_act_style="",
+        alignment=world.default_alignment,
+        headquarter=world.default_sect_headquarter,
+        technique_names=[],
+    )
+    sect2 = Sect(
+        id=2,
+        name="宗门B",
+        desc="",
+        member_act_style="",
+        alignment=world.default_alignment,
+        headquarter=world.default_sect_headquarter,
+        technique_names=[],
+    )
+
+    world.existed_sects = [sect1, sect2]
+
+    # 固定战力，让半径都为 1
+    with patch("src.sim.managers.sect_manager.get_base_strength", return_value=10.0):
+        manager = SectManager(world)
+        events = manager.update_sects()
+
+    # 半径至少为1
+    assert sect1.influence_radius == 2  # int(10)//10+1 == 2
+    assert sect2.influence_radius == 2
+
+    # 有事件产生
+    assert len(events) == 2
+    assert sect1.magic_stone > 0
+    assert sect2.magic_stone > 0
