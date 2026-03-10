@@ -60,6 +60,27 @@
     "earth_first": "Earth 1st",
     "human_first": "Human 1st"
   },
+  "sect_relations": {
+    "title_short": "[Sect Relations]",
+    "title": "Sect Relations",
+    "sect_a": "Sect A",
+    "sect_b": "Sect B",
+    "value": "Relation Value",
+    "reasons": "Reasons",
+    "empty": "No relation data",
+    "value_label_very_hostile": "Very Hostile",
+    "value_label_hostile": "Hostile",
+    "value_label_neutral": "Neutral",
+    "value_label_friendly": "Friendly",
+    "value_label_very_friendly": "Very Friendly",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "Opposite alignment",
+      "ALIGNMENT_SAME": "Same alignment",
+      "ORTHODOXY_DIFFERENT": "Different orthodoxy",
+      "ORTHODOXY_SAME": "Same orthodoxy",
+      "TERRITORY_CONFLICT": "Territory conflict"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Effect: ",

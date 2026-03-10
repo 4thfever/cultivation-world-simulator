@@ -91,6 +91,48 @@ class SectManager:
                 if game_map.is_in_bounds(x, y) and (x, y) in game_map.tiles:
                     yield (x, y)
 
+    def get_tile_owners(self) -> Tuple[List["Sect"], Dict[Tuple[int, int], List[int]]]:
+        """
+        计算当前活跃宗门的势力范围分布。
+
+        返回:
+            (active_sects, tile_owners)
+            - active_sects: 当前仍然存续且激活的宗门列表
+            - tile_owners: (x, y) -> [sect_id, ...]
+        """
+        from src.classes.core.sect import Sect  # 避免循环导入
+
+        active_sects: List[Sect] = self._collect_active_sects()
+        tile_owners: Dict[Tuple[int, int], List[int]] = {}
+
+        if not active_sects or not getattr(self.world, "map", None):
+            return active_sects, tile_owners
+
+        game_map: "Map" = self.world.map
+
+        # 1. 更新战力与半径（与年度结算逻辑保持一致）
+        for sect in active_sects:
+            self._update_sect_strength_and_radius(sect)
+
+        # 2. 计算总部中心坐标
+        sect_centers = self._compute_sect_centers(active_sects, game_map)
+        if not sect_centers:
+            return active_sects, tile_owners
+
+        # 3. 枚举每个宗门的势力范围，记录占据格子
+        for sect in active_sects:
+            center = sect_centers.get(sect.id)
+            radius = getattr(sect, "influence_radius", 0)
+            if center is None or radius <= 0:
+                continue
+
+            cx, cy = center
+            for x, y in self._iter_influence_tiles(cx, cy, radius, game_map):
+                owners = tile_owners.setdefault((x, y), [])
+                owners.append(sect.id)
+
+        return active_sects, tile_owners
+
     def update_sects(self) -> List[Event]:
         """
         每年底（或初）结算一次。

@@ -60,6 +60,27 @@
     "earth_first": "地榜第一",
     "human_first": "人榜第一"
   },
+  "sect_relations": {
+    "title_short": "[宗門關係]",
+    "title": "宗門關係",
+    "sect_a": "宗門 A",
+    "sect_b": "宗門 B",
+    "value": "關係值",
+    "reasons": "關係理由",
+    "empty": "暫無關係數據",
+    "value_label_very_hostile": "極惡",
+    "value_label_hostile": "敵對",
+    "value_label_neutral": "中立",
+    "value_label_friendly": "友善",
+    "value_label_very_friendly": "極善",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "陣營不同",
+      "ALIGNMENT_SAME": "陣營相同",
+      "ORTHODOXY_DIFFERENT": "道統不同",
+      "ORTHODOXY_SAME": "道統相同",
+      "TERRITORY_CONFLICT": "勢力範圍衝突"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "效果：",

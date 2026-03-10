@@ -64,6 +64,7 @@ from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
 from src.classes.language import language_manager, LanguageType
+from src.systems.sect_relations import compute_sect_relations
 
 # 全局游戏实例
 game_instance = {
@@ -1082,6 +1083,33 @@ def get_rankings():
         rm.update_rankings(world.avatar_manager.get_living_avatars())
         
     return rm.get_rankings_data()
+
+
+@app.get("/api/sect-relations")
+def get_sect_relations():
+    """
+    获取宗门之间的关系数据。
+    仅包含当前仍然激活的宗门。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"relations": []}
+
+    sim = game_instance.get("sim")
+    sect_manager = getattr(sim, "sect_manager", None)
+    if sect_manager is None:
+        from src.sim.managers.sect_manager import SectManager
+        sect_manager = SectManager(world)
+
+    from src.sim.managers.sect_manager import SectManager as SectManagerType
+    assert isinstance(sect_manager, SectManagerType)
+
+    active_sects, tile_owners = sect_manager.get_tile_owners()
+    if not active_sects:
+        return {"relations": []}
+
+    relations = compute_sect_relations(active_sects, tile_owners)
+    return {"relations": relations}
 
 
 @app.post("/api/control/reset")

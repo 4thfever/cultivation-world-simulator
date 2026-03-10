@@ -232,6 +232,21 @@ export interface RankingsDTO {
   tournament?: TournamentSummaryDTO;
 }
 
+// --- Sect Relations ---
+
+export interface SectRelationDTO {
+  sect_a_id: number;
+  sect_a_name: string;
+  sect_b_id: number;
+  sect_b_name: string;
+  value: number;        // -100 ~ 100
+  reasons: string[];    // 枚举字符串，如 ALIGNMENT_OPPOSITE
+}
+
+export interface SectRelationsResponseDTO {
+  relations: SectRelationDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = 'zh-CN' | 'en-US' | string;
 

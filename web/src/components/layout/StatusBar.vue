@@ -9,6 +9,7 @@ import StatusWidget from './StatusWidget.vue'
 
 import RankingModal from '../game/panels/RankingModal.vue'
 import TournamentModal from '../game/panels/TournamentModal.vue'
+import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 
 const { t } = useI18n()
 const store = useWorldStore()
@@ -18,6 +19,7 @@ const message = useMessage()
 const showSelector = ref(false)
 const showRankingModal = ref(false)
 const showTournamentModal = ref(false)
+const showSectRelationsModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
@@ -106,6 +108,15 @@ async function handleSelect(id: number, name: string) {
         :disable-popover="true"
         @trigger-click="showTournamentModal = true"
       />
+
+      <!-- 宗门关系 -->
+      <StatusWidget
+        :label="t('game.sect_relations.title_short')"
+        color="#597ef7"
+        mode="single"
+        :disable-popover="true"
+        @trigger-click="showSectRelationsModal = true"
+      />
     </div>
 
     <!-- 榜单 Modal -->
@@ -113,6 +124,9 @@ async function handleSelect(id: number, name: string) {
     
     <!-- 武道会 Modal -->
     <TournamentModal v-model:show="showTournamentModal" />
+
+    <!-- 宗门关系 Modal -->
+    <SectRelationsModal v-model:show="showSectRelationsModal" />
 
     <!-- 天象选择器 Modal -->
     <n-modal

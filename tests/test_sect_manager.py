@@ -200,3 +200,23 @@ def test_sect_income_conflict_sharing(base_world):
     assert len(events) == 2
     assert sect1.magic_stone > 0
     assert sect2.magic_stone > 0
+
+
+def test_get_tile_owners_only_active(mock_world):
+    """get_tile_owners 只返回激活宗门及其势力范围。"""
+    sect1 = mock_world.existed_sects[0]
+    sect2 = mock_world.existed_sects[1]
+    # 标记 sect2 为非激活
+    sect2.is_active = False
+
+    manager = SectManager(mock_world)
+    active_sects, tile_owners = manager.get_tile_owners()
+
+    # 仅包含 sect1
+    assert sect1 in active_sects
+    assert sect2 not in active_sects
+
+    # 所有格子只应包含 sect1 的 ID
+    all_owner_ids = {sid for owners in tile_owners.values() for sid in owners}
+    assert sect1.id in all_owner_ids or not all_owner_ids
+    assert sect2.id not in all_owner_ids
