@@ -33,6 +33,17 @@ const getValueColor = (value: number) => {
   return '#d9d9d9';
 };
 
+const getDeltaColor = (delta: number) => {
+  if (delta > 0) return '#52c41a';
+  if (delta < 0) return '#ff4d4f';
+  return '#d9d9d9';
+};
+
+const formatDelta = (delta: number): string => {
+  if (delta > 0) return `+${delta}`;
+  return `${delta}`;
+};
+
 /** 根据关系值返回多语言标签 key 后缀（与 i18n value_label_* 对应），极恶/极善阈值为 ±50 */
 const getValueLabelKey = (value: number): string => {
   if (value <= -50) return 'value_label_very_hostile';
@@ -42,8 +53,18 @@ const getValueLabelKey = (value: number): string => {
   return 'value_label_very_friendly';
 };
 
-const resolveReasonLabel = (reason: string) => {
-  return t(`game.sect_relations.reasons_map.${reason}`);
+const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) => {
+  const baseLabel = t(`game.sect_relations.reasons_map.${item.reason}`);
+  if (item.reason !== 'TERRITORY_CONFLICT') {
+    return baseLabel;
+  }
+
+  const overlapTiles = item.meta?.overlap_tiles;
+  if (typeof overlapTiles !== 'number') {
+    return baseLabel;
+  }
+
+  return `${baseLabel} (${t('game.sect_relations.overlap_tiles', { count: overlapTiles })})`;
 };
 
 const openSectInfo = (id: number) => {
@@ -112,13 +133,17 @@ watch(
             </td>
             <td>
               <n-tag
-                v-for="reason in item.reasons"
-                :key="reason"
+                v-for="(reasonItem, index) in item.reason_breakdown"
+                :key="`${item.sect_a_id}-${item.sect_b_id}-${reasonItem.reason}-${index}`"
                 size="small"
                 :bordered="false"
                 style="margin-right: 4px; margin-bottom: 2px"
+                class="reason-tag"
               >
-                {{ resolveReasonLabel(reason) }}
+                <span class="reason-text">{{ resolveReasonLabel(reasonItem) }}</span>
+                <span class="delta-text" :style="{ color: getDeltaColor(reasonItem.delta) }">
+                  {{ formatDelta(reasonItem.delta) }}
+                </span>
               </n-tag>
             </td>
           </tr>
@@ -150,6 +175,20 @@ watch(
   margin-left: 6px;
   font-size: 0.9em;
   opacity: 0.9;
+}
+
+.reason-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reason-text {
+  color: #d9d9d9;
+}
+
+.delta-text {
+  font-weight: 700;
 }
 </style>
 

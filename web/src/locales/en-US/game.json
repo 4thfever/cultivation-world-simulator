@@ -73,6 +73,7 @@
     "value_label_neutral": "Neutral",
     "value_label_friendly": "Friendly",
     "value_label_very_friendly": "Very Friendly",
+    "overlap_tiles": "overlap {count} tiles",
     "reasons_map": {
       "ALIGNMENT_OPPOSITE": "Opposite alignment",
       "ALIGNMENT_SAME": "Same alignment",

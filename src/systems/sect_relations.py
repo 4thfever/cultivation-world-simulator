@@ -18,7 +18,7 @@ def _clamp(value: int, min_value: int, max_value: int) -> int:
     return max(min_value, min(max_value, value))
 
 
-def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List[SectRelationReason]]:
+def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List[dict]]:
     """
     计算一对宗门之间的关系数值与理由。
     数值范围：-100 ~ 100。
@@ -30,7 +30,7 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
     from src.classes.alignment import Alignment
 
     score = 0
-    reasons: List[SectRelationReason] = []
+    breakdown: List[dict] = []
 
     # 阵营
     align_a = getattr(a, "alignment", None)
@@ -39,10 +39,20 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
         if ((align_a == Alignment.RIGHTEOUS and align_b == Alignment.EVIL) or
                 (align_a == Alignment.EVIL and align_b == Alignment.RIGHTEOUS)):
             score -= 40
-            reasons.append(SectRelationReason.ALIGNMENT_OPPOSITE)
+            breakdown.append(
+                {
+                    "reason": SectRelationReason.ALIGNMENT_OPPOSITE.value,
+                    "delta": -40,
+                }
+            )
         elif align_a == align_b:
             score += 20
-            reasons.append(SectRelationReason.ALIGNMENT_SAME)
+            breakdown.append(
+                {
+                    "reason": SectRelationReason.ALIGNMENT_SAME.value,
+                    "delta": 20,
+                }
+            )
 
     # 道统
     orth_a = getattr(a, "orthodoxy_id", "") or ""
@@ -50,19 +60,35 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
     if orth_a and orth_b:
         if orth_a == orth_b:
             score += 10
-            reasons.append(SectRelationReason.ORTHODOXY_SAME)
+            breakdown.append(
+                {
+                    "reason": SectRelationReason.ORTHODOXY_SAME.value,
+                    "delta": 10,
+                }
+            )
         else:
             score -= 15
-            reasons.append(SectRelationReason.ORTHODOXY_DIFFERENT)
+            breakdown.append(
+                {
+                    "reason": SectRelationReason.ORTHODOXY_DIFFERENT.value,
+                    "delta": -15,
+                }
+            )
 
     # 势力范围冲突（线性）
     if overlap_tiles > 0:
         penalty = min(overlap_tiles * 2, 30)
         score -= penalty
-        reasons.append(SectRelationReason.TERRITORY_CONFLICT)
+        breakdown.append(
+            {
+                "reason": SectRelationReason.TERRITORY_CONFLICT.value,
+                "delta": -penalty,
+                "meta": {"overlap_tiles": overlap_tiles},
+            }
+        )
 
     score = _clamp(int(score), -100, 100)
-    return score, reasons
+    return score, breakdown
 
 
 def compute_sect_relations(
@@ -84,7 +110,7 @@ def compute_sect_relations(
             "sect_b_id": int,
             "sect_b_name": str,
             "value": int,                # -100 ~ 100
-            "reasons": list[str],        # SectRelationReason 枚举的 value
+            "reason_breakdown": list[dict],   # 每条包含 reason / delta / meta
         }
     """
     sect_list = [s for s in sects if s is not None]
@@ -118,7 +144,7 @@ def compute_sect_relations(
             sect_b = sect_by_id[sid_b]
 
             overlap = overlap_counts.get((sid_a, sid_b), 0)
-            value, reasons = _compute_pair_score(sect_a, sect_b, overlap)
+            value, reason_breakdown = _compute_pair_score(sect_a, sect_b, overlap)
 
             results.append(
                 {
@@ -127,7 +153,7 @@ def compute_sect_relations(
                     "sect_b_id": sid_b,
                     "sect_b_name": sect_b.name,
                     "value": value,
-                    "reasons": [r.value for r in reasons],
+                    "reason_breakdown": reason_breakdown,
                 }
             )
 

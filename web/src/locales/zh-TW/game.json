@@ -73,6 +73,7 @@
     "value_label_neutral": "中立",
     "value_label_friendly": "友善",
     "value_label_very_friendly": "極善",
+    "overlap_tiles": "重疊{count}格",
     "reasons_map": {
       "ALIGNMENT_OPPOSITE": "陣營不同",
       "ALIGNMENT_SAME": "陣營相同",
