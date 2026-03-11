@@ -2648,6 +2648,56 @@ msgid ""
 msgstr ""
 "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
 
+msgid "a temporary border consensus"
+msgstr "邊界協約暫獲共識"
+
+msgid "escalating border conflicts"
+msgstr "邊界利益衝突升級"
+
+msgid "unexpected operational gains"
+msgstr "宗門營運獲得額外回報"
+
+msgid "unexpected operational costs"
+msgstr "宗門事務出現額外開支"
+
+msgid "a newly opened trade route"
+msgstr "新商路帶來穩定收益"
+
+msgid "external pressure on revenue"
+msgstr "外部壓力壓縮了收益"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}與{sect_b_name}關係改善（+{value_int}，持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}與{sect_b_name}關係惡化（-{value_int}，持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}獲得靈石+{value_int}。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}損失靈石-{value_int}。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}每地塊年收入修正+{value}（持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}每地塊年收入修正-{value}（持續{duration_months}個月）。"
+
 # ============================================================================
 # Relation & Root & Appearance & Sect (New)
 # ============================================================================

@@ -12,6 +12,9 @@ class DummySect:
         self.is_active = True
         self.temporary_calls = []
 
+    def get_detailed_info(self) -> str:
+        return f"{self.name} detailed info"
+
     def add_temporary_sect_effect(self, *, effects, start_month, duration, source="sect_random_event"):
         self.temporary_calls.append(
             {
