@@ -328,6 +328,10 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
                     if t_name in techniques_by_name:
                         sect.techniques.append(techniques_by_name[t_name])
 
+        # 使用 SectContext 统一本局宗门作用域
+        world.existed_sects = existed_sects
+        world.sect_context.from_existed_sects(existed_sects)
+
         # 检查是否需要从 JSON 迁移事件（向后兼容旧存档）。
         db_event_count = world.event_manager.count()
         events_data = save_data.get("events", [])

@@ -128,7 +128,6 @@ class Sect(SectEffectsMixin):
         hq = self.headquarter
         from src.i18n import t
         from src.classes.sect_ranks import RANK_ORDER
-        from src.server.main import resolve_avatar_pic_id
         from src.classes.technique import techniques_by_name
         
         # 成员列表：直接从 self.members 获取
@@ -142,7 +141,8 @@ class Sect(SectEffectsMixin):
             members_list.append({
                 "id": str(a.id),
                 "name": a.name,
-                "pic_id": resolve_avatar_pic_id(a),
+                # 这里仅提供一个占位头像 ID，前端会有自己的 fallback 逻辑
+                "pic_id": getattr(a, "custom_pic_id", 0) or 0,
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
                 "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else t("Unknown"),

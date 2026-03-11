@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Optional, Any
+from typing import TYPE_CHECKING, Optional, Any, Iterable
 import uuid
 
 from src.classes.environment.map import Map
@@ -19,6 +19,7 @@ from src.classes.ranking import RankingManager
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
     from src.classes.celestial_phenomenon import CelestialPhenomenon
+    from src.classes.core.sect import Sect
 
 
 @dataclass
@@ -47,6 +48,8 @@ class World():
     # 游玩单局 ID，用于区分存档
     playthrough_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     sect_relation_modifiers: list[dict[str, Any]] = field(default_factory=list)
+    # 宗门上下文（惰性初始化），用于统一本局启用宗门作用域
+    _sect_context: Any = field(default=None, init=False, repr=False)
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -74,6 +77,21 @@ class World():
 
     def get_observable_avatars(self, avatar: "Avatar"):
         return self.avatar_manager.get_observable_avatars(avatar)
+
+    @property
+    def sect_context(self) -> "SectContext":
+        """
+        提供统一的宗门作用域访问入口。
+        - active_sects 默认来自 existed_sects；
+        - 若不存在，则回退到全局 sects_by_id。
+        """
+        if self._sect_context is None:
+            self._sect_context = SectContext(self)
+            # 使用当前世界上的 existed_sects 初始化上下文（若存在）
+            existed = getattr(self, "existed_sects", None)
+            if existed:
+                self._sect_context.from_existed_sects(existed)
+        return self._sect_context
 
     @staticmethod
     def _normalize_sect_pair(sect_a_id: int, sect_b_id: int) -> tuple[int, int]:
@@ -210,3 +228,61 @@ class World():
         )
         
         return world
+
+
+class SectContext:
+    """
+    本局宗门上下文。
+    负责维护“本局启用且仍存续的宗门 ID 集合”，并提供统一的 active 宗门读取入口。
+    """
+
+    def __init__(self, world: World):
+        self._world = world
+        self.active_sect_ids: set[int] = set()
+
+    def from_existed_sects(self, existed_sects: Iterable["Sect"]) -> None:
+        """根据本局启用宗门列表初始化 active_sect_ids。"""
+        self.active_sect_ids = {
+            int(getattr(sect, "id", 0))
+            for sect in existed_sects
+            if getattr(sect, "is_active", True)
+        }
+
+    def mark_sect_inactive(self, sect_id: int) -> None:
+        """在上下文中标记某宗门为失效。"""
+        try:
+            sid = int(sect_id)
+        except (TypeError, ValueError):
+            return
+        self.active_sect_ids.discard(sid)
+
+    def get_active_sects(self) -> list["Sect"]:
+        """
+        返回当前本局仍然激活的宗门列表。
+        优先使用 world.existed_sects（保持与当前局实际挂载的 Sect 实例一致），
+        再结合 active_sect_ids 做过滤；若不存在，则回退到全局 sects_by_id。
+        """
+        from src.classes.core.sect import sects_by_id
+        existed = getattr(self._world, "existed_sects", None) or []
+
+        # 1. 若世界上存在显式的 existed_sects，则以其为主（保持与当前局实例一致）
+        if existed:
+            if self.active_sect_ids:
+                return [
+                    sect
+                    for sect in existed
+                    if int(getattr(sect, "id", 0)) in self.active_sect_ids
+                    and getattr(sect, "is_active", True)
+                ]
+            return [sect for sect in existed if getattr(sect, "is_active", True)]
+
+        # 2. 不存在 existed_sects 时，再根据 active_sect_ids 过滤全局 sects_by_id
+        if self.active_sect_ids:
+            return [
+                sect
+                for sid, sect in sects_by_id.items()
+                if sid in self.active_sect_ids and getattr(sect, "is_active", True)
+            ]
+
+        # 3. 最后回退到全局 sects_by_id 的激活宗门
+        return [sect for sect in sects_by_id.values() if getattr(sect, "is_active", True)]

@@ -45,6 +45,7 @@ from src.sim.simulator import Simulator
 from src.classes.core.world import World
 from src.classes.history import HistoryManager
 from src.systems.time import Month, Year, create_month_stamp
+from src.server.assemblers.sect_detail import build_sect_detail
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG, load_config
@@ -481,6 +482,8 @@ async def init_game_async():
 
         world.avatar_manager.avatars.update(final_avatars)
         world.existed_sects = existed_sects
+        # 使用 SectContext 统一记录本局启用宗门作用域
+        world.sect_context.from_existed_sects(existed_sects)
         game_instance["world"] = world
         game_instance["sim"] = sim
 
@@ -1076,14 +1079,19 @@ def get_map():
 def get_rankings():
     """获取天、地、人及宗门榜单数据"""
     world = game_instance.get("world")
-    if not world or not hasattr(world, 'ranking_manager'):
+    if not world or not hasattr(world, "ranking_manager"):
         return {"heaven": [], "earth": [], "human": [], "sect": []}
-    
+
     # 如果榜单为空（比如刚初始化或读档，还没经过1月），主动更新一次
     rm = world.ranking_manager
-    if not rm.heaven_ranking and not rm.earth_ranking and not rm.human_ranking and not rm.sect_ranking:
-        rm.update_rankings(world.avatar_manager.get_living_avatars())
-        
+    if (
+        not rm.heaven_ranking
+        and not rm.earth_ranking
+        and not rm.human_ranking
+        and not rm.sect_ranking
+    ):
+        rm.update_rankings_with_world(world, world.avatar_manager.get_living_avatars())
+
     return rm.get_rankings_data()
 
 
@@ -1333,78 +1341,15 @@ def get_detail_info(
             target = None
 
     if target is None:
-         raise HTTPException(status_code=404, detail="Target not found")
-         
-    info = target.get_structured_info()
+        raise HTTPException(status_code=404, detail="Target not found")
+
+    # 为不同目标类型构建结构化详情
     if target_type == "sect":
-        from src.classes.effect import format_effects_to_text
+        # 宗门详情交给专门的装配器处理，避免领域对象直接依赖 server.main
+        return build_sect_detail(target, world, language_manager)
 
-        def _sect_runtime_source_label(source: str) -> str:
-            lang = str(language_manager)
-            key = (source or "").strip().lower()
-            if lang == "zh-CN":
-                if key == "base":
-                    return "基础效果"
-                if key == "sect_random_event":
-                    return "宗门随机事件"
-                return source or "临时效果"
-            if lang == "zh-TW":
-                if key == "base":
-                    return "基礎效果"
-                if key == "sect_random_event":
-                    return "宗門隨機事件"
-                return source or "臨時效果"
-            if key == "base":
-                return "Base effect"
-            if key == "sect_random_event":
-                return "Sect random event"
-            return source or "Temporary effect"
-
-        current_month = int(world.month_stamp)
-        runtime_items = []
-
-        base_runtime_effects = dict(getattr(target, "sect_effects", {}) or {})
-        if base_runtime_effects:
-            base_desc = format_effects_to_text(base_runtime_effects).strip()
-            if base_desc:
-                runtime_items.append(
-                    {
-                        "source": "base",
-                        "source_label": _sect_runtime_source_label("base"),
-                        "desc": base_desc,
-                        "remaining_months": -1,
-                        "is_permanent": True,
-                    }
-                )
-
-        for temp in target.get_active_temporary_sect_effects(current_month):
-            effects = dict(temp.get("effects", {}) or {})
-            if not effects:
-                continue
-            desc = format_effects_to_text(effects).strip()
-            if not desc:
-                continue
-            start_month = int(temp.get("start_month", current_month))
-            duration = max(0, int(temp.get("duration", 0)))
-            remaining_months = max(0, start_month + duration - current_month)
-            source = str(temp.get("source", "temporary") or "temporary")
-            runtime_items.append(
-                {
-                    "source": source,
-                    "source_label": _sect_runtime_source_label(source),
-                    "desc": desc,
-                    "remaining_months": remaining_months,
-                    "is_permanent": False,
-                }
-            )
-
-        active_effects = target.get_sect_effects(current_month)
-        info["runtime_effect_desc"] = format_effects_to_text(active_effects).strip() if active_effects else ""
-        info["runtime_extra_income_per_tile"] = float(target.get_extra_income_per_tile(current_month))
-        info["runtime_effects_count"] = len(runtime_items)
-        info["runtime_effect_items"] = runtime_items
-
-    return info
+    # 其他类型继续沿用各自的领域层 get_structured_info 实现
+    return target.get_structured_info()
 
 class SetObjectiveRequest(BaseModel):
     avatar_id: str

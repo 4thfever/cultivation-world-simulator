@@ -50,6 +50,8 @@ def mock_world(base_world):
     )
 
     world.existed_sects = [sect1, sect2]
+    # 确保 SectContext 中也记录本局启用宗门，便于 SectManager 统一读取
+    world.sect_context.from_existed_sects(world.existed_sects)
     return world
 
 def create_mock_avatar(world, name, sect, battle_strength=None):
@@ -186,6 +188,7 @@ def test_sect_income_conflict_sharing(base_world):
     )
 
     world.existed_sects = [sect1, sect2]
+    world.sect_context.from_existed_sects(world.existed_sects)
 
     # 固定战力，让半径都为 1
     with patch("src.sim.managers.sect_manager.get_base_strength", return_value=10.0):

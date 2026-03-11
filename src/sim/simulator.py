@@ -568,8 +568,9 @@ class Simulator:
         
         # 19. (每年1月) 更新榜单与宗门结算
         if self.world.month_stamp.get_month() == Month.JANUARY:
-            self.world.ranking_manager.update_rankings(living_avatars)
-            
+            # 使用 World 上下文更新榜单，宗门榜基于本局启用宗门
+            self.world.ranking_manager.update_rankings_with_world(self.world, living_avatars)
+
             # 宗门年度结算（势力范围与灵石）
             sect_events = self.sect_manager.update_sects()
             if sect_events:

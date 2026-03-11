@@ -3,7 +3,14 @@
  * 这些类型严格对应后端接口返回的 JSON 结构。
  */
 
-import type { MapMatrix, CelestialPhenomenon, HiddenDomainInfo } from './core';
+import type {
+  MapMatrix,
+  CelestialPhenomenon,
+  HiddenDomainInfo,
+  AvatarDetail,
+  RegionDetail,
+  SectDetail,
+} from './core';
 
 // --- 通用响应 ---
 
@@ -59,8 +66,18 @@ export interface MapResponseDTO {
   config?: FrontendConfigDTO;
 }
 
-// 详情接口返回的结构比较动态，通常包含 entity 的所有字段
-export type DetailResponseDTO = Record<string, unknown>;
+// --- Detail 接口 ---
+
+// 目前后端 /api/detail 直接返回 Avatar/Region/Sect 的结构化信息，
+// 在 P0 阶段我们先复用前端领域模型作为 DTO 类型，后续若后端结构调整再拆分。
+export type AvatarDetailDTO = AvatarDetail;
+export type RegionDetailDTO = RegionDetail;
+export type SectDetailDTO = SectDetail;
+
+export type DetailResponseDTO =
+  | AvatarDetailDTO
+  | RegionDetailDTO
+  | SectDetailDTO;
 
 export interface FrontendConfigDTO {
   water_speed?: 'none' | 'low' | 'medium' | 'high';
