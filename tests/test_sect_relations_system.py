@@ -50,7 +50,8 @@ def test_compute_sect_relations_alignment_orthodoxy_and_territory():
     # 期望得分：阵营相反 -40，道统相同 +10，1 个重叠格 -2 => -32
     assert rel["value"] == -32
 
-    reasons = set(rel["reasons"])
+    # 从结构化的 reason_breakdown 中提取原因枚举值
+    reasons = {item["reason"] for item in rel["reason_breakdown"]}
     assert SectRelationReason.ALIGNMENT_OPPOSITE.value in reasons
     assert SectRelationReason.ORTHODOXY_SAME.value in reasons
     assert SectRelationReason.TERRITORY_CONFLICT.value in reasons
@@ -71,7 +72,7 @@ def test_compute_sect_relations_no_overlap_neutral_alignment():
     # 阵营相同 +20，道统不同 -15，总计 +5
     assert rel["value"] == 5
 
-    reasons = set(rel["reasons"])
+    reasons = {item["reason"] for item in rel["reason_breakdown"]}
     assert SectRelationReason.ALIGNMENT_SAME.value in reasons
     assert SectRelationReason.ORTHODOXY_DIFFERENT.value in reasons
     assert SectRelationReason.TERRITORY_CONFLICT.value not in reasons
