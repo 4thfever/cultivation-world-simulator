@@ -305,3 +305,4 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 ### 🔭 Long-term Prospects
 - [ ] Novelization & imagery & video of history/events
 - [ ] Skill agentification, cultivators autonomously planning, analyzing, calling tools, and making decisions
+- [ ] Integrate your own Claw into the cultivation world
