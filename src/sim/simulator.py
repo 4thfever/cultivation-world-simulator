@@ -16,6 +16,7 @@ from src.run.log import get_logger
 from src.systems.fortune import try_trigger_fortune
 from src.systems.fortune import try_trigger_misfortune
 from src.systems.random_minor_event import try_trigger_random_minor_event
+from src.systems.sect_random_event import try_trigger_sect_random_event
 from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.long_term_objective import process_avatar_long_term_objective
 from src.classes.death import handle_death
@@ -281,6 +282,10 @@ class Simulator:
         results = await asyncio.gather(*tasks)
         return [e for e in results if e]
 
+    async def _phase_sect_random_event(self):
+        event = await try_trigger_sect_random_event(self.world)
+        return [event] if event else []
+
     async def _phase_nickname_generation(self, living_avatars: list[Avatar]):
         """
         绰号生成阶段
@@ -540,6 +545,7 @@ class Simulator:
 
         # 13. 随机小事
         events.extend(await self._phase_random_minor_events(living_avatars))
+        events.extend(await self._phase_sect_random_event())
 
         # 14. 绰号生成
         events.extend(await self._phase_nickname_generation(living_avatars))

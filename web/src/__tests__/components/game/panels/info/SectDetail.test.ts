@@ -1,8 +1,49 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, beforeEach } from 'vitest'
-import SectDetail from '@/components/game/panels/info/SectDetail.vue'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
+import SectDetail from '@/components/game/panels/info/SectDetail.vue'
+
+function createTestI18n() {
+  return createI18n({
+    legacy: false,
+    locale: 'en-US',
+    messages: {
+      'en-US': {
+        common: {
+          none: 'None',
+        },
+        game: {
+          info_panel: {
+            sect: {
+              stats: {
+                alignment: 'Alignment',
+                orthodoxy: 'Orthodoxy',
+                style: 'Style',
+                preferred: 'Preferred Weapon',
+                members: 'Members',
+                total_battle_strength: 'Total Battle Strength',
+                influence_radius: 'Influence Radius',
+                magic_stone: 'Magic Stone',
+              },
+              sections: {
+                intro: 'Intro',
+                hq: 'HQ - {name}',
+                bonus: 'Bonus',
+                techniques: 'Techniques',
+                members: 'Members',
+              },
+              no_bonus: 'No bonus',
+              no_runtime_effect: 'No active runtime effect',
+              runtime_effect_meta: '{source} remains for {months} months',
+              runtime_effect_meta_permanent: '{source} is permanent',
+            },
+          },
+        },
+      },
+    },
+  })
+}
 
 describe('SectDetail', () => {
   beforeEach(() => {
@@ -10,12 +51,7 @@ describe('SectDetail', () => {
   })
 
   it('should render successfully', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh-CN',
-      messages: {}
-    })
-
+    const i18n = createTestI18n()
     const wrapper = mount(SectDetail, {
       props: {
         data: {
@@ -23,39 +59,46 @@ describe('SectDetail', () => {
           name: 'Test Sect',
           alignment: 'Good',
           member_count: 10,
-          desc: 'Test'
-        } as any
+          desc: 'Test',
+          style: 'Sword',
+          preferred_weapon: 'Sword',
+          members: [],
+          orthodoxy: null,
+          techniques: [],
+          hq_name: 'HQ',
+          hq_desc: 'HQ desc',
+          effect_desc: '',
+          total_battle_strength: 0,
+          influence_radius: 0,
+          magic_stone: 0,
+          runtime_effect_items: [],
+        } as any,
       },
       global: {
         plugins: [createPinia(), i18n],
         stubs: {
           StatItem: true,
           EntityRow: true,
-          TagList: true
-        }
-      }
+          TagList: true,
+        },
+      },
     })
 
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('displays influence_radius, magic_stone, total_battle_strength in stats', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh-CN',
-      messages: {}
-    })
-
+  it('displays stats and runtime sect effects', () => {
+    const i18n = createTestI18n()
     const data = {
       id: '1',
       name: 'Test Sect',
       alignment: 'Good',
       desc: 'Intro',
-      style: '剑修',
+      style: 'Sword',
       hq_name: 'HQ',
       hq_desc: 'HQ desc',
-      effect_desc: 'Effect',
-      preferred_weapon: '剑',
+      effect_desc: 'Sect bonus',
+      preferred_weapon: 'Sword',
       members: [],
       orthodoxy: null,
       techniques: [],
@@ -64,6 +107,15 @@ describe('SectDetail', () => {
       total_battle_strength: 2500.7,
       influence_radius: 3,
       color: '#ff0000',
+      runtime_effect_items: [
+        {
+          source: 'sect_random_event',
+          source_label: 'Sect random event',
+          desc: 'Extra income per tile +0.8',
+          remaining_months: 60,
+          is_permanent: false,
+        },
+      ],
     }
 
     const wrapper = mount(SectDetail, {
@@ -76,13 +128,15 @@ describe('SectDetail', () => {
           EntityRow: true,
           RelationRow: true,
           TagList: true,
-        }
-      }
+        },
+      },
     })
 
     const text = wrapper.text()
-    expect(text).toContain('100')   // magic_stone
-    expect(text).toContain('2500')  // total_battle_strength (floored)
-    expect(text).toContain('3')     // influence_radius
+    expect(text).toContain('100')
+    expect(text).toContain('2500')
+    expect(text).toContain('3')
+    expect(text).toContain('Extra income per tile +0.8')
+    expect(text).toContain('Sect random event remains for 60 months')
   })
 })

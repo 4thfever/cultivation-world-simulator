@@ -1110,7 +1110,12 @@ def get_sect_relations():
     if not active_sects:
         return {"relations": []}
 
-    relations = compute_sect_relations(active_sects, tile_owners)
+    extra_breakdown_by_pair = world.get_active_sect_relation_breakdown()
+    relations = compute_sect_relations(
+        active_sects,
+        tile_owners,
+        extra_breakdown_by_pair=extra_breakdown_by_pair,
+    )
     return {"relations": relations}
 
 
@@ -1331,6 +1336,74 @@ def get_detail_info(
          raise HTTPException(status_code=404, detail="Target not found")
          
     info = target.get_structured_info()
+    if target_type == "sect":
+        from src.classes.effect import format_effects_to_text
+
+        def _sect_runtime_source_label(source: str) -> str:
+            lang = str(language_manager)
+            key = (source or "").strip().lower()
+            if lang == "zh-CN":
+                if key == "base":
+                    return "基础效果"
+                if key == "sect_random_event":
+                    return "宗门随机事件"
+                return source or "临时效果"
+            if lang == "zh-TW":
+                if key == "base":
+                    return "基礎效果"
+                if key == "sect_random_event":
+                    return "宗門隨機事件"
+                return source or "臨時效果"
+            if key == "base":
+                return "Base effect"
+            if key == "sect_random_event":
+                return "Sect random event"
+            return source or "Temporary effect"
+
+        current_month = int(world.month_stamp)
+        runtime_items = []
+
+        base_runtime_effects = dict(getattr(target, "sect_effects", {}) or {})
+        if base_runtime_effects:
+            base_desc = format_effects_to_text(base_runtime_effects).strip()
+            if base_desc:
+                runtime_items.append(
+                    {
+                        "source": "base",
+                        "source_label": _sect_runtime_source_label("base"),
+                        "desc": base_desc,
+                        "remaining_months": -1,
+                        "is_permanent": True,
+                    }
+                )
+
+        for temp in target.get_active_temporary_sect_effects(current_month):
+            effects = dict(temp.get("effects", {}) or {})
+            if not effects:
+                continue
+            desc = format_effects_to_text(effects).strip()
+            if not desc:
+                continue
+            start_month = int(temp.get("start_month", current_month))
+            duration = max(0, int(temp.get("duration", 0)))
+            remaining_months = max(0, start_month + duration - current_month)
+            source = str(temp.get("source", "temporary") or "temporary")
+            runtime_items.append(
+                {
+                    "source": source,
+                    "source_label": _sect_runtime_source_label(source),
+                    "desc": desc,
+                    "remaining_months": remaining_months,
+                    "is_permanent": False,
+                }
+            )
+
+        active_effects = target.get_sect_effects(current_month)
+        info["runtime_effect_desc"] = format_effects_to_text(active_effects).strip() if active_effects else ""
+        info["runtime_extra_income_per_tile"] = float(target.get_extra_income_per_tile(current_month))
+        info["runtime_effects_count"] = len(runtime_items)
+        info["runtime_effect_items"] = runtime_items
+
     return info
 
 class SetObjectiveRequest(BaseModel):

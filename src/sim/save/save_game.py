@@ -156,6 +156,14 @@ def save_game(
                          "prosperity": region.prosperity
                      }
 
+        sect_runtime_effects = {
+            str(sect.id): {
+                "sect_effects": dict(getattr(sect, "sect_effects", {}) or {}),
+                "temporary_sect_effects": list(getattr(sect, "temporary_sect_effects", []) or []),
+            }
+            for sect in existed_sects
+        }
+
         world_data = {
             "month_stamp": int(world.month_stamp),
             "start_year": world.start_year,
@@ -172,6 +180,8 @@ def save_game(
                 "text": world.history.text,
                 "modifications": world.history.modifications
             },
+            "sect_runtime_effects": sect_runtime_effects,
+            "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

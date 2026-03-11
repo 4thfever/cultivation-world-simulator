@@ -55,6 +55,14 @@ const getValueLabelKey = (value: number): string => {
 
 const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) => {
   const baseLabel = t(`game.sect_relations.reasons_map.${item.reason}`);
+  if (item.reason === 'RANDOM_EVENT') {
+    const cause = item.meta?.cause;
+    if (typeof cause === 'string' && cause.trim()) {
+      return `${baseLabel} (${cause.trim()})`;
+    }
+    return baseLabel;
+  }
+
   if (item.reason !== 'TERRITORY_CONFLICT') {
     return baseLabel;
   }

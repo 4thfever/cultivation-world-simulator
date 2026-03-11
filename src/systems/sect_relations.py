@@ -12,6 +12,7 @@ class SectRelationReason(str, Enum):
     ORTHODOXY_DIFFERENT = "ORTHODOXY_DIFFERENT"
     ORTHODOXY_SAME = "ORTHODOXY_SAME"
     TERRITORY_CONFLICT = "TERRITORY_CONFLICT"
+    RANDOM_EVENT = "RANDOM_EVENT"
 
 
 def _clamp(value: int, min_value: int, max_value: int) -> int:
@@ -94,6 +95,7 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
 def compute_sect_relations(
     sects: Iterable[Sect],
     tile_owners: Dict[Tuple[int, int], List[int]],
+    extra_breakdown_by_pair: Dict[Tuple[int, int], List[dict]] | None = None,
 ) -> List[dict]:
     """
     计算一组宗门之间的关系。
@@ -145,6 +147,17 @@ def compute_sect_relations(
 
             overlap = overlap_counts.get((sid_a, sid_b), 0)
             value, reason_breakdown = _compute_pair_score(sect_a, sect_b, overlap)
+            for extra_item in (extra_breakdown_by_pair or {}).get((sid_a, sid_b), []):
+                delta = int(extra_item.get("delta", 0))
+                value += delta
+                reason_breakdown.append(
+                    {
+                        "reason": str(extra_item.get("reason", SectRelationReason.RANDOM_EVENT.value)),
+                        "delta": delta,
+                        "meta": dict(extra_item.get("meta", {}) or {}),
+                    }
+                )
+            value = _clamp(int(value), -100, 100)
 
             results.append(
                 {

@@ -5,6 +5,7 @@ import json
 from src.classes.alignment import Alignment
 from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
+from src.classes.sect_effect import SectEffectsMixin
 from src.classes.core.orthodoxy import get_orthodoxy
 from src.utils.config import CONFIG
 
@@ -32,7 +33,7 @@ class SectHeadQuarter:
     image: Path
 
 @dataclass
-class Sect:
+class Sect(SectEffectsMixin):
     """
     宗门
     """
@@ -51,6 +52,8 @@ class Sect:
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
+    sect_effects: dict[str, object] = field(default_factory=dict)
+    temporary_sect_effects: list[dict] = field(default_factory=list)
     # 宗门自定义职位名称（可选）：SectRank -> 名称
     rank_names: dict[str, str] = field(default_factory=dict)
     # 道统ID
@@ -71,6 +74,8 @@ class Sect:
     def __post_init__(self):
         self.members = {}
         self.techniques = []
+        self.sect_effects = dict(self.sect_effects or {})
+        self.temporary_sect_effects = list(self.temporary_sect_effects or [])
 
     def add_member(self, avatar: "Avatar") -> None:
         """添加成员到宗门"""

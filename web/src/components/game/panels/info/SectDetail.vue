@@ -69,6 +69,25 @@ const alignmentText = props.data.alignment;
        <div class="section">
          <div class="section-title">{{ t('game.info_panel.sect.sections.bonus') }}</div>
          <div class="text-content highlight">{{ data.effect_desc || t('game.info_panel.sect.no_bonus') }}</div>
+         <div v-if="data.runtime_effect_items?.length" class="runtime-effects-list">
+            <div
+              v-for="(item, idx) in data.runtime_effect_items"
+              :key="`${item.source}-${idx}`"
+              class="runtime-effect-item"
+            >
+              <div class="runtime-effect-desc">{{ item.desc }}</div>
+              <div class="runtime-effect-meta">
+                {{
+                  item.is_permanent
+                    ? t('game.info_panel.sect.runtime_effect_meta_permanent', { source: item.source_label })
+                    : t('game.info_panel.sect.runtime_effect_meta', { source: item.source_label, months: item.remaining_months })
+                }}
+              </div>
+            </div>
+         </div>
+         <div v-else class="runtime-effects-empty">
+            {{ t('game.info_panel.sect.no_runtime_effect') }}
+         </div>
        </div>
 
        <!-- Techniques -->
@@ -157,6 +176,37 @@ const alignmentText = props.data.alignment;
   background: rgba(24, 144, 255, 0.1);
   padding: 8px;
   border-radius: 4px;
+}
+
+.runtime-effects-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.runtime-effect-item {
+  padding: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.runtime-effect-desc {
+  font-size: 13px;
+  color: #d8ecff;
+  line-height: 1.5;
+}
+
+.runtime-effect-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9fb9d6;
+}
+
+.runtime-effects-empty {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #9aa5b1;
 }
 
 /* Tech List */

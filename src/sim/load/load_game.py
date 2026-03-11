@@ -234,6 +234,27 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 获取本局启用的宗门
         existed_sect_ids = world_data.get("existed_sect_ids", [])
         existed_sects = [sects_by_id[sid] for sid in existed_sect_ids if sid in sects_by_id]
+
+        world.sect_relation_modifiers = list(world_data.get("sect_relation_modifiers", []) or [])
+        world.prune_expired_sect_relation_modifiers(int(world.month_stamp))
+
+        for sect in sects_by_id.values():
+            sect.sect_effects = {}
+            sect.temporary_sect_effects = []
+
+        sect_runtime_effects = world_data.get("sect_runtime_effects", {})
+        for sid_key, state in (sect_runtime_effects or {}).items():
+            try:
+                sid = int(sid_key)
+            except (TypeError, ValueError):
+                continue
+            sect = sects_by_id.get(sid)
+            if sect is None:
+                continue
+            state_dict = state if isinstance(state, dict) else {}
+            sect.sect_effects = dict(state_dict.get("sect_effects", {}) or {})
+            sect.temporary_sect_effects = list(state_dict.get("temporary_sect_effects", []) or [])
+            sect.cleanup_expired_temporary_sect_effects(int(world.month_stamp))
         
         # 第一阶段：重建所有Avatar（不含relations）
         avatars_data = save_data.get("avatars", [])

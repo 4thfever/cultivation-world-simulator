@@ -181,14 +181,21 @@ class SectManager:
         income_by_sect_id: Dict[int, float] = {}
 
         sect_conf = getattr(CONFIG, "sect", None)
-        base_income = getattr(sect_conf, "income_per_tile", 10) if sect_conf else 10
+        base_income = float(getattr(sect_conf, "income_per_tile", 10)) if sect_conf else 10.0
+        current_month = int(self.world.month_stamp)
+        sect_by_id = {int(s.id): s for s in active_sects}
 
         for owners in tile_owners.values():
             n = len(owners)
             if n == 0:
                 continue
-            share = base_income / n
             for sid in owners:
+                sect = sect_by_id.get(int(sid))
+                if sect is None:
+                    continue
+                extra_income = float(sect.get_extra_income_per_tile(current_month))
+                effective_income_per_tile = max(0.0, base_income + extra_income)
+                share = effective_income_per_tile / n
                 income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + share
 
         # 5. 为每个宗门累加收入并生成事件

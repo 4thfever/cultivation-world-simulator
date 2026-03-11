@@ -142,6 +142,18 @@ export interface SectDetail extends EntityBase {
   total_battle_strength: number;
   influence_radius: number;
   color: string;
+  runtime_effect_desc?: string;
+  runtime_extra_income_per_tile?: number;
+  runtime_effects_count?: number;
+  runtime_effect_items?: SectRuntimeEffectItem[];
+}
+
+export interface SectRuntimeEffectItem {
+  source: string;
+  source_label: string;
+  desc: string;
+  remaining_months: number;
+  is_permanent?: boolean;
 }
 
 export interface RelationInfo {

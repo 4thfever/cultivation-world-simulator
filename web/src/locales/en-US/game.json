@@ -79,7 +79,8 @@
       "ALIGNMENT_SAME": "Same alignment",
       "ORTHODOXY_DIFFERENT": "Different orthodoxy",
       "ORTHODOXY_SAME": "Same orthodoxy",
-      "TERRITORY_CONFLICT": "Territory conflict"
+      "TERRITORY_CONFLICT": "Territory conflict",
+      "RANDOM_EVENT": "Random event"
     }
   },
   "info_panel": {
@@ -186,7 +187,10 @@
         "techniques": "Technique Library",
         "members": "Disciples"
       },
-      "no_bonus": "No special bonus"
+      "no_bonus": "No special bonus",
+      "no_runtime_effect": "No active sect runtime effects",
+      "runtime_effect_meta": "Source: {source} - Remaining: {months} month(s)",
+      "runtime_effect_meta_permanent": "Source: {source} - Duration: Permanent"
     }
   }
 }

@@ -13,6 +13,8 @@ llm:
     history_influence: "normal"
     backstory: "fast"
     random_minor_event: "fast"
+    sect_random_event: "fast"
+    sect_random_event_reason: "fast"
 
 paths:
   locales: static/locales/
@@ -27,7 +29,7 @@ ai:
 
 game:
   init_npc_num: 9
-  sect_num: 3 # init_npc_num大于sect_num时，会随机选择sect_num个宗门
+  sect_num: 3 # init_npc_num 大于 sect_num 时，会随机选择 sect_num 个宗门
   start_year: 100 # 世界开始年份
   npc_awakening_rate_per_month: 0.01
   fortune_probability: 0.005
@@ -43,8 +45,8 @@ game:
     base_epiphany_prob: 0.02
 
 sect:
-  income_per_tile: 10  # 势力范围内每格每年基础灵石产出
-
+  income_per_tile: 10  # 势力范围内每地块每年基础灵石产出
+  random_event_prob_per_month: 0.3 # 宗门随机事件每月触发概率（全局单次抽签）
 df:
   ids_separator: ";"
 
@@ -54,11 +56,11 @@ avatar:
 social:
   major_event_context_num: 10  # 大事（长期记忆）展示数量
   minor_event_context_num: 10  # 小事（短期记忆）展示数量
-  relation_check_threshold: 5 # 关系检查需要的交互次数
+  relation_check_threshold: 5 # 关系检查所需的交互次数
 
 nickname:
-  major_event_threshold: 3  # 获得绰号需要的长期事件数量
-  minor_event_threshold: 25  # 获得绰号需要的短期事件数量
+  major_event_threshold: 3  # 获得绰号所需的长期事件数量
+  minor_event_threshold: 25  # 获得绰号所需的短期事件数量
 
 save:
   max_events_to_save: 1000
@@ -68,8 +70,9 @@ frontend:
   cloud_freq: low
 system:
   language: zh-CN
-  host: "127.0.0.1"  # 服务器绑定地址，设为 "0.0.0.0" 允许局域网访问。
-  port: 8002         # 服务器端口。
+  host: "127.0.0.1"  # 服务器绑定地址，设为 "0.0.0.0" 可允许局域网访问
+  port: 8002         # 服务器端口
 
 play:
   base_benefit_probability: 0.05
+

@@ -79,7 +79,8 @@
       "ALIGNMENT_SAME": "阵营相同",
       "ORTHODOXY_DIFFERENT": "道统不同",
       "ORTHODOXY_SAME": "道统相同",
-      "TERRITORY_CONFLICT": "势力范围冲突"
+      "TERRITORY_CONFLICT": "势力范围冲突",
+      "RANDOM_EVENT": "随机事件"
     }
   },
   "info_panel": {
@@ -186,7 +187,10 @@
         "techniques": "功法库",
         "members": "门下弟子"
       },
-      "no_bonus": "无特殊加成"
+      "no_bonus": "无特殊加成",
+      "no_runtime_effect": "暂无当前生效的宗门效果",
+      "runtime_effect_meta": "来源：{source} - 剩余：{months}个月",
+      "runtime_effect_meta_permanent": "来源：{source} - 持续：长期"
     }
   }
 }

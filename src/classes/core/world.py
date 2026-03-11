@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Any
 import uuid
 
 from src.classes.environment.map import Map
@@ -46,6 +46,7 @@ class World():
     ranking_manager: RankingManager = field(default_factory=RankingManager)
     # 游玩单局 ID，用于区分存档
     playthrough_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    sect_relation_modifiers: list[dict[str, Any]] = field(default_factory=list)
 
     def get_info(self, detailed: bool = False, avatar: Optional["Avatar"] = None) -> dict:
         """
@@ -73,6 +74,68 @@ class World():
 
     def get_observable_avatars(self, avatar: "Avatar"):
         return self.avatar_manager.get_observable_avatars(avatar)
+
+    @staticmethod
+    def _normalize_sect_pair(sect_a_id: int, sect_b_id: int) -> tuple[int, int]:
+        a = int(sect_a_id)
+        b = int(sect_b_id)
+        return (a, b) if a <= b else (b, a)
+
+    def add_sect_relation_modifier(
+        self,
+        *,
+        sect_a_id: int,
+        sect_b_id: int,
+        delta: int,
+        duration: int,
+        reason: str,
+        meta: Optional[dict] = None,
+    ) -> None:
+        if int(duration) <= 0 or int(delta) == 0:
+            return
+        a, b = self._normalize_sect_pair(sect_a_id, sect_b_id)
+        self.sect_relation_modifiers.append(
+            {
+                "sect_a_id": a,
+                "sect_b_id": b,
+                "delta": int(delta),
+                "reason": str(reason),
+                "meta": dict(meta or {}),
+                "start_month": int(self.month_stamp),
+                "duration": int(duration),
+            }
+        )
+
+    def prune_expired_sect_relation_modifiers(self, current_month: Optional[int] = None) -> None:
+        if not self.sect_relation_modifiers:
+            return
+        now = int(self.month_stamp if current_month is None else current_month)
+        self.sect_relation_modifiers = [
+            item
+            for item in self.sect_relation_modifiers
+            if now < int(item.get("start_month", 0)) + int(item.get("duration", 0))
+        ]
+
+    def get_active_sect_relation_breakdown(
+        self, current_month: Optional[int] = None
+    ) -> dict[tuple[int, int], list[dict[str, Any]]]:
+        self.prune_expired_sect_relation_modifiers(current_month)
+        result: dict[tuple[int, int], list[dict[str, Any]]] = {}
+        for item in self.sect_relation_modifiers:
+            pair = self._normalize_sect_pair(
+                int(item.get("sect_a_id", 0)),
+                int(item.get("sect_b_id", 0)),
+            )
+            if pair[0] <= 0 or pair[1] <= 0:
+                continue
+            result.setdefault(pair, []).append(
+                {
+                    "reason": str(item.get("reason", "")),
+                    "delta": int(item.get("delta", 0)),
+                    "meta": dict(item.get("meta", {}) or {}),
+                }
+            )
+        return result
 
     def set_history(self, history_text: str):
         """设置世界历史文本"""
