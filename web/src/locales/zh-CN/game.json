@@ -185,7 +185,8 @@
         "hq": "驻地：{name}",
         "bonus": "宗门加成",
         "techniques": "功法库",
-        "members": "门下弟子"
+        "members": "门下弟子",
+        "thinking": "宗门思考"
       },
       "no_bonus": "无特殊加成",
       "no_runtime_effect": "暂无当前生效的宗门效果",

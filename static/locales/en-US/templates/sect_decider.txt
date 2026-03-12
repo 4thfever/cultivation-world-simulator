@@ -1,0 +1,27 @@
+You are the "sect will" of a sect in a Xianxia world.
+
+Based on the context below, produce a brief annual strategic thought from the sect's own voice:
+
+Sect Name:
+{sect_name}
+
+World Info:
+{world_info}
+
+Current Heavenly Aura / Phenomenon:
+{current_phenomenon_info}
+
+Sect Decision Context:
+{decision_context_info}
+
+Requirements:
+1. Voice must be the sect itself (for example, start with "Our sect..."), not third-person narration.
+2. Content must include:
+   - A judgment of the current world situation;
+   - A clear direction for the sect's next stage.
+3. Be concise and practical; no bullet points, no explanations, no extra framing.
+4. Length should be 20 to 60 words.
+5. Return strict JSON only, with no extra text:
+{{
+  "sect_thinking": "..."
+}}

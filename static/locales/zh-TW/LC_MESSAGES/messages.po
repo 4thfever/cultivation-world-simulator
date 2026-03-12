@@ -1358,6 +1358,9 @@ msgid "game.sect_update_event"
 msgstr ""
 "【{sect_name}】今年總戰力達到 {strength}，勢力半徑達到 {radius}，從勢力範圍內獲得了 {income} 靈石。"
 
+msgid "game.sect_thinking_event"
+msgstr "{sect_name}宗門的思考：{thinking}"
+
 msgid "Game automatically saved"
 msgstr "遊戲已自動保存"
 

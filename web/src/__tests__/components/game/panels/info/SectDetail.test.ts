@@ -30,6 +30,7 @@ function createTestI18n() {
                 intro: 'Intro',
                 hq: 'HQ - {name}',
                 bonus: 'Bonus',
+                thinking: 'Sect Thinking',
                 techniques: 'Techniques',
                 members: 'Members',
               },
@@ -72,6 +73,7 @@ describe('SectDetail', () => {
           influence_radius: 0,
           magic_stone: 0,
           runtime_effect_items: [],
+          yearly_thinking: '',
         } as any,
       },
       global: {
@@ -116,6 +118,7 @@ describe('SectDetail', () => {
           is_permanent: false,
         },
       ],
+      yearly_thinking: '我宗观天下势力分化加剧，当先稳住边界与资源脉络，再图联盟突破，以争中局主动。',
     }
 
     const wrapper = mount(SectDetail, {
@@ -138,5 +141,6 @@ describe('SectDetail', () => {
     expect(text).toContain('3')
     expect(text).toContain('Extra income per tile +0.8')
     expect(text).toContain('Sect random event remains for 60 months')
+    expect(text).toContain('我宗观天下势力分化加剧')
   })
 })

@@ -97,6 +97,7 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     )
     info["runtime_effects_count"] = len(runtime_items)
     info["runtime_effect_items"] = runtime_items
+    info["yearly_thinking"] = str(getattr(sect, "yearly_thinking", "") or "")
 
     return info
 

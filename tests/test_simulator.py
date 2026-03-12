@@ -6,6 +6,7 @@ from src.sim.simulator import Simulator
 from src.classes.action.move_to_direction import MoveToDirection
 from src.classes.environment.tile import TileType
 from src.classes.action_runtime import ActionInstance
+from src.systems.time import Year, Month, create_month_stamp
 
 @pytest.mark.asyncio
 async def test_simulator_step_moves_avatar_and_sets_tile(base_world, dummy_avatar, mock_llm_managers):
@@ -123,3 +124,69 @@ async def test_simulator_event_deduplication(base_world, dummy_avatar, mock_llm_
             if call.args[0].id == ev_id
         ]
         assert len(target_calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_simulator_yearly_sect_thinking_runs_after_sect_update(base_world, mock_llm_managers):
+    sim = Simulator(base_world)
+    call_order = []
+
+    def _update_sects():
+        call_order.append("update_sects")
+        return []
+
+    async def _yearly_thinking():
+        call_order.append("yearly_thinking")
+        return []
+
+    with patch.object(sim.sect_manager, "update_sects", side_effect=_update_sects), patch.object(
+        sim, "_phase_sect_yearly_thinking", new_callable=AsyncMock
+    ) as mock_yearly_thinking:
+        mock_yearly_thinking.side_effect = _yearly_thinking
+        await sim.step()
+
+    assert call_order == ["update_sects", "yearly_thinking"]
+
+
+@pytest.mark.asyncio
+async def test_simulator_yearly_sect_thinking_not_run_in_non_january(base_world, mock_llm_managers):
+    base_world.month_stamp = create_month_stamp(Year(1), Month.FEBRUARY)
+    sim = Simulator(base_world)
+
+    with patch.object(sim.sect_manager, "update_sects") as mock_update_sects, patch.object(
+        sim, "_phase_sect_yearly_thinking", new_callable=AsyncMock
+    ) as mock_yearly_thinking:
+        await sim.step()
+
+    mock_update_sects.assert_not_called()
+    mock_yearly_thinking.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base_world, mock_llm_managers):
+    sim = Simulator(base_world)
+    sect = MagicMock()
+    sect.id = 77
+    sect.name = "青云宗"
+    sect.yearly_thinking = ""
+
+    base_world.existed_sects = [sect]
+    base_world.event_manager._storage = MagicMock()
+    base_world.event_manager._storage.get_events.return_value = ([], None)
+
+    with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
+        "src.sim.simulator.SectDecider.decide",
+        new=AsyncMock(return_value="我宗审时度势，当前宜稳固疆域与资源，谨慎结盟再谋扩张。"),
+    ), patch(
+        "src.sim.simulator.t",
+        side_effect=lambda key, **kwargs: "{sect_name}宗门的思考：{thinking}".format(**kwargs)
+        if key == "game.sect_thinking_event"
+        else key,
+    ):
+        events = await sim._phase_sect_yearly_thinking()
+
+    assert len(events) == 1
+    event = events[0]
+    assert event.related_sects == [77]
+    assert "青云宗宗门的思考：" in event.content
+    assert "我宗审时度势" in event.content

@@ -1,0 +1,141 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import TYPE_CHECKING, Any
+
+from src.classes.language import language_manager
+from src.utils.config import CONFIG
+from src.utils.llm import call_llm_with_task_name
+from src.utils.llm.exceptions import LLMError, ParseError
+from src.utils.strings import to_json_str_with_intent
+
+if TYPE_CHECKING:
+    from src.classes.core.sect import Sect
+    from src.classes.core.world import World
+    from src.systems.sect_decision_context import SectDecisionContext
+
+
+class SectDecider:
+    """
+    宗门年度思考生成器。
+
+    输入：SectDecisionContext
+    输出：宗门意志口吻的短文本（30~100字）
+    """
+
+    MIN_LEN = 30
+    MAX_LEN = 100
+
+    @classmethod
+    async def decide(
+        cls,
+        sect: "Sect",
+        decision_context: "SectDecisionContext",
+        world: "World",
+    ) -> str:
+        if not cls._llm_available():
+            return cls._fallback(sect)
+
+        infos = {
+            "sect_name": sect.name,
+            "world_info": to_json_str_with_intent(cls._serialize_world_info(world)),
+            "current_phenomenon_info": cls._current_phenomenon_info(world),
+            "decision_context_info": to_json_str_with_intent(
+                cls._serialize_context(decision_context)
+            ),
+        }
+
+        try:
+            result = await call_llm_with_task_name(
+                task_name="sect_decider",
+                template_path=cls._resolve_template_path(),
+                infos=infos,
+            )
+            raw = ""
+            if isinstance(result, dict):
+                raw = str(result.get("sect_thinking", "")).strip()
+            return cls._normalize(raw, sect)
+        except (LLMError, ParseError, Exception):
+            return cls._fallback(sect)
+
+    @classmethod
+    def _llm_available(cls) -> bool:
+        llm_conf = getattr(CONFIG, "llm", None)
+        if llm_conf is None:
+            return False
+        return bool(
+            getattr(llm_conf, "base_url", "")
+            and getattr(llm_conf, "key", "")
+            and getattr(llm_conf, "model_name", "")
+        )
+
+    @classmethod
+    def _normalize(cls, text: str, sect: "Sect") -> str:
+        clean = " ".join((text or "").split())
+        if len(clean) < cls.MIN_LEN:
+            return cls._fallback(sect)
+        if len(clean) > cls.MAX_LEN:
+            return clean[: cls.MAX_LEN]
+        return clean
+
+    @classmethod
+    def _fallback(cls, sect: "Sect") -> str:
+        # 约 40 字，满足长度约束
+        return (
+            f"我宗审时度势，当前宜先稳固根基与疆域，"
+            f"整肃内务、蓄积资源，再择机联合可用之势，逐步扩张主动权。"
+        )
+
+    @classmethod
+    def _serialize_context(cls, ctx: "SectDecisionContext") -> dict[str, Any]:
+        recent = []
+        for ev in ctx.history.get("recent_events", []):
+            recent.append(
+                {
+                    "month_stamp": int(getattr(ev, "month_stamp", 0)),
+                    "content": str(getattr(ev, "content", "")),
+                }
+            )
+
+        return {
+            "basic_structured": dict(ctx.basic_structured),
+            "basic_text": ctx.basic_text,
+            "power": dict(ctx.power),
+            "territory": dict(ctx.territory),
+            "economy": dict(ctx.economy),
+            "relations": list(ctx.relations),
+            "relations_summary": ctx.relations_summary,
+            "history": {
+                "summary_text": str(ctx.history.get("summary_text", "")),
+                "recent_events": recent,
+            },
+        }
+
+    @classmethod
+    def _resolve_template_path(cls) -> Path:
+        lang = str(language_manager)
+        path = Path(f"static/locales/{lang}/templates/sect_decider.txt")
+        if path.exists():
+            return path
+        return Path("static/locales/zh-CN/templates/sect_decider.txt")
+
+    @classmethod
+    def _serialize_world_info(cls, world: "World") -> dict[str, Any]:
+        try:
+            info = world.get_info(detailed=True)
+            if isinstance(info, dict):
+                return info
+        except Exception:
+            pass
+        return {}
+
+    @classmethod
+    def _current_phenomenon_info(cls, world: "World") -> str:
+        phenomenon = getattr(world, "current_phenomenon", None)
+        if phenomenon is None:
+            return "当前无天地异象。"
+        name = str(getattr(phenomenon, "name", "") or "")
+        desc = str(getattr(phenomenon, "desc", "") or "")
+        if name and desc:
+            return f"{name}：{desc}"
+        return name or desc or "当前有天地异象，但描述缺失。"

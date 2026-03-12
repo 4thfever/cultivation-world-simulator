@@ -65,6 +65,8 @@ class Sect(SectEffectsMixin):
     total_battle_strength: float = 0.0
     influence_radius: int = 0
     color: str = "#FFFFFF"
+    # 宗门年度思考（仅展示用途，不写入事件流）
+    yearly_thinking: str = ""
 
     # 运行时成员列表：Avatar ID -> Avatar
     members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
@@ -193,7 +195,8 @@ class Sect(SectEffectsMixin):
             "is_active": self.is_active,
             "total_battle_strength": self.total_battle_strength,
             "influence_radius": self.influence_radius,
-            "color": self.color
+            "color": self.color,
+            "yearly_thinking": self.yearly_thinking,
         }
 
 def _split_names(value: object) -> list[str]:

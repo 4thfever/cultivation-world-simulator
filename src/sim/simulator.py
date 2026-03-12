@@ -29,6 +29,7 @@ from src.classes.nickname import process_avatar_nickname
 from src.classes.backstory import process_avatar_backstory
 from src.classes.relation.relation_resolver import RelationResolver
 from src.classes.relation.relations import update_second_degree_relations
+from src.classes.sect_decider import SectDecider
 
 class Simulator:
     def __init__(self, world: World):
@@ -285,6 +286,56 @@ class Simulator:
     async def _phase_sect_random_event(self):
         event = await try_trigger_sect_random_event(self.world)
         return [event] if event else []
+
+    async def _phase_sect_yearly_thinking(self):
+        """
+        宗门年度思考阶段（每年1月，且在宗门收入结算之后执行）。
+        """
+        if self.world.month_stamp.get_month() != Month.JANUARY:
+            return []
+
+        sect_context = getattr(self.world, "sect_context", None)
+        active_sects = (
+            sect_context.get_active_sects()
+            if sect_context is not None
+            else (getattr(self.world, "existed_sects", []) or [])
+        )
+        if not active_sects:
+            return []
+
+        event_storage = getattr(getattr(self.world, "event_manager", None), "_storage", None)
+        if event_storage is None:
+            return []
+
+        from src.classes.core.sect import get_sect_decision_context
+        events: list[Event] = []
+
+        async def _decide_one(sect):
+            try:
+                ctx = get_sect_decision_context(
+                    sect=sect,
+                    world=self.world,
+                    event_storage=event_storage,
+                )
+                sect.yearly_thinking = await SectDecider.decide(sect, ctx, self.world)
+                events.append(
+                    Event(
+                        self.world.month_stamp,
+                        t("game.sect_thinking_event", sect_name=sect.name, thinking=sect.yearly_thinking),
+                        related_sects=[int(sect.id)],
+                    )
+                )
+            except Exception as e:
+                get_logger().logger.error(
+                    "Sect yearly thinking failed for %s(%s): %s",
+                    getattr(sect, "name", "unknown"),
+                    getattr(sect, "id", "unknown"),
+                    e,
+                    exc_info=True,
+                )
+
+        await asyncio.gather(*[_decide_one(sect) for sect in active_sects])
+        return events
 
     async def _phase_nickname_generation(self, living_avatars: list[Avatar]):
         """
@@ -575,6 +626,7 @@ class Simulator:
             sect_events = self.sect_manager.update_sects()
             if sect_events:
                 events.extend(sect_events)
+            events.extend(await self._phase_sect_yearly_thinking())
         
         # 20. (每年1月) 清理由于时间久远而被遗忘的死者
         if self.world.month_stamp.get_month() == Month.JANUARY:

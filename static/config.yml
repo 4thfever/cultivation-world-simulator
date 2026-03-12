@@ -15,6 +15,7 @@ llm:
     random_minor_event: "fast"
     sect_random_event: "fast"
     sect_random_event_reason: "fast"
+    sect_decider: "fast"
 
 paths:
   locales: static/locales/
@@ -46,7 +47,7 @@ game:
 
 sect:
   income_per_tile: 10  # 势力范围内每地块每年基础灵石产出
-  random_event_prob_per_month: 0.3 # 宗门随机事件每月触发概率（全局单次抽签）
+  random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
 df:
   ids_separator: ";"
 
