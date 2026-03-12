@@ -170,6 +170,28 @@ class TestEventStorageQueries:
         assert "Event both" in contents
         assert "Event A2 only" not in contents
 
+    def test_get_events_by_sect(self, event_storage):
+        """Test filtering events by sect_id."""
+        # 事件1：仅关联宗门1
+        e1 = make_event(100, 1, "Sect 1 only")
+        e1.related_sects = [1]
+        event_storage.add_event(e1)
+
+        # 事件2：仅关联宗门2
+        e2 = make_event(100, 2, "Sect 2 only")
+        e2.related_sects = [2]
+        event_storage.add_event(e2)
+
+        # 事件3：无宗门关联
+        e3 = make_event(100, 3, "No sect")
+        e3.related_sects = None
+        event_storage.add_event(e3)
+
+        events, _ = event_storage.get_events(sect_id=1)
+
+        assert len(events) == 1
+        assert events[0].content == "Sect 1 only"
+
     def test_get_events_by_avatar_pair(self, event_storage):
         """Test filtering events by avatar pair."""
         event_storage.add_event(make_event(100, 1, "Event A1 only", ["a1"]))

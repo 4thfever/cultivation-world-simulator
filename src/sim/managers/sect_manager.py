@@ -154,6 +154,15 @@ class SectManager:
 
         return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
 
+    def get_snapshot(self) -> SectTerritorySnapshot:
+        """
+        返回当前世界下宗门势力范围的快照。
+
+        - 统一封装 _compute_sect_centers / _iter_influence_tiles 等内部细节；
+        - 供其他系统（关系计算、决策上下文等）复用，避免在多处重复实现相同逻辑。
+        """
+        return self._compute_snapshot()
+
     def get_tile_owners(self) -> Tuple[List["Sect"], Dict[Tuple[int, int], List[int]]]:
         """
         计算当前活跃宗门的势力范围分布。
@@ -163,7 +172,7 @@ class SectManager:
             - active_sects: 当前仍然存续且激活的宗门列表
             - tile_owners: (x, y) -> [sect_id, ...]
         """
-        snapshot = self._compute_snapshot()
+        snapshot = self.get_snapshot()
         # 保持与旧行为一致：若无法确定中心，则返回空的 tile_owners，但 active_sects 仍返回
         return snapshot.active_sects, snapshot.tile_owners
 

@@ -406,3 +406,25 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
                        effect=effect_part)
     
     return f"{sect_rank_str} {detail_content}"
+
+
+def get_sect_decision_context(
+    sect: "Sect",
+    world: "World",
+    event_storage: "EventStorage",
+    *,
+    history_limit: int = 50,
+):
+    """
+    便捷入口：获取宗门决策上下文。
+
+    为避免领域层直接依赖具体系统实现，仅在此做一次转调。
+    """
+    from src.systems.sect_decision_context import build_sect_decision_context
+
+    return build_sect_decision_context(
+        sect=sect,
+        world=world,
+        event_storage=event_storage,
+        history_limit=history_limit,
+    )
