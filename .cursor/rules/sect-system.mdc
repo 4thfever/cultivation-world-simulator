@@ -3,11 +3,13 @@ description: 宗门系统设计与重构约束
 globs:
   - src/classes/core/sect.py
   - src/classes/core/world.py
+  - src/classes/sect_decider.py
   - src/sim/managers/sect_manager.py
   - src/classes/ranking.py
   - src/server/assemblers/sect_detail.py
   - src/server/main.py
   - src/systems/sect_relations.py
+  - src/systems/sect_decision_context.py
   - web/src/types/api.ts
   - web/src/api/mappers/detailMapper.ts
   - web/src/stores/ui.ts
@@ -40,6 +42,7 @@ globs:
   - 运行时状态：
     - `sect_effects / temporary_sect_effects`：宗门经济/加成类运行时效果（`build_sect_detail` 中会合并并生成 `runtime_effect_*` 字段）。
     - `magic_stone / total_battle_strength / influence_radius / is_active`：势力与经济结算相关字段。
+    - `yearly_thinking`：宗门年度思考（仅展示用途），由 `SectDecider` 每年 1 月生成 30～100 字短文本，经 `build_sect_detail` 暴露给前端。
     - `members`：运行时成员映射，仅在内存中维护，不参与静态配置。
 - 在扩展字段时：
   - **必须**在命名和 docstring 中注明“静态配置 / 运行时状态 / 仅序列化用”三者之一。
@@ -91,6 +94,7 @@ globs:
     - assembler 内负责：
       - 调用 `sect.get_structured_info()` 获取领域层基础信息。
       - 合并 `sect_effects` 与 `temporary_sect_effects`，生成 `runtime_effect_desc`、`runtime_extra_income_per_tile`、`runtime_effect_items` 等前端字段。
+      - 将 `sect.yearly_thinking` 写入 `yearly_thinking` 字段供前端宗门 info panel 展示。
     - 路由层不再手写追加 runtime 字段。
 - 前端 DTO (`web/src/types/api.ts`)：
   - `DetailResponseDTO` **不得再是** `Record<string, unknown>`。
@@ -114,11 +118,20 @@ globs:
     - 必须调用 mapper：`detailData.value = mapDetailDTOToDomain(raw, target.type)`。
     - **禁止**再使用 `as unknown as AvatarDetail | RegionDetail | SectDetail` 之类的双重断言。
 
-## 8. 重构与扩展时的检查清单
+## 8. 宗门年度思考 (SectDecider)
+
+- **入口**：`Simulator._phase_sect_yearly_thinking()`，仅在每年 1 月执行，且排在宗门年度结算 `SectManager.update_sects()` 之后。
+- **输入**：由 `build_sect_decision_context(sect, world, event_storage)` 得到 `SectDecisionContext`（宗门基础信息、战力/势力/经济、宗门关系、与本宗相关的近期历史事件）。
+- **输出**：30～100 字、以宗门口吻的“形势判断与方向思考”文本，写回 `sect.yearly_thinking`，并生成一条 `Event(related_sects=[sect.id])` 写入事件流。
+- **实现**：`src/classes/sect_decider.py` 中 `SectDecider.decide(sect, decision_context, world)`，LLM 不可用时使用固定兜底文案。提示词模板按语言放在 `static/locales/{lang}/templates/sect_decider.txt`，任务名 `sect_decider`。
+- **展示**：`build_sect_detail` 已把 `yearly_thinking` 写入详情 DTO，前端宗门 info panel 可直接使用该字段。
+
+## 9. 重构与扩展时的检查清单
 
 1. 新增宗门相关字段时，是否明确标注“静态/运行时/序列化用途”？  
 2. 涉及“本局启用宗门集合”的新逻辑，是否通过 `World.sect_context.get_active_sects()` 访问？  
 3. 涉及势力范围（tile 归属）的逻辑，是否通过 `SectManager` 的势力快照复用计算？  
 4. 新增 `/api/detail` 字段时，是否同时更新了：assembler → DTO 类型 → detailMapper → UI 组件？  
 5. 修改宗门榜或关系算法时，是否仍然只作用于本局 active 宗门，而非全局 `sects_by_id`？  
+6. 修改宗门年度思考逻辑时，是否仍使用 `SectDecisionContext` 作为唯一输入、并通过 `_phase_sect_yearly_thinking` 在每年 1 月调度？  
 

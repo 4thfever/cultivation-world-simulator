@@ -22,7 +22,9 @@ globs: src/sim/simulator.py, src/sim/**/*.py
   events.extend(self._phase_update_perception_and_knowledge(living_avatars))
   # 2. 长期目标思考
   events.extend(await self._phase_long_term_objective_thinking(living_avatars))
+  # … 每年 1 月：先 update_sects，再 _phase_sect_yearly_thinking（宗门年度思考）
   ```
+- **每年 1 月专属相位**：`_phase_sect_yearly_thinking` 在 `SectManager.update_sects()` 之后执行，为各宗门生成 `yearly_thinking` 并写入事件流；详见 `sect-system.mdc` 第 8 节。
 
 ## 3. 异步执行规范 (Async Guidelines)
 
