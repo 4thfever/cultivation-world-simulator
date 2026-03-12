@@ -61,7 +61,7 @@ const alignmentText = props.data.alignment;
 
        <div class="section" v-if="data.yearly_thinking">
           <div class="section-title">{{ t('game.info_panel.sect.sections.thinking') }}</div>
-          <div class="text-content">{{ data.yearly_thinking }}</div>
+          <div class="text-content thinking-text-content">{{ data.yearly_thinking }}</div>
        </div>
        
        <!-- HQ -->
@@ -174,6 +174,11 @@ const alignmentText = props.data.alignment;
   line-height: 1.6;
   color: #ccc;
   white-space: pre-wrap;
+}
+
+.thinking-text-content {
+  line-height: 1.5;
+  white-space: normal;
 }
 
 .text-content.highlight {
