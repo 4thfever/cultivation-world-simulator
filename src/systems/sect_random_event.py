@@ -7,12 +7,13 @@ from typing import Optional
 from src.classes.core.world import World
 from src.classes.event import Event
 from src.classes.sect_effect import EXTRA_INCOME_PER_TILE
-from src.classes.language import LanguageType, language_manager
+from src.classes.language import language_manager
 from src.run.log import get_logger
 from src.systems.sect_relations import SectRelationReason
 from src.utils.config import CONFIG
 from src.utils.df import game_configs, get_float, get_int, get_str
-from src.utils.llm.client import call_llm_with_task_name
+from src.utils.llm.client import call_llm_with_template
+from src.utils.llm.config import LLMMode
 from src.i18n import t
 
 
@@ -95,18 +96,6 @@ def _lang() -> str:
     return str(language_manager)
 
 
-def _fallback_reason(event_type: str) -> str:
-    msg_ids = {
-        EVENT_TYPE_RELATION_UP: "a temporary border consensus",
-        EVENT_TYPE_RELATION_DOWN: "escalating border conflicts",
-        EVENT_TYPE_MAGIC_STONE_UP: "unexpected operational gains",
-        EVENT_TYPE_MAGIC_STONE_DOWN: "unexpected operational costs",
-        EVENT_TYPE_INCOME_UP: "a newly opened trade route",
-        EVENT_TYPE_INCOME_DOWN: "external pressure on revenue",
-    }
-    return t(msg_ids[event_type])
-
-
 async def _generate_reason_fragment(
     *,
     event_type: str,
@@ -116,7 +105,7 @@ async def _generate_reason_fragment(
     sect_b_detail: str,
     value: float,
     duration_months: int,
-) -> str:
+) -> Optional[str]:
     infos = {
         "language": _lang(),
         "event_type": event_type,
@@ -130,15 +119,11 @@ async def _generate_reason_fragment(
     }
 
     try:
-        result = await call_llm_with_task_name(
-            task_name="sect_random_event_reason",
+        result = await call_llm_with_template(
             template_path=CONFIG.paths.templates / "sect_random_event.txt",
             infos=infos,
+            mode=LLMMode.FAST,
         )
-        if isinstance(result, dict):
-            reason = str(result.get("reason_fragment", "")).strip()
-            if reason:
-                return reason
     except Exception as exc:
         get_logger().logger.error(
             "Failed to generate sect random event reason for sects %s and %s: %s",
@@ -146,8 +131,26 @@ async def _generate_reason_fragment(
             sect_b_name,
             exc,
         )
+        return None
 
-    return _fallback_reason(event_type)
+    if not isinstance(result, dict):
+        get_logger().logger.error(
+            "Invalid sect random event reason payload type for sects %s and %s: %s",
+            sect_a_name,
+            sect_b_name,
+            type(result).__name__,
+        )
+        return None
+
+    reason = str(result.get("reason_fragment", "")).strip()
+    if not reason:
+        get_logger().logger.error(
+            "Empty sect random event reason for sects %s and %s.",
+            sect_a_name,
+            sect_b_name,
+        )
+        return None
+    return reason
 
 
 def _fmt_int(v: float) -> int:
@@ -249,6 +252,8 @@ async def try_trigger_sect_random_event(world: World) -> Optional[Event]:
         value=cfg.value,
         duration_months=cfg.duration_months,
     )
+    if not reason_fragment:
+        return None
 
     if cfg.event_type == EVENT_TYPE_RELATION_UP and sect_b is not None:
         world.add_sect_relation_modifier(

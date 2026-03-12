@@ -15,7 +15,7 @@ Rules:
 4. Must follow the current language.
 5. Return strict JSON only:
 ```json
-{
+{{
   "reason_fragment": "talks over an old border pact stalled"
-}
+}}
 ```

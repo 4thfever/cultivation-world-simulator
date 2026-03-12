@@ -1,7 +1,8 @@
-﻿import pytest
+import pytest
 from unittest.mock import AsyncMock, patch
 
 from src.systems.sect_random_event import try_trigger_sect_random_event
+from src.utils.llm.config import LLMMode
 
 
 class DummySect:
@@ -43,7 +44,7 @@ async def test_relation_event_two_sects(base_world):
     ]
 
     with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
-        patch("src.systems.sect_random_event.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
         patch("src.systems.sect_random_event.random.random", return_value=0.0):
         mock_configs.get.return_value = records
         mock_llm.return_value = {"reason_fragment": "边境旧约重新谈判"}
@@ -57,6 +58,7 @@ async def test_relation_event_two_sects(base_world):
     assert base_world.sect_relation_modifiers[0]["duration"] == 60
     assert "边境旧约重新谈判" in event.content
     assert "Because" not in event.content
+    assert mock_llm.await_args.kwargs["mode"] == LLMMode.FAST
 
 
 @pytest.mark.asyncio
@@ -75,7 +77,7 @@ async def test_magic_stone_event_single_sect(base_world):
     ]
 
     with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
-        patch("src.systems.sect_random_event.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
         patch("src.systems.sect_random_event.random.random", return_value=0.0):
         mock_configs.get.return_value = records
         mock_llm.return_value = {"reason_fragment": "内务整顿资金紧张"}
@@ -105,7 +107,7 @@ async def test_income_event_single_sect(base_world):
     ]
 
     with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
-        patch("src.systems.sect_random_event.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
         patch("src.systems.sect_random_event.random.random", return_value=0.0):
         mock_configs.get.return_value = records
         mock_llm.return_value = {"reason_fragment": "新商路税契暂时稳定"}
@@ -116,6 +118,96 @@ async def test_income_event_single_sect(base_world):
     assert event.related_sects == [1]
     assert len(sect_a.temporary_calls) == 1
     assert sect_a.temporary_calls[0]["effects"]["extra_income_per_tile"] == pytest.approx(0.8)
+
+
+@pytest.mark.asyncio
+async def test_no_event_when_reason_generation_raises(base_world):
+    sect_a = DummySect(1, "A宗")
+    sect_b = DummySect(2, "B宗")
+    base_world.existed_sects = [sect_a, sect_b]
+
+    records = [
+        {
+            "id": 2,
+            "event_type": "relation_down",
+            "weight": 1.0,
+            "value": 12,
+            "duration_months": 60,
+        }
+    ]
+
+    with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.random.random", return_value=0.0):
+        mock_configs.get.return_value = records
+        mock_llm.side_effect = RuntimeError("llm down")
+
+        event = await try_trigger_sect_random_event(base_world)
+
+    assert event is None
+    assert len(base_world.sect_relation_modifiers) == 0
+    assert sect_a.magic_stone == 0
+    assert sect_b.magic_stone == 0
+    assert len(sect_a.temporary_calls) == 0
+    assert len(sect_b.temporary_calls) == 0
+
+
+@pytest.mark.asyncio
+async def test_no_event_when_reason_fragment_is_empty(base_world):
+    sect_a = DummySect(1, "A宗")
+    base_world.existed_sects = [sect_a]
+
+    records = [
+        {
+            "id": 3,
+            "event_type": "magic_stone_up",
+            "weight": 1.0,
+            "value": 150,
+            "duration_months": 0,
+        }
+    ]
+
+    with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.random.random", return_value=0.0):
+        mock_configs.get.return_value = records
+        mock_llm.return_value = {"reason_fragment": "   "}
+
+        event = await try_trigger_sect_random_event(base_world)
+
+    assert event is None
+    assert sect_a.magic_stone == 0
+    assert len(sect_a.temporary_calls) == 0
+    assert len(base_world.sect_relation_modifiers) == 0
+
+
+@pytest.mark.asyncio
+async def test_no_event_when_reason_payload_is_not_dict(base_world):
+    sect_a = DummySect(1, "A宗")
+    base_world.existed_sects = [sect_a]
+
+    records = [
+        {
+            "id": 5,
+            "event_type": "income_up",
+            "weight": 1.0,
+            "value": 0.8,
+            "duration_months": 60,
+        }
+    ]
+
+    with patch("src.systems.sect_random_event.game_configs") as mock_configs, \
+        patch("src.systems.sect_random_event.call_llm_with_template", new_callable=AsyncMock) as mock_llm, \
+        patch("src.systems.sect_random_event.random.random", return_value=0.0):
+        mock_configs.get.return_value = records
+        mock_llm.return_value = "invalid"
+
+        event = await try_trigger_sect_random_event(base_world)
+
+    assert event is None
+    assert len(sect_a.temporary_calls) == 0
+    assert len(base_world.sect_relation_modifiers) == 0
+    assert sect_a.magic_stone == 0
 
 
 @pytest.mark.asyncio

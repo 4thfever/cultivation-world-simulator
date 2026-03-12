@@ -1,22 +1,4 @@
-msgid "a temporary border consensus"
-msgstr "a temporary border consensus"
-
-msgid "escalating border conflicts"
-msgstr "escalating border conflicts"
-
-msgid "unexpected operational gains"
-msgstr "unexpected operational gains"
-
-msgid "unexpected operational costs"
-msgstr "unexpected operational costs"
-
-msgid "a newly opened trade route"
-msgstr "a newly opened trade route"
-
-msgid "external pressure on revenue"
-msgstr "external pressure on revenue"
-
-msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+﻿msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
 msgstr "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
 
 msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
@@ -33,4 +15,3 @@ msgstr "Because {reason_fragment}, {sect_a_name} gained +{value} extra income pe
 
 msgid "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
 msgstr "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
-
