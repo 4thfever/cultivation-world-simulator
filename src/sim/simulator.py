@@ -183,7 +183,7 @@ class Simulator:
                     if new_events:
                         events.extend(new_events)
                     
-                    # 閸愬秵顐煎Λ鈧弻?
+                    # 同上：若本步又设置了新行动，则加入重试队列
                     if getattr(avatar, "_new_action_set_this_step", False):
                         avatars_needing_retry.add(avatar)
                 except Exception as e:
@@ -211,11 +211,11 @@ class Simulator:
             is_dead = False
             death_reason: DeathReason | None = None
             
-            # 娴兼ê鍘涢崚銈呯暰闁插秳婵€閿涘牆褰查懗鑺ユЦ鐞氼偄濮╅弫鍫熺亯鐎佃壈鍤ч敍?
+            # 生命值归零视为重伤死亡
             if avatar.hp.cur <= 0:
                 is_dead = True
                 death_reason = DeathReason(DeathType.SERIOUS_INJURY)
-            # 閸忚埖顐奸崚銈呯暰鐎靛灝鍘?
+            # 寿元耗尽视为寿终
             elif avatar.death_by_old_age():
                 is_dead = True
                 death_reason = DeathReason(DeathType.OLD_AGE)
@@ -226,7 +226,7 @@ class Simulator:
                 handle_death(self.world, avatar, death_reason)
                 dead_avatars.append(avatar)
         
-        # 娴犲骸缍嬮崜宥呯穿閻劎娈戦崚妤勩€冩稉顓犘╅梽銈忕礉绾喕绻氶崥搴ｇ敾 Phase 娑撳秴鍟€婢跺嫮鎮?
+        # 从 living_avatars 中移除已死亡角色，后续 Phase 不再处理
         for dead in dead_avatars:
             if dead in living_avatars:
                 living_avatars.remove(dead)
@@ -292,7 +292,7 @@ class Simulator:
     
     async def _phase_random_minor_events(self, living_avatars: list[Avatar]):
         """
-        闂呭繑婧€鐏忓繋绨ㄧ憴锕€褰傞梼鑸殿唽
+        小型随机事件相位：为可触发世界事件的角色尝试触发随机小事件。
         """
         target_avatars = [av for av in living_avatars if av.can_trigger_world_event]
         tasks = [try_trigger_random_minor_event(av, self.world) for av in target_avatars]
@@ -490,7 +490,7 @@ class Simulator:
             if not event.related_avatars or len(event.related_avatars) < 2:
                 continue
             
-            # 閸欘亝婀佽ぐ鎾茬皑娴犺埖绉归崣?>=2 娑擃亣顫楅懝鍙夋閹靛秷顫嬫稉杞版唉娴?
+            # 遍历 related_avatars（>=2 时），让每个相关角色处理该交互
             for aid in event.related_avatars:
                 avatar = self.world.avatar_manager.get_avatar(aid)
                 if avatar:
@@ -676,7 +676,7 @@ class Simulator:
                 # 记录清理数量，方便调试观察世界规模变化
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
-        # 21. 瑜版帗銆傛稉搴㈡闂傚瓨甯规潻?
+        # 21. 最终收尾并返回本回合事件列表
         return self._finalize_step(events)
 
     def _phase_update_calculated_relations(self, living_avatars: list[Avatar]):
@@ -704,22 +704,22 @@ class Simulator:
             if avatar.enable_metrics_tracking:
                 avatar.record_metrics()
 
-        # 1. 閸╄桨绨?ID 閸樺鍣搁敍鍫ユЩ濮濄垹鎮撴稉鈧稉顏冪皑娴犺泛顕挒陇顫︽径姘偧濞ｈ濮為敍?
+        # 1. 按事件 ID 去重，同一事件只保留一条
         unique_events: dict[str, Event] = {}
         for e in events:
             if e.id not in unique_events:
                 unique_events[e.id] = e
         final_events = list(unique_events.values())
 
-        # 2. 缂佺喍绔撮崘娆忓弳娴滃娆㈢粻锛勬倞閸?
+        # 2. 将事件写入事件管理器（入库）
         if self.world.event_manager:
             for e in final_events:
                 self.world.event_manager.add_event(e)
         
-        # 3. 鐠佹澘缍嶉弮銉ョ箶
+        # 3. 写日志
         self._phase_log_events(final_events)
 
-        # 4. 閺冨爼妫块幒銊ㄧ箻
+        # 4. 推进月份
         self.world.month_stamp = self.world.month_stamp + 1
         
         return final_events
