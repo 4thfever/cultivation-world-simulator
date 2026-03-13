@@ -73,7 +73,7 @@ async def test_simulator_birth_logic(base_world):
         return [Event(world.month_stamp, f"{mock_avatar.name} awakened", related_avatars=[mock_avatar.id])]
 
     # Patch process_awakening
-    with patch('src.sim.simulator.process_awakening', side_effect=mock_process_awakening):
+    with patch('src.sim.simulator_engine.phases.lifecycle.process_awakening', side_effect=mock_process_awakening):
         # 执行一次更新
         living_avatars = base_world.avatar_manager.get_living_avatars()
         events = sim._phase_update_age_and_birth(living_avatars)

@@ -146,10 +146,10 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
     with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
-        "src.sim.simulator.SectDecider.decide",
+        "src.sim.simulator_engine.phases.annual.SectDecider.decide",
         new=AsyncMock(return_value="secure borders first"),
     ), patch(
-        "src.sim.simulator.t",
+        "src.sim.simulator_engine.phases.annual.t",
         side_effect=lambda key, **kwargs: "{sect_name} sect thinking: {thinking}".format(**kwargs)
         if key == "game.sect_thinking_event"
         else key,
@@ -179,7 +179,7 @@ async def test_phase_sect_yearly_thinking_skips_non_interval_year(base_world, mo
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
     with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
-        "src.sim.simulator.SectDecider.decide",
+        "src.sim.simulator_engine.phases.annual.SectDecider.decide",
         new=AsyncMock(return_value="should not happen"),
     ) as mock_decide:
         events = await sim._phase_sect_yearly_thinking()

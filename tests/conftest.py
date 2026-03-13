@@ -184,10 +184,10 @@ def mock_llm_managers():
     mock_llm_config.base_url = "http://test.api/v1"
     mock_llm_config.model_name = "test-model"
     
-    with patch("src.sim.simulator.llm_ai") as mock_ai, \
-         patch("src.sim.simulator.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
-         patch("src.sim.simulator.process_avatar_backstory", new_callable=AsyncMock) as mock_backstory, \
-         patch("src.classes.nickname.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
+    with patch("src.sim.simulator_engine.phases.actions.llm_ai") as mock_ai, \
+         patch("src.sim.simulator_engine.phases.lifecycle.process_avatar_long_term_objective", new_callable=AsyncMock) as mock_lto, \
+         patch("src.sim.simulator_engine.phases.lifecycle.process_avatar_backstory", new_callable=AsyncMock) as mock_backstory, \
+         patch("src.sim.simulator_engine.phases.lifecycle.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
          patch("src.classes.relation.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
          patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist, \
          patch("src.classes.story_teller.call_llm_with_task_name", new_callable=AsyncMock) as mock_call_llm_story, \
