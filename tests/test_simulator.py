@@ -164,7 +164,9 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
-    with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
+    with patch.object(annual.CONFIG.sect, "decision_interval_years", 5), patch(
+        "src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()
+    ), patch(
         "src.sim.simulator_engine.phases.annual.SectThinker.think",
         new=AsyncMock(return_value="secure borders first"),
     ), patch(
@@ -197,7 +199,9 @@ async def test_phase_sect_yearly_thinking_skips_non_interval_year(base_world, mo
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
-    with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
+    with patch.object(annual.CONFIG.sect, "decision_interval_years", 5), patch(
+        "src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()
+    ), patch(
         "src.sim.simulator_engine.phases.annual.SectThinker.think",
         new=AsyncMock(return_value="should not happen"),
     ) as mock_decide:
@@ -222,7 +226,9 @@ async def test_phase_sect_five_year_decision_emits_summary_event(base_world, moc
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
-    with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
+    with patch.object(annual.CONFIG.sect, "decision_interval_years", 5), patch(
+        "src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()
+    ), patch(
         "src.sim.simulator_engine.phases.annual.SectDecider.decide",
         new=AsyncMock(
             return_value=SectDecisionResult(

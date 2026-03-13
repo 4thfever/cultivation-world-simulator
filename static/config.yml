@@ -49,7 +49,7 @@ game:
 sect:
   income_per_tile: 10  # 势力范围内每地块每年基础灵石产出
   random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
-  decision_interval_years: 1
+  decision_interval_years: 5
   recruit_cost: 500
   support_amount: 300
 df:
