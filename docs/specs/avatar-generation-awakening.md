@@ -17,7 +17,7 @@ Responsible for creating avatars during **World Generation** or via **API reques
 ### 2. Avatar Awakening (`src.sim.avatar_awake`)
 Responsible for generating new cultivators during the **Game Simulation Loop**.
 - **Role**: Handles the promotion of mortals to cultivators and the spontaneous appearance of rogue cultivators.
-- **Location**: Invoked in `Simulator._phase_update_age_and_birth`.
+- **Location**: Invoked by the lifecycle phase `src.sim.simulator_engine.phases.lifecycle.phase_update_age_and_birth`.
 - **Logic**:
   - **Bloodline Awakening**: Existing `Mortal` offspring (managed by `MortalManager`) have a chance to awaken spiritual roots upon reaching age 16.
   - **Wild Awakening**: Random "Wild" (Rogue) cultivators appear spontaneously based on world configuration.
