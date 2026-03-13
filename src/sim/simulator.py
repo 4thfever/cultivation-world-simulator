@@ -36,7 +36,8 @@ SECT_THINKING_INTERVAL_YEARS = 5
 class Simulator:
     def __init__(self, world: World):
         self.world = world
-        self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month  # 娴犲酣鍘ょ純顔芥瀮娴犳儼顕伴崣鏈淧C濮ｅ繑婀€鐟欏鍟嬮悳鍥风礄閸戔€叉眽閺呭宕屾穱顔硷紜閿?
+        # 每月 NPC 觉醒比例（由凡人转为修真者的概率）
+        self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month
         self.can_interrupt_major = getattr(CONFIG.game, 'can_interrupt_major_events', False)
         
         from src.sim.managers.sect_manager import SectManager
@@ -44,12 +45,13 @@ class Simulator:
 
     def _phase_update_perception_and_knowledge(self, living_avatars: list[Avatar]):
         """
-        閹扮喓鐓￠弴瀛樻煀闂冭埖顔岄敍?
-        1. 閸╄桨绨幇鐔虹叀閼煎啫娲块弴瀛樻煀 known_regions
-        2. 閼奉亜濮╅崡鐘冲祦閺冪姳瀵屽ú鐐茬盎閿涘牆顩ч弸婊嗗殰瀹歌鲸鐥呴張澶嬬鎼存粣绱?
+        更新角色的感知与知识。
+
+        1. 根据角色当前位置与视野半径，刷新其 `known_regions`
+        2. 对尚未拥有洞府/修炼地的角色，尝试占据经过的空闲修炼区域
         """
         events = []
-        # 1. 缂傛挸鐡ㄨぐ鎾冲閺堝绀婃惔婊呮畱鐟欐帟澹奍D
+        # 1. 预先记录已有洞府的角色 ID
         avatars_with_home = set()
         # ...
         cultivate_regions = [
@@ -61,43 +63,43 @@ class Simulator:
             if r.host_avatar:
                 avatars_with_home.add(r.host_avatar.id)
 
-        # 2. 闁秴宸婚幍鈧張澶婄摠濞叉槒顫楅懝?
+        # 2. 遍历所有在世角色，按各自视野范围进行探索
         for avatar in living_avatars:
             # ...
-            # 鐠侊紕鐣婚幇鐔虹叀閸楀﹤绶為敍鍫熸禆閸濆牓銆戠捄婵堫瀲閿?
+            # 计算角色的感知半径（观测范围）
             radius = get_avatar_observation_radius(avatar)
             
             # ...
-            # 閼惧嘲褰囬懠鍐ㄦ纯閸愬懐娈戦張澶嬫櫏閸ф劖鐖?
+            # 按菱形范围（曼哈顿距离）遍历可见坐标
             start_x = max(0, avatar.pos_x - radius)
             end_x = min(self.world.map.width - 1, avatar.pos_x + radius)
             start_y = max(0, avatar.pos_y - radius)
             end_y = min(self.world.map.height - 1, avatar.pos_y + radius)
 
-            # 閺€鍫曟肠閹扮喓鐓￠崚鎵畱閸栧搫鐓?
+            # 收集本次观察到的全部区域
             observed_regions = set()
             for x in range(start_x, end_x + 1):
                 for y in range(start_y, end_y + 1):
-                    # 鐠烘繄顬囬崚銈呯暰閿涙碍娴栭崫鍫ャ€戠捄婵堫瀲
+                    # 只在视野半径内（曼哈顿距离）时，才算作真正观察到
                     if abs(x - avatar.pos_x) + abs(y - avatar.pos_y) <= radius:
                         tile = self.world.map.get_tile(x, y)
                         if tile.region:
                             observed_regions.add(tile.region)
 
-            # 閺囧瓨鏌婄拋銈囩叀娑撳氦鍤滈崝銊ュ窗閹?
+            # 将区域加入角色的已知区域，并处理可能的占据逻辑
             for region in observed_regions:
-                # 閺囧瓨鏌?known_regions
+                # 更新角色 known_regions
                 avatar.known_regions.add(region.id)
                 
-                # 閼奉亜濮╅崡鐘冲祦闁槒绶?
-                # 閸欘亝婀佽ぐ鎿勭窗閺勵垯鎱ㄩ悙鐓庡隘閸?+ 閺冪姳瀵?+ 閼奉亜绻侀弮鐘崇鎼?閺冩儼袝閸?
+                # 对空闲的修炼区域，允许无洞府的角色占据
+                # 条件：区域是修炼区 + 当前无人占据 + 角色目前没有自己的修炼地
                 if isinstance(region, CultivateRegion):
                     if region.host_avatar is None:
                         if avatar.id not in avatars_with_home:
-                            # 閸楃姵宓?
+                            # 角色占据该区域
                             avatar.occupy_region(region)
                             avatars_with_home.add(avatar.id)
-                            # 鐠佹澘缍嶆禍瀣╂
+                            # 记录事件
                             event = Event(
                                 self.world.month_stamp,
                                 t("{avatar_name} passed by {region_name}, found it ownerless, and occupied it.", 
@@ -109,8 +111,9 @@ class Simulator:
 
     async def _phase_decide_actions(self, living_avatars: list[Avatar]):
         """
-        閸愬磭鐡ラ梼鑸殿唽閿涙矮绮庣€靛綊娓剁憰浣规煀鐠佲€冲灊閻ㄥ嫯顫楅懝鑼剁殶閻?AI閿涘牆缍嬮崜宥嗘￥閸斻劋缍旀稉鏃€妫ょ拋鈥冲灊閿涘绱?
-        鐏?AI 閻ㄥ嫬鍠呯粵鏍波閺嬫粌濮炴潪鎴掕礋鐟欐帟澹婇惃鍕吀閸掓帡鎽奸妴?
+        为没有当前行动且没有计划的角色决定下一步行动。
+
+        由 LLM AI 统一决策：为每个角色生成行动链、思考内容和短期目标，并写入其内部计划队列。
         """
         avatars_to_decide = []
         for avatar in living_avatars:
@@ -122,12 +125,14 @@ class Simulator:
         decide_results = await ai.decide(self.world, avatars_to_decide)
         for avatar, result in decide_results.items():
             action_name_params_pairs, avatar_thinking, short_term_objective, _event = result
-            # 娴犲懎鍙嗛梼鐔活吀閸掓帪绱濇稉宥呮躬濮濄倕顦╁ǎ璇插瀵偓婵绨ㄦ禒璁圭礉闁灝鍘ゆ稉搴㈠絹娴溿倝妯佸▓鐢稿櫢婢?
+            # 将 AI 决策结果写回角色：行动链 + 思考内容 + 短期目标
             avatar.load_decide_result_chain(action_name_params_pairs, avatar_thinking, short_term_objective)
 
     def _phase_commit_next_plans(self, living_avatars: list[Avatar]):
         """
-        閹绘劒姘﹂梼鑸殿唽閿涙矮璐熺粚娲＝鐟欐帟澹婇幓鎰唉鐠佲€冲灊娑擃厾娈戞稉瀣╃娑擃亜褰查幍褑顢戦崝銊ょ稊閿涘矁绻戦崶鐐茬磻婵绨ㄦ禒鍫曟肠閸氬牄鈧?
+        提交并启动角色的下一步计划。
+
+        对当前没有正在执行行动的角色，从其计划队列中取出下一个计划并开始执行，产生的开始事件会被收集。
         """
         events = []
         for avatar in living_avatars:
@@ -139,12 +144,15 @@ class Simulator:
 
     async def _phase_execute_actions(self, living_avatars: list[Avatar]):
         """
-        閹笛嗩攽闂冭埖顔岄敍姘腹鏉╂稑缍嬮崜宥呭З娴ｆ粣绱濋弨顖涘瘮閸氬本婀€闁炬儳绱￠幎銏犲窗閸楄櫕妞傜紒鎾剁暬閿涘矁绻戦崶鐐存埂闂傜繝楠囬悽鐔烘畱娴滃娆㈤妴?
+        执行所有角色当前行动。
+
+        - 先进行一轮 `tick_action`
+        - 如果在 `tick_action` 中设置了新的行动（如连携动作），会在同一回合内继续补充执行，直到达到上限或队列稳定
         """
         events = []
         MAX_LOCAL_ROUNDS = CONFIG.game.max_action_rounds_per_turn
         
-        # Round 1: 閸忋劌鎲抽幍褑顢戞稉鈧▎?
+        # Round 1: 首轮执行所有角色当前行动
         avatars_needing_retry = set()
         for avatar in living_avatars:
             try:
@@ -152,18 +160,18 @@ class Simulator:
                 if new_events:
                     events.extend(new_events)
                 
-                # 濡偓閺屻儲妲搁崥锔芥箒閺傛澘濮╂担婊€楠囬悽鐕傜礄閹躲垹宕?鏉╃偞瀚戦敍澶涚礉婵″倹鐏夐張澶婂灟閸旂姴鍙嗘稉瀣╃鏉?
-                # 濞夈劍鍓伴敍姝礽ck_action 閸愬懘鍎村鎻掝槱閻炲棙鐖ｇ拋鐗堢闂勩倝鈧槒绶敍灞肩矌瑜版挸濮╂担婊冨絺閻㈢喎鍨忛幑銏℃閹靛秳绱版穱婵堟殌 True
+                # 如果在 `tick_action` 内为角色设置了新的行动
+                # （例如当前行动结束后无缝衔接另一行动），需要在本回合内再次执行
                 if getattr(avatar, "_new_action_set_this_step", False):
                     avatars_needing_retry.add(avatar)
             except Exception as e:
-                # 鐠佹澘缍嶇拠锔剧矎闁挎瑨顕ら弮銉ョ箶
+                # 记录执行错误日志，避免整个模拟中断
                 get_logger().logger.error(f"Avatar {avatar.name}({avatar.id}) tick_action failed: {e}", exc_info=True)
-                # 绾喕绻氭稉宥勭窗鏉╂稑鍙嗛柌宥堢槸闁槒绶?
+                # 若已标记“本步设置过新行动”，这里显式复位，避免死循环
                 if hasattr(avatar, "_new_action_set_this_step"):
                      avatar._new_action_set_this_step = False
 
-        # Round 2+: 娴犲懏澧界悰灞炬箒閺傛澘濮╂担婊呮畱鐟欐帟澹婇敍宀勪缉閸忓秵妫ゆ潏婊嗩潡閼规煡鍣告径宥嗗⒔鐞?
+        # Round 2+: 针对需要重试的角色，继续在同一回合内补充执行
         round_count = 1
         while avatars_needing_retry and round_count < MAX_LOCAL_ROUNDS:
             current_avatars = list(avatars_needing_retry)
@@ -189,11 +197,12 @@ class Simulator:
 
     def _phase_resolve_death(self, living_avatars: list[Avatar]):
         """
-        缂佹挾鐣诲璁抽閿?
-        - 閹存ɑ鏋熷璁抽瀹告彃婀?Action 娑擃厾绮ㄧ粻?
-        - 濮濄倖妞傞崜鈺€绗呴惃?avatars 闁姤妲哥€涙ɑ妞块惃鍕剁礉閸欘亪娓跺Λ鈧弻銉╂姜閹存ɑ鏋熼崶鐘电閿涘牆顩ч懓浣诡劥閵嗕浇顫﹂崝銊﹀竴鐞涒偓閿?
-        
-        濞夈劍鍓伴敍姘洤閺嬫粌褰傞悳鐗堫劥娴溾槄绱濇导姘矤娴肩姴鍙嗛惃?living_avatars 閸掓銆冩稉顓犘╅梽銈忕礉闁灝鍘ら崥搴ｇ敾闂冭埖顔岀紒褏鐢绘径鍕倞閵?
+        处理角色死亡结算。
+
+        - 根据当前生命值与寿元判断是否死亡
+        - 将死亡角色从 `living_avatars` 中移除，并调用 `handle_death` 进行收尾处理
+
+        注意：该阶段会原地修改 `living_avatars`，后续相位不应再处理这些已死亡角色。
         """
         events = []
         dead_avatars = []
@@ -226,21 +235,25 @@ class Simulator:
 
     def _phase_update_age_and_birth(self, living_avatars: list[Avatar]):
         """
-        閺囧瓨鏌婄€涙ɑ妞跨憴鎺曞楠炴挳绶為敍灞借嫙娴犮儰绔寸€规碍顩ч悳鍥╂晸閹存劖鏌婃穱顔硷紜閿涘矁绻戦崶鐐存埂闂傜繝楠囬悽鐔烘畱娴滃娆㈤梿鍡楁値閵?
+        更新年龄并处理出生/觉醒相关逻辑。
+
+        - 为所有在世角色刷新年龄
+        - 清理凡人管理器中的已死亡凡人
+        - 处理新一轮觉醒与出生事件
         """
         events = []
         for avatar in living_avatars:
             avatar.update_age(self.world.month_stamp)
             
-        # 1. 閸戔€叉眽缁狅紕鎮婇敍姘閻炲棜鈧焦顒撮崙鈥叉眽
+        # 1. 清理已死亡凡人（从凡人管理器中移除）
         self.world.mortal_manager.cleanup_dead_mortals(self.world.month_stamp)
         
-        # 2. 閸戔€叉眽鐟欏鍟?(鐞涒偓閼?+ 闁插海鏁?
+        # 2. 凡人觉醒为修真者（觉醒 + 入世）
         awakening_events = process_awakening(self.world)
         if awakening_events:
             events.extend(awakening_events)
             
-        # 3. 闁挷鑽嗛悽鐔风摍
+        # 3. 处理新出生事件
         birth_events = process_births(self.world)
         if birth_events:
             events.extend(birth_events)
@@ -249,25 +262,26 @@ class Simulator:
 
     async def _phase_passive_effects(self, living_avatars: list[Avatar]):
         """
-        鐞氼偄濮╃紒鎾剁暬闂冭埖顔岄敍?
-        - 婢跺嫮鎮婃稉纭呭祩鏉╁洦婀?
-        - 閺囧瓨鏌婇弮鍫曟？閺佸牊鐏夐敍鍫濐洤HP閸ョ偛顦查敍?
-        - 鐟欙箑褰傛總鍥海閿涘牓娼崝銊ょ稊閿?
+        处理各种被动效果与世界性随机事件。
+
+        - 处理丹药过期
+        - 刷新持续性状态效果（如增减 HP、属性等）
+        - 触发福缘/劫难等世界性事件
         """
         events = []
         for avatar in living_avatars:
-            # 1. 婢跺嫮鎮婃稉纭呭祩鏉╁洦婀?
+        # 1. 丹药过期处理
             avatar.process_elixir_expiration(int(self.world.month_stamp))
-            # 2. 閺囧瓨鏌婄悮顐㈠З閺佸牊鐏?(婵′径P閸ョ偛顦?
+            # 2. 更新时间相关被动效果（包括 HP 等）
             avatar.update_time_effect()
         
-        # 鏉╁洦鎶ら幒澶夌瑝鎼存棁顫﹂崝銊︹偓浣风皑娴犺埖澧﹂弬顓犳畱鐟欐帟澹?
+        # 从中筛选可以触发世界事件的角色
         target_avatars = [
             avatar for avatar in living_avatars 
             if avatar.can_trigger_world_event
         ]
         
-        # 娴ｈ法鏁?gather 楠炴儼顢戠憴锕€褰傛總鍥海閸滃矂婀佹潻?
+        # 使用 asyncio.gather 并发触发福缘/劫难检查
         tasks_fortune = [try_trigger_fortune(avatar) for avatar in target_avatars]
         tasks_misfortune = [try_trigger_misfortune(avatar) for avatar in target_avatars]
         results = await asyncio.gather(*(tasks_fortune + tasks_misfortune))
@@ -291,7 +305,10 @@ class Simulator:
 
     async def _phase_sect_yearly_thinking(self):
         """
-        鐎规妫獮鏉戝閹繆鈧啴妯佸▓纰夌礄濮ｅ繐鍕?閺堝牞绱濇稉鏂挎躬鐎规妫弨璺哄弳缂佹挾鐣绘稊瀣倵閹笛嗩攽閿涘鈧?
+        宗门年度思考。
+
+        每隔一段年份（默认 5 年），在每年一月为所有启用的宗门生成年度思考 `yearly_thinking`，
+        并写入事件流，供前端展示。
         """
         if self.world.month_stamp.get_month() != Month.JANUARY:
             return []
@@ -347,9 +364,9 @@ class Simulator:
 
     async def _phase_nickname_generation(self, living_avatars: list[Avatar]):
         """
-        缂佹澘褰块悽鐔稿灇闂冭埖顔?
+        处理外号/绰号生成相位。
         """
-        # 楠炶泛褰傞幍褑顢?
+        # 并发处理所有在世角色
         tasks = [process_avatar_nickname(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
@@ -358,8 +375,9 @@ class Simulator:
     
     async def _phase_backstory_generation(self, living_avatars: list[Avatar]):
         """
-        闊偂绗橀悽鐔稿灇闂冭埖顔岄敍?
-        閹垫儳鍤幍鈧張澶婄毣閺堫亞鏁撻幋鎰煩娑撴牜娈戠€涙ɑ妞跨憴鎺曞閿涘苯鑻熼崣鎴︽▎婵夌偠鐨熼悽?LLM 閻㈢喐鍨氶妴?
+        处理角色身世背景生成相位。
+
+        只为尚未拥有背景的角色生成身世描述，调用 LLM 生成内容，并写回到角色上。
         """
         avatars_to_process = [av for av in living_avatars if av.backstory is None]
         if not avatars_to_process:
@@ -370,10 +388,11 @@ class Simulator:
 
     async def _phase_long_term_objective_thinking(self, living_avatars: list[Avatar]):
         """
-        闂€鎸庢埂閻╊喗鐖ｉ幀婵娾偓鍐▉濞?
-        濡偓閺屻儴顫楅懝鍙夋Ц閸氾箓娓剁憰浣烘晸閹?閺囧瓨鏌婇梹鎸庢埂閻╊喗鐖?
+        处理长期目标思考相位。
+
+        让每个角色根据当前状态更新或生成长期目标，并返回产生的事件。
         """
-        # 楠炶泛褰傞幍褑顢?
+        # 并发处理所有在世角色
         tasks = [process_avatar_long_term_objective(avatar) for avatar in living_avatars]
         results = await asyncio.gather(*tasks)
         
@@ -382,10 +401,11 @@ class Simulator:
     
     async def _phase_process_gatherings(self):
         """
-        Gathering 缂佹挾鐣婚梼鑸殿唽閿?
-        濡偓閺屻儱鑻熼幍褑顢戝▔銊ュ斀閻ㄥ嫬顦挎禍楦夸粵闂嗗棔绨ㄦ禒璁圭礄婵″倹濯块崡鏍︾窗閵嗕礁銇囧В鏃傜搼閿涘鈧?
+        处理 Gathering（聚会/大会）系统相位。
+
+        当年份条件满足时，由 `gathering_manager` 统一检查并运行所有聚会逻辑，返回产生的事件。
         """
-        # 缁楊兛绔撮獮缈犵瑝鐟欙箑褰傞懕姘舵肠娴滃娆㈤敍宀€绮版禍鍫濆絺閼茶尙绱﹂崘?
+        # 开局年份内不触发聚会，避免世界尚未稳定时产生无意义事件
         if self.world.month_stamp.get_year() <= self.world.start_year:
             return []
 
@@ -393,22 +413,23 @@ class Simulator:
     
     def _phase_update_celestial_phenomenon(self):
         """
-        閺囧瓨鏌婃径鈺佹勾閻忓灚婧€閿?
-        - 濡偓閺屻儱缍嬮崜宥呫亯鐠炩剝妲搁崥锕€鍩岄張?
-        - 婵″倹鐏夐崚鐗堟埂閿涘苯鍨梾蹇旀簚闁瀚ㄩ弬鏉裤亯鐠?
-        - 閻㈢喐鍨氭稉鏍櫕娴滃娆㈢拋鏉跨秿婢垛晞钖勯崣妯哄
-        
-        婢垛晞钖勯崣妯哄閺冭埖婧€閿?
-        - 閸掓繂顫愰獮缈犲敜閿涘牆顩?00楠炶揪绱?閺堝牏鐝涢崡鍐茬磻婵顑囨稉鈧稉顏勩亯鐠?
-        - 濮ｅ粴楠炶揪绱欒ぐ鎾冲婢垛晞钖勯幐鍥х暰閻ㄥ嫭瀵旂紒顓熸闂傝揪绱氶崣妯哄娑撯偓濞?
+        更新世界天象（大环境修行气候）。
+
+        - 根据当前年份与上一个天象持续时间，决定是否切换天象
+        - 初始化世界时会生成第一个天象
+        - 切换或生成新天象时，会写入对应的世界事件
+
+        说明：
+        - 天象数据由 `get_random_celestial_phenomenon()` 提供，包含名称、描述和持续年数
+        - 只有在一月才会检查是否需要结束旧天象并切换到新天象
         """
         events = []
         current_year = self.world.month_stamp.get_year()
         current_month = self.world.month_stamp.get_month()
         
-        # 濡偓閺屻儲妲搁崥锕傛付鐟曚礁鍨垫慨瀣閹存牗娲块弬鏉裤亯鐠?
-        # 1. 婵″倹鐏夊▽鈩冩箒婢垛晞钖?(閸掓繂顫愰崠?
-        # 2. 婵″倹鐏夐張澶娿亯鐠炩€茬瑬閸掔増婀?(濮ｅ繐鍕炬稉鈧張鍫燁梾閺?
+        # 判断是否需要更新当前天象
+        # 1. 当前没有天象（世界初始化时）
+        # 2. 到了一月且当前天象已持续满预定年数
         should_update = False
         is_init = False
         
@@ -445,7 +466,7 @@ class Simulator:
 
     def _phase_update_region_prosperity(self):
         """
-        濮ｅ繑婀€閸╁骸绔剁换浣藉闯鎼达箒鍤滈悞鑸典划婢?
+        更新区域繁荣度。
         """
         for region in self.world.map.regions.values():
             if isinstance(region, CityRegion):
@@ -453,7 +474,7 @@ class Simulator:
 
     def _phase_log_events(self, events):
         """
-        鐏忓棔绨ㄦ禒璺哄晸閸忋儲妫╄箛妞尖偓?
+        将本回合产生的事件写入日志。
         """
         logger = get_logger().logger
         for event in events:
@@ -461,8 +482,9 @@ class Simulator:
 
     def _phase_process_interactions(self, events: list[Event]):
         """
-        婢跺嫮鎮婃禍瀣╂娑擃厾娈戞禍銈勭鞍闁槒绶敍?
-        闁秴宸婚幍鈧張澶夌皑娴犺绱濇俊鍌涚亯娴滃娆㈠☉澶婂挤婢舵矮閲滅憴鎺曞閿涘矁鍤滈崝銊︽纯閺傛媽绻栨禍娑滎潡閼硅弓绠ｉ梻瀵告畱娴溿倓绨扮拋鈩冩殶閵?
+        根据事件处理角色间的交互影响。
+
+        只处理 `related_avatars` 数量不少于 2 的事件，并将交互效果分发到每个相关角色。
         """
         for event in events:
             if not event.related_avatars or len(event.related_avatars) < 2:
@@ -476,7 +498,10 @@ class Simulator:
 
     def _phase_handle_interactions(self, events: list[Event], processed_ids: set[str]):
         """
-        娴犲簼绨ㄦ禒璺哄灙鐞涖劋鑵戦幓鎰絿鐏忔碍婀径鍕倞鏉╁洨娈戞禍銈勭鞍娴滃娆㈤敍灞借嫙閺囧瓨鏌婃禍銈勭鞍鐠佲剝鏆熼妴?
+        过滤并调度需要处理的交互事件。
+
+        - 使用 `processed_ids` 避免同一事件被多次处理
+        - 把新的交互事件统一交给 `_phase_process_interactions`
         """
         new_interactions = []
         for e in events:
@@ -490,7 +515,10 @@ class Simulator:
 
     async def _phase_evolve_relations(self, living_avatars: list[Avatar]):
         """
-        閸忓磭閮村鏂垮闂冭埖顔岄敍姘梾閺屻儱鑻熸径鍕倞濠娐ゅ喕閺夆€叉閻ㄥ嫯顫楅懝鎻掑彠缁褰夐崠?
+        处理角色关系演化相位。
+
+        - 汇总达到检查阈值的互动对
+        - 通过 `RelationResolver.run_batch` 统一决议关系变化
         """
         pairs_to_resolve = []
         processed_pairs = set() # (id1, id2) id1 < id2
@@ -505,10 +533,10 @@ class Simulator:
                 if target is None or target.is_dead:
                     continue
 
-                # 閸掋倕鐣鹃弰顖氭儊鐟欙箑褰?
+                # 使用配置中的互动计数阈值
                 threshold = CONFIG.social.relation_check_threshold
                 if state["count"] >= threshold:
-                    # 绾喕绻氶崬顖欑閹?
+                    # 将 ID 排序后组成唯一 key，避免双方互相重复处理
                     id1, id2 = sorted([str(avatar.id), str(target.id)])
                     pair_key = (id1, id2)
                     
@@ -516,19 +544,19 @@ class Simulator:
                         processed_pairs.add(pair_key)
                         pairs_to_resolve.append((avatar, target))
                         
-                        # 闁插秶鐤嗛崣灞炬煙閻ㄥ嫯顓搁弫鏉挎珤閿涘矂妲诲銏ゅ櫢婢跺秷袝閸?
-                        # 1. 闁插秶鐤?A 娓?
+                        # 重置双方的计数，避免短时间内重复判定
+                        # 1. 重置 A 侧计数
                         state["count"] = 0
                         state["checked_times"] += 1
                         
-                        # 2. 闁插秶鐤?B 娓?
+                        # 2. 重置 B 侧计数
                         t_state = target.relation_interaction_states[str(avatar.id)]
                         t_state["count"] = 0
                         t_state["checked_times"] += 1
         
         events = []
         if pairs_to_resolve:
-            # 閹靛綊鍣洪獮璺哄絺婢跺嫮鎮婇敍灞借嫙閻╁瓨甯撮弨鍫曟肠鏉╂柨娲栭惃鍕皑娴?
+            # 对收集到的配对关系进行批量决议
             relation_events = await RelationResolver.run_batch(pairs_to_resolve)
             if relation_events:
                 events.extend(relation_events)
@@ -537,113 +565,115 @@ class Simulator:
 
     async def step(self):
         """
-        閸撳秷绻樻稉鈧稉顏呮闂傚瓨顒為敍鍫滅娑擃亝婀€閿涘绱?
-        1.  閹扮喓鐓℃稉搴ゎ吇閻儲娲块弬甯礄閸欏﹨鍤滈崝銊ュ窗閹诡喗绀婃惔婊愮礆
-        2.  闂€鎸庢埂閻╊喗鐖ｉ幀婵娾偓?
-        3.  Gathering 婢舵矮姹夐懕姘舵肠缂佹挾鐣?
-        4.  閸愬磭鐡ラ梼鑸殿唽 (AI 闁瀚ㄩ崝銊ょ稊)
-        5.  閹绘劒姘﹂梼鑸殿唽 (瀵偓婵澧界悰灞藉З娴?
-        6.  閹笛嗩攽闂冭埖顔?(閸斻劋缍?Tick)
-        7.  婢跺嫮鎮婇崚婵囶劄娴溿倓绨扮拋鈩冩殶 (閻劋绨崥搴ｇ敾閸忓磭閮村鏂垮)
-        8.  閸忓磭閮村鏂垮闂冭埖顔?
-        9.  缂佹挾鐣诲璁抽
-        10. 楠炴挳绶炴稉搴㈡煀閻?
-        11. 闊偂绗橀悽鐔稿灇
-        12. 鐞氼偄濮╃紒鎾剁暬 (娑撶宓傞妴浣规闂傚瓨鏅ラ弸婧库偓浣割殞闁?
-        13. 闂呭繑婧€鐏忓繋绨?
-        14. 缂佹澘褰块悽鐔稿灇
-        15. 婢垛晛婀撮悘鍨簚閺囧瓨鏌?
-        16. 閸╁骸绔剁换浣藉闯鎼达附娲块弬?
-        17. 婢跺嫮鎮婇崜鈺€缍戞禍銈勭鞍鐠佲剝鏆?(婵″倸顨岄柆鍥﹂獓閻㈢喓娈戞禍銈勭鞍)
-        18. (濮ｅ繐鍕?閺? 閺囧瓨鏌婄拋锛勭暬閸忓磭閮?(娴滃矂妯侀崗宕囬兇)
-        19. (濮ｅ繐鍕?閺? 閺囧瓨鏌婂婊冨礋
-        20. (濮ｅ繐鍕?閺? 濞撳懐鎮婇悽鍙樼艾閺冨爼妫挎稊鍛扮箼閼板矁顫﹂柆妤€绻曢惃鍕劥閼?
-        21. 瑜版帗銆傛稉搴㈡闂傚瓨甯规潻?
+        模拟器单步主流程（一个月的推进）。
+
+        相位顺序：
+        1.  更新角色感知与已知区域
+        2.  长期目标思考
+        3.  Gathering 系统（聚会/大会）处理
+        4.  AI 决策（为无计划角色生成行动链）
+        5.  提交并启动下一步计划
+        6.  执行当前行动（多轮 Tick，直到稳定或达到上限）
+        7.  按事件处理交互（第一轮）
+        8.  关系演化相位
+        9.  死亡结算
+        10. 年龄更新与出生/觉醒处理
+        11. 身世背景生成
+        12. 被动效果与世界性随机事件
+        13. 小型随机事件 + 宗门随机事件
+        14. 外号生成
+        15. 天象（大环境气候）更新
+        16. 区域繁荣度更新
+        17. 按事件处理交互（第二轮，包含后续新事件）
+        18. 计算型关系（如二阶关系）更新
+        19. 每年一月：更新世界排行榜与宗门状态 + 宗门年度思考
+        20. 每年一月：清理长久死亡的角色
+        21. 最终整理事件、入库、写日志并推进月份
         """
-        # 0. 缂傛挸鐡ㄩ張顒佹箑鐎涙ɑ妞跨憴鎺曞閸掓銆?(閸︺劌鎮楃紒顓㈡▉濞堝吀鑵戞径宥囨暏閿涘苯鑻熼崷銊︻劥娴滐繝妯佸▓鐢垫樊閹?
+        # 0. 获取当前在世角色列表（本回合缓存）
         living_avatars = self.world.avatar_manager.get_living_avatars()
 
         events: list[Event] = []
         processed_event_ids: set[str] = set()
 
-        # 1. 閹扮喓鐓℃稉搴ゎ吇閻儲娲块弬?
+        # 1. 更新感知与知识
         events.extend(self._phase_update_perception_and_knowledge(living_avatars))
 
-        # 2. 闂€鎸庢埂閻╊喗鐖ｉ幀婵娾偓?
+        # 2. 长期目标思考
         events.extend(await self._phase_long_term_objective_thinking(living_avatars))
 
-        # 3. Gathering 缂佹挾鐣?
+        # 3. Gathering 系统
         events.extend(await self._phase_process_gatherings())
 
-        # 4. 閸愬磭鐡ラ梼鑸殿唽
+        # 4. AI 决策相位
         await self._phase_decide_actions(living_avatars)
 
-        # 5. 閹绘劒姘﹂梼鑸殿唽
+        # 5. 提交并启动下一步计划
         events.extend(self._phase_commit_next_plans(living_avatars))
 
-        # 6. 閹笛嗩攽闂冭埖顔?
+        # 6. 执行当前行动
         events.extend(await self._phase_execute_actions(living_avatars))
 
-        # 7. 婢跺嫮鎮婇崚婵囶劄娴溿倓绨扮拋鈩冩殶
+        # 7. 处理基于事件的交互（第一轮）
         self._phase_handle_interactions(events, processed_event_ids)
 
-        # 8. 閸忓磭閮村鏂垮
+        # 8. 关系演化
         events.extend(await self._phase_evolve_relations(living_avatars))
 
-        # 9. 缂佹挾鐣诲璁抽 (濞夈劍鍓伴敍姘劃婢跺嫪绱版穱顔芥暭 living_avatars 閸掓銆?
+        # 9. 死亡结算（会更新 living_avatars）
         events.extend(self._phase_resolve_death(living_avatars))
 
-        # 10. 楠炴挳绶炴稉搴㈡煀閻?
+        # 10. 年龄更新 + 出生/觉醒
         events.extend(self._phase_update_age_and_birth(living_avatars))
 
-        # 11. 闊偂绗橀悽鐔稿灇
+        # 11. 身世背景生成
         await self._phase_backstory_generation(living_avatars)
 
-        # 12. 鐞氼偄濮╃紒鎾剁暬
+        # 12. 被动效果 + 世界性事件
         events.extend(await self._phase_passive_effects(living_avatars))
 
-        # 13. 闂呭繑婧€鐏忓繋绨?
+        # 13. 小型随机事件 + 宗门随机事件
         events.extend(await self._phase_random_minor_events(living_avatars))
         events.extend(await self._phase_sect_random_event())
 
-        # 14. 缂佹澘褰块悽鐔稿灇
+        # 14. 外号生成
         events.extend(await self._phase_nickname_generation(living_avatars))
 
-        # 15. 閺囧瓨鏌婃径鈺佹勾閻忓灚婧€
+        # 15. 更新天象
         events.extend(self._phase_update_celestial_phenomenon())
 
-        # 16. 閺囧瓨鏌婇崺搴＄缁讳浇宕虫惔?
+        # 16. 更新区域繁荣度
         self._phase_update_region_prosperity()
 
-        # 17. 婢跺嫮鎮婇崜鈺€缍戦梼鑸殿唽閻ㄥ嫪姘︽禍鎺曨吀閺?
+        # 17. 再次按事件处理交互（包含后续新事件）
         self._phase_handle_interactions(events, processed_event_ids)
 
-        # 18. (濮ｅ繐鍕?閺? 閺囧瓨鏌婄拋锛勭暬閸忓磭閮?(娴滃矂妯侀崗宕囬兇)
+        # 18. 计算型关系更新（二阶关系等）
         self._phase_update_calculated_relations(living_avatars)
 
         ###########
-        # 濮ｅ繐鍕鹃幍褑顢戦惃鍕攽娑?
+        # ===== 以下为每年一月才会触发的阶段 =====
         ###########
         
-        # 19. (濮ｅ繐鍕?閺? 閺囧瓨鏌婂婊冨礋娑撳骸鐣婚梻銊х波缁?
+        # 19. 每年一月：更新排行榜与宗门状态 + 宗门年度思考
         if self.world.month_stamp.get_month() == Month.JANUARY:
-            # 娴ｈ法鏁?World 娑撳﹣绗呴弬鍥ㄦ纯閺傜増顪侀崡鏇礉鐎规妫婊冪唨娴滃孩婀扮仦鈧崥顖滄暏鐎规妫?
+            # 同步世界排行榜（包含主角与重要角色）
             self.world.ranking_manager.update_rankings_with_world(self.world, living_avatars)
 
-            # 鐎规妫獮鏉戝缂佹挾鐣婚敍鍫濆◢閸旀稖瀵栭崶缈犵瑢閻忕數鐓堕敍?
+            # 宗门年度维护（宗门状态、势力等）
             sect_events = self.sect_manager.update_sects()
             if sect_events:
                 events.extend(sect_events)
             events.extend(await self._phase_sect_yearly_thinking())
         
-        # 20. (濮ｅ繐鍕?閺? 濞撳懐鎮婇悽鍙樼艾閺冨爼妫挎稊鍛扮箼閼板矁顫﹂柆妤€绻曢惃鍕劥閼?
+        # 20. 每年一月：清理长久死亡的角色
         if self.world.month_stamp.get_month() == Month.JANUARY:
             cleaned_count = self.world.avatar_manager.cleanup_long_dead_avatars(
                 self.world.month_stamp, 
                 CONFIG.game.long_dead_cleanup_years
             )
             if cleaned_count > 0:
-                # 鐠佹澘缍嶉弮銉ョ箶閿涘奔绲炬稉宥勯獓閻㈢喐鐖堕幋蹇撳敶娴滃娆?
+                # 记录清理数量，方便调试观察世界规模变化
                 get_logger().logger.info(f"Cleaned up {cleaned_count} long-dead avatars.")
 
         # 21. 瑜版帗銆傛稉搴㈡闂傚瓨甯规潻?
@@ -651,9 +681,9 @@ class Simulator:
 
     def _phase_update_calculated_relations(self, living_avatars: list[Avatar]):
         """
-        濮ｅ繐鍕?1 閺堝牆鍩涢弬鏉垮弿閺堝秷顫楅懝鑼畱娴滃矂妯侀崗宕囬兇缂傛挸鐡?
+        处理基于规则计算的关系（如二阶关系）更新。
         """
-        # 娴犲懎婀?1 閺堝牊澧界悰?
+        # 仅在每年一月执行一次
         if self.world.month_stamp.get_month() != Month.JANUARY:
             return
 
@@ -662,9 +692,14 @@ class Simulator:
 
     def _finalize_step(self, events: list[Event]) -> list[Event]:
         """
-        閺堫剝鐤嗗銉ㄧ箻閻ㄥ嫭娓剁紒鍫濈秺濡楋綇绱伴崢濠氬櫢閵嗕礁鍙嗘惔鎾扁偓浣瑰ⅵ閺冦儱绻旈妴浣瑰腹鏉╂稒妞傞梻娣偓?
+        本回合最后的统一收尾。
+
+        - 记录角色指标（如调试用的统计信息）
+        - 事件去重与入库
+        - 写入日志
+        - 推进世界时间（月份 +1）
         """
-        # 0. 娑撳搫鎯庨悽銊ㄦ嫹闊亞娈?Avatar 鐠佹澘缍嶅В蹇旀箑韫囶偆鍙?
+        # 0. 记录角色调试指标（若启用）
         for avatar in self.world.avatar_manager.avatars.values():
             if avatar.enable_metrics_tracking:
                 avatar.record_metrics()
