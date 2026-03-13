@@ -1,6 +1,6 @@
-You are the "sect will" of a sect in a Xianxia world.
+You are the decision core of a sect in a cultivation world.
 
-Based on the context below, produce a brief annual strategic thought from the sect's own voice:
+Based on the information below, make a five-year administrative decision plan for the sect.
 
 Sect Name:
 {sect_name}
@@ -8,20 +8,28 @@ Sect Name:
 World Info:
 {world_info}
 
-Current Heavenly Aura / Phenomenon:
-{current_phenomenon_info}
-
-Sect Decision Context:
+Decision Context:
 {decision_context_info}
 
-Requirements:
-1. Voice must be the sect itself (for example, start with "Our sect..."), not third-person narration.
-2. Content must include:
-   - A judgment of the current world situation;
-   - A clear direction for the sect's next stage.
-3. Be concise and practical; no bullet points, no explanations, no extra framing.
-4. Length should be 20 to 60 words.
-5. Return strict JSON only, with no extra text:
+Constraints:
+1. Recruitment: you may only choose avatar_id values from `recruitment_candidates`.
+2. Expulsion, technique rewards, and spirit-stone support: you may only choose avatar_id values from `member_candidates`.
+3. Each successful recruitment costs {recruit_cost} spirit stones, so only choose recruits worth the cost.
+4. Each support action always costs {support_amount} spirit stones.
+5. Be very conservative with expulsion. Expel only when the disciple has seriously violated sect rules.
+6. Each candidate already includes `detailed_info`; prioritize that detailed information when judging.
+7. You are only planning targets and actions. Do not invent avatar_id values.
+
+Return strict JSON only, with no extra text, in exactly this format:
 {{
-  "sect_thinking": "..."
+  "thinking": "One short sentence summarizing the sect's decision logic this cycle",
+  "recruit_avatar_ids": ["rogue_avatar_id_1", "rogue_avatar_id_2"],
+  "expel_avatar_ids": ["member_avatar_id_1"],
+  "reward_avatar_ids": ["member_avatar_id_2"],
+  "support_avatar_ids": ["member_avatar_id_3"]
 }}
+
+Additional requirements:
+1. If you do not make a category of decision, return an empty array for that field.
+2. Do not repeat the same avatar_id.
+3. Keep `thinking` concise, around 20 to 60 words.

@@ -5,7 +5,7 @@ Verifies that user-facing messages show translated realm names (e.g., "筑基")
 instead of raw enum values (e.g., "FOUNDATION_ESTABLISHMENT").
 
 Coverage:
-- src/classes/single_choice.py (handle_item_exchange)
+- src/systems/single_choice/item_exchange.py (resolve_item_exchange)
 - src/classes/kill_and_grab.py (kill_and_grab context string)
 - src/classes/fortune.py (fortune intro strings)
 - src/classes/avatar/inventory_mixin.py (can_buy_item error message)
@@ -17,8 +17,14 @@ from src.systems.cultivation import Realm, Stage, CultivationProgress
 from src.classes.items.weapon import weapons_by_id, Weapon
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.items.elixir import elixirs_by_id
-from src.classes.single_choice import handle_item_exchange
 from src.classes.kill_and_grab import kill_and_grab
+from src.systems.single_choice import (
+    ItemDisposition,
+    ItemExchangeKind,
+    ItemExchangeRequest,
+    RejectMode,
+    resolve_item_exchange,
+)
 
 
 # Raw enum values that should NOT appear in user-facing messages.
@@ -63,27 +69,34 @@ def get_real_weapon() -> Weapon:
 @pytest.mark.asyncio
 async def test_handle_item_exchange_shows_translated_realm():
     """
-    Integration test: handle_item_exchange should return messages
+    Integration test: item exchange should return messages
     with translated realm names, not raw enum values.
     """
     weapon = get_real_weapon()
     avatar = MockAvatarForIntegration()
 
     # Auto-equip (no existing weapon).
-    swapped, msg = await handle_item_exchange(
-        avatar, weapon, "weapon", "Testing context", can_sell_new=False
+    outcome = await resolve_item_exchange(
+        ItemExchangeRequest(
+            avatar=avatar,
+            new_item=weapon,
+            kind=ItemExchangeKind.WEAPON,
+            scene_intro="Testing context",
+            reject_mode=RejectMode.ABANDON_NEW,
+            auto_accept_when_empty=True,
+        )
     )
 
-    assert swapped is True
+    assert outcome.accepted is True
 
     # Message should NOT contain raw enum values.
     for raw_value in RAW_REALM_VALUES:
-        assert raw_value not in msg, (
-            f"Message contains raw enum value '{raw_value}': {msg}"
+        assert raw_value not in outcome.result_text, (
+            f"Message contains raw enum value '{raw_value}': {outcome.result_text}"
         )
 
     # Message should contain the weapon name.
-    assert weapon.name in msg
+    assert weapon.name in outcome.result_text
 
 
 @pytest.mark.asyncio
@@ -173,21 +186,26 @@ async def test_kill_and_grab_context_shows_translated_realm():
     winner = MockAvatarForKillAndGrab("Winner")
     loser = MockAvatarForKillAndGrab("Loser", weapon=weapon)
 
-    # Patch handle_item_exchange to capture the context_intro argument.
+    # Patch resolve_item_exchange to capture the scene_intro argument.
     with patch(
-        "src.classes.kill_and_grab.handle_item_exchange",
+        "src.classes.kill_and_grab.resolve_item_exchange",
         new_callable=AsyncMock
     ) as mock_exchange:
-        mock_exchange.return_value = (True, "equipped")
+        mock_exchange.return_value = Mock(
+            accepted=True,
+            result_text="equipped",
+            action=ItemDisposition.AUTO_ACCEPTED,
+        )
 
         await kill_and_grab(winner, loser)
 
-        # Verify handle_item_exchange was called.
+        # Verify resolve_item_exchange was called.
         assert mock_exchange.called
 
-        # Get the context_intro argument.
+        # Get the request object and inspect scene_intro.
         call_kwargs = mock_exchange.call_args
-        context_intro = call_kwargs.kwargs.get("context_intro") or call_kwargs.args[3]
+        request = call_kwargs.args[0]
+        context_intro = request.scene_intro
 
         # Context should NOT contain raw enum values.
         for raw_value in RAW_REALM_VALUES:

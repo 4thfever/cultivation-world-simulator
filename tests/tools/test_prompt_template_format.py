@@ -24,3 +24,21 @@ def test_sect_random_event_template_can_be_formatted() -> None:
     assert "reason_fragment" in prompt
     assert "A宗" in prompt
     assert "B宗" in prompt
+
+
+def test_sect_decider_template_can_be_formatted() -> None:
+    template_path = Path("static/locales/zh-CN/templates/sect_decider.txt")
+    template = load_template(template_path)
+
+    infos = {
+        "sect_name": "A宗",
+        "world_info": "{}",
+        "decision_context_info": "{}",
+        "recruit_cost": 500,
+        "support_amount": 300,
+    }
+
+    prompt = build_prompt(template, infos)
+
+    assert "recruit_avatar_ids" in prompt
+    assert "A宗" in prompt

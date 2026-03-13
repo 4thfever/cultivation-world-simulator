@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from src.sim.managers.sect_manager import SectManager
@@ -43,6 +43,11 @@ class SectDecisionContext:
 
     # 历史事件（最近 N 条）
     history: Dict[str, Any]
+
+    # 门规与五年决策候选
+    rule: Dict[str, Any] = field(default_factory=dict)
+    recruitment_candidates: List[Dict[str, Any]] = field(default_factory=list)
+    member_candidates: List[Dict[str, Any]] = field(default_factory=list)
 
 
 def build_sect_decision_context(
@@ -105,6 +110,84 @@ def build_sect_decision_context(
         "effective_income_per_tile": effective_income_per_tile,
         "controlled_tile_income": controlled_tile_income,
     }
+
+    rule = {
+        "rule_id": str(getattr(sect, "rule_id", "") or ""),
+        "rule_desc": str(getattr(sect, "rule_desc", "") or ""),
+    }
+
+    def _technique_grade_rank(avatar) -> int:
+        technique = getattr(avatar, "technique", None)
+        grade = getattr(technique, "grade", None)
+        grade_value = getattr(grade, "value", "")
+        order = {"LOWER": 1, "MIDDLE": 2, "UPPER": 3}
+        return order.get(str(grade_value), 0)
+
+    def _technique_grade_text(avatar) -> str:
+        technique = getattr(avatar, "technique", None)
+        grade = getattr(technique, "grade", None)
+        return str(grade) if grade is not None else ""
+
+    recruitment_candidates: List[Dict[str, Any]] = []
+    member_candidates: List[Dict[str, Any]] = []
+    all_avatars = getattr(getattr(world, "avatar_manager", None), "avatars", {}) or {}
+    for avatar in all_avatars.values():
+        if getattr(avatar, "is_dead", False):
+            continue
+
+        avatar_sect = getattr(avatar, "sect", None)
+        if avatar_sect is None:
+            recruitment_candidates.append(
+                {
+                    "avatar_id": str(getattr(avatar, "id", "")),
+                    "name": str(getattr(avatar, "name", "")),
+                    "alignment": str(getattr(avatar, "alignment", "") or ""),
+                    "realm": str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "") or ""),
+                    "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
+                    "technique_name": str(getattr(getattr(avatar, "technique", None), "name", "") or ""),
+                    "technique_grade": _technique_grade_text(avatar),
+                    "technique_grade_rank": _technique_grade_rank(avatar),
+                    "alignment_recruitable": bool(sect.is_alignment_recruitable(getattr(avatar, "alignment", None))),
+                    "detailed_info": avatar.get_info(detailed=True),
+                }
+            )
+            continue
+
+        if avatar_sect != sect:
+            continue
+
+        member_candidates.append(
+            {
+                "avatar_id": str(getattr(avatar, "id", "")),
+                "name": str(getattr(avatar, "name", "")),
+                "alignment": str(getattr(avatar, "alignment", "") or ""),
+                "realm": str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "") or ""),
+                "rank": str(getattr(avatar, "get_sect_rank_name", lambda: "")() or ""),
+                "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
+                "technique_name": str(getattr(getattr(avatar, "technique", None), "name", "") or ""),
+                "technique_grade": _technique_grade_text(avatar),
+                "technique_grade_rank": _technique_grade_rank(avatar),
+                "is_rule_breaker": bool(sect.is_member_rule_breaker(avatar)),
+                "detailed_info": avatar.get_info(detailed=True),
+            }
+        )
+
+    recruitment_candidates.sort(
+        key=lambda item: (
+            0 if item["alignment_recruitable"] else 1,
+            -item["technique_grade_rank"],
+            item["magic_stone"],
+            item["name"],
+        )
+    )
+    member_candidates.sort(
+        key=lambda item: (
+            0 if item["is_rule_breaker"] else 1,
+            item["technique_grade_rank"],
+            item["magic_stone"],
+            item["name"],
+        )
+    )
 
     # 4. 当前宗门关系快照
     # 统一使用 SectManager + compute_sect_relations 计算关系数值与理由
@@ -193,6 +276,9 @@ def build_sect_decision_context(
         power=power,
         territory=territory,
         economy=economy,
+        rule=rule,
+        recruitment_candidates=recruitment_candidates,
+        member_candidates=member_candidates,
         relations=relations,
         relations_summary=relations_summary,
         history=history,

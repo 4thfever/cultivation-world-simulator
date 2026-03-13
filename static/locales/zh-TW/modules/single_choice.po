@@ -40,6 +40,15 @@ msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 # ============================================================================
 # SingleChoice 系統 - 物品決策
 # ============================================================================
+msgid "Accept new item"
+msgstr "接受新物品"
+
+msgid "Reject new item"
+msgstr "拒絕新物品"
+
+msgid "Automatically accept the new item."
+msgstr "自動接受該新物品。"
+
 # 決策界面
 msgid ""
 "【Current Situation】: {context}\n"

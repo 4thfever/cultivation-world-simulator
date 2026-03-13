@@ -2651,24 +2651,6 @@ msgid ""
 msgstr ""
 "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
 
-msgid "a temporary border consensus"
-msgstr "邊界協約暫獲共識"
-
-msgid "escalating border conflicts"
-msgstr "邊界利益衝突升級"
-
-msgid "unexpected operational gains"
-msgstr "宗門營運獲得額外回報"
-
-msgid "unexpected operational costs"
-msgstr "宗門事務出現額外開支"
-
-msgid "a newly opened trade route"
-msgstr "新商路帶來穩定收益"
-
-msgid "external pressure on revenue"
-msgstr "外部壓力壓縮了收益"
-
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
 " improved (+{value_int} for {duration_months} months)."
@@ -2775,6 +2757,15 @@ msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 # ============================================================================
 # SingleChoice 系統 - 物品決策
 # ============================================================================
+msgid "Accept new item"
+msgstr "接受新物品"
+
+msgid "Reject new item"
+msgstr "拒絕新物品"
+
+msgid "Automatically accept the new item."
+msgstr "自動接受該新物品。"
+
 # 決策界面
 msgid ""
 "【Current Situation】: {context}\n"

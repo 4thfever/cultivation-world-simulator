@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
+from enum import Enum
 
 from src.classes.alignment import Alignment
 from src.utils.df import game_configs, get_str, get_float, get_int
@@ -21,6 +22,12 @@ if TYPE_CHECKING:
 驻地名称与描述已迁移到 sect_region.csv，供地图区域系统使用。
 此处仅保留宗门本体信息与头像编辑所需的静态字段。
 """
+
+
+class SectRuleId(str, Enum):
+    RIGHTEOUS_ORTHODOXY = "righteous_orthodoxy"
+    EVIL_SECT_LOYALTY = "evil_sect_loyalty"
+    NEUTRAL_SECRECY = "neutral_secrecy"
 
 # 宗门驻地（基础展示数据，具体地图位置在 sect_region.csv 中定义）
 @dataclass
@@ -58,6 +65,9 @@ class Sect(SectEffectsMixin):
     rank_names: dict[str, str] = field(default_factory=dict)
     # 道统ID
     orthodoxy_id: str = "dao"
+    # 门规
+    rule_id: str = ""
+    rule_desc: str = ""
     
     # 势力相关
     magic_stone: int = 0
@@ -67,6 +77,8 @@ class Sect(SectEffectsMixin):
     color: str = "#FFFFFF"
     # 宗门年度思考（仅展示用途，不写入事件流）
     yearly_thinking: str = ""
+    # 最近一次五年决策摘要（运行时）
+    last_decision_summary: str = ""
 
     # 运行时成员列表：Avatar ID -> Avatar
     members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
@@ -196,8 +208,34 @@ class Sect(SectEffectsMixin):
             "total_battle_strength": self.total_battle_strength,
             "influence_radius": self.influence_radius,
             "color": self.color,
+            "rule_id": self.rule_id,
+            "rule_desc": self.rule_desc,
             "yearly_thinking": self.yearly_thinking,
         }
+
+    def is_alignment_recruitable(self, alignment: Alignment | None) -> bool:
+        if alignment is None:
+            return True
+        if self.alignment == Alignment.RIGHTEOUS:
+            return alignment != Alignment.EVIL
+        if self.alignment == Alignment.EVIL:
+            return alignment != Alignment.RIGHTEOUS
+        return True
+
+    def is_member_rule_breaker(self, avatar: "Avatar") -> bool:
+        """
+        当前版本只处理“极端到足以驱逐”的明显门规冲突。
+        更细的门规行为判断后续可以在这里继续扩展。
+        """
+        alignment = getattr(avatar, "alignment", None)
+        if alignment is None:
+            return False
+
+        if self.rule_id == SectRuleId.RIGHTEOUS_ORTHODOXY.value:
+            return alignment == Alignment.EVIL
+        if self.rule_id == SectRuleId.EVIL_SECT_LOYALTY.value:
+            return alignment == Alignment.RIGHTEOUS
+        return False
 
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
@@ -319,6 +357,12 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
         hq_desc = hq_desc_from_csv or get_str(row, "headquarter_desc")
         
         color = get_str(row, "color") or "#FFFFFF"
+        rule_id = get_str(row, "rule_id")
+        rule_desc_id = get_str(row, "rule_desc_id")
+        from src.i18n import t
+        rule_desc = t(rule_desc_id) if rule_desc_id else ""
+        if rule_desc == rule_desc_id:
+            rule_desc = ""
 
         sect = Sect(
             id=sid,
@@ -339,6 +383,8 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
             rank_names=rank_names_map,
             orthodoxy_id=orthodoxy_id,
             color=color,
+            rule_id=rule_id,
+            rule_desc=rule_desc,
         )
         new_by_id[sect.id] = sect
         new_by_name[sect.name] = sect

@@ -2026,6 +2026,10 @@ msgstr "精擅天魔音律與精神操控，功法陰柔詭譎，以無形魔音
 msgid "SECT_10_NAME"
 msgstr "攝魂音宗"
 
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr "可惑亂外敵，但不得失控攝魂同門、動搖宗門根基；若因此敗壞宗門聲名且仍不知收斂，逐出山門。"
+
 #. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
 msgstr "當世第一陣法大派，講究天道演算，以萬物為棋，山川為陣。【陣法通神】你善用陣法輔助修煉，能夠聚集天地靈氣，修煉速度快於常人，且常有意外收穫。"
@@ -2033,6 +2037,10 @@ msgstr "當世第一陣法大派，講究天道演算，以萬物為棋，山川
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
 msgstr "天衍陣宗"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr "不得以陣法殃及凡城、反噬同門；若墮入邪道仍執迷不悟，逐出宗門。"
 
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
@@ -2043,6 +2051,10 @@ msgstr ""
 msgid "SECT_12_NAME"
 msgstr "長明宮"
 
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr "不得殘害百姓以煉體、敗壞光明正統；若淪為邪修且屢勸不改，逐出宮門。"
+
 #. sect.csv: SECT_13_DESC
 msgid "SECT_13_DESC"
 msgstr "儒家正統，養浩然之氣。行事剛正，言出法隨，克制邪魔。【吾善養氣】你養浩然之氣，氣脈悠長，面對境界低於自己的敵人時，能發揮出極強的壓制力。"
@@ -2050,6 +2062,10 @@ msgstr "儒家正統，養浩然之氣。行事剛正，言出法隨，克制邪
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
 msgstr "浩然書院"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr "不得欺師害民、投身魔道；證據確鑿且仍不知悔改者，逐出書院。"
 
 #. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
@@ -2060,6 +2076,10 @@ msgstr ""
 msgid "SECT_14_NAME"
 msgstr "羅剎血宗"
 
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr "可爭可掠，但不得背叛血宗、私吞戰利、以邪術害本門；犯此重戒者逐出。"
+
 #. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
 msgstr ""
@@ -2069,6 +2089,10 @@ msgstr ""
 msgid "SECT_1_NAME"
 msgstr "凌霄劍宗"
 
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr "不得勾結邪魔、殘害無辜凡俗；若墮入邪道且屢教不改，逐出山門。"
+
 #. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
 msgstr "以馴養凶獸聞名，豢養各種妖獸靈怪為戰力。【萬獸之主】你擁有獨特的御獸天賦，捕捉妖獸對你來說輕而易舉，善於驅使獸群為你而戰。"
@@ -2076,6 +2100,10 @@ msgstr "以馴養凶獸聞名，豢養各種妖獸靈怪為戰力。【萬獸之
 #. sect.csv: SECT_2_NAME
 msgid "SECT_2_NAME"
 msgstr "萬獸魔山"
+
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr "可爭可殺，但不得背叛山門、私通外敵、反噬同門；犯此大忌者逐出。"
 
 #. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
@@ -2085,6 +2113,10 @@ msgstr "居於海外孤島，實則嚴守中立。擁有一塊上古奇石「觀
 msgid "SECT_3_NAME"
 msgstr "聽濤閣"
 
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr "不得為一己私欲擾亂閣中卜算、出賣宗門天機；情節重大者逐出。"
+
 #. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
 msgstr "參悟生死枯榮，接引黃泉之力，術法陰冷狠厲。【黃泉渡魂】你修行黃泉之法，心志堅定，突破瓶頸時心無雜念，成功率更高。"
@@ -2092,6 +2124,10 @@ msgstr "參悟生死枯榮，接引黃泉之力，術法陰冷狠厲。【黃泉
 #. sect.csv: SECT_4_NAME
 msgid "SECT_4_NAME"
 msgstr "九幽黃泉道"
+
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr "可修陰法，但不得違逆師命、擅自勾魂傷害同門；犯重戒者逐出。"
 
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
@@ -2101,6 +2137,10 @@ msgstr "邪宗大派。以機關、傀儡、毒殺聞名於世，素來行蹤詭
 msgid "SECT_5_NAME"
 msgstr "千機詭門"
 
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr "不得洩露機關秘圖、擅自刺殺本門之人；若勾結正道反噬宗門，逐出。"
+
 #. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
 msgstr "以情入道，靠雙修增進修為，善馭人心，長於權變。【紅塵煉心】你的體質特殊，通過雙修能獲得遠超常人的修為提升，這是你提升境界的最佳捷徑。"
@@ -2108,6 +2148,10 @@ msgstr "以情入道，靠雙修增進修為，善馭人心，長於權變。【
 #. sect.csv: SECT_6_NAME
 msgid "SECT_6_NAME"
 msgstr "醉夢樓"
+
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr "可縱情紅塵，但不得以採補害命、欺師滅祖；犯重戒者逐出。"
 
 #. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
@@ -2117,6 +2161,10 @@ msgstr "佛門聖地，體修大宗。以金剛之軀鎮壓世間妖邪。【金
 msgid "SECT_7_NAME"
 msgstr "須彌禪院"
 
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr "嚴禁濫殺凡俗、勾結邪祟、殘害同門；罪重且不悔者逐出。"
+
 #. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
 msgstr "鎮宗典籍《影殺真經》。以地煞陰氣為根基。【如影隨形】你極擅身法與遁術，遇到危險時總能全身而退，亦能伺機刺殺落單之敵。"
@@ -2124,6 +2172,10 @@ msgstr "鎮宗典籍《影殺真經》。以地煞陰氣為根基。【如影隨
 #. sect.csv: SECT_8_NAME
 msgid "SECT_8_NAME"
 msgstr "影煞殿"
+
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr "可行暗殺，不可背刺本殿、洩露據點；若轉投正道並出賣同門，逐出。"
 
 #. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
@@ -2133,6 +2185,10 @@ msgstr ""
 #. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
 msgstr "萬寶仙盟"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr "可逐利，但不得侵吞宗庫、通敵賣盟；情節惡劣者逐出。"
 
 #. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"

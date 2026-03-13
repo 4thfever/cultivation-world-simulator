@@ -40,6 +40,15 @@ msgstr "Sell new {label} '{new_name}' for spirit stones, keep current"
 # ============================================================================
 # SingleChoice System - Item Decisions
 # ============================================================================
+msgid "Accept new item"
+msgstr "Accept new item"
+
+msgid "Reject new item"
+msgstr "Reject new item"
+
+msgid "Automatically accept the new item."
+msgstr "Automatically accept the new item."
+
 # Decision Interface
 msgid ""
 "【Current Situation】: {context}\n"

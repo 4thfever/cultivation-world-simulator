@@ -1,6 +1,6 @@
-你是修仙世界中某宗门的“宗门意志”。
+你是修仙世界中某宗门的决策中枢。
 
-请基于以下宗门决策上下文，给出一段简短的年度思考：
+你需要基于以下信息，为宗门做出一次“五年一次”的行政决策规划。
 
 宗门名称：
 {sect_name}
@@ -8,20 +8,28 @@
 世界信息：
 {world_info}
 
-当前天地灵气/天地异象：
-{current_phenomenon_info}
-
-宗门决策上下文：
+本轮决策上下文：
 {decision_context_info}
 
-要求：
-1. 口吻必须是宗门意志（例如“我宗……”），不要第三方旁白。
-2. 内容要包含：
-   - 对当前世界形势的判断；
-   - 对宗门下一阶段方向的思考。
-3. 语言简洁，不要空话，不要分点，不要输出解释。
-4. 严格控制在 30~100 字。
-5. 仅返回严格 JSON，不要附加任何多余文本：
+规则约束：
+1. 招徕散修：只能从 recruitment_candidates 中选择 avatar_id。
+2. 驱逐、赐功法、资助灵石：只能从 member_candidates 中选择 avatar_id。
+3. 招徕每成功一人需要花费 {recruit_cost} 灵石，只有在你认为值得时才选择。
+4. 资助每次固定花费 {support_amount} 灵石。
+5. 门规相关的驱逐必须非常克制，只有“严重违背门规”才驱逐。
+6. 候选人的 detailed_info 已经给出，请优先依据这些详细信息判断。
+7. 你只负责“规划要对谁做什么”，不要编造未提供的 avatar_id。
+
+请返回严格 JSON，不要输出任何额外说明，格式如下：
 {{
-  "sect_thinking": "......"
+  "thinking": "用一句话概括我宗本轮决策思路",
+  "recruit_avatar_ids": ["散修avatar_id1", "散修avatar_id2"],
+  "expel_avatar_ids": ["弟子avatar_id1"],
+  "reward_avatar_ids": ["弟子avatar_id2"],
+  "support_avatar_ids": ["弟子avatar_id3"]
 }}
+
+补充要求：
+1. 如果某类决策不做，对应数组返回空数组。
+2. 不要重复填写同一个 avatar_id。
+3. thinking 简洁即可，20~60 字。

@@ -112,6 +112,9 @@ def test_build_sect_decision_context_basic(base_world):
     assert ctx.economy["current_magic_stone"] == sect1.magic_stone
     assert ctx.economy["effective_income_per_tile"] >= 0.0
     assert ctx.economy["controlled_tile_income"] == ctx.economy["effective_income_per_tile"] * ctx.territory["tile_count"]
+    assert ctx.rule["rule_id"] == ""
+    assert isinstance(ctx.recruitment_candidates, list)
+    assert isinstance(ctx.member_candidates, list)
 
     # 历史事件：只保留最近 N 条
     recent = ctx.history["recent_events"]

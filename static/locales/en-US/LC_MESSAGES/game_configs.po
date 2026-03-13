@@ -2410,6 +2410,13 @@ msgstr ""
 msgid "SECT_10_NAME"
 msgstr "Soul-Seizing Sound Sect"
 
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr ""
+"You may bewitch enemies, but you must never lose control and soul-snare "
+"fellow disciples or damage the sect's foundations; those who disgrace the "
+"sect and still refuse restraint will be expelled."
+
 #. sect.csv: SECT_11_DESC
 msgid "SECT_11_DESC"
 msgstr ""
@@ -2422,6 +2429,13 @@ msgstr ""
 #. sect.csv: SECT_11_NAME
 msgid "SECT_11_NAME"
 msgstr "Heavenly Deduction Sect"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr ""
+"You must not use arrays to bring disaster upon mortal cities or cause "
+"backlash upon fellow disciples; if you fall into evil and still refuse to "
+"repent, you will be expelled from the sect."
 
 #. sect.csv: SECT_12_DESC
 msgid "SECT_12_DESC"
@@ -2436,6 +2450,13 @@ msgstr ""
 msgid "SECT_12_NAME"
 msgstr "Everlasting Bright Palace"
 
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr ""
+"You must not harm mortals to temper the body or stain the orthodox path of "
+"light; if you descend into evil cultivation and remain incorrigible, you "
+"will be expelled from the palace."
+
 #. sect.csv: SECT_13_DESC
 msgid "SECT_13_DESC"
 msgstr ""
@@ -2447,6 +2468,13 @@ msgstr ""
 #. sect.csv: SECT_13_NAME
 msgid "SECT_13_NAME"
 msgstr "Haoran Academy"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr ""
+"You must not deceive masters, oppress the people, or throw yourself into the"
+" demonic path; if the evidence is conclusive and you still refuse to repent,"
+" you will be expelled from the academy."
 
 #. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
@@ -2461,6 +2489,13 @@ msgstr ""
 msgid "SECT_14_NAME"
 msgstr "Rakshasa Blood Sect"
 
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr ""
+"You may fight and plunder, but you must never betray the Blood Sect, "
+"embezzle spoils, or use vile arts against your own sect; anyone who violates"
+" this grave prohibition will be expelled."
+
 #. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
 msgstr ""
@@ -2474,6 +2509,13 @@ msgstr ""
 msgid "SECT_1_NAME"
 msgstr "High Heaven Sword Sect"
 
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr ""
+"You must not collude with evil or massacre the innocent; if you fall into "
+"the demonic path and still refuse correction after repeated admonition, you "
+"will be expelled from the mountain gate."
+
 #. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
 msgstr ""
@@ -2486,6 +2528,13 @@ msgstr ""
 msgid "SECT_2_NAME"
 msgstr "Ten Thousand Beasts Mountain"
 
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr ""
+"You may fight and kill, but you must not betray the mountain gate, collude "
+"with outside enemies, or let your beasts turn against fellow disciples; "
+"those who commit this grave taboo will be expelled."
+
 #. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
 msgstr ""
@@ -2497,6 +2546,13 @@ msgstr ""
 #. sect.csv: SECT_3_NAME
 msgid "SECT_3_NAME"
 msgstr "Listening Tide Pavilion"
+
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr ""
+"You must not disturb the pavilion's divinations for personal desire or sell "
+"the sect's heavenly secrets; if the offense is especially severe, you will "
+"be expelled."
 
 #. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
@@ -2511,6 +2567,13 @@ msgstr ""
 msgid "SECT_4_NAME"
 msgstr "Nine Underworlds Dao"
 
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr ""
+"You may cultivate Yin arts, but you must not defy the master's orders or "
+"seize souls to harm fellow disciples without authorization; those who break "
+"this grave rule will be expelled."
+
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
 msgstr ""
@@ -2523,6 +2586,13 @@ msgstr ""
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
 msgstr "Thousand Mechanisms Sect"
+
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr ""
+"You must not leak secret blueprints of mechanisms or assassinate members of "
+"your own sect; if you collude with the righteous path and turn against the "
+"sect, you will be expelled."
 
 #. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
@@ -2537,6 +2607,13 @@ msgstr ""
 msgid "SECT_6_NAME"
 msgstr "Drunken Dream Pavilion"
 
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr ""
+"You may indulge in the mortal world, but you must not harvest others to "
+"death or betray your masters and ancestors; those who violate this grave "
+"precept will be expelled."
+
 #. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
 msgstr ""
@@ -2548,6 +2625,13 @@ msgstr ""
 #. sect.csv: SECT_7_NAME
 msgid "SECT_7_NAME"
 msgstr "Sumeru Zen Temple"
+
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr ""
+"Killing mortals wantonly, colluding with evil spirits, or harming fellow "
+"disciples is strictly forbidden; those guilty of severe offenses who still "
+"refuse repentance will be expelled."
 
 #. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
@@ -2561,6 +2645,13 @@ msgstr ""
 msgid "SECT_8_NAME"
 msgstr "Shadow Fiend Hall"
 
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr ""
+"Assassination is permitted, but backstabbing your own hall or leaking hidden"
+" strongholds is not; if you defect to the righteous path and sell out fellow"
+" disciples, you will be expelled."
+
 #. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
 msgstr ""
@@ -2572,6 +2663,13 @@ msgstr ""
 #. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
 msgstr "Myriad Treasures Alliance"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr ""
+"You may pursue profit, but you must not embezzle the sect treasury or sell "
+"the alliance to the enemy; if the offense is especially vile, you will be "
+"expelled."
 
 #. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"

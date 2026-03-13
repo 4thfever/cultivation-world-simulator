@@ -8,6 +8,7 @@ from src.classes.event import Event
 from src.classes.root import Root
 from src.classes.age import Age
 from src.classes.alignment import Alignment
+from src.classes.sect_decider import SectDecisionResult
 from src.sim.simulator import Simulator
 from src.sim.simulator_engine.phases import annual
 from src.systems.cultivation import Realm
@@ -108,17 +109,24 @@ async def test_simulator_yearly_sect_thinking_runs_after_sect_update(base_world,
         call_order.append("update_sects")
         return []
 
+    async def _five_year_decision(_simulator):
+        call_order.append("five_year_decision")
+        return []
+
     async def _yearly_thinking(_simulator):
         call_order.append("yearly_thinking")
         return []
 
     with patch.object(sim.sect_manager, "update_sects", side_effect=_update_sects), patch(
+        "src.sim.simulator_engine.phases.annual.phase_sect_five_year_decision",
+        new=AsyncMock(side_effect=_five_year_decision),
+    ), patch(
         "src.sim.simulator_engine.phases.annual.phase_sect_yearly_thinking",
         new=AsyncMock(side_effect=_yearly_thinking),
     ):
         await sim.step()
 
-    assert call_order == ["update_sects", "yearly_thinking"]
+    assert call_order == ["update_sects", "five_year_decision", "yearly_thinking"]
 
 
 @pytest.mark.asyncio
@@ -127,12 +135,16 @@ async def test_simulator_yearly_sect_thinking_not_run_in_non_january(base_world,
     sim = Simulator(base_world)
 
     with patch.object(sim.sect_manager, "update_sects") as mock_update_sects, patch(
+        "src.sim.simulator_engine.phases.annual.phase_sect_five_year_decision",
+        new=AsyncMock(),
+    ) as mock_five_year_decision, patch(
         "src.sim.simulator_engine.phases.annual.phase_sect_yearly_thinking",
         new=AsyncMock(),
     ) as mock_yearly_thinking:
         await sim.step()
 
     mock_update_sects.assert_not_called()
+    mock_five_year_decision.assert_not_awaited()
     mock_yearly_thinking.assert_not_awaited()
 
 
@@ -146,13 +158,14 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
     sect.id = 77
     sect.name = "Test Sect"
     sect.yearly_thinking = ""
+    sect.last_decision_summary = "招徕散修 1 人。"
 
     base_world.existed_sects = [sect]
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
     with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
-        "src.sim.simulator_engine.phases.annual.SectDecider.decide",
+        "src.sim.simulator_engine.phases.annual.SectThinker.think",
         new=AsyncMock(return_value="secure borders first"),
     ), patch(
         "src.sim.simulator_engine.phases.annual.t",
@@ -185,10 +198,43 @@ async def test_phase_sect_yearly_thinking_skips_non_interval_year(base_world, mo
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
     with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
-        "src.sim.simulator_engine.phases.annual.SectDecider.decide",
+        "src.sim.simulator_engine.phases.annual.SectThinker.think",
         new=AsyncMock(return_value="should not happen"),
     ) as mock_decide:
         events = await annual.phase_sect_yearly_thinking(sim)
 
     assert events == []
     mock_decide.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_phase_sect_five_year_decision_emits_summary_event(base_world, mock_llm_managers):
+    base_world.start_year = 1
+    base_world.month_stamp = create_month_stamp(Year(6), Month.JANUARY)
+
+    sim = Simulator(base_world)
+    sect = MagicMock()
+    sect.id = 77
+    sect.name = "Test Sect"
+    sect.last_decision_summary = ""
+
+    base_world.existed_sects = [sect]
+    base_world.event_manager._storage = MagicMock()
+    base_world.event_manager._storage.get_events.return_value = ([], None)
+
+    with patch("src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()), patch(
+        "src.sim.simulator_engine.phases.annual.SectDecider.decide",
+        new=AsyncMock(
+            return_value=SectDecisionResult(
+                events=[],
+                recruitment_count=1,
+                summary_text="Test Sect 本轮五年决策：招徕散修 1 人。",
+            )
+        ),
+    ):
+        events = await annual.phase_sect_five_year_decision(sim)
+
+    assert len(events) == 1
+    assert events[0].related_sects == [77]
+    assert "招徕散修 1 人" in events[0].content
+    assert sect.last_decision_summary == "Test Sect 本轮五年决策：招徕散修 1 人。"

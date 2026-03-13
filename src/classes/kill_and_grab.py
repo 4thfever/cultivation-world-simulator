@@ -2,7 +2,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import random
 
-from src.classes.single_choice import handle_item_exchange
+from src.systems.single_choice import (
+    ItemDisposition,
+    ItemExchangeKind,
+    ItemExchangeRequest,
+    RejectMode,
+    resolve_item_exchange,
+)
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -44,20 +50,26 @@ async def kill_and_grab(winner: Avatar, loser: Avatar) -> str:
     # 使用 str() 来触发 Realm 的 __str__ 方法进行 i18n 翻译。
     context = f"战斗胜利，{loser.name} 身死道消，留下了一件{str(loot_item.realm)}{item_label}『{loot_item.name}』。"
     
-    swapped, log_text = await handle_item_exchange(
-        avatar=winner,
-        new_item=loot_item,
-        item_type=loot_type,
-        context_intro=context,
-        can_sell_new=False
+    outcome = await resolve_item_exchange(
+        ItemExchangeRequest(
+            avatar=winner,
+            new_item=loot_item,
+            kind=ItemExchangeKind(loot_type),
+            scene_intro=context,
+            reject_mode=RejectMode.ABANDON_NEW,
+            auto_accept_when_empty=True,
+        )
     )
 
-    if swapped:
+    if outcome.accepted and outcome.action in {
+        ItemDisposition.AUTO_ACCEPTED,
+        ItemDisposition.REPLACED_OLD,
+    }:
         if loot_type == "weapon":
             loser.change_weapon(None)
         else:
             loser.change_auxiliary(None)
         
-        return f"缴获了{item_label}『{loot_item.name}』。{log_text}"
+        return f"缴获了{item_label}『{loot_item.name}』。{outcome.result_text}"
     
     return ""

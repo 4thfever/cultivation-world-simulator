@@ -8,7 +8,12 @@ from src.classes.action import TimedAction
 from src.systems.cultivation import Realm
 from src.classes.event import Event
 from src.classes.items.elixir import get_random_elixir_by_realm
-from src.classes.single_choice import handle_item_exchange
+from src.systems.single_choice import (
+    ItemExchangeKind,
+    ItemExchangeRequest,
+    RejectMode,
+    resolve_item_exchange,
+)
 from src.utils.resolution import resolve_query
 
 if TYPE_CHECKING:
@@ -157,18 +162,21 @@ class Refine(TimedAction):
             is_major=True
         ))
 
-        _, result_text = await handle_item_exchange(
-            avatar=self.avatar, 
-            new_item=new_item,
-            item_type="elixir",
-            context_intro=base_desc,
-            can_sell_new=True
+        outcome = await resolve_item_exchange(
+            ItemExchangeRequest(
+                avatar=self.avatar,
+                new_item=new_item,
+                kind=ItemExchangeKind.ELIXIR,
+                scene_intro=base_desc,
+                reject_mode=RejectMode.SELL_NEW,
+                auto_accept_when_empty=False,
+            )
         )
 
         # 事件2：处置结果
         events.append(Event(
             self.world.month_stamp,
-            result_text,
+            outcome.result_text,
             related_avatars=[self.avatar.id],
             is_major=True
         ))
