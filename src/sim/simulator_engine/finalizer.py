@@ -12,7 +12,7 @@ def log_events(events: list[Event]) -> None:
         logger.info("EVENT: %s", str(event))
 
 
-def finalize_step(simulator, ctx: SimulationStepContext) -> list[Event]:
+def finalize_step(ctx: SimulationStepContext) -> list[Event]:
     for avatar in ctx.world.avatar_manager.avatars.values():
         if avatar.enable_metrics_tracking:
             avatar.record_metrics()
@@ -27,7 +27,7 @@ def finalize_step(simulator, ctx: SimulationStepContext) -> list[Event]:
         for event in final_events:
             ctx.world.event_manager.add_event(event)
 
-    simulator._phase_log_events(final_events)
+    log_events(final_events)
     ctx.world.month_stamp = ctx.world.month_stamp + 1
     ctx.events = final_events
     return final_events

@@ -1,8 +1,9 @@
 
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 from src.classes.event import Event
 from src.sim.simulator import Simulator
+from src.sim.simulator_engine.phases import social
 from src.systems.time import create_month_stamp, Year, Month
 
 class TestEventLogic:
@@ -80,19 +81,18 @@ class TestEventLogic:
         base_world.avatar_manager.register_avatar(avatar_a)
         base_world.avatar_manager.register_avatar(avatar_b)
         
-        sim = Simulator(base_world)
         processed_ids = set()
         
         event1 = Event(base_world.month_stamp, "事件1", related_avatars=[avatar_a.id, avatar_b.id])
         event2 = Event(base_world.month_stamp, "事件2", related_avatars=[avatar_a.id, avatar_b.id])
         
         # 1. 处理第一批事件
-        sim._phase_handle_interactions([event1], processed_ids)
+        social.phase_handle_interactions(base_world.avatar_manager, [event1], processed_ids)
         assert avatar_a.relation_interaction_states[avatar_b.id]["count"] == 1
         assert event1.id in processed_ids
         
         # 2. 再次处理相同的事件（模拟 Phase 14 补漏但去重）
-        sim._phase_handle_interactions([event1, event2], processed_ids)
+        social.phase_handle_interactions(base_world.avatar_manager, [event1, event2], processed_ids)
         # event1 应该被跳过，event2 应该被处理
         assert avatar_a.relation_interaction_states[avatar_b.id]["count"] == 2
         assert event2.id in processed_ids
@@ -117,7 +117,10 @@ class TestEventLogic:
         )
         
         # 我们通过 patch 让某些阶段返回这个事件
-        with patch.object(Simulator, "_phase_execute_actions", return_value=[interaction_event]):
+        with patch(
+            "src.sim.simulator_engine.phases.actions.phase_execute_actions",
+            new=AsyncMock(return_value=[interaction_event]),
+        ):
             # 执行一步
             await sim.step()
             
@@ -147,7 +150,7 @@ class TestEventLogic:
         
         # 3. 执行关系演化阶段
         living_avatars = base_world.avatar_manager.get_living_avatars()
-        events = await sim._phase_evolve_relations(living_avatars)
+        events = await social.phase_evolve_relations(base_world.avatar_manager, living_avatars)
         
         # 4. 验证
         assert len(events) == 1

@@ -9,6 +9,7 @@ from src.utils.config import CONFIG
 
 
 def phase_process_interactions(avatar_manager, events: list[Event]) -> None:
+    # 只有明确关联 2 个及以上角色的事件，才会被视为“互动事件”。
     for event in events:
         if not event.related_avatars or len(event.related_avatars) < 2:
             continue
@@ -24,6 +25,8 @@ def phase_handle_interactions(
     events: list[Event],
     processed_ids: set[str],
 ) -> None:
+    # 这里做的是“增量分发”：
+    # step() 里会调用两次，但每个事件只会处理一次，避免重复累计互动计数。
     new_interactions: list[Event] = []
     for event in events:
         if event.id in processed_ids:
@@ -38,6 +41,8 @@ def phase_handle_interactions(
 
 
 async def phase_evolve_relations(avatar_manager, living_avatars: list[Avatar]) -> list[Event]:
+    # 关系演化不是对每次互动都立即判定，而是先累计互动计数，
+    # 达到阈值后再按角色对批量决议一次。
     pairs_to_resolve: list[tuple[Avatar, Avatar]] = []
     processed_pairs: set[tuple[str, str]] = set()
 
@@ -62,6 +67,8 @@ async def phase_evolve_relations(avatar_manager, living_avatars: list[Avatar]) -
             processed_pairs.add(pair_key)
             pairs_to_resolve.append((avatar, target))
 
+            # 一旦进入本轮判定，就同时重置双方计数，
+            # 避免短时间内因为双向状态重复触发。
             state["count"] = 0
             state["checked_times"] += 1
 
@@ -77,6 +84,7 @@ async def phase_evolve_relations(avatar_manager, living_avatars: list[Avatar]) -
 
 
 def phase_update_calculated_relations(world, living_avatars: list[Avatar]) -> None:
+    # 二阶关系这类“计算型关系”成本较高，只在每年一月集中刷新一次。
     if world.month_stamp.get_month() != Month.JANUARY:
         return
 

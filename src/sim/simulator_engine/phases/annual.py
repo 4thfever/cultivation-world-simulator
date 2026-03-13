@@ -13,6 +13,12 @@ SECT_THINKING_INTERVAL_YEARS = 5
 
 
 async def run_annual_maintenance(simulator, ctx) -> None:
+    # 年度维护统一收口在这里，避免一月专属逻辑散落在 step() 的多个分支里。
+    # 顺序上保持：
+    # 1. 刷新排行榜
+    # 2. 更新宗门状态
+    # 3. 生成宗门年度思考
+    # 4. 清理长期死亡角色
     if not ctx.is_january:
         return
 
@@ -23,7 +29,7 @@ async def run_annual_maintenance(simulator, ctx) -> None:
     if sect_events:
         ctx.events.extend(sect_events)
 
-    ctx.events.extend(await simulator._phase_sect_yearly_thinking())
+    ctx.events.extend(await phase_sect_yearly_thinking(simulator))
 
     cleaned_count = world.avatar_manager.cleanup_long_dead_avatars(
         world.month_stamp,
@@ -38,6 +44,8 @@ async def phase_sect_yearly_thinking(simulator) -> list[Event]:
     if world.month_stamp.get_month() != Month.JANUARY:
         return []
 
+    # 宗门年度思考不是每年都跑，而是相对 start_year 按固定间隔触发，
+    # 这样可以控制 LLM 开销，也避免年更文本太密。
     current_year = int(world.month_stamp.get_year())
     start_year = int(getattr(world, "start_year", current_year))
     if current_year < start_year:
@@ -64,6 +72,7 @@ async def phase_sect_yearly_thinking(simulator) -> list[Event]:
 
     async def _decide_one(sect):
         try:
+            # 每个宗门单独构造决策上下文，并行生成 yearly_thinking。
             ctx = get_sect_decision_context(
                 sect=sect,
                 world=world,

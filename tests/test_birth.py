@@ -5,6 +5,7 @@ from src.classes.relation.relation import Relation
 from src.classes.core.avatar import Gender
 from src.utils.config import CONFIG
 from src.sim.simulator import Simulator
+from src.sim.simulator_engine.phases.lifecycle import phase_update_age_and_birth
 from src.systems.time import MonthStamp
 
 def test_couple_birth_logic(base_world, dummy_avatar):
@@ -61,7 +62,7 @@ def test_couple_birth_logic(base_world, dummy_avatar):
     
     with patch("random.random", return_value=0.0): # 确保概率判定通过
         living_avatars = base_world.avatar_manager.get_living_avatars()
-        events = sim._phase_update_age_and_birth(living_avatars)
+        events = phase_update_age_and_birth(base_world, living_avatars)
         
     # 5. 验证生成结果
     assert len(father.children) == 1
@@ -83,7 +84,7 @@ def test_couple_birth_logic(base_world, dummy_avatar):
     # 6. 验证上限 (再次运行不应新增，因为 max_children_per_couple = 1)
     with patch("random.random", return_value=0.0):
         living_avatars = base_world.avatar_manager.get_living_avatars()
-        sim._phase_update_age_and_birth(living_avatars)
+        phase_update_age_and_birth(base_world, living_avatars)
         
     assert len(father.children) == 1
     
@@ -107,7 +108,7 @@ def test_birth_time_restriction(base_world, dummy_avatar):
     
     with patch("random.random", return_value=0.0):
         living_avatars = base_world.avatar_manager.get_living_avatars()
-        sim._phase_update_age_and_birth(living_avatars)
+        phase_update_age_and_birth(base_world, living_avatars)
         
     assert len(father.children) == 0
 
