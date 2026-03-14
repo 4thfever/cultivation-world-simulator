@@ -40,6 +40,15 @@ msgstr "{avatar_name} 确定了自己的长期目标：{objective}"
 # ============================================================================
 # Sect 系统 - 宗门
 # ============================================================================
+msgid "Base effect"
+msgstr "基础效果"
+
+msgid "Sect random event"
+msgstr "宗门随机事件"
+
+msgid "Temporary effect"
+msgstr "临时效果"
+
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"
 

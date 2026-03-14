@@ -2829,6 +2829,15 @@ msgstr "{avatar_name} determined their long-term objective: {objective}"
 # ============================================================================
 # Sect System - Sects
 # ============================================================================
+msgid "Base effect"
+msgstr "Base effect"
+
+msgid "Sect random event"
+msgstr "Sect random event"
+
+msgid "Temporary effect"
+msgstr "Temporary effect"
+
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 

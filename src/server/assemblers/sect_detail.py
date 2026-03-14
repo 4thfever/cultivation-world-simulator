@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, List
 
 from src.classes.effect import format_effects_to_text
+from src.i18n import t
 from src.sim.managers.sect_manager import SectManager
 from src.systems.sect_relations import compute_sect_relations
 from src.utils.config import CONFIG
@@ -15,28 +16,13 @@ def _sect_runtime_source_label(source: str, language_manager: object) -> str:
     根据当前语言返回运行时宗门效果来源的可读标签。
     逻辑与 /api/detail 中 sect 分支保持一致。
     """
-    lang = str(language_manager)
     key = (source or "").strip().lower()
 
-    if lang == "zh-CN":
-        if key == "base":
-            return "基础效果"
-        if key == "sect_random_event":
-            return "宗门随机事件"
-        return source or "临时效果"
-
-    if lang == "zh-TW":
-        if key == "base":
-            return "基礎效果"
-        if key == "sect_random_event":
-            return "宗門隨機事件"
-        return source or "臨時效果"
-
     if key == "base":
-        return "Base effect"
+        return t("Base effect")
     if key == "sect_random_event":
-        return "Sect random event"
-    return source or "Temporary effect"
+        return t("Sect random event")
+    return source or t("Temporary effect")
 
 
 def build_sect_detail(sect: "Sect", world: "World", language_manager: object) -> Dict[str, Any]:
