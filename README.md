@@ -110,7 +110,7 @@
 无需配置环境，直接运行即可：
 
 ```bash
-git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+git clone https://github.com/4thfever/cultivation-world-simulator.git
 cd cultivation-world-simulator
 docker-compose up -d --build
 ```

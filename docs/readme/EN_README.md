@@ -110,7 +110,7 @@ If you have any questions or suggestions about the project, feel free to submit 
 No environment configuration needed, just run:
 
 ```bash
-git clone https://github.com/AI-Cultivation/cultivation-world-simulator.git
+git clone https://github.com/4thfever/cultivation-world-simulator.git
 cd cultivation-world-simulator
 docker-compose up -d --build
 ```

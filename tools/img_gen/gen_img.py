@@ -5,8 +5,7 @@ from datetime import datetime
 
 import requests
 
-# 全局配置：请在此处填入你的 DashScope API Key
-API_KEY = "sk-26818d3a4eb14b41a71f4d0319e4edfa"  # <-- 在此处粘贴你的 API Key
+# API Key 通过环境变量 DASHSCOPE_API_KEY 配置，勿提交到仓库
 BASE_URL = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
 MODEL = "qwen-image-plus"
 
@@ -21,13 +20,13 @@ def generate_qwen_image(prompt: str, *, size: str = "1328*1328") -> str:
     返回:
         base64 字符串（不带 data: 前缀），可自行解码保存为图片
     """
-
-    if not API_KEY:
-        raise RuntimeError("请先在代码顶部设置 API_KEY")
+    api_key = os.environ.get("DASHSCOPE_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("请设置环境变量 DASHSCOPE_API_KEY（DashScope API Key）")
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {API_KEY}",
+        "Authorization": f"Bearer {api_key}",
     }
     
     seed = random.randint(1, 4294967290)
