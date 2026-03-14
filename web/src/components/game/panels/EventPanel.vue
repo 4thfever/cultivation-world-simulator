@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, h } from 'vue'
+import { computed, ref, watch, nextTick, h, onMounted } from 'vue'
 import { useAvatarStore } from '../../../stores/avatar'
 import { useEventStore } from '../../../stores/event'
 import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
+import { useSectStore } from '../../../stores/sect'
 import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import { prependAllOption } from '../../../utils/selectOptions'
 import type { GameEvent } from '../../../types/core'
 import { useI18n } from 'vue-i18n'
 
@@ -15,6 +17,7 @@ const avatarStore = useAvatarStore()
 const eventStore = useEventStore()
 const uiStore = useUiStore()
 const mapStore = useMapStore()
+const sectStore = useSectStore()
 
 const filterValue1 = ref('all')
 const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛选
@@ -30,21 +33,13 @@ const filterOptions = computed(() => [
 ])
 
 const sectFilterOptions = computed(() => {
-  const sects = Array.from(mapStore.regions.values())
-    .filter(r => r.type === 'sect' && r.sect_id && (r as any).sect_is_active !== false)
-    .map(r => ({
-      label: r.sect_name ?? r.name,
-      value: r.sect_id as number
-    }))
-  
-  // 如果没有从字典中找到 key，回退到中文以防报错
-  const allLabel = t('game.event_panel.filter_all_sects')
-  const finalAllLabel = allLabel === 'game.event_panel.filter_all_sects' ? '所有宗门' : allLabel
-
-  return [
-    { label: finalAllLabel, value: 'all' },
-    ...sects
-  ]
+  return prependAllOption(
+    sectStore.activeSectOptions,
+    t('game.event_panel.filter_all_sects'),
+    'game.event_panel.filter_all_sects',
+    '所有宗门',
+    'all'
+  )
 })
 
 // 第二人的选项（排除第一人和"所有人"）
@@ -125,6 +120,34 @@ async function reloadEvents() {
     }
   })
 }
+
+onMounted(() => {
+  if (!sectStore.isLoaded && mapStore.isLoaded) {
+    void sectStore.refreshTerritories()
+  }
+})
+
+watch(
+  () => mapStore.isLoaded,
+  (isLoaded) => {
+    if (isLoaded && !sectStore.isLoaded && !sectStore.isLoading) {
+      void sectStore.refreshTerritories()
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => sectStore.activeSectOptions,
+  (options) => {
+    if (filterSectValue.value === 'all') return
+    const stillExists = options.some(option => option.value === filterSectValue.value)
+    if (!stillExists) {
+      filterSectValue.value = 'all'
+    }
+  },
+  { deep: true }
+)
 
 // 切换宗门筛选
 watch(filterSectValue, async (newVal) => {

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { Container, Graphics } from 'pixi.js'
 import { useMapStore } from '../../stores/map'
 import { useWorldStore } from '../../stores/world'
-import { worldApi } from '../../api'
-import type { SectTerritorySummaryDTO } from '../../types/api'
-import { logWarn } from '../../utils/appError'
+import { useSectStore } from '../../stores/sect'
 
 const props = defineProps<{
   width: number
@@ -16,10 +14,8 @@ const TILE_SIZE = 64
 const container = ref<Container>()
 const mapStore = useMapStore()
 const worldStore = useWorldStore()
-const sectTerritories = shallowRef<SectTerritorySummaryDTO[]>([])
-
 let influenceGraphics: Graphics | null = null
-let territoryRequestId = 0
+const sectStore = useSectStore()
 
 function hexToNumber(hex: string): number {
   if (!hex) return 0xffffff
@@ -43,14 +39,12 @@ function updateInfluence() {
   const g = influenceGraphics
   g.clear()
 
-  if (!sectTerritories.value.length) {
+  if (!sectStore.activeTerritories.length) {
     return
   }
 
   const regions = Array.from(mapStore.regions.values())
-  for (const summary of sectTerritories.value) {
-    if (!summary.is_active) continue
-
+  for (const summary of sectStore.activeTerritories) {
     const hqRegion = regions.find(
       (region) =>
         region.type === 'sect' &&
@@ -108,22 +102,6 @@ function updateInfluence() {
   }
 }
 
-async function refreshSectTerritories() {
-  const currentRequestId = ++territoryRequestId
-
-  try {
-    const response = await worldApi.fetchSectTerritories()
-    if (currentRequestId !== territoryRequestId) return
-    sectTerritories.value = response.sects ?? []
-    updateInfluence()
-  } catch (error) {
-    if (currentRequestId !== territoryRequestId) return
-    logWarn('SectInfluenceLayer fetch sect territories', error)
-    sectTerritories.value = []
-    updateInfluence()
-  }
-}
-
 onMounted(() => {
   if (container.value) {
     influenceGraphics = new Graphics()
@@ -133,7 +111,7 @@ onMounted(() => {
   }
 
   if (mapStore.isLoaded) {
-    void refreshSectTerritories()
+    void sectStore.refreshTerritories()
   }
 })
 
@@ -147,7 +125,7 @@ onUnmounted(() => {
 watch(
   () => [
     mapStore.regions,
-    sectTerritories.value
+    sectStore.activeTerritories
   ],
   () => {
     updateInfluence()
@@ -159,12 +137,13 @@ watch(
   () => [mapStore.isLoaded, worldStore.year, worldStore.month],
   ([mapLoaded]) => {
     if (!mapLoaded) {
-      sectTerritories.value = []
       updateInfluence()
       return
     }
 
-    void refreshSectTerritories()
+    if (!sectStore.isLoading) {
+      void sectStore.refreshTerritories()
+    }
   }
 )
 </script>

@@ -25,6 +25,17 @@ const uiStoreMock = {
 
 const mapStoreMock = reactive({
   regions: new Map<string | number, { id: string; name: string; type: string; sect_id?: number; sect_name?: string; sect_color?: string; x: number; y: number }>(),
+  isLoaded: true,
+})
+
+const sectStoreMock = reactive({
+  activeSectOptions: [
+    { label: '青云门', value: 1 },
+    { label: '天火宗', value: 2 },
+  ],
+  isLoaded: true,
+  isLoading: false,
+  refreshTerritories: vi.fn(async () => {}),
 })
 
 vi.mock('@/stores/avatar', () => ({
@@ -43,6 +54,10 @@ vi.mock('@/stores/map', () => ({
   useMapStore: () => mapStoreMock,
 }))
 
+vi.mock('@/stores/sect', () => ({
+  useSectStore: () => sectStoreMock,
+}))
+
 describe('EventPanel', () => {
   beforeEach(() => {
     eventStoreMock.events = []
@@ -51,6 +66,13 @@ describe('EventPanel', () => {
     eventStoreMock.resetEvents.mockClear()
     eventStoreMock.loadMoreEvents.mockClear()
     uiStoreMock.select.mockClear()
+    sectStoreMock.refreshTerritories.mockClear()
+    sectStoreMock.activeSectOptions = [
+      { label: '青云门', value: 1 },
+      { label: '天火宗', value: 2 },
+    ]
+    sectStoreMock.isLoaded = true
+    sectStoreMock.isLoading = false
     mapStoreMock.regions = new Map([
       ['r1', { id: 'r1', name: '明心山', type: 'sect', sect_id: 1, sect_name: '青云门', sect_color: '#4DD0E1', x: 10, y: 10 }],
       ['r2', { id: 'r2', name: '赤焰峰', type: 'sect', sect_id: 2, sect_name: '天火宗', sect_color: '#8D6E63', x: 20, y: 20 }],
@@ -67,6 +89,7 @@ describe('EventPanel', () => {
             event_panel: {
               title: 'Events',
               filter_all: 'All',
+              filter_all_sects: 'All sects',
               deceased: '(dead)',
               add_second: '+1',
               load_more: 'load',
@@ -98,7 +121,7 @@ describe('EventPanel', () => {
       locale: 'zh',
       messages: {
         zh: {
-          game: { event_panel: { title: 'Events', filter_all: 'All', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
+          game: { event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
           common: { loading: 'loading', year: '年', month: '月' },
         },
       },
@@ -136,7 +159,7 @@ describe('EventPanel', () => {
       locale: 'zh',
       messages: {
         zh: {
-          game: { event_panel: { title: 'Events', filter_all: 'All', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
+          game: { event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
           common: { loading: 'loading', year: '年', month: '月' },
         },
       },
@@ -204,6 +227,44 @@ describe('EventPanel', () => {
     const sectOptions = options.filter(o => o.value !== 'all')
     expect(sectOptions.map(o => o.label)).toContain('青云门')
     expect(sectOptions.map(o => o.label)).toContain('天火宗')
+  })
+
+  it('sect filter options only include active sects', () => {
+    sectStoreMock.activeSectOptions = [
+      { label: '青云门', value: 1 },
+    ]
+
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'zh',
+      messages: {
+        zh: {
+          game: {
+            event_panel: {
+              title: 'Events',
+              filter_all: 'All',
+              filter_all_sects: '所有宗门',
+              deceased: '(dead)',
+              add_second: '+1',
+              load_more: 'load',
+              empty_none: 'none',
+              empty_single: 'none',
+              empty_dual: 'none',
+            }
+          },
+          common: { loading: 'loading', year: '年', month: '月' },
+        }
+      }
+    })
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const sectSelect = wrapper.findComponent(NSelect)
+    const options = sectSelect.props('options') as Array<{ label: string; value: string | number }>
+    const sectOptions = options.filter(o => o.value !== 'all')
+    expect(sectOptions.map(o => o.label)).toEqual(['青云门'])
   })
 
   it('selecting sect filter calls resetEvents with sect_id', async () => {

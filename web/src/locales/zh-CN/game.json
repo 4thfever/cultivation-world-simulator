@@ -29,6 +29,7 @@
   "event_panel": {
     "title": "事件记录",
     "filter_all": "所有人",
+    "filter_all_sects": "所有宗门",
     "deceased": "(已故)",
     "add_second": "+ 添加第二人",
     "load_more": "向上滚动加载更多",

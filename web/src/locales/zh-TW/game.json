@@ -29,6 +29,7 @@
   "event_panel": {
     "title": "事件記錄",
     "filter_all": "所有人",
+    "filter_all_sects": "所有宗門",
     "deceased": "(已故)",
     "add_second": "+ 添加第二人",
     "load_more": "向上滾動載入更多",
@@ -189,6 +190,8 @@
       },
       "sections": {
         "intro": "宗門簡介",
+        "situation": "宗門態勢",
+        "rule": "門規",
         "hq": "駐地：{name}",
         "bonus": "宗門加成",
         "diplomacy": "外交局勢",
@@ -196,6 +199,19 @@
         "members": "門下弟子",
         "thinking": "宗門思考"
       },
+      "situation": {
+        "active_wars": "當前戰局",
+        "active_wars_value": "正在與 {count} 個宗門處於戰爭狀態",
+        "territory": "勢力範圍",
+        "territory_value": "當前控制 {tiles} 格勢力範圍，其中 {conflicts} 格為衝突區",
+        "income": "勢力收益",
+        "income_value": "每期預計獲得 {income} 靈石，平均每格收益 {perTile}",
+        "strongest_enemy": "首要敵對宗門",
+        "strongest_enemy_value": "{name}（關係值 {value}）"
+      },
+      "diplomacy_meta_relation": "關係值 {value}",
+      "diplomacy_last_battle": "最近交鋒月標 {month}",
+      "no_rule": "暫無明確門規說明",
       "no_bonus": "無特殊加成",
       "no_runtime_effect": "暫無當前生效的宗門效果",
       "runtime_effect_meta": "來源：{source} - 剩餘：{months}個月",

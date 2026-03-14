@@ -29,6 +29,7 @@
   "event_panel": {
     "title": "Event Logs",
     "filter_all": "All",
+    "filter_all_sects": "All Sects",
     "deceased": "(Deceased)",
     "add_second": "+ Add Second",
     "load_more": "Scroll up to load more",
@@ -189,6 +190,8 @@
       },
       "sections": {
         "intro": "Introduction",
+        "situation": "Sect Situation",
+        "rule": "Sect Rule",
         "hq": "HQ: {name}",
         "bonus": "Sect Bonus",
         "diplomacy": "Diplomatic Situation",
@@ -196,6 +199,19 @@
         "techniques": "Technique Library",
         "members": "Disciples"
       },
+      "situation": {
+        "active_wars": "Current Wars",
+        "active_wars_value": "Currently at war with {count} sect(s)",
+        "territory": "Territory",
+        "territory_value": "Currently controls {tiles} tiles of influence, with {conflicts} contested tile(s)",
+        "income": "Territory Income",
+        "income_value": "Expected income per cycle: {income} stones, averaging {perTile} per tile",
+        "strongest_enemy": "Primary Enemy Sect",
+        "strongest_enemy_value": "{name} (relation value {value})"
+      },
+      "diplomacy_meta_relation": "Relation value {value}",
+      "diplomacy_last_battle": "Last clash month stamp {month}",
+      "no_rule": "No explicit sect rule description",
       "no_bonus": "No special bonus",
       "no_runtime_effect": "No active sect runtime effects",
       "runtime_effect_meta": "Source: {source} - Remaining: {months} month(s)",
