@@ -24,7 +24,8 @@
   <img src="assets/zh-CN/screenshot.gif" alt="游戏演示" width="100%">
 </p>
 
-> **一个AI驱动的修仙世界模拟器，旨在创造一个真正活着的、有沉浸感的仙侠世界。**
+> **你将扮演“天道”，观察一个由规则系统与 AI 共同驱动的修仙世界自行演化。**
+> **全员 LLM 驱动、群像涌现叙事、支持 Docker 一键部署，也适合源码开发与二次创作。**
 
 <p align="center">
   <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank">
@@ -87,6 +88,49 @@
   </tr>
 </table>
 
+## 🚀 快速开始
+
+### 推荐方式
+
+- **想直接体验**：优先使用 Docker 一键部署。
+- **想改代码或调试**：使用源码部署，并准备 Python `3.10+`、Node.js `18+` 和可用的模型服务。
+
+### 首次启动说明
+
+- 服务启动后，浏览器会自动打开前端页面。
+- 首次进入后，建议先在设置页选择一个模型预设（如 DeepSeek / Ollama），再开始新游戏。
+
+### 方式一：Docker 一键部署（推荐）
+
+无需配置环境，直接运行即可：
+
+```bash
+git clone https://github.com/4thfever/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
+
+访问前端：`http://localhost:8123`
+
+### 方式二：源码部署（开发模式）
+
+适合需要修改代码或调试的开发者。
+
+1. **安装依赖并启动**
+   ```bash
+   # 1. 安装后端依赖
+   pip install -r requirements.txt
+
+   # 2. 安装前端依赖 (需 Node.js)
+   cd web && npm install && cd ..
+
+   # 3. 启动服务 (自动拉起前后端)
+   python src/server/main.py --dev
+   ```
+
+2. **配置模型**
+   在前端设置页选择模型预设（如 DeepSeek / Ollama）后，即可开始新游戏。配置会自动保存到用户数据目录。
+
 ### 💭 为什么要做这个？
 修仙网文中的世界很精彩，但读者永远只能观察到一隅。
 
@@ -103,39 +147,6 @@
 - **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
 - **Discord**: [加入社区](https://discord.gg/3Wnjvc7K)
 
-## 🚀 快速开始
-
-### 方式一：Docker 一键部署（推荐）
-
-无需配置环境，直接运行即可：
-
-```bash
-git clone https://github.com/4thfever/cultivation-world-simulator.git
-cd cultivation-world-simulator
-docker-compose up -d --build
-```
-
-访问地址：前端 `http://localhost:8123` | 后端 `http://localhost:8002`
-
-### 方式二：源码部署（开发模式）
-
-适合需要修改代码或调试的开发者。
-
-1. **环境准备与启动**
-   ```bash
-   # 1. 安装后端依赖
-   pip install -r requirements.txt
-
-   # 2. 安装前端依赖 (需 Node.js)
-   cd web && npm install && cd ..
-
-   # 3. 启动服务 (自动拉起前后端)
-   python src/server/main.py --dev
-   ```
-
-2. **模型配置**
-   服务启动后，浏览器会自动打开。**推荐直接在前端设置页面选择预设（如 DeepSeek/Ollama）**。配置会保存到用户数据目录中的 `settings.json` / `secrets.json`；如需自定义位置，可设置环境变量 `CWS_DATA_DIR`。
-
 ---
 
 ### 📱 高级功能
@@ -151,10 +162,6 @@ docker-compose up -d --build
 
 </details>
 
-
-## 📊 项目状态
-
-![Repobeats analytics](https://repobeats.axiom.co/api/embed/9ae55b4f9235d8504f633eae51ba834bf7ca9aae.svg "Repobeats analytics image")
 
 ## ⭐ Star History
 

@@ -24,7 +24,8 @@
   <img src="../../assets/zh-TW/screenshot.gif" alt="遊戲演示" width="100%">
 </p>
 
-> **一個 AI 驅動的修仙世界模擬器，旨在創造一個真正活著的、有沉浸感的仙俠世界。**
+> **你將扮演「天道」，觀察一個由規則系統與 AI 共同驅動的修仙世界自行演化。**
+> **全員 LLM 驅動、群像湧現敘事、支援 Docker 一鍵部署，也適合原始碼開發與二次創作。**
 
 <p align="center">
   <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank">
@@ -87,6 +88,49 @@
   </tr>
 </table>
 
+## 🚀 快速開始
+
+### 推薦方式
+
+- **想直接體驗**：優先使用 Docker 一鍵部署。
+- **想改程式碼或除錯**：使用原始碼部署，並準備 Python `3.10+`、Node.js `18+` 和可用的模型服務。
+
+### 首次啟動說明
+
+- 服務啟動後，瀏覽器會自動打開前端頁面。
+- 第一次進入後，建議先在設定頁選擇一個模型預設（如 DeepSeek / Ollama），再開始新遊戲。
+
+### 方式一：Docker 一鍵部署（推薦）
+
+無需配置環境，直接運行即可：
+
+```bash
+git clone https://github.com/4thfever/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
+
+訪問前端：`http://localhost:8123`
+
+### 方式二：源碼部署（開發模式）
+
+適合需要修改程式碼或調試的開發者。
+
+1. **安裝依賴並啟動**
+   ```bash
+   # 1. 安裝後端依賴
+   pip install -r requirements.txt
+
+   # 2. 安裝前端依賴 (需 Node.js)
+   cd web && npm install && cd ..
+
+   # 3. 啟動服務 (自動拉起前後端)
+   python src/server/main.py --dev
+   ```
+
+2. **配置模型**
+   在前端設定頁選擇模型預設（如 DeepSeek / Ollama）後，即可開始新遊戲。配置會自動保存到使用者資料目錄。
+
 ### 💭 為什麼要做這個？
 修仙網文中的世界很精彩，但讀者永遠只能觀察到一隅。
 
@@ -103,39 +147,6 @@
 - **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
 - **Discord**: [加入社群](https://discord.gg/3Wnjvc7K)
 
-## 🚀 快速開始
-
-### 方式一：Docker 一鍵部署（推薦）
-
-無需配置環境，直接運行即可：
-
-```bash
-git clone https://github.com/4thfever/cultivation-world-simulator.git
-cd cultivation-world-simulator
-docker-compose up -d --build
-```
-
-訪問地址：前端 `http://localhost:8123` | 後端 `http://localhost:8002`
-
-### 方式二：源碼部署（開發模式）
-
-適合需要修改程式碼或調試的開發者。
-
-1. **環境準備與啟動**
-   ```bash
-   # 1. 安裝後端依賴
-   pip install -r requirements.txt
-
-   # 2. 安裝前端依賴 (需 Node.js)
-   cd web && npm install && cd ..
-
-   # 3. 啟動服務 (自動拉起前後端)
-   python src/server/main.py --dev
-   ```
-
-2. **模型配置**
-   服務啟動後，瀏覽器會自動打開。**推薦直接在前端設置頁面選擇預設（如 DeepSeek/Ollama）**。配置會保存到使用者資料目錄中的 `settings.json` / `secrets.json`；如需自訂位置，可設定環境變數 `CWS_DATA_DIR`。
-
 ---
 
 ### 📱 高級功能
@@ -150,10 +161,6 @@ docker-compose up -d --build
 3. **訪問方式**：確保手機與電腦在同一 WiFi 下，訪問 `http://<電腦區域網路IP>:5173`。
 
 </details>
-
-## 📊 專案狀態
-
-![Repobeats analytics](https://repobeats.axiom.co/api/embed/9ae55b4f9235d8504f633eae51ba834bf7ca9aae.svg "Repobeats analytics image")
 
 ## ⭐ Star History
 

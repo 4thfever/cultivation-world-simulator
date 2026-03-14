@@ -24,7 +24,8 @@
   <img src="../../assets/en-US/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
-> **An AI-driven cultivation world simulator that aims to create a truly living, immersive xianxia world.**
+> **Play as the Heavenly Dao and watch a cultivation world evolve through rules and AI working together.**
+> **Fully LLM-driven NPCs, emergent ensemble storytelling, easy Docker setup, and a solid base for development and modding.**
 
 <p align="center">
   <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank">
@@ -87,6 +88,49 @@ You don't need to personally fight monsters or level up. Instead, you observe al
   </tr>
 </table>
 
+## 🚀 Quick Start
+
+### Recommended Path
+
+- **Just want to play**: Use Docker for the fastest setup.
+- **Want to modify code or debug**: Use the source setup and prepare Python `3.10+`, Node.js `18+`, and an available model service.
+
+### First Launch
+
+- After the service starts, the frontend page will open automatically in your browser.
+- On first launch, choose a model preset on the settings page, such as DeepSeek or Ollama, before starting a new game.
+
+### Option 1: Docker One-Click Deployment (Recommended)
+
+No environment configuration needed, just run:
+
+```bash
+git clone https://github.com/4thfever/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
+
+Open the frontend: `http://localhost:8123`
+
+### Option 2: Source Code Deployment (Development Mode)
+
+Suitable for developers who need to modify code or debug.
+
+1. **Install Dependencies and Start**
+   ```bash
+   # 1. Install backend dependencies
+   pip install -r requirements.txt
+
+   # 2. Install frontend dependencies (Node.js required)
+   cd web && npm install && cd ..
+
+   # 3. Start service (Automatically pulls up frontend and backend)
+   python src/server/main.py --dev
+   ```
+
+2. **Configure the Model**
+   Choose a model preset on the frontend settings page, such as DeepSeek or Ollama, and then start a new game. The configuration is saved automatically in the user data directory.
+
 ### 💭 Why make this?
 The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
 
@@ -103,39 +147,6 @@ If you have any questions or suggestions about the project, feel free to submit 
 - **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
 - **Discord**: [Join Community](https://discord.gg/3Wnjvc7K)
 
-## 🚀 Quick Start
-
-### Option 1: Docker One-Click Deployment (Recommended)
-
-No environment configuration needed, just run:
-
-```bash
-git clone https://github.com/4thfever/cultivation-world-simulator.git
-cd cultivation-world-simulator
-docker-compose up -d --build
-```
-
-Access Address: Frontend `http://localhost:8123` | Backend `http://localhost:8002`
-
-### Option 2: Source Code Deployment (Development Mode)
-
-Suitable for developers who need to modify code or debug.
-
-1. **Environment Setup & Start**
-   ```bash
-   # 1. Install backend dependencies
-   pip install -r requirements.txt
-
-   # 2. Install frontend dependencies (Node.js required)
-   cd web && npm install && cd ..
-
-   # 3. Start service (Automatically pulls up frontend and backend)
-   python src/server/main.py --dev
-   ```
-
-2. **Model Configuration**
-   The browser will open automatically after the service starts. **It is recommended to directly select presets (e.g., DeepSeek/Ollama) on the frontend settings page**. Settings are saved in `settings.json` / `secrets.json` under the user data directory; if needed, you can override the location with the `CWS_DATA_DIR` environment variable.
-
 ---
 
 ### 📱 Advanced Features
@@ -150,10 +161,6 @@ Suitable for developers who need to modify code or debug.
 3. **Access Method**: Ensure phone and computer are under the same WiFi, access `http://<Computer-LAN-IP>:5173`.
 
 </details>
-
-## 📊 Project Status
-
-![Repobeats analytics](https://repobeats.axiom.co/api/embed/9ae55b4f9235d8504f633eae51ba834bf7ca9aae.svg "Repobeats analytics image")
 
 ## ⭐ Star History
 
