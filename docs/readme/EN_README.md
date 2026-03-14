@@ -97,8 +97,8 @@ You don't need to personally fight monsters or level up. Instead, you observe al
 
 ### First Launch
 
-- After the service starts, the frontend page will open automatically in your browser.
-- On first launch, choose a model preset on the settings page, such as DeepSeek or Ollama, before starting a new game.
+- Whether you use Docker or the source setup, you need to configure an available model preset on the settings page, such as DeepSeek or Ollama, before starting a new game.
+- In development mode, the frontend page usually opens automatically. If it does not, use the frontend URL shown in the startup logs.
 
 ### Option 1: Docker One-Click Deployment (Recommended)
 
@@ -130,6 +130,9 @@ Suitable for developers who need to modify code or debug.
 
 2. **Configure the Model**
    Choose a model preset on the frontend settings page, such as DeepSeek or Ollama, and then start a new game. The configuration is saved automatically in the user data directory.
+
+3. **Open the Frontend**
+   Development mode starts the frontend dev server automatically. Open the frontend URL shown in the startup logs, which is usually `http://localhost:5173`.
 
 ### 📱 Advanced Features
 
