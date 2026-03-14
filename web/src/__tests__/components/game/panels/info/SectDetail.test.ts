@@ -27,11 +27,14 @@ function createTestI18n() {
                 preferred: 'Preferred Weapon',
                 members: 'Members',
                 total_battle_strength: 'Total Battle Strength',
+                war_status: 'War Status',
+                strongest_enemy: 'Strongest Enemy',
+                income: 'Income',
+                income_value: '{income}/turn',
                 magic_stone: 'Magic Stone',
               },
               sections: {
                 intro: 'Intro',
-                situation: 'Situation',
                 rule: 'Rule',
                 hq: 'HQ - {name}',
                 bonus: 'Bonus',
@@ -84,6 +87,17 @@ describe('SectDetail', () => {
           runtime_effect_items: [],
           diplomacy_items: [],
           yearly_thinking: '',
+          war_summary: {
+            active_war_count: 0,
+            peace_count: 0,
+            strongest_enemy_name: '',
+            strongest_enemy_relation: 0,
+          },
+          economy_summary: {
+            current_magic_stone: 0,
+            effective_income_per_tile: 0,
+            controlled_tile_income: 0,
+          },
         } as any,
       },
       global: {
@@ -130,6 +144,17 @@ describe('SectDetail', () => {
           is_permanent: false,
         },
       ],
+      war_summary: {
+        active_war_count: 1,
+        peace_count: 1,
+        strongest_enemy_name: 'Enemy Sect',
+        strongest_enemy_relation: -12,
+      },
+      economy_summary: {
+        current_magic_stone: 100,
+        effective_income_per_tile: 10,
+        controlled_tile_income: 850.4,
+      },
       diplomacy_items: [
         {
           other_sect_id: 2,
@@ -173,9 +198,11 @@ describe('SectDetail', () => {
     const text = wrapper.text()
     expect(text).toContain('100')
     expect(text).toContain('2500')
+    expect(text).toContain('War')
+    expect(text).toContain('Enemy Sect')
+    expect(text).toContain('850/turn')
     expect(text).toContain('Extra income per tile +0.8')
     expect(text).toContain('Sect random event remains for 60 months')
-    expect(text).toContain('Enemy Sect')
     expect(text).toContain('At war for 1 years')
     expect(text).toContain('Neutral Sect')
     expect(text).toContain('At peace for 3 years')

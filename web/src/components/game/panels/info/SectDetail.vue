@@ -31,57 +31,28 @@ function showDetail(item: EffectEntity | undefined) {
 
 const alignmentText = props.data.alignment;
 
-const situationRows = computed(() => {
-  const rows: Array<{ label: string; value: string }> = [];
-
-  if (props.data.war_summary) {
-    rows.push({
-      label: t('game.info_panel.sect.situation.active_wars'),
-      value: t('game.info_panel.sect.situation.active_wars_value', {
-        count: props.data.war_summary.active_war_count,
-      }),
-    });
-  }
-
-  if (props.data.territory_summary) {
-    rows.push({
-      label: t('game.info_panel.sect.situation.territory'),
-      value: t('game.info_panel.sect.situation.territory_value', {
-        tiles: props.data.territory_summary.tile_count,
-        conflicts: props.data.territory_summary.conflict_tile_count,
-      }),
-    });
-  }
-
-  if (props.data.economy_summary) {
-    rows.push({
-      label: t('game.info_panel.sect.situation.income'),
-      value: t('game.info_panel.sect.situation.income_value', {
-        income: Math.floor(props.data.economy_summary.controlled_tile_income),
-        perTile: props.data.economy_summary.effective_income_per_tile.toFixed(1),
-      }),
-    });
-  }
-
-  if (props.data.war_summary?.strongest_enemy_name) {
-    rows.push({
-      label: t('game.info_panel.sect.situation.strongest_enemy'),
-      value: t('game.info_panel.sect.situation.strongest_enemy_value', {
-        name: props.data.war_summary.strongest_enemy_name,
-        value: props.data.war_summary.strongest_enemy_relation,
-      }),
-    });
-  }
-
-  return rows;
-});
-
 const ruleText = computed(() => {
   if (!props.data.rule_desc) {
     return t('game.info_panel.sect.no_rule');
   }
   return props.data.rule_desc;
 });
+
+const warStatusText = computed(() => (
+  (props.data.war_summary?.active_war_count ?? 0) > 0
+    ? t('game.sect_relations.status_war')
+    : t('game.sect_relations.status_peace')
+));
+
+const strongestEnemyText = computed(() => (
+  props.data.war_summary?.strongest_enemy_name || t('common.none')
+));
+
+const incomeText = computed(() => (
+  t('game.info_panel.sect.stats.income_value', {
+    income: Math.floor(props.data.economy_summary?.controlled_tile_income || 0),
+  })
+));
 
 const simplifiedDiplomacyItems = computed(() => {
   const items = [...(props.data.diplomacy_items ?? [])];
@@ -143,6 +114,9 @@ function getDiplomacySub(item: DiplomacyItem) {
           <StatItem :label="t('game.info_panel.sect.stats.preferred')" :value="data.preferred_weapon || t('common.none')" />
           <StatItem :label="t('game.info_panel.sect.stats.members')" :value="data.members?.length || 0" />
           <StatItem :label="t('game.info_panel.sect.stats.total_battle_strength')" :value="Math.floor(data.total_battle_strength || 0)" />
+          <StatItem :label="t('game.info_panel.sect.stats.war_status')" :value="warStatusText" />
+          <StatItem :label="t('game.info_panel.sect.stats.strongest_enemy')" :value="strongestEnemyText" />
+          <StatItem :label="t('game.info_panel.sect.stats.income')" :value="incomeText" />
           <StatItem :label="t('game.info_panel.sect.stats.magic_stone')" :value="data.magic_stone || 0" />
        </div>
 
@@ -150,20 +124,6 @@ function getDiplomacySub(item: DiplomacyItem) {
        <div class="section">
           <div class="section-title">{{ t('game.info_panel.sect.sections.intro') }}</div>
           <div class="text-content">{{ data.desc }}</div>
-       </div>
-
-       <div v-if="situationRows.length" class="section">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.situation') }}</div>
-          <div class="situation-list">
-            <div
-              v-for="row in situationRows"
-              :key="row.label"
-              class="situation-item"
-            >
-              <div class="situation-label">{{ row.label }}</div>
-              <div class="situation-value">{{ row.value }}</div>
-            </div>
-          </div>
        </div>
 
        <div class="section">
@@ -342,31 +302,6 @@ function getDiplomacySub(item: DiplomacyItem) {
   margin-top: 8px;
   font-size: 12px;
   color: #9aa5b1;
-}
-
-.situation-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.situation-item {
-  padding: 8px 10px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.situation-label {
-  font-size: 11px;
-  color: #8f98a3;
-  margin-bottom: 4px;
-}
-
-.situation-value {
-  font-size: 13px;
-  color: #e5edf5;
-  line-height: 1.5;
 }
 
 .rule-content {
