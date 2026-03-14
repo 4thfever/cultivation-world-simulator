@@ -131,6 +131,19 @@ Suitable for developers who need to modify code or debug.
 2. **Configure the Model**
    Choose a model preset on the frontend settings page, such as DeepSeek or Ollama, and then start a new game. The configuration is saved automatically in the user data directory.
 
+### 📱 Advanced Features
+
+<details>
+<summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>
+
+> ⚠️ Mobile UI is not fully adapted yet, for early access only.
+
+1. **Backend Config**: Prefer starting the backend with an environment variable, for example in PowerShell: `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`. If you need to change the default value, edit the read-only config `static/config.yml` and set `system.host`.
+2. **Frontend Config**: Modify `web/vite.config.ts`, add `host: '0.0.0.0'` in the server block.
+3. **Access Method**: Ensure phone and computer are under the same WiFi, access `http://<Computer-LAN-IP>:5173`.
+
+</details>
+
 ### 💭 Why make this?
 The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
 
@@ -148,19 +161,6 @@ If you have any questions or suggestions about the project, feel free to submit 
 - **Discord**: [Join Community](https://discord.gg/3Wnjvc7K)
 
 ---
-
-### 📱 Advanced Features
-
-<details>
-<summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>
-
-> ⚠️ Mobile UI is not fully adapted yet, for early access only.
-
-1. **Backend Config**: Prefer starting the backend with an environment variable, for example in PowerShell: `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`. If you need to change the default value, edit the read-only config `static/config.yml` and set `system.host`.
-2. **Frontend Config**: Modify `web/vite.config.ts`, add `host: '0.0.0.0'` in the server block.
-3. **Access Method**: Ensure phone and computer are under the same WiFi, access `http://<Computer-LAN-IP>:5173`.
-
-</details>
 
 ## ⭐ Star History
 

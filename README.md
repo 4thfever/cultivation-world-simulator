@@ -131,6 +131,19 @@ docker-compose up -d --build
 2. **配置模型**
    在前端设置页选择模型预设（如 DeepSeek / Ollama）后，即可开始新游戏。配置会自动保存到用户数据目录。
 
+### 📱 高级功能
+
+<details>
+<summary><b>局域网/手机访问配置 (点击展开)</b></summary>
+
+> ⚠️ 移动端 UI 暂未完全适配，仅供尝鲜。
+
+1. **后端配置**：推荐通过环境变量启动后端，例如 PowerShell 中执行 `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`。如需改默认值，可编辑只读配置 `static/config.yml` 中的 `system.host`。
+2. **前端配置**：修改 `web/vite.config.ts`，在 server 块中添加 `host: '0.0.0.0'`。
+3. **访问方式**：确保手机与电脑在同一 WiFi 下，访问 `http://<电脑局域网IP>:5173`。
+
+</details>
+
 ### 💭 为什么要做这个？
 修仙网文中的世界很精彩，但读者永远只能观察到一隅。
 
@@ -148,19 +161,6 @@ docker-compose up -d --build
 - **Discord**: [加入社区](https://discord.gg/3Wnjvc7K)
 
 ---
-
-### 📱 高级功能
-
-<details>
-<summary><b>局域网/手机访问配置 (点击展开)</b></summary>
-
-> ⚠️ 移动端 UI 暂未完全适配，仅供尝鲜。
-
-1. **后端配置**：推荐通过环境变量启动后端，例如 PowerShell 中执行 `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`。如需改默认值，可编辑只读配置 `static/config.yml` 中的 `system.host`。
-2. **前端配置**：修改 `web/vite.config.ts`，在 server 块中添加 `host: '0.0.0.0'`。
-3. **访问方式**：确保手机与电脑在同一 WiFi 下，访问 `http://<电脑局域网IP>:5173`。
-
-</details>
 
 
 ## ⭐ Star History
