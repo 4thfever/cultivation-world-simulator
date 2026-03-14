@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 import { Container, Graphics } from 'pixi.js'
-import { useUiStore } from '../../stores/ui'
-import type { SectDetail } from '../../types/core'
 import { useMapStore } from '../../stores/map'
+import { useWorldStore } from '../../stores/world'
+import { worldApi } from '../../api'
+import type { SectTerritorySummaryDTO } from '../../types/api'
+import { logWarn } from '../../utils/appError'
 
 const props = defineProps<{
   width: number
@@ -12,10 +14,12 @@ const props = defineProps<{
 
 const TILE_SIZE = 64
 const container = ref<Container>()
-const uiStore = useUiStore()
 const mapStore = useMapStore()
+const worldStore = useWorldStore()
+const sectTerritories = shallowRef<SectTerritorySummaryDTO[]>([])
 
 let influenceGraphics: Graphics | null = null
+let territoryRequestId = 0
 
 function hexToNumber(hex: string): number {
   if (!hex) return 0xffffff
@@ -38,70 +42,85 @@ function updateInfluence() {
   
   const g = influenceGraphics
   g.clear()
-  
-  const target = uiStore.selectedTarget
-  const detail = uiStore.detailData as SectDetail | null
-  
-  if (!target || target.type !== 'sect' || !detail || detail.influence_radius === undefined) {
+
+  if (!sectTerritories.value.length) {
     return
   }
 
-  // Find the region for this sect to get the central coordinates
   const regions = Array.from(mapStore.regions.values())
-  // Use loose equality or string conversion since id from target could be string
-  const hqRegion = regions.find(r => r.type === 'sect' && String(r.sect_id) === String(target.id))
-  
-  if (!hqRegion) return
-  
-  const centerX = hqRegion.x
-  const centerY = hqRegion.y
-  const radius = detail.influence_radius
-  
-  // Calculate color
-  const colorNum = hexToNumber(detail.color)
+  for (const summary of sectTerritories.value) {
+    if (!summary.is_active) continue
 
-  const inRange = (ax: number, ay: number) => Math.abs(ax) + Math.abs(ay) <= radius
-  const isBoundary = (dx: number, dy: number) =>
-    !inRange(dx + 1, dy) || !inRange(dx - 1, dy) || !inRange(dx, dy + 1) || !inRange(dx, dy - 1)
+    const hqRegion = regions.find(
+      (region) =>
+        region.type === 'sect' &&
+        region.sect_is_active !== false &&
+        String(region.sect_id) === String(summary.id)
+    )
+    if (!hqRegion) continue
 
-  // 1. 填充势力范围（半透明）
-  g.setStrokeStyle(0)
-  for (let dx = -radius; dx <= radius; dx++) {
-    for (let dy = -radius; dy <= radius; dy++) {
-      if (inRange(dx, dy)) {
-        const tileX = centerX + dx
-        const tileY = centerY + dy
-        g.rect(tileX * TILE_SIZE, tileY * TILE_SIZE, TILE_SIZE, TILE_SIZE)
-          .fill({ color: colorNum, alpha: 0.7 })
+    const centerX = hqRegion.x
+    const centerY = hqRegion.y
+    const radius = summary.influence_radius
+    if (radius < 0) continue
+
+    const colorNum = hexToNumber(summary.color)
+    const inRange = (ax: number, ay: number) => Math.abs(ax) + Math.abs(ay) <= radius
+    const isBoundary = (dx: number, dy: number) =>
+      !inRange(dx + 1, dy) || !inRange(dx - 1, dy) || !inRange(dx, dy + 1) || !inRange(dx, dy - 1)
+
+    g.setStrokeStyle(0)
+    for (let dx = -radius; dx <= radius; dx++) {
+      for (let dy = -radius; dy <= radius; dy++) {
+        if (inRange(dx, dy)) {
+          const tileX = centerX + dx
+          const tileY = centerY + dy
+          g.rect(tileX * TILE_SIZE, tileY * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+            .fill({ color: colorNum, alpha: 0.38 })
+        }
+      }
+    }
+
+    const BORDER_WIDTH = 6
+    const borderColor = brightenColor(colorNum, 0.92)
+    const strokeOpt = { width: BORDER_WIDTH, color: borderColor, alpha: 1 }
+    for (let dx = -radius; dx <= radius; dx++) {
+      for (let dy = -radius; dy <= radius; dy++) {
+        if (!inRange(dx, dy) || !isBoundary(dx, dy)) continue
+        const px = (centerX + dx) * TILE_SIZE
+        const py = (centerY + dy) * TILE_SIZE
+        const pr = px + TILE_SIZE
+        const pb = py + TILE_SIZE
+        if (!inRange(dx + 1, dy)) {
+          g.moveTo(pr, py).lineTo(pr, pb).stroke(strokeOpt)
+        }
+        if (!inRange(dx - 1, dy)) {
+          g.moveTo(px, py).lineTo(px, pb).stroke(strokeOpt)
+        }
+        if (!inRange(dx, dy + 1)) {
+          g.moveTo(px, pb).lineTo(pr, pb).stroke(strokeOpt)
+        }
+        if (!inRange(dx, dy - 1)) {
+          g.moveTo(px, py).lineTo(pr, py).stroke(strokeOpt)
+        }
       }
     }
   }
+}
 
-  // 2. 只在外圈格子的「外侧」画粗边框，用提亮版宗门色更显眼
-  const BORDER_WIDTH = 8
-  const borderColor = brightenColor(colorNum, 0.55)
-  const strokeOpt = { width: BORDER_WIDTH, color: borderColor, alpha: 1 }
-  for (let dx = -radius; dx <= radius; dx++) {
-    for (let dy = -radius; dy <= radius; dy++) {
-      if (!inRange(dx, dy) || !isBoundary(dx, dy)) continue
-      const px = (centerX + dx) * TILE_SIZE
-      const py = (centerY + dy) * TILE_SIZE
-      const pr = px + TILE_SIZE
-      const pb = py + TILE_SIZE
-      // 仅在与「外部」相邻的那一侧画线
-      if (!inRange(dx + 1, dy)) {
-        g.moveTo(pr, py).lineTo(pr, pb).stroke(strokeOpt)
-      }
-      if (!inRange(dx - 1, dy)) {
-        g.moveTo(px, py).lineTo(px, pb).stroke(strokeOpt)
-      }
-      if (!inRange(dx, dy + 1)) {
-        g.moveTo(px, pb).lineTo(pr, pb).stroke(strokeOpt)
-      }
-      if (!inRange(dx, dy - 1)) {
-        g.moveTo(px, py).lineTo(pr, py).stroke(strokeOpt)
-      }
-    }
+async function refreshSectTerritories() {
+  const currentRequestId = ++territoryRequestId
+
+  try {
+    const response = await worldApi.fetchSectTerritories()
+    if (currentRequestId !== territoryRequestId) return
+    sectTerritories.value = response.sects ?? []
+    updateInfluence()
+  } catch (error) {
+    if (currentRequestId !== territoryRequestId) return
+    logWarn('SectInfluenceLayer fetch sect territories', error)
+    sectTerritories.value = []
+    updateInfluence()
   }
 }
 
@@ -111,6 +130,10 @@ onMounted(() => {
     influenceGraphics.eventMode = 'none'
     container.value.addChild(influenceGraphics)
     updateInfluence()
+  }
+
+  if (mapStore.isLoaded) {
+    void refreshSectTerritories()
   }
 })
 
@@ -123,13 +146,26 @@ onUnmounted(() => {
 
 watch(
   () => [
-    uiStore.selectedTarget, 
-    uiStore.detailData
+    mapStore.regions,
+    sectTerritories.value
   ],
   () => {
     updateInfluence()
   },
   { deep: true }
+)
+
+watch(
+  () => [mapStore.isLoaded, worldStore.year, worldStore.month],
+  ([mapLoaded]) => {
+    if (!mapLoaded) {
+      sectTerritories.value = []
+      updateInfluence()
+      return
+    }
+
+    void refreshSectTerritories()
+  }
 )
 </script>
 

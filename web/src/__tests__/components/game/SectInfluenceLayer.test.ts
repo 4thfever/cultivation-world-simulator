@@ -14,11 +14,33 @@ function countDiamondTiles(radius: number): number {
   return n
 }
 
+function countBoundaryTiles(radius: number): number {
+  let n = 0
+  const inRange = (ax: number, ay: number) => Math.abs(ax) + Math.abs(ay) <= radius
+  const isBoundary = (dx: number, dy: number) =>
+    !inRange(dx + 1, dy) || !inRange(dx - 1, dy) || !inRange(dx, dy + 1) || !inRange(dx, dy - 1)
+
+  for (let dx = -radius; dx <= radius; dx++) {
+    for (let dy = -radius; dy <= radius; dy++) {
+      if (inRange(dx, dy) && isBoundary(dx, dy)) n++
+    }
+  }
+
+  return n
+}
+
 describe('SectInfluenceLayer', () => {
   it('diamond tile count for influence_radius matches drawing loop', () => {
     expect(countDiamondTiles(0)).toBe(1)
     expect(countDiamondTiles(1)).toBe(5)
     expect(countDiamondTiles(2)).toBe(13)
     expect(countDiamondTiles(3)).toBe(25)
+  })
+
+  it('boundary tile count grows as expected for the diamond outline', () => {
+    expect(countBoundaryTiles(0)).toBe(1)
+    expect(countBoundaryTiles(1)).toBe(4)
+    expect(countBoundaryTiles(2)).toBe(8)
+    expect(countBoundaryTiles(3)).toBe(12)
   })
 })

@@ -1131,6 +1131,38 @@ def get_sect_relations():
     return {"relations": relations}
 
 
+@app.get("/api/sects/territories")
+def get_sect_territories():
+    """
+    获取当前活跃宗门的势力范围摘要，供地图常驻渲染使用。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"sects": []}
+
+    sim = game_instance.get("sim")
+    sect_manager = getattr(sim, "sect_manager", None)
+    if sect_manager is None:
+        from src.sim.managers.sect_manager import SectManager
+        sect_manager = SectManager(world)
+
+    from src.sim.managers.sect_manager import SectManager as SectManagerType
+    assert isinstance(sect_manager, SectManagerType)
+
+    snapshot = sect_manager.get_snapshot()
+    sects = [
+        {
+            "id": int(sect.id),
+            "name": sect.name,
+            "color": str(getattr(sect, "color", "#FFFFFF") or "#FFFFFF"),
+            "influence_radius": int(getattr(sect, "influence_radius", 0)),
+            "is_active": bool(getattr(sect, "is_active", True)),
+        }
+        for sect in snapshot.active_sects
+    ]
+    return {"sects": sects}
+
+
 @app.post("/api/control/reset")
 def reset_game():
     """重置游戏到 Idle 状态（回到主菜单）"""

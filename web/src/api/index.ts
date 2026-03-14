@@ -16,5 +16,6 @@ export type {
   PhenomenonDTO,
   GameStartConfigDTO,
   EventDTO,
-  EventsResponseDTO
+  EventsResponseDTO,
+  SectTerritoriesResponseDTO
 } from '../types/api';

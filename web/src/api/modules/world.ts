@@ -5,6 +5,7 @@ import type {
   PhenomenonDTO,
   RankingsDTO,
   SectRelationsResponseDTO,
+  SectTerritoriesResponseDTO,
 } from '../../types/api';
 import { normalizeRankingsResponse } from '../mappers/world';
 
@@ -32,5 +33,9 @@ export const worldApi = {
 
   fetchSectRelations() {
     return httpClient.get<SectRelationsResponseDTO>('/api/sect-relations');
+  },
+
+  fetchSectTerritories() {
+    return httpClient.get<SectTerritoriesResponseDTO>('/api/sects/territories');
   },
 };

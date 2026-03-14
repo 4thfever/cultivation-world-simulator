@@ -274,6 +274,18 @@ export interface SectRelationsResponseDTO {
   relations: SectRelationDTO[];
 }
 
+export interface SectTerritorySummaryDTO {
+  id: number;
+  name: string;
+  color: string;
+  influence_radius: number;
+  is_active: boolean;
+}
+
+export interface SectTerritoriesResponseDTO {
+  sects: SectTerritorySummaryDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = 'zh-CN' | 'en-US' | string;
 
