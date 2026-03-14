@@ -17,6 +17,7 @@ const props = defineProps<{
 
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
+const MAX_DIPLOMACY_ITEMS = 4;
 
 function jumpToAvatar(id: string) {
   uiStore.select('avatar', id);
@@ -82,6 +83,25 @@ const ruleText = computed(() => {
   return props.data.rule_desc;
 });
 
+const simplifiedDiplomacyItems = computed(() => {
+  const items = [...(props.data.diplomacy_items ?? [])];
+  return items
+    .sort((a, b) => {
+      if (a.status === 'war' && b.status !== 'war') {
+        return -1;
+      }
+      if (a.status !== 'war' && b.status === 'war') {
+        return 1;
+      }
+      return (a.relation_value ?? 0) - (b.relation_value ?? 0);
+    })
+    .slice(0, MAX_DIPLOMACY_ITEMS);
+});
+
+function getDurationYears(months: number) {
+  return Math.max(0, Math.floor((months || 0) / 12));
+}
+
 function getDiplomacyMeta(item: DiplomacyItem) {
   const statusKey = item.status === 'war'
     ? 'game.sect_relations.status_war'
@@ -95,22 +115,11 @@ function getDiplomacyMeta(item: DiplomacyItem) {
 }
 
 function getDiplomacySub(item: DiplomacyItem) {
-  const parts = [
-    t('game.sect_relations.duration_months', { count: item.duration_months }),
-  ];
-  if (item.last_battle_month) {
-    parts.push(
-      t('game.info_panel.sect.diplomacy_last_battle', {
-        month: item.last_battle_month,
-      }),
-    );
-  }
-  if (item.war_reason) {
-    parts.push(item.war_reason);
-  } else if (item.reason_summary) {
-    parts.push(item.reason_summary);
-  }
-  return parts.join(' · ');
+  const years = getDurationYears(item.duration_months);
+  const durationKey = item.status === 'war'
+    ? 'game.info_panel.sect.diplomacy_war_years'
+    : 'game.info_panel.sect.diplomacy_peace_years';
+  return t(durationKey, { count: years });
 }
 </script>
 
@@ -134,7 +143,6 @@ function getDiplomacySub(item: DiplomacyItem) {
           <StatItem :label="t('game.info_panel.sect.stats.preferred')" :value="data.preferred_weapon || t('common.none')" />
           <StatItem :label="t('game.info_panel.sect.stats.members')" :value="data.members?.length || 0" />
           <StatItem :label="t('game.info_panel.sect.stats.total_battle_strength')" :value="Math.floor(data.total_battle_strength || 0)" />
-          <StatItem :label="t('game.info_panel.sect.stats.influence_radius')" :value="data.influence_radius || 0" />
           <StatItem :label="t('game.info_panel.sect.stats.magic_stone')" :value="data.magic_stone || 0" />
        </div>
 
@@ -168,11 +176,11 @@ function getDiplomacySub(item: DiplomacyItem) {
           <div class="text-content thinking-text-content">{{ data.yearly_thinking }}</div>
        </div>
 
-       <div class="section" v-if="data.diplomacy_items?.length">
+       <div class="section" v-if="simplifiedDiplomacyItems.length">
           <div class="section-title">{{ t('game.info_panel.sect.sections.diplomacy') }}</div>
           <div class="list-container">
              <RelationRow
-               v-for="item in data.diplomacy_items"
+               v-for="item in simplifiedDiplomacyItems"
                :key="item.other_sect_id"
                :name="item.other_sect_name"
                :meta="getDiplomacyMeta(item)"

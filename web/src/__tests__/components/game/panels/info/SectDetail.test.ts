@@ -17,7 +17,6 @@ function createTestI18n() {
           sect_relations: {
             status_war: 'War',
             status_peace: 'Peace',
-            duration_months: '{count} months',
           },
           info_panel: {
             sect: {
@@ -28,11 +27,12 @@ function createTestI18n() {
                 preferred: 'Preferred Weapon',
                 members: 'Members',
                 total_battle_strength: 'Total Battle Strength',
-                influence_radius: 'Influence Radius',
                 magic_stone: 'Magic Stone',
               },
               sections: {
                 intro: 'Intro',
+                situation: 'Situation',
+                rule: 'Rule',
                 hq: 'HQ - {name}',
                 bonus: 'Bonus',
                 diplomacy: 'Diplomacy',
@@ -40,7 +40,11 @@ function createTestI18n() {
                 techniques: 'Techniques',
                 members: 'Members',
               },
+              diplomacy_meta_relation: 'Relation value {value}',
+              diplomacy_war_years: 'At war for {count} years',
+              diplomacy_peace_years: 'At peace for {count} years',
               no_bonus: 'No bonus',
+              no_rule: 'No rule',
               no_runtime_effect: 'No active runtime effect',
               runtime_effect_meta: '{source} remains for {months} months',
               runtime_effect_meta_permanent: '{source} is permanent',
@@ -76,7 +80,6 @@ describe('SectDetail', () => {
           hq_desc: 'HQ desc',
           effect_desc: '',
           total_battle_strength: 0,
-          influence_radius: 0,
           magic_stone: 0,
           runtime_effect_items: [],
           diplomacy_items: [],
@@ -117,7 +120,6 @@ describe('SectDetail', () => {
       magic_stone: 100,
       is_active: true,
       total_battle_strength: 2500.7,
-      influence_radius: 3,
       color: '#ff0000',
       runtime_effect_items: [
         {
@@ -136,6 +138,16 @@ describe('SectDetail', () => {
           duration_months: 18,
           war_months: 18,
           peace_months: 0,
+          relation_value: -12,
+        },
+        {
+          other_sect_id: 3,
+          other_sect_name: 'Neutral Sect',
+          status: 'peace',
+          duration_months: 36,
+          war_months: 0,
+          peace_months: 36,
+          relation_value: 0,
         },
       ],
       yearly_thinking: '我宗观天下势力分化加剧，当先稳住边界与资源脉络，再图联盟突破，以争中局主动。',
@@ -161,10 +173,13 @@ describe('SectDetail', () => {
     const text = wrapper.text()
     expect(text).toContain('100')
     expect(text).toContain('2500')
-    expect(text).toContain('3')
     expect(text).toContain('Extra income per tile +0.8')
     expect(text).toContain('Sect random event remains for 60 months')
     expect(text).toContain('Enemy Sect')
+    expect(text).toContain('At war for 1 years')
+    expect(text).toContain('Neutral Sect')
+    expect(text).toContain('At peace for 3 years')
     expect(text).toContain('我宗观天下势力分化加剧')
+    expect(text).not.toContain('18 months')
   })
 })

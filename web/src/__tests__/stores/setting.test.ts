@@ -78,31 +78,36 @@ import { useSettingStore } from '@/stores/setting'
 
 describe('useSettingStore', () => {
   let store: ReturnType<typeof useSettingStore>
+  let currentSettings: typeof baseSettings
 
   beforeEach(() => {
     vi.clearAllMocks()
     mockI18nLocale = { value: 'zh-CN' }
     mockI18nMode = 'composition'
-    mockFetchSettings.mockResolvedValue(clone(baseSettings))
-    mockPatchSettings.mockImplementation(async (patch: any) => ({
-      ...clone(baseSettings),
-      ui: {
-        ...clone(baseSettings.ui),
-        ...(patch.ui || {}),
-        audio: {
-          ...clone(baseSettings.ui.audio),
-          ...(patch.ui?.audio || {}),
+    currentSettings = clone(baseSettings)
+    mockFetchSettings.mockImplementation(async () => clone(currentSettings))
+    mockPatchSettings.mockImplementation(async (patch: any) => {
+      currentSettings = {
+        ...clone(currentSettings),
+        ui: {
+          ...clone(currentSettings.ui),
+          ...(patch.ui || {}),
+          audio: {
+            ...clone(currentSettings.ui.audio),
+            ...(patch.ui?.audio || {}),
+          },
         },
-      },
-      simulation: {
-        ...clone(baseSettings.simulation),
-        ...(patch.simulation || {}),
-      },
-      new_game_defaults: {
-        ...clone(baseSettings.new_game_defaults),
-        ...(patch.new_game_defaults || {}),
-      },
-    }))
+        simulation: {
+          ...clone(currentSettings.simulation),
+          ...(patch.simulation || {}),
+        },
+        new_game_defaults: {
+          ...clone(currentSettings.new_game_defaults),
+          ...(patch.new_game_defaults || {}),
+        },
+      }
+      return clone(currentSettings)
+    })
     mockStartGame.mockResolvedValue({ status: 'ok', message: 'started' })
 
     setActivePinia(createPinia())
@@ -141,8 +146,12 @@ describe('useSettingStore', () => {
   it('saves locale through patchSettings', async () => {
     await store.setLocale('zh-TW')
 
-    expect(mockPatchSettings).toHaveBeenCalledWith({ ui: { locale: 'zh-TW' } })
+    expect(mockPatchSettings).toHaveBeenCalledWith({
+      ui: { locale: 'zh-TW' },
+      new_game_defaults: { content_locale: 'zh-TW' },
+    })
     expect(store.locale).toBe('zh-TW')
+    expect(store.newGameDraft.content_locale).toBe('zh-TW')
     expect(document.documentElement.lang).toBe('zh-TW')
   })
 
@@ -160,14 +169,15 @@ describe('useSettingStore', () => {
     expect(store.isAutoSave).toBe(true)
   })
 
-  it('updates new game draft locally', () => {
+  it('keeps content locale aligned with ui locale when updating new game draft', () => {
     store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
 
     expect(store.newGameDraft.init_npc_num).toBe(20)
-    expect(store.newGameDraft.content_locale).toBe('en-US')
+    expect(store.newGameDraft.content_locale).toBe('zh-CN')
   })
 
-  it('persists new game defaults before starting game', async () => {
+  it('persists new game defaults before starting game with ui locale as content locale', async () => {
+    await store.setLocale('en-US')
     store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
 
     await store.startGameWithDraft()

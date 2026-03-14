@@ -20,6 +20,13 @@ function applyUiLocale(lang: string) {
   document.documentElement.lang = langMap[lang] || 'en';
 }
 
+function withContentLocale<T extends { content_locale: string }>(draft: T, locale: string): T {
+  return {
+    ...draft,
+    content_locale: locale,
+  };
+}
+
 export const useSettingStore = defineStore('setting', () => {
   const hydrated = ref(false);
   const loading = ref(false);
@@ -45,7 +52,7 @@ export const useSettingStore = defineStore('setting', () => {
     sfxVolume.value = settings.ui.audio.sfx_volume;
     isAutoSave.value = settings.simulation.auto_save_enabled;
     maxAutoSaves.value = settings.simulation.max_auto_saves;
-    newGameDraft.value = { ...settings.new_game_defaults };
+    newGameDraft.value = withContentLocale({ ...settings.new_game_defaults }, settings.ui.locale);
     applyUiLocale(locale.value);
   }
 
@@ -67,14 +74,20 @@ export const useSettingStore = defineStore('setting', () => {
 
   async function setLocale(lang: 'zh-CN' | 'zh-TW' | 'en-US') {
     const previous = locale.value;
+    const previousDraft = { ...newGameDraft.value };
     locale.value = lang;
+    newGameDraft.value = withContentLocale({ ...newGameDraft.value }, lang);
     applyUiLocale(lang);
 
     try {
-      const settings = await systemApi.patchSettings({ ui: { locale: lang } });
+      const settings = await systemApi.patchSettings({
+        ui: { locale: lang },
+        new_game_defaults: { content_locale: lang },
+      });
       applySettings(settings);
     } catch (e) {
       locale.value = previous;
+      newGameDraft.value = previousDraft;
       applyUiLocale(previous);
       console.warn('Failed to save locale setting:', e);
     }
@@ -120,16 +133,18 @@ export const useSettingStore = defineStore('setting', () => {
   }
 
   function updateNewGameDraft(patch: Partial<RunConfigDTO>) {
-    newGameDraft.value = {
+    newGameDraft.value = withContentLocale({
       ...newGameDraft.value,
       ...patch,
-    };
+    }, locale.value);
   }
 
   async function saveNewGameDefaults() {
+    const payload = withContentLocale({ ...newGameDraft.value }, locale.value);
+    newGameDraft.value = payload;
     try {
       const settings = await systemApi.patchSettings({
-        new_game_defaults: { ...newGameDraft.value },
+        new_game_defaults: payload,
       });
       applySettings(settings);
       return true;
@@ -144,7 +159,7 @@ export const useSettingStore = defineStore('setting', () => {
     if (!saved) {
       throw new Error('Failed to save new game defaults');
     }
-    return systemApi.startGame({ ...newGameDraft.value });
+    return systemApi.startGame(withContentLocale({ ...newGameDraft.value }, locale.value));
   }
 
   return {

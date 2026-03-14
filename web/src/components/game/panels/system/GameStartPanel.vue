@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { NForm, NFormItem, NInputNumber, NSelect, NButton, NInput, useMessage } from 'naive-ui'
+import { ref } from 'vue'
+import { NForm, NFormItem, NInputNumber, NButton, NInput, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
-import { localeRegistry } from '@/locales/registry'
 import { useSettingStore } from '@/stores/setting'
 
 const { t } = useI18n()
@@ -15,12 +14,6 @@ defineProps<{
 
 const message = useMessage()
 const loading = ref(false)
-
-const languageOptions = computed(() =>
-  localeRegistry
-    .filter((item) => item.enabled)
-    .map((item) => ({ label: item.label, value: item.code }))
-)
 
 async function startGame() {
   try {
@@ -48,14 +41,6 @@ async function startGame() {
       require-mark-placement="right-hanging"
       :disabled="readonly"
     >
-      <n-form-item label="内容语言 / Content" path="content_locale">
-        <n-select
-          :value="settingStore.newGameDraft.content_locale"
-          :options="languageOptions"
-          @update:value="(value) => settingStore.updateNewGameDraft({ content_locale: value })"
-        />
-      </n-form-item>
-
       <n-form-item :label="t('game_start.labels.init_npc_num')" path="init_npc_num">
         <n-input-number
           :value="settingStore.newGameDraft.init_npc_num"

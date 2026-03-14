@@ -210,7 +210,8 @@
         "strongest_enemy_value": "{name}（关系值 {value}）"
       },
       "diplomacy_meta_relation": "关系值 {value}",
-      "diplomacy_last_battle": "最近交锋月标 {month}",
+      "diplomacy_war_years": "已交战 {count} 年",
+      "diplomacy_peace_years": "已和平 {count} 年",
       "no_rule": "暂无明确门规说明",
       "no_bonus": "无特殊加成",
       "no_runtime_effect": "暂无当前生效的宗门效果",
