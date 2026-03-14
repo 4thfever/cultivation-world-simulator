@@ -195,9 +195,10 @@ onUnmounted(() => {
           <div class="percentage" :class="{ error: isError }">
             {{ isError ? '!' : progress + '%' }}
           </div>
-          <div class="phase-text">{{ isError ? t('loading.error') : phaseText }}</div>
         </div>
       </div>
+
+      <div class="phase-text">{{ isError ? t('loading.error') : phaseText }}</div>
 
       <!-- 错误信息 -->
       <div v-if="isError" class="error-section">
@@ -361,8 +362,12 @@ onUnmounted(() => {
 .phase-text {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
-  margin-top: 8px;
+  margin-top: 18px;
   letter-spacing: 2px;
+  text-align: center;
+  max-width: min(320px, 80vw);
+  line-height: 1.5;
+  min-height: 1.5em;
 }
 
 /* 错误区域 */
