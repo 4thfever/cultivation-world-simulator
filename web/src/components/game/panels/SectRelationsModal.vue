@@ -55,6 +55,12 @@ const getValueLabelKey = (value: number): string => {
 
 const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) => {
   const baseLabel = t(`game.sect_relations.reasons_map.${item.reason}`);
+  if (item.reason === 'PEACE_STATE') {
+    return '';
+  }
+  if (item.reason === 'LONG_PEACE') {
+    return baseLabel;
+  }
   if (item.reason === 'RANDOM_EVENT') {
     const cause = item.meta?.cause;
     if (typeof cause === 'string' && cause.trim()) {
@@ -64,6 +70,12 @@ const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) =
   }
 
   if (item.reason !== 'TERRITORY_CONFLICT') {
+    if (item.reason === 'WAR_STATE' || item.reason === 'PEACE_STATE' || item.reason === 'LONG_PEACE') {
+      const months = item.meta?.war_months ?? item.meta?.peace_months
+      if (typeof months === 'number' && months > 0) {
+        return `${baseLabel} (${t('game.sect_relations.duration_months', { count: months })})`
+      }
+    }
     return baseLabel;
   }
 
@@ -73,6 +85,13 @@ const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) =
   }
 
   return `${baseLabel} (${t('game.sect_relations.overlap_tiles', { count: overlapTiles })})`;
+};
+
+const resolveDiplomacyStatus = (item: SectRelationDTO) => {
+  const key = item.diplomacy_status === 'war'
+    ? 'game.sect_relations.status_war'
+    : 'game.sect_relations.status_peace';
+  return `${t(key)} · ${t('game.sect_relations.duration_months', { count: item.diplomacy_duration_months })}`;
 };
 
 const openSectInfo = (id: number) => {
@@ -121,6 +140,7 @@ watch(
           <tr>
             <th>{{ t('game.sect_relations.sect_a') }}</th>
             <th>{{ t('game.sect_relations.sect_b') }}</th>
+            <th>{{ t('game.sect_relations.status') }}</th>
             <th>{{ t('game.sect_relations.value') }}</th>
             <th>{{ t('game.sect_relations.reasons') }}</th>
           </tr>
@@ -134,6 +154,13 @@ watch(
               <a class="clickable-text" @click="openSectInfo(item.sect_b_id)">{{ item.sect_b_name }}</a>
             </td>
             <td>
+              <span
+                :style="{ color: item.diplomacy_status === 'war' ? '#ff7875' : '#95de64', fontWeight: 500 }"
+              >
+                {{ resolveDiplomacyStatus(item) }}
+              </span>
+            </td>
+            <td>
               <span :style="{ color: getValueColor(item.value), fontWeight: 500 }">
                 {{ item.value }}
               </span>
@@ -143,6 +170,7 @@ watch(
               <n-tag
                 v-for="(reasonItem, index) in item.reason_breakdown"
                 :key="`${item.sect_a_id}-${item.sect_b_id}-${reasonItem.reason}-${index}`"
+                v-show="resolveReasonLabel(reasonItem)"
                 size="small"
                 :bordered="false"
                 style="margin-right: 4px; margin-bottom: 2px"
@@ -156,7 +184,7 @@ watch(
             </td>
           </tr>
           <tr v-if="!sortedRelations.length">
-            <td colspan="4" style="text-align: center; color: #888;">
+            <td colspan="5" style="text-align: center; color: #888;">
               {{ t('game.sect_relations.empty') }}
             </td>
           </tr>

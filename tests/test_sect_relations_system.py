@@ -77,3 +77,38 @@ def test_compute_sect_relations_no_overlap_neutral_alignment():
     assert SectRelationReason.ORTHODOXY_DIFFERENT.value in reasons
     assert SectRelationReason.TERRITORY_CONFLICT.value not in reasons
 
+
+def test_compute_sect_relations_supports_war_and_peace_breakdown():
+    sect_a = _make_sect(1, "甲宗", Alignment.RIGHTEOUS, orthodoxy_id="dao")
+    sect_b = _make_sect(2, "乙宗", Alignment.RIGHTEOUS, orthodoxy_id="dao")
+
+    relations = compute_sect_relations(
+        [sect_a, sect_b],
+        {},
+        diplomacy_by_pair={
+            (1, 2): [
+                {"reason": SectRelationReason.WAR_STATE.value, "delta": -20, "meta": {"status": "war", "war_months": 18}},
+            ]
+        },
+    )
+    assert relations[0]["diplomacy_status"] == "war"
+    assert relations[0]["diplomacy_duration_months"] == 18
+    reasons = {item["reason"] for item in relations[0]["reason_breakdown"]}
+    assert SectRelationReason.WAR_STATE.value in reasons
+
+    peaceful_relations = compute_sect_relations(
+        [sect_a, sect_b],
+        {},
+        diplomacy_by_pair={
+            (1, 2): [
+                {"reason": SectRelationReason.PEACE_STATE.value, "delta": 0, "meta": {"status": "peace", "peace_months": 36}},
+                {"reason": SectRelationReason.LONG_PEACE.value, "delta": 3, "meta": {"status": "peace", "peace_months": 36}},
+            ]
+        },
+    )
+    assert peaceful_relations[0]["diplomacy_status"] == "peace"
+    assert peaceful_relations[0]["diplomacy_duration_months"] == 36
+    peaceful_reasons = {item["reason"] for item in peaceful_relations[0]["reason_breakdown"]}
+    assert SectRelationReason.PEACE_STATE.value in peaceful_reasons
+    assert SectRelationReason.LONG_PEACE.value in peaceful_reasons
+

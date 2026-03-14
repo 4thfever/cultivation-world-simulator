@@ -261,6 +261,8 @@ export interface SectRelationDTO {
   sect_b_id: number;
   sect_b_name: string;
   value: number;        // -100 ~ 100
+  diplomacy_status: 'war' | 'peace' | string;
+  diplomacy_duration_months: number;
   reason_breakdown: Array<{
     reason: string;     // 枚举字符串，如 ALIGNMENT_OPPOSITE
     delta: number;      // 本事由对关系值的增减

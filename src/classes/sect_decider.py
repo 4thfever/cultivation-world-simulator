@@ -34,6 +34,8 @@ if TYPE_CHECKING:
 @dataclass(slots=True)
 class SectDecisionResult:
     events: list[Event] = field(default_factory=list)
+    war_declared_count: int = 0
+    peace_made_count: int = 0
     recruitment_count: int = 0
     expulsion_count: int = 0
     technique_reward_count: int = 0
@@ -43,6 +45,8 @@ class SectDecisionResult:
 
 @dataclass(slots=True)
 class SectDecisionPlan:
+    declare_war_target_ids: list[int] = field(default_factory=list)
+    seek_peace_target_ids: list[int] = field(default_factory=list)
     recruit_avatar_ids: list[str] = field(default_factory=list)
     expel_avatar_ids: list[str] = field(default_factory=list)
     reward_avatar_ids: list[str] = field(default_factory=list)
@@ -67,6 +71,15 @@ class SectDecider:
         recruit_cost = int(getattr(CONFIG.sect, "recruit_cost", 500))
         support_amount = int(getattr(CONFIG.sect, "support_amount", 300))
         plan = await cls._plan(sect, decision_context, world, recruit_cost=recruit_cost, support_amount=support_amount)
+
+        cls._process_diplomacy(
+            sect=sect,
+            decision_context=decision_context,
+            world=world,
+            result=result,
+            declare_target_ids=set(plan.declare_war_target_ids) if plan is not None else set(),
+            peace_target_ids=set(plan.seek_peace_target_ids) if plan is not None else set(),
+        )
 
         await cls._process_recruitment(
             sect=sect,
@@ -159,6 +172,8 @@ class SectDecider:
             "territory": dict(ctx.territory),
             "economy": dict(ctx.economy),
             "rule": dict(ctx.rule),
+            "diplomacy_targets": list(ctx.diplomacy_targets),
+            "active_wars": list(ctx.active_wars),
             "recruitment_candidates": list(ctx.recruitment_candidates),
             "member_candidates": list(ctx.member_candidates),
             "relations": list(ctx.relations),
@@ -179,6 +194,7 @@ class SectDecider:
 
         recruit_valid = {str(item["avatar_id"]) for item in decision_context.recruitment_candidates}
         member_valid = {str(item["avatar_id"]) for item in decision_context.member_candidates}
+        diplomacy_valid = {int(item["other_sect_id"]) for item in decision_context.diplomacy_targets}
 
         def _pick_ids(key: str, valid_ids: set[str]) -> list[str]:
             raw = payload.get(key, [])
@@ -193,13 +209,90 @@ class SectDecider:
                     deduped.append(value)
             return deduped
 
+        def _pick_sect_ids(key: str) -> list[int]:
+            raw = payload.get(key, [])
+            if not isinstance(raw, list):
+                return []
+            deduped: list[int] = []
+            seen: set[int] = set()
+            for item in raw:
+                try:
+                    value = int(item)
+                except (TypeError, ValueError):
+                    continue
+                if value in diplomacy_valid and value not in seen:
+                    seen.add(value)
+                    deduped.append(value)
+            return deduped
+
         return SectDecisionPlan(
+            declare_war_target_ids=_pick_sect_ids("declare_war_target_ids"),
+            seek_peace_target_ids=_pick_sect_ids("seek_peace_target_ids"),
             recruit_avatar_ids=_pick_ids("recruit_avatar_ids", recruit_valid),
             expel_avatar_ids=_pick_ids("expel_avatar_ids", member_valid),
             reward_avatar_ids=_pick_ids("reward_avatar_ids", member_valid),
             support_avatar_ids=_pick_ids("support_avatar_ids", member_valid),
             thinking=str(payload.get("thinking", "") or ""),
         )
+
+    @classmethod
+    def _process_diplomacy(
+        cls,
+        *,
+        sect: "Sect",
+        decision_context: "SectDecisionContext",
+        world: "World",
+        result: SectDecisionResult,
+        declare_target_ids: set[int],
+        peace_target_ids: set[int],
+    ) -> None:
+        target_by_id = {
+            int(item["other_sect_id"]): item
+            for item in decision_context.diplomacy_targets
+            if item.get("other_sect_id") is not None
+        }
+
+        for target_id in declare_target_ids:
+            target = target_by_id.get(int(target_id))
+            if target is None:
+                continue
+            if str(target.get("status", "")) == "war":
+                continue
+            world.declare_sect_war(
+                sect_a_id=int(sect.id),
+                sect_b_id=int(target_id),
+                reason=str(target.get("other_sect_name", "") or ""),
+            )
+            result.war_declared_count += 1
+            result.events.append(
+                Event(
+                    month_stamp=world.month_stamp,
+                    content=f"{sect.name} 向 {target['other_sect_name']} 宣战，两宗自此进入战争状态。",
+                    related_sects=[int(sect.id), int(target_id)],
+                    is_major=True,
+                )
+            )
+
+        for target_id in peace_target_ids:
+            target = target_by_id.get(int(target_id))
+            if target is None:
+                continue
+            if str(target.get("status", "")) != "war":
+                continue
+            world.make_sect_peace(
+                sect_a_id=int(sect.id),
+                sect_b_id=int(target_id),
+                reason=str(target.get("other_sect_name", "") or ""),
+            )
+            result.peace_made_count += 1
+            result.events.append(
+                Event(
+                    month_stamp=world.month_stamp,
+                    content=f"{sect.name} 与 {target['other_sect_name']} 议和，双方结束战争状态。",
+                    related_sects=[int(sect.id), int(target_id)],
+                    is_major=True,
+                )
+            )
 
     @classmethod
     async def _process_recruitment(
@@ -366,6 +459,10 @@ class SectDecider:
         parts = []
         if result.recruitment_count:
             parts.append(f"招徕散修 {result.recruitment_count} 人")
+        if result.war_declared_count:
+            parts.append(f"宣战 {result.war_declared_count} 次")
+        if result.peace_made_count:
+            parts.append(f"议和 {result.peace_made_count} 次")
         if result.expulsion_count:
             parts.append(f"驱逐门人 {result.expulsion_count} 人")
         if result.technique_reward_count:

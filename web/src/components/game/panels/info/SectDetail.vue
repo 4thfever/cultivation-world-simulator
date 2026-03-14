@@ -63,6 +63,19 @@ const alignmentText = props.data.alignment;
           <div class="section-title">{{ t('game.info_panel.sect.sections.thinking') }}</div>
           <div class="text-content thinking-text-content">{{ data.yearly_thinking }}</div>
        </div>
+
+       <div class="section" v-if="data.diplomacy_items?.length">
+          <div class="section-title">{{ t('game.info_panel.sect.sections.diplomacy') }}</div>
+          <div class="list-container">
+             <RelationRow
+               v-for="item in data.diplomacy_items"
+               :key="item.other_sect_id"
+               :name="item.other_sect_name"
+               :meta="item.status === 'war' ? t('game.sect_relations.status_war') : t('game.sect_relations.status_peace')"
+               :sub="t('game.sect_relations.duration_months', { count: item.duration_months })"
+             />
+          </div>
+       </div>
        
        <!-- HQ -->
        <div class="section">

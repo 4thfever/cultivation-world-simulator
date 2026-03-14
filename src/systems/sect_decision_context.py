@@ -45,6 +45,8 @@ class SectDecisionContext:
     history: Dict[str, Any]
 
     # 门规与五年决策候选
+    diplomacy_targets: List[Dict[str, Any]] = field(default_factory=list)
+    active_wars: List[Dict[str, Any]] = field(default_factory=list)
     rule: Dict[str, Any] = field(default_factory=dict)
     recruitment_candidates: List[Dict[str, Any]] = field(default_factory=list)
     member_candidates: List[Dict[str, Any]] = field(default_factory=list)
@@ -191,14 +193,21 @@ def build_sect_decision_context(
 
     # 4. 当前宗门关系快照
     # 统一使用 SectManager + compute_sect_relations 计算关系数值与理由
-    extra_breakdown_by_pair = getattr(world, "sect_relation_modifiers", None)
+    extra_breakdown_by_pair = world.get_active_sect_relation_breakdown(current_month)
+    diplomacy_by_pair = world.get_active_sect_diplomacy_breakdown(
+        current_month,
+        sect_ids=[int(s.id) for s in active_sects],
+    )
     relations_raw = compute_sect_relations(
         active_sects,
         tile_owners,
         extra_breakdown_by_pair=extra_breakdown_by_pair,
+        diplomacy_by_pair=diplomacy_by_pair,
     )
 
     relations: List[Dict[str, Any]] = []
+    diplomacy_targets: List[Dict[str, Any]] = []
+    active_wars: List[Dict[str, Any]] = []
     for item in relations_raw:
         sid_a = int(item["sect_a_id"])
         sid_b = int(item["sect_b_id"])
@@ -217,9 +226,24 @@ def build_sect_decision_context(
                 "other_sect_id": other_id,
                 "other_sect_name": other_name,
                 "value": value,
+                "diplomacy_status": str(item.get("diplomacy_status", "peace") or "peace"),
+                "diplomacy_duration_months": int(item.get("diplomacy_duration_months", 0) or 0),
                 "reason_breakdown": list(item.get("reason_breakdown", [])),
             }
         )
+        diplomacy_state = world.get_sect_diplomacy_state(sect.id, other_id, current_month=current_month)
+        diplomacy_target = {
+            "other_sect_id": other_id,
+            "other_sect_name": other_name,
+            "status": str(diplomacy_state.get("status", "peace") or "peace"),
+            "war_months": int(diplomacy_state.get("war_months", 0) or 0),
+            "peace_months": int(diplomacy_state.get("peace_months", 0) or 0),
+            "last_battle_month": diplomacy_state.get("last_battle_month"),
+            "relation_value": value,
+        }
+        diplomacy_targets.append(diplomacy_target)
+        if diplomacy_target["status"] == "war":
+            active_wars.append(diplomacy_target)
 
     # 简单的关系文字总结：统计友好 / 敌对数量以及最极端的关系
     friendly_count = sum(1 for r in relations if r["value"] >= 20)
@@ -277,6 +301,8 @@ def build_sect_decision_context(
         territory=territory,
         economy=economy,
         rule=rule,
+        diplomacy_targets=diplomacy_targets,
+        active_wars=active_wars,
         recruitment_candidates=recruitment_candidates,
         member_candidates=member_candidates,
         relations=relations,

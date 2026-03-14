@@ -12,6 +12,9 @@ class SectRelationReason(str, Enum):
     ORTHODOXY_DIFFERENT = "ORTHODOXY_DIFFERENT"
     ORTHODOXY_SAME = "ORTHODOXY_SAME"
     TERRITORY_CONFLICT = "TERRITORY_CONFLICT"
+    WAR_STATE = "WAR_STATE"
+    PEACE_STATE = "PEACE_STATE"
+    LONG_PEACE = "LONG_PEACE"
     RANDOM_EVENT = "RANDOM_EVENT"
 
 
@@ -96,6 +99,7 @@ def compute_sect_relations(
     sects: Iterable[Sect],
     tile_owners: Dict[Tuple[int, int], List[int]],
     extra_breakdown_by_pair: Dict[Tuple[int, int], List[dict]] | None = None,
+    diplomacy_by_pair: Dict[Tuple[int, int], List[dict]] | None = None,
 ) -> List[dict]:
     """
     计算一组宗门之间的关系。
@@ -157,6 +161,25 @@ def compute_sect_relations(
                         "meta": dict(extra_item.get("meta", {}) or {}),
                     }
                 )
+            diplomacy_items = (diplomacy_by_pair or {}).get((sid_a, sid_b), [])
+            diplomacy_status = "peace"
+            diplomacy_duration_months = 0
+            for diplomacy_item in diplomacy_items:
+                delta = int(diplomacy_item.get("delta", 0))
+                value += delta
+                meta = dict(diplomacy_item.get("meta", {}) or {})
+                if meta.get("status") in {"war", "peace"}:
+                    diplomacy_status = str(meta["status"])
+                    diplomacy_duration_months = int(
+                        meta.get("war_months", meta.get("peace_months", 0)) or 0
+                    )
+                reason_breakdown.append(
+                    {
+                        "reason": str(diplomacy_item.get("reason", SectRelationReason.PEACE_STATE.value)),
+                        "delta": delta,
+                        "meta": meta,
+                    }
+                )
             value = _clamp(int(value), -100, 100)
 
             results.append(
@@ -166,6 +189,8 @@ def compute_sect_relations(
                     "sect_b_id": sid_b,
                     "sect_b_name": sect_b.name,
                     "value": value,
+                    "diplomacy_status": diplomacy_status,
+                    "diplomacy_duration_months": diplomacy_duration_months,
                     "reason_breakdown": reason_breakdown,
                 }
             )

@@ -65,9 +65,13 @@
     "title": "Sect Relations",
     "sect_a": "Sect A",
     "sect_b": "Sect B",
+    "status": "Diplomatic Status",
     "value": "Relation Value",
     "reasons": "Reasons",
     "empty": "No relation data",
+    "status_war": "At War",
+    "status_peace": "Peace",
+    "duration_months": "{count} months",
     "value_label_very_hostile": "Very Hostile",
     "value_label_hostile": "Hostile",
     "value_label_neutral": "Neutral",
@@ -80,6 +84,9 @@
       "ORTHODOXY_DIFFERENT": "Different orthodoxy",
       "ORTHODOXY_SAME": "Same orthodoxy",
       "TERRITORY_CONFLICT": "Territory conflict",
+      "WAR_STATE": "State of war",
+      "PEACE_STATE": "State of peace",
+      "LONG_PEACE": "Long peace",
       "RANDOM_EVENT": "Random event"
     }
   },
@@ -184,6 +191,7 @@
         "intro": "Introduction",
         "hq": "HQ: {name}",
         "bonus": "Sect Bonus",
+        "diplomacy": "Diplomatic Situation",
         "thinking": "Sect Thinking",
         "techniques": "Technique Library",
         "members": "Disciples"

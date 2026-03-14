@@ -65,9 +65,13 @@
     "title": "宗门关系",
     "sect_a": "宗门 A",
     "sect_b": "宗门 B",
+    "status": "外交状态",
     "value": "关系值",
     "reasons": "关系理由",
     "empty": "暂无关系数据",
+    "status_war": "战争中",
+    "status_peace": "和平",
+    "duration_months": "{count}个月",
     "value_label_very_hostile": "极恶",
     "value_label_hostile": "敌对",
     "value_label_neutral": "中立",
@@ -80,6 +84,9 @@
       "ORTHODOXY_DIFFERENT": "道统不同",
       "ORTHODOXY_SAME": "道统相同",
       "TERRITORY_CONFLICT": "势力范围冲突",
+      "WAR_STATE": "战争状态",
+      "PEACE_STATE": "和平状态",
+      "LONG_PEACE": "长期和平",
       "RANDOM_EVENT": "随机事件"
     }
   },
@@ -184,6 +191,7 @@
         "intro": "宗门简介",
         "hq": "驻地：{name}",
         "bonus": "宗门加成",
+        "diplomacy": "外交局势",
         "techniques": "功法库",
         "members": "门下弟子",
         "thinking": "宗门思考"

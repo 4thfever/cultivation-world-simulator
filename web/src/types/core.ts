@@ -147,6 +147,7 @@ export interface SectDetail extends EntityBase {
   runtime_effects_count?: number;
   runtime_effect_items?: SectRuntimeEffectItem[];
   yearly_thinking?: string;
+  diplomacy_items?: SectDiplomacyItem[];
 }
 
 export interface SectRuntimeEffectItem {
@@ -155,6 +156,15 @@ export interface SectRuntimeEffectItem {
   desc: string;
   remaining_months: number;
   is_permanent?: boolean;
+}
+
+export interface SectDiplomacyItem {
+  other_sect_id: number;
+  other_sect_name: string;
+  status: 'war' | 'peace' | string;
+  duration_months: number;
+  war_months: number;
+  peace_months: number;
 }
 
 export interface RelationInfo {

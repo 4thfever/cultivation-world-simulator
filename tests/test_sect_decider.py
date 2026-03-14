@@ -43,6 +43,21 @@ def _dummy_ctx(rogue: Avatar, member: Avatar, breaker: Avatar) -> SectDecisionCo
         power={"total_battle_strength": 100.0, "influence_radius": 2},
         territory={"tile_count": 5, "conflict_tile_count": 1, "headquarter_center": (1, 1)},
         economy={"current_magic_stone": 1000, "effective_income_per_tile": 10.0, "controlled_tile_income": 50.0},
+        relations=[],
+        relations_summary="total=0",
+        history={"recent_events": [], "summary_text": ""},
+        diplomacy_targets=[
+            {
+                "other_sect_id": 2,
+                "other_sect_name": "Enemy Sect",
+                "status": "peace",
+                "war_months": 0,
+                "peace_months": 24,
+                "last_battle_month": None,
+                "relation_value": -10,
+            }
+        ],
+        active_wars=[],
         rule={"rule_id": "righteous_orthodoxy", "rule_desc": "不得勾结邪魔。"},
         recruitment_candidates=[
             {
@@ -83,9 +98,6 @@ def _dummy_ctx(rogue: Avatar, member: Avatar, breaker: Avatar) -> SectDecisionCo
                 "is_rule_breaker": True,
             },
         ],
-        relations=[],
-        relations_summary="total=0",
-        history={"recent_events": [], "summary_text": ""},
     )
 
 
@@ -244,6 +256,11 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
         power={},
         territory={},
         economy={},
+        relations=[],
+        relations_summary="",
+        history={"recent_events": [], "summary_text": ""},
+        diplomacy_targets=[],
+        active_wars=[],
         rule={"rule_id": "righteous_orthodoxy", "rule_desc": "不得勾结邪魔。"},
         recruitment_candidates=[
             {
@@ -260,9 +277,6 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
             }
         ],
         member_candidates=[],
-        relations=[],
-        relations_summary="",
-        history={"recent_events": [], "summary_text": ""},
     )
 
     payload = {
@@ -282,3 +296,60 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
     infos = mock_llm.call_args.kwargs["infos"]
     assert "detailed_info" in infos["decision_context_info"]
     assert "bio" in infos["decision_context_info"]
+
+
+@pytest.mark.asyncio
+async def test_sect_decider_can_declare_war_from_llm_plan(base_world):
+    sect = Sect(
+        id=1,
+        name="War Sect",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=SectHeadQuarter(name="HQ", desc="", image=Path("")),
+        technique_names=[],
+        magic_stone=1000,
+    )
+    ctx = SectDecisionContext(
+        basic_structured={"name": "War Sect"},
+        basic_text="",
+        power={},
+        territory={},
+        economy={},
+        relations=[],
+        relations_summary="",
+        history={"recent_events": [], "summary_text": ""},
+        diplomacy_targets=[
+            {
+                "other_sect_id": 2,
+                "other_sect_name": "Enemy Sect",
+                "status": "peace",
+                "war_months": 0,
+                "peace_months": 12,
+                "last_battle_month": None,
+                "relation_value": -40,
+            }
+        ],
+        active_wars=[],
+        rule={},
+        recruitment_candidates=[],
+        member_candidates=[],
+    )
+    payload = {
+        "thinking": "先压边界。",
+        "declare_war_target_ids": [2],
+        "seek_peace_target_ids": [],
+        "recruit_avatar_ids": [],
+        "expel_avatar_ids": [],
+        "reward_avatar_ids": [],
+        "support_avatar_ids": [],
+    }
+    with patch.object(SectDecider, "_llm_available", return_value=True), patch(
+        "src.classes.sect_decider.call_llm_with_task_name",
+        new=AsyncMock(return_value=payload),
+    ):
+        result = await SectDecider.decide(sect, ctx, base_world)
+
+    assert base_world.are_sects_at_war(1, 2)
+    assert result.war_declared_count == 1
+    assert any("宣战" in event.content for event in result.events)

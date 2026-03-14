@@ -12,17 +12,22 @@
 {decision_context_info}
 
 规则约束：
-1. 招徕散修：只能从 recruitment_candidates 中选择 avatar_id。
-2. 驱逐、赐功法、资助灵石：只能从 member_candidates 中选择 avatar_id。
-3. 招徕每成功一人需要花费 {recruit_cost} 灵石，只有在你认为值得时才选择。
-4. 资助每次固定花费 {support_amount} 灵石。
-5. 门规相关的驱逐必须非常克制，只有“严重违背门规”才驱逐。
-6. 候选人的 detailed_info 已经给出，请优先依据这些详细信息判断。
-7. 你只负责“规划要对谁做什么”，不要编造未提供的 avatar_id。
+1. 外交决策：只能从 diplomacy_targets 中选择 other_sect_id。
+2. 若当前与某宗门不是战争状态，才可以把它放入 declare_war_target_ids。
+3. 若当前与某宗门已经是战争状态，才可以把它放入 seek_peace_target_ids。
+4. 招徕散修：只能从 recruitment_candidates 中选择 avatar_id。
+5. 驱逐、赐功法、资助灵石：只能从 member_candidates 中选择 avatar_id。
+6. 招徕每成功一人需要花费 {recruit_cost} 灵石，只有在你认为值得时才选择。
+7. 资助每次固定花费 {support_amount} 灵石。
+8. 门规相关的驱逐必须非常克制，只有“严重违背门规”才驱逐。
+9. 候选人的 detailed_info 已经给出，请优先依据这些详细信息判断。
+10. 你只负责“规划要对谁做什么”，不要编造未提供的 avatar_id 或 other_sect_id。
 
 请返回严格 JSON，不要输出任何额外说明，格式如下：
 {{
   "thinking": "用一句话概括我宗本轮决策思路",
+  "declare_war_target_ids": [101, 102],
+  "seek_peace_target_ids": [103],
   "recruit_avatar_ids": ["散修avatar_id1", "散修avatar_id2"],
   "expel_avatar_ids": ["弟子avatar_id1"],
   "reward_avatar_ids": ["弟子avatar_id2"],
@@ -31,5 +36,5 @@
 
 补充要求：
 1. 如果某类决策不做，对应数组返回空数组。
-2. 不要重复填写同一个 avatar_id。
+2. 不要重复填写同一个 avatar_id 或 other_sect_id。
 3. thinking 简洁即可，20~60 字。

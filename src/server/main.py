@@ -1119,10 +1119,14 @@ def get_sect_relations():
         return {"relations": []}
 
     extra_breakdown_by_pair = world.get_active_sect_relation_breakdown()
+    diplomacy_by_pair = world.get_active_sect_diplomacy_breakdown(
+        sect_ids=[int(s.id) for s in active_sects]
+    )
     relations = compute_sect_relations(
         active_sects,
         tile_owners,
         extra_breakdown_by_pair=extra_breakdown_by_pair,
+        diplomacy_by_pair=diplomacy_by_pair,
     )
     return {"relations": relations}
 

@@ -89,6 +89,8 @@ def test_get_sect_relations_basic(api_client: TestClient):
     assert rel["sect_a_id"] == 1
     assert rel["sect_b_id"] == 2
     assert isinstance(rel["value"], int)
+    assert rel["diplomacy_status"] in {"war", "peace"}
+    assert isinstance(rel["diplomacy_duration_months"], int)
     # reason_breakdown 为包含详细 delta/meta 的结构化原因列表
     assert isinstance(rel["reason_breakdown"], list)
 

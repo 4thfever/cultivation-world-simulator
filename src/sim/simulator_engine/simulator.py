@@ -5,7 +5,7 @@ from src.utils.config import CONFIG
 
 from .context import SimulationStepContext
 from .finalizer import finalize_step
-from .phases import actions, annual, lifecycle, social, world as world_phases
+from .phases import actions, annual, lifecycle, sect_war, social, world as world_phases
 
 
 class Simulator:
@@ -89,6 +89,9 @@ class Simulator:
         # 13. 小型随机事件 + 宗门随机事件
         ctx.add_events(await world_phases.phase_random_minor_events(self.world, ctx.living_avatars))
         ctx.add_events(await world_phases.phase_sect_random_event(self.world))
+
+        # 13.5 宗门战争遭遇战
+        ctx.add_events(await sect_war.phase_handle_sect_wars(self, ctx.living_avatars))
 
         # 14. 外号生成
         ctx.add_events(await lifecycle.phase_nickname_generation(ctx.living_avatars))

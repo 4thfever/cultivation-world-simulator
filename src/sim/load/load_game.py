@@ -237,6 +237,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
 
         world.sect_relation_modifiers = list(world_data.get("sect_relation_modifiers", []) or [])
         world.prune_expired_sect_relation_modifiers(int(world.month_stamp))
+        world.sect_wars = list(world_data.get("sect_wars", []) or [])
 
         for sect in sects_by_id.values():
             sect.sect_effects = {}

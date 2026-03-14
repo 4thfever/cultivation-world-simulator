@@ -149,4 +149,7 @@ def test_build_sect_decision_context_relations(base_world):
 
     # relations_summary 至少应包含总数信息
     assert f"total={len(ctx.relations)}" in ctx.relations_summary
+    assert isinstance(ctx.diplomacy_targets, list)
+    assert ctx.diplomacy_targets
+    assert ctx.diplomacy_targets[0]["status"] in {"war", "peace"}
 

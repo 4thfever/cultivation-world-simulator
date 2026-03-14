@@ -182,6 +182,7 @@ def save_game(
             },
             "sect_runtime_effects": sect_runtime_effects,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
+            "sect_wars": list(getattr(world, "sect_wars", []) or []),
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

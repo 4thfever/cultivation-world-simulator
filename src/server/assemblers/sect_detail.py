@@ -98,6 +98,31 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     info["runtime_effects_count"] = len(runtime_items)
     info["runtime_effect_items"] = runtime_items
     info["yearly_thinking"] = str(getattr(sect, "yearly_thinking", "") or "")
+    sect_context = getattr(world, "sect_context", None)
+    active_sects = (
+        sect_context.get_active_sects()
+        if sect_context is not None
+        else (getattr(world, "existed_sects", []) or [])
+    )
+    diplomacy_items: List[Dict[str, Any]] = []
+    current_month = int(getattr(world, "month_stamp", 0))
+    for other in active_sects:
+        if other is None or int(getattr(other, "id", 0)) == int(getattr(sect, "id", 0)):
+            continue
+        state = world.get_sect_diplomacy_state(int(sect.id), int(other.id), current_month=current_month)
+        diplomacy_items.append(
+            {
+                "other_sect_id": int(other.id),
+                "other_sect_name": str(getattr(other, "name", "") or ""),
+                "status": str(state.get("status", "peace") or "peace"),
+                "duration_months": int(
+                    state.get("war_months", state.get("peace_months", 0)) or 0
+                ),
+                "war_months": int(state.get("war_months", 0) or 0),
+                "peace_months": int(state.get("peace_months", 0) or 0),
+            }
+        )
+    info["diplomacy_items"] = diplomacy_items
 
     return info
 

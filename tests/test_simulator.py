@@ -9,8 +9,10 @@ from src.classes.root import Root
 from src.classes.age import Age
 from src.classes.alignment import Alignment
 from src.classes.sect_decider import SectDecisionResult
+from src.classes.sect_ranks import get_rank_from_realm
 from src.sim.simulator import Simulator
-from src.sim.simulator_engine.phases import annual
+from src.sim.simulator_engine.phases import annual, sect_war
+from src.classes.core.sect import Sect, SectHeadQuarter
 from src.systems.cultivation import Realm
 from src.systems.time import Month, Year, create_month_stamp
 
@@ -244,3 +246,82 @@ async def test_phase_sect_five_year_decision_emits_summary_event(base_world, moc
     assert events[0].related_sects == [77]
     assert "招徕散修 1 人" in events[0].content
     assert sect.last_decision_summary == "Test Sect 本轮五年决策：招徕散修 1 人。"
+
+
+@pytest.mark.asyncio
+async def test_phase_handle_sect_wars_auto_battles_and_teleports_loser(base_world, mock_llm_managers):
+    from src.classes.environment.sect_region import SectRegion
+    from pathlib import Path
+
+    region_a = SectRegion(id=2001, name="甲宗总部", desc="", sect_id=1, sect_name="甲宗", cors=[(0, 0)])
+    region_b = SectRegion(id=2002, name="乙宗总部", desc="", sect_id=2, sect_name="乙宗", cors=[(4, 4)])
+    base_world.map.regions[2001] = region_a
+    base_world.map.region_cors[2001] = [(0, 0)]
+    base_world.map.regions[2002] = region_b
+    base_world.map.region_cors[2002] = [(4, 4)]
+    base_world.map.update_sect_regions()
+
+    sect_a = Sect(
+        id=1,
+        name="甲宗",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=SectHeadQuarter(name="甲宗总部", desc="", image=Path("")),
+        technique_names=[],
+    )
+    sect_b = Sect(
+        id=2,
+        name="乙宗",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.EVIL,
+        headquarter=SectHeadQuarter(name="乙宗总部", desc="", image=Path("")),
+        technique_names=[],
+    )
+    base_world.existed_sects = [sect_a, sect_b]
+    base_world.sect_context.from_existed_sects(base_world.existed_sects)
+    base_world.declare_sect_war(sect_a_id=1, sect_b_id=2)
+
+    attacker = Avatar(
+        world=base_world,
+        name="甲修",
+        id="war_a",
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.MALE,
+        pos_x=1,
+        pos_y=1,
+        root=Root.GOLD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    defender = Avatar(
+        world=base_world,
+        name="乙修",
+        id="war_b",
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.FEMALE,
+        pos_x=1,
+        pos_y=2,
+        root=Root.WOOD,
+        alignment=Alignment.EVIL,
+    )
+    attacker.join_sect(sect_a, attacker.sect_rank or get_rank_from_realm(attacker.cultivation_progress.realm))
+    defender.join_sect(sect_b, defender.sect_rank or get_rank_from_realm(defender.cultivation_progress.realm))
+    attacker.tile = base_world.map.get_tile(attacker.pos_x, attacker.pos_y)
+    defender.tile = base_world.map.get_tile(defender.pos_x, defender.pos_y)
+    base_world.avatar_manager.avatars = {attacker.id: attacker, defender.id: defender}
+
+    sim = Simulator(base_world)
+    with patch(
+        "src.sim.simulator_engine.phases.sect_war.decide_battle",
+        return_value=(attacker, defender, 20, 5),
+    ), patch(
+        "src.sim.simulator_engine.phases.sect_war.handle_battle_finish",
+        new=AsyncMock(return_value=[]),
+    ):
+        events = await sect_war.phase_handle_sect_wars(sim, [attacker, defender])
+
+    assert any("立即爆发战斗" in event.content for event in events)
+    assert defender.pos_x == 4 and defender.pos_y == 4
