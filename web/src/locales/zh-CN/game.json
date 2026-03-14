@@ -189,6 +189,8 @@
       },
       "sections": {
         "intro": "宗门简介",
+        "situation": "宗门态势",
+        "rule": "门规",
         "hq": "驻地：{name}",
         "bonus": "宗门加成",
         "diplomacy": "外交局势",
@@ -196,6 +198,19 @@
         "members": "门下弟子",
         "thinking": "宗门思考"
       },
+      "situation": {
+        "active_wars": "当前战局",
+        "active_wars_value": "正在与 {count} 个宗门处于战争状态",
+        "territory": "势力范围",
+        "territory_value": "当前控制 {tiles} 格势力范围，其中 {conflicts} 格为冲突区",
+        "income": "势力收益",
+        "income_value": "每期预计获得 {income} 灵石，平均每格收益 {perTile}",
+        "strongest_enemy": "首要敌对宗门",
+        "strongest_enemy_value": "{name}（关系值 {value}）"
+      },
+      "diplomacy_meta_relation": "关系值 {value}",
+      "diplomacy_last_battle": "最近交锋月标 {month}",
+      "no_rule": "暂无明确门规说明",
       "no_bonus": "无特殊加成",
       "no_runtime_effect": "暂无当前生效的宗门效果",
       "runtime_effect_meta": "来源：{source} - 剩余：{months}个月",

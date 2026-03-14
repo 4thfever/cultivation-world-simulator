@@ -20,7 +20,7 @@
 6. 招徕每成功一人需要花费 {recruit_cost} 灵石，只有在你认为值得时才选择。
 7. 资助每次固定花费 {support_amount} 灵石。
 8. 门规相关的驱逐必须非常克制，只有“严重违背门规”才驱逐。
-9. 候选人的 detailed_info 已经给出，请优先依据这些详细信息判断。
+9. 候选人的 governance_summary 已经给出，应优先依此判断；如仍不够，再参考 detailed_info。
 10. 你只负责“规划要对谁做什么”，不要编造未提供的 avatar_id 或 other_sect_id。
 
 请返回严格 JSON，不要输出任何额外说明，格式如下：

@@ -1,6 +1,9 @@
 from typing import TYPE_CHECKING, Any, Dict, List
 
 from src.classes.effect import format_effects_to_text
+from src.sim.managers.sect_manager import SectManager
+from src.systems.sect_relations import compute_sect_relations
+from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.core.sect import Sect
@@ -92,12 +95,58 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     info["runtime_effect_desc"] = (
         format_effects_to_text(active_effects).strip() if active_effects else ""
     )
+    sect_conf = getattr(CONFIG, "sect", None)
+    base_income = float(getattr(sect_conf, "income_per_tile", 10)) if sect_conf else 10.0
     info["runtime_extra_income_per_tile"] = float(
         sect.get_extra_income_per_tile(current_month)
     )
     info["runtime_effects_count"] = len(runtime_items)
     info["runtime_effect_items"] = runtime_items
     info["yearly_thinking"] = str(getattr(sect, "yearly_thinking", "") or "")
+
+    sect_manager = SectManager(world)
+    snapshot = sect_manager.get_snapshot()
+    tile_count = 0
+    conflict_tile_count = 0
+    for owners in snapshot.tile_owners.values():
+        if int(sect.id) in owners:
+            tile_count += 1
+            if len(owners) > 1:
+                conflict_tile_count += 1
+
+    effective_income_per_tile = max(
+        0.0,
+        base_income + float(sect.get_extra_income_per_tile(current_month)),
+    )
+    info["territory_summary"] = {
+        "tile_count": tile_count,
+        "conflict_tile_count": conflict_tile_count,
+        "headquarter_center": snapshot.sect_centers.get(int(sect.id)),
+    }
+    info["economy_summary"] = {
+        "current_magic_stone": int(getattr(sect, "magic_stone", 0)),
+        "effective_income_per_tile": effective_income_per_tile,
+        "controlled_tile_income": float(tile_count) * effective_income_per_tile,
+    }
+
+    extra_breakdown_by_pair = world.get_active_sect_relation_breakdown(current_month)
+    diplomacy_by_pair = world.get_active_sect_diplomacy_breakdown(
+        current_month,
+        sect_ids=[int(s.id) for s in snapshot.active_sects],
+    )
+    relations_raw = compute_sect_relations(
+        snapshot.active_sects,
+        snapshot.tile_owners,
+        extra_breakdown_by_pair=extra_breakdown_by_pair,
+        diplomacy_by_pair=diplomacy_by_pair,
+    )
+    relation_by_other_id: Dict[int, Dict[str, Any]] = {}
+    for item in relations_raw:
+        if int(item["sect_a_id"]) == int(sect.id):
+            relation_by_other_id[int(item["sect_b_id"])] = item
+        elif int(item["sect_b_id"]) == int(sect.id):
+            relation_by_other_id[int(item["sect_a_id"])] = item
+
     sect_context = getattr(world, "sect_context", None)
     active_sects = (
         sect_context.get_active_sects()
@@ -106,10 +155,26 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     )
     diplomacy_items: List[Dict[str, Any]] = []
     current_month = int(getattr(world, "month_stamp", 0))
+    active_war_count = 0
+    strongest_enemy_name = ""
+    strongest_enemy_relation = 0
     for other in active_sects:
         if other is None or int(getattr(other, "id", 0)) == int(getattr(sect, "id", 0)):
             continue
         state = world.get_sect_diplomacy_state(int(sect.id), int(other.id), current_month=current_month)
+        relation_item = relation_by_other_id.get(int(other.id), {})
+        relation_value = int(relation_item.get("value", 0) or 0)
+        if str(state.get("status", "peace") or "peace") == "war":
+            active_war_count += 1
+        if relation_value < strongest_enemy_relation:
+            strongest_enemy_relation = relation_value
+            strongest_enemy_name = str(getattr(other, "name", "") or "")
+        reason_breakdown = list(relation_item.get("reason_breakdown", []))
+        reason_summary = " / ".join(
+            f"{item.get('reason', '')}:{int(item.get('delta', 0))}"
+            for item in reason_breakdown[:4]
+            if item.get("reason")
+        )
         diplomacy_items.append(
             {
                 "other_sect_id": int(other.id),
@@ -120,9 +185,19 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
                 ),
                 "war_months": int(state.get("war_months", 0) or 0),
                 "peace_months": int(state.get("peace_months", 0) or 0),
+                "relation_value": relation_value,
+                "war_reason": str(state.get("reason", "") or ""),
+                "last_battle_month": state.get("last_battle_month"),
+                "reason_summary": reason_summary,
             }
         )
     info["diplomacy_items"] = diplomacy_items
+    info["war_summary"] = {
+        "active_war_count": active_war_count,
+        "peace_count": max(0, len(diplomacy_items) - active_war_count),
+        "strongest_enemy_name": strongest_enemy_name,
+        "strongest_enemy_relation": strongest_enemy_relation,
+    }
 
     return info
 

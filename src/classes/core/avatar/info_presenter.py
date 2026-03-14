@@ -212,6 +212,43 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         info["sect"] = sect_info
     else:
         info["sect"] = None
+
+    current_month = int(getattr(avatar.world, "month_stamp", 0))
+    sect_status_summary = None
+    if avatar.sect:
+        sect_context = getattr(avatar.world, "sect_context", None)
+        active_sects = sect_context.get_active_sects() if sect_context is not None else []
+        active_wars = []
+        for other in active_sects:
+            if other is None or int(getattr(other, "id", 0)) == int(getattr(avatar.sect, "id", 0)):
+                continue
+            state = avatar.world.get_sect_diplomacy_state(
+                int(avatar.sect.id),
+                int(other.id),
+                current_month=current_month,
+            )
+            if str(state.get("status", "peace") or "peace") != "war":
+                continue
+            active_wars.append(
+                {
+                    "other_sect_id": int(other.id),
+                    "other_sect_name": str(getattr(other, "name", "") or ""),
+                    "war_months": int(state.get("war_months", 0) or 0),
+                    "war_reason": str(state.get("reason", "") or ""),
+                    "last_battle_month": state.get("last_battle_month"),
+                }
+            )
+        sect_status_summary = {
+            "sect_name": avatar.sect.name,
+            "sect_rank": avatar.get_sect_rank_name(),
+            "sect_is_at_war": bool(active_wars),
+            "active_war_count": len(active_wars),
+            "active_wars": active_wars,
+            "rule_desc": str(getattr(avatar.sect, "rule_desc", "") or ""),
+            "sect_alignment": str(getattr(avatar.sect, "alignment", "") or ""),
+            "sect_orthodoxy": str(getattr(getattr(avatar, "orthodoxy", None), "name", "") or ""),
+        }
+    info["sect_status_summary"] = sect_status_summary
         
     # [新增] 道统 (Orthodoxy)
     # 无论有无宗门，都返回道统信息（散修返回"天地"道统）
@@ -313,6 +350,109 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     info[t("Current Effects")] = _get_effects_text(avatar)
 
     return info
+
+
+def get_avatar_ai_context(
+    avatar: "Avatar",
+    co_region_avatars: Optional[List["Avatar"]] = None,
+) -> dict:
+    """
+    为角色动作决策构建聚焦上下文。
+    这里刻意不放宗门总灵石/总战力，只提供战争、门规与局部感知。
+    """
+    from src.i18n import t
+
+    world = avatar.world
+    current_month = int(getattr(world, "month_stamp", 0))
+    region = avatar.tile.region if avatar.tile is not None else None
+    observed = []
+    for other in (co_region_avatars or [])[:8]:
+        observed.append(
+            {
+                "id": str(getattr(other, "id", "")),
+                "name": str(getattr(other, "name", "") or ""),
+                "realm": str(getattr(getattr(other, "cultivation_progress", None), "get_info", lambda: "")()),
+                "sect": str(getattr(getattr(other, "sect", None), "name", "") or t("Rogue Cultivator")),
+            }
+        )
+
+    major_events = world.event_manager.get_major_events_by_avatar(avatar.id, limit=4)
+    minor_events = world.event_manager.get_minor_events_by_avatar(avatar.id, limit=4)
+
+    sect_context = {
+        "has_sect": False,
+        "sect_name": "",
+        "sect_rank": "",
+        "sect_alignment": "",
+        "sect_rule_desc": "",
+        "sect_is_at_war": False,
+        "active_wars": [],
+        "hostile_sects_summary": "",
+        "can_seek_support_from_sect": False,
+    }
+    if avatar.sect is not None:
+        world_sect_context = getattr(world, "sect_context", None)
+        active_sects = world_sect_context.get_active_sects() if world_sect_context is not None else []
+        active_wars = []
+        hostile_names = []
+        for other in active_sects:
+            if other is None or int(getattr(other, "id", 0)) == int(getattr(avatar.sect, "id", 0)):
+                continue
+            state = world.get_sect_diplomacy_state(
+                int(avatar.sect.id),
+                int(other.id),
+                current_month=current_month,
+            )
+            if str(state.get("status", "peace") or "peace") != "war":
+                continue
+            hostile_names.append(str(getattr(other, "name", "") or ""))
+            active_wars.append(
+                {
+                    "other_sect_id": int(other.id),
+                    "other_sect_name": str(getattr(other, "name", "") or ""),
+                    "war_months": int(state.get("war_months", 0) or 0),
+                    "war_reason": str(state.get("reason", "") or ""),
+                    "last_battle_month": state.get("last_battle_month"),
+                }
+            )
+        sect_context = {
+            "has_sect": True,
+            "sect_name": avatar.sect.name,
+            "sect_rank": avatar.get_sect_rank_name(),
+            "sect_alignment": str(avatar.sect.alignment),
+            "sect_rule_desc": str(getattr(avatar.sect, "rule_desc", "") or ""),
+            "sect_is_at_war": bool(active_wars),
+            "active_wars": active_wars,
+            "hostile_sects_summary": "、".join(hostile_names[:4]),
+            "can_seek_support_from_sect": bool(active_wars),
+        }
+
+    return {
+        "self_profile": {
+            "name": avatar.name,
+            "realm": avatar.cultivation_progress.get_info(),
+            "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
+            "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
+            "current_action": avatar.current_action_name,
+            "emotion": t(avatar.emotion.value),
+            "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",
+            "short_term_objective": avatar.short_term_objective,
+        },
+        "sect_context": sect_context,
+        "local_world": {
+            "region": region.get_info() if region is not None else t("None"),
+            "nearby_avatars": observed,
+        },
+        "recent_memory": {
+            "major_events": [str(getattr(ev, "content", "")) for ev in major_events],
+            "recent_events": [str(getattr(ev, "content", "")) for ev in minor_events],
+        },
+        "decision_hints": {
+            "should_prioritize_safety": avatar.hp.cur < max(1, avatar.hp.max // 2),
+            "should_prioritize_sect_duty": bool(sect_context["sect_is_at_war"]),
+            "can_seek_support_from_sect": bool(sect_context["can_seek_support_from_sect"]),
+        },
+    }
 
 
 def get_avatar_expanded_info(

@@ -106,6 +106,22 @@ export interface AvatarDetail extends EntityBase {
   
   // 附加信息
   "当前效果"?: string;
+  sect_status_summary?: {
+    sect_name: string;
+    sect_rank: string;
+    sect_is_at_war: boolean;
+    active_war_count: number;
+    active_wars: Array<{
+      other_sect_id: number;
+      other_sect_name: string;
+      war_months: number;
+      war_reason?: string;
+      last_battle_month?: number | null;
+    }>;
+    rule_desc?: string;
+    sect_alignment?: string;
+    sect_orthodoxy?: string;
+  } | null;
 }
 
 export interface SectInfo extends EffectEntity {
@@ -132,6 +148,8 @@ export interface SectDetail extends EntityBase {
   hq_name: string;
   hq_desc: string;
   effect_desc: string;
+  rule_id?: string;
+  rule_desc?: string;
   technique_names?: string[]; // Deprecated
   techniques: EffectEntity[];
   preferred_weapon: string;
@@ -148,6 +166,22 @@ export interface SectDetail extends EntityBase {
   runtime_effect_items?: SectRuntimeEffectItem[];
   yearly_thinking?: string;
   diplomacy_items?: SectDiplomacyItem[];
+  territory_summary?: {
+    tile_count: number;
+    conflict_tile_count: number;
+    headquarter_center?: [number, number] | null;
+  };
+  economy_summary?: {
+    current_magic_stone: number;
+    effective_income_per_tile: number;
+    controlled_tile_income: number;
+  };
+  war_summary?: {
+    active_war_count: number;
+    peace_count: number;
+    strongest_enemy_name: string;
+    strongest_enemy_relation: number;
+  };
 }
 
 export interface SectRuntimeEffectItem {
@@ -165,6 +199,10 @@ export interface SectDiplomacyItem {
   duration_months: number;
   war_months: number;
   peace_months: number;
+  relation_value?: number;
+  war_reason?: string;
+  last_battle_month?: number | null;
+  reason_summary?: string;
 }
 
 export interface RelationInfo {

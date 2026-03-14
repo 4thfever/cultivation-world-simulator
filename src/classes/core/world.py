@@ -260,6 +260,7 @@ class World():
                 "peace_months": peace_months,
                 "war_months": 0,
                 "last_battle_month": None,
+                "reason": "",
             }
 
         status = str(war.get("status", STATUS_PEACE) or STATUS_PEACE)
@@ -274,6 +275,7 @@ class World():
                 "peace_months": 0,
                 "war_months": max(0, now - war_start),
                 "last_battle_month": war.get("last_battle_month"),
+                "reason": str(war.get("reason", "") or ""),
             }
 
         effective_peace_start = peace_start_int if peace_start_int is not None else war_start
@@ -284,6 +286,7 @@ class World():
             "peace_months": max(0, now - effective_peace_start),
             "war_months": 0,
             "last_battle_month": war.get("last_battle_month"),
+            "reason": str(war.get("reason", "") or ""),
         }
 
     def prune_expired_sect_relation_modifiers(self, current_month: Optional[int] = None) -> None:

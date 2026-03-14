@@ -170,6 +170,7 @@ class SectDecider:
             "basic_text": ctx.basic_text,
             "power": dict(ctx.power),
             "territory": dict(ctx.territory),
+            "self_assessment": dict(ctx.self_assessment),
             "economy": dict(ctx.economy),
             "rule": dict(ctx.rule),
             "diplomacy_targets": list(ctx.diplomacy_targets),

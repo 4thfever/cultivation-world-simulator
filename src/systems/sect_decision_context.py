@@ -33,6 +33,7 @@ class SectDecisionContext:
     # 战力与势力范围（当前快照）
     power: Dict[str, Any]
     territory: Dict[str, Any]
+    self_assessment: Dict[str, Any]
 
     # 经济能力（当前快照）
     economy: Dict[str, Any]
@@ -96,6 +97,7 @@ def build_sect_decision_context(
     territory = {
         "tile_count": tile_count,
         "conflict_tile_count": conflict_tile_count,
+        "conflict_ratio": (float(conflict_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
         "headquarter_center": headquarter_center,
     }
 
@@ -111,6 +113,43 @@ def build_sect_decision_context(
         "current_magic_stone": int(getattr(sect, "magic_stone", 0)),
         "effective_income_per_tile": effective_income_per_tile,
         "controlled_tile_income": controlled_tile_income,
+    }
+
+    living_members = [
+        avatar
+        for avatar in getattr(sect, "members", {}).values()
+        if not getattr(avatar, "is_dead", False)
+    ]
+    recruit_cost = int(getattr(CONFIG.sect, "recruit_cost", 500))
+    support_amount = int(getattr(CONFIG.sect, "support_amount", 300))
+    resource_pressure = "high"
+    current_stones = int(getattr(sect, "magic_stone", 0))
+    if current_stones >= recruit_cost * 2:
+        resource_pressure = "low"
+    elif current_stones >= support_amount:
+        resource_pressure = "normal"
+    peak_member = max(
+        living_members,
+        key=lambda avatar: int(getattr(getattr(avatar, "cultivation_progress", None), "level", 0) or 0),
+        default=None,
+    )
+    patriarch = next(
+        (
+            avatar
+            for avatar in living_members
+            if getattr(getattr(avatar, "sect_rank", None), "value", "") == "patriarch"
+        ),
+        None,
+    )
+    self_assessment = {
+        "member_count": len(getattr(sect, "members", {})),
+        "alive_member_count": len(living_members),
+        "peak_member_realm": str(getattr(getattr(peak_member, "cultivation_progress", None), "realm", "") or ""),
+        "patriarch_realm": str(getattr(getattr(patriarch, "cultivation_progress", None), "realm", "") or ""),
+        "war_readiness": "stretched" if conflict_tile_count > max(1, tile_count // 3) else "stable",
+        "resource_pressure": resource_pressure,
+        "can_afford_recruit_count": current_stones // max(1, recruit_cost),
+        "can_afford_support_count": current_stones // max(1, support_amount),
     }
 
     rule = {
@@ -129,6 +168,28 @@ def build_sect_decision_context(
         technique = getattr(avatar, "technique", None)
         grade = getattr(technique, "grade", None)
         return str(grade) if grade is not None else ""
+
+    def _build_governance_summary(avatar) -> Dict[str, Any]:
+        recent_events = []
+        try:
+            recent_events = world.event_manager.get_major_events_by_avatar(
+                str(getattr(avatar, "id", "")),
+                limit=3,
+            )
+        except Exception:
+            recent_events = []
+        return {
+            "realm": str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "") or ""),
+            "alignment": str(getattr(avatar, "alignment", "") or ""),
+            "sect": str(getattr(getattr(avatar, "sect", None), "name", "") or ""),
+            "root": str(getattr(avatar, "root", "") or ""),
+            "orthodoxy": str(getattr(getattr(avatar, "orthodoxy", None), "name", "") or ""),
+            "recent_events": [
+                str(getattr(ev, "content", ""))
+                for ev in recent_events
+                if getattr(ev, "content", "")
+            ][:3],
+        }
 
     recruitment_candidates: List[Dict[str, Any]] = []
     member_candidates: List[Dict[str, Any]] = []
@@ -151,6 +212,7 @@ def build_sect_decision_context(
                     "technique_grade_rank": _technique_grade_rank(avatar),
                     "alignment_recruitable": bool(sect.is_alignment_recruitable(getattr(avatar, "alignment", None))),
                     "detailed_info": avatar.get_info(detailed=True),
+                    "governance_summary": _build_governance_summary(avatar),
                 }
             )
             continue
@@ -171,6 +233,7 @@ def build_sect_decision_context(
                 "technique_grade_rank": _technique_grade_rank(avatar),
                 "is_rule_breaker": bool(sect.is_member_rule_breaker(avatar)),
                 "detailed_info": avatar.get_info(detailed=True),
+                "governance_summary": _build_governance_summary(avatar),
             }
         )
 
@@ -208,6 +271,15 @@ def build_sect_decision_context(
     relations: List[Dict[str, Any]] = []
     diplomacy_targets: List[Dict[str, Any]] = []
     active_wars: List[Dict[str, Any]] = []
+    overlap_by_other_id: Dict[int, int] = {}
+    other_sect_by_id = {int(s.id): s for s in active_sects}
+    for owners in tile_owners.values():
+        if int(sect.id) not in owners:
+            continue
+        for owner_id in owners:
+            if int(owner_id) == int(sect.id):
+                continue
+            overlap_by_other_id[int(owner_id)] = overlap_by_other_id.get(int(owner_id), 0) + 1
     for item in relations_raw:
         sid_a = int(item["sect_a_id"])
         sid_b = int(item["sect_b_id"])
@@ -239,7 +311,14 @@ def build_sect_decision_context(
             "war_months": int(diplomacy_state.get("war_months", 0) or 0),
             "peace_months": int(diplomacy_state.get("peace_months", 0) or 0),
             "last_battle_month": diplomacy_state.get("last_battle_month"),
+            "war_reason": str(diplomacy_state.get("reason", "") or ""),
             "relation_value": value,
+            "territory_overlap_tiles": int(overlap_by_other_id.get(other_id, 0)),
+            "other_total_battle_strength": float(getattr(other_sect_by_id.get(other_id), "total_battle_strength", 0.0)),
+            "power_ratio": float(getattr(sect, "total_battle_strength", 0.0)) / max(
+                1.0,
+                float(getattr(other_sect_by_id.get(other_id), "total_battle_strength", 0.0)),
+            ),
         }
         diplomacy_targets.append(diplomacy_target)
         if diplomacy_target["status"] == "war":
@@ -299,6 +378,7 @@ def build_sect_decision_context(
         basic_text=basic_text,
         power=power,
         territory=territory,
+        self_assessment=self_assessment,
         economy=economy,
         rule=rule,
         diplomacy_targets=diplomacy_targets,
