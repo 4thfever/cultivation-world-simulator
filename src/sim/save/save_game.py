@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from src.classes.core.sect import Sect
 
 from src.utils.config import CONFIG
+from src.config import get_settings_service
 from src.classes.language import language_manager
 from src.sim.load.load_game import get_events_db_path
 
@@ -48,6 +49,12 @@ def sanitize_save_name(name: str) -> str:
     # 只保留中文、字母、数字和下划线。
     safe_name = re.sub(r'[^\w\u4e00-\u9fff]', '_', safe_name)
     return safe_name[:50] if safe_name else "save"
+
+
+def _model_to_dict(model):
+    if hasattr(model, "model_dump"):
+        return model.model_dump()
+    return model.dict()
 
 
 def save_game(
@@ -120,12 +127,19 @@ def save_game(
         dead_count = len(world.avatar_manager.dead_avatars)
         total_count = alive_count + dead_count
 
+        run_config_snapshot = getattr(world, "run_config_snapshot", None)
+        if not run_config_snapshot:
+            run_config_snapshot = _model_to_dict(get_settings_service().get_default_run_config())
+            # In non-server flows there may be no explicit runtime snapshot on the world yet.
+            # Keep the saved metadata and run_config aligned with the active language context.
+            run_config_snapshot["content_locale"] = str(language_manager)
+
         # 构建元信息
         meta = {
             "version": CONFIG.meta.version,
             "save_time": datetime.now().isoformat(),
             "game_time": f"{world.month_stamp.get_year()}年{world.month_stamp.get_month().value}月",
-            "language": str(language_manager),
+            "language": run_config_snapshot.get("content_locale", str(language_manager)),
             # SQLite 事件数据库信息。
             "events_db": str(events_db_path.name),
             "event_count": world.event_manager.count(),
@@ -206,6 +220,7 @@ def save_game(
         # 组装完整的存档数据
         save_data = {
             "meta": meta,
+            "run_config": run_config_snapshot,
             "world": world_data,
             "avatars": avatars_data,
             "events": events_data,

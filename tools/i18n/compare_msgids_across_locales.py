@@ -12,17 +12,19 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 try:
     import polib
 except ImportError:
     print("Error: polib is required. Please install it using 'pip install polib'")
     sys.exit(1)
 
-LOCALES = ["zh-CN", "en-US", "zh-TW"]
+from tools.i18n.locale_registry import get_locale_codes, get_project_root
 
-
-def get_project_root() -> Path:
-    return Path(__file__).parent.parent.parent
+LOCALES = get_locale_codes()
 
 
 def extract_msgids(filepath: Path) -> set[str]:
@@ -100,7 +102,7 @@ def main() -> None:
 
     # 3. Output report
     lines = [
-        "# Msgid Comparison Across Locales (zh-CN, en-US, zh-TW)",
+        f"# Msgid Comparison Across Locales ({', '.join(LOCALES)})",
         "",
         "## 1. File Coverage Summary",
         "",

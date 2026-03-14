@@ -56,15 +56,16 @@ Write-Host "Source Directory: $SourceDir" -ForegroundColor Gray
 # ==============================================================================
 Write-Host "Cleaning up sensitive/temporary files..." -ForegroundColor Yellow
 
-# 4.1 Remove local_config.yml (Recursively)
-$SensitiveFiles = Get-ChildItem -Path $SourceDir -Include "local_config.yml" -Recurse -Force
+# 4.1 Remove sensitive config files (Recursively)
+$SensitiveNames = @("local_config.yml", "settings.json", "secrets.json")
+$SensitiveFiles = Get-ChildItem -Path $SourceDir -Include $SensitiveNames -Recurse -Force
 if ($SensitiveFiles) {
     foreach ($file in $SensitiveFiles) {
         Remove-Item -Path $file.FullName -Force
         Write-Host "  [-] Deleted Config: $($file.FullName)" -ForegroundColor DarkGray
     }
 } else {
-    Write-Host "  [i] No local_config.yml files found." -ForegroundColor DarkGray
+    Write-Host "  [i] No sensitive config files found." -ForegroundColor DarkGray
 }
 
 # 4.2 Remove log files (Recursively) - cleanup from testing

@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from collections import Counter
 
+from tools.i18n.locale_registry import get_locale_codes, get_source_locale
+
 # 尝试导入 polib，如果失败则在测试中标记 skip
 try:
     import polib
@@ -25,7 +27,7 @@ class TestBackendLocales:
     def test_no_duplicate_msgids(self):
         """检查所有合并后的 messages.po 是否存在重复的 msgid"""
         root = get_project_root()
-        locales = ["zh-CN", "zh-TW", "en-US"]
+        locales = get_locale_codes()
         
         errors = []
         for loc in locales:
@@ -55,7 +57,7 @@ class TestBackendLocales:
         即 `zh-CN` 所有模块的 msgid 集合与 `en-US` 所有模块的 msgid 集合必须严格一致。
         """
         root = get_project_root()
-        locales = ["zh-CN", "zh-TW", "en-US"]
+        locales = get_locale_codes()
         module_dirs = ["modules", "game_configs_modules"]
         
         errors = []
@@ -72,7 +74,7 @@ class TestBackendLocales:
                         loc_global_keys[loc].update(msgids)
                         
         # 交叉验证
-        base_loc = "zh-CN"
+        base_loc = get_source_locale()
         base_set = loc_global_keys[base_loc]
         
         for other_loc in locales:

@@ -64,7 +64,7 @@
     "q3_model_name": "Model Name (模型名称): 告诉服务器你想用哪颗大脑，如 deepseek-chat 或 gemini-3-flash-preview。",
     "q4_title": "🔗 4. 从哪里获取 Key?",
     "q5_title": "🛡️ 5. 安全说明",
-    "q5_p1": "您的 API Key 仅保存在您的本地电脑配置文件中 (`static/local_config.yml`)，由本地运行的游戏后端直接与模型厂商通信。本游戏 (Cultivation World Simulator) 是完全开源的程序，绝不会将您的 Key 上传至任何第三方服务器。也请注意不要把local_config.yml文件分享给任何人。",
+    "q5_p1": "您的 API Key 仅保存在本机用户数据目录下的 `secrets.json` 中，由本地运行的游戏后端直接与模型厂商通信。本游戏 (Cultivation World Simulator) 是完全开源的程序，绝不会将您的 Key 上传至任何第三方服务器。也请不要分享包含 settings/secrets 的用户数据目录。",
     "q5_p2": "使用token会产生费用，请自行评估使用成本。",
     "confirm": "我明白了"
   },

@@ -61,19 +61,6 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
         // 未配置 -> 强制进入 LLM 配置，禁止关闭
         uiStore.openSystemMenu('llm', false)
         message.warning('检测到 LLM 未配置，请先完成设置')
-      } else {
-        // 已配置 -> 验证连通性
-        try {
-          const configRes = await llmApi.fetchConfig()
-          await llmApi.testConnection(configRes)
-          
-          // 测试通过 -> 保持在 start 页面即可
-        } catch (connErr) {
-          // 连接失败 -> 强制进入配置
-          logError('GameControl llm connection', connErr)
-          uiStore.openSystemMenu('llm', false)
-          message.error('LLM 连接测试失败，请重新配置')
-        }
       }
     } catch (e) {
       logError('GameControl llm status', e)

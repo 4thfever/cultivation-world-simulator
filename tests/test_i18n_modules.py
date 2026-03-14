@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 import polib
 from src.i18n import t, _get_locale_dir
+from tools.i18n.locale_registry import get_locale_codes
 
 def test_i18n_modules_structure():
     """
@@ -10,7 +11,7 @@ def test_i18n_modules_structure():
     """
     locale_dir = _get_locale_dir()
     # Directory names now use hyphens (zh-CN) to match static assets convention
-    languages = ["zh-CN", "en-US", "zh-TW"]
+    languages = get_locale_codes()
     
     for lang in languages:
         lang_dir = locale_dir / lang

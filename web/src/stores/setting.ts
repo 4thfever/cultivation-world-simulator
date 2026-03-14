@@ -1,85 +1,169 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+
 import i18n from '../locales';
 import { systemApi } from '../api/modules/system';
+import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
 
-export const useSettingStore = defineStore('setting', () => {
-  const locale = ref(localStorage.getItem('app_locale') || 'zh-CN');
-  
-  // Auto Save
-  const isAutoSave = ref(false);
-
-  // Sound settings
-  const sfxVolume = ref(parseFloat(localStorage.getItem('app_sfx_volume') || '0.5'));
-  const bgmVolume = ref(parseFloat(localStorage.getItem('app_bgm_volume') || '0.5'));
-
-  function setSfxVolume(volume: number) {
-    sfxVolume.value = volume;
-    localStorage.setItem('app_sfx_volume', String(volume));
+function applyUiLocale(lang: string) {
+  if (i18n.mode === 'legacy') {
+    (i18n.global.locale as unknown as string) = lang;
+  } else {
+    (i18n.global.locale as unknown as { value: string }).value = lang;
   }
 
-  function setBgmVolume(volume: number) {
-    bgmVolume.value = volume;
-    localStorage.setItem('app_bgm_volume', String(volume));
+  const langMap: Record<string, string> = {
+    'zh-CN': 'zh-CN',
+    'zh-TW': 'zh-TW',
+    'en-US': 'en',
+  };
+  document.documentElement.lang = langMap[lang] || 'en';
+}
+
+export const useSettingStore = defineStore('setting', () => {
+  const hydrated = ref(false);
+  const loading = ref(false);
+
+  const locale = ref<'zh-CN' | 'zh-TW' | 'en-US' | string>('zh-CN');
+  const sfxVolume = ref(0.5);
+  const bgmVolume = ref(0.5);
+  const isAutoSave = ref(false);
+  const maxAutoSaves = ref(5);
+  const newGameDraft = ref<RunConfigDTO>({
+    content_locale: 'zh-CN',
+    init_npc_num: 9,
+    sect_num: 3,
+    npc_awakening_rate_per_month: 0.01,
+    world_history: '',
+  });
+
+  const isReady = computed(() => hydrated.value && !loading.value);
+
+  function applySettings(settings: AppSettingsDTO) {
+    locale.value = settings.ui.locale;
+    bgmVolume.value = settings.ui.audio.bgm_volume;
+    sfxVolume.value = settings.ui.audio.sfx_volume;
+    isAutoSave.value = settings.simulation.auto_save_enabled;
+    maxAutoSaves.value = settings.simulation.max_auto_saves;
+    newGameDraft.value = { ...settings.new_game_defaults };
+    applyUiLocale(locale.value);
+  }
+
+  async function hydrate() {
+    if (loading.value) return;
+
+    loading.value = true;
+    try {
+      const settings = await systemApi.fetchSettings();
+      applySettings(settings);
+    } catch (e) {
+      console.warn('Failed to hydrate settings:', e);
+      applyUiLocale(locale.value);
+    } finally {
+      hydrated.value = true;
+      loading.value = false;
+    }
   }
 
   async function setLocale(lang: 'zh-CN' | 'zh-TW' | 'en-US') {
-    // 1. Optimistic UI update
+    const previous = locale.value;
     locale.value = lang;
-    localStorage.setItem('app_locale', lang);
-    if (i18n.mode === 'legacy') {
-        (i18n.global.locale as any) = lang;
-    } else {
-        (i18n.global.locale as any).value = lang;
-    }
-    // Update HTML lang attribute for accessibility
-    const langMap: Record<string, string> = {
-      'zh-CN': 'zh-CN',
-      'zh-TW': 'zh-TW',
-      'en-US': 'en'
-    };
-    document.documentElement.lang = langMap[lang] || 'en';
+    applyUiLocale(lang);
 
-    // 2. Sync with backend
-    await syncBackend();
-  }
-  
-  async function syncBackend() {
-      try {
-          await systemApi.setLanguage(locale.value);
-      } catch (e) {
-          console.warn('Failed to sync language with backend:', e);
-      }
-  }
-
-  async function fetchAutoSaveConfig() {
     try {
-      const res = await systemApi.fetchAutoSave();
-      isAutoSave.value = res.enabled;
+      const settings = await systemApi.patchSettings({ ui: { locale: lang } });
+      applySettings(settings);
     } catch (e) {
-      console.warn('Failed to fetch auto save config:', e);
+      locale.value = previous;
+      applyUiLocale(previous);
+      console.warn('Failed to save locale setting:', e);
+    }
+  }
+
+  async function setSfxVolume(volume: number) {
+    const previous = sfxVolume.value;
+    sfxVolume.value = volume;
+
+    try {
+      const settings = await systemApi.patchSettings({ ui: { audio: { sfx_volume: volume } } });
+      applySettings(settings);
+    } catch (e) {
+      sfxVolume.value = previous;
+      console.warn('Failed to save sfx volume:', e);
+    }
+  }
+
+  async function setBgmVolume(volume: number) {
+    const previous = bgmVolume.value;
+    bgmVolume.value = volume;
+
+    try {
+      const settings = await systemApi.patchSettings({ ui: { audio: { bgm_volume: volume } } });
+      applySettings(settings);
+    } catch (e) {
+      bgmVolume.value = previous;
+      console.warn('Failed to save bgm volume:', e);
     }
   }
 
   async function setAutoSave(enabled: boolean) {
+    const previous = isAutoSave.value;
+    isAutoSave.value = enabled;
+
     try {
-      isAutoSave.value = enabled;
-      await systemApi.setAutoSave(enabled);
+      const settings = await systemApi.patchSettings({ simulation: { auto_save_enabled: enabled } });
+      applySettings(settings);
     } catch (e) {
-      console.warn('Failed to set auto save config:', e);
+      isAutoSave.value = previous;
+      console.warn('Failed to save auto save setting:', e);
     }
   }
 
+  function updateNewGameDraft(patch: Partial<RunConfigDTO>) {
+    newGameDraft.value = {
+      ...newGameDraft.value,
+      ...patch,
+    };
+  }
+
+  async function saveNewGameDefaults() {
+    try {
+      const settings = await systemApi.patchSettings({
+        new_game_defaults: { ...newGameDraft.value },
+      });
+      applySettings(settings);
+      return true;
+    } catch (e) {
+      console.warn('Failed to save new game defaults:', e);
+      return false;
+    }
+  }
+
+  async function startGameWithDraft() {
+    const saved = await saveNewGameDefaults();
+    if (!saved) {
+      throw new Error('Failed to save new game defaults');
+    }
+    return systemApi.startGame({ ...newGameDraft.value });
+  }
+
   return {
+    hydrated,
+    loading,
+    isReady,
     locale,
-    setLocale,
-    syncBackend,
     sfxVolume,
     bgmVolume,
+    isAutoSave,
+    maxAutoSaves,
+    newGameDraft,
+    hydrate,
+    setLocale,
     setSfxVolume,
     setBgmVolume,
-    isAutoSave,
-    fetchAutoSaveConfig,
-    setAutoSave
+    setAutoSave,
+    updateNewGameDraft,
+    saveNewGameDefaults,
+    startGameWithDraft,
   };
 });

@@ -1,7 +1,10 @@
 import json
-import os
 import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 try:
     import polib
@@ -9,8 +12,12 @@ except ImportError:
     print("Error: polib is required. Please install it using 'pip install polib'")
     sys.exit(1)
 
-def get_project_root() -> Path:
-    return Path(__file__).parent.parent.parent
+from tools.i18n.locale_registry import (
+    get_fallback_locale,
+    get_locale_codes,
+    get_project_root,
+    get_source_locale,
+)
 
 def get_all_keys(d, prefix=''):
     keys = {}
@@ -31,9 +38,9 @@ def extract_msgids(filepath: Path) -> dict:
 def generate_report():
     root = get_project_root()
     report_lines = ["# I18n Missing Translations Report\n"]
-    
-    locales = ["en-US", "zh-TW"]
-    base_loc = "zh-CN"
+
+    base_loc = get_source_locale()
+    locales = [loc for loc in get_locale_codes() if loc != base_loc]
     
     # 1. Frontend Check
     report_lines.append("## Frontend Missing\n")
@@ -108,11 +115,12 @@ def generate_report():
                 missing_msgids = []
                 for msgid, _ in base_entries.items():
                     # For backend, we just need the msgid to exist in target
-                    # since msgid is the English string. For zh-TW, we might also check if msgstr is empty
+                    # since msgid is the English string. For non-fallback locales,
+                    # we also treat empty msgstr as missing.
                     if msgid not in target_entries:
                         missing_msgids.append(msgid)
-                    elif target_loc == "zh-TW" and not target_entries[msgid]:
-                        # If zh-TW exists but translation is empty, it's missing
+                    elif target_loc != get_fallback_locale() and not target_entries[msgid]:
+                        # If the entry exists but the translation is empty, it's still missing.
                         missing_msgids.append(msgid)
                 
                 if missing_msgids:

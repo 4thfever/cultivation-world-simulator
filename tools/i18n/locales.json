@@ -1,0 +1,26 @@
+{
+  "default_locale": "zh-CN",
+  "fallback_locale": "en-US",
+  "schema_locale": "en-US",
+  "locales": [
+    {
+      "code": "zh-CN",
+      "label": "简体中文",
+      "html_lang": "zh-CN",
+      "enabled": true,
+      "source_of_truth": true
+    },
+    {
+      "code": "zh-TW",
+      "label": "繁體中文",
+      "html_lang": "zh-TW",
+      "enabled": true
+    },
+    {
+      "code": "en-US",
+      "label": "English",
+      "html_lang": "en",
+      "enabled": true
+    }
+  ]
+}

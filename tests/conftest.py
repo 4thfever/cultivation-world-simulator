@@ -7,6 +7,24 @@ from unittest.mock import MagicMock, AsyncMock, patch
 from src.classes.environment.map import Map
 
 
+@pytest.fixture(autouse=True)
+def isolate_settings_data_root(monkeypatch, tmp_path):
+    """
+    Redirect app settings/secrets data root to a per-test temp dir.
+    """
+    from src.config import reset_data_paths_cache, reset_settings_service_cache
+
+    data_root = tmp_path / "appdata"
+    monkeypatch.setenv("CWS_DATA_DIR", str(data_root))
+    reset_settings_service_cache()
+    reset_data_paths_cache()
+
+    yield data_root
+
+    reset_settings_service_cache()
+    reset_data_paths_cache()
+
+
 @pytest.fixture(scope="session", autouse=True)
 def configure_test_logging(tmp_path_factory):
     """
@@ -92,22 +110,21 @@ def fixed_random_seed():
     random.seed(42)
     yield
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(autouse=True)
 def force_chinese_language():
     """
-    Force language to Chinese for all tests to match expected string outputs.
+    Reset language around each test so global i18n state does not leak across tests.
     """
     from src.classes.language import language_manager
-    from src.utils.config import update_paths_for_language
-    
-    # Force language to Chinese
-    language_manager.set_language("zh-CN")
-    
-    # Ensure game configs are reloaded (in case set_language skipped it due to circular import protection)
     from src.utils.df import reload_game_configs
+
+    language_manager.set_language("zh-CN")
     reload_game_configs()
-    
+
     yield
+
+    language_manager.set_language("zh-CN")
+    reload_game_configs()
 from src.classes.environment.tile import TileType, Tile
 from src.classes.core.world import World
 from src.systems.time import Month, Year, create_month_stamp

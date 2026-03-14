@@ -164,19 +164,21 @@ try {
         if (Test-Path $ExeDir) {        
             if (Test-Path $StaticPath) {
                 Copy-Item -Path $StaticPath -Destination $ExeDir -Recurse -Force
-                $LocalConfigPath = Join-Path $ExeDir "static\local_config.yml"
-                if (Test-Path $LocalConfigPath) {
-                    Remove-Item -Path $LocalConfigPath -Force
-                    Write-Host "✓ Copied static to exe directory (excluded local_config.yml)" -ForegroundColor Green
-                } else {
+                $SensitiveConfigNames = @("local_config.yml", "settings.json", "secrets.json")
+                $RemovedSensitiveConfigs = $false
+                foreach ($SensitiveName in $SensitiveConfigNames) {
+                    $MatchedFiles = Get-ChildItem -Path $ExeDir -Include $SensitiveName -Recurse -Force -ErrorAction SilentlyContinue
+                    foreach ($MatchedFile in $MatchedFiles) {
+                        Remove-Item -Path $MatchedFile.FullName -Force
+                        $RemovedSensitiveConfigs = $true
+                    }
+                }
+                if ($RemovedSensitiveConfigs) {
+                    Write-Host "✓ Copied static to exe directory (excluded sensitive config files)" -ForegroundColor Green
+                }
+                else {
                     Write-Host "✓ Copied static to exe directory" -ForegroundColor Green
                 }
-            }
-    
-            $InternalLocalConfigPath = Join-Path $ExeDir "_internal\static\local_config.yml"
-            if (Test-Path $InternalLocalConfigPath) {
-                Remove-Item -Path $InternalLocalConfigPath -Force
-                Write-Host "✓ Removed sensitive local_config.yml from _internal" -ForegroundColor Green
             }
     
             if (Test-Path $WebDistDir) {

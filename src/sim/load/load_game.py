@@ -38,6 +38,7 @@ if TYPE_CHECKING:
 from src.systems.time import MonthStamp
 from src.classes.event import Event
 from src.classes.relation.relation import Relation
+from src.config import get_settings_service
 from src.utils.config import CONFIG
 
 
@@ -349,9 +350,14 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
 
         # 重建Simulator
         simulator_data = save_data.get("simulator", {})
+        run_config_snapshot = save_data.get("run_config", _model_to_dict(get_settings_service().get_default_run_config()))
+        world.run_config_snapshot = run_config_snapshot
         simulator = Simulator(world)
         # 兼容旧存档 "birth_rate"
-        simulator.awakening_rate = simulator_data.get("awakening_rate", simulator_data.get("birth_rate", CONFIG.game.npc_awakening_rate_per_month))
+        simulator.awakening_rate = simulator_data.get(
+            "awakening_rate",
+            simulator_data.get("birth_rate", run_config_snapshot.get("npc_awakening_rate_per_month", CONFIG.game.npc_awakening_rate_per_month))
+        )
         
         print(f"Save loaded successfully! Loaded {len(all_avatars)} avatars")
         return world, simulator, existed_sects
@@ -361,6 +367,12 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         import traceback
         traceback.print_exc()
         raise
+
+
+def _model_to_dict(model):
+    if hasattr(model, "model_dump"):
+        return model.model_dump()
+    return model.dict()
 
 
 def check_save_compatibility(save_path: Path) -> Tuple[bool, str]:

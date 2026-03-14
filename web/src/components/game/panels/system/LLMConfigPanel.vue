@@ -11,6 +11,7 @@ const dialog = useDialog()
 const loading = ref(false)
 const testing = ref(false)
 const showHelpModal = ref(false)
+const hasSavedApiKey = ref(false)
 
 const config = ref<LLMConfigDTO>({
   base_url: '',
@@ -97,8 +98,15 @@ async function fetchConfig() {
   loading.value = true
   try {
     const res = await llmApi.fetchConfig()
-    // 确保 API Key 在前端展示为空，增加安全性提示
-    config.value = { ...res, api_key: '' }
+    hasSavedApiKey.value = res.has_api_key
+    config.value = {
+      base_url: res.base_url,
+      api_key: '',
+      model_name: res.model_name,
+      fast_model_name: res.fast_model_name,
+      mode: res.mode,
+      max_concurrent_requests: res.max_concurrent_requests
+    }
   } catch (e) {
     message.error(t('llm.fetch_failed'))
   } finally {
@@ -190,7 +198,7 @@ onMounted(() => {
           <input 
             v-model="config.api_key" 
             type="password" 
-            :placeholder="t('llm.placeholders.api_key')"
+            :placeholder="hasSavedApiKey ? '已保存密钥，留空则保持不变' : t('llm.placeholders.api_key')"
             class="input-field"
           />
         </div>

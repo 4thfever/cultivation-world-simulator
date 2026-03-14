@@ -1,11 +1,18 @@
 import os
 import polib
+import sys
 from collections import defaultdict
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from tools.i18n.locale_registry import get_locale_codes
+
 def main():
     base_dir = Path('static/locales')
-    locales = ['en-US', 'zh-CN', 'zh-TW']
+    locales = get_locale_codes()
     subdirs = ['modules', 'game_configs_modules']
     
     # Collect all msgids from all locales

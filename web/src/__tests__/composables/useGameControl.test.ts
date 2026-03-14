@@ -5,10 +5,8 @@ import { useUiStore } from '@/stores/ui'
 import { useSystemStore } from '@/stores/system'
 
 // Use vi.hoisted to define mocks before vi.mock is hoisted.
-const { mockFetchStatus, mockFetchConfig, mockTestConnection, mockMessageSuccess, mockMessageWarning, mockMessageError } = vi.hoisted(() => ({
+const { mockFetchStatus, mockMessageSuccess, mockMessageWarning, mockMessageError } = vi.hoisted(() => ({
   mockFetchStatus: vi.fn(),
-  mockFetchConfig: vi.fn(),
-  mockTestConnection: vi.fn(),
   mockMessageSuccess: vi.fn(),
   mockMessageWarning: vi.fn(),
   mockMessageError: vi.fn(),
@@ -18,8 +16,6 @@ const { mockFetchStatus, mockFetchConfig, mockTestConnection, mockMessageSuccess
 vi.mock('@/api', () => ({
   llmApi: {
     fetchStatus: mockFetchStatus,
-    fetchConfig: mockFetchConfig,
-    testConnection: mockTestConnection,
   },
 }))
 
@@ -137,10 +133,8 @@ describe('useGameControl', () => {
   })
 
   describe('performStartupCheck', () => {
-    it('should open menu with start tab when LLM configured and connected', async () => {
+    it('should open menu with start tab when LLM is configured', async () => {
       mockFetchStatus.mockResolvedValue({ configured: true })
-      mockFetchConfig.mockResolvedValue({ provider: 'openai', model: 'gpt-4' })
-      mockTestConnection.mockResolvedValue(undefined)
 
       const TestComponent = createTestComponent()
       const wrapper = mount(TestComponent)
@@ -165,27 +159,6 @@ describe('useGameControl', () => {
       expect(wrapper.vm.menuDefaultTab).toBe('llm')
       expect(wrapper.vm.canCloseMenu).toBe(false)
       expect(mockMessageWarning).toHaveBeenCalledWith('检测到 LLM 未配置，请先完成设置')
-      wrapper.unmount()
-    })
-
-    it('should force LLM config when connection test fails', async () => {
-      mockFetchStatus.mockResolvedValue({ configured: true })
-      mockFetchConfig.mockResolvedValue({ provider: 'openai', model: 'gpt-4' })
-      mockTestConnection.mockRejectedValue(new Error('Connection failed'))
-
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-
-      const TestComponent = createTestComponent()
-      const wrapper = mount(TestComponent)
-
-      await wrapper.vm.performStartupCheck()
-
-      expect(wrapper.vm.showMenu).toBe(true)
-      expect(wrapper.vm.menuDefaultTab).toBe('llm')
-      expect(wrapper.vm.canCloseMenu).toBe(false)
-      expect(mockMessageError).toHaveBeenCalledWith('LLM 连接测试失败，请重新配置')
-
-      consoleSpy.mockRestore()
       wrapper.unmount()
     })
 

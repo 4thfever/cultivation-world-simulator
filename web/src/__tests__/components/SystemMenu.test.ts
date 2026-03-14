@@ -24,7 +24,15 @@ describe('SystemMenu', () => {
           llm_settings: 'LLM Settings',
           settings: 'Settings',
           about: 'About',
-          other: 'Other'
+          other: 'Other',
+          simplified_chinese: 'Simplified Chinese',
+          traditional_chinese: 'Traditional Chinese',
+          english: 'English',
+          sound: 'Sound',
+          bgm_volume: 'Music',
+          sfx_volume: 'Sound FX',
+          auto_save: 'Auto Save',
+          auto_save_desc: 'Automatically save the game every decade in January'
         }
       }
     }

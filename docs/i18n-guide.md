@@ -1,5 +1,5 @@
 # I18n Maintenance & Development Guide
-注意目前有三个语言：zh-cn, zh-tw, en-us.
+注意当前启用语言由 `tools/i18n/locales.json` 统一声明；历史上默认有三个语言：zh-cn, zh-tw, en-us。
 
 ## 1. Critical Warning (PowerShell Users)
 
@@ -30,7 +30,25 @@ static/locales/
     │       └── ...
     └── en-US/
         └── ... (Same structure)
+
+tools/i18n/
+    ├── locales.json                # 语言注册表（单一真相源）
+    └── locale_registry.py          # Python 侧读取 helper
+
+web/src/locales/
+    └── registry.ts                 # 前端运行时语言注册表镜像（当前需与 locales.json 保持同步）
 ```
+
+### 2.1 Locale Registry
+
+`tools/i18n/locales.json` 是当前 Python 侧 i18n 工具和 locale 校验的单一真相源。
+
+- `default_locale`: 默认语言
+- `fallback_locale`: 回退语言
+- `schema_locale`: 前端 schema 参考语言
+- `locales`: 当前启用/维护的语言列表
+
+后续如果要新增语言，请先修改该文件，再处理目录、模板、PO/JSON 资源骨架。
 
 ## 3. Workflow: Dynamic Text (Code)
 

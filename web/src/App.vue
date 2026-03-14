@@ -120,13 +120,11 @@ async function handleReturnToMain() {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeydown)
-  // Ensure backend language setting matches frontend preference
-  settingStore.syncBackend()
-  
-    // Initialize audio system
+  settingStore.hydrate().finally(() => {
     useAudio().init()
     useBgm().init() // 确保 BGM 系统在 App 层级初始化，避免 Watcher 被子组件卸载
   })
+})
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
@@ -137,8 +135,8 @@ onUnmounted(() => {
   <n-config-provider :theme="darkTheme">
     <n-dialog-provider>
       <n-message-provider>
-        <!-- 获取到后端状态前显示纯黑，防止 F5 刷新时画面闪烁 -->
-      <div v-if="!isAppReady" class="app-layout" style="background: #000;"></div>
+        <!-- 获取到后端状态和 settings 前显示纯黑，防止 F5 刷新时画面闪烁 -->
+      <div v-if="!isAppReady || !settingStore.hydrated" class="app-layout" style="background: #000;"></div>
       
       <template v-else>
         <SplashLayer 

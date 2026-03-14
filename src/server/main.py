@@ -28,7 +28,6 @@ import random
 import hashlib
 import re
 import logging
-from omegaconf import OmegaConf
 from contextlib import asynccontextmanager
 
 from typing import List, Optional
@@ -48,7 +47,7 @@ from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
-from src.utils.config import CONFIG, load_config
+from src.utils.config import CONFIG
 from src.classes.core.sect import sects_by_id
 from src.classes.technique import techniques_by_id
 from src.classes.items.weapon import weapons_by_id
@@ -66,6 +65,8 @@ from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
 from src.classes.language import language_manager, LanguageType
 from src.systems.sect_relations import compute_sect_relations
+from src.i18n import t
+from src.config import AppSettingsPatch, LLMSettingsUpdate, RunConfig, get_settings_service
 
 # 全局游戏实例
 game_instance = {
@@ -79,6 +80,7 @@ game_instance = {
     "init_progress": 0,      # 总体进度 (0-100)
     "init_error": None,      # 错误信息
     "init_start_time": None, # 初始化开始时间戳
+    "run_config": None,      # 当前运行中的开局参数快照
 }
 
 # Cache for avatar IDs
@@ -86,6 +88,45 @@ AVATAR_ASSETS = {
     "males": [],
     "females": []
 }
+
+
+def _model_to_dict(model):
+    if hasattr(model, "model_dump"):
+        return model.model_dump()
+    return model.dict()
+
+
+def get_runtime_run_config() -> RunConfig:
+    run_config = game_instance.get("run_config")
+    if run_config:
+        return RunConfig(**run_config)
+
+    defaults = get_settings_service().get_default_run_config()
+    game_conf = getattr(CONFIG, "game", None)
+    return RunConfig(
+        content_locale=defaults.content_locale,
+        init_npc_num=int(getattr(game_conf, "init_npc_num", defaults.init_npc_num)),
+        sect_num=int(getattr(game_conf, "sect_num", defaults.sect_num)),
+        npc_awakening_rate_per_month=float(
+            getattr(game_conf, "npc_awakening_rate_per_month", defaults.npc_awakening_rate_per_month)
+        ),
+        world_history=str(getattr(game_conf, "world_history", defaults.world_history) or ""),
+    )
+
+
+def apply_runtime_content_locale(lang_code: str) -> None:
+    from src.utils.config import update_paths_for_language
+    from src.utils.df import reload_game_configs
+
+    language_manager.set_language(lang_code)
+    update_paths_for_language(lang_code)
+    reload_game_configs()
+    reload_all_static_data()
+
+    world = game_instance.get("world")
+    if world:
+        from src.run.data_loader import fix_runtime_references
+        fix_runtime_references(world)
 
 def scan_avatar_assets():
     """Scan assets directory for avatar images"""
@@ -431,6 +472,7 @@ async def init_game_async():
         game_instance["current_save_path"] = save_path
         print(f"Events database: {events_db_path}")
 
+        run_config = get_runtime_run_config()
         start_year = getattr(CONFIG.game, "start_year", 100)
         world = World.create_with_db(
             map=game_map,
@@ -439,10 +481,12 @@ async def init_game_async():
             start_year=start_year,
         )
         sim = Simulator(world)
+        sim.awakening_rate = run_config.npc_awakening_rate_per_month
+        world.run_config_snapshot = _model_to_dict(run_config)
 
         # 阶段 2: 历史背景影响 (如果配置了历史)
         update_init_progress(2, "processing_history")
-        world_history = getattr(CONFIG.game, "world_history", "")
+        world_history = run_config.world_history
         if world_history and world_history.strip():
             world.set_history(world_history)
             print(f"Reshaping world based on historical background: {world_history[:50]}...")
@@ -456,7 +500,7 @@ async def init_game_async():
         # 阶段 3: 宗门初始化
         update_init_progress(3, "initializing_sects")
         all_sects = list(sects_by_id.values())
-        needed_sects = int(getattr(CONFIG.game, "sect_num", 0) or 0)
+        needed_sects = int(run_config.sect_num or 0)
         existed_sects = []
         if needed_sects > 0 and all_sects:
             pool = list(all_sects)
@@ -465,7 +509,7 @@ async def init_game_async():
 
         # 阶段 4: 角色生成
         update_init_progress(4, "generating_avatars")
-        target_total_count = int(getattr(CONFIG.game, "init_npc_num", 12))
+        target_total_count = int(run_config.init_npc_num)
         final_avatars = {}
 
         if target_total_count > 0:
@@ -534,6 +578,7 @@ async def init_game_async():
 def trigger_auto_save(world, sim):
     """提取的自动保存逻辑，供 game_loop 和测试使用"""
     playthrough_id = getattr(world, "playthrough_id", "")
+    max_auto_saves = get_settings_service().get_settings().simulation.max_auto_saves
     
     # 1. 获取当前局的所有自动存档
     all_saves = list_saves()
@@ -542,9 +587,9 @@ def trigger_auto_save(world, sim):
         if meta.get("is_auto_save", False) and meta.get("playthrough_id", "") == playthrough_id:
             auto_saves.append((path, meta))
             
-    # 2. 如果数量 >= 5，删除最老的
+    # 2. 如果数量 >= 上限，删除最老的
     # list_saves 已经是按时间倒序排列的，所以最老的是在列表末尾
-    while len(auto_saves) >= 5:
+    while len(auto_saves) >= max_auto_saves:
         oldest_path, oldest_meta = auto_saves.pop()
         # 删除旧存档
         if oldest_path.exists():
@@ -670,7 +715,7 @@ async def game_loop():
                 
                 # ======== 自动保存逻辑 ========
                 # 检查是否启用了自动保存
-                auto_save_enabled = getattr(getattr(CONFIG, "system", None), "auto_save", False)
+                auto_save_enabled = get_settings_service().get_settings().simulation.auto_save_enabled
                 year = int(world.month_stamp.get_year())
                 month = world.month_stamp.get_month().value
                 
@@ -701,28 +746,8 @@ async def lifespan(app: FastAPI):
     # Filter out health check / polling logs
     logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
 
-    # 初始化语言设置
-    from src.utils.config import update_paths_for_language
-    from src.utils.df import reload_game_configs
-    
-    system_conf = getattr(CONFIG, "system", None)
-    if system_conf:
-        # OmegaConf 对象支持 get 或者 . 访问，这里用 getattr 安全一点
-        lang_code = getattr(system_conf, "language", "zh-CN")
-        language_manager.set_language(str(lang_code))
-    else:
-        language_manager.set_language("zh-CN")
-    
-    # 根据语言初始化路径
-    update_paths_for_language()
-    # 路径更新后，必须重载一次 df 数据，因为模块导入时路径可能还是空的或旧的
-    reload_game_configs()
-    
-    # 关键修复：重新加载所有业务静态数据 (Sect, Technique等)
-    # 确保内存中的对象与当前的语言设置一致。
-    # 因为模块导入(import)时可能使用的是默认配置，必须在启动时强制刷新一次。
-    reload_all_static_data()
-    
+    settings = get_settings_service().get_settings_view()
+    apply_runtime_content_locale(settings.new_game_defaults.content_locale)
     print(f"Current Language: {language_manager}")
 
     # 启动时不再自动开始初始化游戏，等待前端指令
@@ -1168,6 +1193,8 @@ def reset_game():
     """重置游戏到 Idle 状态（回到主菜单）"""
     game_instance["world"] = None
     game_instance["sim"] = None
+    game_instance["current_save_path"] = None
+    game_instance["run_config"] = None
     game_instance["is_paused"] = True
     game_instance["init_status"] = "idle"
     game_instance["init_phase"] = 0
@@ -1230,89 +1257,55 @@ def get_init_status():
 
 # --- 开局配置与启动 API ---
 
-class GameStartRequest(BaseModel):
-    init_npc_num: int
-    sect_num: int
-    npc_awakening_rate_per_month: float
-    world_history: Optional[str] = None
+class GameStartRequest(RunConfig):
+    pass
 
-@app.get("/api/config/current")
-def get_current_config():
-    """获取当前游戏配置（用于回显）"""
-    return {
-        "game": {
-            "init_npc_num": getattr(CONFIG.game, "init_npc_num", 12),
-            "sect_num": getattr(CONFIG.game, "sect_num", 3),
-            "npc_awakening_rate_per_month": getattr(CONFIG.game, "npc_awakening_rate_per_month", 0.01),
-            "world_history": getattr(CONFIG.game, "world_history", "")
-        },
-        "avatar": {}
-    }
+@app.get("/api/settings")
+def get_settings():
+    """获取统一的应用设置。"""
+    return _model_to_dict(get_settings_service().get_settings_view())
 
-@app.get("/api/config/llm/status")
+
+@app.patch("/api/settings")
+def patch_settings(req: AppSettingsPatch):
+    """更新应用设置（不包含敏感信息）。"""
+    updated = get_settings_service().patch_settings(req)
+    return _model_to_dict(updated)
+
+
+@app.post("/api/settings/reset")
+def reset_settings():
+    """重置应用设置和 secrets。"""
+    updated = get_settings_service().reset_settings()
+    return _model_to_dict(updated)
+
+
+@app.get("/api/settings/llm")
+def get_llm_settings():
+    """获取当前 LLM 设置（不返回 API Key）。"""
+    return _model_to_dict(get_settings_service().get_llm_view())
+
+
+@app.get("/api/settings/llm/status")
 def get_llm_status():
-    """获取 LLM 配置状态"""
-    key = getattr(CONFIG.llm, "key", "")
-    base_url = getattr(CONFIG.llm, "base_url", "")
-    return {
-        "configured": bool(key and base_url)
-    }
+    """获取 LLM 设置是否可用。"""
+    profile, api_key = get_settings_service().get_llm_runtime_config()
+    configured = bool(profile.base_url and profile.model_name and api_key)
+    return {"configured": configured}
 
 @app.post("/api/game/start")
 async def start_game(req: GameStartRequest):
     """
-    保存配置并开始新游戏。
+    保存本局运行参数并开始新游戏。
     """
     current_status = game_instance.get("init_status", "idle")
     if current_status == "in_progress":
         raise HTTPException(status_code=400, detail="Game is already initializing")
 
-    # 1. 保存到 local_config.yml
-    local_config_path = "static/local_config.yml"
-    
-    # 读取现有 local_config 或创建新的
-    if os.path.exists(local_config_path):
-        conf = OmegaConf.load(local_config_path)
-    else:
-        conf = OmegaConf.create({})
-    
-    # 确保结构存在
-    if "game" not in conf: conf.game = {}
-    if "avatar" not in conf: conf.avatar = {}
-    
-    # 更新值
-    conf.game.init_npc_num = req.init_npc_num
-    conf.game.sect_num = req.sect_num
-    conf.game.npc_awakening_rate_per_month = req.npc_awakening_rate_per_month
-    conf.game.world_history = req.world_history or ""
-    
-    # 写入文件
-    try:
-        OmegaConf.save(conf, local_config_path)
-    except Exception as e:
-        print(f"Error saving local config: {e}")
-        # Log but continue? Or fail? Best to fail if we promised to save.
-        raise HTTPException(status_code=500, detail=f"Failed to save config: {e}")
+    run_config = RunConfig(**_model_to_dict(req))
+    game_instance["run_config"] = _model_to_dict(run_config)
+    apply_runtime_content_locale(run_config.content_locale)
 
-    # 2. 重新加载全局 CONFIG
-    global CONFIG
-    try:
-        # 重新执行 load_config
-        new_config = load_config()
-        # 更新 CONFIG 引用 (OmegaConf 对象是可变的吗？ load_config 返回新对象)
-        # 我们不能简单替换 import 的 CONFIG，因为其他模块可能已经 import 了它。
-        # OmegaConf.merge 是原地更新吗？ 不是。
-        # 这是一个常见坑。最好的方式是修改 CONFIG 的内容而不是替换对象。
-        # 但 CONFIG 是 DictConfig。
-        
-        # 让我们尝试更新 CONFIG 的内容
-        # 更好的方法可能是：
-        CONFIG.merge_with(new_config) 
-        
-    except Exception as e:
-        print(f"Error reloading config: {e}")
-    
-    # 3. 开始初始化
     if current_status == "ready":
         # 清理旧的游戏状态
         game_instance["world"] = None
@@ -1327,6 +1320,12 @@ async def start_game(req: GameStartRequest):
     asyncio.create_task(init_game_async())
     
     return {"status": "ok", "message": "Game initialization started"}
+
+
+@app.get("/api/game/current-run")
+def get_current_run():
+    """获取当前运行中的开局配置快照。"""
+    return _model_to_dict(get_runtime_run_config())
 
 
 @app.post("/api/control/reinit")
@@ -1686,224 +1685,45 @@ def delete_avatar(req: DeleteAvatarRequest):
 
 # --- LLM Config API ---
 
-class LanguageRequest(BaseModel):
-    lang: str
-
-@app.get("/api/config/language")
-def get_language_api():
-    """获取当前语言设置"""
-    return {"lang": str(language_manager)}
-
-@app.post("/api/config/language")
-def set_language_api(req: LanguageRequest):
-    """设置并保存语言设置"""
-    # 1. 更新内存
-    language_manager.set_language(req.lang)
-    
-    # 2. 更新路径配置
-    from src.utils.config import update_paths_for_language
-    update_paths_for_language(req.lang)
-    
-    # 3. 重新加载 CSV 数据
-    from src.utils.df import reload_game_configs
-    reload_game_configs()
-    
-    # 4. 重新加载所有业务静态数据 (Sects, Techniques, etc.)
-    reload_all_static_data()
-    
-    # 修复运行时引用 (热重载后，运行时对象指向的静态对象引用过时)
-    world = game_instance.get("world")
-    if world:
-        from src.run.data_loader import fix_runtime_references
-        fix_runtime_references(world)
-    
-    # 5. 持久化到 local_config.yml
-    local_config_path = "static/local_config.yml"
-    try:
-        if os.path.exists(local_config_path):
-            conf = OmegaConf.load(local_config_path)
-        else:
-            conf = OmegaConf.create({})
-        
-        if "system" not in conf:
-            conf.system = {}
-            
-        conf.system.language = str(language_manager)
-        
-        OmegaConf.save(conf, local_config_path)
-        
-        # 同时更新全局 CONFIG (虽然下次重启才会完全生效，但保持一致性)
-        if not hasattr(CONFIG, "system"):
-            # 这是一个 hack，因为 DictConfig 可能不支持动态添加属性，除非是 struct mode=false
-            # OmegaConf 默认加载出来的通常是开放的
-            pass 
-        
-        return {"status": "ok"}
-    except Exception as e:
-        print(f"Error saving language config: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to save language config: {e}")
-
-class AutoSaveRequest(BaseModel):
-    enabled: bool
-
-@app.get("/api/config/autosave")
-def get_autosave_config():
-    """获取当前自动保存设置"""
-    return {"enabled": getattr(getattr(CONFIG, "system", None), "auto_save", False)}
-
-@app.post("/api/config/autosave")
-def set_autosave_config(req: AutoSaveRequest):
-    """设置并保存自动保存设置"""
-    local_config_path = "static/local_config.yml"
-    try:
-        if os.path.exists(local_config_path):
-            conf = OmegaConf.load(local_config_path)
-        else:
-            conf = OmegaConf.create({})
-        
-        if "system" not in conf:
-            conf.system = {}
-            
-        conf.system.auto_save = req.enabled
-        
-        OmegaConf.save(conf, local_config_path)
-        
-        # 同步更新内存中的 CONFIG
-        if not hasattr(CONFIG, "system"):
-             # 这里不直接赋值给 CONFIG.system 因为它可能是 DictConfig，直接挂载会有类型问题，
-             # 但为了简单，这里依赖 OmegaConf 允许的做法。
-             pass
-        else:
-             CONFIG.system.auto_save = req.enabled
-        
-        return {"status": "ok"}
-    except Exception as e:
-        print(f"Error saving autosave config: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to save autosave config: {e}")
-
-class LLMConfigDTO(BaseModel):
-    base_url: str
-    api_key: Optional[str] = ""
-    model_name: str
-    fast_model_name: str
-    mode: str
-    max_concurrent_requests: Optional[int] = 10
-
-class TestConnectionRequest(BaseModel):
-    base_url: str
-    api_key: Optional[str] = ""
-    model_name: str
-
-@app.get("/api/config/llm")
-def get_llm_config():
-    """获取当前 LLM 配置"""
-    return {
-        "base_url": getattr(CONFIG.llm, "base_url", ""),
-        "api_key": getattr(CONFIG.llm, "key", ""),
-        "model_name": getattr(CONFIG.llm, "model_name", ""),
-        "fast_model_name": getattr(CONFIG.llm, "fast_model_name", ""),
-        "mode": getattr(CONFIG.llm, "mode", "default"),
-        "max_concurrent_requests": getattr(CONFIG.ai, "max_concurrent_requests", 10)
-    }
-
-@app.post("/api/config/llm/test")
-def test_llm_connection(req: TestConnectionRequest):
+@app.post("/api/settings/llm/test")
+def test_llm_connection(req: LLMSettingsUpdate):
     """测试 LLM 连接"""
     try:
-        # 构造临时配置
+        profile, api_key = get_settings_service().get_llm_test_payload(req)
         config = LLMConfig(
-            base_url=req.base_url,
-            api_key=req.api_key,
-            model_name=req.model_name
+            base_url=profile.base_url,
+            api_key=api_key,
+            model_name=profile.model_name,
         )
-        
+
         success, error_msg = test_connectivity(config=config)
-        
+
         if success:
             return {"status": "ok", "message": "连接成功"}
-        else:
-            # 返回 400 错误并附带详细的错误信息
-            raise HTTPException(status_code=400, detail=error_msg)
+        raise HTTPException(status_code=400, detail=error_msg)
     except HTTPException:
-        # 重新抛出 HTTPException
         raise
     except Exception as e:
-        # 其他未预期的错误
         raise HTTPException(status_code=500, detail=f"测试出错: {str(e)}")
 
-@app.post("/api/config/llm/save")
-async def save_llm_config(req: LLMConfigDTO):
+@app.put("/api/settings/llm")
+async def save_llm_config(req: LLMSettingsUpdate):
     """保存 LLM 配置"""
     try:
-        # 1. Update In-Memory Config (Partial update)
-        # OmegaConf object attributes can be set directly if they exist
-        if not OmegaConf.is_config(CONFIG):
-            # 理论上 CONFIG 是 DictConfig
-            pass
+        updated = get_settings_service().update_llm(req)
 
-        # 直接更新 CONFIG.llm 的属性
-        CONFIG.llm.base_url = req.base_url
-        CONFIG.llm.key = req.api_key
-        CONFIG.llm.model_name = req.model_name
-        CONFIG.llm.fast_model_name = req.fast_model_name
-        CONFIG.llm.mode = req.mode
-
-        # 更新 ai 配置
-        if req.max_concurrent_requests:
-            if not hasattr(CONFIG, "ai"):
-                 CONFIG.ai = OmegaConf.create({})
-            CONFIG.ai.max_concurrent_requests = req.max_concurrent_requests
-
-        # 2. Persist to local_config.yml
-        # 使用 src/utils/config.py 中类似的路径逻辑
-        # 注意：这里我们假设是在项目根目录下运行，或者静态文件路径是相对固定的
-        # 为了稳健，我们复用 CONFIG 加载时的路径逻辑（但这里是写入）
-        
-        local_config_path = "static/local_config.yml"
-        
-        # Load existing or create new
-        if os.path.exists(local_config_path):
-            conf = OmegaConf.load(local_config_path)
-        else:
-            conf = OmegaConf.create({})
-        
-        # Ensure llm section exists
-        if "llm" not in conf:
-            conf.llm = {}
-            
-        conf.llm.base_url = req.base_url
-        conf.llm.key = req.api_key
-        conf.llm.model_name = req.model_name
-        conf.llm.fast_model_name = req.fast_model_name
-        conf.llm.mode = req.mode
-
-        # Ensure ai section exists and update
-        if req.max_concurrent_requests:
-            if "ai" not in conf:
-                conf.ai = {}
-            conf.ai.max_concurrent_requests = req.max_concurrent_requests
-        
-        OmegaConf.save(conf, local_config_path)
-        
-        # ===== 如果之前 LLM 连接失败，现在恢复运行 =====
         if game_instance.get("llm_check_failed", False):
             print("Detected previous LLM connection failure, resuming Simulator...")
-            
-            # 清除失败标志并恢复运行
             game_instance["llm_check_failed"] = False
             game_instance["llm_error_message"] = ""
             game_instance["is_paused"] = False
-            
             print("Simulator resumed")
-            
-            # 通知所有客户端刷新
             await manager.broadcast({
                 "type": "game_reinitialized",
                 "message": "LLM 配置成功，游戏已恢复运行"
             })
-        # ===== 恢复运行结束 =====
-        
-        return {"status": "ok", "message": "配置已保存"}
+
+        return {"status": "ok", "message": "配置已保存", "config": _model_to_dict(updated)}
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -2042,40 +1862,17 @@ async def api_load_game(req: LoadGameRequest):
             if save_lang:
                 print(f"[Auto-Switch] Enforcing language sync to {save_lang}...")
                 
-                # 1. 通知前端
                 await manager.broadcast({
                     "type": "toast",
                     "level": "info",
-                    "message": f"正在同步语言设置: {save_lang}...",
-                    "language": save_lang
+                    "message": t("Syncing language setting: {lang}...", lang=save_lang),
                 })
 
-                # Yield control to event loop
                 await asyncio.sleep(0.2)
                 
-                # 2. 只有当后端语言确实不同步时，才执行后端切换逻辑
                 if save_lang != current_lang:
                     print(f"[Auto-Switch] Switching backend language from {current_lang} to {save_lang}...")
-                    # 切换语言 (放到线程池执行)
-                    await asyncio.to_thread(language_manager.set_language, save_lang)
-                    
-                    # 重新加载所有静态业务数据
-                    await asyncio.to_thread(reload_all_static_data)
-                    
-                    # 持久化语言设置
-                    local_config_path = "static/local_config.yml"
-                    try:
-                        if os.path.exists(local_config_path):
-                            conf = OmegaConf.load(local_config_path)
-                        else:
-                            conf = OmegaConf.create({})
-                        
-                        if "system" not in conf:
-                            conf.system = OmegaConf.create({})
-                        conf.system.language = save_lang
-                        OmegaConf.save(conf, local_config_path)
-                    except Exception as e:
-                        print(f"Warning: Failed to persist language switch: {e}")
+                    await asyncio.to_thread(apply_runtime_content_locale, save_lang)
         # -----------------------
 
         # 设置加载状态
@@ -2120,6 +1917,7 @@ async def api_load_game(req: LoadGameRequest):
         game_instance["world"] = new_world
         game_instance["sim"] = new_sim
         game_instance["current_save_path"] = target_path
+        game_instance["run_config"] = getattr(new_world, "run_config_snapshot", _model_to_dict(get_settings_service().get_default_run_config()))
 
         # 更新进度
         game_instance["init_progress"] = 90

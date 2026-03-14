@@ -6,15 +6,17 @@ export { llmApi } from './modules/llm';
 export { eventApi } from './modules/event';
 
 export type { 
+  AppSettingsDTO,
   InitStatusDTO, 
   LLMConfigDTO, 
+  LLMConfigViewDTO,
   SaveFileDTO, 
   InitialStateDTO,
   MapResponseDTO,
   GameDataDTO,
   SimpleAvatarDTO,
   PhenomenonDTO,
-  GameStartConfigDTO,
+  RunConfigDTO,
   EventDTO,
   EventsResponseDTO,
   SectTerritoriesResponseDTO

@@ -8,11 +8,11 @@ vi.mock('@/api', () => ({
   llmApi: {
     fetchConfig: vi.fn().mockResolvedValue({
       base_url: 'http://localhost',
-      api_key: 'test',
       model_name: 'test',
       fast_model_name: 'test-fast',
       mode: 'default',
-      max_concurrent_requests: 10
+      max_concurrent_requests: 10,
+      has_api_key: true
     }),
     testConnection: vi.fn().mockResolvedValue(true),
     saveConfig: vi.fn().mockResolvedValue(true)

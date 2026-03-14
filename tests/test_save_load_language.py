@@ -1,7 +1,5 @@
 import pytest
 import json
-import os
-from pathlib import Path
 from unittest.mock import patch, MagicMock, AsyncMock
 
 from src.classes.core.world import World
@@ -117,11 +115,10 @@ class TestSaveLoadLanguage:
         
         mock_broadcast = AsyncMock()
         
-        # We patch load_game so we don't need a valid save file structure beyond meta
-        # We patch set_language to verify it's called
+        # We patch load_game so we don't need a valid save file structure beyond meta.
+        # Runtime language switching is now handled through apply_runtime_content_locale.
         with patch('src.server.main.manager.broadcast', mock_broadcast), \
-             patch('src.server.main.language_manager.set_language') as mock_set_lang, \
-             patch('src.server.main.OmegaConf') as mock_conf, \
+             patch('src.server.main.apply_runtime_content_locale') as mock_apply_locale, \
              patch.object(CONFIG.paths, "saves", temp_save_dir), \
              patch('src.server.main.load_game', return_value=(MagicMock(), MagicMock(), [])), \
              patch('src.server.main.scan_avatar_assets'):
@@ -137,13 +134,9 @@ class TestSaveLoadLanguage:
             call_args = mock_broadcast.call_args[0][0]
             assert call_args['type'] == 'toast'
             assert "en-US" in call_args['message']
-            assert call_args['language'] == "en-US"
             
-            # Verify set_language called with correct lang
-            mock_set_lang.assert_called_with("en-US")
-            
-            # Verify config save attempted
-            assert mock_conf.save.called
+            # Verify runtime locale switch was requested
+            mock_apply_locale.assert_called_once_with("en-US")
 
     @pytest.mark.asyncio
     async def test_load_no_switch_same_language(self, temp_save_dir):
@@ -164,10 +157,10 @@ class TestSaveLoadLanguage:
         language_manager._current = LanguageType.ZH_CN
         
         mock_broadcast = AsyncMock()
-        mock_set_lang = MagicMock()
+        mock_apply_locale = MagicMock()
         
         with patch('src.server.main.manager.broadcast', mock_broadcast), \
-             patch('src.server.main.language_manager.set_language', mock_set_lang), \
+             patch('src.server.main.apply_runtime_content_locale', mock_apply_locale), \
              patch.object(CONFIG.paths, "saves", temp_save_dir), \
              patch('src.server.main.load_game', return_value=(MagicMock(), MagicMock(), [])), \
              patch('src.server.main.scan_avatar_assets'):
@@ -182,4 +175,4 @@ class TestSaveLoadLanguage:
             assert mock_broadcast.called
             
             # But actual backend switch (expensive operation) should NOT be called
-            assert not mock_set_lang.called
+            assert not mock_apply_locale.called

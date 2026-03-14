@@ -7,6 +7,7 @@ import asyncio
 from pathlib import Path
 from typing import Optional
 
+from src.config import get_settings_service
 from src.run.log import log_llm_call
 from src.utils.config import CONFIG
 from .config import LLMMode, LLMConfig, get_task_mode
@@ -16,13 +17,21 @@ from .exceptions import LLMError, ParseError
 
 # 模块级信号量，懒加载
 _SEMAPHORE: Optional[asyncio.Semaphore] = None
+_SEMAPHORE_LIMIT: Optional[int] = None
 
 
 def _get_semaphore() -> asyncio.Semaphore:
-    global _SEMAPHORE
+    global _SEMAPHORE, _SEMAPHORE_LIMIT
     if _SEMAPHORE is None:
-        limit = getattr(CONFIG.ai, "max_concurrent_requests", 10)
+        limit = get_settings_service().get_llm_runtime_config()[0].max_concurrent_requests
         _SEMAPHORE = asyncio.Semaphore(limit)
+        _SEMAPHORE_LIMIT = limit
+        return _SEMAPHORE
+
+    limit = get_settings_service().get_llm_runtime_config()[0].max_concurrent_requests
+    if _SEMAPHORE_LIMIT != limit:
+        _SEMAPHORE = asyncio.Semaphore(limit)
+        _SEMAPHORE_LIMIT = limit
     return _SEMAPHORE
 
 

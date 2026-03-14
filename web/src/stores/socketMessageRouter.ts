@@ -1,4 +1,3 @@
-import i18n from '@/locales'
 import { message } from '@/utils/discreteApi'
 import { logError, logWarn } from '@/utils/appError'
 import type {
@@ -16,24 +15,6 @@ interface SocketRouterDeps {
   uiStore: ReturnType<typeof useUiStore>
 }
 
-function applyLanguageSwitch(language: string) {
-  const localeRef = i18n.global.locale as unknown
-  const currentLang = i18n.mode === 'legacy'
-    ? localeRef as string
-    : (localeRef as { value: string }).value
-
-  if (currentLang === language) return
-
-  if (i18n.mode === 'legacy') {
-    (i18n.global.locale as unknown as string) = language
-  } else {
-    (i18n.global.locale as unknown as { value: string }).value = language
-  }
-
-  localStorage.setItem('app_locale', language)
-  document.documentElement.lang = language.startsWith('zh') ? language : 'en'
-}
-
 function handleTickMessage(payload: TickPayloadDTO, deps: SocketRouterDeps) {
   deps.worldStore.handleTick(payload)
   if (deps.uiStore.selectedTarget) {
@@ -42,19 +23,11 @@ function handleTickMessage(payload: TickPayloadDTO, deps: SocketRouterDeps) {
 }
 
 function handleToastMessage(data: ToastSocketMessage) {
-  const { level, message: msg, language } = data
+  const { level, message: msg } = data
   if (level === 'error') message.error(msg)
   else if (level === 'warning') message.warning(msg)
   else if (level === 'success') message.success(msg)
   else message.info(msg)
-
-  if (!language) return
-  try {
-    applyLanguageSwitch(language)
-    console.log(`[Socket] Frontend language switched to ${language}`)
-  } catch (e) {
-    logError('SocketRouter switch language', e)
-  }
 }
 
 function handleLlmConfigRequired(data: LLMConfigRequiredSocketMessage, deps: SocketRouterDeps) {

@@ -2,8 +2,9 @@ import { httpClient } from '../http';
 import type { 
   SaveFileDTO,
   InitStatusDTO,
-  GameStartConfigDTO,
-  CurrentConfigDTO
+  RunConfigDTO,
+  AppSettingsDTO,
+  AppSettingsPatchDTO
 } from '../../types/api';
 
 export const systemApi = {
@@ -46,32 +47,28 @@ export const systemApi = {
     return httpClient.post<{ status: string; message: string }>('/api/control/reinit', {});
   },
 
-  fetchCurrentConfig() {
-    return httpClient.get<CurrentConfigDTO>('/api/config/current');
+  fetchSettings() {
+    return httpClient.get<AppSettingsDTO>('/api/settings');
   },
 
-  fetchAutoSave() {
-    return httpClient.get<{ enabled: boolean }>('/api/config/autosave');
+  patchSettings(patch: AppSettingsPatchDTO) {
+    return httpClient.patch<AppSettingsDTO>('/api/settings', patch);
   },
 
-  setAutoSave(enabled: boolean) {
-    return httpClient.post<{ status: string }>('/api/config/autosave', { enabled });
+  resetSettings() {
+    return httpClient.post<AppSettingsDTO>('/api/settings/reset', {});
   },
 
-  startGame(config: GameStartConfigDTO) {
+  startGame(config: RunConfigDTO) {
     return httpClient.post<{ status: string; message: string }>('/api/game/start', config);
+  },
+
+  fetchCurrentRun() {
+    return httpClient.get<RunConfigDTO>('/api/game/current-run');
   },
 
   shutdown() {
     return httpClient.post<{ status: string; message: string }>('/api/control/shutdown', {});
-  },
-
-  setLanguage(lang: string) {
-    return httpClient.post<{ status: string }>('/api/config/language', { lang });
-  },
-
-  fetchLanguage() {
-    return httpClient.get<{ lang: string }>('/api/config/language');
   },
 
   resetGame() {

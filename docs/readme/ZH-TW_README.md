@@ -134,7 +134,7 @@ docker-compose up -d --build
    ```
 
 2. **模型配置**
-   服務啟動後，瀏覽器會自動打開。**推薦直接在前端設置頁面選擇預設（如 DeepSeek/Ollama）**，也可手動修改 `static/local_config.yml`。
+   服務啟動後，瀏覽器會自動打開。**推薦直接在前端設置頁面選擇預設（如 DeepSeek/Ollama）**。配置會保存到使用者資料目錄中的 `settings.json` / `secrets.json`；如需自訂位置，可設定環境變數 `CWS_DATA_DIR`。
 
 ---
 
@@ -145,7 +145,7 @@ docker-compose up -d --build
 
 > ⚠️ 移動端 UI 暫未完全適配，僅供嚐鮮。
 
-1. **後端配置**：修改 `static/local_config.yml`，添加 `host: "0.0.0.0"`。
+1. **後端配置**：建議透過環境變數啟動後端，例如在 PowerShell 執行 `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`。如需修改預設值，可編輯唯讀配置 `static/config.yml` 內的 `system.host`。
 2. **前端配置**：修改 `web/vite.config.ts`，在 server 塊中添加 `host: '0.0.0.0'`。
 3. **訪問方式**：確保手機與電腦在同一 WiFi 下，訪問 `http://<電腦區域網路IP>:5173`。
 

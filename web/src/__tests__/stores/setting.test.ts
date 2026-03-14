@@ -1,34 +1,76 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { setActivePinia, createPinia } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
 
-// Use vi.hoisted to define mock functions that will be used by vi.mock.
-const { mockSetLanguage, mockFetchAutoSave, mockSetAutoSave } = vi.hoisted(() => ({
-  mockSetLanguage: vi.fn().mockResolvedValue(undefined),
-  mockFetchAutoSave: vi.fn().mockResolvedValue({ enabled: false }),
-  mockSetAutoSave: vi.fn().mockResolvedValue({ status: 'ok' })
+const {
+  mockFetchSettings,
+  mockPatchSettings,
+  mockStartGame,
+} = vi.hoisted(() => ({
+  mockFetchSettings: vi.fn(),
+  mockPatchSettings: vi.fn(),
+  mockStartGame: vi.fn(),
 }))
 
-// Create a fresh mock i18n object for each test.
 let mockI18nLocale: { value: string } | string = { value: 'zh-CN' }
 let mockI18nMode = 'composition'
 
-// Mock i18n.
+function clone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value))
+}
+
+const baseSettings = {
+  schema_version: 1,
+  ui: {
+    locale: 'zh-CN',
+    audio: {
+      bgm_volume: 0.5,
+      sfx_volume: 0.5,
+    },
+  },
+  simulation: {
+    auto_save_enabled: false,
+    max_auto_saves: 5,
+  },
+  llm: {
+    profile: {
+      base_url: '',
+      model_name: '',
+      fast_model_name: '',
+      mode: 'default',
+      max_concurrent_requests: 10,
+      has_api_key: false,
+    },
+  },
+  new_game_defaults: {
+    content_locale: 'zh-CN',
+    init_npc_num: 9,
+    sect_num: 3,
+    npc_awakening_rate_per_month: 0.01,
+    world_history: '',
+  },
+}
+
 vi.mock('@/locales', () => ({
   default: {
-    get mode() { return mockI18nMode },
+    get mode() {
+      return mockI18nMode
+    },
     global: {
-      get locale() { return mockI18nLocale },
-      set locale(val) { mockI18nLocale = val },
+      get locale() {
+        return mockI18nLocale
+      },
+      set locale(val) {
+        mockI18nLocale = val
+      },
     },
   },
 }))
 
-// Mock systemApi.
 vi.mock('@/api/modules/system', () => ({
   systemApi: {
-    setLanguage: mockSetLanguage,
-    fetchAutoSave: mockFetchAutoSave,
-    setAutoSave: mockSetAutoSave
+    fetchSettings: mockFetchSettings,
+    patchSettings: mockPatchSettings,
+    startGame: mockStartGame,
   },
 }))
 
@@ -36,22 +78,32 @@ import { useSettingStore } from '@/stores/setting'
 
 describe('useSettingStore', () => {
   let store: ReturnType<typeof useSettingStore>
-  let localStorageMock: Record<string, string>
 
   beforeEach(() => {
-    // Reset localStorage mock.
-    localStorageMock = {}
-    vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key: string) => {
-      return localStorageMock[key] || null
-    })
-    vi.spyOn(Storage.prototype, 'setItem').mockImplementation((key: string, value: string) => {
-      localStorageMock[key] = value
-    })
-
-    // Reset mocks.
     vi.clearAllMocks()
     mockI18nLocale = { value: 'zh-CN' }
     mockI18nMode = 'composition'
+    mockFetchSettings.mockResolvedValue(clone(baseSettings))
+    mockPatchSettings.mockImplementation(async (patch: any) => ({
+      ...clone(baseSettings),
+      ui: {
+        ...clone(baseSettings.ui),
+        ...(patch.ui || {}),
+        audio: {
+          ...clone(baseSettings.ui.audio),
+          ...(patch.ui?.audio || {}),
+        },
+      },
+      simulation: {
+        ...clone(baseSettings.simulation),
+        ...(patch.simulation || {}),
+      },
+      new_game_defaults: {
+        ...clone(baseSettings.new_game_defaults),
+        ...(patch.new_game_defaults || {}),
+      },
+    }))
+    mockStartGame.mockResolvedValue({ status: 'ok', message: 'started' })
 
     setActivePinia(createPinia())
     store = useSettingStore()
@@ -61,153 +113,91 @@ describe('useSettingStore', () => {
     vi.restoreAllMocks()
   })
 
-  describe('initial state', () => {
-    it('should read locale from localStorage if available', () => {
-      // Reset with new localStorage value.
-      localStorageMock = { app_locale: 'en-US' }
-      setActivePinia(createPinia())
-      const newStore = useSettingStore()
+  it('hydrates settings from backend', async () => {
+    await store.hydrate()
 
-      expect(newStore.locale).toBe('en-US')
+    expect(mockFetchSettings).toHaveBeenCalled()
+    expect(store.hydrated).toBe(true)
+    expect(store.locale).toBe('zh-CN')
+    expect(store.bgmVolume).toBe(0.5)
+    expect(store.newGameDraft.init_npc_num).toBe(9)
+  })
+
+  it('updates i18n locale after hydrate', async () => {
+    mockFetchSettings.mockResolvedValueOnce({
+      ...clone(baseSettings),
+      ui: {
+        ...clone(baseSettings.ui),
+        locale: 'en-US',
+      },
     })
 
-    it('should default to zh-CN if localStorage is empty', () => {
-      expect(store.locale).toBe('zh-CN')
+    await store.hydrate()
+
+    expect((mockI18nLocale as { value: string }).value).toBe('en-US')
+    expect(document.documentElement.lang).toBe('en')
+  })
+
+  it('saves locale through patchSettings', async () => {
+    await store.setLocale('zh-TW')
+
+    expect(mockPatchSettings).toHaveBeenCalledWith({ ui: { locale: 'zh-TW' } })
+    expect(store.locale).toBe('zh-TW')
+    expect(document.documentElement.lang).toBe('zh-TW')
+  })
+
+  it('saves bgm volume through patchSettings', async () => {
+    await store.setBgmVolume(0.8)
+
+    expect(mockPatchSettings).toHaveBeenCalledWith({ ui: { audio: { bgm_volume: 0.8 } } })
+    expect(store.bgmVolume).toBe(0.8)
+  })
+
+  it('saves auto save through patchSettings', async () => {
+    await store.setAutoSave(true)
+
+    expect(mockPatchSettings).toHaveBeenCalledWith({ simulation: { auto_save_enabled: true } })
+    expect(store.isAutoSave).toBe(true)
+  })
+
+  it('updates new game draft locally', () => {
+    store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
+
+    expect(store.newGameDraft.init_npc_num).toBe(20)
+    expect(store.newGameDraft.content_locale).toBe('en-US')
+  })
+
+  it('persists new game defaults before starting game', async () => {
+    store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
+
+    await store.startGameWithDraft()
+
+    expect(mockPatchSettings).toHaveBeenCalledWith({
+      new_game_defaults: {
+        content_locale: 'en-US',
+        init_npc_num: 20,
+        sect_num: 3,
+        npc_awakening_rate_per_month: 0.01,
+        world_history: '',
+      },
+    })
+    expect(mockStartGame).toHaveBeenCalledWith({
+      content_locale: 'en-US',
+      init_npc_num: 20,
+      sect_num: 3,
+      npc_awakening_rate_per_month: 0.01,
+      world_history: '',
     })
   })
 
-  describe('setLocale', () => {
-    it('should update locale value', async () => {
-      await store.setLocale('en-US')
+  it('marks store hydrated even when fetch fails', async () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    mockFetchSettings.mockRejectedValueOnce(new Error('network'))
 
-      expect(store.locale).toBe('en-US')
-    })
+    await store.hydrate()
 
-    it('should save locale to localStorage', async () => {
-      await store.setLocale('zh-TW')
-
-      expect(localStorageMock.app_locale).toBe('zh-TW')
-    })
-
-    it('should update i18n.global.locale in composition mode', async () => {
-      mockI18nMode = 'composition'
-      mockI18nLocale = { value: 'zh-CN' }
-
-      await store.setLocale('en-US')
-
-      expect((mockI18nLocale as { value: string }).value).toBe('en-US')
-    })
-
-    it('should update i18n.global.locale in legacy mode', async () => {
-      mockI18nMode = 'legacy'
-      mockI18nLocale = 'zh-CN'
-
-      await store.setLocale('en-US')
-
-      expect(mockI18nLocale).toBe('en-US')
-    })
-
-    it('should update document.documentElement.lang', async () => {
-      await store.setLocale('en-US')
-
-      expect(document.documentElement.lang).toBe('en')
-    })
-
-    it('should set correct HTML lang for zh-CN', async () => {
-      await store.setLocale('zh-CN')
-
-      expect(document.documentElement.lang).toBe('zh-CN')
-    })
-
-    it('should set correct HTML lang for zh-TW', async () => {
-      await store.setLocale('zh-TW')
-
-      expect(document.documentElement.lang).toBe('zh-TW')
-    })
-
-    it('should call syncBackend after updating locale', async () => {
-      await store.setLocale('en-US')
-
-      expect(mockSetLanguage).toHaveBeenCalledWith('en-US')
-    })
-  })
-
-  describe('syncBackend', () => {
-    it('should call systemApi.setLanguage with current locale', async () => {
-      store.locale = 'zh-TW'
-
-      await store.syncBackend()
-
-      expect(mockSetLanguage).toHaveBeenCalledWith('zh-TW')
-    })
-
-    it('should catch errors and log warning', async () => {
-      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-      mockSetLanguage.mockRejectedValueOnce(new Error('Network error'))
-
-      await store.syncBackend()
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to sync language with backend:',
-        expect.any(Error)
-      )
-
-      consoleSpy.mockRestore()
-    })
-
-    it('should not throw when API fails', async () => {
-      mockSetLanguage.mockRejectedValueOnce(new Error('API error'))
-
-      // Should not throw.
-      await expect(store.syncBackend()).resolves.not.toThrow()
-    })
-  })
-
-  describe('AutoSave Config', () => {
-    it('should have isAutoSave false by default', () => {
-      expect(store.isAutoSave).toBe(false)
-    })
-
-    it('should fetch auto save config and update state', async () => {
-      mockFetchAutoSave.mockResolvedValueOnce({ enabled: true })
-      
-      await store.fetchAutoSaveConfig()
-      
-      expect(mockFetchAutoSave).toHaveBeenCalled()
-      expect(store.isAutoSave).toBe(true)
-    })
-
-    it('should catch errors when fetching auto save config', async () => {
-      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-      mockFetchAutoSave.mockRejectedValueOnce(new Error('Network error'))
-      
-      await store.fetchAutoSaveConfig()
-      
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to fetch auto save config:',
-        expect.any(Error)
-      )
-      consoleSpy.mockRestore()
-    })
-
-    it('should set auto save config and call systemApi', async () => {
-      await store.setAutoSave(true)
-      
-      expect(store.isAutoSave).toBe(true)
-      expect(mockSetAutoSave).toHaveBeenCalledWith(true)
-    })
-
-    it('should catch errors when setting auto save config', async () => {
-      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-      mockSetAutoSave.mockRejectedValueOnce(new Error('Network error'))
-      
-      await store.setAutoSave(false)
-      
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Failed to set auto save config:',
-        expect.any(Error)
-      )
-      consoleSpy.mockRestore()
-    })
+    expect(store.hydrated).toBe(true)
+    expect(consoleSpy).toHaveBeenCalledWith('Failed to hydrate settings:', expect.any(Error))
+    consoleSpy.mockRestore()
   })
 })

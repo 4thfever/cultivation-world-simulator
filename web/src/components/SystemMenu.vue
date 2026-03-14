@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { NButton, NSelect, NIcon, NSwitch, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { localeRegistry } from '../locales/registry'
 import { useSettingStore } from '../stores/setting'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
@@ -11,10 +12,6 @@ import GameStartPanel from './game/panels/system/GameStartPanel.vue'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()
-
-onMounted(() => {
-  settingStore.fetchAutoSaveConfig()
-})
 
 const props = defineProps<{
   visible: boolean
@@ -32,11 +29,14 @@ const emit = defineEmits<{
 
 const activeTab = ref<'save' | 'load' | 'create' | 'delete' | 'llm' | 'start' | 'settings' | 'about' | 'other'>(props.defaultTab || 'load')
 
-const languageOptions = [
-  { label: '简体中文', value: 'zh-CN' },
-  { label: '繁體中文', value: 'zh-TW' },
-  { label: 'English', value: 'en-US' }
-]
+const languageOptions = computed(() =>
+  localeRegistry
+    .filter((locale) => locale.enabled)
+    .map((locale) => ({
+      label: locale.label,
+      value: locale.code,
+    }))
+)
 
 function switchTab(tab: typeof activeTab.value) {
   activeTab.value = tab

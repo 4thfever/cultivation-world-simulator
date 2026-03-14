@@ -3,6 +3,7 @@
  * 这些类型严格对应后端接口返回的 JSON 结构。
  */
 
+import type { AppLocale } from '../locales/registry';
 import type {
   MapMatrix,
   CelestialPhenomenon,
@@ -149,30 +150,65 @@ export interface PhenomenonDTO {
 
 // --- Config ---
 
-export interface LLMConfigDTO {
+export interface AudioSettingsDTO {
+  bgm_volume: number;
+  sfx_volume: number;
+}
+
+export interface UISettingsDTO {
+  locale: 'zh-CN' | 'zh-TW' | 'en-US' | string;
+  audio: AudioSettingsDTO;
+}
+
+export interface SimulationSettingsDTO {
+  auto_save_enabled: boolean;
+  max_auto_saves: number;
+}
+
+export interface LLMConfigViewDTO {
   base_url: string;
-  api_key: string;
   model_name: string;
   fast_model_name: string;
   mode: string;
-  max_concurrent_requests?: number;
+  max_concurrent_requests: number;
+  has_api_key: boolean;
 }
 
-export interface GameStartConfigDTO {
+export interface LLMConfigDTO {
+  base_url: string;
+  api_key?: string;
+  model_name: string;
+  fast_model_name: string;
+  mode: string;
+  max_concurrent_requests: number;
+  clear_api_key?: boolean;
+}
+
+export interface RunConfigDTO {
+  content_locale: 'zh-CN' | 'zh-TW' | 'en-US' | string;
   init_npc_num: number;
   sect_num: number;
   npc_awakening_rate_per_month: number;
   world_history?: string;
 }
 
-export interface CurrentConfigDTO {
-  game: {
-    init_npc_num: number;
-    sect_num: number;
-    npc_awakening_rate_per_month: number;
-    world_history?: string;
+export interface AppSettingsDTO {
+  schema_version: number;
+  ui: UISettingsDTO;
+  simulation: SimulationSettingsDTO;
+  llm: {
+    profile: LLMConfigViewDTO;
   };
-  avatar: {};
+  new_game_defaults: RunConfigDTO;
+}
+
+export interface AppSettingsPatchDTO {
+  ui?: {
+    locale?: UISettingsDTO['locale'];
+    audio?: Partial<AudioSettingsDTO>;
+  };
+  simulation?: Partial<SimulationSettingsDTO>;
+  new_game_defaults?: Partial<RunConfigDTO>;
 }
 
 // --- Events ---
@@ -287,7 +323,7 @@ export interface SectTerritoriesResponseDTO {
 }
 
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
-export type AppLanguage = 'zh-CN' | 'en-US' | string;
+export type AppLanguage = AppLocale | string;
 
 export interface ToastSocketMessage {
   type: 'toast';

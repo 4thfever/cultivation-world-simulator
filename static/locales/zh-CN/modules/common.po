@@ -99,6 +99,9 @@ msgstr "仅正阵营可执行"
 msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
 msgstr "炼丹成功！获得了{realm}丹药『{item}』"
 
+msgid "Syncing language setting: {lang}..."
+msgstr "正在同步语言设置：{lang}..."
+
 msgid "Target does not exist"
 msgstr "目标不存在"
 

@@ -280,81 +280,15 @@ describe('useSocketStore', () => {
       expect(mockMessage.info).toHaveBeenCalledWith('Unknown level message')
     })
 
-    it('should switch language in composition mode when language field is present', () => {
-      mockI18nMode = 'composition'
-      mockI18nLocale = { value: 'zh-CN' }
+    it('should ignore language field in toast messages', () => {
       const localStorageSpy = vi.spyOn(Storage.prototype, 'setItem')
 
       store.init()
       messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'en-US' })
 
-      expect(mockI18nLocale.value).toBe('en-US')
-      expect(localStorageSpy).toHaveBeenCalledWith('app_locale', 'en-US')
-      localStorageSpy.mockRestore()
-    })
-
-    it('should switch language in legacy mode when language field is present', () => {
-      mockI18nMode = 'legacy'
-      mockI18nLocale = 'zh-CN'
-      const localStorageSpy = vi.spyOn(Storage.prototype, 'setItem')
-
-      store.init()
-      messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'en-US' })
-
-      expect(mockI18nLocale).toBe('en-US')
-      expect(localStorageSpy).toHaveBeenCalledWith('app_locale', 'en-US')
-      localStorageSpy.mockRestore()
-    })
-
-    it('should not switch language if same as current', () => {
-      mockI18nMode = 'composition'
-      mockI18nLocale = { value: 'en-US' }
-      const localStorageSpy = vi.spyOn(Storage.prototype, 'setItem')
-
-      store.init()
-      messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'en-US' })
-
-      // Should not call setItem if language is same.
+      expect(mockMessage.info).toHaveBeenCalledWith('Test')
       expect(localStorageSpy).not.toHaveBeenCalled()
       localStorageSpy.mockRestore()
-    })
-
-    it('should update document.documentElement.lang for zh-CN', () => {
-      mockI18nMode = 'composition'
-      mockI18nLocale = { value: 'en-US' }
-
-      store.init()
-      messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'zh-CN' })
-
-      expect(document.documentElement.lang).toBe('zh-CN')
-    })
-
-    it('should update document.documentElement.lang for en-US', () => {
-      mockI18nMode = 'composition'
-      mockI18nLocale = { value: 'zh-CN' }
-
-      store.init()
-      messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'en-US' })
-
-      expect(document.documentElement.lang).toBe('en')
-    })
-
-    it('should handle language switch errors gracefully', () => {
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-      // Create a getter that throws.
-      mockI18nMode = 'composition'
-      const errorObj = {
-        get value() { throw new Error('Test error') },
-        set value(_v) { throw new Error('Test error') },
-      }
-      mockI18nLocale = errorObj
-
-      store.init()
-      // Should not throw.
-      messageCallback?.({ type: 'toast', level: 'info', message: 'Test', language: 'en-US' })
-
-      expect(consoleSpy).toHaveBeenCalled()
-      consoleSpy.mockRestore()
     })
   })
 

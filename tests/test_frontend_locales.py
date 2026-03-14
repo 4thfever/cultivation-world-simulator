@@ -6,6 +6,7 @@ import sys
 # Add src to path to import WeaponType
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.classes.weapon_type import WeaponType
+from tools.i18n.locale_registry import get_locale_codes, get_source_locale
 
 class TestFrontendLocales:
     def test_popup_types_coverage(self):
@@ -52,7 +53,8 @@ class TestFrontendLocales:
     def test_locale_keys_consistency(self):
         """Verify that all language directories have the same JSON files and same nested keys."""
         base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "web", "src", "locales")
-        locales = ['zh-CN', 'zh-TW', 'en-US']
+        locales = get_locale_codes()
+        base_loc = get_source_locale()
         
         # Ensure directories exist
         for loc in locales:
@@ -84,7 +86,6 @@ class TestFrontendLocales:
                 loc_keys[loc] = self.get_all_keys(data)
             
             # 2. Cross-check keys to ensure they are identical
-            base_loc = 'zh-CN'
             if base_loc in loc_keys:
                 base_set = loc_keys[base_loc]
                 for other_loc in locales:

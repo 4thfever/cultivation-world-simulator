@@ -1,63 +1,38 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { NForm, NFormItem, NInputNumber, NSelect, NButton, NInput, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { systemApi } from '../../../../api'
+
+import { localeRegistry } from '@/locales/registry'
+import { useSettingStore } from '@/stores/setting'
 
 const { t } = useI18n()
+const settingStore = useSettingStore()
 
-const props = defineProps<{
+defineProps<{
   readonly: boolean
 }>()
 
 const message = useMessage()
-
-// 配置表单数据
-const config = ref({
-  init_npc_num: 12,
-  sect_num: 3,
-  npc_awakening_rate_per_month: 0.01,
-  world_history: ''
-})
-
 const loading = ref(false)
 
-// 选项
-
-async function fetchConfig() {
-  try {
-    loading.value = true
-    const res = await systemApi.fetchCurrentConfig()
-    config.value = {
-      init_npc_num: res.game.init_npc_num,
-      sect_num: res.game.sect_num,
-      npc_awakening_rate_per_month: res.game.npc_awakening_rate_per_month,
-      world_history: res.game.world_history || ''
-    }
-  } catch (e) {
-    message.error(t('game_start.messages.load_failed'))
-    console.error(e)
-  } finally {
-    loading.value = false
-  }
-}
+const languageOptions = computed(() =>
+  localeRegistry
+    .filter((item) => item.enabled)
+    .map((item) => ({ label: item.label, value: item.code }))
+)
 
 async function startGame() {
   try {
     loading.value = true
-    await systemApi.startGame(config.value)
+    await settingStore.startGameWithDraft()
     message.success(t('game_start.messages.start_success'))
-    // 父组件会通过 polling 检测到状态变化，从而自动关闭菜单并显示 loading
   } catch (e) {
     message.error(t('game_start.messages.start_failed'))
     console.error(e)
     loading.value = false
   }
 }
-
-onMounted(() => {
-  fetchConfig()
-})
 </script>
 
 <template>
@@ -73,36 +48,56 @@ onMounted(() => {
       require-mark-placement="right-hanging"
       :disabled="readonly"
     >
+      <n-form-item label="内容语言 / Content" path="content_locale">
+        <n-select
+          :value="settingStore.newGameDraft.content_locale"
+          :options="languageOptions"
+          @update:value="(value) => settingStore.updateNewGameDraft({ content_locale: value })"
+        />
+      </n-form-item>
+
       <n-form-item :label="t('game_start.labels.init_npc_num')" path="init_npc_num">
-        <n-input-number v-model:value="config.init_npc_num" :min="0" :max="100" />
+        <n-input-number
+          :value="settingStore.newGameDraft.init_npc_num"
+          :min="0"
+          :max="100"
+          @update:value="(value) => settingStore.updateNewGameDraft({ init_npc_num: value ?? 0 })"
+        />
       </n-form-item>
 
       <n-form-item :label="t('game_start.labels.sect_num')" path="sect_num">
-        <n-input-number v-model:value="config.sect_num" :min="0" :max="10" />
+        <n-input-number
+          :value="settingStore.newGameDraft.sect_num"
+          :min="0"
+          :max="10"
+          @update:value="(value) => settingStore.updateNewGameDraft({ sect_num: value ?? 0 })"
+        />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
         {{ t('game_start.tips.sect_num') }}
       </div>
 
       <n-form-item :label="t('game_start.labels.new_npc_rate')" path="npc_awakening_rate_per_month">
-        <n-input-number 
-            v-model:value="config.npc_awakening_rate_per_month" 
-            :min="0" 
-            :max="1" 
-            :step="0.001"
-            :format="(val: number) => `${(val * 100).toFixed(1)}%`"
-            :parse="(val: string) => parseFloat(val) / 100"
+        <n-input-number
+          :value="settingStore.newGameDraft.npc_awakening_rate_per_month"
+          :min="0"
+          :max="1"
+          :step="0.001"
+          :format="(val: number) => `${(val * 100).toFixed(1)}%`"
+          :parse="(val: string) => parseFloat(val) / 100"
+          @update:value="(value) => settingStore.updateNewGameDraft({ npc_awakening_rate_per_month: value ?? 0 })"
         />
       </n-form-item>
 
       <n-form-item :label="t('game_start.labels.world_history')" path="world_history">
         <n-input
-          v-model:value="config.world_history"
+          :value="settingStore.newGameDraft.world_history"
           type="textarea"
           :placeholder="t('game_start.placeholders.world_history')"
           :autosize="{ minRows: 3, maxRows: 6 }"
           maxlength="800"
           show-count
+          @update:value="(value) => settingStore.updateNewGameDraft({ world_history: value })"
         />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
@@ -136,7 +131,7 @@ onMounted(() => {
 }
 
 .tip-text {
-  margin-left: 160px; /* offset label width */
+  margin-left: 160px;
   margin-bottom: 24px;
   color: #aaa;
   font-size: 0.85em;

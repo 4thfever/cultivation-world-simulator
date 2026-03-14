@@ -31,6 +31,7 @@
 | 规则文件 | 作用范围（globs） | 关键约束摘要 |
 |---|---|---|
 | `.cursor/rules/action-development.mdc` | `src/classes/action/**/*.py`, `src/classes/mutual_action/**/*.py` | 新动作必须补齐 `ACTION_NAME_ID/DESC_ID/REQUIREMENTS_ID/EMOJI/PARAMS`、生命周期方法、注册装饰器、`__init__.py` 导出和测试。 |
+| `.cursor/rules/config-architecture.mdc` | `src/config/**/*.py`, `src/server/**/*.py`, `src/utils/config.py`, `src/utils/llm/**/*.py`, `src/sim/save/**/*.py`, `src/sim/load/**/*.py`, `web/src/stores/setting.ts`, `web/src/api/modules/system.ts`, `web/src/api/modules/llm.ts`, `web/src/components/game/panels/system/**/*.vue`, `web/src/App.vue` | 配置分为只读版本配置、`settings.json/secrets.json` 应用设置、`RunConfig` 本局快照；用户数据统一走 data root；前端设置真源是 `/api/settings`；LLM key 不回传前端；存档需保存 `run_config`。 |
 | `.cursor/rules/event-system.mdc` | `src/classes/event.py`, `src/classes/event_storage.py`, `src/systems/**/*.py` | 明确 `is_major/is_story` 语义，准确填写 `related_avatars`，统一由模拟器集中入库，查询走分页。 |
 | `.cursor/rules/frontend-sound.mdc` | `web/src/**/*.vue|ts|tsx` | 标准按钮默认自动音效，特殊音效用 `v-sound`，禁音用 `data-no-sound`，仅特殊场景允许 `useAudio` 编程式播放。 |
 | `.cursor/rules/frontend-typing-error.mdc` | `web/src/**/*.vue|ts|tsx` | DTO 先更新 `types/api.ts`，映射逻辑放 `api/mappers`，避免 `any` 扩散，错误统一 `appError`，Socket 分发在 `socketMessageRouter`。 |
@@ -51,6 +52,8 @@
 3. 前端大对象和 Pixi 实例禁止深层响应式代理。
 4. i18n 开发遵守 Phase 1（只改 `zh-CN`）直到显式进入 Phase 2。
 5. 存档字段新增必须向后兼容旧存档（`.get(default)`）。
+6. 语言列表的单一真相源是 `tools/i18n/locales.json`；Python 侧 i18n 工具、校验和新增语言流程应优先读取该文件，不要在脚本中重新写死 `zh-CN/zh-TW/en-US`。
+7. 用户设置不得再写入 `static/local_config.yml`；正式真源是用户数据目录中的 `settings.json/secrets.json`，本局参数必须走 `RunConfig` 并随存档保存。
 
 ## 4. `.cursor/skills` 沉淀
 
@@ -80,12 +83,14 @@
 4. locale 对齐检查：
    - `pytest tests/test_frontend_locales.py`
    - `pytest tests/test_backend_locales.py`
+5. 语言注册表检查：`python tools/i18n/generate_missing_report.py`
 
 ## 7. 维护约定
 
 1. 修改 `.cursor/rules`、`.cursor/skills`、`.cursor/commands` 后，建议执行一次 `/sync_agents` 同步本文件。
 2. 本文件是“聚合索引 + 执行约束”文档，不替代原文件；细节以原始文件为准。
 3. 若后续引入子目录 `AGENTS.md`，请遵循“越近优先”的覆盖策略，并在对应子目录内写局部规则。
+4. 若后续新增语言，先更新 `tools/i18n/locales.json`，再处理目录、脚本与资源骨架；不要先从前端菜单或单个测试文件开始零散修改。
 
 ## 8. 原始来源路径
 

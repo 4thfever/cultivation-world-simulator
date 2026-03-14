@@ -134,7 +134,7 @@ Suitable for developers who need to modify code or debug.
    ```
 
 2. **Model Configuration**
-   The browser will open automatically after the service starts. **It is recommended to directly select presets (e.g., DeepSeek/Ollama) on the frontend settings page**, or manually modify `static/local_config.yml`.
+   The browser will open automatically after the service starts. **It is recommended to directly select presets (e.g., DeepSeek/Ollama) on the frontend settings page**. Settings are saved in `settings.json` / `secrets.json` under the user data directory; if needed, you can override the location with the `CWS_DATA_DIR` environment variable.
 
 ---
 
@@ -145,7 +145,7 @@ Suitable for developers who need to modify code or debug.
 
 > ⚠️ Mobile UI is not fully adapted yet, for early access only.
 
-1. **Backend Config**: Modify `static/local_config.yml`, add `host: "0.0.0.0"`.
+1. **Backend Config**: Prefer starting the backend with an environment variable, for example in PowerShell: `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`. If you need to change the default value, edit the read-only config `static/config.yml` and set `system.host`.
 2. **Frontend Config**: Modify `web/vite.config.ts`, add `host: '0.0.0.0'` in the server block.
 3. **Access Method**: Ensure phone and computer are under the same WiFi, access `http://<Computer-LAN-IP>:5173`.
 

@@ -2,6 +2,8 @@
 
 from enum import Enum
 from dataclasses import dataclass
+
+from src.config import get_settings_service
 from src.utils.config import CONFIG
 
 class LLMMode(str, Enum):
@@ -29,17 +31,16 @@ class LLMConfig:
         Returns:
             LLMConfig: 配置对象
         """
-        # 从 CONFIG 读取配置
-        api_key = getattr(CONFIG.llm, "key", "")
-        base_url = getattr(CONFIG.llm, "base_url", "")
+        profile, api_key = get_settings_service().get_llm_runtime_config()
+        base_url = profile.base_url
         
         # 根据模式选择模型
         model_name = ""
         if mode == LLMMode.FAST:
-            model_name = getattr(CONFIG.llm, "fast_model_name", "")
+            model_name = profile.fast_model_name
         else:
             # NORMAL or DEFAULT fallback
-            model_name = getattr(CONFIG.llm, "model_name", "")
+            model_name = profile.model_name
         
         return cls(
             model_name=model_name,
@@ -53,7 +54,8 @@ def get_task_mode(task_name: str) -> LLMMode:
     根据任务名称获取 LLM 模式
     """
     # 从 CONFIG 读取全局模式
-    global_mode = getattr(CONFIG.llm, "mode", "default").lower()
+    profile, _ = get_settings_service().get_llm_runtime_config()
+    global_mode = (profile.mode or "default").lower()
     
     if global_mode == "normal":
         return LLMMode.NORMAL

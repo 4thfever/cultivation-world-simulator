@@ -149,6 +149,14 @@ assets/saves/*
 
 TODO
 local_config.yml
+secrets.json
+
+# Local app-data overrides for development
+.devdata/
+.appdata/
+tmp/appdata/
+tmp/data/
+tmp/userdata/
 
 台本/
 笔记/

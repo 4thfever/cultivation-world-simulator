@@ -10,27 +10,8 @@ const { mockMessage } = vi.hoisted(() => ({
   },
 }))
 
-let mockLocale: { value: string } | string = { value: 'zh-CN' }
-let mockMode: 'legacy' | 'composition' = 'composition'
-
 vi.mock('@/utils/discreteApi', () => ({
   message: mockMessage,
-}))
-
-vi.mock('@/locales', () => ({
-  default: {
-    get mode() {
-      return mockMode
-    },
-    global: {
-      get locale() {
-        return mockLocale
-      },
-      set locale(val) {
-        mockLocale = val
-      },
-    },
-  },
 }))
 
 describe('socketMessageRouter', () => {
@@ -47,9 +28,6 @@ describe('socketMessageRouter', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     uiStore.selectedTarget = null
-    mockLocale = { value: 'zh-CN' }
-    mockMode = 'composition'
-    document.documentElement.lang = 'zh-CN'
   })
 
   it('routes tick message to world and refreshes selected detail', () => {
@@ -73,14 +51,13 @@ describe('socketMessageRouter', () => {
     expect(mockMessage.error).toHaveBeenCalledWith('LLM required')
   })
 
-  it('switches language when toast includes language', () => {
+  it('shows toast without switching frontend locale', () => {
     routeSocketMessage(
       { type: 'toast', level: 'info', message: 'ok', language: 'en-US' },
       { worldStore: worldStore as any, uiStore: uiStore as any }
     )
 
-    expect((mockLocale as { value: string }).value).toBe('en-US')
-    expect(document.documentElement.lang).toBe('en')
+    expect(mockMessage.info).toHaveBeenCalledWith('ok')
   })
 })
 

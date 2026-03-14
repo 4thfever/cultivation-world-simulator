@@ -102,6 +102,9 @@ msgstr "Only righteous alignment can execute"
 msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
 msgstr "Refining succeeded! Obtained {realm} elixir '{item}'"
 
+msgid "Syncing language setting: {lang}..."
+msgstr "Syncing language setting: {lang}..."
+
 msgid "Target does not exist"
 msgstr "Target does not exist"
 
