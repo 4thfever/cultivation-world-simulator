@@ -45,6 +45,7 @@ from src.sim.simulator import Simulator
 from src.classes.core.world import World
 from src.classes.history import HistoryManager
 from src.systems.time import Month, Year, create_month_stamp
+from src.server.assemblers.sect_detail import build_sect_detail
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG, load_config
@@ -64,6 +65,7 @@ from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
 from src.classes.language import language_manager, LanguageType
+from src.systems.sect_relations import compute_sect_relations
 
 # 全局游戏实例
 game_instance = {
@@ -281,6 +283,9 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
         related_raw = getattr(event, "related_avatars", None) or []
         related_ids = [str(a) for a in related_raw if a is not None]
 
+        related_sects_raw = getattr(event, "related_sects", None) or []
+        related_sect_ids = [int(s) for s in related_sects_raw if s is not None]
+
         serialized.append({
             "id": getattr(event, "id", None) or f"{stamp_int or 'evt'}-{idx}",
             "text": str(event),
@@ -289,6 +294,7 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
             "month": month,
             "month_stamp": stamp_int,
             "related_avatar_ids": related_ids,
+            "related_sects": related_sect_ids,
             "is_major": bool(getattr(event, "is_major", False)),
             "is_story": bool(getattr(event, "is_story", False)),
             "created_at": getattr(event, "created_at", 0.0),
@@ -475,6 +481,9 @@ async def init_game_async():
             print(f"Generated {len(random_avatars)} random NPCs")
 
         world.avatar_manager.avatars.update(final_avatars)
+        world.existed_sects = existed_sects
+        # 使用 SectContext 统一记录本局启用宗门作用域
+        world.sect_context.from_existed_sects(existed_sects)
         game_instance["world"] = world
         game_instance["sim"] = sim
 
@@ -932,6 +941,7 @@ def get_events(
     avatar_id: str = None,
     avatar_id_1: str = None,
     avatar_id_2: str = None,
+    sect_id: int = None,
     cursor: str = None,
     limit: int = 100,
 ):
@@ -942,6 +952,7 @@ def get_events(
         avatar_id: 按单个角色筛选。
         avatar_id_1: Pair 查询：角色 1。
         avatar_id_2: Pair 查询：角色 2（需同时提供 avatar_id_1）。
+        sect_id: 按宗门筛选。
         cursor: 分页 cursor，获取该位置之前的事件。
         limit: 每页数量，默认 100。
     """
@@ -962,6 +973,7 @@ def get_events(
     events, next_cursor, has_more = event_manager.get_events_paginated(
         avatar_id=avatar_id,
         avatar_id_pair=avatar_id_pair,
+        sect_id=sect_id,
         cursor=cursor,
         limit=limit,
     )
@@ -1032,11 +1044,21 @@ def get_map():
                 "name": r.name,
                 "type": rtype,
                 "x": r.center_loc[0],
-                "y": r.center_loc[1]
+                "y": r.center_loc[1],
             }
-            # 如果是宗门区域，传递 sect_id 用于前端加载图片资源
-            if hasattr(r, 'sect_id'):
+            # 如果是宗门区域，传递 sect_id、sect_name 以及是否激活状态，用于前端加载图片与筛选展示
+            if hasattr(r, "sect_id"):
                 region_dict["sect_id"] = r.sect_id
+                region_dict["sect_name"] = (
+                    getattr(r, "sect_name", None)
+                    or (sects_by_id.get(r.sect_id).name if r.sect_id in sects_by_id else None)
+                )
+                sect_obj = sects_by_id.get(r.sect_id)
+                if sect_obj is not None:
+                    # 标记该宗门当前是否仍为激活状态（用于事件面板筛选）
+                    region_dict["sect_is_active"] = getattr(sect_obj, "is_active", True)
+                    # 宗门固定颜色（来自 sect.csv），用于前端事件高亮等场景
+                    region_dict["sect_color"] = getattr(sect_obj, "color", "#FFFFFF")
             
             # 如果是修炼区域（洞府/遗迹），传递 sub_type
             if hasattr(r, 'sub_type'):
@@ -1057,15 +1079,88 @@ def get_map():
 def get_rankings():
     """获取天、地、人及宗门榜单数据"""
     world = game_instance.get("world")
-    if not world or not hasattr(world, 'ranking_manager'):
+    if not world or not hasattr(world, "ranking_manager"):
         return {"heaven": [], "earth": [], "human": [], "sect": []}
-    
+
     # 如果榜单为空（比如刚初始化或读档，还没经过1月），主动更新一次
     rm = world.ranking_manager
-    if not rm.heaven_ranking and not rm.earth_ranking and not rm.human_ranking and not rm.sect_ranking:
-        rm.update_rankings(world.avatar_manager.get_living_avatars())
-        
+    if (
+        not rm.heaven_ranking
+        and not rm.earth_ranking
+        and not rm.human_ranking
+        and not rm.sect_ranking
+    ):
+        rm.update_rankings_with_world(world, world.avatar_manager.get_living_avatars())
+
     return rm.get_rankings_data()
+
+
+@app.get("/api/sect-relations")
+def get_sect_relations():
+    """
+    获取宗门之间的关系数据。
+    仅包含当前仍然激活的宗门。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"relations": []}
+
+    sim = game_instance.get("sim")
+    sect_manager = getattr(sim, "sect_manager", None)
+    if sect_manager is None:
+        from src.sim.managers.sect_manager import SectManager
+        sect_manager = SectManager(world)
+
+    from src.sim.managers.sect_manager import SectManager as SectManagerType
+    assert isinstance(sect_manager, SectManagerType)
+
+    active_sects, tile_owners = sect_manager.get_tile_owners()
+    if not active_sects:
+        return {"relations": []}
+
+    extra_breakdown_by_pair = world.get_active_sect_relation_breakdown()
+    diplomacy_by_pair = world.get_active_sect_diplomacy_breakdown(
+        sect_ids=[int(s.id) for s in active_sects]
+    )
+    relations = compute_sect_relations(
+        active_sects,
+        tile_owners,
+        extra_breakdown_by_pair=extra_breakdown_by_pair,
+        diplomacy_by_pair=diplomacy_by_pair,
+    )
+    return {"relations": relations}
+
+
+@app.get("/api/sects/territories")
+def get_sect_territories():
+    """
+    获取当前活跃宗门的势力范围摘要，供地图常驻渲染使用。
+    """
+    world = game_instance.get("world")
+    if world is None:
+        return {"sects": []}
+
+    sim = game_instance.get("sim")
+    sect_manager = getattr(sim, "sect_manager", None)
+    if sect_manager is None:
+        from src.sim.managers.sect_manager import SectManager
+        sect_manager = SectManager(world)
+
+    from src.sim.managers.sect_manager import SectManager as SectManagerType
+    assert isinstance(sect_manager, SectManagerType)
+
+    snapshot = sect_manager.get_snapshot()
+    sects = [
+        {
+            "id": int(sect.id),
+            "name": sect.name,
+            "color": str(getattr(sect, "color", "#FFFFFF") or "#FFFFFF"),
+            "influence_radius": int(getattr(sect, "influence_radius", 0)),
+            "is_active": bool(getattr(sect, "is_active", True)),
+        }
+        for sect in snapshot.active_sects
+    ]
+    return {"sects": sects}
 
 
 @app.post("/api/control/reset")
@@ -1282,10 +1377,15 @@ def get_detail_info(
             target = None
 
     if target is None:
-         raise HTTPException(status_code=404, detail="Target not found")
-         
-    info = target.get_structured_info()
-    return info
+        raise HTTPException(status_code=404, detail="Target not found")
+
+    # 为不同目标类型构建结构化详情
+    if target_type == "sect":
+        # 宗门详情交给专门的装配器处理，避免领域对象直接依赖 server.main
+        return build_sect_detail(target, world, language_manager)
+
+    # 其他类型继续沿用各自的领域层 get_structured_info 实现
+    return target.get_structured_info()
 
 class SetObjectiveRequest(BaseModel):
     avatar_id: str

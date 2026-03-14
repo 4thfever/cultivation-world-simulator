@@ -118,15 +118,14 @@ def test_avatar_manager_archive_death(base_world, dummy_avatar):
 @pytest.mark.asyncio
 async def test_simulator_resolve_death(base_world, dummy_avatar):
     """测试模拟器的死亡结算阶段"""
-    from src.sim.simulator import Simulator
-    sim = Simulator(base_world)
+    from src.sim.simulator_engine.phases.lifecycle import phase_resolve_death
     base_world.avatar_manager.register_avatar(dummy_avatar)
     
     # Case 1: 重伤死亡
     dummy_avatar.hp.cur = -10
     
     # 执行死亡结算
-    events = sim._phase_resolve_death([dummy_avatar])
+    events = phase_resolve_death(base_world, [dummy_avatar])
     
     # 验证
     assert dummy_avatar.is_dead is True

@@ -75,3 +75,13 @@ msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+
+msgid "game.sect_update_event"
+msgstr "[{sect_name}] this year's total battle strength reached {strength}, territory radius became {radius}, gaining {income} magic stones from the territory."
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name} sect's thinking: {thinking}"
+
+msgid "Game automatically saved"
+msgstr "Game automatically saved"
+

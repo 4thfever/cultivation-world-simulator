@@ -72,5 +72,58 @@ describe('useEventStore', () => {
     expect(store.lastLoadDurationMs).toBeGreaterThanOrEqual(0)
     expect(store.events.map((e) => e.id)).toEqual(['e1', 'e2'])
   })
+
+  it('loadEvents passes sect_id to fetchEvents', async () => {
+    vi.mocked(eventApi.fetchEvents).mockResolvedValue({
+      events: [],
+      next_cursor: null,
+      has_more: false,
+    })
+
+    await store.loadEvents({ sect_id: 5 })
+
+    expect(eventApi.fetchEvents).toHaveBeenCalledWith(
+      expect.objectContaining({ sect_id: 5, limit: 100 })
+    )
+  })
+
+  it('addEvents filters by relatedSects when filter.sect_id is set', () => {
+    store.eventsFilter = { sect_id: 1 }
+    store.addEvents(
+      [
+        {
+          id: 'e1',
+          text: 'a',
+          content: 'a',
+          year: 1,
+          month: 1,
+          month_stamp: 13,
+          related_avatar_ids: [],
+          related_sects: [1, 2],
+          is_major: false,
+          is_story: false,
+          created_at: 1,
+        } as any,
+        {
+          id: 'e2',
+          text: 'b',
+          content: 'b',
+          year: 1,
+          month: 2,
+          month_stamp: 14,
+          related_avatar_ids: [],
+          related_sects: [2],
+          is_major: false,
+          is_story: false,
+          created_at: 2,
+        } as any,
+      ],
+      1,
+      2
+    )
+
+    expect(store.events).toHaveLength(1)
+    expect(store.events[0].id).toBe('e1')
+  })
 })
 

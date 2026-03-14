@@ -3,6 +3,7 @@ from unittest.mock import MagicMock, patch, PropertyMock
 from src.classes.action.respire import Respire
 from src.classes.environment.tile import TileType
 from src.classes.environment.region import CultivateRegion, NormalRegion
+from src.classes.environment.sect_region import SectRegion
 from src.classes.event import Event
 from src.classes.root import Root
 from src.classes.essence import EssenceType
@@ -105,6 +106,55 @@ class TestActionRespire:
         can_start, reason = action.can_start()
         assert can_start is False
         assert "Stranger" in reason
+
+    def test_respire_in_sect_headquarter_as_member(self, cultivation_avatar):
+        """本门弟子在宗门总部吐纳：按五行皆为 5 计算经验。"""
+        region = SectRegion(
+            id=401,
+            name="宗门总部",
+            desc="测试宗门总部",
+            sect_name="测试宗门",
+            sect_id=1,
+        )
+        cultivation_avatar.tile.region = region
+
+        sect = MagicMock()
+        sect.id = 1
+        sect.name = "测试宗门"
+        cultivation_avatar.sect = sect
+
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
+        can_start, reason = action.can_start()
+        assert can_start is True
+        assert reason == ""
+
+        action._execute()
+
+        expected_exp = 5 * Respire.BASE_EXP_PER_DENSITY
+        assert cultivation_avatar.cultivation_progress.exp == expected_exp
+
+    def test_respire_in_sect_headquarter_not_member_forbidden(self, cultivation_avatar):
+        """非本门弟子在宗门总部：禁止吐纳。"""
+        region = SectRegion(
+            id=402,
+            name="他宗总部",
+            desc="测试他宗总部",
+            sect_name="他宗门",
+            sect_id=2,
+        )
+        cultivation_avatar.tile.region = region
+
+        sect = MagicMock()
+        sect.id = 1
+        sect.name = "本门"
+        cultivation_avatar.sect = sect
+
+        action = Respire(cultivation_avatar, cultivation_avatar.world)
+        can_start, reason = action.can_start()
+
+        assert can_start is False
+        # 中英文环境都至少包含「宗门」或「sect」
+        assert ("宗门" in reason) or ("sect" in reason)
 
     def test_respire_with_multiplier(self, cultivation_avatar):
         """测试额外吐纳经验倍率的效果"""

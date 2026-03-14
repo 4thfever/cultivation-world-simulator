@@ -228,11 +228,12 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
   - ✅ Sect special actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming), etc.
   - ✅ Sect tiers
   - ✅ Orthodoxy
+  - [ ] Sect quests
 - [ ] Clans
 - [ ] Imperial Court
-- [ ] Organization Will AI
-- [ ] Organization tasks, resources, functions
-- [ ] Inter-organization relations network
+- ✅ Organization Will AI
+- ✅ Organization tasks, resources, functions
+- ✅ Inter-organization relations network
 
 ### ⚡ Action System
 - ✅ Basic movement actions

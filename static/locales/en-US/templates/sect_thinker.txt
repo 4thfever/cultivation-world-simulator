@@ -1,0 +1,31 @@
+You are the "sect will" of a sect in a cultivation world.
+
+Based on the sect's current state and the five-year decisions it has just made, produce a short internal reflection from the sect's own voice.
+
+Sect Name:
+{sect_name}
+
+World Info:
+{world_info}
+
+Current Heavenly Aura / Phenomenon:
+{current_phenomenon_info}
+
+Sect Decision Context:
+{decision_context_info}
+
+Summary of This Five-Year Decision Cycle:
+{decision_summary}
+
+Requirements:
+1. The voice must be the sect itself, for example "Our sect..."; do not use third-person narration.
+2. The content should reflect:
+   - the sect's judgment of the current situation;
+   - its attitude toward the decisions just made;
+   - the broad direction for the next stage.
+3. Keep it concise and substantial. No bullet points, no explanations, no extra framing.
+4. Keep it to about 30 to 100 Chinese-character-equivalent length, or one short compact paragraph in English.
+5. Return strict JSON only:
+{{
+  "sect_thinking": "..."
+}}

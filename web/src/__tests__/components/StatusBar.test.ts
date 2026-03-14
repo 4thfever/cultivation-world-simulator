@@ -229,9 +229,9 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // When phenomenon is null, v-if hides the widget.
-      // Domain widget, Ranking widget, and Tournament widget should exist.
+      // Domain widget、Ranking widget、Tournament widget、SectRelations widget should exist.
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(3)
+      expect(widgets.length).toBe(4)
     })
   })
 
@@ -386,5 +386,15 @@ describe('StatusBar', () => {
 
     const domainWidget = wrapper.findAll('.status-widget-stub')[1]
     expect(domainWidget.attributes('data-label')).toBe('game.status_bar.hidden_domain.label')
+  })
+
+  it('should render sect relations StatusWidget', () => {
+    const wrapper = mount(StatusBar, globalConfig)
+
+    const widgets = wrapper.findAll('.status-widget-stub')
+    // currentPhenomenon + domain + ranking + tournament + sect_relations
+    expect(widgets.length).toBe(5)
+    const sectRelationsWidget = widgets[4]
+    expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })
 })

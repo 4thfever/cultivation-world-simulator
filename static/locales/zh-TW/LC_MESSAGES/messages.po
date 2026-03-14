@@ -380,6 +380,12 @@ msgstr "順應天道，吐納靈氣。靈氣密度越高效果越好。"
 msgid "respire_requirements"
 msgstr "需要道門或散修道統"
 
+msgid "respire_sect_hq_members_only"
+msgstr "只有該宗門弟子才能在宗門總部吐納。"
+
+msgid "respire_efficiency_sect_hq"
+msgstr "進境平穩（宗門總部）"
+
 # Action: SelfHeal
 msgid "self_heal_action_name"
 msgstr "療傷"
@@ -1259,6 +1265,9 @@ msgstr "消遣收益"
 msgid "effect_extra_plant_income"
 msgstr "額外種植靈石收益"
 
+msgid "effect_extra_income_per_tile"
+msgstr "每地塊年收入修正"
+
 msgid "earth_essence"
 msgstr "土"
 
@@ -1344,6 +1353,16 @@ msgstr "{avatar_name} 放棄了{item_name}。"
 msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
+
+msgid "game.sect_update_event"
+msgstr ""
+"【{sect_name}】今年總戰力達到 {strength}，勢力半徑達到 {radius}，從勢力範圍內獲得了 {income} 靈石。"
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name}宗門的思考：{thinking}"
+
+msgid "Game automatically saved"
+msgstr "遊戲已自動保存"
 
 # 執行結果
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
@@ -2632,6 +2651,38 @@ msgid ""
 msgstr ""
 "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
 
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}與{sect_b_name}關係改善（+{value_int}，持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}與{sect_b_name}關係惡化（-{value_int}，持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}獲得靈石+{value_int}。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}損失靈石-{value_int}。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}每地塊年收入修正+{value}（持續{duration_months}個月）。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"因{reason_fragment}，{sect_a_name}每地塊年收入修正-{value}（持續{duration_months}個月）。"
+
 # ============================================================================
 # Relation & Root & Appearance & Sect (New)
 # ============================================================================
@@ -2706,6 +2757,15 @@ msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 # ============================================================================
 # SingleChoice 系統 - 物品決策
 # ============================================================================
+msgid "Accept new item"
+msgstr "接受新物品"
+
+msgid "Reject new item"
+msgstr "拒絕新物品"
+
+msgid "Automatically accept the new item."
+msgstr "自動接受該新物品。"
+
 # 決策界面
 msgid ""
 "【Current Situation】: {context}\n"
@@ -2998,6 +3058,3 @@ msgstr "鞭"
 
 msgid "zither"
 msgstr "琴"
-
-msgid "Game automatically saved"
-msgstr "遊戲已自動保存"

@@ -5,6 +5,7 @@ from src.systems.battle import get_base_strength
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
+    from src.classes.core.world import World
 
 @dataclass
 class RankingManager:
@@ -72,6 +73,46 @@ class RankingManager:
                 "total_power": int(total_power)
             })
             
+        sect_list.sort(key=lambda s: s["total_power"], reverse=True)
+        self.sect_ranking = sect_list[:5]
+
+    def update_rankings_with_world(self, world: "World", living_avatars: List["Avatar"]) -> None:
+        """
+        使用 World 上下文更新榜单。
+        - 角色榜单仍基于 living_avatars。
+        - 宗门榜单改为只考虑本局启用且仍存续的宗门（通过 world.sect_context）。
+        """
+        # 先更新角色榜单（沿用旧实现）
+        self.update_rankings(living_avatars)
+
+        # 再基于 SectContext 计算宗门榜
+        sect_context = getattr(world, "sect_context", None)
+        if sect_context is None:
+            return
+
+        active_sects = sect_context.get_active_sects()
+        if not active_sects:
+            self.sect_ranking = []
+            return
+
+        from src.i18n import t
+
+        sect_list: List[Dict[str, Any]] = []
+        for sect in active_sects:
+            living_members = [m for m in sect.members.values() if not getattr(m, "is_dead", False)]
+            total_power = sum(get_base_strength(m) for m in living_members)
+
+            sect_list.append(
+                {
+                    "id": sect.id,
+                    "name": sect.name,
+                    "alignment": str(sect.alignment),
+                    "hq_name": sect.headquarter.name,
+                    "member_count": len(living_members),
+                    "total_power": int(total_power),
+                }
+            )
+
         sect_list.sort(key=lambda s: s["total_power"], reverse=True)
         self.sect_ranking = sect_list[:5]
 

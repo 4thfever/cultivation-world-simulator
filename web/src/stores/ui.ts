@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef } from 'vue';
 import { avatarApi } from '../api';
+import { mapDetailDTOToDomain } from '../api/mappers/detailMapper';
 import type { AvatarDetail, RegionDetail, SectDetail } from '../types/core';
 
 export type SelectionType = 'avatar' | 'region' | 'sect';
@@ -95,9 +96,12 @@ export const useUiStore = defineStore('ui', () => {
 
     try {
       const data = await avatarApi.fetchDetailInfo(target);
-      
+
       if (shouldAcceptResponse()) {
-        detailData.value = data as unknown as AvatarDetail | RegionDetail | SectDetail;
+        detailData.value = mapDetailDTOToDomain(
+          data,
+          target.type,
+        ) as AvatarDetail | RegionDetail | SectDetail;
       }
     } catch (e) {
       if (shouldAcceptResponse()) {

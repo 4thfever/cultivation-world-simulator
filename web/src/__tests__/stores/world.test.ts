@@ -13,6 +13,7 @@ vi.mock('@/api', () => ({
     fetchMap: vi.fn(),
     fetchPhenomenaList: vi.fn(),
     setPhenomenon: vi.fn(),
+    fetchSectTerritories: vi.fn(),
   },
   eventApi: {
     fetchEvents: vi.fn(),

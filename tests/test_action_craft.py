@@ -108,20 +108,14 @@ async def test_refine_execution_flow(dummy_avatar):
     # Case A: Success
     with patch("random.random", return_value=0.0): # 0.0 < success_rate
         with patch("src.classes.action.refine.get_random_elixir_by_realm") as mock_get_elixir:
-            with patch("src.classes.action.refine.handle_item_exchange", new_callable=MagicMock) as mock_exchange:
+            with patch("src.classes.action.refine.resolve_item_exchange", new_callable=MagicMock) as mock_exchange:
                 # Setup mock return
                 mock_elixir = MagicMock()
                 mock_elixir.name = "Godly Pill"
                 mock_get_elixir.return_value = mock_elixir
                 
-                # handle_item_exchange 是 async，Mock 需要是 awaitable
-                # 但原始代码里是用 await handle_item_exchange(...)
-                # 如果 handle_item_exchange 是 import 进来的函数，用 patch 即可
-                # 注意：src.classes.single_choice.handle_item_exchange
-                
-                # 配置 mock_exchange 的返回值 (events, result_text)
                 async def async_return(*args, **kwargs):
-                    return ([], "Exchange Result")
+                    return MagicMock(result_text="Exchange Result")
                 mock_exchange.side_effect = async_return
                 
                 events = await action.finish()
@@ -194,13 +188,13 @@ async def test_cast_execution_flow(dummy_avatar):
     # Test Success (Weapon)
     with patch("random.random", side_effect=[0.0, 0.0]): # First: check success, Second: check is_weapon (<0.5)
         with patch("src.classes.action.cast.get_random_weapon_by_realm") as mock_get_weapon:
-            with patch("src.classes.action.cast.handle_item_exchange") as mock_exchange:
+            with patch("src.classes.action.cast.resolve_item_exchange") as mock_exchange:
                 mock_weapon = MagicMock()
                 mock_weapon.name = "Godly Sword"
                 mock_get_weapon.return_value = mock_weapon
                 
                 async def async_return(*args, **kwargs):
-                    return ([], "Exchange Result")
+                    return MagicMock(result_text="Exchange Result")
                 mock_exchange.side_effect = async_return
                 
                 events = await action.finish()

@@ -29,6 +29,7 @@
   "event_panel": {
     "title": "Event Logs",
     "filter_all": "All",
+    "filter_all_sects": "All Sects",
     "deceased": "(Deceased)",
     "add_second": "+ Add Second",
     "load_more": "Scroll up to load more",
@@ -59,6 +60,36 @@
     "heaven_first": "Heaven 1st",
     "earth_first": "Earth 1st",
     "human_first": "Human 1st"
+  },
+  "sect_relations": {
+    "title_short": "[Sect Relations]",
+    "title": "Sect Relations",
+    "sect_a": "Sect A",
+    "sect_b": "Sect B",
+    "status": "Diplomatic Status",
+    "value": "Relation Value",
+    "reasons": "Reasons",
+    "empty": "No relation data",
+    "status_war": "At War",
+    "status_peace": "Peace",
+    "duration_months": "{count} months",
+    "value_label_very_hostile": "Very Hostile",
+    "value_label_hostile": "Hostile",
+    "value_label_neutral": "Neutral",
+    "value_label_friendly": "Friendly",
+    "value_label_very_friendly": "Very Friendly",
+    "overlap_tiles": "overlap {count} tiles",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "Opposite alignment",
+      "ALIGNMENT_SAME": "Same alignment",
+      "ORTHODOXY_DIFFERENT": "Different orthodoxy",
+      "ORTHODOXY_SAME": "Same orthodoxy",
+      "TERRITORY_CONFLICT": "Territory conflict",
+      "WAR_STATE": "State of war",
+      "PEACE_STATE": "State of peace",
+      "LONG_PEACE": "Long peace",
+      "RANDOM_EVENT": "Random event"
+    }
   },
   "info_panel": {
     "popup": {
@@ -152,16 +183,39 @@
         "orthodoxy": "Orthodoxy",
         "style": "Style",
         "preferred": "Weapon",
-        "members": "Members"
+        "members": "Members",
+        "total_battle_strength": "Power",
+        "influence_radius": "Radius",
+        "magic_stone": "Stones"
       },
       "sections": {
         "intro": "Introduction",
+        "situation": "Sect Situation",
+        "rule": "Sect Rule",
         "hq": "HQ: {name}",
         "bonus": "Sect Bonus",
-        "techniques": "Unique Arts",
+        "diplomacy": "Diplomatic Situation",
+        "thinking": "Sect Thinking",
+        "techniques": "Technique Library",
         "members": "Disciples"
       },
-      "no_bonus": "No special bonus"
+      "situation": {
+        "active_wars": "Current Wars",
+        "active_wars_value": "Currently at war with {count} sect(s)",
+        "territory": "Territory",
+        "territory_value": "Currently controls {tiles} tiles of influence, with {conflicts} contested tile(s)",
+        "income": "Territory Income",
+        "income_value": "Expected income per cycle: {income} stones, averaging {perTile} per tile",
+        "strongest_enemy": "Primary Enemy Sect",
+        "strongest_enemy_value": "{name} (relation value {value})"
+      },
+      "diplomacy_meta_relation": "Relation value {value}",
+      "diplomacy_last_battle": "Last clash month stamp {month}",
+      "no_rule": "No explicit sect rule description",
+      "no_bonus": "No special bonus",
+      "no_runtime_effect": "No active sect runtime effects",
+      "runtime_effect_meta": "Source: {source} - Remaining: {months} month(s)",
+      "runtime_effect_meta_permanent": "Source: {source} - Duration: Permanent"
     }
   }
 }

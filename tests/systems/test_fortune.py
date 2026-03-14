@@ -37,30 +37,26 @@ async def test_try_trigger_fortune(dummy_avatar: Avatar, mock_game_configs, mock
     action = Respire(dummy_avatar, dummy_avatar.world)
     dummy_avatar.current_action = ActionInstance(action=action, params={})
     
-    # Mock single choice to avoid interactive prompt
-    with patch('src.classes.single_choice.handle_item_exchange', new_callable=AsyncMock) as mock_exchange:
-        mock_exchange.return_value = (True, "exchange text")
+    # Mock random to pick spirit_stone
+    with patch('random.choices') as mock_choices, patch('random.random', return_value=0.0):
+        mock_choices.return_value = [{"id": 5, "kind": "spirit_stone", "min_realm": "QI_REFINEMENT", "max_realm": "NASCENT_SOUL", "weight": 20, "title_id": "fortune_title_spirit_stone"}]
         
-        # Mock random to pick spirit_stone
-        with patch('random.choices') as mock_choices, patch('random.random', return_value=0.0):
-            mock_choices.return_value = [{"id": 5, "kind": "spirit_stone", "min_realm": "QI_REFINEMENT", "max_realm": "NASCENT_SOUL", "weight": 20, "title_id": "fortune_title_spirit_stone"}]
-            
-            events = await try_trigger_fortune(dummy_avatar)
-            
-            assert len(events) == 2
-            assert events[0].is_major is True
-            assert events[1].is_story is True
-            assert events[1].content == "A generated story."
-            
-            # Check dynamic prompt
-            call_args = mock_story_teller.call_args
-            assert call_args is not None
-            prompt = call_args.kwargs.get("prompt")
-            assert prompt is not None
-            # In English/Chinese the prompt contains the action description
-            # But during tests, if translations are missing, it might just be the msgid
-            # So we check if it's the right msgid or contains the action
-            assert "Respire" in prompt or "吐纳" in prompt or "吐納" in prompt or prompt == "fortune_dynamic_story_prompt"
+        events = await try_trigger_fortune(dummy_avatar)
+        
+        assert len(events) == 2
+        assert events[0].is_major is True
+        assert events[1].is_story is True
+        assert events[1].content == "A generated story."
+        
+        # Check dynamic prompt
+        call_args = mock_story_teller.call_args
+        assert call_args is not None
+        prompt = call_args.kwargs.get("prompt")
+        assert prompt is not None
+        # In English/Chinese the prompt contains the action description
+        # But during tests, if translations are missing, it might just be the msgid
+        # So we check if it's the right msgid or contains the action
+        assert "Respire" in prompt or "吐纳" in prompt or "吐納" in prompt or prompt == "fortune_dynamic_story_prompt"
 
 @pytest.mark.asyncio
 async def test_try_trigger_misfortune(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):

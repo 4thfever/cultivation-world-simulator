@@ -15,6 +15,8 @@ class Event:
     content: str
     # 相关角色ID列表；若与任何角色无关则为 None
     related_avatars: Optional[List[str]] = None
+    # 相关宗门ID列表；若与任何宗门无关则为 None
+    related_sects: Optional[List[int]] = None
     # 是否为大事（长期记忆），默认False（小事/短期记忆）
     is_major: bool = False
     # 是否为故事事件（不进入记忆索引），默认False
@@ -33,6 +35,7 @@ class Event:
             "month_stamp": int(self.month_stamp),
             "content": self.content,
             "related_avatars": self.related_avatars,
+            "related_sects": self.related_sects,
             "is_major": self.is_major,
             "is_story": self.is_story,
             "id": self.id,
@@ -46,6 +49,7 @@ class Event:
             month_stamp=MonthStamp(data["month_stamp"]),
             content=data["content"],
             related_avatars=data.get("related_avatars"),
+            related_sects=data.get("related_sects"),
             is_major=data.get("is_major", False),
             is_story=data.get("is_story", False),
             id=data.get("id", str(uuid.uuid4())),
@@ -65,6 +69,7 @@ class NullEvent:
             cls._instance.month_stamp = MonthStamp(0)
             cls._instance.content = ""
             cls._instance.related_avatars = None
+            cls._instance.related_sects = None
             cls._instance.is_major = False
             cls._instance.is_story = False
             cls._instance.id = "NULL_EVENT"
@@ -83,6 +88,7 @@ class NullEvent:
             "month_stamp": int(self.month_stamp),
             "content": self.content,
             "related_avatars": self.related_avatars,
+            "related_sects": self.related_sects,
             "is_major": self.is_major,
             "is_story": self.is_story,
             "id": self.id,

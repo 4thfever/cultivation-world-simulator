@@ -106,6 +106,22 @@ export interface AvatarDetail extends EntityBase {
   
   // 附加信息
   "当前效果"?: string;
+  sect_status_summary?: {
+    sect_name: string;
+    sect_rank: string;
+    sect_is_at_war: boolean;
+    active_war_count: number;
+    active_wars: Array<{
+      other_sect_id: number;
+      other_sect_name: string;
+      war_months: number;
+      war_reason?: string;
+      last_battle_month?: number | null;
+    }>;
+    rule_desc?: string;
+    sect_alignment?: string;
+    sect_orthodoxy?: string;
+  } | null;
 }
 
 export interface SectInfo extends EffectEntity {
@@ -132,11 +148,61 @@ export interface SectDetail extends EntityBase {
   hq_name: string;
   hq_desc: string;
   effect_desc: string;
+  rule_id?: string;
+  rule_desc?: string;
   technique_names?: string[]; // Deprecated
   techniques: EffectEntity[];
   preferred_weapon: string;
   members: SectMember[];
   orthodoxy: EffectEntity;
+  magic_stone: number;
+  is_active: boolean;
+  total_battle_strength: number;
+  influence_radius: number;
+  color: string;
+  runtime_effect_desc?: string;
+  runtime_extra_income_per_tile?: number;
+  runtime_effects_count?: number;
+  runtime_effect_items?: SectRuntimeEffectItem[];
+  yearly_thinking?: string;
+  diplomacy_items?: SectDiplomacyItem[];
+  territory_summary?: {
+    tile_count: number;
+    conflict_tile_count: number;
+    headquarter_center?: [number, number] | null;
+  };
+  economy_summary?: {
+    current_magic_stone: number;
+    effective_income_per_tile: number;
+    controlled_tile_income: number;
+  };
+  war_summary?: {
+    active_war_count: number;
+    peace_count: number;
+    strongest_enemy_name: string;
+    strongest_enemy_relation: number;
+  };
+}
+
+export interface SectRuntimeEffectItem {
+  source: string;
+  source_label: string;
+  desc: string;
+  remaining_months: number;
+  is_permanent?: boolean;
+}
+
+export interface SectDiplomacyItem {
+  other_sect_id: number;
+  other_sect_name: string;
+  status: 'war' | 'peace' | string;
+  duration_months: number;
+  war_months: number;
+  peace_months: number;
+  relation_value?: number;
+  war_reason?: string;
+  last_battle_month?: number | null;
+  reason_summary?: string;
 }
 
 export interface RelationInfo {
@@ -158,6 +224,10 @@ export type MapMatrix = string[][];
 export interface RegionSummary extends EntityBase, Coordinates {
   type: string;
   sect_id?: number;
+  sect_name?: string;
+  sect_color?: string;
+  // 是否为激活宗门（由后端 /api/map 提供）。未提供时视为 true。
+  sect_is_active?: boolean;
   sub_type?: string; // for cultivate regions: "cave" or "ruin"
 }
 
@@ -221,6 +291,7 @@ export interface GameEvent {
   // 排序权重
   timestamp: number; 
   relatedAvatarIds: string[];
+  relatedSects?: number[];
   isMajor: boolean;
   isStory: boolean;
   

@@ -4,6 +4,8 @@ import type {
   MapResponseDTO, 
   PhenomenonDTO,
   RankingsDTO,
+  SectRelationsResponseDTO,
+  SectTerritoriesResponseDTO,
 } from '../../types/api';
 import { normalizeRankingsResponse } from '../mappers/world';
 
@@ -27,5 +29,13 @@ export const worldApi = {
   async fetchRankings() {
     const data = await httpClient.get<Partial<RankingsDTO>>('/api/rankings');
     return normalizeRankingsResponse(data);
-  }
+  },
+
+  fetchSectRelations() {
+    return httpClient.get<SectRelationsResponseDTO>('/api/sect-relations');
+  },
+
+  fetchSectTerritories() {
+    return httpClient.get<SectTerritoriesResponseDTO>('/api/sects/territories');
+  },
 };

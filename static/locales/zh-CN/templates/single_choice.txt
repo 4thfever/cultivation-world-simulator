@@ -6,12 +6,15 @@
 你需要进行决策的NPC的dict[AvatarName, info]为
 {avatar_infos}
 
-你的可选选项为
-{choices}
+当前情境为：
+{situation}
+
+你的可选选项为（JSON）：
+{options_json}
 
 注意，只返回json格式的结果，格式为：
 {{
     "thinking": ..., // 简单思考
-    "choice": "" // 你的决策，注意只返回对应的选项字母
+    "choice": "" // 你的决策，必须只返回给定选项中的 key
 }}
 

@@ -1,0 +1,17 @@
+﻿msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+msgstr "因{reason_fragment}，{sect_a_name}与{sect_b_name}关系改善（+{value_int}，持续{duration_months}个月）。"
+
+msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
+msgstr "因{reason_fragment}，{sect_a_name}与{sect_b_name}关系恶化（-{value_int}，持续{duration_months}个月）。"
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}获得灵石+{value_int}。"
+
+msgid "Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "因{reason_fragment}，{sect_a_name}损失灵石-{value_int}。"
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value} extra income per tile for {duration_months} months."
+msgstr "因{reason_fragment}，{sect_a_name}每地块年收入修正+{value}（持续{duration_months}个月）。"
+
+msgid "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
+msgstr "因{reason_fragment}，{sect_a_name}每地块年收入修正-{value}（持续{duration_months}个月）。"

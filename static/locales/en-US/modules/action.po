@@ -419,6 +419,12 @@ msgstr ""
 msgid "respire_requirements"
 msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
 
+msgid "respire_sect_hq_members_only"
+msgstr "Only disciples of this sect can respire at its headquarters."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "steady progress (sect headquarters)"
+
 # Action: SelfHeal
 msgid "self_heal_action_name"
 msgstr "Self Heal"

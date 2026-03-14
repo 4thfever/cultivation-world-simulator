@@ -161,3 +161,6 @@ msgstr "消遣收益"
 
 msgid "effect_extra_plant_income"
 msgstr "额外种植灵石收益"
+
+msgid "effect_extra_income_per_tile"
+msgstr "每地块年收入修正"

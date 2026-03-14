@@ -161,3 +161,6 @@ msgstr "Leisure Benefit"
 
 msgid "effect_extra_plant_income"
 msgstr "Extra Plant Income"
+
+msgid "effect_extra_income_per_tile"
+msgstr "Extra income per tile (yearly)"

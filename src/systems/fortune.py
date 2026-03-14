@@ -22,6 +22,12 @@ from src.classes.items.auxiliary import Auxiliary, get_random_auxiliary_by_realm
 from src.classes.relation.relation import Relation
 from src.classes.alignment import Alignment
 from src.systems.cultivation import Realm
+from src.systems.single_choice import (
+    ItemExchangeKind,
+    ItemExchangeRequest,
+    RejectMode,
+    resolve_item_exchange,
+)
 
 
 class FortuneKind(Enum):
@@ -349,9 +355,6 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     actors_for_story = [avatar]  # 用于生成故事的角色列表
 
     
-    # 导入通用决策模块
-    from src.classes.single_choice import handle_item_exchange
-
     if kind == FortuneKind.WEAPON:
         weapon = _get_weapon_for_avatar(avatar)
         if weapon is None:
@@ -366,17 +369,23 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             if avatar.weapon:
                 intro += t(" But you already have『{weapon_name}』.", weapon_name=avatar.weapon.name)
 
-            _, exchange_text = await handle_item_exchange(
-                avatar=avatar,
-                new_item=weapon,
-                item_type="weapon",
-                context_intro=intro,
-                can_sell_new=False
+            outcome = await resolve_item_exchange(
+                ItemExchangeRequest(
+                    avatar=avatar,
+                    new_item=weapon,
+                    kind=ItemExchangeKind.WEAPON,
+                    scene_intro=intro,
+                    reject_mode=RejectMode.ABANDON_NEW,
+                    auto_accept_when_empty=True,
+                )
             )
-            res_text = t("Discovered weapon『{weapon_name}』, {exchange_text}", 
-                        weapon_name=weapon.name, exchange_text=exchange_text)
+            res_text = t(
+                "Discovered weapon『{weapon_name}』, {exchange_text}",
+                weapon_name=weapon.name,
+                exchange_text=outcome.result_text,
+            )
 
-    if kind == FortuneKind.AUXILIARY:
+    elif kind == FortuneKind.AUXILIARY:
         auxiliary = _get_auxiliary_for_avatar(avatar)
         if auxiliary is None:
             # 回退到功法
@@ -390,15 +399,21 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             if avatar.auxiliary:
                 intro += t(" But you already have『{auxiliary_name}』.", auxiliary_name=avatar.auxiliary.name)
 
-            _, exchange_text = await handle_item_exchange(
-                avatar=avatar,
-                new_item=auxiliary,
-                item_type="auxiliary",
-                context_intro=intro,
-                can_sell_new=False
+            outcome = await resolve_item_exchange(
+                ItemExchangeRequest(
+                    avatar=avatar,
+                    new_item=auxiliary,
+                    kind=ItemExchangeKind.AUXILIARY,
+                    scene_intro=intro,
+                    reject_mode=RejectMode.ABANDON_NEW,
+                    auto_accept_when_empty=True,
+                )
             )
-            res_text = t("Discovered auxiliary『{auxiliary_name}』, {exchange_text}",
-                        auxiliary_name=auxiliary.name, exchange_text=exchange_text)
+            res_text = t(
+                "Discovered auxiliary『{auxiliary_name}』, {exchange_text}",
+                auxiliary_name=auxiliary.name,
+                exchange_text=outcome.result_text,
+            )
 
     if kind == FortuneKind.TECHNIQUE:
         tech = _get_fortune_technique_for_avatar(avatar)
@@ -412,15 +427,21 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
             intro += t(" This conflicts with your current technique『{technique_name}』.",
                       technique_name=avatar.technique.name)
 
-        _, exchange_text = await handle_item_exchange(
-            avatar=avatar,
-            new_item=tech,
-            item_type="technique",
-            context_intro=intro,
-            can_sell_new=False
+        outcome = await resolve_item_exchange(
+            ItemExchangeRequest(
+                avatar=avatar,
+                new_item=tech,
+                kind=ItemExchangeKind.TECHNIQUE,
+                scene_intro=intro,
+                reject_mode=RejectMode.ABANDON_NEW,
+                auto_accept_when_empty=True,
+            )
         )
-        res_text = t("Comprehended technique『{technique_name}』, {exchange_text}",
-                    technique_name=tech.name, exchange_text=exchange_text)
+        res_text = t(
+            "Comprehended technique『{technique_name}』, {exchange_text}",
+            technique_name=tech.name,
+            exchange_text=outcome.result_text,
+        )
 
     elif kind == FortuneKind.FIND_MASTER:
         master = _find_potential_master(avatar)

@@ -380,6 +380,12 @@ msgstr "顺应天道，吐纳灵气。灵气密度越高效果越好。"
 msgid "respire_requirements"
 msgstr "需要道门或散修道统"
 
+msgid "respire_sect_hq_members_only"
+msgstr "只有该宗门弟子才能在宗门总部吐纳。"
+
+msgid "respire_efficiency_sect_hq"
+msgstr "进境平稳（宗门总部）"
+
 # Action: SelfHeal
 msgid "self_heal_action_name"
 msgstr "疗伤"

@@ -26,7 +26,7 @@ avatar.enable_metrics_tracking = True
 追踪启用后，模拟器会在每月自动调用 `record_metrics()`：
 
 ```python
-# 在 simulator.py 的 _finalize_step() 中自动执行
+# 在 src.sim.simulator_engine.finalizer.finalize_step() 中自动执行
 # avatar.record_metrics()  # 每月自动调用
 ```
 

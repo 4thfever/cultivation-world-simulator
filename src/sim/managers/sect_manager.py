@@ -1,0 +1,255 @@
+import math
+from dataclasses import dataclass
+from typing import TYPE_CHECKING, Dict, Iterable, Iterator, List, Tuple
+
+from src.classes.event import Event
+from src.systems.battle import get_base_strength
+from src.utils.config import CONFIG
+
+if TYPE_CHECKING:
+    from src.classes.core.sect import Sect
+    from src.classes.core.world import World
+    from src.classes.environment.map import Map
+
+
+@dataclass
+class SectTerritorySnapshot:
+    """宗门势力范围快照，用于在多个系统之间复用计算结果。"""
+
+    active_sects: List["Sect"]
+    sect_centers: Dict[int, Tuple[int, int]]
+    tile_owners: Dict[Tuple[int, int], List[int]]
+
+
+class SectManager:
+    """
+    宗门管理器。
+    负责宗门的战力计算、势力范围更新、灵石结算。
+    """
+
+    def __init__(self, world: "World"):
+        self.world = world
+
+    def _collect_active_sects(self) -> List["Sect"]:
+        """获取当前仍然存续且激活的宗门列表。"""
+        # 优先通过 World.sect_context 统一获取本局启用宗门
+        sects: Iterable["Sect"] = []
+        sect_context = getattr(self.world, "sect_context", None)
+        if sect_context is not None:
+            sects = sect_context.get_active_sects()
+        else:
+            sects = getattr(self.world, "existed_sects", []) or []
+
+        # 兜底：若仍为空，则回退到全局 sects_by_id
+        if not sects:
+            from src.classes.core.sect import sects_by_id as _sects_by_id
+            sects = list(_sects_by_id.values())
+
+        return [s for s in sects if getattr(s, "is_active", True)]
+
+    def _update_sect_strength_and_radius(self, sect: "Sect") -> None:
+        """
+        计算并更新宗门的总战力与势力半径。
+        半径公式：int(total_strength) // 10 + 1
+        """
+        # 直接通过宗门的 members 属性获取存活的成员
+        members = [m for m in sect.members.values() if not getattr(m, "is_dead", False)]
+
+        # 计算总战力: log(sum(exp(成员战力)))，使用 max trick 保持数值稳定
+        total_strength = 0.0
+        if members:
+            strengths = [float(get_base_strength(m)) for m in members]
+            if strengths:
+                max_str = max(strengths)
+                # 防止 exp 溢出，限制上限
+                sum_exp = sum(
+                    math.exp(max(-500.0, min(s - max_str, 500.0)))
+                    for s in strengths
+                )
+                total_strength = max_str + math.log(sum_exp)
+
+        sect.total_battle_strength = max(0.0, total_strength)
+        sect.influence_radius = int(sect.total_battle_strength) // 10 + 1
+
+    def _compute_sect_centers(
+        self, sects: List["Sect"], game_map: "Map"
+    ) -> Dict[int, Tuple[int, int]]:
+        """
+        基于地图上的 SectRegion，计算每个宗门总部的中心坐标。
+        返回 dict: sect_id -> (x, y)
+        """
+        centers: Dict[int, Tuple[int, int]] = {}
+
+        # 构建 sect_id -> 对应 SectRegion 的所有坐标
+        region_cors = getattr(game_map, "region_cors", {}) or {}
+        for region in getattr(game_map, "sect_regions", {}).values():
+            sect_id = getattr(region, "sect_id", -1)
+            if sect_id <= 0 or sect_id in centers:
+                continue
+
+            cors = region_cors.get(region.id)
+            if not cors:
+                continue
+
+            centers[sect_id] = game_map.get_center_locs(cors)
+
+        # 只保留当前实际存在的宗门
+        return {sect.id: centers[sect.id] for sect in sects if sect.id in centers}
+
+    def _iter_influence_tiles(
+        self, center_x: int, center_y: int, radius: int, game_map: "Map"
+    ) -> Iterator[Tuple[int, int]]:
+        """
+        枚举以 (center_x, center_y) 为中心、曼哈顿半径为 radius 的菱形范围内所有有效格子。
+        """
+        if radius <= 0:
+            return
+
+        for dx in range(-radius, radius + 1):
+            max_dy = radius - abs(dx)
+            for dy in range(-max_dy, max_dy + 1):
+                x = center_x + dx
+                y = center_y + dy
+                if game_map.is_in_bounds(x, y) and (x, y) in game_map.tiles:
+                    yield (x, y)
+
+    def _compute_snapshot(self) -> SectTerritorySnapshot:
+        """
+        计算当前世界下宗门势力范围的快照。
+        统一完成：
+        - active_sects 收集
+        - 战力与半径更新
+        - 总部中心坐标
+        - tile_owners 填充
+        """
+        active_sects = self._collect_active_sects()
+        tile_owners: Dict[Tuple[int, int], List[int]] = {}
+        sect_centers: Dict[int, Tuple[int, int]] = {}
+
+        game_map: "Map" = getattr(self.world, "map", None)
+        if not active_sects or not game_map:
+            return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+
+        # 1. 更新战力与半径
+        for sect in active_sects:
+            self._update_sect_strength_and_radius(sect)
+
+        # 2. 计算总部中心坐标
+        sect_centers = self._compute_sect_centers(active_sects, game_map)
+        if not sect_centers:
+            # 与旧逻辑保持一致：若无法确定中心，则不再枚举 tile_owners
+            return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+
+        # 3. 枚举每个宗门的势力范围，记录占据格子
+        for sect in active_sects:
+            center = sect_centers.get(sect.id)
+            radius = getattr(sect, "influence_radius", 0)
+            if center is None or radius <= 0:
+                continue
+
+            cx, cy = center
+            for x, y in self._iter_influence_tiles(cx, cy, radius, game_map):
+                owners = tile_owners.setdefault((x, y), [])
+                owners.append(sect.id)
+
+        return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+
+    def get_snapshot(self) -> SectTerritorySnapshot:
+        """
+        返回当前世界下宗门势力范围的快照。
+
+        - 统一封装 _compute_sect_centers / _iter_influence_tiles 等内部细节；
+        - 供其他系统（关系计算、决策上下文等）复用，避免在多处重复实现相同逻辑。
+        """
+        return self._compute_snapshot()
+
+    def get_tile_owners(self) -> Tuple[List["Sect"], Dict[Tuple[int, int], List[int]]]:
+        """
+        计算当前活跃宗门的势力范围分布。
+
+        返回:
+            (active_sects, tile_owners)
+            - active_sects: 当前仍然存续且激活的宗门列表
+            - tile_owners: (x, y) -> [sect_id, ...]
+        """
+        snapshot = self.get_snapshot()
+        # 保持与旧行为一致：若无法确定中心，则返回空的 tile_owners，但 active_sects 仍返回
+        return snapshot.active_sects, snapshot.tile_owners
+
+    def update_sects(self) -> List[Event]:
+        """
+        每年底（或初）结算一次。
+        流程：
+        1. 计算活跃宗门的总战力与势力半径。
+        2. 确定每个宗门总部中心坐标。
+        3. 第一遍遍历：按宗门半径枚举势力菱形范围，为每个格子记录所有占据宗门。
+        4. 第二遍遍历：根据“冲突平均分”规则，把每个格子的基础灵石产出分配给相关宗门。
+        5. 为每个宗门累加收入并生成年度事件。
+        """
+        events: List[Event] = []
+
+        snapshot = self._compute_snapshot()
+        active_sects = snapshot.active_sects
+        tile_owners = snapshot.tile_owners
+
+        # 若无活跃宗门或无法确定中心，则与旧逻辑一样直接返回
+        if not active_sects or not snapshot.sect_centers:
+            return events
+
+        if not tile_owners:
+            # 即便没有任何格子，也仍然生成“战力更新”事件，只是收入为 0
+            pass
+
+        # 4. 第二遍：按冲突规则结算各宗门的收入
+        income_by_sect_id: Dict[int, float] = {}
+
+        sect_conf = getattr(CONFIG, "sect", None)
+        base_income = float(getattr(sect_conf, "income_per_tile", 10)) if sect_conf else 10.0
+        current_month = int(self.world.month_stamp)
+        sect_by_id = {int(s.id): s for s in active_sects}
+
+        for owners in tile_owners.values():
+            n = len(owners)
+            if n == 0:
+                continue
+            for sid in owners:
+                sect = sect_by_id.get(int(sid))
+                if sect is None:
+                    continue
+                extra_income = float(sect.get_extra_income_per_tile(current_month))
+                effective_income_per_tile = max(0.0, base_income + extra_income)
+                share = effective_income_per_tile / n
+                income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + share
+
+        # 5. 为每个宗门累加收入并生成事件
+        from src.i18n import t
+
+        for sect in active_sects:
+            raw_income = income_by_sect_id.get(sect.id, 0.0)
+            income = int(raw_income)
+            sect.magic_stone += income
+
+            content = t(
+                "game.sect_update_event",
+                sect_name=sect.name,
+                strength=int(sect.total_battle_strength),
+                radius=sect.influence_radius,
+                income=income,
+            )
+
+            # 兼容：如果未找到配置则回退到默认英文字符串形式
+            if content == "game.sect_update_event":
+                content = (
+                    f"[{sect.name}] this year's total battle strength reached "
+                    f"{int(sect.total_battle_strength)}, territory radius became "
+                    f"{sect.influence_radius}, gaining {income} magic stones from the territory."
+                )
+
+            event = Event(
+                month_stamp=self.world.month_stamp,
+                content=content,
+                related_sects=[sect.id],
+            )
+            events.append(event)
+
+        return events

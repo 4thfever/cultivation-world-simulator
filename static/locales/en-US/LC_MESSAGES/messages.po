@@ -419,6 +419,12 @@ msgstr ""
 msgid "respire_requirements"
 msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
 
+msgid "respire_sect_hq_members_only"
+msgstr "Only disciples of this sect can respire at its headquarters."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "steady progress (sect headquarters)"
+
 # Action: SelfHeal
 msgid "self_heal_action_name"
 msgstr "Self Heal"
@@ -1325,6 +1331,9 @@ msgstr "Leisure Benefit"
 msgid "effect_extra_plant_income"
 msgstr "Extra Plant Income"
 
+msgid "effect_extra_income_per_tile"
+msgstr "Extra income per tile (yearly)"
+
 msgid "earth_essence"
 msgstr "Earth"
 
@@ -1426,6 +1435,18 @@ msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+
+msgid "game.sect_update_event"
+msgstr ""
+"[{sect_name}] this year's total battle strength reached {strength}, "
+"territory radius became {radius}, gaining {income} magic stones from the "
+"territory."
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name} sect's thinking: {thinking}"
+
+msgid "Game automatically saved"
+msgstr "Game automatically saved"
 
 # Execution Results
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
@@ -2832,6 +2853,44 @@ msgstr ""
 "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
 " Headquarters: {hq_name}){effect}"
 
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+
 msgid "comma_separator"
 msgstr ", "
 
@@ -2904,6 +2963,15 @@ msgstr "Sell new {label} '{new_name}' for spirit stones, keep current"
 # ============================================================================
 # SingleChoice System - Item Decisions
 # ============================================================================
+msgid "Accept new item"
+msgstr "Accept new item"
+
+msgid "Reject new item"
+msgstr "Reject new item"
+
+msgid "Automatically accept the new item."
+msgstr "Automatically accept the new item."
+
 # Decision Interface
 msgid ""
 "【Current Situation】: {context}\n"

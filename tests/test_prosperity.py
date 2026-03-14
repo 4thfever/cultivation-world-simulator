@@ -5,6 +5,7 @@ from src.classes.action.help_people import HelpPeople
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.devour_people import DevourPeople
 from src.sim.simulator import Simulator
+from src.sim.simulator_engine.phases.world import phase_update_region_prosperity
 from src.classes.alignment import Alignment
 from src.classes.items.auxiliary import Auxiliary
 from src.systems.time import MonthStamp, Year, Month
@@ -82,8 +83,6 @@ class TestProsperity:
 
     def test_simulator_auto_recovery(self, base_world):
         """测试模拟器每月自动恢复繁荣度"""
-        sim = Simulator(base_world)
-        
         # 创建一个繁荣度不满的城市
         city = CityRegion(id=1, name="TestCity", desc="Test")
         city.prosperity = 40
@@ -96,13 +95,13 @@ class TestProsperity:
         base_world.map.regions[1] = city
         
         # 执行恢复步骤
-        sim._phase_update_region_prosperity()
+        phase_update_region_prosperity(base_world)
         
         assert city.prosperity == 41
 
         # 再次执行，确保不溢出
         city.prosperity = 100
-        sim._phase_update_region_prosperity()
+        phase_update_region_prosperity(base_world)
         assert city.prosperity == 100
 
     def test_save_load_prosperity(self, base_world, tmp_path):

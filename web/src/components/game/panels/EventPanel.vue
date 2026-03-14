@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, h } from 'vue'
+import { computed, ref, watch, nextTick, h, onMounted } from 'vue'
 import { useAvatarStore } from '../../../stores/avatar'
 import { useEventStore } from '../../../stores/event'
 import { useUiStore } from '../../../stores/ui'
+import { useMapStore } from '../../../stores/map'
+import { useSectStore } from '../../../stores/sect'
 import { NSelect, NSpin, NButton } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
-import { tokenizeEventContent, buildAvatarColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import { prependAllOption } from '../../../utils/selectOptions'
 import type { GameEvent } from '../../../types/core'
 import { useI18n } from 'vue-i18n'
 
@@ -13,8 +16,12 @@ const { t } = useI18n()
 const avatarStore = useAvatarStore()
 const eventStore = useEventStore()
 const uiStore = useUiStore()
+const mapStore = useMapStore()
+const sectStore = useSectStore()
+
 const filterValue1 = ref('all')
 const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛选
+const filterSectValue = ref<number | 'all'>('all')
 const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
@@ -24,6 +31,16 @@ const filterOptions = computed(() => [
     value: avatar.id
   }))
 ])
+
+const sectFilterOptions = computed(() => {
+  return prependAllOption(
+    sectStore.activeSectOptions,
+    t('game.event_panel.filter_all_sects'),
+    'game.event_panel.filter_all_sects',
+    '所有宗门',
+    'all'
+  )
+})
 
 // 第二人的选项（排除第一人和"所有人"）
 const filterOptions2 = computed(() =>
@@ -77,14 +94,21 @@ function handleScroll(e: Event) {
 
 // 构建筛选参数
 function buildFilter() {
+  const params: any = {}
   if (filterValue2.value && filterValue1.value !== 'all') {
     // 双人筛选
-    return { avatar_id_1: filterValue1.value, avatar_id_2: filterValue2.value }
+    params.avatar_id_1 = filterValue1.value
+    params.avatar_id_2 = filterValue2.value
   } else if (filterValue1.value !== 'all') {
     // 单人筛选
-    return { avatar_id: filterValue1.value }
+    params.avatar_id = filterValue1.value
   }
-  return {}
+  
+  if (filterSectValue.value !== 'all') {
+    params.sect_id = filterSectValue.value
+  }
+  
+  return params
 }
 
 // 加载事件并滚动到底部
@@ -97,17 +121,53 @@ async function reloadEvents() {
   })
 }
 
-// 切换第一人筛选
-watch(filterValue1, async (newVal) => {
-  // 如果选了"所有人"，清除第二人筛选
-  if (newVal === 'all') {
+onMounted(() => {
+  if (!sectStore.isLoaded && mapStore.isLoaded) {
+    void sectStore.refreshTerritories()
+  }
+})
+
+watch(
+  () => mapStore.isLoaded,
+  (isLoaded) => {
+    if (isLoaded && !sectStore.isLoaded && !sectStore.isLoading) {
+      void sectStore.refreshTerritories()
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => sectStore.activeSectOptions,
+  (options) => {
+    if (filterSectValue.value === 'all') return
+    const stillExists = options.some(option => option.value === filterSectValue.value)
+    if (!stillExists) {
+      filterSectValue.value = 'all'
+    }
+  },
+  { deep: true }
+)
+
+// 切换宗门筛选
+watch(filterSectValue, async (newVal) => {
+  if (newVal !== 'all') {
+    // 选了宗门，清空角色的过滤条件
+    filterValue1.value = 'all'
     filterValue2.value = null
   }
   await reloadEvents()
 })
 
-// 切换第二人筛选
-watch(filterValue2, async () => {
+// 切换第一人筛选
+watch(filterValue1, async (newVal) => {
+  // 如果选了"所有人"，清除第二人筛选
+  if (newVal === 'all') {
+    filterValue2.value = null
+  } else {
+    // 选了角色，清空宗门的过滤条件
+    filterSectValue.value = 'all'
+  }
   await reloadEvents()
 })
 
@@ -124,6 +184,15 @@ function addSecondFilter() {
 function removeSecondFilter() {
   filterValue2.value = null
 }
+
+// 切换第二人筛选
+watch(filterValue2, async (newVal) => {
+  if (newVal !== null) {
+    // 选了第二个角色，清空宗门的过滤条件
+    filterSectValue.value = 'all'
+  }
+  await reloadEvents()
+})
 
 // 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）
 watch(displayEvents, () => {
@@ -154,16 +223,31 @@ function formatEventDate(event: { year: number; month: number }) {
 
 // 构建角色名 -> 颜色映射表。
 const avatarColorMap = computed(() => buildAvatarColorMap(avatarStore.avatarList))
+const sectColorMap = computed(() => buildSectColorMap(
+  Array.from(mapStore.regions.values())
+    .filter(region => region.type === 'sect')
+    .map(region => ({
+      sect_id: region.sect_id,
+      sect_name: region.sect_name,
+      sect_color: region.sect_color,
+    }))
+))
 
 // 渲染事件内容：拆分为安全 token，避免使用 v-html。
 function renderEventContent(event: GameEvent) {
   const text = event.content || event.text || ''
-  return tokenizeEventContent(text, avatarColorMap.value)
+  return tokenizeEventContent(text, avatarColorMap.value, sectColorMap.value)
 }
 
 function handleAvatarClick(avatarId?: string) {
   if (avatarId) {
     uiStore.select('avatar', avatarId)
+  }
+}
+
+function handleSectClick(sectId?: number) {
+  if (sectId != null) {
+    uiStore.select('sect', String(sectId))
   }
 }
 </script>
@@ -173,6 +257,13 @@ function handleAvatarClick(avatarId?: string) {
     <div class="sidebar-header">
       <h3>{{ t('game.event_panel.title') }}</h3>
       <div class="filter-group">
+        <n-select
+          v-model:value="filterSectValue"
+          :options="sectFilterOptions"
+          size="tiny"
+          class="event-filter"
+          data-testid="sect-filter"
+        />
         <n-select
           v-model:value="filterValue1"
           :options="filterOptions"
@@ -225,6 +316,14 @@ function handleAvatarClick(avatarId?: string) {
               class="clickable-avatar"
               :style="{ color: segment.color }"
               @click="handleAvatarClick(segment.avatarId)"
+            >
+              {{ segment.text }}
+            </span>
+            <span
+              v-else-if="segment.type === 'sect'"
+              class="clickable-sect"
+              :style="{ color: segment.color }"
+              @click="handleSectClick(segment.sectId)"
             >
               {{ segment.text }}
             </span>
@@ -349,7 +448,13 @@ function handleAvatarClick(avatarId?: string) {
   transition: opacity 0.15s;
 }
 
-.event-content :deep(.clickable-avatar:hover) {
+.event-content :deep(.clickable-sect) {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.event-content :deep(.clickable-avatar:hover),
+.event-content :deep(.clickable-sect:hover) {
   opacity: 0.8;
   text-decoration: underline;
 }

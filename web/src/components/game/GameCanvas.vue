@@ -6,6 +6,7 @@ import Viewport from './Viewport.vue'
 import MapLayer from './MapLayer.vue'
 import EntityLayer from './EntityLayer.vue'
 import PerceptionLayer from './PerceptionLayer.vue'
+import SectInfluenceLayer from './SectInfluenceLayer.vue'
 import CloudLayer from './CloudLayer.vue'
 import { useTextures } from './composables/useTextures'
 
@@ -77,6 +78,7 @@ onMounted(() => {
           @mapLoaded="onMapLoaded" 
           @regionSelected="handleRegionSelected" 
         />
+        <SectInfluenceLayer :width="mapSize.width" :height="mapSize.height" />
         <EntityLayer @avatarSelected="handleAvatarSelected" />
         <PerceptionLayer :width="mapSize.width" :height="mapSize.height" />
         <CloudLayer :width="mapSize.width" :height="mapSize.height" />

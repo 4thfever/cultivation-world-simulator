@@ -61,3 +61,12 @@ msgstr "{avatar_name} 放弃了{item_name}。"
 msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr "{avatar_name} 卖掉了新获得的{item_name}，获利 {price} 灵石。"
+
+msgid "game.sect_update_event"
+msgstr "【{sect_name}】今年总战力达到 {strength}，势力半径达到 {radius}，从势力范围内获得了 {income} 灵石。"
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name}宗门的思考：{thinking}"
+
+msgid "Game automatically saved"
+msgstr "游戏已自动保存"

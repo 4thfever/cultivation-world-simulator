@@ -1,0 +1,8 @@
+﻿id,event_type,weight,value,duration_months,comment
+唯一标识,事件类型,权重,效果数值,持续月数,备注
+1,relation_up,1.0,12,60,两宗门关系提升
+2,relation_down,1.0,12,60,两宗门关系下降
+3,magic_stone_up,1.0,150,0,单宗门获得灵石
+4,magic_stone_down,1.0,150,0,单宗门损失灵石
+5,income_up,1.0,0.8,60,单宗门每地块年收入提升
+6,income_down,1.0,0.8,60,单宗门每地块年收入下降

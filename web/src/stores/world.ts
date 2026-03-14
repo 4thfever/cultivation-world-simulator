@@ -7,11 +7,13 @@ import { logError, logWarn } from '../utils/appError';
 import { useMapStore } from './map';
 import { useAvatarStore } from './avatar';
 import { useEventStore } from './event';
+import { useSectStore } from './sect';
 
 export const useWorldStore = defineStore('world', () => {
   const mapStore = useMapStore();
   const avatarStore = useAvatarStore();
   const eventStore = useEventStore();
+  const sectStore = useSectStore();
 
   const year = ref(0);
   const month = ref(0);
@@ -49,6 +51,8 @@ export const useWorldStore = defineStore('world', () => {
     } else {
         activeDomains.value = [];
     }
+
+    void sectStore.refreshTerritories();
   }
 
   function applyStateSnapshot(stateRes: InitialStateDTO) {
@@ -97,6 +101,7 @@ export const useWorldStore = defineStore('world', () => {
 
       // Load initial events
       await eventStore.resetEvents({});
+      await sectStore.refreshTerritories();
 
     } catch (e) {
       logError('WorldStore initialize', e);
@@ -109,6 +114,7 @@ export const useWorldStore = defineStore('world', () => {
       const stateRes = await worldApi.fetchInitialState();
       if (currentRequestId !== fetchStateRequestId) return;
       applyStateSnapshot(stateRes);
+      await sectStore.refreshTerritories();
     } catch (e) {
       if (currentRequestId !== fetchStateRequestId) return;
       logError('WorldStore fetch state', e);
@@ -124,6 +130,7 @@ export const useWorldStore = defineStore('world', () => {
     
     avatarStore.reset();
     eventStore.reset();
+    sectStore.reset();
     mapStore.reset();
   }
 

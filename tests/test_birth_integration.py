@@ -4,6 +4,7 @@ from src.classes.age import Age
 from src.systems.cultivation import Realm, CultivationProgress
 from src.utils.id_generator import get_avatar_id
 from src.classes.root import Root
+from src.sim.simulator_engine.phases.lifecycle import phase_update_age_and_birth
 from src.systems.time import create_month_stamp, Year, Month
 
 def test_register_avatar_buffer(base_world):
@@ -73,10 +74,10 @@ async def test_simulator_birth_logic(base_world):
         return [Event(world.month_stamp, f"{mock_avatar.name} awakened", related_avatars=[mock_avatar.id])]
 
     # Patch process_awakening
-    with patch('src.sim.simulator.process_awakening', side_effect=mock_process_awakening):
+    with patch('src.sim.simulator_engine.phases.lifecycle.process_awakening', side_effect=mock_process_awakening):
         # 执行一次更新
         living_avatars = base_world.avatar_manager.get_living_avatars()
-        events = sim._phase_update_age_and_birth(living_avatars)
+        events = phase_update_age_and_birth(base_world, living_avatars)
     
     # 验证产生了一个新角色
     newly_born = base_world.avatar_manager.pop_newly_born()

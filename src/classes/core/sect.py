@@ -1,10 +1,12 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
+from enum import Enum
 
 from src.classes.alignment import Alignment
 from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.effect import load_effect_from_str
+from src.classes.sect_effect import SectEffectsMixin
 from src.classes.core.orthodoxy import get_orthodoxy
 from src.utils.config import CONFIG
 
@@ -21,6 +23,12 @@ if TYPE_CHECKING:
 此处仅保留宗门本体信息与头像编辑所需的静态字段。
 """
 
+
+class SectRuleId(str, Enum):
+    RIGHTEOUS_ORTHODOXY = "righteous_orthodoxy"
+    EVIL_SECT_LOYALTY = "evil_sect_loyalty"
+    NEUTRAL_SECRECY = "neutral_secrecy"
+
 # 宗门驻地（基础展示数据，具体地图位置在 sect_region.csv 中定义）
 @dataclass
 class SectHeadQuarter:
@@ -32,7 +40,7 @@ class SectHeadQuarter:
     image: Path
 
 @dataclass
-class Sect:
+class Sect(SectEffectsMixin):
     """
     宗门
     """
@@ -51,11 +59,27 @@ class Sect:
     # 影响角色或系统的效果
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
+    sect_effects: dict[str, object] = field(default_factory=dict)
+    temporary_sect_effects: list[dict] = field(default_factory=list)
     # 宗门自定义职位名称（可选）：SectRank -> 名称
     rank_names: dict[str, str] = field(default_factory=dict)
     # 道统ID
     orthodoxy_id: str = "dao"
+    # 门规
+    rule_id: str = ""
+    rule_desc: str = ""
     
+    # 势力相关
+    magic_stone: int = 0
+    is_active: bool = True
+    total_battle_strength: float = 0.0
+    influence_radius: int = 0
+    color: str = "#FFFFFF"
+    # 宗门年度思考（仅展示用途，不写入事件流）
+    yearly_thinking: str = ""
+    # 最近一次五年决策摘要（运行时）
+    last_decision_summary: str = ""
+
     # 运行时成员列表：Avatar ID -> Avatar
     members: dict[str, "Avatar"] = field(default_factory=dict, init=False)
     # 功法对象列表：Technique
@@ -64,6 +88,8 @@ class Sect:
     def __post_init__(self):
         self.members = {}
         self.techniques = []
+        self.sect_effects = dict(self.sect_effects or {})
+        self.temporary_sect_effects = list(self.temporary_sect_effects or [])
 
     def add_member(self, avatar: "Avatar") -> None:
         """添加成员到宗门"""
@@ -116,7 +142,6 @@ class Sect:
         hq = self.headquarter
         from src.i18n import t
         from src.classes.sect_ranks import RANK_ORDER
-        from src.server.main import resolve_avatar_pic_id
         from src.classes.technique import techniques_by_name
         
         # 成员列表：直接从 self.members 获取
@@ -130,7 +155,8 @@ class Sect:
             members_list.append({
                 "id": str(a.id),
                 "name": a.name,
-                "pic_id": resolve_avatar_pic_id(a),
+                # 这里仅提供一个占位头像 ID，前端会有自己的 fallback 逻辑
+                "pic_id": getattr(a, "custom_pic_id", 0) or 0,
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
                 "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else t("Unknown"),
@@ -176,8 +202,40 @@ class Sect:
             "technique_names": self.technique_names,
             "preferred_weapon": str(self.preferred_weapon) if self.preferred_weapon else "",
             "members": members_list,
-            "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id}
+            "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id},
+            "magic_stone": self.magic_stone,
+            "is_active": self.is_active,
+            "total_battle_strength": self.total_battle_strength,
+            "influence_radius": self.influence_radius,
+            "color": self.color,
+            "rule_id": self.rule_id,
+            "rule_desc": self.rule_desc,
+            "yearly_thinking": self.yearly_thinking,
         }
+
+    def is_alignment_recruitable(self, alignment: Alignment | None) -> bool:
+        if alignment is None:
+            return True
+        if self.alignment == Alignment.RIGHTEOUS:
+            return alignment != Alignment.EVIL
+        if self.alignment == Alignment.EVIL:
+            return alignment != Alignment.RIGHTEOUS
+        return True
+
+    def is_member_rule_breaker(self, avatar: "Avatar") -> bool:
+        """
+        当前版本只处理“极端到足以驱逐”的明显门规冲突。
+        更细的门规行为判断后续可以在这里继续扩展。
+        """
+        alignment = getattr(avatar, "alignment", None)
+        if alignment is None:
+            return False
+
+        if self.rule_id == SectRuleId.RIGHTEOUS_ORTHODOXY.value:
+            return alignment == Alignment.EVIL
+        if self.rule_id == SectRuleId.EVIL_SECT_LOYALTY.value:
+            return alignment == Alignment.RIGHTEOUS
+        return False
 
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)
@@ -297,6 +355,14 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
         hq_name = hq_name_from_csv or get_str(row, "headquarter_name") or name
         hq_desc = hq_desc_from_csv or get_str(row, "headquarter_desc")
+        
+        color = get_str(row, "color") or "#FFFFFF"
+        rule_id = get_str(row, "rule_id")
+        rule_desc_id = get_str(row, "rule_desc_id")
+        from src.i18n import t
+        rule_desc = t(rule_desc_id) if rule_desc_id else ""
+        if rule_desc == rule_desc_id:
+            rule_desc = ""
 
         sect = Sect(
             id=sid,
@@ -316,6 +382,9 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
             effect_desc=effect_desc,
             rank_names=rank_names_map,
             orthodoxy_id=orthodoxy_id,
+            color=color,
+            rule_id=rule_id,
+            rule_desc=rule_desc,
         )
         new_by_id[sect.id] = sect
         new_by_name[sect.name] = sect
@@ -386,3 +455,25 @@ def get_sect_info_with_rank(avatar: "Avatar", detailed: bool = False) -> str:
                        effect=effect_part)
     
     return f"{sect_rank_str} {detail_content}"
+
+
+def get_sect_decision_context(
+    sect: "Sect",
+    world: "World",
+    event_storage: "EventStorage",
+    *,
+    history_limit: int = 50,
+):
+    """
+    便捷入口：获取宗门决策上下文。
+
+    为避免领域层直接依赖具体系统实现，仅在此做一次转调。
+    """
+    from src.systems.sect_decision_context import build_sect_decision_context
+
+    return build_sect_decision_context(
+        sect=sect,
+        world=world,
+        event_storage=event_storage,
+        history_limit=history_limit,
+    )

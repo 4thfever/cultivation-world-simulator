@@ -1,0 +1,17 @@
+﻿msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+msgstr "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+
+msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
+msgstr "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+
+msgid "Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value} extra income per tile for {duration_months} months."
+msgstr "Because {reason_fragment}, {sect_a_name} gained +{value} extra income per tile for {duration_months} months."
+
+msgid "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
+msgstr "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."

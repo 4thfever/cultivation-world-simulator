@@ -61,3 +61,13 @@ msgstr "{avatar_name} 放棄了{item_name}。"
 msgid ""
 "{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
 msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
+
+msgid "game.sect_update_event"
+msgstr "【{sect_name}】今年總戰力達到 {strength}，勢力半徑達到 {radius}，從勢力範圍內獲得了 {income} 靈石。"
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name}宗門的思考：{thinking}"
+
+msgid "Game automatically saved"
+msgstr "遊戲已自動保存"
+

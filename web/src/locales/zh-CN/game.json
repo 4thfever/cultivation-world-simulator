@@ -29,6 +29,7 @@
   "event_panel": {
     "title": "事件记录",
     "filter_all": "所有人",
+    "filter_all_sects": "所有宗门",
     "deceased": "(已故)",
     "add_second": "+ 添加第二人",
     "load_more": "向上滚动加载更多",
@@ -59,6 +60,36 @@
     "heaven_first": "天榜第一",
     "earth_first": "地榜第一",
     "human_first": "人榜第一"
+  },
+  "sect_relations": {
+    "title_short": "[宗门关系]",
+    "title": "宗门关系",
+    "sect_a": "宗门 A",
+    "sect_b": "宗门 B",
+    "status": "外交状态",
+    "value": "关系值",
+    "reasons": "关系理由",
+    "empty": "暂无关系数据",
+    "status_war": "战争中",
+    "status_peace": "和平",
+    "duration_months": "{count}个月",
+    "value_label_very_hostile": "极恶",
+    "value_label_hostile": "敌对",
+    "value_label_neutral": "中立",
+    "value_label_friendly": "友善",
+    "value_label_very_friendly": "极善",
+    "overlap_tiles": "重叠{count}格",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "阵营不同",
+      "ALIGNMENT_SAME": "阵营相同",
+      "ORTHODOXY_DIFFERENT": "道统不同",
+      "ORTHODOXY_SAME": "道统相同",
+      "TERRITORY_CONFLICT": "势力范围冲突",
+      "WAR_STATE": "战争状态",
+      "PEACE_STATE": "和平状态",
+      "LONG_PEACE": "长期和平",
+      "RANDOM_EVENT": "随机事件"
+    }
   },
   "info_panel": {
     "popup": {
@@ -152,16 +183,39 @@
         "orthodoxy": "道统",
         "style": "风格",
         "preferred": "擅长",
-        "members": "成员"
+        "members": "成员",
+        "total_battle_strength": "总战力",
+        "influence_radius": "势力半径",
+        "magic_stone": "灵石储量"
       },
       "sections": {
         "intro": "宗门简介",
+        "situation": "宗门态势",
+        "rule": "门规",
         "hq": "驻地：{name}",
         "bonus": "宗门加成",
-        "techniques": "独门绝学",
-        "members": "门下弟子"
+        "diplomacy": "外交局势",
+        "techniques": "功法库",
+        "members": "门下弟子",
+        "thinking": "宗门思考"
       },
-      "no_bonus": "无特殊加成"
+      "situation": {
+        "active_wars": "当前战局",
+        "active_wars_value": "正在与 {count} 个宗门处于战争状态",
+        "territory": "势力范围",
+        "territory_value": "当前控制 {tiles} 格势力范围，其中 {conflicts} 格为冲突区",
+        "income": "势力收益",
+        "income_value": "每期预计获得 {income} 灵石，平均每格收益 {perTile}",
+        "strongest_enemy": "首要敌对宗门",
+        "strongest_enemy_value": "{name}（关系值 {value}）"
+      },
+      "diplomacy_meta_relation": "关系值 {value}",
+      "diplomacy_last_battle": "最近交锋月标 {month}",
+      "no_rule": "暂无明确门规说明",
+      "no_bonus": "无特殊加成",
+      "no_runtime_effect": "暂无当前生效的宗门效果",
+      "runtime_effect_meta": "来源：{source} - 剩余：{months}个月",
+      "runtime_effect_meta_permanent": "来源：{source} - 持续：长期"
     }
   }
 }

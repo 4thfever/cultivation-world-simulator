@@ -39,6 +39,9 @@ export const useEventStore = defineStore('event', () => {
         e.relatedAvatarIds?.includes(filter.avatar_id_2!)
       );
     }
+    if (filter.sect_id != null) {
+      newEvents = newEvents.filter(e => e.relatedSects?.includes(filter.sect_id!));
+    }
 
     if (newEvents.length === 0) return;
 

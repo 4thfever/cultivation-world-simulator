@@ -182,6 +182,7 @@ class EventManager:
         self,
         avatar_id: Optional[str] = None,
         avatar_id_pair: Optional[tuple[str, str]] = None,
+        sect_id: Optional[int] = None,
         cursor: Optional[str] = None,
         limit: int = 100,
     ) -> tuple[List["Event"], Optional[str], bool]:
@@ -191,6 +192,7 @@ class EventManager:
         Args:
             avatar_id: 按单个角色筛选。
             avatar_id_pair: Pair 查询（两个角色之间的事件）。
+            sect_id: 按单个宗门筛选。
             cursor: 分页 cursor，获取该位置之前的事件。
             limit: 每页数量。
 
@@ -204,6 +206,7 @@ class EventManager:
             events, next_cursor = self._storage.get_events(
                 avatar_id=avatar_id,
                 avatar_id_pair=avatar_id_pair,
+                sect_id=sect_id,
                 cursor=cursor,
                 limit=limit,
             )

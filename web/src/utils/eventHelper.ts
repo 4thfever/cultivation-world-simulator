@@ -16,6 +16,7 @@ export function processNewEvents(rawEvents: any[], currentYear: number, currentM
     month: e.month ?? currentMonth,
     timestamp: (e.year ?? currentYear) * 12 + (e.month ?? currentMonth),
     relatedAvatarIds: e.related_avatar_ids || [],
+    relatedSects: e.related_sects,
     isMajor: e.is_major,
     isStory: e.is_story,
     createdAt: e.created_at,
@@ -95,10 +96,16 @@ export interface AvatarColorInfo {
   color: string;
 }
 
+export interface SectColorInfo {
+  id: number;
+  color: string;
+}
+
 export interface EventContentToken {
-  type: 'text' | 'avatar';
+  type: 'text' | 'avatar' | 'sect';
   text: string;
   avatarId?: string;
+  sectId?: number;
   color?: string;
 }
 
@@ -113,6 +120,23 @@ export function buildAvatarColorMap(
     if (av.name) {
       map.set(av.name, { id: av.id, color: avatarIdToColor(av.id) });
     }
+  }
+  return map;
+}
+
+/**
+ * 根据宗门列表构建 name -> { id, color } 映射。
+ * 颜色来自后端透传的 sect.csv color，缺省时使用白色。
+ */
+export function buildSectColorMap(
+  sects: Array<{ sect_id?: number; sect_name?: string; sect_color?: string }>
+): Map<string, SectColorInfo> {
+  const map = new Map<string, SectColorInfo>();
+  for (const sect of sects) {
+    const id = sect.sect_id;
+    const name = sect.sect_name;
+    if (id == null || !name) continue;
+    map.set(name, { id, color: sect.sect_color || '#FFFFFF' });
   }
   return map;
 }
@@ -134,14 +158,26 @@ export function escapeHtml(text: string): string {
  */
 export function tokenizeEventContent(
   text: string,
-  colorMap: Map<string, AvatarColorInfo>
+  colorMap: Map<string, AvatarColorInfo>,
+  sectColorMap: Map<string, SectColorInfo> = new Map()
 ): EventContentToken[] {
   if (!text) return [];
-  if (colorMap.size === 0) {
+  const entityByName = new Map<string, { type: 'avatar' | 'sect'; id: string | number; color: string }>();
+  for (const [name, info] of colorMap.entries()) {
+    entityByName.set(name, { type: 'avatar', id: info.id, color: info.color });
+  }
+  // 同名冲突时保留角色优先级，避免破坏原有行为。
+  for (const [name, info] of sectColorMap.entries()) {
+    if (!entityByName.has(name)) {
+      entityByName.set(name, { type: 'sect', id: info.id, color: info.color });
+    }
+  }
+
+  if (entityByName.size === 0) {
     return [{ type: 'text', text }];
   }
 
-  const names = [...colorMap.keys()].sort((a, b) => b.length - a.length);
+  const names = [...entityByName.keys()].sort((a, b) => b.length - a.length);
   const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const pattern = new RegExp(names.map(escapeRegex).join('|'), 'g');
 
@@ -160,12 +196,19 @@ export function tokenizeEventContent(
       });
     }
 
-    const info = colorMap.get(matchedText);
-    if (info) {
+    const info = entityByName.get(matchedText);
+    if (info?.type === 'avatar') {
       tokens.push({
         type: 'avatar',
         text: matchedText,
-        avatarId: info.id,
+        avatarId: String(info.id),
+        color: info.color,
+      });
+    } else if (info?.type === 'sect') {
+      tokens.push({
+        type: 'sect',
+        text: matchedText,
+        sectId: Number(info.id),
         color: info.color,
       });
     } else {

@@ -3,7 +3,14 @@
  * 这些类型严格对应后端接口返回的 JSON 结构。
  */
 
-import type { MapMatrix, CelestialPhenomenon, HiddenDomainInfo } from './core';
+import type {
+  MapMatrix,
+  CelestialPhenomenon,
+  HiddenDomainInfo,
+  AvatarDetail,
+  RegionDetail,
+  SectDetail,
+} from './core';
 
 // --- 通用响应 ---
 
@@ -50,13 +57,27 @@ export interface MapResponseDTO {
     x: number;
     y: number;
     type: string;
+    sect_id?: number;
     sect_name?: string;
+    sect_is_active?: boolean;
+    sect_color?: string;
+    sub_type?: string;
   }>;
   config?: FrontendConfigDTO;
 }
 
-// 详情接口返回的结构比较动态，通常包含 entity 的所有字段
-export type DetailResponseDTO = Record<string, unknown>;
+// --- Detail 接口 ---
+
+// 目前后端 /api/detail 直接返回 Avatar/Region/Sect 的结构化信息，
+// 在 P0 阶段我们先复用前端领域模型作为 DTO 类型，后续若后端结构调整再拆分。
+export type AvatarDetailDTO = AvatarDetail;
+export type RegionDetailDTO = RegionDetail;
+export type SectDetailDTO = SectDetail;
+
+export type DetailResponseDTO =
+  | AvatarDetailDTO
+  | RegionDetailDTO
+  | SectDetailDTO;
 
 export interface FrontendConfigDTO {
   water_speed?: 'none' | 'low' | 'medium' | 'high';
@@ -164,6 +185,7 @@ export interface EventDTO {
   month: number;
   month_stamp: number;
   related_avatar_ids: string[];
+  related_sects?: number[];
   is_major: boolean;
   is_story: boolean;
   created_at: number;
@@ -179,6 +201,7 @@ export interface FetchEventsParams {
   avatar_id?: string;
   avatar_id_1?: string;
   avatar_id_2?: string;
+  sect_id?: number;
   cursor?: string;
   limit?: number;
 }
@@ -228,6 +251,39 @@ export interface RankingsDTO {
   human: RankingAvatarDTO[];
   sect: RankingSectDTO[];
   tournament?: TournamentSummaryDTO;
+}
+
+// --- Sect Relations ---
+
+export interface SectRelationDTO {
+  sect_a_id: number;
+  sect_a_name: string;
+  sect_b_id: number;
+  sect_b_name: string;
+  value: number;        // -100 ~ 100
+  diplomacy_status: 'war' | 'peace' | string;
+  diplomacy_duration_months: number;
+  reason_breakdown: Array<{
+    reason: string;     // 枚举字符串，如 ALIGNMENT_OPPOSITE
+    delta: number;      // 本事由对关系值的增减
+    meta?: Record<string, unknown>;
+  }>;
+}
+
+export interface SectRelationsResponseDTO {
+  relations: SectRelationDTO[];
+}
+
+export interface SectTerritorySummaryDTO {
+  id: number;
+  name: string;
+  color: string;
+  influence_radius: number;
+  is_active: boolean;
+}
+
+export interface SectTerritoriesResponseDTO {
+  sects: SectTerritorySummaryDTO[];
 }
 
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
