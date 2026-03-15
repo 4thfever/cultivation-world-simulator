@@ -1,5 +1,5 @@
 # I18n Maintenance & Development Guide
-注意当前启用语言由 `tools/i18n/locales.json` 统一声明；历史上默认有三个语言：zh-cn, zh-tw, en-us。
+注意当前启用语言由 `tools/i18n/locales.json` 统一声明；历史上默认有三个语言：`zh-CN`、`zh-TW`、`en-US`。
 
 ## 1. Critical Warning (PowerShell Users)
 
@@ -36,7 +36,7 @@ tools/i18n/
     └── locale_registry.py          # Python 侧读取 helper
 
 web/src/locales/
-    └── registry.ts                 # 前端运行时语言注册表镜像（当前需与 locales.json 保持同步）
+    └── registry.ts                 # 前端运行时语言注册表入口（直接读取 locales.json）
 ```
 
 ### 2.1 Locale Registry
@@ -53,10 +53,6 @@ web/src/locales/
 如果要正式新增一门语言，请优先阅读：
 
 - `docs/i18n-add-locale.md`
-
-如果要继续清理历史上残留的 locale 硬编码，请参考：
-
-- `docs/i18n-locale-hardcode-followup.md`
 
 ## 3. Workflow: Dynamic Text (Code)
 
@@ -103,11 +99,15 @@ Use this workflow when adding new items/events to CSV files (`static/game_config
 Before committing, run the following tools to ensure translation quality:
 
 ### Check Duplicates & Missing Keys
-Checks for duplicate `msgid` entries and inconsistencies (missing keys) among Chinese (zh-CN), Traditional Chinese (zh-TW), and English (en-US) files.
+当前仓库没有 `tools/i18n/check_po_duplicates.py`。比较稳妥的做法是组合使用现有测试和脚本：
 
 ```bash
-python tools/i18n/check_po_duplicates.py
+pytest tests/test_backend_locales.py
+python tools/i18n/compare_msgids_across_locales.py
 ```
+
+- `tests/test_backend_locales.py` 会校验 `messages.po` 里的重复 `msgid` 等问题。
+- `compare_msgids_across_locales.py` 会输出跨语言的 `.po` 文件覆盖情况和 `msgid` 差异计划。
 
 ### Auto-Translate Names (Special Case)
 For `last_name.csv` and `given_name.csv`, we use a specialized script to generate English names using Pinyin.

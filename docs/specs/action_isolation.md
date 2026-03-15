@@ -1,5 +1,7 @@
 # Action Isolation Strategy (动作隔离策略)
 
+本文档描述的策略已经落地；以下内容按当前仓库实现更新路径与默认规则。
+
 ## 背景
 
 在修仙世界模拟中，角色会执行各种持续性动作（如闭关、战斗、移动等）。同时，系统存在各种全局机制（如拍卖会、大比、奇遇、霉运等）会尝试与角色互动。
@@ -12,16 +14,21 @@
 
 ### 1. Action 基类定义
 
-在 `src/classes/action/action.py` 中，所有动作默认开放交互：
+在 `src/classes/action/action.py` 中，动作是否允许被外部系统打断遵循以下规则：
+
+- 若显式设置了 `ALLOW_GATHERING` / `ALLOW_WORLD_EVENTS`，优先使用显式值。
+- 若未显式设置，则由 `IS_MAJOR` 决定：重大行为默认不允许，非重大行为默认允许。
 
 ```python
 class Action(ABC):
-    # ...
-    # 是否允许参与聚会（如拍卖会、大比）
-    ALLOW_GATHERING: bool = True
-    
-    # 是否允许触发世界随机事件（如奇遇、霉运）
-    ALLOW_WORLD_EVENTS: bool = True
+    ALLOW_GATHERING: bool | None = None
+    ALLOW_WORLD_EVENTS: bool | None = None
+
+    @classmethod
+    def can_gather(cls) -> bool:
+        if cls.ALLOW_GATHERING is not None:
+            return cls.ALLOW_GATHERING
+        return not getattr(cls, 'IS_MAJOR', False)
 ```
 
 ### 2. 特定动作重写策略
@@ -38,7 +45,7 @@ class Retreat(TimedAction):
 
 ### 3. Avatar 状态检查接口
 
-在 `Avatar` (`src/classes/avatar/action_mixin.py`) 中封装了状态检查属性：
+在 `Avatar` (`src/classes/core/avatar/action_mixin.py`) 中封装了状态检查属性：
 
 - `avatar.can_join_gathering`: 检查当前动作是否允许参加聚会。
 - `avatar.can_trigger_world_event`: 检查当前动作是否允许触发奇遇/霉运。

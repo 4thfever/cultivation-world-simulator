@@ -1,5 +1,16 @@
 # SQLite EventManager 重构规范
 
+> 本文档是历史设计稿，方案已经落地。阅读当前实现时请优先参考以下代码位置：
+>
+> - `src/classes/event_storage.py`
+> - `src/sim/managers/event_manager.py`
+> - `src/server/main.py`
+> - `web/src/api/modules/event.ts`
+> - `web/src/stores/event.ts`
+> - `web/src/components/game/panels/EventPanel.vue`
+>
+> 当前实现相较于最初设计还额外支持按宗门筛选事件（`sect_id`）以及 `event_sects` 关联表。
+
 ## 概述
 
 将 EventManager 从内存存储迁移到 SQLite，实现事件持久化、分页加载和更好的查询性能。
@@ -79,6 +90,7 @@ CREATE INDEX idx_event_avatars_event_id ON event_avatars(event_id);
 | avatar_id | string | 否 | 按单个角色筛选 |
 | avatar_id_1 | string | 否 | Pair 查询：角色 1 |
 | avatar_id_2 | string | 否 | Pair 查询：角色 2（需同时提供 avatar_id_1） |
+| sect_id | int | 否 | 按单个宗门筛选 |
 | cursor | string | 否 | 分页 cursor，获取该位置之前的事件 |
 | limit | int | 否 | 每页数量，默认 100 |
 
@@ -95,6 +107,7 @@ CREATE INDEX idx_event_avatars_event_id ON event_avatars(event_id);
       "month": 5,
       "month_stamp": 1764,
       "related_avatar_ids": ["avatar_id_1"],
+      "related_sects": [1],
       "is_major": false,
       "is_story": false
     }
@@ -128,7 +141,7 @@ src/classes/event_storage.py     # SQLite 存储层
 ### 修改文件
 
 ```
-src/classes/event_manager.py     # 重构为使用 SQLite
+src/sim/managers/event_manager.py # 重构后的管理层包装
 src/server/main.py               # 新增分页 API
 src/sim/save/save_game.py        # 关联数据库文件
 src/sim/load/load_game.py        # 加载时连接数据库
@@ -153,6 +166,7 @@ class EventStorage:
         self,
         avatar_id: str | None = None,
         avatar_id_pair: tuple[str, str] | None = None,
+        sect_id: int | None = None,
         cursor: str | None = None,
         limit: int = 100,
     ) -> tuple[list[Event], str | None]:
@@ -167,7 +181,7 @@ class EventStorage:
     def get_events_between(self, id1: str, id2: str, limit: int = 50) -> list[Event]:
         """后端用：获取两角色之间的事件。"""
 
-    def cleanup(self, keep_major: bool = True, before: int | None = None) -> int:
+    def cleanup(self, keep_major: bool = True, before_month_stamp: int | None = None) -> int:
         """清理事件，返回删除数量。"""
 
     def close(self):
@@ -182,7 +196,7 @@ class EventManager:
 
     def __init__(self, storage: EventStorage):
         self._storage = storage
-        # 移除所有内存索引（_events, _by_avatar, _by_pair 等）
+        # 当前实现还保留了一个仅用于测试/兼容的内存后备模式
 
     def add_event(self, event: Event) -> None:
         """实时写入 SQLite。"""
@@ -198,15 +212,15 @@ class EventManager:
 ### 修改文件
 
 ```
-web/src/stores/world.ts                    # 事件状态管理
-web/src/components/panels/EventPanel.vue   # 分页 UI
-web/src/api/game.ts                        # 新增 API
+web/src/stores/event.ts                    # 事件状态管理
+web/src/components/game/panels/EventPanel.vue
+web/src/api/modules/event.ts               # 事件 API
 ```
 
 ### 事件状态管理
 
 ```typescript
-// world.ts
+// event.ts
 interface EventState {
   events: GameEvent[];
   cursor: string | null;
@@ -234,6 +248,8 @@ async function resetEvents(avatarId?: string, avatarId2?: string): Promise<void>
 // 选择第二人后变为：
 [张三 ▼] [李四 ▼] [×]
 ```
+
+当前实现另外支持按宗门筛选，对应参数为 `sect_id`。
 
 ---
 

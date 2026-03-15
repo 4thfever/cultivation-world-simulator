@@ -57,6 +57,17 @@ def client():
     return TestClient(app)
 
 
+@pytest.fixture(autouse=True)
+def disable_auto_shutdown(monkeypatch):
+    """Prevent websocket disconnect tests from terminating the pytest worker process."""
+    monkeypatch.setattr(main, "IS_DEV_MODE", True)
+    yield
+    shutdown_timer = getattr(main.manager, "_shutdown_timer", None)
+    if shutdown_timer:
+        shutdown_timer.cancel()
+        main.manager._shutdown_timer = None
+
+
 @pytest.fixture
 def reset_game_instance():
     """Reset game_instance to initial state before each test."""

@@ -2,7 +2,7 @@
 
 ## 1. 为什么需要模块化？
 
-在之前的架构中，所有的前端多语言词条都集中在 `web/src/locales/zh-CN.json` (以及 `zh-TW.json`, `en-US.json`) 等单一的巨型 JSON 文件中。这种 "Monolithic" 的管理方式存在以下问题：
+历史上，前端多语言词条曾集中在单文件 JSON 中维护。当前仓库已经迁移到 `web/src/locales/<locale>/*.json` 的模块化目录结构，这样做主要是为了解决以下问题：
 - **开发冲突**：多人协同开发时，很容易在合并代码时发生 Git 冲突。
 - **查找困难**：随着游戏文本的增加，在几千行的 JSON 中寻找特定的键值对变得非常困难。
 - **心智负担**：前端的 i18n 结构与后端 (`static/locales/*/modules/*.po`) 不一致，开发者在前后端切换时需要转换思维。
@@ -39,6 +39,8 @@ web/src/locales/
    * **示例**：在 `zh-CN/ui.json` 中添加 `"new_button": "新按钮"`。
    * **使用**：在 Vue 组件中使用 `$t('ui.new_button')` 即可访问。
 
+当前仓库仍处于 i18n Phase 1。日常功能开发默认优先保证 `zh-CN` 可用；如果本次任务是正式多语言补全或新增语言，再同步补齐其他 locale，并执行完整校验。
+
 ### 3.2 自动聚合机制 (`index.ts`)
 
 你**不需要**手动在 `index.ts` 中 `import` 你新建的 JSON 文件。
@@ -53,11 +55,15 @@ web/src/locales/
 
 ### 3.3 类型安全 (Type Safety)
 
-我们在 `index.ts` 中指定了 `en-US` 为主 Schema 源：
+前端 schema 语言不是写死在 `index.ts` 里的，而是通过 `tools/i18n/locales.json` -> `web/src/locales/registry.ts` 这条链路读取 `schema_locale`：
 ```typescript
-type MessageSchema = typeof messages['en-US'];
+const schemaMessages = isEnabledLocale(schemaLocale)
+  ? loadLocaleMessages(schemaLocale)
+  : {}
+
+type MessageSchema = typeof schemaMessages
 ```
-这意味着：**如果你在 Vue 中使用 `$t()` 时没有代码提示，或者 TypeScript 报错，请检查你是否在 `en-US` 的对应 JSON 中也添加了相同的 Key。**
+这意味着：**如果你在 Vue 中使用 `$t()` 时没有代码提示，或者 TypeScript 报错，请优先检查当前 `schema_locale` 对应的 JSON 是否也添加了相同的 Key。**
 
 ## 4. 自动化测试与 CI (持续集成)
 
@@ -65,22 +71,29 @@ type MessageSchema = typeof messages['en-US'];
 
 ### 4.1 校验脚本
 
-脚本位于：`tools/i18n/check_frontend_locales.py`
+当前仓库没有单独维护 `tools/i18n/check_frontend_locales.py`，正式校验入口是：
 
-它会执行以下检查：
-1. 遍历 `web/src/locales` 下所有的 JSON 模块。
-2. 将所有嵌套的 JSON 对象展平为以点分隔的键路径（如 `descs.max_concurrent_requests`）。
-3. 交叉对比各个语言（zh-CN, zh-TW, en-US），如果存在任何缺少或多出的 Key，脚本将报错并打印出差异。
+- `pytest tests/test_frontend_locales.py`
+- `cd web && npm run type-check`
+
+其中 `tests/test_frontend_locales.py` 会执行以下检查：
+1. 遍历 `web/src/locales` 下所有启用语言目录的 JSON 模块。
+2. 将所有嵌套的 JSON 对象展平为点分隔的键路径。
+3. 交叉对比各个启用语言的模块文件和 key 结构，如果存在缺失或多出，测试会失败。
 
 ### 4.2 GitHub Actions 拦截
 
-该脚本已被集成到 `.github/workflows/test.yml` 的 CI 流程中。
+这些校验已经间接纳入 `.github/workflows/test.yml` 的 CI 流程中：后端 `pytest` 会覆盖 locale 测试，前端还会额外执行类型检查。
 
 ```yaml
-      - name: Validate frontend locales
-        run: python tools/i18n/check_frontend_locales.py
+      - name: Run backend tests with coverage in parallel
+        run: pytest -n auto --dist loadfile -v --cov=src --cov-report=xml --cov-report=term --cov-fail-under=60
+
+      - name: Run frontend type check
+        working-directory: web
+        run: npm run type-check
 ```
 
-每次你提交 PR (Pull Request) 或 push 代码到主分支时，GitHub Actions 都会运行此脚本。如果你的中英文 Key 不一致，CI 将标红失败，阻止合并。
+每次你提交 PR 或 push 到主分支时，GitHub Actions 都会运行这套检查。如果 locale 模块结构或 schema 对不齐，CI 会失败。
 
-**因此，请务必保证你每次新增多语言词条时，同步更新三种语言的对应文件！**
+**因此，在执行正式多语言任务时，请确保各启用语言的对应模块结构保持一致。**
