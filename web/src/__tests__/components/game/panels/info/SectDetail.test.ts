@@ -31,6 +31,8 @@ function createTestI18n() {
                 strongest_enemy: 'Strongest Enemy',
                 income: 'Income',
                 income_value: '{income}/turn',
+                upkeep: 'Upkeep',
+                upkeep_value: '{upkeep}/turn',
                 magic_stone: 'Magic Stone',
               },
               sections: {
@@ -97,6 +99,8 @@ describe('SectDetail', () => {
             current_magic_stone: 0,
             effective_income_per_tile: 0,
             controlled_tile_income: 0,
+            estimated_yearly_income: 0,
+            estimated_yearly_upkeep: 0,
           },
         } as any,
       },
@@ -154,6 +158,8 @@ describe('SectDetail', () => {
         current_magic_stone: 100,
         effective_income_per_tile: 10,
         controlled_tile_income: 850.4,
+        estimated_yearly_income: 850,
+        estimated_yearly_upkeep: 120,
       },
       diplomacy_items: [
         {
@@ -201,6 +207,7 @@ describe('SectDetail', () => {
     expect(text).toContain('War')
     expect(text).toContain('Enemy Sect')
     expect(text).toContain('850/turn')
+    expect(text).toContain('120/turn')
     expect(text).toContain('Extra income per tile +0.8')
     expect(text).toContain('Sect random event remains for 60 months')
     expect(text).toContain('At war for 1 years')

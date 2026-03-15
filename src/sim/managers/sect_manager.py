@@ -176,6 +176,35 @@ class SectManager:
         # 保持与旧行为一致：若无法确定中心，则返回空的 tile_owners，但 active_sects 仍返回
         return snapshot.active_sects, snapshot.tile_owners
 
+    def calculate_income_by_sect(self, snapshot: SectTerritorySnapshot | None = None) -> Dict[int, float]:
+        snapshot = snapshot or self._compute_snapshot()
+        active_sects = snapshot.active_sects
+        tile_owners = snapshot.tile_owners
+
+        if not active_sects or not snapshot.sect_centers or not tile_owners:
+            return {}
+
+        income_by_sect_id: Dict[int, float] = {}
+        sect_conf = getattr(CONFIG, "sect", None)
+        base_income = float(getattr(sect_conf, "income_per_tile", 10)) if sect_conf else 10.0
+        current_month = int(self.world.month_stamp)
+        sect_by_id = {int(s.id): s for s in active_sects}
+
+        for owners in tile_owners.values():
+            n = len(owners)
+            if n == 0:
+                continue
+            for sid in owners:
+                sect = sect_by_id.get(int(sid))
+                if sect is None:
+                    continue
+                extra_income = float(sect.get_extra_income_per_tile(current_month))
+                effective_income_per_tile = max(0.0, base_income + extra_income)
+                share = effective_income_per_tile / n
+                income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + share
+
+        return income_by_sect_id
+
     def update_sects(self) -> List[Event]:
         """
         每年底（或初）结算一次。
@@ -201,25 +230,7 @@ class SectManager:
             pass
 
         # 4. 第二遍：按冲突规则结算各宗门的收入
-        income_by_sect_id: Dict[int, float] = {}
-
-        sect_conf = getattr(CONFIG, "sect", None)
-        base_income = float(getattr(sect_conf, "income_per_tile", 10)) if sect_conf else 10.0
-        current_month = int(self.world.month_stamp)
-        sect_by_id = {int(s.id): s for s in active_sects}
-
-        for owners in tile_owners.values():
-            n = len(owners)
-            if n == 0:
-                continue
-            for sid in owners:
-                sect = sect_by_id.get(int(sid))
-                if sect is None:
-                    continue
-                extra_income = float(sect.get_extra_income_per_tile(current_month))
-                effective_income_per_tile = max(0.0, base_income + extra_income)
-                share = effective_income_per_tile / n
-                income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + share
+        income_by_sect_id = self.calculate_income_by_sect(snapshot)
 
         # 5. 为每个宗门累加收入并生成事件
         from src.i18n import t
@@ -227,23 +238,28 @@ class SectManager:
         for sect in active_sects:
             raw_income = income_by_sect_id.get(sect.id, 0.0)
             income = int(raw_income)
-            sect.magic_stone += income
+            upkeep_total, upkeep_breakdown = sect.estimate_yearly_member_upkeep()
+            net_change = income - upkeep_total
+            sect.magic_stone += net_change
 
+            upkeep_parts = []
+            for item in upkeep_breakdown.values():
+                if item["member_count"] <= 0:
+                    continue
+                upkeep_parts.append(
+                    f"{item['realm']}x{item['member_count']}={item['subtotal']}"
+                )
+            upkeep_text = "、".join(upkeep_parts) if upkeep_parts else "无成员供养支出"
             content = t(
                 "game.sect_update_event",
                 sect_name=sect.name,
                 strength=int(sect.total_battle_strength),
                 radius=sect.influence_radius,
                 income=income,
+                upkeep=upkeep_total,
+                net_change=net_change,
+                upkeep_breakdown=upkeep_text,
             )
-
-            # 兼容：如果未找到配置则回退到默认英文字符串形式
-            if content == "game.sect_update_event":
-                content = (
-                    f"[{sect.name}] this year's total battle strength reached "
-                    f"{int(sect.total_battle_strength)}, territory radius became "
-                    f"{sect.influence_radius}, gaining {income} magic stones from the territory."
-                )
 
             event = Event(
                 month_stamp=self.world.month_stamp,

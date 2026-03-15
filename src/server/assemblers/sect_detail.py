@@ -104,6 +104,9 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
         0.0,
         base_income + float(sect.get_extra_income_per_tile(current_month)),
     )
+    estimated_income_by_sect = sect_manager.calculate_income_by_sect(snapshot)
+    estimated_yearly_income = int(estimated_income_by_sect.get(int(sect.id), 0.0))
+    estimated_yearly_upkeep, _ = sect.estimate_yearly_member_upkeep()
     info["territory_summary"] = {
         "tile_count": tile_count,
         "conflict_tile_count": conflict_tile_count,
@@ -113,6 +116,8 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
         "current_magic_stone": int(getattr(sect, "magic_stone", 0)),
         "effective_income_per_tile": effective_income_per_tile,
         "controlled_tile_income": float(tile_count) * effective_income_per_tile,
+        "estimated_yearly_income": estimated_yearly_income,
+        "estimated_yearly_upkeep": estimated_yearly_upkeep,
     }
 
     extra_breakdown_by_pair = world.get_active_sect_relation_breakdown(current_month)

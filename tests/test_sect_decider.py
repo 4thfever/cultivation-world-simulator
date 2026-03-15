@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from src.classes.age import Age
 from src.classes.alignment import Alignment
@@ -264,10 +264,22 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
     ctx = SectDecisionContext(
         basic_structured={"name": "Wise Sect"},
         basic_text="",
+        identity={
+            "purpose": "守正积势",
+            "style": "行事果决",
+            "orthodoxy_name": "仙道",
+            "rule_desc": "不得勾结邪魔。",
+        },
         power={},
         territory={},
         self_assessment={},
-        economy={},
+        economy={
+            "treasury_pressure": "tight",
+            "action_cost_notes": [
+                "每成功招募一名新人会立即消耗 500 灵石，并增加后续年度成员供养支出。",
+                "赐予功法会消耗宗门传承资源。",
+            ],
+        },
         relations=[],
         relations_summary="",
         history={"recent_events": [], "summary_text": ""},
@@ -308,6 +320,8 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
     infos = mock_llm.call_args.kwargs["infos"]
     assert "detailed_info" in infos["decision_context_info"]
     assert "bio" in infos["decision_context_info"]
+    assert "守正积势" in infos["decision_context_info"]
+    assert "传承资源" in infos["decision_context_info"]
 
 
 @pytest.mark.asyncio
@@ -366,3 +380,103 @@ async def test_sect_decider_can_declare_war_from_llm_plan(base_world):
     assert base_world.are_sects_at_war(1, 2)
     assert result.war_declared_count == 1
     assert any("宣战" in event.content for event in result.events)
+
+
+def test_sect_decider_llm_available_uses_runtime_config():
+    mock_service = MagicMock()
+    mock_service.get_llm_runtime_config.return_value = (
+        type("Profile", (), {"base_url": "http://test", "model_name": "test-model", "fast_model_name": "test-fast"})(),
+        "secret",
+    )
+
+    with patch("src.classes.sect_decider.get_settings_service", return_value=mock_service):
+        assert SectDecider._llm_available() is True
+
+
+@pytest.mark.asyncio
+async def test_sect_decider_warns_when_llm_runtime_config_unavailable(base_world):
+    sect = Sect(
+        id=1,
+        name="Warn Sect",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=SectHeadQuarter(name="HQ", desc="", image=Path("")),
+        technique_names=[],
+        magic_stone=1000,
+    )
+    ctx = SectDecisionContext(
+        basic_structured={"name": "Warn Sect"},
+        basic_text="",
+        identity={},
+        power={},
+        territory={},
+        self_assessment={},
+        economy={},
+        relations=[],
+        relations_summary="",
+        history={"recent_events": [], "summary_text": ""},
+        diplomacy_targets=[],
+        active_wars=[],
+        rule={},
+        recruitment_candidates=[],
+        member_candidates=[],
+    )
+    mock_service = MagicMock()
+    mock_service.get_llm_runtime_config.return_value = (
+        type("Profile", (), {"base_url": "", "model_name": "", "fast_model_name": ""})(),
+        "",
+    )
+
+    with patch("src.classes.sect_decider.get_settings_service", return_value=mock_service), patch(
+        "src.classes.sect_decider.get_logger"
+    ) as mock_logger:
+        plan = await SectDecider._plan(sect, ctx, base_world, recruit_cost=500, support_amount=300)
+
+    assert plan is None
+    assert "LLM runtime config unavailable" in mock_logger.return_value.logger.warning.call_args.args[-1]
+
+
+@pytest.mark.asyncio
+async def test_sect_decider_warns_when_llm_plan_call_fails(base_world):
+    sect = Sect(
+        id=1,
+        name="Warn Sect",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=SectHeadQuarter(name="HQ", desc="", image=Path("")),
+        technique_names=[],
+        magic_stone=1000,
+    )
+    ctx = SectDecisionContext(
+        basic_structured={"name": "Warn Sect"},
+        basic_text="",
+        identity={},
+        power={},
+        territory={},
+        self_assessment={},
+        economy={},
+        relations=[],
+        relations_summary="",
+        history={"recent_events": [], "summary_text": ""},
+        diplomacy_targets=[],
+        active_wars=[],
+        rule={},
+        recruitment_candidates=[],
+        member_candidates=[],
+    )
+    mock_service = MagicMock()
+    mock_service.get_llm_runtime_config.return_value = (
+        type("Profile", (), {"base_url": "http://test", "model_name": "test-model", "fast_model_name": "test-fast"})(),
+        "secret",
+    )
+
+    with patch("src.classes.sect_decider.get_settings_service", return_value=mock_service), patch(
+        "src.classes.sect_decider.call_llm_with_task_name",
+        new=AsyncMock(side_effect=RuntimeError("boom")),
+    ), patch("src.classes.sect_decider.get_logger") as mock_logger:
+        plan = await SectDecider._plan(sect, ctx, base_world, recruit_cost=500, support_amount=300)
+
+    assert plan is None
+    assert "LLM plan failed: boom" in mock_logger.return_value.logger.warning.call_args.args[-1]

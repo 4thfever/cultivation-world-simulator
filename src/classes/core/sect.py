@@ -11,6 +11,8 @@ from src.classes.core.orthodoxy import get_orthodoxy
 from src.utils.config import CONFIG
 
 from typing import TYPE_CHECKING, Optional
+
+from src.systems.cultivation import Realm
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
     from src.classes.technique import Technique
@@ -236,6 +238,86 @@ class Sect(SectEffectsMixin):
         if self.rule_id == SectRuleId.EVIL_SECT_LOYALTY.value:
             return alignment == Alignment.RIGHTEOUS
         return False
+
+    def get_identity_summary(self) -> dict:
+        from src.i18n import t
+
+        orthodoxy = get_orthodoxy(self.orthodoxy_id)
+        return {
+            "sect_name": self.name,
+            "purpose": self.desc,
+            "style": t(self.member_act_style),
+            "alignment": str(self.alignment),
+            "orthodoxy_id": self.orthodoxy_id,
+            "orthodoxy_name": t(orthodoxy.name) if orthodoxy else self.orthodoxy_id,
+            "rule_id": self.rule_id,
+            "rule_desc": self.rule_desc,
+        }
+
+    def get_member_upkeep_by_realm(self) -> dict[Realm, int]:
+        return get_sect_member_upkeep_by_realm()
+
+    def get_member_upkeep_for_avatar(self, avatar: "Avatar") -> int:
+        realm = getattr(getattr(avatar, "cultivation_progress", None), "realm", Realm.Qi_Refinement)
+        return self.get_member_upkeep_by_realm().get(realm, 0)
+
+    def estimate_yearly_member_upkeep(self) -> tuple[int, dict[str, dict[str, int]]]:
+        total = 0
+        breakdown: dict[str, dict[str, int]] = {}
+        upkeep_by_realm = self.get_member_upkeep_by_realm()
+
+        for avatar in getattr(self, "members", {}).values():
+            if getattr(avatar, "is_dead", False):
+                continue
+            realm = getattr(getattr(avatar, "cultivation_progress", None), "realm", Realm.Qi_Refinement)
+            cost = upkeep_by_realm.get(realm, 0)
+            key = realm.name
+            entry = breakdown.setdefault(
+                key,
+                {
+                    "realm": str(realm),
+                    "member_count": 0,
+                    "upkeep_per_member": cost,
+                    "subtotal": 0,
+                },
+            )
+            entry["member_count"] += 1
+            entry["subtotal"] += cost
+            total += cost
+
+        return total, breakdown
+
+
+def get_sect_member_upkeep_by_realm() -> dict[Realm, int]:
+    defaults = {
+        Realm.Qi_Refinement: 15,
+        Realm.Foundation_Establishment: 30,
+        Realm.Core_Formation: 60,
+        Realm.Nascent_Soul: 120,
+    }
+
+    sect_conf = getattr(CONFIG, "sect", None)
+    configured = getattr(sect_conf, "member_upkeep_by_realm", None) if sect_conf is not None else None
+    if not configured:
+        return defaults
+
+    mapping = {
+        "QI_REFINEMENT": Realm.Qi_Refinement,
+        "FOUNDATION_ESTABLISHMENT": Realm.Foundation_Establishment,
+        "CORE_FORMATION": Realm.Core_Formation,
+        "NASCENT_SOUL": Realm.Nascent_Soul,
+    }
+
+    result = dict(defaults)
+    for key, value in configured.items():
+        realm = mapping.get(str(key).strip().upper())
+        if realm is None:
+            continue
+        try:
+            result[realm] = max(0, int(value))
+        except (TypeError, ValueError):
+            continue
+    return result
 
 def _split_names(value: object) -> list[str]:
     raw = "" if value is None or str(value) == "nan" else str(value)

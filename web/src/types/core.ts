@@ -175,6 +175,8 @@ export interface SectDetail extends EntityBase {
     current_magic_stone: number;
     effective_income_per_tile: number;
     controlled_tile_income: number;
+    estimated_yearly_income?: number;
+    estimated_yearly_upkeep?: number;
   };
   war_summary?: {
     active_war_count: number;

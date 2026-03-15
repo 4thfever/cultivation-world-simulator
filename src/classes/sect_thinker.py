@@ -4,7 +4,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from src.classes.language import language_manager
-from src.utils.config import CONFIG
+from src.config import get_settings_service
+from src.run.log import get_logger
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
@@ -36,6 +37,7 @@ class SectThinker:
         decision_summary: str = "",
     ) -> str:
         if not cls._llm_available():
+            cls._warn_fallback(sect, "LLM runtime config unavailable")
             return cls._fallback(sect)
 
         infos = {
@@ -58,24 +60,20 @@ class SectThinker:
             if isinstance(result, dict):
                 raw = str(result.get("sect_thinking", "")).strip()
             return cls._normalize(raw, sect)
-        except (LLMError, ParseError, Exception):
+        except (LLMError, ParseError, Exception) as exc:
+            cls._warn_fallback(sect, f"LLM think failed: {exc}")
             return cls._fallback(sect)
 
     @classmethod
     def _llm_available(cls) -> bool:
-        llm_conf = getattr(CONFIG, "llm", None)
-        if llm_conf is None:
-            return False
-        return bool(
-            getattr(llm_conf, "base_url", "")
-            and getattr(llm_conf, "key", "")
-            and getattr(llm_conf, "model_name", "")
-        )
+        profile, api_key = get_settings_service().get_llm_runtime_config()
+        return bool(profile.base_url and api_key and profile.model_name)
 
     @classmethod
     def _normalize(cls, text: str, sect: "Sect") -> str:
         clean = " ".join((text or "").split())
         if len(clean) < cls.MIN_LEN:
+            cls._warn_fallback(sect, f"LLM response too short ({len(clean)} chars)")
             return cls._fallback(sect)
         if len(clean) > cls.MAX_LEN:
             return clean[: cls.MAX_LEN]
@@ -86,6 +84,15 @@ class SectThinker:
         return (
             f"我宗已定近年取舍，接下来当守住门规与根基，"
             f"择才而纳、赏罚分明，以稳中求进扩张宗门气象。"
+        )
+
+    @classmethod
+    def _warn_fallback(cls, sect: "Sect", reason: str) -> None:
+        get_logger().logger.warning(
+            "SectThinker fallback for %s(%s): %s",
+            getattr(sect, "name", "unknown"),
+            getattr(sect, "id", "unknown"),
+            reason,
         )
 
     @classmethod
@@ -102,6 +109,7 @@ class SectThinker:
         return {
             "basic_structured": dict(ctx.basic_structured),
             "basic_text": ctx.basic_text,
+            "identity": dict(ctx.identity),
             "power": dict(ctx.power),
             "territory": dict(ctx.territory),
             "self_assessment": dict(ctx.self_assessment),

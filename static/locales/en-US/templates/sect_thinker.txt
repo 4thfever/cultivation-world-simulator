@@ -23,9 +23,12 @@ Requirements:
    - the sect's judgment of the current situation;
    - its attitude toward the decisions just made;
    - the broad direction for the next stage.
-3. Keep it concise and substantial. No bullet points, no explanations, no extra framing.
-4. Keep it to about 30 to 100 Chinese-character-equivalent length, or one short compact paragraph in English.
-5. Return strict JSON only:
+3. It must include at least one sect-identity anchor: the sect's purpose, sect rules, orthodoxy, or member action style. Do not write a generic reflection that could fit any sect.
+4. It must include at least one fiscal anchor: treasury abundance, tight finances, the need to restrain recruitment, the need to avoid over-granting techniques, or the need to stabilize spending.
+5. Make it clear that recruitment increases future upkeep, and technique grants consume inheritance resources and may reduce scripture value. The sect may act, but should not sound like it can expand without limit.
+6. Keep it concise and substantial. No bullet points, no explanations, no extra framing.
+7. Keep it to about 30 to 100 Chinese-character-equivalent length, or one short compact paragraph in English.
+8. Return strict JSON only:
 {{
   "sect_thinking": "..."
 }}

@@ -189,6 +189,8 @@
         "strongest_enemy": "头号敌对",
         "income": "势力收益",
         "income_value": "{income}/期",
+        "upkeep": "成员供养",
+        "upkeep_value": "{upkeep}/期",
         "magic_stone": "灵石储量"
       },
       "sections": {

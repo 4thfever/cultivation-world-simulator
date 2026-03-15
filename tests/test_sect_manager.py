@@ -12,6 +12,7 @@ from src.sim.managers.sect_manager import SectManager
 from src.classes.event import Event
 from src.classes.gender import Gender
 from src.systems.battle import get_base_strength
+from src.systems.cultivation import CultivationProgress
 
 @pytest.fixture
 def mock_world(base_world):
@@ -223,3 +224,56 @@ def test_get_tile_owners_only_active(mock_world):
     all_owner_ids = {sid for owners in tile_owners.values() for sid in owners}
     assert sect1.id in all_owner_ids or not all_owner_ids
     assert sect2.id not in all_owner_ids
+
+
+def test_sect_manager_applies_member_upkeep(base_world):
+    """年度结算应扣除成员按境界计算的固定供养支出。"""
+    world: World = base_world
+    game_map = world.map
+
+    from src.classes.environment.sect_region import SectRegion
+
+    region_id = 1001
+    cors = [(1, 1)]
+    region = SectRegion(id=region_id, name="R1", desc="", sect_id=1, sect_name="宗门A", cors=cors)
+    game_map.regions[region_id] = region
+    game_map.region_cors[region_id] = cors
+    game_map.update_sect_regions()
+
+    hq = SectHeadQuarter(name="测试驻地", desc="", image=Path(""))
+    sect = Sect(
+        id=1,
+        name="宗门A",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
+        technique_names=[],
+    )
+
+    member = Avatar(
+        world=world,
+        name="弟子甲",
+        id="member_a",
+        birth_month_stamp=MonthStamp(1),
+        age=Age(18, realm=0),
+        gender=Gender.MALE,
+    )
+    member.cultivation_progress = CultivationProgress(1)
+    member.join_sect(sect, "DISCIPLE")
+    member.is_dead = False
+
+    world.existed_sects = [sect]
+    world.sect_context.from_existed_sects(world.existed_sects)
+    world.avatar_manager.avatars[member.id] = member
+
+    manager = SectManager(world)
+    snapshot = manager.get_snapshot()
+    expected_income = int(manager.calculate_income_by_sect(snapshot).get(sect.id, 0.0))
+    events = manager.update_sects()
+
+    assert sect.influence_radius == 2
+    assert sect.magic_stone == expected_income - 15
+    assert len(events) == 1
+    assert "成员供养支出 15 灵石" in events[0].content
+    assert f"净变动 {expected_income - 15} 灵石" in events[0].content

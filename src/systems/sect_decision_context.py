@@ -45,6 +45,9 @@ class SectDecisionContext:
     # 历史事件（最近 N 条）
     history: Dict[str, Any]
 
+    # 宗门身份与治理约束
+    identity: Dict[str, Any] = field(default_factory=dict)
+
     # 门规与五年决策候选
     diplomacy_targets: List[Dict[str, Any]] = field(default_factory=list)
     active_wars: List[Dict[str, Any]] = field(default_factory=list)
@@ -108,11 +111,19 @@ def build_sect_decision_context(
     extra_income = float(sect.get_extra_income_per_tile(current_month))
     effective_income_per_tile = max(0.0, base_income + extra_income)
     controlled_tile_income = float(tile_count) * effective_income_per_tile
+    estimated_income_by_sect = sect_manager.calculate_income_by_sect(snapshot)
+    estimated_shared_income = int(estimated_income_by_sect.get(int(sect.id), 0.0))
+    estimated_member_upkeep, upkeep_breakdown = sect.estimate_yearly_member_upkeep()
+    estimated_net_annual_balance = estimated_shared_income - estimated_member_upkeep
 
     economy = {
         "current_magic_stone": int(getattr(sect, "magic_stone", 0)),
         "effective_income_per_tile": effective_income_per_tile,
         "controlled_tile_income": controlled_tile_income,
+        "estimated_shared_income": estimated_shared_income,
+        "estimated_member_upkeep": estimated_member_upkeep,
+        "estimated_net_annual_balance": estimated_net_annual_balance,
+        "member_upkeep_breakdown": list(upkeep_breakdown.values()),
     }
 
     living_members = [
@@ -122,12 +133,29 @@ def build_sect_decision_context(
     ]
     recruit_cost = int(getattr(CONFIG.sect, "recruit_cost", 500))
     support_amount = int(getattr(CONFIG.sect, "support_amount", 300))
-    resource_pressure = "high"
     current_stones = int(getattr(sect, "magic_stone", 0))
-    if current_stones >= recruit_cost * 2:
-        resource_pressure = "low"
-    elif current_stones >= support_amount:
-        resource_pressure = "normal"
+    treasury_pressure = "tight"
+    if current_stones < 0 or estimated_net_annual_balance < 0:
+        treasury_pressure = "critical"
+    elif current_stones >= max(recruit_cost * 2, estimated_member_upkeep + support_amount) and estimated_net_annual_balance >= 0:
+        treasury_pressure = "ample"
+    elif current_stones >= support_amount and estimated_net_annual_balance >= 0:
+        treasury_pressure = "stable"
+
+    economy["treasury_pressure"] = treasury_pressure
+    economy["action_cost_notes"] = [
+        f"每成功招募一名新人会立即消耗 {recruit_cost} 灵石，并增加后续年度成员供养支出。",
+        f"每次资助固定消耗 {support_amount} 灵石。",
+        "赐予功法不会直接扣减灵石，但会消耗宗门传承资源，频繁赐法会让典籍价值与稀缺性下降。",
+    ]
+
+    identity = sect.get_identity_summary()
+    identity["economic_stance"] = {
+        "treasury_pressure": treasury_pressure,
+        "current_magic_stone": current_stones,
+        "estimated_net_annual_balance": estimated_net_annual_balance,
+    }
+
     peak_member = max(
         living_members,
         key=lambda avatar: int(getattr(getattr(avatar, "cultivation_progress", None), "level", 0) or 0),
@@ -147,7 +175,7 @@ def build_sect_decision_context(
         "peak_member_realm": str(getattr(getattr(peak_member, "cultivation_progress", None), "realm", "") or ""),
         "patriarch_realm": str(getattr(getattr(patriarch, "cultivation_progress", None), "realm", "") or ""),
         "war_readiness": "stretched" if conflict_tile_count > max(1, tile_count // 3) else "stable",
-        "resource_pressure": resource_pressure,
+        "resource_pressure": treasury_pressure,
         "can_afford_recruit_count": current_stones // max(1, recruit_cost),
         "can_afford_support_count": current_stones // max(1, support_amount),
     }
@@ -381,6 +409,7 @@ def build_sect_decision_context(
         self_assessment=self_assessment,
         economy=economy,
         rule=rule,
+        identity=identity,
         diplomacy_targets=diplomacy_targets,
         active_wars=active_wars,
         recruitment_candidates=recruitment_candidates,

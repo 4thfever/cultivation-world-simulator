@@ -48,9 +48,15 @@ const strongestEnemyText = computed(() => (
   props.data.war_summary?.strongest_enemy_name || t('common.none')
 ));
 
-const incomeText = computed(() => (
+const yearlyIncomeText = computed(() => (
   t('game.info_panel.sect.stats.income_value', {
-    income: Math.floor(props.data.economy_summary?.controlled_tile_income || 0),
+    income: Math.floor(props.data.economy_summary?.estimated_yearly_income || 0),
+  })
+));
+
+const yearlyUpkeepText = computed(() => (
+  t('game.info_panel.sect.stats.upkeep_value', {
+    upkeep: Math.floor(props.data.economy_summary?.estimated_yearly_upkeep || 0),
   })
 ));
 
@@ -116,7 +122,8 @@ function getDiplomacySub(item: DiplomacyItem) {
           <StatItem :label="t('game.info_panel.sect.stats.total_battle_strength')" :value="Math.floor(data.total_battle_strength || 0)" />
           <StatItem :label="t('game.info_panel.sect.stats.war_status')" :value="warStatusText" />
           <StatItem :label="t('game.info_panel.sect.stats.strongest_enemy')" :value="strongestEnemyText" />
-          <StatItem :label="t('game.info_panel.sect.stats.income')" :value="incomeText" />
+          <StatItem :label="t('game.info_panel.sect.stats.income')" :value="yearlyIncomeText" />
+          <StatItem :label="t('game.info_panel.sect.stats.upkeep')" :value="yearlyUpkeepText" />
           <StatItem :label="t('game.info_panel.sect.stats.magic_stone')" :value="data.magic_stone || 0" />
        </div>
 

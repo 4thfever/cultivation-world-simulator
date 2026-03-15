@@ -189,6 +189,8 @@
         "strongest_enemy": "Primary Enemy",
         "income": "Territory Income",
         "income_value": "{income}/cycle",
+        "upkeep": "Member Upkeep",
+        "upkeep_value": "{upkeep}/cycle",
         "magic_stone": "Stones"
       },
       "sections": {

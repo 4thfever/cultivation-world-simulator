@@ -1441,9 +1441,10 @@ msgstr ""
 
 msgid "game.sect_update_event"
 msgstr ""
-"[{sect_name}] this year's total battle strength reached {strength}, "
-"territory radius became {radius}, gaining {income} magic stones from the "
-"territory."
+"{sect_name} yearly settlement: total battle strength {strength}, territory "
+"radius {radius}, territory income {income} spirit stones, member upkeep "
+"{upkeep} spirit stones, net change {net_change} spirit stones. Upkeep "
+"breakdown: {upkeep_breakdown}."
 
 msgid "game.sect_thinking_event"
 msgstr "{sect_name} sect's thinking: {thinking}"

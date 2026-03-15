@@ -112,7 +112,13 @@ def test_build_sect_decision_context_basic(base_world):
     assert ctx.economy["current_magic_stone"] == sect1.magic_stone
     assert ctx.economy["effective_income_per_tile"] >= 0.0
     assert ctx.economy["controlled_tile_income"] == ctx.economy["effective_income_per_tile"] * ctx.territory["tile_count"]
+    assert "estimated_member_upkeep" in ctx.economy
+    assert "estimated_net_annual_balance" in ctx.economy
+    assert "treasury_pressure" in ctx.economy
+    assert isinstance(ctx.economy["member_upkeep_breakdown"], list)
     assert ctx.rule["rule_id"] == ""
+    assert ctx.identity["purpose"] == sect1.desc
+    assert ctx.identity["rule_desc"] == sect1.rule_desc
     assert isinstance(ctx.recruitment_candidates, list)
     assert isinstance(ctx.member_candidates, list)
 

@@ -52,6 +52,11 @@ sect:
   decision_interval_years: 5
   recruit_cost: 500
   support_amount: 300
+  member_upkeep_by_realm:
+    QI_REFINEMENT: 15
+    FOUNDATION_ESTABLISHMENT: 30
+    CORE_FORMATION: 60
+    NASCENT_SOUL: 120
 df:
   ids_separator: ";"
 

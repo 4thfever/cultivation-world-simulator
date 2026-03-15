@@ -9,6 +9,8 @@ from src.classes.alignment import Alignment
 from src.classes.language import language_manager
 from src.classes.event import Event
 from src.classes.sect_ranks import get_rank_from_realm
+from src.config import get_settings_service
+from src.run.log import get_logger
 from src.classes.technique import (
     Technique,
     TechniqueAttribute,
@@ -114,6 +116,7 @@ class SectDecider:
         support_amount: int,
     ) -> SectDecisionPlan | None:
         if not cls._llm_available():
+            cls._warn_plan_skip(sect, "LLM runtime config unavailable")
             return None
 
         infos = {
@@ -131,18 +134,22 @@ class SectDecider:
                 infos=infos,
             )
             return cls._parse_plan(result, decision_context)
-        except (LLMError, ParseError, Exception):
+        except (LLMError, ParseError, Exception) as exc:
+            cls._warn_plan_skip(sect, f"LLM plan failed: {exc}")
             return None
 
     @classmethod
     def _llm_available(cls) -> bool:
-        llm_conf = getattr(CONFIG, "llm", None)
-        if llm_conf is None:
-            return False
-        return bool(
-            getattr(llm_conf, "base_url", "")
-            and getattr(llm_conf, "key", "")
-            and getattr(llm_conf, "model_name", "")
+        profile, api_key = get_settings_service().get_llm_runtime_config()
+        return bool(profile.base_url and api_key and profile.model_name)
+
+    @classmethod
+    def _warn_plan_skip(cls, sect: "Sect", reason: str) -> None:
+        get_logger().logger.warning(
+            "SectDecider using fallback execution for %s(%s): %s",
+            getattr(sect, "name", "unknown"),
+            getattr(sect, "id", "unknown"),
+            reason,
         )
 
     @classmethod
@@ -168,6 +175,7 @@ class SectDecider:
         return {
             "basic_structured": dict(ctx.basic_structured),
             "basic_text": ctx.basic_text,
+            "identity": dict(ctx.identity),
             "power": dict(ctx.power),
             "territory": dict(ctx.territory),
             "self_assessment": dict(ctx.self_assessment),
