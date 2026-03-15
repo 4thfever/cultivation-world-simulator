@@ -168,7 +168,6 @@ class TestStartFunction:
         with patch.dict(os.environ, {}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
-             patch.object(main, "webview"), \
              patch("webbrowser.open"), \
              patch("os.kill"):
 
@@ -195,7 +194,6 @@ class TestStartFunction:
         with patch.dict(os.environ, {"SERVER_HOST": "0.0.0.0", "SERVER_PORT": "8080"}), \
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
-             patch.object(main, "webview"), \
              patch("webbrowser.open"), \
              patch("os.kill"):
 
@@ -219,7 +217,6 @@ class TestStartFunction:
         with patch.dict(os.environ, {}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
-             patch.object(main, "webview"), \
              patch("webbrowser.open"), \
              patch("os.kill"):
 
@@ -247,7 +244,6 @@ class TestStartFunction:
         with patch.dict(os.environ, {"SERVER_HOST": "0.0.0.0"}, clear=True), \
              patch.object(main, "CONFIG", mock_config), \
              patch.object(main, "uvicorn") as mock_uvicorn, \
-             patch.object(main, "webview"), \
              patch("webbrowser.open"), \
              patch("os.kill"):
 

@@ -138,45 +138,34 @@
 
 ## 5. 桌面版与 Steam 适配 (Desktop & Steam)
 
-为了支持 Steam 平台发布，我们从浏览器模式切换到了独立窗口模式。
+当前桌面打包版本统一使用本地 HTTP 服务 + 系统浏览器的模式运行。
 
-1.  **独立窗口架构 (Standalone Window)**:
-    *   使用 `pywebview` 将 Web 前端封装在一个原生的操作系统窗口中。
-    *   不再调用 `webbrowser.open()` 打开系统默认浏览器。
-    *   应用现在拥有独立的进程、任务栏图标和窗口标题，这对 Steam Overlay 集成至关重要。
+1.  **统一启动流程**:
+    *   `start()` 会先计算目标 URL，再调用 `webbrowser.open()` 打开系统默认浏览器。
+    *   `uvicorn` 后端服务继续在当前 Python 进程中运行。
+    *   在开发模式下，前端仍会以子进程方式启动 `npm run dev`。
 
-2.  **启动流程变更为**:
-    *   **Main Thread**: 运行 `pywebview` 的 GUI 循环 (`webview.start()`)。
-    *   **Background Thread**: 运行 `uvicorn` 后端服务器 (`Daemon Thread`)。
-    *   **Subprocess**: (仅开发模式) 运行 `npm run dev` 前端开发服务器。
-
-3.  **开发体验**:
+2.  **开发体验**:
     *   运行 `python src/server/main.py --dev` 时，会自动开启 Debug 模式。
-    *   在窗口内点击右键 -> `Inspect` 依然可以调出开发者工具 (DevTools)。
-    *   HMR (热重载) 依然有效，修改 `web/src` 代码后窗口内容会自动刷新。
+    *   HMR (热重载) 依然有效，修改 `web/src` 代码后浏览器页面会自动刷新。
 
-4.  **打包与发布**:
-    *   在 `PyInstaller` 打包配置中，需确保 `webview` 及其后端依赖 (如 Edge WebView2 Loader) 被正确包含。
-    *   打包后的 `.exe` 即为最终交付给玩家的可执行文件。
+3.  **打包与发布**:
+    *   打包后的 `.exe` 会负责拉起本地服务并打开浏览器页面。
+    *   不再需要额外包含桌面嵌入式 WebView 宿主运行时。
 
-5.  **pywebview 下的画布尺寸原则**:
-    *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。pywebview 的 WebView2 在全屏切换时不触发该事件，导致画布无法跟随窗口扩大，右下角出现黑边。
-    *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`）。`ResizeObserver` 监听的是 DOM 元素的实际尺寸变化，在 WebView2 中可靠。
+4.  **画布尺寸原则**:
+    *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。
+    *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`），让画布尺寸直接跟随容器变化。
     *   当前实现（`GameCanvas.vue`）：`width/height` 和 `Viewport` 的 `screenWidth/screenHeight` 均直接来自 `useElementSize`，与 `resizeTo="container"` 指向同一数据源，无冲突。
 
-## 6. 异常恢复与防卡死设计 (Error Recovery)
+## 6. 启动渲染保护 (Startup Rendering Guard)
 
-为了应对极少部分玩家设备可能出现的 WebView2 渲染卡顿、Vue 状态意外不同步等玄学问题，我们在前端全局实现了**内置重载 (F5 刷新)** 机制。
+为了避免前端刚接管页面时出现闪烁，应用保留了一层启动阶段的渲染保护。
 
-1.  **全局按键监听 (`App.vue`)**:
-    *   劫持了键盘的 `F5` 事件，按下时执行 `window.location.reload()` 强行刷新前端页面。
-    *   此时后端 (`uvicorn` 和 Python 模拟器) 不受影响，依然在后台保持原状态。
-
-2.  **状态防闪烁设计 (`isAppReady`)**:
-    *   因为 F5 刷新会导致 Vue 状态被清空，默认的 `showSplash` 状态很容易在刷新期间闪烁出启动封面图。
+1.  **状态防闪烁设计 (`isAppReady`)**:
     *   通过引入 `isAppReady`（布尔值），**在页面刚加载、还未收到后端 `initStatus` 接口第一次响应时，前端界面保持纯黑 (`display: none` 等效)**。
     *   收到后端响应后，若后端返回 `idle`，则展示 `SplashLayer`；若后端正在运行中（如 `ready` 或 `loading`），则直接进入对应的 `LoadingOverlay` 或游戏界面。
-    *   为了防止在 `ready` 状态下 F5 刷新时，前端初始化等待期间（`gameInitialized === false`）闪烁 Loading 界面，对 `LoadingOverlay` 的渲染条件增加了严格判断，使得 F5 后能更加平滑地直接呈现游戏画面。
+    *   当后端已经进入 `ready` 但前端尚未完成最后的初始化收尾时，会跳过额外的 `LoadingOverlay`，以减少界面跳变。
 
 ## 7. 前端资源预加载策略 (Preloading Strategy)
 

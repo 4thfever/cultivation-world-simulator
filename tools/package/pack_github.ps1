@@ -90,7 +90,7 @@ $argsList = @(
     "--onedir",
     "--clean",
     "--noconfirm",
-    # Using windowed but without pywebview (to avoid the console popping up, and letting python start webbrowser)
+    # Keep the executable windowless while the Python process opens the system browser.
     "--windowed",
     "--distpath", $DistDir,
     "--workpath", $BuildDir,
@@ -103,8 +103,6 @@ $argsList = @(
     "--add-data", "${StaticPath};static",       # Configs -> _internal/static (backup)
     
     # Excludes
-    "--exclude-module", "webview",              # MUST exclude webview for GitHub release
-    "--exclude-module", "pywebview",
     "--exclude-module", "litellm",
     "--exclude-module", "google",
     "--exclude-module", "scipy",

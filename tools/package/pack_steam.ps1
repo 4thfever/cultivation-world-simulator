@@ -91,7 +91,7 @@ $argsList = @(
     "--clean",
     "--noconfirm",
     "--windowed",
-    # Steam mode uses default --mode window (we don't need to specify as it's default in Python script, but we can't easily pass args via pyinstaller exe itself. The executable will just start window by default)
+    # The packaged executable always launches the local server and opens the game in the system browser.
     "--distpath", $DistDir,
     "--workpath", $BuildDir,
     "--specpath", $SpecDir,

@@ -78,12 +78,6 @@ const {
 
 // 事件处理
 function onKeydown(e: KeyboardEvent) {
-  // 内置 F5 刷新，防止 UI 卡死
-  if (e.key === 'F5') {
-    e.preventDefault()
-    window.location.reload()
-    return
-  }
   if (shouldBlockControls.value) return
   controlHandleKeydown(e)
 }
@@ -135,7 +129,7 @@ onUnmounted(() => {
   <n-config-provider :theme="darkTheme">
     <n-dialog-provider>
       <n-message-provider>
-        <!-- 获取到后端状态和 settings 前显示纯黑，防止 F5 刷新时画面闪烁 -->
+        <!-- 获取到后端状态和 settings 前显示纯黑，避免启动阶段界面闪烁 -->
       <div v-if="!isAppReady || !settingStore.hydrated" class="app-layout" style="background: #000;"></div>
       
       <template v-else>
@@ -145,7 +139,7 @@ onUnmounted(() => {
         />
         
         <!-- Loading Overlay - 盖在游戏上面 -->
-        <!-- 当 F5 刷新后端已经是 ready 时，由于前端未初始化完成(gameInitialized 为 false)，依然会显示 Loading。但为了更好的体验，如果是纯 F5 热重载，我们可以通过判断掩盖这段瞬间。由于 LoadingOverlay 里有动画和遮罩，这一瞬间的闪烁也会影响体验。-->
+        <!-- 当后端已经 ready 但前端仍在收尾初始化时，不显示额外 Loading 以减少界面跳变。-->
         <LoadingOverlay 
           v-if="!showSplash && showLoading && initStatus?.status !== 'ready'"
           :status="initStatus"

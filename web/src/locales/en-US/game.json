@@ -185,12 +185,14 @@
         "preferred": "Weapon",
         "members": "Members",
         "total_battle_strength": "Power",
-        "influence_radius": "Radius",
+        "war_status": "War Status",
+        "strongest_enemy": "Primary Enemy",
+        "income": "Territory Income",
+        "income_value": "{income}/cycle",
         "magic_stone": "Stones"
       },
       "sections": {
         "intro": "Introduction",
-        "situation": "Sect Situation",
         "rule": "Sect Rule",
         "hq": "HQ: {name}",
         "bonus": "Sect Bonus",
@@ -199,18 +201,9 @@
         "techniques": "Technique Library",
         "members": "Disciples"
       },
-      "situation": {
-        "active_wars": "Current Wars",
-        "active_wars_value": "Currently at war with {count} sect(s)",
-        "territory": "Territory",
-        "territory_value": "Currently controls {tiles} tiles of influence, with {conflicts} contested tile(s)",
-        "income": "Territory Income",
-        "income_value": "Expected income per cycle: {income} stones, averaging {perTile} per tile",
-        "strongest_enemy": "Primary Enemy Sect",
-        "strongest_enemy_value": "{name} (relation value {value})"
-      },
       "diplomacy_meta_relation": "Relation value {value}",
-      "diplomacy_last_battle": "Last clash month stamp {month}",
+      "diplomacy_war_years": "At war for {count} year(s)",
+      "diplomacy_peace_years": "At peace for {count} year(s)",
       "no_rule": "No explicit sect rule description",
       "no_bonus": "No special bonus",
       "no_runtime_effect": "No active sect runtime effects",
