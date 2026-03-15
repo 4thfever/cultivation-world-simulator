@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.core.avatar import Gender
+from tools.i18n.locale_registry import uses_space_separated_names
 
 
 @dataclass
@@ -108,8 +109,8 @@ class NameManager:
         given_name = self.get_random_given_name(gender, sect_id)
         
         # 处理 i18n 拼接逻辑
-        from src.classes.language import language_manager, LanguageType
-        if language_manager.current == LanguageType.EN_US:
+        from src.classes.language import language_manager
+        if uses_space_separated_names(language_manager.current):
             return f"{last_name} {given_name}"
         return last_name + given_name
     
@@ -129,8 +130,8 @@ class NameManager:
         given_name = self.get_random_given_name(gender, sect_id)
         
         # 处理 i18n 拼接逻辑
-        from src.classes.language import language_manager, LanguageType
-        if language_manager.current == LanguageType.EN_US:
+        from src.classes.language import language_manager
+        if uses_space_separated_names(language_manager.current):
             return f"{surname} {given_name}"
         return surname + given_name
 

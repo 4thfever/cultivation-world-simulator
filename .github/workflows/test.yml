@@ -29,10 +29,10 @@ jobs:
       - name: Install Python dependencies
         run: |
           uv pip install --system -r requirements.txt
-          uv pip install --system pytest pytest-cov
+          uv pip install --system pytest pytest-cov pytest-xdist
 
-      - name: Run backend tests with coverage
-        run: pytest -v --cov=src --cov-report=xml --cov-report=term --cov-fail-under=60
+      - name: Run backend tests with coverage in parallel
+        run: pytest -n auto --dist loadfile -v --cov=src --cov-report=xml --cov-report=term --cov-fail-under=60
 
       # --- Frontend Tests ---
       - name: Set up Node.js

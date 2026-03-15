@@ -3,9 +3,10 @@ from __future__ import annotations
 from typing import Optional
 
 from pydantic import BaseModel, Field
+from tools.i18n.locale_registry import get_default_locale
 
 
-DEFAULT_LOCALE = "zh-CN"
+DEFAULT_LOCALE = get_default_locale()
 
 
 class AudioSettings(BaseModel):

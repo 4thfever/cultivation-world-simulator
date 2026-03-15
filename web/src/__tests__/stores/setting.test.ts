@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
+import { getExpectedHtmlLang, testDefaultLocale, testFallbackLocale } from '@/__tests__/utils/i18n'
 
 const {
   mockFetchSettings,
@@ -11,7 +12,7 @@ const {
   mockStartGame: vi.fn(),
 }))
 
-let mockI18nLocale: { value: string } | string = { value: 'zh-CN' }
+let mockI18nLocale: { value: string } | string = { value: testDefaultLocale }
 let mockI18nMode = 'composition'
 
 function clone<T>(value: T): T {
@@ -21,7 +22,7 @@ function clone<T>(value: T): T {
 const baseSettings = {
   schema_version: 1,
   ui: {
-    locale: 'zh-CN',
+    locale: testDefaultLocale,
     audio: {
       bgm_volume: 0.5,
       sfx_volume: 0.5,
@@ -42,7 +43,7 @@ const baseSettings = {
     },
   },
   new_game_defaults: {
-    content_locale: 'zh-CN',
+    content_locale: testDefaultLocale,
     init_npc_num: 9,
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
@@ -82,7 +83,7 @@ describe('useSettingStore', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockI18nLocale = { value: 'zh-CN' }
+    mockI18nLocale = { value: testDefaultLocale }
     mockI18nMode = 'composition'
     currentSettings = clone(baseSettings)
     mockFetchSettings.mockImplementation(async () => clone(currentSettings))
@@ -123,7 +124,7 @@ describe('useSettingStore', () => {
 
     expect(mockFetchSettings).toHaveBeenCalled()
     expect(store.hydrated).toBe(true)
-    expect(store.locale).toBe('zh-CN')
+    expect(store.locale).toBe(testDefaultLocale)
     expect(store.bgmVolume).toBe(0.5)
     expect(store.newGameDraft.init_npc_num).toBe(9)
   })
@@ -133,14 +134,14 @@ describe('useSettingStore', () => {
       ...clone(baseSettings),
       ui: {
         ...clone(baseSettings.ui),
-        locale: 'en-US',
+        locale: testFallbackLocale,
       },
     })
 
     await store.hydrate()
 
-    expect((mockI18nLocale as { value: string }).value).toBe('en-US')
-    expect(document.documentElement.lang).toBe('en')
+    expect((mockI18nLocale as { value: string }).value).toBe(testFallbackLocale)
+    expect(document.documentElement.lang).toBe(getExpectedHtmlLang(testFallbackLocale))
   })
 
   it('saves locale through patchSettings', async () => {
@@ -152,7 +153,7 @@ describe('useSettingStore', () => {
     })
     expect(store.locale).toBe('zh-TW')
     expect(store.newGameDraft.content_locale).toBe('zh-TW')
-    expect(document.documentElement.lang).toBe('zh-TW')
+    expect(document.documentElement.lang).toBe(getExpectedHtmlLang('zh-TW'))
   })
 
   it('saves bgm volume through patchSettings', async () => {
@@ -170,21 +171,21 @@ describe('useSettingStore', () => {
   })
 
   it('keeps content locale aligned with ui locale when updating new game draft', () => {
-    store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
+    store.updateNewGameDraft({ init_npc_num: 20, content_locale: testFallbackLocale })
 
     expect(store.newGameDraft.init_npc_num).toBe(20)
-    expect(store.newGameDraft.content_locale).toBe('zh-CN')
+    expect(store.newGameDraft.content_locale).toBe(testDefaultLocale)
   })
 
   it('persists new game defaults before starting game with ui locale as content locale', async () => {
-    await store.setLocale('en-US')
-    store.updateNewGameDraft({ init_npc_num: 20, content_locale: 'en-US' })
+    await store.setLocale(testFallbackLocale)
+    store.updateNewGameDraft({ init_npc_num: 20, content_locale: testFallbackLocale })
 
     await store.startGameWithDraft()
 
     expect(mockPatchSettings).toHaveBeenCalledWith({
       new_game_defaults: {
-        content_locale: 'en-US',
+        content_locale: testFallbackLocale,
         init_npc_num: 20,
         sect_num: 3,
         npc_awakening_rate_per_month: 0.01,
@@ -192,7 +193,7 @@ describe('useSettingStore', () => {
       },
     })
     expect(mockStartGame).toHaveBeenCalledWith({
-      content_locale: 'en-US',
+      content_locale: testFallbackLocale,
       init_npc_num: 20,
       sect_num: 3,
       npc_awakening_rate_per_month: 0.01,

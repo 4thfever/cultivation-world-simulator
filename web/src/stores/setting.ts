@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 import i18n from '../locales';
+import { defaultLocale, getHtmlLang, isEnabledLocale, type AppLocale } from '../locales/registry';
 import { systemApi } from '../api/modules/system';
 import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
 
@@ -12,12 +13,7 @@ function applyUiLocale(lang: string) {
     (i18n.global.locale as unknown as { value: string }).value = lang;
   }
 
-  const langMap: Record<string, string> = {
-    'zh-CN': 'zh-CN',
-    'zh-TW': 'zh-TW',
-    'en-US': 'en',
-  };
-  document.documentElement.lang = langMap[lang] || 'en';
+  document.documentElement.lang = getHtmlLang(lang);
 }
 
 function withContentLocale<T extends { content_locale: string }>(draft: T, locale: string): T {
@@ -31,13 +27,13 @@ export const useSettingStore = defineStore('setting', () => {
   const hydrated = ref(false);
   const loading = ref(false);
 
-  const locale = ref<'zh-CN' | 'zh-TW' | 'en-US' | string>('zh-CN');
+  const locale = ref<AppLocale>(defaultLocale);
   const sfxVolume = ref(0.5);
   const bgmVolume = ref(0.5);
   const isAutoSave = ref(false);
   const maxAutoSaves = ref(5);
   const newGameDraft = ref<RunConfigDTO>({
-    content_locale: 'zh-CN',
+    content_locale: defaultLocale,
     init_npc_num: 9,
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
@@ -72,17 +68,18 @@ export const useSettingStore = defineStore('setting', () => {
     }
   }
 
-  async function setLocale(lang: 'zh-CN' | 'zh-TW' | 'en-US') {
+  async function setLocale(lang: string) {
+    const nextLocale = isEnabledLocale(lang) ? lang : defaultLocale
     const previous = locale.value;
     const previousDraft = { ...newGameDraft.value };
-    locale.value = lang;
-    newGameDraft.value = withContentLocale({ ...newGameDraft.value }, lang);
-    applyUiLocale(lang);
+    locale.value = nextLocale;
+    newGameDraft.value = withContentLocale({ ...newGameDraft.value }, nextLocale);
+    applyUiLocale(nextLocale);
 
     try {
       const settings = await systemApi.patchSettings({
-        ui: { locale: lang },
-        new_game_defaults: { content_locale: lang },
+        ui: { locale: nextLocale },
+        new_game_defaults: { content_locale: nextLocale },
       });
       applySettings(settings);
     } catch (e) {

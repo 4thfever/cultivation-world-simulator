@@ -12,6 +12,8 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from tools.i18n.locale_registry import get_default_locale, get_fallback_locale
+
 # Cache for loaded translations.
 _translations: dict[str, Optional[gettext.GNUTranslations]] = {}
 
@@ -44,7 +46,7 @@ def _get_current_lang() -> str:
         from src.classes.language import language_manager
         return str(language_manager)
     except ImportError:
-        return "zh-CN"
+        return get_default_locale()
 
 
 def _get_translation() -> Optional[gettext.GNUTranslations]:
@@ -114,7 +116,7 @@ def t(message: str, **kwargs) -> str:
         translated = message
     
     # Check for missing translation if not in English
-    if _get_current_lang() != "en-US" and translated == message and message.strip():
+    if _get_current_lang() != get_fallback_locale() and translated == message and message.strip():
         logger.warning(f"[i18n] Missing translation for msgid: '{message}'")
     
     if kwargs:

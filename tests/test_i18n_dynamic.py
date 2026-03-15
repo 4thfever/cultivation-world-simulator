@@ -12,6 +12,7 @@ from src.classes.core.world import World
 from src.classes.language import language_manager
 from src.classes.celestial_phenomenon import CelestialPhenomenon
 from src.run.data_loader import reload_all_static_data
+from tools.i18n.locale_registry import get_fallback_locale, get_source_locale
 
 class TestI18nDynamic(unittest.TestCase):
     
@@ -25,8 +26,10 @@ class TestI18nDynamic(unittest.TestCase):
         
     def test_date_format_switching(self):
         """验证日期字符串随语言切换"""
+        source_locale = get_source_locale()
+        fallback_locale = get_fallback_locale()
         # Test ZH
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(source_locale)
         # 13 = Year 1, Month 2 (formula: year*12 + month - 1 => 1*12 + 2 - 1 = 13)
         date_str_zh = get_date_str(13)
         self.assertIn("年", date_str_zh)
@@ -35,7 +38,7 @@ class TestI18nDynamic(unittest.TestCase):
         
         # Test EN
         # Use 'en-US' (hyphen) which is the correct enum value
-        language_manager.set_language("en-US")
+        language_manager.set_language(fallback_locale)
         date_str_en = get_date_str(13)
         self.assertNotIn("年", date_str_en)
         self.assertNotIn("月", date_str_en)
@@ -43,23 +46,27 @@ class TestI18nDynamic(unittest.TestCase):
 
     def test_sect_region_desc_switching(self):
         """验证宗门驻地描述随语言切换"""
+        source_locale = get_source_locale()
+        fallback_locale = get_fallback_locale()
         # Provide dummy id, name, desc for SectRegion
         region = SectRegion(id=1, name="Dummy", desc="DummyDesc", sect_name="TestSect", sect_id=1)
         
         # Test ZH
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(source_locale)
         desc_zh = region._get_desc()
         self.assertIn("【TestSect】", desc_zh)
         self.assertIn("宗门驻地", desc_zh)
         
         # Test EN
-        language_manager.set_language("en-US")
+        language_manager.set_language(fallback_locale)
         desc_en = region._get_desc()
         self.assertIn("(TestSect HQ)", desc_en)
         self.assertNotIn("宗门驻地", desc_en)
 
     def test_world_info_key_switching(self):
         """验证世界信息 Prompt Key 随语言切换"""
+        source_locale = get_source_locale()
+        fallback_locale = get_fallback_locale()
         # Mock World and Phenomenon
         
         # Mock dependencies
@@ -83,7 +90,7 @@ class TestI18nDynamic(unittest.TestCase):
         world.current_phenomenon = phenom
         
         # Test ZH
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(source_locale)
         info_zh = world.get_info()
         
         # Verify Key
@@ -95,7 +102,7 @@ class TestI18nDynamic(unittest.TestCase):
         self.assertEqual(val_zh, "【TestPhenomenon】TestDesc")
         
         # Test EN
-        language_manager.set_language("en-US")
+        language_manager.set_language(fallback_locale)
         info_en = world.get_info()
         
         # Verify Key

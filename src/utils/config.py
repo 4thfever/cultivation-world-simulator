@@ -6,6 +6,7 @@ from pathlib import Path
 from omegaconf import OmegaConf
 
 from src.config.data_paths import get_data_paths
+from tools.i18n.locale_registry import coerce_locale_code, get_default_locale, normalize_locale_code
 
 def load_config():
     """
@@ -48,11 +49,7 @@ def update_paths_for_language(lang_code: str = None):
             saved_lang = CONFIG.system.language
             
             # Avoid triggering set_language -> df import loop during initialization
-            try:
-                from src.classes.language import LanguageType
-                language_manager._current = LanguageType(saved_lang)
-            except (ValueError, ImportError):
-                pass
+            language_manager._current = coerce_locale_code(saved_lang, enabled_only=False)
             
             # Reload translations only (safe)
             from src.i18n import reload_translations
@@ -61,10 +58,10 @@ def update_paths_for_language(lang_code: str = None):
             lang_code = saved_lang
     
     if lang_code is None:
-        lang_code = "zh-CN"
+        lang_code = get_default_locale()
         
     # Normalize lang_code (e.g. zh_CN -> zh-CN) to match folder structure in static/locales
-    lang_code = lang_code.replace("_", "-")
+    lang_code = normalize_locale_code(lang_code)
     
     # 默认 locales 目录
     locales_dir = CONFIG.paths.get("locales", Path("static/locales"))

@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 import polib
 from src.i18n import t, _get_locale_dir
-from tools.i18n.locale_registry import get_locale_codes
+from tools.i18n.locale_registry import get_locale_codes, get_source_locale
 
 def test_i18n_modules_structure():
     """
@@ -35,7 +35,7 @@ def test_merged_messages_po_integrity():
     Test that the merged messages.po file in LC_MESSAGES exists and contains entries from modules.
     """
     locale_dir = _get_locale_dir()
-    lang = "zh-CN" # Test with one language (hyphen)
+    lang = get_source_locale()
     
     lc_messages_dir = locale_dir / lang / "LC_MESSAGES"
     messages_po_path = lc_messages_dir / "messages.po"
@@ -64,7 +64,7 @@ def test_translation_loading():
     # This relies on the force_chinese_language fixture in conftest.py if run in full suite,
     # or we explicitly set it here.
     from src.classes.language import language_manager
-    language_manager.set_language("zh-CN")
+    language_manager.set_language(get_source_locale())
     
     # Test a known key
     # "attack_action_name" -> "发起战斗"

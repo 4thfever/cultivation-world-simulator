@@ -13,6 +13,8 @@ import pytest
 from unittest.mock import patch, MagicMock
 from omegaconf import OmegaConf
 
+from tools.i18n.locale_registry import get_default_locale
+
 
 class TestServerHostConfiguration:
     """Tests for server host configuration in lifespan and start functions."""
@@ -306,9 +308,10 @@ class TestOmegaConfIntegration:
 
     def test_omegaconf_host_access(self):
         """Test accessing host from OmegaConf config object."""
+        default_locale = get_default_locale()
         config = OmegaConf.create({
             "system": {
-                "language": "zh-CN",
+                "language": default_locale,
                 "host": "0.0.0.0",
                 "port": 8002
             }
@@ -319,9 +322,10 @@ class TestOmegaConfIntegration:
 
     def test_omegaconf_port_access(self):
         """Test accessing port from OmegaConf config object."""
+        default_locale = get_default_locale()
         config = OmegaConf.create({
             "system": {
-                "language": "zh-CN",
+                "language": default_locale,
                 "host": "127.0.0.1",
                 "port": 9000
             }
@@ -344,9 +348,10 @@ class TestOmegaConfIntegration:
 
     def test_omegaconf_missing_host_key(self):
         """Test graceful handling when host key is missing from system."""
+        default_locale = get_default_locale()
         config = OmegaConf.create({
             "system": {
-                "language": "zh-CN"
+                "language": default_locale
             }
         })
 
@@ -355,9 +360,10 @@ class TestOmegaConfIntegration:
 
     def test_omegaconf_merged_config_priority(self):
         """Test config merge priority (local_config overrides base config)."""
+        default_locale = get_default_locale()
         base_config = OmegaConf.create({
             "system": {
-                "language": "zh-CN",
+                "language": default_locale,
                 "host": "127.0.0.1",
                 "port": 8002
             }
@@ -374,7 +380,7 @@ class TestOmegaConfIntegration:
 
         assert merged.system.host == "0.0.0.0"
         assert merged.system.port == 8002  # From base.
-        assert merged.system.language == "zh-CN"  # From base.
+        assert merged.system.language == default_locale  # From base.
 
 
 class TestEdgeCases:

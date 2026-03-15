@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Compare msgids across .po files in zh-CN, en-US, and zh-TW locales.
+Compare msgids across .po files in all enabled locales.
 
 Outputs a plan showing:
 - Which .po files exist in which locales
@@ -106,7 +106,7 @@ def main() -> None:
         "",
         "## 1. File Coverage Summary",
         "",
-        f"- Files in all 3 locales: {len(files_in_all)}",
+        f"- Files in all {len(LOCALES)} locales: {len(files_in_all)}",
         f"- Files in 2 locales only: {len(files_partial)}",
         f"- Files in 1 locale only: {len(files_single)}",
         "",

@@ -46,16 +46,16 @@ def generate_report():
     report_lines.append("## Frontend Missing\n")
     frontend_base_dir = root / "web" / "src" / "locales"
     
-    zh_cn_dir = frontend_base_dir / base_loc
-    if zh_cn_dir.exists():
-        modules = [f.name for f in zh_cn_dir.iterdir() if f.name.endswith('.json')]
+    base_frontend_dir = frontend_base_dir / base_loc
+    if base_frontend_dir.exists():
+        modules = [f.name for f in base_frontend_dir.iterdir() if f.name.endswith('.json')]
         
         for target_loc in locales:
             report_lines.append(f"### [{target_loc}]")
             missing_found_for_loc = False
             
             for module in modules:
-                base_file = zh_cn_dir / module
+                base_file = base_frontend_dir / module
                 target_file = frontend_base_dir / target_loc / module
                 
                 with open(base_file, 'r', encoding='utf-8') as f:
@@ -81,14 +81,14 @@ def generate_report():
                         val_str = str(v).replace('\n', ' ')
                         if len(val_str) > 50:
                             val_str = val_str[:47] + "..."
-                        report_lines.append(f"  - Missing key: `{k}` (zh-CN value: \"{val_str}\")")
+                        report_lines.append(f"  - Missing key: `{k}` ({base_loc} value: \"{val_str}\")")
             
             if not missing_found_for_loc:
                 report_lines.append("- All keys are fully translated.\n")
             else:
                 report_lines.append("")
     else:
-        report_lines.append("`zh-CN` base directory not found for frontend.\n")
+        report_lines.append(f"`{base_loc}` base directory not found for frontend.\n")
 
     # 2. Backend Check
     report_lines.append("## Backend Missing\n")

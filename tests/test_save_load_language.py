@@ -8,8 +8,9 @@ from src.classes.environment.tile import TileType
 from src.systems.time import Month, Year, create_month_stamp
 from src.sim.simulator import Simulator
 from src.sim.save.save_game import save_game
-from src.classes.language import language_manager, LanguageType
+from src.classes.language import language_manager
 from src.utils.config import CONFIG
+from tools.i18n.locale_registry import get_default_locale, get_fallback_locale
 
 # Helper functions
 def create_test_map():
@@ -40,7 +41,9 @@ class TestSaveLoadLanguage:
         # 2. Set Language
         original_lang = language_manager.current
         try:
-            language_manager.set_language("zh-CN")
+            default_locale = get_default_locale()
+            fallback_locale = get_fallback_locale()
+            language_manager.set_language(default_locale)
             
             # 3. Save
             save_path = temp_save_dir / "test_lang_zh.json"
@@ -52,12 +55,12 @@ class TestSaveLoadLanguage:
             
             assert "meta" in data
             assert "language" in data["meta"]
-            assert data["meta"]["language"] == "zh-CN"
+            assert data["meta"]["language"] == default_locale
             
             # Test English
             world.event_manager.close() # Close db before new save
             
-            language_manager.set_language("en-US")
+            language_manager.set_language(fallback_locale)
             save_path_en = temp_save_dir / "test_lang_en.json"
             events_db_path_en = temp_save_dir / "test_lang_en_events.db"
             
@@ -71,7 +74,7 @@ class TestSaveLoadLanguage:
             
             with open(save_path_en, "r", encoding="utf-8") as f:
                 data_en = json.load(f)
-            assert data_en["meta"]["language"] == "en-US"
+            assert data_en["meta"]["language"] == fallback_locale
             
         finally:
             # Restore
@@ -86,7 +89,10 @@ class TestSaveLoadLanguage:
     async def test_load_switches_language(self, temp_save_dir):
         """Test that loading a save with different language triggers switch."""
         
-        # 1. Create a minimal save file with 'en-US' language
+        fallback_locale = get_fallback_locale()
+        default_locale = get_default_locale()
+
+        # 1. Create a minimal save file with fallback language
         save_filename = "test_switch_lang.json"
         save_path = temp_save_dir / save_filename
         
@@ -95,7 +101,7 @@ class TestSaveLoadLanguage:
                 "version": "test",
                 "save_time": "2026-01-01", 
                 "game_time": "Y1M1",
-                "language": "en-US", # Target language
+                "language": fallback_locale,
                 "events_db": "test_switch_lang_events.db",
                 "event_count": 0
             },
@@ -110,8 +116,8 @@ class TestSaveLoadLanguage:
             json.dump(save_data, f)
             
         # 2. Mock dependencies
-        # Ensure current is zh-CN
-        language_manager._current = LanguageType.ZH_CN
+        # Ensure current is default locale
+        language_manager._current = default_locale
         
         mock_broadcast = AsyncMock()
         
@@ -133,28 +139,30 @@ class TestSaveLoadLanguage:
             assert mock_broadcast.called
             call_args = mock_broadcast.call_args[0][0]
             assert call_args['type'] == 'toast'
-            assert "en-US" in call_args['message']
+            assert fallback_locale in call_args['message']
             
             # Verify runtime locale switch was requested
-            mock_apply_locale.assert_called_once_with("en-US")
+            mock_apply_locale.assert_called_once_with(fallback_locale)
 
     @pytest.mark.asyncio
     async def test_load_no_switch_same_language(self, temp_save_dir):
         """Test that loading same language save does NOT trigger switch."""
         
-        # 1. Save with zh-CN
+        default_locale = get_default_locale()
+
+        # 1. Save with default locale
         save_filename = "test_same_lang.json"
         save_path = temp_save_dir / save_filename
         
         save_data = {
-            "meta": {"language": "zh-CN"}, # Same as current
+            "meta": {"language": default_locale},
         }
         
         with open(save_path, "w", encoding="utf-8") as f:
             json.dump(save_data, f)
             
         # 2. Mock
-        language_manager._current = LanguageType.ZH_CN
+        language_manager._current = default_locale
         
         mock_broadcast = AsyncMock()
         mock_apply_locale = MagicMock()

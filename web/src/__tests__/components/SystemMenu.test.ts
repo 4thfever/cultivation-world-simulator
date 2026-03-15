@@ -2,41 +2,38 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import SystemMenu from '@/components/SystemMenu.vue'
 import { createPinia, setActivePinia } from 'pinia'
-import { createI18n } from 'vue-i18n'
+import { createTestI18n, testDefaultLocale } from '@/__tests__/utils/i18n'
 
 describe('SystemMenu', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  const i18n = createI18n({
-    legacy: false,
-    locale: 'zh-CN',
-    messages: {
-      'zh-CN': {
-        ui: {
-          system_menu_title: 'System Menu',
-          start_game: 'Start Game',
-          load_game: 'Load Game',
-          save_game: 'Save Game',
-          create_character: 'Create Character',
-          delete_character: 'Delete Character',
-          llm_settings: 'LLM Settings',
-          settings: 'Settings',
-          about: 'About',
-          other: 'Other',
-          simplified_chinese: 'Simplified Chinese',
-          traditional_chinese: 'Traditional Chinese',
-          english: 'English',
-          sound: 'Sound',
-          bgm_volume: 'Music',
-          sfx_volume: 'Sound FX',
-          auto_save: 'Auto Save',
-          auto_save_desc: 'Automatically save the game every decade in January'
-        }
-      }
-    }
-  })
+  const i18n = createTestI18n(
+    {
+      ui: {
+        system_menu_title: 'System Menu',
+        start_game: 'Start Game',
+        load_game: 'Load Game',
+        save_game: 'Save Game',
+        create_character: 'Create Character',
+        delete_character: 'Delete Character',
+        llm_settings: 'LLM Settings',
+        settings: 'Settings',
+        about: 'About',
+        other: 'Other',
+        simplified_chinese: 'Simplified Chinese',
+        traditional_chinese: 'Traditional Chinese',
+        english: 'English',
+        sound: 'Sound',
+        bgm_volume: 'Music',
+        sfx_volume: 'Sound FX',
+        auto_save: 'Auto Save',
+        auto_save_desc: 'Automatically save the game every decade in January',
+      },
+    },
+    testDefaultLocale,
+  )
 
   it('should render nothing if visible is false', () => {
     const wrapper = mount(SystemMenu, {

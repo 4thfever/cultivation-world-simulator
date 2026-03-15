@@ -5,6 +5,7 @@ import sys
 from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.environment.map import Map
+from tools.i18n.locale_registry import get_default_locale
 
 
 @pytest.fixture(autouse=True)
@@ -117,13 +118,14 @@ def force_chinese_language():
     """
     from src.classes.language import language_manager
     from src.utils.df import reload_game_configs
+    default_locale = get_default_locale()
 
-    language_manager.set_language("zh-CN")
+    language_manager.set_language(default_locale)
     reload_game_configs()
 
     yield
 
-    language_manager.set_language("zh-CN")
+    language_manager.set_language(default_locale)
     reload_game_configs()
 from src.classes.environment.tile import TileType, Tile
 from src.classes.core.world import World

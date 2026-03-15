@@ -59,10 +59,11 @@ from src.sim import save_game, list_saves, load_game, get_events_db_path, check_
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
 from src.run.data_loader import reload_all_static_data
-from src.classes.language import language_manager, LanguageType
+from src.classes.language import language_manager
 from src.systems.sect_relations import compute_sect_relations
 from src.i18n import t
 from src.config import AppSettingsPatch, LLMSettingsUpdate, RunConfig, get_settings_service
+from tools.i18n.locale_registry import uses_space_separated_names
 
 # 全局游戏实例
 game_instance = {
@@ -1589,7 +1590,7 @@ def create_avatar(req: CreateAvatarRequest):
         given_name = (req.given_name or "").strip()
         if surname or given_name:
             if surname and given_name:
-                if language_manager.current == LanguageType.EN_US:
+                if uses_space_separated_names(language_manager.current):
                     final_name = f"{surname} {given_name}"
                 else:
                     final_name = f"{surname}{given_name}"

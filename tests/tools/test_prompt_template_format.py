@@ -1,14 +1,16 @@
 from pathlib import Path
 
 from src.utils.llm.prompt import build_prompt, load_template
+from tools.i18n.locale_registry import get_source_locale
 
 
 def test_sect_random_event_template_can_be_formatted() -> None:
-    template_path = Path("static/locales/zh-CN/templates/sect_random_event.txt")
+    source_locale = get_source_locale()
+    template_path = Path(f"static/locales/{source_locale}/templates/sect_random_event.txt")
     template = load_template(template_path)
 
     infos = {
-        "language": "zh-CN",
+        "language": source_locale,
         "event_type": "relation_down",
         "sect_a_name": "A宗",
         "sect_b_name": "B宗",
@@ -27,7 +29,7 @@ def test_sect_random_event_template_can_be_formatted() -> None:
 
 
 def test_sect_decider_template_can_be_formatted() -> None:
-    template_path = Path("static/locales/zh-CN/templates/sect_decider.txt")
+    template_path = Path(f"static/locales/{get_source_locale()}/templates/sect_decider.txt")
     template = load_template(template_path)
 
     infos = {

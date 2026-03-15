@@ -12,6 +12,7 @@ from src.classes.items.elixir import elixirs_by_id
 from src.utils.config import CONFIG
 from src.i18n import t, reload_translations
 from src.classes.language import language_manager
+from tools.i18n.locale_registry import get_default_locale, get_locale_codes
 
 # --- Helpers ---
 
@@ -44,11 +45,11 @@ def read_raw_csv_as_dict(file_path):
             
         return data
 
-@pytest.fixture(params=["zh-CN", "zh-TW", "en-US"])
+@pytest.fixture(params=get_locale_codes())
 def game_lang(request):
     """
     参数化 Fixture：切换语言并重载游戏数据。
-    测试结束后自动恢复回 zh-CN 环境。
+    测试结束后自动恢复回默认语言环境。
     """
     lang = request.param
     
@@ -69,9 +70,10 @@ def game_lang(request):
     yield lang
     
     # Teardown: Restore to zh-CN for other tests
-    language_manager.set_language("zh-CN")
+    default_locale = get_default_locale()
+    language_manager.set_language(default_locale)
     reload_translations()
-    update_paths_for_language("zh-CN")
+    update_paths_for_language(default_locale)
     reload_game_configs()
     reload_techniques()
     reload_sects()

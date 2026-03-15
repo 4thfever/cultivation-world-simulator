@@ -3,6 +3,7 @@ import pytest
 from src.classes.effect.desc import format_effects_to_text
 from src.classes.language import language_manager
 from src.i18n import reload_translations
+from tools.i18n.locale_registry import get_fallback_locale, get_source_locale
 
 class TestEffectDescI18n:
     
@@ -17,7 +18,9 @@ class TestEffectDescI18n:
 
     def test_format_effects_with_desc_override(self):
         """测试 _desc 字段覆盖整个效果描述"""
-        language_manager.set_language("zh-CN")
+        source_locale = get_source_locale()
+        fallback_locale = get_fallback_locale()
+        language_manager.set_language(source_locale)
         reload_translations()
         
         # 模拟 弑神枪 的配置
@@ -32,7 +35,7 @@ class TestEffectDescI18n:
         assert "avatar.weapon_proficiency" not in text
         
         # 切换语言测试
-        language_manager.set_language("en-US")
+        language_manager.set_language(fallback_locale)
         reload_translations()
         
         text_en = format_effects_to_text(effects)
@@ -40,7 +43,9 @@ class TestEffectDescI18n:
 
     def test_format_effects_with_when_desc_override(self):
         """测试 when_desc 字段覆盖条件描述"""
-        language_manager.set_language("zh-CN")
+        source_locale = get_source_locale()
+        fallback_locale = get_fallback_locale()
+        language_manager.set_language(source_locale)
         reload_translations()
         
         # 模拟 万兽笛 的配置
@@ -58,7 +63,7 @@ class TestEffectDescI18n:
         assert "avatar.spirit_animal" not in text
         
         # 切换语言测试
-        language_manager.set_language("en-US")
+        language_manager.set_language(fallback_locale)
         reload_translations()
         
         text_en = format_effects_to_text(effects)
@@ -67,7 +72,7 @@ class TestEffectDescI18n:
 
     def test_mixed_effects_list(self):
         """测试效果列表（混合有无覆盖的情况）"""
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(get_source_locale())
         reload_translations()
         
         # 模拟 天道均衡 的配置 (列表形式)
@@ -93,7 +98,7 @@ class TestEffectDescI18n:
         
     def test_fallback_behavior(self):
         """测试没有 override 字段时的回退行为（确保不影响原有功能）"""
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(get_source_locale())
         reload_translations()
         
         # 普通效果，无 override

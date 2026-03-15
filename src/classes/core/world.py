@@ -12,7 +12,7 @@ from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
 from src.classes.history import History
 from src.utils.df import game_configs
-from src.classes.language import language_manager, LanguageType
+from src.classes.language import language_manager
 from src.i18n import t
 from src.classes.ranking import RankingManager
 from src.classes.war import SectWar, STATUS_PEACE, STATUS_WAR

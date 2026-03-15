@@ -1,36 +1,38 @@
 import os
 import pytest
 from pathlib import Path
-from src.classes.language import language_manager, LanguageType
+from src.classes.language import language_manager
 from src.utils.config import CONFIG, update_paths_for_language
 from src.utils.df import load_game_configs, reload_game_configs, game_configs
+from tools.i18n.locale_registry import get_default_locale, get_fallback_locale, get_locale_codes
 
 class TestLanguage:
     def setup_method(self):
         # Reset language to default before each test
-        language_manager.set_language("zh-CN")
+        language_manager.set_language(get_default_locale())
 
     def test_language_manager_defaults(self):
         """测试语言管理器默认状态"""
-        # 默认应该是 zh-CN
-        assert language_manager.current == LanguageType.ZH_CN
-        assert str(language_manager) == "zh-CN"
+        default_locale = get_default_locale()
+        assert language_manager.current == default_locale
+        assert str(language_manager) == default_locale
 
     def test_language_manager_switch(self):
         """测试语言切换"""
-        language_manager.set_language("en-US")
-        assert language_manager.current == LanguageType.EN_US
-        assert str(language_manager) == "en-US"
+        target_locale = get_fallback_locale()
+        language_manager.set_language(target_locale)
+        assert language_manager.current == target_locale
+        assert str(language_manager) == target_locale
         
         # 测试无效语言回退
         language_manager.set_language("invalid-lang")
-        assert language_manager.current == LanguageType.ZH_CN
+        assert language_manager.current == get_default_locale()
 
     def test_config_path_update(self):
         """测试路径更新逻辑"""
-        # 切到 en-US
-        language_manager.set_language("en-US")
-        update_paths_for_language("en-US")
+        target_locale = get_fallback_locale()
+        language_manager.set_language(target_locale)
+        update_paths_for_language(target_locale)
         
         # 重构后，game_configs 指向单一源 static/game_configs
         expected_game_configs = Path("static/game_configs")
@@ -38,9 +40,9 @@ class TestLanguage:
         assert CONFIG.paths.game_configs.resolve() == expected_game_configs.resolve()
         assert CONFIG.paths.shared_game_configs.resolve() == Path("static/game_configs").resolve()
 
-        # 切回 zh-CN
-        language_manager.set_language("zh-CN")
-        update_paths_for_language("zh-CN")
+        default_locale = get_default_locale()
+        language_manager.set_language(default_locale)
+        update_paths_for_language(default_locale)
         # 依然指向单一源
         expected_zh = Path("static/game_configs")
         assert CONFIG.paths.game_configs.resolve() == expected_zh.resolve()
@@ -132,7 +134,7 @@ class TestLanguage:
         from unittest.mock import MagicMock
 
         # 切换到英文
-        language_manager.set_language("en-US")
+        language_manager.set_language(get_fallback_locale())
         reload_translations()
 
         try:
@@ -212,7 +214,7 @@ class TestLanguage:
             assert cp.get_info() == "Qi Refinement Early Stage"
 
             # 切换回中文验证
-            language_manager.set_language("zh-CN")
+            language_manager.set_language(get_default_locale())
             reload_translations()
             
             assert str(ms) == "100灵石"
@@ -229,5 +231,5 @@ class TestLanguage:
             
         finally:
             # Restore to default just in case
-            language_manager.set_language("zh-CN")
+            language_manager.set_language(get_default_locale())
             reload_translations()

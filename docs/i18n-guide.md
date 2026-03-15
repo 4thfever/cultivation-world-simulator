@@ -50,6 +50,14 @@ web/src/locales/
 
 后续如果要新增语言，请先修改该文件，再处理目录、模板、PO/JSON 资源骨架。
 
+如果要正式新增一门语言，请优先阅读：
+
+- `docs/i18n-add-locale.md`
+
+如果要继续清理历史上残留的 locale 硬编码，请参考：
+
+- `docs/i18n-locale-hardcode-followup.md`
+
 ## 3. Workflow: Dynamic Text (Code)
 
 Use this workflow when adding internationalization to Python code (f-strings).

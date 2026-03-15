@@ -25,6 +25,7 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
+from tools.i18n.locale_registry import get_source_locale
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -158,7 +159,7 @@ class SectDecider:
         path = Path(f"static/locales/{lang}/templates/sect_decider.txt")
         if path.exists():
             return path
-        return Path("static/locales/zh-CN/templates/sect_decider.txt")
+        return Path(f"static/locales/{get_source_locale()}/templates/sect_decider.txt")
 
     @classmethod
     def _serialize_world_info(cls, world: "World") -> dict[str, Any]:

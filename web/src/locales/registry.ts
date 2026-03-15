@@ -1,34 +1,51 @@
-// Keep this file aligned with tools/i18n/locales.json until we add codegen.
-export const defaultLocale = 'zh-CN' as const
-export const fallbackLocale = 'en-US' as const
-export const schemaLocale = 'en-US' as const
+import localeRegistryData from '../../../tools/i18n/locales.json'
 
-export const localeRegistry = [
-  {
-    code: 'zh-CN',
-    label: '简体中文',
-    htmlLang: 'zh-CN',
-    enabled: true,
-  },
-  {
-    code: 'zh-TW',
-    label: '繁體中文',
-    htmlLang: 'zh-TW',
-    enabled: true,
-  },
-  {
-    code: 'en-US',
-    label: 'English',
-    htmlLang: 'en',
-    enabled: true,
-  },
-] as const
+type LocaleRegistryFile = {
+  default_locale: string
+  fallback_locale: string
+  schema_locale: string
+  locales: Array<{
+    code: string
+    label: string
+    html_lang: string
+    enabled?: boolean
+    source_of_truth?: boolean
+  }>
+}
 
-export type AppLocale = (typeof localeRegistry)[number]['code']
+type LocaleEntry = {
+  code: string
+  label: string
+  htmlLang: string
+  enabled: boolean
+  sourceOfTruth: boolean
+}
+
+const registry = localeRegistryData as LocaleRegistryFile
+
+export const defaultLocale = registry.default_locale
+export const fallbackLocale = registry.fallback_locale
+export const schemaLocale = registry.schema_locale
+
+export const localeRegistry: LocaleEntry[] = registry.locales.map((locale) => ({
+  code: locale.code,
+  label: locale.label,
+  htmlLang: locale.html_lang,
+  enabled: locale.enabled !== false,
+  sourceOfTruth: locale.source_of_truth === true,
+}))
+
+export type AppLocale = string
 
 export const enabledLocales = localeRegistry
   .filter((locale) => locale.enabled)
-  .map((locale) => locale.code) as AppLocale[]
+  .map((locale) => locale.code)
+
+const enabledLocaleSet = new Set(enabledLocales)
+
+export function isEnabledLocale(locale: string): boolean {
+  return enabledLocaleSet.has(locale)
+}
 
 export function getHtmlLang(locale: string): string {
   return localeRegistry.find((item) => item.code === locale)?.htmlLang || 'en'

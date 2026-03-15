@@ -156,7 +156,7 @@ export interface AudioSettingsDTO {
 }
 
 export interface UISettingsDTO {
-  locale: 'zh-CN' | 'zh-TW' | 'en-US' | string;
+  locale: AppLocale | string;
   audio: AudioSettingsDTO;
 }
 
@@ -185,7 +185,7 @@ export interface LLMConfigDTO {
 }
 
 export interface RunConfigDTO {
-  content_locale: 'zh-CN' | 'zh-TW' | 'en-US' | string;
+  content_locale: AppLocale | string;
   init_npc_num: number;
   sect_num: number;
   npc_awakening_rate_per_month: number;
