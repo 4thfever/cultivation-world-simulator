@@ -3,6 +3,8 @@ import pytest
 from src.sim.avatar_init import make_avatars, AvatarFactory, PopulationPlanner
 from src.classes.age import Age
 from src.systems.cultivation import CultivationProgress
+from src.classes.relation.relation import Relation
+from src.classes.core.sect import sects_by_id
 
 
 class TestAgeLifespanConstraint:
@@ -99,4 +101,56 @@ class TestRealmLifespanMapping:
         for avatar in fe_avatars:
             assert avatar.age.age < limit, (
                 f"筑基期角色 {avatar.name} 年龄 {avatar.age.age} 超过 {limit}"
+            )
+
+
+class TestInitialRelationConstraints:
+    """测试开局批量生成时的关系约束."""
+
+    def test_batch_creation_parent_child_constraints(self, base_world):
+        """亲子关系应满足年龄和等级差约束."""
+        for _ in range(10):
+            avatars = make_avatars(base_world, count=80)
+            for avatar in avatars.values():
+                for other, relation in avatar.relations.items():
+                    if relation is not Relation.IS_CHILD_OF:
+                        continue
+                    assert avatar.age.age - other.age.age >= 16, (
+                        f"父母 {avatar.name}({avatar.age.age}) 与子女 "
+                        f"{other.name}({other.age.age}) 年龄差不合法"
+                    )
+                    assert avatar.cultivation_progress.level - other.cultivation_progress.level >= 10, (
+                        f"父母 {avatar.name}({avatar.cultivation_progress.level}) 与子女 "
+                        f"{other.name}({other.cultivation_progress.level}) 等级差不合法"
+                    )
+
+    def test_batch_creation_master_disciple_constraints(self, base_world):
+        """师徒关系应满足等级差约束."""
+        sects = list(sects_by_id.values())
+        for _ in range(10):
+            avatars = make_avatars(base_world, count=80, existed_sects=sects)
+            found_master_pair = False
+            for avatar in avatars.values():
+                for other, relation in avatar.relations.items():
+                    if relation is not Relation.IS_DISCIPLE_OF:
+                        continue
+                    found_master_pair = True
+                    assert avatar.cultivation_progress.level - other.cultivation_progress.level >= 20, (
+                        f"师傅 {avatar.name}({avatar.cultivation_progress.level}) 与徒弟 "
+                        f"{other.name}({other.cultivation_progress.level}) 等级差不合法"
+                    )
+            if found_master_pair:
+                break
+        else:
+            pytest.skip("本轮随机未生成师徒关系，跳过约束断言")
+
+    def test_batch_creation_cultivation_start_not_in_future(self, base_world):
+        """所有初始角色的修炼开始时间都不应晚于当前时间."""
+        avatars = make_avatars(base_world, count=120, current_month_stamp=base_world.month_stamp)
+        current_month = int(base_world.month_stamp)
+        for avatar in avatars.values():
+            assert avatar.cultivation_start_month_stamp is not None
+            assert int(avatar.cultivation_start_month_stamp) <= current_month, (
+                f"角色 {avatar.name} 的修炼开始时间 "
+                f"{int(avatar.cultivation_start_month_stamp)} 晚于当前时间 {current_month}"
             )

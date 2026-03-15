@@ -7,6 +7,8 @@ from src.classes.relation.relation import Relation, get_relation_label
 from src.systems.cultivation import CultivationProgress, Realm
 from src.utils.id_generator import get_avatar_id
 from src.sim.avatar_init import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner
+from src.classes.core.sect import sects_by_id
+import src.sim.avatar_init as avatar_init_module
 
 @pytest.fixture
 def mock_world(base_world):
@@ -124,3 +126,56 @@ def test_population_planner_relations(mock_world):
         # 如果随机没随到家庭，我们可以认为只要没报错且逻辑通顺就行，
         # 或者可以 mock random 来强制覆盖路径，但在集成测试中只要多跑几次通常能覆盖
         pass
+
+
+def test_population_planner_can_generate_small_family_cluster(monkeypatch):
+    """家庭规划应支持一个家长对应多个子女。"""
+    monkeypatch.setattr(avatar_init_module, "FAMILY_TRIGGER_PROB", 1.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_PAIR_CAP_DIV", 4)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_CHILDREN_MAX", 3)
+
+    found_cluster = False
+    for _ in range(20):
+        plan = PopulationPlanner.plan_group(24, existed_sects=None)
+        child_count_by_parent: dict[int, int] = {}
+        for (parent_idx, child_idx), relation in plan.relations.items():
+            if relation is not Relation.IS_CHILD_OF:
+                continue
+            child_count_by_parent[parent_idx] = child_count_by_parent.get(parent_idx, 0) + 1
+        if any(count >= 2 for count in child_count_by_parent.values()):
+            found_cluster = True
+            break
+
+    assert found_cluster, "未生成任何一个家长对应多个子女的小家庭簇"
+
+
+def test_family_members_do_not_overconcentrate_in_one_sect(monkeypatch):
+    """同一小家庭落在同一宗门的人数不应超过上限。"""
+    monkeypatch.setattr(avatar_init_module, "FAMILY_TRIGGER_PROB", 1.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_PAIR_CAP_DIV", 4)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_CHILDREN_MAX", 3)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_PARENT_SECT_FOLLOW_PROB", 1.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_OTHER_SECT_PROB", 0.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_SAME_SECT_CAP", 2)
+
+    plan = PopulationPlanner.plan_group(30, existed_sects=list(sects_by_id.values()))
+
+    family_members: dict[int, list[int]] = {}
+    for (parent_idx, child_idx), relation in plan.relations.items():
+        if relation is not Relation.IS_CHILD_OF:
+            continue
+        family_members.setdefault(parent_idx, [parent_idx]).append(child_idx)
+
+    assert family_members, "未生成家庭关系，无法验证宗门分散规则"
+
+    for members in family_members.values():
+        sect_counts: dict[int, int] = {}
+        for idx in members:
+            sect = plan.sects[idx]
+            if sect is None:
+                continue
+            sect_counts[sect.id] = sect_counts.get(sect.id, 0) + 1
+        if sect_counts:
+            assert max(sect_counts.values()) <= avatar_init_module.FAMILY_SAME_SECT_CAP, (
+                f"家庭成员宗门过于集中: {sect_counts}"
+            )

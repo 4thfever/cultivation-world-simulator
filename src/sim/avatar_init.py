@@ -34,6 +34,10 @@ LEVEL_MAX: int = 120
 FAMILY_PAIR_CAP_DIV: int = 6            # 家庭上限：n // 6
 FAMILY_TRIGGER_PROB: float = 0.35       # 生成家庭对概率
 FATHER_CHILD_PROB: float = 0.60         # 家庭为父子（同姓、父为男）的概率；否则母子（异姓、母为女）
+FAMILY_CHILDREN_MAX: int = 3            # 单个小家庭最多额外生成的子女人数
+FAMILY_SAME_SECT_CAP: int = 2           # 同一小家庭落在同一宗门的人数上限
+FAMILY_PARENT_SECT_FOLLOW_PROB: float = 0.50
+FAMILY_OTHER_SECT_PROB: float = 0.30
 
 LOVERS_PAIR_CAP_DIV: int = 5            # 道侣两两预算：n // 5
 LOVERS_TRIGGER_PROB: float = 0.25       # 生成一对道侣的概率（强制异性）
@@ -120,6 +124,110 @@ class PopulationPlan:
     genders: List[Optional[Gender]]
     surnames: List[Optional[str]]
     relations: Dict[Tuple[int, int], Relation]
+
+
+@dataclass(frozen=True)
+class ConstraintEdge:
+    stronger: int
+    weaker: int
+    min_gap: int
+    relation_key: Tuple[int, int]
+
+
+def _topological_sort(node_count: int, edges: list[ConstraintEdge]) -> list[int] | None:
+    incoming = [0] * node_count
+    outgoing: dict[int, list[int]] = {idx: [] for idx in range(node_count)}
+    for edge in edges:
+        if edge.stronger == edge.weaker:
+            return None
+        outgoing.setdefault(edge.stronger, []).append(edge.weaker)
+        incoming[edge.weaker] += 1
+
+    queue = [idx for idx in range(node_count) if incoming[idx] == 0]
+    order: list[int] = []
+    head = 0
+    while head < len(queue):
+        node = queue[head]
+        head += 1
+        order.append(node)
+        for nxt in outgoing.get(node, []):
+            incoming[nxt] -= 1
+            if incoming[nxt] == 0:
+                queue.append(nxt)
+
+    if len(order) != node_count:
+        return None
+    return order
+
+
+def _solve_constrained_values(
+    node_count: int,
+    *,
+    min_value: int,
+    max_values: list[int],
+    edges: list[ConstraintEdge],
+) -> tuple[list[int], list[ConstraintEdge]]:
+    active_edges = list(edges)
+
+    while True:
+        order = _topological_sort(node_count, active_edges)
+        if order is None:
+            if not active_edges:
+                break
+            active_edges.pop()
+            continue
+
+        upper_bounds = list(max_values)
+        impossible_edge: ConstraintEdge | None = None
+
+        for node in order:
+            node_upper = upper_bounds[node]
+            if node_upper < min_value:
+                incoming = [edge for edge in active_edges if edge.weaker == node]
+                impossible_edge = incoming[0] if incoming else None
+                break
+            for edge in active_edges:
+                if edge.stronger != node:
+                    continue
+                candidate = node_upper - edge.min_gap
+                if candidate < upper_bounds[edge.weaker]:
+                    upper_bounds[edge.weaker] = candidate
+                    if upper_bounds[edge.weaker] < min_value:
+                        impossible_edge = edge
+                        break
+            if impossible_edge is not None:
+                break
+
+        if impossible_edge is not None:
+            active_edges = [edge for edge in active_edges if edge != impossible_edge]
+            continue
+
+        assigned = [min_value] * node_count
+        outgoing: dict[int, list[ConstraintEdge]] = {idx: [] for idx in range(node_count)}
+        for edge in active_edges:
+            outgoing.setdefault(edge.stronger, []).append(edge)
+
+        impossible_outgoing: ConstraintEdge | None = None
+        for node in reversed(order):
+            lower_bound = min_value
+            for edge in outgoing.get(node, []):
+                lower_bound = max(lower_bound, assigned[edge.weaker] + edge.min_gap)
+            if lower_bound > upper_bounds[node]:
+                impossible_outgoing = max(
+                    outgoing.get(node, []),
+                    key=lambda edge: assigned[edge.weaker] + edge.min_gap,
+                    default=None,
+                )
+                break
+            assigned[node] = random.randint(lower_bound, upper_bounds[node])
+
+        if impossible_outgoing is not None:
+            active_edges = [edge for edge in active_edges if edge != impossible_outgoing]
+            continue
+
+        return assigned, active_edges
+
+    return [random.randint(min_value, max(min_value, upper)) for upper in max_values], []
 
 class MortalPlanner:
     """
@@ -218,40 +326,49 @@ class PopulationPlanner:
         # — 家庭 —
         unused_indices = list(range(n))
         random.shuffle(unused_indices)
+        family_groups: list[list[int]] = []
 
-        def _reserve_pair() -> tuple[int, int] | None:
-            if len(unused_indices) < 2:
-                return None
-            a = unused_indices.pop()
-            b = unused_indices.pop()
-            return (a, b)
+        family_groups_budget = max(0, n // FAMILY_PAIR_CAP_DIV)
+        for _ in range(family_groups_budget):
+            if random.random() >= FAMILY_TRIGGER_PROB or len(unused_indices) < 2:
+                continue
 
-        family_pairs_budget = max(0, n // FAMILY_PAIR_CAP_DIV)
-        for _ in range(family_pairs_budget):
-            if random.random() < FAMILY_TRIGGER_PROB:
-                pair = _reserve_pair()
-                if pair is None:
-                    break
-                a, b = pair
-                if random.random() < FATHER_CHILD_PROB:
-                    surname = pick_surname_for_sect(planned_sect[a] or planned_sect[b])
-                    planned_surname[a] = surname
-                    planned_surname[b] = surname
-                    planned_gender[a] = Gender.MALE
-                    # 设定 a 为父，b 为子
-                    planned_relations[(a, b)] = Relation.IS_CHILD_OF
-                else:
-                    mother = a if random.random() < 0.5 else b
-                    child = b if mother == a else a
-                    planned_gender[mother] = Gender.FEMALE
-                    mom_surname = pick_surname_for_sect(planned_sect[mother])
-                    planned_surname[mother] = mom_surname
-                    for _ in range(5):
-                        s = pick_surname_for_sect(planned_sect[child])
-                        if s != mom_surname:
-                            planned_surname[child] = s
-                            break
-                    planned_relations[(mother, child)] = Relation.IS_CHILD_OF
+            max_family_size = min(len(unused_indices), FAMILY_CHILDREN_MAX + 1)
+            if max_family_size < 2:
+                break
+
+            family_size = random.randint(2, max_family_size)
+            members = [unused_indices.pop() for _ in range(family_size)]
+            parent_idx = members[0]
+            child_indices = members[1:]
+            family_groups.append(members)
+
+            if random.random() < FATHER_CHILD_PROB:
+                surname = pick_surname_for_sect(planned_sect[parent_idx] or planned_sect[child_indices[0]])
+                planned_gender[parent_idx] = Gender.MALE
+                planned_surname[parent_idx] = surname
+                for child_idx in child_indices:
+                    planned_surname[child_idx] = surname
+                    planned_relations[(parent_idx, child_idx)] = Relation.IS_CHILD_OF
+            else:
+                planned_gender[parent_idx] = Gender.FEMALE
+                mom_surname = pick_surname_for_sect(planned_sect[parent_idx])
+                planned_surname[parent_idx] = mom_surname
+                child_surname: Optional[str] = None
+                for _ in range(5):
+                    candidate = pick_surname_for_sect(planned_sect[parent_idx])
+                    if candidate != mom_surname:
+                        child_surname = candidate
+                        break
+                if child_surname is None:
+                    child_surname = pick_surname_for_sect(planned_sect[parent_idx])
+                for child_idx in child_indices:
+                    planned_surname[child_idx] = child_surname
+                    planned_relations[(parent_idx, child_idx)] = Relation.IS_CHILD_OF
+
+        if use_sects and existed_sects:
+            for family in family_groups:
+                PopulationPlanner._rebalance_family_sects(planned_sect, family, existed_sects)
 
         leftover = unused_indices[:]
 
@@ -327,6 +444,79 @@ class PopulationPlanner:
             counts[s.id] = counts.get(s.id, 0) + 1
             chosen.append(s)
         return chosen
+
+    @staticmethod
+    def _pick_different_sect(
+        existed_sects: List[Sect],
+        current_counts: dict[int, int],
+        banned_sect_ids: set[int],
+    ) -> Optional[Sect]:
+        candidates = [sect for sect in existed_sects if sect.id not in banned_sect_ids]
+        if not candidates:
+            return None
+        min_count = min(current_counts.get(sect.id, 0) for sect in candidates)
+        tied = [sect for sect in candidates if current_counts.get(sect.id, 0) == min_count]
+        return random.choice(tied)
+
+    @staticmethod
+    def _rebalance_family_sects(
+        planned_sect: list[Optional[Sect]],
+        family: list[int],
+        existed_sects: List[Sect],
+    ) -> None:
+        if not family:
+            return
+
+        family_counts: dict[int, int] = {}
+        for idx in family:
+            sect = planned_sect[idx]
+            if sect is not None:
+                family_counts[sect.id] = family_counts.get(sect.id, 0) + 1
+
+        if len(family) == 1:
+            return
+
+        parent_idx = family[0]
+        parent_sect = planned_sect[parent_idx]
+        global_counts: dict[int, int] = {sect.id: 0 for sect in existed_sects}
+        for sect in planned_sect:
+            if sect is not None:
+                global_counts[sect.id] = global_counts.get(sect.id, 0) + 1
+
+        if parent_sect is not None and family_counts.get(parent_sect.id, 0) > FAMILY_SAME_SECT_CAP:
+            family_counts[parent_sect.id] = 1
+
+        for idx in family[1:]:
+            current = planned_sect[idx]
+            if current is not None and family_counts.get(current.id, 0) > FAMILY_SAME_SECT_CAP:
+                family_counts[current.id] -= 1
+                global_counts[current.id] = max(0, global_counts.get(current.id, 0) - 1)
+                current = None
+
+            roll = random.random()
+            chosen = current
+            if parent_sect is not None and family_counts.get(parent_sect.id, 0) < FAMILY_SAME_SECT_CAP and roll < FAMILY_PARENT_SECT_FOLLOW_PROB:
+                chosen = parent_sect
+            elif roll < FAMILY_PARENT_SECT_FOLLOW_PROB + FAMILY_OTHER_SECT_PROB:
+                banned = {
+                    sect_id
+                    for sect_id, count in family_counts.items()
+                    if count >= FAMILY_SAME_SECT_CAP
+                }
+                replacement = PopulationPlanner._pick_different_sect(existed_sects, global_counts, banned)
+                chosen = replacement
+            else:
+                chosen = None
+
+            previous = planned_sect[idx]
+            if previous is not None and previous is not chosen:
+                family_counts[previous.id] = max(0, family_counts.get(previous.id, 0) - 1)
+                global_counts[previous.id] = max(0, global_counts.get(previous.id, 0) - 1)
+
+            planned_sect[idx] = chosen
+            if chosen is not None:
+                family_counts[chosen.id] = family_counts.get(chosen.id, 0) + 1
+                global_counts[chosen.id] = global_counts.get(chosen.id, 0) + 1
 
 
 class RelationApplier:
@@ -451,7 +641,9 @@ class AvatarFactory:
 
         # 在构造 Avatar 实例后计算并赋值：
         if avatar.cultivation_start_month_stamp is None:
-            start_age = random.randint(16, max(16, age.age))
+            months_since_birth = max(0, int(current_month_stamp) - int(birth_month_stamp))
+            max_start_age = max(16, min(age.age, months_since_birth // 12))
+            start_age = random.randint(16, max_start_age)
             avatar.cultivation_start_month_stamp = MonthStamp(int(birth_month_stamp) + start_age * 12)
 
         SectRankAssigner.assign_one(avatar, world)
@@ -463,6 +655,13 @@ class AvatarFactory:
                 plan.parent_avatar.acknowledge_child(avatar)
             if plan.master_avatar is not None:
                 plan.master_avatar.accept_disciple(avatar)
+            from src.classes.relation.relations import update_second_degree_relations
+
+            if plan.parent_avatar is not None:
+                update_second_degree_relations(plan.parent_avatar)
+            if plan.master_avatar is not None:
+                update_second_degree_relations(plan.master_avatar)
+            update_second_degree_relations(avatar)
 
         if avatar.technique is not None:
             mapped = attribute_to_root(avatar.technique.attribute)
@@ -488,31 +687,48 @@ class AvatarFactory:
         n = len(planned_sect)
         width, height = world.map.width, world.map.height
 
-        ages: list[int] = [random.randint(AGE_MIN, AGE_MAX) for _ in range(n)]
-        levels: list[int] = [random.randint(LEVEL_MIN, LEVEL_MAX) for _ in range(n)]
-
-        for (a, b), rel in list(planned_relations.items()):
+        constrained_relations = dict(planned_relations)
+        level_edges: list[ConstraintEdge] = []
+        for (a, b), rel in constrained_relations.items():
             if rel is Relation.IS_CHILD_OF:
-                if ages[a] <= ages[b] + (PARENT_MIN_DIFF - 1):
-                    ages[a] = min(PARENT_AGE_CAP, ages[b] + random.randint(PARENT_MIN_DIFF, PARENT_MAX_DIFF))
+                level_edges.append(ConstraintEdge(a, b, PARENT_LEVEL_MIN_DIFF, (a, b)))
+            elif rel is Relation.IS_DISCIPLE_OF:
+                level_edges.append(ConstraintEdge(a, b, MASTER_LEVEL_MIN_DIFF, (a, b)))
 
-        for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.IS_CHILD_OF:
-                if levels[a] <= levels[b]:
-                    levels[a] = min(LEVEL_MAX, levels[b] + 1)
-                if levels[a] < levels[b] + PARENT_LEVEL_MIN_DIFF:
-                    levels[a] = min(LEVEL_MAX, levels[b] + PARENT_LEVEL_MIN_DIFF + random.randint(0, PARENT_LEVEL_EXTRA_MAX))
+        levels, valid_level_edges = _solve_constrained_values(
+            n,
+            min_value=LEVEL_MIN,
+            max_values=[LEVEL_MAX for _ in range(n)],
+            edges=level_edges,
+        )
+        valid_level_relation_keys = {edge.relation_key for edge in valid_level_edges}
+        for (a, b), rel in list(constrained_relations.items()):
+            if rel in (Relation.IS_CHILD_OF, Relation.IS_DISCIPLE_OF) and (a, b) not in valid_level_relation_keys:
+                constrained_relations.pop((a, b), None)
 
-        for (a, b), rel in list(planned_relations.items()):
-            if rel is Relation.IS_DISCIPLE_OF:
-                if levels[a] < levels[b] + MASTER_LEVEL_MIN_DIFF:
-                    levels[a] = min(LEVEL_MAX, levels[b] + MASTER_LEVEL_MIN_DIFF + random.randint(0, MASTER_LEVEL_EXTRA_MAX))
-
+        age_edges = [
+            ConstraintEdge(a, b, PARENT_MIN_DIFF, (a, b))
+            for (a, b), rel in constrained_relations.items()
+            if rel is Relation.IS_CHILD_OF
+        ]
+        age_max_values = [AGE_MAX for _ in range(n)]
         for i in range(n):
             realm = CultivationProgress(levels[i]).realm
             max_lifespan = Age.REALM_LIFESPAN.get(realm, 100)
-            if ages[i] >= max_lifespan:
-                ages[i] = int(max_lifespan * random.uniform(0.8, 0.95))
+            age_max_values[i] = min(age_max_values[i], max(AGE_MIN, max_lifespan - 1))
+        for edge in age_edges:
+            age_max_values[edge.stronger] = min(age_max_values[edge.stronger], PARENT_AGE_CAP)
+
+        ages, valid_age_edges = _solve_constrained_values(
+            n,
+            min_value=AGE_MIN,
+            max_values=age_max_values,
+            edges=age_edges,
+        )
+        valid_age_relation_keys = {edge.relation_key for edge in valid_age_edges}
+        for (a, b), rel in list(constrained_relations.items()):
+            if rel is Relation.IS_CHILD_OF and (a, b) not in valid_age_relation_keys:
+                constrained_relations.pop((a, b), None)
 
         avatars_by_index: list[Avatar] = [None] * n  # type: ignore
         avatars_by_id: dict[str, Avatar] = {}
@@ -551,19 +767,13 @@ class AvatarFactory:
             avatar.magic_stone = MagicStone(50)
             avatar.tile = world.map.get_tile(x, y)
 
-            # 确定出生地
-            current_parents = []
-            for (p_idx, c_idx), rel in planned_relations.items():
-                 if rel == Relation.IS_CHILD_OF and c_idx == i:
-                     # 只有当父母已经被创建时才能作为参考（通常索引较小的先创建）
-                     if p_idx < len(avatars_by_index) and avatars_by_index[p_idx]:
-                         current_parents.append(avatars_by_index[p_idx])
-            
-            avatar.born_region_id = get_born_region_id(world, parents=current_parents, sect=sect)
+            avatar.born_region_id = get_born_region_id(world, parents=[], sect=sect)
 
             # 在构造 Avatar 实例后计算并赋值：
             if avatar.cultivation_start_month_stamp is None:
-                start_age = random.randint(16, max(16, age_years))
+                months_since_birth = max(0, int(current_month_stamp) - int(birth_month_stamp))
+                max_start_age = max(16, min(age_years, months_since_birth // 12))
+                start_age = random.randint(16, max_start_age)
                 avatar.cultivation_start_month_stamp = MonthStamp(int(birth_month_stamp) + start_age * 12)
 
             if sect is not None:
@@ -582,7 +792,23 @@ class AvatarFactory:
             avatars_by_id[avatar.id] = avatar
 
         SectRankAssigner.assign_batch(avatars_by_index, world)
-        RelationApplier.apply(avatars_by_index, planned_relations)
+        RelationApplier.apply(avatars_by_index, constrained_relations)
+
+        for i, avatar in enumerate(avatars_by_index):
+            if avatar is None:
+                continue
+            parents = [
+                avatars_by_index[p_idx]
+                for (p_idx, c_idx), rel in constrained_relations.items()
+                if rel is Relation.IS_CHILD_OF and c_idx == i and avatars_by_index[p_idx] is not None
+            ]
+            avatar.born_region_id = get_born_region_id(world, parents=parents, sect=avatar.sect)
+
+        from src.classes.relation.relations import update_second_degree_relations
+
+        for avatar in avatars_by_index:
+            if avatar is not None:
+                update_second_degree_relations(avatar)
 
         return avatars_by_id
 
