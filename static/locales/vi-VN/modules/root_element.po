@@ -1,0 +1,54 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Root Element
+msgid "gold_element"
+msgstr "Gold"
+
+msgid "root_dark"
+msgstr "Dark Root"
+
+msgid "root_earth"
+msgstr "Earth Root"
+
+msgid "root_fire"
+msgstr "Fire Root"
+
+# Root Keys
+msgid "root_gold"
+msgstr "Gold Root"
+
+msgid "root_heaven"
+msgstr "Heaven Root"
+
+msgid "root_ice"
+msgstr "Ice Root"
+
+msgid "root_thunder"
+msgstr "Thunder Root"
+
+msgid "root_water"
+msgstr "Water Root"
+
+msgid "root_wind"
+msgstr "Wind Root"
+
+msgid "root_wood"
+msgstr "Wood Root"
+
+msgid "water_element"
+msgstr "Water"
+
+msgid "wood_element"
+msgstr "Wood"

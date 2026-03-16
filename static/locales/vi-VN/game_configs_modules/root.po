@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. root.csv: 资质通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "Tư chất tuyệt thế; tinh thông cả ngũ hành."
+
+#. root.csv: 天灵根
+msgid "ROOT_10_NAME"
+msgstr "Thiên Linh Căn"
+
+#. root.csv: 刚强果断；攻击力强，适合剑修...
+msgid "ROOT_1_DESC"
+msgstr "Cương cường quả đoán; sức công kích mạnh."
+
+#. root.csv: 金灵根
+msgid "ROOT_1_NAME"
+msgstr "Kim Linh Căn"
+
+#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+msgid "ROOT_2_DESC"
+msgstr "Nhân hậu bền bỉ; giỏi hồi phục."
+
+#. root.csv: 木灵根
+msgid "ROOT_2_NAME"
+msgstr "Mộc Linh Căn"
+
+#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+msgid "ROOT_3_DESC"
+msgstr "Trí tuệ viên dung; thân pháp nhẹ nhàng."
+
+#. root.csv: 水灵根
+msgid "ROOT_3_NAME"
+msgstr "Thủy Linh Căn"
+
+#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "Nhiệt huyết bạo liệt; công pháp bộc phát cao."
+
+#. root.csv: 火灵根
+msgid "ROOT_4_NAME"
+msgstr "Hỏa Linh Căn"
+
+#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+msgid "ROOT_5_DESC"
+msgstr "Trầm ổn thực tế; phòng ngự cao."
+
+#. root.csv: 土灵根
+msgid "ROOT_5_NAME"
+msgstr "Thổ Linh Căn"
+
+#. root.csv: 爆发性极强；战斗系顶尖...
+msgid "ROOT_6_DESC"
+msgstr "Bộc phát cực mạnh; thuộc hàng đỉnh cao chiến đấu."
+
+#. root.csv: 雷灵根
+msgid "ROOT_6_NAME"
+msgstr "Lôi Linh Căn"
+
+#. root.csv: 控制力强；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "Khả năng khống chế mạnh; sức bền tốt."
+
+#. root.csv: 冰灵根
+msgid "ROOT_7_NAME"
+msgstr "Băng Linh Căn"
+
+#. root.csv: 身法卓绝；难以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "Thân pháp xuất chúng; khó mà nắm bắt."
+
+#. root.csv: 风灵根
+msgid "ROOT_8_NAME"
+msgstr "Phong Linh Căn"
+
+#. root.csv: 隐匿系；擅幻术与诡道...
+msgid "ROOT_9_DESC"
+msgstr "Thiên về ẩn nặc; giỏi huyễn thuật và quỷ đạo."
+
+#. root.csv: 暗灵根
+msgid "ROOT_9_NAME"
+msgstr "Ám Linh Căn"

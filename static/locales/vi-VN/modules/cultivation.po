@@ -1,0 +1,41 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Died from severe injuries"
+msgstr "Trọng thương bất trị mà vẫn lạc"
+
+msgid "Died of old age"
+msgstr "Thọ nguyên hao tận mà vẫn lạc"
+
+# ============================================================================
+# Cultivation System - Realm
+# ============================================================================
+# Realm Status
+msgid "Needs breakthrough"
+msgstr "Cần Đột Phá"
+
+msgid "No"
+msgstr "Không"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "Chưa tới bình cảnh, không cần đột phá"
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}(Cấp {level}). Bình cảnh: {status}"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}(Cấp {level}){status}"

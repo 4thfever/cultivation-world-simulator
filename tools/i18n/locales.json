@@ -21,6 +21,12 @@
       "label": "English",
       "html_lang": "en",
       "enabled": true
+    },
+    {
+      "code": "vi-VN",
+      "label": "Tiếng Việt",
+      "html_lang": "vi",
+      "enabled": true
     }
   ]
 }

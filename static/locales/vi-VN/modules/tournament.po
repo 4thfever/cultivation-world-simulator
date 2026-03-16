@@ -1,0 +1,90 @@
+#
+msgid ""
+msgstr ""
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "Thiên hạ võ đạo hội đang diễn ra..."
+
+msgid "tournament_start_heaven"
+msgstr "Thiên bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_start_earth"
+msgstr "Địa bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_start_human"
+msgstr "Nhân bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_battle_result"
+msgstr "Trong trận tỷ đấu võ đạo hội, {winner} đã đánh bại {loser}."
+
+msgid "tournament_end_heaven"
+msgstr ""
+"Thiên bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "tournament_end_earth"
+msgstr "Địa bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "tournament_end_human"
+msgstr "Nhân bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "effect_tournament_heaven_first"
+msgstr "Thiên bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid "effect_tournament_earth_first"
+msgstr "Địa bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid "effect_tournament_human_first"
+msgstr "Nhân bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid ""
+"Event Type: World Martial Arts Tournament\n"
+"Scene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr ""
+"Loại sự kiện: Thiên hạ võ đạo hội\n"
+"Thiết lập bối cảnh: Đại hội võ đạo được tổ chức để quyết ra người mạnh nhất ở từng cảnh giới, vạn chúng chú mục, khí thế ngút trời."
+
+msgid ""
+"\n"
+"【Tournament Information】\n"
+msgstr ""
+"\n"
+"【Thông tin võ đạo hội】\n"
+
+msgid "List: {list_name}\n"
+msgstr "Bảng: {list_name}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "Người chiến thắng: {winner}\n"
+
+msgid ""
+"\n"
+"【Finalists Information】\n"
+msgstr ""
+"\n"
+"【Thông tin trận chung kết】\n"
+
+msgid "tournament_story_prompt"
+msgstr ""
+"Hãy dựa trên kết quả võ đạo hội phía trên để viết một câu chuyện sinh động "
+"(khoảng 400-500 chữ). Miêu tả cảnh giao phong kịch liệt giữa hai tuyển thủ "
+"chung kết, chi tiết va chạm giữa các pháp bảo, phong thái oai hùng của người "
+"chiến thắng cuối cùng cùng phản ứng của quần chúng. Văn phong phải phù hợp "
+"với bối cảnh thế giới tu tiên. Chỉ xuất văn bản thuần, không dùng cú pháp markdown."
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "Trận chung kết: {winner} vs {loser}\n"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr ""
+"Thiên hạ võ đạo hội kỳ này bị hủy vì số lượng người tham gia không đủ."
+
+msgid "tournament_heaven"
+msgstr "Thiên bảng đệ nhất"
+
+msgid "tournament_earth"
+msgstr "Địa bảng đệ nhất"
+
+msgid "tournament_human"
+msgstr "Nhân bảng đệ nhất"

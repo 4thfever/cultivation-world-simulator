@@ -1,0 +1,4030 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr ""
+"Cự hình yêu thú mang huyết mạch thượng cổ, da lông cứng như sắt, mỗi bước đi"
+" đều làm đất rung núi chuyển, sức mạnh vô cùng."
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "Hám Địa Thần Ngưu"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr ""
+"Yêu thú máu lạnh sống sâu trong vùng đất đóng băng, thân thể do xương bán "
+"trong suốt và băng sương hợp thành, vô thanh vô tức, có thể lập tức đóng "
+"băng con mồi."
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "Băng Phách Cốt Xà"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr ""
+"Linh thỏ trời sinh lanh lợi, lông trắng như tuyết, ẩn chứa chút linh lực yếu"
+" ớt, tính tình ôn hòa, dễ thuần hóa."
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "Linh Thỏ"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr ""
+"Lang tộc mang ma tính vô cùng hung mãnh, thân hình to lớn, sở hữu ma lực "
+"cường đại cùng vuốt răng sắc nhọn."
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "Ma Lang"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr ""
+"Linh thú ôn hòa sống trên bình nguyên, toàn thân xanh biếc, sừng như ngọc "
+"thạch, giỏi cảm nhận biến hóa của linh khí."
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "Thanh Vân Lộc"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr ""
+"Thợ săn nhanh nhẹn nơi Nam Cương man hoang, thân hình như bóng, vuốt răng "
+"sắc lẹm, giỏi ẩn nấp săn mồi."
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "Ám Ảnh Báo"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr ""
+"Cổ lão linh thú của biển biếc vô biên, mai rùa như bích ngọc, có thể điều "
+"khiển hải thủy, tuổi thọ cực dài."
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "Bích Hải Long Quy"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr ""
+"Kẻ hộ vệ cường tráng của dãy Thanh Phong Sơn, da lông cứng như bàn thạch, "
+"lực lớn vô cùng, tính tình chất phác."
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "Thạch Giáp Sơn Hùng"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr ""
+"Thần tuấn linh thú tung hoành khắp bích dã ngàn dặm, tứ đề sinh phong, tốc "
+"độ như điện, bờm tung bay."
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "Phong Tốc Mã"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr ""
+"Linh thú hệ Hỏa trong Viêm Ngục Hỏa Sơn, vảy đỏ rực như lửa, có thể bơi "
+"trong dung nham và phun ra liệt diễm."
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "Dung Nham Tích Dịch"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr ""
+"Sinh vật kịch độc của Mê Vụ Chiểu Trạch, thân thể sặc sỡ, có thể phóng thích"
+" độc khí chí mạng, giỏi ẩn nấp."
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "Độc Chướng Oa"
+
+#. auxiliary.csv: 以灵木纤维编织，生机盎然，防御尚可....
+msgid "AUXILIARY_2001_DESC"
+msgstr "Dệt từ sợi linh mộc, sinh cơ dạt dào, lực phòng ngự cũng khá."
+
+#. auxiliary.csv: 木灵甲
+msgid "AUXILIARY_2001_NAME"
+msgstr "Mộc Linh Giáp"
+
+#. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
+msgid "AUXILIARY_2002_DESC"
+msgstr ""
+"Sinh nơi chí dương chi địa, sắc đỏ như huyết, không chỉ chữa thương mà còn "
+"có thể tăng tiến công lực."
+
+#. auxiliary.csv: 血菩提
+msgid "AUXILIARY_2002_NAME"
+msgstr "Huyết Tinh Quả"
+
+#. auxiliary.csv: 虽不及真品，闻一闻也能活三百六十岁....
+msgid "AUXILIARY_2003_DESC"
+msgstr ""
+"Tuy không bằng chân phẩm, chỉ ngửi một hơi cũng đủ tăng thêm ba trăm sáu "
+"mươi năm tuổi thọ."
+
+#. auxiliary.csv: 人参果(伪)
+msgid "AUXILIARY_2003_NAME"
+msgstr "Nhân Sâm Quả (Ngụy)"
+
+#. auxiliary.csv: 千帆城通用的高级商令。...
+msgid "AUXILIARY_2004_DESC"
+msgstr "Thương lệnh cao cấp thông dụng tại Thiên Phàm Thành."
+
+#. auxiliary.csv: 万宝令
+msgid "AUXILIARY_2004_NAME"
+msgstr "Vạn Bảo Lệnh"
+
+#. auxiliary.csv: 提炼百斤凡铁才得一两，提升法器品质的基础...
+msgid "AUXILIARY_2005_DESC"
+msgstr ""
+"Phải tinh luyện trăm cân phàm thiết mới được một lạng, là nguyên liệu nền "
+"tảng để nâng cao phẩm chất pháp khí."
+
+#. auxiliary.csv: 铁精
+msgid "AUXILIARY_2005_NAME"
+msgstr "Thiết Tinh"
+
+#. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
+msgid "AUXILIARY_2006_DESC"
+msgstr ""
+"Có thể khám phá hư vọng, động sát bản nguyên, tìm kiếm linh cơ trời đất, "
+"trực thị Đại Đạo."
+
+#. auxiliary.csv: 源天神眼
+msgid "AUXILIARY_2006_NAME"
+msgstr "Thông Thiên Pháp Nhãn"
+
+#. auxiliary.csv: 步履生云，身轻如燕，赶路必备....
+msgid "AUXILIARY_2007_DESC"
+msgstr "Bước chân sinh vân, thân nhẹ như yến, là vật thiết yếu khi lên đường."
+
+#. auxiliary.csv: 踏云靴
+msgid "AUXILIARY_2007_NAME"
+msgstr "Đạp Vân Ngoa"
+
+#. auxiliary.csv: 佛门至宝，持之可灵台清明，悟性大增....
+msgid "AUXILIARY_2008_DESC"
+msgstr ""
+"Chí bảo Phật môn, mang theo có thể khiến linh đài thanh minh, ngộ tính tăng "
+"nhiều."
+
+#. auxiliary.csv: 菩提子
+msgid "AUXILIARY_2008_NAME"
+msgstr "Bồ Đề Tử"
+
+#. auxiliary.csv: 刀枪不入，水火不侵，贴身软甲....
+msgid "AUXILIARY_2009_DESC"
+msgstr "Đao thương bất nhập, thủy hỏa bất xâm, là nhuyễn giáp mặc sát người."
+
+#. auxiliary.csv: 金丝软甲
+msgid "AUXILIARY_2009_NAME"
+msgstr "Kim Ty Nhuyễn Giáp"
+
+#. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
+msgid "AUXILIARY_2010_DESC"
+msgstr ""
+"Chế từ huyền băng cực bắc, tu luyện trên đó có thể trấn áp tâm hỏa, đạt hiệu"
+" quả gấp đôi với nửa công sức."
+
+#. auxiliary.csv: 寒玉床
+msgid "AUXILIARY_2010_NAME"
+msgstr "Huyền Băng Ngọc Sàng"
+
+#. auxiliary.csv: 千人千面，不仅掩盖容貌，更能掩盖气息....
+msgid "AUXILIARY_2011_DESC"
+msgstr ""
+"Thiên nhân thiên diện, không chỉ che giấu dung mạo mà còn có thể ẩn đi khí "
+"tức."
+
+#. auxiliary.csv: 无相面具
+msgid "AUXILIARY_2011_NAME"
+msgstr "Vô Tướng Diện Cụ"
+
+#. auxiliary.csv: 飞行法器，速度极快，居家旅行杀人越货必备...
+msgid "AUXILIARY_2051_DESC"
+msgstr ""
+"Phi hành pháp khí, tốc độ cực nhanh, là vật tất bị cho lên đường và sát nhân"
+" đoạt bảo."
+
+#. auxiliary.csv: 神风舟
+msgid "AUXILIARY_2051_NAME"
+msgstr "Thần Phong Chu"
+
+#. auxiliary.csv: 上古神器，拥有穿梭时空之力，此为仿品，仅...
+msgid "AUXILIARY_2052_DESC"
+msgstr ""
+"Thượng cổ thần khí, có sức mạnh xuyên thoi thời không; đây là phỏng phẩm, "
+"chỉ có thể dòm xét phương xa."
+
+#. auxiliary.csv: 昆仑镜
+msgid "AUXILIARY_2052_NAME"
+msgstr "Côn Luân Kính"
+
+#. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
+msgid "AUXILIARY_2053_DESC"
+msgstr ""
+"Đoạt tạo hóa của trời đất, tụ tinh hoa của nhật nguyệt; linh dịch trong bình"
+" có thể thúc chín vạn vật."
+
+#. auxiliary.csv: 掌天瓶
+msgid "AUXILIARY_2053_NAME"
+msgstr "Tạo Hóa Thúy Bình"
+
+#. auxiliary.csv: 龙凤和鸣，心意相通，双修进境一日千里....
+msgid "AUXILIARY_2054_DESC"
+msgstr ""
+"Long phượng hòa minh, tâm ý tương thông, song tu tiến cảnh nhất nhật thiên "
+"lý."
+
+#. auxiliary.csv: 龙凤呈祥戒
+msgid "AUXILIARY_2054_NAME"
+msgstr "Long Phượng Trình Tường Giới"
+
+#. auxiliary.csv: 披上后身形尽隐，连神识也难以察觉....
+msgid "AUXILIARY_2055_DESC"
+msgstr ""
+"Khoác lên là thân hình hoàn toàn ẩn đi, ngay cả thần thức cũng khó mà nhận "
+"ra."
+
+#. auxiliary.csv: 隐形披风
+msgid "AUXILIARY_2055_NAME"
+msgstr "Ẩn Hình Phi Phong"
+
+#. auxiliary.csv: 套在妖兽颈上，任其凶焰滔天，也要乖乖听命...
+msgid "AUXILIARY_2056_DESC"
+msgstr ""
+"Đeo vào cổ yêu thú, mặc cho hung uy ngập trời cũng phải ngoan ngoãn tuân "
+"mệnh."
+
+#. auxiliary.csv: 御兽环
+msgid "AUXILIARY_2056_NAME"
+msgstr "Ngự Thú Hoàn"
+
+#. auxiliary.csv: 太虚幻境所化，万法不沾，防御力惊人....
+msgid "AUXILIARY_2057_DESC"
+msgstr ""
+"Hóa từ Thái Hư Huyễn Cảnh, vạn pháp bất triêm, lực phòng ngự kinh nhân."
+
+#. auxiliary.csv: 太虚甲
+msgid "AUXILIARY_2057_NAME"
+msgstr "Thái Hư Giáp"
+
+#. auxiliary.csv: 仿太上老君炼丹炉，丹成九转，药效倍增....
+msgid "AUXILIARY_2058_DESC"
+msgstr ""
+"Phỏng theo lò luyện đan của Thái Thượng Lão Quân, đan thành cửu chuyển, dược"
+" hiệu tăng gấp bội."
+
+#. auxiliary.csv: 八卦炉
+msgid "AUXILIARY_2058_NAME"
+msgstr "Bát Quái Lô"
+
+#. auxiliary.csv: 放入一文，取出万贯，财源滚滚....
+msgid "AUXILIARY_2059_DESC"
+msgstr "Bỏ vào một văn, lấy ra vạn quán, tài lộc cuồn cuộn không dứt."
+
+#. auxiliary.csv: 聚宝盆
+msgid "AUXILIARY_2059_NAME"
+msgstr "Tụ Bảo Bồn"
+
+#. auxiliary.csv: 以天地为炉，造化为工，炼制万物....
+msgid "AUXILIARY_2060_DESC"
+msgstr "Lấy thiên địa làm lô, tạo hóa làm công, luyện chế vạn vật."
+
+#. auxiliary.csv: 天地烘炉
+msgid "AUXILIARY_2060_NAME"
+msgstr "Thiên Địa Hồng Lô"
+
+#. auxiliary.csv: 背负六道，剑出轮回，悟剑良伴....
+msgid "AUXILIARY_2061_DESC"
+msgstr "Cõng lục đạo sau lưng, kiếm xuất luân hồi, là lương bạn để ngộ kiếm."
+
+#. auxiliary.csv: 六道剑匣
+msgid "AUXILIARY_2061_NAME"
+msgstr "Lục Đạo Kiếm Hạp"
+
+#. auxiliary.csv: 受命于天，既寿永昌。皇威浩荡，震慑宵小....
+msgid "AUXILIARY_2062_DESC"
+msgstr ""
+"Thụ mệnh ư thiên, ký thọ vĩnh xương; hoàng uy hạo đãng, chấn nhiếp gian tà."
+
+#. auxiliary.csv: 传国玉玺
+msgid "AUXILIARY_2062_NAME"
+msgstr "Truyền Quốc Ngọc Tỷ"
+
+#. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
+msgid "AUXILIARY_2063_DESC"
+msgstr ""
+"Nguồn linh khí có thể di chuyển, là phúc địa tu hành mang theo bên mình."
+
+#. auxiliary.csv: 灵眼之泉
+msgid "AUXILIARY_2063_NAME"
+msgstr "Linh Tuyền Chi Nhãn"
+
+#. auxiliary.csv: 血海不枯，冥河不死。极度邪恶的掠夺法宝....
+msgid "AUXILIARY_2064_DESC"
+msgstr ""
+"Huyết hải bất khô, Minh Hà bất tử; đây là pháp bảo cướp đoạt tà ác đến cực "
+"điểm."
+
+#. auxiliary.csv: 万魂幡
+msgid "AUXILIARY_2064_NAME"
+msgstr "Vạn Hồn Phiên"
+
+#. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
+msgid "AUXILIARY_2065_DESC"
+msgstr ""
+"Được điêu khắc từ thần mộc thượng cổ, không chỉ có thể luyện chế thần đan mà"
+" còn tự thành không gian để thúc chín linh dược."
+
+#. auxiliary.csv: 神木王鼎
+msgid "AUXILIARY_2065_NAME"
+msgstr "Thanh Mộc Thần Đỉnh"
+
+#. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
+msgid "CELESTIAL_PHENOMENON_10_DESC"
+msgstr ""
+"Thiên địa linh khí bùng nổ phục hồi, tiến cảnh tu vi một ngày ngàn dặm, vạn "
+"vật cùng đua sinh trưởng, thích hợp toàn lực tinh tiến."
+
+#. celestial_phenomenon.csv: 灵气复苏
+msgid "CELESTIAL_PHENOMENON_10_NAME"
+msgstr "Linh Khí Phục Tô"
+
+#. celestial_phenomenon.csv: 灵气枯竭末法将至，修炼如逆水行舟，宜节约...
+msgid "CELESTIAL_PHENOMENON_11_DESC"
+msgstr ""
+"Linh khí khô kiệt, mạt pháp sắp tới; tu luyện như chèo thuyền ngược nước, "
+"nên tiết kiệm tài nguyên và ổn cố đạo tâm."
+
+#. celestial_phenomenon.csv: 灵气枯竭
+msgid "CELESTIAL_PHENOMENON_11_NAME"
+msgstr "Linh Khí Khô Kiệt"
+
+#. celestial_phenomenon.csv: 魔气滔天邪道大昌，魔修如鱼得水，正道修士...
+msgid "CELESTIAL_PHENOMENON_12_DESC"
+msgstr ""
+"Ma khí ngập trời, tà đạo đại xương; ma tu như cá gặp nước, chính đạo tu sĩ "
+"nên tránh mũi nhọn và lặng lẽ tích lũy."
+
+#. celestial_phenomenon.csv: 魔道兴盛
+msgid "CELESTIAL_PHENOMENON_12_NAME"
+msgstr "Ma Đạo Hưng Thịnh"
+
+#. celestial_phenomenon.csv: 浩然正气镇压邪祟，正道修士如有神助，魔修...
+msgid "CELESTIAL_PHENOMENON_13_DESC"
+msgstr ""
+"Hạo nhiên chính khí trấn áp tà túy, chính đạo tu sĩ như có thần trợ; ma tu "
+"nên thao quang dưỡng hối, chớ tự chuốc vận rủi."
+
+#. celestial_phenomenon.csv: 正气浩然
+msgid "CELESTIAL_PHENOMENON_13_NAME"
+msgstr "Chính Khí Hạo Nhiên"
+
+#. celestial_phenomenon.csv: 神兵有灵百兵齐鸣，兵器熟练度提升极快，宜...
+msgid "CELESTIAL_PHENOMENON_14_DESC"
+msgstr ""
+"Thần binh hữu linh, bách binh tề minh; độ thuần thục binh khí tăng cực "
+"nhanh, thích hợp cần luyện võ nghệ và mài giũa phong mang."
+
+#. celestial_phenomenon.csv: 神兵出世
+msgid "CELESTIAL_PHENOMENON_14_NAME"
+msgstr "Thần Binh Xuất Thế"
+
+#. celestial_phenomenon.csv: 阴阳交泰天地和合，彼此互补进境神速，最宜...
+msgid "CELESTIAL_PHENOMENON_15_DESC"
+msgstr ""
+"Âm dương giao thái, thiên địa hòa hợp; đôi bên bổ khuyết cho nhau, tiến cảnh"
+" thần tốc, thích hợp nhất để tìm kiếm đạo lữ cùng tham huyền diệu song tu."
+
+#. celestial_phenomenon.csv: 阴阳交泰
+msgid "CELESTIAL_PHENOMENON_15_NAME"
+msgstr "Âm Dương Giao Thái"
+
+#. celestial_phenomenon.csv: 血光冲天杀意难抑，虽杀伐之力大增但机缘断...
+msgid "CELESTIAL_PHENOMENON_16_DESC"
+msgstr ""
+"Huyết quang xung thiên, sát ý khó kìm; tuy sức sát phạt đại tăng nhưng cơ "
+"duyên đoạn tuyệt, nên chủ động xuất kích, lấy sát chứng đạo."
+
+#. celestial_phenomenon.csv: 杀劫降临
+msgid "CELESTIAL_PHENOMENON_16_NAME"
+msgstr "Sát Kiếp Giáng Lâm"
+
+#. celestial_phenomenon.csv: 天下太平万物安宁，虽苦修进境缓慢但机缘频...
+msgid "CELESTIAL_PHENOMENON_17_DESC"
+msgstr ""
+"Thiên hạ thái bình, vạn vật an ninh; tuy khổ tu tiến cảnh chậm nhưng kỳ ngộ "
+"liên tiếp xuất hiện, thích hợp du lịch thiên hạ để tìm kiếm cơ duyên."
+
+#. celestial_phenomenon.csv: 太平盛世
+msgid "CELESTIAL_PHENOMENON_17_NAME"
+msgstr "Thái Bình Thịnh Thế"
+
+#. celestial_phenomenon.csv: 天命眷顾气运所钟，天选之人万事皆顺，常人...
+msgid "CELESTIAL_PHENOMENON_18_DESC"
+msgstr ""
+"Thiên mệnh quyến cố, khí vận sở chung; thiên tuyển chi nhân vạn sự đều "
+"thuận, người thường chỉ có thể ngưỡng vọng, không thể cưỡng cầu."
+
+#. celestial_phenomenon.csv: 气运加身
+msgid "CELESTIAL_PHENOMENON_18_NAME"
+msgstr "Khí Vận Gia Thân"
+
+#. celestial_phenomenon.csv: 血月高悬人心躁动，战力虽强但静修困难，宜...
+msgid "CELESTIAL_PHENOMENON_19_DESC"
+msgstr ""
+"Huyết nguyệt treo cao, nhân tâm táo động; chiến lực tuy mạnh nhưng tĩnh tu "
+"khó khăn, nên lấy chiến dưỡng chiến để cướp đoạt tài nguyên."
+
+#. celestial_phenomenon.csv: 血月当空
+msgid "CELESTIAL_PHENOMENON_19_NAME"
+msgstr "Huyết Nguyệt Đương Không"
+
+#. celestial_phenomenon.csv: 天地灵气充沛，修士修行速度大增，修行欲望...
+msgid "CELESTIAL_PHENOMENON_1_DESC"
+msgstr ""
+"Thiên địa linh khí sung túc, tốc độ tu hành của tu sĩ tăng mạnh, dục vọng tu"
+" hành cũng theo đó dâng cao."
+
+#. celestial_phenomenon.csv: 紫气东来
+msgid "CELESTIAL_PHENOMENON_1_NAME"
+msgstr "Tử Khí Đông Lai"
+
+#. celestial_phenomenon.csv: 天门大开大道显现，感悟修行皆如有神助，正...
+msgid "CELESTIAL_PHENOMENON_20_DESC"
+msgstr ""
+"Thiên môn đại khai, Đại Đạo hiển hiện; cảm ngộ và tu hành đều như có thần "
+"trợ, chính là lúc xung kích cảnh giới, phi thăng thành tiên."
+
+#. celestial_phenomenon.csv: 飞升之门
+msgid "CELESTIAL_PHENOMENON_20_NAME"
+msgstr "Phi Thăng Chi Môn"
+
+#. celestial_phenomenon.csv: 天地法则清晰可触，瓶颈如纸一捅即破，万勿...
+msgid "CELESTIAL_PHENOMENON_21_DESC"
+msgstr ""
+"Pháp tắc thiên địa rõ ràng như có thể chạm tới, bình cảnh mỏng như giấy, chỉ"
+" chọc một cái là vỡ; chớ bỏ lỡ thiên ban lương cơ đột phá này."
+
+#. celestial_phenomenon.csv: 法则显化
+msgid "CELESTIAL_PHENOMENON_21_NAME"
+msgstr "Pháp Tắc Hiển Hóa"
+
+#. celestial_phenomenon.csv: 时空错乱异象频生，险地亦藏无上机缘，宜富...
+msgid "CELESTIAL_PHENOMENON_22_DESC"
+msgstr ""
+"Thời không hỗn loạn, dị tượng liên tiếp sinh ra; hiểm địa cũng ẩn giấu vô "
+"thượng cơ duyên, nên cầu phú quý trong nguy hiểm, thăm dò điều chưa biết."
+
+#. celestial_phenomenon.csv: 时空乱流
+msgid "CELESTIAL_PHENOMENON_22_NAME"
+msgstr "Thời Không Loạn Lưu"
+
+#. celestial_phenomenon.csv: 金煞充盈天地肃杀，修士更大可能嗜血而相互...
+msgid "CELESTIAL_PHENOMENON_2_DESC"
+msgstr ""
+"Kim sát tràn ngập, thiên địa túc sát; tu sĩ càng dễ khát máu rồi công phạt "
+"lẫn nhau."
+
+#. celestial_phenomenon.csv: 金煞之年
+msgid "CELESTIAL_PHENOMENON_2_NAME"
+msgstr "Kim Sát Chi Niên"
+
+#. celestial_phenomenon.csv: 木德滋养生机盎然，采集收获倍增且伤势恢复...
+msgid "CELESTIAL_PHENOMENON_3_DESC"
+msgstr ""
+"Mộc đức nuôi dưỡng, sinh cơ dạt dào; thu hoạch khi hái lượm tăng gấp đôi, "
+"thương thế hồi phục cực nhanh, thích hợp tứ xứ sưu la thiên tài địa bảo."
+
+#. celestial_phenomenon.csv: 木灵盛世
+msgid "CELESTIAL_PHENOMENON_3_NAME"
+msgstr "Mộc Linh Thịnh Thế"
+
+#. celestial_phenomenon.csv: 水行流转通达无碍，修炼效率与速度双重提升...
+msgid "CELESTIAL_PHENOMENON_4_DESC"
+msgstr ""
+"Thủy hành lưu chuyển, thông đạt vô ngại; hiệu suất và tốc độ tu luyện đồng "
+"thời tăng lên, chính là thời cơ tốt để bế quan khổ tu."
+
+#. celestial_phenomenon.csv: 水德之纪
+msgid "CELESTIAL_PHENOMENON_4_NAME"
+msgstr "Thủy Đức Chi Kỷ"
+
+#. celestial_phenomenon.csv: 天火燃烧劫数降临，战力暴涨但寿元流逝，当...
+msgid "CELESTIAL_PHENOMENON_5_DESC"
+msgstr ""
+"Thiên hỏa bùng cháy, kiếp số giáng lâm; chiến lực tăng vọt nhưng thọ nguyên "
+"không ngừng trôi mất, cần tốc chiến tốc thắng, lấy mệnh bác thiên."
+
+#. celestial_phenomenon.csv: 火劫时代
+msgid "CELESTIAL_PHENOMENON_5_NAME"
+msgstr "Hỏa Kiếp Thời Đại"
+
+#. celestial_phenomenon.csv: 土德厚重载物无疆，身躯坚韧血气充盈，可无...
+msgid "CELESTIAL_PHENOMENON_6_DESC"
+msgstr ""
+"Thổ đức dày nặng, tải vật vô cương; thân thể bền bỉ, huyết khí sung mãn, có "
+"thể không sợ cường địch mà chính diện tranh phong."
+
+#. celestial_phenomenon.csv: 土厚之世
+msgid "CELESTIAL_PHENOMENON_6_NAME"
+msgstr "Thổ Hậu Chi Thế"
+
+#. celestial_phenomenon.csv: 五行失序天地大乱，常规修炼事倍功半，然瓶...
+msgid "CELESTIAL_PHENOMENON_7_DESC"
+msgstr ""
+"Ngũ hành thất tự, thiên địa đại loạn; tu luyện thông thường tốn gấp bội mà "
+"công chỉ nửa phần, nhưng bình cảnh lại lỏng ra, thích hợp thử đột phá."
+
+#. celestial_phenomenon.csv: 五行逆乱
+msgid "CELESTIAL_PHENOMENON_7_NAME"
+msgstr "Ngũ Hành Nghịch Loạn"
+
+#. celestial_phenomenon.csv: 天道显化损有余而补不足，高阶修士进境受阻...
+msgid "CELESTIAL_PHENOMENON_8_DESC"
+msgstr ""
+"Thiên đạo hiển hóa, tổn hữu dư mà bổ bất túc; cao giai tu sĩ tiến cảnh bị "
+"ngăn trở, thấp giai tu sĩ nên nắm chặt lương cơ để đuổi kịp."
+
+#. celestial_phenomenon.csv: 天道均衡
+msgid "CELESTIAL_PHENOMENON_8_NAME"
+msgstr "Thiên Đạo Cân Bằng"
+
+#. celestial_phenomenon.csv: 劫数降临戾气弥漫，虽战力激增但福缘浅薄，...
+msgid "CELESTIAL_PHENOMENON_9_DESC"
+msgstr ""
+"Kiếp số giáng lâm, lệ khí tràn ngập; tuy chiến lực tăng vọt nhưng phúc duyên"
+" nông cạn, nên hành sự thận trọng như đi trên băng mỏng."
+
+#. celestial_phenomenon.csv: 劫数将至
+msgid "CELESTIAL_PHENOMENON_9_NAME"
+msgstr "Kiếp Số Sắp Đến"
+
+#. city_region.csv: 繁华都市，人烟稠密，商贾云集。此地是交易...
+msgid "CITY_REGION_301_DESC"
+msgstr ""
+"Một đại thành phồn hoa, dân cư đông đúc, thương khách tụ hội. Đây là nơi "
+"quan trọng để giao dịch thiên tài địa bảo và tìm kiếm cơ duyên."
+
+#. city_region.csv: 青云城
+msgid "CITY_REGION_301_NAME"
+msgstr "Thanh Vân Thành"
+
+#. city_region.csv: 沙漠绿洲中的贸易重镇，各路商队在此集结，...
+msgid "CITY_REGION_302_DESC"
+msgstr ""
+"Một trọng trấn mậu dịch giữa ốc đảo sa mạc, nơi các đoàn thương đội tụ hội, "
+"là điểm bổ sung tiếp tế và trao đổi quan trọng của tu sĩ."
+
+#. city_region.csv: 沙州城
+msgid "CITY_REGION_302_NAME"
+msgstr "Sa Châu Thành"
+
+#. city_region.csv: 森林深处的修仙重镇，众多修士在此栖居，是...
+msgid "CITY_REGION_303_DESC"
+msgstr ""
+"Một trọng trấn tu tiên nằm sâu trong rừng, nơi đông đảo tu sĩ cư ngụ, rất "
+"thích hợp để tu hành và luyện khí."
+
+#. city_region.csv: 翠林城
+msgid "CITY_REGION_303_NAME"
+msgstr "Thúy Lâm Thành"
+
+#. city_region.csv: 坐落于大河入海口的三角洲，百川归海，水运...
+msgid "CITY_REGION_304_DESC"
+msgstr ""
+"Nằm tại vùng châu thổ nơi đại hà đổ ra biển, bách xuyên quy hải, đường thủy "
+"hưng thịnh; là vùng đất quý mà tu sĩ hệ Thủy thường lui tới nhất."
+
+#. city_region.csv: 沧澜城
+msgid "CITY_REGION_304_NAME"
+msgstr "Thương Lan Thành"
+
+#. city_region.csv: 屹立于连绵群山之巅，终年云雾缭绕，灵气纯...
+msgid "CITY_REGION_305_DESC"
+msgstr ""
+"Sừng sững trên đỉnh núi trùng điệp, quanh năm mây mù bao phủ, linh khí tinh "
+"thuần; là chốn tuyệt hảo để khổ tu và ngộ Thiên Đạo."
+
+#. city_region.csv: 揽月城
+msgid "CITY_REGION_305_NAME"
+msgstr "Lãm Nguyệt Thành"
+
+#. cultivate_region.csv: 青峰山脉深处的金行洞府，金精气凝，刀剑鸣...
+msgid "CULTIVATE_REGION_201_DESC"
+msgstr ""
+"Kim hành động phủ nằm sâu trong Thanh Phong Sơn Mạch, kim tinh chi khí ngưng"
+" tụ, tiếng đao kiếm ngân vang không dứt; chính là thánh địa tối cao của tu "
+"sĩ hệ Kim."
+
+#. cultivate_region.csv: 太白金府
+msgid "CULTIVATE_REGION_201_NAME"
+msgstr "Thái Bạch Kim Phủ"
+
+#. cultivate_region.csv: 青云林海中的木行洞府，生机盎然，灵药遍地...
+msgid "CULTIVATE_REGION_202_DESC"
+msgstr ""
+"Mộc hành động phủ trong Thanh Vân Lâm Hải, sinh cơ dạt dào, linh dược khắp "
+"nơi; chính là thánh địa tối cao của tu sĩ hệ Mộc."
+
+#. cultivate_region.csv: 青木洞天
+msgid "CULTIVATE_REGION_202_NAME"
+msgstr "Thanh Mộc Động Thiên"
+
+#. cultivate_region.csv: 无边碧海深处的水行洞府，碧波万里，水精凝...
+msgid "CULTIVATE_REGION_203_DESC"
+msgstr ""
+"Thủy hành động phủ nơi sâu nhất của biển biếc vô biên, bích ba vạn dặm, thủy"
+" tinh ngưng thần; chính là thánh địa tối cao của tu sĩ hệ Thủy."
+
+#. cultivate_region.csv: 玄水秘境
+msgid "CULTIVATE_REGION_203_NAME"
+msgstr "Huyền Thủy Bí Cảnh"
+
+#. cultivate_region.csv: 炎狱火山旁的火行洞府，烈焰冲天，真火精纯...
+msgid "CULTIVATE_REGION_204_DESC"
+msgstr ""
+"Hỏa hành động phủ bên cạnh Viêm Ngục Hỏa Sơn, liệt diễm xung thiên, chân hỏa"
+" tinh thuần; chính là thánh địa tối cao của tu sĩ hệ Hỏa."
+
+#. cultivate_region.csv: 离火洞府
+msgid "CULTIVATE_REGION_204_NAME"
+msgstr "Ly Hỏa Động Phủ"
+
+#. cultivate_region.csv: 青峰山脉的土行洞府，厚德载物，山岳共鸣，...
+msgid "CULTIVATE_REGION_205_DESC"
+msgstr ""
+"Thổ hành động phủ trong Thanh Phong Sơn Mạch, hậu đức tải vật, sơn nhạc cộng"
+" minh; chính là thánh địa tối cao của tu sĩ hệ Thổ."
+
+#. cultivate_region.csv: 厚土玄宫
+msgid "CULTIVATE_REGION_205_NAME"
+msgstr "Hậu Thổ Huyền Cung"
+
+#. cultivate_region.csv: 雨林深处的上古遗迹，古藤缠绕，木行灵气与...
+msgid "CULTIVATE_REGION_206_DESC"
+msgstr ""
+"Di tích thượng cổ nằm sâu trong vũ lâm, cổ đằng quấn quýt, linh khí hành Mộc"
+" và hành Kim giao hòa với nhau. Bên trong cất giấu công pháp cổ xưa cùng "
+"phương thuốc linh dược."
+
+#. cultivate_region.csv: 古越遗迹
+msgid "CULTIVATE_REGION_206_NAME"
+msgstr "Cổ Việt Di Tích"
+
+#. cultivate_region.csv: 沉没在海中的远古文明遗迹，水行灵气浓郁，...
+msgid "CULTIVATE_REGION_207_DESC"
+msgstr ""
+"Di tích văn minh viễn cổ chìm sâu trong biển, linh khí hành Thủy cực kỳ nồng"
+" đậm; giữa thủy triều đôi khi có bảo vật hiện thế."
+
+#. cultivate_region.csv: 沧海遗迹
+msgid "CULTIVATE_REGION_207_NAME"
+msgstr "Thương Hải Di Tích"
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr ""
+"Đan dược ngưng tụ linh khí, trợ giúp tu sĩ Luyện Khí kỳ phá vỡ bình cảnh "
+"(dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "Luyện Khí Phá Cảnh Đan"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr ""
+"Linh đan ẩn chứa chân ý Trúc Cơ, trợ giúp tu sĩ Trúc Cơ kỳ đột phá bình cảnh"
+" (dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "Trúc Cơ Phá Cảnh Đan"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr ""
+"Ngưng kết Kim Đan chi khí, trợ giúp tu sĩ Kim Đan kỳ toái đan thành anh "
+"(dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "Kim Đan Phá Cảnh Đan"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr ""
+"Luyện từ trân thảo nơi phàm gian, có thể hơi làm chậm lão hóa (chỉ được dùng"
+" một viên)."
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "Luyện Khí Trường Sinh Đan"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr ""
+"Luyện từ linh thảo của trời đất, có thể kéo dài thêm mười năm thọ nguyên "
+"(chỉ được dùng một viên)."
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "Trúc Cơ Trường Sinh Đan"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr ""
+"Đoạt lấy tạo hóa của trời đất; phàm nhân dùng vào sẽ chết ngay, Kim Đan tu "
+"sĩ dùng vào có thể tăng thêm nửa giáp tử thọ nguyên (chỉ được dùng một "
+"viên)."
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "Kim Đan Trường Sinh Đan"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr ""
+"Ẩn chứa một tia trường sinh chi khí, là vật để lão quái Nguyên Anh dùng kéo "
+"dài tính mệnh (chỉ được dùng một viên)."
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "Nguyên Anh Trường Sinh Đan"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr ""
+"Thiêu đốt tinh huyết để đổi lấy bộc phát ngắn ngủi. Trong 3 năm chiến lực "
+"tăng lên, nhưng trong 10 năm kinh mạch bị tổn thương khiến chiến lực suy "
+"giảm."
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "Luyện Khí Nhiên Huyết Đan"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr ""
+"Mãnh dược kích phát tiềm năng. Trong 3 năm chiến lực tăng mạnh, nhưng trong "
+"10 năm sẽ rơi vào suy nhược."
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "Trúc Cơ Nhiên Huyết Đan"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr ""
+"Lựa chọn của tu sĩ Kim Đan khi phải liều mạng. Trong 3 năm chiến lực bạo "
+"tăng, nhưng trong 10 năm sẽ mang trọng thương."
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "Kim Đan Nhiên Huyết Đan"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr ""
+"Thiêu đốt bản nguyên Nguyên Anh. Trong 3 năm có được lực lượng hủy thiên "
+"diệt địa, nhưng trong 10 năm gần như trở thành phế nhân."
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "Nguyên Anh Nhiên Huyết Đan"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr ""
+"Đan dược trị thương thông thường, có thể khôi phục thương thế của tu sĩ "
+"Luyện Khí kỳ (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "Luyện Khí Hồi Xuân Đan"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr ""
+"Dược lực ôn hòa thuần hậu, có thể nhanh chóng chữa lành tổn thương nhục thân"
+" của tu sĩ Trúc Cơ kỳ (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "Trúc Cơ Hồi Xuân Đan"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr ""
+"Ẩn chứa sức mạnh sinh cơ, là thánh dược chữa thương (hiệu lực kéo dài 5 "
+"năm)."
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "Kim Đan Hồi Xuân Đan"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr ""
+"Ẩn chứa tạo hóa sinh cơ, tốc độ khôi phục nhục thân cực nhanh (hiệu lực kéo "
+"dài 5 năm)."
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "Nguyên Anh Hồi Xuân Đan"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"Nơi một vị đại năng Nhân tộc cùng Viêm Ma Hoàng đồng quy vu tận từ vạn năm "
+"trước. Cho đến nay, địa mạch nơi đây vẫn phun trào địa sát chân hỏa bất "
+"diệt, nhuộm đỏ cả thương khung. Dưới lớp tiêu thổ chôn vùi vô số đoạn kiếm "
+"tàn kích; đến nửa đêm lại có chiến hồn gào thét, tái hiện cảnh chém giết "
+"thảm liệt năm xưa. Ở đây lịch luyện tuy phải luôn nhẫn chịu nỗi khổ hỏa độc "
+"phệ tâm, thậm chí có thể bị hỏa linh lực cuồng bạo thiêu thành tro bụi, "
+"nhưng lại cực dễ cảm ngộ chiến ý thượng cổ. Nếu cơ duyên đủ sâu, thậm chí "
+"còn có thể nhặt được mảnh pháp bảo do cổ tu để lại dưới đáy nham tương, hoặc"
+" nhìn trộm được một tia Đại Đạo pháp tắc."
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "Vẫn Tiên Phần Cốc"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"Quần điện các nguy nga trôi nổi bên trên tầng cương phong Cửu Thiên, không "
+"phải kẻ có đại nghị lực thì không thể vượt qua những khe nứt không gian ở "
+"vành ngoài, nơi đủ sức xé nát nhục thân. Trong điện phủ đầy cấm chế thượng "
+"cổ cùng tầng tầng huyễn trận; chỉ cần đi sai một bước là hình thần câu diệt,"
+" vĩnh viễn đọa vào hư không. Dù Tàng Kinh Các đã sụp đổ theo năm tháng, "
+"nhưng mỗi một trang kim thư ngọc sách phiêu tán trong hư không loạn lưu đều "
+"ghi chép vô thượng thần thông đủ sức khiến tu chân giới dấy lên mưa máu gió "
+"tanh. Chỉ có tu sĩ Kim Đan đỉnh phong mới miễn cưỡng chống được uy áp từ "
+"thời viễn cổ để nhìn trộm một tia tiên cơ."
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "Cửu Thiên Hư Không Điện"
+
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"Đây là một mảnh vỡ còn sót lại sau khi Đan Tông thượng cổ \"Thanh Đế Uyển\" "
+"sụp nát, quanh năm bị bao phủ trong chướng khí kịch độc bảy màu. Pháp tắc "
+"trong giới bị phá nát khiến linh thực sinh trưởng điên cuồng, lại còn có yêu"
+" đằng hóa hình cùng thực nhân hoa ẩn nấp trong bóng tối chực chờ săn mồi. "
+"Tương truyền nếu có thể xuyên qua \"Tử Tịch Lâm\" ở vòng ngoài, tìm được "
+"\"Ất Mộc Linh Tuyền\" nơi hạch tâm vẫn chưa khô cạn, thì ngay cả cỏ phàm "
+"cũng có thể hóa thành tiên dược, việc tẩy tủy phạt cốt cũng chẳng đáng nhắc "
+"tới. Nhưng đồng thời cũng phải luôn đề phòng những hộ giới yêu thú đã bị bã "
+"thuốc nuôi dưỡng suốt vạn năm đến mức dị hóa vặn vẹo, bởi chúng mang khát "
+"vọng bệnh hoạn đối với máu tươi."
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "Vạn Mộc Tàn Giới"
+
+#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+msgid "LODE_1_DESC"
+msgstr ""
+"Khoáng mạch thông thường chứa huyền thiết, thường thấy ở tầng địa biểu nông."
+
+#. lode.csv: 玄铁矿脉
+msgid "LODE_1_NAME"
+msgstr "Huyền Thiết Khoáng Mạch"
+
+#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+msgid "LODE_2_DESC"
+msgstr ""
+"Khoáng mạch xích đồng chôn sâu dưới lòng đất, xung quanh thường đi kèm hỏa "
+"nhiệt chi khí."
+
+#. lode.csv: 赤铜矿脉
+msgid "LODE_2_NAME"
+msgstr "Xích Đồng Khoáng Mạch"
+
+#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+msgid "LODE_3_DESC"
+msgstr ""
+"Mỏ tụ tích bí ngân cực kỳ hiếm thấy, ngân quang lấp lánh, linh khí bức "
+"người."
+
+#. lode.csv: 秘银矿床
+msgid "LODE_3_NAME"
+msgstr "Bí Ngân Khoáng Sàng"
+
+#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+msgid "LODE_4_DESC"
+msgstr ""
+"Khoáng mạch Canh Kim nằm sâu trong tuyệt bích, khai thác vô cùng khó khăn "
+"nhưng giá trị liên thành."
+
+#. lode.csv: 庚金矿洞
+msgid "LODE_4_NAME"
+msgstr "Canh Kim Khoáng Động"
+
+msgid "condition_has_spirit_animal"
+msgstr "Khi sở hữu bản mệnh linh thú"
+
+msgid "condition_level_ge_30"
+msgstr "Khi cấp đạt từ 30 trở lên"
+
+msgid "condition_realm_early"
+msgstr "Khi ở cảnh giới Luyện Khí hoặc Trúc Cơ"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "Khi ở cảnh giới Hóa Thần trở lên"
+
+msgid "condition_realm_late"
+msgstr "Khi ở cảnh giới Kim Đan hoặc Nguyên Anh"
+
+msgid "condition_realm_low"
+msgstr "Khi ở dưới cảnh giới Hóa Thần"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "Khi chưa trang bị vũ khí"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "Tăng chiến lực dựa trên tư chất thương pháp"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr ""
+"Thôn phệ sinh hồn để cướp đoạt thọ nguyên và vật phẩm; tăng chiến lực dựa "
+"trên số lượng sinh hồn"
+
+#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+msgid "MATERIAL_101_DESC"
+msgstr ""
+"Khoáng thạch đen thông thường, chất liệu cứng rắn, thích hợp để chế tạo pháp"
+" khí cấp Luyện Khí."
+
+#. material.csv: 玄铁
+msgid "MATERIAL_101_NAME"
+msgstr "Huyền Thiết"
+
+#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+msgid "MATERIAL_102_DESC"
+msgstr ""
+"Khoáng đồng đỏ rực toàn thân, ẩn chứa hỏa linh chi lực, là vật liệu thường "
+"dùng để luyện khí ở cấp Trúc Cơ."
+
+#. material.csv: 赤精铜
+msgid "MATERIAL_102_NAME"
+msgstr "Xích Tinh Đồng"
+
+#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+msgid "MATERIAL_103_DESC"
+msgstr ""
+"Kim loại hiếm màu bạc trắng, tính dẻo cực cao lại có thể dẫn truyền linh "
+"lực, thích hợp để luyện chế pháp bảo cấp Kim Đan."
+
+#. material.csv: 秘银
+msgid "MATERIAL_103_NAME"
+msgstr "Bí Ngân"
+
+#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+msgid "MATERIAL_104_DESC"
+msgstr ""
+"Khoáng thạch vàng óng mang phong mang bức người, kiên bất khả tồi, là vật "
+"liệu đỉnh cấp để luyện chế bản mệnh pháp bảo ở cấp Nguyên Anh."
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "Canh Kim"
+
+#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+msgid "MATERIAL_10_DESC"
+msgstr "Tinh hoa được chiết luyện từ kỳ thảo, có hiệu quả trị liệu thần kỳ."
+
+#. material.csv: 奇草精华
+msgid "MATERIAL_10_NAME"
+msgstr "Kỳ Thảo Tinh Hoa"
+
+#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+msgid "MATERIAL_11_DESC"
+msgstr ""
+"Mộc tâm trân quý của linh mộc, ẩn chứa linh lực nồng đậm, là vật liệu cốt "
+"lõi để chế tác pháp khí."
+
+#. material.csv: 灵木心
+msgid "MATERIAL_11_NAME"
+msgstr "Linh Mộc Tâm"
+
+#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+msgid "MATERIAL_12_DESC"
+msgstr ""
+"Gai linh dược của tiên nhân chưởng sa mạc, có thể giải bách độc; nếu chế "
+"thành châm dược thì hiệu quả càng rõ rệt."
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "Tiên Nhân Chưởng Thích"
+
+#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr ""
+"Cánh hoa trắng tinh của Hàn Sương Tuyết Liên, ẩn chứa cực hàn chi khí, là "
+"lựa chọn tốt nhất trong các dược liệu thuộc tính hàn."
+
+#. material.csv: 雪莲花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "Tuyết Liên Hoa Biện"
+
+#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+msgid "MATERIAL_14_DESC"
+msgstr ""
+"Bào tử lam sắc của Thủy Linh Chi, có thể tăng cường lưu chuyển linh lực cho "
+"người tu luyện hành Thủy."
+
+#. material.csv: 灵芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "Linh Chi Bào Tử"
+
+#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr ""
+"Hoa nhị trắng thuần của Tuyết Nhung Hoa, có công hiệu an thần trấn tĩnh, là "
+"dược liệu lý tưởng để phụ trợ minh tưởng."
+
+#. material.csv: 雪绒花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "Tuyết Nhung Hoa Nhị"
+
+#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+msgid "MATERIAL_16_DESC"
+msgstr ""
+"Tùng chi trân quý của cổ tùng ngàn năm, óng ánh như hổ phách, ẩn chứa linh "
+"lực dồi dào, là vật liệu hiếm cho việc luyện khí cao giai."
+
+#. material.csv: 古松松脂
+msgid "MATERIAL_16_NAME"
+msgstr "Cổ Tùng Tùng Chi"
+
+#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+msgid "MATERIAL_17_DESC"
+msgstr ""
+"Tinh hoa được chiết luyện từ Ngũ Cốc Linh Đạo, có thể nhanh chóng cường hóa "
+"thể chất, là thành phần chủ yếu của đan dược thể tu."
+
+#. material.csv: 灵稻精华
+msgid "MATERIAL_17_NAME"
+msgstr "Linh Đạo Tinh Hoa"
+
+#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+msgid "MATERIAL_18_DESC"
+msgstr ""
+"Độc giác của Hám Địa Thần Ngưu, ẩn chứa đại địa chi lực dày nặng, là cực "
+"phẩm vật liệu để luyện chế trọng hình pháp bảo và trận bàn phòng ngự."
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "Thần Ngưu Giác"
+
+#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+msgid "MATERIAL_19_DESC"
+msgstr ""
+"Một tiết tinh hoa nhất trong Cửu Khúc Thanh Âm Trúc; khi gõ vào sẽ phát ra "
+"thanh âm giúp an thần định chí, là vật liệu tuyệt hảo để chế tạo pháp bảo âm"
+" ba."
+
+#. material.csv: 清音竹节
+msgid "MATERIAL_19_NAME"
+msgstr "Thanh Âm Trúc Tiết"
+
+#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+msgid "MATERIAL_1_DESC"
+msgstr ""
+"Lông mịn của linh thỏ tràn đầy linh tính, chất liệu mềm mại ấm áp, thích hợp"
+" để dệt thành y phục chống lạnh."
+
+#. material.csv: 灵兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "Linh Thỏ Mao"
+
+#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr ""
+"Nơi ngưng tụ nội đan của Băng Phách Cốt Xà; tuy là cực hàn chi vật, nhưng "
+"sau khi nuốt vào có thể tăng mạnh độ thân hòa của tu sĩ đối với hàn khí, là "
+"chí bảo để tu luyện công pháp hệ hàn."
+
+#. material.csv: 冰魄蛇胆
+msgid "MATERIAL_20_NAME"
+msgstr "Băng Phách Xà Đảm"
+
+#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+msgid "MATERIAL_21_DESC"
+msgstr ""
+"Lá cỏ trời sinh mang tinh văn trên mặt lá, ẩn chứa tinh thần chi lực thuần "
+"khiết, là chủ tài để luyện chế đan dược thuộc tính tinh thần."
+
+#. material.csv: 星纹叶
+msgid "MATERIAL_21_NAME"
+msgstr "Tinh Văn Diệp"
+
+#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+msgid "MATERIAL_22_DESC"
+msgstr ""
+"Quả hạch của Niết Bàn Xích Quả; dù phần thịt đã héo khô, lõi bên trong vẫn "
+"khóa giữ một tia bất diệt sinh cơ, là then chốt để luyện chế diên thọ đan và"
+" thánh dược trị thương."
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "Xích Quả Hạch"
+
+#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+msgid "MATERIAL_2_DESC"
+msgstr ""
+"Nanh sắc của hung mãnh ma lang, ẩn chứa ma lực, là vật liệu trân quý để rèn "
+"đúc lợi khí."
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "Ma Lang Nha"
+
+#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+msgid "MATERIAL_3_DESC"
+msgstr ""
+"Sừng lộc như ngọc của Thanh Vân Lộc, ẩn chứa thanh linh chi khí, là thượng "
+"phẩm dược liệu để luyện đan."
+
+#. material.csv: 青云鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "Thanh Vân Lộc Giác"
+
+#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+msgid "MATERIAL_4_DESC"
+msgstr ""
+"Vuốt sắc của Ám Ảnh Báo, khinh linh mà bén nhọn, có thể tăng độ linh hoạt "
+"cho binh khí."
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "Ám Ảnh Báo Trảo"
+
+#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+msgid "MATERIAL_5_DESC"
+msgstr ""
+"Giáp phiến cổ xưa của Bích Hải Long Quy, kiên bất khả tồi, ẩn chứa hải dương"
+" linh lực, là vật liệu đỉnh cấp để chế tạo phòng cụ."
+
+#. material.csv: 龙龟甲片
+msgid "MATERIAL_5_NAME"
+msgstr "Long Quy Giáp Phiến"
+
+#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr ""
+"Hùng đảm trân quý của Thạch Giáp Sơn Hùng, có thể tăng cường thể chất và sức"
+" mạnh, là dược liệu quý đối với thể tu."
+
+#. material.csv: 山熊胆
+msgid "MATERIAL_6_NAME"
+msgstr "Sơn Hùng Đảm"
+
+#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+msgid "MATERIAL_7_DESC"
+msgstr ""
+"Bờm tung bay của Phong Tốc Mã, nhẹ như phong vũ, có thể dùng để luyện chế "
+"pháp khí loại tốc độ."
+
+#. material.csv: 风速马鬃
+msgid "MATERIAL_7_NAME"
+msgstr "Bờm Phong Tốc Mã"
+
+#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+msgid "MATERIAL_8_DESC"
+msgstr ""
+"Vảy đỏ thẫm của Dung Nham Tích Dịch, chịu nhiệt cực cao lại ẩn chứa linh lực"
+" hệ Hỏa, là vật liệu cốt lõi của pháp khí thuộc tính hỏa."
+
+#. material.csv: 熔岩鳞片
+msgid "MATERIAL_8_NAME"
+msgstr "Dung Nham Lân Phiến"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+msgid "MATERIAL_9_DESC"
+msgstr ""
+"Túi độc của Độc Chướng Oa, bên trong chứa kịch độc, là vật liệu hiếm để "
+"luyện chế độc đan."
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "Độc Chướng Nang"
+
+#. normal_region.csv: 位于大陆中部，地势平坦，灵气平和。是初学...
+msgid "NORMAL_REGION_101_DESC"
+msgstr ""
+"Nằm ở trung tâm đại lục, địa thế bằng phẳng, linh khí ôn hòa. Đây là nơi lý "
+"tưởng để người mới nhập đạo đặt nền móng và khai tông lập phái."
+
+#. normal_region.csv: 平原地带
+msgid "NORMAL_REGION_101_NAME"
+msgstr "Bình Nguyên Địa Đới"
+
+#. normal_region.csv: 位于大陆极西，茫茫大漠，黄沙漫天。此地气...
+msgid "NORMAL_REGION_102_DESC"
+msgstr ""
+"Nằm ở cực tây đại lục, hoang mạc mênh mang, hoàng sa đầy trời. Khí hậu nơi "
+"đây khô hạn, chênh lệch nhiệt độ ngày đêm cực lớn, là con đường bắt buộc của"
+" các thương đội xuyên sa mạc."
+
+#. normal_region.csv: 西域流沙
+msgid "NORMAL_REGION_102_NAME"
+msgstr "Tây Vực Lưu Sa"
+
+#. normal_region.csv: 位于大陆西南，古木参天，藤蔓缠绕。此地森...
+msgid "NORMAL_REGION_103_DESC"
+msgstr ""
+"Nằm ở tây nam đại lục, cổ mộc cao vút tận trời, dây leo chằng chịt. Rừng sâu"
+" rậm rạp, dã thú đông đúc, là vùng hiểm địa để hái thuốc và săn bắn."
+
+#. normal_region.csv: 南疆蛮荒
+msgid "NORMAL_REGION_103_NAME"
+msgstr "Nam Cương Man Hoang"
+
+#. normal_region.csv: 位于大陆极北，千里冰封，万年不化。此地严...
+msgid "NORMAL_REGION_104_DESC"
+msgstr ""
+"Nằm ở cực bắc đại lục, ngàn dặm băng phong, vạn năm không tan. Nơi đây giá "
+"lạnh thấu xương, gió tuyết dữ dội, chỉ những kẻ mạo hiểm có ý chí cứng cỏi "
+"nhất mới có thể sống sót."
+
+#. normal_region.csv: 极北冰原
+msgid "NORMAL_REGION_104_NAME"
+msgstr "Cực Bắc Băng Nguyên"
+
+#. normal_region.csv: 位于大陆极东，浩瀚无垠，波涛汹涌。此地风...
+msgid "NORMAL_REGION_105_DESC"
+msgstr ""
+"Nằm ở cực đông đại lục, biển rộng vô ngần, sóng dữ ngút trời. Gió lớn sóng "
+"to, ám tiêu khắp chốn, là vùng hải vực đầy thách thức đối với thương nhân "
+"hàng hải và ngư dân."
+
+#. normal_region.csv: 无边碧海
+msgid "NORMAL_REGION_105_NAME"
+msgstr "Vô Biên Bích Hải"
+
+#. normal_region.csv: 横贯大陆东西，一江春水向东流，奔腾不息入...
+msgid "NORMAL_REGION_106_DESC"
+msgstr ""
+"Con sông lớn cắt ngang đại lục từ tây sang đông, một dải xuân thủy cuồn cuộn"
+" chảy mãi về phía Đông Hải. Dòng nước xiết không ngừng, là tuyến giao thông "
+"thủy quan trọng bậc nhất."
+
+#. normal_region.csv: 天河奔流
+msgid "NORMAL_REGION_106_NAME"
+msgstr "Thiên Hà Bôn Lưu"
+
+#. normal_region.csv: 位于大陆东部，连绵起伏，直插云霄。此地山...
+msgid "NORMAL_REGION_107_DESC"
+msgstr ""
+"Nằm ở phía đông đại lục, núi non liên miên trùng điệp, vươn thẳng lên mây. "
+"Địa thế hiểm trở, kỳ thạch dị động khắp nơi, là vùng đất được giới mạo hiểm "
+"ưa chuộng để tầm bảo."
+
+#. normal_region.csv: 青峰山脉
+msgid "NORMAL_REGION_107_NAME"
+msgstr "Thanh Phong Sơn Mạch"
+
+#. normal_region.csv: 位于大陆西北，雪峰皑皑，寒风刺骨。此地终...
+msgid "NORMAL_REGION_108_DESC"
+msgstr ""
+"Nằm ở tây bắc đại lục, tuyết phong trắng xóa, hàn phong cắt da cắt thịt. "
+"Quanh năm phủ tuyết, đường núi gập ghềnh hiểm trở, là thử thách tối thượng "
+"đối với những kẻ leo núi."
+
+#. normal_region.csv: 万丈雪峰
+msgid "NORMAL_REGION_108_NAME"
+msgstr "Vạn Trượng Tuyết Phong"
+
+#. normal_region.csv: 位于大陆西部，芳草萋萋，一望无际。此地水...
+msgid "NORMAL_REGION_109_DESC"
+msgstr ""
+"Nằm ở phía tây đại lục, cỏ xanh bát ngát trải dài tới tận chân trời. Thủy "
+"thảo phong mỹ, đàn trâu dê thành bầy, là mục trường thiên nhiên của các bộ "
+"tộc du mục."
+
+#. normal_region.csv: 碧野千里
+msgid "NORMAL_REGION_109_NAME"
+msgstr "Bích Dã Thiên Lý"
+
+#. normal_region.csv: 位于大陆中部，古树参天，绿意盎然。此地森...
+msgid "NORMAL_REGION_110_DESC"
+msgstr ""
+"Nằm ở trung bộ đại lục, cổ thụ chọc trời, xanh biếc ngút mắt. Rừng già rộng "
+"lớn, tài nguyên phong phú, là nơi hoạt động chủ yếu của tiều phu và thợ săn."
+
+#. normal_region.csv: 青云林海
+msgid "NORMAL_REGION_110_NAME"
+msgstr "Thanh Vân Lâm Hải"
+
+#. normal_region.csv: 位于大陆东北，烈焰冲天，岩浆奔流。此地火...
+msgid "NORMAL_REGION_111_DESC"
+msgstr ""
+"Nằm ở đông bắc đại lục, liệt diễm xung thiên, dung nham chảy cuồn cuộn. Núi "
+"lửa hoạt động mạnh, địa hỏa dồi dào, là nơi tuyệt hảo để rèn đúc, nhưng cũng"
+" vô cùng hung hiểm."
+
+#. normal_region.csv: 炎狱火山
+msgid "NORMAL_REGION_111_NAME"
+msgstr "Viêm Ngục Hỏa Sơn"
+
+#. normal_region.csv: 位于大陆东部，土地肥沃，五谷丰登。此地土...
+msgid "NORMAL_REGION_112_DESC"
+msgstr ""
+"Nằm ở phía đông đại lục, đất đai màu mỡ, ngũ cốc tốt tươi. Thổ nhưỡng sâu "
+"dày, mưa thuận gió hòa, là bảo địa vàng son cho nông gia canh tác."
+
+#. normal_region.csv: 沃土良田
+msgid "NORMAL_REGION_112_NAME"
+msgstr "Ốc Thổ Lương Điền"
+
+#. normal_region.csv: 位于大陆正南，终年被五色瘴气笼罩，毒虫遍...
+msgid "NORMAL_REGION_113_DESC"
+msgstr ""
+"Nằm ở chính nam đại lục, quanh năm bị ngũ sắc chướng khí bao phủ, độc trùng "
+"khắp chốn. Phàm nhân bước vào sẽ hóa thành bạch cốt, chỉ những kẻ tu độc "
+"công mới xem đây là động thiên phúc địa vô thượng."
+
+#. normal_region.csv: 幽冥毒泽
+msgid "NORMAL_REGION_113_NAME"
+msgstr "U Minh Độc Trạch"
+
+#. normal_region.csv: 位于大陆南部，苍茫群山连绵不绝，乃是妖族...
+msgid "NORMAL_REGION_114_DESC"
+msgstr ""
+"Nằm ở phía nam đại lục, quần sơn bát ngát nối tiếp không dứt, là tổ địa của "
+"Yêu tộc. Núi non hiểm trở, đường đi gian nan khó vượt."
+
+#. normal_region.csv: 十万大山
+msgid "NORMAL_REGION_114_NAME"
+msgstr "Thập Vạn Đại Sơn"
+
+#. normal_region.csv: 位于大陆中北，紫竹成林，灵气清冽。风过林...
+msgid "NORMAL_REGION_115_DESC"
+msgstr ""
+"Nằm ở phía bắc trung bộ đại lục, tử trúc kết rừng, linh khí thanh liệt. Gió "
+"thổi qua rừng vang lên như tiên nhạc; tĩnh tu nơi đây có thể gột rửa tâm ma "
+"và cảm ngộ thiên địa chi đạo."
+
+#. normal_region.csv: 紫竹幽境
+msgid "NORMAL_REGION_115_NAME"
+msgstr "Tử Trúc U Cảnh"
+
+#. normal_region.csv: 位于大陆东北，寸草不生，冻土千尺。此地生...
+msgid "NORMAL_REGION_116_DESC"
+msgstr ""
+"Nằm ở đông bắc đại lục, cỏ cây tuyệt tích, tầng băng đóng sâu ngàn thước. "
+"Sinh cơ diệt tận, nhưng lại ẩn chứa cực hàn linh khí, thỉnh thoảng còn xuất "
+"hiện vạn niên huyền băng."
+
+#. normal_region.csv: 凛霜荒原
+msgid "NORMAL_REGION_116_NAME"
+msgstr "Lẫm Sương Hoang Nguyên"
+
+#. normal_region.csv: 位于大陆西南，飞沙走石，狂风如刀。传说曾...
+msgid "NORMAL_REGION_117_DESC"
+msgstr ""
+"Nằm ở tây nam đại lục, cát đá bay mù, cuồng phong như đao cắt mặt. Tương "
+"truyền nơi đây từng có thiên tinh rơi xuống, đến nay vẫn còn lưu lại cuồng "
+"bạo tinh lực cùng thiên ngoại vẫn thiết."
+
+#. normal_region.csv: 碎星戈壁
+msgid "NORMAL_REGION_117_NAME"
+msgstr "Toái Tinh Qua Bích"
+
+#. normal_region.csv: 位于极东海外，孤悬海外，云雾缭绕。岛上灵...
+msgid "NORMAL_REGION_118_DESC"
+msgstr ""
+"Nằm ở ngoài khơi cực đông, cô độc treo mình nơi hải ngoại, mây mù lượn "
+"quanh. Trên đảo linh tuyền phun trào, kỳ hoa dị thảo khắp chốn, mật độ linh "
+"khí vượt xa lục địa, là nơi hải ngoại tán tu hằng mơ ước."
+
+#. normal_region.csv: 蓬莱遗岛
+msgid "NORMAL_REGION_118_NAME"
+msgstr "Bồng Lai Di Đảo"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr ""
+"Phổ độ chúng sinh, thông qua thiền định và đốn ngộ để tăng tiến cảnh giới."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Phật"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr ""
+"Giáo hóa thế nhân, dưỡng Hạo Nhiên Khí, cảnh giới cũng theo đó mà tăng tiến."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Nho"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr ""
+"Thuận theo Thiên Đạo, thổ nạp linh khí, thông qua tu hành để tăng tiến cảnh "
+"giới."
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Đạo"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Lấy thiên địa làm thầy, đạo pháp tự nhiên."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Thiên Địa"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Lấy võ nhập đạo, tôi luyện gân cốt. Tuy tiến cảnh chậm chạp, nhưng căn cơ "
+"vững chắc, đột phá bình cảnh cũng tựa như ăn cơm uống nước."
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Võ"
+
+msgid "Orthodoxy [{name}]"
+msgstr "Đạo Thống [{name}]"
+
+#. persona.csv: 沉迷玩乐，不思进取。...
+msgid "PERSONA_1001_DESC"
+msgstr "Mê đắm vui chơi, không nghĩ tới chuyện tiến thủ."
+
+#. persona.csv: 贪玩
+msgid "PERSONA_1001_NAME"
+msgstr "Tham Chơi"
+
+#. persona.csv: 嗜书如命。...
+msgid "PERSONA_1002_DESC"
+msgstr "Yêu sách như mạng sống, lúc nào cũng muốn đọc sách."
+
+#. persona.csv: 书痴
+msgid "PERSONA_1002_NAME"
+msgstr "Thư Si"
+
+#. persona.csv: 宁可三日无食，不可一日无茶。...
+msgid "PERSONA_1003_DESC"
+msgstr "Thà ba ngày không ăn còn hơn một ngày không trà."
+
+#. persona.csv: 茶痴
+msgid "PERSONA_1003_NAME"
+msgstr "Trà Si"
+
+#. persona.csv: 善抚琴。...
+msgid "PERSONA_1004_DESC"
+msgstr "Giỏi gảy cổ cầm, tinh thông âm luật."
+
+#. persona.csv: 琴师
+msgid "PERSONA_1004_NAME"
+msgstr "Cầm Sư"
+
+#. persona.csv: 读万卷书不如行万里路。...
+msgid "PERSONA_1005_DESC"
+msgstr ""
+"Đọc vạn quyển sách không bằng đi vạn dặm đường; ngươi thích chu du tứ "
+"phương."
+
+#. persona.csv: 游历者
+msgid "PERSONA_1005_NAME"
+msgstr "Du Lịch Giả"
+
+#. persona.csv: 善弈者长生。...
+msgid "PERSONA_1006_DESC"
+msgstr "Mê cờ như mê đạo, cho rằng người giỏi đánh cờ ắt trường thọ."
+
+#. persona.csv: 棋痴
+msgid "PERSONA_1006_NAME"
+msgstr "Kỳ Si"
+
+#. persona.csv: 你总是会珍惜自己的生命，不会轻易冒险。...
+msgid "PERSONA_10_DESC"
+msgstr ""
+"Ngươi luôn trân trọng tính mạng của bản thân, sẽ không dễ dàng mạo hiểm."
+
+#. persona.csv: 惜命
+msgid "PERSONA_10_NAME"
+msgstr "Tích Mệnh"
+
+#. persona.csv: 你重视同伴与和谐，乐于助人。...
+msgid "PERSONA_11_DESC"
+msgstr ""
+"Ngươi coi trọng đồng bạn và sự hòa hợp, lại vui lòng giúp đỡ người khác."
+
+#. persona.csv: 友爱
+msgid "PERSONA_11_NAME"
+msgstr "Hữu Ái"
+
+#. persona.csv: 你绝不轻易放下仇怨，为了复仇愿意付出代价...
+msgid "PERSONA_12_DESC"
+msgstr ""
+"Ngươi tuyệt đối không dễ buông bỏ thù hận, vì báo thù mà sẵn sàng trả giá "
+"bằng thời gian và công sức."
+
+#. persona.csv: 复仇
+msgid "PERSONA_12_NAME"
+msgstr "Phục Thù"
+
+#. persona.csv: 你喜欢独处，避免与人深交。...
+msgid "PERSONA_13_DESC"
+msgstr "Ngươi thích ở một mình, tránh giao tình quá sâu với người khác."
+
+#. persona.csv: 孤僻
+msgid "PERSONA_13_NAME"
+msgstr "Cô Lập"
+
+#. persona.csv: 你情感克制，对外界冷静疏离。...
+msgid "PERSONA_14_DESC"
+msgstr ""
+"Ngươi kiềm chế cảm xúc, đối với ngoại giới luôn lạnh nhạt và giữ khoảng "
+"cách."
+
+#. persona.csv: 淡漠
+msgid "PERSONA_14_NAME"
+msgstr "Đạm Mạc"
+
+#. persona.csv: 你直面冲突，偏好以力量与对抗解决问题。...
+msgid "PERSONA_15_DESC"
+msgstr ""
+"Ngươi đối mặt xung đột trực diện, thích dùng sức mạnh và đối kháng để giải "
+"quyết vấn đề."
+
+#. persona.csv: 好斗
+msgid "PERSONA_15_NAME"
+msgstr "Hiếu Đấu"
+
+#. persona.csv: 你行事冲动、少考虑后果，常凭直觉立刻行动...
+msgid "PERSONA_16_DESC"
+msgstr ""
+"Ngươi hành sự bốc đồng, ít cân nhắc hậu quả, thường dựa vào trực giác để "
+"hành động ngay lập tức."
+
+#. persona.csv: 鲁莽
+msgid "PERSONA_16_NAME"
+msgstr "Lỗ Mãng"
+
+#. persona.csv: 你谨小慎微，容易畏惧风险。...
+msgid "PERSONA_17_DESC"
+msgstr "Ngươi cẩn tiểu thận vi, dễ sinh lòng e sợ trước rủi ro."
+
+#. persona.csv: 胆小
+msgid "PERSONA_17_NAME"
+msgstr "Nhát Gan"
+
+#. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
+msgid "PERSONA_18_DESC"
+msgstr ""
+"Ngươi hành sự cường thế, không nói đạo lý, quen đặt lợi ích của bản thân lên"
+" hàng đầu."
+
+#. persona.csv: 霸道
+msgid "PERSONA_18_NAME"
+msgstr "Bá Đạo"
+
+#. persona.csv: 你将绝大多数时间用于修炼，厌恶享乐。...
+msgid "PERSONA_19_DESC"
+msgstr ""
+"Ngươi dành phần lớn thời gian cho tu luyện, chán ghét lạc thú hưởng thụ."
+
+#. persona.csv: 修行痴迷
+msgid "PERSONA_19_NAME"
+msgstr "Tu Hành Si Mê"
+
+#. persona.csv: 你总是会用逻辑来思考问题，做事会谋定而后...
+msgid "PERSONA_1_DESC"
+msgstr ""
+"Ngươi luôn dùng lý trí để suy xét vấn đề, làm việc thường mưu rồi mới động."
+
+#. persona.csv: 理性
+msgid "PERSONA_1_NAME"
+msgstr "Lý Tính"
+
+#. persona.csv: 你更享受独处与自我思考，倾向回避不必要的...
+msgid "PERSONA_20_DESC"
+msgstr ""
+"Ngươi tận hưởng sự cô độc và tự suy ngẫm hơn, thường tránh những giao tế "
+"không cần thiết."
+
+#. persona.csv: 内向
+msgid "PERSONA_20_NAME"
+msgstr "Hướng Nội"
+
+#. persona.csv: 你乐于与人交流，主动结识伙伴。...
+msgid "PERSONA_21_DESC"
+msgstr "Ngươi thích giao lưu với người khác, chủ động kết giao bằng hữu."
+
+#. persona.csv: 外向
+msgid "PERSONA_21_NAME"
+msgstr "Hướng Ngoại"
+
+#. persona.csv: 你在对话中倾向以讽刺、嘲弄、挖苦的方式表...
+msgid "PERSONA_22_DESC"
+msgstr ""
+"Trong đối thoại, ngươi thiên về dùng mỉa mai, châm chọc và chua cay để biểu "
+"đạt ý kiến."
+
+#. persona.csv: 刻薄
+msgid "PERSONA_22_NAME"
+msgstr "Cay Nghiệt"
+
+#. persona.csv: 你待人友好、积极回应，倾向用鼓励与赞美拉...
+msgid "PERSONA_23_DESC"
+msgstr ""
+"Ngươi đối đãi người khác thân thiện, phản hồi tích cực, thường dùng khích lệ"
+" và ca ngợi để kéo gần khoảng cách."
+
+#. persona.csv: 热情
+msgid "PERSONA_23_NAME"
+msgstr "Nhiệt Tình"
+
+#. persona.csv: 你对邪恶深恶痛绝，对正义的理想抱有近乎偏...
+msgid "PERSONA_24_DESC"
+msgstr ""
+"Ngươi căm ghét cái ác tận xương tủy, gần như cố chấp với lý tưởng chính "
+"nghĩa."
+
+#. persona.csv: 极端正义
+msgid "PERSONA_24_NAME"
+msgstr "Cực Đoan Chính Nghĩa"
+
+#. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
+msgid "PERSONA_25_DESC"
+msgstr ""
+"Ngươi tôn sùng quyền lực và nỗi sợ hãi, vì đạt mục đích mà không từ thủ "
+"đoạn."
+
+#. persona.csv: 极端邪恶
+msgid "PERSONA_25_NAME"
+msgstr "Cực Đoan Tà Ác"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较随意...
+msgid "PERSONA_26_DESC"
+msgstr ""
+"Ngươi khá tùy ý trong chuyện kết thành Đạo Lữ hay Song Tu với người khác."
+
+#. persona.csv: 开放
+msgid "PERSONA_26_NAME"
+msgstr "Phóng Khoáng"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较谨慎...
+msgid "PERSONA_27_DESC"
+msgstr ""
+"Ngươi tương đối thận trọng trong chuyện kết thành Đạo Lữ hoặc Song Tu với "
+"người khác."
+
+#. persona.csv: 腼腆
+msgid "PERSONA_27_NAME"
+msgstr "Thẹn Thùng"
+
+#. persona.csv: 你对异性中外貌出众者格外友善。...
+msgid "PERSONA_28_DESC"
+msgstr "Ngươi đặc biệt thân thiện với những người có ngoại hình nổi bật."
+
+#. persona.csv: 舔狗
+msgid "PERSONA_28_NAME"
+msgstr "Liếm Cẩu"
+
+#. persona.csv: 你对远超于你的人容易产生敌意。...
+msgid "PERSONA_29_DESC"
+msgstr "Ngươi rất dễ sinh ra địch ý với những người vượt xa bản thân mình."
+
+#. persona.csv: 嫉妒
+msgid "PERSONA_29_NAME"
+msgstr "Tật Đố"
+
+#. persona.csv: 目标飘忽不定，不会长期坚持一个目标。...
+msgid "PERSONA_2_DESC"
+msgstr ""
+"Mục tiêu thay đổi thất thường, khó lòng kiên trì với một mục tiêu quá lâu."
+
+#. persona.csv: 无常
+msgid "PERSONA_2_NAME"
+msgstr "Vô Thường"
+
+#. persona.csv: 你来自现代社会，怀念现代社会的一切。...
+msgid "PERSONA_30_DESC"
+msgstr ""
+"Ngươi đến từ xã hội hiện đại và luôn nhớ nhung mọi thứ thuộc về thế giới ấy."
+
+#. persona.csv: 穿越者
+msgid "PERSONA_30_NAME"
+msgstr "Xuyên Việt Giả"
+
+#. persona.csv: 天生气运加身，更易遇到奇遇。...
+msgid "PERSONA_31_DESC"
+msgstr "Trời sinh được khí vận gia thân, dễ gặp kỳ ngộ hơn người thường."
+
+#. persona.csv: 气运之子
+msgid "PERSONA_31_NAME"
+msgstr "Khí Vận Chi Tử"
+
+#. persona.csv: 以剑入道，剑即是命。你认为剑道至上。...
+msgid "PERSONA_32_DESC"
+msgstr ""
+"Lấy kiếm nhập đạo, kiếm tức là mệnh. Ngươi cho rằng kiếm đạo là tối thượng."
+
+#. persona.csv: 剑痴
+msgid "PERSONA_32_NAME"
+msgstr "Kiếm Si"
+
+#. persona.csv: 深藏不露，行事谨慎，善于算计。...
+msgid "PERSONA_33_DESC"
+msgstr "Ngươi giấu tài không lộ, hành sự cẩn trọng và rất giỏi tính toán."
+
+#. persona.csv: 心机深沉
+msgid "PERSONA_33_NAME"
+msgstr "Tâm Cơ Thâm Trầm"
+
+#. persona.csv: 重承诺守信义，对认定的人绝不背叛。...
+msgid "PERSONA_34_DESC"
+msgstr ""
+"Ngươi coi trọng lời hứa và tín nghĩa, với người đã nhận định thì tuyệt không"
+" phản bội."
+
+#. persona.csv: 忠诚
+msgid "PERSONA_34_NAME"
+msgstr "Trung Thành"
+
+#. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
+msgid "PERSONA_35_DESC"
+msgstr ""
+"Ngươi hành sự quyết đoán tàn độc, diệt cỏ tất nhổ tận gốc, không để lại hậu "
+"hoạn."
+
+#. persona.csv: 狠辣
+msgid "PERSONA_35_NAME"
+msgstr "Tàn Độc"
+
+#. persona.csv: 经历过一世，对未来有模糊预知。...
+msgid "PERSONA_36_DESC"
+msgstr ""
+"Ngươi từng trải qua một đời, bởi vậy đối với tương lai có cảm giác dự báo mơ"
+" hồ."
+
+#. persona.csv: 重生者
+msgid "PERSONA_36_NAME"
+msgstr "Trọng Sinh Giả"
+
+#. persona.csv: 对任何人都保持怀疑，不轻易信任。...
+msgid "PERSONA_37_DESC"
+msgstr "Ngươi luôn giữ lòng nghi với bất kỳ ai, không dễ dàng tin tưởng."
+
+#. persona.csv: 疑心重
+msgid "PERSONA_37_NAME"
+msgstr "Đa Nghi"
+
+#. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
+msgid "PERSONA_38_DESC"
+msgstr ""
+"Ngươi chuyên chú tôi luyện nhục thân, thể phách cường kiện, cận chiến gần "
+"như vô địch."
+
+#. persona.csv: 体修
+msgid "PERSONA_38_NAME"
+msgstr "Thể Tu"
+
+#. persona.csv: 精通丹道，对灵药敏感。...
+msgid "PERSONA_39_DESC"
+msgstr "Ngươi tinh thông đan đạo, đối với linh dược đặc biệt mẫn cảm."
+
+#. persona.csv: 炼丹师
+msgid "PERSONA_39_NAME"
+msgstr "Luyện Đan Sư"
+
+#. persona.csv: 你总是会拖延，不想努力，更热衷于享受人生...
+msgid "PERSONA_3_DESC"
+msgstr ""
+"Ngươi thường trì hoãn, không muốn quá cố gắng, thích hưởng thụ cuộc sống "
+"hơn."
+
+#. persona.csv: 怠惰
+msgid "PERSONA_3_NAME"
+msgstr "Lười Biếng"
+
+#. persona.csv: 天生福运，逢凶化吉。...
+msgid "PERSONA_40_DESC"
+msgstr "Trời sinh phúc vận, thường có thể gặp dữ hóa lành."
+
+#. persona.csv: 福缘深厚
+msgid "PERSONA_40_NAME"
+msgstr "Phúc Duyên Thâm Hậu"
+
+#. persona.csv: 对剑道有着深厚的兴趣和独特的天赋。...
+msgid "PERSONA_41_DESC"
+msgstr "Ngươi có hứng thú sâu sắc và thiên phú đặc biệt đối với kiếm đạo."
+
+#. persona.csv: 剑修
+msgid "PERSONA_41_NAME"
+msgstr "Kiếm Tu"
+
+#. persona.csv: 专精刀法，对刀道有着独特的理解。...
+msgid "PERSONA_42_DESC"
+msgstr ""
+"Ngươi chuyên tinh đao pháp, đối với đao đạo có cách lĩnh hội riêng của bản "
+"thân."
+
+#. persona.csv: 刀修
+msgid "PERSONA_42_NAME"
+msgstr "Đao Tu"
+
+#. persona.csv: 精通枪法，百兵之王在手。...
+msgid "PERSONA_43_DESC"
+msgstr "Ngươi tinh thông thương pháp, cầm trong tay vua của bách binh."
+
+#. persona.csv: 枪修
+msgid "PERSONA_43_NAME"
+msgstr "Thương Tu"
+
+#. persona.csv: 棍棒在手，天下我有。...
+msgid "PERSONA_44_DESC"
+msgstr ""
+"Côn bổng vừa vào tay, thiên hạ dường như đã nằm trong lòng bàn tay ngươi."
+
+#. persona.csv: 棍修
+msgid "PERSONA_44_NAME"
+msgstr "Côn Tu"
+
+#. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
+msgid "PERSONA_45_DESC"
+msgstr ""
+"Ngươi tinh thông âm luật chi đạo; cầm hoặc địch trong tay đều có thể công "
+"thủ kiêm bị."
+
+#. persona.csv: 音律大师
+msgid "PERSONA_45_NAME"
+msgstr "Âm Luật Đại Sư"
+
+#. persona.csv: 擅长使用暗器，出手诡秘莫测。...
+msgid "PERSONA_46_DESC"
+msgstr "Ngươi giỏi sử dụng ám khí, xuất thủ quỷ bí khó lường."
+
+#. persona.csv: 暗器高手
+msgid "PERSONA_46_NAME"
+msgstr "Ám Khí Cao Thủ"
+
+#. persona.csv: 精通扇法，举手投足间尽显风流。...
+msgid "PERSONA_47_DESC"
+msgstr "Ngươi tinh thông phiến pháp, từng cử chỉ đều toát ra phong lưu."
+
+#. persona.csv: 扇修
+msgid "PERSONA_47_NAME"
+msgstr "Phiến Tu"
+
+#. persona.csv: 精通鞭法，软兵器在手，刚柔并济。...
+msgid "PERSONA_48_DESC"
+msgstr ""
+"Ngươi tinh thông tiên pháp; khi cầm nhuyễn binh trong tay có thể dung hòa cả"
+" cương lẫn nhu."
+
+#. persona.csv: 鞭修
+msgid "PERSONA_48_NAME"
+msgstr "Tiên Tu"
+
+#. persona.csv: 以刀入道，刀即是命。你认为刀法至上。...
+msgid "PERSONA_49_DESC"
+msgstr ""
+"Lấy đao nhập đạo, đao tức là mệnh. Ngươi cho rằng đao đạo là tối thượng."
+
+#. persona.csv: 刀痴
+msgid "PERSONA_49_NAME"
+msgstr "Đao Si"
+
+#. persona.csv: 你总是会冒险，喜欢刺激，总想放手一搏。...
+msgid "PERSONA_4_DESC"
+msgstr ""
+"Ngươi luôn thích mạo hiểm, mê cảm giác kích thích, lúc nào cũng muốn buông "
+"tay đánh cược một phen."
+
+#. persona.csv: 冒险
+msgid "PERSONA_4_NAME"
+msgstr "Mạo Hiểm"
+
+#. persona.csv: 以枪入道，枪即是命。你认为枪法至上。...
+msgid "PERSONA_50_DESC"
+msgstr ""
+"Lấy thương nhập đạo, thương tức là mệnh. Trong mắt ngươi, thương pháp là cao"
+" nhất."
+
+#. persona.csv: 枪痴
+msgid "PERSONA_50_NAME"
+msgstr "Thương Si"
+
+#. persona.csv: 以棍入道，棍即是命。棍法通神。...
+msgid "PERSONA_51_DESC"
+msgstr ""
+"Lấy côn nhập đạo, côn tức là mệnh. Côn pháp của ngươi đã gần như thông thần."
+
+#. persona.csv: 棍圣
+msgid "PERSONA_51_NAME"
+msgstr "Côn Thánh"
+
+#. persona.csv: 以扇入道，扇即是命。你认为扇法至上。...
+msgid "PERSONA_52_DESC"
+msgstr ""
+"Lấy phiến nhập đạo, phiến tức là mệnh. Ngươi cho rằng phiến pháp là tối "
+"thượng."
+
+#. persona.csv: 扇痴
+msgid "PERSONA_52_NAME"
+msgstr "Phiến Si"
+
+#. persona.csv: 以鞭入道，鞭即是命。你认为鞭法至上。...
+msgid "PERSONA_53_DESC"
+msgstr ""
+"Lấy tiên nhập đạo, tiên tức là mệnh. Ngươi tin rằng tiên pháp đứng trên hết "
+"thảy."
+
+#. persona.csv: 鞭痴
+msgid "PERSONA_53_NAME"
+msgstr "Tiên Si"
+
+#. persona.csv: 暗器之道登峰造极，杀人于无形。...
+msgid "PERSONA_54_DESC"
+msgstr ""
+"Ám khí chi đạo đã được ngươi luyện tới đỉnh cao, giết người vô hình vô tích."
+
+#. persona.csv: 刺客宗师
+msgid "PERSONA_54_NAME"
+msgstr "Thích Khách Tông Sư"
+
+#. persona.csv: 你对美色有着强烈的渴求。...
+msgid "PERSONA_55_DESC"
+msgstr "Ngươi có khát cầu mãnh liệt đối với mỹ sắc."
+
+#. persona.csv: 好色
+msgid "PERSONA_55_NAME"
+msgstr "Háo Sắc"
+
+#. persona.csv: 你清心寡欲，对男女之事毫无兴趣。...
+msgid "PERSONA_56_DESC"
+msgstr "Ngươi thanh tâm quả dục, hoàn toàn không hứng thú với chuyện nam nữ."
+
+#. persona.csv: 无欲
+msgid "PERSONA_56_NAME"
+msgstr "Vô Dục"
+
+#. persona.csv: 你对未知的世界充满好奇。...
+msgid "PERSONA_57_DESC"
+msgstr "Ngươi tràn đầy hiếu kỳ trước thế giới chưa biết."
+
+#. persona.csv: 探险家
+msgid "PERSONA_57_NAME"
+msgstr "Thám Hiểm Gia"
+
+#. persona.csv: 你极度排斥长途跋涉，更喜欢待在熟悉的区域...
+msgid "PERSONA_58_DESC"
+msgstr ""
+"Ngươi cực kỳ bài xích những chuyến đường dài, thích ở trong khu vực quen "
+"thuộc hơn."
+
+#. persona.csv: 死宅
+msgid "PERSONA_58_NAME"
+msgstr "Trạch Tử"
+
+#. persona.csv: 天生霉运缠身。...
+msgid "PERSONA_59_DESC"
+msgstr "Trời sinh vận xui quấn thân, làm gì cũng dễ gặp điều không thuận."
+
+#. persona.csv: 扫把星
+msgid "PERSONA_59_NAME"
+msgstr "Sao Chổi"
+
+#. persona.csv: 你总是会随机应变，性子到哪里了就是哪里，...
+msgid "PERSONA_5_DESC"
+msgstr ""
+"Ngươi luôn tùy cơ ứng biến, tính tình đi tới đâu thì theo tới đó, ít có "
+"khuôn phép cố định."
+
+#. persona.csv: 随性
+msgid "PERSONA_5_NAME"
+msgstr "Tùy Hứng"
+
+#. persona.csv: 早年修行多舛；但若能坚持至金丹元婴，便可...
+msgid "PERSONA_60_DESC"
+msgstr ""
+"Những năm đầu tu luyện lắm trắc trở; nhưng nếu có thể kiên trì tới Kim Đan "
+"hay Nguyên Anh, ngươi sẽ đại khí vãn thành."
+
+#. persona.csv: 大器晚成
+msgid "PERSONA_60_NAME"
+msgstr "Đại Khí Vãn Thành"
+
+#. persona.csv: 精通炼器之道，对材料敏锐。...
+msgid "PERSONA_61_DESC"
+msgstr ""
+"Ngươi tinh thông luyện khí chi đạo, cực kỳ nhạy bén đối với vật liệu và hỏa "
+"hầu."
+
+#. persona.csv: 炼器师
+msgid "PERSONA_61_NAME"
+msgstr "Luyện Khí Sư"
+
+#. persona.csv: 你的情绪波动很大。...
+msgid "PERSONA_62_DESC"
+msgstr "Biên độ dao động cảm xúc của ngươi rất lớn."
+
+#. persona.csv: 情绪化
+msgid "PERSONA_62_NAME"
+msgstr "Cảm Tính"
+
+#. persona.csv: 擅长勘探挖掘，对矿脉有着独特的直觉。...
+msgid "PERSONA_63_DESC"
+msgstr ""
+"Ngươi giỏi thăm dò và khai quật, có trực giác đặc biệt đối với khoáng mạch."
+
+#. persona.csv: 矿工
+msgid "PERSONA_63_NAME"
+msgstr "Khoáng Công"
+
+#. persona.csv: 你躲避风险和风头，尽力不担上任何风险。...
+msgid "PERSONA_64_DESC"
+msgstr ""
+"Ngươi tránh né rủi ro và tâm điểm chú ý, cố hết sức không gánh lên mình bất "
+"kỳ nguy hiểm nào."
+
+#. persona.csv: 苟
+msgid "PERSONA_64_NAME"
+msgstr "Cẩu"
+
+#. persona.csv: 心胸狭窄，见不得别人比自己好。...
+msgid "PERSONA_65_DESC"
+msgstr ""
+"Lòng dạ hẹp hòi, không chịu nổi khi thấy người khác sống tốt hơn mình."
+
+#. persona.csv: 妒忌
+msgid "PERSONA_65_NAME"
+msgstr "Đố Kỵ"
+
+#. persona.csv: 你重视家庭和血缘关系，以家族利益为重。...
+msgid "PERSONA_66_DESC"
+msgstr ""
+"Ngươi coi trọng gia đình và huyết mạch, luôn đặt lợi ích của gia tộc lên "
+"hàng đầu."
+
+#. persona.csv: 重亲情
+msgid "PERSONA_66_NAME"
+msgstr "Trọng Thân Tình"
+
+#. persona.csv: 你重视朋友义气，为朋友可以两肋插刀。...
+msgid "PERSONA_67_DESC"
+msgstr ""
+"Ngươi coi trọng tình bằng hữu và nghĩa khí, vì bằng hữu mà sẵn sàng vào sinh"
+" ra tử."
+
+#. persona.csv: 重义气
+msgid "PERSONA_67_NAME"
+msgstr "Trọng Nghĩa Khí"
+
+#. persona.csv: 你习惯独来独往，不轻易与人深交。...
+msgid "PERSONA_68_DESC"
+msgstr ""
+"Ngươi quen độc lai độc vãng, không dễ cùng người khác kết thành thâm giao."
+
+#. persona.csv: 孤身一人
+msgid "PERSONA_68_NAME"
+msgstr "Cô Thân"
+
+#. persona.csv: 你对爱情专一，一旦认定便不会改变。...
+msgid "PERSONA_69_DESC"
+msgstr ""
+"Ngươi chuyên nhất trong tình ái, một khi đã nhận định thì sẽ không đổi thay."
+
+#. persona.csv: 专情
+msgid "PERSONA_69_NAME"
+msgstr "Chuyên Tình"
+
+#. persona.csv: 你对灵石和财富有着强烈的渴望。...
+msgid "PERSONA_6_DESC"
+msgstr "Ngươi có khát vọng mãnh liệt đối với linh thạch và tài phú."
+
+#. persona.csv: 贪财
+msgid "PERSONA_6_NAME"
+msgstr "Tham Tài"
+
+#. persona.csv: 你容易动情，对美好的感情充满向往。...
+msgid "PERSONA_70_DESC"
+msgstr ""
+"Ngươi dễ động tình, trong lòng tràn đầy khát vọng đối với những mối tình tốt"
+" đẹp."
+
+#. persona.csv: 多情
+msgid "PERSONA_70_NAME"
+msgstr "Đa Tình"
+
+#. persona.csv: 你对感情淡漠，不会轻易动心。...
+msgid "PERSONA_71_DESC"
+msgstr "Ngươi đối với tình cảm khá đạm mạc, không dễ động tâm."
+
+#. persona.csv: 薄情
+msgid "PERSONA_71_NAME"
+msgstr "Bạc Tình"
+
+#. persona.csv: 喜欢在山林中寻找各种奇花异草和灵药，对植...
+msgid "PERSONA_7_DESC"
+msgstr ""
+"Ngươi thích tìm kiếm kỳ hoa dị thảo và linh dược giữa sơn lâm, có trực giác "
+"nhạy bén và hứng thú sâu dày đối với thảo mộc."
+
+#. persona.csv: 采集者
+msgid "PERSONA_7_NAME"
+msgstr "Thu Thập Giả"
+
+#. persona.csv: 享受在野外追踪猎物的刺激感，对各种动物的...
+msgid "PERSONA_8_DESC"
+msgstr ""
+"Ngươi hưởng thụ cảm giác kích thích khi truy tung con mồi nơi hoang dã, đối "
+"với tập tính của các loài dã thú đều rõ như lòng bàn tay."
+
+#. persona.csv: 猎人
+msgid "PERSONA_8_NAME"
+msgstr "Liệp Nhân"
+
+#. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
+msgid "PERSONA_9_DESC"
+msgstr "Ngươi luôn thâm tư thục lự, suy xét vấn đề khá có triết lý."
+
+#. persona.csv: 沉思
+msgid "PERSONA_9_NAME"
+msgstr "Trầm Tư"
+
+msgid "PERSONA_1007_DESC"
+msgstr ""
+"Ngươi xuất thân tầng lớp thấp, khá có tâm đắc với việc trồng linh thực, có "
+"thể nhờ canh tác mà kiếm được nhiều linh thạch hơn."
+
+msgid "PERSONA_1007_NAME"
+msgstr "Linh Nông"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr ""
+"Kỳ dị thực vật ngoan cường sinh trưởng trong khe đá sa mạc, lá cứng như "
+"kiếm, ban đêm có thể dẫn động rồi nuốt lấy tinh huy."
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "Tụ Tinh Thảo"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr ""
+"Sinh trưởng trên thần thụ cộng sinh nơi Linh Tuyền Chi Nhãn của Bồng Lai "
+"Đảo; ba trăm năm nở hoa một lần, ba trăm năm kết quả một lần, ẩn chứa sinh "
+"cơ khổng lồ."
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "Niết Bàn Xích Quả"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr ""
+"Kỳ dị thảo dược sinh trưởng nơi linh khí dồi dào, phiến lá xanh lam nhạt, có"
+" hiệu quả trị thương thần kỳ."
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "Kỳ Thảo"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr ""
+"Do cổ thụ ngàn năm hấp thu linh khí trời đất mà thành, chất gỗ cứng rắn và "
+"ẩn chứa linh lực nồng đậm."
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "Linh Mộc"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr ""
+"Thần kỳ thực vật sinh trưởng giữa lưu sa Tây Vực, có thể tích trữ lượng lớn "
+"linh khí và thủy phần, gai nhọn bên ngoài cũng chứa linh dược."
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "Sa Mạc Tiên Nhân Chưởng"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr ""
+"Trân quý linh dược nơi băng nguyên cực bắc, cánh hoa trắng sạch như tuyết, "
+"ẩn chứa cực hàn chi khí, có thể thanh nhiệt giải độc."
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "Hàn Sương Tuyết Liên"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr ""
+"Linh dược hệ Thủy sinh trưởng dưới đáy Thiên Hà, mang sắc lam bán trong "
+"suốt, có thể tăng cường linh lực hành Thủy của người tu luyện."
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "Thủy Linh Chi"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr ""
+"Cao sơn thực vật nơi Vạn Trượng Tuyết Phong, cánh hoa nhỏ nhắn trắng tinh, "
+"có thể chống lại giá lạnh khắc nghiệt và mang công hiệu an thần trấn tĩnh."
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "Tuyết Nhung Hoa"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr ""
+"Cổ lão cự thụ trong Thanh Vân Lâm Hải, niên đại vượt quá ngàn năm, nhựa cây "
+"chứa linh lực phong phú."
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "Thiên Niên Cổ Tùng"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr ""
+"Linh tính đạo cốc được bồi dưỡng trong điền địa phì nhiêu, từng hạt đều no "
+"đầy linh khí, có thể cường hóa thể chất người tu luyện."
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "Ngũ Cốc Linh Đạo"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr ""
+"Dị chủng biến dị trong Tử Trúc Lâm, thân trúc cửu khúc, trong rỗng ngoài "
+"rắn. Mỗi khi gió thổi qua sẽ phát ra chín loại thanh âm thanh việt khác "
+"nhau, trực chỉ thần hồn, có thể gột rửa tâm ma."
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "Cửu Khúc Thanh Âm Trúc"
+
+#. random_minor_event.csv: 心境偏移
+msgid "minor_event_cause_1"
+msgstr "Tâm cảnh lệch chuyển"
+
+#. random_minor_event.csv: 莫名执念
+msgid "minor_event_cause_2"
+msgstr "Chấp niệm vô cớ"
+
+#. random_minor_event.csv: 与修真装备、武器、功法的日常互动
+msgid "minor_event_cause_3"
+msgstr "Tương tác thường nhật với pháp khí, binh khí hoặc công pháp"
+
+#. random_minor_event.csv: 对所在环境的感叹
+msgid "minor_event_cause_4"
+msgstr "Cảm khái về hoàn cảnh xung quanh"
+
+#. random_minor_event.csv: 宗门事务
+msgid "minor_event_cause_5"
+msgstr "Tông môn sự vụ"
+
+#. random_minor_event.csv: 修仙日常
+msgid "minor_event_cause_6"
+msgstr "Tu tiên nhật thường"
+
+#. random_minor_event.csv: 啼笑皆非的小插曲
+msgid "minor_event_cause_7"
+msgstr "Khúc nhạc đệm dở khóc dở cười"
+
+#. random_minor_event.csv: 微观社交摩擦(互相打量/戒备/嘲讽)
+msgid "minor_event_cause_8"
+msgstr "Ma sát xã giao vi mô (dò xét/cảnh giác/châm chọc lẫn nhau)"
+
+#. random_minor_event.csv: 非对称互动(听到八卦/被人背后议论)
+msgid "minor_event_cause_9"
+msgstr ""
+"Tương tác bất đối xứng (nghe chuyện thị phi/bị người khác bàn tán sau lưng)"
+
+#. random_minor_event.csv: 关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+msgid "minor_event_cause_10"
+msgstr ""
+"Hình chiếu thường nhật của mạng lưới quan hệ (đạo lữ truyền âm/sư đồ khảo "
+"giáo/tử thù trợn mắt nhìn nhau)"
+
+#. random_minor_event.csv: 日常对话
+msgid "minor_event_cause_11"
+msgstr "Đối thoại thường nhật"
+
+#. random_minor_event.csv: 好感暗生
+msgid "minor_event_cause_12"
+msgstr "Hảo cảm âm thầm nảy sinh"
+
+#. root.csv: 资质通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "Tư chất tuyệt thế; tinh thông cả ngũ hành."
+
+#. root.csv: 天灵根
+msgid "ROOT_10_NAME"
+msgstr "Thiên Linh Căn"
+
+#. root.csv: 刚强果断；攻击力强，适合剑修...
+msgid "ROOT_1_DESC"
+msgstr "Cương cường quả đoán; sức công kích mạnh."
+
+#. root.csv: 金灵根
+msgid "ROOT_1_NAME"
+msgstr "Kim Linh Căn"
+
+#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+msgid "ROOT_2_DESC"
+msgstr "Nhân hậu bền bỉ; giỏi hồi phục."
+
+#. root.csv: 木灵根
+msgid "ROOT_2_NAME"
+msgstr "Mộc Linh Căn"
+
+#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+msgid "ROOT_3_DESC"
+msgstr "Trí tuệ viên dung; thân pháp nhẹ nhàng."
+
+#. root.csv: 水灵根
+msgid "ROOT_3_NAME"
+msgstr "Thủy Linh Căn"
+
+#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "Nhiệt huyết bạo liệt; công pháp bộc phát cao."
+
+#. root.csv: 火灵根
+msgid "ROOT_4_NAME"
+msgstr "Hỏa Linh Căn"
+
+#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+msgid "ROOT_5_DESC"
+msgstr "Trầm ổn thực tế; phòng ngự cao."
+
+#. root.csv: 土灵根
+msgid "ROOT_5_NAME"
+msgstr "Thổ Linh Căn"
+
+#. root.csv: 爆发性极强；战斗系顶尖...
+msgid "ROOT_6_DESC"
+msgstr "Bộc phát cực mạnh; thuộc hàng đỉnh cao chiến đấu."
+
+#. root.csv: 雷灵根
+msgid "ROOT_6_NAME"
+msgstr "Lôi Linh Căn"
+
+#. root.csv: 控制力强；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "Khả năng khống chế mạnh; sức bền tốt."
+
+#. root.csv: 冰灵根
+msgid "ROOT_7_NAME"
+msgstr "Băng Linh Căn"
+
+#. root.csv: 身法卓绝；难以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "Thân pháp xuất chúng; khó mà nắm bắt."
+
+#. root.csv: 风灵根
+msgid "ROOT_8_NAME"
+msgstr "Phong Linh Căn"
+
+#. root.csv: 隐匿系；擅幻术与诡道...
+msgid "ROOT_9_DESC"
+msgstr "Thiên về ẩn nặc; giỏi huyễn thuật và quỷ đạo."
+
+#. root.csv: 暗灵根
+msgid "ROOT_9_NAME"
+msgstr "Ám Linh Căn"
+
+#. sect.csv: SECT_10_DESC
+msgid "SECT_10_DESC"
+msgstr ""
+"Tinh thông thiên ma âm luật và tinh thần thao túng, công pháp âm nhu quỷ "
+"quyệt, dùng ma âm vô hình để quấy loạn tâm trí người khác. [Ma Âm Nhiếp Hồn]"
+" Ngươi giỏi dùng âm luật để nhiễu loạn tâm trí, linh lực thâm hậu miên "
+"trường; tuy không giỏi cận chiến, nhưng thủ đoạn cực kỳ quỷ quyệt."
+
+#. sect.csv: SECT_10_NAME
+msgid "SECT_10_NAME"
+msgstr "Nhiếp Hồn Âm Tông"
+
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr ""
+"Ngươi có thể mê hoặc địch nhân, nhưng tuyệt đối không được mất khống chế rồi"
+" nhiếp hồn đồng môn hay làm tổn hại căn cơ của tông môn; kẻ bôi nhọ thanh "
+"danh bản tông mà vẫn không chịu kiềm chế sẽ bị trục xuất."
+
+#. sect.csv: SECT_11_DESC
+msgid "SECT_11_DESC"
+msgstr ""
+"Đệ nhất đại phái trận pháp đương thời, chú trọng thiên đạo diễn toán, lấy "
+"vạn vật làm cờ, lấy sơn xuyên làm trận. [Trận Pháp Thông Thần] Ngươi giỏi "
+"dùng trận pháp để trợ tu, có thể hội tụ linh khí trời đất, tốc độ tu luyện "
+"nhanh hơn người thường và thường thu được lợi ích ngoài dự liệu."
+
+#. sect.csv: SECT_11_NAME
+msgid "SECT_11_NAME"
+msgstr "Thiên Diễn Trận Tông"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr ""
+"Ngươi không được dùng trận pháp để gieo tai họa xuống thành trì phàm nhân "
+"hay khiến đồng môn chịu phản phệ; nếu sa vào tà đạo mà vẫn không chịu hối "
+"cải, sẽ bị trục xuất khỏi tông."
+
+#. sect.csv: SECT_12_DESC
+msgid "SECT_12_DESC"
+msgstr ""
+"Tu luyện \"Đại Quang Minh Kim Thân\", thờ phụng ánh sáng bất diệt. Lấy võ "
+"nhập đạo, lấy nhục thân thành thánh. Nắm giữ bí thuật sinh mệnh cực mạnh. "
+"[Quang Diệu Trường Sinh] Sinh mệnh lực của ngươi vô cùng ngoan cường, hiệu "
+"quả chữa thương tăng gấp bội, thọ nguyên cũng vượt xa tu sĩ cùng giai."
+
+#. sect.csv: SECT_12_NAME
+msgid "SECT_12_NAME"
+msgstr "Trường Minh Cung"
+
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr ""
+"Ngươi không được hãm hại phàm nhân để luyện thể hay bôi nhọ chính đạo quang "
+"minh; nếu sa vào tà tu mà vẫn ngoan cố không sửa, sẽ bị trục xuất khỏi cung."
+
+#. sect.csv: SECT_13_DESC
+msgid "SECT_13_DESC"
+msgstr ""
+"Nho gia chính thống, dưỡng Hạo Nhiên Chi Khí. Hành sự cương chính, ngôn xuất"
+" pháp tùy, khắc chế tà ma. [Ngô Thiện Dưỡng Khí] Ngươi nuôi dưỡng Hạo Nhiên "
+"chi khí, khí mạch kéo dài miên trường; khi đối mặt với kẻ địch cảnh giới "
+"thấp hơn mình, có thể phát huy lực áp chế cực mạnh."
+
+#. sect.csv: SECT_13_NAME
+msgid "SECT_13_NAME"
+msgstr "Hạo Nhiên Thư Viện"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr ""
+"Ngươi không được khi sư áp dân, cũng không được tự mình lao vào ma đạo; nếu "
+"chứng cứ xác thực mà vẫn không chịu hối cải, sẽ bị trục xuất khỏi thư viện."
+
+#. sect.csv: SECT_14_DESC
+msgid "SECT_14_DESC"
+msgstr ""
+"Đệ nhất ma tông của Nguyên Diễn giới, hành sự bá đạo tàn nhẫn, tôn sùng "
+"\"nhược nhục cường thực\", lấy cướp đoạt và huyết tế để nâng cao tu vi. "
+"[Huyết Hải Thao Thiên] Ngươi tôn sùng sức mạnh và cướp đoạt; việc cướp bóc "
+"phàm nhân tuy tổn hại thiên hòa, nhưng lại mang đến cho ngươi của cải và tài"
+" nguyên kinh người."
+
+#. sect.csv: SECT_14_NAME
+msgid "SECT_14_NAME"
+msgstr "La Sát Huyết Tông"
+
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr ""
+"Ngươi có thể tranh đấu và cướp đoạt, nhưng tuyệt đối không được phản bội "
+"Huyết Tông, biển thủ chiến lợi phẩm hay dùng tà thuật đối phó người của bản "
+"môn; bất kỳ ai phạm trọng cấm này đều sẽ bị trục xuất."
+
+#. sect.csv: SECT_1_DESC
+msgid "SECT_1_DESC"
+msgstr ""
+"Đệ nhất tông ở phương đông của giới tu tiên, lấy vô thượng kiếm đạo xưng "
+"hùng thiên hạ. Trấn phái tuyệt học là \"Cửu Tiêu Ngự Lôi Kiếm Quyết\". [Kiếm"
+" Tâm Thông Minh] Là một kiếm tu, khi sử dụng binh khí loại kiếm, chiến lực "
+"của ngươi cực kỳ kinh người, hơn nữa tốc độ cảm ngộ trên kiếm đạo cũng vượt "
+"xa người thường."
+
+#. sect.csv: SECT_1_NAME
+msgid "SECT_1_NAME"
+msgstr "Lăng Tiêu Kiếm Tông"
+
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr ""
+"Ngươi tuyệt đối không được thông đồng với tà ma hay tàn sát kẻ vô tội; nếu "
+"sa vào ma đạo mà sau nhiều lần răn dạy vẫn không chịu sửa đổi, sẽ bị trục "
+"xuất khỏi sơn môn."
+
+#. sect.csv: SECT_2_DESC
+msgid "SECT_2_DESC"
+msgstr ""
+"Nổi danh vì thuần dưỡng hung thú, nuôi dưỡng đủ loại yêu thú linh quái làm "
+"chiến lực. [Vạn Thú Chi Chủ] Ngươi sở hữu thiên phú ngự thú độc nhất, việc "
+"bắt giữ yêu thú đối với ngươi dễ như trở bàn tay, lại giỏi điều khiển thú "
+"quần thay mình chiến đấu."
+
+#. sect.csv: SECT_2_NAME
+msgid "SECT_2_NAME"
+msgstr "Vạn Thú Ma Sơn"
+
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr ""
+"Ngươi có thể chém giết tranh đấu, nhưng không được phản bội sơn môn, cấu kết"
+" ngoại địch hay để thú nuôi quay lại làm hại đồng môn; kẻ phạm trọng cấm này"
+" sẽ bị trục xuất."
+
+#. sect.csv: SECT_3_DESC
+msgid "SECT_3_DESC"
+msgstr ""
+"Cư ngụ nơi cô đảo hải ngoại, ngoài mặt yên lặng nhưng thực chất nghiêm giữ "
+"trung lập. Sở hữu cổ kỳ thạch \"Quan Hải Ngọc Bích\", có thể dò xét thiên "
+"cơ. [Tri Thiên Mệnh] Ngươi có trực giác vượt xa người thường, tầm nhìn rộng "
+"mở, và cực dễ phát hiện kỳ ngộ trong lúc thăm dò."
+
+#. sect.csv: SECT_3_NAME
+msgid "SECT_3_NAME"
+msgstr "Thính Đào Các"
+
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr ""
+"Ngươi không được vì tư tâm mà quấy nhiễu việc bói toán của các, cũng không "
+"được bán đứng thiên cơ của tông môn; nếu tình tiết đặc biệt nghiêm trọng, sẽ"
+" bị trục xuất."
+
+#. sect.csv: SECT_4_DESC
+msgid "SECT_4_DESC"
+msgstr ""
+"Tham ngộ sinh tử khô vinh, dẫn tiếp sức mạnh của Hoàng Tuyền, thuật pháp âm "
+"lãnh tàn nhẫn. [Hoàng Tuyền Độ Hồn] Ngươi tu hành Hoàng Tuyền chi pháp, tâm "
+"chí kiên định, khi đột phá bình cảnh tâm không tạp niệm nên tỷ lệ thành công"
+" cao hơn."
+
+#. sect.csv: SECT_4_NAME
+msgid "SECT_4_NAME"
+msgstr "Cửu U Hoàng Tuyền Đạo"
+
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr ""
+"Ngươi có thể tu luyện âm pháp, nhưng tuyệt đối không được trái lệnh sư "
+"trưởng hay tự ý cướp hồn làm hại đồng môn; kẻ phạm trọng quy này sẽ bị trục "
+"xuất."
+
+#. sect.csv: SECT_5_DESC
+msgid "SECT_5_DESC"
+msgstr ""
+"Đại phái tà tông, nổi danh thiên hạ bởi cơ quan, khôi lỗi và độc sát, từ "
+"trước tới nay hành tung quỷ bí. [Quỷ Đạo Thích Sát] Ngươi tinh thông ẩn phục"
+" và ám sát; đối mặt cường địch, tránh chính diện giao phong và chờ cơ hội ám"
+" sát thường là con đường chiến thắng tốt nhất của ngươi."
+
+#. sect.csv: SECT_5_NAME
+msgid "SECT_5_NAME"
+msgstr "Thiên Cơ Quỷ Môn"
+
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr ""
+"Ngươi không được tiết lộ bản vẽ cơ quan bí mật hay ám sát người của bản môn;"
+" nếu cấu kết với chính đạo rồi quay lưng với tông môn, sẽ bị trục xuất."
+
+#. sect.csv: SECT_6_DESC
+msgid "SECT_6_DESC"
+msgstr ""
+"Lấy tình nhập đạo, dựa vào song tu để tăng tiến tu vi, giỏi thao túng nhân "
+"tâm và sở trường quyền biến. [Hồng Trần Luyện Tâm] Thể chất của ngươi đặc "
+"biệt; thông qua song tu, ngươi có thể nhận được mức tăng tiến tu vi vượt xa "
+"người thường, đây là đường tắt tốt nhất để nâng cao cảnh giới."
+
+#. sect.csv: SECT_6_NAME
+msgid "SECT_6_NAME"
+msgstr "Túy Mộng Lâu"
+
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr ""
+"Ngươi có thể đắm mình trong chốn hồng trần, nhưng không được hái bổ người "
+"khác đến chết hay phản bội sư môn tổ tông; kẻ phạm trọng giới này sẽ bị trục"
+" xuất."
+
+#. sect.csv: SECT_7_DESC
+msgid "SECT_7_DESC"
+msgstr ""
+"Thánh địa Phật môn, cũng là đại tông luyện thể, dùng thân Kim Cang để trấn "
+"áp yêu tà thế gian. [Kim Thân La Hán] Ngươi tu tập hộ thể thần công, sở hữu "
+"năng lực phòng ngự nhục thân và giảm thương cực mạnh, bất động như núi lớn."
+
+#. sect.csv: SECT_7_NAME
+msgid "SECT_7_NAME"
+msgstr "Tu Di Thiền Viện"
+
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr ""
+"Tùy tiện giết hại phàm nhân, cấu kết với tà linh hay tàn hại đồng môn đều bị"
+" nghiêm cấm; kẻ phạm trọng tội mà vẫn không chịu hối cải sẽ bị trục xuất."
+
+#. sect.csv: SECT_8_DESC
+msgid "SECT_8_DESC"
+msgstr ""
+"Trấn tông điển tịch là \"Ảnh Sát Chân Kinh\", lấy địa sát âm khí làm căn cơ."
+" [Như Ảnh Tùy Hình] Ngươi cực kỳ am hiểu thân pháp và độn thuật, gặp nguy "
+"hiểm luôn có thể toàn thân lui đi, đồng thời cũng có thể tìm cơ hội ám sát "
+"kẻ địch lạc đàn."
+
+#. sect.csv: SECT_8_NAME
+msgid "SECT_8_NAME"
+msgstr "Ảnh Sát Điện"
+
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr ""
+"Ám sát được cho phép, nhưng không được đâm sau lưng người của bản điện hay "
+"tiết lộ cứ điểm bí mật; nếu đầu nhập chính đạo rồi bán đứng đồng môn, sẽ bị "
+"trục xuất."
+
+#. sect.csv: SECT_9_DESC
+msgid "SECT_9_DESC"
+msgstr ""
+"Một thế lực khổng lồ phát triển từ thương hội, sở hữu thương đội \"Lưu Vân "
+"Phi Chu\", giàu có đến mức địch quốc. [Tài Thông Quỷ Thần] Ngươi tinh thông "
+"luyện khí và kinh thương; việc ôn dưỡng binh khí thường khiến chúng lột xác "
+"đổi thay, hơn nữa trong giao dịch ngươi luôn có thể thu lợi."
+
+#. sect.csv: SECT_9_NAME
+msgid "SECT_9_NAME"
+msgstr "Vạn Bảo Tiên Minh"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr ""
+"Ngươi có thể theo đuổi lợi ích, nhưng không được biển thủ tài khố của tông "
+"môn hay bán đứng tiên minh cho kẻ địch; nếu tội đặc biệt nặng nề sẽ bị trục "
+"xuất."
+
+#. sect_region.csv: SECT_REGION_401_DESC
+msgid "SECT_REGION_401_DESC"
+msgstr ""
+"Tuyệt Vân Phong cao vút tận mây, bốn phía cương phong vây quanh; chỉ kiếm tu"
+" mới có thể ngự kiếm mà lên. Trên núi có khu vực dành cho đệ tử tu luyện, "
+"cảnh trí thanh u."
+
+#. sect_region.csv: SECT_REGION_401_NAME
+msgid "SECT_REGION_401_NAME"
+msgstr "Tuyệt Vân Phong"
+
+#. sect_region.csv: SECT_REGION_402_DESC
+msgid "SECT_REGION_402_DESC"
+msgstr ""
+"Vạn Thú Quật nằm nơi bụng sâu của Thập Vạn Đại Sơn, trong động yêu khí ngập "
+"trời, có thể nghe thấy tiếng gào của muôn thú. Bên trong động thiên chằng "
+"chịt, tổng cộng có chín mươi chín tầng động phủ, mỗi tầng đều nuôi dưỡng "
+"linh thú và yêu thú với phẩm cấp khác nhau."
+
+#. sect_region.csv: SECT_REGION_402_NAME
+msgid "SECT_REGION_402_NAME"
+msgstr "Vạn Thú Quật"
+
+#. sect_region.csv: SECT_REGION_403_DESC
+msgid "SECT_REGION_403_DESC"
+msgstr ""
+"Thính Đào Các treo mình bên tuyệt bích ven biển, quanh năm nghe thủy triều "
+"gào hát. Trong các, ngọc bích phản chiếu tinh thần cùng đại hải; cung điện "
+"lầu các đều được dựng bằng hàn băng linh ngọc, trong suốt toàn thân, hư thực"
+" khó phân."
+
+#. sect_region.csv: SECT_REGION_403_NAME
+msgid "SECT_REGION_403_NAME"
+msgstr "Tĩnh Hải Nhai"
+
+#. sect_region.csv: SECT_REGION_404_DESC
+msgid "SECT_REGION_404_DESC"
+msgstr ""
+"Cửu U Hoàng Tuyền Đạo tọa lạc trên quần đảo Tử Tịch Hải, nước biển đen như "
+"mực, vô phong mà dậy sóng. Tương truyền đáy biển nối thẳng tới Cửu U Hoàng "
+"Tuyền. Mỗi khi hải triều gào rít, vạn hồn đồng khóc, che kín cả trời ngày."
+
+#. sect_region.csv: SECT_REGION_404_NAME
+msgid "SECT_REGION_404_NAME"
+msgstr "Tử Tịch Hải"
+
+#. sect_region.csv: SECT_REGION_405_DESC
+msgid "SECT_REGION_405_DESC"
+msgstr ""
+"Thiên Cơ Cốc khắp nơi đều là cơ quan bẫy rập. Nhìn qua chỉ như một sơn cốc "
+"bình thường, nhưng đi sai một bước là chết không chỗ chôn. Cung điện lầu các"
+" trong cốc thoạt trông lộng lẫy, kỳ thực đâu đâu cũng ẩn sát cơ."
+
+#. sect_region.csv: SECT_REGION_405_NAME
+msgid "SECT_REGION_405_NAME"
+msgstr "Thiên Cơ Cốc"
+
+#. sect_region.csv: SECT_REGION_406_DESC
+msgid "SECT_REGION_406_DESC"
+msgstr ""
+"Túy Mộng Lâu được dựng thành một động thiên độc lập giữa phố chợ phồn hoa, "
+"ca vũ thái bình, mùi hương mê say quanh năm không tan. Kiến trúc tông môn xa"
+" hoa tột bậc, mây sương lượn quanh điện các, thấp thoáng có thể thấy từng "
+"đôi đệ tử cùng nhau tu luyện bên trong."
+
+#. sect_region.csv: SECT_REGION_406_NAME
+msgid "SECT_REGION_406_NAME"
+msgstr "Tiêu Kim Quật"
+
+#. sect_region.csv: SECT_REGION_407_DESC
+msgid "SECT_REGION_407_DESC"
+msgstr ""
+"Nằm giữa tâm điểm phong bạo nơi hải vực, kim quang đầy trời. Khi tiếng "
+"chuông vang lên, phong ba liền lặng. Kiến trúc tông môn dựng trên đảo, lấy "
+"Kim Cang Tháp làm trung tâm; tiếng chuông có thể chấn nhiếp yêu hồn trong "
+"phạm vi ngàn dặm."
+
+#. sect_region.csv: SECT_REGION_407_NAME
+msgid "SECT_REGION_407_NAME"
+msgstr "Phổ Độ Đảo"
+
+#. sect_region.csv: SECT_REGION_408_DESC
+msgid "SECT_REGION_408_DESC"
+msgstr ""
+"Một đầm lầy kịch độc quanh năm bị sương mù bao phủ. Nơi đây không có ánh "
+"sáng, chỉ có những cặp mắt ẩn mình trong bóng tối. Cổ mộc chọc trời, dây leo"
+" quấn chặt, chướng khí lơ lửng suốt ngày khiến nơi này hoàn toàn cách biệt "
+"với ngoại giới."
+
+#. sect_region.csv: SECT_REGION_408_NAME
+msgid "SECT_REGION_408_NAME"
+msgstr "Ám Ảnh Chiểu Trạch"
+
+#. sect_region.csv: SECT_REGION_409_DESC
+msgid "SECT_REGION_409_DESC"
+msgstr ""
+"Vạn Bảo Tiên Minh được xây trên Đa Bảo Phù Không Đảo. Quần đảo lơ lửng khổng"
+" lồ nối liền nhau bằng vô số xiềng xích, phi chu lui tới như mây, phồn hoa "
+"tới cực điểm. Trong thành cao tháp san sát, đỉnh mỗi tháp đều có lò luyện "
+"khí rực lửa ngày đêm không tắt."
+
+#. sect_region.csv: SECT_REGION_409_NAME
+msgid "SECT_REGION_409_NAME"
+msgstr "Đa Bảo Phù Không Đảo"
+
+#. sect_region.csv: SECT_REGION_410_DESC
+msgid "SECT_REGION_410_DESC"
+msgstr ""
+"Cấu trúc sơn cốc đặc thù khiến âm thanh ngưng tụ mà không tán. Mỗi khi gió "
+"thổi qua, nghe tựa quỷ khóc thần gào. Trong cốc đình đài lầu các xen nhau "
+"trùng điệp, tiếng tơ trúc suốt ngày không dứt. Thoạt trông như nhân gian "
+"tiên cảnh, nhưng thực chất lại ẩn giấu vô số âm sát trận pháp."
+
+#. sect_region.csv: SECT_REGION_410_NAME
+msgid "SECT_REGION_410_NAME"
+msgstr "Hồi Âm Cốc"
+
+#. sect_region.csv: SECT_REGION_411_DESC
+msgid "SECT_REGION_411_DESC"
+msgstr ""
+"Thoạt nhìn chỉ là một ngọn núi, nhưng kỳ thực chứa vô số không gian chồng "
+"gấp. Kẻ không hiểu trận pháp sẽ khó mà bước nổi nửa bước. Cả dãy sơn mạch bị"
+" bao trùm bởi vô số đại trận chồng lớp; mỗi bước là một cảnh, mỗi bước là "
+"một hiểm."
+
+#. sect_region.csv: SECT_REGION_411_NAME
+msgid "SECT_REGION_411_NAME"
+msgstr "Mê Tung Thiên"
+
+#. sect_region.csv: SECT_REGION_412_DESC
+msgid "SECT_REGION_412_DESC"
+msgstr ""
+"Nằm trong vùng vĩnh dạ nơi cực bắc, nhưng lại bị bao phủ bởi cực quang vạn "
+"năm bất diệt, sáng rực như ban ngày. Thành trì được đúc từ vạn niên hàn băng"
+" và huyền thiết, dưới màn cực quang đầy trời mà lưu quang dật thải, tựa thần"
+" tích giáng thế."
+
+#. sect_region.csv: SECT_REGION_412_NAME
+msgid "SECT_REGION_412_NAME"
+msgstr "Cực Quang Thiên Cảnh"
+
+#. sect_region.csv: SECT_REGION_413_DESC
+msgid "SECT_REGION_413_DESC"
+msgstr ""
+"Nằm ở trung tâm tu chân giới, cổ mộc chọc trời, bia lâm dày đặc; mỗi tấm bia"
+" đều ẩn chứa vi ngôn đại nghĩa của thánh hiền. Tiếng đọc sách trong rừng có "
+"thể vọng xa mười dặm, là nơi hội tụ của hạo nhiên chính khí trong thiên hạ."
+
+#. sect_region.csv: SECT_REGION_413_NAME
+msgid "SECT_REGION_413_NAME"
+msgstr "Thánh Hiền Lâm"
+
+#. sect_region.csv: SECT_REGION_414_DESC
+msgid "SECT_REGION_414_DESC"
+msgstr ""
+"Sơn thể mang sắc đỏ sẫm, như thể từng bị máu tươi thấm nhuộm. Tông môn được "
+"xây dựng trên một huyết trì ngầm khổng lồ. Trong núi thường có huyết vụ tràn"
+" lan, quái thạch lởm chởm, khắp nơi đều thấy thú cốt khô héo đã bị hút cạn "
+"tinh huyết."
+
+#. sect_region.csv: SECT_REGION_414_NAME
+msgid "SECT_REGION_414_NAME"
+msgstr "Tu La Huyết Trì"
+
+#. technique.csv: 最基础的法术，凝聚火炎伤敌，简单实用。...
+msgid "TECHNIQUE_10_DESC"
+msgstr ""
+"Pháp thuật cơ bản nhất, ngưng tụ hỏa viêm để đả thương địch nhân, đơn giản "
+"mà thực dụng."
+
+#. technique.csv: 火灵诀
+msgid "TECHNIQUE_10_NAME"
+msgstr "Hỏa Linh Quyết"
+
+#. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
+msgid "TECHNIQUE_11_DESC"
+msgstr "Thuần dương chi khí cương mãnh vô song, khắc chế âm tà."
+
+#. technique.csv: 纯阳真功
+msgid "TECHNIQUE_11_NAME"
+msgstr "Thuần Dương Chân Công"
+
+#. technique.csv: 力能扛鼎，气力悠长，如下山猛虎。...
+msgid "TECHNIQUE_13_DESC"
+msgstr ""
+"Sức lực đủ để nhấc đỉnh, khí lực kéo dài lâu bền, mạnh như mãnh hổ xuống "
+"núi."
+
+#. technique.csv: 搬山诀
+msgid "TECHNIQUE_13_NAME"
+msgstr "Bàn Sơn Quyết"
+
+#. technique.csv: 不动如山，动如雷震，佛门护法神功。...
+msgid "TECHNIQUE_14_DESC"
+msgstr "Bất động như sơn, động như lôi chấn, là Phật môn hộ pháp thần công."
+
+#. technique.csv: 不动明王诀
+msgid "TECHNIQUE_14_NAME"
+msgstr "Bất Động Minh Vương Quyết"
+
+#. technique.csv: 心若冰清，天塌不惊，凝神静气。...
+msgid "TECHNIQUE_16_DESC"
+msgstr "Tâm như băng thanh, trời sập không kinh, ngưng thần tĩnh khí."
+
+#. technique.csv: 凝神冰心诀
+msgid "TECHNIQUE_16_NAME"
+msgstr "Ngưng Thần Băng Tâm Quyết"
+
+#. technique.csv: 寒气透骨，冻结经脉，阴狠霸道。...
+msgid "TECHNIQUE_17_DESC"
+msgstr "Hàn khí thấu cốt, đóng băng kinh mạch, âm hiểm mà bá đạo."
+
+#. technique.csv: 玄冰劲
+msgid "TECHNIQUE_17_NAME"
+msgstr "Huyền Băng Kình"
+
+#. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
+msgid "TECHNIQUE_19_DESC"
+msgstr ""
+"Thân pháp linh động, biến hóa khó lường, là nhất lưu trong việc thoát thân."
+
+#. technique.csv: 流云百变身
+msgid "TECHNIQUE_19_NAME"
+msgstr "Lưu Vân Bách Biến Thân"
+
+#. technique.csv: 佛门护教神功，浑身坚若金石，寻常兵刃难伤。
+msgid "TECHNIQUE_1_DESC"
+msgstr ""
+"Phật môn hộ giáo thần công, toàn thân cứng như kim thạch, binh khí bình "
+"thường khó lòng làm tổn thương."
+
+#. technique.csv: 混元金身
+msgid "TECHNIQUE_1_NAME"
+msgstr "Hỗn Nguyên Kim Thân"
+
+#. technique.csv: 借力腾空，左脚踩右脚，直上青云九霄。
+msgid "TECHNIQUE_20_DESC"
+msgstr ""
+"Mượn lực bay vút lên không trung, chân trái đạp chân phải, một bước thẳng "
+"lên tận cửu tiêu."
+
+#. technique.csv: 踏云步
+msgid "TECHNIQUE_20_NAME"
+msgstr "Đạp Vân Bộ"
+
+#. technique.csv: 收敛气息，如枯木死灰，令人难以察觉。...
+msgid "TECHNIQUE_22_DESC"
+msgstr ""
+"Thu liễm khí tức như khô mộc tàn tro, khiến người khác khó lòng phát giác."
+
+#. technique.csv: 敛息术
+msgid "TECHNIQUE_22_NAME"
+msgstr "Liễm Tức Thuật"
+
+#. technique.csv: 如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。
+msgid "TECHNIQUE_23_DESC"
+msgstr "Quỷ dị như mị ảnh, bộ pháp quỷ quyệt, khiến người hoa mắt chóng mặt."
+
+#. technique.csv: 幻影迷踪步
+msgid "TECHNIQUE_23_NAME"
+msgstr "Huyễn Ảnh Mê Tung Bộ"
+
+#. technique.csv: 道家正宗法术，掌心发雷，震慑妖邪。...
+msgid "TECHNIQUE_25_DESC"
+msgstr ""
+"Đạo gia chính tông pháp thuật, phát lôi nơi lòng bàn tay, chấn nhiếp yêu tà."
+
+#. technique.csv: 掌心雷
+msgid "TECHNIQUE_25_NAME"
+msgstr "Chưởng Tâm Lôi"
+
+#. technique.csv: 役使五行之雷，刚猛霸道，无坚不摧。...
+msgid "TECHNIQUE_26_DESC"
+msgstr "Điều động ngũ hành chi lôi, cương mãnh bá đạo, vô kiên bất tồi."
+
+#. technique.csv: 五雷正法
+msgid "TECHNIQUE_26_NAME"
+msgstr "Ngũ Lôi Chính Pháp"
+
+#. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
+msgid "TECHNIQUE_28_DESC"
+msgstr ""
+"Thiêu đốt tinh huyết để đổi lấy bộc phát thực lực trong thời gian ngắn, sau "
+"đó rơi vào suy yếu."
+
+#. technique.csv: 燃血爆元术
+msgid "TECHNIQUE_28_NAME"
+msgstr "Nhiên Huyết Bạo Nguyên Thuật"
+
+#. technique.csv: 强行吸取他人灵力为己用，霸道异常，常有反噬风险。
+msgid "TECHNIQUE_29_DESC"
+msgstr ""
+"Cưỡng ép hấp thu linh lực của người khác cho bản thân sử dụng, bá đạo vô "
+"cùng và thường tiềm ẩn nguy cơ phản phệ."
+
+#. technique.csv: 吞灵归元功
+msgid "TECHNIQUE_29_NAME"
+msgstr "Thôn Linh Quy Nguyên Công"
+
+#. technique.csv: 运气成钟，护持周身，反震外力。...
+msgid "TECHNIQUE_2_DESC"
+msgstr "Vận khí thành chung, hộ trì toàn thân, phản chấn ngoại lực."
+
+#. technique.csv: 金钟罩
+msgid "TECHNIQUE_2_NAME"
+msgstr "Kim Chung Tráo"
+
+#. technique.csv: 一剑枯荣，斩尽日月星辰，乃剑道至高境界。
+msgid "TECHNIQUE_30_DESC"
+msgstr ""
+"Một kiếm khô vinh, chém tận nhật nguyệt tinh thần, là cảnh giới tối cao của "
+"kiếm đạo."
+
+#. technique.csv: 斩星枯荣剑
+msgid "TECHNIQUE_30_NAME"
+msgstr "Trảm Tinh Khô Vinh Kiếm"
+
+#. technique.csv: 引九天雷霆入剑，煌煌天威，荡尽群魔。...
+msgid "TECHNIQUE_31_DESC"
+msgstr "Dẫn lôi đình cửu tiêu nhập kiếm, thiên uy rực rỡ, quét sạch quần ma."
+
+#. technique.csv: 九霄御雷术
+msgid "TECHNIQUE_31_NAME"
+msgstr "Cửu Tiêu Ngự Lôi Thuật"
+
+#. technique.csv: 君不见沧浪之水天上来，奔流到海不复回。...
+msgid "TECHNIQUE_32_DESC"
+msgstr ""
+"Há chẳng thấy nước Thương Lang từ trời mà đến, cuồn cuộn chảy ra biển rồi "
+"chẳng quay về; kiếm ý cũng vì thế mà hùng hồn vô tận."
+
+#. technique.csv: 沧浪剑意
+msgid "TECHNIQUE_32_NAME"
+msgstr "Thương Lang Kiếm Ý"
+
+#. technique.csv: 上古木系至高功法，生生不息，枯木逢春。
+msgid "TECHNIQUE_33_DESC"
+msgstr ""
+"Thượng cổ mộc hệ chí cao công pháp, sinh sinh bất tức, khiến gỗ khô cũng gặp"
+" lại mùa xuân."
+
+#. technique.csv: 乙木长生诀
+msgid "TECHNIQUE_33_NAME"
+msgstr "Ất Mộc Trường Sinh Quyết"
+
+#. technique.csv: 以气引神，力若龙象，举手投足，镇压诸邪。
+msgid "TECHNIQUE_34_DESC"
+msgstr ""
+"Dùng khí dẫn thần, lực mạnh như long tượng, từng cử chỉ hành động đều đủ sức"
+" trấn áp chư tà."
+
+#. technique.csv: 龙象镇魔功
+msgid "TECHNIQUE_34_NAME"
+msgstr "Long Tượng Trấn Ma Công"
+
+#. technique.csv: 入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。
+msgid "TECHNIQUE_35_DESC"
+msgstr ""
+"Vào biển thành cá, bay vút thành chim. Âm dương biến hóa, cực tốc và thôn "
+"phệ cùng tồn tại."
+
+#. technique.csv: 垂天阴阳翼
+msgid "TECHNIQUE_35_NAME"
+msgstr "Thùy Thiên Âm Dương Dực"
+
+#. technique.csv: 以无限空间证道，掌控虚空，先天立于不败之地。
+msgid "TECHNIQUE_36_DESC"
+msgstr ""
+"Lấy không gian vô tận để chứng đạo, chưởng khống hư không, tiên thiên đã "
+"đứng ở thế bất bại."
+
+#. technique.csv: 太虚行者录
+msgid "TECHNIQUE_36_NAME"
+msgstr "Thái Hư Hành Giả Lục"
+
+#. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
+msgid "TECHNIQUE_37_DESC"
+msgstr ""
+"Thái thượng vong tình không phải vô tình, mà là quên tình. Chí công chí "
+"chính, uy lực vô biên."
+
+#. technique.csv: 太上忘情篇
+msgid "TECHNIQUE_37_NAME"
+msgstr "Thái Thượng Vong Tình Thiên"
+
+#. technique.csv: 乘天地之正，而御六气之辩，以游无穷。...
+msgid "TECHNIQUE_38_DESC"
+msgstr "Thừa thiên địa chi chính, ngự lục khí chi biện, ngao du vô cùng."
+
+#. technique.csv: 逍遥游
+msgid "TECHNIQUE_38_NAME"
+msgstr "Tiêu Dao Du"
+
+#. technique.csv: 吞噬万千体质本源，以后天返先天，铸就混沌之躯。
+msgid "TECHNIQUE_39_DESC"
+msgstr ""
+"Thôn phệ bản nguyên của vạn loại thể chất, lấy hậu thiên phản tiên thiên, "
+"đúc nên Hỗn Độn chi khu."
+
+#. technique.csv: 混沌噬灵诀
+msgid "TECHNIQUE_39_NAME"
+msgstr "Hỗn Độn Phệ Linh Quyết"
+
+#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空之境。
+msgid "TECHNIQUE_40_DESC"
+msgstr ""
+"Bí điển tối cao của ma môn, bao quát vạn tượng, trực chỉ cảnh giới phá toái "
+"hư không."
+
+#. technique.csv: 罗刹魔典
+msgid "TECHNIQUE_40_NAME"
+msgstr "La Sát Ma Điển"
+
+#. technique.csv: 血海不枯，真身不死。演化亿万血神子...
+msgid "TECHNIQUE_41_DESC"
+msgstr ""
+"Huyết hải không cạn, chân thân không diệt, có thể diễn hóa ra vô số Huyết "
+"Thần Tử."
+
+#. technique.csv: 血海不灭经
+msgid "TECHNIQUE_41_NAME"
+msgstr "Huyết Hải Bất Diệt Kinh"
+
+#. technique.csv: 通过吞噬天地异火进化功法，潜力无限，号令万火...
+msgid "TECHNIQUE_42_DESC"
+msgstr ""
+"Thông qua việc thôn phệ dị hỏa trời đất để tiến hóa công pháp, tiềm lực vô "
+"cùng tận, đủ sức hiệu lệnh vạn hỏa."
+
+#. technique.csv: 九转火源经
+msgid "TECHNIQUE_42_NAME"
+msgstr "Cửu Chuyển Hỏa Nguyên Kinh"
+
+#. technique.csv: 以天地为炉鼎，种魔种，夺天地造化，死中求生。
+msgid "TECHNIQUE_43_DESC"
+msgstr ""
+"Lấy trời đất làm lô đỉnh, gieo ma chủng, đoạt thiên địa tạo hóa, tìm đường "
+"sống giữa chỗ chết."
+
+#. technique.csv: 种魔夺天诀
+msgid "TECHNIQUE_43_NAME"
+msgstr "Chủng Ma Đoạt Thiên Quyết"
+
+#. technique.csv: 专修神识，能分心多用，操控万千法器傀儡。...
+msgid "TECHNIQUE_44_DESC"
+msgstr ""
+"Chuyên tu thần thức, có thể một lòng đa dụng, điều khiển hàng vạn pháp khí "
+"và khôi lỗi."
+
+#. technique.csv: 千念分神术
+msgid "TECHNIQUE_44_NAME"
+msgstr "Thiên Niệm Phân Thần Thuật"
+
+#. technique.csv: 阴阳大道，极乐飞升。双修之至高法门。...
+msgid "TECHNIQUE_45_DESC"
+msgstr "Âm dương đại đạo, cực lạc phi thăng, là pháp môn song tu tối cao."
+
+#. technique.csv: 大乐赋
+msgid "TECHNIQUE_45_NAME"
+msgstr "Đại Lạc Phú"
+
+#. technique.csv: 域外天魔之舞，勾魂摄魄，乱人心智。...
+msgid "TECHNIQUE_46_DESC"
+msgstr ""
+"Điệu múa của thiên ma ngoại vực, câu hồn nhiếp phách, làm loạn tâm trí người"
+" khác."
+
+#. technique.csv: 天魔舞
+msgid "TECHNIQUE_46_NAME"
+msgstr "Thiên Ma Vũ"
+
+#. technique.csv: 体迅飞凫，飘忽若神，动无常则，若危若安。
+msgid "TECHNIQUE_47_DESC"
+msgstr ""
+"Thân nhẹ như chim nước bay, phiêu hốt như thần, động vô thường tắc, tưởng "
+"nguy mà lại như an."
+
+#. technique.csv: 烟波渺步
+msgid "TECHNIQUE_47_NAME"
+msgstr "Yên Ba Miểu Bộ"
+
+#. technique.csv: 神魂不灭，超脱彼岸。修成无量法身，万劫不磨。
+msgid "TECHNIQUE_48_DESC"
+msgstr ""
+"Thần hồn bất diệt, siêu thoát bỉ ngạn. Tu thành vô lượng pháp thân, vạn kiếp"
+" bất ma."
+
+#. technique.csv: 无量寂灭经
+msgid "TECHNIQUE_48_NAME"
+msgstr "Vô Lượng Tịch Diệt Kinh"
+
+#. technique.csv: 佛门护法金刚之怒，如雷霆万钧，震慑一切邪魔，荡涤世间污秽。
+msgid "TECHNIQUE_49_DESC"
+msgstr ""
+"Lôi nộ của hộ pháp Kim Cang Phật môn, mạnh như lôi đình vạn quân, chấn nhiếp"
+" hết thảy tà ma, gột sạch ô uế thế gian."
+
+#. technique.csv: 大威德金刚雷
+msgid "TECHNIQUE_49_NAME"
+msgstr "Đại Uy Đức Kim Cang Lôi"
+
+#. technique.csv: 木系基础功法，气息绵长，有驻颜延寿之效。
+msgid "TECHNIQUE_4_DESC"
+msgstr ""
+"Công pháp hệ Mộc cơ bản, khí tức kéo dài miên trường, có hiệu quả dưỡng nhan"
+" kéo dài tuổi thọ."
+
+#. technique.csv: 青元长生功
+msgid "TECHNIQUE_4_NAME"
+msgstr "Thanh Nguyên Trường Sinh Công"
+
+#. technique.csv: 唵嘛呢叭咪吽。佛门至高咒语，蕴含无尽愿力，能净化世间一切罪业与灾厄。
+msgid "TECHNIQUE_50_DESC"
+msgstr ""
+"Án ma ni bát mê hồng. Chí cao chân ngôn của Phật môn, ẩn chứa nguyện lực vô "
+"tận, có thể tịnh hóa hết thảy tội nghiệp và tai ách nơi thế gian."
+
+#. technique.csv: 六字大明咒
+msgid "TECHNIQUE_50_NAME"
+msgstr "Lục Tự Đại Minh Chú"
+
+#. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
+msgid "TECHNIQUE_51_DESC"
+msgstr "Âm hiểm độc ác, chuyên phá nội gia chân khí, chạm vào là chết."
+
+#. technique.csv: 幽冥玄阴爪
+msgid "TECHNIQUE_51_NAME"
+msgstr "U Minh Huyền Âm Trảo"
+
+#. technique.csv: 身化雷霆，瞬息千里，原地只留残影重重。
+msgid "TECHNIQUE_52_DESC"
+msgstr ""
+"Thân hóa lôi đình, chớp mắt vượt ngàn dặm, nơi cũ chỉ còn lưu lại từng tầng "
+"tàn ảnh."
+
+#. technique.csv: 雷影瞬遁
+msgid "TECHNIQUE_52_NAME"
+msgstr "Lôi Ảnh Thuấn Độn"
+
+#. technique.csv: 以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。
+msgid "TECHNIQUE_53_DESC"
+msgstr ""
+"Lấy da thịt bản thân làm giấy, lấy máu tươi làm mực. Người tu luyện trước "
+"hết phải chịu nỗi đau lột da thực huyết."
+
+#. technique.csv: 修罗血煞功
+msgid "TECHNIQUE_53_NAME"
+msgstr "Tu La Huyết Sát Công"
+
+#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可随心炼化。
+msgid "TECHNIQUE_54_DESC"
+msgstr ""
+"Đỉnh cao của luyện khí, hóa mục nát thành thần kỳ, vạn vật đều có thể tùy "
+"tâm luyện hóa."
+
+#. technique.csv: 天工造物诀
+msgid "TECHNIQUE_54_NAME"
+msgstr "Thiên Công Tạo Vật Quyết"
+
+#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
+msgid "TECHNIQUE_55_DESC"
+msgstr ""
+"Dẫn Chu Thiên tinh lực, diễn hóa vũ trụ hồng hoang, công thủ hợp nhất."
+
+#. technique.csv: 万星飞仙阵
+msgid "TECHNIQUE_55_NAME"
+msgstr "Vạn Tinh Phi Tiên Trận"
+
+#. technique.csv: 化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。
+msgid "TECHNIQUE_56_DESC"
+msgstr ""
+"Hóa thành một đạo lưu kim độn quang, chớp mắt vượt vạn dặm, là tuyệt học để "
+"thoát thân và lên đường."
+
+#. technique.csv: 金光遁法
+msgid "TECHNIQUE_56_NAME"
+msgstr "Kim Quang Độn Pháp"
+
+#. technique.csv: 天地有正气，杂然赋流形。养胸中浩然之气，诸邪不侵，万法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr ""
+"Trời đất có chính khí, muôn hình vạn trạng đều do đó mà thành. Dưỡng Hạo "
+"Nhiên chi khí trong lồng ngực, chư tà không thể xâm, vạn pháp không thể phá."
+
+#. technique.csv: 浩然正气歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "Hạo Nhiên Chính Khí Ca"
+
+#. technique.csv: 笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr ""
+"Bút hạ kinh phong vũ, thơ thành khấp quỷ thần. Dùng lời của thánh hiền để "
+"phán định công tội xuân thu, một chữ đáng giá ngàn vàng."
+
+#. technique.csv: 春秋笔法
+msgid "TECHNIQUE_58_NAME"
+msgstr "Xuân Thu Bút Pháp"
+
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr ""
+"Miệng ngậm thiên hiến, lời ra pháp theo. Dùng ngôn ngữ của thánh hiền để "
+"điều động quy tắc trời đất, khiến lệnh ban ra là phải thi hành, không ai dám"
+" không tuân theo."
+
+#. technique.csv: 言出法随
+msgid "TECHNIQUE_59_NAME"
+msgstr "Ngôn Xuất Pháp Tùy"
+
+#. technique.csv: 汲取天地草木精气，生机浩荡，万木臣服。
+msgid "TECHNIQUE_5_DESC"
+msgstr ""
+"Hấp thu tinh khí của cỏ cây trời đất, sinh cơ dạt dào, khiến vạn mộc thần "
+"phục."
+
+#. technique.csv: 太乙青木气
+msgid "TECHNIQUE_5_NAME"
+msgstr "Thái Ất Thanh Mộc Khí"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
+msgstr ""
+"Dẫn tử khí của húc nhật để tôi luyện da thịt, khiến toàn thân ấm nóng, khí "
+"huyết sung mãn."
+
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Húc Nhật Đoán Thể Thuật"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Thân như lưu ly, trong ngoài minh triệt, chư tà bất xâm, kiên bất khả tồi."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Thánh Quang Lưu Ly Thân"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"Tuyệt học trấn phái của Trường Minh Cung. Nhục thân thành thánh, kim thân "
+"bất diệt, quang diệu vạn cổ."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Đại Quang Minh Kim Thân"
+
+#. technique.csv: 上善若水，水利万物而不争，绵柔醇厚。...
+msgid "TECHNIQUE_7_DESC"
+msgstr ""
+"Thượng thiện nhược thủy, thủy lợi vạn vật nhi bất tranh, miên nhu thuần hậu."
+
+#. technique.csv: 若水诀
+msgid "TECHNIQUE_7_NAME"
+msgstr "Nhược Thủy Quyết"
+
+#. technique.csv: 驾驭滔滔黑水，重若千钧，拳意如深海暗流。
+msgid "TECHNIQUE_8_DESC"
+msgstr ""
+"Điều khiển cuồn cuộn hắc thủy, nặng như thiên quân, quyền ý tựa dòng ngầm "
+"nơi biển sâu."
+
+#. technique.csv: 北冥玄水拳
+msgid "TECHNIQUE_8_NAME"
+msgstr "Bắc Minh Huyền Thủy Quyền"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr ""
+"Thanh kiếm sắt do lò rèn nơi phàm trần chế tạo, miễn cưỡng có thể dùng được."
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "Luyện Khí Kiếm"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "Một thanh đại đao lưng dày, món yêu thích của võ phu bình thường."
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "Luyện Khí Đao"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr "Được làm từ gỗ bạch lạp, đầu thương treo một chùm tua đỏ."
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "Luyện Khí Thương"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "Một cây côn gỗ cứng bình thường, dài ngang tầm lông mày."
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "Luyện Khí Côn"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "Chiếc quạt xếp mà văn nhân nhã sĩ thường dùng để điểm tô phong nhã."
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "Luyện Khí Phiến"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr ""
+"Một chiếc roi da bình thường, phần nhiều dùng để đánh xe hoặc thi hành hình "
+"phạt."
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "Luyện Khí Tiên"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "Cổ cầm làm từ gỗ ngô đồng, âm sắc tạm coi là ổn."
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "Luyện Khí Cầm"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "Được vót từ tử trúc, âm thanh trong trẻo vang vọng."
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "Luyện Khí Địch"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "Loại ám khí bằng sắt có thể gặp ở khắp nơi."
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "Luyện Khí Ám Khí"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "Kiếm khí lạnh buốt thấu xương."
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "Thanh Sương Kiếm"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr ""
+"Đao quang như trăng soi trong giếng, hư thực khó dò, khiến đối thủ khó lòng "
+"phân biệt thật giả."
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "Tỉnh Trung Nguyệt"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "Đầu thương ẩn hiện hỏa quang, có thể khơi dậy phàm hỏa."
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "Hỏa Tiêm Thương"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr ""
+"Đúc từ tinh thiết, nặng tới ngàn cân, chỉ kẻ có sức mạnh lớn mới dùng nổi."
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "Tù Long Bổng"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr ""
+"Mặt quạt vẽ đầy đào hoa, bóng hoa rối loạn, bên trong ẩn giấu sát cơ khó "
+"lòng đề phòng."
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "Đào Hoa Phiến"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr ""
+"Một món phỏng phẩm; tuy không có khả năng đánh thần, nhưng vẫn có thể làm "
+"tổn thương thần hồn."
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "Đả Thần Tiên"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "Tiếng đàn mang ma tính, đủ sức quấy nhiễu tâm trí."
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "Thiên Ma Cầm"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr ""
+"Tiếng sáo chói tai quỷ dị, tương truyền có thể dùng nó để điều khiển thi "
+"khôi."
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "Quỷ Địch Trần Tình"
+
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr "Mảnh như lông trâu, đến đi vô ảnh, khiến người ta khó lòng phòng bị."
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "Vô Ảnh Châm"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr ""
+"Bí chế của Bách Thú Tông; tiếng sáo có thể trấn an hoặc chọc giận dã thú."
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "Vạn Thú Địch"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr ""
+"Thân đao đỏ như máu, dường như khát khao được uống huyết. Sát ý cực nặng, kẻ"
+" ý chí yếu khó mà điều khiển."
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "Huyết Ẩm Cuồng Đao"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr ""
+"Được đúc từ thiên ngoại vẫn thiết. Trọng kiếm vô phong, đại xảo bất công, có"
+" thể dùng lực phá hết thảy kỹ xảo."
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "Huyền Thiết Trọng Kiếm"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr ""
+"Thân kiếm mềm như dải lụa, nhưng khi truyền linh lực vào thì chuyển động như"
+" linh xà, quỷ dị khó lường."
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "Tử Vi Nhuyễn Kiếm"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr ""
+"Binh khí chế thức của Trấn Hồn Tông, thủy hỏa tương tế, có thể khốn địch rồi"
+" khóa hồn."
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "Thủy Hỏa Tù Long Côn"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr ""
+"Một bộ phi kiếm, bên trong ẩn chứa Tịch Tà Thần Lôi, đủ sức khắc chế tà túy "
+"trong thiên hạ."
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "Thanh Trúc Phong Vân Kiếm"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr "Binh khí của Lục Nhĩ Mi Hầu, biến hóa tùy tâm, lớn nhỏ như ý."
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "Tùy Tâm Thiết Can Binh"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr ""
+"Trên mặt quạt có ngũ hỏa như không trung hỏa, thạch trung hỏa và mộc trung "
+"hỏa; chỉ một quạt là đã khiến đối phương tro bay khói diệt."
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "Ngũ Hỏa Thất Cầm Phiến"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr ""
+"Sát khí ngập trời, từng nhuốm máu Ma Thần, thương đã xuất thì không quay về."
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "Thí Thần Thương"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr ""
+"Toàn thân đỏ thẫm, chiến khí ngập trời, từng nhuốm máu vô số cường giả, "
+"thương xuất vô hối."
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "Xích Huyết Chiến Mâu"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr ""
+"Trong hồ lô đỏ ẩn giấu một tia hào quang, có mày có mắt. Xin bảo bối xoay "
+"người, thần quỷ khó thoát."
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "Trảm Tiên Phi Đao"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr ""
+"Chẳng phải đồng, chẳng phải sắt, cũng chẳng phải thép; từng ẩn dưới núi Tu "
+"Di. Kiếm khí sắc bén thẳng thấu cửu trùng thiên."
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "Tru Tiên Kiếm"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr ""
+"Song kiếm chí tình, một âm một dương; phân thì là sát, hợp thì là tình."
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "Can Tương Mạc Tà"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr ""
+"Lá tinh của Thái Âm; quạt thứ nhất dập lửa, quạt thứ hai sinh phong, quạt "
+"thứ ba gọi mưa."
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "Ba Tiêu Phiến"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr ""
+"Binh khí của Vi Hộ, tuy nhẹ linh hoạt nhưng đánh vào thân người lại nặng tựa"
+" Thái Sơn."
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "Tử Kim Hàng Ma Xử"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr ""
+"Sống đao nạm chín vòng kim hoàn; lúc vung lên, kim hoàn va chạm vang như lôi"
+" minh, nhiếp nhân tâm phách."
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "Cửu Hoàn Kim Bối Đao"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr ""
+"Toàn thân được rèn từ vạn niên hàn thiết, thân thương bạc trắng, chạm vào "
+"lạnh buốt thấu xương."
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "Hàn Thiết Ngân Thương"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr ""
+"Lấy từ Tử Trúc Lâm Nam Hải, gồm bảy đốt, dẻo dai dị thường; không chỉ có thể"
+" thương địch mà còn có thể trói yêu."
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "Thất Tiết Tử Trúc Tiên"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr ""
+"Được điêu khắc từ bạch ngọc, khi gảy phát ra tiếng như kim thạch, có thể gột"
+" rửa tâm ma."
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "Ngọc Tỳ Bà"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr ""
+"Chế từ hàn ngọc biển sâu; khi thổi lên vang như tiếng long ngâm giữa Thương "
+"Hải, chấn động tứ dã."
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "Thương Hải Long Ngâm Địch"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr ""
+"Hung binh thượng cổ, phong ấn bạch hổ hung hồn; một khi xuất khỏi vỏ ắt phải"
+" thấy máu, thậm chí còn có thể phản phệ chủ nhân."
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "Hung Hổ Sát Nhận"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr ""
+"Luyện từ mảnh vỡ trụ thạch nghi thuộc Thiên Đình thượng cổ, nặng tựa sơn "
+"nhạc, phi đại năng giả không thể vung nổi."
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "Kình Thiên Bạch Ngọc Trụ"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr ""
+"Một mặt thuần trắng chủ sinh, một mặt đen kịt chủ tử. Mỗi lần quạt lên là âm"
+" dương nghịch chuyển, súc địa thành thốn."
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "Âm Dương Phiến"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr ""
+"Luyện từ xương sống chân long thượng cổ; khi vung lên mơ hồ có tiếng long "
+"ngâm, tự nhiên áp chế sinh linh cấp thấp."
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "Long Cốt Tiên"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr ""
+"Phỏng phẩm của một trong Thập Đại Thần Khí thượng cổ, nắm giữ sức mạnh thần "
+"bí có thể chi phối tâm linh vạn vật."
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "Phục Hy Cầm"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr ""
+"Chí bảo Ma Giới, tiếng địch quỷ quyệt, có thể sai khiến ma vật và hung thú "
+"cho mình sử dụng."
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "Hoán Ma Địch"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr ""
+"Đẹp đến mức không gì sánh nổi, nhưng dưới hào quang rực rỡ lại ẩn giấu sát "
+"cơ chí mạng."
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "Thất Thải Tước Vũ"
+
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr ""
+"Bạn có một loạt hành động có thể thực hiện. Hãy chú ý tới hiệu quả, điều "
+"kiện hạn chế, khu vực và thời điểm của từng hành động."
+
+#. world_info.csv:
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "Hành Động"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "Hành Động"
+
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr ""
+"Cứ sau một khoảng thời gian không cố định sẽ có một buổi đấu giá do người "
+"thần bí tổ chức; biết đâu sẽ có bảo vật tốt được đem ra bán."
+
+#. world_info.csv:
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "Đấu Giá"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "Đấu Giá"
+
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr ""
+"Thế giới này tuân theo quy luật cá lớn nuốt cá bé, áp chế cảnh giới vô cùng "
+"rõ rệt; kẻ cảnh giới cao có ưu thế tuyệt đối trước kẻ cảnh giới thấp. Nếu "
+"đối phương tử vong, người chiến thắng có thể cướp lấy tài vật của kẻ bại."
+
+#. world_info.csv:
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "Chiến Đấu"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "Chiến Đấu"
+
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr ""
+"Tu luyện có thể tăng kinh nghiệm cho tới khi chạm bình cảnh trước lúc đột "
+"phá. Đột phá là sự kiện mang tính xác suất; thành công sẽ tiến vào cảnh giới"
+" tiếp theo."
+
+#. world_info.csv:
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "Tu Luyện"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "Tu Luyện"
+
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "Sinh mệnh rơi xuống dưới 0 cũng sẽ dẫn tới tử vong."
+
+#. world_info.csv:
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "Tử Vong"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "Tử Vong"
+
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr ""
+"Thông qua binh khí, trang bị phụ trợ, đan dược và các vật phẩm khác, bạn có "
+"thể nhận thêm thuộc tính và đủ loại tăng ích. Sở hữu trang bị tốt hoặc dùng "
+"đan dược tốt đều có thể mang lại lợi thế to lớn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "Trang Bị & Đan Dược"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "Trang Bị & Đan Dược"
+
+#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr "Đây là một thế giới tu tiên nơi vô số tu sĩ cùng tranh nhau tu hành."
+
+#. world_info.csv:
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "Giới Thiệu"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "Giới Thiệu"
+
+#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr ""
+"Mỗi nhân vật đều có giới hạn thọ nguyên. Trong 20 năm trước khi đại hạn đến,"
+" cơ thể sẽ dần suy yếu và có xác suất chết già; một khi chạm hoặc vượt quá "
+"giới hạn thọ nguyên, cái chết là điều chắc chắn. Nâng cao cảnh giới và một "
+"số bảo vật hay đan dược có thể tăng giới hạn thọ nguyên."
+
+#. world_info.csv:
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "Thọ Nguyên"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "Thọ Nguyên"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Các đạo thống khác nhau có những phương thức tu hành khác nhau. Đạo gia "
+"thiên về Thổ Nạp, võ giả thiên về luyện thể, Phật gia thiên về tĩnh tọa, còn"
+" Nho gia thiên về giáo hóa."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Đạo Thống"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Đạo Thống"
+
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr ""
+"Các cảnh giới tu tiên từ yếu tới mạnh là: Luyện Khí, Trúc Cơ, Kim Đan, "
+"Nguyên Anh. Mỗi cảnh giới lại chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Chênh "
+"lệch giữa các cảnh giới là vô cùng lớn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "Cảnh Giới"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "Cảnh Giới"
+
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr ""
+"Mỗi khu vực có hiệu quả khác nhau; làm đúng việc ở đúng nơi sẽ đạt hiệu quả "
+"gấp đôi với công sức chỉ bằng một nửa."
+
+#. world_info.csv:
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "Khu Vực"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "Khu Vực"
+
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr ""
+"Linh Căn được tạo thành từ ngũ hành Kim, Mộc, Thủy, Hỏa, Thổ; chia thành đơn"
+" linh căn, song linh căn và Thiên Linh Căn. Quy luật tương khắc của ngũ hành"
+" là: Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy, Thủy khắc Hỏa, Hỏa khắc Kim."
+" Thiên Linh Căn dung nạp đủ cả ngũ hành và còn có thêm tăng ích khi đột phá."
+" Hiệu suất tu luyện sẽ cao nhất tại khu vực phù hợp với thuộc tính Linh Căn "
+"của bản thân."
+
+#. world_info.csv:
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "Linh Căn"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "Linh Căn"
+
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr ""
+"Cứ mỗi vài năm sẽ có bí cảnh mở ra. Tiến vào bí cảnh có thể gặp hung hiểm, "
+"nhưng cũng có thể thu được pháp bảo và công pháp cao cấp."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "Bí Cảnh"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "Bí Cảnh"
+
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr ""
+"Nơi che chở của tu sĩ. Gia nhập tông môn giúp học được công pháp độc môn và "
+"được đồng môn bảo hộ; còn Tán Tu tuy tự do nhưng tài nguyên khan hiếm."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "Tông Môn"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "Tông Môn"
+
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr ""
+"Tại các khu vực thành thị, bạn có thể mua đan dược và binh khí cấp Luyện "
+"Khí. Mua đan dược sẽ lập tức dùng để cường hóa bản thân; mua binh khí giúp "
+"bạn chuyển sang loại binh khí tiện tay hơn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "Mua Bán"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "Mua Bán"
+
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr ""
+"Đồng tiền thông dụng của giới tu tiên. Có thể dùng để mua pháp bảo và đan "
+"dược, thu được thông qua thu thập, giao dịch hoặc cướp đoạt."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "Linh Thạch"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "Linh Thạch"
+
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr ""
+"Cứ mỗi vài năm, thế giới sẽ xuất hiện biến động thiên tượng như thủy triều "
+"linh khí, từ đó ảnh hưởng tới năng lực của nhân vật."
+
+#. world_info.csv:
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "Thiên Tượng Thế Giới"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "Thiên Tượng Thế Giới"
+
+#. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
+msgid "WORLD_INFO_RANKING_DESC"
+msgstr ""
+"Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Thiên "
+"Bảng ghi lại cường giả Nguyên Anh kỳ, Địa Bảng ghi lại cường giả Kim Đan kỳ,"
+" Nhân Bảng ghi lại cường giả Trúc Cơ kỳ, còn Bảng Tông Môn xếp hạng theo "
+"tổng thực lực của từng tông môn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_RANKING_NAME"
+msgstr "Bảng Xếp Hạng"
+
+msgid "WORLD_INFO_RANKING_TITLE"
+msgstr "Bảng Xếp Hạng"

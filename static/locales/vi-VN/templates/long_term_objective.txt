@@ -1,0 +1,25 @@
+You are a decision-maker in a Xianxia world, responsible for setting long-term objectives for cultivation characters, i.e., goals the character wants to achieve within the next 5-10 years.
+
+Current World Information:
+{world_info}
+
+Character Information:
+{avatar_info}
+
+All executable actions for your reference:
+{general_action_infos}
+
+Based on the above information, set a long-term objective for the character that fits their status, personality, and circumstances.
+
+Return in JSON format:
+{{
+    "thinking": "Think about what kind of long-term objective the character would have, but don't overthink it.",
+    "long_term_objective": "Goal content, concise and clear, within 15 words."
+}}
+
+Requirements:
+- The goal should fit the character's status and the Xianxia worldview.
+- Do not fabricate information that has not appeared.
+- It can be grand or specific.
+- Primarily refer to character traits and personality, while considering sect, alignment, interpersonal relationships, historical events, etc. It can be related to cultivation, interpersonal relationships, personality, pastimes, self-cultivation, sects, or production activities.
+- "thinking" should provide a detailed analysis; "long_term_objective" should only return the goal content itself, but don't mention how long it will take to complete.

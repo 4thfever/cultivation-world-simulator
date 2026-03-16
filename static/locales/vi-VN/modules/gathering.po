@@ -1,0 +1,61 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Gathering System - Auction
+# ============================================================================
+# Status Text
+msgid "Auction is in progress..."
+msgstr "Buổi đấu giá đang diễn ra..."
+
+msgid "epiphany_event_desc"
+msgstr ""
+"Sự kiện đặc biệt: Đệ tử {names} đã đốn ngộ trong lúc nghe đạo và trực tiếp "
+"lĩnh hội được {tech_name}!\n"
+
+msgid "female"
+msgstr "Nữ"
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"Tông môn: {sect_name}\n"
+"Phong cách: {style}\n"
+"Người truyền đạo: {teacher_name} ({teacher_realm})\n"
+"{epiphany_text}\n"
+"Hãy dựa trên thiết lập của tông môn và nhân vật để miêu tả sự lĩnh ngộ của "
+"người truyền đạo đối với thiên địa, thế gian và đại đạo, đồng thời thuật lại "
+"những phản ứng khác nhau của các đệ tử."
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} đang đăng đài giảng đạo."
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} nhận được {exp} điểm kinh nghiệm."
+
+msgid "sect_teaching_gathering_info"
+msgstr "Đại hội truyền đạo của {sect_name}"
+
+# ============================================================================
+# Gathering System - Sect Teaching
+# ============================================================================
+msgid "sect_teaching_story_prompt"
+msgstr ""
+"Hãy miêu tả một buổi đại hội truyền đạo của tông môn. Trọng tâm là bầu không "
+"khí của đại hội, đạo vận thâm hậu nơi người truyền đạo, cùng muôn vẻ phản "
+"ứng của chư đệ tử. Xin tránh nhắc tới con số kinh nghiệm cụ thể."
+
+msgid "sect_teaching_summary"
+msgstr ""
+"{sect_name} đã cử hành đại hội truyền đạo, do {teacher_name} chủ giảng. "
+"Đệ tử tham dự: {student_names}."

@@ -1,0 +1,3328 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr ""
+"Trận doanh tà ác tôn thờ đạo lý mạnh được yếu thua, đặt lợi ích bản thân lên"
+" trên hết, khinh thường quy tắc, tôn sùng quyền lực và nỗi sợ. Hành sự ngoan"
+" độc, thường có những việc như sát nhân đoạt bảo."
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr ""
+"Trận doanh trung lập lấy thuận thế mà làm, tránh hại cầu lợi, coi trọng tự "
+"độ cùng cân bằng, không dễ nghiêng về phe nào."
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr ""
+"Trận doanh chính đạo lấy việc phù trợ kẻ yếu, duy trì trật tự và trừ ma vệ "
+"đạo làm chuẩn tắc."
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "Song Tu"
+
+msgid "action_educate_short_name"
+msgstr "Giáo Hóa"
+
+msgid "action_meditate_short_name"
+msgstr "Thiền Định"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "Đọc Sách"
+
+msgid "action_reading_desc"
+msgstr "Nghiên đọc cổ tịch để mở mang kiến thức."
+
+msgid "action_respire_short_name"
+msgstr "Thổ Nạp"
+
+msgid "action_tea_party"
+msgstr "Trà Hội"
+
+msgid "action_tea_party_desc"
+msgstr "Cùng bằng hữu thưởng trà."
+
+msgid "action_tea_party_story_prompt"
+msgstr "Hai người đang mở một trà hội thanh nhã."
+
+msgid "action_tea_tasting"
+msgstr "Phẩm Trà"
+
+msgid "action_tea_tasting_desc"
+msgstr "Nếm trà ngon, dưỡng tâm tĩnh khí."
+
+msgid "action_temper_short_name"
+msgstr "Tôi Luyện"
+
+msgid "action_traveling"
+msgstr "Du Lịch"
+
+msgid "action_traveling_desc"
+msgstr "Du lịch tứ phương để cảm ngộ thiên địa."
+
+msgid "action_zither_playing"
+msgstr "Phủ Cầm"
+
+msgid "action_zither_playing_desc"
+msgstr "Phủ cầm tấu nhạc, bồi dưỡng tính tình."
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "Ám Sát"
+
+msgid "assassinate_description"
+msgstr "Ám sát mục tiêu; nếu thất bại sẽ chuyển thành chiến đấu"
+
+msgid "assassinate_requirements"
+msgstr "Không hạn chế; cần thời gian hồi"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thất bại. Thích khách mưu toan giết mục "
+"tiêu, nhưng bị đối phương nhạy bén phát giác. Sau đó đôi bên bộc phát xung "
+"đột chính diện dữ dội. Không được nhắc tới chỉ số HP cụ thể."
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thành công. Không cần miêu tả quá trình "
+"giao chiến, hãy tập trung vào cách thích khách ẩn nấp, áp sát và tung ra một"
+" kích trí mạng lặng lẽ. Mục tiêu còn chưa kịp phản ứng đã phải vẫn lạc."
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "Phát Khởi Chiến Đấu"
+
+msgid "attack_description"
+msgstr "Tấn công mục tiêu và tiến vào giao chiến"
+
+msgid "attack_requirements"
+msgstr "Không hạn chế"
+
+msgid "attack_story_prompt"
+msgstr ""
+"Không được nhắc tới HP, điểm thương hại hay bất cứ biểu đạt số liệu cụ thể "
+"nào. Trận chiến phải thể hiện được công pháp, cảnh giới, trang bị của đôi "
+"bên v.v."
+
+msgid "bought"
+msgstr "đã mua"
+
+msgid "bought and consumed"
+msgstr "đã mua rồi dùng"
+
+msgid "bought and equipped"
+msgstr "đã mua rồi trang bị"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "Xác suất đột phá tăng thêm {val:.1%}."
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "Đột Phá"
+
+msgid "breakthrough_description"
+msgstr ""
+"Thử đột phá cảnh giới (thành công sẽ tăng thọ nguyên tối đa, thất bại sẽ làm"
+" giảm; cảnh giới càng cao thì xác suất thành công càng thấp)"
+
+msgid "breakthrough_requirements"
+msgstr "Nhân vật phải đang ở bình cảnh; không thể liên tục chấp hành"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "Mua"
+
+msgid "buy_description"
+msgstr "Mua vật phẩm/trang bị/đan dược trong thành trấn"
+
+msgid "buy_requirements"
+msgstr "Đang ở trong thành và có đủ tiền"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "Đúc Tạo"
+
+msgid "cast_description"
+msgstr ""
+"Tiêu hao vật liệu để thử đúc tạo pháp bảo (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "cast_requirements"
+msgstr "Sở hữu 5 vật liệu cùng cảnh giới"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "Ngự Thú"
+
+msgid "catch_description"
+msgstr ""
+"Thử thuần phục một linh thú để trở thành linh thú của bản thân. Chỉ có thể "
+"sở hữu một linh thú, nhưng có thể dùng linh thú cao cấp thay thế loại thấp "
+"cấp"
+
+msgid "catch_requirements"
+msgstr ""
+"Chỉ dành cho Bách Thú Tông; ở trong khu vực thường có động vật; cảnh giới "
+"động vật mục tiêu không được cao hơn nhân vật"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "Thôn Phệ Sinh Linh"
+
+msgid "devour_people_description"
+msgstr "Thôn phệ sinh linh để tăng mạnh chiến lực"
+
+msgid "devour_people_requirements"
+msgstr "Sở hữu Vạn Hồn Phiên"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "Song Tu"
+
+msgid "dual_cultivation_description"
+msgstr ""
+"Lấy tình nhập đạo để song tu, đối phương có thể chấp nhận hoặc từ chối"
+
+msgid "dual_cultivation_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"Hai vị tu sĩ nảy sinh tình ý trong quá trình song tu. Hãy dùng bút pháp hàm "
+"súc, thanh nhã để miêu tả một đoạn trải nghiệm song tu mờ ám mà không lộ "
+"liễu, thể hiện tính cách, chênh lệch cảnh giới và những khoảnh khắc tình ái "
+"ngọt ngào của đôi bên. Không được đề cập tới số trị kinh nghiệm."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Giáo Hóa"
+
+msgid "educate_description"
+msgstr ""
+"Con đường tu luyện của Nho môn. Giáo hóa thế nhân trong thành để tích lũy "
+"công đức và khí vận."
+
+msgid "educate_requirements"
+msgstr "Yêu cầu đạo thống Nho gia và đang ở trong thành"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "Bỏ Trốn"
+
+msgid "escape_description"
+msgstr "Thoát khỏi đối thủ (phán định dựa trên xác suất thành công)"
+
+msgid "escape_requirements"
+msgstr "Không hạn chế"
+
+msgid "evil"
+msgstr "Tà"
+
+msgid "excellent progress"
+msgstr "tiến cảnh khá tốt"
+
+msgid "failed"
+msgstr "thất bại"
+
+msgid "gained {val} cultivation"
+msgstr "Tăng {val} điểm tu vi."
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "Thu Thập"
+
+msgid "harvest_description"
+msgstr "Thu thập thực vật trong khu vực hiện tại để nhận vật liệu thực vật"
+
+msgid "harvest_requirements"
+msgstr ""
+"Đang ở khu vực thường có thực vật, và cảnh giới của avatar phải lớn hơn hoặc"
+" bằng cảnh giới của thực vật"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Cứu Tế Bách Tính"
+
+msgid "help_people_description"
+msgstr "Cứu tế bách tính trong thành, tiêu hao một lượng nhỏ linh thạch"
+
+msgid "help_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và có đủ linh thạch"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "Săn Bắn"
+
+msgid "hunt_description"
+msgstr "Săn động vật trong khu vực hiện tại để nhận vật liệu động vật"
+
+msgid "hunt_requirements"
+msgstr ""
+"Đang ở khu vực thường có động vật, và cảnh giới của avatar phải lớn hơn hoặc"
+" bằng cảnh giới của động vật"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Thiền Định"
+
+msgid "meditate_description"
+msgstr ""
+"Con đường tu luyện của Phật môn. Dùng thiền định để bình phục tâm cảnh, có "
+"cơ hội đốn ngộ và nhận được lượng lớn tu vi."
+
+msgid "meditate_requirements"
+msgstr "Yêu cầu đạo thống Phật môn"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "Đào Mỏ"
+
+msgid "mine_description"
+msgstr ""
+"Khai thác khoáng mạch trong khu vực hiện tại để nhận vật liệu khoáng thạch"
+
+msgid "mine_requirements"
+msgstr ""
+"Đang ở khu vực thường có khoáng mạch, và cảnh giới của avatar phải lớn hơn "
+"hoặc bằng cảnh giới của khoáng mạch"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "Di Chuyển"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "Rời Xa Nhân Vật"
+
+msgid "move_away_from_avatar_description"
+msgstr "Liên tục rời xa nhân vật được chỉ định"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "Rời Khu Vực"
+
+msgid "move_away_from_region_description"
+msgstr "Rời khỏi khu vực được chỉ định"
+
+msgid "move_away_from_region_requirements"
+msgstr "Không hạn chế"
+
+msgid "move_description"
+msgstr "Di chuyển đến một vị trí tương đối"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "Di Chuyển Tới Nhân Vật"
+
+msgid "move_to_avatar_description"
+msgstr "Di chuyển tới vị trí của một nhân vật cụ thể"
+
+msgid "move_to_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "Di Chuyển Thăm Dò"
+
+msgid "move_to_direction_description"
+msgstr "Thăm dò khu vực chưa biết theo một phương hướng"
+
+msgid "move_to_direction_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "Di Chuyển Tới Khu Vực"
+
+msgid "move_to_region_description"
+msgstr "Di chuyển tới một khu vực cụ thể"
+
+msgid "move_to_region_requirements"
+msgstr "Không hạn chế"
+
+msgid "neutral"
+msgstr "Trung Lập"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "Ôn Dưỡng Binh Khí"
+
+msgid "nurture_weapon_description"
+msgstr "Ôn dưỡng binh khí để tăng độ thuần thục binh khí"
+
+msgid "nurture_weapon_requirements"
+msgstr "Không hạn chế"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "Giải Khuây"
+
+msgid "play_description"
+msgstr "Giải khuây để thư giãn thân tâm"
+
+msgid "play_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Vơ Vét Dân Chúng"
+
+msgid "plunder_people_description"
+msgstr "Vơ vét dân chúng trong thành để có được một ít linh thạch"
+
+msgid "plunder_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và trận doanh của nhân vật phải là 'tà'"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "Luyện Đan"
+
+msgid "refine_description"
+msgstr ""
+"Tiêu hao vật liệu để thử luyện chế đan dược (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "refine_requirements"
+msgstr "Sở hữu 3 vật liệu cùng cảnh giới"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Thổ Nạp"
+
+msgid "respire_description"
+msgstr ""
+"Thuận theo Thiên Đạo, thổ nạp linh khí. Mật độ linh khí càng cao thì hiệu "
+"quả càng tốt."
+
+msgid "respire_requirements"
+msgstr "Yêu cầu đạo thống Đạo môn hoặc thân phận tán tu"
+
+msgid "respire_sect_hq_members_only"
+msgstr "Chỉ đệ tử của tông môn này mới có thể thổ nạp tại tổng bộ của họ."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "Tiến cảnh ổn định (tổng bộ tông môn)"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "Tự Trị Thương"
+
+msgid "self_heal_description"
+msgstr "Vận công chữa thương; có thể hoàn toàn hồi phục tại tổng bộ tông môn"
+
+msgid "self_heal_requirements"
+msgstr "HP hiện tại chưa đầy"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "Bán"
+
+msgid "sell_description"
+msgstr ""
+"Bán toàn bộ vật phẩm thuộc một loại nhất định đang sở hữu, hoặc trang bị "
+"hiện tại trong thành trấn"
+
+msgid "sell_requirements"
+msgstr "Đang ở trong thành trấn và sở hữu vật phẩm/trang bị có thể bán"
+
+msgid "slow progress (essence mismatch)"
+msgstr "Tiến cảnh chậm (linh khí không tương hợp)"
+
+msgid "slow progress (sparse essence)"
+msgstr "Tiến cảnh chậm (linh khí thưa thớt)"
+
+msgid "succeeded"
+msgstr "thành công"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Tôi Luyện"
+
+msgid "temper_description"
+msgstr ""
+"Dùng cách rèn luyện cực hạn để tôi luyện nhục thân khí lực, không cầu ngoại "
+"vật, không tiêu hao linh khí."
+
+msgid "temper_requirements"
+msgstr "Yêu cầu đạo thống Võ đạo"
+
+msgid "wilderness"
+msgstr "hoang giao dã ngoại"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} phát khởi chiến đấu với {target} (Chiến lực: {attacker} "
+"{att_power} vs {target} {def_power})"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr "{avatar} ám sát thành công! {target} ngã xuống khi chưa kịp phòng bị."
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} thử di chuyển nhưng mục tiêu không hợp lệ"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} bắt đầu tọa thiền nhập định."
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} bắt đầu thử đột phá cảnh giới"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} bắt đầu thử đúc tạo pháp bảo bậc {realm}"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} bắt đầu thử luyện chế đan dược bậc {realm}"
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} bắt đầu thôn phệ sinh linh trong thành"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} bắt đầu giáo hóa bách tính tại {city}."
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} bắt đầu cứu tế bách tính trong thành"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} bắt đầu giải khuây thư giãn"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} bắt đầu vơ vét dân chúng trong thành"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr ""
+"{avatar} đúc tạo pháp bảo bậc {realm} thất bại, toàn bộ vật liệu hóa thành "
+"tro bụi"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr ""
+"{avatar} luyện chế đan dược bậc {realm} thất bại, toàn bộ vật liệu hóa thành"
+" tro bụi"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} thuần phục linh thú thất bại"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} hoàn tất giáo hóa. Công đức tích lũy (+{exp})."
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr ""
+"{avatar} hoàn tất ôn dưỡng {weapon}, độ thuần thục tăng lên {proficiency}%"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} đã hoàn tất {action}."
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr "{avatar} đã đốn ngộ trong lúc thiền định! Tu vi tăng mạnh (+{exp})."
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr ""
+"{avatar} chữa thương hoàn tất (hồi phục {amount} HP, HP hiện tại {hp})"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} ẩn nấp trong bóng tối, đang mưu toan ám sát {target}..."
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr ""
+"{avatar} trong lúc ôn dưỡng {old_weapon}, linh tính của binh khí tăng vọt, "
+"thăng hoa thành {new_weapon}!"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} đã bán {item} trong thành trấn"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} đã thành công đúc tạo {label} bậc {realm} '{item}'"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} đã thành công luyện chế đan dược bậc {realm} '{item}'"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr ""
+"{avatar} thuần phục linh thú thành công, {beast} cảnh giới {realm} đã trở "
+"thành linh thú của họ"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} mời {target} cùng tiến hành song tu"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} [{elements}]"
+
+msgid "An anonymous passerby (extra)"
+msgstr "Một người qua đường vô danh"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "Thiên tượng thế giới hiện tại: {name}"
+
+msgid "plant_action_name"
+msgstr "Trồng Trọt"
+
+msgid "plant_description"
+msgstr "Trồng linh thực để kiếm một lượng nhỏ linh thạch. Kéo dài 6 tháng."
+
+msgid "plant_requirements"
+msgstr "Yêu cầu khu vực thường"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} bắt đầu trồng trọt tại {location}"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạch"
+
+# Alignment
+msgid "righteous"
+msgstr "Righteous"
+
+# ============================================================================
+# Auxiliary System - Auxiliaries
+# ============================================================================
+msgid " Devoured Souls: {count}"
+msgstr " Hồn phách đã thôn phệ: {count}"
+
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "Một tán tu {name} đã hiện thân giữa thế gian."
+
+msgid "Age"
+msgstr "Tuổi Tác"
+
+msgid "Alignment"
+msgstr "Trận Doanh"
+
+msgid "Appearance"
+msgstr "Dung Mạo"
+
+msgid "Auxiliary"
+msgstr "Phụ Trợ"
+
+msgid "Backstory"
+msgstr "Thân Thế"
+
+msgid "Backstory: {backstory}"
+msgstr "Thân thế: {backstory}"
+
+msgid "Current Action"
+msgstr "Hành Động Hiện Tại"
+
+msgid "Current Action: {action}"
+msgstr "Hành động hiện tại: {action}"
+
+msgid "Current Effects"
+msgstr "Hiệu Ứng Hiện Tại"
+
+msgid "Emotion"
+msgstr "Tâm Cảnh"
+
+msgid "Gender"
+msgstr "Giới Tính"
+
+msgid "HP"
+msgstr "Sinh Lực"
+
+msgid "Long-term Goal"
+msgstr "Chí Hướng Lâu Dài"
+
+msgid "Major Events"
+msgstr "Đại Sự"
+
+msgid "Materials"
+msgstr "Vật Liệu"
+
+msgid "Name"
+msgstr "Danh Tự"
+
+msgid "Nearby Avatars"
+msgstr "Nhân Vật Lân Cận"
+
+msgid "Nickname"
+msgstr "Biệt Hiệu"
+
+msgid "{desc} (Devoured Souls: {souls})"
+msgstr "{desc} (Hồn phách đã thôn phệ: {souls})"
+
+# ============================================================================
+# Avatar System
+# ============================================================================
+# Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "Xuất thân"
+
+msgid "Origin: {origin}"
+msgstr "Xuất thân: {origin}"
+
+msgid "Orthodoxy"
+msgstr "Đạo thống"
+
+msgid "Ranking"
+msgstr "Xếp hạng"
+
+msgid "Realm"
+msgstr "Cảnh giới"
+
+msgid "Recent Events"
+msgstr "Sự kiện gần đây"
+
+msgid "Region"
+msgstr "Khu vực"
+
+msgid "Relations"
+msgstr "Quan hệ"
+
+msgid "Sect"
+msgstr "Tông môn"
+
+msgid "Short-term Goal"
+msgstr "Mục tiêu ngắn hạn"
+
+msgid "Spirit Animal"
+msgstr "Linh thú"
+
+msgid "Spirit Stones"
+msgstr "Linh Thạch"
+
+msgid "Technique"
+msgstr "Công pháp"
+
+msgid "Traits"
+msgstr "Đặc chất"
+
+msgid "Weapon"
+msgstr "Binh khí"
+
+msgid "appearance_10_desc_female"
+msgstr ""
+"Ngươi đẹp đến mức khiến người ta kinh diễm, chỉ liếc mắt một lần đã khó "
+"quên."
+
+msgid "appearance_10_desc_male"
+msgstr "Dung mạo ngươi tuấn mỹ đến mức tựa kẻ không vương bụi trần."
+
+msgid "appearance_10_name"
+msgstr "Kinh Diễm"
+
+msgid "appearance_1_desc_female"
+msgstr ""
+"Ngươi cực kỳ xấu xí, ngũ quan mất cân đối, khiến người khác thường né tránh."
+
+msgid "appearance_1_desc_male"
+msgstr ""
+"Ngươi cực kỳ xấu xí, ngũ quan không hài hòa, thường khiến người ta ngoái "
+"nhìn."
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "Kỳ Xấu"
+
+msgid "appearance_2_desc_female"
+msgstr "Ngũ quan ngươi thô ráp, có vài nét khá đột ngột và kém hài hòa."
+
+msgid "appearance_2_desc_male"
+msgstr "Ngũ quan ngươi thô ráp, có vài nét trông khá cứng và khó coi."
+
+msgid "appearance_2_name"
+msgstr "Xấu Xí"
+
+msgid "appearance_3_desc_female"
+msgstr "Dung mạo ngươi thô lậu, nhìn lâu cũng khó thấy thuận mắt."
+
+msgid "appearance_3_desc_male"
+msgstr "Dung mạo ngươi thô lậu, thần sắc cũng không mấy dễ nhìn."
+
+msgid "appearance_3_name"
+msgstr "Thô Lậu"
+
+msgid "appearance_4_desc_female"
+msgstr "Ngươi có diện mạo bình thường, dễ dàng chìm nghỉm giữa đám đông."
+
+msgid "appearance_4_desc_male"
+msgstr ""
+"Ngươi có diện mạo bình thường, đứng trong đám đông cũng chẳng hề nổi bật."
+
+msgid "appearance_4_name"
+msgstr "Hàn Tố"
+
+msgid "appearance_5_desc_female"
+msgstr "Mi mục ngươi thanh tú, nhìn kỹ khá là dễ mến."
+
+msgid "appearance_5_desc_male"
+msgstr "Mi mục ngươi thanh tú, tổng thể nhìn khá thuận mắt."
+
+msgid "appearance_5_name"
+msgstr "Thanh Tú"
+
+msgid "appearance_6_desc_female"
+msgstr "Ngũ quan ngươi tinh xảo, khí chất ôn nhã."
+
+msgid "appearance_6_desc_male"
+msgstr "Ngũ quan ngươi tinh xảo, khí chất đoan chính."
+
+msgid "appearance_6_name"
+msgstr "Tú Trí"
+
+msgid "appearance_7_desc_female"
+msgstr "Ngươi sinh ra đã rất mỹ lệ, đi tới đâu cũng cực kỳ bắt mắt."
+
+msgid "appearance_7_desc_male"
+msgstr ""
+"Ngươi tuấn lãng phi phàm, tần suất khiến người khác ngoái đầu nhìn lại cực "
+"cao."
+
+msgid "appearance_7_name"
+msgstr "Tuấn Mỹ"
+
+msgid "appearance_8_desc_female"
+msgstr "Ngươi đẹp đến mức khiến người ta phải kinh tâm động phách."
+
+msgid "appearance_8_desc_male"
+msgstr "Dung mạo ngươi xuất chúng, đi tới đâu cũng trở thành tâm điểm chú ý."
+
+msgid "appearance_8_name"
+msgstr "Khuynh Thành"
+
+msgid "appearance_9_desc_female"
+msgstr ""
+"Vẻ đẹp của ngươi kinh tâm động phách, gần như liếc mắt một lần là khó quên."
+
+msgid "appearance_9_desc_male"
+msgstr ""
+"Dung mạo lẫn khí chất của ngươi đều thuộc hàng thượng thừa, thường khiến "
+"người khác liếc nhìn."
+
+msgid "appearance_9_name"
+msgstr "Tuyệt Sắc"
+
+msgid "daughter"
+msgstr "nữ"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr "{name} đã thức tỉnh linh căn và bước lên con đường tu hành."
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Trận doanh: {alignment}, Phong cách: {style}, Trú địa: {hq_name}){effect}"
+
+msgid "(Unknown technique)"
+msgstr "(Công pháp chưa rõ)"
+
+msgid "Current World Phenomenon"
+msgstr "Thiên tượng đương thời"
+
+msgid "Drops: {materials}"
+msgstr "Rơi ra: {materials}"
+
+msgid "History"
+msgstr "Lịch sử"
+
+msgid "Unknown character"
+msgstr "Nhân vật chưa rõ"
+
+msgid "When alignment is {align}"
+msgstr "Khi trận doanh là {align}"
+
+msgid "When using {weapon_type}"
+msgstr "Khi sử dụng {weapon_type}"
+
+msgid "Wilderness"
+msgstr "Hoang dã"
+
+msgid "[{name}] ({realm})"
+msgstr "【{name}】 ({realm})"
+
+# ============================================================================
+# Additional (New)
+# ============================================================================
+msgid "action_thinking"
+msgstr "Suy nghĩ"
+
+msgid "battle"
+msgstr "Chiến tử"
+
+msgid "date_format_year_month"
+msgstr "Năm {year} tháng {month}"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "đánh bại"
+
+msgid "old_age"
+msgstr "già chết"
+
+msgid "phenomenon_format"
+msgstr "[{name}] {desc}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "(Trú địa tông môn [{sect_name}])"
+
+msgid "serious_injury"
+msgstr "Trọng thương"
+
+msgid "son"
+msgstr "nam"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment} - {description}"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name} ({attribute}) - {grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name} ({attribute}) - {grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name} ({attribute} · {grade})"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}: {desc}{effect}"
+
+msgid "{name} ({realm})"
+msgstr "{name} - {realm}"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name} ({type} · {realm}, {desc}){effect}"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} đã tấn thăng thành tu sĩ."
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc} - {realm}"
+
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} và {p2} sinh hạ một {gender}, đặt tên là {child}."
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage} (Cấp {level}) {status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage} (Cấp {level}). Trạng thái bình cảnh: {status}"
+
+# Battle messages
+msgid ""
+"{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
+"wounded and perished."
+msgstr ""
+"{winner} đánh bại {loser}, gây ra {damage} điểm thương hại. {loser} trọng "
+"thương trí mạng và tại chỗ vẫn lạc."
+
+msgid ""
+"{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also "
+"took {winner_dmg} damage."
+msgstr ""
+"{winner} đánh bại {loser}. {loser} chịu {loser_dmg} điểm thương hại, còn "
+"{winner} cũng chịu {winner_dmg} điểm thương hại."
+
+msgid " (and sold old {item} at reduced price)"
+msgstr " (đồng thời bán món {item} cũ với giá chiết khấu)"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr ""
+"Cảnh giới động vật trong khu vực hiện tại cao hơn cảnh giới của nhân vật"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "Ám sát thất bại! Hai bên lập tức bộc phát ác chiến."
+
+msgid "Breakthrough failed"
+msgstr "Đột phá thất bại"
+
+msgid "Breakthrough succeeded"
+msgstr "Đột phá thành công"
+
+msgid "Can only execute in city areas"
+msgstr "Chỉ có thể thực hiện trong khu vực thành thị"
+
+msgid "Cannot resolve region: {region}"
+msgstr "Không thể phân giải khu vực: {region}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "Không thể bán loại này: {name}"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "Đúc tạo thành công! Nhận được {realm} {label} '{item}'"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "Tu vi đã chạm bình cảnh, không thể tiếp tục tu luyện"
+
+msgid "Current HP is full"
+msgstr "HP hiện tại đã đầy"
+
+msgid "Current area {region} has no animals"
+msgstr "Khu vực hiện tại {region} không có động vật"
+
+msgid "Do not possess equipment: {name}"
+msgstr "Không sở hữu trang bị: {name}"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "Không sở hữu vật phẩm/trang bị: {name}"
+
+msgid "Do not possess material: {name}"
+msgstr "Không sở hữu tài liệu: {name}"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr "Hành vi phi pháp bị cấm (thiếu Vạn Hồn Phiên hoặc không có quyền hạn)"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr ""
+"Tài liệu không đủ, cần {cost} tài liệu bậc {realm}, hiện chỉ có {count}"
+
+msgid "Insufficient spirit stones"
+msgstr "Linh thạch không đủ"
+
+msgid "Invalid direction: {direction}"
+msgstr "Hướng không hợp lệ: {direction}"
+
+msgid "Invalid realm: {realm}"
+msgstr "Cảnh giới không hợp lệ: {realm}"
+
+msgid "Missing HP information"
+msgstr "Thiếu thông tin HP"
+
+msgid "Missing target parameter"
+msgstr "Thiếu tham số mục tiêu"
+
+msgid "Must be in a City to educate people."
+msgstr "Phải ở trong thành thị mới có thể giáo hóa thế nhân."
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "Hiện không ở bình cảnh, không thể đột phá"
+
+msgid "Not currently in normal area"
+msgstr "Hiện không ở khu vực thông thường"
+
+msgid "Only evil alignment can execute"
+msgstr "Chỉ trận doanh tà ác mới có thể thực hiện"
+
+msgid "Only righteous alignment can execute"
+msgstr "Chỉ trận doanh chính đạo mới có thể thực hiện"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "Luyện đan thành công! Nhận được đan dược {realm} '{item}'"
+
+msgid "Syncing language setting: {lang}..."
+msgstr "Đang đồng bộ cài đặt ngôn ngữ: {lang}..."
+
+msgid "Target does not exist"
+msgstr "Mục tiêu không tồn tại"
+
+msgid "Target is already dead"
+msgstr "Mục tiêu đã chết"
+
+msgid "Target realm not specified"
+msgstr "Chưa chỉ định cảnh giới của mục tiêu"
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "Nhờ sự giáo hóa của {avatar}, độ phồn vinh của {city} đã tăng lên."
+
+msgid "This area has no shop"
+msgstr "Khu vực này không có cửa hàng"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "Động phủ này đã bị {name} chiếm giữ, không thể thổ nạp"
+
+msgid "Unknown item: {name}"
+msgstr "Vật phẩm chưa rõ: {name}"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Đạo thống của ngươi không hỗ trợ tôi luyện nhục thân."
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "Đạo thống của ngươi không hỗ trợ giáo hóa thế nhân."
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "Đạo thống của ngươi không hỗ trợ thổ nạp linh khí."
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "Đạo thống của ngươi không hỗ trợ thiền định."
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr ""
+"[{region}] là lãnh địa của tông môn khác, ngươi không phải đệ tử của tông "
+"môn đó"
+
+msgid "action_chess"
+msgstr "Đánh cờ"
+
+msgid "action_chess_desc"
+msgstr "Đối dịch đánh cờ để rèn giũa tâm trí."
+
+msgid "action_chess_story_prompt"
+msgstr "Hai người đang đối dịch đánh cờ."
+
+msgid "action_devourpeople_short_name"
+msgstr "Thôn Phệ Sinh Linh"
+
+# Condition Translation
+msgid "Conditional effect"
+msgstr "Hiệu ứng kích hoạt theo điều kiện"
+
+msgid "Has [{trait}] trait"
+msgstr "Sở hữu đặc chất [{trait}]"
+
+msgid "When {condition}"
+msgstr "Khi {condition}"
+
+msgid "[{condition}] {effects}"
+msgstr "[{condition}]: {effects}"
+
+msgid "Died from severe injuries"
+msgstr "Trọng thương bất trị mà vẫn lạc"
+
+msgid "Died of old age"
+msgstr "Thọ nguyên hao tận mà vẫn lạc"
+
+# ============================================================================
+# Cultivation System - Realm
+# ============================================================================
+# Realm Status
+msgid "Needs breakthrough"
+msgstr "Cần Đột Phá"
+
+msgid "No"
+msgstr "Không"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "Chưa tới bình cảnh, không cần đột phá"
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}(Cấp {level}). Bình cảnh: {status}"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}(Cấp {level}){status}"
+
+# Death reasons
+msgid "Killed by {killer}"
+msgstr "Bị {killer} sát hại"
+
+# ============================================================================
+# Relation & Root & Appearance & Sect (Refined)
+# ============================================================================
+msgid "Unknown reason"
+msgstr "Nguyên do chưa rõ"
+
+msgid "{name} (Deceased: {reason})"
+msgstr "{name} (Đã mất: {reason})"
+
+# Decision Description
+msgid ""
+"Current {label}: {old_info}\n"
+"{new_desc}"
+msgstr ""
+"{label} hiện có: {old_info}\n"
+"{new_desc}"
+
+msgid "Disciple"
+msgstr "Đệ Tử"
+
+# Default Values
+msgid "None"
+msgstr "Không"
+
+msgid "Rogue Cultivator"
+msgstr "Tán Tu"
+
+msgid "Unknown"
+msgstr "Chưa Rõ"
+
+msgid "east"
+msgstr "đông"
+
+msgid "Auxiliary [{name}]"
+msgstr "Phụ Trợ [{name}]"
+
+msgid "Elixir [{name}]"
+msgstr "Đan Dược [{name}]"
+
+msgid "Heaven and Earth Phenomenon"
+msgstr "Thiên Địa Dị Tượng"
+
+# Direction names
+msgid "north"
+msgstr "bắc"
+
+msgid "south"
+msgstr "nam"
+
+msgid "west"
+msgstr "tây"
+
+# Effect Source Labels
+msgid "Sect [{name}]"
+msgstr "Tông môn [{name}]"
+
+msgid "Special effect (dynamic)"
+msgstr "Hiệu ứng đặc biệt (động)"
+
+msgid "Spirit Animal [{name}]"
+msgstr "Linh thú [{name}]"
+
+msgid "Spirit Root"
+msgstr "Linh Căn"
+
+msgid "Technique [{name}]"
+msgstr "Công pháp [{name}]"
+
+msgid "Trait [{name}]"
+msgstr "Đặc chất [{name}]"
+
+msgid "Weapon [{name}]"
+msgstr "Binh khí [{name}]"
+
+# Effect Formatting
+msgid "action_list_separator"
+msgstr "、"
+
+msgid "effect_damage_reduction"
+msgstr "Giảm thương"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "Tỷ lệ ám sát thành công"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "Chiến lực"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "Tỷ lệ đột phá thành công"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "Tỷ lệ đúc tạo thành công"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "Tỷ lệ bắt linh thú thành công"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "Kinh nghiệm song tu"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "Hiệu suất giáo hóa"
+
+msgid "effect_extra_educate_prosperity_prob"
+msgstr "Xác suất tăng độ phồn vinh khi giáo hóa"
+
+msgid "effect_extra_epiphany_probability"
+msgstr "Xác suất đốn ngộ"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "Tỷ lệ chạy thoát thành công"
+
+msgid "effect_extra_fortune_probability"
+msgstr "Xác suất kỳ ngộ"
+
+msgid "effect_extra_harvest_materials"
+msgstr "Tài liệu thu được khi thu thập"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "Xác suất hung hiểm của bí cảnh"
+
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "Xác suất rơi vật phẩm ở bí cảnh"
+
+# ============================================================================
+# Effect System
+# ============================================================================
+# Effect Names
+msgid "effect_extra_hp_recovery_rate"
+msgstr "Tốc độ hồi phục sinh mệnh"
+
+msgid "effect_extra_hunt_materials"
+msgstr "Tài liệu thu được khi săn bắn"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "Giá bán vật phẩm"
+
+msgid "effect_extra_max_hp"
+msgstr "Sinh mệnh tối đa"
+
+msgid "effect_extra_max_lifespan"
+msgstr "Thọ nguyên tối đa"
+
+msgid "effect_extra_mine_materials"
+msgstr "Tài liệu thu được khi đào mỏ"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "Xác suất xui rủi"
+
+msgid "effect_extra_move_step"
+msgstr "Bước di chuyển"
+
+msgid "effect_extra_observation_radius"
+msgstr "Phạm vi cảm tri"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "Thu hoạch khi cướp đoạt"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "Tỷ lệ luyện đan thành công"
+
+msgid "effect_extra_respire_exp"
+msgstr "Kinh nghiệm thổ nạp"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "Hệ số kinh nghiệm thổ nạp cộng thêm"
+
+msgid "effect_extra_retreat_success_rate"
+msgstr "Tỷ lệ bế quan thành công"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "Hiệu suất tôi luyện"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "Mức tăng độ thuần thục binh khí"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "Xác suất binh khí thăng cấp"
+
+msgid "effect_legal_actions"
+msgstr "Năng lực đặc biệt"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "Cảnh giới áp chế"
+
+msgid "effect_respire_duration_reduction"
+msgstr "Rút ngắn thời gian thổ nạp"
+
+msgid "effect_separator"
+msgstr "；"
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "Chiết khấu mua hàng"
+
+msgid "effect_temper_duration_reduction"
+msgstr "Rút ngắn thời gian tôi luyện"
+
+msgid "play_benefit"
+msgstr "Lợi ích giải khuây"
+
+msgid "effect_extra_plant_income"
+msgstr "Thu nhập linh thạch từ trồng trọt cộng thêm"
+
+msgid "effect_extra_income_per_tile"
+msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
+
+msgid "earth_essence"
+msgstr "Earth"
+
+# ============================================================================
+# Elixir System - Elixirs
+# ============================================================================
+msgid "elixir_type_breakthrough"
+msgstr "Breakthrough"
+
+msgid "elixir_type_burn_blood"
+msgstr "Burn Blood"
+
+msgid "elixir_type_heal"
+msgstr "Heal"
+
+msgid "elixir_type_lifespan"
+msgstr "Lifespan"
+
+msgid "fire_essence"
+msgstr "Fire"
+
+msgid ""
+"At the auction, {winner_name} acquired {item_name} for {price} spirit "
+"stones."
+msgstr ""
+"Tại buổi đấu giá, {winner_name} đã dùng {price} linh thạch để đoạt được "
+"{item_name}."
+
+# Essence Type
+msgid "gold_essence"
+msgstr "Kim"
+
+msgid "water_essence"
+msgstr "Thủy"
+
+msgid "wood_essence"
+msgstr "Mộc"
+
+# Event Content
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"Trong buổi đấu giá {item_name}, {winner_name} đã dùng {price} linh thạch để "
+"vượt qua {runner_up_name} và đoạt lấy món vật phẩm này."
+
+msgid "Retreat Bonus"
+msgstr "Cảm Ngộ Bế Quan"
+
+# ============================================================================
+# Additional Missing Translations
+# ============================================================================
+msgid "Unsupported item type: {item_type}"
+msgstr "Loại vật phẩm không được hỗ trợ: {item_type}"
+
+msgid "retreat_action_name"
+msgstr "Bế Quan"
+
+msgid "retreat_death_append"
+msgstr ""
+" Và trong lúc bế quan đã hao cạn tia sinh cơ cuối cùng, tọa hóa mà vong."
+
+msgid "retreat_desc"
+msgstr ""
+"Bế quan để phá vỡ bản thân, mưu cầu tinh tiến. Hung hiểm vô cùng, không phải"
+" người đại nghị lực thì chớ thử."
+
+msgid "retreat_fail"
+msgstr ""
+"Bế quan thất bại! Nguyên khí tổn thương nặng nề, hao tổn {years} năm thọ "
+"nguyên."
+
+msgid "retreat_requirements"
+msgstr "Không hạn chế; cần thời gian hồi"
+
+msgid "retreat_start"
+msgstr "{avatar} bắt đầu bế quan, ngày phá quan chưa định."
+
+msgid "retreat_story_prompt_fail"
+msgstr ""
+"Đây là câu chuyện về một lần bế quan thất bại. Hãy miêu tả cách tu sĩ bị tâm"
+" ma quấy nhiễu, dấy lên tự nghi ngờ, cuối cùng bị phản phệ trong lúc bế "
+"quan. Không cần miêu tả chiến đấu."
+
+msgid "retreat_story_prompt_success"
+msgstr ""
+"Đây là câu chuyện về một lần bế quan thành công. Hãy miêu tả cách tu sĩ vượt"
+" qua cô tịch, cảm ngộ Thiên Đạo và sau cùng đột phá tâm cảnh trong lúc bế "
+"quan. Không cần miêu tả chiến đấu."
+
+msgid "retreat_success"
+msgstr ""
+"Bế quan thành công! Tu vi tinh tiến, cảm ngộ đối với Thiên Đạo cũng càng "
+"thêm thâm sâu."
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} đã từ bỏ {item_name}."
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr ""
+"{avatar_name} đã bán {item_name} vừa thu được, kiếm {price} linh thạch."
+
+msgid "game.sect_update_event"
+msgstr ""
+"Kết toán thường niên của {sect_name}: tổng chiến lực {strength}, bán kính "
+"thế lực {radius}, thu nhập lãnh địa {income} linh thạch, chi tiêu cung dưỡng"
+" môn nhân {upkeep} linh thạch, biến động ròng {net_change} linh thạch. Cấu "
+"thành chi tiêu: {upkeep_breakdown}."
+
+msgid "game.sect_thinking_event"
+msgstr "Suy tư của tông môn {sect_name}: {thinking}"
+
+msgid "Game automatically saved"
+msgstr "Trò chơi đã tự động lưu"
+
+# Execution Results
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} đã {done} {grade} {label}『{item_name}』."
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} bế quan thất bại, tổn hao {years} năm thọ nguyên."
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} đã bế quan thành công."
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} tăng thêm +{exp} điểm tu vi"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} đã đánh bại {loser}"
+
+msgid ""
+"\n"
+"--- Current Effects Detail ---"
+msgstr ""
+"\n"
+"--- Chi Tiết Hiệu Ứng Hiện Tại ---"
+
+msgid "Contains elements: {elements}"
+msgstr "Bao hàm nguyên tố: {elements}"
+
+msgid "Identity: {identity}"
+msgstr "Thân phận: {identity}"
+
+msgid "No additional effects"
+msgstr "Không có hiệu ứng bổ sung"
+
+msgid "Performing {action}"
+msgstr "Đang chấp hành {action}"
+
+msgid "Realm: {realm}"
+msgstr "Cảnh giới: {realm}"
+
+# Feedback labels
+msgid "feedback_accept"
+msgstr "Chấp Thuận"
+
+msgid "feedback_attack"
+msgstr "Khai Chiến"
+
+msgid "feedback_escape"
+msgstr "Thoát Ly"
+
+msgid "feedback_move_away_from_avatar"
+msgstr "Thử Lùi Xa"
+
+msgid "feedback_move_away_from_region"
+msgstr "Thử Rời Khu Vực"
+
+msgid "feedback_reject"
+msgstr "Từ Chối"
+
+msgid "{avatar} attempted to escape from {target}: {result}"
+msgstr "{avatar} đã thử thoát khỏi {target}: {result}"
+
+msgid "{avatar} attempts to escape from {target}"
+msgstr "{avatar} thử thoát khỏi {target}"
+
+msgid "{avatar} attempts to tame spirit beast at {location}"
+msgstr "{avatar} thử thuần phục linh thú tại {location}"
+
+msgid "{avatar} begins harvesting at {location}"
+msgstr "{avatar} bắt đầu thu thập tại {location}"
+
+msgid "{avatar} begins hunting at {location}"
+msgstr "{avatar} bắt đầu săn bắt tại {location}"
+
+msgid "{avatar} begins leaving {region}"
+msgstr "{avatar} bắt đầu rời khỏi {region}"
+
+msgid "{avatar} begins mining at {location}"
+msgstr "{avatar} bắt đầu khai khoáng tại {location}"
+
+msgid "{avatar} begins moving away from {target}"
+msgstr "{avatar} bắt đầu lùi xa khỏi {target}"
+
+msgid "{avatar} begins moving toward {direction}"
+msgstr "{avatar} bắt đầu di chuyển về phía {direction}"
+
+msgid "{avatar} begins moving toward {region}"
+msgstr "{avatar} bắt đầu di chuyển tới {region}"
+
+msgid "{avatar} begins moving toward {target}"
+msgstr "{avatar} bắt đầu di chuyển tới {target}"
+
+msgid "{avatar} begins nurturing {weapon}"
+msgstr "{avatar} bắt đầu ôn dưỡng {weapon}"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} bắt đầu thổ nạp tại {location}, {efficiency}"
+
+msgid "{avatar} begins resting and healing at {location}"
+msgstr "{avatar} bắt đầu tĩnh dưỡng trị thương tại {location}"
+
+msgid "{avatar} breakthrough result: {result}"
+msgstr "{avatar} đột phá {result}"
+
+msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
+msgstr "{avatar} gặp phải {calamity}, đột phá {result}"
+
+msgid "{avatar} finished harvesting, obtained: {materials}"
+msgstr "{avatar} hoàn tất thu thập, thu được: {materials}"
+
+msgid "{avatar} finished hunting, obtained: {materials}"
+msgstr "{avatar} hoàn tất săn bắt, thu được: {materials}"
+
+msgid "{avatar} finished mining, obtained: {materials}"
+msgstr "{avatar} hoàn tất khai khoáng, thu được: {materials}"
+
+msgid "{avatar} finished moving toward {direction}"
+msgstr "{avatar} đã hoàn tất di chuyển về phía {direction}"
+
+msgid "{avatar} spent {price} spirit stones in town, {action} {item}{suffix}"
+msgstr "{avatar} tiêu {price} linh thạch trong thành, {action} {item}{suffix}"
+
+msgid "{avatar} starts {action}"
+msgstr "{avatar} bắt đầu {action}"
+
+msgid "{label}: {names}"
+msgstr "{label} gồm: {names}"
+
+# Complex Formatted String (get_other_avatar_info)
+msgid ""
+"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
+"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr ""
+"{name}, Biệt hiệu: {nickname}, Cảnh giới: {realm}, Quan hệ: {relation}, Tông"
+" môn: {sect}, Trận doanh: {alignment}, Dung mạo: {appearance}, Công pháp: "
+"{technique}, Binh khí: {weapon}, Phụ trợ: {aux}, HP: {hp}"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}, Cảnh giới: {realm}"
+
+msgid "{region} does not sell {item}"
+msgstr "{region} không bày bán {item}"
+
+msgid "{sect} {rank}"
+msgstr "{rank} của {sect}"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " Nhưng ngươi đã có '{current_auxiliary}' rồi."
+
+msgid " But you already have '{current_weapon}'."
+msgstr " Nhưng ngươi đã có '{current_weapon}' rồi."
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " Nhưng ngươi đã có『{auxiliary_name}』rồi."
+
+msgid " But you already have『{weapon_name}』."
+msgstr " Nhưng ngươi đã có『{weapon_name}』rồi."
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr ""
+" Điều này xung khắc với công pháp ngươi đang chủ tu '{current_technique}'."
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr ""
+" Điều này xung khắc với công pháp ngươi đang chủ tu『{technique_name}』."
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "Lĩnh ngộ công pháp '{technique}', {exchange_result}"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "Lĩnh ngộ công pháp『{technique_name}』, {exchange_text}"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "Phát hiện phụ trợ『{auxiliary_name}』, {exchange_text}"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "Phát hiện binh khí『{weapon_name}』, {exchange_text}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "Phát hiện trang bị phụ trợ '{auxiliary}', {exchange_result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "Phát hiện binh khí '{weapon}', {exchange_result}"
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}, Độ thuần thục: {proficiency}%"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age} tuổi"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr ""
+"Ngươi đã lĩnh ngộ thượng phẩm công pháp『{technique_name}』trong kỳ ngộ."
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "Ngươi đã lĩnh ngộ thượng phẩm công pháp『{technique}』trong kỳ ngộ."
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr ""
+"Ngươi đã phát hiện trang bị phụ trợ bậc {realm}『{auxiliary}』trong kỳ ngộ."
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr ""
+"Ngươi đã phát hiện trang bị phụ trợ bậc {realm}『{auxiliary_name}』trong kỳ "
+"ngộ."
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "Ngươi đã phát hiện binh khí bậc {realm}『{weapon}』trong kỳ ngộ."
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "Ngươi đã phát hiện binh khí bậc {realm}『{weapon_name}』trong kỳ ngộ."
+
+msgid "fortune_dynamic_story_prompt"
+msgstr ""
+"Nhân vật hiện ở cảnh giới {realm}. Vừa rồi họ đang ở {location} để thực hiện hành động: [{action_desc}]. Kết quả cuối cùng là: [{result}].\n"
+"Nhiệm vụ: Hãy kết hợp cảnh giới, bối cảnh của nhân vật cùng [hành động họ đang thực hiện], tự động suy luận ra một nguyên do kỳ ngộ hợp lý, liền mạch và giàu sáng tạo để làm cầu nối giải thích vì sao hành động ấy lại dẫn đến kết quả này. Hãy miêu tả phong phú chi tiết môi trường và hoạt động tâm lý của nhân vật. Khống chế độ dài trong khoảng 100-200 chữ."
+
+# Fortune messages
+msgid "fortune_event_base"
+msgstr "Gặp kỳ ngộ ({title}), {result}"
+
+msgid "fortune_title_auxiliary"
+msgstr "Dị Bảo Xuất Thế"
+
+msgid "fortune_title_cultivation"
+msgstr "Tu Vi Tinh Tiến"
+
+msgid "fortune_title_find_master"
+msgstr "Danh Sư Chỉ Lộ"
+
+msgid "fortune_title_mystery"
+msgstr "Thần Bí Kỳ Ngộ"
+
+msgid "fortune_title_spirit_stone"
+msgstr "Hoạch Tài Bất Ngờ"
+
+msgid "fortune_title_technique"
+msgstr "Đốn Ngộ Công Pháp"
+
+msgid "fortune_title_weapon"
+msgstr "Thần Binh Giáng Thế"
+
+msgid "unknown location"
+msgstr "địa điểm chưa rõ"
+
+msgid "wandering aimlessly"
+msgstr "lang thang vô định"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} bái {master} làm sư"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} bái {master_name} làm sư"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} tăng {exp_gain} điểm kinh nghiệm tu vi"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} nhận được {amount} viên linh thạch"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} tăng {exp} điểm tu vi"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} nhận được {amount} viên linh thạch"
+
+# ============================================================================
+# Gathering System - Auction
+# ============================================================================
+# Status Text
+msgid "Auction is in progress..."
+msgstr "Buổi đấu giá đang diễn ra..."
+
+msgid "epiphany_event_desc"
+msgstr ""
+"Sự kiện đặc biệt: Đệ tử {names} đã đốn ngộ trong lúc nghe đạo và trực tiếp "
+"lĩnh hội được {tech_name}!\n"
+
+msgid "female"
+msgstr "Nữ"
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"Tông môn: {sect_name}\n"
+"Phong cách: {style}\n"
+"Người truyền đạo: {teacher_name} ({teacher_realm})\n"
+"{epiphany_text}\n"
+"Hãy dựa trên thiết lập của tông môn và nhân vật để miêu tả sự lĩnh ngộ của người truyền đạo đối với thiên địa, thế gian và đại đạo, đồng thời thuật lại những phản ứng khác nhau của các đệ tử."
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} đang đăng đài giảng đạo."
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} nhận được {exp} điểm kinh nghiệm."
+
+msgid "sect_teaching_gathering_info"
+msgstr "Đại hội truyền đạo của {sect_name}"
+
+# ============================================================================
+# Gathering System - Sect Teaching
+# ============================================================================
+msgid "sect_teaching_story_prompt"
+msgstr ""
+"Hãy miêu tả một buổi đại hội truyền đạo của tông môn. Trọng tâm là bầu không"
+" khí của đại hội, đạo vận thâm hậu nơi người truyền đạo, cùng muôn vẻ phản "
+"ứng của chư đệ tử. Xin tránh nhắc tới con số kinh nghiệm cụ thể."
+
+msgid "sect_teaching_summary"
+msgstr ""
+"{sect_name} đã cử hành đại hội truyền đạo, do {teacher_name} chủ giảng. Đệ "
+"tử tham dự: {student_names}."
+
+msgid ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+msgstr ""
+"Sự kiện: Bí cảnh khai mở\n"
+"Tên: {name}\n"
+"Mô tả: {desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập."
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
+msgstr ""
+"Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập. Người tiến nhập: "
+"{entrants}"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
+"entered."
+msgstr ""
+"Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập. Không ai tiến "
+"nhập."
+
+msgid "Hidden Domains opened: {names}"
+msgstr "Bí cảnh đã khai mở: {names}"
+
+msgid "Perished in a Hidden Domain"
+msgstr "Vẫn lạc trong bí cảnh"
+
+msgid "found a treasure"
+msgstr "tìm được bảo vật"
+
+# Gender
+msgid "male"
+msgstr "Nam"
+
+# ============================================================================
+# Hidden Domain
+# ============================================================================
+msgid "hidden_domain_story_prompt"
+msgstr ""
+"Hãy miêu tả quá trình thăm dò bí cảnh. Có thể tập trung vào trải nghiệm của "
+"một người, hoặc vào tương tác giữa nhiều người như chạm mặt, hợp tác, tranh "
+"đoạt, thậm chí giao chiến. Nội dung nên bao quát hiểm nguy gặp phải, cơ "
+"duyên đoạt được, hay nỗi tiếc nuối khi tay trắng trở về, nhằm tạo nên bầu "
+"không khí thần bí, căng thẳng hoặc đầy biến số."
+
+msgid "perished"
+msgstr "vẫn lạc tại"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr ""
+"{names} tiến vào {domain} mà không thu hoạch được gì, đành tay trắng trở về."
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} đã tìm được bảo vật {loot} trong {domain}!"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} đã vẫn lạc trong bí cảnh {domain}."
+
+msgid "{}: {}"
+msgstr "{}: {}"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "quyết định thay vào trang bị"
+
+msgid "decided to keep current equipment"
+msgstr "quyết định giữ lại trang bị hiện tại"
+
+msgid "decided to keep current technique"
+msgstr "quyết định giữ lại công pháp hiện tại"
+
+msgid "decided to learn it"
+msgstr "quyết định tu luyện nó"
+
+msgid "item_verb_consume"
+msgstr "dùng"
+
+msgid "item_verb_consumed"
+msgstr "đã dùng"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} đã bỏ {item_name}."
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} đã trang bị {grade}{label} '{item_name}'."
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} đã thu được {grade}{label} '{item_name}' rồi trang bị."
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr "{name} đã bán {item_name} vừa thu được, kiếm {price} linh thạch."
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【Thông Tin Nhân Vật Liên Quan】"
+
+msgid "auxiliary"
+msgstr "phụ trợ"
+
+msgid "elixir"
+msgstr "đan dược"
+
+msgid "item_label_auxiliary"
+msgstr "Phụ Trợ"
+
+msgid "item_label_elixir"
+msgstr "Đan Dược"
+
+msgid "item_label_technique"
+msgstr "Công Pháp"
+
+# Item Verbs
+msgid "item_verb_equip"
+msgstr "trang bị"
+
+msgid "item_verb_equipped"
+msgstr "đã trang bị"
+
+msgid "item_verb_practice"
+msgstr "tu luyện"
+
+msgid "item_verb_replace"
+msgstr "thay thế"
+
+msgid "item_verb_switched"
+msgstr "đã đổi sang"
+
+# Auto-equip Message
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} đã thu được {grade} {label}『{item_name}』và {action}."
+
+# Item Labels
+msgid "item_label_weapon"
+msgstr "Binh Khí"
+
+msgid "technique"
+msgstr "công pháp"
+
+# Labels
+msgid "weapon"
+msgstr "binh khí"
+
+# Labels
+msgid "【Auction Items Information】"
+msgstr "【Thông Tin Vật Phẩm Đấu Giá】"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"Hiệu quả: {effect_desc}"
+
+msgid " (Distance: {months} months)"
+msgstr " (Khoảng cách: {months} tháng)"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr " (Chủ nhân: {owner}, {realm})"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " (Phân bố tài nguyên: {species_info})"
+
+msgid " ({desc})"
+msgstr " ({desc})"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " ({essence_type} linh khí: {essence_density})"
+
+msgid " ({store_info})"
+msgstr " ({store_info})"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region (can trade)"
+msgstr "Khu Vực Thành Thị (có thể giao dịch)"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "Khu Vực Thành Thị: {name} - {desc}{desc_part}"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr ""
+"Hãy chọn lấy khía cạnh thú vị nhất hoặc một lần ra giá tiêu biểu để miêu tả,"
+" không cần bao quát mọi mặt. Trọng tâm là bầu không khí căng thẳng trong "
+"suốt quá trình tranh giá."
+
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Khu Vực Tu Luyện (có thể thổ nạp để tăng tu vi)"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr ""
+"Khu Vực Tu Luyện: {name} ({essence_type} linh khí: {essence_density}) - "
+"{desc}"
+
+msgid "No special resources"
+msgstr "Không có tài nguyên đặc thù"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "Khu Vực Thường (có thể săn bắt, thu thập, khai khoáng)"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "Khu Vực Thường: {name} - {desc} | Phân bố tài nguyên: {species_info}"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "Tổng Bộ Tông Môn (đệ tử bổn tông dưỡng thương nhanh hơn tại đây)"
+
+msgid "Sell: "
+msgstr "Bán: "
+
+msgid "emotion_angry"
+msgstr "Angry"
+
+msgid "emotion_anticipating"
+msgstr "Anticipating"
+
+msgid "emotion_calm"
+msgstr "Calm"
+
+msgid "emotion_confused"
+msgstr "Confused"
+
+msgid "emotion_disgusted"
+msgstr "Disgusted"
+
+msgid "emotion_fearful"
+msgstr "Fearful"
+
+msgid "emotion_happy"
+msgstr "Happy"
+
+msgid "emotion_sad"
+msgstr "Sad"
+
+msgid "emotion_surprised"
+msgstr "Surprised"
+
+msgid "emotion_tired"
+msgstr "Tired"
+
+msgid "misfortune_dynamic_story_prompt"
+msgstr ""
+"The character's current realm is {realm}. They were just at {location} performing the action: [{action_desc}]. The final result is: [{result}].\n"
+"Task: Based on the character's realm, background, and the [action they were performing], please automatically deduce a reasonable, coherent, and creative reason for the misfortune as a bridge to explain why this action led to this result. Describe rich environmental details and the character's psychological activities. Keep the word count between 100-200 words."
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names} ({price} linh thạch)"
+
+msgid "{value} Spirit Stones"
+msgstr "{value} linh thạch"
+
+msgid ", defended {region}"
+msgstr ", cố thủ được {region}"
+
+msgid ", successfully seized {region}"
+msgstr ", thành công đoạt lấy {region}"
+
+msgid "Already the owner of this cave dwelling"
+msgstr "Đã là chủ nhân của động phủ này"
+
+msgid "Cannot drive away in wilderness"
+msgstr "Không thể xua đuổi giữa chốn hoang dã"
+
+msgid "Cannot find region: {region}"
+msgstr "Không tìm thấy khu vực: {region}"
+
+msgid "Cannot initiate interaction with self"
+msgstr "Không thể khởi xướng tương tác với chính mình"
+
+msgid "Elixirs cannot be gifted"
+msgstr "Đan dược không thể dùng để tặng"
+
+msgid "Gift you {item}"
+msgstr "Tặng ngươi {item}"
+
+msgid "Insufficient item: {name}"
+msgstr "Vật phẩm không đủ: {name}"
+
+msgid "Insufficient spirit stones (current: {current}, need: {need})"
+msgstr "Linh thạch không đủ (hiện có: {current}, cần: {need})"
+
+msgid "Item not equipped: {name}"
+msgstr "Vật phẩm chưa được trang bị: {name}"
+
+msgid "Item not found: {name}"
+msgstr "Không tìm thấy vật phẩm: {name}"
+
+msgid ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgstr "Chênh lệch cấp độ chưa đủ, cần 20 cấp (hiện chênh {diff} cấp)"
+
+msgid "Target is not your apprentice"
+msgstr "Mục tiêu không phải đệ tử của ngươi"
+
+msgid ""
+"Target is not your disciple, martial grandchild, martial sibling, child, "
+"grandchild, or friend"
+msgstr ""
+"Mục tiêu không phải đệ tử, đồ tôn, đồng môn, con cái, cháu chắt hay bằng hữu"
+" của ngươi"
+
+msgid "Target not within interaction range"
+msgstr "Mục tiêu không ở trong phạm vi tương tác"
+
+# Misfortune messages
+msgid "misfortune_event_base"
+msgstr "Gặp xui rủi ({title}), {result}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} bị thụt lùi {amount} điểm tu vi"
+
+msgid "misfortune_result_injury"
+msgstr "{name} chịu {damage} điểm thương hại, HP còn lại {current}/{max}"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} mất {amount} viên linh thạch"
+
+msgid "misfortune_title_backlash"
+msgstr "Tu Vi Phản Phệ"
+
+msgid "misfortune_title_injury"
+msgstr "Tai Họa Thương Thế"
+
+msgid "misfortune_title_loss_spirit_stone"
+msgstr "Phá Tài"
+
+msgid "misfortune_title_mystery"
+msgstr "Thần Bí Xui Rủi"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} bị thụt lùi {amount} điểm tu vi"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} mất {amount} viên linh thạch"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} chịu {damage} điểm thương hại, HP còn lại {current}/{max}"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr ", bán {label} cũ『{old_name}』"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr ", {replace} {label} cũ『{old_name}』"
+
+msgid "Already lovers"
+msgstr "Đã là đạo lữ"
+
+msgid "Already sworn siblings"
+msgstr "Đã là huynh đệ/tỷ muội kết nghĩa"
+
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "Tỏ tình"
+
+msgid "confess_description"
+msgstr ""
+"Tỏ bày tình ý với tu sĩ ở trong phạm vi tương tác. Nếu đối phương chấp nhận,"
+" hai người sẽ kết thành đạo lữ."
+
+msgid "confess_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác, và hiện chưa phải đạo lữ."
+
+msgid "confess_story_prompt"
+msgstr ""
+"Hãy miêu tả quá trình {initiator} tỏ tình với {target}, bao gồm rung động "
+"trong lòng và bầu không khí xung quanh. Nếu được chấp nhận, hãy khắc họa sự "
+"lãng mạn khi đôi bên kết thành đạo lữ. Nếu bị từ chối, hãy miêu tả sự khước "
+"từ nhẹ nhàng cùng nỗi tiếc nuối."
+
+# MutualAction: Conversation
+msgid "conversation_action_name"
+msgstr "Trò chuyện"
+
+msgid "conversation_description"
+msgstr "Cùng đối phương tiến hành một đoạn trao đổi đối thoại"
+
+msgid "conversation_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác"
+
+# MutualAction: DriveAway
+msgid "drive_away_action_name"
+msgstr "Xua đuổi"
+
+msgid "drive_away_description"
+msgstr "Dùng vũ lực uy hiếp đối phương rời khỏi nơi này"
+
+msgid "drive_away_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "feedback_talk"
+msgstr "Nhận lời trò chuyện"
+
+msgid "feedback_yield"
+msgstr "Nhượng bộ"
+
+# MutualAction: Gift
+msgid "gift_action_name"
+msgstr "Tặng vật"
+
+msgid "gift_description"
+msgstr ""
+"Tặng linh thạch hoặc vật phẩm cho đối phương. Tham số 'item_id' hãy điền ID "
+"vật phẩm (số nguyên) hoặc 'SPIRIT_STONE' (linh thạch)."
+
+msgid "gift_requirements"
+msgstr ""
+"Người khởi xướng phải sở hữu vật phẩm; mục tiêu ở trong phạm vi tương tác; "
+"đan dược không thể đem tặng"
+
+# MutualAction: Impart
+msgid "impart_action_name"
+msgstr "Truyền đạo"
+
+msgid "impart_description"
+msgstr ""
+"Truyền thụ kinh nghiệm tu luyện cho đệ tử, đồ tôn, đồng môn, con cái, cháu "
+"chắt hoặc bằng hữu của ngươi"
+
+msgid "impart_requirements"
+msgstr ""
+"Mục tiêu phải là đệ tử, đồ tôn, đồng môn, con cái, cháu chắt hoặc bằng hữu "
+"của người khởi xướng; cấp độ người khởi xướng > cấp độ mục tiêu + 20; mục "
+"tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+# MutualAction Base
+msgid "mutual_action_name"
+msgstr "Hành động tương tác"
+
+msgid "mutual_action_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác"
+
+# MutualAction: Attack
+msgid "mutual_attack_action_name"
+msgstr "Tấn công"
+
+msgid "mutual_attack_description"
+msgstr "Tiến hành công kích mục tiêu"
+
+msgid "mutual_attack_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+# MutualAction: Occupy
+msgid "occupy_action_name"
+msgstr "Cướp đoạt động phủ"
+
+msgid "occupy_description"
+msgstr ""
+"Chiếm lấy hoặc cướp đoạt động phủ. Lưu ý: điều này có thể dẫn tới chiến đấu "
+"với chủ nhân của động phủ"
+
+msgid "occupy_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "occupy_story_prompt"
+msgstr ""
+"Đây là một trận chiến tranh đoạt động phủ. Không được nhắc tới con số HP hay"
+" thương hại cụ thể."
+
+# MutualAction: Spar
+msgid "spar_action_name"
+msgstr "Tỷ thí"
+
+msgid "spar_description"
+msgstr ""
+"Tỷ thí với mục tiêu, dừng lại đúng lúc (tăng mạnh độ thuần thục binh khí, "
+"không gây thương tổn)"
+
+msgid "spar_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "spar_story_prompt"
+msgstr ""
+"Đây là màn tỷ thí hữu hảo giữa hai người, điểm tới là dừng, không có thương "
+"tổn thật sự. Hãy tập trung miêu tả chiêu thức tinh diệu của đôi bên và sự "
+"gợi mở lẫn nhau. Không được xuất hiện cảnh máu me hay trọng thương."
+
+msgid "spirit stones"
+msgstr "linh thạch"
+
+msgid "swear_brotherhood_action_name"
+msgstr "Kết nghĩa"
+
+msgid "swear_brotherhood_description"
+msgstr ""
+"Đề nghị cùng một tu sĩ trong phạm vi tương tác kết thành nghĩa huynh đệ/tỷ "
+"muội."
+
+msgid "swear_brotherhood_requirements"
+msgstr ""
+"Mục tiêu ở trong phạm vi tương tác; hiện chưa phải huynh đệ/tỷ muội kết "
+"nghĩa."
+
+msgid "swear_brotherhood_story_prompt"
+msgstr ""
+"Đây là một màn kết nghĩa hào khí ngất trời. Hãy miêu tả sự đồng điệu ý chí "
+"giữa hai người cùng lời thề đồng sinh cộng tử."
+
+# MutualAction: Talk
+msgid "talk_action_name"
+msgstr "Bắt chuyện"
+
+msgid "talk_description"
+msgstr "Chủ động bắt chuyện với một người khác, không thể chọn chính mình"
+
+msgid "talk_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác"
+
+msgid "{avatar1} conversation with {avatar2}: {content}"
+msgstr "{avatar1} trò chuyện cùng {avatar2}: {content}"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} truyền thụ tri thức tu luyện cho {receiver}"
+
+msgid ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+msgstr ""
+"{initiator} mưu toan cướp đoạt động phủ {region} của {target}, nhưng "
+"{target} đã cự tuyệt và nghênh chiến"
+
+msgid "{initiator} attempts to gift {item} to {target}"
+msgstr "{initiator} định tặng {item} cho {target}"
+
+msgid "{initiator} attempts to seize {region} from {host}"
+msgstr "{initiator} định cướp đoạt {region} từ tay {host}"
+
+msgid "{initiator} challenges {target} to spar"
+msgstr "{initiator} khiêu chiến {target} tiến hành tỷ thí"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator} thổ lộ tình ý với {target}"
+
+msgid "{initiator} forced {target} to yield {region}"
+msgstr "{initiator} ép {target} nhường lại {region}"
+
+msgid "{initiator} initiates {action} with {target}"
+msgstr "{initiator} chủ động {action} với {target}"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator} đề nghị cùng {target} kết thành nghĩa huynh đệ/tỷ muội"
+
+msgid "{initiator} successfully gifted {item} to {target}"
+msgstr "{initiator} đã tặng thành công {item} cho {target}"
+
+msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
+msgstr "{master} truyền thụ tri thức tu luyện cho đệ tử {apprentice}"
+
+msgid "{region} is not a cultivation area, cannot occupy"
+msgstr "{region} không phải khu vực tu luyện, không thể chiếm giữ"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr ""
+"{target} chấp nhận lời tỏ tình của {initiator}, hai người kết thành đạo lữ"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr ""
+"{target} chấp nhận lời đề nghị của {initiator}, hai người kết thành nghĩa "
+"huynh đệ/tỷ muội"
+
+msgid "{target} accepted {initiator}'s talk invitation"
+msgstr "{target} chấp nhận lời mời bắt chuyện của {initiator}"
+
+msgid "{target} feedback to {initiator}: {feedback}"
+msgstr "{target} phản hồi với {initiator}: {feedback}"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target} đã từ chối lời tỏ tình của {initiator}"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target} từ chối lời đề nghị kết nghĩa của {initiator}"
+
+msgid "{target} rejected {initiator}'s talk invitation"
+msgstr "{target} từ chối lời mời bắt chuyện của {initiator}"
+
+msgid ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+msgstr ""
+"{winner} trong lúc tỷ thí đã nhỉnh hơn một bậc, đánh bại {loser}. (Độ thuần "
+"thục của {winner} +{w_gain}, độ thuần thục của {loser} +{l_gain})"
+
+msgid ", keep current『{old_name}』"
+msgstr ", giữ lại『{old_name}』hiện tại"
+
+msgid "Abandon『{new_name}』"
+msgstr "Từ bỏ『{new_name}』"
+
+# Option A
+msgid "{action} new {label}『{new_name}』"
+msgstr "{action} {label} mới『{new_name}』"
+
+msgid "Mortal"
+msgstr "Phàm Nhân"
+
+# Option B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "Bán {label} mới『{new_name}』đổi lấy linh thạch, giữ nguyên hiện trạng"
+
+msgid "core_formation"
+msgstr "Kim Đan"
+
+msgid "foundation_establishment"
+msgstr "Trúc Cơ"
+
+msgid "nascent_soul"
+msgstr "Nguyên Anh"
+
+msgid "apprentice"
+msgstr "Apprentice"
+
+msgid "child"
+msgstr "Child"
+
+msgid "enemy"
+msgstr "Enemy"
+
+msgid "friend"
+msgstr "Friend"
+
+msgid "kin"
+msgstr "Kin"
+
+msgid "lovers"
+msgstr "Lovers"
+
+msgid "master"
+msgstr "Master"
+
+# Realm
+msgid "qi_refinement"
+msgstr "Qi Refinement"
+
+msgid "grand_child"
+msgstr "Grandchild"
+
+msgid "grand_parent"
+msgstr "Grandparent"
+
+msgid "martial_grandchild"
+msgstr "Martial Grandchild"
+
+msgid "martial_grandmaster"
+msgstr "Martial Grandmaster"
+
+msgid "martial_sibling"
+msgstr "Martial Sibling"
+
+# Relation
+msgid "parent"
+msgstr "Parent"
+
+msgid "relation_daughter"
+msgstr "Daughter"
+
+# Relations
+msgid "relation_father"
+msgstr "Father"
+
+msgid "relation_granddaughter"
+msgstr "Granddaughter"
+
+msgid "relation_grandfather"
+msgstr "Grandfather"
+
+msgid "relation_grandmother"
+msgstr "Grandmother"
+
+msgid "relation_grandson"
+msgstr "Grandson"
+
+msgid "relation_martial_older_brother"
+msgstr "Senior Martial Brother"
+
+msgid "relation_martial_older_sister"
+msgstr "Senior Martial Sister"
+
+msgid "relation_martial_younger_brother"
+msgstr "Junior Martial Brother"
+
+msgid "relation_martial_younger_sister"
+msgstr "Junior Martial Sister"
+
+msgid "relation_mother"
+msgstr "Mother"
+
+msgid "relation_older_brother"
+msgstr "Older Brother"
+
+msgid "relation_older_sister"
+msgstr "Older Sister"
+
+msgid "relation_rule_apprentice_add"
+msgstr ""
+"[Apprentice] Relative to Master, usually established automatically with "
+"Master relation."
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+
+msgid "relation_rule_cancel_title"
+msgstr "[Cancel Relation Rules]"
+
+msgid "relation_rule_enemy_add"
+msgstr ""
+"[Enemy] Substantial harm occurred (injury, theft, humiliation). Single "
+"severe harm or multiple minor frictions."
+
+msgid "relation_rule_enemy_cancel"
+msgstr ""
+"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
+"death experience, or hatred fades."
+
+msgid "relation_rule_establish_title"
+msgstr "[Establish Relation Rules]"
+
+msgid "relation_rule_friend_add"
+msgstr ""
+"[Friend] Any friendly daily interactions (such as chatting, dual "
+"cultivation, sparring, healing, etc.) or a single display of goodwill is "
+"enough to establish this. No substantial conflict of interest."
+
+msgid "relation_rule_friend_cancel"
+msgstr ""
+"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
+"interaction."
+
+msgid "relation_rule_lovers_add"
+msgstr ""
+"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
+"and affection."
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+
+msgid "relation_rule_master_add"
+msgstr ""
+"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
+"Core vs Qi Refinement)."
+
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+
+msgid "relation_rule_sworn_sibling_add"
+msgstr ""
+"[Sworn Sibling] Share the same ideals, have experienced life and death "
+"together or significant events."
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr ""
+"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
+"beliefs."
+
+# Separators
+msgid "relation_separator"
+msgstr "; "
+
+msgid "relation_son"
+msgstr "Son"
+
+msgid "relation_sworn_older_brother"
+msgstr "Sworn Older Brother"
+
+msgid "relation_sworn_older_sister"
+msgstr "Sworn Older Sister"
+
+msgid "relation_sworn_younger_brother"
+msgstr "Sworn Younger Brother"
+
+msgid "relation_sworn_younger_sister"
+msgstr "Sworn Younger Sister"
+
+msgid "relation_younger_brother"
+msgstr "Younger Brother"
+
+msgid "relation_younger_sister"
+msgstr "Younger Sister"
+
+# Root Element
+msgid "gold_element"
+msgstr "Gold"
+
+msgid "root_dark"
+msgstr "Dark Root"
+
+msgid "root_earth"
+msgstr "Earth Root"
+
+msgid "root_fire"
+msgstr "Fire Root"
+
+# Root Keys
+msgid "root_gold"
+msgstr "Gold Root"
+
+msgid "root_heaven"
+msgstr "Heaven Root"
+
+msgid "root_ice"
+msgstr "Ice Root"
+
+msgid "root_thunder"
+msgstr "Thunder Root"
+
+msgid "root_water"
+msgstr "Water Root"
+
+msgid "root_wind"
+msgstr "Wind Root"
+
+msgid "root_wood"
+msgstr "Wood Root"
+
+msgid "water_element"
+msgstr "Water"
+
+msgid "wood_element"
+msgstr "Wood"
+
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Đạo thống: {orthodoxy}, Trận doanh: {alignment}, Phong cách: {style}, Trú "
+"địa: {hq_name}){effect}"
+
+# Scene Setting
+msgid ""
+"Event Type: Mysterious Auction\n"
+"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr ""
+"Loại sự kiện: Đấu giá thần bí\n"
+"Bối cảnh: Buổi đấu giá diễn ra trong một không gian huyền bí, do một nhân vật thần bí khí tức sâu không lường nổi chủ trì."
+
+msgid "SECT_10_STYLE"
+msgstr ""
+"Bề ngoài nhã lệ nhưng trong lòng đầy toan tính, ưa dùng ngôn từ và âm luật "
+"để thao túng cục diện, sát phạt mà không dính khói lửa."
+
+msgid "SECT_11_STYLE"
+msgstr ""
+"Nghiêm cẩn tỉ mỉ, truy cầu cực hạn kỹ nghệ, thiện dùng trận pháp hậu phát "
+"chế nhân, từng bước bày cục."
+
+msgid "SECT_12_RANK_ELDER"
+msgstr "Các Lão"
+
+msgid "SECT_12_RANK_INNER"
+msgstr "Chấp Lệnh"
+
+msgid "SECT_12_RANK_OUTER"
+msgstr "Người Gác Đêm"
+
+msgid "SECT_12_RANK_PATRIARCH"
+msgstr "Thành Chủ"
+
+msgid "SECT_12_STYLE"
+msgstr ""
+"Kiên cường bền bỉ, càng trong nghịch cảnh càng vươn lên, hành sự quang minh "
+"lỗi lạc mà vẫn thâm mưu viễn lự, cực kỳ che chở người mình."
+
+msgid "SECT_13_STYLE"
+msgstr ""
+"Giữ nghiêm nguyên tắc, coi trọng đạo nghĩa, luôn xung phong trừ ma vệ đạo, "
+"thà gãy chứ không chịu cong."
+
+msgid "SECT_14_STYLE"
+msgstr ""
+"Mạnh được yếu thua, tùy ý mà làm, tôn sùng tuyệt đối lực lượng và sát lục, "
+"coi chúng sinh như huyết thực."
+
+msgid "SECT_1_STYLE"
+msgstr ""
+"Thần trí thanh minh, tự giữ kỷ luật, lời nói và hành vi nhất trí. Vừa trọng "
+"kiếm đạo vừa trọng tâm pháp, chú trọng minh tâm kiến tính."
+
+msgid "SECT_2_RANK_ELDER"
+msgstr "Cung Phụng"
+
+msgid "SECT_2_RANK_INNER"
+msgstr "Ngự Thú Sư"
+
+msgid "SECT_2_RANK_OUTER"
+msgstr "Hộ Tùng"
+
+msgid "SECT_2_RANK_PATRIARCH"
+msgstr "Cốc Chủ"
+
+msgid "SECT_2_STYLE"
+msgstr ""
+"Lời nói trực tiếp, coi trọng sức mạnh cùng huyết tính, sùng thượng săn bắt "
+"và bác đấu."
+
+msgid "SECT_3_RANK_ELDER"
+msgstr "Chưởng Kính Nhân"
+
+msgid "SECT_3_RANK_INNER"
+msgstr "Truyền Nhân"
+
+msgid "SECT_3_RANK_OUTER"
+msgstr "Thị Kính"
+
+msgid "SECT_3_RANK_PATRIARCH"
+msgstr "Kính Chủ"
+
+msgid "SECT_3_STYLE"
+msgstr ""
+"Xử sự lãnh tĩnh mà viên dung, ưa lấy nhu thắng cương, giỏi mượn lực và phản "
+"chế."
+
+msgid "SECT_4_RANK_ELDER"
+msgstr "Phán Quan"
+
+msgid "SECT_4_RANK_INNER"
+msgstr "Vô Thường"
+
+msgid "SECT_4_RANK_OUTER"
+msgstr "Quỷ Tốt"
+
+msgid "SECT_4_RANK_PATRIARCH"
+msgstr "Điện Chủ"
+
+msgid "SECT_4_STYLE"
+msgstr ""
+"Ngôn từ lạnh lẽo, ít lộ tình cảm, kính sợ nhân quả mà không e ngại sát phạt,"
+" thiên về hiệu suất và kết quả."
+
+msgid "SECT_5_RANK_ELDER"
+msgstr "Chấp Hình Sứ"
+
+msgid "SECT_5_RANK_INNER"
+msgstr "Ảnh Thích"
+
+msgid "SECT_5_RANK_OUTER"
+msgstr "Thám Tử"
+
+msgid "SECT_5_RANK_PATRIARCH"
+msgstr "Lâu Chủ"
+
+msgid "SECT_5_STYLE"
+msgstr ""
+"Trực diện dục vọng và cái giá phải trả, không sợ hắc ám, sở trường là công "
+"phạt."
+
+msgid "SECT_6_RANK_ELDER"
+msgstr "Hộ Pháp"
+
+msgid "SECT_6_RANK_INNER"
+msgstr "Mị Tiên"
+
+msgid "SECT_6_RANK_OUTER"
+msgstr "Thị Đồng"
+
+msgid "SECT_6_RANK_PATRIARCH"
+msgstr "Cung Chủ"
+
+msgid "SECT_6_STYLE"
+msgstr ""
+"Ngôn từ uyển chuyển, giỏi nắm bắt nhân dục và thế cục, lấy nhu khắc cương."
+
+msgid "SECT_7_RANK_ELDER"
+msgstr "Thủ Tọa"
+
+msgid "SECT_7_RANK_INNER"
+msgstr "Hành Giả"
+
+msgid "SECT_7_RANK_OUTER"
+msgstr "Cư Sĩ"
+
+msgid "SECT_7_RANK_PATRIARCH"
+msgstr "Trụ Trì"
+
+msgid "SECT_7_STYLE"
+msgstr "Trang nghiêm trầm ổn, coi trọng an hồn trấn tà, ít lời mà quả quyết."
+
+msgid "SECT_8_RANK_ELDER"
+msgstr "Hộ Pháp"
+
+msgid "SECT_8_RANK_INNER"
+msgstr "Ảnh Vệ"
+
+msgid "SECT_8_RANK_OUTER"
+msgstr "Thám Tử"
+
+msgid "SECT_8_RANK_PATRIARCH"
+msgstr "Môn Chủ"
+
+msgid "SECT_8_STYLE"
+msgstr ""
+"Hành sự bí mật và quyết đoán, trọng kết quả hơn hư danh, giỏi tiềm hành và "
+"xuất kỳ bất ý."
+
+msgid "SECT_9_RANK_ELDER"
+msgstr "Đại Cung Phụng"
+
+msgid "SECT_9_RANK_INNER"
+msgstr "Chấp Sự"
+
+msgid "SECT_9_RANK_OUTER"
+msgstr "Học Đồ"
+
+msgid "SECT_9_RANK_PATRIARCH"
+msgstr "Thành Chủ"
+
+msgid "SECT_9_STYLE"
+msgstr ""
+"Thực tế tinh minh, coi trọng giao dịch và tín dự, đề cao quy củ cùng trật "
+"tự."
+
+msgid "elder"
+msgstr "Trưởng Lão"
+
+msgid "inner_disciple"
+msgstr "Nội Môn Đệ Tử"
+
+msgid "outer_disciple"
+msgstr "Ngoại Môn Đệ Tử"
+
+msgid ""
+"\n"
+"(Selecting {replace} will sell old {label})"
+msgstr ""
+"\n"
+"(Chọn {replace} sẽ bán món {label} cũ)"
+
+# Sect Rank
+msgid "patriarch"
+msgstr "Chưởng Môn"
+
+msgid "phenomenon_change"
+msgstr ""
+"{old_name} tan biến, thiên địa dị tượng lại hiện! {new_name}: {new_desc}."
+
+msgid "world_creation_phenomenon"
+msgstr "Thế giới sơ khai, thiên giáng dị tượng! {name}: {desc}."
+
+msgid ""
+"{avatar_name} deliberated and redefined their long-term objective: "
+"{objective}"
+msgstr ""
+"{avatar_name} sau một phen suy nghĩ, đã xác lập lại chí hướng lâu dài: "
+"{objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} đã xác lập chí hướng lâu dài của mình: {objective}"
+
+# ============================================================================
+# Sect System - Sects
+# ============================================================================
+msgid "Base effect"
+msgstr "Hiệu Quả Cơ Bản"
+
+msgid "Sect random event"
+msgstr "Biến Cố Tông Môn"
+
+msgid "Temporary effect"
+msgstr "Hiệu Quả Tạm Thời"
+
+msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name} (Trận doanh: {alignment}, Trú địa: {hq_name})"
+
+msgid ""
+"{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: "
+"{hq_name}){effect}"
+msgstr ""
+"{sect_name} (Trận doanh: {alignment}, Phong cách: {style}, Trú địa: "
+"{hq_name}){effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr ""
+"{sect_name} (Đạo thống: {orthodoxy}, Trận doanh: {alignment}, Trú địa: "
+"{hq_name})"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name} (Đạo thống: {orthodoxy}, Trận doanh: {alignment}, Phong cách: "
+"{style}, Trú địa: {hq_name}){effect}"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"Vì {reason_fragment}, quan hệ giữa {sect_a_name} và {sect_b_name} đã được "
+"cải thiện (+{value_int} trong {duration_months} tháng)."
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"Vì {reason_fragment}, quan hệ giữa {sect_a_name} và {sect_b_name} đã xấu đi "
+"(-{value_int} trong {duration_months} tháng)."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "Vì {reason_fragment}, {sect_a_name} thu được +{value_int} linh thạch."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "Vì {reason_fragment}, {sect_a_name} tổn thất -{value_int} linh thạch."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"Vì {reason_fragment}, mỗi địa khối dưới quyền {sect_a_name} được tăng "
+"+{value} thu nhập trong {duration_months} tháng."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"Vì {reason_fragment}, mỗi địa khối dưới quyền {sect_a_name} bị giảm -{value}"
+" thu nhập trong {duration_months} tháng."
+
+msgid "comma_separator"
+msgstr ", "
+
+msgid "earth_element"
+msgstr "Earth"
+
+msgid "element_separator"
+msgstr ", "
+
+msgid "fire_element"
+msgstr "Fire"
+
+msgid "material_separator"
+msgstr ", "
+
+msgid "semicolon_separator"
+msgstr "; "
+
+msgid "sibling"
+msgstr "Sibling"
+
+msgid "sworn_sibling"
+msgstr "Sworn Sibling"
+
+msgid "(Choosing to replace will sell the old {label})"
+msgstr "(Chọn thay thế sẽ bán món {label} cũ)"
+
+msgid ", keep current '{old_name}'"
+msgstr ", giữ lại '{old_name}' hiện tại"
+
+msgid ", replace old {label} '{old_name}'"
+msgstr ", thay thế {label} cũ '{old_name}'"
+
+msgid ", sell old {label} '{old_name}'"
+msgstr ", bán {label} cũ '{old_name}'"
+
+# ============================================================================
+# Simulator & Event Translations
+# ============================================================================
+msgid ""
+"{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+msgstr ""
+"{avatar_name} đi ngang {region_name}, thấy nơi này vô chủ bèn chiếm cứ."
+
+# Single choice - context and options
+msgid ""
+"Current situation: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【Tình cảnh hiện tại】: {context}\n"
+"\n"
+"{choices}"
+
+msgid "Current {label}: {info}"
+msgstr "{label} hiện có: {info}"
+
+msgid "Discard '{new_name}'"
+msgstr "Bỏ '{new_name}'"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "Trang bị {label} mới '{new_name}'"
+
+msgid "New {label}: {info}"
+msgstr "{label} mới: {info}"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr ""
+"Bán {label} mới '{new_name}' đổi lấy linh thạch, giữ nguyên hiện trạng"
+
+# ============================================================================
+# SingleChoice System - Item Decisions
+# ============================================================================
+msgid "Accept new item"
+msgstr "Nhận Vật Phẩm Mới"
+
+msgid "Reject new item"
+msgstr "Từ Chối Vật Phẩm Mới"
+
+msgid "Automatically accept the new item."
+msgstr "Tự động nhận vật phẩm mới."
+
+# Decision Interface
+msgid ""
+"【Current Situation】: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【Tình cảnh hiện tại】: {context}\n"
+"\n"
+"{choices}"
+
+msgid ""
+"Competition: In the auction for {item_name}, {winner_name} outbid "
+"{runner_up_name} (bid: {bid})."
+msgstr ""
+"Cạnh tranh: Trong buổi đấu giá {item_name}, {winner_name} đã vượt qua "
+"{runner_up_name} với mức giá {bid}."
+
+# Stage
+msgid "early_stage"
+msgstr "Sơ Kỳ"
+
+msgid "late_stage"
+msgstr "Hậu Kỳ"
+
+msgid "middle_stage"
+msgstr "Trung Kỳ"
+
+msgid ""
+"Bold and open: Grand words, majestic momentum, informal, expressing feelings"
+" directly."
+msgstr ""
+"Hào sảng khoáng đạt: Dùng từ rộng mở, khí thế bàng bạc, không câu nệ tiểu "
+"tiết, trực bộc tâm ý."
+
+msgid ""
+"Buddhist emptiness: Insights of impermanence and emptiness interwoven, light"
+" and not mysterious."
+msgstr ""
+"Phật lý không tướng: Đan xen cảm ngộ về vô thường và không tướng, thanh đạm "
+"mà không huyền hoặc."
+
+msgid ""
+"Chronicle style: Like a historian's record, orderly events, few adjectives."
+msgstr ""
+"Biên niên ký sự: Gần lối bút của sử quan, sự việc mạch lạc, ít dùng từ miêu "
+"tả."
+
+msgid ""
+"Cold and concise: Mainly short sentences, every word counts, like metal "
+"striking stone, no extra emotional rendering."
+msgstr ""
+"Lãnh tuấn giản luyện: Chủ yếu dùng câu ngắn, lời nào cũng đáng giá, như kim "
+"thạch tương kích, không thêm thắt cảm xúc thừa."
+
+# Story Generation Text
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr ""
+"Giao dịch thành: {winner_name} dùng {price} linh thạch để đoạt được "
+"{item_name}."
+
+msgid ""
+"Elegant scholarly: Scholarly atmosphere, slight touch of citations, without "
+"showing off."
+msgstr ""
+"Nhã vận thư quyển: Hơi thở thư quyển và điển dẫn vừa phải, không phô trương "
+"khoa trương."
+
+msgid ""
+"Emotion in scenery: Expressing emotion through scenery, blending feelings "
+"with the setting."
+msgstr "Ngụ tình ư cảnh: Mượn cảnh tả tình, khiến tâm cảnh hòa cùng cảnh sắc."
+
+msgid ""
+"Fine line drawing: No decoration, capturing subtle movements and expressions"
+" to convey spirit, real and delicate."
+msgstr ""
+"Tế bút bạch miêu: Không tô vẽ cầu kỳ, lấy động tác và thần thái tinh vi để "
+"truyền thần, chân thực mà tinh tế."
+
+msgid ""
+"Folk storytelling: Like a storyteller's tone but in written language, fast-"
+"paced, vivid and interesting."
+msgstr ""
+"Dân gian thuyết thư: Mang khẩu khí người kể chuyện nhưng vẫn là văn viết, "
+"tiết tấu sáng rõ, sinh động mà thú vị."
+
+msgid ""
+"Freehand ancient style: Focus on imagery and metaphor, concise, avoiding "
+"obscure archaic language."
+msgstr ""
+"Cổ phong tả ý: Trọng ý tượng và tỷ hứng, điểm đến là dừng, tránh dùng cổ văn"
+" quá sinh sáp."
+
+msgid ""
+"Gorgeous and bizarre: Heavy sensory description, ornate and seductive "
+"language, emphasizing the strangeness of light and color."
+msgstr ""
+"Kỳ lệ quỷ quyệt: Thiên về cảm quan dày đặc, từ ngữ hoa mỹ mê hoặc, nhấn mạnh"
+" vẻ kỳ dị của quang ảnh và sắc màu."
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "Vật phẩm: {item_name}, Miêu tả: {description}"
+
+msgid ""
+"Marketplace life: Grounded writing, using colloquialisms, simple and "
+"natural, without pretension."
+msgstr ""
+"Khói lửa chợ búa: Văn phong gần đất gần người, dùng khẩu ngữ vừa phải, mộc "
+"mạc tự nhiên, không làm bộ làm tịch."
+
+msgid ""
+"Personification of scenery: Slight personification of scenery, embedding "
+"aspirations in the view, not overused."
+msgstr ""
+"Cảnh vật nhân hóa: Khẽ phú cho cảnh vật vài phần nhân tính, gửi chí vào "
+"cảnh, nhưng không lạm dụng."
+
+msgid ""
+"Philosophical fable: Asking questions through events, containing one or two "
+"punchlines, without preaching."
+msgstr ""
+"Triết tư ngụ ngôn: Mượn sự việc để gợi câu hỏi, chen một hai câu điểm nhãn, "
+"không lên giọng thuyết giáo."
+
+# Story Styles
+msgid ""
+"Plain narration: Restrained language, minimal embellishment, recording like "
+"a bystander."
+msgstr ""
+"Bình đạm tự sự: Ngôn từ tiết chế, ít tu sức, như người đứng ngoài lặng lẽ "
+"ghi chép."
+
+msgid ""
+"Poetic lyricism: Short sentences and parallelism, sparse use of allusions, "
+"avoiding flowery language."
+msgstr ""
+"Thi ý trữ tình: Điểm xuyết bằng câu ngắn và đối ngẫu, thỉnh thoảng dùng điển"
+" cố, tránh chồng chất hoa từ."
+
+msgid ""
+"Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
+"single thought."
+msgstr ""
+"Đạo pháp tự nhiên: Nhuốm chút từ vị Đạo môn, không tối nghĩa, quy tụ vào một"
+" niệm duy nhất."
+
+# ============================================================================
+# Technique System - Techniques
+# ============================================================================
+msgid " Effect: {effect_desc}"
+msgstr " Hiệu quả: {effect_desc}"
+
+msgid "Cave Dwelling"
+msgstr "Động Phủ"
+
+msgid "City Region"
+msgstr "Khu Vực Thành Thị"
+
+msgid "Normal Region"
+msgstr "Khu Vực Thường"
+
+msgid "Ruins"
+msgstr "Di Tích"
+
+msgid "dark_attribute"
+msgstr "Ám"
+
+msgid "earth_attribute"
+msgstr "Thổ"
+
+msgid "evil_attribute"
+msgstr "Tà"
+
+msgid "fire_attribute"
+msgstr "Hỏa"
+
+# Technique Attribute
+msgid "gold_attribute"
+msgstr "Kim"
+
+msgid "ice_attribute"
+msgstr "Băng"
+
+# Technique Grade
+msgid "lower_grade"
+msgstr "Hạ Phẩm"
+
+msgid "middle_grade"
+msgstr "Trung Phẩm"
+
+msgid "thunder_attribute"
+msgstr "Lôi"
+
+msgid "upper_grade"
+msgstr "Thượng Phẩm"
+
+msgid "water_attribute"
+msgstr "Thủy"
+
+msgid "wind_attribute"
+msgstr "Phong"
+
+msgid "wood_attribute"
+msgstr "Mộc"
+
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "Thiên hạ võ đạo hội đang diễn ra..."
+
+msgid "tournament_start_heaven"
+msgstr "Thiên bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_start_earth"
+msgstr "Địa bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_start_human"
+msgstr "Nhân bảng võ đạo hội khai mạc! Người tham gia: {participants}."
+
+msgid "tournament_battle_result"
+msgstr "Trong trận tỷ đấu võ đạo hội, {winner} đã đánh bại {loser}."
+
+msgid "tournament_end_heaven"
+msgstr "Thiên bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "tournament_end_earth"
+msgstr "Địa bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "tournament_end_human"
+msgstr "Nhân bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
+
+msgid "effect_tournament_heaven_first"
+msgstr "Thiên bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid "effect_tournament_earth_first"
+msgstr "Địa bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid "effect_tournament_human_first"
+msgstr "Nhân bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+
+msgid ""
+"Event Type: World Martial Arts Tournament\n"
+"Scene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr ""
+"Loại sự kiện: Thiên hạ võ đạo hội\n"
+"Thiết lập bối cảnh: Đại hội võ đạo được tổ chức để quyết ra người mạnh nhất ở từng cảnh giới, vạn chúng chú mục, khí thế ngút trời."
+
+msgid ""
+"\n"
+"【Tournament Information】\n"
+msgstr ""
+"\n"
+"【Thông tin võ đạo hội】\n"
+
+msgid "List: {list_name}\n"
+msgstr "Bảng: {list_name}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "Người chiến thắng: {winner}\n"
+
+msgid ""
+"\n"
+"【Finalists Information】\n"
+msgstr ""
+"\n"
+"【Thông tin trận chung kết】\n"
+
+msgid "tournament_story_prompt"
+msgstr ""
+"Hãy dựa trên kết quả võ đạo hội phía trên để viết một câu chuyện sinh động "
+"(khoảng 400-500 chữ). Miêu tả cảnh giao phong kịch liệt giữa hai tuyển thủ "
+"chung kết, chi tiết va chạm giữa các pháp bảo, phong thái oai hùng của người"
+" chiến thắng cuối cùng cùng phản ứng của quần chúng. Văn phong phải phù hợp "
+"với bối cảnh thế giới tu tiên. Chỉ xuất văn bản thuần, không dùng cú pháp "
+"markdown."
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "Trận chung kết: {winner} vs {loser}\n"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr ""
+"Thiên hạ võ đạo hội kỳ này bị hủy vì số lượng người tham gia không đủ."
+
+msgid "tournament_heaven"
+msgstr "Thiên bảng đệ nhất"
+
+msgid "tournament_earth"
+msgstr "Địa bảng đệ nhất"
+
+msgid "tournament_human"
+msgstr "Nhân bảng đệ nhất"
+
+# ============================================================================
+# Frontend UI Translations
+# ============================================================================
+msgid "Sect Headquarters"
+msgstr "Tông môn trú địa"
+
+# ============================================================================
+# Weapon System - Weapons
+# ============================================================================
+msgid ""
+"Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
+"weapon type"
+msgstr ""
+"weapon_type '{weapon_type_str}' của binh khí {name} không hợp lệ, phải là "
+"một loại binh khí hợp lệ"
+
+msgid "fan"
+msgstr "Phiến"
+
+msgid "flute"
+msgstr "Địch"
+
+msgid "hidden_weapon"
+msgstr "Ám Khí"
+
+msgid "saber"
+msgstr "Đao"
+
+msgid "spear"
+msgstr "Thương"
+
+msgid "staff"
+msgstr "Côn"
+
+# Weapon Type
+msgid "sword"
+msgstr "Kiếm"
+
+msgid "whip"
+msgstr "Tiên"
+
+msgid "zither"
+msgstr "Cầm"

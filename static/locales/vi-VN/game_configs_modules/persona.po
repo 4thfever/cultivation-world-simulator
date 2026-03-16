@@ -1,0 +1,718 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. persona.csv: 沉迷玩乐，不思进取。...
+msgid "PERSONA_1001_DESC"
+msgstr "Mê đắm vui chơi, không nghĩ tới chuyện tiến thủ."
+
+#. persona.csv: 贪玩
+msgid "PERSONA_1001_NAME"
+msgstr "Tham Chơi"
+
+#. persona.csv: 嗜书如命。...
+msgid "PERSONA_1002_DESC"
+msgstr "Yêu sách như mạng sống, lúc nào cũng muốn đọc sách."
+
+#. persona.csv: 书痴
+msgid "PERSONA_1002_NAME"
+msgstr "Thư Si"
+
+#. persona.csv: 宁可三日无食，不可一日无茶。...
+msgid "PERSONA_1003_DESC"
+msgstr "Thà ba ngày không ăn còn hơn một ngày không trà."
+
+#. persona.csv: 茶痴
+msgid "PERSONA_1003_NAME"
+msgstr "Trà Si"
+
+#. persona.csv: 善抚琴。...
+msgid "PERSONA_1004_DESC"
+msgstr "Giỏi gảy cổ cầm, tinh thông âm luật."
+
+#. persona.csv: 琴师
+msgid "PERSONA_1004_NAME"
+msgstr "Cầm Sư"
+
+#. persona.csv: 读万卷书不如行万里路。...
+msgid "PERSONA_1005_DESC"
+msgstr ""
+"Đọc vạn quyển sách không bằng đi vạn dặm đường; ngươi thích chu du tứ "
+"phương."
+
+#. persona.csv: 游历者
+msgid "PERSONA_1005_NAME"
+msgstr "Du Lịch Giả"
+
+#. persona.csv: 善弈者长生。...
+msgid "PERSONA_1006_DESC"
+msgstr "Mê cờ như mê đạo, cho rằng người giỏi đánh cờ ắt trường thọ."
+
+#. persona.csv: 棋痴
+msgid "PERSONA_1006_NAME"
+msgstr "Kỳ Si"
+
+#. persona.csv: 你总是会珍惜自己的生命，不会轻易冒险。...
+msgid "PERSONA_10_DESC"
+msgstr ""
+"Ngươi luôn trân trọng tính mạng của bản thân, sẽ không dễ dàng mạo hiểm."
+
+#. persona.csv: 惜命
+msgid "PERSONA_10_NAME"
+msgstr "Tích Mệnh"
+
+#. persona.csv: 你重视同伴与和谐，乐于助人。...
+msgid "PERSONA_11_DESC"
+msgstr ""
+"Ngươi coi trọng đồng bạn và sự hòa hợp, lại vui lòng giúp đỡ người khác."
+
+#. persona.csv: 友爱
+msgid "PERSONA_11_NAME"
+msgstr "Hữu Ái"
+
+#. persona.csv: 你绝不轻易放下仇怨，为了复仇愿意付出代价...
+msgid "PERSONA_12_DESC"
+msgstr ""
+"Ngươi tuyệt đối không dễ buông bỏ thù hận, vì báo thù mà sẵn sàng trả giá "
+"bằng thời gian và công sức."
+
+#. persona.csv: 复仇
+msgid "PERSONA_12_NAME"
+msgstr "Phục Thù"
+
+#. persona.csv: 你喜欢独处，避免与人深交。...
+msgid "PERSONA_13_DESC"
+msgstr "Ngươi thích ở một mình, tránh giao tình quá sâu với người khác."
+
+#. persona.csv: 孤僻
+msgid "PERSONA_13_NAME"
+msgstr "Cô Lập"
+
+#. persona.csv: 你情感克制，对外界冷静疏离。...
+msgid "PERSONA_14_DESC"
+msgstr ""
+"Ngươi kiềm chế cảm xúc, đối với ngoại giới luôn lạnh nhạt và giữ khoảng "
+"cách."
+
+#. persona.csv: 淡漠
+msgid "PERSONA_14_NAME"
+msgstr "Đạm Mạc"
+
+#. persona.csv: 你直面冲突，偏好以力量与对抗解决问题。...
+msgid "PERSONA_15_DESC"
+msgstr ""
+"Ngươi đối mặt xung đột trực diện, thích dùng sức mạnh và đối kháng để giải "
+"quyết vấn đề."
+
+#. persona.csv: 好斗
+msgid "PERSONA_15_NAME"
+msgstr "Hiếu Đấu"
+
+#. persona.csv: 你行事冲动、少考虑后果，常凭直觉立刻行动...
+msgid "PERSONA_16_DESC"
+msgstr ""
+"Ngươi hành sự bốc đồng, ít cân nhắc hậu quả, thường dựa vào trực giác để "
+"hành động ngay lập tức."
+
+#. persona.csv: 鲁莽
+msgid "PERSONA_16_NAME"
+msgstr "Lỗ Mãng"
+
+#. persona.csv: 你谨小慎微，容易畏惧风险。...
+msgid "PERSONA_17_DESC"
+msgstr "Ngươi cẩn tiểu thận vi, dễ sinh lòng e sợ trước rủi ro."
+
+#. persona.csv: 胆小
+msgid "PERSONA_17_NAME"
+msgstr "Nhát Gan"
+
+#. persona.csv: 你行事强势，不讲道理，习惯以自己的利益为...
+msgid "PERSONA_18_DESC"
+msgstr ""
+"Ngươi hành sự cường thế, không nói đạo lý, quen đặt lợi ích của bản thân lên hàng "
+"đầu."
+
+#. persona.csv: 霸道
+msgid "PERSONA_18_NAME"
+msgstr "Bá Đạo"
+
+#. persona.csv: 你将绝大多数时间用于修炼，厌恶享乐。...
+msgid "PERSONA_19_DESC"
+msgstr ""
+"Ngươi dành phần lớn thời gian cho tu luyện, chán ghét lạc thú hưởng thụ."
+
+#. persona.csv: 修行痴迷
+msgid "PERSONA_19_NAME"
+msgstr "Tu Hành Si Mê"
+
+#. persona.csv: 你总是会用逻辑来思考问题，做事会谋定而后...
+msgid "PERSONA_1_DESC"
+msgstr ""
+"Ngươi luôn dùng lý trí để suy xét vấn đề, làm việc thường mưu rồi mới động."
+
+#. persona.csv: 理性
+msgid "PERSONA_1_NAME"
+msgstr "Lý Tính"
+
+#. persona.csv: 你更享受独处与自我思考，倾向回避不必要的...
+msgid "PERSONA_20_DESC"
+msgstr ""
+"Ngươi tận hưởng sự cô độc và tự suy ngẫm hơn, thường tránh những giao tế "
+"không cần thiết."
+
+#. persona.csv: 内向
+msgid "PERSONA_20_NAME"
+msgstr "Hướng Nội"
+
+#. persona.csv: 你乐于与人交流，主动结识伙伴。...
+msgid "PERSONA_21_DESC"
+msgstr "Ngươi thích giao lưu với người khác, chủ động kết giao bằng hữu."
+
+#. persona.csv: 外向
+msgid "PERSONA_21_NAME"
+msgstr "Hướng Ngoại"
+
+#. persona.csv: 你在对话中倾向以讽刺、嘲弄、挖苦的方式表...
+msgid "PERSONA_22_DESC"
+msgstr ""
+"Trong đối thoại, ngươi thiên về dùng mỉa mai, châm chọc và chua cay để biểu "
+"đạt ý kiến."
+
+#. persona.csv: 刻薄
+msgid "PERSONA_22_NAME"
+msgstr "Cay Nghiệt"
+
+#. persona.csv: 你待人友好、积极回应，倾向用鼓励与赞美拉...
+msgid "PERSONA_23_DESC"
+msgstr ""
+"Ngươi đối đãi người khác thân thiện, phản hồi tích cực, thường dùng khích lệ"
+" và ca ngợi để kéo gần khoảng cách."
+
+#. persona.csv: 热情
+msgid "PERSONA_23_NAME"
+msgstr "Nhiệt Tình"
+
+#. persona.csv: 你对邪恶深恶痛绝，对正义的理想抱有近乎偏...
+msgid "PERSONA_24_DESC"
+msgstr ""
+"Ngươi căm ghét cái ác tận xương tủy, gần như cố chấp với lý tưởng chính "
+"nghĩa."
+
+#. persona.csv: 极端正义
+msgid "PERSONA_24_NAME"
+msgstr "Cực Đoan Chính Nghĩa"
+
+#. persona.csv: 你推崇权力与恐惧，为达目的不择手段。...
+msgid "PERSONA_25_DESC"
+msgstr ""
+"Ngươi tôn sùng quyền lực và nỗi sợ hãi, vì đạt mục đích mà không từ thủ đoạn."
+
+#. persona.csv: 极端邪恶
+msgid "PERSONA_25_NAME"
+msgstr "Cực Đoan Tà Ác"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较随意...
+msgid "PERSONA_26_DESC"
+msgstr ""
+"Ngươi khá tùy ý trong chuyện kết thành Đạo Lữ hay Song Tu với người khác."
+
+#. persona.csv: 开放
+msgid "PERSONA_26_NAME"
+msgstr "Phóng Khoáng"
+
+#. persona.csv: 你对待和他人结为道侣或者双修比较谨慎...
+msgid "PERSONA_27_DESC"
+msgstr ""
+"Ngươi tương đối thận trọng trong chuyện kết thành Đạo Lữ hoặc Song Tu với "
+"người khác."
+
+#. persona.csv: 腼腆
+msgid "PERSONA_27_NAME"
+msgstr "Thẹn Thùng"
+
+#. persona.csv: 你对异性中外貌出众者格外友善。...
+msgid "PERSONA_28_DESC"
+msgstr "Ngươi đặc biệt thân thiện với những người có ngoại hình nổi bật."
+
+#. persona.csv: 舔狗
+msgid "PERSONA_28_NAME"
+msgstr "Liếm Cẩu"
+
+#. persona.csv: 你对远超于你的人容易产生敌意。...
+msgid "PERSONA_29_DESC"
+msgstr "Ngươi rất dễ sinh ra địch ý với những người vượt xa bản thân mình."
+
+#. persona.csv: 嫉妒
+msgid "PERSONA_29_NAME"
+msgstr "Tật Đố"
+
+#. persona.csv: 目标飘忽不定，不会长期坚持一个目标。...
+msgid "PERSONA_2_DESC"
+msgstr ""
+"Mục tiêu thay đổi thất thường, khó lòng kiên trì với một mục tiêu quá lâu."
+
+#. persona.csv: 无常
+msgid "PERSONA_2_NAME"
+msgstr "Vô Thường"
+
+#. persona.csv: 你来自现代社会，怀念现代社会的一切。...
+msgid "PERSONA_30_DESC"
+msgstr ""
+"Ngươi đến từ xã hội hiện đại và luôn nhớ nhung mọi thứ thuộc về thế giới ấy."
+
+#. persona.csv: 穿越者
+msgid "PERSONA_30_NAME"
+msgstr "Xuyên Việt Giả"
+
+#. persona.csv: 天生气运加身，更易遇到奇遇。...
+msgid "PERSONA_31_DESC"
+msgstr "Trời sinh được khí vận gia thân, dễ gặp kỳ ngộ hơn người thường."
+
+#. persona.csv: 气运之子
+msgid "PERSONA_31_NAME"
+msgstr "Khí Vận Chi Tử"
+
+#. persona.csv: 以剑入道，剑即是命。你认为剑道至上。...
+msgid "PERSONA_32_DESC"
+msgstr ""
+"Lấy kiếm nhập đạo, kiếm tức là mệnh. Ngươi cho rằng kiếm đạo là tối thượng."
+
+#. persona.csv: 剑痴
+msgid "PERSONA_32_NAME"
+msgstr "Kiếm Si"
+
+#. persona.csv: 深藏不露，行事谨慎，善于算计。...
+msgid "PERSONA_33_DESC"
+msgstr "Ngươi giấu tài không lộ, hành sự cẩn trọng và rất giỏi tính toán."
+
+#. persona.csv: 心机深沉
+msgid "PERSONA_33_NAME"
+msgstr "Tâm Cơ Thâm Trầm"
+
+#. persona.csv: 重承诺守信义，对认定的人绝不背叛。...
+msgid "PERSONA_34_DESC"
+msgstr ""
+"Ngươi coi trọng lời hứa và tín nghĩa, với người đã nhận định thì tuyệt không"
+" phản bội."
+
+#. persona.csv: 忠诚
+msgid "PERSONA_34_NAME"
+msgstr "Trung Thành"
+
+#. persona.csv: 行事果决狠辣，不留后患，斩草必除根。...
+msgid "PERSONA_35_DESC"
+msgstr ""
+"Ngươi hành sự quyết đoán tàn độc, diệt cỏ tất nhổ tận gốc, không để lại "
+"hậu hoạn."
+
+#. persona.csv: 狠辣
+msgid "PERSONA_35_NAME"
+msgstr "Tàn Độc"
+
+#. persona.csv: 经历过一世，对未来有模糊预知。...
+msgid "PERSONA_36_DESC"
+msgstr ""
+"Ngươi từng trải qua một đời, bởi vậy đối với tương lai có cảm giác dự báo mơ"
+" hồ."
+
+#. persona.csv: 重生者
+msgid "PERSONA_36_NAME"
+msgstr "Trọng Sinh Giả"
+
+#. persona.csv: 对任何人都保持怀疑，不轻易信任。...
+msgid "PERSONA_37_DESC"
+msgstr "Ngươi luôn giữ lòng nghi với bất kỳ ai, không dễ dàng tin tưởng."
+
+#. persona.csv: 疑心重
+msgid "PERSONA_37_NAME"
+msgstr "Đa Nghi"
+
+#. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
+msgid "PERSONA_38_DESC"
+msgstr ""
+"Ngươi chuyên chú tôi luyện nhục thân, thể phách cường kiện, cận chiến gần như "
+"vô địch."
+
+#. persona.csv: 体修
+msgid "PERSONA_38_NAME"
+msgstr "Thể Tu"
+
+#. persona.csv: 精通丹道，对灵药敏感。...
+msgid "PERSONA_39_DESC"
+msgstr "Ngươi tinh thông đan đạo, đối với linh dược đặc biệt mẫn cảm."
+
+#. persona.csv: 炼丹师
+msgid "PERSONA_39_NAME"
+msgstr "Luyện Đan Sư"
+
+#. persona.csv: 你总是会拖延，不想努力，更热衷于享受人生...
+msgid "PERSONA_3_DESC"
+msgstr ""
+"Ngươi thường trì hoãn, không muốn quá cố gắng, thích hưởng thụ cuộc sống "
+"hơn."
+
+#. persona.csv: 怠惰
+msgid "PERSONA_3_NAME"
+msgstr "Lười Biếng"
+
+#. persona.csv: 天生福运，逢凶化吉。...
+msgid "PERSONA_40_DESC"
+msgstr "Trời sinh phúc vận, thường có thể gặp dữ hóa lành."
+
+#. persona.csv: 福缘深厚
+msgid "PERSONA_40_NAME"
+msgstr "Phúc Duyên Thâm Hậu"
+
+#. persona.csv: 对剑道有着深厚的兴趣和独特的天赋。...
+msgid "PERSONA_41_DESC"
+msgstr "Ngươi có hứng thú sâu sắc và thiên phú đặc biệt đối với kiếm đạo."
+
+#. persona.csv: 剑修
+msgid "PERSONA_41_NAME"
+msgstr "Kiếm Tu"
+
+#. persona.csv: 专精刀法，对刀道有着独特的理解。...
+msgid "PERSONA_42_DESC"
+msgstr ""
+"Ngươi chuyên tinh đao pháp, đối với đao đạo có cách lĩnh hội riêng của bản "
+"thân."
+
+#. persona.csv: 刀修
+msgid "PERSONA_42_NAME"
+msgstr "Đao Tu"
+
+#. persona.csv: 精通枪法，百兵之王在手。...
+msgid "PERSONA_43_DESC"
+msgstr "Ngươi tinh thông thương pháp, cầm trong tay vua của bách binh."
+
+#. persona.csv: 枪修
+msgid "PERSONA_43_NAME"
+msgstr "Thương Tu"
+
+#. persona.csv: 棍棒在手，天下我有。...
+msgid "PERSONA_44_DESC"
+msgstr ""
+"Côn bổng vừa vào tay, thiên hạ dường như đã nằm trong lòng bàn tay ngươi."
+
+#. persona.csv: 棍修
+msgid "PERSONA_44_NAME"
+msgstr "Côn Tu"
+
+#. persona.csv: 精通音律之道，琴笛在手，可攻可守。...
+msgid "PERSONA_45_DESC"
+msgstr ""
+"Ngươi tinh thông âm luật chi đạo; cầm hoặc địch trong tay đều có thể công "
+"thủ kiêm bị."
+
+#. persona.csv: 音律大师
+msgid "PERSONA_45_NAME"
+msgstr "Âm Luật Đại Sư"
+
+#. persona.csv: 擅长使用暗器，出手诡秘莫测。...
+msgid "PERSONA_46_DESC"
+msgstr "Ngươi giỏi sử dụng ám khí, xuất thủ quỷ bí khó lường."
+
+#. persona.csv: 暗器高手
+msgid "PERSONA_46_NAME"
+msgstr "Ám Khí Cao Thủ"
+
+#. persona.csv: 精通扇法，举手投足间尽显风流。...
+msgid "PERSONA_47_DESC"
+msgstr "Ngươi tinh thông phiến pháp, từng cử chỉ đều toát ra phong lưu."
+
+#. persona.csv: 扇修
+msgid "PERSONA_47_NAME"
+msgstr "Phiến Tu"
+
+#. persona.csv: 精通鞭法，软兵器在手，刚柔并济。...
+msgid "PERSONA_48_DESC"
+msgstr ""
+"Ngươi tinh thông tiên pháp; khi cầm nhuyễn binh trong tay có thể dung hòa cả"
+" cương lẫn nhu."
+
+#. persona.csv: 鞭修
+msgid "PERSONA_48_NAME"
+msgstr "Tiên Tu"
+
+#. persona.csv: 以刀入道，刀即是命。你认为刀法至上。...
+msgid "PERSONA_49_DESC"
+msgstr ""
+"Lấy đao nhập đạo, đao tức là mệnh. Ngươi cho rằng đao đạo là tối thượng."
+
+#. persona.csv: 刀痴
+msgid "PERSONA_49_NAME"
+msgstr "Đao Si"
+
+#. persona.csv: 你总是会冒险，喜欢刺激，总想放手一搏。...
+msgid "PERSONA_4_DESC"
+msgstr ""
+"Ngươi luôn thích mạo hiểm, mê cảm giác kích thích, lúc nào cũng muốn buông "
+"tay đánh cược một phen."
+
+#. persona.csv: 冒险
+msgid "PERSONA_4_NAME"
+msgstr "Mạo Hiểm"
+
+#. persona.csv: 以枪入道，枪即是命。你认为枪法至上。...
+msgid "PERSONA_50_DESC"
+msgstr ""
+"Lấy thương nhập đạo, thương tức là mệnh. Trong mắt ngươi, thương pháp là cao"
+" nhất."
+
+#. persona.csv: 枪痴
+msgid "PERSONA_50_NAME"
+msgstr "Thương Si"
+
+#. persona.csv: 以棍入道，棍即是命。棍法通神。...
+msgid "PERSONA_51_DESC"
+msgstr ""
+"Lấy côn nhập đạo, côn tức là mệnh. Côn pháp của ngươi đã gần như thông thần."
+
+#. persona.csv: 棍圣
+msgid "PERSONA_51_NAME"
+msgstr "Côn Thánh"
+
+#. persona.csv: 以扇入道，扇即是命。你认为扇法至上。...
+msgid "PERSONA_52_DESC"
+msgstr ""
+"Lấy phiến nhập đạo, phiến tức là mệnh. Ngươi cho rằng phiến pháp là tối "
+"thượng."
+
+#. persona.csv: 扇痴
+msgid "PERSONA_52_NAME"
+msgstr "Phiến Si"
+
+#. persona.csv: 以鞭入道，鞭即是命。你认为鞭法至上。...
+msgid "PERSONA_53_DESC"
+msgstr ""
+"Lấy tiên nhập đạo, tiên tức là mệnh. Ngươi tin rằng tiên pháp đứng trên hết "
+"thảy."
+
+#. persona.csv: 鞭痴
+msgid "PERSONA_53_NAME"
+msgstr "Tiên Si"
+
+#. persona.csv: 暗器之道登峰造极，杀人于无形。...
+msgid "PERSONA_54_DESC"
+msgstr ""
+"Ám khí chi đạo đã được ngươi luyện tới đỉnh cao, giết người vô hình vô tích."
+
+#. persona.csv: 刺客宗师
+msgid "PERSONA_54_NAME"
+msgstr "Thích Khách Tông Sư"
+
+#. persona.csv: 你对美色有着强烈的渴求。...
+msgid "PERSONA_55_DESC"
+msgstr "Ngươi có khát cầu mãnh liệt đối với mỹ sắc."
+
+#. persona.csv: 好色
+msgid "PERSONA_55_NAME"
+msgstr "Háo Sắc"
+
+#. persona.csv: 你清心寡欲，对男女之事毫无兴趣。...
+msgid "PERSONA_56_DESC"
+msgstr "Ngươi thanh tâm quả dục, hoàn toàn không hứng thú với chuyện nam nữ."
+
+#. persona.csv: 无欲
+msgid "PERSONA_56_NAME"
+msgstr "Vô Dục"
+
+#. persona.csv: 你对未知的世界充满好奇。...
+msgid "PERSONA_57_DESC"
+msgstr "Ngươi tràn đầy hiếu kỳ trước thế giới chưa biết."
+
+#. persona.csv: 探险家
+msgid "PERSONA_57_NAME"
+msgstr "Thám Hiểm Gia"
+
+#. persona.csv: 你极度排斥长途跋涉，更喜欢待在熟悉的区域...
+msgid "PERSONA_58_DESC"
+msgstr ""
+"Ngươi cực kỳ bài xích những chuyến đường dài, thích ở trong khu vực quen "
+"thuộc hơn."
+
+#. persona.csv: 死宅
+msgid "PERSONA_58_NAME"
+msgstr "Trạch Tử"
+
+#. persona.csv: 天生霉运缠身。...
+msgid "PERSONA_59_DESC"
+msgstr "Trời sinh vận xui quấn thân, làm gì cũng dễ gặp điều không thuận."
+
+#. persona.csv: 扫把星
+msgid "PERSONA_59_NAME"
+msgstr "Sao Chổi"
+
+#. persona.csv: 你总是会随机应变，性子到哪里了就是哪里，...
+msgid "PERSONA_5_DESC"
+msgstr ""
+"Ngươi luôn tùy cơ ứng biến, tính tình đi tới đâu thì theo tới đó, ít có "
+"khuôn phép cố định."
+
+#. persona.csv: 随性
+msgid "PERSONA_5_NAME"
+msgstr "Tùy Hứng"
+
+#. persona.csv: 早年修行多舛；但若能坚持至金丹元婴，便可...
+msgid "PERSONA_60_DESC"
+msgstr ""
+"Những năm đầu tu luyện lắm trắc trở; nhưng nếu có thể kiên trì tới Kim Đan "
+"hay Nguyên Anh, ngươi sẽ đại khí vãn thành."
+
+#. persona.csv: 大器晚成
+msgid "PERSONA_60_NAME"
+msgstr "Đại Khí Vãn Thành"
+
+#. persona.csv: 精通炼器之道，对材料敏锐。...
+msgid "PERSONA_61_DESC"
+msgstr ""
+"Ngươi tinh thông luyện khí chi đạo, cực kỳ nhạy bén đối với vật liệu và hỏa hầu."
+
+#. persona.csv: 炼器师
+msgid "PERSONA_61_NAME"
+msgstr "Luyện Khí Sư"
+
+#. persona.csv: 你的情绪波动很大。...
+msgid "PERSONA_62_DESC"
+msgstr "Biên độ dao động cảm xúc của ngươi rất lớn."
+
+#. persona.csv: 情绪化
+msgid "PERSONA_62_NAME"
+msgstr "Cảm Tính"
+
+#. persona.csv: 擅长勘探挖掘，对矿脉有着独特的直觉。...
+msgid "PERSONA_63_DESC"
+msgstr ""
+"Ngươi giỏi thăm dò và khai quật, có trực giác đặc biệt đối với khoáng mạch."
+
+#. persona.csv: 矿工
+msgid "PERSONA_63_NAME"
+msgstr "Khoáng Công"
+
+#. persona.csv: 你躲避风险和风头，尽力不担上任何风险。...
+msgid "PERSONA_64_DESC"
+msgstr ""
+"Ngươi tránh né rủi ro và tâm điểm chú ý, cố hết sức không gánh lên mình bất "
+"kỳ nguy hiểm nào."
+
+#. persona.csv: 苟
+msgid "PERSONA_64_NAME"
+msgstr "Cẩu"
+
+#. persona.csv: 心胸狭窄，见不得别人比自己好。...
+msgid "PERSONA_65_DESC"
+msgstr ""
+"Lòng dạ hẹp hòi, không chịu nổi khi thấy người khác sống tốt hơn mình."
+
+#. persona.csv: 妒忌
+msgid "PERSONA_65_NAME"
+msgstr "Đố Kỵ"
+
+#. persona.csv: 你重视家庭和血缘关系，以家族利益为重。...
+msgid "PERSONA_66_DESC"
+msgstr ""
+"Ngươi coi trọng gia đình và huyết mạch, luôn đặt lợi ích của gia tộc lên "
+"hàng đầu."
+
+#. persona.csv: 重亲情
+msgid "PERSONA_66_NAME"
+msgstr "Trọng Thân Tình"
+
+#. persona.csv: 你重视朋友义气，为朋友可以两肋插刀。...
+msgid "PERSONA_67_DESC"
+msgstr ""
+"Ngươi coi trọng tình bằng hữu và nghĩa khí, vì bằng hữu mà sẵn sàng vào sinh"
+" ra tử."
+
+#. persona.csv: 重义气
+msgid "PERSONA_67_NAME"
+msgstr "Trọng Nghĩa Khí"
+
+#. persona.csv: 你习惯独来独往，不轻易与人深交。...
+msgid "PERSONA_68_DESC"
+msgstr ""
+"Ngươi quen độc lai độc vãng, không dễ cùng người khác kết thành thâm giao."
+
+#. persona.csv: 孤身一人
+msgid "PERSONA_68_NAME"
+msgstr "Cô Thân"
+
+#. persona.csv: 你对爱情专一，一旦认定便不会改变。...
+msgid "PERSONA_69_DESC"
+msgstr "Ngươi chuyên nhất trong tình ái, một khi đã nhận định thì sẽ không đổi thay."
+
+#. persona.csv: 专情
+msgid "PERSONA_69_NAME"
+msgstr "Chuyên Tình"
+
+#. persona.csv: 你对灵石和财富有着强烈的渴望。...
+msgid "PERSONA_6_DESC"
+msgstr "Ngươi có khát vọng mãnh liệt đối với linh thạch và tài phú."
+
+#. persona.csv: 贪财
+msgid "PERSONA_6_NAME"
+msgstr "Tham Tài"
+
+#. persona.csv: 你容易动情，对美好的感情充满向往。...
+msgid "PERSONA_70_DESC"
+msgstr ""
+"Ngươi dễ động tình, trong lòng tràn đầy khát vọng đối với những mối tình tốt đẹp."
+
+#. persona.csv: 多情
+msgid "PERSONA_70_NAME"
+msgstr "Đa Tình"
+
+#. persona.csv: 你对感情淡漠，不会轻易动心。...
+msgid "PERSONA_71_DESC"
+msgstr "Ngươi đối với tình cảm khá đạm mạc, không dễ động tâm."
+
+#. persona.csv: 薄情
+msgid "PERSONA_71_NAME"
+msgstr "Bạc Tình"
+
+#. persona.csv: 喜欢在山林中寻找各种奇花异草和灵药，对植...
+msgid "PERSONA_7_DESC"
+msgstr ""
+"Ngươi thích tìm kiếm kỳ hoa dị thảo và linh dược giữa sơn lâm, có trực giác "
+"nhạy bén và hứng thú sâu dày đối với thảo mộc."
+
+#. persona.csv: 采集者
+msgid "PERSONA_7_NAME"
+msgstr "Thu Thập Giả"
+
+#. persona.csv: 享受在野外追踪猎物的刺激感，对各种动物的...
+msgid "PERSONA_8_DESC"
+msgstr ""
+"Ngươi hưởng thụ cảm giác kích thích khi truy tung con mồi nơi hoang dã, đối "
+"với tập tính của các loài dã thú đều rõ như lòng bàn tay."
+
+#. persona.csv: 猎人
+msgid "PERSONA_8_NAME"
+msgstr "Liệp Nhân"
+
+#. persona.csv: 你总是会深思熟虑，思考问题比较有哲理。...
+msgid "PERSONA_9_DESC"
+msgstr ""
+"Ngươi luôn thâm tư thục lự, suy xét vấn đề khá có triết lý."
+
+#. persona.csv: 沉思
+msgid "PERSONA_9_NAME"
+msgstr "Trầm Tư"
+
+msgid "PERSONA_1007_DESC"
+msgstr ""
+"Ngươi xuất thân tầng lớp thấp, khá có tâm đắc với việc trồng linh thực, có "
+"thể nhờ canh tác mà kiếm được nhiều linh thạch hơn."
+
+msgid "PERSONA_1007_NAME"
+msgstr "Linh Nông"

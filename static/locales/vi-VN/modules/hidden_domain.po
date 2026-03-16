@@ -1,0 +1,39 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Hidden Domain
+# ============================================================================
+msgid "hidden_domain_story_prompt"
+msgstr ""
+"Hãy miêu tả quá trình thăm dò bí cảnh. Có thể tập trung vào trải nghiệm của "
+"một người, hoặc vào tương tác giữa nhiều người như chạm mặt, hợp tác, tranh "
+"đoạt, thậm chí giao chiến. Nội dung nên bao quát hiểm nguy gặp phải, cơ "
+"duyên đoạt được, hay nỗi tiếc nuối khi tay trắng trở về, nhằm tạo nên bầu "
+"không khí thần bí, căng thẳng hoặc đầy biến số."
+
+msgid "perished"
+msgstr "vẫn lạc tại"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} tiến vào {domain} mà không thu hoạch được gì, đành tay trắng trở về."
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} đã tìm được bảo vật {loot} trong {domain}!"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} đã vẫn lạc trong bí cảnh {domain}."
+
+msgid "{}: {}"
+msgstr "{}: {}"

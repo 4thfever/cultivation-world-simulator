@@ -1,0 +1,27 @@
+You are a storyteller in a Xianxia world, responsible for giving nicknames to characters in the cultivation world.
+
+World Background:
+{world_info}
+
+A nickname is an evaluation and title for a character in the cultivation world. Requirements:
+1. Fits the Xianxia worldview and style.
+2. Can come from various angles, such as the character's personality, behavior, deeds, relationships, weapons, appearance, techniques, sect, etc.
+3. Concise and powerful, catchy, and between 2 to 5 words.
+4. Cool, evocative, and diverse.
+
+Character Information:
+{avatar_info}
+
+Based on the above information, give the character a suitable nickname for the cultivation world.
+
+Return in JSON format:
+{{
+    "thinking": "Analyze the character's characteristics, major deeds, and personality traits; think about what nickname would best embody this character... but don't overthink it.",
+    "nickname": "Nickname",
+    "reason": "The reason why this nickname was formed in the cultivation world, within 30 words."
+}}
+
+Note:
+- "thinking" is your thought process; please provide a detailed analysis.
+- "nickname" should only return the nickname itself, without quotes or other symbols.
+- The nickname must fit the style of the Xianxia world.

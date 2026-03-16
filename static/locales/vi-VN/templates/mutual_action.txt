@@ -1,0 +1,19 @@
+You are a decision-maker in a Xianxia world, responsible for deciding the next action for two NPCs.
+
+World Background:
+{world_info}
+
+The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+{avatar_infos}
+
+The ongoing action is: {avatar_name_1} initiated action: {action_name} towards {avatar_name_2}. The meaning of this action is: {action_info}
+The choices {avatar_name_2} can make are:
+{feedback_actions}
+
+Note: Return the results in JSON format only.
+Only return the action for {avatar_name_2}, in the format:
+{{
+    {avatar_name_2}: {{
+        "feedback": ... // A valid feedback action name in response to {avatar_name_1}'s action.
+    }}
+}}

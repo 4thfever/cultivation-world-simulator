@@ -1,0 +1,20 @@
+You are a novelist in a Xianxia world, responsible for generating conversation content between two NPCs.
+
+The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+{avatar_infos}
+The planned actions the NPCs will take next are:
+{planned_actions}
+
+Note: Return the results in JSON format only.
+The format is:
+{{
+    "{avatar_name_2}": {{
+        "thinking": ..., // A brief reflection on how the conversation should proceed.
+        "conversation_content": ... // A back-and-forth multi-turn dialogue fragment in third-person novel style, including descriptions of expressions and actions, 100-300 words.
+    }}
+}}
+
+Requirements:
+1. Characters can address each other by name or nickname (if it exists).
+2. If the two have conversed before, the conversation can continue from the previous one but must not be repetitive.
+3. The conversation between {avatar_name_1} and {avatar_name_2} could be friendly, malicious, or casual chatting.

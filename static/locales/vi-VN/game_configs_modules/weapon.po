@@ -1,0 +1,434 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr ""
+"Thanh kiếm sắt do lò rèn nơi phàm trần chế tạo, miễn cưỡng có thể dùng được."
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "Luyện Khí Kiếm"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "Một thanh đại đao lưng dày, món yêu thích của võ phu bình thường."
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "Luyện Khí Đao"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr "Được làm từ gỗ bạch lạp, đầu thương treo một chùm tua đỏ."
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "Luyện Khí Thương"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "Một cây côn gỗ cứng bình thường, dài ngang tầm lông mày."
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "Luyện Khí Côn"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "Chiếc quạt xếp mà văn nhân nhã sĩ thường dùng để điểm tô phong nhã."
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "Luyện Khí Phiến"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr ""
+"Một chiếc roi da bình thường, phần nhiều dùng để đánh xe hoặc thi hành hình "
+"phạt."
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "Luyện Khí Tiên"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "Cổ cầm làm từ gỗ ngô đồng, âm sắc tạm coi là ổn."
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "Luyện Khí Cầm"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "Được vót từ tử trúc, âm thanh trong trẻo vang vọng."
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "Luyện Khí Địch"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "Loại ám khí bằng sắt có thể gặp ở khắp nơi."
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "Luyện Khí Ám Khí"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "Kiếm khí lạnh buốt thấu xương."
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "Thanh Sương Kiếm"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr ""
+"Đao quang như trăng soi trong giếng, hư thực khó dò, khiến đối thủ khó lòng "
+"phân biệt thật giả."
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "Tỉnh Trung Nguyệt"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "Đầu thương ẩn hiện hỏa quang, có thể khơi dậy phàm hỏa."
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "Hỏa Tiêm Thương"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr ""
+"Đúc từ tinh thiết, nặng tới ngàn cân, chỉ kẻ có sức mạnh lớn mới dùng nổi."
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "Tù Long Bổng"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr ""
+"Mặt quạt vẽ đầy đào hoa, bóng hoa rối loạn, bên trong ẩn giấu sát cơ khó "
+"lòng đề phòng."
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "Đào Hoa Phiến"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr ""
+"Một món phỏng phẩm; tuy không có khả năng đánh thần, nhưng vẫn có thể làm "
+"tổn thương thần hồn."
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "Đả Thần Tiên"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "Tiếng đàn mang ma tính, đủ sức quấy nhiễu tâm trí."
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "Thiên Ma Cầm"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr ""
+"Tiếng sáo chói tai quỷ dị, tương truyền có thể dùng nó để điều khiển thi "
+"khôi."
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "Quỷ Địch Trần Tình"
+
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr "Mảnh như lông trâu, đến đi vô ảnh, khiến người ta khó lòng phòng bị."
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "Vô Ảnh Châm"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr ""
+"Bí chế của Bách Thú Tông; tiếng sáo có thể trấn an hoặc chọc giận dã thú."
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "Vạn Thú Địch"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr ""
+"Thân đao đỏ như máu, dường như khát khao được uống huyết. Sát ý cực nặng, kẻ"
+" ý chí yếu khó mà điều khiển."
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "Huyết Ẩm Cuồng Đao"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr ""
+"Được đúc từ thiên ngoại vẫn thiết. Trọng kiếm vô phong, đại xảo bất công, có"
+" thể dùng lực phá hết thảy kỹ xảo."
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "Huyền Thiết Trọng Kiếm"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr ""
+"Thân kiếm mềm như dải lụa, nhưng khi truyền linh lực vào thì chuyển động như"
+" linh xà, quỷ dị khó lường."
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "Tử Vi Nhuyễn Kiếm"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr ""
+"Binh khí chế thức của Trấn Hồn Tông, thủy hỏa tương tế, có thể khốn địch rồi khóa hồn."
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "Thủy Hỏa Tù Long Côn"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr ""
+"Một bộ phi kiếm, bên trong ẩn chứa Tịch Tà Thần Lôi, đủ sức khắc chế tà túy "
+"trong thiên hạ."
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "Thanh Trúc Phong Vân Kiếm"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr ""
+"Binh khí của Lục Nhĩ Mi Hầu, biến hóa tùy tâm, lớn nhỏ như ý."
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "Tùy Tâm Thiết Can Binh"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr ""
+"Trên mặt quạt có ngũ hỏa như không trung hỏa, thạch trung hỏa và mộc trung "
+"hỏa; chỉ một quạt là đã khiến đối phương tro bay khói diệt."
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "Ngũ Hỏa Thất Cầm Phiến"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr ""
+"Sát khí ngập trời, từng nhuốm máu Ma Thần, thương đã xuất thì không quay về."
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "Thí Thần Thương"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr ""
+"Toàn thân đỏ thẫm, chiến khí ngập trời, từng nhuốm máu vô số cường giả, "
+"thương xuất vô hối."
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "Xích Huyết Chiến Mâu"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr ""
+"Trong hồ lô đỏ ẩn giấu một tia hào quang, có mày có mắt. Xin bảo bối xoay "
+"người, thần quỷ khó thoát."
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "Trảm Tiên Phi Đao"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr ""
+"Chẳng phải đồng, chẳng phải sắt, cũng chẳng phải thép; từng ẩn dưới núi Tu "
+"Di. Kiếm khí sắc bén thẳng thấu cửu trùng thiên."
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "Tru Tiên Kiếm"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr ""
+"Song kiếm chí tình, một âm một dương; phân thì là sát, hợp thì là tình."
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "Can Tương Mạc Tà"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr ""
+"Lá tinh của Thái Âm; quạt thứ nhất dập lửa, quạt thứ hai sinh phong, quạt "
+"thứ ba gọi mưa."
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "Ba Tiêu Phiến"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr ""
+"Binh khí của Vi Hộ, tuy nhẹ linh hoạt nhưng đánh vào thân người lại nặng "
+"tựa Thái Sơn."
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "Tử Kim Hàng Ma Xử"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr ""
+"Sống đao nạm chín vòng kim hoàn; lúc vung lên, kim hoàn va chạm vang như "
+"lôi minh, nhiếp nhân tâm phách."
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "Cửu Hoàn Kim Bối Đao"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr ""
+"Toàn thân được rèn từ vạn niên hàn thiết, thân thương bạc trắng, chạm vào "
+"lạnh buốt thấu xương."
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "Hàn Thiết Ngân Thương"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr ""
+"Lấy từ Tử Trúc Lâm Nam Hải, gồm bảy đốt, dẻo dai dị thường; không chỉ có thể "
+"thương địch mà còn có thể trói yêu."
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "Thất Tiết Tử Trúc Tiên"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr ""
+"Được điêu khắc từ bạch ngọc, khi gảy phát ra tiếng như kim thạch, có thể gột "
+"rửa tâm ma."
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "Ngọc Tỳ Bà"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr ""
+"Chế từ hàn ngọc biển sâu; khi thổi lên vang như tiếng long ngâm giữa Thương "
+"Hải, chấn động tứ dã."
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "Thương Hải Long Ngâm Địch"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr ""
+"Hung binh thượng cổ, phong ấn bạch hổ hung hồn; một khi xuất khỏi vỏ ắt phải "
+"thấy máu, thậm chí còn có thể phản phệ chủ nhân."
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "Hung Hổ Sát Nhận"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr ""
+"Luyện từ mảnh vỡ trụ thạch nghi thuộc Thiên Đình thượng cổ, nặng tựa sơn "
+"nhạc, phi đại năng giả không thể vung nổi."
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "Kình Thiên Bạch Ngọc Trụ"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr ""
+"Một mặt thuần trắng chủ sinh, một mặt đen kịt chủ tử. Mỗi lần quạt lên là "
+"âm dương nghịch chuyển, súc địa thành thốn."
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "Âm Dương Phiến"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr ""
+"Luyện từ xương sống chân long thượng cổ; khi vung lên mơ hồ có tiếng long "
+"ngâm, tự nhiên áp chế sinh linh cấp thấp."
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "Long Cốt Tiên"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr ""
+"Phỏng phẩm của một trong Thập Đại Thần Khí thượng cổ, nắm giữ sức mạnh thần "
+"bí có thể chi phối tâm linh vạn vật."
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "Phục Hy Cầm"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr ""
+"Chí bảo Ma Giới, tiếng địch quỷ quyệt, có thể sai khiến ma vật và hung thú "
+"cho mình sử dụng."
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "Hoán Ma Địch"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr ""
+"Đẹp đến mức không gì sánh nổi, nhưng dưới hào quang rực rỡ lại ẩn giấu sát "
+"cơ chí mạng."
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "Thất Thải Tước Vũ"

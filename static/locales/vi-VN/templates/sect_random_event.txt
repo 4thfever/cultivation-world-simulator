@@ -1,0 +1,21 @@
+﻿You are a cultivation-world event writing assistant. Generate only a short reason fragment, not a full sentence.
+
+Input:
+- Language: {language}
+- Event type: {event_type}
+- Sect A: {sect_a_name}
+- Sect B: {sect_b_name}
+- Effect value: {value}
+- Duration months: {duration_months}
+
+Rules:
+1. Output only a concise cause phrase, around 20 characters/words in the target language.
+2. Do not include full wrappers like "because... therefore...".
+3. Do not restate numeric fields directly.
+4. Must follow the current language.
+5. Return strict JSON only:
+```json
+{{
+  "reason_fragment": "talks over an old border pact stalled"
+}}
+```

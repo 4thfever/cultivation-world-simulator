@@ -1,0 +1,94 @@
+{
+  "loading": "Đang tải...",
+  "fetch_failed": "Lấy cấu hình thất bại",
+  "test_success": "Kiểm tra kết nối thành công",
+  "save_success": "Đã lưu cấu hình",
+  "test_save_failed": "Kiểm tra hoặc lưu thất bại: {error}",
+  "test_save_failed_title": "Kiểm Tra Hoặc Lưu Thất Bại",
+  "api_key_required": "Vui lòng nhập API Key",
+  "base_url_required": "Vui lòng nhập Base URL",
+  "preset_applied": "Đã áp dụng preset {name} ({extra})",
+  "preset_extra_key": "Vui lòng nhập API Key",
+  "preset_extra_local": "Vui lòng đảm bảo Ollama đang chạy",
+  "sections": {
+    "quick_fill": "Điền Nhanh",
+    "api_config": "Cấu Hình API",
+    "model_selection": "Chọn Mô Hình",
+    "run_mode": "Chế Độ Chạy"
+  },
+  "labels": {
+    "api_key": "API Key",
+    "base_url": "Base URL",
+    "normal_model": "Mô Hình Thường (Normal)",
+    "fast_model": "Mô Hình Nhanh (Fast)",
+    "max_concurrent_requests": "Số Yêu Cầu Đồng Thời Tối Đa",
+    "what_is_api": "API là gì / Lấy ở đâu?"
+  },
+  "descs": {
+    "normal_model": "Dùng cho logic phức tạp, tạo cốt truyện, v.v.",
+    "fast_model": "Dùng cho phán đoán đơn giản, tương tác thường xuyên, v.v.",
+    "max_concurrent_requests": "Số yêu cầu gửi đồng thời tới AI. Giá trị càng cao thì càng nhanh, nhưng cũng dễ chạm giới hạn tốc độ API. Khuyến nghị: 5-20."
+  },
+  "placeholders": {
+    "api_key": "Nhập API Key của bạn tại đây (thường bắt đầu bằng sk-)",
+    "base_url": "https://api.example.com/v1",
+    "normal_model": "ví dụ: gpt-4, claude-3-opus, qwen-plus",
+    "fast_model": "ví dụ: gpt-3.5-turbo, qwen-flash",
+    "max_concurrent_requests": "Mặc định: 10"
+  },
+  "modes": {
+    "default": "Cân Bằng (Mặc định)",
+    "default_desc": "Tự động chọn mô hình (Khuyến nghị)",
+    "normal": "Thông Minh (Normal)",
+    "normal_desc": "Dùng mô hình thông minh cho mọi tác vụ",
+    "fast": "Nhanh (Fast)",
+    "fast_desc": "Dùng mô hình nhanh cho mọi tác vụ"
+  },
+  "actions": {
+    "testing": "Đang kiểm tra kết nối...",
+    "test_and_save": "Kiểm Tra Kết Nối Và Lưu"
+  },
+  "help": {
+    "title": "API là gì? Hướng dẫn cấu hình",
+    "q1_title": "🌐 1. API là gì?",
+    "q1_content": "API (Application Programming Interface) giống như một \"đường dây điện thoại\". Bản thân trò chơi này không có khả năng suy nghĩ; nó kết nối tới một \"bộ não\" AI từ xa (như máy chủ Qwen hoặc DeepSeek) thông qua đường dây đó. Khi trò chơi quyết toán theo tháng và quyết định hành động của NPC, nó sẽ gửi thông tin liên quan qua API cho AI, rồi AI suy nghĩ và trả kết quả về.",
+    "q2_title": "⚡ 2. Mô hình đề xuất (2025)",
+    "q2_qwen": "Ông lớn nội địa (Alibaba), ổn định, có hạn mức miễn phí lớn, phù hợp cho người mới.",
+    "q2_deepseek": "Hiệu năng/chi phí cực cao, suy luận hợp ngữ cảnh Hoa ngữ rất tốt.",
+    "q2_gemini": "Sản phẩm của Google, năng lực tổng hợp thuộc hàng đầu.",
+    "q3_title": "📝 3. Điền cấu hình như thế nào?",
+    "q3_content": "Khi đã có API, bạn cần điền ba tham số cốt lõi này. Thông thường, bạn có thể tìm thấy chúng trong tài liệu của nhà cung cấp:",
+    "q3_format_note": "⚠️ Quan trọng: Trò chơi này chỉ hỗ trợ định dạng API tương thích OpenAI. Những dịch vụ không hỗ trợ chuẩn tương thích OpenAI sẽ không dùng được. Chúng tôi khuyến nghị dùng preset có sẵn (đều đã xác nhận tương thích). Nếu muốn dùng dịch vụ khác, hãy chắc chắn rằng họ cung cấp giao diện tương thích OpenAI.",
+    "q3_base_url": "API Base URL: cổng vào của AI, thường do nhà cung cấp đưa ra (ví dụ: https://api.deepseek.com).",
+    "q3_api_key": "API Key: thông tin định danh của bạn, giống như mật khẩu tài khoản.",
+    "q3_model_name": "Tên mô hình: cho máy chủ biết nên dùng \"bộ não\" nào, ví dụ deepseek-chat hoặc gemini-3-flash-preview.",
+    "q4_title": "🔗 4. Lấy Key ở đâu?",
+    "q5_title": "🛡️ 5. Lưu ý bảo mật",
+    "q5_p1": "API Key của bạn chỉ được lưu trong tệp cấu hình cục bộ trên máy tính của bạn, và backend trò chơi chạy tại chỗ sẽ trực tiếp giao tiếp với nhà cung cấp mô hình. Trò chơi này (Cultivation World Simulator) hoàn toàn mã nguồn mở và sẽ không bao giờ tải API Key của bạn lên bất kỳ máy chủ bên thứ ba nào. Ngoài ra, xin đừng chia sẻ tệp cấu hình cục bộ của bạn cho người khác.",
+    "q5_p2": "Việc sử dụng token sẽ phát sinh chi phí; hãy tự đánh giá chi phí trước khi sử dụng.",
+    "confirm": "Tôi đã hiểu"
+  },
+  "presets": {
+    "openai": "OpenAI",
+    "qwen": "Qwen",
+    "deepseek": "DeepSeek",
+    "siliconflow": "SiliconFlow",
+    "openrouter": "OpenRouter",
+    "gemini": "Gemini",
+    "groq": "Groq",
+    "cerebras": "Cerebras",
+    "ollama": "Ollama (Cục bộ)"
+  },
+  "badges": {
+    "recommended": "Đề cử",
+    "free": "Rẻ"
+  },
+  "help_links": {
+    "openai": "Nền tảng OpenAI",
+    "qwen": "Aliyun Bailian (Qwen / Đề cử)",
+    "deepseek": "Nền tảng DeepSeek (Nhanh & Rẻ)",
+    "openrouter": "OpenRouter (Tất cả trong một / Đề cử)",
+    "siliconflow": "SiliconFlow (Tổng hợp nội địa)",
+    "gemini": "Google AI Studio (Gemini)"
+  }
+}

@@ -1,0 +1,26 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Condition Translation
+msgid "Conditional effect"
+msgstr "Hiệu ứng kích hoạt theo điều kiện"
+
+msgid "Has [{trait}] trait"
+msgstr "Sở hữu đặc chất [{trait}]"
+
+msgid "When {condition}"
+msgstr "Khi {condition}"
+
+msgid "[{condition}] {effects}"
+msgstr "[{condition}]: {effects}"

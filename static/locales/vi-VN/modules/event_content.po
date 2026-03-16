@@ -1,0 +1,91 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Event Content
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"Trong buổi đấu giá {item_name}, {winner_name} đã dùng {price} linh thạch để "
+"vượt qua {runner_up_name} và đoạt lấy món vật phẩm này."
+
+msgid "Retreat Bonus"
+msgstr "Cảm Ngộ Bế Quan"
+
+# ============================================================================
+# Additional Missing Translations
+# ============================================================================
+msgid "Unsupported item type: {item_type}"
+msgstr "Loại vật phẩm không được hỗ trợ: {item_type}"
+
+msgid "retreat_action_name"
+msgstr "Bế Quan"
+
+msgid "retreat_death_append"
+msgstr ""
+" Và trong lúc bế quan đã hao cạn tia sinh cơ cuối cùng, tọa hóa mà vong."
+
+msgid "retreat_desc"
+msgstr ""
+"Bế quan để phá vỡ bản thân, mưu cầu tinh tiến. Hung hiểm vô cùng, không "
+"phải người đại nghị lực thì chớ thử."
+
+msgid "retreat_fail"
+msgstr ""
+"Bế quan thất bại! Nguyên khí tổn thương nặng nề, hao tổn {years} năm thọ "
+"nguyên."
+
+msgid "retreat_requirements"
+msgstr "Không hạn chế; cần thời gian hồi"
+
+msgid "retreat_start"
+msgstr "{avatar} bắt đầu bế quan, ngày phá quan chưa định."
+
+msgid "retreat_story_prompt_fail"
+msgstr ""
+"Đây là câu chuyện về một lần bế quan thất bại. Hãy miêu tả cách tu sĩ bị "
+"tâm ma quấy nhiễu, dấy lên tự nghi ngờ, cuối cùng bị phản phệ trong lúc bế "
+"quan. Không cần miêu tả chiến đấu."
+
+msgid "retreat_story_prompt_success"
+msgstr ""
+"Đây là câu chuyện về một lần bế quan thành công. Hãy miêu tả cách tu sĩ "
+"vượt qua cô tịch, cảm ngộ Thiên Đạo và sau cùng đột phá tâm cảnh trong lúc "
+"bế quan. Không cần miêu tả chiến đấu."
+
+msgid "retreat_success"
+msgstr ""
+"Bế quan thành công! Tu vi tinh tiến, cảm ngộ đối với Thiên Đạo cũng càng "
+"thêm thâm sâu."
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} đã từ bỏ {item_name}."
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr ""
+"{avatar_name} đã bán {item_name} vừa thu được, kiếm {price} linh thạch."
+
+msgid "game.sect_update_event"
+msgstr ""
+"Kết toán thường niên của {sect_name}: tổng chiến lực {strength}, bán kính "
+"thế lực {radius}, thu nhập lãnh địa {income} linh thạch, chi tiêu cung "
+"dưỡng môn nhân {upkeep} linh thạch, biến động ròng {net_change} linh "
+"thạch. Cấu thành chi tiêu: {upkeep_breakdown}."
+
+msgid "game.sect_thinking_event"
+msgstr "Suy tư của tông môn {sect_name}: {thinking}"
+
+msgid "Game automatically saved"
+msgstr "Trò chơi đã tự động lưu"

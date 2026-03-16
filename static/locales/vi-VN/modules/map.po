@@ -1,0 +1,83 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Map & Region & Others (New)
+# ============================================================================
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "Khu Vực Tu Luyện (có thể thổ nạp để tăng tu vi)"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr ""
+"Khu Vực Tu Luyện: {name} ({essence_type} linh khí: {essence_density}) - "
+"{desc}"
+
+msgid "No special resources"
+msgstr "Không có tài nguyên đặc thù"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "Khu Vực Thường (có thể săn bắt, thu thập, khai khoáng)"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr ""
+"Khu Vực Thường: {name} - {desc} | Phân bố tài nguyên: {species_info}"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "Tổng Bộ Tông Môn (đệ tử bổn tông dưỡng thương nhanh hơn tại đây)"
+
+msgid "Sell: "
+msgstr "Bán: "
+
+msgid "emotion_angry"
+msgstr "Angry"
+
+msgid "emotion_anticipating"
+msgstr "Anticipating"
+
+msgid "emotion_calm"
+msgstr "Calm"
+
+msgid "emotion_confused"
+msgstr "Confused"
+
+msgid "emotion_disgusted"
+msgstr "Disgusted"
+
+msgid "emotion_fearful"
+msgstr "Fearful"
+
+msgid "emotion_happy"
+msgstr "Happy"
+
+msgid "emotion_sad"
+msgstr "Sad"
+
+msgid "emotion_surprised"
+msgstr "Surprised"
+
+msgid "emotion_tired"
+msgstr "Tired"
+
+msgid "misfortune_dynamic_story_prompt"
+msgstr ""
+"The character's current realm is {realm}. They were just at {location} performing the action: [{action_desc}]. The final result is: [{result}].\n"
+"Task: Based on the character's realm, background, and the [action they were performing], please automatically deduce a reasonable, coherent, and creative reason for the misfortune as a bridge to explain why this action led to this result. Describe rich environmental details and the character's psychological activities. Keep the word count between 100-200 words."
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names} ({price} linh thạch)"
+
+msgid "{value} Spirit Stones"
+msgstr "{value} linh thạch"

@@ -1,0 +1,29 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Execution Results
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} đã {done} {grade} {label}『{item_name}』."
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} bế quan thất bại, tổn hao {years} năm thọ nguyên."
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} đã bế quan thành công."
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} tăng thêm +{exp} điểm tu vi"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} đã đánh bại {loser}"

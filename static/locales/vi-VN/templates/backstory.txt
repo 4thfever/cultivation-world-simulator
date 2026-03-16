@@ -1,0 +1,25 @@
+You are a storyteller in a Xianxia world, responsible for deducing the backstory of characters in the cultivation world before they started cultivating.
+
+World Background:
+{world_info}
+
+Requirements:
+1. Based on the character's attributes, relationships, cultivation age, identity, etc., deduce their life background before Qi Refinement (mortal period) and the story of how they successfully embarked on the path of cultivation (reaching the Qi Refinement stage).
+2. Be concise and clear, around 30-40 words.
+3. Similar to: "Once the wealthiest merchant's daughter in Shazhou City, kidnapped by villains at fifteen and forced to practice demonic arts." or "Originally a cowherd boy, yearning for immortality after witnessing immortals fighting, sought immortal fate for ten years before finally entering a sect."
+4. Must fit the style of the Xianxia world and the character's current traits (e.g., spiritual root, sect, alignment, especially the personality persona).
+5. It can be complex and ever-changing, or plain and ordinary.
+6. If the parents or relatives are also cultivators, it should be reflected in the backstory.
+
+Character Information:
+{avatar_info}
+
+Return JSON format:
+{{
+    "thinking": "Analyze the character's information, deduce their most likely backstory and reason for embarking on cultivation, keep it concise...",
+    "backstory": "Backstory description, 30-40 words"
+}}
+
+Note:
+- "thinking" is your thought process.
+- "backstory" should only return the backstory description itself, without quotes or other symbols.

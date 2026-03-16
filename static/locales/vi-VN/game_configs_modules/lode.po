@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+msgid "LODE_1_DESC"
+msgstr ""
+"Khoáng mạch thông thường chứa huyền thiết, thường thấy ở tầng địa biểu nông."
+
+#. lode.csv: 玄铁矿脉
+msgid "LODE_1_NAME"
+msgstr "Huyền Thiết Khoáng Mạch"
+
+#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+msgid "LODE_2_DESC"
+msgstr ""
+"Khoáng mạch xích đồng chôn sâu dưới lòng đất, xung quanh thường đi kèm hỏa "
+"nhiệt chi khí."
+
+#. lode.csv: 赤铜矿脉
+msgid "LODE_2_NAME"
+msgstr "Xích Đồng Khoáng Mạch"
+
+#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+msgid "LODE_3_DESC"
+msgstr ""
+"Mỏ tụ tích bí ngân cực kỳ hiếm thấy, ngân quang lấp lánh, linh khí bức người."
+
+#. lode.csv: 秘银矿床
+msgid "LODE_3_NAME"
+msgstr "Bí Ngân Khoáng Sàng"
+
+#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+msgid "LODE_4_DESC"
+msgstr ""
+"Khoáng mạch Canh Kim nằm sâu trong tuyệt bích, khai thác vô cùng khó khăn "
+"nhưng giá trị liên thành."
+
+#. lode.csv: 庚金矿洞
+msgid "LODE_4_NAME"
+msgstr "Canh Kim Khoáng Động"

@@ -1,0 +1,63 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. city_region.csv: 繁华都市，人烟稠密，商贾云集。此地是交易...
+msgid "CITY_REGION_301_DESC"
+msgstr ""
+"Một đại thành phồn hoa, dân cư đông đúc, thương khách tụ hội. Đây là nơi "
+"quan trọng để giao dịch thiên tài địa bảo và tìm kiếm cơ duyên."
+
+#. city_region.csv: 青云城
+msgid "CITY_REGION_301_NAME"
+msgstr "Thanh Vân Thành"
+
+#. city_region.csv: 沙漠绿洲中的贸易重镇，各路商队在此集结，...
+msgid "CITY_REGION_302_DESC"
+msgstr ""
+"Một trọng trấn mậu dịch giữa ốc đảo sa mạc, nơi các đoàn thương đội tụ hội, "
+"là điểm bổ sung tiếp tế và trao đổi quan trọng của tu sĩ."
+
+#. city_region.csv: 沙州城
+msgid "CITY_REGION_302_NAME"
+msgstr "Sa Châu Thành"
+
+#. city_region.csv: 森林深处的修仙重镇，众多修士在此栖居，是...
+msgid "CITY_REGION_303_DESC"
+msgstr ""
+"Một trọng trấn tu tiên nằm sâu trong rừng, nơi đông đảo tu sĩ cư ngụ, rất "
+"thích hợp để tu hành và luyện khí."
+
+#. city_region.csv: 翠林城
+msgid "CITY_REGION_303_NAME"
+msgstr "Thúy Lâm Thành"
+
+#. city_region.csv: 坐落于大河入海口的三角洲，百川归海，水运...
+msgid "CITY_REGION_304_DESC"
+msgstr ""
+"Nằm tại vùng châu thổ nơi đại hà đổ ra biển, bách xuyên quy hải, đường thủy "
+"hưng thịnh; là vùng đất quý mà tu sĩ hệ Thủy thường lui tới nhất."
+
+#. city_region.csv: 沧澜城
+msgid "CITY_REGION_304_NAME"
+msgstr "Thương Lan Thành"
+
+#. city_region.csv: 屹立于连绵群山之巅，终年云雾缭绕，灵气纯...
+msgid "CITY_REGION_305_DESC"
+msgstr ""
+"Sừng sững trên đỉnh núi trùng điệp, quanh năm mây mù bao phủ, linh khí tinh "
+"thuần; là chốn tuyệt hảo để khổ tu và ngộ Thiên Đạo."
+
+#. city_region.csv: 揽月城
+msgid "CITY_REGION_305_NAME"
+msgstr "Lãm Nguyệt Thành"

@@ -1,0 +1,27 @@
+You are a novelist in a Xianxia world; you need to take a collective event in this cultivation world, select an interesting angle or perspective, and create a short story of 300-800 words.
+
+World Background:
+{world_info}
+
+Event Setting:
+{gathering_info}
+
+events:
+{events}
+
+Event Details:
+{details}
+
+Writing style prompt: {style}
+Extra theme prompt: {story_prompt}
+
+Note:
+1. Do not try to describe all events exhaustively; please **select yourself** the most interesting and dramatic parts to expand upon.
+2. Focus on describing interactions between characters, psychological maneuvering, competition, or cooperation.
+3. Focus on describing the tense atmosphere during the bidding process.
+
+Return the results in JSON format only, in the format:
+{{
+    "thinking": ..., // Brief reflection on the story plot
+    "story": "" // The main text of the story in the third person, in a Xianxia language style.
+}}

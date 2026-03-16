@@ -1,0 +1,79 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Auxiliary System - Auxiliaries
+# ============================================================================
+msgid " Devoured Souls: {count}"
+msgstr " Hồn phách đã thôn phệ: {count}"
+
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "Một tán tu {name} đã hiện thân giữa thế gian."
+
+msgid "Age"
+msgstr "Tuổi Tác"
+
+msgid "Alignment"
+msgstr "Trận Doanh"
+
+msgid "Appearance"
+msgstr "Dung Mạo"
+
+msgid "Auxiliary"
+msgstr "Phụ Trợ"
+
+msgid "Backstory"
+msgstr "Thân Thế"
+
+msgid "Backstory: {backstory}"
+msgstr "Thân thế: {backstory}"
+
+msgid "Current Action"
+msgstr "Hành Động Hiện Tại"
+
+msgid "Current Action: {action}"
+msgstr "Hành động hiện tại: {action}"
+
+msgid "Current Effects"
+msgstr "Hiệu Ứng Hiện Tại"
+
+msgid "Emotion"
+msgstr "Tâm Cảnh"
+
+msgid "Gender"
+msgstr "Giới Tính"
+
+msgid "HP"
+msgstr "Sinh Lực"
+
+msgid "Long-term Goal"
+msgstr "Chí Hướng Lâu Dài"
+
+msgid "Major Events"
+msgstr "Đại Sự"
+
+msgid "Materials"
+msgstr "Vật Liệu"
+
+msgid "Name"
+msgstr "Danh Tự"
+
+msgid "Nearby Avatars"
+msgstr "Nhân Vật Lân Cận"
+
+msgid "Nickname"
+msgstr "Biệt Hiệu"
+
+msgid "{desc} (Devoured Souls: {souls})"
+msgstr "{desc} (Hồn phách đã thôn phệ: {souls})"

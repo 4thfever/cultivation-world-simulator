@@ -1,0 +1,56 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " Nhưng ngươi đã có '{current_auxiliary}' rồi."
+
+msgid " But you already have '{current_weapon}'."
+msgstr " Nhưng ngươi đã có '{current_weapon}' rồi."
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " Nhưng ngươi đã có『{auxiliary_name}』rồi."
+
+msgid " But you already have『{weapon_name}』."
+msgstr " Nhưng ngươi đã có『{weapon_name}』rồi."
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " Điều này xung khắc với công pháp ngươi đang chủ tu '{current_technique}'."
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " Điều này xung khắc với công pháp ngươi đang chủ tu『{technique_name}』."
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "Lĩnh ngộ công pháp '{technique}', {exchange_result}"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "Lĩnh ngộ công pháp『{technique_name}』, {exchange_text}"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "Phát hiện phụ trợ『{auxiliary_name}』, {exchange_text}"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "Phát hiện binh khí『{weapon_name}』, {exchange_text}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "Phát hiện trang bị phụ trợ '{auxiliary}', {exchange_result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "Phát hiện binh khí '{weapon}', {exchange_result}"
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}, Độ thuần thục: {proficiency}%"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender} {age} tuổi"
