@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any
 from src.classes.language import language_manager
 from src.config import get_settings_service
 from src.run.log import get_logger
+from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
@@ -48,6 +49,7 @@ class SectThinker:
             "decision_context_info": to_json_str_with_intent(
                 cls._serialize_context(decision_context)
             ),
+            "decision_interval_years": cls.get_decision_interval_years(),
             "decision_summary": str(decision_summary or ""),
         }
 
@@ -69,6 +71,11 @@ class SectThinker:
     def _llm_available(cls) -> bool:
         profile, api_key = get_settings_service().get_llm_runtime_config()
         return bool(profile.base_url and api_key and profile.model_name)
+
+    @classmethod
+    def get_decision_interval_years(cls) -> int:
+        interval = int(getattr(CONFIG.sect, "decision_interval_years", 5))
+        return interval if interval > 0 else 5
 
     @classmethod
     def _normalize(cls, text: str, sect: "Sect") -> str:

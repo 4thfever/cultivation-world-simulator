@@ -124,6 +124,7 @@ class SectDecider:
             "sect_name": sect.name,
             "world_info": to_json_str_with_intent(cls._serialize_world_info(world)),
             "decision_context_info": to_json_str_with_intent(cls._serialize_context(decision_context)),
+            "decision_interval_years": int(getattr(CONFIG.sect, "decision_interval_years", 5)),
             "recruit_cost": recruit_cost,
             "support_amount": support_amount,
         }

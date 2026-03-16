@@ -11,10 +11,10 @@ from src.systems.time import Month
 from src.utils.config import CONFIG
 
 
-def _should_run_five_year_cycle(world) -> bool:
+def _should_run_sect_decision_cycle(world) -> bool:
     current_year = int(world.month_stamp.get_year())
     start_year = int(getattr(world, "start_year", current_year))
-    interval = int(getattr(CONFIG.sect, "decision_interval_years", 5))
+    interval = SectThinker.get_decision_interval_years()
     if interval <= 0 or current_year < start_year:
         return False
     return (current_year - start_year) % interval == 0
@@ -25,7 +25,7 @@ async def run_annual_maintenance(simulator, ctx) -> None:
     # 顺序上保持：
     # 1. 刷新排行榜
     # 2. 更新宗门状态
-    # 3. 执行五年一次宗门决策
+    # 3. 执行配置驱动的宗门决策周期
     # 4. 生成宗门思考
     # 5. 清理长期死亡角色
     if not ctx.is_january:
@@ -53,7 +53,7 @@ async def phase_sect_five_year_decision(simulator) -> list[Event]:
     world = simulator.world
     if world.month_stamp.get_month() != Month.JANUARY:
         return []
-    if not _should_run_five_year_cycle(world):
+    if not _should_run_sect_decision_cycle(world):
         return []
 
     sect_context = getattr(world, "sect_context", None)
@@ -92,7 +92,7 @@ async def phase_sect_five_year_decision(simulator) -> list[Event]:
             )
         except Exception as exc:
             get_logger().logger.error(
-                "Sect five-year decision failed for %s(%s): %s",
+                "Sect interval decision failed for %s(%s): %s",
                 getattr(sect, "name", "unknown"),
                 getattr(sect, "id", "unknown"),
                 exc,
@@ -105,7 +105,7 @@ async def phase_sect_yearly_thinking(simulator) -> list[Event]:
     world = simulator.world
     if world.month_stamp.get_month() != Month.JANUARY:
         return []
-    if not _should_run_five_year_cycle(world):
+    if not _should_run_sect_decision_cycle(world):
         return []
 
     sect_context = getattr(world, "sect_context", None)
