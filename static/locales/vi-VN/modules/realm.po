@@ -13,26 +13,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "apprentice"
-msgstr "Apprentice"
+msgstr "Đồ Đệ"
 
 msgid "child"
-msgstr "Child"
+msgstr "Con"
 
 msgid "enemy"
-msgstr "Enemy"
+msgstr "Kẻ Thù"
 
 msgid "friend"
-msgstr "Friend"
+msgstr "Bằng Hữu"
 
 msgid "kin"
-msgstr "Kin"
+msgstr "Thân Nhân"
 
 msgid "lovers"
-msgstr "Lovers"
+msgstr "Đạo Lữ"
 
 msgid "master"
-msgstr "Master"
+msgstr "Sư Phụ"
 
 # Realm
 msgid "qi_refinement"
-msgstr "Qi Refinement"
+msgstr "Luyện Khí"

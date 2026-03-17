@@ -14,41 +14,47 @@ msgstr ""
 
 # Root Element
 msgid "gold_element"
-msgstr "Gold"
+msgstr "Kim"
 
 msgid "root_dark"
-msgstr "Dark Root"
+msgstr "Ám Linh Căn"
 
 msgid "root_earth"
-msgstr "Earth Root"
+msgstr "Thổ Linh Căn"
 
 msgid "root_fire"
-msgstr "Fire Root"
+msgstr "Hỏa Linh Căn"
 
 # Root Keys
 msgid "root_gold"
-msgstr "Gold Root"
+msgstr "Kim Linh Căn"
 
 msgid "root_heaven"
-msgstr "Heaven Root"
+msgstr "Thiên Linh Căn"
 
 msgid "root_ice"
-msgstr "Ice Root"
+msgstr "Băng Linh Căn"
 
 msgid "root_thunder"
-msgstr "Thunder Root"
+msgstr "Lôi Linh Căn"
 
 msgid "root_water"
-msgstr "Water Root"
+msgstr "Thủy Linh Căn"
 
 msgid "root_wind"
-msgstr "Wind Root"
+msgstr "Phong Linh Căn"
 
 msgid "root_wood"
-msgstr "Wood Root"
+msgstr "Mộc Linh Căn"
 
 msgid "water_element"
-msgstr "Water"
+msgstr "Thủy"
 
 msgid "wood_element"
-msgstr "Wood"
+msgstr "Mộc"
+
+msgid "earth_element"
+msgstr "Thổ"
+
+msgid "fire_element"
+msgstr "Hỏa"

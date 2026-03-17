@@ -13,146 +13,146 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "grand_child"
-msgstr "Grandchild"
+msgstr "Cháu"
 
 msgid "grand_parent"
-msgstr "Grandparent"
+msgstr "Ông Bà"
 
 msgid "martial_grandchild"
-msgstr "Martial Grandchild"
+msgstr "Đồ Tôn Đồng Môn"
 
 msgid "martial_grandmaster"
-msgstr "Martial Grandmaster"
+msgstr "Thái Sư Phụ Đồng Môn"
 
 msgid "martial_sibling"
-msgstr "Martial Sibling"
+msgstr "Đồng Môn"
 
 # Relation
 msgid "parent"
-msgstr "Parent"
+msgstr "Cha Mẹ"
 
 msgid "relation_daughter"
-msgstr "Daughter"
+msgstr "Con Gái"
 
 # Relations
 msgid "relation_father"
-msgstr "Father"
+msgstr "Cha"
 
 msgid "relation_granddaughter"
-msgstr "Granddaughter"
+msgstr "Cháu Gái"
 
 msgid "relation_grandfather"
-msgstr "Grandfather"
+msgstr "Ông"
 
 msgid "relation_grandmother"
-msgstr "Grandmother"
+msgstr "Bà"
 
 msgid "relation_grandson"
-msgstr "Grandson"
+msgstr "Cháu Trai"
 
 msgid "relation_martial_older_brother"
-msgstr "Senior Martial Brother"
+msgstr "Sư Huynh"
 
 msgid "relation_martial_older_sister"
-msgstr "Senior Martial Sister"
+msgstr "Sư Tỷ"
 
 msgid "relation_martial_younger_brother"
-msgstr "Junior Martial Brother"
+msgstr "Sư Đệ"
 
 msgid "relation_martial_younger_sister"
-msgstr "Junior Martial Sister"
+msgstr "Sư Muội"
 
 msgid "relation_mother"
-msgstr "Mother"
+msgstr "Mẹ"
 
 msgid "relation_older_brother"
-msgstr "Older Brother"
+msgstr "Anh Trai"
 
 msgid "relation_older_sister"
-msgstr "Older Sister"
+msgstr "Chị Gái"
 
 msgid "relation_rule_apprentice_add"
 msgstr ""
-"[Apprentice] Relative to Master, usually established automatically with "
-"Master relation."
+"[Đồ Đệ] Xét theo phía sư phụ, quan hệ này thường được thiết lập tự động "
+"cùng với quan hệ sư phụ."
 
 msgid "relation_rule_apprentice_cancel"
-msgstr "[End Apprenticeship] Same as above."
+msgstr "[Xuất Sư / Đoạn Tuyệt] Tương tự như trên."
 
 msgid "relation_rule_cancel_title"
-msgstr "[Cancel Relation Rules]"
+msgstr "[Quy Tắc Hủy Quan Hệ]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Enemy] Substantial harm occurred (injury, theft, humiliation). Single "
-"severe harm or multiple minor frictions."
+"[Kẻ Thù] Đã xảy ra tổn hại thực chất như bị thương, trộm cắp hoặc làm nhục. "
+"Có thể là một lần tổn hại nghiêm trọng hoặc nhiều lần xung đột nhỏ."
 
 msgid "relation_rule_enemy_cancel"
 msgstr ""
-"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
-"death experience, or hatred fades."
+"[Hòa Giải] Một bên chủ động làm lành và được chấp nhận, hoặc hai bên cùng "
+"trải qua sinh tử, hoặc thù hận dần phai nhạt."
 
 msgid "relation_rule_establish_title"
-msgstr "[Establish Relation Rules]"
+msgstr "[Quy Tắc Thiết Lập Quan Hệ]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friend] Any friendly daily interactions (such as chatting, dual "
-"cultivation, sparring, healing, etc.) or a single display of goodwill is "
-"enough to establish this. No substantial conflict of interest."
+"[Bằng Hữu] Chỉ cần có bất kỳ tương tác thân thiện thường ngày nào như trò "
+"chuyện, song tu, luận bàn, chữa thương... hoặc một lần thể hiện thiện ý là "
+"đủ để hình thành quan hệ này, miễn không có xung đột lợi ích thực chất."
 
 msgid "relation_rule_friend_cancel"
 msgstr ""
-"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
-"interaction."
+"[Tuyệt Giao] Xảy ra xung đột lợi ích, phản bội, hoặc lâu ngày không qua lại "
+"dẫn đến xa cách."
 
 msgid "relation_rule_lovers_add"
 msgstr ""
-"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
-"and affection."
+"[Đạo Lữ] Cần là khác giới. Hai bên phải có sự thấu hiểu sâu sắc và tình cảm "
+"song phương."
 
 msgid "relation_rule_lovers_cancel"
-msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+msgstr "[Chia Tay] Xảy ra mâu thuẫn, tình cảm tan vỡ hoặc bị phản bội nghiêm trọng."
 
 msgid "relation_rule_master_add"
 msgstr ""
-"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
-"Core vs Qi Refinement)."
+"[Sư Phụ] Cảnh giới phải cao hơn đồ đệ một khoảng rõ rệt, chẳng hạn Kim Đan "
+"so với Luyện Khí."
 
 msgid "relation_rule_master_cancel"
-msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+msgstr "[Trục Xuất / Phản Bội] Đồ đệ ngỗ nghịch hoặc sư phụ không còn khả năng truyền dạy."
 
 msgid "relation_rule_sworn_sibling_add"
 msgstr ""
-"[Sworn Sibling] Share the same ideals, have experienced life and death "
-"together or significant events."
+"[Kết Nghĩa] Hai bên ý khí tương đồng, từng cùng trải qua sinh tử hoặc biến "
+"cố trọng đại."
 
 msgid "relation_rule_sworn_sibling_cancel"
 msgstr ""
-"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
-"beliefs."
+"[Cắt Nghĩa] Xuất hiện phản bội nghiêm trọng hoặc khác biệt quan niệm sâu sắc "
+"đến mức không thể hòa giải."
 
 # Separators
 msgid "relation_separator"
 msgstr "; "
 
 msgid "relation_son"
-msgstr "Son"
+msgstr "Con Trai"
 
 msgid "relation_sworn_older_brother"
-msgstr "Sworn Older Brother"
+msgstr "Nghĩa Huynh"
 
 msgid "relation_sworn_older_sister"
-msgstr "Sworn Older Sister"
+msgstr "Nghĩa Tỷ"
 
 msgid "relation_sworn_younger_brother"
-msgstr "Sworn Younger Brother"
+msgstr "Nghĩa Đệ"
 
 msgid "relation_sworn_younger_sister"
-msgstr "Sworn Younger Sister"
+msgstr "Nghĩa Muội"
 
 msgid "relation_younger_brother"
-msgstr "Younger Brother"
+msgstr "Em Trai"
 
 msgid "relation_younger_sister"
-msgstr "Younger Sister"
+msgstr "Em Gái"

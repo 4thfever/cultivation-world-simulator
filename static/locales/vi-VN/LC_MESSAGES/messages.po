@@ -584,7 +584,7 @@ msgid "{initiator} invites {target} for dual cultivation"
 msgstr "{initiator} mời {target} cùng tiến hành song tu"
 
 msgid "{root_name} ({elements})"
-msgstr "{root_name} [{elements}]"
+msgstr "{root_name} ({elements})"
 
 msgid "An anonymous passerby (extra)"
 msgstr "Một người qua đường vô danh"
@@ -609,7 +609,37 @@ msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạ
 
 # Alignment
 msgid "righteous"
-msgstr "Righteous"
+msgstr "Chính"
+
+msgid "neutral"
+msgstr "Trung Lập"
+
+msgid "evil"
+msgstr "Tà"
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr ""
+"Lập trường Chính theo đuổi việc giúp kẻ yếu, giữ gìn trật tự và trừ gian "
+"diệt ác."
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr ""
+"Lập trường Trung Lập thuận theo thời thế, cầu lợi tránh hại, coi trọng tự tu"
+" và cân bằng, không dễ nghiêng về phe nào."
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr ""
+"Lập trường Tà tôn sùng mạnh được yếu thua, đặt lợi ích bản thân lên trên "
+"hết, khinh thường quy tắc và đề cao sức mạnh lẫn nỗi sợ. Hành sự tàn nhẫn, "
+"thường không ngại giết chóc hay cướp đoạt."
 
 # ============================================================================
 # Auxiliary System - Auxiliaries
@@ -1344,25 +1374,25 @@ msgid "effect_extra_income_per_tile"
 msgstr "Điều chỉnh thu nhập mỗi ô đất theo năm"
 
 msgid "earth_essence"
-msgstr "Earth"
+msgstr "Thổ"
 
 # ============================================================================
 # Elixir System - Elixirs
 # ============================================================================
 msgid "elixir_type_breakthrough"
-msgstr "Breakthrough"
+msgstr "Đột Phá"
 
 msgid "elixir_type_burn_blood"
-msgstr "Burn Blood"
+msgstr "Nhiên Huyết"
 
 msgid "elixir_type_heal"
-msgstr "Heal"
+msgstr "Trị Thương"
 
 msgid "elixir_type_lifespan"
-msgstr "Lifespan"
+msgstr "Tăng Thọ"
 
 msgid "fire_essence"
-msgstr "Fire"
+msgstr "Hỏa"
 
 msgid ""
 "At the auction, {winner_name} acquired {item_name} for {price} spirit "
@@ -1952,7 +1982,7 @@ msgid " (Resource Distribution: {species_info})"
 msgstr " (Phân bố tài nguyên: {species_info})"
 
 msgid " ({desc})"
-msgstr " ({desc})"
+msgstr ""
 
 msgid " ({essence_type} Essence: {essence_density})"
 msgstr " ({essence_type} linh khí: {essence_density})"
@@ -2005,39 +2035,39 @@ msgid "Sell: "
 msgstr "Bán: "
 
 msgid "emotion_angry"
-msgstr "Angry"
+msgstr "Phẫn Nộ"
 
 msgid "emotion_anticipating"
-msgstr "Anticipating"
+msgstr "Chờ Mong"
 
 msgid "emotion_calm"
-msgstr "Calm"
+msgstr "Bình Tĩnh"
 
 msgid "emotion_confused"
-msgstr "Confused"
+msgstr "Bối Rối"
 
 msgid "emotion_disgusted"
-msgstr "Disgusted"
+msgstr "Chán Ghét"
 
 msgid "emotion_fearful"
-msgstr "Fearful"
+msgstr "Sợ Hãi"
 
 msgid "emotion_happy"
-msgstr "Happy"
+msgstr "Vui Vẻ"
 
 msgid "emotion_sad"
-msgstr "Sad"
+msgstr "Buồn Bã"
 
 msgid "emotion_surprised"
-msgstr "Surprised"
+msgstr "Kinh Ngạc"
 
 msgid "emotion_tired"
-msgstr "Tired"
+msgstr "Mệt Mỏi"
 
 msgid "misfortune_dynamic_story_prompt"
 msgstr ""
-"The character's current realm is {realm}. They were just at {location} performing the action: [{action_desc}]. The final result is: [{result}].\n"
-"Task: Based on the character's realm, background, and the [action they were performing], please automatically deduce a reasonable, coherent, and creative reason for the misfortune as a bridge to explain why this action led to this result. Describe rich environmental details and the character's psychological activities. Keep the word count between 100-200 words."
+"Nhân vật hiện đang ở cảnh giới {realm}. Vừa rồi họ đang ở {location} và thực hiện hành động: [{action_desc}]. Kết quả cuối cùng là: [{result}].\n"
+"Nhiệm vụ: Hãy kết hợp cảnh giới, bối cảnh và [hành động họ vừa thực hiện] để tự động suy ra một nguyên nhân xui xẻo hợp lý, mạch lạc và giàu sáng tạo làm cầu nối, giải thích vì sao hành động đó lại dẫn tới kết quả này. Hãy miêu tả phong phú chi tiết môi trường và hoạt động tâm lý của nhân vật, khống chế độ dài trong khoảng 100-200 từ."
 
 msgid "{names} ({price} Spirit Stones)"
 msgstr "{names} ({price} linh thạch)"
@@ -2402,215 +2432,224 @@ msgid "nascent_soul"
 msgstr "Nguyên Anh"
 
 msgid "apprentice"
-msgstr "Apprentice"
+msgstr "Đồ Đệ"
 
 msgid "child"
-msgstr "Child"
+msgstr "Con"
 
 msgid "enemy"
-msgstr "Enemy"
+msgstr "Kẻ Thù"
 
 msgid "friend"
-msgstr "Friend"
+msgstr "Bằng Hữu"
 
 msgid "kin"
-msgstr "Kin"
+msgstr "Thân Nhân"
 
 msgid "lovers"
-msgstr "Lovers"
+msgstr "Đạo Lữ"
 
 msgid "master"
-msgstr "Master"
+msgstr "Sư Phụ"
 
 # Realm
 msgid "qi_refinement"
-msgstr "Qi Refinement"
+msgstr "Luyện Khí"
 
 msgid "grand_child"
-msgstr "Grandchild"
+msgstr "Cháu"
 
 msgid "grand_parent"
-msgstr "Grandparent"
+msgstr "Ông Bà"
 
 msgid "martial_grandchild"
-msgstr "Martial Grandchild"
+msgstr "Đồ Tôn Đồng Môn"
 
 msgid "martial_grandmaster"
-msgstr "Martial Grandmaster"
+msgstr "Thái Sư Phụ Đồng Môn"
 
 msgid "martial_sibling"
-msgstr "Martial Sibling"
+msgstr "Đồng Môn"
 
 # Relation
 msgid "parent"
-msgstr "Parent"
+msgstr "Cha Mẹ"
 
 msgid "relation_daughter"
-msgstr "Daughter"
+msgstr "Con Gái"
 
 # Relations
 msgid "relation_father"
-msgstr "Father"
+msgstr "Cha"
 
 msgid "relation_granddaughter"
-msgstr "Granddaughter"
+msgstr "Cháu Gái"
 
 msgid "relation_grandfather"
-msgstr "Grandfather"
+msgstr "Ông"
 
 msgid "relation_grandmother"
-msgstr "Grandmother"
+msgstr "Bà"
 
 msgid "relation_grandson"
-msgstr "Grandson"
+msgstr "Cháu Trai"
 
 msgid "relation_martial_older_brother"
-msgstr "Senior Martial Brother"
+msgstr "Sư Huynh"
 
 msgid "relation_martial_older_sister"
-msgstr "Senior Martial Sister"
+msgstr "Sư Tỷ"
 
 msgid "relation_martial_younger_brother"
-msgstr "Junior Martial Brother"
+msgstr "Sư Đệ"
 
 msgid "relation_martial_younger_sister"
-msgstr "Junior Martial Sister"
+msgstr "Sư Muội"
 
 msgid "relation_mother"
-msgstr "Mother"
+msgstr "Mẹ"
 
 msgid "relation_older_brother"
-msgstr "Older Brother"
+msgstr "Anh Trai"
 
 msgid "relation_older_sister"
-msgstr "Older Sister"
+msgstr "Chị Gái"
 
 msgid "relation_rule_apprentice_add"
 msgstr ""
-"[Apprentice] Relative to Master, usually established automatically with "
-"Master relation."
+"[Đồ Đệ] Xét theo phía sư phụ, quan hệ này thường được thiết lập tự động cùng"
+" với quan hệ sư phụ."
 
 msgid "relation_rule_apprentice_cancel"
-msgstr "[End Apprenticeship] Same as above."
+msgstr "[Xuất Sư / Đoạn Tuyệt] Tương tự như trên."
 
 msgid "relation_rule_cancel_title"
-msgstr "[Cancel Relation Rules]"
+msgstr "[Quy Tắc Hủy Quan Hệ]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Enemy] Substantial harm occurred (injury, theft, humiliation). Single "
-"severe harm or multiple minor frictions."
+"[Kẻ Thù] Đã xảy ra tổn hại thực chất như bị thương, trộm cắp hoặc làm nhục. "
+"Có thể là một lần tổn hại nghiêm trọng hoặc nhiều lần xung đột nhỏ."
 
 msgid "relation_rule_enemy_cancel"
 msgstr ""
-"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
-"death experience, or hatred fades."
+"[Hòa Giải] Một bên chủ động làm lành và được chấp nhận, hoặc hai bên cùng "
+"trải qua sinh tử, hoặc thù hận dần phai nhạt."
 
 msgid "relation_rule_establish_title"
-msgstr "[Establish Relation Rules]"
+msgstr "[Quy Tắc Thiết Lập Quan Hệ]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friend] Any friendly daily interactions (such as chatting, dual "
-"cultivation, sparring, healing, etc.) or a single display of goodwill is "
-"enough to establish this. No substantial conflict of interest."
+"[Bằng Hữu] Chỉ cần có bất kỳ tương tác thân thiện thường ngày nào như trò "
+"chuyện, song tu, luận bàn, chữa thương... hoặc một lần thể hiện thiện ý là "
+"đủ để hình thành quan hệ này, miễn không có xung đột lợi ích thực chất."
 
 msgid "relation_rule_friend_cancel"
 msgstr ""
-"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
-"interaction."
+"[Tuyệt Giao] Xảy ra xung đột lợi ích, phản bội, hoặc lâu ngày không qua lại "
+"dẫn đến xa cách."
 
 msgid "relation_rule_lovers_add"
 msgstr ""
-"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
-"and affection."
+"[Đạo Lữ] Cần là khác giới. Hai bên phải có sự thấu hiểu sâu sắc và tình cảm "
+"song phương."
 
 msgid "relation_rule_lovers_cancel"
-msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+msgstr ""
+"[Chia Tay] Xảy ra mâu thuẫn, tình cảm tan vỡ hoặc bị phản bội nghiêm trọng."
 
 msgid "relation_rule_master_add"
 msgstr ""
-"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
-"Core vs Qi Refinement)."
+"[Sư Phụ] Cảnh giới phải cao hơn đồ đệ một khoảng rõ rệt, chẳng hạn Kim Đan "
+"so với Luyện Khí."
 
 msgid "relation_rule_master_cancel"
-msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+msgstr ""
+"[Trục Xuất / Phản Bội] Đồ đệ ngỗ nghịch hoặc sư phụ không còn khả năng "
+"truyền dạy."
 
 msgid "relation_rule_sworn_sibling_add"
 msgstr ""
-"[Sworn Sibling] Share the same ideals, have experienced life and death "
-"together or significant events."
+"[Kết Nghĩa] Hai bên ý khí tương đồng, từng cùng trải qua sinh tử hoặc biến "
+"cố trọng đại."
 
 msgid "relation_rule_sworn_sibling_cancel"
 msgstr ""
-"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
-"beliefs."
+"[Cắt Nghĩa] Xuất hiện phản bội nghiêm trọng hoặc khác biệt quan niệm sâu sắc"
+" đến mức không thể hòa giải."
 
 # Separators
 msgid "relation_separator"
 msgstr "; "
 
 msgid "relation_son"
-msgstr "Son"
+msgstr "Con Trai"
 
 msgid "relation_sworn_older_brother"
-msgstr "Sworn Older Brother"
+msgstr "Nghĩa Huynh"
 
 msgid "relation_sworn_older_sister"
-msgstr "Sworn Older Sister"
+msgstr "Nghĩa Tỷ"
 
 msgid "relation_sworn_younger_brother"
-msgstr "Sworn Younger Brother"
+msgstr "Nghĩa Đệ"
 
 msgid "relation_sworn_younger_sister"
-msgstr "Sworn Younger Sister"
+msgstr "Nghĩa Muội"
 
 msgid "relation_younger_brother"
-msgstr "Younger Brother"
+msgstr "Em Trai"
 
 msgid "relation_younger_sister"
-msgstr "Younger Sister"
+msgstr "Em Gái"
 
 # Root Element
 msgid "gold_element"
-msgstr "Gold"
+msgstr "Kim"
 
 msgid "root_dark"
-msgstr "Dark Root"
+msgstr "Ám Linh Căn"
 
 msgid "root_earth"
-msgstr "Earth Root"
+msgstr "Thổ Linh Căn"
 
 msgid "root_fire"
-msgstr "Fire Root"
+msgstr "Hỏa Linh Căn"
 
 # Root Keys
 msgid "root_gold"
-msgstr "Gold Root"
+msgstr "Kim Linh Căn"
 
 msgid "root_heaven"
-msgstr "Heaven Root"
+msgstr "Thiên Linh Căn"
 
 msgid "root_ice"
-msgstr "Ice Root"
+msgstr "Băng Linh Căn"
 
 msgid "root_thunder"
-msgstr "Thunder Root"
+msgstr "Lôi Linh Căn"
 
 msgid "root_water"
-msgstr "Water Root"
+msgstr "Thủy Linh Căn"
 
 msgid "root_wind"
-msgstr "Wind Root"
+msgstr "Phong Linh Căn"
 
 msgid "root_wood"
-msgstr "Wood Root"
+msgstr "Mộc Linh Căn"
 
 msgid "water_element"
-msgstr "Water"
+msgstr "Thủy"
 
 msgid "wood_element"
-msgstr "Wood"
+msgstr "Mộc"
+
+msgid "earth_element"
+msgstr "Thổ"
+
+msgid "fire_element"
+msgstr "Hỏa"
 
 msgid ""
 "(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
@@ -2915,13 +2954,13 @@ msgid "comma_separator"
 msgstr ", "
 
 msgid "earth_element"
-msgstr "Earth"
+msgstr "Thổ"
 
 msgid "element_separator"
 msgstr ", "
 
 msgid "fire_element"
-msgstr "Fire"
+msgstr "Hỏa"
 
 msgid "material_separator"
 msgstr ", "
@@ -2930,10 +2969,10 @@ msgid "semicolon_separator"
 msgstr "; "
 
 msgid "sibling"
-msgstr "Sibling"
+msgstr "Anh Chị Em"
 
 msgid "sworn_sibling"
-msgstr "Sworn Sibling"
+msgstr "Nghĩa Huynh Đệ"
 
 msgid "(Choosing to replace will sell the old {label})"
 msgstr "(Chọn thay thế sẽ bán món {label} cũ)"

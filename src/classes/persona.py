@@ -37,7 +37,7 @@ class Persona:
 
     def get_detailed_info(self) -> str:
         from src.i18n import t
-        desc_part = t(" ({desc})", desc=self.desc) if self.desc else ""
+        desc_part = f" ({self.desc})" if self.desc else ""
         effect_part = t("\nEffect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"{self.name}{desc_part}{effect_part}"
     

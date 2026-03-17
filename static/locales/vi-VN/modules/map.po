@@ -42,39 +42,39 @@ msgid "Sell: "
 msgstr "Bán: "
 
 msgid "emotion_angry"
-msgstr "Angry"
+msgstr "Phẫn Nộ"
 
 msgid "emotion_anticipating"
-msgstr "Anticipating"
+msgstr "Chờ Mong"
 
 msgid "emotion_calm"
-msgstr "Calm"
+msgstr "Bình Tĩnh"
 
 msgid "emotion_confused"
-msgstr "Confused"
+msgstr "Bối Rối"
 
 msgid "emotion_disgusted"
-msgstr "Disgusted"
+msgstr "Chán Ghét"
 
 msgid "emotion_fearful"
-msgstr "Fearful"
+msgstr "Sợ Hãi"
 
 msgid "emotion_happy"
-msgstr "Happy"
+msgstr "Vui Vẻ"
 
 msgid "emotion_sad"
-msgstr "Sad"
+msgstr "Buồn Bã"
 
 msgid "emotion_surprised"
-msgstr "Surprised"
+msgstr "Kinh Ngạc"
 
 msgid "emotion_tired"
-msgstr "Tired"
+msgstr "Mệt Mỏi"
 
 msgid "misfortune_dynamic_story_prompt"
 msgstr ""
-"The character's current realm is {realm}. They were just at {location} performing the action: [{action_desc}]. The final result is: [{result}].\n"
-"Task: Based on the character's realm, background, and the [action they were performing], please automatically deduce a reasonable, coherent, and creative reason for the misfortune as a bridge to explain why this action led to this result. Describe rich environmental details and the character's psychological activities. Keep the word count between 100-200 words."
+"Nhân vật hiện đang ở cảnh giới {realm}. Vừa rồi họ đang ở {location} và thực hiện hành động: [{action_desc}]. Kết quả cuối cùng là: [{result}].\n"
+"Nhiệm vụ: Hãy kết hợp cảnh giới, bối cảnh và [hành động họ vừa thực hiện] để tự động suy ra một nguyên nhân xui xẻo hợp lý, mạch lạc và giàu sáng tạo làm cầu nối, giải thích vì sao hành động đó lại dẫn tới kết quả này. Hãy miêu tả phong phú chi tiết môi trường và hoạt động tâm lý của nhân vật, khống chế độ dài trong khoảng 100-200 từ."
 
 msgid "{names} ({price} Spirit Stones)"
 msgstr "{names} ({price} linh thạch)"

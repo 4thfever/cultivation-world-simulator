@@ -16,13 +16,13 @@ msgid "comma_separator"
 msgstr ", "
 
 msgid "earth_element"
-msgstr "Earth"
+msgstr "Thổ"
 
 msgid "element_separator"
 msgstr ", "
 
 msgid "fire_element"
-msgstr "Fire"
+msgstr "Hỏa"
 
 msgid "material_separator"
 msgstr ", "
@@ -31,7 +31,7 @@ msgid "semicolon_separator"
 msgstr "; "
 
 msgid "sibling"
-msgstr "Sibling"
+msgstr "Anh Chị Em"
 
 msgid "sworn_sibling"
-msgstr "Sworn Sibling"
+msgstr "Nghĩa Huynh Đệ"

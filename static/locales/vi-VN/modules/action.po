@@ -582,7 +582,7 @@ msgid "{initiator} invites {target} for dual cultivation"
 msgstr "{initiator} mời {target} cùng tiến hành song tu"
 
 msgid "{root_name} ({elements})"
-msgstr "{root_name} [{elements}]"
+msgstr "{root_name} ({elements})"
 
 msgid "An anonymous passerby (extra)"
 msgstr "Một người qua đường vô danh"

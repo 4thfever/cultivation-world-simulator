@@ -13,22 +13,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "earth_essence"
-msgstr "Earth"
+msgstr "Thổ"
 
 # ============================================================================
 # Elixir System - Elixirs
 # ============================================================================
 msgid "elixir_type_breakthrough"
-msgstr "Breakthrough"
+msgstr "Đột Phá"
 
 msgid "elixir_type_burn_blood"
-msgstr "Burn Blood"
+msgstr "Nhiên Huyết"
 
 msgid "elixir_type_heal"
-msgstr "Heal"
+msgstr "Trị Thương"
 
 msgid "elixir_type_lifespan"
-msgstr "Lifespan"
+msgstr "Tăng Thọ"
 
 msgid "fire_essence"
-msgstr "Fire"
+msgstr "Hỏa"
