@@ -37,6 +37,9 @@
     "empty_single": "Không có sự kiện của tu sĩ này",
     "empty_none": "Không có sự kiện"
   },
+  "event_templates": {
+    "nickname_awarded": "{avatar_name} đã gây dựng danh tiếng trong tu tiên giới, được người đời gọi là \"{nickname}\"."
+  },
   "ranking": {
     "title_short": "[Bảng Xếp Hạng]",
     "tournament_short": "[Luận Võ]",

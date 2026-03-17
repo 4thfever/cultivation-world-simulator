@@ -19,6 +19,8 @@ export function processNewEvents(rawEvents: any[], currentYear: number, currentM
     relatedSects: e.related_sects,
     isMajor: e.is_major,
     isStory: e.is_story,
+    renderKey: e.render_key,
+    renderParams: e.render_params,
     createdAt: e.created_at,
     _seq: index 
   }));

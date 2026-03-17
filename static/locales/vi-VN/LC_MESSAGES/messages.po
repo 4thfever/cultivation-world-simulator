@@ -1459,6 +1459,13 @@ msgstr "Suy tư của tông môn {sect_name}: {thinking}"
 msgid "Game automatically saved"
 msgstr "Trò chơi đã tự động lưu"
 
+msgid ""
+"{avatar_name} made a name in the cultivation world and came to be known as "
+"\"{nickname}\"."
+msgstr ""
+"{avatar_name} đã gây dựng danh tiếng trong tu tiên giới, được người đời gọi "
+"là \"{nickname}\"."
+
 # Execution Results
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
 msgstr "{avatar_name} đã {done} {grade} {label}『{item_name}』."

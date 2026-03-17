@@ -37,6 +37,9 @@
     "empty_single": "該修士暫無事件",
     "empty_none": "暫無事件"
   },
+  "event_templates": {
+    "nickname_awarded": "{avatar_name}在修仙界中闖出名號，被人稱為「{nickname}」。"
+  },
   "ranking": {
     "title_short": "[天地人榜]",
     "tournament_short": "[武道會]",

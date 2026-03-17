@@ -224,6 +224,8 @@ export interface EventDTO {
   related_sects?: number[];
   is_major: boolean;
   is_story: boolean;
+  render_key?: string;
+  render_params?: Record<string, string | number | boolean | null>;
   created_at: number;
 }
 

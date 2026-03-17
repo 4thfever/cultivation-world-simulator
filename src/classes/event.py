@@ -2,7 +2,7 @@
 event class
 """
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Any, List, Optional
 import uuid
 import time
 from datetime import datetime
@@ -21,6 +21,10 @@ class Event:
     is_major: bool = False
     # 是否为故事事件（不进入记忆索引），默认False
     is_story: bool = False
+    # 前端可本地化渲染用的模板 key
+    render_key: Optional[str] = None
+    # 前端模板渲染参数
+    render_params: Optional[dict[str, Any]] = None
     # 唯一ID，用于去重
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     # 创建时间戳 (Unix timestamp float)
@@ -38,6 +42,8 @@ class Event:
             "related_sects": self.related_sects,
             "is_major": self.is_major,
             "is_story": self.is_story,
+            "render_key": self.render_key,
+            "render_params": self.render_params,
             "id": self.id,
             "created_at": self.created_at
         }
@@ -52,6 +58,8 @@ class Event:
             related_sects=data.get("related_sects"),
             is_major=data.get("is_major", False),
             is_story=data.get("is_story", False),
+            render_key=data.get("render_key"),
+            render_params=data.get("render_params"),
             id=data.get("id", str(uuid.uuid4())),
             created_at=data.get("created_at", time.time())
         )
@@ -72,6 +80,8 @@ class NullEvent:
             cls._instance.related_sects = None
             cls._instance.is_major = False
             cls._instance.is_story = False
+            cls._instance.render_key = None
+            cls._instance.render_params = None
             cls._instance.id = "NULL_EVENT"
         return cls._instance
     
@@ -91,6 +101,8 @@ class NullEvent:
             "related_sects": self.related_sects,
             "is_major": self.is_major,
             "is_story": self.is_story,
+            "render_key": self.render_key,
+            "render_params": self.render_params,
             "id": self.id,
         }
 

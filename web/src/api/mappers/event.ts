@@ -13,6 +13,8 @@ export function mapEventDtoToGameEvent(event: EventDTO): GameEvent {
     relatedSects: event.related_sects,
     isMajor: event.is_major,
     isStory: event.is_story,
+    renderKey: event.render_key,
+    renderParams: event.render_params,
     createdAt: event.created_at,
   }
 }

@@ -335,6 +335,8 @@ def serialize_events_for_client(events: List[Event]) -> List[dict]:
             "related_sects": related_sect_ids,
             "is_major": bool(getattr(event, "is_major", False)),
             "is_story": bool(getattr(event, "is_story", False)),
+            "render_key": getattr(event, "render_key", None),
+            "render_params": getattr(event, "render_params", None),
             "created_at": getattr(event, "created_at", 0.0),
         })
     return serialized

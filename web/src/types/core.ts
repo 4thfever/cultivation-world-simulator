@@ -296,6 +296,8 @@ export interface GameEvent {
   relatedSects?: number[];
   isMajor: boolean;
   isStory: boolean;
+  renderKey?: string;
+  renderParams?: Record<string, string | number | boolean | null>;
   
   // 真实创建时间 (用于精确排序)
   createdAt?: number;

@@ -235,7 +235,9 @@ const sectColorMap = computed(() => buildSectColorMap(
 
 // 渲染事件内容：拆分为安全 token，避免使用 v-html。
 function renderEventContent(event: GameEvent) {
-  const text = event.content || event.text || ''
+  const text = event.renderKey
+    ? t(`game.event_templates.${event.renderKey}`, event.renderParams ?? {})
+    : (event.content || event.text || '')
   return tokenizeEventContent(text, avatarColorMap.value, sectColorMap.value)
 }
 

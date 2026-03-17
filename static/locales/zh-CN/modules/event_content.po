@@ -70,3 +70,6 @@ msgstr "{sect_name}宗门的思考：{thinking}"
 
 msgid "Game automatically saved"
 msgstr "游戏已自动保存"
+
+msgid "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
+msgstr "{avatar_name}在修仙界中闯出名号，被人称为「{nickname}」。"

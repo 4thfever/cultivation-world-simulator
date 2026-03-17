@@ -37,6 +37,9 @@
     "empty_single": "No events for this cultivator",
     "empty_none": "No events"
   },
+  "event_templates": {
+    "nickname_awarded": "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
+  },
   "ranking": {
     "title_short": "[Rankings]",
     "tournament_short": "[Tournament]",

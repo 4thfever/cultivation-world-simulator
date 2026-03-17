@@ -5,6 +5,7 @@ SQLite 事件存储层。
 """
 from __future__ import annotations
 
+import json
 import sqlite3
 from pathlib import Path
 from typing import TYPE_CHECKING, Optional
@@ -79,6 +80,8 @@ class EventStorage:
                     content TEXT NOT NULL,
                     is_major BOOLEAN DEFAULT FALSE,
                     is_story BOOLEAN DEFAULT FALSE,
+                    render_key TEXT,
+                    render_params TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
 
@@ -147,8 +150,10 @@ class EventStorage:
                 # 插入事件主表。
                 self._conn.execute(
                     """
-                    INSERT OR IGNORE INTO events (id, month_stamp, content, is_major, is_story, created_at)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT OR IGNORE INTO events (
+                        id, month_stamp, content, is_major, is_story, render_key, render_params, created_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         event.id,
@@ -156,6 +161,8 @@ class EventStorage:
                         event.content,
                         event.is_major,
                         event.is_story,
+                        event.render_key,
+                        json.dumps(event.render_params, ensure_ascii=False) if event.render_params is not None else None,
                         _format_time(event.created_at),
                     )
                 )
@@ -239,7 +246,9 @@ class EventStorage:
                 # Pair 查询：两个角色都相关的事件。
                 id1, id2 = avatar_id_pair
                 base_query = """
-                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                    SELECT DISTINCT
+                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                        e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                     JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -248,7 +257,9 @@ class EventStorage:
             elif avatar_id:
                 # 单角色查询。
                 base_query = """
-                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                    SELECT DISTINCT
+                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                        e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 """
@@ -256,7 +267,9 @@ class EventStorage:
             elif sect_id is not None:
                 # 宗门查询。
                 base_query = """
-                    SELECT DISTINCT e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                    SELECT DISTINCT
+                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                        e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
                 """
@@ -264,7 +277,9 @@ class EventStorage:
             else:
                 # 全部事件。
                 base_query = """
-                    SELECT rowid, id, month_stamp, content, is_major, is_story, e.created_at
+                    SELECT
+                        rowid, id, month_stamp, content, is_major, is_story,
+                        render_key, render_params, e.created_at
                     FROM events e
                 """
 
@@ -320,6 +335,8 @@ class EventStorage:
                     related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
+                    render_key=row["render_key"],
+                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
                     id=row["id"],
                     created_at=_parse_time(row["created_at"]),
                 )
@@ -368,6 +385,7 @@ class EventStorage:
             rows = self._conn.execute(
                 """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 WHERE e.is_major = TRUE AND e.is_story = FALSE
@@ -398,6 +416,8 @@ class EventStorage:
                     related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
+                    render_key=row["render_key"],
+                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
                     id=row["id"],
                     created_at=_parse_time(row["created_at"]),
                 )
@@ -420,6 +440,7 @@ class EventStorage:
             rows = self._conn.execute(
                 """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 WHERE e.is_major = FALSE OR e.is_story = TRUE
@@ -450,6 +471,8 @@ class EventStorage:
                     related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
+                    render_key=row["render_key"],
+                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
                     id=row["id"],
                     created_at=_parse_time(row["created_at"]),
                 )
@@ -472,6 +495,7 @@ class EventStorage:
             rows = self._conn.execute(
                 """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -503,6 +527,8 @@ class EventStorage:
                     related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
+                    render_key=row["render_key"],
+                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
                     id=row["id"],
                     created_at=_parse_time(row["created_at"]),
                 )
@@ -525,6 +551,7 @@ class EventStorage:
             rows = self._conn.execute(
                 """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                 JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -556,6 +583,8 @@ class EventStorage:
                     related_sects=related_sects if related_sects else None,
                     is_major=bool(row["is_major"]),
                     is_story=bool(row["is_story"]),
+                    render_key=row["render_key"],
+                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
                     id=row["id"],
                     created_at=_parse_time(row["created_at"]),
                 )

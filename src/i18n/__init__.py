@@ -89,6 +89,30 @@ def _get_translation() -> Optional[gettext.GNUTranslations]:
     return _translations.get(lang)
 
 
+def _has_explicit_translation_entry(
+    trans: Optional[gettext.GNUTranslations],
+    message: str,
+) -> bool:
+    """
+    Check whether the current catalog explicitly contains a msgid.
+
+    We cannot rely on `translated == message` to detect missing entries because
+    some valid translations are intentionally identical to the source text.
+    """
+    if trans is None:
+        return False
+
+    catalog = getattr(trans, "_catalog", None)
+    if isinstance(catalog, dict) and message in catalog:
+        return True
+
+    fallback = getattr(trans, "_fallback", None)
+    if isinstance(fallback, gettext.GNUTranslations):
+        return _has_explicit_translation_entry(fallback, message)
+
+    return False
+
+
 def t(message: str, **kwargs) -> str:
     """
     Translate a message and format with kwargs.
@@ -115,8 +139,14 @@ def t(message: str, **kwargs) -> str:
     else:
         translated = message
     
-    # Check for missing translation if not in English
-    if _get_current_lang() != get_fallback_locale() and translated == message and message.strip():
+    # Check for missing translation if not in fallback locale.
+    # Do not treat "translation equals source" as missing by itself because
+    # some entries are intentionally identical across locales.
+    if (
+        _get_current_lang() != get_fallback_locale()
+        and message.strip()
+        and not _has_explicit_translation_entry(trans, message)
+    ):
         logger.warning(f"[i18n] Missing translation for msgid: '{message}'")
     
     if kwargs:

@@ -476,6 +476,8 @@ class TestSerializeEvents:
             related_avatars=["avatar1", "avatar2"],
             is_major=True,
             is_story=False,
+            render_key="nickname_awarded",
+            render_params={"avatar_name": "Tester", "nickname": "Crimson Sage"},
         )
 
         result = serialize_events_for_client([event])
@@ -487,6 +489,8 @@ class TestSerializeEvents:
         assert serialized["month"] == 3
         assert serialized["is_major"] is True
         assert serialized["is_story"] is False
+        assert serialized["render_key"] == "nickname_awarded"
+        assert serialized["render_params"] == {"avatar_name": "Tester", "nickname": "Crimson Sage"}
         assert "avatar1" in serialized["related_avatar_ids"]
         assert "avatar2" in serialized["related_avatar_ids"]
 
@@ -510,6 +514,8 @@ class TestSerializeEvents:
         assert serialized["related_avatar_ids"] == []
         assert serialized["is_major"] is False
         assert serialized["is_story"] is False
+        assert serialized["render_key"] is None
+        assert serialized["render_params"] is None
 
 
 class TestGameLoopIntegration:

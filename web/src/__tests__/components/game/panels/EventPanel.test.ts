@@ -96,7 +96,10 @@ describe('EventPanel', () => {
               empty_none: 'none',
               empty_single: 'none',
               empty_dual: 'none',
-            }
+            },
+            event_templates: {
+              nickname_awarded: '{avatar_name} is now "{nickname}".',
+            },
           },
           common: { loading: 'loading', year: '年', month: '月' },
         }
@@ -121,7 +124,10 @@ describe('EventPanel', () => {
       locale: 'zh',
       messages: {
         zh: {
-          game: { event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
+          game: {
+            event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' },
+            event_templates: { nickname_awarded: '{avatar_name} is now "{nickname}".' },
+          },
           common: { loading: 'loading', year: '年', month: '月' },
         },
       },
@@ -159,7 +165,10 @@ describe('EventPanel', () => {
       locale: 'zh',
       messages: {
         zh: {
-          game: { event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' } },
+          game: {
+            event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' },
+            event_templates: { nickname_awarded: '{avatar_name} is now "{nickname}".' },
+          },
           common: { loading: 'loading', year: '年', month: '月' },
         },
       },
@@ -193,6 +202,60 @@ describe('EventPanel', () => {
     expect(uiStoreMock.select).toHaveBeenCalledWith('sect', '1')
   })
 
+  it('should render structured event text from locale template', () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'vi',
+      messages: {
+        vi: {
+          game: {
+            event_panel: {
+              title: 'Events',
+              filter_all: 'All',
+              filter_all_sects: 'All sects',
+              deceased: '(dead)',
+              add_second: '+1',
+              load_more: 'load',
+              empty_none: 'none',
+              empty_single: 'none',
+              empty_dual: 'none',
+            },
+            event_templates: {
+              nickname_awarded: '{avatar_name} da duoc goi la "{nickname}".',
+            },
+          },
+          common: { loading: 'loading', year: 'Nam', month: 'Thang' },
+        },
+      },
+    })
+
+    eventStoreMock.events = [
+      {
+        id: 'e3',
+        text: '',
+        content: 'Old fallback content',
+        year: 105,
+        month: 12,
+        timestamp: 1272,
+        relatedAvatarIds: ['a1'],
+        isMajor: true,
+        isStory: false,
+        renderKey: 'nickname_awarded',
+        renderParams: {
+          avatar_name: 'Alice',
+          nickname: 'Xich Huyet Thanh Dia Chu',
+        },
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    expect(wrapper.text()).toContain('Alice da duoc goi la "Xich Huyet Thanh Dia Chu".')
+    expect(wrapper.text()).not.toContain('Old fallback content')
+  })
+
   it('sect filter options use sect_name as label', () => {
     const i18n = createI18n({
       legacy: false,
@@ -210,7 +273,10 @@ describe('EventPanel', () => {
               empty_none: 'none',
               empty_single: 'none',
               empty_dual: 'none',
-            }
+            },
+            event_templates: {
+              nickname_awarded: '{avatar_name} is now "{nickname}".',
+            },
           },
           common: { loading: 'loading', year: '年', month: '月' },
         }
@@ -250,7 +316,10 @@ describe('EventPanel', () => {
               empty_none: 'none',
               empty_single: 'none',
               empty_dual: 'none',
-            }
+            },
+            event_templates: {
+              nickname_awarded: '{avatar_name} is now "{nickname}".',
+            },
           },
           common: { loading: 'loading', year: '年', month: '月' },
         }
@@ -284,7 +353,10 @@ describe('EventPanel', () => {
               empty_none: 'none',
               empty_single: 'none',
               empty_dual: 'none',
-            }
+            },
+            event_templates: {
+              nickname_awarded: '{avatar_name} is now "{nickname}".',
+            },
           },
           common: { loading: 'loading', year: '年', month: '月' },
         }

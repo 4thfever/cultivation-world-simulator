@@ -12,6 +12,7 @@ from src.classes.event import Event
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.run.log import get_logger
+from src.i18n import t
 
 from src.classes.nickname_data import Nickname
 
@@ -130,9 +131,18 @@ async def process_avatar_nickname(avatar: "Avatar") -> Optional[Event]:
     # 生成事件：角色获得绰号
     event = Event(
         avatar.world.month_stamp,
-        f"{avatar.name}在修仙界中闯出名号，被人称为「{nickname_str}」。",
+        t(
+            '{avatar_name} made a name in the cultivation world and came to be known as "{nickname}".',
+            avatar_name=avatar.name,
+            nickname=nickname_str,
+        ),
         related_avatars=[avatar.id],
-        is_major=True
+        is_major=True,
+        render_key="nickname_awarded",
+        render_params={
+            "avatar_name": avatar.name,
+            "nickname": nickname_str,
+        }
     )
     return event
 
