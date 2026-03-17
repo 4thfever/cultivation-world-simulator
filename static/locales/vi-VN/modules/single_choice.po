@@ -1,0 +1,60 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Single choice - context and options
+msgid ""
+"Current situation: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【Tình cảnh hiện tại】: {context}\n"
+"\n"
+"{choices}"
+
+msgid "Current {label}: {info}"
+msgstr "{label} hiện có: {info}"
+
+msgid "Discard '{new_name}'"
+msgstr "Bỏ '{new_name}'"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "Trang bị {label} mới '{new_name}'"
+
+msgid "New {label}: {info}"
+msgstr "{label} mới: {info}"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr "Bán {label} mới '{new_name}' đổi lấy linh thạch, giữ nguyên hiện trạng"
+
+# ============================================================================
+# SingleChoice System - Item Decisions
+# ============================================================================
+msgid "Accept new item"
+msgstr "Nhận Vật Phẩm Mới"
+
+msgid "Reject new item"
+msgstr "Từ Chối Vật Phẩm Mới"
+
+msgid "Automatically accept the new item."
+msgstr "Tự động nhận vật phẩm mới."
+
+# Decision Interface
+msgid ""
+"【Current Situation】: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【Tình cảnh hiện tại】: {context}\n"
+"\n"
+"{choices}"

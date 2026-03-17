@@ -1,0 +1,100 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ", defended {region}"
+msgstr ", cố thủ được {region}"
+
+msgid ", successfully seized {region}"
+msgstr ", thành công đoạt lấy {region}"
+
+msgid "Already the owner of this cave dwelling"
+msgstr "Đã là chủ nhân của động phủ này"
+
+msgid "Cannot drive away in wilderness"
+msgstr "Không thể xua đuổi giữa chốn hoang dã"
+
+msgid "Cannot find region: {region}"
+msgstr "Không tìm thấy khu vực: {region}"
+
+msgid "Cannot initiate interaction with self"
+msgstr "Không thể khởi xướng tương tác với chính mình"
+
+msgid "Elixirs cannot be gifted"
+msgstr "Đan dược không thể dùng để tặng"
+
+msgid "Gift you {item}"
+msgstr "Tặng ngươi {item}"
+
+msgid "Insufficient item: {name}"
+msgstr "Vật phẩm không đủ: {name}"
+
+msgid "Insufficient spirit stones (current: {current}, need: {need})"
+msgstr "Linh thạch không đủ (hiện có: {current}, cần: {need})"
+
+msgid "Item not equipped: {name}"
+msgstr "Vật phẩm chưa được trang bị: {name}"
+
+msgid "Item not found: {name}"
+msgstr "Không tìm thấy vật phẩm: {name}"
+
+msgid ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgstr ""
+"Chênh lệch cấp độ chưa đủ, cần 20 cấp (hiện chênh {diff} cấp)"
+
+msgid "Target is not your apprentice"
+msgstr "Mục tiêu không phải đệ tử của ngươi"
+
+msgid ""
+"Target is not your disciple, martial grandchild, martial sibling, child, "
+"grandchild, or friend"
+msgstr ""
+"Mục tiêu không phải đệ tử, đồ tôn, đồng môn, con cái, cháu chắt hay bằng hữu của ngươi"
+
+msgid "Target not within interaction range"
+msgstr "Mục tiêu không ở trong phạm vi tương tác"
+
+# Misfortune messages
+msgid "misfortune_event_base"
+msgstr "Gặp xui rủi ({title}), {result}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} bị thụt lùi {amount} điểm tu vi"
+
+msgid "misfortune_result_injury"
+msgstr "{name} chịu {damage} điểm thương hại, HP còn lại {current}/{max}"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} mất {amount} viên linh thạch"
+
+msgid "misfortune_title_backlash"
+msgstr "Tu Vi Phản Phệ"
+
+msgid "misfortune_title_injury"
+msgstr "Tai Họa Thương Thế"
+
+msgid "misfortune_title_loss_spirit_stone"
+msgstr "Phá Tài"
+
+msgid "misfortune_title_mystery"
+msgstr "Thần Bí Xui Rủi"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} bị thụt lùi {amount} điểm tu vi"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} mất {amount} viên linh thạch"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} chịu {damage} điểm thương hại, HP còn lại {current}/{max}"

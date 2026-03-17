@@ -1,0 +1,54 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"Hiệu quả: {effect_desc}"
+
+msgid " (Distance: {months} months)"
+msgstr " (Khoảng cách: {months} tháng)"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr " (Chủ nhân: {owner}, {realm})"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " (Phân bố tài nguyên: {species_info})"
+
+msgid " ({desc})"
+msgstr " ({desc})"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " ({essence_type} linh khí: {essence_density})"
+
+msgid " ({store_info})"
+msgstr " ({store_info})"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region (can trade)"
+msgstr "Khu Vực Thành Thị (có thể giao dịch)"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "Khu Vực Thành Thị: {name} - {desc}{desc_part}"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr ""
+"Hãy chọn lấy khía cạnh thú vị nhất hoặc một lần ra giá tiêu biểu để miêu "
+"tả, không cần bao quát mọi mặt. Trọng tâm là bầu không khí căng thẳng trong "
+"suốt quá trình tranh giá."

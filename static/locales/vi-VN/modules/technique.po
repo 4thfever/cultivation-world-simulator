@@ -1,0 +1,72 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Technique System - Techniques
+# ============================================================================
+msgid " Effect: {effect_desc}"
+msgstr " Hiệu quả: {effect_desc}"
+
+msgid "Cave Dwelling"
+msgstr "Động Phủ"
+
+msgid "City Region"
+msgstr "Khu Vực Thành Thị"
+
+msgid "Normal Region"
+msgstr "Khu Vực Thường"
+
+msgid "Ruins"
+msgstr "Di Tích"
+
+msgid "dark_attribute"
+msgstr "Ám"
+
+msgid "earth_attribute"
+msgstr "Thổ"
+
+msgid "evil_attribute"
+msgstr "Tà"
+
+msgid "fire_attribute"
+msgstr "Hỏa"
+
+# Technique Attribute
+msgid "gold_attribute"
+msgstr "Kim"
+
+msgid "ice_attribute"
+msgstr "Băng"
+
+# Technique Grade
+msgid "lower_grade"
+msgstr "Hạ Phẩm"
+
+msgid "middle_grade"
+msgstr "Trung Phẩm"
+
+msgid "thunder_attribute"
+msgstr "Lôi"
+
+msgid "upper_grade"
+msgstr "Thượng Phẩm"
+
+msgid "water_attribute"
+msgstr "Thủy"
+
+msgid "wind_attribute"
+msgstr "Phong"
+
+msgid "wood_attribute"
+msgstr "Mộc"

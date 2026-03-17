@@ -1,0 +1,234 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. celestial_phenomenon.csv: 天地灵气井喷复苏，修为进境一日千里，万物...
+msgid "CELESTIAL_PHENOMENON_10_DESC"
+msgstr ""
+"Thiên địa linh khí bùng nổ phục hồi, tiến cảnh tu vi một ngày ngàn dặm, vạn "
+"vật cùng đua sinh trưởng, thích hợp toàn lực tinh tiến."
+
+#. celestial_phenomenon.csv: 灵气复苏
+msgid "CELESTIAL_PHENOMENON_10_NAME"
+msgstr "Linh Khí Phục Tô"
+
+#. celestial_phenomenon.csv: 灵气枯竭末法将至，修炼如逆水行舟，宜节约...
+msgid "CELESTIAL_PHENOMENON_11_DESC"
+msgstr ""
+"Linh khí khô kiệt, mạt pháp sắp tới; tu luyện như chèo thuyền ngược nước, "
+"nên tiết kiệm tài nguyên và ổn cố đạo tâm."
+
+#. celestial_phenomenon.csv: 灵气枯竭
+msgid "CELESTIAL_PHENOMENON_11_NAME"
+msgstr "Linh Khí Khô Kiệt"
+
+#. celestial_phenomenon.csv: 魔气滔天邪道大昌，魔修如鱼得水，正道修士...
+msgid "CELESTIAL_PHENOMENON_12_DESC"
+msgstr ""
+"Ma khí ngập trời, tà đạo đại xương; ma tu như cá gặp nước, chính đạo tu sĩ "
+"nên tránh mũi nhọn và lặng lẽ tích lũy."
+
+#. celestial_phenomenon.csv: 魔道兴盛
+msgid "CELESTIAL_PHENOMENON_12_NAME"
+msgstr "Ma Đạo Hưng Thịnh"
+
+#. celestial_phenomenon.csv: 浩然正气镇压邪祟，正道修士如有神助，魔修...
+msgid "CELESTIAL_PHENOMENON_13_DESC"
+msgstr ""
+"Hạo nhiên chính khí trấn áp tà túy, chính đạo tu sĩ như có thần trợ; ma tu "
+"nên thao quang dưỡng hối, chớ tự chuốc vận rủi."
+
+#. celestial_phenomenon.csv: 正气浩然
+msgid "CELESTIAL_PHENOMENON_13_NAME"
+msgstr "Chính Khí Hạo Nhiên"
+
+#. celestial_phenomenon.csv: 神兵有灵百兵齐鸣，兵器熟练度提升极快，宜...
+msgid "CELESTIAL_PHENOMENON_14_DESC"
+msgstr ""
+"Thần binh hữu linh, bách binh tề minh; độ thuần thục binh khí tăng cực "
+"nhanh, thích hợp cần luyện võ nghệ và mài giũa phong mang."
+
+#. celestial_phenomenon.csv: 神兵出世
+msgid "CELESTIAL_PHENOMENON_14_NAME"
+msgstr "Thần Binh Xuất Thế"
+
+#. celestial_phenomenon.csv: 阴阳交泰天地和合，彼此互补进境神速，最宜...
+msgid "CELESTIAL_PHENOMENON_15_DESC"
+msgstr ""
+"Âm dương giao thái, thiên địa hòa hợp; đôi bên bổ khuyết cho nhau, tiến "
+"cảnh thần tốc, thích hợp nhất để tìm kiếm đạo lữ cùng tham huyền diệu song "
+"tu."
+
+#. celestial_phenomenon.csv: 阴阳交泰
+msgid "CELESTIAL_PHENOMENON_15_NAME"
+msgstr "Âm Dương Giao Thái"
+
+#. celestial_phenomenon.csv: 血光冲天杀意难抑，虽杀伐之力大增但机缘断...
+msgid "CELESTIAL_PHENOMENON_16_DESC"
+msgstr ""
+"Huyết quang xung thiên, sát ý khó kìm; tuy sức sát phạt đại tăng nhưng cơ "
+"duyên đoạn tuyệt, nên chủ động xuất kích, lấy sát chứng đạo."
+
+#. celestial_phenomenon.csv: 杀劫降临
+msgid "CELESTIAL_PHENOMENON_16_NAME"
+msgstr "Sát Kiếp Giáng Lâm"
+
+#. celestial_phenomenon.csv: 天下太平万物安宁，虽苦修进境缓慢但机缘频...
+msgid "CELESTIAL_PHENOMENON_17_DESC"
+msgstr ""
+"Thiên hạ thái bình, vạn vật an ninh; tuy khổ tu tiến cảnh chậm nhưng kỳ ngộ "
+"liên tiếp xuất hiện, thích hợp du lịch thiên hạ để tìm kiếm cơ duyên."
+
+#. celestial_phenomenon.csv: 太平盛世
+msgid "CELESTIAL_PHENOMENON_17_NAME"
+msgstr "Thái Bình Thịnh Thế"
+
+#. celestial_phenomenon.csv: 天命眷顾气运所钟，天选之人万事皆顺，常人...
+msgid "CELESTIAL_PHENOMENON_18_DESC"
+msgstr ""
+"Thiên mệnh quyến cố, khí vận sở chung; thiên tuyển chi nhân vạn sự đều "
+"thuận, người thường chỉ có thể ngưỡng vọng, không thể cưỡng cầu."
+
+#. celestial_phenomenon.csv: 气运加身
+msgid "CELESTIAL_PHENOMENON_18_NAME"
+msgstr "Khí Vận Gia Thân"
+
+#. celestial_phenomenon.csv: 血月高悬人心躁动，战力虽强但静修困难，宜...
+msgid "CELESTIAL_PHENOMENON_19_DESC"
+msgstr ""
+"Huyết nguyệt treo cao, nhân tâm táo động; chiến lực tuy mạnh nhưng tĩnh tu "
+"khó khăn, nên lấy chiến dưỡng chiến để cướp đoạt tài nguyên."
+
+#. celestial_phenomenon.csv: 血月当空
+msgid "CELESTIAL_PHENOMENON_19_NAME"
+msgstr "Huyết Nguyệt Đương Không"
+
+#. celestial_phenomenon.csv: 天地灵气充沛，修士修行速度大增，修行欲望...
+msgid "CELESTIAL_PHENOMENON_1_DESC"
+msgstr ""
+"Thiên địa linh khí sung túc, tốc độ tu hành của tu sĩ tăng mạnh, dục vọng tu "
+"hành cũng theo đó dâng cao."
+
+#. celestial_phenomenon.csv: 紫气东来
+msgid "CELESTIAL_PHENOMENON_1_NAME"
+msgstr "Tử Khí Đông Lai"
+
+#. celestial_phenomenon.csv: 天门大开大道显现，感悟修行皆如有神助，正...
+msgid "CELESTIAL_PHENOMENON_20_DESC"
+msgstr ""
+"Thiên môn đại khai, Đại Đạo hiển hiện; cảm ngộ và tu hành đều như có thần "
+"trợ, chính là lúc xung kích cảnh giới, phi thăng thành tiên."
+
+#. celestial_phenomenon.csv: 飞升之门
+msgid "CELESTIAL_PHENOMENON_20_NAME"
+msgstr "Phi Thăng Chi Môn"
+
+#. celestial_phenomenon.csv: 天地法则清晰可触，瓶颈如纸一捅即破，万勿...
+msgid "CELESTIAL_PHENOMENON_21_DESC"
+msgstr ""
+"Pháp tắc thiên địa rõ ràng như có thể chạm tới, bình cảnh mỏng như giấy, chỉ "
+"chọc một cái là vỡ; chớ bỏ lỡ thiên ban lương cơ đột phá này."
+
+#. celestial_phenomenon.csv: 法则显化
+msgid "CELESTIAL_PHENOMENON_21_NAME"
+msgstr "Pháp Tắc Hiển Hóa"
+
+#. celestial_phenomenon.csv: 时空错乱异象频生，险地亦藏无上机缘，宜富...
+msgid "CELESTIAL_PHENOMENON_22_DESC"
+msgstr ""
+"Thời không hỗn loạn, dị tượng liên tiếp sinh ra; hiểm địa cũng ẩn giấu vô "
+"thượng cơ duyên, nên cầu phú quý trong nguy hiểm, thăm dò điều chưa biết."
+
+#. celestial_phenomenon.csv: 时空乱流
+msgid "CELESTIAL_PHENOMENON_22_NAME"
+msgstr "Thời Không Loạn Lưu"
+
+#. celestial_phenomenon.csv: 金煞充盈天地肃杀，修士更大可能嗜血而相互...
+msgid "CELESTIAL_PHENOMENON_2_DESC"
+msgstr ""
+"Kim sát tràn ngập, thiên địa túc sát; tu sĩ càng dễ khát máu rồi công phạt "
+"lẫn nhau."
+
+#. celestial_phenomenon.csv: 金煞之年
+msgid "CELESTIAL_PHENOMENON_2_NAME"
+msgstr "Kim Sát Chi Niên"
+
+#. celestial_phenomenon.csv: 木德滋养生机盎然，采集收获倍增且伤势恢复...
+msgid "CELESTIAL_PHENOMENON_3_DESC"
+msgstr ""
+"Mộc đức nuôi dưỡng, sinh cơ dạt dào; thu hoạch khi hái lượm tăng gấp đôi, "
+"thương thế hồi phục cực nhanh, thích hợp tứ xứ sưu la thiên tài địa bảo."
+
+#. celestial_phenomenon.csv: 木灵盛世
+msgid "CELESTIAL_PHENOMENON_3_NAME"
+msgstr "Mộc Linh Thịnh Thế"
+
+#. celestial_phenomenon.csv: 水行流转通达无碍，修炼效率与速度双重提升...
+msgid "CELESTIAL_PHENOMENON_4_DESC"
+msgstr ""
+"Thủy hành lưu chuyển, thông đạt vô ngại; hiệu suất và tốc độ tu luyện đồng "
+"thời tăng lên, chính là thời cơ tốt để bế quan khổ tu."
+
+#. celestial_phenomenon.csv: 水德之纪
+msgid "CELESTIAL_PHENOMENON_4_NAME"
+msgstr "Thủy Đức Chi Kỷ"
+
+#. celestial_phenomenon.csv: 天火燃烧劫数降临，战力暴涨但寿元流逝，当...
+msgid "CELESTIAL_PHENOMENON_5_DESC"
+msgstr ""
+"Thiên hỏa bùng cháy, kiếp số giáng lâm; chiến lực tăng vọt nhưng thọ nguyên "
+"không ngừng trôi mất, cần tốc chiến tốc thắng, lấy mệnh bác thiên."
+
+#. celestial_phenomenon.csv: 火劫时代
+msgid "CELESTIAL_PHENOMENON_5_NAME"
+msgstr "Hỏa Kiếp Thời Đại"
+
+#. celestial_phenomenon.csv: 土德厚重载物无疆，身躯坚韧血气充盈，可无...
+msgid "CELESTIAL_PHENOMENON_6_DESC"
+msgstr ""
+"Thổ đức dày nặng, tải vật vô cương; thân thể bền bỉ, huyết khí sung mãn, có "
+"thể không sợ cường địch mà chính diện tranh phong."
+
+#. celestial_phenomenon.csv: 土厚之世
+msgid "CELESTIAL_PHENOMENON_6_NAME"
+msgstr "Thổ Hậu Chi Thế"
+
+#. celestial_phenomenon.csv: 五行失序天地大乱，常规修炼事倍功半，然瓶...
+msgid "CELESTIAL_PHENOMENON_7_DESC"
+msgstr ""
+"Ngũ hành thất tự, thiên địa đại loạn; tu luyện thông thường tốn gấp bội mà "
+"công chỉ nửa phần, nhưng bình cảnh lại lỏng ra, thích hợp thử đột phá."
+
+#. celestial_phenomenon.csv: 五行逆乱
+msgid "CELESTIAL_PHENOMENON_7_NAME"
+msgstr "Ngũ Hành Nghịch Loạn"
+
+#. celestial_phenomenon.csv: 天道显化损有余而补不足，高阶修士进境受阻...
+msgid "CELESTIAL_PHENOMENON_8_DESC"
+msgstr ""
+"Thiên đạo hiển hóa, tổn hữu dư mà bổ bất túc; cao giai tu sĩ tiến cảnh bị "
+"ngăn trở, thấp giai tu sĩ nên nắm chặt lương cơ để đuổi kịp."
+
+#. celestial_phenomenon.csv: 天道均衡
+msgid "CELESTIAL_PHENOMENON_8_NAME"
+msgstr "Thiên Đạo Cân Bằng"
+
+#. celestial_phenomenon.csv: 劫数降临戾气弥漫，虽战力激增但福缘浅薄，...
+msgid "CELESTIAL_PHENOMENON_9_DESC"
+msgstr ""
+"Kiếp số giáng lâm, lệ khí tràn ngập; tuy chiến lực tăng vọt nhưng phúc duyên "
+"nông cạn, nên hành sự thận trọng như đi trên băng mỏng."
+
+#. celestial_phenomenon.csv: 劫数将至
+msgid "CELESTIAL_PHENOMENON_9_NAME"
+msgstr "Kiếp Số Sắp Đến"

@@ -1,0 +1,280 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. sect.csv: SECT_10_DESC
+msgid "SECT_10_DESC"
+msgstr ""
+"Tinh thông thiên ma âm luật và tinh thần thao túng, công pháp âm nhu quỷ "
+"quyệt, dùng ma âm vô hình để quấy loạn tâm trí người khác. [Ma Âm Nhiếp Hồn]"
+" Ngươi giỏi dùng âm luật để nhiễu loạn tâm trí, linh lực thâm hậu miên "
+"trường; tuy không giỏi cận chiến, nhưng thủ đoạn cực kỳ quỷ quyệt."
+
+#. sect.csv: SECT_10_NAME
+msgid "SECT_10_NAME"
+msgstr "Nhiếp Hồn Âm Tông"
+
+#. sect.csv: SECT_10_RULE_DESC
+msgid "SECT_10_RULE_DESC"
+msgstr ""
+"Ngươi có thể mê hoặc địch nhân, nhưng tuyệt đối không được mất khống chế rồi"
+" nhiếp hồn đồng môn hay làm tổn hại căn cơ của tông môn; kẻ bôi nhọ thanh "
+"danh bản tông mà vẫn không chịu kiềm chế sẽ bị trục xuất."
+
+#. sect.csv: SECT_11_DESC
+msgid "SECT_11_DESC"
+msgstr ""
+"Đệ nhất đại phái trận pháp đương thời, chú trọng thiên đạo diễn toán, lấy "
+"vạn vật làm cờ, lấy sơn xuyên làm trận. [Trận Pháp Thông Thần] Ngươi giỏi "
+"dùng trận pháp để trợ tu, có thể hội tụ linh khí trời đất, tốc độ tu luyện "
+"nhanh hơn người thường và thường thu được lợi ích ngoài dự liệu."
+
+#. sect.csv: SECT_11_NAME
+msgid "SECT_11_NAME"
+msgstr "Thiên Diễn Trận Tông"
+
+#. sect.csv: SECT_11_RULE_DESC
+msgid "SECT_11_RULE_DESC"
+msgstr ""
+"Ngươi không được dùng trận pháp để gieo tai họa xuống thành trì phàm nhân "
+"hay khiến đồng môn chịu phản phệ; nếu sa vào tà đạo mà vẫn không chịu hối "
+"cải, sẽ bị trục xuất khỏi tông."
+
+#. sect.csv: SECT_12_DESC
+msgid "SECT_12_DESC"
+msgstr ""
+"Tu luyện \"Đại Quang Minh Kim Thân\", thờ phụng ánh sáng bất diệt. Lấy võ "
+"nhập đạo, lấy nhục thân thành thánh. Nắm giữ bí thuật sinh mệnh cực mạnh. "
+"[Quang Diệu Trường Sinh] Sinh mệnh lực của ngươi vô cùng ngoan cường, hiệu "
+"quả chữa thương tăng gấp bội, thọ nguyên cũng vượt xa tu sĩ cùng giai."
+
+#. sect.csv: SECT_12_NAME
+msgid "SECT_12_NAME"
+msgstr "Trường Minh Cung"
+
+#. sect.csv: SECT_12_RULE_DESC
+msgid "SECT_12_RULE_DESC"
+msgstr ""
+"Ngươi không được hãm hại phàm nhân để luyện thể hay bôi nhọ chính đạo quang "
+"minh; nếu sa vào tà tu mà vẫn ngoan cố không sửa, sẽ bị trục xuất khỏi cung."
+
+#. sect.csv: SECT_13_DESC
+msgid "SECT_13_DESC"
+msgstr ""
+"Nho gia chính thống, dưỡng Hạo Nhiên Chi Khí. Hành sự cương chính, ngôn xuất"
+" pháp tùy, khắc chế tà ma. [Ngô Thiện Dưỡng Khí] Ngươi nuôi dưỡng Hạo Nhiên "
+"chi khí, khí mạch kéo dài miên trường; khi đối mặt với kẻ địch cảnh giới "
+"thấp hơn mình, có thể"
+" phát huy lực áp chế cực mạnh."
+
+#. sect.csv: SECT_13_NAME
+msgid "SECT_13_NAME"
+msgstr "Hạo Nhiên Thư Viện"
+
+#. sect.csv: SECT_13_RULE_DESC
+msgid "SECT_13_RULE_DESC"
+msgstr ""
+"Ngươi không được khi sư áp dân, cũng không được tự mình lao vào ma đạo; nếu"
+" chứng cứ xác thực mà vẫn không chịu hối cải, sẽ bị trục xuất khỏi thư "
+"viện."
+
+#. sect.csv: SECT_14_DESC
+msgid "SECT_14_DESC"
+msgstr ""
+"Đệ nhất ma tông của Nguyên Diễn giới, hành sự bá đạo tàn nhẫn, tôn sùng "
+"\"nhược nhục cường thực\", lấy cướp đoạt và huyết tế để nâng cao tu vi. "
+"[Huyết Hải Thao Thiên] Ngươi tôn sùng sức mạnh và cướp đoạt; việc cướp bóc "
+"phàm "
+"nhân tuy tổn hại thiên hòa, nhưng lại mang đến cho ngươi của cải và tài "
+"nguyên kinh người."
+
+#. sect.csv: SECT_14_NAME
+msgid "SECT_14_NAME"
+msgstr "La Sát Huyết Tông"
+
+#. sect.csv: SECT_14_RULE_DESC
+msgid "SECT_14_RULE_DESC"
+msgstr ""
+"Ngươi có thể tranh đấu và cướp đoạt, nhưng tuyệt đối không được phản bội "
+"Huyết Tông, biển thủ chiến lợi phẩm hay dùng tà thuật đối phó người của bản "
+"môn; bất kỳ ai phạm trọng cấm này đều sẽ bị trục xuất."
+
+#. sect.csv: SECT_1_DESC
+msgid "SECT_1_DESC"
+msgstr ""
+"Đệ nhất tông ở phương đông của giới tu tiên, lấy vô thượng kiếm đạo xưng "
+"hùng thiên hạ. Trấn phái tuyệt học là \"Cửu Tiêu Ngự Lôi Kiếm Quyết\". [Kiếm"
+" Tâm Thông Minh] Là một kiếm tu, khi sử dụng binh khí loại kiếm, chiến lực "
+"của ngươi cực kỳ kinh người, hơn nữa tốc độ cảm ngộ trên kiếm đạo cũng vượt "
+"xa người thường."
+
+#. sect.csv: SECT_1_NAME
+msgid "SECT_1_NAME"
+msgstr "Lăng Tiêu Kiếm Tông"
+
+#. sect.csv: SECT_1_RULE_DESC
+msgid "SECT_1_RULE_DESC"
+msgstr ""
+"Ngươi tuyệt đối không được thông đồng với tà ma hay tàn sát kẻ vô tội; nếu "
+"sa vào ma đạo mà sau nhiều lần răn dạy vẫn không chịu sửa đổi, sẽ bị trục "
+"xuất khỏi sơn môn."
+
+#. sect.csv: SECT_2_DESC
+msgid "SECT_2_DESC"
+msgstr ""
+"Nổi danh vì thuần dưỡng hung thú, nuôi dưỡng đủ loại yêu thú linh quái làm "
+"chiến lực. [Vạn Thú Chi Chủ] Ngươi sở hữu thiên phú ngự thú độc nhất, việc "
+"bắt giữ yêu thú đối với ngươi dễ như trở bàn tay, lại giỏi điều khiển thú "
+"quần thay mình chiến đấu."
+
+#. sect.csv: SECT_2_NAME
+msgid "SECT_2_NAME"
+msgstr "Vạn Thú Ma Sơn"
+
+#. sect.csv: SECT_2_RULE_DESC
+msgid "SECT_2_RULE_DESC"
+msgstr ""
+"Ngươi có thể chém giết tranh đấu, nhưng không được phản bội sơn môn, cấu kết"
+" ngoại địch hay để thú nuôi quay lại làm hại đồng môn; kẻ phạm trọng cấm này"
+" sẽ bị trục xuất."
+
+#. sect.csv: SECT_3_DESC
+msgid "SECT_3_DESC"
+msgstr ""
+"Cư ngụ nơi cô đảo hải ngoại, ngoài mặt yên lặng nhưng thực chất nghiêm giữ "
+"trung lập. Sở hữu cổ kỳ thạch \"Quan Hải Ngọc Bích\", có thể dò xét thiên "
+"cơ. "
+"[Tri Thiên Mệnh] Ngươi có trực giác vượt xa người thường, tầm nhìn rộng mở, "
+"và cực dễ phát hiện kỳ ngộ trong lúc thăm dò."
+
+#. sect.csv: SECT_3_NAME
+msgid "SECT_3_NAME"
+msgstr "Thính Đào Các"
+
+#. sect.csv: SECT_3_RULE_DESC
+msgid "SECT_3_RULE_DESC"
+msgstr ""
+"Ngươi không được vì tư tâm mà quấy nhiễu việc bói toán của các, cũng không "
+"được bán đứng thiên cơ của tông môn; nếu tình tiết đặc biệt nghiêm trọng, sẽ"
+" bị trục xuất."
+
+#. sect.csv: SECT_4_DESC
+msgid "SECT_4_DESC"
+msgstr ""
+"Tham ngộ sinh tử khô vinh, dẫn tiếp sức mạnh của Hoàng Tuyền, thuật pháp âm "
+"lãnh tàn nhẫn. [Hoàng Tuyền Độ Hồn] Ngươi tu hành Hoàng Tuyền chi pháp, tâm "
+"chí kiên định, khi đột phá bình cảnh tâm không tạp niệm nên tỷ lệ thành công"
+" cao hơn."
+
+#. sect.csv: SECT_4_NAME
+msgid "SECT_4_NAME"
+msgstr "Cửu U Hoàng Tuyền Đạo"
+
+#. sect.csv: SECT_4_RULE_DESC
+msgid "SECT_4_RULE_DESC"
+msgstr ""
+"Ngươi có thể tu luyện âm pháp, nhưng tuyệt đối không được trái lệnh sư "
+"trưởng hay tự ý cướp hồn làm hại đồng môn; kẻ phạm trọng quy này sẽ bị trục "
+"xuất."
+
+#. sect.csv: SECT_5_DESC
+msgid "SECT_5_DESC"
+msgstr ""
+"Đại phái tà tông, nổi danh thiên hạ bởi cơ quan, khôi lỗi và độc sát, từ "
+"trước tới nay hành tung quỷ bí. [Quỷ Đạo Thích Sát] Ngươi tinh thông ẩn phục"
+" và ám sát; đối mặt cường địch, tránh chính diện giao phong và chờ cơ hội ám"
+" sát thường là con đường chiến thắng tốt nhất của ngươi."
+
+#. sect.csv: SECT_5_NAME
+msgid "SECT_5_NAME"
+msgstr "Thiên Cơ Quỷ Môn"
+
+#. sect.csv: SECT_5_RULE_DESC
+msgid "SECT_5_RULE_DESC"
+msgstr ""
+"Ngươi không được tiết lộ bản vẽ cơ quan bí mật hay ám sát người của bản môn;"
+" nếu cấu kết với chính đạo rồi quay lưng với tông môn, sẽ bị trục xuất."
+
+#. sect.csv: SECT_6_DESC
+msgid "SECT_6_DESC"
+msgstr ""
+"Lấy tình nhập đạo, dựa vào song tu để tăng tiến tu vi, giỏi thao túng nhân "
+"tâm và sở trường quyền biến. [Hồng Trần Luyện Tâm] Thể chất của ngươi đặc "
+"biệt; thông qua song tu, ngươi có thể nhận được mức tăng tiến tu vi vượt xa "
+"người thường, đây là đường tắt tốt nhất để nâng cao cảnh giới."
+
+#. sect.csv: SECT_6_NAME
+msgid "SECT_6_NAME"
+msgstr "Túy Mộng Lâu"
+
+#. sect.csv: SECT_6_RULE_DESC
+msgid "SECT_6_RULE_DESC"
+msgstr ""
+"Ngươi có thể đắm mình trong chốn hồng trần, nhưng không được hái bổ người "
+"khác đến chết hay phản bội sư môn tổ tông; kẻ phạm trọng giới này sẽ bị trục"
+" xuất."
+
+#. sect.csv: SECT_7_DESC
+msgid "SECT_7_DESC"
+msgstr ""
+"Thánh địa Phật môn, cũng là đại tông luyện thể, dùng thân Kim Cang để trấn "
+"áp yêu tà thế gian. [Kim Thân La Hán] Ngươi tu tập hộ thể thần công, sở hữu "
+"năng lực phòng ngự nhục thân và giảm thương cực mạnh, bất động như núi lớn."
+
+#. sect.csv: SECT_7_NAME
+msgid "SECT_7_NAME"
+msgstr "Tu Di Thiền Viện"
+
+#. sect.csv: SECT_7_RULE_DESC
+msgid "SECT_7_RULE_DESC"
+msgstr ""
+"Tùy tiện giết hại phàm nhân, cấu kết với tà linh hay tàn hại đồng môn đều bị"
+" nghiêm cấm; kẻ phạm trọng tội mà vẫn không chịu hối cải sẽ bị trục xuất."
+
+#. sect.csv: SECT_8_DESC
+msgid "SECT_8_DESC"
+msgstr ""
+"Trấn tông điển tịch là \"Ảnh Sát Chân Kinh\", lấy địa sát âm khí làm căn cơ."
+" [Như Ảnh Tùy Hình] Ngươi cực kỳ am hiểu thân pháp và độn thuật, gặp nguy "
+"hiểm luôn có thể toàn thân lui đi, đồng thời cũng có thể tìm cơ hội ám sát "
+"kẻ địch lạc đàn."
+
+#. sect.csv: SECT_8_NAME
+msgid "SECT_8_NAME"
+msgstr "Ảnh Sát Điện"
+
+#. sect.csv: SECT_8_RULE_DESC
+msgid "SECT_8_RULE_DESC"
+msgstr ""
+"Ám sát được cho phép, nhưng không được đâm sau lưng người của bản điện hay "
+"tiết lộ cứ điểm bí mật; nếu đầu nhập chính đạo rồi bán đứng đồng môn, sẽ bị "
+"trục xuất."
+
+#. sect.csv: SECT_9_DESC
+msgid "SECT_9_DESC"
+msgstr ""
+"Một thế lực khổng lồ phát triển từ thương hội, sở hữu thương đội \"Lưu Vân "
+"Phi Chu\", giàu có đến mức địch quốc. [Tài Thông Quỷ Thần] Ngươi tinh thông "
+"luyện khí và kinh thương; việc ôn dưỡng binh khí thường khiến chúng lột xác "
+"đổi thay, hơn nữa trong giao dịch ngươi luôn có thể thu lợi."
+
+#. sect.csv: SECT_9_NAME
+msgid "SECT_9_NAME"
+msgstr "Vạn Bảo Tiên Minh"
+
+#. sect.csv: SECT_9_RULE_DESC
+msgid "SECT_9_RULE_DESC"
+msgstr ""
+"Ngươi có thể theo đuổi lợi ích, nhưng không được biển thủ tài khố của tông "
+"môn hay bán đứng tiên minh cho kẻ địch; nếu tội đặc biệt nặng nề sẽ bị trục "
+"xuất."

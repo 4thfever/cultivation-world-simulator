@@ -1,0 +1,47 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "quyết định thay vào trang bị"
+
+msgid "decided to keep current equipment"
+msgstr "quyết định giữ lại trang bị hiện tại"
+
+msgid "decided to keep current technique"
+msgstr "quyết định giữ lại công pháp hiện tại"
+
+msgid "decided to learn it"
+msgstr "quyết định tu luyện nó"
+
+msgid "item_verb_consume"
+msgstr "dùng"
+
+msgid "item_verb_consumed"
+msgstr "đã dùng"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name} đã bỏ {item_name}."
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name} đã trang bị {grade}{label} '{item_name}'."
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name} đã thu được {grade}{label} '{item_name}' rồi trang bị."
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr ""
+"{name} đã bán {item_name} vừa thu được, kiếm {price} linh thạch."

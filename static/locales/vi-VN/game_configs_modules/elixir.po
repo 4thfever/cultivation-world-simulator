@@ -1,0 +1,152 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr ""
+"Đan dược ngưng tụ linh khí, trợ giúp tu sĩ Luyện Khí kỳ phá vỡ bình cảnh "
+"(dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "Luyện Khí Phá Cảnh Đan"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr ""
+"Linh đan ẩn chứa chân ý Trúc Cơ, trợ giúp tu sĩ Trúc Cơ kỳ đột phá bình "
+"cảnh (dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "Trúc Cơ Phá Cảnh Đan"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr ""
+"Ngưng kết Kim Đan chi khí, trợ giúp tu sĩ Kim Đan kỳ toái đan thành anh "
+"(dược hiệu kéo dài 5 năm)."
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "Kim Đan Phá Cảnh Đan"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr "Luyện từ trân thảo nơi phàm gian, có thể hơi làm chậm lão hóa (chỉ được dùng một viên)."
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "Luyện Khí Trường Sinh Đan"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "Luyện từ linh thảo của trời đất, có thể kéo dài thêm mười năm thọ nguyên (chỉ được dùng một viên)."
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "Trúc Cơ Trường Sinh Đan"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr ""
+"Đoạt lấy tạo hóa của trời đất; phàm nhân dùng vào sẽ chết ngay, Kim Đan tu "
+"sĩ dùng vào có thể tăng thêm nửa giáp tử thọ nguyên (chỉ được dùng một viên)."
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "Kim Đan Trường Sinh Đan"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "Ẩn chứa một tia trường sinh chi khí, là vật để lão quái Nguyên Anh dùng kéo dài tính mệnh (chỉ được dùng một viên)."
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "Nguyên Anh Trường Sinh Đan"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr ""
+"Thiêu đốt tinh huyết để đổi lấy bộc phát ngắn ngủi. Trong 3 năm chiến lực "
+"tăng lên, nhưng trong 10 năm kinh mạch bị tổn thương khiến chiến lực suy giảm."
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "Luyện Khí Nhiên Huyết Đan"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr ""
+"Mãnh dược kích phát tiềm năng. Trong 3 năm chiến lực tăng mạnh, nhưng trong "
+"10 năm sẽ rơi vào suy nhược."
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "Trúc Cơ Nhiên Huyết Đan"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr ""
+"Lựa chọn của tu sĩ Kim Đan khi phải liều mạng. Trong 3 năm chiến lực bạo "
+"tăng, nhưng trong 10 năm sẽ mang trọng thương."
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "Kim Đan Nhiên Huyết Đan"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr ""
+"Thiêu đốt bản nguyên Nguyên Anh. Trong 3 năm có được lực lượng hủy thiên "
+"diệt địa, nhưng trong 10 năm gần như trở thành phế nhân."
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "Nguyên Anh Nhiên Huyết Đan"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr ""
+"Đan dược trị thương thông thường, có thể khôi phục thương thế của tu sĩ "
+"Luyện Khí kỳ (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "Luyện Khí Hồi Xuân Đan"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "Dược lực ôn hòa thuần hậu, có thể nhanh chóng chữa lành tổn thương nhục thân của tu sĩ Trúc Cơ kỳ (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "Trúc Cơ Hồi Xuân Đan"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr ""
+"Ẩn chứa sức mạnh sinh cơ, là thánh dược chữa thương (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "Kim Đan Hồi Xuân Đan"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "Ẩn chứa tạo hóa sinh cơ, tốc độ khôi phục nhục thân cực nhanh (hiệu lực kéo dài 5 năm)."
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "Nguyên Anh Hồi Xuân Đan"

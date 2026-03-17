@@ -1,0 +1,155 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " (and sold old {item} at reduced price)"
+msgstr " (đồng thời bán món {item} cũ với giá chiết khấu)"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr "Cảnh giới động vật trong khu vực hiện tại cao hơn cảnh giới của nhân vật"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "Ám sát thất bại! Hai bên lập tức bộc phát ác chiến."
+
+msgid "Breakthrough failed"
+msgstr "Đột phá thất bại"
+
+msgid "Breakthrough succeeded"
+msgstr "Đột phá thành công"
+
+msgid "Can only execute in city areas"
+msgstr "Chỉ có thể thực hiện trong khu vực thành thị"
+
+msgid "Cannot resolve region: {region}"
+msgstr "Không thể phân giải khu vực: {region}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "Không thể bán loại này: {name}"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "Đúc tạo thành công! Nhận được {realm} {label} '{item}'"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "Tu vi đã chạm bình cảnh, không thể tiếp tục tu luyện"
+
+msgid "Current HP is full"
+msgstr "HP hiện tại đã đầy"
+
+msgid "Current area {region} has no animals"
+msgstr "Khu vực hiện tại {region} không có động vật"
+
+msgid "Do not possess equipment: {name}"
+msgstr "Không sở hữu trang bị: {name}"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "Không sở hữu vật phẩm/trang bị: {name}"
+
+msgid "Do not possess material: {name}"
+msgstr "Không sở hữu tài liệu: {name}"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr ""
+"Hành vi phi pháp bị cấm (thiếu Vạn Hồn Phiên hoặc không có quyền hạn)"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr ""
+"Tài liệu không đủ, cần {cost} tài liệu bậc {realm}, hiện chỉ có {count}"
+
+msgid "Insufficient spirit stones"
+msgstr "Linh thạch không đủ"
+
+msgid "Invalid direction: {direction}"
+msgstr "Hướng không hợp lệ: {direction}"
+
+msgid "Invalid realm: {realm}"
+msgstr "Cảnh giới không hợp lệ: {realm}"
+
+msgid "Missing HP information"
+msgstr "Thiếu thông tin HP"
+
+msgid "Missing target parameter"
+msgstr "Thiếu tham số mục tiêu"
+
+msgid "Must be in a City to educate people."
+msgstr "Phải ở trong thành thị mới có thể giáo hóa thế nhân."
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "Hiện không ở bình cảnh, không thể đột phá"
+
+msgid "Not currently in normal area"
+msgstr "Hiện không ở khu vực thông thường"
+
+msgid "Only evil alignment can execute"
+msgstr "Chỉ trận doanh tà ác mới có thể thực hiện"
+
+msgid "Only righteous alignment can execute"
+msgstr "Chỉ trận doanh chính đạo mới có thể thực hiện"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "Luyện đan thành công! Nhận được đan dược {realm} '{item}'"
+
+msgid "Syncing language setting: {lang}..."
+msgstr "Đang đồng bộ cài đặt ngôn ngữ: {lang}..."
+
+msgid "Target does not exist"
+msgstr "Mục tiêu không tồn tại"
+
+msgid "Target is already dead"
+msgstr "Mục tiêu đã chết"
+
+msgid "Target realm not specified"
+msgstr "Chưa chỉ định cảnh giới của mục tiêu"
+
+msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgstr "Nhờ sự giáo hóa của {avatar}, độ phồn vinh của {city} đã tăng lên."
+
+msgid "This area has no shop"
+msgstr "Khu vực này không có cửa hàng"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "Động phủ này đã bị {name} chiếm giữ, không thể thổ nạp"
+
+msgid "Unknown item: {name}"
+msgstr "Vật phẩm chưa rõ: {name}"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "Đạo thống của ngươi không hỗ trợ tôi luyện nhục thân."
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "Đạo thống của ngươi không hỗ trợ giáo hóa thế nhân."
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "Đạo thống của ngươi không hỗ trợ thổ nạp linh khí."
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "Đạo thống của ngươi không hỗ trợ thiền định."
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr ""
+"[{region}] là lãnh địa của tông môn khác, ngươi không phải đệ tử của tông môn đó"
+
+msgid "action_chess"
+msgstr "Đánh cờ"
+
+msgid "action_chess_desc"
+msgstr "Đối dịch đánh cờ để rèn giũa tâm trí."
+
+msgid "action_chess_story_prompt"
+msgstr "Hai người đang đối dịch đánh cờ."
+
+msgid "action_devourpeople_short_name"
+msgstr "Thôn Phệ Sinh Linh"

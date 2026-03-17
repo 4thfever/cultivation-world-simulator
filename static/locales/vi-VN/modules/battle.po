@@ -1,0 +1,127 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr ""
+"(Trận doanh: {alignment}, Phong cách: {style}, Trú địa: {hq_name}){effect}"
+
+msgid "(Unknown technique)"
+msgstr "(Công pháp chưa rõ)"
+
+msgid "Current World Phenomenon"
+msgstr "Thiên tượng đương thời"
+
+msgid "Drops: {materials}"
+msgstr "Rơi ra: {materials}"
+
+msgid "History"
+msgstr "Lịch sử"
+
+msgid "Unknown character"
+msgstr "Nhân vật chưa rõ"
+
+msgid "When alignment is {align}"
+msgstr "Khi trận doanh là {align}"
+
+msgid "When using {weapon_type}"
+msgstr "Khi sử dụng {weapon_type}"
+
+msgid "Wilderness"
+msgstr "Hoang dã"
+
+msgid "[{name}] ({realm})"
+msgstr "【{name}】 ({realm})"
+
+# ============================================================================
+# Additional (New)
+# ============================================================================
+msgid "action_thinking"
+msgstr "Suy nghĩ"
+
+msgid "battle"
+msgstr "Chiến tử"
+
+msgid "date_format_year_month"
+msgstr "Năm {year} tháng {month}"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "đánh bại"
+
+msgid "old_age"
+msgstr "già chết"
+
+msgid "phenomenon_format"
+msgstr "[{name}] {desc}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "(Trú địa tông môn [{sect_name}])"
+
+msgid "serious_injury"
+msgstr "Trọng thương"
+
+msgid "son"
+msgstr "nam"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment} - {description}"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name} ({attribute}) - {grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name} ({attribute}) - {grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name} ({attribute} · {grade})"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}: {desc}{effect}"
+
+msgid "{name} ({realm})"
+msgstr "{name} - {realm}"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name} ({type} · {realm}, {desc}){effect}"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} đã tấn thăng thành tu sĩ."
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc} - {realm}"
+
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} và {p2} sinh hạ một {gender}, đặt tên là {child}."
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage} (Cấp {level}) {status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage} (Cấp {level}). Trạng thái bình cảnh: {status}"
+
+# Battle messages
+msgid ""
+"{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
+"wounded and perished."
+msgstr ""
+"{winner} đánh bại {loser}, gây ra {damage} điểm thương hại. {loser} trọng "
+"thương trí mạng và tại chỗ vẫn lạc."
+
+msgid ""
+"{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also "
+"took {winner_dmg} damage."
+msgstr ""
+"{winner} đánh bại {loser}. {loser} chịu {loser_dmg} điểm thương hại, còn "
+"{winner} cũng chịu {winner_dmg} điểm thương hại."

@@ -1,0 +1,507 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. technique.csv: 最基础的法术，凝聚火炎伤敌，简单实用。...
+msgid "TECHNIQUE_10_DESC"
+msgstr ""
+"Pháp thuật cơ bản nhất, ngưng tụ hỏa viêm để đả thương địch nhân, đơn giản mà thực "
+"dụng."
+
+#. technique.csv: 火灵诀
+msgid "TECHNIQUE_10_NAME"
+msgstr "Hỏa Linh Quyết"
+
+#. technique.csv: 纯阳之气，刚猛无铸，克制阴邪。...
+msgid "TECHNIQUE_11_DESC"
+msgstr "Thuần dương chi khí cương mãnh vô song, khắc chế âm tà."
+
+#. technique.csv: 纯阳真功
+msgid "TECHNIQUE_11_NAME"
+msgstr "Thuần Dương Chân Công"
+
+#. technique.csv: 力能扛鼎，气力悠长，如下山猛虎。...
+msgid "TECHNIQUE_13_DESC"
+msgstr ""
+"Sức lực đủ để nhấc đỉnh, khí lực kéo dài lâu bền, mạnh như mãnh hổ xuống "
+"núi."
+
+#. technique.csv: 搬山诀
+msgid "TECHNIQUE_13_NAME"
+msgstr "Bàn Sơn Quyết"
+
+#. technique.csv: 不动如山，动如雷震，佛门护法神功。...
+msgid "TECHNIQUE_14_DESC"
+msgstr "Bất động như sơn, động như lôi chấn, là Phật môn hộ pháp thần công."
+
+#. technique.csv: 不动明王诀
+msgid "TECHNIQUE_14_NAME"
+msgstr "Bất Động Minh Vương Quyết"
+
+#. technique.csv: 心若冰清，天塌不惊，凝神静气。...
+msgid "TECHNIQUE_16_DESC"
+msgstr "Tâm như băng thanh, trời sập không kinh, ngưng thần tĩnh khí."
+
+#. technique.csv: 凝神冰心诀
+msgid "TECHNIQUE_16_NAME"
+msgstr "Ngưng Thần Băng Tâm Quyết"
+
+#. technique.csv: 寒气透骨，冻结经脉，阴狠霸道。...
+msgid "TECHNIQUE_17_DESC"
+msgstr "Hàn khí thấu cốt, đóng băng kinh mạch, âm hiểm mà bá đạo."
+
+#. technique.csv: 玄冰劲
+msgid "TECHNIQUE_17_NAME"
+msgstr "Huyền Băng Kình"
+
+#. technique.csv: 身法灵动，变幻莫测，逃跑一流。...
+msgid "TECHNIQUE_19_DESC"
+msgstr ""
+"Thân pháp linh động, biến hóa khó lường, là nhất lưu trong việc thoát thân."
+
+#. technique.csv: 流云百变身
+msgid "TECHNIQUE_19_NAME"
+msgstr "Lưu Vân Bách Biến Thân"
+
+#. technique.csv: 佛门护教神功，浑身坚若金石，寻常兵刃难伤。
+msgid "TECHNIQUE_1_DESC"
+msgstr ""
+"Phật môn hộ giáo thần công, toàn thân cứng như kim thạch, binh khí bình thường "
+"khó lòng làm tổn thương."
+
+#. technique.csv: 混元金身
+msgid "TECHNIQUE_1_NAME"
+msgstr "Hỗn Nguyên Kim Thân"
+
+#. technique.csv: 借力腾空，左脚踩右脚，直上青云九霄。
+msgid "TECHNIQUE_20_DESC"
+msgstr "Mượn lực bay vút lên không trung, chân trái đạp chân phải, một bước thẳng lên tận cửu tiêu."
+
+#. technique.csv: 踏云步
+msgid "TECHNIQUE_20_NAME"
+msgstr "Đạp Vân Bộ"
+
+#. technique.csv: 收敛气息，如枯木死灰，令人难以察觉。...
+msgid "TECHNIQUE_22_DESC"
+msgstr "Thu liễm khí tức như khô mộc tàn tro, khiến người khác khó lòng phát giác."
+
+#. technique.csv: 敛息术
+msgid "TECHNIQUE_22_NAME"
+msgstr "Liễm Tức Thuật"
+
+#. technique.csv: 如鬼魅般难以捉摸，步法诡异，令人眼花缭乱。
+msgid "TECHNIQUE_23_DESC"
+msgstr "Quỷ dị như mị ảnh, bộ pháp quỷ quyệt, khiến người hoa mắt chóng mặt."
+
+#. technique.csv: 幻影迷踪步
+msgid "TECHNIQUE_23_NAME"
+msgstr "Huyễn Ảnh Mê Tung Bộ"
+
+#. technique.csv: 道家正宗法术，掌心发雷，震慑妖邪。...
+msgid "TECHNIQUE_25_DESC"
+msgstr ""
+"Đạo gia chính tông pháp thuật, phát lôi nơi lòng bàn tay, chấn nhiếp yêu tà."
+
+#. technique.csv: 掌心雷
+msgid "TECHNIQUE_25_NAME"
+msgstr "Chưởng Tâm Lôi"
+
+#. technique.csv: 役使五行之雷，刚猛霸道，无坚不摧。...
+msgid "TECHNIQUE_26_DESC"
+msgstr "Điều động ngũ hành chi lôi, cương mãnh bá đạo, vô kiên bất tồi."
+
+#. technique.csv: 五雷正法
+msgid "TECHNIQUE_26_NAME"
+msgstr "Ngũ Lôi Chính Pháp"
+
+#. technique.csv: 燃烧精血，短暂爆发实力，事后虚弱。...
+msgid "TECHNIQUE_28_DESC"
+msgstr ""
+"Thiêu đốt tinh huyết để đổi lấy bộc phát thực lực trong thời gian ngắn, sau "
+"đó rơi vào suy yếu."
+
+#. technique.csv: 燃血爆元术
+msgid "TECHNIQUE_28_NAME"
+msgstr "Nhiên Huyết Bạo Nguyên Thuật"
+
+#. technique.csv: 强行吸取他人灵力为己用，霸道异常，常有反噬风险。
+msgid "TECHNIQUE_29_DESC"
+msgstr ""
+"Cưỡng ép hấp thu linh lực của người khác cho bản thân sử dụng, bá đạo vô "
+"cùng và thường tiềm ẩn nguy cơ phản phệ."
+
+#. technique.csv: 吞灵归元功
+msgid "TECHNIQUE_29_NAME"
+msgstr "Thôn Linh Quy Nguyên Công"
+
+#. technique.csv: 运气成钟，护持周身，反震外力。...
+msgid "TECHNIQUE_2_DESC"
+msgstr ""
+"Vận khí thành chung, hộ trì toàn thân, phản chấn ngoại lực."
+
+#. technique.csv: 金钟罩
+msgid "TECHNIQUE_2_NAME"
+msgstr "Kim Chung Tráo"
+
+#. technique.csv: 一剑枯荣，斩尽日月星辰，乃剑道至高境界。
+msgid "TECHNIQUE_30_DESC"
+msgstr ""
+"Một kiếm khô vinh, chém tận nhật nguyệt tinh thần, là cảnh giới tối cao của kiếm"
+" đạo."
+
+#. technique.csv: 斩星枯荣剑
+msgid "TECHNIQUE_30_NAME"
+msgstr "Trảm Tinh Khô Vinh Kiếm"
+
+#. technique.csv: 引九天雷霆入剑，煌煌天威，荡尽群魔。...
+msgid "TECHNIQUE_31_DESC"
+msgstr "Dẫn lôi đình cửu tiêu nhập kiếm, thiên uy rực rỡ, quét sạch quần ma."
+
+#. technique.csv: 九霄御雷术
+msgid "TECHNIQUE_31_NAME"
+msgstr "Cửu Tiêu Ngự Lôi Thuật"
+
+#. technique.csv: 君不见沧浪之水天上来，奔流到海不复回。...
+msgid "TECHNIQUE_32_DESC"
+msgstr ""
+"Há chẳng thấy nước Thương Lang từ trời mà đến, cuồn cuộn chảy ra biển rồi "
+"chẳng quay về; kiếm ý cũng vì thế mà hùng hồn vô tận."
+
+#. technique.csv: 沧浪剑意
+msgid "TECHNIQUE_32_NAME"
+msgstr "Thương Lang Kiếm Ý"
+
+#. technique.csv: 上古木系至高功法，生生不息，枯木逢春。
+msgid "TECHNIQUE_33_DESC"
+msgstr "Thượng cổ mộc hệ chí cao công pháp, sinh sinh bất tức, khiến gỗ khô cũng gặp lại mùa xuân."
+
+#. technique.csv: 乙木长生诀
+msgid "TECHNIQUE_33_NAME"
+msgstr "Ất Mộc Trường Sinh Quyết"
+
+#. technique.csv: 以气引神，力若龙象，举手投足，镇压诸邪。
+msgid "TECHNIQUE_34_DESC"
+msgstr ""
+"Dùng khí dẫn thần, lực mạnh như long tượng, từng cử chỉ hành động đều đủ sức trấn áp chư tà."
+
+#. technique.csv: 龙象镇魔功
+msgid "TECHNIQUE_34_NAME"
+msgstr "Long Tượng Trấn Ma Công"
+
+#. technique.csv: 入海为鱼，扶摇为鸟。阴阳变化，极速与吞噬并存。
+msgid "TECHNIQUE_35_DESC"
+msgstr ""
+"Vào biển thành cá, bay vút thành chim. Âm dương biến hóa, cực tốc và thôn phệ cùng tồn tại."
+
+#. technique.csv: 垂天阴阳翼
+msgid "TECHNIQUE_35_NAME"
+msgstr "Thùy Thiên Âm Dương Dực"
+
+#. technique.csv: 以无限空间证道，掌控虚空，先天立于不败之地。
+msgid "TECHNIQUE_36_DESC"
+msgstr ""
+"Lấy không gian vô tận để chứng đạo, chưởng khống hư không, tiên thiên đã "
+"đứng ở thế bất bại."
+
+#. technique.csv: 太虚行者录
+msgid "TECHNIQUE_36_NAME"
+msgstr "Thái Hư Hành Giả Lục"
+
+#. technique.csv: 太上忘情，非无情，乃忘情。至公至正，威力...
+msgid "TECHNIQUE_37_DESC"
+msgstr ""
+"Thái thượng vong tình không phải vô tình, mà là quên tình. Chí công chí "
+"chính, uy lực vô biên."
+
+#. technique.csv: 太上忘情篇
+msgid "TECHNIQUE_37_NAME"
+msgstr "Thái Thượng Vong Tình Thiên"
+
+#. technique.csv: 乘天地之正，而御六气之辩，以游无穷。...
+msgid "TECHNIQUE_38_DESC"
+msgstr ""
+"Thừa thiên địa chi chính, ngự lục khí chi biện, ngao du vô cùng."
+
+#. technique.csv: 逍遥游
+msgid "TECHNIQUE_38_NAME"
+msgstr "Tiêu Dao Du"
+
+#. technique.csv: 吞噬万千体质本源，以后天返先天，铸就混沌之躯。
+msgid "TECHNIQUE_39_DESC"
+msgstr ""
+"Thôn phệ bản nguyên của vạn loại thể chất, lấy hậu thiên phản tiên thiên, "
+"đúc nên Hỗn Độn chi khu."
+
+#. technique.csv: 混沌噬灵诀
+msgid "TECHNIQUE_39_NAME"
+msgstr "Hỗn Độn Phệ Linh Quyết"
+
+#. technique.csv: 魔门至高宝典，包罗万象，直指破碎虚空之境。
+msgid "TECHNIQUE_40_DESC"
+msgstr ""
+"Bí điển tối cao của ma môn, bao quát vạn tượng, trực chỉ cảnh giới phá toái hư "
+"không."
+
+#. technique.csv: 罗刹魔典
+msgid "TECHNIQUE_40_NAME"
+msgstr "La Sát Ma Điển"
+
+#. technique.csv: 血海不枯，真身不死。演化亿万血神子...
+msgid "TECHNIQUE_41_DESC"
+msgstr ""
+"Huyết hải không cạn, chân thân không diệt, có thể diễn hóa ra vô số Huyết "
+"Thần Tử."
+
+#. technique.csv: 血海不灭经
+msgid "TECHNIQUE_41_NAME"
+msgstr "Huyết Hải Bất Diệt Kinh"
+
+#. technique.csv: 通过吞噬天地异火进化功法，潜力无限，号令万火...
+msgid "TECHNIQUE_42_DESC"
+msgstr ""
+"Thông qua việc thôn phệ dị hỏa trời đất để tiến hóa công pháp, tiềm lực vô "
+"cùng tận, đủ sức hiệu lệnh vạn hỏa."
+
+#. technique.csv: 九转火源经
+msgid "TECHNIQUE_42_NAME"
+msgstr "Cửu Chuyển Hỏa Nguyên Kinh"
+
+#. technique.csv: 以天地为炉鼎，种魔种，夺天地造化，死中求生。
+msgid "TECHNIQUE_43_DESC"
+msgstr ""
+"Lấy trời đất làm lô đỉnh, gieo ma chủng, đoạt thiên địa tạo hóa, tìm đường "
+"sống giữa chỗ chết."
+
+#. technique.csv: 种魔夺天诀
+msgid "TECHNIQUE_43_NAME"
+msgstr "Chủng Ma Đoạt Thiên Quyết"
+
+#. technique.csv: 专修神识，能分心多用，操控万千法器傀儡。...
+msgid "TECHNIQUE_44_DESC"
+msgstr ""
+"Chuyên tu thần thức, có thể một lòng đa dụng, điều khiển hàng vạn pháp khí "
+"và khôi lỗi."
+
+#. technique.csv: 千念分神术
+msgid "TECHNIQUE_44_NAME"
+msgstr "Thiên Niệm Phân Thần Thuật"
+
+#. technique.csv: 阴阳大道，极乐飞升。双修之至高法门。...
+msgid "TECHNIQUE_45_DESC"
+msgstr "Âm dương đại đạo, cực lạc phi thăng, là pháp môn song tu tối cao."
+
+#. technique.csv: 大乐赋
+msgid "TECHNIQUE_45_NAME"
+msgstr "Đại Lạc Phú"
+
+#. technique.csv: 域外天魔之舞，勾魂摄魄，乱人心智。...
+msgid "TECHNIQUE_46_DESC"
+msgstr "Điệu múa của thiên ma ngoại vực, câu hồn nhiếp phách, làm loạn tâm trí người khác."
+
+#. technique.csv: 天魔舞
+msgid "TECHNIQUE_46_NAME"
+msgstr "Thiên Ma Vũ"
+
+#. technique.csv: 体迅飞凫，飘忽若神，动无常则，若危若安。
+msgid "TECHNIQUE_47_DESC"
+msgstr ""
+"Thân nhẹ như chim nước bay, phiêu hốt như thần, động vô thường tắc, tưởng nguy mà lại như"
+" an."
+
+#. technique.csv: 烟波渺步
+msgid "TECHNIQUE_47_NAME"
+msgstr "Yên Ba Miểu Bộ"
+
+#. technique.csv: 神魂不灭，超脱彼岸。修成无量法身，万劫不磨。
+msgid "TECHNIQUE_48_DESC"
+msgstr ""
+"Thần hồn bất diệt, siêu thoát bỉ ngạn. Tu thành vô lượng pháp thân, vạn kiếp"
+" bất ma."
+
+#. technique.csv: 无量寂灭经
+msgid "TECHNIQUE_48_NAME"
+msgstr "Vô Lượng Tịch Diệt Kinh"
+
+#. technique.csv: 佛门护法金刚之怒，如雷霆万钧，震慑一切邪魔，荡涤世间污秽。
+msgid "TECHNIQUE_49_DESC"
+msgstr ""
+"Lôi nộ của hộ pháp Kim Cang Phật môn, mạnh như lôi đình vạn quân, chấn nhiếp hết "
+"thảy tà ma, gột sạch ô uế thế gian."
+
+#. technique.csv: 大威德金刚雷
+msgid "TECHNIQUE_49_NAME"
+msgstr "Đại Uy Đức Kim Cang Lôi"
+
+#. technique.csv: 木系基础功法，气息绵长，有驻颜延寿之效。
+msgid "TECHNIQUE_4_DESC"
+msgstr ""
+"Công pháp hệ Mộc cơ bản, khí tức kéo dài miên trường, có hiệu quả dưỡng nhan"
+" kéo dài tuổi thọ."
+
+#. technique.csv: 青元长生功
+msgid "TECHNIQUE_4_NAME"
+msgstr "Thanh Nguyên Trường Sinh Công"
+
+#. technique.csv: 唵嘛呢叭咪吽。佛门至高咒语，蕴含无尽愿力，能净化世间一切罪业与灾厄。
+msgid "TECHNIQUE_50_DESC"
+msgstr ""
+"Án ma ni bát mê hồng. Chí cao chân ngôn của Phật môn, ẩn chứa nguyện lực vô "
+"tận, có thể tịnh hóa hết thảy tội nghiệp và tai ách nơi thế gian."
+
+#. technique.csv: 六字大明咒
+msgid "TECHNIQUE_50_NAME"
+msgstr "Lục Tự Đại Minh Chú"
+
+#. technique.csv: 阴损毒辣，专破内家真气，触之即死。...
+msgid "TECHNIQUE_51_DESC"
+msgstr "Âm hiểm độc ác, chuyên phá nội gia chân khí, chạm vào là chết."
+
+#. technique.csv: 幽冥玄阴爪
+msgid "TECHNIQUE_51_NAME"
+msgstr "U Minh Huyền Âm Trảo"
+
+#. technique.csv: 身化雷霆，瞬息千里，原地只留残影重重。
+msgid "TECHNIQUE_52_DESC"
+msgstr ""
+"Thân hóa lôi đình, chớp mắt vượt ngàn dặm, nơi cũ chỉ còn lưu lại từng tầng "
+"tàn ảnh."
+
+#. technique.csv: 雷影瞬遁
+msgid "TECHNIQUE_52_NAME"
+msgstr "Lôi Ảnh Thuấn Độn"
+
+#. technique.csv: 以自身为皮，鲜血为墨。修炼者必先历经剥皮噬血之苦。
+msgid "TECHNIQUE_53_DESC"
+msgstr ""
+"Lấy da thịt bản thân làm giấy, lấy máu tươi làm mực. Người tu luyện trước "
+"hết phải chịu nỗi đau lột da thực huyết."
+
+#. technique.csv: 修罗血煞功
+msgid "TECHNIQUE_53_NAME"
+msgstr "Tu La Huyết Sát Công"
+
+#. technique.csv: 炼器极致，化腐朽为神奇，万物皆可随心炼化。
+msgid "TECHNIQUE_54_DESC"
+msgstr ""
+"Đỉnh cao của luyện khí, hóa mục nát thành thần kỳ, vạn vật đều có thể tùy "
+"tâm luyện hóa."
+
+#. technique.csv: 天工造物诀
+msgid "TECHNIQUE_54_NAME"
+msgstr "Thiên Công Tạo Vật Quyết"
+
+#. technique.csv: 引周天星力，演化宇宙洪荒，攻防一体。...
+msgid "TECHNIQUE_55_DESC"
+msgstr ""
+"Dẫn Chu Thiên tinh lực, diễn hóa vũ trụ hồng hoang, công thủ hợp nhất."
+
+#. technique.csv: 万星飞仙阵
+msgid "TECHNIQUE_55_NAME"
+msgstr "Vạn Tinh Phi Tiên Trận"
+
+#. technique.csv: 化作一道流金遁光，瞬息万里，乃逃生赶路之绝学。
+msgid "TECHNIQUE_56_DESC"
+msgstr ""
+"Hóa thành một đạo lưu kim độn quang, chớp mắt vượt vạn dặm, là tuyệt học để thoát "
+"thân và lên đường."
+
+#. technique.csv: 金光遁法
+msgid "TECHNIQUE_56_NAME"
+msgstr "Kim Quang Độn Pháp"
+
+#. technique.csv: 天地有正气，杂然赋流形。养胸中浩然之气，诸邪不侵，万法不破。
+msgid "TECHNIQUE_57_DESC"
+msgstr ""
+"Trời đất có chính khí, muôn hình vạn trạng đều do đó mà thành. Dưỡng Hạo "
+"Nhiên chi khí trong lồng ngực, chư tà không thể xâm, vạn pháp không thể phá."
+
+#. technique.csv: 浩然正气歌
+msgid "TECHNIQUE_57_NAME"
+msgstr "Hạo Nhiên Chính Khí Ca"
+
+#. technique.csv: 笔落惊风雨，诗成泣鬼神。以圣人之言判春秋功过，一字千金。
+msgid "TECHNIQUE_58_DESC"
+msgstr ""
+"Bút hạ kinh phong vũ, thơ thành khấp quỷ thần. Dùng lời của thánh hiền để phán "
+"định công tội xuân thu, một chữ đáng giá ngàn vàng."
+
+#. technique.csv: 春秋笔法
+msgid "TECHNIQUE_58_NAME"
+msgstr "Xuân Thu Bút Pháp"
+
+#. technique.csv: 口含天宪，言出法随。以圣贤之语调动天地规则，令行禁止，莫敢不从。
+msgid "TECHNIQUE_59_DESC"
+msgstr ""
+"Miệng ngậm thiên hiến, lời ra pháp theo. Dùng ngôn ngữ của thánh hiền để "
+"điều động quy tắc trời đất, khiến lệnh ban ra là phải thi hành, không ai dám không tuân theo."
+
+#. technique.csv: 言出法随
+msgid "TECHNIQUE_59_NAME"
+msgstr "Ngôn Xuất Pháp Tùy"
+
+#. technique.csv: 汲取天地草木精气，生机浩荡，万木臣服。
+msgid "TECHNIQUE_5_DESC"
+msgstr ""
+"Hấp thu tinh khí của cỏ cây trời đất, sinh cơ dạt dào, khiến vạn mộc thần phục."
+
+#. technique.csv: 太乙青木气
+msgid "TECHNIQUE_5_NAME"
+msgstr "Thái Ất Thanh Mộc Khí"
+
+#. technique.csv: Draws the purple qi of the rising sun to temper the skin...
+msgid "TECHNIQUE_60_DESC"
+msgstr ""
+"Dẫn tử khí của húc nhật để tôi luyện da thịt, khiến toàn thân ấm nóng, khí "
+"huyết sung mãn."
+
+#. technique.csv: Sun Tempering Art
+msgid "TECHNIQUE_60_NAME"
+msgstr "Húc Nhật Đoán Thể Thuật"
+
+#. technique.csv: Body like glazed glass...
+msgid "TECHNIQUE_61_DESC"
+msgstr ""
+"Thân như lưu ly, trong ngoài minh triệt, chư tà bất xâm, kiên bất khả tồi."
+
+#. technique.csv: Radiant Glass Body
+msgid "TECHNIQUE_61_NAME"
+msgstr "Thánh Quang Lưu Ly Thân"
+
+#. technique.csv: The supreme technique of the Eternal Bright Palace...
+msgid "TECHNIQUE_62_DESC"
+msgstr ""
+"Tuyệt học trấn phái của Trường Minh Cung. Nhục thân thành thánh, kim thân "
+"bất diệt, quang diệu vạn cổ."
+
+#. technique.csv: Great Bright Golden Body
+msgid "TECHNIQUE_62_NAME"
+msgstr "Đại Quang Minh Kim Thân"
+
+#. technique.csv: 上善若水，水利万物而不争，绵柔醇厚。...
+msgid "TECHNIQUE_7_DESC"
+msgstr ""
+"Thượng thiện nhược thủy, thủy lợi vạn vật nhi bất tranh, miên nhu thuần hậu."
+
+#. technique.csv: 若水诀
+msgid "TECHNIQUE_7_NAME"
+msgstr "Nhược Thủy Quyết"
+
+#. technique.csv: 驾驭滔滔黑水，重若千钧，拳意如深海暗流。
+msgid "TECHNIQUE_8_DESC"
+msgstr ""
+"Điều khiển cuồn cuộn hắc thủy, nặng như thiên quân, quyền ý tựa dòng ngầm "
+"nơi biển sâu."
+
+#. technique.csv: 北冥玄水拳
+msgid "TECHNIQUE_8_NAME"
+msgstr "Bắc Minh Huyền Thủy Quyền"

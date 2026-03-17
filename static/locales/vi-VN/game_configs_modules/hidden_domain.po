@@ -1,0 +1,65 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr ""
+"Nơi một vị đại năng Nhân tộc cùng Viêm Ma Hoàng đồng quy vu tận từ vạn năm "
+"trước. Cho đến nay, địa mạch nơi đây vẫn phun trào địa sát chân hỏa bất "
+"diệt, nhuộm đỏ cả thương khung. Dưới lớp tiêu thổ chôn vùi vô số đoạn kiếm "
+"tàn kích; đến nửa đêm lại có chiến hồn gào thét, tái hiện cảnh chém giết "
+"thảm liệt năm xưa. Ở đây lịch luyện tuy phải luôn nhẫn chịu nỗi khổ hỏa độc "
+"phệ tâm, thậm chí có thể bị hỏa linh lực cuồng bạo thiêu thành tro bụi, "
+"nhưng lại cực dễ cảm ngộ chiến ý thượng cổ. Nếu cơ duyên đủ sâu, thậm chí "
+"còn có thể nhặt được mảnh pháp bảo do cổ tu để lại dưới đáy nham tương, hoặc "
+"nhìn trộm được một tia Đại Đạo pháp tắc."
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "Vẫn Tiên Phần Cốc"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr ""
+"Quần điện các nguy nga trôi nổi bên trên tầng cương phong Cửu Thiên, không "
+"phải kẻ có đại nghị lực thì không thể vượt qua những khe nứt không gian ở "
+"vành ngoài, nơi đủ sức xé nát nhục thân. Trong điện phủ đầy cấm chế thượng "
+"cổ cùng tầng tầng huyễn trận; chỉ cần đi sai một bước là hình thần câu diệt, "
+"vĩnh viễn đọa vào hư không. Dù Tàng Kinh Các đã sụp đổ theo năm tháng, nhưng "
+"mỗi một trang kim thư ngọc sách phiêu tán trong hư không loạn lưu đều ghi "
+"chép vô thượng thần thông đủ sức khiến tu chân giới dấy lên mưa máu gió tanh."
+" Chỉ có tu sĩ Kim Đan đỉnh phong mới miễn cưỡng chống được uy áp từ thời "
+"viễn cổ để nhìn trộm một tia tiên cơ."
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "Cửu Thiên Hư Không Điện"
+
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr ""
+"Đây là một mảnh vỡ còn sót lại sau khi Đan Tông thượng cổ \"Thanh Đế Uyển\" "
+"sụp nát, quanh năm bị bao phủ trong chướng khí kịch độc bảy màu. Pháp tắc "
+"trong giới bị phá nát khiến linh thực sinh trưởng điên cuồng, lại còn có yêu đằng "
+"hóa hình cùng thực nhân hoa ẩn nấp trong bóng tối chực chờ săn mồi. Tương "
+"truyền nếu có thể xuyên qua \"Tử Tịch Lâm\" ở vòng ngoài, tìm được \"Ất Mộc "
+"Linh Tuyền\" nơi hạch tâm vẫn chưa khô cạn, thì ngay cả cỏ phàm cũng có thể "
+"hóa thành tiên dược, việc tẩy tủy phạt cốt cũng chẳng đáng nhắc tới. Nhưng "
+"đồng thời cũng phải luôn đề phòng những hộ giới yêu thú đã bị bã thuốc nuôi "
+"dưỡng suốt vạn năm đến mức dị hóa vặn vẹo, bởi chúng mang khát vọng bệnh "
+"hoạn đối với máu tươi."
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "Vạn Mộc Tàn Giới"

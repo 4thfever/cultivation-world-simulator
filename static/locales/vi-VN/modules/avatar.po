@@ -1,0 +1,164 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# ============================================================================
+# Avatar System
+# ============================================================================
+# Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "Xuất thân"
+
+msgid "Origin: {origin}"
+msgstr "Xuất thân: {origin}"
+
+msgid "Orthodoxy"
+msgstr "Đạo thống"
+
+msgid "Ranking"
+msgstr "Xếp hạng"
+
+msgid "Realm"
+msgstr "Cảnh giới"
+
+msgid "Recent Events"
+msgstr "Sự kiện gần đây"
+
+msgid "Region"
+msgstr "Khu vực"
+
+msgid "Relations"
+msgstr "Quan hệ"
+
+msgid "Sect"
+msgstr "Tông môn"
+
+msgid "Short-term Goal"
+msgstr "Mục tiêu ngắn hạn"
+
+msgid "Spirit Animal"
+msgstr "Linh thú"
+
+msgid "Spirit Stones"
+msgstr "Linh Thạch"
+
+msgid "Technique"
+msgstr "Công pháp"
+
+msgid "Traits"
+msgstr "Đặc chất"
+
+msgid "Weapon"
+msgstr "Binh khí"
+
+msgid "appearance_10_desc_female"
+msgstr ""
+"Ngươi đẹp đến mức khiến người ta kinh diễm, chỉ liếc mắt một lần đã khó quên."
+
+msgid "appearance_10_desc_male"
+msgstr "Dung mạo ngươi tuấn mỹ đến mức tựa kẻ không vương bụi trần."
+
+msgid "appearance_10_name"
+msgstr "Kinh Diễm"
+
+msgid "appearance_1_desc_female"
+msgstr "Ngươi cực kỳ xấu xí, ngũ quan mất cân đối, khiến người khác thường né tránh."
+
+msgid "appearance_1_desc_male"
+msgstr "Ngươi cực kỳ xấu xí, ngũ quan không hài hòa, thường khiến người ta ngoái nhìn."
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "Kỳ Xấu"
+
+msgid "appearance_2_desc_female"
+msgstr "Ngũ quan ngươi thô ráp, có vài nét khá đột ngột và kém hài hòa."
+
+msgid "appearance_2_desc_male"
+msgstr "Ngũ quan ngươi thô ráp, có vài nét trông khá cứng và khó coi."
+
+msgid "appearance_2_name"
+msgstr "Xấu Xí"
+
+msgid "appearance_3_desc_female"
+msgstr "Dung mạo ngươi thô lậu, nhìn lâu cũng khó thấy thuận mắt."
+
+msgid "appearance_3_desc_male"
+msgstr "Dung mạo ngươi thô lậu, thần sắc cũng không mấy dễ nhìn."
+
+msgid "appearance_3_name"
+msgstr "Thô Lậu"
+
+msgid "appearance_4_desc_female"
+msgstr "Ngươi có diện mạo bình thường, dễ dàng chìm nghỉm giữa đám đông."
+
+msgid "appearance_4_desc_male"
+msgstr "Ngươi có diện mạo bình thường, đứng trong đám đông cũng chẳng hề nổi bật."
+
+msgid "appearance_4_name"
+msgstr "Hàn Tố"
+
+msgid "appearance_5_desc_female"
+msgstr "Mi mục ngươi thanh tú, nhìn kỹ khá là dễ mến."
+
+msgid "appearance_5_desc_male"
+msgstr "Mi mục ngươi thanh tú, tổng thể nhìn khá thuận mắt."
+
+msgid "appearance_5_name"
+msgstr "Thanh Tú"
+
+msgid "appearance_6_desc_female"
+msgstr "Ngũ quan ngươi tinh xảo, khí chất ôn nhã."
+
+msgid "appearance_6_desc_male"
+msgstr "Ngũ quan ngươi tinh xảo, khí chất đoan chính."
+
+msgid "appearance_6_name"
+msgstr "Tú Trí"
+
+msgid "appearance_7_desc_female"
+msgstr "Ngươi sinh ra đã rất mỹ lệ, đi tới đâu cũng cực kỳ bắt mắt."
+
+msgid "appearance_7_desc_male"
+msgstr "Ngươi tuấn lãng phi phàm, tần suất khiến người khác ngoái đầu nhìn lại cực cao."
+
+msgid "appearance_7_name"
+msgstr "Tuấn Mỹ"
+
+msgid "appearance_8_desc_female"
+msgstr "Ngươi đẹp đến mức khiến người ta phải kinh tâm động phách."
+
+msgid "appearance_8_desc_male"
+msgstr ""
+"Dung mạo ngươi xuất chúng, đi tới đâu cũng trở thành tâm điểm chú ý."
+
+msgid "appearance_8_name"
+msgstr "Khuynh Thành"
+
+msgid "appearance_9_desc_female"
+msgstr "Vẻ đẹp của ngươi kinh tâm động phách, gần như liếc mắt một lần là khó quên."
+
+msgid "appearance_9_desc_male"
+msgstr "Dung mạo lẫn khí chất của ngươi đều thuộc hàng thượng thừa, thường khiến người khác liếc nhìn."
+
+msgid "appearance_9_name"
+msgstr "Tuyệt Sắc"
+
+msgid "daughter"
+msgstr "nữ"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr ""
+"{name} đã thức tỉnh linh căn và bước lên con đường tu hành."

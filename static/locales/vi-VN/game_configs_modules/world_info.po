@@ -1,0 +1,258 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr ""
+"Bạn có một loạt hành động có thể thực hiện. Hãy chú ý tới hiệu quả, điều "
+"kiện hạn chế, khu vực và thời điểm của từng hành động."
+
+#. world_info.csv:
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "Hành Động"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "Hành Động"
+
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr ""
+"Cứ sau một khoảng thời gian không cố định sẽ có một buổi đấu giá do người "
+"thần bí tổ chức; biết đâu sẽ có bảo vật tốt được đem ra bán."
+
+#. world_info.csv:
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "Đấu Giá"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "Đấu Giá"
+
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr ""
+"Thế giới này tuân theo quy luật cá lớn nuốt cá bé, áp chế cảnh giới vô cùng "
+"rõ rệt; kẻ cảnh giới cao có ưu thế tuyệt đối trước kẻ cảnh giới thấp. Nếu "
+"đối phương tử vong, người chiến thắng có thể cướp lấy tài vật của kẻ bại."
+
+#. world_info.csv:
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "Chiến Đấu"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "Chiến Đấu"
+
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr ""
+"Tu luyện có thể tăng kinh nghiệm cho tới khi chạm bình cảnh trước lúc đột "
+"phá. Đột phá là sự kiện mang tính xác suất; thành công sẽ tiến vào cảnh giới"
+" tiếp theo."
+
+#. world_info.csv:
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "Tu Luyện"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "Tu Luyện"
+
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "Sinh mệnh rơi xuống dưới 0 cũng sẽ dẫn tới tử vong."
+
+#. world_info.csv:
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "Tử Vong"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "Tử Vong"
+
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr ""
+"Thông qua binh khí, trang bị phụ trợ, đan dược và các vật phẩm khác, bạn có "
+"thể nhận thêm thuộc tính và đủ loại tăng ích. Sở hữu trang bị tốt hoặc dùng "
+"đan dược tốt đều có thể mang lại lợi thế to lớn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "Trang Bị & Đan Dược"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "Trang Bị & Đan Dược"
+
+#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr "Đây là một thế giới tu tiên nơi vô số tu sĩ cùng tranh nhau tu hành."
+
+#. world_info.csv:
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "Giới Thiệu"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "Giới Thiệu"
+
+#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr ""
+"Mỗi nhân vật đều có giới hạn thọ nguyên. Trong 20 năm trước khi đại hạn đến,"
+" cơ thể sẽ dần suy yếu và có xác suất chết già; một khi chạm hoặc vượt quá "
+"giới hạn thọ nguyên, cái chết là điều chắc chắn. Nâng cao cảnh giới và một "
+"số bảo vật hay đan dược có thể tăng giới hạn thọ nguyên."
+
+#. world_info.csv:
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "Thọ Nguyên"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "Thọ Nguyên"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr ""
+"Các đạo thống khác nhau có những phương thức tu hành khác nhau. Đạo gia "
+"thiên về Thổ Nạp, võ giả thiên về luyện thể, Phật gia thiên về tĩnh tọa, còn"
+" Nho gia thiên về giáo hóa."
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "Đạo Thống"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "Đạo Thống"
+
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr ""
+"Các cảnh giới tu tiên từ yếu tới mạnh là: Luyện Khí, Trúc Cơ, Kim Đan, "
+"Nguyên Anh. Mỗi cảnh giới lại chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Chênh "
+"lệch giữa các cảnh giới là vô cùng lớn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "Cảnh Giới"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "Cảnh Giới"
+
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr ""
+"Mỗi khu vực có hiệu quả khác nhau; làm đúng việc ở đúng nơi sẽ đạt hiệu quả "
+"gấp đôi với công sức chỉ bằng một nửa."
+
+#. world_info.csv:
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "Khu Vực"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "Khu Vực"
+
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr ""
+"Linh Căn được tạo thành từ ngũ hành Kim, Mộc, Thủy, Hỏa, Thổ; chia thành đơn"
+" linh căn, song linh căn và Thiên Linh Căn. Quy luật tương khắc của ngũ hành"
+" là: Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy, Thủy khắc Hỏa, Hỏa khắc Kim."
+" Thiên Linh Căn dung nạp đủ cả ngũ hành và còn có thêm tăng ích khi đột phá."
+" Hiệu suất tu luyện sẽ cao nhất tại khu vực phù hợp với thuộc tính Linh Căn "
+"của bản thân."
+
+#. world_info.csv:
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "Linh Căn"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "Linh Căn"
+
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr ""
+"Cứ mỗi vài năm sẽ có bí cảnh mở ra. Tiến vào bí cảnh có thể gặp hung hiểm, "
+"nhưng cũng có thể thu được pháp bảo và công pháp cao cấp."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "Bí Cảnh"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "Bí Cảnh"
+
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr ""
+"Nơi che chở của tu sĩ. Gia nhập tông môn giúp học được công pháp độc môn và "
+"được đồng môn bảo hộ; còn Tán Tu tuy tự do nhưng tài nguyên khan hiếm."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "Tông Môn"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "Tông Môn"
+
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr ""
+"Tại các khu vực thành thị, bạn có thể mua đan dược và binh khí cấp Luyện "
+"Khí. Mua đan dược sẽ lập tức dùng để cường hóa bản thân; mua binh khí giúp "
+"bạn chuyển sang loại binh khí tiện tay hơn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "Mua Bán"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "Mua Bán"
+
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr ""
+"Đồng tiền thông dụng của giới tu tiên. Có thể dùng để mua pháp bảo và đan "
+"dược, thu được thông qua thu thập, giao dịch hoặc cướp đoạt."
+
+#. world_info.csv:
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "Linh Thạch"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "Linh Thạch"
+
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr ""
+"Cứ mỗi vài năm, thế giới sẽ xuất hiện biến động thiên tượng như thủy triều "
+"linh khí, từ đó ảnh hưởng tới năng lực của nhân vật."
+
+#. world_info.csv:
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "Thiên Tượng Thế Giới"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "Thiên Tượng Thế Giới"
+
+#. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
+msgid "WORLD_INFO_RANKING_DESC"
+msgstr ""
+"Giới tu tiên có Thiên Bảng, Địa Bảng, Nhân Bảng cùng Bảng Tông Môn. Thiên "
+"Bảng ghi lại cường giả Nguyên Anh kỳ, Địa Bảng ghi lại cường giả Kim Đan kỳ,"
+" Nhân Bảng ghi lại cường giả Trúc Cơ kỳ, còn Bảng Tông Môn xếp hạng theo "
+"tổng thực lực của từng tông môn."
+
+#. world_info.csv:
+msgid "WORLD_INFO_RANKING_NAME"
+msgstr "Bảng Xếp Hạng"
+
+msgid "WORLD_INFO_RANKING_TITLE"
+msgstr "Bảng Xếp Hạng"

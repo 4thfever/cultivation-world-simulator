@@ -1,0 +1,57 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr ""
+"Phổ độ chúng sinh, thông qua thiền định và đốn ngộ để tăng tiến cảnh giới."
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "Phật"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr ""
+"Giáo hóa thế nhân, dưỡng Hạo Nhiên Khí, cảnh giới cũng theo đó mà tăng tiến."
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "Nho"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr ""
+"Thuận theo Thiên Đạo, thổ nạp linh khí, thông qua tu hành để tăng tiến cảnh "
+"giới."
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "Đạo"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "Lấy thiên địa làm thầy, đạo pháp tự nhiên."
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "Thiên Địa"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr ""
+"Lấy võ nhập đạo, tôi luyện gân cốt. Tuy tiến cảnh chậm chạp, nhưng căn cơ "
+"vững chắc, đột phá bình cảnh cũng tựa như ăn cơm uống nước."
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "Võ"
+
+msgid "Orthodoxy [{name}]"
+msgstr "Đạo Thống [{name}]"

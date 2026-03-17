@@ -1,0 +1,274 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+msgid "MATERIAL_101_DESC"
+msgstr ""
+"Khoáng thạch đen thông thường, chất liệu cứng rắn, thích hợp để chế tạo pháp "
+"khí cấp Luyện Khí."
+
+#. material.csv: 玄铁
+msgid "MATERIAL_101_NAME"
+msgstr "Huyền Thiết"
+
+#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+msgid "MATERIAL_102_DESC"
+msgstr ""
+"Khoáng đồng đỏ rực toàn thân, ẩn chứa hỏa linh chi lực, là vật liệu thường "
+"dùng để luyện khí ở cấp Trúc Cơ."
+
+#. material.csv: 赤精铜
+msgid "MATERIAL_102_NAME"
+msgstr "Xích Tinh Đồng"
+
+#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+msgid "MATERIAL_103_DESC"
+msgstr ""
+"Kim loại hiếm màu bạc trắng, tính dẻo cực cao lại có thể dẫn truyền linh "
+"lực, thích hợp để luyện chế pháp bảo cấp Kim Đan."
+
+#. material.csv: 秘银
+msgid "MATERIAL_103_NAME"
+msgstr "Bí Ngân"
+
+#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+msgid "MATERIAL_104_DESC"
+msgstr ""
+"Khoáng thạch vàng óng mang phong mang bức người, kiên bất khả tồi, là vật "
+"liệu đỉnh cấp để luyện chế bản mệnh pháp bảo ở cấp Nguyên Anh."
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "Canh Kim"
+
+#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+msgid "MATERIAL_10_DESC"
+msgstr "Tinh hoa được chiết luyện từ kỳ thảo, có hiệu quả trị liệu thần kỳ."
+
+#. material.csv: 奇草精华
+msgid "MATERIAL_10_NAME"
+msgstr "Kỳ Thảo Tinh Hoa"
+
+#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+msgid "MATERIAL_11_DESC"
+msgstr ""
+"Mộc tâm trân quý của linh mộc, ẩn chứa linh lực nồng đậm, là vật liệu cốt lõi "
+"để chế tác pháp khí."
+
+#. material.csv: 灵木心
+msgid "MATERIAL_11_NAME"
+msgstr "Linh Mộc Tâm"
+
+#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+msgid "MATERIAL_12_DESC"
+msgstr ""
+"Gai linh dược của tiên nhân chưởng sa mạc, có thể giải bách độc; nếu chế "
+"thành châm dược thì hiệu quả càng rõ rệt."
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "Tiên Nhân Chưởng Thích"
+
+#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr ""
+"Cánh hoa trắng tinh của Hàn Sương Tuyết Liên, ẩn chứa cực hàn chi khí, là lựa "
+"chọn tốt nhất trong các dược liệu thuộc tính hàn."
+
+#. material.csv: 雪莲花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "Tuyết Liên Hoa Biện"
+
+#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+msgid "MATERIAL_14_DESC"
+msgstr ""
+"Bào tử lam sắc của Thủy Linh Chi, có thể tăng cường lưu chuyển linh lực cho "
+"người tu luyện hành Thủy."
+
+#. material.csv: 灵芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "Linh Chi Bào Tử"
+
+#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr ""
+"Hoa nhị trắng thuần của Tuyết Nhung Hoa, có công hiệu an thần trấn tĩnh, là "
+"dược liệu lý tưởng để phụ trợ minh tưởng."
+
+#. material.csv: 雪绒花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "Tuyết Nhung Hoa Nhị"
+
+#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+msgid "MATERIAL_16_DESC"
+msgstr ""
+"Tùng chi trân quý của cổ tùng ngàn năm, óng ánh như hổ phách, ẩn chứa linh "
+"lực dồi dào, là vật liệu hiếm cho việc luyện khí cao giai."
+
+#. material.csv: 古松松脂
+msgid "MATERIAL_16_NAME"
+msgstr "Cổ Tùng Tùng Chi"
+
+#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+msgid "MATERIAL_17_DESC"
+msgstr ""
+"Tinh hoa được chiết luyện từ Ngũ Cốc Linh Đạo, có thể nhanh chóng cường hóa "
+"thể chất, là thành phần chủ yếu của đan dược thể tu."
+
+#. material.csv: 灵稻精华
+msgid "MATERIAL_17_NAME"
+msgstr "Linh Đạo Tinh Hoa"
+
+#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+msgid "MATERIAL_18_DESC"
+msgstr ""
+"Độc giác của Hám Địa Thần Ngưu, ẩn chứa đại địa chi lực dày nặng, là cực "
+"phẩm vật liệu để luyện chế trọng hình pháp bảo và trận bàn phòng ngự."
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "Thần Ngưu Giác"
+
+#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+msgid "MATERIAL_19_DESC"
+msgstr ""
+"Một tiết tinh hoa nhất trong Cửu Khúc Thanh Âm Trúc; khi gõ vào sẽ phát ra "
+"thanh âm giúp an thần định chí, là vật liệu tuyệt hảo để chế tạo pháp bảo "
+"âm ba."
+
+#. material.csv: 清音竹节
+msgid "MATERIAL_19_NAME"
+msgstr "Thanh Âm Trúc Tiết"
+
+#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+msgid "MATERIAL_1_DESC"
+msgstr ""
+"Lông mịn của linh thỏ tràn đầy linh tính, chất liệu mềm mại ấm áp, thích "
+"hợp để dệt thành y phục chống lạnh."
+
+#. material.csv: 灵兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "Linh Thỏ Mao"
+
+#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr ""
+"Nơi ngưng tụ nội đan của Băng Phách Cốt Xà; tuy là cực hàn chi vật, nhưng sau "
+"khi nuốt vào có thể tăng mạnh độ thân hòa của tu sĩ đối với hàn khí, là chí "
+"bảo để tu luyện công pháp hệ hàn."
+
+#. material.csv: 冰魄蛇胆
+msgid "MATERIAL_20_NAME"
+msgstr "Băng Phách Xà Đảm"
+
+#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+msgid "MATERIAL_21_DESC"
+msgstr ""
+"Lá cỏ trời sinh mang tinh văn trên mặt lá, ẩn chứa tinh thần chi lực thuần "
+"khiết, là chủ tài để luyện chế đan dược thuộc tính tinh thần."
+
+#. material.csv: 星纹叶
+msgid "MATERIAL_21_NAME"
+msgstr "Tinh Văn Diệp"
+
+#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+msgid "MATERIAL_22_DESC"
+msgstr ""
+"Quả hạch của Niết Bàn Xích Quả; dù phần thịt đã héo khô, lõi bên trong vẫn "
+"khóa giữ một tia bất diệt sinh cơ, là then chốt để luyện chế diên thọ đan và "
+"thánh dược trị thương."
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "Xích Quả Hạch"
+
+#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+msgid "MATERIAL_2_DESC"
+msgstr ""
+"Nanh sắc của hung mãnh ma lang, ẩn chứa ma lực, là vật liệu trân quý để rèn "
+"đúc lợi khí."
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "Ma Lang Nha"
+
+#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+msgid "MATERIAL_3_DESC"
+msgstr ""
+"Sừng lộc như ngọc của Thanh Vân Lộc, ẩn chứa thanh linh chi khí, là thượng "
+"phẩm dược liệu để luyện đan."
+
+#. material.csv: 青云鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "Thanh Vân Lộc Giác"
+
+#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+msgid "MATERIAL_4_DESC"
+msgstr ""
+"Vuốt sắc của Ám Ảnh Báo, khinh linh mà bén nhọn, có thể tăng độ linh hoạt "
+"cho binh khí."
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "Ám Ảnh Báo Trảo"
+
+#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+msgid "MATERIAL_5_DESC"
+msgstr ""
+"Giáp phiến cổ xưa của Bích Hải Long Quy, kiên bất khả tồi, ẩn chứa hải dương "
+"linh lực, là vật liệu đỉnh cấp để chế tạo phòng cụ."
+
+#. material.csv: 龙龟甲片
+msgid "MATERIAL_5_NAME"
+msgstr "Long Quy Giáp Phiến"
+
+#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr ""
+"Hùng đảm trân quý của Thạch Giáp Sơn Hùng, có thể tăng cường thể chất và sức "
+"mạnh, là dược liệu quý đối với thể tu."
+
+#. material.csv: 山熊胆
+msgid "MATERIAL_6_NAME"
+msgstr "Sơn Hùng Đảm"
+
+#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+msgid "MATERIAL_7_DESC"
+msgstr ""
+"Bờm tung bay của Phong Tốc Mã, nhẹ như phong vũ, có thể dùng để luyện chế "
+"pháp khí loại tốc độ."
+
+#. material.csv: 风速马鬃
+msgid "MATERIAL_7_NAME"
+msgstr "Bờm Phong Tốc Mã"
+
+#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+msgid "MATERIAL_8_DESC"
+msgstr ""
+"Vảy đỏ thẫm của Dung Nham Tích Dịch, chịu nhiệt cực cao lại ẩn chứa linh lực "
+"hệ Hỏa, là vật liệu cốt lõi của pháp khí thuộc tính hỏa."
+
+#. material.csv: 熔岩鳞片
+msgid "MATERIAL_8_NAME"
+msgstr "Dung Nham Lân Phiến"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+msgid "MATERIAL_9_DESC"
+msgstr ""
+"Túi độc của Độc Chướng Oa, bên trong chứa kịch độc, là vật liệu hiếm để "
+"luyện chế độc đan."
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "Độc Chướng Nang"

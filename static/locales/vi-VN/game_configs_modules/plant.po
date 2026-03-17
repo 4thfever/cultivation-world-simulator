@@ -1,0 +1,125 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr ""
+"Kỳ dị thực vật ngoan cường sinh trưởng trong khe đá sa mạc, lá cứng như "
+"kiếm, ban đêm có thể dẫn động rồi nuốt lấy tinh huy."
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "Tụ Tinh Thảo"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr ""
+"Sinh trưởng trên thần thụ cộng sinh nơi Linh Tuyền Chi Nhãn của Bồng Lai "
+"Đảo; ba trăm năm nở hoa một lần, ba trăm năm kết quả một lần, ẩn chứa sinh "
+"cơ khổng lồ."
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "Niết Bàn Xích Quả"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr ""
+"Kỳ dị thảo dược sinh trưởng nơi linh khí dồi dào, phiến lá xanh lam nhạt, "
+"có hiệu quả trị thương thần kỳ."
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "Kỳ Thảo"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr ""
+"Do cổ thụ ngàn năm hấp thu linh khí trời đất mà thành, chất gỗ cứng rắn và "
+"ẩn chứa linh lực nồng đậm."
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "Linh Mộc"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr ""
+"Thần kỳ thực vật sinh trưởng giữa lưu sa Tây Vực, có thể tích trữ lượng lớn "
+"linh khí và thủy phần, gai nhọn bên ngoài cũng chứa linh dược."
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "Sa Mạc Tiên Nhân Chưởng"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr ""
+"Trân quý linh dược nơi băng nguyên cực bắc, cánh hoa trắng sạch như tuyết, "
+"ẩn chứa cực hàn chi khí, có thể thanh nhiệt giải độc."
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "Hàn Sương Tuyết Liên"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr ""
+"Linh dược hệ Thủy sinh trưởng dưới đáy Thiên Hà, mang sắc lam bán trong "
+"suốt, có thể tăng cường linh lực hành Thủy của người tu luyện."
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "Thủy Linh Chi"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr ""
+"Cao sơn thực vật nơi Vạn Trượng Tuyết Phong, cánh hoa nhỏ nhắn trắng tinh, "
+"có thể chống lại giá lạnh khắc nghiệt và mang công hiệu an thần trấn tĩnh."
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "Tuyết Nhung Hoa"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr ""
+"Cổ lão cự thụ trong Thanh Vân Lâm Hải, niên đại vượt quá ngàn năm, nhựa cây "
+"chứa linh lực phong phú."
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "Thiên Niên Cổ Tùng"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr ""
+"Linh tính đạo cốc được bồi dưỡng trong điền địa phì nhiêu, từng hạt đều no "
+"đầy linh khí, có thể cường hóa thể chất người tu luyện."
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "Ngũ Cốc Linh Đạo"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr ""
+"Dị chủng biến dị trong Tử Trúc Lâm, thân trúc cửu khúc, trong rỗng ngoài "
+"rắn. Mỗi khi gió thổi qua sẽ phát ra chín loại thanh âm thanh việt khác "
+"nhau, trực chỉ thần hồn, có thể gột rửa tâm ma."
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "Cửu Khúc Thanh Âm Trúc"

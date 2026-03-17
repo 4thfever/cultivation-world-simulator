@@ -1,0 +1,234 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. auxiliary.csv: 以灵木纤维编织，生机盎然，防御尚可....
+msgid "AUXILIARY_2001_DESC"
+msgstr "Dệt từ sợi linh mộc, sinh cơ dạt dào, lực phòng ngự cũng khá."
+
+#. auxiliary.csv: 木灵甲
+msgid "AUXILIARY_2001_NAME"
+msgstr "Mộc Linh Giáp"
+
+#. auxiliary.csv: 生于火麒麟滴血之处，重伤必治，无伤增功....
+msgid "AUXILIARY_2002_DESC"
+msgstr ""
+"Sinh nơi chí dương chi địa, sắc đỏ như huyết, không chỉ chữa thương mà còn "
+"có thể tăng tiến công lực."
+
+#. auxiliary.csv: 血菩提
+msgid "AUXILIARY_2002_NAME"
+msgstr "Huyết Tinh Quả"
+
+#. auxiliary.csv: 虽不及真品，闻一闻也能活三百六十岁....
+msgid "AUXILIARY_2003_DESC"
+msgstr "Tuy không bằng chân phẩm, chỉ ngửi một hơi cũng đủ tăng thêm ba trăm sáu mươi năm tuổi thọ."
+
+#. auxiliary.csv: 人参果(伪)
+msgid "AUXILIARY_2003_NAME"
+msgstr "Nhân Sâm Quả (Ngụy)"
+
+#. auxiliary.csv: 千帆城通用的高级商令。...
+msgid "AUXILIARY_2004_DESC"
+msgstr "Thương lệnh cao cấp thông dụng tại Thiên Phàm Thành."
+
+#. auxiliary.csv: 万宝令
+msgid "AUXILIARY_2004_NAME"
+msgstr "Vạn Bảo Lệnh"
+
+#. auxiliary.csv: 提炼百斤凡铁才得一两，提升法器品质的基础...
+msgid "AUXILIARY_2005_DESC"
+msgstr "Phải tinh luyện trăm cân phàm thiết mới được một lạng, là nguyên liệu nền tảng để nâng cao phẩm chất pháp khí."
+
+#. auxiliary.csv: 铁精
+msgid "AUXILIARY_2005_NAME"
+msgstr "Thiết Tinh"
+
+#. auxiliary.csv: 可勘破虚妄，直视本源，寻龙定穴....
+msgid "AUXILIARY_2006_DESC"
+msgstr ""
+"Có thể khám phá hư vọng, động sát bản nguyên, tìm kiếm linh cơ trời đất, "
+"trực thị Đại Đạo."
+
+#. auxiliary.csv: 源天神眼
+msgid "AUXILIARY_2006_NAME"
+msgstr "Thông Thiên Pháp Nhãn"
+
+#. auxiliary.csv: 步履生云，身轻如燕，赶路必备....
+msgid "AUXILIARY_2007_DESC"
+msgstr "Bước chân sinh vân, thân nhẹ như yến, là vật thiết yếu khi lên đường."
+
+#. auxiliary.csv: 踏云靴
+msgid "AUXILIARY_2007_NAME"
+msgstr "Đạp Vân Ngoa"
+
+#. auxiliary.csv: 佛门至宝，持之可灵台清明，悟性大增....
+msgid "AUXILIARY_2008_DESC"
+msgstr "Chí bảo Phật môn, mang theo có thể khiến linh đài thanh minh, ngộ tính tăng nhiều."
+
+#. auxiliary.csv: 菩提子
+msgid "AUXILIARY_2008_NAME"
+msgstr "Bồ Đề Tử"
+
+#. auxiliary.csv: 刀枪不入，水火不侵，贴身软甲....
+msgid "AUXILIARY_2009_DESC"
+msgstr "Đao thương bất nhập, thủy hỏa bất xâm, là nhuyễn giáp mặc sát người."
+
+#. auxiliary.csv: 金丝软甲
+msgid "AUXILIARY_2009_NAME"
+msgstr "Kim Ty Nhuyễn Giáp"
+
+#. auxiliary.csv: 古墓派至宝，在此床上修炼，事半功倍，且无...
+msgid "AUXILIARY_2010_DESC"
+msgstr ""
+"Chế từ huyền băng cực bắc, tu luyện trên đó có thể trấn áp tâm hỏa, đạt hiệu "
+"quả gấp đôi với nửa công sức."
+
+#. auxiliary.csv: 寒玉床
+msgid "AUXILIARY_2010_NAME"
+msgstr "Huyền Băng Ngọc Sàng"
+
+#. auxiliary.csv: 千人千面，不仅掩盖容貌，更能掩盖气息....
+msgid "AUXILIARY_2011_DESC"
+msgstr "Thiên nhân thiên diện, không chỉ che giấu dung mạo mà còn có thể ẩn đi khí tức."
+
+#. auxiliary.csv: 无相面具
+msgid "AUXILIARY_2011_NAME"
+msgstr "Vô Tướng Diện Cụ"
+
+#. auxiliary.csv: 飞行法器，速度极快，居家旅行杀人越货必备...
+msgid "AUXILIARY_2051_DESC"
+msgstr "Phi hành pháp khí, tốc độ cực nhanh, là vật tất bị cho lên đường và sát nhân đoạt bảo."
+
+#. auxiliary.csv: 神风舟
+msgid "AUXILIARY_2051_NAME"
+msgstr "Thần Phong Chu"
+
+#. auxiliary.csv: 上古神器，拥有穿梭时空之力，此为仿品，仅...
+msgid "AUXILIARY_2052_DESC"
+msgstr ""
+"Thượng cổ thần khí, có sức mạnh xuyên thoi thời không; đây là phỏng phẩm, "
+"chỉ có thể dòm xét phương xa."
+
+#. auxiliary.csv: 昆仑镜
+msgid "AUXILIARY_2052_NAME"
+msgstr "Côn Luân Kính"
+
+#. auxiliary.csv: 夺天地之造化，聚日月之精华，催熟万物....
+msgid "AUXILIARY_2053_DESC"
+msgstr ""
+"Đoạt tạo hóa của trời đất, tụ tinh hoa của nhật nguyệt; linh dịch trong "
+"bình có thể thúc chín vạn vật."
+
+#. auxiliary.csv: 掌天瓶
+msgid "AUXILIARY_2053_NAME"
+msgstr "Tạo Hóa Thúy Bình"
+
+#. auxiliary.csv: 龙凤和鸣，心意相通，双修进境一日千里....
+msgid "AUXILIARY_2054_DESC"
+msgstr "Long phượng hòa minh, tâm ý tương thông, song tu tiến cảnh nhất nhật thiên lý."
+
+#. auxiliary.csv: 龙凤呈祥戒
+msgid "AUXILIARY_2054_NAME"
+msgstr "Long Phượng Trình Tường Giới"
+
+#. auxiliary.csv: 披上后身形尽隐，连神识也难以察觉....
+msgid "AUXILIARY_2055_DESC"
+msgstr "Khoác lên là thân hình hoàn toàn ẩn đi, ngay cả thần thức cũng khó mà nhận ra."
+
+#. auxiliary.csv: 隐形披风
+msgid "AUXILIARY_2055_NAME"
+msgstr "Ẩn Hình Phi Phong"
+
+#. auxiliary.csv: 套在妖兽颈上，任其凶焰滔天，也要乖乖听命...
+msgid "AUXILIARY_2056_DESC"
+msgstr "Đeo vào cổ yêu thú, mặc cho hung uy ngập trời cũng phải ngoan ngoãn tuân mệnh."
+
+#. auxiliary.csv: 御兽环
+msgid "AUXILIARY_2056_NAME"
+msgstr "Ngự Thú Hoàn"
+
+#. auxiliary.csv: 太虚幻境所化，万法不沾，防御力惊人....
+msgid "AUXILIARY_2057_DESC"
+msgstr "Hóa từ Thái Hư Huyễn Cảnh, vạn pháp bất triêm, lực phòng ngự kinh nhân."
+
+#. auxiliary.csv: 太虚甲
+msgid "AUXILIARY_2057_NAME"
+msgstr "Thái Hư Giáp"
+
+#. auxiliary.csv: 仿太上老君炼丹炉，丹成九转，药效倍增....
+msgid "AUXILIARY_2058_DESC"
+msgstr "Phỏng theo lò luyện đan của Thái Thượng Lão Quân, đan thành cửu chuyển, dược hiệu tăng gấp bội."
+
+#. auxiliary.csv: 八卦炉
+msgid "AUXILIARY_2058_NAME"
+msgstr "Bát Quái Lô"
+
+#. auxiliary.csv: 放入一文，取出万贯，财源滚滚....
+msgid "AUXILIARY_2059_DESC"
+msgstr "Bỏ vào một văn, lấy ra vạn quán, tài lộc cuồn cuộn không dứt."
+
+#. auxiliary.csv: 聚宝盆
+msgid "AUXILIARY_2059_NAME"
+msgstr "Tụ Bảo Bồn"
+
+#. auxiliary.csv: 以天地为炉，造化为工，炼制万物....
+msgid "AUXILIARY_2060_DESC"
+msgstr "Lấy thiên địa làm lô, tạo hóa làm công, luyện chế vạn vật."
+
+#. auxiliary.csv: 天地烘炉
+msgid "AUXILIARY_2060_NAME"
+msgstr "Thiên Địa Hồng Lô"
+
+#. auxiliary.csv: 背负六道，剑出轮回，悟剑良伴....
+msgid "AUXILIARY_2061_DESC"
+msgstr "Cõng lục đạo sau lưng, kiếm xuất luân hồi, là lương bạn để ngộ kiếm."
+
+#. auxiliary.csv: 六道剑匣
+msgid "AUXILIARY_2061_NAME"
+msgstr "Lục Đạo Kiếm Hạp"
+
+#. auxiliary.csv: 受命于天，既寿永昌。皇威浩荡，震慑宵小....
+msgid "AUXILIARY_2062_DESC"
+msgstr "Thụ mệnh ư thiên, ký thọ vĩnh xương; hoàng uy hạo đãng, chấn nhiếp gian tà."
+
+#. auxiliary.csv: 传国玉玺
+msgid "AUXILIARY_2062_NAME"
+msgstr "Truyền Quốc Ngọc Tỷ"
+
+#. auxiliary.csv: 可移动的灵气之源，随身携带的洞天福地....
+msgid "AUXILIARY_2063_DESC"
+msgstr ""
+"Nguồn linh khí có thể di chuyển, là phúc địa tu hành mang theo bên mình."
+
+#. auxiliary.csv: 灵眼之泉
+msgid "AUXILIARY_2063_NAME"
+msgstr "Linh Tuyền Chi Nhãn"
+
+#. auxiliary.csv: 血海不枯，冥河不死。极度邪恶的掠夺法宝....
+msgid "AUXILIARY_2064_DESC"
+msgstr "Huyết hải bất khô, Minh Hà bất tử; đây là pháp bảo cướp đoạt tà ác đến cực điểm."
+
+#. auxiliary.csv: 万魂幡
+msgid "AUXILIARY_2064_NAME"
+msgstr "Vạn Hồn Phiên"
+
+#. auxiliary.csv: 木系至宝，不仅可炼制神丹，鼎中更自成一界...
+msgid "AUXILIARY_2065_DESC"
+msgstr ""
+"Được điêu khắc từ thần mộc thượng cổ, không chỉ có thể luyện chế thần đan mà "
+"còn tự thành không gian để thúc chín linh dược."
+
+#. auxiliary.csv: 神木王鼎
+msgid "AUXILIARY_2065_NAME"
+msgstr "Thanh Mộc Thần Đỉnh"

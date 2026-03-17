@@ -1,0 +1,124 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr ""
+"Cự hình yêu thú mang huyết mạch thượng cổ, da lông cứng như sắt, mỗi bước "
+"đi đều làm đất rung núi chuyển, sức mạnh vô cùng."
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "Hám Địa Thần Ngưu"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr ""
+"Yêu thú máu lạnh sống sâu trong vùng đất đóng băng, thân thể do xương bán "
+"trong suốt và băng sương hợp thành, vô thanh vô tức, có thể lập tức đóng "
+"băng con mồi."
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "Băng Phách Cốt Xà"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr ""
+"Linh thỏ trời sinh lanh lợi, lông trắng như tuyết, ẩn chứa chút linh lực "
+"yếu ớt, tính tình ôn hòa, dễ thuần hóa."
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "Linh Thỏ"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr ""
+"Lang tộc mang ma tính vô cùng hung mãnh, thân hình to lớn, sở hữu ma lực "
+"cường đại cùng vuốt răng sắc nhọn."
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "Ma Lang"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr ""
+"Linh thú ôn hòa sống trên bình nguyên, toàn thân xanh biếc, sừng như ngọc "
+"thạch, giỏi cảm nhận biến hóa của linh khí."
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "Thanh Vân Lộc"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr ""
+"Thợ săn nhanh nhẹn nơi Nam Cương man hoang, thân hình như bóng, vuốt răng "
+"sắc lẹm, giỏi ẩn nấp săn mồi."
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "Ám Ảnh Báo"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr ""
+"Cổ lão linh thú của biển biếc vô biên, mai rùa như bích ngọc, có thể điều "
+"khiển hải thủy, tuổi thọ cực dài."
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "Bích Hải Long Quy"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr ""
+"Kẻ hộ vệ cường tráng của dãy Thanh Phong Sơn, da lông cứng như bàn thạch, "
+"lực lớn vô cùng, tính tình chất phác."
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "Thạch Giáp Sơn Hùng"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr ""
+"Thần tuấn linh thú tung hoành khắp bích dã ngàn dặm, tứ đề sinh phong, tốc "
+"độ như điện, bờm tung bay."
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "Phong Tốc Mã"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr ""
+"Linh thú hệ Hỏa trong Viêm Ngục Hỏa Sơn, vảy đỏ rực như lửa, có thể bơi "
+"trong dung nham và phun ra liệt diễm."
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "Dung Nham Tích Dịch"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr ""
+"Sinh vật kịch độc của Mê Vụ Chiểu Trạch, thân thể sặc sỡ, có thể phóng thích "
+"độc khí chí mạng, giỏi ẩn nấp."
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "Độc Chướng Oa"

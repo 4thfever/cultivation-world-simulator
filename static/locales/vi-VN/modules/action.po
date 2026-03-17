@@ -1,0 +1,607 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr ""
+"Trận doanh tà ác tôn thờ đạo lý mạnh được yếu thua, đặt lợi ích bản thân lên "
+"trên hết, khinh thường quy tắc, tôn sùng quyền lực và nỗi sợ. Hành sự ngoan "
+"độc, thường có những việc như sát nhân đoạt bảo."
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr ""
+"Trận doanh trung lập lấy thuận thế mà làm, tránh hại cầu lợi, coi trọng tự "
+"độ cùng cân bằng, không dễ nghiêng về phe nào."
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr ""
+"Trận doanh chính đạo lấy việc phù trợ kẻ yếu, duy trì trật tự và trừ ma vệ đạo làm "
+"chuẩn tắc."
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "Song Tu"
+
+msgid "action_educate_short_name"
+msgstr "Giáo Hóa"
+
+msgid "action_meditate_short_name"
+msgstr "Thiền Định"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "Đọc Sách"
+
+msgid "action_reading_desc"
+msgstr "Nghiên đọc cổ tịch để mở mang kiến thức."
+
+msgid "action_respire_short_name"
+msgstr "Thổ Nạp"
+
+msgid "action_tea_party"
+msgstr "Trà Hội"
+
+msgid "action_tea_party_desc"
+msgstr "Cùng bằng hữu thưởng trà."
+
+msgid "action_tea_party_story_prompt"
+msgstr "Hai người đang mở một trà hội thanh nhã."
+
+msgid "action_tea_tasting"
+msgstr "Phẩm Trà"
+
+msgid "action_tea_tasting_desc"
+msgstr "Nếm trà ngon, dưỡng tâm tĩnh khí."
+
+msgid "action_temper_short_name"
+msgstr "Tôi Luyện"
+
+msgid "action_traveling"
+msgstr "Du Lịch"
+
+msgid "action_traveling_desc"
+msgstr "Du lịch tứ phương để cảm ngộ thiên địa."
+
+msgid "action_zither_playing"
+msgstr "Phủ Cầm"
+
+msgid "action_zither_playing_desc"
+msgstr "Phủ cầm tấu nhạc, bồi dưỡng tính tình."
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "Ám Sát"
+
+msgid "assassinate_description"
+msgstr "Ám sát mục tiêu; nếu thất bại sẽ chuyển thành chiến đấu"
+
+msgid "assassinate_requirements"
+msgstr "Không hạn chế; cần thời gian hồi"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thất bại. Thích khách mưu toan giết mục "
+"tiêu, nhưng bị đối phương nhạy bén phát giác. Sau đó đôi bên bộc phát xung "
+"đột chính diện dữ dội. Không được nhắc tới chỉ số HP cụ thể."
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thành công. Không cần miêu tả quá trình "
+"giao chiến, hãy tập trung vào cách thích khách ẩn nấp, áp sát và tung ra "
+"một kích trí mạng lặng lẽ. Mục tiêu còn chưa kịp phản ứng đã phải vẫn lạc."
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "Phát Khởi Chiến Đấu"
+
+msgid "attack_description"
+msgstr "Tấn công mục tiêu và tiến vào giao chiến"
+
+msgid "attack_requirements"
+msgstr "Không hạn chế"
+
+msgid "attack_story_prompt"
+msgstr ""
+"Không được nhắc tới HP, điểm thương hại hay bất cứ biểu đạt số liệu cụ thể "
+"nào. Trận chiến phải thể hiện được công pháp, cảnh giới, trang bị của đôi "
+"bên v.v."
+
+msgid "bought"
+msgstr "đã mua"
+
+msgid "bought and consumed"
+msgstr "đã mua rồi dùng"
+
+msgid "bought and equipped"
+msgstr "đã mua rồi trang bị"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "Xác suất đột phá tăng thêm {val:.1%}."
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "Đột Phá"
+
+msgid "breakthrough_description"
+msgstr ""
+"Thử đột phá cảnh giới (thành công sẽ tăng thọ nguyên tối đa, thất bại sẽ làm "
+"giảm; cảnh giới càng cao thì xác suất thành công càng thấp)"
+
+msgid "breakthrough_requirements"
+msgstr "Nhân vật phải đang ở bình cảnh; không thể liên tục chấp hành"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "Mua"
+
+msgid "buy_description"
+msgstr "Mua vật phẩm/trang bị/đan dược trong thành trấn"
+
+msgid "buy_requirements"
+msgstr "Đang ở trong thành và có đủ tiền"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "Đúc Tạo"
+
+msgid "cast_description"
+msgstr ""
+"Tiêu hao vật liệu để thử đúc tạo pháp bảo (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "cast_requirements"
+msgstr "Sở hữu 5 vật liệu cùng cảnh giới"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "Ngự Thú"
+
+msgid "catch_description"
+msgstr ""
+"Thử thuần phục một linh thú để trở thành linh thú của bản thân. Chỉ có thể "
+"sở hữu một linh thú, nhưng có thể dùng linh thú cao cấp thay thế loại thấp "
+"cấp"
+
+msgid "catch_requirements"
+msgstr ""
+"Chỉ dành cho Bách Thú Tông; ở trong khu vực thường có động vật; cảnh giới "
+"động vật mục tiêu không được cao hơn nhân vật"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "Thôn Phệ Sinh Linh"
+
+msgid "devour_people_description"
+msgstr "Thôn phệ sinh linh để tăng mạnh chiến lực"
+
+msgid "devour_people_requirements"
+msgstr "Sở hữu Vạn Hồn Phiên"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "Song Tu"
+
+msgid "dual_cultivation_description"
+msgstr "Lấy tình nhập đạo để song tu, đối phương có thể chấp nhận hoặc từ chối"
+
+msgid "dual_cultivation_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"Hai vị tu sĩ nảy sinh tình ý trong quá trình song tu. Hãy dùng bút pháp hàm "
+"súc, thanh nhã để miêu tả một đoạn trải nghiệm song tu mờ ám mà không lộ "
+"liễu, thể hiện tính cách, chênh lệch cảnh giới và những khoảnh khắc tình ái "
+"ngọt ngào của đôi bên. Không được đề cập tới số trị kinh nghiệm."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Giáo Hóa"
+
+msgid "educate_description"
+msgstr ""
+"Con đường tu luyện của Nho môn. Giáo hóa thế nhân trong thành để tích lũy "
+"công đức và khí vận."
+
+msgid "educate_requirements"
+msgstr "Yêu cầu đạo thống Nho gia và đang ở trong thành"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "Bỏ Trốn"
+
+msgid "escape_description"
+msgstr "Thoát khỏi đối thủ (phán định dựa trên xác suất thành công)"
+
+msgid "escape_requirements"
+msgstr "Không hạn chế"
+
+msgid "evil"
+msgstr "Tà"
+
+msgid "excellent progress"
+msgstr "tiến cảnh khá tốt"
+
+msgid "failed"
+msgstr "thất bại"
+
+msgid "gained {val} cultivation"
+msgstr "Tăng {val} điểm tu vi."
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "Thu Thập"
+
+msgid "harvest_description"
+msgstr "Thu thập thực vật trong khu vực hiện tại để nhận vật liệu thực vật"
+
+msgid "harvest_requirements"
+msgstr ""
+"Đang ở khu vực thường có thực vật, và cảnh giới của avatar phải lớn hơn hoặc "
+"bằng cảnh giới của thực vật"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Cứu Tế Bách Tính"
+
+msgid "help_people_description"
+msgstr "Cứu tế bách tính trong thành, tiêu hao một lượng nhỏ linh thạch"
+
+msgid "help_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và có đủ linh thạch"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "Săn Bắn"
+
+msgid "hunt_description"
+msgstr "Săn động vật trong khu vực hiện tại để nhận vật liệu động vật"
+
+msgid "hunt_requirements"
+msgstr ""
+"Đang ở khu vực thường có động vật, và cảnh giới của avatar phải lớn hơn hoặc "
+"bằng cảnh giới của động vật"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Thiền Định"
+
+msgid "meditate_description"
+msgstr ""
+"Con đường tu luyện của Phật môn. Dùng thiền định để bình phục tâm cảnh, có "
+"cơ hội đốn ngộ và nhận được lượng lớn tu vi."
+
+msgid "meditate_requirements"
+msgstr "Yêu cầu đạo thống Phật môn"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "Đào Mỏ"
+
+msgid "mine_description"
+msgstr "Khai thác khoáng mạch trong khu vực hiện tại để nhận vật liệu khoáng thạch"
+
+msgid "mine_requirements"
+msgstr ""
+"Đang ở khu vực thường có khoáng mạch, và cảnh giới của avatar phải lớn hơn "
+"hoặc bằng cảnh giới của khoáng mạch"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "Di Chuyển"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "Rời Xa Nhân Vật"
+
+msgid "move_away_from_avatar_description"
+msgstr "Liên tục rời xa nhân vật được chỉ định"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "Rời Khu Vực"
+
+msgid "move_away_from_region_description"
+msgstr "Rời khỏi khu vực được chỉ định"
+
+msgid "move_away_from_region_requirements"
+msgstr "Không hạn chế"
+
+msgid "move_description"
+msgstr "Di chuyển đến một vị trí tương đối"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "Di Chuyển Tới Nhân Vật"
+
+msgid "move_to_avatar_description"
+msgstr "Di chuyển tới vị trí của một nhân vật cụ thể"
+
+msgid "move_to_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "Di Chuyển Thăm Dò"
+
+msgid "move_to_direction_description"
+msgstr "Thăm dò khu vực chưa biết theo một phương hướng"
+
+msgid "move_to_direction_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "Di Chuyển Tới Khu Vực"
+
+msgid "move_to_region_description"
+msgstr "Di chuyển tới một khu vực cụ thể"
+
+msgid "move_to_region_requirements"
+msgstr "Không hạn chế"
+
+msgid "neutral"
+msgstr "Trung Lập"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "Ôn Dưỡng Binh Khí"
+
+msgid "nurture_weapon_description"
+msgstr "Ôn dưỡng binh khí để tăng độ thuần thục binh khí"
+
+msgid "nurture_weapon_requirements"
+msgstr "Không hạn chế"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "Giải Khuây"
+
+msgid "play_description"
+msgstr "Giải khuây để thư giãn thân tâm"
+
+msgid "play_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Vơ Vét Dân Chúng"
+
+msgid "plunder_people_description"
+msgstr "Vơ vét dân chúng trong thành để có được một ít linh thạch"
+
+msgid "plunder_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và trận doanh của nhân vật phải là 'tà'"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "Luyện Đan"
+
+msgid "refine_description"
+msgstr ""
+"Tiêu hao vật liệu để thử luyện chế đan dược (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "refine_requirements"
+msgstr "Sở hữu 3 vật liệu cùng cảnh giới"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Thổ Nạp"
+
+msgid "respire_description"
+msgstr ""
+"Thuận theo Thiên Đạo, thổ nạp linh khí. Mật độ linh khí càng cao thì hiệu "
+"quả càng tốt."
+
+msgid "respire_requirements"
+msgstr "Yêu cầu đạo thống Đạo môn hoặc thân phận tán tu"
+
+msgid "respire_sect_hq_members_only"
+msgstr "Chỉ đệ tử của tông môn này mới có thể thổ nạp tại tổng bộ của họ."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "Tiến cảnh ổn định (tổng bộ tông môn)"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "Tự Trị Thương"
+
+msgid "self_heal_description"
+msgstr ""
+"Vận công chữa thương; có thể hoàn toàn hồi phục tại tổng bộ tông môn"
+
+msgid "self_heal_requirements"
+msgstr "HP hiện tại chưa đầy"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "Bán"
+
+msgid "sell_description"
+msgstr ""
+"Bán toàn bộ vật phẩm thuộc một loại nhất định đang sở hữu, hoặc trang bị "
+"hiện tại trong thành trấn"
+
+msgid "sell_requirements"
+msgstr "Đang ở trong thành trấn và sở hữu vật phẩm/trang bị có thể bán"
+
+msgid "slow progress (essence mismatch)"
+msgstr "Tiến cảnh chậm (linh khí không tương hợp)"
+
+msgid "slow progress (sparse essence)"
+msgstr "Tiến cảnh chậm (linh khí thưa thớt)"
+
+msgid "succeeded"
+msgstr "thành công"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Tôi Luyện"
+
+msgid "temper_description"
+msgstr ""
+"Dùng cách rèn luyện cực hạn để tôi luyện nhục thân khí lực, không cầu ngoại "
+"vật, không tiêu hao linh khí."
+
+msgid "temper_requirements"
+msgstr "Yêu cầu đạo thống Võ đạo"
+
+msgid "wilderness"
+msgstr "hoang giao dã ngoại"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} phát khởi chiến đấu với {target} (Chiến lực: {attacker} {att_power} "
+"vs {target} {def_power})"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr ""
+"{avatar} ám sát thành công! {target} ngã xuống khi chưa kịp phòng bị."
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} thử di chuyển nhưng mục tiêu không hợp lệ"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} bắt đầu tọa thiền nhập định."
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} bắt đầu thử đột phá cảnh giới"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} bắt đầu thử đúc tạo pháp bảo bậc {realm}"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} bắt đầu thử luyện chế đan dược bậc {realm}"
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} bắt đầu thôn phệ sinh linh trong thành"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} bắt đầu giáo hóa bách tính tại {city}."
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} bắt đầu cứu tế bách tính trong thành"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} bắt đầu giải khuây thư giãn"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} bắt đầu vơ vét dân chúng trong thành"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr ""
+"{avatar} đúc tạo pháp bảo bậc {realm} thất bại, toàn bộ vật liệu hóa thành tro bụi"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr ""
+"{avatar} luyện chế đan dược bậc {realm} thất bại, toàn bộ vật liệu hóa thành tro bụi"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} thuần phục linh thú thất bại"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} hoàn tất giáo hóa. Công đức tích lũy (+{exp})."
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr ""
+"{avatar} hoàn tất ôn dưỡng {weapon}, độ thuần thục tăng lên {proficiency}%"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} đã hoàn tất {action}."
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} đã đốn ngộ trong lúc thiền định! Tu vi tăng mạnh (+{exp})."
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} chữa thương hoàn tất (hồi phục {amount} HP, HP hiện tại {hp})"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} ẩn nấp trong bóng tối, đang mưu toan ám sát {target}..."
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr ""
+"{avatar} trong lúc ôn dưỡng {old_weapon}, linh tính của binh khí tăng vọt, "
+"thăng hoa thành {new_weapon}!"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} đã bán {item} trong thành trấn"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} đã thành công đúc tạo {label} bậc {realm} '{item}'"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} đã thành công luyện chế đan dược bậc {realm} '{item}'"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr ""
+"{avatar} thuần phục linh thú thành công, {beast} cảnh giới {realm} đã trở "
+"thành linh thú của họ"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} mời {target} cùng tiến hành song tu"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} [{elements}]"
+
+msgid "An anonymous passerby (extra)"
+msgstr "Một người qua đường vô danh"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "Thiên tượng thế giới hiện tại: {name}"
+
+msgid "plant_action_name"
+msgstr "Trồng Trọt"
+
+msgid "plant_description"
+msgstr ""
+"Trồng linh thực để kiếm một lượng nhỏ linh thạch. Kéo dài 6 tháng."
+
+msgid "plant_requirements"
+msgstr "Yêu cầu khu vực thường"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} bắt đầu trồng trọt tại {location}"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạch"

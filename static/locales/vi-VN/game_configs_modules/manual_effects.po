@@ -1,0 +1,46 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "condition_has_spirit_animal"
+msgstr "Khi sở hữu bản mệnh linh thú"
+
+msgid "condition_level_ge_30"
+msgstr "Khi cấp đạt từ 30 trở lên"
+
+msgid "condition_realm_early"
+msgstr "Khi ở cảnh giới Luyện Khí hoặc Trúc Cơ"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "Khi ở cảnh giới Hóa Thần trở lên"
+
+msgid "condition_realm_late"
+msgstr "Khi ở cảnh giới Kim Đan hoặc Nguyên Anh"
+
+msgid "condition_realm_low"
+msgstr "Khi ở dưới cảnh giới Hóa Thần"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "Khi chưa trang bị vũ khí"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "Tăng chiến lực dựa trên tư chất thương pháp"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr ""
+"Thôn phệ sinh hồn để cướp đoạt thọ nguyên và vật phẩm; tăng chiến lực dựa "
+"trên số lượng sinh hồn"

@@ -1,0 +1,43 @@
+#
+msgid ""
+msgstr ""
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"Vì {reason_fragment}, quan hệ giữa {sect_a_name} và {sect_b_name} đã được "
+"cải thiện (+{value_int} trong {duration_months} tháng)."
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"Vì {reason_fragment}, quan hệ giữa {sect_a_name} và {sect_b_name} đã xấu đi "
+"(-{value_int} trong {duration_months} tháng)."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr ""
+"Vì {reason_fragment}, {sect_a_name} thu được +{value_int} linh thạch."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr ""
+"Vì {reason_fragment}, {sect_a_name} tổn thất -{value_int} linh thạch."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"Vì {reason_fragment}, mỗi địa khối dưới quyền {sect_a_name} được tăng "
+"+{value} thu nhập trong {duration_months} tháng."
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"Vì {reason_fragment}, mỗi địa khối dưới quyền {sect_a_name} bị giảm -{value}"
+" thu nhập trong {duration_months} tháng."

@@ -1,0 +1,52 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+msgstr ""
+"Sự kiện: Bí cảnh khai mở\n"
+"Tên: {name}\n"
+"Mô tả: {desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập."
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
+msgstr ""
+"Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập. Người tiến nhập: "
+"{entrants}"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
+"entered."
+msgstr ""
+"Bí cảnh {name} đã khai mở! Chỉ {realm} mới được tiến nhập. Không ai tiến "
+"nhập."
+
+msgid "Hidden Domains opened: {names}"
+msgstr "Bí cảnh đã khai mở: {names}"
+
+msgid "Perished in a Hidden Domain"
+msgstr "Vẫn lạc trong bí cảnh"
+
+msgid "found a treasure"
+msgstr "tìm được bảo vật"
+
+# Gender
+msgid "male"
+msgstr "Nam"

@@ -1,0 +1,55 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【Thông Tin Nhân Vật Liên Quan】"
+
+msgid "auxiliary"
+msgstr "phụ trợ"
+
+msgid "elixir"
+msgstr "đan dược"
+
+msgid "item_label_auxiliary"
+msgstr "Phụ Trợ"
+
+msgid "item_label_elixir"
+msgstr "Đan Dược"
+
+msgid "item_label_technique"
+msgstr "Công Pháp"
+
+# Item Verbs
+msgid "item_verb_equip"
+msgstr "trang bị"
+
+msgid "item_verb_equipped"
+msgstr "đã trang bị"
+
+msgid "item_verb_practice"
+msgstr "tu luyện"
+
+msgid "item_verb_replace"
+msgstr "thay thế"
+
+msgid "item_verb_switched"
+msgstr "đã đổi sang"
+
+# Auto-equip Message
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} đã thu được {grade} {label}『{item_name}』và {action}."

@@ -1,0 +1,95 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr ""
+"Ngươi đã lĩnh ngộ thượng phẩm công pháp『{technique_name}』trong kỳ ngộ."
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "Ngươi đã lĩnh ngộ thượng phẩm công pháp『{technique}』trong kỳ ngộ."
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr ""
+"Ngươi đã phát hiện trang bị phụ trợ bậc {realm}『{auxiliary}』trong kỳ ngộ."
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "Ngươi đã phát hiện trang bị phụ trợ bậc {realm}『{auxiliary_name}』trong kỳ ngộ."
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "Ngươi đã phát hiện binh khí bậc {realm}『{weapon}』trong kỳ ngộ."
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "Ngươi đã phát hiện binh khí bậc {realm}『{weapon_name}』trong kỳ ngộ."
+
+msgid "fortune_dynamic_story_prompt"
+msgstr ""
+"Nhân vật hiện ở cảnh giới {realm}. Vừa rồi họ đang ở {location} để thực hiện hành động: [{action_desc}]. Kết quả cuối cùng là: [{result}].\n"
+"Nhiệm vụ: Hãy kết hợp cảnh giới, bối cảnh của nhân vật cùng [hành động họ đang thực hiện], tự động suy luận ra một nguyên do kỳ ngộ hợp lý, liền mạch và giàu sáng tạo để làm cầu nối giải thích vì sao hành động ấy lại dẫn đến kết quả này. Hãy miêu tả phong phú chi tiết môi trường và hoạt động tâm lý của nhân vật. Khống chế độ dài trong khoảng 100-200 chữ."
+
+# Fortune messages
+msgid "fortune_event_base"
+msgstr "Gặp kỳ ngộ ({title}), {result}"
+
+msgid "fortune_title_auxiliary"
+msgstr "Dị Bảo Xuất Thế"
+
+msgid "fortune_title_cultivation"
+msgstr "Tu Vi Tinh Tiến"
+
+msgid "fortune_title_find_master"
+msgstr "Danh Sư Chỉ Lộ"
+
+msgid "fortune_title_mystery"
+msgstr "Thần Bí Kỳ Ngộ"
+
+msgid "fortune_title_spirit_stone"
+msgstr "Hoạch Tài Bất Ngờ"
+
+msgid "fortune_title_technique"
+msgstr "Đốn Ngộ Công Pháp"
+
+msgid "fortune_title_weapon"
+msgstr "Thần Binh Giáng Thế"
+
+msgid "unknown location"
+msgstr "địa điểm chưa rõ"
+
+msgid "wandering aimlessly"
+msgstr "lang thang vô định"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} bái {master} làm sư"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} bái {master_name} làm sư"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} tăng {exp_gain} điểm kinh nghiệm tu vi"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} nhận được {amount} viên linh thạch"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} tăng {exp} điểm tu vi"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} nhận được {amount} viên linh thạch"
