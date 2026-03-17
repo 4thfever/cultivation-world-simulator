@@ -52,9 +52,3 @@ msgstr "Thủy"
 
 msgid "wood_element"
 msgstr "Mộc"
-
-msgid "earth_element"
-msgstr "Thổ"
-
-msgid "fire_element"
-msgstr "Hỏa"

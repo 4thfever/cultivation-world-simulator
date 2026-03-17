@@ -15,18 +15,3 @@ msgstr ""
 # Alignment
 msgid "righteous"
 msgstr "Chính"
-
-msgid "neutral"
-msgstr "Trung Lập"
-
-msgid "evil"
-msgstr "Tà"
-
-msgid "Righteous alignment follows the principles of helping the weak, maintaining order, and vanquishing evil."
-msgstr "Lập trường Chính theo đuổi việc giúp kẻ yếu, giữ gìn trật tự và trừ gian diệt ác."
-
-msgid "Neutral alignment follows the principles of going with the flow, seeking benefit and avoiding harm, valuing self-cultivation and balance, and not easily taking sides."
-msgstr "Lập trường Trung Lập thuận theo thời thế, cầu lợi tránh hại, coi trọng tự tu và cân bằng, không dễ nghiêng về phe nào."
-
-msgid "Evil alignment follows the principles of survival of the fittest, prioritizing self-interest above all, disdaining rules, and venerating power and fear. Acts ruthlessly, often resorting to murder and plunder."
-msgstr "Lập trường Tà tôn sùng mạnh được yếu thua, đặt lợi ích bản thân lên trên hết, khinh thường quy tắc và đề cao sức mạnh lẫn nỗi sợ. Hành sự tàn nhẫn, thường không ngại giết chóc hay cướp đoạt."
