@@ -10,10 +10,180 @@ const emit = defineEmits<{
   (e: 'created'): void
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const worldStore = useWorldStore()
 const message = useMessage()
 const loading = ref(false)
+
+const GENDER_MALE = '男'
+const GENDER_FEMALE = '女'
+
+const panelCopy = computed(() => {
+  switch (locale.value) {
+    case 'vi-VN':
+      return {
+        relationLabels: {
+          [RelationType.TO_ME_IS_PARENT]: 'Cha mẹ',
+          [RelationType.TO_ME_IS_CHILD]: 'Con cái',
+          [RelationType.TO_ME_IS_SIBLING]: 'Anh chị em',
+          [RelationType.TO_ME_IS_MASTER]: 'Sư phụ',
+          [RelationType.TO_ME_IS_DISCIPLE]: 'Đệ tử',
+          [RelationType.TO_ME_IS_LOVER]: 'Đạo lữ',
+          [RelationType.TO_ME_IS_FRIEND]: 'Bạn bè',
+          [RelationType.TO_ME_IS_ENEMY]: 'Kẻ thù',
+        },
+        fetchFailed: 'Lấy dữ liệu trò chơi thất bại',
+        createSuccess: 'Tạo nhân vật thành công',
+        createFailed: 'Tạo nhân vật thất bại: ',
+        loading: 'Đang tải dữ liệu...',
+        labels: {
+          name: 'Tên',
+          gender: 'Giới tính',
+          age: 'Tuổi',
+          initialRealm: 'Cảnh giới ban đầu',
+          sect: 'Tông môn',
+          persona: 'Tính cách ban đầu',
+          alignment: 'Lập trường',
+          appearance: 'Ngoại hình',
+          technique: 'Công pháp',
+          weapon: 'Vũ khí',
+          auxiliary: 'Trang bị phụ trợ',
+          relations: 'Quan hệ',
+        },
+        placeholders: {
+          surname: 'Họ',
+          givenName: 'Tên',
+          initialRealm: 'Chọn cảnh giới ban đầu',
+          sect: 'Chọn tông môn (để trống nếu là tán tu)',
+          persona: 'Chọn tính cách',
+          technique: 'Chọn công pháp (có thể để trống)',
+          weapon: 'Chọn vũ khí (có thể để trống)',
+          auxiliary: 'Chọn trang bị phụ trợ (có thể để trống)',
+          avatar: 'Chọn nhân vật',
+          relation: 'Quan hệ',
+        },
+        buttons: {
+          addRelation: '+ Thêm quan hệ',
+          create: 'Tạo nhân vật',
+        },
+        avatarPlaceholder: 'Hãy chọn chân dung',
+        noAvatars: 'Không có chân dung khả dụng',
+        ageUnit: 'tuổi',
+        genderLabels: {
+          [GENDER_MALE]: 'Nam',
+          [GENDER_FEMALE]: 'Nữ',
+        },
+      }
+    case 'zh-CN':
+      return {
+        relationLabels: {
+          [RelationType.TO_ME_IS_PARENT]: '父母',
+          [RelationType.TO_ME_IS_CHILD]: '子女',
+          [RelationType.TO_ME_IS_SIBLING]: '兄弟姐妹',
+          [RelationType.TO_ME_IS_MASTER]: '师傅',
+          [RelationType.TO_ME_IS_DISCIPLE]: '徒弟',
+          [RelationType.TO_ME_IS_LOVER]: '道侣',
+          [RelationType.TO_ME_IS_FRIEND]: '朋友',
+          [RelationType.TO_ME_IS_ENEMY]: '仇人',
+        },
+        fetchFailed: '获取游戏数据失败',
+        createSuccess: '角色创建成功',
+        createFailed: '创建失败: ',
+        loading: '加载数据中...',
+        labels: {
+          name: '姓名',
+          gender: '性别',
+          age: '年龄',
+          initialRealm: '初始境界',
+          sect: '所属宗门',
+          persona: '初始个性',
+          alignment: '阵营',
+          appearance: '颜值',
+          technique: '功法',
+          weapon: '兵器',
+          auxiliary: '辅助装备',
+          relations: '人际关系',
+        },
+        placeholders: {
+          surname: '姓',
+          givenName: '名',
+          initialRealm: '选择初始境界',
+          sect: '选择宗门 (留空为散修)',
+          persona: '选择个性',
+          technique: '选择功法 (可留空)',
+          weapon: '选择兵器 (可留空)',
+          auxiliary: '选择辅助装备 (可留空)',
+          avatar: '选择角色',
+          relation: '关系',
+        },
+        buttons: {
+          addRelation: '+ 添加关系',
+          create: '创建角色',
+        },
+        avatarPlaceholder: '请选择头像',
+        noAvatars: '暂无可用头像',
+        ageUnit: '岁',
+        genderLabels: {
+          [GENDER_MALE]: '男',
+          [GENDER_FEMALE]: '女',
+        },
+      }
+    default:
+      return {
+        relationLabels: {
+          [RelationType.TO_ME_IS_PARENT]: 'Parents',
+          [RelationType.TO_ME_IS_CHILD]: 'Children',
+          [RelationType.TO_ME_IS_SIBLING]: 'Siblings',
+          [RelationType.TO_ME_IS_MASTER]: 'Master',
+          [RelationType.TO_ME_IS_DISCIPLE]: 'Disciple',
+          [RelationType.TO_ME_IS_LOVER]: 'Partner',
+          [RelationType.TO_ME_IS_FRIEND]: 'Friend',
+          [RelationType.TO_ME_IS_ENEMY]: 'Enemy',
+        },
+        fetchFailed: 'Failed to fetch game data',
+        createSuccess: 'Character created successfully',
+        createFailed: 'Failed to create character: ',
+        loading: 'Loading data...',
+        labels: {
+          name: 'Name',
+          gender: 'Gender',
+          age: 'Age',
+          initialRealm: 'Initial Realm',
+          sect: 'Sect',
+          persona: 'Initial Persona',
+          alignment: 'Alignment',
+          appearance: 'Appearance',
+          technique: 'Technique',
+          weapon: 'Weapon',
+          auxiliary: 'Auxiliary Gear',
+          relations: 'Relations',
+        },
+        placeholders: {
+          surname: 'Surname',
+          givenName: 'Given name',
+          initialRealm: 'Select initial realm',
+          sect: 'Select sect (leave empty for rogue cultivator)',
+          persona: 'Select persona',
+          technique: 'Select technique (optional)',
+          weapon: 'Select weapon (optional)',
+          auxiliary: 'Select auxiliary gear (optional)',
+          avatar: 'Select character',
+          relation: 'Relation',
+        },
+        buttons: {
+          addRelation: '+ Add relation',
+          create: 'Create Character',
+        },
+        avatarPlaceholder: 'Please select an avatar',
+        noAvatars: 'No avatars available',
+        ageUnit: 'years old',
+        genderLabels: {
+          [GENDER_MALE]: 'Male',
+          [GENDER_FEMALE]: 'Female',
+        },
+      }
+  }
+})
 
 // --- State ---
 const gameData = ref<GameDataDTO | null>(null)
@@ -23,7 +193,7 @@ const avatarList = ref<SimpleAvatarDTO[]>([]) // For relation selection
 const createForm = ref<CreateAvatarParams>({
   surname: '',
   given_name: '',
-  gender: '男',
+  gender: GENDER_MALE,
   age: 16,
   level: undefined,
   sect_id: undefined,
@@ -37,16 +207,16 @@ const createForm = ref<CreateAvatarParams>({
   relations: []
 })
 
-const relationOptions = [
-  { label: '父母', value: RelationType.TO_ME_IS_PARENT },
-  { label: '子女', value: RelationType.TO_ME_IS_CHILD },
-  { label: '兄弟姐妹', value: RelationType.TO_ME_IS_SIBLING },
-  { label: '师傅', value: RelationType.TO_ME_IS_MASTER },
-  { label: '徒弟', value: RelationType.TO_ME_IS_DISCIPLE },
-  { label: '道侣', value: RelationType.TO_ME_IS_LOVER },
-  { label: '朋友', value: RelationType.TO_ME_IS_FRIEND },
-  { label: '仇人', value: RelationType.TO_ME_IS_ENEMY }
-]
+const relationOptions = computed(() => [
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_PARENT], value: RelationType.TO_ME_IS_PARENT },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_CHILD], value: RelationType.TO_ME_IS_CHILD },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_SIBLING], value: RelationType.TO_ME_IS_SIBLING },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_MASTER], value: RelationType.TO_ME_IS_MASTER },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_DISCIPLE], value: RelationType.TO_ME_IS_DISCIPLE },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_LOVER], value: RelationType.TO_ME_IS_LOVER },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_FRIEND], value: RelationType.TO_ME_IS_FRIEND },
+  { label: panelCopy.value.relationLabels[RelationType.TO_ME_IS_ENEMY], value: RelationType.TO_ME_IS_ENEMY },
+])
 
 // --- Computed Options ---
 const sectOptions = computed(() => {
@@ -101,13 +271,13 @@ const alignmentOptions = computed(() => {
 
 const availableAvatars = computed(() => {
   if (!avatarMeta.value) return []
-  const key = createForm.value.gender === '女' ? 'females' : 'males'
+  const key = createForm.value.gender === GENDER_FEMALE ? 'females' : 'males'
   return avatarMeta.value[key] || []
 })
 
 const currentAvatarUrl = computed(() => {
   if (!createForm.value.pic_id) return ''
-  const dir = createForm.value.gender === '女' ? 'females' : 'males'
+  const dir = createForm.value.gender === GENDER_FEMALE ? 'females' : 'males'
   return `/assets/${dir}/${createForm.value.pic_id}.png`
 })
 
@@ -132,7 +302,7 @@ async function fetchData() {
     const res = await avatarApi.fetchAvatarList()
     avatarList.value = res.avatars
   } catch (e) {
-    message.error('获取游戏数据失败')
+    message.error(panelCopy.value.fetchFailed)
   } finally {
     loading.value = false
   }
@@ -162,14 +332,14 @@ async function handleCreateAvatar() {
     }
     
     await avatarApi.createAvatar(payload)
-    message.success('角色创建成功')
+    message.success(panelCopy.value.createSuccess)
     await worldStore.fetchState?.()
     
     // Reset form
     createForm.value = {
       surname: '',
       given_name: '',
-      gender: '男',
+      gender: GENDER_MALE,
       age: 16,
       level: realmOptions.value[0]?.value,
       sect_id: undefined,
@@ -185,7 +355,7 @@ async function handleCreateAvatar() {
     
     emit('created')
   } catch (e) {
-    message.error('创建失败: ' + String(e))
+    message.error(panelCopy.value.createFailed + String(e))
   } finally {
     loading.value = false
   }
@@ -208,39 +378,39 @@ onMounted(() => {
 
 <template>
   <div class="create-panel">
-    <div v-if="loading && !gameData" class="loading">加载数据中...</div>
+    <div v-if="loading && !gameData" class="loading">{{ panelCopy.loading }}</div>
     <div v-else class="create-layout">
       <div class="form-column">
         <n-form label-placement="left" label-width="80">
-          <n-form-item label="姓名">
+          <n-form-item :label="panelCopy.labels.name">
             <div class="name-inputs">
-              <n-input v-model:value="createForm.surname" placeholder="姓" style="width: 6em" />
-              <n-input v-model:value="createForm.given_name" placeholder="名" style="flex: 1" />
+              <n-input v-model:value="createForm.surname" :placeholder="panelCopy.placeholders.surname" style="width: 6em" />
+              <n-input v-model:value="createForm.given_name" :placeholder="panelCopy.placeholders.givenName" style="flex: 1" />
             </div>
           </n-form-item>
-          <n-form-item label="性别">
+          <n-form-item :label="panelCopy.labels.gender">
             <n-radio-group v-model:value="createForm.gender">
-              <n-radio-button value="男" label="男" />
-              <n-radio-button value="女" label="女" />
+              <n-radio-button :value="GENDER_MALE" :label="panelCopy.genderLabels[GENDER_MALE]" />
+              <n-radio-button :value="GENDER_FEMALE" :label="panelCopy.genderLabels[GENDER_FEMALE]" />
             </n-radio-group>
           </n-form-item>
-          <n-form-item label="年龄">
+          <n-form-item :label="panelCopy.labels.age">
             <n-slider v-model:value="createForm.age" :min="16" :max="100" :step="1" />
-            <span style="margin-left: 0.8em; width: 4em">{{ createForm.age }}岁</span>
+            <span style="margin-left: 0.8em; width: 4.8em">{{ createForm.age }} {{ panelCopy.ageUnit }}</span>
           </n-form-item>
-          <n-form-item label="初始境界">
-              <n-select v-model:value="createForm.level" :options="realmOptions" placeholder="选择初始境界" />
+          <n-form-item :label="panelCopy.labels.initialRealm">
+              <n-select v-model:value="createForm.level" :options="realmOptions" :placeholder="panelCopy.placeholders.initialRealm" />
           </n-form-item>
-          <n-form-item label="所属宗门">
-            <n-select v-model:value="createForm.sect_id" :options="sectOptions" placeholder="选择宗门 (留空为散修)" clearable />
+          <n-form-item :label="panelCopy.labels.sect">
+            <n-select v-model:value="createForm.sect_id" :options="sectOptions" :placeholder="panelCopy.placeholders.sect" clearable />
           </n-form-item>
-          <n-form-item label="初始个性">
-            <n-select v-model:value="createForm.persona_ids" multiple :options="personaOptions" placeholder="选择个性" clearable max-tag-count="responsive" />
+          <n-form-item :label="panelCopy.labels.persona">
+            <n-select v-model:value="createForm.persona_ids" multiple :options="personaOptions" :placeholder="panelCopy.placeholders.persona" clearable max-tag-count="responsive" />
           </n-form-item>
-          <n-form-item label="阵营">
+          <n-form-item :label="panelCopy.labels.alignment">
             <n-select v-model:value="createForm.alignment" :options="alignmentOptions" :placeholder="t('ui.create_alignment_placeholder')" clearable />
           </n-form-item>
-          <n-form-item label="颜值">
+          <n-form-item :label="panelCopy.labels.appearance">
             <div class="appearance-slider">
               <n-slider 
                 v-model:value="createForm.appearance" 
@@ -252,45 +422,45 @@ onMounted(() => {
               <span>{{ createForm.appearance || 1 }}</span>
             </div>
           </n-form-item>
-          <n-form-item label="功法">
-            <n-select v-model:value="createForm.technique_id" :options="techniqueOptions" placeholder="选择功法 (可留空)" clearable />
+          <n-form-item :label="panelCopy.labels.technique">
+            <n-select v-model:value="createForm.technique_id" :options="techniqueOptions" :placeholder="panelCopy.placeholders.technique" clearable />
           </n-form-item>
-          <n-form-item label="兵器">
-            <n-select v-model:value="createForm.weapon_id" :options="weaponOptions" placeholder="选择兵器 (可留空)" clearable />
+          <n-form-item :label="panelCopy.labels.weapon">
+            <n-select v-model:value="createForm.weapon_id" :options="weaponOptions" :placeholder="panelCopy.placeholders.weapon" clearable />
           </n-form-item>
-          <n-form-item label="辅助装备">
-            <n-select v-model:value="createForm.auxiliary_id" :options="auxiliaryOptions" placeholder="选择辅助装备 (可留空)" clearable />
+          <n-form-item :label="panelCopy.labels.auxiliary">
+            <n-select v-model:value="createForm.auxiliary_id" :options="auxiliaryOptions" :placeholder="panelCopy.placeholders.auxiliary" clearable />
           </n-form-item>
-          <n-form-item label="人际关系">
+          <n-form-item :label="panelCopy.labels.relations">
             <div class="relations-container">
               <div v-for="(rel, index) in createForm.relations" :key="index" class="relation-row">
                 <n-select 
                   v-model:value="rel.target_id" 
                   :options="avatarOptions" 
-                  placeholder="选择角色" 
+                  :placeholder="panelCopy.placeholders.avatar" 
                   filterable 
                   style="width: 12em"
                 />
                 <n-select 
                   v-model:value="rel.relation" 
                   :options="relationOptions" 
-                  placeholder="关系" 
+                  :placeholder="panelCopy.placeholders.relation" 
                   style="width: 8em"
                 />
                 <n-button @click="removeRelation(index)" circle size="small" type="error">-</n-button>
               </div>
-              <n-button @click="addRelation" size="small" dashed style="width: 100%">+ 添加关系</n-button>
+              <n-button @click="addRelation" size="small" dashed style="width: 100%">{{ panelCopy.buttons.addRelation }}</n-button>
             </div>
           </n-form-item>
           <div class="actions">
-            <n-button type="primary" @click="handleCreateAvatar" block :loading="loading">创建角色</n-button>
+            <n-button type="primary" @click="handleCreateAvatar" block :loading="loading">{{ panelCopy.buttons.create }}</n-button>
           </div>
         </n-form>
       </div>
       <div class="avatar-column">
         <div class="avatar-preview">
           <img v-if="currentAvatarUrl" :src="currentAvatarUrl" alt="Avatar Preview" />
-          <div v-else class="no-avatar">请选择头像</div>
+          <div v-else class="no-avatar">{{ panelCopy.avatarPlaceholder }}</div>
         </div>
         <div class="avatar-grid">
           <div 
@@ -300,9 +470,9 @@ onMounted(() => {
             :class="{ selected: createForm.pic_id === id }"
             @click="createForm.pic_id = id"
           >
-            <img :src="`/assets/${createForm.gender === '女' ? 'females' : 'males'}/${id}.png`" loading="lazy" />
+            <img :src="`/assets/${createForm.gender === GENDER_FEMALE ? 'females' : 'males'}/${id}.png`" loading="lazy" />
           </div>
-          <div v-if="availableAvatars.length === 0" class="no-avatars">暂无可用头像</div>
+          <div v-if="availableAvatars.length === 0" class="no-avatars">{{ panelCopy.noAvatars }}</div>
         </div>
       </div>
     </div>

@@ -7,8 +7,43 @@ import { useMessage, NInput, NButton } from 'naive-ui'
 
 const worldStore = useWorldStore()
 const message = useMessage()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const loading = ref(false)
+
+const copy = computed(() => {
+  switch (locale.value) {
+    case 'vi-VN':
+      return {
+        fetchFailed: 'Lấy danh sách nhân vật thất bại',
+        deleteConfirm: 'Bạn có chắc muốn xóa nhân vật {name} không? Thao tác này không thể hoàn tác.',
+        deleteSuccess: 'Xóa nhân vật thành công',
+        deleteFailed: 'Xóa nhân vật thất bại',
+        searchPlaceholder: 'Tìm theo tên nhân vật...',
+        empty: 'Không tìm thấy nhân vật',
+        ageUnit: 'tuổi',
+      }
+    case 'zh-CN':
+      return {
+        fetchFailed: '获取角色列表失败',
+        deleteConfirm: '确定要删除角色 {name} 吗？此操作不可恢复。',
+        deleteSuccess: '删除成功',
+        deleteFailed: '删除失败',
+        searchPlaceholder: '搜索角色名...',
+        empty: '未找到角色',
+        ageUnit: '岁',
+      }
+    default:
+      return {
+        fetchFailed: 'Failed to fetch character list',
+        deleteConfirm: 'Are you sure you want to delete character {name}? This action cannot be undone.',
+        deleteSuccess: 'Character deleted',
+        deleteFailed: 'Failed to delete character',
+        searchPlaceholder: 'Search character name...',
+        empty: 'No characters found',
+        ageUnit: 'years old',
+      }
+  }
+})
 
 // --- State ---
 const avatarList = ref<SimpleAvatarDTO[]>([])
@@ -26,25 +61,25 @@ async function fetchAvatarList() {
     const res = await avatarApi.fetchAvatarList()
     avatarList.value = res.avatars
   } catch (e) {
-    message.error('获取角色列表失败')
+    message.error(copy.value.fetchFailed)
   } finally {
     loading.value = false
   }
 }
 
 async function handleDeleteAvatar(id: string, name: string) {
-  if (!confirm(`确定要删除角色 ${name} 吗？此操作不可恢复。`)) return
+  if (!confirm(copy.value.deleteConfirm.replace('{name}', name))) return
   
   loading.value = true
   try {
     await avatarApi.deleteAvatar(id)
-    message.success('删除成功')
+    message.success(copy.value.deleteSuccess)
     await Promise.all([
       fetchAvatarList(),
       worldStore.fetchState ? worldStore.fetchState() : Promise.resolve()
     ])
   } catch (e) {
-    message.error('删除失败')
+    message.error(copy.value.deleteFailed)
   } finally {
     loading.value = false
   }
@@ -58,11 +93,11 @@ onMounted(() => {
 <template>
   <div class="delete-panel">
     <div class="search-bar">
-      <n-input v-model:value="avatarSearch" placeholder="搜索角色名..." />
+      <n-input v-model:value="avatarSearch" :placeholder="copy.searchPlaceholder" />
     </div>
     <div class="avatar-list">
-      <div v-if="loading" class="loading">加载中...</div>
-      <div v-else-if="filteredAvatars.length === 0" class="empty">未找到角色</div>
+      <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
+      <div v-else-if="filteredAvatars.length === 0" class="empty">{{ copy.empty }}</div>
       <div 
         v-for="avatar in filteredAvatars" 
         :key="avatar.id"
@@ -71,10 +106,10 @@ onMounted(() => {
          <div class="avatar-info">
            <div class="name">{{ avatar.name }}</div>
            <div class="details">
-              {{ avatar.gender }} | {{ avatar.age }}岁 | {{ t('realms.' + avatar.realm) }} | {{ avatar.sect_name }}
+              {{ avatar.gender }} | {{ avatar.age }} {{ copy.ageUnit }} | {{ t('realms.' + avatar.realm) }} | {{ avatar.sect_name }}
            </div>
          </div>
-         <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">删除</n-button>
+         <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">{{ t('save_load.delete') }}</n-button>
       </div>
     </div>
   </div>

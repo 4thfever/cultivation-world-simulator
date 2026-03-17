@@ -21,7 +21,7 @@
 
 
 <p align="center">
-  <img src="../../assets/en-US/screenshot.gif" alt="Game Demo" width="100%">
+  <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
 > **Play as the Heavenly Dao and watch a cultivation world evolve through rules and AI working together.**
@@ -57,14 +57,14 @@ You don't need to personally fight monsters or level up. Instead, you observe al
       <h4 align="center">City Region</h4>
       <img src="../../assets/en-US/screenshots/城市.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Life Experiences</h4>
+      <h4 align="center">Event History</h4>
       <img src="../../assets/en-US/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">Character Panel</h4>
       <img src="../../assets/en-US/screenshots/角色.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Personality Traits</h4>
+      <h4 align="center">Personality & Equipment</h4>
       <img src="../../assets/en-US/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">Independent Thinking</h4>
@@ -77,8 +77,8 @@ You don't need to personally fight monsters or level up. Instead, you observe al
       <h4 align="center">Dungeon Exploration</h4>
       <img src="../../assets/en-US/screenshots/洞府.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Short/Long Term Goals</h4>
-      <img src="../../assets/en-US/screenshots/目标.png" width="100%" />
+      <h4 align="center">Character Info</h4>
+      <img src="../../assets/en-US/screenshots/角色信息.png" width="100%" />
       <br/><br/>
       <h4 align="center">Elixirs/Treasures/Weapons</h4>
       <img src="../../assets/en-US/screenshots/丹药.png" width="100%" />

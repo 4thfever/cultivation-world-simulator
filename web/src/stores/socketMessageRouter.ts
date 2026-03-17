@@ -1,5 +1,6 @@
 import { message } from '@/utils/discreteApi'
 import { logError, logWarn } from '@/utils/appError'
+import i18n from '@/locales'
 import type {
   TickPayloadDTO,
   ToastSocketMessage,
@@ -14,6 +15,8 @@ interface SocketRouterDeps {
   worldStore: ReturnType<typeof useWorldStore>
   uiStore: ReturnType<typeof useUiStore>
 }
+
+const translate = i18n.global.t
 
 function handleTickMessage(payload: TickPayloadDTO, deps: SocketRouterDeps) {
   deps.worldStore.handleTick(payload)
@@ -31,16 +34,16 @@ function handleToastMessage(data: ToastSocketMessage) {
 }
 
 function handleLlmConfigRequired(data: LLMConfigRequiredSocketMessage, deps: SocketRouterDeps) {
-  const errorMessage = data.error || 'LLM 连接失败，请配置'
+  const errorMessage = data.error || translate('ui.llm_connection_failed_config')
   logWarn('SocketRouter llm config required', errorMessage)
   deps.uiStore.openSystemMenu('llm', false)
   message.error(errorMessage)
 }
 
 function handleGameReinitialized(data: GameReinitializedSocketMessage, deps: SocketRouterDeps) {
-  console.log('游戏重新初始化:', data.message)
+  console.log('Game reinitialized:', data.message)
   deps.worldStore.initialize().catch((e) => logError('SocketRouter reinitialize world', e))
-  message.success(data.message || 'LLM 配置成功，游戏已重新初始化')
+  message.success(data.message || translate('ui.game_reinitialized'))
 }
 
 export function routeSocketMessage(data: SocketMessageDTO, deps: SocketRouterDeps) {

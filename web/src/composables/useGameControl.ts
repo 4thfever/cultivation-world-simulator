@@ -5,10 +5,12 @@ import { useSystemStore } from '@/stores/system'
 import { message } from '@/utils/discreteApi'
 import { logError } from '@/utils/appError'
 import { storeToRefs } from 'pinia'
+import i18n from '@/locales'
 
 export function useGameControl(gameInitialized: Ref<boolean>) {
   const uiStore = useUiStore()
   const systemStore = useSystemStore()
+  const translate = i18n.global.t
   
   const { isManualPaused } = storeToRefs(systemStore)
   const { systemMenuVisible: showMenu, systemMenuDefaultTab: menuDefaultTab, systemMenuClosable: canCloseMenu } = storeToRefs(uiStore)
@@ -60,20 +62,20 @@ export function useGameControl(gameInitialized: Ref<boolean>) {
       if (!res.configured) {
         // 未配置 -> 强制进入 LLM 配置，禁止关闭
         uiStore.openSystemMenu('llm', false)
-        message.warning('检测到 LLM 未配置，请先完成设置')
+        message.warning(translate('ui.llm_config_required_notice'))
       }
     } catch (e) {
       logError('GameControl llm status', e)
       // Fallback
       uiStore.openSystemMenu('llm', false)
-      message.error('无法获取系统状态')
+      message.error(translate('ui.system_status_fetch_failed'))
     }
   }
 
   function handleLLMReady() {
     uiStore.setSystemMenuClosable(true)
     menuDefaultTab.value = 'start'
-    message.success('LLM 配置成功，请开始游戏')
+    message.success(translate('ui.llm_ready_start_game'))
   }
 
   function handleMenuClose() {
