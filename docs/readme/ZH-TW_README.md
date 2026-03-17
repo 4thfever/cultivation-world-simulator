@@ -21,7 +21,7 @@
 
 
 <p align="center">
-  <img src="../../assets/zh-TW/screenshot.gif" alt="遊戲演示" width="100%">
+  <img src="../../assets/screenshot.gif" alt="遊戲演示" width="100%">
 </p>
 
 > **你將扮演「天道」，觀察一個由規則系統與 AI 共同驅動的修仙世界自行演化。**
@@ -57,14 +57,14 @@
       <h4 align="center">城市區域</h4>
       <img src="../../assets/zh-TW/screenshots/城市.png" width="100%" />
       <br/><br/>
-      <h4 align="center">生平經歷</h4>
+      <h4 align="center">事件經歷</h4>
       <img src="../../assets/zh-TW/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
       <img src="../../assets/zh-TW/screenshots/角色.png" width="100%" />
       <br/><br/>
-      <h4 align="center">性格特質</h4>
+      <h4 align="center">性格與裝備</h4>
       <img src="../../assets/zh-TW/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">自主思考</h4>
@@ -77,8 +77,8 @@
       <h4 align="center">洞府探秘</h4>
       <img src="../../assets/zh-TW/screenshots/洞府.png" width="100%" />
       <br/><br/>
-      <h4 align="center">長短期目標</h4>
-      <img src="../../assets/zh-TW/screenshots/目标.png" width="100%" />
+      <h4 align="center">角色資訊</h4>
+      <img src="../../assets/zh-TW/screenshots/角色信息.png" width="100%" />
       <br/><br/>
       <h4 align="center">丹藥/法寶/武器</h4>
       <img src="../../assets/zh-TW/screenshots/丹药.png" width="100%" />

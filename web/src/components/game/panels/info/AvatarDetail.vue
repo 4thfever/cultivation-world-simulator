@@ -12,7 +12,7 @@ import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const props = defineProps<{
   data: AvatarDetail;
 }>();
@@ -26,12 +26,22 @@ const objectiveContent = ref('');
 
 const ZH_NUMBERS = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
+const currentEffectsText = computed(() => {
+  return (props.data as Record<string, unknown>)['当前效果'] as string | undefined;
+});
+
+const currentEffectsLines = computed(() => {
+  const text = currentEffectsText.value;
+  if (!text || text === '无') return [];
+  return text.split('\n');
+});
+
 const formattedRanking = computed(() => {
   if (!props.data.ranking) return null;
   const { type, rank } = props.data.ranking;
   const listName = t(`game.ranking.${type}`).split(' ')[0];
   
-  const isZh = t('game.ranking.rank') === '排名';
+  const isZh = locale.value.startsWith('zh');
   if (isZh) {
     return `${listName}第${ZH_NUMBERS[rank] || rank}`;
   } else {
@@ -338,10 +348,10 @@ async function handleClearObjective() {
       </div>
 
       <!-- Effects -->
-      <div class="section" v-if="data['当前效果'] && data['当前效果'] !== '无'">
+      <div class="section" v-if="currentEffectsLines.length">
         <div class="section-title">{{ t('game.info_panel.avatar.sections.current_effects') }}</div>
         <div class="effects-grid">
-          <template v-for="(line, idx) in data['当前效果'].split('\n')" :key="idx">
+          <template v-for="(line, idx) in currentEffectsLines" :key="idx">
             <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || t('ui.other') }}</div>
             <div class="effect-content">
               <div v-for="(segment, sIdx) in line.replace(/^\[.*?\]\s*/, '').split(/[;；]/)" :key="sIdx">

@@ -20,7 +20,7 @@
 ![PixiJS](https://img.shields.io/badge/PixiJS-E72264?style=flat&logo=pixijs&logoColor=white)
 
 <p align="center">
-  <img src="../../assets/vi-VN/screenshot.gif" alt="Game Demo" width="100%">
+  <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
 > **Bạn sẽ vào vai Thiên Đạo, quan sát một thế giới tu tiên tự mình diễn hóa dưới sự vận hành đồng thời của quy tắc và AI.**
@@ -56,14 +56,14 @@ Bạn không cần tự mình đánh quái, luyện cấp hay cày trang bị. T
       <h4 align="center">Khu Vực Thành Thị</h4>
       <img src="../../assets/vi-VN/screenshots/城市.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Sinh Bình Trải Nghiệm</h4>
+      <h4 align="center">Lịch Sử Sự Kiện</h4>
       <img src="../../assets/vi-VN/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">Bảng Nhân Vật</h4>
       <img src="../../assets/vi-VN/screenshots/角色.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Tính Cách Và Đặc Chất</h4>
+      <h4 align="center">Tính Cách Và Trang Bị</h4>
       <img src="../../assets/vi-VN/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">Tự Chủ Suy Tư</h4>
@@ -76,8 +76,8 @@ Bạn không cần tự mình đánh quái, luyện cấp hay cày trang bị. T
       <h4 align="center">Thám Hiểm Bí Cảnh</h4>
       <img src="../../assets/vi-VN/screenshots/洞府.png" width="100%" />
       <br/><br/>
-      <h4 align="center">Mục Tiêu Ngắn Và Dài Hạn</h4>
-      <img src="../../assets/vi-VN/screenshots/目标.png" width="100%" />
+      <h4 align="center">Thông Tin Nhân Vật</h4>
+      <img src="../../assets/vi-VN/screenshots/角色信息.png" width="100%" />
       <br/><br/>
       <h4 align="center">Đan Dược / Pháp Bảo / Binh Khí</h4>
       <img src="../../assets/vi-VN/screenshots/丹药.png" width="100%" />

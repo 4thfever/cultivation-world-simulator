@@ -151,9 +151,9 @@ async function handleTestAndSave() {
   } catch (e: any) {
     const errorMsg = e.response?.data?.detail || e.message
     dialog.error({
-      title: t('llm.test_save_failed_title', '测试或保存失败'),
+      title: t('llm.test_save_failed_title'),
       content: errorMsg,
-      positiveText: t('common.confirm', '确定')
+      positiveText: t('common.confirm')
     })
   } finally {
     testing.value = false
@@ -198,7 +198,7 @@ onMounted(() => {
           <input 
             v-model="config.api_key" 
             type="password" 
-            :placeholder="hasSavedApiKey ? '已保存密钥，留空则保持不变' : t('llm.placeholders.api_key')"
+            :placeholder="hasSavedApiKey ? t('ui.saved_secret_keep_empty') : t('llm.placeholders.api_key')"
             class="input-field"
           />
         </div>

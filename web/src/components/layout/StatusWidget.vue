@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
   color: '#ccc',
   items: () => [],
   mode: 'list',
-  emptyText: '暂无数据',
+  emptyText: '',
   disablePopover: false
 })
 
@@ -97,7 +97,7 @@ const emit = defineEmits(['trigger-click'])
               </div>
             </n-list-item>
           </n-list>
-          <n-empty v-else :description="emptyText" class="empty-state" />
+          <n-empty v-else :description="emptyText || t('game.status_bar.hidden_domain.empty')" class="empty-state" />
         </div>
       </div>
     </n-popover>

@@ -21,7 +21,7 @@
 
 
 <p align="center">
-  <img src="assets/zh-CN/screenshot.gif" alt="游戏演示" width="100%">
+  <img src="assets/screenshot.gif" alt="游戏演示" width="100%">
 </p>
 
 > **你将扮演“天道”，观察一个由规则系统与 AI 共同驱动的修仙世界自行演化。**
