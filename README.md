@@ -57,14 +57,14 @@
       <h4 align="center">城市区域</h4>
       <img src="assets/zh-CN/screenshots/城市.png" width="100%" />
       <br/><br/>
-      <h4 align="center">生平经历</h4>
+      <h4 align="center">事件经历</h4>
       <img src="assets/zh-CN/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">角色面板</h4>
       <img src="assets/zh-CN/screenshots/角色.png" width="100%" />
       <br/><br/>
-      <h4 align="center">性格特质</h4>
+      <h4 align="center">性格与装备</h4>
       <img src="assets/zh-CN/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">自主思考</h4>
@@ -77,8 +77,8 @@
       <h4 align="center">洞府探秘</h4>
       <img src="assets/zh-CN/screenshots/洞府.png" width="100%" />
       <br/><br/>
-      <h4 align="center">长短期目标</h4>
-      <img src="assets/zh-CN/screenshots/目标.png" width="100%" />
+      <h4 align="center">角色信息</h4>
+      <img src="assets/zh-CN/screenshots/角色信息.png" width="100%" />
       <br/><br/>
       <h4 align="center">丹药/法宝/武器</h4>
       <img src="assets/zh-CN/screenshots/丹药.png" width="100%" />
