@@ -1,0 +1,123 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "Ám Sát"
+
+msgid "assassinate_description"
+msgstr "Ám sát mục tiêu; nếu thất bại sẽ chuyển thành chiến đấu"
+
+msgid "assassinate_requirements"
+msgstr "Không hạn chế; cần thời gian hồi"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thất bại. Thích khách mưu toan giết mục "
+"tiêu, nhưng bị đối phương nhạy bén phát giác. Sau đó đôi bên bộc phát xung "
+"đột chính diện dữ dội. Không được nhắc tới chỉ số HP cụ thể."
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"Đây là câu chuyện về một lần ám sát thành công. Không cần miêu tả quá trình "
+"giao chiến, hãy tập trung vào cách thích khách ẩn nấp, áp sát và tung ra một"
+" kích trí mạng lặng lẽ. Mục tiêu còn chưa kịp phản ứng đã phải vẫn lạc."
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "Phát Khởi Chiến Đấu"
+
+msgid "attack_description"
+msgstr "Tấn công mục tiêu và tiến vào giao chiến"
+
+msgid "attack_requirements"
+msgstr "Không hạn chế"
+
+msgid "attack_story_prompt"
+msgstr ""
+"Không được nhắc tới HP, điểm thương hại hay bất cứ biểu đạt số liệu cụ thể "
+"nào. Trận chiến phải thể hiện được công pháp, cảnh giới, trang bị của đôi "
+"bên v.v."
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "Ngự Thú"
+
+msgid "catch_description"
+msgstr ""
+"Thử thuần phục một linh thú để trở thành linh thú của bản thân. Chỉ có thể "
+"sở hữu một linh thú, nhưng có thể dùng linh thú cao cấp thay thế loại thấp "
+"cấp"
+
+msgid "catch_requirements"
+msgstr ""
+"Chỉ dành cho Bách Thú Tông; ở trong khu vực thường có động vật; cảnh giới "
+"động vật mục tiêu không được cao hơn nhân vật"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "Thôn Phệ Sinh Linh"
+
+msgid "devour_people_description"
+msgstr "Thôn phệ sinh linh để tăng mạnh chiến lực"
+
+msgid "devour_people_requirements"
+msgstr "Sở hữu Vạn Hồn Phiên"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "Bỏ Trốn"
+
+msgid "escape_description"
+msgstr "Thoát khỏi đối thủ (phán định dựa trên xác suất thành công)"
+
+msgid "escape_requirements"
+msgstr "Không hạn chế"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "Săn Bắn"
+
+msgid "hunt_description"
+msgstr "Săn động vật trong khu vực hiện tại để nhận vật liệu động vật"
+
+msgid "hunt_requirements"
+msgstr ""
+"Đang ở khu vực thường có động vật, và cảnh giới của avatar phải lớn hơn hoặc"
+" bằng cảnh giới của động vật"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Vơ Vét Dân Chúng"
+
+msgid "plunder_people_description"
+msgstr "Vơ vét dân chúng trong thành để có được một ít linh thạch"
+
+msgid "plunder_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và trận doanh của nhân vật phải là 'tà'"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr "{avatar} ám sát thành công! {target} ngã xuống khi chưa kịp phòng bị."
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} bắt đầu thôn phệ sinh linh trong thành"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} bắt đầu vơ vét dân chúng trong thành"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} thuần phục linh thú thất bại"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} ẩn nấp trong bóng tối, đang mưu toan ám sát {target}..."

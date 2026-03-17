@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Gathering System - Auction
-# ============================================================================
 # Status Text
 msgid "Auction is in progress..."
 msgstr "Buổi đấu giá đang diễn ra..."
@@ -46,9 +44,7 @@ msgstr "{student_name} nhận được {exp} điểm kinh nghiệm."
 msgid "sect_teaching_gathering_info"
 msgstr "Đại hội truyền đạo của {sect_name}"
 
-# ============================================================================
 # Gathering System - Sect Teaching
-# ============================================================================
 msgid "sect_teaching_story_prompt"
 msgstr ""
 "Hãy miêu tả một buổi đại hội truyền đạo của tông môn. Trọng tâm là bầu không "

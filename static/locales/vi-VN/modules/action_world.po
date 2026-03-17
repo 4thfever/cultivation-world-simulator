@@ -1,0 +1,151 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "bought"
+msgstr "đã mua"
+
+msgid "bought and consumed"
+msgstr "đã mua rồi dùng"
+
+msgid "bought and equipped"
+msgstr "đã mua rồi trang bị"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "Mua"
+
+msgid "buy_description"
+msgstr "Mua vật phẩm/trang bị/đan dược trong thành trấn"
+
+msgid "buy_requirements"
+msgstr "Đang ở trong thành và có đủ tiền"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Cứu Tế Bách Tính"
+
+msgid "help_people_description"
+msgstr "Cứu tế bách tính trong thành, tiêu hao một lượng nhỏ linh thạch"
+
+msgid "help_people_requirements"
+msgstr "Chỉ trong khu vực thành thị, và có đủ linh thạch"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "Đào Mỏ"
+
+msgid "mine_description"
+msgstr ""
+"Khai thác khoáng mạch trong khu vực hiện tại để nhận vật liệu khoáng thạch"
+
+msgid "mine_requirements"
+msgstr ""
+"Đang ở khu vực thường có khoáng mạch, và cảnh giới của avatar phải lớn hơn "
+"hoặc bằng cảnh giới của khoáng mạch"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "Di Chuyển"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "Rời Xa Nhân Vật"
+
+msgid "move_away_from_avatar_description"
+msgstr "Liên tục rời xa nhân vật được chỉ định"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "Rời Khu Vực"
+
+msgid "move_away_from_region_description"
+msgstr "Rời khỏi khu vực được chỉ định"
+
+msgid "move_away_from_region_requirements"
+msgstr "Không hạn chế"
+
+msgid "move_description"
+msgstr "Di chuyển đến một vị trí tương đối"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "Di Chuyển Tới Nhân Vật"
+
+msgid "move_to_avatar_description"
+msgstr "Di chuyển tới vị trí của một nhân vật cụ thể"
+
+msgid "move_to_avatar_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "Di Chuyển Thăm Dò"
+
+msgid "move_to_direction_description"
+msgstr "Thăm dò khu vực chưa biết theo một phương hướng"
+
+msgid "move_to_direction_requirements"
+msgstr "Không hạn chế"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "Di Chuyển Tới Khu Vực"
+
+msgid "move_to_region_description"
+msgstr "Di chuyển tới một khu vực cụ thể"
+
+msgid "move_to_region_requirements"
+msgstr "Không hạn chế"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "Bán"
+
+msgid "sell_description"
+msgstr ""
+"Bán toàn bộ vật phẩm thuộc một loại nhất định đang sở hữu, hoặc trang bị "
+"hiện tại trong thành trấn"
+
+msgid "sell_requirements"
+msgstr "Đang ở trong thành trấn và sở hữu vật phẩm/trang bị có thể bán"
+
+msgid "wilderness"
+msgstr "hoang giao dã ngoại"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} thử di chuyển nhưng mục tiêu không hợp lệ"
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} bắt đầu cứu tế bách tính trong thành"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} đã bán {item} trong thành trấn"
+
+msgid "plant_action_name"
+msgstr "Trồng Trọt"
+
+msgid "plant_description"
+msgstr "Trồng linh thực để kiếm một lượng nhỏ linh thạch. Kéo dài 6 tháng."
+
+msgid "plant_requirements"
+msgstr "Yêu cầu khu vực thường"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} bắt đầu trồng trọt tại {location}"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} hoàn tất trồng trọt, kiếm được {stones} Linh Thạch"

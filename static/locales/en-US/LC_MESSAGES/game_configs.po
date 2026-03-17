@@ -3797,7 +3797,6 @@ msgstr ""
 "You have a series of executable actions. Pay attention to the effects, "
 "restrictions, regions, and time of actions."
 
-#. world_info.csv:
 msgid "WORLD_INFO_ACTION_NAME"
 msgstr "Action"
 
@@ -3810,7 +3809,6 @@ msgstr ""
 "Every uncertain period of time, there will be an auction organized by a "
 "mysterious person, perhaps selling good goods."
 
-#. world_info.csv:
 msgid "WORLD_INFO_AUCTION_NAME"
 msgstr "Auction"
 
@@ -3824,7 +3822,6 @@ msgstr ""
 "have an absolute advantage over low-realm ones. If the opponent dies, the "
 "winner can plunder the loser's belongings."
 
-#. world_info.csv:
 msgid "WORLD_INFO_BATTLE_NAME"
 msgstr "Battle"
 
@@ -3838,7 +3835,6 @@ msgstr ""
 "breakthrough. Breakthrough is a probability event; upon success, one enters "
 "the next realm."
 
-#. world_info.csv:
 msgid "WORLD_INFO_CULTIVATION_NAME"
 msgstr "Cultivation"
 
@@ -3849,7 +3845,6 @@ msgstr "Cultivation"
 msgid "WORLD_INFO_DEATH_DESC"
 msgstr "HP dropping below 0 also causes death."
 
-#. world_info.csv:
 msgid "WORLD_INFO_DEATH_NAME"
 msgstr "Death"
 
@@ -3863,7 +3858,6 @@ msgstr ""
 "attribute bonuses and small or large buffs. Owning good equipment or taking "
 "good elixirs can bring great benefits."
 
-#. world_info.csv:
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
 msgstr "Equipment & Elixir"
 
@@ -3874,7 +3868,6 @@ msgstr "Equipment & Elixir"
 msgid "WORLD_INFO_INTRO_DESC"
 msgstr "This is a cultivation world where many cultivators compete."
 
-#. world_info.csv:
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr "Introduction"
 
@@ -3889,7 +3882,6 @@ msgstr ""
 " is reached or exceeded, death is certain. Raising the realm and certain "
 "treasures/elixirs can increase the lifespan limit."
 
-#. world_info.csv:
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "Lifespan"
 
@@ -3918,7 +3910,6 @@ msgstr ""
 "Establishment, Core Formation, Nascent Soul. Each realm is divided into "
 "Early, Middle, and Late stages. The gap between realms is huge."
 
-#. world_info.csv:
 msgid "WORLD_INFO_REALM_NAME"
 msgstr "Realm"
 
@@ -3931,7 +3922,6 @@ msgstr ""
 "Different regions have different effects; doing the right thing in the right"
 " region yields twice the result with half the effort."
 
-#. world_info.csv:
 msgid "WORLD_INFO_REGION_NAME"
 msgstr "Region"
 
@@ -3949,7 +3939,6 @@ msgstr ""
 "Cultivation efficiency is highest in regions matching one's own spirit root "
 "attribute."
 
-#. world_info.csv:
 msgid "WORLD_INFO_ROOT_NAME"
 msgstr "Spirit Root"
 
@@ -3962,7 +3951,6 @@ msgstr ""
 "Secret realms open every few years. Entering a secret realm may encounter "
 "danger, but may also obtain high-level artifacts and techniques."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SECRET_REALM_NAME"
 msgstr "Secret Realm"
 
@@ -3976,7 +3964,6 @@ msgstr ""
 "and gaining protection from fellow disciples; rogue cultivators are free but"
 " lack resources."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SECT_NAME"
 msgstr "Sect"
 
@@ -3990,7 +3977,6 @@ msgstr ""
 " elixirs will immediately consume them to strengthen yourself. Buying "
 "weapons can help you switch your weapon type to a handy one."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SHOPPING_NAME"
 msgstr "Shopping"
 
@@ -4003,7 +3989,6 @@ msgstr ""
 "The common currency of the cultivation world. Can be used to buy artifacts "
 "and elixirs, obtained through gathering, trading, or plundering."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SPIRIT_STONE_NAME"
 msgstr "Spirit Stone"
 
@@ -4016,7 +4001,6 @@ msgstr ""
 "The world undergoes celestial changes (such as Qi Tides) every few years, "
 "affecting character abilities."
 
-#. world_info.csv:
 msgid "WORLD_INFO_WORLD_QI_NAME"
 msgstr "World Qi"
 
@@ -4032,7 +4016,6 @@ msgstr ""
 "records Foundation Establishment experts. The Sect Ranking ranks sects by "
 "their total power."
 
-#. world_info.csv:
 msgid "WORLD_INFO_RANKING_NAME"
 msgstr "Ranking"
 

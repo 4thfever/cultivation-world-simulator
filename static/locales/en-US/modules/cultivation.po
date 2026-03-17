@@ -18,9 +18,7 @@ msgstr "Died from severe injuries"
 msgid "Died of old age"
 msgstr "Died of old age"
 
-# ============================================================================
 # Cultivation System - Realm
-# ============================================================================
 # Realm Status
 msgid "Needs breakthrough"
 msgstr "Needs breakthrough"

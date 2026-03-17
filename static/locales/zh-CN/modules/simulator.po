@@ -24,9 +24,7 @@ msgstr "，替换旧{label}『{old_name}』"
 msgid ", sell old {label} '{old_name}'"
 msgstr "，卖掉旧{label}『{old_name}』"
 
-# ============================================================================
 # Simulator & Event Translations
-# ============================================================================
 msgid ""
 "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
 msgstr "{avatar_name} 路过 {region_name}，发现无主，将其占据。"

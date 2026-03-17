@@ -1,0 +1,146 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "bought"
+msgstr "购买了"
+
+msgid "bought and consumed"
+msgstr "购买并服用了"
+
+msgid "bought and equipped"
+msgstr "购买并装备了"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "购买"
+
+msgid "buy_description"
+msgstr "在城镇购买物品/装备/丹药"
+
+msgid "buy_requirements"
+msgstr "在城镇且金钱足够"
+
+# Action: HelpMortals
+msgid "help_people_action_name"
+msgstr "救济百姓"
+
+msgid "help_people_description"
+msgstr "在城镇救济百姓，消耗少量灵石"
+
+msgid "help_people_requirements"
+msgstr "仅限城市区域，并且灵石足够"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "挖矿"
+
+msgid "mine_description"
+msgstr "在当前区域挖掘矿脉，获取矿石材料"
+
+msgid "mine_requirements"
+msgstr "在有矿脉的普通区域，且avatar的境界必须大于等于矿脉的境界"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "移动"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "远离角色"
+
+msgid "move_away_from_avatar_description"
+msgstr "持续远离指定角色"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "无限制"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "离开区域"
+
+msgid "move_away_from_region_description"
+msgstr "离开指定区域"
+
+msgid "move_away_from_region_requirements"
+msgstr "无限制"
+
+msgid "move_description"
+msgstr "移动到某个相对位置"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "移动到角色"
+
+msgid "move_to_avatar_description"
+msgstr "移动到某个角色所在位置"
+
+msgid "move_to_avatar_requirements"
+msgstr "无限制"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "移动探索"
+
+msgid "move_to_direction_description"
+msgstr "向某个方向探索未知区域"
+
+msgid "move_to_direction_requirements"
+msgstr "无限制"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "移动到区域"
+
+msgid "move_to_region_description"
+msgstr "移动到某个区域"
+
+msgid "move_to_region_requirements"
+msgstr "无限制"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "出售"
+
+msgid "sell_description"
+msgstr "在城镇出售持有的某类物品的全部，或当前装备"
+
+msgid "sell_requirements"
+msgstr "在城镇且持有可出售物品/装备"
+
+msgid "wilderness"
+msgstr "荒郊野外"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} 试图移动但目标无效"
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} 在城镇开始救济百姓"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} 在城镇出售了 {item}"
+
+msgid "plant_action_name"
+msgstr "种植"
+
+msgid "plant_description"
+msgstr "种田以赚取微薄的灵石，持续6个月。"
+
+msgid "plant_requirements"
+msgstr "需要在普通区域"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} 在 {location} 开始种植"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} 完成种植，赚取了 {stones} 块灵石"

@@ -26,7 +26,7 @@ def test_i18n_modules_structure():
         assert len(po_files) > 0, f"No .po files found in {modules_dir}"
         
         # Check specific expected modules
-        expected_modules = ["battle.po", "action.po", "fortune.po"]
+        expected_modules = ["battle.po", "action.po", "fortune.po", "action_combat.po"]
         for mod in expected_modules:
             assert (modules_dir / mod).exists(), f"Expected module {mod} missing in {lang}"
 
@@ -45,9 +45,8 @@ def test_merged_messages_po_integrity():
     merged_po = polib.pofile(str(messages_po_path))
     assert len(merged_po) > 0, "Merged messages.po is empty"
     
-    # Check a random key from a module (e.g., from battle.po)
-    # We know "attack_action_name" should be in action.po or battle.po
-    # Actually "attack_action_name" is in action.po
+    # Check a random key from the split action modules.
+    # "attack_action_name" now lives in the combat action module.
     
     found_attack = False
     for entry in merged_po:
@@ -55,7 +54,7 @@ def test_merged_messages_po_integrity():
             found_attack = True
             break
             
-    assert found_attack, "Key 'attack_action_name' (from action.po) not found in merged messages.po"
+    assert found_attack, "Key 'attack_action_name' (from split action modules) not found in merged messages.po"
 
 def test_translation_loading():
     """
@@ -83,6 +82,8 @@ def test_split_po_script_exists():
     root = Path(__file__).parent.parent
     split_script = root / "tools" / "i18n" / "split_po.py"
     build_script = root / "tools" / "i18n" / "build_mo.py"
+    action_split_script = root / "tools" / "i18n" / "split_action_module.py"
     
     assert split_script.exists()
     assert build_script.exists()
+    assert action_split_script.exists()

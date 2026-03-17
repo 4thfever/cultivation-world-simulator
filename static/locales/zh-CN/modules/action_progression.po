@@ -1,0 +1,188 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "心境提升，突破概率增加 {val:.1%}"
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "突破"
+
+msgid "breakthrough_description"
+msgstr "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低）"
+
+msgid "breakthrough_requirements"
+msgstr "角色处于瓶颈时；不能连续执行"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "铸造"
+
+msgid "cast_description"
+msgstr ""
+"消耗材料尝试铸造法宝（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
+
+msgid "cast_requirements"
+msgstr "拥有5个同境界材料"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "双修"
+
+msgid "dual_cultivation_description"
+msgstr "以情入道的双修之术，对象可接受或拒绝"
+
+msgid "dual_cultivation_requirements"
+msgstr "目标在交互范围内；不能连续执行"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "教化"
+
+msgid "educate_description"
+msgstr "儒门修炼，在城市中教化世人，积累功德气运。"
+
+msgid "educate_requirements"
+msgstr "需要儒家道统，且身处城市"
+
+msgid "excellent progress"
+msgstr "进境颇佳"
+
+msgid "gained {val} cultivation"
+msgstr "若有所悟，修为增加 {val}"
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "采集"
+
+msgid "harvest_description"
+msgstr "在当前区域采集植物，获取植物材料"
+
+msgid "harvest_requirements"
+msgstr "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "禅定"
+
+msgid "meditate_description"
+msgstr "佛门修炼，通过坐禅平复心境，有概率顿悟获得大量修为。"
+
+msgid "meditate_requirements"
+msgstr "需要佛门道统"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "温养兵器"
+
+msgid "nurture_weapon_description"
+msgstr "温养兵器，增加兵器熟练度"
+
+msgid "nurture_weapon_requirements"
+msgstr "无限制"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "炼丹"
+
+msgid "refine_description"
+msgstr ""
+"消耗材料尝试炼制丹药（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
+
+msgid "refine_requirements"
+msgstr "拥有3个同境界材料"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "吐纳"
+
+msgid "respire_description"
+msgstr "顺应天道，吐纳灵气。灵气密度越高效果越好。"
+
+msgid "respire_requirements"
+msgstr "需要道门或散修道统"
+
+msgid "respire_sect_hq_members_only"
+msgstr "只有该宗门弟子才能在宗门总部吐纳。"
+
+msgid "respire_efficiency_sect_hq"
+msgstr "进境平稳（宗门总部）"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "疗伤"
+
+msgid "self_heal_description"
+msgstr "运功疗伤，宗门总部可完全恢复"
+
+msgid "self_heal_requirements"
+msgstr "当前HP未满"
+
+msgid "slow progress (essence mismatch)"
+msgstr "进境缓慢（灵气不匹配）"
+
+msgid "slow progress (sparse essence)"
+msgstr "进境缓慢（灵气稀薄）"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "打熬"
+
+msgid "temper_description"
+msgstr "通过极限锻炼打熬肉身气力，不假外求，不食灵气。"
+
+msgid "temper_requirements"
+msgstr "需要武道道统"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} 开始坐禅入定。"
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} 开始尝试突破境界"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} 开始尝试铸造{realm}阶法宝"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} 开始尝试炼制{realm}阶丹药"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} 开始在 {city} 教化百姓。"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} 开始打熬气力"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} 完成了禅定，心境平和。"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} 完成了教化，功德积累 (+{exp})。"
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} 疗伤完成（本次恢复{amount}点，当前HP {hp}）"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} 成功铸造{realm}阶{label}『{item}』"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} 成功炼制{realm}阶丹药『{item}』"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} 邀请 {target} 进行双修"

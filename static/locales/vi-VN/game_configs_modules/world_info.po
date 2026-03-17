@@ -18,7 +18,6 @@ msgstr ""
 "Bạn có một loạt hành động có thể thực hiện. Hãy chú ý tới hiệu quả, điều "
 "kiện hạn chế, khu vực và thời điểm của từng hành động."
 
-#. world_info.csv:
 msgid "WORLD_INFO_ACTION_NAME"
 msgstr "Hành Động"
 
@@ -31,7 +30,6 @@ msgstr ""
 "Cứ sau một khoảng thời gian không cố định sẽ có một buổi đấu giá do người "
 "thần bí tổ chức; biết đâu sẽ có bảo vật tốt được đem ra bán."
 
-#. world_info.csv:
 msgid "WORLD_INFO_AUCTION_NAME"
 msgstr "Đấu Giá"
 
@@ -45,7 +43,6 @@ msgstr ""
 "rõ rệt; kẻ cảnh giới cao có ưu thế tuyệt đối trước kẻ cảnh giới thấp. Nếu "
 "đối phương tử vong, người chiến thắng có thể cướp lấy tài vật của kẻ bại."
 
-#. world_info.csv:
 msgid "WORLD_INFO_BATTLE_NAME"
 msgstr "Chiến Đấu"
 
@@ -59,7 +56,6 @@ msgstr ""
 "phá. Đột phá là sự kiện mang tính xác suất; thành công sẽ tiến vào cảnh giới"
 " tiếp theo."
 
-#. world_info.csv:
 msgid "WORLD_INFO_CULTIVATION_NAME"
 msgstr "Tu Luyện"
 
@@ -70,7 +66,6 @@ msgstr "Tu Luyện"
 msgid "WORLD_INFO_DEATH_DESC"
 msgstr "Sinh mệnh rơi xuống dưới 0 cũng sẽ dẫn tới tử vong."
 
-#. world_info.csv:
 msgid "WORLD_INFO_DEATH_NAME"
 msgstr "Tử Vong"
 
@@ -84,7 +79,6 @@ msgstr ""
 "thể nhận thêm thuộc tính và đủ loại tăng ích. Sở hữu trang bị tốt hoặc dùng "
 "đan dược tốt đều có thể mang lại lợi thế to lớn."
 
-#. world_info.csv:
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
 msgstr "Trang Bị & Đan Dược"
 
@@ -95,7 +89,6 @@ msgstr "Trang Bị & Đan Dược"
 msgid "WORLD_INFO_INTRO_DESC"
 msgstr "Đây là một thế giới tu tiên nơi vô số tu sĩ cùng tranh nhau tu hành."
 
-#. world_info.csv:
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr "Giới Thiệu"
 
@@ -110,7 +103,6 @@ msgstr ""
 "giới hạn thọ nguyên, cái chết là điều chắc chắn. Nâng cao cảnh giới và một "
 "số bảo vật hay đan dược có thể tăng giới hạn thọ nguyên."
 
-#. world_info.csv:
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "Thọ Nguyên"
 
@@ -139,7 +131,6 @@ msgstr ""
 "Nguyên Anh. Mỗi cảnh giới lại chia thành Sơ Kỳ, Trung Kỳ và Hậu Kỳ. Chênh "
 "lệch giữa các cảnh giới là vô cùng lớn."
 
-#. world_info.csv:
 msgid "WORLD_INFO_REALM_NAME"
 msgstr "Cảnh Giới"
 
@@ -152,7 +143,6 @@ msgstr ""
 "Mỗi khu vực có hiệu quả khác nhau; làm đúng việc ở đúng nơi sẽ đạt hiệu quả "
 "gấp đôi với công sức chỉ bằng một nửa."
 
-#. world_info.csv:
 msgid "WORLD_INFO_REGION_NAME"
 msgstr "Khu Vực"
 
@@ -169,7 +159,6 @@ msgstr ""
 " Hiệu suất tu luyện sẽ cao nhất tại khu vực phù hợp với thuộc tính Linh Căn "
 "của bản thân."
 
-#. world_info.csv:
 msgid "WORLD_INFO_ROOT_NAME"
 msgstr "Linh Căn"
 
@@ -182,7 +171,6 @@ msgstr ""
 "Cứ mỗi vài năm sẽ có bí cảnh mở ra. Tiến vào bí cảnh có thể gặp hung hiểm, "
 "nhưng cũng có thể thu được pháp bảo và công pháp cao cấp."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SECRET_REALM_NAME"
 msgstr "Bí Cảnh"
 
@@ -195,7 +183,6 @@ msgstr ""
 "Nơi che chở của tu sĩ. Gia nhập tông môn giúp học được công pháp độc môn và "
 "được đồng môn bảo hộ; còn Tán Tu tuy tự do nhưng tài nguyên khan hiếm."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SECT_NAME"
 msgstr "Tông Môn"
 
@@ -209,7 +196,6 @@ msgstr ""
 "Khí. Mua đan dược sẽ lập tức dùng để cường hóa bản thân; mua binh khí giúp "
 "bạn chuyển sang loại binh khí tiện tay hơn."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SHOPPING_NAME"
 msgstr "Mua Bán"
 
@@ -222,7 +208,6 @@ msgstr ""
 "Đồng tiền thông dụng của giới tu tiên. Có thể dùng để mua pháp bảo và đan "
 "dược, thu được thông qua thu thập, giao dịch hoặc cướp đoạt."
 
-#. world_info.csv:
 msgid "WORLD_INFO_SPIRIT_STONE_NAME"
 msgstr "Linh Thạch"
 
@@ -235,7 +220,6 @@ msgstr ""
 "Cứ mỗi vài năm, thế giới sẽ xuất hiện biến động thiên tượng như thủy triều "
 "linh khí, từ đó ảnh hưởng tới năng lực của nhân vật."
 
-#. world_info.csv:
 msgid "WORLD_INFO_WORLD_QI_NAME"
 msgstr "Thiên Tượng Thế Giới"
 
@@ -250,7 +234,6 @@ msgstr ""
 " Nhân Bảng ghi lại cường giả Trúc Cơ kỳ, còn Bảng Tông Môn xếp hạng theo "
 "tổng thực lực của từng tông môn."
 
-#. world_info.csv:
 msgid "WORLD_INFO_RANKING_NAME"
 msgstr "Bảng Xếp Hạng"
 

@@ -37,9 +37,7 @@ msgstr "新{label}：{info}"
 msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
 msgstr "賣掉新{label}『{new_name}』換取靈石，保留現狀"
 
-# ============================================================================
 # SingleChoice 系統 - 物品決策
-# ============================================================================
 msgid "Accept new item"
 msgstr "接受新物品"
 

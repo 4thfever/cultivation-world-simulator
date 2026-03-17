@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Gathering System - Auction
-# ============================================================================
 # Status Text
 msgid "Auction is in progress..."
 msgstr "Auction is in progress..."
@@ -44,9 +42,7 @@ msgstr "{student_name} gained {exp} experience."
 msgid "sect_teaching_gathering_info"
 msgstr "{sect_name} Teaching Conference"
 
-# ============================================================================
 # Gathering System - Sect Teaching
-# ============================================================================
 msgid "sect_teaching_story_prompt"
 msgstr ""
 "Describe a sect teaching conference. Focus on the atmosphere, the profound "

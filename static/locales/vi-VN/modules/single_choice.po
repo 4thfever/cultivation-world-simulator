@@ -37,9 +37,7 @@ msgstr "{label} mới: {info}"
 msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
 msgstr "Bán {label} mới '{new_name}' đổi lấy linh thạch, giữ nguyên hiện trạng"
 
-# ============================================================================
 # SingleChoice System - Item Decisions
-# ============================================================================
 msgid "Accept new item"
 msgstr "Nhận Vật Phẩm Mới"
 

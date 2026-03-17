@@ -16,9 +16,7 @@ msgstr ""
 msgid "Killed by {killer}"
 msgstr "Killed by {killer}"
 
-# ============================================================================
 # Relation & Root & Appearance & Sect (Refined)
-# ============================================================================
 msgid "Unknown reason"
 msgstr "Unknown reason"
 

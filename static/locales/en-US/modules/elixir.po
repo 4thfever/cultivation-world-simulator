@@ -15,9 +15,7 @@ msgstr ""
 msgid "earth_essence"
 msgstr "Earth"
 
-# ============================================================================
 # Elixir System - Elixirs
-# ============================================================================
 msgid "elixir_type_breakthrough"
 msgstr "Breakthrough"
 

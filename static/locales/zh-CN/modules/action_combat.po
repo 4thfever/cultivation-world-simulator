@@ -1,0 +1,107 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "暗杀"
+
+msgid "assassinate_description"
+msgstr "暗杀目标，失败则变为战斗"
+
+msgid "assassinate_requirements"
+msgstr "无限制；需要冷却"
+
+msgid "assassinate_story_prompt_fail"
+msgstr "这是关于一次失败的暗杀。刺客试图暗杀目标，但被目标敏锐地察觉了。双方随后爆发了激烈的正面冲突。不要出现具体血量数值。"
+
+msgid "assassinate_story_prompt_success"
+msgstr "这是关于一次成功的暗杀。不需要描写战斗过程，重点描写刺客如何潜伏、接近，以及最后那一击的致命与悄无声息。目标甚至没有反应过来就已经陨落。"
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "发起战斗"
+
+msgid "attack_description"
+msgstr "攻击目标，进行对战"
+
+msgid "attack_requirements"
+msgstr "无限制"
+
+msgid "attack_story_prompt"
+msgstr "不要出现具体血量、伤害点数或任何数值表达。战斗要体现出双方的功法、境界、装备等。"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "御兽"
+
+msgid "catch_description"
+msgstr "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级"
+
+msgid "catch_requirements"
+msgstr "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
+
+# Action: DevourMortals
+msgid "devour_people_action_name"
+msgstr "吞噬生灵"
+
+msgid "devour_people_description"
+msgstr "吞噬生灵，较多增加战力"
+
+msgid "devour_people_requirements"
+msgstr "持有万魂幡"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "逃离"
+
+msgid "escape_description"
+msgstr "逃离对方（基于成功率判定）"
+
+msgid "escape_requirements"
+msgstr "无限制"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "狩猎"
+
+msgid "hunt_description"
+msgstr "在当前区域狩猎动物，获取动物材料"
+
+msgid "hunt_requirements"
+msgstr "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
+
+# Action: PlunderMortals
+msgid "plunder_people_action_name"
+msgstr "搜刮民脂"
+
+msgid "plunder_people_description"
+msgstr "在城镇搜刮民脂，获取少量灵石"
+
+msgid "plunder_people_requirements"
+msgstr "仅限城市区域，且角色阵营为'邪'"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr "{avatar} 暗杀成功！{target} 在毫无防备中陨落。"
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} 在城镇开始吞噬生灵"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} 在城镇开始搜刮民脂"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} 御兽失败"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} 潜伏在阴影中，试图暗杀 {target}..."

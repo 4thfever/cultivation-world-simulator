@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Gathering 系統 - 拍賣會
-# ============================================================================
 # 狀態文本
 msgid "Auction is in progress..."
 msgstr "拍賣會正在舉行..."
@@ -42,9 +40,7 @@ msgstr "{student_name} 獲得了 {exp} 點經驗。"
 msgid "sect_teaching_gathering_info"
 msgstr "{sect_name}傳道大會"
 
-# ============================================================================
 # Gathering 系統 - 宗門傳道
-# ============================================================================
 msgid "sect_teaching_story_prompt"
 msgstr "描寫一場宗門傳道大會。側重描寫大會的氛圍、傳道者的道韻流轉以及眾弟子的眾生百態。請避免提及具體的經驗數值。"
 

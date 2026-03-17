@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Map & Region & Others (New)
-# ============================================================================
 msgid "Cultivate Region (can respire to increase cultivation)"
 msgstr "Khu Vực Tu Luyện (có thể thổ nạp để tăng tu vi)"
 

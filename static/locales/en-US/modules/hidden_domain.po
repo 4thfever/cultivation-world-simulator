@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Hidden Domain
-# ============================================================================
 msgid "hidden_domain_story_prompt"
 msgstr ""
 "Describe the exploration of the hidden domain. Focus on individual "

@@ -44,9 +44,7 @@ msgstr "Wilderness"
 msgid "[{name}] ({realm})"
 msgstr "[{name}] ({realm})"
 
-# ============================================================================
 # Additional (New)
-# ============================================================================
 msgid "action_thinking"
 msgstr "Thinking"
 

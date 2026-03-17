@@ -16,9 +16,7 @@ msgstr ""
 msgid "Killed by {killer}"
 msgstr "Bị {killer} sát hại"
 
-# ============================================================================
 # Relation & Root & Appearance & Sect (Refined)
-# ============================================================================
 msgid "Unknown reason"
 msgstr "Nguyên do chưa rõ"
 

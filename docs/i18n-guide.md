@@ -161,7 +161,7 @@ class MyAction(Action):
         msg = t("{actor} performs action on {target}", actor=self.avatar.name, target=target.name)
 ```
 
-**Translation Location:** `static/locales/{lang}/modules/action.po`
+**Translation Location:** `static/locales/{lang}/modules/action.po` and, for larger groups, sibling files such as `action_combat.po`, `action_progression.po`, and `action_world.po`
 
 ### 8.2 Effects
 

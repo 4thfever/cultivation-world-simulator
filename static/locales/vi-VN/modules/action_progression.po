@@ -1,0 +1,205 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "Xác suất đột phá tăng thêm {val:.1%}."
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "Đột Phá"
+
+msgid "breakthrough_description"
+msgstr ""
+"Thử đột phá cảnh giới (thành công sẽ tăng thọ nguyên tối đa, thất bại sẽ làm"
+" giảm; cảnh giới càng cao thì xác suất thành công càng thấp)"
+
+msgid "breakthrough_requirements"
+msgstr "Nhân vật phải đang ở bình cảnh; không thể liên tục chấp hành"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "Đúc Tạo"
+
+msgid "cast_description"
+msgstr ""
+"Tiêu hao vật liệu để thử đúc tạo pháp bảo (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "cast_requirements"
+msgstr "Sở hữu 5 vật liệu cùng cảnh giới"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "Song Tu"
+
+msgid "dual_cultivation_description"
+msgstr ""
+"Lấy tình nhập đạo để song tu, đối phương có thể chấp nhận hoặc từ chối"
+
+msgid "dual_cultivation_requirements"
+msgstr "Mục tiêu ở trong phạm vi tương tác; không thể liên tục chấp hành"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"Hai vị tu sĩ nảy sinh tình ý trong quá trình song tu. Hãy dùng bút pháp hàm "
+"súc, thanh nhã để miêu tả một đoạn trải nghiệm song tu mờ ám mà không lộ "
+"liễu, thể hiện tính cách, chênh lệch cảnh giới và những khoảnh khắc tình ái "
+"ngọt ngào của đôi bên. Không được đề cập tới số trị kinh nghiệm."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Giáo Hóa"
+
+msgid "educate_description"
+msgstr ""
+"Con đường tu luyện của Nho môn. Giáo hóa thế nhân trong thành để tích lũy "
+"công đức và khí vận."
+
+msgid "educate_requirements"
+msgstr "Yêu cầu đạo thống Nho gia và đang ở trong thành"
+
+msgid "excellent progress"
+msgstr "tiến cảnh khá tốt"
+
+msgid "gained {val} cultivation"
+msgstr "Tăng {val} điểm tu vi."
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "Thu Thập"
+
+msgid "harvest_description"
+msgstr "Thu thập thực vật trong khu vực hiện tại để nhận vật liệu thực vật"
+
+msgid "harvest_requirements"
+msgstr ""
+"Đang ở khu vực thường có thực vật, và cảnh giới của avatar phải lớn hơn hoặc"
+" bằng cảnh giới của thực vật"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Thiền Định"
+
+msgid "meditate_description"
+msgstr ""
+"Con đường tu luyện của Phật môn. Dùng thiền định để bình phục tâm cảnh, có "
+"cơ hội đốn ngộ và nhận được lượng lớn tu vi."
+
+msgid "meditate_requirements"
+msgstr "Yêu cầu đạo thống Phật môn"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "Ôn Dưỡng Binh Khí"
+
+msgid "nurture_weapon_description"
+msgstr "Ôn dưỡng binh khí để tăng độ thuần thục binh khí"
+
+msgid "nurture_weapon_requirements"
+msgstr "Không hạn chế"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "Luyện Đan"
+
+msgid "refine_description"
+msgstr ""
+"Tiêu hao vật liệu để thử luyện chế đan dược (tham số target_realm: "
+"QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "refine_requirements"
+msgstr "Sở hữu 3 vật liệu cùng cảnh giới"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Thổ Nạp"
+
+msgid "respire_description"
+msgstr ""
+"Thuận theo Thiên Đạo, thổ nạp linh khí. Mật độ linh khí càng cao thì hiệu "
+"quả càng tốt."
+
+msgid "respire_requirements"
+msgstr "Yêu cầu đạo thống Đạo môn hoặc thân phận tán tu"
+
+msgid "respire_sect_hq_members_only"
+msgstr "Chỉ đệ tử của tông môn này mới có thể thổ nạp tại tổng bộ của họ."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "Tiến cảnh ổn định (tổng bộ tông môn)"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "Tự Trị Thương"
+
+msgid "self_heal_description"
+msgstr "Vận công chữa thương; có thể hoàn toàn hồi phục tại tổng bộ tông môn"
+
+msgid "self_heal_requirements"
+msgstr "HP hiện tại chưa đầy"
+
+msgid "slow progress (essence mismatch)"
+msgstr "Tiến cảnh chậm (linh khí không tương hợp)"
+
+msgid "slow progress (sparse essence)"
+msgstr "Tiến cảnh chậm (linh khí thưa thớt)"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Tôi Luyện"
+
+msgid "temper_description"
+msgstr ""
+"Dùng cách rèn luyện cực hạn để tôi luyện nhục thân khí lực, không cầu ngoại "
+"vật, không tiêu hao linh khí."
+
+msgid "temper_requirements"
+msgstr "Yêu cầu đạo thống Võ đạo"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} bắt đầu tọa thiền nhập định."
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} bắt đầu thử đột phá cảnh giới"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} bắt đầu thử đúc tạo pháp bảo bậc {realm}"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} bắt đầu thử luyện chế đan dược bậc {realm}"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} bắt đầu giáo hóa bách tính tại {city}."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} hoàn tất giáo hóa. Công đức tích lũy (+{exp})."
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr ""
+"{avatar} chữa thương hoàn tất (hồi phục {amount} HP, HP hiện tại {hp})"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} đã thành công đúc tạo {label} bậc {realm} '{item}'"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} đã thành công luyện chế đan dược bậc {realm} '{item}'"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} mời {target} cùng tiến hành song tu"

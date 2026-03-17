@@ -23,9 +23,7 @@ msgstr ""
 msgid "Retreat Bonus"
 msgstr "Retreat Insight"
 
-# ============================================================================
 # Additional Missing Translations
-# ============================================================================
 msgid "Unsupported item type: {item_type}"
 msgstr "Unsupported item type: {item_type}"
 

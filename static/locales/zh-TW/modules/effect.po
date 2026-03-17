@@ -83,9 +83,7 @@ msgstr "祕境兇險概率"
 msgid "effect_extra_hidden_domain_drop_prob"
 msgstr "祕境掉落概率"
 
-# ============================================================================
 # Effect 系統
-# ============================================================================
 # Effect 名稱
 msgid "effect_extra_hp_recovery_rate"
 msgstr "生命恢復速率"

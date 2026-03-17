@@ -1,0 +1,204 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "Breakthrough probability increased by {val:.1%}."
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "Breakthrough"
+
+msgid "breakthrough_description"
+msgstr ""
+"Attempt to breakthrough realm (success increases max lifespan, failure "
+"reduces it; higher realm, lower success rate)"
+
+msgid "breakthrough_requirements"
+msgstr "Character must be at bottleneck; cannot execute consecutively"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "Cast Treasure"
+
+msgid "cast_description"
+msgstr ""
+"Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT,"
+" FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "cast_requirements"
+msgstr "Possess 5 materials of the same realm"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "Dual Cultivation"
+
+msgid "dual_cultivation_description"
+msgstr "Cultivation through intimacy, target can accept or reject"
+
+msgid "dual_cultivation_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"Two cultivators develop feelings during dual cultivation. Describe an "
+"elegant and subtle dual cultivation experience with implied romance, "
+"reflecting their personalities, realm differences, and sweet romantic "
+"moments. Do not mention numerical experience values."
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "Educate"
+
+msgid "educate_description"
+msgstr ""
+"Confucian cultivation. Educate people in the city to accumulate merit and "
+"luck."
+
+msgid "educate_requirements"
+msgstr "Requires Confucian orthodoxy and being in a City"
+
+msgid "excellent progress"
+msgstr "excellent progress"
+
+msgid "gained {val} cultivation"
+msgstr "Gained {val} cultivation."
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "Harvest"
+
+msgid "harvest_description"
+msgstr "Harvest plants in current area to obtain plant materials"
+
+msgid "harvest_requirements"
+msgstr ""
+"In normal area with plants, and avatar's realm must be greater than or equal"
+" to plant's realm"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "Meditate"
+
+msgid "meditate_description"
+msgstr ""
+"Buddhist cultivation. Calm the mind through Zen meditation, with a chance of"
+" epiphany for massive cultivation gain."
+
+msgid "meditate_requirements"
+msgstr "Requires Buddhist orthodoxy"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "Nurture Weapon"
+
+msgid "nurture_weapon_description"
+msgstr "Nurture weapon to increase weapon proficiency"
+
+msgid "nurture_weapon_requirements"
+msgstr "No restrictions"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "Refine Elixir"
+
+msgid "refine_description"
+msgstr ""
+"Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, "
+"FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "refine_requirements"
+msgstr "Possess 3 materials of the same realm"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Respire"
+
+msgid "respire_description"
+msgstr ""
+"Conform to the Heavenly Dao and respire Qi. The higher the spiritual energy "
+"density, the better the effect."
+
+msgid "respire_requirements"
+msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
+
+msgid "respire_sect_hq_members_only"
+msgstr "Only disciples of this sect can respire at its headquarters."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "steady progress (sect headquarters)"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "Self Heal"
+
+msgid "self_heal_description"
+msgstr ""
+"Heal injuries through meditation; can fully recover at sect headquarters"
+
+msgid "self_heal_requirements"
+msgstr "Current HP not full"
+
+msgid "slow progress (essence mismatch)"
+msgstr "slow progress (essence mismatch)"
+
+msgid "slow progress (sparse essence)"
+msgstr "slow progress (sparse essence)"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Temper"
+
+msgid "temper_description"
+msgstr ""
+"Tempering body strength through extreme exercise, seeking nothing from the "
+"outside, consuming no spiritual energy."
+
+msgid "temper_requirements"
+msgstr "Requires Martial Orthodoxy"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} begins Zen Meditation."
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} begins attempting breakthrough"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} begins attempting to cast {realm}-tier treasure"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} begins attempting to refine {realm}-tier elixir"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} begins educating people in {city}."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} begins tempering body strength"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} completed meditation with a peaceful mind."
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} successfully cast {realm}-tier {label} '{item}'"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} successfully refined {realm}-tier elixir '{item}'"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} invites {target} for dual cultivation"

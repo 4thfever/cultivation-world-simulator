@@ -79,264 +79,14 @@ msgstr "抚琴"
 msgid "action_zither_playing_desc"
 msgstr "抚琴奏乐，陶冶情操。"
 
-# Action: Assassinate
-msgid "assassinate_action_name"
-msgstr "暗杀"
-
-msgid "assassinate_description"
-msgstr "暗杀目标，失败则变为战斗"
-
-msgid "assassinate_requirements"
-msgstr "无限制；需要冷却"
-
-msgid "assassinate_story_prompt_fail"
-msgstr "这是关于一次失败的暗杀。刺客试图暗杀目标，但被目标敏锐地察觉了。双方随后爆发了激烈的正面冲突。不要出现具体血量数值。"
-
-msgid "assassinate_story_prompt_success"
-msgstr "这是关于一次成功的暗杀。不需要描写战斗过程，重点描写刺客如何潜伏、接近，以及最后那一击的致命与悄无声息。目标甚至没有反应过来就已经陨落。"
-
-# Action: Attack
-msgid "attack_action_name"
-msgstr "发起战斗"
-
-msgid "attack_description"
-msgstr "攻击目标，进行对战"
-
-msgid "attack_requirements"
-msgstr "无限制"
-
-msgid "attack_story_prompt"
-msgstr "不要出现具体血量、伤害点数或任何数值表达。战斗要体现出双方的功法、境界、装备等。"
-
-msgid "bought"
-msgstr "购买了"
-
-msgid "bought and consumed"
-msgstr "购买并服用了"
-
-msgid "bought and equipped"
-msgstr "购买并装备了"
-
-msgid "breakthrough probability increased by {val:.1%}"
-msgstr "心境提升，突破概率增加 {val:.1%}"
-
-# Action: Breakthrough
-msgid "breakthrough_action_name"
-msgstr "突破"
-
-msgid "breakthrough_description"
-msgstr "尝试突破境界（成功增加寿元上限，失败折损寿元上限；境界越高，成功率越低）"
-
-msgid "breakthrough_requirements"
-msgstr "角色处于瓶颈时；不能连续执行"
-
-# Action: Buy
-msgid "buy_action_name"
-msgstr "购买"
-
-msgid "buy_description"
-msgstr "在城镇购买物品/装备/丹药"
-
-msgid "buy_requirements"
-msgstr "在城镇且金钱足够"
-
-# Action: Cast
-msgid "cast_action_name"
-msgstr "铸造"
-
-msgid "cast_description"
-msgstr ""
-"消耗材料尝试铸造法宝（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
-"CORE_FORMATION, NASCENT_SOUL）"
-
-msgid "cast_requirements"
-msgstr "拥有5个同境界材料"
-
-# Action: Catch
-msgid "catch_action_name"
-msgstr "御兽"
-
-msgid "catch_description"
-msgstr "尝试驯服一只灵兽，成为自身灵兽。只能有一只灵兽，但是可以高级替换低级"
-
-msgid "catch_requirements"
-msgstr "仅百兽宗；在有动物的普通区域；目标动物境界不高于角色"
-
-# Action: DevourMortals
-msgid "devour_people_action_name"
-msgstr "吞噬生灵"
-
-msgid "devour_people_description"
-msgstr "吞噬生灵，较多增加战力"
-
-msgid "devour_people_requirements"
-msgstr "持有万魂幡"
-
-# Action: DualCultivation
-msgid "dual_cultivation_action_name"
-msgstr "双修"
-
-msgid "dual_cultivation_description"
-msgstr "以情入道的双修之术，对象可接受或拒绝"
-
-msgid "dual_cultivation_requirements"
-msgstr "目标在交互范围内；不能连续执行"
-
-msgid "dual_cultivation_story_prompt"
-msgstr ""
-"两位修士在双修过程中情愫暗生，以含蓄、雅致的文字描绘一段暧昧而不露骨的双修体验，体现彼此性格、境界差异与甜蜜的恋爱时光。不要体现经验的数值。"
-
-# Action: Educate
-msgid "educate_action_name"
-msgstr "教化"
-
-msgid "educate_description"
-msgstr "儒门修炼，在城市中教化世人，积累功德气运。"
-
-msgid "educate_requirements"
-msgstr "需要儒家道统，且身处城市"
-
-# Action: Escape
-msgid "escape_action_name"
-msgstr "逃离"
-
-msgid "escape_description"
-msgstr "逃离对方（基于成功率判定）"
-
-msgid "escape_requirements"
-msgstr "无限制"
-
 msgid "evil"
 msgstr "邪"
-
-msgid "excellent progress"
-msgstr "进境颇佳"
 
 msgid "failed"
 msgstr "失败"
 
-msgid "gained {val} cultivation"
-msgstr "若有所悟，修为增加 {val}"
-
-# Action: Harvest
-msgid "harvest_action_name"
-msgstr "采集"
-
-msgid "harvest_description"
-msgstr "在当前区域采集植物，获取植物材料"
-
-msgid "harvest_requirements"
-msgstr "在有植物的普通区域，且avatar的境界必须大于等于植物的境界"
-
-# Action: HelpMortals
-msgid "help_people_action_name"
-msgstr "救济百姓"
-
-msgid "help_people_description"
-msgstr "在城镇救济百姓，消耗少量灵石"
-
-msgid "help_people_requirements"
-msgstr "仅限城市区域，并且灵石足够"
-
-# Action: Hunt
-msgid "hunt_action_name"
-msgstr "狩猎"
-
-msgid "hunt_description"
-msgstr "在当前区域狩猎动物，获取动物材料"
-
-msgid "hunt_requirements"
-msgstr "在有动物的普通区域，且avatar的境界必须大于等于动物的境界"
-
-# Action: Meditate
-msgid "meditate_action_name"
-msgstr "禅定"
-
-msgid "meditate_description"
-msgstr "佛门修炼，通过坐禅平复心境，有概率顿悟获得大量修为。"
-
-msgid "meditate_requirements"
-msgstr "需要佛门道统"
-
-# Action: Mine
-msgid "mine_action_name"
-msgstr "挖矿"
-
-msgid "mine_description"
-msgstr "在当前区域挖掘矿脉，获取矿石材料"
-
-msgid "mine_requirements"
-msgstr "在有矿脉的普通区域，且avatar的境界必须大于等于矿脉的境界"
-
-# Action: Move (Base)
-msgid "move_action_name"
-msgstr "移动"
-
-# Action: MoveAwayFromAvatar
-msgid "move_away_from_avatar_action_name"
-msgstr "远离角色"
-
-msgid "move_away_from_avatar_description"
-msgstr "持续远离指定角色"
-
-msgid "move_away_from_avatar_requirements"
-msgstr "无限制"
-
-# Action: MoveAwayFromRegion
-msgid "move_away_from_region_action_name"
-msgstr "离开区域"
-
-msgid "move_away_from_region_description"
-msgstr "离开指定区域"
-
-msgid "move_away_from_region_requirements"
-msgstr "无限制"
-
-msgid "move_description"
-msgstr "移动到某个相对位置"
-
-# Action: MoveToAvatar
-msgid "move_to_avatar_action_name"
-msgstr "移动到角色"
-
-msgid "move_to_avatar_description"
-msgstr "移动到某个角色所在位置"
-
-msgid "move_to_avatar_requirements"
-msgstr "无限制"
-
-# Action: MoveToDirection
-msgid "move_to_direction_action_name"
-msgstr "移动探索"
-
-msgid "move_to_direction_description"
-msgstr "向某个方向探索未知区域"
-
-msgid "move_to_direction_requirements"
-msgstr "无限制"
-
-# Action: MoveToRegion
-msgid "move_to_region_action_name"
-msgstr "移动到区域"
-
-msgid "move_to_region_description"
-msgstr "移动到某个区域"
-
-msgid "move_to_region_requirements"
-msgstr "无限制"
-
 msgid "neutral"
 msgstr "中立"
-
-# Action: NurtureWeapon
-msgid "nurture_weapon_action_name"
-msgstr "温养兵器"
-
-msgid "nurture_weapon_description"
-msgstr "温养兵器，增加兵器熟练度"
-
-msgid "nurture_weapon_requirements"
-msgstr "无限制"
 
 # Action: Play
 msgid "play_action_name"
@@ -348,85 +98,8 @@ msgstr "消遣，放松身心"
 msgid "play_requirements"
 msgstr "目标在交互范围内"
 
-# Action: PlunderMortals
-msgid "plunder_people_action_name"
-msgstr "搜刮民脂"
-
-msgid "plunder_people_description"
-msgstr "在城镇搜刮民脂，获取少量灵石"
-
-msgid "plunder_people_requirements"
-msgstr "仅限城市区域，且角色阵营为'邪'"
-
-# Action: Refine
-msgid "refine_action_name"
-msgstr "炼丹"
-
-msgid "refine_description"
-msgstr ""
-"消耗材料尝试炼制丹药（参数 target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
-"CORE_FORMATION, NASCENT_SOUL）"
-
-msgid "refine_requirements"
-msgstr "拥有3个同境界材料"
-
-# Action: Respire
-msgid "respire_action_name"
-msgstr "吐纳"
-
-msgid "respire_description"
-msgstr "顺应天道，吐纳灵气。灵气密度越高效果越好。"
-
-msgid "respire_requirements"
-msgstr "需要道门或散修道统"
-
-msgid "respire_sect_hq_members_only"
-msgstr "只有该宗门弟子才能在宗门总部吐纳。"
-
-msgid "respire_efficiency_sect_hq"
-msgstr "进境平稳（宗门总部）"
-
-# Action: SelfHeal
-msgid "self_heal_action_name"
-msgstr "疗伤"
-
-msgid "self_heal_description"
-msgstr "运功疗伤，宗门总部可完全恢复"
-
-msgid "self_heal_requirements"
-msgstr "当前HP未满"
-
-# Action: Sell
-msgid "sell_action_name"
-msgstr "出售"
-
-msgid "sell_description"
-msgstr "在城镇出售持有的某类物品的全部，或当前装备"
-
-msgid "sell_requirements"
-msgstr "在城镇且持有可出售物品/装备"
-
-msgid "slow progress (essence mismatch)"
-msgstr "进境缓慢（灵气不匹配）"
-
-msgid "slow progress (sparse essence)"
-msgstr "进境缓慢（灵气稀薄）"
-
 msgid "succeeded"
 msgstr "成功"
-
-# Action: Temper
-msgid "temper_action_name"
-msgstr "打熬"
-
-msgid "temper_description"
-msgstr "通过极限锻炼打熬肉身气力，不假外求，不食灵气。"
-
-msgid "temper_requirements"
-msgstr "需要武道道统"
-
-msgid "wilderness"
-msgstr "荒郊野外"
 
 msgid ""
 "{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
@@ -435,44 +108,8 @@ msgstr ""
 "{attacker} 对 {target} 发起战斗（战斗力：{attacker} {att_power} vs {target} "
 "{def_power}）"
 
-msgid "{avatar} assassinated successfully! {target} fell without any defense."
-msgstr "{avatar} 暗杀成功！{target} 在毫无防备中陨落。"
-
-msgid "{avatar} attempted to move but target is invalid"
-msgstr "{avatar} 试图移动但目标无效"
-
-msgid "{avatar} begins Zen Meditation."
-msgstr "{avatar} 开始坐禅入定。"
-
-msgid "{avatar} begins attempting breakthrough"
-msgstr "{avatar} 开始尝试突破境界"
-
-msgid "{avatar} begins attempting to cast {realm}-tier treasure"
-msgstr "{avatar} 开始尝试铸造{realm}阶法宝"
-
-msgid "{avatar} begins attempting to refine {realm}-tier elixir"
-msgstr "{avatar} 开始尝试炼制{realm}阶丹药"
-
-msgid "{avatar} begins devouring people in town"
-msgstr "{avatar} 在城镇开始吞噬生灵"
-
-msgid "{avatar} begins educating people in {city}."
-msgstr "{avatar} 开始在 {city} 教化百姓。"
-
-msgid "{avatar} begins helping people in town"
-msgstr "{avatar} 在城镇开始救济百姓"
-
 msgid "{avatar} begins leisure activities"
 msgstr "{avatar} 开始消遣"
-
-msgid "{avatar} begins plundering people in town"
-msgstr "{avatar} 在城镇开始搜刮民脂"
-
-msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} 开始打熬气力"
-
-msgid "{avatar} completed meditation with a peaceful mind."
-msgstr "{avatar} 完成了禅定，心境平和。"
 
 msgid ""
 "{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
@@ -481,12 +118,6 @@ msgstr "{avatar} 铸造{realm}阶法宝失败，所有材料化为灰烬"
 msgid ""
 "{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
 msgstr "{avatar} 炼制{realm}阶丹药失败，所有材料化为灰烬"
-
-msgid "{avatar} failed to tame spirit beast"
-msgstr "{avatar} 御兽失败"
-
-msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
-msgstr "{avatar} 完成了教化，功德积累 (+{exp})。"
 
 msgid ""
 "{avatar} finished nurturing {weapon}, proficiency increased to "
@@ -501,33 +132,15 @@ msgid ""
 "significantly (+{exp})."
 msgstr "{avatar} 在禅定中顿悟了！修为大增 (+{exp})。"
 
-msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
-msgstr "{avatar} 疗伤完成（本次恢复{amount}点，当前HP {hp}）"
-
-msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
-msgstr "{avatar} 潜伏在阴影中，试图暗杀 {target}..."
-
 msgid ""
 "{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
 "increased, evolved into {new_weapon}!"
 msgstr "{avatar} 温养{old_weapon}时，兵器灵性大增，升华为{new_weapon}！"
 
-msgid "{avatar} sold {item} in town"
-msgstr "{avatar} 在城镇出售了 {item}"
-
-msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
-msgstr "{avatar} 成功铸造{realm}阶{label}『{item}』"
-
-msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
-msgstr "{avatar} 成功炼制{realm}阶丹药『{item}』"
-
 msgid ""
 "{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
 " spirit beast"
 msgstr "{avatar} 御兽成功，{realm}境的{beast}成为其灵兽"
-
-msgid "{initiator} invites {target} for dual cultivation"
-msgstr "{initiator} 邀请 {target} 进行双修"
 
 msgid "{root_name} ({elements})"
 msgstr "{root_name}（{elements}）"
@@ -537,18 +150,3 @@ msgstr "无名路人"
 
 msgid "Current world celestial phenomenon: {name}"
 msgstr "当前世界天象：{name}"
-
-msgid "plant_action_name"
-msgstr "种植"
-
-msgid "plant_description"
-msgstr "种田以赚取微薄的灵石，持续6个月。"
-
-msgid "plant_requirements"
-msgstr "需要在普通区域"
-
-msgid "{avatar} begins planting at {location}"
-msgstr "{avatar} 在 {location} 开始种植"
-
-msgid "{avatar} finished planting, earned {stones} Spirit Stones"
-msgstr "{avatar} 完成种植，赚取了 {stones} 块灵石"

@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Avatar 系统
-# ============================================================================
 # 字段标签 (info_dict 键名)
 msgid "Origin"
 msgstr "出身"

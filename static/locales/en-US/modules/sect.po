@@ -40,9 +40,7 @@ msgstr ""
 msgid "{avatar_name} determined their long-term objective: {objective}"
 msgstr "{avatar_name} determined their long-term objective: {objective}"
 
-# ============================================================================
 # Sect System - Sects
-# ============================================================================
 msgid "Base effect"
 msgstr "Base effect"
 

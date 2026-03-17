@@ -40,9 +40,7 @@ msgstr ""
 msgid "{avatar_name} determined their long-term objective: {objective}"
 msgstr "{avatar_name} đã xác lập chí hướng lâu dài của mình: {objective}"
 
-# ============================================================================
 # Sect System - Sects
-# ============================================================================
 msgid "Base effect"
 msgstr "Hiệu Quả Cơ Bản"
 

@@ -37,9 +37,7 @@ msgstr "New {label}: {info}"
 msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
 msgstr "Sell new {label} '{new_name}' for spirit stones, keep current"
 
-# ============================================================================
 # SingleChoice System - Item Decisions
-# ============================================================================
 msgid "Accept new item"
 msgstr "Accept new item"
 

@@ -12,8 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Frontend UI Translations
-# ============================================================================
 msgid "Sect Headquarters"
 msgstr "宗门驻地"

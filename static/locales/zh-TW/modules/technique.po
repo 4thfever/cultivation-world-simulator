@@ -12,9 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ============================================================================
 # Technique 系統 - 功法
-# ============================================================================
 msgid " Effect: {effect_desc}"
 msgstr " 效果：{effect_desc}"
 

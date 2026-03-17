@@ -18,9 +18,7 @@ msgstr "Trọng thương bất trị mà vẫn lạc"
 msgid "Died of old age"
 msgstr "Thọ nguyên hao tận mà vẫn lạc"
 
-# ============================================================================
 # Cultivation System - Realm
-# ============================================================================
 # Realm Status
 msgid "Needs breakthrough"
 msgstr "Cần Đột Phá"

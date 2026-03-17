@@ -83,9 +83,7 @@ msgstr "Xác suất hung hiểm của bí cảnh"
 msgid "effect_extra_hidden_domain_drop_prob"
 msgstr "Xác suất rơi vật phẩm ở bí cảnh"
 
-# ============================================================================
 # Effect System
-# ============================================================================
 # Effect Names
 msgid "effect_extra_hp_recovery_rate"
 msgstr "Tốc độ hồi phục sinh mệnh"

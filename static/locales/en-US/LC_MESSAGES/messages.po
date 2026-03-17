@@ -87,6 +87,88 @@ msgstr "Playing Zither"
 msgid "action_zither_playing_desc"
 msgstr "Play the zither and nurture your temperament."
 
+msgid "evil"
+msgstr "Evil"
+
+msgid "failed"
+msgstr "failed"
+
+msgid "neutral"
+msgstr "Neutral"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "Leisure"
+
+msgid "play_description"
+msgstr "Leisure activities to relax body and mind"
+
+msgid "play_requirements"
+msgstr "Target within interaction range"
+
+msgid "succeeded"
+msgstr "succeeded"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} begins leisure activities"
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} finished {action}."
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name} ({elements})"
+
+msgid "An anonymous passerby (extra)"
+msgstr "An anonymous passerby"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "Current world celestial phenomenon: {name}"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Assassinate"
@@ -126,52 +208,6 @@ msgstr ""
 " battle should reflect both sides' techniques, cultivation realms, "
 "equipment, etc."
 
-msgid "bought"
-msgstr "bought"
-
-msgid "bought and consumed"
-msgstr "bought and consumed"
-
-msgid "bought and equipped"
-msgstr "bought and equipped"
-
-msgid "breakthrough probability increased by {val:.1%}"
-msgstr "Breakthrough probability increased by {val:.1%}."
-
-# Action: Breakthrough
-msgid "breakthrough_action_name"
-msgstr "Breakthrough"
-
-msgid "breakthrough_description"
-msgstr ""
-"Attempt to breakthrough realm (success increases max lifespan, failure "
-"reduces it; higher realm, lower success rate)"
-
-msgid "breakthrough_requirements"
-msgstr "Character must be at bottleneck; cannot execute consecutively"
-
-# Action: Buy
-msgid "buy_action_name"
-msgstr "Buy"
-
-msgid "buy_description"
-msgstr "Buy items/equipment/elixirs in town"
-
-msgid "buy_requirements"
-msgstr "In town and have enough money"
-
-# Action: Cast
-msgid "cast_action_name"
-msgstr "Cast Treasure"
-
-msgid "cast_description"
-msgstr ""
-"Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT,"
-" FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
-
-msgid "cast_requirements"
-msgstr "Possess 5 materials of the same realm"
-
 # Action: Catch
 msgid "catch_action_name"
 msgstr "Tame Beast"
@@ -195,6 +231,81 @@ msgstr "Devour people to significantly increase combat power"
 
 msgid "devour_people_requirements"
 msgstr "Possess Ten Thousand Souls Banner"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "Escape"
+
+msgid "escape_description"
+msgstr "Escape from opponent (success rate based)"
+
+msgid "escape_requirements"
+msgstr "No restrictions"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "Hunt"
+
+msgid "hunt_description"
+msgstr "Hunt animals in current area to obtain animal materials"
+
+msgid "hunt_requirements"
+msgstr ""
+"In normal area with animals, and avatar's realm must be greater than or "
+"equal to animal's realm"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "Plunder People"
+
+msgid "plunder_people_description"
+msgstr "Plunder people in town to obtain small amount of spirit stones"
+
+msgid "plunder_people_requirements"
+msgstr "Only in city areas, and character alignment must be 'evil'"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr ""
+"{avatar} assassinated successfully! {target} fell without any defense."
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} begins devouring people in town"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} begins plundering people in town"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} failed to tame spirit beast"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "Breakthrough probability increased by {val:.1%}."
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "Breakthrough"
+
+msgid "breakthrough_description"
+msgstr ""
+"Attempt to breakthrough realm (success increases max lifespan, failure "
+"reduces it; higher realm, lower success rate)"
+
+msgid "breakthrough_requirements"
+msgstr "Character must be at bottleneck; cannot execute consecutively"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "Cast Treasure"
+
+msgid "cast_description"
+msgstr ""
+"Consume materials to attempt casting treasures (target_realm: QI_REFINEMENT,"
+" FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "cast_requirements"
+msgstr "Possess 5 materials of the same realm"
 
 # Action: DualCultivation
 msgid "dual_cultivation_action_name"
@@ -225,24 +336,8 @@ msgstr ""
 msgid "educate_requirements"
 msgstr "Requires Confucian orthodoxy and being in a City"
 
-# Action: Escape
-msgid "escape_action_name"
-msgstr "Escape"
-
-msgid "escape_description"
-msgstr "Escape from opponent (success rate based)"
-
-msgid "escape_requirements"
-msgstr "No restrictions"
-
-msgid "evil"
-msgstr "Evil"
-
 msgid "excellent progress"
 msgstr "excellent progress"
-
-msgid "failed"
-msgstr "failed"
 
 msgid "gained {val} cultivation"
 msgstr "Gained {val} cultivation."
@@ -259,28 +354,6 @@ msgstr ""
 "In normal area with plants, and avatar's realm must be greater than or equal"
 " to plant's realm"
 
-# Action: HelpPeople
-msgid "help_people_action_name"
-msgstr "Help People"
-
-msgid "help_people_description"
-msgstr "Help people in town, consumes small amount of spirit stones"
-
-msgid "help_people_requirements"
-msgstr "Only in city areas, and have enough spirit stones"
-
-# Action: Hunt
-msgid "hunt_action_name"
-msgstr "Hunt"
-
-msgid "hunt_description"
-msgstr "Hunt animals in current area to obtain animal materials"
-
-msgid "hunt_requirements"
-msgstr ""
-"In normal area with animals, and avatar's realm must be greater than or "
-"equal to animal's realm"
-
 # Action: Meditate
 msgid "meditate_action_name"
 msgstr "Meditate"
@@ -292,6 +365,140 @@ msgstr ""
 
 msgid "meditate_requirements"
 msgstr "Requires Buddhist orthodoxy"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "Nurture Weapon"
+
+msgid "nurture_weapon_description"
+msgstr "Nurture weapon to increase weapon proficiency"
+
+msgid "nurture_weapon_requirements"
+msgstr "No restrictions"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "Refine Elixir"
+
+msgid "refine_description"
+msgstr ""
+"Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, "
+"FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
+
+msgid "refine_requirements"
+msgstr "Possess 3 materials of the same realm"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "Respire"
+
+msgid "respire_description"
+msgstr ""
+"Conform to the Heavenly Dao and respire Qi. The higher the spiritual energy "
+"density, the better the effect."
+
+msgid "respire_requirements"
+msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
+
+msgid "respire_sect_hq_members_only"
+msgstr "Only disciples of this sect can respire at its headquarters."
+
+msgid "respire_efficiency_sect_hq"
+msgstr "steady progress (sect headquarters)"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "Self Heal"
+
+msgid "self_heal_description"
+msgstr ""
+"Heal injuries through meditation; can fully recover at sect headquarters"
+
+msgid "self_heal_requirements"
+msgstr "Current HP not full"
+
+msgid "slow progress (essence mismatch)"
+msgstr "slow progress (essence mismatch)"
+
+msgid "slow progress (sparse essence)"
+msgstr "slow progress (sparse essence)"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "Temper"
+
+msgid "temper_description"
+msgstr ""
+"Tempering body strength through extreme exercise, seeking nothing from the "
+"outside, consuming no spiritual energy."
+
+msgid "temper_requirements"
+msgstr "Requires Martial Orthodoxy"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} begins Zen Meditation."
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} begins attempting breakthrough"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} begins attempting to cast {realm}-tier treasure"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} begins attempting to refine {realm}-tier elixir"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} begins educating people in {city}."
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} begins tempering body strength"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} completed meditation with a peaceful mind."
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} successfully cast {realm}-tier {label} '{item}'"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} successfully refined {realm}-tier elixir '{item}'"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} invites {target} for dual cultivation"
+
+msgid "bought"
+msgstr "bought"
+
+msgid "bought and consumed"
+msgstr "bought and consumed"
+
+msgid "bought and equipped"
+msgstr "bought and equipped"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "Buy"
+
+msgid "buy_description"
+msgstr "Buy items/equipment/elixirs in town"
+
+msgid "buy_requirements"
+msgstr "In town and have enough money"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "Help People"
+
+msgid "help_people_description"
+msgstr "Help people in town, consumes small amount of spirit stones"
+
+msgid "help_people_requirements"
+msgstr "Only in city areas, and have enough spirit stones"
 
 # Action: Mine
 msgid "mine_action_name"
@@ -362,80 +569,6 @@ msgstr "Move to a specific region"
 msgid "move_to_region_requirements"
 msgstr "No restrictions"
 
-msgid "neutral"
-msgstr "Neutral"
-
-# Action: NurtureWeapon
-msgid "nurture_weapon_action_name"
-msgstr "Nurture Weapon"
-
-msgid "nurture_weapon_description"
-msgstr "Nurture weapon to increase weapon proficiency"
-
-msgid "nurture_weapon_requirements"
-msgstr "No restrictions"
-
-# Action: Play
-msgid "play_action_name"
-msgstr "Leisure"
-
-msgid "play_description"
-msgstr "Leisure activities to relax body and mind"
-
-msgid "play_requirements"
-msgstr "Target within interaction range"
-
-# Action: PlunderPeople
-msgid "plunder_people_action_name"
-msgstr "Plunder People"
-
-msgid "plunder_people_description"
-msgstr "Plunder people in town to obtain small amount of spirit stones"
-
-msgid "plunder_people_requirements"
-msgstr "Only in city areas, and character alignment must be 'evil'"
-
-# Action: Refine
-msgid "refine_action_name"
-msgstr "Refine Elixir"
-
-msgid "refine_description"
-msgstr ""
-"Consume materials to attempt refining elixirs (target_realm: QI_REFINEMENT, "
-"FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL)"
-
-msgid "refine_requirements"
-msgstr "Possess 3 materials of the same realm"
-
-# Action: Respire
-msgid "respire_action_name"
-msgstr "Respire"
-
-msgid "respire_description"
-msgstr ""
-"Conform to the Heavenly Dao and respire Qi. The higher the spiritual energy "
-"density, the better the effect."
-
-msgid "respire_requirements"
-msgstr "Requires Daoist orthodoxy or Rogue cultivator status"
-
-msgid "respire_sect_hq_members_only"
-msgstr "Only disciples of this sect can respire at its headquarters."
-
-msgid "respire_efficiency_sect_hq"
-msgstr "steady progress (sect headquarters)"
-
-# Action: SelfHeal
-msgid "self_heal_action_name"
-msgstr "Self Heal"
-
-msgid "self_heal_description"
-msgstr ""
-"Heal injuries through meditation; can fully recover at sect headquarters"
-
-msgid "self_heal_requirements"
-msgstr "Current HP not full"
-
 # Action: Sell
 msgid "sell_action_name"
 msgstr "Sell"
@@ -447,150 +580,17 @@ msgstr ""
 msgid "sell_requirements"
 msgstr "In town and possess sellable items/equipment"
 
-msgid "slow progress (essence mismatch)"
-msgstr "slow progress (essence mismatch)"
-
-msgid "slow progress (sparse essence)"
-msgstr "slow progress (sparse essence)"
-
-msgid "succeeded"
-msgstr "succeeded"
-
-# Action: Temper
-msgid "temper_action_name"
-msgstr "Temper"
-
-msgid "temper_description"
-msgstr ""
-"Tempering body strength through extreme exercise, seeking nothing from the "
-"outside, consuming no spiritual energy."
-
-msgid "temper_requirements"
-msgstr "Requires Martial Orthodoxy"
-
 msgid "wilderness"
 msgstr "wilderness"
-
-msgid ""
-"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
-"vs {target} {def_power})"
-msgstr ""
-"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
-"vs {target} {def_power})"
-
-msgid "{avatar} assassinated successfully! {target} fell without any defense."
-msgstr ""
-"{avatar} assassinated successfully! {target} fell without any defense."
 
 msgid "{avatar} attempted to move but target is invalid"
 msgstr "{avatar} attempted to move but target is invalid"
 
-msgid "{avatar} begins Zen Meditation."
-msgstr "{avatar} begins Zen Meditation."
-
-msgid "{avatar} begins attempting breakthrough"
-msgstr "{avatar} begins attempting breakthrough"
-
-msgid "{avatar} begins attempting to cast {realm}-tier treasure"
-msgstr "{avatar} begins attempting to cast {realm}-tier treasure"
-
-msgid "{avatar} begins attempting to refine {realm}-tier elixir"
-msgstr "{avatar} begins attempting to refine {realm}-tier elixir"
-
-msgid "{avatar} begins devouring people in town"
-msgstr "{avatar} begins devouring people in town"
-
-msgid "{avatar} begins educating people in {city}."
-msgstr "{avatar} begins educating people in {city}."
-
 msgid "{avatar} begins helping people in town"
 msgstr "{avatar} begins aiding people in town"
 
-msgid "{avatar} begins leisure activities"
-msgstr "{avatar} begins leisure activities"
-
-msgid "{avatar} begins plundering people in town"
-msgstr "{avatar} begins plundering people in town"
-
-msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} begins tempering body strength"
-
-msgid "{avatar} completed meditation with a peaceful mind."
-msgstr "{avatar} completed meditation with a peaceful mind."
-
-msgid ""
-"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
-msgstr ""
-"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
-
-msgid ""
-"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
-msgstr ""
-"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
-
-msgid "{avatar} failed to tame spirit beast"
-msgstr "{avatar} failed to tame spirit beast"
-
-msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
-msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
-
-msgid ""
-"{avatar} finished nurturing {weapon}, proficiency increased to "
-"{proficiency}%"
-msgstr ""
-"{avatar} finished nurturing {weapon}, proficiency increased to "
-"{proficiency}%"
-
-msgid "{avatar} finished {action}."
-msgstr "{avatar} finished {action}."
-
-msgid ""
-"{avatar} had an epiphany during meditation! Cultivation increased "
-"significantly (+{exp})."
-msgstr ""
-"{avatar} had an epiphany during meditation! Cultivation increased "
-"significantly (+{exp})."
-
-msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
-msgstr "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
-
-msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
-msgstr "{avatar} lurks in the shadows, attempting to assassinate {target}..."
-
-msgid ""
-"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
-"increased, evolved into {new_weapon}!"
-msgstr ""
-"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
-"increased, evolved into {new_weapon}!"
-
 msgid "{avatar} sold {item} in town"
 msgstr "{avatar} sold {item} in town"
-
-msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
-msgstr "{avatar} successfully cast {realm}-tier {label} '{item}'"
-
-msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
-msgstr "{avatar} successfully refined {realm}-tier elixir '{item}'"
-
-msgid ""
-"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
-" spirit beast"
-msgstr ""
-"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
-" spirit beast"
-
-msgid "{initiator} invites {target} for dual cultivation"
-msgstr "{initiator} invites {target} for dual cultivation"
-
-msgid "{root_name} ({elements})"
-msgstr "{root_name} ({elements})"
-
-msgid "An anonymous passerby (extra)"
-msgstr "An anonymous passerby"
-
-msgid "Current world celestial phenomenon: {name}"
-msgstr "Current world celestial phenomenon: {name}"
 
 msgid "plant_action_name"
 msgstr "Plant"
@@ -612,9 +612,7 @@ msgstr "{avatar} finished planting, earned {stones} Spirit Stones"
 msgid "righteous"
 msgstr "Righteous"
 
-# ============================================================================
 # Auxiliary System - Auxiliaries
-# ============================================================================
 msgid " Devoured Souls: {count}"
 msgstr " Devoured Souls: {count}"
 
@@ -678,9 +676,7 @@ msgstr "Nickname"
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (Devoured Souls: {souls})"
 
-# ============================================================================
 # Avatar System
-# ============================================================================
 # Field Labels (info_dict keys)
 msgid "Origin"
 msgstr "Origin"
@@ -862,9 +858,7 @@ msgstr "Wilderness"
 msgid "[{name}] ({realm})"
 msgstr "[{name}] ({realm})"
 
-# ============================================================================
 # Additional (New)
-# ============================================================================
 msgid "action_thinking"
 msgstr "Thinking"
 
@@ -1106,9 +1100,7 @@ msgstr "Died from severe injuries"
 msgid "Died of old age"
 msgstr "Died of old age"
 
-# ============================================================================
 # Cultivation System - Realm
-# ============================================================================
 # Realm Status
 msgid "Needs breakthrough"
 msgstr "Needs breakthrough"
@@ -1132,9 +1124,7 @@ msgstr "{realm}{stage}(Level {level}){status}"
 msgid "Killed by {killer}"
 msgstr "Killed by {killer}"
 
-# ============================================================================
 # Relation & Root & Appearance & Sect (Refined)
-# ============================================================================
 msgid "Unknown reason"
 msgstr "Unknown reason"
 
@@ -1255,9 +1245,7 @@ msgstr "Hidden Domain Danger Rate"
 msgid "effect_extra_hidden_domain_drop_prob"
 msgstr "Hidden Domain Drop Rate"
 
-# ============================================================================
 # Effect System
-# ============================================================================
 # Effect Names
 msgid "effect_extra_hp_recovery_rate"
 msgstr "HP Recovery Rate"
@@ -1340,9 +1328,7 @@ msgstr "Extra income per tile (yearly)"
 msgid "earth_essence"
 msgstr "Earth"
 
-# ============================================================================
 # Elixir System - Elixirs
-# ============================================================================
 msgid "elixir_type_breakthrough"
 msgstr "Breakthrough"
 
@@ -1386,9 +1372,7 @@ msgstr ""
 msgid "Retreat Bonus"
 msgstr "Retreat Insight"
 
-# ============================================================================
 # Additional Missing Translations
-# ============================================================================
 msgid "Unsupported item type: {item_type}"
 msgstr "Unsupported item type: {item_type}"
 
@@ -1731,9 +1715,7 @@ msgstr "{name} cultivation increased by {exp} points"
 msgid "{name} obtained {amount} spirit stones"
 msgstr "{name} obtained {amount} spirit stones"
 
-# ============================================================================
 # Gathering System - Auction
-# ============================================================================
 # Status Text
 msgid "Auction is in progress..."
 msgstr "Auction is in progress..."
@@ -1763,9 +1745,7 @@ msgstr "{student_name} gained {exp} experience."
 msgid "sect_teaching_gathering_info"
 msgstr "{sect_name} Teaching Conference"
 
-# ============================================================================
 # Gathering System - Sect Teaching
-# ============================================================================
 msgid "sect_teaching_story_prompt"
 msgstr ""
 "Describe a sect teaching conference. Focus on the atmosphere, the profound "
@@ -1816,9 +1796,7 @@ msgstr "found a treasure"
 msgid "male"
 msgstr "Male"
 
-# ============================================================================
 # Hidden Domain
-# ============================================================================
 msgid "hidden_domain_story_prompt"
 msgstr ""
 "Describe the exploration of the hidden domain. Focus on individual "
@@ -1974,9 +1952,7 @@ msgstr ""
 "needing to cover everything. Focus on describing the tense atmosphere during"
 " the bidding process."
 
-# ============================================================================
 # Map & Region & Others (New)
-# ============================================================================
 msgid "Cultivate Region (can respire to increase cultivation)"
 msgstr "Cultivate Region (can respire to increase cultivation)"
 
@@ -2837,9 +2813,7 @@ msgstr ""
 msgid "{avatar_name} determined their long-term objective: {objective}"
 msgstr "{avatar_name} determined their long-term objective: {objective}"
 
-# ============================================================================
 # Sect System - Sects
-# ============================================================================
 msgid "Base effect"
 msgstr "Base effect"
 
@@ -2947,9 +2921,7 @@ msgstr ", replace old {label} '{old_name}'"
 msgid ", sell old {label} '{old_name}'"
 msgstr ", sell old {label} '{old_name}'"
 
-# ============================================================================
 # Simulator & Event Translations
-# ============================================================================
 msgid ""
 "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
 msgstr ""
@@ -2980,9 +2952,7 @@ msgstr "New {label}: {info}"
 msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
 msgstr "Sell new {label} '{new_name}' for spirit stones, keep current"
 
-# ============================================================================
 # SingleChoice System - Item Decisions
-# ============================================================================
 msgid "Accept new item"
 msgstr "Accept new item"
 
@@ -3137,9 +3107,7 @@ msgstr ""
 "Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
 "single thought."
 
-# ============================================================================
 # Technique System - Techniques
-# ============================================================================
 msgid " Effect: {effect_desc}"
 msgstr " Effect: {effect_desc}"
 
@@ -3282,15 +3250,11 @@ msgstr "Earth List 1st Place"
 msgid "tournament_human"
 msgstr "Human List 1st Place"
 
-# ============================================================================
 # Frontend UI Translations
-# ============================================================================
 msgid "Sect Headquarters"
 msgstr "Sect Headquarters"
 
-# ============================================================================
 # Weapon System - Weapons
-# ============================================================================
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
 "weapon type"
