@@ -9,7 +9,7 @@
     "cultivators": "修士: {count}",
     "change_success": "天象已更易为：{name}",
     "click_to_change": "（点击可更易天象）",
-    "author_github": "Github仓库",
+    "author_github": "GitHub仓库（求star）",
     "hidden_domain": {
       "label": "[秘境]",
       "title": "秘境列表",

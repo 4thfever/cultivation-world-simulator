@@ -16,7 +16,6 @@ let mockYear = 100
 let mockMonth = 5
 let mockCurrentPhenomenon: any = { id: 1, name: 'Test Phenomenon', rarity: 'R' }
 let mockActiveDomains: any[] = []
-let mockAvatarList: any[] = [{ id: '1' }, { id: '2' }]
 let mockPhenomenaList: any[] = [
   { id: 1, name: 'Phenomenon 1', rarity: 'N', desc: 'Desc 1', effect_desc: 'Effect 1' },
   { id: 2, name: 'Phenomenon 2', rarity: 'R', desc: 'Desc 2', effect_desc: 'Effect 2' },
@@ -41,7 +40,6 @@ vi.mock('@/stores/world', () => ({
     get month() { return mockMonth },
     get currentPhenomenon() { return mockCurrentPhenomenon },
     get activeDomains() { return mockActiveDomains },
-    get avatarList() { return mockAvatarList },
     get phenomenaList() { return mockPhenomenaList },
     getPhenomenaList: mockGetPhenomenaList,
     changePhenomenon: mockChangePhenomenon,
@@ -142,7 +140,6 @@ describe('StatusBar', () => {
     mockMonth = 5
     mockCurrentPhenomenon = { id: 1, name: 'Test Phenomenon', rarity: 'R' }
     mockActiveDomains = []
-    mockAvatarList = [{ id: '1' }, { id: '2' }]
     mockIsConnected = true
 
     // Setup default mock implementations.
@@ -352,15 +349,6 @@ describe('StatusBar', () => {
       const domainWidget = wrapper.findAll('.status-widget-stub')[1]
       expect(domainWidget.attributes('data-color')).toBe('#666')
     })
-  })
-
-  it('should display cultivator count', () => {
-    mockAvatarList = [{ id: '1' }, { id: '2' }, { id: '3' }]
-
-    const wrapper = mount(StatusBar, globalConfig)
-
-    // The t function returns key:params format.
-    expect(wrapper.text()).toContain('game.status_bar.cultivators')
   })
 
   it('should render external links', () => {

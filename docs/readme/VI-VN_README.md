@@ -23,7 +23,7 @@
   <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
-> **Bạn sẽ vào vai Thiên Đạo, quan sát một thế giới tu tiên tự mình diễn hóa dưới sự vận hành đồng thời của quy tắc và AI.**
+> **Bạn sẽ đóng vai Thiên Đạo, quan sát trình mô phỏng thế giới tu tiên do quy tắc và AI cùng vận hành tự mình diễn hóa.**
 > **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, hỗ trợ Docker để khởi động nhanh, đồng thời cũng phù hợp cho phát triển mã nguồn và modding.**
 
 <p align="center">
@@ -35,16 +35,14 @@
 
 ## 📖 Giới Thiệu
 
-Đây là một **trình mô phỏng thế giới tu tiên thế giới mở do AI dẫn động**.
-
-Khác với RPG truyền thống, nơi bạn nhập vai một nhân vật cụ thể, ở đây **bạn sẽ vào vai "Thiên Đạo" (góc nhìn Thượng Đế)**.
-Bạn không cần tự mình đánh quái, luyện cấp hay cày trang bị. Thay vào đó, bạn quan sát muôn sinh từ góc nhìn của Thiên Đạo. Trong một thế giới mở được dệt nên bởi quy tắc và AI, bạn sẽ chứng kiến sự hưng suy của tông môn, sự quật khởi của thiên kiêu, cùng vô số nhân quả đan xen. Bạn có thể lặng lẽ nhìn thời cuộc đổi thay, hoặc giáng thiên kiếp, tác động tâm thần, khẽ can dự vào tiến trình của thế giới.
+Đây là một **trình mô phỏng thế giới tu tiên do AI dẫn động**.
+Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có thể tự do quan sát môi trường và đưa ra quyết định. Đồng thời, để tránh ảo giác và phát tán quá mức của AI, đã đưa vào thế giới quan tu tiên phức tạp linh hoạt cùng quy tắc vận hành. Trong thế giới được dệt nên bởi quy tắc và AI, các Agent tu sĩ và ý chí tông môn vừa cạnh tranh vừa hợp tác, cốt truyện mới không ngừng nảy sinh. Bạn có thể lặng lẽ nhìn thời cuộc đổi thay, chứng kiến sự hưng suy của tông môn và sự quật khởi của thiên kiêu, hoặc giáng thiên kiếp, tác động tâm thần, khẽ can dự vào tiến trình của thế giới.
 
 ### ✨ Điểm Nổi Bật
 
-- 👁️ **Vào vai "Thiên Đạo" (góc nhìn Thượng Đế)**: Bạn không phải một tu sĩ, mà là **Thiên Đạo** nắm giữ quy tắc vận hành của thế giới. Quan sát muôn hình muôn vẻ của chúng sinh, cảm nhận bi hoan ly hợp.
+- 👁️ **Vào vai Thiên Đạo**: Bạn không phải một tu sĩ, mà là **Thiên Đạo** nắm giữ quy tắc vận hành của thế giới. Quan sát muôn hình muôn vẻ của chúng sinh, cảm nhận bi hoan ly hợp.
 - 🤖 **Toàn bộ nhân vật đều do AI dẫn động**: Mỗi NPC đều được LLM điều khiển độc lập, có tính cách, ký ức, quan hệ xã hội và logic hành vi riêng. Họ sẽ tự đưa ra quyết định theo cục diện hiện tại, biết yêu hận, biết kết bè phái, thậm chí còn có thể nghịch thiên cải mệnh.
-- 🌏 **Lấy quy tắc làm nền móng**: Thế giới vận hành bằng một hệ số liệu nghiêm cẩn gồm linh căn, cảnh giới, công pháp, thọ nguyên và nhiều cơ chế khác. Sức tưởng tượng của AI được đặt trong khung logic tu tiên hợp lý, nhờ đó thế giới vừa tự do vừa đáng tin.
+- 🌏 **Lấy quy tắc làm nền móng**: Thế giới vận hành bằng một hệ thống nghiêm cẩn gồm linh căn, cảnh giới, công pháp, tính cách, tông môn, đan dược, binh khí, võ đạo hội, đấu giá hội, thọ nguyên và nhiều yếu tố khác. Sức tưởng tượng của AI được đặt trong khung logic tu tiên hợp lý và phong phú, đảm bảo thế giới chân thực đáng tin.
 - 🦋 **Tự sự nảy sinh tự nhiên**: Ngay cả tác giả cũng không biết khoảnh khắc tiếp theo sẽ xảy ra chuyện gì. Không có kịch bản định sẵn, chỉ có thế giới tự mình diễn hóa từ vô số nhân quả giao chồng. Đại chiến tông môn, chính ma tranh phong, thiên kiêu vẫn lạc, tất cả đều do logic thế giới tự suy diễn.
 
 <table border="0">
@@ -56,22 +54,14 @@ Bạn không cần tự mình đánh quái, luyện cấp hay cày trang bị. T
       <h4 align="center">Khu Vực Thành Thị</h4>
       <img src="../../assets/vi-VN/screenshots/城市.png" width="100%" />
       <br/><br/>
-<<<<<<< HEAD
-      <h4 align="center">Sinh Bình Trải Nghiệm</h4>
-=======
       <h4 align="center">Lịch Sử Sự Kiện</h4>
->>>>>>> feat/vi
       <img src="../../assets/vi-VN/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">Bảng Nhân Vật</h4>
       <img src="../../assets/vi-VN/screenshots/角色.png" width="100%" />
       <br/><br/>
-<<<<<<< HEAD
-      <h4 align="center">Tính Cách Và Đặc Chất</h4>
-=======
       <h4 align="center">Tính Cách Và Trang Bị</h4>
->>>>>>> feat/vi
       <img src="../../assets/vi-VN/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">Tự Chủ Suy Tư</h4>
@@ -84,13 +74,8 @@ Bạn không cần tự mình đánh quái, luyện cấp hay cày trang bị. T
       <h4 align="center">Thám Hiểm Bí Cảnh</h4>
       <img src="../../assets/vi-VN/screenshots/洞府.png" width="100%" />
       <br/><br/>
-<<<<<<< HEAD
-      <h4 align="center">Mục Tiêu Ngắn Và Dài Hạn</h4>
-      <img src="../../assets/vi-VN/screenshots/目标.png" width="100%" />
-=======
       <h4 align="center">Thông Tin Nhân Vật</h4>
       <img src="../../assets/vi-VN/screenshots/角色信息.png" width="100%" />
->>>>>>> feat/vi
       <br/><br/>
       <h4 align="center">Đan Dược / Pháp Bảo / Binh Khí</h4>
       <img src="../../assets/vi-VN/screenshots/丹药.png" width="100%" />

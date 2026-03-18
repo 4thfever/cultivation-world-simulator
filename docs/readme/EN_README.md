@@ -24,7 +24,7 @@
   <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
-> **Play as the Heavenly Dao and watch a cultivation world evolve through rules and AI working together.**
+> **Act as the Heavenly Dao and observe a cultivation world simulator driven by rules and AI as it evolves on its own.**
 > **Fully LLM-driven NPCs, emergent ensemble storytelling, easy Docker setup, and a solid base for development and modding.**
 
 <p align="center">
@@ -36,16 +36,14 @@
 
 ## 📖 Introduction
 
-This is an **AI-driven open-world cultivation simulator**.
-
-Unlike traditional RPGs where you play a specific character, here **you play as the "Heavenly Dao" (God)**.
-You don't need to personally fight monsters or level up. Instead, you observe all living beings from a god's perspective. In an open world woven together by rules and AI, you witness the rise and fall of sects and the emergence of prodigies. You can quietly watch the world change, or bring down tribulations and alter minds, subtly intervening in the world's progress.
+This is an **AI-driven cultivation world simulator**.
+In the simulator, every cultivator is an independent Agent that can freely observe the environment and make decisions. At the same time, to avoid AI hallucinations and excessive divergence, a complex and flexible cultivation worldview and operating rules are woven in. In a world woven together by rules and AI, cultivator Agents and sect wills compete and cooperate, and new compelling stories emerge. You can quietly watch the world change, witness the rise and fall of sects and the emergence of prodigies, or bring down tribulations and alter minds, subtly intervening in the world's progress.
 
 ### ✨ Core Highlights
 
-- 👁️ **Play as "Heavenly Dao" (God Perspective)**: You are not a cultivator, but the **Heavenly Dao** controlling the world's rules. Observe the myriad forms of life and experience their joys and sorrows.
+- 👁️ **Act as the Heavenly Dao**: You are not a cultivator, but the **Heavenly Dao** controlling the world's rules. Observe the myriad forms of life and experience their joys and sorrows.
 - 🤖 **Fully AI-Driven**: Every NPC is independently driven by LLMs, with unique personalities, memories, relationships, and behavioral logic. They make decisions based on the current situation, have love and hate, form factions, and even defy the heavens to change their fate.
-- 🌏 **Rules as the Cornerstone**: The world runs on a rigorous numerical system including spiritual roots, realms, cultivation methods, and lifespans. AI imagination is constrained within a reasonable cultivation logic framework, ensuring the world is authentic and credible.
+- 🌏 **Rules as the Cornerstone**: The world runs on a rigorous system of spiritual roots, realms, cultivation methods, personality, sects, elixirs, weapons, martial arts tournaments, auctions, lifespans, and more. AI imagination is constrained within a reasonable and rich cultivation logic framework, ensuring the world is authentic and credible.
 - 🦋 **Emergent Storytelling**: Even the developer doesn't know what will happen next. There is no preset script, only world evolution woven from countless causes and effects. Sect wars, righteous vs. demonic conflicts, the fall of geniuses—all are deduced autonomously by the world's logic.
 
 <table border="0">
