@@ -27,7 +27,7 @@ const objectiveContent = ref('');
 const ZH_NUMBERS = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
 const currentEffectsText = computed(() => {
-  return (props.data as Record<string, unknown>)['当前效果'] as string | undefined;
+  return props.data.current_effects || (props.data as Record<string, unknown>)['当前效果'] as string | undefined;
 });
 
 const currentEffectsLines = computed(() => {
@@ -215,6 +215,7 @@ async function handleClearObjective() {
           :value="data.root" 
           :on-click="() => showDetail(data.root_detail)"
         />
+        <StatItem :label="t('game.info_panel.avatar.stats.luck')" :value="data.luck" />
         <StatItem :label="t('game.info_panel.avatar.stats.magic_stone')" :value="data.magic_stone" />
         <StatItem :label="t('game.info_panel.avatar.stats.appearance')" :value="data.appearance" />
         <StatItem :label="t('game.info_panel.avatar.stats.battle_strength')" :value="data.base_battle_strength" />

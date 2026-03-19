@@ -1242,6 +1242,12 @@ msgstr "Education Population Growth Probability"
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"
 
+msgid "effect_extra_luck"
+msgstr "Luck"
+
+msgid "Luck"
+msgstr "Luck"
+
 msgid "effect_extra_escape_success_rate"
 msgstr "Escape Success Rate"
 

@@ -11,6 +11,8 @@ if TYPE_CHECKING:
     from src.classes.core.avatar.core import Avatar
 
 from .process import _merge_effects, _evaluate_conditional_effect
+from .luck import build_luck_derived_effects, compute_luck_value
+from .consts import EXTRA_LUCK
 from src.classes.hp import HP_MAX_BY_REALM
 
 
@@ -72,18 +74,16 @@ class EffectsMixin:
         直接复用 get_effect_breakdown 的逻辑，确保显示与实际效果一致。
         """
         merged: dict[str, object] = {}
-        
-        # get_effect_breakdown 已经完成了条件评估(when)和动态值计算(expressions)
+
         # 我们只需要合并结果即可
         for _, effect_dict in self.get_effect_breakdown():
             merged = _merge_effects(merged, effect_dict)
 
         return merged
 
-    def get_effect_breakdown(self: "Avatar") -> list[tuple[str, dict[str, Any]]]:
+    def _get_raw_effect_breakdown(self: "Avatar") -> list[tuple[str, dict[str, Any]]]:
         """
-        获取效果明细，返回 [(来源名称, 生效的效果字典), ...]
-        用于 get_desc 展示。
+        获取未注入气运派生效果前的原始效果明细。
         """
         from src.i18n import t
         breakdown = []
@@ -167,6 +167,32 @@ class EffectsMixin:
             source_key = temp_eff.get("source", "Unknown")
             label = t(source_key)
             _collect(label, explicit_effects=temp_eff.get("effects", {}))
+
+        return breakdown
+
+    @property
+    def luck(self: "Avatar") -> int:
+        raw_merged: dict[str, object] = {}
+        for _, effect_dict in self._get_raw_effect_breakdown():
+            raw_merged = _merge_effects(raw_merged, effect_dict)
+        return compute_luck_value(getattr(self, "luck_base", 0), raw_merged)
+
+    def get_effect_breakdown(self: "Avatar") -> list[tuple[str, dict[str, Any]]]:
+        """
+        获取最终效果明细，返回 [(来源名称, 生效的效果字典), ...]
+        在原始来源之外，额外插入“气运”派生效果来源。
+        """
+        from src.i18n import t
+
+        breakdown = self._get_raw_effect_breakdown()
+        raw_merged: dict[str, object] = {}
+        for _, effect_dict in breakdown:
+            raw_merged = _merge_effects(raw_merged, effect_dict)
+
+        luck_value = compute_luck_value(getattr(self, "luck_base", 0), raw_merged)
+        derived_effects = build_luck_derived_effects(luck_value)
+        if derived_effects:
+            breakdown.append((t("Luck"), derived_effects))
 
         return breakdown
 

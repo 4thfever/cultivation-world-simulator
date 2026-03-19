@@ -8,7 +8,7 @@ from src.classes.appearance import get_appearance_by_level
 from src.systems.time import MonthStamp
 from src.classes.environment.region import Region
 from src.utils.resolution import resolve_query
-from src.systems.cultivation import CultivationProgress
+from src.systems.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
 from src.classes.age import Age
 from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
@@ -65,6 +65,13 @@ NEW_MORTAL_SECT_PROB: float = 0.50      # 有概率成为某个“已有宗门�
 NEW_MORTAL_MASTER_PROB: float = 0.40    # 若成为宗门弟子，有概率拜该宗门现有人物为师
 NEW_MORTAL_LEVEL_MAX: int = 40          # 新凡人默认偏低等级上限
 
+INITIAL_AGE_MAX_BY_REALM: dict[Realm, int] = {
+    Realm.Qi_Refinement: 70,
+    Realm.Foundation_Establishment: 100,
+    Realm.Core_Formation: 130,
+    Realm.Nascent_Soul: 150,
+}
+
 
 def _create_random_age() -> int:
     return random.randint(AGE_MIN, AGE_MAX)
@@ -78,6 +85,10 @@ def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthS
     if avatar.age.age < avatar.age.max_lifespan:
         return
     avatar.set_dead(str(DeathReason(DeathType.OLD_AGE)), current_month_stamp)
+
+
+def _get_initial_age_max_for_realm(realm: Realm) -> int:
+    return INITIAL_AGE_MAX_BY_REALM.get(realm, AGE_MAX)
 
 
 def random_gender() -> Gender:
@@ -728,7 +739,10 @@ class AvatarFactory:
             for (a, b), rel in constrained_relations.items()
             if rel is Relation.IS_CHILD_OF
         ]
-        age_max_values = [AGE_MAX for _ in range(n)]
+        age_max_values = [
+            _get_initial_age_max_for_realm(CultivationProgress(levels[i]).realm)
+            for i in range(n)
+        ]
         for edge in age_edges:
             age_max_values[edge.stronger] = min(age_max_values[edge.stronger], PARENT_AGE_CAP)
 

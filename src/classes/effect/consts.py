@@ -248,6 +248,19 @@ EXTRA_ASSASSINATE_SUCCESS_RATE = "extra_assassinate_success_rate"
 """
 
 # --- 奇遇相关 ---
+EXTRA_LUCK = "extra_luck"
+"""
+额外气运
+类型: int
+结算: src/classes/effect/luck.py
+说明: 影响奇遇、厄运、秘境、顿悟、突破等“命数”相关收益。
+数值参考:
+  - 普通人: 0
+  - 有福缘: 5~10
+  - 主角模板: 15~25
+  - 倒霉体质: -5~-10
+"""
+
 EXTRA_FORTUNE_PROBABILITY = "extra_fortune_probability"
 """
 额外奇遇概率
@@ -548,6 +561,7 @@ ALL_EFFECTS = [
     "extra_assassinate_success_rate",    # float - 额外暗杀成功率
 
     # 奇遇相关
+    "extra_luck",                        # int - 额外气运
     "extra_fortune_probability",         # float - 额外奇遇概率
     "extra_misfortune_probability",      # float - 额外霉运概率
     

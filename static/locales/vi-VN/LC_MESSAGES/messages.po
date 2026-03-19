@@ -1248,6 +1248,12 @@ msgstr "Xác suất tăng độ phồn vinh khi giáo hóa"
 msgid "effect_extra_epiphany_probability"
 msgstr "Xác suất đốn ngộ"
 
+msgid "effect_extra_luck"
+msgstr "Khí vận"
+
+msgid "Luck"
+msgstr "Khí vận"
+
 msgid "effect_extra_escape_success_rate"
 msgstr "Tỷ lệ chạy thoát thành công"
 

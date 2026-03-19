@@ -6,6 +6,14 @@ from src.classes.core.avatar import Avatar
 from src.systems.cultivation import Realm
 from src.classes.action_runtime import ActionInstance
 from src.classes.action.respire import Respire
+from src.classes.persona import personas_by_id
+
+
+def _find_persona_by_key(key: str):
+    for persona in personas_by_id.values():
+        if persona.key == key:
+            return persona
+    raise AssertionError(f"Persona not found: {key}")
 
 @pytest.fixture
 def mock_game_configs():
@@ -30,8 +38,7 @@ def mock_story_teller():
 
 @pytest.mark.asyncio
 async def test_try_trigger_fortune(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
-    # Force fortune trigger
-    dummy_avatar.effects["extra_fortune_probability"] = 1.0
+    dummy_avatar.personas = [_find_persona_by_key("CHILD_OF_FORTUNE")]
     
     # Set current action for dynamic prompt
     action = Respire(dummy_avatar, dummy_avatar.world)
@@ -60,8 +67,7 @@ async def test_try_trigger_fortune(dummy_avatar: Avatar, mock_game_configs, mock
 
 @pytest.mark.asyncio
 async def test_try_trigger_misfortune(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
-    # Force misfortune trigger
-    dummy_avatar.effects["extra_misfortune_probability"] = 1.0
+    dummy_avatar.personas = [_find_persona_by_key("JINX")]
     dummy_avatar.magic_stone.value = 1000
     
     # Set current action for dynamic prompt
@@ -79,3 +85,15 @@ async def test_try_trigger_misfortune(dummy_avatar: Avatar, mock_game_configs, m
         assert events[1].content == "A generated story."
         
         assert dummy_avatar.magic_stone.value < 1000
+
+
+@pytest.mark.asyncio
+async def test_negative_misfortune_probability_is_clamped_to_zero(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
+    dummy_avatar.personas = [_find_persona_by_key("CHILD_OF_FORTUNE")]
+    dummy_avatar.magic_stone.value = 1000
+
+    with patch('random.random', return_value=0.0):
+        events = await try_trigger_misfortune(dummy_avatar)
+
+    assert events == []
+    assert dummy_avatar.magic_stone.value == 1000

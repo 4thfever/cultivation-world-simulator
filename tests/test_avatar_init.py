@@ -4,7 +4,7 @@ import pytest
 from src.classes.relation.relation import Relation
 from src.classes.core.sect import sects_by_id
 from src.i18n import t
-from src.sim.avatar_init import make_avatars
+from src.sim.avatar_init import INITIAL_AGE_MAX_BY_REALM, make_avatars
 
 
 class TestAgeLifespanInitialization:
@@ -16,16 +16,12 @@ class TestAgeLifespanInitialization:
         for avatar in avatars.values():
             assert 60 <= avatar.age.innate_max_lifespan <= 90
 
-    def test_batch_creation_can_include_immediately_dead_avatars(self, base_world):
+    def test_batch_creation_age_stays_within_realm_band(self, base_world):
         avatars = make_avatars(base_world, count=120)
 
-        dead_found = False
         for avatar in avatars.values():
-            if avatar.age.age >= avatar.age.max_lifespan:
-                assert avatar.is_dead is True
-                dead_found = True
-
-        assert dead_found is True
+            realm = avatar.cultivation_progress.realm
+            assert avatar.age.age <= INITIAL_AGE_MAX_BY_REALM[realm]
 
     def test_batch_creation_living_avatar_not_over_limit(self, base_world):
         avatars = make_avatars(base_world, count=120)

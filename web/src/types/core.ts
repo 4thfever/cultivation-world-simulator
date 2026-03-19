@@ -68,6 +68,7 @@ export interface AvatarDetail extends EntityBase {
   level: number;
   hp: { cur: number; max: number };
   observation_radius?: number;
+  luck: number;
   magic_stone: number;
   base_battle_strength: number;
   ranking?: { type: string; rank: number };
@@ -105,6 +106,7 @@ export interface AvatarDetail extends EntityBase {
   relations: RelationInfo[];
   
   // 附加信息
+  current_effects?: string;
   "当前效果"?: string;
   sect_status_summary?: {
     sect_name: string;

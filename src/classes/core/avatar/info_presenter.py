@@ -169,6 +169,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "level": avatar.cultivation_progress.level,
         "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
         "observation_radius": get_avatar_observation_radius(avatar),
+        "luck": avatar.luck,
         "alignment": str(avatar.alignment) if avatar.alignment else t("Unknown"),
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
@@ -347,7 +348,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
          info["spirit_animal"] = avatar.spirit_animal.get_structured_info()
 
     # 当前效果
-    info[t("Current Effects")] = _get_effects_text(avatar)
+    effects_text = _get_effects_text(avatar)
+    info["current_effects"] = effects_text
+    info[t("Current Effects")] = effects_text
 
     return info
 

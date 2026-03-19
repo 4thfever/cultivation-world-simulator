@@ -1176,6 +1176,12 @@ msgstr "教化人口增长概率"
 msgid "effect_extra_epiphany_probability"
 msgstr "顿悟概率"
 
+msgid "effect_extra_luck"
+msgstr "气运"
+
+msgid "Luck"
+msgstr "气运"
+
 msgid "effect_extra_escape_success_rate"
 msgstr "逃跑成功率"
 

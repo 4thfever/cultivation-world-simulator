@@ -14,6 +14,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_dual_cultivation_exp": "effect_extra_dual_cultivation_exp",
         "extra_breakthrough_success_rate": "effect_extra_breakthrough_success_rate",
         "extra_retreat_success_rate": "effect_extra_retreat_success_rate",
+        "extra_luck": "effect_extra_luck",
         "extra_fortune_probability": "effect_extra_fortune_probability",
         "extra_misfortune_probability": "effect_extra_misfortune_probability",
         "extra_harvest_materials": "effect_extra_harvest_materials",
@@ -86,6 +87,9 @@ def format_value(key: str, value: Any) -> str:
                 percent = value * 100
                 sign = "+" if percent > 0 else ""
                 return f"{sign}{percent:.1f}%"
+
+        if key == "extra_max_lifespan" and value == 0:
+            return "+0"
 
         sign = "+" if value > 0 else ""
         return f"{sign}{value}"

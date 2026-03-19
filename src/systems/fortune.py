@@ -332,7 +332,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
     """
     base_prob = float(getattr(CONFIG.game, "fortune_probability", 0.0))
     extra_prob = float(avatar.effects.get("extra_fortune_probability", 0.0))
-    prob = base_prob + extra_prob
+    prob = max(0.0, base_prob + extra_prob)
     if prob <= 0.0:
         return []
 
@@ -569,7 +569,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
     """
     base_prob = float(getattr(CONFIG.game, "misfortune_probability", 0.0))
     extra_prob = float(avatar.effects.get("extra_misfortune_probability", 0.0))
-    prob = base_prob + extra_prob
+    prob = max(0.0, base_prob + extra_prob)
     if prob <= 0.0:
         return []
 
