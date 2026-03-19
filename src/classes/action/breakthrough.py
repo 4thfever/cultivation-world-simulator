@@ -4,6 +4,8 @@ import random
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
+from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason, DeathType
 from src.classes.event import Event
 from src.systems.cultivation import Realm
 from src.classes.story_teller import StoryTeller
@@ -68,8 +70,7 @@ class Breakthrough(TimedAction):
             # 突破成功时更新HP的最大值
             if new_realm != old_realm:
                 self._update_hp_on_breakthrough(new_realm)
-                # 成功：确保最大寿元至少达到新境界的基线
-                self.avatar.age.ensure_max_lifespan_at_least_realm_base(new_realm)
+                self.avatar.recalc_effects()
             # 记录结果用于 finish 事件
             self._last_result = (
                 "success",
@@ -77,9 +78,18 @@ class Breakthrough(TimedAction):
                 new_realm.value,
             )
         else:
-            # 突破失败：减少最大寿元上限
+            # 突破失败：增加一个永久折寿效果，便于前端展示来源
             reduce_years = self.avatar.cultivation_progress.get_breakthrough_fail_reduce_lifespan()
-            self.avatar.age.decrease_max_lifespan(reduce_years)
+            self.avatar.add_persistent_effect(
+                "effect_source_breakthrough_failure",
+                {"extra_max_lifespan": -int(reduce_years)},
+            )
+            if self.avatar.age.age >= self.avatar.age.max_lifespan and not self.avatar.is_dead:
+                handle_death(
+                    self.world,
+                    self.avatar,
+                    DeathReason(DeathType.OLD_AGE),
+                )
             # 记录结果用于 finish 事件
             self._last_result = ("fail", int(reduce_years))
 

@@ -127,9 +127,9 @@ class AvatarSaveMixin:
                 for consumed in self.elixirs
             ],
             "temporary_effects": self.temporary_effects,
+            "persistent_effects": self.persistent_effects,
             
             # 生育相关
             "children": [child.to_dict() for child in self.children],
             "relation_start_dates": self.relation_start_dates,
         }
-

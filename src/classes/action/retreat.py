@@ -4,6 +4,8 @@ import random
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.action.cooldown import cooldown_action
+from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason, DeathType
 from src.classes.event import Event
 from src.systems.cultivation import REALM_RANK
 from src.classes.action_runtime import ActionResult, ActionStatus
@@ -107,14 +109,17 @@ class Retreat(TimedAction):
             # 失败：扣除寿元
             # 随机扣除 5-20 年
             reduce_years = random.randint(5, 20)
-            self.avatar.age.decrease_max_lifespan(reduce_years)
-            
-            # 检查是否死亡（如果 decrease_max_lifespan 导致当前年龄超过上限，会在下一次 age update 或者 death check 中发现，
-            # 但 decrease_max_lifespan 可能已经触发了 set_dead 如果它内部有逻辑，
-            # 不过根据 CultivationProgress.breakthrough 的逻辑，只是 decrease，真正死亡判定在 simulator 循环里）
-            # 我们手动检查一下给个提示
-            
+            self.avatar.add_persistent_effect(
+                "effect_source_retreat_failure",
+                {"extra_max_lifespan": -int(reduce_years)},
+            )
             is_dead = self.avatar.age.age >= self.avatar.age.max_lifespan
+            if is_dead and not self.avatar.is_dead:
+                handle_death(
+                    self.world,
+                    self.avatar,
+                    DeathReason(DeathType.OLD_AGE),
+                )
             
             result_text = t("retreat_fail", reduce_years=reduce_years)
             if is_dead:

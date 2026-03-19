@@ -1130,6 +1130,18 @@ msgstr "特質【{name}】"
 msgid "Weapon [{name}]"
 msgstr "兵器【{name}】"
 
+msgid "effect_source_cultivation_realm"
+msgstr "修為境界"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "突破失敗"
+
+msgid "effect_source_retreat_failure"
+msgstr "閉關失敗"
+
+msgid "effect_source_persistent_effect"
+msgstr "永久效果"
+
 # Effect 格式化
 msgid "action_list_separator"
 msgstr "、"

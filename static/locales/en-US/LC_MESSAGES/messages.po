@@ -1196,6 +1196,18 @@ msgstr "Trait [{name}]"
 msgid "Weapon [{name}]"
 msgstr "Weapon [{name}]"
 
+msgid "effect_source_cultivation_realm"
+msgstr "Cultivation Realm"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "Breakthrough Failure"
+
+msgid "effect_source_retreat_failure"
+msgstr "Retreat Failure"
+
+msgid "effect_source_persistent_effect"
+msgstr "Persistent Effect"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr ", "

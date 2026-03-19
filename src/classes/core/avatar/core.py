@@ -108,6 +108,8 @@ class Avatar(
     elixirs: List[ConsumedElixir] = field(default_factory=list)
     # 临时效果列表: [{"source": str, "effects": dict, "start_month": int, "duration": int}]
     temporary_effects: List[dict] = field(default_factory=list)
+    # 永久效果列表: [{"source": str, "effects": dict}]
+    persistent_effects: List[dict] = field(default_factory=list)
 
     is_dead: bool = False
     death_info: Optional[dict] = None
@@ -180,6 +182,17 @@ class Avatar(
             "effects": {"extra_breakthrough_success_rate": rate},
             "start_month": int(self.world.month_stamp),
             "duration": duration
+        })
+        self.recalc_effects()
+
+    def add_persistent_effect(self, source: str, effects: dict[str, object]) -> None:
+        """
+        增加一个永久效果来源。
+        适用于突破失败折寿、特殊命格改命等需要长期展示的效果。
+        """
+        self.persistent_effects.append({
+            "source": source,
+            "effects": dict(effects),
         })
         self.recalc_effects()
 
@@ -375,7 +388,6 @@ class Avatar(
         self.cultivation_progress.stage = self.cultivation_progress.get_stage(new_level)
         
         if self.cultivation_progress.realm != old_realm:
-            self.age.update_realm(self.cultivation_progress.realm)
             self.recalc_effects()
             from src.classes.sect_ranks import check_and_promote_sect_rank
             check_and_promote_sect_rank(self, old_realm, self.cultivation_progress.realm)

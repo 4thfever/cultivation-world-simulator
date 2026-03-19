@@ -1202,6 +1202,18 @@ msgstr "Đặc chất [{name}]"
 msgid "Weapon [{name}]"
 msgstr "Binh khí [{name}]"
 
+msgid "effect_source_cultivation_realm"
+msgstr "Cảnh giới tu luyện"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "Đột phá thất bại"
+
+msgid "effect_source_retreat_failure"
+msgstr "Bế quan thất bại"
+
+msgid "effect_source_persistent_effect"
+msgstr "Hiệu ứng vĩnh viễn"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr "、"

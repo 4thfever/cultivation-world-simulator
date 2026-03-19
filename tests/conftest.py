@@ -170,7 +170,7 @@ def dummy_avatar(base_world):
         name="TestDummy",
         id=get_avatar_id(),
         birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
-        age=Age(20, Realm.Qi_Refinement),
+        age=Age(20, Realm.Qi_Refinement, innate_max_lifespan=80),
         gender=Gender.MALE,
         pos_x=0,
         pos_y=0,

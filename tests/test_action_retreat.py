@@ -93,7 +93,11 @@ class TestActionRetreat:
             
             # 验证没有临时效果
             assert len(retreat_avatar.temporary_effects) == 0
-            
+            assert len(retreat_avatar.persistent_effects) == 1
+            persistent = retreat_avatar.persistent_effects[0]
+            assert persistent["source"] == "effect_source_retreat_failure"
+            assert persistent["effects"]["extra_max_lifespan"] == -10
+
             # 验证寿元减少 (mocked to reduce 10)
             assert retreat_avatar.age.max_lifespan == original_lifespan - 10
 

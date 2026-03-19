@@ -10,6 +10,7 @@ from src.classes.age import Age
 from src.classes.relation.relation import Relation
 from src.classes.root import Root
 from src.classes.items.magic_stone import MagicStone
+from src.classes.death_reason import DeathReason, DeathType
 from src.classes.event import Event
 from src.utils.id_generator import get_avatar_id
 from src.classes.technique import attribute_to_root
@@ -23,6 +24,13 @@ MIN_AWAKENING_AGE = 16
 MAX_AWAKENING_AGE = 60 # 凡人觉醒的最大年龄
 BLOODLINE_AWAKENING_RATE = 0.05 # 每个符合条件的凡人每月的觉醒概率
 WILD_AWAKENING_RATE_BASE = 0.1 # 基础野生觉醒率 (如果没有配置)
+
+
+def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthStamp) -> bool:
+    if avatar.age.age < avatar.age.max_lifespan:
+        return False
+    avatar.set_dead(str(DeathReason(DeathType.OLD_AGE)), current_month_stamp)
+    return True
 
 def process_awakening(world: World) -> List[Event]:
     events = []
@@ -55,15 +63,17 @@ def _process_bloodline_awakening(world: World) -> List[Event]:
         # 判定是否觉醒
         if random.random() < BLOODLINE_AWAKENING_RATE:
             avatar = _promote_mortal_to_avatar(world, mortal)
-            
-            # 注册 Avatar
+
+            # 注册 Avatar（若寿元已尽，manager 会归档到 dead_avatars）
             world.avatar_manager.register_avatar(avatar, is_newly_born=True)
-            
+
             # 移除 Mortal
             world.mortal_manager.remove_mortal(mortal.id)
-            
-            # 生成事件
-            desc = t("{name} has awakened their spiritual roots and embarked on the path of cultivation.", name=avatar.name)
+
+            if avatar.is_dead:
+                desc = t("{name} awakened spiritual roots, but their lifespan was already exhausted.", name=avatar.name)
+            else:
+                desc = t("{name} has awakened their spiritual roots and embarked on the path of cultivation.", name=avatar.name)
             event = Event(world.month_stamp, desc, related_avatars=[avatar.id])
             events.append(event)
             
@@ -83,8 +93,11 @@ def _process_wild_awakening(world: World) -> Optional[Event]:
     
     # 注册
     world.avatar_manager.register_avatar(avatar, is_newly_born=True)
-    
-    desc = t("A rogue cultivator {name} has appeared in the world.", name=avatar.name)
+
+    if avatar.is_dead:
+        desc = t("A rogue cultivator {name} appeared, but their lifespan was already exhausted.", name=avatar.name)
+    else:
+        desc = t("A rogue cultivator {name} has appeared in the world.", name=avatar.name)
     event = Event(world.month_stamp, desc, related_avatars=[avatar.id])
     return event
 
@@ -116,7 +129,11 @@ def _create_simple_avatar(
     # 1. 基础属性
     level = 1
     cultivation = CultivationProgress(level)
-    age = Age(age_years, cultivation.realm)
+    age = Age(
+        age_years,
+        cultivation.realm,
+        innate_max_lifespan=Age.roll_innate_max_lifespan(),
+    )
     
     # 复用 ID 或生成新 ID
     aid = mortal_id if mortal_id else get_avatar_id()
@@ -164,5 +181,7 @@ def _create_simple_avatar(
             # 建立关系 (Parent -> Child)
             # 语义：Parent 认 Avatar 为子
             parent.acknowledge_child(avatar)
-            
+
+    _mark_dead_if_lifespan_exhausted(avatar, world.month_stamp)
+
     return avatar

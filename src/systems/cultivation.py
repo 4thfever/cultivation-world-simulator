@@ -320,6 +320,11 @@ class CultivationProgress:
     
     def get_breakthrough_fail_reduce_lifespan(self) -> int:
         return breakthrough_fail_reduce_lifespan_by_realm[self.realm]
+
+    def get_realm_effects(self) -> dict[str, int]:
+        return {
+            "extra_max_lifespan": realm_max_lifespan_effect_by_realm[self.realm]
+        }
     
     def to_dict(self) -> dict:
         """转换为可序列化的字典"""
@@ -349,4 +354,11 @@ breakthrough_fail_reduce_lifespan_by_realm = {
     Realm.Foundation_Establishment: 10,
     Realm.Core_Formation: 15,
     Realm.Nascent_Soul: 20,
+}
+
+realm_max_lifespan_effect_by_realm = {
+    Realm.Qi_Refinement: 0,
+    Realm.Foundation_Establishment: 50,
+    Realm.Core_Formation: 100,
+    Realm.Nascent_Soul: 400,
 }

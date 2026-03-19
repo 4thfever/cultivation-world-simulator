@@ -20,6 +20,7 @@ from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
 from src.classes.persona import Persona, personas_by_id, personas_by_name
 from src.classes.items.magic_stone import MagicStone
+from src.classes.death_reason import DeathReason, DeathType
 from src.utils.born_region import get_born_region_id
 
 
@@ -63,6 +64,20 @@ NEW_MORTAL_PARENT_PROB: float = 0.30    # 有概率是某个既有角色的子�
 NEW_MORTAL_SECT_PROB: float = 0.50      # 有概率成为某个“已有宗门”的弟子
 NEW_MORTAL_MASTER_PROB: float = 0.40    # 若成为宗门弟子，有概率拜该宗门现有人物为师
 NEW_MORTAL_LEVEL_MAX: int = 40          # 新凡人默认偏低等级上限
+
+
+def _create_random_age() -> int:
+    return random.randint(AGE_MIN, AGE_MAX)
+
+
+def _create_random_innate_lifespan() -> int:
+    return Age.roll_innate_max_lifespan()
+
+
+def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthStamp) -> None:
+    if avatar.age.age < avatar.age.max_lifespan:
+        return
+    avatar.set_dead(str(DeathReason(DeathType.OLD_AGE)), current_month_stamp)
 
 
 def random_gender() -> Gender:
@@ -671,6 +686,8 @@ class AvatarFactory:
         if overrides:
             AvatarFactory._apply_overrides(avatar, overrides)
 
+        _mark_dead_if_lifespan_exhausted(avatar, current_month_stamp)
+
         return avatar
 
     @staticmethod
@@ -712,10 +729,6 @@ class AvatarFactory:
             if rel is Relation.IS_CHILD_OF
         ]
         age_max_values = [AGE_MAX for _ in range(n)]
-        for i in range(n):
-            realm = CultivationProgress(levels[i]).realm
-            max_lifespan = Age.REALM_LIFESPAN.get(realm, 100)
-            age_max_values[i] = min(age_max_values[i], max(AGE_MIN, max_lifespan - 1))
         for edge in age_edges:
             age_max_values[edge.stronger] = min(age_max_values[edge.stronger], PARENT_AGE_CAP)
 
@@ -745,7 +758,11 @@ class AvatarFactory:
             level = levels[i]
             cultivation_progress = CultivationProgress(level)
             age_years = ages[i]
-            age = Age(age_years, cultivation_progress.realm)
+            age = Age(
+                age_years,
+                cultivation_progress.realm,
+                innate_max_lifespan=_create_random_innate_lifespan(),
+            )
 
             x, y = random.randint(0, width - 1), random.randint(0, height - 1)
             birth_month_stamp = current_month_stamp - age_years * 12 + random.randint(0, 11)
@@ -787,6 +804,8 @@ class AvatarFactory:
                 mapped = attribute_to_root(avatar.technique.attribute)
                 if mapped is not None:
                     avatar.root = mapped
+
+            _mark_dead_if_lifespan_exhausted(avatar, current_month_stamp)
 
             avatars_by_index[i] = avatar
             avatars_by_id[avatar.id] = avatar
@@ -1018,9 +1037,13 @@ def create_avatar_from_request(
     elif isinstance(age, int):
         age_years = max(AGE_MIN, age)
     else:
-        age_years = random.randint(AGE_MIN, AGE_MAX)
+        age_years = _create_random_age()
 
-    tmp_age_for_plan = Age(age_years, CultivationProgress(LEVEL_MIN).realm)
+    tmp_age_for_plan = Age(
+        age_years,
+        CultivationProgress(LEVEL_MIN).realm,
+        innate_max_lifespan=_create_random_innate_lifespan(),
+    )
     plan = MortalPlanner.plan(world, name=name or "", age=tmp_age_for_plan, allow_relations=False)
 
     # 覆盖：性别
@@ -1047,7 +1070,15 @@ def create_avatar_from_request(
 
     # 根据最终等级推导境界，再构造 Age
     final_realm = CultivationProgress(plan.level).realm
-    final_age = Age(age_years, final_realm)
+    final_age = Age(
+        age_years,
+        final_realm,
+        innate_max_lifespan=(
+            age.innate_max_lifespan
+            if isinstance(age, Age)
+            else _create_random_innate_lifespan()
+        ),
+    )
 
     # 生成
     overrides: Dict[str, object] = {}

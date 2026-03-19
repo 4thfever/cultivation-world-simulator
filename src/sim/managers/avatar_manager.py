@@ -26,6 +26,11 @@ class AvatarManager:
             avatar: 角色对象
             is_newly_born: 是否为新出生的角色（若是，则加入变更缓冲供前端同步）
         """
+        if getattr(avatar, "is_dead", False):
+            self.dead_avatars[str(avatar.id)] = avatar
+            self.avatars.pop(str(avatar.id), None)
+            return
+
         self.avatars[str(avatar.id)] = avatar
         if is_newly_born:
             self._newly_born_buffer.append(str(avatar.id))

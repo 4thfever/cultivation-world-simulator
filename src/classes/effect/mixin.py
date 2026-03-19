@@ -147,11 +147,19 @@ class EffectsMixin:
         if self.world.current_phenomenon:
             _collect(t("Heaven and Earth Phenomenon"), source_obj=self.world.current_phenomenon)
 
+        realm_effects = self.cultivation_progress.get_realm_effects()
+        if realm_effects:
+            _collect(t("effect_source_cultivation_realm"), explicit_effects=realm_effects)
+
         for consumed in self.elixirs:
             # 使用 get_active_effects 获取当前生效的效果
             active = consumed.get_active_effects(int(self.world.month_stamp))
             label = t("Elixir [{name}]", name=consumed.elixir.name)
             _collect(label, explicit_effects=active)
+
+        for persistent_eff in getattr(self, "persistent_effects", []):
+            label = t(persistent_eff.get("source", "effect_source_persistent_effect"))
+            _collect(label, explicit_effects=persistent_eff.get("effects", {}))
 
         # 处理临时效果（如闭关获得的短期加成）
         for temp_eff in self.get_active_temporary_effects():
@@ -187,7 +195,7 @@ class EffectsMixin:
         
         # 更新寿命
         if self.age:
-            self.age.max_lifespan = self.age.base_max_lifespan + extra_max_lifespan
+            self.age.recalculate_max_lifespan(extra_max_lifespan)
         
         # 调整当前值（不超过新的最大值）
         if self.hp.cur > new_max_hp:

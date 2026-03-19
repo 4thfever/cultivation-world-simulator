@@ -232,6 +232,7 @@ class AvatarLoadMixin:
 
         # 恢复临时效果
         avatar.temporary_effects = data.get("temporary_effects", [])
+        avatar.persistent_effects = data.get("persistent_effects", [])
 
         # 重建 metrics_history
         metrics_history_data = data.get("metrics_history", [])
