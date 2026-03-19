@@ -484,43 +484,33 @@ msgstr "劫數降臨戾氣瀰漫，雖戰力激增但福緣淺薄，宜如履薄
 msgid "CELESTIAL_PHENOMENON_9_NAME"
 msgstr "劫數將至"
 
-#. city_region.csv: 繁華都市，人煙稠密，商賈雲集。此地是交易...
 msgid "CITY_REGION_301_DESC"
-msgstr "繁華都市，人煙稠密，商賈雲集。此地是交易天材地寶、尋找機緣的重要場所。"
+msgstr "繁華大城，人煙稠密，商賈雲集，是交易天材地寶、尋找機緣的重要場所。"
 
-#. city_region.csv: 青雲城
 msgid "CITY_REGION_301_NAME"
 msgstr "青雲城"
 
-#. city_region.csv: 沙漠綠洲中的貿易重鎮，各路商隊在此集結，...
 msgid "CITY_REGION_302_DESC"
-msgstr "沙漠綠洲中的貿易重鎮，各路商隊在此集結，是修士補給和交流的重要據點。"
+msgstr "沙漠綠洲中的貿易小城，商隊往來不絕，是修士補給和交流的重要據點。"
 
-#. city_region.csv: 沙州城
 msgid "CITY_REGION_302_NAME"
 msgstr "沙州城"
 
-#. city_region.csv: 森林深處的修仙重鎮，衆多修士在此棲居，是...
 msgid "CITY_REGION_303_DESC"
-msgstr "森林深處的修仙重鎮，衆多修士在此棲居，是修煉和煉寶的理想之地。"
+msgstr "森林深處的修仙城鎮，雖不及名都繁盛，卻有衆多修士在此棲居，是修煉和煉寶的理想之地。"
 
-#. city_region.csv: 翠林城
 msgid "CITY_REGION_303_NAME"
 msgstr "翠林城"
 
-#. city_region.csv: 坐落於大河入海口的三角洲，百川歸海，水運...
 msgid "CITY_REGION_304_DESC"
-msgstr "坐落於大河入海口的三角洲，百川歸海，水運昌隆，是水系修士往來最爲頻繁的寶地。"
+msgstr "坐落於大河入海口的繁盛大城，百川歸海，水運昌隆，是水系修士往來雲集的寶地。"
 
-#. city_region.csv: 滄瀾城
 msgid "CITY_REGION_304_NAME"
 msgstr "滄瀾城"
 
-#. city_region.csv: 屹立於連綿羣山之巔，終年雲霧繚繞，靈氣純...
 msgid "CITY_REGION_305_DESC"
-msgstr "屹立於連綿羣山之巔，終年雲霧繚繞，靈氣純淨，是苦修之士感悟天道的絕佳場所。"
+msgstr "屹立於連綿羣山之巔的山中小城，終年雲霧繚繞，靈氣純淨，是苦修之士感悟天道的絕佳場所。"
 
-#. city_region.csv: 攬月城
 msgid "CITY_REGION_305_NAME"
 msgstr "攬月城"
 

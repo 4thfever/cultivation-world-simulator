@@ -20,6 +20,7 @@ class DevourPeople(TimedAction):
     # 不需要翻译的常量
     EMOJI = "🩸"
     PARAMS = {}
+    POPULATION_LOSS = 2.5
 
     duration_months = 2
 
@@ -38,10 +39,10 @@ class DevourPeople(TimedAction):
             current_souls = auxiliary.special_data.get("devoured_souls", 0)
             auxiliary.special_data["devoured_souls"] = min(10000, int(current_souls) + gain)
             
-            # 若在城市中，大幅降低繁荣度
+            # 若在城市中，大幅降低人口
             region = self.avatar.tile.region
             if isinstance(region, CityRegion):
-                region.change_prosperity(-15)
+                region.change_population(-self.POPULATION_LOSS)
 
     def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])

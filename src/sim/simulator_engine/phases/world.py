@@ -162,9 +162,8 @@ def phase_update_celestial_phenomenon(world) -> list[Event]:
     return events
 
 
-def phase_update_region_prosperity(world) -> None:
-    # 当前实现是最简单的月度线性增长，后续如果要接经济/人口系统，
-    # 这里会是比较自然的扩展点。
+def phase_update_city_population(world) -> None:
+    # 城市人口使用 logistic 公式按月自然变化。
     for region in world.map.regions.values():
         if isinstance(region, CityRegion):
-            region.change_prosperity(1)
+            region.update_population_monthly()

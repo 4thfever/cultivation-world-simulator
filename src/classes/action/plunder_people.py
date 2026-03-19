@@ -20,6 +20,7 @@ class PlunderPeople(TimedAction):
     EMOJI = "💀"
     PARAMS = {}
     GAIN = 20
+    POPULATION_LOSS = 1.0
 
     duration_months = 3
 
@@ -44,8 +45,8 @@ class PlunderPeople(TimedAction):
         gain = int(base_gain * multiplier)
         self.avatar.magic_stone = self.avatar.magic_stone + gain
         
-        # 降低繁荣度
-        region.change_prosperity(-5)
+        # 搜刮会导致人口流失
+        region.change_population(-self.POPULATION_LOSS)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

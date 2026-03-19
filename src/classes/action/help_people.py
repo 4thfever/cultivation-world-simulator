@@ -20,6 +20,7 @@ class HelpPeople(TimedAction):
     EMOJI = "🤝"
     PARAMS = {}
     COST = 10
+    POPULATION_GAIN = 0.6
 
     duration_months = 3
 
@@ -35,7 +36,7 @@ class HelpPeople(TimedAction):
         cost = self.COST
         if self.avatar.magic_stone >= cost:
             self.avatar.magic_stone = self.avatar.magic_stone - cost
-            region.change_prosperity(3)
+            region.change_population(self.POPULATION_GAIN)
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region

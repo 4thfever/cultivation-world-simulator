@@ -13,32 +13,42 @@ describe('RegionDetail', () => {
     const i18n = createI18n({
       legacy: false,
       locale: 'zh-CN',
-      messages: {}
+      messages: {
+        'zh-CN': {
+          game: {
+            population: '人口',
+          },
+        },
+      },
     })
 
     const wrapper = mount(RegionDetail, {
       props: {
         data: {
           id: '1',
+          name: 'Test City',
+          type: 'city',
           type_name: 'Test',
           desc: 'Test Desc',
-          color: '#fff',
-          x: 0,
-          y: 0,
-          width: 1,
-          height: 1
-        } as any
+          animals: [],
+          plants: [],
+          lodes: [],
+          population: 120,
+          population_capacity: 200,
+        }
       },
       global: {
         plugins: [createPinia(), i18n],
         stubs: {
-          StatItem: true,
           EntityRow: true,
-          TagList: true
+          RelationRow: true,
+          SecondaryPopup: true,
         }
       }
     })
 
     expect(wrapper.exists()).toBe(true)
+    expect(wrapper.text()).toContain('人口')
+    expect(wrapper.text()).toContain('120.0 / 200.0 万')
   })
 })

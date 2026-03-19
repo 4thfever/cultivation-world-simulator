@@ -74,8 +74,8 @@ msgstr "Dual Cultivation Experience"
 msgid "effect_extra_educate_efficiency"
 msgstr "Education Efficiency"
 
-msgid "effect_extra_educate_prosperity_prob"
-msgstr "Education Prosperity Probability"
+msgid "effect_extra_educate_population_prob"
+msgstr "Education Population Growth Probability"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"

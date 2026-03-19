@@ -15,6 +15,16 @@ defineProps<{
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
 
+function getPopulationBarColor(ratio: number): string {
+  if (ratio > 0.8) return '#52c41a';
+  if (ratio > 0.3) return '#1890ff';
+  return '#ff4d4f';
+}
+
+function formatPopulation(value: number | undefined): string {
+  return (value ?? 0).toFixed(1);
+}
+
 function showDetail(item: EffectEntity | undefined) {
   if (item) {
     secondaryItem.value = item;
@@ -42,12 +52,18 @@ function jumpToAvatar(id: string) {
       <div class="section-title">{{ data.type_name }}</div>
       <div class="desc">{{ data.desc }}</div>
 
-      <!-- Prosperity -->
-      <div class="prosperity-container" v-if="data.prosperity !== undefined">
-        <div class="section-title">{{ t('game.prosperity') }}</div>
-        <div class="prosperity-bar">
-          <div class="fill" :style="{ width: data.prosperity + '%', backgroundColor: data.prosperity > 80 ? '#52c41a' : (data.prosperity > 30 ? '#1890ff' : '#ff4d4f') }"></div>
-          <div class="text">{{ data.prosperity }}/100</div>
+      <!-- Population -->
+      <div class="population-container" v-if="data.population !== undefined && data.population_capacity !== undefined">
+        <div class="section-title">{{ t('game.population') }}</div>
+        <div class="population-bar">
+          <div
+            class="fill"
+            :style="{
+              width: `${Math.min(100, (data.population / data.population_capacity) * 100)}%`,
+              backgroundColor: getPopulationBarColor(data.population / data.population_capacity),
+            }"
+          ></div>
+          <div class="text">{{ formatPopulation(data.population) }} / {{ formatPopulation(data.population_capacity) }} 万</div>
         </div>
       </div>
       
@@ -214,14 +230,14 @@ function jumpToAvatar(id: string) {
   background: #1890ff;
 }
 
-.prosperity-container {
+.population-container {
   margin-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.prosperity-bar {
+.population-bar {
   height: 16px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -229,12 +245,12 @@ function jumpToAvatar(id: string) {
   overflow: hidden;
 }
 
-.prosperity-bar .fill {
+.population-bar .fill {
   height: 100%;
   transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-.prosperity-bar .text {
+.population-bar .text {
   position: absolute;
   top: 0;
   left: 0;

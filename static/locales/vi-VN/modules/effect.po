@@ -74,7 +74,7 @@ msgstr "Kinh nghiệm song tu"
 msgid "effect_extra_educate_efficiency"
 msgstr "Hiệu suất giáo hóa"
 
-msgid "effect_extra_educate_prosperity_prob"
+msgid "effect_extra_educate_population_prob"
 msgstr "Xác suất tăng độ phồn vinh khi giáo hóa"
 
 msgid "effect_extra_epiphany_probability"

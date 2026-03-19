@@ -113,7 +113,7 @@ msgstr "Mục tiêu đã chết"
 msgid "Target realm not specified"
 msgstr "Chưa chỉ định cảnh giới của mục tiêu"
 
-msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgid "The population of {city} has increased due to {avatar}'s teachings."
 msgstr "Nhờ sự giáo hóa của {avatar}, độ phồn vinh của {city} đã tăng lên."
 
 msgid "This area has no shop"

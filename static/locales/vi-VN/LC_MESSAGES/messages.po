@@ -1045,7 +1045,7 @@ msgstr "Mục tiêu đã chết"
 msgid "Target realm not specified"
 msgstr "Chưa chỉ định cảnh giới của mục tiêu"
 
-msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgid "The population of {city} has increased due to {avatar}'s teachings."
 msgstr "Nhờ sự giáo hóa của {avatar}, độ phồn vinh của {city} đã tăng lên."
 
 msgid "This area has no shop"
@@ -1242,7 +1242,7 @@ msgstr "Kinh nghiệm song tu"
 msgid "effect_extra_educate_efficiency"
 msgstr "Hiệu suất giáo hóa"
 
-msgid "effect_extra_educate_prosperity_prob"
+msgid "effect_extra_educate_population_prob"
 msgstr "Xác suất tăng độ phồn vinh khi giáo hóa"
 
 msgid "effect_extra_epiphany_probability"

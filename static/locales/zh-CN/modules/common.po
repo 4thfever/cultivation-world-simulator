@@ -111,8 +111,8 @@ msgstr "目标已死亡"
 msgid "Target realm not specified"
 msgstr "未指定目标境界"
 
-msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
-msgstr "因 {avatar} 的教化，{city} 的繁荣度提升了。"
+msgid "The population of {city} has increased due to {avatar}'s teachings."
+msgstr "因 {avatar} 的教化，{city} 的人口增长了。"
 
 msgid "This area has no shop"
 msgstr "该区域没有商店"

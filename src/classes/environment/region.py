@@ -232,15 +232,34 @@ class CultivateRegion(Region):
 class CityRegion(Region, StoreMixin):
     """城市区域"""
     sell_item_ids: list[int] = field(default_factory=list)
-    prosperity: float = 50.0
+    population: float = 80.0
+    population_capacity: float = 120.0
+
+    MONTHLY_GROWTH_RATE: float = 0.03
 
     def __post_init__(self):
         super().__post_init__()
         self.init_store(self.sell_item_ids)
 
-    def change_prosperity(self, delta: float) -> None:
-        """安全修改繁荣度，限制在 0-100 之间"""
-        self.prosperity = max(0.0, min(100.0, self.prosperity + delta))
+    @property
+    def population_ratio(self) -> float:
+        if self.population_capacity <= 0:
+            return 0.0
+        return max(0.0, min(1.0, self.population / self.population_capacity))
+
+    def change_population(self, delta: float) -> None:
+        """安全修改人口，限制在 0 和容量之间。单位：万人。"""
+        self.population = max(0.0, min(self.population_capacity, self.population + delta))
+
+    def update_population_monthly(self) -> None:
+        """
+        使用标准 logistic 模型更新人口。
+        dP = r * P * (1 - P / K)
+        """
+        if self.population <= 0 or self.population_capacity <= 0:
+            return
+        growth = self.MONTHLY_GROWTH_RATE * self.population * (1 - self.population / self.population_capacity)
+        self.change_population(growth)
 
     def get_region_type(self) -> str:
         return "city"
@@ -270,5 +289,6 @@ class CityRegion(Region, StoreMixin):
                 store_items_info.append(item_info)
         
         info["store_items"] = store_items_info
-        info["prosperity"] = self.prosperity
+        info["population"] = self.population
+        info["population_capacity"] = self.population_capacity
         return info

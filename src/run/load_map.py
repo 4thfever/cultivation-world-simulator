@@ -4,7 +4,7 @@ from src.classes.environment.map import Map
 from src.classes.environment.tile import TileType
 from src.classes.environment.region import Region, NormalRegion, CultivateRegion, CityRegion
 from src.classes.environment.sect_region import SectRegion
-from src.utils.df import game_configs, get_str, get_int
+from src.utils.df import game_configs, get_str, get_int, get_float
 from src.classes.essence import EssenceType
 from src.classes.core.sect import sects_by_id  # 直接导入已加载的宗门数据
 from src.utils.config import CONFIG
@@ -116,6 +116,8 @@ def _load_and_assign_regions(game_map: Map, region_coords: dict[int, list[tuple[
                             params["sell_item_ids"] = ids
                     except Exception as e:
                         print(f"Error parsing sell_item_ids for city {rid}: {e}")
+                params["population"] = get_float(row, "initial_population", 80.0)
+                params["population_capacity"] = get_float(row, "population_capacity", 120.0)
 
             elif type_tag == "sect":
                 sect_id = get_int(row, "sect_id")

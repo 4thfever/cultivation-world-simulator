@@ -74,7 +74,7 @@ msgstr "雙修經驗"
 msgid "effect_extra_educate_efficiency"
 msgstr "教化效率"
 
-msgid "effect_extra_educate_prosperity_prob"
+msgid "effect_extra_educate_population_prob"
 msgstr "教化繁榮度提升概率"
 
 msgid "effect_extra_epiphany_probability"

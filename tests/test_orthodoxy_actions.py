@@ -153,7 +153,7 @@ def test_educate_can_start(avatar_in_city):
     assert "必须在城市" in reason
 
 def test_educate_execution(avatar_in_city):
-    """测试教化经验计算"""
+    """测试教化经验计算（半满城市为标准倍率）"""
     # 同上，使用 temporary_effects
     avatar_in_city.temporary_effects.append({
         "source": "test_buff",
@@ -167,20 +167,21 @@ def test_educate_execution(avatar_in_city):
     avatar_in_city.recalc_effects()
     
     region = avatar_in_city.tile.region
-    region.prosperity = 50.0 # 标准繁荣度
+    region.population = 50.0
+    region.population_capacity = 100.0
     
     action = Educate(avatar_in_city, avatar_in_city.world)
     
     # Mock add_exp
     avatar_in_city.cultivation_progress.add_exp = MagicMock()
     
-    # 固定随机数防止繁荣度变化干扰（虽然这里主要测经验）
+    # 固定随机数防止人口变化干扰（虽然这里主要测经验）
     random.seed(1)
     
     action._execute()
     
     # 练气期 multiplier = 1
-    # 繁荣度系数 = 50 / 50 = 1.0
+    # 人口倍率 = 0.5 + 50/100 = 1.0
     # 基准经验 BASE_EXP_TOTAL = 150
     # 150 * 1 * 1 = 150
     # avatar_in_city.cultivation_progress.add_exp.assert_called_with(150)
@@ -191,8 +192,8 @@ def test_educate_execution(avatar_in_city):
     # 允许一定的误差，或者先断言调用了
     assert args[0] == 150
 
-def test_educate_prosperity_effect(avatar_in_city):
-    """测试教化对繁荣度的影响"""
+def test_educate_population_effect(avatar_in_city):
+    """测试教化对人口的影响"""
     avatar_in_city.temporary_effects.append({
         "source": "test_buff",
         "effects": {
@@ -205,7 +206,8 @@ def test_educate_prosperity_effect(avatar_in_city):
     avatar_in_city.recalc_effects()
     
     region = avatar_in_city.tile.region
-    region.prosperity = 50.0
+    region.population = 50.0
+    region.population_capacity = 100.0
     
     action = Educate(avatar_in_city, avatar_in_city.world)
     
@@ -216,10 +218,10 @@ def test_educate_prosperity_effect(avatar_in_city):
     with patch('src.classes.action.educate.random.random', return_value=0.1):
         action._execute()
         
-    assert region.prosperity == 50.2
+    assert region.population == pytest.approx(50.2)
 
-def test_educate_high_prosperity_bonus(avatar_in_city):
-    """测试高繁荣度加成"""
+def test_educate_high_population_bonus(avatar_in_city):
+    """测试高人口城市的教化加成"""
     avatar_in_city.temporary_effects.append({
         "source": "test_buff",
         "effects": {
@@ -232,7 +234,8 @@ def test_educate_high_prosperity_bonus(avatar_in_city):
     avatar_in_city.recalc_effects()
     
     region = avatar_in_city.tile.region
-    region.prosperity = 100.0 # 双倍繁荣度
+    region.population = 100.0
+    region.population_capacity = 100.0
     
     action = Educate(avatar_in_city, avatar_in_city.world)
     
@@ -241,8 +244,8 @@ def test_educate_high_prosperity_bonus(avatar_in_city):
     
     action._execute()
     
-    # 150 * 1 * (100/50) = 300
-    expected = 150 * 1 * 2.0
+    # 满员城市倍率 = 0.5 + 100/100 = 1.5
+    expected = 150 * 1 * 1.5
     # avatar_in_city.cultivation_progress.add_exp.assert_called_with(int(expected))
     
     dummy_avatar = avatar_in_city

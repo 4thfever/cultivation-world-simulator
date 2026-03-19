@@ -38,7 +38,7 @@ class Simulator:
         13. 小型随机事件 + 宗门随机事件
         14. 外号生成
         15. 天象（大环境气候）更新
-        16. 区域繁荣度更新
+        16. 城市人口更新
         17. 按事件处理交互（第二轮，包含后续新事件）
         18. 计算型关系（如二阶关系）更新
         19. 每年一月：世界年度维护
@@ -99,8 +99,8 @@ class Simulator:
         # 15. 更新天象
         ctx.add_events(world_phases.phase_update_celestial_phenomenon(self.world))
 
-        # 16. 更新区域繁荣度
-        world_phases.phase_update_region_prosperity(self.world)
+        # 16. 更新城市人口
+        world_phases.phase_update_city_population(self.world)
 
         # 17. 再次按事件处理交互（包含后续新事件）
         # 第二轮只处理本月后半程新增的互动事件。

@@ -25,7 +25,9 @@ class Educate(TimedAction):
     
     # 经验常量 (3个月基准)
     BASE_EXP_TOTAL = 150 # 基准总经验 (50/月 * 3)
-    STANDARD_PROSPERITY = 50 # 标准繁荣度
+    MIN_POPULATION_FACTOR = 0.5
+    MAX_POPULATION_FACTOR = 1.5
+    POPULATION_GAIN_ON_SUCCESS = 0.2
 
     def can_possibly_start(self) -> bool:
         legal = self.avatar.effects.get("legal_actions", [])
@@ -49,12 +51,12 @@ class Educate(TimedAction):
         realm = self.avatar.cultivation_progress.realm
         realm_multiplier = REALM_RANK.get(realm, 0) + 1
         
-        # 计算繁荣度系数
-        prosperity = region.prosperity
-        prosperity_factor = prosperity / self.STANDARD_PROSPERITY
+        # 计算人口系数：半满城市为标准收益，满员城市上限 1.5 倍。
+        population_factor = self.MIN_POPULATION_FACTOR + region.population_ratio
+        population_factor = max(self.MIN_POPULATION_FACTOR, min(self.MAX_POPULATION_FACTOR, population_factor))
         
         # 计算基础经验
-        exp = int(self.BASE_EXP_TOTAL * realm_multiplier * prosperity_factor)
+        exp = int(self.BASE_EXP_TOTAL * realm_multiplier * population_factor)
         
         # 额外效率加成
         efficiency = float(self.avatar.effects.get("extra_educate_efficiency", 0.0))
@@ -63,15 +65,15 @@ class Educate(TimedAction):
             
         self.avatar.cultivation_progress.add_exp(exp)
         
-        # 副作用：小概率增加城市繁荣度 (20%)
+        # 副作用：小概率吸引人口流入城市
         base_prob = 0.2
-        extra_prob = float(self.avatar.effects.get("extra_educate_prosperity_prob", 0.0))
+        extra_prob = float(self.avatar.effects.get("extra_educate_population_prob", 0.0))
         
         if random.random() < (base_prob + extra_prob):
-            region.change_prosperity(0.2)
-            self._prosperity_increased = True
+            region.change_population(self.POPULATION_GAIN_ON_SUCCESS)
+            self._population_increased = True
         else:
-            self._prosperity_increased = False
+            self._population_increased = False
             
         self._last_exp = exp
 
@@ -104,9 +106,9 @@ class Educate(TimedAction):
         
         events = [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]
         
-        if getattr(self, '_prosperity_increased', False):
+        if getattr(self, '_population_increased', False):
             region = self.avatar.tile.region
-            extra_content = t("The prosperity of {city} has increased due to {avatar}'s teachings.",
+            extra_content = t("The population of {city} has increased due to {avatar}'s teachings.",
                              city=region.name, avatar=self.avatar.name)
             events.append(Event(self.world.month_stamp, extra_content, related_avatars=[self.avatar.id]))
             

@@ -1040,8 +1040,8 @@ msgstr "Target is already dead"
 msgid "Target realm not specified"
 msgstr "Target realm not specified"
 
-msgid "The prosperity of {city} has increased due to {avatar}'s teachings."
-msgstr "The prosperity of {city} has increased due to {avatar}'s teachings."
+msgid "The population of {city} has increased due to {avatar}'s teachings."
+msgstr "The population of {city} has increased due to {avatar}'s teachings."
 
 msgid "This area has no shop"
 msgstr "This area has no shop"
@@ -1236,8 +1236,8 @@ msgstr "Dual Cultivation Experience"
 msgid "effect_extra_educate_efficiency"
 msgstr "Education Efficiency"
 
-msgid "effect_extra_educate_prosperity_prob"
-msgstr "Education Prosperity Probability"
+msgid "effect_extra_educate_population_prob"
+msgstr "Education Population Growth Probability"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"

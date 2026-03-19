@@ -238,6 +238,8 @@ export interface RegionDetail extends EntityBase {
   type: string;
   type_name: string; // 中文类型名
   sect_id?: number;
+  population?: number;
+  population_capacity?: number;
   
   essence?: { 
     type: string; 

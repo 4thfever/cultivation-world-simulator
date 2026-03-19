@@ -164,10 +164,10 @@ def save_game(
                  if isinstance(region, CultivateRegion) and region.host_avatar:
                      cultivate_regions_hosts[str(rid)] = region.host_avatar.id
                  
-                 # 保存城市繁荣度
+                 # 保存城市人口
                  if isinstance(region, CityRegion):
                      regions_status[str(rid)] = {
-                         "prosperity": region.prosperity
+                         "population": region.population
                      }
 
         sect_runtime_effects = {
