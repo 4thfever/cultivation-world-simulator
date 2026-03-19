@@ -19,6 +19,12 @@ msgstr " Hồn phách đã thôn phệ: {count}"
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "Một tán tu {name} đã hiện thân giữa thế gian."
 
+msgid "A rogue cultivator {name} appeared, but their lifespan was already exhausted."
+msgstr "Một tán tu {name} xuất hiện, nhưng thọ nguyên của họ đã cạn kiệt."
+
+msgid "{name} awakened spiritual roots, but their lifespan was already exhausted."
+msgstr "{name} đã thức tỉnh linh căn, nhưng thọ nguyên đã cạn kiệt."
+
 msgid "Age"
 msgstr "Tuổi Tác"
 

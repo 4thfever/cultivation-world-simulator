@@ -19,6 +19,12 @@ msgstr " Devoured Souls: {count}"
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "A rogue cultivator {name} has appeared in the world."
 
+msgid "A rogue cultivator {name} appeared, but their lifespan was already exhausted."
+msgstr "A rogue cultivator {name} appeared, but their lifespan was already exhausted."
+
+msgid "{name} awakened spiritual roots, but their lifespan was already exhausted."
+msgstr "{name} awakened spiritual roots, but their lifespan was already exhausted."
+
 msgid "Age"
 msgstr "Age"
 

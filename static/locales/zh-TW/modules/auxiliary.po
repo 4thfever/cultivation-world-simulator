@@ -19,6 +19,12 @@ msgstr " 吞噬魂魄：{count}"
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "一名散修 {name} 現身於世。"
 
+msgid "A rogue cultivator {name} appeared, but their lifespan was already exhausted."
+msgstr "一名散修 {name} 現身於世，卻已壽元耗盡。"
+
+msgid "{name} awakened spiritual roots, but their lifespan was already exhausted."
+msgstr "{name} 覺醒了靈根，卻已壽元耗盡。"
+
 msgid "Age"
 msgstr "年齡"
 
