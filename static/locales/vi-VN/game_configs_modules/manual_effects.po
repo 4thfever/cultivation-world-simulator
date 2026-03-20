@@ -41,6 +41,4 @@ msgstr "Tăng chiến lực dựa trên tư chất thương pháp"
 
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
-msgstr ""
-"Thôn phệ sinh hồn để cướp đoạt thọ nguyên và vật phẩm; tăng chiến lực dựa "
-"trên số lượng sinh hồn"
+msgstr "Thôn phệ phàm nhân trong thành để tích lũy hồn phách; tăng chiến lực theo bậc, tối đa +8"

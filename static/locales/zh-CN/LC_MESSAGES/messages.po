@@ -561,6 +561,9 @@ msgstr "正"
 msgid " Devoured Souls: {count}"
 msgstr " 吞噬魂魄：{count}"
 
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " 吞噬魂魄：{count}，战力加成：+{bonus}"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "一名散修 {name} 现身于世。"
 
@@ -629,6 +632,9 @@ msgstr "绰号"
 
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (已吞噬魂魄：{souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (已吞噬魂魄：{souls}，战力加成：+{bonus})"
 
 # Avatar 系统
 # 字段标签 (info_dict 键名)
@@ -1150,6 +1156,15 @@ msgstr "闭关失败"
 
 msgid "effect_source_persistent_effect"
 msgstr "永久效果"
+
+msgid "effect_source_help_people_karma"
+msgstr "帮助凡人"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "掠夺凡人"
+
+msgid "effect_source_devour_people_karma"
+msgstr "吞噬凡人"
 
 # Effect 格式化
 msgid "action_list_separator"

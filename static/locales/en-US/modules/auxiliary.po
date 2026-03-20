@@ -16,6 +16,9 @@ msgstr ""
 msgid " Devoured Souls: {count}"
 msgstr " Devoured Souls: {count}"
 
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "A rogue cultivator {name} has appeared in the world."
 
@@ -81,3 +84,6 @@ msgstr "Nickname"
 
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (Devoured Souls: {souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"

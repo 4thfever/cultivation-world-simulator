@@ -17,15 +17,15 @@ def _clamp(value: float, minimum: float, maximum: float) -> float:
     return max(minimum, min(maximum, value))
 
 
-def compute_luck_value(base_luck: int, raw_effects: dict[str, Any]) -> int:
+def compute_luck_value(base_luck: float, raw_effects: dict[str, Any]) -> float:
     extra_luck = raw_effects.get(EXTRA_LUCK, 0)
     try:
-        return int(base_luck + int(extra_luck))
+        return round(float(base_luck) + float(extra_luck), 4)
     except Exception:
-        return int(base_luck)
+        return float(base_luck)
 
 
-def build_luck_derived_effects(luck: int) -> dict[str, float]:
+def build_luck_derived_effects(luck: float) -> dict[str, float]:
     if luck == 0:
         return {}
 

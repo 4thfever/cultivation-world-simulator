@@ -41,4 +41,4 @@ msgstr "基于枪法资质提升战力"
 
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
-msgstr "吞噬生魂可掠夺寿命与物品；基于生魂数量提升战力"
+msgstr "吞噬城中凡人可增长魂魄；基于魂魄数量分段提升战力，最高+8"

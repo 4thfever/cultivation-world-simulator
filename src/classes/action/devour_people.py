@@ -4,7 +4,7 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.environment.region import CityRegion
-import random
+from src.classes.items.auxiliary import TEN_THOUSAND_SOULS_BANNER_MAX_SOULS
 
 
 class DevourPeople(TimedAction):
@@ -20,7 +20,8 @@ class DevourPeople(TimedAction):
     # 不需要翻译的常量
     EMOJI = "🩸"
     PARAMS = {}
-    POPULATION_LOSS = 2.5
+    POPULATION_LOSS_RATIO = 0.01
+    LUCK_DELTA = -1.0
 
     duration_months = 2
 
@@ -31,27 +32,39 @@ class DevourPeople(TimedAction):
         return True
 
     def _execute(self) -> None:
-        # 若持有万魂幡：累积吞噬魂魄（10~100），上限10000
-        # 万魂幡是辅助装备(auxiliary)
-        auxiliary = self.avatar.auxiliary
-        if auxiliary is not None and auxiliary.name == "万魂幡":
-            gain = random.randint(10, 100)
-            current_souls = auxiliary.special_data.get("devoured_souls", 0)
-            auxiliary.special_data["devoured_souls"] = min(10000, int(current_souls) + gain)
-            
-            # 若在城市中，大幅降低人口
-            region = self.avatar.tile.region
-            if isinstance(region, CityRegion):
-                region.change_population(-self.POPULATION_LOSS)
+        return
 
     def can_start(self) -> tuple[bool, str]:
         legal = self.avatar.effects.get("legal_actions", [])
         ok = "DevourPeople" in legal
-        return (ok, "" if ok else t("Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"))
+        if not ok:
+            return False, t("Forbidden illegal action (missing Ten Thousand Souls Banner or permission)")
+        region = self.avatar.tile.region
+        if not isinstance(region, CityRegion):
+            return False, t("Can only execute in city areas")
+        return True, ""
 
     def start(self) -> Event:
         content = t("{avatar} begins devouring people in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
+        auxiliary = self.avatar.auxiliary
+        region = self.avatar.tile.region
+        if auxiliary is None or auxiliary.name != "万魂幡" or not isinstance(region, CityRegion):
+            return []
+
+        population_loss = float(region.population) * self.POPULATION_LOSS_RATIO
+        consumed_people = int(float(region.population) * 10000 * self.POPULATION_LOSS_RATIO)
+        region.change_population(-population_loss)
+
+        current_souls = int(auxiliary.special_data.get("devoured_souls", 0) or 0)
+        auxiliary.special_data["devoured_souls"] = min(
+            TEN_THOUSAND_SOULS_BANNER_MAX_SOULS,
+            current_souls + consumed_people,
+        )
+        self.avatar.add_persistent_effect(
+            "effect_source_devour_people_karma",
+            {"extra_luck": self.LUCK_DELTA},
+        )
         return []

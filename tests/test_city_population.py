@@ -5,7 +5,7 @@ from src.classes.action.help_people import HelpPeople
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.alignment import Alignment
 from src.classes.environment.region import CityRegion
-from src.classes.items.auxiliary import Auxiliary
+from src.classes.items.auxiliary import Auxiliary, get_ten_thousand_souls_banner_bonus
 from src.classes.environment.tile import Tile, TileType
 from src.sim.simulator import Simulator
 from src.sim.simulator_engine.phases.world import phase_update_city_population
@@ -42,11 +42,16 @@ class TestCityPopulation:
         region = avatar_in_city.tile.region
         initial_population = region.population
         avatar_in_city.magic_stone = 100
+        initial_stone = avatar_in_city.magic_stone
 
         action = HelpPeople(avatar_in_city, avatar_in_city.world)
-        action._execute()
+        action.start()
+        import asyncio
+        asyncio.run(action.finish())
 
-        assert region.population == pytest.approx(initial_population + 0.6)
+        assert region.population == pytest.approx(initial_population + 1.8)
+        assert avatar_in_city.magic_stone == initial_stone - 45
+        assert avatar_in_city.luck == pytest.approx(0.3)
 
     def test_plunder_people_decreases_population(self, avatar_in_city):
         region = avatar_in_city.tile.region
@@ -55,10 +60,12 @@ class TestCityPopulation:
         avatar_in_city.alignment = Alignment.EVIL
 
         action = PlunderPeople(avatar_in_city, avatar_in_city.world)
-        action._execute()
+        import asyncio
+        asyncio.run(action.finish())
 
-        assert region.population == pytest.approx(initial_population - 1.0)
-        assert avatar_in_city.magic_stone == initial_stone + 20
+        assert region.population == pytest.approx(initial_population - 3.0)
+        assert avatar_in_city.magic_stone == initial_stone + 90
+        assert avatar_in_city.luck == pytest.approx(-0.3)
 
     def test_devour_people_decreases_population(self, avatar_in_city):
         region = avatar_in_city.tile.region
@@ -69,9 +76,23 @@ class TestCityPopulation:
         avatar_in_city.auxiliary = aux
 
         action = DevourPeople(avatar_in_city, avatar_in_city.world)
-        action._execute()
+        import asyncio
+        asyncio.run(action.finish())
 
-        assert region.population == pytest.approx(initial_population - 2.5)
+        assert region.population == pytest.approx(initial_population * 0.99)
+        assert avatar_in_city.auxiliary.special_data["devoured_souls"] == 8000
+        assert avatar_in_city.luck == pytest.approx(-1.0)
+
+    def test_ten_thousand_souls_banner_bonus_curve(self):
+        assert get_ten_thousand_souls_banner_bonus(0) == 0
+        assert get_ten_thousand_souls_banner_bonus(1000) == 1
+        assert get_ten_thousand_souls_banner_bonus(3000) == 2
+        assert get_ten_thousand_souls_banner_bonus(7000) == 3
+        assert get_ten_thousand_souls_banner_bonus(15000) == 4
+        assert get_ten_thousand_souls_banner_bonus(30000) == 5
+        assert get_ten_thousand_souls_banner_bonus(50000) == 6
+        assert get_ten_thousand_souls_banner_bonus(70000) == 7
+        assert get_ten_thousand_souls_banner_bonus(90000) == 8
 
     def test_simulator_population_growth_uses_logistic_curve(self, base_world):
         city = CityRegion(

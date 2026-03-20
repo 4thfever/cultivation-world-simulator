@@ -46,6 +46,15 @@ msgstr "Bế quan thất bại"
 msgid "effect_source_persistent_effect"
 msgstr "Hiệu ứng vĩnh viễn"
 
+msgid "effect_source_help_people_karma"
+msgstr "Giúp dân thường"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "Cướp bóc dân thường"
+
+msgid "effect_source_devour_people_karma"
+msgstr "Thôn phệ dân thường"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr "、"

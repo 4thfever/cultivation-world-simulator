@@ -46,6 +46,15 @@ msgstr "Retreat Failure"
 msgid "effect_source_persistent_effect"
 msgstr "Persistent Effect"
 
+msgid "effect_source_help_people_karma"
+msgstr "Help People"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "Plunder People"
+
+msgid "effect_source_devour_people_karma"
+msgstr "Devour People"
+
 # Effect Formatting
 msgid "action_list_separator"
 msgstr ", "

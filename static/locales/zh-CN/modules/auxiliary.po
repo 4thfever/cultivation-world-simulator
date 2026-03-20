@@ -16,6 +16,9 @@ msgstr ""
 msgid " Devoured Souls: {count}"
 msgstr " 吞噬魂魄：{count}"
 
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " 吞噬魂魄：{count}，战力加成：+{bonus}"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "一名散修 {name} 现身于世。"
 
@@ -81,3 +84,6 @@ msgstr "绰号"
 
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (已吞噬魂魄：{souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (已吞噬魂魄：{souls}，战力加成：+{bonus})"

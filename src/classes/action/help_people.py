@@ -19,8 +19,9 @@ class HelpPeople(TimedAction):
     
     EMOJI = "🤝"
     PARAMS = {}
-    COST = 10
-    POPULATION_GAIN = 0.6
+    TOTAL_COST = 45
+    TOTAL_POPULATION_GAIN = 1.8
+    LUCK_DELTA = 0.3
 
     duration_months = 3
 
@@ -30,28 +31,29 @@ class HelpPeople(TimedAction):
         return True
 
     def _execute(self) -> None:
-        region = self.avatar.tile.region
-        if not isinstance(region, CityRegion):
-            return
-        cost = self.COST
-        if self.avatar.magic_stone >= cost:
-            self.avatar.magic_stone = self.avatar.magic_stone - cost
-            region.change_population(self.POPULATION_GAIN)
+        return
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
         if not isinstance(region, CityRegion):
             return False, t("Can only execute in city areas")
-        cost = self.COST
-        if not (self.avatar.magic_stone >= cost):
+        if not (self.avatar.magic_stone >= self.TOTAL_COST):
             return False, t("Insufficient spirit stones")
         return True, ""
 
     def start(self) -> Event:
+        self.avatar.magic_stone = self.avatar.magic_stone - self.TOTAL_COST
         content = t("{avatar} begins helping people in town", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
+        region = self.avatar.tile.region
+        if isinstance(region, CityRegion):
+            region.change_population(self.TOTAL_POPULATION_GAIN)
+        self.avatar.add_persistent_effect(
+            "effect_source_help_people_karma",
+            {"extra_luck": self.LUCK_DELTA},
+        )
         return []

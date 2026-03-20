@@ -615,6 +615,9 @@ msgstr "Chính"
 msgid " Devoured Souls: {count}"
 msgstr " Hồn phách đã thôn phệ: {count}"
 
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " Hồn phách đã thôn phệ: {count}, cộng chiến lực: +{bonus}"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "Một tán tu {name} đã hiện thân giữa thế gian."
 
@@ -683,6 +686,9 @@ msgstr "Biệt Hiệu"
 
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (Hồn phách đã thôn phệ: {souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (Hồn phách đã thôn phệ: {souls}, cộng chiến lực: +{bonus})"
 
 # Avatar System
 # Field Labels (info_dict keys)
@@ -1222,6 +1228,15 @@ msgstr "Bế quan thất bại"
 
 msgid "effect_source_persistent_effect"
 msgstr "Hiệu ứng vĩnh viễn"
+
+msgid "effect_source_help_people_karma"
+msgstr "Giúp dân thường"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "Cướp bóc dân thường"
+
+msgid "effect_source_devour_people_karma"
+msgstr "Thôn phệ dân thường"
 
 # Effect Formatting
 msgid "action_list_separator"

@@ -9,6 +9,26 @@ from src.systems.cultivation import Realm
 from src.classes.items.item import Item
 
 
+TEN_THOUSAND_SOULS_BANNER_MAX_SOULS = 100_000
+
+
+def get_ten_thousand_souls_banner_bonus(souls: int) -> int:
+    thresholds = [
+        (90_000, 8),
+        (70_000, 7),
+        (50_000, 6),
+        (30_000, 5),
+        (15_000, 4),
+        (7_000, 3),
+        (3_000, 2),
+        (1_000, 1),
+    ]
+    for minimum_souls, bonus in thresholds:
+        if souls >= minimum_souls:
+            return bonus
+    return 0
+
+
 @dataclass
 class Auxiliary(Item):
     """
@@ -40,7 +60,9 @@ class Auxiliary(Item):
         from src.i18n import t
         souls = ""
         if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
-            souls = t(" Devoured Souls: {count}", count=self.special_data['devoured_souls'])
+            soul_count = int(self.special_data["devoured_souls"])
+            battle_bonus = get_ten_thousand_souls_banner_bonus(soul_count)
+            souls = t(" Devoured Souls: {count}, Battle Bonus: +{bonus}", count=soul_count, bonus=battle_bonus)
         
         effect_part = t(" Effect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
         return f"[{self.id}] {self.name}（{str(self.realm)}，{self.desc}{souls}）{effect_part}"
@@ -58,7 +80,13 @@ class Auxiliary(Item):
             souls = self.special_data.get("devoured_souls", 0)
             if souls > 0:
                 from src.i18n import t
-                full_desc = t("{desc} (Devoured Souls: {souls})", desc=full_desc, souls=souls)
+                battle_bonus = get_ten_thousand_souls_banner_bonus(int(souls))
+                full_desc = t(
+                    "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})",
+                    desc=full_desc,
+                    souls=souls,
+                    bonus=battle_bonus,
+                )
 
         grade_display = str(self.realm)
 

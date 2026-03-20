@@ -971,8 +971,8 @@ msgstr "Tăng chiến lực dựa trên tư chất thương pháp"
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
 msgstr ""
-"Thôn phệ sinh hồn để cướp đoạt thọ nguyên và vật phẩm; tăng chiến lực dựa "
-"trên số lượng sinh hồn"
+"Thôn phệ phàm nhân trong thành để tích lũy hồn phách; tăng chiến lực theo "
+"bậc, tối đa +8"
 
 #. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
 msgid "MATERIAL_101_DESC"

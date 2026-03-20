@@ -616,6 +616,9 @@ msgstr "Righteous"
 msgid " Devoured Souls: {count}"
 msgstr " Devoured Souls: {count}"
 
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+
 msgid "A rogue cultivator {name} has appeared in the world."
 msgstr "A rogue cultivator {name} has appeared in the world."
 
@@ -687,6 +690,9 @@ msgstr "Nickname"
 
 msgid "{desc} (Devoured Souls: {souls})"
 msgstr "{desc} (Devoured Souls: {souls})"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
 
 # Avatar System
 # Field Labels (info_dict keys)
@@ -1219,6 +1225,15 @@ msgstr "Retreat Failure"
 
 msgid "effect_source_persistent_effect"
 msgstr "Persistent Effect"
+
+msgid "effect_source_help_people_karma"
+msgstr "Help People"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "Plunder People"
+
+msgid "effect_source_devour_people_karma"
+msgstr "Devour People"
 
 # Effect Formatting
 msgid "action_list_separator"

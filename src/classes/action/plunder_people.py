@@ -19,8 +19,9 @@ class PlunderPeople(TimedAction):
     
     EMOJI = "💀"
     PARAMS = {}
-    GAIN = 20
-    POPULATION_LOSS = 1.0
+    TOTAL_GAIN = 90
+    TOTAL_POPULATION_LOSS = 3.0
+    LUCK_DELTA = -0.3
 
     duration_months = 3
 
@@ -30,23 +31,7 @@ class PlunderPeople(TimedAction):
         return True
 
     def _execute(self) -> None:
-        region = self.avatar.tile.region
-        if not isinstance(region, CityRegion):
-            return
-        
-        # 基础收益
-        base_gain = self.GAIN
-        
-        # 应用搜刮收益倍率
-        multiplier_raw = self.avatar.effects.get("extra_plunder_multiplier", 0.0)
-        multiplier = 1.0 + float(multiplier_raw or 0.0)
-        
-        # 计算最终收益
-        gain = int(base_gain * multiplier)
-        self.avatar.magic_stone = self.avatar.magic_stone + gain
-        
-        # 搜刮会导致人口流失
-        region.change_population(-self.POPULATION_LOSS)
+        return
 
     def can_start(self) -> tuple[bool, str]:
         region = self.avatar.tile.region
@@ -63,4 +48,16 @@ class PlunderPeople(TimedAction):
     # TimedAction 已统一 step 逻辑
 
     async def finish(self) -> list[Event]:
+        region = self.avatar.tile.region
+        if isinstance(region, CityRegion):
+            region.change_population(-self.TOTAL_POPULATION_LOSS)
+
+        multiplier_raw = self.avatar.effects.get("extra_plunder_multiplier", 0.0)
+        multiplier = 1.0 + float(multiplier_raw or 0.0)
+        gain = int(self.TOTAL_GAIN * multiplier)
+        self.avatar.magic_stone = self.avatar.magic_stone + gain
+        self.avatar.add_persistent_effect(
+            "effect_source_plunder_people_karma",
+            {"extra_luck": self.LUCK_DELTA},
+        )
         return []

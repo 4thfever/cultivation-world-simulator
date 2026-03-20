@@ -960,8 +960,7 @@ msgstr "Increases Battle Strength based on Spear Proficiency"
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
 msgstr ""
-"Devour souls to plunder lifespan and items; Increases Battle Strength based "
-"on soul count"
+"Devour city mortals to gather souls; grants tiered Battle Strength up to +8"
 
 #. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
 msgid "MATERIAL_101_DESC"

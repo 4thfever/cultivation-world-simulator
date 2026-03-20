@@ -104,7 +104,7 @@ class Avatar(
     backstory: Optional[str] = None
     emotion: EmotionType = EmotionType.CALM
     custom_pic_id: Optional[int] = None
-    luck_base: int = 0
+    luck_base: float = 0.0
     
     elixirs: List[ConsumedElixir] = field(default_factory=list)
     # 临时效果列表: [{"source": str, "effects": dict, "start_month": int, "duration": int}]

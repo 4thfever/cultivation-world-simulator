@@ -43,6 +43,11 @@ class EffectsMixin:
             "float": float,
             "round": round,
         }
+        try:
+            from src.classes.items.auxiliary import get_ten_thousand_souls_banner_bonus
+            context["get_ten_thousand_souls_banner_bonus"] = get_ten_thousand_souls_banner_bonus
+        except Exception:
+            pass
 
         for k, v in effects.items():
             if isinstance(v, str):
@@ -171,7 +176,7 @@ class EffectsMixin:
         return breakdown
 
     @property
-    def luck(self: "Avatar") -> int:
+    def luck(self: "Avatar") -> float:
         raw_merged: dict[str, object] = {}
         for _, effect_dict in self._get_raw_effect_breakdown():
             raw_merged = _merge_effects(raw_merged, effect_dict)

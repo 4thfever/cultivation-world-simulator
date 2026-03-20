@@ -41,6 +41,4 @@ msgstr "Increases Battle Strength based on Spear Proficiency"
 
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
-msgstr ""
-"Devour souls to plunder lifespan and items; Increases Battle Strength based "
-"on soul count"
+msgstr "Devour city mortals to gather souls; grants tiered Battle Strength up to +8"
