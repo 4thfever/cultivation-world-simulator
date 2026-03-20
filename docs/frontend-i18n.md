@@ -55,7 +55,7 @@ web/src/locales/
 
 ### 3.3 类型安全 (Type Safety)
 
-前端 schema 语言不是写死在 `index.ts` 里的，而是通过 `tools/i18n/locales.json` -> `web/src/locales/registry.ts` 这条链路读取 `schema_locale`：
+前端 schema 语言不是写死在 `index.ts` 里的，而是通过 `static/locales/registry.json` -> `web/src/locales/registry.ts` 这条链路读取 `schema_locale`：
 ```typescript
 const schemaMessages = isEnabledLocale(schemaLocale)
   ? loadLocaleMessages(schemaLocale)

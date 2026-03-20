@@ -5,7 +5,7 @@ import sys
 from unittest.mock import MagicMock, AsyncMock, patch
 
 from src.classes.environment.map import Map
-from tools.i18n.locale_registry import get_default_locale
+from src.i18n.locale_registry import get_default_locale
 
 
 @pytest.fixture(autouse=True)

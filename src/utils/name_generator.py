@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from src.utils.df import game_configs, get_str, get_int
 from src.classes.core.avatar import Gender
-from tools.i18n.locale_registry import uses_space_separated_names
+from src.i18n.locale_registry import uses_space_separated_names
 
 
 @dataclass

@@ -10,7 +10,7 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
-from tools.i18n.locale_registry import get_source_locale
+from src.i18n.locale_registry import get_source_locale
 
 if TYPE_CHECKING:
     from src.classes.core.sect import Sect

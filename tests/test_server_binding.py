@@ -13,7 +13,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from omegaconf import OmegaConf
 
-from tools.i18n.locale_registry import get_default_locale
+from src.i18n.locale_registry import get_default_locale
 
 
 class TestServerHostConfiguration:

@@ -12,7 +12,7 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from tools.i18n.locale_registry import get_default_locale, get_fallback_locale
+from src.i18n.locale_registry import get_default_locale, get_fallback_locale
 
 # Cache for loaded translations.
 _translations: dict[str, Optional[gettext.GNUTranslations]] = {}

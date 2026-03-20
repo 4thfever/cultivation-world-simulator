@@ -52,7 +52,7 @@
 3. 前端大对象和 Pixi 实例禁止深层响应式代理。
 4. i18n 开发遵守 Phase 1（只改 `zh-CN`）直到显式进入 Phase 2。
 5. 存档字段新增必须向后兼容旧存档（`.get(default)`）。
-6. 语言列表的单一真相源是 `tools/i18n/locales.json`；Python 侧 i18n 工具、校验和新增语言流程应优先读取该文件，不要在脚本中重新写死 `zh-CN/zh-TW/en-US`。
+6. 语言列表的单一真相源是 `static/locales/registry.json`；Python 侧 i18n 工具、校验和新增语言流程应优先读取该文件，不要在脚本中重新写死 `zh-CN/zh-TW/en-US`。
 7. 用户设置不得再写入 `static/local_config.yml`；正式真源是用户数据目录中的 `settings.json/secrets.json`，本局参数必须走 `RunConfig` 并随存档保存。
 
 ## 4. `.cursor/skills` 沉淀
@@ -90,7 +90,7 @@
 1. 修改 `.cursor/rules`、`.cursor/skills`、`.cursor/commands` 后，建议执行一次 `/sync_agents` 同步本文件。
 2. 本文件是“聚合索引 + 执行约束”文档，不替代原文件；细节以原始文件为准。
 3. 若后续引入子目录 `AGENTS.md`，请遵循“越近优先”的覆盖策略，并在对应子目录内写局部规则。
-4. 若后续新增语言，先更新 `tools/i18n/locales.json`，再处理目录、脚本与资源骨架；不要先从前端菜单或单个测试文件开始零散修改。
+4. 若后续新增语言，先更新 `static/locales/registry.json`，再处理目录、脚本与资源骨架；不要先从前端菜单或单个测试文件开始零散修改。
 
 ## 8. 原始来源路径
 

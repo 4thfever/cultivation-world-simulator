@@ -6,7 +6,7 @@ from pathlib import Path
 from omegaconf import OmegaConf
 
 from src.config.data_paths import get_data_paths
-from tools.i18n.locale_registry import coerce_locale_code, get_default_locale, normalize_locale_code
+from src.i18n.locale_registry import coerce_locale_code, get_default_locale, normalize_locale_code
 
 def load_config():
     """

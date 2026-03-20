@@ -10,7 +10,7 @@ from src.sim.simulator import Simulator
 from src.sim.save.save_game import save_game
 from src.classes.language import language_manager
 from src.utils.config import CONFIG
-from tools.i18n.locale_registry import get_default_locale, get_fallback_locale
+from src.i18n.locale_registry import get_default_locale, get_fallback_locale
 
 # Helper functions
 def create_test_map():

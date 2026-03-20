@@ -12,6 +12,8 @@ RUN npm ci
 
 # 复制前端源代码
 COPY web/ .
+# 复制前端构建所需的语言注册表
+COPY static/locales/registry.json /static/locales/registry.json
 # 构建前端
 RUN npm run build
 

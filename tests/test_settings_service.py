@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock
 
 from src.config import AppSettingsPatch, LLMSettingsUpdate, get_data_paths, get_settings_service
-from tools.i18n.locale_registry import get_default_locale, get_fallback_locale
+from src.i18n.locale_registry import get_default_locale, get_fallback_locale
 
 
 def test_settings_service_creates_defaults_in_data_root():

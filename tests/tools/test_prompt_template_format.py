@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from src.utils.llm.prompt import build_prompt, load_template
-from tools.i18n.locale_registry import get_source_locale
+from src.i18n.locale_registry import get_source_locale
 
 
 def test_sect_random_event_template_can_be_formatted() -> None:

@@ -4,7 +4,7 @@ from pathlib import Path
 from src.classes.language import language_manager
 from src.utils.config import CONFIG, update_paths_for_language
 from src.utils.df import load_game_configs, reload_game_configs, game_configs
-from tools.i18n.locale_registry import get_default_locale, get_fallback_locale, get_locale_codes
+from src.i18n.locale_registry import get_default_locale, get_fallback_locale, get_locale_codes
 
 class TestLanguage:
     def setup_method(self):

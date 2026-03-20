@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from pydantic import BaseModel, Field
-from tools.i18n.locale_registry import get_default_locale
+from src.i18n.locale_registry import get_default_locale
 
 
 DEFAULT_LOCALE = get_default_locale()

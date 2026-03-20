@@ -12,7 +12,7 @@ from src.classes.items.elixir import elixirs_by_id
 from src.utils.config import CONFIG
 from src.i18n import t, reload_translations
 from src.classes.language import language_manager
-from tools.i18n.locale_registry import get_default_locale, get_locale_codes
+from src.i18n.locale_registry import get_default_locale, get_locale_codes
 
 # --- Helpers ---
 

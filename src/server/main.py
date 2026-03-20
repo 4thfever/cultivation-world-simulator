@@ -63,7 +63,7 @@ from src.classes.language import language_manager
 from src.systems.sect_relations import compute_sect_relations
 from src.i18n import t
 from src.config import AppSettingsPatch, LLMSettingsUpdate, RunConfig, get_settings_service
-from tools.i18n.locale_registry import uses_space_separated_names
+from src.i18n.locale_registry import uses_space_separated_names
 
 # 全局游戏实例
 game_instance = {

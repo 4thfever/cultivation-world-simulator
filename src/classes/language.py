@@ -1,4 +1,4 @@
-from tools.i18n.locale_registry import coerce_locale_code, get_default_locale
+from src.i18n.locale_registry import coerce_locale_code, get_default_locale
 
 
 class LanguageManager:

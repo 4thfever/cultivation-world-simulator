@@ -3,7 +3,7 @@ import pytest
 from src.classes.effect.desc import format_effects_to_text
 from src.classes.language import language_manager
 from src.i18n import reload_translations
-from tools.i18n.locale_registry import get_fallback_locale, get_source_locale
+from src.i18n.locale_registry import get_fallback_locale, get_source_locale
 
 class TestEffectDescI18n:
     

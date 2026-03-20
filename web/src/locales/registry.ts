@@ -1,4 +1,4 @@
-import localeRegistryData from '../../../tools/i18n/locales.json'
+import localeRegistryData from '../../../static/locales/registry.json'
 
 type LocaleRegistryFile = {
   default_locale: string

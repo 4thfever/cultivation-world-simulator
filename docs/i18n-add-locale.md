@@ -27,7 +27,7 @@
 
 新增语言时，第一步永远是修改：
 
-- `tools/i18n/locales.json`
+- `static/locales/registry.json`
 
 需要补的核心字段：
 
@@ -62,7 +62,7 @@
 
 截至当前仓库状态，以下逻辑已经改成自动从注册表或目录读取语言，不需要在新增语言时再改运行时代码：
 
-- Python 侧语言读取 helper：`tools/i18n/locale_registry.py`
+- Python 侧语言读取 helper：`src/i18n/locale_registry.py`
 - 后端语言切换与默认语言：`src/classes/language.py`
 - 后端 i18n 默认/回退语言：`src/i18n/__init__.py`
 - 前端语言注册表：`web/src/locales/registry.ts`
@@ -191,7 +191,7 @@
 
 建议严格按这个顺序做：
 
-1. 更新 `tools/i18n/locales.json`
+1. 更新 `static/locales/registry.json`
 2. 复制 `web/src/locales/<source_locale>/` 为 `web/src/locales/<new_locale>/`
 3. 复制 `static/locales/<source_locale>/` 为 `static/locales/<new_locale>/`
 4. 检查并补齐 `templates/`
@@ -319,7 +319,7 @@ cd web && npm run test:run -- src/__tests__/stores/setting.test.ts src/__tests__
 
 提交前建议问自己：
 
-- 我是否先改了 `tools/i18n/locales.json`？
+- 我是否先改了 `static/locales/registry.json`？
 - 我是否补齐了前端和后端的整套目录？
 - 我是否遗漏了 `templates/`？
 - 我是否处理了姓名资源？
@@ -341,4 +341,4 @@ cd web && npm run test:run -- src/__tests__/stores/setting.test.ts src/__tests__
 
 并继续保持：
 
-- 语言列表只在 `tools/i18n/locales.json` 中维护一次
+- 语言列表只在 `static/locales/registry.json` 中维护一次

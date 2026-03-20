@@ -6,7 +6,7 @@ import sys
 # Add src to path to import WeaponType
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.classes.weapon_type import WeaponType
-from tools.i18n.locale_registry import get_locale_codes, get_schema_locale, get_source_locale
+from src.i18n.locale_registry import get_locale_codes, get_schema_locale, get_source_locale
 
 class TestFrontendLocales:
     def test_popup_types_coverage(self):

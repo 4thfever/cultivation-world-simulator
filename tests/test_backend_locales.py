@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from collections import Counter
 
-from tools.i18n.locale_registry import get_locale_codes, get_source_locale
+from src.i18n.locale_registry import get_locale_codes, get_source_locale
 
 # 尝试导入 polib，如果失败则在测试中标记 skip
 try:

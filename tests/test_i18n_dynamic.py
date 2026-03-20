@@ -12,7 +12,7 @@ from src.classes.core.world import World
 from src.classes.language import language_manager
 from src.classes.celestial_phenomenon import CelestialPhenomenon
 from src.run.data_loader import reload_all_static_data
-from tools.i18n.locale_registry import get_fallback_locale, get_source_locale
+from src.i18n.locale_registry import get_fallback_locale, get_source_locale
 
 class TestI18nDynamic(unittest.TestCase):
     

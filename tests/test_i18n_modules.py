@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 import polib
 from src.i18n import t, _get_locale_dir
-from tools.i18n.locale_registry import get_locale_codes, get_source_locale
+from src.i18n.locale_registry import get_locale_codes, get_source_locale
 
 def test_i18n_modules_structure():
     """
