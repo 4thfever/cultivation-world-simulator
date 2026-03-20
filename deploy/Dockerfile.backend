@@ -21,7 +21,6 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua
 COPY src/ ./src/
 COPY static/ ./static/
 COPY assets/ ./assets/
-COPY tools/ ./tools/
 
 # 创建必要的目录
 RUN mkdir -p /app/assets/saves /app/logs

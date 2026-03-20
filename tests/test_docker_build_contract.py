@@ -43,3 +43,16 @@ def test_frontend_dockerfile_copies_shared_locale_registry():
         "Frontend Docker build must copy the shared locale registry because "
         "web/src/locales/registry.ts imports it from outside web/."
     )
+
+
+def test_backend_dockerfile_does_not_copy_tools_directory():
+    dockerfile = get_project_root() / "deploy" / "Dockerfile.backend"
+    copy_sources = parse_copy_sources(dockerfile)
+
+    assert "src/" in copy_sources
+    assert "static/" in copy_sources
+    assert "assets/" in copy_sources
+    assert "tools/" not in copy_sources, (
+        "Backend runtime should not depend on the tools directory after the "
+        "locale registry migration to static/locales/registry.json."
+    )
