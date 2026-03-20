@@ -12,6 +12,10 @@ RUN npm ci
 
 # 复制前端源代码
 COPY web/ .
+
+# 复制 i18n 相关文件（前端构建需要）
+COPY tools/i18n/locales.json ../tools/i18n/locales.json
+
 # 构建前端
 RUN npm run build
 
