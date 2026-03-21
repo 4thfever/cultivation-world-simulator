@@ -238,7 +238,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
   - ✅ Orthodoxy
   - [ ] Sect quests
 - [ ] Clans
-- [ ] Imperial Court
+- ✅ Imperial Court
 - ✅ Organization Will AI
 - ✅ Organization tasks, resources, functions
 - ✅ Inter-organization relations network
@@ -309,7 +309,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - [ ] World Secrets & World Laws
 - [ ] Gu
 - [ ] World-ending Crisis
-- [ ] Establish Sect/Clan
+- [ ] Found a sect / Establish a clan / Become emperor
 
 ### 🔭 Long-term Prospects
 - [ ] Novelization & imagery & video of history/events

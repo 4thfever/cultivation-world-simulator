@@ -239,7 +239,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
   - ✅ Đạo thống
   - [ ] Nhiệm vụ tông môn
 - [ ] Thế gia
-- [ ] Triều đình
+- ✅ Triều đình
 - ✅ AI ý chí tổ chức
 - ✅ Nhiệm vụ, tài nguyên và chức năng của tổ chức
 - ✅ Mạng lưới quan hệ giữa các tổ chức
@@ -310,7 +310,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - [ ] Bí mật thế giới và pháp tắc thế giới
 - [ ] Cổ
 - [ ] Khủng hoảng diệt thế
-- [ ] Tự lập tông môn / tự lập thế gia
+- [ ] Tự lập tông môn / tự lập thế gia / trở thành hoàng đế
 
 ### 🔭 Triển Vọng Dài Hạn
 - [ ] Tiểu thuyết hóa / hình ảnh hóa / video hóa lịch sử và sự kiện
