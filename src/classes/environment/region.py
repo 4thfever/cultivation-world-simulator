@@ -251,14 +251,20 @@ class CityRegion(Region, StoreMixin):
         """安全修改人口，限制在 0 和容量之间。单位：万人。"""
         self.population = max(0.0, min(self.population_capacity, self.population + delta))
 
+    def get_monthly_natural_growth(self) -> float:
+        """返回当前人口状态下的月自然增长量（单位：万人），不修改状态。"""
+        if self.population <= 0 or self.population_capacity <= 0:
+            return 0.0
+        return self.MONTHLY_GROWTH_RATE * self.population * (1 - self.population / self.population_capacity)
+
     def update_population_monthly(self) -> None:
         """
         使用标准 logistic 模型更新人口。
         dP = r * P * (1 - P / K)
         """
-        if self.population <= 0 or self.population_capacity <= 0:
+        growth = self.get_monthly_natural_growth()
+        if growth <= 0:
             return
-        growth = self.MONTHLY_GROWTH_RATE * self.population * (1 - self.population / self.population_capacity)
         self.change_population(growth)
 
     def get_region_type(self) -> str:

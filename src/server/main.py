@@ -41,6 +41,7 @@ from src.classes.core.world import World
 from src.classes.history import HistoryManager
 from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
+from src.server.assemblers.mortal_overview import build_mortal_overview
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.utils.config import CONFIG
@@ -1180,6 +1181,26 @@ def get_sect_territories():
         for sect in snapshot.active_sects
     ]
     return {"sects": sects}
+
+
+@app.get("/api/mortals/overview")
+def get_mortal_overview():
+    """获取凡人系统总览数据。"""
+    world = game_instance.get("world")
+    if world is None:
+        return {
+            "summary": {
+                "total_population": 0.0,
+                "total_population_capacity": 0.0,
+                "total_natural_growth": 0.0,
+                "tracked_mortal_count": 0,
+                "awakening_candidate_count": 0,
+            },
+            "cities": [],
+            "tracked_mortals": [],
+        }
+
+    return build_mortal_overview(world)
 
 
 @app.post("/api/control/reset")

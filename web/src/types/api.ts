@@ -324,6 +324,37 @@ export interface SectTerritoriesResponseDTO {
   sects: SectTerritorySummaryDTO[];
 }
 
+export interface TrackedMortalDTO {
+  id: string;
+  name: string;
+  gender: string;
+  age: number;
+  born_region_id: number;
+  born_region_name: string;
+  parents: string[];
+  is_awakening_candidate: boolean;
+}
+
+export interface MortalCityOverviewDTO {
+  id: number;
+  name: string;
+  population: number;
+  population_capacity: number;
+  natural_growth: number;
+}
+
+export interface MortalOverviewResponseDTO {
+  summary: {
+    total_population: number;
+    total_population_capacity: number;
+    total_natural_growth: number;
+    tracked_mortal_count: number;
+    awakening_candidate_count: number;
+  };
+  cities: MortalCityOverviewDTO[];
+  tracked_mortals: TrackedMortalDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = AppLocale | string;
 

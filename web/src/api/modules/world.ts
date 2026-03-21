@@ -6,8 +6,10 @@ import type {
   RankingsDTO,
   SectRelationsResponseDTO,
   SectTerritoriesResponseDTO,
+  MortalOverviewResponseDTO,
 } from '../../types/api';
 import { normalizeRankingsResponse } from '../mappers/world';
+import { normalizeMortalOverview } from '../mappers/mortal';
 
 export const worldApi = {
   fetchInitialState() {
@@ -37,5 +39,10 @@ export const worldApi = {
 
   fetchSectTerritories() {
     return httpClient.get<SectTerritoriesResponseDTO>('/api/sects/territories');
+  },
+
+  async fetchMortalOverview() {
+    const data = await httpClient.get<MortalOverviewResponseDTO>('/api/mortals/overview');
+    return normalizeMortalOverview(data);
   },
 };

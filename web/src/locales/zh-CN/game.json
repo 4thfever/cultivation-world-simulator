@@ -94,6 +94,34 @@
       "RANDOM_EVENT": "随机事件"
     }
   },
+  "mortal_system": {
+    "title_short": "[凡人]",
+    "title": "凡人系统",
+    "empty": "暂无数据",
+    "summary": {
+      "title": "世界统计",
+      "total_population": "总人口",
+      "total_capacity": "总容量",
+      "total_growth": "总自然增长量"
+    },
+    "cities": {
+      "title": "城市统计",
+      "city": "城市",
+      "population": "人口",
+      "capacity": "容量",
+      "growth": "自然增长量"
+    },
+    "tracked": {
+      "title": "被追踪凡人",
+      "count": "被追踪凡人数",
+      "awakening_candidates": "觉醒候选数",
+      "name": "姓名",
+      "gender": "性别",
+      "age": "年龄",
+      "birth_region": "出生地",
+      "unknown_region": "未知"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "效果：",

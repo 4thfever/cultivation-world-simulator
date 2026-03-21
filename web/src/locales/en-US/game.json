@@ -94,6 +94,34 @@
       "RANDOM_EVENT": "Random event"
     }
   },
+  "mortal_system": {
+    "title_short": "[Mortals]",
+    "title": "Mortal System",
+    "empty": "No data",
+    "summary": {
+      "title": "World Overview",
+      "total_population": "Total Population",
+      "total_capacity": "Total Capacity",
+      "total_growth": "Total Natural Growth"
+    },
+    "cities": {
+      "title": "City Overview",
+      "city": "City",
+      "population": "Population",
+      "capacity": "Capacity",
+      "growth": "Natural Growth"
+    },
+    "tracked": {
+      "title": "Tracked Mortals",
+      "count": "Tracked Mortals",
+      "awakening_candidates": "Awakening Candidates",
+      "name": "Name",
+      "gender": "Gender",
+      "age": "Age",
+      "birth_region": "Birth Region",
+      "unknown_region": "Unknown"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Effect: ",

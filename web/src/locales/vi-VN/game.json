@@ -94,6 +94,34 @@
       "RANDOM_EVENT": "Sự kiện ngẫu nhiên"
     }
   },
+  "mortal_system": {
+    "title_short": "[Phàm Nhân]",
+    "title": "Hệ Thống Phàm Nhân",
+    "empty": "Không có dữ liệu",
+    "summary": {
+      "title": "Thống Kê Thế Giới",
+      "total_population": "Tổng Dân Số",
+      "total_capacity": "Tổng Sức Chứa",
+      "total_growth": "Tổng Tăng Trưởng Tự Nhiên"
+    },
+    "cities": {
+      "title": "Thống Kê Thành Thị",
+      "city": "Thành Thị",
+      "population": "Dân Số",
+      "capacity": "Sức Chứa",
+      "growth": "Tăng Trưởng Tự Nhiên"
+    },
+    "tracked": {
+      "title": "Phàm Nhân Được Theo Dõi",
+      "count": "Số Phàm Nhân Được Theo Dõi",
+      "awakening_candidates": "Số Ứng Viên Giác Tỉnh",
+      "name": "Tên",
+      "gender": "Giới Tính",
+      "age": "Tuổi",
+      "birth_region": "Nơi Sinh",
+      "unknown_region": "Không rõ"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Hiệu quả: ",

@@ -8,12 +8,14 @@ import { useMapStore } from './map';
 import { useAvatarStore } from './avatar';
 import { useEventStore } from './event';
 import { useSectStore } from './sect';
+import { useMortalStore } from './mortal';
 
 export const useWorldStore = defineStore('world', () => {
   const mapStore = useMapStore();
   const avatarStore = useAvatarStore();
   const eventStore = useEventStore();
   const sectStore = useSectStore();
+  const mortalStore = useMortalStore();
 
   const year = ref(0);
   const month = ref(0);
@@ -131,6 +133,7 @@ export const useWorldStore = defineStore('world', () => {
     avatarStore.reset();
     eventStore.reset();
     sectStore.reset();
+    mortalStore.reset();
     mapStore.reset();
   }
 

@@ -286,6 +286,37 @@ export interface HiddenDomainInfo {
   open_prob: number;   // 开启概率
 }
 
+export interface TrackedMortalInfo {
+  id: string;
+  name: string;
+  gender: string;
+  age: number;
+  born_region_id: number;
+  born_region_name: string;
+  parents: string[];
+  is_awakening_candidate: boolean;
+}
+
+export interface MortalCityOverview {
+  id: number;
+  name: string;
+  population: number;
+  population_capacity: number;
+  natural_growth: number;
+}
+
+export interface MortalOverview {
+  summary: {
+    total_population: number;
+    total_population_capacity: number;
+    total_natural_growth: number;
+    tracked_mortal_count: number;
+    awakening_candidate_count: number;
+  };
+  cities: MortalCityOverview[];
+  tracked_mortals: TrackedMortalInfo[];
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {
