@@ -42,6 +42,7 @@ from src.classes.history import HistoryManager
 from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
 from src.server.assemblers.mortal_overview import build_mortal_overview
+from src.server.assemblers.dynasty_detail import build_dynasty_detail
 from src.server.assemblers.dynasty_overview import build_dynasty_overview
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
@@ -1223,19 +1224,16 @@ def get_dynasty_overview():
     """获取当前王朝总览数据。"""
     world = game_instance.get("world")
     if world is None:
-        return {
-            "name": "",
-            "title": "",
-            "royal_surname": "",
-            "royal_house_name": "",
-            "desc": "",
-            "effect_desc": "",
-            "style_tag": "",
-            "official_preference_label": "",
-            "is_low_magic": True,
-        }
+        return build_dynasty_overview(None)
 
     return build_dynasty_overview(world)
+
+
+@app.get("/api/dynasty/detail")
+def get_dynasty_detail():
+    """获取当前王朝详情数据。"""
+    world = game_instance.get("world")
+    return build_dynasty_detail(world)
 
 
 @app.post("/api/control/reset")

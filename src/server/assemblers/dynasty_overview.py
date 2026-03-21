@@ -5,8 +5,8 @@ from src.classes.official_rank import get_dynasty_preference_label
 
 
 def build_dynasty_overview(world: Any) -> Dict[str, Any]:
-    dynasty = getattr(world, "dynasty", None)
-    current_month = int(getattr(world, "month_stamp", 0))
+    dynasty = getattr(world, "dynasty", None) if world is not None else None
+    current_month = int(getattr(world, "month_stamp", 0) or 0) if world is not None else 0
     if dynasty is None:
         return {
             "name": "",

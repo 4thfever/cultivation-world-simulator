@@ -77,7 +77,7 @@ INITIAL_COURT_REPUTATION_CHANCE_BY_ORTHODOXY: dict[str, float] = {
     "confucianism": 0.70,
 }
 
-INITIAL_COURT_REPUTATION_CHANCE_DEFAULT: float = 0.15
+INITIAL_COURT_REPUTATION_CHANCE_DEFAULT: float = 0.25
 
 INITIAL_COURT_REPUTATION_RANGE_BY_REALM: dict[Realm, tuple[int, int]] = {
     Realm.Qi_Refinement: (50, 140),

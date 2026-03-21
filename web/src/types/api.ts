@@ -375,6 +375,25 @@ export interface DynastyOverviewResponseDTO {
   } | null;
 }
 
+export interface DynastyOfficialDTO {
+  id: string;
+  name: string;
+  realm: string;
+  official_rank_key: string;
+  official_rank_name: string;
+  court_reputation: number;
+  sect_name: string;
+}
+
+export interface DynastyDetailResponseDTO {
+  overview: DynastyOverviewResponseDTO;
+  summary: {
+    official_count: number;
+    top_official_rank_name: string;
+  };
+  officials: DynastyOfficialDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = AppLocale | string;
 

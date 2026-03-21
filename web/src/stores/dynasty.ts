@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { ref, shallowRef } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import { worldApi } from '@/api'
-import type { DynastyOverview } from '@/types/core'
+import type { DynastyDetail, DynastyOverview } from '@/types/core'
 import { logWarn } from '@/utils/appError'
 
 function createEmptyOverview(): DynastyOverview {
@@ -19,26 +19,41 @@ function createEmptyOverview(): DynastyOverview {
   }
 }
 
+function createEmptyDetail(): DynastyDetail {
+  return {
+    overview: createEmptyOverview(),
+    summary: {
+      officialCount: 0,
+      topOfficialRankName: '',
+    },
+    officials: [],
+  }
+}
+
 export const useDynastyStore = defineStore('dynasty', () => {
-  const overview = shallowRef<DynastyOverview>(createEmptyOverview())
+  const detail = shallowRef<DynastyDetail>(createEmptyDetail())
   const isLoading = ref(false)
   const isLoaded = ref(false)
 
   let refreshRequestId = 0
 
-  async function refreshOverview() {
+  const overview = computed(() => detail.value.overview)
+  const officials = computed(() => detail.value.officials)
+  const summary = computed(() => detail.value.summary)
+
+  async function refreshDetail() {
     const currentRequestId = ++refreshRequestId
     isLoading.value = true
 
     try {
-      const data = await worldApi.fetchDynastyOverview()
+      const data = await worldApi.fetchDynastyDetail()
       if (currentRequestId !== refreshRequestId) return
-      overview.value = data
+      detail.value = data
       isLoaded.value = true
     } catch (error) {
       if (currentRequestId !== refreshRequestId) return
-      logWarn('DynastyStore refresh overview', error)
-      overview.value = createEmptyOverview()
+      logWarn('DynastyStore refresh detail', error)
+      detail.value = createEmptyDetail()
       isLoaded.value = false
     } finally {
       if (currentRequestId === refreshRequestId) {
@@ -47,16 +62,24 @@ export const useDynastyStore = defineStore('dynasty', () => {
     }
   }
 
+  async function refreshOverview() {
+    await refreshDetail()
+  }
+
   function reset() {
-    overview.value = createEmptyOverview()
+    detail.value = createEmptyDetail()
     isLoading.value = false
     isLoaded.value = false
   }
 
   return {
+    detail,
     overview,
+    officials,
+    summary,
     isLoading,
     isLoaded,
+    refreshDetail,
     refreshOverview,
     reset,
   }

@@ -247,3 +247,13 @@ msgstr "Dynasty"
 
 msgid "WORLD_INFO_DYNASTY_TITLE"
 msgstr "Dynasty"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr "Cultivators may govern for the imperial court, building court reputation and receiving salary. With enough reputation they can be promoted; the higher the office, the greater the salary and luck. If they neglect governance for too long, their reputation will gradually decline."
+
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "Official Rank"
+
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "Official Rank"

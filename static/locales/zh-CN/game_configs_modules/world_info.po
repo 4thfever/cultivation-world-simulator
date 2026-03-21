@@ -241,3 +241,15 @@ msgstr "王朝"
 #. world_info.csv: 王朝
 msgid "WORLD_INFO_DYNASTY_TITLE"
 msgstr "王朝"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr "修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。"
+
+#. world_info.csv: 官职
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "官职"
+
+#. world_info.csv: 官职
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "官职"

@@ -340,6 +340,25 @@ export interface DynastyOverview {
   } | null;
 }
 
+export interface DynastyOfficial {
+  id: string;
+  name: string;
+  realm: string;
+  officialRankKey: string;
+  officialRankName: string;
+  courtReputation: number;
+  sectName: string;
+}
+
+export interface DynastyDetail {
+  overview: DynastyOverview;
+  summary: {
+    officialCount: number;
+    topOfficialRankName: string;
+  };
+  officials: DynastyOfficial[];
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {

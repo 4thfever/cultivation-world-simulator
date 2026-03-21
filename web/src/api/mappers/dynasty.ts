@@ -1,5 +1,5 @@
-import type { DynastyOverviewResponseDTO } from '@/types/api'
-import type { DynastyOverview } from '@/types/core'
+import type { DynastyDetailResponseDTO, DynastyOverviewResponseDTO } from '@/types/api'
+import type { DynastyDetail, DynastyOverview } from '@/types/core'
 
 export function normalizeDynastyOverview(input: DynastyOverviewResponseDTO | null | undefined): DynastyOverview {
   return {
@@ -22,5 +22,24 @@ export function normalizeDynastyOverview(input: DynastyOverviewResponseDTO | nul
           is_mortal: Boolean(input.current_emperor.is_mortal ?? true),
         }
       : null,
+  }
+}
+
+export function normalizeDynastyDetail(input: DynastyDetailResponseDTO | null | undefined): DynastyDetail {
+  return {
+    overview: normalizeDynastyOverview(input?.overview),
+    summary: {
+      officialCount: Number(input?.summary?.official_count ?? 0),
+      topOfficialRankName: String(input?.summary?.top_official_rank_name ?? ''),
+    },
+    officials: (input?.officials ?? []).map((item) => ({
+      id: String(item?.id ?? ''),
+      name: String(item?.name ?? ''),
+      realm: String(item?.realm ?? ''),
+      officialRankKey: String(item?.official_rank_key ?? ''),
+      officialRankName: String(item?.official_rank_name ?? ''),
+      courtReputation: Number(item?.court_reputation ?? 0),
+      sectName: String(item?.sect_name ?? ''),
+    })),
   }
 }

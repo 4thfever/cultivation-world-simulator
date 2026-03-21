@@ -151,6 +151,15 @@
     },
     "summary": {
       "title": "Tổng Quan Vương Triều"
+    },
+    "officials": {
+      "title": "Tu Sĩ Tại Triều",
+      "count": "Tổng cộng {count} người",
+      "empty": "Hiện chưa có tu sĩ nào có phẩm cấp đang tại triều",
+      "realm": "Cảnh Giới",
+      "court_reputation": "Uy Vọng Triều Đình",
+      "sect": "Thuộc Về",
+      "rogue": "Tán Tu"
     }
   },
   "info_panel": {

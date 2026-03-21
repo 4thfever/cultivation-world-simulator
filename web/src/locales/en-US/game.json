@@ -151,6 +151,15 @@
     },
     "summary": {
       "title": "Dynasty Overview"
+    },
+    "officials": {
+      "title": "Court Officials",
+      "count": "{count} total",
+      "empty": "There are no ranked cultivators serving in court right now",
+      "realm": "Realm",
+      "court_reputation": "Court Reputation",
+      "sect": "Affiliation",
+      "rogue": "Rogue Cultivator"
     }
   },
   "info_panel": {

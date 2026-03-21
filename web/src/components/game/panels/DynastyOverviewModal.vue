@@ -3,6 +3,7 @@ import { computed, watch } from 'vue'
 import { NModal, NSpin, NTag } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useDynastyStore } from '@/stores/dynasty'
+import { useUiStore } from '@/stores/ui'
 
 const props = defineProps<{
   show: boolean;
@@ -14,8 +15,11 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const dynastyStore = useDynastyStore()
+const uiStore = useUiStore()
 
 const overview = computed(() => dynastyStore.overview)
+const officials = computed(() => dynastyStore.officials)
+const summary = computed(() => dynastyStore.summary)
 const hasOverview = computed(() => Boolean(overview.value.name))
 const emperor = computed(() => overview.value.current_emperor)
 const effectLines = computed(() => {
@@ -23,6 +27,10 @@ const effectLines = computed(() => {
   if (!text) return []
   return text.split(/[;\n；]/).map((line) => line.trim()).filter(Boolean)
 })
+
+function jumpToAvatar(id: string) {
+  void uiStore.select('avatar', id)
+}
 
 function handleShowChange(value: boolean) {
   emit('update:show', value)
@@ -32,7 +40,7 @@ watch(
   () => props.show,
   (show) => {
     if (show) {
-      void dynastyStore.refreshOverview()
+      void dynastyStore.refreshDetail()
     }
   },
 )
@@ -123,6 +131,41 @@ watch(
               {{ t('game.dynasty.effect_empty') }}
             </div>
           </section>
+
+          <section class="section">
+            <div class="section-header">
+              <div class="section-title">{{ t('game.dynasty.officials.title') }}</div>
+              <div class="section-meta">{{ t('game.dynasty.officials.count', { count: summary.officialCount }) }}</div>
+            </div>
+            <div v-if="officials.length" class="official-list">
+              <button
+                v-for="official in officials"
+                :key="official.id"
+                class="official-row"
+                type="button"
+                @click="jumpToAvatar(official.id)"
+              >
+                <div class="official-main">
+                  <div class="official-name">{{ official.name }}</div>
+                  <div class="official-rank">{{ official.officialRankName }}</div>
+                </div>
+                <div class="official-side">
+                  <div class="official-meta">
+                    {{ t('game.dynasty.officials.realm') }}：{{ official.realm || t('common.none') }}
+                  </div>
+                  <div class="official-meta">
+                    {{ t('game.dynasty.officials.court_reputation') }}：{{ official.courtReputation }}
+                  </div>
+                  <div class="official-meta">
+                    {{ t('game.dynasty.officials.sect') }}：{{ official.sectName || t('game.dynasty.officials.rogue') }}
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div v-else class="empty-state section-empty">
+              {{ t('game.dynasty.officials.empty') }}
+            </div>
+          </section>
         </template>
 
         <div v-else class="empty-state">
@@ -190,6 +233,18 @@ watch(
   padding-bottom: 6px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.section-meta {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -241,6 +296,62 @@ watch(
   color: #ffd591;
 }
 
+.official-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.official-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #2f2f2f;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.official-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #4a4a4a;
+}
+
+.official-main {
+  min-width: 0;
+}
+
+.official-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.official-rank {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ffd591;
+}
+
+.official-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.official-meta {
+  font-size: 12px;
+  color: #bfbfbf;
+  white-space: nowrap;
+}
+
 .empty-state {
   text-align: center;
   color: #888;
@@ -249,5 +360,15 @@ watch(
 
 .section-empty {
   padding: 10px 0;
+}
+
+@media (max-width: 640px) {
+  .official-row {
+    grid-template-columns: 1fr;
+  }
+
+  .official-side {
+    align-items: flex-start;
+  }
 }
 </style>

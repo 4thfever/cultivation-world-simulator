@@ -7,11 +7,12 @@ import type {
   SectRelationsResponseDTO,
   SectTerritoriesResponseDTO,
   MortalOverviewResponseDTO,
+  DynastyDetailResponseDTO,
   DynastyOverviewResponseDTO,
 } from '../../types/api';
 import { normalizeRankingsResponse } from '../mappers/world';
 import { normalizeMortalOverview } from '../mappers/mortal';
-import { normalizeDynastyOverview } from '../mappers/dynasty';
+import { normalizeDynastyDetail, normalizeDynastyOverview } from '../mappers/dynasty';
 
 export const worldApi = {
   fetchInitialState() {
@@ -51,5 +52,10 @@ export const worldApi = {
   async fetchDynastyOverview() {
     const data = await httpClient.get<DynastyOverviewResponseDTO>('/api/dynasty/overview');
     return normalizeDynastyOverview(data);
+  },
+
+  async fetchDynastyDetail() {
+    const data = await httpClient.get<DynastyDetailResponseDTO>('/api/dynasty/detail');
+    return normalizeDynastyDetail(data);
   },
 };

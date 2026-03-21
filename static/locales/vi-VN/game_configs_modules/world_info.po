@@ -249,3 +249,13 @@ msgstr "Vương Triều"
 
 msgid "WORLD_INFO_DYNASTY_TITLE"
 msgstr "Vương Triều"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr "Tu sĩ có thể trị chính cho triều đình, tích lũy uy vọng triều đình và lĩnh bổng lộc. Uy vọng đủ cao thì có thể thăng quan; quan chức càng cao, bổng lộc và khí vận càng nhiều. Nếu lâu ngày không lo chính vụ, uy vọng sẽ dần suy giảm."
+
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "Quan Chức"
+
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "Quan Chức"

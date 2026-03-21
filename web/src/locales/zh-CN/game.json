@@ -151,6 +151,15 @@
     },
     "summary": {
       "title": "王朝概览"
+    },
+    "officials": {
+      "title": "在朝修士",
+      "count": "共 {count} 人",
+      "empty": "当前暂无有品阶修士",
+      "realm": "境界",
+      "court_reputation": "朝廷威望",
+      "sect": "所属",
+      "rogue": "散修"
     }
   },
   "info_panel": {

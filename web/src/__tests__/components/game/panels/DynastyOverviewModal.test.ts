@@ -4,7 +4,8 @@ import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import DynastyOverviewModal from '@/components/game/panels/DynastyOverviewModal.vue'
 
-const refreshOverviewMock = vi.fn()
+const refreshDetailMock = vi.fn()
+const selectMock = vi.fn()
 
 vi.mock('naive-ui', () => ({
   NModal: {
@@ -26,6 +27,49 @@ vi.mock('naive-ui', () => ({
 
 vi.mock('@/stores/dynasty', () => ({
   useDynastyStore: () => ({
+    detail: {
+      overview: {
+        name: '晋',
+        title: '晋朝',
+        royal_surname: '司马',
+        royal_house_name: '司马氏',
+        desc: '门第森然，士族清谈，朝野重礼而尚名教。',
+        effect_desc: '',
+        is_low_magic: true,
+        current_emperor: {
+          name: '司马承安',
+          surname: '司马',
+          given_name: '承安',
+          age: 34,
+          max_age: 67,
+          is_mortal: true,
+        },
+      },
+      summary: {
+        officialCount: 2,
+        topOfficialRankName: '州牧',
+      },
+      officials: [
+        {
+          id: 'a-1',
+          name: '王玄策',
+          realm: '金丹',
+          officialRankName: '州牧',
+          officialRankKey: 'PROVINCE',
+          courtReputation: 520,
+          sectName: '太一门',
+        },
+        {
+          id: 'a-2',
+          name: '李观澜',
+          realm: '筑基',
+          officialRankName: '县令',
+          officialRankKey: 'COUNTY',
+          courtReputation: 120,
+          sectName: '',
+        },
+      ],
+    },
     overview: {
       name: '晋',
       title: '晋朝',
@@ -43,9 +87,40 @@ vi.mock('@/stores/dynasty', () => ({
         is_mortal: true,
       },
     },
+    officials: [
+      {
+        id: 'a-1',
+        name: '王玄策',
+        realm: '金丹',
+        officialRankName: '州牧',
+        officialRankKey: 'PROVINCE',
+        courtReputation: 520,
+        sectName: '太一门',
+      },
+      {
+        id: 'a-2',
+        name: '李观澜',
+        realm: '筑基',
+        officialRankName: '县令',
+        officialRankKey: 'COUNTY',
+        courtReputation: 120,
+        sectName: '',
+      },
+    ],
+    summary: {
+      officialCount: 2,
+      topOfficialRankName: '州牧',
+    },
     isLoading: false,
     isLoaded: true,
-    refreshOverview: refreshOverviewMock,
+    refreshDetail: refreshDetailMock,
+    refreshOverview: refreshDetailMock,
+  }),
+}))
+
+vi.mock('@/stores/ui', () => ({
+  useUiStore: () => ({
+    select: selectMock,
   }),
 }))
 
@@ -66,6 +141,8 @@ describe('DynastyOverviewModal', () => {
               title: '王朝',
               name: '王朝名',
               royal_house: '皇族',
+              style_tag: '王朝风气',
+              official_preference: '仕途偏好',
               effect: '王朝效果',
               effect_empty: '当前暂无王朝效果。待官职系统与后续逻辑接入后补充。',
               low_magic: '凡人王朝',
@@ -82,7 +159,19 @@ describe('DynastyOverviewModal', () => {
               summary: {
                 title: '王朝概览',
               },
+              officials: {
+                title: '在朝修士',
+                count: '共 {count} 人',
+                empty: '当前暂无有品阶修士',
+                realm: '境界',
+                court_reputation: '朝廷威望',
+                sect: '所属',
+                rogue: '散修',
+              },
             },
+          },
+          common: {
+            none: '无',
           },
         },
       },
@@ -99,7 +188,7 @@ describe('DynastyOverviewModal', () => {
   it('fetches overview when opened', async () => {
     const wrapper = createWrapper(false)
     await wrapper.setProps({ show: true })
-    expect(refreshOverviewMock).toHaveBeenCalled()
+    expect(refreshDetailMock).toHaveBeenCalled()
   })
 
   it('renders dynasty summary', () => {
@@ -113,5 +202,16 @@ describe('DynastyOverviewModal', () => {
     expect(text).toContain('门第森然')
     expect(text).toContain('凡人王朝')
     expect(text).toContain('当前暂无王朝效果')
+    expect(text).toContain('在朝修士')
+    expect(text).toContain('王玄策')
+    expect(text).toContain('李观澜')
+    expect(text).toContain('太一门')
+    expect(text).toContain('散修')
+  })
+
+  it('jumps to avatar detail when clicking an official row', async () => {
+    const wrapper = createWrapper(true)
+    await wrapper.get('.official-row').trigger('click')
+    expect(selectMock).toHaveBeenCalledWith('avatar', 'a-1')
   })
 })
