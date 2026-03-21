@@ -5,6 +5,7 @@ import { ref, computed } from 'vue'
 import { NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
+import { useWorldInfo } from '../../composables/useWorldInfo'
 
 import RankingModal from '../game/panels/RankingModal.vue'
 import TournamentModal from '../game/panels/TournamentModal.vue'
@@ -15,6 +16,7 @@ import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 const { t } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
+const { entries: worldInfoEntries, loading: worldInfoLoading } = useWorldInfo()
 const message = useMessage()
 const showSelector = ref(false)
 const showRankingModal = ref(false)
@@ -72,6 +74,34 @@ async function handleSelect(id: number, name: string) {
     </div>
     <div class="center">
       <span class="time">{{ store.year }}{{ t('common.year') }} {{ store.month }}{{ t('common.month') }}</span>
+
+      <StatusWidget
+        :label="t('game.status_bar.world_info.label')"
+        color="#91caff"
+        mode="single"
+      >
+        <template #single>
+          <div class="world-info-card">
+            <div class="world-info-title">{{ t('game.status_bar.world_info.title') }}</div>
+            <div class="world-info-note">{{ t('game.status_bar.world_info.ai_knowledge_note') }}</div>
+
+            <div v-if="worldInfoEntries.length > 0" class="world-info-list">
+              <div
+                v-for="entry in worldInfoEntries"
+                :key="entry.id"
+                class="world-info-item"
+              >
+                <div class="world-info-item-title">{{ entry.title }}</div>
+                <div class="world-info-item-desc">{{ entry.desc }}</div>
+              </div>
+            </div>
+
+            <div v-else class="world-info-empty">
+              {{ worldInfoLoading ? t('common.loading') : t('game.status_bar.world_info.empty') }}
+            </div>
+          </div>
+        </template>
+      </StatusWidget>
       
       <!-- 天地灵机 -->
       <StatusWidget 
@@ -257,6 +287,80 @@ async function handleSelect(id: number, name: string) {
   border-radius: 4px;
   padding: 8px 10px;
   margin: 8px 0;
+}
+
+.world-info-card {
+  width: min(560px, calc(100vw - 64px));
+  max-height: min(70vh, 640px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.world-info-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #d6e4ff;
+  margin-bottom: 8px;
+}
+
+.world-info-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #91caff;
+  background: rgba(145, 202, 255, 0.1);
+  border: 1px solid rgba(145, 202, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+
+.world-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.world-info-item {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.world-info-item-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #d6e4ff;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.world-info-item-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #bfbfbf;
+  min-width: 0;
+}
+
+.world-info-empty {
+  font-size: 12px;
+  color: #8c8c8c;
+  padding: 8px 0;
+}
+
+@media (max-width: 640px) {
+  .world-info-item {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+  }
+
+  .world-info-item-title {
+    white-space: normal;
+  }
 }
 
 .effect-label {

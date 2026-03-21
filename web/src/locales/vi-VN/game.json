@@ -18,6 +18,12 @@
       "drop": "Cơ duyên",
       "status_open": "Mở",
       "status_closed": "Đóng"
+    },
+    "world_info": {
+      "label": "[Thong Tin The Gioi]",
+      "title": "Thong Tin The Gioi",
+      "ai_knowledge_note": "Nhung gi AI tu si biet ve gioi tu tien",
+      "empty": "Khong co thong tin the gioi"
     }
   },
   "controls": {

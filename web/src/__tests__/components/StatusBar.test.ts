@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { mount, flushPromises } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { h, defineComponent, nextTick } from 'vue'
 import { setActivePinia, createPinia } from 'pinia'
 
@@ -24,6 +24,7 @@ let mockPhenomenaList: any[] = [
   { id: 3, name: 'Phenomenon 3', rarity: 'SSR', desc: 'Desc 3', effect_desc: 'Effect 3' },
 ]
 let mockIsConnected = true
+const mockFetch = vi.fn()
 
 // Mock vue-i18n.
 vi.mock('vue-i18n', () => ({
@@ -160,6 +161,7 @@ describe('StatusBar', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     vi.clearAllMocks()
+    vi.stubGlobal('fetch', mockFetch)
 
     // Reset mock values.
     mockYear = 100
@@ -171,6 +173,18 @@ describe('StatusBar', () => {
     // Setup default mock implementations.
     mockGetPhenomenaList.mockImplementation(() => Promise.resolve())
     mockChangePhenomenon.mockImplementation(() => Promise.resolve())
+    mockFetch.mockResolvedValue({
+      ok: true,
+      text: () => Promise.resolve([
+        'title,title_id,name_id,desc_id,desc',
+        '标题,标题ID,名称ID,描述ID,描述',
+        '简介,WORLD_INFO_INTRO_TITLE,WORLD_INFO_INTRO_NAME,WORLD_INFO_INTRO_DESC,这是一个诸多修士竞相修行的修仙世界。',
+      ].join('\n')),
+    })
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
   })
 
   it('should display year and month from worldStore', () => {
@@ -206,7 +220,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[0]
+      const widget = wrapper.findAll('.status-widget-stub')[1]
       expect(widget.attributes('data-color')).toBe('#ccc')
     })
 
@@ -215,7 +229,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[0]
+      const widget = wrapper.findAll('.status-widget-stub')[1]
       expect(widget.attributes('data-color')).toBe('#4dabf7')
     })
 
@@ -224,7 +238,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[0]
+      const widget = wrapper.findAll('.status-widget-stub')[1]
       expect(widget.attributes('data-color')).toBe('#a0d911')
     })
 
@@ -233,7 +247,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[0]
+      const widget = wrapper.findAll('.status-widget-stub')[1]
       expect(widget.attributes('data-color')).toBe('#fa8c16')
     })
 
@@ -242,7 +256,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[0]
+      const widget = wrapper.findAll('.status-widget-stub')[1]
       expect(widget.attributes('data-color')).toBe('#ccc')
     })
 
@@ -252,9 +266,17 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // When phenomenon is null, v-if hides the widget.
-      // Domain widget、Ranking widget、Tournament widget、SectRelations widget、Mortal widget、Dynasty widget should exist.
+      // World info widget plus domain/ranking/tournament/sect-relations/mortal/dynasty widgets should exist.
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(6)
+      expect(widgets.length).toBe(7)
+    })
+
+    it('should place world info widget before phenomenon widget', () => {
+      const wrapper = mount(StatusBar, globalConfig)
+
+      const widgets = wrapper.findAll('.status-widget-stub')
+      expect(widgets[0]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
+      expect(widgets[1]?.attributes('data-label')).toBe('[Test Phenomenon]')
     })
   })
 
@@ -263,7 +285,7 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // Trigger click on phenomenon widget.
-      await wrapper.findAll('.status-widget-stub')[0].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
 
       // Run all pending timers and promises.
       await vi.runAllTimersAsync()
@@ -275,7 +297,7 @@ describe('StatusBar', () => {
     it('should show selector modal after getPhenomenaList', async () => {
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[0].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -288,7 +310,7 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // Open selector.
-      await wrapper.findAll('.status-widget-stub')[0].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -308,7 +330,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[0].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -327,7 +349,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[0].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -351,7 +373,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[1]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
       expect(domainWidget.attributes('data-color')).toBe('#fa8c16')
     })
 
@@ -363,7 +385,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[1]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
       expect(domainWidget.attributes('data-color')).toBe('#666')
     })
 
@@ -372,7 +394,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[1]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
       expect(domainWidget.attributes('data-color')).toBe('#666')
     })
   })
@@ -390,7 +412,7 @@ describe('StatusBar', () => {
 
     const wrapper = mount(StatusBar, globalConfig)
 
-    const phenomenonWidget = wrapper.findAll('.status-widget-stub')[0]
+    const phenomenonWidget = wrapper.findAll('.status-widget-stub')[1]
     expect(phenomenonWidget.attributes('data-label')).toBe('[TestPhenomenon]')
     expect(phenomenonWidget.attributes('data-color')).toBe('#a0d911')
   })
@@ -398,7 +420,7 @@ describe('StatusBar', () => {
   it('should pass correct props to domain StatusWidget', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
-    const domainWidget = wrapper.findAll('.status-widget-stub')[1]
+    const domainWidget = wrapper.findAll('.status-widget-stub')[2]
     expect(domainWidget.attributes('data-label')).toBe('game.status_bar.hidden_domain.label')
   })
 
@@ -406,9 +428,9 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
-    expect(widgets.length).toBe(7)
-    const sectRelationsWidget = widgets[4]
+    // worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
+    expect(widgets.length).toBe(8)
+    const sectRelationsWidget = widgets[5]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })
 
@@ -416,7 +438,7 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    const dynastyWidget = widgets[6]
+    const dynastyWidget = widgets[7]
     expect(dynastyWidget.attributes('data-label')).toBe('game.dynasty.title_short')
   })
 })

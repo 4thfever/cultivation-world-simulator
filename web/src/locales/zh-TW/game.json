@@ -18,6 +18,12 @@
       "drop": "機緣",
       "status_open": "開啟中",
       "status_closed": "未開啟"
+    },
+    "world_info": {
+      "label": "[世界資訊]",
+      "title": "世界資訊",
+      "ai_knowledge_note": "修仙者AI關於修仙界的知識",
+      "empty": "暫無世界資訊"
     }
   },
   "controls": {

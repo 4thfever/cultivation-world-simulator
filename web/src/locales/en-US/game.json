@@ -18,6 +18,12 @@
       "drop": "Fortune",
       "status_open": "Open",
       "status_closed": "Closed"
+    },
+    "world_info": {
+      "label": "[World Info]",
+      "title": "World Info",
+      "ai_knowledge_note": "What the cultivator AI knows about the cultivation world",
+      "empty": "No world info available"
     }
   },
   "controls": {
