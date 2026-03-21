@@ -6,7 +6,7 @@ from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
-from src.classes.story_teller import StoryTeller
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.relation.relation import Relation
 
 if TYPE_CHECKING:
@@ -92,14 +92,17 @@ class Confess(MutualAction):
 
         # 生成表白小故事
         start_text = getattr(self, "_start_event_content", "") or result_event.content
-        story = await StoryTeller.tell_story(
-            start_text, result_event.content, self.avatar, target,
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.RELATIONSHIP_MAJOR,
+            month_stamp=self.world.month_stamp,
+            start_text=start_text,
+            result_text=result_event.content,
+            actors=[self.avatar, target],
+            related_avatar_ids=[self.avatar.id, target.id],
             prompt=self.get_story_prompt(),
-            allow_relation_changes=True
+            allow_relation_changes=True,
         )
-        story_event = Event(self.world.month_stamp, story, 
-                          related_avatars=[self.avatar.id, target.id], is_story=True)
-        
-        events.append(story_event)
+        if story_event is not None:
+            events.append(story_event)
 
         return events

@@ -109,21 +109,22 @@ async def test_refine_execution_flow(dummy_avatar):
     with patch("random.random", return_value=0.0): # 0.0 < success_rate
         with patch("src.classes.action.refine.get_random_elixir_by_realm") as mock_get_elixir:
             with patch("src.classes.action.refine.resolve_item_exchange", new_callable=MagicMock) as mock_exchange:
+                with patch("src.classes.story_event_service.StoryEventService.should_trigger", return_value=False):
                 # Setup mock return
-                mock_elixir = MagicMock()
-                mock_elixir.name = "Godly Pill"
-                mock_get_elixir.return_value = mock_elixir
+                    mock_elixir = MagicMock()
+                    mock_elixir.name = "Godly Pill"
+                    mock_get_elixir.return_value = mock_elixir
                 
-                async def async_return(*args, **kwargs):
-                    return MagicMock(result_text="Exchange Result")
-                mock_exchange.side_effect = async_return
+                    async def async_return(*args, **kwargs):
+                        return MagicMock(result_text="Exchange Result")
+                    mock_exchange.side_effect = async_return
                 
-                events = await action.finish()
+                    events = await action.finish()
                 
-                assert len(events) == 2 # 1 success event + 1 exchange event
-                assert "succeeded" in events[0].content or "成功" in events[0].content
-                mock_get_elixir.assert_called_once_with(target_realm)
-                mock_exchange.assert_called_once()
+                    assert len(events) == 2 # 1 success event + 1 exchange event
+                    assert "succeeded" in events[0].content or "成功" in events[0].content
+                    mock_get_elixir.assert_called_once_with(target_realm)
+                    mock_exchange.assert_called_once()
 
     # Case B: Fail
     action.target_realm = target_realm # Reset
@@ -189,18 +190,19 @@ async def test_cast_execution_flow(dummy_avatar):
     with patch("random.random", side_effect=[0.0, 0.0]): # First: check success, Second: check is_weapon (<0.5)
         with patch("src.classes.action.cast.get_random_weapon_by_realm") as mock_get_weapon:
             with patch("src.classes.action.cast.resolve_item_exchange") as mock_exchange:
-                mock_weapon = MagicMock()
-                mock_weapon.name = "Godly Sword"
-                mock_get_weapon.return_value = mock_weapon
+                with patch("src.classes.story_event_service.StoryEventService.should_trigger", return_value=False):
+                    mock_weapon = MagicMock()
+                    mock_weapon.name = "Godly Sword"
+                    mock_get_weapon.return_value = mock_weapon
                 
-                async def async_return(*args, **kwargs):
-                    return MagicMock(result_text="Exchange Result")
-                mock_exchange.side_effect = async_return
+                    async def async_return(*args, **kwargs):
+                        return MagicMock(result_text="Exchange Result")
+                    mock_exchange.side_effect = async_return
                 
-                events = await action.finish()
+                    events = await action.finish()
                 
-                assert len(events) == 2
-                assert "succeeded" in events[0].content or "成功" in events[0].content
-                # 应该是兵器
-                assert "weapon" in events[0].content or "兵器" in events[0].content or "sword" in events[0].content.lower()
+                    assert len(events) == 2
+                    assert "succeeded" in events[0].content or "成功" in events[0].content
+                    # 应该是兵器
+                    assert "weapon" in events[0].content or "兵器" in events[0].content or "sword" in events[0].content.lower()
 

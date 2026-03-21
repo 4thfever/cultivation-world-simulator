@@ -2190,6 +2190,12 @@ msgstr "{initiator} 试图向 {target} 赠送 {item}"
 msgid "{initiator} attempts to seize {region} from {host}"
 msgstr "{initiator} 对 {host} 的 {region} 发起抢夺"
 
+msgid "{initiator} and {target} enjoyed a tea gathering"
+msgstr "{initiator} 与 {target} 共赴茶会，宾主尽欢"
+
+msgid "{initiator} and {target} played a game of chess"
+msgstr "{initiator} 与 {target} 对弈了一局"
+
 msgid "{initiator} challenges {target} to spar"
 msgstr "{initiator} 向 {target} 发起切磋"
 

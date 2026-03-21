@@ -3,6 +3,7 @@ import random
 
 from src.classes.gathering.gathering import Gathering, register_gathering
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventService
 from src.systems.time import Month
 from src.systems.cultivation import Realm
 from src.systems.battle import decide_battle, get_base_strength
@@ -165,8 +166,6 @@ class Tournament(Gathering):
         
         # Story Generation
         if story_candidates:
-            from src.classes.story_teller import StoryTeller
-            
             for target in story_candidates:
                 list_name_i18n = t(f"tournament_{target['list_name']}")
                 gathering_info = t("Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm.")
@@ -184,21 +183,16 @@ class Tournament(Gathering):
                 
                 events_text = f"{target['final_battle_event'].content}\n{target['end_event'].content}"
                 
-                story = await StoryTeller.tell_gathering_story(
+                story_event = await StoryEventService.maybe_create_gathering_story(
+                    month_stamp=world.month_stamp,
                     gathering_info=gathering_info,
                     events_text=events_text,
                     details_text=details_text,
                     related_avatars=[target["winner"], target["loser"]],
-                    prompt=t(self.STORY_PROMPT_ID)
+                    prompt=t(self.STORY_PROMPT_ID),
                 )
-                
-                story_event = Event(
-                    month_stamp=world.month_stamp,
-                    content=story,
-                    related_avatars=[target["winner"].id, target["loser"].id],
-                    is_major=True 
-                )
-                events.append(story_event)
+                if story_event is not None:
+                    events.append(story_event)
             
         if not events:
             events.append(Event(

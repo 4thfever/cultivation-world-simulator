@@ -223,7 +223,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         content = t("{initiator} initiates {action} with {target}",
                    initiator=self.avatar.name, action=action_name, target=target_name)
         event = Event(self._start_month_stamp, content, related_avatars=rel_ids, is_major=is_major)
-        
+        self._start_event_content = event.content
         return event
 
     def step(self, target_avatar: "Avatar|str") -> ActionResult:
@@ -263,6 +263,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             content = t("{target} feedback to {initiator}: {feedback}",
                        target=target.name, initiator=self.avatar.name, feedback=fb_label)
             feedback_event = Event(month_stamp, content, related_avatars=[self.avatar.id, target.id])
+            self._last_feedback_event_content = content
             
             self._apply_feedback(target, feedback)
             return ActionResult(status=ActionStatus.COMPLETED, events=[feedback_event])

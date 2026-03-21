@@ -271,7 +271,8 @@ class TestSpar:
         action = Spar(dummy_avatar, dummy_avatar.world)
         action._last_result = (dummy_avatar, target_avatar, 15.0, 5.0)
         
-        with patch("src.classes.mutual_action.spar.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
+        with patch("src.classes.story_event_service.StoryEventService.should_trigger", return_value=True), \
+             patch("src.classes.story_event_service.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
             mock_story.return_value = "A great sparring match occurred."
             
             # cooldown_action wraps finish to accept **kwargs
@@ -602,7 +603,8 @@ class TestConfess:
         action = Confess(dummy_avatar, dummy_avatar.world)
         action._confess_success = True
         
-        with patch("src.classes.mutual_action.confess.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
+        with patch("src.classes.story_event_service.StoryEventService.should_trigger", return_value=True), \
+             patch("src.classes.story_event_service.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
             mock_story.return_value = "A romantic confession story."
             
             # cooldown_action wraps finish to accept **kwargs
@@ -716,7 +718,8 @@ class TestSwearBrotherhood:
         action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
         action._swear_success = True
         
-        with patch("src.classes.mutual_action.swear_brotherhood.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
+        with patch("src.classes.story_event_service.StoryEventService.should_trigger", return_value=True), \
+             patch("src.classes.story_event_service.StoryTeller.tell_story", new_callable=AsyncMock) as mock_story:
             mock_story.return_value = "A legendary brotherhood story."
             
             # cooldown_action wraps finish to accept **kwargs

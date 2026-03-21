@@ -7,7 +7,7 @@ from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.systems.battle import decide_battle
 from src.classes.event import Event
-from src.classes.story_teller import StoryTeller
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.action.cooldown import cooldown_action
 
 from src.classes.action.event_helper import EventHelper
@@ -86,22 +86,15 @@ class Spar(MutualAction):
         result_text = t("{winner} defeated {loser}",
                        winner=winner.name, loser=loser.name)
 
-        # 生成故事
-        story = await StoryTeller.tell_story(
-            start_text, 
-            result_text, 
-            self.avatar, 
-            target, 
-            prompt=self.get_story_prompt(),  # 使用 classmethod
-            allow_relation_changes=True
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.COMBAT,
+            month_stamp=self.world.month_stamp,
+            start_text=start_text,
+            result_text=result_text,
+            actors=[self.avatar, target],
+            related_avatar_ids=[self.avatar.id, target.id],
+            prompt=self.get_story_prompt(),
+            allow_relation_changes=True,
         )
-        
-        story_event = Event(
-            self.world.month_stamp, 
-            story, 
-            related_avatars=[self.avatar.id, target.id], 
-            is_story=True
-        )
-        
-        # 返回给 Self (由 ActionMixin 处理)
-        return [story_event]
+
+        return [story_event] if story_event is not None else []

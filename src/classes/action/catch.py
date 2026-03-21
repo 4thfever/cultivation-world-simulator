@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.environment.region import NormalRegion
 from src.classes.spirit_animal import SpiritAnimal
 from src.systems.cultivation import Realm
@@ -92,6 +93,7 @@ class Catch(TimedAction):
         region = self.avatar.tile.region
         content = t("{avatar} attempts to tame spirit beast at {location}",
                    avatar=self.avatar.name, location=self.avatar.tile.location_name)
+        self._start_event_content = content
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:
@@ -106,6 +108,19 @@ class Catch(TimedAction):
             realm_label = str(target_realm)
             content = t("{avatar} successfully tamed spirit beast, {realm} realm {beast} became their spirit beast",
                        avatar=self.avatar.name, realm=realm_label, beast=target_name)
-            return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]
+            result_event = Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
+            story_event = await StoryEventService.maybe_create_story(
+                kind=StoryEventKind.CRAFTING,
+                month_stamp=self.world.month_stamp,
+                start_text=getattr(self, "_start_event_content", ""),
+                result_text=content,
+                actors=[self.avatar],
+                related_avatar_ids=[self.avatar.id],
+                allow_relation_changes=False,
+            )
+            events = [result_event]
+            if story_event is not None:
+                events.append(story_event)
+            return events
 
 

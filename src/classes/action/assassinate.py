@@ -7,8 +7,8 @@ from src.classes.action import InstantAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.battle import decide_battle, get_assassination_success_rate
-from src.classes.story_teller import StoryTeller
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.kill_and_grab import kill_and_grab
@@ -108,21 +108,24 @@ class Assassinate(InstantAction, TargetingMixin):
             
             result_event = Event(self.world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
             
-            # 生成故事
-            story = await StoryTeller.tell_story(
-                self._start_event_content, 
-                result_event.content, 
-                self.avatar, 
-                target, 
+            story_event = await StoryEventService.maybe_create_story(
+                kind=StoryEventKind.COMBAT,
+                month_stamp=self.world.month_stamp,
+                start_text=self._start_event_content,
+                result_text=result_event.content,
+                actors=[self.avatar, target],
+                related_avatar_ids=rel_ids,
                 prompt=self.get_story_prompt_success(),
-                allow_relation_changes=True
+                allow_relation_changes=True,
             )
-            story_event = Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True)
             
             # 死亡清理
             handle_death(self.world, target, DeathReason(DeathType.BATTLE, killer_name=self.avatar.name))
             
-            return [result_event, story_event]
+            events = [result_event]
+            if story_event is not None:
+                events.append(story_event)
+            return events
             
         else:
             # --- 暗杀失败，转入战斗 ---

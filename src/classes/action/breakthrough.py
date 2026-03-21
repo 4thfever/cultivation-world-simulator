@@ -7,8 +7,8 @@ from src.classes.action.cooldown import cooldown_action
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.cultivation import Realm
-from src.classes.story_teller import StoryTeller
 from src.systems.tribulation import TribulationSelector
 from src.classes.hp import HP_MAX_BY_REALM
 from src.classes.effect import _merge_effects
@@ -158,6 +158,16 @@ class Breakthrough(TimedAction):
         prompt = TribulationSelector.get_story_prompt(str(calamity))
         # 突破强制单人模式，不改变关系（因为没有双修/战斗那样的互动）
         story_result = t("Breakthrough succeeded") if result_ok else t("Breakthrough failed")
-        story = await StoryTeller.tell_story(core_text, story_result, self.avatar, self._calamity_other, prompt=prompt, allow_relation_changes=False)
-        events.append(Event(self.world.month_stamp, story, related_avatars=rel_ids, is_story=True))
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.CULTIVATION_MAJOR,
+            month_stamp=self.world.month_stamp,
+            start_text=core_text,
+            result_text=story_result,
+            actors=[self.avatar, self._calamity_other],
+            related_avatar_ids=rel_ids,
+            prompt=prompt,
+            allow_relation_changes=False,
+        )
+        if story_event is not None:
+            events.append(story_event)
         return events

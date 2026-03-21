@@ -7,8 +7,8 @@ if TYPE_CHECKING:
     from src.classes.core.world import World
 from src.classes.core.sect import sects_by_id
 from src.classes.effect.consts import EXTRA_EPIPHANY_PROBABILITY
+from src.classes.story_event_service import StoryEventService
 from src.utils.config import CONFIG
-from src.classes.story_teller import StoryTeller
 from src.i18n import t
 from src.run.log import get_logger
 
@@ -155,17 +155,9 @@ class SectTeachingConference(Gathering):
             )
             events.append(exp_event)
 
-        story = await self._generate_story(sect, teacher, students, exp_gains, epiphany_students)
-        
-        # 构造 Event 对象
-        event = Event(
-            month_stamp=world.month_stamp,
-            content=story,
-            related_avatars=[m.id for m in members],
-            is_story=True,
-            is_major=False # 虽是集体活动，但对个人而言算日常
-        )
-        events.append(event)
+        story_event = await self._generate_story(sect, teacher, students, exp_gains, epiphany_students, world.month_stamp)
+        if story_event is not None:
+            events.append(story_event)
             
         return events
 
@@ -177,7 +169,7 @@ class SectTeachingConference(Gathering):
         ratio = random.uniform(0.1, 0.3)
         return int(req_exp * ratio)
 
-    async def _generate_story(self, sect, teacher, students, exp_gains, epiphany_list):
+    async def _generate_story(self, sect, teacher, students, exp_gains, epiphany_list, month_stamp):
         # 1. 构造 Events Text (事件列表)
         events_list = []
         events_list.append(t("sect_teaching_event_desc", teacher_name=teacher.name))
@@ -209,10 +201,11 @@ class SectTeachingConference(Gathering):
             
         details_text = "\n".join(details_list)
         
-        return await StoryTeller.tell_gathering_story(
+        return await StoryEventService.maybe_create_gathering_story(
+            month_stamp=month_stamp,
             gathering_info=t("sect_teaching_gathering_info", sect_name=sect.name),
             events_text=events_text,
             details_text=details_text,
-            related_avatars=[teacher], # 传入Teacher用于获取世界观上下文
-            prompt=t(self.STORY_PROMPT_ID)
+            related_avatars=[teacher, *students],
+            prompt=t(self.STORY_PROMPT_ID),
         )

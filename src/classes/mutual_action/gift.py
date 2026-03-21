@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any
 from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -283,5 +284,16 @@ class Gift(MutualAction):
                 related_avatars=[self.avatar.id, target.id]
             )
             events.append(result_event)
+            story_event = await StoryEventService.maybe_create_story(
+                kind=StoryEventKind.DAILY_SOCIAL,
+                month_stamp=self.world.month_stamp,
+                start_text=getattr(self, "_start_event_content", ""),
+                result_text=result_text,
+                actors=[self.avatar, target],
+                related_avatar_ids=[self.avatar.id, target.id],
+                allow_relation_changes=False,
+            )
+            if story_event is not None:
+                events.append(story_event)
             
         return events

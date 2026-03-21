@@ -17,6 +17,7 @@ from src.classes.death import handle_death
 from src.classes.items.weapon import get_random_weapon_by_realm
 from src.classes.items.auxiliary import get_random_auxiliary_by_realm
 from src.classes.technique import get_random_technique_for_avatar
+from src.classes.story_event_service import StoryEventService
 from src.i18n import t
 from src.run.log import get_logger
 
@@ -339,19 +340,11 @@ class HiddenDomain(Gathering):
             details_list.append(f"- {av.name}: {info}")
         details_text = "\n".join(details_list)
 
-        # 4. 调用 StoryTeller
-        from src.classes.story_teller import StoryTeller
-        story = await StoryTeller.tell_gathering_story(
+        return await StoryEventService.maybe_create_gathering_story(
+            month_stamp=world.month_stamp,
             gathering_info=gathering_info,
             events_text=events_str,
             details_text=details_text,
             related_avatars=related_avatars,
-            prompt=self.get_story_prompt() 
-        )
-        
-        return Event(
-            month_stamp=world.month_stamp,
-            content=story,
-            related_avatars=[av.id for av in related_avatars],
-            is_major=True
+            prompt=self.get_story_prompt(),
         )

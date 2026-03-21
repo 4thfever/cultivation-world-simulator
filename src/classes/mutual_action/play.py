@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import random
 
 from src.classes.mutual_action.mutual_action import MutualAction
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.i18n import t
 from src.utils.config import CONFIG
 
@@ -30,12 +31,37 @@ class TeaParty(MutualAction):
     REQUIREMENTS_ID = "play_requirements"
     EMOJI = "🍵"
     FEEDBACK_ACTIONS = ["Accept", "Reject"] 
+
+    def __init__(self, avatar: Avatar, world: World):
+        super().__init__(avatar, world)
+        self._play_success = False
     
     def _settle_feedback(self, target_avatar: Avatar, feedback_name: str) -> None:
         if feedback_name == "Accept":
             # 尝试给双方触发收益
             try_trigger_play_benefit(self.avatar)
             try_trigger_play_benefit(target_avatar)
+            self._play_success = True
+        else:
+            self._play_success = False
+
+    async def finish(self, target_avatar: "Avatar|str") -> list:
+        target = self._get_target_avatar(target_avatar)
+        if target is None or not self._play_success:
+            return []
+
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.DAILY_SOCIAL,
+            month_stamp=self.world.month_stamp,
+            start_text=getattr(self, "_start_event_content", ""),
+            result_text=getattr(self, "_last_feedback_event_content", "") or t("{initiator} and {target} enjoyed a tea gathering",
+                initiator=self.avatar.name, target=target.name),
+            actors=[self.avatar, target],
+            related_avatar_ids=[self.avatar.id, target.id],
+            prompt=self.get_story_prompt(),
+            allow_relation_changes=False,
+        )
+        return [story_event] if story_event is not None else []
 
 class Chess(MutualAction):
     """下棋：双人互动"""
@@ -46,8 +72,33 @@ class Chess(MutualAction):
     EMOJI = "♟️"
     FEEDBACK_ACTIONS = ["Accept", "Reject"]
 
+    def __init__(self, avatar: Avatar, world: World):
+        super().__init__(avatar, world)
+        self._play_success = False
+
     def _settle_feedback(self, target_avatar: Avatar, feedback_name: str) -> None:
         if feedback_name == "Accept":
             # 尝试给双方触发收益
             try_trigger_play_benefit(self.avatar)
             try_trigger_play_benefit(target_avatar)
+            self._play_success = True
+        else:
+            self._play_success = False
+
+    async def finish(self, target_avatar: "Avatar|str") -> list:
+        target = self._get_target_avatar(target_avatar)
+        if target is None or not self._play_success:
+            return []
+
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.DAILY_SOCIAL,
+            month_stamp=self.world.month_stamp,
+            start_text=getattr(self, "_start_event_content", ""),
+            result_text=getattr(self, "_last_feedback_event_content", "") or t("{initiator} and {target} played a game of chess",
+                initiator=self.avatar.name, target=target.name),
+            actors=[self.avatar, target],
+            related_avatar_ids=[self.avatar.id, target.id],
+            prompt=self.get_story_prompt(),
+            allow_relation_changes=False,
+        )
+        return [story_event] if story_event is not None else []

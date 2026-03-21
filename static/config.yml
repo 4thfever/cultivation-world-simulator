@@ -34,6 +34,17 @@ game:
   sect_num: 3 # init_npc_num 大于 sect_num 时，会随机选择 sect_num 个宗门
   start_year: 100 # 世界开始年份
   npc_awakening_rate_per_month: 0.01
+  story:
+    enabled: true
+    probabilities:
+      combat: 0.35
+      relationship_major: 0.45
+      cultivation_major: 0.20
+      crafting: 0.10
+      daily_social: 0.08
+      world_fortune: 0.50
+      world_misfortune: 0.35
+      gathering: 1.0
   fortune_probability: 0.005
   misfortune_probability: 0.005
   random_minor_event_prob: 0.05 # 随机小事每月触发概率 (5%)

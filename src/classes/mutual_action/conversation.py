@@ -12,6 +12,7 @@ from src.classes.relation.relations import (
 from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -101,6 +102,8 @@ class Conversation(MutualAction):
                 content, 
                 related_avatars=[self.avatar.id, target.id]
             )
+            self._conversation_result_text = content
+            self._conversation_target = target
             events_to_return.append(content_event)
         return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
 
@@ -132,3 +135,20 @@ class Conversation(MutualAction):
             return self._handle_feedback_result(target, r)
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
+
+    async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
+        target = getattr(self, "_conversation_target", None) or self._get_target_avatar(target_avatar)
+        result_text = getattr(self, "_conversation_result_text", "")
+        if target is None or not result_text:
+            return []
+
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.DAILY_SOCIAL,
+            month_stamp=self.world.month_stamp,
+            start_text=result_text,
+            result_text=result_text,
+            actors=[self.avatar, target],
+            related_avatar_ids=[self.avatar.id, target.id],
+            allow_relation_changes=False,
+        )
+        return [story_event] if story_event is not None else []

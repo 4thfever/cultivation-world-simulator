@@ -4,6 +4,7 @@ import math
 import random
 from typing import Tuple, TYPE_CHECKING, Callable, Awaitable, Optional
 
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.technique import TechniqueGrade, get_suppression_bonus
 
 if TYPE_CHECKING:
@@ -263,7 +264,6 @@ async def handle_battle_finish(
         postfix: 默认文本生成的后缀（仅当 outcome_text_func 为 None 时生效）
     """
     from src.classes.event import Event
-    from src.classes.story_teller import StoryTeller
     from src.classes.death import handle_death
     from src.classes.death_reason import DeathReason, DeathType
 
@@ -291,18 +291,21 @@ async def handle_battle_finish(
     if not start_content:
         start_content = result_text
 
-    # 生成故事
-    story = await StoryTeller.tell_story(
-        start_content,
-        result_event.content,
-        attacker,
-        target,
+    story_event = await StoryEventService.maybe_create_story(
+        kind=StoryEventKind.COMBAT,
+        month_stamp=world.month_stamp,
+        start_text=start_content,
+        result_text=result_event.content,
+        actors=[attacker, target],
+        related_avatar_ids=rel_ids,
         prompt=story_prompt,
-        allow_relation_changes=True
+        allow_relation_changes=True,
     )
-    story_event = Event(world.month_stamp, story, related_avatars=rel_ids, is_story=True)
     
     # 处理死亡
     if is_fatal:
         handle_death(world, loser, DeathReason(DeathType.BATTLE, killer_name=winner.name))
-    return [result_event, story_event]
+    events = [result_event]
+    if story_event is not None:
+        events.append(story_event)
+    return events

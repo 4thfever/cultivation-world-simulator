@@ -8,7 +8,7 @@ import asyncio
 from src.utils.config import CONFIG
 from src.classes.core.avatar import Avatar
 from src.classes.event import Event
-from src.classes.story_teller import StoryTeller
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.technique import (
     TechniqueGrade,
     get_random_upper_technique_for_avatar,
@@ -495,11 +495,21 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
 
     # 生成故事事件
     # 奇遇强制单人模式，不改变关系（因为关系已经在硬逻辑中处理了）
-    story = await StoryTeller.tell_story(event_text, res_text, *actors_for_story, prompt=story_prompt, allow_relation_changes=False)
-    story_event = Event(month_at_finish, story, related_avatars=related_avatars, is_story=True)
+    story_event = await StoryEventService.maybe_create_story(
+        kind=StoryEventKind.WORLD_FORTUNE,
+        month_stamp=month_at_finish,
+        start_text=event_text,
+        result_text=res_text,
+        actors=actors_for_story,
+        related_avatar_ids=related_avatars,
+        prompt=story_prompt,
+        allow_relation_changes=False,
+    )
 
-    # 返回基础事件和故事事件
-    return [base_event, story_event]
+    events = [base_event]
+    if story_event is not None:
+        events.append(story_event)
+    return events
 
 
 class MisfortuneKind(Enum):
@@ -644,14 +654,21 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
     month_at_finish = avatar.world.month_stamp
     base_event = Event(month_at_finish, event_text, related_avatars=[avatar.id], is_major=True)
     
-    story = await StoryTeller.tell_story(
-        event_text, res_text, avatar, 
-        prompt=story_prompt, 
-        allow_relation_changes=False
+    story_event = await StoryEventService.maybe_create_story(
+        kind=StoryEventKind.WORLD_MISFORTUNE,
+        month_stamp=month_at_finish,
+        start_text=event_text,
+        result_text=res_text,
+        actors=[avatar],
+        related_avatar_ids=[avatar.id],
+        prompt=story_prompt,
+        allow_relation_changes=False,
     )
-    story_event = Event(month_at_finish, story, related_avatars=[avatar.id], is_story=True)
-    
-    return [base_event, story_event]
+
+    events = [base_event]
+    if story_event is not None:
+        events.append(story_event)
+    return events
 
 
 __all__ = [

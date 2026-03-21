@@ -2,6 +2,7 @@ from typing import List, Dict, TYPE_CHECKING
 import asyncio
 from src.classes.gathering.gathering import Gathering, register_gathering
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventService
 from src.utils.config import CONFIG
 from src.utils.llm.client import call_llm_with_template
 
@@ -359,8 +360,6 @@ class Auction(Gathering):
             return []
 
         # 4. 调用 StoryTeller
-        from src.classes.story_teller import StoryTeller
-        
         # 准备模板参数
         gathering_info = t(
             "Event Type: Mysterious Auction\nScene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
@@ -382,22 +381,16 @@ class Auction(Gathering):
             
         details_text = "\n".join(details_list)
         
-        story = await StoryTeller.tell_gathering_story(
+        story_event = await StoryEventService.maybe_create_gathering_story(
+            month_stamp=world.month_stamp,
             gathering_info=gathering_info,
             events_text=interaction_result,
             details_text=details_text,
             related_avatars=list(related_avatars),
-            prompt=self.get_story_prompt()
+            prompt=self.get_story_prompt(),
         )
-        
-        # 5. 生成并分发事件
-        story_event = Event(
-            month_stamp=world.month_stamp,
-            content=story,
-            related_avatars=[av.id for av in related_avatars],
-            is_major=True 
-        )
-        events.append(story_event)
+        if story_event is not None:
+            events.append(story_event)
         
         return events
 

@@ -198,6 +198,12 @@ msgstr "{initiator} định tặng {item} cho {target}"
 msgid "{initiator} attempts to seize {region} from {host}"
 msgstr "{initiator} định cướp đoạt {region} từ tay {host}"
 
+msgid "{initiator} and {target} enjoyed a tea gathering"
+msgstr "{initiator} và {target} cùng dự một buổi trà đàm vui vẻ"
+
+msgid "{initiator} and {target} played a game of chess"
+msgstr "{initiator} và {target} đã đối một ván cờ"
+
 msgid "{initiator} challenges {target} to spar"
 msgstr "{initiator} khiêu chiến {target} tiến hành tỷ thí"
 

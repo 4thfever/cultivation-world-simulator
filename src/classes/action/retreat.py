@@ -7,9 +7,9 @@ from src.classes.action.cooldown import cooldown_action
 from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.event import Event
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.cultivation import REALM_RANK
 from src.classes.action_runtime import ActionResult, ActionStatus
-from src.classes.story_teller import StoryTeller
 
 @cooldown_action
 class Retreat(TimedAction):
@@ -98,12 +98,20 @@ class Retreat(TimedAction):
             result_text = t("retreat_success", duration=self.duration_months)
             core_text = t("{avatar} finished retreat successfully.", avatar=self.avatar.name)
             
-            # 生成故事
             prompt = t("retreat_story_prompt_success")
-            story = await StoryTeller.tell_story(core_text, result_text, self.avatar, prompt=prompt)
-            
             events.append(Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id], is_major=True))
-            events.append(Event(self.world.month_stamp, story, related_avatars=[self.avatar.id], is_story=True))
+            story_event = await StoryEventService.maybe_create_story(
+                kind=StoryEventKind.CULTIVATION_MAJOR,
+                month_stamp=self.world.month_stamp,
+                start_text=core_text,
+                result_text=result_text,
+                actors=[self.avatar],
+                related_avatar_ids=[self.avatar.id],
+                prompt=prompt,
+                allow_relation_changes=False,
+            )
+            if story_event is not None:
+                events.append(story_event)
             
         else:
             # 失败：扣除寿元
@@ -128,10 +136,19 @@ class Retreat(TimedAction):
             core_text = t("{avatar} failed retreat and lost {years} years of lifespan.", avatar=self.avatar.name, years=reduce_years)
             
             prompt = t("retreat_story_prompt_fail")
-            story = await StoryTeller.tell_story(core_text, result_text, self.avatar, prompt=prompt)
-            
             events.append(Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id], is_major=True))
-            events.append(Event(self.world.month_stamp, story, related_avatars=[self.avatar.id], is_story=True))
+            story_event = await StoryEventService.maybe_create_story(
+                kind=StoryEventKind.CULTIVATION_MAJOR,
+                month_stamp=self.world.month_stamp,
+                start_text=core_text,
+                result_text=result_text,
+                actors=[self.avatar],
+                related_avatar_ids=[self.avatar.id],
+                prompt=prompt,
+                allow_relation_changes=False,
+            )
+            if story_event is not None:
+                events.append(story_event)
 
         return events
 

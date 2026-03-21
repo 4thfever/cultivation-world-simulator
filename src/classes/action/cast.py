@@ -5,6 +5,7 @@ from typing import Optional, TYPE_CHECKING, List
 
 from src.i18n import t
 from src.classes.action import TimedAction
+from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.cultivation import Realm
 from src.classes.event import Event
 from src.classes.material import Material
@@ -110,6 +111,7 @@ class Cast(TimedAction):
         realm_val = str(self.target_realm) if self.target_realm else target_realm
         content = t("{avatar} begins attempting to cast {realm}-tier treasure",
                    avatar=self.avatar.name, realm=realm_val)
+        self._start_event_content = content
         return Event(
             self.world.month_stamp, 
             content, 
@@ -188,11 +190,23 @@ class Cast(TimedAction):
         )
 
         # 事件2：处置结果
-        events.append(Event(
+        exchange_event = Event(
             self.world.month_stamp,
             outcome.result_text,
             related_avatars=[self.avatar.id],
             is_major=True
-        ))
+        )
+        events.append(exchange_event)
+        story_event = await StoryEventService.maybe_create_story(
+            kind=StoryEventKind.CRAFTING,
+            month_stamp=self.world.month_stamp,
+            start_text=getattr(self, "_start_event_content", ""),
+            result_text=f"{content} {exchange_event.content}",
+            actors=[self.avatar],
+            related_avatar_ids=[self.avatar.id],
+            allow_relation_changes=False,
+        )
+        if story_event is not None:
+            events.append(story_event)
         
         return events

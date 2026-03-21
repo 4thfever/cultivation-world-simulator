@@ -1,6 +1,6 @@
 
 import pytest
-from unittest.mock import MagicMock, patch, ANY
+from unittest.mock import MagicMock, patch, ANY, AsyncMock
 from src.classes.action.retreat import Retreat
 from src.classes.action_runtime import ActionStatus
 from src.systems.cultivation import Realm
@@ -43,7 +43,8 @@ class TestActionRetreat:
         # calc_success_rate for Qi_Refinement is 0.5 (0.5 - 0*0.1)
         # So we need random < 0.5
         with patch('random.random', return_value=0.1), \
-             patch('src.classes.story_teller.StoryTeller.tell_story', return_value="Great story"):
+             patch('src.classes.story_event_service.StoryEventService.should_trigger', return_value=True), \
+             patch('src.classes.story_event_service.StoryTeller.tell_story', new_callable=AsyncMock, return_value="Great story"):
             
             # Start
             start_event = action.start()
@@ -82,7 +83,8 @@ class TestActionRetreat:
         # random.randint used for reduce_years (5, 20)
         with patch('random.random', return_value=0.9), \
              patch('random.randint', side_effect=[10]), \
-             patch('src.classes.story_teller.StoryTeller.tell_story', return_value="Sad story"):
+             patch('src.classes.story_event_service.StoryEventService.should_trigger', return_value=True), \
+             patch('src.classes.story_event_service.StoryTeller.tell_story', new_callable=AsyncMock, return_value="Sad story"):
             
             # Finish
             events = await action.finish()

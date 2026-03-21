@@ -32,7 +32,7 @@ def mock_game_configs():
 
 @pytest.fixture
 def mock_story_teller():
-    with patch('src.systems.fortune.StoryTeller.tell_story', new_callable=AsyncMock) as mock_tell:
+    with patch('src.classes.story_event_service.StoryTeller.tell_story', new_callable=AsyncMock) as mock_tell:
         mock_tell.return_value = "A generated story."
         yield mock_tell
 
