@@ -238,27 +238,15 @@ class SectManager:
         for sect in active_sects:
             raw_income = income_by_sect_id.get(sect.id, 0.0)
             income = int(raw_income)
-            upkeep_total, upkeep_breakdown = sect.estimate_yearly_member_upkeep()
+            upkeep_total, _upkeep_breakdown = sect.estimate_yearly_member_upkeep()
             net_change = income - upkeep_total
             sect.magic_stone += net_change
-
-            upkeep_parts = []
-            for item in upkeep_breakdown.values():
-                if item["member_count"] <= 0:
-                    continue
-                upkeep_parts.append(
-                    f"{item['realm']}x{item['member_count']}={item['subtotal']}"
-                )
-            upkeep_text = "、".join(upkeep_parts) if upkeep_parts else "无成员供养支出"
             content = t(
                 "game.sect_update_event",
                 sect_name=sect.name,
-                strength=int(sect.total_battle_strength),
-                radius=sect.influence_radius,
                 income=income,
                 upkeep=upkeep_total,
                 net_change=net_change,
-                upkeep_breakdown=upkeep_text,
             )
 
             event = Event(

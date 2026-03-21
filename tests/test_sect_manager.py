@@ -275,5 +275,6 @@ def test_sect_manager_applies_member_upkeep(base_world):
     assert sect.influence_radius == 2
     assert sect.magic_stone == expected_income - 15
     assert len(events) == 1
-    assert "成员供养支出 15 灵石" in events[0].content
-    assert f"净变动 {expected_income - 15} 灵石" in events[0].content
+    assert f"收入 {expected_income} 灵石" in events[0].content
+    assert "支出 15 灵石" in events[0].content
+    assert f"结余 {expected_income - 15} 灵石" in events[0].content

@@ -21,6 +21,7 @@ from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliarie
 from src.classes.persona import Persona, personas_by_id, personas_by_name
 from src.classes.items.magic_stone import MagicStone
 from src.classes.death_reason import DeathReason, DeathType
+from src.classes.official_rank import OFFICIAL_NONE, resolve_rank_changes
 from src.utils.born_region import get_born_region_id
 
 
@@ -72,6 +73,19 @@ INITIAL_AGE_MAX_BY_REALM: dict[Realm, int] = {
     Realm.Nascent_Soul: 150,
 }
 
+INITIAL_COURT_REPUTATION_CHANCE_BY_ORTHODOXY: dict[str, float] = {
+    "confucianism": 0.70,
+}
+
+INITIAL_COURT_REPUTATION_CHANCE_DEFAULT: float = 0.15
+
+INITIAL_COURT_REPUTATION_RANGE_BY_REALM: dict[Realm, tuple[int, int]] = {
+    Realm.Qi_Refinement: (50, 140),
+    Realm.Foundation_Establishment: (120, 300),
+    Realm.Core_Formation: (260, 620),
+    Realm.Nascent_Soul: (600, 1150),
+}
+
 
 def _create_random_age() -> int:
     return random.randint(AGE_MIN, AGE_MAX)
@@ -89,6 +103,31 @@ def _mark_dead_if_lifespan_exhausted(avatar: Avatar, current_month_stamp: MonthS
 
 def _get_initial_age_max_for_realm(realm: Realm) -> int:
     return INITIAL_AGE_MAX_BY_REALM.get(realm, AGE_MAX)
+
+
+def _get_initial_official_chance(avatar: Avatar) -> float:
+    orthodoxy_id = str(getattr(getattr(avatar, "orthodoxy", None), "id", "") or "")
+    return INITIAL_COURT_REPUTATION_CHANCE_BY_ORTHODOXY.get(
+        orthodoxy_id,
+        INITIAL_COURT_REPUTATION_CHANCE_DEFAULT,
+    )
+
+
+def _roll_initial_court_reputation(avatar: Avatar) -> int:
+    if random.random() >= _get_initial_official_chance(avatar):
+        return 0
+
+    realm = getattr(getattr(avatar, "cultivation_progress", None), "realm", Realm.Qi_Refinement)
+    min_rep, max_rep = INITIAL_COURT_REPUTATION_RANGE_BY_REALM.get(realm, (50, 140))
+    return random.randint(min_rep, max_rep)
+
+
+def _assign_initial_official_status(avatar: Avatar) -> None:
+    avatar.court_reputation = int(_roll_initial_court_reputation(avatar))
+    avatar.official_rank = OFFICIAL_NONE
+    _old_rank, new_rank = resolve_rank_changes(avatar)
+    if new_rank != OFFICIAL_NONE:
+        avatar.recalc_effects()
 
 
 def random_gender() -> Gender:
@@ -818,6 +857,8 @@ class AvatarFactory:
                 mapped = attribute_to_root(avatar.technique.attribute)
                 if mapped is not None:
                     avatar.root = mapped
+
+            _assign_initial_official_status(avatar)
 
             _mark_dead_if_lifespan_exhausted(avatar, current_month_stamp)
 

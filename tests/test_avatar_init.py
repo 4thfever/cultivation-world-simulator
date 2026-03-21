@@ -1,10 +1,18 @@
 """测试 new_avatar 模块的角色创建逻辑."""
 import pytest
 
+from src.classes.core.orthodoxy import get_orthodoxy
 from src.classes.relation.relation import Relation
 from src.classes.core.sect import sects_by_id
+from src.classes.official_rank import OFFICIAL_COUNTY, OFFICIAL_GRAND_COUNCILOR, OFFICIAL_NONE
 from src.i18n import t
-from src.sim.avatar_init import INITIAL_AGE_MAX_BY_REALM, make_avatars
+from src.sim.avatar_init import (
+    INITIAL_AGE_MAX_BY_REALM,
+    _assign_initial_official_status,
+    _get_initial_official_chance,
+    make_avatars,
+)
+from src.systems.cultivation import CultivationProgress, Realm
 
 
 class TestAgeLifespanInitialization:
@@ -41,6 +49,54 @@ class TestAgeLifespanInitialization:
         realm_label = t("effect_source_cultivation_realm")
         assert realm_label in breakdown
         assert "extra_max_lifespan" in breakdown[realm_label]
+
+
+class TestInitialOfficialStatus:
+    """测试开局角色的初始官职威望规则。"""
+
+    def test_confucian_avatar_has_higher_initial_official_chance(self, dummy_avatar):
+        confucian_sect = sects_by_id[13]
+        dummy_avatar.sect = confucian_sect
+
+        assert get_orthodoxy(confucian_sect.orthodoxy_id).id == "confucianism"
+        assert _get_initial_official_chance(dummy_avatar) == pytest.approx(0.70)
+
+        dummy_avatar.sect = None
+        assert _get_initial_official_chance(dummy_avatar) == pytest.approx(0.15)
+
+    def test_assign_initial_official_status_can_promote_by_realm_band(self, dummy_avatar, monkeypatch):
+        confucian_sect = sects_by_id[13]
+        dummy_avatar.sect = confucian_sect
+        dummy_avatar.cultivation_progress = CultivationProgress(95)
+
+        random_values = iter([0.20])
+        randint_values = iter([1080])
+        monkeypatch.setattr("src.sim.avatar_init.random.random", lambda: next(random_values))
+        monkeypatch.setattr("src.sim.avatar_init.random.randint", lambda a, b: next(randint_values))
+
+        _assign_initial_official_status(dummy_avatar)
+
+        assert dummy_avatar.court_reputation == 1080
+        assert dummy_avatar.official_rank == OFFICIAL_GRAND_COUNCILOR
+
+    def test_assign_initial_official_status_can_leave_avatar_unranked(self, dummy_avatar, monkeypatch):
+        dummy_avatar.sect = None
+        dummy_avatar.cultivation_progress = CultivationProgress(20)
+
+        monkeypatch.setattr("src.sim.avatar_init.random.random", lambda: 0.50)
+
+        _assign_initial_official_status(dummy_avatar)
+
+        assert dummy_avatar.court_reputation == 0
+        assert dummy_avatar.official_rank == OFFICIAL_NONE
+
+    def test_batch_creation_can_generate_initial_officials(self, base_world):
+        avatars = make_avatars(base_world, count=120)
+
+        officials = [avatar for avatar in avatars.values() if avatar.official_rank != OFFICIAL_NONE]
+        assert officials
+        assert any(avatar.official_rank == OFFICIAL_COUNTY for avatar in officials)
+        assert all(avatar.court_reputation >= 80 for avatar in officials)
 
 
 class TestInitialRelationConstraints:
