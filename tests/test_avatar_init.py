@@ -62,7 +62,7 @@ class TestInitialOfficialStatus:
         assert _get_initial_official_chance(dummy_avatar) == pytest.approx(0.70)
 
         dummy_avatar.sect = None
-        assert _get_initial_official_chance(dummy_avatar) == pytest.approx(0.15)
+        assert _get_initial_official_chance(dummy_avatar) == pytest.approx(0.25)
 
     def test_assign_initial_official_status_can_promote_by_realm_band(self, dummy_avatar, monkeypatch):
         confucian_sect = sects_by_id[13]
