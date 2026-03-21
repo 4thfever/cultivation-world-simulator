@@ -122,6 +122,28 @@
       "unknown_region": "Không rõ"
     }
   },
+  "dynasty": {
+    "title_short": "[Vương Triều]",
+    "title": "Vương Triều",
+    "name": "Tên Vương Triều",
+    "royal_house": "Hoàng Tộc",
+    "effect": "Hiệu Ứng Vương Triều",
+    "effect_empty": "Hiện chưa có hiệu ứng vương triều. Sẽ bổ sung sau khi hệ thống quan chức và logic tiếp theo được thêm vào.",
+    "low_magic": "Vương Triều Phàm Nhân",
+    "empty": "Không có dữ liệu vương triều",
+    "emperor": {
+      "title": "Hoàng Đế Đương Triều",
+      "name": "Họ Tên",
+      "age": "Tuổi",
+      "lifespan": "Thọ Mệnh",
+      "identity": "Thân Phận",
+      "mortal": "Phàm Nhân",
+      "empty": "Không có dữ liệu hoàng đế"
+    },
+    "summary": {
+      "title": "Tổng Quan Vương Triều"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Hiệu quả: ",

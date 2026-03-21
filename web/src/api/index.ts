@@ -19,5 +19,6 @@ export type {
   RunConfigDTO,
   EventDTO,
   EventsResponseDTO,
-  SectTerritoriesResponseDTO
+  SectTerritoriesResponseDTO,
+  DynastyOverviewResponseDTO
 } from '../types/api';

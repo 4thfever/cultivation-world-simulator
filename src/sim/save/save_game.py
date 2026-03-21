@@ -182,6 +182,7 @@ def save_game(
             "month_stamp": int(world.month_stamp),
             "start_year": world.start_year,
             "existed_sect_ids": [sect.id for sect in existed_sects],
+            "dynasty": world.dynasty.to_dict() if getattr(world, "dynasty", None) is not None else None,
             # 天地灵机
             "current_phenomenon_id": world.current_phenomenon.id if world.current_phenomenon else None,
             "phenomenon_start_year": world.phenomenon_start_year if hasattr(world, 'phenomenon_start_year') else 0,

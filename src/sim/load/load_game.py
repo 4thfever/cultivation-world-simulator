@@ -176,6 +176,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 运行时导入，避免循环依赖
         from src.classes.core.world import World
         from src.classes.core.avatar import Avatar
+        from src.classes.core.dynasty import Dynasty
         from src.classes.core.sect import sects_by_id
         from src.sim.simulator import Simulator
         from src.run.load_map import load_cultivation_world_map
@@ -207,6 +208,9 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             events_db_path=events_db_path,
             start_year=start_year,
         )
+        dynasty_data = world_data.get("dynasty")
+        if dynasty_data is not None:
+            world.dynasty = Dynasty.from_dict(dynasty_data)
         
         # 恢复 playthrough_id (如果旧存档没有，这里就保留默认生成的 uuid)
         if "playthrough_id" in meta:

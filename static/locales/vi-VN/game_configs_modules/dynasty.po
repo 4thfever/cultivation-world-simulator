@@ -1,0 +1,109 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 00:00+0000\n"
+"PO-Revision-Date: 2026-03-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. dynasty.csv: DYNASTY_QIN_NAME
+msgid "DYNASTY_QIN_NAME"
+msgstr "Tần"
+
+#. dynasty.csv: DYNASTY_QIN_DESC
+msgid "DYNASTY_QIN_DESC"
+msgstr "Trọng pháp và trọng binh, triều cương nghiêm chỉnh, trật tự phàm tục cứng như sắt."
+
+#. dynasty.csv: DYNASTY_JIN_NAME
+msgid "DYNASTY_JIN_NAME"
+msgstr "Tấn"
+
+#. dynasty.csv: DYNASTY_JIN_DESC
+msgid "DYNASTY_JIN_DESC"
+msgstr "Môn phiệt nghiêm ngặt, sĩ tộc ưa thanh đàm, triều dã trọng lễ và danh giáo."
+
+#. dynasty.csv: DYNASTY_SONG_NAME
+msgid "DYNASTY_SONG_NAME"
+msgstr "Tống"
+
+#. dynasty.csv: DYNASTY_SONG_DESC
+msgid "DYNASTY_SONG_DESC"
+msgstr "Trọng văn khinh võ, điển chương rườm mật, thư viện dân gian hưng thịnh."
+
+#. dynasty.csv: DYNASTY_LIANG_NAME
+msgid "DYNASTY_LIANG_NAME"
+msgstr "Lương"
+
+#. dynasty.csv: DYNASTY_LIANG_DESC
+msgid "DYNASTY_LIANG_DESC"
+msgstr "Triều đình thanh nhã, sĩ phong phù lệ, vừa dung nạp vừa đầy biến thông."
+
+#. dynasty.csv: DYNASTY_CHU_NAME
+msgid "DYNASTY_CHU_NAME"
+msgstr "Sở"
+
+#. dynasty.csv: DYNASTY_CHU_DESC
+msgid "DYNASTY_CHU_DESC"
+msgstr "Lãnh thổ rộng lớn, phong tục pha tạp, dư âm vu phong còn đó, hào cường biên địa cùng nổi lên."
+
+#. dynasty.csv: DYNASTY_QI_NAME
+msgid "DYNASTY_QI_NAME"
+msgstr "Tề"
+
+#. dynasty.csv: DYNASTY_QI_DESC
+msgid "DYNASTY_QI_DESC"
+msgstr "Công thương phồn thịnh, ven biển thông đạt, triều đình giỏi thu gom tài lực và điều phối nguồn lực."
+
+#. dynasty.csv: DYNASTY_YAN_NAME
+msgid "DYNASTY_YAN_NAME"
+msgstr "Yên"
+
+#. dynasty.csv: DYNASTY_YAN_DESC
+msgid "DYNASTY_YAN_DESC"
+msgstr "Vùng bắc địa giá lạnh, chuộng võ và giữ biên cương, phong cách triều đình trầm nghị."
+
+#. dynasty.csv: DYNASTY_ZHAO_NAME
+msgid "DYNASTY_ZHAO_NAME"
+msgstr "Triệu"
+
+#. dynasty.csv: DYNASTY_ZHAO_DESC
+msgid "DYNASTY_ZHAO_DESC"
+msgstr "Cưỡi ngựa bắn cung đã thành tục, quân chính song trọng, hơi thở trấn biên rất đậm."
+
+#. dynasty.csv: DYNASTY_WEI_NAME
+msgid "DYNASTY_WEI_NAME"
+msgstr "Ngụy"
+
+#. dynasty.csv: DYNASTY_WEI_DESC
+msgid "DYNASTY_WEI_DESC"
+msgstr "Pháp độ minh mật, quân quyền cường thịnh, trăm quan vận hành cực kỳ hiệu quả."
+
+#. dynasty.csv: DYNASTY_HAN_NAME
+msgid "DYNASTY_HAN_NAME"
+msgstr "Hàn"
+
+#. dynasty.csv: DYNASTY_HAN_DESC
+msgid "DYNASTY_HAN_DESC"
+msgstr "Quốc thế tuy không phô trương nhưng rất coi trọng thực vụ và quản trị cơ tầng."
+
+#. dynasty.csv: DYNASTY_WU_NAME
+msgid "DYNASTY_WU_NAME"
+msgstr "Ngô"
+
+#. dynasty.csv: DYNASTY_WU_DESC
+msgid "DYNASTY_WU_DESC"
+msgstr "Sông ngòi chằng chịt, thương lữ tấp nập, triều đình khéo dùng ưu thế thuyền bè và vận tải."
+
+#. dynasty.csv: DYNASTY_YUE_NAME
+msgid "DYNASTY_YUE_NAME"
+msgstr "Việt"
+
+#. dynasty.csv: DYNASTY_YUE_DESC
+msgid "DYNASTY_YUE_DESC"
+msgstr "Núi đầm sâu dày, dân phong kiên nhẫn, triều đình giỏi thủ rồi mới phát động."

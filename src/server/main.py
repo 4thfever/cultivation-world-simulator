@@ -42,8 +42,10 @@ from src.classes.history import HistoryManager
 from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
 from src.server.assemblers.mortal_overview import build_mortal_overview
+from src.server.assemblers.dynasty_overview import build_dynasty_overview
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
+from src.systems.dynasty_generator import generate_dynasty, generate_emperor
 from src.utils.config import CONFIG
 from src.classes.core.sect import sects_by_id
 from src.classes.technique import techniques_by_id
@@ -479,6 +481,19 @@ async def init_game_async():
             month_stamp=create_month_stamp(Year(start_year), Month.JANUARY),
             events_db_path=events_db_path,
             start_year=start_year,
+        )
+        world.dynasty = generate_dynasty()
+        world.dynasty.current_emperor = generate_emperor(world.dynasty, int(world.month_stamp))
+        world.event_manager.add_event(
+            Event(
+                month_stamp=world.month_stamp,
+                content=t(
+                    "{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as emperor.",
+                    dynasty_title=world.dynasty.title,
+                    emperor_name=world.dynasty.current_emperor.name,
+                ),
+                is_major=True,
+            )
         )
         sim = Simulator(world)
         sim.awakening_rate = run_config.npc_awakening_rate_per_month
@@ -1201,6 +1216,24 @@ def get_mortal_overview():
         }
 
     return build_mortal_overview(world)
+
+
+@app.get("/api/dynasty/overview")
+def get_dynasty_overview():
+    """获取当前王朝总览数据。"""
+    world = game_instance.get("world")
+    if world is None:
+        return {
+            "name": "",
+            "title": "",
+            "royal_surname": "",
+            "royal_house_name": "",
+            "desc": "",
+            "effect_desc": "",
+            "is_low_magic": True,
+        }
+
+    return build_dynasty_overview(world)
 
 
 @app.post("/api/control/reset")

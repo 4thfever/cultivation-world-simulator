@@ -2979,6 +2979,23 @@ msgid ""
 msgstr ""
 "{avatar_name} đi ngang {region_name}, thấy nơi này vô chủ bèn chiếm cứ."
 
+msgid ""
+"{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as "
+"emperor."
+msgstr "{dynasty_title} vừa tôn lập tân quân, {emperor_name} đăng cơ xưng đế."
+
+msgid ""
+"Emperor {emperor_name} of {dynasty_title} has passed away at the age of "
+"{age}."
+msgstr ""
+"Hoàng đế {emperor_name} của {dynasty_title} băng hà, hưởng thọ {age} tuổi."
+
+msgid ""
+"A new emperor ascends in {dynasty_title}: {emperor_name} inherits the "
+"throne."
+msgstr ""
+"Tân đế của {dynasty_title} đã kế vị: {emperor_name} tiếp nhận đại thống."
+
 # Single choice - context and options
 msgid ""
 "Current situation: {context}\n"

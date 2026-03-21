@@ -1,0 +1,109 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 00:00+0000\n"
+"PO-Revision-Date: 2026-03-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. dynasty.csv: DYNASTY_QIN_NAME
+msgid "DYNASTY_QIN_NAME"
+msgstr "Qin"
+
+#. dynasty.csv: DYNASTY_QIN_DESC
+msgid "DYNASTY_QIN_DESC"
+msgstr "Esteems law and the military; the court is tightly ordered, and mortal rule is as hard as iron."
+
+#. dynasty.csv: DYNASTY_JIN_NAME
+msgid "DYNASTY_JIN_NAME"
+msgstr "Jin"
+
+#. dynasty.csv: DYNASTY_JIN_DESC
+msgid "DYNASTY_JIN_DESC"
+msgstr "Great clans stand in solemn ranks; the gentry delight in lofty discourse, and court and countryside prize ritual and reputation."
+
+#. dynasty.csv: DYNASTY_SONG_NAME
+msgid "DYNASTY_SONG_NAME"
+msgstr "Song"
+
+#. dynasty.csv: DYNASTY_SONG_DESC
+msgid "DYNASTY_SONG_DESC"
+msgstr "Values letters over arms; its institutions are dense and refined, and private academies flourish among the people."
+
+#. dynasty.csv: DYNASTY_LIANG_NAME
+msgid "DYNASTY_LIANG_NAME"
+msgstr "Liang"
+
+#. dynasty.csv: DYNASTY_LIANG_DESC
+msgid "DYNASTY_LIANG_DESC"
+msgstr "The court is elegant and polished, the scholarly mood ornate, and its governance inclusive yet full of subtle maneuvering."
+
+#. dynasty.csv: DYNASTY_CHU_NAME
+msgid "DYNASTY_CHU_NAME"
+msgstr "Chu"
+
+#. dynasty.csv: DYNASTY_CHU_DESC
+msgid "DYNASTY_CHU_DESC"
+msgstr "Its lands are broad and customs varied; shamanic airs still linger, and powerful local houses rise along the frontier."
+
+#. dynasty.csv: DYNASTY_QI_NAME
+msgid "DYNASTY_QI_NAME"
+msgstr "Qi"
+
+#. dynasty.csv: DYNASTY_QI_DESC
+msgid "DYNASTY_QI_DESC"
+msgstr "Rich in trade and craft, open to the sea, with a court adept at gathering revenue and directing resources."
+
+#. dynasty.csv: DYNASTY_YAN_NAME
+msgid "DYNASTY_YAN_NAME"
+msgstr "Yan"
+
+#. dynasty.csv: DYNASTY_YAN_DESC
+msgid "DYNASTY_YAN_DESC"
+msgstr "The northern land is bitterly cold; it honors martial defense, and the court carries a steady, austere character."
+
+#. dynasty.csv: DYNASTY_ZHAO_NAME
+msgid "DYNASTY_ZHAO_NAME"
+msgstr "Zhao"
+
+#. dynasty.csv: DYNASTY_ZHAO_DESC
+msgid "DYNASTY_ZHAO_DESC"
+msgstr "Horsemanship and archery are common custom; military and civil rule stand side by side, and the border spirit runs deep."
+
+#. dynasty.csv: DYNASTY_WEI_NAME
+msgid "DYNASTY_WEI_NAME"
+msgstr "Wei"
+
+#. dynasty.csv: DYNASTY_WEI_DESC
+msgid "DYNASTY_WEI_DESC"
+msgstr "Its laws are clear and exacting, sovereign authority is strong, and the hundred offices move with rare efficiency."
+
+#. dynasty.csv: DYNASTY_HAN_NAME
+msgid "DYNASTY_HAN_NAME"
+msgstr "Han"
+
+#. dynasty.csv: DYNASTY_HAN_DESC
+msgid "DYNASTY_HAN_DESC"
+msgstr "Though not outwardly overbearing, the dynasty values practical affairs and careful governance at the local level."
+
+#. dynasty.csv: DYNASTY_WU_NAME
+msgid "DYNASTY_WU_NAME"
+msgstr "Wu"
+
+#. dynasty.csv: DYNASTY_WU_DESC
+msgid "DYNASTY_WU_DESC"
+msgstr "Rivers and waterways crisscross the realm, merchants travel often, and the court is skilled at using the advantage of boats and transport."
+
+#. dynasty.csv: DYNASTY_YUE_NAME
+msgid "DYNASTY_YUE_NAME"
+msgstr "Yue"
+
+#. dynasty.csv: DYNASTY_YUE_DESC
+msgid "DYNASTY_YUE_DESC"
+msgstr "Its mountains and marshes run deep, the people are tenacious, and the court excels at holding fast before striking."

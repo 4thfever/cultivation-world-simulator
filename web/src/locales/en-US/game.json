@@ -122,6 +122,28 @@
       "unknown_region": "Unknown"
     }
   },
+  "dynasty": {
+    "title_short": "[Dynasty]",
+    "title": "Dynasty",
+    "name": "Dynasty Name",
+    "royal_house": "Royal House",
+    "effect": "Dynasty Effect",
+    "effect_empty": "No dynasty effect yet. This will be filled in after the official system and later logic are added.",
+    "low_magic": "Mortal Dynasty",
+    "empty": "No dynasty data",
+    "emperor": {
+      "title": "Current Emperor",
+      "name": "Name",
+      "age": "Age",
+      "lifespan": "Lifespan",
+      "identity": "Identity",
+      "mortal": "Mortal",
+      "empty": "No emperor data"
+    },
+    "summary": {
+      "title": "Dynasty Overview"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Effect: ",

@@ -237,3 +237,13 @@ msgstr "Ranking"
 
 msgid "WORLD_INFO_RANKING_TITLE"
 msgstr "Ranking"
+
+#. world_info.csv: 凡人王朝统御天下，维持凡俗秩序与疆域。皇帝寿元与普通凡人无异，驾崩后会有新帝继位。
+msgid "WORLD_INFO_DYNASTY_DESC"
+msgstr "Mortal dynasties rule the realm, maintaining worldly order and borders. Emperors live no longer than ordinary mortals, and when one dies, a new emperor succeeds to the throne."
+
+msgid "WORLD_INFO_DYNASTY_NAME"
+msgstr "Dynasty"
+
+msgid "WORLD_INFO_DYNASTY_TITLE"
+msgstr "Dynasty"

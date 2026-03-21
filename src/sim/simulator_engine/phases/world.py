@@ -12,6 +12,7 @@ from src.systems.fortune import try_trigger_fortune, try_trigger_misfortune
 from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.systems.sect_random_event import try_trigger_sect_random_event
 from src.systems.time import Month
+from src.systems.dynasty_generator import generate_emperor
 
 
 def phase_update_perception_and_knowledge(world, living_avatars: list[Avatar]) -> list[Event]:
@@ -167,3 +168,59 @@ def phase_update_city_population(world) -> None:
     for region in world.map.regions.values():
         if isinstance(region, CityRegion):
             region.update_population_monthly()
+
+
+def phase_update_dynasty(world) -> list[Event]:
+    events: list[Event] = []
+    dynasty = getattr(world, "dynasty", None)
+    if dynasty is None:
+        return events
+
+    emperor = getattr(dynasty, "current_emperor", None)
+    if emperor is None:
+        dynasty.current_emperor = generate_emperor(dynasty, int(world.month_stamp))
+        events.append(
+            Event(
+                month_stamp=world.month_stamp,
+                content=t(
+                    "{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as emperor.",
+                    dynasty_title=dynasty.title,
+                    emperor_name=dynasty.current_emperor.name,
+                ),
+                is_major=True,
+            )
+        )
+        return events
+
+    current_month = int(world.month_stamp)
+    if emperor.should_die(current_month):
+        old_name = emperor.name
+        old_age = emperor.get_age(current_month)
+        emperor.is_dead = True
+        dynasty.current_emperor = generate_emperor(dynasty, current_month)
+        new_emperor = dynasty.current_emperor
+        events.append(
+            Event(
+                month_stamp=world.month_stamp,
+                content=t(
+                    "Emperor {emperor_name} of {dynasty_title} has passed away at the age of {age}.",
+                    dynasty_title=dynasty.title,
+                    emperor_name=old_name,
+                    age=old_age,
+                ),
+                is_major=True,
+            )
+        )
+        events.append(
+            Event(
+                month_stamp=world.month_stamp,
+                content=t(
+                    "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne.",
+                    dynasty_title=dynasty.title,
+                    emperor_name=new_emperor.name,
+                ),
+                is_major=True,
+            )
+        )
+
+    return events

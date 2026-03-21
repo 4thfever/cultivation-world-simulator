@@ -11,6 +11,8 @@ const { mockGetPhenomenaList, mockChangePhenomenon, mockSuccess, mockError } = v
   mockError: vi.fn(),
 }))
 
+const refreshDynastyOverviewMock = vi.hoisted(() => vi.fn())
+
 // Mutable store state that can be modified in tests.
 let mockYear = 100
 let mockMonth = 5
@@ -49,6 +51,23 @@ vi.mock('@/stores/world', () => ({
 vi.mock('@/stores/socket', () => ({
   useSocketStore: () => ({
     get isConnected() { return mockIsConnected },
+  }),
+}))
+
+vi.mock('@/stores/dynasty', () => ({
+  useDynastyStore: () => ({
+    overview: {
+      name: '晋',
+      title: '晋朝',
+      royal_surname: '司马',
+      royal_house_name: '司马氏',
+      desc: '门第森然。',
+      effect_desc: '',
+      is_low_magic: true,
+    },
+    isLoading: false,
+    isLoaded: true,
+    refreshOverview: refreshDynastyOverviewMock,
   }),
 }))
 
@@ -94,6 +113,13 @@ vi.mock('naive-ui', () => ({
     props: ['description'],
     setup(props) {
       return () => h('div', { class: 'n-empty-stub' }, props.description)
+    },
+  }),
+  NSpin: defineComponent({
+    name: 'NSpin',
+    props: ['show'],
+    setup(_, { slots }) {
+      return () => h('div', { class: 'n-spin-stub' }, slots.default?.())
     },
   }),
   useMessage: () => ({
@@ -226,9 +252,9 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // When phenomenon is null, v-if hides the widget.
-      // Domain widget、Ranking widget、Tournament widget、SectRelations widget、Mortal widget should exist.
+      // Domain widget、Ranking widget、Tournament widget、SectRelations widget、Mortal widget、Dynasty widget should exist.
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(5)
+      expect(widgets.length).toBe(6)
     })
   })
 
@@ -380,9 +406,17 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // currentPhenomenon + domain + ranking + tournament + sect_relations + mortal
-    expect(widgets.length).toBe(6)
+    // currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
+    expect(widgets.length).toBe(7)
     const sectRelationsWidget = widgets[4]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
+  })
+
+  it('should render dynasty StatusWidget', () => {
+    const wrapper = mount(StatusBar, globalConfig)
+
+    const widgets = wrapper.findAll('.status-widget-stub')
+    const dynastyWidget = widgets[6]
+    expect(dynastyWidget.attributes('data-label')).toBe('game.dynasty.title_short')
   })
 })

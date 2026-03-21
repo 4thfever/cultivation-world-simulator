@@ -29,3 +29,12 @@ msgid ""
 "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
 msgstr ""
 "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+
+msgid "{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as emperor."
+msgstr "{dynasty_title} has enthroned a new ruler: {emperor_name} ascends as emperor."
+
+msgid "Emperor {emperor_name} of {dynasty_title} has passed away at the age of {age}."
+msgstr "Emperor {emperor_name} of {dynasty_title} has passed away at the age of {age}."
+
+msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
+msgstr "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."

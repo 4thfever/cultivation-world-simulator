@@ -102,6 +102,9 @@ class Simulator:
         # 16. 更新城市人口
         world_phases.phase_update_city_population(self.world)
 
+        # 16.5 更新王朝皇帝状态
+        ctx.add_events(world_phases.phase_update_dynasty(self.world))
+
         # 17. 再次按事件处理交互（包含后续新事件）
         # 第二轮只处理本月后半程新增的互动事件。
         # 由于关系演化已在前面执行，这些新增互动会影响下个月的关系判定。

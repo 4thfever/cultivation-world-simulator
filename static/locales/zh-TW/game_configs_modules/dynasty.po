@@ -1,0 +1,109 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 00:00+0000\n"
+"PO-Revision-Date: 2026-03-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-TW\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. dynasty.csv: DYNASTY_QIN_NAME
+msgid "DYNASTY_QIN_NAME"
+msgstr "秦"
+
+#. dynasty.csv: DYNASTY_QIN_DESC
+msgid "DYNASTY_QIN_DESC"
+msgstr "尚法重軍，朝綱嚴整，凡俗秩序如鐵。"
+
+#. dynasty.csv: DYNASTY_JIN_NAME
+msgid "DYNASTY_JIN_NAME"
+msgstr "晉"
+
+#. dynasty.csv: DYNASTY_JIN_DESC
+msgid "DYNASTY_JIN_DESC"
+msgstr "門第森然，士族清談，朝野重禮而尚名教。"
+
+#. dynasty.csv: DYNASTY_SONG_NAME
+msgid "DYNASTY_SONG_NAME"
+msgstr "宋"
+
+#. dynasty.csv: DYNASTY_SONG_DESC
+msgid "DYNASTY_SONG_DESC"
+msgstr "重文輕武，典章繁密，民間書院興盛。"
+
+#. dynasty.csv: DYNASTY_LIANG_NAME
+msgid "DYNASTY_LIANG_NAME"
+msgstr "梁"
+
+#. dynasty.csv: DYNASTY_LIANG_DESC
+msgid "DYNASTY_LIANG_DESC"
+msgstr "宮廷清雅，士風浮麗，兼容並蓄而多機變。"
+
+#. dynasty.csv: DYNASTY_CHU_NAME
+msgid "DYNASTY_CHU_NAME"
+msgstr "楚"
+
+#. dynasty.csv: DYNASTY_CHU_DESC
+msgid "DYNASTY_CHU_DESC"
+msgstr "地廣俗雜，巫風猶存，邊地豪強並起。"
+
+#. dynasty.csv: DYNASTY_QI_NAME
+msgid "DYNASTY_QI_NAME"
+msgstr "齊"
+
+#. dynasty.csv: DYNASTY_QI_DESC
+msgid "DYNASTY_QI_DESC"
+msgstr "工商富庶，沿海通達，朝廷善於聚斂調度。"
+
+#. dynasty.csv: DYNASTY_YAN_NAME
+msgid "DYNASTY_YAN_NAME"
+msgstr "燕"
+
+#. dynasty.csv: DYNASTY_YAN_DESC
+msgid "DYNASTY_YAN_DESC"
+msgstr "北地苦寒，尚武守邊，朝廷風格沉毅。"
+
+#. dynasty.csv: DYNASTY_ZHAO_NAME
+msgid "DYNASTY_ZHAO_NAME"
+msgstr "趙"
+
+#. dynasty.csv: DYNASTY_ZHAO_DESC
+msgid "DYNASTY_ZHAO_DESC"
+msgstr "騎射成俗，軍政並重，邊鎮氣息濃厚。"
+
+#. dynasty.csv: DYNASTY_WEI_NAME
+msgid "DYNASTY_WEI_NAME"
+msgstr "魏"
+
+#. dynasty.csv: DYNASTY_WEI_DESC
+msgid "DYNASTY_WEI_DESC"
+msgstr "法度明密，君權強盛，百官運轉高效。"
+
+#. dynasty.csv: DYNASTY_HAN_NAME
+msgid "DYNASTY_HAN_NAME"
+msgstr "韓"
+
+#. dynasty.csv: DYNASTY_HAN_DESC
+msgid "DYNASTY_HAN_DESC"
+msgstr "國勢雖不張揚，卻重實務與基層治理。"
+
+#. dynasty.csv: DYNASTY_WU_NAME
+msgid "DYNASTY_WU_NAME"
+msgstr "吳"
+
+#. dynasty.csv: DYNASTY_WU_DESC
+msgid "DYNASTY_WU_DESC"
+msgstr "水網縱橫，商旅頻繁，朝廷善用舟楫之利。"
+
+#. dynasty.csv: DYNASTY_YUE_NAME
+msgid "DYNASTY_YUE_NAME"
+msgstr "越"
+
+#. dynasty.csv: DYNASTY_YUE_DESC
+msgid "DYNASTY_YUE_DESC"
+msgstr "山澤深密，民風堅忍，朝廷善守而後發。"

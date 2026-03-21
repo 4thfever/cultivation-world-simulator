@@ -1,4 +1,5 @@
 from src.classes.core.sect import reload as reload_sects, sects_by_id
+from src.classes.core.dynasty import reload as reload_dynasties
 from src.classes.technique import reload as reload_techniques, techniques_by_id
 from src.classes.items.weapon import reload as reload_weapons, weapons_by_id
 from src.classes.items.auxiliary import reload as reload_auxiliaries, auxiliaries_by_id
@@ -31,6 +32,7 @@ def reload_all_static_data():
     # 2. 重新加载各模块数据
     # 注意顺序：有些模块可能依赖其他模块（如功法可能依赖宗门ID，虽通常只有弱引用）
     reload_sects()
+    reload_dynasties()
     reload_techniques()
     reload_weapons() 
     reload_auxiliaries()

@@ -355,6 +355,24 @@ export interface MortalOverviewResponseDTO {
   tracked_mortals: TrackedMortalDTO[];
 }
 
+export interface DynastyOverviewResponseDTO {
+  name: string;
+  title: string;
+  royal_surname: string;
+  royal_house_name: string;
+  desc: string;
+  effect_desc: string;
+  is_low_magic: boolean;
+  current_emperor?: {
+    name: string;
+    surname: string;
+    given_name: string;
+    age: number;
+    max_age: number;
+    is_mortal: boolean;
+  } | null;
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = AppLocale | string;
 

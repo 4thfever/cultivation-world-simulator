@@ -122,6 +122,28 @@
       "unknown_region": "未知"
     }
   },
+  "dynasty": {
+    "title_short": "[王朝]",
+    "title": "王朝",
+    "name": "王朝名",
+    "royal_house": "皇族",
+    "effect": "王朝效果",
+    "effect_empty": "当前暂无王朝效果。待官职系统与后续逻辑接入后补充。",
+    "low_magic": "凡人王朝",
+    "empty": "暂无王朝数据",
+    "emperor": {
+      "title": "当朝皇帝",
+      "name": "姓名",
+      "age": "年龄",
+      "lifespan": "寿元",
+      "identity": "身份",
+      "mortal": "凡人",
+      "empty": "暂无皇帝数据"
+    },
+    "summary": {
+      "title": "王朝概览"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "效果：",

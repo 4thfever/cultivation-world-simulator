@@ -20,6 +20,7 @@ from src.classes.war import SectWar, STATUS_PEACE, STATUS_WAR
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
     from src.classes.celestial_phenomenon import CelestialPhenomenon
+    from src.classes.core.dynasty import Dynasty
     from src.classes.core.sect import Sect
 
 
@@ -34,6 +35,8 @@ class World():
     event_manager: EventManager = field(default_factory=EventManager)
     # 当前天地灵机（世界级buff/debuff）
     current_phenomenon: Optional["CelestialPhenomenon"] = None
+    # 当前王朝（凡人王朝）
+    dynasty: Optional["Dynasty"] = None
     # 天地灵机开始年份（用于计算持续时间）
     phenomenon_start_year: int = 0
     # 出世物品流通管理器

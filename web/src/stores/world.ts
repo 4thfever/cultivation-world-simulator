@@ -9,6 +9,7 @@ import { useAvatarStore } from './avatar';
 import { useEventStore } from './event';
 import { useSectStore } from './sect';
 import { useMortalStore } from './mortal';
+import { useDynastyStore } from './dynasty';
 
 export const useWorldStore = defineStore('world', () => {
   const mapStore = useMapStore();
@@ -16,6 +17,7 @@ export const useWorldStore = defineStore('world', () => {
   const eventStore = useEventStore();
   const sectStore = useSectStore();
   const mortalStore = useMortalStore();
+  const dynastyStore = useDynastyStore();
 
   const year = ref(0);
   const month = ref(0);
@@ -134,6 +136,7 @@ export const useWorldStore = defineStore('world', () => {
     eventStore.reset();
     sectStore.reset();
     mortalStore.reset();
+    dynastyStore.reset();
     mapStore.reset();
   }
 

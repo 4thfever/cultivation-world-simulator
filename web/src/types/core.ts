@@ -317,6 +317,24 @@ export interface MortalOverview {
   tracked_mortals: TrackedMortalInfo[];
 }
 
+export interface DynastyOverview {
+  name: string;
+  title: string;
+  royal_surname: string;
+  royal_house_name: string;
+  desc: string;
+  effect_desc: string;
+  is_low_magic: boolean;
+  current_emperor: {
+    name: string;
+    surname: string;
+    given_name: string;
+    age: number;
+    max_age: number;
+    is_mortal: boolean;
+  } | null;
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {

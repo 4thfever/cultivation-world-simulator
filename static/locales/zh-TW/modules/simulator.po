@@ -28,3 +28,12 @@ msgstr "，賣掉舊{label}『{old_name}』"
 msgid ""
 "{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
 msgstr "{avatar_name} 路過 {region_name}，發現無主，將其佔據。"
+
+msgid "{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as emperor."
+msgstr "{dynasty_title}尊立新君，{emperor_name} 登極稱帝。"
+
+msgid "Emperor {emperor_name} of {dynasty_title} has passed away at the age of {age}."
+msgstr "{dynasty_title}皇帝 {emperor_name} 駕崩，享年 {age} 歲。"
+
+msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
+msgstr "{dynasty_title}新帝即位，{emperor_name} 承繼大統。"

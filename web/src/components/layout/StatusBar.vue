@@ -10,6 +10,7 @@ import RankingModal from '../game/panels/RankingModal.vue'
 import TournamentModal from '../game/panels/TournamentModal.vue'
 import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
+import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 
 const { t } = useI18n()
 const store = useWorldStore()
@@ -20,6 +21,7 @@ const showRankingModal = ref(false)
 const showTournamentModal = ref(false)
 const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
+const showDynastyOverviewModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon;
@@ -125,6 +127,14 @@ async function handleSelect(id: number, name: string) {
         :disable-popover="true"
         @trigger-click="showMortalOverviewModal = true"
       />
+
+      <StatusWidget
+        :label="t('game.dynasty.title_short')"
+        color="#d46b08"
+        mode="single"
+        :disable-popover="true"
+        @trigger-click="showDynastyOverviewModal = true"
+      />
     </div>
 
     <!-- 榜单 Modal -->
@@ -138,6 +148,9 @@ async function handleSelect(id: number, name: string) {
 
     <!-- 凡人系统 Modal -->
     <MortalOverviewModal v-model:show="showMortalOverviewModal" />
+
+    <!-- 王朝系统 Modal -->
+    <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
 
     <!-- 天象选择器 Modal -->
     <n-modal
