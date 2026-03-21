@@ -38,3 +38,6 @@ msgstr "Hoàng đế {emperor_name} của {dynasty_title} băng hà, hưởng th
 
 msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
 msgstr "Tân đế của {dynasty_title} đã kế vị: {emperor_name} tiếp nhận đại thống."
+
+msgid "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}."
+msgstr "{avatar} đã lơ là chính vụ quá lâu, uy vọng triều đình suy giảm, bị giáng từ {old_rank} xuống {new_rank}."

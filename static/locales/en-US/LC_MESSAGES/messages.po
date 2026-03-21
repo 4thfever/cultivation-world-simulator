@@ -336,6 +336,17 @@ msgstr ""
 msgid "educate_requirements"
 msgstr "Requires Confucian orthodoxy and being in a City"
 
+msgid "govern_action_name"
+msgstr "Govern"
+
+msgid "govern_description"
+msgstr ""
+"Handle administrative affairs for the court in a city to gain court "
+"reputation and salary."
+
+msgid "govern_requirements"
+msgstr "Must be in a City; lasts three months."
+
 msgid "excellent progress"
 msgstr "excellent progress"
 
@@ -450,6 +461,9 @@ msgstr "{avatar} begins attempting to refine {realm}-tier elixir"
 msgid "{avatar} begins educating people in {city}."
 msgstr "{avatar} begins educating people in {city}."
 
+msgid "{avatar} begins governing in {city}."
+msgstr "{avatar} begins governing in {city}."
+
 msgid "{avatar} begins tempering body strength"
 msgstr "{avatar} begins tempering body strength"
 
@@ -458,6 +472,30 @@ msgstr "{avatar} completed meditation with a peaceful mind."
 
 msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
 msgstr "{avatar} finished educating people. Merit accumulated (+{exp})."
+
+msgid ""
+"{avatar} governed effectively in {city}. Court reputation +{reputation}, "
+"salary +{salary} spirit stones."
+msgstr ""
+"{avatar} governed effectively in {city}. Court reputation +{reputation}, "
+"salary +{salary} spirit stones."
+
+msgid ""
+"{avatar} was promoted from {old_rank} to {new_rank} for distinguished "
+"governance."
+msgstr ""
+"{avatar} was promoted from {old_rank} to {new_rank} for distinguished "
+"governance."
+
+msgid "{avatar} was governing in {city}."
+msgstr "{avatar} was governing in {city}."
+
+msgid ""
+"{avatar} completed a round of governance, and new ripples spread through "
+"court and countryside."
+msgstr ""
+"{avatar} completed a round of governance, and new ripples spread through "
+"court and countryside."
 
 msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
 msgstr "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
@@ -470,6 +508,9 @@ msgstr "{avatar} successfully refined {realm}-tier elixir '{item}'"
 
 msgid "{initiator} invites {target} for dual cultivation"
 msgstr "{initiator} invites {target} for dual cultivation"
+
+msgid "Must be in a City to govern."
+msgstr "Must be in a City to govern."
 
 msgid "bought"
 msgstr "bought"
@@ -1196,6 +1237,9 @@ msgstr "West"
 msgid "Sect [{name}]"
 msgstr "Sect [{name}]"
 
+msgid "Official Rank [{name}]"
+msgstr "Official Rank [{name}]"
+
 msgid "Special effect (dynamic)"
 msgstr "Special effect (dynamic)"
 
@@ -1265,6 +1309,9 @@ msgstr "Education Efficiency"
 
 msgid "effect_extra_educate_population_prob"
 msgstr "Education Population Growth Probability"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "Governance Reputation Gain"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"
@@ -2998,6 +3045,13 @@ msgid ""
 msgstr ""
 "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the "
 "throne."
+
+msgid ""
+"{avatar} neglected governance for too long, losing court reputation and "
+"falling from {old_rank} to {new_rank}."
+msgstr ""
+"{avatar} neglected governance for too long, losing court reputation and "
+"falling from {old_rank} to {new_rank}."
 
 # Single choice - context and options
 msgid ""

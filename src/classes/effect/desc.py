@@ -45,6 +45,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_epiphany_probability": "effect_extra_epiphany_probability",
         "extra_educate_efficiency": "effect_extra_educate_efficiency",
         "extra_educate_population_prob": "effect_extra_educate_population_prob",
+        "extra_govern_reputation_gain_multiplier": "effect_extra_govern_reputation_gain_multiplier",
         "extra_temper_exp_multiplier": "effect_extra_temper_exp_multiplier",
         "extra_income_per_tile": "effect_extra_income_per_tile",
     }

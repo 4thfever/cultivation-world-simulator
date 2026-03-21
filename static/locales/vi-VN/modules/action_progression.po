@@ -69,6 +69,15 @@ msgstr ""
 msgid "educate_requirements"
 msgstr "Yêu cầu đạo thống Nho gia và đang ở trong thành"
 
+msgid "govern_action_name"
+msgstr "Trị Chính"
+
+msgid "govern_description"
+msgstr "Xử lý chính vụ cho triều đình trong thành để nhận uy vọng triều đình và bổng lộc."
+
+msgid "govern_requirements"
+msgstr "Phải ở trong thành; kéo dài ba tháng."
+
 msgid "excellent progress"
 msgstr "tiến cảnh khá tốt"
 
@@ -182,6 +191,9 @@ msgstr "{avatar} bắt đầu thử luyện chế đan dược bậc {realm}"
 msgid "{avatar} begins educating people in {city}."
 msgstr "{avatar} bắt đầu giáo hóa bách tính tại {city}."
 
+msgid "{avatar} begins governing in {city}."
+msgstr "{avatar} bắt đầu trị chính tại {city}."
+
 msgid "{avatar} begins tempering body strength"
 msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
 
@@ -190,6 +202,18 @@ msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."
 
 msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
 msgstr "{avatar} hoàn tất giáo hóa. Công đức tích lũy (+{exp})."
+
+msgid "{avatar} governed effectively in {city}. Court reputation +{reputation}, salary +{salary} spirit stones."
+msgstr "{avatar} trị chính hiệu quả tại {city}. Uy vọng triều đình +{reputation}, bổng lộc +{salary} linh thạch."
+
+msgid "{avatar} was promoted from {old_rank} to {new_rank} for distinguished governance."
+msgstr "{avatar} nhờ chính tích nổi bật mà được thăng từ {old_rank} lên {new_rank}."
+
+msgid "{avatar} was governing in {city}."
+msgstr "{avatar} đang trị chính tại {city}."
+
+msgid "{avatar} completed a round of governance, and new ripples spread through court and countryside."
+msgstr "{avatar} hoàn tất một vòng trị chính, khiến triều dã và dân gian dấy lên làn sóng mới."
 
 msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
 msgstr ""
@@ -203,3 +227,6 @@ msgstr "{avatar} đã thành công luyện chế đan dược bậc {realm} '{it
 
 msgid "{initiator} invites {target} for dual cultivation"
 msgstr "{initiator} mời {target} cùng tiến hành song tu"
+
+msgid "Must be in a City to govern."
+msgstr "Phải ở trong thành mới có thể trị chính."

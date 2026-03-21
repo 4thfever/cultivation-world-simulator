@@ -42,6 +42,7 @@ from .mine import Mine
 from .retreat import Retreat
 from .meditate import Meditate
 from .educate import Educate
+from .govern import Govern
 from .temper import Temper
 from .plant import Plant
 
@@ -85,6 +86,7 @@ register_action(actual=True)(Mine)
 register_action(actual=True)(Retreat)
 register_action(actual=True)(Meditate)
 register_action(actual=True)(Educate)
+register_action(actual=True)(Govern)
 register_action(actual=True)(Temper)
 register_action(actual=True)(Plant)
 # Talk 已移动到 mutual_action 模块，在那里注册
@@ -131,6 +133,7 @@ __all__ = [
     "Retreat",
     "Meditate",
     "Educate",
+    "Govern",
     "Temper",
     "Plant",
 ]

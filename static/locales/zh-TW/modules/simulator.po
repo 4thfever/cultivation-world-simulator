@@ -37,3 +37,6 @@ msgstr "{dynasty_title}皇帝 {emperor_name} 駕崩，享年 {age} 歲。"
 
 msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
 msgstr "{dynasty_title}新帝即位，{emperor_name} 承繼大統。"
+
+msgid "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}."
+msgstr "{avatar} 久不理政，朝廷威望下滑，從{old_rank}降為{new_rank}。"

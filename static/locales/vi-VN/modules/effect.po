@@ -16,6 +16,9 @@ msgstr ""
 msgid "Sect [{name}]"
 msgstr "Tông môn [{name}]"
 
+msgid "Official Rank [{name}]"
+msgstr "Quan chức [{name}]"
+
 msgid "Special effect (dynamic)"
 msgstr "Hiệu ứng đặc biệt (động)"
 
@@ -85,6 +88,9 @@ msgstr "Hiệu suất giáo hóa"
 
 msgid "effect_extra_educate_population_prob"
 msgstr "Xác suất tăng độ phồn vinh khi giáo hóa"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "Tăng uy vọng khi trị chính"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Xác suất đốn ngộ"

@@ -16,6 +16,9 @@ msgstr ""
 msgid "Sect [{name}]"
 msgstr "宗门【{name}】"
 
+msgid "Official Rank [{name}]"
+msgstr "官职【{name}】"
+
 msgid "Special effect (dynamic)"
 msgstr "特殊效果（动态）"
 
@@ -85,6 +88,9 @@ msgstr "教化效率"
 
 msgid "effect_extra_educate_population_prob"
 msgstr "教化人口增长概率"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "理政威望获取"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "顿悟概率"

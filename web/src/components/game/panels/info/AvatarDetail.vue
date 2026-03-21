@@ -209,6 +209,11 @@ async function handleClearObjective() {
           :sub-value="data.sect?.rank"
           :on-click="data.sect ? () => jumpToSect(data.sect!.id) : (data.orthodoxy ? () => showDetail(data.orthodoxy) : undefined)"
         />
+        <StatItem
+          :label="t('game.info_panel.avatar.stats.official_rank')"
+          :value="data.official_rank || t('common.none')"
+          :sub-value="data.court_reputation !== undefined ? `${t('game.info_panel.avatar.stats.court_reputation')} ${data.court_reputation}` : undefined"
+        />
         
         <StatItem 
           :label="t('game.info_panel.avatar.stats.root')" 

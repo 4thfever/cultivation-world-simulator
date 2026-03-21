@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Any, Dict
+from src.classes.official_rank import get_dynasty_preference_label
 
 
 def build_dynasty_overview(world: Any) -> Dict[str, Any]:
@@ -14,6 +15,8 @@ def build_dynasty_overview(world: Any) -> Dict[str, Any]:
             "royal_house_name": "",
             "desc": "",
             "effect_desc": "",
+            "style_tag": "",
+            "official_preference_label": "",
             "is_low_magic": True,
             "current_emperor": None,
         }
@@ -37,6 +40,8 @@ def build_dynasty_overview(world: Any) -> Dict[str, Any]:
         "royal_house_name": str(getattr(dynasty, "royal_house_name", "") or ""),
         "desc": str(getattr(dynasty, "desc", "") or ""),
         "effect_desc": str(getattr(dynasty, "effect_desc", "") or ""),
+        "style_tag": str(getattr(dynasty, "style_tag", "") or ""),
+        "official_preference_label": get_dynasty_preference_label(dynasty),
         "is_low_magic": bool(getattr(dynasty, "is_low_magic", True)),
         "current_emperor": emperor_data,
     }

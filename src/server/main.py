@@ -1230,6 +1230,8 @@ def get_dynasty_overview():
             "royal_house_name": "",
             "desc": "",
             "effect_desc": "",
+            "style_tag": "",
+            "official_preference_label": "",
             "is_low_magic": True,
         }
 

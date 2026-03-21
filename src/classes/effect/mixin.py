@@ -132,6 +132,11 @@ class EffectsMixin:
             
         if self.root:
             _collect(t("Spirit Root"), source_obj=self.root)
+
+        from src.classes.official_rank import OFFICIAL_NONE, get_official_effects, get_official_rank_name
+        if getattr(self, "official_rank", OFFICIAL_NONE) != OFFICIAL_NONE:
+            label = t("Official Rank [{name}]", name=get_official_rank_name(self.official_rank))
+            _collect(label, explicit_effects=get_official_effects(self.official_rank))
             
         for p in self.personas:
             label = t("Trait [{name}]", name=p.name)

@@ -61,6 +61,15 @@ msgstr "儒門修煉，在城市中教化世人，積累功德氣運。"
 msgid "educate_requirements"
 msgstr "需要儒家道統，且身處城市"
 
+msgid "govern_action_name"
+msgstr "理政"
+
+msgid "govern_description"
+msgstr "在城市中為朝廷處理政務，獲取朝廷威望與俸祿。"
+
+msgid "govern_requirements"
+msgstr "需身處城市，持續三個月。"
+
 msgid "excellent progress"
 msgstr "進境頗佳"
 
@@ -166,6 +175,9 @@ msgstr "{avatar} 開始嘗試煉製{realm}階丹藥"
 msgid "{avatar} begins educating people in {city}."
 msgstr "{avatar} 開始在 {city} 教化百姓。"
 
+msgid "{avatar} begins governing in {city}."
+msgstr "{avatar} 開始在 {city} 理政。"
+
 msgid "{avatar} begins tempering body strength"
 msgstr "{avatar} 開始打熬氣力"
 
@@ -174,6 +186,18 @@ msgstr "{avatar} 完成了禪定，心境平和。"
 
 msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
 msgstr "{avatar} 完成了教化，功德積累 (+{exp})。"
+
+msgid "{avatar} governed effectively in {city}. Court reputation +{reputation}, salary +{salary} spirit stones."
+msgstr "{avatar} 在 {city} 理政有成，朝廷威望 +{reputation}，俸祿 +{salary} 靈石。"
+
+msgid "{avatar} was promoted from {old_rank} to {new_rank} for distinguished governance."
+msgstr "{avatar} 因政績卓著，由{old_rank}升為{new_rank}。"
+
+msgid "{avatar} was governing in {city}."
+msgstr "{avatar} 在 {city} 理政。"
+
+msgid "{avatar} completed a round of governance, and new ripples spread through court and countryside."
+msgstr "{avatar} 完成了一輪理政，朝野間生出新的波瀾。"
 
 msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
 msgstr "{avatar} 療傷完成（本次恢復{amount}點，當前HP {hp}）"
@@ -186,3 +210,6 @@ msgstr "{avatar} 成功煉製{realm}階丹藥『{item}』"
 
 msgid "{initiator} invites {target} for dual cultivation"
 msgstr "{initiator} 邀請 {target} 進行雙修"
+
+msgid "Must be in a City to govern."
+msgstr "需身處城市方可理政。"

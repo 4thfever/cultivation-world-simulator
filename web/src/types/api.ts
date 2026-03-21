@@ -362,6 +362,8 @@ export interface DynastyOverviewResponseDTO {
   royal_house_name: string;
   desc: string;
   effect_desc: string;
+  style_tag: string;
+  official_preference_label: string;
   is_low_magic: boolean;
   current_emperor?: {
     name: string;

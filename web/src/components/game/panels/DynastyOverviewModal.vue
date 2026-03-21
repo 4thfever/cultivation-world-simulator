@@ -18,6 +18,11 @@ const dynastyStore = useDynastyStore()
 const overview = computed(() => dynastyStore.overview)
 const hasOverview = computed(() => Boolean(overview.value.name))
 const emperor = computed(() => overview.value.current_emperor)
+const effectLines = computed(() => {
+  const text = overview.value.effect_desc || ''
+  if (!text) return []
+  return text.split(/[;\n；]/).map((line) => line.trim()).filter(Boolean)
+})
 
 function handleShowChange(value: boolean) {
   emit('update:show', value)
@@ -68,6 +73,14 @@ watch(
                 <div class="info-label">{{ t('game.dynasty.royal_house') }}</div>
                 <div class="info-value">{{ overview.royal_house_name || overview.royal_surname }}</div>
               </div>
+              <div class="info-card">
+                <div class="info-label">{{ t('game.dynasty.style_tag') }}</div>
+                <div class="info-value">{{ overview.style_tag || t('common.none') }}</div>
+              </div>
+              <div class="info-card">
+                <div class="info-label">{{ t('game.dynasty.official_preference') }}</div>
+                <div class="info-value">{{ overview.official_preference_label || t('common.none') }}</div>
+              </div>
             </div>
           </section>
 
@@ -98,8 +111,16 @@ watch(
 
           <section class="section">
             <div class="section-title">{{ t('game.dynasty.effect') }}</div>
-            <div class="effect-card">
-              {{ overview.effect_desc || t('game.dynasty.effect_empty') }}
+            <div v-if="effectLines.length" class="effect-card">
+              <div class="effects-grid">
+                <template v-for="(line, idx) in effectLines" :key="idx">
+                  <div class="effect-source">{{ t('game.dynasty.effect_source') }}</div>
+                  <div class="effect-content">{{ line }}</div>
+                </template>
+              </div>
+            </div>
+            <div v-else class="effect-card">
+              {{ t('game.dynasty.effect_empty') }}
             </div>
           </section>
         </template>
@@ -198,6 +219,22 @@ watch(
 .effect-card {
   color: #d9d9d9;
   line-height: 1.7;
+}
+
+.effects-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  align-items: baseline;
+}
+
+.effect-source {
+  color: #8c8c8c;
+  white-space: nowrap;
+}
+
+.effect-content {
+  color: #d9d9d9;
 }
 
 .emperor-tag {

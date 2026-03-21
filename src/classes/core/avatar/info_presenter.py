@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 from src.systems.battle import get_base_strength
 from src.classes.relation.relation import get_relation_label
 from src.classes.emotions import EMOTION_EMOJIS, EmotionType
+from src.classes.official_rank import OFFICIAL_NONE
 from src.utils.config import CONFIG
 
 
@@ -173,6 +174,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "alignment": str(avatar.alignment) if avatar.alignment else t("Unknown"),
         "magic_stone": avatar.magic_stone.value,
         "base_battle_strength": int(get_base_strength(avatar)),
+        "official_rank": avatar.get_official_rank_name(),
+        "court_reputation": int(getattr(avatar, "court_reputation", 0) or 0),
+        "is_official": bool(getattr(avatar, "official_rank", OFFICIAL_NONE) != OFFICIAL_NONE),
         "emotion": {
             "name": t(avatar.emotion.value),
             "emoji": emoji,

@@ -16,6 +16,9 @@ msgstr ""
 msgid "Sect [{name}]"
 msgstr "Sect [{name}]"
 
+msgid "Official Rank [{name}]"
+msgstr "Official Rank [{name}]"
+
 msgid "Special effect (dynamic)"
 msgstr "Special effect (dynamic)"
 
@@ -85,6 +88,9 @@ msgstr "Education Efficiency"
 
 msgid "effect_extra_educate_population_prob"
 msgstr "Education Population Growth Probability"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "Governance Reputation Gain"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "Epiphany Probability"

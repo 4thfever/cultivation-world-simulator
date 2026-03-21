@@ -12,6 +12,8 @@ function createEmptyOverview(): DynastyOverview {
     royal_house_name: '',
     desc: '',
     effect_desc: '',
+    style_tag: '',
+    official_preference_label: '',
     is_low_magic: true,
     current_emperor: null,
   }

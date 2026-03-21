@@ -38,3 +38,6 @@ msgstr "Emperor {emperor_name} of {dynasty_title} has passed away at the age of 
 
 msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
 msgstr "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the throne."
+
+msgid "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}."
+msgstr "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}."

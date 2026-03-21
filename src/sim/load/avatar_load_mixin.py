@@ -152,6 +152,10 @@ class AvatarLoadMixin:
         # 重建personas
         persona_ids = data.get("persona_ids", [])
         avatar.personas = [personas_by_id[pid] for pid in persona_ids if pid in personas_by_id]
+        avatar.official_rank = str(data.get("official_rank", "NONE") or "NONE")
+        avatar.court_reputation = int(data.get("court_reputation", 0) or 0)
+        last_governance_month = data.get("last_governance_month")
+        avatar.last_governance_month = int(last_governance_month) if last_governance_month is not None else None
         
         # 设置外貌（通过level获取完整的Appearance对象）
         avatar.appearance = get_appearance_by_level(data.get("appearance", 5))

@@ -40,6 +40,7 @@ from src.classes.spirit_animal import SpiritAnimal
 from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
 from src.classes.emotions import EmotionType
+from src.classes.official_rank import OFFICIAL_NONE
 from src.utils.config import CONFIG
 from src.classes.items.elixir import ConsumedElixir, Elixir
 from src.classes.avatar_metrics import AvatarMetrics
@@ -105,6 +106,9 @@ class Avatar(
     emotion: EmotionType = EmotionType.CALM
     custom_pic_id: Optional[int] = None
     luck_base: float = 0.0
+    official_rank: str = OFFICIAL_NONE
+    court_reputation: int = 0
+    last_governance_month: Optional[int] = None
     
     elixirs: List[ConsumedElixir] = field(default_factory=list)
     # 临时效果列表: [{"source": str, "effects": dict, "start_month": int, "duration": int}]
@@ -290,6 +294,10 @@ class Avatar(
             return t("Rogue Cultivator")
         from src.classes.sect_ranks import get_rank_display_name
         return get_rank_display_name(self.sect_rank, self.sect)
+
+    def get_official_rank_name(self) -> str:
+        from src.classes.official_rank import get_official_rank_name
+        return get_official_rank_name(self.official_rank)
 
     # ========== 死亡相关 ==========
 

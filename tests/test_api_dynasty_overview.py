@@ -14,6 +14,8 @@ def test_get_dynasty_overview_empty_when_world_missing():
         data = resp.json()
         assert data["name"] == ""
         assert data["royal_surname"] == ""
+        assert data["style_tag"] == ""
+        assert data["official_preference_label"] == ""
         assert data["is_low_magic"] is True
     finally:
         main.game_instance.update(original_instance)
@@ -29,6 +31,9 @@ def test_get_dynasty_overview_returns_world_dynasty(base_world):
             royal_surname="司马",
             effect_desc="",
             effects={},
+            style_tag="清谈名教",
+            official_preference_type="orthodoxy",
+            official_preference_value="confucianism",
             current_emperor=Emperor(
                 surname="司马",
                 given_name="承安",
@@ -50,6 +55,8 @@ def test_get_dynasty_overview_returns_world_dynasty(base_world):
         assert data["royal_house_name"] == "司马氏"
         assert data["desc"] == "门第森然，士族清谈，朝野重礼而尚名教。"
         assert data["effect_desc"] == ""
+        assert data["style_tag"] == "清谈名教"
+        assert data["official_preference_label"] == "偏好儒家修士"
         assert data["is_low_magic"] is True
         assert data["current_emperor"]["name"] == "司马承安"
         assert data["current_emperor"]["age"] == 34

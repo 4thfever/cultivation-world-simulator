@@ -69,6 +69,9 @@ export interface AvatarDetail extends EntityBase {
   hp: { cur: number; max: number };
   observation_radius?: number;
   luck: number;
+  official_rank?: string;
+  court_reputation?: number;
+  is_official?: boolean;
   magic_stone: number;
   base_battle_strength: number;
   ranking?: { type: string; rank: number };
@@ -324,6 +327,8 @@ export interface DynastyOverview {
   royal_house_name: string;
   desc: string;
   effect_desc: string;
+  style_tag: string;
+  official_preference_label: string;
   is_low_magic: boolean;
   current_emperor: {
     name: string;

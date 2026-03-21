@@ -4,6 +4,7 @@ from src.classes.action.respire import Respire
 from src.classes.action.meditate import Meditate
 from src.classes.action.temper import Temper
 from src.classes.action.educate import Educate
+from src.classes.action.govern import Govern
 from src.classes.action.devour_people import DevourPeople
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.help_people import HelpPeople
@@ -82,6 +83,10 @@ def test_devour_people_can_possibly_start(dummy_avatar, base_world):
         # legal_actions contains DevourPeople -> True
         mock_effects.return_value = {"legal_actions": ["DevourPeople"]}
         assert action.can_possibly_start() is True
+
+def test_govern_can_possibly_start(dummy_avatar, base_world):
+    action = Govern(dummy_avatar, base_world)
+    assert action.can_possibly_start() is True
 
 def test_plunder_people_can_possibly_start(dummy_avatar, base_world):
     action = PlunderPeople(dummy_avatar, base_world)

@@ -104,6 +104,7 @@ class Simulator:
 
         # 16.5 更新王朝皇帝状态
         ctx.add_events(world_phases.phase_update_dynasty(self.world))
+        ctx.add_events(world_phases.phase_update_official_system(self.world, ctx.living_avatars))
 
         # 17. 再次按事件处理交互（包含后续新事件）
         # 第二轮只处理本月后半程新增的互动事件。

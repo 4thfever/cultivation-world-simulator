@@ -78,3 +78,7 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 1005,PERSONA_1005_NAME,PERSONA_1005_DESC,TRAVELER,游历者,HOMEBODY,读万卷书不如行万里路。,R,,
 1006,PERSONA_1006_NAME,PERSONA_1006_DESC,CHESS_PLAYER,棋痴,,善弈者长生。,R,,
 1007,PERSONA_1007_NAME,PERSONA_1007_DESC,FARMER,灵农,,你出身底层，对灵植种植颇有心得，能靠种田获得更多灵石。,R,,{extra_plant_income: 50}
+1008,,,SECLUDED,出世,INTO_WORLD;ORTHODOX_GENTLEMAN,你疏离尘世，不喜卷入凡俗权柄与庙堂机务。,R,,
+1009,,,RECLUSIVE_CULTIVATOR,山泽孤修,INTO_WORLD;ORTHODOX_GENTLEMAN,你惯于山泽独修，最厌与朝廷往来。,SR,,
+1010,,,INTO_WORLD,入世,SECLUDED;RECLUSIVE_CULTIVATOR,你愿意踏入尘世，以凡俗事务磨砺自身与名望。,R,,
+1011,,,ORTHODOX_GENTLEMAN,名教中人,SECLUDED;RECLUSIVE_CULTIVATOR,你崇尚名教秩序，乐于以文章教化与政务匡世。,SR,,

@@ -9,6 +9,8 @@ export function normalizeDynastyOverview(input: DynastyOverviewResponseDTO | nul
     royal_house_name: String(input?.royal_house_name ?? ''),
     desc: String(input?.desc ?? ''),
     effect_desc: String(input?.effect_desc ?? ''),
+    style_tag: String(input?.style_tag ?? ''),
+    official_preference_label: String(input?.official_preference_label ?? ''),
     is_low_magic: Boolean(input?.is_low_magic ?? true),
     current_emperor: input?.current_emperor
       ? {

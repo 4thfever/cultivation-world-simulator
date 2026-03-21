@@ -13,6 +13,13 @@ from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.systems.sect_random_event import try_trigger_sect_random_event
 from src.systems.time import Month
 from src.systems.dynasty_generator import generate_emperor
+from src.classes.official_rank import (
+    OFFICIAL_NONE,
+    apply_official_reputation_delta,
+    get_monthly_reputation_decay,
+    get_official_rank_name,
+    resolve_rank_changes,
+)
 
 
 def phase_update_perception_and_knowledge(world, living_avatars: list[Avatar]) -> list[Event]:
@@ -223,4 +230,42 @@ def phase_update_dynasty(world) -> list[Event]:
             )
         )
 
+    return events
+
+
+def phase_update_official_system(world, living_avatars: list[Avatar]) -> list[Event]:
+    events: list[Event] = []
+    current_month = int(world.month_stamp)
+    for avatar in living_avatars:
+        rank_key = str(getattr(avatar, "official_rank", OFFICIAL_NONE) or OFFICIAL_NONE)
+        if rank_key == OFFICIAL_NONE:
+            continue
+        last_governance_month = getattr(avatar, "last_governance_month", None)
+        if last_governance_month is None:
+            continue
+        if current_month - int(last_governance_month) <= 6:
+            continue
+
+        decay = get_monthly_reputation_decay(rank_key)
+        if decay <= 0:
+            continue
+
+        old_rank = rank_key
+        apply_official_reputation_delta(avatar, -decay)
+        _old_rank, new_rank = resolve_rank_changes(avatar)
+        if new_rank != old_rank:
+            avatar.recalc_effects()
+            events.append(
+                Event(
+                    month_stamp=world.month_stamp,
+                    content=t(
+                        "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}.",
+                        avatar=avatar.name,
+                        old_rank=get_official_rank_name(old_rank),
+                        new_rank=get_official_rank_name(new_rank),
+                    ),
+                    related_avatars=[avatar.id],
+                    is_major=True,
+                )
+            )
     return events

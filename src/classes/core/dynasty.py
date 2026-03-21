@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from src.classes.effect import load_effect_from_str
+from src.classes.effect.desc import format_effects_to_text
 from src.utils.df import game_configs, get_float, get_int, get_str
 
 
@@ -53,6 +54,9 @@ class Dynasty:
     royal_surname: str = ""
     effect_desc: str = ""
     effects: dict[str, Any] = field(default_factory=dict)
+    style_tag: str = ""
+    official_preference_type: str = ""
+    official_preference_value: str = ""
     weight: float = 1.0
     is_low_magic: bool = True
     current_emperor: Emperor | None = None
@@ -75,6 +79,9 @@ class Dynasty:
             royal_surname=str(royal_surname or ""),
             effect_desc=str(self.effect_desc or ""),
             effects=dict(self.effects or {}),
+            style_tag=str(self.style_tag or ""),
+            official_preference_type=str(self.official_preference_type or ""),
+            official_preference_value=str(self.official_preference_value or ""),
             weight=float(self.weight),
             is_low_magic=bool(self.is_low_magic),
             current_emperor=None,
@@ -88,6 +95,9 @@ class Dynasty:
             "royal_surname": str(self.royal_surname or ""),
             "effect_desc": str(self.effect_desc or ""),
             "effects": dict(self.effects or {}),
+            "style_tag": str(self.style_tag or ""),
+            "official_preference_type": str(self.official_preference_type or ""),
+            "official_preference_value": str(self.official_preference_value or ""),
             "weight": float(self.weight),
             "is_low_magic": bool(self.is_low_magic),
             "current_emperor": self.current_emperor.to_dict() if self.current_emperor is not None else None,
@@ -102,6 +112,9 @@ class Dynasty:
             royal_surname=str(data.get("royal_surname", "") or ""),
             effect_desc=str(data.get("effect_desc", "") or ""),
             effects=dict(data.get("effects", {}) or {}),
+            style_tag=str(data.get("style_tag", "") or ""),
+            official_preference_type=str(data.get("official_preference_type", "") or ""),
+            official_preference_value=str(data.get("official_preference_value", "") or ""),
             weight=float(data.get("weight", 1.0) or 1.0),
             is_low_magic=bool(data.get("is_low_magic", True)),
             current_emperor=Emperor.from_dict(data["current_emperor"]) if data.get("current_emperor") else None,
@@ -119,8 +132,13 @@ def _load_dynasties_data() -> tuple[dict[int, Dynasty], dict[str, Dynasty]]:
             desc=get_str(row, "desc"),
             effect_desc=get_str(row, "effect_desc"),
             effects=load_effect_from_str(get_str(row, "effects")),
+            style_tag=get_str(row, "style_tag"),
+            official_preference_type=get_str(row, "official_preference_type"),
+            official_preference_value=get_str(row, "official_preference_value"),
             weight=get_float(row, "weight", 1.0),
         )
+        if not dynasty.effect_desc and dynasty.effects:
+            dynasty.effect_desc = format_effects_to_text(dynasty.effects)
         if dynasty.id <= 0 or not dynasty.name:
             continue
         new_by_id[dynasty.id] = dynasty
