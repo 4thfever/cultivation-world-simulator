@@ -19,6 +19,7 @@ const socketStore = useSocketStore()
 const { entries: worldInfoEntries, loading: worldInfoLoading } = useWorldInfo()
 const message = useMessage()
 const showSelector = ref(false)
+const showWorldInfoModal = ref(false)
 const showRankingModal = ref(false)
 const showTournamentModal = ref(false)
 const showSectRelationsModal = ref(false)
@@ -79,28 +80,9 @@ async function handleSelect(id: number, name: string) {
         :label="t('game.status_bar.world_info.label')"
         color="#91caff"
         mode="single"
+        :disable-popover="true"
+        @trigger-click="showWorldInfoModal = true"
       >
-        <template #single>
-          <div class="world-info-card">
-            <div class="world-info-title">{{ t('game.status_bar.world_info.title') }}</div>
-            <div class="world-info-note">{{ t('game.status_bar.world_info.ai_knowledge_note') }}</div>
-
-            <div v-if="worldInfoEntries.length > 0" class="world-info-list">
-              <div
-                v-for="entry in worldInfoEntries"
-                :key="entry.id"
-                class="world-info-item"
-              >
-                <div class="world-info-item-title">{{ entry.title }}</div>
-                <div class="world-info-item-desc">{{ entry.desc }}</div>
-              </div>
-            </div>
-
-            <div v-else class="world-info-empty">
-              {{ worldInfoLoading ? t('common.loading') : t('game.status_bar.world_info.empty') }}
-            </div>
-          </div>
-        </template>
       </StatusWidget>
       
       <!-- 天地灵机 -->
@@ -169,6 +151,32 @@ async function handleSelect(id: number, name: string) {
 
     <!-- 榜单 Modal -->
     <RankingModal v-model:show="showRankingModal" />
+
+    <n-modal
+      v-model:show="showWorldInfoModal"
+      preset="card"
+      :title="t('game.status_bar.world_info.title')"
+      style="width: 820px; max-height: 80vh; overflow-y: auto;"
+    >
+      <div class="world-info-card">
+        <div class="world-info-note">{{ t('game.status_bar.world_info.ai_knowledge_note') }}</div>
+
+        <div v-if="worldInfoEntries.length > 0" class="world-info-list">
+          <div
+            v-for="entry in worldInfoEntries"
+            :key="entry.id"
+            class="world-info-item"
+          >
+            <div class="world-info-item-title">{{ entry.title }}</div>
+            <div class="world-info-item-desc">{{ entry.desc }}</div>
+          </div>
+        </div>
+
+        <div v-else class="world-info-empty">
+          {{ worldInfoLoading ? t('common.loading') : t('game.status_bar.world_info.empty') }}
+        </div>
+      </div>
+    </n-modal>
     
     <!-- 武道会 Modal -->
     <TournamentModal v-model:show="showTournamentModal" />
@@ -290,34 +298,23 @@ async function handleSelect(id: number, name: string) {
 }
 
 .world-info-card {
-  width: min(560px, calc(100vw - 64px));
-  max-height: min(70vh, 640px);
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.world-info-title {
-  font-size: 15px;
-  font-weight: bold;
-  color: #d6e4ff;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .world-info-note {
   font-size: 12px;
   line-height: 1.5;
-  color: #91caff;
-  background: rgba(145, 202, 255, 0.1);
-  border: 1px solid rgba(145, 202, 255, 0.2);
-  border-radius: 6px;
-  padding: 8px 10px;
-  margin-bottom: 12px;
+  color: #999;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #2f2f2f;
 }
 
 .world-info-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
 }
 
 .world-info-item {
@@ -325,16 +322,14 @@ async function handleSelect(id: number, name: string) {
   grid-template-columns: 88px minmax(0, 1fr);
   column-gap: 12px;
   align-items: start;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 8px 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #2f2f2f;
 }
 
 .world-info-item-title {
   font-size: 13px;
   font-weight: bold;
-  color: #d6e4ff;
+  color: #ddd;
   line-height: 1.6;
   white-space: nowrap;
 }

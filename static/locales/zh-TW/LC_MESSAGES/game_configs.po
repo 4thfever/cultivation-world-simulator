@@ -3249,10 +3249,9 @@ msgstr "簡介"
 msgid "WORLD_INFO_INTRO_TITLE"
 msgstr "简介"
 
-#. world_info.csv: 每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，...
+#. world_info.csv: 若當前年齡達到最大壽元，會立刻死亡。突破境界可以增加最大壽元，突破失敗也可能折損壽元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
-msgstr ""
-"每個角色均有壽元上限。在大限將至的前20年身體會逐漸衰弱，有幾率老死；一旦達到或超過壽元上限，則必死無疑。提升境界和某些寶物、丹藥能提高壽元上限。"
+msgstr "若當前年齡達到最大壽元，會立刻死亡。突破境界可以增加最大壽元，突破失敗也可能折損壽元。"
 
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "壽元"

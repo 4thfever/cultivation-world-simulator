@@ -95,13 +95,12 @@ msgstr "Giới Thiệu"
 msgid "WORLD_INFO_INTRO_TITLE"
 msgstr "Giới Thiệu"
 
-#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
 msgstr ""
-"Mỗi nhân vật đều có giới hạn thọ nguyên. Trong 20 năm trước khi đại hạn đến,"
-" cơ thể sẽ dần suy yếu và có xác suất chết già; một khi chạm hoặc vượt quá "
-"giới hạn thọ nguyên, cái chết là điều chắc chắn. Nâng cao cảnh giới và một "
-"số bảo vật hay đan dược có thể tăng giới hạn thọ nguyên."
+"Nếu tuổi hiện tại đạt đến tuổi thọ tối đa, nhân vật sẽ lập tức tử vong. Đột "
+"phá cảnh giới có thể làm tăng tuổi thọ tối đa, nhưng thất bại cũng có thể "
+"làm tổn hại tuổi thọ."
 
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "Thọ Nguyên"

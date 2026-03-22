@@ -95,13 +95,12 @@ msgstr "Introduction"
 msgid "WORLD_INFO_INTRO_TITLE"
 msgstr "Introduction"
 
-#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
 msgstr ""
-"Every character has a lifespan limit. The body will gradually weaken in the "
-"20 years before the limit, with a chance of dying of old age; once the limit"
-" is reached or exceeded, death is certain. Raising the realm and certain "
-"treasures/elixirs can increase the lifespan limit."
+"If a character's current age reaches their maximum lifespan, they die "
+"immediately. Breaking through to a new realm can increase maximum lifespan, "
+"while failure may also reduce it."
 
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr "Lifespan"
