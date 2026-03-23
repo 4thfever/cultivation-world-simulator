@@ -34,7 +34,6 @@ story_styles = [
 class StoryTeller:
     """
     故事生成器：基于模板与 LLM，将给定事件扩展为简短的小故事。
-    同时负责处理可能的后天关系变化。
     """
     
     TEMPLATE_SINGLE_FILE = "story_single.txt"
@@ -102,19 +101,21 @@ class StoryTeller:
         """
         生成小故事（异步版本）。
         根据 allow_relation_changes 参数选择模板：
-        - True: 使用 story_dual.txt，支持关系变化（需要至少2个角色）
-        - False: 使用 story_single.txt，仅生成故事（无论角色数量）
+        - True: 使用 story_dual.txt（双人故事模板，需要至少2个角色）
+        - False: 使用 story_single.txt（通用故事模板）
         
         Args:
             event: 事件描述
             res: 结果描述
             *actors: 参与的角色（1-2个）
             prompt: 可选的故事提示词
-            allow_relation_changes: 是否允许故事导致关系变化，默认为False（单人模式）
+            allow_relation_changes:
+                历史命名，当前仅用于切换双人/单人故事模板，
+                并不会直接写回角色关系。
         """
         non_null = [a for a in actors if a is not None]
         
-        # 只有当允许关系变化且有至少2个角色时，才使用双人模板
+        # 历史命名沿用中；当前语义只是“是否使用双人故事模板”。
         is_dual = allow_relation_changes and len(non_null) >= 2
         
         template_file = StoryTeller.TEMPLATE_DUAL_FILE if is_dual else StoryTeller.TEMPLATE_SINGLE_FILE

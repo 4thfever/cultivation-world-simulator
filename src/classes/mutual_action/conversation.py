@@ -5,10 +5,6 @@ from typing import TYPE_CHECKING
 
 from src.i18n import t
 from .mutual_action import MutualAction
-from src.classes.relation.relations import (
-    process_relation_changes,
-    get_relation_change_context,
-)
 from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
@@ -23,8 +19,8 @@ class Conversation(MutualAction):
 
     - 可由"攀谈"触发，或直接发起
     - 仅当双方处于同一 Region 时可启动
-    - LLM 可决策是否进入新关系或取消旧关系
-    - 会将对话内容写入事件系统
+    - LLM 负责生成对话内容
+    - 会将对话内容与后续故事写入事件系统
     """
     
     # 多语言 ID

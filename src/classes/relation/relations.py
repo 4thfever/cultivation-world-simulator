@@ -6,14 +6,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List
 
 from src.classes.relation.relation import (
-    Relation, 
-    INNATE_RELATIONS, 
-    get_reciprocal, 
-    is_innate, 
-    CALCULATED_RELATIONS
+    Relation,
+    get_reciprocal,
+    is_innate,
 )
-from src.classes.event import Event
-from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -190,7 +186,7 @@ def clear_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> None:
 def cancel_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> bool:
     """
     取消指定的后天关系。
-    - 只能取消后天关系（INNATE_RELATIONS 不可取消）
+    - 只能取消后天关系（先天关系不可取消）
     - 检查该关系是否存在且匹配
     - 双向清除
     
@@ -225,85 +221,3 @@ def get_possible_cancel_relations(from_avatar: "Avatar", to_avatar: "Avatar") ->
         return []
     
     return [existing]
-
-
-def get_relation_change_context(avatar1: "Avatar", avatar2: "Avatar") -> tuple[list[str], list[str]]:
-    """
-    获取两角色间可能的新增关系和取消关系的中文显示列表。
-    用于构建 Prompt 上下文。
-    
-    返回：(possible_new_relations, possible_cancel_relations)
-    """
-    # 计算 avatar2 相对于 avatar1 的可能关系
-    new_rels = get_possible_new_relations(avatar1, avatar2)
-    cancel_rels = get_possible_cancel_relations(avatar1, avatar2)
-    
-    new_strs = [str(r) for r in new_rels]
-    cancel_strs = [str(r) for r in cancel_rels]
-    
-    return new_strs, cancel_strs
-
-
-def process_relation_changes(initiator: "Avatar", target: "Avatar", result_dict: dict, month_stamp: int) -> None:
-    """
-    处理 LLM 返回的关系变更请求。
-    兼容 Conversation 和 StoryTeller 的通用逻辑。
-    """
-    new_relation_str = str(result_dict.get("new_relation", "")).strip()
-    # 兼容模板中的拼写错误 (cancal -> cancel)
-    cancel_relation_str = str(result_dict.get("cancel_relation", "")).strip()
-    if not cancel_relation_str:
-        cancel_relation_str = str(result_dict.get("cancal_relation", "")).strip()
-
-    # 处理进入新关系
-    if new_relation_str:
-        rel = Relation.from_chinese(new_relation_str)
-        if rel is not None:
-            # 逻辑：new_relation_str 是显示名（如"朋友"），解析为 Relation.IS_FRIEND_OF
-            # 意味着 initiator 和 target 建立这个关系。
-            # 通常 StoryTeller 的语境是：initiator (我) 认为 target (对方) 是 new_relation_str
-            # 所以调用 initiator.set_relation(target, rel)
-            
-            # 使用新语义方法
-            if rel == Relation.IS_MASTER_OF:
-                # initiator 视 target 为 Master -> initiator 拜 target 为师
-                initiator.acknowledge_master(target)
-            elif rel == Relation.IS_DISCIPLE_OF:
-                # initiator 视 target 为 Disciple -> initiator 收 target 为徒
-                initiator.accept_disciple(target)
-            elif rel == Relation.IS_PARENT_OF:
-                initiator.acknowledge_parent(target)
-            elif rel == Relation.IS_CHILD_OF:
-                initiator.acknowledge_child(target)
-            elif rel == Relation.IS_LOVER_OF:
-                initiator.become_lovers_with(target)
-            elif rel == Relation.IS_SWORN_SIBLING_OF:
-                initiator.become_sworn_sibling_with(target)
-            elif rel == Relation.IS_FRIEND_OF:
-                initiator.make_friend_with(target)
-            elif rel == Relation.IS_ENEMY_OF:
-                initiator.make_enemy_of(target)
-            else:
-                initiator.set_relation(target, rel)
-
-            set_event = Event(
-                month_stamp, 
-                f"{initiator.name} 与 {target.name} 的关系变为：{str(rel)}", 
-                related_avatars=[initiator.id, target.id],
-                is_major=True
-            )
-            EventHelper.push_pair(set_event, initiator=initiator, target=target, to_sidebar_once=True)
-
-    # 处理取消关系
-    if cancel_relation_str:
-        rel = Relation.from_chinese(cancel_relation_str)
-        if rel is not None:
-            success = cancel_relation(initiator, target, rel)
-            if success:
-                cancel_event = Event(
-                    month_stamp, 
-                    f"{initiator.name} 与 {target.name} 取消了关系：{str(rel)}", 
-                    related_avatars=[initiator.id, target.id],
-                    is_major=True
-                )
-                EventHelper.push_pair(cancel_event, initiator=initiator, target=target, to_sidebar_once=True)
