@@ -45,6 +45,31 @@ def test_frontend_dockerfile_copies_shared_locale_registry():
     )
 
 
+def test_frontend_world_info_import_targets_static_game_config():
+    project_root = get_project_root()
+    world_info_ts = project_root / "web" / "src" / "utils" / "worldInfo.ts"
+    content = world_info_ts.read_text(encoding="utf-8")
+
+    match = re.search(r"import\s+worldInfoCsvText\s+from\s+'([^']+)'", content)
+    assert match, "Expected world info csv import in web/src/utils/worldInfo.ts"
+
+    imported_path = (world_info_ts.parent / match.group(1).replace("?raw", "")).resolve()
+    expected_path = (project_root / "static" / "game_configs" / "world_info.csv").resolve()
+
+    assert imported_path == expected_path
+    assert imported_path.exists()
+
+
+def test_frontend_dockerfile_copies_shared_world_info_csv():
+    dockerfile = get_project_root() / "deploy" / "Dockerfile.frontend"
+    copy_sources = parse_copy_sources(dockerfile)
+
+    assert "static/game_configs/world_info.csv" in copy_sources, (
+        "Frontend Docker build must copy the shared world info csv because "
+        "web/src/utils/worldInfo.ts imports it from outside web/."
+    )
+
+
 def test_backend_dockerfile_does_not_copy_tools_directory():
     dockerfile = get_project_root() / "deploy" / "Dockerfile.backend"
     copy_sources = parse_copy_sources(dockerfile)

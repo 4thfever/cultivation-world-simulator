@@ -14,6 +14,8 @@ RUN npm ci
 COPY web/ .
 # 复制前端构建所需的语言注册表
 COPY static/locales/registry.json /static/locales/registry.json
+# 复制前端构建所需的共享游戏配置
+COPY static/game_configs/world_info.csv /static/game_configs/world_info.csv
 # 构建前端
 RUN npm run build
 
