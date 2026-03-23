@@ -85,7 +85,7 @@ async def test_sect_thinker_returns_llm_content_when_valid():
     assert text == payload["sect_thinking"][: SectThinker.MAX_LEN]
     kwargs = mock_llm.call_args.kwargs
     assert kwargs["infos"]["decision_summary"] == "招徕散修 1 人。"
-    assert kwargs["infos"]["decision_interval_years"] == 5
+    assert kwargs["infos"]["decision_interval_years"] == 1
     assert "守住门规与传承" in kwargs["infos"]["decision_context_info"]
     assert "供养成本" in kwargs["infos"]["decision_context_info"]
 

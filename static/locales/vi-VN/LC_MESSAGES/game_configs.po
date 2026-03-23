@@ -3963,9 +3963,11 @@ msgstr "Trang Bị & Đan Dược"
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
 msgstr "Trang Bị & Đan Dược"
 
-#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
 msgid "WORLD_INFO_INTRO_DESC"
-msgstr "Đây là một thế giới tu tiên nơi vô số tu sĩ cùng tranh nhau tu hành."
+msgstr ""
+"Đây là một thế giới tu tiên nơi vô số tu sĩ cạnh tranh tu hành và xung đột "
+"nổi lên khắp nơi."
 
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr "Giới Thiệu"

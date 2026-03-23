@@ -1,6 +1,6 @@
 You are the decision core of a sect in a cultivation world.
 
-Based on the information below, make a five-year administrative decision plan for the sect.
+Based on the information below, make an administrative decision plan for the sect for this cycle.
 
 Sect Name:
 {sect_name}
@@ -27,6 +27,10 @@ Constraints:
 13. Granting techniques does not directly spend spirit stones, but it consumes inheritance resources; frequent rewards can reduce the rarity and value of the sect's scripture collection.
 14. Spirit-stone support is direct cash outflow. When finances are tight, the sect may still act, but should not recruit aggressively, reward techniques broadly, and fund many disciples all at once.
 15. If `treasury_pressure` or `resource_pressure` indicates financial strain, prioritize stabilizing expenses and only take the most necessary actions that truly fit the sect's doctrine.
+16. If another sect has been hostile for a long time, relations are poor, territory overlap is obvious, and your sect is not at a clear power disadvantage, then resolving hatred, border pressure, and resource disputes through war is a reasonable and viable option.
+17. If a diplomacy target shows very low `relation_value`, notable `territory_overlap_tiles`, and a non-inferior `power_ratio`, do not default to passive observation; declaring war, coercive pressure, and striking first can all be valid ways to protect the sect's interests.
+18. If the sect's own identity is harsh, expansionist, or predatory, it should be more willing to consider war under the same conditions rather than defaulting to caution.
+19. If the sect is already at war, do not treat `seek_peace_target_ids` as the default answer unless the situation is clearly unfavorable.
 
 Return strict JSON only, with no extra text, in exactly this format:
 {{
@@ -43,4 +47,4 @@ Additional requirements:
 1. If you do not make a category of decision, return an empty array for that field.
 2. Do not repeat the same avatar_id or other_sect_id.
 3. Keep `thinking` concise, around 20 to 60 words.
-4. `thinking` should directly reflect both sect identity and fiscal stance, for example: "Our sect should uphold orthodox inheritance, spend carefully, and recruit only the most suitable talent."
+4. `thinking` should directly reflect both sect identity and fiscal stance. If this round includes hardline diplomacy or war considerations, that should also appear naturally, for example: "Our sect should uphold orthodox inheritance, spend carefully, and answer hostile pressure with decisive force."

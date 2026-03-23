@@ -50,7 +50,7 @@ class SectManager:
     def _update_sect_strength_and_radius(self, sect: "Sect") -> None:
         """
         计算并更新宗门的总战力与势力半径。
-        半径公式：int(total_strength) // 10 + 1
+        半径公式由配置驱动，默认等价于 int(total_strength) // 10 + 1。
         """
         # 直接通过宗门的 members 属性获取存活的成员
         members = [m for m in sect.members.values() if not getattr(m, "is_dead", False)]
@@ -69,7 +69,10 @@ class SectManager:
                 total_strength = max_str + math.log(sum_exp)
 
         sect.total_battle_strength = max(0.0, total_strength)
-        sect.influence_radius = int(sect.total_battle_strength) // 10 + 1
+        sect_conf = getattr(CONFIG, "sect", None)
+        divisor = max(1, int(getattr(sect_conf, "influence_radius_divisor", 10))) if sect_conf else 10
+        bias = int(getattr(sect_conf, "influence_radius_bias", 1)) if sect_conf else 1
+        sect.influence_radius = int(sect.total_battle_strength) // divisor + bias
 
     def _compute_sect_centers(
         self, sects: List["Sect"], game_map: "Map"

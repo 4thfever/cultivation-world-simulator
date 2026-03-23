@@ -10,10 +10,10 @@ if TYPE_CHECKING:
 
 
 _OBSERVATION_RADIUS_BY_REALM: dict[Realm, int] = {
-    Realm.Qi_Refinement: 2,            # 练气
-    Realm.Foundation_Establishment: 3, # 筑基
-    Realm.Core_Formation: 4,           # 金丹
-    Realm.Nascent_Soul: 5,             # 元婴
+    Realm.Qi_Refinement: 3,            # 练气
+    Realm.Foundation_Establishment: 5, # 筑基
+    Realm.Core_Formation: 7,           # 金丹
+    Realm.Nascent_Soul: 9,             # 元婴
 }
 
 

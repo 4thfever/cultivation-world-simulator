@@ -58,9 +58,11 @@ game:
     base_epiphany_prob: 0.02
 
 sect:
-  income_per_tile: 10  # 势力范围内每地块每年基础灵石产出
+  income_per_tile: 7  # 势力范围内每地块每年基础灵石产出（配合更大势力范围做平衡）
+  influence_radius_divisor: 8  # 宗门战力换算势力半径时的除数，越小半径越大
+  influence_radius_bias: 1  # 宗门势力半径基础偏移
   random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
-  decision_interval_years: 5
+  decision_interval_years: 1
   recruit_cost: 500
   support_amount: 300
   member_upkeep_by_realm:

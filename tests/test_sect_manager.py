@@ -97,8 +97,8 @@ def test_sect_manager_update(mock_world):
     assert sect1.total_battle_strength >= 120
     assert sect1.total_battle_strength < 121
     
-    # 半径计算: int(120) // 10 + 1 = 13
-    assert sect1.influence_radius == 13
+    # 半径计算遵循当前配置: int(120) // 8 + 1 = 16
+    assert sect1.influence_radius == 16
 
     # 新逻辑下，收入按地图格子计算，这里只校验“> 0” 即可，具体数值在专门测试中断言
     assert sect1.magic_stone > 0
@@ -142,7 +142,7 @@ def test_sect_total_strength_uses_avatar_battle_strength(mock_world):
 
     assert sect.total_battle_strength >= 19.0
     assert sect.total_battle_strength <= 21.0
-    # 半径 = int(20) // 10 + 1 = 3
+    # 半径遵循当前配置: int(20) // 8 + 1 = 3
     assert sect.influence_radius == 3
     assert len(events) >= 1
 

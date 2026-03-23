@@ -85,9 +85,9 @@ msgstr "Equipment & Elixir"
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
 msgstr "Equipment & Elixir"
 
-#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
 msgid "WORLD_INFO_INTRO_DESC"
-msgstr "This is a cultivation world where many cultivators compete."
+msgstr "This is a cultivation world where many cultivators compete and conflicts rage on all sides."
 
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr "Introduction"

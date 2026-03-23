@@ -3238,9 +3238,9 @@ msgstr "裝備與丹藥"
 msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
 msgstr "装备与丹药"
 
-#. world_info.csv: 這是一個諸多修士競相修行的修仙世界。
+#. world_info.csv: 這是一個諸多修士競相修行、紛爭四起的修仙世界。
 msgid "WORLD_INFO_INTRO_DESC"
-msgstr "這是一個諸多修士競相修行的修仙世界。"
+msgstr "這是一個諸多修士競相修行、紛爭四起的修仙世界。"
 
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr "簡介"
