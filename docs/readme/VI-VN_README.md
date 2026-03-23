@@ -89,27 +89,15 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 
 ### Cách Được Khuyến Nghị
 
-- **Nếu chỉ muốn trải nghiệm ngay**: Ưu tiên dùng Docker để khởi động nhanh nhất.
 - **Nếu muốn sửa code hoặc debug**: Dùng cách chạy từ mã nguồn, đồng thời chuẩn bị Python `3.10+`, Node.js `18+` và một dịch vụ mô hình khả dụng.
+- **Nếu chỉ muốn trải nghiệm ngay**: Ưu tiên dùng Docker để triển khai một lệnh.
 
 ### Lưu Ý Khi Khởi Chạy Lần Đầu
 
-- Dù dùng Docker hay chạy từ mã nguồn, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek hoặc Ollama, rồi mới bắt đầu ván mới.
+- Dù chạy từ mã nguồn hay Docker, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek hoặc Ollama, rồi mới bắt đầu ván mới.
 - Ở chế độ phát triển, frontend thường sẽ tự mở. Nếu không tự mở, hãy truy cập vào địa chỉ frontend xuất hiện trong log khởi động.
 
-### Cách 1: Docker Một Lệnh (Khuyến Nghị)
-
-Không cần tự cấu hình môi trường, chỉ cần chạy:
-
-```bash
-git clone https://github.com/4thfever/cultivation-world-simulator.git
-cd cultivation-world-simulator
-docker-compose up -d --build
-```
-
-Truy cập frontend: `http://localhost:8123`
-
-### Cách 2: Chạy Từ Mã Nguồn (Chế Độ Phát Triển)
+### Cách 1: Chạy Từ Mã Nguồn (Chế Độ Phát Triển, Khuyến Nghị)
 
 Phù hợp cho nhà phát triển cần sửa code hoặc debug.
 
@@ -130,6 +118,18 @@ Phù hợp cho nhà phát triển cần sửa code hoặc debug.
 
 3. **Mở frontend**
    Chế độ phát triển sẽ tự khởi chạy frontend dev server. Hãy mở địa chỉ frontend hiện trong log khởi động, thông thường là `http://localhost:5173`.
+
+### Cách 2: Docker Một Lệnh
+
+Không cần tự cấu hình môi trường, chỉ cần chạy:
+
+```bash
+git clone https://github.com/4thfever/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
+
+Truy cập frontend: `http://localhost:8123`
 
 ### 📱 Tính Năng Nâng Cao
 

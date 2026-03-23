@@ -90,27 +90,15 @@
 
 ### 推荐方式
 
-- **想直接体验**：优先使用 Docker 一键部署。
 - **想改代码或调试**：使用源码部署，并准备 Python `3.10+`、Node.js `18+` 和可用的模型服务。
+- **想直接体验**：优先使用 Docker 一键部署。
 
 ### 首次启动说明
 
-- 无论使用 Docker 还是源码开发，首次进入后都需要先在设置页配置可用的模型预设（如 DeepSeek / Ollama），再开始新游戏。
+- 无论使用源码还是 Docker，首次进入后都需要先在设置页配置可用的模型预设（如 DeepSeek / Ollama），再开始新游戏。
 - 开发模式下，前端页面通常会自动打开；如果没有自动打开，请访问启动日志中显示的前端地址。
 
-### 方式一：Docker 一键部署（推荐）
-
-无需配置环境，直接运行即可：
-
-```bash
-git clone https://github.com/4thfever/cultivation-world-simulator.git
-cd cultivation-world-simulator
-docker-compose up -d --build
-```
-
-访问前端：`http://localhost:8123`
-
-### 方式二：源码部署（开发模式）
+### 方式一：源码部署（开发模式，推荐）
 
 适合需要修改代码或调试的开发者。
 
@@ -131,6 +119,18 @@ docker-compose up -d --build
 
 3. **访问前端**
    开发模式会自动拉起前端开发服务器，请访问启动日志中显示的前端地址，通常为 `http://localhost:5173`。
+
+### 方式二：Docker 一键部署
+
+无需配置环境，直接运行即可：
+
+```bash
+git clone https://github.com/4thfever/cultivation-world-simulator.git
+cd cultivation-world-simulator
+docker-compose up -d --build
+```
+
+访问前端：`http://localhost:8123`
 
 ### 📱 高级功能
 

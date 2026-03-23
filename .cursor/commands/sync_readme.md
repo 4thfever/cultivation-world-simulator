@@ -1,4 +1,4 @@
-1. 读取 `tools/i18n/locales.json`，获取 `locales` 列表；排除 `source_of_truth: true` 的项（即 zh-CN，对应主 `README.md`）。
+1. 读取 `static/locales/registry.json` 中的 `locales` 列表；排除带 `source_of_truth: true` 的项（即 zh-CN，对应主 `README.md`）。
 2. 对每个需同步的 locale，目标文件为 `docs/readme/{CODE}_README.md`。`CODE` 规则：locale code 全大写并保留连字符（如 `zh-TW`→`ZH-TW`、`vi-VN`→`VI-VN`）；`en-US` 特殊为 `EN`。可参考 `docs/readme/` 下已有文件名。
 3. 读取主 `README.md` (简体中文) 的内容，对比各目标文件的内容差异。
 4. 将 `README.md` 中新增或修改的内容，分别准确地翻译并更新到各目标文件中。
