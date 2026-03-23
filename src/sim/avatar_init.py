@@ -33,8 +33,8 @@ AGE_MAX: int = 150
 LEVEL_MIN: int = 0
 LEVEL_MAX: int = 120
 
-FAMILY_PAIR_CAP_DIV: int = 6            # 家庭上限：n // 6
-FAMILY_TRIGGER_PROB: float = 0.35       # 生成家庭对概率
+FAMILY_PAIR_CAP_DIV: int = 5            # 家庭上限：n // 5
+FAMILY_TRIGGER_PROB: float = 0.45       # 生成家庭对概率
 FATHER_CHILD_PROB: float = 0.60         # 家庭为父子（同姓、父为男）的概率；否则母子（异姓、母为女）
 FAMILY_CHILDREN_MAX: int = 3            # 单个小家庭最多额外生成的子女人数
 FAMILY_SAME_SECT_CAP: int = 2           # 同一小家庭落在同一宗门的人数上限
@@ -42,12 +42,12 @@ FAMILY_PARENT_SECT_FOLLOW_PROB: float = 0.50
 FAMILY_OTHER_SECT_PROB: float = 0.30
 
 LOVERS_PAIR_CAP_DIV: int = 5            # 道侣两两预算：n // 5
-LOVERS_TRIGGER_PROB: float = 0.25       # 生成一对道侣的概率（强制异性）
+LOVERS_TRIGGER_PROB: float = 0.32       # 生成一对道侣的概率（强制异性）
 
-MASTER_PAIR_PROB: float = 0.30          # 同宗门内生成一对师徒的概率
+MASTER_PAIR_PROB: float = 0.40          # 同宗门内生成一对师徒的概率
 
-FRIEND_PROB: float = 0.18               # 朋友概率
-ENEMY_PROB: float = 0.10                # 仇人概率（与朋友互斥）
+FRIEND_PROB: float = 0.26               # 朋友概率
+ENEMY_PROB: float = 0.12                # 仇人概率（与朋友互斥）
 
 PARENT_MIN_DIFF: int = 16               # 父母与子女最小年龄差
 PARENT_MAX_DIFF: int = 80               # 父母与子女最大年龄差（用于生成目标差值）
@@ -128,6 +128,17 @@ def _assign_initial_official_status(avatar: Avatar) -> None:
     _old_rank, new_rank = resolve_rank_changes(avatar)
     if new_rank != OFFICIAL_NONE:
         avatar.recalc_effects()
+
+
+def _roll_cultivation_start_month(
+    birth_month_stamp: MonthStamp,
+    current_month_stamp: MonthStamp,
+) -> MonthStamp:
+    earliest_start_month = int(birth_month_stamp) + 16 * 12
+    latest_start_month = int(current_month_stamp)
+    if latest_start_month <= earliest_start_month:
+        return MonthStamp(latest_start_month)
+    return MonthStamp(random.randint(earliest_start_month, latest_start_month))
 
 
 def random_gender() -> Gender:
@@ -706,10 +717,10 @@ class AvatarFactory:
 
         # 在构造 Avatar 实例后计算并赋值：
         if avatar.cultivation_start_month_stamp is None:
-            months_since_birth = max(0, int(current_month_stamp) - int(birth_month_stamp))
-            max_start_age = max(16, min(age.age, months_since_birth // 12))
-            start_age = random.randint(16, max_start_age)
-            avatar.cultivation_start_month_stamp = MonthStamp(int(birth_month_stamp) + start_age * 12)
+            avatar.cultivation_start_month_stamp = _roll_cultivation_start_month(
+                MonthStamp(birth_month_stamp),
+                current_month_stamp,
+            )
 
         SectRankAssigner.assign_one(avatar, world)
         EquipmentAllocator.assign_weapon(avatar)
@@ -841,10 +852,10 @@ class AvatarFactory:
 
             # 在构造 Avatar 实例后计算并赋值：
             if avatar.cultivation_start_month_stamp is None:
-                months_since_birth = max(0, int(current_month_stamp) - int(birth_month_stamp))
-                max_start_age = max(16, min(age_years, months_since_birth // 12))
-                start_age = random.randint(16, max_start_age)
-                avatar.cultivation_start_month_stamp = MonthStamp(int(birth_month_stamp) + start_age * 12)
+                avatar.cultivation_start_month_stamp = _roll_cultivation_start_month(
+                    MonthStamp(birth_month_stamp),
+                    current_month_stamp,
+                )
 
             if sect is not None:
                 avatar.alignment = sect.alignment

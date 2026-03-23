@@ -179,3 +179,29 @@ def test_family_members_do_not_overconcentrate_in_one_sect(monkeypatch):
             assert max(sect_counts.values()) <= avatar_init_module.FAMILY_SAME_SECT_CAP, (
                 f"家庭成员宗门过于集中: {sect_counts}"
             )
+
+
+def test_population_planner_generates_denser_initial_relations():
+    """开局关系应有一定密度，且应出现少量多关系角色。"""
+    relation_coverage_ratios: list[float] = []
+    multi_relation_ratios: list[float] = []
+
+    for seed in range(10):
+        avatar_init_module.random.seed(seed)
+        plan = PopulationPlanner.plan_group(80, existed_sects=list(sects_by_id.values()))
+
+        direct_relation_counts = [0] * 80
+        for a_idx, b_idx in plan.relations.keys():
+            direct_relation_counts[a_idx] += 1
+            direct_relation_counts[b_idx] += 1
+
+        covered_count = sum(1 for count in direct_relation_counts if count >= 1)
+        multi_relation_count = sum(1 for count in direct_relation_counts if count >= 2)
+        relation_coverage_ratios.append(covered_count / 80)
+        multi_relation_ratios.append(multi_relation_count / 80)
+
+    avg_coverage_ratio = sum(relation_coverage_ratios) / len(relation_coverage_ratios)
+    avg_multi_ratio = sum(multi_relation_ratios) / len(multi_relation_ratios)
+
+    assert avg_coverage_ratio >= 0.50, f"开局有直接关系的角色占比偏低: {avg_coverage_ratio:.3f}"
+    assert avg_multi_ratio >= 0.12, f"开局拥有多个直接关系的角色占比偏低: {avg_multi_ratio:.3f}"
