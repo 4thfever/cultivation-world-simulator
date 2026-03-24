@@ -219,6 +219,10 @@ export interface RelationInfo {
   name: string;
   relation: string;
   relation_type: string;
+  blood_relation?: string | null;
+  identity_relations?: string[];
+  numeric_relation?: string;
+  friendliness?: number;
   realm: string;
   sect: string;
   is_mortal?: boolean;

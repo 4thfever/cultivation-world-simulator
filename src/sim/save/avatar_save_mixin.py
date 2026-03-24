@@ -26,8 +26,8 @@ class AvatarSaveMixin:
         """
         # 序列化relations: dict[Avatar, Relation] -> dict[str, str]
         relations_dict = {
-            other.id: relation.value
-            for other, relation in self.relations.items()
+            other.id: relation_state.to_save_dict()
+            for other, relation_state in self.relations.items()
         }
         
         # 序列化materials: dict[Material, int] -> dict[int, int]

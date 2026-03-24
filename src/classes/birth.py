@@ -30,8 +30,8 @@ def process_births(world: World) -> list[Event]:
     for avatar in living_avatars:
         # 1. 寻找道侣
         partner: Avatar | None = None
-        for target, rel in avatar.relations.items():
-            if rel == Relation.IS_LOVER_OF:
+        for target, state in avatar.relations.items():
+            if Relation.IS_LOVER_OF in state.identity_relations:
                 partner = target
                 break
         

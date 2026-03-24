@@ -8,6 +8,7 @@ from .mutual_action import MutualAction
 from src.classes.event import Event, NULL_EVENT
 from src.utils.config import CONFIG
 from src.classes.action_runtime import ActionResult, ActionStatus
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 
 if TYPE_CHECKING:
@@ -137,6 +138,14 @@ class Conversation(MutualAction):
         result_text = getattr(self, "_conversation_result_text", "")
         if target is None or not result_text:
             return []
+
+        a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+            action_key="conversation",
+            avatar_a=self.avatar,
+            avatar_b=target,
+            event_text=result_text,
+        )
+        RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
 
         story_event = await StoryEventService.maybe_create_story(
             kind=StoryEventKind.DAILY_SOCIAL,

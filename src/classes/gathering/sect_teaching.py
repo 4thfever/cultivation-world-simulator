@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 from src.classes.core.sect import sects_by_id
 from src.classes.effect.consts import EXTRA_EPIPHANY_PROBABILITY
 from src.classes.story_event_service import StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.utils.config import CONFIG
 from src.i18n import t
 from src.run.log import get_logger
@@ -158,6 +159,15 @@ class SectTeachingConference(Gathering):
         story_event = await self._generate_story(sect, teacher, students, exp_gains, epiphany_students, world.month_stamp)
         if story_event is not None:
             events.append(story_event)
+
+        for student in students:
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gathering",
+                avatar_a=teacher,
+                avatar_b=student,
+                event_text=summary_content,
+            )
+            RelationDeltaService.apply_bidirectional_delta(teacher, student, a_to_b, b_to_a)
             
         return events
 

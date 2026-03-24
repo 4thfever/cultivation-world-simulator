@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any
 from src.i18n import t
 from .mutual_action import MutualAction
 from src.classes.event import Event
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.utils.config import CONFIG
 
@@ -284,6 +285,13 @@ class Gift(MutualAction):
                 related_avatars=[self.avatar.id, target.id]
             )
             events.append(result_event)
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gift",
+                avatar_a=self.avatar,
+                avatar_b=target,
+                event_text=result_text,
+            )
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
             story_event = await StoryEventService.maybe_create_story(
                 kind=StoryEventKind.DAILY_SOCIAL,
                 month_stamp=self.world.month_stamp,
@@ -295,5 +303,16 @@ class Gift(MutualAction):
             )
             if story_event is not None:
                 events.append(story_event)
+        else:
+            gift_desc = self._get_gift_description()
+            result_text = t("{target} rejected {initiator}'s gift: {item}",
+                          target=target.name, initiator=self.avatar.name, item=gift_desc)
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gift",
+                avatar_a=self.avatar,
+                avatar_b=target,
+                event_text=result_text,
+            )
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
             
         return events

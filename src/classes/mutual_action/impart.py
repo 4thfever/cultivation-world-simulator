@@ -9,6 +9,7 @@ from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.relation.relation import Relation
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -50,17 +51,16 @@ class Impart(MutualAction):
 
         # 检查是否满足传道关系
         rel = self.avatar.get_relation(target) or getattr(self.avatar, "computed_relations", {}).get(target)
-        
+        is_friend_or_better = RelationDeltaService.is_friend_or_better(self.avatar, target)
         allowed_relations = {
             Relation.IS_DISCIPLE_OF,             # 徒弟
             Relation.IS_MARTIAL_GRANDCHILD_OF,   # 徒孙
             Relation.IS_MARTIAL_SIBLING_OF,      # 同门
             Relation.IS_CHILD_OF,                # 儿子/女儿
             Relation.IS_GRAND_CHILD_OF,          # 孙子/孙女
-            Relation.IS_FRIEND_OF,               # 朋友
         }
 
-        if rel not in allowed_relations:
+        if rel not in allowed_relations and not is_friend_or_better:
             return False, t("Target is not your disciple, martial grandchild, martial sibling, child, grandchild, or friend")
 
         # 检查等级差
@@ -134,6 +134,8 @@ class Impart(MutualAction):
                 related_avatars=[self.avatar.id, target.id],
             )
             events.append(result_event)
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("impart", "accepted")
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
             story_event = await StoryEventService.maybe_create_story(
                 kind=StoryEventKind.DAILY_SOCIAL,
                 month_stamp=self.world.month_stamp,
@@ -145,5 +147,8 @@ class Impart(MutualAction):
             )
             if story_event is not None:
                 events.append(story_event)
+        else:
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("impart", "rejected")
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
 
         return events

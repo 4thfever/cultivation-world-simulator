@@ -2,10 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Tuple, Optional
 import asyncio
 
-from src.classes.relation.relation import (
-    Relation,
-    get_relation_rules_desc
-)
+from src.classes.relation.relation import Relation
 from src.classes.relation.relations import (
     set_relation,
     cancel_relation,
@@ -46,7 +43,7 @@ class RelationResolver:
         current_time_str = get_date_str(avatar_a.world.month_stamp)
         
         return {
-            "relation_rules_desc": get_relation_rules_desc(),
+            "relation_rules_desc": "",
             "avatar_a_name": avatar_a.name,
             "avatar_a_info": str(avatar_a.get_info(detailed=True)),
             "avatar_b_name": avatar_b.name,
@@ -111,10 +108,6 @@ class RelationResolver:
                 avatar_b.acknowledge_child(avatar_a)
             elif rel == Relation.IS_LOVER_OF:
                 avatar_b.become_lovers_with(avatar_a)
-            elif rel == Relation.IS_FRIEND_OF:
-                avatar_b.make_friend_with(avatar_a)
-            elif rel == Relation.IS_ENEMY_OF:
-                avatar_b.make_enemy_of(avatar_a)
             else:
                 # 回退到底层方法 (set_relation(B, A, rel))
                 avatar_b.set_relation(avatar_a, rel)

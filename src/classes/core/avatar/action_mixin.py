@@ -177,19 +177,10 @@ class ActionMixin:
         
     def process_interaction_from_event(self: "Avatar", event: "Event") -> None:
         """
-        根据事件更新与其他角色的交互计数。
-        该方法由 Simulator 统一调用。
+        旧版按事件累计互动计数的逻辑已废弃。
+        新版关系系统改为由动作/聚会在结算时直接写入友好度变化。
         """
-        if not event.related_avatars:
-            return
-
-        for aid in event.related_avatars:
-            if str(aid) == str(self.id):
-                continue
-            
-            # self.id 与 aid 有交互
-            # relation_interaction_states 是 defaultdict，会自动初始化新条目
-            self.relation_interaction_states[aid]["count"] += 1
+        return
 
     def get_planned_actions_str(self: "Avatar") -> str:
         """

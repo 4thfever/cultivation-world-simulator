@@ -7,6 +7,7 @@ from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.relation.relation import Relation
 
 if TYPE_CHECKING:
@@ -40,7 +41,7 @@ class Confess(MutualAction):
         if not is_within_observation(self.avatar, target):
             return False, t("Target not within interaction range")
             
-        if self.avatar.get_relation(target) == Relation.IS_LOVER_OF:
+        if self.avatar.has_identity_relation(target, Relation.IS_LOVER_OF) or self.avatar.get_relation(target) == Relation.IS_LOVER_OF:
             return False, t("Already lovers")
             
         return True, ""
@@ -81,9 +82,13 @@ class Confess(MutualAction):
         if self._confess_success:
             result_text = t("{target} accepted {initiator}'s confession, they became lovers",
                           target=target.name, initiator=self.avatar.name)
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("confess", "accepted")
         else:
             result_text = t("{target} rejected {initiator}'s confession",
                           target=target.name, initiator=self.avatar.name)
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("confess", "rejected")
+
+        RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
             
         result_event = Event(self.world.month_stamp, result_text, 
                            related_avatars=[self.avatar.id, target.id], is_major=True)

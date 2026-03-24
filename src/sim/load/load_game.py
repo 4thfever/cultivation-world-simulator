@@ -37,7 +37,7 @@ if TYPE_CHECKING:
 
 from src.systems.time import MonthStamp
 from src.classes.event import Event
-from src.classes.relation.relation import Relation
+from src.classes.relation.relation import RelationState
 from src.config import get_settings_service
 from src.utils.config import CONFIG
 
@@ -284,11 +284,10 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             avatar = all_avatars[avatar_id]
             relations_dict = avatar_data.get("relations", {})
             
-            for other_id, relation_value in relations_dict.items():
+            for other_id, relation_state_data in relations_dict.items():
                 if other_id in all_avatars:
                     other_avatar = all_avatars[other_id]
-                    relation = Relation(relation_value)
-                    avatar.relations[other_avatar] = relation
+                    avatar.relations[other_avatar] = RelationState.from_save_dict(relation_state_data)
         
         # 将所有avatar添加到world
         world.avatar_manager.avatars = living_avatars

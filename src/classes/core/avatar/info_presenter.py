@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from src.classes.core.avatar.core import Avatar
 
 from src.systems.battle import get_base_strength
-from src.classes.relation.relation import get_relation_label
+from src.classes.relation.relation import Relation, get_numeric_relation_label, get_relation_label
 from src.classes.emotions import EMOTION_EMOJIS, EmotionType
 from src.classes.official_rank import OFFICIAL_NONE
 from src.utils.config import CONFIG
@@ -298,17 +298,52 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     
     # 6.1 添加现有的修仙者关系
     existing_ids = set()
-    for other, relation in avatar.relations.items():
+    for other, relation_state in avatar.relations.items():
         existing_ids.add(other.id)
+        blood_label = get_relation_label(relation_state.blood_relation, avatar, other) if relation_state.blood_relation else None
+        identity_labels = [
+            get_relation_label(rel, avatar, other)
+            for rel in sorted(relation_state.identity_relations, key=lambda item: item.value)
+        ]
+        numeric_relation = avatar.get_numeric_relation(other)
+        relations_list.append({
+            "target_id": other.id,
+            "name": other.name,
+            "relation": " / ".join(filter(None, [blood_label, *identity_labels, get_numeric_relation_label(numeric_relation)])),
+            "relation_type": relation_state.blood_relation.value if relation_state.blood_relation else "",
+            "blood_relation": relation_state.blood_relation.value if relation_state.blood_relation else None,
+            "identity_relations": [rel.value for rel in sorted(relation_state.identity_relations, key=lambda item: item.value)],
+            "numeric_relation": numeric_relation.value,
+            "friendliness": relation_state.friendliness,
+            "realm": other.cultivation_progress.get_info(),
+            "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
+            "is_mortal": False,
+            "target_gender": other.gender.value
+        })
+
+    for other, relation in avatar.computed_relations.items():
+        if other.id in existing_ids:
+            continue
         relations_list.append({
             "target_id": other.id,
             "name": other.name,
             "relation": get_relation_label(relation, avatar, other),
             "relation_type": relation.value,
+            "blood_relation": relation.value if relation in {
+                Relation.IS_PARENT_OF,
+                Relation.IS_CHILD_OF,
+                Relation.IS_SIBLING_OF,
+                Relation.IS_KIN_OF,
+                Relation.IS_GRAND_PARENT_OF,
+                Relation.IS_GRAND_CHILD_OF,
+            } else None,
+            "identity_relations": [],
+            "numeric_relation": None,
+            "friendliness": 0,
             "realm": other.cultivation_progress.get_info(),
             "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
             "is_mortal": False,
-            "target_gender": other.gender.value
+            "target_gender": other.gender.value,
         })
     
     # 6.2 [新增] 添加凡人子女
@@ -520,7 +555,19 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
     alignment = to_avatar.alignment
     
     # 关系可能为空
-    relation = from_avatar.get_relation(to_avatar) or t("None")
+    relation_state = from_avatar.get_relation_state(to_avatar)
+    if relation_state is None:
+        relation = t("None")
+    else:
+        labels = []
+        if relation_state.blood_relation is not None:
+            labels.append(get_relation_label(relation_state.blood_relation, from_avatar, to_avatar))
+        labels.extend(
+            get_relation_label(rel, from_avatar, to_avatar)
+            for rel in sorted(relation_state.identity_relations, key=lambda item: item.value)
+        )
+        labels.append(str(from_avatar.get_numeric_relation(to_avatar)))
+        relation = "/".join(labels)
 
     return t(
         "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",

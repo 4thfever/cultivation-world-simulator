@@ -220,6 +220,9 @@ msgstr "{target}拒绝了{initiator}的结拜提议"
 msgid "{target} rejected {initiator}'s talk invitation"
 msgstr "{target} 拒绝了 {initiator} 的攀谈"
 
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr "{target}拒绝了{initiator}赠送的礼物：{item}"
+
 msgid ""
 "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
 "proficiency +{w_gain}, {loser} proficiency +{l_gain})"

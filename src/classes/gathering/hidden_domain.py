@@ -18,6 +18,7 @@ from src.classes.items.weapon import get_random_weapon_by_realm
 from src.classes.items.auxiliary import get_random_auxiliary_by_realm
 from src.classes.technique import get_random_technique_for_avatar
 from src.classes.story_event_service import StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.i18n import t
 from src.run.log import get_logger
 
@@ -308,8 +309,29 @@ class HiddenDomain(Gathering):
             story_event = await self._generate_story(world, domain, event_texts, list(related_avatars_set))
             if story_event:
                 events.append(story_event)
+
+        await self._apply_relation_deltas(entrants, event_texts)
                 
         return events
+
+    async def _apply_relation_deltas(self, entrants: List["Avatar"], event_texts: List[str]) -> None:
+        if len(entrants) < 2 or not event_texts:
+            return
+
+        shuffled_entrants = list(entrants)
+        random.shuffle(shuffled_entrants)
+        shared_event_text = "\n".join(event_texts[:4])
+
+        for idx in range(0, len(shuffled_entrants) - 1, 2):
+            avatar_a = shuffled_entrants[idx]
+            avatar_b = shuffled_entrants[idx + 1]
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gathering",
+                avatar_a=avatar_a,
+                avatar_b=avatar_b,
+                event_text=shared_event_text,
+            )
+            RelationDeltaService.apply_bidirectional_delta(avatar_a, avatar_b, a_to_b, b_to_a)
 
     async def _generate_story(
         self, 

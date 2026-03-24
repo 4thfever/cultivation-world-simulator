@@ -119,7 +119,7 @@ Phù hợp cho nhà phát triển cần sửa code hoặc debug.
 3. **Mở frontend**
    Chế độ phát triển sẽ tự khởi chạy frontend dev server. Hãy mở địa chỉ frontend hiện trong log khởi động, thông thường là `http://localhost:5173`.
 
-### Cách 2: Docker Một Lệnh
+### Cách 2: Triển khai Docker một lệnh (chưa thử nghiệm)
 
 Không cần tự cấu hình môi trường, chỉ cần chạy:
 
@@ -130,8 +130,6 @@ docker-compose up -d --build
 ```
 
 Truy cập frontend: `http://localhost:8123`
-
-### 📱 Tính Năng Nâng Cao
 
 <details>
 <summary><b>Cấu hình truy cập qua mạng LAN / điện thoại (nhấn để mở)</b></summary>

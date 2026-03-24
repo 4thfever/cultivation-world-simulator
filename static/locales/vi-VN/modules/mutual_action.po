@@ -249,6 +249,9 @@ msgstr "{target} từ chối lời đề nghị kết nghĩa của {initiator}"
 msgid "{target} rejected {initiator}'s talk invitation"
 msgstr "{target} từ chối lời mời bắt chuyện của {initiator}"
 
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr ""
+
 msgid ""
 "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
 "proficiency +{w_gain}, {loser} proficiency +{l_gain})"

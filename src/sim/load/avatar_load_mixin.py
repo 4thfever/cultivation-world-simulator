@@ -221,7 +221,7 @@ class AvatarLoadMixin:
                 # 如果动作无法重建，跳过（容错）
                 avatar.current_action = None
         
-        # relations需要在外部单独重建（因为需要所有avatar都加载完成）
+        # relations 需要在外部单独重建（因为需要所有 avatar 都加载完成）
         avatar.relations = {}
         
         # 恢复丹药记录

@@ -33,7 +33,7 @@ from src.classes.items.weapon import Weapon
 from src.classes.items.auxiliary import Auxiliary
 from src.classes.items.magic_stone import MagicStone
 from src.classes.hp import HP, HP_MAX_BY_REALM
-from src.classes.relation.relation import Relation
+from src.classes.relation.relation import NumericRelation, Relation, RelationState
 from src.classes.core.sect import Sect
 from src.classes.appearance import Appearance, get_random_appearance
 from src.classes.spirit_animal import SpiritAnimal
@@ -90,7 +90,7 @@ class Avatar(
     magic_stone: MagicStone = field(default_factory=lambda: MagicStone(0))
     materials: dict[Material, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))
-    relations: dict["Avatar", Relation] = field(default_factory=dict)
+    relations: dict["Avatar", RelationState] = field(default_factory=dict)
     # 缓存的二阶关系 (由 Simulator 定期计算)
     computed_relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment | None = None
@@ -129,7 +129,7 @@ class Avatar(
     enable_metrics_tracking: bool = False
     max_metrics_history: int = 1200  # 最多 100 年
 
-    # 关系交互计数器: key=target_id, value={"count": 0, "checked_times": 0}
+    # 旧版事件计数缓存保留为空壳，避免其他调用点访问时报错。
     relation_interaction_states: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"count": 0, "checked_times": 0}))
 
     # [新增] 子女列表
@@ -327,6 +327,12 @@ class Avatar(
         if self.sect:
             self.sect.remove_member(self)
 
+        # 死亡后先清空死者对外的友好度，保留血缘/身份关系供展示与后续清墓使用。
+        from src.classes.relation.relations import clear_friendliness
+
+        for other in list(self.relations.keys()):
+            clear_friendliness(self, other, keep_structural_relations=True)
+
     def death_by_old_age(self) -> bool:
         """检查是否老死"""
         return self.age.death_by_old_age(self.cultivation_progress.realm)
@@ -464,16 +470,16 @@ class Avatar(
         self.set_relation(other, Relation.IS_SWORN_SIBLING_OF)
 
     def make_friend_with(self, other: "Avatar") -> None:
-        """
-        [我] 与 [other] 结为好友。
-        """
-        self.set_relation(other, Relation.IS_FRIEND_OF)
+        from src.classes.relation.relations import set_friendliness
+
+        set_friendliness(self, other, 35, current_month=int(self.world.month_stamp))
+        set_friendliness(other, self, 35, current_month=int(self.world.month_stamp))
 
     def make_enemy_of(self, other: "Avatar") -> None:
-        """
-        [我] 将 [other] 视为仇敌。
-        """
-        self.set_relation(other, Relation.IS_ENEMY_OF)
+        from src.classes.relation.relations import set_friendliness
+
+        set_friendliness(self, other, -70, current_month=int(self.world.month_stamp))
+        set_friendliness(other, self, -70, current_month=int(self.world.month_stamp))
 
     def get_relation(self, other: "Avatar") -> Optional[Relation]:
         """获取与另一个角色的关系。"""
@@ -484,6 +490,26 @@ class Avatar(
         """清除与另一个角色的关系。"""
         from src.classes.relation.relations import clear_relation
         clear_relation(self, other)
+
+    def get_relation_state(self, other: "Avatar") -> RelationState | None:
+        from src.classes.relation.relations import get_state
+
+        return get_state(self, other)
+
+    def has_identity_relation(self, other: "Avatar", relation: Relation) -> bool:
+        from src.classes.relation.relations import has_identity_relation
+
+        return has_identity_relation(self, other, relation)
+
+    def get_friendliness(self, other: "Avatar") -> int:
+        from src.classes.relation.relations import get_friendliness
+
+        return get_friendliness(self, other)
+
+    def get_numeric_relation(self, other: "Avatar") -> NumericRelation:
+        from src.classes.relation.relations import get_numeric_relation
+
+        return get_numeric_relation(self, other)
 
     # ========== 信息展示（委托） ==========
 

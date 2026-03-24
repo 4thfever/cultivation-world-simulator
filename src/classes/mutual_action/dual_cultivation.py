@@ -9,6 +9,7 @@ from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
@@ -103,10 +104,12 @@ class DualCultivation(MutualAction):
             gain = int(self._dual_exp_gain)
             result_text = t("{avatar} gained cultivation experience +{exp} points",
                           avatar=self.avatar.name, exp=gain)
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("dual_cultivation", "accepted")
             result_event = Event(self.world.month_stamp, result_text, 
                                related_avatars=[self.avatar.id, target.id], is_major=True)
             
             events.append(result_event)
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
 
             start_text = self._start_event_content or result_event.content
             story_event = await StoryEventService.maybe_create_story(
@@ -121,5 +124,8 @@ class DualCultivation(MutualAction):
             )
             if story_event is not None:
                 events.append(story_event)
+        else:
+            a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("dual_cultivation", "rejected")
+            RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
 
         return events

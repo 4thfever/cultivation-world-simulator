@@ -44,8 +44,8 @@ class FortuneKind(Enum):
 
 def _has_master(avatar: Avatar) -> bool:
     """检查是否已有师傅"""
-    for other, rel in avatar.relations.items():
-        if rel == Relation.IS_MASTER_OF:
+    for other, state in avatar.relations.items():
+        if Relation.IS_MASTER_OF in state.identity_relations:
             return True
     return False
 

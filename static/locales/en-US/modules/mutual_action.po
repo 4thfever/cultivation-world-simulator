@@ -249,6 +249,9 @@ msgstr "{target} rejected {initiator}'s proposal to become sworn siblings"
 msgid "{target} rejected {initiator}'s talk invitation"
 msgstr "{target} rejected {initiator}'s talk invitation"
 
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr "{target} rejected {initiator}'s gift: {item}"
+
 msgid ""
 "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
 "proficiency +{w_gain}, {loser} proficiency +{l_gain})"

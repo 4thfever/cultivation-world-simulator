@@ -10,7 +10,7 @@ from dataclasses import dataclass
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
-from src.classes.relation.relation import Relation
+from src.classes.relation.relation import NumericRelation, Relation
 
 
 @dataclass
@@ -43,7 +43,7 @@ TRIBULATION_TYPES = {
         name="寻仇",
         description="仇人旧怨不散，刀光在心底回响，一念之差改写因果。因果纠缠，宿怨难消，突破之际正是因果清算之时。",
         requires_other_avatar=True,
-        relation_type=Relation.IS_ENEMY_OF
+        relation_type=None
     ),
     "情劫": TribulationType(
         name="情劫",
@@ -104,8 +104,8 @@ class TribulationSelector:
         available_tribulations = base_tribulations.copy()
         
         rels = getattr(avatar, "relations", {})
-        has_enemy = any(rel is Relation.IS_ENEMY_OF for rel in rels.values())
-        has_lover = any(rel is Relation.IS_LOVER_OF for rel in rels.values())
+        has_enemy = any(state.last_numeric_relation == NumericRelation.ARCHENEMY for state in rels.values())
+        has_lover = any(Relation.IS_LOVER_OF in state.identity_relations for state in rels.values())
         
         if has_enemy:
             available_tribulations.append("寻仇")
@@ -130,11 +130,19 @@ class TribulationSelector:
         if not tribulation or not tribulation.requires_other_avatar:
             return None
         
-        target_rel = tribulation.relation_type
-        candidates = [
-            other for other, rel in avatar.relations.items() 
-            if rel is target_rel
-        ]
+        if tribulation_name == "寻仇":
+            candidates = [
+                other
+                for other, state in avatar.relations.items()
+                if state.last_numeric_relation == NumericRelation.ARCHENEMY
+            ]
+        else:
+            target_rel = tribulation.relation_type
+            candidates = [
+                other
+                for other, state in avatar.relations.items()
+                if target_rel is not None and target_rel in state.identity_relations
+            ]
         
         if not candidates:
             return None

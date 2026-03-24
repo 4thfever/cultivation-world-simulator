@@ -120,7 +120,7 @@ Suitable for developers who need to modify code or debug.
 3. **Open the Frontend**
    Development mode starts the frontend dev server automatically. Open the frontend URL shown in the startup logs, which is usually `http://localhost:5173`.
 
-### Option 2: Docker One-Click Deployment
+### Option 2: Docker One-Click Deployment (Untested)
 
 No environment configuration needed, just run:
 
@@ -131,8 +131,6 @@ docker-compose up -d --build
 ```
 
 Open the frontend: `http://localhost:8123`
-
-### 📱 Advanced Features
 
 <details>
 <summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>

@@ -4,6 +4,7 @@ import random
 from src.classes.gathering.gathering import Gathering, register_gathering
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.systems.time import Month
 from src.systems.cultivation import Realm
 from src.systems.battle import decide_battle, get_base_strength
@@ -113,6 +114,13 @@ class Tournament(Gathering):
                 related_avatars=[final_winner.id, final_loser.id]
             )
             events.append(final_battle_event)
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gathering",
+                avatar_a=final_winner,
+                avatar_b=final_loser,
+                event_text=final_battle_event.content,
+            )
+            RelationDeltaService.apply_bidirectional_delta(final_winner, final_loser, a_to_b, b_to_a)
             
             event_end = Event(
                 world.month_stamp,

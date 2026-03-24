@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import type { AvatarDetail, EffectEntity } from '@/types/core';
-import { RelationType } from '@/constants/relations';
+import { BloodRelationType } from '@/constants/relations';
 import { formatHp } from '@/utils/formatters/number';
 import StatItem from './components/StatItem.vue';
 import EntityRow from './components/EntityRow.vue';
@@ -52,8 +52,7 @@ const formattedRanking = computed(() => {
 const groupedRelations = computed(() => {
   const rels = props.data.relations || [];
   
-  // 1. 父母 (Parents) - 对应 RelationType.TO_ME_IS_PARENT (对方是我的父母)
-  const existingParents = rels.filter(r => r.relation_type === RelationType.TO_ME_IS_PARENT);
+  const existingParents = rels.filter(r => r.blood_relation === BloodRelationType.TO_ME_IS_PARENT);
   const displayParents = [...existingParents];
   
   // 补全凡人父母占位符
@@ -68,7 +67,8 @@ const groupedRelations = computed(() => {
         target_id: `mortal_father_placeholder`,
         name: '', 
         relation: '', 
-        relation_type: RelationType.TO_ME_IS_PARENT,
+        relation_type: BloodRelationType.TO_ME_IS_PARENT,
+        blood_relation: BloodRelationType.TO_ME_IS_PARENT,
         realm: '',
         sect: '',
         is_mortal: true, 
@@ -81,7 +81,8 @@ const groupedRelations = computed(() => {
         target_id: `mortal_mother_placeholder`,
         name: '', 
         relation: '', 
-        relation_type: RelationType.TO_ME_IS_PARENT,
+        relation_type: BloodRelationType.TO_ME_IS_PARENT,
+        blood_relation: BloodRelationType.TO_ME_IS_PARENT,
         realm: '',
         sect: '',
         is_mortal: true, 
@@ -90,18 +91,22 @@ const groupedRelations = computed(() => {
     }
   }
   
-  // 2. 子女 (Children) - 对应 RelationType.TO_ME_IS_CHILD (对方是我的子女)
-  const children = rels.filter(r => r.relation_type === RelationType.TO_ME_IS_CHILD);
+  const children = rels.filter(r => r.blood_relation === BloodRelationType.TO_ME_IS_CHILD);
   
-  // 3. 其他 (Others)
+  const bloodOthers = rels.filter(r =>
+    r.blood_relation &&
+    r.blood_relation !== BloodRelationType.TO_ME_IS_PARENT &&
+    r.blood_relation !== BloodRelationType.TO_ME_IS_CHILD
+  );
+
   const others = rels.filter(r => 
-    r.relation_type !== RelationType.TO_ME_IS_PARENT && 
-    r.relation_type !== RelationType.TO_ME_IS_CHILD
+    !r.blood_relation
   );
 
   return {
     parents: displayParents,
     children: children,
+    bloodOthers: bloodOthers,
     others: others
   };
 });
@@ -337,6 +342,19 @@ async function handleClearObjective() {
             </template>
           </template>
 
+          <template v-if="groupedRelations.bloodOthers.length">
+            <RelationRow 
+              v-for="rel in groupedRelations.bloodOthers"
+              :key="rel.target_id"
+              :relation="rel"
+              :name="rel.name"
+              :meta="`${t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })} · ${rel.friendliness ?? 0}`"
+              :sub="`${rel.sect} · ${rel.realm}`"
+              :type="rel.relation_type"
+              @click="jumpToAvatar(rel.target_id)"
+            />
+          </template>
+
           <!-- Others Group -->
           <template v-if="groupedRelations.others.length">
             <RelationRow 
@@ -344,7 +362,7 @@ async function handleClearObjective() {
               :key="rel.target_id"
               :relation="rel"
               :name="rel.name"
-              :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+              :meta="`${t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })} · ${rel.friendliness ?? 0}`"
               :sub="`${rel.sect} · ${rel.realm}`"
               :type="rel.relation_type"
               @click="jumpToAvatar(rel.target_id)"

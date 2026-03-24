@@ -8,6 +8,7 @@ llm:
     nickname: "normal"
     single_choice: "normal"
     relation_resolver: "fast"
+    relation_delta: "fast"
     story_teller: "fast"
     interaction_feedback: "fast"
     history_influence: "normal"
@@ -83,7 +84,71 @@ avatar:
 social:
   major_event_context_num: 10  # 大事（长期记忆）展示数量
   minor_event_context_num: 10  # 小事（短期记忆）展示数量
-  relation_check_threshold: 5 # 关系检查所需的交互次数
+  relation:
+    min_friendliness: -100
+    max_friendliness: 100
+    yearly_regression: 2
+    yearly_regression_with_identity: 1
+    transition_hysteresis: 10
+    transition_cooldown_months: 12
+    thresholds:
+      archenemy: -60
+      disliked: -25
+      friend: 25
+      best_friend: 60
+    llm_delta:
+      min: -6
+      max: 6
+    identity_friendliness_floor:
+      lovers: 20
+      sworn_sibling: 20
+      master_apprentice: 10
+    action_modes:
+      conversation: llm
+      talk: llm
+      gift: llm
+      spar: llm
+      gathering: llm
+    fixed_deltas:
+      confess:
+        accepted:
+          a_to_b: 35
+          b_to_a: 25
+        rejected:
+          a_to_b: -20
+          b_to_a: -8
+      dual_cultivation:
+        accepted:
+          a_to_b: 12
+          b_to_a: 12
+        rejected:
+          a_to_b: -6
+          b_to_a: -2
+      swear_brotherhood:
+        accepted:
+          a_to_b: 22
+          b_to_a: 22
+        rejected:
+          a_to_b: -10
+          b_to_a: -4
+      attack:
+        started:
+          a_to_b: -25
+          b_to_a: -35
+      impart:
+        accepted:
+          a_to_b: 8
+          b_to_a: 12
+        rejected:
+          a_to_b: -4
+          b_to_a: -2
+      gathering:
+        friendly:
+          a_to_b: 4
+          b_to_a: 4
+        competitive:
+          a_to_b: -6
+          b_to_a: -8
 
 nickname:
   major_event_threshold: 3  # 获得绰号所需的长期事件数量

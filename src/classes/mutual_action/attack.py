@@ -3,6 +3,7 @@ from __future__ import annotations
 from .mutual_action import MutualAction
 from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -36,6 +37,8 @@ class MutualAttack(MutualAction):
 
     def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
         fb = str(feedback_name).strip()
+        a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("attack", "started")
+        RelationDeltaService.apply_bidirectional_delta(self.avatar, target_avatar, a_to_b, b_to_a)
         
         # 此处不产生新事件，仅改变目标行为
         # 目标的行为改变会通过 _set_target_immediate_action -> commit_next_plan 产生新事件

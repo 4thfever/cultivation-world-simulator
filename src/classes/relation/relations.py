@@ -6,218 +6,372 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List
 
 from src.classes.relation.relation import (
+    BLOOD_RELATIONS,
+    IDENTITY_RELATIONS,
+    NumericRelation,
     Relation,
+    RelationState,
     get_reciprocal,
     is_innate,
 )
+from src.utils.config import CONFIG
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
 
-def update_second_degree_relations(avatar: "Avatar") -> None:
-    """
-    计算并更新角色的二阶关系缓存。
-    覆盖 SIBLING, GRAND_PARENT, MARTIAL_SIBLING 等。
-    """
-    computed = {}
-    
-    # 1. 预筛选一阶关键人 (中间节点)
-    relations = getattr(avatar, "relations", {})
-    
-    parents = [t for t, r in relations.items() if r == Relation.IS_PARENT_OF]
-    children = [t for t, r in relations.items() if r == Relation.IS_CHILD_OF]
-    masters = [t for t, r in relations.items() if r == Relation.IS_MASTER_OF]
-    apprentices = [t for t, r in relations.items() if r == Relation.IS_DISCIPLE_OF]
+def _ensure_relations_dict(avatar: "Avatar") -> dict:
+    relations = getattr(avatar, "relations", None)
+    if isinstance(relations, dict):
+        return relations
+    relations = {}
+    setattr(avatar, "relations", relations)
+    return relations
 
-    # 2. 血缘推导
-    # Sibling: 父母的子女 (排除自己)
+
+def _normalize_numeric_relation(value: NumericRelation | object) -> NumericRelation:
+    return value if isinstance(value, NumericRelation) else NumericRelation.STRANGER
+
+
+def _normalize_month(value: int | object | None) -> int | None:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    return None
+
+
+def _get_or_create_state(from_avatar: "Avatar", to_avatar: "Avatar") -> RelationState:
+    relations = _ensure_relations_dict(from_avatar)
+    state = relations.get(to_avatar)
+    if not isinstance(state, RelationState):
+        state = RelationState()
+        relations[to_avatar] = state
+    return state
+
+
+def clamp_friendliness(value: int) -> int:
+    min_value = int(getattr(CONFIG.social.relation, "min_friendliness", -100))
+    max_value = int(getattr(CONFIG.social.relation, "max_friendliness", 100))
+    return max(min_value, min(max_value, int(value)))
+
+
+def get_numeric_relation_thresholds() -> dict[NumericRelation, int]:
+    thresholds = getattr(CONFIG.social.relation, "thresholds", None)
+    return {
+        NumericRelation.ARCHENEMY: int(getattr(thresholds, "archenemy", -60)),
+        NumericRelation.DISLIKED: int(getattr(thresholds, "disliked", -25)),
+        NumericRelation.FRIEND: int(getattr(thresholds, "friend", 25)),
+        NumericRelation.BEST_FRIEND: int(getattr(thresholds, "best_friend", 60)),
+    }
+
+
+def infer_numeric_relation_from_friendliness(friendliness: int) -> NumericRelation:
+    thresholds = get_numeric_relation_thresholds()
+    if friendliness <= thresholds[NumericRelation.ARCHENEMY]:
+        return NumericRelation.ARCHENEMY
+    if friendliness <= thresholds[NumericRelation.DISLIKED]:
+        return NumericRelation.DISLIKED
+    if friendliness >= thresholds[NumericRelation.BEST_FRIEND]:
+        return NumericRelation.BEST_FRIEND
+    if friendliness >= thresholds[NumericRelation.FRIEND]:
+        return NumericRelation.FRIEND
+    return NumericRelation.STRANGER
+
+
+def _numeric_relation_bounds() -> dict[NumericRelation, tuple[int | None, int | None]]:
+    thresholds = get_numeric_relation_thresholds()
+    return {
+        NumericRelation.ARCHENEMY: (None, thresholds[NumericRelation.ARCHENEMY]),
+        NumericRelation.DISLIKED: (thresholds[NumericRelation.ARCHENEMY] + 1, thresholds[NumericRelation.DISLIKED]),
+        NumericRelation.STRANGER: (thresholds[NumericRelation.DISLIKED] + 1, thresholds[NumericRelation.FRIEND] - 1),
+        NumericRelation.FRIEND: (thresholds[NumericRelation.FRIEND], thresholds[NumericRelation.BEST_FRIEND] - 1),
+        NumericRelation.BEST_FRIEND: (thresholds[NumericRelation.BEST_FRIEND], None),
+    }
+
+
+def update_numeric_relation(state: RelationState, current_month: int | None = None) -> NumericRelation:
+    state.last_numeric_relation = _normalize_numeric_relation(state.last_numeric_relation)
+    state.last_numeric_relation_change_month = _normalize_month(state.last_numeric_relation_change_month)
+    current_month = _normalize_month(current_month)
+    target_relation = infer_numeric_relation_from_friendliness(state.friendliness)
+    prev_relation = state.last_numeric_relation
+    if target_relation == prev_relation:
+        return prev_relation
+
+    hysteresis = int(getattr(CONFIG.social.relation, "transition_hysteresis", 10))
+    cooldown_months = int(getattr(CONFIG.social.relation, "transition_cooldown_months", 12))
+
+    if current_month is not None and state.last_numeric_relation_change_month is not None:
+        if current_month - state.last_numeric_relation_change_month < cooldown_months:
+            return prev_relation
+
+    bounds = _numeric_relation_bounds()[prev_relation]
+    lower_bound, upper_bound = bounds
+    order = {
+        NumericRelation.ARCHENEMY: 0,
+        NumericRelation.DISLIKED: 1,
+        NumericRelation.STRANGER: 2,
+        NumericRelation.FRIEND: 3,
+        NumericRelation.BEST_FRIEND: 4,
+    }
+    if lower_bound is not None and state.friendliness >= lower_bound - hysteresis and order[target_relation] < order[prev_relation]:
+        return prev_relation
+    if upper_bound is not None and state.friendliness <= upper_bound + hysteresis and order[target_relation] > order[prev_relation]:
+        return prev_relation
+
+    state.last_numeric_relation = target_relation
+    state.last_numeric_relation_change_month = current_month
+    return target_relation
+
+
+def ensure_numeric_relation_state(avatar: "Avatar", current_month: int | None = None) -> None:
+    for state in _ensure_relations_dict(avatar).values():
+        if not isinstance(state, RelationState):
+            continue
+        update_numeric_relation(state, current_month=current_month)
+
+
+def update_second_degree_relations(avatar: "Avatar") -> None:
+    computed = {}
+    relations = getattr(avatar, "relations", {})
+
+    parents = [t for t, s in relations.items() if s.blood_relation == Relation.IS_PARENT_OF]
+    children = [t for t, s in relations.items() if s.blood_relation == Relation.IS_CHILD_OF]
+    masters = [t for t, s in relations.items() if Relation.IS_MASTER_OF in s.identity_relations]
+    apprentices = [t for t, s in relations.items() if Relation.IS_DISCIPLE_OF in s.identity_relations]
+
     for p in parents:
-        # 注意：这里需要访问 parent 的 relations
-        # 如果 parent 是死者或者未完全加载，需要确保其 relations 可用
         p_relations = getattr(p, "relations", {})
-        for sib, r in p_relations.items():
-            if r == Relation.IS_CHILD_OF and sib.id != avatar.id:
+        for sib, state in p_relations.items():
+            if state.blood_relation == Relation.IS_CHILD_OF and sib.id != avatar.id:
                 computed[sib] = Relation.IS_SIBLING_OF
-                
-    # Grandparent: 父母的父母
+
     for p in parents:
         p_relations = getattr(p, "relations", {})
-        for gp, r in p_relations.items():
-            if r == Relation.IS_PARENT_OF:
+        for gp, state in p_relations.items():
+            if state.blood_relation == Relation.IS_PARENT_OF:
                 computed[gp] = Relation.IS_GRAND_PARENT_OF
 
-    # Grandchild: 子女的子女
     for c in children:
         c_relations = getattr(c, "relations", {})
-        for gc, r in c_relations.items():
-            if r == Relation.IS_CHILD_OF:
+        for gc, state in c_relations.items():
+            if state.blood_relation == Relation.IS_CHILD_OF:
                 computed[gc] = Relation.IS_GRAND_CHILD_OF
 
-    # 3. 师门推导
-    # Martial Sibling: 师傅的徒弟 (排除自己)
     for m in masters:
         m_relations = getattr(m, "relations", {})
-        for fellow, r in m_relations.items():
-            if r == Relation.IS_DISCIPLE_OF and fellow.id != avatar.id:
+        for fellow, state in m_relations.items():
+            if Relation.IS_DISCIPLE_OF in state.identity_relations and fellow.id != avatar.id:
                 computed[fellow] = Relation.IS_MARTIAL_SIBLING_OF
-                
-    # Martial Grandmaster: 师傅的师傅
+
     for m in masters:
         m_relations = getattr(m, "relations", {})
-        for mgm, r in m_relations.items():
-            if r == Relation.IS_MASTER_OF:
+        for mgm, state in m_relations.items():
+            if Relation.IS_MASTER_OF in state.identity_relations:
                 computed[mgm] = Relation.IS_MARTIAL_GRANDMASTER_OF
 
-    # Martial Grandchild: 徒弟的徒弟
     for app in apprentices:
         app_relations = getattr(app, "relations", {})
-        for mgc, r in app_relations.items():
-            if r == Relation.IS_DISCIPLE_OF:
+        for mgc, state in app_relations.items():
+            if Relation.IS_DISCIPLE_OF in state.identity_relations:
                 computed[mgc] = Relation.IS_MARTIAL_GRANDCHILD_OF
 
-    # 4. 更新缓存
     avatar.computed_relations = computed
 
 
 def get_possible_new_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> List[Relation]:
-    """
-    评估"to_avatar 相对于 from_avatar"可能新增的后天关系集合（方向性明确）。
-
-    清晰规则：
-    - LOVERS(道侣)：要求男女异性；若已存在 to->from 的相同关系则不重复
-    - MASTER(师傅)：要求 to.level >= from.level + 20
-    - APPRENTICE(徒弟)：要求 to.level <= from.level - 20
-    - FRIEND(朋友)：始终可能(若未已存在)
-    - ENEMY(仇人)：始终可能(若未已存在)
-
-    说明：本函数只判断"是否可能"，不做概率与人格相关控制；概率留给上层逻辑。
-    返回的是 Relation 列表，均为 to_avatar 相对于 from_avatar 的候选。
-    """
-    # 方向相关：检查 to->from 已有关系，避免重复推荐
-    existing_to_from = to_avatar.get_relation(from_avatar)
-
+    existing_relation = get_relation(to_avatar, from_avatar)
     candidates: list[Relation] = []
-
-    # 基础信息（Avatar 定义确保存在）
     level_from = from_avatar.cultivation_progress.level
     level_to = to_avatar.cultivation_progress.level
 
-    # - FRIEND
-    if existing_to_from != Relation.IS_FRIEND_OF:
+    if existing_relation != Relation.IS_FRIEND_OF:
         candidates.append(Relation.IS_FRIEND_OF)
-
-    # - ENEMY
-    if existing_to_from != Relation.IS_ENEMY_OF:
+    if existing_relation != Relation.IS_ENEMY_OF:
         candidates.append(Relation.IS_ENEMY_OF)
-
-    # - LOVERS：异性（Avatar 定义确保性别存在）
-    if from_avatar.gender != to_avatar.gender and existing_to_from != Relation.IS_LOVER_OF:
+    if from_avatar.gender != to_avatar.gender and not has_identity_relation(to_avatar, from_avatar, Relation.IS_LOVER_OF):
         candidates.append(Relation.IS_LOVER_OF)
-
-    # - SWORN_SIBLING：结拜（不限性别）
-    if existing_to_from != Relation.IS_SWORN_SIBLING_OF:
+    if not has_identity_relation(to_avatar, from_avatar, Relation.IS_SWORN_SIBLING_OF):
         candidates.append(Relation.IS_SWORN_SIBLING_OF)
-
-    # - 师徒（方向性）：
-    #   MASTER：to 是 from 的师傅 → to.level >= from.level + 20
-    #   APPRENTICE：to 是 from 的徒弟 → to.level <= from.level - 20
-    if level_to >= level_from + 20 and existing_to_from != Relation.IS_MASTER_OF:
+    if level_to >= level_from + 20 and not has_identity_relation(to_avatar, from_avatar, Relation.IS_MASTER_OF):
         candidates.append(Relation.IS_MASTER_OF)
-    if level_to <= level_from - 20 and existing_to_from != Relation.IS_DISCIPLE_OF:
+    if level_to <= level_from - 20 and not has_identity_relation(to_avatar, from_avatar, Relation.IS_DISCIPLE_OF):
         candidates.append(Relation.IS_DISCIPLE_OF)
-
     return candidates
 
 
 def set_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> None:
-    """
-    设置 from_avatar 对 to_avatar 的关系。
-    - 对称关系（如 FRIEND/ENEMY/LOVERS/SIBLING/KIN）会在对方处写入相同的关系。
-    - 有向关系（如 MASTER、APPRENTICE、PARENT、CHILD）会在对方处写入对偶关系。
-    """
     if to_avatar is from_avatar:
         return
-    from_avatar.relations[to_avatar] = relation
-    # 写入对方的对偶关系（对称关系会得到同一枚举值）
-    to_avatar.relations[from_avatar] = get_reciprocal(relation)
-    
-    # [新增] 如果是道侣关系，记录开始时间
+
+    if relation == Relation.IS_FRIEND_OF:
+        set_friendliness(from_avatar, to_avatar, 35, current_month=int(from_avatar.world.month_stamp))
+        set_friendliness(to_avatar, from_avatar, 35, current_month=int(from_avatar.world.month_stamp))
+        return
+    if relation == Relation.IS_ENEMY_OF:
+        set_friendliness(from_avatar, to_avatar, -70, current_month=int(from_avatar.world.month_stamp))
+        set_friendliness(to_avatar, from_avatar, -70, current_month=int(from_avatar.world.month_stamp))
+        return
+
+    from_state = _get_or_create_state(from_avatar, to_avatar)
+    to_state = _get_or_create_state(to_avatar, from_avatar)
+
+    if relation in BLOOD_RELATIONS:
+        from_state.blood_relation = relation
+        to_state.blood_relation = get_reciprocal(relation)
+    elif relation in IDENTITY_RELATIONS:
+        from_state.set_identity(relation)
+        to_state.set_identity(get_reciprocal(relation))
+    else:
+        from_state.set_identity(relation)
+        to_state.set_identity(get_reciprocal(relation))
+
     if relation == Relation.IS_LOVER_OF:
         current_time = int(from_avatar.world.month_stamp)
-        # 双方都记录
         from_avatar.relation_start_dates[to_avatar.id] = current_time
         to_avatar.relation_start_dates[from_avatar.id] = current_time
 
-    # [新增] 师徒强绑定宗门
     if relation == Relation.IS_MASTER_OF:
-        # from 认 to 为师傅 (to 是师傅)
         if to_avatar.sect is not None and from_avatar.sect != to_avatar.sect:
             from src.classes.sect_ranks import get_rank_from_realm
+
             from_avatar.join_sect(to_avatar.sect, get_rank_from_realm(from_avatar.cultivation_progress.realm))
     elif relation == Relation.IS_DISCIPLE_OF:
-        # from 收 to 为徒弟 (from 是师傅)
         if from_avatar.sect is not None and to_avatar.sect != from_avatar.sect:
             from src.classes.sect_ranks import get_rank_from_realm
+
             to_avatar.join_sect(from_avatar.sect, get_rank_from_realm(to_avatar.cultivation_progress.realm))
 
 
+def get_state(from_avatar: "Avatar", to_avatar: "Avatar") -> RelationState | None:
+    state = _ensure_relations_dict(from_avatar).get(to_avatar)
+    return state if isinstance(state, RelationState) else None
+
 
 def get_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> Relation | None:
-    """
-    获取 from_avatar 对 to_avatar 的关系。
-    """
-    return from_avatar.relations.get(to_avatar)
+    state = get_state(from_avatar, to_avatar)
+    if state is None:
+        return None
+    if state.blood_relation is not None:
+        return state.blood_relation
+    if state.identity_relations:
+        return sorted(state.identity_relations, key=lambda item: item.value)[0]
+    numeric_relation = update_numeric_relation(state)
+    if numeric_relation == NumericRelation.FRIEND:
+        return Relation.IS_FRIEND_OF
+    if numeric_relation == NumericRelation.ARCHENEMY:
+        return Relation.IS_ENEMY_OF
+    return None
+
+
+def has_identity_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> bool:
+    state = get_state(from_avatar, to_avatar)
+    return state is not None and relation in state.identity_relations
+
+
+def get_friendliness(from_avatar: "Avatar", to_avatar: "Avatar") -> int:
+    state = get_state(from_avatar, to_avatar)
+    return 0 if state is None else int(state.friendliness)
+
+
+def get_numeric_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> NumericRelation:
+    state = get_state(from_avatar, to_avatar)
+    if state is None:
+        return NumericRelation.STRANGER
+    return update_numeric_relation(state)
+
+
+def set_friendliness(from_avatar: "Avatar", to_avatar: "Avatar", value: int, *, current_month: int | None = None) -> int:
+    state = _get_or_create_state(from_avatar, to_avatar)
+    state.friendliness = clamp_friendliness(value)
+    _apply_identity_friendliness_floor(state)
+    update_numeric_relation(state, current_month=current_month)
+    return state.friendliness
+
+
+def add_friendliness(from_avatar: "Avatar", to_avatar: "Avatar", delta: int, *, current_month: int | None = None) -> int:
+    state = _get_or_create_state(from_avatar, to_avatar)
+    state.friendliness = clamp_friendliness(state.friendliness + int(delta))
+    _apply_identity_friendliness_floor(state)
+    update_numeric_relation(state, current_month=current_month)
+    return state.friendliness
+
+
+def _apply_identity_friendliness_floor(state: RelationState) -> None:
+    if Relation.IS_LOVER_OF in state.identity_relations:
+        state.friendliness = max(state.friendliness, int(getattr(CONFIG.social.relation.identity_friendliness_floor, "lovers", 30)))
+    if Relation.IS_SWORN_SIBLING_OF in state.identity_relations:
+        state.friendliness = max(state.friendliness, int(getattr(CONFIG.social.relation.identity_friendliness_floor, "sworn_sibling", 20)))
+    if Relation.IS_MASTER_OF in state.identity_relations or Relation.IS_DISCIPLE_OF in state.identity_relations:
+        state.friendliness = max(state.friendliness, int(getattr(CONFIG.social.relation.identity_friendliness_floor, "master_apprentice", 10)))
 
 
 def clear_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> None:
-    """
-    清除 from_avatar 和 to_avatar 之间的关系（双向清除）。
-    """
     from_avatar.relations.pop(to_avatar, None)
     to_avatar.relations.pop(from_avatar, None)
-
-    # [新增] 清理时间记录
     from_avatar.relation_start_dates.pop(to_avatar.id, None)
     to_avatar.relation_start_dates.pop(from_avatar.id, None)
 
 
+def clear_friendliness(from_avatar: "Avatar", to_avatar: "Avatar", *, keep_structural_relations: bool = True) -> None:
+    state = _ensure_relations_dict(from_avatar).get(to_avatar)
+    if state is None:
+        return
+    state.friendliness = 0
+    state.last_numeric_relation = NumericRelation.STRANGER
+    state.last_numeric_relation_change_month = None
+    if not keep_structural_relations and state.blood_relation is None and not state.identity_relations:
+        from_avatar.relations.pop(to_avatar, None)
+
 
 def cancel_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> bool:
-    """
-    取消指定的后天关系。
-    - 只能取消后天关系（先天关系不可取消）
-    - 检查该关系是否存在且匹配
-    - 双向清除
-    
-    返回：是否成功取消
-    """
-    # 先天关系不可取消
+    if relation == Relation.IS_FRIEND_OF or relation == Relation.IS_ENEMY_OF:
+        clear_friendliness(from_avatar, to_avatar, keep_structural_relations=True)
+        clear_friendliness(to_avatar, from_avatar, keep_structural_relations=True)
+        return True
     if is_innate(relation):
         return False
-    
-    # 检查关系是否存在且匹配
-    existing = get_relation(from_avatar, to_avatar)
-    if existing != relation:
+
+    from_state = get_state(from_avatar, to_avatar)
+    to_state = get_state(to_avatar, from_avatar)
+    if from_state is None or to_state is None:
         return False
-    
-    # 清除关系
-    clear_relation(from_avatar, to_avatar)
+    if relation not in from_state.identity_relations:
+        return False
+
+    from_state.remove_identity(relation)
+    to_state.remove_identity(get_reciprocal(relation))
+
+    if not from_state.identity_relations and from_state.blood_relation is None and from_state.friendliness == 0:
+        from_avatar.relations.pop(to_avatar, None)
+    if not to_state.identity_relations and to_state.blood_relation is None and to_state.friendliness == 0:
+        to_avatar.relations.pop(from_avatar, None)
     return True
 
 
 def get_possible_cancel_relations(from_avatar: "Avatar", to_avatar: "Avatar") -> List[Relation]:
-    """
-    获取可能取消的关系列表（仅后天关系）。
-    
-    返回：from_avatar 对 to_avatar 的可取消关系列表
-    """
-    existing = get_relation(from_avatar, to_avatar)
-    if existing is None:
+    state = get_state(from_avatar, to_avatar)
+    if state is None:
         return []
-    
-    # 只有后天关系可以取消
-    if is_innate(existing):
-        return []
-    
-    return [existing]
+    return sorted(state.identity_relations, key=lambda item: item.value)
+
+
+def regress_yearly_friendliness(avatar: "Avatar", current_month: int | None = None) -> None:
+    base_amount = int(getattr(CONFIG.social.relation, "yearly_regression", 2))
+    reduced_amount = int(getattr(CONFIG.social.relation, "yearly_regression_with_identity", 1))
+    for state in _ensure_relations_dict(avatar).values():
+        if not isinstance(state, RelationState):
+            continue
+        if state.friendliness == 0:
+            update_numeric_relation(state, current_month=current_month)
+            continue
+        amount = reduced_amount if state.identity_relations else base_amount
+        if abs(state.friendliness) <= amount:
+            state.friendliness = 0
+        elif state.friendliness > 0:
+            state.friendliness -= amount
+        else:
+            state.friendliness += amount
+        _apply_identity_friendliness_floor(state)
+        update_numeric_relation(state, current_month=current_month)

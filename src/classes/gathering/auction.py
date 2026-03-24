@@ -3,6 +3,7 @@ import asyncio
 from src.classes.gathering.gathering import Gathering, register_gathering
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventService
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.utils.config import CONFIG
 from src.utils.llm.client import call_llm_with_template
 
@@ -283,6 +284,15 @@ class Auction(Gathering):
                 related_avatars=related_avatars,
                 is_major=False
             )
+            if len(related_avatars) >= 2:
+                runner_up_avatar = world.avatar_manager.get_avatar(related_avatars[1])
+                if runner_up_avatar is not None:
+                    winner_avatar = world.avatar_manager.get_avatar(related_avatars[0])
+                    if winner_avatar is not None:
+                        mode = RelationDeltaService.get_action_mode("gathering")
+                        if mode == "llm":
+                            # gathering 结算点是同步函数，统一在 execute 末尾异步补 delta
+                            setattr(event, "_relation_delta_pair", (winner_avatar, runner_up_avatar))
             events.append(event)
             
         return events
@@ -470,7 +480,19 @@ class Auction(Gathering):
         # 5. 生成基础事件（合并成交与竞争信息）
         auction_events = self._generate_auction_events(world, deal_results, willing_prices)
         events.extend(auction_events)
-        
+        for event in auction_events:
+            pair = getattr(event, "_relation_delta_pair", None)
+            if pair is None:
+                continue
+            winner_avatar, runner_up_avatar = pair
+            a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+                action_key="gathering",
+                avatar_a=winner_avatar,
+                avatar_b=runner_up_avatar,
+                event_text=event.content,
+            )
+            RelationDeltaService.apply_bidirectional_delta(winner_avatar, runner_up_avatar, a_to_b, b_to_a)
+
         # 6. 生成故事 (StoryTeller)
         story_events = await self._generate_story(world, deal_results, willing_prices)
         events.extend(story_events)

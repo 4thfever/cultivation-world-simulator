@@ -7,6 +7,7 @@ from src.i18n import t
 from src.classes.mutual_action.mutual_action import MutualAction
 from src.systems.battle import decide_battle
 from src.classes.event import Event
+from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.classes.action.cooldown import cooldown_action
 
@@ -71,6 +72,7 @@ class Spar(MutualAction):
         # 使用 EventHelper.push_pair 确保只推送一次到 Global EventManager（通过 to_sidebar_once=True）
         # 此时 Self(Initiator) 获得 to_sidebar=True, Target 获得 to_sidebar=False
         EventHelper.push_pair(event, self.avatar, target_avatar, to_sidebar_once=True)
+        self._last_result_text = result_text
 
     async def finish(self, target_avatar: Avatar | str) -> list[Event]:
         # 获取目标
@@ -79,12 +81,19 @@ class Spar(MutualAction):
             return []
 
         winner, loser, w_gain, l_gain = self._last_result
+        result_text = getattr(self, "_last_result_text", t("{winner} defeated {loser}", winner=winner.name, loser=loser.name))
+        a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
+            action_key="spar",
+            avatar_a=self.avatar,
+            avatar_b=target,
+            event_text=result_text,
+        )
+        RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
         
         # 构造故事输入
         start_text = t("{initiator} challenges {target} to spar",
                       initiator=self.avatar.name, target=target.name)
-        result_text = t("{winner} defeated {loser}",
-                       winner=winner.name, loser=loser.name)
+        result_text = t("{winner} defeated {loser}", winner=winner.name, loser=loser.name)
 
         story_event = await StoryEventService.maybe_create_story(
             kind=StoryEventKind.COMBAT,

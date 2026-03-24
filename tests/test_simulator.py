@@ -41,7 +41,7 @@ async def test_simulator_step_moves_avatar_and_sets_tile(base_world, dummy_avata
 
 
 @pytest.mark.asyncio
-async def test_simulator_interaction_counting(base_world, dummy_avatar, mock_llm_managers):
+async def test_simulator_interaction_events_do_not_use_legacy_counting(base_world, dummy_avatar, mock_llm_managers):
     sim = Simulator(base_world)
 
     other_avatar = Avatar(
@@ -74,7 +74,7 @@ async def test_simulator_interaction_counting(base_world, dummy_avatar, mock_llm
         await sim.step()
 
     count = dummy_avatar.relation_interaction_states[other_avatar.id]["count"]
-    assert count == 2
+    assert count == 0
 
 
 @pytest.mark.asyncio
