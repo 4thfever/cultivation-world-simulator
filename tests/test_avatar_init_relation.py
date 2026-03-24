@@ -3,7 +3,7 @@ from src.classes.core.world import World
 from src.systems.time import MonthStamp
 from src.classes.age import Age
 from src.classes.core.avatar import Avatar, Gender
-from src.classes.relation.relation import Relation, get_relation_label
+from src.classes.relation.relation import NumericRelation, Relation, get_relation_label
 from src.systems.cultivation import CultivationProgress, Realm
 from src.utils.id_generator import get_avatar_id
 from src.sim.avatar_init import create_random_mortal, MortalPlanner, AvatarFactory, PopulationPlanner
@@ -205,3 +205,53 @@ def test_population_planner_generates_denser_initial_relations():
 
     assert avg_coverage_ratio >= 0.50, f"开局有直接关系的角色占比偏低: {avg_coverage_ratio:.3f}"
     assert avg_multi_ratio >= 0.12, f"开局拥有多个直接关系的角色占比偏低: {avg_multi_ratio:.3f}"
+
+
+def test_build_group_lovers_start_with_friendliness(monkeypatch, mock_world):
+    """道侣初始化后不应还是陌生人。"""
+    monkeypatch.setattr(avatar_init_module, "LOVERS_TRIGGER_PROB", 1.0)
+    monkeypatch.setattr(avatar_init_module, "LOVERS_PAIR_CAP_DIV", 1)
+    monkeypatch.setattr(avatar_init_module, "MASTER_PAIR_PROB", 0.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_TRIGGER_PROB", 0.0)
+
+    plan = PopulationPlanner.plan_group(2, existed_sects=None)
+    avatars = list(AvatarFactory.build_group(mock_world, mock_world.month_stamp, plan).values())
+    assert len(avatars) == 2
+
+    lover_pairs = [
+        (a, b)
+        for a in avatars
+        for b in avatars
+        if a is not b and a.get_relation(b) == Relation.IS_LOVER_OF
+    ]
+    assert lover_pairs, "未生成道侣对，无法验证初始友好度"
+
+    avatar_a, avatar_b = lover_pairs[0]
+    assert avatar_a.get_friendliness(avatar_b) >= 25
+    assert avatar_b.get_friendliness(avatar_a) >= 25
+    assert avatar_a.get_numeric_relation(avatar_b) in {NumericRelation.FRIEND, NumericRelation.BEST_FRIEND}
+    assert avatar_b.get_numeric_relation(avatar_a) in {NumericRelation.FRIEND, NumericRelation.BEST_FRIEND}
+
+
+def test_population_planner_generates_numeric_relations_from_friendliness(monkeypatch, mock_world):
+    """朋友/仇人等初始数值关系应从友好度自然推导，而不是显式规划。"""
+    monkeypatch.setattr(avatar_init_module, "LOVERS_TRIGGER_PROB", 0.0)
+    monkeypatch.setattr(avatar_init_module, "MASTER_PAIR_PROB", 0.0)
+    monkeypatch.setattr(avatar_init_module, "FAMILY_TRIGGER_PROB", 0.0)
+    monkeypatch.setattr(avatar_init_module, "INITIAL_FRIENDLINESS_PAIR_CAP_DIV", 1)
+
+    plan = PopulationPlanner.plan_group(12, existed_sects=None)
+    assert plan.friendliness, "未规划任何初始友好度"
+    assert all(rel not in {Relation.IS_FRIEND_OF, Relation.IS_ENEMY_OF} for rel in plan.relations.values())
+
+    avatars = list(AvatarFactory.build_group(mock_world, mock_world.month_stamp, plan).values())
+    non_stranger_pairs = []
+    for avatar in avatars:
+        for target in avatars:
+            if avatar is target:
+                continue
+            numeric_relation = avatar.get_numeric_relation(target)
+            if numeric_relation != NumericRelation.STRANGER:
+                non_stranger_pairs.append((avatar, target, numeric_relation))
+
+    assert non_stranger_pairs, "未从初始友好度中推导出任何数值关系"

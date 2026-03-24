@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Tuple, Union
 
 from src.classes.core.world import World
@@ -14,7 +14,7 @@ from src.classes.age import Age
 from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
 from src.classes.core.sect import Sect, sects_by_id, sects_by_name
-from src.classes.relation.relation import Relation
+from src.classes.relation.relation import NumericRelation, Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
@@ -22,6 +22,7 @@ from src.classes.persona import Persona, personas_by_id, personas_by_name
 from src.classes.items.magic_stone import MagicStone
 from src.classes.death_reason import DeathReason, DeathType
 from src.classes.official_rank import OFFICIAL_NONE, resolve_rank_changes
+from src.classes.relation.relations import set_friendliness
 from src.utils.born_region import get_born_region_id
 
 
@@ -45,6 +46,8 @@ LOVERS_PAIR_CAP_DIV: int = 5            # 道侣两两预算：n // 5
 LOVERS_TRIGGER_PROB: float = 0.32       # 生成一对道侣的概率（强制异性）
 
 MASTER_PAIR_PROB: float = 0.40          # 同宗门内生成一对师徒的概率
+
+INITIAL_FRIENDLINESS_PAIR_CAP_DIV: int = 3
 
 PARENT_MIN_DIFF: int = 16               # 父母与子女最小年龄差
 PARENT_MAX_DIFF: int = 80               # 父母与子女最大年龄差（用于生成目标差值）
@@ -82,6 +85,55 @@ INITIAL_COURT_REPUTATION_RANGE_BY_REALM: dict[Realm, tuple[int, int]] = {
     Realm.Core_Formation: (260, 620),
     Realm.Nascent_Soul: (600, 1150),
 }
+
+
+def _roll_initial_friendliness_pair() -> tuple[int, int]:
+    archetype = random.choice(
+        [
+            "mutual_friend",
+            "mutual_best_friend",
+            "mutual_disliked",
+            "mutual_archenemy",
+            "one_sided_admiration",
+            "one_sided_dislike",
+        ]
+    )
+
+    if archetype == "mutual_friend":
+        return random.randint(28, 55), random.randint(28, 55)
+    if archetype == "mutual_best_friend":
+        return random.randint(60, 88), random.randint(60, 88)
+    if archetype == "mutual_disliked":
+        return random.randint(-52, -28), random.randint(-52, -28)
+    if archetype == "mutual_archenemy":
+        return random.randint(-90, -62), random.randint(-90, -62)
+    if archetype == "one_sided_admiration":
+        if random.random() < 0.5:
+            return random.randint(30, 68), random.randint(-5, 20)
+        return random.randint(-5, 20), random.randint(30, 68)
+    if random.random() < 0.5:
+        return random.randint(-72, -30), random.randint(-10, 18)
+    return random.randint(-10, 18), random.randint(-72, -30)
+
+
+def _roll_identity_relation_friendliness(relation: Relation) -> tuple[int | None, int | None]:
+    if relation is Relation.IS_LOVER_OF:
+        return random.randint(45, 82), random.randint(45, 82)
+    if relation is Relation.IS_SWORN_SIBLING_OF:
+        return random.randint(35, 72), random.randint(35, 72)
+    if relation is Relation.IS_DISCIPLE_OF:
+        return random.randint(18, 45), random.randint(28, 62)
+    if relation is Relation.IS_MASTER_OF:
+        return random.randint(28, 62), random.randint(18, 45)
+    return None, None
+
+
+def _apply_structural_initial_friendliness(from_avatar: Avatar, to_avatar: Avatar, relation: Relation) -> None:
+    a_to_b, b_to_a = _roll_identity_relation_friendliness(relation)
+    if a_to_b is not None:
+        set_friendliness(from_avatar, to_avatar, a_to_b)
+    if b_to_a is not None:
+        set_friendliness(to_avatar, from_avatar, b_to_a)
 
 
 def _create_random_age() -> int:
@@ -197,6 +249,7 @@ class PopulationPlan:
     genders: List[Optional[Gender]]
     surnames: List[Optional[str]]
     relations: Dict[Tuple[int, int], Relation]
+    friendliness: Dict[Tuple[int, int], int] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -383,7 +436,7 @@ class PopulationPlanner:
         use_sects = bool(existed_sects)
         planned_sect: list[Optional[Sect]] = [None] * n
         if n == 0:
-            return PopulationPlan(planned_sect, [None] * 0, [None] * 0, {})
+            return PopulationPlan(planned_sect, [None] * 0, [None] * 0, {}, {})
 
         if use_sects and existed_sects:
             sect_member_target = int(n * SECT_MEMBER_RATIO)
@@ -486,7 +539,36 @@ class PopulationPlanner:
             if planned_gender[idx] is None:
                 planned_gender[idx] = random_gender()
 
-        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations)
+        planned_friendliness = PopulationPlanner._plan_initial_friendliness(n, planned_relations)
+
+        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations, planned_friendliness)
+
+    @staticmethod
+    def _plan_initial_friendliness(
+        n: int,
+        planned_relations: dict[tuple[int, int], Relation],
+    ) -> dict[tuple[int, int], int]:
+        pair_budget = max(0, n // INITIAL_FRIENDLINESS_PAIR_CAP_DIV)
+        if pair_budget <= 0:
+            return {}
+
+        blocked_pairs = {frozenset((a, b)) for (a, b) in planned_relations}
+        candidate_pairs = [
+            (a, b)
+            for a in range(n)
+            for b in range(a + 1, n)
+            if frozenset((a, b)) not in blocked_pairs
+        ]
+        random.shuffle(candidate_pairs)
+
+        friendliness: dict[tuple[int, int], int] = {}
+        for a, b in candidate_pairs[:pair_budget]:
+            a_to_b, b_to_a = _roll_initial_friendliness_pair()
+            if a_to_b != 0:
+                friendliness[(a, b)] = a_to_b
+            if b_to_a != 0:
+                friendliness[(b, a)] = b_to_a
+        return friendliness
 
     @staticmethod
     def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
@@ -582,7 +664,11 @@ class RelationApplier:
     """
 
     @staticmethod
-    def apply(avatars_by_index: List[Optional[Avatar]], relations: dict[tuple[int, int], Relation]) -> None:
+    def apply(
+        avatars_by_index: List[Optional[Avatar]],
+        relations: dict[tuple[int, int], Relation],
+        friendliness: Optional[dict[tuple[int, int], int]] = None,
+    ) -> None:
         for (a, b), relation in relations.items():
             if a >= len(avatars_by_index) or b >= len(avatars_by_index):
                 continue
@@ -591,6 +677,19 @@ class RelationApplier:
             if av_a is None or av_b is None or av_a is av_b:
                 continue
             av_a.set_relation(av_b, relation)
+            _apply_structural_initial_friendliness(av_a, av_b, relation)
+
+        if not friendliness:
+            return
+
+        for (a, b), value in friendliness.items():
+            if a >= len(avatars_by_index) or b >= len(avatars_by_index):
+                continue
+            av_a = avatars_by_index[a]
+            av_b = avatars_by_index[b]
+            if av_a is None or av_b is None or av_a is av_b:
+                continue
+            set_friendliness(av_a, av_b, value)
 
 
 class SectRankAssigner:
@@ -712,6 +811,7 @@ class AvatarFactory:
                 plan.parent_avatar.acknowledge_child(avatar)
             if plan.master_avatar is not None:
                 plan.master_avatar.accept_disciple(avatar)
+                _apply_structural_initial_friendliness(plan.master_avatar, avatar, Relation.IS_DISCIPLE_OF)
             from src.classes.relation.relations import update_second_degree_relations
 
             if plan.parent_avatar is not None:
@@ -742,6 +842,7 @@ class AvatarFactory:
         planned_gender = population_plan.genders
         planned_surname = population_plan.surnames
         planned_relations = population_plan.relations
+        planned_friendliness = population_plan.friendliness
 
         n = len(planned_sect)
         width, height = world.map.width, world.map.height
@@ -858,7 +959,7 @@ class AvatarFactory:
             avatars_by_id[avatar.id] = avatar
 
         SectRankAssigner.assign_batch(avatars_by_index, world)
-        RelationApplier.apply(avatars_by_index, constrained_relations)
+        RelationApplier.apply(avatars_by_index, constrained_relations, planned_friendliness)
 
         for i, avatar in enumerate(avatars_by_index):
             if avatar is None:
@@ -1177,5 +1278,6 @@ def create_avatar_from_request(
             
             if rel_enum:
                 avatar.set_relation(target, rel_enum)
+                _apply_structural_initial_friendliness(avatar, target, rel_enum)
 
     return avatar
