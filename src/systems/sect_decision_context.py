@@ -82,13 +82,8 @@ def build_sect_decision_context(
     sect_centers = snapshot.sect_centers
 
     # 统计当前本宗占据的格子数与冲突格子数
-    tile_count = 0
-    conflict_tile_count = 0
-    for owners in tile_owners.values():
-        if sect.id in owners:
-            tile_count += 1
-            if len(owners) > 1:
-                conflict_tile_count += 1
+    tile_count = len(snapshot.owned_tiles_by_sect.get(int(sect.id), []))
+    border_tile_count = int(snapshot.border_tiles_by_sect.get(int(sect.id), 0))
 
     headquarter_center: Optional[tuple[int, int]] = sect_centers.get(sect.id)
 
@@ -99,8 +94,11 @@ def build_sect_decision_context(
 
     territory = {
         "tile_count": tile_count,
-        "conflict_tile_count": conflict_tile_count,
-        "conflict_ratio": (float(conflict_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
+        "border_tile_count": border_tile_count,
+        "border_pressure_ratio": (float(border_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
+        # 兼容旧字段，语义改为“与其他宗门接壤的边界压力”。
+        "conflict_tile_count": border_tile_count,
+        "conflict_ratio": (float(border_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
         "headquarter_center": headquarter_center,
     }
 
@@ -174,7 +172,7 @@ def build_sect_decision_context(
         "alive_member_count": len(living_members),
         "peak_member_realm": str(getattr(getattr(peak_member, "cultivation_progress", None), "realm", "") or ""),
         "patriarch_realm": str(getattr(getattr(patriarch, "cultivation_progress", None), "realm", "") or ""),
-        "war_readiness": "stretched" if conflict_tile_count > max(1, tile_count // 3) else "stable",
+        "war_readiness": "stretched" if border_tile_count > max(1, tile_count // 3) else "stable",
         "resource_pressure": treasury_pressure,
         "can_afford_recruit_count": current_stones // max(1, recruit_cost),
         "can_afford_support_count": current_stones // max(1, support_amount),
@@ -292,6 +290,7 @@ def build_sect_decision_context(
     relations_raw = compute_sect_relations(
         active_sects,
         tile_owners,
+        border_contact_counts=snapshot.border_contact_counts,
         extra_breakdown_by_pair=extra_breakdown_by_pair,
         diplomacy_by_pair=diplomacy_by_pair,
     )
@@ -299,15 +298,13 @@ def build_sect_decision_context(
     relations: List[Dict[str, Any]] = []
     diplomacy_targets: List[Dict[str, Any]] = []
     active_wars: List[Dict[str, Any]] = []
-    overlap_by_other_id: Dict[int, int] = {}
+    border_contact_by_other_id: Dict[int, int] = {}
     other_sect_by_id = {int(s.id): s for s in active_sects}
-    for owners in tile_owners.values():
-        if int(sect.id) not in owners:
-            continue
-        for owner_id in owners:
-            if int(owner_id) == int(sect.id):
-                continue
-            overlap_by_other_id[int(owner_id)] = overlap_by_other_id.get(int(owner_id), 0) + 1
+    for pair, edge_count in snapshot.border_contact_counts.items():
+        if int(sect.id) == int(pair[0]):
+            border_contact_by_other_id[int(pair[1])] = int(edge_count)
+        elif int(sect.id) == int(pair[1]):
+            border_contact_by_other_id[int(pair[0])] = int(edge_count)
     for item in relations_raw:
         sid_a = int(item["sect_a_id"])
         sid_b = int(item["sect_b_id"])
@@ -341,7 +338,8 @@ def build_sect_decision_context(
             "last_battle_month": diplomacy_state.get("last_battle_month"),
             "war_reason": str(diplomacy_state.get("reason", "") or ""),
             "relation_value": value,
-            "territory_overlap_tiles": int(overlap_by_other_id.get(other_id, 0)),
+            "border_contact_edges": int(border_contact_by_other_id.get(other_id, 0)),
+            "territory_overlap_tiles": int(border_contact_by_other_id.get(other_id, 0)),
             "other_total_battle_strength": float(getattr(other_sect_by_id.get(other_id), "total_battle_strength", 0.0)),
             "power_ratio": float(getattr(sect, "total_battle_strength", 0.0)) / max(
                 1.0,

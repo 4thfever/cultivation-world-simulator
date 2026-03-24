@@ -318,6 +318,15 @@ export interface SectTerritorySummaryDTO {
   color: string;
   influence_radius: number;
   is_active: boolean;
+  owned_tiles: Array<{
+    x: number;
+    y: number;
+  }>;
+  boundary_edges: Array<{
+    x: number;
+    y: number;
+    side: 'left' | 'right' | 'top' | 'bottom' | string;
+  }>;
 }
 
 export interface SectTerritoriesResponseDTO {

@@ -1,6 +1,7 @@
 import math
+from hashlib import md5
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Dict, Iterable, Iterator, List, Tuple
+from typing import TYPE_CHECKING, Dict, Iterable, List, Tuple
 
 from src.classes.event import Event
 from src.systems.battle import get_base_strength
@@ -19,6 +20,10 @@ class SectTerritorySnapshot:
     active_sects: List["Sect"]
     sect_centers: Dict[int, Tuple[int, int]]
     tile_owners: Dict[Tuple[int, int], List[int]]
+    owned_tiles_by_sect: Dict[int, List[Tuple[int, int]]]
+    border_contact_counts: Dict[Tuple[int, int], int]
+    border_tiles_by_sect: Dict[int, int]
+    boundary_edges_by_sect: Dict[int, List[dict[str, int | str]]]
 
 
 class SectManager:
@@ -29,6 +34,12 @@ class SectManager:
 
     def __init__(self, world: "World"):
         self.world = world
+
+    @staticmethod
+    def _normalize_pair(sect_a_id: int, sect_b_id: int) -> Tuple[int, int]:
+        a = int(sect_a_id)
+        b = int(sect_b_id)
+        return (a, b) if a <= b else (b, a)
 
     def _collect_active_sects(self) -> List["Sect"]:
         """获取当前仍然存续且激活的宗门列表。"""
@@ -99,22 +110,95 @@ class SectManager:
         # 只保留当前实际存在的宗门
         return {sect.id: centers[sect.id] for sect in sects if sect.id in centers}
 
-    def _iter_influence_tiles(
-        self, center_x: int, center_y: int, radius: int, game_map: "Map"
-    ) -> Iterator[Tuple[int, int]]:
+    def _get_claim_score(
+        self,
+        *,
+        sect_id: int,
+        tile_x: int,
+        tile_y: int,
+        center_x: int,
+        center_y: int,
+        radius: int,
+        total_battle_strength: float,
+    ) -> float:
         """
-        枚举以 (center_x, center_y) 为中心、曼哈顿半径为 radius 的菱形范围内所有有效格子。
-        """
-        if radius <= 0:
-            return
+        计算宗门对某个格子的势力归属分数。
 
-        for dx in range(-radius, radius + 1):
-            max_dy = radius - abs(dx)
-            for dy in range(-max_dy, max_dy + 1):
-                x = center_x + dx
-                y = center_y + dy
-                if game_map.is_in_bounds(x, y) and (x, y) in game_map.tiles:
-                    yield (x, y)
+        规则：
+        - 距离仍是主导项，保证势力范围整体围绕总部扩张。
+        - 战力提供接壤区域的竞争优势，使强宗门更容易压缩边界。
+        - 使用稳定的确定性噪声，让边界呈现锯齿感，但不会每年无故抖动。
+        """
+        distance = abs(tile_x - center_x) + abs(tile_y - center_y)
+        if distance > radius:
+            return float("-inf")
+
+        sect_conf = getattr(CONFIG, "sect", None)
+        distance_weight = float(getattr(sect_conf, "territory_distance_weight", 100.0)) if sect_conf else 100.0
+        strength_weight = float(getattr(sect_conf, "territory_strength_weight", 12.0)) if sect_conf else 12.0
+        noise_weight = float(getattr(sect_conf, "territory_noise_weight", 6.0)) if sect_conf else 6.0
+
+        proximity_score = float(radius - distance + 1)
+        strength_score = math.log1p(max(0.0, float(total_battle_strength)))
+
+        digest = md5(f"{sect_id}:{tile_x}:{tile_y}".encode("utf-8")).digest()
+        noise = (int.from_bytes(digest[:4], "big") / 0xFFFFFFFF) - 0.5
+
+        return (
+            proximity_score * distance_weight
+            + strength_score * strength_weight
+            + noise * noise_weight
+        )
+
+    def _build_boundary_and_contact_stats(
+        self,
+        tile_owners: Dict[Tuple[int, int], List[int]],
+        active_sect_ids: set[int],
+    ) -> tuple[
+        Dict[Tuple[int, int], int],
+        Dict[int, int],
+        Dict[int, List[dict[str, int | str]]],
+    ]:
+        border_contact_counts: Dict[Tuple[int, int], int] = {}
+        border_tile_sets: Dict[int, set[Tuple[int, int]]] = {sid: set() for sid in active_sect_ids}
+        boundary_edges_by_sect: Dict[int, List[dict[str, int | str]]] = {
+            sid: [] for sid in active_sect_ids
+        }
+
+        directions = (
+            ("left", -1, 0),
+            ("right", 1, 0),
+            ("top", 0, -1),
+            ("bottom", 0, 1),
+        )
+
+        for (x, y), owners in tile_owners.items():
+            if not owners:
+                continue
+            owner_id = int(owners[0])
+            for side, dx, dy in directions:
+                neighbor_owner_list = tile_owners.get((x + dx, y + dy), [])
+                neighbor_owner = int(neighbor_owner_list[0]) if neighbor_owner_list else None
+                if neighbor_owner == owner_id:
+                    continue
+
+                boundary_edges_by_sect.setdefault(owner_id, []).append(
+                    {"x": x, "y": y, "side": side}
+                )
+                if neighbor_owner is None:
+                    continue
+
+                border_tile_sets.setdefault(owner_id, set()).add((x, y))
+                border_tile_sets.setdefault(neighbor_owner, set()).add((x + dx, y + dy))
+                if neighbor_owner > owner_id or (neighbor_owner == owner_id and (dx > 0 or dy > 0)):
+                    pair = self._normalize_pair(owner_id, neighbor_owner)
+                    border_contact_counts[pair] = border_contact_counts.get(pair, 0) + 1
+
+        border_tiles_by_sect = {
+            sid: len(border_tile_sets.get(sid, set()))
+            for sid in active_sect_ids
+        }
+        return border_contact_counts, border_tiles_by_sect, boundary_edges_by_sect
 
     def _compute_snapshot(self) -> SectTerritorySnapshot:
         """
@@ -127,11 +211,23 @@ class SectManager:
         """
         active_sects = self._collect_active_sects()
         tile_owners: Dict[Tuple[int, int], List[int]] = {}
+        owned_tiles_by_sect: Dict[int, List[Tuple[int, int]]] = {}
         sect_centers: Dict[int, Tuple[int, int]] = {}
+        border_contact_counts: Dict[Tuple[int, int], int] = {}
+        border_tiles_by_sect: Dict[int, int] = {}
+        boundary_edges_by_sect: Dict[int, List[dict[str, int | str]]] = {}
 
         game_map: "Map" = getattr(self.world, "map", None)
         if not active_sects or not game_map:
-            return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+            return SectTerritorySnapshot(
+                active_sects=active_sects,
+                sect_centers=sect_centers,
+                tile_owners=tile_owners,
+                owned_tiles_by_sect=owned_tiles_by_sect,
+                border_contact_counts=border_contact_counts,
+                border_tiles_by_sect=border_tiles_by_sect,
+                boundary_edges_by_sect=boundary_edges_by_sect,
+            )
 
         # 1. 更新战力与半径
         for sect in active_sects:
@@ -141,21 +237,70 @@ class SectManager:
         sect_centers = self._compute_sect_centers(active_sects, game_map)
         if not sect_centers:
             # 与旧逻辑保持一致：若无法确定中心，则不再枚举 tile_owners
-            return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+            return SectTerritorySnapshot(
+                active_sects=active_sects,
+                sect_centers=sect_centers,
+                tile_owners=tile_owners,
+                owned_tiles_by_sect=owned_tiles_by_sect,
+                border_contact_counts=border_contact_counts,
+                border_tiles_by_sect=border_tiles_by_sect,
+                boundary_edges_by_sect=boundary_edges_by_sect,
+            )
 
-        # 3. 枚举每个宗门的势力范围，记录占据格子
+        # 3. 以“唯一归属”的方式为每个有效格子选出一个最强势力拥有者
+        sect_candidates = []
         for sect in active_sects:
             center = sect_centers.get(sect.id)
-            radius = getattr(sect, "influence_radius", 0)
+            radius = int(getattr(sect, "influence_radius", 0) or 0)
             if center is None or radius <= 0:
                 continue
+            sect_candidates.append(
+                (
+                    int(sect.id),
+                    center[0],
+                    center[1],
+                    radius,
+                    float(getattr(sect, "total_battle_strength", 0.0)),
+                )
+            )
 
-            cx, cy = center
-            for x, y in self._iter_influence_tiles(cx, cy, radius, game_map):
-                owners = tile_owners.setdefault((x, y), [])
-                owners.append(sect.id)
+        for x, y in game_map.tiles.keys():
+            best_owner: int | None = None
+            best_score = float("-inf")
+            for sect_id, center_x, center_y, radius, total_battle_strength in sect_candidates:
+                score = self._get_claim_score(
+                    sect_id=sect_id,
+                    tile_x=x,
+                    tile_y=y,
+                    center_x=center_x,
+                    center_y=center_y,
+                    radius=radius,
+                    total_battle_strength=total_battle_strength,
+                )
+                if score > best_score:
+                    best_score = score
+                    best_owner = sect_id
+            if best_owner is None or best_score == float("-inf"):
+                continue
+            tile_owners[(x, y)] = [best_owner]
+            owned_tiles_by_sect.setdefault(best_owner, []).append((x, y))
 
-        return SectTerritorySnapshot(active_sects=active_sects, sect_centers=sect_centers, tile_owners=tile_owners)
+        border_contact_counts, border_tiles_by_sect, boundary_edges_by_sect = (
+            self._build_boundary_and_contact_stats(
+                tile_owners,
+                {int(sect.id) for sect in active_sects},
+            )
+        )
+
+        return SectTerritorySnapshot(
+            active_sects=active_sects,
+            sect_centers=sect_centers,
+            tile_owners=tile_owners,
+            owned_tiles_by_sect=owned_tiles_by_sect,
+            border_contact_counts=border_contact_counts,
+            border_tiles_by_sect=border_tiles_by_sect,
+            boundary_edges_by_sect=boundary_edges_by_sect,
+        )
 
     def get_snapshot(self) -> SectTerritorySnapshot:
         """
@@ -194,17 +339,15 @@ class SectManager:
         sect_by_id = {int(s.id): s for s in active_sects}
 
         for owners in tile_owners.values():
-            n = len(owners)
-            if n == 0:
+            if not owners:
                 continue
-            for sid in owners:
-                sect = sect_by_id.get(int(sid))
-                if sect is None:
-                    continue
-                extra_income = float(sect.get_extra_income_per_tile(current_month))
-                effective_income_per_tile = max(0.0, base_income + extra_income)
-                share = effective_income_per_tile / n
-                income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + share
+            sid = int(owners[0])
+            sect = sect_by_id.get(sid)
+            if sect is None:
+                continue
+            extra_income = float(sect.get_extra_income_per_tile(current_month))
+            effective_income_per_tile = max(0.0, base_income + extra_income)
+            income_by_sect_id[sid] = income_by_sect_id.get(sid, 0.0) + effective_income_per_tile
 
         return income_by_sect_id
 

@@ -1150,7 +1150,8 @@ def get_sect_relations():
     from src.sim.managers.sect_manager import SectManager as SectManagerType
     assert isinstance(sect_manager, SectManagerType)
 
-    active_sects, tile_owners = sect_manager.get_tile_owners()
+    snapshot = sect_manager.get_snapshot()
+    active_sects = snapshot.active_sects
     if not active_sects:
         return {"relations": []}
 
@@ -1160,7 +1161,8 @@ def get_sect_relations():
     )
     relations = compute_sect_relations(
         active_sects,
-        tile_owners,
+        snapshot.tile_owners,
+        border_contact_counts=snapshot.border_contact_counts,
         extra_breakdown_by_pair=extra_breakdown_by_pair,
         diplomacy_by_pair=diplomacy_by_pair,
     )
@@ -1193,6 +1195,11 @@ def get_sect_territories():
             "color": str(getattr(sect, "color", "#FFFFFF") or "#FFFFFF"),
             "influence_radius": int(getattr(sect, "influence_radius", 0)),
             "is_active": bool(getattr(sect, "is_active", True)),
+            "owned_tiles": [
+                {"x": int(x), "y": int(y)}
+                for x, y in snapshot.owned_tiles_by_sect.get(int(sect.id), [])
+            ],
+            "boundary_edges": list(snapshot.boundary_edges_by_sect.get(int(sect.id), [])),
         }
         for sect in snapshot.active_sects
     ]

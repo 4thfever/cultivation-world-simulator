@@ -29,17 +29,20 @@ def _make_sect(
 
 
 def test_compute_sect_relations_alignment_orthodoxy_and_territory():
-    """宗门关系数值应综合阵营、道统与势力范围冲突。"""
+    """宗门关系数值应综合阵营、道统与边界接触压力。"""
     sect_a = _make_sect(1, "正道宗", Alignment.RIGHTEOUS, orthodoxy_id="dao")
     sect_b = _make_sect(2, "魔道宗", Alignment.EVIL, orthodoxy_id="dao")
 
-    # 1 个重叠格子
     tile_owners = {
-        (0, 0): [1, 2],
-        (1, 0): [1],
+        (0, 0): [1],
+        (1, 0): [2],
     }
 
-    relations = compute_sect_relations([sect_a, sect_b], tile_owners)
+    relations = compute_sect_relations(
+        [sect_a, sect_b],
+        tile_owners,
+        border_contact_counts={(1, 2): 1},
+    )
 
     assert len(relations) == 1
     rel = relations[0]
@@ -47,8 +50,8 @@ def test_compute_sect_relations_alignment_orthodoxy_and_territory():
     assert rel["sect_a_id"] == 1
     assert rel["sect_b_id"] == 2
 
-    # 期望得分：阵营相反 -40，道统相同 +10，1 个重叠格 -2 => -32
-    assert rel["value"] == -32
+    # 期望得分：阵营相反 -40，道统相同 +10，1 条接壤边 -1 => -31
+    assert rel["value"] == -31
 
     # 从结构化的 reason_breakdown 中提取原因枚举值
     reasons = {item["reason"] for item in rel["reason_breakdown"]}
@@ -58,11 +61,11 @@ def test_compute_sect_relations_alignment_orthodoxy_and_territory():
 
 
 def test_compute_sect_relations_no_overlap_neutral_alignment():
-    """中立或无重叠时，仅由阵营/道统决定关系数值。"""
+    """中立或无边界接触时，仅由阵营/道统决定关系数值。"""
     sect_a = _make_sect(1, "中立宗一", Alignment.NEUTRAL, orthodoxy_id="dao")
     sect_b = _make_sect(2, "中立宗二", Alignment.NEUTRAL, orthodoxy_id="buddha")
 
-    # 无任何重叠
+    # 无任何边界接触
     tile_owners = {}
 
     relations = compute_sect_relations([sect_a, sect_b], tile_owners)

@@ -4,6 +4,7 @@ from enum import Enum
 from typing import Dict, Iterable, List, Tuple
 
 from src.classes.core.sect import Sect
+from src.utils.config import CONFIG
 
 
 class SectRelationReason(str, Enum):
@@ -22,14 +23,14 @@ def _clamp(value: int, min_value: int, max_value: int) -> int:
     return max(min_value, min(max_value, value))
 
 
-def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List[dict]]:
+def _compute_pair_score(a: Sect, b: Sect, border_contact_edges: int) -> Tuple[int, List[dict]]:
     """
     计算一对宗门之间的关系数值与理由。
     数值范围：-100 ~ 100。
     构成要素：
         - 阵营：正邪相对 -40，同阵营 +20，中立相关 0。
         - 道统：相同 +10，不同 -15。
-        - 势力范围冲突：每个重叠格 -2，最多 -30。
+        - 势力边界接触：接壤越密集，关系越紧张。
     """
     from src.classes.alignment import Alignment
 
@@ -80,14 +81,22 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
             )
 
     # 势力范围冲突（线性）
-    if overlap_tiles > 0:
-        penalty = min(overlap_tiles * 2, 30)
+    if border_contact_edges > 0:
+        sect_conf = getattr(CONFIG, "sect", None)
+        dense_threshold = int(getattr(sect_conf, "territory_dense_border_threshold", 8)) if sect_conf else 8
+        penalty = min(border_contact_edges, 24)
+        if border_contact_edges >= dense_threshold:
+            penalty += min(8, max(1, border_contact_edges // max(1, dense_threshold)))
         score -= penalty
         breakdown.append(
             {
                 "reason": SectRelationReason.TERRITORY_CONFLICT.value,
                 "delta": -penalty,
-                "meta": {"overlap_tiles": overlap_tiles},
+                "meta": {
+                    "border_contact_edges": border_contact_edges,
+                    # 兼容旧前端/旧提示词的字段名，语义上已退化为“边界接触强度”。
+                    "overlap_tiles": border_contact_edges,
+                },
             }
         )
 
@@ -98,6 +107,7 @@ def _compute_pair_score(a: Sect, b: Sect, overlap_tiles: int) -> Tuple[int, List
 def compute_sect_relations(
     sects: Iterable[Sect],
     tile_owners: Dict[Tuple[int, int], List[int]],
+    border_contact_counts: Dict[Tuple[int, int], int] | None = None,
     extra_breakdown_by_pair: Dict[Tuple[int, int], List[dict]] | None = None,
     diplomacy_by_pair: Dict[Tuple[int, int], List[dict]] | None = None,
 ) -> List[dict]:
@@ -126,17 +136,23 @@ def compute_sect_relations(
     # 预建 id -> sect 映射，避免后续多次遍历
     sect_by_id: Dict[int, Sect] = {int(s.id): s for s in sect_list}
 
-    # 统计每对宗门之间的重叠格数
-    overlap_counts: Dict[Tuple[int, int], int] = {}
-    for owners in tile_owners.values():
-        # 只保留在 sect_by_id 中存在且去重后的 ID
-        unique_ids = sorted({int(sid) for sid in owners if sid in sect_by_id})
-        if len(unique_ids) < 2:
-            continue
-        for i in range(len(unique_ids)):
-            for j in range(i + 1, len(unique_ids)):
-                key = (unique_ids[i], unique_ids[j])
-                overlap_counts[key] = overlap_counts.get(key, 0) + 1
+    if border_contact_counts is None:
+        border_contact_counts = {}
+        for (x, y), owners in tile_owners.items():
+            if not owners:
+                continue
+            owner_id = int(owners[0])
+            if owner_id not in sect_by_id:
+                continue
+            for dx, dy in ((1, 0), (0, 1)):
+                neighbor_owners = tile_owners.get((x + dx, y + dy), [])
+                if not neighbor_owners:
+                    continue
+                neighbor_id = int(neighbor_owners[0])
+                if neighbor_id == owner_id or neighbor_id not in sect_by_id:
+                    continue
+                key = (owner_id, neighbor_id) if owner_id < neighbor_id else (neighbor_id, owner_id)
+                border_contact_counts[key] = border_contact_counts.get(key, 0) + 1
 
     results: List[dict] = []
 
@@ -149,8 +165,8 @@ def compute_sect_relations(
             sect_a = sect_by_id[sid_a]
             sect_b = sect_by_id[sid_b]
 
-            overlap = overlap_counts.get((sid_a, sid_b), 0)
-            value, reason_breakdown = _compute_pair_score(sect_a, sect_b, overlap)
+            border_contact_edges = border_contact_counts.get((sid_a, sid_b), 0)
+            value, reason_breakdown = _compute_pair_score(sect_a, sect_b, border_contact_edges)
             for extra_item in (extra_breakdown_by_pair or {}).get((sid_a, sid_b), []):
                 delta = int(extra_item.get("delta", 0))
                 value += delta

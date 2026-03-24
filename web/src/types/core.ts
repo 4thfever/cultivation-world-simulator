@@ -173,6 +173,8 @@ export interface SectDetail extends EntityBase {
   diplomacy_items?: SectDiplomacyItem[];
   territory_summary?: {
     tile_count: number;
+    border_tile_count?: number;
+    border_pressure_ratio?: number;
     conflict_tile_count: number;
     headquarter_center?: [number, number] | null;
   };

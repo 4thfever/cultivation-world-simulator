@@ -1,46 +1,40 @@
 import { describe, it, expect } from 'vitest'
 
 /**
- * SectInfluenceLayer 绘制逻辑：菱形范围内格数（曼哈顿距离 <= radius）。
- * 本测试验证该逻辑与组件预期一致，避免在测试环境挂载 Pixi 导致的递归更新。
+ * SectInfluenceLayer 现在直接绘制后端返回的真实占领格与边界边。
+ * 这里验证基础几何数据的计数，避免在测试环境挂载 Pixi。
  */
-function countDiamondTiles(radius: number): number {
-  let n = 0
-  for (let dx = -radius; dx <= radius; dx++) {
-    for (let dy = -radius; dy <= radius; dy++) {
-      if (Math.abs(dx) + Math.abs(dy) <= radius) n++
-    }
+function collectBoundaryEdges(ownedTiles: Array<{ x: number; y: number }>) {
+  const tileSet = new Set(ownedTiles.map((tile) => `${tile.x},${tile.y}`))
+  const edges: Array<{ x: number; y: number; side: string }> = []
+  for (const tile of ownedTiles) {
+    const { x, y } = tile
+    if (!tileSet.has(`${x - 1},${y}`)) edges.push({ x, y, side: 'left' })
+    if (!tileSet.has(`${x + 1},${y}`)) edges.push({ x, y, side: 'right' })
+    if (!tileSet.has(`${x},${y - 1}`)) edges.push({ x, y, side: 'top' })
+    if (!tileSet.has(`${x},${y + 1}`)) edges.push({ x, y, side: 'bottom' })
   }
-  return n
-}
-
-function countBoundaryTiles(radius: number): number {
-  let n = 0
-  const inRange = (ax: number, ay: number) => Math.abs(ax) + Math.abs(ay) <= radius
-  const isBoundary = (dx: number, dy: number) =>
-    !inRange(dx + 1, dy) || !inRange(dx - 1, dy) || !inRange(dx, dy + 1) || !inRange(dx, dy - 1)
-
-  for (let dx = -radius; dx <= radius; dx++) {
-    for (let dy = -radius; dy <= radius; dy++) {
-      if (inRange(dx, dy) && isBoundary(dx, dy)) n++
-    }
-  }
-
-  return n
+  return edges
 }
 
 describe('SectInfluenceLayer', () => {
-  it('diamond tile count for influence_radius matches drawing loop', () => {
-    expect(countDiamondTiles(0)).toBe(1)
-    expect(countDiamondTiles(1)).toBe(5)
-    expect(countDiamondTiles(2)).toBe(13)
-    expect(countDiamondTiles(3)).toBe(25)
+  it('draws one fill tile per owned territory tile', () => {
+    const ownedTiles = [
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 2, y: 2 },
+    ]
+
+    expect(ownedTiles).toHaveLength(3)
   })
 
-  it('boundary tile count grows as expected for the diamond outline', () => {
-    expect(countBoundaryTiles(0)).toBe(1)
-    expect(countBoundaryTiles(1)).toBe(4)
-    expect(countBoundaryTiles(2)).toBe(8)
-    expect(countBoundaryTiles(3)).toBe(12)
+  it('boundary edges match the perimeter of an irregular territory shape', () => {
+    const ownedTiles = [
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 2, y: 2 },
+    ]
+
+    expect(collectBoundaryEdges(ownedTiles)).toHaveLength(8)
   })
 })

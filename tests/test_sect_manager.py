@@ -148,7 +148,7 @@ def test_sect_total_strength_uses_avatar_battle_strength(mock_world):
 
 
 def test_sect_income_conflict_sharing(base_world):
-    """两个宗门半径为1且总部相邻，部分格子产生冲突时，应按格子平分灵石。"""
+    """两个宗门相邻时，每个格子都应只有唯一归属，收入不再按重合平分。"""
     world: World = base_world
     game_map = world.map
 
@@ -199,6 +199,10 @@ def test_sect_income_conflict_sharing(base_world):
     # 无成员时战力为 0，半径 = int(0)//10+1 == 1
     assert sect1.influence_radius == 1
     assert sect2.influence_radius == 1
+
+    snapshot = manager.get_snapshot()
+    assert all(len(owners) == 1 for owners in snapshot.tile_owners.values())
+    assert snapshot.border_contact_counts
 
     # 有事件产生
     assert len(events) == 2

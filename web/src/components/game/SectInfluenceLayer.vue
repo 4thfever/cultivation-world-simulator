@@ -43,60 +43,30 @@ function updateInfluence() {
     return
   }
 
-  const regions = Array.from(mapStore.regions.values())
   for (const summary of sectStore.activeTerritories) {
-    const hqRegion = regions.find(
-      (region) =>
-        region.type === 'sect' &&
-        region.sect_is_active !== false &&
-        String(region.sect_id) === String(summary.id)
-    )
-    if (!hqRegion) continue
-
-    const centerX = hqRegion.x
-    const centerY = hqRegion.y
-    const radius = summary.influence_radius
-    if (radius < 0) continue
-
     const colorNum = hexToNumber(summary.color)
-    const inRange = (ax: number, ay: number) => Math.abs(ax) + Math.abs(ay) <= radius
-    const isBoundary = (dx: number, dy: number) =>
-      !inRange(dx + 1, dy) || !inRange(dx - 1, dy) || !inRange(dx, dy + 1) || !inRange(dx, dy - 1)
-
     g.setStrokeStyle(0)
-    for (let dx = -radius; dx <= radius; dx++) {
-      for (let dy = -radius; dy <= radius; dy++) {
-        if (inRange(dx, dy)) {
-          const tileX = centerX + dx
-          const tileY = centerY + dy
-          g.rect(tileX * TILE_SIZE, tileY * TILE_SIZE, TILE_SIZE, TILE_SIZE)
-            .fill({ color: colorNum, alpha: 0.38 })
-        }
-      }
+    for (const tile of summary.owned_tiles ?? []) {
+      g.rect(tile.x * TILE_SIZE, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+        .fill({ color: colorNum, alpha: 0.38 })
     }
 
     const BORDER_WIDTH = 6
     const borderColor = brightenColor(colorNum, 0.92)
     const strokeOpt = { width: BORDER_WIDTH, color: borderColor, alpha: 1 }
-    for (let dx = -radius; dx <= radius; dx++) {
-      for (let dy = -radius; dy <= radius; dy++) {
-        if (!inRange(dx, dy) || !isBoundary(dx, dy)) continue
-        const px = (centerX + dx) * TILE_SIZE
-        const py = (centerY + dy) * TILE_SIZE
-        const pr = px + TILE_SIZE
-        const pb = py + TILE_SIZE
-        if (!inRange(dx + 1, dy)) {
-          g.moveTo(pr, py).lineTo(pr, pb).stroke(strokeOpt)
-        }
-        if (!inRange(dx - 1, dy)) {
-          g.moveTo(px, py).lineTo(px, pb).stroke(strokeOpt)
-        }
-        if (!inRange(dx, dy + 1)) {
-          g.moveTo(px, pb).lineTo(pr, pb).stroke(strokeOpt)
-        }
-        if (!inRange(dx, dy - 1)) {
-          g.moveTo(px, py).lineTo(pr, py).stroke(strokeOpt)
-        }
+    for (const edge of summary.boundary_edges ?? []) {
+      const px = edge.x * TILE_SIZE
+      const py = edge.y * TILE_SIZE
+      const pr = px + TILE_SIZE
+      const pb = py + TILE_SIZE
+      if (edge.side === 'left') {
+        g.moveTo(px, py).lineTo(px, pb).stroke(strokeOpt)
+      } else if (edge.side === 'right') {
+        g.moveTo(pr, py).lineTo(pr, pb).stroke(strokeOpt)
+      } else if (edge.side === 'top') {
+        g.moveTo(px, py).lineTo(pr, py).stroke(strokeOpt)
+      } else if (edge.side === 'bottom') {
+        g.moveTo(px, pb).lineTo(pr, pb).stroke(strokeOpt)
       }
     }
   }
@@ -124,7 +94,6 @@ onUnmounted(() => {
 
 watch(
   () => [
-    mapStore.regions,
     sectStore.activeTerritories
   ],
   () => {

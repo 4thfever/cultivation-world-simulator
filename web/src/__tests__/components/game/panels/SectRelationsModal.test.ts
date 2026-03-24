@@ -72,7 +72,7 @@ describe('SectRelationsModal', () => {
               status_war: '战争中',
               status_peace: '和平',
               duration_months: '{count}个月',
-              overlap_tiles: '重叠{count}格',
+              overlap_tiles: '接壤{count}边',
               value_label_very_hostile: '极恶',
               value_label_hostile: '敌对',
               value_label_neutral: '中立',
@@ -83,7 +83,7 @@ describe('SectRelationsModal', () => {
                 ALIGNMENT_SAME: '阵营相同',
                 ORTHODOXY_DIFFERENT: '道统不同',
                 ORTHODOXY_SAME: '道统相同',
-                TERRITORY_CONFLICT: '势力范围冲突',
+                TERRITORY_CONFLICT: '边界压力',
                 WAR_STATE: '战争状态',
                 PEACE_STATE: '和平状态',
                 LONG_PEACE: '长期和平',
@@ -108,7 +108,7 @@ describe('SectRelationsModal', () => {
             { reason: 'ALIGNMENT_OPPOSITE', delta: -40 },
             { reason: 'ORTHODOXY_SAME', delta: 10 },
             { reason: 'WAR_STATE', delta: -20, meta: { status: 'war', war_months: 18 } },
-            { reason: 'TERRITORY_CONFLICT', delta: -2, meta: { overlap_tiles: 1 } },
+            { reason: 'TERRITORY_CONFLICT', delta: -2, meta: { border_contact_edges: 1 } },
           ],
         },
       ],
@@ -136,7 +136,7 @@ describe('SectRelationsModal', () => {
     expect(text).toContain('道统相同')
     expect(text).toContain('+10')
     expect(text).toContain('战争中')
-    expect(text).toContain('重叠1格')
+    expect(text).toContain('接壤1边')
   })
 
   it('does not render peace-state reason tag text when status column already shows peace', async () => {

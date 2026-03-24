@@ -92,13 +92,8 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
 
     sect_manager = SectManager(world)
     snapshot = sect_manager.get_snapshot()
-    tile_count = 0
-    conflict_tile_count = 0
-    for owners in snapshot.tile_owners.values():
-        if int(sect.id) in owners:
-            tile_count += 1
-            if len(owners) > 1:
-                conflict_tile_count += 1
+    tile_count = len(snapshot.owned_tiles_by_sect.get(int(sect.id), []))
+    border_tile_count = int(snapshot.border_tiles_by_sect.get(int(sect.id), 0))
 
     effective_income_per_tile = max(
         0.0,
@@ -109,7 +104,10 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     estimated_yearly_upkeep, _ = sect.estimate_yearly_member_upkeep()
     info["territory_summary"] = {
         "tile_count": tile_count,
-        "conflict_tile_count": conflict_tile_count,
+        "border_tile_count": border_tile_count,
+        "border_pressure_ratio": (float(border_tile_count) / float(tile_count)) if tile_count > 0 else 0.0,
+        # 兼容旧字段。
+        "conflict_tile_count": border_tile_count,
         "headquarter_center": snapshot.sect_centers.get(int(sect.id)),
     }
     info["economy_summary"] = {
@@ -128,6 +126,7 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     relations_raw = compute_sect_relations(
         snapshot.active_sects,
         snapshot.tile_owners,
+        border_contact_counts=snapshot.border_contact_counts,
         extra_breakdown_by_pair=extra_breakdown_by_pair,
         diplomacy_by_pair=diplomacy_by_pair,
     )

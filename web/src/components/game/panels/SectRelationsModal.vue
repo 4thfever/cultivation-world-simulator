@@ -79,12 +79,12 @@ const resolveReasonLabel = (item: SectRelationDTO['reason_breakdown'][number]) =
     return baseLabel;
   }
 
-  const overlapTiles = item.meta?.overlap_tiles;
-  if (typeof overlapTiles !== 'number') {
+  const borderContactEdges = item.meta?.border_contact_edges ?? item.meta?.overlap_tiles;
+  if (typeof borderContactEdges !== 'number') {
     return baseLabel;
   }
 
-  return `${baseLabel} (${t('game.sect_relations.overlap_tiles', { count: overlapTiles })})`;
+  return `${baseLabel} (${t('game.sect_relations.overlap_tiles', { count: borderContactEdges })})`;
 };
 
 const resolveDiplomacyStatus = (item: SectRelationDTO) => {

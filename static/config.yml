@@ -61,6 +61,10 @@ sect:
   income_per_tile: 7  # 势力范围内每地块每年基础灵石产出（配合更大势力范围做平衡）
   influence_radius_divisor: 8  # 宗门战力换算势力半径时的除数，越小半径越大
   influence_radius_bias: 1  # 宗门势力半径基础偏移
+  territory_distance_weight: 100  # 格子归属时，距离总部的主导权重
+  territory_strength_weight: 12  # 格子归属时，宗门战力对边界竞争的权重
+  territory_noise_weight: 6  # 格子归属时的稳定锯齿扰动强度
+  territory_dense_border_threshold: 8  # 接壤边达到该阈值后，关系额外恶化
   random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
   decision_interval_years: 1
   recruit_cost: 500
