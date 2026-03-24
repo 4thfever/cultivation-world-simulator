@@ -14,7 +14,7 @@ from src.classes.age import Age
 from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
 from src.utils.id_generator import get_avatar_id
 from src.classes.core.sect import Sect, sects_by_id, sects_by_name
-from src.classes.relation.relation import NumericRelation, Relation
+from src.classes.relation.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
@@ -47,7 +47,7 @@ LOVERS_TRIGGER_PROB: float = 0.32       # 生成一对道侣的概率（强制�
 
 MASTER_PAIR_PROB: float = 0.40          # 同宗门内生成一对师徒的概率
 
-INITIAL_FRIENDLINESS_PAIR_CAP_DIV: int = 3
+INITIAL_FRIENDLINESS_PAIR_CAP_DIV: int = 4
 
 PARENT_MIN_DIFF: int = 16               # 父母与子女最小年龄差
 PARENT_MAX_DIFF: int = 80               # 父母与子女最大年龄差（用于生成目标差值）
@@ -87,33 +87,90 @@ INITIAL_COURT_REPUTATION_RANGE_BY_REALM: dict[Realm, tuple[int, int]] = {
 }
 
 
-def _roll_initial_friendliness_pair() -> tuple[int, int]:
-    archetype = random.choice(
-        [
-            "mutual_friend",
-            "mutual_best_friend",
-            "mutual_disliked",
-            "mutual_archenemy",
-            "one_sided_admiration",
-            "one_sided_dislike",
-        ]
-    )
+def _weighted_random_choice(weights: dict[str, int]) -> str:
+    total = sum(max(0, weight) for weight in weights.values())
+    if total <= 0:
+        return "mutual_friend"
+
+    pick = random.randint(1, total)
+    cumulative = 0
+    for key, weight in weights.items():
+        cumulative += max(0, weight)
+        if pick <= cumulative:
+            return key
+    return "mutual_friend"
+
+
+def _roll_social_initial_friendliness_pair(avatar_a: Avatar, avatar_b: Avatar) -> tuple[int, int]:
+    same_sect = avatar_a.sect is not None and avatar_a.sect is avatar_b.sect
+    age_gap = abs(int(avatar_a.age.age) - int(avatar_b.age.age))
+    level_gap = abs(int(avatar_a.cultivation_progress.level) - int(avatar_b.cultivation_progress.level))
+
+    positive_bias = 0
+    negative_bias = 0
+    if same_sect:
+        positive_bias += 3
+        negative_bias -= 2
+    if age_gap <= 12:
+        positive_bias += 2
+    elif age_gap <= 28:
+        positive_bias += 1
+    elif age_gap >= 55:
+        negative_bias += 1
+    if level_gap <= 12:
+        positive_bias += 1
+    elif level_gap >= 40:
+        negative_bias += 2
+
+    weights = {
+        "mutual_friend": 34 + positive_bias * 7,
+        "mutual_best_friend": 4 + positive_bias * 3,
+        "mutual_disliked": 10 + negative_bias * 5 - positive_bias * 2,
+        "mutual_archenemy": 2 + negative_bias * 2 - positive_bias * 2,
+        "one_sided_admiration": 10 + (6 if level_gap >= 18 else 0) + positive_bias * 2,
+        "one_sided_dislike": 8 + negative_bias * 4,
+    }
+    archetype = _weighted_random_choice(weights)
 
     if archetype == "mutual_friend":
-        return random.randint(28, 55), random.randint(28, 55)
+        low = 25 + positive_bias * 2
+        high = 42 + positive_bias * 4
+        return random.randint(low, high), random.randint(low, high)
     if archetype == "mutual_best_friend":
-        return random.randint(60, 88), random.randint(60, 88)
+        low = 60 + max(0, positive_bias - 1) * 2
+        high = 74 + positive_bias * 3
+        return random.randint(low, high), random.randint(low, high)
     if archetype == "mutual_disliked":
-        return random.randint(-52, -28), random.randint(-52, -28)
+        low = -46 - negative_bias * 5
+        high = -26 - max(0, positive_bias - 1)
+        return random.randint(low, high), random.randint(low, high)
     if archetype == "mutual_archenemy":
-        return random.randint(-90, -62), random.randint(-90, -62)
+        low = -80 - negative_bias * 4
+        high = -62
+        return random.randint(low, high), random.randint(low, high)
     if archetype == "one_sided_admiration":
+        warm_low = 28 + positive_bias * 2
+        warm_high = 48 + positive_bias * 4
+        neutral_low = 4 + positive_bias
+        neutral_high = 18 + positive_bias * 2
+        if avatar_a.cultivation_progress.level > avatar_b.cultivation_progress.level:
+            return random.randint(neutral_low, neutral_high), random.randint(warm_low, warm_high)
+        if avatar_b.cultivation_progress.level > avatar_a.cultivation_progress.level:
+            return random.randint(warm_low, warm_high), random.randint(neutral_low, neutral_high)
         if random.random() < 0.5:
-            return random.randint(30, 68), random.randint(-5, 20)
-        return random.randint(-5, 20), random.randint(30, 68)
+            return random.randint(warm_low, warm_high), random.randint(neutral_low, neutral_high)
+        return random.randint(neutral_low, neutral_high), random.randint(warm_low, warm_high)
+
+    cold_low = -42 - negative_bias * 4
+    cold_high = -26
+    other_low = -4
+    other_high = 14 + positive_bias
+    if same_sect:
+        other_low = 2
+        other_high = 20 + positive_bias
     if random.random() < 0.5:
-        return random.randint(-72, -30), random.randint(-10, 18)
-    return random.randint(-10, 18), random.randint(-72, -30)
+        return random.randint(cold_low, cold_high), random.randint(other_low, other_high)
+    return random.randint(other_low, other_high), random.randint(cold_low, cold_high)
 
 
 def _roll_identity_relation_friendliness(relation: Relation) -> tuple[int | None, int | None]:
@@ -134,6 +191,33 @@ def _apply_structural_initial_friendliness(from_avatar: Avatar, to_avatar: Avata
         set_friendliness(from_avatar, to_avatar, a_to_b)
     if b_to_a is not None:
         set_friendliness(to_avatar, from_avatar, b_to_a)
+
+
+def _plan_group_initial_friendliness(
+    avatars_by_index: list[Avatar],
+    relations: dict[tuple[int, int], Relation],
+) -> dict[tuple[int, int], int]:
+    pair_budget = max(0, len(avatars_by_index) // INITIAL_FRIENDLINESS_PAIR_CAP_DIV)
+    if pair_budget <= 0:
+        return {}
+
+    blocked_pairs = {frozenset((a, b)) for (a, b) in relations}
+    candidate_pairs = [
+        (a, b)
+        for a in range(len(avatars_by_index))
+        for b in range(a + 1, len(avatars_by_index))
+        if frozenset((a, b)) not in blocked_pairs
+    ]
+    random.shuffle(candidate_pairs)
+
+    friendliness: dict[tuple[int, int], int] = {}
+    for a, b in candidate_pairs[:pair_budget]:
+        avatar_a = avatars_by_index[a]
+        avatar_b = avatars_by_index[b]
+        a_to_b, b_to_a = _roll_social_initial_friendliness_pair(avatar_a, avatar_b)
+        friendliness[(a, b)] = a_to_b
+        friendliness[(b, a)] = b_to_a
+    return friendliness
 
 
 def _create_random_age() -> int:
@@ -539,36 +623,7 @@ class PopulationPlanner:
             if planned_gender[idx] is None:
                 planned_gender[idx] = random_gender()
 
-        planned_friendliness = PopulationPlanner._plan_initial_friendliness(n, planned_relations)
-
-        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations, planned_friendliness)
-
-    @staticmethod
-    def _plan_initial_friendliness(
-        n: int,
-        planned_relations: dict[tuple[int, int], Relation],
-    ) -> dict[tuple[int, int], int]:
-        pair_budget = max(0, n // INITIAL_FRIENDLINESS_PAIR_CAP_DIV)
-        if pair_budget <= 0:
-            return {}
-
-        blocked_pairs = {frozenset((a, b)) for (a, b) in planned_relations}
-        candidate_pairs = [
-            (a, b)
-            for a in range(n)
-            for b in range(a + 1, n)
-            if frozenset((a, b)) not in blocked_pairs
-        ]
-        random.shuffle(candidate_pairs)
-
-        friendliness: dict[tuple[int, int], int] = {}
-        for a, b in candidate_pairs[:pair_budget]:
-            a_to_b, b_to_a = _roll_initial_friendliness_pair()
-            if a_to_b != 0:
-                friendliness[(a, b)] = a_to_b
-            if b_to_a != 0:
-                friendliness[(b, a)] = b_to_a
-        return friendliness
+        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations, {})
 
     @staticmethod
     def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
@@ -842,8 +897,6 @@ class AvatarFactory:
         planned_gender = population_plan.genders
         planned_surname = population_plan.surnames
         planned_relations = population_plan.relations
-        planned_friendliness = population_plan.friendliness
-
         n = len(planned_sect)
         width, height = world.map.width, world.map.height
 
@@ -959,6 +1012,7 @@ class AvatarFactory:
             avatars_by_id[avatar.id] = avatar
 
         SectRankAssigner.assign_batch(avatars_by_index, world)
+        planned_friendliness = _plan_group_initial_friendliness(avatars_by_index, constrained_relations)
         RelationApplier.apply(avatars_by_index, constrained_relations, planned_friendliness)
 
         for i, avatar in enumerate(avatars_by_index):

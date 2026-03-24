@@ -241,7 +241,6 @@ def test_population_planner_generates_numeric_relations_from_friendliness(monkey
     monkeypatch.setattr(avatar_init_module, "INITIAL_FRIENDLINESS_PAIR_CAP_DIV", 1)
 
     plan = PopulationPlanner.plan_group(12, existed_sects=None)
-    assert plan.friendliness, "未规划任何初始友好度"
     assert all(rel not in {Relation.IS_FRIEND_OF, Relation.IS_ENEMY_OF} for rel in plan.relations.values())
 
     avatars = list(AvatarFactory.build_group(mock_world, mock_world.month_stamp, plan).values())
@@ -255,3 +254,45 @@ def test_population_planner_generates_numeric_relations_from_friendliness(monkey
                 non_stranger_pairs.append((avatar, target, numeric_relation))
 
     assert non_stranger_pairs, "未从初始友好度中推导出任何数值关系"
+
+
+def test_same_sect_pairs_are_more_often_positive(monkeypatch, mock_world):
+    """同宗门角色应更容易生成正向初始关系。"""
+    sects = list(sects_by_id.values())
+    assert len(sects) >= 2
+
+    def make_avatar(name: str, sect, level: int) -> Avatar:
+        return Avatar(
+            world=mock_world,
+            name=name,
+            id=get_avatar_id(),
+            birth_month_stamp=MonthStamp(0),
+            age=Age(30, CultivationProgress(level).realm),
+            gender=Gender.MALE,
+            cultivation_progress=CultivationProgress(level),
+            pos_x=0,
+            pos_y=0,
+            sect=sect,
+        )
+
+    same_a = make_avatar("SameA", sects[0], 30)
+    same_b = make_avatar("SameB", sects[0], 32)
+    diff_a = make_avatar("DiffA", sects[0], 30)
+    diff_b = make_avatar("DiffB", sects[1], 70)
+
+    same_positive = 0
+    diff_positive = 0
+    samples = 200
+
+    for seed in range(samples):
+        avatar_init_module.random.seed(seed)
+        a_to_b, b_to_a = avatar_init_module._roll_social_initial_friendliness_pair(same_a, same_b)
+        if a_to_b > 0 or b_to_a > 0:
+            same_positive += 1
+
+        avatar_init_module.random.seed(seed)
+        a_to_b, b_to_a = avatar_init_module._roll_social_initial_friendliness_pair(diff_a, diff_b)
+        if a_to_b > 0 or b_to_a > 0:
+            diff_positive += 1
+
+    assert same_positive > diff_positive
