@@ -31,6 +31,21 @@ msgstr "Martial Sibling"
 msgid "parent"
 msgstr "Parent"
 
+msgid "numeric_relation_archenemy"
+msgstr "Archenemy"
+
+msgid "numeric_relation_best_friend"
+msgstr "Best Friend"
+
+msgid "numeric_relation_disliked"
+msgstr "Disliked"
+
+msgid "numeric_relation_friend"
+msgstr "Friend"
+
+msgid "numeric_relation_stranger"
+msgstr "Stranger"
+
 msgid "relation_daughter"
 msgstr "Daughter"
 
