@@ -72,7 +72,7 @@ msgid "action_tea_tasting_desc"
 msgstr "Nếm trà ngon, dưỡng tâm tĩnh khí."
 
 msgid "action_temper_short_name"
-msgstr "Tôi Luyện"
+msgstr "Luyện Thể"
 
 msgid "action_traveling"
 msgstr "Du Lịch"
@@ -433,12 +433,12 @@ msgstr "Tiến cảnh chậm (linh khí thưa thớt)"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "Tôi Luyện"
+msgstr "Luyện Thể"
 
 msgid "temper_description"
 msgstr ""
-"Dùng cách rèn luyện cực hạn để tôi luyện nhục thân khí lực, không cầu ngoại "
-"vật, không tiêu hao linh khí."
+"Rèn luyện thân thể đến cực hạn để Luyện Thể, không cầu ngoại vật, không dùng"
+" linh khí."
 
 msgid "temper_requirements"
 msgstr "Yêu cầu đạo thống Võ đạo"
@@ -462,7 +462,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} bắt đầu trị chính tại {city}."
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
+msgstr "{avatar} bắt đầu Luyện Thể"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."
@@ -1113,7 +1113,7 @@ msgid "Unknown item: {name}"
 msgstr "Vật phẩm chưa rõ: {name}"
 
 msgid "Your orthodoxy does not support Body Tempering."
-msgstr "Đạo thống của ngươi không hỗ trợ tôi luyện nhục thân."
+msgstr "Đạo thống của ngươi không hỗ trợ Luyện Thể."
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "Đạo thống của ngươi không hỗ trợ giáo hóa thế nhân."
@@ -1384,7 +1384,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "Tỷ lệ bế quan thành công"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "Hiệu suất tôi luyện"
+msgstr "Hiệu suất Luyện Thể"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "Mức tăng độ thuần thục binh khí"
@@ -1408,7 +1408,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "Chiết khấu mua hàng"
 
 msgid "effect_temper_duration_reduction"
-msgstr "Rút ngắn thời gian tôi luyện"
+msgstr "Giảm thời gian Luyện Thể"
 
 msgid "play_benefit"
 msgstr "Lợi ích giải khuây"
@@ -3319,13 +3319,13 @@ msgid "tournament_end_human"
 msgstr "Nhân bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
 
 msgid "effect_tournament_heaven_first"
-msgstr "Thiên bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Thiên bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid "effect_tournament_earth_first"
-msgstr "Địa bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Địa bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid "effect_tournament_human_first"
-msgstr "Nhân bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Nhân bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid ""
 "Event Type: World Martial Arts Tournament\n"

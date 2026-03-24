@@ -161,7 +161,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "Tỷ lệ bế quan thành công"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "Hiệu suất tôi luyện"
+msgstr "Hiệu suất Luyện Thể"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "Mức tăng độ thuần thục binh khí"
@@ -185,7 +185,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "Chiết khấu mua hàng"
 
 msgid "effect_temper_duration_reduction"
-msgstr "Rút ngắn thời gian tôi luyện"
+msgstr "Giảm thời gian Luyện Thể"
 
 msgid "play_benefit"
 msgstr "Lợi ích giải khuây"

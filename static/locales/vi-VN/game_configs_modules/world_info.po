@@ -112,7 +112,7 @@ msgstr "Thọ Nguyên"
 msgid "WORLD_INFO_ORTHODOXY_DESC"
 msgstr ""
 "Các đạo thống khác nhau có những phương thức tu hành khác nhau. Đạo gia "
-"thiên về Thổ Nạp, võ giả thiên về luyện thể, Phật gia thiên về tĩnh tọa, còn"
+"thiên về Thổ Nạp, võ giả thiên về Luyện Thể, Phật gia thiên về tĩnh tọa, còn"
 " Nho gia thiên về giáo hóa."
 
 #. world_info.csv: 道统

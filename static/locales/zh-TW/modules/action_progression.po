@@ -152,10 +152,10 @@ msgstr "進境緩慢（靈氣稀薄）"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "打熬"
+msgstr "鍛體"
 
 msgid "temper_description"
-msgstr "通過極限鍛鍊打熬肉身氣力，不假外求，不食靈氣。"
+msgstr "通過極限鍛鍊錘鍊肉身體魄，不假外求，不食靈氣。"
 
 msgid "temper_requirements"
 msgstr "需要武道道統"
@@ -179,7 +179,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} 開始在 {city} 理政。"
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} 開始打熬氣力"
+msgstr "{avatar} 開始鍛體"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} 完成了禪定，心境平和。"

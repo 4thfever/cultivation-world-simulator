@@ -71,7 +71,7 @@ EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
 """
 额外修炼经验 (兼容旧版)
 类型: int
-说明: 兼容旧版配置，可能同时影响吐纳和打熬，具体看实现。
+说明: 兼容旧版配置，可能同时影响吐纳和锻体，具体看实现。
 """
     
 EXTRA_RESPIRE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
@@ -105,13 +105,13 @@ CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
 说明: 兼容旧版配置。
 """
 
-# --- 修炼相关 (武道-打熬) ---
+# --- 修炼相关 (武道-锻体) ---
 TEMPER_DURATION_REDUCTION = "temper_duration_reduction"
 """
-打熬时长缩减
+锻体时长缩减
 类型: float
 结算: src/classes/action/temper.py
-说明: 打熬动作的时长缩减比例。
+说明: 锻体动作的时长缩减比例。
 数值参考:
   - 微量: 0.05~0.1
   - 中量: 0.15
@@ -535,7 +535,7 @@ ALL_EFFECTS = [
     "extra_respire_exp_multiplier",      # float - 额外吐纳经验倍率
     "respire_duration_reduction",        # float - 吐纳时长缩减
     "cultivate_duration_reduction",      # float - 修炼时长缩减 (deprecated/compatibility)
-    "temper_duration_reduction",         # float - 打熬时长缩减
+    "temper_duration_reduction",         # float - 锻体时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     "extra_retreat_success_rate",        # float - 额外闭关成功率
     

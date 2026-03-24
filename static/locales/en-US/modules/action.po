@@ -73,7 +73,7 @@ msgid "action_tea_tasting_desc"
 msgstr "Taste fine tea and cultivate a peaceful mind."
 
 msgid "action_temper_short_name"
-msgstr "Temper"
+msgstr "Body Tempering"
 
 msgid "action_traveling"
 msgstr "Traveling"

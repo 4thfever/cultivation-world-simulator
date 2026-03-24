@@ -6,8 +6,8 @@ from src.classes.event import Event
 
 class Temper(TimedAction):
     """
-    打熬动作，武道专属修炼方式。
-    不依赖灵气，消耗时间打熬肉身。
+    锻体动作，武道专属修炼方式。
+    不依赖灵气，消耗时间锤炼肉身。
     """
     
     ACTION_NAME_ID = "temper_action_name"
@@ -35,7 +35,7 @@ class Temper(TimedAction):
         # 基础经验
         exp = self.BASE_EXP
         
-        # 结算额外打熬经验倍率 (来自功法/宗门等)
+        # 结算额外锻体经验倍率 (来自功法/宗门等)
         # extra_temper_exp_multiplier: 0.1 means +10%
         multiplier = float(self.avatar.effects.get("extra_temper_exp_multiplier", 0.0) or 0.0)
         

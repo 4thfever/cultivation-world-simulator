@@ -161,7 +161,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "Retreat Success Rate"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "Tempering Efficiency"
+msgstr "Body Tempering Efficiency"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "Weapon Proficiency Gain"
@@ -185,7 +185,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "Purchase Discount"
 
 msgid "effect_temper_duration_reduction"
-msgstr "Temper Duration Reduction"
+msgstr "Body Tempering Duration Reduction"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"

@@ -73,7 +73,7 @@ msgid "action_tea_tasting_desc"
 msgstr "Taste fine tea and cultivate a peaceful mind."
 
 msgid "action_temper_short_name"
-msgstr "Temper"
+msgstr "Body Tempering"
 
 msgid "action_traveling"
 msgstr "Traveling"
@@ -436,12 +436,12 @@ msgstr "slow progress (sparse essence)"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "Temper"
+msgstr "Body Tempering"
 
 msgid "temper_description"
 msgstr ""
-"Tempering body strength through extreme exercise, seeking nothing from the "
-"outside, consuming no spiritual energy."
+"Tempers the body through extreme training, relying on neither outside aid "
+"nor spiritual qi."
 
 msgid "temper_requirements"
 msgstr "Requires Martial Orthodoxy"
@@ -465,7 +465,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} begins governing in {city}."
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} begins tempering body strength"
+msgstr "{avatar} begins Body Tempering"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} completed meditation with a peaceful mind."
@@ -1382,7 +1382,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "Retreat Success Rate"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "Tempering Efficiency"
+msgstr "Body Tempering Efficiency"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "Weapon Proficiency Gain"
@@ -1406,7 +1406,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "Purchase Discount"
 
 msgid "effect_temper_duration_reduction"
-msgstr "Temper Duration Reduction"
+msgstr "Body Tempering Duration Reduction"
 
 msgid "play_benefit"
 msgstr "Leisure Benefit"
@@ -3314,13 +3314,13 @@ msgid "tournament_end_human"
 msgstr "The Human List tournament has ended. The 1st place goes to: {winner}."
 
 msgid "effect_tournament_heaven_first"
-msgstr "Heaven 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Heaven 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid "effect_tournament_earth_first"
-msgstr "Earth 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Earth 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid "effect_tournament_human_first"
-msgstr "Human 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Human 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid ""
 "Event Type: World Martial Arts Tournament\n"

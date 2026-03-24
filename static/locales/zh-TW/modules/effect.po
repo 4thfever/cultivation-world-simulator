@@ -161,7 +161,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "閉關成功率"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "打熬效率"
+msgstr "鍛體效率"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "兵器熟練度獲取"
@@ -185,7 +185,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "購買折扣"
 
 msgid "effect_temper_duration_reduction"
-msgstr "打熬時長縮減"
+msgstr "鍛體時長縮減"
 
 msgid "play_benefit"
 msgstr "消遣收益"

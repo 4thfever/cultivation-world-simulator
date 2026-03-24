@@ -1582,9 +1582,9 @@ msgstr "Nature"
 
 msgid "ORTHODOXY_WU_DESC"
 msgstr ""
-"Entering the Dao through martial arts, tempering the body. Although progress"
-" is slow, the foundation is solid, and breaking through bottlenecks is as "
-"easy as eating and drinking."
+"Entering the Dao through martial arts and Body Tempering. Although progress "
+"is slow, the foundation is solid, and breaking through bottlenecks comes as "
+"naturally as eating and drinking."
 
 # Martial (Wu)
 msgid "ORTHODOXY_WU_NAME"
@@ -1905,8 +1905,8 @@ msgstr "Suspicious"
 #. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
 msgid "PERSONA_38_DESC"
 msgstr ""
-"Focuses on physical tempering, with a strong physique and invincible in "
-"close combat."
+"Focuses on Body Tempering, with a strong physique and invincible close-"
+"quarters combat."
 
 #. persona.csv: 体修
 msgid "PERSONA_38_NAME"
@@ -2562,7 +2562,7 @@ msgstr "Everlasting Bright Palace"
 #. sect.csv: SECT_12_RULE_DESC
 msgid "SECT_12_RULE_DESC"
 msgstr ""
-"You must not harm mortals to temper the body or stain the orthodox path of "
+"You must not harm mortals for Body Tempering or stain the orthodox path of "
 "light; if you descend into evil cultivation and remain incorrigible, you "
 "will be expelled from the palace."
 
@@ -3428,7 +3428,7 @@ msgstr ""
 
 #. technique.csv: Sun Tempering Art
 msgid "TECHNIQUE_60_NAME"
-msgstr "Sun Tempering Art"
+msgstr "Sun Body Tempering Art"
 
 #. technique.csv: Body like glazed glass...
 msgid "TECHNIQUE_61_DESC"
@@ -4002,7 +4002,7 @@ msgstr "Lifespan"
 msgid "WORLD_INFO_ORTHODOXY_DESC"
 msgstr ""
 "Different orthodoxies have different cultivation methods. Taoists respire, "
-"Martial Artists temper their bodies, Buddhists meditate, and Confucians "
+"Martial Artists practice Body Tempering, Buddhists meditate, and Confucians "
 "educate the people."
 
 #. world_info.csv: 道统

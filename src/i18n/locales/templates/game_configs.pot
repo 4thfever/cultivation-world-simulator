@@ -575,6 +575,102 @@ msgstr ""
 msgid "CULTIVATE_REGION_207_DESC"
 msgstr ""
 
+#. dynasty.csv: 秦
+msgid "DYNASTY_QIN_NAME"
+msgstr ""
+
+#. dynasty.csv: 尚法重军，朝纲严整，凡俗秩序如铁。
+msgid "DYNASTY_QIN_DESC"
+msgstr ""
+
+#. dynasty.csv: 晋
+msgid "DYNASTY_JIN_NAME"
+msgstr ""
+
+#. dynasty.csv: 门第森然，士族清谈，朝野重礼而尚名教。
+msgid "DYNASTY_JIN_DESC"
+msgstr ""
+
+#. dynasty.csv: 宋
+msgid "DYNASTY_SONG_NAME"
+msgstr ""
+
+#. dynasty.csv: 重文轻武，典章繁密，民间书院兴盛。
+msgid "DYNASTY_SONG_DESC"
+msgstr ""
+
+#. dynasty.csv: 梁
+msgid "DYNASTY_LIANG_NAME"
+msgstr ""
+
+#. dynasty.csv: 宫廷清雅，士风浮丽，兼容并蓄而多机变。
+msgid "DYNASTY_LIANG_DESC"
+msgstr ""
+
+#. dynasty.csv: 楚
+msgid "DYNASTY_CHU_NAME"
+msgstr ""
+
+#. dynasty.csv: 地广俗杂，巫风犹存，边地豪强并起。
+msgid "DYNASTY_CHU_DESC"
+msgstr ""
+
+#. dynasty.csv: 齐
+msgid "DYNASTY_QI_NAME"
+msgstr ""
+
+#. dynasty.csv: 工商富庶，沿海通达，朝廷善于聚敛调度。
+msgid "DYNASTY_QI_DESC"
+msgstr ""
+
+#. dynasty.csv: 燕
+msgid "DYNASTY_YAN_NAME"
+msgstr ""
+
+#. dynasty.csv: 北地苦寒，尚武守边，朝廷风格沉毅。
+msgid "DYNASTY_YAN_DESC"
+msgstr ""
+
+#. dynasty.csv: 赵
+msgid "DYNASTY_ZHAO_NAME"
+msgstr ""
+
+#. dynasty.csv: 骑射成俗，军政并重，边镇气息浓厚。
+msgid "DYNASTY_ZHAO_DESC"
+msgstr ""
+
+#. dynasty.csv: 魏
+msgid "DYNASTY_WEI_NAME"
+msgstr ""
+
+#. dynasty.csv: 法度明密，君权强盛，百官运转高效。
+msgid "DYNASTY_WEI_DESC"
+msgstr ""
+
+#. dynasty.csv: 韩
+msgid "DYNASTY_HAN_NAME"
+msgstr ""
+
+#. dynasty.csv: 国势虽不张扬，却重实务与基层治理。
+msgid "DYNASTY_HAN_DESC"
+msgstr ""
+
+#. dynasty.csv: 吴
+msgid "DYNASTY_WU_NAME"
+msgstr ""
+
+#. dynasty.csv: 水网纵横，商旅频繁，朝廷善用舟楫之利。
+msgid "DYNASTY_WU_DESC"
+msgstr ""
+
+#. dynasty.csv: 越
+msgid "DYNASTY_YUE_NAME"
+msgstr ""
+
+#. dynasty.csv: 山泽深密，民风坚忍，朝廷善守而后发。
+msgid "DYNASTY_YUE_DESC"
+msgstr ""
+
 #. elixir.csv: 练气破境丹
 msgid "ELIXIR_3001_NAME"
 msgstr ""
@@ -1131,7 +1227,7 @@ msgstr ""
 msgid "ORTHODOXY_WU_NAME"
 msgstr ""
 
-#. orthodoxy.csv: 以武入道，打熬筋骨。虽进境缓慢，但根基扎实，突破瓶颈如饮水吃饭。
+#. orthodoxy.csv: 以武入道，锻体炼骨。虽进境缓慢，但根基扎实，突破瓶颈如饮水吃饭。
 msgid "ORTHODOXY_WU_DESC"
 msgstr ""
 
@@ -1845,6 +1941,54 @@ msgstr ""
 
 #. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年一开花，三百年一结果，蕴含庞大生机
 msgid "PLANT_11_DESC"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_1"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_2"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_3"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_4"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_5"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_6"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_7"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_8"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_9"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_10"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_11"
+msgstr ""
+
+#. random_minor_event.csv: 
+msgid "minor_event_cause_12"
 msgstr ""
 
 #. root.csv: 金灵根
@@ -2939,7 +3083,7 @@ msgstr ""
 msgid "WORLD_INFO_INTRO_NAME"
 msgstr ""
 
-#. world_info.csv: 这是一个诸多修士竞相修行的修仙世界。
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
 msgid "WORLD_INFO_INTRO_DESC"
 msgstr ""
 
@@ -2955,7 +3099,7 @@ msgstr ""
 msgid "WORLD_INFO_LIFESPAN_NAME"
 msgstr ""
 
-#. world_info.csv: 每个角色均有寿元上限。在大限将至的前20年身体会逐渐衰弱，有几率老死；一旦达到或超过寿元上限，...
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
 msgid "WORLD_INFO_LIFESPAN_DESC"
 msgstr ""
 
@@ -3067,7 +3211,7 @@ msgstr ""
 msgid "WORLD_INFO_ORTHODOXY_NAME"
 msgstr ""
 
-#. world_info.csv: 不同的道统有不同的修行方法。道家吐纳，武家打熬，佛家禅定，儒家教化民众。
+#. world_info.csv: 不同的道统有不同的修行方法。道家吐纳，武家锻体，佛家禅定，儒家教化民众。
 msgid "WORLD_INFO_ORTHODOXY_DESC"
 msgstr ""
 
@@ -3077,5 +3221,21 @@ msgstr ""
 
 #. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门...
 msgid "WORLD_INFO_RANKING_DESC"
+msgstr ""
+
+#. world_info.csv: 
+msgid "WORLD_INFO_DYNASTY_NAME"
+msgstr ""
+
+#. world_info.csv: 凡人王朝统御天下，维持凡俗秩序与疆域。皇帝寿元与普通凡人无异，驾崩后会有新帝继位。
+msgid "WORLD_INFO_DYNASTY_DESC"
+msgstr ""
+
+#. world_info.csv: 
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr ""
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，...
+msgid "WORLD_INFO_OFFICIAL_DESC"
 msgstr ""
 

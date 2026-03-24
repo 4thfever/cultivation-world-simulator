@@ -112,7 +112,7 @@ msgstr "Lifespan"
 msgid "WORLD_INFO_ORTHODOXY_DESC"
 msgstr ""
 "Different orthodoxies have different cultivation methods. Taoists respire, "
-"Martial Artists temper their bodies, Buddhists meditate, and Confucians "
+"Martial Artists practice Body Tempering, Buddhists meditate, and Confucians "
 "educate the people."
 
 #. world_info.csv: 道统

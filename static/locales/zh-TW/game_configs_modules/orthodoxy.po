@@ -41,7 +41,7 @@ msgid "ORTHODOXY_SANXIU_NAME"
 msgstr "天地"
 
 msgid "ORTHODOXY_WU_DESC"
-msgstr "以武入道，打熬筋骨。雖進境緩慢，但根基紮實，突破瓶頸如飲水吃飯。"
+msgstr "以武入道，鍛體煉骨。雖進境緩慢，但根基紮實，突破瓶頸如飲水吃飯。"
 
 # 武 (Wu)
 msgid "ORTHODOXY_WU_NAME"

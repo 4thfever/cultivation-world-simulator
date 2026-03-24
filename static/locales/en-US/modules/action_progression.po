@@ -166,12 +166,12 @@ msgstr "slow progress (sparse essence)"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "Temper"
+msgstr "Body Tempering"
 
 msgid "temper_description"
 msgstr ""
-"Tempering body strength through extreme exercise, seeking nothing from the "
-"outside, consuming no spiritual energy."
+"Tempers the body through extreme training, relying on neither outside aid "
+"nor spiritual qi."
 
 msgid "temper_requirements"
 msgstr "Requires Martial Orthodoxy"
@@ -195,7 +195,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} begins governing in {city}."
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} begins tempering body strength"
+msgstr "{avatar} begins Body Tempering"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} completed meditation with a peaceful mind."

@@ -1257,7 +1257,7 @@ msgid "ORTHODOXY_SANXIU_NAME"
 msgstr "天地"
 
 msgid "ORTHODOXY_WU_DESC"
-msgstr "以武入道，打熬筋骨。虽进境缓慢，但根基扎实，突破瓶颈如饮水吃饭。"
+msgstr "以武入道，锻体炼骨。虽进境缓慢，但根基扎实，突破瓶颈如饮水吃饭。"
 
 # 武 (Wu)
 msgid "ORTHODOXY_WU_NAME"
@@ -3270,7 +3270,7 @@ msgstr "寿元"
 
 #. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
 msgid "WORLD_INFO_ORTHODOXY_DESC"
-msgstr "不同的道统有不同的修行方法。道家吐纳，武家打熬，佛家禅定，儒家教化民众。"
+msgstr "不同的道统有不同的修行方法。道家吐纳，武家锻体，佛家禅定，儒家教化民众。"
 
 #. world_info.csv: 道统
 msgid "WORLD_INFO_ORTHODOXY_NAME"

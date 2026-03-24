@@ -124,7 +124,7 @@ msgid "Unknown item: {name}"
 msgstr "未知物品：{name}"
 
 msgid "Your orthodoxy does not support Body Tempering."
-msgstr "您的道統不支持打熬肉身。"
+msgstr "您的道統不支持鍛體。"
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "您的道統不支持教化世人。"

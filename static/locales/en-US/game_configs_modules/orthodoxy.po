@@ -48,9 +48,9 @@ msgstr "Nature"
 
 msgid "ORTHODOXY_WU_DESC"
 msgstr ""
-"Entering the Dao through martial arts, tempering the body. Although progress"
-" is slow, the foundation is solid, and breaking through bottlenecks is as "
-"easy as eating and drinking."
+"Entering the Dao through martial arts and Body Tempering. Although progress "
+"is slow, the foundation is solid, and breaking through bottlenecks comes as "
+"naturally as eating and drinking."
 
 # Martial (Wu)
 msgid "ORTHODOXY_WU_NAME"

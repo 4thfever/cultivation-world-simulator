@@ -65,7 +65,7 @@ msgid "action_tea_tasting_desc"
 msgstr "品味清茶，靜心養性。"
 
 msgid "action_temper_short_name"
-msgstr "打熬"
+msgstr "鍛體"
 
 msgid "action_traveling"
 msgstr "遊歷"
@@ -385,10 +385,10 @@ msgstr "進境緩慢（靈氣稀薄）"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "打熬"
+msgstr "鍛體"
 
 msgid "temper_description"
-msgstr "通過極限鍛鍊打熬肉身氣力，不假外求，不食靈氣。"
+msgstr "通過極限鍛鍊錘鍊肉身體魄，不假外求，不食靈氣。"
 
 msgid "temper_requirements"
 msgstr "需要武道道統"
@@ -412,7 +412,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} 開始在 {city} 理政。"
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} 開始打熬氣力"
+msgstr "{avatar} 開始鍛體"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} 完成了禪定，心境平和。"
@@ -1036,7 +1036,7 @@ msgid "Unknown item: {name}"
 msgstr "未知物品：{name}"
 
 msgid "Your orthodoxy does not support Body Tempering."
-msgstr "您的道統不支持打熬肉身。"
+msgstr "您的道統不支持鍛體。"
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "您的道統不支持教化世人。"
@@ -1305,7 +1305,7 @@ msgid "effect_extra_retreat_success_rate"
 msgstr "閉關成功率"
 
 msgid "effect_extra_temper_exp_multiplier"
-msgstr "打熬效率"
+msgstr "鍛體效率"
 
 msgid "effect_extra_weapon_proficiency_gain"
 msgstr "兵器熟練度獲取"
@@ -1329,7 +1329,7 @@ msgid "effect_shop_buy_price_reduction"
 msgstr "購買折扣"
 
 msgid "effect_temper_duration_reduction"
-msgstr "打熬時長縮減"
+msgstr "鍛體時長縮減"
 
 msgid "play_benefit"
 msgstr "消遣收益"
@@ -3053,13 +3053,13 @@ msgid "tournament_end_human"
 msgstr "人榜武道會結束，第一名：{winner}。"
 
 msgid "effect_tournament_heaven_first"
-msgstr "天榜第一（修煉、打熬氣力效率+50%，頓悟概率+10%）"
+msgstr "天榜第一（修煉、鍛體效率+50%，頓悟概率+10%）"
 
 msgid "effect_tournament_earth_first"
-msgstr "地榜第一（修煉、打熬氣力效率+50%，頓悟概率+10%）"
+msgstr "地榜第一（修煉、鍛體效率+50%，頓悟概率+10%）"
 
 msgid "effect_tournament_human_first"
-msgstr "人榜第一（修煉、打熬氣力效率+50%，頓悟概率+10%）"
+msgstr "人榜第一（修煉、鍛體效率+50%，頓悟概率+10%）"
 
 msgid ""
 "Event Type: World Martial Arts Tournament\n"

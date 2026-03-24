@@ -126,7 +126,7 @@ msgid "Unknown item: {name}"
 msgstr "Vật phẩm chưa rõ: {name}"
 
 msgid "Your orthodoxy does not support Body Tempering."
-msgstr "Đạo thống của ngươi không hỗ trợ tôi luyện nhục thân."
+msgstr "Đạo thống của ngươi không hỗ trợ Luyện Thể."
 
 msgid "Your orthodoxy does not support Confucian Education."
 msgstr "Đạo thống của ngươi không hỗ trợ giáo hóa thế nhân."

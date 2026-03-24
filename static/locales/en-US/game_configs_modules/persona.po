@@ -324,8 +324,8 @@ msgstr "Suspicious"
 #. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
 msgid "PERSONA_38_DESC"
 msgstr ""
-"Focuses on physical tempering, with a strong physique and invincible in "
-"close combat."
+"Focuses on Body Tempering, with a strong physique and invincible close-"
+"quarters combat."
 
 #. persona.csv: 体修
 msgid "PERSONA_38_NAME"

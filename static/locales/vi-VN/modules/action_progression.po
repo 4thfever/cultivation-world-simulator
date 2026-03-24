@@ -166,12 +166,12 @@ msgstr "Tiến cảnh chậm (linh khí thưa thớt)"
 
 # Action: Temper
 msgid "temper_action_name"
-msgstr "Tôi Luyện"
+msgstr "Luyện Thể"
 
 msgid "temper_description"
 msgstr ""
-"Dùng cách rèn luyện cực hạn để tôi luyện nhục thân khí lực, không cầu ngoại "
-"vật, không tiêu hao linh khí."
+"Rèn luyện thân thể đến cực hạn để Luyện Thể, không cầu ngoại vật, không "
+"dùng linh khí."
 
 msgid "temper_requirements"
 msgstr "Yêu cầu đạo thống Võ đạo"
@@ -195,7 +195,7 @@ msgid "{avatar} begins governing in {city}."
 msgstr "{avatar} bắt đầu trị chính tại {city}."
 
 msgid "{avatar} begins tempering body strength"
-msgstr "{avatar} bắt đầu tôi luyện khí lực nhục thân"
+msgstr "{avatar} bắt đầu Luyện Thể"
 
 msgid "{avatar} completed meditation with a peaceful mind."
 msgstr "{avatar} hoàn tất thiền định, tâm cảnh an hòa."

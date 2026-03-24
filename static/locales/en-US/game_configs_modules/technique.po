@@ -491,7 +491,7 @@ msgstr ""
 
 #. technique.csv: Sun Tempering Art
 msgid "TECHNIQUE_60_NAME"
-msgstr "Sun Tempering Art"
+msgstr "Sun Body Tempering Art"
 
 #. technique.csv: Body like glazed glass...
 msgid "TECHNIQUE_61_DESC"

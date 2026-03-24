@@ -46,7 +46,7 @@ msgstr "Thiên Địa"
 
 msgid "ORTHODOXY_WU_DESC"
 msgstr ""
-"Lấy võ nhập đạo, tôi luyện gân cốt. Tuy tiến cảnh chậm chạp, nhưng căn cơ "
+"Lấy võ nhập đạo, Luyện Thể rèn cốt. Tuy tiến cảnh chậm chạp, nhưng căn cơ "
 "vững chắc, đột phá bình cảnh cũng tựa như ăn cơm uống nước."
 
 # Martial (Wu)

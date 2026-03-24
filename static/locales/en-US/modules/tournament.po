@@ -23,13 +23,13 @@ msgid "tournament_end_human"
 msgstr "The Human List tournament has ended. The 1st place goes to: {winner}."
 
 msgid "effect_tournament_heaven_first"
-msgstr "Heaven 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Heaven 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid "effect_tournament_earth_first"
-msgstr "Earth 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Earth 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid "effect_tournament_human_first"
-msgstr "Human 1st (Cultivation/Temper +50%, Epiphany +10%)"
+msgstr "Human 1st (Cultivation/Body Tempering +50%, Epiphany +10%)"
 
 msgid "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
 msgstr "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."

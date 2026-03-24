@@ -72,7 +72,7 @@ msgid "action_tea_tasting_desc"
 msgstr "Nếm trà ngon, dưỡng tâm tĩnh khí."
 
 msgid "action_temper_short_name"
-msgstr "Tôi Luyện"
+msgstr "Luyện Thể"
 
 msgid "action_traveling"
 msgstr "Du Lịch"

@@ -340,8 +340,8 @@ msgstr "Đa Nghi"
 #. persona.csv: 专注肉身淬炼，体魄强健，近战无敌。...
 msgid "PERSONA_38_DESC"
 msgstr ""
-"Ngươi chuyên chú tôi luyện nhục thân, thể phách cường kiện, cận chiến gần như "
-"vô địch."
+"Ngươi chuyên chú Luyện Thể, thể phách cường kiện, cận chiến gần như vô "
+"địch."
 
 #. persona.csv: 体修
 msgid "PERSONA_38_NAME"

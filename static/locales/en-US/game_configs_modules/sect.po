@@ -61,7 +61,7 @@ msgstr "Everlasting Bright Palace"
 
 #. sect.csv: SECT_12_RULE_DESC
 msgid "SECT_12_RULE_DESC"
-msgstr "You must not harm mortals to temper the body or stain the orthodox path of light; if you descend into evil cultivation and remain incorrigible, you will be expelled from the palace."
+msgstr "You must not harm mortals for Body Tempering or stain the orthodox path of light; if you descend into evil cultivation and remain incorrigible, you will be expelled from the palace."
 
 #. sect.csv: SECT_13_DESC
 msgid "SECT_13_DESC"

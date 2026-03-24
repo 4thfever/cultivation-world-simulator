@@ -461,12 +461,12 @@ msgstr "Thái Ất Thanh Mộc Khí"
 #. technique.csv: Draws the purple qi of the rising sun to temper the skin...
 msgid "TECHNIQUE_60_DESC"
 msgstr ""
-"Dẫn tử khí của húc nhật để tôi luyện da thịt, khiến toàn thân ấm nóng, khí "
-"huyết sung mãn."
+"Dẫn tử khí của húc nhật để Luyện Thể, khiến toàn thân ấm nóng, khí huyết "
+"sung mãn."
 
 #. technique.csv: Sun Tempering Art
 msgid "TECHNIQUE_60_NAME"
-msgstr "Húc Nhật Đoán Thể Thuật"
+msgstr "Húc Nhật Luyện Thể Thuật"
 
 #. technique.csv: Body like glazed glass...
 msgid "TECHNIQUE_61_DESC"

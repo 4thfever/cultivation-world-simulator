@@ -65,7 +65,7 @@ msgid "action_tea_tasting_desc"
 msgstr "品味清茶，静心养性。"
 
 msgid "action_temper_short_name"
-msgstr "打熬"
+msgstr "锻体"
 
 msgid "action_traveling"
 msgstr "游历"

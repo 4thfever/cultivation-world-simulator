@@ -30,13 +30,13 @@ msgid "tournament_end_human"
 msgstr "Nhân bảng võ đạo hội đã kết thúc. Hạng nhất thuộc về: {winner}."
 
 msgid "effect_tournament_heaven_first"
-msgstr "Thiên bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Thiên bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid "effect_tournament_earth_first"
-msgstr "Địa bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Địa bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid "effect_tournament_human_first"
-msgstr "Nhân bảng đệ nhất (tu luyện/tôi luyện +50%, xác suất đốn ngộ +10%)"
+msgstr "Nhân bảng đệ nhất (tu luyện/Luyện Thể +50%, xác suất đốn ngộ +10%)"
 
 msgid ""
 "Event Type: World Martial Arts Tournament\n"
