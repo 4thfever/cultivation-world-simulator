@@ -183,6 +183,7 @@ class EventManager:
         avatar_id: Optional[str] = None,
         avatar_id_pair: Optional[tuple[str, str]] = None,
         sect_id: Optional[int] = None,
+        major_scope: Optional[str] = None,
         cursor: Optional[str] = None,
         limit: int = 100,
     ) -> tuple[List["Event"], Optional[str], bool]:
@@ -207,13 +208,38 @@ class EventManager:
                 avatar_id=avatar_id,
                 avatar_id_pair=avatar_id_pair,
                 sect_id=sect_id,
+                major_scope=major_scope,
                 cursor=cursor,
                 limit=limit,
             )
             return events, next_cursor, next_cursor is not None
         else:
-            # 内存模式不支持完整分页，返回最近的。
-            events = self.get_recent_events(limit=limit)
+            # 内存模式不支持完整分页，做轻量过滤后返回最近的。
+            filtered_events = self._memory_events
+            if avatar_id_pair:
+                id1, id2 = avatar_id_pair
+                filtered_events = [
+                    e for e in filtered_events
+                    if e.related_avatars and id1 in e.related_avatars and id2 in e.related_avatars
+                ]
+            elif avatar_id:
+                filtered_events = [
+                    e for e in filtered_events
+                    if e.related_avatars and avatar_id in e.related_avatars
+                ]
+
+            if sect_id is not None:
+                filtered_events = [
+                    e for e in filtered_events
+                    if getattr(e, "related_sects", None) and sect_id in (e.related_sects or [])
+                ]
+
+            if major_scope == "major":
+                filtered_events = [e for e in filtered_events if e.is_major and not e.is_story]
+            elif major_scope == "minor":
+                filtered_events = [e for e in filtered_events if (not e.is_major) or e.is_story]
+
+            events = filtered_events[-limit:]
             return list(reversed(events)), None, False
 
     # --- 清理接口 ---

@@ -564,7 +564,7 @@ class TestConfess:
         assert t("Already lovers") in reason
 
     def test_confess_start_returns_event(self, dummy_avatar, target_avatar):
-        """Test that Confess.start() returns proper major event."""
+        """Test that Confess.start() returns a non-major proposal event."""
         action = Confess(dummy_avatar, dummy_avatar.world)
         event = action.start(target_avatar)
         
@@ -573,7 +573,7 @@ class TestConfess:
         assert target_avatar.name in event.content
         assert dummy_avatar.id in event.related_avatars
         assert target_avatar.id in event.related_avatars
-        assert event.is_major is True
+        assert event.is_major is False
         assert hasattr(action, '_confess_success')
         assert action._confess_success is False
 
@@ -679,7 +679,7 @@ class TestSwearBrotherhood:
         assert t("Already sworn siblings") in reason
 
     def test_swear_start_returns_event(self, dummy_avatar, target_avatar):
-        """Test that SwearBrotherhood.start() returns proper major event."""
+        """Test that SwearBrotherhood.start() returns a non-major proposal event."""
         action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
         event = action.start(target_avatar)
         
@@ -688,7 +688,7 @@ class TestSwearBrotherhood:
         assert target_avatar.name in event.content
         assert dummy_avatar.id in event.related_avatars
         assert target_avatar.id in event.related_avatars
-        assert event.is_major is True
+        assert event.is_major is False
         assert hasattr(action, '_swear_success')
         assert action._swear_success is False
 

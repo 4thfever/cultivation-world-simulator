@@ -70,7 +70,7 @@ def test_attack_start_event(dummy_avatar):
         assert "TestDummy" in event.content
         assert "Enemy" in event.content
         assert "100" in event.content # 战斗力显示
-        assert event.is_major is True
+        assert event.is_major is False
 
 def test_attack_execute_logic(dummy_avatar):
     """测试执行战斗逻辑"""

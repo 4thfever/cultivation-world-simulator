@@ -176,6 +176,29 @@ class TestGetEventsAPI:
         assert len(data["events"]) == 1
         assert data["events"][0]["content"] == "Event between"
 
+    def test_get_events_by_major_scope_major(self, client_with_world):
+        """Test filtering major events excludes story events."""
+        response = client_with_world.get("/api/events?avatar_id=a1&major_scope=major")
+
+        assert response.status_code == 200
+        data = response.json()
+
+        assert len(data["events"]) == 1
+        assert data["events"][0]["content"] == "Major event"
+
+    def test_get_events_by_major_scope_minor(self, client_with_world):
+        """Test filtering minor events includes story events."""
+        response = client_with_world.get("/api/events?avatar_id=a1&major_scope=minor")
+
+        assert response.status_code == 200
+        data = response.json()
+
+        contents = [event["content"] for event in data["events"]]
+        assert "Event 1" in contents
+        assert "Event between" in contents
+        assert "Story event" in contents
+        assert "Major event" not in contents
+
     def test_get_events_returns_correct_structure(self, client_with_world):
         """Test that events have correct structure."""
         response = client_with_world.get("/api/events?limit=1")

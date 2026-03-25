@@ -21,6 +21,12 @@ export const useEventStore = defineStore('event', () => {
   // 请求计数器
   let eventsRequestId = 0;
 
+  function matchesMajorScope(event: GameEvent, majorScope: FetchEventsParams['major_scope']) {
+    if (!majorScope || majorScope === 'all') return true;
+    if (majorScope === 'major') return event.isMajor && !event.isStory;
+    return !event.isMajor || event.isStory;
+  }
+
   function addEvents(rawEvents: EventDTO[], currentYear: number, currentMonth: number) {
     if (!rawEvents || rawEvents.length === 0) return;
     const mergeStart = performance.now();
@@ -41,6 +47,9 @@ export const useEventStore = defineStore('event', () => {
     }
     if (filter.sect_id != null) {
       newEvents = newEvents.filter(e => e.relatedSects?.includes(filter.sect_id!));
+    }
+    if (filter.major_scope) {
+      newEvents = newEvents.filter(e => matchesMajorScope(e, filter.major_scope));
     }
 
     if (newEvents.length === 0) return;

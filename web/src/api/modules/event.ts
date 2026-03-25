@@ -11,6 +11,7 @@ export const eventApi = {
     if (params.avatar_id_1) query.set('avatar_id_1', params.avatar_id_1);
     if (params.avatar_id_2) query.set('avatar_id_2', params.avatar_id_2);
     if (params.sect_id != null) query.set('sect_id', String(params.sect_id));
+    if (params.major_scope && params.major_scope !== 'all') query.set('major_scope', params.major_scope);
     if (params.cursor) query.set('cursor', params.cursor);
     if (params.limit) query.set('limit', String(params.limit));
     const qs = query.toString();

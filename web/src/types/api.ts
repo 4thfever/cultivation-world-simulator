@@ -240,6 +240,7 @@ export interface FetchEventsParams {
   avatar_id_1?: string;
   avatar_id_2?: string;
   sect_id?: number;
+  major_scope?: 'all' | 'major' | 'minor';
   cursor?: string;
   limit?: number;
 }

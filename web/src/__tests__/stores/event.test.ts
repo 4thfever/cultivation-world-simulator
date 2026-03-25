@@ -125,5 +125,117 @@ describe('useEventStore', () => {
     expect(store.events).toHaveLength(1)
     expect(store.events[0].id).toBe('e1')
   })
+
+  it('loadEvents passes major_scope to fetchEvents', async () => {
+    vi.mocked(eventApi.fetchEvents).mockResolvedValue({
+      events: [],
+      next_cursor: null,
+      has_more: false,
+    })
+
+    await store.loadEvents({ major_scope: 'major' })
+
+    expect(eventApi.fetchEvents).toHaveBeenCalledWith(
+      expect.objectContaining({ major_scope: 'major', limit: 100 })
+    )
+  })
+
+  it('addEvents filters major events with story excluded when filter.major_scope is major', () => {
+    store.eventsFilter = { major_scope: 'major' }
+    store.addEvents(
+      [
+        {
+          id: 'e1',
+          text: 'major',
+          content: 'major',
+          year: 1,
+          month: 1,
+          month_stamp: 13,
+          related_avatar_ids: [],
+          is_major: true,
+          is_story: false,
+          created_at: 1,
+        } as any,
+        {
+          id: 'e2',
+          text: 'story',
+          content: 'story',
+          year: 1,
+          month: 2,
+          month_stamp: 14,
+          related_avatar_ids: [],
+          is_major: true,
+          is_story: true,
+          created_at: 2,
+        } as any,
+        {
+          id: 'e3',
+          text: 'minor',
+          content: 'minor',
+          year: 1,
+          month: 3,
+          month_stamp: 15,
+          related_avatar_ids: [],
+          is_major: false,
+          is_story: false,
+          created_at: 3,
+        } as any,
+      ],
+      1,
+      3
+    )
+
+    expect(store.events).toHaveLength(1)
+    expect(store.events[0].id).toBe('e1')
+  })
+
+  it('addEvents includes story events when filter.major_scope is minor', () => {
+    store.eventsFilter = { major_scope: 'minor' }
+    store.addEvents(
+      [
+        {
+          id: 'e1',
+          text: 'major',
+          content: 'major',
+          year: 1,
+          month: 1,
+          month_stamp: 13,
+          related_avatar_ids: [],
+          is_major: true,
+          is_story: false,
+          created_at: 1,
+        } as any,
+        {
+          id: 'e2',
+          text: 'story',
+          content: 'story',
+          year: 1,
+          month: 2,
+          month_stamp: 14,
+          related_avatar_ids: [],
+          is_major: true,
+          is_story: true,
+          created_at: 2,
+        } as any,
+        {
+          id: 'e3',
+          text: 'minor',
+          content: 'minor',
+          year: 1,
+          month: 3,
+          month_stamp: 15,
+          related_avatar_ids: [],
+          is_major: false,
+          is_story: false,
+          created_at: 3,
+        } as any,
+      ],
+      1,
+      3
+    )
+
+    expect(store.events).toHaveLength(2)
+    expect(store.events.map((e) => e.id)).toEqual(['e2', 'e3'])
+  })
 })
 

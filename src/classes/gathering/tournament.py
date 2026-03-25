@@ -86,7 +86,7 @@ class Tournament(Gathering):
                 world.month_stamp,
                 t(f"tournament_start_{list_name}", participants=participant_names),
                 related_avatars=[a.id for a in participants],
-                is_major=True
+                is_major=False
             )
             events.append(event_start)
             

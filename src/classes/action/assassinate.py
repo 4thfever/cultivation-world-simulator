@@ -86,7 +86,7 @@ class Assassinate(InstantAction, TargetingMixin):
         
         content = t("{avatar} lurks in the shadows, attempting to assassinate {target}...", 
                    avatar=self.avatar.name, target=target_name)
-        event = Event(self.world.month_stamp, content, related_avatars=[self.avatar.id, target.id] if target else [self.avatar.id], is_major=True)
+        event = Event(self.world.month_stamp, content, related_avatars=[self.avatar.id, target.id] if target else [self.avatar.id], is_major=False)
         self._start_event_content = event.content
         return event
 

@@ -89,7 +89,7 @@ class Occupy(MutualAction):
             self._start_month_stamp,
             content,
             related_avatars=rel_ids,
-            is_major=self.IS_MAJOR
+            is_major=False
         )
 
         return event

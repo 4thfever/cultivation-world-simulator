@@ -160,4 +160,4 @@ class Retreat(TimedAction):
     def start(self) -> Event:
         # 记录开始
         content = t("retreat_start", avatar=self.avatar.name)
-        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id], is_major=True)
+        return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id], is_major=False)

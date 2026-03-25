@@ -58,6 +58,55 @@ vi.mock('@/stores/sect', () => ({
   useSectStore: () => sectStoreMock,
 }))
 
+function createEventPanelI18n(locale = 'zh') {
+  return createI18n({
+    legacy: false,
+    locale,
+    messages: {
+      zh: {
+        game: {
+          event_panel: {
+            title: 'Events',
+            filter_all: 'All',
+            filter_all_sects: '所有宗门',
+            filter_event_scope_all: '所有事',
+            filter_event_scope_major: '大事',
+            filter_event_scope_minor: '小事',
+            deceased: '(dead)',
+            load_more: 'load',
+            empty_none: 'none',
+            empty_single: 'none',
+          },
+          event_templates: {
+            nickname_awarded: '{avatar_name} is now "{nickname}".',
+          },
+        },
+        common: { loading: 'loading', year: '年', month: '月' },
+      },
+      vi: {
+        game: {
+          event_panel: {
+            title: 'Events',
+            filter_all: 'All',
+            filter_all_sects: 'All sects',
+            filter_event_scope_all: 'All events',
+            filter_event_scope_major: 'Major',
+            filter_event_scope_minor: 'Minor',
+            deceased: '(dead)',
+            load_more: 'load',
+            empty_none: 'none',
+            empty_single: 'none',
+          },
+          event_templates: {
+            nickname_awarded: '{avatar_name} da duoc goi la "{nickname}".',
+          },
+        },
+        common: { loading: 'loading', year: 'Nam', month: 'Thang' },
+      },
+    },
+  })
+}
+
 describe('EventPanel', () => {
   beforeEach(() => {
     eventStoreMock.events = []
@@ -80,31 +129,7 @@ describe('EventPanel', () => {
   })
 
   it('should render successfully', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: {
-              title: 'Events',
-              filter_all: 'All',
-              filter_all_sects: 'All sects',
-              deceased: '(dead)',
-              add_second: '+1',
-              load_more: 'load',
-              empty_none: 'none',
-              empty_single: 'none',
-              empty_dual: 'none',
-            },
-            event_templates: {
-              nickname_awarded: '{avatar_name} is now "{nickname}".',
-            },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        }
-      }
-    })
+    const i18n = createEventPanelI18n()
 
     const wrapper = mount(EventPanel, {
       global: {
@@ -119,19 +144,7 @@ describe('EventPanel', () => {
   })
 
   it('should render event content as text, not raw html', async () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' },
-            event_templates: { nickname_awarded: '{avatar_name} is now "{nickname}".' },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        },
-      },
-    })
+    const i18n = createEventPanelI18n()
 
     eventStoreMock.events = [
       {
@@ -160,19 +173,7 @@ describe('EventPanel', () => {
   })
 
   it('should render clickable sect name with fixed color and jump to sect panel', async () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: { title: 'Events', filter_all: 'All', filter_all_sects: 'All sects', deceased: '(dead)', add_second: '+1', load_more: 'load', empty_none: 'none', empty_single: 'none', empty_dual: 'none' },
-            event_templates: { nickname_awarded: '{avatar_name} is now "{nickname}".' },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        },
-      },
-    })
+    const i18n = createEventPanelI18n()
 
     eventStoreMock.events = [
       {
@@ -203,31 +204,7 @@ describe('EventPanel', () => {
   })
 
   it('should render structured event text from locale template', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'vi',
-      messages: {
-        vi: {
-          game: {
-            event_panel: {
-              title: 'Events',
-              filter_all: 'All',
-              filter_all_sects: 'All sects',
-              deceased: '(dead)',
-              add_second: '+1',
-              load_more: 'load',
-              empty_none: 'none',
-              empty_single: 'none',
-              empty_dual: 'none',
-            },
-            event_templates: {
-              nickname_awarded: '{avatar_name} da duoc goi la "{nickname}".',
-            },
-          },
-          common: { loading: 'loading', year: 'Nam', month: 'Thang' },
-        },
-      },
-    })
+    const i18n = createEventPanelI18n('vi')
 
     eventStoreMock.events = [
       {
@@ -257,31 +234,7 @@ describe('EventPanel', () => {
   })
 
   it('sect filter options use sect_name as label', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: {
-              title: 'Events',
-              filter_all: 'All',
-              filter_all_sects: '所有宗门',
-              deceased: '(dead)',
-              add_second: '+1',
-              load_more: 'load',
-              empty_none: 'none',
-              empty_single: 'none',
-              empty_dual: 'none',
-            },
-            event_templates: {
-              nickname_awarded: '{avatar_name} is now "{nickname}".',
-            },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        }
-      }
-    })
+    const i18n = createEventPanelI18n()
 
     const wrapper = mount(EventPanel, {
       global: { plugins: [i18n] }
@@ -300,31 +253,7 @@ describe('EventPanel', () => {
       { label: '青云门', value: 1 },
     ]
 
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: {
-              title: 'Events',
-              filter_all: 'All',
-              filter_all_sects: '所有宗门',
-              deceased: '(dead)',
-              add_second: '+1',
-              load_more: 'load',
-              empty_none: 'none',
-              empty_single: 'none',
-              empty_dual: 'none',
-            },
-            event_templates: {
-              nickname_awarded: '{avatar_name} is now "{nickname}".',
-            },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        }
-      }
-    })
+    const i18n = createEventPanelI18n()
 
     const wrapper = mount(EventPanel, {
       global: { plugins: [i18n] }
@@ -337,31 +266,7 @@ describe('EventPanel', () => {
   })
 
   it('selecting sect filter calls resetEvents with sect_id', async () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh',
-      messages: {
-        zh: {
-          game: {
-            event_panel: {
-              title: 'Events',
-              filter_all: 'All',
-              filter_all_sects: '所有宗门',
-              deceased: '(dead)',
-              add_second: '+1',
-              load_more: 'load',
-              empty_none: 'none',
-              empty_single: 'none',
-              empty_dual: 'none',
-            },
-            event_templates: {
-              nickname_awarded: '{avatar_name} is now "{nickname}".',
-            },
-          },
-          common: { loading: 'loading', year: '年', month: '月' },
-        }
-      }
-    })
+    const i18n = createEventPanelI18n()
 
     const wrapper = mount(EventPanel, {
       global: { plugins: [i18n] }
@@ -373,5 +278,38 @@ describe('EventPanel', () => {
     await wrapper.vm.$nextTick()
 
     expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ sect_id: 1 }))
+  })
+
+  it('major filter options render all three scopes', () => {
+    const i18n = createEventPanelI18n()
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const selects = wrapper.findAllComponents(NSelect)
+    const majorSelect = selects[selects.length - 1]
+    const options = majorSelect.props('options') as Array<{ label: string; value: string }>
+    expect(options).toEqual([
+      { label: '所有事', value: 'all' },
+      { label: '大事', value: 'major' },
+      { label: '小事', value: 'minor' },
+    ])
+  })
+
+  it('changing major filter calls resetEvents with major_scope', async () => {
+    const i18n = createEventPanelI18n()
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const selects = wrapper.findAllComponents(NSelect)
+    const majorSelect = selects[selects.length - 1]
+    expect(majorSelect.exists()).toBe(true)
+    await majorSelect.vm.$emit('update:value', 'major')
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ major_scope: 'major' }))
   })
 })

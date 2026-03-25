@@ -223,7 +223,8 @@ class HiddenDomain(Gathering):
                     event = Event(
                         month_stamp,
                         event_content,
-                        related_avatars=[av.id]
+                        related_avatars=[av.id],
+                        is_major=True,
                     )
                     events.append(event)
                     

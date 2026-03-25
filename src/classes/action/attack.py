@@ -77,7 +77,7 @@ class Attack(InstantAction, TargetingMixin):
         content = t("{attacker} initiates battle against {target} (Power: {attacker} {att_power} vs {target} {def_power})",
                    attacker=self.avatar.name, target=target_name, 
                    att_power=int(s_att), def_power=int(s_def))
-        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=True)
+        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=False)
         # 记录开始事件内容，供故事生成使用
         self._start_event_content = event.content
         return event

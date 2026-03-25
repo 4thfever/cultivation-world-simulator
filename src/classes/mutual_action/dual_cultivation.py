@@ -55,7 +55,7 @@ class DualCultivation(MutualAction):
         # 双修有特殊的邀请语义
         content = t("{initiator} invites {target} for dual cultivation",
                    initiator=self.avatar.name, target=target_name)
-        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=True)
+        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=False)
         
         # 记录开始文本用于故事生成
         self._start_event_content = event.content

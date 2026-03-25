@@ -978,6 +978,7 @@ def get_events(
     avatar_id_1: str = None,
     avatar_id_2: str = None,
     sect_id: int = None,
+    major_scope: str = Query("all", pattern="^(all|major|minor)$"),
     cursor: str = None,
     limit: int = 100,
 ):
@@ -989,6 +990,7 @@ def get_events(
         avatar_id_1: Pair 查询：角色 1。
         avatar_id_2: Pair 查询：角色 2（需同时提供 avatar_id_1）。
         sect_id: 按宗门筛选。
+        major_scope: 事件类型筛选。all | major | minor。
         cursor: 分页 cursor，获取该位置之前的事件。
         limit: 每页数量，默认 100。
     """
@@ -1010,6 +1012,7 @@ def get_events(
         avatar_id=avatar_id,
         avatar_id_pair=avatar_id_pair,
         sect_id=sect_id,
+        major_scope=major_scope,
         cursor=cursor,
         limit=limit,
     )

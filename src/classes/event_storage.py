@@ -216,6 +216,7 @@ class EventStorage:
         avatar_id: Optional[str] = None,
         avatar_id_pair: Optional[tuple[str, str]] = None,
         sect_id: Optional[int] = None,
+        major_scope: Optional[str] = None,
         cursor: Optional[str] = None,
         limit: int = 100,
     ) -> tuple[list["Event"], Optional[str]]:
@@ -286,6 +287,11 @@ class EventStorage:
             # Cursor 条件（获取更旧的事件）。
             # 使用 rowid 保证同一 month_stamp 内的确定性顺序。
             where_clauses = []
+            if major_scope == "major":
+                where_clauses.append("e.is_major = TRUE AND e.is_story = FALSE")
+            elif major_scope == "minor":
+                where_clauses.append("(e.is_major = FALSE OR e.is_story = TRUE)")
+
             if cursor:
                 cursor_month, cursor_rowid = self._parse_cursor(cursor)
                 where_clauses.append(

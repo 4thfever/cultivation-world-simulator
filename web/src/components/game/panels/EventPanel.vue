@@ -5,11 +5,12 @@ import { useEventStore } from '../../../stores/event'
 import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
 import { useSectStore } from '../../../stores/sect'
-import { NSelect, NSpin, NButton } from 'naive-ui'
+import { NSelect, NSpin } from 'naive-ui'
 import type { SelectOption } from 'naive-ui'
 import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
 import { prependAllOption } from '../../../utils/selectOptions'
 import type { GameEvent } from '../../../types/core'
+import type { FetchEventsParams } from '../../../types/api'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -20,8 +21,8 @@ const mapStore = useMapStore()
 const sectStore = useSectStore()
 
 const filterValue1 = ref('all')
-const filterValue2 = ref<string | null>(null)  // null 表示未启用双人筛选
 const filterSectValue = ref<number | 'all'>('all')
+const filterMajorScope = ref<FetchEventsParams['major_scope']>('all')
 const eventListRef = ref<HTMLElement | null>(null)
 
 const filterOptions = computed(() => [
@@ -42,15 +43,11 @@ const sectFilterOptions = computed(() => {
   )
 })
 
-// 第二人的选项（排除第一人和"所有人"）
-const filterOptions2 = computed(() =>
-  avatarStore.avatarList
-    .filter(avatar => avatar.id !== filterValue1.value)
-    .map(avatar => ({
-      label: (avatar.name ?? avatar.id) + (avatar.is_dead ? ` ${t('game.event_panel.deceased')}` : ''),
-      value: avatar.id
-    }))
-)
+const majorFilterOptions = computed(() => [
+  { label: t('game.event_panel.filter_event_scope_all'), value: 'all' },
+  { label: t('game.event_panel.filter_event_scope_major'), value: 'major' },
+  { label: t('game.event_panel.filter_event_scope_minor'), value: 'minor' },
+])
 
 // 直接使用 store 中的事件（已由 API 过滤）
 const displayEvents = computed(() => eventStore.events || [])
@@ -94,18 +91,18 @@ function handleScroll(e: Event) {
 
 // 构建筛选参数
 function buildFilter() {
-  const params: any = {}
-  if (filterValue2.value && filterValue1.value !== 'all') {
-    // 双人筛选
-    params.avatar_id_1 = filterValue1.value
-    params.avatar_id_2 = filterValue2.value
-  } else if (filterValue1.value !== 'all') {
+  const params: FetchEventsParams = {}
+  if (filterValue1.value !== 'all') {
     // 单人筛选
     params.avatar_id = filterValue1.value
   }
   
   if (filterSectValue.value !== 'all') {
     params.sect_id = filterSectValue.value
+  }
+
+  if (filterMajorScope.value && filterMajorScope.value !== 'all') {
+    params.major_scope = filterMajorScope.value
   }
   
   return params
@@ -154,43 +151,20 @@ watch(filterSectValue, async (newVal) => {
   if (newVal !== 'all') {
     // 选了宗门，清空角色的过滤条件
     filterValue1.value = 'all'
-    filterValue2.value = null
   }
   await reloadEvents()
 })
 
 // 切换第一人筛选
 watch(filterValue1, async (newVal) => {
-  // 如果选了"所有人"，清除第二人筛选
-  if (newVal === 'all') {
-    filterValue2.value = null
-  } else {
+  if (newVal !== 'all') {
     // 选了角色，清空宗门的过滤条件
     filterSectValue.value = 'all'
   }
   await reloadEvents()
 })
 
-// 添加第二人
-function addSecondFilter() {
-  // 默认选择列表中的第一个（排除当前第一人）
-  const options = filterOptions2.value
-  if (options.length > 0) {
-    filterValue2.value = options[0].value
-  }
-}
-
-// 移除第二人筛选
-function removeSecondFilter() {
-  filterValue2.value = null
-}
-
-// 切换第二人筛选
-watch(filterValue2, async (newVal) => {
-  if (newVal !== null) {
-    // 选了第二个角色，清空宗门的过滤条件
-    filterSectValue.value = 'all'
-  }
+watch(filterMajorScope, async () => {
   await reloadEvents()
 })
 
@@ -212,7 +186,6 @@ watch(displayEvents, () => {
 }, { deep: true })
 
 const emptyEventMessage = computed(() => {
-  if (filterValue2.value) return t('game.event_panel.empty_dual')
   if (filterValue1.value !== 'all') return t('game.event_panel.empty_single')
   return t('game.event_panel.empty_none')
 })
@@ -273,29 +246,13 @@ function handleSectClick(sectId?: number) {
           size="tiny"
           class="event-filter"
         />
-        <!-- 双人筛选 -->
-        <template v-if="filterValue2 !== null">
-          <n-select
-            v-model:value="filterValue2"
-            :options="filterOptions2"
-            :render-label="renderLabel"
-            size="tiny"
-            class="event-filter"
-          />
-          <n-button size="tiny" quaternary @click="removeSecondFilter" class="remove-btn">
-            &times;
-          </n-button>
-        </template>
-        <!-- 添加第二人按钮（仅当选择了单人时显示） -->
-        <n-button
-          v-else-if="filterValue1 !== 'all'"
+        <n-select
+          v-model:value="filterMajorScope"
+          :options="majorFilterOptions"
           size="tiny"
-          quaternary
-          @click="addSecondFilter"
-          class="add-btn"
-        >
-          {{ t('game.event_panel.add_second') }}
-        </n-button>
+          class="event-filter event-filter--scope"
+          data-testid="major-filter"
+        />
       </div>
     </div>
     <div v-if="eventStore.eventsLoading && displayEvents.length === 0" class="loading">
@@ -368,26 +325,6 @@ function handleSectClick(sectId?: number) {
 
 .event-filter {
   width: 120px;
-}
-
-.add-btn {
-  color: #888;
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.add-btn:hover {
-  color: #aaa;
-}
-
-.remove-btn {
-  color: #888;
-  font-size: 16px;
-  padding: 0 4px;
-}
-
-.remove-btn:hover {
-  color: #f66;
 }
 
 .event-list {

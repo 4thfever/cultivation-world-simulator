@@ -55,7 +55,7 @@ class SwearBrotherhood(MutualAction):
         
         content = t("{initiator} proposes to become sworn siblings with {target}",
                    initiator=self.avatar.name, target=target_name)
-        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=True)
+        event = Event(self.world.month_stamp, content, related_avatars=rel_ids, is_major=False)
         
         # 记录开始文本用于故事生成
         self._start_event_content = event.content
