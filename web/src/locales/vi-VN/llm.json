@@ -72,6 +72,7 @@
     "openai": "OpenAI",
     "qwen": "Qwen",
     "deepseek": "DeepSeek",
+    "minimax": "MiniMax",
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -87,6 +88,7 @@
     "openai": "Nền tảng OpenAI",
     "qwen": "Aliyun Bailian (Qwen / Đề cử)",
     "deepseek": "Nền tảng DeepSeek (Nhanh & Rẻ)",
+    "minimax": "Nền tảng MiniMax (Ngữ cảnh 1M, Nhanh)",
     "openrouter": "OpenRouter (Tất cả trong một / Đề cử)",
     "siliconflow": "SiliconFlow (Tổng hợp nội địa)",
     "gemini": "Google AI Studio (Gemini)"

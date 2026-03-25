@@ -72,6 +72,7 @@
     "openai": "OpenAI",
     "qwen": "通义千问",
     "deepseek": "DeepSeek",
+    "minimax": "MiniMax",
     "siliconflow": "硅基流动",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -87,6 +88,7 @@
     "openai": "OpenAI Platform",
     "qwen": "阿里云百炼 (Qwen / 最推荐)",
     "deepseek": "DeepSeek 开放平台 (国内推荐，便宜)",
+    "minimax": "MiniMax 开放平台 (百万上下文，高速)",
     "openrouter": "OpenRouter (全机型聚合，推荐)",
     "siliconflow": "硅基流动 (国内聚合)",
     "gemini": "Google AI Studio (Gemini)"

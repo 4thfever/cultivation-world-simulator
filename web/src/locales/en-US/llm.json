@@ -72,6 +72,7 @@
     "openai": "OpenAI",
     "qwen": "Qwen",
     "deepseek": "DeepSeek",
+    "minimax": "MiniMax",
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -87,6 +88,7 @@
     "openai": "OpenAI Platform",
     "qwen": "Aliyun Bailian (Qwen / Recommended)",
     "deepseek": "DeepSeek Platform (Fast & Cheap)",
+    "minimax": "MiniMax Platform (1M Context, Fast)",
     "openrouter": "OpenRouter (All-in-one, Recommended)",
     "siliconflow": "SiliconFlow (Domestic Aggregation)",
     "gemini": "Google AI Studio (Gemini)"
