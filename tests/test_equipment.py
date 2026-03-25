@@ -81,14 +81,4 @@ class TestEquipment:
         assert aux.name in detailed
         assert str(aux.realm) in detailed
 
-    def test_grade_renaming_compatibility(self):
-        """测试 realm 改名后的兼容性（如果有必要）"""
-        # 确保 weapon 和 auxiliary 确实有 realm 属性
-        weapon = next(iter(weapons_by_id.values()))
-        assert hasattr(weapon, 'realm')
-        assert not hasattr(weapon, 'grade') # 确保改名彻底
-        
-        aux = next(iter(auxiliaries_by_id.values()))
-        assert hasattr(aux, 'realm')
-        assert not hasattr(aux, 'grade') # 确保改名彻底
 

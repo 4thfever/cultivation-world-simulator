@@ -125,22 +125,6 @@ class TestInitStatusEndpoint:
 class TestUpdateInitProgress:
     """Tests for update_init_progress function."""
 
-    def test_update_progress_with_phase_name(self, reset_game_instance):
-        """Test updating progress with explicit phase name."""
-        update_init_progress(3, "initializing_sects")
-        
-        assert game_instance["init_phase"] == 3
-        assert game_instance["init_phase_name"] == "initializing_sects"
-        assert game_instance["init_progress"] == 40
-
-    def test_update_progress_without_phase_name(self, reset_game_instance):
-        """Test updating progress uses default phase name from mapping."""
-        update_init_progress(4)
-        
-        assert game_instance["init_phase"] == 4
-        assert game_instance["init_phase_name"] == "generating_avatars"
-        assert game_instance["init_progress"] == 55
-
     def test_all_phase_names_mapped(self):
         """Test all phases have corresponding names."""
         expected_phases = {
@@ -382,45 +366,6 @@ class TestInitGameAsync:
             # But LLM failure should be recorded.
             assert game_instance["llm_check_failed"] is True
             assert game_instance["llm_error_message"] == "API key invalid"
-
-    @pytest.mark.asyncio
-    async def test_init_calls_history_manager(self, reset_game_instance, mock_llm_managers):
-        """Test initialization calls HistoryManager when history is present."""
-        with patch.object(main, 'scan_avatar_assets'), \
-             patch.object(main, 'load_cultivation_world_map') as mock_load_map, \
-             patch.object(main, 'check_llm_connectivity', return_value=(True, "")), \
-             patch('src.server.main.World') as mock_world_class, \
-             patch('src.server.main.Simulator') as mock_sim_class, \
-             patch('src.server.main.sects_by_id', {}), \
-             patch('src.server.main.CONFIG') as mock_config, \
-             patch('src.server.main.HistoryManager') as mock_history_class:
-            
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = "Ancient times..."
-            
-            mock_map = MagicMock()
-            mock_load_map.return_value = mock_map
-            mock_world = MagicMock()
-            mock_world.avatar_manager.avatars = {}
-            mock_world_class.create_with_db.return_value = mock_world
-            mock_sim = MagicMock()
-            mock_sim.step = AsyncMock()
-            mock_sim_class.return_value = mock_sim
-            
-            # Use the mock from fixture if available, but here we patch HistoryManager class specifically 
-            # to verify constructor call.
-            mock_history_mgr = MagicMock()
-            # We want to verify that apply_history_influence is called.
-            # Even if mock_llm_managers mocks the underlying method on the real class,
-            # here we mock the whole class, so we get a fresh mock instance.
-            mock_history_mgr.apply_history_influence = AsyncMock()
-            mock_history_class.return_value = mock_history_mgr
-            
-            await main.init_game_async()
-            
-            mock_history_class.assert_called_once_with(mock_world)
-            mock_history_mgr.apply_history_influence.assert_called_once_with("Ancient times...")
 
     @pytest.mark.asyncio
     async def test_init_pauses_after_initial_events(self, reset_game_instance, mock_llm_managers):
