@@ -24,9 +24,9 @@ globs: src/sim/simulator.py, src/sim/**/*.py
   ctx.add_events(world_phases.phase_update_perception_and_knowledge(self.world, ctx.living_avatars))
   # 2. 长期目标思考
   ctx.add_events(await lifecycle.phase_long_term_objective_thinking(ctx.living_avatars))
-  # … 每年 1 月：先 update_sects，再 phase_sect_yearly_thinking（宗门年度思考）
+  # … 每年 1 月：先 update_sects，再按配置周期执行 phase_sect_periodic_thinking（宗门周期思考）
   ```
-- **每年 1 月专属相位**：宗门年度思考必须在 `SectManager.update_sects()` 之后执行，为各宗门生成 `yearly_thinking` 并写入事件流；详见 `sect-system.mdc` 第 8 节。
+- **每年 1 月专属相位**：宗门周期思考必须在 `SectManager.update_sects()` 之后执行，并按 `thinking_interval_years` 决定是否在当年触发；生成结果写入 `periodic_thinking` 并写入事件流；详见 `sect-system.mdc` 第 8 节。
 
 ## 3. 异步执行规范 (Async Guidelines)
 

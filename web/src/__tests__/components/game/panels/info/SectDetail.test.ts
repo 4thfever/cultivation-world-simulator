@@ -88,7 +88,7 @@ describe('SectDetail', () => {
           magic_stone: 0,
           runtime_effect_items: [],
           diplomacy_items: [],
-          yearly_thinking: '',
+          periodic_thinking: '',
           war_summary: {
             active_war_count: 0,
             peace_count: 0,
@@ -181,7 +181,7 @@ describe('SectDetail', () => {
           relation_value: 0,
         },
       ],
-      yearly_thinking: '我宗观天下势力分化加剧，当先稳住边界与资源脉络，再图联盟突破，以争中局主动。',
+      periodic_thinking: '我宗观天下势力分化加剧，当先稳住边界与资源脉络，再图联盟突破，以争中局主动。',
     }
 
     const wrapper = mount(SectDetail, {

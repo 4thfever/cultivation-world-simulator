@@ -103,7 +103,7 @@ async def test_simulator_event_deduplication(base_world, dummy_avatar, mock_llm_
 
 
 @pytest.mark.asyncio
-async def test_simulator_yearly_sect_thinking_runs_after_sect_update(base_world, mock_llm_managers):
+async def test_simulator_periodic_sect_thinking_runs_after_sect_update(base_world, mock_llm_managers):
     sim = Simulator(base_world)
     call_order = []
 
@@ -111,47 +111,47 @@ async def test_simulator_yearly_sect_thinking_runs_after_sect_update(base_world,
         call_order.append("update_sects")
         return []
 
-    async def _five_year_decision(_simulator):
-        call_order.append("five_year_decision")
+    async def _sect_decision(_simulator):
+        call_order.append("sect_decision")
         return []
 
-    async def _yearly_thinking(_simulator):
-        call_order.append("yearly_thinking")
+    async def _periodic_thinking(_simulator):
+        call_order.append("periodic_thinking")
         return []
 
     with patch.object(sim.sect_manager, "update_sects", side_effect=_update_sects), patch(
-        "src.sim.simulator_engine.phases.annual.phase_sect_five_year_decision",
-        new=AsyncMock(side_effect=_five_year_decision),
+        "src.sim.simulator_engine.phases.annual.phase_sect_periodic_decision",
+        new=AsyncMock(side_effect=_sect_decision),
     ), patch(
-        "src.sim.simulator_engine.phases.annual.phase_sect_yearly_thinking",
-        new=AsyncMock(side_effect=_yearly_thinking),
+        "src.sim.simulator_engine.phases.annual.phase_sect_periodic_thinking",
+        new=AsyncMock(side_effect=_periodic_thinking),
     ):
         await sim.step()
 
-    assert call_order == ["update_sects", "five_year_decision", "yearly_thinking"]
+    assert call_order == ["update_sects", "sect_decision", "periodic_thinking"]
 
 
 @pytest.mark.asyncio
-async def test_simulator_yearly_sect_thinking_not_run_in_non_january(base_world, mock_llm_managers):
+async def test_simulator_periodic_sect_thinking_not_run_in_non_january(base_world, mock_llm_managers):
     base_world.month_stamp = create_month_stamp(Year(1), Month.FEBRUARY)
     sim = Simulator(base_world)
 
     with patch.object(sim.sect_manager, "update_sects") as mock_update_sects, patch(
-        "src.sim.simulator_engine.phases.annual.phase_sect_five_year_decision",
+        "src.sim.simulator_engine.phases.annual.phase_sect_periodic_decision",
         new=AsyncMock(),
-    ) as mock_five_year_decision, patch(
-        "src.sim.simulator_engine.phases.annual.phase_sect_yearly_thinking",
+    ) as mock_sect_decision, patch(
+        "src.sim.simulator_engine.phases.annual.phase_sect_periodic_thinking",
         new=AsyncMock(),
-    ) as mock_yearly_thinking:
+    ) as mock_periodic_thinking:
         await sim.step()
 
     mock_update_sects.assert_not_called()
-    mock_five_year_decision.assert_not_awaited()
-    mock_yearly_thinking.assert_not_awaited()
+    mock_sect_decision.assert_not_awaited()
+    mock_periodic_thinking.assert_not_awaited()
 
 
 @pytest.mark.asyncio
-async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base_world, mock_llm_managers):
+async def test_phase_sect_periodic_thinking_generates_event_with_related_sect(base_world, mock_llm_managers):
     base_world.start_year = 1
     base_world.month_stamp = create_month_stamp(Year(6), Month.JANUARY)
 
@@ -159,14 +159,14 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
     sect = MagicMock()
     sect.id = 77
     sect.name = "Test Sect"
-    sect.yearly_thinking = ""
+    sect.periodic_thinking = ""
     sect.last_decision_summary = "招徕散修 1 人。"
 
     base_world.existed_sects = [sect]
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
-    with patch.object(annual.CONFIG.sect, "decision_interval_years", 5), patch(
+    with patch.object(annual.CONFIG.sect, "thinking_interval_years", 5), patch(
         "src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()
     ), patch(
         "src.sim.simulator_engine.phases.annual.SectThinker.think",
@@ -177,7 +177,7 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
         if key == "game.sect_thinking_event"
         else key,
     ):
-        events = await annual.phase_sect_yearly_thinking(sim)
+        events = await annual.phase_sect_periodic_thinking(sim)
 
     assert len(events) == 1
     event = events[0]
@@ -187,7 +187,7 @@ async def test_phase_sect_yearly_thinking_generates_event_with_related_sect(base
 
 
 @pytest.mark.asyncio
-async def test_phase_sect_yearly_thinking_skips_non_interval_year(base_world, mock_llm_managers):
+async def test_phase_sect_periodic_thinking_skips_non_interval_year(base_world, mock_llm_managers):
     base_world.start_year = 1
     base_world.month_stamp = create_month_stamp(Year(4), Month.JANUARY)
 
@@ -195,26 +195,26 @@ async def test_phase_sect_yearly_thinking_skips_non_interval_year(base_world, mo
     sect = MagicMock()
     sect.id = 77
     sect.name = "Test Sect"
-    sect.yearly_thinking = ""
+    sect.periodic_thinking = ""
 
     base_world.existed_sects = [sect]
     base_world.event_manager._storage = MagicMock()
     base_world.event_manager._storage.get_events.return_value = ([], None)
 
-    with patch.object(annual.CONFIG.sect, "decision_interval_years", 5), patch(
+    with patch.object(annual.CONFIG.sect, "thinking_interval_years", 5), patch(
         "src.classes.core.sect.get_sect_decision_context", return_value=MagicMock()
     ), patch(
         "src.sim.simulator_engine.phases.annual.SectThinker.think",
         new=AsyncMock(return_value="should not happen"),
     ) as mock_decide:
-        events = await annual.phase_sect_yearly_thinking(sim)
+        events = await annual.phase_sect_periodic_thinking(sim)
 
     assert events == []
     mock_decide.assert_not_awaited()
 
 
 @pytest.mark.asyncio
-async def test_phase_sect_five_year_decision_emits_summary_event(base_world, mock_llm_managers):
+async def test_phase_sect_periodic_decision_emits_summary_event(base_world, mock_llm_managers):
     base_world.start_year = 1
     base_world.month_stamp = create_month_stamp(Year(6), Month.JANUARY)
 
@@ -236,16 +236,16 @@ async def test_phase_sect_five_year_decision_emits_summary_event(base_world, moc
             return_value=SectDecisionResult(
                 events=[],
                 recruitment_count=1,
-                summary_text="Test Sect 本轮五年决策：招徕散修 1 人。",
+                summary_text="Test Sect 本轮宗门决策：招徕散修 1 人。",
             )
         ),
     ):
-        events = await annual.phase_sect_five_year_decision(sim)
+        events = await annual.phase_sect_periodic_decision(sim)
 
     assert len(events) == 1
     assert events[0].related_sects == [77]
     assert "招徕散修 1 人" in events[0].content
-    assert sect.last_decision_summary == "Test Sect 本轮五年决策：招徕散修 1 人。"
+    assert sect.last_decision_summary == "Test Sect 本轮宗门决策：招徕散修 1 人。"
 
 
 @pytest.mark.asyncio

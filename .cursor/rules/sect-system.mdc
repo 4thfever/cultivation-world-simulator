@@ -42,7 +42,7 @@ globs:
   - 运行时状态：
     - `sect_effects / temporary_sect_effects`：宗门经济/加成类运行时效果（`build_sect_detail` 中会合并并生成 `runtime_effect_*` 字段）。
     - `magic_stone / total_battle_strength / influence_radius / is_active`：势力与经济结算相关字段。
-    - `yearly_thinking`：宗门年度思考（仅展示用途），由 `SectDecider` 每年 1 月生成 30～100 字短文本，经 `build_sect_detail` 暴露给前端。
+    - `periodic_thinking`：宗门周期思考（仅展示用途），由 `SectThinker` 在每年 1 月按配置周期生成 30～100 字短文本，经 `build_sect_detail` 暴露给前端。
     - `members`：运行时成员映射，仅在内存中维护，不参与静态配置。
 - 在扩展字段时：
   - **必须**在命名和 docstring 中注明“静态配置 / 运行时状态 / 仅序列化用”三者之一。
@@ -94,7 +94,7 @@ globs:
     - assembler 内负责：
       - 调用 `sect.get_structured_info()` 获取领域层基础信息。
       - 合并 `sect_effects` 与 `temporary_sect_effects`，生成 `runtime_effect_desc`、`runtime_extra_income_per_tile`、`runtime_effect_items` 等前端字段。
-      - 将 `sect.yearly_thinking` 写入 `yearly_thinking` 字段供前端宗门 info panel 展示。
+      - 将 `sect.periodic_thinking` 写入 `periodic_thinking` 字段供前端宗门 info panel 展示。
     - 路由层不再手写追加 runtime 字段。
 - 前端 DTO (`web/src/types/api.ts`)：
   - `DetailResponseDTO` **不得再是** `Record<string, unknown>`。
@@ -118,13 +118,20 @@ globs:
     - 必须调用 mapper：`detailData.value = mapDetailDTOToDomain(raw, target.type)`。
     - **禁止**再使用 `as unknown as AvatarDetail | RegionDetail | SectDetail` 之类的双重断言。
 
-## 8. 宗门年度思考 (SectDecider)
+## 8. 宗门周期决策与周期思考
 
-- **入口**：由年度维护流程 `src/sim/simulator_engine/phases/annual.py` 调度，仅在每年 1 月执行，且排在宗门年度结算 `SectManager.update_sects()` 之后。
-- **输入**：由 `build_sect_decision_context(sect, world, event_storage)` 得到 `SectDecisionContext`（宗门基础信息、战力/势力/经济、宗门关系、与本宗相关的近期历史事件）。
-- **输出**：30～100 字、以宗门口吻的“形势判断与方向思考”文本，写回 `sect.yearly_thinking`，并生成一条 `Event(related_sects=[sect.id])` 写入事件流。
-- **实现**：`src/classes/sect_decider.py` 中 `SectDecider.decide(sect, decision_context, world)`，LLM 不可用时使用固定兜底文案。提示词模板按语言放在 `static/locales/{lang}/templates/sect_decider.txt`，任务名 `sect_decider`。
-- **展示**：`build_sect_detail` 已把 `yearly_thinking` 写入详情 DTO，前端宗门 info panel 可直接使用该字段。
+- **宗门周期决策 (`SectDecider`)**：
+  - **入口**：由年度维护流程 `src/sim/simulator_engine/phases/annual.py` 调度，仅在每年 1 月检查是否到达配置周期。
+  - **输入**：由 `build_sect_decision_context(sect, world, event_storage)` 得到 `SectDecisionContext`。
+  - **输出**：执行宗门行政动作，并生成“本轮宗门决策”摘要文本，写回 `sect.last_decision_summary`，同时写入事件流。
+  - **实现**：`src/classes/sect_decider.py` 中 `SectDecider.decide(sect, decision_context, world)`；提示词模板位于 `static/locales/{lang}/templates/sect_decider.txt`，任务名 `sect_decider`。
+
+- **宗门周期思考 (`SectThinker`)**：
+  - **入口**：由年度维护流程 `src/sim/simulator_engine/phases/annual.py` 调度，仅在每年 1 月检查是否到达 `thinking_interval_years` 配置周期，且排在宗门年度结算与宗门周期决策之后。
+  - **输入**：由 `build_sect_decision_context(sect, world, event_storage)` 得到 `SectDecisionContext`（宗门基础信息、战力/势力/经济、宗门关系、与本宗相关的近期历史事件），并参考 `sect.last_decision_summary`。
+  - **输出**：30～100 字、以宗门口吻的“形势判断与方向思考”文本，写回 `sect.periodic_thinking`，并生成一条 `Event(related_sects=[sect.id])` 写入事件流。
+  - **实现**：`src/classes/sect_thinker.py` 中 `SectThinker.think(sect, decision_context, world, decision_summary=...)`，LLM 不可用时使用固定兜底文案。提示词模板按语言放在 `static/locales/{lang}/templates/sect_thinker.txt`，任务名 `sect_thinker`。
+  - **展示**：`build_sect_detail` 已把 `periodic_thinking` 写入详情 DTO，前端宗门 info panel 可直接使用该字段。
 
 ## 9. 重构与扩展时的检查清单
 
@@ -133,5 +140,5 @@ globs:
 3. 涉及势力范围（tile 归属）的逻辑，是否通过 `SectManager` 的势力快照复用计算？  
 4. 新增 `/api/detail` 字段时，是否同时更新了：assembler → DTO 类型 → detailMapper → UI 组件？  
 5. 修改宗门榜或关系算法时，是否仍然只作用于本局 active 宗门，而非全局 `sects_by_id`？  
-6. 修改宗门年度思考逻辑时，是否仍使用 `SectDecisionContext` 作为唯一输入、并通过年度维护流程在每年 1 月调度？  
+6. 修改宗门周期思考逻辑时，是否仍使用 `SectDecisionContext` 作为唯一输入、并通过年度维护流程在每年 1 月按配置周期调度？  
 

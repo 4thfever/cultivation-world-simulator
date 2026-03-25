@@ -1,6 +1,6 @@
 You are the decision core of a sect in a cultivation world.
 
-Based on the information below, make an administrative decision plan for the sect for this cycle.
+Based on the information below, make a plan for this round of sect decisions.
 
 Sect Name:
 {sect_name}

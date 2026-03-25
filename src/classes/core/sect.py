@@ -77,9 +77,9 @@ class Sect(SectEffectsMixin):
     total_battle_strength: float = 0.0
     influence_radius: int = 0
     color: str = "#FFFFFF"
-    # 宗门年度思考（仅展示用途，不写入事件流）
-    yearly_thinking: str = ""
-    # 最近一次五年决策摘要（运行时）
+    # 宗门周期思考（仅展示用途，不写入事件流）
+    periodic_thinking: str = ""
+    # 最近一次宗门决策摘要（运行时）
     last_decision_summary: str = ""
 
     # 运行时成员列表：Avatar ID -> Avatar
@@ -212,7 +212,9 @@ class Sect(SectEffectsMixin):
             "color": self.color,
             "rule_id": self.rule_id,
             "rule_desc": self.rule_desc,
-            "yearly_thinking": self.yearly_thinking,
+            "periodic_thinking": self.periodic_thinking,
+            # 兼容旧字段，前后端迁移完成后可删除。
+            "yearly_thinking": self.periodic_thinking,
         }
 
     def is_alignment_recruitable(self, alignment: Alignment | None) -> bool:

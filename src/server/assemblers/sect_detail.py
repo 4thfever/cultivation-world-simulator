@@ -88,7 +88,9 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     )
     info["runtime_effects_count"] = len(runtime_items)
     info["runtime_effect_items"] = runtime_items
-    info["yearly_thinking"] = str(getattr(sect, "yearly_thinking", "") or "")
+    info["periodic_thinking"] = str(getattr(sect, "periodic_thinking", "") or "")
+    # 兼容旧字段，前端迁移完成后可删除。
+    info["yearly_thinking"] = info["periodic_thinking"]
 
     sect_manager = SectManager(world)
     snapshot = sect_manager.get_snapshot()

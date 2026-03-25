@@ -138,9 +138,9 @@ function getDiplomacySub(item: DiplomacyItem) {
           <div class="text-content rule-content">{{ ruleText }}</div>
        </div>
 
-       <div class="section" v-if="data.yearly_thinking">
+       <div class="section" v-if="data.periodic_thinking">
           <div class="section-title">{{ t('game.info_panel.sect.sections.thinking') }}</div>
-          <div class="text-content thinking-text-content">{{ data.yearly_thinking }}</div>
+          <div class="text-content thinking-text-content">{{ data.periodic_thinking }}</div>
        </div>
 
        <div class="section" v-if="simplifiedDiplomacyItems.length">

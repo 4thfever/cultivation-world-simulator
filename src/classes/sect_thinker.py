@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 class SectThinker:
     """
-    宗门思考生成器。
+    宗门周期思考生成器。
 
     输入：SectDecisionContext + 本轮决策摘要
     输出：宗门意志口吻的短文本（30~100字）
@@ -49,7 +49,6 @@ class SectThinker:
             "decision_context_info": to_json_str_with_intent(
                 cls._serialize_context(decision_context)
             ),
-            "decision_interval_years": cls.get_decision_interval_years(),
             "decision_summary": str(decision_summary or ""),
         }
 
@@ -73,8 +72,14 @@ class SectThinker:
         return bool(profile.base_url and api_key and profile.model_name)
 
     @classmethod
-    def get_decision_interval_years(cls) -> int:
-        interval = int(getattr(CONFIG.sect, "decision_interval_years", 5))
+    def get_thinking_interval_years(cls) -> int:
+        interval = int(
+            getattr(
+                CONFIG.sect,
+                "thinking_interval_years",
+                getattr(CONFIG.sect, "decision_interval_years", 5),
+            )
+        )
         return interval if interval > 0 else 5
 
     @classmethod

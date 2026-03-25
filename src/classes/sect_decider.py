@@ -59,7 +59,7 @@ class SectDecisionPlan:
 
 class SectDecider:
     """
-    五年一次的宗门行政决策执行器。
+    按配置周期执行的宗门行政决策执行器。
     """
 
     @classmethod
@@ -481,5 +481,5 @@ class SectDecider:
         if result.support_count:
             parts.append(f"资助灵石 {result.support_count} 次")
         if not parts:
-            return f"{sect.name} 本轮五年决策以观望整固为主，未作实质处分。"
-        return f"{sect.name} 本轮五年决策：" + "，".join(parts) + "。"
+            return f"{sect.name} 本轮宗门决策以观望整固为主，未作重大调整。"
+        return f"{sect.name} 本轮宗门决策：" + "，".join(parts) + "。"

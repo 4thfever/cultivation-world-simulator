@@ -48,7 +48,7 @@ class SectDecisionContext:
     # 宗门身份与治理约束
     identity: Dict[str, Any] = field(default_factory=dict)
 
-    # 门规与五年决策候选
+    # 门规与宗门决策候选
     diplomacy_targets: List[Dict[str, Any]] = field(default_factory=list)
     active_wars: List[Dict[str, Any]] = field(default_factory=list)
     rule: Dict[str, Any] = field(default_factory=dict)
