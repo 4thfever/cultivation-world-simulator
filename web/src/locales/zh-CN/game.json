@@ -225,7 +225,7 @@
         "current_effects": "当前效果"
       },
       "weapon_meta": "熟练度 {value}",
-      "relation_meta": "{owner}的{relation}",
+      "relation_meta": "对{owner}{relation}",
       "father_short": "父",
       "mother_short": "母",
       "mortal_realm": "凡人",

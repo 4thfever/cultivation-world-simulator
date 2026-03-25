@@ -310,11 +310,11 @@ def get_numeric_relation_label(relation: NumericRelation) -> str:
     if translated != msgid:
         return translated
     fallback = {
-        NumericRelation.ARCHENEMY: "仇人",
+        NumericRelation.ARCHENEMY: "憎恶",
         NumericRelation.DISLIKED: "厌恶",
-        NumericRelation.STRANGER: "陌生人",
-        NumericRelation.FRIEND: "朋友",
-        NumericRelation.BEST_FRIEND: "挚友",
+        NumericRelation.STRANGER: "陌生",
+        NumericRelation.FRIEND: "友好",
+        NumericRelation.BEST_FRIEND: "亲善",
     }
     return fallback[relation]
 

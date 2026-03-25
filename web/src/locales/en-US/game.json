@@ -225,7 +225,7 @@
         "current_effects": "Current Effects"
       },
       "weapon_meta": "Proficiency {value}",
-      "relation_meta": "{relation} of {owner}",
+      "relation_meta": "{relation} toward {owner}",
       "father_short": "Father",
       "mother_short": "Mother",
       "mortal_realm": "Mortal",

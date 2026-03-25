@@ -2359,19 +2359,19 @@ msgid "parent"
 msgstr "父母"
 
 msgid "numeric_relation_archenemy"
-msgstr "仇人"
+msgstr "憎恶"
 
 msgid "numeric_relation_best_friend"
-msgstr "挚友"
+msgstr "亲善"
 
 msgid "numeric_relation_disliked"
 msgstr "厌恶"
 
 msgid "numeric_relation_friend"
-msgstr "朋友"
+msgstr "友好"
 
 msgid "numeric_relation_stranger"
-msgstr "陌生人"
+msgstr "陌生"
 
 msgid "relation_daughter"
 msgstr "女儿"
@@ -2423,7 +2423,7 @@ msgid "relation_rule_cancel_title"
 msgstr "【解除关系规则】"
 
 msgid "relation_rule_enemy_add"
-msgstr "【仇人】发生实质伤害（受伤、偷窃、羞辱）。单次严重伤害或多次微小摩擦。"
+msgstr "【憎恶】发生实质伤害（受伤、偷窃、羞辱）。单次严重伤害或多次微小摩擦。"
 
 msgid "relation_rule_enemy_cancel"
 msgstr "【和解】一方主动示好并被接受，或共同经历生死，或仇恨淡化。"
@@ -2432,7 +2432,7 @@ msgid "relation_rule_establish_title"
 msgstr "【建立关系规则】"
 
 msgid "relation_rule_friend_add"
-msgstr "【朋友】只要有任何友好的日常互动（如攀谈、双修、切磋、疗伤等）或单次善意表现即可建立。无实质利益冲突。"
+msgstr "【友好】只要有任何友好的日常互动（如攀谈、双修、切磋、疗伤等）或单次善意表现即可建立。无实质利益冲突。"
 
 msgid "relation_rule_friend_cancel"
 msgstr "【绝交】利益冲突、背叛、或者长期无互动导致疏远。"

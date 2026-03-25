@@ -82,7 +82,7 @@ def test_relation_display_with_death(base_world, dummy_avatar):
     
     # 初始状态：显示正常名字
     strs_before = get_relations_strs(dummy_avatar)
-    assert "朋友：Friend" in strs_before
+    assert "友好：Friend" in strs_before
     
     # 朋友死亡（重伤）
     reason = DeathReason(DeathType.SERIOUS_INJURY)
@@ -90,7 +90,7 @@ def test_relation_display_with_death(base_world, dummy_avatar):
     
     # 死亡后：显示带死因的名字
     strs_after = get_relations_strs(dummy_avatar)
-    assert "朋友：Friend(已故：重伤不治身亡)" in strs_after
+    assert "友好：Friend(已故：重伤不治身亡)" in strs_after
 
 
 def test_avatar_manager_archive_death(base_world, dummy_avatar):

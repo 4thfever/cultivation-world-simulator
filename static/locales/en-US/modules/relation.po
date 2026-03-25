@@ -32,19 +32,19 @@ msgid "parent"
 msgstr "Parent"
 
 msgid "numeric_relation_archenemy"
-msgstr "Archenemy"
+msgstr "Hostile"
 
 msgid "numeric_relation_best_friend"
-msgstr "Best Friend"
+msgstr "Very Close"
 
 msgid "numeric_relation_disliked"
 msgstr "Disliked"
 
 msgid "numeric_relation_friend"
-msgstr "Friend"
+msgstr "Friendly"
 
 msgid "numeric_relation_stranger"
-msgstr "Stranger"
+msgstr "Distant"
 
 msgid "relation_daughter"
 msgstr "Daughter"
@@ -99,7 +99,7 @@ msgstr "[Cancel Relation Rules]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Enemy] Substantial harm occurred (injury, theft, humiliation). Single "
+"[Hostile] Substantial harm occurred (injury, theft, humiliation). Single "
 "severe harm or multiple minor frictions."
 
 msgid "relation_rule_enemy_cancel"
@@ -112,7 +112,7 @@ msgstr "[Establish Relation Rules]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friend] Any friendly daily interactions (such as chatting, dual "
+"[Friendly] Any friendly daily interactions (such as chatting, dual "
 "cultivation, sparring, healing, etc.) or a single display of goodwill is "
 "enough to establish this. No substantial conflict of interest."
 

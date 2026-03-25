@@ -225,7 +225,7 @@
         "current_effects": "Hiệu Ứng Hiện Tại"
       },
       "weapon_meta": "Độ thuần thục {value}",
-      "relation_meta": "{relation} của {owner}",
+      "relation_meta": "{relation} với {owner}",
       "father_short": "Cha",
       "mother_short": "Mẹ",
       "mortal_realm": "Phàm Nhân",

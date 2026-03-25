@@ -32,19 +32,19 @@ msgid "parent"
 msgstr "Cha Mẹ"
 
 msgid "numeric_relation_archenemy"
-msgstr "Kẻ Thù Không Đội Trời Chung"
+msgstr "Căm Ghét"
 
 msgid "numeric_relation_best_friend"
-msgstr "Tri Kỷ"
+msgstr "Thân Mật"
 
 msgid "numeric_relation_disliked"
 msgstr "Ghét"
 
 msgid "numeric_relation_friend"
-msgstr "Bằng Hữu"
+msgstr "Thân Thiện"
 
 msgid "numeric_relation_stranger"
-msgstr "Người Xa Lạ"
+msgstr "Xa Lạ"
 
 msgid "relation_daughter"
 msgstr "Con Gái"
@@ -99,7 +99,7 @@ msgstr "[Quy Tắc Hủy Quan Hệ]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Kẻ Thù] Đã xảy ra tổn hại thực chất như bị thương, trộm cắp hoặc làm nhục. "
+"[Căm Ghét] Đã xảy ra tổn hại thực chất như bị thương, trộm cắp hoặc làm nhục. "
 "Có thể là một lần tổn hại nghiêm trọng hoặc nhiều lần xung đột nhỏ."
 
 msgid "relation_rule_enemy_cancel"
@@ -112,7 +112,7 @@ msgstr "[Quy Tắc Thiết Lập Quan Hệ]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Bằng Hữu] Chỉ cần có bất kỳ tương tác thân thiện thường ngày nào như trò "
+"[Thân Thiện] Chỉ cần có bất kỳ tương tác thân thiện thường ngày nào như trò "
 "chuyện, song tu, luận bàn, chữa thương... hoặc một lần thể hiện thiện ý là "
 "đủ để hình thành quan hệ này, miễn không có xung đột lợi ích thực chất."
 
