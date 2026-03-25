@@ -94,7 +94,7 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 
 ### Lưu Ý Khi Khởi Chạy Lần Đầu
 
-- Dù chạy từ mã nguồn hay Docker, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek hoặc Ollama, rồi mới bắt đầu ván mới.
+- Dù chạy từ mã nguồn hay Docker, sau khi vào game lần đầu bạn vẫn cần vào trang cài đặt để cấu hình một preset mô hình khả dụng, như DeepSeek, MiniMax hoặc Ollama, rồi mới bắt đầu ván mới.
 - Ở chế độ phát triển, frontend thường sẽ tự mở. Nếu không tự mở, hãy truy cập vào địa chỉ frontend xuất hiện trong log khởi động.
 
 ### Cách 1: Chạy Từ Mã Nguồn (Chế Độ Phát Triển, Khuyến Nghị)
@@ -114,7 +114,7 @@ Phù hợp cho nhà phát triển cần sửa code hoặc debug.
    ```
 
 2. **Cấu hình mô hình**
-   Trên trang cài đặt của frontend, chọn một preset mô hình như DeepSeek hoặc Ollama, sau đó bắt đầu ván chơi mới. Cấu hình sẽ tự động được lưu vào thư mục dữ liệu người dùng.
+   Trên trang cài đặt của frontend, chọn một preset mô hình như DeepSeek, MiniMax hoặc Ollama, sau đó bắt đầu ván chơi mới. Cấu hình sẽ tự động được lưu vào thư mục dữ liệu người dùng.
 
 3. **Mở frontend**
    Chế độ phát triển sẽ tự khởi chạy frontend dev server. Hãy mở địa chỉ frontend hiện trong log khởi động, thông thường là `http://localhost:5173`.
