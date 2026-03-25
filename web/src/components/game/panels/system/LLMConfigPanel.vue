@@ -74,6 +74,12 @@ const presets = computed(() => [
     fast_model_name: 'deepseek-chat'
   },
   {
+    name: t('llm.presets.minimax'),
+    base_url: 'https://api.minimax.io/v1',
+    model_name: 'MiniMax-M2.7',
+    fast_model_name: 'MiniMax-M2.5-highspeed'
+  },
+  {
     name: t('llm.presets.siliconflow'),
     base_url: 'https://api.siliconflow.cn/v1',
     model_name: 'Qwen/Qwen2.5-72B-Instruct',
@@ -344,6 +350,7 @@ onMounted(() => {
                <li><a href="https://platform.openai.com/" target="_blank">{{ t('llm.help_links.openai') }}</a></li>
                <li><a href="https://bailian.console.aliyun.com/" target="_blank">{{ t('llm.help_links.qwen') }}</a></li>
                <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
+               <li><a href="https://platform.minimaxi.com/" target="_blank">{{ t('llm.help_links.minimax') }}</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
                <li><a href="https://cloud.siliconflow.cn/" target="_blank">{{ t('llm.help_links.siliconflow') }}</a></li>
                <li><a href="https://aistudio.google.com/" target="_blank">{{ t('llm.help_links.gemini') }}</a></li>
