@@ -42,6 +42,8 @@ function updateMask() {
   const radius = detail.observation_radius
   const centerX = avatar.x
   const centerY = avatar.y
+  const maxTileX = Math.ceil(props.width / TILE_SIZE) - 1
+  const maxTileY = Math.ceil(props.height / TILE_SIZE) - 1
   
   // 2. 绘制想要挖空的形状并调用 cut()
   for (let dx = -radius; dx <= radius; dx++) {
@@ -49,8 +51,13 @@ function updateMask() {
       if (Math.abs(dx) + Math.abs(dy) <= radius) {
         const tileX = centerX + dx
         const tileY = centerY + dy
-        
-        // 如果格子在地图范围内，可以优化一下，不过直接画在外面 cut 也没影响
+
+        // `cut()` 对越界图形并不稳定，靠近地图边缘时会出现整片遮罩被错误裁开的现象。
+        // 只对实际存在的地图格子执行裁剪，避免负坐标或越界坐标参与布尔运算。
+        if (tileX < 0 || tileY < 0 || tileX > maxTileX || tileY > maxTileY) {
+          continue
+        }
+
         g.rect(tileX * TILE_SIZE, tileY * TILE_SIZE, TILE_SIZE, TILE_SIZE)
         g.cut()
       }

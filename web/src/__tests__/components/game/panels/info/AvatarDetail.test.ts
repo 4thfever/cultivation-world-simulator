@@ -121,4 +121,62 @@ describe('AvatarDetail', () => {
     expect(wrapper.find('.dead-banner').exists()).toBe(true)
     expect(wrapper.find('.actions-bar').exists()).toBe(false)
   })
+
+  it('renders identity and non-stranger attitude on separate lines', () => {
+    const relationAvatar = {
+      ...mockAvatarData,
+      relations: [
+        {
+          target_id: 'avatar_2',
+          name: '青岚',
+          relation: '道侣 / 友好',
+          relation_type: 'lovers',
+          identity_relations: ['lovers'],
+          numeric_relation: 'friend',
+          friendliness: 12,
+          realm: '金丹后期',
+          sect: '凌霄剑宗',
+        },
+        {
+          target_id: 'avatar_3',
+          name: '丹七杀',
+          relation: '陌生',
+          relation_type: '',
+          identity_relations: [],
+          numeric_relation: 'stranger',
+          friendliness: 0,
+          realm: '金丹后期',
+          sect: '金丹后期',
+        },
+      ],
+    }
+
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: relationAvatar as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          StatItem: true,
+          EntityRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+        },
+      },
+    })
+
+    expect(wrapper.text()).toContain('道侣')
+    expect(wrapper.text()).toContain('友好（12）')
+    expect(wrapper.text()).not.toContain('态度：陌生')
+    expect(wrapper.text()).not.toContain('身份：')
+    expect(wrapper.text()).not.toContain('态度：')
+    expect(wrapper.text()).not.toContain('丹七杀')
+  })
 })

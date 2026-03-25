@@ -11,6 +11,7 @@ import SecondaryPopup from './components/SecondaryPopup.vue';
 import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
+import type { RelationInfo } from '@/types/core';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -48,6 +49,38 @@ const formattedRanking = computed(() => {
     return `${listName} Rank ${rank}`;
   }
 });
+
+function buildRelationMetaLines(rel: RelationInfo): string[] {
+  const parts = (rel.relation || '')
+    .split(/\s*\/\s*/)
+    .map(part => part.trim())
+    .filter(Boolean);
+
+  let structuralParts = parts;
+  let attitudeText: string | null = null;
+
+  if (rel.numeric_relation && parts.length > 0) {
+    attitudeText = parts[parts.length - 1];
+    structuralParts = parts.slice(0, -1);
+  }
+
+  const lines: string[] = [];
+
+  if (structuralParts.length > 0) {
+    lines.push(structuralParts.join(' / '));
+  }
+
+  if (attitudeText && rel.numeric_relation !== 'stranger') {
+    const friendlinessSuffix = typeof rel.friendliness === 'number' ? `（${rel.friendliness}）` : '';
+    lines.push(`${attitudeText}${friendlinessSuffix}`);
+  }
+
+  return lines;
+}
+
+function hasVisibleRelationMeta(rel: RelationInfo): boolean {
+  return buildRelationMetaLines(rel).length > 0;
+}
 
 const groupedRelations = computed(() => {
   const rels = props.data.relations || [];
@@ -91,16 +124,19 @@ const groupedRelations = computed(() => {
     }
   }
   
-  const children = rels.filter(r => r.blood_relation === BloodRelationType.TO_ME_IS_CHILD);
+  const children = rels.filter(r =>
+    r.blood_relation === BloodRelationType.TO_ME_IS_CHILD && (r.is_mortal || hasVisibleRelationMeta(r))
+  );
   
   const bloodOthers = rels.filter(r =>
     r.blood_relation &&
     r.blood_relation !== BloodRelationType.TO_ME_IS_PARENT &&
-    r.blood_relation !== BloodRelationType.TO_ME_IS_CHILD
+    r.blood_relation !== BloodRelationType.TO_ME_IS_CHILD &&
+    hasVisibleRelationMeta(r)
   );
 
   const others = rels.filter(r => 
-    !r.blood_relation
+    !r.blood_relation && hasVisibleRelationMeta(r)
   );
 
   return {
@@ -311,9 +347,8 @@ async function handleClearObjective() {
               <!-- Cultivator Parent -->
               <RelationRow 
                 v-else
-                :relation="rel" 
                 :name="rel.name"
-                :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+                :meta-lines="buildRelationMetaLines(rel)"
                 :sub="`${rel.sect} · ${rel.realm}`"
                 :type="rel.relation_type"
                 @click="jumpToAvatar(rel.target_id)"
@@ -332,9 +367,8 @@ async function handleClearObjective() {
               <!-- Cultivator Child -->
               <RelationRow 
                 v-else
-                :relation="rel"
                 :name="rel.name"
-                :meta="t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })"
+                :meta-lines="buildRelationMetaLines(rel)"
                 :sub="`${rel.sect} · ${rel.realm}`"
                 :type="rel.relation_type" 
                 @click="jumpToAvatar(rel.target_id)"
@@ -346,9 +380,8 @@ async function handleClearObjective() {
             <RelationRow 
               v-for="rel in groupedRelations.bloodOthers"
               :key="rel.target_id"
-              :relation="rel"
               :name="rel.name"
-              :meta="`${t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })} · ${rel.friendliness ?? 0}`"
+              :meta-lines="buildRelationMetaLines(rel)"
               :sub="`${rel.sect} · ${rel.realm}`"
               :type="rel.relation_type"
               @click="jumpToAvatar(rel.target_id)"
@@ -360,9 +393,8 @@ async function handleClearObjective() {
             <RelationRow 
               v-for="rel in groupedRelations.others"
               :key="rel.target_id"
-              :relation="rel"
               :name="rel.name"
-              :meta="`${t('game.info_panel.avatar.relation_meta', { owner: data.name, relation: rel.relation })} · ${rel.friendliness ?? 0}`"
+              :meta-lines="buildRelationMetaLines(rel)"
               :sub="`${rel.sect} · ${rel.realm}`"
               :type="rel.relation_type"
               @click="jumpToAvatar(rel.target_id)"
