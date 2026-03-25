@@ -1,0 +1,123 @@
+from unittest.mock import AsyncMock, patch
+
+import pytest
+
+from src.classes.alignment import Alignment
+from src.classes.core.sect import Sect
+from src.classes.items.weapon import Weapon, WeaponType
+from src.classes.technique import Technique, TechniqueAttribute, TechniqueGrade
+from src.classes.world_lore import WorldLore, WorldLoreManager
+from src.sim.load.load_game import load_game
+from src.sim.save.save_game import save_game
+from src.sim.simulator import Simulator
+from src.systems.cultivation import Realm
+
+import src.classes.core.sect as sect_module
+import src.classes.items.weapon as weapon_module
+import src.classes.technique as technique_module
+
+_real_apply_world_lore = WorldLoreManager.apply_world_lore
+
+
+def test_world_lore_structure(base_world):
+    assert isinstance(base_world.world_lore, WorldLore)
+    assert base_world.world_lore.text == ""
+
+    lore_text = "这是一个宗门林立、正邪对峙的修仙世界。"
+    base_world.set_world_lore(lore_text)
+    assert base_world.world_lore.text == lore_text
+    assert base_world.static_info["世界观与历史"] == lore_text
+
+
+def test_world_lore_manager_updates_indexes(base_world):
+    sect = Sect(
+        id=1,
+        name="旧宗门",
+        desc="旧描述",
+        member_act_style="",
+        alignment=Alignment.RIGHTEOUS,
+        headquarter=None,
+        technique_names=[],
+    )
+    technique = Technique(
+        id=1,
+        name="旧功法",
+        attribute=TechniqueAttribute.GOLD,
+        grade=TechniqueGrade.LOWER,
+        desc="旧功法描述",
+        weight=1.0,
+        condition="",
+    )
+    weapon = Weapon(
+        id=101,
+        name="旧灵剑",
+        weapon_type=WeaponType.SWORD,
+        realm=Realm.Qi_Refinement,
+        desc="旧武器描述",
+    )
+
+    manager = WorldLoreManager(base_world)
+
+    with patch.dict(sect_module.sects_by_id, {1: sect}, clear=True), \
+         patch.dict(sect_module.sects_by_name, {"旧宗门": sect}, clear=True), \
+         patch.dict(technique_module.techniques_by_id, {1: technique}, clear=True), \
+         patch.dict(technique_module.techniques_by_name, {"旧功法": technique}, clear=True), \
+         patch("src.classes.world_lore.ItemRegistry.get", return_value=weapon), \
+         patch.dict(weapon_module.weapons_by_name, {"旧灵剑": weapon}, clear=True):
+        manager._apply_sect_lore_changes({"sects_change": {"1": {"name": "新宗门", "desc": "新描述"}}})
+        manager._apply_item_lore_changes(
+            {
+                "techniques_change": {"1": {"name": "新功法", "desc": "新功法描述"}},
+                "weapons_change": {"101": {"name": "新灵剑", "desc": "新武器描述"}},
+            }
+        )
+
+        assert sect.name == "新宗门"
+        assert sect.desc == "新描述"
+        assert "旧宗门" not in sect_module.sects_by_name
+        assert sect_module.sects_by_name["新宗门"] is sect
+
+        assert technique.name == "新功法"
+        assert technique.desc == "新功法描述"
+        assert "旧功法" not in technique_module.techniques_by_name
+        assert technique_module.techniques_by_name["新功法"] is technique
+
+        assert weapon.name == "新灵剑"
+        assert weapon.desc == "新武器描述"
+        assert "旧灵剑" not in weapon_module.weapons_by_name
+        assert weapon_module.weapons_by_name["新灵剑"] is weapon
+
+
+@pytest.mark.asyncio
+async def test_apply_world_lore_uses_world_lore_tasks(base_world):
+    manager = WorldLoreManager(base_world)
+
+    async def fake_call(**kwargs):
+        task_name = kwargs["task_name"]
+        if task_name == "world_lore_map":
+            return {"city_regions_change": {}, "normal_regions_change": {}, "cultivate_regions_change": {}}
+        if task_name == "world_lore_sect":
+            return {"sects_change": {}, "sect_regions_change": {}}
+        if task_name == "world_lore_item":
+            return {"techniques_change": {}, "weapons_change": {}, "auxiliarys_change": {}}
+        raise AssertionError(f"unexpected task: {task_name}")
+
+    with patch("src.classes.world_lore.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+        mock_llm.side_effect = fake_call
+        with patch.object(WorldLoreManager, "apply_world_lore", new=_real_apply_world_lore):
+            await manager.apply_world_lore("强调门规与正邪格局的世界观")
+
+    called_task_names = [call.kwargs["task_name"] for call in mock_llm.await_args_list]
+    assert called_task_names == ["world_lore_map", "world_lore_sect", "world_lore_item"]
+
+
+def test_save_load_preserves_world_lore(base_world, tmp_path):
+    base_world.set_world_lore("上古大战后，宗门秩序被重写。")
+    simulator = Simulator(base_world)
+    save_path = tmp_path / "world_lore_save.json"
+
+    ok, _ = save_game(base_world, simulator, [], save_path)
+    assert ok is True
+
+    loaded_world, _, _ = load_game(save_path)
+    assert loaded_world.world_lore.text == "上古大战后，宗门秩序被重写。"

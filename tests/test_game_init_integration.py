@@ -12,7 +12,7 @@ Integration tests for game initialization flow.
 |-----------------------|-------|
 | Progress Updates      | 4     |
 | Success Path          | 2     |
-| History Processing    | 4     |
+| World Lore Processing    | 4     |
 | LLM Check             | 1     |
 | Avatar Generation     | 6     |
 | Error Handling        | 6     |
@@ -31,8 +31,8 @@ Integration tests for game initialization flow.
 | Phase 1: Map load failure                 | test_init_handles_map_load_error                      |
 | World creation failure                    | test_init_handles_world_creation_error                |
 | Simulator creation failure                | test_init_handles_simulator_creation_error            |
-| Phase 2: History applied                  | test_init_applies_history                             |
-| Phase 2: History failure (continues)      | test_init_continues_if_history_fails                  |
+| Phase 2: World lore applied                  | test_init_applies_history                             |
+| Phase 2: World lore failure (continues)      | test_init_continues_if_history_fails                  |
 | Phase 2: Empty history skipped            | test_init_empty_history_skips_history_manager         |
 | Phase 2: Whitespace history skipped       | test_init_whitespace_only_history_skips_history_manager |
 | Phase 3: Sects selected                   | test_init_selects_random_sects                        |
@@ -166,7 +166,7 @@ class TestInitGameAsyncSuccess:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 1
             mock_config.game.init_npc_num = 5
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
 
             mock_world_class.create_with_db.return_value = mock_world
 
@@ -209,7 +209,7 @@ class TestInitGameAsyncSuccess:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -218,7 +218,7 @@ class TestInitGameAsyncSuccess:
             assert all(s == "in_progress" for s in recorded_status)
 
 
-class TestInitGameAsyncWithHistory:
+class TestInitGameAsyncWithWorldLore:
     """Tests for initialization with world history."""
 
     @pytest.mark.asyncio
@@ -231,7 +231,7 @@ class TestInitGameAsyncWithHistory:
         mock_sim.step = AsyncMock()
 
         mock_history_mgr = MagicMock()
-        mock_history_mgr.apply_history_influence = AsyncMock()
+        mock_history_mgr.apply_world_lore = AsyncMock()
 
         with patch.object(main, "reload_all_static_data"), \
              patch.object(main, "scan_avatar_assets"), \
@@ -239,22 +239,22 @@ class TestInitGameAsyncWithHistory:
              patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
              patch("src.server.main.World") as mock_world_class, \
              patch("src.server.main.Simulator", return_value=mock_sim), \
-             patch("src.server.main.HistoryManager", return_value=mock_history_mgr) as mock_hm_class, \
+             patch("src.server.main.WorldLoreManager", return_value=mock_history_mgr) as mock_hm_class, \
              patch("src.server.main.CONFIG") as mock_config, \
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = "Ancient cultivation world..."
+            mock_config.game.world_lore = "Ancient worldview and history..."
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
 
             # Verify history was applied.
-            mock_world.set_history.assert_called_once_with("Ancient cultivation world...")
+            mock_world.set_world_lore.assert_called_once_with("Ancient worldview and history...")
             mock_hm_class.assert_called_once_with(mock_world)
-            mock_history_mgr.apply_history_influence.assert_called_once_with("Ancient cultivation world...")
+            mock_history_mgr.apply_world_lore.assert_called_once_with("Ancient worldview and history...")
 
     @pytest.mark.asyncio
     async def test_init_continues_if_history_fails(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
@@ -266,7 +266,7 @@ class TestInitGameAsyncWithHistory:
         mock_sim.step = AsyncMock()
 
         mock_history_mgr = MagicMock()
-        mock_history_mgr.apply_history_influence = AsyncMock(side_effect=Exception("History failed"))
+        mock_history_mgr.apply_world_lore = AsyncMock(side_effect=Exception("World lore failed"))
 
         with patch.object(main, "reload_all_static_data"), \
              patch.object(main, "scan_avatar_assets"), \
@@ -274,14 +274,14 @@ class TestInitGameAsyncWithHistory:
              patch.object(main, "check_llm_connectivity", return_value=(True, "")), \
              patch("src.server.main.World") as mock_world_class, \
              patch("src.server.main.Simulator", return_value=mock_sim), \
-             patch("src.server.main.HistoryManager", return_value=mock_history_mgr), \
+             patch("src.server.main.WorldLoreManager", return_value=mock_history_mgr), \
              patch("src.server.main.CONFIG") as mock_config, \
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = "Some history"
+            mock_config.game.world_lore = "Some worldview and history"
             mock_world_class.create_with_db.return_value = mock_world
 
             # Should not raise, should continue.
@@ -315,7 +315,7 @@ class TestInitGameAsyncWithLLMFailure:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -357,7 +357,7 @@ class TestInitGameAsyncWithAvatars:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 3
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -421,7 +421,7 @@ class TestInitGameAsyncErrors:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -466,7 +466,7 @@ class TestInitGameAsyncWithSects:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 2  # Request 2 sects from 3 available.
             mock_config.game.init_npc_num = 5
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -502,7 +502,7 @@ class TestInitGameAsyncWithSects:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 2
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -543,7 +543,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 5  # Request 5 sects, but none available.
             mock_config.game.init_npc_num = 3
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -580,7 +580,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 10  # Request 10, only 2 available.
             mock_config.game.init_npc_num = 3
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -611,7 +611,7 @@ class TestInitGameAsyncEdgeCases:
 
     @pytest.mark.asyncio
     async def test_init_empty_history_skips_history_manager(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
-        """Test that empty world_history does not invoke HistoryManager."""
+        """Test that empty world_lore does not invoke WorldLoreManager."""
         mock_map = MagicMock()
         mock_world = MagicMock()
         mock_world.avatar_manager.avatars = {}
@@ -626,26 +626,26 @@ class TestInitGameAsyncEdgeCases:
              patch.object(main, "_new_make_random", return_value={}), \
              patch("src.server.main.World") as mock_world_class, \
              patch("src.server.main.Simulator", return_value=mock_sim), \
-             patch("src.server.main.HistoryManager") as mock_history_manager, \
+             patch("src.server.main.WorldLoreManager") as mock_history_manager, \
              patch("src.server.main.CONFIG") as mock_config, \
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 5
-            mock_config.game.world_history = ""  # Empty history.
+            mock_config.game.world_lore = ""  # Empty history.
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
 
-            # HistoryManager should NOT be instantiated when history is empty.
+            # WorldLoreManager should NOT be instantiated when history is empty.
             mock_history_manager.assert_not_called()
-            # set_history should NOT be called either.
-            mock_world.set_history.assert_not_called()
+            # set_world_lore should NOT be called either.
+            mock_world.set_world_lore.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_init_whitespace_only_history_skips_history_manager(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
-        """Test that whitespace-only world_history does not invoke HistoryManager."""
+        """Test that whitespace-only world_lore does not invoke WorldLoreManager."""
         mock_map = MagicMock()
         mock_world = MagicMock()
         mock_world.avatar_manager.avatars = {}
@@ -660,21 +660,21 @@ class TestInitGameAsyncEdgeCases:
              patch.object(main, "_new_make_random", return_value={}), \
              patch("src.server.main.World") as mock_world_class, \
              patch("src.server.main.Simulator", return_value=mock_sim), \
-             patch("src.server.main.HistoryManager") as mock_history_manager, \
+             patch("src.server.main.WorldLoreManager") as mock_history_manager, \
              patch("src.server.main.CONFIG") as mock_config, \
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 5
-            mock_config.game.world_history = "   \n\t  "  # Whitespace only.
+            mock_config.game.world_lore = "   \n\t  "  # Whitespace only.
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
 
-            # HistoryManager should NOT be instantiated for whitespace-only history.
+            # WorldLoreManager should NOT be instantiated for whitespace-only history.
             mock_history_manager.assert_not_called()
-            mock_world.set_history.assert_not_called()
+            mock_world.set_world_lore.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_init_handles_simulator_creation_error(self, reset_game_instance, temp_saves_dir, mock_llm_managers):
@@ -721,7 +721,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -757,7 +757,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -794,7 +794,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -838,7 +838,7 @@ class TestInitGameAsyncEdgeCases:
             mock_config.paths.saves = temp_saves_dir
             mock_config.game.sect_num = 0
             mock_config.game.init_npc_num = 0  # Zero NPCs.
-            mock_config.game.world_history = ""
+            mock_config.game.world_lore = ""
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -863,3 +863,4 @@ class TestInitPhaseNames:
         for name in INIT_PHASE_NAMES.values():
             assert name == name.lower()
             assert " " not in name
+

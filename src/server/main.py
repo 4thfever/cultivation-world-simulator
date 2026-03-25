@@ -38,7 +38,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from src.sim.simulator import Simulator
 from src.classes.core.world import World
-from src.classes.history import HistoryManager
+from src.classes.world_lore import WorldLoreManager
 from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
 from src.server.assemblers.mortal_overview import build_mortal_overview
@@ -111,7 +111,7 @@ def get_runtime_run_config() -> RunConfig:
         npc_awakening_rate_per_month=float(
             getattr(game_conf, "npc_awakening_rate_per_month", defaults.npc_awakening_rate_per_month)
         ),
-        world_history=str(getattr(game_conf, "world_history", defaults.world_history) or ""),
+        world_lore=str(getattr(game_conf, "world_lore", defaults.world_lore) or ""),
     )
 
 
@@ -425,7 +425,7 @@ def check_llm_connectivity() -> tuple[bool, str]:
 INIT_PHASE_NAMES = {
     0: "scanning_assets",
     1: "loading_map",
-    2: "processing_history",
+    2: "shaping_world_lore",
     3: "initializing_sects",
     4: "generating_avatars",
     5: "checking_llm",
@@ -451,7 +451,7 @@ async def init_game_async():
         # 阶段 0: 资源扫描
         update_init_progress(0, "scanning_assets")
         
-        # === 重置所有静态数据，清除历史修改污染 ===
+        # === 重置所有静态数据，避免上一局的世界设定污染当前开局 ===
         print("Resetting world rule data...")
         reload_all_static_data()
         
@@ -500,18 +500,18 @@ async def init_game_async():
         sim.awakening_rate = run_config.npc_awakening_rate_per_month
         world.run_config_snapshot = _model_to_dict(run_config)
 
-        # 阶段 2: 历史背景影响 (如果配置了历史)
-        update_init_progress(2, "processing_history")
-        world_history = run_config.world_history
-        if world_history and world_history.strip():
-            world.set_history(world_history)
-            print(f"Reshaping world based on historical background: {world_history[:50]}...")
+        # 阶段 2: 根据世界观与历史重塑世界
+        update_init_progress(2, "shaping_world_lore")
+        world_lore = run_config.world_lore
+        if world_lore and world_lore.strip():
+            world.set_world_lore(world_lore)
+            print(f"Reshaping world based on worldview and history: {world_lore[:50]}...")
             try:
-                history_mgr = HistoryManager(world)
-                await history_mgr.apply_history_influence(world_history)
-                print("Historical background applied")
+                world_lore_mgr = WorldLoreManager(world)
+                await world_lore_mgr.apply_world_lore(world_lore)
+                print("World lore applied")
             except Exception as e:
-                print(f"[Warning] Failed to apply historical background: {e}")
+                print(f"[Warning] Failed to apply world lore: {e}")
         
         # 阶段 3: 宗门初始化
         update_init_progress(3, "initializing_sects")

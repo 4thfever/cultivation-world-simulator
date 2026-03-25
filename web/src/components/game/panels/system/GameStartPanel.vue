@@ -74,19 +74,19 @@ async function startGame() {
         />
       </n-form-item>
 
-      <n-form-item :label="t('game_start.labels.world_history')" path="world_history">
+      <n-form-item :label="t('game_start.labels.world_lore')" path="world_lore">
         <n-input
-          :value="settingStore.newGameDraft.world_history"
+          :value="settingStore.newGameDraft.world_lore"
           type="textarea"
-          :placeholder="t('game_start.placeholders.world_history')"
+          :placeholder="t('game_start.placeholders.world_lore')"
           :autosize="{ minRows: 3, maxRows: 6 }"
           maxlength="800"
           show-count
-          @update:value="(value) => settingStore.updateNewGameDraft({ world_history: value })"
+          @update:value="(value) => settingStore.updateNewGameDraft({ world_lore: value })"
         />
       </n-form-item>
       <div class="tip-text" style="margin-top: -12px;">
-        {{ t('game_start.tips.world_history') }}
+        {{ t('game_start.tips.world_lore') }}
       </div>
 
       <div class="actions" v-if="!readonly">

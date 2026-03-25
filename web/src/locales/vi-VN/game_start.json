@@ -5,14 +5,14 @@
     "init_npc_num": "Số Tu Sĩ Ban Đầu",
     "sect_num": "Số Tông Môn Hoạt Động",
     "new_npc_rate": "Tỷ Lệ Tu Sĩ Mới Mỗi Tháng",
-    "world_history": "Bối Cảnh Lịch Sử Thế Giới"
+    "world_lore": "Thế Giới Quan Và Lịch Sử"
   },
   "tips": {
     "sect_num": "Số lượng tông môn nên nhỏ hơn một nửa số tu sĩ ban đầu.",
-    "world_history": "Có thể bao gồm lịch sử cổ đại, trung đại hoặc cận đại. Lưu ý: bật mục này sẽ gọi LLM và làm tăng đáng kể thời gian khởi tạo."
+    "world_lore": "Hãy ưu tiên mô tả thế giới quan trước, rồi bổ sung bối cảnh lịch sử quan trọng. Lưu ý: bật mục này sẽ gọi LLM và làm tăng đáng kể thời gian khởi tạo."
   },
   "placeholders": {
-    "world_history": "Nhập bối cảnh lịch sử của thế giới tu tiên (Tùy chọn)."
+    "world_lore": "Nhập thế giới quan và lịch sử của thế giới tu tiên (Tùy chọn)."
   },
   "options": {},
   "actions": {

@@ -5,14 +5,14 @@
     "init_npc_num": "Initial Cultivators",
     "sect_num": "Active Sects",
     "new_npc_rate": "Monthly New Cultivator Rate",
-    "world_history": "World History Background"
+    "world_lore": "Worldview and History"
   },
   "tips": {
     "sect_num": "Sect number should be less than half of initial cultivators.",
-    "world_history": "Can include ancient, medieval, or recent history. Note: Enabling this calls LLM and significantly increases initialization time."
+    "world_lore": "Focus on worldview first, then major historical context. Note: Enabling this calls LLM and significantly increases initialization time."
   },
   "placeholders": {
-    "world_history": "Enter cultivation world history background (Optional)."
+    "world_lore": "Enter the cultivation world's worldview and history (Optional)."
   },
   "options": {},
   "actions": {

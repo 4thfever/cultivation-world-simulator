@@ -190,10 +190,9 @@ def save_game(
             "regions_status": regions_status,
             # 出世物品流转
             "circulation": world.circulation.to_save_dict(),
-            # 世界历史
-            "history": {
-                "text": world.history.text,
-                "modifications": world.history.modifications
+            # 本局世界观与历史输入
+            "world_lore": {
+                "text": world.world_lore.text,
             },
             "sect_runtime_effects": sect_runtime_effects,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),

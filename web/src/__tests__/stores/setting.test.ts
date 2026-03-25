@@ -47,7 +47,7 @@ const baseSettings = {
     init_npc_num: 9,
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
-    world_history: '',
+    world_lore: '',
   },
 }
 
@@ -189,7 +189,7 @@ describe('useSettingStore', () => {
         init_npc_num: 20,
         sect_num: 3,
         npc_awakening_rate_per_month: 0.01,
-        world_history: '',
+        world_lore: '',
       },
     })
     expect(mockStartGame).toHaveBeenCalledWith({
@@ -197,7 +197,7 @@ describe('useSettingStore', () => {
       init_npc_num: 20,
       sect_num: 3,
       npc_awakening_rate_per_month: 0.01,
-      world_history: '',
+      world_lore: '',
     })
   })
 
@@ -212,3 +212,4 @@ describe('useSettingStore', () => {
     consoleSpy.mockRestore()
   })
 })
+

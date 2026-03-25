@@ -130,7 +130,7 @@ class TestUpdateInitProgress:
         expected_phases = {
             0: "scanning_assets",
             1: "loading_map",
-            2: "processing_history",
+            2: "shaping_world_lore",
             3: "initializing_sects",
             4: "generating_avatars",
             5: "checking_llm",
@@ -150,7 +150,7 @@ class TestNewGameEndpoint:
                 "init_npc_num": 10,
                 "sect_num": 2,
                 "npc_awakening_rate_per_month": 0.01,
-                "world_history": "Some history"
+                "world_lore": "Some worldview and history"
             }
             response = client.post("/api/game/start", json=payload)
             

@@ -37,7 +37,7 @@ export const useSettingStore = defineStore('setting', () => {
     init_npc_num: 9,
     sect_num: 3,
     npc_awakening_rate_per_month: 0.01,
-    world_history: '',
+    world_lore: '',
   });
 
   const isReady = computed(() => hydrated.value && !loading.value);

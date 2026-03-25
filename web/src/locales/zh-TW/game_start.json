@@ -5,14 +5,14 @@
     "init_npc_num": "初始修士數量",
     "sect_num": "活躍宗門數量",
     "new_npc_rate": "每月新生修士概率",
-    "world_history": "世界歷史背景"
+    "world_lore": "世界觀與歷史"
   },
   "tips": {
     "sect_num": "宗門數量建議少於角色數量的一半",
-    "world_history": "可以包括上古、中古、近古。注意：啓用此功能會調用LLM，初始化時間會顯著增加。"
+    "world_lore": "請優先描述世界觀，再補充重要歷史脈絡。注意：啓用此功能會調用LLM，初始化時間會顯著增加。"
   },
   "placeholders": {
-    "world_history": "請輸入修仙界歷史背景（可選）。"
+    "world_lore": "請輸入修仙界的世界觀與歷史設定（可選）。"
   },
   "options": {},
   "actions": {

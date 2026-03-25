@@ -189,7 +189,7 @@ export interface RunConfigDTO {
   init_npc_num: number;
   sect_num: number;
   npc_awakening_rate_per_month: number;
-  world_history?: string;
+  world_lore?: string;
 }
 
 export interface AppSettingsDTO {

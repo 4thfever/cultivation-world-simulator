@@ -209,7 +209,7 @@ def mock_llm_managers():
          patch("src.sim.simulator_engine.phases.lifecycle.process_avatar_nickname", new_callable=AsyncMock) as mock_nick, \
          patch("src.classes.relation.relation_resolver.RelationResolver.run_batch", new_callable=AsyncMock) as mock_rr, \
          patch("src.classes.relation.relation_delta_service.call_llm_with_task_name", new_callable=AsyncMock) as mock_relation_delta, \
-         patch("src.classes.history.HistoryManager.apply_history_influence", new_callable=AsyncMock) as mock_hist, \
+         patch("src.classes.world_lore.WorldLoreManager.apply_world_lore", new_callable=AsyncMock) as mock_hist, \
          patch("src.classes.story_teller.call_llm_with_task_name", new_callable=AsyncMock) as mock_call_llm_story, \
          patch("src.utils.llm.config.LLMConfig.from_mode", return_value=mock_llm_config) as mock_config:
         

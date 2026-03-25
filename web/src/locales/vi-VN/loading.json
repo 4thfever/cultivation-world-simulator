@@ -4,7 +4,7 @@
   "phase": {
     "scanning_assets": "Đang dò tìm tài nguyên thế giới",
     "loading_map": "Đang dựng bản đồ hồng hoang",
-    "processing_history": "Đang suy diễn lịch sử Thiên Đạo",
+    "shaping_world_lore": "Đang kiến tạo thế giới quan và lịch sử",
     "initializing_sects": "Tông môn nhập thế",
     "generating_avatars": "Tu sĩ giáng thế",
     "checking_llm": "Đang kết nối Thiên Ý",

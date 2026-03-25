@@ -10,7 +10,7 @@ from src.sim.managers.mortal_manager import MortalManager
 from src.sim.managers.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
-from src.classes.history import History
+from src.classes.world_lore import WorldLore
 from src.utils.df import game_configs
 from src.classes.language import language_manager
 from src.i18n import t
@@ -43,8 +43,8 @@ class World():
     circulation: CirculationManager = field(default_factory=CirculationManager)
     # Gathering 管理器
     gathering_manager: GatheringManager = field(default_factory=GatheringManager)
-    # 世界历史
-    history: "History" = field(default_factory=lambda: History())
+    # 本局世界观与历史输入
+    world_lore: "WorldLore" = field(default_factory=WorldLore)
     # 世界开始年份
     start_year: int = 0
     # 榜单管理器
@@ -412,27 +412,9 @@ class World():
                         )
         return result
 
-    def set_history(self, history_text: str):
-        """设置世界历史文本"""
-        self.history.text = history_text
-        
-    def record_modification(self, category: str, id_str: str, changes: dict):
-        """
-        记录历史修改差分
-        
-        Args:
-            category: 修改类别 (sects, regions, techniques, weapons, auxiliaries)
-            id_str: 对象 ID 字符串
-            changes: 修改的属性字典
-        """
-        if category not in self.history.modifications:
-            self.history.modifications[category] = {}
-            
-        if id_str not in self.history.modifications[category]:
-            self.history.modifications[category][id_str] = {}
-            
-        # 累加修改（后来的覆盖前面的）
-        self.history.modifications[category][id_str].update(changes)
+    def set_world_lore(self, lore_text: str) -> None:
+        """设置本局的世界观与历史输入文本。"""
+        self.world_lore.text = lore_text
 
     @property
     def static_info(self) -> dict:
@@ -444,9 +426,8 @@ class World():
             if t_val and d_val:
                 desc[t_val] = d_val
         
-        if self.history.text:
-            key = t("History")
-            desc[key] = self.history.text
+        if self.world_lore.text:
+            desc["世界观与历史"] = self.world_lore.text
         return desc
 
     @classmethod

@@ -75,7 +75,7 @@ class NewGameDefaults(BaseModel):
     init_npc_num: int = 9
     sect_num: int = 3
     npc_awakening_rate_per_month: float = 0.01
-    world_history: str = ""
+    world_lore: str = ""
 
 
 class NewGameDefaultsPatch(BaseModel):
@@ -83,7 +83,7 @@ class NewGameDefaultsPatch(BaseModel):
     init_npc_num: Optional[int] = None
     sect_num: Optional[int] = None
     npc_awakening_rate_per_month: Optional[float] = None
-    world_history: Optional[str] = None
+    world_lore: Optional[str] = None
 
 
 class RunConfig(NewGameDefaults):

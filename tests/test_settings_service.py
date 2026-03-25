@@ -91,7 +91,7 @@ def test_settings_api_and_start_game(monkeypatch):
                 init_npc_num=18,
                 sect_num=4,
                 npc_awakening_rate_per_month=0.02,
-                world_history="A fractured world",
+                world_lore="A fractured world",
             )
         )
     )
