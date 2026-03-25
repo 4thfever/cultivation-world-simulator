@@ -60,3 +60,51 @@ msgstr "Đối thoại thường nhật"
 #. random_minor_event.csv: 好感暗生
 msgid "minor_event_cause_12"
 msgstr "Hảo cảm âm thầm nảy sinh"
+
+#. random_minor_event.csv: 修行时一念游移的内在波动
+msgid "minor_event_desc_inner_mood_shift"
+msgstr "Một dao động nội tâm khi ý niệm chợt lệch đi lúc tu hành"
+
+#. random_minor_event.csv: 心底忽然浮起的一缕执念
+msgid "minor_event_desc_inner_obsession"
+msgstr "Một sợi chấp niệm bất chợt dâng lên nơi đáy lòng"
+
+#. random_minor_event.csv: 围绕功法法宝兵器的日常修炼片段
+msgid "minor_event_desc_daily_practice"
+msgstr "Một mẩu tu luyện thường nhật xoay quanh công pháp, pháp bảo hoặc binh khí"
+
+#. random_minor_event.csv: 对眼前山川气象的一瞬感触
+msgid "minor_event_desc_environment_response"
+msgstr "Một thoáng cảm khái trước núi sông và khí tượng trước mắt"
+
+#. random_minor_event.csv: 宗门生活中的寻常差事
+msgid "minor_event_desc_sect_errand"
+msgstr "Một việc sai vặt quen thuộc trong đời sống tông môn"
+
+#. random_minor_event.csv: 略显窘迫却无伤大雅的小插曲
+msgid "minor_event_desc_comic_incident"
+msgstr "Một chuyện chen ngang hơi ngượng ngùng nhưng vô hại"
+
+#. random_minor_event.csv: 路过时短暂发生的一次照面互动
+msgid "minor_event_desc_passing_interaction"
+msgstr "Một lần chạm mặt ngắn ngủi khi tình cờ lướt qua"
+
+#. random_minor_event.csv: 一方留意另一方却未必说破的片刻
+msgid "minor_event_desc_asymmetric_attention"
+msgstr "Một khoảnh khắc một người để ý đến người kia nhưng chưa chắc nói ra"
+
+#. random_minor_event.csv: 不动声色却略带好感的一次接触
+msgid "minor_event_desc_subtle_goodwill"
+msgstr "Một lần tiếp xúc kín đáo nhưng phảng phất thiện cảm"
+
+#. random_minor_event.csv: 语气眼神或态度上的轻微摩擦
+msgid "minor_event_desc_social_friction"
+msgstr "Một va chạm nhẹ trong giọng điệu, ánh mắt hoặc thái độ"
+
+#. random_minor_event.csv: 围绕零碎资源与机会的短暂争抢
+msgid "minor_event_desc_resource_competition"
+msgstr "Một cuộc tranh giành ngắn ngủi quanh chút tài nguyên hay cơ hội lặt vặt"
+
+#. random_minor_event.csv: 顺手帮衬彼此的一次小小照应
+msgid "minor_event_desc_small_mutual_help"
+msgstr "Một lần tiện tay giúp đỡ và chiếu cố nhau đôi chút"

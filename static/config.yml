@@ -109,6 +109,7 @@ social:
       gift: llm
       spar: llm
       gathering: llm
+      random_minor_event: llm
     fixed_deltas:
       confess:
         accepted:

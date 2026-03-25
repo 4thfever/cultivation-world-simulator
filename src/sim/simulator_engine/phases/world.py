@@ -107,7 +107,7 @@ async def phase_random_minor_events(world, living_avatars: list[Avatar]) -> list
     results = await asyncio.gather(
         *[try_trigger_random_minor_event(avatar, world) for avatar in target_avatars]
     )
-    return [event for event in results if event]
+    return [event for result in results for event in result]
 
 
 async def phase_sect_random_event(world) -> list[Event]:
