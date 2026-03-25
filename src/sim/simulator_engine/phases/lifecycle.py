@@ -37,6 +37,8 @@ def phase_resolve_death(world, living_avatars: list[Avatar]) -> list[Event]:
                     f"{avatar.name}{death_reason}",
                     related_avatars=[avatar.id],
                     is_major=True,
+                    event_type="death",
+                    render_params={"subject_name": avatar.name},
                 )
             )
             handle_death(world, avatar, death_reason)

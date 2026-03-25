@@ -7,6 +7,10 @@ from .mutual_action import MutualAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
+from src.classes.close_relation_event_service import (
+    apply_positive_bond_warmth,
+    configure_positive_bond_event,
+)
 from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.relation.relation import Relation
 
@@ -90,8 +94,18 @@ class SwearBrotherhood(MutualAction):
 
         RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
             
-        result_event = Event(self.world.month_stamp, result_text, 
-                           related_avatars=[self.avatar.id, target.id], is_major=True)
+        event_type = "bond_sworn_sibling_formed" if self._swear_success else "bond_sworn_sibling_rejected"
+        result_event = Event(
+            self.world.month_stamp,
+            result_text,
+            related_avatars=[self.avatar.id, target.id],
+            is_major=True,
+            event_type=event_type,
+        )
+        if self._swear_success:
+            configure_positive_bond_event(result_event, avatar_a=self.avatar, avatar_b=target)
+            apply_positive_bond_warmth(subject=self.avatar, other_party=target, event_type=event_type)
+            apply_positive_bond_warmth(subject=target, other_party=self.avatar, event_type=event_type)
         
         events.append(result_event)
 

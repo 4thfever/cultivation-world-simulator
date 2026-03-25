@@ -9,6 +9,10 @@ from src.classes.relation.relations import (
 )
 from src.systems.time import get_date_str
 from src.classes.event import Event
+from src.classes.close_relation_event_service import (
+    apply_positive_bond_warmth,
+    configure_positive_bond_event,
+)
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
 
@@ -92,14 +96,17 @@ class RelationResolver:
             # 如果 A 是 B 的 Master，那么 B 应该认为 A 是 IS_MASTER_OF。
             # 所以调用 set_relation(B, A, IS_MASTER_OF)。
             
+            event_type = "relationship_major"
             # 使用新语义方法更安全
             target_method = None
             if rel == Relation.IS_MASTER_OF:
                 # A 是 B 的 Master -> B 拜 A 为师
                 avatar_b.acknowledge_master(avatar_a)
+                event_type = "bond_master_disciple_formed"
             elif rel == Relation.IS_DISCIPLE_OF:
                 # A 是 B 的 Disciple -> B 收 A 为徒
                 avatar_b.accept_disciple(avatar_a)
+                event_type = "bond_master_disciple_formed"
             elif rel == Relation.IS_PARENT_OF:
                 # A 是 B 的 Parent -> B 认 A 为父/母
                 avatar_b.acknowledge_parent(avatar_a)
@@ -108,12 +115,29 @@ class RelationResolver:
                 avatar_b.acknowledge_child(avatar_a)
             elif rel == Relation.IS_LOVER_OF:
                 avatar_b.become_lovers_with(avatar_a)
+                event_type = "bond_lovers_formed"
             else:
                 # 回退到底层方法 (set_relation(B, A, rel))
                 avatar_b.set_relation(avatar_a, rel)
+                if rel == Relation.IS_SWORN_SIBLING_OF:
+                    event_type = "bond_sworn_sibling_formed"
             
             event_text = f"因为{reason}，{avatar_a.name}成为{avatar_b.name}的{display_name}。"
-            event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
+            event = Event(
+                month_stamp,
+                event_text,
+                related_avatars=[avatar_a.id, avatar_b.id],
+                is_major=True,
+                event_type=event_type,
+            )
+            if event_type in {
+                "bond_master_disciple_formed",
+                "bond_lovers_formed",
+                "bond_sworn_sibling_formed",
+            }:
+                configure_positive_bond_event(event, avatar_a=avatar_a, avatar_b=avatar_b)
+                apply_positive_bond_warmth(subject=avatar_a, other_party=avatar_b, event_type=event_type)
+                apply_positive_bond_warmth(subject=avatar_b, other_party=avatar_a, event_type=event_type)
             
         elif c_type == "REMOVE":
             # 同样反转调用

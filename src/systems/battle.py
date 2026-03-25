@@ -5,6 +5,10 @@ import random
 from typing import Tuple, TYPE_CHECKING, Callable, Awaitable, Optional
 
 from src.classes.story_event_service import StoryEventKind, StoryEventService
+from src.classes.close_relation_event_service import (
+    append_close_relation_major_observations,
+    apply_kill_hatred,
+)
 from src.classes.technique import TechniqueGrade, get_suppression_bonus
 
 if TYPE_CHECKING:
@@ -284,7 +288,21 @@ async def handle_battle_finish(
     if target:
         rel_ids.append(target.id)
         
-    result_event = Event(world.month_stamp, result_text, related_avatars=rel_ids, is_major=True)
+    event_type = "battle_kill" if is_fatal else "battle_result"
+    result_event = Event(
+        world.month_stamp,
+        result_text,
+        related_avatars=rel_ids,
+        is_major=True,
+        event_type=event_type,
+        render_params={
+            "killer_id": str(winner.id),
+            "killer_name": winner.name,
+            "victim_id": str(loser.id),
+            "victim_name": loser.name,
+            "subject_name": loser.name,
+        },
+    )
     
     # 确定故事生成的起始文本（如果为空则使用结果文本作为兜底）
     start_content = start_event_content
@@ -304,6 +322,12 @@ async def handle_battle_finish(
     
     # 处理死亡
     if is_fatal:
+        append_close_relation_major_observations(
+            result_event,
+            subject=loser,
+            propagation_kind="close_relation_killed",
+        )
+        apply_kill_hatred(victim=loser, killer=winner)
         handle_death(world, loser, DeathReason(DeathType.BATTLE, killer_name=winner.name))
     events = [result_event]
     if story_event is not None:

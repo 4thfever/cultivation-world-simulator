@@ -82,6 +82,44 @@ class EventManager:
             # 内存后备模式。
             self._memory_events.append(event)
 
+    @staticmethod
+    def _is_observed_by(event: "Event", avatar_id: str) -> bool:
+        avatar_id = str(avatar_id)
+        if event.related_avatars and avatar_id in {str(item) for item in event.related_avatars}:
+            return True
+        for observation in getattr(event, "observations", []) or []:
+            if str(getattr(observation, "observer_avatar_id", "")) == avatar_id:
+                return True
+        return False
+
+    @staticmethod
+    def _render_for_observer(event: "Event", avatar_id: str) -> "Event":
+        from src.classes.event import Event
+        from src.classes.event_renderer import render_observed_event
+
+        avatar_id = str(avatar_id)
+        matched_observation = None
+        for observation in getattr(event, "observations", []) or []:
+            if str(getattr(observation, "observer_avatar_id", "")) == avatar_id:
+                matched_observation = {
+                    "propagation_kind": getattr(observation, "propagation_kind", "self_direct"),
+                    "subject_avatar_id": getattr(observation, "subject_avatar_id", None),
+                }
+                break
+
+        if matched_observation is None and event.related_avatars and avatar_id in {str(item) for item in event.related_avatars}:
+            matched_observation = {
+                "propagation_kind": "self_direct",
+                "subject_avatar_id": avatar_id,
+            }
+
+        if matched_observation is None:
+            return event
+
+        rendered = Event.from_dict(event.to_dict())
+        rendered.content = render_observed_event(rendered, matched_observation)
+        return rendered
+
     def get_recent_events(self, limit: int = 100) -> List["Event"]:
         """获取最近的事件（时间正序）。"""
         if self._storage:
@@ -126,8 +164,8 @@ class EventManager:
             result = []
             for e in reversed(self._memory_events):
                 if e.is_major and not e.is_story:
-                    if e.related_avatars and avatar_id in e.related_avatars:
-                        result.append(e)
+                    if self._is_observed_by(e, avatar_id):
+                        result.append(self._render_for_observer(e, avatar_id))
                         if len(result) >= limit:
                             break
             return list(reversed(result))
@@ -140,8 +178,8 @@ class EventManager:
             result = []
             for e in reversed(self._memory_events):
                 if not e.is_major or e.is_story:
-                    if e.related_avatars and avatar_id in e.related_avatars:
-                        result.append(e)
+                    if self._is_observed_by(e, avatar_id):
+                        result.append(self._render_for_observer(e, avatar_id))
                         if len(result) >= limit:
                             break
             return list(reversed(result))

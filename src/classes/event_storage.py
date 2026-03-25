@@ -16,6 +16,7 @@ from src.run.log import get_logger
 
 if TYPE_CHECKING:
     from src.classes.event import Event
+    from src.classes.event_observation import EventObservation
 
 def _format_time(ts: float) -> str:
     """将 timestamp float 转换为 SQLite 兼容的 UTC 字符串"""
@@ -80,6 +81,7 @@ class EventStorage:
                     content TEXT NOT NULL,
                     is_major BOOLEAN DEFAULT FALSE,
                     is_story BOOLEAN DEFAULT FALSE,
+                    event_type TEXT DEFAULT '',
                     render_key TEXT,
                     render_params TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -112,6 +114,25 @@ class EventStorage:
                     ON event_sects(sect_id);
                 CREATE INDEX IF NOT EXISTS idx_event_sects_event_id
                     ON event_sects(event_id);
+
+                CREATE TABLE IF NOT EXISTS event_observations (
+                    id TEXT PRIMARY KEY,
+                    event_id TEXT NOT NULL,
+                    observer_avatar_id TEXT NOT NULL,
+                    subject_avatar_id TEXT,
+                    propagation_kind TEXT NOT NULL,
+                    relation_type TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(event_id, observer_avatar_id, propagation_kind),
+                    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+                );
+
+                CREATE INDEX IF NOT EXISTS idx_event_observations_observer_avatar_id
+                    ON event_observations(observer_avatar_id);
+                CREATE INDEX IF NOT EXISTS idx_event_observations_event_id
+                    ON event_observations(event_id);
+                CREATE INDEX IF NOT EXISTS idx_event_observations_subject_avatar_id
+                    ON event_observations(subject_avatar_id);
             """)
             self._conn.commit()
             self._logger.info(f"EventStorage initialized: {self._db_path}")
@@ -151,9 +172,9 @@ class EventStorage:
                 self._conn.execute(
                     """
                     INSERT OR IGNORE INTO events (
-                        id, month_stamp, content, is_major, is_story, render_key, render_params, created_at
+                        id, month_stamp, content, is_major, is_story, event_type, render_key, render_params, created_at
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         event.id,
@@ -161,6 +182,7 @@ class EventStorage:
                         event.content,
                         event.is_major,
                         event.is_story,
+                        event.event_type,
                         event.render_key,
                         json.dumps(event.render_params, ensure_ascii=False) if event.render_params is not None else None,
                         _format_time(event.created_at),
@@ -188,10 +210,108 @@ class EventStorage:
                             """,
                             (event.id, int(sect_id))
                         )
+
+                for observation in self._build_observations_for_event(event):
+                    self._conn.execute(
+                        """
+                        INSERT OR IGNORE INTO event_observations (
+                            id, event_id, observer_avatar_id, subject_avatar_id,
+                            propagation_kind, relation_type, created_at
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            observation.id,
+                            event.id,
+                            str(observation.observer_avatar_id),
+                            str(observation.subject_avatar_id) if observation.subject_avatar_id is not None else None,
+                            str(observation.propagation_kind),
+                            observation.relation_type,
+                            _format_time(observation.created_at),
+                        )
+                    )
             return True
         except Exception as e:
             self._logger.error(f"Failed to write event {event.id}: {e}")
             return False
+
+    def _build_observations_for_event(self, event: "Event") -> list["EventObservation"]:
+        from src.classes.event_observation import EventObservation
+
+        observations: list[EventObservation] = []
+        seen: set[tuple[str, str, str]] = set()
+
+        for avatar_id in event.related_avatars or []:
+            key = (event.id, str(avatar_id), "self_direct")
+            if key in seen:
+                continue
+            seen.add(key)
+            observations.append(
+                EventObservation(
+                    event_id=event.id,
+                    observer_avatar_id=str(avatar_id),
+                    subject_avatar_id=str(avatar_id),
+                    propagation_kind="self_direct",
+                )
+            )
+
+        for observation in getattr(event, "observations", []) or []:
+            observation.event_id = event.id
+            key = (event.id, str(observation.observer_avatar_id), str(observation.propagation_kind))
+            if key in seen:
+                continue
+            seen.add(key)
+            observations.append(observation)
+
+        return observations
+
+    def _row_to_event(self, row) -> "Event":
+        from src.classes.event import Event
+        from src.systems.time import MonthStamp
+
+        avatar_rows = self._conn.execute(
+            "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
+            (row["id"],)
+        ).fetchall()
+        related_avatars = [r["avatar_id"] for r in avatar_rows]
+
+        sect_rows = self._conn.execute(
+            "SELECT sect_id FROM event_sects WHERE event_id = ?",
+            (row["id"],)
+        ).fetchall()
+        related_sects = [r["sect_id"] for r in sect_rows]
+
+        return Event(
+            month_stamp=MonthStamp(row["month_stamp"]),
+            content=row["content"],
+            related_avatars=related_avatars if related_avatars else None,
+            related_sects=related_sects if related_sects else None,
+            is_major=bool(row["is_major"]),
+            is_story=bool(row["is_story"]),
+            event_type=row["event_type"] or "",
+            render_key=row["render_key"],
+            render_params=json.loads(row["render_params"]) if row["render_params"] else None,
+            id=row["id"],
+            created_at=_parse_time(row["created_at"]),
+        )
+
+    def _load_observation_map_for_events(self, event_ids: list[str]) -> dict[str, list[sqlite3.Row]]:
+        if not event_ids:
+            return {}
+        placeholders = ",".join("?" for _ in event_ids)
+        rows = self._conn.execute(
+            f"""
+            SELECT id, event_id, observer_avatar_id, subject_avatar_id, propagation_kind, relation_type, created_at
+            FROM event_observations
+            WHERE event_id IN ({placeholders})
+            ORDER BY created_at ASC
+            """,
+            event_ids,
+        ).fetchall()
+        grouped: dict[str, list[sqlite3.Row]] = {}
+        for row in rows:
+            grouped.setdefault(row["event_id"], []).append(row)
+        return grouped
 
     def _parse_cursor(self, cursor: str) -> tuple[int, int]:
         """
@@ -233,9 +353,6 @@ class EventStorage:
         Returns:
             (events, next_cursor)，next_cursor 为 None 表示没有更多。
         """
-        from src.classes.event import Event
-        from src.systems.time import MonthStamp
-
         if self._conn is None:
             return [], None
 
@@ -249,7 +366,7 @@ class EventStorage:
                 base_query = """
                     SELECT DISTINCT
                         e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.render_key, e.render_params, e.created_at
+                        e.event_type, e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
                     JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
@@ -260,7 +377,7 @@ class EventStorage:
                 base_query = """
                     SELECT DISTINCT
                         e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.render_key, e.render_params, e.created_at
+                        e.event_type, e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
                 """
@@ -270,7 +387,7 @@ class EventStorage:
                 base_query = """
                     SELECT DISTINCT
                         e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.render_key, e.render_params, e.created_at
+                        e.event_type, e.render_key, e.render_params, e.created_at
                     FROM events e
                     JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
                 """
@@ -280,7 +397,7 @@ class EventStorage:
                 base_query = """
                     SELECT
                         rowid, id, month_stamp, content, is_major, is_story,
-                        render_key, render_params, e.created_at
+                        event_type, render_key, render_params, e.created_at
                     FROM events e
                 """
 
@@ -320,32 +437,7 @@ class EventStorage:
             last_rowid = None
             last_month_stamp = None
             for row in rows:
-                # 获取关联的 avatar IDs。
-                avatar_rows = self._conn.execute(
-                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_avatars = [r["avatar_id"] for r in avatar_rows]
-
-                # 获取关联的 sect IDs。
-                sect_rows = self._conn.execute(
-                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_sects = [r["sect_id"] for r in sect_rows]
-
-                event = Event(
-                    month_stamp=MonthStamp(row["month_stamp"]),
-                    content=row["content"],
-                    related_avatars=related_avatars if related_avatars else None,
-                    related_sects=related_sects if related_sects else None,
-                    is_major=bool(row["is_major"]),
-                    is_story=bool(row["is_story"]),
-                    render_key=row["render_key"],
-                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
-                    id=row["id"],
-                    created_at=_parse_time(row["created_at"]),
-                )
+                event = self._row_to_event(row)
                 events.append(event)
                 last_rowid = row["rowid"]
                 last_month_stamp = row["month_stamp"]
@@ -381,52 +473,31 @@ class EventStorage:
 
     def get_major_events_by_avatar(self, avatar_id: str, limit: int = 10) -> list["Event"]:
         """获取角色的大事（长期记忆）。"""
-        from src.classes.event import Event
-        from src.systems.time import MonthStamp
-
         if self._conn is None:
             return []
 
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
-                , e.render_key, e.render_params
+                SELECT DISTINCT
+                    e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
+                    e.created_at, e.render_key, e.render_params, eo.propagation_kind,
+                    eo.observer_avatar_id, eo.subject_avatar_id, eo.relation_type, eo.id AS observation_id
                 FROM events e
-                JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
+                JOIN event_observations eo ON e.id = eo.event_id AND eo.observer_avatar_id = ?
                 WHERE e.is_major = TRUE AND e.is_story = FALSE
-                ORDER BY e.month_stamp DESC
+                ORDER BY e.month_stamp DESC, e.rowid DESC
                 LIMIT ?
                 """,
                 (avatar_id, limit)
             ).fetchall()
 
+            from src.classes.event_renderer import render_observed_event
+
             events = []
             for row in rows:
-                avatar_rows = self._conn.execute(
-                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_avatars = [r["avatar_id"] for r in avatar_rows]
-
-                sect_rows = self._conn.execute(
-                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_sects = [r["sect_id"] for r in sect_rows]
-
-                event = Event(
-                    month_stamp=MonthStamp(row["month_stamp"]),
-                    content=row["content"],
-                    related_avatars=related_avatars if related_avatars else None,
-                    related_sects=related_sects if related_sects else None,
-                    is_major=bool(row["is_major"]),
-                    is_story=bool(row["is_story"]),
-                    render_key=row["render_key"],
-                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
-                    id=row["id"],
-                    created_at=_parse_time(row["created_at"]),
-                )
+                event = self._row_to_event(row)
+                event.content = render_observed_event(event, row)
                 events.append(event)
 
             return list(reversed(events))  # 时间正序。
@@ -436,52 +507,31 @@ class EventStorage:
 
     def get_minor_events_by_avatar(self, avatar_id: str, limit: int = 10) -> list["Event"]:
         """获取角色的小事（短期记忆，包括故事）。"""
-        from src.classes.event import Event
-        from src.systems.time import MonthStamp
-
         if self._conn is None:
             return []
 
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
-                , e.render_key, e.render_params
+                SELECT DISTINCT
+                    e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
+                    e.created_at, e.render_key, e.render_params, eo.propagation_kind,
+                    eo.observer_avatar_id, eo.subject_avatar_id, eo.relation_type, eo.id AS observation_id
                 FROM events e
-                JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
+                JOIN event_observations eo ON e.id = eo.event_id AND eo.observer_avatar_id = ?
                 WHERE e.is_major = FALSE OR e.is_story = TRUE
-                ORDER BY e.month_stamp DESC
+                ORDER BY e.month_stamp DESC, e.rowid DESC
                 LIMIT ?
                 """,
                 (avatar_id, limit)
             ).fetchall()
 
+            from src.classes.event_renderer import render_observed_event
+
             events = []
             for row in rows:
-                avatar_rows = self._conn.execute(
-                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_avatars = [r["avatar_id"] for r in avatar_rows]
-
-                sect_rows = self._conn.execute(
-                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_sects = [r["sect_id"] for r in sect_rows]
-
-                event = Event(
-                    month_stamp=MonthStamp(row["month_stamp"]),
-                    content=row["content"],
-                    related_avatars=related_avatars if related_avatars else None,
-                    related_sects=related_sects if related_sects else None,
-                    is_major=bool(row["is_major"]),
-                    is_story=bool(row["is_story"]),
-                    render_key=row["render_key"],
-                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
-                    id=row["id"],
-                    created_at=_parse_time(row["created_at"]),
-                )
+                event = self._row_to_event(row)
+                event.content = render_observed_event(event, row)
                 events.append(event)
 
             return list(reversed(events))  # 时间正序。
@@ -491,16 +541,13 @@ class EventStorage:
 
     def get_major_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
         """获取两个角色之间的大事（长期记忆）。"""
-        from src.classes.event import Event
-        from src.systems.time import MonthStamp
-
         if self._conn is None:
             return []
 
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
                 , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
@@ -514,31 +561,7 @@ class EventStorage:
 
             events = []
             for row in rows:
-                avatar_rows = self._conn.execute(
-                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_avatars = [r["avatar_id"] for r in avatar_rows]
-
-                sect_rows = self._conn.execute(
-                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_sects = [r["sect_id"] for r in sect_rows]
-
-                event = Event(
-                    month_stamp=MonthStamp(row["month_stamp"]),
-                    content=row["content"],
-                    related_avatars=related_avatars if related_avatars else None,
-                    related_sects=related_sects if related_sects else None,
-                    is_major=bool(row["is_major"]),
-                    is_story=bool(row["is_story"]),
-                    render_key=row["render_key"],
-                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
-                    id=row["id"],
-                    created_at=_parse_time(row["created_at"]),
-                )
-                events.append(event)
+                events.append(self._row_to_event(row))
 
             return list(reversed(events))  # 时间正序。
         except Exception as e:
@@ -547,16 +570,13 @@ class EventStorage:
 
     def get_minor_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
         """获取两个角色之间的小事（短期记忆）。"""
-        from src.classes.event import Event
-        from src.systems.time import MonthStamp
-
         if self._conn is None:
             return []
 
         try:
             rows = self._conn.execute(
                 """
-                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.created_at
+                SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
                 , e.render_key, e.render_params
                 FROM events e
                 JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
@@ -570,31 +590,7 @@ class EventStorage:
 
             events = []
             for row in rows:
-                avatar_rows = self._conn.execute(
-                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_avatars = [r["avatar_id"] for r in avatar_rows]
-
-                sect_rows = self._conn.execute(
-                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                    (row["id"],)
-                ).fetchall()
-                related_sects = [r["sect_id"] for r in sect_rows]
-
-                event = Event(
-                    month_stamp=MonthStamp(row["month_stamp"]),
-                    content=row["content"],
-                    related_avatars=related_avatars if related_avatars else None,
-                    related_sects=related_sects if related_sects else None,
-                    is_major=bool(row["is_major"]),
-                    is_story=bool(row["is_story"]),
-                    render_key=row["render_key"],
-                    render_params=json.loads(row["render_params"]) if row["render_params"] else None,
-                    id=row["id"],
-                    created_at=_parse_time(row["created_at"]),
-                )
-                events.append(event)
+                events.append(self._row_to_event(row))
 
             return list(reversed(events))  # 时间正序。
         except Exception as e:

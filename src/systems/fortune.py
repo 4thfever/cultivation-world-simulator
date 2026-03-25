@@ -9,6 +9,10 @@ from src.utils.config import CONFIG
 from src.classes.core.avatar import Avatar
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
+from src.classes.close_relation_event_service import (
+    apply_positive_bond_warmth,
+    configure_positive_bond_event,
+)
 from src.classes.technique import (
     TechniqueGrade,
     get_random_upper_technique_for_avatar,
@@ -491,7 +495,20 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
                      result=res_text)
 
     month_at_finish = avatar.world.month_stamp
-    base_event = Event(month_at_finish, event_text, related_avatars=related_avatars, is_major=True)
+    event_type = "bond_master_disciple_formed" if kind == FortuneKind.FIND_MASTER else "world_fortune"
+    base_event = Event(
+        month_at_finish,
+        event_text,
+        related_avatars=related_avatars,
+        is_major=True,
+        event_type=event_type,
+    )
+    if kind == FortuneKind.FIND_MASTER and len(actors_for_story) >= 2:
+        disciple = avatar
+        master = actors_for_story[1]
+        configure_positive_bond_event(base_event, avatar_a=disciple, avatar_b=master)
+        apply_positive_bond_warmth(subject=disciple, other_party=master, event_type=event_type)
+        apply_positive_bond_warmth(subject=master, other_party=disciple, event_type=event_type)
 
     # 生成故事事件
     # 奇遇强制单人模式，不改变关系（因为关系已经在硬逻辑中处理了）

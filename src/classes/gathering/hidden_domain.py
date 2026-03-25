@@ -225,6 +225,8 @@ class HiddenDomain(Gathering):
                         event_content,
                         related_avatars=[av.id],
                         is_major=True,
+                        event_type="death",
+                        render_params={"subject_name": av.name},
                     )
                     events.append(event)
                     
