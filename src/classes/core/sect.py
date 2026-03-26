@@ -259,25 +259,57 @@ class Sect(SectEffectsMixin):
     def get_member_upkeep_by_realm(self) -> dict[Realm, int]:
         return get_sect_member_upkeep_by_realm()
 
-    def get_member_upkeep_for_avatar(self, avatar: "Avatar") -> int:
+    def get_member_upkeep_by_rank(self) -> dict["SectRank", int]:
+        from src.classes.sect_ranks import SectRank
+
+        realm_upkeep = self.get_member_upkeep_by_realm()
+        return {
+            SectRank.OuterDisciple: realm_upkeep.get(Realm.Qi_Refinement, 0),
+            SectRank.InnerDisciple: realm_upkeep.get(Realm.Foundation_Establishment, 0),
+            SectRank.Elder: realm_upkeep.get(Realm.Core_Formation, 0),
+            SectRank.Patriarch: realm_upkeep.get(Realm.Nascent_Soul, 0),
+        }
+
+    def _resolve_member_rank(self, avatar: "Avatar") -> "SectRank":
+        from src.classes.sect_ranks import SectRank, get_rank_from_realm
+
+        rank = getattr(avatar, "sect_rank", None)
+        if isinstance(rank, SectRank):
+            return rank
+        if isinstance(rank, str):
+            normalized = rank.strip().lower()
+            string_mapping = {
+                "patriarch": SectRank.Patriarch,
+                "elder": SectRank.Elder,
+                "inner": SectRank.InnerDisciple,
+                "innerdisciple": SectRank.InnerDisciple,
+                "outer": SectRank.OuterDisciple,
+                "outerdisciple": SectRank.OuterDisciple,
+            }
+            if normalized in string_mapping:
+                return string_mapping[normalized]
         realm = getattr(getattr(avatar, "cultivation_progress", None), "realm", Realm.Qi_Refinement)
-        return self.get_member_upkeep_by_realm().get(realm, 0)
+        return get_rank_from_realm(realm)
+
+    def get_member_upkeep_for_avatar(self, avatar: "Avatar") -> int:
+        rank = self._resolve_member_rank(avatar)
+        return self.get_member_upkeep_by_rank().get(rank, 0)
 
     def estimate_yearly_member_upkeep(self) -> tuple[int, dict[str, dict[str, int]]]:
         total = 0
         breakdown: dict[str, dict[str, int]] = {}
-        upkeep_by_realm = self.get_member_upkeep_by_realm()
+        upkeep_by_rank = self.get_member_upkeep_by_rank()
 
         for avatar in getattr(self, "members", {}).values():
             if getattr(avatar, "is_dead", False):
                 continue
-            realm = getattr(getattr(avatar, "cultivation_progress", None), "realm", Realm.Qi_Refinement)
-            cost = upkeep_by_realm.get(realm, 0)
-            key = realm.name
+            rank = self._resolve_member_rank(avatar)
+            cost = upkeep_by_rank.get(rank, 0)
+            key = str(rank.value)
             entry = breakdown.setdefault(
                 key,
                 {
-                    "realm": str(realm),
+                    "rank": str(rank),
                     "member_count": 0,
                     "upkeep_per_member": cost,
                     "subtotal": 0,

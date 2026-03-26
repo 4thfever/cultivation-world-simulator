@@ -61,7 +61,7 @@ msgid ""
 msgstr "{avatar_name} 賣掉了新獲得的{item_name}，獲利 {price} 靈石。"
 
 msgid "game.sect_update_event"
-msgstr "{sect_name} 年度結算：總戰力 {strength}，勢力半徑 {radius}，勢力收入 {income} 靈石，成員供養支出 {upkeep} 靈石，淨變動 {net_change} 靈石。支出構成：{upkeep_breakdown}。"
+msgstr "{sect_name} 年度結算：收入 {income} 靈石，發放俸祿 {upkeep} 靈石，結餘 {net_change} 靈石。"
 
 msgid "game.sect_thinking_event"
 msgstr "{sect_name}宗門的思考：{thinking}"

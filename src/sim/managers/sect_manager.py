@@ -386,6 +386,12 @@ class SectManager:
             income = int(raw_income)
             upkeep_total, _upkeep_breakdown = sect.estimate_yearly_member_upkeep()
             net_change = income - upkeep_total
+
+            for avatar in getattr(sect, "members", {}).values():
+                if getattr(avatar, "is_dead", False):
+                    continue
+                avatar.magic_stone = avatar.magic_stone + sect.get_member_upkeep_for_avatar(avatar)
+
             sect.magic_stone += net_change
             content = t(
                 "game.sect_update_event",

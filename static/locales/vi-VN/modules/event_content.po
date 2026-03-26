@@ -77,10 +77,8 @@ msgstr ""
 
 msgid "game.sect_update_event"
 msgstr ""
-"Kết toán thường niên của {sect_name}: tổng chiến lực {strength}, bán kính "
-"thế lực {radius}, thu nhập lãnh địa {income} linh thạch, chi tiêu cung "
-"dưỡng môn nhân {upkeep} linh thạch, biến động ròng {net_change} linh "
-"thạch. Cấu thành chi tiêu: {upkeep_breakdown}."
+"Kết toán thường niên của {sect_name}: thu nhập {income} linh thạch, phát "
+"bổng lộc {upkeep} linh thạch, số dư {net_change} linh thạch."
 
 msgid "game.sect_thinking_event"
 msgstr "Suy tư của tông môn {sect_name}: {thinking}"
