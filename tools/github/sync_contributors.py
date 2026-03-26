@@ -108,7 +108,7 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
                 [
                     '    <td align="center" width="50%">',
                     f'      <a href="{profile_url}">',
-                    f'        <img src="{avatar_url}" width="36" alt="{login} avatar" /><br />',
+                    f'        <img src="{avatar_url}" width="90" height="90" alt="{login} avatar" /><br />',
                     f"        <strong>{login}</strong>",
                     "      </a>",
                     "    </td>",

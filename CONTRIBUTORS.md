@@ -10,13 +10,13 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
   <tr>
     <td align="center" width="50%">
       <a href="https://github.com/4thfever">
-        <img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="36" alt="4thfever avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="90" height="90" alt="4thfever avatar" /><br />
         <strong>4thfever</strong>
       </a>
     </td>
     <td align="center" width="50%">
       <a href="https://github.com/xzhseh">
-        <img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="36" alt="xzhseh avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="90" height="90" alt="xzhseh avatar" /><br />
         <strong>xzhseh</strong>
       </a>
     </td>
@@ -24,13 +24,13 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
   <tr>
     <td align="center" width="50%">
       <a href="https://github.com/teps3105">
-        <img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="36" alt="teps3105 avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="90" height="90" alt="teps3105 avatar" /><br />
         <strong>teps3105</strong>
       </a>
     </td>
     <td align="center" width="50%">
       <a href="https://github.com/LuckVd">
-        <img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="36" alt="LuckVd avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="90" height="90" alt="LuckVd avatar" /><br />
         <strong>LuckVd</strong>
       </a>
     </td>
@@ -38,13 +38,13 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
   <tr>
     <td align="center" width="50%">
       <a href="https://github.com/MarkYangKp">
-        <img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="36" alt="MarkYangKp avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="90" height="90" alt="MarkYangKp avatar" /><br />
         <strong>MarkYangKp</strong>
       </a>
     </td>
     <td align="center" width="50%">
       <a href="https://github.com/octo-patch">
-        <img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="36" alt="octo-patch avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="90" height="90" alt="octo-patch avatar" /><br />
         <strong>octo-patch</strong>
       </a>
     </td>
@@ -52,13 +52,13 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
   <tr>
     <td align="center" width="50%">
       <a href="https://github.com/Robinwhliu">
-        <img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="36" alt="Robinwhliu avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="90" height="90" alt="Robinwhliu avatar" /><br />
         <strong>Robinwhliu</strong>
       </a>
     </td>
     <td align="center" width="50%">
       <a href="https://github.com/Tianrant">
-        <img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="36" alt="Tianrant avatar" /><br />
+        <img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="90" height="90" alt="Tianrant avatar" /><br />
         <strong>Tianrant</strong>
       </a>
     </td>
