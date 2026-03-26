@@ -197,9 +197,8 @@ class SectTeachingConference(Gathering):
         # 2. 构造 Details Text (详细信息)
         details_list = []
         
-        # 宗门信息
-        # 使用 get_detailed_info 获取包含风格、阵营等完整信息
-        details_list.append(sect.get_detailed_info())
+        # 宗门信息：复用 decision context，但只提炼少量与传道大会氛围强相关的背景。
+        details_list.append(self._build_sect_teaching_context_text(sect, teacher))
         
         # 讲师信息
         details_list.append(f"{teacher.name}: {str(teacher.get_info(detailed=True))}")
@@ -218,4 +217,74 @@ class SectTeachingConference(Gathering):
             details_text=details_text,
             related_avatars=[teacher, *students],
             prompt=t(self.STORY_PROMPT_ID),
+        )
+
+    def _build_sect_teaching_context_text(self, sect, teacher) -> str:
+        world = teacher.world
+        event_storage = getattr(getattr(world, "event_manager", None), "_storage", None)
+        if event_storage is None:
+            return sect.get_detailed_info()
+
+        try:
+            from src.classes.core.sect import get_sect_decision_context
+
+            ctx = get_sect_decision_context(
+                sect=sect,
+                world=world,
+                event_storage=event_storage,
+                history_limit=0,
+            )
+        except Exception as exc:
+            get_logger().logger.warning(
+                "Failed to build sect teaching context for %s(%s): %s",
+                getattr(sect, "name", "unknown"),
+                getattr(sect, "id", "unknown"),
+                exc,
+            )
+            return sect.get_detailed_info()
+
+        active_wars = list(getattr(ctx, "active_wars", []) or [])
+        if active_wars:
+            war_names = "、".join(
+                str(item.get("other_sect_name", "") or "")
+                for item in active_wars
+                if item.get("other_sect_name")
+            ) or "未知对手"
+            diplomacy_line = f"当前局势：与 {war_names} 交战中。"
+        else:
+            diplomacy_line = "当前局势：宗门处于和平状态。"
+
+        treasury_pressure = str(
+            getattr(ctx, "economy", {}).get("treasury_pressure", "") or "stable"
+        )
+        treasury_map = {
+            "ample": "财库充裕",
+            "stable": "财库平稳",
+            "tight": "财库偏紧",
+            "critical": "财库吃紧",
+        }
+        resource_line = (
+            f"宗门气象：{treasury_map.get(treasury_pressure, treasury_pressure)}，"
+            f"备战状态 {str(getattr(ctx, 'self_assessment', {}).get('war_readiness', 'stable') or 'stable')}。"
+        )
+
+        border_ratio = float(getattr(ctx, "territory", {}).get("border_pressure_ratio", 0.0) or 0.0)
+        border_line = (
+            f"边境压力：{int(round(border_ratio * 100))}% 的势力边界与外界接壤，"
+            f"当前势力范围 {int(getattr(ctx, 'territory', {}).get('tile_count', 0) or 0)} 格。"
+        )
+
+        members_line = (
+            f"宗门现状：存活门人 {int(getattr(ctx, 'self_assessment', {}).get('alive_member_count', 0) or 0)} 人，"
+            f"宗门总战力约 {int(float(getattr(ctx, 'power', {}).get('total_battle_strength', 0.0) or 0.0))}。"
+        )
+
+        return "\n".join(
+            [
+                sect.get_detailed_info(),
+                diplomacy_line,
+                resource_line,
+                border_line,
+                members_line,
+            ]
         )
