@@ -1356,6 +1356,9 @@ msgstr "Sinh mệnh tối đa"
 msgid "effect_extra_max_lifespan"
 msgstr "Thọ nguyên tối đa"
 
+msgid "effect_extra_appearance"
+msgstr "Nhan trị"
+
 msgid "effect_extra_mine_materials"
 msgstr "Tài liệu thu được khi đào mỏ"
 

@@ -131,3 +131,27 @@ msgstr "蕴含造化生机，肉身修复极快（持续5年）。"
 #. elixir.csv: 元婴回春丹
 msgid "ELIXIR_3016_NAME"
 msgstr "元婴回春丹"
+
+msgid "ELIXIR_3017_DESC"
+msgstr "以花露与灵草炼成，可略微改善气色与容貌（限服一颗）。"
+
+msgid "ELIXIR_3017_NAME"
+msgstr "练气驻颜丹"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "药性更稳，可长期滋养肌骨神气，使容貌更显出众（限服一颗）。"
+
+msgid "ELIXIR_3018_NAME"
+msgstr "筑基驻颜丹"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "融入金丹灵机，能长久定住巅峰容色，不易为岁月侵蚀（限服一颗）。"
+
+msgid "ELIXIR_3019_NAME"
+msgstr "金丹驻颜丹"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "蕴含造化之气，服之可使容貌若定格于最盛之时（限服一颗）。"
+
+msgid "ELIXIR_3020_NAME"
+msgstr "元婴驻颜丹"

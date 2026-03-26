@@ -966,6 +966,38 @@ msgstr ""
 msgid "ELIXIR_3016_NAME"
 msgstr "Nguyên Anh Hồi Xuân Đan"
 
+msgid "ELIXIR_3017_DESC"
+msgstr ""
+"Luyện từ sương hoa và linh thảo, có thể hơi cải thiện sắc diện cùng dung mạo"
+" (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Luyện Khí Trú Nhan Đan"
+
+msgid "ELIXIR_3018_DESC"
+msgstr ""
+"Dược tính ổn định hơn, có thể lâu dài bồi dưỡng gân cốt và thần khí, khiến "
+"dung mạo càng thêm nổi bật (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Trúc Cơ Trú Nhan Đan"
+
+msgid "ELIXIR_3019_DESC"
+msgstr ""
+"Dung hợp linh cơ Kim Đan, có thể giữ gìn dung nhan đỉnh cao thật lâu, khó bị"
+" năm tháng bào mòn (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Kim Đan Trú Nhan Đan"
+
+msgid "ELIXIR_3020_DESC"
+msgstr ""
+"Ẩn chứa tạo hóa chi khí, uống vào có thể khiến dung mạo như dừng lại tại "
+"thời khắc rực rỡ nhất (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Nguyên Anh Trú Nhan Đan"
+
 #. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
 msgstr ""
@@ -2294,6 +2326,22 @@ msgstr ""
 
 msgid "PERSONA_1007_NAME"
 msgstr "Linh Nông"
+
+msgid "PERSONA_1012_DESC"
+msgstr ""
+"Ngươi rất để tâm đến dung mạo của mình, cũng chịu khó chăm chút dung nghi để"
+" bản thân trông tươm tất hơn."
+
+msgid "PERSONA_1012_NAME"
+msgstr "Ái Mỹ"
+
+msgid "PERSONA_1013_DESC"
+msgstr ""
+"Ngươi cực kỳ để tâm đến dung mạo của mình, gần như xem việc trở nên đẹp hơn "
+"là một chấp niệm."
+
+msgid "PERSONA_1013_NAME"
+msgstr "Duyệt Kỷ"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

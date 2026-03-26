@@ -152,3 +152,27 @@ msgstr "Contains the creation of vitality"
 #. elixir.csv: 元婴回春丹
 msgid "ELIXIR_3016_NAME"
 msgstr "Nascent Soul Rejuvenation Pill"
+
+msgid "ELIXIR_3017_DESC"
+msgstr "Refined from floral dew and spirit herbs, it can slightly improve complexion and appearance (limited to one pill)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Qi Refinement Beauty-Preserving Pill"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "Its medicinal nature is steadier and can nourish flesh, bones, and vitality over time, making one's appearance stand out more (limited to one pill)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Foundation Establishment Beauty-Preserving Pill"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "Infused with Core Formation spiritual essence, it can preserve one's peak looks for a long time and keep the years from wearing them down easily (limited to one pill)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Core Formation Beauty-Preserving Pill"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "Contains a trace of creation qi; taking it can keep one's appearance as though fixed at its most radiant moment (limited to one pill)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Nascent Soul Beauty-Preserving Pill"

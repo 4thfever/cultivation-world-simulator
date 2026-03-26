@@ -786,6 +786,30 @@ msgstr "蘊含造化生機，肉身修復極快（持續5年）。"
 msgid "ELIXIR_3016_NAME"
 msgstr "元嬰回春丹"
 
+msgid "ELIXIR_3017_DESC"
+msgstr "以花露與靈草煉成，可略微改善氣色與容貌（限服一顆）。"
+
+msgid "ELIXIR_3017_NAME"
+msgstr "練氣駐顏丹"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "藥性更穩，可長期滋養肌骨神氣，使容貌更顯出眾（限服一顆）。"
+
+msgid "ELIXIR_3018_NAME"
+msgstr "築基駐顏丹"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "融入金丹靈機，能長久定住巔峰容色，不易為歲月侵蝕（限服一顆）。"
+
+msgid "ELIXIR_3019_NAME"
+msgstr "金丹駐顏丹"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "蘊含造化之氣，服之可使容貌若定格於最盛之時（限服一顆）。"
+
+msgid "ELIXIR_3020_NAME"
+msgstr "元嬰駐顏丹"
+
 #. hidden_domain.csv: 萬年前人族大能與炎魔皇同歸於盡之地，至今...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
 msgstr ""
@@ -1887,6 +1911,18 @@ msgstr "你出身底層，對靈植種植頗有心得，能靠種田獲得更多
 
 msgid "PERSONA_1007_NAME"
 msgstr "靈農"
+
+msgid "PERSONA_1012_DESC"
+msgstr "你很在意自己的容貌，也會花心思打理儀容，讓自己看起來更體面。"
+
+msgid "PERSONA_1012_NAME"
+msgstr "愛美"
+
+msgid "PERSONA_1013_DESC"
+msgstr "你非常在意自己的容貌，幾乎把「變得更好看」當成執念。"
+
+msgid "PERSONA_1013_NAME"
+msgstr "悅己"
 
 #. plant.csv: 頑強生長在戈壁巖縫中的奇異植物，葉片堅硬...
 msgid "PLANT_10_DESC"

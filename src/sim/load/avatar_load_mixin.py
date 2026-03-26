@@ -158,7 +158,7 @@ class AvatarLoadMixin:
         avatar.last_governance_month = int(last_governance_month) if last_governance_month is not None else None
         
         # 设置外貌（通过level获取完整的Appearance对象）
-        avatar.appearance = get_appearance_by_level(data.get("appearance", 5))
+        avatar.base_appearance = get_appearance_by_level(data.get("appearance", 5))
 
         # 恢复绰号
         from src.classes.nickname_data import Nickname

@@ -15,3 +15,7 @@ item_id,name_id,desc_id,name,realm,type,desc,price,effects
 3014,ELIXIR_3014_NAME,ELIXIR_3014_DESC,筑基回春丹,FOUNDATION_ESTABLISHMENT,Heal,药力温和醇厚，能快速愈合筑基期修士的肉身损伤（持续5年）。,50,"{duration_month: 60, extra_hp_recovery_rate: 1.0}"
 3015,ELIXIR_3015_NAME,ELIXIR_3015_DESC,金丹回春丹,CORE_FORMATION,Heal,蕴含生机之力，疗伤圣药（持续5年）。,100,"{duration_month: 60, extra_hp_recovery_rate: 2.0}"
 3016,ELIXIR_3016_NAME,ELIXIR_3016_DESC,元婴回春丹,NASCENT_SOUL,Heal,蕴含造化生机，肉身修复极快（持续5年）。,200,"{duration_month: 60, extra_hp_recovery_rate: 5.0}"
+3017,ELIXIR_3017_NAME,ELIXIR_3017_DESC,练气驻颜丹,QI_REFINEMENT,Lifespan,以花露与灵草炼成，可略微改善气色与容貌（限服一颗）。,80,{extra_appearance: 1}
+3018,ELIXIR_3018_NAME,ELIXIR_3018_DESC,筑基驻颜丹,FOUNDATION_ESTABLISHMENT,Lifespan,药性更稳，可长期滋养肌骨神气，使容貌更显出众（限服一颗）。,300,{extra_appearance: 1}
+3019,ELIXIR_3019_NAME,ELIXIR_3019_DESC,金丹驻颜丹,CORE_FORMATION,Lifespan,融入金丹灵机，能长久定住巅峰容色，不易为岁月侵蚀（限服一颗）。,1200,{extra_appearance: 1}
+3020,ELIXIR_3020_NAME,ELIXIR_3020_DESC,元婴驻颜丹,NASCENT_SOUL,Lifespan,蕴含造化之气，服之可使容貌若定格于最盛之时（限服一颗）。,6000,{extra_appearance: 1}

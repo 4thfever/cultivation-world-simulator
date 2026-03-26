@@ -35,7 +35,7 @@ from src.classes.items.magic_stone import MagicStone
 from src.classes.hp import HP, HP_MAX_BY_REALM
 from src.classes.relation.relation import NumericRelation, Relation, RelationState
 from src.classes.core.sect import Sect
-from src.classes.appearance import Appearance, get_random_appearance
+from src.classes.appearance import Appearance, get_appearance_by_level, get_random_appearance
 from src.classes.spirit_animal import SpiritAnimal
 from src.classes.long_term_objective import LongTermObjective
 from src.classes.nickname_data import Nickname
@@ -96,7 +96,7 @@ class Avatar(
     alignment: Alignment | None = None
     sect: Sect | None = None
     sect_rank: "SectRank | None" = None
-    appearance: Appearance = field(default_factory=get_random_appearance)
+    base_appearance: Appearance = field(default_factory=get_random_appearance)
     weapon: Optional[Weapon] = None
     weapon_proficiency: float = 0.0
     auxiliary: Optional[Auxiliary] = None
@@ -200,6 +200,42 @@ class Avatar(
             "effects": dict(effects),
         })
         self.recalc_effects()
+
+    @property
+    def appearance(self) -> Appearance:
+        """
+        当前颜值 = 初始颜值 + extra_appearance。
+        对外继续保留 avatar.appearance 调用，避免上层代码跟着改动。
+        """
+        base = self.base_appearance
+        if not isinstance(base, Appearance):
+            return base
+
+        raw_extra = self.effects.get("extra_appearance", 0)
+        try:
+            extra_level = int(raw_extra)
+        except (TypeError, ValueError):
+            extra_level = 0
+
+        return get_appearance_by_level(base.level + extra_level)
+
+    @appearance.setter
+    def appearance(self, value: Appearance) -> None:
+        self.base_appearance = value
+
+    @property
+    def base_appearance_level(self) -> int:
+        base = self.base_appearance
+        if isinstance(base, Appearance):
+            return int(base.level)
+        return 5
+
+    @property
+    def appearance_level(self) -> int:
+        appearance = self.appearance
+        if isinstance(appearance, Appearance):
+            return int(appearance.level)
+        return self.base_appearance_level
 
     # ========== 宗门相关 ==========
 

@@ -150,3 +150,27 @@ msgstr "Ẩn chứa tạo hóa sinh cơ, tốc độ khôi phục nhục thân c
 #. elixir.csv: 元婴回春丹
 msgid "ELIXIR_3016_NAME"
 msgstr "Nguyên Anh Hồi Xuân Đan"
+
+msgid "ELIXIR_3017_DESC"
+msgstr "Luyện từ sương hoa và linh thảo, có thể hơi cải thiện sắc diện cùng dung mạo (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Luyện Khí Trú Nhan Đan"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "Dược tính ổn định hơn, có thể lâu dài bồi dưỡng gân cốt và thần khí, khiến dung mạo càng thêm nổi bật (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Trúc Cơ Trú Nhan Đan"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "Dung hợp linh cơ Kim Đan, có thể giữ gìn dung nhan đỉnh cao thật lâu, khó bị năm tháng bào mòn (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Kim Đan Trú Nhan Đan"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "Ẩn chứa tạo hóa chi khí, uống vào có thể khiến dung mạo như dừng lại tại thời khắc rực rỡ nhất (chỉ được dùng một viên)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Nguyên Anh Trú Nhan Đan"

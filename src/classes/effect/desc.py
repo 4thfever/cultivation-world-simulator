@@ -10,6 +10,7 @@ def get_effect_desc(effect_key: str) -> str:
         "extra_hp_recovery_rate": "effect_extra_hp_recovery_rate",
         "extra_max_hp": "effect_extra_max_hp",
         "extra_max_lifespan": "effect_extra_max_lifespan",
+        "extra_appearance": "effect_extra_appearance",
         "extra_weapon_proficiency_gain": "effect_extra_weapon_proficiency_gain",
         "extra_dual_cultivation_exp": "effect_extra_dual_cultivation_exp",
         "extra_breakthrough_success_rate": "effect_extra_breakthrough_success_rate",

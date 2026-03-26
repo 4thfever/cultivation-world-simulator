@@ -133,6 +133,9 @@ msgstr "最大生命值"
 msgid "effect_extra_max_lifespan"
 msgstr "最大壽元"
 
+msgid "effect_extra_appearance"
+msgstr "顏值"
+
 msgid "effect_extra_mine_materials"
 msgstr "挖礦獲取材料"
 

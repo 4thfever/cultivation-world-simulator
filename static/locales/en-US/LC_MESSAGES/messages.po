@@ -1354,6 +1354,9 @@ msgstr "Max HP"
 msgid "effect_extra_max_lifespan"
 msgstr "Max Lifespan"
 
+msgid "effect_extra_appearance"
+msgstr "Appearance"
+
 msgid "effect_extra_mine_materials"
 msgstr "Mine Materials"
 

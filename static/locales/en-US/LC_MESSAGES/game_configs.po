@@ -960,6 +960,39 @@ msgstr "Contains the creation of vitality"
 msgid "ELIXIR_3016_NAME"
 msgstr "Nascent Soul Rejuvenation Pill"
 
+msgid "ELIXIR_3017_DESC"
+msgstr ""
+"Refined from floral dew and spirit herbs, it can slightly improve complexion"
+" and appearance (limited to one pill)."
+
+msgid "ELIXIR_3017_NAME"
+msgstr "Qi Refinement Beauty-Preserving Pill"
+
+msgid "ELIXIR_3018_DESC"
+msgstr ""
+"Its medicinal nature is steadier and can nourish flesh, bones, and vitality "
+"over time, making one's appearance stand out more (limited to one pill)."
+
+msgid "ELIXIR_3018_NAME"
+msgstr "Foundation Establishment Beauty-Preserving Pill"
+
+msgid "ELIXIR_3019_DESC"
+msgstr ""
+"Infused with Core Formation spiritual essence, it can preserve one's peak "
+"looks for a long time and keep the years from wearing them down easily "
+"(limited to one pill)."
+
+msgid "ELIXIR_3019_NAME"
+msgstr "Core Formation Beauty-Preserving Pill"
+
+msgid "ELIXIR_3020_DESC"
+msgstr ""
+"Contains a trace of creation qi; taking it can keep one's appearance as "
+"though fixed at its most radiant moment (limited to one pill)."
+
+msgid "ELIXIR_3020_NAME"
+msgstr "Nascent Soul Beauty-Preserving Pill"
+
 #. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
 msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
 msgstr ""
@@ -2260,6 +2293,22 @@ msgstr ""
 
 msgid "PERSONA_1007_NAME"
 msgstr "Farmer"
+
+msgid "PERSONA_1012_DESC"
+msgstr ""
+"You care a lot about your appearance and spend effort grooming yourself so "
+"you look more presentable."
+
+msgid "PERSONA_1012_NAME"
+msgstr "Beauty-Conscious"
+
+msgid "PERSONA_1013_DESC"
+msgstr ""
+"You care intensely about your appearance and almost treat becoming better-"
+"looking as an obsession."
+
+msgid "PERSONA_1013_NAME"
+msgstr "Self-Adoring"
 
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"

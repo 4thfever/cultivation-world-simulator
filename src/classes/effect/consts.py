@@ -54,6 +54,17 @@ EXTRA_OBSERVATION_RADIUS = "extra_observation_radius"
   - 大量: 3
 """
 
+EXTRA_APPEARANCE = "extra_appearance"
+"""
+额外颜值
+类型: int
+结算: src/classes/core/avatar/core.py (Avatar.appearance)
+说明: 在角色初始颜值基础上叠加，最终结果会被限制在 1~10。
+数值参考:
+  - 微量: 1
+  - 大量: 2
+"""
+
 # --- 修炼相关 (仙道-吐纳) ---
 EXTRA_RESPIRE_EXP = "extra_respire_exp"
 """
@@ -526,6 +537,7 @@ ALL_EFFECTS = [
     "extra_battle_strength_points",      # int - 额外战斗力
     "extra_max_hp",                      # int - 额外最大生命值
     "extra_observation_radius",          # int - 额外观察半径
+    "extra_appearance",                  # int - 额外颜值
     "damage_reduction",                  # float - 伤害减免
     "realm_suppression_bonus",           # float - 境界压制加成
     

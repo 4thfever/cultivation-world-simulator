@@ -94,7 +94,7 @@ class AvatarSaveMixin:
             "official_rank": self.official_rank,
             "court_reputation": self.court_reputation,
             "last_governance_month": self.last_governance_month,
-            "appearance": self.appearance.level,
+            "appearance": self.base_appearance.level,
             "nickname": self.nickname.to_dict() if self.nickname else None,
             "backstory": self.backstory,
             "emotion": self.emotion.value,
