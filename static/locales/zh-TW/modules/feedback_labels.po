@@ -39,7 +39,7 @@ msgid "feedback_accept"
 msgstr "接受"
 
 msgid "feedback_attack"
-msgstr "戰鬥"
+msgstr "應戰"
 
 msgid "feedback_escape"
 msgstr "逃離"
@@ -48,7 +48,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "試圖遠離"
 
 msgid "feedback_move_away_from_region"
-msgstr "試圖離開區域"
+msgstr "離開此地"
 
 msgid "feedback_reject"
 msgstr "拒絕"

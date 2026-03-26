@@ -1582,7 +1582,7 @@ msgid "feedback_accept"
 msgstr "Chấp Thuận"
 
 msgid "feedback_attack"
-msgstr "Khai Chiến"
+msgstr "Nghênh chiến"
 
 msgid "feedback_escape"
 msgstr "Thoát Ly"
@@ -1591,7 +1591,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "Thử Lùi Xa"
 
 msgid "feedback_move_away_from_region"
-msgstr "Thử Rời Khu Vực"
+msgstr "Rời khỏi nơi này"
 
 msgid "feedback_reject"
 msgstr "Từ Chối"
@@ -2435,7 +2435,7 @@ msgid "{target} accepted {initiator}'s talk invitation"
 msgstr "{target} chấp nhận lời mời bắt chuyện của {initiator}"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} phản hồi với {initiator}: {feedback}"
+msgstr "{target} hồi đáp với {initiator}: {feedback}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} đã từ chối lời tỏ tình của {initiator}"

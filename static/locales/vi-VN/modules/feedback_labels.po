@@ -39,7 +39,7 @@ msgid "feedback_accept"
 msgstr "Chấp Thuận"
 
 msgid "feedback_attack"
-msgstr "Khai Chiến"
+msgstr "Nghênh chiến"
 
 msgid "feedback_escape"
 msgstr "Thoát Ly"
@@ -48,7 +48,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "Thử Lùi Xa"
 
 msgid "feedback_move_away_from_region"
-msgstr "Thử Rời Khu Vực"
+msgstr "Rời khỏi nơi này"
 
 msgid "feedback_reject"
 msgstr "Từ Chối"

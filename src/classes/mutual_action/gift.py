@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from src.i18n import t
-from .mutual_action import MutualAction
+from .mutual_action import InvitationAction
 from src.classes.event import Event
 from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from src.classes.core.world import World
 
 
-class Gift(MutualAction):
+class Gift(InvitationAction):
     """赠送：向目标赠送灵石或物品。
 
     - 支持赠送灵石、素材、装备。
@@ -41,7 +41,7 @@ class Gift(MutualAction):
         "amount": "int"
     }
     
-    FEEDBACK_ACTIONS = ["Accept", "Reject"]
+    RESPONSE_ACTIONS = ["Accept", "Reject"]
 
     def __init__(self, avatar: "Avatar", world: "World"):
         super().__init__(avatar, world)
@@ -213,8 +213,8 @@ class Gift(MutualAction):
         self._gift_success = False
         return event
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         if fb == "Accept":
             self._apply_gift(target_avatar)
             self._gift_success = True

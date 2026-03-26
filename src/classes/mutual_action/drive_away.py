@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .mutual_action import MutualAction
+from .mutual_action import PressureAction
 from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from typing import TYPE_CHECKING
@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class DriveAway(MutualAction):
+class DriveAway(PressureAction):
     """驱赶：试图让对方离开当前区域。"""
     
     # 多语言 ID
@@ -21,7 +21,7 @@ class DriveAway(MutualAction):
     # 不需要翻译的常量
     EMOJI = "😤"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["MoveAwayFromRegion", "Attack"]
+    RESPONSE_ACTIONS = ["MoveAwayFromRegion", "Attack"]
     # 驱赶冷却：避免反复驱赶刷屏
     ACTION_CD_MONTHS: int = 3
 
@@ -36,14 +36,14 @@ class DriveAway(MutualAction):
             return False, t("Target not within interaction range")
         return True, ""
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         if fb == "MoveAwayFromRegion":
             # 驱赶选择离开：必定成功，不涉及概率
             params = {"region": self.avatar.tile.location_name}
-            self._set_target_immediate_action(target_avatar, fb, params)
+            self._set_target_immediate_action(target_avatar, fb, params, push_start_event=True)
         elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}
-            self._set_target_immediate_action(target_avatar, fb, params)
+            self._set_target_immediate_action(target_avatar, fb, params, push_start_event=False)
 
 

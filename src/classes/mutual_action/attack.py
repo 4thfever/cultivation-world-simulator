@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .mutual_action import MutualAction
+from .mutual_action import PressureAction
 from src.i18n import t
 from src.classes.action.cooldown import cooldown_action
 from src.classes.relation.relation_delta_service import RelationDeltaService
@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class MutualAttack(MutualAction):
+class MutualAttack(PressureAction):
     """攻击另一个NPC"""
     
     # 多语言 ID
@@ -22,7 +22,7 @@ class MutualAttack(MutualAction):
     # 不需要翻译的常量
     EMOJI = "⚔️"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Escape", "Attack"]
+    RESPONSE_ACTIONS = ["Escape", "Attack"]
     # 攻击冷却：避免同月连刷攻击
     ACTION_CD_MONTHS: int = 3
     # 攻击是大事（长期记忆）
@@ -35,8 +35,8 @@ class MutualAttack(MutualAction):
             return False, t("Target not within interaction range")
         return True, ""
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         a_to_b, b_to_a = RelationDeltaService.get_fixed_delta("attack", "started")
         RelationDeltaService.apply_bidirectional_delta(self.avatar, target_avatar, a_to_b, b_to_a)
         
@@ -47,7 +47,7 @@ class MutualAttack(MutualAction):
         
         if fb == "Escape":
             params = {"avatar_name": self.avatar.name}
-            self._set_target_immediate_action(target_avatar, fb, params)
+            self._set_target_immediate_action(target_avatar, fb, params, push_start_event=False)
         elif fb == "Attack":
             params = {"avatar_name": self.avatar.name}
-            self._set_target_immediate_action(target_avatar, fb, params)
+            self._set_target_immediate_action(target_avatar, fb, params, push_start_event=False)

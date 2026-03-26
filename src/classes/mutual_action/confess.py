@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from .mutual_action import MutualAction
+from .mutual_action import InvitationAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class Confess(MutualAction):
+class Confess(InvitationAction):
     """表白：向交互范围内的修士表白，若对方接受则结为道侣。
     """
     
@@ -32,7 +32,7 @@ class Confess(MutualAction):
     # 不需要翻译的常量
     EMOJI = "💌"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Accept", "Reject"]
+    RESPONSE_ACTIONS = ["Accept", "Reject"]
     
     # 表白的社交冷却：避免频繁请求
     ACTION_CD_MONTHS: int = 6
@@ -67,8 +67,8 @@ class Confess(MutualAction):
         self._confess_success = False
         return event
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         if fb == "Accept":
             # 接受则结为道侣
             self.avatar.become_lovers_with(target_avatar)

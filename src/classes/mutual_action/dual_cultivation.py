@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from .mutual_action import MutualAction
+from .mutual_action import InvitationAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class DualCultivation(MutualAction):
+class DualCultivation(InvitationAction):
     """双修：修士可与交互范围内的修士尝试双修。
 
     - 仅当目标在交互范围内
@@ -35,7 +35,7 @@ class DualCultivation(MutualAction):
     # 不需要翻译的常量
     EMOJI = "💕"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Accept", "Reject"]
+    RESPONSE_ACTIONS = ["Accept", "Reject"]
     # 双修的社交冷却：避免频繁请求
     ACTION_CD_MONTHS: int = 3
     # 双修是大事（长期记忆）
@@ -64,8 +64,8 @@ class DualCultivation(MutualAction):
         self._dual_exp_gain = 0
         return event
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         if fb == "Accept":
             # 接受则当场结算修为收益（发起者获得，对象不获得），并记录标记供 finish 生成故事
             self._apply_dual_cultivation_gain(self.avatar, target_avatar)

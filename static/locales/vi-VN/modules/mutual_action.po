@@ -238,7 +238,7 @@ msgid "{target} accepted {initiator}'s talk invitation"
 msgstr "{target} chấp nhận lời mời bắt chuyện của {initiator}"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} phản hồi với {initiator}: {feedback}"
+msgstr "{target} hồi đáp với {initiator}: {feedback}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} đã từ chối lời tỏ tình của {initiator}"

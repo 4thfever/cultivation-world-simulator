@@ -7,7 +7,7 @@ This module tests mutual action classes including:
 - Impart: master teaching disciple
 
 Testing Strategy:
-    We mock `call_llm_with_task_name` to simulate LLM feedback responses.
+    We mock `call_llm_with_task_name` to simulate LLM response payloads.
     This allows testing the action logic without actual LLM calls.
 """
 
@@ -107,14 +107,14 @@ class TestTalk:
         assert target_avatar.id in event.related_avatars
 
     @pytest.mark.asyncio
-    async def test_talk_step_with_accept_feedback(self, dummy_avatar, target_avatar):
+    async def test_talk_step_with_accept_response(self, dummy_avatar, target_avatar):
         """Test Talk step flow when target accepts."""
         action = Talk(dummy_avatar, dummy_avatar.world)
         action._start_month_stamp = 100
         
-        # Mock target's methods for loading action chain
-        target_avatar.load_decide_result_chain = MagicMock()
-        target_avatar.commit_next_plan = MagicMock(return_value=None)
+        # Mock initiator's methods for loading action chain
+        dummy_avatar.load_decide_result_chain = MagicMock()
+        dummy_avatar.commit_next_plan = MagicMock(return_value=None)
         
         mock_response = {
             target_avatar.name: {
@@ -130,21 +130,22 @@ class TestTalk:
                 # First step: trigger LLM task
                 res1 = action.step(target_avatar)
                 assert res1.status == ActionStatus.RUNNING
-                assert action._feedback_task is not None
+                assert action._response_task is not None
                 
                 # Wait for task
-                await action._feedback_task
+                await action._response_task
                 
                 # Second step: consume result
                 res2 = action.step(target_avatar)
                 assert res2.status == ActionStatus.COMPLETED
-                
-                # Should have accept event
-                assert len(res2.events) >= 1
-                assert "接受" in res2.events[0].content
+
+                # Accept path should no longer emit a duplicated acceptance event.
+                assert res2.events == []
+                dummy_avatar.load_decide_result_chain.assert_called_once()
+                dummy_avatar.commit_next_plan.assert_called_once()
 
     @pytest.mark.asyncio
-    async def test_talk_step_with_reject_feedback(self, dummy_avatar, target_avatar):
+    async def test_talk_step_with_reject_response(self, dummy_avatar, target_avatar):
         """Test Talk step flow when target rejects."""
         action = Talk(dummy_avatar, dummy_avatar.world)
         action._start_month_stamp = 100
@@ -161,8 +162,8 @@ class TestTalk:
                 mock_llm.return_value = mock_response
                 
                 res1 = action.step(target_avatar)
-                assert action._feedback_task is not None
-                await action._feedback_task
+                assert action._response_task is not None
+                await action._response_task
                 res2 = action.step(target_avatar)
                 
                 assert res2.status == ActionStatus.COMPLETED
@@ -229,7 +230,7 @@ class TestSpar:
         assert target_avatar.name in event.content
         assert "切磋" in event.content
 
-    def test_spar_settle_feedback_accept(self, dummy_avatar, target_avatar):
+    def test_spar_settle_response_accept(self, dummy_avatar, target_avatar):
         """Test that accepting spar increases weapon proficiency."""
         action = Spar(dummy_avatar, dummy_avatar.world)
         dummy_avatar.increase_weapon_proficiency = MagicMock()
@@ -239,7 +240,7 @@ class TestSpar:
         with patch("src.classes.mutual_action.spar.decide_battle") as mock_battle:
             mock_battle.return_value = (dummy_avatar, target_avatar, 0, 0)
             
-            action._settle_feedback(target_avatar, "Accept")
+            action._settle_response(target_avatar, "Accept")
             
             # Both should have proficiency increased
             dummy_avatar.increase_weapon_proficiency.assert_called_once()
@@ -250,12 +251,12 @@ class TestSpar:
             loser_gain = target_avatar.increase_weapon_proficiency.call_args[0][0]
             assert winner_gain > loser_gain
 
-    def test_spar_settle_feedback_reject(self, dummy_avatar, target_avatar):
+    def test_spar_settle_response_reject(self, dummy_avatar, target_avatar):
         """Test that rejecting spar does nothing."""
         action = Spar(dummy_avatar, dummy_avatar.world)
         dummy_avatar.increase_weapon_proficiency = MagicMock()
         
-        action._settle_feedback(target_avatar, "Reject")
+        action._settle_response(target_avatar, "Reject")
         
         # Should not increase proficiency
         dummy_avatar.increase_weapon_proficiency.assert_not_called()
@@ -441,7 +442,7 @@ class TestImpart:
         assert hasattr(action, '_impart_success')
         assert action._impart_success is False
 
-    def test_impart_settle_feedback_accept(self, master_avatar, disciple_avatar):
+    def test_impart_settle_response_accept(self, master_avatar, disciple_avatar):
         """Test that accepting impart gives exp to disciple."""
         action = Impart(master_avatar, master_avatar.world)
         action._impart_success = False
@@ -449,14 +450,14 @@ class TestImpart:
         
         initial_exp = disciple_avatar.cultivation_progress.exp
         
-        action._settle_feedback(disciple_avatar, "Accept")
+        action._settle_response(disciple_avatar, "Accept")
         
         assert action._impart_success is True
         assert action._impart_exp_gain == 2000  # 100 * 5 * 4
         # Exp should be added to disciple
         assert disciple_avatar.cultivation_progress.exp > initial_exp
 
-    def test_impart_settle_feedback_reject(self, master_avatar, disciple_avatar):
+    def test_impart_settle_response_reject(self, master_avatar, disciple_avatar):
         """Test that rejecting impart does not give exp."""
         action = Impart(master_avatar, master_avatar.world)
         action._impart_success = False
@@ -464,7 +465,7 @@ class TestImpart:
         
         initial_exp = disciple_avatar.cultivation_progress.exp
         
-        action._settle_feedback(disciple_avatar, "Reject")
+        action._settle_response(disciple_avatar, "Reject")
         
         assert action._impart_success is False
         # Exp should not change
@@ -577,22 +578,22 @@ class TestConfess:
         assert hasattr(action, '_confess_success')
         assert action._confess_success is False
 
-    def test_confess_settle_feedback_accept(self, dummy_avatar, target_avatar):
+    def test_confess_settle_response_accept(self, dummy_avatar, target_avatar):
         """Test that accepting confession updates relation."""
         action = Confess(dummy_avatar, dummy_avatar.world)
         dummy_avatar.become_lovers_with = MagicMock()
         
-        action._settle_feedback(target_avatar, "Accept")
+        action._settle_response(target_avatar, "Accept")
         
         dummy_avatar.become_lovers_with.assert_called_once_with(target_avatar)
         assert action._confess_success is True
 
-    def test_confess_settle_feedback_reject(self, dummy_avatar, target_avatar):
+    def test_confess_settle_response_reject(self, dummy_avatar, target_avatar):
         """Test that rejecting confession does not update relation."""
         action = Confess(dummy_avatar, dummy_avatar.world)
         dummy_avatar.become_lovers_with = MagicMock()
         
-        action._settle_feedback(target_avatar, "Reject")
+        action._settle_response(target_avatar, "Reject")
         
         dummy_avatar.become_lovers_with.assert_not_called()
         assert action._confess_success is False
@@ -692,22 +693,22 @@ class TestSwearBrotherhood:
         assert hasattr(action, '_swear_success')
         assert action._swear_success is False
 
-    def test_swear_settle_feedback_accept(self, dummy_avatar, target_avatar):
+    def test_swear_settle_response_accept(self, dummy_avatar, target_avatar):
         """Test that accepting swear brotherhood updates relation."""
         action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
         dummy_avatar.become_sworn_sibling_with = MagicMock()
         
-        action._settle_feedback(target_avatar, "Accept")
+        action._settle_response(target_avatar, "Accept")
         
         dummy_avatar.become_sworn_sibling_with.assert_called_once_with(target_avatar)
         assert action._swear_success is True
 
-    def test_swear_settle_feedback_reject(self, dummy_avatar, target_avatar):
+    def test_swear_settle_response_reject(self, dummy_avatar, target_avatar):
         """Test that rejecting swear brotherhood does not update relation."""
         action = SwearBrotherhood(dummy_avatar, dummy_avatar.world)
         dummy_avatar.become_sworn_sibling_with = MagicMock()
         
-        action._settle_feedback(target_avatar, "Reject")
+        action._settle_response(target_avatar, "Reject")
         
         dummy_avatar.become_sworn_sibling_with.assert_not_called()
         assert action._swear_success is False
@@ -820,16 +821,16 @@ class TestMutualActionBase:
                 # First call should be RUNNING
                 res1 = action.step(target_avatar)
                 assert res1.status == ActionStatus.RUNNING
-                assert action._feedback_task is not None
+                assert action._response_task is not None
                 
                 # Wait for task
-                await action._feedback_task
+                await action._response_task
                 
                 # Second call should be COMPLETED
                 res2 = action.step(target_avatar)
                 assert res2.status == ActionStatus.COMPLETED
-                assert action._feedback_task is None
-                assert action._feedback_cached is None
+                assert action._response_task is None
+                assert action._response_cached is None
 
     def test_build_prompt_infos(self, dummy_avatar, target_avatar):
         """Test _build_prompt_infos returns correct structure."""
@@ -842,6 +843,48 @@ class TestMutualActionBase:
         assert "avatar_name_1" in infos
         assert "avatar_name_2" in infos
         assert "action_name" in infos
+        assert "response_actions" in infos
         assert "feedback_actions" in infos
         assert infos["avatar_name_1"] == dummy_avatar.name
         assert infos["avatar_name_2"] == target_avatar.name
+
+    def test_hidden_response_event_returns_none_by_default(self, dummy_avatar, target_avatar):
+        """Shared response events are hidden from the visible event stream by default."""
+        from src.classes.mutual_action.drive_away import DriveAway
+
+        action = DriveAway(dummy_avatar, dummy_avatar.world)
+        action._start_month_stamp = 100
+
+        event = action._build_response_event(target_avatar, "MoveAwayFromRegion")
+
+        assert event is None
+
+    def test_response_event_content_still_available_for_internal_formatting(self, dummy_avatar, target_avatar):
+        """Even when hidden, response text formatting should remain consistent for internal uses."""
+        from src.classes.mutual_action.drive_away import DriveAway
+
+        action = DriveAway(dummy_avatar, dummy_avatar.world)
+        content = action._build_response_event_content(target_avatar, "MoveAwayFromRegion")
+
+        assert "回应" in content
+        assert "离开此地" in content
+
+    def test_set_target_immediate_action_can_suppress_start_event(self, dummy_avatar, target_avatar):
+        """Immediate follow-up actions can skip their start event to avoid duplicate narration."""
+        from src.classes.mutual_action.attack import MutualAttack
+        from src.classes.event import Event
+
+        action = MutualAttack(dummy_avatar, dummy_avatar.world)
+        target_avatar.current_action = None
+        target_avatar.load_decide_result_chain = MagicMock()
+        target_avatar.commit_next_plan = MagicMock(return_value=Event(100, "start", related_avatars=[dummy_avatar.id, target_avatar.id]))
+
+        with patch("src.classes.mutual_action.mutual_action.EventHelper.push_pair") as mock_push_pair:
+            action._set_target_immediate_action(
+                target_avatar,
+                "Escape",
+                {"avatar_name": dummy_avatar.name},
+                push_start_event=False,
+            )
+
+        mock_push_pair.assert_not_called()

@@ -82,8 +82,8 @@ class TestActionPlay:
         
         action = TeaParty(play_avatar, play_avatar.world)
         
-        # Simulate feedback "Accept"
-        action._settle_feedback(target_avatar, "Accept")
+        # Simulate response "Accept"
+        action._settle_response(target_avatar, "Accept")
         
         # Check initiator benefit
         assert len(play_avatar.temporary_effects) == 1

@@ -32,7 +32,8 @@ class Conversation(MutualAction):
     # 不需要翻译的常量
     EMOJI = "🗣️"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS: list[str] = []  # Conversation 自动触发，不需要对方决策
+    RESPONSE_ACTIONS: list[str] = []  # Conversation 自动触发，不需要对方决策
+    RESPONSE_EVENT_STYLE = "none"
 
     def _get_template_path(self) -> Path:
         # 使用专门的 conversation.txt 模板
@@ -78,10 +79,10 @@ class Conversation(MutualAction):
         
         return NULL_EVENT
 
-    def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
+    def _handle_response_result(self, target: "Avatar", result: dict) -> ActionResult:
         """
         处理 LLM 返回的对话结果，包括对话内容和关系变化。
-        Conversation 不需要反馈（FEEDBACK_ACTIONS 为空），直接生成内容。
+        Conversation 不需要响应事件（RESPONSE_ACTIONS 为空），直接生成内容。
         """
         conversation_content = str(result.get("conversation_content", "")).strip()
 
@@ -111,25 +112,25 @@ class Conversation(MutualAction):
             return ActionResult(status=ActionStatus.FAILED, events=[])
 
         # 若无任务，创建异步任务
-        if self._feedback_task is None and self._feedback_cached is None:
+        if self._response_task is None and self._response_cached is None:
             infos = self._build_prompt_infos(target)
             import asyncio
             loop = asyncio.get_running_loop()
-            self._feedback_task = loop.create_task(self._call_llm_feedback(infos))
+            self._response_task = loop.create_task(self._call_llm_response(infos))
 
         # 若任务已完成，消费结果
-        if self._feedback_task is not None and self._feedback_task.done():
-            self._feedback_cached = self._feedback_task.result()
-            self._feedback_task = None
+        if self._response_task is not None and self._response_task.done():
+            self._response_cached = self._response_task.result()
+            self._response_task = None
 
-        if self._feedback_cached is not None:
-            res = self._feedback_cached
-            self._feedback_cached = None
+        if self._response_cached is not None:
+            res = self._response_cached
+            self._response_cached = None
             r = res.get(target.name, {})
             thinking = r.get("thinking", "")
             target.thinking = thinking
             
-            return self._handle_feedback_result(target, r)
+            return self._handle_response_result(target, r)
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
 

@@ -4,7 +4,7 @@ import random
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from src.classes.mutual_action.mutual_action import MutualAction
+from src.classes.mutual_action.mutual_action import InvitationAction
 from src.systems.battle import decide_battle
 from src.classes.event import Event
 from src.classes.relation.relation_delta_service import RelationDeltaService
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class Spar(MutualAction):
+class Spar(InvitationAction):
     """
     切磋动作：双方切磋，不造成伤害，增加武器熟练度。
     """
@@ -32,13 +32,13 @@ class Spar(MutualAction):
     # 不需要翻译的常量
     EMOJI = "🤺"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Accept", "Reject"]
+    RESPONSE_ACTIONS = ["Accept", "Reject"]
     
     # 切磋冷却：12个月
     ACTION_CD_MONTHS: int = 12
 
-    def _settle_feedback(self, target_avatar: Avatar, feedback_name: str) -> None:
-        if feedback_name != "Accept":
+    def _settle_response(self, target_avatar: Avatar, response_name: str) -> None:
+        if response_name != "Accept":
             return
 
         # 判定胜负（复用战斗逻辑，但忽略返回的伤害值）

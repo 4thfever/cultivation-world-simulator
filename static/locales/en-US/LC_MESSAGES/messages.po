@@ -1579,7 +1579,7 @@ msgid "feedback_accept"
 msgstr "Accept"
 
 msgid "feedback_attack"
-msgstr "Attack"
+msgstr "Stand and fight"
 
 msgid "feedback_escape"
 msgstr "Escape"
@@ -1588,7 +1588,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "Attempt to move away"
 
 msgid "feedback_move_away_from_region"
-msgstr "Attempt to leave area"
+msgstr "Leave this place"
 
 msgid "feedback_reject"
 msgstr "Reject"
@@ -2427,7 +2427,7 @@ msgid "{target} accepted {initiator}'s talk invitation"
 msgstr "{target} accepted {initiator}'s talk invitation"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} feedback to {initiator}: {feedback}"
+msgstr "{target}'s response to {initiator}: {feedback}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} rejected {initiator}'s confession"

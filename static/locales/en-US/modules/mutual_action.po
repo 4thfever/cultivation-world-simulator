@@ -238,7 +238,7 @@ msgid "{target} accepted {initiator}'s talk invitation"
 msgstr "{target} accepted {initiator}'s talk invitation"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} feedback to {initiator}: {feedback}"
+msgstr "{target}'s response to {initiator}: {feedback}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} rejected {initiator}'s confession"

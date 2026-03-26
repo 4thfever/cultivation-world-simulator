@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from .mutual_action import MutualAction
+from .mutual_action import InvitationAction
 from src.classes.action.cooldown import cooldown_action
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @cooldown_action
-class Impart(MutualAction):
+class Impart(InvitationAction):
     """传道：向指定关系的目标传授修炼经验。
 
     - 仅限发起方的徒弟、徒孙、同门、子女、孙辈或朋友
@@ -35,7 +35,7 @@ class Impart(MutualAction):
     # 不需要翻译的常量
     EMOJI = "📖"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS = ["Accept", "Reject"]
+    RESPONSE_ACTIONS = ["Accept", "Reject"]
     # 传道冷却：6个月
     ACTION_CD_MONTHS: int = 6
 
@@ -90,14 +90,15 @@ class Impart(MutualAction):
             content,
             related_avatars=rel_ids,
         )
+        self._start_event_content = event.content
 
         # 初始化内部标记
         self._impart_success = False
         self._impart_exp_gain = 0
         return event
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
-        fb = str(feedback_name).strip()
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
+        fb = str(response_name).strip()
         if fb == "Accept":
             # 接受则当场结算修为收益（接收者获得）
             self._apply_impart_gain(target_avatar)

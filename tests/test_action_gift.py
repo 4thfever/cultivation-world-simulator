@@ -34,8 +34,8 @@ def target_avatar(base_world):
 @pytest.fixture
 def gift_action(dummy_avatar, base_world):
     """初始化 Gift 动作"""
-    # 模拟 _call_llm_feedback，避免 step 中调用 asyncio.get_running_loop()
-    with patch.object(Gift, '_call_llm_feedback', new_callable=MagicMock) as mock_llm:
+    # 模拟 _call_llm_response，避免 step 中调用 asyncio.get_running_loop()
+    with patch.object(Gift, '_call_llm_response', new_callable=MagicMock) as mock_llm:
          # 返回一个 mock task，确保 task.done() 初始为 False，
          # 但在这里我们主要是为了让 step 不报错
          mock_llm.return_value = {} 
@@ -46,7 +46,7 @@ def gift_action(dummy_avatar, base_world):
          # 因为我们主要测试的是：
          # 1. 参数是否正确解析 (step -> _resolve_gift)
          # 2. _can_start 逻辑
-         # 3. 反馈结算逻辑 _settle_feedback / _apply_gift
+         # 3. 响应结算逻辑 _settle_response / _apply_gift
          
          # 但 step 本身有逻辑：
          # 1. 解析参数
@@ -77,7 +77,7 @@ class TestGiftAction:
         assert can_start is True, f"Should be able to start: {reason}"
         
         # 模拟接受
-        gift_action._settle_feedback(target_avatar, "Accept")
+        gift_action._settle_response(target_avatar, "Accept")
         
         assert dummy_avatar.magic_stone == 900
         assert target_avatar.magic_stone == 100
@@ -109,7 +109,7 @@ class TestGiftAction:
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is True
         
-        gift_action._settle_feedback(target_avatar, "Accept")
+        gift_action._settle_response(target_avatar, "Accept")
         
         assert dummy_avatar.get_material_quantity(test_material) == 4
         assert target_avatar.get_material_quantity(test_material) == 1
@@ -139,7 +139,7 @@ class TestGiftAction:
         can_start, reason = gift_action._can_start(target_avatar)
         assert can_start is True
         
-        gift_action._settle_feedback(target_avatar, "Accept")
+        gift_action._settle_response(target_avatar, "Accept")
         
         assert dummy_avatar.weapon is None
         assert target_avatar.weapon == test_weapon
@@ -170,7 +170,7 @@ class TestGiftAction:
         with patch("asyncio.get_running_loop", return_value=MagicMock()):
             gift_action.step(target_avatar, item_id=str(new_weapon.id), amount=1)
             
-        gift_action._settle_feedback(target_avatar, "Accept")
+        gift_action._settle_response(target_avatar, "Accept")
         
         assert target_avatar.weapon == new_weapon
         # 练气期武器基准价 150，卖出倍率 1.0 (无特质加成) -> 150

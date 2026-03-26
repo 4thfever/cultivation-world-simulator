@@ -53,10 +53,10 @@ class TestActionSocial:
         # 3. 第一次 Step: 应该触发 LLM 任务并返回 RUNNING
         res1 = action.step(target_avatar=target_avatar)
         assert res1.status == ActionStatus.RUNNING
-        assert action._feedback_task is not None
+        assert action._response_task is not None
         
         # 等待 Task 完成
-        await action._feedback_task
+        await action._response_task
         
         # 4. 第二次 Step: 消费结果
         res2 = action.step(target_avatar=target_avatar)
@@ -77,4 +77,3 @@ class TestActionSocial:
         action = Conversation(dummy_avatar, dummy_avatar.world)
         res = action.step(target_avatar=None)
         assert res.status == ActionStatus.FAILED
-

@@ -39,7 +39,7 @@ msgid "feedback_accept"
 msgstr "Accept"
 
 msgid "feedback_attack"
-msgstr "Attack"
+msgstr "Stand and fight"
 
 msgid "feedback_escape"
 msgstr "Escape"
@@ -48,7 +48,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "Attempt to move away"
 
 msgid "feedback_move_away_from_region"
-msgstr "Attempt to leave area"
+msgstr "Leave this place"
 
 msgid "feedback_reject"
 msgstr "Reject"

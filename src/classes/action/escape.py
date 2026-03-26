@@ -55,15 +55,11 @@ class Escape(InstantAction):
         if success:
             self._preempt_avatar(self.avatar)
             self.avatar.load_decide_result_chain([("MoveAwayFromAvatar", {"avatar_name": avatar_name})], self.avatar.thinking, "")
-            start_event = self.avatar.commit_next_plan()
-            if start_event is not None:
-                EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            self.avatar.commit_next_plan()
         else:
             self._preempt_avatar(self.avatar)
             self.avatar.load_decide_result_chain([("Attack", {"avatar_name": avatar_name})], self.avatar.thinking, "")
-            start_event = self.avatar.commit_next_plan()
-            if start_event is not None:
-                EventHelper.push_pair(start_event, initiator=self.avatar, target=target, to_sidebar_once=True)
+            self.avatar.commit_next_plan()
 
     def can_start(self, avatar_name: str) -> tuple[bool, str]:
         return True, ""

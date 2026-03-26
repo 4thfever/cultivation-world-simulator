@@ -7,13 +7,13 @@
 {avatar_infos}
 
 正在进行的动作为：{avatar_name_1}向{avatar_name_2}发起了动作：{action_name}。这个动作的意味为{action_info}
-{avatar_name_2}可以进行的选择为：
-{feedback_actions}
+{avatar_name_2}可以进行的回应为：
+{response_actions}
 
 注意，只返回json格式的结果。
 只返回{avatar_name_2}的行动，格式为：
 {{
     {avatar_name_2}: {{
-        "feedback": ... // 面对{avatar_name_1}的行为的合法feedback action name
+        "response": ... // 面对{avatar_name_1}的行为的合法 response action name
     }}
 }}

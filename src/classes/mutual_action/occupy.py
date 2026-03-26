@@ -4,7 +4,7 @@ import random
 from typing import TYPE_CHECKING
 
 from src.i18n import t
-from src.classes.mutual_action.mutual_action import MutualAction
+from src.classes.mutual_action.mutual_action import PressureAction
 from src.classes.event import Event
 from src.classes.action.registry import register_action
 from src.classes.action.cooldown import cooldown_action
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 @cooldown_action
 @register_action(actual=True)
-class Occupy(MutualAction):
+class Occupy(PressureAction):
     """
     占据动作（互动版）：
     占据指定的洞府。如果是无主洞府直接占据；如果是有主洞府，则发起抢夺。
@@ -39,10 +39,10 @@ class Occupy(MutualAction):
     # 不需要翻译的常量
     EMOJI = "🚩"
     PARAMS = {"region_name": "str"}
-    FEEDBACK_ACTIONS = ["Yield", "Reject"]
+    RESPONSE_ACTIONS = ["Yield", "Reject"]
     
     # 自定义反馈标签
-    FEEDBACK_LABEL_IDS = {"Yield": "feedback_yield", "Reject": "feedback_reject"}
+    RESPONSE_LABEL_IDS = {"Yield": "feedback_yield", "Reject": "feedback_reject"}
     
     IS_MAJOR = True
     ACTION_CD_MONTHS = 6
@@ -98,12 +98,12 @@ class Occupy(MutualAction):
         region, host, _ = self._get_region_and_host(region_name)
         return super().step(target_avatar=host)
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
         """处理反馈结果"""
         region_name = getattr(self, "target_region_name", self.avatar.tile.location_name)
         region, _, _ = self._get_region_and_host(region_name)
         
-        if feedback_name == "Yield":
+        if response_name == "Yield":
             # 对方让步：直接转移所有权
             if region:
                 self.avatar.occupy_region(region)
@@ -122,7 +122,7 @@ class Occupy(MutualAction):
             
             self._last_result = None
             
-        elif feedback_name == "Reject":
+        elif response_name == "Reject":
             # 对方拒绝：进入战斗
             winner, loser, loser_dmg, winner_dmg = decide_battle(self.avatar, target_avatar)
             loser.hp.reduce(loser_dmg)

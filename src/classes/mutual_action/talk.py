@@ -5,15 +5,14 @@ from typing import TYPE_CHECKING
 from src.i18n import t
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.event import Event
-from src.classes.action.event_helper import EventHelper
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
-from .mutual_action import MutualAction
+from .mutual_action import InvitationAction
 
 
-class Talk(MutualAction):
+class Talk(InvitationAction):
     """
     攀谈：向交互范围内的某个NPC发起攀谈。
     - 接受后自动进入 Conversation
@@ -27,10 +26,10 @@ class Talk(MutualAction):
     # 不需要翻译的常量
     EMOJI = "👋"
     PARAMS = {"target_avatar": "AvatarName"}
-    FEEDBACK_ACTIONS: list[str] = ["Talk", "Reject"]
+    RESPONSE_ACTIONS: list[str] = ["Talk", "Reject"]
     
     # 自定义反馈标签
-    FEEDBACK_LABEL_IDS: dict[str, str] = {
+    RESPONSE_LABEL_IDS: dict[str, str] = {
         "Talk": "feedback_talk",
         "Reject": "feedback_reject",
     }
@@ -42,27 +41,17 @@ class Talk(MutualAction):
             return False, t("Target not within interaction range")
         return True, ""
     
-    def _handle_feedback_result(self, target: "Avatar", result: dict) -> ActionResult:
+    def _handle_response_result(self, target: "Avatar", result: dict) -> ActionResult:
         """
-        处理 LLM 返回的反馈结果。
+        处理 LLM 返回的响应结果。
         """
-        feedback = str(result.get("feedback", "")).strip()
+        response = str(result.get("response", result.get("feedback", ""))).strip()
         
         events_to_return = []
         
-        # 处理反馈
-        if feedback == "Talk":
-            # 接受攀谈，自动进入 Conversation
-            content = t("{target} accepted {initiator}'s talk invitation",
-                       target=target.name, initiator=self.avatar.name)
-            accept_event = Event(
-                self.world.month_stamp, 
-                content, 
-                related_avatars=[self.avatar.id, target.id]
-            )
-            
-            events_to_return.append(accept_event)
-            
+        # 处理响应
+        if response == "Talk":
+            # 接受攀谈后直接进入 Conversation，避免“接受攀谈”与后续对话正文重复
             # 将 Conversation 加入计划队列并立即提交
             self.avatar.load_decide_result_chain(
                 [("Conversation", {"target_avatar": target.name})],
@@ -95,24 +84,24 @@ class Talk(MutualAction):
             return ActionResult(status=ActionStatus.FAILED, events=[])
 
         # 若无任务，创建异步任务
-        if self._feedback_task is None and self._feedback_cached is None:
+        if self._response_task is None and self._response_cached is None:
             infos = self._build_prompt_infos(target)
             import asyncio
             loop = asyncio.get_running_loop()
-            self._feedback_task = loop.create_task(self._call_llm_feedback(infos))
+            self._response_task = loop.create_task(self._call_llm_response(infos))
 
         # 若任务已完成，消费结果
-        if self._feedback_task is not None and self._feedback_task.done():
-            self._feedback_cached = self._feedback_task.result()
-            self._feedback_task = None
+        if self._response_task is not None and self._response_task.done():
+            self._response_cached = self._response_task.result()
+            self._response_task = None
 
-        if self._feedback_cached is not None:
-            res = self._feedback_cached
-            self._feedback_cached = None
+        if self._response_cached is not None:
+            res = self._response_cached
+            self._response_cached = None
             r = res.get(target.name, {})
             thinking = r.get("thinking", "")
             target.thinking = thinking
             
-            return self._handle_feedback_result(target, r)
+            return self._handle_response_result(target, r)
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])

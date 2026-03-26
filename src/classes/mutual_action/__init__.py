@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .mutual_action import MutualAction
+from .mutual_action import MutualAction, InvitationAction, PressureAction
 from .drive_away import DriveAway
 from .attack import MutualAttack
 from .conversation import Conversation
@@ -17,6 +17,8 @@ from src.classes.action.registry import register_action
 
 __all__ = [
     "MutualAction",
+    "InvitationAction",
+    "PressureAction",
     "DriveAway",
     "MutualAttack",
     "Conversation",

@@ -20,12 +20,12 @@ if TYPE_CHECKING:
 
 class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     """
-    互动动作：A 对 B 发起动作，B 可以给出反馈（由 LLM 决策）。
+    互动动作：A 对 B 发起动作，B 可以给出响应（由 LLM 决策）。
     子类需要定义：
       - ACTION_NAME_ID: 当前动作名的 msgid
       - DESC_ID: 动作语义说明的 msgid
       - REQUIREMENTS_ID: 可执行条件的 msgid
-      - FEEDBACK_ACTIONS: 反馈可选的 action name 列表（直接可执行）
+      - RESPONSE_ACTIONS: 响应可选的 action name 列表（直接可执行）
       - PARAMS: 参数，需要包含 target_avatar
     """
     
@@ -38,10 +38,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     # 不需要翻译的常量
     EMOJI: str = "💬"
     PARAMS: dict = {"target_avatar": "Avatar"}
-    FEEDBACK_ACTIONS: list[str] = []
+    RESPONSE_ACTIONS: list[str] = []
+    RESPONSE_EVENT_STYLE: str = "reply"
+    SHOW_RESPONSE_EVENT: bool = False
     
-    # 反馈动作 -> msgid 的映射（子类可覆盖）
-    FEEDBACK_LABEL_IDS: dict[str, str] = {
+    # 响应动作 -> msgid 的映射（子类可覆盖）
+    RESPONSE_LABEL_IDS: dict[str, str] = {
         "Accept": "feedback_accept",
         "Reject": "feedback_reject",
         "MoveAwayFromAvatar": "feedback_move_away_from_avatar",
@@ -72,12 +74,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         return ""
     
     @classmethod
-    def get_feedback_label(cls, feedback_name: str) -> str:
-        """获取反馈标签的翻译"""
-        msgid = cls.FEEDBACK_LABEL_IDS.get(feedback_name, "")
+    def get_response_label(cls, response_name: str) -> str:
+        """获取响应标签的翻译"""
+        msgid = cls.RESPONSE_LABEL_IDS.get(response_name, "")
         if msgid:
             return t(msgid)
-        return feedback_name
+        return response_name
     
     @classmethod
     def get_story_prompt(cls) -> str:
@@ -88,9 +90,9 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
 
     def __init__(self, avatar: "Avatar", world: "World"):
         super().__init__(avatar, world)
-        # 异步反馈任务句柄与缓存结果
-        self._feedback_task: asyncio.Task | None = None
-        self._feedback_cached: dict | None = None
+        # 异步响应任务句柄与缓存结果
+        self._response_task: asyncio.Task | None = None
+        self._response_cached: dict | None = None
         # 记录动作开始时间，用于生成事件的时间戳
         self._start_month_stamp: int | None = None
 
@@ -111,7 +113,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         
         world_info = self.world.static_info
 
-        feedback_actions = self.FEEDBACK_ACTIONS
+        response_actions = self.RESPONSE_ACTIONS
         desc = self.get_desc()  # 使用 classmethod 获取翻译
         action_name = self.get_action_name()  # 使用 classmethod 获取翻译
         return {
@@ -121,17 +123,26 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             "avatar_name_2": avatar_name_2,
             "action_name": action_name,
             "action_info": desc,
-            "feedback_actions": feedback_actions,
+            "response_actions": response_actions,
+            # 保留模板兼容字段，避免修改 prompt 渲染链路时出现双端不一致
+            "feedback_actions": response_actions,
         }
 
-    async def _call_llm_feedback(self, infos: dict) -> dict:
-        """异步调用 LLM 获取反馈"""
+    async def _call_llm_response(self, infos: dict) -> dict:
+        """异步调用 LLM 获取响应"""
         template_path = self._get_template_path()
         return await call_llm_with_task_name("interaction_feedback", template_path, infos)
 
-    def _set_target_immediate_action(self, target_avatar: "Avatar", action_name: str, action_params: dict) -> None:
+    def _set_target_immediate_action(
+        self,
+        target_avatar: "Avatar",
+        action_name: str,
+        action_params: dict,
+        *,
+        push_start_event: bool = True,
+    ) -> None:
         """
-        将反馈决定落地为目标角色的立即动作（清空后加载单步动作链）。
+        将响应决定落地为目标角色的立即动作（清空后加载单步动作链）。
         """
         # 若当前已是同类同参动作，直接跳过，避免重复“发起战斗”等事件刷屏
         try:
@@ -149,19 +160,38 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         target_avatar.load_decide_result_chain([(action_name, action_params)], target_avatar.thinking, "")
         # 立即提交为当前动作，触发开始事件
         start_event = target_avatar.commit_next_plan()
-        if start_event is not None:
+        if push_start_event and start_event is not None and start_event != NULL_EVENT:
             # 侧边栏仅推送一次（由动作发起方承担），另一侧仅写历史
             EventHelper.push_pair(start_event, initiator=self.avatar, target=target_avatar, to_sidebar_once=True)
 
-    def _settle_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
+    def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:
         """
-        子类实现：把反馈映射为具体动作
+        子类实现：把响应映射为具体动作
         """
         pass
 
-    def _apply_feedback(self, target_avatar: "Avatar", feedback_name: str) -> None:
+    def _apply_response(self, target_avatar: "Avatar", response_name: str) -> None:
         # 默认不额外记录，由事件系统承担
         return
+
+    def _build_response_event_content(self, target_avatar: "Avatar", response_name: str) -> str:
+        response_label = self.get_response_label(str(response_name).strip())
+        return t(
+            "{target} feedback to {initiator}: {feedback}",
+            target=target_avatar.name,
+            initiator=self.avatar.name,
+            feedback=response_label,
+        )
+
+    def _build_response_event(self, target_avatar: "Avatar", response_name: str) -> Event | None:
+        if self.RESPONSE_EVENT_STYLE == "none" or not self.SHOW_RESPONSE_EVENT:
+            return None
+
+        month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
+        content = self._build_response_event_content(target_avatar, response_name)
+        event = Event(month_stamp, content, related_avatars=[self.avatar.id, target_avatar.id])
+        self._last_response_event_content = content
+        return event
 
     def _get_target_avatar(self, target_avatar: "Avatar|str") -> "Avatar|None":
         if isinstance(target_avatar, str):
@@ -226,45 +256,38 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
 
     def step(self, target_avatar: "Avatar|str") -> ActionResult:
         """
-        异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地反馈并完成。
+        异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地响应并完成。
         """
         target = self._get_target_avatar(target_avatar)
         if target is None or target.is_dead:
             return ActionResult(status=ActionStatus.FAILED, events=[])
 
         # 若无任务，创建异步任务
-        if self._feedback_task is None and self._feedback_cached is None:
+        if self._response_task is None and self._response_cached is None:
             infos = self._build_prompt_infos(target)
             loop = asyncio.get_running_loop()
-            self._feedback_task = loop.create_task(self._call_llm_feedback(infos))
+            self._response_task = loop.create_task(self._call_llm_response(infos))
 
         # 若任务已完成，消费结果
-        if self._feedback_task is not None and self._feedback_task.done():
-            self._feedback_cached = self._feedback_task.result()
-            self._feedback_task = None
+        if self._response_task is not None and self._response_task.done():
+            self._response_cached = self._response_task.result()
+            self._response_task = None
 
-        if self._feedback_cached is not None:
-            res = self._feedback_cached
-            self._feedback_cached = None
+        if self._response_cached is not None:
+            res = self._response_cached
+            self._response_cached = None
             r = res.get(target.name, {})
             thinking = r.get("thinking", "")
-            feedback = r.get("feedback", "")
+            response = r.get("response", r.get("feedback", ""))
 
             target.thinking = thinking
-            self._settle_feedback(target, feedback)
-            
-            # 使用 classmethod 获取翻译后的反馈标签
-            fb_label = self.get_feedback_label(str(feedback).strip())
-            
-            # 使用开始时间戳
-            month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
-            content = t("{target} feedback to {initiator}: {feedback}",
-                       target=target.name, initiator=self.avatar.name, feedback=fb_label)
-            feedback_event = Event(month_stamp, content, related_avatars=[self.avatar.id, target.id])
-            self._last_feedback_event_content = content
-            
-            self._apply_feedback(target, feedback)
-            return ActionResult(status=ActionStatus.COMPLETED, events=[feedback_event])
+            self._settle_response(target, response)
+
+            response_event = self._build_response_event(target, response)
+            self._apply_response(target, response)
+
+            events = [response_event] if response_event is not None else []
+            return ActionResult(status=ActionStatus.COMPLETED, events=events)
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
 
@@ -273,3 +296,17 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         完成互动动作，事件已在 step 中处理，无需额外事件
         """
         return []
+
+
+class InvitationAction(MutualAction):
+    """邀请/请求型互动，目标主要做出接受或拒绝的回应。"""
+
+    RESPONSE_EVENT_STYLE = "reply"
+    SHOW_RESPONSE_EVENT = False
+
+
+class PressureAction(MutualAction):
+    """施压/敌对型互动，目标主要做出逃离、应战等应对。"""
+
+    RESPONSE_EVENT_STYLE = "reply"
+    SHOW_RESPONSE_EVENT = False

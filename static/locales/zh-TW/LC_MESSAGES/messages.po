@@ -1482,7 +1482,7 @@ msgid "feedback_accept"
 msgstr "接受"
 
 msgid "feedback_attack"
-msgstr "戰鬥"
+msgstr "應戰"
 
 msgid "feedback_escape"
 msgstr "逃離"
@@ -1491,7 +1491,7 @@ msgid "feedback_move_away_from_avatar"
 msgstr "試圖遠離"
 
 msgid "feedback_move_away_from_region"
-msgstr "試圖離開區域"
+msgstr "離開此地"
 
 msgid "feedback_reject"
 msgstr "拒絕"
@@ -2270,7 +2270,7 @@ msgid "{target} accepted {initiator}'s talk invitation"
 msgstr "{target} 接受了 {initiator} 的攀談"
 
 msgid "{target} feedback to {initiator}: {feedback}"
-msgstr "{target} 對 {initiator} 的反饋：{feedback}"
+msgstr "{target} 對 {initiator} 的回應：{feedback}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target}婉拒了{initiator}的表白"
