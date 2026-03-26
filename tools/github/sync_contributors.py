@@ -94,8 +94,8 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
         "<table>",
     ]
 
-    for index in range(0, len(contributors), 4):
-        pair = contributors[index : index + 4]
+    for index in range(0, len(contributors), 5):
+        pair = contributors[index : index + 5]
         lines.append("  <tr>")
         for contributor in pair:
             login = contributor.get("login") or "unknown"
@@ -106,7 +106,7 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
             )
             lines.extend(
                 [
-                    '    <td align="center" width="25%">',
+                    '    <td align="center" width="20%">',
                     f'      <a href="{profile_url}">',
                     f'        <img src="{avatar_url}" width="150" height="150" alt="{login} avatar" /><br />',
                     f"        <strong>{login}</strong>",
@@ -114,8 +114,8 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
                     "    </td>",
                 ]
             )
-        for _ in range(4 - len(pair)):
-            lines.append('    <td width="25%"></td>')
+        for _ in range(5 - len(pair)):
+            lines.append('    <td width="20%"></td>')
         lines.append("  </tr>")
     lines.append("</table>")
     lines.append("")
