@@ -82,7 +82,6 @@ def fetch_all_contributors(repo: str) -> list[dict[str, Any]]:
 
 
 def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
-    repo_url = f"https://github.com/{repo}"
     lines = [
         "# Contributors",
         "",
@@ -92,17 +91,33 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
         "Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project.",
         "Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.",
         "",
-        "| Name | Avatar | GitHub |",
-        "|---|---|---|",
+        "<table>",
     ]
 
-    for contributor in contributors:
-        login = contributor.get("login") or "unknown"
-        avatar_url = contributor.get("avatar_url") or ""
-        profile_url = contributor.get("html_url") or f"https://github.com/{parse.quote(login)}"
-
-        avatar_markdown = f"![{login} avatar]({avatar_url})" if avatar_url else ""
-        lines.append(f"| `{login}` | {avatar_markdown} | [@{login}]({profile_url}) |")
+    for index in range(0, len(contributors), 2):
+        pair = contributors[index : index + 2]
+        lines.append("  <tr>")
+        for contributor in pair:
+            login = contributor.get("login") or "unknown"
+            avatar_url = contributor.get("avatar_url") or ""
+            profile_url = (
+                contributor.get("html_url")
+                or f"https://github.com/{parse.quote(login)}"
+            )
+            lines.extend(
+                [
+                    '    <td align="center" width="50%">',
+                    f'      <a href="{profile_url}">',
+                    f'        <img src="{avatar_url}" width="36" alt="{login} avatar" /><br />',
+                    f"        <strong>{login}</strong>",
+                    "      </a>",
+                    "    </td>",
+                ]
+            )
+        if len(pair) == 1:
+            lines.append('    <td width="50%"></td>')
+        lines.append("  </tr>")
+    lines.append("</table>")
     lines.append("")
     return "\n".join(lines)
 

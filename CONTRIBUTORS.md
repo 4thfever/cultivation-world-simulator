@@ -6,13 +6,61 @@
 Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project.
 Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.
 
-| Name | Avatar | GitHub |
-|---|---|---|
-| `4thfever` | ![4thfever avatar](https://avatars.githubusercontent.com/u/19970391?v=4) | [@4thfever](https://github.com/4thfever) |
-| `xzhseh` | ![xzhseh avatar](https://avatars.githubusercontent.com/u/91381303?v=4) | [@xzhseh](https://github.com/xzhseh) |
-| `teps3105` | ![teps3105 avatar](https://avatars.githubusercontent.com/u/16871632?v=4) | [@teps3105](https://github.com/teps3105) |
-| `LuckVd` | ![LuckVd avatar](https://avatars.githubusercontent.com/u/37114923?v=4) | [@LuckVd](https://github.com/LuckVd) |
-| `MarkYangKp` | ![MarkYangKp avatar](https://avatars.githubusercontent.com/u/42310488?v=4) | [@MarkYangKp](https://github.com/MarkYangKp) |
-| `octo-patch` | ![octo-patch avatar](https://avatars.githubusercontent.com/u/266937838?v=4) | [@octo-patch](https://github.com/octo-patch) |
-| `Robinwhliu` | ![Robinwhliu avatar](https://avatars.githubusercontent.com/u/86167266?v=4) | [@Robinwhliu](https://github.com/Robinwhliu) |
-| `Tianrant` | ![Tianrant avatar](https://avatars.githubusercontent.com/u/260025727?v=4) | [@Tianrant](https://github.com/Tianrant) |
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://github.com/4thfever">
+        <img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="36" alt="4thfever avatar" /><br />
+        <strong>4thfever</strong>
+      </a>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://github.com/xzhseh">
+        <img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="36" alt="xzhseh avatar" /><br />
+        <strong>xzhseh</strong>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://github.com/teps3105">
+        <img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="36" alt="teps3105 avatar" /><br />
+        <strong>teps3105</strong>
+      </a>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://github.com/LuckVd">
+        <img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="36" alt="LuckVd avatar" /><br />
+        <strong>LuckVd</strong>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://github.com/MarkYangKp">
+        <img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="36" alt="MarkYangKp avatar" /><br />
+        <strong>MarkYangKp</strong>
+      </a>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://github.com/octo-patch">
+        <img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="36" alt="octo-patch avatar" /><br />
+        <strong>octo-patch</strong>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://github.com/Robinwhliu">
+        <img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="36" alt="Robinwhliu avatar" /><br />
+        <strong>Robinwhliu</strong>
+      </a>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://github.com/Tianrant">
+        <img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="36" alt="Tianrant avatar" /><br />
+        <strong>Tianrant</strong>
+      </a>
+    </td>
+  </tr>
+</table>
