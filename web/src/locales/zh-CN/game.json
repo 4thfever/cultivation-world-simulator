@@ -229,6 +229,23 @@
         "current_effects": "当前效果"
       },
       "weapon_meta": "熟练度 {value}",
+      "adjust": {
+        "entry": "调整",
+        "title": "调整{category}",
+        "current": "当前项",
+        "select": "可选列表",
+        "search_placeholder": "搜索名称、描述或效果",
+        "apply_personas": "应用特质",
+        "load_failed": "加载调整列表失败",
+        "apply_failed": "调整失败",
+        "empty_item": "当前无{label}",
+        "categories": {
+          "technique": "功法",
+          "weapon": "武器",
+          "auxiliary": "辅助装备",
+          "personas": "特质"
+        }
+      },
       "relation_meta": "对{owner}{relation}",
       "father_short": "父",
       "mother_short": "母",

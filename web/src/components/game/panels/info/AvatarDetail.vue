@@ -8,10 +8,12 @@ import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
+import AvatarAdjustPanel from './components/AvatarAdjustPanel.vue';
 import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import type { RelationInfo } from '@/types/core';
+import { logError } from '@/utils/appError';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -20,6 +22,7 @@ const props = defineProps<{
 
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
+const adjustCategory = ref<'technique' | 'weapon' | 'auxiliary' | 'personas' | null>(null);
 const showObjectiveModal = ref(false);
 const objectiveContent = ref('');
 
@@ -155,6 +158,14 @@ function showDetail(item: EffectEntity | undefined) {
   }
 }
 
+function openAdjustPanel(category: 'technique' | 'weapon' | 'auxiliary' | 'personas') {
+  adjustCategory.value = category;
+}
+
+function closeAdjustPanel() {
+  adjustCategory.value = null;
+}
+
 function jumpToAvatar(id: string) {
   uiStore.select('avatar', id);
 }
@@ -171,7 +182,7 @@ async function handleSetObjective() {
     objectiveContent.value = '';
     uiStore.refreshDetail();
   } catch (e) {
-    console.error(e);
+    logError('AvatarDetail.handleSetObjective', e);
     alert(t('game.info_panel.avatar.modals.set_failed'));
   }
 }
@@ -182,7 +193,7 @@ async function handleClearObjective() {
     await avatarApi.clearLongTermObjective(props.data.id);
     uiStore.refreshDetail();
   } catch (e) {
-    console.error(e);
+    logError('AvatarDetail.handleClearObjective', e);
   }
 }
 </script>
@@ -192,6 +203,14 @@ async function handleClearObjective() {
     <SecondaryPopup 
       :item="secondaryItem" 
       @close="secondaryItem = null" 
+    />
+    <AvatarAdjustPanel
+      :avatar-id="data.id"
+      :category="adjustCategory"
+      :current-item="adjustCategory === 'technique' ? data.technique ?? null : adjustCategory === 'weapon' ? data.weapon ?? null : adjustCategory === 'auxiliary' ? data.auxiliary ?? null : null"
+      :current-personas="adjustCategory === 'personas' ? data.personas : []"
+      @close="closeAdjustPanel"
+      @updated="uiStore.refreshDetail()"
     />
 
     <!-- Actions Bar -->
@@ -285,30 +304,46 @@ async function handleClearObjective() {
       </div>
 
       <!-- Personas -->
-      <div class="section" v-if="data.personas?.length">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
-        <TagList :tags="data.personas" @click="showDetail" />
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
+          <button class="adjust-btn" @click="openAdjustPanel('personas')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+        </div>
+        <TagList v-if="data.personas?.length" :tags="data.personas" @click="showDetail" />
+        <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.personas') }) }}</div>
       </div>
 
       <!-- Equipment & Sect -->
       <div class="section">
         <div class="section-title">{{ t('game.info_panel.avatar.sections.techniques_equipment') }}</div>
-        <EntityRow 
-          v-if="data.technique" 
-          :item="data.technique" 
-          @click="showDetail(data.technique)" 
-        />
-        <EntityRow 
-          v-if="data.weapon" 
-          :item="data.weapon" 
-          :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
-          @click="showDetail(data.weapon)" 
-        />
-        <EntityRow 
-          v-if="data.auxiliary" 
-          :item="data.auxiliary" 
-          @click="showDetail(data.auxiliary)" 
-        />
+        <div class="adjustable-row">
+          <EntityRow 
+            v-if="data.technique" 
+            :item="data.technique" 
+            @click="showDetail(data.technique)" 
+          />
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.technique') }) }}</div>
+          <button class="adjust-btn inline" @click="openAdjustPanel('technique')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+        </div>
+        <div class="adjustable-row">
+          <EntityRow 
+            v-if="data.weapon" 
+            :item="data.weapon" 
+            :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
+            @click="showDetail(data.weapon)" 
+          />
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.weapon') }) }}</div>
+          <button class="adjust-btn inline" @click="openAdjustPanel('weapon')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+        </div>
+        <div class="adjustable-row">
+          <EntityRow 
+            v-if="data.auxiliary" 
+            :item="data.auxiliary" 
+            @click="showDetail(data.auxiliary)" 
+          />
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.auxiliary') }) }}</div>
+          <button class="adjust-btn inline" @click="openAdjustPanel('auxiliary')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+        </div>
          <EntityRow 
           v-if="data.spirit_animal" 
           :item="data.spirit_animal" 
@@ -525,6 +560,13 @@ async function handleClearObjective() {
   gap: 6px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
 .section-title {
   font-size: 12px;
   font-weight: bold;
@@ -532,6 +574,38 @@ async function handleClearObjective() {
   border-bottom: 1px solid #333;
   padding-bottom: 4px;
   margin-bottom: 4px;
+}
+
+.adjustable-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.empty-row {
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #777;
+  font-size: 12px;
+}
+
+.adjust-btn {
+  border: none;
+  background: transparent;
+  color: #8a8a8a;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.adjust-btn:hover {
+  color: #cfcfcf;
+}
+
+.adjust-btn.inline {
+  white-space: nowrap;
 }
 
 .text-content {

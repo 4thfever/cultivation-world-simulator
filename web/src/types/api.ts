@@ -11,6 +11,7 @@ import type {
   AvatarDetail,
   RegionDetail,
   SectDetail,
+  EffectEntity,
 } from './core';
 
 // --- 通用响应 ---
@@ -137,6 +138,24 @@ export interface CreateAvatarParams {
   alignment?: string;
   appearance?: number;
   relations?: Array<{ target_id: string; relation: string }>;
+}
+
+export interface AvatarAdjustOptionDTO extends EffectEntity {
+  id: string;
+}
+
+export interface AvatarAdjustCatalogDTO {
+  techniques: AvatarAdjustOptionDTO[];
+  weapons: AvatarAdjustOptionDTO[];
+  auxiliaries: AvatarAdjustOptionDTO[];
+  personas: AvatarAdjustOptionDTO[];
+}
+
+export interface UpdateAvatarAdjustmentParams {
+  avatar_id: string;
+  category: 'technique' | 'weapon' | 'auxiliary' | 'personas';
+  target_id?: number | null;
+  persona_ids?: number[];
 }
 
 export interface PhenomenonDTO {

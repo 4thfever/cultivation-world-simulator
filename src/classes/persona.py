@@ -48,6 +48,7 @@ class Persona:
 
     def get_structured_info(self) -> dict:
         return {
+            "id": str(self.id),
             "name": self.name,
             "desc": self.desc,
             "key": self.key,

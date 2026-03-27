@@ -72,7 +72,7 @@ class InventoryMixin:
         """
         return self.materials.get(material, 0)
 
-    def change_weapon(self: "Avatar", new_weapon: "Weapon") -> None:
+    def change_weapon(self: "Avatar", new_weapon: Optional["Weapon"]) -> None:
         """
         更换兵器，熟练度归零，并重新计算长期效果
         

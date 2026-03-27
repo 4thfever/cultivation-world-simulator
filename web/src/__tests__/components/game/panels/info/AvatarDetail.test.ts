@@ -19,6 +19,9 @@ describe('AvatarDetail', () => {
             avatar: {
               set_objective: 'Set Objective',
               clear_objective: 'Clear Objective',
+              long_term_objective: 'Long-term Objective',
+              short_term_objective: 'Short-term Objective',
+              dead_with_reason: 'Dead ({reason})',
               stats: {
                 realm: 'Realm',
                 age: 'Age',
@@ -27,13 +30,34 @@ describe('AvatarDetail', () => {
                 gender: 'Gender',
                 alignment: 'Alignment',
                 sect: 'Sect',
+                rogue: 'Rogue',
+                official_rank: 'Official Rank',
+                sect_contribution: 'Sect Contribution',
                 root: 'Root',
                 luck: 'Luck',
                 magic_stone: 'Spirit Stone',
                 appearance: 'Appearance',
                 battle_strength: 'Battle Strength',
                 emotion: 'Emotion',
-              }
+              },
+              sections: {
+                traits: 'Traits',
+                techniques_equipment: 'Arts & Gear',
+                relations: 'Relations',
+              },
+              adjust: {
+                entry: 'Adjust',
+                empty_item: 'No {label}',
+                categories: {
+                  personas: 'Traits',
+                  technique: 'Technique',
+                  weapon: 'Weapon',
+                  auxiliary: 'Auxiliary',
+                },
+              },
+              father_short: 'Father',
+              mother_short: 'Mother',
+              mortal_realm: 'Mortal',
             }
           }
         },
@@ -87,7 +111,8 @@ describe('AvatarDetail', () => {
           EntityRow: true,
           RelationRow: true,
           TagList: true,
-          SecondaryPopup: true
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
         }
       }
     })
@@ -113,7 +138,8 @@ describe('AvatarDetail', () => {
           EntityRow: true,
           RelationRow: true,
           TagList: true,
-          SecondaryPopup: true
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
         }
       }
     })
@@ -168,6 +194,7 @@ describe('AvatarDetail', () => {
           EntityRow: true,
           TagList: true,
           SecondaryPopup: true,
+          AvatarAdjustPanel: true,
         },
       },
     })

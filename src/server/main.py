@@ -26,7 +26,7 @@ import re
 import logging
 from contextlib import asynccontextmanager
 
-from typing import List, Optional
+from typing import List, Optional, Literal
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -44,6 +44,7 @@ from src.server.assemblers.sect_detail import build_sect_detail
 from src.server.assemblers.mortal_overview import build_mortal_overview
 from src.server.assemblers.dynasty_detail import build_dynasty_detail
 from src.server.assemblers.dynasty_overview import build_dynasty_overview
+from src.server.services.avatar_adjustment import apply_avatar_adjustment, build_avatar_adjust_options
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.systems.dynasty_generator import generate_dynasty, generate_emperor
@@ -1501,6 +1502,13 @@ class CreateAvatarRequest(BaseModel):
 class DeleteAvatarRequest(BaseModel):
     avatar_id: str
 
+
+class UpdateAvatarAdjustmentRequest(BaseModel):
+    avatar_id: str
+    category: Literal["technique", "weapon", "auxiliary", "personas"]
+    target_id: Optional[int] = None
+    persona_ids: Optional[List[int]] = None
+
 @app.get("/api/meta/game_data")
 def get_game_data():
     """获取游戏元数据（宗门、个性、境界等），供前端选择"""
@@ -1574,6 +1582,12 @@ def get_game_data():
         "auxiliaries": auxiliaries_list,
         "alignments": alignments_list
     }
+
+
+@app.get("/api/meta/avatar_adjust_options")
+def get_avatar_adjust_options():
+    """获取角色详情调整面板所需的全量条目。"""
+    return build_avatar_adjust_options()
 
 @app.get("/api/meta/avatar_list")
 def get_avatar_list_simple():
@@ -1739,6 +1753,25 @@ def delete_avatar(req: DeleteAvatarRequest):
         return {"status": "ok", "message": "Avatar deleted"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/action/update_avatar_adjustment")
+def update_avatar_adjustment(req: UpdateAvatarAdjustmentRequest):
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+
+    avatar = world.avatar_manager.avatars.get(req.avatar_id)
+    if not avatar:
+        raise HTTPException(status_code=404, detail="Avatar not found")
+
+    apply_avatar_adjustment(
+        avatar,
+        category=req.category,
+        target_id=req.target_id,
+        persona_ids=req.persona_ids,
+    )
+    return {"status": "ok", "message": "Avatar adjustment applied"}
 
 
 # --- LLM Config API ---

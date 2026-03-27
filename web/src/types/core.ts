@@ -26,6 +26,8 @@ export interface EffectEntity extends EntityBase {
   type?: string;
   type_name?: string; // 新增：中文类型名，如"丹药"、"破境"等
   color?: string | number[]; // 某些实体自带颜色
+  attribute?: string;
+  key?: string;
   drops?: EffectEntity[];
   hq_name?: string;
   hq_desc?: string;

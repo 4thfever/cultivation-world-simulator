@@ -3,7 +3,9 @@ import type {
   DetailResponseDTO,
   SimpleAvatarDTO,
   CreateAvatarParams,
-  GameDataDTO
+  GameDataDTO,
+  AvatarAdjustCatalogDTO,
+  UpdateAvatarAdjustmentParams,
 } from '../../types/api';
 
 export interface HoverParams {
@@ -43,8 +45,16 @@ export const avatarApi = {
     return httpClient.get<{ avatars: SimpleAvatarDTO[] }>('/api/meta/avatar_list');
   },
 
+  fetchAvatarAdjustOptions() {
+    return httpClient.get<AvatarAdjustCatalogDTO>('/api/meta/avatar_adjust_options');
+  },
+
   createAvatar(params: CreateAvatarParams) {
     return httpClient.post<{ status: string; message: string; avatar_id: string }>('/api/action/create_avatar', params);
+  },
+
+  updateAvatarAdjustment(params: UpdateAvatarAdjustmentParams) {
+    return httpClient.post<{ status: string; message: string }>('/api/action/update_avatar_adjustment', params);
   },
 
   deleteAvatar(avatarId: string) {
