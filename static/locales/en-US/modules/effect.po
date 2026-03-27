@@ -154,6 +154,9 @@ msgstr "Plunder Gain"
 msgid "effect_extra_refine_success_rate"
 msgstr "Refine Success Rate"
 
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "Sect Mission Success Rate"
+
 msgid "effect_extra_respire_exp"
 msgstr "Respire Experience"
 

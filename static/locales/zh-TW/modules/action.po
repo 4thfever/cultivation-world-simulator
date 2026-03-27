@@ -67,6 +67,45 @@ msgstr "品味清茶，靜心養性。"
 msgid "action_temper_short_name"
 msgstr "鍛體"
 
+msgid "sect_mission_action_name"
+msgstr "宗門任務"
+
+msgid "sect_mission_description"
+msgstr "留在本宗總部承接宗門內務、巡查與鎮守等差事，數月後結算成敗與獎賞。"
+
+msgid "sect_mission_requirements"
+msgstr "必須是本宗弟子，且身處本宗總部。"
+
+msgid "sect_mission_hq_only"
+msgstr "只能在本宗總部接取宗門任務。"
+
+msgid "sect_mission_members_only"
+msgstr "只有宗門弟子才能接取宗門任務。"
+
+msgid "sect_mission_no_task_available"
+msgstr "當前宗門暫無適合你境界的任務。"
+
+msgid "sect_mission_start_headquarter"
+msgstr "{avatar} 在 {sect_name} 總部接下了「{title}」的宗門任務，預計需 {duration} 個月完成。"
+
+msgid "sect_mission_start_member_request"
+msgstr "{avatar} 受同門 {issuer} 所託，接下了「{title}」的宗門任務，預計需 {duration} 個月完成。"
+
+msgid "sect_mission_result_success"
+msgstr "{avatar} 順利完成「{title}」，獲得 {stones} 枚靈石與 {contribution} 點宗門貢獻。"
+
+msgid "sect_mission_result_fail"
+msgstr "{avatar} 執行「{title}」時失手受創，損失 {damage} 點氣血，當前氣血 {current}/{max}。"
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " 傷勢過重，當場殞命。"
+
+msgid "sect_mission_story_prompt_success"
+msgstr "圍繞這項宗門任務的具體標題展開，描寫任務過程中的細節、波折與宗門氛圍，並以成功完成為結局。任務發生地仍在宗門總部及其附屬區域。"
+
+msgid "sect_mission_story_prompt_fail"
+msgstr "圍繞這項宗門任務的具體標題展開，描寫任務過程中的細節、波折與意外，並以執行失敗、身受重傷甚至瀕死為結局。任務發生地仍在宗門總部及其附屬區域。"
+
 msgid "action_traveling"
 msgstr "遊歷"
 

@@ -18,6 +18,7 @@ class StoryEventKind(StrEnum):
     CULTIVATION_MAJOR = "cultivation_major"
     CRAFTING = "crafting"
     DAILY_SOCIAL = "daily_social"
+    SECT_MISSION = "sect_mission"
     WORLD_FORTUNE = "world_fortune"
     WORLD_MISFORTUNE = "world_misfortune"
     GATHERING = "gathering"

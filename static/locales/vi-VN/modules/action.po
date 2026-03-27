@@ -74,6 +74,45 @@ msgstr "Nếm trà ngon, dưỡng tâm tĩnh khí."
 msgid "action_temper_short_name"
 msgstr "Luyện Thể"
 
+msgid "sect_mission_action_name"
+msgstr "Nhiệm Vụ Tông Môn"
+
+msgid "sect_mission_description"
+msgstr "Ở lại tổng bộ tông môn để nhận các việc nội vụ, tuần tra và trấn thủ, rồi kết toán thành bại cùng phần thưởng sau vài tháng."
+
+msgid "sect_mission_requirements"
+msgstr "Phải là đệ tử của tông môn và đang ở tổng bộ của chính tông môn đó."
+
+msgid "sect_mission_hq_only"
+msgstr "Chỉ có thể nhận nhiệm vụ tông môn tại tổng bộ của chính tông môn mình."
+
+msgid "sect_mission_members_only"
+msgstr "Chỉ đệ tử tông môn mới có thể nhận nhiệm vụ tông môn."
+
+msgid "sect_mission_no_task_available"
+msgstr "Hiện tại tông môn không có nhiệm vụ nào phù hợp với cảnh giới của ngươi."
+
+msgid "sect_mission_start_headquarter"
+msgstr "{avatar} đã nhận nhiệm vụ tông môn \"{title}\" tại tổng bộ của {sect_name}. Dự kiến cần {duration} tháng để hoàn thành."
+
+msgid "sect_mission_start_member_request"
+msgstr "{avatar} nhận nhiệm vụ tông môn \"{title}\" theo lời nhờ của đồng môn {issuer}. Dự kiến cần {duration} tháng để hoàn thành."
+
+msgid "sect_mission_result_success"
+msgstr "{avatar} đã hoàn thành thuận lợi \"{title}\", nhận được {stones} linh thạch và {contribution} điểm cống hiến tông môn."
+
+msgid "sect_mission_result_fail"
+msgstr "{avatar} bị thương khi thi hành \"{title}\", mất {damage} HP. HP hiện tại: {current}/{max}."
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " Thương thế quá nặng, chết ngay tại chỗ."
+
+msgid "sect_mission_story_prompt_success"
+msgstr "Hãy triển khai câu chuyện xoay quanh đúng tiêu đề nhiệm vụ tông môn này, miêu tả chi tiết quá trình làm nhiệm vụ, những trắc trở và bầu không khí trong tông môn, rồi kết thúc bằng việc nhiệm vụ được hoàn thành thành công. Địa điểm vẫn nằm trong tổng bộ tông môn và các khu vực phụ thuộc của nó."
+
+msgid "sect_mission_story_prompt_fail"
+msgstr "Hãy triển khai câu chuyện xoay quanh đúng tiêu đề nhiệm vụ tông môn này, miêu tả chi tiết quá trình làm nhiệm vụ, những trắc trở và biến cố bất ngờ, rồi kết thúc bằng việc nhiệm vụ thất bại, trọng thương hoặc thậm chí cận kề cái chết. Địa điểm vẫn nằm trong tổng bộ tông môn và các khu vực phụ thuộc của nó."
+
 msgid "action_traveling"
 msgstr "Du Lịch"
 

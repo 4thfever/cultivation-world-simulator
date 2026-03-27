@@ -322,6 +322,18 @@ EXTRA_REFINE_SUCCESS_RATE = "extra_refine_success_rate"
   - 大量: 0.2+ (+20%)
 """
 
+EXTRA_SECT_MISSION_SUCCESS_RATE = "extra_sect_mission_success_rate"
+"""
+额外宗门任务成功率
+类型: float
+结算: src/classes/action/sect_mission.py
+说明: 宗门任务动作的成功率加成。
+数值参考:
+  - 微量: 0.05 (+5%)
+  - 中量: 0.1 (+10%)
+  - 大量: 0.2+ (+20%)
+"""
+
 # --- 兵器相关 ---
 EXTRA_WEAPON_PROFICIENCY_GAIN = "extra_weapon_proficiency_gain"
 """
@@ -580,6 +592,7 @@ ALL_EFFECTS = [
     # 铸造相关
     "extra_cast_success_rate",           # float - 额外铸造成功率
     "extra_refine_success_rate",         # float - 额外炼丹成功率
+    "extra_sect_mission_success_rate",   # float - 额外宗门任务成功率
 
     # 兵器相关
     "extra_weapon_proficiency_gain",     # float - 额外兵器熟练度增长倍率

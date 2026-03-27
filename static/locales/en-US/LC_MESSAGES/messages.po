@@ -75,6 +75,65 @@ msgstr "Taste fine tea and cultivate a peaceful mind."
 msgid "action_temper_short_name"
 msgstr "Body Tempering"
 
+msgid "sect_mission_action_name"
+msgstr "Sect Mission"
+
+msgid "sect_mission_description"
+msgstr ""
+"Remain at your sect headquarters to take on patrol, guard, and internal sect"
+" duties, then settle the outcome and rewards after several months."
+
+msgid "sect_mission_requirements"
+msgstr ""
+"You must be a disciple of the sect and currently at your own sect "
+"headquarters."
+
+msgid "sect_mission_hq_only"
+msgstr "Sect missions can only be accepted at your own sect headquarters."
+
+msgid "sect_mission_members_only"
+msgstr "Only sect disciples can accept sect missions."
+
+msgid "sect_mission_no_task_available"
+msgstr "There is currently no sect mission suited to your realm."
+
+msgid "sect_mission_start_headquarter"
+msgstr ""
+"{avatar} accepted the sect mission \"{title}\" at {sect_name}'s "
+"headquarters. It is expected to take {duration} months."
+
+msgid "sect_mission_start_member_request"
+msgstr ""
+"{avatar} accepted the sect mission \"{title}\" at the request of fellow "
+"disciple {issuer}. It is expected to take {duration} months."
+
+msgid "sect_mission_result_success"
+msgstr ""
+"{avatar} successfully completed \"{title}\" and received {stones} Spirit "
+"Stones and {contribution} sect contribution."
+
+msgid "sect_mission_result_fail"
+msgstr ""
+"{avatar} was injured while carrying out \"{title}\", losing {damage} HP. "
+"Current HP: {current}/{max}."
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " The injuries were fatal, and they died on the spot."
+
+msgid "sect_mission_story_prompt_success"
+msgstr ""
+"Develop the story around this specific sect mission title, describing task "
+"details, setbacks, and the sect atmosphere, and end with the mission being "
+"successfully completed. The task still takes place within the sect "
+"headquarters and its attached areas."
+
+msgid "sect_mission_story_prompt_fail"
+msgstr ""
+"Develop the story around this specific sect mission title, describing task "
+"details, setbacks, and unexpected turns, and end with mission failure, "
+"severe injury, or even near death. The task still takes place within the "
+"sect headquarters and its attached areas."
+
 msgid "action_traveling"
 msgstr "Traveling"
 
@@ -1374,6 +1433,9 @@ msgstr "Plunder Gain"
 
 msgid "effect_extra_refine_success_rate"
 msgstr "Refine Success Rate"
+
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "Sect Mission Success Rate"
 
 msgid "effect_extra_respire_exp"
 msgstr "Respire Experience"

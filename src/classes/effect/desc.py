@@ -41,6 +41,7 @@ def get_effect_desc(effect_key: str) -> str:
         "temper_duration_reduction": "effect_temper_duration_reduction",
         "extra_cast_success_rate": "effect_extra_cast_success_rate",
         "extra_refine_success_rate": "effect_extra_refine_success_rate",
+        "extra_sect_mission_success_rate": "effect_extra_sect_mission_success_rate",
         "extra_hidden_domain_drop_prob": "effect_extra_hidden_domain_drop_prob",
         "extra_hidden_domain_danger_prob": "effect_extra_hidden_domain_danger_prob",
         "extra_epiphany_probability": "effect_extra_epiphany_probability",

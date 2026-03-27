@@ -67,6 +67,45 @@ msgstr "品味清茶，静心养性。"
 msgid "action_temper_short_name"
 msgstr "锻体"
 
+msgid "sect_mission_action_name"
+msgstr "宗门任务"
+
+msgid "sect_mission_description"
+msgstr "留在本宗总部承接宗门内务、巡查与镇守等差事，数月后结算成败与奖赏。"
+
+msgid "sect_mission_requirements"
+msgstr "必须是本宗弟子，且身处本宗总部。"
+
+msgid "sect_mission_hq_only"
+msgstr "只能在本宗总部接取宗门任务。"
+
+msgid "sect_mission_members_only"
+msgstr "只有宗门弟子才能接取宗门任务。"
+
+msgid "sect_mission_no_task_available"
+msgstr "当前宗门暂无适合你境界的任务。"
+
+msgid "sect_mission_start_headquarter"
+msgstr "{avatar} 在 {sect_name} 总部接下了“{title}”的宗门任务，预计需 {duration} 个月完成。"
+
+msgid "sect_mission_start_member_request"
+msgstr "{avatar} 受同门 {issuer} 所托，接下了“{title}”的宗门任务，预计需 {duration} 个月完成。"
+
+msgid "sect_mission_result_success"
+msgstr "{avatar} 顺利完成“{title}”，获得 {stones} 枚灵石与 {contribution} 点宗门贡献。"
+
+msgid "sect_mission_result_fail"
+msgstr "{avatar} 执行“{title}”时失手受创，损失 {damage} 点气血，当前气血 {current}/{max}。"
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " 伤势过重，当场殒命。"
+
+msgid "sect_mission_story_prompt_success"
+msgstr "围绕这项宗门任务的具体标题展开，描写任务过程中的细节、波折与宗门氛围，并以成功完成为结局。任务发生地仍在宗门总部及其附属区域。"
+
+msgid "sect_mission_story_prompt_fail"
+msgstr "围绕这项宗门任务的具体标题展开，描写任务过程中的细节、波折与意外，并以执行失败、身受重伤甚至濒死为结局。任务发生地仍在宗门总部及其附属区域。"
+
 msgid "action_traveling"
 msgstr "游历"
 

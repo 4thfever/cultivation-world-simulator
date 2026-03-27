@@ -1,0 +1,14 @@
+id,title,category,issuer_type,min_duration,max_duration,allowed_realms,base_success_qi,base_success_foundation,base_success_core,base_success_nascent,reward_stone_per_month_qi,reward_stone_per_month_foundation,reward_stone_per_month_core,reward_stone_per_month_nascent,reward_contribution_per_month_qi,reward_contribution_per_month_foundation,reward_contribution_per_month_core,reward_contribution_per_month_nascent,fail_damage_ratio_qi,fail_damage_ratio_foundation,fail_damage_ratio_core,fail_damage_ratio_nascent,weight
+,任务标题,任务类别,发布来源,最短月数,最长月数,允许境界,练气基础成功率,筑基基础成功率,金丹基础成功率,元婴基础成功率,练气每月灵石,筑基每月灵石,金丹每月灵石,元婴每月灵石,练气每月贡献,筑基每月贡献,金丹每月贡献,元婴每月贡献,练气失败扣血比例,筑基失败扣血比例,金丹失败扣血比例,元婴失败扣血比例,权重
+sect_task_patrol_gate,巡逻山门,patrol,both,3,9,QI_REFINEMENT;FOUNDATION_ESTABLISHMENT,0.82,0.92,0,0,14,22,0,0,4,5,0,0,0.20,0.14,0,0,1.2
+sect_task_watch_storehouse,值守库房,guard,both,3,9,QI_REFINEMENT;FOUNDATION_ESTABLISHMENT,0.86,0.93,0,0,13,21,0,0,4,5,0,0,0.16,0.12,0,0,1.0
+sect_task_tend_herb_garden,看护药圃,errand,both,3,9,QI_REFINEMENT;FOUNDATION_ESTABLISHMENT,0.88,0.94,0,0,15,23,0,0,4,5,0,0,0.15,0.10,0,0,1.0
+sect_task_assist_deacon,协助执事,assist,member_request,3,9,QI_REFINEMENT;FOUNDATION_ESTABLISHMENT,0.80,0.91,0,0,16,24,0,0,4,6,0,0,0.18,0.13,0,0,0.9
+sect_task_calm_spirit_beast,处理灵兽骚动,investigate,both,3,9,FOUNDATION_ESTABLISHMENT;CORE_FORMATION,0,0.78,0.89,0,0,26,36,0,0,6,8,0,0,0.24,0.18,0,0.9
+sect_task_escort_supplies,护送内务物资,escort,both,3,9,FOUNDATION_ESTABLISHMENT;CORE_FORMATION,0,0.81,0.90,0,0,24,34,0,0,6,8,0,0,0.22,0.16,0,1.0
+sect_task_receive_returnees,接应归山弟子,assist,member_request,3,9,FOUNDATION_ESTABLISHMENT;CORE_FORMATION,0,0.84,0.91,0,0,22,33,0,0,5,8,0,0,0.18,0.14,0,0.8
+sect_task_maintain_array_node,护持阵眼,array,both,3,9,FOUNDATION_ESTABLISHMENT;CORE_FORMATION,0,0.74,0.88,0,0,28,40,0,0,7,9,0,0,0.28,0.20,0,1.0
+sect_task_inspect_restrictions,查验禁制,investigate,both,3,9,CORE_FORMATION;NASCENT_SOUL,0,0,0.83,0.92,0,0,42,58,0,0,9,12,0,0,0.24,0.16,1.0
+sect_task_guard_scripture_pavilion,镇守藏经阁,guard,headquarter,3,9,CORE_FORMATION;NASCENT_SOUL,0,0,0.86,0.94,0,0,40,56,0,0,8,12,0,0,0.20,0.14,0.9
+sect_task_investigate_night_anomaly,调查夜间异动,investigate,both,3,9,CORE_FORMATION;NASCENT_SOUL,0,0,0.76,0.89,0,0,45,62,0,0,10,13,0,0,0.32,0.22,1.0
+sect_task_host_law_hall,主持法堂秩序,command,headquarter,3,9,NASCENT_SOUL,0,0,0,0.93,0,0,0,60,0,0,0,12,0,0,0,0.15,0.7

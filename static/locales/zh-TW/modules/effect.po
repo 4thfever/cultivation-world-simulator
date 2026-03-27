@@ -154,6 +154,9 @@ msgstr "搜刮收益"
 msgid "effect_extra_refine_success_rate"
 msgstr "煉丹成功率"
 
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "宗門任務成功率"
+
 msgid "effect_extra_respire_exp"
 msgstr "吐納經驗"
 

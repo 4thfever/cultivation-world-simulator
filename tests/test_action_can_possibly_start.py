@@ -9,6 +9,7 @@ from src.classes.action.devour_people import DevourPeople
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.help_people import HelpPeople
 from src.classes.action.catch import Catch
+from src.classes.action.sect_mission import SectMission
 from src.classes.alignment import Alignment
 from src.classes.core.avatar import Avatar
 
@@ -127,5 +128,18 @@ def test_catch_can_possibly_start(dummy_avatar, base_world):
     
     # 百兽宗 -> True
     mock_sect.name = "百兽宗"
+    dummy_avatar.sect = mock_sect
+    assert action.can_possibly_start() is True
+
+def test_sect_mission_can_possibly_start(dummy_avatar, base_world):
+    action = SectMission(dummy_avatar, base_world)
+
+    dummy_avatar.sect = None
+    assert action.can_possibly_start() is False
+
+    mock_sect = MagicMock()
+    mock_sect.id = 1
+    mock_sect.name = "测试宗门"
+    mock_sect.members = {}
     dummy_avatar.sect = mock_sect
     assert action.can_possibly_start() is True
