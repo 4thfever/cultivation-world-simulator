@@ -1752,6 +1752,7 @@ def test_llm_connection(req: LLMSettingsUpdate):
             base_url=profile.base_url,
             api_key=api_key,
             model_name=profile.model_name,
+            api_format=profile.api_format,
         )
 
         success, error_msg = test_connectivity(config=config)

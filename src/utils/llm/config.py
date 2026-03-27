@@ -19,21 +19,22 @@ class LLMConfig:
     model_name: str
     api_key: str
     base_url: str
-    
+    api_format: str = "openai"  # "openai" 或 "anthropic"
+
     @classmethod
     def from_mode(cls, mode: LLMMode) -> 'LLMConfig':
         """
         根据模式创建配置，从 CONFIG 读取
-        
+
         Args:
             mode: LLM 调用模式
-            
+
         Returns:
             LLMConfig: 配置对象
         """
         profile, api_key = get_settings_service().get_llm_runtime_config()
         base_url = profile.base_url
-        
+
         # 根据模式选择模型
         model_name = ""
         if mode == LLMMode.FAST:
@@ -41,11 +42,12 @@ class LLMConfig:
         else:
             # NORMAL or DEFAULT fallback
             model_name = profile.model_name
-        
+
         return cls(
             model_name=model_name,
             api_key=api_key,
-            base_url=base_url
+            base_url=base_url,
+            api_format=getattr(profile, 'api_format', 'openai')
         )
 
 

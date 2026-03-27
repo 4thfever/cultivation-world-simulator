@@ -22,7 +22,8 @@
     "normal_model": "Normal Model (Normal)",
     "fast_model": "Fast Model (Fast)",
     "max_concurrent_requests": "Max Concurrent Requests",
-    "what_is_api": "What is API / How to get?"
+    "what_is_api": "What is API / How to get?",
+    "api_format": "API Format"
   },
   "descs": {
     "normal_model": "Used for complex logic, story generation, etc.",
@@ -44,6 +45,12 @@
     "fast": "Fast (Fast)",
     "fast_desc": "Use fast model for all tasks"
   },
+  "formats": {
+    "openai": "OpenAI Compatible",
+    "openai_desc": "Supported by most providers",
+    "anthropic": "Anthropic Native",
+    "anthropic_desc": "Direct Anthropic Claude API"
+  },
   "actions": {
     "testing": "Testing connection...",
     "test_and_save": "Test Connectivity and Save"
@@ -58,7 +65,7 @@
     "q2_gemini": "Produced by Google, top-tier comprehensive performance.",
     "q3_title": "📝 3. How to fill configuration?",
     "q3_content": "Once you have an API, you need to fill in these three core parameters. Usually, you can find them in the provider's documentation:",
-    "q3_format_note": "⚠️ Important: This game only supports OpenAI-compatible API format. Services that don't support OpenAI-compatible format cannot be used. We recommend using the presets (they are all confirmed compatible). If you want to use other services, please confirm they provide OpenAI-compatible interfaces.",
+    "q3_format_note": "⚠️ Note: This game supports both OpenAI-compatible and Anthropic native API formats. Most providers use the OpenAI-compatible format; if connecting directly to Anthropic API, select 'Anthropic Native' in the API Format option. We recommend using the presets.",
     "q3_base_url": "API Base URL: The entry point to AI, usually provided by the vendor (e.g., https://api.deepseek.com).",
     "q3_api_key": "API Key: Your identity credential, like an account password.",
     "q3_model_name": "Model Name: Tell the server which 'brain' to use, e.g., deepseek-chat or gemini-3-flash-preview.",
@@ -78,7 +85,8 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama (Local)"
+    "ollama": "Ollama (Local)",
+    "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "Rec",
