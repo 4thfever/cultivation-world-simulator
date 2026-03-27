@@ -96,6 +96,7 @@ class Avatar(
     alignment: Alignment | None = None
     sect: Sect | None = None
     sect_rank: "SectRank | None" = None
+    sect_contribution: int = 0
     base_appearance: Appearance = field(default_factory=get_random_appearance)
     weapon: Optional[Weapon] = None
     weapon_proficiency: float = 0.0
@@ -303,6 +304,7 @@ class Avatar(
             self.leave_sect()
         self.sect = sect
         self.sect_rank = rank
+        self.sect_contribution = 0
         sect.add_member(self)
         
     def leave_sect(self) -> None:
@@ -311,6 +313,23 @@ class Avatar(
             self.sect.remove_member(self)
             self.sect = None
             self.sect_rank = None
+            self.sect_contribution = 0
+
+    def add_sect_contribution(self, amount: int) -> int:
+        """
+        为当前宗门累积贡献点。
+        贡献点只在有宗门时生效，且不会因负数调用而减少。
+        """
+        if self.sect is None:
+            return 0
+        try:
+            delta = int(amount)
+        except (TypeError, ValueError):
+            return 0
+        if delta <= 0:
+            return 0
+        self.sect_contribution = max(0, int(getattr(self, "sect_contribution", 0) or 0) + delta)
+        return delta
 
     def get_sect_str(self) -> str:
         """获取宗门显示名：有宗门则返回"宗门名+职位"，否则返回"散修"。"""

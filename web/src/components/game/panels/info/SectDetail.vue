@@ -210,7 +210,7 @@ function getDiplomacySub(item: DiplomacyItem) {
                :key="m.id"
                :name="m.name"
                :meta="m.rank"
-               :sub="m.realm"
+               :sub="`${m.realm} · ${t('game.info_panel.avatar.stats.sect_contribution')} ${m.contribution ?? 0}`"
                @click="jumpToAvatar(m.id)"
              />
           </div>

@@ -141,6 +141,25 @@ class SectTeachingConference(Gathering):
             is_major=False
         )
         events.append(summary_event)
+
+        contribution_gain = 20 + len(students) * 10 + len(epiphany_students) * 15
+        actual_gain = teacher.add_sect_contribution(contribution_gain)
+        if actual_gain > 0:
+            events.append(
+                Event(
+                    month_stamp=world.month_stamp,
+                    content=t(
+                        "{teacher_name} 于传道大会中授业解惑，为 {sect_name} 赢得 {amount} 点宗门贡献。",
+                        teacher_name=teacher.name,
+                        sect_name=sect.name,
+                        amount=actual_gain,
+                    ),
+                    related_avatars=[teacher.id],
+                    related_sects=[int(sect.id)],
+                    is_story=False,
+                    is_major=False,
+                )
+            )
         
         # 生成经验获得事件
         for student, exp in exp_gains:

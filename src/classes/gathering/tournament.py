@@ -132,6 +132,28 @@ class Tournament(Gathering):
             
             # Reward
             final_winner.magic_stone += reward
+            contribution_gain = {
+                "heaven": 120,
+                "earth": 80,
+                "human": 50,
+            }.get(list_name, 50)
+            if getattr(final_winner, "sect", None) is not None:
+                actual_gain = final_winner.add_sect_contribution(contribution_gain)
+                if actual_gain > 0:
+                    events.append(
+                        Event(
+                            world.month_stamp,
+                            t(
+                                "{winner} 以武道会夺魁之功，为 {sect_name} 赢得 {amount} 点宗门贡献。",
+                                winner=final_winner.name,
+                                sect_name=final_winner.sect.name,
+                                amount=actual_gain,
+                            ),
+                            related_avatars=[final_winner.id],
+                            related_sects=[int(final_winner.sect.id)],
+                            is_major=False,
+                        )
+                    )
             final_winner.temporary_effects.append({
                 "source": f"tournament_{list_name}",
                 "effects": {

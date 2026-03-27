@@ -144,6 +144,7 @@ class AvatarLoadMixin:
         sect_rank_value = data.get("sect_rank")
         if sect_rank_value is not None:
             avatar.sect_rank = SectRank(sect_rank_value)
+        avatar.sect_contribution = max(0, int(data.get("sect_contribution", 0) or 0))
         
         alignment_name = data.get("alignment")
         if alignment_name is not None:

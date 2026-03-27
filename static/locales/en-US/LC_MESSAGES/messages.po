@@ -1526,6 +1526,23 @@ msgstr ""
 msgid "game.sect_thinking_event"
 msgstr "{sect_name} sect's thinking: {thinking}"
 
+msgid "{winner} 以武道会夺魁之功，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgstr ""
+"{winner} won the martial tournament championship and earned {amount} sect "
+"contribution for {sect_name}."
+
+msgid "{teacher_name} 于传道大会中授业解惑，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgstr ""
+"{teacher_name} taught and guided others at the preaching conference, earning"
+" {amount} sect contribution for {sect_name}."
+
+msgid ""
+"{winner_name} distinguished themselves in sect war and earned {amount} sect "
+"contribution for {sect_name}."
+msgstr ""
+"{winner_name} distinguished themselves in sect war and earned {amount} sect "
+"contribution for {sect_name}."
+
 msgid "Game automatically saved"
 msgstr "Game automatically saved"
 

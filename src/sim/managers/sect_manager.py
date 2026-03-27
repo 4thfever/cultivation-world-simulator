@@ -382,10 +382,11 @@ class SectManager:
         from src.i18n import t
 
         for sect in active_sects:
+            sect.refresh_member_ranks()
             raw_income = income_by_sect_id.get(sect.id, 0.0)
             income = int(raw_income)
-            upkeep_total, _upkeep_breakdown = sect.estimate_yearly_member_upkeep()
-            net_change = income - upkeep_total
+            stipend_total, _stipend_breakdown = sect.estimate_yearly_member_upkeep()
+            net_change = income - stipend_total
 
             for avatar in getattr(sect, "members", {}).values():
                 if getattr(avatar, "is_dead", False):
@@ -397,7 +398,7 @@ class SectManager:
                 "game.sect_update_event",
                 sect_name=sect.name,
                 income=income,
-                upkeep=upkeep_total,
+                upkeep=stipend_total,
                 net_change=net_change,
             )
 

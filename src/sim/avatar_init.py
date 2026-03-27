@@ -86,6 +86,13 @@ INITIAL_COURT_REPUTATION_RANGE_BY_REALM: dict[Realm, tuple[int, int]] = {
     Realm.Nascent_Soul: (600, 1150),
 }
 
+INITIAL_SECT_CONTRIBUTION_RANGE_BY_RANK: dict[str, tuple[int, int]] = {
+    "outer": (0, 60),
+    "inner": (20, 120),
+    "elder": (80, 240),
+    "patriarch": (150, 400),
+}
+
 
 def _weighted_random_choice(weights: dict[str, int]) -> str:
     total = sum(max(0, weight) for weight in weights.values())
@@ -261,6 +268,16 @@ def _assign_initial_official_status(avatar: Avatar) -> None:
     _old_rank, new_rank = resolve_rank_changes(avatar)
     if new_rank != OFFICIAL_NONE:
         avatar.recalc_effects()
+
+
+def _assign_initial_sect_contribution(avatar: Avatar) -> None:
+    if getattr(avatar, "sect", None) is None or getattr(avatar, "sect_rank", None) is None:
+        avatar.sect_contribution = 0
+        return
+
+    rank_key = str(getattr(avatar.sect_rank, "value", "") or "outer")
+    low, high = INITIAL_SECT_CONTRIBUTION_RANGE_BY_RANK.get(rank_key, (0, 60))
+    avatar.sect_contribution = random.randint(low, high)
 
 
 def _roll_cultivation_start_month(
@@ -858,6 +875,7 @@ class AvatarFactory:
             )
 
         SectRankAssigner.assign_one(avatar, world)
+        _assign_initial_sect_contribution(avatar)
         EquipmentAllocator.assign_weapon(avatar)
         EquipmentAllocator.assign_auxiliary(avatar)
 
@@ -1012,6 +1030,9 @@ class AvatarFactory:
             avatars_by_id[avatar.id] = avatar
 
         SectRankAssigner.assign_batch(avatars_by_index, world)
+        for avatar in avatars_by_index:
+            if avatar is not None:
+                _assign_initial_sect_contribution(avatar)
         planned_friendliness = _plan_group_initial_friendliness(avatars_by_index, constrained_relations)
         RelationApplier.apply(avatars_by_index, constrained_relations, planned_friendliness)
 

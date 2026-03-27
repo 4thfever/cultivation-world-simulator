@@ -89,6 +89,7 @@ class AvatarSaveMixin:
             "relations": relations_dict,
             "sect_id": self.sect.id if self.sect else None,
             "sect_rank": self.sect_rank.value if self.sect_rank else None,
+            "sect_contribution": int(getattr(self, "sect_contribution", 0) or 0),
             "alignment": self.alignment.name if self.alignment else None,
             "persona_ids": [p.id for p in self.personas] if self.personas else [],
             "official_rank": self.official_rank,

@@ -73,6 +73,7 @@ export interface AvatarDetail extends EntityBase {
   court_reputation?: number;
   is_official?: boolean;
   magic_stone: number;
+  sect_contribution: number;
   base_battle_strength: number;
   ranking?: { type: string; rank: number };
   
@@ -135,6 +136,7 @@ export interface SectInfo extends EffectEntity {
   hq_name: string;
   hq_desc: string;
   rank: string;
+  contribution?: number;
 }
 
 export interface SectMember {
@@ -144,6 +146,9 @@ export interface SectMember {
   gender: string;
   rank: string;
   realm: string;
+  contribution?: number;
+  base_battle_strength?: number;
+  status_score?: number;
 }
 
 export interface SectDetail extends EntityBase {

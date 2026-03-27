@@ -147,31 +147,17 @@ def should_auto_promote(old_realm: "Realm", new_realm: "Realm") -> bool:
 
 def check_and_promote_sect_rank(avatar: "Avatar", old_realm: "Realm", new_realm: "Realm") -> None:
     """
-    检查境界突破后是否需要晋升宗门职位，并执行晋升
+    检查境界突破后是否需要晋升宗门职位。
+
+    当前版本中，宗门职位的主逻辑由“贡献点 + 战力”年度重排决定，
+    因此这里不再在突破瞬间直接改职，只保留接口以兼容旧调用点。
     
     Args:
         avatar: 要检查的角色
         old_realm: 旧境界
         new_realm: 新境界
     """
-    # 无宗门或无职位，不需要晋升
-    if avatar.sect is None or avatar.sect_rank is None:
-        return
-    
-    # 检查是否应该晋升
-    if not should_auto_promote(old_realm, new_realm):
-        return
-    
-    new_rank = get_rank_from_realm(new_realm)
-    
-    # 如果新职位是掌门，需要检查该宗门是否已有掌门
-    if new_rank == SectRank.Patriarch:
-        if sect_has_patriarch(avatar):
-            # 已有掌门，只能晋升为长老
-            new_rank = SectRank.Elder
-    
-    # 执行晋升
-    avatar.sect_rank = new_rank
+    return
 
 
 def sect_has_patriarch(avatar: "Avatar") -> bool:

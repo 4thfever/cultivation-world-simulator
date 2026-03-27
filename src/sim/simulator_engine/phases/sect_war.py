@@ -3,6 +3,7 @@ from __future__ import annotations
 from src.classes.event import Event
 from src.classes.observe import is_within_observation
 from src.systems.battle import decide_battle, get_effective_strength_pair, handle_battle_finish
+from src.i18n import t
 
 
 def _pair_key(a_id: str, b_id: str) -> tuple[str, str]:
@@ -94,6 +95,24 @@ async def phase_handle_sect_wars(simulator, living_avatars) -> list[Event]:
                 event.related_sects = [int(attacker_sect.id), int(defender_sect.id)]
             events.extend(war_events)
             world.record_sect_battle(int(attacker_sect.id), int(defender_sect.id))
+
+            contribution_gain = 40 if getattr(loser, "is_dead", False) else 25
+            actual_gain = winner.add_sect_contribution(contribution_gain)
+            if actual_gain > 0 and getattr(winner, "sect", None) is not None:
+                events.append(
+                    Event(
+                        month_stamp=world.month_stamp,
+                        content=t(
+                            "{winner_name} distinguished themselves in sect war and earned {amount} sect contribution for {sect_name}.",
+                            winner_name=winner.name,
+                            amount=actual_gain,
+                            sect_name=winner.sect.name,
+                        ),
+                        related_avatars=[winner.id],
+                        related_sects=[int(attacker_sect.id), int(defender_sect.id)],
+                        is_major=False,
+                    )
+                )
 
             if not getattr(loser, "is_dead", False) and _teleport_avatar_to_sect_headquarter(loser, sect_manager):
                 events.append(

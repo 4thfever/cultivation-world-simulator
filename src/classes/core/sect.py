@@ -145,6 +145,7 @@ class Sect(SectEffectsMixin):
         from src.i18n import t
         from src.classes.sect_ranks import RANK_ORDER
         from src.classes.technique import techniques_by_name
+        status_snapshot_by_avatar = self._build_member_status_snapshot_map()
         
         # 成员列表：直接从 self.members 获取
         members_list = []
@@ -153,6 +154,7 @@ class Sect(SectEffectsMixin):
             sort_val = 999
             if rank_enum and rank_enum in RANK_ORDER:
                 sort_val = RANK_ORDER[rank_enum]
+            member_status = status_snapshot_by_avatar.get(str(getattr(a, "id", "")), {})
                 
             members_list.append({
                 "id": str(a.id),
@@ -162,10 +164,13 @@ class Sect(SectEffectsMixin):
                 "gender": a.gender.value if hasattr(a.gender, "value") else "male",
                 "rank": a.get_sect_rank_name(),
                 "realm": a.cultivation_progress.get_info() if hasattr(a, 'cultivation_progress') else t("Unknown"),
-                "_sort_val": sort_val
+                "contribution": int(member_status.get("sect_contribution", 0) or 0),
+                "base_battle_strength": int(member_status.get("base_battle_strength", 0) or 0),
+                "status_score": float(member_status.get("status_score", 0.0) or 0.0),
+                "_sort_val": sort_val,
             })
         # 按职位排序
-        members_list.sort(key=lambda x: x["_sort_val"])
+        members_list.sort(key=lambda x: (x["_sort_val"], -x["contribution"], -x["status_score"], x["name"]))
         # 清理排序字段
         for m in members_list:
             del m["_sort_val"]
@@ -320,6 +325,153 @@ class Sect(SectEffectsMixin):
             total += cost
 
         return total, breakdown
+
+    def _get_status_normalization_context(self) -> dict[str, float]:
+        from src.systems.battle import get_base_strength
+
+        living_members = [
+            avatar
+            for avatar in getattr(self, "members", {}).values()
+            if not getattr(avatar, "is_dead", False)
+        ]
+        max_contribution = max(
+            (int(getattr(avatar, "sect_contribution", 0) or 0) for avatar in living_members),
+            default=0,
+        )
+        max_battle_strength = max(
+            (float(get_base_strength(avatar)) for avatar in living_members),
+            default=0.0,
+        )
+        return {
+            "max_contribution": float(max(1, max_contribution)),
+            "max_battle_strength": float(max(1.0, max_battle_strength)),
+        }
+
+    def get_member_status_score(
+        self,
+        avatar: "Avatar",
+        *,
+        max_contribution: float | None = None,
+        max_battle_strength: float | None = None,
+    ) -> float:
+        from src.systems.battle import get_base_strength
+
+        normalization = None
+        if max_contribution is None or max_battle_strength is None:
+            normalization = self._get_status_normalization_context()
+        contribution_ceiling = float(max_contribution if max_contribution is not None else normalization["max_contribution"])
+        strength_ceiling = float(
+            max_battle_strength if max_battle_strength is not None else normalization["max_battle_strength"]
+        )
+
+        contribution = max(0, int(getattr(avatar, "sect_contribution", 0) or 0))
+        battle_strength = max(0.0, float(get_base_strength(avatar)))
+        contribution_ratio = contribution / contribution_ceiling if contribution_ceiling > 0 else 0.0
+        battle_ratio = battle_strength / strength_ceiling if strength_ceiling > 0 else 0.0
+        return contribution_ratio * 70.0 + battle_ratio * 30.0
+
+    def get_member_status_snapshot(self, avatar: "Avatar") -> dict[str, float | int]:
+        from src.systems.battle import get_base_strength
+
+        normalization = self._get_status_normalization_context()
+        battle_strength = max(0.0, float(get_base_strength(avatar)))
+        return {
+            "sect_contribution": max(0, int(getattr(avatar, "sect_contribution", 0) or 0)),
+            "base_battle_strength": int(battle_strength),
+            "status_score": round(
+                self.get_member_status_score(
+                    avatar,
+                    max_contribution=normalization["max_contribution"],
+                    max_battle_strength=normalization["max_battle_strength"],
+                ),
+                2,
+            ),
+        }
+
+    def _build_member_status_snapshot_map(self) -> dict[str, dict[str, float | int]]:
+        normalization = self._get_status_normalization_context()
+        result: dict[str, dict[str, float | int]] = {}
+        for avatar in getattr(self, "members", {}).values():
+            if getattr(avatar, "is_dead", False):
+                continue
+            result[str(getattr(avatar, "id", ""))] = {
+                **self.get_member_status_snapshot_with_normalization(
+                    avatar,
+                    max_contribution=normalization["max_contribution"],
+                    max_battle_strength=normalization["max_battle_strength"],
+                )
+            }
+        return result
+
+    def get_member_status_snapshot_with_normalization(
+        self,
+        avatar: "Avatar",
+        *,
+        max_contribution: float,
+        max_battle_strength: float,
+    ) -> dict[str, float | int]:
+        from src.systems.battle import get_base_strength
+
+        battle_strength = max(0.0, float(get_base_strength(avatar)))
+        return {
+            "sect_contribution": max(0, int(getattr(avatar, "sect_contribution", 0) or 0)),
+            "base_battle_strength": int(battle_strength),
+            "status_score": round(
+                self.get_member_status_score(
+                    avatar,
+                    max_contribution=max_contribution,
+                    max_battle_strength=max_battle_strength,
+                ),
+                2,
+            ),
+        }
+
+    def get_living_members_sorted_by_status(self) -> list["Avatar"]:
+        normalization = self._get_status_normalization_context()
+
+        def _sort_key(avatar: "Avatar") -> tuple[float, int, str]:
+            return (
+                -self.get_member_status_score(
+                    avatar,
+                    max_contribution=normalization["max_contribution"],
+                    max_battle_strength=normalization["max_battle_strength"],
+                ),
+                -max(0, int(getattr(avatar, "sect_contribution", 0) or 0)),
+                str(getattr(avatar, "name", "") or ""),
+            )
+
+        living_members = [
+            avatar
+            for avatar in getattr(self, "members", {}).values()
+            if not getattr(avatar, "is_dead", False)
+        ]
+        return sorted(living_members, key=_sort_key)
+
+    def refresh_member_ranks(self) -> None:
+        from src.classes.sect_ranks import SectRank
+
+        members = self.get_living_members_sorted_by_status()
+        count = len(members)
+        if count <= 0:
+            return
+
+        elder_quota = 0
+        if count >= 4:
+            elder_quota = max(1, count // 6)
+        inner_quota = 0
+        if count >= 2:
+            inner_quota = max(1, count // 3)
+        inner_quota = min(inner_quota, max(0, count - 1 - elder_quota))
+
+        for index, avatar in enumerate(members):
+            if index == 0:
+                avatar.sect_rank = SectRank.Patriarch
+            elif index <= elder_quota:
+                avatar.sect_rank = SectRank.Elder
+            elif index <= elder_quota + inner_quota:
+                avatar.sect_rank = SectRank.InnerDisciple
+            else:
+                avatar.sect_rank = SectRank.OuterDisciple
 
 
 def get_sect_member_upkeep_by_realm() -> dict[Realm, int]:

@@ -378,7 +378,20 @@ class SectDecider:
         reward_ids: set[str] | None,
         support_ids: set[str] | None,
     ) -> None:
-        for avatar in list(getattr(sect, "members", {}).values()):
+        sorted_members = sect.get_living_members_sorted_by_status()
+        if support_ids is None:
+            support_limit = max(1, int(getattr(CONFIG.sect, "support_top_n_per_cycle", 2) or 2))
+            support_candidates = [
+                avatar
+                for avatar in sorted_members
+                if int(getattr(getattr(avatar, "magic_stone", None), "value", 0)) < support_amount
+            ]
+            support_ids = {
+                str(getattr(avatar, "id", ""))
+                for avatar in support_candidates[:support_limit]
+            }
+
+        for avatar in sorted_members:
             if getattr(avatar, "is_dead", False):
                 continue
 

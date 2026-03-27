@@ -263,6 +263,7 @@ async function handleClearObjective() {
         />
         <StatItem :label="t('game.info_panel.avatar.stats.luck')" :value="data.luck" />
         <StatItem :label="t('game.info_panel.avatar.stats.magic_stone')" :value="data.magic_stone" />
+        <StatItem :label="t('game.info_panel.avatar.stats.sect_contribution')" :value="data.sect_contribution ?? 0" />
         <StatItem :label="t('game.info_panel.avatar.stats.appearance')" :value="data.appearance" />
         <StatItem :label="t('game.info_panel.avatar.stats.battle_strength')" :value="data.base_battle_strength" />
         <StatItem 

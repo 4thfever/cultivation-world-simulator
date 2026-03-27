@@ -1529,6 +1529,23 @@ msgstr ""
 msgid "game.sect_thinking_event"
 msgstr "Suy tư của tông môn {sect_name}: {thinking}"
 
+msgid "{winner} 以武道会夺魁之功，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgstr ""
+"{winner} đoạt quán quân đại hội luận võ, mang về {amount} điểm cống hiến "
+"tông môn cho {sect_name}."
+
+msgid "{teacher_name} 于传道大会中授业解惑，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgstr ""
+"{teacher_name} giảng đạo truyền pháp trong đại hội truyền đạo, mang về "
+"{amount} điểm cống hiến tông môn cho {sect_name}."
+
+msgid ""
+"{winner_name} distinguished themselves in sect war and earned {amount} sect "
+"contribution for {sect_name}."
+msgstr ""
+"{winner_name} lập chiến công trong chiến tranh tông môn và giành được "
+"{amount} điểm cống hiến tông môn cho {sect_name}."
+
 msgid "Game automatically saved"
 msgstr "Trò chơi đã tự động lưu"
 

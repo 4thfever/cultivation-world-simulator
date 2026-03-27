@@ -258,6 +258,7 @@ def build_sect_decision_context(
                 "technique_grade": _technique_grade_text(avatar),
                 "technique_grade_rank": _technique_grade_rank(avatar),
                 "is_rule_breaker": bool(sect.is_member_rule_breaker(avatar)),
+                **sect.get_member_status_snapshot(avatar),
                 "detailed_info": avatar.get_info(detailed=True),
                 "governance_summary": _build_governance_summary(avatar),
             }
@@ -274,8 +275,9 @@ def build_sect_decision_context(
     member_candidates.sort(
         key=lambda item: (
             0 if item["is_rule_breaker"] else 1,
-            item["technique_grade_rank"],
-            item["magic_stone"],
+            -float(item.get("status_score", 0.0) or 0.0),
+            -int(item.get("sect_contribution", 0) or 0),
+            -int(item.get("base_battle_strength", 0) or 0),
             item["name"],
         )
     )
