@@ -236,6 +236,7 @@
         "select": "可选列表",
         "search_placeholder": "搜索名称、描述或效果",
         "apply_personas": "应用特质",
+        "apply_success": "调整成功",
         "load_failed": "加载调整列表失败",
         "apply_failed": "调整失败",
         "empty_item": "当前无{label}",

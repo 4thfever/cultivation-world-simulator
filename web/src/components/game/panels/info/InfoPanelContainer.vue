@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import { onClickOutside } from '@vueuse/core';
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
 import { useUiStore } from '../../../../stores/ui';
 import { useI18n } from 'vue-i18n';
 
@@ -61,13 +60,31 @@ function close() {
   showNicknameReason.value = false;
 }
 
-// 使用 vueuse 的 onClickOutside 替代原生监听
-onClickOutside(panelRef, () => {
-  // Prevent closing immediately after opening if click propagated
+function handleDocumentPointerDown(event: PointerEvent) {
   const now = performance.now();
   if (now - lastOpenAt < 100) return;
-  
+
+  const target = event.target as Node | null;
+  if (!target) return;
+
+  const panelEl = panelRef.value;
+  if (panelEl?.contains(target)) return;
+
+  const adjustPanel = document.querySelector('.adjust-panel');
+  if (adjustPanel?.contains(target)) return;
+
+  const secondaryPanel = document.querySelector('.secondary-panel');
+  if (secondaryPanel?.contains(target)) return;
+
   close();
+}
+
+onMounted(() => {
+  document.addEventListener('pointerdown', handleDocumentPointerDown);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('pointerdown', handleDocumentPointerDown);
 });
 
 // Record open time to prevent immediate close

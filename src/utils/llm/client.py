@@ -1,11 +1,11 @@
 """LLM 客户端核心调用逻辑"""
 
 import json
+import urllib.request
+import urllib.error
 import asyncio
 from pathlib import Path
 from typing import Optional
-
-import requests as _requests
 
 from src.config import get_settings_service
 from src.run.log import log_llm_call
@@ -36,7 +36,7 @@ def _get_semaphore() -> asyncio.Semaphore:
 
 
 def _call_openai(config: LLMConfig, prompt: str) -> str:
-    """使用 requests 库调用 (OpenAI 兼容接口)"""
+    """使用原生 urllib 调用 (OpenAI 兼容接口)"""
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}",
@@ -56,17 +56,23 @@ def _call_openai(config: LLMConfig, prompt: str) -> str:
         url = url.rstrip("/")
         url = f"{url}/chat/completions"
 
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(data).encode("utf-8"),
+        headers=headers,
+        method="POST"
+    )
+
     try:
-        resp = _requests.post(url, json=data, headers=headers, timeout=120)
-        resp.raise_for_status()
-        result = resp.json()
-        return result['choices'][0]['message']['content']
-    except _requests.exceptions.HTTPError as e:
-        error_body = e.response.text if e.response is not None else str(e)
-        status_code = e.response.status_code if e.response is not None else 0
-        raise Exception(f"HTTP_{status_code}::{error_body}")
-    except (_requests.exceptions.ConnectionError, _requests.exceptions.Timeout) as e:
-        raise Exception(f"NETWORK_ERROR::{str(e)}")
+        with urllib.request.urlopen(req, timeout=120) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            return result["choices"][0]["message"]["content"]
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode("utf-8")
+        raise Exception(f"HTTP_{e.code}::{error_body}")
+    except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+        reason = getattr(e, "reason", str(e))
+        raise Exception(f"NETWORK_ERROR::{reason}")
     except Exception as e:
         if str(e).startswith(("HTTP_", "NETWORK_ERROR::")):
             raise
@@ -74,7 +80,7 @@ def _call_openai(config: LLMConfig, prompt: str) -> str:
 
 
 def _call_anthropic(config: LLMConfig, prompt: str) -> str:
-    """使用 requests 库调用 (Anthropic 原生接口)"""
+    """使用原生 urllib 调用 (Anthropic 原生接口)"""
     headers = {
         "Content-Type": "application/json",
         "x-api-key": config.api_key,
@@ -98,21 +104,27 @@ def _call_anthropic(config: LLMConfig, prompt: str) -> str:
             url = f"{url}/v1"
         url = f"{url}/messages"
 
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(data).encode("utf-8"),
+        headers=headers,
+        method="POST"
+    )
+
     try:
-        resp = _requests.post(url, json=data, headers=headers, timeout=120)
-        resp.raise_for_status()
-        result = resp.json()
+        with urllib.request.urlopen(req, timeout=120) as response:
+            result = json.loads(response.read().decode("utf-8"))
         # Anthropic 响应格式: {"content": [{"type": "text", "text": "..."}]}
-        for block in result.get('content', []):
-            if block.get('type') == 'text':
-                return block['text']
+        for block in result.get("content", []):
+            if block.get("type") == "text":
+                return block["text"]
         raise Exception("UNKNOWN_ERROR::Anthropic 响应中未找到 text 内容")
-    except _requests.exceptions.HTTPError as e:
-        error_body = e.response.text if e.response is not None else str(e)
-        status_code = e.response.status_code if e.response is not None else 0
-        raise Exception(f"HTTP_{status_code}::{error_body}")
-    except (_requests.exceptions.ConnectionError, _requests.exceptions.Timeout) as e:
-        raise Exception(f"NETWORK_ERROR::{str(e)}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode("utf-8")
+        raise Exception(f"HTTP_{e.code}::{error_body}")
+    except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+        reason = getattr(e, "reason", str(e))
+        raise Exception(f"NETWORK_ERROR::{reason}")
     except Exception as e:
         if str(e).startswith(("HTTP_", "NETWORK_ERROR::", "UNKNOWN_ERROR::")):
             raise

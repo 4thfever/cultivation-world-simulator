@@ -52,6 +52,13 @@ const presets = computed(() => [
     badge: 'recommended'
   },
   {
+    name: t('llm.presets.openai'),
+    base_url: 'https://api.openai.com/v1',
+    model_name: 'gpt-4o',
+    fast_model_name: 'gpt-4o-mini',
+    api_format: 'openai'
+  },
+  {
     name: t('llm.presets.anthropic'),
     base_url: 'https://api.anthropic.com',
     model_name: 'claude-sonnet-4-20250514',
@@ -73,13 +80,6 @@ const presets = computed(() => [
     fast_model_name: 'llama3.1-8b',
     api_format: 'openai',
     badge: 'free'
-  },
-  {
-    name: t('llm.presets.openai'),
-    base_url: 'https://api.openai.com/v1',
-    model_name: 'gpt-4o',
-    fast_model_name: 'gpt-4o-mini',
-    api_format: 'openai'
   },
   {
     name: t('llm.presets.deepseek'),
@@ -556,21 +556,21 @@ onMounted(() => {
 .format-options {
   display: flex;
   flex-direction: row;
-  gap: 0.8em;
+  gap: 0.5em;
 }
 
 .format-radio {
-  flex: 1;
   display: flex;
   background: #222;
   border: 1px solid #333;
-  padding: 0.6em 0.8em;
+  padding: 0.35em 0.65em;
   border-radius: 0.3em;
   cursor: pointer;
   transition: all 0.2s;
   text-align: center;
   flex-direction: column;
   align-items: center;
+  min-width: 0;
 }
 
 .format-radio:hover {
@@ -580,6 +580,24 @@ onMounted(() => {
 .format-radio.active {
   background: #1a2a3a;
   border-color: #4a9eff;
+}
+
+.format-options .radio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12em;
+}
+
+.format-options .radio-label {
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.format-options .radio-desc {
+  font-size: 0.72em;
+  color: #8d8d8d;
+  line-height: 1.2;
 }
 
 .mode-options.horizontal {

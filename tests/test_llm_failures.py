@@ -435,6 +435,29 @@ class TestConnectivityTest:
         # Should return the raw error message.
         assert "Some weird error xyz123" in error
 
+    def test_connectivity_extracts_anthropic_error_message(self):
+        """Test connectivity parses Anthropic native error payloads."""
+        http_error = make_http_error(
+            url="https://api.anthropic.com/v1/messages",
+            code=401,
+            msg="Unauthorized",
+            body=b'{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}'
+        )
+
+        mock_config = LLMConfig(
+            model_name="claude-sonnet-4-20250514",
+            api_key="invalid-key",
+            base_url="https://api.anthropic.com",
+            api_format="anthropic",
+        )
+
+        with patch("urllib.request.urlopen", side_effect=http_error):
+            success, error = llm_test_connectivity(config=mock_config)
+
+        assert success is False
+        assert "身份验证失败(401)" in error
+        assert "invalid x-api-key" in error
+
 
 class TestConfigurationValidation:
     """Tests for configuration validation."""
@@ -499,6 +522,70 @@ class TestConfigurationValidation:
             request_obj = args[0]
             # Should not double the path.
             assert request_obj.full_url == "http://test.api/v1/chat/completions"
+
+    def test_anthropic_branch_uses_native_endpoint_and_headers(self):
+        """Test Anthropic format uses /v1/messages with native auth headers."""
+        config = LLMConfig(
+            model_name="claude-sonnet-4-20250514",
+            api_key="test-key",
+            base_url="https://api.anthropic.com",
+            api_format="anthropic",
+        )
+
+        mock_response_content = json.dumps({
+            "content": [{"type": "text", "text": "Hello from Claude"}]
+        }).encode("utf-8")
+
+        mock_response = MagicMock()
+        mock_response.read.return_value = mock_response_content
+        mock_response.__enter__.return_value = mock_response
+
+        with patch("urllib.request.urlopen", return_value=mock_response) as mock_urlopen:
+            result = _call_with_requests(config, "test")
+
+        assert result == "Hello from Claude"
+        request_obj = mock_urlopen.call_args[0][0]
+        headers = dict(request_obj.header_items())
+        assert request_obj.full_url == "https://api.anthropic.com/v1/messages"
+        assert headers["X-api-key"] == "test-key"
+        assert headers["Anthropic-version"] == "2023-06-01"
+        assert "Authorization" not in headers
+
+
+class TestConfigFallback:
+    """Tests for backward-compatible config behavior."""
+
+    def test_from_mode_defaults_api_format_to_openai(self):
+        """Test older runtime profiles without api_format still use OpenAI."""
+        import importlib
+        from src.utils.llm import config as llm_config_module
+
+        llm_config_module = importlib.reload(llm_config_module)
+
+        legacy_profile = type(
+            "LegacyProfile",
+            (),
+            {
+                "base_url": "http://test.api/v1",
+                "model_name": "test-model",
+                "fast_model_name": "test-fast",
+            },
+        )()
+        service = type(
+            "Service",
+            (),
+            {"get_llm_runtime_config": lambda self: (legacy_profile, "test-key")},
+        )()
+
+        monkeypatch = pytest.MonkeyPatch()
+        monkeypatch.setattr(llm_config_module, "get_settings_service", lambda: service)
+        try:
+            config = llm_config_module.LLMConfig.from_mode(LLMMode.NORMAL)
+        finally:
+            monkeypatch.undo()
+
+        assert config.api_format == "openai"
+        assert config.model_name == "test-model"
 
 
 class TestAsyncCallLLM:

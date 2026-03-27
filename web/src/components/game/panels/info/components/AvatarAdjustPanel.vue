@@ -6,6 +6,7 @@ import type { EffectEntity } from '@/types/core';
 import { getEntityColor } from '@/utils/theme';
 import { logError, toErrorMessage } from '@/utils/appError';
 import { useI18n } from 'vue-i18n';
+import { useMessage } from 'naive-ui';
 import EntityDetailCard from './EntityDetailCard.vue';
 
 type AdjustCategory = 'technique' | 'weapon' | 'auxiliary' | 'personas';
@@ -23,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const message = useMessage();
 
 const catalog = ref<AvatarAdjustCatalogDTO | null>(null);
 const isLoading = ref(false);
@@ -159,6 +161,7 @@ async function handleSingleSelect(option: AvatarAdjustOptionDTO) {
       category: props.category,
       target_id: option.id === '__none__' ? null : Number(option.id),
     });
+    message.success(t('game.info_panel.avatar.adjust.apply_success'));
     emit('updated');
     emit('close');
   } catch (error) {
@@ -179,6 +182,7 @@ async function applyPersonas() {
       category: 'personas',
       persona_ids: selectedPersonaIds.value,
     });
+    message.success(t('game.info_panel.avatar.adjust.apply_success'));
     emit('updated');
     emit('close');
   } catch (error) {

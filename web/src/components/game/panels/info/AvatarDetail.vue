@@ -307,7 +307,9 @@ async function handleClearObjective() {
       <div class="section">
         <div class="section-header">
           <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
-          <button class="adjust-btn" @click="openAdjustPanel('personas')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+          <button class="adjust-btn" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('personas')">
+            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+          </button>
         </div>
         <TagList v-if="data.personas?.length" :tags="data.personas" @click="showDetail" />
         <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.personas') }) }}</div>
@@ -323,7 +325,9 @@ async function handleClearObjective() {
             @click="showDetail(data.technique)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.technique') }) }}</div>
-          <button class="adjust-btn inline" @click="openAdjustPanel('technique')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('technique')">
+            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+          </button>
         </div>
         <div class="adjustable-row">
           <EntityRow 
@@ -333,7 +337,9 @@ async function handleClearObjective() {
             @click="showDetail(data.weapon)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.weapon') }) }}</div>
-          <button class="adjust-btn inline" @click="openAdjustPanel('weapon')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('weapon')">
+            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+          </button>
         </div>
         <div class="adjustable-row">
           <EntityRow 
@@ -342,7 +348,9 @@ async function handleClearObjective() {
             @click="showDetail(data.auxiliary)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.auxiliary') }) }}</div>
-          <button class="adjust-btn inline" @click="openAdjustPanel('auxiliary')">{{ t('game.info_panel.avatar.adjust.entry') }}</button>
+          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('auxiliary')">
+            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+          </button>
         </div>
          <EntityRow 
           v-if="data.spirit_animal" 
@@ -597,15 +605,30 @@ async function handleClearObjective() {
   color: #8a8a8a;
   font-size: 11px;
   cursor: pointer;
-  padding: 0;
+  padding: 1px 0 1px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  opacity: 0.62;
+  transition: opacity 0.18s ease;
 }
 
 .adjust-btn:hover {
-  color: #cfcfcf;
+  opacity: 0.95;
 }
 
 .adjust-btn.inline {
   white-space: nowrap;
+  align-self: center;
+  margin-right: 1px;
+}
+
+.adjust-icon {
+  width: 13px;
+  height: 13px;
+  display: block;
+  object-fit: contain;
 }
 
 .text-content {
