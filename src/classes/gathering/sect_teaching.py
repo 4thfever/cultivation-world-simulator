@@ -149,7 +149,7 @@ class SectTeachingConference(Gathering):
                 Event(
                     month_stamp=world.month_stamp,
                     content=t(
-                        "{teacher_name} 于传道大会中授业解惑，为 {sect_name} 赢得 {amount} 点宗门贡献。",
+                        "{teacher_name} taught and guided others at the preaching conference, earning {amount} sect contribution for {sect_name}.",
                         teacher_name=teacher.name,
                         sect_name=sect.name,
                         amount=actual_gain,

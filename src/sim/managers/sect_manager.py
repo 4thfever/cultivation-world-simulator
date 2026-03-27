@@ -382,7 +382,6 @@ class SectManager:
         from src.i18n import t
 
         for sect in active_sects:
-            sect.refresh_member_ranks()
             raw_income = income_by_sect_id.get(sect.id, 0.0)
             income = int(raw_income)
             stipend_total, _stipend_breakdown = sect.estimate_yearly_member_upkeep()

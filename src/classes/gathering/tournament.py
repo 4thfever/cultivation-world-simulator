@@ -144,7 +144,7 @@ class Tournament(Gathering):
                         Event(
                             world.month_stamp,
                             t(
-                                "{winner} 以武道会夺魁之功，为 {sect_name} 赢得 {amount} 点宗门贡献。",
+                                "{winner} won the martial tournament championship and earned {amount} sect contribution for {sect_name}.",
                                 winner=final_winner.name,
                                 sect_name=final_winner.sect.name,
                                 amount=actual_gain,

@@ -1474,10 +1474,14 @@ msgstr "{sect_name} 年度結算：收入 {income} 靈石，發放俸祿 {upkeep
 msgid "game.sect_thinking_event"
 msgstr "{sect_name}宗門的思考：{thinking}"
 
-msgid "{winner} 以武道会夺魁之功，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgid ""
+"{winner} won the martial tournament championship and earned {amount} sect "
+"contribution for {sect_name}."
 msgstr "{winner} 以武道會奪魁之功，為 {sect_name} 贏得 {amount} 點宗門貢獻。"
 
-msgid "{teacher_name} 于传道大会中授业解惑，为 {sect_name} 赢得 {amount} 点宗门贡献。"
+msgid ""
+"{teacher_name} taught and guided others at the preaching conference, earning"
+" {amount} sect contribution for {sect_name}."
 msgstr "{teacher_name} 於傳道大會中授業解惑，為 {sect_name} 贏得 {amount} 點宗門貢獻。"
 
 msgid ""

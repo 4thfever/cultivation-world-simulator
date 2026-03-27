@@ -194,7 +194,8 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Multi-language localization
 - ✅ Start game page
 - ✅ BGM & Sound effects
-- [ ] More player-controllable items
+- ✅ Player editing
+- [ ] Personal mode (possess a character)
 
 ### 🗺️ World System
 - ✅ Basic tile system
@@ -230,11 +231,10 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 
 ### 🏛️ Organizations
 - ✅ Sects
-  - ✅ Settings, techniques, healing, base, conduct style
+  - ✅ Settings, techniques, healing, base, conduct style, tasks
   - ✅ Sect special actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming), etc.
   - ✅ Sect tiers
   - ✅ Orthodoxy
-  - [ ] Sect quests
 - [ ] Clans
 - ✅ Imperial Court
 - ✅ Organization Will AI
@@ -298,7 +298,6 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 ### ✨ Specials
 - ✅ Fortuitous encounters
 - ✅ Heavenly Tribulations & Heart Devils
-- [ ] Possession & Rebirth
 - [ ] Opportunities & Karma
 - [ ] Divination & Prophecies
 - [ ] Character Secrets & Conspiracies

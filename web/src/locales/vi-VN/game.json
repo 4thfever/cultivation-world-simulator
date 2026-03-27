@@ -229,6 +229,24 @@
         "current_effects": "Hiệu Ứng Hiện Tại"
       },
       "weapon_meta": "Độ thuần thục {value}",
+      "adjust": {
+        "entry": "Điều Chỉnh",
+        "title": "Điều chỉnh {category}",
+        "current": "Mục hiện tại",
+        "select": "Danh sách khả dụng",
+        "search_placeholder": "Tìm theo tên, mô tả hoặc hiệu ứng",
+        "apply_personas": "Áp dụng đặc chất",
+        "apply_success": "Điều chỉnh thành công",
+        "load_failed": "Tải danh sách điều chỉnh thất bại",
+        "apply_failed": "Điều chỉnh thất bại",
+        "empty_item": "Hiện không có {label}",
+        "categories": {
+          "technique": "Công Pháp",
+          "weapon": "Vũ Khí",
+          "auxiliary": "Trang Bị Phụ Trợ",
+          "personas": "Đặc Chất"
+        }
+      },
       "relation_meta": "{relation} với {owner}",
       "father_short": "Cha",
       "mother_short": "Mẹ",

@@ -195,7 +195,8 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Bản địa hóa đa ngôn ngữ
 - ✅ Trang bắt đầu game
 - ✅ BGM và hiệu ứng âm thanh
-- [ ] Thêm nhiều hạng mục người chơi có thể trực tiếp thao tác
+- ✅ Người chơi có thể chỉnh sửa nội dung
+- [ ] Chế độ cá nhân (đoạt xá nhân vật)
 
 ### 🗺️ Hệ Thống Thế Giới
 - ✅ Hệ thống ô tile cơ bản
@@ -231,11 +232,10 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 
 ### 🏛️ Tổ Chức
 - ✅ Tông môn
-  - ✅ Thiết lập, công pháp, trị thương, trú địa, phong cách hành sự
+  - ✅ Thiết lập, công pháp, trị thương, trú địa, phong cách hành sự, nhiệm vụ
   - ✅ Hành động đặc thù của tông môn: Hợp Hoan Tông (song tu), Bách Thú Tông (ngự thú)...
   - ✅ Cấp bậc tông môn
   - ✅ Đạo thống
-  - [ ] Nhiệm vụ tông môn
 - [ ] Thế gia
 - ✅ Triều đình
 - ✅ AI ý chí tổ chức
@@ -299,7 +299,6 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 ### ✨ Đặc Thù
 - ✅ Kỳ ngộ
 - ✅ Thiên kiếp và tâm ma
-- [ ] Đoạt xá và trọng sinh
 - [ ] Cơ duyên và nhân quả
 - [ ] Chiêm bốc và sấm vĩ
 - [ ] Bí mật nhân vật và âm mưu

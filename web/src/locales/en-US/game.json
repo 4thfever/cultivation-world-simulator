@@ -229,6 +229,24 @@
         "current_effects": "Current Effects"
       },
       "weapon_meta": "Proficiency {value}",
+      "adjust": {
+        "entry": "Adjust",
+        "title": "Adjust {category}",
+        "current": "Current Item",
+        "select": "Available List",
+        "search_placeholder": "Search by name, description, or effect",
+        "apply_personas": "Apply Traits",
+        "apply_success": "Adjustment applied",
+        "load_failed": "Failed to load adjustment list",
+        "apply_failed": "Adjustment failed",
+        "empty_item": "No {label} currently selected",
+        "categories": {
+          "technique": "Technique",
+          "weapon": "Weapon",
+          "auxiliary": "Auxiliary Gear",
+          "personas": "Traits"
+        }
+      },
       "relation_meta": "{relation} toward {owner}",
       "father_short": "Father",
       "mother_short": "Mother",
