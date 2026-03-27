@@ -1,11 +1,11 @@
 """LLM 客户端核心调用逻辑"""
 
 import json
-import urllib.request
-import urllib.error
 import asyncio
 from pathlib import Path
 from typing import Optional
+
+import requests as _requests
 
 from src.config import get_settings_service
 from src.run.log import log_llm_call
@@ -35,48 +35,95 @@ def _get_semaphore() -> asyncio.Semaphore:
     return _SEMAPHORE
 
 
-def _call_with_requests(config: LLMConfig, prompt: str) -> str:
-    """使用原生 urllib 调用 (OpenAI 兼容接口)"""
+def _call_openai(config: LLMConfig, prompt: str) -> str:
+    """使用 requests 库调用 (OpenAI 兼容接口)"""
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {config.api_key}",
         "User-Agent": "CultivationWorldSimulator/1.0"
     }
-    model_name = config.model_name
     data = {
-        "model": model_name,
+        "model": config.model_name,
         "messages": [{"role": "user", "content": prompt}]
     }
-    
+
     url = config.base_url
     if not url:
         raise ValueError("Base URL is required for requests mode (OpenAI Compatible)")
-        
+
     # URL 规范化处理：确保指向 chat/completions
     if "chat/completions" not in url:
         url = url.rstrip("/")
         url = f"{url}/chat/completions"
 
-    req = urllib.request.Request(
-        url, 
-        data=json.dumps(data).encode('utf-8'), 
-        headers=headers,
-        method="POST"
-    )
-    
     try:
-        # 设置超时时间为 120 秒，避免无限等待
-        with urllib.request.urlopen(req, timeout=120) as response:
-            result = json.loads(response.read().decode('utf-8'))
-            return result['choices'][0]['message']['content']
-    except urllib.error.HTTPError as e:
-        error_body = e.read().decode('utf-8')
-        raise Exception(f"HTTP_{e.code}::{error_body}")
-    except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
-        reason = getattr(e, 'reason', str(e))
-        raise Exception(f"NETWORK_ERROR::{reason}")
+        resp = _requests.post(url, json=data, headers=headers, timeout=120)
+        resp.raise_for_status()
+        result = resp.json()
+        return result['choices'][0]['message']['content']
+    except _requests.exceptions.HTTPError as e:
+        error_body = e.response.text if e.response is not None else str(e)
+        status_code = e.response.status_code if e.response is not None else 0
+        raise Exception(f"HTTP_{status_code}::{error_body}")
+    except (_requests.exceptions.ConnectionError, _requests.exceptions.Timeout) as e:
+        raise Exception(f"NETWORK_ERROR::{str(e)}")
     except Exception as e:
+        if str(e).startswith(("HTTP_", "NETWORK_ERROR::")):
+            raise
         raise Exception(f"UNKNOWN_ERROR::{str(e)}")
+
+
+def _call_anthropic(config: LLMConfig, prompt: str) -> str:
+    """使用 requests 库调用 (Anthropic 原生接口)"""
+    headers = {
+        "Content-Type": "application/json",
+        "x-api-key": config.api_key,
+        "anthropic-version": "2023-06-01",
+        "User-Agent": "CultivationWorldSimulator/1.0"
+    }
+    data = {
+        "model": config.model_name,
+        "max_tokens": 4096,
+        "messages": [{"role": "user", "content": prompt}]
+    }
+
+    url = config.base_url
+    if not url:
+        raise ValueError("Base URL is required for Anthropic API")
+
+    # URL 规范化处理：确保指向 /v1/messages
+    if "/messages" not in url:
+        url = url.rstrip("/")
+        if not url.endswith("/v1"):
+            url = f"{url}/v1"
+        url = f"{url}/messages"
+
+    try:
+        resp = _requests.post(url, json=data, headers=headers, timeout=120)
+        resp.raise_for_status()
+        result = resp.json()
+        # Anthropic 响应格式: {"content": [{"type": "text", "text": "..."}]}
+        for block in result.get('content', []):
+            if block.get('type') == 'text':
+                return block['text']
+        raise Exception("UNKNOWN_ERROR::Anthropic 响应中未找到 text 内容")
+    except _requests.exceptions.HTTPError as e:
+        error_body = e.response.text if e.response is not None else str(e)
+        status_code = e.response.status_code if e.response is not None else 0
+        raise Exception(f"HTTP_{status_code}::{error_body}")
+    except (_requests.exceptions.ConnectionError, _requests.exceptions.Timeout) as e:
+        raise Exception(f"NETWORK_ERROR::{str(e)}")
+    except Exception as e:
+        if str(e).startswith(("HTTP_", "NETWORK_ERROR::", "UNKNOWN_ERROR::")):
+            raise
+        raise Exception(f"UNKNOWN_ERROR::{str(e)}")
+
+
+def _call_with_requests(config: LLMConfig, prompt: str) -> str:
+    """根据 api_format 分发到对应的调用实现"""
+    if config.api_format == "anthropic":
+        return _call_anthropic(config, prompt)
+    return _call_openai(config, prompt)
 
 
 async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
@@ -199,6 +246,11 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
                     # 兼容 OpenAI 和大部分厂商的 {"error": {"message": "..."}}
                     if "error" in body_json and isinstance(body_json["error"], dict):
                         provider_msg = body_json["error"].get("message") or body_json["error"].get("msg") or body_str
+                    # 兼容 Anthropic 的 {"type": "error", "error": {"type": "...", "message": "..."}}
+                    elif body_json.get("type") == "error" and "error" in body_json:
+                        err_obj = body_json["error"]
+                        if isinstance(err_obj, dict):
+                            provider_msg = err_obj.get("message") or body_str
                     # 兼容部分直接 {"message": "..."} 的厂商
                     elif "message" in body_json:
                         provider_msg = body_json["message"]

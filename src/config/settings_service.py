@@ -140,6 +140,7 @@ class SettingsService:
             mode=update.mode,
             max_concurrent_requests=update.max_concurrent_requests,
             has_api_key=settings.llm.profile.has_api_key,
+            api_format=update.api_format,
         )
 
         if update.clear_api_key:
@@ -172,6 +173,7 @@ class SettingsService:
             mode=update.mode,
             max_concurrent_requests=update.max_concurrent_requests,
             has_api_key=bool(candidate_key),
+            api_format=update.api_format,
         )
         return profile, candidate_key
 

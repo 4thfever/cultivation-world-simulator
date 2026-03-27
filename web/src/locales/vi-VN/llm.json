@@ -22,7 +22,8 @@
     "normal_model": "Mô Hình Thường (Normal)",
     "fast_model": "Mô Hình Nhanh (Fast)",
     "max_concurrent_requests": "Số Yêu Cầu Đồng Thời Tối Đa",
-    "what_is_api": "API là gì / Lấy ở đâu?"
+    "what_is_api": "API là gì / Lấy ở đâu?",
+    "api_format": "Định Dạng API"
   },
   "descs": {
     "normal_model": "Dùng cho logic phức tạp, tạo cốt truyện, v.v.",
@@ -44,6 +45,12 @@
     "fast": "Nhanh (Fast)",
     "fast_desc": "Dùng mô hình nhanh cho mọi tác vụ"
   },
+  "formats": {
+    "openai": "Tương thích OpenAI",
+    "openai_desc": "Hầu hết nhà cung cấp đều hỗ trợ",
+    "anthropic": "Anthropic gốc",
+    "anthropic_desc": "Kết nối trực tiếp Anthropic Claude"
+  },
   "actions": {
     "testing": "Đang kiểm tra kết nối...",
     "test_and_save": "Kiểm Tra Kết Nối Và Lưu"
@@ -58,7 +65,7 @@
     "q2_gemini": "Sản phẩm của Google, năng lực tổng hợp thuộc hàng đầu.",
     "q3_title": "📝 3. Điền cấu hình như thế nào?",
     "q3_content": "Khi đã có API, bạn cần điền ba tham số cốt lõi này. Thông thường, bạn có thể tìm thấy chúng trong tài liệu của nhà cung cấp:",
-    "q3_format_note": "⚠️ Quan trọng: Trò chơi này chỉ hỗ trợ định dạng API tương thích OpenAI. Những dịch vụ không hỗ trợ chuẩn tương thích OpenAI sẽ không dùng được. Chúng tôi khuyến nghị dùng preset có sẵn (đều đã xác nhận tương thích). Nếu muốn dùng dịch vụ khác, hãy chắc chắn rằng họ cung cấp giao diện tương thích OpenAI.",
+    "q3_format_note": "⚠️ Lưu ý: Trò chơi này hỗ trợ cả định dạng tương thích OpenAI và định dạng gốc Anthropic. Hầu hết nhà cung cấp sử dụng định dạng tương thích OpenAI; nếu kết nối trực tiếp Anthropic API, hãy chọn 'Anthropic gốc' trong tùy chọn Định dạng API. Chúng tôi khuyến nghị dùng preset có sẵn.",
     "q3_base_url": "API Base URL: cổng vào của AI, thường do nhà cung cấp đưa ra (ví dụ: https://api.deepseek.com).",
     "q3_api_key": "API Key: thông tin định danh của bạn, giống như mật khẩu tài khoản.",
     "q3_model_name": "Tên mô hình: cho máy chủ biết nên dùng \"bộ não\" nào, ví dụ deepseek-chat hoặc gemini-3-flash-preview.",
@@ -78,7 +85,8 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama (Cục bộ)"
+    "ollama": "Ollama (Cục bộ)",
+    "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "Đề cử",

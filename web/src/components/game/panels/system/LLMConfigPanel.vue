@@ -19,7 +19,8 @@ const config = ref<LLMConfigDTO>({
   model_name: '',
   fast_model_name: '',
   mode: 'default',
-  max_concurrent_requests: 10
+  max_concurrent_requests: 10,
+  api_format: 'openai'
 })
 
 const modeOptions = computed(() => [
@@ -28,30 +29,41 @@ const modeOptions = computed(() => [
   { label: t('llm.modes.fast'), value: 'fast', desc: t('llm.modes.fast_desc') }
 ])
 
+const apiFormatOptions = computed(() => [
+  { label: t('llm.formats.openai'), value: 'openai', desc: t('llm.formats.openai_desc') },
+  { label: t('llm.formats.anthropic'), value: 'anthropic', desc: t('llm.formats.anthropic_desc') }
+])
+
 const presets = computed(() => [
   {
     name: t('llm.presets.qwen'),
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
     model_name: 'qwen-plus',
     fast_model_name: 'qwen-flash',
+    api_format: 'openai',
     badge: 'recommended'
   },
   {
     name: t('llm.presets.gemini'),
-    // Note: The `/openai` suffix is required to use Google's OpenAI-compatible API.
-    // Our backend (src/utils/llm/client.py) uses OpenAI-compatible format with
-    // Bearer token auth and /chat/completions endpoint, so we need this suffix
-    // to make Google API accept OpenAI-style requests instead of native Gemini format.
     base_url: 'https://generativelanguage.googleapis.com/v1beta/openai/',
     model_name: 'gemini-3-pro-preview',
     fast_model_name: 'gemini-3-flash-preview',
+    api_format: 'openai',
     badge: 'recommended'
+  },
+  {
+    name: t('llm.presets.anthropic'),
+    base_url: 'https://api.anthropic.com',
+    model_name: 'claude-sonnet-4-20250514',
+    fast_model_name: 'claude-haiku-4-20250414',
+    api_format: 'anthropic'
   },
   {
     name: t('llm.presets.groq'),
     base_url: 'https://api.groq.com/openai/v1',
     model_name: 'llama-3.3-70b-versatile',
     fast_model_name: 'llama-3.1-8b-instant',
+    api_format: 'openai',
     badge: 'free'
   },
   {
@@ -59,43 +71,50 @@ const presets = computed(() => [
     base_url: 'https://api.cerebras.ai/v1',
     model_name: 'gpt-oss-120b',
     fast_model_name: 'llama3.1-8b',
+    api_format: 'openai',
     badge: 'free'
   },
   {
     name: t('llm.presets.openai'),
     base_url: 'https://api.openai.com/v1',
     model_name: 'gpt-4o',
-    fast_model_name: 'gpt-4o-mini'
+    fast_model_name: 'gpt-4o-mini',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.deepseek'),
     base_url: 'https://api.deepseek.com',
     model_name: 'deepseek-chat',
-    fast_model_name: 'deepseek-chat'
+    fast_model_name: 'deepseek-chat',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.minimax'),
     base_url: 'https://api.minimax.io/v1',
     model_name: 'MiniMax-M2.7',
-    fast_model_name: 'MiniMax-M2.5-highspeed'
+    fast_model_name: 'MiniMax-M2.5-highspeed',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.siliconflow'),
     base_url: 'https://api.siliconflow.cn/v1',
     model_name: 'Qwen/Qwen2.5-72B-Instruct',
-    fast_model_name: 'Qwen/Qwen2.5-7B-Instruct'
+    fast_model_name: 'Qwen/Qwen2.5-7B-Instruct',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.openrouter'),
     base_url: 'https://openrouter.ai/api/v1',
     model_name: 'anthropic/claude-3.5-sonnet',
-    fast_model_name: 'google/gemini-3-flash'
+    fast_model_name: 'google/gemini-3-flash',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.ollama'),
     base_url: 'http://localhost:11434/v1',
     model_name: 'qwen2.5:7b',
     fast_model_name: 'qwen2.5:7b',
+    api_format: 'openai',
     isLocal: true
   }
 ])
@@ -111,7 +130,8 @@ async function fetchConfig() {
       model_name: res.model_name,
       fast_model_name: res.fast_model_name,
       mode: res.mode,
-      max_concurrent_requests: res.max_concurrent_requests
+      max_concurrent_requests: res.max_concurrent_requests,
+      api_format: res.api_format || 'openai'
     }
   } catch (e) {
     message.error(t('llm.fetch_failed'))
@@ -124,6 +144,7 @@ function applyPreset(preset: any) {
   config.value.base_url = preset.base_url
   config.value.model_name = preset.model_name
   config.value.fast_model_name = preset.fast_model_name
+  config.value.api_format = preset.api_format || 'openai'
   // Ollama doesn't require a real API key, auto-fill a placeholder.
   if ('isLocal' in preset && preset.isLocal) {
     config.value.api_key = 'ollama'
@@ -211,12 +232,35 @@ onMounted(() => {
 
         <div class="form-item">
           <label>{{ t('llm.labels.base_url') }}</label>
-          <input 
-            v-model="config.base_url" 
-            type="text" 
+          <input
+            v-model="config.base_url"
+            type="text"
             :placeholder="t('llm.placeholders.base_url')"
             class="input-field"
           />
+        </div>
+
+        <div class="form-item">
+          <label>{{ t('llm.labels.api_format') }}</label>
+          <div class="format-options">
+            <label
+              v-for="opt in apiFormatOptions"
+              :key="opt.value"
+              class="format-radio"
+              :class="{ active: config.api_format === opt.value }"
+            >
+              <input
+                type="radio"
+                v-model="config.api_format"
+                :value="opt.value"
+                class="hidden-radio"
+              />
+              <div class="radio-content">
+                <div class="radio-label">{{ opt.label }}</div>
+                <div class="radio-desc">{{ opt.desc }}</div>
+              </div>
+            </label>
+          </div>
         </div>
 
         <div class="form-item">
@@ -507,6 +551,35 @@ onMounted(() => {
   border-color: #666;
   color: #bbb;
   background: #2a2a2a;
+}
+
+.format-options {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8em;
+}
+
+.format-radio {
+  flex: 1;
+  display: flex;
+  background: #222;
+  border: 1px solid #333;
+  padding: 0.6em 0.8em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.format-radio:hover {
+  background: #2a2a2a;
+}
+
+.format-radio.active {
+  background: #1a2a3a;
+  border-color: #4a9eff;
 }
 
 .mode-options.horizontal {

@@ -191,6 +191,7 @@ export interface LLMConfigViewDTO {
   mode: string;
   max_concurrent_requests: number;
   has_api_key: boolean;
+  api_format: string;
 }
 
 export interface LLMConfigDTO {
@@ -201,6 +202,7 @@ export interface LLMConfigDTO {
   mode: string;
   max_concurrent_requests: number;
   clear_api_key?: boolean;
+  api_format: string;
 }
 
 export interface RunConfigDTO {
