@@ -46,6 +46,7 @@ class LLMProfile(BaseModel):
     mode: str = "default"
     max_concurrent_requests: int = 10
     has_api_key: bool = False
+    api_format: str = "openai"  # "openai" 或 "anthropic"
 
 
 class LLMConfigView(LLMProfile):
@@ -68,6 +69,7 @@ class LLMSettingsUpdate(BaseModel):
     mode: str
     max_concurrent_requests: int = 10
     clear_api_key: bool = False
+    api_format: str = "openai"  # "openai" 或 "anthropic"
 
 
 class NewGameDefaults(BaseModel):

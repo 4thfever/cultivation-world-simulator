@@ -22,7 +22,8 @@
     "normal_model": "智能模型 (Normal)",
     "fast_model": "快速模型 (Fast)",
     "max_concurrent_requests": "最大並發數",
-    "what_is_api": "什麼是 API / 如何獲取?"
+    "what_is_api": "什麼是 API / 如何獲取?",
+    "api_format": "API 格式"
   },
   "descs": {
     "normal_model": "用於處理複雜邏輯、劇情生成等任務",
@@ -44,6 +45,12 @@
     "fast": "快速 (Fast)",
     "fast_desc": "全用快速模型"
   },
+  "formats": {
+    "openai": "OpenAI 兼容",
+    "openai_desc": "大多數服務商均支援",
+    "anthropic": "Anthropic 原生",
+    "anthropic_desc": "Anthropic Claude 直連"
+  },
   "actions": {
     "testing": "測試連接中...",
     "test_and_save": "測試連通性並儲存"
@@ -58,7 +65,7 @@
     "q2_gemini": "Google 出品，綜合性能頂尖。",
     "q3_title": "📝 3. 如何填入配置?",
     "q3_content": "獲得 API 後，你需要填入以下三大核心參數才能使用，通常你可以在api提供方的文檔中找到 these 參數怎麼填：",
-    "q3_format_note": "⚠️ 重要提示：本遊戲僅支持 OpenAI 兼容格式的 API。如果某個服務不支持 OpenAI 兼容格式，將無法使用。推薦使用預設中的服務（它們都已確認兼容）。如需使用其他服務，請確認其提供 OpenAI 兼容接口。",
+    "q3_format_note": "⚠️ 提示：本遊戲支援 OpenAI 兼容格式和 Anthropic 原生格式。大多數服務商使用 OpenAI 兼容格式；如果直連 Anthropic API，請在 API 格式中選擇「Anthropic 原生」。推薦使用預設中的服務。",
     "q3_base_url": "API Base URL (接口地址): AI 的訪問大門，通常由廠商提供 (如 https://api.deepseek.com)。",
     "q3_api_key": "API Key (密鑰): 你的身份憑證，就像賬號密碼。",
     "q3_model_name": "Model Name (模型名稱): 告訴服務器你想用哪顆大腦，如 deepseek-chat 或 gemini-3-flash-preview。",
@@ -78,7 +85,8 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama (本地)"
+    "ollama": "Ollama (本地)",
+    "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "推薦",
