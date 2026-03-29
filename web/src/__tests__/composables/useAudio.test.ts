@@ -33,6 +33,7 @@ describe('useAudio', () => {
     const { init } = useAudio()
     await init()
     expect(global.fetch).toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith('/sfx/click.ogg')
   })
 
   it('should play a sound if initialized', async () => {

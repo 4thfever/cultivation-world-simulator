@@ -1,11 +1,12 @@
 import { useSettingStore } from '../stores/setting';
+import { withBasePublicPath } from '@/utils/assetUrls';
 
 // 音频资源配置 - 使用 ogg 格式
 const SOUND_URLS = {
-  click: '/sfx/click.ogg',
-  cancel: '/sfx/cancel.ogg',
-  select: '/sfx/select.ogg',
-  open: '/sfx/open.ogg',
+  click: withBasePublicPath('sfx/click.ogg'),
+  cancel: withBasePublicPath('sfx/cancel.ogg'),
+  select: withBasePublicPath('sfx/select.ogg'),
+  open: withBasePublicPath('sfx/open.ogg'),
 } as const;
 
 export type SoundType = keyof typeof SOUND_URLS;

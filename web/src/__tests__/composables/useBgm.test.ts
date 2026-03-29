@@ -35,16 +35,24 @@ class MockAudio {
   }
 }
 
+let createdTracks: MockAudio[] = []
+
 describe('useBgm', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    global.Audio = MockAudio as any
+    createdTracks = []
+    global.Audio = vi.fn().mockImplementation(() => {
+      const track = new MockAudio()
+      createdTracks.push(track)
+      return track
+    }) as any
   })
 
   it('should initialize and play splash bgm', async () => {
     const { play } = useBgm()
     await play('splash')
     expect(true).toBe(true) // Smoke test, expecting no errors
+    expect(createdTracks.some(track => track.src === '/bgm/Eastminster.mp3')).toBe(true)
   })
 
   it('should play map bgm', async () => {
@@ -74,4 +82,5 @@ describe('useBgm', () => {
     stop()
     expect(true).toBe(true)
   })
+
 })

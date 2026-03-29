@@ -42,3 +42,9 @@ globs: web/src/**/*.{vue,ts,js}
 ## 5. 类型与 DTO 规范 (Type & DTO Policy)
 - **新增接口字段时**，必须先更新 `types/api.ts`，再在 `api/mappers/*` 做 DTO -> Domain 归一化。
 - **禁止扩散 `any`**: 新增代码中不得引入无必要 `any`；确需过渡时必须标注用途和后续收敛点。
+
+## 6. 静态资源路径约定 (Static Asset Paths)
+- **前端自带静态资源**（`web/public/*`）禁止直接写死站点根绝对路径（如 `/icons/x.png`、`/sfx/x.ogg`、`/bgm/x.mp3`）。
+- 运行时拼接路径的 `public` 资源必须通过统一 helper 基于 `import.meta.env.BASE_URL` 生成 URL。
+- 组件内固定图片、图标优先放入 `web/src/assets/*` 并使用模块导入，让 Vite 负责产物路径和部署前缀。
+- **游戏运行资源**（后端或代理提供的 `/assets/*`）与前端 `public` 资源分开管理，不要混用目录和 URL 生成方式。

@@ -1,5 +1,6 @@
 import { watch, effectScope } from 'vue';
 import { useSettingStore } from '../stores/setting';
+import { withBasePublicPath } from '@/utils/assetUrls';
 
 // 配置
 const BGM_CONFIG = {
@@ -124,7 +125,7 @@ export function useBgm() {
 
     // 核心切歌逻辑
     async function switchTrack(songName: string, crossfadeOutgoing: boolean) {
-        const url = `/bgm/${songName}`;
+        const url = withBasePublicPath(`bgm/${songName}`);
         const nextIndex = (currentTrackIndex + 1) % 2;
         const nextTrack = tracks[nextIndex];
         const currentTrack = tracks[currentTrackIndex];

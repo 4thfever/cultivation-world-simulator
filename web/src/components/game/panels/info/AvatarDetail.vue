@@ -14,6 +14,7 @@ import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import type { RelationInfo } from '@/types/core';
 import { logError } from '@/utils/appError';
+import editIcon from '@/assets/icons/edit.png';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -308,7 +309,7 @@ async function handleClearObjective() {
         <div class="section-header">
           <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
           <button class="adjust-btn" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('personas')">
-            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
         </div>
         <TagList v-if="data.personas?.length" :tags="data.personas" @click="showDetail" />
@@ -326,7 +327,7 @@ async function handleClearObjective() {
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.technique') }) }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('technique')">
-            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
         </div>
         <div class="adjustable-row">
@@ -338,7 +339,7 @@ async function handleClearObjective() {
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.weapon') }) }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('weapon')">
-            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
         </div>
         <div class="adjustable-row">
@@ -349,7 +350,7 @@ async function handleClearObjective() {
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.auxiliary') }) }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('auxiliary')">
-            <img class="adjust-icon" src="/icons/edit.png" alt="" aria-hidden="true" />
+            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
         </div>
          <EntityRow 
