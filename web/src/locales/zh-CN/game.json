@@ -240,6 +240,18 @@
         "load_failed": "加载调整列表失败",
         "apply_failed": "调整失败",
         "empty_item": "当前无{label}",
+        "custom": {
+          "title": "通过文本描述新建",
+          "tag": "自创",
+          "unnamed": "未命名草稿",
+          "prompt_placeholder": "输入你想要的效果组合、风格与设定，例如：偏火属性、提升吐纳和突破率的金丹功法。",
+          "prompt_required": "请输入自创描述",
+          "generate": "生成",
+          "save": "保存并装备",
+          "generate_failed": "生成自创内容失败",
+          "create_success": "已创建并装备自创内容",
+          "create_failed": "保存自创内容失败"
+        },
         "categories": {
           "technique": "功法",
           "weapon": "武器",

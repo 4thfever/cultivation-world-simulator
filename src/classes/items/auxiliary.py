@@ -95,6 +95,8 @@ class Auxiliary(Item):
             "name": self.name,
             "desc": full_desc,
             "type": "auxiliary",
+            "grade": grade_display,
+            "realm": grade_display,
             "color": self.realm.color_rgb,
             "effect_desc": self.effect_desc,
         }

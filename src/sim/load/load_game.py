@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from src.classes.core.sect import Sect
 
 from src.systems.time import MonthStamp
+from src.classes.custom_content import CustomContentRegistry
 from src.classes.event import Event
 from src.classes.relation.relation import RelationState
 from src.config import get_settings_service
@@ -111,6 +112,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             events_db_path=events_db_path,
             start_year=start_year,
         )
+        CustomContentRegistry.load_from_dict(save_data.get("custom_content"))
         dynasty_data = world_data.get("dynasty")
         if dynasty_data is not None:
             world.dynasty = Dynasty.from_dict(dynasty_data)

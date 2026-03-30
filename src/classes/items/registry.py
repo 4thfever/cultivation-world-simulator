@@ -20,6 +20,10 @@ class ItemRegistry:
         return cls._items_by_id.get(item_id)
 
     @classmethod
+    def unregister(cls, item_id: int):
+        cls._items_by_id.pop(item_id, None)
+
+    @classmethod
     def get_all(cls) -> Dict[int, "Item"]:
         return cls._items_by_id
     

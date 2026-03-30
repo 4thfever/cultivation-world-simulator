@@ -58,6 +58,7 @@ class Weapon(Item):
             "name": self.name,
             "desc": self.desc,
             "grade": str(self.realm),
+            "realm": str(self.realm),
             "color": self.realm.color_rgb,
             "type": self.weapon_type.value,
             "effect_desc": self.effect_desc,

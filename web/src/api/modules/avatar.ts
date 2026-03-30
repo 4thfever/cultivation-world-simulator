@@ -5,7 +5,11 @@ import type {
   CreateAvatarParams,
   GameDataDTO,
   AvatarAdjustCatalogDTO,
+  AvatarAdjustOptionDTO,
   UpdateAvatarAdjustmentParams,
+  GenerateCustomContentParams,
+  CustomContentDraftDTO,
+  CreateCustomContentParams,
 } from '../../types/api';
 
 export interface HoverParams {
@@ -55,6 +59,14 @@ export const avatarApi = {
 
   updateAvatarAdjustment(params: UpdateAvatarAdjustmentParams) {
     return httpClient.post<{ status: string; message: string }>('/api/action/update_avatar_adjustment', params);
+  },
+
+  generateCustomContent(params: GenerateCustomContentParams) {
+    return httpClient.post<{ status: string; draft: CustomContentDraftDTO }>('/api/action/generate_custom_content', params);
+  },
+
+  createCustomContent(params: CreateCustomContentParams) {
+    return httpClient.post<{ status: string; item: AvatarAdjustOptionDTO }>('/api/action/create_custom_content', params);
   },
 
   deleteAvatar(avatarId: string) {

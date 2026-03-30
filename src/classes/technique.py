@@ -6,6 +6,7 @@ from typing import Optional, Dict, List
 import json
 from src.classes.effect import load_effect_from_str
 from src.classes.color import Color, TECHNIQUE_GRADE_COLORS
+from src.systems.cultivation import Realm
 
 from src.utils.df import game_configs, get_str, get_float, get_int
 from src.classes.alignment import Alignment
@@ -91,6 +92,7 @@ class Technique:
     desc: str
     weight: float
     condition: str
+    realm: Realm | None = None
     # 归属宗门ID；None 表示无宗门要求（散修可修）
     sect_id: Optional[int] = None
     # 影响角色或系统的效果
@@ -130,6 +132,7 @@ class Technique:
             "type": "technique",
             "desc": self.desc,
             "grade": str(self.grade),
+            "realm": str(self.realm) if self.realm is not None else "",
             "color": self.grade.color_rgb,
             "attribute": str(self.attribute),
             "effect_desc": self.effect_desc,
@@ -178,6 +181,7 @@ def _load_techniques_data() -> tuple[dict[int, Technique], dict[str, Technique]]
             name=name,
             attribute=attr,
             grade=grade,
+            realm=Realm.from_str(get_str(row, "realm")) if get_str(row, "realm") else None,
             desc=get_str(row, "desc"),
             weight=weight,
             condition=condition,

@@ -240,6 +240,18 @@
         "load_failed": "Failed to load adjustment list",
         "apply_failed": "Adjustment failed",
         "empty_item": "No {label} currently selected",
+        "custom": {
+          "title": "Create From Text Description",
+          "tag": "Custom",
+          "unnamed": "Unnamed Draft",
+          "prompt_placeholder": "Describe the effects, style, and flavor you want, for example: a fire-oriented Core Formation technique that improves breathing cultivation and breakthrough success.",
+          "prompt_required": "Please enter a description for the custom content",
+          "generate": "Generate",
+          "save": "Save And Equip",
+          "generate_failed": "Failed to generate custom content",
+          "create_success": "Custom content created and equipped",
+          "create_failed": "Failed to save custom content"
+        },
         "categories": {
           "technique": "Technique",
           "weapon": "Weapon",

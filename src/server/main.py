@@ -45,6 +45,10 @@ from src.server.assemblers.mortal_overview import build_mortal_overview
 from src.server.assemblers.dynasty_detail import build_dynasty_detail
 from src.server.assemblers.dynasty_overview import build_dynasty_overview
 from src.server.services.avatar_adjustment import apply_avatar_adjustment, build_avatar_adjust_options
+from src.server.services.custom_content_service import (
+    create_custom_content_from_draft,
+    generate_custom_content_draft,
+)
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.systems.dynasty_generator import generate_dynasty, generate_emperor
@@ -55,11 +59,12 @@ from src.classes.items.weapon import weapons_by_id
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.appearance import get_appearance_by_level
 from src.classes.persona import personas_by_id
-from src.systems.cultivation import REALM_ORDER
+from src.systems.cultivation import REALM_ORDER, Realm
 from src.classes.alignment import Alignment
 from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
+from src.classes.custom_content import CustomContentRegistry
 from src.sim import save_game, list_saves, load_game, get_events_db_path, check_save_compatibility
 from src.utils.llm.client import test_connectivity
 from src.utils.llm.config import LLMConfig, LLMMode
@@ -114,6 +119,10 @@ def get_runtime_run_config() -> RunConfig:
         ),
         world_lore=str(getattr(game_conf, "world_lore", defaults.world_lore) or ""),
     )
+
+
+def reset_runtime_custom_content() -> None:
+    CustomContentRegistry.reset()
 
 
 def apply_runtime_content_locale(lang_code: str) -> None:
@@ -454,6 +463,7 @@ async def init_game_async():
         
         # === 重置所有静态数据，避免上一局的世界设定污染当前开局 ===
         print("Resetting world rule data...")
+        reset_runtime_custom_content()
         reload_all_static_data()
         
         await asyncio.to_thread(scan_avatar_assets)
@@ -1509,6 +1519,17 @@ class UpdateAvatarAdjustmentRequest(BaseModel):
     target_id: Optional[int] = None
     persona_ids: Optional[List[int]] = None
 
+
+class GenerateCustomContentRequest(BaseModel):
+    category: Literal["technique", "weapon", "auxiliary"]
+    realm: Optional[str] = None
+    user_prompt: str
+
+
+class CreateCustomContentRequest(BaseModel):
+    category: Literal["technique", "weapon", "auxiliary"]
+    draft: dict
+
 @app.get("/api/meta/game_data")
 def get_game_data():
     """获取游戏元数据（宗门、个性、境界等），供前端选择"""
@@ -1772,6 +1793,22 @@ def update_avatar_adjustment(req: UpdateAvatarAdjustmentRequest):
         persona_ids=req.persona_ids,
     )
     return {"status": "ok", "message": "Avatar adjustment applied"}
+
+
+@app.post("/api/action/generate_custom_content")
+async def generate_custom_content(req: GenerateCustomContentRequest):
+    draft = await generate_custom_content_draft(
+        req.category,
+        Realm.from_str(req.realm) if req.realm else None,
+        req.user_prompt,
+    )
+    return {"status": "ok", "draft": draft}
+
+
+@app.post("/api/action/create_custom_content")
+def create_custom_content(req: CreateCustomContentRequest):
+    item = create_custom_content_from_draft(req.category, req.draft)
+    return {"status": "ok", "item": item}
 
 
 # --- LLM Config API ---

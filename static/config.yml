@@ -13,6 +13,7 @@ llm:
     interaction_feedback: "fast"
     history_influence: "normal"
     backstory: "fast"
+    custom_content_generation: "normal"
     random_minor_event: "fast"
     sect_random_event: "fast"
     sect_random_event_reason: "fast"

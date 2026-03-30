@@ -240,6 +240,18 @@
         "load_failed": "Tải danh sách điều chỉnh thất bại",
         "apply_failed": "Điều chỉnh thất bại",
         "empty_item": "Hiện không có {label}",
+        "custom": {
+          "title": "Tạo Mới Bằng Mô Tả Văn Bản",
+          "tag": "Tự tạo",
+          "unnamed": "Bản nháp chưa đặt tên",
+          "prompt_placeholder": "Nhập tổ hợp hiệu ứng, phong cách và thiết lập bạn muốn, ví dụ: công pháp Kim Đan hệ hỏa giúp tăng tu luyện hô hấp và tỷ lệ đột phá.",
+          "prompt_required": "Vui lòng nhập mô tả nội dung tự tạo",
+          "generate": "Tạo",
+          "save": "Lưu Và Trang Bị",
+          "generate_failed": "Tạo nội dung tự tạo thất bại",
+          "create_success": "Đã tạo và trang bị nội dung tự tạo",
+          "create_failed": "Lưu nội dung tự tạo thất bại"
+        },
         "categories": {
           "technique": "Công Pháp",
           "weapon": "Vũ Khí",

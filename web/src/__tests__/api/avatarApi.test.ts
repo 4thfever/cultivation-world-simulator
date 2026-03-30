@@ -41,4 +41,63 @@ describe('avatarApi', () => {
       persona_ids: [1, 2, 3],
     })
   })
+
+  it('posts custom content generation requests', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', draft: {} })
+
+    await avatarApi.generateCustomContent({
+      category: 'weapon',
+      realm: 'CORE_FORMATION',
+      user_prompt: '想要一把金丹剑',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+      category: 'weapon',
+      realm: 'CORE_FORMATION',
+      user_prompt: '想要一把金丹剑',
+    })
+  })
+
+  it('posts custom content creation requests', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', item: {} })
+
+    await avatarApi.createCustomContent({
+      category: 'auxiliary',
+      draft: {
+        id: '0',
+        category: 'auxiliary',
+        realm: 'CORE_FORMATION',
+        name: '草稿',
+        effects: { extra_max_hp: 30 },
+      } as any,
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/create_custom_content', {
+      category: 'auxiliary',
+      draft: {
+        id: '0',
+        category: 'auxiliary',
+        realm: 'CORE_FORMATION',
+        name: '草稿',
+        effects: { extra_max_hp: 30 },
+      },
+    })
+  })
+
+  it('allows technique custom generation without realm', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', draft: {} })
+
+    await avatarApi.generateCustomContent({
+      category: 'technique',
+      user_prompt: '我想要一本偏火属性的功法',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+      category: 'technique',
+      user_prompt: '我想要一本偏火属性的功法',
+    })
+  })
 })

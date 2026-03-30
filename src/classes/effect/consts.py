@@ -77,13 +77,6 @@ EXTRA_RESPIRE_EXP = "extra_respire_exp"
   - 中量: 20~50 (基础吐纳约每次100点经验)
   - 大量: 100+
 """
-
-EXTRA_CULTIVATE_EXP = "extra_cultivate_exp"
-"""
-额外修炼经验 (兼容旧版)
-类型: int
-说明: 兼容旧版配置，可能同时影响吐纳和锻体，具体看实现。
-"""
     
 EXTRA_RESPIRE_EXP_MULTIPLIER = "extra_respire_exp_multiplier"
 """
@@ -107,13 +100,6 @@ RESPIRE_DURATION_REDUCTION = "respire_duration_reduction"
   - 微量: 0.05~0.1 (缩减5%-10%)
   - 中量: 0.15 (15%)
   - 极限: 0.3 (30%)
-"""
-
-CULTIVATE_DURATION_REDUCTION = "cultivate_duration_reduction"
-"""
-修炼时长缩减 (兼容旧版)
-类型: float
-说明: 兼容旧版配置。
 """
 
 # --- 修炼相关 (武道-锻体) ---
@@ -555,10 +541,8 @@ ALL_EFFECTS = [
     
     # 修炼相关
     "extra_respire_exp",                 # int - 额外吐纳经验
-    "extra_cultivate_exp",               # int - 额外修炼经验 (deprecated/compatibility)
     "extra_respire_exp_multiplier",      # float - 额外吐纳经验倍率
     "respire_duration_reduction",        # float - 吐纳时长缩减
-    "cultivate_duration_reduction",      # float - 修炼时长缩减 (deprecated/compatibility)
     "temper_duration_reduction",         # float - 锻体时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     "extra_retreat_success_rate",        # float - 额外闭关成功率

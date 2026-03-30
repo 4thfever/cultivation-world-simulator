@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from fastapi import HTTPException
 
 from src.classes.items.auxiliary import auxiliaries_by_id
+from src.classes.custom_content import is_custom_content_id
 from src.classes.items.weapon import weapons_by_id
 from src.classes.persona import personas_by_id
 from src.classes.technique import techniques_by_id
@@ -76,6 +77,7 @@ def _build_option_from_structured(raw: dict) -> dict:
     option = dict(raw)
     if "id" in option:
         option["id"] = int(option["id"])
+        option["is_custom"] = is_custom_content_id(option["id"])
     return option
 
 

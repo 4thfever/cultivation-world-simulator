@@ -158,6 +158,25 @@ export interface UpdateAvatarAdjustmentParams {
   persona_ids?: number[];
 }
 
+export interface GenerateCustomContentParams {
+  category: 'technique' | 'weapon' | 'auxiliary';
+  realm?: string;
+  user_prompt: string;
+}
+
+export interface CustomContentDraftDTO extends AvatarAdjustOptionDTO {
+  category: 'technique' | 'weapon' | 'auxiliary';
+  realm?: string;
+  effects: Record<string, number | boolean>;
+  weapon_type?: string;
+  is_custom?: boolean;
+}
+
+export interface CreateCustomContentParams {
+  category: 'technique' | 'weapon' | 'auxiliary';
+  draft: CustomContentDraftDTO;
+}
+
 export interface PhenomenonDTO {
   id: number;
   name: string;

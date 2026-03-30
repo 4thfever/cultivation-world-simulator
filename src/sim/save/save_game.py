@@ -37,6 +37,7 @@ if TYPE_CHECKING:
 
 from src.utils.config import CONFIG
 from src.config import get_settings_service
+from src.classes.custom_content import CustomContentRegistry
 from src.classes.language import language_manager
 from src.sim.load.load_game import get_events_db_path
 
@@ -221,6 +222,7 @@ def save_game(
         save_data = {
             "meta": meta,
             "run_config": run_config_snapshot,
+            "custom_content": CustomContentRegistry.to_save_dict(),
             "world": world_data,
             "avatars": avatars_data,
             "events": events_data,
