@@ -29,7 +29,7 @@ msgid " (Resource Distribution: {species_info})"
 msgstr " (Phân bố tài nguyên: {species_info})"
 
 msgid " ({desc})"
-msgstr ""
+msgstr " ({desc})"
 
 msgid " ({essence_type} Essence: {essence_density})"
 msgstr " ({essence_type} linh khí: {essence_density})"

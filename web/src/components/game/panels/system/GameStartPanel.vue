@@ -79,15 +79,12 @@ async function startGame() {
           :value="settingStore.newGameDraft.world_lore"
           type="textarea"
           :placeholder="t('game_start.placeholders.world_lore')"
-          :autosize="{ minRows: 3, maxRows: 6 }"
+          :autosize="{ minRows: 4, maxRows: 6 }"
           maxlength="800"
           show-count
           @update:value="(value) => settingStore.updateNewGameDraft({ world_lore: value })"
         />
       </n-form-item>
-      <div class="tip-text" style="margin-top: -12px;">
-        {{ t('game_start.tips.world_lore') }}
-      </div>
 
       <div class="actions" v-if="!readonly">
         <n-button type="primary" size="large" @click="startGame" :loading="loading">

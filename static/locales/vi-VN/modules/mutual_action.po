@@ -250,7 +250,7 @@ msgid "{target} rejected {initiator}'s talk invitation"
 msgstr "{target} từ chối lời mời bắt chuyện của {initiator}"
 
 msgid "{target} rejected {initiator}'s gift: {item}"
-msgstr ""
+msgstr "{target} đã từ chối quà tặng của {initiator}: {item}"
 
 msgid ""
 "{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "

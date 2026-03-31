@@ -8,11 +8,10 @@
     "world_lore": "Thế Giới Quan Và Lịch Sử"
   },
   "tips": {
-    "sect_num": "Số lượng tông môn nên nhỏ hơn một nửa số tu sĩ ban đầu.",
-    "world_lore": "Hãy ưu tiên mô tả thế giới quan trước, rồi bổ sung bối cảnh lịch sử quan trọng. Lưu ý: bật mục này sẽ gọi LLM và làm tăng đáng kể thời gian khởi tạo."
+    "sect_num": "Số lượng tông môn nên nhỏ hơn một nửa số tu sĩ ban đầu."
   },
   "placeholders": {
-    "world_lore": "Nhập thế giới quan và lịch sử của thế giới tu tiên (Tùy chọn)."
+    "world_lore": "Hãy mô tả trước hệ thống tu luyện, cục diện chính tà, hệ sinh thái tông môn và sắc thái vùng miền, rồi bổ sung các thời kỳ và sự kiện lịch sử quan trọng. Bật mục này sẽ gọi LLM và làm tăng rõ rệt thời gian khởi tạo. (Tùy chọn)"
   },
   "options": {},
   "actions": {

@@ -1453,7 +1453,10 @@ def get_detail_info(
         return build_sect_detail(target, world, language_manager)
 
     # 其他类型继续沿用各自的领域层 get_structured_info 实现
-    return target.get_structured_info()
+    info = target.get_structured_info()
+    if target_type == "avatar":
+        info["pic_id"] = resolve_avatar_pic_id(target)
+    return info
 
 class SetObjectiveRequest(BaseModel):
     avatar_id: str
@@ -1518,6 +1521,11 @@ class UpdateAvatarAdjustmentRequest(BaseModel):
     category: Literal["technique", "weapon", "auxiliary", "personas"]
     target_id: Optional[int] = None
     persona_ids: Optional[List[int]] = None
+
+
+class UpdateAvatarPortraitRequest(BaseModel):
+    avatar_id: str
+    pic_id: int
 
 
 class GenerateCustomContentRequest(BaseModel):
@@ -1609,6 +1617,26 @@ def get_game_data():
 def get_avatar_adjust_options():
     """获取角色详情调整面板所需的全量条目。"""
     return build_avatar_adjust_options()
+
+
+@app.post("/api/action/update_avatar_portrait")
+def update_avatar_portrait(req: UpdateAvatarPortraitRequest):
+    """更新角色自定义头像，限定为当前性别头像库中的有效条目。"""
+    world = game_instance.get("world")
+    if not world:
+        raise HTTPException(status_code=503, detail="World not initialized")
+
+    avatar = world.avatar_manager.avatars.get(req.avatar_id)
+    if not avatar:
+        raise HTTPException(status_code=404, detail="Avatar not found")
+
+    gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
+    available_ids = set(AVATAR_ASSETS.get(gender_key, []))
+    if available_ids and req.pic_id not in available_ids:
+        raise HTTPException(status_code=400, detail="Invalid pic_id for avatar gender")
+
+    avatar.custom_pic_id = req.pic_id
+    return {"status": "ok", "message": "Avatar portrait updated"}
 
 @app.get("/api/meta/avatar_list")
 def get_avatar_list_simple():

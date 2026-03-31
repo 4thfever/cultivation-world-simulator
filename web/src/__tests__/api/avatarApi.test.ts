@@ -42,6 +42,21 @@ describe('avatarApi', () => {
     })
   })
 
+  it('posts avatar portrait update payloads through the dedicated endpoint', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok' })
+
+    await avatarApi.updateAvatarPortrait({
+      avatar_id: 'avatar_1',
+      pic_id: 12,
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/update_avatar_portrait', {
+      avatar_id: 'avatar_1',
+      pic_id: 12,
+    })
+  })
+
   it('posts custom content generation requests', async () => {
     const { avatarApi } = await import('@/api/modules/avatar')
     postMock.mockResolvedValue({ status: 'ok', draft: {} })

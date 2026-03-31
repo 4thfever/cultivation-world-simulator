@@ -7,6 +7,7 @@ import type {
   AvatarAdjustCatalogDTO,
   AvatarAdjustOptionDTO,
   UpdateAvatarAdjustmentParams,
+  UpdateAvatarPortraitParams,
   GenerateCustomContentParams,
   CustomContentDraftDTO,
   CreateCustomContentParams,
@@ -59,6 +60,10 @@ export const avatarApi = {
 
   updateAvatarAdjustment(params: UpdateAvatarAdjustmentParams) {
     return httpClient.post<{ status: string; message: string }>('/api/action/update_avatar_adjustment', params);
+  },
+
+  updateAvatarPortrait(params: UpdateAvatarPortraitParams) {
+    return httpClient.post<{ status: string; message: string }>('/api/action/update_avatar_portrait', params);
   },
 
   generateCustomContent(params: GenerateCustomContentParams) {

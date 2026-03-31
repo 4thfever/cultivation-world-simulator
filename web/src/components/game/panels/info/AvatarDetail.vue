@@ -9,12 +9,14 @@ import RelationRow from './components/RelationRow.vue';
 import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import AvatarAdjustPanel from './components/AvatarAdjustPanel.vue';
+import AvatarPortraitPanel from './components/AvatarPortraitPanel.vue';
 import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import type { RelationInfo } from '@/types/core';
 import { logError } from '@/utils/appError';
 import editIcon from '@/assets/icons/edit.png';
+import { getAvatarPortraitUrl } from '@/utils/assetUrls';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -24,6 +26,7 @@ const props = defineProps<{
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
 const adjustCategory = ref<'technique' | 'weapon' | 'auxiliary' | 'personas' | null>(null);
+const showPortraitPanel = ref(false);
 const showObjectiveModal = ref(false);
 const objectiveContent = ref('');
 
@@ -39,6 +42,12 @@ const currentEffectsLines = computed(() => {
   const text = currentEffectsText.value;
   if (!text || text === '无') return [];
   return text.split('\n');
+});
+
+const portraitUrl = computed(() => getAvatarPortraitUrl(props.data.gender, props.data.pic_id));
+
+const avatarHeaderSubtitle = computed(() => {
+  return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
 
 const formattedRanking = computed(() => {
@@ -213,6 +222,14 @@ async function handleClearObjective() {
       @close="closeAdjustPanel"
       @updated="uiStore.refreshDetail()"
     />
+    <AvatarPortraitPanel
+      :avatar-id="data.id"
+      :gender="data.gender"
+      :current-pic-id="data.pic_id"
+      :visible="showPortraitPanel"
+      @close="showPortraitPanel = false"
+      @updated="uiStore.refreshDetail()"
+    />
 
     <!-- Actions Bar -->
     <div class="actions-bar" v-if="!data.is_dead">
@@ -224,6 +241,32 @@ async function handleClearObjective() {
     </div>
 
     <div class="content-scroll">
+      <div class="avatar-header">
+        <button
+          class="portrait-button"
+          type="button"
+          :title="t('game.info_panel.avatar.portrait.entry')"
+          :aria-label="t('game.info_panel.avatar.portrait.entry')"
+          @click="showPortraitPanel = true"
+        >
+          <div class="portrait-shell">
+            <img v-if="portraitUrl" class="portrait-image" :src="portraitUrl" :alt="t('game.info_panel.avatar.portrait.preview_alt')" />
+            <div v-else class="portrait-fallback">{{ data.name.slice(0, 1) }}</div>
+            <div class="portrait-overlay">
+              <span class="portrait-overlay-text">{{ t('game.info_panel.avatar.portrait.entry') }}</span>
+              <span class="portrait-edit-badge">
+                <img class="portrait-edit-icon" :src="editIcon" alt="" aria-hidden="true" />
+              </span>
+            </div>
+          </div>
+        </button>
+        <div class="avatar-header-meta">
+          <div class="avatar-name">{{ data.name }}</div>
+          <div class="avatar-realm">{{ data.realm }}</div>
+          <div class="avatar-sect">{{ avatarHeaderSubtitle }}</div>
+        </div>
+      </div>
+
       <!-- Objectives -->
       <div v-if="!data.is_dead" class="objectives-banner">
         <div class="objective-item backstory-item" v-if="data.backstory">
@@ -552,6 +595,132 @@ async function handleClearObjective() {
   flex-direction: column;
   gap: 16px;
   padding-right: 4px; /* Space for scrollbar */
+}
+
+.avatar-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.portrait-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.portrait-shell {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.1), transparent 58%),
+    rgba(255, 255, 255, 0.04);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.portrait-button:hover .portrait-shell {
+  border-color: rgba(23, 125, 220, 0.45);
+  box-shadow: 0 0 0 1px rgba(23, 125, 220, 0.18);
+  transform: translateY(-1px);
+}
+
+.portrait-image,
+.portrait-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.portrait-image {
+  object-fit: contain;
+}
+
+.portrait-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ddd;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.portrait-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 8px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.34));
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.portrait-button:hover .portrait-overlay {
+  opacity: 1;
+}
+
+.portrait-overlay-text {
+  font-size: 11px;
+  color: #f2f6fb;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.portrait-edit-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(19, 24, 31, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.portrait-edit-icon {
+  width: 11px;
+  height: 11px;
+  display: block;
+}
+
+.avatar-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.avatar-name {
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #f4f6f8;
+}
+
+.avatar-realm {
+  font-size: 13px;
+  color: #b3d7ff;
+}
+
+.avatar-sect {
+  font-size: 12px;
+  color: #8f98a3;
 }
 
 .stats-grid {

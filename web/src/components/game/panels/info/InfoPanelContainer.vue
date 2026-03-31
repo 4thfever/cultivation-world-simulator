@@ -70,11 +70,15 @@ function handleDocumentPointerDown(event: PointerEvent) {
   const panelEl = panelRef.value;
   if (panelEl?.contains(target)) return;
 
-  const adjustPanel = document.querySelector('.adjust-panel');
-  if (adjustPanel?.contains(target)) return;
-
-  const secondaryPanel = document.querySelector('.secondary-panel');
-  if (secondaryPanel?.contains(target)) return;
+  const protectedPanelSelectors = [
+    '.adjust-panel',
+    '.secondary-panel',
+    '.portrait-panel',
+  ];
+  for (const selector of protectedPanelSelectors) {
+    const protectedPanel = document.querySelector(selector);
+    if (protectedPanel?.contains(target)) return;
+  }
 
   close();
 }

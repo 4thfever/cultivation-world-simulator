@@ -259,6 +259,19 @@
           "personas": "Traits"
         }
       },
+      "portrait": {
+        "entry": "Change Portrait",
+        "title": "Change Portrait",
+        "current": "Current Preview",
+        "library": "Portrait Library",
+        "preview_alt": "Avatar portrait preview",
+        "option_alt": "Portrait",
+        "empty": "No portrait available",
+        "empty_library": "No portraits available",
+        "load_failed": "Failed to load portrait library",
+        "apply_success": "Portrait updated",
+        "apply_failed": "Failed to update portrait"
+      },
       "relation_meta": "{relation} toward {owner}",
       "father_short": "Father",
       "mother_short": "Mother",

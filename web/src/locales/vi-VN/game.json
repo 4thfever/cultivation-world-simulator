@@ -259,6 +259,19 @@
           "personas": "Đặc Chất"
         }
       },
+      "portrait": {
+        "entry": "Đổi Chân Dung",
+        "title": "Đổi Chân Dung",
+        "current": "Xem trước hiện tại",
+        "library": "Thư viện chân dung",
+        "preview_alt": "Xem trước chân dung nhân vật",
+        "option_alt": "Chân dung",
+        "empty": "Chưa có chân dung",
+        "empty_library": "Không có chân dung khả dụng",
+        "load_failed": "Tải thư viện chân dung thất bại",
+        "apply_success": "Đã cập nhật chân dung",
+        "apply_failed": "Cập nhật chân dung thất bại"
+      },
       "relation_meta": "{relation} với {owner}",
       "father_short": "Cha",
       "mother_short": "Mẹ",

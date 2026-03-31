@@ -35,6 +35,16 @@ export const useAvatarStore = defineStore('avatar', () => {
     }
   }
 
+  function updateAvatarSummary(id: string, patch: Partial<AvatarSummary>) {
+    const existing = avatars.value.get(id);
+    if (!existing) return;
+    avatars.value = new Map(avatars.value).set(id, {
+      ...existing,
+      ...patch,
+      id: existing.id,
+    });
+  }
+
   async function preloadAvatars() {
     try {
       const stateRes = await worldApi.fetchInitialState();
@@ -68,6 +78,7 @@ export const useAvatarStore = defineStore('avatar', () => {
     avatars,
     avatarList,
     updateAvatars,
+    updateAvatarSummary,
     preloadAvatars,
     setAvatarsFromState,
     reset

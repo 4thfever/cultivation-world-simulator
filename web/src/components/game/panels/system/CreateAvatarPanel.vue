@@ -5,6 +5,7 @@ import { RelationType } from '@/constants/relations'
 import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
+import { getAvatarPortraitUrl } from '@/utils/assetUrls'
 
 const emit = defineEmits<{
   (e: 'created'): void
@@ -330,9 +331,7 @@ const availableAvatars = computed(() => {
 })
 
 const currentAvatarUrl = computed(() => {
-  if (!createForm.value.pic_id) return ''
-  const dir = createForm.value.gender === GENDER_FEMALE ? 'females' : 'males'
-  return `/assets/${dir}/${createForm.value.pic_id}.png`
+  return getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id)
 })
 
 const avatarOptions = computed(() => {
@@ -524,7 +523,7 @@ onMounted(() => {
             :class="{ selected: createForm.pic_id === id }"
             @click="createForm.pic_id = id"
           >
-            <img :src="`/assets/${createForm.gender === GENDER_FEMALE ? 'females' : 'males'}/${id}.png`" loading="lazy" />
+            <img :src="getAvatarPortraitUrl(createForm.gender, id)" loading="lazy" />
           </div>
           <div v-if="availableAvatars.length === 0" class="no-avatars">{{ panelCopy.noAvatars }}</div>
         </div>

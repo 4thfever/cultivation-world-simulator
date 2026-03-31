@@ -51,6 +51,7 @@ export interface AvatarSummary extends EntityBase, Coordinates {
 
 export interface AvatarDetail extends EntityBase {
   // 基础信息
+  pic_id?: number | null;
   gender: string;
   age: number;
   origin: string;

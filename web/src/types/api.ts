@@ -158,6 +158,11 @@ export interface UpdateAvatarAdjustmentParams {
   persona_ids?: number[];
 }
 
+export interface UpdateAvatarPortraitParams {
+  avatar_id: string;
+  pic_id: number;
+}
+
 export interface GenerateCustomContentParams {
   category: 'technique' | 'weapon' | 'auxiliary';
   realm?: string;

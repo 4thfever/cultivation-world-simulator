@@ -259,6 +259,19 @@
           "personas": "特质"
         }
       },
+      "portrait": {
+        "entry": "更换头像",
+        "title": "更换头像",
+        "current": "当前预览",
+        "library": "头像库",
+        "preview_alt": "角色头像预览",
+        "option_alt": "头像",
+        "empty": "暂无头像",
+        "empty_library": "暂无可用头像",
+        "load_failed": "加载头像库失败",
+        "apply_success": "头像已更新",
+        "apply_failed": "更新头像失败"
+      },
       "relation_meta": "对{owner}{relation}",
       "father_short": "父",
       "mother_short": "母",

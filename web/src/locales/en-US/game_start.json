@@ -8,11 +8,10 @@
     "world_lore": "Worldview and History"
   },
   "tips": {
-    "sect_num": "Sect number should be less than half of initial cultivators.",
-    "world_lore": "Focus on worldview first, then major historical context. Note: Enabling this calls LLM and significantly increases initialization time."
+    "sect_num": "Sect number should be less than half of initial cultivators."
   },
   "placeholders": {
-    "world_lore": "Enter the cultivation world's worldview and history (Optional)."
+    "world_lore": "Describe the cultivation system, moral alignment, sect ecosystem, and regional flavor first, then add major historical eras and events. Enabling this uses the LLM and noticeably increases initialization time. (Optional)"
   },
   "options": {},
   "actions": {

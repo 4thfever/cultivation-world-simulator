@@ -21,6 +21,10 @@ describe('AvatarDetail', () => {
               clear_objective: 'Clear Objective',
               long_term_objective: 'Long-term Objective',
               short_term_objective: 'Short-term Objective',
+              portrait: {
+                entry: 'Change Portrait',
+                preview_alt: 'Portrait Preview',
+              },
               dead_with_reason: 'Dead ({reason})',
               stats: {
                 realm: 'Realm',
@@ -72,6 +76,7 @@ describe('AvatarDetail', () => {
     id: 'avatar_1',
     name: 'Test Avatar',
     realm: 'Foundation',
+    pic_id: 7,
     level: 1,
     age: 20,
     lifespan: 100,
@@ -113,6 +118,7 @@ describe('AvatarDetail', () => {
           TagList: true,
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
         }
       }
     })
@@ -120,6 +126,8 @@ describe('AvatarDetail', () => {
     expect(wrapper.exists()).toBe(true)
     // Check if the actions bar exists since it's not dead
     expect(wrapper.find('.actions-bar').exists()).toBe(true)
+    expect(wrapper.find('.avatar-header').exists()).toBe(true)
+    expect(wrapper.find('.portrait-button').exists()).toBe(true)
   })
 
   it('should display dead banner if avatar is dead', () => {
@@ -140,6 +148,7 @@ describe('AvatarDetail', () => {
           TagList: true,
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
         }
       }
     })
@@ -195,6 +204,7 @@ describe('AvatarDetail', () => {
           TagList: true,
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
         },
       },
     })
