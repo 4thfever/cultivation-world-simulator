@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import asyncio
 
-from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.core.avatar import Avatar
+from src.classes.celestial_phenomenon import get_random_celestial_phenomenon
 from src.classes.environment.region import CityRegion, CultivateRegion
 from src.classes.event import Event
 from src.classes.observe import get_avatar_observation_radius
 from src.i18n import t
+from src.systems.autonomous_custom_content_service import try_trigger_autonomous_custom_creation
 from src.systems.fortune import try_trigger_fortune, try_trigger_misfortune
 from src.systems.random_minor_event import try_trigger_random_minor_event
 from src.systems.sect_random_event import try_trigger_sect_random_event
@@ -106,6 +107,14 @@ async def phase_random_minor_events(world, living_avatars: list[Avatar]) -> list
     target_avatars = [avatar for avatar in living_avatars if avatar.can_trigger_world_event]
     results = await asyncio.gather(
         *[try_trigger_random_minor_event(avatar, world) for avatar in target_avatars]
+    )
+    return [event for result in results for event in result]
+
+
+async def phase_autonomous_custom_creation(world, living_avatars: list[Avatar]) -> list[Event]:
+    target_avatars = [avatar for avatar in living_avatars if avatar.can_trigger_world_event]
+    results = await asyncio.gather(
+        *[try_trigger_autonomous_custom_creation(avatar, world) for avatar in target_avatars]
     )
     return [event for result in results for event in result]
 

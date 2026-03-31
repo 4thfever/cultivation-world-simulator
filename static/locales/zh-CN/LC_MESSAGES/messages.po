@@ -1498,6 +1498,23 @@ msgid ""
 "\"{nickname}\"."
 msgstr "{avatar_name}在修仙界中闯出名号，被人称为「{nickname}」。"
 
+msgid "{avatar} self-created technique '{item}'"
+msgstr "{avatar}自创功法《{item}》。"
+
+msgid "{avatar} self-created weapon '{item}'"
+msgstr "{avatar}自创兵器《{item}》。"
+
+msgid "{avatar} self-created auxiliary equipment '{item}'"
+msgstr "{avatar}自创辅助装备《{item}》。"
+
+msgid ""
+"Equipped newly created {kind} '{item}', sold old equipment '{old_item}' for "
+"{refund} spirit stones"
+msgstr "装备了新自创的{kind}《{item}》，并卖出旧装备《{old_item}》，获得 {refund} 灵石。"
+
+msgid "Equipped newly created {kind} '{item}'"
+msgstr "装备了新自创的{kind}《{item}》。"
+
 # 执行结果
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
 msgstr "{avatar_name} {done}{grade}{label}『{item_name}』。"

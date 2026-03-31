@@ -81,3 +81,18 @@ msgstr "遊戲已自動保存"
 msgid "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
 msgstr "{avatar_name}在修仙界中闖出名號，被人稱為「{nickname}」。"
 
+msgid "{avatar} self-created technique '{item}'"
+msgstr "{avatar}自創功法《{item}》。"
+
+msgid "{avatar} self-created weapon '{item}'"
+msgstr "{avatar}自創兵器《{item}》。"
+
+msgid "{avatar} self-created auxiliary equipment '{item}'"
+msgstr "{avatar}自創輔助裝備《{item}》。"
+
+msgid "Equipped newly created {kind} '{item}', sold old equipment '{old_item}' for {refund} spirit stones"
+msgstr "裝備了新自創的{kind}《{item}》，並賣出舊裝備《{old_item}》，獲得 {refund} 靈石。"
+
+msgid "Equipped newly created {kind} '{item}'"
+msgstr "裝備了新自創的{kind}《{item}》。"
+

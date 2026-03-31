@@ -1623,6 +1623,25 @@ msgstr ""
 "{avatar_name} đã gây dựng danh tiếng trong tu tiên giới, được người đời gọi "
 "là \"{nickname}\"."
 
+msgid "{avatar} self-created technique '{item}'"
+msgstr "{avatar} đã tự sáng tạo công pháp \"{item}\"."
+
+msgid "{avatar} self-created weapon '{item}'"
+msgstr "{avatar} đã tự sáng tạo binh khí \"{item}\"."
+
+msgid "{avatar} self-created auxiliary equipment '{item}'"
+msgstr "{avatar} đã tự sáng tạo trang bị phụ trợ \"{item}\"."
+
+msgid ""
+"Equipped newly created {kind} '{item}', sold old equipment '{old_item}' for "
+"{refund} spirit stones"
+msgstr ""
+"Đã trang bị {kind} mới tự sáng tạo là \"{item}\", đồng thời bán trang bị cũ "
+"\"{old_item}\" với giá {refund} linh thạch."
+
+msgid "Equipped newly created {kind} '{item}'"
+msgstr "Đã trang bị {kind} mới tự sáng tạo là \"{item}\"."
+
 # Execution Results
 msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
 msgstr "{avatar_name} đã {done} {grade} {label}『{item_name}』."

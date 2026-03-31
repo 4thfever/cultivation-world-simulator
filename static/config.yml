@@ -48,6 +48,8 @@ game:
       world_fortune: 0.50 # 奇遇
       world_misfortune: 0.35 # 霉运
       gathering: 1.0 # 拍卖会、秘境探索、天下武道会、宗门传道大会
+  autonomous_creation_probability: 0.001
+  autonomous_creation_story_probability: 0.5
   fortune_probability: 0.005
   misfortune_probability: 0.005
   random_minor_event_prob: 0.05 # 随机小事每月触发概率 (5%)

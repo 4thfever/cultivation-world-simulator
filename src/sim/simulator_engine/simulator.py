@@ -86,7 +86,8 @@ class Simulator:
         # 12. 被动效果 + 世界性事件
         ctx.add_events(await world_phases.phase_passive_effects(self.world, ctx.living_avatars))
 
-        # 13. 小型随机事件 + 宗门随机事件
+        # 13. 角色自主创作 + 小型随机事件 + 宗门随机事件
+        ctx.add_events(await world_phases.phase_autonomous_custom_creation(self.world, ctx.living_avatars))
         ctx.add_events(await world_phases.phase_random_minor_events(self.world, ctx.living_avatars))
         ctx.add_events(await world_phases.phase_sect_random_event(self.world))
 
