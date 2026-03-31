@@ -9,6 +9,7 @@ Covers:
 
 import pytest
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import MagicMock
 
@@ -723,3 +724,86 @@ class TestEdgeCases:
         # Should be in reverse insertion order (newest first)
         assert events[0].content == "Event 4"
         assert events[4].content == "Event 0"
+
+
+class TestEventStorageThreadSafety:
+    """Tests for thread-safe access around the shared SQLite connection."""
+
+    def test_concurrent_add_event_calls_do_not_corrupt_storage(self, event_storage):
+        """Concurrent writes should serialize cleanly and preserve all events."""
+        total_events = 40
+
+        def write_event(index: int) -> bool:
+            return event_storage.add_event(
+                make_event(
+                    100 + (index % 3),
+                    (index % 12) + 1,
+                    f"Concurrent event {index}",
+                    [f"avatar_{index % 5}"],
+                    event_id=f"concurrent-{index}",
+                )
+            )
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            results = list(executor.map(write_event, range(total_events)))
+
+        assert all(results)
+        assert event_storage.count() == total_events
+
+        events, _ = event_storage.get_events(limit=total_events + 5)
+        assert len(events) == total_events
+        assert {event.id for event in events} == {f"concurrent-{i}" for i in range(total_events)}
+
+    def test_concurrent_reads_and_writes_remain_usable(self, event_storage):
+        """Mixed readers and writers should not throw or leave the store unusable."""
+        preload_events = 12
+        added_during_test = 18
+
+        for i in range(preload_events):
+            event_storage.add_event(
+                make_event(
+                    99,
+                    (i % 12) + 1,
+                    f"Seed event {i}",
+                    [f"seed_avatar_{i % 3}"],
+                    event_id=f"seed-{i}",
+                )
+            )
+
+        def writer(index: int) -> bool:
+            return event_storage.add_event(
+                make_event(
+                    101,
+                    (index % 12) + 1,
+                    f"Live event {index}",
+                    [f"live_avatar_{index % 4}"],
+                    is_major=(index % 2 == 0),
+                    event_id=f"live-{index}",
+                )
+            )
+
+        def reader(index: int) -> tuple[int, int, int]:
+            all_events, _ = event_storage.get_events(limit=64)
+            recent_for_avatar = event_storage.get_events_by_avatar(f"seed_avatar_{index % 3}", limit=10)
+            major_for_avatar = event_storage.get_major_events_by_avatar(f"live_avatar_{index % 4}", limit=10)
+            return len(all_events), len(recent_for_avatar), len(major_for_avatar)
+
+        futures = []
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            for i in range(added_during_test):
+                futures.append(executor.submit(writer, i))
+                futures.append(executor.submit(reader, i))
+
+        results = [future.result() for future in futures]
+
+        writer_results = results[0::2]
+        reader_results = results[1::2]
+
+        assert all(writer_results)
+        assert all(isinstance(snapshot, tuple) and len(snapshot) == 3 for snapshot in reader_results)
+
+        expected_total = preload_events + added_during_test
+        assert event_storage.count() == expected_total
+
+        final_events, _ = event_storage.get_events(limit=expected_total + 5)
+        assert len(final_events) == expected_total

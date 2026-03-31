@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import threading
 from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 from contextlib import contextmanager
@@ -58,83 +59,86 @@ class EventStorage:
         """
         self._db_path = db_path
         self._conn: Optional[sqlite3.Connection] = None
+        # 单连接模型下，用可重入锁串行化所有 SQL 操作，避免读写交错污染连接状态。
+        self._db_lock = threading.RLock()
         self._logger = get_logger().logger
         self._init_db()
 
     def _init_db(self) -> None:
         """初始化数据库连接和表结构。"""
         try:
-            # 确保目录存在。
-            self._db_path.parent.mkdir(parents=True, exist_ok=True)
+            with self._db_lock:
+                # 确保目录存在。
+                self._db_path.parent.mkdir(parents=True, exist_ok=True)
 
-            self._conn = sqlite3.connect(str(self._db_path), check_same_thread=False)
-            self._conn.row_factory = sqlite3.Row
+                self._conn = sqlite3.connect(str(self._db_path), check_same_thread=False)
+                self._conn.row_factory = sqlite3.Row
 
-            # 启用外键约束。
-            self._conn.execute("PRAGMA foreign_keys = ON")
+                # 启用外键约束。
+                self._conn.execute("PRAGMA foreign_keys = ON")
 
-            # 创建表。
-            self._conn.executescript("""
-                CREATE TABLE IF NOT EXISTS events (
-                    id TEXT PRIMARY KEY,
-                    month_stamp INTEGER NOT NULL,
-                    content TEXT NOT NULL,
-                    is_major BOOLEAN DEFAULT FALSE,
-                    is_story BOOLEAN DEFAULT FALSE,
-                    event_type TEXT DEFAULT '',
-                    render_key TEXT,
-                    render_params TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                );
+                # 创建表。
+                self._conn.executescript("""
+                    CREATE TABLE IF NOT EXISTS events (
+                        id TEXT PRIMARY KEY,
+                        month_stamp INTEGER NOT NULL,
+                        content TEXT NOT NULL,
+                        is_major BOOLEAN DEFAULT FALSE,
+                        is_story BOOLEAN DEFAULT FALSE,
+                        event_type TEXT DEFAULT '',
+                        render_key TEXT,
+                        render_params TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
 
-                CREATE TABLE IF NOT EXISTS event_avatars (
-                    event_id TEXT NOT NULL,
-                    avatar_id TEXT NOT NULL,
-                    PRIMARY KEY (event_id, avatar_id),
-                    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
-                );
+                    CREATE TABLE IF NOT EXISTS event_avatars (
+                        event_id TEXT NOT NULL,
+                        avatar_id TEXT NOT NULL,
+                        PRIMARY KEY (event_id, avatar_id),
+                        FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+                    );
 
-                CREATE INDEX IF NOT EXISTS idx_events_month_stamp
-                    ON events(month_stamp DESC);
-                CREATE INDEX IF NOT EXISTS idx_events_is_major
-                    ON events(is_major);
-                CREATE INDEX IF NOT EXISTS idx_event_avatars_avatar_id
-                    ON event_avatars(avatar_id);
-                CREATE INDEX IF NOT EXISTS idx_event_avatars_event_id
-                    ON event_avatars(event_id);
+                    CREATE INDEX IF NOT EXISTS idx_events_month_stamp
+                        ON events(month_stamp DESC);
+                    CREATE INDEX IF NOT EXISTS idx_events_is_major
+                        ON events(is_major);
+                    CREATE INDEX IF NOT EXISTS idx_event_avatars_avatar_id
+                        ON event_avatars(avatar_id);
+                    CREATE INDEX IF NOT EXISTS idx_event_avatars_event_id
+                        ON event_avatars(event_id);
 
-                CREATE TABLE IF NOT EXISTS event_sects (
-                    event_id TEXT NOT NULL,
-                    sect_id INTEGER NOT NULL,
-                    PRIMARY KEY (event_id, sect_id),
-                    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
-                );
+                    CREATE TABLE IF NOT EXISTS event_sects (
+                        event_id TEXT NOT NULL,
+                        sect_id INTEGER NOT NULL,
+                        PRIMARY KEY (event_id, sect_id),
+                        FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+                    );
 
-                CREATE INDEX IF NOT EXISTS idx_event_sects_sect_id
-                    ON event_sects(sect_id);
-                CREATE INDEX IF NOT EXISTS idx_event_sects_event_id
-                    ON event_sects(event_id);
+                    CREATE INDEX IF NOT EXISTS idx_event_sects_sect_id
+                        ON event_sects(sect_id);
+                    CREATE INDEX IF NOT EXISTS idx_event_sects_event_id
+                        ON event_sects(event_id);
 
-                CREATE TABLE IF NOT EXISTS event_observations (
-                    id TEXT PRIMARY KEY,
-                    event_id TEXT NOT NULL,
-                    observer_avatar_id TEXT NOT NULL,
-                    subject_avatar_id TEXT,
-                    propagation_kind TEXT NOT NULL,
-                    relation_type TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    UNIQUE(event_id, observer_avatar_id, propagation_kind),
-                    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
-                );
+                    CREATE TABLE IF NOT EXISTS event_observations (
+                        id TEXT PRIMARY KEY,
+                        event_id TEXT NOT NULL,
+                        observer_avatar_id TEXT NOT NULL,
+                        subject_avatar_id TEXT,
+                        propagation_kind TEXT NOT NULL,
+                        relation_type TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(event_id, observer_avatar_id, propagation_kind),
+                        FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+                    );
 
-                CREATE INDEX IF NOT EXISTS idx_event_observations_observer_avatar_id
-                    ON event_observations(observer_avatar_id);
-                CREATE INDEX IF NOT EXISTS idx_event_observations_event_id
-                    ON event_observations(event_id);
-                CREATE INDEX IF NOT EXISTS idx_event_observations_subject_avatar_id
-                    ON event_observations(subject_avatar_id);
-            """)
-            self._conn.commit()
+                    CREATE INDEX IF NOT EXISTS idx_event_observations_observer_avatar_id
+                        ON event_observations(observer_avatar_id);
+                    CREATE INDEX IF NOT EXISTS idx_event_observations_event_id
+                        ON event_observations(event_id);
+                    CREATE INDEX IF NOT EXISTS idx_event_observations_subject_avatar_id
+                        ON event_observations(subject_avatar_id);
+                """)
+                self._conn.commit()
             self._logger.info(f"EventStorage initialized: {self._db_path}")
         except Exception as e:
             self._logger.error(f"Failed to initialize EventStorage: {e}")
@@ -143,12 +147,13 @@ class EventStorage:
     @contextmanager
     def _transaction(self):
         """事务上下文管理器。"""
-        try:
-            yield self._conn
-            self._conn.commit()
-        except Exception:
-            self._conn.rollback()
-            raise
+        with self._db_lock:
+            try:
+                yield self._conn
+                self._conn.commit()
+            except Exception:
+                self._conn.rollback()
+                raise
 
     def add_event(self, event: "Event") -> bool:
         """
@@ -269,17 +274,18 @@ class EventStorage:
         from src.classes.event import Event
         from src.systems.time import MonthStamp
 
-        avatar_rows = self._conn.execute(
-            "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-            (row["id"],)
-        ).fetchall()
-        related_avatars = [r["avatar_id"] for r in avatar_rows]
+        with self._db_lock:
+            avatar_rows = self._conn.execute(
+                "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
+                (row["id"],)
+            ).fetchall()
+            related_avatars = [r["avatar_id"] for r in avatar_rows]
 
-        sect_rows = self._conn.execute(
-            "SELECT sect_id FROM event_sects WHERE event_id = ?",
-            (row["id"],)
-        ).fetchall()
-        related_sects = [r["sect_id"] for r in sect_rows]
+            sect_rows = self._conn.execute(
+                "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                (row["id"],)
+            ).fetchall()
+            related_sects = [r["sect_id"] for r in sect_rows]
 
         return Event(
             month_stamp=MonthStamp(row["month_stamp"]),
@@ -299,15 +305,16 @@ class EventStorage:
         if not event_ids:
             return {}
         placeholders = ",".join("?" for _ in event_ids)
-        rows = self._conn.execute(
-            f"""
-            SELECT id, event_id, observer_avatar_id, subject_avatar_id, propagation_kind, relation_type, created_at
-            FROM event_observations
-            WHERE event_id IN ({placeholders})
-            ORDER BY created_at ASC
-            """,
-            event_ids,
-        ).fetchall()
+        with self._db_lock:
+            rows = self._conn.execute(
+                f"""
+                SELECT id, event_id, observer_avatar_id, subject_avatar_id, propagation_kind, relation_type, created_at
+                FROM event_observations
+                WHERE event_id IN ({placeholders})
+                ORDER BY created_at ASC
+                """,
+                event_ids,
+            ).fetchall()
         grouped: dict[str, list[sqlite3.Row]] = {}
         for row in rows:
             grouped.setdefault(row["event_id"], []).append(row)
@@ -356,101 +363,114 @@ class EventStorage:
         if self._conn is None:
             return [], None
 
+        base_query = ""
+        params: list = []
         try:
-            # 构建查询。
-            params: list = []
+            with self._db_lock:
+                # 构建查询。
+                if avatar_id_pair:
+                    # Pair 查询：两个角色都相关的事件。
+                    id1, id2 = avatar_id_pair
+                    base_query = """
+                        SELECT DISTINCT
+                            e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                            e.event_type, e.render_key, e.render_params, e.created_at
+                        FROM events e
+                        JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
+                        JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
+                    """
+                    params.extend([id1, id2])
+                elif avatar_id:
+                    # 单角色查询。
+                    base_query = """
+                        SELECT DISTINCT
+                            e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                            e.event_type, e.render_key, e.render_params, e.created_at
+                        FROM events e
+                        JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
+                    """
+                    params.append(avatar_id)
+                elif sect_id is not None:
+                    # 宗门查询。
+                    base_query = """
+                        SELECT DISTINCT
+                            e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
+                            e.event_type, e.render_key, e.render_params, e.created_at
+                        FROM events e
+                        JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
+                    """
+                    params.append(sect_id)
+                else:
+                    # 全部事件。
+                    base_query = """
+                        SELECT
+                            rowid, id, month_stamp, content, is_major, is_story,
+                            event_type, render_key, render_params, e.created_at
+                        FROM events e
+                    """
 
-            if avatar_id_pair:
-                # Pair 查询：两个角色都相关的事件。
-                id1, id2 = avatar_id_pair
-                base_query = """
-                    SELECT DISTINCT
-                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.event_type, e.render_key, e.render_params, e.created_at
-                    FROM events e
-                    JOIN event_avatars ea1 ON e.id = ea1.event_id AND ea1.avatar_id = ?
-                    JOIN event_avatars ea2 ON e.id = ea2.event_id AND ea2.avatar_id = ?
-                """
-                params.extend([id1, id2])
-            elif avatar_id:
-                # 单角色查询。
-                base_query = """
-                    SELECT DISTINCT
-                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.event_type, e.render_key, e.render_params, e.created_at
-                    FROM events e
-                    JOIN event_avatars ea ON e.id = ea.event_id AND ea.avatar_id = ?
-                """
-                params.append(avatar_id)
-            elif sect_id is not None:
-                # 宗门查询。
-                base_query = """
-                    SELECT DISTINCT
-                        e.rowid, e.id, e.month_stamp, e.content, e.is_major, e.is_story,
-                        e.event_type, e.render_key, e.render_params, e.created_at
-                    FROM events e
-                    JOIN event_sects es ON e.id = es.event_id AND es.sect_id = ?
-                """
-                params.append(sect_id)
-            else:
-                # 全部事件。
-                base_query = """
-                    SELECT
-                        rowid, id, month_stamp, content, is_major, is_story,
-                        event_type, render_key, render_params, e.created_at
-                    FROM events e
-                """
+                # Cursor 条件（获取更旧的事件）。
+                # 使用 rowid 保证同一 month_stamp 内的确定性顺序。
+                where_clauses = []
+                if major_scope == "major":
+                    where_clauses.append("e.is_major = TRUE AND e.is_story = FALSE")
+                elif major_scope == "minor":
+                    where_clauses.append("(e.is_major = FALSE OR e.is_story = TRUE)")
 
-            # Cursor 条件（获取更旧的事件）。
-            # 使用 rowid 保证同一 month_stamp 内的确定性顺序。
-            where_clauses = []
-            if major_scope == "major":
-                where_clauses.append("e.is_major = TRUE AND e.is_story = FALSE")
-            elif major_scope == "minor":
-                where_clauses.append("(e.is_major = FALSE OR e.is_story = TRUE)")
+                if cursor:
+                    cursor_month, cursor_rowid = self._parse_cursor(cursor)
+                    where_clauses.append(
+                        "(e.month_stamp < ? OR (e.month_stamp = ? AND e.rowid < ?))"
+                    )
+                    params.extend([cursor_month, cursor_month, cursor_rowid])
 
-            if cursor:
-                cursor_month, cursor_rowid = self._parse_cursor(cursor)
-                where_clauses.append(
-                    "(e.month_stamp < ? OR (e.month_stamp = ? AND e.rowid < ?))"
-                )
-                params.extend([cursor_month, cursor_month, cursor_rowid])
+                # 组装 WHERE。
+                if where_clauses:
+                    base_query += " WHERE " + " AND ".join(where_clauses)
 
-            # 组装 WHERE。
-            if where_clauses:
-                base_query += " WHERE " + " AND ".join(where_clauses)
+                # 排序和分页（最新的在前，向上加载更旧的）。
+                # 使用 rowid 保证同一 month_stamp 内的插入顺序。
+                base_query += " ORDER BY e.month_stamp DESC, e.rowid DESC LIMIT ?"
+                params.append(limit + 1)  # 多取一条判断是否有更多。
 
-            # 排序和分页（最新的在前，向上加载更旧的）。
-            # 使用 rowid 保证同一 month_stamp 内的插入顺序。
-            base_query += " ORDER BY e.month_stamp DESC, e.rowid DESC LIMIT ?"
-            params.append(limit + 1)  # 多取一条判断是否有更多。
+                rows = self._conn.execute(base_query, params).fetchall()
 
-            rows = self._conn.execute(base_query, params).fetchall()
+                # 判断是否有更多。
+                has_more = len(rows) > limit
+                if has_more:
+                    rows = rows[:limit]
 
-            # 判断是否有更多。
-            has_more = len(rows) > limit
-            if has_more:
-                rows = rows[:limit]
+                # 构建事件对象。
+                events = []
+                last_rowid = None
+                last_month_stamp = None
+                for row in rows:
+                    event = self._row_to_event(row)
+                    events.append(event)
+                    last_rowid = row["rowid"]
+                    last_month_stamp = row["month_stamp"]
 
-            # 构建事件对象。
-            events = []
-            last_rowid = None
-            last_month_stamp = None
-            for row in rows:
-                event = self._row_to_event(row)
-                events.append(event)
-                last_rowid = row["rowid"]
-                last_month_stamp = row["month_stamp"]
+                # 生成 next_cursor。
+                next_cursor = None
+                if has_more and last_rowid is not None:
+                    next_cursor = self._make_cursor(last_month_stamp, last_rowid)
 
-            # 生成 next_cursor。
-            next_cursor = None
-            if has_more and last_rowid is not None:
-                next_cursor = self._make_cursor(last_month_stamp, last_rowid)
-
-            return events, next_cursor
+                return events, next_cursor
 
         except Exception as e:
-            self._logger.error(f"Failed to query events: {e}")
+            self._logger.exception(
+                "Failed to query events: %s | avatar_id=%r avatar_id_pair=%r sect_id=%r "
+                "major_scope=%r cursor=%r limit=%r sql=%r params=%r",
+                e,
+                avatar_id,
+                avatar_id_pair,
+                sect_id,
+                major_scope,
+                cursor,
+                limit,
+                base_query,
+                params,
+            )
             return [], None
 
     def get_events_by_avatar(self, avatar_id: str, limit: int = 50) -> list["Event"]:
@@ -476,9 +496,7 @@ class EventStorage:
         if self._conn is None:
             return []
 
-        try:
-            rows = self._conn.execute(
-                """
+        query = """
                 SELECT DISTINCT
                     e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
                     e.created_at, e.render_key, e.render_params, eo.propagation_kind,
@@ -488,21 +506,30 @@ class EventStorage:
                 WHERE e.is_major = TRUE AND e.is_story = FALSE
                 ORDER BY e.month_stamp DESC, e.rowid DESC
                 LIMIT ?
-                """,
-                (avatar_id, limit)
-            ).fetchall()
+                """
+        params = (avatar_id, limit)
+        try:
+            with self._db_lock:
+                rows = self._conn.execute(query, params).fetchall()
 
-            from src.classes.event_renderer import render_observed_event
+                from src.classes.event_renderer import render_observed_event
 
-            events = []
-            for row in rows:
-                event = self._row_to_event(row)
-                event.content = render_observed_event(event, row)
-                events.append(event)
+                events = []
+                for row in rows:
+                    event = self._row_to_event(row)
+                    event.content = render_observed_event(event, row)
+                    events.append(event)
 
-            return list(reversed(events))  # 时间正序。
+                return list(reversed(events))  # 时间正序。
         except Exception as e:
-            self._logger.error(f"Failed to query major events: {e}")
+            self._logger.exception(
+                "Failed to query major events: %s | avatar_id=%r limit=%r sql=%r params=%r",
+                e,
+                avatar_id,
+                limit,
+                query,
+                params,
+            )
             return []
 
     def get_minor_events_by_avatar(self, avatar_id: str, limit: int = 10) -> list["Event"]:
@@ -510,9 +537,7 @@ class EventStorage:
         if self._conn is None:
             return []
 
-        try:
-            rows = self._conn.execute(
-                """
+        query = """
                 SELECT DISTINCT
                     e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type,
                     e.created_at, e.render_key, e.render_params, eo.propagation_kind,
@@ -522,21 +547,30 @@ class EventStorage:
                 WHERE e.is_major = FALSE OR e.is_story = TRUE
                 ORDER BY e.month_stamp DESC, e.rowid DESC
                 LIMIT ?
-                """,
-                (avatar_id, limit)
-            ).fetchall()
+                """
+        params = (avatar_id, limit)
+        try:
+            with self._db_lock:
+                rows = self._conn.execute(query, params).fetchall()
 
-            from src.classes.event_renderer import render_observed_event
+                from src.classes.event_renderer import render_observed_event
 
-            events = []
-            for row in rows:
-                event = self._row_to_event(row)
-                event.content = render_observed_event(event, row)
-                events.append(event)
+                events = []
+                for row in rows:
+                    event = self._row_to_event(row)
+                    event.content = render_observed_event(event, row)
+                    events.append(event)
 
-            return list(reversed(events))  # 时间正序。
+                return list(reversed(events))  # 时间正序。
         except Exception as e:
-            self._logger.error(f"Failed to query minor events: {e}")
+            self._logger.exception(
+                "Failed to query minor events: %s | avatar_id=%r limit=%r sql=%r params=%r",
+                e,
+                avatar_id,
+                limit,
+                query,
+                params,
+            )
             return []
 
     def get_major_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
@@ -544,9 +578,7 @@ class EventStorage:
         if self._conn is None:
             return []
 
-        try:
-            rows = self._conn.execute(
-                """
+        query = """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
                 , e.render_key, e.render_params
                 FROM events e
@@ -555,17 +587,27 @@ class EventStorage:
                 WHERE e.is_major = TRUE AND e.is_story = FALSE
                 ORDER BY e.month_stamp DESC
                 LIMIT ?
-                """,
-                (id1, id2, limit)
-            ).fetchall()
+                """
+        params = (id1, id2, limit)
+        try:
+            with self._db_lock:
+                rows = self._conn.execute(query, params).fetchall()
 
-            events = []
-            for row in rows:
-                events.append(self._row_to_event(row))
+                events = []
+                for row in rows:
+                    events.append(self._row_to_event(row))
 
-            return list(reversed(events))  # 时间正序。
+                return list(reversed(events))  # 时间正序。
         except Exception as e:
-            self._logger.error(f"Failed to query major events between: {e}")
+            self._logger.exception(
+                "Failed to query major events between: %s | id1=%r id2=%r limit=%r sql=%r params=%r",
+                e,
+                id1,
+                id2,
+                limit,
+                query,
+                params,
+            )
             return []
 
     def get_minor_events_between(self, id1: str, id2: str, limit: int = 10) -> list["Event"]:
@@ -573,9 +615,7 @@ class EventStorage:
         if self._conn is None:
             return []
 
-        try:
-            rows = self._conn.execute(
-                """
+        query = """
                 SELECT DISTINCT e.id, e.month_stamp, e.content, e.is_major, e.is_story, e.event_type, e.created_at
                 , e.render_key, e.render_params
                 FROM events e
@@ -584,17 +624,27 @@ class EventStorage:
                 WHERE e.is_major = FALSE OR e.is_story = TRUE
                 ORDER BY e.month_stamp DESC
                 LIMIT ?
-                """,
-                (id1, id2, limit)
-            ).fetchall()
+                """
+        params = (id1, id2, limit)
+        try:
+            with self._db_lock:
+                rows = self._conn.execute(query, params).fetchall()
 
-            events = []
-            for row in rows:
-                events.append(self._row_to_event(row))
+                events = []
+                for row in rows:
+                    events.append(self._row_to_event(row))
 
-            return list(reversed(events))  # 时间正序。
+                return list(reversed(events))  # 时间正序。
         except Exception as e:
-            self._logger.error(f"Failed to query minor events between: {e}")
+            self._logger.exception(
+                "Failed to query minor events between: %s | id1=%r id2=%r limit=%r sql=%r params=%r",
+                e,
+                id1,
+                id2,
+                limit,
+                query,
+                params,
+            )
             return []
 
     def get_recent_events(self, limit: int = 100) -> list["Event"]:
@@ -652,8 +702,9 @@ class EventStorage:
         if self._conn is None:
             return 0
         try:
-            row = self._conn.execute("SELECT COUNT(*) FROM events").fetchone()
-            return row[0] if row else 0
+            with self._db_lock:
+                row = self._conn.execute("SELECT COUNT(*) FROM events").fetchone()
+                return row[0] if row else 0
         except Exception:
             return 0
 
@@ -661,8 +712,9 @@ class EventStorage:
         """关闭数据库连接。"""
         if self._conn:
             try:
-                self._conn.close()
-                self._logger.info("EventStorage closed")
+                with self._db_lock:
+                    self._conn.close()
+                    self._logger.info("EventStorage closed")
             except Exception as e:
                 self._logger.error(f"Failed to close EventStorage: {e}")
             finally:

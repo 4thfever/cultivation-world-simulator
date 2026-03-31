@@ -1,5 +1,8 @@
 $ErrorActionPreference = "Stop"
 
+# Windows PowerShell 5.1 does not load System.Net.Http by default (HttpClient / HttpClientHandler).
+Add-Type -AssemblyName System.Net.Http
+
 if (-not ("TrackingReadStream" -as [type])) {
 Add-Type -Language CSharp @"
 using System;
@@ -13,20 +16,27 @@ public sealed class TrackingReadStream : Stream
 
     public TrackingReadStream(Stream inner)
     {
-        _inner = inner ?? throw new ArgumentNullException(nameof(inner));
+        if (inner == null)
+        {
+            throw new ArgumentNullException("inner");
+        }
+        _inner = inner;
     }
 
-    public long BytesRead => Interlocked.Read(ref _bytesRead);
+    public long BytesRead
+    {
+        get { return Interlocked.Read(ref _bytesRead); }
+    }
 
-    public override bool CanRead => _inner.CanRead;
-    public override bool CanSeek => _inner.CanSeek;
-    public override bool CanWrite => false;
-    public override long Length => _inner.Length;
+    public override bool CanRead { get { return _inner.CanRead; } }
+    public override bool CanSeek { get { return _inner.CanSeek; } }
+    public override bool CanWrite { get { return false; } }
+    public override long Length { get { return _inner.Length; } }
 
     public override long Position
     {
-        get => _inner.Position;
-        set => _inner.Position = value;
+        get { return _inner.Position; }
+        set { _inner.Position = value; }
     }
 
     public override void Flush()
@@ -37,16 +47,6 @@ public sealed class TrackingReadStream : Stream
     public override int Read(byte[] buffer, int offset, int count)
     {
         int read = _inner.Read(buffer, offset, count);
-        if (read > 0)
-        {
-            Interlocked.Add(ref _bytesRead, read);
-        }
-        return read;
-    }
-
-    public override int Read(Span<byte> buffer)
-    {
-        int read = _inner.Read(buffer);
         if (read > 0)
         {
             Interlocked.Add(ref _bytesRead, read);
@@ -211,11 +211,11 @@ function Upload-ReleaseAssetWithProgress {
         $rawFileStream = [System.IO.File]::Open($ZipPath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::Read)
         $trackingStream = New-Object TrackingReadStream($rawFileStream)
 
-        $handler = [System.Net.Http.SocketsHttpHandler]::new()
-        $handler.Expect100ContinueTimeout = [TimeSpan]::FromSeconds(1)
+        # HttpClientHandler works on Windows PowerShell 5.1; SocketsHttpHandler requires .NET Core / PS 7+.
+        $handler = New-Object System.Net.Http.HttpClientHandler
         $handler.AllowAutoRedirect = $false
 
-        $client = [System.Net.Http.HttpClient]::new($handler)
+        $client = New-Object System.Net.Http.HttpClient($handler)
         $client.Timeout = [TimeSpan]::FromHours(2)
         $client.DefaultRequestHeaders.Authorization = [System.Net.Http.Headers.AuthenticationHeaderValue]::new("Bearer", $Token)
         $client.DefaultRequestHeaders.UserAgent.ParseAdd("cultivation-world-simulator-release-script")
