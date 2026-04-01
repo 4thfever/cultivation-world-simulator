@@ -208,6 +208,15 @@ def resolve_avatar_action_emoji(avatar) -> str:
 # 简易的命令行参数检查 (不使用 argparse 以避免冲突和时序问题)
 IS_DEV_MODE = "--dev" in sys.argv
 
+
+def is_idle_shutdown_enabled() -> bool:
+    """Return whether the server should exit after the last client disconnects."""
+    if IS_DEV_MODE:
+        return False
+
+    raw = os.environ.get("CWS_DISABLE_AUTO_SHUTDOWN", "")
+    return raw.strip().lower() not in {"1", "true", "yes", "on"}
+
 class EndpointFilter(logging.Filter):
     """
     Log filter to hide successful /api/init-status requests (polling)
@@ -244,7 +253,7 @@ class ConnectionManager:
             self._set_pause_state(True, "所有客户端已断开，自动暂停游戏以节省资源。")
             
             # 在非开发模式下，如果所有客户端断开，自动关闭服务器
-            if not IS_DEV_MODE:
+            if is_idle_shutdown_enabled():
                 print("[Auto-Control] All clients disconnected. Server will shutdown in 5 seconds...")
                 def _do_shutdown():
                     print("[Auto-Control] Auto shutdown triggered due to no active connections.")

@@ -432,6 +432,40 @@ class TestEdgeCases:
             assert host == "localhost"
 
 
+class TestIdleShutdownBehavior:
+    """Tests for the idle auto-shutdown behavior used by desktop mode."""
+
+    def test_idle_shutdown_enabled_by_default_in_non_dev_mode(self):
+        from src.server import main
+
+        with patch.object(main, "IS_DEV_MODE", False), \
+             patch.dict(os.environ, {}, clear=True):
+            assert main.is_idle_shutdown_enabled() is True
+
+    def test_idle_shutdown_can_be_disabled_by_env_for_containers(self):
+        from src.server import main
+
+        with patch.object(main, "IS_DEV_MODE", False), \
+             patch.dict(os.environ, {"CWS_DISABLE_AUTO_SHUTDOWN": "1"}, clear=True):
+            assert main.is_idle_shutdown_enabled() is False
+
+    def test_disconnect_does_not_schedule_shutdown_when_disabled(self):
+        from src.server import main
+
+        manager = main.ConnectionManager()
+        websocket = object()
+        manager.active_connections.append(websocket)
+
+        with patch.object(main, "IS_DEV_MODE", False), \
+             patch.dict(os.environ, {"CWS_DISABLE_AUTO_SHUTDOWN": "1"}, clear=True), \
+             patch.object(manager, "_set_pause_state") as mock_set_pause_state, \
+             patch.object(main.threading, "Timer") as mock_timer:
+            manager.disconnect(websocket)
+
+        mock_set_pause_state.assert_called_once()
+        mock_timer.assert_not_called()
+
+
 class TestConfigYamlDefaults:
     """Tests to verify the default values in config.yml."""
 

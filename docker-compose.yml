@@ -12,6 +12,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - CWS_DATA_DIR=/data
+      - CWS_DISABLE_AUTO_SHUTDOWN=1
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8002/api/state"]
@@ -30,10 +31,11 @@ services:
     ports:
       - "8123:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/api/state"]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -114,6 +114,7 @@ def test_backend_dockerfile_does_not_copy_tools_directory():
     dockerfile = get_project_root() / "deploy" / "Dockerfile.backend"
     copy_sources = parse_copy_sources(dockerfile)
 
+    assert "requirements-runtime.txt" in copy_sources
     assert "src/" in copy_sources
     assert "static/" in copy_sources
     assert "assets/" in copy_sources
@@ -121,6 +122,33 @@ def test_backend_dockerfile_does_not_copy_tools_directory():
         "Backend runtime should not depend on the tools directory after the "
         "locale registry migration to static/locales/registry.json."
     )
+
+
+def test_backend_dockerfile_installs_runtime_requirements_only():
+    dockerfile = (get_project_root() / "deploy" / "Dockerfile.backend").read_text(encoding="utf-8")
+
+    assert "-r requirements-runtime.txt" in dockerfile, (
+        "Backend Docker image should install runtime-only dependencies to keep "
+        "the production image smaller and less fragile."
+    )
+    assert "-r requirements.txt" not in dockerfile, (
+        "Backend Docker image should not install test-only dependencies."
+    )
+
+
+def test_runtime_requirements_exclude_test_packages():
+    runtime_requirements = (get_project_root() / "requirements-runtime.txt").read_text(encoding="utf-8")
+
+    assert "pytest" not in runtime_requirements
+    assert "pytest-cov" not in runtime_requirements
+    assert "pytest-asyncio" not in runtime_requirements
+
+
+def test_backend_dockerfile_does_not_create_legacy_runtime_dirs():
+    dockerfile = (get_project_root() / "deploy" / "Dockerfile.backend").read_text(encoding="utf-8")
+
+    assert "/app/assets/saves" not in dockerfile
+    assert "/app/logs" not in dockerfile
 
 
 def test_backend_compose_uses_persistent_data_root():
@@ -131,6 +159,10 @@ def test_backend_compose_uses_persistent_data_root():
     assert "CWS_DATA_DIR=/data" in backend_block, (
         "Backend service must define CWS_DATA_DIR so settings/secrets/saves/logs "
         "persist outside container writable layers."
+    )
+    assert "CWS_DISABLE_AUTO_SHUTDOWN=1" in backend_block, (
+        "Backend Docker service must disable the desktop-style auto shutdown "
+        "trigger when no websocket clients remain connected."
     )
     assert "./docker-data:/data" in backend_block, (
         "Backend service must mount host docker-data to /data to persist "
@@ -165,10 +197,12 @@ def test_frontend_compose_contract_depends_on_backend_and_exposes_port():
 
     assert frontend_block, "Expected frontend service in docker-compose.yml"
     assert 'depends_on:' in frontend_block
-    assert '- backend' in frontend_block
+    assert 'backend:' in frontend_block
+    assert 'condition: service_healthy' in frontend_block
     assert '"8123:80"' in frontend_block
     assert "healthcheck:" in frontend_block
     assert "test:" in frontend_block
+    assert "http://localhost:80/api/state" in frontend_block
     assert "interval:" in frontend_block
     assert "timeout:" in frontend_block
     assert "retries:" in frontend_block

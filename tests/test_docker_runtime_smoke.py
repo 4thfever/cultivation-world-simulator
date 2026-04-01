@@ -60,6 +60,32 @@ def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
     raise AssertionError(f"Backend /api/state did not become ready in time. Last error: {last_error!r}")
 
 
+def wait_until_game_ready(timeout_seconds: int = 300) -> None:
+    deadline = time.time() + timeout_seconds
+    last_error: Exception | None = None
+    last_payload: dict | None = None
+    while time.time() < deadline:
+        try:
+            payload = http_json("http://localhost:8002/api/state")
+            last_payload = payload
+            if isinstance(payload, dict) and payload.get("status") == "ok":
+                return
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            json.JSONDecodeError,
+            ConnectionResetError,
+            ConnectionRefusedError,
+            OSError,
+        ) as exc:
+            last_error = exc
+        time.sleep(2)
+    raise AssertionError(
+        "Backend world did not become ready in time. "
+        f"Last payload: {last_payload!r}; last error: {last_error!r}"
+    )
+
+
 @pytest.mark.docker
 @pytest.mark.skipif(shutil.which("docker") is None, reason="docker not found in PATH")
 def test_docker_compose_persists_settings_after_recreate():
@@ -74,12 +100,71 @@ def test_docker_compose_persists_settings_after_recreate():
         )
         assert updated["simulation"]["auto_save_enabled"] is True
 
+        llm_update = http_json(
+            "http://localhost:8002/api/settings/llm",
+            method="PUT",
+            payload={
+                "base_url": "https://api.example.com/v1",
+                "api_key": "docker-smoke-secret",
+                "model_name": "model-a",
+                "fast_model_name": "model-b",
+                "mode": "default",
+                "max_concurrent_requests": 4,
+                "clear_api_key": False,
+                "api_format": "openai",
+            },
+        )
+        assert llm_update["status"] == "ok"
+
+        llm_status = http_json("http://localhost:8002/api/settings/llm/status")
+        assert llm_status["configured"] is True
+
+        start_res = http_json(
+            "http://localhost:8002/api/game/start",
+            method="POST",
+            payload={
+                "content_locale": "zh-CN",
+                "init_npc_num": 4,
+                "sect_num": 2,
+                "npc_awakening_rate_per_month": 0.01,
+                "world_lore": "",
+            },
+        )
+        assert start_res["status"] == "ok"
+        wait_until_game_ready(timeout_seconds=600)
+
+        save_res = http_json(
+            "http://localhost:8002/api/game/save",
+            method="POST",
+            payload={"custom_name": "docker_smoke"},
+        )
+        assert save_res["status"] == "ok"
+        saved_filename = save_res["filename"]
+        assert saved_filename.endswith(".json")
+
+        saves_before = http_json("http://localhost:8002/api/saves")
+        assert any(item["filename"] == saved_filename for item in saves_before["saves"])
+
         run_compose("down", timeout=180)
         run_compose("up", "-d", timeout=600)
         wait_until_backend_ready()
 
         after_recreate = http_json("http://localhost:8002/api/settings")
         assert after_recreate["simulation"]["auto_save_enabled"] is True
+
+        llm_status_after_recreate = http_json("http://localhost:8002/api/settings/llm/status")
+        assert llm_status_after_recreate["configured"] is True
+
+        saves_after = http_json("http://localhost:8002/api/saves")
+        assert any(item["filename"] == saved_filename for item in saves_after["saves"])
+
+        load_res = http_json(
+            "http://localhost:8002/api/game/load",
+            method="POST",
+            payload={"filename": saved_filename},
+        )
+        assert load_res["status"] == "ok"
+        wait_until_game_ready(timeout_seconds=300)
     except Exception as exc:
         ps = subprocess.run(
             ["docker", "compose", "ps"],
