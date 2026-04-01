@@ -132,6 +132,8 @@ docker-compose up -d --build
 
 访问前端：`http://localhost:8123`
 
+后端容器通过 `CWS_DATA_DIR=/data` 统一持久化用户数据，包含设置、密钥、存档和日志。默认已映射到宿主机 `./docker-data`，即使执行 `docker compose down` 后重新 `up`，这些数据也会保留。
+
 <details>
 <summary><b>局域网/手机访问配置 (点击展开)</b></summary>
 

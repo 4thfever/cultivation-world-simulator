@@ -1,0 +1,33 @@
+---
+description: 约束 Docker 部署下的数据持久化与回归测试
+globs: docker-compose.yml, deploy/Dockerfile.backend, src/config/data_paths.py, src/utils/config.py, tests/test_docker_build_contract.py, tests/test_data_paths_runtime_contract.py, tests/test_docker_runtime_smoke.py, README.md, docs/readme/*.md
+---
+# Docker 持久化规则
+
+## 1. 数据真源
+- 运行时用户数据（`settings/secrets/saves/logs/cache/incompatible`）必须统一落在 `CWS_DATA_DIR` 对应目录。
+- 不要把 `assets/saves`、`/app/logs` 视为运行时持久化真源；它们只能作为历史兼容语义，不能替代 data root。
+
+## 2. Compose 契约
+- `docker-compose.yml` 的 `backend` 必须显式设置 `CWS_DATA_DIR`。
+- `backend.volumes` 必须挂载 `CWS_DATA_DIR` 对应容器路径（当前约定为 `./docker-data:/data`）。
+- 禁止仅保留 `./assets/saves:/app/assets/saves` 或 `./logs:/app/logs` 这类历史挂载而缺失 data root 挂载。
+
+## 3. 配置注入约束
+- `src/utils/config.py` 中 `CONFIG.paths.saves` 必须由 `get_data_paths().saves_dir` 注入，禁止改回静态路径。
+- 调整 `src/config/data_paths.py` 时，必须保持 `settings/secrets/saves/logs/cache/incompatible` 都在同一 data root 下。
+
+## 4. 测试门禁
+- Docker 路径或 compose 相关变更，必须更新并通过：
+  - `tests/test_docker_build_contract.py`
+  - `tests/test_data_paths_runtime_contract.py`
+- 涉及代理配置变更，必须更新并通过：
+  - `tests/test_nginx_proxy_contract.py`
+- 发布前建议执行：
+  - `pytest -m docker tests/test_docker_runtime_smoke.py`
+
+## 5. 文档一致性
+- Docker 持久化约定（如 `CWS_DATA_DIR`、挂载目录）发生变化时，必须同步更新：
+  - `README.md`
+  - `docs/readme/*.md`
+- 文档至少要明确三件事：数据真源目录、宿主机挂载目录、容器重建后的数据保留行为。

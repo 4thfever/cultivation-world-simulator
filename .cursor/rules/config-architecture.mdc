@@ -27,3 +27,8 @@ globs: src/config/**/*.py, src/server/**/*.py, src/utils/config.py, src/utils/ll
 ## 5. 存档与读档
 - 存档必须保存 `run_config` 快照；读档恢复时用该快照恢复内容语言与运行参数，不要回写应用设置。
 - 若新增与本局相关的启动参数，应优先放入 `RunConfig` 并在存档中持久化。
+
+## 6. Docker 持久化约束
+- Docker Compose / 自建容器必须显式设置 `CWS_DATA_DIR`，并把该目录挂载到宿主机持久卷。
+- 不要依赖 `assets/saves` 作为运行时存档真源；后端运行时存档路径由 `CONFIG.paths.saves` 注入到 `data_paths`。
+- 仓库根目录 `docker-compose.yml` 的约定数据目录为 `/data`，宿主机默认映射 `./docker-data:/data`，后续部署改动需保持语义一致。

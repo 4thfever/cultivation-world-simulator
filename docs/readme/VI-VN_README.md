@@ -131,6 +131,8 @@ docker-compose up -d --build
 
 Truy cập frontend: `http://localhost:8123`
 
+Backend container dùng `CWS_DATA_DIR=/data` để lưu bền vững dữ liệu người dùng, bao gồm cài đặt, khóa bí mật, save và log. Mặc định đã ánh xạ tới đường dẫn máy chủ `./docker-data`, nên dữ liệu vẫn còn sau khi chạy `docker compose down` rồi `up` lại.
+
 <details>
 <summary><b>Cấu hình truy cập qua mạng LAN / điện thoại (nhấn để mở)</b></summary>
 

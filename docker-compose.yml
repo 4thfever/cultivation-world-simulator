@@ -11,6 +11,7 @@ services:
       - "8002:8002"
     environment:
       - PYTHONUNBUFFERED=1
+      - CWS_DATA_DIR=/data
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8002/api/state"]
@@ -19,8 +20,7 @@ services:
       retries: 3
       start_period: 30s
     volumes:
-      - ./assets/saves:/app/assets/saves
-      - ./logs:/app/logs
+      - ./docker-data:/data
   # 前端服务
   frontend:
     build:

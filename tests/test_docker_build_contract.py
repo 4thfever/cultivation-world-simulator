@@ -19,6 +19,46 @@ def parse_copy_sources(dockerfile: Path) -> list[str]:
     return sources
 
 
+def get_service_block(compose_text: str, service_name: str) -> str:
+    lines = compose_text.splitlines()
+    in_services = False
+    in_target = False
+    service_indent = ""
+    block: list[str] = []
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            if in_target:
+                block.append(line)
+            continue
+
+        if not in_services:
+            if stripped == "services:":
+                in_services = True
+            continue
+
+        if not in_target:
+            service_match = re.match(r"^(\s{2})([a-zA-Z0-9_-]+):\s*$", line)
+            if service_match and service_match.group(2) == service_name:
+                in_target = True
+                service_indent = service_match.group(1)
+                block.append(line)
+            continue
+
+        next_service_match = re.match(rf"^{service_indent}([a-zA-Z0-9_-]+):\s*$", line)
+        if next_service_match and next_service_match.group(1) != service_name:
+            break
+        block.append(line)
+
+    return "\n".join(block)
+
+
+def get_compose_text() -> str:
+    compose_file = get_project_root() / "docker-compose.yml"
+    return compose_file.read_text(encoding="utf-8")
+
+
 def test_frontend_registry_import_targets_static_registry():
     project_root = get_project_root()
     registry_ts = project_root / "web" / "src" / "locales" / "registry.ts"
@@ -81,3 +121,54 @@ def test_backend_dockerfile_does_not_copy_tools_directory():
         "Backend runtime should not depend on the tools directory after the "
         "locale registry migration to static/locales/registry.json."
     )
+
+
+def test_backend_compose_uses_persistent_data_root():
+    compose_text = get_compose_text()
+    backend_block = get_service_block(compose_text, "backend")
+
+    assert backend_block, "Expected backend service in docker-compose.yml"
+    assert "CWS_DATA_DIR=/data" in backend_block, (
+        "Backend service must define CWS_DATA_DIR so settings/secrets/saves/logs "
+        "persist outside container writable layers."
+    )
+    assert "./docker-data:/data" in backend_block, (
+        "Backend service must mount host docker-data to /data to persist "
+        "settings/secrets/saves/logs."
+    )
+    assert "./assets/saves:/app/assets/saves" not in backend_block, (
+        "Backend service should not keep legacy assets/saves volume, because "
+        "runtime saves now use CWS_DATA_DIR."
+    )
+    assert "./logs:/app/logs" not in backend_block, (
+        "Backend service should not keep legacy /app/logs volume, because "
+        "runtime logs now use CWS_DATA_DIR."
+    )
+
+
+def test_backend_compose_contract_exposes_port_and_healthcheck():
+    compose_text = get_compose_text()
+    backend_block = get_service_block(compose_text, "backend")
+
+    assert backend_block, "Expected backend service in docker-compose.yml"
+    assert '"8002:8002"' in backend_block
+    assert "healthcheck:" in backend_block
+    assert "test:" in backend_block
+    assert "interval:" in backend_block
+    assert "timeout:" in backend_block
+    assert "retries:" in backend_block
+
+
+def test_frontend_compose_contract_depends_on_backend_and_exposes_port():
+    compose_text = get_compose_text()
+    frontend_block = get_service_block(compose_text, "frontend")
+
+    assert frontend_block, "Expected frontend service in docker-compose.yml"
+    assert 'depends_on:' in frontend_block
+    assert '- backend' in frontend_block
+    assert '"8123:80"' in frontend_block
+    assert "healthcheck:" in frontend_block
+    assert "test:" in frontend_block
+    assert "interval:" in frontend_block
+    assert "timeout:" in frontend_block
+    assert "retries:" in frontend_block

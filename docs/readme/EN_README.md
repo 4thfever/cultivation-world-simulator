@@ -132,6 +132,8 @@ docker-compose up -d --build
 
 Open the frontend: `http://localhost:8123`
 
+The backend container persists user data through `CWS_DATA_DIR=/data`, including settings, secrets, saves, and logs. By default this is mapped to host path `./docker-data`, so data remains after `docker compose down` followed by `up`.
+
 <details>
 <summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>
 

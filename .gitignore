@@ -167,8 +167,7 @@ tmp*/
 #############################
 
 # Docker data directories
-saves/
-logs/
+docker-data/
 
 # Docker environment files
 .env
