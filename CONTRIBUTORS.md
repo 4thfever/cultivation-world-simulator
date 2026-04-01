@@ -53,12 +53,17 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
       </a>
     </td>
     <td align="center" width="20%">
+      <a href="https://github.com/Seafoodsz">
+        <img src="https://avatars.githubusercontent.com/u/13925953?v=4" width="150" height="150" alt="Seafoodsz avatar" /><br />
+        <strong>Seafoodsz</strong>
+      </a>
+    </td>
+    <td align="center" width="20%">
       <a href="https://github.com/Tianrant">
         <img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="150" height="150" alt="Tianrant avatar" /><br />
         <strong>Tianrant</strong>
       </a>
     </td>
-    <td width="20%"></td>
     <td width="20%"></td>
   </tr>
 </table>
