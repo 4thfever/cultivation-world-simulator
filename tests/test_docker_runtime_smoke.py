@@ -41,8 +41,12 @@ def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
     while time.time() < deadline:
         try:
             payload = http_json("http://localhost:8002/api/state")
-            if isinstance(payload, dict) and "status" in payload:
-                return
+            if isinstance(payload, dict):
+                if payload.get("status") == "ok":
+                    return
+                # Server can be fully started before a world is initialized.
+                if payload.get("step") == 1 and payload.get("error") == "No world":
+                    return
         except (
             urllib.error.URLError,
             TimeoutError,
