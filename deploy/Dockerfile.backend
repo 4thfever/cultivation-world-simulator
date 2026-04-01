@@ -14,8 +14,12 @@ RUN apt-get update && apt-get install -y \
 # 复制依赖文件
 COPY requirements.txt .
 
-# 安装 Python 依赖 清华园镜像源
-RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+# 安装 Python 依赖
+# 默认使用官方 PyPI，避免 CI 在特定第三方镜像不可用时构建失败。
+# 如需国内镜像，可在构建时覆盖：
+#   docker build --build-arg PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple ...
+ARG PIP_INDEX_URL=https://pypi.org/simple
+RUN pip install --no-cache-dir -r requirements.txt -i ${PIP_INDEX_URL}
 
 # 复制项目代码
 COPY src/ ./src/
