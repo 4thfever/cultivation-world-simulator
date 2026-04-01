@@ -197,7 +197,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Start game page
 - ✅ BGM & Sound effects
 - ✅ Player editing
-- [ ] Personal mode (possess a character)
+- [ ] Personal mode (play as a character)
 
 ### 🗺️ World System
 - ✅ Basic tile system

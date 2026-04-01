@@ -45,6 +45,8 @@ class World():
     gathering_manager: GatheringManager = field(default_factory=GatheringManager)
     # 本局世界观与历史输入
     world_lore: "WorldLore" = field(default_factory=WorldLore)
+    # 世界观塑形后的静态对象快照，用于存档/读档恢复
+    world_lore_snapshot: dict[str, Any] = field(default_factory=dict)
     # 世界开始年份
     start_year: int = 0
     # 榜单管理器

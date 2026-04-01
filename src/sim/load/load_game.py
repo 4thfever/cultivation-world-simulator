@@ -29,6 +29,7 @@
 import json
 from pathlib import Path
 from typing import Tuple, List, Optional, TYPE_CHECKING
+import src.utils.config as app_config
 
 if TYPE_CHECKING:
     from src.classes.core.world import World
@@ -39,6 +40,7 @@ from src.systems.time import MonthStamp
 from src.classes.custom_content import CustomContentRegistry
 from src.classes.event import Event
 from src.classes.relation.relation import RelationState
+from src.classes.world_lore_snapshot import apply_world_lore_snapshot
 from src.config import get_settings_service
 from src.utils.config import CONFIG
 
@@ -50,6 +52,10 @@ def get_events_db_path(save_path: Path) -> Path:
     例如：save_20260105_1423.json -> save_20260105_1423_events.db
     """
     return save_path.with_suffix("").with_name(save_path.stem + "_events.db")
+
+
+def _get_current_saves_dir() -> Path:
+    return Path(app_config.CONFIG.paths.saves)
 
 
 def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", List["Sect"]]:
@@ -68,7 +74,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
     """
     # 确定加载路径
     if save_path is None:
-        saves_dir = CONFIG.paths.saves
+        saves_dir = _get_current_saves_dir()
         save_path = saves_dir / "save.json"
     else:
         save_path = Path(save_path)
@@ -124,6 +130,8 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 恢复本局世界观与历史输入
         world_lore_data = world_data.get("world_lore", {})
         world.world_lore.text = world_lore_data.get("text", "")
+        world.world_lore_snapshot = world_data.get("world_lore_snapshot", {}) or {}
+        apply_world_lore_snapshot(world, world.world_lore_snapshot)
         
         # 重建天地灵机
         from src.classes.celestial_phenomenon import celestial_phenomena_by_id

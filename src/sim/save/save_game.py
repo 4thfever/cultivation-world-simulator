@@ -29,6 +29,7 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional, TYPE_CHECKING
+import src.utils.config as app_config
 
 if TYPE_CHECKING:
     from src.classes.core.world import World
@@ -39,6 +40,7 @@ from src.utils.config import CONFIG
 from src.config import get_settings_service
 from src.classes.custom_content import CustomContentRegistry
 from src.classes.language import language_manager
+from src.classes.world_lore_snapshot import build_world_lore_snapshot
 from src.sim.load.load_game import get_events_db_path
 
 
@@ -56,6 +58,10 @@ def _model_to_dict(model):
     if hasattr(model, "model_dump"):
         return model.model_dump()
     return model.dict()
+
+
+def _get_current_saves_dir() -> Path:
+    return Path(app_config.CONFIG.paths.saves)
 
 
 def save_game(
@@ -82,7 +88,7 @@ def save_game(
     try:
         # 确定保存路径
         if save_path is None:
-            saves_dir = CONFIG.paths.saves
+            saves_dir = _get_current_saves_dir()
             saves_dir.mkdir(parents=True, exist_ok=True)
 
             # 生成友好的文件名。
@@ -195,6 +201,7 @@ def save_game(
             "world_lore": {
                 "text": world.world_lore.text,
             },
+            "world_lore_snapshot": getattr(world, "world_lore_snapshot", None) or build_world_lore_snapshot(world),
             "sect_runtime_effects": sect_runtime_effects,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
             "sect_wars": list(getattr(world, "sect_wars", []) or []),
@@ -272,7 +279,7 @@ def list_saves(saves_dir: Optional[Path] = None) -> List[tuple[Path, dict]]:
         [(存档路径, 元信息字典), ...]
     """
     if saves_dir is None:
-        saves_dir = CONFIG.paths.saves
+        saves_dir = _get_current_saves_dir()
     
     if not saves_dir.exists():
         return []

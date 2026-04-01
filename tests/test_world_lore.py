@@ -7,10 +7,19 @@ from src.classes.core.sect import Sect
 from src.classes.items.weapon import Weapon, WeaponType
 from src.classes.technique import Technique, TechniqueAttribute, TechniqueGrade
 from src.classes.world_lore import WorldLore, WorldLoreManager
+from src.classes.world_lore_snapshot import apply_world_lore_snapshot, build_world_lore_snapshot
+from src.classes.items.auxiliary import auxiliaries_by_id
+from src.classes.items.weapon import weapons_by_id
+from src.classes.core.sect import sects_by_id
+from src.classes.core.world import World
+from src.run.load_map import load_cultivation_world_map
+from src.run.data_loader import reload_all_static_data
 from src.sim.load.load_game import load_game
 from src.sim.save.save_game import save_game
 from src.sim.simulator import Simulator
+from src.systems.time import Month, Year, create_month_stamp
 from src.systems.cultivation import Realm
+from src.classes.technique import techniques_by_id
 
 import src.classes.core.sect as sect_module
 import src.classes.items.weapon as weapon_module
@@ -121,3 +130,83 @@ def test_save_load_preserves_world_lore(base_world, tmp_path):
 
     loaded_world, _, _ = load_game(save_path)
     assert loaded_world.world_lore.text == "上古大战后，宗门秩序被重写。"
+
+
+def test_world_lore_snapshot_reapplies_static_changes():
+    world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    region_id = next(iter(world.map.regions))
+    sect_id = next(iter(sects_by_id))
+    technique_id = next(iter(techniques_by_id))
+    weapon_id = next(iter(weapons_by_id))
+    auxiliary_id = next(iter(auxiliaries_by_id))
+
+    world.map.regions[region_id].name = "太虚古城"
+    world.map.regions[region_id].desc = "被改写后的区域描述"
+    sects_by_id[sect_id].name = "太虚宗"
+    sects_by_id[sect_id].desc = "被改写后的宗门描述"
+    techniques_by_id[technique_id].name = "太虚玄功"
+    techniques_by_id[technique_id].desc = "被改写后的功法描述"
+    weapons_by_id[weapon_id].name = "太虚剑"
+    weapons_by_id[weapon_id].desc = "被改写后的兵器描述"
+    auxiliaries_by_id[auxiliary_id].name = "太虚佩"
+    auxiliaries_by_id[auxiliary_id].desc = "被改写后的辅助装备描述"
+
+    snapshot = build_world_lore_snapshot(world)
+
+    reload_all_static_data()
+    fresh_world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    apply_world_lore_snapshot(fresh_world, snapshot)
+
+    assert fresh_world.map.regions[region_id].name == "太虚古城"
+    assert fresh_world.map.regions[region_id].desc == "被改写后的区域描述"
+    assert sects_by_id[sect_id].name == "太虚宗"
+    assert sects_by_id[sect_id].desc == "被改写后的宗门描述"
+    assert techniques_by_id[technique_id].name == "太虚玄功"
+    assert weapons_by_id[weapon_id].name == "太虚剑"
+    assert auxiliaries_by_id[auxiliary_id].name == "太虚佩"
+
+
+def test_save_load_preserves_world_lore_snapshot_after_static_reload(tmp_path):
+    world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    region_id = next(iter(world.map.regions))
+    sect_id = next(iter(sects_by_id))
+    technique_id = next(iter(techniques_by_id))
+    weapon_id = next(iter(weapons_by_id))
+
+    world.set_world_lore("天下格局被重新书写。")
+    world.map.regions[region_id].name = "天机城"
+    world.map.regions[region_id].desc = "城中遍布观星台。"
+    sects_by_id[sect_id].name = "天机阁"
+    sects_by_id[sect_id].desc = "执掌天数与秘闻。"
+    techniques_by_id[technique_id].name = "天机演道诀"
+    techniques_by_id[technique_id].desc = "以星象推衍大道。"
+    weapons_by_id[weapon_id].name = "天机尺"
+    weapons_by_id[weapon_id].desc = "可定山河方位。"
+    world.world_lore_snapshot = build_world_lore_snapshot(world)
+
+    simulator = Simulator(world)
+    save_path = tmp_path / "world_lore_snapshot_save.json"
+    ok, _ = save_game(world, simulator, [], save_path)
+    assert ok is True
+
+    reload_all_static_data()
+
+    loaded_world, _, _ = load_game(save_path)
+    assert loaded_world.world_lore.text == "天下格局被重新书写。"
+    assert loaded_world.map.regions[region_id].name == "天机城"
+    assert loaded_world.map.regions[region_id].desc == "城中遍布观星台。"
+    assert sects_by_id[sect_id].name == "天机阁"
+    assert sects_by_id[sect_id].desc == "执掌天数与秘闻。"
+    assert techniques_by_id[technique_id].name == "天机演道诀"
+    assert techniques_by_id[technique_id].desc == "以星象推衍大道。"
+    assert weapons_by_id[weapon_id].name == "天机尺"
+    assert weapons_by_id[weapon_id].desc == "可定山河方位。"

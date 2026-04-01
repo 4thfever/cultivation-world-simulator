@@ -39,6 +39,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from src.sim.simulator import Simulator
 from src.classes.core.world import World
 from src.classes.world_lore import WorldLoreManager
+from src.classes.world_lore_snapshot import build_world_lore_snapshot
 from src.systems.time import Month, Year, create_month_stamp
 from src.server.assemblers.sect_detail import build_sect_detail
 from src.server.assemblers.mortal_overview import build_mortal_overview
@@ -520,6 +521,7 @@ async def init_game_async():
             try:
                 world_lore_mgr = WorldLoreManager(world)
                 await world_lore_mgr.apply_world_lore(world_lore)
+                world.world_lore_snapshot = build_world_lore_snapshot(world)
                 print("World lore applied")
             except Exception as e:
                 print(f"[Warning] Failed to apply world lore: {e}")
