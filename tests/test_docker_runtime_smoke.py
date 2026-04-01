@@ -37,15 +37,23 @@ def http_json(url: str, method: str = "GET", payload: dict | None = None) -> dic
 
 def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
     deadline = time.time() + timeout_seconds
+    last_error: Exception | None = None
     while time.time() < deadline:
         try:
             payload = http_json("http://localhost:8002/api/state")
             if isinstance(payload, dict) and "status" in payload:
                 return
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
-            pass
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            json.JSONDecodeError,
+            ConnectionResetError,
+            ConnectionRefusedError,
+            OSError,
+        ) as exc:
+            last_error = exc
         time.sleep(2)
-    raise AssertionError("Backend /api/state did not become ready in time.")
+    raise AssertionError(f"Backend /api/state did not become ready in time. Last error: {last_error!r}")
 
 
 @pytest.mark.docker
@@ -68,6 +76,29 @@ def test_docker_compose_persists_settings_after_recreate():
 
         after_recreate = http_json("http://localhost:8002/api/settings")
         assert after_recreate["simulation"]["auto_save_enabled"] is True
+    except Exception as exc:
+        ps = subprocess.run(
+            ["docker", "compose", "ps"],
+            cwd=get_project_root(),
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        logs = subprocess.run(
+            ["docker", "compose", "logs", "--no-color", "backend"],
+            cwd=get_project_root(),
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        )
+        raise AssertionError(
+            "Docker runtime smoke test failed.\n"
+            f"compose ps:\n{ps.stdout}\n"
+            f"backend logs:\n{logs.stdout}\n"
+            f"original error: {exc!r}"
+        ) from exc
     finally:
         subprocess.run(
             ["docker", "compose", "down"],
