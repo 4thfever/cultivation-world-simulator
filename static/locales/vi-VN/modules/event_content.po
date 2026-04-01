@@ -80,6 +80,9 @@ msgstr ""
 "Kết toán thường niên của {sect_name}: thu nhập {income} linh thạch, phát "
 "bổng lộc {upkeep} linh thạch, số dư {net_change} linh thạch."
 
+msgid "War weariness adjusted to {weariness_after} (active wars: {active_war_count}, yearly recovery: 3, previous: {weariness_before})."
+msgstr "Mức chán chiến được điều chỉnh thành {weariness_after} (đang có {active_war_count} cuộc chiến, hồi phục tự nhiên mỗi năm: 3, trước đó là {weariness_before})."
+
 msgid "game.sect_thinking_event"
 msgstr "Suy tư của tông môn {sect_name}: {thinking}"
 

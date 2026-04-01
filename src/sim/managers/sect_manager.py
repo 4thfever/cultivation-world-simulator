@@ -386,6 +386,12 @@ class SectManager:
             income = int(raw_income)
             stipend_total, _stipend_breakdown = sect.estimate_yearly_member_upkeep()
             net_change = income - stipend_total
+            active_war_count = sum(
+                1
+                for other in active_sects
+                if int(getattr(other, "id", 0)) != int(sect.id)
+                and self.world.are_sects_at_war(int(sect.id), int(other.id))
+            )
 
             for avatar in getattr(sect, "members", {}).values():
                 if getattr(avatar, "is_dead", False):
@@ -393,6 +399,9 @@ class SectManager:
                 avatar.magic_stone = avatar.magic_stone + sect.get_member_upkeep_for_avatar(avatar)
 
             sect.magic_stone += net_change
+            weariness_before = int(getattr(sect, "war_weariness", 0) or 0)
+            sect.change_war_weariness(active_war_count - 3)
+            weariness_after = int(getattr(sect, "war_weariness", 0) or 0)
             content = t(
                 "game.sect_update_event",
                 sect_name=sect.name,
@@ -400,6 +409,13 @@ class SectManager:
                 upkeep=stipend_total,
                 net_change=net_change,
             )
+            weariness_text = t(
+                "War weariness adjusted to {weariness_after} (active wars: {active_war_count}, yearly recovery: 3, previous: {weariness_before}).",
+                weariness_after=weariness_after,
+                active_war_count=active_war_count,
+                weariness_before=weariness_before,
+            )
+            content = f"{content} {weariness_text}"
 
             event = Event(
                 month_stamp=self.world.month_stamp,

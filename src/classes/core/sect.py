@@ -73,6 +73,7 @@ class Sect(SectEffectsMixin):
     
     # 势力相关
     magic_stone: int = 0
+    war_weariness: int = 0
     is_active: bool = True
     total_battle_strength: float = 0.0
     influence_radius: int = 0
@@ -92,6 +93,21 @@ class Sect(SectEffectsMixin):
         self.techniques = []
         self.sect_effects = dict(self.sect_effects or {})
         self.temporary_sect_effects = list(self.temporary_sect_effects or [])
+        self.war_weariness = self._clamp_war_weariness(self.war_weariness)
+
+    @staticmethod
+    def _clamp_war_weariness(value: int | float) -> int:
+        try:
+            normalized = int(value)
+        except (TypeError, ValueError):
+            normalized = 0
+        return max(0, min(100, normalized))
+
+    def set_war_weariness(self, value: int | float) -> None:
+        self.war_weariness = self._clamp_war_weariness(value)
+
+    def change_war_weariness(self, delta: int | float) -> None:
+        self.set_war_weariness(int(self.war_weariness) + int(delta))
 
     def add_member(self, avatar: "Avatar") -> None:
         """添加成员到宗门"""
@@ -211,6 +227,7 @@ class Sect(SectEffectsMixin):
             "members": members_list,
             "orthodoxy": orthodoxy.get_info(detailed=True) if orthodoxy else {"id": self.orthodoxy_id},
             "magic_stone": self.magic_stone,
+            "war_weariness": self.war_weariness,
             "is_active": self.is_active,
             "total_battle_strength": self.total_battle_strength,
             "influence_radius": self.influence_radius,

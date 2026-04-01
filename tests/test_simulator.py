@@ -325,3 +325,4 @@ async def test_phase_handle_sect_wars_auto_battles_and_teleports_loser(base_worl
 
     assert any("立即爆发战斗" in event.content for event in events)
     assert defender.pos_x == 4 and defender.pos_y == 4
+    assert sect_b.war_weariness == 3

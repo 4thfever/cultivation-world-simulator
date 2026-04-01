@@ -31,6 +31,7 @@ Constraints:
 17. If a diplomacy target shows very low `relation_value`, notable `territory_overlap_tiles`, and a non-inferior `power_ratio`, do not default to passive observation; declaring war, coercive pressure, and striking first can all be valid ways to protect the sect's interests.
 18. If the sect's own identity is harsh, expansionist, or predatory, it should be more willing to consider war under the same conditions rather than defaulting to caution.
 19. If the sect is already at war, do not treat `seek_peace_target_ids` as the default answer unless the situation is clearly unfavorable.
+20. If `war_weariness` is high, it means the sect has grown more tired of prolonged war, so it should be more willing to preserve peace, stop fighting, and avoid expanding wars on its own initiative.
 
 Return strict JSON only, with no extra text, in exactly this format:
 {{

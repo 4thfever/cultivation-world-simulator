@@ -179,6 +179,7 @@ export interface SectDetail extends EntityBase {
   runtime_extra_income_per_tile?: number;
   runtime_effects_count?: number;
   runtime_effect_items?: SectRuntimeEffectItem[];
+  war_weariness?: number;
   periodic_thinking?: string;
   yearly_thinking?: string; // Deprecated
   diplomacy_items?: SectDiplomacyItem[];

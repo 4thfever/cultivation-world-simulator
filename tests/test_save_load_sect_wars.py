@@ -13,6 +13,8 @@ def test_save_and_load_preserves_sect_wars(base_world, tmp_path):
     base_world.existed_sects = existed_sects
     base_world.sect_context.from_existed_sects(existed_sects)
     base_world.declare_sect_war(sect_a_id=existed_sects[0].id, sect_b_id=existed_sects[1].id, reason="test")
+    existed_sects[0].set_war_weariness(34)
+    existed_sects[1].set_war_weariness(7)
 
     simulator = Simulator(base_world)
     save_path = Path(tmp_path) / "sect_war_save.json"
@@ -22,3 +24,5 @@ def test_save_and_load_preserves_sect_wars(base_world, tmp_path):
 
     new_world, _new_sim, _new_sects = load_game(save_path)
     assert new_world.are_sects_at_war(existed_sects[0].id, existed_sects[1].id)
+    assert _new_sects[0].war_weariness == 34
+    assert _new_sects[1].war_weariness == 7

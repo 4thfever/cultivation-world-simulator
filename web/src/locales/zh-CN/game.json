@@ -312,6 +312,7 @@
         "income_value": "{income}/期",
         "upkeep": "成员供养",
         "upkeep_value": "{upkeep}/期",
+        "war_weariness": "厌战度",
         "magic_stone": "灵石储量"
       },
       "sections": {

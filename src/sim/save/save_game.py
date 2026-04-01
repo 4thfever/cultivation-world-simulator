@@ -181,6 +181,7 @@ def save_game(
             str(sect.id): {
                 "sect_effects": dict(getattr(sect, "sect_effects", {}) or {}),
                 "temporary_sect_effects": list(getattr(sect, "temporary_sect_effects", []) or []),
+                "war_weariness": int(getattr(sect, "war_weariness", 0) or 0),
             }
             for sect in existed_sects
         }

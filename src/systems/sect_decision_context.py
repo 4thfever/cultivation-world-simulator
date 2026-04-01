@@ -173,6 +173,7 @@ def build_sect_decision_context(
         "peak_member_realm": str(getattr(getattr(peak_member, "cultivation_progress", None), "realm", "") or ""),
         "patriarch_realm": str(getattr(getattr(patriarch, "cultivation_progress", None), "realm", "") or ""),
         "war_readiness": "stretched" if border_tile_count > max(1, tile_count // 3) else "stable",
+        "war_weariness": int(getattr(sect, "war_weariness", 0) or 0),
         "resource_pressure": treasury_pressure,
         "can_afford_recruit_count": current_stones // max(1, recruit_cost),
         "can_afford_support_count": current_stones // max(1, support_amount),

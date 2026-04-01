@@ -33,6 +33,7 @@ function createTestI18n() {
                 income_value: '{income}/turn',
                 upkeep: 'Upkeep',
                 upkeep_value: '{upkeep}/turn',
+                war_weariness: 'War Weariness',
                 magic_stone: 'Magic Stone',
               },
               sections: {
@@ -87,6 +88,7 @@ describe('SectDetail', () => {
           total_battle_strength: 0,
           magic_stone: 0,
           runtime_effect_items: [],
+          war_weariness: 0,
           diplomacy_items: [],
           periodic_thinking: '',
           war_summary: {
@@ -148,6 +150,7 @@ describe('SectDetail', () => {
           is_permanent: false,
         },
       ],
+      war_weariness: 23,
       war_summary: {
         active_war_count: 1,
         peace_count: 1,
@@ -208,6 +211,7 @@ describe('SectDetail', () => {
     expect(text).toContain('Enemy Sect')
     expect(text).toContain('850/turn')
     expect(text).toContain('120/turn')
+    expect(text).toContain('23/100')
     expect(text).toContain('Extra income per tile +0.8')
     expect(text).toContain('Sect random event remains for 60 months')
     expect(text).toContain('At war for 1 years')

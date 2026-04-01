@@ -95,6 +95,8 @@ async def phase_handle_sect_wars(simulator, living_avatars) -> list[Event]:
                 event.related_sects = [int(attacker_sect.id), int(defender_sect.id)]
             events.extend(war_events)
             world.record_sect_battle(int(attacker_sect.id), int(defender_sect.id))
+            if getattr(loser, "sect", None) is not None:
+                loser.sect.change_war_weariness(3)
 
             contribution_gain = 40 if getattr(loser, "is_dead", False) else 25
             actual_gain = winner.add_sect_contribution(contribution_gain)

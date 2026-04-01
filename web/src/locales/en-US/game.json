@@ -312,6 +312,7 @@
         "income_value": "{income}/cycle",
         "upkeep": "Member Upkeep",
         "upkeep_value": "{upkeep}/cycle",
+        "war_weariness": "War Weariness",
         "magic_stone": "Stones"
       },
       "sections": {

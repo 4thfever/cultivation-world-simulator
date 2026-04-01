@@ -312,6 +312,7 @@
         "income_value": "{income}/chu kỳ",
         "upkeep": "Chi Tiêu Thành Viên",
         "upkeep_value": "{upkeep}/chu kỳ",
+        "war_weariness": "Mức Chán Chiến",
         "magic_stone": "Linh Thạch"
       },
       "sections": {

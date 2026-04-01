@@ -31,6 +31,7 @@ def test_build_sect_detail_includes_yearly_income_and_upkeep(base_world):
         headquarter=SectHeadQuarter(name="驻地", desc="", image=Path("")),
         technique_names=[],
     )
+    sect.set_war_weariness(27)
     world.existed_sects = [sect]
     world.sect_context.from_existed_sects(world.existed_sects)
 
@@ -54,3 +55,4 @@ def test_build_sect_detail_includes_yearly_income_and_upkeep(base_world):
     assert "estimated_yearly_upkeep" in summary
     assert summary["estimated_yearly_income"] > 0
     assert summary["estimated_yearly_upkeep"] == 15
+    assert detail["war_weariness"] == 27

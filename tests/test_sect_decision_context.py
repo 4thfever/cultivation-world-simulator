@@ -119,6 +119,7 @@ def test_build_sect_decision_context_basic(base_world):
     assert ctx.rule["rule_id"] == ""
     assert ctx.identity["purpose"] == sect1.desc
     assert ctx.identity["rule_desc"] == sect1.rule_desc
+    assert ctx.self_assessment["war_weariness"] == 0
     assert isinstance(ctx.recruitment_candidates, list)
     assert isinstance(ctx.member_candidates, list)
 

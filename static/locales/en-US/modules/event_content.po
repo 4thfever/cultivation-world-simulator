@@ -77,6 +77,9 @@ msgstr ""
 msgid "game.sect_update_event"
 msgstr "{sect_name} yearly settlement: income {income} spirit stones, salaries paid {upkeep} spirit stones, balance {net_change} spirit stones."
 
+msgid "War weariness adjusted to {weariness_after} (active wars: {active_war_count}, yearly recovery: 3, previous: {weariness_before})."
+msgstr "War weariness adjusted to {weariness_after} (active wars: {active_war_count}, yearly recovery: 3, previous: {weariness_before})."
+
 msgid "game.sect_thinking_event"
 msgstr "{sect_name} sect's thinking: {thinking}"
 

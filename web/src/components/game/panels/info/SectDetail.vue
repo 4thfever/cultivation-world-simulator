@@ -60,6 +60,8 @@ const yearlyUpkeepText = computed(() => (
   })
 ));
 
+const warWearinessText = computed(() => `${Math.max(0, Math.floor(props.data.war_weariness || 0))}/100`);
+
 const simplifiedDiplomacyItems = computed(() => {
   const items = [...(props.data.diplomacy_items ?? [])];
   return items
@@ -124,6 +126,7 @@ function getDiplomacySub(item: DiplomacyItem) {
           <StatItem :label="t('game.info_panel.sect.stats.strongest_enemy')" :value="strongestEnemyText" />
           <StatItem :label="t('game.info_panel.sect.stats.income')" :value="yearlyIncomeText" />
           <StatItem :label="t('game.info_panel.sect.stats.upkeep')" :value="yearlyUpkeepText" />
+          <StatItem :label="t('game.info_panel.sect.stats.war_weariness')" :value="warWearinessText" />
           <StatItem :label="t('game.info_panel.sect.stats.magic_stone')" :value="data.magic_stone || 0" />
        </div>
 

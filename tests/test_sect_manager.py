@@ -285,6 +285,7 @@ def test_sect_manager_applies_member_upkeep(base_world):
     assert f"收入 {expected_income} 灵石" in events[0].content
     assert f"发放俸禄 {expected_salary} 灵石" in events[0].content
     assert f"结余 {expected_income - expected_salary} 灵石" in events[0].content
+    assert "厌战度调整为 0" in events[0].content
 
 
 def test_sect_manager_member_salary_uses_sect_rank(base_world):
@@ -333,3 +334,50 @@ def test_sect_manager_member_salary_uses_sect_rank(base_world):
     manager.update_sects()
 
     assert member.magic_stone == 60
+
+
+def test_sect_manager_updates_war_weariness_annually(base_world):
+    world: World = base_world
+    game_map = world.map
+
+    from src.classes.environment.sect_region import SectRegion
+
+    region_a = SectRegion(id=1001, name="A", desc="", sect_id=1, sect_name="宗门A", cors=[(1, 1)])
+    region_b = SectRegion(id=1002, name="B", desc="", sect_id=2, sect_name="宗门B", cors=[(2, 1)])
+    game_map.regions[1001] = region_a
+    game_map.region_cors[1001] = [(1, 1)]
+    game_map.regions[1002] = region_b
+    game_map.region_cors[1002] = [(2, 1)]
+    game_map.update_sect_regions()
+
+    hq = SectHeadQuarter(name="测试驻地", desc="", image=Path(""))
+    sect_a = Sect(
+        id=1,
+        name="宗门A",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
+        technique_names=[],
+    )
+    sect_b = Sect(
+        id=2,
+        name="宗门B",
+        desc="",
+        member_act_style="",
+        alignment=Alignment.NEUTRAL,
+        headquarter=hq,
+        technique_names=[],
+    )
+    sect_a.set_war_weariness(10)
+    sect_b.set_war_weariness(2)
+
+    world.existed_sects = [sect_a, sect_b]
+    world.sect_context.from_existed_sects(world.existed_sects)
+    world.declare_sect_war(sect_a_id=1, sect_b_id=2)
+
+    manager = SectManager(world)
+    manager.update_sects()
+
+    assert sect_a.war_weariness == 8
+    assert sect_b.war_weariness == 0

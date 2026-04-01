@@ -155,6 +155,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         for sect in sects_by_id.values():
             sect.sect_effects = {}
             sect.temporary_sect_effects = []
+            sect.set_war_weariness(0)
 
         sect_runtime_effects = world_data.get("sect_runtime_effects", {})
         for sid_key, state in (sect_runtime_effects or {}).items():
@@ -168,6 +169,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             state_dict = state if isinstance(state, dict) else {}
             sect.sect_effects = dict(state_dict.get("sect_effects", {}) or {})
             sect.temporary_sect_effects = list(state_dict.get("temporary_sect_effects", []) or [])
+            sect.set_war_weariness(state_dict.get("war_weariness", 0))
             sect.cleanup_expired_temporary_sect_effects(int(world.month_stamp))
         
         # 第一阶段：重建所有Avatar（不含relations）
