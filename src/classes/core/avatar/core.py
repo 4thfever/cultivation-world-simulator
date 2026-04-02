@@ -470,10 +470,11 @@ class Avatar(
             self.known_regions.add(self.tile.region.id)
         
         if self.sect:
-            for r in self.world.map.sect_regions.values():
-                if r.sect_id == self.sect.id:
-                    self.known_regions.add(r.id)
-                    break
+            from src.classes.sect_metadata import get_sect_region_id_by_sect_id
+
+            sect_region_id = get_sect_region_id_by_sect_id(self.world, int(self.sect.id))
+            if sect_region_id is not None:
+                self.known_regions.add(sect_region_id)
 
     # ========== 关系相关 ==========
 

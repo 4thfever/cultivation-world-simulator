@@ -23,7 +23,7 @@ class TestSelfHealAction:
 
     @pytest.fixture
     def sect_region(self):
-        return SectRegion(id=999, name="青云门总部", desc="测试宗门总部")
+        return SectRegion(id=999, name="青云门总部", desc="测试宗门总部", sect_id=42, sect_name="青云门")
     
     @pytest.fixture
     def normal_region(self):
@@ -32,10 +32,10 @@ class TestSelfHealAction:
     @pytest.fixture
     def mock_sect(self, sect_region):
         sect = MagicMock(spec=Sect)
+        sect.id = sect_region.sect_id
         sect.name = "青云门"
-        # 确保 headquarter.name 和 region.name 一致
         sect.headquarter = MagicMock()
-        sect.headquarter.name = sect_region.name
+        sect.headquarter.name = "一个过时的旧名字"
         return sect
 
     def test_can_start_basic(self, healing_avatar):

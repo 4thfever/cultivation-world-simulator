@@ -177,8 +177,12 @@ def save_game(
                          "population": region.population
                      }
 
-        sect_runtime_effects = {
+        sect_runtime_states = {
             str(sect.id): {
+                "magic_stone": int(getattr(sect, "magic_stone", 0) or 0),
+                "is_active": bool(getattr(sect, "is_active", True)),
+                "periodic_thinking": str(getattr(sect, "periodic_thinking", "") or ""),
+                "last_decision_summary": str(getattr(sect, "last_decision_summary", "") or ""),
                 "sect_effects": dict(getattr(sect, "sect_effects", {}) or {}),
                 "temporary_sect_effects": list(getattr(sect, "temporary_sect_effects", []) or []),
                 "war_weariness": int(getattr(sect, "war_weariness", 0) or 0),
@@ -203,7 +207,7 @@ def save_game(
                 "text": world.world_lore.text,
             },
             "world_lore_snapshot": getattr(world, "world_lore_snapshot", None) or build_world_lore_snapshot(world),
-            "sect_runtime_effects": sect_runtime_effects,
+            "sect_runtime_states": sect_runtime_states,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
             "sect_wars": list(getattr(world, "sect_wars", []) or []),
         }

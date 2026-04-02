@@ -3,7 +3,7 @@ from __future__ import annotations
 from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
-from src.classes.environment.sect_region import SectRegion
+from src.classes.sect_metadata import is_in_sect_headquarter
 
 
 class SelfHeal(TimedAction):
@@ -61,14 +61,9 @@ class SelfHeal(TimedAction):
 
     def _is_in_own_sect_headquarter(self) -> bool:
         sect = getattr(self.avatar, "sect", None)
-        if sect is None:
-            return False
         tile = getattr(self.avatar, "tile", None)
         region = getattr(tile, "region", None)
-        if not isinstance(region, SectRegion):
-            return False
-        hq_name = getattr(getattr(sect, "headquarter", None), "name", None) or getattr(sect, "name", None)
-        return bool(hq_name) and region and region.name == hq_name
+        return is_in_sect_headquarter(self.world, sect, region)
 
     def can_start(self) -> tuple[bool, str]:
         # 任何人任何地方都可疗伤，只要HP未满

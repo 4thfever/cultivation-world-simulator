@@ -97,6 +97,30 @@ def test_world_lore_manager_updates_indexes(base_world):
         assert weapon_module.weapons_by_name["新灵剑"] is weapon
 
 
+def test_world_lore_syncs_sect_region_metadata():
+    world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    manager = WorldLoreManager(world)
+    sect = next(iter(sects_by_id.values()))
+    region = next(r for r in world.map.sect_regions.values() if getattr(r, "sect_id", None) == sect.id)
+
+    manager._apply_sect_lore_changes(
+        {
+            "sects_change": {str(sect.id): {"name": "太虚宗", "desc": "新的宗门描述"}},
+            "sect_regions_change": {str(region.id): {"name": "太虚天宫", "desc": "新的驻地描述"}},
+        }
+    )
+
+    assert sect.name == "太虚宗"
+    assert region.name == "太虚天宫"
+    assert region.sect_name == "太虚宗"
+    assert sect.headquarter.name == "太虚天宫"
+    assert sect.headquarter.desc == "新的驻地描述"
+    reload_all_static_data()
+
+
 @pytest.mark.asyncio
 async def test_apply_world_lore_uses_world_lore_tasks(base_world):
     manager = WorldLoreManager(base_world)
@@ -170,6 +194,36 @@ def test_world_lore_snapshot_reapplies_static_changes():
     assert techniques_by_id[technique_id].name == "太虚玄功"
     assert weapons_by_id[weapon_id].name == "太虚剑"
     assert auxiliaries_by_id[auxiliary_id].name == "太虚佩"
+
+
+def test_world_lore_snapshot_rebuilds_sect_metadata_links():
+    world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    sect_id = next(iter(sects_by_id))
+    region = next(r for r in world.map.sect_regions.values() if getattr(r, "sect_id", None) == sect_id)
+
+    sects_by_id[sect_id].name = "天机阁"
+    sects_by_id[sect_id].desc = "执掌天数与秘闻。"
+    region.name = "观星台"
+    region.desc = "高台可观九天星象。"
+
+    snapshot = build_world_lore_snapshot(world)
+
+    reload_all_static_data()
+    fresh_world = World(
+        map=load_cultivation_world_map(),
+        month_stamp=create_month_stamp(Year(1), Month.JANUARY),
+    )
+    apply_world_lore_snapshot(fresh_world, snapshot)
+
+    fresh_region = next(r for r in fresh_world.map.sect_regions.values() if getattr(r, "sect_id", None) == sect_id)
+    assert sects_by_id[sect_id].name == "天机阁"
+    assert fresh_region.sect_name == "天机阁"
+    assert sects_by_id[sect_id].headquarter.name == "观星台"
+    assert sects_by_id[sect_id].headquarter.desc == "高台可观九天星象。"
+    reload_all_static_data()
 
 
 def test_save_load_preserves_world_lore_snapshot_after_static_reload(tmp_path):

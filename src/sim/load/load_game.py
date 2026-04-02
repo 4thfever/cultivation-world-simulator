@@ -153,12 +153,19 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         world.sect_wars = list(world_data.get("sect_wars", []) or [])
 
         for sect in sects_by_id.values():
+            sect.magic_stone = 0
+            sect.is_active = True
+            sect.periodic_thinking = ""
+            sect.last_decision_summary = ""
             sect.sect_effects = {}
             sect.temporary_sect_effects = []
             sect.set_war_weariness(0)
 
-        sect_runtime_effects = world_data.get("sect_runtime_effects", {})
-        for sid_key, state in (sect_runtime_effects or {}).items():
+        sect_runtime_states = (
+            world_data.get("sect_runtime_states", {})
+            or world_data.get("sect_runtime_effects", {})
+        )
+        for sid_key, state in (sect_runtime_states or {}).items():
             try:
                 sid = int(sid_key)
             except (TypeError, ValueError):
@@ -167,6 +174,10 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             if sect is None:
                 continue
             state_dict = state if isinstance(state, dict) else {}
+            sect.magic_stone = int(state_dict.get("magic_stone", 0) or 0)
+            sect.is_active = bool(state_dict.get("is_active", True))
+            sect.periodic_thinking = str(state_dict.get("periodic_thinking", "") or "")
+            sect.last_decision_summary = str(state_dict.get("last_decision_summary", "") or "")
             sect.sect_effects = dict(state_dict.get("sect_effects", {}) or {})
             sect.temporary_sect_effects = list(state_dict.get("temporary_sect_effects", []) or [])
             sect.set_war_weariness(state_dict.get("war_weariness", 0))

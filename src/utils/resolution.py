@@ -167,12 +167,10 @@ def _resolve_region(name: str, world: Any) -> Any | None:
         
     # 3. 宗门名称匹配 (解析到宗门驻地)
     from src.classes.core.sect import sects_by_name
+    from src.classes.sect_metadata import get_sect_region_by_sect_id
     sect = sects_by_name.get(name) or sects_by_name.get(norm)
     if sect:
-        sect_regions = getattr(world.map, "sect_regions", {})
-        matched = [r for r in sect_regions.values() if getattr(r, "sect_name", None) == sect.name]
-        if len(matched) == 1:
-            return matched[0]
+        return get_sect_region_by_sect_id(world, int(getattr(sect, "id", -1)))
             
     return None
 

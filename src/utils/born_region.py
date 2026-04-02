@@ -27,13 +27,11 @@ def get_born_region_id(
                 break
     
     if target_sect:
-        # 查找宗门驻地
-        # Map 维护了 sect_regions: dict[int, Region]
-        if hasattr(world.map, "sect_regions") and world.map.sect_regions:
-             for rid, region in world.map.sect_regions.items():
-                 # SectRegion 应该有 sect_id 属性
-                 if getattr(region, "sect_id", None) == target_sect.id:
-                     return rid
+        from src.classes.sect_metadata import get_sect_region_id_by_sect_id
+
+        sect_region_id = get_sect_region_id_by_sect_id(world, int(target_sect.id))
+        if sect_region_id is not None:
+            return sect_region_id
 
     # 2. 尝试从父母位置获取最近城市
     parent_loc = None

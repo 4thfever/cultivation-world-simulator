@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, Callable
 from src.classes.core.sect import sects_by_id, sects_by_name
 from src.classes.items.registry import ItemRegistry
 from src.classes.items.weapon import weapons_by_name
+from src.classes.sect_metadata import sync_world_sect_metadata
 from src.classes.technique import techniques_by_id, techniques_by_name
 from src.run.log import get_logger
 from src.utils.config import CONFIG
@@ -117,8 +118,6 @@ class WorldLoreManager:
     def _apply_sect_lore_changes(self, result: dict[str, Any]) -> None:
         self._update_regions(result.get("sect_regions_change", {}))
         changes = result.get("sects_change", {})
-        if not changes:
-            return
 
         count = 0
         for sect_id_str, data in changes.items():
@@ -142,6 +141,9 @@ class WorldLoreManager:
 
         if count > 0:
             self.logger.info(f"[WorldLore] 更新了 {count} 个宗门")
+
+        if self.world is not None:
+            sync_world_sect_metadata(self.world)
 
     def _apply_item_lore_changes(self, result: dict[str, Any]) -> None:
         self._update_techniques(result.get("techniques_change", {}))
