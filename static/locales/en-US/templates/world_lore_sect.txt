@@ -1,10 +1,15 @@
-You are a creator of a Xianxia world. I will provide you with an original world background and a piece of history.
-Based on the world background and this history, you need to modify the sect information and their corresponding base information existing in this world.
+You are a creator of a Xianxia world. I will provide you with an original world background and a piece of "worldview and history".
+You need to understand the worldview first, then refer to the historical context to modify the sect information and their corresponding sect-region information in this world.
+Note: the current sect system has been separated into "sect entity" and "sect region", so you may only modify the existing name/desc of each part and must not invent new structure.
+Specifically:
+- A sect entity desc should focus on sect identity, cultivation style, internal structure, core facilities, overall temperament, and latent tensions.
+- A sect region desc should focus on terrain, architecture, spatial layering, environmental anomalies, dynamic scenery, and sensory atmosphere.
+- Sect desc and sect region desc should complement each other and should not repeat the same batch of information.
 
 World Background:
 {world_info}
 
-History Text:
+Worldview and History:
 {world_lore}
 
 Sect Information:
@@ -29,8 +34,12 @@ Return in JSON format:
 }}
 
 Requirements:
-1. "thinking" is your thought process; please provide a detailed analysis.
-2. Modifications should be based on the content of the history and be logically sound.
+1. "thinking" only needs to briefly explain the basis of the modification; focus on the returned results.
+2. Modifications should prioritize the worldview setting and then the historical context, and must be logically sound.
 3. If an item has no modifications, return an empty dictionary {{}}.
 4. For items to be modified, only return "name" and "desc", and no other keys.
+5. Each desc should be around 120-180 words in Chinese-length density; keep it concise but sufficiently detailed.
+6. Do not restate sect rules, prohibitions, punishments, or expulsion logic.
+7. Do not include player bonuses, numeric effects, or gameplay/mechanical explanations.
+8. Sect desc and sect region desc must have clear division of labor and should avoid repeating each other.
 

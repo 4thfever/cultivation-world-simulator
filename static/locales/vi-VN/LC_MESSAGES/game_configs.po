@@ -2712,12 +2712,7 @@ msgstr ""
 
 #. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
-msgstr ""
-"Đệ nhất ma tông của Nguyên Diễn giới, hành sự bá đạo tàn nhẫn, tôn sùng "
-"\"nhược nhục cường thực\", lấy cướp đoạt và huyết tế để nâng cao tu vi. "
-"[Huyết Hải Thao Thiên] Ngươi tôn sùng sức mạnh và cướp đoạt; việc cướp bóc "
-"phàm nhân tuy tổn hại thiên hòa, nhưng lại mang đến cho ngươi của cải và tài"
-" nguyên kinh người."
+msgstr "La Sát Huyết Tông chễm chệ trên Tu La Huyết Trì, nơi huyết hà tế đàn, chiến công đường, luyện cốt quật và đoạt nguyên đài vận hành suốt ngày đêm không nghỉ. Trong không khí quanh năm quẩn đặc huyết vụ, dược khí và mùi gỉ sắt. Bên trong tông đại khái chia thành các mạch huyết chiến, tế tu, cướp đoạt và luyện thể; việc phân phối tài nguyên thường gắn trực tiếp với chiến quả, cống phẩm và hung danh cá nhân. Kẻ mạnh có thể trỗi dậy với tốc độ kinh người, còn kẻ yếu cũng bị nuốt chửng nhanh không kém. Nơi đây tôn sùng trật tự sức mạnh trần trụi nhất; môn nhân phần nhiều ngạo nghễ hung lệ, nhưng cũng từ đó hình thành thứ chân thực tàn khốc chỉ thừa nhận thực lực và không tin lời rỗng tuếch."
 
 #. sect.csv: SECT_14_NAME
 msgid "SECT_14_NAME"
@@ -2732,12 +2727,7 @@ msgstr ""
 
 #. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
-msgstr ""
-"Đệ nhất tông ở phương đông của giới tu tiên, lấy vô thượng kiếm đạo xưng "
-"hùng thiên hạ. Trấn phái tuyệt học là \"Cửu Tiêu Ngự Lôi Kiếm Quyết\". [Kiếm"
-" Tâm Thông Minh] Là một kiếm tu, khi sử dụng binh khí loại kiếm, chiến lực "
-"của ngươi cực kỳ kinh người, hơn nữa tốc độ cảm ngộ trên kiếm đạo cũng vượt "
-"xa người thường."
+msgstr "Lăng Tiêu Kiếm Tông tọa lạc giữa quần phong Tuyệt Vân, nơi sơn môn, kiếm các và đài thí kiếm chồng tầng vươn cao, cương phong gào thét suốt bốn mùa. Càng lên cao, tâm chí của kiếm tu càng bị thử thách. Trong tông có các mạch như ngự kiếm, lôi kiếm và dưỡng kiếm; đệ tử sớm tối đều phải leo vách vấn kiếm, đối chiếu lĩnh ngộ trước kiếm bia cổ. Nơi đây tôn sùng sự sắc bén và thuần túy, coi trọng danh vọng cũng như ngộ tính cá nhân, vì thế vừa sản sinh những thiên tài một trận thành danh, vừa nuôi lớn những kẻ cô ngạo mắc kẹt trong chấp niệm."
 
 #. sect.csv: SECT_1_NAME
 msgid "SECT_1_NAME"
@@ -2752,11 +2742,7 @@ msgstr ""
 
 #. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
-msgstr ""
-"Nổi danh vì thuần dưỡng hung thú, nuôi dưỡng đủ loại yêu thú linh quái làm "
-"chiến lực. [Vạn Thú Chi Chủ] Ngươi sở hữu thiên phú ngự thú độc nhất, việc "
-"bắt giữ yêu thú đối với ngươi dễ như trở bàn tay, lại giỏi điều khiển thú "
-"quần thay mình chiến đấu."
+msgstr "Vạn Thú Ma Sơn ẩn sâu trong lòng Thập Vạn Đại Sơn, nơi chín mươi chín tầng động thiên nuôi nhốt những đàn thú khổng lồ từ linh thú cấp thấp cho đến yêu vương hung sát. Thú lan, huyết thực trường và khế linh đàn chưa từng thực sự yên tiếng. Đệ tử trong tông thường chia làm ba đường ngự thú, dưỡng thú và luyện huyết; có người xem yêu thú là đồng bạn, cũng có người chỉ coi chúng như chiến lực tiêu hao. Sơn môn nơi đây mang khí chất nguyên thủy và cường hoành, dạy người ta không chỉ dùng thực lực áp chế vạn thú, mà còn rèn nên quy tắc sinh tồn của chính mình từ thú tính."
 
 #. sect.csv: SECT_2_NAME
 msgid "SECT_2_NAME"
@@ -2771,11 +2757,7 @@ msgstr ""
 
 #. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
-msgstr ""
-"Cư ngụ nơi cô đảo hải ngoại, ngoài mặt yên lặng nhưng thực chất nghiêm giữ "
-"trung lập. Sở hữu cổ kỳ thạch \"Quan Hải Ngọc Bích\", có thể dò xét thiên "
-"cơ. [Tri Thiên Mệnh] Ngươi có trực giác vượt xa người thường, tầm nhìn rộng "
-"mở, và cực dễ phát hiện kỳ ngộ trong lúc thăm dò."
+msgstr "Thính Đào Các đứng trên vách tuyệt bích của Tĩnh Hải Nhai, nơi lầu các bằng hàn băng linh ngọc phản chiếu thủy triều và tinh huy. Thứ quan trọng nhất trong các không phải binh khí, mà là Quan Hải Ngọc Bích, đài quan triều và tinh bàn suy diễn. Đệ tử nơi đây tu tập các pháp quan tinh, thính triều và vấn quái; ngày thường ít nói ít động, nhưng lại đặc biệt giỏi nhìn ra biến hóa từ hướng gió, tiếng sóng và những dao động nhỏ nhất của nhân tâm. Không khí nơi này thanh lãnh và xa cách, như thể ai sống ở đây cũng nhìn thế gian qua một tầng sương, vì vậy vừa sinh ra những cao sĩ siêu nhiên thoát tục, vừa dễ kéo người ta chìm quá sâu vào thiên cơ."
 
 #. sect.csv: SECT_3_NAME
 msgid "SECT_3_NAME"
@@ -2790,11 +2772,7 @@ msgstr ""
 
 #. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
-msgstr ""
-"Tham ngộ sinh tử khô vinh, dẫn tiếp sức mạnh của Hoàng Tuyền, thuật pháp âm "
-"lãnh tàn nhẫn. [Hoàng Tuyền Độ Hồn] Ngươi tu hành Hoàng Tuyền chi pháp, tâm "
-"chí kiên định, khi đột phá bình cảnh tâm không tạp niệm nên tỷ lệ thành công"
-" cao hơn."
+msgstr "Cửu U Hoàng Tuyền Đạo chiếm giữ quần đảo Tử Tịch Hải, nơi giữa sơn môn dựng nên dẫn hồn điện, độ hồn kiều, trấn thi quật và hành lang u đăng, quanh năm bị hải vụ bao phủ. Ra vào nơi này giống như đang bước trên khe nứt giữa sinh và tử. Trong tông có các mạch luyện hồn, độ tử và âm thuật; đệ tử thường tu hành bên cạnh vong hồn, thi khôi và âm khí của minh hà nên có cách nhìn sinh tử rất khác thường nhân. Trật tự nơi đây nghiêm ngặt, khí tức u lãnh, môn nhân phần nhiều trầm mặc khắc chế, nhưng cũng vì thế mà dễ nuôi lớn những tâm tính lạnh lẽo đến mức coi vạn vật đều là cái giá phải trả."
 
 #. sect.csv: SECT_4_NAME
 msgid "SECT_4_NAME"
@@ -2809,11 +2787,7 @@ msgstr ""
 
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
-msgstr ""
-"Đại phái tà tông, nổi danh thiên hạ bởi cơ quan, khôi lỗi và độc sát, từ "
-"trước tới nay hành tung quỷ bí. [Quỷ Đạo Thích Sát] Ngươi tinh thông ẩn phục"
-" và ám sát; đối mặt cường địch, tránh chính diện giao phong và chờ cơ hội ám"
-" sát thường là con đường chiến thắng tốt nhất của ngươi."
+msgstr "Thiên Cơ Quỷ Môn ẩn mình nơi sâu nhất của Thiên Cơ Cốc. Bên ngoài, lầu đài và đình viện trông tinh xảo hoa lệ, nhưng bên trong lại dày đặc hành lang cơ quan, phường khôi lỗi, kho độc giới và mật đạo ám thất, đến từng viên gạch cũng có thể giấu sát cơ. Đệ tử trong môn nhìn chung chia thành cơ quan sư, khôi lỗi sư, độc sư và kẻ tiềm hành; họ vừa phải hiểu chế tác, vừa phải hiểu phục kích, lại còn phải học cách tự bảo toàn trong im lặng tuyệt đối. Nơi này tôn sùng hiệu suất, bí mật và kết quả, hợp tác thường chỉ dựa trên lợi ích chung, vì thế rất dễ sản sinh thiên tài mưu toán và những quan hệ phức tạp luôn thử dò lẫn nhau."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
@@ -2827,11 +2801,7 @@ msgstr ""
 
 #. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
-msgstr ""
-"Lấy tình nhập đạo, dựa vào song tu để tăng tiến tu vi, giỏi thao túng nhân "
-"tâm và sở trường quyền biến. [Hồng Trần Luyện Tâm] Thể chất của ngươi đặc "
-"biệt; thông qua song tu, ngươi có thể nhận được mức tăng tiến tu vi vượt xa "
-"người thường, đây là đường tắt tốt nhất để nâng cao cảnh giới."
+msgstr "Túy Mộng Lâu được dựng trong một động thiên giữa chốn phố thị phồn hoa, nơi hương các, thủy tạ, nhạc phường và huyễn mộng trì nối liền nhau dưới đèn lửa rực như mây chiều. Tu hành nơi đây không chỉ dựa vào song tu, mà còn coi trọng hương đạo, âm luật, vũ pháp, đàm phán và năng lực quan sát sắc mặt lời nói. Đệ tử thường kiêm tu mị thuật, nhạc thuật và thủ đoạn tình báo. Không nơi nào giỏi biến dục vọng hồng trần thành tư lương tu luyện hơn chốn này, cũng không nơi nào hiểu rõ nóng lạnh nhân tình hơn vậy. Vì thế, môn nhân hoặc trở nên linh lung thông thấu, hoặc càng lún sâu vào ranh giới giữa chân tình và diễn xuất."
 
 #. sect.csv: SECT_6_NAME
 msgid "SECT_6_NAME"
@@ -2846,10 +2816,7 @@ msgstr ""
 
 #. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
-msgstr ""
-"Thánh địa Phật môn, cũng là đại tông luyện thể, dùng thân Kim Cang để trấn "
-"áp yêu tà thế gian. [Kim Thân La Hán] Ngươi tu tập hộ thể thần công, sở hữu "
-"năng lực phòng ngự nhục thân và giảm thương cực mạnh, bất động như núi lớn."
+msgstr "Tu Di Thiền Viện tọa lạc trên Phổ Độ Đảo giữa biển bão, lấy Kim Cang Tháp làm trung tâm, xung quanh là phục ma điện, thính chung đài, khổ tu nhai và dược dục trì. Khi tiếng chuông vang lên, cả hòn đảo như bị ánh Phật vô hình trấn định. Tăng chúng nơi đây đi theo các đường thiền tu, võ tu và hộ pháp; họ vừa tụng kinh, vừa luyện thể, lại thường được phái đi trấn áp yêu tà nơi hải vực hoặc tiếp dẫn người gặp nạn. Tuy bề ngoài trang nghiêm túc mục, nội tại nơi này không hề cứng nhắc. Nhiều tăng tu vẫn mang trong lòng nguyện ý nhập thế cứu người, khiến khí chất của tông môn vừa từ bi vừa cương mãnh."
 
 #. sect.csv: SECT_7_NAME
 msgid "SECT_7_NAME"
@@ -2863,11 +2830,7 @@ msgstr ""
 
 #. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
-msgstr ""
-"Trấn tông điển tịch là \"Ảnh Sát Chân Kinh\", lấy địa sát âm khí làm căn cơ."
-" [Như Ảnh Tùy Hình] Ngươi cực kỳ am hiểu thân pháp và độn thuật, gặp nguy "
-"hiểm luôn có thể toàn thân lui đi, đồng thời cũng có thể tìm cơ hội ám sát "
-"kẻ địch lạc đàn."
+msgstr "Ảnh Sát Điện ẩn phục trong nơi sâu nhất của Ám Ảnh Chiểu Trạch. Trên tán cây có ẩn lâu, dưới bùn lầy có mật đạo, ảnh lao, trường ẩn hình, độc chướng đàm và cứ điểm tình báo chồng lớp đan xen đến mức ngoại nhân khó lòng nhìn rõ hình dáng thật của nó. Đệ tử trong điện được huấn luyện theo các hướng tiềm thích, độn hành, trinh tập và thu thi xử hậu; từ lúc nhập môn đã phải học cách ẩn dấu tung tích, cắt đứt dấu vết và thoát thân trong tuyệt cảnh. Ở đây gần như không có dư thừa ôn tình, ai cũng quen quan sát và hoài nghi, nhưng cũng chính vì vậy mà hình thành một loại ăn ý chỉ lộ ra bên bờ sinh tử."
 
 #. sect.csv: SECT_8_NAME
 msgid "SECT_8_NAME"
@@ -2882,11 +2845,7 @@ msgstr ""
 
 #. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
-msgstr ""
-"Một thế lực khổng lồ phát triển từ thương hội, sở hữu thương đội \"Lưu Vân "
-"Phi Chu\", giàu có đến mức địch quốc. [Tài Thông Quỷ Thần] Ngươi tinh thông "
-"luyện khí và kinh thương; việc ôn dưỡng binh khí thường khiến chúng lột xác "
-"đổi thay, hơn nữa trong giao dịch ngươi luôn có thể thu lợi."
+msgstr "Vạn Bảo Tiên Minh được xây trên quần đảo Đa Bảo Phù Không, nơi điện đấu giá, thiên lô tháp, cảng vân chu, tổng khố và đủ loại thương hành nối liền nhau, khiến cả sơn môn giống một tòa tiên thành chưa từng nghỉ buôn bán. Tu sĩ trong minh vừa tu luyện vừa kinh thương, chia thành các hệ luyện khí, giám bảo, hàng vận, trướng vụ và ngoại mậu. Nhiều đệ tử từ nhỏ đã phải học định giá, mặc cả, lập khế và duy trì thương lộ. Nơi đây coi trọng lưu thông và hiệu suất hơn hết, ai cũng hiểu tài nguyên được chuyển hóa thành quyền thế như thế nào. Bởi vậy, bầu không khí thực tế hơn hẳn đa số tông môn, nhưng cũng kỷ luật và đề cao trật tự, tín dự hơn nhiều."
 
 #. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
@@ -2901,10 +2860,7 @@ msgstr ""
 
 #. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"
-msgstr ""
-"Tuyệt Vân Phong cao vút tận mây, bốn phía cương phong vây quanh; chỉ kiếm tu"
-" mới có thể ngự kiếm mà lên. Trên núi có khu vực dành cho đệ tử tu luyện, "
-"cảnh trí thanh u."
+msgstr "Quần phong Tuyệt Vân đâm thẳng vào biển mây, các đỉnh núi nối nhau bằng xích sắt và vân kiều. Sơn đạo hiểm tuyệt, chỉ những ai thật sự giữ vững được kiếm ý mới có thể leo lên cao hơn. Lưng chừng núi có thể thấy đài thí kiếm, trì tẩy kiếm và những vách đá khắc đầy kiếm ngân; càng gần đỉnh, tiếng gió càng sắc, thỉnh thoảng còn có lôi quang lướt ngang qua ghềnh đá. Cả sơn môn giống như một thanh cổ kiếm đã rút ra khỏi vỏ mà chưa chịu quy hoàn, thanh lãnh, ngạo nghễ, đến cả không khí cũng như mang theo mũi kiếm."
 
 #. sect_region.csv: SECT_REGION_401_NAME
 msgid "SECT_REGION_401_NAME"
@@ -2912,11 +2868,7 @@ msgstr "Tuyệt Vân Phong"
 
 #. sect_region.csv: SECT_REGION_402_DESC
 msgid "SECT_REGION_402_DESC"
-msgstr ""
-"Vạn Thú Quật nằm nơi bụng sâu của Thập Vạn Đại Sơn, trong động yêu khí ngập "
-"trời, có thể nghe thấy tiếng gào của muôn thú. Bên trong động thiên chằng "
-"chịt, tổng cộng có chín mươi chín tầng động phủ, mỗi tầng đều nuôi dưỡng "
-"linh thú và yêu thú với phẩm cấp khác nhau."
+msgstr "Vạn Thú Quật ẩn sâu trong lòng núi, bên ngoài bị chướng khí và dây leo khóa chặt thành một tầng thiên nhiên hiểm trở. Chỉ khi tiến sâu vào bên trong mới thấy các thú vực động thiên chồng lớp chìm dần xuống dưới. Mỗi tầng động được ngăn cách bằng thạch kiều, thiết áp và đài ngự thú; tiếng thú gầm trầm thấp và tiếng xích sắt va chạm vang vọng suốt ngày. Trên mặt đất vương vãi xương vụn, vết cào và yêu khí còn chưa tan hết. Nơi này không giống một sơn môn bình thường, mà giống hơn một tổ thành của cự thú sống, càng xuống sâu áp lực càng nặng."
 
 #. sect_region.csv: SECT_REGION_402_NAME
 msgid "SECT_REGION_402_NAME"
@@ -2924,11 +2876,7 @@ msgstr "Vạn Thú Quật"
 
 #. sect_region.csv: SECT_REGION_403_DESC
 msgid "SECT_REGION_403_DESC"
-msgstr ""
-"Thính Đào Các treo mình bên tuyệt bích ven biển, quanh năm nghe thủy triều "
-"gào hát. Trong các, ngọc bích phản chiếu tinh thần cùng đại hải; cung điện "
-"lầu các đều được dựng bằng hàn băng linh ngọc, trong suốt toàn thân, hư thực"
-" khó phân."
+msgstr "Tĩnh Hải Nhai treo trên vách biển sâu vạn trượng. Điện các bằng hàn băng linh ngọc, hành lang quanh co và đài quan triều nửa ẩn nửa hiện trong hải vụ, khiến từ xa nhìn lại cả sơn môn như đang trôi nổi giữa tiếng sóng và ánh trăng. Bên mép vách, ngọc bích phản chiếu đồng thời biển trời và tinh quang; mỗi khi thủy triều dâng hạ, tường và nền đều ánh lên những gợn sáng như sóng nước, khiến đường đi trở nên hư thực khó phân. Nơi đây tĩnh lặng đến mức gần như trống không, chỉ tiếng sóng, tiếng gió và đôi lúc tiếng linh đang chạm mái hiên mới nhắc người tới rằng mình vẫn còn ở nhân gian."
 
 #. sect_region.csv: SECT_REGION_403_NAME
 msgid "SECT_REGION_403_NAME"
@@ -2936,10 +2884,7 @@ msgstr "Tĩnh Hải Nhai"
 
 #. sect_region.csv: SECT_REGION_404_DESC
 msgid "SECT_REGION_404_DESC"
-msgstr ""
-"Cửu U Hoàng Tuyền Đạo tọa lạc trên quần đảo Tử Tịch Hải, nước biển đen như "
-"mực, vô phong mà dậy sóng. Tương truyền đáy biển nối thẳng tới Cửu U Hoàng "
-"Tuyền. Mỗi khi hải triều gào rít, vạn hồn đồng khóc, che kín cả trời ngày."
+msgstr "Tử Tịch Hải do những hòn đảo đen và vịnh ngầm kết thành, nối với nhau bằng cầu gỗ hẹp, bến độ tàn bia và những ngọn đăng tháp mang u hỏa. Nhìn từ xa, nó giống như một chuỗi quỷ thành trôi dạt trên biển mực. Mặt biển quanh năm vô phong mà nổi sóng, mỗi khi ngọn sóng cuộn lên lại mang theo âm thanh chói gắt như tiếng khóc. Điện vũ và bậc đá trên đảo bị âm vụ ẩm thấp nhuộm thành sắc trắng xám và xanh u tối. Ban đêm, thứ nổi bật nhất không phải trăng sáng, mà là những ngọn dẫn hồn đăng chập chờn trong hải vụ, khiến cả vùng như hóa thành cõi hoàng tuyền trong mộng."
 
 #. sect_region.csv: SECT_REGION_404_NAME
 msgid "SECT_REGION_404_NAME"
@@ -2947,10 +2892,7 @@ msgstr "Tử Tịch Hải"
 
 #. sect_region.csv: SECT_REGION_405_DESC
 msgid "SECT_REGION_405_DESC"
-msgstr ""
-"Thiên Cơ Cốc khắp nơi đều là cơ quan bẫy rập. Nhìn qua chỉ như một sơn cốc "
-"bình thường, nhưng đi sai một bước là chết không chỗ chôn. Cung điện lầu các"
-" trong cốc thoạt trông lộng lẫy, kỳ thực đâu đâu cũng ẩn sát cơ."
+msgstr "Thoạt nhìn, Thiên Cơ Cốc chỉ như một sơn cốc thanh nhã với đường đá xanh, mái cong và đình viện chăm chút kỹ lưỡng. Nhưng nhìn kỹ sẽ thấy cầu có thể xoay hướng, tường có thể mở khép, thậm chí độ cao của bậc đá cũng giấu sẵn cơ quan. Trên cao là vọng tháp và huyền kiều, bên dưới lại chôn kín mật đạo, công phường và phong thất. Thỉnh thoảng vang lên tiếng bánh răng khớp cắn, tiếng kim loại khe khẽ ngân, hoặc tiếng bước chân khôi lỗi phát ra từ nơi không rõ nguồn. Điều đáng sợ nhất ở đây không phải một cái bẫy nào riêng lẻ, mà là cả sơn cốc tự thân đã giống một cỗ cơ quan khổng lồ."
 
 #. sect_region.csv: SECT_REGION_405_NAME
 msgid "SECT_REGION_405_NAME"
@@ -2958,11 +2900,7 @@ msgstr "Thiên Cơ Cốc"
 
 #. sect_region.csv: SECT_REGION_406_DESC
 msgid "SECT_REGION_406_DESC"
-msgstr ""
-"Túy Mộng Lâu được dựng thành một động thiên độc lập giữa phố chợ phồn hoa, "
-"ca vũ thái bình, mùi hương mê say quanh năm không tan. Kiến trúc tông môn xa"
-" hoa tột bậc, mây sương lượn quanh điện các, thấp thoáng có thể thấy từng "
-"đôi đệ tử cùng nhau tu luyện bên trong."
+msgstr "Tiêu Kim Quật là một động thiên biệt lập ẩn sau khu chợ phồn hoa. Vừa bước vào là biển đèn, hương vụ, khúc kiều và những tầng tầng lầu các thủy tạ; càng đi sâu, tiếng huyên náo càng nhẹ đi, trong khi tiếng nước và tiếng nhạc càng trở nên vấn vít. Bên ngoài, lầu đài dát vàng nạm ngọc đông nghịt tân khách; còn chỗ sâu hơn lại giấu tĩnh thất, ôn tuyền và huyễn mộng trì sau màn sa, hoa tường và mây sương bảng lảng. Dường như mọi con đường nơi đây đều được sắp đặt để dẫn người ta lạc lối. Chốn này mềm mại, hoa lệ khắp nơi, nhưng cũng khiến người ta không rõ mình đang dự yến, bước vào mộng, hay đã đặt chân tới một tầng tu hành sâu hơn."
 
 #. sect_region.csv: SECT_REGION_406_NAME
 msgid "SECT_REGION_406_NAME"
@@ -2970,11 +2908,7 @@ msgstr "Tiêu Kim Quật"
 
 #. sect_region.csv: SECT_REGION_407_DESC
 msgid "SECT_REGION_407_DESC"
-msgstr ""
-"Nằm giữa tâm điểm phong bạo nơi hải vực, kim quang đầy trời. Khi tiếng "
-"chuông vang lên, phong ba liền lặng. Kiến trúc tông môn dựng trên đảo, lấy "
-"Kim Cang Tháp làm trung tâm; tiếng chuông có thể chấn nhiếp yêu hồn trong "
-"phạm vi ngàn dặm."
+msgstr "Phổ Độ Đảo treo mình cô độc giữa trung tâm biển bão. Ngoài đảo, sóng lớn ngập trời và điện quang cuồn cuộn; trong đảo, tiếng chuông và Phật quang ép mọi thứ vào một vùng tĩnh lặng gần như đông cứng. Kim Cang Tháp vươn lên nơi trung tâm, xung quanh là điện đường, thạch cấp, đài khổ tu bên vách biển và bến độ sát bờ. Kim linh trên đỉnh tháp ngân dài theo hải phong, có thể xoa dịu từng chút một cơn phong bạo đang cuộn trào. Mỗi khi sương sớm tan đi, kim quang rải lên các bãi đá đen và điện vũ xanh trắng, khiến cả hòn đảo như một pháp ấn trấn tà vừa được nhấc lên từ biển dữ."
 
 #. sect_region.csv: SECT_REGION_407_NAME
 msgid "SECT_REGION_407_NAME"
@@ -2982,11 +2916,7 @@ msgstr "Phổ Độ Đảo"
 
 #. sect_region.csv: SECT_REGION_408_DESC
 msgid "SECT_REGION_408_DESC"
-msgstr ""
-"Một đầm lầy kịch độc quanh năm bị sương mù bao phủ. Nơi đây không có ánh "
-"sáng, chỉ có những cặp mắt ẩn mình trong bóng tối. Cổ mộc chọc trời, dây leo"
-" quấn chặt, chướng khí lơ lửng suốt ngày khiến nơi này hoàn toàn cách biệt "
-"với ngoại giới."
+msgstr "Ám Ảnh Chiểu Trạch không hề biết đến ánh ngày. Độc vụ, hủ thủy và cổ mộc xoắn vặn phong kín toàn bộ khu vực đến mức ngoại nhân thường đã bị những ánh mắt vô hình nhìn chằm chằm trước cả khi thấy sơn môn. Căn cứ thực sự nơi đây không tập trung trên mặt đất: ẩn lâu và điếu kiều nằm trên tán cây, còn dưới bùn lầy lại chôn kín mật đạo, tiềm thất và cứ điểm bị chướng khí che giấu. Gần như không nơi nào có tầm nhìn thoáng đãng hoàn chỉnh, chỉ có những ngọn đèn lạnh chợt sáng chợt tắt, màn sương trôi giạt và dòng nước đen như muốn nuốt cả tiếng bước chân."
 
 #. sect_region.csv: SECT_REGION_408_NAME
 msgid "SECT_REGION_408_NAME"
@@ -2994,11 +2924,7 @@ msgstr "Ám Ảnh Chiểu Trạch"
 
 #. sect_region.csv: SECT_REGION_409_DESC
 msgid "SECT_REGION_409_DESC"
-msgstr ""
-"Vạn Bảo Tiên Minh được xây trên Đa Bảo Phù Không Đảo. Quần đảo lơ lửng khổng"
-" lồ nối liền nhau bằng vô số xiềng xích, phi chu lui tới như mây, phồn hoa "
-"tới cực điểm. Trong thành cao tháp san sát, đỉnh mỗi tháp đều có lò luyện "
-"khí rực lửa ngày đêm không tắt."
+msgstr "Đa Bảo Phù Không Đảo không phải một hòn đảo đơn lẻ, mà là quần đảo lơ lửng được nối thành một tiên thành trên trời bằng cự liên, vân kiều và những hàng không đạo của phi chu. Vành ngoài chất đầy cảng vân chu và bãi hàng tấp nập, tầng giữa là thương nhai, đấu giá lâu và phường thị, còn nơi cao nhất dựng đầy những cao tháp luyện khí phụt lửa ngày đêm. Sau khi màn đêm buông xuống, đèn đuốc kéo dài dọc theo dây xích và không kiều vào tận mây sâu. Cả cứ địa giống như một tấm lưới thương mại màu vàng trải ngang trời cao, vĩnh viễn ồn ã, vĩnh viễn vận chuyển."
 
 #. sect_region.csv: SECT_REGION_409_NAME
 msgid "SECT_REGION_409_NAME"
@@ -3006,11 +2932,7 @@ msgstr "Đa Bảo Phù Không Đảo"
 
 #. sect_region.csv: SECT_REGION_410_DESC
 msgid "SECT_REGION_410_DESC"
-msgstr ""
-"Cấu trúc sơn cốc đặc thù khiến âm thanh ngưng tụ mà không tán. Mỗi khi gió "
-"thổi qua, nghe tựa quỷ khóc thần gào. Trong cốc đình đài lầu các xen nhau "
-"trùng điệp, tiếng tơ trúc suốt ngày không dứt. Thoạt trông như nhân gian "
-"tiên cảnh, nhưng thực chất lại ẩn giấu vô số âm sát trận pháp."
+msgstr "Hai vách núi của Hồi Âm Cốc vươn cao rồi khép vào nhau, tự nhiên tạo thành vô số lỗ rỗng hồi âm và khe nứt cộng hưởng. Chỉ cần khảy một tiếng đàn, âm vang cũng có thể quanh quẩn trong cốc rất lâu không tan. Đình đài, thủy tạ, cầm lâu và trường lang trải dọc sườn núi, dòng suối len qua giữa kiến trúc. Bề ngoài nơi này tao nhã như biệt uyển của tiên gia, nhưng nếu lắng nghe kỹ sẽ thấy cả tiếng gió lùa qua mái hiên hay giọt nước rơi xuống đầm đều như đã bị một bàn tay vô hình biên soạn lại nhịp điệu. Thời khắc nguy hiểm nhất thường không phải khi âm nhạc phủ đầy sơn cốc, mà là khi tất cả bất ngờ im xuống, khiến không ai biết tiếng vọng kế tiếp sẽ rơi từ đâu."
 
 #. sect_region.csv: SECT_REGION_410_NAME
 msgid "SECT_REGION_410_NAME"
@@ -3018,11 +2940,7 @@ msgstr "Hồi Âm Cốc"
 
 #. sect_region.csv: SECT_REGION_411_DESC
 msgid "SECT_REGION_411_DESC"
-msgstr ""
-"Thoạt nhìn chỉ là một ngọn núi, nhưng kỳ thực chứa vô số không gian chồng "
-"gấp. Kẻ không hiểu trận pháp sẽ khó mà bước nổi nửa bước. Cả dãy sơn mạch bị"
-" bao trùm bởi vô số đại trận chồng lớp; mỗi bước là một cảnh, mỗi bước là "
-"một hiểm."
+msgstr "Mê Tung Thiên bề ngoài chỉ như một ngọn cô phong, nhưng một khi thật sự bước qua sơn môn, người ta mới nhận ra đình đài, thạch cấp, huyền kiều và sơn đạo đều được gài vào trong từng tầng không gian chồng gấp. Cùng một con đường, nhìn trước và nhìn sau có thể hoàn toàn khác biệt. Lưng núi có quảng trường khắc đầy trận văn, hành lang lơ lửng giữa không trung và những lầu các khi ẩn khi hiện; dưới chân đôi lúc còn sáng lên những đường vân như lưu quang, tựa thể cả ngọn núi đang chậm rãi suy nghĩ. Nơi đây không hề cho người ta cảm giác phương hướng ổn định. Cảnh vật tự thân đã là một phần của sơn môn, và mỗi bước tiến thêm đều như đang bước vào một tầng thiên địa mới."
 
 #. sect_region.csv: SECT_REGION_411_NAME
 msgid "SECT_REGION_411_NAME"
@@ -3030,11 +2948,7 @@ msgstr "Mê Tung Thiên"
 
 #. sect_region.csv: SECT_REGION_412_DESC
 msgid "SECT_REGION_412_DESC"
-msgstr ""
-"Nằm trong vùng vĩnh dạ nơi cực bắc, nhưng lại bị bao phủ bởi cực quang vạn "
-"năm bất diệt, sáng rực như ban ngày. Thành trì được đúc từ vạn niên hàn băng"
-" và huyền thiết, dưới màn cực quang đầy trời mà lưu quang dật thải, tựa thần"
-" tích giáng thế."
+msgstr "Cực Quang Thiên Cảnh nằm sâu trong vùng cực bắc vĩnh dạ. Bên ngoài là băng nguyên dài và tĩnh lặng, chỉ riêng cung thành này quanh năm được cực quang lưu động soi sáng như ban ngày. Tường băng cao vút, cung môn huyền thiết, băng kiều và giáo trường tỏa ra thứ ánh lạnh lấp lánh dưới màn sáng, còn Thánh Hỏa Đàn sâu trong nội thành lại phủ lên cả màn giá rét một tầng ấm đỏ không bao giờ tắt. Vẻ đẹp lớn nhất của nơi này không chỉ nằm ở sự hùng vĩ, mà ở cảm giác trật tự khi băng và hỏa, tĩnh và minh cùng tồn tại, như thể cả tòa thành là một khối ánh sáng đang cháy bền bỉ giữa hàn địa."
 
 #. sect_region.csv: SECT_REGION_412_NAME
 msgid "SECT_REGION_412_NAME"
@@ -3042,10 +2956,7 @@ msgstr "Cực Quang Thiên Cảnh"
 
 #. sect_region.csv: SECT_REGION_413_DESC
 msgid "SECT_REGION_413_DESC"
-msgstr ""
-"Nằm ở trung tâm tu chân giới, cổ mộc chọc trời, bia lâm dày đặc; mỗi tấm bia"
-" đều ẩn chứa vi ngôn đại nghĩa của thánh hiền. Tiếng đọc sách trong rừng có "
-"thể vọng xa mười dặm, là nơi hội tụ của hạo nhiên chính khí trong thiên hạ."
+msgstr "Thánh Hiền Lâm nằm nơi trung tâm linh mạch giao hội. Cổ thụ chọc trời, bia đá rải rác, còn giảng đường, thư các và tiểu viện bên nước ẩn hiện dưới bóng rừng. Người đi trong đó thường phải bước qua con đường đá phủ lá rơi và hành lang khắc đầy cổ văn. Ban ngày, tiếng đọc sách theo gió truyền rất xa; ban đêm, văn tự trên bia khẽ phát sáng dưới trăng, khiến bóng cây và mái hiên chìm trong sự tĩnh tại hiếm có. Nơi đây không giống một sơn môn khép kín, mà giống một học cung sống vẫn đang tiếp tục sinh trưởng; đến cả không khí cũng như chứa đầy giấy mực, cỏ cây và vẻ thanh chính mà năm tháng lắng lại."
 
 #. sect_region.csv: SECT_REGION_413_NAME
 msgid "SECT_REGION_413_NAME"
@@ -3053,11 +2964,7 @@ msgstr "Thánh Hiền Lâm"
 
 #. sect_region.csv: SECT_REGION_414_DESC
 msgid "SECT_REGION_414_DESC"
-msgstr ""
-"Sơn thể mang sắc đỏ sẫm, như thể từng bị máu tươi thấm nhuộm. Tông môn được "
-"xây dựng trên một huyết trì ngầm khổng lồ. Trong núi thường có huyết vụ tràn"
-" lan, quái thạch lởm chởm, khắp nơi đều thấy thú cốt khô héo đã bị hút cạn "
-"tinh huyết."
+msgstr "Ngọn núi chứa Tu La Huyết Trì mang màu đỏ sẫm toàn thân, từ các khe đá thường trào lên huyết vụ và luồng nhiệt. Sâu trong lòng núi, nội bộ đã bị khoét rỗng thành một huyết trì ngầm khổng lồ cùng những tầng điện tế chồng lên nhau. Cầu xích sắt bắc ngang huyết hà, còn bậc đá dẫn xuống chiến đài, cốt quật và tế đàn rực ánh đỏ. Càng tiến sâu xuống lòng đất, mùi gỉ sắt, dược khí, hơi ẩm và huyết tinh càng trở nên nồng đặc. Cả cứ địa giống như một con hung thú đang chậm rãi hô hấp, bề mặt chỉ là lớp vỏ im lặng của nó, còn phần thật sự nguy hiểm luôn bị chôn sâu hơn nữa."
 
 #. sect_region.csv: SECT_REGION_414_NAME
 msgid "SECT_REGION_414_NAME"

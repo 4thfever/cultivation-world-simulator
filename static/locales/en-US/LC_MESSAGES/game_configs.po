@@ -2688,12 +2688,7 @@ msgstr ""
 
 #. sect.csv: SECT_14_DESC
 msgid "SECT_14_DESC"
-msgstr ""
-"The number one demonic sect in the Cultivation World, acting overbearingly "
-"and cruelly, advocating 'survival of the fittest', improving cultivation "
-"through plunder and blood sacrifice. [Monstrous Blood Sea] You admire "
-"strength and plundering; although plundering mortals harms heaven and "
-"harmony, it brings you amazing wealth and resources."
+msgstr "Rakshasa Blood Sect looms above the Asura Blood Pool, where blood-river altars, halls of war merit, bone-refining caverns, and essence-seizing platforms operate without pause day or night. The air is thick year-round with blood mist, medicinal vapors, and the scent of iron rust. Its internal lines broadly include blood war, sacrificial cultivation, plunder, and body refinement, and the distribution of resources is closely tied to battle achievements, offerings, and personal infamy. The strong may rise with frightening speed, while the weak are devoured just as quickly. The sect worships the naked order of strength, and its members are often savage and proud, yet this also gives rise to a brutal honesty that recognizes only power and trusts no empty words."
 
 #. sect.csv: SECT_14_NAME
 msgid "SECT_14_NAME"
@@ -2708,12 +2703,7 @@ msgstr ""
 
 #. sect.csv: SECT_1_DESC
 msgid "SECT_1_DESC"
-msgstr ""
-"The number one sect in the east of the Cultivation World, ruling with "
-"supreme sword path. The sect's ultimate technique is the 'Nine Heavens "
-"Thunder Sword Art'. [Sword Heart Clarity] As a sword cultivator, your combat"
-" power is amazing when using sword-type weapons, and your comprehension "
-"speed in the sword path far exceeds ordinary people."
+msgstr "The High Heaven Sword Sect is seated among the Jueyun Peaks, where mountain gates, sword pavilions, and trial platforms rise tier upon tier. Gale-force astral winds rage there year-round, and the higher one climbs, the more a sword cultivator's resolve is tested. The sect is divided into branches such as Sword Flight, Thunder Sword, and Sword Nurturing; disciples ascend the cliffs at dawn and dusk to question the sword and verify their insights before ancient sword steles. The sect reveres sharpness and purity, values reputation as much as personal enlightenment, and produces both meteoric prodigies and solitary figures trapped by obsession."
 
 #. sect.csv: SECT_1_NAME
 msgid "SECT_1_NAME"
@@ -2728,11 +2718,7 @@ msgstr ""
 
 #. sect.csv: SECT_2_DESC
 msgid "SECT_2_DESC"
-msgstr ""
-"Famous for taming fierce beasts, keeping various demonic beasts and monsters"
-" as combat power. [Master of Ten Thousand Beasts] You have a unique beast "
-"taming talent; capturing demonic beasts is easy for you, and you are good at"
-" driving beast groups to fight for you."
+msgstr "Ten Thousand Beasts Mountain lies deep within the Hundred Thousand Mountains, where ninety-nine descending grotto-heavens confine vast herds ranging from low-rank spirit beasts to baleful demon kings. Beast pens, blood-feeding grounds, and spirit-bond altars are never truly quiet. Its disciples generally follow the paths of beast command, beast rearing, or blood refinement; some treat demon beasts as partners, while others see them only as expendable force. The mountain gate feels primal and overbearing, teaching its people not only to subdue all beasts through strength, but also to temper their own laws of survival from beastly nature itself."
 
 #. sect.csv: SECT_2_NAME
 msgid "SECT_2_NAME"
@@ -2747,11 +2733,7 @@ msgstr ""
 
 #. sect.csv: SECT_3_DESC
 msgid "SECT_3_DESC"
-msgstr ""
-"Living on isolated islands overseas, strictly neutral. Possesses an ancient "
-"wonder 'Sea Viewing Jade Wall' to spy on heavenly secrets. [Knowing Destiny]"
-" You have extraordinary intuition, a broad vision, and are extremely likely "
-"to find encounters during exploration."
+msgstr "Listening Tide Pavilion stands upon the sheer cliffs of Silent Sea Bluff, where halls of cold spirit jade reflect both moonlit tides and starlight. What matters most there is not the blade, but the Sea-Viewing Jade Wall, tidewatching terraces, and star-chart observatories. Its disciples study methods of stargazing, listening to the tides, and divination; they are usually quiet and restrained, yet unusually skilled at perceiving change in wind, surf, and the smallest shifts of the human heart. The place is aloof and cold, as though all who dwell there view the world through mist, and so it nurtures both detached recluses and those who have been drawn too deeply into the pull of heavenly secrets."
 
 #. sect.csv: SECT_3_NAME
 msgid "SECT_3_NAME"
@@ -2766,12 +2748,7 @@ msgstr ""
 
 #. sect.csv: SECT_4_DESC
 msgid "SECT_4_DESC"
-msgstr ""
-"Comprehending life and death, drawing power from the Yellow Springs "
-"(Underworld), with cold and fierce techniques. [Netherworld Ferry] You "
-"practice the way of Yellow Springs with a firm mind, and when breaking "
-"through bottlenecks, you have no distractions, leading to a higher success "
-"rate."
+msgstr "Nine Underworlds Dao occupies the archipelago of the Dead Silence Sea, where soul-guiding halls, ferries of the dead, corpse-suppressing caverns, and dimly lit corridors are wrapped in sea fog all year long. To come and go there feels like walking through the cracks between life and death. The sect contains branches devoted to soul refinement, crossing the dead, and Yin arts, and its disciples cultivate beside wandering spirits, corpse puppets, and the currents of the underworld river. The order within is severe and the atmosphere bleak; its members are often taciturn and restrained, yet this very stillness easily breeds minds cold enough to treat all things as a price to be paid."
 
 #. sect.csv: SECT_4_NAME
 msgid "SECT_4_NAME"
@@ -2786,12 +2763,7 @@ msgstr ""
 
 #. sect.csv: SECT_5_DESC
 msgid "SECT_5_DESC"
-msgstr ""
-"A major evil sect. Famous for mechanisms, puppets, and poison killing, "
-"always secretive in whereabouts. [Treacherous Assassination] You are "
-"proficient in stealth and assassination; for strong enemies, avoiding direct"
-" confrontation and seeking assassination is often your best winning "
-"strategy."
+msgstr "Thousand Mechanisms Sect hides in the depths of Thousand Mechanisms Valley. From the outside its towers and courtyards appear delicate and splendid, yet within lie mechanism galleries, puppet workshops, poison arsenals, and secret tunnels where every brick may conceal killing intent. Disciples are broadly divided among machinists, puppet masters, poison specialists, and infiltrators; they must understand creation and ambush alike, and learn how to preserve themselves in absolute silence. This is a place that prizes efficiency, secrecy, and results. Cooperation often rests on shared interest alone, making it fertile ground for calculating geniuses and endlessly layered relationships of mutual testing."
 
 #. sect.csv: SECT_5_NAME
 msgid "SECT_5_NAME"
@@ -2806,12 +2778,7 @@ msgstr ""
 
 #. sect.csv: SECT_6_DESC
 msgid "SECT_6_DESC"
-msgstr ""
-"Entering the Dao through emotion, increasing cultivation through dual "
-"cultivation, good at manipulating people's hearts and long in power changes."
-" [Red Dust Heart Refinement] Your constitution is special; through dual "
-"cultivation, you can gain cultivation improvements far exceeding ordinary "
-"people, which is your best shortcut to raising your realm."
+msgstr "Drunken Dream Pavilion is built within a cavern-heaven hidden in the heart of a bustling market. Fragrance pavilions, waterside terraces, music halls, and dream pools flow into one another beneath lampglow bright as sunset. Cultivation here does not rely on dual cultivation alone; the sect also values incense arts, music, dance, negotiation, and reading the room. Its disciples often cultivate charm techniques, performance arts, and intelligence work side by side. No place is better at turning worldly desire into fuel for cultivation, nor more keenly aware of the warmth and coldness of human feeling. Because of that, its members may become exquisitely perceptive souls, or sink ever deeper into the boundary between sincerity and performance."
 
 #. sect.csv: SECT_6_NAME
 msgid "SECT_6_NAME"
@@ -2826,11 +2793,7 @@ msgstr ""
 
 #. sect.csv: SECT_7_DESC
 msgid "SECT_7_DESC"
-msgstr ""
-"A Buddhist holy land and major body cultivation sect. Suppressing worldly "
-"evils with a Vajra body. [Golden Body Arhat] You practice body protection "
-"divine skills, possessing extremely strong physical defense and damage "
-"reduction abilities, as immovable as a mountain."
+msgstr "Sumeru Zen Monastery stands upon Pudu Island in the storm-torn sea, centered on the Vajra Pagoda and encircled by demon-subduing halls, bell-hearing terraces, ascetic cliffs, and medicinal bathing pools. When the bell rings, the whole island seems pinned in place beneath invisible Buddhist radiance. Its monks follow the paths of Zen cultivation, martial cultivation, and protector practice; they recite scripture, temper the body, and are often sent to suppress sea-born evils or receive those in distress. Though the monastery outwardly appears solemn and austere, it is not lifeless within. Many monks still carry the wish to enter the world and save others, giving the sect a nature that is both compassionate and unyieldingly fierce."
 
 #. sect.csv: SECT_7_NAME
 msgid "SECT_7_NAME"
@@ -2845,11 +2808,7 @@ msgstr ""
 
 #. sect.csv: SECT_8_DESC
 msgid "SECT_8_DESC"
-msgstr ""
-"The sect's core manual is the 'Shadow Killing True Scripture'. Based on "
-"Earth Fiend Yin Qi. [Follow Like a Shadow] You are extremely good at "
-"movement and escape techniques, always able to retreat safely from danger, "
-"and can also seek opportunities to assassinate isolated enemies."
+msgstr "Shadow Fiend Hall lurks in the deepest reaches of Shadow Marsh. Hidden towers perch above the canopy, secret tunnels run beneath the mire, and shadow prisons, stealth grounds, poison pools, and intelligence outposts are layered so intricately that outsiders rarely grasp its true shape. Its disciples are trained along routes such as infiltration, escape, intelligence pursuit, and corpse handling, learning from the beginning how to hide traces, sever evidence, and survive desperate situations. There is almost no excess warmth here; everyone is accustomed to observing and doubting. Yet because of that, a strange kind of tacit understanding is forged, one that appears only at the edge of life and death."
 
 #. sect.csv: SECT_8_NAME
 msgid "SECT_8_NAME"
@@ -2864,11 +2823,7 @@ msgstr ""
 
 #. sect.csv: SECT_9_DESC
 msgid "SECT_9_DESC"
-msgstr ""
-"A massive power developed from a chamber of commerce. Possesses the 'Flowing"
-" Cloud Flying Boat' caravan, wealthy beyond measure. [Wealth Reaches Gods] "
-"You are well-versed in artifact refining and business; nurturing weapons "
-"often transforms them, and you always profit in trades."
+msgstr "Myriad Treasures Alliance is built across the archipelago of floating treasure isles, where auction halls, thousand-furnace towers, cloudship ports, central vaults, and every variety of merchant house connect into something closer to an immortal city than a mountain sect. Its cultivators both cultivate and trade, branching into artifact forging, treasure appraisal, shipping, accounting, and foreign commerce. Many disciples learn valuation, bargaining, contract-making, and trade-route maintenance from childhood. This place prizes circulation and efficiency above all else, and everyone understands how resources become power. As a result, its atmosphere is more practical than that of most sects, but also more disciplined and deeply invested in order and credibility."
 
 #. sect.csv: SECT_9_NAME
 msgid "SECT_9_NAME"
@@ -2883,10 +2838,7 @@ msgstr ""
 
 #. sect_region.csv: SECT_REGION_401_DESC
 msgid "SECT_REGION_401_DESC"
-msgstr ""
-"Jueyun Peak towers into the clouds, surrounded by strong winds on all sides."
-" Only sword cultivators can fly up with swords. There are places for "
-"disciples to cultivate on the mountain, with a tranquil environment."
+msgstr "The Jueyun Peaks spear upward into the sea of clouds, with iron chains and cloud bridges linking summit to summit. The mountain paths are perilous, and only those who can truly steady their sword intent may ascend higher. Midway up stand sword-testing platforms, sword-washing pools, and cliffs carved over with countless blade marks; nearer the summit, the wind grows sharper, and flashes of lightning occasionally skim the crags. The entire mountain gate resembles an ancient sword drawn but not yet returned to its sheath, cold, severe, and edged enough that even the air seems to carry a blade's point."
 
 #. sect_region.csv: SECT_REGION_401_NAME
 msgid "SECT_REGION_401_NAME"
@@ -2894,11 +2846,7 @@ msgstr "Jueyun Peak"
 
 #. sect_region.csv: SECT_REGION_402_DESC
 msgid "SECT_REGION_402_DESC"
-msgstr ""
-"Located in the hinterland of the One Hundred Thousand Mountains, the cave "
-"soars with demonic qi, and the roars of ten thousand beasts can be heard "
-"here. The interior is crisscrossed with ninety-nine layers of grotto-"
-"heavens, each housing different grades of spiritual and demonic beasts."
+msgstr "Ten Thousand Beasts Cave is hidden deep within the mountain heart, its outer layers sealed by miasma and strangling vines. Only by pressing inward does one find the descending beast domains of the grotto-heavens below. Different cavern layers are divided by stone bridges, iron gates, and beast-command platforms, while the deep roars of monsters and the clash of chains echo without cease. Bones, claw marks, and lingering demonic aura litter the ground. This place feels less like an ordinary mountain gate and more like a living nest-city of colossal beasts, where each level downward adds another crushing measure of pressure."
 
 #. sect_region.csv: SECT_REGION_402_NAME
 msgid "SECT_REGION_402_NAME"
@@ -2906,11 +2854,7 @@ msgstr "Ten Thousand Beasts Cave"
 
 #. sect_region.csv: SECT_REGION_403_DESC
 msgid "SECT_REGION_403_DESC"
-msgstr ""
-"Listening Tide Pavilion hangs on the seaside cliff, listening to the tide "
-"all year round. The jade wall in the pavilion reflects the stars and the "
-"sea. The palaces and pavilions are built of cold ice spirit jade, "
-"transparent throughout, making it hard to distinguish reality from illusion."
+msgstr "Silent Sea Bluff hangs above a cliff that falls ten thousand fathoms into the sea. Palaces of cold spirit jade, tidewatching terraces, and winding corridors half-hide within the ocean mist, so that from afar the entire mountain gate seems to float in surf and moonlight. At the cliff's edge, the jade wall reflects sea and stars together; when the tide rises and falls, the walls and floors gleam with ripples of pale light, making the paths seem uncertain between illusion and reality. The place is so quiet it nearly feels empty, and only the sound of waves, wind, and the occasional bell brushing an eave reminds visitors that they still stand in the mortal world."
 
 #. sect_region.csv: SECT_REGION_403_NAME
 msgid "SECT_REGION_403_NAME"
@@ -2918,11 +2862,7 @@ msgstr "Silent Sea Cliff"
 
 #. sect_region.csv: SECT_REGION_404_DESC
 msgid "SECT_REGION_404_DESC"
-msgstr ""
-"Nine Underworlds Dao is located on the Dead Silence Sea archipelago. The "
-"seawater is pitch black like ink, rising without wind. It is rumored that "
-"the bottom of the sea leads directly to the Nine Underworlds Yellow Springs."
-" When the waves howl, ten thousand souls cry together, blotting out the sun."
+msgstr "The Dead Silence Sea is formed by black islands and hidden tidal bays, linked by narrow trestle bridges, broken-stela ferries, and towers of ghostly fire. From a distance it resembles a chain of cities drifting atop an ink-dark sea. The waters rise in waves though no wind blows, and when those waves curl upward they carry shrill cries like weeping. The halls and stone steps upon the islands are stained gray-white and dim green by damp Yin mist. At night, what shines brightest is not the moon, but the soul-guiding lanterns flickering through the sea fog, turning the whole place into something like the underworld seen in a dream."
 
 #. sect_region.csv: SECT_REGION_404_NAME
 msgid "SECT_REGION_404_NAME"
@@ -2930,11 +2870,7 @@ msgstr "Dead Silence Sea"
 
 #. sect_region.csv: SECT_REGION_405_DESC
 msgid "SECT_REGION_405_DESC"
-msgstr ""
-"Thousand Mechanisms Valley is full of mechanisms and traps. It looks like an"
-" ordinary valley, but one wrong step means death without a burial place. The"
-" palaces and pavilions in the valley seem magnificent but hide killing "
-"intent everywhere."
+msgstr "At first glance Thousand Mechanisms Valley appears to be an elegant mountain vale of blue stone roads, flying eaves, and carefully tended courtyards. But a closer look reveals bridges that rotate, walls that open and close, and stairways whose very height conceals hidden triggers. Watchtowers and hanging bridges occupy the heights, while secret passages, workshops, and sealed chambers run beneath. From time to time one hears gears biting, metal chiming softly, or puppet footsteps sounding from no discernible direction. The most frightening thing here is not any single trap, but the fact that the entire valley itself behaves like one vast mechanism."
 
 #. sect_region.csv: SECT_REGION_405_NAME
 msgid "SECT_REGION_405_NAME"
@@ -2942,12 +2878,7 @@ msgstr "Thousand Mechanisms Valley"
 
 #. sect_region.csv: SECT_REGION_406_DESC
 msgid "SECT_REGION_406_DESC"
-msgstr ""
-"Drunken Dream Pavilion is built as an independent grotto-heaven in the "
-"bustling market, with singing and dancing, and an intoxicating fragrance "
-"that never dissipates. The sect buildings are extremely luxurious, with mist"
-" swirling between the palaces and pavilions, and pairs of disciples faintly "
-"visible cultivating within."
+msgstr "Gold-Squandering Cave is a secluded cavern-heaven hidden behind a flourishing market city. One enters into seas of lantern light, perfumed mist, winding bridges, and layered waterside pavilions; the deeper one goes, the quieter the revelry becomes, while water and music grow more lingering and intimate. The outer structures glitter with gold and jade and teem with guests, while the inner reaches conceal meditation rooms, hot springs, and dream pools behind gauze curtains, flowered walls, and drifting cloud-mist. Every road seems designed to lead a visitor astray. The place is soft and splendid everywhere, yet leaves one unable to tell whether one has come to a banquet, stepped into a dream, or crossed into some deeper field of cultivation."
 
 #. sect_region.csv: SECT_REGION_406_NAME
 msgid "SECT_REGION_406_NAME"
@@ -2955,11 +2886,7 @@ msgstr "Gold-Squandering Cave"
 
 #. sect_region.csv: SECT_REGION_407_DESC
 msgid "SECT_REGION_407_DESC"
-msgstr ""
-"Located in the center of the sea storm, with golden light filling the sky. "
-"When the bell rings, the storm stops. The sect buildings stand on the "
-"island, centered around the Vajra Pagoda, whose bell sound can intimidate "
-"demonic souls within a thousand miles."
+msgstr "Pudu Island hangs alone in the center of the storm sea. Outside the island, waves crash skyward and lightning writhes in the clouds; within, bell tones and Buddhist radiance press everything into an almost solid stillness. The Vajra Pagoda rises at the island's heart, surrounded by temple halls, stone stairways, cliffside ascetic platforms, and a shorebound ferry landing. The golden bells atop the tower ring long with the sea wind and can soothe the raging storm little by little. When the morning mist parts, golden light falls over black reefs and pale temple buildings, making the whole island resemble a seal of demon suppression lifted from the furious ocean itself."
 
 #. sect_region.csv: SECT_REGION_407_NAME
 msgid "SECT_REGION_407_NAME"
@@ -2967,10 +2894,7 @@ msgstr "Pudu Island"
 
 #. sect_region.csv: SECT_REGION_408_DESC
 msgid "SECT_REGION_408_DESC"
-msgstr ""
-"A poisonous swamp shrouded in mist all year round. There is no light here, "
-"only eyes hiding in the dark. Towering trees, entangling vines, and miasma "
-"floating all day long completely isolate this place from the outside world."
+msgstr "Shadow Marsh knows no daylight. Poison fog, rotting water, and ancient twisted trees seal the entire region so tightly that outsiders are often watched by unseen eyes before they ever glimpse the mountain gate. The true stronghold is not concentrated on the surface: hidden towers and hanging bridges lie among the treetops, while tunnels, concealed chambers, and outposts veiled by miasma are buried beneath the mire. There is almost no clear line of sight anywhere, only cold lamps flaring and fading, drifting veils of mist, and black water that seems ready to swallow even the sound of one's footsteps."
 
 #. sect_region.csv: SECT_REGION_408_NAME
 msgid "SECT_REGION_408_NAME"
@@ -2978,12 +2902,7 @@ msgstr "Shadow Swamp"
 
 #. sect_region.csv: SECT_REGION_409_DESC
 msgid "SECT_REGION_409_DESC"
-msgstr ""
-"Myriad Treasures Alliance is built on the Myriad Treasures Floating Island. "
-"The huge floating island group is connected by countless chains. Flying "
-"boats come and go like clouds, extremely prosperous. High towers stand in "
-"the city, each with an alchemy furnace fire that never goes out day or "
-"night."
+msgstr "Myriad Treasures Floating Isle is not a single island, but an archipelago of drifting isles joined by colossal chains, cloud bridges, and aerial shipping lanes into one immortal city suspended in the sky. The outer ring is filled with busy cloudship ports and freight yards, the middle levels with market streets, auction towers, and bazaars, while the heights are crowned by forges whose furnace fire erupts day and night. After dark, lights extend along chains and skyways deep into the clouds. The entire stronghold resembles a golden commercial web laid across the heavens, forever noisy, forever in motion."
 
 #. sect_region.csv: SECT_REGION_409_NAME
 msgid "SECT_REGION_409_NAME"
@@ -2991,12 +2910,7 @@ msgstr "Myriad Treasures Floating Island"
 
 #. sect_region.csv: SECT_REGION_410_DESC
 msgid "SECT_REGION_410_DESC"
-msgstr ""
-"The special valley structure makes the sound condense and not disperse. When"
-" the wind passes, it sounds like ghosts crying and gods howling. Pavilions "
-"and towers are scattered in the valley, and the sounds of silk and bamboo "
-"never cease all day long. It appears like a paradise on earth, but actually "
-"hides numerous sound-killing arrays."
+msgstr "The walls of Echo Valley rise high and curve inward, naturally forming countless hollows of resonance and fissures of harmonic reflection. Even a single plucked string can circle the valley for a long time without fading. Pavilions, waterside structures, qin towers, and long galleries are set along the slopes, with streams running straight through the architecture. On the surface it appears as elegant as an immortal retreat, yet close listening reveals that wind under the eaves and droplets striking a pool seem to have been rearranged by an invisible hand. The most dangerous moment is often not when music fills the valley, but when silence falls and no one can tell from where the next echo will descend."
 
 #. sect_region.csv: SECT_REGION_410_NAME
 msgid "SECT_REGION_410_NAME"
@@ -3004,11 +2918,7 @@ msgstr "Echo Valley"
 
 #. sect_region.csv: SECT_REGION_411_DESC
 msgid "SECT_REGION_411_DESC"
-msgstr ""
-"Seemingly just one mountain, it actually contains countless folded spaces. "
-"Those who do not understand arrays cannot move a single step. The entire "
-"mountain range is covered by numerous overlapping arrays; every step is a "
-"scene, every step a danger."
+msgstr "Maze Heaven appears to be only a solitary peak, but the moment one truly enters its mountain gate, one finds terraces, stairways, hanging bridges, and mountain roads embedded within layer upon layer of folded space. The same path may look entirely different when seen from front and back. Along the slopes stand broad plazas engraved with array marks, air-borne corridors, and pavilions that flicker in and out of existence, while lines of light occasionally awaken across the ground as though the whole mountain were thinking in slow silence. Nothing here offers stable direction. The landscape itself is part of the gate, and every additional step feels like entering yet another world."
 
 #. sect_region.csv: SECT_REGION_411_NAME
 msgid "SECT_REGION_411_NAME"
@@ -3016,11 +2926,7 @@ msgstr "Maze Heaven"
 
 #. sect_region.csv: SECT_REGION_412_DESC
 msgid "SECT_REGION_412_DESC"
-msgstr ""
-"Located in the extreme north eternal night land, but shrouded by the "
-"inextinguishable aurora of ten thousand years, bright as day. The city is "
-"cast from ten-thousand-year cold ice and black iron, shimmering under the "
-"vast aurora like a miracle."
+msgstr "Aurora Heaven Realm lies in the depths of the far northern eternal night. Beyond it stretches a long and silent ice field, but this palace-city alone is illuminated year-round by flowing aurora bright as day. Towering ice walls, black-iron gates, ice bridges, and training grounds shine with a cold brilliance beneath the luminous curtain, while the sacred flame altar deep within casts a layer of unfading warm red across all that frost. Its greatest beauty is not sheer grandeur, but the sense of order created when ice and fire, stillness and radiance, exist at once, as though the city itself were a single mass of light burning steadily in the bitter cold."
 
 #. sect_region.csv: SECT_REGION_412_NAME
 msgid "SECT_REGION_412_NAME"
@@ -3028,11 +2934,7 @@ msgstr "Aurora Heaven Realm"
 
 #. sect_region.csv: SECT_REGION_413_DESC
 msgid "SECT_REGION_413_DESC"
-msgstr ""
-"Located in the center of the Cultivation World, with towering ancient trees "
-"and a forest of steles, each inscription containing the subtle righteous "
-"words of sages. The sound of reading in the forest can be heard for ten "
-"miles, the gathering place for the world's righteous spirit."
+msgstr "Sage Forest sits where central spiritual veins converge. Towering ancient trees and scattered steles stand among lecture halls, libraries, and waterside courtyards hidden within the shade, and those who walk there often pass over stone paths carpeted in leaves and through corridors carved with archaic script. By day, the sound of reading travels far on the wind; by night, the inscriptions on the steles glimmer faintly in moonlight, leaving trees and eaves steeped in unusual calm. This is less a closed mountain gate than a living academy still growing, and even the air seems filled with paper, ink, living wood, and the upright clarity that time has left behind."
 
 #. sect_region.csv: SECT_REGION_413_NAME
 msgid "SECT_REGION_413_NAME"
@@ -3040,11 +2942,7 @@ msgstr "Sage Forest"
 
 #. sect_region.csv: SECT_REGION_414_DESC
 msgid "SECT_REGION_414_DESC"
-msgstr ""
-"The mountain body appears dark red, as if soaked in blood. The sect is built"
-" on a huge underground blood pool. Blood mist often fills the mountain, with"
-" rugged stones and desiccated animal bones sucked dry of essence and blood "
-"everywhere."
+msgstr "The mountain containing the Asura Blood Pool is dark red throughout, with blood-colored mist and waves of heat often surging from its rocky fissures. Deep within the mountain, the interior has been hollowed out into an enormous subterranean blood pool and layers of ritual halls built one upon another. Iron chain bridges cross the blood river, while stone steps descend toward battle platforms, bone caverns, and altars lit by crimson light. The deeper one goes, the thicker the smell of rust, medicine, dampness, and blood becomes. The entire stronghold resembles a ferocious beast breathing in slow rhythm, with the surface as only its silent shell and the truly dangerous parts buried much farther below."
 
 #. sect_region.csv: SECT_REGION_414_NAME
 msgid "SECT_REGION_414_NAME"
