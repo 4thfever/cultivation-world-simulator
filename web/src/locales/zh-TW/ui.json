@@ -41,5 +41,67 @@
   "about_contributors": "貢獻者名單",
   "about_contributors_desc": "感謝所有參與了開源的創作者們！",
   "auto_save": "自動保存",
-  "auto_save_desc": "每逢十年的 1 月自動進行存檔"
+  "auto_save_desc": "每逢十年的 1 月自動進行存檔",
+  "create_avatar": {
+    "fetch_failed": "取得遊戲資料失敗",
+    "create_success": "角色建立成功",
+    "create_failed": "建立失敗: {error}",
+    "loading": "載入資料中...",
+    "labels": {
+      "name": "姓名",
+      "gender": "性別",
+      "age": "年齡",
+      "initial_realm": "初始境界",
+      "sect": "所屬宗門",
+      "persona": "初始個性",
+      "alignment": "陣營",
+      "appearance": "顏值",
+      "technique": "功法",
+      "weapon": "兵器",
+      "auxiliary": "輔助裝備",
+      "relations": "人際關係"
+    },
+    "placeholders": {
+      "surname": "姓",
+      "given_name": "名",
+      "initial_realm": "選擇初始境界",
+      "sect": "選擇宗門 (留空為散修)",
+      "persona": "選擇個性",
+      "technique": "選擇功法 (可留空)",
+      "weapon": "選擇兵器 (可留空)",
+      "auxiliary": "選擇輔助裝備 (可留空)",
+      "avatar": "選擇角色",
+      "relation": "關係"
+    },
+    "buttons": {
+      "add_relation": "+ 添加關係",
+      "create": "建立角色"
+    },
+    "avatar_placeholder": "請選擇頭像",
+    "no_avatars": "暫無可用頭像",
+    "age_unit": "歲",
+    "gender_labels": {
+      "male": "男",
+      "female": "女"
+    },
+    "relation_labels": {
+      "parent": "父母",
+      "child": "子女",
+      "sibling": "兄弟姐妹",
+      "master": "師父",
+      "disciple": "徒弟",
+      "lover": "道侶",
+      "friend": "友好",
+      "enemy": "憎惡"
+    }
+  },
+  "delete_avatar": {
+    "fetch_failed": "取得角色列表失敗",
+    "delete_confirm": "確定要刪除角色 {name} 嗎？此操作不可恢復。",
+    "delete_success": "刪除成功",
+    "delete_failed": "刪除失敗",
+    "search_placeholder": "搜尋角色名...",
+    "empty": "未找到角色",
+    "age_unit": "歲"
+  }
 }

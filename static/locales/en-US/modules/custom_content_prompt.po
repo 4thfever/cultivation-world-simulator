@@ -1,0 +1,67 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "custom_content.category.technique"
+msgstr "technique"
+
+msgid "custom_content.category.weapon"
+msgstr "weapon"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "auxiliary equipment"
+
+msgid "custom_content.label.name"
+msgstr "Name"
+
+msgid "custom_content.label.description"
+msgstr "Description"
+
+msgid "custom_content.label.attribute"
+msgstr "Attribute"
+
+msgid "custom_content.label.grade"
+msgstr "Grade"
+
+msgid "custom_content.label.weapon_type"
+msgstr "Weapon Type"
+
+msgid "custom_content.label.realm"
+msgstr "Realm"
+
+msgid "custom_content.label.effect_summary"
+msgstr "Effect Summary"
+
+msgid "custom_content.label.effects"
+msgstr "effects"
+
+msgid "custom_content.label.value_type"
+msgstr "value type"
+
+msgid "custom_content.label.example"
+msgstr "example"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "magnitude guidance"
+
+msgid "custom_content.reference.same_category"
+msgstr "Reference items of the same category:"
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "Reference items of the same category and realm:"
+
+msgid "custom_content.scope.without_realm"
+msgstr "This is a new {category_label}; no realm needs to be specified."
+
+msgid "custom_content.scope.with_realm"
+msgstr "This is a {category_label} at the \"{realm}\" realm tier."

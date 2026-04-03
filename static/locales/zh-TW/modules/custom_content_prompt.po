@@ -1,0 +1,67 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh-TW\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "custom_content.category.technique"
+msgstr "功法"
+
+msgid "custom_content.category.weapon"
+msgstr "兵器"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "輔助裝備"
+
+msgid "custom_content.label.name"
+msgstr "名稱"
+
+msgid "custom_content.label.description"
+msgstr "描述"
+
+msgid "custom_content.label.attribute"
+msgstr "屬性"
+
+msgid "custom_content.label.grade"
+msgstr "品階"
+
+msgid "custom_content.label.weapon_type"
+msgstr "兵器類型"
+
+msgid "custom_content.label.realm"
+msgstr "境界"
+
+msgid "custom_content.label.effect_summary"
+msgstr "效果說明"
+
+msgid "custom_content.label.effects"
+msgstr "效果"
+
+msgid "custom_content.label.value_type"
+msgstr "值類型"
+
+msgid "custom_content.label.example"
+msgstr "示例"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "量級參考"
+
+msgid "custom_content.reference.same_category"
+msgstr "同類型參考資料："
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "同類型、同境界參考資料："
+
+msgid "custom_content.scope.without_realm"
+msgstr "這是一個新的{category_label}，不需要額外指定境界。"
+
+msgid "custom_content.scope.with_realm"
+msgstr "這是一個「{realm}」層級的{category_label}。"

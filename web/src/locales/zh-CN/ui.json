@@ -41,5 +41,67 @@
   "about_contributors": "贡献者名单",
   "about_contributors_desc": "感谢所有参与了开源的创作者们！",
   "auto_save": "自动保存",
-  "auto_save_desc": "每逢十年的 1 月自动进行存档"
+  "auto_save_desc": "每逢十年的 1 月自动进行存档",
+  "create_avatar": {
+    "fetch_failed": "获取游戏数据失败",
+    "create_success": "角色创建成功",
+    "create_failed": "创建失败: {error}",
+    "loading": "加载数据中...",
+    "labels": {
+      "name": "姓名",
+      "gender": "性别",
+      "age": "年龄",
+      "initial_realm": "初始境界",
+      "sect": "所属宗门",
+      "persona": "初始个性",
+      "alignment": "阵营",
+      "appearance": "颜值",
+      "technique": "功法",
+      "weapon": "兵器",
+      "auxiliary": "辅助装备",
+      "relations": "人际关系"
+    },
+    "placeholders": {
+      "surname": "姓",
+      "given_name": "名",
+      "initial_realm": "选择初始境界",
+      "sect": "选择宗门 (留空为散修)",
+      "persona": "选择个性",
+      "technique": "选择功法 (可留空)",
+      "weapon": "选择兵器 (可留空)",
+      "auxiliary": "选择辅助装备 (可留空)",
+      "avatar": "选择角色",
+      "relation": "关系"
+    },
+    "buttons": {
+      "add_relation": "+ 添加关系",
+      "create": "创建角色"
+    },
+    "avatar_placeholder": "请选择头像",
+    "no_avatars": "暂无可用头像",
+    "age_unit": "岁",
+    "gender_labels": {
+      "male": "男",
+      "female": "女"
+    },
+    "relation_labels": {
+      "parent": "父母",
+      "child": "子女",
+      "sibling": "兄弟姐妹",
+      "master": "师傅",
+      "disciple": "徒弟",
+      "lover": "道侣",
+      "friend": "友好",
+      "enemy": "憎恶"
+    }
+  },
+  "delete_avatar": {
+    "fetch_failed": "获取角色列表失败",
+    "delete_confirm": "确定要删除角色 {name} 吗？此操作不可恢复。",
+    "delete_success": "删除成功",
+    "delete_failed": "删除失败",
+    "search_placeholder": "搜索角色名...",
+    "empty": "未找到角色",
+    "age_unit": "岁"
+  }
 }

@@ -1,0 +1,67 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: vi-VN\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "custom_content.category.technique"
+msgstr "công pháp"
+
+msgid "custom_content.category.weapon"
+msgstr "binh khí"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "trang bị phụ trợ"
+
+msgid "custom_content.label.name"
+msgstr "Tên"
+
+msgid "custom_content.label.description"
+msgstr "Mô tả"
+
+msgid "custom_content.label.attribute"
+msgstr "Thuộc tính"
+
+msgid "custom_content.label.grade"
+msgstr "Phẩm cấp"
+
+msgid "custom_content.label.weapon_type"
+msgstr "Loại binh khí"
+
+msgid "custom_content.label.realm"
+msgstr "Cảnh giới"
+
+msgid "custom_content.label.effect_summary"
+msgstr "Tóm tắt hiệu ứng"
+
+msgid "custom_content.label.effects"
+msgstr "hiệu ứng"
+
+msgid "custom_content.label.value_type"
+msgstr "kiểu giá trị"
+
+msgid "custom_content.label.example"
+msgstr "ví dụ"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "mức độ tham khảo"
+
+msgid "custom_content.reference.same_category"
+msgstr "Tư liệu tham khảo cùng loại:"
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "Tư liệu tham khảo cùng loại và cùng cảnh giới:"
+
+msgid "custom_content.scope.without_realm"
+msgstr "Đây là một {category_label} mới, không cần chỉ định thêm cảnh giới."
+
+msgid "custom_content.scope.with_realm"
+msgstr "Đây là một {category_label} thuộc tầng cảnh giới \"{realm}\"."

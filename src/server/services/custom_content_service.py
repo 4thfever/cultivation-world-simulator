@@ -25,6 +25,8 @@ from src.classes.technique import (
     techniques_by_id,
 )
 from src.classes.weapon_type import WeaponType
+from src.i18n import t
+from src.i18n.locale_registry import get_fallback_locale, get_source_locale, normalize_locale_code
 from src.systems.cultivation import Realm
 from src.utils.config import CONFIG
 from src.utils.llm.client import call_llm_with_task_name
@@ -94,120 +96,63 @@ _REFERENCE_LABEL_MAP = {
     "天才": "talent-tier",
 }
 
-
-_PROMPT_I18N = {
-    "zh-CN": {
-        "categories": {
-            "technique": "功法",
-            "weapon": "兵器",
-            "auxiliary": "辅助装备",
-        },
-        "labels": {
-            "name": "名称",
-            "desc": "描述",
-            "attribute": "属性",
-            "grade": "品阶",
-            "weapon_type": "兵器类型",
-            "realm": "境界",
-            "effect_desc": "效果说明",
-            "effects": "effects",
-            "value_type": "值类型",
-            "example": "示例",
-            "magnitude_guidance": "量级参考",
-            "same_type_reference": "同类型参考资料：",
-            "same_type_same_realm_reference": "同类型、同境界参考资料：",
-            "scope_without_realm": "这是一个新的{category_label}，不需要额外指定境界。",
-            "scope_with_realm": "这是一个“{realm}”层级的{category_label}。",
-        },
-    },
-    "en-US": {
-        "categories": {
-            "technique": "technique",
-            "weapon": "weapon",
-            "auxiliary": "auxiliary equipment",
-        },
-        "labels": {
-            "name": "Name",
-            "desc": "Description",
-            "attribute": "Attribute",
-            "grade": "Grade",
-            "weapon_type": "Weapon Type",
-            "realm": "Realm",
-            "effect_desc": "Effect Summary",
-            "effects": "effects",
-            "value_type": "value type",
-            "example": "example",
-            "magnitude_guidance": "magnitude guidance",
-            "same_type_reference": "Reference items of the same category:",
-            "same_type_same_realm_reference": "Reference items of the same category and realm:",
-            "scope_without_realm": "This is a new {category_label}; no realm needs to be specified.",
-            "scope_with_realm": "This is a {category_label} at the \"{realm}\" realm tier.",
-        },
-    },
-    "zh-TW": {
-        "categories": {
-            "technique": "功法",
-            "weapon": "兵器",
-            "auxiliary": "輔助裝備",
-        },
-        "labels": {
-            "name": "名稱",
-            "desc": "描述",
-            "attribute": "屬性",
-            "grade": "品階",
-            "weapon_type": "兵器類型",
-            "realm": "境界",
-            "effect_desc": "效果說明",
-            "effects": "effects",
-            "value_type": "值類型",
-            "example": "示例",
-            "magnitude_guidance": "量級參考",
-            "same_type_reference": "同類型參考資料：",
-            "same_type_same_realm_reference": "同類型、同境界參考資料：",
-            "scope_without_realm": "這是一個新的{category_label}，不需要額外指定境界。",
-            "scope_with_realm": "這是一個「{realm}」層級的{category_label}。",
-        },
-    },
-    "vi-VN": {
-        "categories": {
-            "technique": "công pháp",
-            "weapon": "binh khí",
-            "auxiliary": "trang bị phụ trợ",
-        },
-        "labels": {
-            "name": "Tên",
-            "desc": "Mô tả",
-            "attribute": "Thuộc tính",
-            "grade": "Phẩm cấp",
-            "weapon_type": "Loại binh khí",
-            "realm": "Cảnh giới",
-            "effect_desc": "Tóm tắt hiệu ứng",
-            "effects": "effects",
-            "value_type": "kiểu giá trị",
-            "example": "ví dụ",
-            "magnitude_guidance": "mức độ tham khảo",
-            "same_type_reference": "Tư liệu tham khảo cùng loại:",
-            "same_type_same_realm_reference": "Tư liệu tham khảo cùng loại và cùng cảnh giới:",
-            "scope_without_realm": "Đây là một {category_label} mới, không cần chỉ định thêm cảnh giới.",
-            "scope_with_realm": "Đây là một {category_label} thuộc tầng cảnh giới \"{realm}\".",
-        },
-    },
+_CATEGORY_LABEL_MSGIDS = {
+    "technique": "custom_content.category.technique",
+    "weapon": "custom_content.category.weapon",
+    "auxiliary": "custom_content.category.auxiliary_equipment",
 }
 
+_PROMPT_TEXT_MSGIDS = {
+    "name": "custom_content.label.name",
+    "desc": "custom_content.label.description",
+    "attribute": "custom_content.label.attribute",
+    "grade": "custom_content.label.grade",
+    "weapon_type": "custom_content.label.weapon_type",
+    "realm": "custom_content.label.realm",
+    "effect_desc": "custom_content.label.effect_summary",
+    "effects": "custom_content.label.effects",
+    "value_type": "custom_content.label.value_type",
+    "example": "custom_content.label.example",
+    "magnitude_guidance": "custom_content.label.magnitude_guidance",
+    "same_type_reference": "custom_content.reference.same_category",
+    "same_type_same_realm_reference": "custom_content.reference.same_category_realm",
+    "scope_without_realm": "custom_content.scope.without_realm",
+    "scope_with_realm": "custom_content.scope.with_realm",
+}
 
 def _get_prompt_locale() -> str:
-    lang = str(language_manager.current)
-    return lang if lang in _PROMPT_I18N else "zh-CN"
+    return normalize_locale_code(str(language_manager.current))
 
 
 def _prompt_text(key: str) -> str:
-    locale = _get_prompt_locale()
-    return str(_PROMPT_I18N.get(locale, _PROMPT_I18N["zh-CN"])["labels"][key])
+    return t(_PROMPT_TEXT_MSGIDS[key])
 
 
 def _category_label(category: CustomCategory) -> str:
-    locale = _get_prompt_locale()
-    return str(_PROMPT_I18N.get(locale, _PROMPT_I18N["zh-CN"])["categories"][category])
+    return t(_CATEGORY_LABEL_MSGIDS[category])
+
+
+def _iter_template_locale_codes() -> list[str]:
+    ordered: list[str] = []
+    for locale_code in (_get_prompt_locale(), get_fallback_locale(), get_source_locale()):
+        normalized = normalize_locale_code(locale_code)
+        if normalized not in ordered:
+            ordered.append(normalized)
+    return ordered
+
+
+def _resolve_template_path(filename: str) -> Path:
+    template_path = CONFIG.paths.templates / filename
+    if template_path.exists():
+        return template_path
+
+    locales_dir = Path(CONFIG.paths.get("locales", Path("static/locales")))
+    for locale_code in _iter_template_locale_codes():
+        candidate = locales_dir / locale_code / "templates" / filename
+        if candidate.exists():
+            return candidate
+
+    return template_path
 
 
 def _format_effect_examples() -> str:
@@ -444,9 +389,7 @@ async def generate_custom_content_draft(category: CustomCategory, realm: Realm |
     if not prompt:
         raise HTTPException(status_code=400, detail="user_prompt is required")
 
-    template_path = CONFIG.paths.templates / "custom_content.txt"
-    if not template_path.exists():
-        template_path = CONFIG.paths.locales / "zh-CN" / "templates" / "custom_content.txt"
+    template_path = _resolve_template_path("custom_content.txt")
 
     infos = {
         "category_label": _category_label(category),

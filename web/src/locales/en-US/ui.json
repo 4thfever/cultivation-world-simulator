@@ -41,5 +41,67 @@
   "about_contributors": "Contributors",
   "about_contributors_desc": "Thanks to all the creators who contributed to this open-source project!",
   "auto_save": "Auto Save",
-  "auto_save_desc": "Automatically save the game every decade in January"
+  "auto_save_desc": "Automatically save the game every decade in January",
+  "create_avatar": {
+    "fetch_failed": "Failed to fetch game data",
+    "create_success": "Character created successfully",
+    "create_failed": "Failed to create character: {error}",
+    "loading": "Loading data...",
+    "labels": {
+      "name": "Name",
+      "gender": "Gender",
+      "age": "Age",
+      "initial_realm": "Initial Realm",
+      "sect": "Sect",
+      "persona": "Initial Persona",
+      "alignment": "Alignment",
+      "appearance": "Appearance",
+      "technique": "Technique",
+      "weapon": "Weapon",
+      "auxiliary": "Auxiliary Gear",
+      "relations": "Relations"
+    },
+    "placeholders": {
+      "surname": "Surname",
+      "given_name": "Given name",
+      "initial_realm": "Select initial realm",
+      "sect": "Select sect (leave empty for rogue cultivator)",
+      "persona": "Select persona",
+      "technique": "Select technique (optional)",
+      "weapon": "Select weapon (optional)",
+      "auxiliary": "Select auxiliary gear (optional)",
+      "avatar": "Select character",
+      "relation": "Relation"
+    },
+    "buttons": {
+      "add_relation": "+ Add relation",
+      "create": "Create Character"
+    },
+    "avatar_placeholder": "Please select an avatar",
+    "no_avatars": "No avatars available",
+    "age_unit": "years old",
+    "gender_labels": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "relation_labels": {
+      "parent": "Parents",
+      "child": "Children",
+      "sibling": "Siblings",
+      "master": "Master",
+      "disciple": "Disciple",
+      "lover": "Partner",
+      "friend": "Friendly",
+      "enemy": "Hostile"
+    }
+  },
+  "delete_avatar": {
+    "fetch_failed": "Failed to fetch character list",
+    "delete_confirm": "Are you sure you want to delete character {name}? This action cannot be undone.",
+    "delete_success": "Character deleted",
+    "delete_failed": "Failed to delete character",
+    "search_placeholder": "Search character name...",
+    "empty": "No characters found",
+    "age_unit": "years old"
+  }
 }

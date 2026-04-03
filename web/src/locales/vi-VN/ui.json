@@ -41,5 +41,67 @@
   "about_contributors": "Những Người Đóng Góp",
   "about_contributors_desc": "Cảm ơn tất cả những người sáng tạo đã đóng góp cho dự án mã nguồn mở này!",
   "auto_save": "Tự Động Lưu",
-  "auto_save_desc": "Tự động lưu trò chơi vào tháng Giêng của mỗi thập kỷ"
+  "auto_save_desc": "Tự động lưu trò chơi vào tháng Giêng của mỗi thập kỷ",
+  "create_avatar": {
+    "fetch_failed": "Lấy dữ liệu trò chơi thất bại",
+    "create_success": "Tạo nhân vật thành công",
+    "create_failed": "Tạo nhân vật thất bại: {error}",
+    "loading": "Đang tải dữ liệu...",
+    "labels": {
+      "name": "Tên",
+      "gender": "Giới tính",
+      "age": "Tuổi",
+      "initial_realm": "Cảnh giới ban đầu",
+      "sect": "Tông môn",
+      "persona": "Tính cách ban đầu",
+      "alignment": "Lập trường",
+      "appearance": "Ngoại hình",
+      "technique": "Công pháp",
+      "weapon": "Vũ khí",
+      "auxiliary": "Trang bị phụ trợ",
+      "relations": "Quan hệ"
+    },
+    "placeholders": {
+      "surname": "Họ",
+      "given_name": "Tên",
+      "initial_realm": "Chọn cảnh giới ban đầu",
+      "sect": "Chọn tông môn (để trống nếu là tán tu)",
+      "persona": "Chọn tính cách",
+      "technique": "Chọn công pháp (có thể để trống)",
+      "weapon": "Chọn vũ khí (có thể để trống)",
+      "auxiliary": "Chọn trang bị phụ trợ (có thể để trống)",
+      "avatar": "Chọn nhân vật",
+      "relation": "Quan hệ"
+    },
+    "buttons": {
+      "add_relation": "+ Thêm quan hệ",
+      "create": "Tạo nhân vật"
+    },
+    "avatar_placeholder": "Hãy chọn chân dung",
+    "no_avatars": "Không có chân dung khả dụng",
+    "age_unit": "tuổi",
+    "gender_labels": {
+      "male": "Nam",
+      "female": "Nữ"
+    },
+    "relation_labels": {
+      "parent": "Cha mẹ",
+      "child": "Con cái",
+      "sibling": "Anh chị em",
+      "master": "Sư phụ",
+      "disciple": "Đệ tử",
+      "lover": "Đạo lữ",
+      "friend": "Thân Thiện",
+      "enemy": "Căm Ghét"
+    }
+  },
+  "delete_avatar": {
+    "fetch_failed": "Lấy danh sách nhân vật thất bại",
+    "delete_confirm": "Bạn có chắc muốn xóa nhân vật {name} không? Thao tác này không thể hoàn tác.",
+    "delete_success": "Xóa nhân vật thành công",
+    "delete_failed": "Xóa nhân vật thất bại",
+    "search_placeholder": "Tìm theo tên nhân vật...",
+    "empty": "Không tìm thấy nhân vật",
+    "age_unit": "tuổi"
+  }
 }

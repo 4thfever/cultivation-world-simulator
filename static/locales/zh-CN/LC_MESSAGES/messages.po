@@ -1143,6 +1143,60 @@ msgstr "{realm}{stage}({level}级)。在瓶颈期：{status}"
 msgid "{realm}{stage}(Level {level}){status}"
 msgstr "{realm}{stage}({level}级){status}"
 
+msgid "custom_content.category.technique"
+msgstr "功法"
+
+msgid "custom_content.category.weapon"
+msgstr "兵器"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "辅助装备"
+
+msgid "custom_content.label.name"
+msgstr "名称"
+
+msgid "custom_content.label.description"
+msgstr "描述"
+
+msgid "custom_content.label.attribute"
+msgstr "属性"
+
+msgid "custom_content.label.grade"
+msgstr "品阶"
+
+msgid "custom_content.label.weapon_type"
+msgstr "兵器类型"
+
+msgid "custom_content.label.realm"
+msgstr "境界"
+
+msgid "custom_content.label.effect_summary"
+msgstr "效果说明"
+
+msgid "custom_content.label.effects"
+msgstr "效果"
+
+msgid "custom_content.label.value_type"
+msgstr "值类型"
+
+msgid "custom_content.label.example"
+msgstr "示例"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "量级参考"
+
+msgid "custom_content.reference.same_category"
+msgstr "同类型参考资料："
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "同类型、同境界参考资料："
+
+msgid "custom_content.scope.without_realm"
+msgstr "这是一个新的{category_label}，不需要额外指定境界。"
+
+msgid "custom_content.scope.with_realm"
+msgstr "这是一个“{realm}”层级的{category_label}。"
+
 # Death reasons
 msgid "Killed by {killer}"
 msgstr "被{killer}杀害"
