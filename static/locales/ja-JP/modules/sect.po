@@ -1,0 +1,80 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"(Selecting {replace} will sell old {label})"
+msgstr ""
+"\n"
+"（{replace} を選ぶと古い {label} は売却されます）"
+
+# Sect Rank
+msgid "patriarch"
+msgstr "掌門"
+
+msgid "phenomenon_change"
+msgstr ""
+"{old_name} は消え去り、新たな天地異象が現れた！ {new_name}: {new_desc}。"
+
+msgid "world_creation_phenomenon"
+msgstr "世界が生まれ、天地異象が降り立つ！ {name}: {desc}。"
+
+msgid ""
+"{avatar_name} deliberated and redefined their long-term objective: "
+"{objective}"
+msgstr ""
+"{avatar_name} は熟考の末、長期目標を改めて定め直した: {objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} は長期目標を定めた: {objective}"
+
+# Sect System - Sects
+msgid "Base effect"
+msgstr "基礎効果"
+
+msgid "Sect random event"
+msgstr "宗門ランダムイベント"
+
+msgid "Temporary effect"
+msgstr "一時効果"
+
+msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name}（属性: {alignment}、本拠地: {hq_name}）"
+
+msgid ""
+"{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: "
+"{hq_name}){effect}"
+msgstr ""
+"{sect_name}（属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr ""
+"{sect_name}（正道: {orthodoxy}、属性: {alignment}、本拠地: {hq_name}）"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name}（正道: {orthodoxy}、属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+
+msgid "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
+msgstr "我が宗は今後数年の方針を定めた。次は門規と基盤を守り、慎重に人材を募り、賞罰を公正に行い、着実な歩みで勢いを広げるべきである。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "現在、天地異象は存在しない。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "天地異象は存在するが、その説明が欠けている。"

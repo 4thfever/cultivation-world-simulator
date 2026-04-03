@@ -1,0 +1,17 @@
+﻿msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} improved (+{value_int} for {duration_months} months)."
+msgstr "{reason_fragment}により、{sect_a_name} と {sect_b_name} の関係は改善した（{duration_months} か月間 +{value_int}）。"
+
+msgid "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name} worsened (-{value_int} for {duration_months} months)."
+msgstr "{reason_fragment}により、{sect_a_name} と {sect_b_name} の関係は悪化した（{duration_months} か月間 -{value_int}）。"
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "{reason_fragment}により、{sect_a_name} は魔石を +{value_int} 獲得した。"
+
+msgid "Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "{reason_fragment}により、{sect_a_name} は魔石を -{value_int} 失った。"
+
+msgid "Because {reason_fragment}, {sect_a_name} gained +{value} extra income per tile for {duration_months} months."
+msgstr "{reason_fragment}により、{sect_a_name} は {duration_months} か月の間、1 タイルごとの追加収入 +{value} を得た。"
+
+msgid "Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile for {duration_months} months."
+msgstr "{reason_fragment}により、{sect_a_name} は {duration_months} か月の間、1 タイルごとの収入 -{value} の損失を受けた。"

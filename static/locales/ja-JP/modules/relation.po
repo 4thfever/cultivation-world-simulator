@@ -1,0 +1,173 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "grand_child"
+msgstr "孫"
+
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "martial_grandchild"
+msgstr "徒孫"
+
+msgid "martial_grandmaster"
+msgstr "太師父"
+
+msgid "martial_sibling"
+msgstr "同門"
+
+# Relation
+msgid "parent"
+msgstr "父母"
+
+msgid "numeric_relation_archenemy"
+msgstr "敵対"
+
+msgid "numeric_relation_best_friend"
+msgstr "至交"
+
+msgid "numeric_relation_disliked"
+msgstr "不和"
+
+msgid "numeric_relation_friend"
+msgstr "友好"
+
+msgid "numeric_relation_stranger"
+msgstr "疎遠"
+
+msgid "relation_daughter"
+msgstr "娘"
+
+# Relations
+msgid "relation_father"
+msgstr "父"
+
+msgid "relation_granddaughter"
+msgstr "孫娘"
+
+msgid "relation_grandfather"
+msgstr "祖父"
+
+msgid "relation_grandmother"
+msgstr "祖母"
+
+msgid "relation_grandson"
+msgstr "孫息子"
+
+msgid "relation_martial_older_brother"
+msgstr "師兄"
+
+msgid "relation_martial_older_sister"
+msgstr "師姐"
+
+msgid "relation_martial_younger_brother"
+msgstr "師弟"
+
+msgid "relation_martial_younger_sister"
+msgstr "師妹"
+
+msgid "relation_mother"
+msgstr "母"
+
+msgid "relation_older_brother"
+msgstr "兄"
+
+msgid "relation_older_sister"
+msgstr "姉"
+
+msgid "relation_rule_apprentice_add"
+msgstr ""
+"[Apprentice] Relative to Master, usually established automatically with "
+"Master relation."
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+
+msgid "relation_rule_cancel_title"
+msgstr "[関係解除ルール]"
+
+msgid "relation_rule_enemy_add"
+msgstr ""
+"[Hostile] Substantial harm occurred (injury, theft, humiliation). Single "
+"severe harm or multiple minor frictions."
+
+msgid "relation_rule_enemy_cancel"
+msgstr ""
+"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
+"death experience, or hatred fades."
+
+msgid "relation_rule_establish_title"
+msgstr "[関係成立ルール]"
+
+msgid "relation_rule_friend_add"
+msgstr ""
+"[Friendly] Any friendly daily interactions (such as chatting, dual "
+"cultivation, sparring, healing, etc.) or a single display of goodwill is "
+"enough to establish this. No substantial conflict of interest."
+
+msgid "relation_rule_friend_cancel"
+msgstr ""
+"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
+"interaction."
+
+msgid "relation_rule_lovers_add"
+msgstr ""
+"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
+"and affection."
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+
+msgid "relation_rule_master_add"
+msgstr ""
+"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
+"Core vs Qi Refinement)."
+
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+
+msgid "relation_rule_sworn_sibling_add"
+msgstr ""
+"[Sworn Sibling] Share the same ideals, have experienced life and death "
+"together or significant events."
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr ""
+"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
+"beliefs."
+
+# Separators
+msgid "relation_separator"
+msgstr "；"
+
+msgid "relation_son"
+msgstr "息子"
+
+msgid "relation_sworn_older_brother"
+msgstr "義兄"
+
+msgid "relation_sworn_older_sister"
+msgstr "義姐"
+
+msgid "relation_sworn_younger_brother"
+msgstr "義弟"
+
+msgid "relation_sworn_younger_sister"
+msgstr "義妹"
+
+msgid "relation_younger_brother"
+msgstr "弟"
+
+msgid "relation_younger_sister"
+msgstr "妹"

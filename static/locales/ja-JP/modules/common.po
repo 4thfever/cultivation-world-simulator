@@ -1,0 +1,155 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " (and sold old {item} at reduced price)"
+msgstr "（古い {item} も値下げして売却した）"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr "現在地の霊獣境界がキャラクターの境界を上回っています"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "暗殺に失敗した！ 双方は激戦に突入した。"
+
+msgid "Breakthrough failed"
+msgstr "突破に失敗した"
+
+msgid "Breakthrough succeeded"
+msgstr "突破に成功した"
+
+msgid "Can only execute in city areas"
+msgstr "都市地域でのみ実行できます"
+
+msgid "Cannot resolve region: {region}"
+msgstr "地域を解決できません: {region}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "この種類は売却できません: {name}"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "鋳造成功！ {realm} の {label}「{item}」を獲得した"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "修行は瓶頸に達しており、これ以上続けられません"
+
+msgid "Current HP is full"
+msgstr "現在の HP は満タンです"
+
+msgid "Current area {region} has no animals"
+msgstr "現在地 {region} には霊獣がいません"
+
+msgid "Do not possess equipment: {name}"
+msgstr "装備を所持していません: {name}"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "道具 / 装備を所持していません: {name}"
+
+msgid "Do not possess material: {name}"
+msgstr "素材を所持していません: {name}"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr ""
+"禁じられた違法行動です（万魂幡または権限が不足しています）"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr ""
+"素材不足です。{realm} 階の素材が {cost} 必要ですが、現在は {count} しかありません"
+
+msgid "Insufficient spirit stones"
+msgstr "霊石が不足しています"
+
+msgid "Invalid direction: {direction}"
+msgstr "無効な方向です: {direction}"
+
+msgid "Invalid realm: {realm}"
+msgstr "無効な境界です: {realm}"
+
+msgid "Missing HP information"
+msgstr "HP 情報が不足しています"
+
+msgid "Missing target parameter"
+msgstr "対象パラメータが不足しています"
+
+msgid "Must be in a City to educate people."
+msgstr "教化を行うには都市にいなければなりません。"
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "まだ瓶頸に達していないため、突破できません"
+
+msgid "Not currently in normal area"
+msgstr "現在は通常地域にいません"
+
+msgid "Only evil alignment can execute"
+msgstr "邪属性のみ実行できます"
+
+msgid "Only righteous alignment can execute"
+msgstr "正属性のみ実行できます"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "錬丹成功！ {realm} の丹薬「{item}」を獲得した"
+
+msgid "Syncing language setting: {lang}..."
+msgstr "言語設定を同期中: {lang}..."
+
+msgid "Target does not exist"
+msgstr "対象が存在しません"
+
+msgid "Target is already dead"
+msgstr "対象はすでに死亡しています"
+
+msgid "Target realm not specified"
+msgstr "対象の境界が指定されていません"
+
+msgid "The population of {city} has increased due to {avatar}'s teachings."
+msgstr "{avatar} の教化により、{city} の人口が増加した。"
+
+msgid "This area has no shop"
+msgstr "この地域には店がありません"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "この洞府は {name} に占有されており、吐納できません"
+
+msgid "Unknown item: {name}"
+msgstr "不明なアイテムです: {name}"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "あなたの正道は鍛体に対応していません。"
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "あなたの正道は儒家教化に対応していません。"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "あなたの正道は吐納に対応していません。"
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "あなたの正道は打坐に対応していません。"
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr ""
+"[{region}] は他宗門の領地であり、あなたはその門下ではありません"
+
+msgid "action_chess"
+msgstr "対局"
+
+msgid "action_chess_desc"
+msgstr "碁を打ち、心を研ぎ澄ます。"
+
+msgid "action_chess_story_prompt"
+msgstr "二人が碁を打っている。"
+
+msgid "action_devourpeople_short_name"
+msgstr "凡人喰らい"

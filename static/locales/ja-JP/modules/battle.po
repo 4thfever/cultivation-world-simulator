@@ -1,0 +1,123 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr ""
+"（属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+
+msgid "(Unknown technique)"
+msgstr "（不明な功法）"
+
+msgid "Current World Phenomenon"
+msgstr "現在の天地異象"
+
+msgid "Drops: {materials}"
+msgstr "ドロップ: {materials}"
+
+msgid "History"
+msgstr "来歴"
+
+msgid "Unknown character"
+msgstr "不明な人物"
+
+msgid "When alignment is {align}"
+msgstr "属性が {align} のとき"
+
+msgid "When using {weapon_type}"
+msgstr "{weapon_type} 使用時"
+
+msgid "Wilderness"
+msgstr "野外"
+
+msgid "[{name}] ({realm})"
+msgstr "[{name}]（{realm}）"
+
+# Additional (New)
+msgid "action_thinking"
+msgstr "思考"
+
+msgid "battle"
+msgstr "戦闘"
+
+msgid "date_format_year_month"
+msgstr "{year} 年 {month} 月"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "敗北"
+
+msgid "old_age"
+msgstr "老衰"
+
+msgid "phenomenon_format"
+msgstr "{name}: {desc}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "（{sect_name} 本部）"
+
+msgid "serious_injury"
+msgstr "重傷"
+
+msgid "son"
+msgstr "息子"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}: {description}"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name}（{attribute}）{grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name}（{attribute}）{grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name}（{attribute}・{grade}）"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}（{desc}{effect}）"
+
+msgid "{name} ({realm})"
+msgstr "{name}（{realm}）"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name}（{type}・{realm}、{desc}）{effect}"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} は修士となった。"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc}（{realm}）"
+
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} と {p2} の間に {gender} の子 {child} が生まれた。"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage}（レベル {level}）{status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage}（レベル {level}）。瓶頸: {status}"
+
+# Battle messages
+msgid ""
+"{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
+"wounded and perished."
+msgstr ""
+"{winner} は {loser} を打ち破り、{damage} のダメージを与えた。{loser} は致命傷を負って命を落とした。"
+
+msgid ""
+"{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also "
+"took {winner_dmg} damage."
+msgstr ""
+"{winner} は {loser} を打ち破った。{loser} は {loser_dmg} のダメージを受け、{winner} も {winner_dmg} のダメージを負った。"

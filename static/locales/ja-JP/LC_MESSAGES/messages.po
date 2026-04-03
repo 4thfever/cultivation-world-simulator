@@ -1,0 +1,3407 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr "邪属性は弱肉強食を信条とし、私利を最優先し、規則を軽んじ、力と恐怖を崇める。行動は冷酷で、しばしば殺戮や略奪に走る。"
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr "中立属性は流れに従い、利を求め害を避け、自己修養と均衡を重んじ、軽々しく立場を決めない。"
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr "正属性は弱きを助け、秩序を守り、邪を討つことを信条とする。"
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "双修"
+
+msgid "action_educate_short_name"
+msgstr "教化"
+
+msgid "action_meditate_short_name"
+msgstr "打坐"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "読書"
+
+msgid "action_reading_desc"
+msgstr "古書を読み、見聞を広げる。"
+
+msgid "action_respire_short_name"
+msgstr "吐納"
+
+msgid "action_tea_party"
+msgstr "茶会"
+
+msgid "action_tea_party_desc"
+msgstr "友と茶を囲み、静かな時を過ごす。"
+
+msgid "action_tea_party_story_prompt"
+msgstr "二人が雅やかな茶会を開いている。"
+
+msgid "action_tea_tasting"
+msgstr "茶味"
+
+msgid "action_tea_tasting_desc"
+msgstr "良い茶を味わい、静かな心を養う。"
+
+msgid "action_temper_short_name"
+msgstr "鍛体"
+
+msgid "sect_mission_action_name"
+msgstr "宗門任務"
+
+msgid "sect_mission_description"
+msgstr "宗門本部に留まり、巡回や警備、内務などの任務を引き受ける。数か月後に結果と報酬が精算される。"
+
+msgid "sect_mission_requirements"
+msgstr "宗門弟子であり、かつ現在自宗の本部にいる必要がある。"
+
+msgid "sect_mission_hq_only"
+msgstr "宗門任務は自宗の本部でのみ受けられる。"
+
+msgid "sect_mission_members_only"
+msgstr "宗門任務を受けられるのは宗門弟子のみ。"
+
+msgid "sect_mission_no_task_available"
+msgstr "現在、あなたの境界に適した宗門任務はない。"
+
+msgid "sect_mission_start_headquarter"
+msgstr "{avatar} は {sect_name} 本部で宗門任務「{title}」を受けた。所要は {duration} か月の見込みだ。"
+
+msgid "sect_mission_start_member_request"
+msgstr "{avatar} は同門 {issuer} の依頼で宗門任務「{title}」を受けた。所要は {duration} か月の見込みだ。"
+
+msgid "sect_mission_result_success"
+msgstr "{avatar} は「{title}」を見事に成し遂げ、{stones} 霊石と {contribution} 宗門貢献を得た。"
+
+msgid "sect_mission_result_fail"
+msgstr "{avatar} は「{title}」の遂行中に負傷し、HP を {damage} 失った。現在 HP: {current}/{max}。"
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " 傷は致命傷となり、その場で命を落とした。"
+
+msgid "sect_mission_story_prompt_success"
+msgstr ""
+"この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、宗門の空気感を描写したうえで、最後は任務成功で締めくくれ。舞台は宗門本部とその付属区域に限る。"
+
+msgid "sect_mission_story_prompt_fail"
+msgstr ""
+"この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、予想外の展開を描写したうえで、最後は任務失敗、重傷、あるいは瀕死で終えよ。舞台は宗門本部とその付属区域に限る。"
+
+msgid "action_traveling"
+msgstr "遊歴"
+
+msgid "action_traveling_desc"
+msgstr "各地を巡り、世の広さを知る。"
+
+msgid "action_zither_playing"
+msgstr "撫琴"
+
+msgid "action_zither_playing_desc"
+msgstr "琴を奏で、心性を磨く。"
+
+msgid "evil"
+msgstr "邪"
+
+msgid "failed"
+msgstr "失敗"
+
+msgid "neutral"
+msgstr "中立"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "消遣"
+
+msgid "play_description"
+msgstr "気晴らしで心身を休める"
+
+msgid "play_requirements"
+msgstr "対象が交流範囲内にいること"
+
+msgid "succeeded"
+msgstr "成功"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} は {target} に戦いを仕掛けた（戦力: {attacker} {att_power} 対 {target} "
+"{def_power}）"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} は気晴らしを始めた"
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr "{avatar} は {realm} 階の宝物の鋳造に失敗し、素材はすべて灰になった"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr "{avatar} は {realm} 階の丹薬の錬成に失敗し、素材はすべて灰になった"
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr "{avatar} は {weapon} の温養を終え、熟練度は {proficiency}% まで上昇した"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} は {action} を終えた。"
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr "{avatar} は打坐中に頓悟を得た！ 修為が大きく高まった（+{exp}）。"
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr "{avatar} が {old_weapon} を温養するうち、その霊性は大きく高まり、{new_weapon} へ進化した！"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr "{avatar} は霊獣の調伏に成功し、{realm} 境の {beast} がその霊獣となった"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name}（{elements}）"
+
+msgid "An anonymous passerby (extra)"
+msgstr "名もなき通行人"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "現在の天地異象: {name}"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "暗殺"
+
+msgid "assassinate_description"
+msgstr "対象を暗殺する。失敗すればそのまま戦闘になる"
+
+msgid "assassinate_requirements"
+msgstr "特別な制限なし。ただしクールダウンあり"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"これは暗殺失敗の物語である。刺客は対象を仕留めようとしたが鋭く見破られ、双方は激しい正面衝突へ突入した。具体的な HP 数値は出さないこと。"
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"これは暗殺成功の物語である。戦闘過程を描く必要はない。刺客がどう潜み、どう接近し、どう静かに必殺の一撃を与えたかに焦点を当てよ。対象は反応する暇もなく命を落とす。"
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "戦闘開始"
+
+msgid "attack_description"
+msgstr "対象へ攻撃を仕掛け、戦闘に入る"
+
+msgid "attack_requirements"
+msgstr "特別な制限なし"
+
+msgid "attack_story_prompt"
+msgstr "具体的な HP、ダメージ値、その他数値表現は出さないこと。戦闘は双方の功法、境界、装備などを反映すること。"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "御獣"
+
+msgid "catch_description"
+msgstr "霊獣を調伏して自分のものにしようと試みる。霊獣は一体しか持てないが、低い格の霊獣はより高い格に置き換えられる"
+
+msgid "catch_requirements"
+msgstr "百獣宗のみ。霊獣のいる通常地域にいること。対象霊獣の境界は自身を超えてはならない"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "凡人を喰らう"
+
+msgid "devour_people_description"
+msgstr "凡人を喰らい、大きく戦力を高める"
+
+msgid "devour_people_requirements"
+msgstr "万魂幡を所持していること"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "逃走"
+
+msgid "escape_description"
+msgstr "相手から逃走する（成功率あり）"
+
+msgid "escape_requirements"
+msgstr "特別な制限なし"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "狩猟"
+
+msgid "hunt_description"
+msgstr "現在地の霊獣を狩り、獣系素材を得る"
+
+msgid "hunt_requirements"
+msgstr "霊獣のいる通常地域にいること。かつ自身の境界が対象霊獣以上であること"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "凡人から略奪"
+
+msgid "plunder_people_description"
+msgstr "町の凡人を脅して少量の霊石を得る"
+
+msgid "plunder_people_requirements"
+msgstr "都市地域のみ。かつキャラクター属性が『邪』であること"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr "{avatar} の暗殺は成功した！ {target} は防ぐ間もなく倒れた。"
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} は町で凡人を喰らい始めた"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} は町で凡人からの略奪を始めた"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} は霊獣の調伏に失敗した"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} は影に潜み、{target} の暗殺を試みている..."
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "突破成功率が {val:.1%} 上昇した。"
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "突破"
+
+msgid "breakthrough_description"
+msgstr "境界突破を試みる（成功すれば最大寿命が伸び、失敗すれば減少する。高境界ほど成功率は低い）"
+
+msgid "breakthrough_requirements"
+msgstr "キャラクターが瓶頸に達していること。連続実行は不可"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "鋳造"
+
+msgid "cast_description"
+msgstr ""
+"素材を消費して宝物の鋳造を試みる（target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
+
+msgid "cast_requirements"
+msgstr "同境界の素材を 5 個所持していること"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "双修"
+
+msgid "dual_cultivation_description"
+msgstr "親密な交わりを通じて修行する。対象は受け入れるか拒否できる"
+
+msgid "dual_cultivation_requirements"
+msgstr "対象が交流範囲内にいること。連続実行は不可"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"二人の修士が双修の中で情を深めていく。二人の性格、境界差、甘やかな心の揺れを反映しつつ、婉曲で上品な双修体験を描写せよ。数値的な経験値は出さないこと。"
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "教化"
+
+msgid "educate_description"
+msgstr "儒門の修行。都市で人々を教え導き、功徳と気運を積み上げる。"
+
+msgid "educate_requirements"
+msgstr "儒門正道であり、かつ都市にいること"
+
+msgid "govern_action_name"
+msgstr "治政"
+
+msgid "govern_description"
+msgstr "都市で朝廷の政務を担い、朝廷声望と俸禄を得る。"
+
+msgid "govern_requirements"
+msgstr "都市にいる必要がある。継続期間は 3 か月。"
+
+msgid "excellent progress"
+msgstr "進境は極めて順調"
+
+msgid "gained {val} cultivation"
+msgstr "修為を {val} 得た。"
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "採集"
+
+msgid "harvest_description"
+msgstr "現在地の霊植を採集し、植物系素材を得る"
+
+msgid "harvest_requirements"
+msgstr "霊植のある通常地域にいること。かつ自身の境界が対象霊植以上であること"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "打坐"
+
+msgid "meditate_description"
+msgstr "仏門の修行。打坐によって心を鎮め、頓悟すれば大幅な修為上昇の可能性がある。"
+
+msgid "meditate_requirements"
+msgstr "仏門正道が必要"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "温養兵器"
+
+msgid "nurture_weapon_description"
+msgstr "武器を温養し、武器熟練度を高める"
+
+msgid "nurture_weapon_requirements"
+msgstr "特別な制限なし"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "錬丹"
+
+msgid "refine_description"
+msgstr ""
+"素材を消費して丹薬の錬成を試みる（target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, "
+"CORE_FORMATION, NASCENT_SOUL）"
+
+msgid "refine_requirements"
+msgstr "同境界の素材を 3 個所持していること"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "吐納"
+
+msgid "respire_description"
+msgstr "天道に従って霊気を吐納する。霊気密度が高いほど効果は高い。"
+
+msgid "respire_requirements"
+msgstr "道門正道、または散修であること"
+
+msgid "respire_sect_hq_members_only"
+msgstr "この宗門の本部で吐納できるのは門下弟子のみ。"
+
+msgid "respire_efficiency_sect_hq"
+msgstr "着実な進境（宗門本部）"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "療傷"
+
+msgid "self_heal_description"
+msgstr "調息して傷を癒やす。宗門本部なら完全回復も可能"
+
+msgid "self_heal_requirements"
+msgstr "現在の HP が満タンではないこと"
+
+msgid "slow progress (essence mismatch)"
+msgstr "進境は遅い（霊気属性が合わない）"
+
+msgid "slow progress (sparse essence)"
+msgstr "進境は遅い（霊気が薄い）"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "鍛体"
+
+msgid "temper_description"
+msgstr "外物にも霊気にも頼らず、極限の鍛錬によって肉身を鍛え上げる。"
+
+msgid "temper_requirements"
+msgstr "武門正道が必要"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} は打坐に入った。"
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} は突破を試み始めた"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} は {realm} 階の宝物の鋳造を試み始めた"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} は {realm} 階の丹薬の錬成を試み始めた"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} は {city} で教化を始めた。"
+
+msgid "{avatar} begins governing in {city}."
+msgstr "{avatar} は {city} で治政を始めた。"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} は鍛体を始めた"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} は心静かに打坐を終えた。"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} は教化を終えた。功徳が積み上がった（+{exp}）。"
+
+msgid ""
+"{avatar} governed effectively in {city}. Court reputation +{reputation}, "
+"salary +{salary} spirit stones."
+msgstr "{avatar} は {city} で見事に治政を行った。朝廷声望 +{reputation}、俸禄 +{salary} 霊石。"
+
+msgid ""
+"{avatar} was promoted from {old_rank} to {new_rank} for distinguished "
+"governance."
+msgstr "{avatar} は優れた治政の功により、{old_rank} から {new_rank} へ昇進した。"
+
+msgid "{avatar} was governing in {city}."
+msgstr "{avatar} は {city} で治政にあたっていた。"
+
+msgid ""
+"{avatar} completed a round of governance, and new ripples spread through "
+"court and countryside."
+msgstr "{avatar} はひと巡りの治政を終え、朝廷と地方に新たな波紋が広がった。"
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} の療傷が完了した（HP を {amount} 回復、現在 HP {hp}）"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} は {realm} 階の {label}「{item}」の鋳造に成功した"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} は {realm} 階の丹薬「{item}」の錬成に成功した"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} は {target} を双修へ誘った"
+
+msgid "Must be in a City to govern."
+msgstr "治政を行うには都市にいなければならない。"
+
+msgid "bought"
+msgstr "購入"
+
+msgid "bought and consumed"
+msgstr "購入して服用"
+
+msgid "bought and equipped"
+msgstr "購入して装備"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "購入"
+
+msgid "buy_description"
+msgstr "町で道具・装備・丹薬を購入する"
+
+msgid "buy_requirements"
+msgstr "町にいて、かつ十分な霊石を持っていること"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "帮助凡人"
+
+msgid "help_people_description"
+msgstr "町の人々を助ける。少量の霊石を消費する"
+
+msgid "help_people_requirements"
+msgstr "都市地域のみ。かつ十分な霊石を持っていること"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "採鉱"
+
+msgid "mine_description"
+msgstr "現在地の鉱脈を掘り、鉱物系素材を得る"
+
+msgid "mine_requirements"
+msgstr "鉱脈のある通常地域にいること。かつ自身の境界が対象鉱脈以上であること"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "移動"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "人物から離れる"
+
+msgid "move_away_from_avatar_description"
+msgstr "指定した人物から継続して距離を取る"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "地域を離れる"
+
+msgid "move_away_from_region_description"
+msgstr "指定した地域から離れる"
+
+msgid "move_away_from_region_requirements"
+msgstr "特別な制限なし"
+
+msgid "move_description"
+msgstr "相対位置へ移動する"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "人物へ移動"
+
+msgid "move_to_avatar_description"
+msgstr "特定の人物のいる場所へ移動する"
+
+msgid "move_to_avatar_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "探索移動"
+
+msgid "move_to_direction_description"
+msgstr "一定方向へ進み、未知の場所を探索する"
+
+msgid "move_to_direction_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "地域へ移動"
+
+msgid "move_to_region_description"
+msgstr "指定した地域へ移動する"
+
+msgid "move_to_region_requirements"
+msgstr "特別な制限なし"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "売却"
+
+msgid "sell_description"
+msgstr "町で所持中の特定種別アイテム、または現在装備中の装備をまとめて売却する"
+
+msgid "sell_requirements"
+msgstr "町にいて、売却可能な道具または装備を所持していること"
+
+msgid "wilderness"
+msgstr "野外"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} は移動を試みたが、対象が無効だった"
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} は町で人助けを始めた"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} は町で {item} を売却した"
+
+msgid "plant_action_name"
+msgstr "耕作"
+
+msgid "plant_description"
+msgstr "霊作物を育てて少量の霊石を稼ぐ。継続期間は 6 か月。"
+
+msgid "plant_requirements"
+msgstr "通常地域が必要"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} は {location} で耕作を始めた"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} は耕作を終え、{stones} 霊石を得た"
+
+# Alignment
+msgid "righteous"
+msgstr "Righteous"
+
+# Auxiliary System - Auxiliaries
+msgid " Devoured Souls: {count}"
+msgstr " 喰らった魂魄: {count}"
+
+msgid " Devoured Souls: {count}, Battle Bonus: +{bonus}"
+msgstr " 喰らった魂魄: {count}、戦闘補正: +{bonus}"
+
+msgid "A rogue cultivator {name} has appeared in the world."
+msgstr "散修{name}がこの世界に現れた。"
+
+msgid ""
+"A rogue cultivator {name} appeared, but their lifespan was already "
+"exhausted."
+msgstr "散修{name}は現れたが、寿元はすでに尽きていた。"
+
+msgid ""
+"{name} awakened spiritual roots, but their lifespan was already exhausted."
+msgstr "{name}は霊根に目覚めたが、寿元はすでに尽きていた。"
+
+msgid "Age"
+msgstr "年齢"
+
+msgid "Alignment"
+msgstr "立場"
+
+msgid "Appearance"
+msgstr "容貌"
+
+msgid "Auxiliary"
+msgstr "補助装備"
+
+msgid "Backstory"
+msgstr "来歴"
+
+msgid "Backstory: {backstory}"
+msgstr "来歴: {backstory}"
+
+msgid "Current Action"
+msgstr "現在の行動"
+
+msgid "Current Action: {action}"
+msgstr "現在の行動: {action}"
+
+msgid "Current Effects"
+msgstr "現在の効果"
+
+msgid "Emotion"
+msgstr "感情"
+
+msgid "Gender"
+msgstr "性別"
+
+msgid "HP"
+msgstr "HP"
+
+msgid "Long-term Goal"
+msgstr "長期目標"
+
+msgid "Major Events"
+msgstr "主要出来事"
+
+msgid "Materials"
+msgstr "素材"
+
+msgid "Name"
+msgstr "姓名"
+
+msgid "Nearby Avatars"
+msgstr "周辺人物"
+
+msgid "Nickname"
+msgstr "綽号"
+
+msgid "{desc} (Devoured Souls: {souls})"
+msgstr "{desc}（喰らった魂魄: {souls}）"
+
+msgid "{desc} (Devoured Souls: {souls}, Battle Bonus: +{bonus})"
+msgstr "{desc}（喰らった魂魄: {souls}、戦闘補正: +{bonus}）"
+
+# Avatar System
+# Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "出身"
+
+msgid "Origin: {origin}"
+msgstr "出身: {origin}"
+
+msgid "Orthodoxy"
+msgstr "正道"
+
+msgid "Ranking"
+msgstr "順位"
+
+msgid "Realm"
+msgstr "境界"
+
+msgid "Recent Events"
+msgstr "最近の出来事"
+
+msgid "Region"
+msgstr "地域"
+
+msgid "Relations"
+msgstr "関係"
+
+msgid "Sect"
+msgstr "宗門"
+
+msgid "Short-term Goal"
+msgstr "短期目標"
+
+msgid "Spirit Animal"
+msgstr "霊獣"
+
+msgid "Spirit Stones"
+msgstr "霊石"
+
+msgid "Technique"
+msgstr "功法"
+
+msgid "Traits"
+msgstr "特質"
+
+msgid "Weapon"
+msgstr "武器"
+
+msgid "appearance_10_desc_female"
+msgstr "ひと目見ただけで忘れられないほど、息をのむ美しさを持っている。"
+
+msgid "appearance_10_desc_male"
+msgstr "俗世のものとは思えぬほど、超然とした美貌を持っている。"
+
+msgid "appearance_10_name"
+msgstr "傾国"
+
+msgid "appearance_1_desc_female"
+msgstr "容姿はかなり醜く、五官も不調和で、人に避けられがちだ。"
+
+msgid "appearance_1_desc_male"
+msgstr "容姿はかなり醜く、顔立ちも不均衡で、視線を集めやすい。"
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "醜悪"
+
+msgid "appearance_2_desc_female"
+msgstr "見た目は粗野で、ところどころ顔立ちがやや不自然に見える。"
+
+msgid "appearance_2_desc_male"
+msgstr "見た目は粗野で、ところどころ顔立ちがやや不自然に見える。"
+
+msgid "appearance_2_name"
+msgstr "不器量"
+
+msgid "appearance_3_desc_female"
+msgstr "容姿は平凡で、あまり人目を引く方ではない。"
+
+msgid "appearance_3_desc_male"
+msgstr "容姿は平凡で、あまり人目を引く方ではない。"
+
+msgid "appearance_3_name"
+msgstr "粗平"
+
+msgid "appearance_4_desc_female"
+msgstr "ごく普通の見た目で、人混みに紛れればすぐ埋もれてしまう。"
+
+msgid "appearance_4_desc_male"
+msgstr "ごく普通の見た目で、人混みに紛れればすぐ埋もれてしまう。"
+
+msgid "appearance_4_name"
+msgstr "平凡"
+
+msgid "appearance_5_desc_female"
+msgstr "顔立ちは整っており、見ていて心地よい印象を与える。"
+
+msgid "appearance_5_desc_male"
+msgstr "顔立ちは整っており、見ていて心地よい印象を与える。"
+
+msgid "appearance_5_name"
+msgstr "端正"
+
+msgid "appearance_6_desc_female"
+msgstr "整った顔立ちに活気があり、全体に生き生きとした印象がある。"
+
+msgid "appearance_6_desc_male"
+msgstr "整った顔立ちに活気があり、全体に生き生きとした印象がある。"
+
+msgid "appearance_6_name"
+msgstr "秀麗"
+
+msgid "appearance_7_desc_female"
+msgstr "かなり美しく、人混みの中でも自然と目を引く。"
+
+msgid "appearance_7_desc_male"
+msgstr "かなり端麗で、通りすがりにも振り返られやすい。"
+
+msgid "appearance_7_name"
+msgstr "出衆"
+
+msgid "appearance_8_desc_female"
+msgstr "美しさは人をはっとさせるほどで、ひと目で印象に残る。"
+
+msgid "appearance_8_desc_male"
+msgstr "容姿は際立っており、どこへ行っても人目を集める。"
+
+msgid "appearance_8_name"
+msgstr "驚艶"
+
+msgid "appearance_9_desc_female"
+msgstr "その美しさは息をのむほどで、ひと目見ればほとんど忘れられない。"
+
+msgid "appearance_9_desc_male"
+msgstr "容姿も気質も一流で、しばしば周囲の視線を惹きつける。"
+
+msgid "appearance_9_name"
+msgstr "絶麗"
+
+msgid "daughter"
+msgstr "娘"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr "{name} は霊根を覚醒させ、修行の道へ踏み出した。"
+
+msgid ""
+"(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
+msgstr "（属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+
+msgid "(Unknown technique)"
+msgstr "（不明な功法）"
+
+msgid "Current World Phenomenon"
+msgstr "現在の天地異象"
+
+msgid "Drops: {materials}"
+msgstr "ドロップ: {materials}"
+
+msgid "History"
+msgstr "来歴"
+
+msgid "Unknown character"
+msgstr "不明な人物"
+
+msgid "When alignment is {align}"
+msgstr "属性が {align} のとき"
+
+msgid "When using {weapon_type}"
+msgstr "{weapon_type} 使用時"
+
+msgid "Wilderness"
+msgstr "野外"
+
+msgid "[{name}] ({realm})"
+msgstr "[{name}]（{realm}）"
+
+# Additional (New)
+msgid "action_thinking"
+msgstr "思考"
+
+msgid "battle"
+msgstr "戦闘"
+
+msgid "date_format_year_month"
+msgstr "{year} 年 {month} 月"
+
+# Battle - action descriptions
+msgid "defeated"
+msgstr "敗北"
+
+msgid "old_age"
+msgstr "老衰"
+
+msgid "phenomenon_format"
+msgstr "{name}: {desc}"
+
+msgid "sect_headquarters_desc_format"
+msgstr "（{sect_name} 本部）"
+
+msgid "serious_injury"
+msgstr "重傷"
+
+msgid "son"
+msgstr "息子"
+
+msgid "{alignment}: {description}"
+msgstr "{alignment}: {description}"
+
+msgid "{name} ({attribute}) {grade}"
+msgstr "{name}（{attribute}）{grade}"
+
+msgid "{name} ({attribute}) {grade} {desc}{effect}"
+msgstr "{name}（{attribute}）{grade} {desc}{effect}"
+
+msgid "{name} ({attribute}·{grade})"
+msgstr "{name}（{attribute}・{grade}）"
+
+msgid "{name} ({desc}{effect})"
+msgstr "{name}（{desc}{effect}）"
+
+msgid "{name} ({realm})"
+msgstr "{name}（{realm}）"
+
+msgid "{name} ({type}·{realm}, {desc}){effect}"
+msgstr "{name}（{type}・{realm}、{desc}）{effect}"
+
+msgid "{name} has ascended to a cultivator."
+msgstr "{name} は修士となった。"
+
+msgid "{name}: {desc} ({realm})"
+msgstr "{name}: {desc}（{realm}）"
+
+msgid "{p1} and {p2} gave birth to a {gender} named {child}."
+msgstr "{p1} と {p2} の間に {gender} の子 {child} が生まれた。"
+
+msgid "{realm} {stage} (Level {level}) {status}"
+msgstr "{realm} {stage}（レベル {level}）{status}"
+
+msgid "{realm} {stage} (Level {level}). At bottleneck: {status}"
+msgstr "{realm} {stage}（レベル {level}）。瓶頸: {status}"
+
+# Battle messages
+msgid ""
+"{winner} defeated {loser}, dealing {damage} damage. {loser} was fatally "
+"wounded and perished."
+msgstr "{winner} は {loser} を打ち破り、{damage} のダメージを与えた。{loser} は致命傷を負って命を落とした。"
+
+msgid ""
+"{winner} defeated {loser}. {loser} took {loser_dmg} damage, {winner} also "
+"took {winner_dmg} damage."
+msgstr ""
+"{winner} は {loser} を打ち破った。{loser} は {loser_dmg} のダメージを受け、{winner} も "
+"{winner_dmg} のダメージを負った。"
+
+msgid " (and sold old {item} at reduced price)"
+msgstr "（古い {item} も値下げして売却した）"
+
+msgid "Animal realms in current area exceed character realm"
+msgstr "現在地の霊獣境界がキャラクターの境界を上回っています"
+
+msgid "Assassination failed! Both sides engaged in fierce battle."
+msgstr "暗殺に失敗した！ 双方は激戦に突入した。"
+
+msgid "Breakthrough failed"
+msgstr "突破に失敗した"
+
+msgid "Breakthrough succeeded"
+msgstr "突破に成功した"
+
+msgid "Can only execute in city areas"
+msgstr "都市地域でのみ実行できます"
+
+msgid "Cannot resolve region: {region}"
+msgstr "地域を解決できません: {region}"
+
+msgid "Cannot sell this type: {name}"
+msgstr "この種類は売却できません: {name}"
+
+msgid "Casting succeeded! Obtained {realm} {label} '{item}'"
+msgstr "鋳造成功！ {realm} の {label}「{item}」を獲得した"
+
+msgid "Cultivation has reached bottleneck, cannot continue cultivating"
+msgstr "修行は瓶頸に達しており、これ以上続けられません"
+
+msgid "Current HP is full"
+msgstr "現在の HP は満タンです"
+
+msgid "Current area {region} has no animals"
+msgstr "現在地 {region} には霊獣がいません"
+
+msgid "Do not possess equipment: {name}"
+msgstr "装備を所持していません: {name}"
+
+msgid "Do not possess item/equipment: {name}"
+msgstr "道具 / 装備を所持していません: {name}"
+
+msgid "Do not possess material: {name}"
+msgstr "素材を所持していません: {name}"
+
+msgid ""
+"Forbidden illegal action (missing Ten Thousand Souls Banner or permission)"
+msgstr "禁じられた違法行動です（万魂幡または権限が不足しています）"
+
+msgid ""
+"Insufficient materials, need {cost} {realm}-tier materials, currently have "
+"{count}"
+msgstr "素材不足です。{realm} 階の素材が {cost} 必要ですが、現在は {count} しかありません"
+
+msgid "Insufficient spirit stones"
+msgstr "霊石が不足しています"
+
+msgid "Invalid direction: {direction}"
+msgstr "無効な方向です: {direction}"
+
+msgid "Invalid realm: {realm}"
+msgstr "無効な境界です: {realm}"
+
+msgid "Missing HP information"
+msgstr "HP 情報が不足しています"
+
+msgid "Missing target parameter"
+msgstr "対象パラメータが不足しています"
+
+msgid "Must be in a City to educate people."
+msgstr "教化を行うには都市にいなければなりません。"
+
+msgid "Not at bottleneck, cannot breakthrough"
+msgstr "まだ瓶頸に達していないため、突破できません"
+
+msgid "Not currently in normal area"
+msgstr "現在は通常地域にいません"
+
+msgid "Only evil alignment can execute"
+msgstr "邪属性のみ実行できます"
+
+msgid "Only righteous alignment can execute"
+msgstr "正属性のみ実行できます"
+
+msgid "Refining succeeded! Obtained {realm} elixir '{item}'"
+msgstr "錬丹成功！ {realm} の丹薬「{item}」を獲得した"
+
+msgid "Syncing language setting: {lang}..."
+msgstr "言語設定を同期中: {lang}..."
+
+msgid "Target does not exist"
+msgstr "対象が存在しません"
+
+msgid "Target is already dead"
+msgstr "対象はすでに死亡しています"
+
+msgid "Target realm not specified"
+msgstr "対象の境界が指定されていません"
+
+msgid "The population of {city} has increased due to {avatar}'s teachings."
+msgstr "{avatar} の教化により、{city} の人口が増加した。"
+
+msgid "This area has no shop"
+msgstr "この地域には店がありません"
+
+msgid "This cave dwelling has been occupied by {name}, cannot respire"
+msgstr "この洞府は {name} に占有されており、吐納できません"
+
+msgid "Unknown item: {name}"
+msgstr "不明なアイテムです: {name}"
+
+msgid "Your orthodoxy does not support Body Tempering."
+msgstr "あなたの正道は鍛体に対応していません。"
+
+msgid "Your orthodoxy does not support Confucian Education."
+msgstr "あなたの正道は儒家教化に対応していません。"
+
+msgid "Your orthodoxy does not support Qi Respiration."
+msgstr "あなたの正道は吐納に対応していません。"
+
+msgid "Your orthodoxy does not support Zen Meditation."
+msgstr "あなたの正道は打坐に対応していません。"
+
+msgid ""
+"[{region}] is another sect's territory, you are not a disciple of that sect"
+msgstr "[{region}] は他宗門の領地であり、あなたはその門下ではありません"
+
+msgid "action_chess"
+msgstr "対局"
+
+msgid "action_chess_desc"
+msgstr "碁を打ち、心を研ぎ澄ます。"
+
+msgid "action_chess_story_prompt"
+msgstr "二人が碁を打っている。"
+
+msgid "action_devourpeople_short_name"
+msgstr "凡人喰らい"
+
+# Condition Translation
+msgid "Conditional effect"
+msgstr "条件付き効果"
+
+msgid "Has [{trait}] trait"
+msgstr "特質 [{trait}] を持つ"
+
+msgid "When {condition}"
+msgstr "{condition} のとき"
+
+msgid "[{condition}] {effects}"
+msgstr "[{condition}] {effects}"
+
+msgid "Died from severe injuries"
+msgstr "Died from severe injuries"
+
+msgid "Died of old age"
+msgstr "Died of old age"
+
+# Cultivation System - Realm
+# Realm Status
+msgid "Needs breakthrough"
+msgstr "Needs breakthrough"
+
+msgid "No"
+msgstr "No"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "Not at bottleneck, no breakthrough needed"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}(Level {level}). At bottleneck: {status}"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}(Level {level}){status}"
+
+msgid "custom_content.category.technique"
+msgstr "功法"
+
+msgid "custom_content.category.weapon"
+msgstr "武器"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "補助装備"
+
+msgid "custom_content.label.name"
+msgstr "名称"
+
+msgid "custom_content.label.description"
+msgstr "説明"
+
+msgid "custom_content.label.attribute"
+msgstr "属性"
+
+msgid "custom_content.label.grade"
+msgstr "品階"
+
+msgid "custom_content.label.weapon_type"
+msgstr "武器種別"
+
+msgid "custom_content.label.realm"
+msgstr "境界"
+
+msgid "custom_content.label.effect_summary"
+msgstr "効果概要"
+
+msgid "custom_content.label.effects"
+msgstr "効果"
+
+msgid "custom_content.label.value_type"
+msgstr "数値種別"
+
+msgid "custom_content.label.example"
+msgstr "例"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "規模目安"
+
+msgid "custom_content.reference.same_category"
+msgstr "同カテゴリの参考項目:"
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "同カテゴリかつ同境界の参考項目:"
+
+msgid "custom_content.scope.without_realm"
+msgstr "これは新しい{category_label}です。境界の指定は不要です。"
+
+msgid "custom_content.scope.with_realm"
+msgstr "これは「{realm}」境界帯の{category_label}です。"
+
+msgid "small"
+msgstr "小"
+
+msgid "medium"
+msgstr "中"
+
+msgid "large"
+msgstr "大"
+
+msgid "cap"
+msgstr "上限"
+
+msgid "very high"
+msgstr "非常に高い"
+
+msgid "base chance"
+msgstr "基礎確率"
+
+msgid "base value"
+msgstr "基礎値"
+
+msgid "ordinary"
+msgstr "通常"
+
+msgid "fortunate"
+msgstr "幸運"
+
+msgid "protagonist-tier"
+msgstr "主人公級"
+
+msgid "unlucky"
+msgstr "不運"
+
+msgid "tanky"
+msgstr "耐久寄り"
+
+msgid "profit-focused"
+msgstr "利益重視"
+
+msgid "safer"
+msgstr "より安全"
+
+msgid "riskier"
+msgstr "より危険"
+
+msgid "talent-tier"
+msgstr "天才級"
+
+msgid "final multiplier >= 1.0"
+msgstr "最終倍率 >= 1.0"
+
+# Death reasons
+msgid "Killed by {killer}"
+msgstr "{killer} に殺された"
+
+# Relation & Root & Appearance & Sect (Refined)
+msgid "Unknown reason"
+msgstr "不明な理由"
+
+msgid "{name} (Deceased: {reason})"
+msgstr "{name}（死亡: {reason}）"
+
+# Decision Description
+msgid ""
+"Current {label}: {old_info}\n"
+"{new_desc}"
+msgstr ""
+"現在の{label}: {old_info}\n"
+"{new_desc}"
+
+msgid "Disciple"
+msgstr "弟子"
+
+# Default Values
+msgid "None"
+msgstr "なし"
+
+msgid "Rogue Cultivator"
+msgstr "散修"
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "east"
+msgstr "東"
+
+msgid "Auxiliary [{name}]"
+msgstr "Auxiliary [{name}]"
+
+msgid "Elixir [{name}]"
+msgstr "Elixir [{name}]"
+
+msgid "Heaven and Earth Phenomenon"
+msgstr "Heaven and Earth Phenomenon"
+
+# Direction names
+msgid "north"
+msgstr "North"
+
+msgid "south"
+msgstr "South"
+
+msgid "west"
+msgstr "West"
+
+# Effect Source Labels
+msgid "Sect [{name}]"
+msgstr "宗門 [{name}]"
+
+msgid "Official Rank [{name}]"
+msgstr "官位 [{name}]"
+
+msgid "Special effect (dynamic)"
+msgstr "特殊効果（動的）"
+
+msgid "Spirit Animal [{name}]"
+msgstr "霊獣 [{name}]"
+
+msgid "Spirit Root"
+msgstr "霊根"
+
+msgid "Technique [{name}]"
+msgstr "功法 [{name}]"
+
+msgid "Trait [{name}]"
+msgstr "特質 [{name}]"
+
+msgid "Weapon [{name}]"
+msgstr "武器 [{name}]"
+
+msgid "effect_source_cultivation_realm"
+msgstr "修行境界"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "突破失敗"
+
+msgid "effect_source_retreat_failure"
+msgstr "閉関失敗"
+
+msgid "effect_source_persistent_effect"
+msgstr "持続効果"
+
+msgid "effect_source_help_people_karma"
+msgstr "凡人救済"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "凡人略奪"
+
+msgid "effect_source_devour_people_karma"
+msgstr "凡人喰らい"
+
+# Effect Formatting
+msgid "action_list_separator"
+msgstr "、"
+
+msgid "effect_damage_reduction"
+msgstr "ダメージ軽減"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "暗殺成功率"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "戦力"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "突破成功率"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "鋳造成功率"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "御獣成功率"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "双修経験"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "教化効率"
+
+msgid "effect_extra_educate_population_prob"
+msgstr "教化人口増加確率"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "治政声望獲得"
+
+msgid "effect_extra_epiphany_probability"
+msgstr "頓悟確率"
+
+msgid "effect_extra_luck"
+msgstr "気運"
+
+msgid "Luck"
+msgstr "気運"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "逃走成功率"
+
+msgid "effect_extra_fortune_probability"
+msgstr "奇遇確率"
+
+msgid "effect_extra_harvest_materials"
+msgstr "採集素材獲得"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "秘境危険率"
+
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "秘境ドロップ率"
+
+# Effect System
+# Effect Names
+msgid "effect_extra_hp_recovery_rate"
+msgstr "HP回復速度"
+
+msgid "effect_extra_hunt_materials"
+msgstr "狩猟素材獲得"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "物品売却価格"
+
+msgid "effect_extra_max_hp"
+msgstr "最大HP"
+
+msgid "effect_extra_max_lifespan"
+msgstr "最大寿命"
+
+msgid "effect_extra_appearance"
+msgstr "容姿"
+
+msgid "effect_extra_mine_materials"
+msgstr "採鉱素材獲得"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "厄運確率"
+
+msgid "effect_extra_move_step"
+msgstr "移動距離"
+
+msgid "effect_extra_observation_radius"
+msgstr "感知範囲"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "略奪收益"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "錬丹成功率"
+
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "宗門任務成功率"
+
+msgid "effect_extra_respire_exp"
+msgstr "吐納経験"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "吐納経験倍率"
+
+msgid "effect_extra_retreat_success_rate"
+msgstr "閉関成功率"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "鍛体効率"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "武器熟練度獲得"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "武器強化確率"
+
+msgid "effect_legal_actions"
+msgstr "特殊能力"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "境界抑制"
+
+msgid "effect_respire_duration_reduction"
+msgstr "吐納時間短縮"
+
+msgid "effect_separator"
+msgstr "；"
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "購入割引"
+
+msgid "effect_temper_duration_reduction"
+msgstr "鍛体時間短縮"
+
+msgid "play_benefit"
+msgstr "消遣收益"
+
+msgid "effect_extra_plant_income"
+msgstr "耕作追加收益"
+
+msgid "effect_extra_income_per_tile"
+msgstr "1 マスごとの追加収入（年次）"
+
+msgid "earth_essence"
+msgstr "Earth"
+
+# Elixir System - Elixirs
+msgid "elixir_type_breakthrough"
+msgstr "Breakthrough"
+
+msgid "elixir_type_burn_blood"
+msgstr "Burn Blood"
+
+msgid "elixir_type_heal"
+msgstr "Heal"
+
+msgid "elixir_type_lifespan"
+msgstr "Lifespan"
+
+msgid "fire_essence"
+msgstr "Fire"
+
+msgid ""
+"At the auction, {winner_name} acquired {item_name} for {price} spirit "
+"stones."
+msgstr ""
+"At the auction, {winner_name} acquired {item_name} for {price} spirit "
+"stones."
+
+# Essence Type
+msgid "gold_essence"
+msgstr "Gold"
+
+msgid "water_essence"
+msgstr "Water"
+
+msgid "wood_essence"
+msgstr "Wood"
+
+# Event Content
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"{item_name} の競売で、{winner_name} は {runner_up_name} を {price} 霊石で上回り、その品を落札した。"
+
+msgid "Retreat Bonus"
+msgstr "閉関加成"
+
+# Additional Missing Translations
+msgid "Unsupported item type: {item_type}"
+msgstr "未対応のアイテム種別です: {item_type}"
+
+msgid "retreat_action_name"
+msgstr "閉関"
+
+msgid "retreat_death_append"
+msgstr " そして閉関中に最後の生気を使い果たし、静かに息絶えた。"
+
+msgid "retreat_desc"
+msgstr "閉関して自らを突破する。極めて危険であり、大いなる意志を持つ者にのみ向く。"
+
+msgid "retreat_fail"
+msgstr "閉関に失敗した！ 生気が大きく損なわれ、寿命を {years} 年失った。"
+
+msgid "retreat_requirements"
+msgstr "特別な制限なし。ただしクールダウンあり"
+
+msgid "retreat_start"
+msgstr "{avatar} は閉関に入った。突破の時はまだ見えない。"
+
+msgid "retreat_story_prompt_fail"
+msgstr "これは閉関失敗の物語である。修士が心魔と自己疑念に悩まされ、最後には閉関中に反噬を受けるまでを描写せよ。戦闘描写は不要。"
+
+msgid "retreat_story_prompt_success"
+msgstr "これは閉関成功の物語である。修士が孤独を乗り越え、天道を悟り、ついに閉関中に心境を突破するまでを描写せよ。戦闘描写は不要。"
+
+msgid "retreat_success"
+msgstr "閉関は成功した！ 修為は高まり、天道への理解もさらに深まった。"
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} は {item_name} を捨てた。"
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr "{avatar_name} は新たに得た {item_name} を売り、{price} 霊石を得た。"
+
+msgid "game.sect_update_event"
+msgstr "{sect_name} の年次決算: 収入 {income} 霊石、支出 {upkeep} 霊石、収支 {net_change} 霊石。"
+
+msgid ""
+"War weariness adjusted to {weariness_after} (active wars: "
+"{active_war_count}, yearly recovery: 3, previous: {weariness_before})."
+msgstr ""
+"戦争疲弊は {weariness_after} に調整された（交戦数: {active_war_count}、年次回復: 3、以前: "
+"{weariness_before}）。"
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name} の宗門思考: {thinking}"
+
+msgid ""
+"{winner} won the martial tournament championship and earned {amount} sect "
+"contribution for {sect_name}."
+msgstr "{winner} は武道大会で優勝し、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid ""
+"{teacher_name} taught and guided others at the preaching conference, earning"
+" {amount} sect contribution for {sect_name}."
+msgstr "{teacher_name} は講道会で教え導き、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid ""
+"{winner_name} distinguished themselves in sect war and earned {amount} sect "
+"contribution for {sect_name}."
+msgstr "{winner_name} は宗門戦で功を立て、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid "Game automatically saved"
+msgstr "ゲームを自動保存しました"
+
+msgid ""
+"{avatar_name} made a name in the cultivation world and came to be known as "
+"\"{nickname}\"."
+msgstr "{avatar_name} は修仙界で名を挙げ、「{nickname}」と呼ばれるようになった。"
+
+msgid "{avatar} self-created technique '{item}'"
+msgstr "{avatar} は自作功法「{item}」を編み出した。"
+
+msgid "{avatar} self-created weapon '{item}'"
+msgstr "{avatar} は自作武器「{item}」を鍛え上げた。"
+
+msgid "{avatar} self-created auxiliary equipment '{item}'"
+msgstr "{avatar} は自作補助装備「{item}」を作り上げた。"
+
+msgid ""
+"Equipped newly created {kind} '{item}', sold old equipment '{old_item}' for "
+"{refund} spirit stones"
+msgstr "新しく作成した{kind}「{item}」を装備し、旧装備「{old_item}」を {refund} 霊石で売却した。"
+
+msgid "Equipped newly created {kind} '{item}'"
+msgstr "新しく作成した{kind}「{item}」を装備した。"
+
+# Execution Results
+msgid "{avatar_name} {done} {grade} {label}『{item_name}』."
+msgstr "{avatar_name} は {grade} の {label}『{item_name}』を{done}。"
+
+msgid "{avatar} failed retreat and lost {years} years of lifespan."
+msgstr "{avatar} は閉関に失敗し、寿命を {years} 年失った。"
+
+msgid "{avatar} finished retreat successfully."
+msgstr "{avatar} は無事に閉関を終えた。"
+
+msgid "{avatar} gained cultivation experience +{exp} points"
+msgstr "{avatar} は修為経験を +{exp} 得た"
+
+msgid "{winner} defeated {loser}"
+msgstr "{winner} は {loser} を打ち破った"
+
+msgid ""
+"\n"
+"--- Current Effects Detail ---"
+msgstr ""
+"\n"
+"--- 現在の効果詳細 ---"
+
+msgid "Contains elements: {elements}"
+msgstr "含有属性: {elements}"
+
+msgid "Identity: {identity}"
+msgstr "身分: {identity}"
+
+msgid "No additional effects"
+msgstr "追加効果なし"
+
+msgid "Performing {action}"
+msgstr "{action} 実行中"
+
+msgid "Realm: {realm}"
+msgstr "境界: {realm}"
+
+# Feedback labels
+msgid "feedback_accept"
+msgstr "接受"
+
+msgid "feedback_attack"
+msgstr "迎え撃つ"
+
+msgid "feedback_escape"
+msgstr "逃走"
+
+msgid "feedback_move_away_from_avatar"
+msgstr "距離を取る"
+
+msgid "feedback_move_away_from_region"
+msgstr "この場を離れる"
+
+msgid "feedback_reject"
+msgstr "拒绝"
+
+msgid "{avatar} attempted to escape from {target}: {result}"
+msgstr "{avatar} は {target} からの逃走を試みた: {result}"
+
+msgid "{avatar} attempts to escape from {target}"
+msgstr "{avatar} は {target} から逃げようとしている"
+
+msgid "{avatar} attempts to tame spirit beast at {location}"
+msgstr "{avatar} は {location} で霊獣の調伏を試みている"
+
+msgid "{avatar} begins harvesting at {location}"
+msgstr "{avatar} は {location} で採集を始めた"
+
+msgid "{avatar} begins hunting at {location}"
+msgstr "{avatar} は {location} で狩猟を始めた"
+
+msgid "{avatar} begins leaving {region}"
+msgstr "{avatar} は {region} を離れ始めた"
+
+msgid "{avatar} begins mining at {location}"
+msgstr "{avatar} は {location} で採鉱を始めた"
+
+msgid "{avatar} begins moving away from {target}"
+msgstr "{avatar} は {target} から離れ始めた"
+
+msgid "{avatar} begins moving toward {direction}"
+msgstr "{avatar} は {direction} へ進み始めた"
+
+msgid "{avatar} begins moving toward {region}"
+msgstr "{avatar} は {region} へ向かい始めた"
+
+msgid "{avatar} begins moving toward {target}"
+msgstr "{avatar} は {target} へ向かい始めた"
+
+msgid "{avatar} begins nurturing {weapon}"
+msgstr "{avatar} は {weapon} の温養を始めた"
+
+msgid "{avatar} begins respiring at {location}, {efficiency}"
+msgstr "{avatar} は {location} で吐納を始めた。{efficiency}"
+
+msgid "{avatar} begins resting and healing at {location}"
+msgstr "{avatar} は {location} で休息し、療傷を始めた"
+
+msgid "{avatar} breakthrough result: {result}"
+msgstr "{avatar} の突破結果: {result}"
+
+msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
+msgstr "{avatar} は {calamity} の劫に遭い、突破は {result}"
+
+msgid "{avatar} finished harvesting, obtained: {materials}"
+msgstr "{avatar} は採集を終え、獲得: {materials}"
+
+msgid "{avatar} finished hunting, obtained: {materials}"
+msgstr "{avatar} は狩猟を終え、獲得: {materials}"
+
+msgid "{avatar} finished mining, obtained: {materials}"
+msgstr "{avatar} は採鉱を終え、獲得: {materials}"
+
+msgid "{avatar} finished moving toward {direction}"
+msgstr "{avatar} は {direction} への移動を終えた"
+
+msgid "{avatar} spent {price} spirit stones in town, {action} {item}{suffix}"
+msgstr "{avatar} は町で {price} 霊石を使い、{action} {item}{suffix}"
+
+msgid "{avatar} starts {action}"
+msgstr "{avatar} は {action} を始めた"
+
+msgid "{label}: {names}"
+msgstr "{label}: {names}"
+
+# Complex Formatted String (get_other_avatar_info)
+msgid ""
+"{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
+"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+msgstr ""
+"{name}、渾名: {nickname}、境界: {realm}、関係: {relation}、宗門: {sect}、属性: "
+"{alignment}、容姿: {appearance}、功法: {technique}、武器: {weapon}、補助: {aux}、HP: {hp}"
+
+msgid "{name}, Realm: {realm}"
+msgstr "{name}、境界: {realm}"
+
+msgid "{region} does not sell {item}"
+msgstr "{region} では {item} は売っていない"
+
+msgid "{sect} {rank}"
+msgstr "{sect} {rank}"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " ただし、あなたはすでに「{current_auxiliary}」を所持している。"
+
+msgid " But you already have '{current_weapon}'."
+msgstr " ただし、あなたはすでに「{current_weapon}」を所持している。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " ただし、あなたはすでに『{auxiliary_name}』を所持している。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " ただし、あなたはすでに『{weapon_name}』を所持している。"
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " これは現在の功法「{current_technique}」と衝突する。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " これは現在の功法『{technique_name}』と衝突する。"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "功法「{technique}」を悟った。{exchange_result}"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "功法『{technique_name}』を悟った。{exchange_text}"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "補助装備『{auxiliary_name}』を見つけた。{exchange_text}"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "武器『{weapon_name}』を見つけた。{exchange_text}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "補助装備「{auxiliary}」を手に入れた。{exchange_result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "武器「{weapon}」を手に入れた。{exchange_result}"
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}、熟練度: {proficiency}%"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender}・{age} 歳"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr "奇遇の中で、上位功法『{technique_name}』を悟った。"
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "奇遇の中で上位功法「{technique}」を悟った。"
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr "奇遇の中で {realm} 階の補助装備「{auxiliary}」を手に入れた。"
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "奇遇の中で {realm} 階の補助装備『{auxiliary_name}』を見つけた。"
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "奇遇の中で {realm} 階の武器「{weapon}」を手に入れた。"
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "奇遇の中で {realm} 階の武器『{weapon_name}』を見つけた。"
+
+msgid "fortune_dynamic_story_prompt"
+msgstr ""
+"キャラクターの現在の境界は {realm}。直前まで {location} で [{action_desc}] を行っていた。最終結果は [{result}]。\n"
+"課題: キャラクターの境界、背景、そして[直前に行っていた行動]に基づき、なぜその行動がこの結果につながったのかを説明するための、合理的で一貫性があり、かつ創造的な奇遇の原因を自動で導き出せ。豊かな環境描写と心理描写を含めること。文字量は 100〜200 語程度。"
+
+# Fortune messages
+msgid "fortune_event_base"
+msgstr "奇遇に遭遇（{title}）、{result}"
+
+msgid "fortune_title_auxiliary"
+msgstr "奇宝出世"
+
+msgid "fortune_title_cultivation"
+msgstr "修為精進"
+
+msgid "fortune_title_find_master"
+msgstr "高人指路"
+
+msgid "fortune_title_mystery"
+msgstr "玄妙奇遇"
+
+msgid "fortune_title_spirit_stone"
+msgstr "意外之財"
+
+msgid "fortune_title_technique"
+msgstr "功法感悟"
+
+msgid "fortune_title_weapon"
+msgstr "神兵降临"
+
+msgid "unknown location"
+msgstr "不明な場所"
+
+msgid "wandering aimlessly"
+msgstr "当てもなくさまよっていた"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} は {master} の門下に入った"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} は {master_name} の弟子となった"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} は修為経験を {exp_gain} 得た"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} は {amount} 霊石を得た"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} の修為が {exp} 上昇した"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} は {amount} 霊石を得た"
+
+# Gathering System - Auction
+# Status Text
+msgid "Auction is in progress..."
+msgstr "競売が進行中..."
+
+msgid "epiphany_event_desc"
+msgstr "特別事件: 弟子 {names} は講道中に頓悟し、その場で {tech_name} を会得した！\n"
+
+msgid "female"
+msgstr "女"
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"宗門: {sect_name}\n"
+"風格: {style}\n"
+"講師: {teacher_name}（{teacher_realm}）\n"
+"{epiphany_text}\n"
+"宗門と人物設定に基づき、講師が天地・世間・大道をどう理解しているかを描き、弟子たちの異なる反応もあわせて描写せよ。"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} が講壇に上がり、講道を始めようとしている。"
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} は {exp} の修為経験を得た。"
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name} 講道会"
+
+# Gathering System - Sect Teaching
+msgid "sect_teaching_story_prompt"
+msgstr "宗門の講道会を描写せよ。場の空気、講師の深い道韻、弟子たちのさまざまな反応に重点を置くこと。具体的な経験値の数値は出さないこと。"
+
+msgid "sect_teaching_summary"
+msgstr "{sect_name} は {teacher_name} を主講として講道会を開いた。参加者: {student_names}。"
+
+msgid ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+msgstr ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "Hidden Domain {name} opened! Entry restricted to {realm} only."
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
+msgstr ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
+"entered."
+msgstr ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
+"entered."
+
+msgid "Hidden Domains opened: {names}"
+msgstr "{names}"
+
+msgid "Perished in a Hidden Domain"
+msgstr "Perished in a Hidden Domain"
+
+msgid "found a treasure"
+msgstr "found a treasure"
+
+# Gender
+msgid "male"
+msgstr "Male"
+
+# Hidden Domain
+msgid "hidden_domain_story_prompt"
+msgstr ""
+"Describe the exploration of the hidden domain. Focus on individual "
+"experiences or interactions between multiple people (such as encounters, "
+"cooperation, competition, or even attacks). Cover dangers encountered, "
+"opportunities gained, or the disappointment of returning empty-handed, "
+"creating a mysterious, tense, or unpredictable atmosphere."
+
+msgid "perished"
+msgstr "perished"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} returned from {domain} empty-handed."
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} found a treasure {loot} in {domain}!"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} perished in the hidden domain {domain}."
+
+msgid "{}: {}"
+msgstr "{}: {}"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "装備することにした"
+
+msgid "decided to keep current equipment"
+msgstr "現在の装備を維持することにした"
+
+msgid "decided to keep current technique"
+msgstr "現在の功法を維持することにした"
+
+msgid "decided to learn it"
+msgstr "習得することにした"
+
+msgid "item_verb_consume"
+msgstr "消費"
+
+msgid "item_verb_consumed"
+msgstr "消費した"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name}は{item_name}を捨てた。"
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name}は{grade}{label}「{item_name}」を装備した。"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name}は{grade}{label}「{item_name}」を手に入れ、そのまま装備した。"
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr "{name}は新たに得た{item_name}を売却し、{price}霊石を手に入れた。"
+
+msgid ""
+"\n"
+"【Related Avatars Information】"
+msgstr ""
+"\n"
+"【Related Avatars Information】"
+
+msgid "auxiliary"
+msgstr "auxiliary equipment"
+
+msgid "elixir"
+msgstr "elixir"
+
+msgid "item_label_auxiliary"
+msgstr "Auxiliary"
+
+msgid "item_label_elixir"
+msgstr "Elixir"
+
+msgid "item_label_technique"
+msgstr "Technique"
+
+# Item Verbs
+msgid "item_verb_equip"
+msgstr "equip"
+
+msgid "item_verb_equipped"
+msgstr "equipped"
+
+msgid "item_verb_practice"
+msgstr "practice"
+
+msgid "item_verb_replace"
+msgstr "replace"
+
+msgid "item_verb_switched"
+msgstr "switched to"
+
+# Auto-equip Message
+msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+
+# Item Labels
+msgid "item_label_weapon"
+msgstr "武器"
+
+msgid "technique"
+msgstr "功法"
+
+# Labels
+msgid "weapon"
+msgstr "武器"
+
+# Labels
+msgid "【Auction Items Information】"
+msgstr "【競売品情報】"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"効果: {effect_desc}"
+
+msgid " (Distance: {months} months)"
+msgstr " （距離: {months} か月）"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr " （所有者: {owner}、{realm}）"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " （資源分布: {species_info}）"
+
+msgid " ({desc})"
+msgstr " （{desc}）"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " （{essence_type}霊気: {essence_density}）"
+
+msgid " ({store_info})"
+msgstr " （{store_info}）"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region (can trade)"
+msgstr "都市区域（取引可能）"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "都市区域: {name} - {desc}{desc_part}"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr ""
+"全体を網羅する必要はありません。最も面白い一幕、あるいは印象的な一度の競りを選んで描写してください。特に入札の駆け引きと張りつめた空気感を重点的に表現してください。"
+
+# Map & Region & Others (New)
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "修行区域（吐納で修為を高められる）"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr "修行区域: {name}（{essence_type}霊気: {essence_density}）- {desc}"
+
+msgid "No special resources"
+msgstr "特別な資源なし"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "通常区域（狩猟・採集・採鉱が可能）"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "通常区域: {name} - {desc} | 資源分布: {species_info}"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "宗門本拠地（宗門弟子はここでより早く療傷できる）"
+
+msgid "Sell: "
+msgstr "売却: "
+
+msgid "emotion_angry"
+msgstr "怒り"
+
+msgid "emotion_anticipating"
+msgstr "期待"
+
+msgid "emotion_calm"
+msgstr "平静"
+
+msgid "emotion_confused"
+msgstr "困惑"
+
+msgid "emotion_disgusted"
+msgstr "嫌悪"
+
+msgid "emotion_fearful"
+msgstr "恐れ"
+
+msgid "emotion_happy"
+msgstr "喜び"
+
+msgid "emotion_sad"
+msgstr "悲しみ"
+
+msgid "emotion_surprised"
+msgstr "驚き"
+
+msgid "emotion_tired"
+msgstr "疲労"
+
+msgid "misfortune_dynamic_story_prompt"
+msgstr ""
+"人物の現在の境界は {realm}。直前まで {location} にて [{action_desc}] を行っていた。最終結果は [{result}]。\n"
+"タスク: 人物の境界・背景・[行っていた行動] を踏まえ、この結果に至った厄運の理由を自然かつ一貫性を持って創造的に補完してください。環境描写と人物の心理活動も豊かに描いてください。100〜200字程度でまとめてください。"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names}（{price}霊石）"
+
+msgid "{value} Spirit Stones"
+msgstr "{value}霊石"
+
+msgid ", defended {region}"
+msgstr "、{region} を守り切った"
+
+msgid ", successfully seized {region}"
+msgstr "、{region} の奪取に成功した"
+
+msgid "Already the owner of this cave dwelling"
+msgstr "すでにこの洞府の主である"
+
+msgid "Cannot drive away in wilderness"
+msgstr "野外では追い払えない"
+
+msgid "Cannot find region: {region}"
+msgstr "地域が見つからない: {region}"
+
+msgid "Cannot initiate interaction with self"
+msgstr "自分自身とは交流を開始できない"
+
+msgid "Elixirs cannot be gifted"
+msgstr "丹薬は贈れない"
+
+msgid "Gift you {item}"
+msgstr "{item} を贈る"
+
+msgid "Insufficient item: {name}"
+msgstr "アイテム不足: {name}"
+
+msgid "Insufficient spirit stones (current: {current}, need: {need})"
+msgstr "霊石不足（現在: {current}、必要: {need}）"
+
+msgid "Item not equipped: {name}"
+msgstr "装備していないアイテム: {name}"
+
+msgid "Item not found: {name}"
+msgstr "アイテムが見つからない: {name}"
+
+msgid ""
+"Level difference insufficient, need 20 levels (current gap: {diff} levels)"
+msgstr "レベル差が不足している。20 レベル必要（現在の差: {diff} レベル）"
+
+msgid "Target is not your apprentice"
+msgstr "対象はあなたの弟子ではない"
+
+msgid ""
+"Target is not your disciple, martial grandchild, martial sibling, child, "
+"grandchild, or friend"
+msgstr "対象はあなたの弟子、徒孫、同門、子、孫、または友人ではない"
+
+msgid "Target not within interaction range"
+msgstr "対象が交流範囲内にいない"
+
+# Misfortune messages
+msgid "misfortune_event_base"
+msgstr "厄運に遭遇（{title}）、{result}"
+
+msgid "misfortune_result_backlash"
+msgstr "{name} の修為が {amount} 後退した"
+
+msgid "misfortune_result_injury"
+msgstr "{name} は {damage} のダメージを受け、残り HP は {current}/{max}"
+
+msgid "misfortune_result_loss_spirit_stone"
+msgstr "{name} は {amount} 霊石を失った"
+
+msgid "misfortune_title_backlash"
+msgstr "修行反噬"
+
+msgid "misfortune_title_injury"
+msgstr "意外な負傷"
+
+msgid "misfortune_title_loss_spirit_stone"
+msgstr "破財"
+
+msgid "misfortune_title_mystery"
+msgstr "玄妙な厄運"
+
+msgid "{name} cultivation regressed by {amount} points"
+msgstr "{name} の修為が {amount} 後退した"
+
+msgid "{name} lost {amount} spirit stones"
+msgstr "{name} は {amount} 霊石を失った"
+
+msgid "{name} took {damage} damage, HP remaining {current}/{max}"
+msgstr "{name} は {damage} のダメージを受け、残り HP は {current}/{max}"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr "、古い {label}『{old_name}』を売却"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr "、古い {label}『{old_name}』を{replace}"
+
+msgid "Already lovers"
+msgstr "すでに道侶である"
+
+msgid "Already sworn siblings"
+msgstr "すでに義兄弟姉妹である"
+
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "告白"
+
+msgid "confess_description"
+msgstr "交流範囲内の対象へ想いを打ち明ける。受け入れられれば道侶になる。"
+
+msgid "confess_requirements"
+msgstr "対象が交流範囲内におり、かつまだ道侶ではないこと。"
+
+msgid "confess_story_prompt"
+msgstr ""
+"{initiator} が {target} "
+"に想いを伝える過程を描写せよ。心情と場の空気を含めること。受け入れられたなら二人が道侶となる情感を、拒まれたなら柔らかな拒絶と残る悔いを描くこと。"
+
+# MutualAction: Conversation
+msgid "conversation_action_name"
+msgstr "会話"
+
+msgid "conversation_description"
+msgstr "相手と会話を交わす"
+
+msgid "conversation_requirements"
+msgstr "対象が交流範囲内にいること"
+
+# MutualAction: DriveAway
+msgid "drive_away_action_name"
+msgstr "追い払い"
+
+msgid "drive_away_description"
+msgstr "武力で威圧し、相手をこの場から追い払う"
+
+msgid "drive_away_requirements"
+msgstr "対象が交流範囲内にいること。連続実行は不可"
+
+msgid "feedback_talk"
+msgstr "会話"
+
+msgid "feedback_yield"
+msgstr "譲歩"
+
+# MutualAction: Gift
+msgid "gift_action_name"
+msgstr "贈与"
+
+msgid "gift_description"
+msgstr "霊石または道具を相手へ贈る。`item_id` パラメータには Item ID（int）または `SPIRIT_STONE` を使用する。"
+
+msgid "gift_requirements"
+msgstr "発起者が対象物を所持していること。対象が交流範囲内にいること。丹薬は贈れない"
+
+# MutualAction: Impart
+msgid "impart_action_name"
+msgstr "伝道"
+
+msgid "impart_description"
+msgstr "弟子、徒孫、同門、子、孫、または友人へ修行経験を授ける"
+
+msgid "impart_requirements"
+msgstr "対象が弟子、徒孫、同門、子、孫、または友人であること。発起者のレベルが対象より 20 以上高いこと。対象が交流範囲内におり、連続実行は不可"
+
+# MutualAction Base
+msgid "mutual_action_name"
+msgstr "交流"
+
+msgid "mutual_action_requirements"
+msgstr "対象が交流範囲内にいること"
+
+# MutualAction: Attack
+msgid "mutual_attack_action_name"
+msgstr "攻撃"
+
+msgid "mutual_attack_description"
+msgstr "対象へ攻撃を仕掛ける"
+
+msgid "mutual_attack_requirements"
+msgstr "対象が交流範囲内におり、連続実行は不可"
+
+# MutualAction: Occupy
+msgid "occupy_action_name"
+msgstr "洞府奪取"
+
+msgid "occupy_description"
+msgstr "洞府を占拠または奪取する。洞府の主と戦闘になる場合がある"
+
+msgid "occupy_requirements"
+msgstr "Target within interaction range; cannot execute consecutively"
+
+msgid "occupy_story_prompt"
+msgstr "これは洞府をめぐる争いである。具体的な HP やダメージ値には触れないこと。"
+
+# MutualAction: Spar
+msgid "spar_action_name"
+msgstr "切磋"
+
+msgid "spar_description"
+msgstr "対象と手合わせを行い、頃合いで手を引く（武器熟練度が大きく上がり、ダメージは発生しない）"
+
+msgid "spar_requirements"
+msgstr "対象が交流範囲内におり、連続実行は不可"
+
+msgid "spar_story_prompt"
+msgstr "これは友好的な手合わせであり、寸止めで終わる。本当の負傷はなく、双方の妙技と相互の啓発を描写せよ。血生臭さや重傷描写は不要。"
+
+msgid "spirit stones"
+msgstr "霊石"
+
+msgid "swear_brotherhood_action_name"
+msgstr "義結金蘭"
+
+msgid "swear_brotherhood_description"
+msgstr "交流範囲内の修士へ義兄弟姉妹の契りを申し出る"
+
+msgid "swear_brotherhood_requirements"
+msgstr "対象が交流範囲内におり、まだ義兄弟姉妹ではないこと"
+
+msgid "swear_brotherhood_story_prompt"
+msgstr "これは豪気ある義結びの場面である。互いの欣賞と、生死を共にする誓いを描け。"
+
+# MutualAction: Talk
+msgid "talk_action_name"
+msgstr "会話"
+
+msgid "talk_description"
+msgstr "誰かに話しかける。自分自身は対象にできない"
+
+msgid "talk_requirements"
+msgstr "対象が交流範囲内にいること"
+
+msgid "{avatar1} conversation with {avatar2}: {content}"
+msgstr "{avatar1} と {avatar2} の会話: {content}"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} は {receiver} に修行心得を授けた"
+
+msgid ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+msgstr "{initiator} は {target} の洞府 {region} の奪取を試みたが、{target} は拒絶して戦闘に入った"
+
+msgid "{initiator} attempts to gift {item} to {target}"
+msgstr "{initiator} は {item} を {target} に贈ろうとしている"
+
+msgid "{initiator} attempts to seize {region} from {host}"
+msgstr "{initiator} は {host} から {region} の奪取を試みている"
+
+msgid "{initiator} and {target} enjoyed a tea gathering"
+msgstr "{initiator} と {target} は茶会を楽しんだ"
+
+msgid "{initiator} and {target} played a game of chess"
+msgstr "{initiator} と {target} は囲碁に興じた"
+
+msgid "{initiator} challenges {target} to spar"
+msgstr "{initiator} は {target} に手合わせを申し込んだ"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator} は {target} に想いを告げた"
+
+msgid "{initiator} forced {target} to yield {region}"
+msgstr "{initiator} は {target} に {region} を明け渡させた"
+
+msgid "{initiator} initiates {action} with {target}"
+msgstr "{initiator} は {target} に対して {action} を始めた"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator} は {target} に義兄弟姉妹の契りを提案した"
+
+msgid "{initiator} successfully gifted {item} to {target}"
+msgstr "{initiator} は {item} を {target} に贈ることに成功した"
+
+msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
+msgstr "{master} は弟子 {apprentice} に修行の道を授けた"
+
+msgid "{region} is not a cultivation area, cannot occupy"
+msgstr "{region} は修行区域ではないため、占拠できない"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr "{target} は {initiator} の想いを受け入れ、二人は道侶となった"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target} は {initiator} の申し出を受け入れ、二人は義兄弟姉妹となった"
+
+msgid "{target} accepted {initiator}'s talk invitation"
+msgstr "{target} は {initiator} の会話の誘いを受け入れた"
+
+msgid "{target} feedback to {initiator}: {feedback}"
+msgstr "{target} から {initiator} への返答: {feedback}"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target} は {initiator} の告白を断った"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target} は {initiator} の義兄弟姉妹の提案を断った"
+
+msgid "{target} rejected {initiator}'s talk invitation"
+msgstr "{target} は {initiator} の会話の誘いを断った"
+
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr "{target} は {initiator} からの贈り物 {item} を断った"
+
+msgid ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+msgstr ""
+"{winner} は手合わせでわずかに優勢を得て {loser} を制した。（{winner} 熟練度 +{w_gain}、{loser} 熟練度 "
+"+{l_gain}）"
+
+msgid ", keep current『{old_name}』"
+msgstr "、現在の『{old_name}』を維持"
+
+msgid "Abandon『{new_name}』"
+msgstr "『{new_name}』を放棄"
+
+# Option A
+msgid "{action} new {label}『{new_name}』"
+msgstr "新しい {label}『{new_name}』を{action}"
+
+msgid "Mortal"
+msgstr "凡人"
+
+# Option B
+msgid "Sell new {label}『{new_name}』for spirit stones, keep current status"
+msgstr "新しい {label}『{new_name}』を霊石に換え、現在の装備を維持"
+
+msgid "core_formation"
+msgstr "結丹"
+
+msgid "foundation_establishment"
+msgstr "築基"
+
+msgid "nascent_soul"
+msgstr "元嬰"
+
+msgid "apprentice"
+msgstr "Apprentice"
+
+msgid "child"
+msgstr "Child"
+
+msgid "enemy"
+msgstr "Enemy"
+
+msgid "friend"
+msgstr "Friend"
+
+msgid "kin"
+msgstr "Kin"
+
+msgid "lovers"
+msgstr "Lovers"
+
+msgid "master"
+msgstr "Master"
+
+# Realm
+msgid "qi_refinement"
+msgstr "Qi Refinement"
+
+msgid "grand_child"
+msgstr "孫"
+
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "martial_grandchild"
+msgstr "徒孫"
+
+msgid "martial_grandmaster"
+msgstr "太師父"
+
+msgid "martial_sibling"
+msgstr "同門"
+
+# Relation
+msgid "parent"
+msgstr "父母"
+
+msgid "numeric_relation_archenemy"
+msgstr "敵対"
+
+msgid "numeric_relation_best_friend"
+msgstr "至交"
+
+msgid "numeric_relation_disliked"
+msgstr "不和"
+
+msgid "numeric_relation_friend"
+msgstr "友好"
+
+msgid "numeric_relation_stranger"
+msgstr "疎遠"
+
+msgid "relation_daughter"
+msgstr "娘"
+
+# Relations
+msgid "relation_father"
+msgstr "父"
+
+msgid "relation_granddaughter"
+msgstr "孫娘"
+
+msgid "relation_grandfather"
+msgstr "祖父"
+
+msgid "relation_grandmother"
+msgstr "祖母"
+
+msgid "relation_grandson"
+msgstr "孫息子"
+
+msgid "relation_martial_older_brother"
+msgstr "師兄"
+
+msgid "relation_martial_older_sister"
+msgstr "師姐"
+
+msgid "relation_martial_younger_brother"
+msgstr "師弟"
+
+msgid "relation_martial_younger_sister"
+msgstr "師妹"
+
+msgid "relation_mother"
+msgstr "母"
+
+msgid "relation_older_brother"
+msgstr "兄"
+
+msgid "relation_older_sister"
+msgstr "姉"
+
+msgid "relation_rule_apprentice_add"
+msgstr ""
+"[Apprentice] Relative to Master, usually established automatically with "
+"Master relation."
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[End Apprenticeship] Same as above."
+
+msgid "relation_rule_cancel_title"
+msgstr "[関係解除ルール]"
+
+msgid "relation_rule_enemy_add"
+msgstr ""
+"[Hostile] Substantial harm occurred (injury, theft, humiliation). Single "
+"severe harm or multiple minor frictions."
+
+msgid "relation_rule_enemy_cancel"
+msgstr ""
+"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
+"death experience, or hatred fades."
+
+msgid "relation_rule_establish_title"
+msgstr "[関係成立ルール]"
+
+msgid "relation_rule_friend_add"
+msgstr ""
+"[Friendly] Any friendly daily interactions (such as chatting, dual "
+"cultivation, sparring, healing, etc.) or a single display of goodwill is "
+"enough to establish this. No substantial conflict of interest."
+
+msgid "relation_rule_friend_cancel"
+msgstr ""
+"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
+"interaction."
+
+msgid "relation_rule_lovers_add"
+msgstr ""
+"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
+"and affection."
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+
+msgid "relation_rule_master_add"
+msgstr ""
+"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
+"Core vs Qi Refinement)."
+
+msgid "relation_rule_master_cancel"
+msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+
+msgid "relation_rule_sworn_sibling_add"
+msgstr ""
+"[Sworn Sibling] Share the same ideals, have experienced life and death "
+"together or significant events."
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr ""
+"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
+"beliefs."
+
+# Separators
+msgid "relation_separator"
+msgstr "；"
+
+msgid "relation_son"
+msgstr "息子"
+
+msgid "relation_sworn_older_brother"
+msgstr "義兄"
+
+msgid "relation_sworn_older_sister"
+msgstr "義姐"
+
+msgid "relation_sworn_younger_brother"
+msgstr "義弟"
+
+msgid "relation_sworn_younger_sister"
+msgstr "義妹"
+
+msgid "relation_younger_brother"
+msgstr "弟"
+
+msgid "relation_younger_sister"
+msgstr "妹"
+
+# Root Element
+msgid "gold_element"
+msgstr "金"
+
+msgid "root_dark"
+msgstr "暗霊根"
+
+msgid "root_earth"
+msgstr "土霊根"
+
+msgid "root_fire"
+msgstr "火霊根"
+
+# Root Keys
+msgid "root_gold"
+msgstr "金霊根"
+
+msgid "root_heaven"
+msgstr "天霊根"
+
+msgid "root_ice"
+msgstr "氷霊根"
+
+msgid "root_thunder"
+msgstr "雷霊根"
+
+msgid "root_water"
+msgstr "水霊根"
+
+msgid "root_wind"
+msgstr "風霊根"
+
+msgid "root_wood"
+msgstr "木霊根"
+
+msgid "water_element"
+msgstr "水"
+
+msgid "wood_element"
+msgstr "木"
+
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr "(道統: {orthodoxy}、立場: {alignment}、流派: {style}、本拠地: {hq_name}){effect}"
+
+# Scene Setting
+msgid ""
+"Event Type: Mysterious Auction\n"
+"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr ""
+"イベント種別: 神秘競売会\n"
+"場面設定: 競売会は神秘的な空間で開かれ、底知れぬ気配をまとった謎の人物が主催している。"
+
+msgid "SECT_10_STYLE"
+msgstr "優雅さの裏で綿密に策を巡らせ、言葉と音律で局面を支配することを好み、煙も立てずに人を斬る。"
+
+msgid "SECT_11_STYLE"
+msgstr "厳格かつ緻密で、技の極致を追い求め、陣で反撃することに長け、着実に前進する。"
+
+msgid "SECT_12_RANK_ELDER"
+msgstr "閣老"
+
+msgid "SECT_12_RANK_INNER"
+msgstr "都統"
+
+msgid "SECT_12_RANK_OUTER"
+msgstr "夜巡使"
+
+msgid "SECT_12_RANK_PATRIARCH"
+msgstr "城主"
+
+msgid "SECT_12_STYLE"
+msgstr "逆境でも屈せず粘り強く、堂々として先見の明を持ち、身内を非常に大切にする。"
+
+msgid "SECT_13_STYLE"
+msgstr "原則を守り正義を重んじ、妖魔討伐の先頭に立ち、折れても曲がらない。"
+
+msgid "SECT_14_STYLE"
+msgstr "力こそ正義とし、欲するままに振る舞い、絶対的な力と殺戮を崇め、万物を糧とみなす。"
+
+msgid "SECT_1_STYLE"
+msgstr "心は澄み自らを律し、言行が一致する。剣と心の双方を重んじ、本性を見極めることを旨とする。"
+
+msgid "SECT_2_RANK_ELDER"
+msgstr "太上長老"
+
+msgid "SECT_2_RANK_INNER"
+msgstr "御獣使"
+
+msgid "SECT_2_RANK_OUTER"
+msgstr "従者"
+
+msgid "SECT_2_RANK_PATRIARCH"
+msgstr "谷主"
+
+msgid "SECT_2_STYLE"
+msgstr "物言いは率直で、力と血脈を重んじ、狩猟と戦いを崇める。"
+
+msgid "SECT_3_RANK_ELDER"
+msgstr "持鏡使"
+
+msgid "SECT_3_RANK_INNER"
+msgstr "伝人"
+
+msgid "SECT_3_RANK_OUTER"
+msgstr "侍鏡者"
+
+msgid "SECT_3_RANK_PATRIARCH"
+msgstr "鏡主"
+
+msgid "SECT_3_STYLE"
+msgstr "冷静で柔軟、柔よく剛を制すことを好み、借力と制御返しに長ける。"
+
+msgid "SECT_4_RANK_ELDER"
+msgstr "判官"
+
+msgid "SECT_4_RANK_INNER"
+msgstr "無常使"
+
+msgid "SECT_4_RANK_OUTER"
+msgstr "鬼卒"
+
+msgid "SECT_4_RANK_PATRIARCH"
+msgstr "殿主"
+
+msgid "SECT_4_STYLE"
+msgstr "口調は冷ややかで感情を表に出さず、因果を敬いながらも殺伐を恐れず、効率と結果を重視する。"
+
+msgid "SECT_5_RANK_ELDER"
+msgstr "刑堂使"
+
+msgid "SECT_5_RANK_INNER"
+msgstr "影刺"
+
+msgid "SECT_5_RANK_OUTER"
+msgstr "斥候"
+
+msgid "SECT_5_RANK_PATRIARCH"
+msgstr "楼主"
+
+msgid "SECT_5_STYLE"
+msgstr "欲望と代価に正面から向き合い、闇を恐れず、攻勢の戦いに長ける。"
+
+msgid "SECT_6_RANK_ELDER"
+msgstr "護法"
+
+msgid "SECT_6_RANK_INNER"
+msgstr "魅仙"
+
+msgid "SECT_6_RANK_OUTER"
+msgstr "侍童"
+
+msgid "SECT_6_RANK_PATRIARCH"
+msgstr "宮主"
+
+msgid "SECT_6_STYLE"
+msgstr "物腰は柔らかく、欲望と局面を操ることに長け、柔で剛を制する。"
+
+msgid "SECT_7_RANK_ELDER"
+msgstr "首座"
+
+msgid "SECT_7_RANK_INNER"
+msgstr "行者"
+
+msgid "SECT_7_RANK_OUTER"
+msgstr "居士"
+
+msgid "SECT_7_RANK_PATRIARCH"
+msgstr "方丈"
+
+msgid "SECT_7_STYLE"
+msgstr "厳かで落ち着いており、鎮魂と邪祓いに注力し、寡黙だが決断は速い。"
+
+msgid "SECT_8_RANK_ELDER"
+msgstr "護法"
+
+msgid "SECT_8_RANK_INNER"
+msgstr "影衛"
+
+msgid "SECT_8_RANK_OUTER"
+msgstr "斥候"
+
+msgid "SECT_8_RANK_PATRIARCH"
+msgstr "宗主"
+
+msgid "SECT_8_STYLE"
+msgstr "秘匿を好み果断で、名より実を重んじ、潜伏と奇襲に長ける。"
+
+msgid "SECT_9_RANK_ELDER"
+msgstr "太上長老"
+
+msgid "SECT_9_RANK_INNER"
+msgstr "執事"
+
+msgid "SECT_9_RANK_OUTER"
+msgstr "見習い"
+
+msgid "SECT_9_RANK_PATRIARCH"
+msgstr "城主"
+
+msgid "SECT_9_STYLE"
+msgstr "現実的で抜け目なく、商いと信用を重んじ、規律と秩序を守る。"
+
+msgid "elder"
+msgstr "長老"
+
+msgid "inner_disciple"
+msgstr "内門弟子"
+
+msgid "outer_disciple"
+msgstr "外門弟子"
+
+msgid ""
+"\n"
+"(Selecting {replace} will sell old {label})"
+msgstr ""
+"\n"
+"（{replace} を選ぶと古い {label} は売却されます）"
+
+# Sect Rank
+msgid "patriarch"
+msgstr "掌門"
+
+msgid "phenomenon_change"
+msgstr "{old_name} は消え去り、新たな天地異象が現れた！ {new_name}: {new_desc}。"
+
+msgid "world_creation_phenomenon"
+msgstr "世界が生まれ、天地異象が降り立つ！ {name}: {desc}。"
+
+msgid ""
+"{avatar_name} deliberated and redefined their long-term objective: "
+"{objective}"
+msgstr "{avatar_name} は熟考の末、長期目標を改めて定め直した: {objective}"
+
+msgid "{avatar_name} determined their long-term objective: {objective}"
+msgstr "{avatar_name} は長期目標を定めた: {objective}"
+
+# Sect System - Sects
+msgid "Base effect"
+msgstr "基礎効果"
+
+msgid "Sect random event"
+msgstr "宗門ランダムイベント"
+
+msgid "Temporary effect"
+msgstr "一時効果"
+
+msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
+msgstr "{sect_name}（属性: {alignment}、本拠地: {hq_name}）"
+
+msgid ""
+"{sect_name} (Alignment: {alignment}, Style: {style}, Headquarters: "
+"{hq_name}){effect}"
+msgstr "{sect_name}（属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Headquarters: "
+"{hq_name})"
+msgstr "{sect_name}（正道: {orthodoxy}、属性: {alignment}、本拠地: {hq_name}）"
+
+msgid ""
+"{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
+" Headquarters: {hq_name}){effect}"
+msgstr ""
+"{sect_name}（正道: {orthodoxy}、属性: {alignment}、風格: {style}、本拠地: "
+"{hq_name}）{effect}"
+
+msgid ""
+"Our sect has settled its priorities for the coming years; next we should "
+"guard our rules and foundations, recruit talent with care, reward and punish"
+" fairly, and expand our momentum through steady progress."
+msgstr "我が宗は今後数年の方針を定めた。次は門規と基盤を守り、慎重に人材を募り、賞罰を公正に行い、着実な歩みで勢いを広げるべきである。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "現在、天地異象は存在しない。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "天地異象は存在するが、その説明が欠けている。"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" improved (+{value_int} for {duration_months} months)."
+msgstr ""
+"{reason_fragment}により、{sect_a_name} と {sect_b_name} "
+"の関係は改善した（{duration_months} か月間 +{value_int}）。"
+
+msgid ""
+"Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"
+" worsened (-{value_int} for {duration_months} months)."
+msgstr ""
+"{reason_fragment}により、{sect_a_name} と {sect_b_name} "
+"の関係は悪化した（{duration_months} か月間 -{value_int}）。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value_int} magic stones."
+msgstr "{reason_fragment}により、{sect_a_name} は魔石を +{value_int} 獲得した。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} lost -{value_int} magic stones."
+msgstr "{reason_fragment}により、{sect_a_name} は魔石を -{value_int} 失った。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} gained +{value} extra income per "
+"tile for {duration_months} months."
+msgstr ""
+"{reason_fragment}により、{sect_a_name} は {duration_months} か月の間、1 タイルごとの追加収入 "
+"+{value} を得た。"
+
+msgid ""
+"Because {reason_fragment}, {sect_a_name} suffered -{value} income per tile "
+"for {duration_months} months."
+msgstr ""
+"{reason_fragment}により、{sect_a_name} は {duration_months} か月の間、1 タイルごとの収入 "
+"-{value} の損失を受けた。"
+
+msgid "comma_separator"
+msgstr ", "
+
+msgid "earth_element"
+msgstr "Earth"
+
+msgid "element_separator"
+msgstr ", "
+
+msgid "fire_element"
+msgstr "Fire"
+
+msgid "material_separator"
+msgstr ", "
+
+msgid "semicolon_separator"
+msgstr "; "
+
+msgid "sibling"
+msgstr "Sibling"
+
+msgid "sworn_sibling"
+msgstr "Sworn Sibling"
+
+msgid "(Choosing to replace will sell the old {label})"
+msgstr "（交換を選ぶと古い {label} は売却される）"
+
+msgid ", keep current '{old_name}'"
+msgstr "、現在の「{old_name}」を維持"
+
+msgid ", replace old {label} '{old_name}'"
+msgstr "、古い {label}「{old_name}」を置き換える"
+
+msgid ", sell old {label} '{old_name}'"
+msgstr "、古い {label}「{old_name}」を売却"
+
+# Simulator & Event Translations
+msgid ""
+"{avatar_name} passed by {region_name}, found it ownerless, and occupied it."
+msgstr "{avatar_name} は {region_name} を通りかかり、無主の地だと見て占拠した。"
+
+msgid ""
+"{dynasty_title} has enthroned a new ruler, and {emperor_name} ascends as "
+"emperor."
+msgstr "{dynasty_title} に新たな君主が立ち、{emperor_name} が皇帝として即位した。"
+
+msgid ""
+"Emperor {emperor_name} of {dynasty_title} has passed away at the age of "
+"{age}."
+msgstr "{dynasty_title} の皇帝 {emperor_name} は {age} 歳で崩御した。"
+
+msgid ""
+"A new emperor ascends in {dynasty_title}: {emperor_name} inherits the "
+"throne."
+msgstr "{dynasty_title} に新帝が即位した。{emperor_name} が大統を継いだ。"
+
+msgid ""
+"{avatar} neglected governance for too long, losing court reputation and "
+"falling from {old_rank} to {new_rank}."
+msgstr "{avatar} は長く政務を怠り、朝廷での声望を失って {old_rank} から {new_rank} へ降格した。"
+
+# Single choice - context and options
+msgid ""
+"Current situation: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"現在の状況: {context}\n"
+"\n"
+"{choices}"
+
+msgid "Current {label}: {info}"
+msgstr "現在の {label}: {info}"
+
+msgid "Discard '{new_name}'"
+msgstr "「{new_name}」を破棄"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "新しい {label}「{new_name}」を装備"
+
+msgid "New {label}: {info}"
+msgstr "新しい {label}: {info}"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr "新しい {label}「{new_name}」を霊石に換え、現在の状態を維持"
+
+# SingleChoice System - Item Decisions
+msgid "Accept new item"
+msgstr "新しい品を受け取る"
+
+msgid "Reject new item"
+msgstr "新しい品を断る"
+
+msgid "Automatically accept the new item."
+msgstr "新しい品を自動で受け取る。"
+
+# Decision Interface
+msgid ""
+"【Current Situation】: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【現在の状況】: {context}\n"
+"\n"
+"{choices}"
+
+msgid ""
+"Competition: In the auction for {item_name}, {winner_name} outbid "
+"{runner_up_name} (bid: {bid})."
+msgstr ""
+"Competition: In the auction for {item_name}, {winner_name} outbid "
+"{runner_up_name} (bid: {bid})."
+
+# Stage
+msgid "early_stage"
+msgstr "Early Stage"
+
+msgid "late_stage"
+msgstr "Late Stage"
+
+msgid "middle_stage"
+msgstr "Middle Stage"
+
+msgid ""
+"Bold and open: Grand words, majestic momentum, informal, expressing feelings"
+" directly."
+msgstr "豪放闊達: 大きな言葉と雄大な気勢を用い、堅苦しさを避け、感情をまっすぐに表す。"
+
+msgid ""
+"Buddhist emptiness: Insights of impermanence and emptiness interwoven, light"
+" and not mysterious."
+msgstr "仏門空寂: 無常と空の悟りを織り交ぜるが、重々しすぎず、晦渋にもならない。"
+
+msgid ""
+"Chronicle style: Like a historian's record, orderly events, few adjectives."
+msgstr "記伝体: 史家の筆録のように、出来事を整然と並べ、形容は少なく抑える。"
+
+msgid ""
+"Cold and concise: Mainly short sentences, every word counts, like metal "
+"striking stone, no extra emotional rendering."
+msgstr "冷峻簡潔: 短文主体で、一語一語が硬く鋭い。金石の響きのように、余計な情感の肉付けをしない。"
+
+# Story Generation Text
+msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
+msgstr "成交: {winner_name} は {price} 霊石で {item_name} を落札した。"
+
+msgid ""
+"Elegant scholarly: Scholarly atmosphere, slight touch of citations, without "
+"showing off."
+msgstr "雅致典雅: 書巻の気配を帯び、軽く典故を添えるが、ひけらかさない。"
+
+msgid ""
+"Emotion in scenery: Expressing emotion through scenery, blending feelings "
+"with the setting."
+msgstr "寓情於景: 景を借りて情を映し、心と風景を溶け合わせる。"
+
+msgid ""
+"Fine line drawing: No decoration, capturing subtle movements and expressions"
+" to convey spirit, real and delicate."
+msgstr "白描: 余計な装飾を避け、細かな動作や表情で神韻を伝える。真に迫り、繊細である。"
+
+msgid ""
+"Folk storytelling: Like a storyteller's tone but in written language, fast-"
+"paced, vivid and interesting."
+msgstr "説書調: 語り手の口調を文語に移したようで、テンポが速く、生き生きとして面白い。"
+
+msgid ""
+"Freehand ancient style: Focus on imagery and metaphor, concise, avoiding "
+"obscure archaic language."
+msgstr "写意古風: 意象と比喩を重んじ、簡潔にまとめつつ、難解すぎる古語は避ける。"
+
+msgid ""
+"Gorgeous and bizarre: Heavy sensory description, ornate and seductive "
+"language, emphasizing the strangeness of light and color."
+msgstr "華麗妖異: 感覚描写を厚く盛り、妖しく艶のある言葉で、光と色の異様さを際立たせる。"
+
+msgid "Item: {item_name}, Description: {description}"
+msgstr "物品: {item_name}、説明: {description}"
+
+msgid ""
+"Marketplace life: Grounded writing, using colloquialisms, simple and "
+"natural, without pretension."
+msgstr "市井気息: 地に足のついた筆致で、口語を交え、素朴で自然に描き、気取りを避ける。"
+
+msgid ""
+"Personification of scenery: Slight personification of scenery, embedding "
+"aspirations in the view, not overused."
+msgstr "景物擬人: 風景をわずかに擬人化し、志や願いを景に託すが、やりすぎない。"
+
+msgid ""
+"Philosophical fable: Asking questions through events, containing one or two "
+"punchlines, without preaching."
+msgstr "寓理小品: 出来事を通じて問いを立て、一、二か所の含みを残すが、説教臭くしない。"
+
+# Story Styles
+msgid ""
+"Plain narration: Restrained language, minimal embellishment, recording like "
+"a bystander."
+msgstr "平叙直述: 言葉を抑え、装飾を最小限にし、傍観者の記録のように淡々と綴る。"
+
+msgid ""
+"Poetic lyricism: Short sentences and parallelism, sparse use of allusions, "
+"avoiding flowery language."
+msgstr "詩意抒情: 短句と対句を用い、典故は控えめに、華美に流れすぎない。"
+
+msgid ""
+"Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
+"single thought."
+msgstr "道家清気: 道門の語感を帯びつつも晦渋にせず、一念に焦点を絞って描く。"
+
+# Technique System - Techniques
+msgid " Effect: {effect_desc}"
+msgstr " 効果: {effect_desc}"
+
+msgid "Cave Dwelling"
+msgstr "洞府"
+
+msgid "City Region"
+msgstr "都市区域"
+
+msgid "Normal Region"
+msgstr "通常区域"
+
+msgid "Ruins"
+msgstr "遺跡"
+
+msgid "dark_attribute"
+msgstr "暗"
+
+msgid "earth_attribute"
+msgstr "土"
+
+msgid "evil_attribute"
+msgstr "邪"
+
+msgid "fire_attribute"
+msgstr "火"
+
+# Technique Attribute
+msgid "gold_attribute"
+msgstr "金"
+
+msgid "ice_attribute"
+msgstr "氷"
+
+# Technique Grade
+msgid "lower_grade"
+msgstr "下品"
+
+msgid "middle_grade"
+msgstr "中品"
+
+msgid "thunder_attribute"
+msgstr "雷"
+
+msgid "upper_grade"
+msgstr "上品"
+
+msgid "water_attribute"
+msgstr "水"
+
+msgid "wind_attribute"
+msgstr "風"
+
+msgid "wood_attribute"
+msgstr "木"
+
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "天下武道会が進行中..."
+
+msgid "tournament_start_heaven"
+msgstr "天榜武道会が開幕した！ 参加者: {participants}。"
+
+msgid "tournament_start_earth"
+msgstr "地榜武道会が開幕した！ 参加者: {participants}。"
+
+msgid "tournament_start_human"
+msgstr "人榜武道会が開幕した！ 参加者: {participants}。"
+
+msgid "tournament_battle_result"
+msgstr "武道会の試合で、{winner}が{loser}を打ち破った。"
+
+msgid "tournament_end_heaven"
+msgstr "天榜武道会が終了した。第一位は {winner}。"
+
+msgid "tournament_end_earth"
+msgstr "地榜武道会が終了した。第一位は {winner}。"
+
+msgid "tournament_end_human"
+msgstr "人榜武道会が終了した。第一位は {winner}。"
+
+msgid "effect_tournament_heaven_first"
+msgstr "天榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid "effect_tournament_earth_first"
+msgstr "地榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid "effect_tournament_human_first"
+msgstr "人榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid ""
+"Event Type: World Martial Arts Tournament\n"
+"Scene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr ""
+"イベント種別: 天下武道会\n"
+"場面設定: この大会は、当代で最強の修士を決めるために開かれる。"
+
+msgid ""
+"\n"
+"【Tournament Information】\n"
+msgstr ""
+"\n"
+"【大会情報】\n"
+
+msgid "List: {list_name}\n"
+msgstr "榜: {list_name}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "優勝者: {winner}\n"
+
+msgid ""
+"\n"
+"【Finalists Information】\n"
+msgstr ""
+"\n"
+"【決勝進出者情報】\n"
+
+msgid "tournament_story_prompt"
+msgstr ""
+"上記の武道会結果をもとに、臨場感ある物語を400〜500字ほどで描写してください。二人の決勝進出者による激しい武の衝突、法宝のぶつかり合う細部、最終勝者の圧倒的な風格、そして観衆の反応を含めてください。文体は修仙世界観に合うものとし、Markdown"
+" なしのプレーンテキストのみを出力してください。"
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "決勝戦: {winner} vs {loser}\n"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr "参加者不足のため、天下武道会は中止となった。"
+
+msgid "tournament_heaven"
+msgstr "天榜第一位"
+
+msgid "tournament_earth"
+msgstr "地榜第一位"
+
+msgid "tournament_human"
+msgstr "人榜第一位"
+
+# Frontend UI Translations
+msgid "Sect Headquarters"
+msgstr "宗門本部"
+
+# Weapon System - Weapons
+msgid ""
+"Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "
+"weapon type"
+msgstr "武器{name}の weapon_type「{weapon_type_str}」は無効です。有効な武器種別である必要があります。"
+
+msgid "fan"
+msgstr "扇"
+
+msgid "flute"
+msgstr "笛"
+
+msgid "hidden_weapon"
+msgstr "暗器"
+
+msgid "saber"
+msgstr "刀"
+
+msgid "spear"
+msgstr "槍"
+
+msgid "staff"
+msgstr "棍"
+
+# Weapon Type
+msgid "sword"
+msgstr "剣"
+
+msgid "whip"
+msgstr "鞭"
+
+msgid "zither"
+msgstr "琴"

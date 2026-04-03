@@ -1,0 +1,23 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ", keep current『{old_name}』"
+msgstr "、現在の『{old_name}』を維持"
+
+msgid "Abandon『{new_name}』"
+msgstr "『{new_name}』を放棄"
+
+# Option A
+msgid "{action} new {label}『{new_name}』"
+msgstr "新しい {label}『{new_name}』を{action}"

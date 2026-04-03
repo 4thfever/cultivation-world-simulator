@@ -1,0 +1,95 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Fortune Event Text - Technique
+msgid ""
+"You comprehended an upper-grade technique『{technique_name}』in your fortune."
+msgstr ""
+"奇遇の中で、上位功法『{technique_name}』を悟った。"
+
+msgid "You comprehended superior technique '{technique}' during the fortune."
+msgstr "奇遇の中で上位功法「{technique}」を悟った。"
+
+msgid ""
+"You discovered a {realm} auxiliary equipment '{auxiliary}' during the "
+"fortune."
+msgstr ""
+"奇遇の中で {realm} 階の補助装備「{auxiliary}」を手に入れた。"
+
+# Fortune Event Text - Auxiliary
+msgid "You discovered a {realm} auxiliary『{auxiliary_name}』in your fortune."
+msgstr "奇遇の中で {realm} 階の補助装備『{auxiliary_name}』を見つけた。"
+
+# Fortune - discovery intro messages
+msgid "You discovered a {realm} weapon '{weapon}' during the fortune."
+msgstr "奇遇の中で {realm} 階の武器「{weapon}」を手に入れた。"
+
+# Fortune Event Text - Weapon
+msgid "You discovered a {realm} weapon『{weapon_name}』in your fortune."
+msgstr "奇遇の中で {realm} 階の武器『{weapon_name}』を見つけた。"
+
+msgid "fortune_dynamic_story_prompt"
+msgstr ""
+"キャラクターの現在の境界は {realm}。直前まで {location} で [{action_desc}] を行っていた。最終結果は [{result}]。\n"
+"課題: キャラクターの境界、背景、そして[直前に行っていた行動]に基づき、なぜその行動がこの結果につながったのかを説明するための、合理的で一貫性があり、かつ創造的な奇遇の原因を自動で導き出せ。豊かな環境描写と心理描写を含めること。文字量は 100〜200 語程度。"
+
+# Fortune messages
+msgid "fortune_event_base"
+msgstr "奇遇に遭遇（{title}）、{result}"
+
+msgid "fortune_title_auxiliary"
+msgstr "奇宝出世"
+
+msgid "fortune_title_cultivation"
+msgstr "修為精進"
+
+msgid "fortune_title_find_master"
+msgstr "高人指路"
+
+msgid "fortune_title_mystery"
+msgstr "玄妙奇遇"
+
+msgid "fortune_title_spirit_stone"
+msgstr "意外之財"
+
+msgid "fortune_title_technique"
+msgstr "功法感悟"
+
+msgid "fortune_title_weapon"
+msgstr "神兵降临"
+
+msgid "unknown location"
+msgstr "不明な場所"
+
+msgid "wandering aimlessly"
+msgstr "当てもなくさまよっていた"
+
+msgid "{apprentice} became disciple of {master}"
+msgstr "{apprentice} は {master} の門下に入った"
+
+# Fortune Event Text - Other Types
+msgid "{avatar_name} became disciple of {master_name}"
+msgstr "{avatar_name} は {master_name} の弟子となった"
+
+msgid "{avatar_name} gained {exp_gain} cultivation experience"
+msgstr "{avatar_name} は修為経験を {exp_gain} 得た"
+
+msgid "{avatar_name} obtained {amount} spirit stones"
+msgstr "{avatar_name} は {amount} 霊石を得た"
+
+msgid "{name} cultivation increased by {exp} points"
+msgstr "{name} の修為が {exp} 上昇した"
+
+msgid "{name} obtained {amount} spirit stones"
+msgstr "{name} は {amount} 霊石を得た"

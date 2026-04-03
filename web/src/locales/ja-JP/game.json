@@ -1,0 +1,338 @@
+{
+  "population": "人口",
+  "status_bar": {
+    "phenomenon": "天地異象",
+    "effect": "効果: ",
+    "duration": "{years} 年持続",
+    "selector_title": "介入: 異象を変更",
+    "empty_data": "異象データがありません",
+    "cultivators": "修士: {count}",
+    "change_success": "異象を {name} に変更しました",
+    "click_to_change": "（クリックして異象を変更）",
+    "author_github": "GitHub で Star する",
+    "hidden_domain": {
+      "label": "[秘境]",
+      "title": "秘境一覧",
+      "empty": "秘境データがありません",
+      "danger": "危険度",
+      "drop": "奇遇",
+      "status_open": "開放中",
+      "status_closed": "未開放"
+    },
+    "world_info": {
+      "label": "[世界情報]",
+      "title": "世界情報",
+      "ai_knowledge_note": "修士 AI がこの修仙世界について把握している知識",
+      "empty": "世界情報がありません"
+    }
+  },
+  "controls": {
+    "resume": "ゲーム再開",
+    "pause": "一時停止",
+    "paused": "一時停止中",
+    "closed_msg": "ゲームは終了しました。このタブは安全に閉じられます。"
+  },
+  "event_panel": {
+    "title": "イベント記録",
+    "filter_all": "すべて",
+    "filter_all_sects": "全宗門",
+    "filter_event_scope_all": "全イベント",
+    "filter_event_scope_major": "重大",
+    "filter_event_scope_minor": "通常",
+    "deceased": "（死亡）",
+    "add_second": "+ 2 人目を追加",
+    "load_more": "上へスクロールしてさらに読み込む",
+    "empty_dual": "この二人の間にイベントはありません",
+    "empty_single": "この修士のイベントはありません",
+    "empty_none": "イベントはありません"
+  },
+  "event_templates": {
+    "nickname_awarded": "{avatar_name} は修仙界で名を挙げ、「{nickname}」と呼ばれるようになった。"
+  },
+  "ranking": {
+    "title_short": "[排行榜]",
+    "tournament_short": "[大会]",
+    "title": "天地人榜",
+    "heaven": "天榜（元嬰）",
+    "earth": "地榜（結丹）",
+    "human": "人榜（築基）",
+    "sect_ranking": "宗門榜",
+    "rank": "順位",
+    "name": "名前",
+    "sect": "宗門",
+    "realm": "境界",
+    "power": "戦力",
+    "sect_name": "宗門名",
+    "alignment": "属性",
+    "member_count": "人数",
+    "total_power": "総戦力",
+    "empty": "データなし",
+    "tournament_title": "天下武道大会",
+    "tournament_next": "次の大会まで {years} 年",
+    "heaven_first": "天榜第一",
+    "earth_first": "地榜第一",
+    "human_first": "人榜第一"
+  },
+  "sect_relations": {
+    "title_short": "[宗門関係]",
+    "title": "宗門関係",
+    "sect_a": "宗門 A",
+    "sect_b": "宗門 B",
+    "status": "外交状態",
+    "value": "関係値",
+    "reasons": "理由",
+    "empty": "関係データがありません",
+    "status_war": "交戦中",
+    "status_peace": "平和",
+    "duration_months": "{count} か月",
+    "value_label_very_hostile": "極めて敵対",
+    "value_label_hostile": "敵対",
+    "value_label_neutral": "中立",
+    "value_label_friendly": "友好",
+    "value_label_very_friendly": "非常に友好",
+    "overlap_tiles": "{count} マス重複",
+    "reasons_map": {
+      "ALIGNMENT_OPPOSITE": "属性が相反する",
+      "ALIGNMENT_SAME": "属性が同じ",
+      "ORTHODOXY_DIFFERENT": "正道が異なる",
+      "ORTHODOXY_SAME": "正道が同じ",
+      "TERRITORY_CONFLICT": "領土衝突",
+      "WAR_STATE": "戦争状態",
+      "PEACE_STATE": "平和状態",
+      "LONG_PEACE": "長期和平",
+      "RANDOM_EVENT": "ランダムイベント"
+    }
+  },
+  "mortal_system": {
+    "title_short": "[凡人]",
+    "title": "凡人システム",
+    "empty": "データなし",
+    "summary": {
+      "title": "世界概況",
+      "total_population": "総人口",
+      "total_capacity": "総収容力",
+      "total_growth": "総自然増加"
+    },
+    "cities": {
+      "title": "都市概況",
+      "city": "都市",
+      "population": "人口",
+      "capacity": "収容力",
+      "growth": "自然増加"
+    },
+    "tracked": {
+      "title": "追跡中の凡人",
+      "count": "追跡人数",
+      "awakening_candidates": "覚醒候補",
+      "name": "名前",
+      "gender": "性別",
+      "age": "年齢",
+      "birth_region": "出生地域",
+      "unknown_region": "不明"
+    }
+  },
+  "dynasty": {
+    "title_short": "[王朝]",
+    "title": "王朝",
+    "name": "王朝名",
+    "royal_house": "皇室",
+    "style_tag": "王朝風格",
+    "official_preference": "朝廷の方針",
+    "effect": "王朝効果",
+    "effect_source": "王朝",
+    "effect_empty": "王朝効果はまだありません。官僚制度や後続ロジックの追加後に反映されます。",
+    "low_magic": "凡俗王朝",
+    "empty": "王朝データがありません",
+    "emperor": {
+      "title": "現皇帝",
+      "name": "名前",
+      "age": "年齢",
+      "lifespan": "寿命",
+      "identity": "身分",
+      "mortal": "凡人",
+      "empty": "皇帝データがありません"
+    },
+    "summary": {
+      "title": "王朝概況"
+    },
+    "officials": {
+      "title": "朝廷官員",
+      "count": "合計 {count} 名",
+      "empty": "現在、朝廷に仕えるランク入り修士はいません",
+      "realm": "境界",
+      "court_reputation": "朝廷声望",
+      "sect": "所属",
+      "rogue": "散修"
+    }
+  },
+  "info_panel": {
+    "popup": {
+      "effect": "効果: ",
+      "drops": "掉落: ",
+      "hq": "本拠地: ",
+      "types": {
+        "elixir": "丹薬",
+        "plant": "霊植",
+        "lode": "鉱脈",
+        "item": "道具",
+        "weapon": "武器",
+        "auxiliary": "補助",
+        "technique": "功法",
+        "sect": "宗門",
+        "persona": "特質",
+        "SWORD": "剣",
+        "SABER": "刀",
+        "SPEAR": "槍",
+        "STAFF": "棍",
+        "FAN": "扇",
+        "WHIP": "鞭",
+        "ZITHER": "琴",
+        "FLUTE": "笛",
+        "HIDDEN_WEAPON": "暗器"
+      }
+    },
+    "avatar": {
+      "set_objective": "目標を設定",
+      "clear_objective": "目標を解除",
+      "dead_with_reason": "死亡（{reason}）",
+      "unknown_reason": "不明",
+      "long_term_objective": "長期目標",
+      "backstory": "来歴",
+      "short_term_objective": "短期目標",
+      "stats": {
+        "realm": "境界",
+        "origin": "出身",
+        "age": "年齢",
+        "awakened_age": "修行開始年齢",
+        "hp": "HP",
+        "gender": "性別",
+        "alignment": "属性",
+        "sect": "宗門",
+        "official_rank": "官位",
+        "court_reputation": "朝廷声望",
+        "rogue": "散修",
+        "root": "霊根",
+        "luck": "気運",
+        "magic_stone": "霊石",
+        "sect_contribution": "宗門貢献",
+        "appearance": "容姿",
+        "battle_strength": "戦力",
+        "ranking": "順位",
+        "emotion": "感情"
+      },
+      "sections": {
+        "thinking": "思考",
+        "traits": "特質",
+        "techniques_equipment": "功法と装備",
+        "materials": "素材",
+        "relations": "関係",
+        "current_effects": "現在の効果"
+      },
+      "weapon_meta": "熟練度 {value}",
+      "adjust": {
+        "entry": "調整",
+        "title": "{category} を調整",
+        "current": "現在の項目",
+        "select": "利用可能一覧",
+        "search_placeholder": "名称、説明、効果で検索",
+        "apply_personas": "特質を適用",
+        "apply_success": "調整を適用しました",
+        "load_failed": "調整一覧の読み込みに失敗しました",
+        "apply_failed": "調整に失敗しました",
+        "empty_item": "現在選択中の {label} はありません",
+        "custom": {
+          "title": "テキスト説明から作成",
+          "tag": "カスタム",
+          "unnamed": "無名の草案",
+          "prompt_placeholder": "欲しい効果、作風、雰囲気を説明してください。例: 火属性で、吐納修行と突破成功率を高める結丹期の功法。",
+          "prompt_required": "カスタム内容の説明を入力してください",
+          "generate": "生成",
+          "save": "保存して装備",
+          "generate_failed": "カスタム内容の生成に失敗しました",
+          "create_success": "カスタム内容を作成して装備しました",
+          "create_failed": "カスタム内容の保存に失敗しました"
+        },
+        "categories": {
+          "technique": "功法",
+          "weapon": "武器",
+          "auxiliary": "補助装備",
+          "personas": "特質"
+        }
+      },
+      "portrait": {
+        "entry": "立ち絵を変更",
+        "title": "立ち絵を変更",
+        "current": "現在のプレビュー",
+        "library": "立ち絵ライブラリ",
+        "preview_alt": "キャラクター立ち絵プレビュー",
+        "option_alt": "立ち絵",
+        "empty": "利用可能な立ち絵がありません",
+        "empty_library": "立ち絵がありません",
+        "load_failed": "立ち絵ライブラリの読み込みに失敗しました",
+        "apply_success": "立ち絵を更新しました",
+        "apply_failed": "立ち絵の更新に失敗しました"
+      },
+      "relation_meta": "{owner} に対する {relation}",
+      "father_short": "父",
+      "mother_short": "母",
+      "mortal_realm": "凡俗",
+      "modals": {
+        "set_long_term": "長期目標を設定",
+        "placeholder": "目標を入力...",
+        "set_failed": "設定に失敗しました",
+        "clear_confirm": "長期目標を解除してもよろしいですか？"
+      }
+    },
+    "region": {
+      "view_sect": "宗門詳細を見る",
+      "essence_title": "霊気環境",
+      "essence_info": "{type} 属性霊気 · 濃度 {density}",
+      "sections": {
+        "host": "洞府の主",
+        "animals": "霊獣",
+        "plants": "霊植",
+        "lodes": "鉱物",
+        "market": "市場"
+      },
+      "host_meta": "所有者",
+      "no_host": "無主",
+      "price_meta": "{price} 霊石"
+    },
+    "sect": {
+      "stats": {
+        "alignment": "属性",
+        "orthodoxy": "正道",
+        "style": "風格",
+        "preferred": "得意武器",
+        "members": "人数",
+        "total_battle_strength": "総戦力",
+        "war_status": "戦争状態",
+        "strongest_enemy": "最大の敵",
+        "income": "領地収入",
+        "income_value": "{income}/周期",
+        "upkeep": "門人維持費",
+        "upkeep_value": "{upkeep}/周期",
+        "war_weariness": "戦争疲弊",
+        "magic_stone": "霊石"
+      },
+      "sections": {
+        "intro": "紹介",
+        "rule": "宗門規矩",
+        "hq": "本拠地: {name}",
+        "bonus": "宗門加成",
+        "diplomacy": "外交情勢",
+        "thinking": "宗門思考",
+        "techniques": "功法蔵書",
+        "members": "門人"
+      },
+      "diplomacy_meta_relation": "関係値 {value}",
+      "diplomacy_war_years": "{count} 年交戦中",
+      "diplomacy_peace_years": "{count} 年平和維持中",
+      "no_rule": "明確な宗門規矩の説明はありません",
+      "no_bonus": "特殊加成はありません",
+      "no_runtime_effect": "有効な宗門ランタイム効果はありません",
+      "runtime_effect_meta": "出典: {source} - 残り {months} か月",
+      "runtime_effect_meta_permanent": "出典: {source} - 持続: 永続"
+    }
+  }
+}

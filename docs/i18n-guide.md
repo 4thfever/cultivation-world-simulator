@@ -1,5 +1,5 @@
 # I18n Maintenance & Development Guide
-注意当前启用语言由 `static/locales/registry.json` 统一声明；历史上默认有三个语言：`zh-CN`、`zh-TW`、`en-US`。
+注意当前启用语言由 `static/locales/registry.json` 统一声明；语言集合会随仓库演进变化，当前不要再假设“默认只有三种语言”。
 
 ## 1. Critical Warning (PowerShell Users)
 

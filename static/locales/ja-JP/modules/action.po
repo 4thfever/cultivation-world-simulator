@@ -1,0 +1,199 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Evil alignment follows the principles of survival of the fittest, "
+"prioritizing self-interest above all, disdaining rules, and venerating power"
+" and fear. Acts ruthlessly, often resorting to murder and plunder."
+msgstr ""
+"邪属性は弱肉強食を信条とし、私利を最優先し、規則を軽んじ、力と恐怖を崇める。行動は冷酷で、しばしば殺戮や略奪に走る。"
+
+msgid ""
+"Neutral alignment follows the principles of going with the flow, seeking "
+"benefit and avoiding harm, valuing self-cultivation and balance, and not "
+"easily taking sides."
+msgstr ""
+"中立属性は流れに従い、利を求め害を避け、自己修養と均衡を重んじ、軽々しく立場を決めない。"
+
+msgid ""
+"Righteous alignment follows the principles of helping the weak, maintaining "
+"order, and vanquishing evil."
+msgstr ""
+"正属性は弱きを助け、秩序を守り、邪を討つことを信条とする。"
+
+# Action Short Names (for legal_actions)
+msgid "action_dualcultivation_short_name"
+msgstr "双修"
+
+msgid "action_educate_short_name"
+msgstr "教化"
+
+msgid "action_meditate_short_name"
+msgstr "打坐"
+
+# Action: Play Extended
+msgid "action_reading"
+msgstr "読書"
+
+msgid "action_reading_desc"
+msgstr "古書を読み、見聞を広げる。"
+
+msgid "action_respire_short_name"
+msgstr "吐納"
+
+msgid "action_tea_party"
+msgstr "茶会"
+
+msgid "action_tea_party_desc"
+msgstr "友と茶を囲み、静かな時を過ごす。"
+
+msgid "action_tea_party_story_prompt"
+msgstr "二人が雅やかな茶会を開いている。"
+
+msgid "action_tea_tasting"
+msgstr "茶味"
+
+msgid "action_tea_tasting_desc"
+msgstr "良い茶を味わい、静かな心を養う。"
+
+msgid "action_temper_short_name"
+msgstr "鍛体"
+
+msgid "sect_mission_action_name"
+msgstr "宗門任務"
+
+msgid "sect_mission_description"
+msgstr "宗門本部に留まり、巡回や警備、内務などの任務を引き受ける。数か月後に結果と報酬が精算される。"
+
+msgid "sect_mission_requirements"
+msgstr "宗門弟子であり、かつ現在自宗の本部にいる必要がある。"
+
+msgid "sect_mission_hq_only"
+msgstr "宗門任務は自宗の本部でのみ受けられる。"
+
+msgid "sect_mission_members_only"
+msgstr "宗門任務を受けられるのは宗門弟子のみ。"
+
+msgid "sect_mission_no_task_available"
+msgstr "現在、あなたの境界に適した宗門任務はない。"
+
+msgid "sect_mission_start_headquarter"
+msgstr "{avatar} は {sect_name} 本部で宗門任務「{title}」を受けた。所要は {duration} か月の見込みだ。"
+
+msgid "sect_mission_start_member_request"
+msgstr "{avatar} は同門 {issuer} の依頼で宗門任務「{title}」を受けた。所要は {duration} か月の見込みだ。"
+
+msgid "sect_mission_result_success"
+msgstr "{avatar} は「{title}」を見事に成し遂げ、{stones} 霊石と {contribution} 宗門貢献を得た。"
+
+msgid "sect_mission_result_fail"
+msgstr "{avatar} は「{title}」の遂行中に負傷し、HP を {damage} 失った。現在 HP: {current}/{max}。"
+
+msgid "sect_mission_result_fail_death_append"
+msgstr " 傷は致命傷となり、その場で命を落とした。"
+
+msgid "sect_mission_story_prompt_success"
+msgstr "この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、宗門の空気感を描写したうえで、最後は任務成功で締めくくれ。舞台は宗門本部とその付属区域に限る。"
+
+msgid "sect_mission_story_prompt_fail"
+msgstr "この具体的な宗門任務の題名を中心に物語を展開し、任務の細部、障害、予想外の展開を描写したうえで、最後は任務失敗、重傷、あるいは瀕死で終えよ。舞台は宗門本部とその付属区域に限る。"
+
+msgid "action_traveling"
+msgstr "遊歴"
+
+msgid "action_traveling_desc"
+msgstr "各地を巡り、世の広さを知る。"
+
+msgid "action_zither_playing"
+msgstr "撫琴"
+
+msgid "action_zither_playing_desc"
+msgstr "琴を奏で、心性を磨く。"
+
+msgid "evil"
+msgstr "邪"
+
+msgid "failed"
+msgstr "失敗"
+
+msgid "neutral"
+msgstr "中立"
+
+# Action: Play
+msgid "play_action_name"
+msgstr "消遣"
+
+msgid "play_description"
+msgstr "気晴らしで心身を休める"
+
+msgid "play_requirements"
+msgstr "対象が交流範囲内にいること"
+
+msgid "succeeded"
+msgstr "成功"
+
+msgid ""
+"{attacker} initiates battle against {target} (Power: {attacker} {att_power} "
+"vs {target} {def_power})"
+msgstr ""
+"{attacker} は {target} に戦いを仕掛けた（戦力: {attacker} {att_power} 対 {target} {def_power}）"
+
+msgid "{avatar} begins leisure activities"
+msgstr "{avatar} は気晴らしを始めた"
+
+msgid ""
+"{avatar} failed to cast {realm}-tier treasure, all materials turned to ash"
+msgstr ""
+"{avatar} は {realm} 階の宝物の鋳造に失敗し、素材はすべて灰になった"
+
+msgid ""
+"{avatar} failed to refine {realm}-tier elixir, all materials turned to ash"
+msgstr ""
+"{avatar} は {realm} 階の丹薬の錬成に失敗し、素材はすべて灰になった"
+
+msgid ""
+"{avatar} finished nurturing {weapon}, proficiency increased to "
+"{proficiency}%"
+msgstr ""
+"{avatar} は {weapon} の温養を終え、熟練度は {proficiency}% まで上昇した"
+
+msgid "{avatar} finished {action}."
+msgstr "{avatar} は {action} を終えた。"
+
+msgid ""
+"{avatar} had an epiphany during meditation! Cultivation increased "
+"significantly (+{exp})."
+msgstr ""
+"{avatar} は打坐中に頓悟を得た！ 修為が大きく高まった（+{exp}）。"
+
+msgid ""
+"{avatar} nurturing {old_weapon}, the weapon's spirituality greatly "
+"increased, evolved into {new_weapon}!"
+msgstr ""
+"{avatar} が {old_weapon} を温養するうち、その霊性は大きく高まり、{new_weapon} へ進化した！"
+
+msgid ""
+"{avatar} successfully tamed spirit beast, {realm} realm {beast} became their"
+" spirit beast"
+msgstr ""
+"{avatar} は霊獣の調伏に成功し、{realm} 境の {beast} がその霊獣となった"
+
+msgid "{root_name} ({elements})"
+msgstr "{root_name}（{elements}）"
+
+msgid "An anonymous passerby (extra)"
+msgstr "名もなき通行人"
+
+msgid "Current world celestial phenomenon: {name}"
+msgstr "現在の天地異象: {name}"

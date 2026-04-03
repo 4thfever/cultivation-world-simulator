@@ -1,0 +1,45 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. lode.csv: 蕴含玄铁的普通矿脉，常见于浅层地表...
+msgid "LODE_1_DESC"
+msgstr "玄鉄を含むありふれた鉱脈。浅い地表層に見つかることが多い。"
+
+#. lode.csv: 玄铁矿脉
+msgid "LODE_1_NAME"
+msgstr "玄鉄鉱脈"
+
+#. lode.csv: 深埋地下的赤铜矿脉，周围往往伴生火热之气...
+msgid "LODE_2_DESC"
+msgstr "地下深くに埋もれた赤銅の鉱脈。周囲には火熱の気が伴うことが多い。"
+
+#. lode.csv: 赤铜矿脉
+msgid "LODE_2_NAME"
+msgstr "赤銅鉱脈"
+
+#. lode.csv: 极其罕见的秘银富集地，银光闪烁，灵气逼人...
+msgid "LODE_3_DESC"
+msgstr "きわめて希少な秘銀の富鉱地。銀光がきらめき、霊気が人を圧する。"
+
+#. lode.csv: 秘银矿床
+msgid "LODE_3_NAME"
+msgstr "秘銀鉱床"
+
+#. lode.csv: 位于绝壁深处的庚金矿脉，开采极为困难，但...
+msgid "LODE_4_DESC"
+msgstr "絶壁の奥深くに眠る庚金の鉱脈。採掘は極めて困難だが、その価値は莫大。"
+
+#. lode.csv: 庚金矿洞
+msgid "LODE_4_NAME"
+msgstr "庚金鉱洞"

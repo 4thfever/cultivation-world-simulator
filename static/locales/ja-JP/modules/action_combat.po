@@ -1,0 +1,114 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Action: Assassinate
+msgid "assassinate_action_name"
+msgstr "暗殺"
+
+msgid "assassinate_description"
+msgstr "対象を暗殺する。失敗すればそのまま戦闘になる"
+
+msgid "assassinate_requirements"
+msgstr "特別な制限なし。ただしクールダウンあり"
+
+msgid "assassinate_story_prompt_fail"
+msgstr ""
+"これは暗殺失敗の物語である。刺客は対象を仕留めようとしたが鋭く見破られ、双方は激しい正面衝突へ突入した。具体的な HP 数値は出さないこと。"
+
+msgid "assassinate_story_prompt_success"
+msgstr ""
+"これは暗殺成功の物語である。戦闘過程を描く必要はない。刺客がどう潜み、どう接近し、どう静かに必殺の一撃を与えたかに焦点を当てよ。対象は反応する暇もなく命を落とす。"
+
+# Action: Attack
+msgid "attack_action_name"
+msgstr "戦闘開始"
+
+msgid "attack_description"
+msgstr "対象へ攻撃を仕掛け、戦闘に入る"
+
+msgid "attack_requirements"
+msgstr "特別な制限なし"
+
+msgid "attack_story_prompt"
+msgstr ""
+"具体的な HP、ダメージ値、その他数値表現は出さないこと。戦闘は双方の功法、境界、装備などを反映すること。"
+
+# Action: Catch
+msgid "catch_action_name"
+msgstr "御獣"
+
+msgid "catch_description"
+msgstr ""
+"霊獣を調伏して自分のものにしようと試みる。霊獣は一体しか持てないが、低い格の霊獣はより高い格に置き換えられる"
+
+msgid "catch_requirements"
+msgstr ""
+"百獣宗のみ。霊獣のいる通常地域にいること。対象霊獣の境界は自身を超えてはならない"
+
+# Action: DevourPeople
+msgid "devour_people_action_name"
+msgstr "凡人を喰らう"
+
+msgid "devour_people_description"
+msgstr "凡人を喰らい、大きく戦力を高める"
+
+msgid "devour_people_requirements"
+msgstr "万魂幡を所持していること"
+
+# Action: Escape
+msgid "escape_action_name"
+msgstr "逃走"
+
+msgid "escape_description"
+msgstr "相手から逃走する（成功率あり）"
+
+msgid "escape_requirements"
+msgstr "特別な制限なし"
+
+# Action: Hunt
+msgid "hunt_action_name"
+msgstr "狩猟"
+
+msgid "hunt_description"
+msgstr "現在地の霊獣を狩り、獣系素材を得る"
+
+msgid "hunt_requirements"
+msgstr ""
+"霊獣のいる通常地域にいること。かつ自身の境界が対象霊獣以上であること"
+
+# Action: PlunderPeople
+msgid "plunder_people_action_name"
+msgstr "凡人から略奪"
+
+msgid "plunder_people_description"
+msgstr "町の凡人を脅して少量の霊石を得る"
+
+msgid "plunder_people_requirements"
+msgstr "都市地域のみ。かつキャラクター属性が『邪』であること"
+
+msgid "{avatar} assassinated successfully! {target} fell without any defense."
+msgstr ""
+"{avatar} の暗殺は成功した！ {target} は防ぐ間もなく倒れた。"
+
+msgid "{avatar} begins devouring people in town"
+msgstr "{avatar} は町で凡人を喰らい始めた"
+
+msgid "{avatar} begins plundering people in town"
+msgstr "{avatar} は町で凡人からの略奪を始めた"
+
+msgid "{avatar} failed to tame spirit beast"
+msgstr "{avatar} は霊獣の調伏に失敗した"
+
+msgid "{avatar} lurks in the shadows, attempting to assassinate {target}..."
+msgstr "{avatar} は影に潜み、{target} の暗殺を試みている..."

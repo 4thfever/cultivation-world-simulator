@@ -25,11 +25,11 @@ msgstr "发现了 {amount} 块灵石"
 - **规则**: **不要**向这些拆分的模块文件添加 PO 头部信息（如 `Project-Id-Version`）。构建脚本会处理头部信息。直接开始编写 `msgid` 即可。
 
 ### 2.1 语言注册表
-仓库中的语言列表单一真相源位于 `tools/i18n/locales.json`。
+仓库中的语言列表单一真相源位于 `static/locales/registry.json`。
 
 - Python 侧 i18n 工具、校验脚本和新增语言流程应优先读取该文件。
 - 如果未来需要新增语言，请先更新该文件，再补目录和资源骨架。
-- 不要在新脚本里重新写死 `zh-CN / zh-TW / en-US`。
+- 不要在新脚本里重新写死 `zh-CN / zh-TW / en-US / vi-VN / ja-JP`。
 
 ### 3. ⚠️ 关键: 始终重新构建
 `.po` 或 `.csv` 文件中的更改在编译为 `.mo` 文件之前 **不会** 在游戏中生效。
@@ -45,7 +45,8 @@ python tools/i18n/build_mo.py
 - **绝对不要**在 Windows PowerShell 中使用重定向 (`>>`) 追加内容到 PO 文件（这会导致 UTF-16LE 编码和 `\x00` 损坏）。
 - **编码**: 必须使用无 BOM 的 UTF-8。
 - **不要直接编辑** `LC_MESSAGES/messages.po`。请编辑 `modules/` 或 `game_configs_modules/` 中拆分的 `.po` 文件。
-- **语言列表**: 优先从 `tools/i18n/locales.json` 读取，不要在工具或测试里重新维护一份手写语言列表。
+- **语言列表**: 优先从 `static/locales/registry.json` 读取，不要在工具或测试里重新维护一份手写语言列表。
+- **设置页语言入口**: `web/src/components/SystemMenu.vue` 中的语言设置项，对非英语 UI 必须保留可见的 `Language` 英文提示（例如 `语言 / Language`、`言語 / Language`），不要在后续润色或本地化时去掉这个 `Language`。
 
 ## 🧩 工作流与模式 (简述)
 

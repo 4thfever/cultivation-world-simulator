@@ -1,0 +1,125 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. sect_region.csv: SECT_REGION_401_DESC
+msgid "SECT_REGION_401_DESC"
+msgstr "絶雲峰は雲海を貫き、危うい山路を鉄鎖と雲橋が繋いでいる。真に剣意を定めた者だけが最上へ登れる。中腹には試剣台や洗剣池、無数の剣痕を刻んだ断崖があり、さらに上では風は鋭く、稲妻が絶壁をかすめて走る。山門全体が、抜かれたまま鞘へ戻されぬ古剣のように、峻厳で高大、冷たい殺気を帯びている。"
+
+#. sect_region.csv: SECT_REGION_401_NAME
+msgid "SECT_REGION_401_NAME"
+msgstr "絶雲峰"
+
+#. sect_region.csv: SECT_REGION_402_DESC
+msgid "SECT_REGION_402_DESC"
+msgstr "万獣洞天は群山の深処に潜み、外縁は瘴気と絡みつく藤に封じられ、天然の障壁を成す。さらに奥へ入ってようやく獣域が層状に下へ広がる。石橋、鉄門、御獣台が幾層にも区切り、低い咆哮と鎖のぶつかる音が妖気の残る空気に絶えず反響する。地には白骨と爪痕が散り、ここはもはや普通の山門ではなく、巨獣が巣食う生きた巣城そのものだ。"
+
+#. sect_region.csv: SECT_REGION_402_NAME
+msgid "SECT_REGION_402_NAME"
+msgstr "万獣洞天"
+
+#. sect_region.csv: SECT_REGION_403_DESC
+msgid "SECT_REGION_403_DESC"
+msgstr "静海崖は断海の絶壁に懸かり、寒霊玉の殿閣や回廊、観潮台が海霧の中に半ば沈む。遠目には山門全体が月光と潮音の中へ浮かんでいるかのようだ。崖辺の玉壁は海と星を映し、潮の満ち引きに従って光が壁と床を流れ、道筋すら半ば虚半ば実へ変わる。波音と風、軒先をかすめる鐘の音だけが、ここがまだ俗世の外へ出切っていないことを知らせる。"
+
+#. sect_region.csv: SECT_REGION_403_NAME
+msgid "SECT_REGION_403_NAME"
+msgstr "静海崖"
+
+#. sect_region.csv: SECT_REGION_404_DESC
+msgid "SECT_REGION_404_DESC"
+msgstr "死寂海は黒い群島と陰鬱な入り江から成り、狭い板橋、崩れた渡し標、鬼火の灯台で繋がれている。遠くから見れば、墨色の海に漂う亡霊の城のようだ。海は風なくしてうねり、波が立つたびに遠い哭き声のような響きが混じる。島上の殿舎や石段は湿った霧に染まり、灰白と病的な青を帯びる。夜は月明かりより魂灯の揺らぎが支配し、夢の冥界じみた景へ変える。"
+
+#. sect_region.csv: SECT_REGION_404_NAME
+msgid "SECT_REGION_404_NAME"
+msgstr "死寂海"
+
+#. sect_region.csv: SECT_REGION_405_DESC
+msgid "SECT_REGION_405_DESC"
+msgstr "千機谷は一見すると青石路と雅な飛檐を備えた平凡な谷に見えるが、近づけば橋が回り、壁が開閉し、階段の高さにすら機関が隠れていると分かる。上には望楼と懸橋、下には秘道、工房、密室が張り巡らされ、時おり歯車の噛み合う音や金属の低鳴り、どこからともない傀儡の足音が響く。ここで真に恐ろしいのは一つの罠ではなく、谷そのものが巨大な機械であることだ。"
+
+#. sect_region.csv: SECT_REGION_405_NAME
+msgid "SECT_REGION_405_NAME"
+msgstr "千機谷"
+
+#. sect_region.csv: SECT_REGION_406_DESC
+msgid "SECT_REGION_406_DESC"
+msgstr "金迷洞は繁華な市城の奥に隠された私天へ口を開き、入口には灯海、漂う香煙、曲橋、重なり合う水榭楼台が並ぶ。奥へ進むほど喧騒は遠のき、水音と楽の余韻がかえって濃くなる。外側の楼は金玉に満ち客で溢れる一方、深部には紗幕と花壁、霧の向こうに静室、温泉、夢池が潜む。美しく贅を尽くしながら、宴へ来たのか夢へ落ちたのか、それとも別種の修行に踏み入ったのか判然としない。"
+
+#. sect_region.csv: SECT_REGION_406_NAME
+msgid "SECT_REGION_406_NAME"
+msgstr "金迷洞"
+
+#. sect_region.csv: SECT_REGION_407_DESC
+msgid "SECT_REGION_407_DESC"
+msgstr "普渡島は暴風海の中央に孤り浮かび、外海では巨浪と雷光が荒れ狂うのに、島内だけは鐘声と仏光に押さえられたような静けさに包まれる。中心には金剛塔が立ち、その周囲に殿舎、石階、海崖の苦行台、海に向いた船着きが巡る。塔上の金鐘は潮風に応じて鳴り、荒れた海を少しずつ鎮めるようだ。朝霧が晴れると、黒礁と白殿へ金光が落ち、怒れる海から切り出された聖印のように見える。"
+
+#. sect_region.csv: SECT_REGION_407_NAME
+msgid "SECT_REGION_407_NAME"
+msgstr "普渡島"
+
+#. sect_region.csv: SECT_REGION_408_DESC
+msgid "SECT_REGION_408_DESC"
+msgstr "影沼には真昼の光がほとんど届かない。毒霧、腐水、絡み合う古木が全域を塞ぎ、侵入者は山門を見る前から見えない視線に追われる。真の拠点は地表に集中しておらず、樹冠には隠楼と縄橋、泥濘の下には通路、牢、瘴気に覆われた入口が広がる。視界の抜ける場所はほぼなく、漂う霧の向こうで冷灯が揺れ、黒水はいつでも足音ごと飲み込めるよう待ち構えている。"
+
+#. sect_region.csv: SECT_REGION_408_NAME
+msgid "SECT_REGION_408_NAME"
+msgstr "影沼"
+
+#. sect_region.csv: SECT_REGION_409_DESC
+msgid "SECT_REGION_409_DESC"
+msgstr "多宝浮島は一つの島ではなく、大小さまざまな空島が巨鎖、雲橋、雲舟航路で繋がり、天に吊られた仙商都を成している。外縁は忙しい埠頭と貨場、中層は商街と競売楼、坊市、高所には昼夜なく炉火を噴く鍛造塔が並ぶ。夜になれば灯火が鎖と空路に沿って雲へ延び、全域が天空へ広がる黄金の商網のように見え、永遠に喧騒し永遠に流動している。"
+
+#. sect_region.csv: SECT_REGION_409_NAME
+msgid "SECT_REGION_409_NAME"
+msgstr "多宝浮島"
+
+#. sect_region.csv: SECT_REGION_410_DESC
+msgid "SECT_REGION_410_DESC"
+msgstr "回音谷は高い絶壁に挟まれ、無数の共鳴孔や音の裂け目を天然に成している。琴を一撥しただけでも、谷中で長く渦巻いて消えない。亭台、水榭、琴楼、回廊は山勢に沿って連なり、細流は建物の間を真っ直ぐ貫く。見た目には仙境のごとく優美だが、耳を澄ませば軒を抜ける風や水滴の音すら、見えぬ手により組み替えられているかのようだ。谷が最も危ういのは、音が満ちる時より、すべてが突然静まり返る瞬間である。"
+
+#. sect_region.csv: SECT_REGION_410_NAME
+msgid "SECT_REGION_410_NAME"
+msgstr "回音谷"
+
+#. sect_region.csv: SECT_REGION_411_DESC
+msgid "SECT_REGION_411_DESC"
+msgstr "迷中天は遠目には孤峰ひとつだが、山門へ入ると台地、石段、橋、道のすべてが折り重なる空間の中に埋め込まれていると分かる。同じ道でも前から見た姿と後ろから見た姿がまるで違う。山腹には陣紋の刻まれた広場、空中に浮く回廊、見えたり消えたりする殿堂が立ち、ときおり光の線が地面を走って山自体が思考しているように映る。ここには安定した方位感覚が存在せず、一歩ごとに別世界へ踏み込む感覚を覚える。"
+
+#. sect_region.csv: SECT_REGION_411_NAME
+msgid "SECT_REGION_411_NAME"
+msgstr "迷中天"
+
+#. sect_region.csv: SECT_REGION_412_DESC
+msgid "SECT_REGION_412_DESC"
+msgstr "極光天は北域永夜の深処にあり、外には静まり返った氷原が広がるが、この宮城だけは年中流れる極光に照らされ昼のように明るい。高い氷壁、黒鉄の門、凍橋、演武場は移ろう光の下で輝き、城の奥では聖炎壇が寒気の中へ安定した赤い暖光を投げかける。その美は壮大さだけではなく、氷と炎、静と明が秩序立って共存することにあり、城全体が最深の冬の中で燃え続ける一つの炎のようだ。"
+
+#. sect_region.csv: SECT_REGION_412_NAME
+msgid "SECT_REGION_412_NAME"
+msgstr "極光天"
+
+#. sect_region.csv: SECT_REGION_413_DESC
+msgid "SECT_REGION_413_DESC"
+msgstr "賢林は中央霊脈の合流地に広がり、天を覆う古木と点在する石碑に満ちる。講堂、蔵書楼、水辺の院落は木陰に隠れ、歩む者は葉の積もる小径や典籍を刻んだ回廊を抜けていく。昼には読書の声が林風に遠く運ばれ、夜には碑が月下で淡く光り、樹影と檐影を静かな威儀で包み込む。閉じた宗門というより、なお成長を続ける生きた書院のような気配を持つ。"
+
+#. sect_region.csv: SECT_REGION_413_NAME
+msgid "SECT_REGION_413_NAME"
+msgstr "賢林"
+
+#. sect_region.csv: SECT_REGION_414_DESC
+msgid "SECT_REGION_414_DESC"
+msgstr "修羅血池の上に聳える山は全体が暗紅色に染まり、裂け目からは血色の霧と熱気が絶えず立ち上る。山腹の奥には巨大な地下血池と階層状の祭殿が穿たれ、鉄鎖橋が血河を渡し、石段は演武台、煉骨洞、猩紅の灯火に照らされた祭壇へと下っていく。深く入るほど鉄錆、薬煙、湿った血の匂いが濃くなり、山門全体が地底でゆっくり呼吸する怪物のように感じられる。"
+
+#. sect_region.csv: SECT_REGION_414_NAME
+msgid "SECT_REGION_414_NAME"
+msgstr "修羅血池"

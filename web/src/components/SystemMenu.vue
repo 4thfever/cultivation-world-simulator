@@ -33,7 +33,7 @@ const languageOptions = computed(() =>
   localeRegistry
     .filter((locale) => locale.enabled)
     .map((locale) => ({
-      label: locale.label,
+      label: locale.code === 'en-US' ? locale.label : `${locale.label} / Language`,
       value: locale.code,
     }))
 )
@@ -172,6 +172,25 @@ watch(() => props.visible, (val) => {
           <div class="settings-form">
             <div class="setting-item">
               <div class="setting-label-group">
+                <n-icon size="24" color="#eee" class="setting-icon language-badge-icon" aria-label="Language">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                    <rect x="6" y="10" width="52" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="4"/>
+                    <path fill="currentColor" d="M19 42V22h4l7 10l7-10h4v20h-4V29l-7 9l-7-9v13z"/>
+                    <path fill="currentColor" d="M46.8 44c-1.6 0-3-.3-4.2-.9c-1.1-.5-2-1.3-2.7-2.2l2.6-2.2c.5.6 1.1 1.1 1.8 1.5c.7.3 1.5.5 2.3.5c1 0 1.8-.2 2.3-.7c.5-.4.8-1 .8-1.7c0-.5-.1-.9-.4-1.2s-.8-.6-1.4-.9s-1.5-.6-2.5-.9c-1.7-.5-3-1.2-3.8-2c-.8-.8-1.2-1.9-1.2-3.3c0-1 .2-1.9.7-2.7s1.2-1.4 2.1-1.9c.9-.4 2-.7 3.3-.7c1.4 0 2.7.2 3.7.7c1 .5 1.8 1.1 2.4 1.9L50 30.6c-.4-.5-.9-.8-1.5-1.1c-.6-.3-1.2-.4-2-.4c-.8 0-1.4.2-1.9.5c-.5.4-.7.9-.7 1.5c0 .5.1.8.3 1.2c.2.3.6.6 1.2.9c.6.3 1.4.6 2.4.9c1.2.4 2.2.8 2.9 1.2c.8.5 1.4 1 1.8 1.8c.4.7.6 1.6.6 2.7c0 1.7-.6 3.1-1.8 4.1c-1.2 1-2.8 1.5-4.9 1.5Z"/>
+                  </svg>
+                </n-icon>
+                <span class="setting-label">{{ t('ui.language') }}</span>
+              </div>
+              <n-select
+                v-model:value="settingStore.locale"
+                :options="languageOptions"
+                @update:value="settingStore.setLocale"
+                style="width: 240px"
+              />
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-label-group">
                 <n-icon size="24" color="#eee" class="setting-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M264 416.19a23.92 23.92 0 0 1-14.21-4.69l-.66-.51l-91.46-75H88a24 24 0 0 1-24-24V200a24 24 0 0 1 24-24h69.65l91.46-75l.66-.51A24 24 0 0 1 288 119.69v272.62a24 24 0 0 1-24 23.88Z"/><path fill="currentColor" d="M352 336a16 16 0 0 1-14.29-23.18c9.49-18.9 14.29-39.8 14.29-62.18s-4.8-43.28-14.29-62.18A16 16 0 1 1 366.29 174c12.78 25.4 19.24 53.48 19.24 83.35s-6.46 58-19.24 83.35A16 16 0 0 1 352 336Z"/><path fill="currentColor" d="M400 384a16 16 0 0 1-13.87-24c19.16-32.9 29.3-70.19 29.3-108s-10.14-75.1-29.3-108a16 16 0 1 1 27.74-16c21.85 37.52 33.56 80.77 33.56 124s-11.71 86.48-33.56 124A16 16 0 0 1 400 384Z"/></svg>
                 </n-icon>
@@ -211,23 +230,6 @@ watch(() => props.visible, (val) => {
                   <span class="volume-value">{{ Math.round(settingStore.sfxVolume * 100) }}%</span>
                 </div>
               </div>
-            </div>
-
-            <div class="setting-item">
-              <div class="setting-label-group">
-                <n-icon size="24" color="#eee" class="setting-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="currentColor" d="M256 48C141.13 48 48 141.13 48 256s93.13 208 208 208s208-93.13 208-208S370.87 48 256 48m0 46.54c33.4 0 63.87 11.23 88.63 30.17c-22.56 31.84-51.48 59.7-88.63 80.64c-37.15-20.94-66.07-48.8-88.63-80.64C192.13 105.77 222.6 94.54 256 94.54m-80 32.14c22.76 27.65 49.77 52.37 80 71.95c-30.23 19.58-57.24 44.3-80 71.95c-20.78-22.38-38.35-46.73-52.09-72c13.73-25.26 31.31-49.61 52.09-71.9ZM256 417.46c-33.4 0-63.87-11.23-88.63-30.17c22.56-31.84 51.48-59.7 88.63-80.64c37.15 20.94 66.07 48.8 88.63 80.64c-24.76 18.94-55.23 30.17-88.63 30.17m80-32.14c-22.76-27.65-49.77-52.37-80-71.95c30.23-19.58 57.24-44.3 80-71.95c20.78 22.38 38.35 46.73 52.09 72c-13.74 25.26-31.31 49.61-52.09 71.95M256 244.64c-25.68-18.3-48.46-41.22-67.45-66.52c19.64-18.79 42.41-32.58 67.45-39.72c25.04 7.14 47.81 20.93 67.45 39.72c-18.99 25.3-41.77 48.22-67.45 66.52m0 109.24c-25.04-7.14-47.81-20.93-67.45-39.72c18.99-25.3 41.77-48.22 67.45-66.52c25.68 18.3 48.46 41.22 67.45 66.52c-19.64 18.79-42.41 32.58-67.45 39.72M81.56 238.15c13.29 27.23 30.76 52.92 51.64 76.54c-15.65-17.65-28.77-37.15-38.74-58.12c-5.18-10.9-9.17-22.03-11.96-33.37c3.15 5.06 6.13 10.05 9.06 14.95m24.16-52.53c9.97-20.97 23.09-40.47 38.74-58.12c-20.88 23.62-38.35 49.31-51.64 76.54c-2.93 4.9-5.91 9.89-9.06 14.95c2.79-11.34 6.78-22.47 11.96-33.37M406.28 273.85c-9.97 20.97-23.09 40.47-38.74 58.12c20.88-23.62 38.35-49.31 51.64-76.54c2.93-4.9 5.91-9.89 9.06-14.95c-2.79 11.34-6.78 22.47-11.96 33.37m-24.16 52.53c-13.29-27.23-30.76-52.92-51.64-76.54c15.65 17.65 28.77 37.15 38.74 58.12c5.18 10.9 9.17 22.03 11.96 33.37c-3.15-5.06-6.13-10.05-9.06-14.95"/>
-                  </svg>
-                </n-icon>
-                <span class="setting-label">{{ t('ui.language') }}</span>
-              </div>
-              <n-select
-                v-model:value="settingStore.locale"
-                :options="languageOptions"
-                @update:value="settingStore.setLocale"
-                style="width: 200px"
-              />
             </div>
 
             <div class="setting-item">
@@ -341,6 +343,10 @@ watch(() => props.visible, (val) => {
   align-items: center;
   justify-content: center;
   opacity: 0.9;
+}
+
+.language-badge-icon {
+  opacity: 1;
 }
 
 .setting-label {

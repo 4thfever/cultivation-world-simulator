@@ -1,0 +1,162 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Avatar System
+# Field Labels (info_dict keys)
+msgid "Origin"
+msgstr "出身"
+
+msgid "Origin: {origin}"
+msgstr "出身: {origin}"
+
+msgid "Orthodoxy"
+msgstr "正道"
+
+msgid "Ranking"
+msgstr "順位"
+
+msgid "Realm"
+msgstr "境界"
+
+msgid "Recent Events"
+msgstr "最近の出来事"
+
+msgid "Region"
+msgstr "地域"
+
+msgid "Relations"
+msgstr "関係"
+
+msgid "Sect"
+msgstr "宗門"
+
+msgid "Short-term Goal"
+msgstr "短期目標"
+
+msgid "Spirit Animal"
+msgstr "霊獣"
+
+msgid "Spirit Stones"
+msgstr "霊石"
+
+msgid "Technique"
+msgstr "功法"
+
+msgid "Traits"
+msgstr "特質"
+
+msgid "Weapon"
+msgstr "武器"
+
+msgid "appearance_10_desc_female"
+msgstr ""
+"ひと目見ただけで忘れられないほど、息をのむ美しさを持っている。"
+
+msgid "appearance_10_desc_male"
+msgstr "俗世のものとは思えぬほど、超然とした美貌を持っている。"
+
+msgid "appearance_10_name"
+msgstr "傾国"
+
+msgid "appearance_1_desc_female"
+msgstr "容姿はかなり醜く、五官も不調和で、人に避けられがちだ。"
+
+msgid "appearance_1_desc_male"
+msgstr "容姿はかなり醜く、顔立ちも不均衡で、視線を集めやすい。"
+
+# Automatically added missing keys
+msgid "appearance_1_name"
+msgstr "醜悪"
+
+msgid "appearance_2_desc_female"
+msgstr "見た目は粗野で、ところどころ顔立ちがやや不自然に見える。"
+
+msgid "appearance_2_desc_male"
+msgstr "見た目は粗野で、ところどころ顔立ちがやや不自然に見える。"
+
+msgid "appearance_2_name"
+msgstr "不器量"
+
+msgid "appearance_3_desc_female"
+msgstr "容姿は平凡で、あまり人目を引く方ではない。"
+
+msgid "appearance_3_desc_male"
+msgstr "容姿は平凡で、あまり人目を引く方ではない。"
+
+msgid "appearance_3_name"
+msgstr "粗平"
+
+msgid "appearance_4_desc_female"
+msgstr "ごく普通の見た目で、人混みに紛れればすぐ埋もれてしまう。"
+
+msgid "appearance_4_desc_male"
+msgstr "ごく普通の見た目で、人混みに紛れればすぐ埋もれてしまう。"
+
+msgid "appearance_4_name"
+msgstr "平凡"
+
+msgid "appearance_5_desc_female"
+msgstr "顔立ちは整っており、見ていて心地よい印象を与える。"
+
+msgid "appearance_5_desc_male"
+msgstr "顔立ちは整っており、見ていて心地よい印象を与える。"
+
+msgid "appearance_5_name"
+msgstr "端正"
+
+msgid "appearance_6_desc_female"
+msgstr "整った顔立ちに活気があり、全体に生き生きとした印象がある。"
+
+msgid "appearance_6_desc_male"
+msgstr "整った顔立ちに活気があり、全体に生き生きとした印象がある。"
+
+msgid "appearance_6_name"
+msgstr "秀麗"
+
+msgid "appearance_7_desc_female"
+msgstr "かなり美しく、人混みの中でも自然と目を引く。"
+
+msgid "appearance_7_desc_male"
+msgstr "かなり端麗で、通りすがりにも振り返られやすい。"
+
+msgid "appearance_7_name"
+msgstr "出衆"
+
+msgid "appearance_8_desc_female"
+msgstr "美しさは人をはっとさせるほどで、ひと目で印象に残る。"
+
+msgid "appearance_8_desc_male"
+msgstr ""
+"容姿は際立っており、どこへ行っても人目を集める。"
+
+msgid "appearance_8_name"
+msgstr "驚艶"
+
+msgid "appearance_9_desc_female"
+msgstr "その美しさは息をのむほどで、ひと目見ればほとんど忘れられない。"
+
+msgid "appearance_9_desc_male"
+msgstr "容姿も気質も一流で、しばしば周囲の視線を惹きつける。"
+
+msgid "appearance_9_name"
+msgstr "絶麗"
+
+msgid "daughter"
+msgstr "娘"
+
+msgid ""
+"{name} has awakened their spiritual roots and embarked on the path of "
+"cultivation."
+msgstr ""
+"{name} は霊根を覚醒させ、修行の道へ踏み出した。"

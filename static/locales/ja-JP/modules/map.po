@@ -1,0 +1,78 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Map & Region & Others (New)
+msgid "Cultivate Region (can respire to increase cultivation)"
+msgstr "修行区域（吐納で修為を高められる）"
+
+msgid ""
+"Cultivate Region: {name} ({essence_type} Essence: {essence_density}) - "
+"{desc}"
+msgstr "修行区域: {name}（{essence_type}霊気: {essence_density}）- {desc}"
+
+msgid "No special resources"
+msgstr "特別な資源なし"
+
+msgid "Normal Region (can hunt, gather, mine)"
+msgstr "通常区域（狩猟・採集・採鉱が可能）"
+
+msgid "Normal Region: {name} - {desc} | Resource Distribution: {species_info}"
+msgstr "通常区域: {name} - {desc} | 資源分布: {species_info}"
+
+msgid "Sect Headquarters (sect disciples heal faster here)"
+msgstr "宗門本拠地（宗門弟子はここでより早く療傷できる）"
+
+msgid "Sell: "
+msgstr "売却: "
+
+msgid "emotion_angry"
+msgstr "怒り"
+
+msgid "emotion_anticipating"
+msgstr "期待"
+
+msgid "emotion_calm"
+msgstr "平静"
+
+msgid "emotion_confused"
+msgstr "困惑"
+
+msgid "emotion_disgusted"
+msgstr "嫌悪"
+
+msgid "emotion_fearful"
+msgstr "恐れ"
+
+msgid "emotion_happy"
+msgstr "喜び"
+
+msgid "emotion_sad"
+msgstr "悲しみ"
+
+msgid "emotion_surprised"
+msgstr "驚き"
+
+msgid "emotion_tired"
+msgstr "疲労"
+
+msgid "misfortune_dynamic_story_prompt"
+msgstr ""
+"人物の現在の境界は {realm}。直前まで {location} にて [{action_desc}] を行っていた。最終結果は [{result}]。\n"
+"タスク: 人物の境界・背景・[行っていた行動] を踏まえ、この結果に至った厄運の理由を自然かつ一貫性を持って創造的に補完してください。環境描写と人物の心理活動も豊かに描いてください。100〜200字程度でまとめてください。"
+
+msgid "{names} ({price} Spirit Stones)"
+msgstr "{names}（{price}霊石）"
+
+msgid "{value} Spirit Stones"
+msgstr "{value}霊石"
