@@ -175,8 +175,8 @@ watch(() => props.visible, (val) => {
                 <n-icon size="24" color="#eee" class="setting-icon language-badge-icon" aria-label="Language">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                     <rect x="6" y="10" width="52" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="4"/>
-                    <path fill="currentColor" d="M19 42V22h4l7 10l7-10h4v20h-4V29l-7 9l-7-9v13z"/>
-                    <path fill="currentColor" d="M46.8 44c-1.6 0-3-.3-4.2-.9c-1.1-.5-2-1.3-2.7-2.2l2.6-2.2c.5.6 1.1 1.1 1.8 1.5c.7.3 1.5.5 2.3.5c1 0 1.8-.2 2.3-.7c.5-.4.8-1 .8-1.7c0-.5-.1-.9-.4-1.2s-.8-.6-1.4-.9s-1.5-.6-2.5-.9c-1.7-.5-3-1.2-3.8-2c-.8-.8-1.2-1.9-1.2-3.3c0-1 .2-1.9.7-2.7s1.2-1.4 2.1-1.9c.9-.4 2-.7 3.3-.7c1.4 0 2.7.2 3.7.7c1 .5 1.8 1.1 2.4 1.9L50 30.6c-.4-.5-.9-.8-1.5-1.1c-.6-.3-1.2-.4-2-.4c-.8 0-1.4.2-1.9.5c-.5.4-.7.9-.7 1.5c0 .5.1.8.3 1.2c.2.3.6.6 1.2.9c.6.3 1.4.6 2.4.9c1.2.4 2.2.8 2.9 1.2c.8.5 1.4 1 1.8 1.8c.4.7.6 1.6.6 2.7c0 1.7-.6 3.1-1.8 4.1c-1.2 1-2.8 1.5-4.9 1.5Z"/>
+                    <path fill="currentColor" d="M15 22h18v4H15zm2 8h14v4H17zm-3 8h20v4H14z"/>
+                    <path fill="currentColor" d="M44 21l8 21h-4.4l-1.6-4.5h-8L36.4 42H32l8-21zm.7 12.8l-2.7-7.8l-2.8 7.8z"/>
                   </svg>
                 </n-icon>
                 <span class="setting-label">{{ t('ui.language') }}</span>

@@ -66,7 +66,7 @@ msgid "govern_action_name"
 msgstr "治政"
 
 msgid "govern_description"
-msgstr "都市で朝廷の政務を担い、朝廷声望と俸禄を得る。"
+msgstr "都市で朝廷の政務を担い、朝廷での声望と俸禄を得る。"
 
 msgid "govern_requirements"
 msgstr "都市にいる必要がある。継続期間は 3 か月。"
@@ -193,7 +193,7 @@ msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
 msgstr "{avatar} は教化を終えた。功徳が積み上がった（+{exp}）。"
 
 msgid "{avatar} governed effectively in {city}. Court reputation +{reputation}, salary +{salary} spirit stones."
-msgstr "{avatar} は {city} で見事に治政を行った。朝廷声望 +{reputation}、俸禄 +{salary} 霊石。"
+msgstr "{avatar} は {city} で見事に治政を行った。朝廷での声望 +{reputation}、俸禄 +{salary} 霊石。"
 
 msgid "{avatar} was promoted from {old_rank} to {new_rank} for distinguished governance."
 msgstr "{avatar} は優れた治政の功により、{old_rank} から {new_rank} へ昇進した。"

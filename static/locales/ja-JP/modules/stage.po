@@ -16,15 +16,15 @@ msgid ""
 "Competition: In the auction for {item_name}, {winner_name} outbid "
 "{runner_up_name} (bid: {bid})."
 msgstr ""
-"Competition: In the auction for {item_name}, {winner_name} outbid "
-"{runner_up_name} (bid: {bid})."
+"競り合い：{item_name} の競売で、{winner_name} が {runner_up_name} を上回っ"
+"た（入札額: {bid}）。"
 
 # Stage
 msgid "early_stage"
-msgstr "Early Stage"
+msgstr "前期"
 
 msgid "late_stage"
-msgstr "Late Stage"
+msgstr "後期"
 
 msgid "middle_stage"
-msgstr "Middle Stage"
+msgstr "中期"

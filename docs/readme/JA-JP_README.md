@@ -49,38 +49,38 @@
   <tr>
     <td width="33%" valign="top">
       <h4 align="center">宗門システム</h4>
-      <img src="../../assets/en-US/screenshots/宗门.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/宗门.png" width="100%" />
       <br/><br/>
       <h4 align="center">都市区域</h4>
-      <img src="../../assets/en-US/screenshots/城市.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/城市.png" width="100%" />
       <br/><br/>
       <h4 align="center">出来事履歴</h4>
-      <img src="../../assets/en-US/screenshots/经历.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/经历.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">キャラクターパネル</h4>
-      <img src="../../assets/en-US/screenshots/角色.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/角色.png" width="100%" />
       <br/><br/>
       <h4 align="center">性格と装備</h4>
-      <img src="../../assets/en-US/screenshots/特质.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/特质.png" width="100%" />
       <br/><br/>
       <h4 align="center">自律思考</h4>
-      <img src="../../assets/en-US/screenshots/思考.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/思考.png" width="100%" />
       <br/><br/>
       <h4 align="center">綽号</h4>
-      <img src="../../assets/en-US/screenshots/绰号.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/绰号.png" width="100%" />
     </td>
     <td width="33%" valign="top">
       <h4 align="center">洞府探索</h4>
-      <img src="../../assets/en-US/screenshots/洞府.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/洞府.png" width="100%" />
       <br/><br/>
       <h4 align="center">キャラクター情報</h4>
-      <img src="../../assets/en-US/screenshots/角色信息.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/角色信息.png" width="100%" />
       <br/><br/>
       <h4 align="center">丹薬 / 法宝 / 武器</h4>
-      <img src="../../assets/en-US/screenshots/丹药.png" width="100%" />
-      <img src="../../assets/en-US/screenshots/法宝.png" width="100%" />
-      <img src="../../assets/en-US/screenshots/武器.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/丹药.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/法宝.png" width="100%" />
+      <img src="../../assets/ja-JP/screenshots/武器.png" width="100%" />
     </td>
   </tr>
 </table>

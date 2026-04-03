@@ -17,39 +17,39 @@ msgid ""
 "【Related Avatars Information】"
 msgstr ""
 "\n"
-"【Related Avatars Information】"
+"【関係人物情報】"
 
 msgid "auxiliary"
-msgstr "auxiliary equipment"
+msgstr "補助装備"
 
 msgid "elixir"
-msgstr "elixir"
+msgstr "丹薬"
 
 msgid "item_label_auxiliary"
-msgstr "Auxiliary"
+msgstr "補助装備"
 
 msgid "item_label_elixir"
-msgstr "Elixir"
+msgstr "丹薬"
 
 msgid "item_label_technique"
-msgstr "Technique"
+msgstr "功法"
 
 # Item Verbs
 msgid "item_verb_equip"
-msgstr "equip"
+msgstr "装備"
 
 msgid "item_verb_equipped"
-msgstr "equipped"
+msgstr "装備した"
 
 msgid "item_verb_practice"
-msgstr "practice"
+msgstr "修めた"
 
 msgid "item_verb_replace"
-msgstr "replace"
+msgstr "入れ替え"
 
 msgid "item_verb_switched"
-msgstr "switched to"
+msgstr "切り替えた"
 
 # Auto-equip Message
 msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
-msgstr "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} は {grade} の {label}『{item_name}』を手に入れ、{action}。"

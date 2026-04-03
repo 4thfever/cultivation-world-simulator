@@ -341,7 +341,7 @@ msgid "govern_action_name"
 msgstr "治政"
 
 msgid "govern_description"
-msgstr "都市で朝廷の政務を担い、朝廷声望と俸禄を得る。"
+msgstr "都市で朝廷の政務を担い、朝廷での声望と俸禄を得る。"
 
 msgid "govern_requirements"
 msgstr "都市にいる必要がある。継続期間は 3 か月。"
@@ -466,7 +466,7 @@ msgstr "{avatar} は教化を終えた。功徳が積み上がった（+{exp}）
 msgid ""
 "{avatar} governed effectively in {city}. Court reputation +{reputation}, "
 "salary +{salary} spirit stones."
-msgstr "{avatar} は {city} で見事に治政を行った。朝廷声望 +{reputation}、俸禄 +{salary} 霊石。"
+msgstr "{avatar} は {city} で見事に治政を行った。朝廷での声望 +{reputation}、俸禄 +{salary} 霊石。"
 
 msgid ""
 "{avatar} was promoted from {old_rank} to {new_rank} for distinguished "
@@ -1286,23 +1286,23 @@ msgid "east"
 msgstr "東"
 
 msgid "Auxiliary [{name}]"
-msgstr "Auxiliary [{name}]"
+msgstr "補助装備 [{name}]"
 
 msgid "Elixir [{name}]"
-msgstr "Elixir [{name}]"
+msgstr "丹薬 [{name}]"
 
 msgid "Heaven and Earth Phenomenon"
-msgstr "Heaven and Earth Phenomenon"
+msgstr "天地異象"
 
 # Direction names
 msgid "north"
-msgstr "North"
+msgstr "北"
 
 msgid "south"
-msgstr "South"
+msgstr "南"
 
 msgid "west"
-msgstr "West"
+msgstr "西"
 
 # Effect Source Labels
 msgid "Sect [{name}]"
@@ -2034,42 +2034,42 @@ msgid ""
 "【Related Avatars Information】"
 msgstr ""
 "\n"
-"【Related Avatars Information】"
+"【関係人物情報】"
 
 msgid "auxiliary"
-msgstr "auxiliary equipment"
+msgstr "補助装備"
 
 msgid "elixir"
-msgstr "elixir"
+msgstr "丹薬"
 
 msgid "item_label_auxiliary"
-msgstr "Auxiliary"
+msgstr "補助装備"
 
 msgid "item_label_elixir"
-msgstr "Elixir"
+msgstr "丹薬"
 
 msgid "item_label_technique"
-msgstr "Technique"
+msgstr "功法"
 
 # Item Verbs
 msgid "item_verb_equip"
-msgstr "equip"
+msgstr "装備"
 
 msgid "item_verb_equipped"
-msgstr "equipped"
+msgstr "装備した"
 
 msgid "item_verb_practice"
-msgstr "practice"
+msgstr "修めた"
 
 msgid "item_verb_replace"
-msgstr "replace"
+msgstr "入れ替え"
 
 msgid "item_verb_switched"
-msgstr "switched to"
+msgstr "切り替えた"
 
 # Auto-equip Message
 msgid "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
-msgstr "{avatar_name} obtained {grade} {label}『{item_name}』and {action}."
+msgstr "{avatar_name} は {grade} の {label}『{item_name}』を手に入れ、{action}。"
 
 # Item Labels
 msgid "item_label_weapon"
@@ -2521,29 +2521,29 @@ msgid "nascent_soul"
 msgstr "元嬰"
 
 msgid "apprentice"
-msgstr "Apprentice"
+msgstr "弟子"
 
 msgid "child"
-msgstr "Child"
+msgstr "子"
 
 msgid "enemy"
-msgstr "Enemy"
+msgstr "敵"
 
 msgid "friend"
-msgstr "Friend"
+msgstr "友"
 
 msgid "kin"
-msgstr "Kin"
+msgstr "親族"
 
 msgid "lovers"
-msgstr "Lovers"
+msgstr "道侶"
 
 msgid "master"
-msgstr "Master"
+msgstr "師"
 
 # Realm
 msgid "qi_refinement"
-msgstr "Qi Refinement"
+msgstr "練気"
 
 msgid "grand_child"
 msgstr "孫"
@@ -2632,53 +2632,39 @@ msgstr "[関係解除ルール]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Hostile] Substantial harm occurred (injury, theft, humiliation). Single "
-"severe harm or multiple minor frictions."
+"[敵対] 実質的な被害（負傷、盗難、屈辱など）を受けた場合に成立する。重大な被害が一度でもあれば、または小さな摩擦が何度も重なっても成立しうる。"
 
 msgid "relation_rule_enemy_cancel"
-msgstr ""
-"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
-"death experience, or hatred fades."
+msgstr "[和解] 一方が善意を示して受け入れられた場合、共に生死をくぐる経験をした場合、または憎しみが時間とともに薄れた場合に解消しうる。"
 
 msgid "relation_rule_establish_title"
 msgstr "[関係成立ルール]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friendly] Any friendly daily interactions (such as chatting, dual "
-"cultivation, sparring, healing, etc.) or a single display of goodwill is "
-"enough to establish this. No substantial conflict of interest."
+"[友好] "
+"会話、双修、切磋、療傷などの日常的に好意的な交流があれば成立しうる。明確な善意の表明が一度あるだけでも十分で、重大な利害対立がないことが前提となる。"
 
 msgid "relation_rule_friend_cancel"
-msgstr ""
-"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
-"interaction."
+msgstr "[疎遠化] 利害対立、裏切り、あるいは交流が長く途絶えたことによる関係の希薄化で解消しうる。"
 
 msgid "relation_rule_lovers_add"
-msgstr ""
-"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
-"and affection."
+msgstr "[道侶] 異性同士であることが前提。互いに深い理解と愛情を抱いている必要がある。"
 
 msgid "relation_rule_lovers_cancel"
-msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+msgstr "[別離] 対立、感情の破綻、深刻な裏切りなどによって解消する。"
 
 msgid "relation_rule_master_add"
-msgstr ""
-"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
-"Core vs Qi Refinement)."
+msgstr "[師弟] 師の境界は弟子より明確に高くなければならない（例: 結丹と練気）。"
 
 msgid "relation_rule_master_cancel"
-msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+msgstr "[破門・離反] 弟子が反抗的である場合、または師が教え導けなくなった場合に解消しうる。"
 
 msgid "relation_rule_sworn_sibling_add"
-msgstr ""
-"[Sworn Sibling] Share the same ideals, have experienced life and death "
-"together or significant events."
+msgstr "[義兄弟・義姉妹] 同じ志を抱き、生死を共にした経験や重大な出来事を分かち合った場合に成立しうる。"
 
 msgid "relation_rule_sworn_sibling_cancel"
-msgstr ""
-"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
-"beliefs."
+msgstr "[義絶] 深刻な裏切り、または信念に関する埋めがたい対立によって解消する。"
 
 # Separators
 msgid "relation_separator"
@@ -3131,18 +3117,17 @@ msgid ""
 "Competition: In the auction for {item_name}, {winner_name} outbid "
 "{runner_up_name} (bid: {bid})."
 msgstr ""
-"Competition: In the auction for {item_name}, {winner_name} outbid "
-"{runner_up_name} (bid: {bid})."
+"競り合い：{item_name} の競売で、{winner_name} が {runner_up_name} を上回った（入札額: {bid}）。"
 
 # Stage
 msgid "early_stage"
-msgstr "Early Stage"
+msgstr "前期"
 
 msgid "late_stage"
-msgstr "Late Stage"
+msgstr "後期"
 
 msgid "middle_stage"
-msgstr "Middle Stage"
+msgstr "中期"
 
 msgid ""
 "Bold and open: Grand words, majestic momentum, informal, expressing feelings"

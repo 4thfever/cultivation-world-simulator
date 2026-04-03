@@ -13,20 +13,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Auxiliary [{name}]"
-msgstr "Auxiliary [{name}]"
+msgstr "補助装備 [{name}]"
 
 msgid "Elixir [{name}]"
-msgstr "Elixir [{name}]"
+msgstr "丹薬 [{name}]"
 
 msgid "Heaven and Earth Phenomenon"
-msgstr "Heaven and Earth Phenomenon"
+msgstr "天地異象"
 
 # Direction names
 msgid "north"
-msgstr "North"
+msgstr "北"
 
 msgid "south"
-msgstr "South"
+msgstr "南"
 
 msgid "west"
-msgstr "West"
+msgstr "西"

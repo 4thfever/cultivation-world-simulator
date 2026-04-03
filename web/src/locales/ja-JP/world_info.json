@@ -51,10 +51,10 @@
     "WORLD_INFO_WORLD_QI_DESC": "世界は数年ごとに天象変化（霊潮など）を迎え、キャラクター能力に影響を与えます。",
     "WORLD_INFO_WORLD_QI_NAME": "天地霊気",
     "WORLD_INFO_WORLD_QI_TITLE": "天地霊気",
-    "WORLD_INFO_RANKING_DESC": "修仙世界には天・地・人の榜と宗門榜があります。天榜は元嬰の強者、地榜は結丹の強者、人榜は築基の強者を記録します。宗門榜は宗門総合力で順位付けされます。",
+    "WORLD_INFO_RANKING_DESC": "修仙世界には天・地・人の榜と宗門ランキングがあります。天榜は元嬰の強者、地榜は結丹の強者、人榜は築基の強者を記録します。宗門ランキングは宗門総合力で順位付けされます。",
     "WORLD_INFO_RANKING_NAME": "ランキング",
     "WORLD_INFO_RANKING_TITLE": "ランキング",
-    "WORLD_INFO_DYNASTY_DESC": "凡俗の王朝が世を治め、秩序と国境を維持しています。皇帝の寿命は常人と大差なく、死ねば新たな皇帝が即位します。",
+    "WORLD_INFO_DYNASTY_DESC": "凡人の王朝が世を治め、秩序と国境を維持しています。皇帝の寿命は常人と大差なく、死ねば新たな皇帝が即位します。",
     "WORLD_INFO_DYNASTY_NAME": "王朝",
     "WORLD_INFO_DYNASTY_TITLE": "王朝"
   }

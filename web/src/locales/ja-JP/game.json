@@ -50,13 +50,18 @@
     "nickname_awarded": "{avatar_name} は修仙界で名を挙げ、「{nickname}」と呼ばれるようになった。"
   },
   "ranking": {
-    "title_short": "[排行榜]",
+    "stages": {
+      "early": "前期",
+      "middle": "中期",
+      "late": "後期"
+    },
+    "title_short": "[ランキング]",
     "tournament_short": "[大会]",
-    "title": "天地人榜",
+    "title": "天地人ランキング",
     "heaven": "天榜（元嬰）",
     "earth": "地榜（結丹）",
     "human": "人榜（築基）",
-    "sect_ranking": "宗門榜",
+    "sect_ranking": "宗門ランキング",
     "rank": "順位",
     "name": "名前",
     "sect": "宗門",
@@ -69,9 +74,9 @@
     "empty": "データなし",
     "tournament_title": "天下武道大会",
     "tournament_next": "次の大会まで {years} 年",
-    "heaven_first": "天榜第一",
-    "earth_first": "地榜第一",
-    "human_first": "人榜第一"
+    "heaven_first": "天榜首位",
+    "earth_first": "地榜首位",
+    "human_first": "人榜首位"
   },
   "sect_relations": {
     "title_short": "[宗門関係]",
@@ -136,12 +141,12 @@
     "title": "王朝",
     "name": "王朝名",
     "royal_house": "皇室",
-    "style_tag": "王朝風格",
+    "style_tag": "王朝の気風",
     "official_preference": "朝廷の方針",
     "effect": "王朝効果",
     "effect_source": "王朝",
     "effect_empty": "王朝効果はまだありません。官僚制度や後続ロジックの追加後に反映されます。",
-    "low_magic": "凡俗王朝",
+    "low_magic": "凡人王朝",
     "empty": "王朝データがありません",
     "emperor": {
       "title": "現皇帝",
@@ -156,11 +161,11 @@
       "title": "王朝概況"
     },
     "officials": {
-      "title": "朝廷官員",
+      "title": "朝廷官僚",
       "count": "合計 {count} 名",
       "empty": "現在、朝廷に仕えるランク入り修士はいません",
       "realm": "境界",
-      "court_reputation": "朝廷声望",
+      "court_reputation": "声望",
       "sect": "所属",
       "rogue": "散修"
     }
@@ -168,7 +173,7 @@
   "info_panel": {
     "popup": {
       "effect": "効果: ",
-      "drops": "掉落: ",
+      "drops": "ドロップ: ",
       "hq": "本拠地: ",
       "types": {
         "elixir": "丹薬",
@@ -176,7 +181,7 @@
         "lode": "鉱脈",
         "item": "道具",
         "weapon": "武器",
-        "auxiliary": "補助",
+        "auxiliary": "補助装備",
         "technique": "功法",
         "sect": "宗門",
         "persona": "特質",
@@ -209,7 +214,7 @@
         "alignment": "属性",
         "sect": "宗門",
         "official_rank": "官位",
-        "court_reputation": "朝廷声望",
+        "court_reputation": "声望",
         "rogue": "散修",
         "root": "霊根",
         "luck": "気運",
@@ -275,7 +280,8 @@
       "relation_meta": "{owner} に対する {relation}",
       "father_short": "父",
       "mother_short": "母",
-      "mortal_realm": "凡俗",
+      "mortal_realm": "凡人",
+      "empty_short": "ありません",
       "modals": {
         "set_long_term": "長期目標を設定",
         "placeholder": "目標を入力...",
@@ -287,6 +293,15 @@
       "view_sect": "宗門詳細を見る",
       "essence_title": "霊気環境",
       "essence_info": "{type} 属性霊気 · 濃度 {density}",
+      "proper_name_note_short": "固有地名",
+      "proper_name_note": "地図上の地名は修仙世界の固有名詞のため、漢字表記のまま表示されます。",
+      "type_explanations": {
+        "normal": "野外地域。霊獣、霊植、鉱脈などの資源が分布します。",
+        "city": "都市区域。人口が集まり、市場で物資を売買できます。",
+        "cave": "洞府。修行向きの霊気が集まる私有・無主の修行地です。",
+        "ruin": "遺跡。霊気や遺構が残る探索向きの修行地です。",
+        "sect": "宗門本拠地。その宗門の勢力中枢となる地域です。"
+      },
       "sections": {
         "host": "洞府の主",
         "animals": "霊獣",
@@ -302,7 +317,7 @@
       "stats": {
         "alignment": "属性",
         "orthodoxy": "正道",
-        "style": "風格",
+        "style": "気風",
         "preferred": "得意武器",
         "members": "人数",
         "total_battle_strength": "総戦力",

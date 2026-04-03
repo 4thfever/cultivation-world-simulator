@@ -50,6 +50,11 @@
     "nickname_awarded": "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
   },
   "ranking": {
+    "stages": {
+      "early": "Early Stage",
+      "middle": "Middle Stage",
+      "late": "Late Stage"
+    },
     "title_short": "[Rankings]",
     "tournament_short": "[Tournament]",
     "title": "Heaven, Earth & Human Rankings",
@@ -276,6 +281,7 @@
       "father_short": "Father",
       "mother_short": "Mother",
       "mortal_realm": "Mortal",
+      "empty_short": "None",
       "modals": {
         "set_long_term": "Set Long-term Objective",
         "placeholder": "Enter objective...",
@@ -287,6 +293,15 @@
       "view_sect": "View Sect Details",
       "essence_title": "Qi Environment",
       "essence_info": "{type} Qi · Density {density}",
+      "proper_name_note_short": "Proper Name",
+      "proper_name_note": "Map place names are proper nouns from the cultivation world, so they remain in their original Han-character form.",
+      "type_explanations": {
+        "normal": "A wilderness region with resources such as spirit beasts, spirit plants, and mineral lodes.",
+        "city": "An urban region where population gathers and goods can be traded in the market.",
+        "cave": "A cave dwelling. A cultivation site rich in spiritual qi, sometimes owned and sometimes unclaimed.",
+        "ruin": "A ruin. A cultivation site suited for exploration, with lingering qi and ancient remains.",
+        "sect": "Sect headquarters. The central territory of a sect's influence."
+      },
       "sections": {
         "host": "Cave Owner",
         "animals": "Animals",

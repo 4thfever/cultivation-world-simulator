@@ -13,26 +13,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "apprentice"
-msgstr "Apprentice"
+msgstr "弟子"
 
 msgid "child"
-msgstr "Child"
+msgstr "子"
 
 msgid "enemy"
-msgstr "Enemy"
+msgstr "敵"
 
 msgid "friend"
-msgstr "Friend"
+msgstr "友"
 
 msgid "kin"
-msgstr "Kin"
+msgstr "親族"
 
 msgid "lovers"
-msgstr "Lovers"
+msgstr "道侶"
 
 msgid "master"
-msgstr "Master"
+msgstr "師"
 
 # Realm
 msgid "qi_refinement"
-msgstr "Qi Refinement"
+msgstr "練気"

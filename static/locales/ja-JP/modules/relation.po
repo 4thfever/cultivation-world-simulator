@@ -99,53 +99,44 @@ msgstr "[関係解除ルール]"
 
 msgid "relation_rule_enemy_add"
 msgstr ""
-"[Hostile] Substantial harm occurred (injury, theft, humiliation). Single "
-"severe harm or multiple minor frictions."
+"[敵対] 実質的な被害（負傷、盗難、屈辱など）を受けた場合に成立する。重大な被害が一度でもあれば、または小さな摩擦が何度も重なっても成立しうる。"
 
 msgid "relation_rule_enemy_cancel"
 msgstr ""
-"[Reconcile] One side initiates kindness and is accepted, or shared life-and-"
-"death experience, or hatred fades."
+"[和解] 一方が善意を示して受け入れられた場合、共に生死をくぐる経験をした場合、または憎しみが時間とともに薄れた場合に解消しうる。"
 
 msgid "relation_rule_establish_title"
 msgstr "[関係成立ルール]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[Friendly] Any friendly daily interactions (such as chatting, dual "
-"cultivation, sparring, healing, etc.) or a single display of goodwill is "
-"enough to establish this. No substantial conflict of interest."
+"[友好] 会話、双修、切磋、療傷などの日常的に好意的な交流があれば成立しうる。明確な善意の表明が一度あるだけでも十分で、重大な利害対立がないことが前提となる。"
 
 msgid "relation_rule_friend_cancel"
 msgstr ""
-"[Break Off] Conflict of interest, betrayal, or estrangement due to lack of "
-"interaction."
+"[疎遠化] 利害対立、裏切り、あるいは交流が長く途絶えたことによる関係の希薄化で解消しうる。"
 
 msgid "relation_rule_lovers_add"
 msgstr ""
-"[Dao Companion] Requires opposite genders. Must be mutual deep recognition "
-"and affection."
+"[道侶] 異性同士であることが前提。互いに深い理解と愛情を抱いている必要がある。"
 
 msgid "relation_rule_lovers_cancel"
-msgstr "[Break Up] Conflict, emotional breakdown, severe betrayal."
+msgstr "[別離] 対立、感情の破綻、深刻な裏切りなどによって解消する。"
 
 msgid "relation_rule_master_add"
 msgstr ""
-"[Master] Realm must be significantly higher than apprentice (e.g. Golden "
-"Core vs Qi Refinement)."
+"[師弟] 師の境界は弟子より明確に高くなければならない（例: 結丹と練気）。"
 
 msgid "relation_rule_master_cancel"
-msgstr "[Expel/Betray] Apprentice is rebellious or Master is unable to teach."
+msgstr "[破門・離反] 弟子が反抗的である場合、または師が教え導けなくなった場合に解消しうる。"
 
 msgid "relation_rule_sworn_sibling_add"
 msgstr ""
-"[Sworn Sibling] Share the same ideals, have experienced life and death "
-"together or significant events."
+"[義兄弟・義姉妹] 同じ志を抱き、生死を共にした経験や重大な出来事を分かち合った場合に成立しうる。"
 
 msgid "relation_rule_sworn_sibling_cancel"
 msgstr ""
-"[Sever Ties] Severe betrayal, or profound irreconcilable conflicts in "
-"beliefs."
+"[義絶] 深刻な裏切り、または信念に関する埋めがたい対立によって解消する。"
 
 # Separators
 msgid "relation_separator"

@@ -2,6 +2,7 @@
 import { NPopover, NList, NListItem, NTag, NEmpty } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import type { HiddenDomainInfo } from '../../types/core'
+import { formatRealmLabel } from '@/utils/cultivationText'
 
 const { t } = useI18n()
 
@@ -84,7 +85,7 @@ const emit = defineEmits(['trigger-click'])
                     </n-tag>
                   </div>
                   <n-tag size="small" :bordered="false" type="warning" class="d-tag">
-                    {{ item.required_realm }}
+                    {{ formatRealmLabel(item.required_realm, t) }}
                   </n-tag>
                 </div>
                 <div class="d-desc">{{ item.desc }}</div>
