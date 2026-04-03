@@ -1,9 +1,12 @@
 from pathlib import Path
+import json
+import pytest
 
 from src.i18n.locale_registry import (
     get_default_locale,
     get_locale_codes,
     get_registry_path,
+    load_locale_registry,
     get_source_locale,
 )
 
@@ -41,3 +44,17 @@ def test_locale_registry_basic_contract():
     assert get_default_locale() == "zh-CN"
     assert get_source_locale() in locales
     assert "vi-VN" in locales
+
+
+def test_locale_registry_fails_fast_when_required_fields_missing(tmp_path, monkeypatch):
+    broken_registry = tmp_path / "registry.json"
+    broken_registry.write_text(json.dumps({"locales": [{"code": "zh-CN", "html_lang": "zh-CN", "source_of_truth": True}]}), encoding="utf-8")
+
+    monkeypatch.setattr("src.i18n.locale_registry.get_registry_path", lambda: broken_registry)
+    load_locale_registry.cache_clear()
+
+    try:
+        with pytest.raises(ValueError, match="missing required field"):
+            load_locale_registry()
+    finally:
+        load_locale_registry.cache_clear()

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Dict, TYPE_CHECKING
 from pathlib import Path
 import random
@@ -11,24 +12,14 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.i18n import t
 
-story_styles = [
-    "Plain narration: Restrained language, minimal embellishment, recording like a bystander.",
-    "Emotion in scenery: Expressing emotion through scenery, blending feelings with the setting.",
-    "Freehand ancient style: Focus on imagery and metaphor, concise, avoiding obscure archaic language.",
-    "Marketplace life: Grounded writing, using colloquialisms, simple and natural, without pretension.",
-    "Poetic lyricism: Short sentences and parallelism, sparse use of allusions, avoiding flowery language.",
-    "Philosophical fable: Asking questions through events, containing one or two punchlines, without preaching.",
-    "Chronicle style: Like a historian's record, orderly events, few adjectives.",
-    "Personification of scenery: Slight personification of scenery, embedding aspirations in the view, not overused.",
-    "Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a single thought.",
-    "Buddhist emptiness: Insights of impermanence and emptiness interwoven, light and not mysterious.",
-    "Folk storytelling: Like a storyteller's tone but in written language, fast-paced, vivid and interesting.",
-    "Elegant scholarly: Scholarly atmosphere, slight touch of citations, without showing off.",
-    "Bold and open: Grand words, majestic momentum, informal, expressing feelings directly.",
-    "Gorgeous and bizarre: Heavy sensory description, ornate and seductive language, emphasizing the strangeness of light and color.",
-    "Cold and concise: Mainly short sentences, every word counts, like metal striking stone, no extra emotional rendering.",
-    "Fine line drawing: No decoration, capturing subtle movements and expressions to convey spirit, real and delicate.",
-]
+
+def _load_story_style_msgids() -> tuple[str, ...]:
+    path = Path("static/story_styles.json")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return tuple(str(item) for item in data if str(item).strip())
+
+
+STORY_STYLE_MSGIDS = _load_story_style_msgids()
 
 
 class StoryTeller:
@@ -86,7 +77,7 @@ class StoryTeller:
             "avatar_name_2": avatar_name_2,
             "event": event,
             "res": res,
-            "style": t(random.choice(story_styles)),
+            "style": t(random.choice(STORY_STYLE_MSGIDS)),
             "story_prompt": prompt,
         }
 
@@ -163,7 +154,7 @@ class StoryTeller:
             "gathering_info": gathering_info,
             "events": events_text,
             "details": details_text,
-            "style": t(random.choice(story_styles)),
+            "style": t(random.choice(STORY_STYLE_MSGIDS)),
             "story_prompt": prompt
         }
         

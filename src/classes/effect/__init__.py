@@ -38,4 +38,10 @@ from .process import (
 )
 from .mixin import EffectsMixin
 from .desc import format_effects_to_text, translate_condition
+from .meta import (
+    EffectPromptMeta,
+    EffectReferenceLevel,
+    get_effect_prompt_meta,
+    get_effect_prompt_meta_map,
+)
 

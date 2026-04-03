@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Literal
@@ -12,10 +11,11 @@ from src.classes.language import language_manager
 from src.classes.effect import (
     ALL_EFFECTS,
     LEGAL_ACTIONS,
+    get_effect_prompt_meta,
+    get_effect_prompt_meta_map,
     format_effects_to_text,
 )
 from src.classes.effect.desc import get_effect_desc
-from src.classes.effect import consts as effect_consts
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id
 from src.classes.items.weapon import Weapon, weapons_by_id
 from src.classes.technique import (
@@ -77,23 +77,27 @@ _EXAMPLE_VALUES = {
     "extra_epiphany_probability": 0.05,
 }
 
-_REFERENCE_LABEL_MAP = {
-    "微量": "small",
-    "中量": "medium",
-    "大量": "large",
-    "极限": "cap",
-    "极高": "very high",
-    "基础概率": "base chance",
-    "基础值": "base value",
-    "普通人": "ordinary",
-    "有福缘": "fortunate",
-    "主角模板": "protagonist-tier",
-    "倒霉体质": "unlucky",
-    "坦克": "tanky",
-    "奸商": "profit-focused",
-    "降低危险": "safer",
-    "增加危险": "riskier",
-    "天才": "talent-tier",
+_REFERENCE_LABEL_DISPLAY = {
+    "small": "small",
+    "medium": "medium",
+    "large": "large",
+    "cap": "cap",
+    "very_high": "very high",
+    "base_chance": "base chance",
+    "base_value": "base value",
+    "ordinary": "ordinary",
+    "fortunate": "fortunate",
+    "protagonist_tier": "protagonist-tier",
+    "unlucky": "unlucky",
+    "tanky": "tanky",
+    "profit_focused": "profit-focused",
+    "safer": "safer",
+    "riskier": "riskier",
+    "talent_tier": "talent-tier",
+}
+
+_CONSTRAINT_DISPLAY = {
+    "final_multiplier_floor_1_0": "final multiplier >= 1.0",
 }
 
 _CATEGORY_LABEL_MSGIDS = {
@@ -157,14 +161,14 @@ def _resolve_template_path(filename: str) -> Path:
 
 def _format_effect_examples() -> str:
     lines: list[str] = []
-    reference_text_map = _load_effect_reference_text_map()
     for effect_key in ALL_EFFECTS:
         if effect_key in FORBIDDEN_EFFECT_KEYS:
             continue
         effect_name = get_effect_desc(effect_key)
-        example = _EXAMPLE_VALUES.get(effect_key, 1)
-        type_name = type(example).__name__
-        reference_text = reference_text_map.get(effect_key, "")
+        meta = get_effect_prompt_meta(effect_key)
+        example = _EXAMPLE_VALUES.get(effect_key, meta.example)
+        type_name = meta.value_type
+        reference_text = _format_reference_text(effect_key)
         if reference_text:
             lines.append(
                 f"- {effect_key}: {effect_name}, {_prompt_text('value_type')} {type_name}, {_prompt_text('example')} {example}. {_prompt_text('magnitude_guidance')}: {reference_text}"
@@ -175,104 +179,21 @@ def _format_effect_examples() -> str:
 
 
 @lru_cache(maxsize=1)
-def _load_effect_reference_text_map() -> dict[str, str]:
-    source_path = Path(effect_consts.__file__ or "")
-    if not source_path.exists():
-        return {}
-
-    text = source_path.read_text(encoding="utf-8")
-    pattern = re.compile(
-        r'^[A-Z0-9_]+\s*=\s*"(?P<effect_key>[^"]+)"\s*\n"""(?P<doc>.*?)"""',
-        re.MULTILINE | re.DOTALL,
-    )
-
+def _get_effect_reference_text_map() -> dict[str, str]:
     result: dict[str, str] = {}
-    for match in pattern.finditer(text):
-        effect_key = match.group("effect_key").strip()
-        doc = match.group("doc")
-        reference_text = _extract_reference_text(doc)
-        if reference_text:
-            result[effect_key] = reference_text
+    for effect_key, meta in get_effect_prompt_meta_map().items():
+        parts = [
+            f"{_REFERENCE_LABEL_DISPLAY.get(reference.key, reference.key)}: {reference.value}"
+            for reference in meta.references
+        ]
+        parts.extend(_CONSTRAINT_DISPLAY.get(constraint, constraint) for constraint in meta.constraints)
+        if parts:
+            result[effect_key] = "; ".join(parts)
     return result
 
 
-def _extract_reference_text(doc: str) -> str:
-    marker = "数值参考"
-    if marker not in doc:
-        return ""
-
-    lines = [line.rstrip() for line in doc.splitlines()]
-    collecting = False
-    collected: list[str] = []
-    for raw_line in lines:
-        line = raw_line.strip()
-        if not collecting:
-            if line.startswith(marker):
-                collecting = True
-            continue
-
-        if not line:
-            if collected:
-                break
-            continue
-
-        if line.startswith("说明:") or line.startswith("类型:") or line.startswith("结算:") or line.startswith("限制:"):
-            if collected:
-                break
-            continue
-
-        if line.startswith("-"):
-            normalized = _normalize_reference_line(line.lstrip("-").strip())
-            if normalized:
-                collected.append(normalized)
-        elif collected:
-            break
-
-    return "; ".join(collected)
-
-
-def _normalize_reference_line(line: str) -> str:
-    line = _strip_parenthetical_text(line)
-    if ":" not in line:
-        return _normalize_spacing(line)
-
-    label, value = line.split(":", 1)
-    label = _REFERENCE_LABEL_MAP.get(label.strip(), _normalize_label(label))
-    value = _normalize_value_text(value)
-    if value:
-        return f"{label}: {value}"
-    return label
-
-
-def _strip_parenthetical_text(text: str) -> str:
-    text = re.sub(r"\([^)]*\)", "", text)
-    text = re.sub(r"（[^）]*）", "", text)
-    return _normalize_spacing(text)
-
-
-def _normalize_label(label: str) -> str:
-    normalized = _normalize_spacing(label).lower()
-    normalized = normalized.replace("%", " percent")
-    normalized = normalized.replace("+", " plus ")
-    normalized = re.sub(r"[^a-z0-9._\-/ ]+", " ", normalized)
-    normalized = re.sub(r"\s+", " ", normalized).strip()
-    return normalized
-
-
-def _normalize_value_text(value: str) -> str:
-    value = _normalize_spacing(value)
-    value = value.replace("~", " to ")
-    value = value.replace("～", " to ")
-    value = value.replace("，", ", ")
-    value = value.replace("、", ", ")
-    value = value.replace("％", "%")
-    value = value.replace("−", "-")
-    value = re.sub(r"\s+", " ", value).strip(" .;")
-    return value
-
-
-def _normalize_spacing(text: str) -> str:
-    return re.sub(r"\s+", " ", text).strip()
+def _format_reference_text(effect_key: str) -> str:
+    return _get_effect_reference_text_map().get(effect_key, "")
 
 
 def _serialize_reference_item(item: Technique | Weapon | Auxiliary, category: CustomCategory) -> str:
