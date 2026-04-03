@@ -88,11 +88,10 @@ msgstr "姉"
 
 msgid "relation_rule_apprentice_add"
 msgstr ""
-"[Apprentice] Relative to Master, usually established automatically with "
-"Master relation."
+"[弟子] 師弟関係が成立した際、師の側から見た対応関係として通常は自動的に成立する。"
 
 msgid "relation_rule_apprentice_cancel"
-msgstr "[End Apprenticeship] Same as above."
+msgstr "[師弟解消] 上記の師弟関係の解消に対応して自動的に消える。"
 
 msgid "relation_rule_cancel_title"
 msgstr "[関係解除ルール]"

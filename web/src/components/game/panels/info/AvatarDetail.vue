@@ -17,7 +17,7 @@ import type { RelationInfo } from '@/types/core';
 import { logError } from '@/utils/appError';
 import editIcon from '@/assets/icons/edit.png';
 import { getAvatarPortraitUrl } from '@/utils/assetUrls';
-import { formatCultivationText, formatRealmLabel, formatRealmStage, formatStageLabel } from '@/utils/cultivationText';
+import { formatCultivationText } from '@/utils/cultivationText';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -51,7 +51,7 @@ const avatarHeaderSubtitle = computed(() => {
   return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
 
-const avatarRealmText = computed(() => formatRealmStage(props.data.realm, props.data.level, t));
+const avatarRealmText = computed(() => formatCultivationText(props.data.realm, t));
 
 const formattedRanking = computed(() => {
   if (!props.data.ranking) return null;
@@ -61,10 +61,18 @@ const formattedRanking = computed(() => {
   const isZh = locale.value.startsWith('zh');
   if (isZh) {
     return `${listName}第${ZH_NUMBERS[rank] || rank}`;
+  } else if (locale.value.startsWith('ja')) {
+    return `${listName}${rank}位`;
   } else {
     return `${listName} Rank ${rank}`;
   }
 });
+
+function formatGenderLabel(rawGender: string): string {
+  if (rawGender === 'Male' || rawGender === 'male') return t('ui.create_avatar.gender_labels.male');
+  if (rawGender === 'Female' || rawGender === 'female') return t('ui.create_avatar.gender_labels.female');
+  return rawGender;
+}
 
 function buildRelationMetaLines(rel: RelationInfo): string[] {
   const parts = (rel.relation || '')
@@ -324,7 +332,7 @@ async function handleClearObjective() {
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="formatRealmLabel(data.realm, t)" :sub-value="formatStageLabel(data.level, t)" />
+        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="formatCultivationText(data.realm, t)" />
         <StatItem :label="t('game.info_panel.avatar.stats.age')" :value="`${data.age} / ${data.lifespan}`" />
         <StatItem 
           v-if="data.cultivation_start_age !== undefined"
@@ -334,7 +342,7 @@ async function handleClearObjective() {
         <StatItem :label="t('game.info_panel.avatar.stats.origin')" :value="data.origin" />
         
         <StatItem :label="t('game.info_panel.avatar.stats.hp')" :value="formatHp(data.hp.cur, data.hp.max)" />
-        <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="data.gender" />
+        <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="formatGenderLabel(data.gender)" />
         
         <StatItem 
           :label="t('game.info_panel.avatar.stats.alignment')" 

@@ -150,3 +150,45 @@ msgstr "兩人正在對弈下棋。"
 
 msgid "action_devourpeople_short_name"
 msgstr "吞噬生靈"
+
+msgid "Prefers male cultivators"
+msgstr "偏好男性修士"
+
+msgid "Prefers female cultivators"
+msgstr "偏好女性修士"
+
+msgid "Prefers righteous cultivators"
+msgstr "偏好正道修士"
+
+msgid "Prefers evil cultivators"
+msgstr "偏好邪道修士"
+
+msgid "Prefers neutral cultivators"
+msgstr "偏好中立修士"
+
+msgid "Prefers Confucian cultivators"
+msgstr "偏好儒家修士"
+
+msgid "Prefers Daoist cultivators"
+msgstr "偏好道家修士"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "偏好佛家修士"
+
+msgid "Prefers martial cultivators"
+msgstr "偏好武道修士"
+
+msgid "Prefers worldly cultivators"
+msgstr "偏好入世之人"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "偏好名教中人"
+
+msgid "Prefers secluded cultivators"
+msgstr "偏好出世之人"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "偏好山澤孤修"
+
+msgid "Prefers {value}"
+msgstr "偏好{value}"

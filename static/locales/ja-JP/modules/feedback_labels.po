@@ -20,7 +20,7 @@ msgstr ""
 "--- 現在の効果詳細 ---"
 
 msgid "Contains elements: {elements}"
-msgstr "含有属性: {elements}"
+msgstr "属性: {elements}"
 
 msgid "Identity: {identity}"
 msgstr "身分: {identity}"

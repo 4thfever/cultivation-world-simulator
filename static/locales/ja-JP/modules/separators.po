@@ -16,13 +16,13 @@ msgid "comma_separator"
 msgstr ", "
 
 msgid "earth_element"
-msgstr "Earth"
+msgstr "土"
 
 msgid "element_separator"
 msgstr ", "
 
 msgid "fire_element"
-msgstr "Fire"
+msgstr "火"
 
 msgid "material_separator"
 msgstr ", "
@@ -31,7 +31,7 @@ msgid "semicolon_separator"
 msgstr "; "
 
 msgid "sibling"
-msgstr "Sibling"
+msgstr "兄弟姉妹"
 
 msgid "sworn_sibling"
-msgstr "Sworn Sibling"
+msgstr "義兄弟"

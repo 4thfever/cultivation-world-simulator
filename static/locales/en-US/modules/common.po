@@ -154,3 +154,45 @@ msgstr "Two people are playing chess."
 
 msgid "action_devourpeople_short_name"
 msgstr "Devour People"
+
+msgid "Prefers male cultivators"
+msgstr "Prefers male cultivators"
+
+msgid "Prefers female cultivators"
+msgstr "Prefers female cultivators"
+
+msgid "Prefers righteous cultivators"
+msgstr "Prefers righteous cultivators"
+
+msgid "Prefers evil cultivators"
+msgstr "Prefers evil cultivators"
+
+msgid "Prefers neutral cultivators"
+msgstr "Prefers neutral cultivators"
+
+msgid "Prefers Confucian cultivators"
+msgstr "Prefers Confucian cultivators"
+
+msgid "Prefers Daoist cultivators"
+msgstr "Prefers Daoist cultivators"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "Prefers Buddhist cultivators"
+
+msgid "Prefers martial cultivators"
+msgstr "Prefers martial cultivators"
+
+msgid "Prefers worldly cultivators"
+msgstr "Prefers worldly cultivators"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "Prefers orthodox gentlemen"
+
+msgid "Prefers secluded cultivators"
+msgstr "Prefers secluded cultivators"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "Prefers solitary mountain cultivators"
+
+msgid "Prefers {value}"
+msgstr "Prefers {value}"

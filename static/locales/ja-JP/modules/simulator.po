@@ -40,4 +40,4 @@ msgid "A new emperor ascends in {dynasty_title}: {emperor_name} inherits the thr
 msgstr "{dynasty_title} に新帝が即位した。{emperor_name} が大統を継いだ。"
 
 msgid "{avatar} neglected governance for too long, losing court reputation and falling from {old_rank} to {new_rank}."
-msgstr "{avatar} は長く政務を怠り、朝廷での声望を失って {old_rank} から {new_rank} へ降格した。"
+msgstr "{avatar} は長く政務を怠り、声望を失って {old_rank} から {new_rank} へ降格した。"

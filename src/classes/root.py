@@ -169,6 +169,8 @@ def format_root_cn(root: "Root") -> str:
     elements = getattr(root, "elements", None)
     if not elements:
         return short_name
+    if len(elements) <= 1:
+        return short_name
     # RootElement.__str__ 返回翻译后的值
     elements_cn = t("element_separator").join(str(e) for e in elements)
     return t("{root_name} ({elements})", root_name=short_name, elements=elements_cn)

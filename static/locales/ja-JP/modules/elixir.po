@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "earth_essence"
-msgstr "Earth"
+msgstr "土"
 
 # Elixir System - Elixirs
 msgid "elixir_type_breakthrough"
@@ -29,4 +29,4 @@ msgid "elixir_type_lifespan"
 msgstr "Lifespan"
 
 msgid "fire_essence"
-msgstr "Fire"
+msgstr "火"

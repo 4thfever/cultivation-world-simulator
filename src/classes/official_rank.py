@@ -207,6 +207,8 @@ def match_dynasty_preference(avatar: "Avatar", dynasty: "Dynasty | None") -> boo
 
 
 def get_dynasty_preference_label(dynasty: "Dynasty | None") -> str:
+    from src.i18n import t
+
     if dynasty is None:
         return ""
 
@@ -216,30 +218,30 @@ def get_dynasty_preference_label(dynasty: "Dynasty | None") -> str:
         return ""
 
     if pref_type == "gender":
-        return "偏好男性修士" if pref_value.lower() == "male" else "偏好女性修士"
+        return t("Prefers male cultivators") if pref_value.lower() == "male" else t("Prefers female cultivators")
     if pref_type == "alignment":
         mapping = {
-            "RIGHTEOUS": "偏好正道修士",
-            "EVIL": "偏好邪道修士",
-            "NEUTRAL": "偏好中立修士",
+            "RIGHTEOUS": t("Prefers righteous cultivators"),
+            "EVIL": t("Prefers evil cultivators"),
+            "NEUTRAL": t("Prefers neutral cultivators"),
         }
-        return mapping.get(pref_value, f"偏好{pref_value}")
+        return mapping.get(pref_value, t("Prefers {value}", value=pref_value))
     if pref_type == "orthodoxy":
         mapping = {
-            "confucianism": "偏好儒家修士",
-            "dao": "偏好道家修士",
-            "buddhism": "偏好佛家修士",
-            "wu": "偏好武道修士",
+            "confucianism": t("Prefers Confucian cultivators"),
+            "dao": t("Prefers Daoist cultivators"),
+            "buddhism": t("Prefers Buddhist cultivators"),
+            "wu": t("Prefers martial cultivators"),
         }
-        return mapping.get(pref_value, f"偏好{pref_value}")
+        return mapping.get(pref_value, t("Prefers {value}", value=pref_value))
     if pref_type == "persona_key":
         mapping = {
-            "INTO_WORLD": "偏好入世之人",
-            "ORTHODOX_GENTLEMAN": "偏好名教中人",
-            "SECLUDED": "偏好出世之人",
-            "RECLUSIVE_CULTIVATOR": "偏好山泽孤修",
+            "INTO_WORLD": t("Prefers worldly cultivators"),
+            "ORTHODOX_GENTLEMAN": t("Prefers orthodox gentlemen"),
+            "SECLUDED": t("Prefers secluded cultivators"),
+            "RECLUSIVE_CULTIVATOR": t("Prefers solitary mountain cultivators"),
         }
-        return mapping.get(pref_value.upper(), f"偏好{pref_value}")
+        return mapping.get(pref_value.upper(), t("Prefers {value}", value=pref_value))
     return ""
 
 

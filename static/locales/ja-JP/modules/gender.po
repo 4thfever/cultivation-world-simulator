@@ -49,4 +49,4 @@ msgstr "found a treasure"
 
 # Gender
 msgid "male"
-msgstr "Male"
+msgstr "男"

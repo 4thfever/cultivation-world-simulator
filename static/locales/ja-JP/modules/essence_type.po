@@ -21,10 +21,10 @@ msgstr ""
 
 # Essence Type
 msgid "gold_essence"
-msgstr "Gold"
+msgstr "金"
 
 msgid "water_essence"
-msgstr "Water"
+msgstr "水"
 
 msgid "wood_essence"
-msgstr "Wood"
+msgstr "木"

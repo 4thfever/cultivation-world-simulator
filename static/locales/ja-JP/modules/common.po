@@ -153,3 +153,45 @@ msgstr "二人が碁を打っている。"
 
 msgid "action_devourpeople_short_name"
 msgstr "凡人喰らい"
+
+msgid "Prefers male cultivators"
+msgstr "男性修士を好む"
+
+msgid "Prefers female cultivators"
+msgstr "女性修士を好む"
+
+msgid "Prefers righteous cultivators"
+msgstr "正道修士を好む"
+
+msgid "Prefers evil cultivators"
+msgstr "邪道修士を好む"
+
+msgid "Prefers neutral cultivators"
+msgstr "中立修士を好む"
+
+msgid "Prefers Confucian cultivators"
+msgstr "儒家修士を好む"
+
+msgid "Prefers Daoist cultivators"
+msgstr "道家修士を好む"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "仏家修士を好む"
+
+msgid "Prefers martial cultivators"
+msgstr "武道修士を好む"
+
+msgid "Prefers worldly cultivators"
+msgstr "入世の士を好む"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "名教の士を好む"
+
+msgid "Prefers secluded cultivators"
+msgstr "隠遁の士を好む"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "山沢の孤修を好む"
+
+msgid "Prefers {value}"
+msgstr "{value} を好む"
