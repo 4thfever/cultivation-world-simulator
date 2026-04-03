@@ -1241,6 +1241,57 @@ msgstr "Prefers solitary mountain cultivators"
 msgid "Prefers {value}"
 msgstr "Prefers {value}"
 
+msgid "无品"
+msgstr "Unranked"
+
+msgid "县令"
+msgstr "County Magistrate"
+
+msgid "郡守"
+msgstr "Commandery Governor"
+
+msgid "州牧"
+msgstr "Provincial Governor"
+
+msgid "宰辅"
+msgstr "Grand Chancellor"
+
+msgid "尚法重军"
+msgstr "Law and Arms"
+
+msgid "清谈名教"
+msgstr "Pure Discourse and Orthodoxy"
+
+msgid "重文理政"
+msgstr "Civil Governance"
+
+msgid "风流雅政"
+msgstr "Elegant Courtly Rule"
+
+msgid "山泽杂行"
+msgstr "Wild Marches"
+
+msgid "尚实通商"
+msgstr "Pragmatic Commerce"
+
+msgid "沉毅守边"
+msgstr "Stoic Frontier Guard"
+
+msgid "骑射尚武"
+msgstr "Horsemanship and Arms"
+
+msgid "法密权重"
+msgstr "Strict Law and Central Power"
+
+msgid "务本守成"
+msgstr "Pragmatic Conservatism"
+
+msgid "柔治机变"
+msgstr "Flexible Statecraft"
+
+msgid "坚忍后发"
+msgstr "Endure and Strike Late"
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "Conditional effect"

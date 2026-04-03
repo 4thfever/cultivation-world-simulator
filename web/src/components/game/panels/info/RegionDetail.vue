@@ -8,7 +8,7 @@ import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-defineProps<{
+const props = defineProps<{
   data: RegionDetail;
 }>();
 
@@ -81,7 +81,6 @@ function jumpToAvatar(id: string) {
       <div class="section-title">{{ data.type_name }}</div>
       <div class="type-note">{{ getRegionTypeExplanation() }}</div>
       <div class="desc">{{ data.desc }}</div>
-      <div class="proper-name-note">{{ t('game.info_panel.region.proper_name_note') }}</div>
 
       <!-- Population -->
       <div class="population-container" v-if="data.population !== undefined && data.population_capacity !== undefined">
@@ -217,12 +216,6 @@ function jumpToAvatar(id: string) {
 .type-note {
   font-size: 12px;
   color: #a8d8c0;
-  line-height: 1.5;
-}
-
-.proper-name-note {
-  font-size: 11px;
-  color: #7f7f7f;
   line-height: 1.5;
 }
 

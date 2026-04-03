@@ -110,7 +110,9 @@ def get_official_rank(rank_key: str | None) -> OfficialRankDef:
 
 
 def get_official_rank_name(rank_key: str | None) -> str:
-    return get_official_rank(rank_key).name
+    from src.i18n import t
+
+    return t(get_official_rank(rank_key).name)
 
 
 def get_next_official_rank(rank_key: str | None) -> OfficialRankDef | None:

@@ -22,7 +22,7 @@
     "world_info": {
       "label": "[世界情報]",
       "title": "世界情報",
-      "ai_knowledge_note": "修士 AI がこの修仙世界について把握している知識",
+      "ai_knowledge_note": "修士 AI がこの仙道世界について把握している知識",
       "empty": "世界情報がありません"
     }
   },
@@ -47,7 +47,7 @@
     "empty_none": "イベントはありません"
   },
   "event_templates": {
-    "nickname_awarded": "{avatar_name} は修仙界で名を挙げ、「{nickname}」と呼ばれるようになった。"
+    "nickname_awarded": "{avatar_name} は仙道界で名を挙げ、「{nickname}」と呼ばれるようになった。"
   },
   "ranking": {
     "stages": {
@@ -56,7 +56,7 @@
       "late": "後期"
     },
     "title_short": "[ランキング]",
-    "tournament_short": "[大会]",
+    "tournament_short": "[武道会]",
     "title": "天地人ランキング",
     "heaven": "天榜（元嬰）",
     "earth": "地榜（結丹）",
@@ -72,11 +72,11 @@
     "member_count": "人数",
     "total_power": "総戦力",
     "empty": "データなし",
-    "tournament_title": "天下武道大会",
+    "tournament_title": "天下武道会",
     "tournament_next": "次の大会まで {years} 年",
-    "heaven_first": "天榜首位",
-    "earth_first": "地榜首位",
-    "human_first": "人榜首位"
+    "heaven_first": "天榜第一位",
+    "earth_first": "地榜第一位",
+    "human_first": "人榜第一位"
   },
   "sect_relations": {
     "title_short": "[宗門関係]",
@@ -93,8 +93,8 @@
     "value_label_very_hostile": "極めて敵対",
     "value_label_hostile": "敵対",
     "value_label_neutral": "中立",
-    "value_label_friendly": "友好",
-    "value_label_very_friendly": "非常に友好",
+    "value_label_friendly": "良好",
+    "value_label_very_friendly": "極めて良好",
     "overlap_tiles": "{count} マス重複",
     "reasons_map": {
       "ALIGNMENT_OPPOSITE": "属性が相反する",
@@ -109,8 +109,8 @@
     }
   },
   "mortal_system": {
-    "title_short": "[凡人]",
-    "title": "凡人システム",
+    "title_short": "[人間]",
+    "title": "人間界",
     "empty": "データなし",
     "summary": {
       "title": "世界概況",
@@ -126,7 +126,7 @@
       "growth": "自然増加"
     },
     "tracked": {
-      "title": "追跡中の凡人",
+      "title": "追跡中の人々",
       "count": "追跡人数",
       "awakening_candidates": "覚醒候補",
       "name": "名前",
@@ -146,7 +146,7 @@
     "effect": "王朝効果",
     "effect_source": "王朝",
     "effect_empty": "王朝効果はまだありません。官僚制度や後続ロジックの追加後に反映されます。",
-    "low_magic": "凡人王朝",
+    "low_magic": "人間王朝",
     "empty": "王朝データがありません",
     "emperor": {
       "title": "現皇帝",
@@ -154,7 +154,7 @@
       "age": "年齢",
       "lifespan": "寿命",
       "identity": "身分",
-      "mortal": "凡人",
+      "mortal": "人間",
       "empty": "皇帝データがありません"
     },
     "summary": {
@@ -280,7 +280,7 @@
       "relation_meta": "{owner} に対する {relation}",
       "father_short": "父",
       "mother_short": "母",
-      "mortal_realm": "凡人",
+      "mortal_realm": "人間",
       "empty_short": "ありません",
       "modals": {
         "set_long_term": "長期目標を設定",
@@ -294,7 +294,7 @@
       "essence_title": "霊気環境",
       "essence_info": "{type} 属性霊気 · 濃度 {density}",
       "proper_name_note_short": "固有地名",
-      "proper_name_note": "地図上の地名は修仙世界の固有名詞のため、漢字表記のまま表示されます。",
+      "proper_name_note": "地図上の地名は仙道世界の固有名詞のため、漢字表記のまま表示されます。",
       "type_explanations": {
         "normal": "野外地域。霊獣、霊植、鉱脈などの資源が分布します。",
         "city": "都市区域。人口が集まり、市場で物資を売買できます。",

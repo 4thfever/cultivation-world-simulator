@@ -87,10 +87,10 @@ msgid "effect_extra_educate_efficiency"
 msgstr "教化効率"
 
 msgid "effect_extra_educate_population_prob"
-msgstr "教化人口増加確率"
+msgstr "教化による人口増加確率"
 
 msgid "effect_extra_govern_reputation_gain_multiplier"
-msgstr "治政声望獲得"
+msgstr "治政で得る声望"
 
 msgid "effect_extra_epiphany_probability"
 msgstr "頓悟確率"
@@ -108,7 +108,7 @@ msgid "effect_extra_fortune_probability"
 msgstr "奇遇確率"
 
 msgid "effect_extra_harvest_materials"
-msgstr "採集素材獲得"
+msgstr "採集獲得量"
 
 msgid "effect_extra_hidden_domain_danger_prob"
 msgstr "秘境危険率"
@@ -131,13 +131,13 @@ msgid "effect_extra_max_hp"
 msgstr "最大HP"
 
 msgid "effect_extra_max_lifespan"
-msgstr "最大寿命"
+msgstr "寿命上限"
 
 msgid "effect_extra_appearance"
 msgstr "容姿"
 
 msgid "effect_extra_mine_materials"
-msgstr "採鉱素材獲得"
+msgstr "採鉱獲得量"
 
 msgid "effect_extra_misfortune_probability"
 msgstr "厄運確率"
@@ -149,7 +149,7 @@ msgid "effect_extra_observation_radius"
 msgstr "感知範囲"
 
 msgid "effect_extra_plunder_multiplier"
-msgstr "略奪收益"
+msgstr "略奪収益"
 
 msgid "effect_extra_refine_success_rate"
 msgstr "錬丹成功率"
@@ -161,7 +161,7 @@ msgid "effect_extra_respire_exp"
 msgstr "吐納経験"
 
 msgid "effect_extra_respire_exp_multiplier"
-msgstr "吐納経験倍率"
+msgstr "吐納経験補正"
 
 msgid "effect_extra_retreat_success_rate"
 msgstr "閉関成功率"
@@ -176,7 +176,7 @@ msgid "effect_extra_weapon_upgrade_chance"
 msgstr "武器強化確率"
 
 msgid "effect_legal_actions"
-msgstr "特殊能力"
+msgstr "特殊行動"
 
 msgid "effect_realm_suppression_bonus"
 msgstr "境界抑制"
@@ -194,10 +194,10 @@ msgid "effect_temper_duration_reduction"
 msgstr "鍛体時間短縮"
 
 msgid "play_benefit"
-msgstr "消遣收益"
+msgstr "娯楽収益"
 
 msgid "effect_extra_plant_income"
-msgstr "耕作追加收益"
+msgstr "耕作追加収益"
 
 msgid "effect_extra_income_per_tile"
 msgstr "1 マスごとの追加収入（年次）"

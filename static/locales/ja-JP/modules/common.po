@@ -195,3 +195,54 @@ msgstr "山沢の孤修を好む"
 
 msgid "Prefers {value}"
 msgstr "{value} を好む"
+
+msgid "无品"
+msgstr "無位"
+
+msgid "县令"
+msgstr "県令"
+
+msgid "郡守"
+msgstr "郡守"
+
+msgid "州牧"
+msgstr "州牧"
+
+msgid "宰辅"
+msgstr "宰輔"
+
+msgid "尚法重军"
+msgstr "尚法重軍"
+
+msgid "清谈名教"
+msgstr "清談名教"
+
+msgid "重文理政"
+msgstr "重文理政"
+
+msgid "风流雅政"
+msgstr "風流雅政"
+
+msgid "山泽杂行"
+msgstr "山沢雑行"
+
+msgid "尚实通商"
+msgstr "尚実通商"
+
+msgid "沉毅守边"
+msgstr "沈毅守辺"
+
+msgid "骑射尚武"
+msgstr "騎射尚武"
+
+msgid "法密权重"
+msgstr "法密権重"
+
+msgid "务本守成"
+msgstr "務本守成"
+
+msgid "柔治机变"
+msgstr "柔治機変"
+
+msgid "坚忍后发"
+msgstr "堅忍後発"

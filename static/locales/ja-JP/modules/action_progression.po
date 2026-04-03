@@ -21,7 +21,7 @@ msgstr "突破"
 
 msgid "breakthrough_description"
 msgstr ""
-"境界突破を試みる（成功すれば最大寿命が伸び、失敗すれば減少する。高境界ほど成功率は低い）"
+"境界突破を試みる（成功すれば寿命上限が伸び、失敗すれば削られる。高境界ほど成功率は低い）"
 
 msgid "breakthrough_requirements"
 msgstr "キャラクターが瓶頸に達していること。連続実行は不可"
@@ -32,7 +32,7 @@ msgstr "鋳造"
 
 msgid "cast_description"
 msgstr ""
-"素材を消費して宝物の鋳造を試みる（target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
+"素材を消費して宝物の鋳造を試みる（対象境界: 練気・築基・結丹・元嬰）"
 
 msgid "cast_requirements"
 msgstr "同境界の素材を 5 個所持していること"
@@ -66,7 +66,7 @@ msgid "govern_action_name"
 msgstr "治政"
 
 msgid "govern_description"
-msgstr "都市で朝廷の政務を担い、声望と俸禄を得る。"
+msgstr "都市で政務を担い、声望と俸禄を得る。"
 
 msgid "govern_requirements"
 msgstr "都市にいる必要がある。継続期間は 3 か月。"
@@ -115,7 +115,7 @@ msgstr "錬丹"
 
 msgid "refine_description"
 msgstr ""
-"素材を消費して丹薬の錬成を試みる（target_realm: QI_REFINEMENT, FOUNDATION_ESTABLISHMENT, CORE_FORMATION, NASCENT_SOUL）"
+"素材を消費して丹薬の錬成を試みる（対象境界: 練気・築基・結丹・元嬰）"
 
 msgid "refine_requirements"
 msgstr "同境界の素材を 3 個所持していること"

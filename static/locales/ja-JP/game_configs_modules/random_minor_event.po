@@ -17,7 +17,7 @@ msgstr "莫名執念"
 
 #. random_minor_event.csv: 与修真装备、武器、功法的日常互动
 msgid "minor_event_cause_3"
-msgstr "修真装備・武器・功法との日常的な関わり"
+msgstr "仙道の装備・武器・功法との日常的な関わり"
 
 #. random_minor_event.csv: 对所在环境的感叹
 msgid "minor_event_cause_4"
@@ -29,7 +29,7 @@ msgstr "宗門の雑務"
 
 #. random_minor_event.csv: 修仙日常
 msgid "minor_event_cause_6"
-msgstr "修仙の日常"
+msgstr "仙道の日常"
 
 #. random_minor_event.csv: 啼笑皆非的小插曲
 msgid "minor_event_cause_7"
@@ -65,7 +65,7 @@ msgstr "心の奥にふいに浮かび上がる一筋の執念"
 
 #. random_minor_event.csv: 围绕功法法宝兵器的日常修炼片段
 msgid "minor_event_desc_daily_practice"
-msgstr "功法・法宝・武器をめぐる日々の修錬の一幕"
+msgstr "功法・法宝・武器をめぐる日々の修練の一幕"
 
 #. random_minor_event.csv: 对眼前山川气象的一瞬感触
 msgid "minor_event_desc_environment_response"

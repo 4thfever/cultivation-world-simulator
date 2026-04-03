@@ -15,7 +15,7 @@ msgstr ""
 # Gathering System - Auction
 # Status Text
 msgid "Auction is in progress..."
-msgstr "競売が進行中..."
+msgstr "競売開催中..."
 
 msgid "epiphany_event_desc"
 msgstr ""
@@ -27,13 +27,13 @@ msgstr "女"
 msgid "sect_teaching_context_prompt"
 msgstr ""
 "宗門: {sect_name}\n"
-"風格: {style}\n"
+"気風: {style}\n"
 "講師: {teacher_name}（{teacher_realm}）\n"
 "{epiphany_text}\n"
 "宗門と人物設定に基づき、講師が天地・世間・大道をどう理解しているかを描き、弟子たちの異なる反応もあわせて描写せよ。"
 
 msgid "sect_teaching_event_desc"
-msgstr "{teacher_name} が講壇に上がり、講道を始めようとしている。"
+msgstr "{teacher_name} が講壇に立ち、講道を始めようとしている。"
 
 msgid "sect_teaching_exp_gain"
 msgstr "{student_name} は {exp} の修為経験を得た。"
@@ -48,4 +48,4 @@ msgstr ""
 
 msgid "sect_teaching_summary"
 msgstr ""
-"{sect_name} は {teacher_name} を主講として講道会を開いた。参加者: {student_names}。"
+"{sect_name} は {teacher_name} を講師として講道会を開いた。参加者: {student_names}。"

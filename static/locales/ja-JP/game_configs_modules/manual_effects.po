@@ -41,4 +41,4 @@ msgstr "槍熟練度に応じて戦闘力が上昇する"
 
 # Auxiliary
 msgid "effect_ten_thousand_souls_banner_desc"
-msgstr "城市の凡人を吞噬して魂を集め、段階的に最大 +8 まで戦闘力を得る"
+msgstr "都市の人間を喰らって魂を集め、段階的に最大 +8 まで戦闘力を得る"

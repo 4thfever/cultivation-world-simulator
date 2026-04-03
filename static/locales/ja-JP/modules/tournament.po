@@ -1,17 +1,17 @@
 msgid "World Martial Arts Tournament is in progress..."
-msgstr "天下武道会が進行中..."
+msgstr "天下武道会が開催中..."
 
 msgid "tournament_start_heaven"
-msgstr "天榜武道会が開幕した！ 参加者: {participants}。"
+msgstr "天榜武道会が始まった。参加者: {participants}。"
 
 msgid "tournament_start_earth"
-msgstr "地榜武道会が開幕した！ 参加者: {participants}。"
+msgstr "地榜武道会が始まった。参加者: {participants}。"
 
 msgid "tournament_start_human"
-msgstr "人榜武道会が開幕した！ 参加者: {participants}。"
+msgstr "人榜武道会が始まった。参加者: {participants}。"
 
 msgid "tournament_battle_result"
-msgstr "武道会の試合で、{winner}が{loser}を打ち破った。"
+msgstr "武道会で {winner} が {loser} を下した。"
 
 msgid "tournament_end_heaven"
 msgstr "天榜武道会が終了した。第一位は {winner}。"
@@ -49,7 +49,7 @@ msgid "\n【Finalists Information】\n"
 msgstr "\n【決勝進出者情報】\n"
 
 msgid "tournament_story_prompt"
-msgstr "上記の武道会結果をもとに、臨場感ある物語を400〜500字ほどで描写してください。二人の決勝進出者による激しい武の衝突、法宝のぶつかり合う細部、最終勝者の圧倒的な風格、そして観衆の反応を含めてください。文体は修仙世界観に合うものとし、Markdown なしのプレーンテキストのみを出力してください。"
+msgstr "上記の武道会結果をもとに、臨場感のある物語を400〜500字ほどで描写してください。二人の決勝進出者による激しい武の衝突、法宝がぶつかり合う細部、最終勝者の圧倒的な風采、そして観衆の反応を含めてください。文体は仙道世界観に合うものとし、Markdown なしのプレーンテキストのみを出力してください。"
 
 msgid "Final Match: {winner} vs {loser}\n"
 msgstr "決勝戦: {winner} vs {loser}\n"

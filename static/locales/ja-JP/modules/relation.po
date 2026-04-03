@@ -41,7 +41,7 @@ msgid "numeric_relation_disliked"
 msgstr "不和"
 
 msgid "numeric_relation_friend"
-msgstr "友好"
+msgstr "良好"
 
 msgid "numeric_relation_stranger"
 msgstr "疎遠"
@@ -109,7 +109,7 @@ msgstr "[関係成立ルール]"
 
 msgid "relation_rule_friend_add"
 msgstr ""
-"[友好] 会話、双修、切磋、療傷などの日常的に好意的な交流があれば成立しうる。明確な善意の表明が一度あるだけでも十分で、重大な利害対立がないことが前提となる。"
+"[良好] 会話、双修、切磋、療傷などの日常的に好意的な交流があれば成立しうる。明確な善意の表明が一度あるだけでも十分で、重大な利害対立がないことが前提となる。"
 
 msgid "relation_rule_friend_cancel"
 msgstr ""

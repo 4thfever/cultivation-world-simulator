@@ -1146,6 +1146,57 @@ msgstr "偏好山泽孤修"
 msgid "Prefers {value}"
 msgstr "偏好{value}"
 
+msgid "无品"
+msgstr "无品"
+
+msgid "县令"
+msgstr "县令"
+
+msgid "郡守"
+msgstr "郡守"
+
+msgid "州牧"
+msgstr "州牧"
+
+msgid "宰辅"
+msgstr "宰辅"
+
+msgid "尚法重军"
+msgstr "尚法重军"
+
+msgid "清谈名教"
+msgstr "清谈名教"
+
+msgid "重文理政"
+msgstr "重文理政"
+
+msgid "风流雅政"
+msgstr "风流雅政"
+
+msgid "山泽杂行"
+msgstr "山泽杂行"
+
+msgid "尚实通商"
+msgstr "尚实通商"
+
+msgid "沉毅守边"
+msgstr "沉毅守边"
+
+msgid "骑射尚武"
+msgstr "骑射尚武"
+
+msgid "法密权重"
+msgstr "法密权重"
+
+msgid "务本守成"
+msgstr "务本守成"
+
+msgid "柔治机变"
+msgstr "柔治机变"
+
+msgid "坚忍后发"
+msgstr "坚忍后发"
+
 # 条件翻译
 msgid "Conditional effect"
 msgstr "条件触发"

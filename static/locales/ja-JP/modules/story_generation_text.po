@@ -37,7 +37,7 @@ msgstr ""
 
 # Story Generation Text
 msgid "Deal: {winner_name} acquired {item_name} for {price} spirit stones."
-msgstr "成交: {winner_name} は {price} 霊石で {item_name} を落札した。"
+msgstr "落札: {winner_name} は {price} 霊石で {item_name} を手に入れた。"
 
 msgid ""
 "Elegant scholarly: Scholarly atmosphere, slight touch of citations, without "

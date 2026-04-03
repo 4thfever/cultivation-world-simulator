@@ -15,7 +15,7 @@ msgstr ""
 msgid ""
 "(Alignment: {alignment}, Style: {style}, Headquarters: {hq_name}){effect}"
 msgstr ""
-"（属性: {alignment}、風格: {style}、本拠地: {hq_name}）{effect}"
+"（属性: {alignment}、気風: {style}、本拠地: {hq_name}）{effect}"
 
 msgid "(Unknown technique)"
 msgstr "（不明な功法）"

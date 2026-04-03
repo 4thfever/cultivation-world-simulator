@@ -33,7 +33,7 @@ msgstr "町にいて、かつ十分な霊石を持っていること"
 
 # Action: HelpPeople
 msgid "help_people_action_name"
-msgstr "帮助凡人"
+msgstr "人助け"
 
 msgid "help_people_description"
 msgstr "町の人々を助ける。少量の霊石を消費する"

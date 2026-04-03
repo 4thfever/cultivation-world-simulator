@@ -77,10 +77,10 @@ msgid "game.sect_thinking_event"
 msgstr "{sect_name} の宗門思考: {thinking}"
 
 msgid "{winner} won the martial tournament championship and earned {amount} sect contribution for {sect_name}."
-msgstr "{winner} は武道大会で優勝し、{sect_name} に {amount} の宗門貢献をもたらした。"
+msgstr "{winner} は武道会で優勝し、{sect_name} に {amount} の宗門貢献をもたらした。"
 
 msgid "{teacher_name} taught and guided others at the preaching conference, earning {amount} sect contribution for {sect_name}."
-msgstr "{teacher_name} は講道会で教え導き、{sect_name} に {amount} の宗門貢献をもたらした。"
+msgstr "{teacher_name} は講道会で教えを説き、{sect_name} に {amount} の宗門貢献をもたらした。"
 
 msgid "{winner_name} distinguished themselves in sect war and earned {amount} sect contribution for {sect_name}."
 msgstr "{winner_name} は宗門戦で功を立て、{sect_name} に {amount} の宗門貢献をもたらした。"
@@ -89,7 +89,7 @@ msgid "Game automatically saved"
 msgstr "ゲームを自動保存しました"
 
 msgid "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
-msgstr "{avatar_name} は修仙界で名を挙げ、「{nickname}」と呼ばれるようになった。"
+msgstr "{avatar_name} は仙道界で名を挙げ、「{nickname}」と呼ばれるようになった。"
 
 msgid "{avatar} self-created technique '{item}'"
 msgstr "{avatar} は自作功法「{item}」を編み出した。"
