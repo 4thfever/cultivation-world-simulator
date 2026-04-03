@@ -26,7 +26,8 @@ from src.classes.technique import (
 )
 from src.classes.weapon_type import WeaponType
 from src.i18n import t
-from src.i18n.locale_registry import get_fallback_locale, get_source_locale, normalize_locale_code
+from src.i18n.locale_registry import normalize_locale_code
+from src.i18n.template_resolver import resolve_locale_template_path
 from src.systems.cultivation import Realm
 from src.utils.config import CONFIG
 from src.utils.llm.client import call_llm_with_task_name
@@ -136,27 +137,20 @@ def _category_label(category: CustomCategory) -> str:
     return t(_CATEGORY_LABEL_MSGIDS[category])
 
 
-def _iter_template_locale_codes() -> list[str]:
-    ordered: list[str] = []
-    for locale_code in (_get_prompt_locale(), get_fallback_locale(), get_source_locale()):
-        normalized = normalize_locale_code(locale_code)
-        if normalized not in ordered:
-            ordered.append(normalized)
-    return ordered
+def _reference_label(key: str) -> str:
+    return t(_REFERENCE_LABEL_DISPLAY.get(key, key))
 
 
 def _resolve_template_path(filename: str) -> Path:
-    template_path = CONFIG.paths.templates / filename
-    if template_path.exists():
-        return template_path
+    return resolve_locale_template_path(
+        filename,
+        current_locale=_get_prompt_locale(),
+        preferred_dir=CONFIG.paths.templates,
+    )
 
-    locales_dir = Path(CONFIG.paths.get("locales", Path("static/locales")))
-    for locale_code in _iter_template_locale_codes():
-        candidate = locales_dir / locale_code / "templates" / filename
-        if candidate.exists():
-            return candidate
 
-    return template_path
+def _constraint_label(key: str) -> str:
+    return t(_CONSTRAINT_DISPLAY.get(key, key))
 
 
 def _format_effect_examples() -> str:
@@ -178,22 +172,22 @@ def _format_effect_examples() -> str:
     return "\n".join(lines)
 
 
-@lru_cache(maxsize=1)
-def _get_effect_reference_text_map() -> dict[str, str]:
+@lru_cache(maxsize=8)
+def _get_effect_reference_text_map(locale_code: str) -> dict[str, str]:
     result: dict[str, str] = {}
     for effect_key, meta in get_effect_prompt_meta_map().items():
         parts = [
-            f"{_REFERENCE_LABEL_DISPLAY.get(reference.key, reference.key)}: {reference.value}"
+            f"{_reference_label(reference.key)}: {reference.value}"
             for reference in meta.references
         ]
-        parts.extend(_CONSTRAINT_DISPLAY.get(constraint, constraint) for constraint in meta.constraints)
+        parts.extend(_constraint_label(constraint) for constraint in meta.constraints)
         if parts:
             result[effect_key] = "; ".join(parts)
     return result
 
 
 def _format_reference_text(effect_key: str) -> str:
-    return _get_effect_reference_text_map().get(effect_key, "")
+    return _get_effect_reference_text_map(_get_prompt_locale()).get(effect_key, "")
 
 
 def _serialize_reference_item(item: Technique | Weapon | Auxiliary, category: CustomCategory) -> str:

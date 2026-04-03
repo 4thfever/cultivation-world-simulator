@@ -118,6 +118,9 @@ def get_html_lang(locale_code: str | None) -> str:
     entry = get_locale_entry(locale_code, enabled_only=False)
     if entry and entry.get("html_lang"):
         return str(entry["html_lang"])
+    default_entry = get_locale_entry(get_default_locale(), enabled_only=False)
+    if default_entry and default_entry.get("html_lang"):
+        return str(default_entry["html_lang"])
     return "en"
 
 

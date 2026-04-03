@@ -1197,6 +1197,57 @@ msgstr "这是一个新的{category_label}，不需要额外指定境界。"
 msgid "custom_content.scope.with_realm"
 msgstr "这是一个“{realm}”层级的{category_label}。"
 
+msgid "small"
+msgstr "小"
+
+msgid "medium"
+msgstr "中"
+
+msgid "large"
+msgstr "大"
+
+msgid "cap"
+msgstr "封顶"
+
+msgid "very high"
+msgstr "很高"
+
+msgid "base chance"
+msgstr "基础概率"
+
+msgid "base value"
+msgstr "基础值"
+
+msgid "ordinary"
+msgstr "普通"
+
+msgid "fortunate"
+msgstr "幸运"
+
+msgid "protagonist-tier"
+msgstr "主角档"
+
+msgid "unlucky"
+msgstr "倒霉"
+
+msgid "tanky"
+msgstr "偏肉"
+
+msgid "profit-focused"
+msgstr "偏收益"
+
+msgid "safer"
+msgstr "更稳妥"
+
+msgid "riskier"
+msgstr "更冒险"
+
+msgid "talent-tier"
+msgstr "天才档"
+
+msgid "final multiplier >= 1.0"
+msgstr "最终乘区 >= 1.0"
+
 # Death reasons
 msgid "Killed by {killer}"
 msgstr "被{killer}杀害"
@@ -2866,6 +2917,18 @@ msgstr "宗门随机事件"
 
 msgid "Temporary effect"
 msgstr "临时效果"
+
+msgid ""
+"Our sect has settled its priorities for the coming years; next we should "
+"guard our rules and foundations, recruit talent with care, reward and punish"
+" fairly, and expand our momentum through steady progress."
+msgstr "我宗已定近年取舍，接下来当守住门规与根基，择才而纳、赏罚分明，以稳中求进扩张宗门气象。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "当前无天地异象。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "当前有天地异象，但描述缺失。"
 
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"

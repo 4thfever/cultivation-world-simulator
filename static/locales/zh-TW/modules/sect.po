@@ -65,3 +65,12 @@ msgid ""
 " Headquarters: {hq_name}){effect}"
 msgstr ""
 "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
+msgid "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
+msgstr "我宗已定近年取捨，接下來當守住門規與根基，擇才而納、賞罰分明，以穩中求進擴張宗門氣象。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "當前無天地異象。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "當前有天地異象，但描述缺失。"

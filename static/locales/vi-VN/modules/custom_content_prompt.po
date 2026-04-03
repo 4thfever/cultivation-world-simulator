@@ -65,3 +65,54 @@ msgstr "Đây là một {category_label} mới, không cần chỉ định thêm
 
 msgid "custom_content.scope.with_realm"
 msgstr "Đây là một {category_label} thuộc tầng cảnh giới \"{realm}\"."
+
+msgid "small"
+msgstr "nhỏ"
+
+msgid "medium"
+msgstr "vừa"
+
+msgid "large"
+msgstr "lớn"
+
+msgid "cap"
+msgstr "giới hạn trần"
+
+msgid "very high"
+msgstr "rất cao"
+
+msgid "base chance"
+msgstr "tỷ lệ cơ bản"
+
+msgid "base value"
+msgstr "giá trị cơ bản"
+
+msgid "ordinary"
+msgstr "thường"
+
+msgid "fortunate"
+msgstr "may mắn"
+
+msgid "protagonist-tier"
+msgstr "cấp bậc nhân vật chính"
+
+msgid "unlucky"
+msgstr "xui xẻo"
+
+msgid "tanky"
+msgstr "thiên về chống chịu"
+
+msgid "profit-focused"
+msgstr "thiên về lợi ích"
+
+msgid "safer"
+msgstr "an toàn hơn"
+
+msgid "riskier"
+msgstr "mạo hiểm hơn"
+
+msgid "talent-tier"
+msgstr "cấp bậc thiên tài"
+
+msgid "final multiplier >= 1.0"
+msgstr "hệ số cuối cùng >= 1.0"

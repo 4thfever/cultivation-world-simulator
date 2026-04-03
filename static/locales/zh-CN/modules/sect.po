@@ -47,6 +47,15 @@ msgstr "宗门随机事件"
 msgid "Temporary effect"
 msgstr "临时效果"
 
+msgid "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
+msgstr "我宗已定近年取舍，接下来当守住门规与根基，择才而纳、赏罚分明，以稳中求进扩张宗门气象。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "当前无天地异象。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "当前有天地异象，但描述缺失。"
+
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"
 

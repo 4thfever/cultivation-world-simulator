@@ -3,14 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
-from src.classes.language import language_manager
 from src.config import get_settings_service
+from src.i18n import t
+from src.i18n.template_resolver import resolve_locale_template_path
 from src.run.log import get_logger
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
-from src.i18n.locale_registry import get_source_locale
 
 if TYPE_CHECKING:
     from src.classes.core.sect import Sect
@@ -94,9 +94,8 @@ class SectThinker:
 
     @classmethod
     def _fallback(cls, sect: "Sect") -> str:
-        return (
-            f"我宗已定近年取舍，接下来当守住门规与根基，"
-            f"择才而纳、赏罚分明，以稳中求进扩张宗门气象。"
+        return t(
+            "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
         )
 
     @classmethod
@@ -140,11 +139,10 @@ class SectThinker:
 
     @classmethod
     def _resolve_template_path(cls) -> Path:
-        lang = str(language_manager)
-        path = Path(f"static/locales/{lang}/templates/sect_thinker.txt")
-        if path.exists():
-            return path
-        return Path(f"static/locales/{get_source_locale()}/templates/sect_thinker.txt")
+        return resolve_locale_template_path(
+            "sect_thinker.txt",
+            preferred_dir=CONFIG.paths.templates,
+        )
 
     @classmethod
     def _serialize_world_info(cls, world: "World") -> dict[str, Any]:
@@ -160,9 +158,9 @@ class SectThinker:
     def _current_phenomenon_info(cls, world: "World") -> str:
         phenomenon = getattr(world, "current_phenomenon", None)
         if phenomenon is None:
-            return "当前无天地异象。"
+            return t("There is currently no celestial phenomenon.")
         name = str(getattr(phenomenon, "name", "") or "")
         desc = str(getattr(phenomenon, "desc", "") or "")
         if name and desc:
             return f"{name}：{desc}"
-        return name or desc or "当前有天地异象，但描述缺失。"
+        return name or desc or t("A celestial phenomenon is present, but its description is missing.")

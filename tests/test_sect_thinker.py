@@ -2,6 +2,8 @@ import pytest
 from unittest.mock import MagicMock, patch
 
 from src.classes.sect_thinker import SectThinker
+from src.classes.language import language_manager
+from src.i18n import reload_translations
 from src.systems.sect_decision_context import SectDecisionContext
 
 
@@ -94,20 +96,27 @@ async def test_sect_thinker_falls_back_when_llm_unavailable():
     sect = _DummySect("Qingyun Sect")
     world = _DummyWorld()
     ctx = _dummy_ctx()
+    original_lang = str(language_manager)
 
     mock_service = MagicMock()
     mock_service.get_llm_runtime_config.return_value = (
         type("Profile", (), {"base_url": "", "model_name": "", "fast_model_name": ""})(),
         "",
     )
-    with patch("src.classes.sect_thinker.get_settings_service", return_value=mock_service), patch(
-        "src.classes.sect_thinker.get_logger"
-    ) as mock_logger:
-        text = await SectThinker.think(sect, ctx, world)
+    try:
+        language_manager._current = "zh-CN"
+        reload_translations()
+        with patch("src.classes.sect_thinker.get_settings_service", return_value=mock_service), patch(
+            "src.classes.sect_thinker.get_logger"
+        ) as mock_logger:
+            text = await SectThinker.think(sect, ctx, world)
 
-    assert text.startswith("我宗")
-    assert 30 <= len(text) <= 100
-    assert "LLM runtime config unavailable" in mock_logger.return_value.logger.warning.call_args.args[-1]
+        assert text.startswith("我宗")
+        assert 30 <= len(text) <= 100
+        assert "LLM runtime config unavailable" in mock_logger.return_value.logger.warning.call_args.args[-1]
+    finally:
+        language_manager._current = original_lang
+        reload_translations()
 
 
 def test_sect_thinker_llm_available_uses_runtime_config():
@@ -125,17 +134,39 @@ async def test_sect_thinker_warns_when_response_too_short():
     sect = _DummySect("Qingyun Sect")
     world = _DummyWorld()
     ctx = _dummy_ctx()
+    original_lang = str(language_manager)
     mock_service = MagicMock()
     mock_service.get_llm_runtime_config.return_value = (
         type("Profile", (), {"base_url": "http://test", "model_name": "test-model", "fast_model_name": "test-fast"})(),
         "secret",
     )
 
-    with patch("src.classes.sect_thinker.get_settings_service", return_value=mock_service), patch(
-        "src.classes.sect_thinker.call_llm_with_task_name",
-        return_value={"sect_thinking": "太短"},
-    ), patch("src.classes.sect_thinker.get_logger") as mock_logger:
-        text = await SectThinker.think(sect, ctx, world)
+    try:
+        language_manager._current = "zh-CN"
+        reload_translations()
+        with patch("src.classes.sect_thinker.get_settings_service", return_value=mock_service), patch(
+            "src.classes.sect_thinker.call_llm_with_task_name",
+            return_value={"sect_thinking": "太短"},
+        ), patch("src.classes.sect_thinker.get_logger") as mock_logger:
+            text = await SectThinker.think(sect, ctx, world)
 
-    assert text.startswith("我宗")
-    assert "LLM response too short" in mock_logger.return_value.logger.warning.call_args.args[-1]
+        assert text.startswith("我宗")
+        assert "LLM response too short" in mock_logger.return_value.logger.warning.call_args.args[-1]
+    finally:
+        language_manager._current = original_lang
+        reload_translations()
+
+
+def test_sect_thinker_current_phenomenon_info_uses_i18n_fallback_text():
+    original_lang = str(language_manager)
+    try:
+        language_manager._current = "zh-CN"
+        reload_translations()
+        world = type("World", (), {"current_phenomenon": None})()
+        assert SectThinker._current_phenomenon_info(world) == "当前无天地异象。"
+
+        world.current_phenomenon = type("Phenomenon", (), {"name": "", "desc": ""})()
+        assert SectThinker._current_phenomenon_info(world) == "当前有天地异象，但描述缺失。"
+    finally:
+        language_manager._current = original_lang
+        reload_translations()

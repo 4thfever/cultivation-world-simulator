@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import random
-from pathlib import Path
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from src.classes.alignment import Alignment
-from src.classes.language import language_manager
 from src.classes.event import Event
 from src.classes.sect_ranks import get_rank_from_realm
 from src.config import get_settings_service
+from src.i18n.template_resolver import resolve_locale_template_path
 from src.run.log import get_logger
 from src.classes.technique import (
     Technique,
@@ -25,7 +24,6 @@ from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.utils.llm.exceptions import LLMError, ParseError
 from src.utils.strings import to_json_str_with_intent
-from src.i18n.locale_registry import get_source_locale
 
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
@@ -156,11 +154,10 @@ class SectDecider:
 
     @classmethod
     def _resolve_template_path(cls) -> Path:
-        lang = str(language_manager)
-        path = Path(f"static/locales/{lang}/templates/sect_decider.txt")
-        if path.exists():
-            return path
-        return Path(f"static/locales/{get_source_locale()}/templates/sect_decider.txt")
+        return resolve_locale_template_path(
+            "sect_decider.txt",
+            preferred_dir=CONFIG.paths.templates,
+        )
 
     @classmethod
     def _serialize_world_info(cls, world: "World") -> dict[str, Any]:

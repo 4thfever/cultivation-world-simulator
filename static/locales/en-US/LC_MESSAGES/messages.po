@@ -1292,6 +1292,57 @@ msgstr "This is a new {category_label}; no realm needs to be specified."
 msgid "custom_content.scope.with_realm"
 msgstr "This is a {category_label} at the \"{realm}\" realm tier."
 
+msgid "small"
+msgstr "small"
+
+msgid "medium"
+msgstr "medium"
+
+msgid "large"
+msgstr "large"
+
+msgid "cap"
+msgstr "cap"
+
+msgid "very high"
+msgstr "very high"
+
+msgid "base chance"
+msgstr "base chance"
+
+msgid "base value"
+msgstr "base value"
+
+msgid "ordinary"
+msgstr "ordinary"
+
+msgid "fortunate"
+msgstr "fortunate"
+
+msgid "protagonist-tier"
+msgstr "protagonist-tier"
+
+msgid "unlucky"
+msgstr "unlucky"
+
+msgid "tanky"
+msgstr "tanky"
+
+msgid "profit-focused"
+msgstr "profit-focused"
+
+msgid "safer"
+msgstr "safer"
+
+msgid "riskier"
+msgstr "riskier"
+
+msgid "talent-tier"
+msgstr "talent-tier"
+
+msgid "final multiplier >= 1.0"
+msgstr "final multiplier >= 1.0"
+
 # Death reasons
 msgid "Killed by {killer}"
 msgstr "Killed by {killer}"
@@ -3126,6 +3177,21 @@ msgid ""
 msgstr ""
 "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
 " Headquarters: {hq_name}){effect}"
+
+msgid ""
+"Our sect has settled its priorities for the coming years; next we should "
+"guard our rules and foundations, recruit talent with care, reward and punish"
+" fairly, and expand our momentum through steady progress."
+msgstr ""
+"Our sect has settled its priorities for the coming years; next we should "
+"guard our rules and foundations, recruit talent with care, reward and punish"
+" fairly, and expand our momentum through steady progress."
+
+msgid "There is currently no celestial phenomenon."
+msgstr "There is currently no celestial phenomenon."
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "A celestial phenomenon is present, but its description is missing."
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

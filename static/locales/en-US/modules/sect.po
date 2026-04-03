@@ -73,3 +73,12 @@ msgid ""
 msgstr ""
 "{sect_name} (Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style},"
 " Headquarters: {hq_name}){effect}"
+
+msgid "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
+msgstr "Our sect has settled its priorities for the coming years; next we should guard our rules and foundations, recruit talent with care, reward and punish fairly, and expand our momentum through steady progress."
+
+msgid "There is currently no celestial phenomenon."
+msgstr "There is currently no celestial phenomenon."
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "A celestial phenomenon is present, but its description is missing."

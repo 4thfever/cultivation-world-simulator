@@ -65,3 +65,54 @@ msgstr "這是一個新的{category_label}，不需要額外指定境界。"
 
 msgid "custom_content.scope.with_realm"
 msgstr "這是一個「{realm}」層級的{category_label}。"
+
+msgid "small"
+msgstr "小"
+
+msgid "medium"
+msgstr "中"
+
+msgid "large"
+msgstr "大"
+
+msgid "cap"
+msgstr "封頂"
+
+msgid "very high"
+msgstr "很高"
+
+msgid "base chance"
+msgstr "基礎機率"
+
+msgid "base value"
+msgstr "基礎值"
+
+msgid "ordinary"
+msgstr "普通"
+
+msgid "fortunate"
+msgstr "幸運"
+
+msgid "protagonist-tier"
+msgstr "主角檔"
+
+msgid "unlucky"
+msgstr "倒楣"
+
+msgid "tanky"
+msgstr "偏肉"
+
+msgid "profit-focused"
+msgstr "偏收益"
+
+msgid "safer"
+msgstr "更穩妥"
+
+msgid "riskier"
+msgstr "更冒險"
+
+msgid "talent-tier"
+msgstr "天才檔"
+
+msgid "final multiplier >= 1.0"
+msgstr "最終乘區 >= 1.0"

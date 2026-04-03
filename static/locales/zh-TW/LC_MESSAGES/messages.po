@@ -1196,6 +1196,57 @@ msgstr "這是一個新的{category_label}，不需要額外指定境界。"
 msgid "custom_content.scope.with_realm"
 msgstr "這是一個「{realm}」層級的{category_label}。"
 
+msgid "small"
+msgstr "小"
+
+msgid "medium"
+msgstr "中"
+
+msgid "large"
+msgstr "大"
+
+msgid "cap"
+msgstr "封頂"
+
+msgid "very high"
+msgstr "很高"
+
+msgid "base chance"
+msgstr "基礎機率"
+
+msgid "base value"
+msgstr "基礎值"
+
+msgid "ordinary"
+msgstr "普通"
+
+msgid "fortunate"
+msgstr "幸運"
+
+msgid "protagonist-tier"
+msgstr "主角檔"
+
+msgid "unlucky"
+msgstr "倒楣"
+
+msgid "tanky"
+msgstr "偏肉"
+
+msgid "profit-focused"
+msgstr "偏收益"
+
+msgid "safer"
+msgstr "更穩妥"
+
+msgid "riskier"
+msgstr "更冒險"
+
+msgid "talent-tier"
+msgstr "天才檔"
+
+msgid "final multiplier >= 1.0"
+msgstr "最終乘區 >= 1.0"
+
 # Death reasons
 msgid "Killed by {killer}"
 msgstr "被{killer}殺害"
@@ -2884,6 +2935,18 @@ msgid ""
 " Headquarters: {hq_name}){effect}"
 msgstr ""
 "{sect_name}（道統：{orthodoxy}，陣營：{alignment}，風格：{style}，駐地：{hq_name}）{effect}"
+
+msgid ""
+"Our sect has settled its priorities for the coming years; next we should "
+"guard our rules and foundations, recruit talent with care, reward and punish"
+" fairly, and expand our momentum through steady progress."
+msgstr "我宗已定近年取捨，接下來當守住門規與根基，擇才而納、賞罰分明，以穩中求進擴張宗門氣象。"
+
+msgid "There is currently no celestial phenomenon."
+msgstr "當前無天地異象。"
+
+msgid "A celestial phenomenon is present, but its description is missing."
+msgstr "當前有天地異象，但描述缺失。"
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

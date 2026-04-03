@@ -42,11 +42,13 @@ export const enabledLocales = localeRegistry
   .map((locale) => locale.code)
 
 const enabledLocaleSet = new Set(enabledLocales)
+const defaultHtmlLang =
+  localeRegistry.find((item) => item.code === defaultLocale)?.htmlLang || 'en'
 
 export function isEnabledLocale(locale: string): boolean {
   return enabledLocaleSet.has(locale)
 }
 
 export function getHtmlLang(locale: string): string {
-  return localeRegistry.find((item) => item.code === locale)?.htmlLang || 'en'
+  return localeRegistry.find((item) => item.code === locale)?.htmlLang || defaultHtmlLang
 }
