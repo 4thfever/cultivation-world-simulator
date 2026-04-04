@@ -154,7 +154,53 @@ describe('EntityRow', () => {
     })
 
     expect(wrapper.find('.entity-row').classes()).toContain('details-below')
+    expect(wrapper.find('.entity-row').classes()).toContain('details-inline-preferred')
+    expect(wrapper.find('.details-line').exists()).toBe(false)
+    expect(wrapper.find('.inline-info').exists()).toBe(true)
+    expect(wrapper.find('.meta').text()).toBe('Proficiency 50%')
+    expect(wrapper.find('.grade').text()).toBe('SR')
+  })
+
+  it('should render stacked details line for locales that prefer stacked details', () => {
+    const itemWithGrade = {
+      ...defaultItem,
+      grade: 'SR',
+    }
+
+    const wrapper = mount(EntityRow, {
+      props: {
+        item: itemWithGrade,
+        meta: 'Proficiency 50%',
+        detailsBelow: true,
+      },
+      global: {
+        directives: {
+          sound: () => {},
+        },
+        plugins: [createTestI18n({
+          technique_grades: {
+            LOWER: 'LOWER',
+            MIDDLE: 'MIDDLE',
+            UPPER: 'UPPER',
+          },
+          realms: {},
+          game: {
+            ranking: {
+              stages: {
+                early: 'early',
+                middle: 'middle',
+                late: 'late',
+              },
+            },
+          },
+        }, 'en-US')],
+      },
+    })
+
+    expect(wrapper.find('.entity-row').classes()).toContain('details-below')
+    expect(wrapper.find('.entity-row').classes()).toContain('details-stacked')
     expect(wrapper.find('.details-line').exists()).toBe(true)
+    expect(wrapper.find('.inline-info').exists()).toBe(false)
     expect(wrapper.find('.meta').text()).toBe('Proficiency 50%')
     expect(wrapper.find('.grade').text()).toBe('SR')
   })
