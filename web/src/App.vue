@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider, NDialogProvider } from 'naive-ui'
 import { systemApi } from './api/modules/system'
 import { useI18n } from 'vue-i18n'
@@ -34,6 +34,10 @@ const systemStore = useSystemStore()
 
 // Sidebar resizer 状态
 const { sidebarWidth, isResizing, onResizerMouseDown } = useSidebarResize()
+
+function syncLayoutCssVars(width: number) {
+  document.documentElement.style.setProperty('--cws-sidebar-width', `${width}px`)
+}
 
 // 1. 游戏初始化逻辑
 const { 
@@ -114,6 +118,7 @@ async function handleReturnToMain() {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeydown)
+  syncLayoutCssVars(sidebarWidth.value)
   settingStore.hydrate().finally(() => {
     useAudio().init()
     useBgm().init() // 确保 BGM 系统在 App 层级初始化，避免 Watcher 被子组件卸载
@@ -122,6 +127,11 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
+  document.documentElement.style.removeProperty('--cws-sidebar-width')
+})
+
+watch(sidebarWidth, width => {
+  syncLayoutCssVars(width)
 })
 </script>
 

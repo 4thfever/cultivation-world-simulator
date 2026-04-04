@@ -38,6 +38,9 @@ globs: web/src/**/*.{vue,ts,js}
   - **强制约束 (MUST)**: **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑 Bug。若需保存实例引用，请使用普通变量或 `shallowRef`。
   - 动态效果（如水面流动）必须使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
   - 地图使用 `shallowRef` 存储。地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新。
+  - 地图区域名布局（`MapLayer` / `utils/mapLabels.ts`）默认采用**碰撞避让**而不是“重叠即隐藏”。若必须取舍，优先保持标签可见，再通过有限候选位避让。
+  - 地图区域名布局必须兼容当前启用的五种语言：`zh-CN`、`zh-TW`、`en-US`、`vi-VN`、`ja-JP`。紧凑脚本与拉丁脚本必须分别按对应文字尺寸和换行规则估算包围盒，禁止只按中文或只按英文做单语言近似。
+  - 地图区域名避让实现必须保持轻量：优先使用固定候选位 + 邻域索引（如空间桶）进行局部碰撞检测，禁止引入逐帧求解、全局物理模拟或会明显增加初始化/重绘开销的重型算法。
 
 ## 5. 类型与 DTO 规范 (Type & DTO Policy)
 - **新增接口字段时**，必须先更新 `types/api.ts`，再在 `api/mappers/*` 做 DTO -> Domain 归一化。

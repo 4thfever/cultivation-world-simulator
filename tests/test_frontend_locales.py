@@ -6,42 +6,44 @@ import sys
 # Add src to path to import WeaponType
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.classes.weapon_type import WeaponType
-from src.i18n.locale_registry import get_locale_codes, get_schema_locale, get_source_locale
+from src.i18n.locale_registry import get_locale_codes, get_source_locale
 
 class TestFrontendLocales:
     def test_popup_types_coverage(self):
-        """Verify that ALL WeaponType keys are mapped in frontend locales"""
+        """Verify popup entity type keys are mapped in frontend locales."""
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        source_locale = get_source_locale()
-        schema_locale = get_schema_locale()
-        source_path = os.path.join(base_dir, "web", "src", "locales", source_locale, "game.json")
-        schema_path = os.path.join(base_dir, "web", "src", "locales", schema_locale, "game.json")
-        
-        assert os.path.exists(source_path), f"{source_locale}/game.json not found"
-        assert os.path.exists(schema_path), f"{schema_locale}/game.json not found"
-        
-        with open(source_path, "r", encoding="utf-8") as f:
-            source_data = json.load(f)
-            
-        with open(schema_path, "r", encoding="utf-8") as f:
-            schema_data = json.load(f)
-            
-        # Check for 'info_panel.popup.types' (since it's inside game.json)
-        source_types = source_data.get("info_panel", {}).get("popup", {}).get("types", {})
-        schema_types = schema_data.get("info_panel", {}).get("popup", {}).get("types", {})
-        
-        # Verify all WeaponType enum values exist in locales
-        for member in WeaponType:
-            key = member.value
-            assert key in source_types, f"Key '{key}' missing in {source_locale}/game.json types"
-            assert key in schema_types, f"Key '{key}' missing in {schema_locale}/game.json types"
-            
-            # Ensure no Chinese keys exist (double check)
-            # The key itself should be the English enum value (e.g. "SPEAR"), not "枪"
-            assert not any(char > '\u4e00' and char < '\u9fff' for char in key), \
-                f"Key '{key}' contains Chinese characters, which is not allowed for localization keys."
+        locales = get_locale_codes()
+        expected_keys = {member.value for member in WeaponType} | {
+            "animal",
+            "elixir",
+            "plant",
+            "lode",
+            "item",
+            "weapon",
+            "auxiliary",
+            "technique",
+            "sect",
+            "persona",
+        }
 
-        print("All WeaponType keys verified successfully.")
+        for locale in locales:
+            locale_path = os.path.join(base_dir, "web", "src", "locales", locale, "game.json")
+            assert os.path.exists(locale_path), f"{locale}/game.json not found"
+
+            with open(locale_path, "r", encoding="utf-8") as f:
+                locale_data = json.load(f)
+
+            locale_types = locale_data.get("info_panel", {}).get("popup", {}).get("types", {})
+
+            for key in expected_keys:
+                assert key in locale_types, f"Key '{key}' missing in {locale}/game.json types"
+
+        # The localization keys themselves must stay ASCII enum values, not translated labels.
+        for member in WeaponType:
+            assert not any(char > '\u4e00' and char < '\u9fff' for char in member.value), \
+                f"Key '{member.value}' contains Chinese characters, which is not allowed for localization keys."
+
+        print("All popup entity type keys verified successfully.")
 
     def get_all_keys(self, d, prefix=''):
         keys = set()

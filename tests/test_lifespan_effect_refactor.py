@@ -1,9 +1,10 @@
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
 from src.classes.action.breakthrough import Breakthrough
 from src.classes.action.retreat import Retreat
+from src.classes.language import language_manager
 from src.i18n import t
 from src.systems.cultivation import CultivationProgress, Realm
 
@@ -66,3 +67,41 @@ async def test_retreat_failure_adds_negative_lifespan_effect(dummy_avatar):
     assert dummy_avatar.persistent_effects[0]["source"] == "effect_source_retreat_failure"
     assert dummy_avatar.persistent_effects[0]["effects"]["extra_max_lifespan"] == -12
     assert dummy_avatar.age.max_lifespan == 68
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("locale", "expected_content", "unexpected_fragment"),
+    [
+        ("en-US", "TestDummy encountered nether prison tribulation, breakthrough succeeded", "阴狱"),
+        ("zh-TW", "TestDummy 遭遇了陰獄劫難，突破成功", "阴狱"),
+        ("vi-VN", "TestDummy gặp phải âm ngục, đột phá thành công", "阴狱"),
+        ("ja-JP", "TestDummy は 陰獄 の劫に遭い、突破は 成功", "阴狱"),
+    ],
+)
+async def test_breakthrough_story_event_localizes_tribulation_name_in_enabled_locales(
+    dummy_avatar,
+    locale,
+    expected_content,
+    unexpected_fragment,
+):
+    original_lang = str(language_manager)
+    try:
+        language_manager.set_language(locale)
+        dummy_avatar.cultivation_progress = CultivationProgress(level=60)
+        dummy_avatar.recalc_effects()
+
+        action = Breakthrough(dummy_avatar, dummy_avatar.world)
+        with patch("src.classes.action.breakthrough.TribulationSelector.choose_tribulation", return_value="阴狱"), \
+             patch("src.classes.action.breakthrough.TribulationSelector.choose_related_avatar", return_value=None), \
+             patch("src.classes.action.breakthrough.StoryEventService.maybe_create_story", new_callable=AsyncMock, return_value=None), \
+             patch("random.random", return_value=0.0):
+            action.start()
+            action._execute()
+            events = await action.finish()
+
+        assert events
+        assert events[0].content == expected_content
+        assert unexpected_fragment not in events[0].content
+    finally:
+        language_manager.set_language(original_lang)

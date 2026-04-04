@@ -24,3 +24,6 @@ msgstr "Unknown"
 
 msgid "east"
 msgstr "East"
+
+msgid "Someone"
+msgstr "Someone"

@@ -415,6 +415,7 @@ async function handleClearObjective() {
           <EntityRow 
             v-if="data.technique" 
             :item="data.technique" 
+            details-below
             @click="showDetail(data.technique)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
@@ -427,6 +428,7 @@ async function handleClearObjective() {
             v-if="data.weapon" 
             :item="data.weapon" 
             :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
+            details-below
             @click="showDetail(data.weapon)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
@@ -438,6 +440,7 @@ async function handleClearObjective() {
           <EntityRow 
             v-if="data.auxiliary" 
             :item="data.auxiliary" 
+            details-below
             @click="showDetail(data.auxiliary)" 
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
@@ -448,6 +451,7 @@ async function handleClearObjective() {
          <EntityRow 
           v-if="data.spirit_animal" 
           :item="data.spirit_animal" 
+          details-below
           @click="showDetail(data.spirit_animal)" 
         />
       </div>

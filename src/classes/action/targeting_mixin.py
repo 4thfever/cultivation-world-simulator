@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Optional, Iterable, TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.environment.tile import get_avatar_distance
 from src.classes.observe import get_observable_avatars
 from src.utils.normalize import normalize_avatar_name
@@ -75,10 +76,10 @@ class TargetingMixin:
             - reason: 失败原因（成功时为空字符串）。
         """
         if not name:
-            return None, False, "缺少目标参数"
+            return None, False, t("Missing target parameter")
         target = self.find_avatar_by_name(name)
         if target is None:
-            return None, False, "目标不存在"
+            return None, False, t("Target does not exist")
         if target.is_dead:
-            return None, False, "目标已死亡"
+            return None, False, t("Target is already dead")
         return target, True, ""

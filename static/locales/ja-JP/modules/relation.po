@@ -161,3 +161,39 @@ msgstr "弟"
 
 msgid "relation_younger_sister"
 msgstr "妹"
+
+msgid "No significant recent interactions."
+msgstr "最近、目立った交流はなかった。"
+
+msgid "Current relations: {rel_desc}"
+msgstr "現在の関係: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "{reason} により、{avatar_a} は {avatar_b} の {relation} となった。"
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "{reason} により、{avatar_a} はもはや {avatar_b} の {relation} ではなくなった。"
+
+msgid "bond_label_lovers"
+msgstr "道侶となった"
+
+msgid "bond_label_sworn_siblings"
+msgstr "義兄弟姉妹の契りを結んだ"
+
+msgid "bond_label_master_disciple"
+msgstr "師弟関係を結んだ"
+
+msgid "bond_label_major_relationship"
+msgstr "重要な関係を結んだ"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "{subject_name} が {killer_name} に殺されたと知った。"
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "{subject_name} と {other_name} が {bond_label} と知った。"
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "{subject_name} が大きな出来事を経験したと知った: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "{subject_name} が大きな出来事を経験したと知った。"

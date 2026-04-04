@@ -138,6 +138,27 @@ describe('EntityRow', () => {
     expect(wrapper.find('.entity-row').classes()).toContain('compact')
   })
 
+  it('should render stacked details layout when detailsBelow is true', () => {
+    const itemWithGrade = {
+      ...defaultItem,
+      grade: 'SR',
+    }
+
+    const wrapper = mount(EntityRow, {
+      props: {
+        item: itemWithGrade,
+        meta: 'Proficiency 50%',
+        detailsBelow: true,
+      },
+      ...globalConfig,
+    })
+
+    expect(wrapper.find('.entity-row').classes()).toContain('details-below')
+    expect(wrapper.find('.details-line').exists()).toBe(true)
+    expect(wrapper.find('.meta').text()).toBe('Proficiency 50%')
+    expect(wrapper.find('.grade').text()).toBe('SR')
+  })
+
   it('should not have compact class when compact is false', () => {
     const wrapper = mount(EntityRow, {
       props: {

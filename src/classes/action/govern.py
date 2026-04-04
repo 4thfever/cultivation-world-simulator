@@ -97,7 +97,7 @@ class Govern(TimedAction):
             ),
             actors=[self.avatar],
             related_avatar_ids=[self.avatar.id],
-            prompt="主题围绕处理政务、遭遇邪祟、地方豪强、政敌掣肘展开。",
+            prompt=t("Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."),
         )
         if story_event is not None:
             events.append(story_event)

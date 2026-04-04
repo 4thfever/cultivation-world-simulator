@@ -98,6 +98,36 @@ msgstr "{avatar} begins resting and healing at {location}"
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} breakthrough result: {result}"
 
+msgid "tribulation_inner_demon"
+msgstr "inner demon"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "lightning"
+
+msgid "tribulation_body_reforging"
+msgstr "body"
+
+msgid "tribulation_vengeance"
+msgstr "vengeance"
+
+msgid "tribulation_love_tribulation"
+msgstr "love"
+
+msgid "tribulation_solar_force"
+msgstr "solar force"
+
+msgid "tribulation_thunderflame"
+msgstr "thunderflame"
+
+msgid "tribulation_wind_disaster"
+msgstr "windstorm"
+
+msgid "tribulation_nether_prison"
+msgstr "nether prison"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "demonic"
+
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 

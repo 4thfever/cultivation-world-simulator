@@ -112,6 +112,8 @@
     *   地图使用 `shallowRef` 存储，避免 Vue 深度监听 100x100 的地图数组。
     *   地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新，仅在地图数据重载时重建。
     *   动态效果（如水面流动）使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
+    *   地图区域名（`MapLayer` / `utils/mapLabels.ts`）默认应采用“碰撞避让”而非“重叠即隐藏”。避让策略必须兼容 `zh-CN / zh-TW / en-US / vi-VN / ja-JP` 五种语言：紧凑脚本（中文、日文）与拉丁脚本（英文、越南文）分别使用各自的文字尺寸估算与换行策略。
+    *   地图区域名避让逻辑必须保持轻量。优先使用固定数量候选位置 + 邻域碰撞检测（如空间桶 / 网格索引），避免引入全局两两比较、力导向模拟、逐帧布局或其他会随区域数量快速退化的算法。
 
 ## 4. 关键文件索引 (Critical Files Index)
 
@@ -135,6 +137,7 @@
 *   涉及 Pixi 渲染问题时，直接关注 `web/src/components/game/` 下的 Layer 组件。
 *   Socket 消息逻辑优先改 `stores/socketMessageRouter.ts`，不要把消息分支散到组件中。
 *   新增后端响应字段时，优先在 `types/api.ts` 和 `api/mappers/` 收敛转换。
+*   修改地图文字显示时，优先检查 `web/src/components/game/utils/mapLabels.ts` 和 `web/src/utils/mapStyles.ts`，不要在 `MapLayer.vue` 内临时堆叠随机偏移或硬编码语言分支。
 
 ## 5. 桌面版与 Steam 适配 (Desktop & Steam)
 

@@ -28,7 +28,7 @@ describe('mapLabels', () => {
     expect(formatRegionDisplayName('紫竹幽境', 'zh-CN')).toBe('紫竹幽境');
   });
 
-  it('hides lower-priority labels when they collide', () => {
+  it('avoids overlaps by moving lower-priority labels', () => {
     const labels = buildVisibleRegionLabels(
       [
         createRegion({ id: 'normal', type: 'normal', name: 'Purple Bamboo Secluded Realm', x: 10, y: 10 }),
@@ -37,8 +37,13 @@ describe('mapLabels', () => {
       'en-US'
     );
 
-    expect(labels).toHaveLength(1);
-    expect(labels[0]?.id).toBe('city');
+    expect(labels).toHaveLength(2);
+    expect(labels.map((label) => label.id)).toEqual(['city', 'normal']);
+    expect(labels[0]?.labelX).toBe((10 * 64) + (64 / 2));
+    expect(labels[0]?.labelY).toBe((10 * 64) + (64 * 1.5));
+    expect(
+      labels[1]?.labelX !== labels[0]?.labelX || labels[1]?.labelY !== labels[0]?.labelY
+    ).toBe(true);
   });
 
   it('keeps separated labels visible', () => {
@@ -51,5 +56,35 @@ describe('mapLabels', () => {
     );
 
     expect(labels.map((label) => label.id)).toEqual(['a', 'b']);
+  });
+
+  it('moves long English labels before allowing overlap', () => {
+    const labels = buildVisibleRegionLabels(
+      [
+        createRegion({ id: '414', type: 'sect', name: 'Asura Blood Pool', x: 10, y: 22 }),
+        createRegion({ id: '102', type: 'normal', name: 'Western Quicksand', x: 4, y: 23 })
+      ],
+      'en-US'
+    );
+
+    expect(labels.map((label) => label.id)).toEqual(['414', '102']);
+    expect(labels[1]?.labelX).toBe((4 * 64) + (64 / 2));
+    expect(labels[1]?.labelY).not.toBe((23 * 64) + (64 * 1.5));
+  });
+
+  it('also avoids overlap for compact-script locales', () => {
+    const labels = buildVisibleRegionLabels(
+      [
+        createRegion({ id: 'a', type: 'sect', name: '修罗血池', x: 10, y: 22 }),
+        createRegion({ id: 'b', type: 'normal', name: '西域流沙', x: 10, y: 22 })
+      ],
+      'ja-JP'
+    );
+
+    expect(labels).toHaveLength(2);
+    expect(labels.map((label) => label.id)).toEqual(['a', 'b']);
+    expect(
+      labels[1]?.labelX !== labels[0]?.labelX || labels[1]?.labelY !== labels[0]?.labelY
+    ).toBe(true);
   });
 });

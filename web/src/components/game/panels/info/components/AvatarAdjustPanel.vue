@@ -397,7 +397,7 @@ async function saveCustomDraft() {
 .adjust-panel {
   position: fixed;
   top: 96px;
-  right: 752px;
+  right: calc(var(--cws-sidebar-width, 400px) + clamp(340px, 26vw, 376px) + 32px);
   width: 360px;
   background: rgba(26, 26, 26, 0.985);
   border: 1px solid #555;
@@ -408,6 +408,7 @@ async function saveCustomDraft() {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-width: min(360px, calc(100vw - var(--cws-sidebar-width, 400px) - clamp(340px, 26vw, 376px) - 56px));
 }
 
 .adjust-header {

@@ -149,7 +149,7 @@ watch(() => uiStore.selectedTarget, (val) => {
   position: absolute;
   top: 60px;
   right: 20px;
-  width: 320px;
+  width: min(clamp(340px, 26vw, 376px), calc(100vw - var(--cws-sidebar-width, 400px) - 52px));
   max-height: calc(100vh - 80px);
   background: var(--panel-bg);
   border: 1px solid var(--color-border);
@@ -160,6 +160,7 @@ watch(() => uiStore.selectedTarget, (val) => {
   flex-direction: column;
   z-index: 50;
   pointer-events: auto;
+  min-width: 300px;
 }
 
 .panel-header {
@@ -233,6 +234,8 @@ watch(() => uiStore.selectedTarget, (val) => {
 .main-title {
   font-size: 16px;
   font-weight: bold;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .close-btn {
@@ -256,6 +259,13 @@ watch(() => uiStore.selectedTarget, (val) => {
   display: flex;
   flex-direction: column;
   min-height: 0;
+}
+
+@media (max-width: 1280px) {
+  .info-panel {
+    width: min(clamp(328px, 28vw, 360px), calc(100vw - var(--cws-sidebar-width, 400px) - 48px));
+    min-width: 280px;
+  }
 }
 
 .content-wrapper {

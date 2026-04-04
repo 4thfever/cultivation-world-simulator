@@ -97,6 +97,9 @@ msgstr "{name} ({type}·{realm}, {desc}){effect}"
 msgid "{name} has ascended to a cultivator."
 msgstr "{name} has ascended to a cultivator."
 
+msgid "{name}: {desc}"
+msgstr "{name}: {desc}"
+
 msgid "{name}: {desc} ({realm})"
 msgstr "{name}: {desc} ({realm})"
 

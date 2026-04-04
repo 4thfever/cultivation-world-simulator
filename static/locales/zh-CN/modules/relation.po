@@ -152,3 +152,39 @@ msgstr "弟弟"
 
 msgid "relation_younger_sister"
 msgstr "妹妹"
+
+msgid "No significant recent interactions."
+msgstr "近期无显著交互记录。"
+
+msgid "Current relations: {rel_desc}"
+msgstr "目前关系：{rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "因为{reason}，{avatar_a}成为{avatar_b}的{relation}。"
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "因为{reason}，{avatar_a}不再是{avatar_b}的{relation}。"
+
+msgid "bond_label_lovers"
+msgstr "结为道侣"
+
+msgid "bond_label_sworn_siblings"
+msgstr "结为义兄弟姐妹"
+
+msgid "bond_label_master_disciple"
+msgstr "建立师徒关系"
+
+msgid "bond_label_major_relationship"
+msgstr "建立了重要关系"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "你得知 {subject_name} 被 {killer_name} 杀害。"
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "你得知 {subject_name} 与 {other_name}{bond_label}。"
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "你得知 {subject_name} 发生了一件大事：{content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "你得知 {subject_name} 发生了一件大事。"

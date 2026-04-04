@@ -54,6 +54,7 @@ class Sect(SectEffectsMixin):
     headquarter: SectHeadQuarter
     # 本宗关联的功法名称（来自 technique.csv 的 sect 列）
     technique_names: list[str]
+    name_id: str = ""
     # 随机选择宗门时使用的权重（默认1）
     weight: float = 1.0
     # 宗门倾向的兵器类型
@@ -651,6 +652,7 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
 
         sect = Sect(
             id=sid,
+            name_id=get_str(row, "name_id"),
             name=name,
             desc=get_str(row, "desc"),
             member_act_style=get_str(row, "member_act_style"),

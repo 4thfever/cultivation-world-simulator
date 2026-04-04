@@ -41,6 +41,7 @@ class Auxiliary(Item):
     name: str
     realm: Realm
     desc: str
+    name_id: str = ""
     effects: dict[str, object] = field(default_factory=dict)
     effect_desc: str = ""
     # 特殊属性（用于存储实例特定数据）
@@ -59,7 +60,7 @@ class Auxiliary(Item):
         """获取详细信息"""
         from src.i18n import t
         souls = ""
-        if self.name == "万魂幡" and self.special_data.get("devoured_souls", 0) > 0:
+        if is_ten_thousand_souls_banner(self) and self.special_data.get("devoured_souls", 0) > 0:
             soul_count = int(self.special_data["devoured_souls"])
             battle_bonus = get_ten_thousand_souls_banner_bonus(soul_count)
             souls = t(" Devoured Souls: {count}, Battle Bonus: +{bonus}", count=soul_count, bonus=battle_bonus)
@@ -76,7 +77,7 @@ class Auxiliary(Item):
         full_desc = self.desc
         # 特殊数据处理
         souls = 0
-        if self.name == "万魂幡":
+        if is_ten_thousand_souls_banner(self):
             souls = self.special_data.get("devoured_souls", 0)
             if souls > 0:
                 from src.i18n import t
@@ -124,6 +125,7 @@ def _load_auxiliaries_data() -> tuple[Dict[int, Auxiliary], Dict[str, Auxiliary]
 
         a = Auxiliary(
             id=get_int(row, "item_id"),
+            name_id=get_str(row, "name_id"),
             name=get_str(row, "name"),
             realm=realm,
             desc=get_str(row, "desc"),
@@ -156,6 +158,21 @@ def reload():
 
 # 模块初始化时执行一次
 reload()
+
+
+TEN_THOUSAND_SOULS_BANNER_ID = 2064
+TEN_THOUSAND_SOULS_BANNER_NAME_ID = "AUXILIARY_2064_NAME"
+
+
+def is_ten_thousand_souls_banner(auxiliary: Auxiliary | None) -> bool:
+    if auxiliary is None:
+        return False
+    if int(getattr(auxiliary, "id", 0) or 0) == TEN_THOUSAND_SOULS_BANNER_ID:
+        return True
+    if str(getattr(auxiliary, "name_id", "") or "") == TEN_THOUSAND_SOULS_BANNER_NAME_ID:
+        return True
+    # Legacy save-data fallback.
+    return str(getattr(auxiliary, "name", "") or "") == "万魂幡"
 
 
 def get_random_auxiliary_by_realm(realm: Realm) -> Optional[Auxiliary]:

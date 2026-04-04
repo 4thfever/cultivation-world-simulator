@@ -1065,6 +1065,9 @@ msgstr "{name} ({type}·{realm}, {desc}){effect}"
 msgid "{name} has ascended to a cultivator."
 msgstr "{name} has ascended to a cultivator."
 
+msgid "{name}: {desc}"
+msgstr "{name}: {desc}"
+
 msgid "{name}: {desc} ({realm})"
 msgstr "{name}: {desc} ({realm})"
 
@@ -1334,6 +1337,16 @@ msgstr "{name} Dynasty"
 msgid "dynasty_royal_house_format"
 msgstr "House {surname}"
 
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "Action on cooldown, {remain} month(s) remaining"
+
+msgid ""
+"Focus on governance affairs, malevolent incidents, local strongmen, and "
+"political rivals creating obstacles."
+msgstr ""
+"Focus on governance affairs, malevolent incidents, local strongmen, and "
+"political rivals creating obstacles."
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "Conditional effect"
@@ -1512,6 +1525,9 @@ msgstr "Unknown"
 
 msgid "east"
 msgstr "East"
+
+msgid "Someone"
+msgstr "Someone"
 
 msgid "Auxiliary [{name}]"
 msgstr "Auxiliary [{name}]"
@@ -1986,6 +2002,36 @@ msgstr "{avatar} begins resting and healing at {location}"
 
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} breakthrough result: {result}"
+
+msgid "tribulation_inner_demon"
+msgstr "inner demon"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "lightning"
+
+msgid "tribulation_body_reforging"
+msgstr "body"
+
+msgid "tribulation_vengeance"
+msgstr "vengeance"
+
+msgid "tribulation_love_tribulation"
+msgstr "love"
+
+msgid "tribulation_solar_force"
+msgstr "solar force"
+
+msgid "tribulation_thunderflame"
+msgstr "thunderflame"
+
+msgid "tribulation_wind_disaster"
+msgstr "windstorm"
+
+msgid "tribulation_nether_prison"
+msgstr "nether prison"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "demonic"
 
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} encountered {calamity} tribulation, breakthrough {result}"
@@ -3007,6 +3053,42 @@ msgstr "Younger Brother"
 
 msgid "relation_younger_sister"
 msgstr "Younger Sister"
+
+msgid "No significant recent interactions."
+msgstr "No significant recent interactions."
+
+msgid "Current relations: {rel_desc}"
+msgstr "Current relations: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+
+msgid "bond_label_lovers"
+msgstr "became Dao companions"
+
+msgid "bond_label_sworn_siblings"
+msgstr "became sworn siblings"
+
+msgid "bond_label_master_disciple"
+msgstr "formed a master-disciple bond"
+
+msgid "bond_label_major_relationship"
+msgstr "formed an important bond"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "You learned that {subject_name} was killed by {killer_name}."
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "You learned that {subject_name} and {other_name} {bond_label}."
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "You learned that {subject_name} experienced a major event: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "You learned that {subject_name} experienced a major event."
 
 # Root Element
 msgid "gold_element"

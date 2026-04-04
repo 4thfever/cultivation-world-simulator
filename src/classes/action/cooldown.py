@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.i18n import t
+
 
 def cooldown_action(cls: type) -> type:
     """
@@ -25,7 +27,7 @@ def cooldown_action(cls: type) -> type:
                 elapsed = self.world.month_stamp - last
                 if elapsed < cd:
                     remain = cd - elapsed
-                    return False, f"冷却中，还需 {remain} 个月"
+                    return False, t("Action on cooldown, {remain} month(s) remaining", remain=remain)
             return original_can_start(self, **params)
 
         cls.can_start = can_start  # type: ignore[assignment]

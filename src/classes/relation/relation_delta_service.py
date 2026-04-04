@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.relation.relation import NumericRelation, Relation
 from src.classes.relation.relations import add_friendliness
 from src.utils.config import CONFIG
@@ -61,15 +62,15 @@ class RelationDeltaService:
         infos = {
             "avatar_a_name": avatar_a.name,
             "avatar_b_name": avatar_b.name,
-            "avatar_a_personas": "、".join(p.get_info() for p in avatar_a.personas[:3]) if avatar_a.personas else "无",
-            "avatar_b_personas": "、".join(p.get_info() for p in avatar_b.personas[:3]) if avatar_b.personas else "无",
+            "avatar_a_personas": "、".join(p.get_info() for p in avatar_a.personas[:3]) if avatar_a.personas else t("None"),
+            "avatar_b_personas": "、".join(p.get_info() for p in avatar_b.personas[:3]) if avatar_b.personas else t("None"),
             "avatar_a_to_b_numeric_relation": str(avatar_a.get_numeric_relation(avatar_b)),
             "avatar_b_to_a_numeric_relation": str(avatar_b.get_numeric_relation(avatar_a)),
             "avatar_a_to_b_friendliness": avatar_a.get_friendliness(avatar_b),
             "avatar_b_to_a_friendliness": avatar_b.get_friendliness(avatar_a),
             "identity_relations": "、".join(
                 sorted(rel.value for rel in (avatar_a.get_relation_state(avatar_b).identity_relations if avatar_a.get_relation_state(avatar_b) else set()))
-            ) or "无",
+            ) or t("None"),
             "event_text": event_text,
             "min_delta": min_delta,
             "max_delta": max_delta,

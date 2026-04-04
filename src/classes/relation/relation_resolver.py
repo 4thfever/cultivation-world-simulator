@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Tuple, Optional
 import asyncio
 
+from src.i18n import t
 from src.classes.relation.relation import Relation
 from src.classes.relation.relations import (
     set_relation,
@@ -34,11 +35,11 @@ class RelationResolver:
         
         event_lines = [str(e) for e in recent_events]
             
-        recent_events_text = "\n".join(event_lines) if event_lines else "近期无显著交互记录。"
+        recent_events_text = "\n".join(event_lines) if event_lines else t("No significant recent interactions.")
         
         # 2. 获取当前关系描述
         current_rel = avatar_a.get_relation(avatar_b)
-        rel_desc = "无"
+        rel_desc = t("None")
         if current_rel:
             rel_name = str(current_rel)
             rel_desc = f"{rel_name}"
@@ -52,7 +53,7 @@ class RelationResolver:
             "avatar_a_info": str(avatar_a.get_info(detailed=True)),
             "avatar_b_name": avatar_b.name,
             "avatar_b_info": str(avatar_b.get_info(detailed=True)),
-            "current_relations": f"目前关系：{rel_desc}",
+            "current_relations": t("Current relations: {rel_desc}", rel_desc=rel_desc),
             "recent_events_text": recent_events_text,
             "current_time": current_time_str
         }
@@ -122,7 +123,13 @@ class RelationResolver:
                 if rel == Relation.IS_SWORN_SIBLING_OF:
                     event_type = "bond_sworn_sibling_formed"
             
-            event_text = f"因为{reason}，{avatar_a.name}成为{avatar_b.name}的{display_name}。"
+            event_text = t(
+                "Because {reason}, {avatar_a} became {avatar_b}'s {relation}.",
+                reason=reason,
+                avatar_a=avatar_a.name,
+                avatar_b=avatar_b.name,
+                relation=display_name,
+            )
             event = Event(
                 month_stamp,
                 event_text,
@@ -144,7 +151,13 @@ class RelationResolver:
             # 移除关系只能用底层 cancel_relation
             success = cancel_relation(avatar_b, avatar_a, rel)
             if success:
-                event_text = f"因为{reason}，{avatar_a.name}不再是{avatar_b.name}的{display_name}。"
+                event_text = t(
+                    "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}.",
+                    reason=reason,
+                    avatar_a=avatar_a.name,
+                    avatar_b=avatar_b.name,
+                    relation=display_name,
+                )
                 event = Event(month_stamp, event_text, related_avatars=[avatar_a.id, avatar_b.id], is_major=True)
 
         if event:

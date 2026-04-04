@@ -171,3 +171,39 @@ msgstr "Em Trai"
 
 msgid "relation_younger_sister"
 msgstr "Em Gái"
+
+msgid "No significant recent interactions."
+msgstr "Gần đây không có tương tác đáng kể."
+
+msgid "Current relations: {rel_desc}"
+msgstr "Quan hệ hiện tại: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "Vì {reason}, {avatar_a} đã trở thành {relation} của {avatar_b}."
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "Vì {reason}, {avatar_a} không còn là {relation} của {avatar_b} nữa."
+
+msgid "bond_label_lovers"
+msgstr "đã kết thành đạo lữ"
+
+msgid "bond_label_sworn_siblings"
+msgstr "đã kết nghĩa huynh đệ tỷ muội"
+
+msgid "bond_label_master_disciple"
+msgstr "đã lập quan hệ sư đồ"
+
+msgid "bond_label_major_relationship"
+msgstr "đã hình thành một mối quan hệ quan trọng"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "Ngươi biết rằng {subject_name} đã bị {killer_name} sát hại."
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "Ngươi biết rằng {subject_name} và {other_name} {bond_label}."
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự."

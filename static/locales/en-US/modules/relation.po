@@ -171,3 +171,39 @@ msgstr "Younger Brother"
 
 msgid "relation_younger_sister"
 msgstr "Younger Sister"
+
+msgid "No significant recent interactions."
+msgstr "No significant recent interactions."
+
+msgid "Current relations: {rel_desc}"
+msgstr "Current relations: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+
+msgid "bond_label_lovers"
+msgstr "became Dao companions"
+
+msgid "bond_label_sworn_siblings"
+msgstr "became sworn siblings"
+
+msgid "bond_label_master_disciple"
+msgstr "formed a master-disciple bond"
+
+msgid "bond_label_major_relationship"
+msgstr "formed an important bond"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "You learned that {subject_name} was killed by {killer_name}."
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "You learned that {subject_name} and {other_name} {bond_label}."
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "You learned that {subject_name} experienced a major event: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "You learned that {subject_name} experienced a major event."

@@ -1,0 +1,842 @@
+src\classes\action\action.py	17	const	\n    长态动作装饰器，用于为动作类自动添加时间管理功能\n\n    Args:\n        step_month: 动作需要的月份数\n    
+src\classes\action\action.py	28	const	\n            根据时间差判断动作是否完成\n            接受但忽略额外的参数以保持与其他动作类型的兼容性\n            
+src\classes\action\action.py	48	const	\n    角色可以执行的动作。\n    比如，移动、攻击、采集、建造、etc。\n    
+src\classes\action\action.py	66	const	是否允许参加聚会：如果显式配置了则使用配置，否则重大行为默认不允许，非重大行为默认允许
+src\classes\action\action.py	73	const	是否允许奇遇/霉运：如果显式配置了则使用配置，否则重大行为默认不允许，非重大行为默认允许
+src\classes\action\action.py	79	const	\n        传一个avatar的ref\n        这样子实际执行的时候，可以知道avatar的能力和状态\n        可选传入world；若不传，则尝试从avatar.world获取。\n        
+src\classes\action\action.py	93	const	\n        获取动作名称\n        
+src\classes\action\action.py	102	const	获取动作名称的翻译
+src\classes\action\action.py	109	const	获取动作描述的翻译
+src\classes\action\action.py	116	const	获取可执行条件的翻译
+src\classes\action\action.py	122	const	获取需要存档的运行时数据
+src\classes\action\action.py	126	const	加载运行时数据
+src\classes\action\action.py	130	const	\n        判断是否有可能开始执行该动作。\n        用于在AI决策时过滤掉绝对不可能执行的动作，以减小prompt长度。\n        
+src\classes\action\action.py	139	const	\n        初始化动作，处理长态动作的属性设置\n        
+src\classes\action\action.py	150	const	\n        执行动作，处理时间管理逻辑，然后调用具体的_execute实现\n        
+src\classes\action\action.py	161	const	\n        具体的动作执行逻辑，由子类实现\n        
+src\classes\action\action.py	186	const	\n    基于LLM的action，这种action一般是不需要实际的规则定义。\n    而是一种抽象的，仅有社会层面的后果的定义。\n    比如“折辱”“恶狠狠地盯着”“退婚”等\n    这种action会通过LLM生成并被执行，让NPC记忆并产生后果。\n    但是不需要规则侧做出反应来。\n    
+src\classes\action\action.py	198	const	\n    动作片，可以理解成只是一种切分出来的动作。\n    不能被avatar直接执行，而是成为avatar执行某个动作的步骤。\n    
+src\classes\action\action.py	207	const	\n    实际的可以被规则/LLM调用，让avatar去执行的动作。\n    不一定是多个step，也有可能就一个step。\n\n    新接口：子类必须实现 can_start/start/step/finish。\n    \n    类变量：\n    - IS_MAJOR: 是否为大事（长期记忆），默认False（小事/短期记忆）\n    
+src\classes\action\action.py	221	const	\n        创建事件的辅助方法，自动带上is_major属性\n        \n        Args:\n            content: 事件内容\n            related_avatars: 相关角色ID列表\n            \n        Returns:\n            Event对象，is_major根据当前Action的IS_MAJOR类变量设置\n        
+src\classes\action\action.py	259	const	\n    一次性动作：在一次 step 内完成。子类仅需实现 _execute。\n    
+src\classes\action\action.py	270	const	\n    长态动作：通过类属性 duration_months 控制持续时间。\n    子类实现 _execute 作为每月的执行逻辑。\n    
+src\classes\action\assassinate.py	41	const	获取成功提示词的翻译
+src\classes\action\assassinate.py	46	const	获取失败提示词的翻译
+src\classes\action\attack.py	30	const	获取故事提示词的翻译
+src\classes\action\breakthrough.py	25	const	\n    突破境界。\n    成功率由 `CultivationProgress.get_breakthrough_success_rate()` 决定；\n    失败时按 `CultivationProgress.get_breakthrough_fail_reduce_lifespan()` 减少寿元（年）。\n    
+src\classes\action\breakthrough.py	46	const	\n        计算突破境界的成功率（由修为进度给出）\n        
+src\classes\action\breakthrough.py	58	const	\n        突破境界\n        
+src\classes\action\breakthrough.py	97	const	\n        突破境界时更新HP的最大值并完全恢复\n\n        Args:\n            new_realm: 新的境界\n        
+src\classes\action\buy.py	21	const	\n    在城镇购买物品。\n    \n    如果是丹药：购买后强制立即服用。\n    如果是其他物品：购买后放入背包。\n    如果是装备（兵器/法宝）：购买后直接装备（替换原有装备，旧装备折价售出）。\n    
+src\classes\action\cast.py	26	const	\n    铸造动作：消耗同阶材料，尝试打造同阶宝物（兵器或辅助装备）。\n    持续时间：3个月\n    
+src\classes\action\cast.py	60	const	\n        统计符合条件的材料数量。\n        
+src\classes\action\catch.py	19	const	\n    御兽：仅百兽宗弟子可用。\n    条件：\n    - 当前处于普通区域，且该区域有动物分布\n    - 目标动物境界 <= Avatar 境界\n    结果：\n    - 按动物境界映射成功率尝试捕捉，成功则成为灵兽（覆盖旧灵兽）。\n    
+src\classes\action\catch.py	53	const	百兽宗
+src\classes\action\config.py	9	const	\n    读取动作相关配置的轻量封装。\n\n    用法：\n        ActionConfig.get("actions.duration.play", default=6)\n    支持以点号分隔的路径逐层 getattr，读取不到时返回 default。\n    
+src\classes\action\cooldown.py	5	const	\n    冷却类装饰器：\n    - 仅当类定义了 ACTION_CD_MONTHS 且 >0 时生效\n    - 在 can_start 前置检查冷却；在 finish 后记录冷却开始月戳\n    - 冷却记录存放于 avatar._action_cd_last_months[ClassName]\n    - 同时在 DESC 中追加“（冷却：X月）”便于 UI 显示\n    
+src\classes\action\cooldown.py	28	const	 个月
+src\classes\action\cooldown.py	28	const	冷却中，还需 
+src\classes\action\cooldown.py	28	fstring	冷却中，还需  个月
+src\classes\action\devour_people.py	11	const	\n    吞噬生灵：需持有万魂幡，吞噬魂魄可较多增加战力。\n    
+src\classes\action\devour_people.py	54	const	万魂幡
+src\classes\action\educate.py	11	const	\n    教化（儒门修炼）：在城市中教化世人，积累气运，提升修为。\n    
+src\classes\action\educate.py	39	const	\n        教化执行逻辑\n        
+src\classes\action\escape.py	12	const	\n    逃离：尝试从对方身边脱离（有成功率）。\n    成功：抢占并进入 MoveAwayFromAvatar(6个月)。\n    失败：抢占并进入 Attack。\n    
+src\classes\action\escape.py	28	const	\n        根据名字查找角色；找不到返回 None。\n        会自动规范化名字（去除括号等附加信息）以提高容错性。\n        
+src\classes\action\event_helper.py	9	const	\n    事件推送辅助：统一“侧栏只推一次、双方都写历史”的约定。\n\n    - push_pair: 向发起者与目标同时写入事件；默认仅在发起者侧进入侧栏。\n    - push_self: 仅向自身写入事件，可控制是否进入侧栏。\n    
+src\classes\action\event_helper.py	17	const	\n        向双方分发事件。\n        发起者侧会进入侧栏（to_sidebar=True），从而被 Simulator 收集并存入全局数据库。\n        由于 Simulator 已经统一处理了相关角色的交互计数，这里无需再手动调用 target.add_event。\n        
+src\classes\action\event_helper.py	26	const	仅向自身分发事件。
+src\classes\action\govern.py	100	const	主题围绕处理政务、遭遇邪祟、地方豪强、政敌掣肘展开。
+src\classes\action\harvest.py	10	const	\n    采集动作，在有植物的区域进行采集，持续6个月\n    可以获得植物对应的材料\n    
+src\classes\action\harvest.py	31	const	\n        执行采集动作\n        
+src\classes\action\harvest.py	39	const	植物
+src\classes\action\help_people.py	11	const	\n    在城镇救济百姓，消耗少量灵石。\n    仅正阵营可执行。\n    
+src\classes\action\hunt.py	10	const	\n    狩猎动作，在有动物的区域进行狩猎，持续6个月\n    可以获得动物对应的材料\n    
+src\classes\action\hunt.py	31	const	\n        执行狩猎动作\n        
+src\classes\action\hunt.py	39	const	动物
+src\classes\action\meditate.py	10	const	\n    禅定（佛门修炼）：不依赖灵气，通过坐禅平复心境，概率顿悟获得大量修为。\n    
+src\classes\action\meditate.py	37	const	\n        禅定执行逻辑\n        
+src\classes\action\mine.py	10	const	\n    挖矿动作，在有矿脉的区域进行挖矿，持续6个月\n    可以获得矿脉对应的矿石\n    
+src\classes\action\mine.py	31	const	\n        执行挖矿动作\n        
+src\classes\action\mine.py	39	const	矿脉
+src\classes\action\move.py	8	const	\n    最基础的移动动作，在tile之间进行切换。\n    
+src\classes\action\move.py	21	const	\n        移动到某个tile\n        
+src\classes\action\move_away_from_avatar.py	15	const	\n    持续远离指定角色，持续6个月。\n    - 规则：每月尝试使与目标的曼哈顿距离增大一步\n    - 任何时候都可以启动\n    
+src\classes\action\move_away_from_avatar.py	31	const	\n        根据名字查找角色；找不到返回 None。\n        会自动规范化名字（去除括号等附加信息）以提高容错性。\n        
+src\classes\action\move_helper.py	5	const	\n    在不超过给定曼哈顿步长 step 的前提下，对 (dx, dy) 进行裁剪，且优先斜向移动。\n\n    规则：\n    - 返回的 (mx, my) 满足 |mx| + |my| <= step\n    - 每轴不超过原目标量：|mx| <= |dx|, |my| <= |dy|\n    - 优先分配斜向步（即同时占用 x 与 y 各 1 步），其后再把剩余步数分配给剩余距离更大的轴\n    - 保持原方向（符号）\n    
+src\classes\action\move_to_avatar.py	13	const	\n    朝另一个角色当前位置移动。\n    
+src\classes\action\move_to_avatar.py	27	const	\n        根据名字查找目标角色；找不到返回 None。\n        会自动规范化名字（去除括号等附加信息）以提高容错性。\n        
+src\classes\action\move_to_direction.py	12	const	\n    方向管理类，统一管理方向的向量定义和名称转换\n    
+src\classes\action\move_to_direction.py	29	const	北
+src\classes\action\move_to_direction.py	30	const	南
+src\classes\action\move_to_direction.py	31	const	西
+src\classes\action\move_to_direction.py	32	const	东
+src\classes\action\move_to_direction.py	33	const	東
+src\classes\action\move_to_direction.py	38	const	北
+src\classes\action\move_to_direction.py	39	const	南
+src\classes\action\move_to_direction.py	40	const	西
+src\classes\action\move_to_direction.py	41	const	东
+src\classes\action\move_to_direction.py	42	const	北
+src\classes\action\move_to_direction.py	43	const	南
+src\classes\action\move_to_direction.py	44	const	西
+src\classes\action\move_to_direction.py	45	const	东
+src\classes\action\move_to_direction.py	46	const	北
+src\classes\action\move_to_direction.py	46	const	北
+src\classes\action\move_to_direction.py	47	const	南
+src\classes\action\move_to_direction.py	47	const	南
+src\classes\action\move_to_direction.py	48	const	西
+src\classes\action\move_to_direction.py	48	const	西
+src\classes\action\move_to_direction.py	49	const	东
+src\classes\action\move_to_direction.py	49	const	东
+src\classes\action\move_to_direction.py	50	const	东
+src\classes\action\move_to_direction.py	50	const	東
+src\classes\action\move_to_direction.py	62	const	北
+src\classes\action\move_to_direction.py	63	const	南
+src\classes\action\move_to_direction.py	64	const	西
+src\classes\action\move_to_direction.py	65	const	东
+src\classes\action\move_to_direction.py	66	const	東
+src\classes\action\move_to_direction.py	87	const	\n    向某个方向移动探索（固定时长6个月）\n    
+src\classes\action\move_to_region.py	16	const	\n    移动到某个region\n    
+src\classes\action\move_to_region.py	34	const	\n        获取或生成本次移动的目标坐标。\n        如果尚未生成，则从区域坐标集合中随机选取一个。\n        
+src\classes\action\move_to_region.py	51	const	\n        移动到某个region\n        
+src\classes\action\nurture_weapon.py	10	const	\n    温养兵器：花时间温养兵器，可以较多增加熟练度\n    
+src\classes\action\plant.py	17	const	\n    种植动作，在普通区域进行种植，持续6个月\n    可以直接获得灵石\n    
+src\classes\action\plant.py	38	const	\n        执行种植动作\n        
+src\classes\action\play.py	16	const	消遣动作基类
+src\classes\action\play.py	24	const	尝试触发额外收益 (突破概率)
+src\classes\action\plunder_people.py	11	const	\n    在城镇对百姓进行搜刮，获取少量灵石。\n    仅邪阵营可执行。\n    
+src\classes\action\refine.py	24	const	\n    炼丹动作：消耗同阶材料，尝试炼制同阶丹药。\n    持续时间：3个月\n    
+src\classes\action\refine.py	58	const	\n        统计符合条件的材料数量。\n        注意：统计所有材料，不限于矿石。\n        
+src\classes\action\registry.py	7	const	\n    动作注册表：维护动作名到类的映射，并标注哪些是“可实际执行”的动作。\n\n    - register(action_cls, actual): 注册一个动作类\n    - get(name): 按名称获取动作类\n    - all()/all_actual(): 获取全部/实际可执行的动作类集合\n    
+src\classes\action\respire.py	12	const	\n    吐纳动作，可以增加修仙进度。\n    
+src\classes\action\respire.py	38	const	\n        吐纳\n        获得的exp取决于区域类型和灵气匹配情况：\n        - 修炼区域 + 匹配灵气：exp = BASE_EXP_PER_DENSITY * density\n        - 修炼区域 + 无匹配灵气 或 非修炼区域：exp = BASE_EXP_LOW_EFFICIENCY\n        
+src\classes\action\respire.py	62	const	\n        获取当前区域与角色灵根匹配的灵气密度。\n        - 洞府/秘境 (CultivateRegion)：按原有逻辑根据单一灵气类型计算；\n        - 宗门总部 (SectRegion)：仅本门弟子视为修炼环境，五行等效密度为 5；\n        - 其它区域：返回 0。\n        
+src\classes\action\respire.py	85	const	\n        根据区域类型和灵气匹配情况计算基础经验\n        
+src\classes\action\retreat.py	16	const	\n    闭关：赌博性质的行为。\n    随机持续 1-5 年。\n    成功：获得持续10年的突破概率加成。\n    失败：减少寿元。\n    
+src\classes\action\retreat.py	54	const	\n        计算闭关成功率\n        练气(0): 50%, 筑基(1): 40%, 金丹(2): 30%, 元婴(3): 20%\n        
+src\classes\action\self_heal.py	10	const	\n    静养疗伤。\n    单月动作。非宗门总部恢复一定比例HP，在宗门总部则回满HP。\n    
+src\classes\action\sell.py	17	const	\n    在城镇出售指定名称的物品/装备。\n    如果是材料：一次性卖出持有的全部数量。\n    如果是装备：卖出当前装备的（如果是当前装备）。\n    收益通过 avatar.sell_material() / sell_weapon() / sell_auxiliary() 结算。\n    
+src\classes\action\targeting_mixin.py	16	const	\n    目标与距离等通用工具：为动作类提供统一的查找与抢占能力。\n\n    注意：不做异常吞噬，失败路径返回 None 或 False，由调用方决策。\n    
+src\classes\action\targeting_mixin.py	22	const	\n        根据名字查找角色。\n        会自动规范化名字（去除括号等附加信息）以提高容错性。\n        
+src\classes\action\targeting_mixin.py	55	const	抢占目标：清空其计划并中断当前动作。
+src\classes\action\targeting_mixin.py	60	const	将动作立即加载并提交为当前动作，触发开始事件。
+src\classes\action\targeting_mixin.py	65	const	\n        验证目标角色是否有效（存在且存活）。\n\n        Args:\n            name: 目标角色名。\n\n        Returns:\n            (target, can_proceed, reason)\n            - target: 找到的角色对象，无效时为 None。\n            - can_proceed: 是否可以继续。\n            - reason: 失败原因（成功时为空字符串）。\n        
+src\classes\action\targeting_mixin.py	78	const	缺少目标参数
+src\classes\action\targeting_mixin.py	81	const	目标不存在
+src\classes\action\targeting_mixin.py	83	const	目标已死亡
+src\classes\action\temper.py	8	const	\n    锻体动作，武道专属修炼方式。\n    不依赖灵气，消耗时间锤炼肉身。\n    
+src\classes\action_runtime.py	9	const	\n    动作推进过程中的标准状态枚举。\n    - RUNNING: 仍在进行中，需要在未来的 tick 中继续推进\n    - COMPLETED: 已正常完成\n    - FAILED: 执行失败（参数/前置条件等导致）\n    - CANCELLED: 被外部取消（如被其他动作抢占）\n    - INTERRUPTED: 运行中被打断（如战斗/事件中断）\n    
+src\classes\action_runtime.py	27	const	\n    标准动作返回体。所有 Action.step() 必须返回该类型。\n\n    Attributes:\n        status: 当前推进后的状态（见 ActionStatus）\n        events: 在本次推进过程中生成的事件（通常由 Avatar 收集并展示）\n        payload: 可选的结构化数据，便于上层消费（如数值、战斗结果等）\n        next_action: 可选的“建议下一个动作”（名称, 参数）供上层调度策略参考\n    
+src\classes\action_runtime.py	45	const	\n    计划中的动作项：尚未提交执行。\n    仅包含 class 名与参数，外加可选的调度策略字段。\n    
+src\classes\action_runtime.py	57	const	转换为可序列化的字典
+src\classes\action_runtime.py	69	const	从字典重建ActionPlan
+src\classes\action_runtime.py	82	const	\n    已提交并开始执行的动作实例。\n    
+src\classes\actions.py	34	const	\n    动态获取当前语言环境下的动作描述信息。\n    如果提供了 avatar，则会过滤掉该角色绝对不可能执行的动作。\n    
+src\classes\actions.py	49	const	\n    获取JSON格式的动作描述字符串\n    
+src\classes\age.py	7	const	\n    角色寿元管理。\n\n    新模型：\n    - 先天寿元 `innate_max_lifespan`：角色出生/创建时随机得到\n    - 实际寿元 `max_lifespan`：先天寿元 + 所有效果中的 extra_max_lifespan\n    - 不再存在“衰老区”或缓慢老死概率；达到/超过寿元时立即死亡\n    
+src\classes\ai.py	1	const	\nNPC AI 的类。\n这里指的是 NPC 的决策机制。\n
+src\classes\ai.py	21	const	\n    抽象AI：统一采用批量接口。\n    
+src\classes\ai.py	30	const	\n        决定做什么，同时生成对应的事件。\n        由于底层 LLM 调用已接入全局任务池，此处直接并发执行所有任务即可。\n        
+src\classes\ai.py	51	const	\n        异步决策逻辑：通过LLM决定执行什么动作和参数\n        
+src\classes\alignment.py	5	const	\n    阵营：正/中立/邪。\n    值使用英文，便于与代码/保存兼容；__str__ 返回翻译后的文本。\n    
+src\classes\alignment.py	33	const	\n        允许与同类或字符串比较：\n        - Alignment: 恒等比较\n        - str: 同时支持英文值（value）与中文显示（__str__）\n        
+src\classes\alignment.py	46	const	\n        将字符串解析为 Alignment，支持中文与英文别名。\n        未识别时返回中立。\n        
+src\classes\alignment.py	52	const	正
+src\classes\alignment.py	53	const	中
+src\classes\alignment.py	53	const	中立
+src\classes\alignment.py	54	const	邪
+src\classes\alignment.py	74	const	正
+src\classes\alignment.py	75	const	中立
+src\classes\alignment.py	76	const	邪
+src\classes\animal.py	11	const	\n    动物\n    
+src\classes\animal.py	24	const	初始化物品实例
+src\classes\animal.py	36	const	\n        获取动物的详细信息，包括名字、描述、境界和材料\n        
+src\classes\animal.py	63	const	从配表加载animal数据
+src\classes\animal.py	87	const	重新加载数据，保留全局字典引用
+src\classes\appearance.py	10	const	\n    外貌/颜值\n    
+src\classes\appearance.py	23	const	\n        根据性别返回更贴切的描述；若未提供性别或无法识别，则默认使用男性描述。\n        不依赖具体 Gender 类型，避免循环导入。\n        
+src\classes\appearance.py	30	const	女
+src\classes\appearance.py	61	const	返回一个随机外貌实例。
+src\classes\appearance.py	68	const	\n    按等级(1~10)返回外貌实例；越界时夹在范围内。\n    返回新实例，避免外部持有池中引用。\n    
+src\classes\avatar_metrics.py	8	const	预定义的度量标签
+src\classes\avatar_metrics.py	22	const	\n    Avatar 状态快照，用于追踪角色成长轨迹。\n\n    设计原则：\n    - 轻量：仅记录关键指标\n    - 不可变：快照一旦创建不修改\n    - 可选：不影响现有功能\n    
+src\classes\avatar_metrics.py	50	const	转换为可序列化的字典（用于存档）
+src\classes\avatar_metrics.py	55	const	从字典重建（用于读档）
+src\classes\backstory.py	14	const	\n    判断角色是否需要生成身世。\n    
+src\classes\backstory.py	27	const	\n    调用 LLM 生成角色身世。\n    
+src\classes\backstory.py	48	const	 生成身世：
+src\classes\backstory.py	48	const	为角色 
+src\classes\backstory.py	48	fstring	为角色  生成身世：
+src\classes\backstory.py	52	const	生成身世失败 
+src\classes\backstory.py	52	fstring	生成身世失败 : 
+src\classes\backstory.py	56	const	\n    为角色生成并设置身世（如果不满足条件则跳过）。\n    无返回值，直接修改 avatar 属性。\n    
+src\classes\birth.py	14	const	\n    处理世界中的生育逻辑。\n    遍历所有存活角色，检查符合条件的道侣并尝试生成子女。\n    \n    Returns:\n        生成的事件列表\n    
+src\classes\birth.py	77	const	\n    为一对伴侣创建子女\n    
+src\classes\celestial_phenomenon.py	1	const	\n天地灵机系统\n=============\n\n天地灵机是影响整个修仙世界的天象异动，提供全局性的buff/debuff。\n\n特点：\n- 不绑定任何角色，属于世界事件\n- 定期变化（默认5年一次）\n- 支持条件判断（如针对特定灵根、兵器类型等）\n- 使用effect系统，与角色自身effects合并\n\n扩展性：\n- 未来可支持多天象并存（主天象+次天象）\n- 未来可支持特殊事件触发天象变化（如飞升、大战等）\n- 未来可支持地域性天象（只影响特定区域/宗门）\n
+src\classes\celestial_phenomenon.py	32	const	\n    天地灵机（天象异动）\n    \n    字段与 static/game_configs/celestial_phenomenon.csv 对应：\n    - id: 唯一标识符\n    - name: 天象名称（修仙风格）\n    - rarity: 稀有度（N/R/SR/SSR），决定显示颜色和出现概率\n    - effects: JSON格式的效果配置，支持条件判断\n    - desc: 天象描述文字（用于UI显示和事件生成）\n    - duration_years: 持续年限（默认5年）\n    
+src\classes\celestial_phenomenon.py	53	const	根据稀有度获取出现概率权重
+src\classes\celestial_phenomenon.py	57	const	获取简略信息
+src\classes\celestial_phenomenon.py	61	const	获取详细信息
+src\classes\celestial_phenomenon.py	68	const	从配表加载天地灵机数据
+src\classes\celestial_phenomenon.py	103	const	重新加载数据，保留全局字典引用
+src\classes\celestial_phenomenon.py	113	const	\n    按权重随机选择一个天地灵机\n    \n    Returns:\n        CelestialPhenomenon 或 None（如果没有可用的天象）\n    
+src\classes\circulation.py	12	const	\n    出世物品流通管理器\n    记录所有从角色身上流出的贵重物品（出售、死亡掉落且未被夺取等）\n    用于后续拍卖会等玩法的物品池\n    
+src\classes\circulation.py	28	const	记录一共有多少个sold items
+src\classes\circulation.py	32	const	记录一件流出的兵器
+src\classes\circulation.py	40	const	记录一件流出的辅助装备
+src\classes\circulation.py	46	const	记录一件流出的丹药
+src\classes\circulation.py	56	const	\n        通用入口：记录一件流出的物品。\n        根据物品类型自动分发到对应的存储列表中。\n        设计此方法的目的是为了统一所有物品流出逻辑，避免各个业务模块手动判断类型。\n        
+src\classes\circulation.py	77	const	\n        从流通池移除物品\n        
+src\classes\circulation.py	95	const	序列化为字典以便存档
+src\classes\circulation.py	103	const	从字典恢复数据
+src\classes\circulation.py	133	const	将物品对象转换为简略的存储格式
+src\classes\close_relation_event_service.py	25	const	结为道侣
+src\classes\close_relation_event_service.py	26	const	结为义兄弟姐妹
+src\classes\close_relation_event_service.py	27	const	建立师徒关系
+src\classes\close_relation_event_service.py	143	const	建立了重要关系
+src\classes\color.py	1	const	\n颜色系统\n统一管理游戏中各种等级、稀有度的颜色方案\n
+src\classes\color.py	12	const	支持颜色分级的协议
+src\classes\color.py	16	const	返回RGB颜色值
+src\classes\color.py	24	const	预定义的颜色常量
+src\classes\color.py	51	const	\n    从映射字典中获取颜色\n\n    Args:\n        grade_value: 等级对象\n        color_mapping: 等级到颜色的映射字典\n        default_color: 默认颜色\n\n    Returns:\n        RGB颜色元组\n    
+src\classes\color.py	66	const	\n    将文本格式化为带颜色标记的字符串，供前端渲染使用\n    格式：<color:R,G,B>text</color>\n\n    Args:\n        text: 要着色的文本\n        color_rgb: RGB颜色元组\n\n    Returns:\n        带颜色标记的文本字符串\n    
+src\classes\color.py	82	const	RGB 整数元组转 16 进制字符串（#rrggbb）
+src\classes\color.py	88	const	\n    将包含 <color> 标签的文本拆分为 segments，\n    每个 segment 结构：{"text": "...", "color": "#rrggbb"}（color 可选）。\n    
+src\classes\core\avatar\__init__.py	1	const	\nAvatar 模块\n\n将原 avatar.py 拆分为多个子模块，通过此 __init__.py 导出以保持向后兼容。\n
+src\classes\core\avatar\action_mixin.py	1	const	\nAvatar 动作管理 Mixin\n
+src\classes\core\avatar\action_mixin.py	23	const	动作管理相关方法
+src\classes\core\avatar\action_mixin.py	26	const	\n        根据动作名称创建新的action实例\n        \n        Args:\n            action_name: 动作类的名称（如 'Respire', 'Breakthrough' 等）\n        \n        Returns:\n            新创建的Action实例\n        \n        Raises:\n            ValueError: 如果找不到对应的动作类\n        
+src\classes\core\avatar\action_mixin.py	48	const	\n        加载AI的决策结果（动作链），立即设置第一个为当前动作，其余进入队列。\n        \n        Args:\n            action_name_params_pairs: 动作名和参数对列表\n            avatar_thinking: 思考内容\n            short_term_objective: 短期目标\n            prepend: 是否插队到最前面（默认False，即追加到末尾）\n        
+src\classes\core\avatar\action_mixin.py	75	const	\n        提交下一个可启动的计划为当前动作；返回开始事件（若有）。\n        
+src\classes\core\avatar\action_mixin.py	87	const	非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s
+src\classes\core\avatar\action_mixin.py	94	const	非法参数: Avatar(name=%s) 动作 %s 参数类型错误: %s
+src\classes\core\avatar\action_mixin.py	104	const	动作启动失败: Avatar(name=%s) 动作 %s 参数校验异常: %s
+src\classes\core\avatar\action_mixin.py	113	const	非法动作: Avatar(name=%s,id=%s) 的动作 %s 参数=%s 无法启动，原因=%s
+src\classes\core\avatar\action_mixin.py	127	const	\n        推进当前动作一步；返回过程中由动作内部产生的事件（通过 add_event 收集）。\n        
+src\classes\core\avatar\action_mixin.py	169	const	\n        添加事件：\n        - to_sidebar: 是否进入全局侧边栏（通过 Avatar._pending_events 暂存）\n        \n        注意：事件会先存入_pending_events，统一由Simulator写入event_manager，避免重复\n        
+src\classes\core\avatar\action_mixin.py	179	const	\n        旧版按事件累计互动计数的逻辑已废弃。\n        新版关系系统改为由动作/聚会在结算时直接写入友好度变化。\n        
+src\classes\core\avatar\action_mixin.py	186	const	\n        获取易读的计划动作列表字符串。\n        
+src\classes\core\avatar\action_mixin.py	214	const	是否可以参加聚会
+src\classes\core\avatar\action_mixin.py	230	const	是否可以触发奇遇/霉运
+src\classes\core\avatar\action_mixin.py	246	const	是否正在执行重大行为
+src\classes\core\avatar\core.py	1	const	\nAvatar 核心类\n\n精简后的 Avatar 类，通过 Mixin 组合完整功能。\n
+src\classes\core\avatar\core.py	66	const	\n    NPC的类。\n    包含了这个角色的一切信息。\n    
+src\classes\core\avatar\core.py	153	const	\n        占据一个洞府，处理双向绑定和旧主清理。\n        
+src\classes\core\avatar\core.py	172	const	\n        放弃一个洞府的所有权。\n        
+src\classes\core\avatar\core.py	183	const	\n        增加突破成功率（临时效果）\n        
+src\classes\core\avatar\core.py	195	const	\n        增加一个永久效果来源。\n        适用于突破失败折寿、特殊命格改命等需要长期展示的效果。\n        
+src\classes\core\avatar\core.py	207	const	\n        当前颜值 = 初始颜值 + extra_appearance。\n        对外继续保留 avatar.appearance 调用，避免上层代码跟着改动。\n        
+src\classes\core\avatar\core.py	244	const	\n        服用丹药\n        :return: 是否成功服用\n        
+src\classes\core\avatar\core.py	268	const	\n        处理丹药过期：\n        1. 移除已完全过期的丹药\n        2. 如果有移除，触发属性重算\n        
+src\classes\core\avatar\core.py	300	const	加入宗门
+src\classes\core\avatar\core.py	311	const	退出宗门
+src\classes\core\avatar\core.py	319	const	\n        为当前宗门累积贡献点。\n        贡献点只在有宗门时生效，且不会因负数调用而减少。\n        
+src\classes\core\avatar\core.py	335	const	获取宗门显示名：有宗门则返回"宗门名+职位"，否则返回"散修"。
+src\classes\core\avatar\core.py	346	const	获取宗门职位的显示名称
+src\classes\core\avatar\core.py	360	const	设置角色死亡状态。
+src\classes\core\avatar\core.py	392	const	检查是否老死
+src\classes\core\avatar\core.py	398	const	\n        记录当前状态快照。\n\n        Args:\n            tags: 可选的事件标记\n\n        Returns:\n            创建的快照，如果追踪未启用则返回 None\n        
+src\classes\core\avatar\core.py	432	const	获取状态追踪摘要
+src\classes\core\avatar\core.py	450	const	更新年龄
+src\classes\core\avatar\core.py	454	const	更新修仙进度，并在境界提升时更新寿命和宗门职位
+src\classes\core\avatar\core.py	468	const	初始化已知区域：当前位置 + 宗门驻地
+src\classes\core\avatar\core.py	482	const	设置与另一个角色的关系。
+src\classes\core\avatar\core.py	489	const	\n        [我] 拜 [teacher] 为师。\n        语义：确立对方是我的 MASTER (老师)。\n        
+src\classes\core\avatar\core.py	496	const	\n        [我] 收 [student] 为徒。\n        语义：确立对方是我的 DISCIPLE (徒弟)。\n        
+src\classes\core\avatar\core.py	503	const	\n        [我] 认 [parent] 为父/母。\n        语义：确立对方是我的 PARENT (父母)。\n        
+src\classes\core\avatar\core.py	510	const	\n        [我] 认 [child] 为子/女。\n        语义：确立对方是我的 CHILD (子女)。\n        
+src\classes\core\avatar\core.py	517	const	\n        [我] 与 [other] 结为道侣。\n        
+src\classes\core\avatar\core.py	523	const	\n        [我] 与 [other] 结为义结金兰（义兄弟/义姐妹）。\n        
+src\classes\core\avatar\core.py	541	const	获取与另一个角色的关系。
+src\classes\core\avatar\core.py	546	const	清除与另一个角色的关系。
+src\classes\core\avatar\core.py	594	const	获取角色的文本描述（包含效果明细）
+src\classes\core\avatar\core.py	602	const	获取角色的道统（有宗门则随宗门，无宗门则为散修）
+src\classes\core\avatar\core.py	614	const	获取当前动作名称，默认返回'思考'
+src\classes\core\avatar\core.py	623	const	在Avatar创建后自动初始化tile和HP
+src\classes\core\avatar\info_presenter.py	1	const	\nAvatar 信息展示模块\n\n将信息格式化逻辑从 Avatar 类中分离，作为独立函数提供。\n
+src\classes\core\avatar\info_presenter.py	21	const	获取格式化的效果文本
+src\classes\core\avatar\info_presenter.py	34	const	\n    获取 avatar 的信息，返回 dict；根据 detailed 控制信息粒度。\n    
+src\classes\core\avatar\info_presenter.py	114	const	一
+src\classes\core\avatar\info_presenter.py	114	const	鿿
+src\classes\core\avatar\info_presenter.py	116	const	人榜
+src\classes\core\avatar\info_presenter.py	116	const	地榜
+src\classes\core\avatar\info_presenter.py	116	const	天榜
+src\classes\core\avatar\info_presenter.py	117	const	一
+src\classes\core\avatar\info_presenter.py	117	const	七
+src\classes\core\avatar\info_presenter.py	117	const	三
+src\classes\core\avatar\info_presenter.py	117	const	九
+src\classes\core\avatar\info_presenter.py	117	const	二
+src\classes\core\avatar\info_presenter.py	117	const	五
+src\classes\core\avatar\info_presenter.py	117	const	八
+src\classes\core\avatar\info_presenter.py	117	const	六
+src\classes\core\avatar\info_presenter.py	117	const	十
+src\classes\core\avatar\info_presenter.py	117	const	四
+src\classes\core\avatar\info_presenter.py	120	const	第
+src\classes\core\avatar\info_presenter.py	120	fstring	第
+src\classes\core\avatar\info_presenter.py	141	const	\n    获取结构化的角色信息，用于前端展示和交互。\n    
+src\classes\core\avatar\info_presenter.py	403	const	\n    为角色动作决策构建聚焦上下文。\n    这里刻意不放宗门总灵石/总战力，只提供战争、门规与局部感知。\n    
+src\classes\core\avatar\info_presenter.py	508	const	\n    获取角色的扩展信息，包含基础信息、观察到的角色和事件历史。\n    \n    Args:\n        avatar: 目标角色\n        co_region_avatars: 同区域的其他角色列表，用于"观察到的角色"字段\n        other_avatar: 另一个角色，如果提供则返回两人共同经历的事件，否则返回单人事件\n        detailed: 是否返回详细信息\n    
+src\classes\core\avatar\info_presenter.py	548	const	\n    仅显示几个字段：名字、绰号、境界、关系、宗门、阵营、外貌、功法、武器、辅助装备、HP\n    
+src\classes\core\avatar\info_presenter.py	591	const	\n    获取角色的文本描述。\n    detailed=True 时包含详细的效果来源分析。\n    
+src\classes\core\avatar\inventory_mixin.py	1	const	\nAvatar 物品与装备管理 Mixin\n
+src\classes\core\avatar\inventory_mixin.py	17	const	物品与装备管理相关方法
+src\classes\core\avatar\inventory_mixin.py	20	const	\n        添加物品到背包\n        \n        Args:\n            material: 要添加的物品\n            quantity: 添加数量，默认为1\n        
+src\classes\core\avatar\inventory_mixin.py	36	const	\n        从背包移除材料\n        \n        Args:\n            material: 要移除的材料\n            quantity: 移除数量，默认为1\n            \n        Returns:\n            bool: 是否成功移除（如果材料不足则返回False）\n        
+src\classes\core\avatar\inventory_mixin.py	64	const	\n        获取指定材料的数量\n        \n        Args:\n            material: 要查询的材料\n            \n        Returns:\n            int: 材料数量，如果没有该材料则返回0\n        
+src\classes\core\avatar\inventory_mixin.py	76	const	\n        更换兵器，熟练度归零，并重新计算长期效果\n        \n        Args:\n            new_weapon: 新的兵器\n        
+src\classes\core\avatar\inventory_mixin.py	87	const	\n        更换辅助装备，并重新计算长期效果\n        \n        Args:\n            new_auxiliary: 新的辅助装备（可为 None 表示卸下）\n        
+src\classes\core\avatar\inventory_mixin.py	97	const	\n        增加兵器熟练度，上限100\n        \n        Args:\n            amount: 增加的熟练度值\n        
+src\classes\core\avatar\inventory_mixin.py	111	const	\n        出售材料物品，返回获得的灵石数量。\n        应用 extra_item_sell_price_multiplier 效果。\n        
+src\classes\core\avatar\inventory_mixin.py	130	const	\n        出售兵器，返回获得的灵石数量。\n        注意：这是辅助方法，不会自动卸下当前装备。\n        
+src\classes\core\avatar\inventory_mixin.py	145	const	\n        出售辅助装备，返回获得的灵石数量。\n        注意：这是辅助方法，不会自动卸下当前装备。\n        
+src\classes\core\avatar\inventory_mixin.py	160	const	\n        出售丹药，返回获得的灵石数量。\n        
+src\classes\core\avatar\inventory_mixin.py	176	const	\n        检查是否可以购买指定物品。\n        涵盖价格检查、境界限制、耐药性等。\n        
+src\classes\core\avatar\inventory_mixin.py	187	const	灵石不足 (需要 
+src\classes\core\avatar\inventory_mixin.py	187	fstring	灵石不足 (需要 )
+src\classes\core\avatar\inventory_mixin.py	194	const	境界不足，无法承受药力 (
+src\classes\core\avatar\inventory_mixin.py	194	fstring	境界不足，无法承受药力 ()
+src\classes\core\avatar\inventory_mixin.py	200	const	药效尚存，无法重复服用
+src\classes\core\avatar\inventory_mixin.py	205	const	\n        执行购买逻辑。\n        包括扣款、获得物品（服用/入包/装备）、以旧换新。\n        返回交易报告 dict。\n        
+src\classes\core\avatar\inventory_mixin.py	255	const	\n        内部方法：装备新物品，并尝试卖出旧物品（如果有）。\n        返回: (旧物品名称, 卖出金额)\n        
+src\classes\core\dynasty.py	98	const	朝
+src\classes\core\dynasty.py	98	fstring	朝
+src\classes\core\dynasty.py	105	const	氏
+src\classes\core\dynasty.py	105	fstring	氏
+src\classes\core\orthodoxy.py	9	const	\n    道统 (Orthodoxy)\n    \n    代表修炼的根本理念与方式：道、佛、儒等。\n    
+src\classes\core\orthodoxy.py	21	const	\n        获取道统信息\n        
+src\classes\core\orthodoxy.py	36	const	从配表加载 orthodoxy 数据
+src\classes\core\orthodoxy.py	68	const	重新加载数据
+src\classes\core\sect.py	22	const	\n宗门、宗门总部基础数据。\n驻地名称与描述已迁移到 sect_region.csv，供地图区域系统使用。\n此处仅保留宗门本体信息与头像编辑所需的静态字段。\n
+src\classes\core\sect.py	37	const	\n    宗门总部\n    
+src\classes\core\sect.py	46	const	\n    宗门\n    
+src\classes\core\sect.py	113	const	添加成员到宗门
+src\classes\core\sect.py	118	const	从宗门移除成员
+src\classes\core\sect.py	144	const	\n        获取宗门的职位名称（支持自定义）\n        \n        Args:\n            rank: 宗门职位枚举\n            \n        Returns:\n            职位名称字符串\n        
+src\classes\core\sect.py	252	const	\n        当前版本只处理“极端到足以驱逐”的明显门规冲突。\n        更细的门规行为判断后续可以在这里继续扩展。\n        
+src\classes\core\sect.py	532	const	合并两个 effects 字典（简单合并逻辑）
+src\classes\core\sect.py	558	const	从配表加载 sect 数据\n    返回：新的 (sects_by_id, sects_by_name)\n    
+src\classes\core\sect.py	684	const	重新加载数据，保留全局字典引用
+src\classes\core\sect.py	698	const	\n    获取包含职位的宗门信息字符串\n    \n    Args:\n        avatar: 角色对象\n        detailed: 是否包含宗门详细信息（阵营、风格、驻地等）\n        \n    Returns:\n        - 散修：返回"散修"\n        - detailed=False：返回"明心剑宗长老"\n        - detailed=True：返回"明心剑宗长老（阵营：正，风格：...，驻地：...）"\n    
+src\classes\core\sect.py	752	const	\n    便捷入口：获取宗门决策上下文。\n\n    为避免领域层直接依赖具体系统实现，仅在此做一次转调。\n    
+src\classes\core\world.py	62	const	\n        返回世界信息（dict），其中包含地图信息（dict）。\n        如果指定了 avatar，将传给 map.get_info 用于过滤区域和计算距离。\n        
+src\classes\core\world.py	90	const	\n        提供统一的宗门作用域访问入口。\n        - active_sects 默认来自 existed_sects；\n        - 若不存在，则回退到全局 sects_by_id。\n        
+src\classes\core\world.py	418	const	设置本局的世界观与历史输入文本。
+src\classes\core\world.py	443	const	\n        工厂方法：创建使用 SQLite 持久化事件的 World 实例。\n\n        Args:\n            map: 地图对象。\n            month_stamp: 时间戳。\n            events_db_path: 事件数据库文件路径。\n            start_year: 世界开始年份。\n\n        Returns:\n            配置好的 World 实例。\n        
+src\classes\core\world.py	474	const	\n    本局宗门上下文。\n    负责维护“本局启用且仍存续的宗门 ID 集合”，并提供统一的 active 宗门读取入口。\n    
+src\classes\core\world.py	484	const	根据本局启用宗门列表初始化 active_sect_ids。
+src\classes\core\world.py	492	const	在上下文中标记某宗门为失效。
+src\classes\core\world.py	500	const	\n        返回当前本局仍然激活的宗门列表。\n        优先使用 world.existed_sects（保持与当前局实际挂载的 Sect 实例一致），\n        再结合 active_sect_ids 做过滤；若不存在，则回退到全局 sects_by_id。\n        
+src\classes\death.py	10	const	\n    处理角色死亡的统一入口。\n    负责将角色标记为死亡，清理行动队列，但保留角色数据。\n    \n    Args:\n        world: 世界对象\n        avatar: 死亡的角色\n        reason: 死亡原因（DeathReason对象或字符串）\n    
+src\classes\effect\consts.py	1	const	\nEffects 效果系统\n================\n\n本文件定义了游戏中所有合法的 effect 字段。\nEffects 通过角色的 avatar.effects 属性合并并生效。\n\nEffect 来源：\n- 宗门 (sect)\n- 功法 (technique)\n- 灵根 (root)\n- 特质 (persona)\n- 兵器和辅助装备 (weapon, auxiliary)\n
+src\classes\effect\consts.py	22	const	\n额外战斗力点数\n类型: int\n结算: src/classes/battle.py\n说明: 直接增加角色的战斗力数值。\n数值参考: \n  - 微量: 1~2 (相当于提升1-2个小境界)\n  - 中量: 3~5 (相当于提升半个大境界)\n  - 大量: 8+ (相当于提升一个大境界)\n
+src\classes\effect\consts.py	34	const	\n额外最大生命值\n类型: int\n结算: src/classes/avatar.py (__post_init__)\n说明: 增加角色的最大生命值上限。\n数值参考: \n  - 微量: 10~30\n  - 中量: 50~100 (练气期基础HP约100)\n  - 大量: 150+\n
+src\classes\effect\consts.py	46	const	\n额外观察半径\n类型: int\n结算: src/classes/observe.py\n说明: 增加角色的观察范围（格子数）。\n数值参考: \n  - 微量: 1\n  - 中量: 2\n  - 大量: 3\n
+src\classes\effect\consts.py	58	const	\n额外颜值\n类型: int\n结算: src/classes/core/avatar/core.py (Avatar.appearance)\n说明: 在角色初始颜值基础上叠加，最终结果会被限制在 1~10。\n数值参考:\n  - 微量: 1\n  - 大量: 2\n
+src\classes\effect\consts.py	70	const	\n额外吐纳经验\n类型: int\n结算: src/classes/action/respire.py\n说明: 每次吐纳结算时，额外增加的固定经验值。\n数值参考: \n  - 微量: 5~10\n  - 中量: 20~50 (基础吐纳约每次100点经验)\n  - 大量: 100+\n
+src\classes\effect\consts.py	82	const	\n额外吐纳经验倍率\n类型: float\n结算: src/classes/action/respire.py\n说明: 每次吐纳结算时，额外增加的经验倍率。\n数值参考: \n  - 微量: 0.1 (+10%)\n  - 中量: 0.5 (+50%)\n  - 大量: 1.0 (+100%)\n
+src\classes\effect\consts.py	94	const	\n吐纳时长缩减\n类型: float\n结算: src/classes/action/respire.py\n说明: 吐纳动作的时长缩减比例。\n数值参考: \n  - 微量: 0.05~0.1 (缩减5%-10%)\n  - 中量: 0.15 (15%)\n  - 极限: 0.3 (30%)\n
+src\classes\effect\consts.py	107	const	\n锻体时长缩减\n类型: float\n结算: src/classes/action/temper.py\n说明: 锻体动作的时长缩减比例。\n数值参考:\n  - 微量: 0.05~0.1\n  - 中量: 0.15\n  - 极限: 0.3\n
+src\classes\effect\consts.py	119	const	\n额外突破成功率\n类型: float\n结算: src/classes/action/breakthrough.py\n说明: 修改突破瓶颈时的成功率。\n数值参考: \n  - 微量: 0.05 (5%)\n  - 中量: 0.1 (10%)\n  - 大量: 0.3 (30%)\n
+src\classes\effect\consts.py	131	const	\n额外闭关成功率\n类型: float\n结算: src/classes/action/retreat.py\n说明: 闭关判定成功率的加成。\n数值参考: \n  - 微量: 0.05 (5%)\n  - 中量: 0.1 (10%)\n  - 大量: 0.2 (20%)\n
+src\classes\effect\consts.py	144	const	\n额外双修经验\n类型: int\n结算: src/classes/mutual_action/dual_cultivation.py\n说明: 双修时发起者额外获得的固定经验值。\n数值参考: \n  - 微量: 10~30\n  - 中量: 50~100 (双修基础收益约300~500)\n  - 大量: 150+\n
+src\classes\effect\consts.py	157	const	\n额外采集材料数量\n类型: int\n结算: src/classes/action/harvest.py\n说明: 采集植物时额外获得的材料数量。\n数值参考: \n  - 微量: 1\n  - 中量: 2\n  - 大量: 3\n
+src\classes\effect\consts.py	169	const	\n额外狩猎材料数量\n类型: int\n结算: src/classes/action/hunt.py\n说明: 狩猎动物时额外获得的材料数量。\n数值参考: \n  - 微量: 1\n  - 中量: 2\n  - 大量: 3\n
+src\classes\effect\consts.py	181	const	\n额外挖矿材料数量\n类型: int\n结算: src/classes/action/mine.py\n说明: 挖矿时额外获得的材料数量。\n
+src\classes\effect\consts.py	189	const	\n额外种植灵石收益\n类型: int\n结算: src/classes/action/plant.py\n说明: 种植时额外获得的灵石数量。\n
+src\classes\effect\consts.py	198	const	\n额外移动步数\n类型: int\n结算: src/classes/action/move.py\n说明: 每次移动时可以多移动的格子数。\n数值参考: \n  - 中量: 1\n  - 大量: 2\n
+src\classes\effect\consts.py	210	const	\n额外捕捉成功率\n类型: float\n结算: src/classes/action/catch.py\n说明: 捕捉灵兽时增加的成功率。\n数值参考: \n  - 微量: 0.05~0.1 (5%-10%)\n  - 中量: 0.2 (20%)\n  - 大量: 0.3 (30%)\n
+src\classes\effect\consts.py	223	const	\n额外逃跑成功率\n类型: float\n结算: src/classes/battle.py\n说明: 从战斗中逃离的成功率加成。\n数值参考: \n  - 微量: 0.1\n  - 中量: 0.2\n  - 大量: 0.3~0.5 (配合基础概率几乎必逃)\n
+src\classes\effect\consts.py	236	const	\n额外暗杀成功率\n类型: float\n结算: src/classes/battle.py (get_assassination_success_rate)\n说明: 暗杀判定成功率的加成。\n数值参考: \n  - 微量: 0.05 (5%)\n  - 中量: 0.1 (10%)\n  - 大量: 0.15 (15%)\n
+src\classes\effect\consts.py	249	const	\n额外气运\n类型: int\n结算: src/classes/effect/luck.py\n说明: 影响奇遇、厄运、秘境、顿悟、突破等“命数”相关收益。\n数值参考:\n  - 普通人: 0\n  - 有福缘: 5~10\n  - 主角模板: 15~25\n  - 倒霉体质: -5~-10\n
+src\classes\effect\consts.py	262	const	\n额外奇遇概率\n类型: float\n结算: src/classes/fortune.py\n说明: 每月触发奇遇的额外概率（绝对值）。\n数值参考: \n  - 基础概率通常极低 (<0.01)\n  - 微量: 0.001 (0.1%，有)\n  - 中量: 0.002~0.005 (高)\n  - 极高: 0.01 (1%，不少了)\n
+src\classes\effect\consts.py	275	const	\n额外霉运概率\n类型: float\n结算: src/classes/misfortune.py\n数值参考: \n  - 基础概率通常极低 (<0.01)\n  - 微量: 0.001 (0.1%，有)\n  - 中量: 0.002~0.005 (高)\n  - 极高: 0.01 (1%，不少了)\n
+src\classes\effect\consts.py	288	const	\n额外铸造成功率\n类型: float\n结算: src/classes/action/cast.py\n说明: 铸造（Cast）动作的成功率加成。\n数值参考: \n  - 微量: 0.05 (+5%)\n  - 中量: 0.1 (+10%)\n  - 大量: 0.2+ (+20%)\n
+src\classes\effect\consts.py	300	const	\n额外炼丹成功率\n类型: float\n结算: src/classes/action/refine.py\n说明: 炼丹（Refine）动作的成功率加成。\n数值参考: \n  - 微量: 0.05 (+5%)\n  - 中量: 0.1 (+10%)\n  - 大量: 0.2+ (+20%)\n
+src\classes\effect\consts.py	312	const	\n额外宗门任务成功率\n类型: float\n结算: src/classes/action/sect_mission.py\n说明: 宗门任务动作的成功率加成。\n数值参考:\n  - 微量: 0.05 (+5%)\n  - 中量: 0.1 (+10%)\n  - 大量: 0.2+ (+20%)\n
+src\classes\effect\consts.py	325	const	\n额外兵器熟练度增长速度\n类型: float\n结算: src/classes/action/nurture_weapon.py\n说明: 熟练度增长倍率（乘法加成）。\n数值参考: \n  - 微量: 0.1~0.2 (+10%-20%)\n  - 中量: 0.5 (+50%)\n  - 大量: 1.0 (+100%，翻倍)\n
+src\classes\effect\consts.py	337	const	\n额外兵器升华概率\n类型: float\n结算: src/classes/action/nurture_weapon.py\n说明: 温养兵器时升华为宝物的概率加成。\n数值参考: \n  - 基础概率: 0.05 (5%)\n  - 微量: 0.05 (+5%)\n  - 中量: 0.1 (10%)\n  - 大量: 0.15 (15%)\n
+src\classes\effect\consts.py	351	const	\n额外最大寿元\n类型: int (年)\n结算: src/classes/age.py\n说明: 增加角色的最大寿命上限。\n数值参考: \n  - 微量: 5~10\n  - 中量: 20~50\n  - 大量: 100+\n
+src\classes\effect\consts.py	363	const	\n额外HP恢复速率。同时影响动作SelfHeal和Simulator中的自然回复。\n类型: float\n结算: src/classes/action/self_heal.py\n说明: 疗伤时的HP恢复效率倍率。\n数值参考: \n  - 微量: 0.1~0.2\n  - 中量: 0.5 (+50%)\n  - 大量: 1.0 (翻倍)\n
+src\classes\effect\consts.py	375	const	\n伤害减免\n类型: float\n结算: src/classes/battle.py\n说明: 受到伤害的减免比例（乘法减少）。\n数值参考: \n  - 微量: 0.05\n  - 中量: 0.1\n  - 坦克: 0.2~0.3 (不建议超过0.3)\n
+src\classes\effect\consts.py	387	const	\n境界压制加成\n类型: float\n结算: src/classes/battle.py\n说明: 当境界高于对手时，每级境界差提供的战斗力百分比加成。可以理解为“额外威压”\n数值参考: \n  - 基础值: 0.0 (无额外加成，仅靠基础属性)\n  - 微量: 0.05 (每级差多10%战斗力)\n  - 中量: 0.1\n  - 大量: 0.15\n
+src\classes\effect\consts.py	401	const	\n额外物品出售价格倍率\n类型: float\n结算: src/classes/action/sold.py\n说明: 出售物品时的价格加成倍率。\n数值参考: \n  - 微量: 0.1 (+10%)\n  - 中量: 0.2~0.3\n  - 奸商: 0.5\n
+src\classes\effect\consts.py	413	const	\n商铺购买价格倍率减免\n类型: float\n结算: src/classes/prices.py\n说明: 降低从系统购买物品时的溢价倍率。\n数值参考: \n  - 微量: 0.1 (倍率-0.1)\n  - 中量: 0.5 (倍率-0.5)\n限制: 最终倍率最低为 1.0\n
+src\classes\effect\consts.py	425	const	\n额外搜刮收益倍率\n类型: float\n结算: src/classes/action/plunder_people.py\n说明: 搜刮凡人时的收益倍率。\n数值参考: \n  - 微量: 0.5 \n  - 中量: 1.0\n  - 大量: 2\n
+src\classes\effect\consts.py	438	const	\n额外秘境掉落概率\n类型: float\n结算: src/classes/gathering/hidden_domain.py\n说明: 增加在秘境中获得宝物的概率。\n数值参考:\n  - 微量: 0.05\n  - 中量: 0.1\n  - 大量: 0.2\n
+src\classes\effect\consts.py	450	const	\n额外秘境危险概率\n类型: float\n结算: src/classes/gathering/hidden_domain.py\n说明: 增加（或减少，负值）在秘境中遇到危险的概率。\n数值参考:\n  - 降低危险: -0.1 (降低10%危险率)\n  - 增加危险: 0.1\n
+src\classes\effect\consts.py	462	const	\n额外顿悟概率\n类型: float\n结算: src/classes/gathering/sect_teaching.py\n说明: 在宗门传道大会等事件中，直接习得他人功法/经验的额外概率。\n数值参考: \n  - 微量: 0.05\n  - 中量: 0.1\n  - 天才: 0.2\n
+src\classes\effect\consts.py	475	const	\n合法动作列表\n类型: list[str]\n结算: 各个 action 的权限检查\n说明: 允许角色执行的特殊动作列表。\n可用值:\n  - "DevourPeople": 吞噬生灵（邪道法宝万魂幡）\n
+src\classes\effect\consts.py	488	const	\nCSV 中 effects 列的写法（支持宽松JSON格式）:\n\n基础格式（推荐无引号key）:\n  {extra_battle_strength_points: 3}\n  {extra_battle_strength_points: 2, extra_max_hp: 50}\n  {legal_actions: ['DevourPeople']}\n\n条件effect（when字段）:\n  [{when: 'avatar.weapon.type == WeaponType.SWORD', extra_battle_strength_points: 3}]\n  可访问: avatar, WeaponType, EquipmentGrade, Alignment\n\n动态值（字符串表达式会被eval）:\n  {extra_battle_strength_points: 'avatar.weapon.special_data.get("souls", 0) * 0.1'}\n\n注意: CSV中包含逗号的effects值需要用双引号包裹，避免被误认为列分隔符\n
+src\classes\effect\consts.py	510	const	\nEffects 通过 src/classes/effect/process.py 中的 _merge_effects() 函数合并。\n\n合并规则:\n1. 列表类型 (如 legal_actions): 取并集（去重）\n2. 数值类型 (如 extra_*): 累加\n3. 其他类型: 后者覆盖前者\n4. 动态表达式 (字符串形式): 在 Avatar.effects property 中 eval 计算\n\n合并顺序（从低到高优先级）:\n1. 宗门 (sect)\n2. 功法 (technique)\n3. 灵根 (root)\n4. 特质 (persona) - 遍历所有 personas\n5. 兵器和辅助装备 (weapon, auxiliary)\n\n最终结果通过 Avatar.effects 属性获取（实时计算）。\n
+src\classes\effect\desc.py	5	const	获取 effect 的描述名称（支持国际化）。
+src\classes\effect\desc.py	60	const	获取 action 的简称（复用 Action 系统翻译）。
+src\classes\effect\desc.py	69	const	格式化效果数值。
+src\classes\effect\desc.py	104	const	将代码形式的条件表达式转换为可读描述。
+src\classes\effect\desc.py	169	const	把 effects 转为易读文本，例如 {"extra_max_hp": 100} -> "最大生命 +100"。
+src\classes\effect\mixin.py	1	const	\nAvatar 效果计算 Mixin\n\n负责角色效果的计算和应用。\n
+src\classes\effect\mixin.py	20	const	效果计算相关方法
+src\classes\effect\mixin.py	23	const	获取当前生效的临时效果列表
+src\classes\effect\mixin.py	31	const	\n        评估效果字典中的动态值（字符串表达式）。\n        支持明确的 'eval(...)' 格式，以及包含 'avatar.' 的隐式表达式。\n        
+src\classes\effect\mixin.py	77	const	\n        合并所有来源的效果：宗门、功法、灵根、特质、兵器、辅助装备、灵兽、天地灵机、丹药\n        直接复用 get_effect_breakdown 的逻辑，确保显示与实际效果一致。\n        
+src\classes\effect\mixin.py	90	const	\n        获取未注入气运派生效果前的原始效果明细。\n        
+src\classes\effect\mixin.py	97	const	\n            收集效果。\n            source_obj: 包含 .effects 的对象\n            explicit_effects: 直接传入的 effects (dict or list)\n            
+src\classes\effect\mixin.py	191	const	\n        获取最终效果明细，返回 [(来源名称, 生效的效果字典), ...]\n        在原始来源之外，额外插入“气运”派生效果来源。\n        
+src\classes\effect\mixin.py	210	const	\n        重新计算所有长期效果\n        在装备更换、突破境界等情况下调用\n        \n        当前包括：\n        - HP 最大值\n        - 寿命最大值\n        
+src\classes\effect\mixin.py	241	const	\n        随时间更新的被动效果。\n        当前实现：当 HP 未满时，回复最大生命值的 1%（受HP恢复速率加成影响）。\n        
+src\classes\effect\mixin.py	257	const	获取角色的移动步长
+src\classes\effect\process.py	11	const	\n    将 effects 字段解析为 dict 或 list（支持宽松JSON格式）。\n    \n    支持的格式：\n    1. 标准JSON: {"extra_battle_strength_points": 3}\n    2. 单引号: {'extra_battle_strength_points': 3}\n    3. 无引号key: {extra_battle_strength_points: 3}\n    4. 混合格式: {extra_battle_strength_points: 3, 'legal_actions': ['DevourPeople']}\n    5. 条件数组: [{when: 'condition', effect1: value1}, ...]\n    \n    - value 为 None/空字符串/'nan' 时返回 {}\n    - 解析失败时返回 {}\n    - 支持返回 dict（单个effect）或 list[dict]（多个条件effect）\n    
+src\classes\effect\process.py	90	const	\n    评估带条件的effect，返回实际生效的effect dict。\n    \n    支持三种格式：\n    1. 普通dict（无条件）: {"extra_battle_strength_points": 1}\n    2. 带条件的dict: {"extra_battle_strength_points": 2, "when": "avatar.weapon.type == WeaponType.SWORD"}\n    3. 条件数组: [{"extra_battle_strength_points": 2, "when": "..."}, {...}]\n    \n    Args:\n        effect: 原始effect配置（dict或list）\n        avatar: 当前角色对象\n    \n    Returns:\n        评估后实际生效的effect dict（合并所有满足条件的effects）\n    
+src\classes\effect\process.py	127	const	检查条件表达式是否为真
+src\classes\effect\process.py	137	const	处理单个effect dict，检查条件并返回生效的部分
+src\classes\effect\process.py	166	const	\n    合并两个 effects 字典：\n    - list 型（如 legal_actions）：做去重并集\n    - 数值型：相加\n    - 其他：后者覆盖前者\n    返回新字典，不修改原对象。\n    
+src\classes\effect\process.py	204	const	\n    将配表数据列表构造成 {key -> effects} 的映射：\n    - key_column：用于定位键（字符串），通过 parse_key 解析为目标键（如 Enum）\n    - effects_column：字符串列，使用 load_effect_from_str 解析\n    解析失败或空值的行将被忽略。\n    
+src\classes\environment\lode.py	10	const	\n    矿脉\n    
+src\classes\environment\lode.py	23	const	初始化物品实例
+src\classes\environment\lode.py	35	const	\n        获取矿脉的详细信息\n        
+src\classes\environment\lode.py	62	const	从配表加载lode数据
+src\classes\environment\lode.py	90	const	重新加载数据，保留全局字典引用
+src\classes\environment\map.py	11	const	\n    通过dict记录position 到 tile。\n    
+src\classes\environment\map.py	33	const	根据当前 self.regions 动态刷新宗门总部区域字典。
+src\classes\environment\map.py	37	const	\n        判断坐标是否在地图边界内。\n        
+src\classes\environment\map.py	49	const	\n        获取locs的中心位置。\n        如果几何中心恰好在位置列表中，返回几何中心；\n        否则返回距离几何中心最近的实际位置。\n        
+src\classes\environment\map.py	68	const	计算到中心点的距离平方（避免开方运算）
+src\classes\environment\map.py	74	const	\n        获取一个region。\n        
+src\classes\environment\map.py	80	const	\n        返回地图信息（dict）。\n        avatar: 如果提供，将用于：\n               1. 过滤仅返回 avatar.known_regions 中的区域\n               2. 计算并在描述中追加从 avatar 当前位置到各区域的距离\n        
+src\classes\environment\plant.py	11	const	\n    植物\n    
+src\classes\environment\plant.py	24	const	初始化物品实例
+src\classes\environment\plant.py	36	const	\n        获取植物的详细信息，包括名字、描述、境界和材料\n        
+src\classes\environment\plant.py	63	const	从配表加载plant数据
+src\classes\environment\plant.py	87	const	重新加载数据，保留全局字典引用
+src\classes\environment\region.py	24	const	\n    区域抽象基类\n    
+src\classes\environment\region.py	39	const	初始化计算字段
+src\classes\environment\region.py	72	const	\n        返回紧跟在名字后的描述，通常包含括号，例如 '（金行灵气：5）'\n        注意，不需要包含self.desc\n        
+src\classes\environment\region.py	106	const	普通区域
+src\classes\environment\region.py	175	const	修炼区域（洞府/遗迹）
+src\classes\environment\region.py	233	const	城市区域
+src\classes\environment\region.py	251	const	安全修改人口，限制在 0 和容量之间。单位：万人。
+src\classes\environment\region.py	255	const	返回当前人口状态下的月自然增长量（单位：万人），不修改状态。
+src\classes\environment\region.py	261	const	\n        使用标准 logistic 模型更新人口。\n        dP = r * P * (1 - P / K)\n        
+src\classes\environment\sect_region.py	10	const	\n    宗门总部区域：\n    - 作为兜底修炼区域使用；\n    - 仅本门弟子在此吐纳时，享受等效「五行皆为 5」的灵气环境。\n    
+src\classes\environment\sect_region.py	21	const	\n        宗门总部的等效灵气设定：\n        - 五行灵气（金木水火土）密度均为 5；\n        - 仅在动作逻辑（如 Respire）中按此视为修炼环境。\n        
+src\classes\environment\tile.py	52	const	\n    判断一个tile名称是否为2x2大型tile。\n    \n    Args:\n        tile_name: tile的名称（如 "cave", "明心剑宗", "青云城" 等）\n    \n    Returns:\n        是否为大型tile\n    
+src\classes\environment\tile.py	76	const	\n    获取大型tile的4个切片名称。\n    \n    Args:\n        tile_name: 大型tile的名称\n    \n    Returns:\n        4个切片名称的列表 [TL, TR, BL, BR]\n    
+src\classes\environment\tile.py	102	const	\n        优雅地获取当前地点的名称。\n        如果属于某个区域，返回区域名；否则返回'荒野'。\n        
+src\classes\environment\tile.py	113	const	\n    计算两个 Avatar 之间的曼哈顿距离\n    \n    Args:\n        avatar1: 第一个角色\n        avatar2: 第二个角色\n    \n    Returns:\n        两个角色之间的距离\n    
+src\classes\essence.py	6	const	\n    灵气类型\n    
+src\classes\essence.py	16	const	返回灵气类型的翻译名称
+src\classes\essence.py	22	const	\n        从字符串创建EssenceType实例\n        \n        Args:\n            essence_str: 灵气的字符串表示\n            \n        Returns:\n            对应的EssenceType枚举值\n        
+src\classes\essence.py	35	const	金
+src\classes\essence.py	36	const	木
+src\classes\essence.py	37	const	水
+src\classes\essence.py	38	const	火
+src\classes\essence.py	39	const	土
+src\classes\essence.py	58	const	金
+src\classes\essence.py	59	const	木
+src\classes\essence.py	60	const	水
+src\classes\essence.py	61	const	火
+src\classes\essence.py	62	const	土
+src\classes\essence.py	66	const	\n    灵气，用来描述某个region的灵气情况。\n    灵气分为五种：金木水火土（先这些，之后加新的）\n    每个region有五种灵气，每种灵气有不同的浓度。\n    浓度从0~10。\n    
+src\classes\event.py	43	const	转换为可序列化的字典
+src\classes\event.py	60	const	从字典重建Event
+src\classes\event.py	76	const	\n    空事件单例类，保持与 Event 相同的最小接口，避免调用方访问属性时报错。\n    
+src\classes\event.py	102	const	使NullEvent实例在布尔上下文中为False
+src\classes\event.py	106	const	保持序列化接口
+src\classes\event.py	124	const	检查事件是否为空事件的便捷函数
+src\classes\event_renderer.py	18	const	某人
+src\classes\event_renderer.py	19	const	某人
+src\classes\event_renderer.py	21	const	某人
+src\classes\event_renderer.py	22	const	某人
+src\classes\event_renderer.py	24	const	某人
+src\classes\event_renderer.py	25	const	某人
+src\classes\event_renderer.py	28	const	某人
+src\classes\event_renderer.py	29	const	 杀害。
+src\classes\event_renderer.py	29	const	 被 
+src\classes\event_renderer.py	29	const	你得知 
+src\classes\event_renderer.py	29	fstring	你得知  被  杀害。
+src\classes\event_renderer.py	32	const	建立了重要关系
+src\classes\event_renderer.py	33	const	 与 
+src\classes\event_renderer.py	33	const	你得知 
+src\classes\event_renderer.py	33	fstring	你得知  与 。
+src\classes\event_renderer.py	37	const	 发生了一件大事：
+src\classes\event_renderer.py	37	const	你得知 
+src\classes\event_renderer.py	37	fstring	你得知  发生了一件大事：
+src\classes\event_renderer.py	38	const	 发生了一件大事。
+src\classes\event_renderer.py	38	const	你得知 
+src\classes\event_renderer.py	38	fstring	你得知  发生了一件大事。
+src\classes\event_storage.py	1	const	\nSQLite 事件存储层。\n\n提供事件的持久化存储、分页查询和清理功能。\n
+src\classes\event_storage.py	23	const	将 timestamp float 转换为 SQLite 兼容的 UTC 字符串
+src\classes\event_storage.py	27	const	将 SQLite 时间字符串解析为 timestamp float
+src\classes\event_storage.py	43	const	\n    SQLite 事件存储层。\n\n    提供：\n    - 实时写入事件\n    - 分页查询（cursor-based）\n    - 按角色/角色对查询\n    - 历史清理\n    
+src\classes\event_storage.py	54	const	\n        初始化数据库连接，创建表（如不存在）。\n\n        Args:\n            db_path: 数据库文件路径。\n        
+src\classes\event_storage.py	68	const	初始化数据库连接和表结构。
+src\classes\event_storage.py	149	const	事务上下文管理器。
+src\classes\event_storage.py	159	const	\n        写入单个事件。\n\n        失败时记录日志并返回 False，不抛异常。\n\n        Args:\n            event: 要写入的事件对象。\n\n        Returns:\n            写入是否成功。\n        
+src\classes\event_storage.py	324	const	\n        解析复合 cursor。\n\n        格式: {month_stamp}_{rowid}\n\n        Returns:\n            (month_stamp, rowid)\n        
+src\classes\event_storage.py	338	const	生成复合 cursor。
+src\classes\event_storage.py	350	const	\n        分页查询事件。\n\n        Args:\n            avatar_id: 按单个角色筛选。\n            avatar_id_pair: Pair 查询（两个角色之间的事件）。\n            sect_id: 按单个宗门筛选。\n            cursor: 分页 cursor，获取该位置之前的事件。\n            limit: 每页数量。\n\n        Returns:\n            (events, next_cursor)，next_cursor 为 None 表示没有更多。\n        
+src\classes\event_storage.py	477	const	\n        后端用：获取角色相关事件（供 LLM prompt 使用）。\n\n        返回最新的 N 条，按时间正序排列。\n        
+src\classes\event_storage.py	486	const	\n        后端用：获取两角色之间的事件。\n\n        返回最新的 N 条，按时间正序排列。\n        
+src\classes\event_storage.py	495	const	获取角色的大事（长期记忆）。
+src\classes\event_storage.py	536	const	获取角色的小事（短期记忆，包括故事）。
+src\classes\event_storage.py	577	const	获取两个角色之间的大事（长期记忆）。
+src\classes\event_storage.py	614	const	获取两个角色之间的小事（短期记忆）。
+src\classes\event_storage.py	651	const	获取最近的事件（供初始状态 API 使用）。
+src\classes\event_storage.py	656	const	\n        清理事件。\n\n        Args:\n            keep_major: 是否保留大事。\n            before_month_stamp: 删除此时间之前的事件。\n\n        Returns:\n            删除的事件数量。\n        
+src\classes\event_storage.py	701	const	获取事件总数。
+src\classes\event_storage.py	712	const	关闭数据库连接。
+src\classes\gathering\auction.py	17	const	\n    拍卖会事件\n    
+src\classes\gathering\auction.py	26	const	获取故事生成提示词
+src\classes\gathering\auction.py	31	const	\n        检测拍卖会是否开始\n        条件：后台积攒的 sold_item_count 到达配置阈值\n        
+src\classes\gathering\auction.py	39	const	\n        所有存活且允许参加聚会的 avatar 都参与\n        
+src\classes\gathering\auction.py	53	const	\n        获取所有参与角色对拍卖品的需程度\n        返回格式: Dict[Item, Dict[Avatar, int]]\n        
+src\classes\gathering\auction.py	144	const	\n        计算单次出价，根据当前余额动态调整\n        
+src\classes\gathering\auction.py	178	const	\n        结算拍卖结果\n        Returns:\n            deal_results: 成交结果 {item: (winner, price)}\n            unsold_items: 流拍物品列表\n            all_willing_prices: 所有的出价记录 {item: {avatar: price}} (用于生成故事)\n        
+src\classes\gathering\auction.py	249	const	\n        生成拍卖事件（合并成交与竞争信息）\n        
+src\classes\gathering\auction.py	306	const	\n        生成故事 (StoryTeller)\n        将本次拍卖的所有重要信息（成交、竞争）汇总传给 LLM，\n        让 LLM 自行选取切入点生成故事。\n        
+src\classes\gathering\auction.py	408	const	\n        执行拍卖会\n        
+src\classes\gathering\gathering.py	11	const	\n    多人聚集事件/场景的抽象基类。\n    用于处理如“拍卖会”、“宗门大比”、“秘境开启”等多角色参与的复杂事件。\n    
+src\classes\gathering\gathering.py	20	const	\n        判断角色是否可以参加该聚会。\n        综合判定 avatar.can_join_gathering 以及是否处于不可打断的重大行为中。\n        
+src\classes\gathering\gathering.py	34	const	\n        检测该 Gathering 是否应该开始。\n        通常基于时间、地点或特定触发条件。\n        
+src\classes\gathering\gathering.py	42	const	\n        获取参与该 Gathering 的角色 ID 列表。\n        
+src\classes\gathering\gathering.py	49	const	\n        获取 Gathering 的描述信息。\n        
+src\classes\gathering\gathering.py	56	const	\n        执行 Gathering 的具体逻辑。\n        \n        备注：\n        因为 Gathering 被设计为瞬时结算（在一个 step 内完成），\n        所以不需要 finish 函数。所有的交互和结果都在 execute 中一次性处理完毕。\n        
+src\classes\gathering\gathering.py	69	const	\n    装饰器：注册 Gathering 类\n    
+src\classes\gathering\gathering.py	81	const	\n        检查所有 Gathering，若满足条件则执行\n        
+src\classes\gathering\hidden_domain.py	41	const	\n    秘境系统 (Hidden Domain)\n    定期开启，只有对应境界的修士可进入探索，面临凶险或获得机缘。\n    
+src\classes\gathering\hidden_domain.py	60	const	从配置表加载秘境配置
+src\classes\gathering\hidden_domain.py	87	const	\n        判断是否有秘境开启\n        
+src\classes\gathering\hidden_domain.py	109	const	\n        获取所有可能参与的角色（即所有存活角色，具体筛选在 execute 中按秘境条件进行）\n        
+src\classes\gathering\hidden_domain.py	124	const	获取下一个大境界
+src\classes\gathering\hidden_domain.py	131	const	生成掉落物：优先给予高一阶的物品
+src\classes\gathering\hidden_domain.py	161	const	处理单个秘境的逻辑
+src\classes\gathering\hidden_domain.py	346	const	调用 LLM 生成秘境探索故事
+src\classes\gathering\sect_teaching.py	18	const	\n    宗门传道大会\n    
+src\classes\gathering\sect_teaching.py	271	const	未知对手
+src\classes\gathering\sect_teaching.py	272	const	 交战中。
+src\classes\gathering\sect_teaching.py	272	const	当前局势：与 
+src\classes\gathering\sect_teaching.py	272	fstring	当前局势：与  交战中。
+src\classes\gathering\sect_teaching.py	274	const	当前局势：宗门处于和平状态。
+src\classes\gathering\sect_teaching.py	280	const	财库充裕
+src\classes\gathering\sect_teaching.py	281	const	财库平稳
+src\classes\gathering\sect_teaching.py	282	const	财库偏紧
+src\classes\gathering\sect_teaching.py	283	const	财库吃紧
+src\classes\gathering\sect_teaching.py	286	const	宗门气象：
+src\classes\gathering\sect_teaching.py	286	const	，备战状态 
+src\classes\gathering\sect_teaching.py	286	fstring	宗门气象：，备战状态 。
+src\classes\gathering\sect_teaching.py	292	const	% 的势力边界与外界接壤，当前势力范围 
+src\classes\gathering\sect_teaching.py	292	const	边境压力：
+src\classes\gathering\sect_teaching.py	292	fstring	边境压力：% 的势力边界与外界接壤，当前势力范围  格。
+src\classes\gathering\sect_teaching.py	293	const	 格。
+src\classes\gathering\sect_teaching.py	297	const	 人，宗门总战力约 
+src\classes\gathering\sect_teaching.py	297	const	宗门现状：存活门人 
+src\classes\gathering\sect_teaching.py	297	fstring	宗门现状：存活门人  人，宗门总战力约 。
+src\classes\gathering\tournament.py	18	const	\n    天下武道会事件\n    
+src\classes\gathering\tournament.py	26	const	\n        十年一次。第一次在游戏开始第2年。\n        
+src\classes\hp.py	7	const	\n    血量。\n    会因为战斗，天灾或者其他原因降低cur。\n    会随时间或者服用丹药等补充cur。\n    会因为突破境界，服用丹药等增加max。\n    
+src\classes\hp.py	71	const	转换为可序列化的字典
+src\classes\hp.py	76	const	从字典重建HP
+src\classes\items\auxiliary.py	34	const	\n    辅助装备类：提供各种辅助功能的装备\n    字段与 static/game_configs/auxiliary.csv 对应：\n    - realm: 装备等级（练气/筑基/金丹/元婴）\n    - effects: 解析为 dict，用于与 Avatar.effects 合并\n    
+src\classes\items\auxiliary.py	53	const	获取信息
+src\classes\items\auxiliary.py	59	const	获取详细信息
+src\classes\items\auxiliary.py	62	const	万魂幡
+src\classes\items\auxiliary.py	71	const	获取带颜色标记的信息，供前端渲染使用
+src\classes\items\auxiliary.py	79	const	万魂幡
+src\classes\items\auxiliary.py	106	const	从配表加载 auxiliary 数据。\n    返回：新的 (按ID、按名称 的映射)。\n    
+src\classes\items\auxiliary.py	122	const	练气
+src\classes\items\auxiliary.py	148	const	重新加载数据，保留全局字典引用
+src\classes\items\auxiliary.py	162	const	获取指定境界的随机辅助装备
+src\classes\items\elixir.py	15	const	丹药类型
+src\classes\items\elixir.py	25	const	\n    丹药类\n    字段与 static/game_configs/elixir.csv 对应\n    
+src\classes\items\elixir.py	42	const	获取信息
+src\classes\items\elixir.py	48	const	获取详细信息
+src\classes\items\elixir.py	65	const	获取带颜色标记的信息，供前端渲染使用
+src\classes\items\elixir.py	86	const	\n    已服用的丹药记录\n    
+src\classes\items\elixir.py	97	const	获取丹药的最长持续时间
+src\classes\items\elixir.py	111	const	\n        判断丹药是否彻底失效（所有效果都过期）\n        
+src\classes\items\elixir.py	117	const	\n        获取当前时间点仍然有效的 effects 列表\n        
+src\classes\items\elixir.py	141	const	\n    加载丹药配置\n    :return: (id索引字典, name索引字典(值为list))\n    
+src\classes\items\elixir.py	201	const	重新加载数据
+src\classes\items\elixir.py	215	const	获取指定境界的所有丹药
+src\classes\items\elixir.py	220	const	获取指定境界的随机丹药
+src\classes\items\item.py	7	const	所有物品的基类
+src\classes\items\item.py	10	const	\n        创建该物品的一个新实例。\n        默认行为是深拷贝，适用于有独立状态的物品（如装备）。\n        子类如果是只读对象（如材料），可以重写此方法返回 self 以优化性能。\n        
+src\classes\items\magic_stone.py	6	const	\n    灵石，实际上是一个int类，代表持有的灵石的数量。\n    
+src\classes\items\registry.py	7	const	全局物品注册表
+src\classes\items\registry.py	32	const	重置注册表，清空所有注册的物品
+src\classes\items\store.py	12	const	\n    商店功能混入类\n    赋予区域售卖物品的能力\n    
+src\classes\items\store.py	18	const	\n        初始化商店物品\n        :param item_ids: 物品ID列表\n        
+src\classes\items\store.py	38	const	\n        获取商店信息描述\n        例如：出售：练气剑、练气刀（100灵石）；练气破境丹（50灵石）\n        
+src\classes\items\store.py	70	const	\n        检查商店是否出售该物品\n        
+src\classes\items\weapon.py	16	const	\n    兵器类：用于战斗的装备\n    字段与 static/game_configs/weapon.csv 对应：\n    - weapon_type: 兵器类型（剑、刀、枪等）\n    - realm: 装备等级（练气/筑基/金丹/元婴）\n    - effects: 解析为 dict，用于与 Avatar.effects 合并\n    
+src\classes\items\weapon.py	37	const	获取信息
+src\classes\items\weapon.py	43	const	获取详细信息
+src\classes\items\weapon.py	51	const	获取带颜色标记的信息，供前端渲染使用
+src\classes\items\weapon.py	69	const	从配表加载 weapon 数据。\n    返回：新的 (按ID、按名称 的映射)。\n    
+src\classes\items\weapon.py	116	const	重新加载数据，保留全局字典引用
+src\classes\items\weapon.py	130	const	获取指定境界（及可选类型）的随机兵器
+src\classes\kill_and_grab.py	18	const	\n    处理杀人夺宝逻辑\n    \n    Args:\n        winner: 胜利者\n        loser: 失败者（已死亡）\n        \n    Returns:\n        str: 夺宝结果描述文本（如"并夺取了..."），如果没有夺取则为空字符串\n    
+src\classes\kill_and_grab.py	49	const	兵器
+src\classes\kill_and_grab.py	49	const	辅助装备
+src\classes\kill_and_grab.py	51	const	 身死道消，留下了一件
+src\classes\kill_and_grab.py	51	const	战斗胜利，
+src\classes\kill_and_grab.py	51	fstring	战斗胜利， 身死道消，留下了一件『』。
+src\classes\kill_and_grab.py	73	const	缴获了
+src\classes\kill_and_grab.py	73	fstring	缴获了『』。
+src\classes\long_term_objective.py	1	const	\n长期目标模块\n为角色生成和管理长期目标（5-10年）\n
+src\classes\long_term_objective.py	25	const	长期目标类
+src\classes\long_term_objective.py	32	const	\n    检查角色是否需要生成/更新长期目标\n    \n    规则：\n    1. 已有用户设定的目标，永不自动生成\n    2. 无目标时，可以生成\n    3. 距离上次设定 <5年，不生成\n    4. 距离上次设定 ≥10年，必定生成\n    5. 距离上次设定 5-10年，按概率生成（渐进概率）\n    \n    Args:\n        avatar: 要检查的角色\n        \n    Returns:\n        是否应该生成长期目标\n    
+src\classes\long_term_objective.py	71	const	\n    为角色生成长期目标\n    \n    调用LLM基于角色信息和事件历史生成合适的长期目标\n    \n    Args:\n        avatar: 要生成长期目标的角色\n        \n    Returns:\n        生成的LongTermObjective对象，失败则返回None\n    
+src\classes\long_term_objective.py	102	const	 生成长期目标失败：返回空内容
+src\classes\long_term_objective.py	102	const	为角色 
+src\classes\long_term_objective.py	102	fstring	为角色  生成长期目标失败：返回空内容
+src\classes\long_term_objective.py	112	const	 生成长期目标：
+src\classes\long_term_objective.py	112	const	为角色 
+src\classes\long_term_objective.py	112	fstring	为角色  生成长期目标：
+src\classes\long_term_objective.py	119	const	\n    处理单个角色的长期目标生成/更新\n    \n    检查角色是否需要生成目标，需要则生成并返回对应事件\n    \n    Args:\n        avatar: 要处理的角色\n        \n    Returns:\n        生成的事件，如果不需要生成或生成失败则返回None\n    
+src\classes\long_term_objective.py	163	const	\n    玩家设定角色的长期目标\n    \n    用户设定后，origin标记为"user"，系统将不再自动调用LLM更新该目标\n    但允许玩家再次调用此函数修改\n    \n    Args:\n        avatar: 要设定目标的角色\n        objective_content: 目标内容\n    
+src\classes\long_term_objective.py	184	const	 设定长期目标：
+src\classes\long_term_objective.py	184	const	玩家为角色 
+src\classes\long_term_objective.py	184	const	，并已清空短期目标和后续计划
+src\classes\long_term_objective.py	184	fstring	玩家为角色  设定长期目标：，并已清空短期目标和后续计划
+src\classes\long_term_objective.py	188	const	\n    清空玩家设定的长期目标\n    如果当前目标是 system/llm 生成的，则不清除并返回 False\n    如果是 user 生成的，清除并返回 True\n    
+src\classes\long_term_objective.py	195	const	 的长期目标
+src\classes\long_term_objective.py	195	const	玩家清空了角色 
+src\classes\long_term_objective.py	195	fstring	玩家清空了角色  的长期目标
+src\classes\material.py	9	const	\n    材料\n    
+src\classes\material.py	44	const	从配表加载 material 数据
+src\classes\material.py	66	const	重新加载数据
+src\classes\mortal.py	7	const	\n    轻量级的凡人/子女数据结构。\n    仅用于存储非修仙者的子女信息，不参与复杂模拟。\n    
+src\classes\mortal.py	19	const	转换为字典
+src\classes\mortal.py	31	const	从字典还原
+src\classes\mutual_action\attack.py	15	const	攻击另一个NPC
+src\classes\mutual_action\attack.py	32	const	攻击无额外检查条件
+src\classes\mutual_action\confess.py	23	const	表白：向交互范围内的修士表白，若对方接受则结为道侣。\n    
+src\classes\mutual_action\confess.py	43	const	检查表白特有的启动条件
+src\classes\mutual_action\conversation.py	19	const	交谈：两名角色在同一区域进行交流。\n\n    - 可由"攀谈"触发，或直接发起\n    - 仅当双方处于同一 Region 时可启动\n    - LLM 负责生成对话内容\n    - 会将对话内容与后续故事写入事件系统\n    
+src\classes\mutual_action\conversation.py	69	const	交谈无额外检查条件
+src\classes\mutual_action\conversation.py	83	const	\n        处理 LLM 返回的对话结果，包括对话内容和关系变化。\n        Conversation 不需要响应事件（RESPONSE_ACTIONS 为空），直接生成内容。\n        
+src\classes\mutual_action\conversation.py	109	const	调用通用异步 step 逻辑
+src\classes\mutual_action\drive_away.py	14	const	驱赶：试图让对方离开当前区域。
+src\classes\mutual_action\drive_away.py	29	const	驱赶无额外检查条件
+src\classes\mutual_action\dual_cultivation.py	21	const	双修：修士可与交互范围内的修士尝试双修。\n\n    - 仅当目标在交互范围内\n    - 目标可以选择 接受 或 拒绝\n    - 若接受：发起者获得大量修为（约为修炼的 3~5 倍，随对方等级浮动），目标不获得修为\n    - 成功进入后生成一段"恋爱/双修"的小故事\n    
+src\classes\mutual_action\dual_cultivation.py	45	const	检查双修特有的启动条件
+src\classes\mutual_action\gift.py	20	const	赠送：向目标赠送灵石或物品。\n\n    - 支持赠送灵石、素材、装备。\n    - 目标在交互范围内。\n    - 目标可以感知具体赠送的物品并选择 接受 或 拒绝。\n    - 若接受：物品从发起者转移给目标（装备会自动穿戴并顶替旧装备）。\n    - 非灵石物品一次只能赠送1个。\n    
+src\classes\mutual_action\gift.py	56	const	\n        解析赠送意图，返回 (物品对象/None, 显示名称, 实际数量)。\n        物品对象为 None 代表是灵石。\n        
+src\classes\mutual_action\gift.py	89	const	未知物品
+src\classes\mutual_action\gift.py	97	const	 灵石
+src\classes\mutual_action\gift.py	97	fstring	 灵石
+src\classes\mutual_action\gift.py	104	const	\n        重写 step 以接收额外参数。\n        将参数存入 self，然后调用父类 step 执行通用逻辑（LLM交互）。\n        
+src\classes\mutual_action\gift.py	122	const	检查赠送条件：物品是否存在且足够
+src\classes\mutual_action\gift.py	176	const	\n        重写：构建传给 LLM 的 prompt 信息。\n        
+src\classes\mutual_action\gift.py	225	const	执行物品转移
+src\classes\mutual_action\impart.py	21	const	传道：向指定关系的目标传授修炼经验。\n\n    - 仅限发起方的徒弟、徒孙、同门、子女、孙辈或朋友\n    - 发起方等级必须大于目标等级20级以上\n    - 目标在交互范围内\n    - 目标可以选择 接受 或 拒绝\n    - 若接受：目标获得大量修为（相当于在灵气密度5的地方修炼的4倍，即2000经验）\n    
+src\classes\mutual_action\impart.py	46	const	检查传道特有的启动条件
+src\classes\mutual_action\mutual_action.py	22	const	\n    互动动作：A 对 B 发起动作，B 可以给出响应（由 LLM 决策）。\n    子类需要定义：\n      - ACTION_NAME_ID: 当前动作名的 msgid\n      - DESC_ID: 动作语义说明的 msgid\n      - REQUIREMENTS_ID: 可执行条件的 msgid\n      - RESPONSE_ACTIONS: 响应可选的 action name 列表（直接可执行）\n      - PARAMS: 参数，需要包含 target_avatar\n    
+src\classes\mutual_action\mutual_action.py	57	const	获取动作名称的翻译
+src\classes\mutual_action\mutual_action.py	64	const	获取动作描述的翻译
+src\classes\mutual_action\mutual_action.py	71	const	获取可执行条件的翻译
+src\classes\mutual_action\mutual_action.py	78	const	获取响应标签的翻译
+src\classes\mutual_action\mutual_action.py	86	const	获取故事提示词的翻译
+src\classes\mutual_action\mutual_action.py	132	const	异步调用 LLM 获取响应
+src\classes\mutual_action\mutual_action.py	144	const	\n        将响应决定落地为目标角色的立即动作（清空后加载单步动作链）。\n        
+src\classes\mutual_action\mutual_action.py	168	const	\n        子类实现：把响应映射为具体动作\n        
+src\classes\mutual_action\mutual_action.py	202	const	异步执行互动动作 (deprecated, use step instead)
+src\classes\mutual_action\mutual_action.py	208	const	\n        检查互动动作能否启动：目标需在发起者的交互范围内。\n        子类通过实现 _can_start 来添加额外检查。\n\n        注意：此方法未使用 TargetingMixin.validate_target_avatar()，\n        因为需要额外检查 target == self.avatar 和调用子类的 _can_start()。\n        
+src\classes\mutual_action\mutual_action.py	226	const	\n        子类实现此方法来添加特定的启动条件检查。\n        参数 target 已经过基类验证（存在且在交互范围内）。\n        默认返回 True。\n        
+src\classes\mutual_action\mutual_action.py	234	const	\n        启动互动动作，返回开始事件\n        
+src\classes\mutual_action\mutual_action.py	258	const	\n        异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地响应并完成。\n        
+src\classes\mutual_action\mutual_action.py	295	const	\n        完成互动动作，事件已在 step 中处理，无需额外事件\n        
+src\classes\mutual_action\mutual_action.py	302	const	邀请/请求型互动，目标主要做出接受或拒绝的回应。
+src\classes\mutual_action\mutual_action.py	309	const	施压/敌对型互动，目标主要做出逃离、应战等应对。
+src\classes\mutual_action\occupy.py	27	const	\n    占据动作（互动版）：\n    占据指定的洞府。如果是无主洞府直接占据；如果是有主洞府，则发起抢夺。\n    对方拒绝则进入战斗，进攻方胜利则洞府易主。\n    
+src\classes\mutual_action\occupy.py	51	const	解析区域并获取主人
+src\classes\mutual_action\occupy.py	102	const	处理反馈结果
+src\classes\mutual_action\occupy.py	139	const	完成动作，生成战斗故事并处理死亡
+src\classes\mutual_action\play.py	15	const	\n    尝试触发消遣收益 (复用单人消遣的逻辑)\n    
+src\classes\mutual_action\play.py	27	const	茶会：双人互动
+src\classes\mutual_action\play.py	79	const	下棋：双人互动
+src\classes\mutual_action\spar.py	22	const	\n    切磋动作：双方切磋，不造成伤害，增加武器熟练度。\n    
+src\classes\mutual_action\swear_brotherhood.py	23	const	结拜：向交互范围内的修士发起结拜，若对方接受则结为义结金兰。\n    
+src\classes\mutual_action\swear_brotherhood.py	43	const	检查结拜特有的启动条件
+src\classes\mutual_action\talk.py	16	const	\n    攀谈：向交互范围内的某个NPC发起攀谈。\n    - 接受后自动进入 Conversation\n    
+src\classes\mutual_action\talk.py	38	const	攀谈无额外检查条件
+src\classes\mutual_action\talk.py	45	const	\n        处理 LLM 返回的响应结果。\n        
+src\classes\mutual_action\talk.py	81	const	调用父类的通用异步 step 逻辑
+src\classes\nickname.py	1	const	\n绰号生成模块\n为满足条件的角色生成修仙界绰号\n
+src\classes\nickname.py	23	const	\n    检查角色是否满足获得绰号的条件\n    \n    条件：\n    1. 尚未拥有绰号（nickname为None）\n    2. 长期事件数量 >= major_event_threshold\n    3. 短期事件数量 >= minor_event_threshold\n    \n    Args:\n        avatar: 要检查的角色\n        \n    Returns:\n        是否满足条件\n    
+src\classes\nickname.py	60	const	\n    为角色生成绰号\n    \n    调用LLM基于角色信息和事件历史生成合适的绰号\n    \n    Args:\n        avatar: 要生成绰号的角色\n        \n    Returns:\n        包含 nickname 和 reason 的字典，失败则返回None\n    
+src\classes\nickname.py	90	const	 生成绰号失败：返回空绰号
+src\classes\nickname.py	90	const	为角色 
+src\classes\nickname.py	90	fstring	为角色  生成绰号失败：返回空绰号
+src\classes\nickname.py	93	const	 (原因：
+src\classes\nickname.py	93	const	 生成绰号：
+src\classes\nickname.py	93	const	为角色 
+src\classes\nickname.py	93	fstring	为角色  生成绰号： (原因：)
+src\classes\nickname.py	94	const	绰号生成思考过程：
+src\classes\nickname.py	94	fstring	绰号生成思考过程：
+src\classes\nickname.py	102	const	生成绰号时出错：
+src\classes\nickname.py	102	fstring	生成绰号时出错：
+src\classes\nickname.py	107	const	\n    处理单个角色的绰号生成\n    \n    检查角色是否满足条件，满足则生成绰号并返回对应事件\n    \n    Args:\n        avatar: 要处理的角色\n        \n    Returns:\n        生成的事件，如果不满足条件或生成失败则返回None\n    
+src\classes\nickname_data.py	1	const	\nNickname 数据类\n
+src\classes\nickname_data.py	9	const	\n    绰号数据类\n    包含绰号本身及其来源原因\n    
+src\classes\observe.py	21	const	\n    根据境界返回感知半径（基于曼哈顿距离）。\n    
+src\classes\observe.py	28	const	\n    获取角色的感知半径。\n    
+src\classes\observe.py	38	const	\n    判断 other 是否处于 initiator 的交互范围内：\n    汉明距离(曼哈顿距离) <= initiator 的感知半径。\n    
+src\classes\observe.py	46	const	\n    从给定集合中过滤出处于 initiator 交互范围内的角色（不包含 initiator 本人）。\n    算法：线性扫描 O(N)，与现有管理器遍历复杂度一致。\n    
+src\classes\official_rank.py	37	const	尚法重军
+src\classes\official_rank.py	38	const	清谈名教
+src\classes\official_rank.py	39	const	重文理政
+src\classes\official_rank.py	40	const	风流雅政
+src\classes\official_rank.py	41	const	山泽杂行
+src\classes\official_rank.py	42	const	尚实通商
+src\classes\official_rank.py	43	const	沉毅守边
+src\classes\official_rank.py	44	const	骑射尚武
+src\classes\official_rank.py	45	const	法密权重
+src\classes\official_rank.py	46	const	务本守成
+src\classes\official_rank.py	47	const	柔治机变
+src\classes\official_rank.py	48	const	坚忍后发
+src\classes\persona.py	16	const	\n    角色特质\n    包含个性、天赋等角色特征\n    
+src\classes\persona.py	32	const	根据稀有度获取采样权重
+src\classes\persona.py	45	const	获取带颜色标记的信息，供前端渲染使用
+src\classes\persona.py	61	const	从配表加载persona数据
+src\classes\persona.py	100	const	重新加载数据，保留全局字典引用
+src\classes\persona.py	113	const	\n    统一判断：persona 是否允许被选择（条件 + 互斥）。\n    
+src\classes\persona.py	130	const	\n    随机选择指定数量的互相不冲突的persona\n    \n    Args:\n        num_personas: 需要选择的persona数量，默认为2\n        avatar: 可选，若提供则按 persona.condition 过滤\n    \n    Returns:\n        List[Persona]: 互相不冲突的persona列表\n        \n    Raises:\n        ValueError: 如果无法找到足够数量的兼容persona\n    
+src\classes\persona.py	155	const	个
+src\classes\persona.py	155	const	个兼容的persona，无法满足需要的
+src\classes\persona.py	155	const	只能找到
+src\classes\persona.py	155	fstring	只能找到个兼容的persona，无法满足需要的个
+src\classes\prices.py	1	const	\n统一价格系统\n============\n\n所有物品/装备的价格通过这个模块获取。\n价格只和对应的 realm 绑定，全局统一。\n\n价格设计参考（以练气期年收入约 20-30 灵石为基准）：\n- 材料(Material): 采集物等消耗品\n- 兵器(Weapon): 稀有装备，价值较高\n- 辅助装备(Auxiliary): 法宝等，价值次于兵器\n
+src\classes\prices.py	30	const	\n    价格体系。\n    所有城镇可交易物品/装备的价格在此统一管理。\n    
+src\classes\prices.py	63	const	获取材料基础价格
+src\classes\prices.py	67	const	获取兵器基础价格
+src\classes\prices.py	71	const	获取辅助装备基础价格
+src\classes\prices.py	75	const	\n        统一基础价格查询接口。\n        根据对象类型自动分发到对应的价格查询方法。\n        注意：这是物品的【基准价值】，通常等于玩家【卖出给系统】的基础价格。\n        
+src\classes\prices.py	96	const	\n        获取玩家购买价格（从系统商店购买）。\n        \n        计算公式：\n            基础价格 * max(1.0, GLOBAL_BUY_MULTIPLIER - 折扣)\n            \n        Args:\n            obj: 交易物品\n            buyer: 买家（用于计算折扣）\n        
+src\classes\prices.py	123	const	\n        获取玩家卖出价格（卖给系统商店）。\n        \n        计算公式：\n            基础价格 * (1.0 + 卖出加成)\n            \n        Args:\n            obj: 交易物品\n            seller: 卖家（用于计算加成）\n        
+src\classes\ranking.py	80	const	\n        使用 World 上下文更新榜单。\n        - 角色榜单仍基于 living_avatars。\n        - 宗门榜单改为只考虑本局启用且仍存续的宗门（通过 world.sect_context）。\n        
+src\classes\rarity.py	1	const	\n稀有度系统\n定义角色特质、物品等的稀有度等级\n
+src\classes\rarity.py	11	const	稀有度等级
+src\classes\rarity.py	20	const	\n    稀有度配置\n    包含等级、权重、颜色等信息\n    
+src\classes\rarity.py	41	const	普通
+src\classes\rarity.py	48	const	稀有
+src\classes\rarity.py	55	const	超稀有
+src\classes\rarity.py	62	const	传说
+src\classes\rarity.py	68	const	\n    从字符串获取稀有度配置\n    \n    Args:\n        rarity_str: 稀有度字符串，如 "N", "R", "SR", "SSR"\n    \n    Returns:\n        Rarity: 稀有度配置对象，若无法识别则返回N\n    
+src\classes\rarity.py	87	const	\n    根据稀有度字符串获取权重\n    \n    Args:\n        rarity_str: 稀有度字符串\n    \n    Returns:\n        float: 对应的权重值\n    
+src\classes\relation\relation.py	313	const	憎恶
+src\classes\relation\relation.py	314	const	厌恶
+src\classes\relation\relation.py	315	const	陌生
+src\classes\relation\relation.py	316	const	友好
+src\classes\relation\relation.py	317	const	亲善
+src\classes\relation\relation_delta_service.py	64	const	无
+src\classes\relation\relation_delta_service.py	65	const	无
+src\classes\relation\relation_delta_service.py	72	const	无
+src\classes\relation\relation_resolver.py	37	const	近期无显著交互记录。
+src\classes\relation\relation_resolver.py	41	const	无
+src\classes\relation\relation_resolver.py	55	const	目前关系：
+src\classes\relation\relation_resolver.py	55	fstring	目前关系：
+src\classes\relation\relation_resolver.py	62	const	\n        处理一对角色的关系变化，返回产生的事件\n        
+src\classes\relation\relation_resolver.py	125	const	因为
+src\classes\relation\relation_resolver.py	125	const	成为
+src\classes\relation\relation_resolver.py	125	const	的
+src\classes\relation\relation_resolver.py	125	fstring	因为，成为的。
+src\classes\relation\relation_resolver.py	147	const	不再是
+src\classes\relation\relation_resolver.py	147	const	因为
+src\classes\relation\relation_resolver.py	147	const	的
+src\classes\relation\relation_resolver.py	147	fstring	因为，不再是的。
+src\classes\relation\relation_resolver.py	157	const	\n        批量并发处理，返回产生的所有事件\n        
+src\classes\relation\relations.py	1	const	\n两个角色之间的关系操作函数\n
+src\classes\root.py	1	const	\n灵根\n五行元素与灵根组合：\n- RootElement：金、木、水、火、土（恒定不变）\n- Root：硬编码定义（单/双/天灵根等），每个成员包含（中文名, 元素列表）\n
+src\classes\root.py	38	const	\n    Root 的基础实现：成员值为 (中文名, 元素元组)。\n    通过功能式 API 动态创建真正的 Root 枚举。\n    
+src\classes\root.py	58	const	\n    灵根（硬编码）：成员值为 (中文名, 元素元组)。\n    数据来源原为 CSV，现改为内置：\n    - GOLD: 金灵根 -> 金\n    - WOOD: 木灵根 -> 木\n    - WATER: 水灵根 -> 水\n    - FIRE: 火灵根 -> 火\n    - EARTH: 土灵根 -> 土\n    - THUNDER: 雷灵根 -> 水;土\n    - ICE: 冰灵根 -> 金;水\n    - WIND: 风灵根 -> 木;水\n    - DARK: 暗灵根 -> 火;土\n    - HEAVEN: 天灵根 -> 金;木;水;火;土（额外突破+0.1）\n    
+src\classes\root.py	101	const	\n        从 CSV 读取的该灵根效果。\n        
+src\classes\root.py	108	const	\n        获取灵根效果的文本描述。\n        
+src\classes\root.py	125	const	\n    获取与该灵根匹配的灵气类型列表（任一元素匹配即视为可用）。\n    
+src\classes\root.py	149	const	\n    将 Root 显示为中文短名 + 组成，例如：\n    - 天（金、木、水、火、土）\n    - 风（木、水）\n    - 金（金）\n    回退：若无法获取组成则仅显示短名。\n    
+src\classes\root.py	167	const	灵根
+src\classes\sect_decider.py	60	const	\n    按配置周期执行的宗门行政决策执行器。\n    
+src\classes\sect_metadata.py	36	const	\n    同步宗门本体与宗门驻地区域的派生展示字段。\n\n    约定：\n    - `Sect.id <-> SectRegion.sect_id` 是唯一绑定真源；\n    - `Sect.headquarter.*` 和 `SectRegion.sect_name` 由该绑定派生；\n    - 名称只用于展示，不再承担关系绑定职责。\n    
+src\classes\sect_ranks.py	1	const	\n宗门等级系统\n定义宗门内的职位等级及其与修仙境界的映射关系\n
+src\classes\sect_ranks.py	16	const	\n    宗门职位等级\n    从高到低：掌门 > 长老 > 内门弟子 > 外门弟子\n    
+src\classes\sect_ranks.py	78	const	\n    根据修仙境界映射为宗门职位\n    \n    映射规则：\n    - 练气 → 外门弟子\n    - 筑基 → 内门弟子\n    - 金丹 → 长老\n    - 元婴 → 掌门（需要额外检查唯一性）\n    \n    Args:\n        realm: 修仙境界\n        \n    Returns:\n        对应的宗门职位\n    
+src\classes\sect_ranks.py	105	const	\n    获取职位的显示名称（支持宗门自定义）\n    \n    Args:\n        rank: 宗门职位\n        sect: 宗门对象（可选，如果提供则使用其自定义名称）\n        \n    Returns:\n        职位的显示名称\n    
+src\classes\sect_ranks.py	120	const	弟子
+src\classes\sect_ranks.py	125	const	\n    判断境界突破后是否应该自动晋升宗门职位\n    \n    Args:\n        old_realm: 旧境界\n        new_realm: 新境界\n        \n    Returns:\n        是否应该晋升\n    
+src\classes\sect_ranks.py	149	const	\n    检查境界突破后是否需要晋升宗门职位。\n\n    当前版本中，宗门职位的主逻辑由“贡献点 + 战力”年度重排决定，\n    因此这里不再在突破瞬间直接改职，只保留接口以兼容旧调用点。\n    \n    Args:\n        avatar: 要检查的角色\n        old_realm: 旧境界\n        new_realm: 新境界\n    
+src\classes\sect_ranks.py	164	const	\n    检查当前宗门是否已有掌门（不包括自己）\n    \n    Args:\n        avatar: 要检查的角色\n        \n    Returns:\n        是否已有其他掌门\n    
+src\classes\sect_thinker.py	22	const	\n    宗门周期思考生成器。\n\n    输入：SectDecisionContext + 本轮决策摘要\n    输出：宗门意志口吻的短文本（30~100字）\n    
+src\classes\spirit_animal.py	10	const	\n    灵兽：附着于 Avatar 的唯一“守护灵兽”。\n    仅记录名称与境界，并据境界提供固定战斗力点数加成。\n    \n    规则：\n    - 练气/筑基/金丹/元婴 对应战斗力点数 +2/+4/+6/+8\n    - Avatar 最多只能拥有一个 spirit_animal；新的会覆盖旧的。\n    
+src\classes\spirit_animal.py	36	const	\n        灵兽提供的效果集合。当前仅包含战斗力点数，后续可扩展其他键。\n        
+src\classes\spirit_animal.py	46	const	境界：
+src\classes\spirit_animal.py	46	fstring	境界：
+src\classes\story_teller.py	26	const	\n    故事生成器：基于模板与 LLM，将给定事件扩展为简短的小故事。\n    
+src\classes\story_teller.py	36	const	获取当前语言环境下的模板路径
+src\classes\story_teller.py	41	const	\n        构建角色信息字典。\n        - 双人故事：第一个角色使用 expanded_info（包含共同事件），第二个使用普通 info\n        - 单人故事：使用 expanded_info\n        
+src\classes\story_teller.py	59	const	构建模板渲染所需的数据字典
+src\classes\story_teller.py	86	const	生成降级文案
+src\classes\story_teller.py	92	const	\n        生成小故事（异步版本）。\n        根据 allow_relation_changes 参数选择模板：\n        - True: 使用 story_dual.txt（双人故事模板，需要至少2个角色）\n        - False: 使用 story_single.txt（通用故事模板）\n        \n        Args:\n            event: 事件描述\n            res: 结果描述\n            *actors: 参与的角色（1-2个）\n            prompt: 可选的故事提示词\n            allow_relation_changes:\n                历史命名，当前仅用于切换双人/单人故事模板，\n                并不会直接写回角色关系。\n        
+src\classes\story_teller.py	135	const	\n        生成聚会/拍卖会等多人事件的故事。\n        通用接口，适配 story_gathering.txt 模板。\n        \n        Args:\n            gathering_info: 事件本身的设定信息（如地点、背景、规则等）\n            events_text: 发生的具体事件/交互记录\n            details_text: 详细信息（包括角色信息、物品信息等）\n            related_avatars: 参与的角色列表（主要用于获取世界背景信息）\n            prompt: 额外提示词\n        
+src\classes\technique.py	61	const	上品
+src\classes\technique.py	62	const	中品
+src\classes\technique.py	63	const	下品
+src\classes\technique.py	70	const	返回功法品阶对应的RGB颜色值
+src\classes\technique.py	121	const	获取带颜色标记的信息，供前端渲染使用
+src\classes\technique.py	159	const	从配表加载 technique 数据\n    返回：新的 (techniques_by_id, techniques_by_name)\n    
+src\classes\technique.py	168	const	下品
+src\classes\technique.py	202	const	重新加载数据，保留全局字典引用
+src\classes\technique.py	270	const	\n    返回一个与 avatar 灵根/阵营/条件相容的上品功法；若无则返回 None。\n    仅用于奇遇奖励优先挑选上品功法。\n    
+src\classes\technique.py	292	const	\n    简化版：仅按宗门筛选并按权重抽样，不考虑灵根与 condition。\n    - 散修（sect 为 None）：只从无宗门要求（sect_id 为 None）的功法中抽样；\n    - 有宗门：从"无宗门 + 该宗门"的功法中抽样；\n    若集合为空，则退回全量功法。\n    
+src\classes\war.py	13	const	\n    世界级宗门外交状态记录。\n\n    第一版只区分战争/和平两种状态，并保留开始、最近战斗、和平开始等关键时间点。\n    
+src\classes\weapon_type.py	5	const	\n    兵器类型枚举\n    
+src\classes\weapon_type.py	26	const	剑
+src\classes\weapon_type.py	27	const	刀
+src\classes\weapon_type.py	28	const	枪
+src\classes\weapon_type.py	29	const	棍
+src\classes\weapon_type.py	30	const	扇
+src\classes\weapon_type.py	31	const	鞭
+src\classes\weapon_type.py	32	const	琴
+src\classes\weapon_type.py	33	const	笛
+src\classes\weapon_type.py	34	const	暗器
+src\classes\world_lore.py	24	const	\n    在开局阶段根据“世界观与历史”文本，对既有世界静态设定做一次性重塑。\n    该过程只修改当前这局世界的静态描述，不再记录差分回放。\n    
+src\classes\world_lore.py	35	const	[WorldLore] 正在根据世界观与历史重塑世界...
+src\classes\world_lore.py	76	const	[WorldLore] 世界观与历史塑形完成
+src\classes\world_lore.py	98	const	 返回为空，未进行修改
+src\classes\world_lore.py	98	fstring	[WorldLore]  返回为空，未进行修改
+src\classes\world_lore.py	100	const	 任务失败: 
+src\classes\world_lore.py	100	fstring	[WorldLore]  任务失败: 
+src\classes\world_lore.py	105	const	[WorldLore] 配置文件不存在: 
+src\classes\world_lore.py	105	fstring	[WorldLore] 配置文件不存在: 
+src\classes\world_lore.py	110	const	 失败: 
+src\classes\world_lore.py	110	const	[WorldLore] 读取文件 
+src\classes\world_lore.py	110	fstring	[WorldLore] 读取文件  失败: 
+src\classes\world_lore.py	127	const	[WorldLore] 非法宗门 ID: 
+src\classes\world_lore.py	127	fstring	[WorldLore] 非法宗门 ID: 
+src\classes\world_lore.py	139	const	[WorldLore] 宗门重塑 - ID: 
+src\classes\world_lore.py	139	fstring	[WorldLore] 宗门重塑 - ID: , Name: , Desc: 
+src\classes\world_lore.py	143	const	 个宗门
+src\classes\world_lore.py	143	const	[WorldLore] 更新了 
+src\classes\world_lore.py	143	fstring	[WorldLore] 更新了  个宗门
+src\classes\world_lore.py	150	const	装备
+src\classes\world_lore.py	151	const	辅助装备
+src\classes\world_lore.py	162	const	[WorldLore] 非法区域 ID: 
+src\classes\world_lore.py	162	fstring	[WorldLore] 非法区域 ID: 
+src\classes\world_lore.py	170	const	[WorldLore] 区域重塑 - ID: 
+src\classes\world_lore.py	170	fstring	[WorldLore] 区域重塑 - ID: , Name: , Desc: 
+src\classes\world_lore.py	174	const	 个区域
+src\classes\world_lore.py	174	const	[WorldLore] 更新了 
+src\classes\world_lore.py	174	fstring	[WorldLore] 更新了  个区域
+src\classes\world_lore.py	185	const	[WorldLore] 非法功法 ID: 
+src\classes\world_lore.py	185	fstring	[WorldLore] 非法功法 ID: 
+src\classes\world_lore.py	198	const	[WorldLore] 功法重塑 - ID: 
+src\classes\world_lore.py	198	fstring	[WorldLore] 功法重塑 - ID: , Name: , Desc: 
+src\classes\world_lore.py	203	const	 本功法
+src\classes\world_lore.py	203	const	[WorldLore] 更新了 
+src\classes\world_lore.py	203	fstring	[WorldLore] 更新了  本功法
+src\classes\world_lore.py	219	const	[WorldLore] 非法物品 ID: 
+src\classes\world_lore.py	219	fstring	[WorldLore] 非法物品 ID: 
+src\classes\world_lore.py	231	const	重塑 - ID: 
+src\classes\world_lore.py	231	fstring	[WorldLore] 重塑 - ID: , Name: , Desc: 
+src\classes\world_lore.py	235	const	 件
+src\classes\world_lore.py	235	const	[WorldLore] 更新了 
+src\classes\world_lore.py	235	fstring	[WorldLore] 更新了  件

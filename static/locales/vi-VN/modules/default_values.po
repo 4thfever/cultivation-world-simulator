@@ -24,3 +24,6 @@ msgstr "Chưa Rõ"
 
 msgid "east"
 msgstr "đông"
+
+msgid "Someone"
+msgstr "ai đó"

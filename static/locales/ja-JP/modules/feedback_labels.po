@@ -98,6 +98,36 @@ msgstr "{avatar} は {location} で休息し、療傷を始めた"
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} の突破結果: {result}"
 
+msgid "tribulation_inner_demon"
+msgstr "心魔"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "雷劫"
+
+msgid "tribulation_body_reforging"
+msgstr "肉身"
+
+msgid "tribulation_vengeance"
+msgstr "復讐"
+
+msgid "tribulation_love_tribulation"
+msgstr "情劫"
+
+msgid "tribulation_solar_force"
+msgstr "陽罡"
+
+msgid "tribulation_thunderflame"
+msgstr "雷火"
+
+msgid "tribulation_wind_disaster"
+msgstr "風災"
+
+msgid "tribulation_nether_prison"
+msgstr "陰獄"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "魔劫"
+
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} は {calamity} の劫に遭い、突破は {result}"
 

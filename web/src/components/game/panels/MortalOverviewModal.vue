@@ -16,7 +16,7 @@ const emit = defineEmits<{
   (e: 'update:show', value: boolean): void;
 }>()
 
-const { t } = useI18n()
+const { locale, t } = useI18n()
 const mortalStore = useMortalStore()
 
 const summary = computed(() => mortalStore.overview.summary)
@@ -24,11 +24,11 @@ const cityRows = computed(() => mortalStore.overview.cities)
 const trackedMortals = computed(() => mortalStore.overview.tracked_mortals)
 
 function formatPopulation(value: number): string {
-  return formatPopulationText(value, t)
+  return formatPopulationText(value, t, locale.value)
 }
 
 function formatNaturalGrowth(value: number): string {
-  return formatPopulationGrowthText(value, t)
+  return formatPopulationGrowthText(value, t, locale.value)
 }
 
 function resolveBirthRegion(name: string): string {

@@ -35,6 +35,7 @@ const isClickable = computed(() => !!props.onClick);
   padding: 4px;
   margin: -4px;
   border: 1px solid transparent;
+  min-width: 0;
 }
 
 .stat-item.full {
@@ -54,12 +55,17 @@ const isClickable = computed(() => !!props.onClick);
 label {
   font-size: 11px;
   color: #888;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 span {
   font-size: 13px;
   color: #ddd;
   font-weight: 500;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .sub-value {

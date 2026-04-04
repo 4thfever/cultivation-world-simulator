@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.classes.event_observation import EventObservation
 from src.classes.relation.relation import Relation
 from src.classes.relation.relations import add_friendliness
@@ -21,10 +22,10 @@ _CLOSE_RELATION_WEIGHTS: dict[Relation, int] = {
     Relation.IS_DISCIPLE_OF: 70,
 }
 
-_POSITIVE_BOND_LABELS: dict[str, str] = {
-    "bond_lovers_formed": "结为道侣",
-    "bond_sworn_sibling_formed": "结为义兄弟姐妹",
-    "bond_master_disciple_formed": "建立师徒关系",
+_POSITIVE_BOND_LABEL_IDS: dict[str, str] = {
+    "bond_lovers_formed": "bond_label_lovers",
+    "bond_sworn_sibling_formed": "bond_label_sworn_siblings",
+    "bond_master_disciple_formed": "bond_label_master_disciple",
 }
 
 
@@ -140,5 +141,5 @@ def configure_positive_bond_event(
     params.setdefault("avatar_a_name", avatar_a.name)
     params.setdefault("avatar_b_id", str(avatar_b.id))
     params.setdefault("avatar_b_name", avatar_b.name)
-    params.setdefault("bond_label", _POSITIVE_BOND_LABELS.get(event.event_type, "建立了重要关系"))
+    params.setdefault("bond_label_id", _POSITIVE_BOND_LABEL_IDS.get(event.event_type, "bond_label_major_relationship"))
     event.render_params = params

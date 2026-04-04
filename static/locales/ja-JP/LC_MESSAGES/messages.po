@@ -974,6 +974,9 @@ msgstr "{name}（{type}・{realm}、{desc}）{effect}"
 msgid "{name} has ascended to a cultivator."
 msgstr "{name} は修士となった。"
 
+msgid "{name}: {desc}"
+msgstr "{name}: {desc}"
+
 msgid "{name}: {desc} ({realm})"
 msgstr "{name}: {desc}（{realm}）"
 
@@ -1237,6 +1240,14 @@ msgstr "{name}王朝"
 msgid "dynasty_royal_house_format"
 msgstr "{surname}氏"
 
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "クールダウン中。あと {remain} か月必要"
+
+msgid ""
+"Focus on governance affairs, malevolent incidents, local strongmen, and "
+"political rivals creating obstacles."
+msgstr "政務処理、邪異との遭遇、地方豪強、政敵の妨害を中心に描写すること。"
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "条件付き効果"
@@ -1415,6 +1426,9 @@ msgstr "不明"
 
 msgid "east"
 msgstr "東"
+
+msgid "Someone"
+msgstr "誰か"
 
 msgid "Auxiliary [{name}]"
 msgstr "補助装備 [{name}]"
@@ -1863,6 +1877,36 @@ msgstr "{avatar} は {location} で休息し、療傷を始めた"
 
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} の突破結果: {result}"
+
+msgid "tribulation_inner_demon"
+msgstr "心魔"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "雷劫"
+
+msgid "tribulation_body_reforging"
+msgstr "肉身"
+
+msgid "tribulation_vengeance"
+msgstr "復讐"
+
+msgid "tribulation_love_tribulation"
+msgstr "情劫"
+
+msgid "tribulation_solar_force"
+msgstr "陽罡"
+
+msgid "tribulation_thunderflame"
+msgstr "雷火"
+
+msgid "tribulation_wind_disaster"
+msgstr "風災"
+
+msgid "tribulation_nether_prison"
+msgstr "陰獄"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "魔劫"
 
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} は {calamity} の劫に遭い、突破は {result}"
@@ -2811,6 +2855,42 @@ msgstr "弟"
 
 msgid "relation_younger_sister"
 msgstr "妹"
+
+msgid "No significant recent interactions."
+msgstr "最近、目立った交流はなかった。"
+
+msgid "Current relations: {rel_desc}"
+msgstr "現在の関係: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "{reason} により、{avatar_a} は {avatar_b} の {relation} となった。"
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "{reason} により、{avatar_a} はもはや {avatar_b} の {relation} ではなくなった。"
+
+msgid "bond_label_lovers"
+msgstr "道侶となった"
+
+msgid "bond_label_sworn_siblings"
+msgstr "義兄弟姉妹の契りを結んだ"
+
+msgid "bond_label_master_disciple"
+msgstr "師弟関係を結んだ"
+
+msgid "bond_label_major_relationship"
+msgstr "重要な関係を結んだ"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "{subject_name} が {killer_name} に殺されたと知った。"
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "{subject_name} と {other_name} が {bond_label} と知った。"
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "{subject_name} が大きな出来事を経験したと知った: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "{subject_name} が大きな出来事を経験したと知った。"
 
 # Root Element
 msgid "gold_element"

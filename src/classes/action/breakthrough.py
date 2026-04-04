@@ -143,9 +143,10 @@ class Breakthrough(TimedAction):
             return [Event(self.world.month_stamp, core_text, related_avatars=[self.avatar.id], is_major=True)]
 
         calamity = self._calamity
+        calamity_display = TribulationSelector.get_display_name(str(calamity))
         result_text = t("succeeded") if result_ok else t("failed")
         core_text = t("{avatar} encountered {calamity} tribulation, breakthrough {result}",
-                     avatar=self.avatar.name, calamity=calamity, result=result_text)
+                     avatar=self.avatar.name, calamity=calamity_display, result=result_text)
         rel_ids = [self.avatar.id]
         if self._calamity_other is not None:
             try:

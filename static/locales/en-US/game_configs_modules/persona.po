@@ -678,6 +678,30 @@ msgstr "Coming from the bottom of society, you have a knack for spirit plant cul
 msgid "PERSONA_1007_NAME"
 msgstr "Farmer"
 
+msgid "PERSONA_1008_DESC"
+msgstr "You keep your distance from worldly affairs and dislike being drawn into mundane power and court business."
+
+msgid "PERSONA_1008_NAME"
+msgstr "Detached"
+
+msgid "PERSONA_1009_DESC"
+msgstr "You are used to cultivating alone among mountains and marshes, and nothing annoys you more than dealings with the court."
+
+msgid "PERSONA_1009_NAME"
+msgstr "Reclusive Cultivator"
+
+msgid "PERSONA_1010_DESC"
+msgstr "You are willing to step into the mortal world and temper yourself and your reputation through worldly affairs."
+
+msgid "PERSONA_1010_NAME"
+msgstr "Worldly"
+
+msgid "PERSONA_1011_DESC"
+msgstr "You revere orthodox order and gladly use scholarship and public service to bring order to the world."
+
+msgid "PERSONA_1011_NAME"
+msgstr "Orthodox Gentleman"
+
 msgid "PERSONA_1012_DESC"
 msgstr "You care a lot about your appearance and spend effort grooming yourself so you look more presentable."
 

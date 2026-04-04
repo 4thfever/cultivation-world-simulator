@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import csv
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 from src.classes.effect import load_effect_from_str
 from src.classes.effect.desc import format_effects_to_text
 from src.i18n import t
+from src.utils.config import CONFIG
 from src.utils.df import game_configs, get_float, get_int, get_str
 
 
@@ -52,6 +55,7 @@ class Dynasty:
     id: int
     name: str
     desc: str
+    template_name: str = ""
     royal_surname: str = ""
     effect_desc: str = ""
     effects: dict[str, Any] = field(default_factory=dict)
@@ -66,7 +70,18 @@ class Dynasty:
         template = dynasties_by_id.get(int(self.id))
         if template is None or template is self:
             return None
+        if not self._matches_template_identity(template):
+            return None
         return template
+
+    def _matches_template_identity(self, template: "Dynasty") -> bool:
+        source_name = source_dynasty_names_by_id.get(int(self.id), "")
+        candidate_names = {
+            str(self.template_name or "").strip(),
+            str(self.name or "").strip(),
+        }
+        candidate_names.discard("")
+        return bool(candidate_names & {str(template.name or "").strip(), str(source_name or "").strip()})
 
     @property
     def localized_name(self) -> str:
@@ -105,10 +120,12 @@ class Dynasty:
         return translated if translated != "dynasty_royal_house_format" else f"{self.royal_surname}氏"
 
     def create_runtime(self, royal_surname: str) -> "Dynasty":
+        source_name = source_dynasty_names_by_id.get(int(self.id), str(self.name or ""))
         return Dynasty(
             id=int(self.id),
             name=str(self.name),
             desc=str(self.desc),
+            template_name=str(source_name or ""),
             royal_surname=str(royal_surname or ""),
             effect_desc=str(self.effect_desc or ""),
             effects=dict(self.effects or {}),
@@ -125,6 +142,7 @@ class Dynasty:
             "id": int(self.id),
             "name": str(self.name),
             "desc": str(self.desc),
+            "template_name": str(self.template_name or ""),
             "royal_surname": str(self.royal_surname or ""),
             "effect_desc": str(self.effect_desc or ""),
             "effects": dict(self.effects or {}),
@@ -142,6 +160,7 @@ class Dynasty:
             id=int(data["id"]),
             name=str(data.get("name", "") or ""),
             desc=str(data.get("desc", "") or ""),
+            template_name=str(data.get("template_name", "") or ""),
             royal_surname=str(data.get("royal_surname", "") or ""),
             effect_desc=str(data.get("effect_desc", "") or ""),
             effects=dict(data.get("effects", {}) or {}),
@@ -180,8 +199,46 @@ def _load_dynasties_data() -> tuple[dict[int, Dynasty], dict[str, Dynasty]]:
     return new_by_id, new_by_name
 
 
+def _load_source_dynasty_names() -> dict[int, str]:
+    source_names: dict[int, str] = {}
+    csv_path = Path(CONFIG.paths.shared_game_configs) / "dynasty.csv"
+    if not csv_path.exists():
+        return source_names
+
+    with csv_path.open("r", encoding="utf-8") as handle:
+        rows = list(csv.reader(handle))
+
+    if len(rows) < 3:
+        return source_names
+
+    headers = [str(header or "").strip() for header in rows[0]]
+    if headers and headers[0].startswith("\ufeff"):
+        headers[0] = headers[0][1:]
+
+    try:
+        id_index = headers.index("id")
+        name_index = headers.index("name")
+    except ValueError:
+        return source_names
+
+    for row in rows[2:]:
+        if not row or id_index >= len(row):
+            continue
+        raw_id = str(row[id_index] or "").strip()
+        raw_name = str(row[name_index] or "").strip() if name_index < len(row) else ""
+        if not raw_id or not raw_name:
+            continue
+        try:
+            source_names[int(float(raw_id))] = raw_name
+        except ValueError:
+            continue
+
+    return source_names
+
+
 dynasties_by_id: dict[int, Dynasty] = {}
 dynasties_by_name: dict[str, Dynasty] = {}
+source_dynasty_names_by_id: dict[int, str] = _load_source_dynasty_names()
 
 
 def reload() -> None:

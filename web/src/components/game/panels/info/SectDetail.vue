@@ -24,6 +24,10 @@ function jumpToAvatar(id: string) {
   uiStore.select('avatar', id);
 }
 
+function jumpToSect(id: string) {
+  uiStore.select('sect', id);
+}
+
 function showDetail(item: EffectEntity | undefined) {
   if (item) {
     secondaryItem.value = item;
@@ -156,6 +160,7 @@ function getDiplomacySub(item: DiplomacyItem) {
                :name="item.other_sect_name"
                :meta="getDiplomacyMeta(item)"
                :sub="getDiplomacySub(item)"
+               @click="jumpToSect(item.other_sect_id)"
              />
           </div>
        </div>

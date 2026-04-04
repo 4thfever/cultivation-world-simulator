@@ -92,7 +92,7 @@ function translateWorldInfoField(
   id: string,
   fallback: string,
 ): string {
-  const key = `world_info.entries.${id}`
+  const key = `game.world_info.entries.${id}`
   const translated = t(key)
   return translated === key ? fallback : translated
 }

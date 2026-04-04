@@ -24,3 +24,6 @@ msgstr "不明"
 
 msgid "east"
 msgstr "東"
+
+msgid "Someone"
+msgstr "誰か"

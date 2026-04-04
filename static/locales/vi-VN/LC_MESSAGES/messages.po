@@ -1068,6 +1068,9 @@ msgstr "{name} ({type} · {realm}, {desc}){effect}"
 msgid "{name} has ascended to a cultivator."
 msgstr "{name} đã tấn thăng thành tu sĩ."
 
+msgid "{name}: {desc}"
+msgstr "{name}: {desc}"
+
 msgid "{name}: {desc} ({realm})"
 msgstr "{name}: {desc} - {realm}"
 
@@ -1337,6 +1340,16 @@ msgstr "Vương triều {name}"
 msgid "dynasty_royal_house_format"
 msgstr "Hoàng tộc {surname}"
 
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "Hành động đang hồi chiêu, còn {remain} tháng"
+
+msgid ""
+"Focus on governance affairs, malevolent incidents, local strongmen, and "
+"political rivals creating obstacles."
+msgstr ""
+"Tập trung vào việc xử lý chính vụ, tà họa, hào cường địa phương và đối thủ "
+"chính trị gây trở ngại."
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "Hiệu ứng kích hoạt theo điều kiện"
@@ -1515,6 +1528,9 @@ msgstr "Chưa Rõ"
 
 msgid "east"
 msgstr "đông"
+
+msgid "Someone"
+msgstr "ai đó"
 
 msgid "Auxiliary [{name}]"
 msgstr "Phụ Trợ [{name}]"
@@ -1991,6 +2007,36 @@ msgstr "{avatar} bắt đầu tĩnh dưỡng trị thương tại {location}"
 
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} đột phá {result}"
+
+msgid "tribulation_inner_demon"
+msgstr "tâm ma"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "lôi kiếp"
+
+msgid "tribulation_body_reforging"
+msgstr "nhục thân"
+
+msgid "tribulation_vengeance"
+msgstr "kiếp báo thù"
+
+msgid "tribulation_love_tribulation"
+msgstr "tình kiếp"
+
+msgid "tribulation_solar_force"
+msgstr "dương cương"
+
+msgid "tribulation_thunderflame"
+msgstr "lôi hỏa"
+
+msgid "tribulation_wind_disaster"
+msgstr "phong tai"
+
+msgid "tribulation_nether_prison"
+msgstr "âm ngục"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "ma kiếp"
 
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} gặp phải {calamity}, đột phá {result}"
@@ -3020,6 +3066,42 @@ msgstr "Em Trai"
 
 msgid "relation_younger_sister"
 msgstr "Em Gái"
+
+msgid "No significant recent interactions."
+msgstr "Gần đây không có tương tác đáng kể."
+
+msgid "Current relations: {rel_desc}"
+msgstr "Quan hệ hiện tại: {rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "Vì {reason}, {avatar_a} đã trở thành {relation} của {avatar_b}."
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "Vì {reason}, {avatar_a} không còn là {relation} của {avatar_b} nữa."
+
+msgid "bond_label_lovers"
+msgstr "đã kết thành đạo lữ"
+
+msgid "bond_label_sworn_siblings"
+msgstr "đã kết nghĩa huynh đệ tỷ muội"
+
+msgid "bond_label_master_disciple"
+msgstr "đã lập quan hệ sư đồ"
+
+msgid "bond_label_major_relationship"
+msgstr "đã hình thành một mối quan hệ quan trọng"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "Ngươi biết rằng {subject_name} đã bị {killer_name} sát hại."
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "Ngươi biết rằng {subject_name} và {other_name} {bond_label}."
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự: {content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự."
 
 # Root Element
 msgid "gold_element"

@@ -10,7 +10,21 @@ from dataclasses import dataclass
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
+from src.i18n import t
 from src.classes.relation.relation import NumericRelation, Relation
+
+TRIBULATION_DISPLAY_MSGIDS = {
+    "心魔": "tribulation_inner_demon",
+    "雷劫": "tribulation_lightning_tribulation",
+    "肉身": "tribulation_body_reforging",
+    "寻仇": "tribulation_vengeance",
+    "情劫": "tribulation_love_tribulation",
+    "阳罡": "tribulation_solar_force",
+    "雷火": "tribulation_thunderflame",
+    "风灾": "tribulation_wind_disaster",
+    "阴狱": "tribulation_nether_prison",
+    "魔劫": "tribulation_demonic_tribulation",
+}
 
 
 @dataclass
@@ -162,6 +176,19 @@ class TribulationSelector:
         """
         tribulation = TRIBULATION_TYPES.get(tribulation_name)
         return tribulation.description if tribulation else ""
+
+    @staticmethod
+    def get_display_name(tribulation_name: str) -> str:
+        """
+        获取用于 UI/Event 展示的本地化劫难名称。
+
+        内部仍使用中文键作为规则与选择逻辑的真源，展示层再做翻译。
+        """
+        tribulation = TRIBULATION_TYPES.get(tribulation_name)
+        raw_name = tribulation.name if tribulation else tribulation_name
+        msgid = TRIBULATION_DISPLAY_MSGIDS.get(raw_name, raw_name)
+        translated = t(msgid)
+        return translated if translated != msgid else raw_name
     
     @staticmethod
     def get_story_prompt(tribulation_name: str) -> str:

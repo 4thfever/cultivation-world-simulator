@@ -2327,6 +2327,38 @@ msgstr ""
 msgid "PERSONA_1007_NAME"
 msgstr "Linh Nông"
 
+msgid "PERSONA_1008_DESC"
+msgstr ""
+"Ngươi xa lánh hồng trần, không thích bị cuốn vào quyền thế phàm tục và việc "
+"triều chính."
+
+msgid "PERSONA_1008_NAME"
+msgstr "Xuất Thế"
+
+msgid "PERSONA_1009_DESC"
+msgstr ""
+"Ngươi quen một mình khổ tu giữa núi sông đầm trạch, ghét nhất là qua lại với"
+" triều đình."
+
+msgid "PERSONA_1009_NAME"
+msgstr "Sơn Trạch Cô Tu"
+
+msgid "PERSONA_1010_DESC"
+msgstr ""
+"Ngươi nguyện bước vào cõi đời, dùng việc thế tục để tôi luyện bản thân và "
+"danh vọng."
+
+msgid "PERSONA_1010_NAME"
+msgstr "Nhập Thế"
+
+msgid "PERSONA_1011_DESC"
+msgstr ""
+"Ngươi tôn sùng trật tự danh giáo, vui lòng lấy văn học giáo hóa và chính vụ "
+"để cứu đời."
+
+msgid "PERSONA_1011_NAME"
+msgstr "Danh Giáo Chi Sĩ"
+
 msgid "PERSONA_1012_DESC"
 msgstr ""
 "Ngươi rất để tâm đến dung mạo của mình, cũng chịu khó chăm chút dung nghi để"

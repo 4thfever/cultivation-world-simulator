@@ -133,4 +133,59 @@ describe('MortalOverviewModal', () => {
     expect(text).toContain('赵行舟')
     expect(text).toContain('male')
   })
+
+  it('renders English population with compact units instead of ten-thousand', () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'en-US',
+      messages: {
+        'en-US': {
+          game: {
+            mortal_system: {
+              title: 'Mortal System',
+              empty: 'No data',
+              population_value: '{value}',
+              population_growth_value: '{value}/month',
+              population_ratio_value: '{current} / {capacity}',
+              summary: {
+                title: 'World Overview',
+                total_population: 'Total Population',
+                total_capacity: 'Total Capacity',
+                total_growth: 'Total Natural Growth',
+              },
+              cities: {
+                title: 'City Overview',
+                city: 'City',
+                population: 'Population',
+                capacity: 'Capacity',
+                growth: 'Natural Growth',
+              },
+              tracked: {
+                title: 'Tracked Mortals',
+                count: 'Tracked Mortals',
+                awakening_candidates: 'Awakening Candidates',
+                name: 'Name',
+                gender: 'Gender',
+                age: 'Age',
+                birth_region: 'Birth Region',
+                unknown_region: 'Unknown',
+              },
+            },
+          },
+        },
+      },
+    })
+
+    const wrapper = mount(MortalOverviewModal, {
+      props: { show: true },
+      global: {
+        plugins: [i18n],
+      },
+    })
+
+    const text = wrapper.text()
+    expect(text).toContain('1.4M')
+    expect(text).toContain('+17.4K/month')
+    expect(text).not.toContain('ten-thousand')
+  })
 })

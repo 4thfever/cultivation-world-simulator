@@ -306,17 +306,7 @@ def get_numeric_relation_label(relation: NumericRelation) -> str:
     from src.i18n import t
 
     msgid = numeric_relation_msg_ids[relation]
-    translated = t(msgid)
-    if translated != msgid:
-        return translated
-    fallback = {
-        NumericRelation.ARCHENEMY: "憎恶",
-        NumericRelation.DISLIKED: "厌恶",
-        NumericRelation.STRANGER: "陌生",
-        NumericRelation.FRIEND: "友好",
-        NumericRelation.BEST_FRIEND: "亲善",
-    }
-    return fallback[relation]
+    return t(msgid)
 
 
 def get_relation_state_labels(

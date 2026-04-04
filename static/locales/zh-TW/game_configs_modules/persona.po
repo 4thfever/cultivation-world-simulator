@@ -634,6 +634,30 @@ msgstr "你出身底層，對靈植種植頗有心得，能靠種田獲得更多
 msgid "PERSONA_1007_NAME"
 msgstr "靈農"
 
+msgid "PERSONA_1008_DESC"
+msgstr "你疏離塵世，不喜捲入凡俗權柄與廟堂機務。"
+
+msgid "PERSONA_1008_NAME"
+msgstr "出世"
+
+msgid "PERSONA_1009_DESC"
+msgstr "你慣於山澤獨修，最厭與朝廷往來。"
+
+msgid "PERSONA_1009_NAME"
+msgstr "山澤孤修"
+
+msgid "PERSONA_1010_DESC"
+msgstr "你願意踏入塵世，以凡俗事務磨礪自身與名望。"
+
+msgid "PERSONA_1010_NAME"
+msgstr "入世"
+
+msgid "PERSONA_1011_DESC"
+msgstr "你崇尚名教秩序，樂於以文章教化與政務匡世。"
+
+msgid "PERSONA_1011_NAME"
+msgstr "名教中人"
+
 msgid "PERSONA_1012_DESC"
 msgstr "你很在意自己的容貌，也會花心思打理儀容，讓自己看起來更體面。"
 

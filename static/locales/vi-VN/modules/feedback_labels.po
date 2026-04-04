@@ -98,6 +98,36 @@ msgstr "{avatar} bắt đầu tĩnh dưỡng trị thương tại {location}"
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} đột phá {result}"
 
+msgid "tribulation_inner_demon"
+msgstr "tâm ma"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "lôi kiếp"
+
+msgid "tribulation_body_reforging"
+msgstr "nhục thân"
+
+msgid "tribulation_vengeance"
+msgstr "kiếp báo thù"
+
+msgid "tribulation_love_tribulation"
+msgstr "tình kiếp"
+
+msgid "tribulation_solar_force"
+msgstr "dương cương"
+
+msgid "tribulation_thunderflame"
+msgstr "lôi hỏa"
+
+msgid "tribulation_wind_disaster"
+msgstr "phong tai"
+
+msgid "tribulation_nether_prison"
+msgstr "âm ngục"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "ma kiếp"
+
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} gặp phải {calamity}, đột phá {result}"
 

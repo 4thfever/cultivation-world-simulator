@@ -634,6 +634,30 @@ msgstr "社会の底辺から這い上がってきた身で、霊植栽培に妙
 msgid "PERSONA_1007_NAME"
 msgstr "農夫"
 
+msgid "PERSONA_1008_DESC"
+msgstr "俗世から距離を置き、世俗の権柄や朝廷の政務に巻き込まれることを好まない。"
+
+msgid "PERSONA_1008_NAME"
+msgstr "出世"
+
+msgid "PERSONA_1009_DESC"
+msgstr "山沢にこもって独り修行することに慣れており、朝廷と関わるのを最も嫌う。"
+
+msgid "PERSONA_1009_NAME"
+msgstr "山沢孤修"
+
+msgid "PERSONA_1010_DESC"
+msgstr "俗世に踏み入り、世間の務めを通して己と名望を磨くことを厭わない。"
+
+msgid "PERSONA_1010_NAME"
+msgstr "入世"
+
+msgid "PERSONA_1011_DESC"
+msgstr "名教の秩序を尊び、文章による教化と政務で世を正すことを喜ぶ。"
+
+msgid "PERSONA_1011_NAME"
+msgstr "名教の士"
+
 msgid "PERSONA_1012_DESC"
 msgstr "容姿をとても気にかけ、身だしなみに労を惜しまない。"
 

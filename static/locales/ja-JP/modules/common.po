@@ -252,3 +252,9 @@ msgstr "{name}王朝"
 
 msgid "dynasty_royal_house_format"
 msgstr "{surname}氏"
+
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "クールダウン中。あと {remain} か月必要"
+
+msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
+msgstr "政務処理、邪異との遭遇、地方豪強、政敵の妨害を中心に描写すること。"

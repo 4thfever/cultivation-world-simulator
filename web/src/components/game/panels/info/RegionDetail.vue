@@ -8,7 +8,7 @@ import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import { formatPopulationRatioText } from '@/utils/populationFormat';
 
-const { t } = useI18n();
+const { locale, t } = useI18n();
 const props = defineProps<{
   data: RegionDetail;
 }>();
@@ -90,7 +90,7 @@ function jumpToAvatar(id: string) {
               backgroundColor: getPopulationBarColor(data.population / data.population_capacity),
             }"
           ></div>
-          <div class="text">{{ formatPopulationRatioText(data.population, data.population_capacity, t) }}</div>
+          <div class="text">{{ formatPopulationRatioText(data.population, data.population_capacity, t, locale) }}</div>
         </div>
       </div>
       

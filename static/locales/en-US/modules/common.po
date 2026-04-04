@@ -253,3 +253,9 @@ msgstr "{name} Dynasty"
 
 msgid "dynasty_royal_house_format"
 msgstr "House {surname}"
+
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "Action on cooldown, {remain} month(s) remaining"
+
+msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
+msgstr "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."

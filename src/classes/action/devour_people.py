@@ -4,7 +4,10 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.environment.region import CityRegion
-from src.classes.items.auxiliary import TEN_THOUSAND_SOULS_BANNER_MAX_SOULS
+from src.classes.items.auxiliary import (
+    TEN_THOUSAND_SOULS_BANNER_MAX_SOULS,
+    is_ten_thousand_souls_banner,
+)
 
 
 class DevourPeople(TimedAction):
@@ -51,7 +54,7 @@ class DevourPeople(TimedAction):
     async def finish(self) -> list[Event]:
         auxiliary = self.avatar.auxiliary
         region = self.avatar.tile.region
-        if auxiliary is None or auxiliary.name != "万魂幡" or not isinstance(region, CityRegion):
+        if not is_ten_thousand_souls_banner(auxiliary) or not isinstance(region, CityRegion):
             return []
 
         population_loss = float(region.population) * self.POPULATION_LOSS_RATIO

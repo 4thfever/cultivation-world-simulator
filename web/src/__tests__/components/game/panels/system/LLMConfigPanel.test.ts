@@ -2,6 +2,8 @@ import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi } from 'vitest'
 import LLMConfigPanel from '@/components/game/panels/system/LLMConfigPanel.vue'
 import { createI18n } from 'vue-i18n'
+import llmMessages from '@/locales/zh-CN/llm.json'
+import uiMessages from '@/locales/zh-CN/ui.json'
 
 // Mock API
 vi.mock('@/api', () => ({
@@ -41,9 +43,8 @@ describe('LLMConfigPanel', () => {
     locale: 'zh-CN',
     messages: {
       'zh-CN': {
-        llm: {
-          loading: 'Loading...'
-        }
+        llm: llmMessages,
+        ui: uiMessages
       }
     }
   })

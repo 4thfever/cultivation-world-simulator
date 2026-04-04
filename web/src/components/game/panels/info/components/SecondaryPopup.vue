@@ -28,15 +28,7 @@ defineEmits(['close']);
 .secondary-panel {
   position: fixed;
   top: 96px;       /* 36px (StatusBar) + 60px (InfoPanel top offset) */
-  /* 
-    计算逻辑：
-    Sidebar Width: 400px (App.vue 中定义的右侧侧边栏)
-    InfoPanel Margin Right: 20px (相对于 map-container 右侧)
-    InfoPanel Width: 320px
-    Gap: 12px
-    Total Right = 400 + 20 + 320 + 12 = 752px
-  */
-  right: 752px;
+  right: calc(var(--cws-sidebar-width, 400px) + clamp(340px, 26vw, 376px) + 32px);
   width: 260px;
   background: rgba(32, 32, 32, 0.98);
   border: 1px solid #555;
@@ -47,6 +39,7 @@ defineEmits(['close']);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-width: min(260px, calc(100vw - var(--cws-sidebar-width, 400px) - clamp(340px, 26vw, 376px) - 56px));
 }
 
 .sec-header {

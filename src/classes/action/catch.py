@@ -15,6 +15,21 @@ if TYPE_CHECKING:
     from src.classes.animal import Animal
 
 
+BEAST_SECT_ID = 2
+BEAST_SECT_NAME_ID = "SECT_2_NAME"
+
+
+def _is_beast_taming_sect(sect) -> bool:
+    if sect is None:
+        return False
+    if int(getattr(sect, "id", 0) or 0) == BEAST_SECT_ID:
+        return True
+    if str(getattr(sect, "name_id", "") or "") == BEAST_SECT_NAME_ID:
+        return True
+    # Legacy fallback for old runtime objects or saves.
+    return str(getattr(sect, "name", "") or "") == "百兽宗"
+
+
 class Catch(TimedAction):
     """
     御兽：仅百兽宗弟子可用。
@@ -50,7 +65,7 @@ class Catch(TimedAction):
         return mapping.get(animal_realm, 0.1)
 
     def can_possibly_start(self) -> bool:
-        if self.avatar.sect is None or self.avatar.sect.name != "百兽宗":
+        if not _is_beast_taming_sect(self.avatar.sect):
             return False
         return True
 

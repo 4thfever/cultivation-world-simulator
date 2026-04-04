@@ -976,6 +976,9 @@ msgstr "{name}（{type}·{realm}，{desc}）{effect}"
 msgid "{name} has ascended to a cultivator."
 msgstr "{name}晉升爲修士了。"
 
+msgid "{name}: {desc}"
+msgstr "{name}：{desc}"
+
 msgid "{name}: {desc} ({realm})"
 msgstr "{name}：{desc}（{realm}）"
 
@@ -1238,6 +1241,14 @@ msgstr "{name}朝"
 msgid "dynasty_royal_house_format"
 msgstr "{surname}氏"
 
+msgid "Action on cooldown, {remain} month(s) remaining"
+msgstr "冷卻中，還需 {remain} 個月"
+
+msgid ""
+"Focus on governance affairs, malevolent incidents, local strongmen, and "
+"political rivals creating obstacles."
+msgstr "主題圍繞處理政務、遭遇邪祟、地方豪強、政敵掣肘展開。"
+
 # 條件翻譯
 msgid "Conditional effect"
 msgstr "條件觸發"
@@ -1416,6 +1427,9 @@ msgstr "未知"
 
 msgid "east"
 msgstr "東"
+
+msgid "Someone"
+msgstr "某人"
 
 msgid "Auxiliary [{name}]"
 msgstr "輔助【{name}】"
@@ -1862,6 +1876,36 @@ msgstr "{avatar} 在 {location} 開始靜養療傷"
 
 msgid "{avatar} breakthrough result: {result}"
 msgstr "{avatar} 突破{result}"
+
+msgid "tribulation_inner_demon"
+msgstr "心魔"
+
+msgid "tribulation_lightning_tribulation"
+msgstr "雷劫"
+
+msgid "tribulation_body_reforging"
+msgstr "肉身"
+
+msgid "tribulation_vengeance"
+msgstr "尋仇"
+
+msgid "tribulation_love_tribulation"
+msgstr "情劫"
+
+msgid "tribulation_solar_force"
+msgstr "陽罡"
+
+msgid "tribulation_thunderflame"
+msgstr "雷火"
+
+msgid "tribulation_wind_disaster"
+msgstr "風災"
+
+msgid "tribulation_nether_prison"
+msgstr "陰獄"
+
+msgid "tribulation_demonic_tribulation"
+msgstr "魔劫"
 
 msgid "{avatar} encountered {calamity} tribulation, breakthrough {result}"
 msgstr "{avatar} 遭遇了{calamity}劫難，突破{result}"
@@ -2803,6 +2847,42 @@ msgstr "弟弟"
 
 msgid "relation_younger_sister"
 msgstr "妹妹"
+
+msgid "No significant recent interactions."
+msgstr "近期無顯著互動記錄。"
+
+msgid "Current relations: {rel_desc}"
+msgstr "目前關係：{rel_desc}"
+
+msgid "Because {reason}, {avatar_a} became {avatar_b}'s {relation}."
+msgstr "因為{reason}，{avatar_a}成為了{avatar_b}的{relation}。"
+
+msgid "Because {reason}, {avatar_a} is no longer {avatar_b}'s {relation}."
+msgstr "因為{reason}，{avatar_a}不再是{avatar_b}的{relation}。"
+
+msgid "bond_label_lovers"
+msgstr "結為道侶"
+
+msgid "bond_label_sworn_siblings"
+msgstr "結為義兄弟姐妹"
+
+msgid "bond_label_master_disciple"
+msgstr "建立師徒關係"
+
+msgid "bond_label_major_relationship"
+msgstr "建立了重要關係"
+
+msgid "You learned that {subject_name} was killed by {killer_name}."
+msgstr "你得知 {subject_name} 被 {killer_name} 殺害。"
+
+msgid "You learned that {subject_name} and {other_name} {bond_label}."
+msgstr "你得知 {subject_name} 與 {other_name}{bond_label}。"
+
+msgid "You learned that {subject_name} experienced a major event: {content}"
+msgstr "你得知 {subject_name} 發生了一件大事：{content}"
+
+msgid "You learned that {subject_name} experienced a major event."
+msgstr "你得知 {subject_name} 發生了一件大事。"
 
 # Root Element
 msgid "gold_element"
