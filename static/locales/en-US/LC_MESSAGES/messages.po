@@ -264,6 +264,99 @@ msgstr "Investigate the Night Anomaly"
 msgid "sect_task_title_sect_task_host_law_hall"
 msgstr "Preside Over the Law Hall"
 
+msgid "sect_task_title_sect_task_clean_training_grounds"
+msgstr "Clear Restriction Residue from the Training Grounds"
+
+msgid "sect_task_title_sect_task_watch_reception_platform"
+msgstr "Guard the Reception Platform"
+
+msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
+msgstr "Sort Low-Tier Scriptures"
+
+msgid "sect_task_title_sect_task_count_outer_supplies"
+msgstr "Inventory Outer Sect Supplies"
+
+msgid "sect_task_title_sect_task_maintain_irrigation_channels"
+msgstr "Maintain Spirit Field Irrigation Channels"
+
+msgid "sect_task_title_sect_task_feed_spirit_beasts"
+msgstr "Feed Low-Tier Spirit Beasts"
+
+msgid "sect_task_title_sect_task_register_new_disciples"
+msgstr "Register New Disciples"
+
+msgid "sect_task_title_sect_task_search_lost_tokens"
+msgstr "Search for Lost Tokens"
+
+msgid "sect_task_title_sect_task_patrol_restriction_barrier"
+msgstr "Patrol the Mountain Gate Restrictions"
+
+msgid "sect_task_title_sect_task_guard_pill_hall"
+msgstr "Guard the Pill Hall"
+
+msgid "sect_task_title_sect_task_escort_message_jade"
+msgstr "Escort Message Jade Slips"
+
+msgid "sect_task_title_sect_task_mediate_disciple_dispute"
+msgstr "Mediate a Dispute Between Disciples"
+
+msgid "sect_task_title_sect_task_inspect_market_order"
+msgstr "Inspect the Order of the Attached Bazaar"
+
+msgid "sect_task_title_sect_task_search_missing_outer_disciple"
+msgstr "Search for Missing Outer Disciples"
+
+msgid "sect_task_title_sect_task_repair_field_barrier"
+msgstr "Repair the Spirit Field Barrier"
+
+msgid "sect_task_title_sect_task_assist_apprentice_trial"
+msgstr "Assist in an Apprentice Selection Trial"
+
+msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
+msgstr "Inspect the Grand Protective Array Nodes"
+
+msgid "sect_task_title_sect_task_guard_seclusion_cave"
+msgstr "Guard the Seclusion Cave Perimeter"
+
+msgid "sect_task_title_sect_task_track_infiltrator"
+msgstr "Track Down an Infiltrating Spy"
+
+msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
+msgstr "Investigate Leyline Fluctuations"
+
+msgid "sect_task_title_sect_task_escort_secret_treasury"
+msgstr "Escort Secret Treasury Materials"
+
+msgid "sect_task_title_sect_task_suppress_earthfire"
+msgstr "Suppress an Earthfire Leak"
+
+msgid "sect_task_title_sect_task_investigate_forbidden_art"
+msgstr "Investigate Hidden Forbidden Arts"
+
+msgid "sect_task_title_sect_task_guard_forbidden_area"
+msgstr "Guard the Forbidden Area Entrance"
+
+msgid "sect_task_title_sect_task_oversee_grand_array_core"
+msgstr "Oversee the Grand Protective Array Core"
+
+msgid "sect_task_title_sect_task_review_treasury_irregularities"
+msgstr "Audit Treasury Allocations"
+
+msgid "sect_task_title_sect_task_secure_sect_ceremony"
+msgstr "Secure the Sect Ceremony"
+
+msgid "sect_task_title_sect_task_trial_major_rule_case"
+msgstr "Try a Major Rule Violation Case"
+
+msgid "sect_task_title_sect_task_screen_core_promotion"
+msgstr "Review Core Disciple Promotion Trials"
+
+msgid "sect_task_title_sect_task_coordinate_border_defense"
+msgstr "Coordinate Border Defense"
+
+msgid "sect_task_title_sect_task_investigate_internal_traitor"
+msgstr "Investigate a Suspected Internal Traitor"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Assassinate"

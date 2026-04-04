@@ -85,12 +85,13 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama (Local)",
+    "ollama": "Ollama",
     "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "Rec",
-    "free": "Cheap"
+    "free": "Cheap",
+    "local": "Local"
   },
   "help_links": {
     "openai": "OpenAI Platform",

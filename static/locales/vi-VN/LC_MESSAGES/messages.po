@@ -263,6 +263,99 @@ msgstr "Điều tra dị động ban đêm"
 msgid "sect_task_title_sect_task_host_law_hall"
 msgstr "Chủ trì trật tự pháp đường"
 
+msgid "sect_task_title_sect_task_clean_training_grounds"
+msgstr "Dọn tàn tích cấm chế ở diễn võ trường"
+
+msgid "sect_task_title_sect_task_watch_reception_platform"
+msgstr "Canh giữ đài tiếp dẫn"
+
+msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
+msgstr "Sắp xếp tàng thư cấp thấp"
+
+msgid "sect_task_title_sect_task_count_outer_supplies"
+msgstr "Kiểm kê vật tư ngoại môn"
+
+msgid "sect_task_title_sect_task_maintain_irrigation_channels"
+msgstr "Bảo dưỡng kênh dẫn nước linh điền"
+
+msgid "sect_task_title_sect_task_feed_spirit_beasts"
+msgstr "Chăm nuôi linh thú cấp thấp"
+
+msgid "sect_task_title_sect_task_register_new_disciples"
+msgstr "Hỗ trợ đăng ký nhập môn cho đệ tử mới"
+
+msgid "sect_task_title_sect_task_search_lost_tokens"
+msgstr "Tìm kiếm lệnh bài thất lạc"
+
+msgid "sect_task_title_sect_task_patrol_restriction_barrier"
+msgstr "Tuần tra cấm chế sơn môn"
+
+msgid "sect_task_title_sect_task_guard_pill_hall"
+msgstr "Canh giữ trọng địa đan phòng"
+
+msgid "sect_task_title_sect_task_escort_message_jade"
+msgstr "Hộ tống ngọc giản truyền tin"
+
+msgid "sect_task_title_sect_task_mediate_disciple_dispute"
+msgstr "Hòa giải tranh chấp đồng môn"
+
+msgid "sect_task_title_sect_task_inspect_market_order"
+msgstr "Kiểm tra trật tự phường thị phụ thuộc"
+
+msgid "sect_task_title_sect_task_search_missing_outer_disciple"
+msgstr "Tìm kiếm đệ tử ngoại môn mất tích"
+
+msgid "sect_task_title_sect_task_repair_field_barrier"
+msgstr "Sửa chữa trận bảo hộ linh điền"
+
+msgid "sect_task_title_sect_task_assist_apprentice_trial"
+msgstr "Hỗ trợ khảo hạch thu đồ"
+
+msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
+msgstr "Tuần kiểm các nút đại trận hộ sơn"
+
+msgid "sect_task_title_sect_task_guard_seclusion_cave"
+msgstr "Canh giữ khu ngoại vi động phủ bế quan"
+
+msgid "sect_task_title_sect_task_track_infiltrator"
+msgstr "Truy tìm mật thám xâm nhập tông môn"
+
+msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
+msgstr "Điều tra dị thường dao động linh mạch"
+
+msgid "sect_task_title_sect_task_escort_secret_treasury"
+msgstr "Hộ tống bảo tài bí khố"
+
+msgid "sect_task_title_sect_task_suppress_earthfire"
+msgstr "Trấn áp địa hỏa rò rỉ"
+
+msgid "sect_task_title_sect_task_investigate_forbidden_art"
+msgstr "Điều tra vụ cất giấu cấm thuật"
+
+msgid "sect_task_title_sect_task_guard_forbidden_area"
+msgstr "Trấn giữ lối vào cấm địa"
+
+msgid "sect_task_title_sect_task_oversee_grand_array_core"
+msgstr "Tọa trấn trung khu đại trận hộ tông"
+
+msgid "sect_task_title_sect_task_review_treasury_irregularities"
+msgstr "Mật tra điều phối nội khố bất thường"
+
+msgid "sect_task_title_sect_task_secure_sect_ceremony"
+msgstr "Giám sát an ninh đại điển tông môn"
+
+msgid "sect_task_title_sect_task_trial_major_rule_case"
+msgstr "Xét xử trọng án môn quy"
+
+msgid "sect_task_title_sect_task_screen_core_promotion"
+msgstr "Thẩm tra thử luyện thăng cấp đệ tử nòng cốt"
+
+msgid "sect_task_title_sect_task_coordinate_border_defense"
+msgstr "Điều phối phòng vụ biên cảnh"
+
+msgid "sect_task_title_sect_task_investigate_internal_traitor"
+msgstr "Điều tra nghi án nội gián thông địch"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Ám Sát"

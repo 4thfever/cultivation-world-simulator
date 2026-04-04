@@ -115,6 +115,7 @@ const presets = computed(() => [
     model_name: 'qwen2.5:7b',
     fast_model_name: 'qwen2.5:7b',
     api_format: 'openai',
+    badge: 'local',
     isLocal: true
   }
 ])
@@ -487,6 +488,12 @@ onMounted(() => {
   background: #2ecc71;
   color: #fff;
   border: 1px solid #27ae60;
+}
+
+.preset-btn .badge.local {
+  background: #3498db;
+  color: #fff;
+  border: 1px solid #2980b9;
 }
 
 .preset-btn:hover {

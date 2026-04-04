@@ -85,12 +85,13 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama（ローカル）",
+    "ollama": "Ollama",
     "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "推奨",
-    "free": "安価"
+    "free": "安価",
+    "local": "ローカル"
   },
   "help_links": {
     "openai": "OpenAI Platform",

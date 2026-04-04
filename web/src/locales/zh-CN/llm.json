@@ -85,12 +85,13 @@
     "gemini": "Gemini",
     "groq": "Groq",
     "cerebras": "Cerebras",
-    "ollama": "Ollama (本地)",
+    "ollama": "Ollama",
     "anthropic": "Anthropic"
   },
   "badges": {
     "recommended": "推荐",
-    "free": "便宜"
+    "free": "便宜",
+    "local": "本地"
   },
   "help_links": {
     "openai": "OpenAI Platform",

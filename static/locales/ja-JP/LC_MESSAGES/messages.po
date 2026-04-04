@@ -228,6 +228,99 @@ msgstr "夜間異変の調査"
 msgid "sect_task_title_sect_task_host_law_hall"
 msgstr "法堂秩序の統率"
 
+msgid "sect_task_title_sect_task_clean_training_grounds"
+msgstr "演武場の禁制残痕清掃"
+
+msgid "sect_task_title_sect_task_watch_reception_platform"
+msgstr "接引台警備"
+
+msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
+msgstr "低階蔵書整理"
+
+msgid "sect_task_title_sect_task_count_outer_supplies"
+msgstr "外門物資点検"
+
+msgid "sect_task_title_sect_task_maintain_irrigation_channels"
+msgstr "霊田水路養護"
+
+msgid "sect_task_title_sect_task_feed_spirit_beasts"
+msgstr "低階霊獣飼育"
+
+msgid "sect_task_title_sect_task_register_new_disciples"
+msgstr "新弟子入門登録補助"
+
+msgid "sect_task_title_sect_task_search_lost_tokens"
+msgstr "遺失令牌の捜索"
+
+msgid "sect_task_title_sect_task_patrol_restriction_barrier"
+msgstr "山門禁制巡察"
+
+msgid "sect_task_title_sect_task_guard_pill_hall"
+msgstr "丹房重地守衛"
+
+msgid "sect_task_title_sect_task_escort_message_jade"
+msgstr "伝訊玉簡の護送"
+
+msgid "sect_task_title_sect_task_mediate_disciple_dispute"
+msgstr "同門争議の調停"
+
+msgid "sect_task_title_sect_task_inspect_market_order"
+msgstr "附属坊市秩序の査察"
+
+msgid "sect_task_title_sect_task_search_missing_outer_disciple"
+msgstr "失踪外門弟子の捜索"
+
+msgid "sect_task_title_sect_task_repair_field_barrier"
+msgstr "霊田防護陣の修補"
+
+msgid "sect_task_title_sect_task_assist_apprentice_trial"
+msgstr "収徒考核補佐"
+
+msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
+msgstr "護山大陣節点巡検"
+
+msgid "sect_task_title_sect_task_guard_seclusion_cave"
+msgstr "閉関洞府外縁守衛"
+
+msgid "sect_task_title_sect_task_track_infiltrator"
+msgstr "潜入細作の追跡"
+
+msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
+msgstr "霊脈異常波動の調査"
+
+msgid "sect_task_title_sect_task_escort_secret_treasury"
+msgstr "秘庫宝材の護送"
+
+msgid "sect_task_title_sect_task_suppress_earthfire"
+msgstr "地火流出の鎮圧"
+
+msgid "sect_task_title_sect_task_investigate_forbidden_art"
+msgstr "禁術私蔵事件の査察"
+
+msgid "sect_task_title_sect_task_guard_forbidden_area"
+msgstr "禁地入口の鎮守"
+
+msgid "sect_task_title_sect_task_oversee_grand_array_core"
+msgstr "護宗大陣中枢の坐鎮"
+
+msgid "sect_task_title_sect_task_review_treasury_irregularities"
+msgstr "内庫調撥異常の秘査"
+
+msgid "sect_task_title_sect_task_secure_sect_ceremony"
+msgstr "宗門祭典警備の監理"
+
+msgid "sect_task_title_sect_task_trial_major_rule_case"
+msgstr "重大門規事件の審理"
+
+msgid "sect_task_title_sect_task_screen_core_promotion"
+msgstr "核心弟子昇格試練の審査"
+
+msgid "sect_task_title_sect_task_coordinate_border_defense"
+msgstr "辺境防務の統括"
+
+msgid "sect_task_title_sect_task_investigate_internal_traitor"
+msgstr "内通者疑惑の調査"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "暗殺"

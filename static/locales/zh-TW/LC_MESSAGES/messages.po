@@ -227,6 +227,99 @@ msgstr "調查夜間異動"
 msgid "sect_task_title_sect_task_host_law_hall"
 msgstr "主持法堂秩序"
 
+msgid "sect_task_title_sect_task_clean_training_grounds"
+msgstr "清掃演武場禁制殘痕"
+
+msgid "sect_task_title_sect_task_watch_reception_platform"
+msgstr "看守接引台"
+
+msgid "sect_task_title_sect_task_sort_low_tier_scrolls"
+msgstr "整理低階藏書"
+
+msgid "sect_task_title_sect_task_count_outer_supplies"
+msgstr "清點外門物資"
+
+msgid "sect_task_title_sect_task_maintain_irrigation_channels"
+msgstr "養護靈田水渠"
+
+msgid "sect_task_title_sect_task_feed_spirit_beasts"
+msgstr "餵養低階靈獸"
+
+msgid "sect_task_title_sect_task_register_new_disciples"
+msgstr "協助新弟子入門登記"
+
+msgid "sect_task_title_sect_task_search_lost_tokens"
+msgstr "查找遺失令牌"
+
+msgid "sect_task_title_sect_task_patrol_restriction_barrier"
+msgstr "巡查山門禁制"
+
+msgid "sect_task_title_sect_task_guard_pill_hall"
+msgstr "守衛丹房重地"
+
+msgid "sect_task_title_sect_task_escort_message_jade"
+msgstr "護送傳訊玉簡"
+
+msgid "sect_task_title_sect_task_mediate_disciple_dispute"
+msgstr "調解同門爭執"
+
+msgid "sect_task_title_sect_task_inspect_market_order"
+msgstr "查驗附屬坊市秩序"
+
+msgid "sect_task_title_sect_task_search_missing_outer_disciple"
+msgstr "搜尋失聯外門弟子"
+
+msgid "sect_task_title_sect_task_repair_field_barrier"
+msgstr "修補靈田防護陣"
+
+msgid "sect_task_title_sect_task_assist_apprentice_trial"
+msgstr "協助長老收徒考核"
+
+msgid "sect_task_title_sect_task_inspect_grand_array_nodes"
+msgstr "巡檢護山大陣節點"
+
+msgid "sect_task_title_sect_task_guard_seclusion_cave"
+msgstr "守衛閉關洞府外圍"
+
+msgid "sect_task_title_sect_task_track_infiltrator"
+msgstr "追查潛入宗門細作"
+
+msgid "sect_task_title_sect_task_investigate_leyline_fluctuation"
+msgstr "調查靈脈波動異常"
+
+msgid "sect_task_title_sect_task_escort_secret_treasury"
+msgstr "護送秘庫寶材轉移"
+
+msgid "sect_task_title_sect_task_suppress_earthfire"
+msgstr "鎮壓地火外洩"
+
+msgid "sect_task_title_sect_task_investigate_forbidden_art"
+msgstr "查辦私藏禁術事件"
+
+msgid "sect_task_title_sect_task_guard_forbidden_area"
+msgstr "鎮守禁地入口"
+
+msgid "sect_task_title_sect_task_oversee_grand_array_core"
+msgstr "坐鎮護宗大陣中樞"
+
+msgid "sect_task_title_sect_task_review_treasury_irregularities"
+msgstr "秘查內庫調撥異常"
+
+msgid "sect_task_title_sect_task_secure_sect_ceremony"
+msgstr "監理宗門祭典戒備"
+
+msgid "sect_task_title_sect_task_trial_major_rule_case"
+msgstr "審理重大門規案件"
+
+msgid "sect_task_title_sect_task_screen_core_promotion"
+msgstr "審核核心弟子晉升試煉"
+
+msgid "sect_task_title_sect_task_coordinate_border_defense"
+msgstr "統籌邊境防務"
+
+msgid "sect_task_title_sect_task_investigate_internal_traitor"
+msgstr "查辦內鬼通敵嫌疑"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "暗殺"
