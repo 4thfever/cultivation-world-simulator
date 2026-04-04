@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h, defineComponent, nextTick } from 'vue'
+import { h, defineComponent, nextTick, ref } from 'vue'
 import { setActivePinia, createPinia } from 'pinia'
 
 // Use vi.hoisted to define mock functions that will be used by vi.mock.
@@ -29,6 +29,7 @@ const mockFetch = vi.fn()
 // Mock vue-i18n.
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
+    locale: ref('zh-CN'),
     t: (key: string, params?: any) => {
       if (params) return `${key}:${JSON.stringify(params)}`
       return key
