@@ -3,6 +3,8 @@ import { ref, onMounted, computed } from 'vue'
 import { NButton, NSpace } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useBgm } from '../composables/useBgm'
+import { withBasePublicPath } from '@/utils/assetUrls'
+import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 
 // 定义事件
 const emit = defineEmits<{
@@ -11,6 +13,8 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const videoRef = ref<HTMLVideoElement | null>(null)
+const splashPosterUrl = withBasePublicPath('assets/splash.png')
+const splashVideoUrl = withBasePublicPath('assets/splash.mp4')
 
 // 视频播放控制逻辑
 onMounted(() => {
@@ -57,15 +61,16 @@ function handleClick(key: string) {
 
 <template>
   <div class="splash-container">
+    <LocaleSwitcher variant="splash" />
     <video
       ref="videoRef"
       class="splash-video"
       autoplay
       muted
       playsinline
-      :poster="'/assets/splash.png'"
+      :poster="splashPosterUrl"
     >
-      <source :src="'/assets/splash.mp4'" type="video/mp4" />
+      <source :src="splashVideoUrl" type="video/mp4" />
     </video>
     <!-- 左侧模糊层 -->
     <div class="glass-panel">

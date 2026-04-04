@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { NButton, NSelect, NIcon, NSwitch, NSlider } from 'naive-ui'
+import { NIcon, NSelect, NSwitch, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { localeRegistry } from '../locales/registry'
-import { useSettingStore } from '../stores/setting'
 import SaveLoadPanel from './game/panels/system/SaveLoadPanel.vue'
 import CreateAvatarPanel from './game/panels/system/CreateAvatarPanel.vue'
 import DeleteAvatarPanel from './game/panels/system/DeleteAvatarPanel.vue'
 import LLMConfigPanel from './game/panels/system/LLMConfigPanel.vue'
 import GameStartPanel from './game/panels/system/GameStartPanel.vue'
+import { localeRegistry } from '../locales/registry'
+import { useSettingStore } from '../stores/setting'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()

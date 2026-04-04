@@ -15,6 +15,8 @@
   "bgm_volume": "Music",
   "sfx_volume": "Sound FX",
   "language": "Language",
+  "language_switcher_button": "Language",
+  "language_switcher_hint": "Choose your display language",
   "simplified_chinese": "Simplified Chinese",
   "traditional_chinese": "Traditional Chinese",
   "chinese": "Simplified Chinese",

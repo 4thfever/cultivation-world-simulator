@@ -15,6 +15,8 @@
   "bgm_volume": "Nhạc Nền",
   "sfx_volume": "Hiệu Ứng Âm Thanh",
   "language": "Ngôn Ngữ / Language",
+  "language_switcher_button": "Language",
+  "language_switcher_hint": "Chọn ngôn ngữ hiển thị",
   "simplified_chinese": "Tiếng Trung Giản Thể",
   "traditional_chinese": "Tiếng Trung Phồn Thể",
   "chinese": "Tiếng Trung Giản Thể",

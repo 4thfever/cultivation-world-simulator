@@ -20,6 +20,9 @@ describe('SystemMenu', () => {
         delete_character: 'Delete Character',
         llm_settings: 'LLM Settings',
         settings: 'Settings',
+        language: 'Language',
+        language_switcher_button: 'Language',
+        language_switcher_hint: 'Choose your display language',
         about: 'About',
         other: 'Other',
         simplified_chinese: 'Simplified Chinese',
@@ -98,6 +101,7 @@ describe('SystemMenu', () => {
     })
 
     expect(wrapper.find('.system-menu-overlay').exists()).toBe(true)
+    expect(wrapper.text()).toContain('Language')
     
     // Test clicking a tab
     const tabs = wrapper.findAll('.menu-tabs button')
