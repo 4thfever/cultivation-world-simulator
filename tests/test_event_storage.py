@@ -214,6 +214,36 @@ class TestEventStorageQueries:
         assert len(events) == 1
         assert set(events[0].related_avatars) == {"a1", "a2", "a3"}
 
+    def test_get_events_batches_related_avatar_and_sect_lookups_per_page(self, event_storage):
+        """Test get_events batches related avatar/sect lookups instead of querying per row."""
+        for idx in range(3):
+            event = make_event(100, idx + 1, f"Event {idx}", [f"a{idx}", f"b{idx}"])
+            event.related_sects = [idx + 1, idx + 10]
+            event_storage.add_event(event)
+
+        related_query_counts = {
+            "event_avatars": 0,
+            "event_sects": 0,
+        }
+
+        def tracer(sql: str) -> None:
+            normalized = " ".join(sql.split()).lower()
+            if " from event_avatars " in normalized:
+                related_query_counts["event_avatars"] += 1
+            if " from event_sects " in normalized:
+                related_query_counts["event_sects"] += 1
+
+        event_storage._conn.set_trace_callback(tracer)
+        try:
+            events, _ = event_storage.get_events(limit=3)
+        finally:
+            event_storage._conn.set_trace_callback(None)
+
+        assert len(events) == 3
+        assert related_query_counts["event_avatars"] == 1
+        assert related_query_counts["event_sects"] == 1
+        assert set(events[0].related_sects) == {3, 12}
+
 
 class TestEventStoragePagination:
     """EventStorage pagination tests."""
@@ -338,6 +368,36 @@ class TestEventStorageHelperMethods:
         assert "Story" not in contents
         assert "Minor 1" not in contents
 
+    def test_get_major_events_by_avatar_batches_related_avatar_and_sect_lookups(self, event_storage):
+        """Test get_major_events_by_avatar batches related avatar/sect lookups for the page."""
+        for idx in range(3):
+            event = make_event(100, idx + 1, f"Major {idx}", [f"a{idx}", "a1"], is_major=True)
+            event.related_sects = [idx + 1, idx + 10]
+            event_storage.add_event(event)
+
+        related_query_counts = {
+            "event_avatars": 0,
+            "event_sects": 0,
+        }
+
+        def tracer(sql: str) -> None:
+            normalized = " ".join(sql.split()).lower()
+            if " from event_avatars " in normalized:
+                related_query_counts["event_avatars"] += 1
+            if " from event_sects " in normalized:
+                related_query_counts["event_sects"] += 1
+
+        event_storage._conn.set_trace_callback(tracer)
+        try:
+            events = event_storage.get_major_events_by_avatar("a1", limit=3)
+        finally:
+            event_storage._conn.set_trace_callback(None)
+
+        assert len(events) == 3
+        assert related_query_counts["event_avatars"] == 1
+        assert related_query_counts["event_sects"] == 1
+        assert set(events[-1].related_sects) == {3, 12}
+
     def test_get_minor_events_by_avatar(self, event_storage):
         """Test getting minor events (including stories) for an avatar."""
         event_storage.add_event(make_event(100, 1, "Minor 1", ["a1"], is_major=False))
@@ -365,6 +425,53 @@ class TestEventStorageHelperMethods:
         assert events[0].content == "First"
         assert events[1].content == "Second"
         assert events[2].content == "Third"
+
+
+class TestEventStorageQueryEfficiency:
+    """Tests for query counts in SQLite-backed read paths."""
+
+    def test_get_events_uses_batched_association_queries(self, event_storage):
+        """get_events should not issue per-row association lookups."""
+        for i in range(4):
+            event = make_event(100, i + 1, f"Event {i}", [f"a{i}", f"b{i}"])
+            event.related_sects = [1, 2]
+            event_storage.add_event(event)
+
+        sql_statements: list[str] = []
+
+        def tracer(sql: str) -> None:
+            sql_statements.append(sql)
+
+        event_storage._conn.set_trace_callback(tracer)
+        try:
+            events, cursor = event_storage.get_events(limit=3)
+        finally:
+            event_storage._conn.set_trace_callback(None)
+
+        assert len(events) == 3
+        assert cursor is not None
+        assert len(sql_statements) <= 3
+
+    def test_get_major_events_by_avatar_uses_batched_association_queries(self, event_storage):
+        """Major-event queries should not reload associations row by row."""
+        for i in range(3):
+            event = make_event(100, i + 1, f"Major {i}", ["a1", f"other{i}"], is_major=True)
+            event.related_sects = [1]
+            event_storage.add_event(event)
+
+        sql_statements: list[str] = []
+
+        def tracer(sql: str) -> None:
+            sql_statements.append(sql)
+
+        event_storage._conn.set_trace_callback(tracer)
+        try:
+            events = event_storage.get_major_events_by_avatar("a1")
+        finally:
+            event_storage._conn.set_trace_callback(None)
+
+        assert len(events) == 3
+        assert len(sql_statements) <= 3
 
 
 class TestEventStorageCleanup:
