@@ -15,23 +15,22 @@ msgstr ""
 # Hidden Domain
 msgid "hidden_domain_story_prompt"
 msgstr ""
-"Describe the exploration of the hidden domain. Focus on individual "
-"experiences or interactions between multiple people (such as encounters, "
-"cooperation, competition, or even attacks). Cover dangers encountered, "
-"opportunities gained, or the disappointment of returning empty-handed, "
-"creating a mysterious, tense, or unpredictable atmosphere."
+"秘境探索の物語を描写せよ。個々の体験や複数人物のやり取り"
+"（遭遇、協力、競争、さらには攻撃まで）に焦点を当てること。"
+"遭遇した危険、得た好機、あるいは手ぶらで帰る失意を織り込み、"
+"神秘的で緊張感があり、先の読めない空気を生み出すこと。"
 
 msgid "perished"
-msgstr "perished"
+msgstr "命を落とした"
 
 msgid "{names} returned from {domain} empty-handed."
-msgstr "{names} returned from {domain} empty-handed."
+msgstr "{names} は {domain} から手ぶらで戻った。"
 
 msgid "{name} found a treasure {loot} in {domain}!"
-msgstr "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} は {domain} で宝物 {loot} を見つけた。"
 
 msgid "{name} perished in the hidden domain {domain}."
-msgstr "{name} perished in the hidden domain {domain}."
+msgstr "{name} は秘境 {domain} で命を落とした。"
 
 msgid "{}: {}"
 msgstr "{}: {}"

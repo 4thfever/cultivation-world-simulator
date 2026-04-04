@@ -78,3 +78,78 @@ msgstr "現在、天地異象は存在しない。"
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "天地異象は存在するが、その説明が欠けている。"
+
+msgid "New disciples must abide by the sect rules."
+msgstr "入門後は宗門の戒律を守らねばならない。"
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} があなたを招いている。"
+
+msgid "Sect overview: {sect_info}"
+msgstr "宗門概要: {sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "門規: {rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "受け入れれば、この宗門の弟子となる。"
+
+msgid "Accept invitation"
+msgstr "招きを受ける"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "{sect_name} に入り、門下の弟子となる。"
+
+msgid "Decline invitation"
+msgstr "招きを断る"
+
+msgid "Remain an independent cultivator."
+msgstr "散修のままでいる。"
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} は {sect_name} の招きを受け入れた。"
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} は {sect_name} の招きを断った。"
+
+msgid "{sect_name} declared war on {target_name}; from this point on, the two sects are at war."
+msgstr "{sect_name} は {target_name} に宣戦し、両宗はここに戦火を交えることとなった。"
+
+msgid "{sect_name} made peace with {target_name}, and the state of war between them came to an end."
+msgstr "{sect_name} は {target_name} と講和し、両宗の戦は終わりを迎えた。"
+
+msgid "{sect_name} spent {cost} spirit stones to recruit {avatar_name}; {avatar_name} officially became a disciple of the sect."
+msgstr "{sect_name} は {cost} 霊石を投じて {avatar_name} を迎え入れ、{avatar_name} は正式に門下の弟子となった。"
+
+msgid "{sect_name} judged that {avatar_name} had gravely violated the sect rules and expelled them from the sect."
+msgstr "{sect_name} は {avatar_name} が門規に重大な違反を犯したと断じ、宗門から追放した。"
+
+msgid "{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr "{sect_name} は {avatar_name} に功法《{technique_name}》を授けた。"
+
+msgid "{sect_name} granted {amount} spirit stones to {avatar_name} in support of their cultivation."
+msgstr "{sect_name} は {avatar_name} に {amount} 霊石を与え、その修行を支えた。"
+
+msgid "recruited {count} rogue cultivators"
+msgstr "散修を {count} 名招いた"
+
+msgid "declared war {count} times"
+msgstr "{count} 度宣戦した"
+
+msgid "made peace {count} times"
+msgstr "{count} 度講和した"
+
+msgid "expelled {count} members"
+msgstr "門人を {count} 名追放した"
+
+msgid "bestowed techniques {count} times"
+msgstr "功法授与を {count} 度行った"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "霊石支援を {count} 度行った"
+
+msgid "{sect_name} focused this round of sect decisions on consolidation and observation, with no major adjustments made."
+msgstr "{sect_name} は今期の宗門判断を整固と静観に充て、大きな変更は行わなかった。"
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "{sect_name} の今期の宗門判断:"

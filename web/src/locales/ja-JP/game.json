@@ -14,10 +14,10 @@
       "label": "[秘境]",
       "title": "秘境一覧",
       "empty": "秘境データがありません",
-      "danger": "危険度",
-      "drop": "奇遇",
-      "status_open": "開放中",
-      "status_closed": "未開放"
+      "danger": "危険",
+      "drop": "機縁",
+      "status_open": "出現中",
+      "status_closed": "未出現"
     },
     "world_info": {
       "label": "[世界情報]",

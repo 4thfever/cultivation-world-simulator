@@ -45,9 +45,10 @@ def _load_sect_task_definitions() -> list[SectTaskDefinition]:
     definitions: list[SectTaskDefinition] = []
     for row in rows:
         task_id = get_str(row, "id")
-        title = get_str(row, "title")
-        if not task_id or not title:
+        raw_title = get_str(row, "title")
+        if not task_id or not raw_title:
             continue
+        title = t(f"sect_task_title_{task_id}", default=raw_title)
 
         allowed_realms: list[Realm] = []
         for raw_realm in get_list_str(row, "allowed_realms"):

@@ -191,6 +191,42 @@ msgstr "无名路人"
 msgid "Current world celestial phenomenon: {name}"
 msgstr "当前世界天象：{name}"
 
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "巡逻山门"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "值守库房"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "看护药圃"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "协助执事"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "处理灵兽骚动"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "护送内务物资"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "接应归山弟子"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "护持阵眼"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "查验禁制"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "镇守藏经阁"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "调查夜间异动"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "主持法堂秩序"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "暗杀"
@@ -3022,6 +3058,94 @@ msgstr "当前无天地异象。"
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "当前有天地异象，但描述缺失。"
+
+msgid "New disciples must abide by the sect rules."
+msgstr "入门后需守宗门戒律。"
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} 向你发出招徕。"
+
+msgid "Sect overview: {sect_info}"
+msgstr "宗门简介：{sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "门规：{rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "若你答应加入，将成为该宗门弟子。"
+
+msgid "Accept invitation"
+msgstr "接受招徕"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "加入 {sect_name}，成为门下弟子。"
+
+msgid "Decline invitation"
+msgstr "拒绝招徕"
+
+msgid "Remain an independent cultivator."
+msgstr "继续保持散修身份。"
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} 答应了 {sect_name} 的招徕。"
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} 拒绝了 {sect_name} 的招徕。"
+
+msgid ""
+"{sect_name} declared war on {target_name}; from this point on, the two sects"
+" are at war."
+msgstr "{sect_name} 向 {target_name} 宣战，两宗自此进入战争状态。"
+
+msgid ""
+"{sect_name} made peace with {target_name}, and the state of war between them"
+" came to an end."
+msgstr "{sect_name} 与 {target_name} 议和，双方结束战争状态。"
+
+msgid ""
+"{sect_name} spent {cost} spirit stones to recruit {avatar_name}; "
+"{avatar_name} officially became a disciple of the sect."
+msgstr "{sect_name} 花费 {cost} 灵石招徕 {avatar_name} 入门，{avatar_name} 正式成为本宗弟子。"
+
+msgid ""
+"{sect_name} judged that {avatar_name} had gravely violated the sect rules "
+"and expelled them from the sect."
+msgstr "{sect_name} 认定 {avatar_name} 严重违背门规，将其逐出宗门。"
+
+msgid ""
+"{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr "{sect_name} 赐予 {avatar_name} 功法《{technique_name}》。"
+
+msgid ""
+"{sect_name} granted {amount} spirit stones to {avatar_name} in support of "
+"their cultivation."
+msgstr "{sect_name} 资助 {avatar_name} {amount} 灵石，以助其修行。"
+
+msgid "recruited {count} rogue cultivators"
+msgstr "招徕散修 {count} 人"
+
+msgid "declared war {count} times"
+msgstr "宣战 {count} 次"
+
+msgid "made peace {count} times"
+msgstr "议和 {count} 次"
+
+msgid "expelled {count} members"
+msgstr "驱逐门人 {count} 人"
+
+msgid "bestowed techniques {count} times"
+msgstr "赐下功法 {count} 次"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "资助灵石 {count} 次"
+
+msgid ""
+"{sect_name} focused this round of sect decisions on consolidation and "
+"observation, with no major adjustments made."
+msgstr "{sect_name} 本轮宗门决策以观望整固为主，未作重大调整。"
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "{sect_name} 本轮宗门决策："
 
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"

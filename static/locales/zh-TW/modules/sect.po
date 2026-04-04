@@ -74,3 +74,78 @@ msgstr "當前無天地異象。"
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "當前有天地異象，但描述缺失。"
+
+msgid "New disciples must abide by the sect rules."
+msgstr "入門後需守宗門戒律。"
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} 向你發出招徠。"
+
+msgid "Sect overview: {sect_info}"
+msgstr "宗門簡介：{sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "門規：{rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "若你答應加入，將成為該宗門弟子。"
+
+msgid "Accept invitation"
+msgstr "接受招徠"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "加入 {sect_name}，成為門下弟子。"
+
+msgid "Decline invitation"
+msgstr "拒絕招徠"
+
+msgid "Remain an independent cultivator."
+msgstr "繼續保持散修身分。"
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} 答應了 {sect_name} 的招徠。"
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} 拒絕了 {sect_name} 的招徠。"
+
+msgid "{sect_name} declared war on {target_name}; from this point on, the two sects are at war."
+msgstr "{sect_name} 向 {target_name} 宣戰，兩宗自此進入戰爭狀態。"
+
+msgid "{sect_name} made peace with {target_name}, and the state of war between them came to an end."
+msgstr "{sect_name} 與 {target_name} 議和，雙方結束戰爭狀態。"
+
+msgid "{sect_name} spent {cost} spirit stones to recruit {avatar_name}; {avatar_name} officially became a disciple of the sect."
+msgstr "{sect_name} 花費 {cost} 靈石招徠 {avatar_name} 入門，{avatar_name} 正式成為本宗弟子。"
+
+msgid "{sect_name} judged that {avatar_name} had gravely violated the sect rules and expelled them from the sect."
+msgstr "{sect_name} 認定 {avatar_name} 嚴重違背門規，將其逐出宗門。"
+
+msgid "{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr "{sect_name} 賜予 {avatar_name} 功法《{technique_name}》。"
+
+msgid "{sect_name} granted {amount} spirit stones to {avatar_name} in support of their cultivation."
+msgstr "{sect_name} 資助 {avatar_name} {amount} 靈石，以助其修行。"
+
+msgid "recruited {count} rogue cultivators"
+msgstr "招徠散修 {count} 人"
+
+msgid "declared war {count} times"
+msgstr "宣戰 {count} 次"
+
+msgid "made peace {count} times"
+msgstr "議和 {count} 次"
+
+msgid "expelled {count} members"
+msgstr "驅逐門人 {count} 人"
+
+msgid "bestowed techniques {count} times"
+msgstr "賜下功法 {count} 次"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "資助靈石 {count} 次"
+
+msgid "{sect_name} focused this round of sect decisions on consolidation and observation, with no major adjustments made."
+msgstr "{sect_name} 本輪宗門決策以觀望整固為主，未作重大調整。"
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "{sect_name} 本輪宗門決策："

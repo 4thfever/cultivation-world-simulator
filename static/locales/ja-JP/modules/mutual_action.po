@@ -116,7 +116,7 @@ msgstr ""
 "洞府を占拠または奪取する。洞府の主と戦闘になる場合がある"
 
 msgid "occupy_requirements"
-msgstr "Target within interaction range; cannot execute consecutively"
+msgstr "対象が交流範囲内におり、連続実行は不可"
 
 msgid "occupy_story_prompt"
 msgstr ""

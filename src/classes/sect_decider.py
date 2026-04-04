@@ -8,6 +8,7 @@ from src.classes.alignment import Alignment
 from src.classes.event import Event
 from src.classes.sect_ranks import get_rank_from_realm
 from src.config import get_settings_service
+from src.i18n import t
 from src.i18n.template_resolver import resolve_locale_template_path
 from src.run.log import get_logger
 from src.classes.technique import (
@@ -275,7 +276,11 @@ class SectDecider:
             result.events.append(
                 Event(
                     month_stamp=world.month_stamp,
-                    content=f"{sect.name} 向 {target['other_sect_name']} 宣战，两宗自此进入战争状态。",
+                    content=t(
+                        "{sect_name} declared war on {target_name}; from this point on, the two sects are at war.",
+                        sect_name=sect.name,
+                        target_name=target["other_sect_name"],
+                    ),
                     related_sects=[int(sect.id), int(target_id)],
                     is_major=True,
                 )
@@ -296,7 +301,11 @@ class SectDecider:
             result.events.append(
                 Event(
                     month_stamp=world.month_stamp,
-                    content=f"{sect.name} 与 {target['other_sect_name']} 议和，双方结束战争状态。",
+                    content=t(
+                        "{sect_name} made peace with {target_name}, and the state of war between them came to an end.",
+                        sect_name=sect.name,
+                        target_name=target["other_sect_name"],
+                    ),
                     related_sects=[int(sect.id), int(target_id)],
                     is_major=True,
                 )
@@ -356,7 +365,12 @@ class SectDecider:
             result.events.append(
                 Event(
                     month_stamp=world.month_stamp,
-                    content=f"{sect.name} 花费 {recruit_cost} 灵石招徕 {avatar.name} 入门，{avatar.name} 正式成为本宗弟子。",
+                    content=t(
+                        "{sect_name} spent {cost} spirit stones to recruit {avatar_name}; {avatar_name} officially became a disciple of the sect.",
+                        sect_name=sect.name,
+                        cost=recruit_cost,
+                        avatar_name=avatar.name,
+                    ),
                     related_avatars=[avatar.id],
                     related_sects=[int(sect.id)],
                     is_major=True,
@@ -400,7 +414,11 @@ class SectDecider:
                 result.events.append(
                     Event(
                         month_stamp=world.month_stamp,
-                        content=f"{sect.name} 认定 {avatar.name} 严重违背门规，将其逐出宗门。",
+                        content=t(
+                            "{sect_name} judged that {avatar_name} had gravely violated the sect rules and expelled them from the sect.",
+                            sect_name=sect.name,
+                            avatar_name=avatar.name,
+                        ),
                         related_avatars=[avatar.id],
                         related_sects=[int(sect.id)],
                         is_major=True,
@@ -417,7 +435,12 @@ class SectDecider:
                 result.events.append(
                     Event(
                         month_stamp=world.month_stamp,
-                        content=f"{sect.name} 赐予 {avatar.name} 功法《{reward_technique.name}》。",
+                        content=t(
+                            "{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}.",
+                            sect_name=sect.name,
+                            technique_name=reward_technique.name,
+                            avatar_name=avatar.name,
+                        ),
                         related_avatars=[avatar.id],
                         related_sects=[int(sect.id)],
                         is_major=True,
@@ -438,7 +461,12 @@ class SectDecider:
             result.events.append(
                 Event(
                     month_stamp=world.month_stamp,
-                    content=f"{sect.name} 资助 {avatar.name} {support_amount} 灵石，以助其修行。",
+                    content=t(
+                        "{sect_name} granted {amount} spirit stones to {avatar_name} in support of their cultivation.",
+                        sect_name=sect.name,
+                        amount=support_amount,
+                        avatar_name=avatar.name,
+                    ),
                     related_avatars=[avatar.id],
                     related_sects=[int(sect.id)],
                     is_major=False,
@@ -479,17 +507,20 @@ class SectDecider:
     def _build_summary(cls, sect: "Sect", result: SectDecisionResult) -> str:
         parts = []
         if result.recruitment_count:
-            parts.append(f"招徕散修 {result.recruitment_count} 人")
+            parts.append(t("recruited {count} rogue cultivators", count=result.recruitment_count))
         if result.war_declared_count:
-            parts.append(f"宣战 {result.war_declared_count} 次")
+            parts.append(t("declared war {count} times", count=result.war_declared_count))
         if result.peace_made_count:
-            parts.append(f"议和 {result.peace_made_count} 次")
+            parts.append(t("made peace {count} times", count=result.peace_made_count))
         if result.expulsion_count:
-            parts.append(f"驱逐门人 {result.expulsion_count} 人")
+            parts.append(t("expelled {count} members", count=result.expulsion_count))
         if result.technique_reward_count:
-            parts.append(f"赐下功法 {result.technique_reward_count} 次")
+            parts.append(t("bestowed techniques {count} times", count=result.technique_reward_count))
         if result.support_count:
-            parts.append(f"资助灵石 {result.support_count} 次")
+            parts.append(t("granted spirit-stone support {count} times", count=result.support_count))
         if not parts:
-            return f"{sect.name} 本轮宗门决策以观望整固为主，未作重大调整。"
-        return f"{sect.name} 本轮宗门决策：" + "，".join(parts) + "。"
+            return t(
+                "{sect_name} focused this round of sect decisions on consolidation and observation, with no major adjustments made.",
+                sect_name=sect.name,
+            )
+        return t("{sect_name} this round of sect decisions:", sect_name=sect.name) + " " + "、".join(parts) + "。"

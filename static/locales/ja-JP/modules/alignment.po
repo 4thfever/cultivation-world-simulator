@@ -14,4 +14,4 @@ msgstr ""
 
 # Alignment
 msgid "righteous"
-msgstr "Righteous"
+msgstr "正道"

@@ -17,16 +17,16 @@ msgstr "土"
 
 # Elixir System - Elixirs
 msgid "elixir_type_breakthrough"
-msgstr "Breakthrough"
+msgstr "突破"
 
 msgid "elixir_type_burn_blood"
-msgstr "Burn Blood"
+msgstr "燃血"
 
 msgid "elixir_type_heal"
-msgstr "Heal"
+msgstr "療傷"
 
 msgid "elixir_type_lifespan"
-msgstr "Lifespan"
+msgstr "延寿"
 
 msgid "fire_essence"
 msgstr "火"

@@ -192,6 +192,42 @@ msgstr "名もなき通行人"
 msgid "Current world celestial phenomenon: {name}"
 msgstr "現在の天地異象: {name}"
 
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "山門巡回"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "庫房警備"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "薬圃看護"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "執事補佐"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "霊獣騒擾の鎮静"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "内務物資の護送"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "帰山弟子の出迎え"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "陣眼護持"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "禁制点検"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "蔵経閣守護"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "夜間異変の調査"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "法堂秩序の統率"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "暗殺"
@@ -627,7 +663,7 @@ msgstr "{avatar} は耕作を終え、{stones} 霊石を得た"
 
 # Alignment
 msgid "righteous"
-msgstr "Righteous"
+msgstr "正道"
 
 # Auxiliary System - Auxiliaries
 msgid " Devoured Souls: {count}"
@@ -1209,30 +1245,30 @@ msgid "[{condition}] {effects}"
 msgstr "[{condition}] {effects}"
 
 msgid "Died from severe injuries"
-msgstr "Died from severe injuries"
+msgstr "重傷により死亡"
 
 msgid "Died of old age"
-msgstr "Died of old age"
+msgstr "老衰で死亡"
 
 # Cultivation System - Realm
 # Realm Status
 msgid "Needs breakthrough"
-msgstr "Needs breakthrough"
+msgstr "突破が必要"
 
 msgid "No"
-msgstr "No"
+msgstr "不要"
 
 msgid "Not at bottleneck, no breakthrough needed"
-msgstr "Not at bottleneck, no breakthrough needed"
+msgstr "まだ瓶頸ではないため、突破は不要"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "必要"
 
 msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
-msgstr "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}（レベル {level}）。瓶頸: {status}"
 
 msgid "{realm}{stage}(Level {level}){status}"
-msgstr "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}（レベル {level}）{status}"
 
 msgid "custom_content.category.technique"
 msgstr "功法"
@@ -1588,16 +1624,16 @@ msgstr "土"
 
 # Elixir System - Elixirs
 msgid "elixir_type_breakthrough"
-msgstr "Breakthrough"
+msgstr "突破"
 
 msgid "elixir_type_burn_blood"
-msgstr "Burn Blood"
+msgstr "燃血"
 
 msgid "elixir_type_heal"
-msgstr "Heal"
+msgstr "療傷"
 
 msgid "elixir_type_lifespan"
-msgstr "Lifespan"
+msgstr "延寿"
 
 msgid "fire_essence"
 msgstr "火"
@@ -2027,35 +2063,31 @@ msgid ""
 "Name: {name}\n"
 "Description: {desc}"
 msgstr ""
-"Event: Hidden Domain Opening\n"
-"Name: {name}\n"
-"Description: {desc}"
+"イベント: 秘境開放\n"
+"名称: {name}\n"
+"説明: {desc}"
 
 msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
-msgstr "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "秘境 {name} が開放された。入場は {realm} に限られる。"
 
 msgid ""
 "Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
 "{entrants}"
-msgstr ""
-"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
-"{entrants}"
+msgstr "秘境 {name} が開放された。入場は {realm} に限られる。参加者: {entrants}"
 
 msgid ""
 "Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
 "entered."
-msgstr ""
-"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
-"entered."
+msgstr "秘境 {name} が開放された。入場は {realm} に限られる。誰も入らなかった。"
 
 msgid "Hidden Domains opened: {names}"
-msgstr "{names}"
+msgstr "開放された秘境: {names}"
 
 msgid "Perished in a Hidden Domain"
-msgstr "Perished in a Hidden Domain"
+msgstr "秘境で命を落とした"
 
 msgid "found a treasure"
-msgstr "found a treasure"
+msgstr "宝を見つけた"
 
 # Gender
 msgid "male"
@@ -2064,23 +2096,19 @@ msgstr "男"
 # Hidden Domain
 msgid "hidden_domain_story_prompt"
 msgstr ""
-"Describe the exploration of the hidden domain. Focus on individual "
-"experiences or interactions between multiple people (such as encounters, "
-"cooperation, competition, or even attacks). Cover dangers encountered, "
-"opportunities gained, or the disappointment of returning empty-handed, "
-"creating a mysterious, tense, or unpredictable atmosphere."
+"秘境探索の物語を描写せよ。個々の体験や複数人物のやり取り（遭遇、協力、競争、さらには攻撃まで）に焦点を当てること。遭遇した危険、得た好機、あるいは手ぶらで帰る失意を織り込み、神秘的で緊張感があり、先の読めない空気を生み出すこと。"
 
 msgid "perished"
-msgstr "perished"
+msgstr "命を落とした"
 
 msgid "{names} returned from {domain} empty-handed."
-msgstr "{names} returned from {domain} empty-handed."
+msgstr "{names} は {domain} から手ぶらで戻った。"
 
 msgid "{name} found a treasure {loot} in {domain}!"
-msgstr "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} は {domain} で宝物 {loot} を見つけた。"
 
 msgid "{name} perished in the hidden domain {domain}."
-msgstr "{name} perished in the hidden domain {domain}."
+msgstr "{name} は秘境 {domain} で命を落とした。"
 
 msgid "{}: {}"
 msgstr "{}: {}"
@@ -2462,7 +2490,7 @@ msgid "occupy_description"
 msgstr "洞府を占拠または奪取する。洞府の主と戦闘になる場合がある"
 
 msgid "occupy_requirements"
-msgstr "Target within interaction range; cannot execute consecutively"
+msgstr "対象が交流範囲内におり、連続実行は不可"
 
 msgid "occupy_story_prompt"
 msgstr "これは洞府をめぐる争いである。具体的な HP やダメージ値には触れないこと。"
@@ -3057,6 +3085,95 @@ msgstr "現在、天地異象は存在しない。"
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "天地異象は存在するが、その説明が欠けている。"
+
+msgid "New disciples must abide by the sect rules."
+msgstr "入門後は宗門の戒律を守らねばならない。"
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} があなたを招いている。"
+
+msgid "Sect overview: {sect_info}"
+msgstr "宗門概要: {sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "門規: {rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "受け入れれば、この宗門の弟子となる。"
+
+msgid "Accept invitation"
+msgstr "招きを受ける"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "{sect_name} に入り、門下の弟子となる。"
+
+msgid "Decline invitation"
+msgstr "招きを断る"
+
+msgid "Remain an independent cultivator."
+msgstr "散修のままでいる。"
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} は {sect_name} の招きを受け入れた。"
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} は {sect_name} の招きを断った。"
+
+msgid ""
+"{sect_name} declared war on {target_name}; from this point on, the two sects"
+" are at war."
+msgstr "{sect_name} は {target_name} に宣戦し、両宗はここに戦火を交えることとなった。"
+
+msgid ""
+"{sect_name} made peace with {target_name}, and the state of war between them"
+" came to an end."
+msgstr "{sect_name} は {target_name} と講和し、両宗の戦は終わりを迎えた。"
+
+msgid ""
+"{sect_name} spent {cost} spirit stones to recruit {avatar_name}; "
+"{avatar_name} officially became a disciple of the sect."
+msgstr ""
+"{sect_name} は {cost} 霊石を投じて {avatar_name} を迎え入れ、{avatar_name} は正式に門下の弟子となった。"
+
+msgid ""
+"{sect_name} judged that {avatar_name} had gravely violated the sect rules "
+"and expelled them from the sect."
+msgstr "{sect_name} は {avatar_name} が門規に重大な違反を犯したと断じ、宗門から追放した。"
+
+msgid ""
+"{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr "{sect_name} は {avatar_name} に功法《{technique_name}》を授けた。"
+
+msgid ""
+"{sect_name} granted {amount} spirit stones to {avatar_name} in support of "
+"their cultivation."
+msgstr "{sect_name} は {avatar_name} に {amount} 霊石を与え、その修行を支えた。"
+
+msgid "recruited {count} rogue cultivators"
+msgstr "散修を {count} 名招いた"
+
+msgid "declared war {count} times"
+msgstr "{count} 度宣戦した"
+
+msgid "made peace {count} times"
+msgstr "{count} 度講和した"
+
+msgid "expelled {count} members"
+msgstr "門人を {count} 名追放した"
+
+msgid "bestowed techniques {count} times"
+msgstr "功法授与を {count} 度行った"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "霊石支援を {count} 度行った"
+
+msgid ""
+"{sect_name} focused this round of sect decisions on consolidation and "
+"observation, with no major adjustments made."
+msgstr "{sect_name} は今期の宗門判断を整固と静観に充て、大きな変更は行わなかった。"
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "{sect_name} の今期の宗門判断:"
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

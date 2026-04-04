@@ -189,3 +189,39 @@ msgstr "无名路人"
 
 msgid "Current world celestial phenomenon: {name}"
 msgstr "当前世界天象：{name}"
+
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "巡逻山门"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "值守库房"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "看护药圃"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "协助执事"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "处理灵兽骚动"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "护送内务物资"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "接应归山弟子"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "护持阵眼"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "查验禁制"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "镇守藏经阁"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "调查夜间异动"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "主持法堂秩序"

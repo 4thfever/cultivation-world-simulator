@@ -349,7 +349,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         })
     
     # 6.2 [新增] 添加凡人子女
-    from src.classes.relation.relation import Relation, GENDERED_DISPLAY
+    from src.classes.relation.relation import GENDERED_DISPLAY
     for child in avatar.children:
         if child.id not in existing_ids:
             # 凡人子女: Owner is Parent -> relation should be Relation.PARENT

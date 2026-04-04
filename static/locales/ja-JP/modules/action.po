@@ -197,3 +197,39 @@ msgstr "名もなき通行人"
 
 msgid "Current world celestial phenomenon: {name}"
 msgstr "現在の天地異象: {name}"
+
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "山門巡回"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "庫房警備"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "薬圃看護"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "執事補佐"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "霊獣騒擾の鎮静"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "内務物資の護送"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "帰山弟子の出迎え"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "陣眼護持"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "禁制点検"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "蔵経閣守護"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "夜間異変の調査"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "法堂秩序の統率"

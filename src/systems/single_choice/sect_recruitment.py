@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
+from src.i18n import t
 from src.utils.config import CONFIG
 
 from .models import (
@@ -45,23 +46,26 @@ class SectRecruitmentScenario(SingleChoiceScenario[SectRecruitmentOutcome]):
     def build_request(self) -> SingleChoiceRequest:
         sect = self.request.sect
         avatar = self.request.avatar
-        rule_desc = str(getattr(sect, "rule_desc", "") or "入门后需守宗门戒律。")
+        rule_desc = str(getattr(sect, "rule_desc", "") or t("New disciples must abide by the sect rules."))
         situation = (
-            f"{sect.name} 向你发出招徕。\n"
-            f"宗门简介：{sect.get_detailed_info()}\n"
-            f"门规：{rule_desc}\n"
-            f"若你答应加入，将成为该宗门弟子。"
+            t("{sect_name} has extended a recruitment invitation to you.", sect_name=sect.name)
+            + "\n"
+            + t("Sect overview: {sect_info}", sect_info=sect.get_detailed_info())
+            + "\n"
+            + t("Sect rules: {rule_desc}", rule_desc=rule_desc)
+            + "\n"
+            + t("If you accept, you will become a disciple of this sect.")
         )
         options = [
             SingleChoiceOption(
                 key="ACCEPT",
-                title="接受招徕",
-                description=f"加入{sect.name}，成为门下弟子。",
+                title=t("Accept invitation"),
+                description=t("Join {sect_name} and become one of its disciples.", sect_name=sect.name),
             ),
             SingleChoiceOption(
                 key="REJECT",
-                title="拒绝招徕",
-                description="继续保持散修身份。",
+                title=t("Decline invitation"),
+                description=t("Remain an independent cultivator."),
             ),
         ]
         return SingleChoiceRequest(
@@ -82,9 +86,9 @@ class SectRecruitmentScenario(SingleChoiceScenario[SectRecruitmentOutcome]):
         sect = self.request.sect
         avatar = self.request.avatar
         result_text = (
-            f"{avatar.name} 答应了 {sect.name} 的招徕。"
+            t("{avatar_name} accepted {sect_name}'s invitation.", avatar_name=avatar.name, sect_name=sect.name)
             if accepted
-            else f"{avatar.name} 拒绝了 {sect.name} 的招徕。"
+            else t("{avatar_name} declined {sect_name}'s invitation.", avatar_name=avatar.name, sect_name=sect.name)
         )
         return SectRecruitmentOutcome(
             decision=decision,

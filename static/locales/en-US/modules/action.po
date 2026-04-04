@@ -207,3 +207,39 @@ msgstr "An anonymous passerby"
 
 msgid "Current world celestial phenomenon: {name}"
 msgstr "Current world celestial phenomenon: {name}"
+
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "Patrol the Mountain Gate"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "Guard the Storehouse"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "Tend the Herb Garden"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "Assist the Deacon"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "Calm the Spirit Beast Disturbance"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "Escort Internal Supplies"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "Receive Returning Disciples"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "Maintain the Array Node"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "Inspect the Restrictions"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "Guard the Scripture Pavilion"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "Investigate the Night Anomaly"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "Preside Over the Law Hall"

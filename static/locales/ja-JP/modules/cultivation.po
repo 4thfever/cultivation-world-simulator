@@ -13,27 +13,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Died from severe injuries"
-msgstr "Died from severe injuries"
+msgstr "重傷により死亡"
 
 msgid "Died of old age"
-msgstr "Died of old age"
+msgstr "老衰で死亡"
 
 # Cultivation System - Realm
 # Realm Status
 msgid "Needs breakthrough"
-msgstr "Needs breakthrough"
+msgstr "突破が必要"
 
 msgid "No"
-msgstr "No"
+msgstr "不要"
 
 msgid "Not at bottleneck, no breakthrough needed"
-msgstr "Not at bottleneck, no breakthrough needed"
+msgstr "まだ瓶頸ではないため、突破は不要"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "必要"
 
 msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
-msgstr "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}（レベル {level}）。瓶頸: {status}"
 
 msgid "{realm}{stage}(Level {level}){status}"
-msgstr "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}（レベル {level}）{status}"
