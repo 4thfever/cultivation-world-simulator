@@ -8,8 +8,8 @@ globs: *.py, *.vue, *.json, *.po
 我们采用了分阶段的多语言开发模式。目前处于 **Phase 1 (功能开发阶段)**。
 
 1. **只写简体中文**：当添加新功能、新物品、新 UI 且涉及多语言时，**只允许**修改或新增 `zh-CN` 目录下的 `.json` 或 `.po` 文件。
-2. **严禁越界**：绝对不允许修改 `en-US` 和 `zh-TW` 文件夹下的任何内容。
+2. **严禁越界**：除非当前任务被明确指定为“进入 Phase 2”“正式补全多语言”“新增语言接入”或同等级别的全链路 i18n 工作，否则**禁止修改任何非 `zh-CN` 语言目录**中的内容。
 2.1 **显式例外**：如果当前任务被明确指定为“进入 Phase 2”“正式补全多语言”“新增语言接入”或同等级别的全链路 i18n 工作，则本规则的第 1、2 条可暂时失效；此时应按 `static/locales/registry.json` 中启用语言统一处理，新增语言（如 `ja-JP`）也属于允许范围。
 3. **先改模块源文件，不改构建产物**：`static/locales/<lang>/modules/*.po` 与 `static/locales/<lang>/game_configs_modules/*.po` 是日常维护的源文件；`static/locales/<lang>/LC_MESSAGES/messages.po` 与 `static/locales/<lang>/LC_MESSAGES/game_configs.po` 是通过 `python tools/i18n/build_mo.py` 合并生成的构建产物。除非明确在修构建脚本，否则不要直接改 `LC_MESSAGES/*.po`，否则下次构建会被覆盖。
 4. **改完源文件后重建**：修改拆分后的 `.po` 文件后，必须执行 `python tools/i18n/build_mo.py`，确保 `LC_MESSAGES/*.po` / `.mo` 与源文件一致。
-5. **忽略测试失败**：由于只写了中文，`test_frontend_locales.py` 和 `test_backend_locales.py` 会因为缺少 key 而报错。**请直接忽略这些报错，绝对不要试图去补全英文或繁体来修复测试！** (这些会在 Phase 2 统一处理)。
+5. **忽略测试失败**：由于只写了中文，`test_frontend_locales.py` 和 `test_backend_locales.py` 会因为缺少 key 而报错。**请直接忽略这些报错，绝对不要试图去补全其他语言来修复测试！** (这些会在 Phase 2 统一处理)。
