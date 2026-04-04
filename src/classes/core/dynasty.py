@@ -5,6 +5,7 @@ from typing import Any
 
 from src.classes.effect import load_effect_from_str
 from src.classes.effect.desc import format_effects_to_text
+from src.i18n import t
 from src.utils.df import game_configs, get_float, get_int, get_str
 
 
@@ -61,15 +62,47 @@ class Dynasty:
     is_low_magic: bool = True
     current_emperor: Emperor | None = None
 
+    def _get_localized_template(self) -> "Dynasty | None":
+        template = dynasties_by_id.get(int(self.id))
+        if template is None or template is self:
+            return None
+        return template
+
+    @property
+    def localized_name(self) -> str:
+        template = self._get_localized_template()
+        return str(getattr(template, "name", "") or self.name or "")
+
+    @property
+    def localized_desc(self) -> str:
+        template = self._get_localized_template()
+        return str(getattr(template, "desc", "") or self.desc or "")
+
+    @property
+    def localized_effect_desc(self) -> str:
+        template = self._get_localized_template()
+        if template is not None and getattr(template, "effect_desc", ""):
+            return str(template.effect_desc or "")
+        if self.effect_desc:
+            return str(self.effect_desc or "")
+        if self.effects:
+            return format_effects_to_text(self.effects)
+        return ""
+
     @property
     def title(self) -> str:
-        return f"{self.name}朝"
+        name = self.localized_name
+        if not name:
+            return ""
+        translated = t("dynasty_title_format", name=name)
+        return translated if translated != "dynasty_title_format" else f"{name}朝"
 
     @property
     def royal_house_name(self) -> str:
         if not self.royal_surname:
             return ""
-        return f"{self.royal_surname}氏"
+        translated = t("dynasty_royal_house_format", surname=self.royal_surname)
+        return translated if translated != "dynasty_royal_house_format" else f"{self.royal_surname}氏"
 
     def create_runtime(self, royal_surname: str) -> "Dynasty":
         return Dynasty(

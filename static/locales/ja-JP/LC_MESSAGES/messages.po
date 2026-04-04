@@ -1231,6 +1231,12 @@ msgstr "柔治機変"
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "堅忍後発"
 
+msgid "dynasty_title_format"
+msgstr "{name}王朝"
+
+msgid "dynasty_royal_house_format"
+msgstr "{surname}氏"
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "条件付き効果"
@@ -3019,6 +3025,9 @@ msgstr "内門弟子"
 msgid "outer_disciple"
 msgstr "外門弟子"
 
+msgid "World lore and history"
+msgstr "世界観と歴史"
+
 msgid ""
 "\n"
 "(Selecting {replace} will sell old {label})"
@@ -3174,6 +3183,23 @@ msgstr "{sect_name} は今期の宗門判断を整固と静観に充て、大き
 
 msgid "{sect_name} this round of sect decisions:"
 msgstr "{sect_name} の今期の宗門判断:"
+
+msgid ""
+"Every successful recruit immediately costs {recruit_cost} spirit stones and "
+"increases future yearly member upkeep."
+msgstr "新たな門人を一人迎えるたびに、直ちに {recruit_cost} 霊石を消費し、今後の年間扶養負担も増していく。"
+
+msgid "Each support action always costs {support_amount} spirit stones."
+msgstr "支援を一度行うごとに、必ず {support_amount} 霊石を消費する。"
+
+msgid ""
+"Granting techniques does not directly spend spirit stones, but it consumes "
+"sect inheritance resources; frequent rewards reduce the value and rarity of "
+"the sect's scripture collection."
+msgstr "功法授与は直接霊石を減らさないが、宗門の伝承資源を消耗し、頻繁な下賜は蔵経の価値と希少性を損なう。"
+
+msgid "[{month_stamp}] {content}"
+msgstr "[{month_stamp}] {content}"
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

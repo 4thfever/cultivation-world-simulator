@@ -76,4 +76,36 @@ describe('InfoPanelContainer', () => {
 
     expect(closeSpy).not.toHaveBeenCalled()
   })
+
+  it('should not render region subtitle in header', async () => {
+    const i18n = createI18n({
+      legacy: false,
+      locale: 'zh-CN',
+      messages: {},
+    })
+
+    const wrapper = mount(InfoPanelContainer, {
+      global: {
+        plugins: [createPinia(), i18n],
+        stubs: {
+          AvatarDetail: true,
+          SectDetail: true,
+          RegionDetail: true,
+        },
+      },
+    })
+
+    const uiStore = useUiStore()
+    uiStore.selectedTarget = { type: 'region', id: 'region-1' }
+    uiStore.detailData = {
+      id: 'region-1',
+      name: '千机谷',
+      type_name: '宗门驻地',
+    } as any
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.text()).toContain('千机谷')
+    expect(wrapper.text()).not.toContain('宗门驻地')
+    expect(wrapper.text()).not.toContain('固有地名')
+  })
 })

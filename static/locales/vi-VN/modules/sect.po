@@ -157,3 +157,15 @@ msgstr "{sect_name} trong đợt quyết sách này chủ yếu quan sát và c�
 
 msgid "{sect_name} this round of sect decisions:"
 msgstr "Quyết sách tông môn vòng này của {sect_name}:"
+
+msgid "Every successful recruit immediately costs {recruit_cost} spirit stones and increases future yearly member upkeep."
+msgstr "Mỗi lần chiêu mộ thành công sẽ lập tức tiêu tốn {recruit_cost} linh thạch và làm tăng chi phí nuôi dưỡng môn nhân cho các năm sau."
+
+msgid "Each support action always costs {support_amount} spirit stones."
+msgstr "Mỗi lần hỗ trợ luôn tiêu tốn cố định {support_amount} linh thạch."
+
+msgid "Granting techniques does not directly spend spirit stones, but it consumes sect inheritance resources; frequent rewards reduce the value and rarity of the sect's scripture collection."
+msgstr "Ban công pháp không trực tiếp tiêu linh thạch, nhưng sẽ tiêu hao tài nguyên truyền thừa của tông môn; ban thưởng quá thường xuyên sẽ làm giảm giá trị và độ quý hiếm của tàng kinh các."
+
+msgid "[{month_stamp}] {content}"
+msgstr "[{month_stamp}] {content}"

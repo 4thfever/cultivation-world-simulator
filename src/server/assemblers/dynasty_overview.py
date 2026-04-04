@@ -43,12 +43,14 @@ def build_dynasty_overview(world: Any) -> Dict[str, Any]:
         }
 
     return {
-        "name": str(getattr(dynasty, "name", "") or ""),
+        "name": str(getattr(dynasty, "localized_name", "") or getattr(dynasty, "name", "") or ""),
         "title": str(getattr(dynasty, "title", "") or ""),
         "royal_surname": str(getattr(dynasty, "royal_surname", "") or ""),
         "royal_house_name": str(getattr(dynasty, "royal_house_name", "") or ""),
-        "desc": str(getattr(dynasty, "desc", "") or ""),
-        "effect_desc": str(getattr(dynasty, "effect_desc", "") or ""),
+        "desc": str(getattr(dynasty, "localized_desc", "") or getattr(dynasty, "desc", "") or ""),
+        "effect_desc": str(
+            getattr(dynasty, "localized_effect_desc", "") or getattr(dynasty, "effect_desc", "") or ""
+        ),
         "style_tag": _localize_style_tag(getattr(dynasty, "style_tag", "")),
         "official_preference_label": get_dynasty_preference_label(dynasty),
         "is_low_magic": bool(getattr(dynasty, "is_low_magic", True)),

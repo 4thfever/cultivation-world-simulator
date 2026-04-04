@@ -112,6 +112,9 @@
     "title_short": "[Phàm Nhân]",
     "title": "Hệ Thống Phàm Nhân",
     "empty": "Không có dữ liệu",
+    "population_value": "{value} vạn",
+    "population_growth_value": "{value} vạn/tháng",
+    "population_ratio_value": "{current} / {capacity} vạn",
     "summary": {
       "title": "Thống Kê Thế Giới",
       "total_population": "Tổng Dân Số",
@@ -293,8 +296,6 @@
       "view_sect": "Xem Chi Tiết Tông Môn",
       "essence_title": "Môi Trường Linh Khí",
       "essence_info": "{type} khí · Mật độ {density}",
-      "proper_name_note_short": "Địa Danh Gốc",
-      "proper_name_note": "Tên địa danh trên bản đồ là danh xưng riêng của thế giới tu tiên, nên được giữ nguyên dưới dạng Hán tự.",
       "type_explanations": {
         "normal": "Khu vực hoang dã thông thường, phân bố linh thú, linh thực và khoáng mạch.",
         "city": "Khu vực thành thị, nơi dân cư tập trung và có thể mua bán vật tư ở chợ.",

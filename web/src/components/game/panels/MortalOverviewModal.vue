@@ -3,6 +3,10 @@ import { computed, watch } from 'vue'
 import { NModal, NTable, NTag, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useMortalStore } from '@/stores/mortal'
+import {
+  formatPopulationGrowthText,
+  formatPopulationText,
+} from '@/utils/populationFormat'
 
 const props = defineProps<{
   show: boolean;
@@ -20,12 +24,11 @@ const cityRows = computed(() => mortalStore.overview.cities)
 const trackedMortals = computed(() => mortalStore.overview.tracked_mortals)
 
 function formatPopulation(value: number): string {
-  return `${value.toFixed(1)} 万`
+  return formatPopulationText(value, t)
 }
 
 function formatNaturalGrowth(value: number): string {
-  const prefix = value > 0 ? '+' : ''
-  return `${prefix}${value.toFixed(2)} 万/月`
+  return formatPopulationGrowthText(value, t)
 }
 
 function resolveBirthRegion(name: string): string {

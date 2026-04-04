@@ -3,9 +3,11 @@ from unittest.mock import AsyncMock, patch
 import pytest
 
 from src.classes.alignment import Alignment
+from src.classes.language import language_manager
 from src.classes.core.sect import Sect
 from src.classes.items.weapon import Weapon, WeaponType
 from src.classes.technique import Technique, TechniqueAttribute, TechniqueGrade
+from src.i18n import reload_translations, t
 from src.classes.world_lore import WorldLore, WorldLoreManager
 from src.classes.world_lore_snapshot import apply_world_lore_snapshot, build_world_lore_snapshot
 from src.classes.items.auxiliary import auxiliaries_by_id
@@ -35,7 +37,19 @@ def test_world_lore_structure(base_world):
     lore_text = "这是一个宗门林立、正邪对峙的修仙世界。"
     base_world.set_world_lore(lore_text)
     assert base_world.world_lore.text == lore_text
-    assert base_world.static_info["世界观与历史"] == lore_text
+    assert base_world.static_info[t("World lore and history")] == lore_text
+
+
+def test_world_lore_static_info_key_is_localized(base_world):
+    original_lang = str(language_manager)
+    try:
+        language_manager._current = "en-US"
+        reload_translations()
+        base_world.set_world_lore("Sects rise and fall under rewritten heavens.")
+        assert base_world.static_info["World lore and history"] == "Sects rise and fall under rewritten heavens."
+    finally:
+        language_manager._current = original_lang
+        reload_translations()
 
 
 def test_world_lore_manager_updates_indexes(base_world):

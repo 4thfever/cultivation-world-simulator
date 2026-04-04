@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { Container, Sprite, TilingSprite, Graphics, Ticker } from 'pixi.js'
+import { useI18n } from 'vue-i18n'
 import { useTextures } from './composables/useTextures'
 import { useMapStore } from '../../stores/map'
 import { getRegionTextStyle } from '../../utils/mapStyles'
 import { useAudio } from '../../composables/useAudio'
 import type { RegionSummary } from '../../types/core'
+import { buildVisibleRegionLabels } from './utils/mapLabels'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
 const { textures, isLoaded, loadSectTexture, loadCityTexture, getTileTexture } = useTextures()
 const mapStore = useMapStore()
+const { locale } = useI18n()
 
 // 动态水面相关变量
 let ticker: Ticker | null = null
@@ -40,6 +43,10 @@ watch(
       renderMap()
     }
   }
+)
+
+const visibleRegionLabels = computed(() =>
+  buildVisibleRegionLabels(Array.from(mapStore.regions.values()), locale.value)
 )
 
 function cleanupTicker() {
@@ -311,13 +318,13 @@ function handleRegionSelect(region: RegionSummary) {
      <container :z-index="200">
         <!-- @vue-ignore -->
         <text
-            v-for="r in Array.from(mapStore.regions.values())"
-            :key="r.name"
-            :text="r.name"
-            :x="r.x * TILE_SIZE + TILE_SIZE / 2"
-            :y="r.y * TILE_SIZE + TILE_SIZE * 1.5"
+            v-for="r in visibleRegionLabels"
+            :key="r.id"
+            :text="r.displayName"
+            :x="r.labelX"
+            :y="r.labelY"
             :anchor="0.5"
-            :style="getRegionTextStyle(r.type)"
+            :style="getRegionTextStyle(r.type, locale)"
             event-mode="static"
             cursor="pointer"
             @pointertap="handleRegionSelect(r)"

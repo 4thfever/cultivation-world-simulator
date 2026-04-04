@@ -157,3 +157,15 @@ msgstr "{sect_name} focused this round of sect decisions on consolidation and ob
 
 msgid "{sect_name} this round of sect decisions:"
 msgstr "{sect_name} this round of sect decisions:"
+
+msgid "Every successful recruit immediately costs {recruit_cost} spirit stones and increases future yearly member upkeep."
+msgstr "Every successful recruit immediately costs {recruit_cost} spirit stones and increases future yearly member upkeep."
+
+msgid "Each support action always costs {support_amount} spirit stones."
+msgstr "Each support action always costs {support_amount} spirit stones."
+
+msgid "Granting techniques does not directly spend spirit stones, but it consumes sect inheritance resources; frequent rewards reduce the value and rarity of the sect's scripture collection."
+msgstr "Granting techniques does not directly spend spirit stones, but it consumes sect inheritance resources; frequent rewards reduce the value and rarity of the sect's scripture collection."
+
+msgid "[{month_stamp}] {content}"
+msgstr "[{month_stamp}] {content}"

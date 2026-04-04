@@ -213,3 +213,6 @@ msgstr "Inner Disciple"
 
 msgid "outer_disciple"
 msgstr "Outer Disciple"
+
+msgid "World lore and history"
+msgstr "World lore and history"

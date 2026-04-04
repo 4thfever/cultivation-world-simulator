@@ -6,6 +6,7 @@ import RelationRow from './components/RelationRow.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
+import { formatPopulationRatioText } from '@/utils/populationFormat';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -20,10 +21,6 @@ function getPopulationBarColor(ratio: number): string {
   if (ratio > 0.8) return '#52c41a';
   if (ratio > 0.3) return '#1890ff';
   return '#ff4d4f';
-}
-
-function formatPopulation(value: number | undefined): string {
-  return (value ?? 0).toFixed(1);
 }
 
 function formatEssenceType(rawType: string | undefined): string {
@@ -93,7 +90,7 @@ function jumpToAvatar(id: string) {
               backgroundColor: getPopulationBarColor(data.population / data.population_capacity),
             }"
           ></div>
-          <div class="text">{{ formatPopulation(data.population) }} / {{ formatPopulation(data.population_capacity) }} 万</div>
+          <div class="text">{{ formatPopulationRatioText(data.population, data.population_capacity, t) }}</div>
         </div>
       </div>
       

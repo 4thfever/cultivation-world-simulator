@@ -77,6 +77,9 @@ describe('MortalOverviewModal', () => {
             mortal_system: {
               title: '凡人系统',
               empty: '暂无数据',
+              population_value: '{value} 万',
+              population_growth_value: '{value} 万/月',
+              population_ratio_value: '{current} / {capacity} 万',
               summary: {
                 title: '世界统计',
                 total_population: '总人口',

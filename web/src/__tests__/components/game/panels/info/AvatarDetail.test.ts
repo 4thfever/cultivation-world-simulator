@@ -17,6 +17,7 @@ describe('AvatarDetail', () => {
         game: {
           info_panel: {
             avatar: {
+              empty_short: '-',
               set_objective: 'Set Objective',
               clear_objective: 'Clear Objective',
               long_term_objective: 'Long-term Objective',
@@ -48,6 +49,7 @@ describe('AvatarDetail', () => {
                 traits: 'Traits',
                 techniques_equipment: 'Arts & Gear',
                 relations: 'Relations',
+                current_effects: 'Current Effects',
               },
               adjust: {
                 entry: 'Adjust',
@@ -67,7 +69,16 @@ describe('AvatarDetail', () => {
         },
         common: {
           none: 'None'
-        }
+        },
+        ui: {
+          create_avatar: {
+            gender_labels: {
+              male: 'Male',
+              female: 'Female',
+            },
+          },
+          other: 'Other',
+        },
       }
     }
   })
@@ -215,5 +226,43 @@ describe('AvatarDetail', () => {
     expect(wrapper.text()).not.toContain('身份：')
     expect(wrapper.text()).not.toContain('态度：')
     expect(wrapper.text()).not.toContain('丹七杀')
+  })
+
+  it('renders long effect sources as separate rows with segmented content', () => {
+    const effectAvatar = {
+      ...mockAvatarData,
+      current_effects: '[Orthodoxy [Nature]] Special Ability Respiration Refinement Success Rate +15.0%; Battle Strength +20\n[Heaven and Earth Phenomenon] Respiration Experience +20',
+    }
+
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: effectAvatar as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          StatItem: true,
+          EntityRow: true,
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
+        },
+      },
+    })
+
+    const rows = wrapper.findAll('.effect-row')
+    expect(rows).toHaveLength(2)
+    expect(rows[0].find('.effect-source').text()).toBe('Orthodoxy [Nature]')
+    expect(rows[0].find('.effect-content').text()).toContain('Special Ability Respiration Refinement Success Rate +15.0%')
+    expect(rows[0].find('.effect-content').text()).toContain('Battle Strength +20')
+    expect(rows[1].find('.effect-source').text()).toBe('Heaven and Earth Phenomenon')
   })
 })

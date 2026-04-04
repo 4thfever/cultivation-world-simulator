@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from src.sim.managers.sect_manager import SectManager
+from src.i18n import t
 from src.systems.sect_relations import compute_sect_relations
 from src.utils.config import CONFIG
 
@@ -142,9 +143,17 @@ def build_sect_decision_context(
 
     economy["treasury_pressure"] = treasury_pressure
     economy["action_cost_notes"] = [
-        f"每成功招募一名新人会立即消耗 {recruit_cost} 灵石，并增加后续年度成员供养支出。",
-        f"每次资助固定消耗 {support_amount} 灵石。",
-        "赐予功法不会直接扣减灵石，但会消耗宗门传承资源，频繁赐法会让典籍价值与稀缺性下降。",
+        t(
+            "Every successful recruit immediately costs {recruit_cost} spirit stones and increases future yearly member upkeep.",
+            recruit_cost=recruit_cost,
+        ),
+        t(
+            "Each support action always costs {support_amount} spirit stones.",
+            support_amount=support_amount,
+        ),
+        t(
+            "Granting techniques does not directly spend spirit stones, but it consumes sect inheritance resources; frequent rewards reduce the value and rarity of the sect's scripture collection."
+        ),
     ]
 
     identity = sect.get_identity_summary()
@@ -394,7 +403,7 @@ def build_sect_decision_context(
         except Exception:
             month_stamp = 0
         content = str(getattr(ev, "content", ""))
-        lines.append(f"[{month_stamp}] {content}")
+        lines.append(t("[{month_stamp}] {content}", month_stamp=month_stamp, content=content))
     history_summary_text = "\n".join(lines)
 
     history = {

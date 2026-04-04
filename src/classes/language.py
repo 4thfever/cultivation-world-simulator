@@ -33,6 +33,12 @@ class LanguageManager:
         except ImportError:
             pass
 
+        try:
+            from src.classes.core.dynasty import reload as reload_dynasties
+            reload_dynasties()
+        except ImportError:
+            pass
+
     def __str__(self):
         return self._current
 

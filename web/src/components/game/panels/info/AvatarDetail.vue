@@ -45,6 +45,13 @@ const currentEffectsLines = computed(() => {
   return text.split('\n');
 });
 
+const parsedCurrentEffects = computed(() => {
+  return currentEffectsLines.value.map((line, idx) => ({
+    id: `${idx}-${line}`,
+    ...parseEffectLine(line),
+  }));
+});
+
 const portraitUrl = computed(() => getAvatarPortraitUrl(props.data.gender, props.data.pic_id));
 
 const avatarHeaderSubtitle = computed(() => {
@@ -534,17 +541,21 @@ async function handleClearObjective() {
       </div>
 
       <!-- Effects -->
-      <div class="section" v-if="currentEffectsLines.length">
+      <div class="section" v-if="parsedCurrentEffects.length">
         <div class="section-title">{{ t('game.info_panel.avatar.sections.current_effects') }}</div>
-        <div class="effects-grid">
-          <template v-for="(line, idx) in currentEffectsLines" :key="idx">
-            <div class="effect-source">{{ parseEffectLine(line).source }}</div>
+        <div class="effects-list">
+          <div
+            v-for="effect in parsedCurrentEffects"
+            :key="effect.id"
+            class="effect-row"
+          >
+            <div class="effect-source">{{ effect.source }}</div>
             <div class="effect-content">
-              <div v-for="(segment, sIdx) in parseEffectLine(line).segments" :key="sIdx">
+              <div v-for="(segment, sIdx) in effect.segments" :key="`${effect.id}-${sIdx}`">
                 {{ segment }}
               </div>
             </div>
-          </template>
+          </div>
         </div>
       </div>
     </div>
@@ -957,22 +968,45 @@ async function handleClearObjective() {
   gap: 10px;
 }
 
-.effects-grid {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 4px 12px;
+.effects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   font-size: 12px;
-  align-items: baseline;
+}
+
+.effect-row {
+  display: grid;
+  grid-template-columns: minmax(84px, 38%) minmax(0, 1fr);
+  gap: 6px 12px;
+  align-items: start;
 }
 
 .effect-source {
   color: #888;
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.35;
 }
 
 .effect-content {
   color: #aaddff;
   line-height: 1.4;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 420px) {
+  .effect-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .effect-source {
+    text-align: left;
+  }
 }
 </style>

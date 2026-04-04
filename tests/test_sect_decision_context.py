@@ -6,6 +6,8 @@ from src.classes.core.sect import Sect, SectHeadQuarter
 from src.classes.alignment import Alignment
 from src.classes.event import Event
 from src.classes.event_storage import EventStorage
+from src.classes.language import language_manager
+from src.i18n import reload_translations
 from src.sim.managers.sect_manager import SectManager
 from src.systems.time import MonthStamp
 from src.systems.sect_decision_context import build_sect_decision_context, SectDecisionContext
@@ -159,4 +161,27 @@ def test_build_sect_decision_context_relations(base_world):
     assert isinstance(ctx.diplomacy_targets, list)
     assert ctx.diplomacy_targets
     assert ctx.diplomacy_targets[0]["status"] in {"war", "peace"}
+
+
+def test_build_sect_decision_context_localizes_runtime_notes(base_world):
+    world, sect1, _ = _create_world_with_sects(base_world)
+
+    manager = SectManager(world)
+    manager.update_sects()
+
+    storage = _create_event_storage_with_sect_events(sect1.id)
+    original_lang = str(language_manager)
+    try:
+        language_manager._current = "en-US"
+        reload_translations()
+        ctx = build_sect_decision_context(sect1, world, storage, history_limit=1)
+    finally:
+        _cleanup_event_storage(storage)
+        language_manager._current = original_lang
+        reload_translations()
+
+    assert ctx.economy["action_cost_notes"]
+    assert all("灵石" not in note for note in ctx.economy["action_cost_notes"])
+    assert "spirit stones" in ctx.economy["action_cost_notes"][0]
+    assert "[3] E3" in ctx.history["summary_text"]
 

@@ -112,6 +112,9 @@
     "title_short": "[凡人]",
     "title": "凡人系统",
     "empty": "暂无数据",
+    "population_value": "{value} 万",
+    "population_growth_value": "{value} 万/月",
+    "population_ratio_value": "{current} / {capacity} 万",
     "summary": {
       "title": "世界统计",
       "total_population": "总人口",
@@ -293,8 +296,6 @@
       "view_sect": "查看宗门详情",
       "essence_title": "灵气环境",
       "essence_info": "{type}行灵气 · 浓度 {density}",
-      "proper_name_note_short": "固有地名",
-      "proper_name_note": "地图上的地名属于修仙世界中的专有地名，因此保持汉字原名显示。",
       "type_explanations": {
         "normal": "普通野外区域，分布着灵兽、灵植与矿脉等资源。",
         "city": "城市区域，人口聚集，可在市场中买卖物资。",

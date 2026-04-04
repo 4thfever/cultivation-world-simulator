@@ -243,3 +243,9 @@ msgstr "柔治机变"
 
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "坚忍后发"
+
+msgid "dynasty_title_format"
+msgstr "{name}朝"
+
+msgid "dynasty_royal_house_format"
+msgstr "{surname}氏"

@@ -49,3 +49,5 @@ Additional requirements:
 2. Do not repeat the same avatar_id or other_sect_id.
 3. Keep `thinking` concise, around 20 to 60 words.
 4. `thinking` should directly reflect both sect identity and fiscal stance. If this round includes hardline diplomacy or war considerations, that should also appear naturally, for example: "Our sect should uphold orthodox inheritance, spend carefully, and answer hostile pressure with decisive force."
+5. The `thinking` field must be fully written in natural English. Do not write in Chinese, Japanese, or mixed language text, even if names or source data contain Chinese.
+6. Proper nouns may stay in their original form, but the sentence itself must still be natural English.

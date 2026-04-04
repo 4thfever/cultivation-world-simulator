@@ -4,6 +4,7 @@ from src.classes.age import Age
 from src.classes.alignment import Alignment
 from src.classes.core.avatar import Avatar, Gender
 from src.classes.core.dynasty import Dynasty, Emperor
+from src.classes.language import language_manager
 from src.classes.official_rank import OFFICIAL_COMMANDERY, OFFICIAL_COUNTY, OFFICIAL_NONE, OFFICIAL_PROVINCE
 from src.classes.root import Root
 from src.server import main
@@ -58,7 +59,7 @@ def test_get_dynasty_overview_returns_world_dynasty(base_world):
     original_instance = main.game_instance.copy()
     try:
         base_world.dynasty = Dynasty(
-            id=1,
+            id=2,
             name="晋",
             desc="门第森然，士族清谈，朝野重礼而尚名教。",
             royal_surname="司马",
@@ -87,7 +88,7 @@ def test_get_dynasty_overview_returns_world_dynasty(base_world):
         assert data["royal_surname"] == "司马"
         assert data["royal_house_name"] == "司马氏"
         assert data["desc"] == "门第森然，士族清谈，朝野重礼而尚名教。"
-        assert data["effect_desc"] == ""
+        assert data["effect_desc"] == "理政威望获取 +35.0%"
         assert data["style_tag"] == "清谈名教"
         assert data["official_preference_label"] == "偏好儒家修士"
         assert data["is_low_magic"] is True
@@ -119,15 +120,15 @@ def test_get_dynasty_detail_returns_sorted_officials(base_world):
     original_instance = main.game_instance.copy()
     try:
         base_world.dynasty = Dynasty(
-            id=1,
-            name="汉",
-            desc="王道教化，重视吏治。",
+            id=10,
+            name="韩",
+            desc="国势虽不张扬，却重实务与基层治理。",
             royal_surname="刘",
             effect_desc="",
             effects={},
-            style_tag="王道教化",
-            official_preference_type="orthodoxy",
-            official_preference_value="confucianism",
+            style_tag="务本守成",
+            official_preference_type="persona_key",
+            official_preference_value="ORTHODOX_GENTLEMAN",
             current_emperor=Emperor(
                 surname="刘",
                 given_name="承天",
@@ -149,7 +150,7 @@ def test_get_dynasty_detail_returns_sorted_officials(base_world):
 
         assert resp.status_code == 200
         data = resp.json()
-        assert data["overview"]["name"] == "汉"
+        assert data["overview"]["name"] == "韩"
         assert data["summary"]["official_count"] == 3
         assert data["summary"]["top_official_rank_name"] == "州牧"
         assert [item["name"] for item in data["officials"]] == ["甲修", "丙修", "乙修"]
@@ -157,4 +158,86 @@ def test_get_dynasty_detail_returns_sorted_officials(base_world):
         assert data["officials"][0]["official_rank_name"] == "州牧"
         assert data["officials"][1]["court_reputation"] == 250
     finally:
+        main.game_instance.update(original_instance)
+
+
+def test_get_dynasty_overview_localizes_runtime_strings_for_en_us(base_world):
+    original_instance = main.game_instance.copy()
+    original_lang = str(language_manager)
+    try:
+        language_manager.set_language("en-US")
+        base_world.dynasty = Dynasty(
+            id=2,
+            name="晋",
+            desc="门第森然，士族清谈，朝野重礼而尚名教。",
+            royal_surname="Yun",
+            effect_desc="",
+            effects={},
+            style_tag="清谈名教",
+            official_preference_type="orthodoxy",
+            official_preference_value="confucianism",
+            current_emperor=Emperor(
+                surname="Yun",
+                given_name="Chengan",
+                birth_month_stamp=int(base_world.month_stamp) - 34 * 12,
+                max_age=80,
+            ),
+        )
+        main.game_instance["world"] = base_world
+        main.game_instance["sim"] = None
+
+        client = TestClient(main.app)
+        resp = client.get("/api/dynasty/overview")
+
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["name"] == "Jin"
+        assert data["title"] == "Jin Dynasty"
+        assert data["royal_house_name"] == "House Yun"
+        assert "门第森然" not in data["desc"]
+        assert data["desc"].startswith("Great clans stand in solemn ranks")
+        assert data["style_tag"] == "Pure Discourse and Orthodoxy"
+        assert data["official_preference_label"] == "Prefers Confucian cultivators"
+    finally:
+        language_manager.set_language(original_lang)
+        main.game_instance.update(original_instance)
+
+
+def test_get_dynasty_overview_localizes_runtime_strings_for_vi_vn(base_world):
+    original_instance = main.game_instance.copy()
+    original_lang = str(language_manager)
+    try:
+        language_manager.set_language("vi-VN")
+        base_world.dynasty = Dynasty(
+            id=2,
+            name="晋",
+            desc="门第森然，士族清谈，朝野重礼而尚名教。",
+            royal_surname="Vân",
+            effect_desc="",
+            effects={},
+            style_tag="清谈名教",
+            official_preference_type="orthodoxy",
+            official_preference_value="confucianism",
+            current_emperor=Emperor(
+                surname="Vân",
+                given_name="Thừa An",
+                birth_month_stamp=int(base_world.month_stamp) - 34 * 12,
+                max_age=80,
+            ),
+        )
+        main.game_instance["world"] = base_world
+        main.game_instance["sim"] = None
+
+        client = TestClient(main.app)
+        resp = client.get("/api/dynasty/overview")
+
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["name"] == "Tấn"
+        assert data["title"] == "Vương triều Tấn"
+        assert data["royal_house_name"] == "Hoàng tộc Vân"
+        assert "门第森然" not in data["desc"]
+        assert data["desc"].startswith("Môn phiệt nghiêm ngặt")
+    finally:
+        language_manager.set_language(original_lang)
         main.game_instance.update(original_instance)

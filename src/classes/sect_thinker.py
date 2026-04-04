@@ -162,5 +162,5 @@ class SectThinker:
         name = str(getattr(phenomenon, "name", "") or "")
         desc = str(getattr(phenomenon, "desc", "") or "")
         if name and desc:
-            return f"{name}：{desc}"
+            return t("{name}: {desc}", name=name, desc=desc)
         return name or desc or t("A celestial phenomenon is present, but its description is missing.")

@@ -212,3 +212,6 @@ msgstr "Nội Môn Đệ Tử"
 
 msgid "outer_disciple"
 msgstr "Ngoại Môn Đệ Tử"
+
+msgid "World lore and history"
+msgstr "Thế giới quan và lịch sử"

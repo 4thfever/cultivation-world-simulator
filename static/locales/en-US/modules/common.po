@@ -247,3 +247,9 @@ msgstr "Flexible Statecraft"
 
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "Endure and Strike Late"
+
+msgid "dynasty_title_format"
+msgstr "{name} Dynasty"
+
+msgid "dynasty_royal_house_format"
+msgstr "House {surname}"

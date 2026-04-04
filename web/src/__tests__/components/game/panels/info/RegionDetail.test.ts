@@ -17,6 +17,20 @@ describe('RegionDetail', () => {
         'zh-CN': {
           game: {
             population: '人口',
+            mortal_system: {
+              population_ratio_value: '{current} / {capacity} 万',
+            },
+            info_panel: {
+              region: {
+                type_explanations: {
+                  city: '城市说明',
+                  ruin: '遗迹说明',
+                  cave: '洞府说明',
+                  sect: '宗门说明',
+                  normal: '普通区域说明',
+                },
+              },
+            },
           },
         },
       },

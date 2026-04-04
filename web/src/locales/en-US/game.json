@@ -112,6 +112,9 @@
     "title_short": "[Mortals]",
     "title": "Mortal System",
     "empty": "No data",
+    "population_value": "{value} ten-thousand",
+    "population_growth_value": "{value} ten-thousand/month",
+    "population_ratio_value": "{current} / {capacity} ten-thousand",
     "summary": {
       "title": "World Overview",
       "total_population": "Total Population",
@@ -293,8 +296,6 @@
       "view_sect": "View Sect Details",
       "essence_title": "Qi Environment",
       "essence_info": "{type} Qi · Density {density}",
-      "proper_name_note_short": "Proper Name",
-      "proper_name_note": "Map place names are proper nouns from the cultivation world, so they remain in their original Han-character form.",
       "type_explanations": {
         "normal": "A wilderness region with resources such as spirit beasts, spirit plants, and mineral lodes.",
         "city": "An urban region where population gathers and goods can be traded in the market.",

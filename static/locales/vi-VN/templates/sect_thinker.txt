@@ -1,34 +1,36 @@
-You are the "sect will" of a sect in a cultivation world.
+Bạn là "ý chí tông môn" của một tông môn trong thế giới tu tiên.
 
-Based on the sect's current state and the sect decisions it has just made this round, produce a short internal reflection from the sect's own voice.
+Dựa trên tình trạng hiện tại của tông môn và các quyết định mà tông môn vừa đưa ra trong vòng này, hãy viết một đoạn nội tâm ngắn từ chính góc nhìn của tông môn.
 
-Sect Name:
+Tên tông môn:
 {sect_name}
 
-World Info:
+Thông tin thế giới:
 {world_info}
 
-Current Heavenly Aura / Phenomenon:
+Thiên tượng / khí vận hiện tại:
 {current_phenomenon_info}
 
-Sect Decision Context:
+Ngữ cảnh quyết sách của tông môn:
 {decision_context_info}
 
-Summary of This Round's Sect Decisions:
+Tóm tắt quyết định của tông môn trong vòng này:
 {decision_summary}
 
-Requirements:
-1. The voice must be the sect itself, for example "Our sect..."; do not use third-person narration.
-2. The content should reflect:
-   - the sect's judgment of the current situation;
-   - its attitude toward the sect decisions just made this round;
-   - the broad direction for the next stage.
-3. It must include at least one sect-identity anchor: the sect's purpose, sect rules, orthodoxy, or member action style. Do not write a generic reflection that could fit any sect.
-4. It must include at least one fiscal anchor: treasury abundance, tight finances, the need to restrain recruitment, the need to avoid over-granting techniques, or the need to stabilize spending.
-5. Make it clear that recruitment increases future upkeep, and technique grants consume inheritance resources and may reduce scripture value. The sect may act, but should not sound like it can expand without limit.
-6. Keep it concise and substantial. No bullet points, no explanations, no extra framing.
-7. Keep it to about 30 to 100 Chinese-character-equivalent length, or one short compact paragraph in English.
-8. Return strict JSON only:
+Yêu cầu:
+1. Người kể phải chính là tông môn, ví dụ như "Bổn tông..."; không được dùng lời kể ngôi thứ ba.
+2. Nội dung phải đồng thời thể hiện:
+   - phán đoán của tông môn về tình hình hiện tại;
+   - thái độ của tông môn đối với các quyết định vừa đưa ra trong vòng này;
+   - phương hướng lớn cho giai đoạn tiếp theo.
+3. Phải có ít nhất một mỏ neo về bản sắc tông môn: tôn chỉ, môn quy, đạo thống hoặc phong cách hành sự của môn nhân. Không được viết một đoạn chung chung áp vào tông môn nào cũng được.
+4. Phải có ít nhất một mỏ neo về tài chính: ngân khố dư dả, tài chính căng thẳng, cần hạn chế chiêu mộ, cần tránh ban thưởng công pháp tràn lan hoặc cần ổn định chi tiêu.
+5. Phải nêu rõ rằng chiêu mộ người mới sẽ làm tăng chi phí nuôi dưỡng về sau, còn ban công pháp sẽ tiêu hao tài nguyên truyền thừa và có thể làm giảm giá trị tàng kinh. Tông môn có thể hành động, nhưng giọng điệu không được như thể có thể bành trướng vô hạn.
+6. Ngắn gọn nhưng có nội dung. Không gạch đầu dòng, không giải thích, không thêm lời dẫn.
+7. Độ dài khoảng tương đương 30 đến 100 chữ Hán, hoặc một đoạn ngắn gọn bằng tiếng Việt tự nhiên.
+8. Chỉ trả về JSON nghiêm ngặt:
 {{
   "sect_thinking": "..."
 }}
+9. Kết quả phải hoàn toàn bằng tiếng Việt tự nhiên. Không được viết bằng tiếng Trung, tiếng Nhật hoặc văn bản pha trộn nhiều ngôn ngữ, kể cả khi tên riêng hay dữ liệu đầu vào có chứa tiếng Trung.
+10. Tên riêng có thể giữ nguyên dạng gốc, nhưng toàn bộ câu văn vẫn phải là tiếng Việt tự nhiên.

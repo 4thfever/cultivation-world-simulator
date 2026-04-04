@@ -183,3 +183,6 @@ msgstr "内门弟子"
 
 msgid "outer_disciple"
 msgstr "外门弟子"
+
+msgid "World lore and history"
+msgstr "世界观与历史"

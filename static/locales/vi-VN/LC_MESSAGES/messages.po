@@ -1331,6 +1331,12 @@ msgstr "Nhu trị cơ biến"
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "Kiên nhẫn hậu phát"
 
+msgid "dynasty_title_format"
+msgstr "Vương triều {name}"
+
+msgid "dynasty_royal_house_format"
+msgstr "Hoàng tộc {surname}"
+
 # Condition Translation
 msgid "Conditional effect"
 msgstr "Hiệu ứng kích hoạt theo điều kiện"
@@ -3255,6 +3261,9 @@ msgstr "Nội Môn Đệ Tử"
 msgid "outer_disciple"
 msgstr "Ngoại Môn Đệ Tử"
 
+msgid "World lore and history"
+msgstr "Thế giới quan và lịch sử"
+
 msgid ""
 "\n"
 "(Selecting {replace} will sell old {label})"
@@ -3431,6 +3440,28 @@ msgstr ""
 
 msgid "{sect_name} this round of sect decisions:"
 msgstr "Quyết sách tông môn vòng này của {sect_name}:"
+
+msgid ""
+"Every successful recruit immediately costs {recruit_cost} spirit stones and "
+"increases future yearly member upkeep."
+msgstr ""
+"Mỗi lần chiêu mộ thành công sẽ lập tức tiêu tốn {recruit_cost} linh thạch và"
+" làm tăng chi phí nuôi dưỡng môn nhân cho các năm sau."
+
+msgid "Each support action always costs {support_amount} spirit stones."
+msgstr "Mỗi lần hỗ trợ luôn tiêu tốn cố định {support_amount} linh thạch."
+
+msgid ""
+"Granting techniques does not directly spend spirit stones, but it consumes "
+"sect inheritance resources; frequent rewards reduce the value and rarity of "
+"the sect's scripture collection."
+msgstr ""
+"Ban công pháp không trực tiếp tiêu linh thạch, nhưng sẽ tiêu hao tài nguyên "
+"truyền thừa của tông môn; ban thưởng quá thường xuyên sẽ làm giảm giá trị và"
+" độ quý hiếm của tàng kinh các."
+
+msgid "[{month_stamp}] {content}"
+msgstr "[{month_stamp}] {content}"
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

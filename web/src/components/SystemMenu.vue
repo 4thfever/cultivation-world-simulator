@@ -33,7 +33,7 @@ const languageOptions = computed(() =>
   localeRegistry
     .filter((locale) => locale.enabled)
     .map((locale) => ({
-      label: locale.code === 'en-US' ? locale.label : `${locale.label} / Language`,
+      label: locale.label,
       value: locale.code,
     }))
 )

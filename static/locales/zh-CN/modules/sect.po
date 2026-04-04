@@ -131,6 +131,18 @@ msgstr "{sect_name} 本轮宗门决策以观望整固为主，未作重大调整
 msgid "{sect_name} this round of sect decisions:"
 msgstr "{sect_name} 本轮宗门决策："
 
+msgid "Every successful recruit immediately costs {recruit_cost} spirit stones and increases future yearly member upkeep."
+msgstr "每成功招募一名新人会立即消耗 {recruit_cost} 灵石，并增加后续年度成员供养支出。"
+
+msgid "Each support action always costs {support_amount} spirit stones."
+msgstr "每次资助固定消耗 {support_amount} 灵石。"
+
+msgid "Granting techniques does not directly spend spirit stones, but it consumes sect inheritance resources; frequent rewards reduce the value and rarity of the sect's scripture collection."
+msgstr "赐予功法不会直接扣减灵石，但会消耗宗门传承资源；频繁赐法会降低典籍的价值与稀缺性。"
+
+msgid "[{month_stamp}] {content}"
+msgstr "[{month_stamp}] {content}"
+
 msgid "{sect_name} (Alignment: {alignment}, Headquarters: {hq_name})"
 msgstr "{sect_name}（阵营：{alignment}，驻地：{hq_name}）"
 

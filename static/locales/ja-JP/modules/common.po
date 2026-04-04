@@ -246,3 +246,9 @@ msgstr "柔治機変"
 
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "堅忍後発"
+
+msgid "dynasty_title_format"
+msgstr "{name}王朝"
+
+msgid "dynasty_royal_house_format"
+msgstr "{surname}氏"

@@ -38,9 +38,6 @@ const subTitle = computed(() => {
   if (uiStore.detailData && 'nickname' in uiStore.detailData && uiStore.detailData.nickname) {
     return `「${uiStore.detailData.nickname}」`;
   }
-  if (uiStore.detailData && 'type_name' in uiStore.detailData && uiStore.detailData.type_name) {
-    return `${uiStore.detailData.type_name} · ${t('game.info_panel.region.proper_name_note_short')}`;
-  }
   return '';
 });
 

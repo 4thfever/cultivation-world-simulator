@@ -112,6 +112,9 @@
     "title_short": "[人間]",
     "title": "人間界",
     "empty": "データなし",
+    "population_value": "{value} 万",
+    "population_growth_value": "{value} 万/月",
+    "population_ratio_value": "{current} / {capacity} 万",
     "summary": {
       "title": "世界概況",
       "total_population": "総人口",
@@ -293,8 +296,6 @@
       "view_sect": "宗門詳細を見る",
       "essence_title": "霊気環境",
       "essence_info": "{type} 属性霊気 · 濃度 {density}",
-      "proper_name_note_short": "固有地名",
-      "proper_name_note": "地図上の地名は仙道世界の固有名詞のため、漢字表記のまま表示されます。",
       "type_explanations": {
         "normal": "野外地域。霊獣、霊植、鉱脈などの資源が分布します。",
         "city": "都市区域。人口が集まり、市場で物資を売買できます。",

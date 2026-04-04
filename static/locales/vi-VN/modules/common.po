@@ -246,3 +246,9 @@ msgstr "Nhu trị cơ biến"
 
 msgid "dynasty_style_endure_and_strike_late"
 msgstr "Kiên nhẫn hậu phát"
+
+msgid "dynasty_title_format"
+msgstr "Vương triều {name}"
+
+msgid "dynasty_royal_house_format"
+msgstr "Hoàng tộc {surname}"
