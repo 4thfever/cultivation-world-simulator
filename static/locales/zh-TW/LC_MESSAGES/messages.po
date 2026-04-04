@@ -1181,55 +1181,55 @@ msgstr "偏好山澤孤修"
 msgid "Prefers {value}"
 msgstr "偏好{value}"
 
-msgid "无品"
+msgid "official_rank_none"
 msgstr "無品"
 
-msgid "县令"
+msgid "official_rank_county_magistrate"
 msgstr "縣令"
 
-msgid "郡守"
+msgid "official_rank_commandery_governor"
 msgstr "郡守"
 
-msgid "州牧"
+msgid "official_rank_provincial_governor"
 msgstr "州牧"
 
-msgid "宰辅"
+msgid "official_rank_grand_chancellor"
 msgstr "宰輔"
 
-msgid "尚法重军"
+msgid "dynasty_style_law_and_arms"
 msgstr "尚法重軍"
 
-msgid "清谈名教"
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
 msgstr "清談名教"
 
-msgid "重文理政"
+msgid "dynasty_style_civil_governance"
 msgstr "重文理政"
 
-msgid "风流雅政"
+msgid "dynasty_style_elegant_courtly_rule"
 msgstr "風流雅政"
 
-msgid "山泽杂行"
+msgid "dynasty_style_wild_marches"
 msgstr "山澤雜行"
 
-msgid "尚实通商"
+msgid "dynasty_style_pragmatic_commerce"
 msgstr "尚實通商"
 
-msgid "沉毅守边"
+msgid "dynasty_style_stoic_frontier_guard"
 msgstr "沉毅守邊"
 
-msgid "骑射尚武"
+msgid "dynasty_style_horsemanship_and_arms"
 msgstr "騎射尚武"
 
-msgid "法密权重"
+msgid "dynasty_style_strict_law_and_central_power"
 msgstr "法密權重"
 
-msgid "务本守成"
+msgid "dynasty_style_pragmatic_conservatism"
 msgstr "務本守成"
 
-msgid "柔治机变"
+msgid "dynasty_style_flexible_statecraft"
 msgstr "柔治機變"
 
-msgid "坚忍后发"
+msgid "dynasty_style_endure_and_strike_late"
 msgstr "堅忍後發"
 
 # 條件翻譯

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Any, Dict
-from src.classes.official_rank import get_dynasty_preference_label
+from src.classes.official_rank import DYNASTY_STYLE_MSGIDS, get_dynasty_preference_label
 from src.i18n import t
 
 
@@ -9,7 +9,7 @@ def _localize_style_tag(raw: Any) -> str:
     text = str(raw or "").strip()
     if not text:
         return ""
-    translated = t(text)
+    translated = t(DYNASTY_STYLE_MSGIDS.get(text, text))
     return translated if translated and translated != text else text
 
 

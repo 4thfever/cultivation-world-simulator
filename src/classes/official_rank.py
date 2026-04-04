@@ -26,17 +26,33 @@ OFFICIAL_ORDER = [
 @dataclass(frozen=True)
 class OfficialRankDef:
     key: str
-    name: str
+    name_msgid: str
     threshold: int
     salary: int
     upkeep_decay: int
     effects: dict[str, Any] | list[dict[str, Any]]
 
 
+DYNASTY_STYLE_MSGIDS: dict[str, str] = {
+    "尚法重军": "dynasty_style_law_and_arms",
+    "清谈名教": "dynasty_style_pure_discourse_and_orthodoxy",
+    "重文理政": "dynasty_style_civil_governance",
+    "风流雅政": "dynasty_style_elegant_courtly_rule",
+    "山泽杂行": "dynasty_style_wild_marches",
+    "尚实通商": "dynasty_style_pragmatic_commerce",
+    "沉毅守边": "dynasty_style_stoic_frontier_guard",
+    "骑射尚武": "dynasty_style_horsemanship_and_arms",
+    "法密权重": "dynasty_style_strict_law_and_central_power",
+    "务本守成": "dynasty_style_pragmatic_conservatism",
+    "柔治机变": "dynasty_style_flexible_statecraft",
+    "坚忍后发": "dynasty_style_endure_and_strike_late",
+}
+
+
 OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     OFFICIAL_NONE: OfficialRankDef(
         key=OFFICIAL_NONE,
-        name="无品",
+        name_msgid="official_rank_none",
         threshold=0,
         salary=40,
         upkeep_decay=0,
@@ -44,7 +60,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_COUNTY: OfficialRankDef(
         key=OFFICIAL_COUNTY,
-        name="县令",
+        name_msgid="official_rank_county_magistrate",
         threshold=80,
         salary=90,
         upkeep_decay=1,
@@ -59,7 +75,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_COMMANDERY: OfficialRankDef(
         key=OFFICIAL_COMMANDERY,
-        name="郡守",
+        name_msgid="official_rank_commandery_governor",
         threshold=220,
         salary=180,
         upkeep_decay=3,
@@ -74,7 +90,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_PROVINCE: OfficialRankDef(
         key=OFFICIAL_PROVINCE,
-        name="州牧",
+        name_msgid="official_rank_provincial_governor",
         threshold=520,
         salary=360,
         upkeep_decay=8,
@@ -89,7 +105,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_GRAND_COUNCILOR: OfficialRankDef(
         key=OFFICIAL_GRAND_COUNCILOR,
-        name="宰辅",
+        name_msgid="official_rank_grand_chancellor",
         threshold=1000,
         salary=700,
         upkeep_decay=15,
@@ -112,7 +128,7 @@ def get_official_rank(rank_key: str | None) -> OfficialRankDef:
 def get_official_rank_name(rank_key: str | None) -> str:
     from src.i18n import t
 
-    return t(get_official_rank(rank_key).name)
+    return t(get_official_rank(rank_key).name_msgid)
 
 
 def get_next_official_rank(rank_key: str | None) -> OfficialRankDef | None:
