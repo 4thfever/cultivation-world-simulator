@@ -228,6 +228,42 @@ msgstr "An anonymous passerby"
 msgid "Current world celestial phenomenon: {name}"
 msgstr "Current world celestial phenomenon: {name}"
 
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "Patrol the Mountain Gate"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "Guard the Storehouse"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "Tend the Herb Garden"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "Assist the Deacon"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "Calm the Spirit Beast Disturbance"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "Escort Internal Supplies"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "Receive Returning Disciples"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "Maintain the Array Node"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "Inspect the Restrictions"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "Guard the Scripture Pavilion"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "Investigate the Night Anomaly"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "Preside Over the Law Hall"
+
 # Action: Assassinate
 msgid "assassinate_action_name"
 msgstr "Assassinate"
@@ -1198,6 +1234,99 @@ msgstr "Two people are playing chess."
 
 msgid "action_devourpeople_short_name"
 msgstr "Devour People"
+
+msgid "Prefers male cultivators"
+msgstr "Prefers male cultivators"
+
+msgid "Prefers female cultivators"
+msgstr "Prefers female cultivators"
+
+msgid "Prefers righteous cultivators"
+msgstr "Prefers righteous cultivators"
+
+msgid "Prefers evil cultivators"
+msgstr "Prefers evil cultivators"
+
+msgid "Prefers neutral cultivators"
+msgstr "Prefers neutral cultivators"
+
+msgid "Prefers Confucian cultivators"
+msgstr "Prefers Confucian cultivators"
+
+msgid "Prefers Daoist cultivators"
+msgstr "Prefers Daoist cultivators"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "Prefers Buddhist cultivators"
+
+msgid "Prefers martial cultivators"
+msgstr "Prefers martial cultivators"
+
+msgid "Prefers worldly cultivators"
+msgstr "Prefers worldly cultivators"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "Prefers orthodox gentlemen"
+
+msgid "Prefers secluded cultivators"
+msgstr "Prefers secluded cultivators"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "Prefers solitary mountain cultivators"
+
+msgid "Prefers {value}"
+msgstr "Prefers {value}"
+
+msgid "official_rank_none"
+msgstr "Unranked"
+
+msgid "official_rank_county_magistrate"
+msgstr "County Magistrate"
+
+msgid "official_rank_commandery_governor"
+msgstr "Commandery Governor"
+
+msgid "official_rank_provincial_governor"
+msgstr "Provincial Governor"
+
+msgid "official_rank_grand_chancellor"
+msgstr "Grand Chancellor"
+
+msgid "dynasty_style_law_and_arms"
+msgstr "Law and Arms"
+
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
+msgstr "Pure Discourse and Orthodoxy"
+
+msgid "dynasty_style_civil_governance"
+msgstr "Civil Governance"
+
+msgid "dynasty_style_elegant_courtly_rule"
+msgstr "Elegant Courtly Rule"
+
+msgid "dynasty_style_wild_marches"
+msgstr "Wild Marches"
+
+msgid "dynasty_style_pragmatic_commerce"
+msgstr "Pragmatic Commerce"
+
+msgid "dynasty_style_stoic_frontier_guard"
+msgstr "Stoic Frontier Guard"
+
+msgid "dynasty_style_horsemanship_and_arms"
+msgstr "Horsemanship and Arms"
+
+msgid "dynasty_style_strict_law_and_central_power"
+msgstr "Strict Law and Central Power"
+
+msgid "dynasty_style_pragmatic_conservatism"
+msgstr "Pragmatic Conservatism"
+
+msgid "dynasty_style_flexible_statecraft"
+msgstr "Flexible Statecraft"
+
+msgid "dynasty_style_endure_and_strike_late"
+msgstr "Endure and Strike Late"
 
 # Condition Translation
 msgid "Conditional effect"
@@ -3192,6 +3321,107 @@ msgstr "There is currently no celestial phenomenon."
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "A celestial phenomenon is present, but its description is missing."
+
+msgid "New disciples must abide by the sect rules."
+msgstr "New disciples must abide by the sect rules."
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} has extended a recruitment invitation to you."
+
+msgid "Sect overview: {sect_info}"
+msgstr "Sect overview: {sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "Sect rules: {rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "If you accept, you will become a disciple of this sect."
+
+msgid "Accept invitation"
+msgstr "Accept invitation"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "Join {sect_name} and become one of its disciples."
+
+msgid "Decline invitation"
+msgstr "Decline invitation"
+
+msgid "Remain an independent cultivator."
+msgstr "Remain an independent cultivator."
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} accepted {sect_name}'s invitation."
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} declined {sect_name}'s invitation."
+
+msgid ""
+"{sect_name} declared war on {target_name}; from this point on, the two sects"
+" are at war."
+msgstr ""
+"{sect_name} declared war on {target_name}; from this point on, the two sects"
+" are at war."
+
+msgid ""
+"{sect_name} made peace with {target_name}, and the state of war between them"
+" came to an end."
+msgstr ""
+"{sect_name} made peace with {target_name}, and the state of war between them"
+" came to an end."
+
+msgid ""
+"{sect_name} spent {cost} spirit stones to recruit {avatar_name}; "
+"{avatar_name} officially became a disciple of the sect."
+msgstr ""
+"{sect_name} spent {cost} spirit stones to recruit {avatar_name}; "
+"{avatar_name} officially became a disciple of the sect."
+
+msgid ""
+"{sect_name} judged that {avatar_name} had gravely violated the sect rules "
+"and expelled them from the sect."
+msgstr ""
+"{sect_name} judged that {avatar_name} had gravely violated the sect rules "
+"and expelled them from the sect."
+
+msgid ""
+"{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr ""
+"{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+
+msgid ""
+"{sect_name} granted {amount} spirit stones to {avatar_name} in support of "
+"their cultivation."
+msgstr ""
+"{sect_name} granted {amount} spirit stones to {avatar_name} in support of "
+"their cultivation."
+
+msgid "recruited {count} rogue cultivators"
+msgstr "recruited {count} rogue cultivators"
+
+msgid "declared war {count} times"
+msgstr "declared war {count} times"
+
+msgid "made peace {count} times"
+msgstr "made peace {count} times"
+
+msgid "expelled {count} members"
+msgstr "expelled {count} members"
+
+msgid "bestowed techniques {count} times"
+msgstr "bestowed techniques {count} times"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "granted spirit-stone support {count} times"
+
+msgid ""
+"{sect_name} focused this round of sect decisions on consolidation and "
+"observation, with no major adjustments made."
+msgstr ""
+"{sect_name} focused this round of sect decisions on consolidation and "
+"observation, with no major adjustments made."
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "{sect_name} this round of sect decisions:"
 
 msgid ""
 "Because {reason_fragment}, relations between {sect_a_name} and {sect_b_name}"

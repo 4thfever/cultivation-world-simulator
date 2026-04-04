@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { createTestI18n } from '@/__tests__/utils/i18n'
 
 // Mock getEntityColor.
 const mockGetEntityColor = vi.fn()
@@ -9,6 +10,33 @@ vi.mock('@/utils/theme', () => ({
 }))
 
 import EntityRow from '@/components/game/panels/info/components/EntityRow.vue'
+
+const i18n = createTestI18n({
+  technique_grades: {
+    LOWER: 'LOWER',
+    MIDDLE: 'MIDDLE',
+    UPPER: 'UPPER',
+  },
+  realms: {},
+  game: {
+    ranking: {
+      stages: {
+        early: 'early',
+        middle: 'middle',
+        late: 'late',
+      },
+    },
+  },
+})
+
+const globalConfig = {
+  global: {
+    directives: {
+      sound: () => {},
+    },
+    plugins: [i18n],
+  },
+}
 
 describe('EntityRow', () => {
   const defaultItem = {
@@ -26,6 +54,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.name').text()).toBe('Test Entity')
@@ -38,6 +67,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     expect(mockGetEntityColor).toHaveBeenCalledWith(defaultItem)
@@ -50,6 +80,7 @@ describe('EntityRow', () => {
         item: defaultItem,
         meta: 'Proficiency 50%',
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.meta').exists()).toBe(true)
@@ -61,6 +92,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.meta').exists()).toBe(false)
@@ -76,6 +108,7 @@ describe('EntityRow', () => {
       props: {
         item: itemWithGrade,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.grade').exists()).toBe(true)
@@ -87,6 +120,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.grade').exists()).toBe(false)
@@ -98,6 +132,7 @@ describe('EntityRow', () => {
         item: defaultItem,
         compact: true,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.entity-row').classes()).toContain('compact')
@@ -109,6 +144,7 @@ describe('EntityRow', () => {
         item: defaultItem,
         compact: false,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.entity-row').classes()).not.toContain('compact')
@@ -119,6 +155,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.entity-row').classes()).not.toContain('compact')
@@ -129,6 +166,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     await wrapper.find('.entity-row').trigger('click')
@@ -152,6 +190,7 @@ describe('EntityRow', () => {
         meta: 'Meta Info',
         compact: true,
       },
+      ...globalConfig,
     })
 
     expect(wrapper.find('.name').text()).toBe('Full Entity')
@@ -167,6 +206,7 @@ describe('EntityRow', () => {
       props: {
         item: defaultItem,
       },
+      ...globalConfig,
     })
 
     // Should not throw, just render without color.

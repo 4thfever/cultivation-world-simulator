@@ -1,0 +1,101 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
+msgid "PLANT_10_DESC"
+msgstr "戈壁の岩の裂け目にしぶとく根を張る異草。葉は剣のように硬く、夜になると星光を引き寄せて飲み込む。"
+
+#. plant.csv: 聚星草
+msgid "PLANT_10_NAME"
+msgstr "聚星草"
+
+#. plant.csv: 生长在蓬莱岛灵泉之眼的伴生神树上，三百年...
+msgid "PLANT_11_DESC"
+msgstr "蓬莱島の霊泉の眼に寄り添う神木に実る霊果。三百年ごとに花開き、また三百年ごとに実り、莫大な生命力を宿す。"
+
+#. plant.csv: 涅盘赤果
+msgid "PLANT_11_NAME"
+msgstr "涅槃赤果"
+
+#. plant.csv: 生长在灵气充沛之地的奇异草药，叶片呈淡蓝...
+msgid "PLANT_1_DESC"
+msgstr "霊気の満ちる地に育つ異草。葉は淡い青を帯び、不思議な治癒効能を備える。"
+
+#. plant.csv: 奇草
+msgid "PLANT_1_NAME"
+msgstr "奇草"
+
+#. plant.csv: 千年古树吸收天地灵气而成，木质坚硬且蕴含...
+msgid "PLANT_2_DESC"
+msgstr "千年古樹が天地の霊気を吸って成した霊木。木質は硬く、内部には濃密な霊力を宿している。"
+
+#. plant.csv: 灵木
+msgid "PLANT_2_NAME"
+msgstr "霊木"
+
+#. plant.csv: 生长于西域流沙的神奇植物，能储存大量灵气...
+msgid "PLANT_3_DESC"
+msgstr "西域の流砂に生える不思議な植物。大量の水分と霊気を蓄え、棘にも薬力を宿す。"
+
+#. plant.csv: 沙漠仙人掌
+msgid "PLANT_3_NAME"
+msgstr "砂漠仙人掌"
+
+#. plant.csv: 极北冰原的珍贵灵药，花瓣洁白如雪，蕴含极...
+msgid "PLANT_4_DESC"
+msgstr "極北の氷原に咲く貴重な霊薬。花弁は雪のように白く、極寒の気を秘め、清熱解毒に優れる。"
+
+#. plant.csv: 寒霜雪莲
+msgid "PLANT_4_NAME"
+msgstr "寒霜雪蓮"
+
+#. plant.csv: 生长于天河河底的水系灵药，呈半透明蓝色，...
+msgid "PLANT_5_DESC"
+msgstr "天河の河底に育つ水属性の霊薬。半透明の青色を帯び、修士の水行霊力を高める。"
+
+#. plant.csv: 水灵芝
+msgid "PLANT_5_NAME"
+msgstr "水霊芝"
+
+#. plant.csv: 万丈雪峰的高山植物，花瓣细小洁白，能抗严...
+msgid "PLANT_6_DESC"
+msgstr "万丈雪峰に生える高山植物。小さく白い花弁を持ち、酷寒に耐え、安神鎮静の効能を備える。"
+
+#. plant.csv: 雪绒花
+msgid "PLANT_6_NAME"
+msgstr "雪絨花"
+
+#. plant.csv: 青云林海中的古老巨树，树龄超过千年，树脂...
+msgid "PLANT_7_DESC"
+msgstr "青雲林海に立つ千年を超える巨松。松脂には豊かな霊力が凝縮されている。"
+
+#. plant.csv: 千年古松
+msgid "PLANT_7_NAME"
+msgstr "千年古松"
+
+#. plant.csv: 沃土良田中培育的灵性稻谷，粒粒饱满灵气，...
+msgid "PLANT_8_DESC"
+msgstr "肥沃な田地で育てられる霊稲。一粒一粒に霊気が満ち、修士の体質を養う。"
+
+#. plant.csv: 五谷灵稻
+msgid "PLANT_8_NAME"
+msgstr "五穀霊稲"
+
+#. plant.csv: 紫竹林中的变异异种，竹身九曲，内空外坚。...
+msgid "PLANT_9_DESC"
+msgstr "紫竹林に現れた変異種。竹身は九度うねり、中は空で外は堅い。風が吹くと九種の清音を響かせ、魂に届いて心魔を洗う。"
+
+#. plant.csv: 九曲清音竹
+msgid "PLANT_9_NAME"
+msgstr "九曲清音竹"

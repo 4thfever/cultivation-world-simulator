@@ -17,6 +17,7 @@ import type { RelationInfo } from '@/types/core';
 import { logError } from '@/utils/appError';
 import editIcon from '@/assets/icons/edit.png';
 import { getAvatarPortraitUrl } from '@/utils/assetUrls';
+import { formatCultivationText } from '@/utils/cultivationText';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -50,6 +51,8 @@ const avatarHeaderSubtitle = computed(() => {
   return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
 
+const avatarRealmText = computed(() => formatCultivationText(props.data.realm, t));
+
 const formattedRanking = computed(() => {
   if (!props.data.ranking) return null;
   const { type, rank } = props.data.ranking;
@@ -58,10 +61,18 @@ const formattedRanking = computed(() => {
   const isZh = locale.value.startsWith('zh');
   if (isZh) {
     return `${listName}第${ZH_NUMBERS[rank] || rank}`;
+  } else if (locale.value.startsWith('ja')) {
+    return `${listName}${rank}位`;
   } else {
     return `${listName} Rank ${rank}`;
   }
 });
+
+function formatGenderLabel(rawGender: string): string {
+  if (rawGender === 'Male' || rawGender === 'male') return t('ui.create_avatar.gender_labels.male');
+  if (rawGender === 'Female' || rawGender === 'female') return t('ui.create_avatar.gender_labels.female');
+  return rawGender;
+}
 
 function buildRelationMetaLines(rel: RelationInfo): string[] {
   const parts = (rel.relation || '')
@@ -93,6 +104,37 @@ function buildRelationMetaLines(rel: RelationInfo): string[] {
 
 function hasVisibleRelationMeta(rel: RelationInfo): boolean {
   return buildRelationMetaLines(rel).length > 0;
+}
+
+function formatRelationSub(rel: RelationInfo): string {
+  return [rel.sect?.trim(), formatCultivationText(rel.realm, t)].filter(Boolean).join(' · ');
+}
+
+function parseEffectLine(line: string): { source: string; segments: string[] } {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith('[')) {
+    return {
+      source: t('ui.other'),
+      segments: trimmed.split(/[;；]/).map(segment => segment.trim()).filter(Boolean),
+    };
+  }
+
+  const separatorIndex = trimmed.lastIndexOf('] ');
+  if (separatorIndex <= 0) {
+    return {
+      source: t('ui.other'),
+      segments: [trimmed],
+    };
+  }
+
+  return {
+    source: trimmed.slice(1, separatorIndex).trim() || t('ui.other'),
+    segments: trimmed
+      .slice(separatorIndex + 2)
+      .split(/[;；]/)
+      .map(segment => segment.trim())
+      .filter(Boolean),
+  };
 }
 
 const groupedRelations = computed(() => {
@@ -262,7 +304,7 @@ async function handleClearObjective() {
         </button>
         <div class="avatar-header-meta">
           <div class="avatar-name">{{ data.name }}</div>
-          <div class="avatar-realm">{{ data.realm }}</div>
+          <div class="avatar-realm">{{ avatarRealmText }}</div>
           <div class="avatar-sect">{{ avatarHeaderSubtitle }}</div>
         </div>
       </div>
@@ -290,7 +332,7 @@ async function handleClearObjective() {
 
       <!-- Stats Grid -->
       <div class="stats-grid">
-        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="data.realm" :sub-value="data.level" />
+        <StatItem :label="t('game.info_panel.avatar.stats.realm')" :value="formatCultivationText(data.realm, t)" />
         <StatItem :label="t('game.info_panel.avatar.stats.age')" :value="`${data.age} / ${data.lifespan}`" />
         <StatItem 
           v-if="data.cultivation_start_age !== undefined"
@@ -300,7 +342,7 @@ async function handleClearObjective() {
         <StatItem :label="t('game.info_panel.avatar.stats.origin')" :value="data.origin" />
         
         <StatItem :label="t('game.info_panel.avatar.stats.hp')" :value="formatHp(data.hp.cur, data.hp.max)" />
-        <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="data.gender" />
+        <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="formatGenderLabel(data.gender)" />
         
         <StatItem 
           :label="t('game.info_panel.avatar.stats.alignment')" 
@@ -356,7 +398,7 @@ async function handleClearObjective() {
           </button>
         </div>
         <TagList v-if="data.personas?.length" :tags="data.personas" @click="showDetail" />
-        <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.personas') }) }}</div>
+        <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
       </div>
 
       <!-- Equipment & Sect -->
@@ -368,7 +410,7 @@ async function handleClearObjective() {
             :item="data.technique" 
             @click="showDetail(data.technique)" 
           />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.technique') }) }}</div>
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('technique')">
             <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
@@ -380,7 +422,7 @@ async function handleClearObjective() {
             :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
             @click="showDetail(data.weapon)" 
           />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.weapon') }) }}</div>
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('weapon')">
             <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
@@ -391,7 +433,7 @@ async function handleClearObjective() {
             :item="data.auxiliary" 
             @click="showDetail(data.auxiliary)" 
           />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.adjust.empty_item', { label: t('game.info_panel.avatar.adjust.categories.auxiliary') }) }}</div>
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('auxiliary')">
             <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
@@ -437,7 +479,7 @@ async function handleClearObjective() {
                 v-else
                 :name="rel.name"
                 :meta-lines="buildRelationMetaLines(rel)"
-                :sub="`${rel.sect} · ${rel.realm}`"
+                :sub="formatRelationSub(rel)"
                 :type="rel.relation_type"
                 @click="jumpToAvatar(rel.target_id)"
               />
@@ -457,7 +499,7 @@ async function handleClearObjective() {
                 v-else
                 :name="rel.name"
                 :meta-lines="buildRelationMetaLines(rel)"
-                :sub="`${rel.sect} · ${rel.realm}`"
+                :sub="formatRelationSub(rel)"
                 :type="rel.relation_type" 
                 @click="jumpToAvatar(rel.target_id)"
               />
@@ -470,7 +512,7 @@ async function handleClearObjective() {
               :key="rel.target_id"
               :name="rel.name"
               :meta-lines="buildRelationMetaLines(rel)"
-              :sub="`${rel.sect} · ${rel.realm}`"
+              :sub="formatRelationSub(rel)"
               :type="rel.relation_type"
               @click="jumpToAvatar(rel.target_id)"
             />
@@ -483,7 +525,7 @@ async function handleClearObjective() {
               :key="rel.target_id"
               :name="rel.name"
               :meta-lines="buildRelationMetaLines(rel)"
-              :sub="`${rel.sect} · ${rel.realm}`"
+              :sub="formatRelationSub(rel)"
               :type="rel.relation_type"
               @click="jumpToAvatar(rel.target_id)"
             />
@@ -496,10 +538,10 @@ async function handleClearObjective() {
         <div class="section-title">{{ t('game.info_panel.avatar.sections.current_effects') }}</div>
         <div class="effects-grid">
           <template v-for="(line, idx) in currentEffectsLines" :key="idx">
-            <div class="effect-source">{{ line.match(/^\[(.*?)\]/)?.[1] || t('ui.other') }}</div>
+            <div class="effect-source">{{ parseEffectLine(line).source }}</div>
             <div class="effect-content">
-              <div v-for="(segment, sIdx) in line.replace(/^\[.*?\]\s*/, '').split(/[;；]/)" :key="sIdx">
-                {{ segment.trim() }}
+              <div v-for="(segment, sIdx) in parseEffectLine(line).segments" :key="sIdx">
+                {{ segment }}
               </div>
             </div>
           </template>

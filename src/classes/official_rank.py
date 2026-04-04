@@ -26,17 +26,33 @@ OFFICIAL_ORDER = [
 @dataclass(frozen=True)
 class OfficialRankDef:
     key: str
-    name: str
+    name_msgid: str
     threshold: int
     salary: int
     upkeep_decay: int
     effects: dict[str, Any] | list[dict[str, Any]]
 
 
+DYNASTY_STYLE_MSGIDS: dict[str, str] = {
+    "尚法重军": "dynasty_style_law_and_arms",
+    "清谈名教": "dynasty_style_pure_discourse_and_orthodoxy",
+    "重文理政": "dynasty_style_civil_governance",
+    "风流雅政": "dynasty_style_elegant_courtly_rule",
+    "山泽杂行": "dynasty_style_wild_marches",
+    "尚实通商": "dynasty_style_pragmatic_commerce",
+    "沉毅守边": "dynasty_style_stoic_frontier_guard",
+    "骑射尚武": "dynasty_style_horsemanship_and_arms",
+    "法密权重": "dynasty_style_strict_law_and_central_power",
+    "务本守成": "dynasty_style_pragmatic_conservatism",
+    "柔治机变": "dynasty_style_flexible_statecraft",
+    "坚忍后发": "dynasty_style_endure_and_strike_late",
+}
+
+
 OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     OFFICIAL_NONE: OfficialRankDef(
         key=OFFICIAL_NONE,
-        name="无品",
+        name_msgid="official_rank_none",
         threshold=0,
         salary=40,
         upkeep_decay=0,
@@ -44,7 +60,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_COUNTY: OfficialRankDef(
         key=OFFICIAL_COUNTY,
-        name="县令",
+        name_msgid="official_rank_county_magistrate",
         threshold=80,
         salary=90,
         upkeep_decay=1,
@@ -59,7 +75,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_COMMANDERY: OfficialRankDef(
         key=OFFICIAL_COMMANDERY,
-        name="郡守",
+        name_msgid="official_rank_commandery_governor",
         threshold=220,
         salary=180,
         upkeep_decay=3,
@@ -74,7 +90,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_PROVINCE: OfficialRankDef(
         key=OFFICIAL_PROVINCE,
-        name="州牧",
+        name_msgid="official_rank_provincial_governor",
         threshold=520,
         salary=360,
         upkeep_decay=8,
@@ -89,7 +105,7 @@ OFFICIAL_RANKS: dict[str, OfficialRankDef] = {
     ),
     OFFICIAL_GRAND_COUNCILOR: OfficialRankDef(
         key=OFFICIAL_GRAND_COUNCILOR,
-        name="宰辅",
+        name_msgid="official_rank_grand_chancellor",
         threshold=1000,
         salary=700,
         upkeep_decay=15,
@@ -110,7 +126,9 @@ def get_official_rank(rank_key: str | None) -> OfficialRankDef:
 
 
 def get_official_rank_name(rank_key: str | None) -> str:
-    return get_official_rank(rank_key).name
+    from src.i18n import t
+
+    return t(get_official_rank(rank_key).name_msgid)
 
 
 def get_next_official_rank(rank_key: str | None) -> OfficialRankDef | None:
@@ -207,6 +225,8 @@ def match_dynasty_preference(avatar: "Avatar", dynasty: "Dynasty | None") -> boo
 
 
 def get_dynasty_preference_label(dynasty: "Dynasty | None") -> str:
+    from src.i18n import t
+
     if dynasty is None:
         return ""
 
@@ -216,30 +236,30 @@ def get_dynasty_preference_label(dynasty: "Dynasty | None") -> str:
         return ""
 
     if pref_type == "gender":
-        return "偏好男性修士" if pref_value.lower() == "male" else "偏好女性修士"
+        return t("Prefers male cultivators") if pref_value.lower() == "male" else t("Prefers female cultivators")
     if pref_type == "alignment":
         mapping = {
-            "RIGHTEOUS": "偏好正道修士",
-            "EVIL": "偏好邪道修士",
-            "NEUTRAL": "偏好中立修士",
+            "RIGHTEOUS": t("Prefers righteous cultivators"),
+            "EVIL": t("Prefers evil cultivators"),
+            "NEUTRAL": t("Prefers neutral cultivators"),
         }
-        return mapping.get(pref_value, f"偏好{pref_value}")
+        return mapping.get(pref_value, t("Prefers {value}", value=pref_value))
     if pref_type == "orthodoxy":
         mapping = {
-            "confucianism": "偏好儒家修士",
-            "dao": "偏好道家修士",
-            "buddhism": "偏好佛家修士",
-            "wu": "偏好武道修士",
+            "confucianism": t("Prefers Confucian cultivators"),
+            "dao": t("Prefers Daoist cultivators"),
+            "buddhism": t("Prefers Buddhist cultivators"),
+            "wu": t("Prefers martial cultivators"),
         }
-        return mapping.get(pref_value, f"偏好{pref_value}")
+        return mapping.get(pref_value, t("Prefers {value}", value=pref_value))
     if pref_type == "persona_key":
         mapping = {
-            "INTO_WORLD": "偏好入世之人",
-            "ORTHODOX_GENTLEMAN": "偏好名教中人",
-            "SECLUDED": "偏好出世之人",
-            "RECLUSIVE_CULTIVATOR": "偏好山泽孤修",
+            "INTO_WORLD": t("Prefers worldly cultivators"),
+            "ORTHODOX_GENTLEMAN": t("Prefers orthodox gentlemen"),
+            "SECLUDED": t("Prefers secluded cultivators"),
+            "RECLUSIVE_CULTIVATOR": t("Prefers solitary mountain cultivators"),
         }
-        return mapping.get(pref_value.upper(), f"偏好{pref_value}")
+        return mapping.get(pref_value.upper(), t("Prefers {value}", value=pref_value))
     return ""
 
 

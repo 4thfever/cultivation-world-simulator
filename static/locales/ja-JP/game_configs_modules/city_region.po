@@ -1,0 +1,43 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "CITY_REGION_301_DESC"
+msgstr "人口が密集し商人が行き交う繁華な大城。天材地宝の売買や機縁探しにおける重要な拠点である。"
+
+msgid "CITY_REGION_301_NAME"
+msgstr "青雲城"
+
+msgid "CITY_REGION_302_DESC"
+msgstr "砂漠のオアシスにある交易小城。隊商が絶えず往来し、修士たちが補給と交換のために集まる。"
+
+msgid "CITY_REGION_302_NAME"
+msgstr "沙州城"
+
+msgid "CITY_REGION_303_DESC"
+msgstr "森林の奥深くにある修行小城。名だたる大都会ほどの賑わいはないが、多くの修士が住み、修行や錬器に向いている。"
+
+msgid "CITY_REGION_303_NAME"
+msgstr "翠林城"
+
+msgid "CITY_REGION_304_DESC"
+msgstr "河口に栄える大城。水路交通が発達し、水属性の修士が数多く集う。"
+
+msgid "CITY_REGION_304_NAME"
+msgstr "滄瀾城"
+
+msgid "CITY_REGION_305_DESC"
+msgstr "幾重もの峰の上に築かれた山城。年中霧に包まれ、清らかな霊気に満ち、苦修士が天道を悟るのに適している。"
+
+msgid "CITY_REGION_305_NAME"
+msgstr "攬月城"

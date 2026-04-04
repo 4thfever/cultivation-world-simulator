@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Gathering System - Auction
+# Status Text
+msgid "Auction is in progress..."
+msgstr "競売開催中..."
+
+msgid "epiphany_event_desc"
+msgstr ""
+"特別事件: 弟子 {names} は講道中に頓悟し、その場で {tech_name} を会得した！\n"
+
+msgid "female"
+msgstr "女"
+
+msgid "sect_teaching_context_prompt"
+msgstr ""
+"宗門: {sect_name}\n"
+"気風: {style}\n"
+"講師: {teacher_name}（{teacher_realm}）\n"
+"{epiphany_text}\n"
+"宗門と人物設定に基づき、講師が天地・世間・大道をどう理解しているかを描き、弟子たちの異なる反応もあわせて描写せよ。"
+
+msgid "sect_teaching_event_desc"
+msgstr "{teacher_name} が講壇に立ち、講道を始めようとしている。"
+
+msgid "sect_teaching_exp_gain"
+msgstr "{student_name} は {exp} の修為経験を得た。"
+
+msgid "sect_teaching_gathering_info"
+msgstr "{sect_name} 講道会"
+
+# Gathering System - Sect Teaching
+msgid "sect_teaching_story_prompt"
+msgstr ""
+"宗門の講道会を描写せよ。場の空気、講師の深い道韻、弟子たちのさまざまな反応に重点を置くこと。具体的な経験値の数値は出さないこと。"
+
+msgid "sect_teaching_summary"
+msgstr ""
+"{sect_name} は {teacher_name} を講師として講道会を開いた。参加者: {student_names}。"

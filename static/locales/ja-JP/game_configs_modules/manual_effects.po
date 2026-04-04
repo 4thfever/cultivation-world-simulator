@@ -1,0 +1,44 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "condition_has_spirit_animal"
+msgstr "霊獣を所持している時"
+
+msgid "condition_level_ge_30"
+msgstr "レベル 30 以上の時"
+
+msgid "condition_realm_early"
+msgstr "練気期または築基期の時"
+
+# Celestial Phenomenon
+msgid "condition_realm_high"
+msgstr "化神期以上の時"
+
+msgid "condition_realm_late"
+msgstr "金丹期または元嬰期の時"
+
+msgid "condition_realm_low"
+msgstr "化神期未満の時"
+
+# Personas
+msgid "condition_unarmed"
+msgstr "素手の時"
+
+# Weapons
+msgid "effect_god_slaying_spear_desc"
+msgstr "槍熟練度に応じて戦闘力が上昇する"
+
+# Auxiliary
+msgid "effect_ten_thousand_souls_banner_desc"
+msgstr "都市の人間を喰らって魂を集め、段階的に最大 +8 まで戦闘力を得る"

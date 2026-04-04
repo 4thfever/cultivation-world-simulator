@@ -13,7 +13,7 @@ import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
 const { entries: worldInfoEntries, loading: worldInfoLoading } = useWorldInfo()
@@ -40,6 +40,15 @@ const domainColor = computed(() => {
   // 如果有任意一个秘境是开启状态，则亮色
   const anyOpen = store.activeDomains.some(d => d.is_open);
   return anyOpen ? '#fa8c16' : '#666'; // 有开启亮橙色，全关闭灰色
+});
+
+const timeLabel = computed(() => {
+  const yearPart = `${store.year}${t('common.year')}`;
+  const monthPart = `${store.month}${t('common.month')}`;
+  if (locale.value.startsWith('ja') || locale.value.startsWith('zh')) {
+    return `${yearPart}${monthPart}`;
+  }
+  return `${yearPart} ${monthPart}`;
 });
 
 function getRarityColor(rarity: string) {
@@ -74,7 +83,7 @@ async function handleSelect(id: number, name: string) {
       <span class="status-dot" :class="{ connected: socketStore.isConnected }"></span>
     </div>
     <div class="center">
-      <span class="time">{{ store.year }}{{ t('common.year') }} {{ store.month }}{{ t('common.month') }}</span>
+      <span class="time">{{ timeLabel }}</span>
 
       <StatusWidget
         :label="t('game.status_bar.world_info.label')"

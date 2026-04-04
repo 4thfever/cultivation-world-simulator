@@ -82,3 +82,78 @@ msgstr "Hiện tại không có thiên địa dị tượng."
 
 msgid "A celestial phenomenon is present, but its description is missing."
 msgstr "Hiện đang có thiên địa dị tượng, nhưng phần mô tả còn thiếu."
+
+msgid "New disciples must abide by the sect rules."
+msgstr "Đệ tử mới nhập môn phải tuân thủ môn quy."
+
+msgid "{sect_name} has extended a recruitment invitation to you."
+msgstr "{sect_name} đã gửi lời chiêu mộ đến ngươi."
+
+msgid "Sect overview: {sect_info}"
+msgstr "Khái quát tông môn: {sect_info}"
+
+msgid "Sect rules: {rule_desc}"
+msgstr "Môn quy: {rule_desc}"
+
+msgid "If you accept, you will become a disciple of this sect."
+msgstr "Nếu chấp thuận, ngươi sẽ trở thành đệ tử của tông môn này."
+
+msgid "Accept invitation"
+msgstr "Chấp nhận chiêu mộ"
+
+msgid "Join {sect_name} and become one of its disciples."
+msgstr "Gia nhập {sect_name} và trở thành môn hạ đệ tử."
+
+msgid "Decline invitation"
+msgstr "Từ chối chiêu mộ"
+
+msgid "Remain an independent cultivator."
+msgstr "Tiếp tục giữ thân phận tán tu."
+
+msgid "{avatar_name} accepted {sect_name}'s invitation."
+msgstr "{avatar_name} đã chấp nhận lời chiêu mộ của {sect_name}."
+
+msgid "{avatar_name} declined {sect_name}'s invitation."
+msgstr "{avatar_name} đã từ chối lời chiêu mộ của {sect_name}."
+
+msgid "{sect_name} declared war on {target_name}; from this point on, the two sects are at war."
+msgstr "{sect_name} đã tuyên chiến với {target_name}; từ đây hai tông chính thức bước vào chiến tranh."
+
+msgid "{sect_name} made peace with {target_name}, and the state of war between them came to an end."
+msgstr "{sect_name} đã nghị hòa với {target_name}, trạng thái chiến tranh giữa hai bên chấm dứt."
+
+msgid "{sect_name} spent {cost} spirit stones to recruit {avatar_name}; {avatar_name} officially became a disciple of the sect."
+msgstr "{sect_name} đã chi {cost} linh thạch để chiêu nạp {avatar_name}; {avatar_name} chính thức trở thành đệ tử của bổn tông."
+
+msgid "{sect_name} judged that {avatar_name} had gravely violated the sect rules and expelled them from the sect."
+msgstr "{sect_name} phán định {avatar_name} đã nghiêm trọng vi phạm môn quy và trục xuất khỏi tông môn."
+
+msgid "{sect_name} bestowed the technique \"{technique_name}\" upon {avatar_name}."
+msgstr "{sect_name} đã ban công pháp \"{technique_name}\" cho {avatar_name}."
+
+msgid "{sect_name} granted {amount} spirit stones to {avatar_name} in support of their cultivation."
+msgstr "{sect_name} đã cấp {amount} linh thạch cho {avatar_name} để trợ giúp tu hành."
+
+msgid "recruited {count} rogue cultivators"
+msgstr "chiêu nạp {count} tán tu"
+
+msgid "declared war {count} times"
+msgstr "tuyên chiến {count} lần"
+
+msgid "made peace {count} times"
+msgstr "nghị hòa {count} lần"
+
+msgid "expelled {count} members"
+msgstr "trục xuất {count} môn nhân"
+
+msgid "bestowed techniques {count} times"
+msgstr "ban công pháp {count} lần"
+
+msgid "granted spirit-stone support {count} times"
+msgstr "cấp linh thạch hỗ trợ {count} lần"
+
+msgid "{sect_name} focused this round of sect decisions on consolidation and observation, with no major adjustments made."
+msgstr "{sect_name} trong đợt quyết sách này chủ yếu quan sát và củng cố, không đưa ra điều chỉnh lớn."
+
+msgid "{sect_name} this round of sect decisions:"
+msgstr "Quyết sách tông môn vòng này của {sect_name}:"

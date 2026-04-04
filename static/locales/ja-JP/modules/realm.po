@@ -1,0 +1,38 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "apprentice"
+msgstr "弟子"
+
+msgid "child"
+msgstr "子"
+
+msgid "enemy"
+msgstr "敵"
+
+msgid "friend"
+msgstr "友"
+
+msgid "kin"
+msgstr "親族"
+
+msgid "lovers"
+msgstr "道侶"
+
+msgid "master"
+msgstr "師"
+
+# Realm
+msgid "qi_refinement"
+msgstr "練気"

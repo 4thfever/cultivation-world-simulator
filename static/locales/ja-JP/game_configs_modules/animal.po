@@ -1,0 +1,101 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. animal.csv: 拥有上古血脉的巨型妖兽，皮毛如铁，行走间...
+msgid "ANIMAL_10_DESC"
+msgstr "上古の血脈を宿す巨躯の妖獣。毛皮は鉄のように硬く、一歩ごとに大地を震わせる。圧倒的な怪力を持つ。"
+
+#. animal.csv: 撼地神牛
+msgid "ANIMAL_10_NAME"
+msgstr "撼地神牛"
+
+#. animal.csv: 生存于冻土深处的冷血妖兽，身躯由半透明的...
+msgid "ANIMAL_11_DESC"
+msgstr "永久凍土の奥に棲む冷血の妖獣。半透明の骨と霜でできた体を持ち、音もなく獲物を凍らせる。"
+
+#. animal.csv: 冰魄骨蛇
+msgid "ANIMAL_11_NAME"
+msgstr "氷魄骨蛇"
+
+#. animal.csv: 天性机敏的灵性兔子，毛色雪白，蕴含微弱灵...
+msgid "ANIMAL_1_DESC"
+msgstr "生来聡敏な霊性の兎。雪のように白い毛並みに淡い霊気を宿し、穏やかで馴らしやすい。"
+
+#. animal.csv: 灵兔
+msgid "ANIMAL_1_NAME"
+msgstr "霊兎"
+
+#. animal.csv: 凶猛的魔性狼族，体型巨大，拥有强大的魔力...
+msgid "ANIMAL_2_DESC"
+msgstr "巨大な体躯と魔力、鋭い牙と爪を備えた凶暴な魔狼。獰猛で殺気に満ちている。"
+
+#. animal.csv: 魔狼
+msgid "ANIMAL_2_NAME"
+msgstr "魔狼"
+
+#. animal.csv: 栖息于平原地带的温和灵兽，通体青色，角如...
+msgid "ANIMAL_3_DESC"
+msgstr "平原に棲む温和な霊獣。全身は青く、玉のような角を持ち、霊気の変化を敏感に感じ取る。"
+
+#. animal.csv: 青云鹿
+msgid "ANIMAL_3_NAME"
+msgstr "青雲鹿"
+
+#. animal.csv: 南疆蛮荒中的敏捷猎手，身形如影，爪牙锋利...
+msgid "ANIMAL_4_DESC"
+msgstr "南疆の蛮荒に生きる俊敏な狩人。影のような身のこなしと鋭い爪牙を持ち、隠密の狩りを得意とする。"
+
+#. animal.csv: 暗影豹
+msgid "ANIMAL_4_NAME"
+msgstr "暗影豹"
+
+#. animal.csv: 无边碧海的古老灵兽，龟甲如碧玉，能操控海...
+msgid "ANIMAL_5_DESC"
+msgstr "果てなき碧海に棲む古き霊獣。碧玉のような甲羅をまとい、海水を操り、極めて長い寿命を持つ。"
+
+#. animal.csv: 碧海龙龟
+msgid "ANIMAL_5_NAME"
+msgstr "碧海龍亀"
+
+#. animal.csv: 青峰山脉的强壮守护者，皮毛坚如磐石，力大...
+msgid "ANIMAL_6_DESC"
+msgstr "青峰山脈を守る屈強な霊獣。毛皮は岩のように硬く、怪力を誇り、性質は質朴で実直。"
+
+#. animal.csv: 石甲山熊
+msgid "ANIMAL_6_NAME"
+msgstr "石甲山熊"
+
+#. animal.csv: 驰骋于碧野千里的神骏灵兽，四蹄生风，速度...
+msgid "ANIMAL_7_DESC"
+msgstr "千里の碧野を駆ける神駿の霊獣。四蹄に風を生じ、稲妻のような速度と流れるたてがみを持つ。"
+
+#. animal.csv: 风速马
+msgid "ANIMAL_7_NAME"
+msgstr "風速馬"
+
+#. animal.csv: 炎狱火山中的火系灵兽，鳞片赤红如火，能在...
+msgid "ANIMAL_8_DESC"
+msgstr "炎獄火山に棲む火属性の霊獣。鱗は燃えるように赤く、溶岩を泳ぎ、火炎を吐く。"
+
+#. animal.csv: 熔岩蜥蜴
+msgid "ANIMAL_8_NAME"
+msgstr "熔岩蜥蜴"
+
+#. animal.csv: 迷雾沼泽的剧毒生物，体色斑斓，能释放致命...
+msgid "ANIMAL_9_DESC"
+msgstr "霧の沼に潜む猛毒生物。体表はまだらに色づき、致命的な瘴毒を放ち、身を隠すことに長ける。"
+
+#. animal.csv: 毒瘴蛙
+msgid "ANIMAL_9_NAME"
+msgstr "毒瘴蛙"

@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. random_minor_event.csv: 心境偏移
+msgid "minor_event_cause_1"
+msgstr "心境偏移"
+
+#. random_minor_event.csv: 莫名执念
+msgid "minor_event_cause_2"
+msgstr "莫名執念"
+
+#. random_minor_event.csv: 与修真装备、武器、功法的日常互动
+msgid "minor_event_cause_3"
+msgstr "仙道の装備・武器・功法との日常的な関わり"
+
+#. random_minor_event.csv: 对所在环境的感叹
+msgid "minor_event_cause_4"
+msgstr "眼前の環境への感慨"
+
+#. random_minor_event.csv: 宗门事务
+msgid "minor_event_cause_5"
+msgstr "宗門の雑務"
+
+#. random_minor_event.csv: 修仙日常
+msgid "minor_event_cause_6"
+msgstr "仙道の日常"
+
+#. random_minor_event.csv: 啼笑皆非的小插曲
+msgid "minor_event_cause_7"
+msgstr "思わず苦笑するような小挿話"
+
+#. random_minor_event.csv: 微观社交摩擦(互相打量/戒备/嘲讽)
+msgid "minor_event_cause_8"
+msgstr "微細な社交摩擦（値踏み・警戒・嘲り）"
+
+#. random_minor_event.csv: 非对称互动(听到八卦/被人背后议论)
+msgid "minor_event_cause_9"
+msgstr "非対称な関わり（噂を聞く・陰で話題にされる）"
+
+#. random_minor_event.csv: 关系网的日常投影(道侣传音/师徒考校/死仇互瞪)
+msgid "minor_event_cause_10"
+msgstr "関係網の日常投影（道侶の伝音・師徒の考校・宿敵の睨み合い）"
+
+#. random_minor_event.csv: 日常对话
+msgid "minor_event_cause_11"
+msgstr "日常会話"
+
+#. random_minor_event.csv: 好感暗生
+msgid "minor_event_cause_12"
+msgstr "ひそかな好意の芽生え"
+
+#. random_minor_event.csv: 修行时一念游移的内在波动
+msgid "minor_event_desc_inner_mood_shift"
+msgstr "修行中、意識がわずかに逸れたことで起こる内なる揺らぎ"
+
+#. random_minor_event.csv: 心底忽然浮起的一缕执念
+msgid "minor_event_desc_inner_obsession"
+msgstr "心の奥にふいに浮かび上がる一筋の執念"
+
+#. random_minor_event.csv: 围绕功法法宝兵器的日常修炼片段
+msgid "minor_event_desc_daily_practice"
+msgstr "功法・法宝・武器をめぐる日々の修練の一幕"
+
+#. random_minor_event.csv: 对眼前山川气象的一瞬感触
+msgid "minor_event_desc_environment_response"
+msgstr "目の前の山川や気象に触れてふと湧く感慨"
+
+#. random_minor_event.csv: 宗门生活中的寻常差事
+msgid "minor_event_desc_sect_errand"
+msgstr "宗門生活の中で生じるありふれた差し使い"
+
+#. random_minor_event.csv: 略显窘迫却无伤大雅的小插曲
+msgid "minor_event_desc_comic_incident"
+msgstr "やや気まずいが大事には至らない滑稽な小事件"
+
+#. random_minor_event.csv: 路过时短暂发生的一次照面互动
+msgid "minor_event_desc_passing_interaction"
+msgstr "通りすがりに交わされる短い対面のやり取り"
+
+#. random_minor_event.csv: 一方留意另一方却未必说破的片刻
+msgid "minor_event_desc_asymmetric_attention"
+msgstr "片方だけが気に留めつつ、あえて口には出さないひととき"
+
+#. random_minor_event.csv: 不动声色却略带好感的一次接触
+msgid "minor_event_desc_subtle_goodwill"
+msgstr "あからさまではないが、ほのかな好意を帯びた接触"
+
+#. random_minor_event.csv: 语气眼神或态度上的轻微摩擦
+msgid "minor_event_desc_social_friction"
+msgstr "口調・視線・態度ににじむ小さな摩擦"
+
+#. random_minor_event.csv: 围绕零碎资源与机会的短暂争抢
+msgid "minor_event_desc_resource_competition"
+msgstr "些細な資源や機会をめぐる短い争い"
+
+#. random_minor_event.csv: 顺手帮衬彼此的一次小小照应
+msgid "minor_event_desc_small_mutual_help"
+msgstr "何気なく手を貸し合うささやかな助け合い"

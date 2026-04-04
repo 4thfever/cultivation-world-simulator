@@ -1,0 +1,221 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. material.csv: 普通的黑色铁矿，质地坚硬，适合打造练气期...
+msgid "MATERIAL_101_DESC"
+msgstr "ありふれた黒鉄鉱。質は硬く、練気期の法器を鍛える素材として適している。"
+
+#. material.csv: 玄铁
+msgid "MATERIAL_101_NAME"
+msgstr "玄鉄"
+
+#. material.csv: 通体赤红的铜矿，蕴含火灵之力，是筑基期炼...
+msgid "MATERIAL_102_DESC"
+msgstr "全体が赤く染まった銅鉱。火霊の力を帯びており、築基期の煉器でよく用いられる。"
+
+#. material.csv: 赤精铜
+msgid "MATERIAL_102_NAME"
+msgstr "赤精銅"
+
+#. material.csv: 银白色的稀有金属，延展性极佳且能传导灵力...
+msgid "MATERIAL_103_DESC"
+msgstr "銀白色の希少金属。延展性に優れ、霊力を通しやすく、金丹期法器の素材に向く。"
+
+#. material.csv: 秘银
+msgid "MATERIAL_103_NAME"
+msgstr "秘銀"
+
+#. material.csv: 锐气逼人的金色矿石，坚不可摧，乃是元婴期...
+msgid "MATERIAL_104_DESC"
+msgstr "鋭気あふれる黄金色の鉱石。堅牢無比で、元嬰期の本命法宝を鍛える最上級素材である。"
+
+#. material.csv: 庚金
+msgid "MATERIAL_104_NAME"
+msgstr "庚金"
+
+#. material.csv: 奇草提炼的精华，具有神奇的治愈效果...
+msgid "MATERIAL_10_DESC"
+msgstr "奇草から抽出した精華。不思議な治癒効果を備える。"
+
+#. material.csv: 奇草精华
+msgid "MATERIAL_10_NAME"
+msgstr "奇草精華"
+
+#. material.csv: 灵木的珍贵木心，蕴含浓郁灵力，是制作法器...
+msgid "MATERIAL_11_DESC"
+msgstr "霊木の貴重な木心。濃厚な霊力を宿し、法器制作の中核素材となる。"
+
+#. material.csv: 灵木心
+msgid "MATERIAL_11_NAME"
+msgstr "霊木心"
+
+#. material.csv: 沙漠仙人掌的灵药刻刺，能解百毒，制成针剂...
+msgid "MATERIAL_12_DESC"
+msgstr "砂漠仙人掌から採れる霊薬の棘。百毒を解し、針剤にすると高い効果を発揮する。"
+
+#. material.csv: 仙人掌刺
+msgid "MATERIAL_12_NAME"
+msgstr "仙人掌刺"
+
+#. material.csv: 寒霜雪莲的洁白花瓣，蕴含极寒之气，是寒性...
+msgid "MATERIAL_13_DESC"
+msgstr "寒霜雪蓮の純白の花弁。極寒の気を含み、寒属性の薬材として最上の選択肢となる。"
+
+#. material.csv: 雪莲花瓣
+msgid "MATERIAL_13_NAME"
+msgstr "雪蓮花弁"
+
+#. material.csv: 水灵芝的蓝色孢子，能增强水行修炼者的灵力...
+msgid "MATERIAL_14_DESC"
+msgstr "水霊芝の青い胞子。水行修士の霊力循環を強める。"
+
+#. material.csv: 灵芝孢子
+msgid "MATERIAL_14_NAME"
+msgstr "霊芝胞子"
+
+#. material.csv: 雪绒花的纯白花蕊，具有安神镇静功效，是冥...
+msgid "MATERIAL_15_DESC"
+msgstr "雪絨花の純白の花蕊。安神鎮静の効能があり、冥想補助の薬材に適している。"
+
+#. material.csv: 雪绒花蕊
+msgid "MATERIAL_15_NAME"
+msgstr "雪絨花蕊"
+
+#. material.csv: 千年古松的珍贵松脂，晶莹如琥珀，蕴含浓郁...
+msgid "MATERIAL_16_DESC"
+msgstr "千年古松から採れる貴重な松脂。琥珀のように透き通り、濃い霊力を宿す高階煉器の希少素材。"
+
+#. material.csv: 古松松脂
+msgid "MATERIAL_16_NAME"
+msgstr "古松松脂"
+
+#. material.csv: 五谷灵稻提炼的精华，能快速强化体质，是体...
+msgid "MATERIAL_17_DESC"
+msgstr "五穀霊稲から抽出した精華。体質を素早く強め、鍛体系丹薬の主要材料となる。"
+
+#. material.csv: 灵稻精华
+msgid "MATERIAL_17_NAME"
+msgstr "霊稲精華"
+
+#. material.csv: 撼地神牛的独角，蕴含厚重的大地之力，是炼...
+msgid "MATERIAL_18_DESC"
+msgstr "撼地神牛の独角。重厚な大地の力を宿し、重型法器や防御陣の上級素材となる。"
+
+#. material.csv: 神牛角
+msgid "MATERIAL_18_NAME"
+msgstr "神牛角"
+
+#. material.csv: 九曲清音竹中最精华的一节，敲击时能发出安...
+msgid "MATERIAL_19_DESC"
+msgstr "九曲清音竹でもっとも精華の凝った一節。叩けば心を鎮める清音を放ち、音波系法器に最適。"
+
+#. material.csv: 清音竹节
+msgid "MATERIAL_19_NAME"
+msgstr "清音竹節"
+
+#. material.csv: 灵性充沛的兔子细毛，质地柔软温暖，适合编...
+msgid "MATERIAL_1_DESC"
+msgstr "霊性に満ちた兎の細毛。柔らかく温かく、防寒衣の編成に向く。"
+
+#. material.csv: 灵兔毛
+msgid "MATERIAL_1_NAME"
+msgstr "霊兎毛"
+
+#. material.csv: 冰魄骨蛇的内丹所在，虽为极寒之物，但吞服...
+msgid "MATERIAL_20_DESC"
+msgstr "氷魄骨蛇の内丹が宿る胆。極寒の物ではあるが、呑めば寒気への親和性を大きく高めるため、寒系功法の宝とされる。"
+
+#. material.csv: 冰魄蛇胆
+msgid "MATERIAL_20_NAME"
+msgstr "氷魄蛇胆"
+
+#. material.csv: 叶面上天生带有星辰纹路的草叶，蕴含纯净的...
+msgid "MATERIAL_21_DESC"
+msgstr "葉の表面に生まれつき星辰の紋が浮かぶ草葉。純粋な星力を含み、星属性丹薬の主材となる。"
+
+#. material.csv: 星纹叶
+msgid "MATERIAL_21_NAME"
+msgstr "星紋葉"
+
+#. material.csv: 涅盘赤果的果核，即便果肉枯萎，核心仍锁有...
+msgid "MATERIAL_22_DESC"
+msgstr "涅槃赤果の果核。果肉が枯れても核には不滅に近い生命力が残り、延寿丹や至高の治療薬の要となる。"
+
+#. material.csv: 赤果核
+msgid "MATERIAL_22_NAME"
+msgstr "赤果核"
+
+#. material.csv: 凶猛魔狼的锋利狼牙，蕴含魔力，是锻造利器...
+msgid "MATERIAL_2_DESC"
+msgstr "凶猛な魔狼から得られる鋭い牙。魔力を帯び、利器を鍛える貴重な素材。"
+
+#. material.csv: 魔狼牙
+msgid "MATERIAL_2_NAME"
+msgstr "魔狼牙"
+
+#. material.csv: 青云鹿的羼玉之角，蕴含清灵之气，是炼丹的...
+msgid "MATERIAL_3_DESC"
+msgstr "青雲鹿の玉のような角。清らかな霊気を含み、煉丹に適した上質薬材。"
+
+#. material.csv: 青云鹿角
+msgid "MATERIAL_3_NAME"
+msgstr "青雲鹿角"
+
+#. material.csv: 暗影豹的锋利爪子，轻盈而德，能增强武器的...
+msgid "MATERIAL_4_DESC"
+msgstr "暗影豹の鋭利な爪。軽快でしなやかであり、武器の敏捷性を高める。"
+
+#. material.csv: 暗影豹爪
+msgid "MATERIAL_4_NAME"
+msgstr "暗影豹爪"
+
+#. material.csv: 碧海龙龟的古老甲片，坚不可摧，蕴含海洋灵...
+msgid "MATERIAL_5_DESC"
+msgstr "碧海龍亀の古き甲片。破りがたく、海洋霊力を宿すため、防具の最上級素材となる。"
+
+#. material.csv: 龙龟甲片
+msgid "MATERIAL_5_NAME"
+msgstr "龍亀甲片"
+
+#. material.csv: 石甲山熊的珍贵熊胆，能增强体质和力量，是...
+msgid "MATERIAL_6_DESC"
+msgstr "石甲山熊の貴重な熊胆。体質と力を強め、鍛体系修士に重宝される薬材。"
+
+#. material.csv: 山熊胆
+msgid "MATERIAL_6_NAME"
+msgstr "山熊胆"
+
+#. material.csv: 风速马的飘逸鬃毛，轻如风羽，能用于炼制速...
+msgid "MATERIAL_7_DESC"
+msgstr "風速馬の流れるたてがみ。風羽のように軽く、速度系法器の錬成に使える。"
+
+#. material.csv: 风速马鬃
+msgid "MATERIAL_7_NAME"
+msgstr "風速馬鬃"
+
+#. material.csv: 熔岩蜥蜴的赤红鳞片，耐高温且蕴含火系灵力...
+msgid "MATERIAL_8_DESC"
+msgstr "熔岩蜥蜴の赤い鱗片。高温に強く、火属性霊力を帯びるため、火属性法器の核心素材となる。"
+
+#. material.csv: 熔岩鳞片
+msgid "MATERIAL_8_NAME"
+msgstr "熔岩鱗片"
+
+#. material.csv: 毒瘴蛙的毒素囊袋，内含剧毒，是炼制毒类丹...
+msgid "MATERIAL_9_DESC"
+msgstr "毒瘴蛙の毒嚢。致命的な毒を含み、毒系丹薬を煉成する希少素材。"
+
+#. material.csv: 毒瘴囊
+msgid "MATERIAL_9_NAME"
+msgstr "毒瘴嚢"

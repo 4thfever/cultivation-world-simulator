@@ -153,3 +153,96 @@ msgstr "Hai người đang đối dịch đánh cờ."
 
 msgid "action_devourpeople_short_name"
 msgstr "Thôn Phệ Sinh Linh"
+
+msgid "Prefers male cultivators"
+msgstr "Ưa thích tu sĩ nam"
+
+msgid "Prefers female cultivators"
+msgstr "Ưa thích tu sĩ nữ"
+
+msgid "Prefers righteous cultivators"
+msgstr "Ưa thích tu sĩ chính đạo"
+
+msgid "Prefers evil cultivators"
+msgstr "Ưa thích tu sĩ tà đạo"
+
+msgid "Prefers neutral cultivators"
+msgstr "Ưa thích tu sĩ trung lập"
+
+msgid "Prefers Confucian cultivators"
+msgstr "Ưa thích tu sĩ Nho gia"
+
+msgid "Prefers Daoist cultivators"
+msgstr "Ưa thích tu sĩ Đạo gia"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "Ưa thích tu sĩ Phật gia"
+
+msgid "Prefers martial cultivators"
+msgstr "Ưa thích tu sĩ võ đạo"
+
+msgid "Prefers worldly cultivators"
+msgstr "Ưa thích người nhập thế"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "Ưa thích người theo danh giáo"
+
+msgid "Prefers secluded cultivators"
+msgstr "Ưa thích người xuất thế"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "Ưa thích kẻ cô tu nơi sơn dã"
+
+msgid "Prefers {value}"
+msgstr "Ưa thích {value}"
+
+msgid "official_rank_none"
+msgstr "Vô phẩm"
+
+msgid "official_rank_county_magistrate"
+msgstr "Huyện lệnh"
+
+msgid "official_rank_commandery_governor"
+msgstr "Quận thú"
+
+msgid "official_rank_provincial_governor"
+msgstr "Châu mục"
+
+msgid "official_rank_grand_chancellor"
+msgstr "Tể phụ"
+
+msgid "dynasty_style_law_and_arms"
+msgstr "Thượng pháp trọng binh"
+
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
+msgstr "Thanh đàm danh giáo"
+
+msgid "dynasty_style_civil_governance"
+msgstr "Trọng văn trị chính"
+
+msgid "dynasty_style_elegant_courtly_rule"
+msgstr "Phong nhã trị triều"
+
+msgid "dynasty_style_wild_marches"
+msgstr "Sơn trạch tạp hành"
+
+msgid "dynasty_style_pragmatic_commerce"
+msgstr "Trọng thực thông thương"
+
+msgid "dynasty_style_stoic_frontier_guard"
+msgstr "Trầm nghị thủ biên"
+
+msgid "dynasty_style_horsemanship_and_arms"
+msgstr "Kỵ xạ thượng võ"
+
+msgid "dynasty_style_strict_law_and_central_power"
+msgstr "Pháp nghiêm quyền trọng"
+
+msgid "dynasty_style_pragmatic_conservatism"
+msgstr "Vụ bản thủ thành"
+
+msgid "dynasty_style_flexible_statecraft"
+msgstr "Nhu trị cơ biến"
+
+msgid "dynasty_style_endure_and_strike_late"
+msgstr "Kiên nhẫn hậu phát"

@@ -154,3 +154,96 @@ msgstr "Two people are playing chess."
 
 msgid "action_devourpeople_short_name"
 msgstr "Devour People"
+
+msgid "Prefers male cultivators"
+msgstr "Prefers male cultivators"
+
+msgid "Prefers female cultivators"
+msgstr "Prefers female cultivators"
+
+msgid "Prefers righteous cultivators"
+msgstr "Prefers righteous cultivators"
+
+msgid "Prefers evil cultivators"
+msgstr "Prefers evil cultivators"
+
+msgid "Prefers neutral cultivators"
+msgstr "Prefers neutral cultivators"
+
+msgid "Prefers Confucian cultivators"
+msgstr "Prefers Confucian cultivators"
+
+msgid "Prefers Daoist cultivators"
+msgstr "Prefers Daoist cultivators"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "Prefers Buddhist cultivators"
+
+msgid "Prefers martial cultivators"
+msgstr "Prefers martial cultivators"
+
+msgid "Prefers worldly cultivators"
+msgstr "Prefers worldly cultivators"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "Prefers orthodox gentlemen"
+
+msgid "Prefers secluded cultivators"
+msgstr "Prefers secluded cultivators"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "Prefers solitary mountain cultivators"
+
+msgid "Prefers {value}"
+msgstr "Prefers {value}"
+
+msgid "official_rank_none"
+msgstr "Unranked"
+
+msgid "official_rank_county_magistrate"
+msgstr "County Magistrate"
+
+msgid "official_rank_commandery_governor"
+msgstr "Commandery Governor"
+
+msgid "official_rank_provincial_governor"
+msgstr "Provincial Governor"
+
+msgid "official_rank_grand_chancellor"
+msgstr "Grand Chancellor"
+
+msgid "dynasty_style_law_and_arms"
+msgstr "Law and Arms"
+
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
+msgstr "Pure Discourse and Orthodoxy"
+
+msgid "dynasty_style_civil_governance"
+msgstr "Civil Governance"
+
+msgid "dynasty_style_elegant_courtly_rule"
+msgstr "Elegant Courtly Rule"
+
+msgid "dynasty_style_wild_marches"
+msgstr "Wild Marches"
+
+msgid "dynasty_style_pragmatic_commerce"
+msgstr "Pragmatic Commerce"
+
+msgid "dynasty_style_stoic_frontier_guard"
+msgstr "Stoic Frontier Guard"
+
+msgid "dynasty_style_horsemanship_and_arms"
+msgstr "Horsemanship and Arms"
+
+msgid "dynasty_style_strict_law_and_central_power"
+msgstr "Strict Law and Central Power"
+
+msgid "dynasty_style_pragmatic_conservatism"
+msgstr "Pragmatic Conservatism"
+
+msgid "dynasty_style_flexible_statecraft"
+msgstr "Flexible Statecraft"
+
+msgid "dynasty_style_endure_and_strike_late"
+msgstr "Endure and Strike Late"

@@ -50,6 +50,11 @@
     "nickname_awarded": "{avatar_name} đã gây dựng danh tiếng trong tu tiên giới, được người đời gọi là \"{nickname}\"."
   },
   "ranking": {
+    "stages": {
+      "early": "Sơ Kỳ",
+      "middle": "Trung Kỳ",
+      "late": "Hậu Kỳ"
+    },
     "title_short": "[Bảng Xếp Hạng]",
     "tournament_short": "[Luận Võ]",
     "title": "Thiên Địa Nhân Bảng",
@@ -276,6 +281,7 @@
       "father_short": "Cha",
       "mother_short": "Mẹ",
       "mortal_realm": "Phàm Nhân",
+      "empty_short": "Không có",
       "modals": {
         "set_long_term": "Đặt Mục Tiêu Dài Hạn",
         "placeholder": "Nhập mục tiêu...",
@@ -287,6 +293,15 @@
       "view_sect": "Xem Chi Tiết Tông Môn",
       "essence_title": "Môi Trường Linh Khí",
       "essence_info": "{type} khí · Mật độ {density}",
+      "proper_name_note_short": "Địa Danh Gốc",
+      "proper_name_note": "Tên địa danh trên bản đồ là danh xưng riêng của thế giới tu tiên, nên được giữ nguyên dưới dạng Hán tự.",
+      "type_explanations": {
+        "normal": "Khu vực hoang dã thông thường, phân bố linh thú, linh thực và khoáng mạch.",
+        "city": "Khu vực thành thị, nơi dân cư tập trung và có thể mua bán vật tư ở chợ.",
+        "cave": "Động phủ, nơi linh khí thích hợp cho tu luyện, có thể có chủ hoặc vô chủ.",
+        "ruin": "Di tích, thích hợp để thám hiểm, thường còn sót lại linh khí và tàn tích cổ.",
+        "sect": "Tổng bộ tông môn, vùng lõi trong phạm vi ảnh hưởng của tông môn."
+      },
       "sections": {
         "host": "Chủ Động Phủ",
         "animals": "Linh Thú",

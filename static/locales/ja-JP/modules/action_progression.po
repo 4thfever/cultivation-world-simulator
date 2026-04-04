@@ -1,0 +1,220 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "breakthrough probability increased by {val:.1%}"
+msgstr "突破成功率が {val:.1%} 上昇した。"
+
+# Action: Breakthrough
+msgid "breakthrough_action_name"
+msgstr "突破"
+
+msgid "breakthrough_description"
+msgstr ""
+"境界突破を試みる（成功すれば寿命上限が伸び、失敗すれば削られる。高境界ほど成功率は低い）"
+
+msgid "breakthrough_requirements"
+msgstr "キャラクターが瓶頸に達していること。連続実行は不可"
+
+# Action: Cast
+msgid "cast_action_name"
+msgstr "鋳造"
+
+msgid "cast_description"
+msgstr ""
+"素材を消費して宝物の鋳造を試みる（対象境界: 練気・築基・結丹・元嬰）"
+
+msgid "cast_requirements"
+msgstr "同境界の素材を 5 個所持していること"
+
+# Action: DualCultivation
+msgid "dual_cultivation_action_name"
+msgstr "双修"
+
+msgid "dual_cultivation_description"
+msgstr "親密な交わりを通じて修行する。対象は受け入れるか拒否できる"
+
+msgid "dual_cultivation_requirements"
+msgstr "対象が交流範囲内にいること。連続実行は不可"
+
+msgid "dual_cultivation_story_prompt"
+msgstr ""
+"二人の修士が双修の中で情を深めていく。二人の性格、境界差、甘やかな心の揺れを反映しつつ、婉曲で上品な双修体験を描写せよ。数値的な経験値は出さないこと。"
+
+# Action: Educate
+msgid "educate_action_name"
+msgstr "教化"
+
+msgid "educate_description"
+msgstr ""
+"儒門の修行。都市で人々を教え導き、功徳と気運を積み上げる。"
+
+msgid "educate_requirements"
+msgstr "儒門正道であり、かつ都市にいること"
+
+msgid "govern_action_name"
+msgstr "治政"
+
+msgid "govern_description"
+msgstr "都市で政務を担い、声望と俸禄を得る。"
+
+msgid "govern_requirements"
+msgstr "都市にいる必要がある。継続期間は 3 か月。"
+
+msgid "excellent progress"
+msgstr "進境は極めて順調"
+
+msgid "gained {val} cultivation"
+msgstr "修為を {val} 得た。"
+
+# Action: Harvest
+msgid "harvest_action_name"
+msgstr "採集"
+
+msgid "harvest_description"
+msgstr "現在地の霊植を採集し、植物系素材を得る"
+
+msgid "harvest_requirements"
+msgstr ""
+"霊植のある通常地域にいること。かつ自身の境界が対象霊植以上であること"
+
+# Action: Meditate
+msgid "meditate_action_name"
+msgstr "打坐"
+
+msgid "meditate_description"
+msgstr ""
+"仏門の修行。打坐によって心を鎮め、頓悟すれば大幅な修為上昇の可能性がある。"
+
+msgid "meditate_requirements"
+msgstr "仏門正道が必要"
+
+# Action: NurtureWeapon
+msgid "nurture_weapon_action_name"
+msgstr "温養兵器"
+
+msgid "nurture_weapon_description"
+msgstr "武器を温養し、武器熟練度を高める"
+
+msgid "nurture_weapon_requirements"
+msgstr "特別な制限なし"
+
+# Action: Refine
+msgid "refine_action_name"
+msgstr "錬丹"
+
+msgid "refine_description"
+msgstr ""
+"素材を消費して丹薬の錬成を試みる（対象境界: 練気・築基・結丹・元嬰）"
+
+msgid "refine_requirements"
+msgstr "同境界の素材を 3 個所持していること"
+
+# Action: Respire
+msgid "respire_action_name"
+msgstr "吐納"
+
+msgid "respire_description"
+msgstr ""
+"天道に従って霊気を吐納する。霊気密度が高いほど効果は高い。"
+
+msgid "respire_requirements"
+msgstr "道門正道、または散修であること"
+
+msgid "respire_sect_hq_members_only"
+msgstr "この宗門の本部で吐納できるのは門下弟子のみ。"
+
+msgid "respire_efficiency_sect_hq"
+msgstr "着実な進境（宗門本部）"
+
+# Action: SelfHeal
+msgid "self_heal_action_name"
+msgstr "療傷"
+
+msgid "self_heal_description"
+msgstr ""
+"調息して傷を癒やす。宗門本部なら完全回復も可能"
+
+msgid "self_heal_requirements"
+msgstr "現在の HP が満タンではないこと"
+
+msgid "slow progress (essence mismatch)"
+msgstr "進境は遅い（霊気属性が合わない）"
+
+msgid "slow progress (sparse essence)"
+msgstr "進境は遅い（霊気が薄い）"
+
+# Action: Temper
+msgid "temper_action_name"
+msgstr "鍛体"
+
+msgid "temper_description"
+msgstr ""
+"外物にも霊気にも頼らず、極限の鍛錬によって肉身を鍛え上げる。"
+
+msgid "temper_requirements"
+msgstr "武門正道が必要"
+
+msgid "{avatar} begins Zen Meditation."
+msgstr "{avatar} は打坐に入った。"
+
+msgid "{avatar} begins attempting breakthrough"
+msgstr "{avatar} は突破を試み始めた"
+
+msgid "{avatar} begins attempting to cast {realm}-tier treasure"
+msgstr "{avatar} は {realm} 階の宝物の鋳造を試み始めた"
+
+msgid "{avatar} begins attempting to refine {realm}-tier elixir"
+msgstr "{avatar} は {realm} 階の丹薬の錬成を試み始めた"
+
+msgid "{avatar} begins educating people in {city}."
+msgstr "{avatar} は {city} で教化を始めた。"
+
+msgid "{avatar} begins governing in {city}."
+msgstr "{avatar} は {city} で治政を始めた。"
+
+msgid "{avatar} begins tempering body strength"
+msgstr "{avatar} は鍛体を始めた"
+
+msgid "{avatar} completed meditation with a peaceful mind."
+msgstr "{avatar} は心静かに打坐を終えた。"
+
+msgid "{avatar} finished educating people. Merit accumulated (+{exp})."
+msgstr "{avatar} は教化を終えた。功徳が積み上がった（+{exp}）。"
+
+msgid "{avatar} governed effectively in {city}. Court reputation +{reputation}, salary +{salary} spirit stones."
+msgstr "{avatar} は {city} で見事に治政を行った。声望 +{reputation}、俸禄 +{salary} 霊石。"
+
+msgid "{avatar} was promoted from {old_rank} to {new_rank} for distinguished governance."
+msgstr "{avatar} は優れた治政の功により、{old_rank} から {new_rank} へ昇進した。"
+
+msgid "{avatar} was governing in {city}."
+msgstr "{avatar} は {city} で治政にあたっていた。"
+
+msgid "{avatar} completed a round of governance, and new ripples spread through court and countryside."
+msgstr "{avatar} はひと巡りの治政を終え、朝廷と地方に新たな波紋が広がった。"
+
+msgid "{avatar} healing completed (recovered {amount} HP, current HP {hp})"
+msgstr "{avatar} の療傷が完了した（HP を {amount} 回復、現在 HP {hp}）"
+
+msgid "{avatar} successfully cast {realm}-tier {label} '{item}'"
+msgstr "{avatar} は {realm} 階の {label}「{item}」の鋳造に成功した"
+
+msgid "{avatar} successfully refined {realm}-tier elixir '{item}'"
+msgstr "{avatar} は {realm} 階の丹薬「{item}」の錬成に成功した"
+
+msgid "{initiator} invites {target} for dual cultivation"
+msgstr "{initiator} は {target} を双修へ誘った"
+
+msgid "Must be in a City to govern."
+msgstr "治政を行うには都市にいなければならない。"

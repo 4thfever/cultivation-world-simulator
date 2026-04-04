@@ -1,0 +1,215 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. world_info.csv: 你有一系列可以执行的动作。要注意动作的效果、限制条件、区域和时间。
+msgid "WORLD_INFO_ACTION_DESC"
+msgstr "あなたはさまざまな行動を実行できる。行動ごとの効果、制限条件、対応区域、所要時間に注意すること。"
+
+msgid "WORLD_INFO_ACTION_NAME"
+msgstr "行動"
+
+msgid "WORLD_INFO_ACTION_TITLE"
+msgstr "行動"
+
+#. world_info.csv: 每隔一段不确定的时间会有神秘人组织的拍卖会，或许有好货出售。
+msgid "WORLD_INFO_AUCTION_DESC"
+msgstr "一定ではない周期で、謎の人物が主催する競売会が開かれる。思わぬ掘り出し物が出ることもある。"
+
+msgid "WORLD_INFO_AUCTION_NAME"
+msgstr "競売会"
+
+msgid "WORLD_INFO_AUCTION_TITLE"
+msgstr "競売会"
+
+#. world_info.csv: 弱肉强食，境界压制极大，高境界者对低境界者有绝对优势。若对方死亡，胜者可掠夺败者财物。
+msgid "WORLD_INFO_BATTLE_DESC"
+msgstr "弱肉強食の世界であり、境界差による抑圧は極めて大きい。高境界の修士は低境界の修士に対して絶対的優位を持つ。相手を殺せば、その財物を奪うこともできる。"
+
+msgid "WORLD_INFO_BATTLE_NAME"
+msgstr "戦闘"
+
+msgid "WORLD_INFO_BATTLE_TITLE"
+msgstr "戦闘"
+
+#. world_info.csv: 修炼可以增加经验，直到到达突破前的瓶颈。突破是概率事件，突破后会进入下一个境界。
+msgid "WORLD_INFO_CULTIVATION_DESC"
+msgstr "修行によって経験を積み、突破前の瓶頸へ至ることができる。突破は確率イベントであり、成功すれば次の境界へ進む。"
+
+msgid "WORLD_INFO_CULTIVATION_NAME"
+msgstr "修行"
+
+msgid "WORLD_INFO_CULTIVATION_TITLE"
+msgstr "修行"
+
+#. world_info.csv: HP降至0以下也会死亡。
+msgid "WORLD_INFO_DEATH_DESC"
+msgstr "HP が 0 を下回っても死亡する。"
+
+msgid "WORLD_INFO_DEATH_NAME"
+msgstr "死亡"
+
+msgid "WORLD_INFO_DEATH_TITLE"
+msgstr "死亡"
+
+#. world_info.csv: 通过兵器、辅助装备、丹药等装备，可以获得额外的属性加成，获得或小或大的增益。拥有好的装备或者服...
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_DESC"
+msgstr "武器、補助装備、丹薬などを通じて追加属性や大小さまざまな強化を得られる。優れた装備や丹薬は大きな助けとなる。"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_NAME"
+msgstr "装備と丹薬"
+
+msgid "WORLD_INFO_EQUIPMENT_AND_ELIXIR_TITLE"
+msgstr "装備と丹薬"
+
+#. world_info.csv: 这是一个诸多修士竞相修行，纷争四起的修仙世界。
+msgid "WORLD_INFO_INTRO_DESC"
+msgstr "これは多くの修士が修行を競い、各地で争いが絶えない仙道世界である。"
+
+msgid "WORLD_INFO_INTRO_NAME"
+msgstr "導入"
+
+msgid "WORLD_INFO_INTRO_TITLE"
+msgstr "導入"
+
+#. world_info.csv: 若当前年龄达到最大寿元，会立刻死亡。突破境界可以增加最大寿元，突破失败也可能折损寿元。
+msgid "WORLD_INFO_LIFESPAN_DESC"
+msgstr "現在年齢が最大寿元に達すると即座に死亡する。境界突破は最大寿元を伸ばすことがあり、突破失敗で寿元を損なう場合もある。"
+
+msgid "WORLD_INFO_LIFESPAN_NAME"
+msgstr "寿元"
+
+msgid "WORLD_INFO_LIFESPAN_TITLE"
+msgstr "寿元"
+
+#. world_info.csv: 道、佛、儒等根本理念，决定门牌的根脚与修行起源。
+msgid "WORLD_INFO_ORTHODOXY_DESC"
+msgstr "道・仏・儒などの道統によって修行法は異なる。道門は吐納し、武道は鍛体し、仏門は坐禅し、儒門は教化を行う。"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_NAME"
+msgstr "道統"
+
+#. world_info.csv: 道统
+msgid "WORLD_INFO_ORTHODOXY_TITLE"
+msgstr "道統"
+
+#. world_info.csv: 修仙的境界从弱到强：练气、筑基、金丹、元婴。每个境界分前期、中期、后期。境界间差距很大。
+msgid "WORLD_INFO_REALM_DESC"
+msgstr "修行境界は弱い方から順に、練気・築基・金丹・元嬰。各境界は前期・中期・後期に分かれ、境界差は非常に大きい。"
+
+msgid "WORLD_INFO_REALM_NAME"
+msgstr "境界"
+
+msgid "WORLD_INFO_REALM_TITLE"
+msgstr "境界"
+
+#. world_info.csv: 不同区域有不同效果，在适当的区域做适当的事情事半功倍。
+msgid "WORLD_INFO_REGION_DESC"
+msgstr "区域ごとに異なる効果があり、適切な場所で適切な行動を取れば効率が大きく上がる。"
+
+msgid "WORLD_INFO_REGION_NAME"
+msgstr "区域"
+
+msgid "WORLD_INFO_REGION_TITLE"
+msgstr "区域"
+
+#. world_info.csv: 灵根由五行元素（金、木、水、火、土）组成，分为单灵根、双灵根和天灵根。五行相克：金克木，木克土...
+msgid "WORLD_INFO_ROOT_DESC"
+msgstr "霊根は金・木・水・火・土の五行から成り、単霊根・双霊根・天霊根などに分かれる。五行には相克があり、天霊根は突破時に追加補正を得る。自らの属性に合う区域では修行効率が最も高い。"
+
+msgid "WORLD_INFO_ROOT_NAME"
+msgstr "霊根"
+
+msgid "WORLD_INFO_ROOT_TITLE"
+msgstr "霊根"
+
+#. world_info.csv: 每隔数年会有秘境开启。进入秘境可能遭遇凶险，也可能获得高阶法宝和功法。
+msgid "WORLD_INFO_SECRET_REALM_DESC"
+msgstr "数年ごとに秘境が開かれる。入れば危険に遭うこともあるが、高階の法宝や功法を得られる可能性もある。"
+
+msgid "WORLD_INFO_SECRET_REALM_NAME"
+msgstr "秘境"
+
+msgid "WORLD_INFO_SECRET_REALM_TITLE"
+msgstr "秘境"
+
+#. world_info.csv: 修士的庇护所。加入宗门可习得独门功法、获同门庇护；散修自由但资源匮乏。
+msgid "WORLD_INFO_SECT_DESC"
+msgstr "宗門は修士の庇護所である。加入すれば独門の功法を学び、同門の庇護を受けられる。一方、散修は自由だが資源に乏しい。"
+
+msgid "WORLD_INFO_SECT_NAME"
+msgstr "宗門"
+
+msgid "WORLD_INFO_SECT_TITLE"
+msgstr "宗門"
+
+#. world_info.csv: 在城市区域可以购买练气级别丹药、兵器。购买丹药后会立刻服用强化自身。购买兵器可以帮自己切换兵器...
+msgid "WORLD_INFO_SHOPPING_DESC"
+msgstr "都市区域では練気級の丹薬や武器を購入できる。丹薬は購入後すぐ服用され、武器は自分に合う武器種へ持ち替える助けとなる。"
+
+msgid "WORLD_INFO_SHOPPING_NAME"
+msgstr "購買"
+
+msgid "WORLD_INFO_SHOPPING_TITLE"
+msgstr "購買"
+
+#. world_info.csv: 修仙界的通用货币。可用于购买法宝丹药，通过采集、交易或掠夺获取。
+msgid "WORLD_INFO_SPIRIT_STONE_DESC"
+msgstr "仙道界で広く通用する貨幣。法宝や丹薬の購入に使え、採集、交易、略奪などで手に入る。"
+
+msgid "WORLD_INFO_SPIRIT_STONE_NAME"
+msgstr "霊石"
+
+msgid "WORLD_INFO_SPIRIT_STONE_TITLE"
+msgstr "霊石"
+
+#. world_info.csv: 世界每隔数年会有一次天象变动（如灵气潮汐），影响角色能力。
+msgid "WORLD_INFO_WORLD_QI_DESC"
+msgstr "世界では数年ごとに天象変動が起こり、たとえば霊気潮汐のような現象が人物の能力へ影響を与える。"
+
+msgid "WORLD_INFO_WORLD_QI_NAME"
+msgstr "天地霊気"
+
+msgid "WORLD_INFO_WORLD_QI_TITLE"
+msgstr "天地霊気"
+
+#. world_info.csv: 修仙界设有天地人三榜及宗门榜。天榜收录元婴期强者，地榜收录金丹期强者，人榜收录筑基期强者，宗门榜按宗门总实力排名。
+msgid "WORLD_INFO_RANKING_DESC"
+msgstr "仙道界には天・地・人の榜と宗門ランキングがある。天榜には元嬰期の強者、地榜には結丹期の強者、人榜には築基期の強者が記され、宗門ランキングは宗門の総合実力で順位付けされる。"
+
+msgid "WORLD_INFO_RANKING_NAME"
+msgstr "榜"
+
+msgid "WORLD_INFO_RANKING_TITLE"
+msgstr "榜"
+
+#. world_info.csv: 凡人王朝统御天下，维持凡俗秩序与疆域。皇帝寿元与普通凡人无异，驾崩后会有新帝继位。
+msgid "WORLD_INFO_DYNASTY_DESC"
+msgstr "人間の王朝が天下を治め、俗世の秩序と疆域を保っている。皇帝の寿命も常人と大差なく、崩御すれば新たな帝が即位する。"
+
+msgid "WORLD_INFO_DYNASTY_NAME"
+msgstr "王朝"
+
+msgid "WORLD_INFO_DYNASTY_TITLE"
+msgstr "王朝"
+
+#. world_info.csv: 修士可为朝廷理政，积累朝廷威望并领取俸禄。威望足够可升官，官职越高，俸禄与气运越多；久不理政，威望会逐渐下滑。
+msgid "WORLD_INFO_OFFICIAL_DESC"
+msgstr "修士は朝廷のために政務を執り、声望を積み上げて俸禄を受け取れる。声望が十分なら昇進でき、官位が高いほど俸禄と気運も増す。長く政務を怠れば声望は徐々に下がる。"
+
+msgid "WORLD_INFO_OFFICIAL_NAME"
+msgstr "官位"
+
+msgid "WORLD_INFO_OFFICIAL_TITLE"
+msgstr "官位"

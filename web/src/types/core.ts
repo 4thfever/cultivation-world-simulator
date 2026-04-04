@@ -260,6 +260,7 @@ export interface RegionDetail extends EntityBase {
   desc: string;
   type: string;
   type_name: string; // 中文类型名
+  sub_type?: string;
   sect_id?: number;
   population?: number;
   population_capacity?: number;

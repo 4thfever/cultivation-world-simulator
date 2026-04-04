@@ -1,0 +1,203 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Effect Source Labels
+msgid "Sect [{name}]"
+msgstr "宗門 [{name}]"
+
+msgid "Official Rank [{name}]"
+msgstr "官位 [{name}]"
+
+msgid "Special effect (dynamic)"
+msgstr "特殊効果（動的）"
+
+msgid "Spirit Animal [{name}]"
+msgstr "霊獣 [{name}]"
+
+msgid "Spirit Root"
+msgstr "霊根"
+
+msgid "Technique [{name}]"
+msgstr "功法 [{name}]"
+
+msgid "Trait [{name}]"
+msgstr "特質 [{name}]"
+
+msgid "Weapon [{name}]"
+msgstr "武器 [{name}]"
+
+msgid "effect_source_cultivation_realm"
+msgstr "修行境界"
+
+msgid "effect_source_breakthrough_failure"
+msgstr "突破失敗"
+
+msgid "effect_source_retreat_failure"
+msgstr "閉関失敗"
+
+msgid "effect_source_persistent_effect"
+msgstr "持続効果"
+
+msgid "effect_source_help_people_karma"
+msgstr "凡人救済"
+
+msgid "effect_source_plunder_people_karma"
+msgstr "凡人略奪"
+
+msgid "effect_source_devour_people_karma"
+msgstr "凡人喰らい"
+
+# Effect Formatting
+msgid "action_list_separator"
+msgstr "、"
+
+msgid "effect_damage_reduction"
+msgstr "ダメージ軽減"
+
+msgid "effect_extra_assassinate_success_rate"
+msgstr "暗殺成功率"
+
+msgid "effect_extra_battle_strength_points"
+msgstr "戦力"
+
+msgid "effect_extra_breakthrough_success_rate"
+msgstr "突破成功率"
+
+msgid "effect_extra_cast_success_rate"
+msgstr "鋳造成功率"
+
+msgid "effect_extra_catch_success_rate"
+msgstr "御獣成功率"
+
+msgid "effect_extra_dual_cultivation_exp"
+msgstr "双修経験"
+
+msgid "effect_extra_educate_efficiency"
+msgstr "教化効率"
+
+msgid "effect_extra_educate_population_prob"
+msgstr "教化による人口増加確率"
+
+msgid "effect_extra_govern_reputation_gain_multiplier"
+msgstr "治政で得る声望"
+
+msgid "effect_extra_epiphany_probability"
+msgstr "頓悟確率"
+
+msgid "effect_extra_luck"
+msgstr "気運"
+
+msgid "Luck"
+msgstr "気運"
+
+msgid "effect_extra_escape_success_rate"
+msgstr "逃走成功率"
+
+msgid "effect_extra_fortune_probability"
+msgstr "奇遇確率"
+
+msgid "effect_extra_harvest_materials"
+msgstr "採集獲得量"
+
+msgid "effect_extra_hidden_domain_danger_prob"
+msgstr "秘境危険率"
+
+msgid "effect_extra_hidden_domain_drop_prob"
+msgstr "秘境ドロップ率"
+
+# Effect System
+# Effect Names
+msgid "effect_extra_hp_recovery_rate"
+msgstr "HP回復速度"
+
+msgid "effect_extra_hunt_materials"
+msgstr "狩猟素材獲得"
+
+msgid "effect_extra_item_sell_price_multiplier"
+msgstr "物品売却価格"
+
+msgid "effect_extra_max_hp"
+msgstr "最大HP"
+
+msgid "effect_extra_max_lifespan"
+msgstr "寿命上限"
+
+msgid "effect_extra_appearance"
+msgstr "容姿"
+
+msgid "effect_extra_mine_materials"
+msgstr "採鉱獲得量"
+
+msgid "effect_extra_misfortune_probability"
+msgstr "厄運確率"
+
+msgid "effect_extra_move_step"
+msgstr "移動距離"
+
+msgid "effect_extra_observation_radius"
+msgstr "感知範囲"
+
+msgid "effect_extra_plunder_multiplier"
+msgstr "略奪収益"
+
+msgid "effect_extra_refine_success_rate"
+msgstr "錬丹成功率"
+
+msgid "effect_extra_sect_mission_success_rate"
+msgstr "宗門任務成功率"
+
+msgid "effect_extra_respire_exp"
+msgstr "吐納経験"
+
+msgid "effect_extra_respire_exp_multiplier"
+msgstr "吐納経験補正"
+
+msgid "effect_extra_retreat_success_rate"
+msgstr "閉関成功率"
+
+msgid "effect_extra_temper_exp_multiplier"
+msgstr "鍛体効率"
+
+msgid "effect_extra_weapon_proficiency_gain"
+msgstr "武器熟練度獲得"
+
+msgid "effect_extra_weapon_upgrade_chance"
+msgstr "武器強化確率"
+
+msgid "effect_legal_actions"
+msgstr "特殊行動"
+
+msgid "effect_realm_suppression_bonus"
+msgstr "境界抑制"
+
+msgid "effect_respire_duration_reduction"
+msgstr "吐納時間短縮"
+
+msgid "effect_separator"
+msgstr "；"
+
+msgid "effect_shop_buy_price_reduction"
+msgstr "購入割引"
+
+msgid "effect_temper_duration_reduction"
+msgstr "鍛体時間短縮"
+
+msgid "play_benefit"
+msgstr "娯楽収益"
+
+msgid "effect_extra_plant_income"
+msgstr "耕作追加収益"
+
+msgid "effect_extra_income_per_tile"
+msgstr "1 マスごとの追加収入（年次）"

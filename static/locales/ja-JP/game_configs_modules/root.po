@@ -1,0 +1,93 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. root.csv: 资质通天；五行皆通，修行全面...
+msgid "ROOT_10_DESC"
+msgstr "資質は天に通じ、五行すべてに通暁する。修行は全面的に強い。"
+
+#. root.csv: 天灵根
+msgid "ROOT_10_NAME"
+msgstr "天霊根"
+
+#. root.csv: 刚强果断；攻击力强，适合剑修...
+msgid "ROOT_1_DESC"
+msgstr "剛毅果断で攻撃力に優れ、剣修士に向く。"
+
+#. root.csv: 金灵根
+msgid "ROOT_1_NAME"
+msgstr "金霊根"
+
+#. root.csv: 仁厚坚韧；擅恢复、毒术与木属性法术...
+msgid "ROOT_2_DESC"
+msgstr "仁厚で粘り強く、回復・毒術・木属性法術を得意とする。"
+
+#. root.csv: 木灵根
+msgid "ROOT_2_NAME"
+msgstr "木霊根"
+
+#. root.csv: 智慧圆融；身法轻盈，善辅助与隐匿...
+msgid "ROOT_3_DESC"
+msgstr "知に円融し、身法は軽やか。補助と隠匿に長ける。"
+
+#. root.csv: 水灵根
+msgid "ROOT_3_NAME"
+msgstr "水霊根"
+
+#. root.csv: 激情暴烈；高爆发攻术，火系功法...
+msgid "ROOT_4_DESC"
+msgstr "激情にして烈しく、高爆発の攻術と火系功法に適する。"
+
+#. root.csv: 火灵根
+msgid "ROOT_4_NAME"
+msgstr "火霊根"
+
+#. root.csv: 稳重踏实；防御高，体修或傀儡术...
+msgid "ROOT_5_DESC"
+msgstr "穏重で堅実。防御が高く、鍛体や傀儡術に向く。"
+
+#. root.csv: 土灵根
+msgid "ROOT_5_NAME"
+msgstr "土霊根"
+
+#. root.csv: 爆发性极强；战斗系顶尖...
+msgid "ROOT_6_DESC"
+msgstr "爆発力が極めて高く、戦闘系では最上位。"
+
+#. root.csv: 雷灵根
+msgid "ROOT_6_NAME"
+msgstr "雷霊根"
+
+#. root.csv: 控制力强；持久性好...
+msgid "ROOT_7_DESC"
+msgstr "制御力が高く、持久戦にも強い。"
+
+#. root.csv: 冰灵根
+msgid "ROOT_7_NAME"
+msgstr "氷霊根"
+
+#. root.csv: 身法卓绝；难以捉摸...
+msgid "ROOT_8_DESC"
+msgstr "身法は卓絶し、捉えどころがない。"
+
+#. root.csv: 风灵根
+msgid "ROOT_8_NAME"
+msgstr "風霊根"
+
+#. root.csv: 隐匿系；擅幻术与诡道...
+msgid "ROOT_9_DESC"
+msgstr "隠匿寄りで、幻術と詭道を得意とする。"
+
+#. root.csv: 暗灵根
+msgid "ROOT_9_NAME"
+msgstr "暗霊根"

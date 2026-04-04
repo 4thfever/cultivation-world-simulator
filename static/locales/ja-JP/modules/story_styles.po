@@ -1,0 +1,32 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Story Styles
+msgid ""
+"Plain narration: Restrained language, minimal embellishment, recording like "
+"a bystander."
+msgstr ""
+"平明な叙述: 言葉を抑え、装飾を最小限にし、傍観者の記録のように淡々と綴る。"
+
+msgid ""
+"Poetic lyricism: Short sentences and parallelism, sparse use of allusions, "
+"avoiding flowery language."
+msgstr ""
+"詩情抒情: 短句と対句を用い、典故は控えめに、華美に流れすぎない。"
+
+msgid ""
+"Taoist nature: Tinted with Taoist vocabulary, not obscure, focusing on a "
+"single thought."
+msgstr ""
+"道家清気: 道門の語感を帯びつつも晦渋にせず、一念に焦点を絞って描く。"

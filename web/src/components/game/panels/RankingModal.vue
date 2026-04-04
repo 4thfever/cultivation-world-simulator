@@ -4,6 +4,7 @@ import { NModal, NTabs, NTabPane, NTable, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
 import { useUiStore } from '../../../stores/ui'
+import { formatRealmStage } from '@/utils/cultivationText'
 
 const props = defineProps<{
   show: boolean
@@ -94,7 +95,7 @@ watch(() => props.show, (newVal) => {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ item.realm }} {{ item.stage }}</td>
+                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.heaven.length">
@@ -123,7 +124,7 @@ watch(() => props.show, (newVal) => {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ item.realm }} {{ item.stage }}</td>
+                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.earth.length">
@@ -152,7 +153,7 @@ watch(() => props.show, (newVal) => {
                   <a class="clickable-text" v-if="item.sect_id" @click="openSectInfo(item.sect_id)">{{ item.sect }}</a>
                   <span v-else>{{ item.sect }}</span>
                 </td>
-                <td>{{ item.realm }} {{ item.stage }}</td>
+                <td>{{ formatRealmStage(item.realm, item.stage, t) }}</td>
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.human.length">

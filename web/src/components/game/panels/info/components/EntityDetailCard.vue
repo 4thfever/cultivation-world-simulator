@@ -3,6 +3,7 @@ import type { EffectEntity } from '@/types/core';
 import { getEntityColor } from '@/utils/theme';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
 
 const { t } = useI18n();
 
@@ -17,15 +18,23 @@ const displayType = computed(() => {
   if (!props.item?.type) return '';
   return t(`game.info_panel.popup.types.${props.item.type}`) || props.item.type;
 });
+
+const displayGrade = computed(() => {
+  return formatEntityGrade(props.item?.grade || props.item?.rarity, t);
+});
+
+const displayAttribute = computed(() => {
+  return formatAttributeLabel(props.item?.attribute, t);
+});
 </script>
 
 <template>
   <div class="entity-detail-card">
     <template v-if="item">
-      <div class="sec-row" v-if="item.grade || item.rarity || displayType || item.attribute">
-        <span v-if="item.grade || item.rarity" class="badge grade-badge">{{ item.grade || item.rarity }}</span>
+      <div class="sec-row" v-if="displayGrade || displayType || displayAttribute">
+        <span v-if="displayGrade" class="badge grade-badge">{{ displayGrade }}</span>
         <span v-if="displayType" class="badge type-badge">{{ displayType }}</span>
-        <span v-if="item.attribute" class="badge attr-badge">{{ item.attribute }}</span>
+        <span v-if="displayAttribute" class="badge attr-badge">{{ displayAttribute }}</span>
       </div>
 
       <div v-if="showName !== false" class="sec-title" :style="{ color: getEntityColor(item) }">

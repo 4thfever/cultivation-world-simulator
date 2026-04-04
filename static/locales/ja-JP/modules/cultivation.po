@@ -1,0 +1,39 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Died from severe injuries"
+msgstr "重傷により死亡"
+
+msgid "Died of old age"
+msgstr "老衰で死亡"
+
+# Cultivation System - Realm
+# Realm Status
+msgid "Needs breakthrough"
+msgstr "突破が必要"
+
+msgid "No"
+msgstr "不要"
+
+msgid "Not at bottleneck, no breakthrough needed"
+msgstr "まだ瓶頸ではないため、突破は不要"
+
+msgid "Yes"
+msgstr "必要"
+
+msgid "{realm}{stage}(Level {level}). At bottleneck: {status}"
+msgstr "{realm}{stage}（レベル {level}）。瓶頸: {status}"
+
+msgid "{realm}{stage}(Level {level}){status}"
+msgstr "{realm}{stage}（レベル {level}）{status}"

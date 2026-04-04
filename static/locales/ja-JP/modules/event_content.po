@@ -1,0 +1,108 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Event Content
+msgid ""
+"In the auction for {item_name}, {winner_name} outbid {runner_up_name} with "
+"{price} spirit stones and won the item."
+msgstr ""
+"{item_name} の競売で、{winner_name} は {runner_up_name} を {price} 霊石で上回り、その品を落札した。"
+
+msgid "Retreat Bonus"
+msgstr "閉関加成"
+
+# Additional Missing Translations
+msgid "Unsupported item type: {item_type}"
+msgstr "未対応のアイテム種別です: {item_type}"
+
+msgid "retreat_action_name"
+msgstr "閉関"
+
+msgid "retreat_death_append"
+msgstr ""
+" そして閉関中に最後の生気を使い果たし、静かに息絶えた。"
+
+msgid "retreat_desc"
+msgstr ""
+"閉関して自らを突破する。極めて危険であり、大いなる意志を持つ者にのみ向く。"
+
+msgid "retreat_fail"
+msgstr ""
+"閉関に失敗した！ 生気が大きく損なわれ、寿命を {years} 年失った。"
+
+msgid "retreat_requirements"
+msgstr "特別な制限なし。ただしクールダウンあり"
+
+msgid "retreat_start"
+msgstr "{avatar} は閉関に入った。突破の時はまだ見えない。"
+
+msgid "retreat_story_prompt_fail"
+msgstr ""
+"これは閉関失敗の物語である。修士が心魔と自己疑念に悩まされ、最後には閉関中に反噬を受けるまでを描写せよ。戦闘描写は不要。"
+
+msgid "retreat_story_prompt_success"
+msgstr ""
+"これは閉関成功の物語である。修士が孤独を乗り越え、天道を悟り、ついに閉関中に心境を突破するまでを描写せよ。戦闘描写は不要。"
+
+msgid "retreat_success"
+msgstr ""
+"閉関は成功した！ 修為は高まり、天道への理解もさらに深まった。"
+
+msgid "{avatar_name} abandoned {item_name}."
+msgstr "{avatar_name} は {item_name} を捨てた。"
+
+msgid ""
+"{avatar_name} sold newly obtained {item_name}, gained {price} spirit stones."
+msgstr ""
+"{avatar_name} は新たに得た {item_name} を売り、{price} 霊石を得た。"
+
+msgid "game.sect_update_event"
+msgstr "{sect_name} の年次決算: 収入 {income} 霊石、支出 {upkeep} 霊石、収支 {net_change} 霊石。"
+
+msgid "War weariness adjusted to {weariness_after} (active wars: {active_war_count}, yearly recovery: 3, previous: {weariness_before})."
+msgstr "戦争疲弊は {weariness_after} に調整された（交戦数: {active_war_count}、年次回復: 3、以前: {weariness_before}）。"
+
+msgid "game.sect_thinking_event"
+msgstr "{sect_name} の宗門思考: {thinking}"
+
+msgid "{winner} won the martial tournament championship and earned {amount} sect contribution for {sect_name}."
+msgstr "{winner} は武道会で優勝し、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid "{teacher_name} taught and guided others at the preaching conference, earning {amount} sect contribution for {sect_name}."
+msgstr "{teacher_name} は講道会で教えを説き、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid "{winner_name} distinguished themselves in sect war and earned {amount} sect contribution for {sect_name}."
+msgstr "{winner_name} は宗門戦で功を立て、{sect_name} に {amount} の宗門貢献をもたらした。"
+
+msgid "Game automatically saved"
+msgstr "ゲームを自動保存しました"
+
+msgid "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."
+msgstr "{avatar_name} は仙道界で名を挙げ、「{nickname}」と呼ばれるようになった。"
+
+msgid "{avatar} self-created technique '{item}'"
+msgstr "{avatar} は自作功法「{item}」を編み出した。"
+
+msgid "{avatar} self-created weapon '{item}'"
+msgstr "{avatar} は自作武器「{item}」を鍛え上げた。"
+
+msgid "{avatar} self-created auxiliary equipment '{item}'"
+msgstr "{avatar} は自作補助装備「{item}」を作り上げた。"
+
+msgid "Equipped newly created {kind} '{item}', sold old equipment '{old_item}' for {refund} spirit stones"
+msgstr "新しく作成した{kind}「{item}」を装備し、旧装備「{old_item}」を {refund} 霊石で売却した。"
+
+msgid "Equipped newly created {kind} '{item}'"
+msgstr "新しく作成した{kind}「{item}」を装備した。"
+

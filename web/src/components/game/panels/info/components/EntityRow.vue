@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { getEntityColor } from '@/utils/theme';
 import type { EffectEntity } from '@/types/core';
+import { useI18n } from 'vue-i18n';
+import { formatEntityGrade } from '@/utils/cultivationText';
 
 defineProps<{
   item: EffectEntity;
@@ -9,6 +11,8 @@ defineProps<{
 }>();
 
 defineEmits(['click']);
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -23,7 +27,7 @@ defineEmits(['click']);
     </span>
     <span class="info">
       <span v-if="meta" class="meta">{{ meta }}</span>
-      <span v-if="item.grade" class="grade">{{ item.grade }}</span>
+      <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
     </span>
   </div>
 </template>

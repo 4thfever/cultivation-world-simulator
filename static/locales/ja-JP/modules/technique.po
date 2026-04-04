@@ -1,0 +1,70 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Technique System - Techniques
+msgid " Effect: {effect_desc}"
+msgstr " 効果: {effect_desc}"
+
+msgid "Cave Dwelling"
+msgstr "洞府"
+
+msgid "City Region"
+msgstr "都市区域"
+
+msgid "Normal Region"
+msgstr "通常区域"
+
+msgid "Ruins"
+msgstr "遺跡"
+
+msgid "dark_attribute"
+msgstr "暗"
+
+msgid "earth_attribute"
+msgstr "土"
+
+msgid "evil_attribute"
+msgstr "邪"
+
+msgid "fire_attribute"
+msgstr "火"
+
+# Technique Attribute
+msgid "gold_attribute"
+msgstr "金"
+
+msgid "ice_attribute"
+msgstr "氷"
+
+# Technique Grade
+msgid "lower_grade"
+msgstr "下品"
+
+msgid "middle_grade"
+msgstr "中品"
+
+msgid "thunder_attribute"
+msgstr "雷"
+
+msgid "upper_grade"
+msgstr "上品"
+
+msgid "water_attribute"
+msgstr "水"
+
+msgid "wind_attribute"
+msgstr "風"
+
+msgid "wood_attribute"
+msgstr "木"

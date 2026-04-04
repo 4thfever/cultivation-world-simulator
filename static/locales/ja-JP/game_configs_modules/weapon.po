@@ -1,0 +1,373 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. weapon.csv: 市井铁匠铺打造的铁剑，勉强能用。...
+msgid "WEAPON_1001_DESC"
+msgstr "町の鍛冶屋が打った鉄剣。どうにか実戦で使える程度。"
+
+#. weapon.csv: 练气剑
+msgid "WEAPON_1001_NAME"
+msgstr "練気剣"
+
+#. weapon.csv: 厚背砍刀，寻常武夫的最爱。...
+msgid "WEAPON_1002_DESC"
+msgstr "背の厚い斬刀。ありふれた武人に好まれる。"
+
+#. weapon.csv: 练气刀
+msgid "WEAPON_1002_NAME"
+msgstr "練気刀"
+
+#. weapon.csv: 白蜡杆制成，枪头挂着红缨。...
+msgid "WEAPON_1003_DESC"
+msgstr "白蝋木で作られ、槍先に紅い飾り房が揺れる。"
+
+#. weapon.csv: 练气枪
+msgid "WEAPON_1003_NAME"
+msgstr "練気槍"
+
+#. weapon.csv: 普通的硬木棍，长与眉齐。...
+msgid "WEAPON_1004_DESC"
+msgstr "ごく普通の硬木棍。長さは眉の高さほど。"
+
+#. weapon.csv: 练气棍
+msgid "WEAPON_1004_NAME"
+msgstr "練気棍"
+
+#. weapon.csv: 文人雅士常用的折扇，附庸风雅。...
+msgid "WEAPON_1005_DESC"
+msgstr "文人雅士がよく携える折扇。風雅を気取る道具でもある。"
+
+#. weapon.csv: 练气扇
+msgid "WEAPON_1005_NAME"
+msgstr "練気扇"
+
+#. weapon.csv: 普通的皮鞭，多用于赶车或刑罚。...
+msgid "WEAPON_1006_DESC"
+msgstr "一般的な革鞭。荷車を駆るか刑罰に使われることが多い。"
+
+#. weapon.csv: 练气鞭
+msgid "WEAPON_1006_NAME"
+msgstr "練気鞭"
+
+#. weapon.csv: 桐木制成的古琴，音色尚可。...
+msgid "WEAPON_1007_DESC"
+msgstr "桐木で作られた古琴。音色はまずまず。"
+
+#. weapon.csv: 练气琴
+msgid "WEAPON_1007_NAME"
+msgstr "練気琴"
+
+#. weapon.csv: 紫竹削制，声音清脆。...
+msgid "WEAPON_1008_DESC"
+msgstr "紫竹を削って作られ、澄んだ高い音を響かせる。"
+
+#. weapon.csv: 练气笛
+msgid "WEAPON_1008_NAME"
+msgstr "練気笛"
+
+#. weapon.csv: 随处可见的铁制暗器。...
+msgid "WEAPON_1009_DESC"
+msgstr "どこにでもある鉄製の暗器。"
+
+#. weapon.csv: 练气暗器
+msgid "WEAPON_1009_NAME"
+msgstr "練気暗器"
+
+#. weapon.csv: 剑气森寒。...
+msgid "WEAPON_1021_DESC"
+msgstr "剣気は骨に染みるほど冷たい。"
+
+#. weapon.csv: 青霜剑
+msgid "WEAPON_1021_NAME"
+msgstr "青霜剣"
+
+#. weapon.csv: 刀光如井中映月，虚实难测。...
+msgid "WEAPON_1022_DESC"
+msgstr "刀光は井戸に映る月のように揺れ、虚実の見分けがつかず、相手の防ぎを惑わせる。"
+
+#. weapon.csv: 井中月
+msgid "WEAPON_1022_NAME"
+msgstr "井中月"
+
+#. weapon.csv: 枪头隐有火光，能引动凡火。...
+msgid "WEAPON_1023_DESC"
+msgstr "槍先にはかすかな火光が潜み、凡火を引き起こすことができる。"
+
+#. weapon.csv: 火尖枪
+msgid "WEAPON_1023_NAME"
+msgstr "火尖槍"
+
+#. weapon.csv: 精铁铸造，重达千斤，力大者可用。...
+msgid "WEAPON_1024_DESC"
+msgstr "精鉄で鋳られ、千斤の重さを持つ。怪力の持ち主にのみ扱える。"
+
+#. weapon.csv: 囚龙棒
+msgid "WEAPON_1024_NAME"
+msgstr "囚龍棒"
+
+#. weapon.csv: 桃花影落飞神剑，扇面绘有桃花，暗藏杀机。...
+msgid "WEAPON_1025_DESC"
+msgstr "扇面には桃花が描かれ、花影の奥に殺機を秘める。防ぐことは難しい。"
+
+#. weapon.csv: 桃花扇
+msgid "WEAPON_1025_NAME"
+msgstr "桃花扇"
+
+#. weapon.csv: 仿品，虽无打神之能，却可伤人神魂。...
+msgid "WEAPON_1026_DESC"
+msgstr "打神鞭の仿品。神を打つ力こそないが、相手の神魂を傷つけることはできる。"
+
+#. weapon.csv: 打神鞭
+msgid "WEAPON_1026_NAME"
+msgstr "打神鞭"
+
+#. weapon.csv: 琴音魔性，扰乱心智。...
+msgid "WEAPON_1027_DESC"
+msgstr "琴音には魔性が宿り、人の心智を乱す。"
+
+#. weapon.csv: 天魔琴
+msgid "WEAPON_1027_NAME"
+msgstr "天魔琴"
+
+#. weapon.csv: 据说能以此笛操控尸傀。...
+msgid "WEAPON_1028_DESC"
+msgstr "この笛で屍傀を操れると言われ、音を聞けば顔色を失う者も多い。"
+
+#. weapon.csv: 鬼笛陈情
+msgid "WEAPON_1028_NAME"
+msgstr "鬼笛陳情"
+
+#. weapon.csv: 细若牛毛，来去无影，防不胜防。...
+msgid "WEAPON_1029_DESC"
+msgstr "牛毛のように細く、来去に影がなく、防ぎようがない。"
+
+#. weapon.csv: 无影针
+msgid "WEAPON_1029_NAME"
+msgstr "無影針"
+
+#. weapon.csv: 百兽宗秘制，笛声可安抚或激怒野兽。...
+msgid "WEAPON_1030_DESC"
+msgstr "百獣宗の秘製。笛の音で野獣を鎮めることも、怒らせることもできる。"
+
+#. weapon.csv: 万兽笛
+msgid "WEAPON_1030_NAME"
+msgstr "万獣笛"
+
+#. weapon.csv: 刀身赤红，似渴望饮血。...
+msgid "WEAPON_1031_DESC"
+msgstr "刀身は血を求めるように赤く、殺気が重い。意志の弱い者には扱えない。"
+
+#. weapon.csv: 血饮狂刀
+msgid "WEAPON_1031_NAME"
+msgstr "血飲狂刀"
+
+#. weapon.csv: 重剑无锋，大巧不工，独孤求败。...
+msgid "WEAPON_1032_DESC"
+msgstr "域外の隕鉄で鋳られた重剣。刃なき大剣に技巧はいらず、力のみで万法を打ち砕く。"
+
+#. weapon.csv: 玄铁重剑
+msgid "WEAPON_1032_NAME"
+msgstr "玄鉄重剣"
+
+#. weapon.csv: 软若束带，动若灵蛇。...
+msgid "WEAPON_1033_DESC"
+msgstr "絹帯のように柔らかいが、霊力を注げば霊蛇のようにうねり、奇怪で読みにくい。"
+
+#. weapon.csv: 紫薇软剑
+msgid "WEAPON_1033_NAME"
+msgstr "紫薇軟剣"
+
+#. weapon.csv: 镇魂宗制式兵器，水火相济，困敌锁魂。...
+msgid "WEAPON_1034_DESC"
+msgstr "鎮魂宗の制式兵器。水火の力を兼ね備え、敵を封じて魂を縛る。"
+
+#. weapon.csv: 水火囚龙棍
+msgid "WEAPON_1034_NAME"
+msgstr "水火囚龍棍"
+
+#. weapon.csv: 成套飞剑，内蕴辟邪神雷，克制天下邪祟。...
+msgid "WEAPON_1051_DESC"
+msgstr "天雷竹を煉じた飛剣の一式。辟邪神雷を内に秘め、邪を鎮める。"
+
+#. weapon.csv: 青竹蜂云剑
+msgid "WEAPON_1051_NAME"
+msgstr "青竹蜂雲剣"
+
+#. weapon.csv: 六耳猕猴的兵器，随心变化，大小如意。...
+msgid "WEAPON_1052_DESC"
+msgstr "六耳猕猴の兵器。意のままに伸び縮みし、大きさも自在。"
+
+#. weapon.csv: 随心铁杆兵
+msgid "WEAPON_1052_NAME"
+msgstr "随心鉄杆兵"
+
+#. weapon.csv: 扇面有空中火、石中火、木中火等五火，一扇...
+msgid "WEAPON_1053_DESC"
+msgstr "扇面には空中火・石中火・木中火など五火が宿り、一振りで万物を灰に変える。"
+
+#. weapon.csv: 五火七禽扇
+msgid "WEAPON_1053_NAME"
+msgstr "五火七禽扇"
+
+#. weapon.csv: 杀气滔天，曾染魔神之血，枪出无回。...
+msgid "WEAPON_1054_DESC"
+msgstr "天を覆う殺気を帯び、かつて魔神の血を浴びた槍。放てば戻らぬ。"
+
+#. weapon.csv: 弑神枪
+msgid "WEAPON_1054_NAME"
+msgstr "弑神槍"
+
+#. weapon.csv: 赤锋矛，不朽盾，斩尽仙王灭九天。...
+msgid "WEAPON_1055_DESC"
+msgstr "全身が深紅に染まり、圧倒的な闘気を放つ。無数の強者の血を吸ってきた戦槍。"
+
+#. weapon.csv: 赤锋矛
+msgid "WEAPON_1055_NAME"
+msgstr "赤鋒矛"
+
+#. weapon.csv: 红葫芦内藏一线毫光，有眉有目。请宝贝转身...
+msgid "WEAPON_1056_DESC"
+msgstr "赤い瓢箪の中に一筋の毫光が潜み、眉目を備える。宝よ振り向けと唱えれば、神鬼すら逃れ難い。"
+
+#. weapon.csv: 斩仙飞刀
+msgid "WEAPON_1056_NAME"
+msgstr "斬仙飛刀"
+
+#. weapon.csv: 非铜非铁亦非钢，曾在须弥山下藏。利气直透...
+msgid "WEAPON_1057_DESC"
+msgstr "銅でも鉄でも鋼でもなく、かつて須弥山の下に蔵されたという。鋭気は九天をも貫く。"
+
+#. weapon.csv: 诛仙剑
+msgid "WEAPON_1057_NAME"
+msgstr "誅仙剣"
+
+#. weapon.csv: 挚情之剑，一雌一雄，分则为杀，合则为情。...
+msgid "WEAPON_1058_DESC"
+msgstr "至情の双剣。一は雌、一は雄。分かてば殺を成し、合わされば情を成す。"
+
+#. weapon.csv: 干将莫邪
+msgid "WEAPON_1058_NAME"
+msgstr "干将莫邪"
+
+#. weapon.csv: 太阴之精叶，一扇息火，二扇生风，三扇下雨...
+msgid "WEAPON_1059_DESC"
+msgstr "太陰の精葉から成る宝扇。一扇で火を鎮め、二扇で風を起こし、三扇で雨を呼ぶ。"
+
+#. weapon.csv: 芭蕉扇
+msgid "WEAPON_1059_NAME"
+msgstr "芭蕉扇"
+
+#. weapon.csv: 韦护的兵器，虽然轻灵，打在人身却重如泰山...
+msgid "WEAPON_1060_DESC"
+msgstr "韋護の兵器。軽妙に見えて、打ち当てれば泰山のごとき重みを持つ。"
+
+#. weapon.csv: 紫金降魔杵
+msgid "WEAPON_1060_NAME"
+msgstr "紫金降魔杵"
+
+#. weapon.csv: 刀背嵌入九个金环，挥舞时金环碰撞，声若雷...
+msgid "WEAPON_1061_DESC"
+msgstr "刀背に九つの金環を嵌め込み、振るえば雷鳴のような響きで心胆を寒からしめる。"
+
+#. weapon.csv: 九环金背刀
+msgid "WEAPON_1061_NAME"
+msgstr "九環金背刀"
+
+#. weapon.csv: 通体由万年寒铁打造，枪身银白，触之冰冷刺...
+msgid "WEAPON_1062_DESC"
+msgstr "万年寒鉄で全身を鍛えた銀槍。触れれば骨まで冷える。"
+
+#. weapon.csv: 寒铁银枪
+msgid "WEAPON_1062_NAME"
+msgstr "寒鉄銀槍"
+
+#. weapon.csv: 采自南海紫竹林，共七节，坚韧异常，不仅能...
+msgid "WEAPON_1063_DESC"
+msgstr "南海の紫竹林から採られた七節の竹鞭。非常にしなやかで、敵を打ち、妖を縛る。"
+
+#. weapon.csv: 七节紫竹鞭
+msgid "WEAPON_1063_NAME"
+msgstr "七節紫竹鞭"
+
+#. weapon.csv: 白玉雕琢而成，弹奏时有金石之声，能洗涤心...
+msgid "WEAPON_1064_DESC"
+msgstr "白玉を彫って作られ、奏でれば金石の音が響き、心魔を洗い流す。"
+
+#. weapon.csv: 玉琵琶
+msgid "WEAPON_1064_NAME"
+msgstr "玉琵琶"
+
+#. weapon.csv: 东海龙宫流出的宝物，吹奏时如闻海潮之声，...
+msgid "WEAPON_1065_DESC"
+msgstr "東海龍宮から流出した宝物。吹けば海潮の響きと龍吟が混じり、四方を震わせる。"
+
+#. weapon.csv: 碧海潮生笛
+msgid "WEAPON_1065_NAME"
+msgstr "碧海潮生笛"
+
+#. weapon.csv: 上古凶兵，内封白虎战魂，出鞘必饮血，不仅...
+msgid "WEAPON_1071_DESC"
+msgstr "上古の凶兵。白虎の戦魂を封じ、抜けば必ず血を求め、主に反噬することもある。"
+
+#. weapon.csv: 虎魄
+msgid "WEAPON_1071_NAME"
+msgstr "虎魄"
+
+#. weapon.csv: 疑似上古天庭的柱石残片炼制，重如山岳，非...
+msgid "WEAPON_1072_DESC"
+msgstr "上古天庭の柱石の残片から鍛えられたとも噂される。山のように重く、怪力なくしては扱えない。"
+
+#. weapon.csv: 擎天白玉柱
+msgid "WEAPON_1072_NAME"
+msgstr "擎天白玉柱"
+
+#. weapon.csv: 一面纯白主生，一面漆黑主死。扇动间阴阳逆...
+msgid "WEAPON_1073_DESC"
+msgstr "片面は純白で生を司り、片面は漆黒で死を司る。振るえば陰陽が逆転し、天地が縮まる。"
+
+#. weapon.csv: 阴阳扇
+msgid "WEAPON_1073_NAME"
+msgstr "陰陽扇"
+
+#. weapon.csv: 以上古真龙之脊骨炼制，挥动时隐有龙吟，对...
+msgid "WEAPON_1074_DESC"
+msgstr "上古真龍の脊骨から鍛えた鞭。振るえばかすかな龍吟を帯び、下位存在を生来から威圧する。"
+
+#. weapon.csv: 龙骨鞭
+msgid "WEAPON_1074_NAME"
+msgstr "龍骨鞭"
+
+#. weapon.csv: 上古十大神器之一的仿品，拥有支配万物心灵...
+msgid "WEAPON_1075_DESC"
+msgstr "上古十大神器の仿品。万物の心を支配するかのような玄妙の力を秘める。"
+
+#. weapon.csv: 伏羲琴
+msgid "WEAPON_1075_NAME"
+msgstr "伏羲琴"
+
+#. weapon.csv: 魔界至宝，笛声诡谲，能驱使魔物与凶兽为己...
+msgid "WEAPON_1076_DESC"
+msgstr "魔界の至宝。笛音は妖しく、魔物や凶獣を駆使できる。"
+
+#. weapon.csv: 唤魔笛
+msgid "WEAPON_1076_NAME"
+msgstr "喚魔笛"
+
+#. weapon.csv: 虽然只是暗器，但其美艳不可方物。当它绽放...
+msgid "WEAPON_1077_DESC"
+msgstr "ただの暗器でありながら、言葉に尽くせぬほど艶麗。その極彩の輝きの底には必殺の殺意が潜む。"
+
+#. weapon.csv: 孔雀翎
+msgid "WEAPON_1077_NAME"
+msgstr "孔雀翎"

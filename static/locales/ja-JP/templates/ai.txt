@@ -1,0 +1,27 @@
+あなたは仙道世界の行動裁定者です。ある人物の次の行動と振る舞いを決定してください。
+その人物が知っている世界情報:
+{world_info}
+実行可能な行動一覧:
+{general_action_infos}
+判断対象 NPC の情報:
+{avatar_info}
+
+
+注意: 出力は JSON 形式のみ。
+形式は以下:
+{{
+    {avatar_name}: {{
+        "avatar_thinking": ... // 人物本人の一人称視点で、簡潔かつ明確に思考を書く
+        "current_emotion": ... // 現在の気分に最も合う語を次から 1 つ選ぶ: Calm, Happy, Angry, Sad, Fearful, Surprised, Expectant, Disgusted, Confused, Exhausted
+        "short_term_objective": ..., // 次の一定期間における短期目標
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 5〜10 個の将来行動を一度に決め、順に実行する。action_params は必ず辞書 {{}} を返すこと。空なら空辞書で、null は不可
+    }}
+}}
+
+要件と制約:
+- "avatar_thinking" には人物の特質や宗門情報などが間接的に反映されていること。
+- 長期目標は非常に重要な高優先の指針なので、頻繁に参照すること。
+- 実行可能な行動は与えられた一覧からのみ選び、対応条件を満たしていなければならない。
+- 一部行動は、条件を満たすために先に移動が必要な場合がある。その場合は計画に組み込んでよい。
+- 他者との相互行動は、対象人物の近くにいなければ実行できない。必要なら事前に MoveToAvatar を使うこと。
+- 世界知識が乏しすぎる場合は、まず MoveToDirection で探索してもよい。

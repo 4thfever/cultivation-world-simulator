@@ -1,0 +1,185 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"(Orthodoxy: {orthodoxy}, Alignment: {alignment}, Style: {style}, "
+"Headquarters: {hq_name}){effect}"
+msgstr "(道統: {orthodoxy}、立場: {alignment}、流派: {style}、本拠地: {hq_name}){effect}"
+
+# Scene Setting
+msgid ""
+"Event Type: Mysterious Auction\n"
+"Scene Setting: The auction takes place in a mysterious space, hosted by a mysterious figure with an unfathomable aura."
+msgstr ""
+"イベント種別: 神秘競売会\n"
+"場面設定: 競売会は神秘的な空間で開かれ、底知れぬ気配をまとった謎の人物が主催している。"
+
+msgid "SECT_10_STYLE"
+msgstr "優雅さの裏で綿密に策を巡らせ、言葉と音律で局面を支配することを好み、煙も立てずに人を斬る。"
+
+msgid "SECT_11_STYLE"
+msgstr "厳格かつ緻密で、技の極致を追い求め、陣で反撃することに長け、着実に前進する。"
+
+msgid "SECT_12_RANK_ELDER"
+msgstr "閣老"
+
+msgid "SECT_12_RANK_INNER"
+msgstr "都統"
+
+msgid "SECT_12_RANK_OUTER"
+msgstr "夜巡使"
+
+msgid "SECT_12_RANK_PATRIARCH"
+msgstr "城主"
+
+msgid "SECT_12_STYLE"
+msgstr "逆境でも屈せず粘り強く、堂々として先見の明を持ち、身内を非常に大切にする。"
+
+msgid "SECT_13_STYLE"
+msgstr "原則を守り正義を重んじ、妖魔討伐の先頭に立ち、折れても曲がらない。"
+
+msgid "SECT_14_STYLE"
+msgstr "力こそ正義とし、欲するままに振る舞い、絶対的な力と殺戮を崇め、万物を糧とみなす。"
+
+msgid "SECT_1_STYLE"
+msgstr "心は澄み自らを律し、言行が一致する。剣と心の双方を重んじ、本性を見極めることを旨とする。"
+
+msgid "SECT_2_RANK_ELDER"
+msgstr "太上長老"
+
+msgid "SECT_2_RANK_INNER"
+msgstr "御獣使"
+
+msgid "SECT_2_RANK_OUTER"
+msgstr "従者"
+
+msgid "SECT_2_RANK_PATRIARCH"
+msgstr "谷主"
+
+msgid "SECT_2_STYLE"
+msgstr "物言いは率直で、力と血脈を重んじ、狩猟と戦いを崇める。"
+
+msgid "SECT_3_RANK_ELDER"
+msgstr "持鏡使"
+
+msgid "SECT_3_RANK_INNER"
+msgstr "伝人"
+
+msgid "SECT_3_RANK_OUTER"
+msgstr "侍鏡者"
+
+msgid "SECT_3_RANK_PATRIARCH"
+msgstr "鏡主"
+
+msgid "SECT_3_STYLE"
+msgstr "冷静で柔軟、柔よく剛を制すことを好み、借力と制御返しに長ける。"
+
+msgid "SECT_4_RANK_ELDER"
+msgstr "判官"
+
+msgid "SECT_4_RANK_INNER"
+msgstr "無常使"
+
+msgid "SECT_4_RANK_OUTER"
+msgstr "鬼卒"
+
+msgid "SECT_4_RANK_PATRIARCH"
+msgstr "殿主"
+
+msgid "SECT_4_STYLE"
+msgstr "口調は冷ややかで感情を表に出さず、因果を敬いながらも殺伐を恐れず、効率と結果を重視する。"
+
+msgid "SECT_5_RANK_ELDER"
+msgstr "刑堂使"
+
+msgid "SECT_5_RANK_INNER"
+msgstr "影刺"
+
+msgid "SECT_5_RANK_OUTER"
+msgstr "斥候"
+
+msgid "SECT_5_RANK_PATRIARCH"
+msgstr "楼主"
+
+msgid "SECT_5_STYLE"
+msgstr "欲望と代価に正面から向き合い、闇を恐れず、攻勢の戦いに長ける。"
+
+msgid "SECT_6_RANK_ELDER"
+msgstr "護法"
+
+msgid "SECT_6_RANK_INNER"
+msgstr "魅仙"
+
+msgid "SECT_6_RANK_OUTER"
+msgstr "侍童"
+
+msgid "SECT_6_RANK_PATRIARCH"
+msgstr "宮主"
+
+msgid "SECT_6_STYLE"
+msgstr "物腰は柔らかく、欲望と局面を操ることに長け、柔で剛を制する。"
+
+msgid "SECT_7_RANK_ELDER"
+msgstr "首座"
+
+msgid "SECT_7_RANK_INNER"
+msgstr "行者"
+
+msgid "SECT_7_RANK_OUTER"
+msgstr "居士"
+
+msgid "SECT_7_RANK_PATRIARCH"
+msgstr "方丈"
+
+msgid "SECT_7_STYLE"
+msgstr "厳かで落ち着いており、鎮魂と邪祓いに注力し、寡黙だが決断は速い。"
+
+msgid "SECT_8_RANK_ELDER"
+msgstr "護法"
+
+msgid "SECT_8_RANK_INNER"
+msgstr "影衛"
+
+msgid "SECT_8_RANK_OUTER"
+msgstr "斥候"
+
+msgid "SECT_8_RANK_PATRIARCH"
+msgstr "宗主"
+
+msgid "SECT_8_STYLE"
+msgstr "秘匿を好み果断で、名より実を重んじ、潜伏と奇襲に長ける。"
+
+msgid "SECT_9_RANK_ELDER"
+msgstr "太上長老"
+
+msgid "SECT_9_RANK_INNER"
+msgstr "執事"
+
+msgid "SECT_9_RANK_OUTER"
+msgstr "見習い"
+
+msgid "SECT_9_RANK_PATRIARCH"
+msgstr "城主"
+
+msgid "SECT_9_STYLE"
+msgstr "現実的で抜け目なく、商いと信用を重んじ、規律と秩序を守る。"
+
+msgid "elder"
+msgstr "長老"
+
+msgid "inner_disciple"
+msgstr "内門弟子"
+
+msgid "outer_disciple"
+msgstr "外門弟子"

@@ -1,0 +1,58 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Single choice - context and options
+msgid ""
+"Current situation: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"現在の状況: {context}\n"
+"\n"
+"{choices}"
+
+msgid "Current {label}: {info}"
+msgstr "現在の {label}: {info}"
+
+msgid "Discard '{new_name}'"
+msgstr "「{new_name}」を破棄"
+
+msgid "Equip new {label} '{new_name}'"
+msgstr "新しい {label}「{new_name}」を装備"
+
+msgid "New {label}: {info}"
+msgstr "新しい {label}: {info}"
+
+msgid "Sell new {label} '{new_name}' for spirit stones, keep current"
+msgstr "新しい {label}「{new_name}」を霊石に換え、現在の状態を維持"
+
+# SingleChoice System - Item Decisions
+msgid "Accept new item"
+msgstr "新しい品を受け取る"
+
+msgid "Reject new item"
+msgstr "新しい品を断る"
+
+msgid "Automatically accept the new item."
+msgstr "新しい品を自動で受け取る。"
+
+# Decision Interface
+msgid ""
+"【Current Situation】: {context}\n"
+"\n"
+"{choices}"
+msgstr ""
+"【現在の状況】: {context}\n"
+"\n"
+"{choices}"

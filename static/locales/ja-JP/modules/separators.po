@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "comma_separator"
+msgstr ", "
+
+msgid "earth_element"
+msgstr "土"
+
+msgid "element_separator"
+msgstr ", "
+
+msgid "fire_element"
+msgstr "火"
+
+msgid "material_separator"
+msgstr ", "
+
+msgid "semicolon_separator"
+msgstr "; "
+
+msgid "sibling"
+msgstr "兄弟姉妹"
+
+msgid "sworn_sibling"
+msgstr "義兄弟"

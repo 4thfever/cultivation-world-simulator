@@ -1,0 +1,149 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "bought"
+msgstr "購入"
+
+msgid "bought and consumed"
+msgstr "購入して服用"
+
+msgid "bought and equipped"
+msgstr "購入して装備"
+
+# Action: Buy
+msgid "buy_action_name"
+msgstr "購入"
+
+msgid "buy_description"
+msgstr "町で道具・装備・丹薬を購入する"
+
+msgid "buy_requirements"
+msgstr "町にいて、かつ十分な霊石を持っていること"
+
+# Action: HelpPeople
+msgid "help_people_action_name"
+msgstr "人助け"
+
+msgid "help_people_description"
+msgstr "町の人々を助ける。少量の霊石を消費する"
+
+msgid "help_people_requirements"
+msgstr "都市地域のみ。かつ十分な霊石を持っていること"
+
+# Action: Mine
+msgid "mine_action_name"
+msgstr "採鉱"
+
+msgid "mine_description"
+msgstr "現在地の鉱脈を掘り、鉱物系素材を得る"
+
+msgid "mine_requirements"
+msgstr ""
+"鉱脈のある通常地域にいること。かつ自身の境界が対象鉱脈以上であること"
+
+# Action: Move (Base)
+msgid "move_action_name"
+msgstr "移動"
+
+# Action: MoveAwayFromAvatar
+msgid "move_away_from_avatar_action_name"
+msgstr "人物から離れる"
+
+msgid "move_away_from_avatar_description"
+msgstr "指定した人物から継続して距離を取る"
+
+msgid "move_away_from_avatar_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveAwayFromRegion
+msgid "move_away_from_region_action_name"
+msgstr "地域を離れる"
+
+msgid "move_away_from_region_description"
+msgstr "指定した地域から離れる"
+
+msgid "move_away_from_region_requirements"
+msgstr "特別な制限なし"
+
+msgid "move_description"
+msgstr "相対位置へ移動する"
+
+# Action: MoveToAvatar
+msgid "move_to_avatar_action_name"
+msgstr "人物へ移動"
+
+msgid "move_to_avatar_description"
+msgstr "特定の人物のいる場所へ移動する"
+
+msgid "move_to_avatar_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveToDirection
+msgid "move_to_direction_action_name"
+msgstr "探索移動"
+
+msgid "move_to_direction_description"
+msgstr "一定方向へ進み、未知の場所を探索する"
+
+msgid "move_to_direction_requirements"
+msgstr "特別な制限なし"
+
+# Action: MoveToRegion
+msgid "move_to_region_action_name"
+msgstr "地域へ移動"
+
+msgid "move_to_region_description"
+msgstr "指定した地域へ移動する"
+
+msgid "move_to_region_requirements"
+msgstr "特別な制限なし"
+
+# Action: Sell
+msgid "sell_action_name"
+msgstr "売却"
+
+msgid "sell_description"
+msgstr ""
+"町で所持中の特定種別アイテム、または現在装備中の装備をまとめて売却する"
+
+msgid "sell_requirements"
+msgstr "町にいて、売却可能な道具または装備を所持していること"
+
+msgid "wilderness"
+msgstr "野外"
+
+msgid "{avatar} attempted to move but target is invalid"
+msgstr "{avatar} は移動を試みたが、対象が無効だった"
+
+msgid "{avatar} begins helping people in town"
+msgstr "{avatar} は町で人助けを始めた"
+
+msgid "{avatar} sold {item} in town"
+msgstr "{avatar} は町で {item} を売却した"
+
+msgid "plant_action_name"
+msgstr "耕作"
+
+msgid "plant_description"
+msgstr ""
+"霊作物を育てて少量の霊石を稼ぐ。継続期間は 6 か月。"
+
+msgid "plant_requirements"
+msgstr "通常地域が必要"
+
+msgid "{avatar} begins planting at {location}"
+msgstr "{avatar} は {location} で耕作を始めた"
+
+msgid "{avatar} finished planting, earned {stones} Spirit Stones"
+msgstr "{avatar} は耕作を終え、{stones} 霊石を得た"

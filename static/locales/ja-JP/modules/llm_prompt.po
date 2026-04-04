@@ -1,0 +1,52 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"\n"
+"Effect: {effect_desc}"
+msgstr ""
+"\n"
+"効果: {effect_desc}"
+
+msgid " (Distance: {months} months)"
+msgstr " （距離: {months} か月）"
+
+msgid " (Owner: {owner}, {realm})"
+msgstr " （所有者: {owner}、{realm}）"
+
+msgid " (Resource Distribution: {species_info})"
+msgstr " （資源分布: {species_info}）"
+
+msgid " ({desc})"
+msgstr " （{desc}）"
+
+msgid " ({essence_type} Essence: {essence_density})"
+msgstr " （{essence_type}霊気: {essence_density}）"
+
+msgid " ({store_info})"
+msgstr " （{store_info}）"
+
+msgid " | {store_info}"
+msgstr " | {store_info}"
+
+msgid "City Region (can trade)"
+msgstr "都市区域（取引可能）"
+
+msgid "City Region: {name} - {desc}{desc_part}"
+msgstr "都市区域: {name} - {desc}{desc_part}"
+
+# LLM Prompt
+msgid "auction_story_prompt"
+msgstr ""
+"全体を網羅する必要はありません。最も面白い一幕、あるいは印象的な一度の競りを選んで描写してください。特に入札の駆け引きと張りつめた空気感を重点的に表現してください。"

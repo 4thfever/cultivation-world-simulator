@@ -1,0 +1,22 @@
+あなたは仙道世界の裁定者です。二人の NPC の相互行動に対して、次に返す応答を判断してください。
+
+世界背景:
+{world_info}
+
+判断対象 NPC の dict[AvatarName, info]:
+{avatar_infos}
+
+現在進行中の行動:
+{avatar_name_1} が {avatar_name_2} に対して {action_name} を発動した。
+この行動の意味は: {action_info}
+
+{avatar_name_2} が選べる応答行動は:
+{response_actions}
+
+注意: 出力は JSON 形式のみ。
+{avatar_name_2} の応答だけを返し、形式は以下に従うこと:
+{{
+    {avatar_name_2}: {{
+        "response": ... // {avatar_name_1} の行動に対する有効な応答行動名
+    }}
+}}

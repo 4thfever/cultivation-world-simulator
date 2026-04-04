@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. hidden_domain.csv: 万年前人族大能与炎魔皇同归于尽之地，至今...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_DESC"
+msgstr "一万年前、人族の大能と炎魔皇が相討ちとなった地。今なお地脈から不滅の地火が噴き上がり、空は血を流したように赤い。焦土の下には折れた刀剣が無数に埋もれ、深夜には戦魂の咆哮が往時の惨戦をよみがえらせる。ここで修行するには火毒が心を蝕む苦痛に耐えねばならないが、古き戦意を悟るには絶好の場でもある。深い縁を持つ者なら、熔岩の底から古修の遺した法宝の破片や大道の断章を掴み取れることもある。"
+
+#. hidden_domain.csv: 陨仙焚谷
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_FIRE_NAME"
+msgstr "隕仙焚谷"
+
+#. hidden_domain.csv: 漂浮于九天罡风层之上的宏伟宫殿群，非有大...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_DESC"
+msgstr "九天の罡風層の上に浮かぶ壮麗な宮殿群。外縁の空間裂隙は肉身を引き裂くほど苛烈で、大いなる胆力を持つ者のみが通り抜けられる。内部には古禁制と幾重もの幻陣が満ち、一歩誤れば身も魂も虚空へ失われる。蔵経閣は崩れかけているが、乱流に散る金書玉簡の一頁一頁には、仙道界を血に染めかねない大神通が刻まれている。古の威圧に耐えられる結丹頂峰の修士だけが、辛うじて仙縁の片鱗を覗き見ることができる。"
+
+#. hidden_domain.csv: 九天虚空殿
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_PALACE_NAME"
+msgstr "九天虚空殿"
+
+#. hidden_domain.csv: 此乃上古丹宗“青帝苑”崩碎后遗落的一角碎...
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_DESC"
+msgstr "上古の丹宗「青帝苑」が崩れた際に散り残った断界。全域を五彩の毒瘴が覆い、壊れた法則のせいで霊植は狂ったように繁茂している。変幻自在の妖藤や人喰いの花が暗がりに潜み、外縁の「死寂林」を越えて中核の「青木霊泉」に辿り着ければ、凡草すら仙薬へ変わると噂される。ただし、長年薬滓を喰らって歪んだ守護獣たちは、今もなお新鮮な血を渇望している。"
+
+#. hidden_domain.csv: 万木残界
+msgid "HIDDEN_DOMAIN_HIDDEN_DOMAIN_WOOD_NAME"
+msgstr "万木残界"

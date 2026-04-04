@@ -22,10 +22,15 @@ class Direction:
         "South": (0, 1),
         "West": (-1, 0),
         "East": (1, 0),
+        "north": (0, -1),
+        "south": (0, 1),
+        "west": (-1, 0),
+        "east": (1, 0),
         "北": (0, -1),
         "南": (0, 1),
         "西": (-1, 0),
-        "东": (1, 0)
+        "东": (1, 0),
+        "東": (1, 0),
     }
     
     # 中文名称映射
@@ -34,10 +39,31 @@ class Direction:
         "South": "南",
         "West": "西",
         "East": "东",
+        "north": "北",
+        "south": "南",
+        "west": "西",
+        "east": "东",
         "北": "北",
         "南": "南",
         "西": "西",
-        "东": "东"
+        "东": "东",
+        "東": "东",
+    }
+
+    _MSGIDS = {
+        "North": "north",
+        "South": "south",
+        "West": "west",
+        "East": "east",
+        "north": "north",
+        "south": "south",
+        "west": "west",
+        "east": "east",
+        "北": "north",
+        "南": "south",
+        "西": "west",
+        "东": "east",
+        "東": "east",
     }
 
     @classmethod
@@ -52,6 +78,10 @@ class Direction:
     def get_cn_name(cls, direction: str) -> str:
         return cls._CN_NAMES.get(direction, direction)
 
+    @classmethod
+    def get_msgid(cls, direction: str) -> str:
+        return cls._MSGIDS.get(direction, direction)
+
 
 class MoveToDirection(DefineAction, ActualActionMixin):
     """
@@ -65,7 +95,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     
     # 不需要翻译的常量
     EMOJI = "🧭"
-    PARAMS = {"direction": "direction (North/South/East/West)"}
+    PARAMS = {"direction": "direction (north/south/east/west)"}
     IS_MAJOR = False
     
     # 固定持续时间
@@ -85,11 +115,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     def start(self, direction: str) -> Event:
         self.start_monthstamp = self.world.month_stamp
         self.direction = direction
-        # 翻译方向名
-        direction_msgids = {"North": "north", "South": "south", "East": "east", "West": "west",
-                           "北": "north", "南": "south", "东": "east", "西": "west"}
-        dir_msgid = direction_msgids.get(direction, direction)
-        direction_translated = t(dir_msgid)
+        direction_translated = t(Direction.get_msgid(direction))
         content = t("{avatar} begins moving toward {direction}",
                    avatar=self.avatar.name, direction=direction_translated)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
@@ -117,11 +143,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
         return ActionResult(status=(ActionStatus.COMPLETED if is_done else ActionStatus.RUNNING), events=[])
 
     async def finish(self, direction: str) -> list[Event]:
-        # 翻译方向名
-        direction_msgids = {"North": "north", "South": "south", "East": "east", "West": "west",
-                           "北": "north", "南": "south", "东": "east", "西": "west"}
-        dir_msgid = direction_msgids.get(direction, direction)
-        direction_translated = t(dir_msgid)
+        direction_translated = t(Direction.get_msgid(direction))
         content = t("{avatar} finished moving toward {direction}",
                    avatar=self.avatar.name, direction=direction_translated)
         return [Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])]

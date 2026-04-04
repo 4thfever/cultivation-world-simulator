@@ -1,0 +1,32 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Auxiliary [{name}]"
+msgstr "補助装備 [{name}]"
+
+msgid "Elixir [{name}]"
+msgstr "丹薬 [{name}]"
+
+msgid "Heaven and Earth Phenomenon"
+msgstr "天地異象"
+
+# Direction names
+msgid "north"
+msgstr "北"
+
+msgid "south"
+msgstr "南"
+
+msgid "west"
+msgstr "西"

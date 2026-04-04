@@ -1,0 +1,47 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Item exchange - general
+msgid "decided to equip it"
+msgstr "装備することにした"
+
+msgid "decided to keep current equipment"
+msgstr "現在の装備を維持することにした"
+
+msgid "decided to keep current technique"
+msgstr "現在の功法を維持することにした"
+
+msgid "decided to learn it"
+msgstr "習得することにした"
+
+msgid "item_verb_consume"
+msgstr "消費"
+
+msgid "item_verb_consumed"
+msgstr "消費した"
+
+msgid "{name} discarded {item_name}."
+msgstr "{name}は{item_name}を捨てた。"
+
+msgid "{name} equipped {grade}{label} '{item_name}'."
+msgstr "{name}は{grade}{label}「{item_name}」を装備した。"
+
+# Item exchange - detailed messages
+msgid "{name} obtained {grade}{label} '{item_name}' and equipped it."
+msgstr "{name}は{grade}{label}「{item_name}」を手に入れ、そのまま装備した。"
+
+msgid ""
+"{name} sold the newly obtained {item_name}, earning {price} spirit stones."
+msgstr ""
+"{name}は新たに得た{item_name}を売却し、{price}霊石を手に入れた。"

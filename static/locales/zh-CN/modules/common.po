@@ -150,3 +150,96 @@ msgstr "两人正在对弈下棋。"
 
 msgid "action_devourpeople_short_name"
 msgstr "吞噬生灵"
+
+msgid "Prefers male cultivators"
+msgstr "偏好男性修士"
+
+msgid "Prefers female cultivators"
+msgstr "偏好女性修士"
+
+msgid "Prefers righteous cultivators"
+msgstr "偏好正道修士"
+
+msgid "Prefers evil cultivators"
+msgstr "偏好邪道修士"
+
+msgid "Prefers neutral cultivators"
+msgstr "偏好中立修士"
+
+msgid "Prefers Confucian cultivators"
+msgstr "偏好儒家修士"
+
+msgid "Prefers Daoist cultivators"
+msgstr "偏好道家修士"
+
+msgid "Prefers Buddhist cultivators"
+msgstr "偏好佛家修士"
+
+msgid "Prefers martial cultivators"
+msgstr "偏好武道修士"
+
+msgid "Prefers worldly cultivators"
+msgstr "偏好入世之人"
+
+msgid "Prefers orthodox gentlemen"
+msgstr "偏好名教中人"
+
+msgid "Prefers secluded cultivators"
+msgstr "偏好出世之人"
+
+msgid "Prefers solitary mountain cultivators"
+msgstr "偏好山泽孤修"
+
+msgid "Prefers {value}"
+msgstr "偏好{value}"
+
+msgid "official_rank_none"
+msgstr "无品"
+
+msgid "official_rank_county_magistrate"
+msgstr "县令"
+
+msgid "official_rank_commandery_governor"
+msgstr "郡守"
+
+msgid "official_rank_provincial_governor"
+msgstr "州牧"
+
+msgid "official_rank_grand_chancellor"
+msgstr "宰辅"
+
+msgid "dynasty_style_law_and_arms"
+msgstr "尚法重军"
+
+msgid "dynasty_style_pure_discourse_and_orthodoxy"
+msgstr "清谈名教"
+
+msgid "dynasty_style_civil_governance"
+msgstr "重文理政"
+
+msgid "dynasty_style_elegant_courtly_rule"
+msgstr "风流雅政"
+
+msgid "dynasty_style_wild_marches"
+msgstr "山泽杂行"
+
+msgid "dynasty_style_pragmatic_commerce"
+msgstr "尚实通商"
+
+msgid "dynasty_style_stoic_frontier_guard"
+msgstr "沉毅守边"
+
+msgid "dynasty_style_horsemanship_and_arms"
+msgstr "骑射尚武"
+
+msgid "dynasty_style_strict_law_and_central_power"
+msgstr "法密权重"
+
+msgid "dynasty_style_pragmatic_conservatism"
+msgstr "务本守成"
+
+msgid "dynasty_style_flexible_statecraft"
+msgstr "柔治机变"
+
+msgid "dynasty_style_endure_and_strike_late"
+msgstr "坚忍后发"

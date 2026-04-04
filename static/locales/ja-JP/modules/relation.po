@@ -1,0 +1,163 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "grand_child"
+msgstr "孫"
+
+msgid "grand_parent"
+msgstr "祖父母"
+
+msgid "martial_grandchild"
+msgstr "徒孫"
+
+msgid "martial_grandmaster"
+msgstr "太師父"
+
+msgid "martial_sibling"
+msgstr "同門"
+
+# Relation
+msgid "parent"
+msgstr "父母"
+
+msgid "numeric_relation_archenemy"
+msgstr "敵対"
+
+msgid "numeric_relation_best_friend"
+msgstr "至交"
+
+msgid "numeric_relation_disliked"
+msgstr "不和"
+
+msgid "numeric_relation_friend"
+msgstr "良好"
+
+msgid "numeric_relation_stranger"
+msgstr "疎遠"
+
+msgid "relation_daughter"
+msgstr "娘"
+
+# Relations
+msgid "relation_father"
+msgstr "父"
+
+msgid "relation_granddaughter"
+msgstr "孫娘"
+
+msgid "relation_grandfather"
+msgstr "祖父"
+
+msgid "relation_grandmother"
+msgstr "祖母"
+
+msgid "relation_grandson"
+msgstr "孫息子"
+
+msgid "relation_martial_older_brother"
+msgstr "師兄"
+
+msgid "relation_martial_older_sister"
+msgstr "師姐"
+
+msgid "relation_martial_younger_brother"
+msgstr "師弟"
+
+msgid "relation_martial_younger_sister"
+msgstr "師妹"
+
+msgid "relation_mother"
+msgstr "母"
+
+msgid "relation_older_brother"
+msgstr "兄"
+
+msgid "relation_older_sister"
+msgstr "姉"
+
+msgid "relation_rule_apprentice_add"
+msgstr ""
+"[弟子] 師弟関係が成立した際、師の側から見た対応関係として通常は自動的に成立する。"
+
+msgid "relation_rule_apprentice_cancel"
+msgstr "[師弟解消] 上記の師弟関係の解消に対応して自動的に消える。"
+
+msgid "relation_rule_cancel_title"
+msgstr "[関係解除ルール]"
+
+msgid "relation_rule_enemy_add"
+msgstr ""
+"[敵対] 実質的な被害（負傷、盗難、屈辱など）を受けた場合に成立する。重大な被害が一度でもあれば、または小さな摩擦が何度も重なっても成立しうる。"
+
+msgid "relation_rule_enemy_cancel"
+msgstr ""
+"[和解] 一方が善意を示して受け入れられた場合、共に生死をくぐる経験をした場合、または憎しみが時間とともに薄れた場合に解消しうる。"
+
+msgid "relation_rule_establish_title"
+msgstr "[関係成立ルール]"
+
+msgid "relation_rule_friend_add"
+msgstr ""
+"[良好] 会話、双修、切磋、療傷などの日常的に好意的な交流があれば成立しうる。明確な善意の表明が一度あるだけでも十分で、重大な利害対立がないことが前提となる。"
+
+msgid "relation_rule_friend_cancel"
+msgstr ""
+"[疎遠化] 利害対立、裏切り、あるいは交流が長く途絶えたことによる関係の希薄化で解消しうる。"
+
+msgid "relation_rule_lovers_add"
+msgstr ""
+"[道侶] 異性同士であることが前提。互いに深い理解と愛情を抱いている必要がある。"
+
+msgid "relation_rule_lovers_cancel"
+msgstr "[別離] 対立、感情の破綻、深刻な裏切りなどによって解消する。"
+
+msgid "relation_rule_master_add"
+msgstr ""
+"[師弟] 師の境界は弟子より明確に高くなければならない（例: 結丹と練気）。"
+
+msgid "relation_rule_master_cancel"
+msgstr "[破門・離反] 弟子が反抗的である場合、または師が教え導けなくなった場合に解消しうる。"
+
+msgid "relation_rule_sworn_sibling_add"
+msgstr ""
+"[義兄弟・義姉妹] 同じ志を抱き、生死を共にした経験や重大な出来事を分かち合った場合に成立しうる。"
+
+msgid "relation_rule_sworn_sibling_cancel"
+msgstr ""
+"[義絶] 深刻な裏切り、または信念に関する埋めがたい対立によって解消する。"
+
+# Separators
+msgid "relation_separator"
+msgstr "；"
+
+msgid "relation_son"
+msgstr "息子"
+
+msgid "relation_sworn_older_brother"
+msgstr "義兄"
+
+msgid "relation_sworn_older_sister"
+msgstr "義姐"
+
+msgid "relation_sworn_younger_brother"
+msgstr "義弟"
+
+msgid "relation_sworn_younger_sister"
+msgstr "義妹"
+
+msgid "relation_younger_brother"
+msgstr "弟"
+
+msgid "relation_younger_sister"
+msgstr "妹"

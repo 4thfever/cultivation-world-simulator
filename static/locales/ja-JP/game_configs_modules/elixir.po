@@ -1,0 +1,157 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. elixir.csv: 凝聚灵气，辅助练气期修士突破瓶颈的丹药（...
+msgid "ELIXIR_3001_DESC"
+msgstr "霊気を凝縮し、練気期修士の瓶頸突破を助ける丹薬（効果は 5 年持続）。"
+
+#. elixir.csv: 练气破境丹
+msgid "ELIXIR_3001_NAME"
+msgstr "練気破境丹"
+
+#. elixir.csv: 蕴含筑基真意，辅助筑基期修士突破瓶颈的灵...
+msgid "ELIXIR_3002_DESC"
+msgstr "築基の真意を含み、築基期修士の瓶頸突破を助ける霊丹（効果は 5 年持続）。"
+
+#. elixir.csv: 筑基破境丹
+msgid "ELIXIR_3002_NAME"
+msgstr "築基破境丹"
+
+#. elixir.csv: 凝结金丹之气，辅助金丹期修士碎丹成婴（药...
+msgid "ELIXIR_3003_DESC"
+msgstr "金丹の気を凝らし、金丹期修士が砕丹成嬰する助けとなる丹薬（効果は 5 年持続）。"
+
+#. elixir.csv: 金丹破境丹
+msgid "ELIXIR_3003_NAME"
+msgstr "金丹破境丹"
+
+#. elixir.csv: 采用凡间珍草炼制，略微延缓衰老（限服一颗...
+msgid "ELIXIR_3005_DESC"
+msgstr "凡俗の珍草を煉じて作られ、わずかに老いを遅らせる（服用は一粒まで）。"
+
+#. elixir.csv: 练气长生丹
+msgid "ELIXIR_3005_NAME"
+msgstr "練気長生丹"
+
+#. elixir.csv: 取天地灵草炼制，可延寿十载（限服一颗）。...
+msgid "ELIXIR_3006_DESC"
+msgstr "天地の霊草を用いて煉じられ、十年の延寿をもたらす（服用は一粒まで）。"
+
+#. elixir.csv: 筑基长生丹
+msgid "ELIXIR_3006_NAME"
+msgstr "築基長生丹"
+
+#. elixir.csv: 夺天地造化，凡人服之立毙，金丹修士服之延...
+msgid "ELIXIR_3007_DESC"
+msgstr "天地造化を奪う丹薬。凡人が服せば即死し、金丹修士なら寿元を延ばせる（服用は一粒まで）。"
+
+#. elixir.csv: 金丹长生丹
+msgid "ELIXIR_3007_NAME"
+msgstr "金丹長生丹"
+
+#. elixir.csv: 蕴含一丝长生之气，元婴老怪以此续命（限服...
+msgid "ELIXIR_3008_DESC"
+msgstr "一筋の長生の気を含み、元嬰老怪が命を繋ぐために用いる（服用は一粒まで）。"
+
+#. elixir.csv: 元婴长生丹
+msgid "ELIXIR_3008_NAME"
+msgstr "元嬰長生丹"
+
+#. elixir.csv: 燃烧精血换取短暂爆发。3年内战力提升，但...
+msgid "ELIXIR_3009_DESC"
+msgstr "精血を燃やして短期間の爆発力を得る。3 年以内は戦力が上がるが、10 年以内には経脈を損じて戦力が落ちる。"
+
+#. elixir.csv: 练气燃血丹
+msgid "ELIXIR_3009_NAME"
+msgstr "練気燃血丹"
+
+#. elixir.csv: 激发潜能的猛药。3年内战力大增，但10年...
+msgid "ELIXIR_3010_DESC"
+msgstr "潜能を強引に引き出す猛薬。3 年以内は戦力が大きく伸びるが、10 年以内には弱体化する。"
+
+#. elixir.csv: 筑基燃血丹
+msgid "ELIXIR_3010_NAME"
+msgstr "築基燃血丹"
+
+#. elixir.csv: 金丹修士拼命时的选择。3年内战力暴涨，但...
+msgid "ELIXIR_3011_DESC"
+msgstr "金丹修士が命懸けの場面で選ぶ丹薬。3 年以内は戦力が激増するが、10 年以内には重傷の代償を負う。"
+
+#. elixir.csv: 金丹燃血丹
+msgid "ELIXIR_3011_NAME"
+msgstr "金丹燃血丹"
+
+#. elixir.csv: 燃烧元婴本源。3年内获得毁天灭地的力量，...
+msgid "ELIXIR_3012_DESC"
+msgstr "元嬰の本源を燃やす丹薬。3 年以内は天地を滅ぼすほどの力を得るが、10 年以内にはほぼ廃人同然となる。"
+
+#. elixir.csv: 元婴燃血丹
+msgid "ELIXIR_3012_NAME"
+msgstr "元嬰燃血丹"
+
+#. elixir.csv: 普通的疗伤丹药，可恢复练气期修士的伤势（...
+msgid "ELIXIR_3013_DESC"
+msgstr "練気期修士の傷を癒す一般的な療傷丹薬（効果は 5 年持続）。"
+
+#. elixir.csv: 练气回春丹
+msgid "ELIXIR_3013_NAME"
+msgstr "練気回春丹"
+
+#. elixir.csv: 药力温和醇厚，能快速愈合筑基期修士的肉身...
+msgid "ELIXIR_3014_DESC"
+msgstr "薬力は穏やかで深く、築基期修士の肉身損傷を素早く癒す。"
+
+#. elixir.csv: 筑基回春丹
+msgid "ELIXIR_3014_NAME"
+msgstr "築基回春丹"
+
+#. elixir.csv: 蕴含生机之力，疗伤圣药（持续5年）。...
+msgid "ELIXIR_3015_DESC"
+msgstr "生機の力を含む療傷聖薬（効果は 5 年持続）。"
+
+#. elixir.csv: 金丹回春丹
+msgid "ELIXIR_3015_NAME"
+msgstr "金丹回春丹"
+
+#. elixir.csv: 蕴含造化生机，肉身修复极快（持续5年）。...
+msgid "ELIXIR_3016_DESC"
+msgstr "造化の生機を含み、肉身の修復が極めて早い（効果は 5 年持続）。"
+
+#. elixir.csv: 元婴回春丹
+msgid "ELIXIR_3016_NAME"
+msgstr "元嬰回春丹"
+
+msgid "ELIXIR_3017_DESC"
+msgstr "花露と霊草を用いて煉じられ、容貌と肌つやをわずかに高める（服用は一粒まで）。"
+
+msgid "ELIXIR_3017_NAME"
+msgstr "練気養顔丹"
+
+msgid "ELIXIR_3018_DESC"
+msgstr "薬性がより穏やかで、骨肉と生気をじっくり養い、容姿をいっそう際立たせる（服用は一粒まで）。"
+
+msgid "ELIXIR_3018_NAME"
+msgstr "築基養顔丹"
+
+msgid "ELIXIR_3019_DESC"
+msgstr "金丹の霊精を含み、もっとも美しい姿を長く保ち、歳月に削られにくくする（服用は一粒まで）。"
+
+msgid "ELIXIR_3019_NAME"
+msgstr "金丹養顔丹"
+
+msgid "ELIXIR_3020_DESC"
+msgstr "一筋の造化の気を含み、服すればもっとも輝く瞬間の容姿を保ちやすくなる（服用は一粒まで）。"
+
+msgid "ELIXIR_3020_NAME"
+msgstr "元嬰養顔丹"

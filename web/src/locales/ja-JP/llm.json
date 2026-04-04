@@ -1,0 +1,104 @@
+{
+  "loading": "読み込み中...",
+  "fetch_failed": "設定の取得に失敗しました",
+  "test_success": "接続テストに成功しました",
+  "save_success": "設定を保存しました",
+  "test_save_failed": "テストまたは保存に失敗しました: {error}",
+  "test_save_failed_title": "テストまたは保存に失敗しました",
+  "api_key_required": "API Key を入力してください",
+  "base_url_required": "Base URL を入力してください",
+  "preset_applied": "{name} プリセットを適用しました（{extra}）",
+  "preset_extra_key": "API Key を入力してください",
+  "preset_extra_local": "Ollama が起動していることを確認してください",
+  "sections": {
+    "quick_fill": "クイック設定",
+    "api_config": "API 設定",
+    "model_selection": "モデル選択",
+    "run_mode": "実行モード"
+  },
+  "labels": {
+    "api_key": "API Key",
+    "base_url": "Base URL",
+    "normal_model": "高性能モデル（Normal）",
+    "fast_model": "高速モデル（Fast）",
+    "max_concurrent_requests": "最大同時リクエスト数",
+    "what_is_api": "API とは？ / 取得方法",
+    "api_format": "API 形式"
+  },
+  "descs": {
+    "normal_model": "複雑なロジック、物語生成などに使用します。",
+    "fast_model": "簡単な判定、頻繁なやり取りなどに使用します。",
+    "max_concurrent_requests": "AI への同時リクエスト数です。値を上げると速度は上がりますが、API の Rate Limit に達しやすくなります。推奨値: 5〜20。"
+  },
+  "placeholders": {
+    "api_key": "ここに API Key を入力してください（通常は sk- で始まります）",
+    "base_url": "https://api.example.com/v1",
+    "normal_model": "例: gpt-4, claude-3-opus, qwen-plus",
+    "fast_model": "例: gpt-3.5-turbo, qwen-flash",
+    "max_concurrent_requests": "既定値: 10"
+  },
+  "modes": {
+    "default": "バランス型（既定）",
+    "default_desc": "モデルを自動選択します（推奨）",
+    "normal": "高性能（Normal）",
+    "normal_desc": "すべての処理で高性能モデルを使用します",
+    "fast": "高速（Fast）",
+    "fast_desc": "すべての処理で高速モデルを使用します"
+  },
+  "formats": {
+    "openai": "OpenAI 互換",
+    "openai_desc": "ほとんどのプロバイダで利用できます",
+    "anthropic": "Anthropic ネイティブ",
+    "anthropic_desc": "Anthropic Claude API に直接接続します"
+  },
+  "actions": {
+    "testing": "接続テスト中...",
+    "test_and_save": "接続テストして保存"
+  },
+  "help": {
+    "title": "API とは？ 設定ガイド",
+    "q1_title": "1. API とは？",
+    "q1_content": "API（Application Programming Interface）は、いわば『通信回線』のようなものです。このゲーム自体には思考能力がなく、この回線を通じて遠隔の AI の『頭脳』（Qwen や DeepSeek など）に接続します。ゲームが月ごとの決算や NPC 行動を決める際、関連情報を API 経由で AI に送り、AI が考えて結果を返します。",
+    "q2_title": "2. おすすめモデル（2025）",
+    "q2_qwen": "中国国内の大手（Alibaba）による提供で、無料枠が大きく安定しており、初心者向けです。",
+    "q2_deepseek": "非常に高いコストパフォーマンスを持ち、中国語圏の文脈にも強いです。",
+    "q2_gemini": "Google 製で、総合性能が非常に高いです。",
+    "q3_title": "3. 設定はどう入力する？",
+    "q3_content": "API を取得したら、この 3 つの主要項目を入力する必要があります。通常は各プロバイダのドキュメントに記載されています。",
+    "q3_format_note": "注意: このゲームは OpenAI 互換形式と Anthropic ネイティブ形式の両方に対応しています。多くのプロバイダは OpenAI 互換形式を採用しています。Anthropic API に直接接続する場合のみ、API 形式で『Anthropic Native』を選んでください。通常はプリセットの使用をおすすめします。",
+    "q3_base_url": "API Base URL: AI へ接続する入口です。通常はベンダーが提供します（例: https://api.deepseek.com）。",
+    "q3_api_key": "API Key: あなたを識別する資格情報で、パスワードのようなものです。",
+    "q3_model_name": "モデル名: どの『頭脳』を使うかをサーバーに伝えます。例: deepseek-chat, gemini-3-flash-preview。",
+    "q4_title": "4. Key はどこで取得する？",
+    "q5_title": "5. セキュリティ上の注意",
+    "q5_p1": "あなたの API Key はローカル PC の設定ファイルにのみ保存され、ローカルで起動しているゲームのバックエンドが直接モデル提供元と通信します。このゲーム（Cultivation World Simulator）は完全なオープンソースであり、Key を第三者サーバーへ送信することはありません。また、設定ファイルを他人と共有しないでください。",
+    "q5_p2": "トークン使用には費用がかかる場合があります。利用コストはご自身で判断してください。",
+    "confirm": "理解しました"
+  },
+  "presets": {
+    "openai": "OpenAI",
+    "qwen": "Qwen",
+    "deepseek": "DeepSeek",
+    "minimax": "MiniMax",
+    "siliconflow": "SiliconFlow",
+    "openrouter": "OpenRouter",
+    "gemini": "Gemini",
+    "groq": "Groq",
+    "cerebras": "Cerebras",
+    "ollama": "Ollama（ローカル）",
+    "anthropic": "Anthropic"
+  },
+  "badges": {
+    "recommended": "推奨",
+    "free": "安価"
+  },
+  "help_links": {
+    "openai": "OpenAI Platform",
+    "qwen": "Aliyun Bailian（Qwen / 推奨）",
+    "deepseek": "DeepSeek Platform（高速・低価格）",
+    "minimax": "MiniMax Platform（100 万コンテキスト・高速）",
+    "openrouter": "OpenRouter（統合型 / 推奨）",
+    "siliconflow": "SiliconFlow（国内集約）",
+    "gemini": "Google AI Studio（Gemini）"
+  }
+}

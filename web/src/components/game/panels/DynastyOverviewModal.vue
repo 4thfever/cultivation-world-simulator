@@ -4,6 +4,7 @@ import { NModal, NSpin, NTag } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { useDynastyStore } from '@/stores/dynasty'
 import { useUiStore } from '@/stores/ui'
+import { formatCultivationText } from '@/utils/cultivationText'
 
 const props = defineProps<{
   show: boolean;
@@ -151,7 +152,7 @@ watch(
                 </div>
                 <div class="official-side">
                   <div class="official-meta">
-                    {{ t('game.dynasty.officials.realm') }}：{{ official.realm || t('common.none') }}
+                    {{ t('game.dynasty.officials.realm') }}：{{ formatCultivationText(official.realm, t) || t('common.none') }}
                   </div>
                   <div class="official-meta">
                     {{ t('game.dynasty.officials.court_reputation') }}：{{ official.courtReputation }}

@@ -1,0 +1,50 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Event: Hidden Domain Opening\n"
+"Name: {name}\n"
+"Description: {desc}"
+msgstr ""
+"イベント: 秘境開放\n"
+"名称: {name}\n"
+"説明: {desc}"
+
+msgid "Hidden Domain {name} opened! Entry restricted to {realm} only."
+msgstr "秘境 {name} が開放された。入場は {realm} に限られる。"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. Entrants: "
+"{entrants}"
+msgstr ""
+"秘境 {name} が開放された。入場は {realm} に限られる。参加者: {entrants}"
+
+msgid ""
+"Hidden Domain {name} opened! Entry restricted to {realm} only. No one "
+"entered."
+msgstr ""
+"秘境 {name} が開放された。入場は {realm} に限られる。誰も入らなかった。"
+
+msgid "Hidden Domains opened: {names}"
+msgstr "開放された秘境: {names}"
+
+msgid "Perished in a Hidden Domain"
+msgstr "秘境で命を落とした"
+
+msgid "found a treasure"
+msgstr "宝を見つけた"
+
+# Gender
+msgid "male"
+msgstr "男"

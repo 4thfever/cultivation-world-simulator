@@ -205,3 +205,39 @@ msgstr "Một người qua đường vô danh"
 
 msgid "Current world celestial phenomenon: {name}"
 msgstr "Thiên tượng thế giới hiện tại: {name}"
+
+msgid "sect_task_title_sect_task_patrol_gate"
+msgstr "Tuần tra sơn môn"
+
+msgid "sect_task_title_sect_task_watch_storehouse"
+msgstr "Canh giữ kho tàng"
+
+msgid "sect_task_title_sect_task_tend_herb_garden"
+msgstr "Chăm nom dược viên"
+
+msgid "sect_task_title_sect_task_assist_deacon"
+msgstr "Hỗ trợ chấp sự"
+
+msgid "sect_task_title_sect_task_calm_spirit_beast"
+msgstr "Dẹp yên linh thú náo loạn"
+
+msgid "sect_task_title_sect_task_escort_supplies"
+msgstr "Hộ tống vật tư nội vụ"
+
+msgid "sect_task_title_sect_task_receive_returnees"
+msgstr "Đón đệ tử hồi sơn"
+
+msgid "sect_task_title_sect_task_maintain_array_node"
+msgstr "Bảo trì trận nhãn"
+
+msgid "sect_task_title_sect_task_inspect_restrictions"
+msgstr "Kiểm tra cấm chế"
+
+msgid "sect_task_title_sect_task_guard_scripture_pavilion"
+msgstr "Trấn thủ Tàng Kinh Các"
+
+msgid "sect_task_title_sect_task_investigate_night_anomaly"
+msgstr "Điều tra dị động ban đêm"
+
+msgid "sect_task_title_sect_task_host_law_hall"
+msgstr "Chủ trì trật tự pháp đường"

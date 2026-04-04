@@ -1,0 +1,36 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Hidden Domain
+msgid "hidden_domain_story_prompt"
+msgstr ""
+"秘境探索の物語を描写せよ。個々の体験や複数人物のやり取り"
+"（遭遇、協力、競争、さらには攻撃まで）に焦点を当てること。"
+"遭遇した危険、得た好機、あるいは手ぶらで帰る失意を織り込み、"
+"神秘的で緊張感があり、先の読めない空気を生み出すこと。"
+
+msgid "perished"
+msgstr "命を落とした"
+
+msgid "{names} returned from {domain} empty-handed."
+msgstr "{names} は {domain} から手ぶらで戻った。"
+
+msgid "{name} found a treasure {loot} in {domain}!"
+msgstr "{name} は {domain} で宝物 {loot} を見つけた。"
+
+msgid "{name} perished in the hidden domain {domain}."
+msgstr "{name} は秘境 {domain} で命を落とした。"
+
+msgid "{}: {}"
+msgstr "{}: {}"

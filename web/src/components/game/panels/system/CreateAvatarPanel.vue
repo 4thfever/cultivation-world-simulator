@@ -6,6 +6,7 @@ import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatar
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
+import { formatEntityGrade } from '@/utils/cultivationText'
 
 const emit = defineEmits<{
   (e: 'created'): void
@@ -86,7 +87,7 @@ const techniqueOptions = computed(() => {
 const weaponOptions = computed(() => {
   if (!gameData.value) return []
   return gameData.value.weapons.map(w => ({
-    label: `${w.name}（${t('game.info_panel.popup.types.' + w.type)}·${t('realms.' + w.grade)}）`,
+    label: `${w.name}（${t('game.info_panel.popup.types.' + w.type)}·${formatEntityGrade(w.grade, t)}）`,
     value: w.id
   }))
 })
@@ -94,7 +95,7 @@ const weaponOptions = computed(() => {
 const auxiliaryOptions = computed(() => {
   if (!gameData.value) return []
   return gameData.value.auxiliaries.map(a => ({
-    label: `${a.name}（${t('realms.' + a.grade)}）`,
+    label: `${a.name}（${formatEntityGrade(a.grade, t)}）`,
     value: a.id
   }))
 })

@@ -1,0 +1,118 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "custom_content.category.technique"
+msgstr "功法"
+
+msgid "custom_content.category.weapon"
+msgstr "武器"
+
+msgid "custom_content.category.auxiliary_equipment"
+msgstr "補助装備"
+
+msgid "custom_content.label.name"
+msgstr "名称"
+
+msgid "custom_content.label.description"
+msgstr "説明"
+
+msgid "custom_content.label.attribute"
+msgstr "属性"
+
+msgid "custom_content.label.grade"
+msgstr "品階"
+
+msgid "custom_content.label.weapon_type"
+msgstr "武器種別"
+
+msgid "custom_content.label.realm"
+msgstr "境界"
+
+msgid "custom_content.label.effect_summary"
+msgstr "効果概要"
+
+msgid "custom_content.label.effects"
+msgstr "効果"
+
+msgid "custom_content.label.value_type"
+msgstr "数値種別"
+
+msgid "custom_content.label.example"
+msgstr "例"
+
+msgid "custom_content.label.magnitude_guidance"
+msgstr "規模目安"
+
+msgid "custom_content.reference.same_category"
+msgstr "同カテゴリの参考項目:"
+
+msgid "custom_content.reference.same_category_realm"
+msgstr "同カテゴリかつ同境界の参考項目:"
+
+msgid "custom_content.scope.without_realm"
+msgstr "これは新しい{category_label}です。境界の指定は不要です。"
+
+msgid "custom_content.scope.with_realm"
+msgstr "これは「{realm}」境界帯の{category_label}です。"
+
+msgid "small"
+msgstr "小"
+
+msgid "medium"
+msgstr "中"
+
+msgid "large"
+msgstr "大"
+
+msgid "cap"
+msgstr "上限"
+
+msgid "very high"
+msgstr "非常に高い"
+
+msgid "base chance"
+msgstr "基礎確率"
+
+msgid "base value"
+msgstr "基礎値"
+
+msgid "ordinary"
+msgstr "通常"
+
+msgid "fortunate"
+msgstr "幸運"
+
+msgid "protagonist-tier"
+msgstr "主人公級"
+
+msgid "unlucky"
+msgstr "不運"
+
+msgid "tanky"
+msgstr "耐久寄り"
+
+msgid "profit-focused"
+msgstr "利益重視"
+
+msgid "safer"
+msgstr "より安全"
+
+msgid "riskier"
+msgstr "より危険"
+
+msgid "talent-tier"
+msgstr "天才級"
+
+msgid "final multiplier >= 1.0"
+msgstr "最終倍率 >= 1.0"

@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: en-US\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "ORTHODOXY_BUDDHISM_DESC"
+msgstr "衆生を済度し、坐禅と頓悟を通じて修為を高める。"
+
+# Buddhism
+msgid "ORTHODOXY_BUDDHISM_NAME"
+msgstr "仏門"
+
+msgid "ORTHODOXY_CONFUCIANISM_DESC"
+msgstr "民を教化し、浩然の気を養い、それに応じて境界を高めていく。"
+
+# Confucianism
+msgid "ORTHODOXY_CONFUCIANISM_NAME"
+msgstr "儒門"
+
+msgid "ORTHODOXY_DAO_DESC"
+msgstr "天道に順い、天地の霊気を吐納して修為を積み上げる。"
+
+# Dao (Daoism)
+msgid "ORTHODOXY_DAO_NAME"
+msgstr "道門"
+
+msgid "ORTHODOXY_SANXIU_DESC"
+msgstr "天地を師とし、自然の理に従って独自に修む。"
+
+# Nature (Sanxiu)
+msgid "ORTHODOXY_SANXIU_NAME"
+msgstr "散修"
+
+msgid "ORTHODOXY_WU_DESC"
+msgstr "武をもって入道し、鍛体で根基を固める。進みは遅くとも基礎は強く、瓶頸突破も自然に近い。"
+
+# Martial (Wu)
+msgid "ORTHODOXY_WU_NAME"
+msgstr "武道"
+
+msgid "Orthodoxy [{name}]"
+msgstr "道統[{name}]"

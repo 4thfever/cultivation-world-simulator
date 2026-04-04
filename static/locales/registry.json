@@ -27,6 +27,12 @@
       "label": "Tiếng Việt",
       "html_lang": "vi",
       "enabled": true
+    },
+    {
+      "code": "ja-JP",
+      "label": "日本語",
+      "html_lang": "ja",
+      "enabled": true
     }
   ]
 }

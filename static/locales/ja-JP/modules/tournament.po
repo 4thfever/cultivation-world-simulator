@@ -1,0 +1,67 @@
+msgid "World Martial Arts Tournament is in progress..."
+msgstr "天下武道会が開催中..."
+
+msgid "tournament_start_heaven"
+msgstr "天榜武道会が始まった。参加者: {participants}。"
+
+msgid "tournament_start_earth"
+msgstr "地榜武道会が始まった。参加者: {participants}。"
+
+msgid "tournament_start_human"
+msgstr "人榜武道会が始まった。参加者: {participants}。"
+
+msgid "tournament_battle_result"
+msgstr "武道会で {winner} が {loser} を下した。"
+
+msgid "tournament_end_heaven"
+msgstr "天榜武道会が終了した。第一位は {winner}。"
+
+msgid "tournament_end_earth"
+msgstr "地榜武道会が終了した。第一位は {winner}。"
+
+msgid "tournament_end_human"
+msgstr "人榜武道会が終了した。第一位は {winner}。"
+
+msgid "effect_tournament_heaven_first"
+msgstr "天榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid "effect_tournament_earth_first"
+msgstr "地榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid "effect_tournament_human_first"
+msgstr "人榜第一位（修為/鍛体 +50%、頓悟 +10%）"
+
+msgid "Event Type: World Martial Arts Tournament\nScene Setting: The tournament is held to determine the strongest cultivators of the realm."
+msgstr ""
+"イベント種別: 天下武道会\n"
+"場面設定: この大会は、当代で最強の修士を決めるために開かれる。"
+
+msgid "\n【Tournament Information】\n"
+msgstr "\n【大会情報】\n"
+
+msgid "List: {list_name}\n"
+msgstr "榜: {list_name}\n"
+
+msgid "Winner: {winner}\n"
+msgstr "優勝者: {winner}\n"
+
+msgid "\n【Finalists Information】\n"
+msgstr "\n【決勝進出者情報】\n"
+
+msgid "tournament_story_prompt"
+msgstr "上記の武道会結果をもとに、臨場感のある物語を400〜500字ほどで描写してください。二人の決勝進出者による激しい武の衝突、法宝がぶつかり合う細部、最終勝者の圧倒的な風采、そして観衆の反応を含めてください。文体は仙道世界観に合うものとし、Markdown なしのプレーンテキストのみを出力してください。"
+
+msgid "Final Match: {winner} vs {loser}\n"
+msgstr "決勝戦: {winner} vs {loser}\n"
+
+msgid "tournament_cancelled_due_to_insufficient_participants"
+msgstr "参加者不足のため、天下武道会は中止となった。"
+
+msgid "tournament_heaven"
+msgstr "天榜第一位"
+
+msgid "tournament_earth"
+msgstr "地榜第一位"
+
+msgid "tournament_human"
+msgstr "人榜第一位"

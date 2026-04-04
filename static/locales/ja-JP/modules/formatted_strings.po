@@ -1,0 +1,56 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " But you already have '{current_auxiliary}'."
+msgstr " ただし、あなたはすでに「{current_auxiliary}」を所持している。"
+
+msgid " But you already have '{current_weapon}'."
+msgstr " ただし、あなたはすでに「{current_weapon}」を所持している。"
+
+msgid " But you already have『{auxiliary_name}』."
+msgstr " ただし、あなたはすでに『{auxiliary_name}』を所持している。"
+
+msgid " But you already have『{weapon_name}』."
+msgstr " ただし、あなたはすでに『{weapon_name}』を所持している。"
+
+msgid " This conflicts with your current technique '{current_technique}'."
+msgstr " これは現在の功法「{current_technique}」と衝突する。"
+
+msgid " This conflicts with your current technique『{technique_name}』."
+msgstr " これは現在の功法『{technique_name}』と衝突する。"
+
+msgid "Comprehended technique '{technique}', {exchange_result}"
+msgstr "功法「{technique}」を悟った。{exchange_result}"
+
+msgid "Comprehended technique『{technique_name}』, {exchange_text}"
+msgstr "功法『{technique_name}』を悟った。{exchange_text}"
+
+msgid "Discovered auxiliary『{auxiliary_name}』, {exchange_text}"
+msgstr "補助装備『{auxiliary_name}』を見つけた。{exchange_text}"
+
+msgid "Discovered weapon『{weapon_name}』, {exchange_text}"
+msgstr "武器『{weapon_name}』を見つけた。{exchange_text}"
+
+msgid "Found auxiliary equipment '{auxiliary}', {exchange_result}"
+msgstr "補助装備「{auxiliary}」を手に入れた。{exchange_result}"
+
+msgid "Found weapon '{weapon}', {exchange_result}"
+msgstr "武器「{weapon}」を手に入れた。{exchange_result}"
+
+# Formatted Strings
+msgid "{weapon_name}, Proficiency: {proficiency}%"
+msgstr "{weapon_name}、熟練度: {proficiency}%"
+
+msgid "【{name}】 {gender} {age} years old"
+msgstr "【{name}】 {gender}・{age} 歳"

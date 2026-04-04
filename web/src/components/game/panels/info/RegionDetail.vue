@@ -8,12 +8,13 @@ import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-defineProps<{
+const props = defineProps<{
   data: RegionDetail;
 }>();
 
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
+const ATTRIBUTE_KEYS = new Set(['GOLD', 'WOOD', 'WATER', 'FIRE', 'EARTH', 'ICE', 'WIND', 'DARK', 'THUNDER', 'EVIL']);
 
 function getPopulationBarColor(ratio: number): string {
   if (ratio > 0.8) return '#52c41a';
@@ -23,6 +24,34 @@ function getPopulationBarColor(ratio: number): string {
 
 function formatPopulation(value: number | undefined): string {
   return (value ?? 0).toFixed(1);
+}
+
+function formatEssenceType(rawType: string | undefined): string {
+  if (!rawType) return '';
+  return rawType
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const normalized = part.toUpperCase();
+      return ATTRIBUTE_KEYS.has(normalized) ? t(`attributes.${normalized}`) : part;
+    })
+    .join('、');
+}
+
+function getRegionTypeExplanation(): string {
+  if (props.data.type === 'city') {
+    return t('game.info_panel.region.type_explanations.city');
+  }
+  if (props.data.type === 'cultivate') {
+    return props.data.sub_type === 'ruin'
+      ? t('game.info_panel.region.type_explanations.ruin')
+      : t('game.info_panel.region.type_explanations.cave');
+  }
+  if (props.data.type === 'sect') {
+    return t('game.info_panel.region.type_explanations.sect');
+  }
+  return t('game.info_panel.region.type_explanations.normal');
 }
 
 function showDetail(item: EffectEntity | undefined) {
@@ -50,6 +79,7 @@ function jumpToAvatar(id: string) {
     <!-- Info -->
     <div class="section">
       <div class="section-title">{{ data.type_name }}</div>
+      <div class="type-note">{{ getRegionTypeExplanation() }}</div>
       <div class="desc">{{ data.desc }}</div>
 
       <!-- Population -->
@@ -77,7 +107,7 @@ function jumpToAvatar(id: string) {
     <div class="section" v-if="data.essence">
       <div class="section-title">{{ t('game.info_panel.region.essence_title') }}</div>
       <div class="essence-info">
-        {{ t('game.info_panel.region.essence_info', { type: data.essence.type, density: data.essence.density }) }}
+        {{ t('game.info_panel.region.essence_info', { type: formatEssenceType(data.essence.type), density: data.essence.density }) }}
       </div>
     </div>
 
@@ -181,6 +211,12 @@ function jumpToAvatar(id: string) {
   font-size: 13px;
   line-height: 1.5;
   color: #ccc;
+}
+
+.type-note {
+  font-size: 12px;
+  color: #a8d8c0;
+  line-height: 1.5;
 }
 
 .essence-info {

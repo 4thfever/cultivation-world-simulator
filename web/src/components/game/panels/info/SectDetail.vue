@@ -7,6 +7,7 @@ import SecondaryPopup from './components/SecondaryPopup.vue';
 import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import { useI18n } from 'vue-i18n';
+import { formatCultivationText } from '@/utils/cultivationText';
 
 type DiplomacyItem = NonNullable<SectDetail['diplomacy_items']>[number];
 
@@ -213,7 +214,7 @@ function getDiplomacySub(item: DiplomacyItem) {
                :key="m.id"
                :name="m.name"
                :meta="m.rank"
-               :sub="`${m.realm} · ${t('game.info_panel.avatar.stats.sect_contribution')} ${m.contribution ?? 0}`"
+               :sub="`${formatCultivationText(m.realm, t)} · ${t('game.info_panel.avatar.stats.sect_contribution')} ${m.contribution ?? 0}`"
                @click="jumpToAvatar(m.id)"
              />
           </div>

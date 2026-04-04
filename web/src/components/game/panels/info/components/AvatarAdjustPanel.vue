@@ -8,6 +8,7 @@ import { logError, toErrorMessage } from '@/utils/appError';
 import { useI18n } from 'vue-i18n';
 import { useMessage } from 'naive-ui';
 import EntityDetailCard from './EntityDetailCard.vue';
+import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
 
 type AdjustCategory = 'technique' | 'weapon' | 'auxiliary' | 'personas';
 
@@ -373,8 +374,8 @@ async function saveCustomDraft() {
             >
               <div class="option-main">
                 <span class="option-name" :style="{ color: getEntityColor(option) }">{{ option.name }}</span>
-                <span v-if="option.grade || option.rarity" class="option-meta">{{ option.grade || option.rarity }}</span>
-                <span v-if="option.attribute" class="option-meta">{{ option.attribute }}</span>
+                <span v-if="option.grade || option.rarity" class="option-meta">{{ formatEntityGrade(option.grade || option.rarity, t) }}</span>
+                <span v-if="option.attribute" class="option-meta">{{ formatAttributeLabel(option.attribute, t) }}</span>
                 <span v-if="option.is_custom" class="option-meta custom-tag">{{ t('game.info_panel.avatar.adjust.custom.tag') }}</span>
               </div>
               <div v-if="option.desc" class="option-desc">{{ option.desc }}</div>

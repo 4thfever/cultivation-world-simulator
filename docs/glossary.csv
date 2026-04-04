@@ -1,568 +1,568 @@
-chinese,chinese_tw,english,vietnamese,category,subcategory,notes
-练气,練氣,Qi Refinement,Luyện Khí,cultivation,realm,First realm - refining qi
-筑基,築基,Foundation Establishment,Trúc Cơ,cultivation,realm,Building the foundation
-金丹,金丹,Core Formation,Kim Đan,cultivation,realm,Forming the golden core
-元婴,元嬰,Nascent Soul,Nguyên Anh,cultivation,realm,Nascent soul emerges
-前期,前期,Early Stage,Sơ Kỳ,cultivation,stage,
-中期,中期,Middle Stage,Trung Kỳ,cultivation,stage,
-后期,後期,Late Stage,Hậu Kỳ,cultivation,stage,
-普通,普通,Normal,Phổ Thông,rarity,,Common items/traits
-稀有,稀有,Rare,Hiếm Có,rarity,,Uncommon items/traits
-超稀有,超稀有,Super Rare,Siêu Hiếm,rarity,,Rare items/traits
-传说,傳說,Legendary,Truyền Thuyết,rarity,,Legendary items/traits
-金,金,Metal,Kim,element,,Also: Gold
-木,木,Wood,Mộc,element,,
-水,水,Water,Thủy,element,,
-火,火,Fire,Hỏa,element,,
-土,土,Earth,Thổ,element,,
-冰,冰,Ice,Băng,element,,Extended element
-风,風,Wind,Phong,element,,Extended element
-暗,暗,Dark,Ám,element,,Extended element
-雷,雷,Thunder,Lôi,element,,Also: Lightning
-邪,邪,Evil,Tà,element,,Dark arts attribute
-金灵根,金靈根,Metal Spiritual Root,Kim Linh Căn,root,,
-木灵根,木靈根,Wood Spiritual Root,Mộc Linh Căn,root,,
-水灵根,水靈根,Water Spiritual Root,Thủy Linh Căn,root,,
-火灵根,火靈根,Fire Spiritual Root,Hỏa Linh Căn,root,,
-土灵根,土靈根,Earth Spiritual Root,Thổ Linh Căn,root,,
-天灵根,天靈根,Heavenly Spiritual Root,Thiên Linh Căn,root,,Rare - all-element affinity
-雷灵根,雷靈根,Thunder Spiritual Root,Lôi Linh Căn,root,,
-冰灵根,冰靈根,Ice Spiritual Root,Băng Linh Căn,root,,
-风灵根,風靈根,Wind Spiritual Root,Phong Linh Căn,root,,
-暗灵根,暗靈根,Dark Spiritual Root,Ám Linh Căn,root,,
-东,東,East,Đông,direction,,
-南,南,South,Nam,direction,,
-西,西,West,Tây,direction,,
-北,北,North,Bắc,direction,,
-正,正,Righteous,Chính,alignment,,Orthodox sects
-中立,中立,Neutral,Trung Lập,alignment,,
-邪,邪,Evil,Tà,alignment,,Demonic/Unorthodox
-明心剑宗,明心劍宗,Bright Heart Sword Sect,Minh Tâm Kiếm Tông,sect,name,Sword cultivation specialists
-百兽宗,百獸宗,Hundred Beasts Sect,Bách Thú Tông,sect,name,Beast taming specialists
-水镜宗,水鏡宗,Water Mirror Sect,Thủy Kính Tông,sect,name,Divination and foresight
-冥王宗,冥王宗,Underworld King Sect,Minh Vương Tông,sect,name,Death and netherworld arts
-朱勾宗,朱勾宗,Crimson Hook Sect,Chu Câu Tông,sect,name,Assassination and hidden weapons
-合欢宗,合歡宗,Joy Union Sect,Hợp Hoan Tông,sect,name,Dual cultivation specialists
-镇魂宗,鎮魂宗,Soul Suppression Sect,Trấn Hồn Tông,sect,name,Exorcism and soul arts
-幽魂噬影宗,幽魂噬影宗,Phantom Shadow Sect,U Hồn Phệ Ảnh Tông,sect,name,Stealth and shadow arts
-千帆城,千帆城,Thousand Sails City,Thiên Phàm Thành,sect,name,Artifact crafting and commerce
-妙化宗,妙化宗,Mystic Harmony Sect,Diệu Hóa Tông,sect,name,Sound-based cultivation
-回玄宗,回玄宗,Returning Mystery Sect,Hồi Huyền Tông,sect,name,Formation specialists
-不夜城,不夜城,Nightless City,Bất Dạ Thành,sect,name,Defense and longevity
-天行健宗,天行健宗,Heavenly Vigor Sect,Thiên Hành Kiện Tông,sect,name,Righteous qi cultivation
-噬魔宗,噬魔宗,Demon Devouring Sect,Phệ Ma Tông,sect,name,Demonic cultivation - plunder
-掌门,掌門,Sect Master,Chưởng Môn,sect,rank,Also: Sect Leader
-长老,長老,Elder,Trưởng Lão,sect,rank,
-内门弟子,內門弟子,Inner Disciple,Nội Môn Đệ Tử,sect,rank,
-外门弟子,外門弟子,Outer Disciple,Ngoại Môn Đệ Tử,sect,rank,
-弟子,弟子,Disciple,Đệ Tử,sect,rank,Generic
-谷主,谷主,Valley Master,Cốc Chủ,sect,rank,Hundred Beasts Sect
-供奉,供奉,Grand Elder,Cung Phụng,sect,rank,Honorary position
-镜主,鏡主,Mirror Master,Kính Chủ,sect,rank,Water Mirror Sect
-殿主,殿主,Hall Master,Điện Chủ,sect,rank,Underworld King Sect
-楼主,樓主,Tower Master,Lâu Chủ,sect,rank,Crimson Hook Sect
-宫主,宮主,Palace Master,Cung Chủ,sect,rank,Joy Union Sect
-住持,住持,Abbot,Trụ Trì,sect,rank,Soul Suppression Sect
-门主,門主,Gate Master,Môn Chủ,sect,rank,Phantom Shadow Sect
-城主,城主,City Lord,Thành Chủ,sect,rank,Thousand Sails City / Nightless City
-连霞山,連霞山,Lianxia Mountain,Liên Hà Sơn,sect,headquarters,Bright Heart Sword Sect
-玄灵洞,玄靈洞,Mysterious Spirit Cave,Huyền Linh Động,sect,headquarters,Hundred Beasts Sect
-碧波湖,碧波湖,Azure Wave Lake,Bích Ba Hồ,sect,headquarters,Water Mirror Sect
-七鬼角,七鬼角,Seven Ghost Horns,Thất Quỷ Giác,sect,headquarters,Underworld King Sect - Island archipelago
-明玉山,明玉山,Bright Jade Mountain,Minh Ngọc Sơn,sect,headquarters,Crimson Hook Sect
-桃花岛,桃花島,Peach Blossom Island,Đào Hoa Đảo,sect,headquarters,Joy Union Sect
-落魂海,落魂海,Soul-Calming Sea,Lạc Hồn Hải,sect,headquarters,Soul Suppression Sect
-鬼门湖,鬼門湖,Ghost Gate Lake,Quỷ Môn Hồ,sect,headquarters,Phantom Shadow Sect
-天星海,天星海,Celestial Star Sea,Thiên Tinh Hải,sect,headquarters,Thousand Sails City - Floating island
-心园,心園,Heart Garden,Tâm Viên,sect,headquarters,Mystic Harmony Sect
-诸隐山,諸隱山,Hidden Mountains,Chư Ẩn Sơn,sect,headquarters,Returning Mystery Sect
-大千光极城,大千光極城,Great Aurora City,Đại Thiên Quang Cực Thành,sect,headquarters,Nightless City
-浩然峰,浩然峰,Haoran Peak,Hạo Nhiên Phong,sect,headquarters,Heavenly Vigor Sect
-陷空山,陷空山,Sinking Void Mountain,Hãm Không Sơn,sect,headquarters,Demon Devouring Sect
-青云城,青雲城,Azure Cloud City,Thanh Vân Thành,geography,city,
-沙州城,沙州城,Sand State City,Sa Châu Thành,geography,city,
-翠林城,翠林城,Emerald Forest City,Thúy Lâm Thành,geography,city,
-沧澜城,滄瀾城,Azure Wave City,Thương Lan Thành,geography,city,
-揽月城,攬月城,Moon Embrace City,Lãm Nguyệt Thành,geography,city,
-平原地带,平原地帶,Plains,Bình Nguyên Địa Đới,geography,region,
-西域流沙,西域流沙,Western Desert,Tây Vực Lưu Sa,geography,region,
-南疆蛮荒,南疆蠻荒,Southern Wilderness,Nam Cương Man Hoang,geography,region,
-极北冰原,極北冰原,Northern Glacier,Cực Bắc Băng Nguyên,geography,region,
-无边碧海,無邊碧海,Endless Azure Sea,Vô Biên Bích Hải,geography,region,
-天河奔流,天河奔流,Heavenly River,Thiên Hà Bôn Lưu,geography,region,
-青峰山脉,青峰山脈,Azure Peak Mountains,Thanh Phong Sơn Mạch,geography,region,
-万丈雪峰,萬丈雪峰,Ten Thousand Zhang Snow Peaks,Vạn Trượng Tuyết Phong,geography,region,
-碧野千里,碧野千里,Thousand Li Grasslands,Bích Dã Thiên Lý,geography,region,
-青云林海,青雲林海,Azure Cloud Forest Sea,Thanh Vân Lâm Hải,geography,region,
-炎狱火山,炎獄火山,Inferno Volcano,Viêm Ngục Hỏa Sơn,geography,region,
-沃土良田,沃土良田,Fertile Farmlands,Ốc Thổ Lương Điền,geography,region,
-幽冥毒泽,幽冥毒澤,Netherworld Poison Marsh,U Minh Độc Trạch,geography,region,
-十万大山,十萬大山,Hundred Thousand Mountains,Thập Vạn Đại Sơn,geography,region,
-紫竹幽境,紫竹幽境,Purple Bamboo Sanctuary,Tử Trúc U Cảnh,geography,region,
-凛霜荒原,凜霜荒原,Frost Desolation,Lẫm Sương Hoang Nguyên,geography,region,
-碎星戈壁,碎星戈壁,Shattered Star Gobi,Toái Tinh Qua Bích,geography,region,
-蓬莱遗岛,蓬萊遺島,Penglai Remnant Isle,Bồng Lai Di Đảo,geography,region,
-灵兔,靈兔,Spirit Rabbit,Linh Thỏ,creature,beast,Qi Refinement
-魔狼,魔狼,Demonic Wolf,Ma Lang,creature,beast,Foundation
-青云鹿,青雲鹿,Azure Cloud Deer,Thanh Vân Lộc,creature,beast,Qi Refinement
-暗影豹,暗影豹,Shadow Leopard,Ám Ảnh Báo,creature,beast,Foundation
-碧海龙龟,碧海龍龜,Azure Sea Dragon Turtle,Bích Hải Long Quy,creature,beast,Core
-石甲山熊,石甲山熊,Stone Armor Mountain Bear,Thạch Giáp Sơn Hùng,creature,beast,Foundation
-风速马,風速馬,Wind Speed Horse,Phong Tốc Mã,creature,beast,Qi Refinement
-熔岩蜥蜴,熔岩蜥蜴,Lava Lizard,Dung Nham Tích Dịch,creature,beast,Foundation
-毒瘴蛙,毒瘴蛙,Miasma Poison Frog,Độc Chướng Oa,creature,beast,Foundation
-撼地神牛,撼地神牛,Earth-Shaking Divine Bull,Hám Địa Thần Ngưu,creature,beast,Core
-冰魄骨蛇,冰魄骨蛇,Ice Soul Bone Serpent,Băng Phách Cốt Xà,creature,beast,Core
-奇草,奇草,Wonder Grass,Kỳ Thảo,creature,plant,Qi Refinement
-灵木,靈木,Spirit Wood,Linh Mộc,creature,plant,Foundation
-沙漠仙人掌,沙漠仙人掌,Desert Immortal Cactus,Sa Mạc Tiên Nhân Chưởng,creature,plant,Qi Refinement
-寒霜雪莲,寒霜雪蓮,Frost Snow Lotus,Hàn Sương Tuyết Liên,creature,plant,Foundation
-水灵芝,水靈芝,Water Spirit Mushroom,Thủy Linh Chi,creature,plant,Foundation
-雪绒花,雪絨花,Snow Velvet Flower,Tuyết Nhung Hoa,creature,plant,Qi Refinement
-千年古松,千年古松,Millennial Ancient Pine,Thiên Niên Cổ Tùng,creature,plant,Foundation
-五谷灵稀,五穀靈稀,Five Grain Spirit Rice,Ngũ Cốc Linh Mễ,creature,plant,Qi Refinement
-九曲清音竹,九曲清音竹,Nine Curve Pure Sound Bamboo,Cửu Khúc Thanh Âm Trúc,creature,plant,Core
-聚星草,聚星草,Star Gathering Grass,Tụ Tinh Thảo,creature,plant,Core
-涅盘赤果,涅盤赤果,Nirvana Crimson Fruit,Niết Bàn Xích Quả,creature,plant,Nascent
-玄铁矿脉,玄鐵礦脈,Black Iron Vein,Huyền Thiết Khoáng Mạch,resource,mine,Qi Refinement
-赤铜矿脉,赤銅礦脈,Red Copper Vein,Xích Đồng Khoáng Mạch,resource,mine,Foundation
-秘银矿床,秘銀礦床,Mithril Deposit,Bí Ngân Khoáng Sàng,resource,mine,Core
-庚金矿洞,庚金礦洞,Geng Metal Cave,Canh Kim Khoáng Động,resource,mine,Nascent
-灵兔毛,靈兔毛,Spirit Rabbit Fur,Linh Thỏ Mao,material,beast,Qi Refinement
-魔狼牙,魔狼牙,Demonic Wolf Fang,Ma Lang Nha,material,beast,Foundation
-青云鹿角,青雲鹿角,Azure Cloud Deer Antler,Thanh Vân Lộc Giác,material,beast,Qi Refinement
-暗影豹爪,暗影豹爪,Shadow Leopard Claw,Ám Ảnh Báo Trảo,material,beast,Foundation
-龙龟甲片,龍龜甲片,Dragon Turtle Shell Fragment,Long Quy Giáp Phiến,material,beast,Core
-山熊胆,山熊膽,Mountain Bear Gallbladder,Sơn Hùng Đảm,material,beast,Foundation
-风速马鬃,風速馬鬃,Wind Speed Horse Mane,Bờm Phong Tốc Mã,material,beast,Foundation
-熔岩鳞片,熔岩鱗片,Lava Lizard Scale,Dung Nham Lân Phiến,material,beast,Core
-毒瘴囊,毒瘴囊,Miasma Poison Sac,Độc Chướng Nang,material,beast,Foundation
-神牛角,神牛角,Divine Bull Horn,Thần Ngưu Giác,material,beast,Core
-冰魄蛇胆,冰魄蛇膽,Ice Soul Serpent Gallbladder,Băng Phách Xà Đảm,material,beast,Core
-奇草精华,奇草精華,Wonder Grass Essence,Kỳ Thảo Tinh Hoa,material,plant,Qi Refinement
-灵木心,靈木心,Spirit Wood Heart,Linh Mộc Tâm,material,plant,Foundation
-仙人掌刺,仙人掌刺,Immortal Cactus Spine,Tiên Nhân Chưởng Thích,material,plant,Qi Refinement
-雪莲花瓣,雪蓮花瓣,Snow Lotus Petal,Tuyết Liên Hoa Biện,material,plant,Foundation
-灵芝孢子,靈芝孢子,Spirit Mushroom Spore,Linh Chi Bào Tử,material,plant,Foundation
-雪绒花蕊,雪絨花蕊,Snow Velvet Flower Stamen,Tuyết Nhung Hoa Nhị,material,plant,Qi Refinement
-古松松脂,古鬆鬆脂,Ancient Pine Resin,Cổ Tùng Tùng Chi,material,plant,Core
-灵稻精华,靈稻精華,Spirit Rice Essence,Linh Đạo Tinh Hoa,material,plant,Qi Refinement
-清音竹节,清音竹節,Pure Sound Bamboo Section,Thanh Âm Trúc Tiết,material,plant,Core
-星纹叶,星紋葉,Star Pattern Leaf,Tinh Văn Diệp,material,plant,Foundation
-赤果核,赤果核,Crimson Fruit Pit,Xích Quả Hạch,material,plant,Core
-玄铁,玄鐵,Black Iron,Huyền Thiết,material,mineral,Qi Refinement
-赤精铜,赤精銅,Crimson Essence Copper,Xích Tinh Đồng,material,mineral,Foundation
-秘银,秘銀,Mithril,Bí Ngân,material,mineral,Core
-庚金,庚金,Geng Metal,Canh Kim,material,mineral,Nascent
-太白金府,太白金府,Taibai Metal Palace,Thái Bạch Kim Phủ,geography,cave,Metal element
-青木洞天,青木洞天,Verdant Wood Grotto,Thanh Mộc Động Thiên,geography,cave,Wood element
-玄水秘境,玄水秘境,Mystic Water Secret Realm,Huyền Thủy Bí Cảnh,geography,cave,Water element
-离火洞府,離火洞府,Departing Fire Cave Dwelling,Ly Hỏa Động Phủ,geography,cave,Fire element
-厚土玄宫,厚土玄宮,Thick Earth Mystery Palace,Hậu Thổ Huyền Cung,geography,cave,Earth element
-古越遗迹,古越遺蹟,Ancient Yue Ruins,Cổ Việt Di Tích,geography,cave,Wood/Metal
-沧海遗迹,滄海遺蹟,Azure Sea Ruins,Thương Hải Di Tích,geography,cave,Water
-紫气东来,紫氣東來,Purple Qi from the East,Tử Khí Đông Lai,event,celestial,R
-金煞之年,金煞之年,Year of Metal Killing,Kim Sát Chi Niên,event,celestial,R
-木灵盛世,木靈盛世,Era of Wood Spirit Prosperity,Mộc Linh Thịnh Thế,event,celestial,R
-水德之纪,水德之紀,Age of Water Virtue,Thủy Đức Chi Kỷ,event,celestial,R
-火劫时代,火劫時代,Era of Fire Tribulation,Hỏa Kiếp Thời Đại,event,celestial,R
-土厚之世,土厚之世,Age of Thick Earth,Thổ Hậu Chi Thế,event,celestial,R
-五行逆乱,五行逆亂,Five Elements in Chaos,Ngũ Hành Nghịch Loạn,event,celestial,SR
-天道均衡,天道均衡,Heavenly Dao Balance,Thiên Đạo Cân Bằng,event,celestial,SR
-劫数将至,劫數將至,Tribulation Approaches,Kiếp Số Sắp Đến,event,celestial,SR
-灵气复苏,靈氣復甦,Spiritual Energy Revival,Linh Khí Phục Tô,event,celestial,SSR
-灵气枯竭,靈氣枯竭,Spiritual Energy Depletion,Linh Khí Khô Kiệt,event,celestial,R
-魔道兴盛,魔道興盛,Demonic Path Ascendant,Ma Đạo Hưng Thịnh,event,celestial,R
-正气浩然,正氣浩然,Righteous Qi Flourishing,Chính Khí Hạo Nhiên,event,celestial,R
-神兵出世,神兵出世,Divine Weapons Emerge,Thần Binh Xuất Thế,event,celestial,SR
-阴阳交泰,陰陽交泰,Yin-Yang Harmony,Âm Dương Giao Thái,event,celestial,R
-杀劫降临,殺劫降臨,Killing Tribulation Descends,Sát Kiếp Giáng Lâm,event,celestial,SR
-太平盛世,太平盛世,Era of Great Peace,Thái Bình Thịnh Thế,event,celestial,R
-气运加身,氣運加身,Fortune Bestowed,Khí Vận Gia Thân,event,celestial,R
-血月当空,血月當空,Blood Moon Rises,Huyết Nguyệt Đương Không,event,celestial,SR
-飞升之门,飛昇之門,Gate of Ascension,Phi Thăng Chi Môn,event,celestial,SSR
-法则显化,法則顯化,Laws Manifest,Pháp Tắc Hiển Hóa,event,celestial,SSR
-时空乱流,時空亂流,Spacetime Turbulence,Thời Không Loạn Lưu,event,celestial,SSR
-生命恢复速率,生命恢復速率,HP Recovery Rate,Tốc Độ Hồi Phục Sinh Mệnh,effect,,extra_hp_recovery_rate
-最大生命值,最大生命值,Max HP,Sinh Mệnh Tối Đa,effect,,extra_max_hp
-最大寿元,最大壽元,Max Lifespan,Thọ Nguyên Tối Đa,effect,,extra_max_lifespan
-兵器熟练度获取,兵器熟練度獲取,Weapon Proficiency Gain,Nhận Độ Thuần Thục Binh Khí,effect,,extra_weapon_proficiency_gain
-双修经验,雙修經驗,Dual Cultivation Experience,Kinh Nghiệm Song Tu,effect,,extra_dual_cultivation_exp
-突破成功率,突破成功率,Breakthrough Success Rate,Tỷ Lệ Đột Phá Thành Công,effect,,extra_breakthrough_success_rate
-奇遇概率,奇遇概率,Fortune Probability,Xác Suất Kỳ Ngộ,effect,,extra_fortune_probability
-霉运概率,黴運概率,Misfortune Probability,Xác Suất Xui Rủi,effect,,extra_misfortune_probability
-采集获取材料,採集獲取材料,Harvest Material Bonus,Thưởng Nguyên Liệu Thu Thập,effect,,extra_harvest_materials
-狩猎获取材料,狩獵獲取材料,Hunt Material Bonus,Thưởng Nguyên Liệu Săn Bắn,effect,,extra_hunt_materials
-挖矿获取材料,挖礦獲取材料,Mining Material Bonus,Thưởng Nguyên Liệu Khai Khoáng,effect,,extra_mine_materials
-物品出售价格,物品出售價格,Item Sell Price,Giá Bán Vật Phẩm,effect,,extra_item_sell_price_multiplier
-购买折扣,購買折扣,Purchase Discount,Chiết Khấu Mua Hàng,effect,,shop_buy_price_reduction
-兵器升级概率,兵器升級概率,Weapon Upgrade Chance,Xác Suất Nâng Cấp Binh Khí,effect,,extra_weapon_upgrade_chance
-搜刮收益,搜刮收益,Plunder Multiplier,Lợi Tức Cướp Đoạt,effect,,extra_plunder_multiplier
-捕捉灵兽成功率,捕捉靈獸成功率,Beast Capture Success Rate,Tỷ Lệ Bắt Linh Thú Thành Công,effect,,extra_catch_success_rate
-修炼经验,修煉經驗,Cultivation Experience,Kinh Nghiệm Tu Luyện,effect,,extra_respire_exp
-战力点数,戰力點數,Combat Power Points,Điểm Chiến Lực,effect,,extra_battle_strength_points
-逃跑成功率,逃跑成功率,Escape Success Rate,Tỷ Lệ Chạy Trốn Thành Công,effect,,extra_escape_success_rate
-暗杀成功率,暗殺成功率,Assassination Success Rate,Tỷ Lệ Ám Sát Thành Công,effect,,extra_assassinate_success_rate
-感知范围,感知範圍,Observation Radius,Phạm Vi Cảm Tri,effect,,extra_observation_radius
-移动步长,移動步長,Movement Range,Cự Ly Di Chuyển,effect,,extra_move_step
-特殊能力,特殊能力,Special Abilities,Năng Lực Đặc Biệt,effect,,legal_actions
-伤害减免,傷害減免,Damage Reduction,Giảm Miễn Sát Thương,effect,,damage_reduction
-境界压制,境界壓制,Realm Suppression,Áp Chế Cảnh Giới,effect,,realm_suppression_bonus
-修炼时长缩减,修煉時長縮減,Cultivation Duration Reduction,Rút Ngắn Thời Gian Tu Luyện,effect,,respire_duration_reduction
-铸造成功率,鑄造成功率,Forging Success Rate,Tỷ Lệ Chú Tạo Thành Công,effect,,extra_cast_success_rate
-炼丹成功率,煉丹成功率,Alchemy Success Rate,Tỷ Lệ Luyện Đan Thành Công,effect,,extra_refine_success_rate
-自愈效率,自癒效率,Self-Heal Efficiency,Hiệu Suất Tự Chữa Lành,effect,,extra_self_heal_efficiency
-理性,理性,Rational,Lý Tính,persona,basic,Logical thinking
-无常,無常,Fickle,Vô Thường,persona,basic,Unpredictable goals
-怠惰,怠惰,Slothful,Lười Biếng,persona,basic,Lazy - avoids effort
-冒险,冒險,Adventurous,Mạo Hiểm,persona,basic,Risk-taking
-随性,隨性,Carefree,Tùy Hứng,persona,basic,Goes with the flow
-贪财,貪財,Greedy,Tham Tài,persona,basic,Desires wealth
-沉思,沉思,Contemplative,Trầm Tư,persona,basic,Deep thinker
-惜命,惜命,Life-Cherishing,Tích Mệnh,persona,basic,Values own life
-友爱,友愛,Friendly,Hữu Ái,persona,basic,Values harmony
-复仇,復仇,Vengeful,Phục Thù,persona,basic,Seeks revenge
-孤僻,孤僻,Reclusive,Cô Lập,persona,basic,Prefers solitude
-淡漠,淡漠,Indifferent,Đạm Mạc,persona,basic,Emotionally detached
-好斗,好鬥,Combative,Hiếu Đấu,persona,basic,Enjoys fighting
-鲁莽,魯莽,Reckless,Lỗ Mãng,persona,basic,Acts without thinking
-胆小,膽小,Timid,Nhát Gan,persona,basic,Avoids conflict
-霸道,霸道,Domineering,Bá Đạo,persona,basic,Forceful - selfish
-内向,內向,Introverted,Hướng Nội,persona,basic,Prefers self-reflection
-外向,外向,Extroverted,Hướng Ngoại,persona,basic,Social - outgoing
-刻薄,刻薄,Caustic,Cay Nghiệt,persona,basic,Sharp-tongued
-热情,熱情,Enthusiastic,Nhiệt Tình,persona,basic,Warm and friendly
-开放,開放,Open-minded,Phóng Khoáng,persona,basic,Casual about relationships
-腼腆,靦腆,Shy,Thẹn Thùng,persona,basic,Reserved about relationships
-嫉妒,嫉妒,Envious,Tật Đố,persona,basic,Jealous of others
-好色,好色,Lustful,Háo Sắc,persona,basic,Attracted to beauty
-无欲,無慾,Ascetic,Vô Dục,persona,basic,No worldly desires
-情绪化,情緒化,Emotional,Cảm Tính,persona,basic,Mood swings
-妒忌,妒忌,Jealous,Đố Kỵ,persona,basic,Envious of success
-采集者,採集者,Gatherer,Thu Thập Giả,persona,advanced,Bonus to herb gathering
-猎人,獵人,Hunter,Liệp Nhân,persona,advanced,Bonus to beast hunting
-修行痴迷,修行痴迷,Cultivation Maniac,Tu Hành Si Mê,persona,advanced,Obsessed with training
-舔狗,舔狗,Simp,Liếm Cẩu,persona,advanced,Overly nice to attractive people
-极端正义,極端正義,Extreme Righteous,Cực Đoan Chính Nghĩa,persona,advanced,Fanatical about justice
-极端邪恶,極端邪惡,Extreme Evil,Cực Đoan Tà Ác,persona,advanced,Ruthless and cruel
-心机深沉,心機深沉,Scheming,Tâm Cơ Thâm Trầm,persona,advanced,Calculating and secretive
-忠诚,忠誠,Loyal,Trung Thành,persona,advanced,Never betrays
-狠辣,狠辣,Ruthless,Tàn Độc,persona,advanced,Merciless
-疑心重,疑心重,Suspicious,Đa Nghi,persona,advanced,Trusts no one
-探险家,探險家,Explorer,Thám Hiểm Gia,persona,advanced,Loves discovering new places
-死宅,死宅,Homebody,Trạch Tử,persona,advanced,Hates traveling
-扫把星,掃把星,Jinxed,Sao Chổi,persona,advanced,Attracts misfortune
-大器晚成,大器晚成,Late Bloomer,Đại Khí Vãn Thành,persona,advanced,Struggles early - thrives later
-矿工,礦工,Miner,Khoáng Công,persona,advanced,Bonus to mining
-苟,苟,Cautious,Cẩu,persona,advanced,Extremely risk-averse
-穿越者,穿越者,Transmigrator,Xuyên Việt Giả,persona,legendary,From modern world
-气运之子,氣運之子,Child of Destiny,Khí Vận Chi Tử,persona,legendary,Heaven's chosen one
-重生者,重生者,Reborn,Trọng Sinh Giả,persona,legendary,Lived a previous life
-福缘深厚,福緣深厚,Blessed,Phúc Duyên Thâm Hậu,persona,legendary,Natural good fortune
-剑修,劍修,Sword Cultivator,Kiếm Tu,persona,weapon,Sword specialist
-剑痴,劍痴,Sword Fanatic,Kiếm Si,persona,weapon,Obsessed with swords
-刀修,刀修,Saber Cultivator,Đao Tu,persona,weapon,Saber specialist
-刀痴,刀痴,Saber Fanatic,Đao Si,persona,weapon,Obsessed with sabers
-枪修,槍修,Spear Cultivator,Thương Tu,persona,weapon,Spear specialist
-枪痴,槍痴,Spear Fanatic,Thương Si,persona,weapon,Obsessed with spears
-棍修,棍修,Staff Cultivator,Côn Tu,persona,weapon,Staff specialist
-棍圣,棍聖,Staff Saint,Côn Thánh,persona,weapon,Staff master
-扇修,扇修,Fan Cultivator,Phiến Tu,persona,weapon,Fan specialist
-扇痴,扇痴,Fan Fanatic,Phiến Si,persona,weapon,Obsessed with fans
-鞭修,鞭修,Whip Cultivator,Tiên Tu,persona,weapon,Whip specialist
-鞭痴,鞭痴,Whip Fanatic,Tiên Si,persona,weapon,Obsessed with whips
-暗器高手,暗器高手,Hidden Weapon Expert,Ám Khí Cao Thủ,persona,weapon,Hidden weapon specialist
-刺客宗师,刺客宗師,Assassin Grandmaster,Thích Khách Tông Sư,persona,weapon,Master assassin
-音律大师,音律大師,Music Master,Âm Luật Đại Sư,persona,weapon,Zither/flute specialist
-炼丹师,煉丹師,Alchemist,Luyện Đan Sư,persona,profession,Elixir crafting bonus
-炼器师,煉器師,Artificer,Luyện Khí Sư,persona,profession,Weapon crafting bonus
-体修,體修,Body Cultivator,Thể Tu,persona,profession,Physical cultivation
-道侣,道侶,Dao Companion,Đạo Lữ,relation,,Cultivation partner/spouse
-师傅,師傅,Master,Sư Phụ,relation,,Teacher in cultivation
-徒弟,徒弟,Disciple,Đồ Đệ,relation,,Student of a master
-父母,父母,Parent,Cha Mẹ,relation,,
-子女,子女,Child,Con Cái,relation,,
-父亲,父親,Father,Cha,relation,,
-母亲,母親,Mother,Mẹ,relation,,
-儿子,兒子,Son,Con Trai,relation,,
-女儿,女兒,Daughter,Con Gái,relation,,
-兄弟姐妹,兄弟姐妹,Sibling,Anh Chị Em,relation,,
-哥哥,哥哥,Elder Brother,Anh Trai,relation,,
-弟弟,弟弟,Younger Brother,Em Trai,relation,,
-姐姐,姐姐,Elder Sister,Chị Gái,relation,,
-妹妹,妹妹,Younger Sister,Em Gái,relation,,
-朋友,朋友,Friend,Bằng Hữu,relation,,
-仇人,仇人,Enemy,Kẻ Thù,relation,,Also: Foe
-亲属,親屬,Kin,Thân Tộc,relation,,Extended family
-上品,上品,Superior Grade,Thượng Phẩm,grade,,Also: High-grade
-中品,中品,Medium Grade,Trung Phẩm,grade,,Also: Mid-grade
-下品,下品,Inferior Grade,Hạ Phẩm,grade,,Also: Low-grade
-金刚不坏体,金剛不壞體,Indestructible Vajra Body,Kim Cang Bất Hoại Thể,technique,inferior,Metal - Shaolin technique
-长春功,長春功,Eternal Spring Art,Trường Xuân Công,technique,inferior,Wood - Basic longevity technique
-若水诀,若水訣,Flowing Water Scripture,Nhược Thủy Quyết,technique,inferior,Water - Soft and yielding
-火灵诀,火靈訣,Fire Spirit Scripture,Hỏa Linh Quyết,technique,inferior,Fire - Basic fire technique
-搬山诀,搬山訣,Mountain Moving Scripture,Bàn Sơn Quyết,technique,inferior,Earth - Strength technique
-冰心诀,冰心訣,Ice Heart Scripture,Băng Tâm Quyết,technique,inferior,Ice - Calming technique
-神行百变,神行百變,Divine Movement Hundred Changes,Thần Hành Bách Biến,technique,inferior,Wind - Movement technique
-敛息术,斂息術,Breath Concealment Art,Liễm Tức Thuật,technique,inferior,Dark - Stealth technique
-掌心雷,掌心雷,Palm Thunder,Chưởng Tâm Lôi,technique,inferior,Thunder - Daoist technique
-燃血大法,燃血大法,Blood Burning Art,Nhiên Huyết Đại Pháp,technique,inferior,Evil - Temporary power boost
-金钟罩,金鐘罩,Golden Bell Shield,Kim Chung Tráo,technique,medium,Metal - Defensive technique
-青帝木皇功,青帝木皇功,Azure Emperor Wood Sovereign Art,Thanh Đế Mộc Hoàng Công,technique,medium,Wood - Wood element mastery
-黑帝水皇拳,黑帝水皇拳,Black Emperor Water Sovereign Fist,Hắc Đế Thủy Hoàng Quyền,technique,medium,Water - Water element mastery
-纯阳无极功,純陽無極功,Pure Yang Limitless Art,Thuần Dương Vô Cực Công,technique,medium,Fire - Yang-based technique
-不动明王诀,不動明王訣,Immovable Wisdom King Scripture,Bất Động Minh Vương Quyết,technique,medium,Earth - Buddhist technique
-玄冰劲,玄冰勁,Profound Ice Force,Huyền Băng Kình,technique,medium,Ice - Ice attack technique
-梯云纵,梯雲縱,Cloud Ascending Steps,Thê Vân Túng,technique,medium,Wind - Wudang movement technique
-鬼影迷踪,鬼影迷蹤,Ghost Shadow Trackless,Quỷ Ảnh Mê Tung,technique,medium,Dark - Stealth movement
-五雷正法,五雷正法,Five Thunder Righteous Method,Ngũ Lôi Chính Pháp,technique,medium,Thunder - Orthodox thunder arts
-吸星大法,吸星大法,Star Absorbing Art,Hấp Tinh Đại Pháp,technique,medium,Evil - Absorbs others' power
-草字剑诀,草字劍訣,Grass Script Sword Scripture,Thảo Tự Kiếm Quyết,technique,superior,Bright Heart - Legendary sword art
-神剑御雷真诀,神劍御雷真訣,Divine Sword Thunder Control Scripture,Thần Kiếm Ngự Lôi Chân Quyết,technique,superior,Bright Heart - Thunder sword art
-大河剑意,大河劍意,Great River Sword Intent,Đại Hà Kiếm Ý,technique,superior,Bright Heart - Flowing sword art
-青帝长生诀,青帝長生訣,Azure Emperor Longevity Scripture,Thanh Đế Trường Sinh Quyết,technique,superior,Hundred Beasts - Wood longevity art
-神象镇狱劲,神象鎮獄勁,Divine Elephant Prison Suppression Force,Thần Tượng Trấn Ngục Kình,technique,superior,Hundred Beasts - Strength technique
-鲲鹏宝术,鯤鵬寶術,Kunpeng Treasure Art,Côn Bằng Bảo Thuật,technique,superior,Hundred Beasts - Transformation art
-虚空经,虛空經,Void Scripture,Hư Không Kinh,technique,superior,Water Mirror - Space manipulation
-太上忘情录,太上忘情錄,Supreme Forgetfulness Record,Thái Thượng Vong Tình Lục,technique,superior,Water Mirror - Emotional detachment
-逍遥游,逍遙遊,Carefree Wandering,Tiêu Dao Du,technique,superior,Water Mirror - Freedom technique
-吞天魔功,吞天魔功,Heaven Devouring Demonic Art,Thôn Thiên Ma Công,technique,superior,Underworld King - Absorption technique
-天魔策,天魔策,Heavenly Demon Strategy,Thiên Ma Sách,technique,superior,Underworld King - Demonic technique
-冥河真经,冥河真經,Styx River True Scripture,Minh Hà Chân Kinh,technique,superior,Underworld King - Blood technique
-焚诀,焚訣,Burning Scripture,Phần Quyết,technique,superior,Crimson Hook - Fire absorption
-道心种魔大法,道心種魔大法,Dao Heart Demon Planting Art,Đạo Tâm Chủng Ma Đại Pháp,technique,superior,Crimson Hook - Mind control
-大衍决,大衍決,Great Derivation Scripture,Đại Diễn Quyết,technique,superior,Crimson Hook - Puppet control
-大乐赋,大樂賦,Great Bliss Rhapsody,Đại Lạc Phú,technique,superior,Joy Union - Dual cultivation
-天魔舞,天魔舞,Heavenly Demon Dance,Thiên Ma Vũ,technique,superior,Joy Union - Charm technique
-凌波微步,凌波微步,Rippling Steps,Lăng Ba Vi Bộ,technique,superior,Joy Union - Movement technique
-过去弥陀经,過去彌陀經,Past Amitabha Sutra,Quá Khứ Di Đà Kinh,technique,superior,Soul Suppression - Buddhist technique
-神霄雷法,神霄雷法,Divine Firmament Thunder Method,Thần Tiêu Lôi Pháp,technique,superior,Soul Suppression - Orthodox thunder
-九字真言,九字真言,Nine Word Mantra,Cửu Tự Chân Ngôn,technique,superior,Soul Suppression - Daoist mantra
-幽冥鬼爪,幽冥鬼爪,Netherworld Ghost Claw,U Minh Quỷ Trảo,technique,superior,Phantom Shadow - Assassination art
-三千雷动,三千雷動,Three Thousand Thunders,Tam Thiên Lôi Động,technique,superior,Phantom Shadow - Speed technique
-血神经,血神經,Blood Spirit Scripture,Huyết Thần Kinh,technique,superior,Phantom Shadow - Blood technique
-神机百炼,神機百鍊,Divine Mechanism Hundred Refinements,Thần Cơ Bách Luyện,technique,superior,Thousand Sails - Crafting technique
-周天星斗大阵,周天星斗大陣,Cosmic Star Formation,Chu Thiên Tinh Đẩu Đại Trận,technique,superior,Thousand Sails - Formation technique
-纵地金光,縱地金光,Earth-Spanning Golden Light,Túng Địa Kim Quang,technique,superior,Thousand Sails - Speed technique
-剑,劍,Sword,Kiếm,weapon,type,
-刀,刀,Saber,Đao,weapon,type,Also: Blade
-枪,槍,Spear,Thương,weapon,type,
-棍,棍,Staff,Côn,weapon,type,
-扇,扇,Fan,Phiến,weapon,type,
-鞭,鞭,Whip,Tiên,weapon,type,
-琴,琴,Zither,Cầm,weapon,type,Musical weapon
-笛,笛,Flute,Địch,weapon,type,Musical weapon
-暗器,暗器,Hidden Weapon,Ám Khí,weapon,type,
-青霜剑,青霜劍,Cyan Frost Sword,Thanh Sương Kiếm,weapon,named,Sword - Foundation
-井中月,井中月,Moon in the Well,Tỉnh Trung Nguyệt,weapon,named,Saber - Foundation
-火尖枪,火尖槍,Flame Tip Spear,Hỏa Tiêm Thương,weapon,named,Spear - Foundation
-囚龙棒,囚龍棒,Dragon Binding Staff,Tù Long Bổng,weapon,named,Staff - Foundation
-桃花扇,桃花扇,Peach Blossom Fan,Đào Hoa Phiến,weapon,named,Fan - Foundation
-打神鞭,打神鞭,God-Beating Whip,Đả Thần Tiên,weapon,named,Whip - Foundation
-天魔琴,天魔琴,Heavenly Demon Zither,Thiên Ma Cầm,weapon,named,Zither - Foundation
-鬼笛陈情,鬼笛陳情,Ghost Flute Chenqing,Quỷ Địch Trần Tình,weapon,named,Flute - Foundation
-无影针,無影針,Shadowless Needle,Vô Ảnh Châm,weapon,named,Hidden - Foundation
-万兽笛,萬獸笛,Myriad Beast Flute,Vạn Thú Địch,weapon,named,Flute - Foundation
-血饮狂刀,血飲狂刀,Blood-Drinking Mad Saber,Huyết Ẩm Cuồng Đao,weapon,named,Saber - Foundation
-玄铁重剑,玄鐵重劍,Black Iron Heavy Sword,Huyền Thiết Trọng Kiếm,weapon,named,Sword - Foundation
-紫薇软剑,紫薇軟劍,Purple Star Soft Sword,Tử Vi Nhuyễn Kiếm,weapon,named,Sword - Foundation
-水火囚龙棍,水火囚龍棍,Water-Fire Dragon Staff,Thủy Hỏa Tù Long Côn,weapon,named,Staff - Foundation
-青竹蜂云剑,青竹蜂雲劍,Green Bamboo Bee Cloud Sword,Thanh Trúc Phong Vân Kiếm,weapon,named,Sword - Core
-随心铁杆兵,隨心鐵桿兵,Compliant Golden-Hooped Rod,Tùy Tâm Thiết Can Binh,weapon,named,Staff - Core
-五火七禽扇,五火七禽扇,Five Fire Seven Bird Fan,Ngũ Hỏa Thất Cầm Phiến,weapon,named,Fan - Core
-斩仙飞刀,斬仙飛刀,Immortal-Slaying Flying Dagger,Trảm Tiên Phi Đao,weapon,named,Hidden - Core
-干将莫邪,干將莫邪,Ganjiang and Moye,Can Tương Mạc Tà,weapon,named,Sword - Core
-芭蕉扇,芭蕉扇,Banana Leaf Fan,Ba Tiêu Phiến,weapon,named,Fan - Core
-紫金降魔杵,紫金降魔杵,Purple-Gold Demon Subduing Pestle,Tử Kim Hàng Ma Xử,weapon,named,Staff - Core
-弑神枪,弒神槍,God-Slaying Spear,Thí Thần Thương,weapon,named,Spear - Nascent
-赤锋矛,赤鋒矛,Crimson Edge Spear,Xích Phong Mâu,weapon,named,Spear - Nascent
-诛仙剑,誅仙劍,Immortal Execution Sword,Tru Tiên Kiếm,weapon,named,Sword - Nascent
-木灵甲,木靈甲,Wood Spirit Armor,Mộc Linh Giáp,auxiliary,,Foundation - Defense
-血菩提,血菩提,Blood Bodhi,Huyết Bồ Đề,auxiliary,,Foundation - Healing
-人参果(伪),人參果(偽),Pseudo Ginseng Fruit,Nhân Sâm Quả (Ngụy),auxiliary,,Foundation - Lifespan
-万宝令,萬寶令,Myriad Treasures Token,Vạn Bảo Lệnh,auxiliary,,Foundation - Trading bonus
-铁精,鐵精,Refined Iron Essence,Thiết Tinh,auxiliary,,Foundation - Crafting material
-源天神眼,源天神眼,Origin Heaven Divine Eye,Nguyên Thiên Thần Nhãn,auxiliary,,Foundation - Detection
-踏云靴,踏雲靴,Cloud-Treading Boots,Đạp Vân Ngoa,auxiliary,,Foundation - Movement
-菩提子,菩提子,Bodhi Seed,Bồ Đề Tử,auxiliary,,Foundation - Breakthrough bonus
-金丝软甲,金絲軟甲,Golden Silk Soft Armor,Kim Ty Nhuyễn Giáp,auxiliary,,Foundation - Defense
-寒玉床,寒玉床,Cold Jade Bed,Hàn Ngọc Sàng,auxiliary,,Foundation - Cultivation bonus
-无相面具,無相面具,Formless Mask,Vô Tướng Diện Cụ,auxiliary,,Foundation - Disguise
-神风舟,神風舟,Divine Wind Boat,Thần Phong Chu,auxiliary,,Core - Flying vehicle
-昆仑镜,崑崙鏡,Kunlun Mirror,Côn Luân Kính,auxiliary,,Core - Far-seeing
-龙凤呈祥戒,龍鳳呈祥戒,Dragon-Phoenix Harmony Ring,Long Phượng Trình Tường Giới,auxiliary,,Core - Dual cultivation
-隐形披风,隱形披風,Invisibility Cloak,Ẩn Hình Phi Phong,auxiliary,,Core - Stealth
-御兽环,御獸環,Beast Control Ring,Ngự Thú Hoàn,auxiliary,,Core - Taming bonus
-太虚甲,太虛甲,Supreme Void Armor,Thái Hư Giáp,auxiliary,,Core - Defense
-八卦炉,八卦爐,Eight Trigrams Furnace,Bát Quái Lô,auxiliary,,Core - Alchemy bonus
-聚宝盆,聚寶盆,Treasure Gathering Basin,Tụ Bảo Bồn,auxiliary,,Core - Wealth generation
-天地烘炉,天地烘爐,Heaven-Earth Furnace,Thiên Địa Hồng Lô,auxiliary,,Core - Crafting bonus
-六道剑匣,六道劍匣,Six Paths Sword Case,Lục Đạo Kiếm Hạp,auxiliary,,Core - Cultivation bonus
-掌天瓶,掌天瓶,Heaven-Grasping Vial,Chưởng Thiên Bình,auxiliary,,Nascent - Cultivation boost
-传国玉玺,傳國玉璽,Imperial Jade Seal,Truyền Quốc Ngọc Tỷ,auxiliary,,Nascent - Suppression bonus
-灵眼之泉,靈眼之泉,Spirit Eye Spring,Linh Nhãn Chi Tuyền,auxiliary,,Core - Cultivation area
-万魂幡,萬魂幡,Myriad Soul Banner,Vạn Hồn Phiên,auxiliary,,Nascent - Soul devouring
-神木王鼎,神木王鼎,Divine Wood King Cauldron,Thần Mộc Vương Đỉnh,auxiliary,,Nascent - Alchemy
-破境丹,破境丹,Breakthrough Pill,Phá Cảnh Đan,elixir,type,For breaking through bottlenecks
-延寿丹,延壽丹,Longevity Pill,Diên Thọ Đan,elixir,type,Extends lifespan
-长生丹,長生丹,Longevity Pill,Trường Sinh Đan,elixir,type,Extends lifespan
-燃血丹,燃血丹,Blood Burning Pill,Nhiên Huyết Đan,elixir,type,Temporary power boost
-疗伤丹,療傷丹,Healing Pill,Liệu Thương Đan,elixir,type,Restores HP
-回春丹,回春丹,Rejuvenation Pill,Hồi Xuân Đan,elixir,type,Healing over time
-练气破境丹,練氣破境丹,Qi Refinement Breakthrough Pill,Luyện Khí Phá Cảnh Đan,elixir,named,Qi Refinement - Breakthrough
-筑基破境丹,築基破境丹,Foundation Breakthrough Pill,Trúc Cơ Phá Cảnh Đan,elixir,named,Foundation - Breakthrough
-金丹破境丹,金丹破境丹,Core Formation Breakthrough Pill,Kim Đan Phá Cảnh Đan,elixir,named,Core - Breakthrough
-练气长生丹,練氣長生丹,Qi Refinement Longevity Pill,Luyện Khí Trường Sinh Đan,elixir,named,Qi Refinement - Lifespan
-筑基长生丹,築基長生丹,Foundation Longevity Pill,Trúc Cơ Trường Sinh Đan,elixir,named,Foundation - Lifespan
-金丹长生丹,金丹長生丹,Core Formation Longevity Pill,Kim Đan Trường Sinh Đan,elixir,named,Core - Lifespan
-元婴长生丹,元嬰長生丹,Nascent Soul Longevity Pill,Nguyên Anh Trường Sinh Đan,elixir,named,Nascent - Lifespan
-练气燃血丹,練氣燃血丹,Qi Refinement Blood Burning Pill,Luyện Khí Nhiên Huyết Đan,elixir,named,Qi Refinement - Combat
-筑基燃血丹,築基燃血丹,Foundation Blood Burning Pill,Trúc Cơ Nhiên Huyết Đan,elixir,named,Foundation - Combat
-金丹燃血丹,金丹燃血丹,Core Formation Blood Burning Pill,Kim Đan Nhiên Huyết Đan,elixir,named,Core - Combat
-元婴燃血丹,元嬰燃血丹,Nascent Soul Blood Burning Pill,Nguyên Anh Nhiên Huyết Đan,elixir,named,Nascent - Combat
-练气回春丹,練氣回春丹,Qi Refinement Rejuvenation Pill,Luyện Khí Hồi Xuân Đan,elixir,named,Qi Refinement - Healing
-筑基回春丹,築基回春丹,Foundation Rejuvenation Pill,Trúc Cơ Hồi Xuân Đan,elixir,named,Foundation - Healing
-金丹回春丹,金丹回春丹,Core Formation Rejuvenation Pill,Kim Đan Hồi Xuân Đan,elixir,named,Core - Healing
-元婴回春丹,元嬰回春丹,Nascent Soul Rejuvenation Pill,Nguyên Anh Hồi Xuân Đan,elixir,named,Nascent - Healing
-灵石,靈石,Spirit Stone,Linh Thạch,item,,Currency
-丹药,丹藥,Elixir,Đan Dược,item,,Also: Pill - Medicine
-法宝,法寶,Artifact,Pháp Bảo,item,,Magical treasure
-兵器,兵器,Weapon,Binh Khí,item,,
-功法,功法,Cultivation Technique,Công Pháp,item,,Also: Art - Manual
-辅助装备,輔助裝備,Auxiliary Equipment,Trang Bị Phụ Trợ,item,,Accessories
-吐纳,吐納,Respire,Thổ Nạp,action,solo,Gain experience
-突破,突破,Breakthrough,Đột Phá,action,solo,Advance realm
-疗伤,療傷,Self Heal,Liệu Thương,action,solo,Recover HP
-采集,採集,Harvest,Thu Thập,action,solo,Gather plants
-狩猎,狩獵,Hunt,Săn Bắn,action,solo,Hunt animals
-挖矿,挖礦,Mine,Khai Khoáng,action,solo,Extract ore
-炼丹,煉丹,Refine Elixir,Luyện Đan,action,solo,Craft pills
-铸造,鑄造,Forge,Chú Tạo,action,solo,Craft equipment
-温养兵器,溫養兵器,Nurture Weapon,Ôn Dưỡng Binh Khí,action,solo,Increase proficiency
-购买,購買,Buy,Mua,action,solo,Purchase items
-出售,出售,Sell,Bán,action,solo,Sell items
-消遣,消遣,Play,Tiêu Khiển,action,solo,Relax
-御兽,御獸,Tame Beast,Ngự Thú,action,solo,Capture spirit beast
-移动,移動,Move,Di Chuyển,action,solo,Travel
-移动到区域,移動到區域,Move to Region,Di Chuyển Tới Khu Vực,action,solo,Travel to location
-移动到角色,移動到角色,Move to Character,Di Chuyển Tới Nhân Vật,action,solo,Travel to person
-移动探索,移動探索,Explore,Thám Tác,action,solo,Explore direction
-离开区域,離開區域,Leave Region,Rời Khu Vực,action,solo,Depart area
-远离角色,遠離角色,Move Away,Rời Xa Nhân Vật,action,solo,Distance from person
-帮助凡人,幫助凡人,Aid Mortals,Giúp Đỡ Phàm Nhân,action,solo,Righteous action
-搜刮凡人,搜刮凡人,Plunder Mortals,Cướp Đoạt Phàm Nhân,action,solo,Evil action
-吞噬凡人,吞噬凡人,Devour Mortals,Thôn Phệ Phàm Nhân,action,solo,Consume souls
-攀谈,攀談,Converse,Bắt Chuyện,action,mutual,Chat
-交谈,交談,Talk,Trò Chuyện,action,mutual,Dialogue
-切磋,切磋,Spar,Tỷ Thí,action,mutual,Friendly combat
-攻击,攻擊,Attack,Công Kích,action,mutual,Initiate combat
-发起战斗,發起戰鬥,Initiate Battle,Khởi Xướng Chiến Đấu,action,mutual,Start fight
-暗杀,暗殺,Assassinate,Ám Sát,action,mutual,Stealth kill
-逃离,逃離,Escape,Đào Ly,action,mutual,Flee combat
-双修,雙修,Dual Cultivation,Song Tu,action,mutual,Partner cultivation
-传道,傳道,Impart,Truyền Đạo,action,mutual,Teach disciple
-赠送,贈送,Gift,Tặng,action,mutual,Give items
-抢夺洞府,搶奪洞府,Seize Cave,Cướp Đoạt Động Phủ,action,mutual,Contest dwelling
-驱赶,驅趕,Drive Away,Xua Đuổi,action,mutual,Force to leave
-接受,接受,Accept,Chấp Nhận,action,feedback,
-拒绝,拒絕,Reject,Từ Chối,action,feedback,
-让步,讓步,Yield,Nhượng Bộ,action,feedback,
-试图远离,試圖遠離,Try to Distance,Thử Rời Xa,action,feedback,
-试图离开区域,試圖離開區域,Try to Leave Area,Thử Rời Khỏi Khu Vực,action,feedback,
-逃离,逃離,Flee,Đào Ly,action,feedback,
-战斗,戰鬥,Fight,Chiến Đấu,action,feedback,
-误入洞府,誤入洞府,Stumbled into Cave Dwelling,Ngộ Nhập Động Phủ,event,fortune,Equipment
-巧捡神兵,巧撿神兵,Found Divine Weapon,Nhặt Được Thần Binh,event,fortune,Equipment
-巧捡奇物,巧撿奇物,Found Treasure,Nhặt Được Kỳ Vật,event,fortune,Equipment
-误入试炼,誤入試煉,Entered Trial Ground,Ngộ Nhập Thí Luyện,event,fortune,Equipment
-异象出世,異象出世,Witnessed Strange Phenomenon,Dị Tượng Xuất Thế,event,fortune,Equipment
-高人赠予,高人贈予,Gift from Expert,Cao Nhân Tặng Cho,event,fortune,Equipment
-高人指点,高人指點,Guidance from Expert,Cao Nhân Chỉ Điểm,event,fortune,Technique
-玄妙感悟,玄妙感悟,Mystical Insight,Huyền Diệu Cảm Ngộ,event,fortune,Technique
-危难相救,危難相救,Rescued from Danger,Nguy Nan Tương Cứu,event,fortune,Find Master
-品行打动,品行打動,Impressed by Character,Phẩm Hạnh Cảm Động,event,fortune,Find Master
-展露天赋,展露天賦,Displayed Talent,Triển Lộ Thiên Phú,event,fortune,Find Master
-机缘巧合,機緣巧合,Fateful Coincidence,Cơ Duyên Xảo Hợp,event,fortune,Find Master
-通过考验,通過考驗,Passed Trial,Vượt Qua Khảo Nghiệm,event,fortune,Find Master
-偶遇灵矿,偶遇靈礦,Found Spirit Mine,Ngẫu Ngộ Linh Khoáng,event,fortune,Spirit Stones
-洞府遗财,洞府遺財,Cave Dwelling Treasure,Động Phủ Di Tài,event,fortune,Spirit Stones
-击杀妖兽,擊殺妖獸,Slew Monster,Kích Sát Yêu Thú,event,fortune,Spirit Stones
-交易获利,交易獲利,Profitable Trade,Giao Dịch Đắc Lợi,event,fortune,Spirit Stones
-赌石得宝,賭石得寶,Won Stone Gambling,Đổ Thạch Đắc Bảo,event,fortune,Spirit Stones
-拾遗藏宝,拾遺藏寶,Found Hidden Treasure,Nhặt Được Tàng Bảo,event,fortune,Spirit Stones
-顿悟玄机,頓悟玄機,Sudden Enlightenment,Đốn Ngộ Huyền Cơ,event,fortune,Cultivation
-古碑感悟,古碑感悟,Insight from Ancient Stele,Cảm Ngộ Cổ Bi,event,fortune,Cultivation
-服食灵药,服食靈藥,Consumed Spirit Medicine,Phục Thực Linh Dược,event,fortune,Cultivation
-秘境吐纳,祕境吐納,Respired in Secret Realm,Bí Cảnh Thổ Nạp,event,fortune,Cultivation
-前辈灌顶,前輩灌頂,Empowerment from Senior,Tiền Bối Quán Đỉnh,event,fortune,Cultivation
-灵泉淬体,靈泉淬體,Tempered by Spirit Spring,Linh Tuyền Thối Thể,event,fortune,Cultivation
-传承记忆,傳承記憶,Inherited Memory,Ký Ức Truyền Thừa,event,fortune,Cultivation
-遭遇扒手,遭遇扒手,Encountered Pickpocket,Gặp Phải Móc Túi,event,misfortune,Loss - Spirit stones
-误买假货,誤買假貨,Bought Counterfeit Goods,Mua Nhầm Hàng Giả,event,misfortune,Loss - Spirit stones
-遭人勒索,遭人勒索,Was Extorted,Bị Tống Tiền,event,misfortune,Loss - Spirit stones
-洞府失窃,洞府失竊,Cave Dwelling Robbed,Động Phủ Bị Trộm,event,misfortune,Loss - Spirit stones
-赌石惨败,賭石慘敗,Lost Stone Gambling,Đổ Thạch Thảm Bại,event,misfortune,Loss - Spirit stones
-投资失败,投資失敗,Failed Investment,Đầu Tư Thất Bại,event,misfortune,Loss - Spirit stones
-修炼岔气,修煉岔氣,Cultivation Deviation,Tẩu Hỏa Sai Khí,event,misfortune,Injury - Qi went astray
-出门摔伤,出門摔傷,Fell and Got Injured,Ra Ngoài Trượt Ngã,event,misfortune,Injury
-妖兽偷袭,妖獸偷襲,Ambushed by Beast,Yêu Thú Tập Kích,event,misfortune,Injury
-仇家闷棍,仇家悶棍,Ambushed by Enemy,Kẻ Thù Đánh Lén,event,misfortune,Injury
-误触机关,誤觸機關,Triggered Trap,Lỡ Chạm Cơ Quan,event,misfortune,Injury
-天降横祸,天降橫禍,Unexpected Disaster,Thiên Giáng Hoành Họa,event,misfortune,Injury
-心魔滋生,心魔滋生,Heart Demon Arose,Tâm Ma Nảy Sinh,event,misfortune,Backlash
-灵气逆行,靈氣逆行,Qi Reversal,Linh Khí Nghịch Hành,event,misfortune,Backlash
-感悟错乱,感悟錯亂,Confused Insight,Cảm Ngộ Hỗn Loạn,event,misfortune,Backlash
-急火攻心,急火攻心,Overcome by Rage,Cấp Hỏa Công Tâm,event,misfortune,Backlash
-心魔,心魔,Heart Demon Tribulation,Tâm Ma,event,tribulation,Inner demon - self-doubt
-雷劫,雷劫,Thunder Tribulation,Lôi Kiếp,event,tribulation,Heavenly lightning
-肉身,肉身,Body Tribulation,Nhục Thân Kiếp,event,tribulation,Physical transformation
-寻仇,尋仇,Vengeance Tribulation,Tầm Thù,event,tribulation,Past enemies return
-情劫,情劫,Emotion Tribulation,Tình Kiếp,event,tribulation,Love/attachment trial
-阳罡,陽罡,Yang Force Tribulation,Dương Cương,event,tribulation,Scorching yang energy
-雷火,雷火,Thunder-Fire Tribulation,Lôi Hỏa,event,tribulation,Combined lightning and fire
-风灾,風災,Wind Disaster Tribulation,Phong Tai,event,tribulation,Violent tempest
-阴狱,陰獄,Yin Prison Tribulation,Âm Ngục,event,tribulation,Netherworld judgment
-魔劫,魔劫,Demonic Tribulation,Ma Kiếp,event,tribulation,Inner demons manifest
-老死,老死,Died of Old Age,Chết Già,event,death,Lifespan exhausted
-战死,戰死,Died in Battle,Chiến Tử,event,death,
-重伤不治,重傷不治,Died from Severe Injuries,Trọng Thương Bất Trị,event,death,
-平静,平靜,Calm,Bình Tĩnh,emotion,,
-开心,開心,Happy,Vui Vẻ,emotion,,
-愤怒,憤怒,Angry,Phẫn Nộ,emotion,,
-悲伤,悲傷,Sad,Bi Thương,emotion,,
-恐惧,恐懼,Fearful,Sợ Hãi,emotion,,
-惊讶,驚訝,Surprised,Kinh Ngạc,emotion,,
-期待,期待,Expectant,Mong Đợi,emotion,,
-厌恶,厭惡,Disgusted,Chán Ghét,emotion,,
-疑惑,疑惑,Confused,Nghi Hoặc,emotion,,
-疲惫,疲憊,Exhausted,Mệt Mỏi,emotion,,
-系统菜单,系統選單,System Menu,Trình Đơn Hệ Thống,ui,,
-开始游戏,開始遊戲,Start Game,Bắt Đầu Trò Chơi,ui,,
-加载游戏,載入遊戲,Load Game,Tải Trò Chơi,ui,,
-保存游戏,儲存遊戲,Save Game,Lưu Trò Chơi,ui,,
-新建角色,新建角色,Create Character,Tạo Nhân Vật,ui,,
-删除角色,刪除角色,Delete Character,Xóa Nhân Vật,ui,,
-设置,設定,Settings,Cài Đặt,ui,,
-其他,其他,Other,Khác,ui,,
-境界,境界,Realm,Cảnh Giới,ui,,
-年龄,年齡,Age,Tuổi,ui,,
-性别,性別,Gender,Giới Tính,ui,,
-男,男,Male,Nam,ui,,
-女,女,Female,Nữ,ui,,
-宗门,宗門,Sect,Tông Môn,ui,,
-散修,散修,Rogue Cultivator,Tán Tu,ui,,Independent - no sect
-灵根,靈根,Spiritual Root,Linh Căn,ui,,
-灵石,靈石,Spirit Stones,Linh Thạch,ui,,
-颜值,顏值,Appearance,Nhan Trị,ui,,
-基础战力,基礎戰力,Base Combat Power,Chiến Lực Cơ Bản,ui,,
-情绪,情緒,Emotion,Cảm Xúc,ui,,
-当前思考,當前思考,Current Thoughts,Suy Nghĩ Hiện Tại,ui,,
-特质,特質,Traits,Đặc Chất,ui,,Also: Persona
-功法与装备,功法與裝備,Techniques & Equipment,Công Pháp Và Trang Bị,ui,,
-长期目标,長期目標,Long-term Objective,Mục Tiêu Dài Hạn,ui,,
-短期目标,短期目標,Short-term Objective,Mục Tiêu Ngắn Hạn,ui,,
-设定目标,設定目標,Set Objective,Đặt Mục Tiêu,ui,,
-清空目标,清空目標,Clear Objective,Xóa Mục Tiêu,ui,,
-语言,語言,Language,Ngôn Ngữ,ui,,
-中文,中文,Chinese,Tiếng Trung,ui,,
-英文,英文,English,Tiếng Anh,ui,,
+chinese,chinese_tw,english,ja_jp,vietnamese,category,subcategory,notes
+练气,練氣,Qi Refinement,練気,Luyện Khí,cultivation,realm,First realm - refining qi
+筑基,築基,Foundation Establishment,築基,Trúc Cơ,cultivation,realm,Building the foundation
+金丹,金丹,Core Formation,結丹,Kim Đan,cultivation,realm,Forming the golden core
+元婴,元嬰,Nascent Soul,元嬰,Nguyên Anh,cultivation,realm,Nascent soul emerges
+前期,前期,Early Stage,初期,Sơ Kỳ,cultivation,stage,
+中期,中期,Middle Stage,中期,Trung Kỳ,cultivation,stage,
+后期,後期,Late Stage,後期,Hậu Kỳ,cultivation,stage,
+普通,普通,Normal,通常,Phổ Thông,rarity,,Common items/traits
+稀有,稀有,Rare,希少,Hiếm Có,rarity,,Uncommon items/traits
+超稀有,超稀有,Super Rare,超希少,Siêu Hiếm,rarity,,Rare items/traits
+传说,傳說,Legendary,伝説,Truyền Thuyết,rarity,,Legendary items/traits
+金,金,Metal,金,Kim,element,,Also: Gold
+木,木,Wood,木,Mộc,element,,
+水,水,Water,水,Thủy,element,,
+火,火,Fire,火,Hỏa,element,,
+土,土,Earth,土,Thổ,element,,
+冰,冰,Ice,氷,Băng,element,,Extended element
+风,風,Wind,風,Phong,element,,Extended element
+暗,暗,Dark,闇,Ám,element,,Extended element
+雷,雷,Thunder,雷,Lôi,element,,Also: Lightning
+邪,邪,Evil,邪,Tà,element,,Dark arts attribute
+金灵根,金靈根,Metal Spiritual Root,金霊根,Kim Linh Căn,root,,
+木灵根,木靈根,Wood Spiritual Root,木霊根,Mộc Linh Căn,root,,
+水灵根,水靈根,Water Spiritual Root,水霊根,Thủy Linh Căn,root,,
+火灵根,火靈根,Fire Spiritual Root,火霊根,Hỏa Linh Căn,root,,
+土灵根,土靈根,Earth Spiritual Root,土霊根,Thổ Linh Căn,root,,
+天灵根,天靈根,Heavenly Spiritual Root,天霊根,Thiên Linh Căn,root,,Rare - all-element affinity
+雷灵根,雷靈根,Thunder Spiritual Root,雷霊根,Lôi Linh Căn,root,,
+冰灵根,冰靈根,Ice Spiritual Root,氷霊根,Băng Linh Căn,root,,
+风灵根,風靈根,Wind Spiritual Root,風霊根,Phong Linh Căn,root,,
+暗灵根,暗靈根,Dark Spiritual Root,闇霊根,Ám Linh Căn,root,,
+东,東,East,東,Đông,direction,,
+南,南,South,南,Nam,direction,,
+西,西,West,西,Tây,direction,,
+北,北,North,北,Bắc,direction,,
+正,正,Righteous,正,Chính,alignment,,Orthodox sects
+中立,中立,Neutral,中立,Trung Lập,alignment,,
+邪,邪,Evil,邪,Tà,alignment,,Demonic/Unorthodox
+明心剑宗,明心劍宗,Bright Heart Sword Sect,明心劍宗,Minh Tâm Kiếm Tông,sect,name,Sword cultivation specialists
+百兽宗,百獸宗,Hundred Beasts Sect,百獸宗,Bách Thú Tông,sect,name,Beast taming specialists
+水镜宗,水鏡宗,Water Mirror Sect,水鏡宗,Thủy Kính Tông,sect,name,Divination and foresight
+冥王宗,冥王宗,Underworld King Sect,冥王宗,Minh Vương Tông,sect,name,Death and netherworld arts
+朱勾宗,朱勾宗,Crimson Hook Sect,朱勾宗,Chu Câu Tông,sect,name,Assassination and hidden weapons
+合欢宗,合歡宗,Joy Union Sect,合歡宗,Hợp Hoan Tông,sect,name,Dual cultivation specialists
+镇魂宗,鎮魂宗,Soul Suppression Sect,鎮魂宗,Trấn Hồn Tông,sect,name,Exorcism and soul arts
+幽魂噬影宗,幽魂噬影宗,Phantom Shadow Sect,幽魂噬影宗,U Hồn Phệ Ảnh Tông,sect,name,Stealth and shadow arts
+千帆城,千帆城,Thousand Sails City,千帆城,Thiên Phàm Thành,sect,name,Artifact crafting and commerce
+妙化宗,妙化宗,Mystic Harmony Sect,妙化宗,Diệu Hóa Tông,sect,name,Sound-based cultivation
+回玄宗,回玄宗,Returning Mystery Sect,回玄宗,Hồi Huyền Tông,sect,name,Formation specialists
+不夜城,不夜城,Nightless City,不夜城,Bất Dạ Thành,sect,name,Defense and longevity
+天行健宗,天行健宗,Heavenly Vigor Sect,天行健宗,Thiên Hành Kiện Tông,sect,name,Righteous qi cultivation
+噬魔宗,噬魔宗,Demon Devouring Sect,噬魔宗,Phệ Ma Tông,sect,name,Demonic cultivation - plunder
+掌门,掌門,Sect Master,掌門,Chưởng Môn,sect,rank,Also: Sect Leader
+长老,長老,Elder,長老,Trưởng Lão,sect,rank,
+内门弟子,內門弟子,Inner Disciple,内門弟子,Nội Môn Đệ Tử,sect,rank,
+外门弟子,外門弟子,Outer Disciple,外門弟子,Ngoại Môn Đệ Tử,sect,rank,
+弟子,弟子,Disciple,弟子,Đệ Tử,sect,rank,Generic
+谷主,谷主,Valley Master,谷主,Cốc Chủ,sect,rank,Hundred Beasts Sect
+供奉,供奉,Grand Elder,供奉,Cung Phụng,sect,rank,Honorary position
+镜主,鏡主,Mirror Master,鏡主,Kính Chủ,sect,rank,Water Mirror Sect
+殿主,殿主,Hall Master,殿主,Điện Chủ,sect,rank,Underworld King Sect
+楼主,樓主,Tower Master,楼主,Lâu Chủ,sect,rank,Crimson Hook Sect
+宫主,宮主,Palace Master,宮主,Cung Chủ,sect,rank,Joy Union Sect
+住持,住持,Abbot,住職,Trụ Trì,sect,rank,Soul Suppression Sect
+门主,門主,Gate Master,門主,Môn Chủ,sect,rank,Phantom Shadow Sect
+城主,城主,City Lord,城主,Thành Chủ,sect,rank,Thousand Sails City / Nightless City
+连霞山,連霞山,Lianxia Mountain,連霞山,Liên Hà Sơn,sect,headquarters,Bright Heart Sword Sect
+玄灵洞,玄靈洞,Mysterious Spirit Cave,玄靈洞,Huyền Linh Động,sect,headquarters,Hundred Beasts Sect
+碧波湖,碧波湖,Azure Wave Lake,碧波湖,Bích Ba Hồ,sect,headquarters,Water Mirror Sect
+七鬼角,七鬼角,Seven Ghost Horns,七鬼角,Thất Quỷ Giác,sect,headquarters,Underworld King Sect - Island archipelago
+明玉山,明玉山,Bright Jade Mountain,明玉山,Minh Ngọc Sơn,sect,headquarters,Crimson Hook Sect
+桃花岛,桃花島,Peach Blossom Island,桃花島,Đào Hoa Đảo,sect,headquarters,Joy Union Sect
+落魂海,落魂海,Soul-Calming Sea,落魂海,Lạc Hồn Hải,sect,headquarters,Soul Suppression Sect
+鬼门湖,鬼門湖,Ghost Gate Lake,鬼門湖,Quỷ Môn Hồ,sect,headquarters,Phantom Shadow Sect
+天星海,天星海,Celestial Star Sea,天星海,Thiên Tinh Hải,sect,headquarters,Thousand Sails City - Floating island
+心园,心園,Heart Garden,心園,Tâm Viên,sect,headquarters,Mystic Harmony Sect
+诸隐山,諸隱山,Hidden Mountains,諸隱山,Chư Ẩn Sơn,sect,headquarters,Returning Mystery Sect
+大千光极城,大千光極城,Great Aurora City,大千光極城,Đại Thiên Quang Cực Thành,sect,headquarters,Nightless City
+浩然峰,浩然峰,Haoran Peak,浩然峰,Hạo Nhiên Phong,sect,headquarters,Heavenly Vigor Sect
+陷空山,陷空山,Sinking Void Mountain,陷空山,Hãm Không Sơn,sect,headquarters,Demon Devouring Sect
+青云城,青雲城,Azure Cloud City,青雲城,Thanh Vân Thành,geography,city,
+沙州城,沙州城,Sand State City,沙州城,Sa Châu Thành,geography,city,
+翠林城,翠林城,Emerald Forest City,翠林城,Thúy Lâm Thành,geography,city,
+沧澜城,滄瀾城,Azure Wave City,滄瀾城,Thương Lan Thành,geography,city,
+揽月城,攬月城,Moon Embrace City,攬月城,Lãm Nguyệt Thành,geography,city,
+平原地带,平原地帶,Plains,平原地帶,Bình Nguyên Địa Đới,geography,region,
+西域流沙,西域流沙,Western Desert,西域流沙,Tây Vực Lưu Sa,geography,region,
+南疆蛮荒,南疆蠻荒,Southern Wilderness,南疆蠻荒,Nam Cương Man Hoang,geography,region,
+极北冰原,極北冰原,Northern Glacier,極北冰原,Cực Bắc Băng Nguyên,geography,region,
+无边碧海,無邊碧海,Endless Azure Sea,無邊碧海,Vô Biên Bích Hải,geography,region,
+天河奔流,天河奔流,Heavenly River,天河奔流,Thiên Hà Bôn Lưu,geography,region,
+青峰山脉,青峰山脈,Azure Peak Mountains,青峰山脈,Thanh Phong Sơn Mạch,geography,region,
+万丈雪峰,萬丈雪峰,Ten Thousand Zhang Snow Peaks,萬丈雪峰,Vạn Trượng Tuyết Phong,geography,region,
+碧野千里,碧野千里,Thousand Li Grasslands,碧野千里,Bích Dã Thiên Lý,geography,region,
+青云林海,青雲林海,Azure Cloud Forest Sea,青雲林海,Thanh Vân Lâm Hải,geography,region,
+炎狱火山,炎獄火山,Inferno Volcano,炎獄火山,Viêm Ngục Hỏa Sơn,geography,region,
+沃土良田,沃土良田,Fertile Farmlands,沃土良田,Ốc Thổ Lương Điền,geography,region,
+幽冥毒泽,幽冥毒澤,Netherworld Poison Marsh,幽冥毒澤,U Minh Độc Trạch,geography,region,
+十万大山,十萬大山,Hundred Thousand Mountains,十萬大山,Thập Vạn Đại Sơn,geography,region,
+紫竹幽境,紫竹幽境,Purple Bamboo Sanctuary,紫竹幽境,Tử Trúc U Cảnh,geography,region,
+凛霜荒原,凜霜荒原,Frost Desolation,凜霜荒原,Lẫm Sương Hoang Nguyên,geography,region,
+碎星戈壁,碎星戈壁,Shattered Star Gobi,碎星戈壁,Toái Tinh Qua Bích,geography,region,
+蓬莱遗岛,蓬萊遺島,Penglai Remnant Isle,蓬萊遺島,Bồng Lai Di Đảo,geography,region,
+灵兔,靈兔,Spirit Rabbit,靈兔,Linh Thỏ,creature,beast,Qi Refinement
+魔狼,魔狼,Demonic Wolf,魔狼,Ma Lang,creature,beast,Foundation
+青云鹿,青雲鹿,Azure Cloud Deer,青雲鹿,Thanh Vân Lộc,creature,beast,Qi Refinement
+暗影豹,暗影豹,Shadow Leopard,暗影豹,Ám Ảnh Báo,creature,beast,Foundation
+碧海龙龟,碧海龍龜,Azure Sea Dragon Turtle,碧海龍龜,Bích Hải Long Quy,creature,beast,Core
+石甲山熊,石甲山熊,Stone Armor Mountain Bear,石甲山熊,Thạch Giáp Sơn Hùng,creature,beast,Foundation
+风速马,風速馬,Wind Speed Horse,風速馬,Phong Tốc Mã,creature,beast,Qi Refinement
+熔岩蜥蜴,熔岩蜥蜴,Lava Lizard,熔岩蜥蜴,Dung Nham Tích Dịch,creature,beast,Foundation
+毒瘴蛙,毒瘴蛙,Miasma Poison Frog,毒瘴蛙,Độc Chướng Oa,creature,beast,Foundation
+撼地神牛,撼地神牛,Earth-Shaking Divine Bull,撼地神牛,Hám Địa Thần Ngưu,creature,beast,Core
+冰魄骨蛇,冰魄骨蛇,Ice Soul Bone Serpent,冰魄骨蛇,Băng Phách Cốt Xà,creature,beast,Core
+奇草,奇草,Wonder Grass,奇草,Kỳ Thảo,creature,plant,Qi Refinement
+灵木,靈木,Spirit Wood,靈木,Linh Mộc,creature,plant,Foundation
+沙漠仙人掌,沙漠仙人掌,Desert Immortal Cactus,沙漠仙人掌,Sa Mạc Tiên Nhân Chưởng,creature,plant,Qi Refinement
+寒霜雪莲,寒霜雪蓮,Frost Snow Lotus,寒霜雪蓮,Hàn Sương Tuyết Liên,creature,plant,Foundation
+水灵芝,水靈芝,Water Spirit Mushroom,水靈芝,Thủy Linh Chi,creature,plant,Foundation
+雪绒花,雪絨花,Snow Velvet Flower,雪絨花,Tuyết Nhung Hoa,creature,plant,Qi Refinement
+千年古松,千年古松,Millennial Ancient Pine,千年古松,Thiên Niên Cổ Tùng,creature,plant,Foundation
+五谷灵稀,五穀靈稀,Five Grain Spirit Rice,五穀靈稀,Ngũ Cốc Linh Mễ,creature,plant,Qi Refinement
+九曲清音竹,九曲清音竹,Nine Curve Pure Sound Bamboo,九曲清音竹,Cửu Khúc Thanh Âm Trúc,creature,plant,Core
+聚星草,聚星草,Star Gathering Grass,聚星草,Tụ Tinh Thảo,creature,plant,Core
+涅盘赤果,涅盤赤果,Nirvana Crimson Fruit,涅盤赤果,Niết Bàn Xích Quả,creature,plant,Nascent
+玄铁矿脉,玄鐵礦脈,Black Iron Vein,玄鐵礦脈,Huyền Thiết Khoáng Mạch,resource,mine,Qi Refinement
+赤铜矿脉,赤銅礦脈,Red Copper Vein,赤銅礦脈,Xích Đồng Khoáng Mạch,resource,mine,Foundation
+秘银矿床,秘銀礦床,Mithril Deposit,秘銀礦床,Bí Ngân Khoáng Sàng,resource,mine,Core
+庚金矿洞,庚金礦洞,Geng Metal Cave,庚金礦洞,Canh Kim Khoáng Động,resource,mine,Nascent
+灵兔毛,靈兔毛,Spirit Rabbit Fur,靈兔毛,Linh Thỏ Mao,material,beast,Qi Refinement
+魔狼牙,魔狼牙,Demonic Wolf Fang,魔狼牙,Ma Lang Nha,material,beast,Foundation
+青云鹿角,青雲鹿角,Azure Cloud Deer Antler,青雲鹿角,Thanh Vân Lộc Giác,material,beast,Qi Refinement
+暗影豹爪,暗影豹爪,Shadow Leopard Claw,暗影豹爪,Ám Ảnh Báo Trảo,material,beast,Foundation
+龙龟甲片,龍龜甲片,Dragon Turtle Shell Fragment,龍龜甲片,Long Quy Giáp Phiến,material,beast,Core
+山熊胆,山熊膽,Mountain Bear Gallbladder,山熊膽,Sơn Hùng Đảm,material,beast,Foundation
+风速马鬃,風速馬鬃,Wind Speed Horse Mane,風速馬鬃,Bờm Phong Tốc Mã,material,beast,Foundation
+熔岩鳞片,熔岩鱗片,Lava Lizard Scale,熔岩鱗片,Dung Nham Lân Phiến,material,beast,Core
+毒瘴囊,毒瘴囊,Miasma Poison Sac,毒瘴囊,Độc Chướng Nang,material,beast,Foundation
+神牛角,神牛角,Divine Bull Horn,神牛角,Thần Ngưu Giác,material,beast,Core
+冰魄蛇胆,冰魄蛇膽,Ice Soul Serpent Gallbladder,冰魄蛇膽,Băng Phách Xà Đảm,material,beast,Core
+奇草精华,奇草精華,Wonder Grass Essence,奇草精華,Kỳ Thảo Tinh Hoa,material,plant,Qi Refinement
+灵木心,靈木心,Spirit Wood Heart,靈木心,Linh Mộc Tâm,material,plant,Foundation
+仙人掌刺,仙人掌刺,Immortal Cactus Spine,仙人掌刺,Tiên Nhân Chưởng Thích,material,plant,Qi Refinement
+雪莲花瓣,雪蓮花瓣,Snow Lotus Petal,雪蓮花瓣,Tuyết Liên Hoa Biện,material,plant,Foundation
+灵芝孢子,靈芝孢子,Spirit Mushroom Spore,靈芝孢子,Linh Chi Bào Tử,material,plant,Foundation
+雪绒花蕊,雪絨花蕊,Snow Velvet Flower Stamen,雪絨花蕊,Tuyết Nhung Hoa Nhị,material,plant,Qi Refinement
+古松松脂,古鬆鬆脂,Ancient Pine Resin,古鬆鬆脂,Cổ Tùng Tùng Chi,material,plant,Core
+灵稻精华,靈稻精華,Spirit Rice Essence,靈稻精華,Linh Đạo Tinh Hoa,material,plant,Qi Refinement
+清音竹节,清音竹節,Pure Sound Bamboo Section,清音竹節,Thanh Âm Trúc Tiết,material,plant,Core
+星纹叶,星紋葉,Star Pattern Leaf,星紋葉,Tinh Văn Diệp,material,plant,Foundation
+赤果核,赤果核,Crimson Fruit Pit,赤果核,Xích Quả Hạch,material,plant,Core
+玄铁,玄鐵,Black Iron,玄鐵,Huyền Thiết,material,mineral,Qi Refinement
+赤精铜,赤精銅,Crimson Essence Copper,赤精銅,Xích Tinh Đồng,material,mineral,Foundation
+秘银,秘銀,Mithril,秘銀,Bí Ngân,material,mineral,Core
+庚金,庚金,Geng Metal,庚金,Canh Kim,material,mineral,Nascent
+太白金府,太白金府,Taibai Metal Palace,太白金府,Thái Bạch Kim Phủ,geography,cave,Metal element
+青木洞天,青木洞天,Verdant Wood Grotto,青木洞天,Thanh Mộc Động Thiên,geography,cave,Wood element
+玄水秘境,玄水秘境,Mystic Water Secret Realm,玄水秘境,Huyền Thủy Bí Cảnh,geography,cave,Water element
+离火洞府,離火洞府,Departing Fire Cave Dwelling,離火洞府,Ly Hỏa Động Phủ,geography,cave,Fire element
+厚土玄宫,厚土玄宮,Thick Earth Mystery Palace,厚土玄宮,Hậu Thổ Huyền Cung,geography,cave,Earth element
+古越遗迹,古越遺蹟,Ancient Yue Ruins,古越遺蹟,Cổ Việt Di Tích,geography,cave,Wood/Metal
+沧海遗迹,滄海遺蹟,Azure Sea Ruins,滄海遺蹟,Thương Hải Di Tích,geography,cave,Water
+紫气东来,紫氣東來,Purple Qi from the East,紫氣東來,Tử Khí Đông Lai,event,celestial,R
+金煞之年,金煞之年,Year of Metal Killing,金煞之年,Kim Sát Chi Niên,event,celestial,R
+木灵盛世,木靈盛世,Era of Wood Spirit Prosperity,木靈盛世,Mộc Linh Thịnh Thế,event,celestial,R
+水德之纪,水德之紀,Age of Water Virtue,水德之紀,Thủy Đức Chi Kỷ,event,celestial,R
+火劫时代,火劫時代,Era of Fire Tribulation,火劫時代,Hỏa Kiếp Thời Đại,event,celestial,R
+土厚之世,土厚之世,Age of Thick Earth,土厚之世,Thổ Hậu Chi Thế,event,celestial,R
+五行逆乱,五行逆亂,Five Elements in Chaos,五行逆亂,Ngũ Hành Nghịch Loạn,event,celestial,SR
+天道均衡,天道均衡,Heavenly Dao Balance,天道均衡,Thiên Đạo Cân Bằng,event,celestial,SR
+劫数将至,劫數將至,Tribulation Approaches,劫數將至,Kiếp Số Sắp Đến,event,celestial,SR
+灵气复苏,靈氣復甦,Spiritual Energy Revival,靈氣復甦,Linh Khí Phục Tô,event,celestial,SSR
+灵气枯竭,靈氣枯竭,Spiritual Energy Depletion,靈氣枯竭,Linh Khí Khô Kiệt,event,celestial,R
+魔道兴盛,魔道興盛,Demonic Path Ascendant,魔道興盛,Ma Đạo Hưng Thịnh,event,celestial,R
+正气浩然,正氣浩然,Righteous Qi Flourishing,正氣浩然,Chính Khí Hạo Nhiên,event,celestial,R
+神兵出世,神兵出世,Divine Weapons Emerge,神兵出世,Thần Binh Xuất Thế,event,celestial,SR
+阴阳交泰,陰陽交泰,Yin-Yang Harmony,陰陽交泰,Âm Dương Giao Thái,event,celestial,R
+杀劫降临,殺劫降臨,Killing Tribulation Descends,殺劫降臨,Sát Kiếp Giáng Lâm,event,celestial,SR
+太平盛世,太平盛世,Era of Great Peace,太平盛世,Thái Bình Thịnh Thế,event,celestial,R
+气运加身,氣運加身,Fortune Bestowed,氣運加身,Khí Vận Gia Thân,event,celestial,R
+血月当空,血月當空,Blood Moon Rises,血月當空,Huyết Nguyệt Đương Không,event,celestial,SR
+飞升之门,飛昇之門,Gate of Ascension,飛昇之門,Phi Thăng Chi Môn,event,celestial,SSR
+法则显化,法則顯化,Laws Manifest,法則顯化,Pháp Tắc Hiển Hóa,event,celestial,SSR
+时空乱流,時空亂流,Spacetime Turbulence,時空亂流,Thời Không Loạn Lưu,event,celestial,SSR
+生命恢复速率,生命恢復速率,HP Recovery Rate,HP回復速度,Tốc Độ Hồi Phục Sinh Mệnh,effect,,extra_hp_recovery_rate
+最大生命值,最大生命值,Max HP,最大HP,Sinh Mệnh Tối Đa,effect,,extra_max_hp
+最大寿元,最大壽元,Max Lifespan,最大寿命,Thọ Nguyên Tối Đa,effect,,extra_max_lifespan
+兵器熟练度获取,兵器熟練度獲取,Weapon Proficiency Gain,武器熟練度獲得,Nhận Độ Thuần Thục Binh Khí,effect,,extra_weapon_proficiency_gain
+双修经验,雙修經驗,Dual Cultivation Experience,双修経験,Kinh Nghiệm Song Tu,effect,,extra_dual_cultivation_exp
+突破成功率,突破成功率,Breakthrough Success Rate,突破成功率,Tỷ Lệ Đột Phá Thành Công,effect,,extra_breakthrough_success_rate
+奇遇概率,奇遇概率,Fortune Probability,奇遇確率,Xác Suất Kỳ Ngộ,effect,,extra_fortune_probability
+霉运概率,黴運概率,Misfortune Probability,厄運確率,Xác Suất Xui Rủi,effect,,extra_misfortune_probability
+采集获取材料,採集獲取材料,Harvest Material Bonus,採集獲得素材,Thưởng Nguyên Liệu Thu Thập,effect,,extra_harvest_materials
+狩猎获取材料,狩獵獲取材料,Hunt Material Bonus,狩猟獲得素材,Thưởng Nguyên Liệu Săn Bắn,effect,,extra_hunt_materials
+挖矿获取材料,挖礦獲取材料,Mining Material Bonus,採鉱獲得素材,Thưởng Nguyên Liệu Khai Khoáng,effect,,extra_mine_materials
+物品出售价格,物品出售價格,Item Sell Price,アイテム売却価格,Giá Bán Vật Phẩm,effect,,extra_item_sell_price_multiplier
+购买折扣,購買折扣,Purchase Discount,購入割引,Chiết Khấu Mua Hàng,effect,,shop_buy_price_reduction
+兵器升级概率,兵器升級概率,Weapon Upgrade Chance,武器強化確率,Xác Suất Nâng Cấp Binh Khí,effect,,extra_weapon_upgrade_chance
+搜刮收益,搜刮收益,Plunder Multiplier,略奪收益,Lợi Tức Cướp Đoạt,effect,,extra_plunder_multiplier
+捕捉灵兽成功率,捕捉靈獸成功率,Beast Capture Success Rate,霊獣捕獲成功率,Tỷ Lệ Bắt Linh Thú Thành Công,effect,,extra_catch_success_rate
+修炼经验,修煉經驗,Cultivation Experience,修行経験,Kinh Nghiệm Tu Luyện,effect,,extra_respire_exp
+战力点数,戰力點數,Combat Power Points,戦力ポイント,Điểm Chiến Lực,effect,,extra_battle_strength_points
+逃跑成功率,逃跑成功率,Escape Success Rate,逃走成功率,Tỷ Lệ Chạy Trốn Thành Công,effect,,extra_escape_success_rate
+暗杀成功率,暗殺成功率,Assassination Success Rate,暗殺成功率,Tỷ Lệ Ám Sát Thành Công,effect,,extra_assassinate_success_rate
+感知范围,感知範圍,Observation Radius,感知範囲,Phạm Vi Cảm Tri,effect,,extra_observation_radius
+移动步长,移動步長,Movement Range,移動距離,Cự Ly Di Chuyển,effect,,extra_move_step
+特殊能力,特殊能力,Special Abilities,特殊能力,Năng Lực Đặc Biệt,effect,,legal_actions
+伤害减免,傷害減免,Damage Reduction,ダメージ軽減,Giảm Miễn Sát Thương,effect,,damage_reduction
+境界压制,境界壓制,Realm Suppression,境界抑制,Áp Chế Cảnh Giới,effect,,realm_suppression_bonus
+修炼时长缩减,修煉時長縮減,Cultivation Duration Reduction,修行時間短縮,Rút Ngắn Thời Gian Tu Luyện,effect,,respire_duration_reduction
+铸造成功率,鑄造成功率,Forging Success Rate,鋳造成功率,Tỷ Lệ Chú Tạo Thành Công,effect,,extra_cast_success_rate
+炼丹成功率,煉丹成功率,Alchemy Success Rate,錬丹成功率,Tỷ Lệ Luyện Đan Thành Công,effect,,extra_refine_success_rate
+自愈效率,自癒效率,Self-Heal Efficiency,自己治癒効率,Hiệu Suất Tự Chữa Lành,effect,,extra_self_heal_efficiency
+理性,理性,Rational,理性的,Lý Tính,persona,basic,Logical thinking
+无常,無常,Fickle,無常,Vô Thường,persona,basic,Unpredictable goals
+怠惰,怠惰,Slothful,怠惰,Lười Biếng,persona,basic,Lazy - avoids effort
+冒险,冒險,Adventurous,冒険好き,Mạo Hiểm,persona,basic,Risk-taking
+随性,隨性,Carefree,気まま,Tùy Hứng,persona,basic,Goes with the flow
+贪财,貪財,Greedy,拝財,Tham Tài,persona,basic,Desires wealth
+沉思,沉思,Contemplative,沈思,Trầm Tư,persona,basic,Deep thinker
+惜命,惜命,Life-Cherishing,惜命,Tích Mệnh,persona,basic,Values own life
+友爱,友愛,Friendly,友愛,Hữu Ái,persona,basic,Values harmony
+复仇,復仇,Vengeful,復讐心,Phục Thù,persona,basic,Seeks revenge
+孤僻,孤僻,Reclusive,孤高,Cô Lập,persona,basic,Prefers solitude
+淡漠,淡漠,Indifferent,淡漠,Đạm Mạc,persona,basic,Emotionally detached
+好斗,好鬥,Combative,好戦的,Hiếu Đấu,persona,basic,Enjoys fighting
+鲁莽,魯莽,Reckless,無鉄砲,Lỗ Mãng,persona,basic,Acts without thinking
+胆小,膽小,Timid,臆病,Nhát Gan,persona,basic,Avoids conflict
+霸道,霸道,Domineering,覇道的,Bá Đạo,persona,basic,Forceful - selfish
+内向,內向,Introverted,内向的,Hướng Nội,persona,basic,Prefers self-reflection
+外向,外向,Extroverted,外向的,Hướng Ngoại,persona,basic,Social - outgoing
+刻薄,刻薄,Caustic,辛辣,Cay Nghiệt,persona,basic,Sharp-tongued
+热情,熱情,Enthusiastic,情熱的,Nhiệt Tình,persona,basic,Warm and friendly
+开放,開放,Open-minded,開放的,Phóng Khoáng,persona,basic,Casual about relationships
+腼腆,靦腆,Shy,内気,Thẹn Thùng,persona,basic,Reserved about relationships
+嫉妒,嫉妒,Envious,嫉妒,Tật Đố,persona,basic,Jealous of others
+好色,好色,Lustful,好色,Háo Sắc,persona,basic,Attracted to beauty
+无欲,無慾,Ascetic,無慾,Vô Dục,persona,basic,No worldly desires
+情绪化,情緒化,Emotional,情緒化,Cảm Tính,persona,basic,Mood swings
+妒忌,妒忌,Jealous,妒忌,Đố Kỵ,persona,basic,Envious of success
+采集者,採集者,Gatherer,採集者,Thu Thập Giả,persona,advanced,Bonus to herb gathering
+猎人,獵人,Hunter,獵人,Liệp Nhân,persona,advanced,Bonus to beast hunting
+修行痴迷,修行痴迷,Cultivation Maniac,修行痴迷,Tu Hành Si Mê,persona,advanced,Obsessed with training
+舔狗,舔狗,Simp,舔狗,Liếm Cẩu,persona,advanced,Overly nice to attractive people
+极端正义,極端正義,Extreme Righteous,極端正義,Cực Đoan Chính Nghĩa,persona,advanced,Fanatical about justice
+极端邪恶,極端邪惡,Extreme Evil,極端邪惡,Cực Đoan Tà Ác,persona,advanced,Ruthless and cruel
+心机深沉,心機深沉,Scheming,心機深沉,Tâm Cơ Thâm Trầm,persona,advanced,Calculating and secretive
+忠诚,忠誠,Loyal,忠誠,Trung Thành,persona,advanced,Never betrays
+狠辣,狠辣,Ruthless,狠辣,Tàn Độc,persona,advanced,Merciless
+疑心重,疑心重,Suspicious,疑心重,Đa Nghi,persona,advanced,Trusts no one
+探险家,探險家,Explorer,探險家,Thám Hiểm Gia,persona,advanced,Loves discovering new places
+死宅,死宅,Homebody,死宅,Trạch Tử,persona,advanced,Hates traveling
+扫把星,掃把星,Jinxed,掃把星,Sao Chổi,persona,advanced,Attracts misfortune
+大器晚成,大器晚成,Late Bloomer,大器晚成,Đại Khí Vãn Thành,persona,advanced,Struggles early - thrives later
+矿工,礦工,Miner,礦工,Khoáng Công,persona,advanced,Bonus to mining
+苟,苟,Cautious,苟,Cẩu,persona,advanced,Extremely risk-averse
+穿越者,穿越者,Transmigrator,穿越者,Xuyên Việt Giả,persona,legendary,From modern world
+气运之子,氣運之子,Child of Destiny,氣運之子,Khí Vận Chi Tử,persona,legendary,Heaven's chosen one
+重生者,重生者,Reborn,重生者,Trọng Sinh Giả,persona,legendary,Lived a previous life
+福缘深厚,福緣深厚,Blessed,福緣深厚,Phúc Duyên Thâm Hậu,persona,legendary,Natural good fortune
+剑修,劍修,Sword Cultivator,劍修,Kiếm Tu,persona,weapon,Sword specialist
+剑痴,劍痴,Sword Fanatic,劍痴,Kiếm Si,persona,weapon,Obsessed with swords
+刀修,刀修,Saber Cultivator,刀修,Đao Tu,persona,weapon,Saber specialist
+刀痴,刀痴,Saber Fanatic,刀痴,Đao Si,persona,weapon,Obsessed with sabers
+枪修,槍修,Spear Cultivator,槍修,Thương Tu,persona,weapon,Spear specialist
+枪痴,槍痴,Spear Fanatic,槍痴,Thương Si,persona,weapon,Obsessed with spears
+棍修,棍修,Staff Cultivator,棍修,Côn Tu,persona,weapon,Staff specialist
+棍圣,棍聖,Staff Saint,棍聖,Côn Thánh,persona,weapon,Staff master
+扇修,扇修,Fan Cultivator,扇修,Phiến Tu,persona,weapon,Fan specialist
+扇痴,扇痴,Fan Fanatic,扇痴,Phiến Si,persona,weapon,Obsessed with fans
+鞭修,鞭修,Whip Cultivator,鞭修,Tiên Tu,persona,weapon,Whip specialist
+鞭痴,鞭痴,Whip Fanatic,鞭痴,Tiên Si,persona,weapon,Obsessed with whips
+暗器高手,暗器高手,Hidden Weapon Expert,暗器高手,Ám Khí Cao Thủ,persona,weapon,Hidden weapon specialist
+刺客宗师,刺客宗師,Assassin Grandmaster,刺客宗師,Thích Khách Tông Sư,persona,weapon,Master assassin
+音律大师,音律大師,Music Master,音律大師,Âm Luật Đại Sư,persona,weapon,Zither/flute specialist
+炼丹师,煉丹師,Alchemist,煉丹師,Luyện Đan Sư,persona,profession,Elixir crafting bonus
+炼器师,煉器師,Artificer,煉器師,Luyện Khí Sư,persona,profession,Weapon crafting bonus
+体修,體修,Body Cultivator,體修,Thể Tu,persona,profession,Physical cultivation
+道侣,道侶,Dao Companion,道侶,Đạo Lữ,relation,,Cultivation partner/spouse
+师傅,師傅,Master,師傅,Sư Phụ,relation,,Teacher in cultivation
+徒弟,徒弟,Disciple,徒弟,Đồ Đệ,relation,,Student of a master
+父母,父母,Parent,父母,Cha Mẹ,relation,,
+子女,子女,Child,子女,Con Cái,relation,,
+父亲,父親,Father,父親,Cha,relation,,
+母亲,母親,Mother,母親,Mẹ,relation,,
+儿子,兒子,Son,兒子,Con Trai,relation,,
+女儿,女兒,Daughter,女兒,Con Gái,relation,,
+兄弟姐妹,兄弟姐妹,Sibling,兄弟姐妹,Anh Chị Em,relation,,
+哥哥,哥哥,Elder Brother,哥哥,Anh Trai,relation,,
+弟弟,弟弟,Younger Brother,弟弟,Em Trai,relation,,
+姐姐,姐姐,Elder Sister,姐姐,Chị Gái,relation,,
+妹妹,妹妹,Younger Sister,妹妹,Em Gái,relation,,
+朋友,朋友,Friend,朋友,Bằng Hữu,relation,,
+仇人,仇人,Enemy,仇人,Kẻ Thù,relation,,Also: Foe
+亲属,親屬,Kin,親屬,Thân Tộc,relation,,Extended family
+上品,上品,Superior Grade,上品,Thượng Phẩm,grade,,Also: High-grade
+中品,中品,Medium Grade,中品,Trung Phẩm,grade,,Also: Mid-grade
+下品,下品,Inferior Grade,下品,Hạ Phẩm,grade,,Also: Low-grade
+金刚不坏体,金剛不壞體,Indestructible Vajra Body,金剛不壞體,Kim Cang Bất Hoại Thể,technique,inferior,Metal - Shaolin technique
+长春功,長春功,Eternal Spring Art,長春功,Trường Xuân Công,technique,inferior,Wood - Basic longevity technique
+若水诀,若水訣,Flowing Water Scripture,若水訣,Nhược Thủy Quyết,technique,inferior,Water - Soft and yielding
+火灵诀,火靈訣,Fire Spirit Scripture,火靈訣,Hỏa Linh Quyết,technique,inferior,Fire - Basic fire technique
+搬山诀,搬山訣,Mountain Moving Scripture,搬山訣,Bàn Sơn Quyết,technique,inferior,Earth - Strength technique
+冰心诀,冰心訣,Ice Heart Scripture,冰心訣,Băng Tâm Quyết,technique,inferior,Ice - Calming technique
+神行百变,神行百變,Divine Movement Hundred Changes,神行百變,Thần Hành Bách Biến,technique,inferior,Wind - Movement technique
+敛息术,斂息術,Breath Concealment Art,斂息術,Liễm Tức Thuật,technique,inferior,Dark - Stealth technique
+掌心雷,掌心雷,Palm Thunder,掌心雷,Chưởng Tâm Lôi,technique,inferior,Thunder - Daoist technique
+燃血大法,燃血大法,Blood Burning Art,燃血大法,Nhiên Huyết Đại Pháp,technique,inferior,Evil - Temporary power boost
+金钟罩,金鐘罩,Golden Bell Shield,金鐘罩,Kim Chung Tráo,technique,medium,Metal - Defensive technique
+青帝木皇功,青帝木皇功,Azure Emperor Wood Sovereign Art,青帝木皇功,Thanh Đế Mộc Hoàng Công,technique,medium,Wood - Wood element mastery
+黑帝水皇拳,黑帝水皇拳,Black Emperor Water Sovereign Fist,黑帝水皇拳,Hắc Đế Thủy Hoàng Quyền,technique,medium,Water - Water element mastery
+纯阳无极功,純陽無極功,Pure Yang Limitless Art,純陽無極功,Thuần Dương Vô Cực Công,technique,medium,Fire - Yang-based technique
+不动明王诀,不動明王訣,Immovable Wisdom King Scripture,不動明王訣,Bất Động Minh Vương Quyết,technique,medium,Earth - Buddhist technique
+玄冰劲,玄冰勁,Profound Ice Force,玄冰勁,Huyền Băng Kình,technique,medium,Ice - Ice attack technique
+梯云纵,梯雲縱,Cloud Ascending Steps,梯雲縱,Thê Vân Túng,technique,medium,Wind - Wudang movement technique
+鬼影迷踪,鬼影迷蹤,Ghost Shadow Trackless,鬼影迷蹤,Quỷ Ảnh Mê Tung,technique,medium,Dark - Stealth movement
+五雷正法,五雷正法,Five Thunder Righteous Method,五雷正法,Ngũ Lôi Chính Pháp,technique,medium,Thunder - Orthodox thunder arts
+吸星大法,吸星大法,Star Absorbing Art,吸星大法,Hấp Tinh Đại Pháp,technique,medium,Evil - Absorbs others' power
+草字剑诀,草字劍訣,Grass Script Sword Scripture,草字劍訣,Thảo Tự Kiếm Quyết,technique,superior,Bright Heart - Legendary sword art
+神剑御雷真诀,神劍御雷真訣,Divine Sword Thunder Control Scripture,神劍御雷真訣,Thần Kiếm Ngự Lôi Chân Quyết,technique,superior,Bright Heart - Thunder sword art
+大河剑意,大河劍意,Great River Sword Intent,大河劍意,Đại Hà Kiếm Ý,technique,superior,Bright Heart - Flowing sword art
+青帝长生诀,青帝長生訣,Azure Emperor Longevity Scripture,青帝長生訣,Thanh Đế Trường Sinh Quyết,technique,superior,Hundred Beasts - Wood longevity art
+神象镇狱劲,神象鎮獄勁,Divine Elephant Prison Suppression Force,神象鎮獄勁,Thần Tượng Trấn Ngục Kình,technique,superior,Hundred Beasts - Strength technique
+鲲鹏宝术,鯤鵬寶術,Kunpeng Treasure Art,鯤鵬寶術,Côn Bằng Bảo Thuật,technique,superior,Hundred Beasts - Transformation art
+虚空经,虛空經,Void Scripture,虛空經,Hư Không Kinh,technique,superior,Water Mirror - Space manipulation
+太上忘情录,太上忘情錄,Supreme Forgetfulness Record,太上忘情錄,Thái Thượng Vong Tình Lục,technique,superior,Water Mirror - Emotional detachment
+逍遥游,逍遙遊,Carefree Wandering,逍遙遊,Tiêu Dao Du,technique,superior,Water Mirror - Freedom technique
+吞天魔功,吞天魔功,Heaven Devouring Demonic Art,吞天魔功,Thôn Thiên Ma Công,technique,superior,Underworld King - Absorption technique
+天魔策,天魔策,Heavenly Demon Strategy,天魔策,Thiên Ma Sách,technique,superior,Underworld King - Demonic technique
+冥河真经,冥河真經,Styx River True Scripture,冥河真經,Minh Hà Chân Kinh,technique,superior,Underworld King - Blood technique
+焚诀,焚訣,Burning Scripture,焚訣,Phần Quyết,technique,superior,Crimson Hook - Fire absorption
+道心种魔大法,道心種魔大法,Dao Heart Demon Planting Art,道心種魔大法,Đạo Tâm Chủng Ma Đại Pháp,technique,superior,Crimson Hook - Mind control
+大衍决,大衍決,Great Derivation Scripture,大衍決,Đại Diễn Quyết,technique,superior,Crimson Hook - Puppet control
+大乐赋,大樂賦,Great Bliss Rhapsody,大樂賦,Đại Lạc Phú,technique,superior,Joy Union - Dual cultivation
+天魔舞,天魔舞,Heavenly Demon Dance,天魔舞,Thiên Ma Vũ,technique,superior,Joy Union - Charm technique
+凌波微步,凌波微步,Rippling Steps,凌波微步,Lăng Ba Vi Bộ,technique,superior,Joy Union - Movement technique
+过去弥陀经,過去彌陀經,Past Amitabha Sutra,過去彌陀經,Quá Khứ Di Đà Kinh,technique,superior,Soul Suppression - Buddhist technique
+神霄雷法,神霄雷法,Divine Firmament Thunder Method,神霄雷法,Thần Tiêu Lôi Pháp,technique,superior,Soul Suppression - Orthodox thunder
+九字真言,九字真言,Nine Word Mantra,九字真言,Cửu Tự Chân Ngôn,technique,superior,Soul Suppression - Daoist mantra
+幽冥鬼爪,幽冥鬼爪,Netherworld Ghost Claw,幽冥鬼爪,U Minh Quỷ Trảo,technique,superior,Phantom Shadow - Assassination art
+三千雷动,三千雷動,Three Thousand Thunders,三千雷動,Tam Thiên Lôi Động,technique,superior,Phantom Shadow - Speed technique
+血神经,血神經,Blood Spirit Scripture,血神經,Huyết Thần Kinh,technique,superior,Phantom Shadow - Blood technique
+神机百炼,神機百鍊,Divine Mechanism Hundred Refinements,神機百鍊,Thần Cơ Bách Luyện,technique,superior,Thousand Sails - Crafting technique
+周天星斗大阵,周天星斗大陣,Cosmic Star Formation,周天星斗大陣,Chu Thiên Tinh Đẩu Đại Trận,technique,superior,Thousand Sails - Formation technique
+纵地金光,縱地金光,Earth-Spanning Golden Light,縱地金光,Túng Địa Kim Quang,technique,superior,Thousand Sails - Speed technique
+剑,劍,Sword,剣,Kiếm,weapon,type,
+刀,刀,Saber,刀,Đao,weapon,type,Also: Blade
+枪,槍,Spear,槍,Thương,weapon,type,
+棍,棍,Staff,棍,Côn,weapon,type,
+扇,扇,Fan,扇,Phiến,weapon,type,
+鞭,鞭,Whip,鞭,Tiên,weapon,type,
+琴,琴,Zither,琴,Cầm,weapon,type,Musical weapon
+笛,笛,Flute,笛,Địch,weapon,type,Musical weapon
+暗器,暗器,Hidden Weapon,暗器,Ám Khí,weapon,type,
+青霜剑,青霜劍,Cyan Frost Sword,青霜劍,Thanh Sương Kiếm,weapon,named,Sword - Foundation
+井中月,井中月,Moon in the Well,井中月,Tỉnh Trung Nguyệt,weapon,named,Saber - Foundation
+火尖枪,火尖槍,Flame Tip Spear,火尖槍,Hỏa Tiêm Thương,weapon,named,Spear - Foundation
+囚龙棒,囚龍棒,Dragon Binding Staff,囚龍棒,Tù Long Bổng,weapon,named,Staff - Foundation
+桃花扇,桃花扇,Peach Blossom Fan,桃花扇,Đào Hoa Phiến,weapon,named,Fan - Foundation
+打神鞭,打神鞭,God-Beating Whip,打神鞭,Đả Thần Tiên,weapon,named,Whip - Foundation
+天魔琴,天魔琴,Heavenly Demon Zither,天魔琴,Thiên Ma Cầm,weapon,named,Zither - Foundation
+鬼笛陈情,鬼笛陳情,Ghost Flute Chenqing,鬼笛陳情,Quỷ Địch Trần Tình,weapon,named,Flute - Foundation
+无影针,無影針,Shadowless Needle,無影針,Vô Ảnh Châm,weapon,named,Hidden - Foundation
+万兽笛,萬獸笛,Myriad Beast Flute,萬獸笛,Vạn Thú Địch,weapon,named,Flute - Foundation
+血饮狂刀,血飲狂刀,Blood-Drinking Mad Saber,血飲狂刀,Huyết Ẩm Cuồng Đao,weapon,named,Saber - Foundation
+玄铁重剑,玄鐵重劍,Black Iron Heavy Sword,玄鐵重劍,Huyền Thiết Trọng Kiếm,weapon,named,Sword - Foundation
+紫薇软剑,紫薇軟劍,Purple Star Soft Sword,紫薇軟劍,Tử Vi Nhuyễn Kiếm,weapon,named,Sword - Foundation
+水火囚龙棍,水火囚龍棍,Water-Fire Dragon Staff,水火囚龍棍,Thủy Hỏa Tù Long Côn,weapon,named,Staff - Foundation
+青竹蜂云剑,青竹蜂雲劍,Green Bamboo Bee Cloud Sword,青竹蜂雲劍,Thanh Trúc Phong Vân Kiếm,weapon,named,Sword - Core
+随心铁杆兵,隨心鐵桿兵,Compliant Golden-Hooped Rod,隨心鐵桿兵,Tùy Tâm Thiết Can Binh,weapon,named,Staff - Core
+五火七禽扇,五火七禽扇,Five Fire Seven Bird Fan,五火七禽扇,Ngũ Hỏa Thất Cầm Phiến,weapon,named,Fan - Core
+斩仙飞刀,斬仙飛刀,Immortal-Slaying Flying Dagger,斬仙飛刀,Trảm Tiên Phi Đao,weapon,named,Hidden - Core
+干将莫邪,干將莫邪,Ganjiang and Moye,干將莫邪,Can Tương Mạc Tà,weapon,named,Sword - Core
+芭蕉扇,芭蕉扇,Banana Leaf Fan,芭蕉扇,Ba Tiêu Phiến,weapon,named,Fan - Core
+紫金降魔杵,紫金降魔杵,Purple-Gold Demon Subduing Pestle,紫金降魔杵,Tử Kim Hàng Ma Xử,weapon,named,Staff - Core
+弑神枪,弒神槍,God-Slaying Spear,弒神槍,Thí Thần Thương,weapon,named,Spear - Nascent
+赤锋矛,赤鋒矛,Crimson Edge Spear,赤鋒矛,Xích Phong Mâu,weapon,named,Spear - Nascent
+诛仙剑,誅仙劍,Immortal Execution Sword,誅仙劍,Tru Tiên Kiếm,weapon,named,Sword - Nascent
+木灵甲,木靈甲,Wood Spirit Armor,木靈甲,Mộc Linh Giáp,auxiliary,,Foundation - Defense
+血菩提,血菩提,Blood Bodhi,血菩提,Huyết Bồ Đề,auxiliary,,Foundation - Healing
+人参果(伪),人參果(偽),Pseudo Ginseng Fruit,人參果(偽),Nhân Sâm Quả (Ngụy),auxiliary,,Foundation - Lifespan
+万宝令,萬寶令,Myriad Treasures Token,萬寶令,Vạn Bảo Lệnh,auxiliary,,Foundation - Trading bonus
+铁精,鐵精,Refined Iron Essence,鐵精,Thiết Tinh,auxiliary,,Foundation - Crafting material
+源天神眼,源天神眼,Origin Heaven Divine Eye,源天神眼,Nguyên Thiên Thần Nhãn,auxiliary,,Foundation - Detection
+踏云靴,踏雲靴,Cloud-Treading Boots,踏雲靴,Đạp Vân Ngoa,auxiliary,,Foundation - Movement
+菩提子,菩提子,Bodhi Seed,菩提子,Bồ Đề Tử,auxiliary,,Foundation - Breakthrough bonus
+金丝软甲,金絲軟甲,Golden Silk Soft Armor,金絲軟甲,Kim Ty Nhuyễn Giáp,auxiliary,,Foundation - Defense
+寒玉床,寒玉床,Cold Jade Bed,寒玉床,Hàn Ngọc Sàng,auxiliary,,Foundation - Cultivation bonus
+无相面具,無相面具,Formless Mask,無相面具,Vô Tướng Diện Cụ,auxiliary,,Foundation - Disguise
+神风舟,神風舟,Divine Wind Boat,神風舟,Thần Phong Chu,auxiliary,,Core - Flying vehicle
+昆仑镜,崑崙鏡,Kunlun Mirror,崑崙鏡,Côn Luân Kính,auxiliary,,Core - Far-seeing
+龙凤呈祥戒,龍鳳呈祥戒,Dragon-Phoenix Harmony Ring,龍鳳呈祥戒,Long Phượng Trình Tường Giới,auxiliary,,Core - Dual cultivation
+隐形披风,隱形披風,Invisibility Cloak,隱形披風,Ẩn Hình Phi Phong,auxiliary,,Core - Stealth
+御兽环,御獸環,Beast Control Ring,御獸環,Ngự Thú Hoàn,auxiliary,,Core - Taming bonus
+太虚甲,太虛甲,Supreme Void Armor,太虛甲,Thái Hư Giáp,auxiliary,,Core - Defense
+八卦炉,八卦爐,Eight Trigrams Furnace,八卦爐,Bát Quái Lô,auxiliary,,Core - Alchemy bonus
+聚宝盆,聚寶盆,Treasure Gathering Basin,聚寶盆,Tụ Bảo Bồn,auxiliary,,Core - Wealth generation
+天地烘炉,天地烘爐,Heaven-Earth Furnace,天地烘爐,Thiên Địa Hồng Lô,auxiliary,,Core - Crafting bonus
+六道剑匣,六道劍匣,Six Paths Sword Case,六道劍匣,Lục Đạo Kiếm Hạp,auxiliary,,Core - Cultivation bonus
+掌天瓶,掌天瓶,Heaven-Grasping Vial,掌天瓶,Chưởng Thiên Bình,auxiliary,,Nascent - Cultivation boost
+传国玉玺,傳國玉璽,Imperial Jade Seal,傳國玉璽,Truyền Quốc Ngọc Tỷ,auxiliary,,Nascent - Suppression bonus
+灵眼之泉,靈眼之泉,Spirit Eye Spring,靈眼之泉,Linh Nhãn Chi Tuyền,auxiliary,,Core - Cultivation area
+万魂幡,萬魂幡,Myriad Soul Banner,萬魂幡,Vạn Hồn Phiên,auxiliary,,Nascent - Soul devouring
+神木王鼎,神木王鼎,Divine Wood King Cauldron,神木王鼎,Thần Mộc Vương Đỉnh,auxiliary,,Nascent - Alchemy
+破境丹,破境丹,Breakthrough Pill,破境丹,Phá Cảnh Đan,elixir,type,For breaking through bottlenecks
+延寿丹,延壽丹,Longevity Pill,延壽丹,Diên Thọ Đan,elixir,type,Extends lifespan
+长生丹,長生丹,Longevity Pill,長生丹,Trường Sinh Đan,elixir,type,Extends lifespan
+燃血丹,燃血丹,Blood Burning Pill,燃血丹,Nhiên Huyết Đan,elixir,type,Temporary power boost
+疗伤丹,療傷丹,Healing Pill,療傷丹,Liệu Thương Đan,elixir,type,Restores HP
+回春丹,回春丹,Rejuvenation Pill,回春丹,Hồi Xuân Đan,elixir,type,Healing over time
+练气破境丹,練氣破境丹,Qi Refinement Breakthrough Pill,練氣破境丹,Luyện Khí Phá Cảnh Đan,elixir,named,Qi Refinement - Breakthrough
+筑基破境丹,築基破境丹,Foundation Breakthrough Pill,築基破境丹,Trúc Cơ Phá Cảnh Đan,elixir,named,Foundation - Breakthrough
+金丹破境丹,金丹破境丹,Core Formation Breakthrough Pill,金丹破境丹,Kim Đan Phá Cảnh Đan,elixir,named,Core - Breakthrough
+练气长生丹,練氣長生丹,Qi Refinement Longevity Pill,練氣長生丹,Luyện Khí Trường Sinh Đan,elixir,named,Qi Refinement - Lifespan
+筑基长生丹,築基長生丹,Foundation Longevity Pill,築基長生丹,Trúc Cơ Trường Sinh Đan,elixir,named,Foundation - Lifespan
+金丹长生丹,金丹長生丹,Core Formation Longevity Pill,金丹長生丹,Kim Đan Trường Sinh Đan,elixir,named,Core - Lifespan
+元婴长生丹,元嬰長生丹,Nascent Soul Longevity Pill,元嬰長生丹,Nguyên Anh Trường Sinh Đan,elixir,named,Nascent - Lifespan
+练气燃血丹,練氣燃血丹,Qi Refinement Blood Burning Pill,練氣燃血丹,Luyện Khí Nhiên Huyết Đan,elixir,named,Qi Refinement - Combat
+筑基燃血丹,築基燃血丹,Foundation Blood Burning Pill,築基燃血丹,Trúc Cơ Nhiên Huyết Đan,elixir,named,Foundation - Combat
+金丹燃血丹,金丹燃血丹,Core Formation Blood Burning Pill,金丹燃血丹,Kim Đan Nhiên Huyết Đan,elixir,named,Core - Combat
+元婴燃血丹,元嬰燃血丹,Nascent Soul Blood Burning Pill,元嬰燃血丹,Nguyên Anh Nhiên Huyết Đan,elixir,named,Nascent - Combat
+练气回春丹,練氣回春丹,Qi Refinement Rejuvenation Pill,練氣回春丹,Luyện Khí Hồi Xuân Đan,elixir,named,Qi Refinement - Healing
+筑基回春丹,築基回春丹,Foundation Rejuvenation Pill,築基回春丹,Trúc Cơ Hồi Xuân Đan,elixir,named,Foundation - Healing
+金丹回春丹,金丹回春丹,Core Formation Rejuvenation Pill,金丹回春丹,Kim Đan Hồi Xuân Đan,elixir,named,Core - Healing
+元婴回春丹,元嬰回春丹,Nascent Soul Rejuvenation Pill,元嬰回春丹,Nguyên Anh Hồi Xuân Đan,elixir,named,Nascent - Healing
+灵石,靈石,Spirit Stone,霊石,Linh Thạch,item,,Currency
+丹药,丹藥,Elixir,丹薬,Đan Dược,item,,Also: Pill - Medicine
+法宝,法寶,Artifact,法宝,Pháp Bảo,item,,Magical treasure
+兵器,兵器,Weapon,武器,Binh Khí,item,,
+功法,功法,Cultivation Technique,功法,Công Pháp,item,,Also: Art - Manual
+辅助装备,輔助裝備,Auxiliary Equipment,補助装備,Trang Bị Phụ Trợ,item,,Accessories
+吐纳,吐納,Respire,吐納,Thổ Nạp,action,solo,Gain experience
+突破,突破,Breakthrough,突破,Đột Phá,action,solo,Advance realm
+疗伤,療傷,Self Heal,療傷,Liệu Thương,action,solo,Recover HP
+采集,採集,Harvest,採集,Thu Thập,action,solo,Gather plants
+狩猎,狩獵,Hunt,狩猟,Săn Bắn,action,solo,Hunt animals
+挖矿,挖礦,Mine,採鉱,Khai Khoáng,action,solo,Extract ore
+炼丹,煉丹,Refine Elixir,錬丹,Luyện Đan,action,solo,Craft pills
+铸造,鑄造,Forge,鋳造,Chú Tạo,action,solo,Craft equipment
+温养兵器,溫養兵器,Nurture Weapon,武器温養,Ôn Dưỡng Binh Khí,action,solo,Increase proficiency
+购买,購買,Buy,購入,Mua,action,solo,Purchase items
+出售,出售,Sell,売却,Bán,action,solo,Sell items
+消遣,消遣,Play,気晴らし,Tiêu Khiển,action,solo,Relax
+御兽,御獸,Tame Beast,御獣,Ngự Thú,action,solo,Capture spirit beast
+移动,移動,Move,移動,Di Chuyển,action,solo,Travel
+移动到区域,移動到區域,Move to Region,地域へ移動,Di Chuyển Tới Khu Vực,action,solo,Travel to location
+移动到角色,移動到角色,Move to Character,人物へ移動,Di Chuyển Tới Nhân Vật,action,solo,Travel to person
+移动探索,移動探索,Explore,探索移動,Thám Tác,action,solo,Explore direction
+离开区域,離開區域,Leave Region,地域を離れる,Rời Khu Vực,action,solo,Depart area
+远离角色,遠離角色,Move Away,人物から離れる,Rời Xa Nhân Vật,action,solo,Distance from person
+帮助凡人,幫助凡人,Aid Mortals,凡人を助ける,Giúp Đỡ Phàm Nhân,action,solo,Righteous action
+搜刮凡人,搜刮凡人,Plunder Mortals,凡人を略奪する,Cướp Đoạt Phàm Nhân,action,solo,Evil action
+吞噬凡人,吞噬凡人,Devour Mortals,凡人を喰らう,Thôn Phệ Phàm Nhân,action,solo,Consume souls
+攀谈,攀談,Converse,話しかける,Bắt Chuyện,action,mutual,Chat
+交谈,交談,Talk,会話,Trò Chuyện,action,mutual,Dialogue
+切磋,切磋,Spar,手合わせ,Tỷ Thí,action,mutual,Friendly combat
+攻击,攻擊,Attack,攻撃,Công Kích,action,mutual,Initiate combat
+发起战斗,發起戰鬥,Initiate Battle,戦闘を仕掛ける,Khởi Xướng Chiến Đấu,action,mutual,Start fight
+暗杀,暗殺,Assassinate,暗殺,Ám Sát,action,mutual,Stealth kill
+逃离,逃離,Escape,逃走,Đào Ly,action,mutual,Flee combat
+双修,雙修,Dual Cultivation,双修,Song Tu,action,mutual,Partner cultivation
+传道,傳道,Impart,伝道,Truyền Đạo,action,mutual,Teach disciple
+赠送,贈送,Gift,贈与,Tặng,action,mutual,Give items
+抢夺洞府,搶奪洞府,Seize Cave,洞府を奪う,Cướp Đoạt Động Phủ,action,mutual,Contest dwelling
+驱赶,驅趕,Drive Away,追い払う,Xua Đuổi,action,mutual,Force to leave
+接受,接受,Accept,受け入れる,Chấp Nhận,action,feedback,
+拒绝,拒絕,Reject,拒否,Từ Chối,action,feedback,
+让步,讓步,Yield,譲歩,Nhượng Bộ,action,feedback,
+试图远离,試圖遠離,Try to Distance,距離を取ろうとする,Thử Rời Xa,action,feedback,
+试图离开区域,試圖離開區域,Try to Leave Area,地域を離れようとする,Thử Rời Khỏi Khu Vực,action,feedback,
+逃离,逃離,Flee,逃走,Đào Ly,action,feedback,
+战斗,戰鬥,Fight,戦闘,Chiến Đấu,action,feedback,
+误入洞府,誤入洞府,Stumbled into Cave Dwelling,誤入洞府,Ngộ Nhập Động Phủ,event,fortune,Equipment
+巧捡神兵,巧撿神兵,Found Divine Weapon,巧撿神兵,Nhặt Được Thần Binh,event,fortune,Equipment
+巧捡奇物,巧撿奇物,Found Treasure,巧撿奇物,Nhặt Được Kỳ Vật,event,fortune,Equipment
+误入试炼,誤入試煉,Entered Trial Ground,誤入試煉,Ngộ Nhập Thí Luyện,event,fortune,Equipment
+异象出世,異象出世,Witnessed Strange Phenomenon,異象出世,Dị Tượng Xuất Thế,event,fortune,Equipment
+高人赠予,高人贈予,Gift from Expert,高人贈予,Cao Nhân Tặng Cho,event,fortune,Equipment
+高人指点,高人指點,Guidance from Expert,高人指點,Cao Nhân Chỉ Điểm,event,fortune,Technique
+玄妙感悟,玄妙感悟,Mystical Insight,玄妙感悟,Huyền Diệu Cảm Ngộ,event,fortune,Technique
+危难相救,危難相救,Rescued from Danger,危難相救,Nguy Nan Tương Cứu,event,fortune,Find Master
+品行打动,品行打動,Impressed by Character,品行打動,Phẩm Hạnh Cảm Động,event,fortune,Find Master
+展露天赋,展露天賦,Displayed Talent,展露天賦,Triển Lộ Thiên Phú,event,fortune,Find Master
+机缘巧合,機緣巧合,Fateful Coincidence,機緣巧合,Cơ Duyên Xảo Hợp,event,fortune,Find Master
+通过考验,通過考驗,Passed Trial,通過考驗,Vượt Qua Khảo Nghiệm,event,fortune,Find Master
+偶遇灵矿,偶遇靈礦,Found Spirit Mine,偶遇靈礦,Ngẫu Ngộ Linh Khoáng,event,fortune,Spirit Stones
+洞府遗财,洞府遺財,Cave Dwelling Treasure,洞府遺財,Động Phủ Di Tài,event,fortune,Spirit Stones
+击杀妖兽,擊殺妖獸,Slew Monster,擊殺妖獸,Kích Sát Yêu Thú,event,fortune,Spirit Stones
+交易获利,交易獲利,Profitable Trade,交易獲利,Giao Dịch Đắc Lợi,event,fortune,Spirit Stones
+赌石得宝,賭石得寶,Won Stone Gambling,賭石得寶,Đổ Thạch Đắc Bảo,event,fortune,Spirit Stones
+拾遗藏宝,拾遺藏寶,Found Hidden Treasure,拾遺藏寶,Nhặt Được Tàng Bảo,event,fortune,Spirit Stones
+顿悟玄机,頓悟玄機,Sudden Enlightenment,頓悟玄機,Đốn Ngộ Huyền Cơ,event,fortune,Cultivation
+古碑感悟,古碑感悟,Insight from Ancient Stele,古碑感悟,Cảm Ngộ Cổ Bi,event,fortune,Cultivation
+服食灵药,服食靈藥,Consumed Spirit Medicine,服食靈藥,Phục Thực Linh Dược,event,fortune,Cultivation
+秘境吐纳,祕境吐納,Respired in Secret Realm,祕境吐納,Bí Cảnh Thổ Nạp,event,fortune,Cultivation
+前辈灌顶,前輩灌頂,Empowerment from Senior,前輩灌頂,Tiền Bối Quán Đỉnh,event,fortune,Cultivation
+灵泉淬体,靈泉淬體,Tempered by Spirit Spring,靈泉淬體,Linh Tuyền Thối Thể,event,fortune,Cultivation
+传承记忆,傳承記憶,Inherited Memory,傳承記憶,Ký Ức Truyền Thừa,event,fortune,Cultivation
+遭遇扒手,遭遇扒手,Encountered Pickpocket,遭遇扒手,Gặp Phải Móc Túi,event,misfortune,Loss - Spirit stones
+误买假货,誤買假貨,Bought Counterfeit Goods,誤買假貨,Mua Nhầm Hàng Giả,event,misfortune,Loss - Spirit stones
+遭人勒索,遭人勒索,Was Extorted,遭人勒索,Bị Tống Tiền,event,misfortune,Loss - Spirit stones
+洞府失窃,洞府失竊,Cave Dwelling Robbed,洞府失竊,Động Phủ Bị Trộm,event,misfortune,Loss - Spirit stones
+赌石惨败,賭石慘敗,Lost Stone Gambling,賭石慘敗,Đổ Thạch Thảm Bại,event,misfortune,Loss - Spirit stones
+投资失败,投資失敗,Failed Investment,投資失敗,Đầu Tư Thất Bại,event,misfortune,Loss - Spirit stones
+修炼岔气,修煉岔氣,Cultivation Deviation,修煉岔氣,Tẩu Hỏa Sai Khí,event,misfortune,Injury - Qi went astray
+出门摔伤,出門摔傷,Fell and Got Injured,出門摔傷,Ra Ngoài Trượt Ngã,event,misfortune,Injury
+妖兽偷袭,妖獸偷襲,Ambushed by Beast,妖獸偷襲,Yêu Thú Tập Kích,event,misfortune,Injury
+仇家闷棍,仇家悶棍,Ambushed by Enemy,仇家悶棍,Kẻ Thù Đánh Lén,event,misfortune,Injury
+误触机关,誤觸機關,Triggered Trap,誤觸機關,Lỡ Chạm Cơ Quan,event,misfortune,Injury
+天降横祸,天降橫禍,Unexpected Disaster,天降橫禍,Thiên Giáng Hoành Họa,event,misfortune,Injury
+心魔滋生,心魔滋生,Heart Demon Arose,心魔滋生,Tâm Ma Nảy Sinh,event,misfortune,Backlash
+灵气逆行,靈氣逆行,Qi Reversal,靈氣逆行,Linh Khí Nghịch Hành,event,misfortune,Backlash
+感悟错乱,感悟錯亂,Confused Insight,感悟錯亂,Cảm Ngộ Hỗn Loạn,event,misfortune,Backlash
+急火攻心,急火攻心,Overcome by Rage,急火攻心,Cấp Hỏa Công Tâm,event,misfortune,Backlash
+心魔,心魔,Heart Demon Tribulation,心魔,Tâm Ma,event,tribulation,Inner demon - self-doubt
+雷劫,雷劫,Thunder Tribulation,雷劫,Lôi Kiếp,event,tribulation,Heavenly lightning
+肉身,肉身,Body Tribulation,肉身,Nhục Thân Kiếp,event,tribulation,Physical transformation
+寻仇,尋仇,Vengeance Tribulation,尋仇,Tầm Thù,event,tribulation,Past enemies return
+情劫,情劫,Emotion Tribulation,情劫,Tình Kiếp,event,tribulation,Love/attachment trial
+阳罡,陽罡,Yang Force Tribulation,陽罡,Dương Cương,event,tribulation,Scorching yang energy
+雷火,雷火,Thunder-Fire Tribulation,雷火,Lôi Hỏa,event,tribulation,Combined lightning and fire
+风灾,風災,Wind Disaster Tribulation,風災,Phong Tai,event,tribulation,Violent tempest
+阴狱,陰獄,Yin Prison Tribulation,陰獄,Âm Ngục,event,tribulation,Netherworld judgment
+魔劫,魔劫,Demonic Tribulation,魔劫,Ma Kiếp,event,tribulation,Inner demons manifest
+老死,老死,Died of Old Age,老衰死,Chết Già,event,death,Lifespan exhausted
+战死,戰死,Died in Battle,戦死,Chiến Tử,event,death,
+重伤不治,重傷不治,Died from Severe Injuries,重傷死,Trọng Thương Bất Trị,event,death,
+平静,平靜,Calm,平静,Bình Tĩnh,emotion,,
+开心,開心,Happy,愉快,Vui Vẻ,emotion,,
+愤怒,憤怒,Angry,怒り,Phẫn Nộ,emotion,,
+悲伤,悲傷,Sad,悲しみ,Bi Thương,emotion,,
+恐惧,恐懼,Fearful,恐怖,Sợ Hãi,emotion,,
+惊讶,驚訝,Surprised,驚き,Kinh Ngạc,emotion,,
+期待,期待,Expectant,期待,Mong Đợi,emotion,,
+厌恶,厭惡,Disgusted,嫌悪,Chán Ghét,emotion,,
+疑惑,疑惑,Confused,困惑,Nghi Hoặc,emotion,,
+疲惫,疲憊,Exhausted,疲労,Mệt Mỏi,emotion,,
+系统菜单,系統選單,System Menu,システムメニュー,Trình Đơn Hệ Thống,ui,,
+开始游戏,開始遊戲,Start Game,ゲーム開始,Bắt Đầu Trò Chơi,ui,,
+加载游戏,載入遊戲,Load Game,ゲーム読込,Tải Trò Chơi,ui,,
+保存游戏,儲存遊戲,Save Game,ゲーム保存,Lưu Trò Chơi,ui,,
+新建角色,新建角色,Create Character,キャラクター作成,Tạo Nhân Vật,ui,,
+删除角色,刪除角色,Delete Character,キャラクター削除,Xóa Nhân Vật,ui,,
+设置,設定,Settings,設定,Cài Đặt,ui,,
+其他,其他,Other,その他,Khác,ui,,
+境界,境界,Realm,境界,Cảnh Giới,ui,,
+年龄,年齡,Age,年齢,Tuổi,ui,,
+性别,性別,Gender,性別,Giới Tính,ui,,
+男,男,Male,男,Nam,ui,,
+女,女,Female,女,Nữ,ui,,
+宗门,宗門,Sect,宗門,Tông Môn,ui,,
+散修,散修,Rogue Cultivator,散修,Tán Tu,ui,,Independent - no sect
+灵根,靈根,Spiritual Root,靈根,Linh Căn,ui,,
+灵石,靈石,Spirit Stones,霊石,Linh Thạch,ui,,
+颜值,顏值,Appearance,容姿,Nhan Trị,ui,,
+基础战力,基礎戰力,Base Combat Power,基礎戦力,Chiến Lực Cơ Bản,ui,,
+情绪,情緒,Emotion,感情,Cảm Xúc,ui,,
+当前思考,當前思考,Current Thoughts,現在の思考,Suy Nghĩ Hiện Tại,ui,,
+特质,特質,Traits,特質,Đặc Chất,ui,,Also: Persona
+功法与装备,功法與裝備,Techniques & Equipment,功法と装備,Công Pháp Và Trang Bị,ui,,
+长期目标,長期目標,Long-term Objective,長期目標,Mục Tiêu Dài Hạn,ui,,
+短期目标,短期目標,Short-term Objective,短期目標,Mục Tiêu Ngắn Hạn,ui,,
+设定目标,設定目標,Set Objective,目標設定,Đặt Mục Tiêu,ui,,
+清空目标,清空目標,Clear Objective,目標解除,Xóa Mục Tiêu,ui,,
+语言,語言,Language,言語,Ngôn Ngữ,ui,,
+中文,中文,Chinese,中国語,Tiếng Trung,ui,,
+英文,英文,English,英語,Tiếng Anh,ui,,

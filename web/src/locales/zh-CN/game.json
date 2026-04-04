@@ -50,6 +50,11 @@
     "nickname_awarded": "{avatar_name}在修仙界中闯出名号，被人称为「{nickname}」。"
   },
   "ranking": {
+    "stages": {
+      "early": "前期",
+      "middle": "中期",
+      "late": "后期"
+    },
     "title_short": "[天地人榜]",
     "tournament_short": "[武道会]",
     "title": "天地人榜",
@@ -276,6 +281,7 @@
       "father_short": "父",
       "mother_short": "母",
       "mortal_realm": "凡人",
+      "empty_short": "没有",
       "modals": {
         "set_long_term": "设定长期目标",
         "placeholder": "请输入目标...",
@@ -287,6 +293,15 @@
       "view_sect": "查看宗门详情",
       "essence_title": "灵气环境",
       "essence_info": "{type}行灵气 · 浓度 {density}",
+      "proper_name_note_short": "固有地名",
+      "proper_name_note": "地图上的地名属于修仙世界中的专有地名，因此保持汉字原名显示。",
+      "type_explanations": {
+        "normal": "普通野外区域，分布着灵兽、灵植与矿脉等资源。",
+        "city": "城市区域，人口聚集，可在市场中买卖物资。",
+        "cave": "洞府，灵气较适合修行，可能有主人也可能无主。",
+        "ruin": "遗迹，适合探索，常残留灵气与古代遗构。",
+        "sect": "宗门本部区域，是宗门势力的核心地带。"
+      },
       "sections": {
         "host": "洞府主人",
         "animals": "动物分布",

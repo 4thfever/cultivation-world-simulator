@@ -1,0 +1,246 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cultivation-world-simulator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-20 00:00+0000\n"
+"PO-Revision-Date: 2024-01-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: ja-JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ", sell old {label}『{old_name}』"
+msgstr "、古い {label}『{old_name}』を売却"
+
+msgid ", {replace} old {label}『{old_name}』"
+msgstr "、古い {label}『{old_name}』を{replace}"
+
+msgid "Already lovers"
+msgstr "すでに道侶である"
+
+msgid "Already sworn siblings"
+msgstr "すでに義兄弟姉妹である"
+
+# MutualAction: Confess
+msgid "confess_action_name"
+msgstr "告白"
+
+msgid "confess_description"
+msgstr ""
+"交流範囲内の対象へ想いを打ち明ける。受け入れられれば道侶になる。"
+
+msgid "confess_requirements"
+msgstr "対象が交流範囲内におり、かつまだ道侶ではないこと。"
+
+msgid "confess_story_prompt"
+msgstr ""
+"{initiator} が {target} に想いを伝える過程を描写せよ。心情と場の空気を含めること。受け入れられたなら二人が道侶となる情感を、拒まれたなら柔らかな拒絶と残る悔いを描くこと。"
+
+# MutualAction: Conversation
+msgid "conversation_action_name"
+msgstr "会話"
+
+msgid "conversation_description"
+msgstr "相手と会話を交わす"
+
+msgid "conversation_requirements"
+msgstr "対象が交流範囲内にいること"
+
+# MutualAction: DriveAway
+msgid "drive_away_action_name"
+msgstr "追い払い"
+
+msgid "drive_away_description"
+msgstr "武力で威圧し、相手をこの場から追い払う"
+
+msgid "drive_away_requirements"
+msgstr "対象が交流範囲内にいること。連続実行は不可"
+
+msgid "feedback_talk"
+msgstr "会話"
+
+msgid "feedback_yield"
+msgstr "譲歩"
+
+# MutualAction: Gift
+msgid "gift_action_name"
+msgstr "贈与"
+
+msgid "gift_description"
+msgstr ""
+"霊石または道具を相手へ贈る。`item_id` パラメータには Item ID（int）または `SPIRIT_STONE` を使用する。"
+
+msgid "gift_requirements"
+msgstr ""
+"発起者が対象物を所持していること。対象が交流範囲内にいること。丹薬は贈れない"
+
+# MutualAction: Impart
+msgid "impart_action_name"
+msgstr "伝道"
+
+msgid "impart_description"
+msgstr ""
+"弟子、徒孫、同門、子、孫、または友人へ修行経験を授ける"
+
+msgid "impart_requirements"
+msgstr ""
+"対象が弟子、徒孫、同門、子、孫、または友人であること。発起者のレベルが"
+"対象より 20 以上高いこと。対象が交流範囲内におり、連続実行は不可"
+
+# MutualAction Base
+msgid "mutual_action_name"
+msgstr "交流"
+
+msgid "mutual_action_requirements"
+msgstr "対象が交流範囲内にいること"
+
+# MutualAction: Attack
+msgid "mutual_attack_action_name"
+msgstr "攻撃"
+
+msgid "mutual_attack_description"
+msgstr "対象へ攻撃を仕掛ける"
+
+msgid "mutual_attack_requirements"
+msgstr "対象が交流範囲内におり、連続実行は不可"
+
+# MutualAction: Occupy
+msgid "occupy_action_name"
+msgstr "洞府奪取"
+
+msgid "occupy_description"
+msgstr ""
+"洞府を占拠または奪取する。洞府の主と戦闘になる場合がある"
+
+msgid "occupy_requirements"
+msgstr "対象が交流範囲内におり、連続実行は不可"
+
+msgid "occupy_story_prompt"
+msgstr ""
+"これは洞府をめぐる争いである。具体的な HP やダメージ値には触れないこと。"
+
+# MutualAction: Spar
+msgid "spar_action_name"
+msgstr "切磋"
+
+msgid "spar_description"
+msgstr ""
+"対象と手合わせを行い、頃合いで手を引く（武器熟練度が大きく上がり、ダメー"
+"ジは発生しない）"
+
+msgid "spar_requirements"
+msgstr "対象が交流範囲内におり、連続実行は不可"
+
+msgid "spar_story_prompt"
+msgstr ""
+"これは友好的な手合わせであり、寸止めで終わる。本当の負傷はなく、双方の妙技"
+"と相互の啓発を描写せよ。血生臭さや重傷描写は不要。"
+
+msgid "spirit stones"
+msgstr "霊石"
+
+msgid "swear_brotherhood_action_name"
+msgstr "義結金蘭"
+
+msgid "swear_brotherhood_description"
+msgstr ""
+"交流範囲内の修士へ義兄弟姉妹の契りを申し出る"
+
+msgid "swear_brotherhood_requirements"
+msgstr "対象が交流範囲内におり、まだ義兄弟姉妹ではないこと"
+
+msgid "swear_brotherhood_story_prompt"
+msgstr ""
+"これは豪気ある義結びの場面である。互いの欣賞と、生死を共にする誓いを描け。"
+
+# MutualAction: Talk
+msgid "talk_action_name"
+msgstr "会話"
+
+msgid "talk_description"
+msgstr "誰かに話しかける。自分自身は対象にできない"
+
+msgid "talk_requirements"
+msgstr "対象が交流範囲内にいること"
+
+msgid "{avatar1} conversation with {avatar2}: {content}"
+msgstr "{avatar1} と {avatar2} の会話: {content}"
+
+msgid "{giver} imparts cultivation knowledge to {receiver}"
+msgstr "{giver} は {receiver} に修行心得を授けた"
+
+msgid ""
+"{initiator} attempted to seize {target}'s cave dwelling {region}, {target} "
+"rejected and engaged in battle"
+msgstr ""
+"{initiator} は {target} の洞府 {region} の奪取を試みたが、{target} は拒絶し"
+"て戦闘に入った"
+
+msgid "{initiator} attempts to gift {item} to {target}"
+msgstr "{initiator} は {item} を {target} に贈ろうとしている"
+
+msgid "{initiator} attempts to seize {region} from {host}"
+msgstr "{initiator} は {host} から {region} の奪取を試みている"
+
+msgid "{initiator} and {target} enjoyed a tea gathering"
+msgstr "{initiator} と {target} は茶会を楽しんだ"
+
+msgid "{initiator} and {target} played a game of chess"
+msgstr "{initiator} と {target} は囲碁に興じた"
+
+msgid "{initiator} challenges {target} to spar"
+msgstr "{initiator} は {target} に手合わせを申し込んだ"
+
+msgid "{initiator} confesses their love to {target}"
+msgstr "{initiator} は {target} に想いを告げた"
+
+msgid "{initiator} forced {target} to yield {region}"
+msgstr "{initiator} は {target} に {region} を明け渡させた"
+
+msgid "{initiator} initiates {action} with {target}"
+msgstr "{initiator} は {target} に対して {action} を始めた"
+
+msgid "{initiator} proposes to become sworn siblings with {target}"
+msgstr "{initiator} は {target} に義兄弟姉妹の契りを提案した"
+
+msgid "{initiator} successfully gifted {item} to {target}"
+msgstr "{initiator} は {item} を {target} に贈ることに成功した"
+
+msgid "{master} imparts cultivation knowledge to apprentice {apprentice}"
+msgstr "{master} は弟子 {apprentice} に修行の道を授けた"
+
+msgid "{region} is not a cultivation area, cannot occupy"
+msgstr "{region} は修行区域ではないため、占拠できない"
+
+msgid "{target} accepted {initiator}'s confession, they became lovers"
+msgstr "{target} は {initiator} の想いを受け入れ、二人は道侶となった"
+
+msgid "{target} accepted {initiator}'s proposal, they became sworn siblings"
+msgstr "{target} は {initiator} の申し出を受け入れ、二人は義兄弟姉妹となった"
+
+msgid "{target} accepted {initiator}'s talk invitation"
+msgstr "{target} は {initiator} の会話の誘いを受け入れた"
+
+msgid "{target} feedback to {initiator}: {feedback}"
+msgstr "{target} から {initiator} への返答: {feedback}"
+
+msgid "{target} rejected {initiator}'s confession"
+msgstr "{target} は {initiator} の告白を断った"
+
+msgid "{target} rejected {initiator}'s proposal to become sworn siblings"
+msgstr "{target} は {initiator} の義兄弟姉妹の提案を断った"
+
+msgid "{target} rejected {initiator}'s talk invitation"
+msgstr "{target} は {initiator} の会話の誘いを断った"
+
+msgid "{target} rejected {initiator}'s gift: {item}"
+msgstr "{target} は {initiator} からの贈り物 {item} を断った"
+
+msgid ""
+"{winner} gained slight advantage in sparring, defeated {loser}. ({winner} "
+"proficiency +{w_gain}, {loser} proficiency +{l_gain})"
+msgstr ""
+"{winner} は手合わせでわずかに優勢を得て {loser} を制した。（{winner} 熟練度 +{w_gain}、{loser} 熟練度 +{l_gain}）"
