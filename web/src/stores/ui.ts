@@ -22,6 +22,8 @@ export type SystemMenuTab =
   | 'about'
   | 'other';
 
+export type SystemMenuContext = 'splash' | 'game';
+
 export const useUiStore = defineStore('ui', () => {
   // --- Selection & Panels ---
   
@@ -29,6 +31,7 @@ export const useUiStore = defineStore('ui', () => {
   const systemMenuVisible = ref(false);
   const systemMenuDefaultTab = ref<SystemMenuTab>('load');
   const systemMenuClosable = ref(true);
+  const systemMenuContext = ref<SystemMenuContext>('game');
   
   // 详情数据 (可能为空，或正在加载)
   // 使用 shallowRef 避免深层响应式转换带来的性能开销 (对于大型嵌套对象，如 AvatarDetail)
@@ -63,15 +66,21 @@ export const useUiStore = defineStore('ui', () => {
     detailData.value = null;
   }
 
-  function openSystemMenu(tab: SystemMenuTab = 'load', closable = true) {
+  function openSystemMenu(
+    tab: SystemMenuTab = 'load',
+    closable = true,
+    context: SystemMenuContext = 'game',
+  ) {
     systemMenuDefaultTab.value = tab;
     systemMenuClosable.value = closable;
+    systemMenuContext.value = context;
     systemMenuVisible.value = true;
   }
 
   function closeSystemMenu() {
     if (systemMenuClosable.value) {
       systemMenuVisible.value = false;
+      systemMenuContext.value = 'game';
     }
   }
 
@@ -119,6 +128,7 @@ export const useUiStore = defineStore('ui', () => {
     systemMenuVisible,
     systemMenuDefaultTab,
     systemMenuClosable,
+    systemMenuContext,
     detailData,
     isLoadingDetail,
     detailError,

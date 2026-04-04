@@ -38,7 +38,7 @@
 | `.cursor/rules/event-system.mdc` | `src/classes/event.py`, `src/classes/event_storage.py`, `src/systems/**/*.py` | 明确 `is_major/is_story` 语义，准确填写 `related_avatars`，统一由模拟器集中入库，查询走分页。 |
 | `.cursor/rules/frontend-sound.mdc` | `web/src/**/*.vue|ts|tsx` | 标准按钮默认自动音效，特殊音效用 `v-sound`，禁音用 `data-no-sound`，仅特殊场景允许 `useAudio` 编程式播放。 |
 | `.cursor/rules/frontend-typing-error.mdc` | `web/src/**/*.vue|ts|tsx` | DTO 先更新 `types/api.ts`，映射逻辑放 `api/mappers`，避免 `any` 扩散，错误统一 `appError`，Socket 分发在 `socketMessageRouter`。 |
-| `.cursor/rules/frontend.mdc` | `web/src/**/*.{vue,ts,js}` | 后端驱动架构、Store 职责边界、启动状态机集中、Socket 分层、`shallowRef`/长列表性能策略、容器尺寸统一用 `useElementSize()`；前端 `public` 资源禁止写死站点根绝对路径，必须走 `BASE_URL` helper 或 `src/assets` 模块导入。 |
+| `.cursor/rules/frontend.mdc` | `web/src/**/*.{vue,ts,js}` | 后端驱动架构、Store 职责边界、根层 UI 采用 `scene + overlay`、启动状态机集中在 `useAppShell`、系统菜单采用壳层/内容层/流程层拆分、Socket 分层、`shallowRef`/长列表性能策略、容器尺寸统一用 `useElementSize()`；前端 `public` 资源禁止写死站点根绝对路径，必须走 `BASE_URL` helper 或 `src/assets` 模块导入。 |
 | `.cursor/rules/i18n-phase1.mdc` | `*.py`, `*.vue`, `*.json`, `*.po` | 当前默认仍是 Phase 1：日常功能开发优先只改 `zh-CN`；但若任务被明确提升为 Phase 2 / 正式多语言补全 / 新增语言接入，则应按 `static/locales/registry.json` 中启用语言统一处理（可包含 `ja-JP`）；i18n 源文件优先维护 `modules/` 与 `game_configs_modules/`，`LC_MESSAGES/*.po` 属于合并产物；`.po` 中 `msgid` 不得直接使用中文。 |
 | `.cursor/rules/llm-integration.mdc` | `src/utils/llm/**/*.py`, `src/**/*.py` | 统一走 `src.utils.llm.client`，按场景选 `LLMMode`，重试交给底层，异常捕获 `LLMError/ParseError` 并降级。 |
 | `.cursor/rules/python-registry.mdc` | `src/classes/**/*.py` | 使用注册装饰器的新类，必须在对应 `__init__.py` 导入，否则注册不生效；同时要补注册测试。 |
@@ -64,10 +64,11 @@
 11. 小故事统一通过 `src/classes/story_event_service.py` 生成；业务代码应先产出事实事件，再决定是否追加故事事件。
 12. `gathering` 的故事固定为 `100%`，且所有 LLM 展开的故事正文统一使用 `is_story=True`，不要再混用 `is_major=True` 作为故事正文标记。
 13. 前端自带静态资源（`web/public/*`）禁止写死 `/icons/...`、`/sfx/...`、`/bgm/...` 这类根路径；固定图片优先放 `web/src/assets/*` 模块导入，运行时路径统一通过 `import.meta.env.BASE_URL` helper 生成。
-14. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
-15. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
-16. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
-17. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
+14. 前端根层页面编排必须采用 `scene + overlay` 语义：`SystemMenu`、`LoadingOverlay` 不得通过关闭 Splash 等副作用去推断当前底层页面；游戏主界面只能在 `scene === 'game'` 时渲染。
+15. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
+16. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
+17. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
+18. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
 
 ## 4. `.cursor/skills` 沉淀
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import { NConfigProvider, darkTheme, NMessageProvider, NDialogProvider } from 'naive-ui'
 import { systemApi } from './api/modules/system'
 import { useI18n } from 'vue-i18n'
@@ -21,7 +21,8 @@ import { useGameControl } from './composables/useGameControl'
 import { useAudio } from './composables/useAudio'
 import { useBgm } from './composables/useBgm'
 import { useSidebarResize } from './composables/useSidebarResize'
-import { useAppBootFlow } from './composables/useAppBootFlow'
+import { useAppShell } from './composables/useAppShell'
+import { useSystemMenuFlow } from './composables/useSystemMenuFlow'
 
 // Stores
 import { useUiStore } from './stores/ui'
@@ -46,33 +47,48 @@ const {
   showLoading,
 } = useGameInit()
 
-// 2. 游戏控制逻辑
-// 依赖 gameInitialized 状态来决定是否允许暂停等
 const {
   showMenu,
-  isManualPaused,
   menuDefaultTab,
+  menuContext,
   canCloseMenu,
-  handleKeydown: controlHandleKeydown,
   performStartupCheck,
+  openGameMenu,
   handleLLMReady,
   handleMenuClose,
-  toggleManualPause
-} = useGameControl(gameInitialized)
+} = useSystemMenuFlow()
 
 const {
-  showSplash,
-  isAppReady,
+  isManualPaused,
+  handleKeydown: controlHandleKeydown,
+  toggleManualPause
+} = useGameControl({
+  gameInitialized,
+  showMenu,
+  canCloseMenu,
+  openGameMenu,
+  closeMenu: handleMenuClose,
+})
+
+const settingsHydrated = computed(() => settingStore.hydrated)
+
+const {
+  scene,
+  canRenderGameShell,
+  canRenderSplash,
+  showLoadingOverlay,
   shouldBlockControls,
   handleSplashNavigate,
   handleMenuCloseWrapper,
   returnToSplash,
-} = useAppBootFlow({
+} = useAppShell({
+  settingsHydrated,
   initStatus,
   gameInitialized,
   showLoading,
   showMenu,
   menuDefaultTab,
+  menuContext,
   isManualPaused,
   performStartupCheck,
   handleMenuClose,
@@ -139,70 +155,63 @@ watch(sidebarWidth, width => {
   <n-config-provider :theme="darkTheme">
     <n-dialog-provider>
       <n-message-provider>
-        <!-- 获取到后端状态和 settings 前显示纯黑，避免启动阶段界面闪烁 -->
-      <div v-if="!isAppReady || !settingStore.hydrated" class="app-layout" style="background: #000;"></div>
-      
-      <template v-else>
+        <div v-if="scene === 'boot'" class="app-layout app-layout--shell"></div>
+
         <SplashLayer 
-          v-if="showSplash" 
+          v-else-if="canRenderSplash" 
           @action="handleSplashAction"
         />
-        
-        <!-- Loading Overlay - 盖在游戏上面 -->
-        <!-- 当后端已经 ready 但前端仍在收尾初始化时，不显示额外 Loading 以减少界面跳变。-->
-        <LoadingOverlay 
-          v-if="!showSplash && showLoading && initStatus?.status !== 'ready'"
-          :status="initStatus"
-        />
 
-        <!-- Game UI - 始终渲染 -->
-        <div v-if="!showSplash && (!showLoading || initStatus?.status === 'ready')" class="app-layout">
-        <StatusBar />
-        
-        <div class="main-content">
-          <div class="map-container">
-            <!-- 顶部控制栏 -->
-            <div class="top-controls">
-              <!-- 暂停/播放按钮 -->
-              <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
-                <!-- 播放图标 (当暂停时显示) -->
-                <svg v-if="isManualPaused" viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="currentColor" d="M8 5v14l11-7z"/>
-                </svg>
-                <!-- 暂停图标 (当播放时显示) -->
-                <svg v-else viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                </svg>
-              </button>
+        <div v-else-if="scene === 'initializing'" class="app-layout app-layout--shell"></div>
 
-              <!-- 菜单按钮 -->
-              <button class="control-btn menu-toggle" @click="showMenu = true">
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                </svg>
-              </button>
+        <div v-else-if="canRenderGameShell" class="app-layout">
+          <StatusBar />
+          
+          <div class="main-content">
+            <div class="map-container">
+              <!-- 顶部控制栏 -->
+              <div class="top-controls">
+                <!-- 暂停/播放按钮 -->
+                <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
+                  <!-- 播放图标 (当暂停时显示) -->
+                  <svg v-if="isManualPaused" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M8 5v14l11-7z"/>
+                  </svg>
+                  <!-- 暂停图标 (当播放时显示) -->
+                  <svg v-else viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                  </svg>
+                </button>
+
+                <!-- 菜单按钮 -->
+                <button class="control-btn menu-toggle" @click="openGameMenu()">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- 暂停状态提示 -->
+              <div v-if="isManualPaused" class="pause-indicator">
+                <div class="pause-text">{{ t('game.controls.paused') }}</div>
+              </div>
+
+              <GameCanvas
+                :sidebar-width="sidebarWidth"
+                @avatarSelected="handleSelection"
+                @regionSelected="handleSelection"
+              />
+              <InfoPanelContainer />
             </div>
-
-            <!-- 暂停状态提示 -->
-            <div v-if="isManualPaused" class="pause-indicator">
-              <div class="pause-text">{{ t('game.controls.paused') }}</div>
-            </div>
-
-            <GameCanvas
-              :sidebar-width="sidebarWidth"
-              @avatarSelected="handleSelection"
-              @regionSelected="handleSelection"
-            />
-            <InfoPanelContainer />
+            <div
+              class="sidebar-resizer"
+              :class="{ 'is-resizing': isResizing }"
+              @mousedown="onResizerMouseDown"
+            ></div>
+            <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
+              <EventPanel />
+            </aside>
           </div>
-          <div
-            class="sidebar-resizer"
-            :class="{ 'is-resizing': isResizing }"
-            @mousedown="onResizerMouseDown"
-          ></div>
-          <aside class="sidebar" :style="{ width: sidebarWidth + 'px' }">
-            <EventPanel />
-          </aside>
         </div>
 
         <SystemMenu 
@@ -215,8 +224,11 @@ watch(sidebarWidth, width => {
           @return-to-main="handleReturnToMain"
           @exit-game="() => handleSplashAction('exit')"
         />
-      </div>
-      </template>
+
+        <LoadingOverlay 
+          v-if="showLoadingOverlay"
+          :status="initStatus"
+        />
       </n-message-provider>
     </n-dialog-provider>
   </n-config-provider>
@@ -232,6 +244,10 @@ watch(sidebarWidth, width => {
   color: #eee;
   overflow: hidden;
   position: relative;
+}
+
+.app-layout--shell {
+  background: #000;
 }
 
 .main-content {

@@ -14,7 +14,11 @@ globs: web/src/**/*.{vue,ts,js}
   - **新代码优先直接使用子 Store (`map/avatar/event/ui/system`)**；`world` 的代理字段视为兼容层。
 - **启动状态机**:
   - `App.vue` 应保持“装配层”职责。
-  - 启动状态跃迁逻辑必须收敛在 `useAppBootFlow`，避免在根组件散落多个 watcher 分支。
+  - 根层场景编排必须收敛在 `useAppShell`，避免在根组件散落多个 watcher/布尔条件分支。
+  - 应用壳层必须采用 `scene + overlay` 思路：底层场景至少区分 `boot / splash / initializing / game`，`SystemMenu` 与 `LoadingOverlay` 作为 overlay 叠加。
+  - 游戏主界面只能由 `scene === 'game'` 驱动，禁止通过 `!showSplash`、`!showLoading` 等反向布尔组合推断“已经进入游戏”。
+  - 从 `SplashLayer` 打开的设置/读档/关于页仍属于 `splash` 上下文；打开菜单不得隐式暴露地图、状态栏或其他游戏内 UI。
+  - 系统菜单应采用“壳层 + 内容层 + 流程层”拆分：`SystemMenuShell` 负责容器，`SettingsPanel` 负责设置内容，`useSystemMenuFlow` 负责菜单业务流程；不要把三者重新揉回 `SystemMenu.vue` 巨石组件。
 - **Socket 分层约束**:
   - `api/socket.ts` 只负责 transport（连接、重连、消息订阅）。
   - 消息分发必须通过 `stores/socketMessageRouter.ts`，禁止在组件内直接按消息类型分支。
@@ -30,7 +34,7 @@ globs: web/src/**/*.{vue,ts,js}
 - **必须统一使用 `useElementSize(container)`**（基于 `ResizeObserver`），以确保尺寸变化始终以实际容器为准。
 
 ## 4. 异常恢复与渲染 (Error Recovery & Rendering)
-- **防闪烁设计**: 依赖 `isAppReady` 状态。在收到后端 `initStatus` 接口第一次响应前，前端界面必须保持纯黑 (`display: none` 等效) 以防闪烁。
+- **防闪烁设计**: 依赖 `boot` 场景保护。在完成 settings hydrate 且收到后端 `initStatus` 第一次响应前，前端界面必须保持纯黑壳层以防闪烁。
 - **错误处理统一出口**:
   - 记录日志优先使用 `utils/appError.ts`（`logError/logWarn`），避免裸 `console.error/warn` 分散在业务代码中。
   - 用户提示统一通过 `message`，避免重复弹窗或风格不一致。

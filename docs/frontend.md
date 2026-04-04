@@ -40,14 +40,23 @@
 *   **`layout/`**: 全局布局组件。
     *   `StatusBar.vue`: 顶部状态栏（显示年份、资源等）。
 *   **`common/`**: 通用 UI 组件（如自定义按钮、加载条）。
-*   `SystemMenu.vue`: 按 ESC 呼出的模态菜单，用于挂载 `panels/system/` 下的子面板。
+*   **`settings/`**:
+    *   `SettingsPanel.vue`: 可复用设置面板。负责语言、音量、自动保存等设置项，不承担菜单壳层职责。
+*   **`system-menu/`**:
+    *   `SystemMenuShell.vue`: 系统菜单壳层。负责 modal 外框、header、tab bar 与内容槽位。
+    *   `tabs/`: 各个菜单 tab 的薄包装组件。
+        *   `SystemMenuSettingsTab.vue`: 挂载 `SettingsPanel`。
+        *   `SystemMenuAboutTab.vue` / `SystemMenuOtherTab.vue`: 静态 tab 内容。
+        *   其余 tab 组件主要负责挂载现有 `panels/system/` 子面板。
+*   `SystemMenu.vue`: 系统菜单装配入口。组合 `SystemMenuShell` 与各 tab 内容，不直接承载大段业务 UI。
 *   `SplashLayer.vue`: 游戏启动时的封面/开始界面。
 
 ### 2.3 逻辑复用层 (`src/composables/`)
 封装复杂的业务逻辑，使组件保持轻量。
-*   `useAppBootFlow.ts`: 应用启动状态机（`isAppReady/showSplash/menu` 等跃迁规则）。
+*   `useAppShell.ts`: 应用壳层状态机。统一管理 `boot / splash / initializing / game` 场景，以及系统菜单、LoadingOverlay 等 overlay 的挂载时机。
 *   `useGameInit.ts`: 负责游戏启动流程检查、后端心跳检测。
-*   `useGameControl.ts`: 负责暂停/继续、菜单开关、全局快捷键绑定。
+*   `useSystemMenuFlow.ts`: 系统菜单流程层。负责菜单 tab、上下文（`splash/game`）、可关闭状态、LLM 启动检查与菜单打开关闭。
+*   `useGameControl.ts`: 负责纯游戏控制逻辑，如暂停/继续、ESC 输入处理、与菜单可见性的联动暂停恢复。
 *   `useSidebarResize.ts`: 负责侧边栏（事件面板）的拖拽调整宽度逻辑。
 *   `useAudio.ts` / `useBgm.ts`: 音效与背景音乐管理。
 *   `useTextures.ts`: Pixi 纹理的预加载与缓存管理。
@@ -61,7 +70,7 @@
 *   **`map.ts`**: 存储地图矩阵 (`mapData`) 和区域数据 (`regions`)。
 *   **`avatar.ts`**: 存储所有角色数据 (`avatars`)，处理增量更新。
 *   **`event.ts`**: 存储事件日志 (`events`)，处理分页加载、筛选、实时推送。
-*   `ui.ts`: 管理当前选中对象 (`selectedAvatarId`, `selectedRegionId`) 和 UI 显隐状态。
+*   `ui.ts`: 管理当前选中对象与 UI 显隐状态；系统菜单的 tab、是否可关闭、菜单上下文（`splash/game`）也集中在此处。
 *   `setting.ts`: 管理前端设置及与后端配置的同步。
 *   `socket.ts`: 连接状态与订阅管理（轻业务）。
 *   `socketMessageRouter.ts`: Socket 消息分发与业务响应路由（`tick/toast/llm_config_required/...`）。
@@ -93,19 +102,44 @@
     *   `EventPanel` 检测到新事件 -> 自动滚动到底部。
     *   `InfoPanel` 检测到选中角色属性变化 -> 实时刷新数值。
 
-### 3.3 启动状态机 (Boot Flow)
-当前启动编排由 `useAppBootFlow` 统一管理，`App.vue` 主要负责布局与事件接线。
-1. `useGameInit` 轮询 `initStatus`，并在 `ready` 且未初始化时触发一次初始化。
-2. `useAppBootFlow` 处理首次黑屏防闪烁、Splash 展示、菜单与返回主界面逻辑。
-3. `useGameControl` 只处理游戏内交互控制（菜单开关、暂停恢复、LLM 校验）。
+### 3.3 应用壳层状态机 (App Shell)
+当前根层页面编排由 `useAppShell` 统一管理，`App.vue` 只负责根据场景装配视图。
+1. `useGameInit` 轮询 `initStatus`，并在 `ready` 且未初始化时触发一次前端初始化。
+2. `useAppShell` 将根层场景收敛为四种：
+    * `boot`: 设置或第一次 `initStatus` 尚未准备好，只显示纯黑壳层。
+    * `splash`: 应用已准备好，但尚未进入一局游戏，底层显示 `SplashLayer`。
+    * `initializing`: 玩家已触发开始/读档，但前后端初始化尚未完成，底层保持黑壳层，`LoadingOverlay` 作为 overlay 展示。
+    * `game`: 前后端均完成初始化，才允许渲染 `StatusBar / GameCanvas / EventPanel` 等游戏 UI。
+3. 系统菜单与 Loading 不再决定底层场景，而是作为 overlay 挂载在当前场景之上。
+4. `useSystemMenuFlow` 负责菜单流程：打开/关闭菜单、LLM 校验、菜单上下文与 tab 跳转。
+5. `useGameControl` 只处理游戏控制，不再承担 splash <-> game 的根层场景切换职责，也不直接持有菜单业务流程。
 
-### 3.4 Socket 消息流 (Transport -> Router -> Store/UI)
+### 3.4 Scene + Overlay 约束
+为了避免出现“菜单打开但底下渲染了错误页面”的非法组合，根层视图必须遵守以下约束：
+1. `App.vue` 不应再通过 `showSplash/showMenu/showLoading` 多个布尔值拼装页面。
+2. 游戏主界面只能由 `scene === 'game'` 驱动，不能通过 “`!showSplash`” 之类的反向条件推断。
+3. 从 `SplashLayer` 打开 `settings/load/about` 时，底层场景仍然是 `splash`，只是额外叠加 `SystemMenu` overlay。
+4. `SystemMenu` 必须显式记录上下文（`splash` 或 `game`），用于关闭行为、返回主界面与后续扩展。
+
+### 3.5 菜单与设置分层 (Menu / Settings Layering)
+系统菜单与设置相关 UI 采用“壳层 + 内容层 + 流程层”拆分：
+1. `SystemMenuShell` 只负责 modal 容器、tab bar 与内容槽位。
+2. `SystemMenu.vue` 只负责把 tab key 路由到对应内容组件。
+3. `SettingsPanel` 只负责设置项本身，不感知自己处于系统菜单、Splash 还是未来的独立设置页。
+4. `useSystemMenuFlow` 作为菜单流程层，负责：
+    * 菜单打开/关闭
+    * tab 默认值与切换
+    * `splash/game` 菜单上下文
+    * LLM 启动检查与强制跳转 `llm` tab
+5. `useGameControl` 不应再承担“菜单打开后跳到哪个 tab”这类菜单业务决策。
+
+### 3.6 Socket 消息流 (Transport -> Router -> Store/UI)
 1. `api/socket.ts` 只负责 WebSocket 连接/重连/订阅。
 2. `stores/socket.ts` 维护连接状态并把消息交给 `socketMessageRouter`。
 3. `stores/socketMessageRouter.ts` 按消息类型分发到 world/ui/message 相关动作。
 4. 新增消息类型时，优先修改 router 和 DTO，不在组件层做消息分支。
 
-### 3.5 渲染架构
+### 3.7 渲染架构
 *   **Vue3-Pixi**: 使用 Vue 组件声明式地编写 Pixi 对象。
 *   **性能优化与避坑 (Gotchas)**:
     *   **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑堆积 Bug。若需在组件中保存实例引用，请使用普通变量或 `shallowRef`。
@@ -119,25 +153,29 @@
 
 | 文件路径 | 职责描述 | 修改频率 |
 | :--- | :--- | :--- |
-| `web/src/composables/useAppBootFlow.ts` | 启动状态机核心。处理黑屏防闪、Splash、菜单回退逻辑。 | 高 |
-| `web/src/App.vue` | 根组件装配层。接线与视图编排，不承载复杂业务状态机。 | 高 |
+| `web/src/composables/useAppShell.ts` | 应用壳层状态机核心。统一管理 `scene + overlay`、菜单上下文与 Splash/Game 场景切换。 | 高 |
+| `web/src/composables/useSystemMenuFlow.ts` | 系统菜单流程层。负责 tab、closable、菜单上下文与 LLM 启动检查。 | 高 |
+| `web/src/App.vue` | 根组件装配层。只按 `scene` 渲染底层页面，并挂载菜单/Loading overlay。 | 高 |
+| `web/src/components/SystemMenuShell.vue` | 菜单壳层组件。负责 modal/header/tab bar，不承载具体 tab 内容。 | 中 |
+| `web/src/components/settings/SettingsPanel.vue` | 可复用设置内容面板。负责语言、音量、自动保存等设置项。 | 中 |
 | `web/src/stores/world.ts` | world 级编排与时间/天象状态。 | 高 |
 | `web/src/stores/socketMessageRouter.ts` | Socket 业务消息路由中心。新增消息类型时优先修改此处。 | 高 |
 | `web/src/components/game/panels/EventPanel.vue` | 事件日志面板。涉及 UI 展示、筛选、性能优化（虚拟滚动/分页）。 | 中 |
 | `web/src/components/game/MapLayer.vue` | 地图渲染核心。涉及 Pixi 绘图、纹理管理、Shader/Mask 特效。 | 中 |
-| `web/src/composables/useGameControl.ts` | 游戏流程控制。涉及暂停、菜单、输入锁定逻辑。 | 低 |
+| `web/src/composables/useGameControl.ts` | 游戏控制层。负责暂停恢复、ESC 输入、菜单显隐联动暂停恢复。 | 低 |
 | `web/src/api/modules/*.ts` + `web/src/api/mappers/*.ts` | API 请求与 DTO 归一化。新增接口建议同步补 mapper。 | 中 |
 | `web/src/locales/*.json` | 多语言文本。修改 UI 文字时必改。 | 高 |
 
 ---
 
 **Vibe Coding 提示**:
-*   修改 UI 时，优先检查 `stores/ui.ts` 和对应的 Panel 组件。
+*   修改 UI 时，优先检查 `stores/ui.ts`、`useAppShell.ts`、`useSystemMenuFlow.ts` 和对应的 Panel 组件。
 *   修改数据逻辑时，先看 `stores/world.ts` 及其拆分出的子 Store。
 *   涉及 Pixi 渲染问题时，直接关注 `web/src/components/game/` 下的 Layer 组件。
 *   Socket 消息逻辑优先改 `stores/socketMessageRouter.ts`，不要把消息分支散到组件中。
 *   新增后端响应字段时，优先在 `types/api.ts` 和 `api/mappers/` 收敛转换。
 *   修改地图文字显示时，优先检查 `web/src/components/game/utils/mapLabels.ts` 和 `web/src/utils/mapStyles.ts`，不要在 `MapLayer.vue` 内临时堆叠随机偏移或硬编码语言分支。
+*   修改设置项时，优先改 `SettingsPanel.vue`；除非是菜单容器行为，不要把设置 UI 直接塞回 `SystemMenu.vue`。
 
 ## 5. 桌面版与 Steam 适配 (Desktop & Steam)
 
@@ -161,14 +199,18 @@
     *   **应使用** `useElementSize(container)`（基于 `ResizeObserver`），让画布尺寸直接跟随容器变化。
     *   当前实现（`GameCanvas.vue`）：`width/height` 和 `Viewport` 的 `screenWidth/screenHeight` 均直接来自 `useElementSize`，与 `resizeTo="container"` 指向同一数据源，无冲突。
 
-## 6. 启动渲染保护 (Startup Rendering Guard)
+## 6. 启动渲染保护与场景边界 (Startup Rendering Guard)
 
-为了避免前端刚接管页面时出现闪烁，应用保留了一层启动阶段的渲染保护。
+为了避免前端刚接管页面时出现闪烁，同时避免未开局时误渲染游戏壳层，应用保留了一层启动阶段的渲染保护与场景边界。
 
-1.  **状态防闪烁设计 (`isAppReady`)**:
-    *   通过引入 `isAppReady`（布尔值），**在页面刚加载、还未收到后端 `initStatus` 接口第一次响应时，前端界面保持纯黑 (`display: none` 等效)**。
-    *   收到后端响应后，若后端返回 `idle`，则展示 `SplashLayer`；若后端正在运行中（如 `ready` 或 `loading`），则直接进入对应的 `LoadingOverlay` 或游戏界面。
-    *   当后端已经进入 `ready` 但前端尚未完成最后的初始化收尾时，会跳过额外的 `LoadingOverlay`，以减少界面跳变。
+1.  **`boot` 防闪烁设计**:
+    *   在页面刚加载、还未完成 settings hydrate 或还未收到后端 `initStatus` 第一次响应前，根层场景保持 `boot`，页面显示纯黑壳层。
+2.  **`splash` 与 `game` 的硬边界**:
+    *   收到后端 `idle` 且前端未初始化时，场景进入 `splash`。
+    *   只有当前后端准备完毕并且前端 `gameInitialized === true` 后，场景才允许进入 `game`。
+    *   打开菜单、设置、关于页等 overlay 不得隐式切换到底层 `game` 场景。
+3.  **`initializing` 过渡场景**:
+    *   玩家开始开局/读档后，到真正完成前端装载前，根层应进入 `initializing`，底层维持黑壳层，`LoadingOverlay` 负责向用户表达进度。
 
 ## 7. 前端资源预加载策略 (Preloading Strategy)
 
