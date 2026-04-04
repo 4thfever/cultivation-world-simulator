@@ -97,7 +97,7 @@
     "closed_msg": "Trò chơi đã đóng. Bạn có thể yên tâm đóng tab này."
   },
   "event_panel": {
-    "title": "Nhật Ký Sự Kiện",
+    "title": "",
     "filter_all": "Tất Cả",
     "filter_all_sects": "Tất Cả Tông Môn",
     "filter_event_scope_all": "Mọi Việc",

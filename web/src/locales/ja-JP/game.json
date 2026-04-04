@@ -97,7 +97,7 @@
     "closed_msg": "ゲームは終了しました。このタブは安全に閉じられます。"
   },
   "event_panel": {
-    "title": "イベント記録",
+    "title": "",
     "filter_all": "すべて",
     "filter_all_sects": "全宗門",
     "filter_event_scope_all": "全イベント",

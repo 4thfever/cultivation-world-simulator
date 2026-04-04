@@ -7,15 +7,15 @@ type RegionTextMetrics = {
 };
 
 const COMPACT_SCRIPT_FONT_SCALE = {
-  sect: 52,
-  city: 58,
-  default: 56
+  sect: 64,
+  city: 70,
+  default: 68
 } as const;
 
 const LATIN_FONT_SCALE = {
-  sect: 52,
-  city: 58,
-  default: 56
+  sect: 64,
+  city: 70,
+  default: 68
 } as const;
 
 export function usesCompactMapLabels(locale: string): boolean {

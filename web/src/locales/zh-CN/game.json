@@ -97,7 +97,7 @@
     "closed_msg": "游戏已关闭，您可以安全关闭此标签页。"
   },
   "event_panel": {
-    "title": "事件记录",
+    "title": "",
     "filter_all": "所有人",
     "filter_all_sects": "所有宗门",
     "filter_event_scope_all": "所有事",

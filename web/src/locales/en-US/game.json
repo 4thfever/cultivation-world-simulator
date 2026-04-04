@@ -97,7 +97,7 @@
     "closed_msg": "Game closed. You can safely close this tab."
   },
   "event_panel": {
-    "title": "Event Logs",
+    "title": "",
     "filter_all": "All",
     "filter_all_sects": "All Sects",
     "filter_event_scope_all": "All Events",
