@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { getEntityColor } from '@/utils/theme';
 import type { EffectEntity } from '@/types/core';
 import { useI18n } from 'vue-i18n';
 import { formatEntityGrade } from '@/utils/cultivationText';
+import { getEntityRowDetailLayout } from '@/utils/infoPanelLocaleConfig';
 
-defineProps<{
+const props = defineProps<{
   item: EffectEntity;
   meta?: string; // e.g. "熟练度 50%"
   compact?: boolean;
@@ -13,22 +15,42 @@ defineProps<{
 
 defineEmits(['click']);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+
+const detailLayoutMode = computed<'inline-preferred' | 'stacked'>(() => {
+  return getEntityRowDetailLayout(locale.value);
+});
+
+const detailLayoutClass = computed(() => {
+  return props.detailsBelow ? `details-${detailLayoutMode.value}` : null;
+});
 </script>
 
 <template>
   <div 
     class="entity-row" 
-    :class="{ 'compact': compact, 'details-below': detailsBelow }"
+    :class="[
+      { 'compact': compact, 'details-below': detailsBelow },
+      detailLayoutClass,
+    ]"
     @click="$emit('click')"
     v-sound
   >
     <template v-if="detailsBelow">
       <div class="content">
-        <span class="name" :style="{ color: getEntityColor(item) }">
-          {{ item.name }}
-        </span>
-        <span v-if="meta || item.grade" class="info details-line">
+        <div class="primary-line">
+          <span class="name" :style="{ color: getEntityColor(item) }">
+            {{ item.name }}
+          </span>
+          <span
+            v-if="(meta || item.grade) && detailLayoutMode === 'inline-preferred'"
+            class="info inline-info"
+          >
+            <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
+            <span v-if="meta" class="meta">{{ meta }}</span>
+          </span>
+        </div>
+        <span v-if="(meta || item.grade) && detailLayoutMode === 'stacked'" class="info details-line">
           <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
           <span v-if="meta" class="meta">{{ meta }}</span>
         </span>
@@ -77,6 +99,10 @@ const { t } = useI18n();
   min-width: 0;
 }
 
+.primary-line {
+  min-width: 0;
+}
+
 .info {
   display: flex;
   align-items: center;
@@ -96,6 +122,22 @@ const { t } = useI18n();
 .details-line {
   margin-top: 4px;
   justify-content: flex-start;
+}
+
+.entity-row.details-inline-preferred .primary-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.entity-row.details-inline-preferred .inline-info {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.entity-row.details-stacked .primary-line {
+  display: block;
 }
 
 .grade {
