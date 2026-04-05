@@ -29,6 +29,20 @@ export const GRADE_COLORS: Record<string, string> = {
   '元婴': '#fddc88', // Gold
 };
 
+export type EntityGradeTone = 'default' | 'epic' | 'legendary';
+
+export function getEntityGradeTone(grade?: string | null): EntityGradeTone {
+  const value = String(grade || '').toUpperCase();
+  if (!value) return 'default';
+  if (value.includes('SSR') || value.includes('ARTIFACT') || value.includes('法宝')) {
+    return 'legendary';
+  }
+  if (value.includes('SR') || value.includes('UPPER') || value.includes('上品') || value.includes('宝物')) {
+    return 'epic';
+  }
+  return 'default';
+}
+
 /**
  * 获取实体的显示颜色
  * 优先使用实体自带的 color 属性，其次根据 grade/rarity 查找

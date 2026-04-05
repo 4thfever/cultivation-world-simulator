@@ -464,6 +464,12 @@ async function handleClearObjective() {
                 <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
               </button>
             </div>
+            <div
+              v-if="slot.category === 'goldfinger' && slot.item?.desc"
+              class="slot-desc"
+            >
+              {{ slot.item.desc }}
+            </div>
           </div>
         </div>
          <EntityRow 
@@ -912,6 +918,14 @@ async function handleClearObjective() {
   min-height: 36px;
   display: flex;
   align-items: center;
+}
+
+.slot-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: #9aa4af;
+  margin-top: 2px;
+  padding-left: 8px;
 }
 
 /* Relation specific styles */

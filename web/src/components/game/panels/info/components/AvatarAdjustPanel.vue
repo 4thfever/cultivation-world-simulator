@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { avatarApi } from '@/api';
 import type { AvatarAdjustCatalogDTO, AvatarAdjustOptionDTO, CustomContentDraftDTO } from '@/types/api';
 import type { EffectEntity } from '@/types/core';
-import { getEntityColor } from '@/utils/theme';
+import { getEntityColor, getEntityGradeTone } from '@/utils/theme';
 import { logError, toErrorMessage } from '@/utils/appError';
 import { useI18n } from 'vue-i18n';
 import { useMessage } from 'naive-ui';
@@ -101,6 +101,10 @@ const draftPreviewItem = computed<EffectEntity | null>(() => {
     realm: customDraft.value.realm ? t(`realms.${customDraft.value.realm}`) : customDraft.value.realm,
   };
 });
+
+function getOptionGradeClass(option: Pick<EffectEntity, 'grade' | 'rarity'>): string {
+  return `option-meta-${getEntityGradeTone(option.grade || option.rarity)}`;
+}
 
 const filteredOptions = computed(() => {
   const q = normalizedSearch.value;
@@ -377,7 +381,13 @@ async function saveCustomDraft() {
             >
               <div class="option-main">
                 <span class="option-name" :style="{ color: getEntityColor(option) }">{{ option.name }}</span>
-                <span v-if="option.grade || option.rarity" class="option-meta">{{ formatEntityGrade(option.grade || option.rarity, t) }}</span>
+                <span
+                  v-if="option.grade || option.rarity"
+                  class="option-meta"
+                  :class="getOptionGradeClass(option)"
+                >
+                  {{ formatEntityGrade(option.grade || option.rarity, t) }}
+                </span>
                 <span v-if="option.attribute" class="option-meta">{{ formatAttributeLabel(option.attribute, t) }}</span>
                 <span v-if="option.is_custom" class="option-meta custom-tag">{{ t('game.info_panel.avatar.adjust.custom.tag') }}</span>
               </div>
@@ -584,6 +594,18 @@ async function saveCustomDraft() {
 .option-meta {
   font-size: 11px;
   color: #888;
+}
+
+.option-meta-default {
+  color: #b9b9b9;
+}
+
+.option-meta-epic {
+  color: #d7b6ff;
+}
+
+.option-meta-legendary {
+  color: #fddc88;
 }
 
 .option-desc {

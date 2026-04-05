@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import random
 
+from src.classes.event import Event
 from src.classes.mutual_action.mutual_action import InvitationAction
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.i18n import t

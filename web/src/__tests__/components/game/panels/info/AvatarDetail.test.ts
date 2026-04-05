@@ -5,9 +5,24 @@ import AvatarDetail from '@/components/game/panels/info/AvatarDetail.vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 
+const entityRowSpy = vi.fn()
+
+vi.mock('@/components/game/panels/info/components/EntityRow.vue', () => ({
+  default: defineComponent({
+    name: 'EntityRow',
+    props: ['item', 'meta', 'compact', 'detailsBelow'],
+    emits: ['click'],
+    setup(props) {
+      entityRowSpy(props)
+      return () => h('div', { class: 'entity-row-stub' }, props.item?.name || '')
+    },
+  }),
+}))
+
 describe('AvatarDetail', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+    entityRowSpy.mockClear()
   })
 
   const i18n = createI18n({
@@ -128,7 +143,6 @@ describe('AvatarDetail', () => {
         ],
         stubs: {
           StatItem: true,
-          EntityRow: true,
           RelationRow: true,
           TagList: true,
           SecondaryPopup: true,
@@ -158,7 +172,6 @@ describe('AvatarDetail', () => {
         ],
         stubs: {
           StatItem: true,
-          EntityRow: true,
           RelationRow: true,
           TagList: true,
           SecondaryPopup: true,
@@ -215,7 +228,6 @@ describe('AvatarDetail', () => {
         },
         stubs: {
           StatItem: true,
-          EntityRow: true,
           TagList: true,
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
@@ -252,7 +264,6 @@ describe('AvatarDetail', () => {
         },
         stubs: {
           StatItem: true,
-          EntityRow: true,
           RelationRow: true,
           TagList: true,
           SecondaryPopup: true,
@@ -293,7 +304,6 @@ describe('AvatarDetail', () => {
         },
         stubs: {
           StatItem: true,
-          EntityRow: true,
           RelationRow: true,
           TagList: true,
           SecondaryPopup: true,
@@ -305,6 +315,15 @@ describe('AvatarDetail', () => {
 
     expect(wrapper.text()).toContain('Goldfinger')
     expect(wrapper.findAll('.equipment-slot-block')).toHaveLength(4)
+    expect(wrapper.text()).toContain('天命眷顾')
+    expect(entityRowSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        item: expect.objectContaining({
+          name: '气运之子',
+          desc: '天命眷顾',
+        }),
+      }),
+    )
   })
 
   it('passes goldfinger category and current item into adjust panel when clicking edit', async () => {
@@ -340,7 +359,6 @@ describe('AvatarDetail', () => {
         },
         stubs: {
           StatItem: true,
-          EntityRow: true,
           RelationRow: true,
           TagList: true,
           SecondaryPopup: true,

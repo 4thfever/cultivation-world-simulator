@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 import asyncio
 
 from src.classes.action.play import Reading, TeaTasting, Traveling, ZitherPlaying
@@ -91,3 +91,43 @@ class TestActionPlay:
         
         # Check target benefit
         target_avatar.add_breakthrough_rate.assert_called_with(0.2)
+
+    @patch('src.classes.mutual_action.play.StoryEventService.maybe_create_story', new_callable=AsyncMock)
+    def test_tea_party_finish_returns_result_event(self, mock_story, play_avatar):
+        """测试茶会完成时会生成结果事件"""
+        mock_story.return_value = None
+
+        target_avatar = MagicMock()
+        target_avatar.name = "Friend"
+        target_avatar.id = "target-id"
+
+        action = TeaParty(play_avatar, play_avatar.world)
+        action._settle_response(target_avatar, "Accept")
+
+        events = asyncio.run(action.finish(target_avatar))
+
+        assert len(events) == 1
+        assert isinstance(events[0], Event)
+        assert play_avatar.name in events[0].content
+        assert target_avatar.name in events[0].content
+        assert events[0].related_avatars == [play_avatar.id, target_avatar.id]
+
+    @patch('src.classes.mutual_action.play.StoryEventService.maybe_create_story', new_callable=AsyncMock)
+    def test_chess_finish_returns_result_event(self, mock_story, play_avatar):
+        """测试下棋完成时会生成结果事件"""
+        mock_story.return_value = None
+
+        target_avatar = MagicMock()
+        target_avatar.name = "Friend"
+        target_avatar.id = "target-id"
+
+        action = Chess(play_avatar, play_avatar.world)
+        action._settle_response(target_avatar, "Accept")
+
+        events = asyncio.run(action.finish(target_avatar))
+
+        assert len(events) == 1
+        assert isinstance(events[0], Event)
+        assert play_avatar.name in events[0].content
+        assert target_avatar.name in events[0].content
+        assert events[0].related_avatars == [play_avatar.id, target_avatar.id]

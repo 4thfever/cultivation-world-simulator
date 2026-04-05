@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EffectEntity } from '@/types/core';
-import { getEntityColor } from '@/utils/theme';
+import { getEntityColor, getEntityGradeTone } from '@/utils/theme';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
@@ -23,6 +23,10 @@ const displayGrade = computed(() => {
   return formatEntityGrade(props.item?.grade || props.item?.rarity, t);
 });
 
+const gradeBadgeClass = computed(() => {
+  return `grade-${getEntityGradeTone(props.item?.grade || props.item?.rarity)}`;
+});
+
 const displayAttribute = computed(() => {
   return formatAttributeLabel(props.item?.attribute, t);
 });
@@ -32,7 +36,7 @@ const displayAttribute = computed(() => {
   <div class="entity-detail-card">
     <template v-if="item">
       <div class="sec-row" v-if="displayGrade || displayType || displayAttribute">
-        <span v-if="displayGrade" class="badge grade-badge">{{ displayGrade }}</span>
+        <span v-if="displayGrade" class="badge grade-badge" :class="gradeBadgeClass">{{ displayGrade }}</span>
         <span v-if="displayType" class="badge type-badge">{{ displayType }}</span>
         <span v-if="displayAttribute" class="badge attr-badge">{{ displayAttribute }}</span>
       </div>
@@ -105,6 +109,18 @@ const displayAttribute = computed(() => {
 }
 
 .grade-badge {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: #daa520;
+}
+
+.grade-badge.grade-epic {
+  background: rgba(196, 136, 253, 0.18);
+  border: 1px solid rgba(196, 136, 253, 0.42);
+  color: #d7b6ff;
+}
+
+.grade-badge.grade-legendary {
   background: rgba(255, 215, 0, 0.2);
   border: 1px solid rgba(255, 215, 0, 0.4);
   color: #daa520;

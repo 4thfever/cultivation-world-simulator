@@ -7,6 +7,12 @@ const mockGetEntityColor = vi.fn()
 
 vi.mock('@/utils/theme', () => ({
   getEntityColor: (entity: any) => mockGetEntityColor(entity),
+  getEntityGradeTone: (grade?: string | null) => {
+    const value = String(grade || '').toUpperCase()
+    if (value.includes('SSR') || value.includes('ARTIFACT') || value.includes('法宝')) return 'legendary'
+    if (value.includes('SR') || value.includes('UPPER') || value.includes('上品') || value.includes('宝物')) return 'epic'
+    return 'default'
+  },
 }))
 
 import EntityRow from '@/components/game/panels/info/components/EntityRow.vue'
@@ -113,6 +119,25 @@ describe('EntityRow', () => {
 
     expect(wrapper.find('.grade').exists()).toBe(true)
     expect(wrapper.find('.grade').text()).toBe('SSR')
+    expect(wrapper.find('.grade').classes()).toContain('grade-legendary')
+  })
+
+  it('should render rarity when item has rarity but no grade', () => {
+    const itemWithRarity = {
+      ...defaultItem,
+      rarity: 'SR',
+    }
+
+    const wrapper = mount(EntityRow, {
+      props: {
+        item: itemWithRarity,
+      },
+      ...globalConfig,
+    })
+
+    expect(wrapper.find('.grade').exists()).toBe(true)
+    expect(wrapper.find('.grade').text()).toBe('SR')
+    expect(wrapper.find('.grade').classes()).toContain('grade-epic')
   })
 
   it('should hide grade when item has no grade', () => {

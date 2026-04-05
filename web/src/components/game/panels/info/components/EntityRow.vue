@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { getEntityColor } from '@/utils/theme';
+import { getEntityColor, getEntityGradeTone } from '@/utils/theme';
 import type { EffectEntity } from '@/types/core';
 import { useI18n } from 'vue-i18n';
 import { formatEntityGrade } from '@/utils/cultivationText';
@@ -24,6 +24,14 @@ const detailLayoutMode = computed<'inline-preferred' | 'stacked'>(() => {
 const detailLayoutClass = computed(() => {
   return props.detailsBelow ? `details-${detailLayoutMode.value}` : null;
 });
+
+const displayGrade = computed(() => {
+  return props.item.grade || props.item.rarity || '';
+});
+
+const gradeBadgeClass = computed(() => {
+  return `grade-${getEntityGradeTone(displayGrade.value)}`;
+});
 </script>
 
 <template>
@@ -43,15 +51,15 @@ const detailLayoutClass = computed(() => {
             {{ item.name }}
           </span>
           <span
-            v-if="(meta || item.grade) && detailLayoutMode === 'inline-preferred'"
+            v-if="(meta || displayGrade) && detailLayoutMode === 'inline-preferred'"
             class="info inline-info"
           >
-            <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
+            <span v-if="displayGrade" class="grade" :class="gradeBadgeClass">{{ formatEntityGrade(displayGrade, t) }}</span>
             <span v-if="meta" class="meta">{{ meta }}</span>
           </span>
         </div>
-        <span v-if="(meta || item.grade) && detailLayoutMode === 'stacked'" class="info details-line">
-          <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
+        <span v-if="(meta || displayGrade) && detailLayoutMode === 'stacked'" class="info details-line">
+          <span v-if="displayGrade" class="grade" :class="gradeBadgeClass">{{ formatEntityGrade(displayGrade, t) }}</span>
           <span v-if="meta" class="meta">{{ meta }}</span>
         </span>
       </div>
@@ -62,7 +70,7 @@ const detailLayoutClass = computed(() => {
       </span>
       <span class="info">
         <span v-if="meta" class="meta">{{ meta }}</span>
-        <span v-if="item.grade" class="grade">{{ formatEntityGrade(item.grade, t) }}</span>
+        <span v-if="displayGrade" class="grade" :class="gradeBadgeClass">{{ formatEntityGrade(displayGrade, t) }}</span>
       </span>
     </template>
   </div>
@@ -143,11 +151,26 @@ const detailLayoutClass = computed(() => {
 .grade {
   font-size: 11px;
   padding: 0 5px;
+  border-radius: 3px;
+  line-height: 1.5;
+}
+
+.grade-default {
   background: rgba(255, 215, 0, 0.15);
   border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 3px;
   color: #daa520;
-  line-height: 1.5;
+}
+
+.grade-epic {
+  background: rgba(196, 136, 253, 0.15);
+  border: 1px solid rgba(196, 136, 253, 0.38);
+  color: #d3a9ff;
+}
+
+.grade-legendary {
+  background: rgba(253, 220, 136, 0.16);
+  border: 1px solid rgba(253, 220, 136, 0.4);
+  color: #fddc88;
 }
 
 .meta {
