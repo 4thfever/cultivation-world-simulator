@@ -80,3 +80,4 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 1011,PERSONA_1011_NAME,PERSONA_1011_DESC,ORTHODOX_GENTLEMAN,名教中人,SECLUDED;RECLUSIVE_CULTIVATOR,你崇尚名教秩序，乐于以文章教化与政务匡世。,SR,,
 1012,PERSONA_1012_NAME,PERSONA_1012_DESC,BEAUTY_CONSCIOUS,爱美,APPEARANCE_OBSESSED,你很在意自己的容貌，也会花心思打理仪容，让自己看起来更体面。,N,,
 1013,PERSONA_1013_NAME,PERSONA_1013_DESC,APPEARANCE_OBSESSED,悦己,BEAUTY_CONSCIOUS,你非常在意自己的容貌，几乎把“变得更好看”当成执念。,R,,{extra_appearance: 1}
+1014,PERSONA_1014_NAME,PERSONA_1014_DESC,PLAY_WEAK_HIDE_STRONG,扮猪吃老虎,OVERBEARING;RASH,你习惯收敛锋芒、示敌以弱，他人常常误判你的实力与危险性，甚至有时候欺辱你，反而被你打脸。,R,,

@@ -713,3 +713,9 @@ msgstr "You care intensely about your appearance and almost treat becoming bette
 
 msgid "PERSONA_1013_NAME"
 msgstr "Self-Adoring"
+
+msgid "PERSONA_1014_DESC"
+msgstr "You habitually hide your edge and feign weakness, so others often misjudge your strength and how dangerous you really are. Some even bully or humiliate you, only to be spectacularly put in their place."
+
+msgid "PERSONA_1014_NAME"
+msgstr "Play Weak, Hide Strong"

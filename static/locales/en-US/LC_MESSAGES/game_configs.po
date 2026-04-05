@@ -2342,6 +2342,15 @@ msgstr ""
 msgid "PERSONA_1013_NAME"
 msgstr "Self-Adoring"
 
+msgid "PERSONA_1014_DESC"
+msgstr ""
+"You habitually hide your edge and feign weakness, so others often misjudge "
+"your strength and how dangerous you really are. Some even bully or humiliate"
+" you, only to be spectacularly put in their place."
+
+msgid "PERSONA_1014_NAME"
+msgstr "Play Weak, Hide Strong"
+
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"
 msgstr ""

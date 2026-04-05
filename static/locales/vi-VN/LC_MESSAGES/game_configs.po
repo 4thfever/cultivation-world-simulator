@@ -2375,6 +2375,15 @@ msgstr ""
 msgid "PERSONA_1013_NAME"
 msgstr "Duyệt Kỷ"
 
+msgid "PERSONA_1014_DESC"
+msgstr ""
+"Ngươi quen thu lại mũi nhọn, ra vẻ yếu thế, khiến người khác thường phán "
+"đoán sai thực lực và mức độ nguy hiểm của ngươi. Thậm chí có kẻ khinh nhục "
+"ngươi, rồi cuối cùng lại bị ngươi vả mặt."
+
+msgid "PERSONA_1014_NAME"
+msgstr "Giả Heo Ăn Thịt Hổ"
+
 #. plant.csv: 顽强生长在戈壁岩缝中的奇异植物，叶片坚硬...
 msgid "PLANT_10_DESC"
 msgstr ""

@@ -669,3 +669,9 @@ msgstr "你非常在意自己的容貌，几乎把“变得更好看”当成执
 
 msgid "PERSONA_1013_NAME"
 msgstr "悦己"
+
+msgid "PERSONA_1014_DESC"
+msgstr "你习惯收敛锋芒、示敌以弱，他人常常误判你的实力与危险性，甚至有时候欺辱你，反而被你打脸。"
+
+msgid "PERSONA_1014_NAME"
+msgstr "扮猪吃老虎"
