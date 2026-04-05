@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
 import { useWorldStore } from '../../../stores/world'
 import { useUiStore } from '../../../stores/ui'
+import { logError } from '@/utils/appError'
 
 const props = defineProps<{
   show: boolean
@@ -34,7 +35,7 @@ const fetchRankings = async () => {
     const res = await worldApi.fetchRankings()
     rankings.value = res || {}
   } catch (e) {
-    console.error(e)
+    logError('TournamentModal fetch rankings', e)
   } finally {
     loading.value = false
   }

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { systemApi, type InitStatusDTO } from '../api'
 import { useI18n } from 'vue-i18n'
+import { logError } from '../utils/appError'
 
 const { t, tm } = useI18n()
 
@@ -68,7 +69,7 @@ async function handleRetry() {
   try {
     await systemApi.reinitGame()
   } catch (e: any) {
-    console.error('Reinit failed:', e)
+    logError('LoadingOverlay reinit game', e)
   }
 }
 

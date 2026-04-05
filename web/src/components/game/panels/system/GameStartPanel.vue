@@ -4,6 +4,7 @@ import { NForm, NFormItem, NInputNumber, NButton, NInput, useMessage } from 'nai
 import { useI18n } from 'vue-i18n'
 
 import { useSettingStore } from '@/stores/setting'
+import { logError } from '@/utils/appError'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()
@@ -22,7 +23,7 @@ async function startGame() {
     message.success(t('game_start.messages.start_success'))
   } catch (e) {
     message.error(t('game_start.messages.start_failed'))
-    console.error(e)
+    logError('GameStartPanel start game', e)
     loading.value = false
   }
 }

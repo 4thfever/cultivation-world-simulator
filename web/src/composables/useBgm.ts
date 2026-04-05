@@ -1,6 +1,7 @@
 import { watch, effectScope } from 'vue';
 import { useSettingStore } from '../stores/setting';
 import { withBasePublicPath } from '@/utils/assetUrls';
+import { logWarn } from '@/utils/appError';
 
 // 配置
 const BGM_CONFIG = {
@@ -20,11 +21,14 @@ type BgmType = 'splash' | 'map' | null;
 
 // 模块级状态（单例模式）
 let currentType: BgmType = null;
+let activeType: BgmType = null;
 let currentTrackIndex = 0; // 0 或 1
 let tracks: HTMLAudioElement[] = [];
 let initialized = false;
 let bag: string[] = []; // 随机播放池
 let currentSwitchId = 0; // 切换请求锁，用于防止并发竞争
+let audioUnlocked = false;
+let unlockListenersBound = false;
 
 export function useBgm() {
     const settingStore = useSettingStore();
@@ -49,8 +53,34 @@ export function useBgm() {
 
         // 初始化音量
         updateVolume(settingStore.bgmVolume);
+        bindUnlockListeners();
 
         initialized = true;
+    }
+
+    function bindUnlockListeners() {
+        if (unlockListenersBound) return;
+        unlockListenersBound = true;
+
+        const unlockAudio = () => {
+            audioUnlocked = true;
+            window.removeEventListener('pointerdown', unlockAudio);
+            window.removeEventListener('keydown', unlockAudio);
+            unlockListenersBound = false;
+
+            if (currentType && activeType !== currentType) {
+                void resumePendingPlayback();
+            }
+        };
+
+        window.addEventListener('pointerdown', unlockAudio, { once: true });
+        window.addEventListener('keydown', unlockAudio, { once: true });
+    }
+
+    async function resumePendingPlayback() {
+        if (!currentType) return;
+        const songName = getNextSong(currentType);
+        await switchTrack(songName, activeType !== null);
     }
 
     function updateVolume(vol: number) {
@@ -74,7 +104,10 @@ export function useBgm() {
             // Splash 模式：单曲循环
             const track = tracks[index];
             track.currentTime = 0;
-            track.play().catch(e => console.warn('BGM replay failed', e));
+            track.play().catch(() => {
+                activeType = null;
+                bindUnlockListeners();
+            });
         }
     }
 
@@ -108,12 +141,17 @@ export function useBgm() {
         }
         
         // 如果已经在播放同类型，忽略（保持当前播放）
-        if (currentType === type) return;
+        if (currentType === type && activeType === type) return;
 
         currentType = type;
+        if (!audioUnlocked) {
+            bindUnlockListeners();
+            return;
+        }
+
         const songName = getNextSong(type);
         // 切换类型时，旧轨道肯定在播放，需要淡出
-        await switchTrack(songName, true);
+        await switchTrack(songName, activeType !== null);
     }
 
     // 播放下一首随机曲目（Map模式专用）
@@ -145,34 +183,24 @@ export function useBgm() {
             }
             performCrossfade(nextTrack, currentTrack, crossfadeOutgoing, mySwitchId);
             currentTrackIndex = nextIndex;
+            activeType = currentType;
         } catch (e: any) {
-            console.warn('Track switch failed', e);
             if (mySwitchId !== currentSwitchId) return;
-            
-            // 自动播放策略被阻止
-            if (e.name === 'NotAllowedError') {
-                // 如果切歌失败，旧音乐也停止，避免两首一起播或者残留
+
+            if (e?.name === 'NotAllowedError') {
+                activeType = null;
+                audioUnlocked = false;
                 currentTrack.pause();
-                handleAutoPlayPolicy(songName, crossfadeOutgoing);
+                bindUnlockListeners();
+                return;
             }
+
+            if (e?.name === 'AbortError') {
+                return;
+            }
+
+            logWarn('Bgm switch track', e);
         }
-    }
-
-    // 处理自动播放策略
-    function handleAutoPlayPolicy(songName: string, crossfadeOutgoing: boolean) {
-        console.log('Waiting for user interaction to resume audio...');
-        
-        const resumeAudio = () => {
-             // 移除所有监听器
-             window.removeEventListener('click', resumeAudio);
-             window.removeEventListener('keydown', resumeAudio);
-             
-             // 再次尝试播放
-             switchTrack(songName, crossfadeOutgoing);
-        };
-
-        window.addEventListener('click', resumeAudio);
-        window.addEventListener('keydown', resumeAudio);
     }
 
     // 淡入淡出动画
@@ -230,6 +258,7 @@ export function useBgm() {
     function stop() {
         if (!initialized) return;
         currentType = null;
+        activeType = null;
         currentSwitchId++;
         const mySwitchId = currentSwitchId;
 

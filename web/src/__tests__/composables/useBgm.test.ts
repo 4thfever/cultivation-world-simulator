@@ -48,22 +48,31 @@ describe('useBgm', () => {
     }) as any
   })
 
-  it('should initialize and play splash bgm', async () => {
+  function unlockAudio() {
+    window.dispatchEvent(new Event('pointerdown'))
+  }
+
+  it('should wait for interaction before playing splash bgm', async () => {
     const { play } = useBgm()
     await play('splash')
-    expect(true).toBe(true) // Smoke test, expecting no errors
+    expect(createdTracks.some(track => track.src === '/bgm/Eastminster.mp3')).toBe(false)
+
+    unlockAudio()
+
     expect(createdTracks.some(track => track.src === '/bgm/Eastminster.mp3')).toBe(true)
   })
 
   it('should play map bgm', async () => {
     const { play } = useBgm()
     await play('map')
+    unlockAudio()
     expect(true).toBe(true)
   })
   
   it('should stop bgm when null is passed', async () => {
     const { play } = useBgm()
     await play('splash')
+    unlockAudio()
     await play(null)
     expect(true).toBe(true)
   })
@@ -79,6 +88,7 @@ describe('useBgm', () => {
   it('should stop explicitly', async () => {
     const { play, stop } = useBgm()
     await play('map')
+    unlockAudio()
     stop()
     expect(true).toBe(true)
   })

@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { worldApi } from '@/api';
 import { useUiStore } from '../../../stores/ui';
 import type { SectRelationDTO } from '../../../types/api';
+import { logError } from '@/utils/appError';
 
 const props = defineProps<{
   show: boolean;
@@ -105,7 +106,7 @@ const fetchRelations = async () => {
     const res = await worldApi.fetchSectRelations();
     relations.value = res.relations ?? [];
   } catch (e) {
-    console.error(e);
+    logError('SectRelationsModal fetch relations', e);
     relations.value = [];
   } finally {
     loading.value = false;

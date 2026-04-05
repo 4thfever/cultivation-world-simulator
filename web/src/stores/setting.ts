@@ -5,6 +5,7 @@ import i18n from '../locales';
 import { defaultLocale, getHtmlLang, isEnabledLocale, type AppLocale } from '../locales/registry';
 import { systemApi } from '../api/modules/system';
 import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
+import { logWarn } from '../utils/appError';
 
 function applyUiLocale(lang: string) {
   if (i18n.mode === 'legacy') {
@@ -60,7 +61,7 @@ export const useSettingStore = defineStore('setting', () => {
       const settings = await systemApi.fetchSettings();
       applySettings(settings);
     } catch (e) {
-      console.warn('Failed to hydrate settings:', e);
+      logWarn('SettingStore hydrate', e);
       applyUiLocale(locale.value);
     } finally {
       hydrated.value = true;
@@ -86,7 +87,7 @@ export const useSettingStore = defineStore('setting', () => {
       locale.value = previous;
       newGameDraft.value = previousDraft;
       applyUiLocale(previous);
-      console.warn('Failed to save locale setting:', e);
+      logWarn('SettingStore set locale', e);
     }
   }
 
@@ -99,7 +100,7 @@ export const useSettingStore = defineStore('setting', () => {
       applySettings(settings);
     } catch (e) {
       sfxVolume.value = previous;
-      console.warn('Failed to save sfx volume:', e);
+      logWarn('SettingStore set sfx volume', e);
     }
   }
 
@@ -112,7 +113,7 @@ export const useSettingStore = defineStore('setting', () => {
       applySettings(settings);
     } catch (e) {
       bgmVolume.value = previous;
-      console.warn('Failed to save bgm volume:', e);
+      logWarn('SettingStore set bgm volume', e);
     }
   }
 
@@ -125,7 +126,7 @@ export const useSettingStore = defineStore('setting', () => {
       applySettings(settings);
     } catch (e) {
       isAutoSave.value = previous;
-      console.warn('Failed to save auto save setting:', e);
+      logWarn('SettingStore set auto save', e);
     }
   }
 
@@ -146,7 +147,7 @@ export const useSettingStore = defineStore('setting', () => {
       applySettings(settings);
       return true;
     } catch (e) {
-      console.warn('Failed to save new game defaults:', e);
+      logWarn('SettingStore save new game defaults', e);
       return false;
     }
   }

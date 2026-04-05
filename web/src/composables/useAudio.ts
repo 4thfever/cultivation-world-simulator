@@ -1,5 +1,6 @@
 import { useSettingStore } from '../stores/setting';
 import { withBasePublicPath } from '@/utils/assetUrls';
+import { logWarn } from '@/utils/appError';
 
 // 音频资源配置 - 使用 ogg 格式
 const SOUND_URLS = {
@@ -27,7 +28,7 @@ export function useAudio() {
       if (AudioContextClass) {
           audioContext = new AudioContextClass();
       } else {
-          console.warn('Web Audio API is not supported in this browser.');
+          logWarn('Audio init unsupported', 'Web Audio API is not supported in this browser.');
           return;
       }
     }
@@ -45,7 +46,7 @@ export function useAudio() {
             buffers[key as SoundType] = decodedBuffer;
         }
       } catch (e) {
-        console.warn(`Failed to load sound: ${key} from ${url}`, e);
+        logWarn(`Audio load sound ${key}`, e);
       }
     });
 
@@ -59,7 +60,7 @@ export function useAudio() {
     // 浏览器策略：如果 Context 被暂停（通常发生在无交互的页面加载时），需要恢复
     // 必须在用户交互事件中调用 resume
     if (audioContext.state === 'suspended') {
-      audioContext.resume().catch(e => console.warn('Failed to resume audio context:', e));
+      audioContext.resume().catch(e => logWarn('Audio resume context', e));
     }
 
     const source = audioContext.createBufferSource();

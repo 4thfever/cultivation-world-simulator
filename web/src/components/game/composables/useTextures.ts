@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
 import { avatarApi } from '@/api'
 import { getClusteredTileVariant } from '@/utils/procedural'
+import { logError, logWarn } from '@/utils/appError'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -52,11 +53,8 @@ export function useTextures() {
             metaChanged = true
         }
         
-        if (metaChanged) {
-            console.log('Avatar meta updated:', availableAvatars.value)
-        }
     } catch (e) {
-        console.warn('Failed to load avatar meta, using default range', e)
+        logWarn('Textures load avatar meta', e)
         // Fallback: 只有在列表为空时才使用默认值
         if (availableAvatars.value.males.length === 0) {
             availableAvatars.value.males = Array.from({length: 47}, (_, i) => i + 1)
@@ -105,7 +103,7 @@ export function useTextures() {
       try {
         textures.value[key] = await Assets.load(url)
       } catch (error) {
-        console.error(`Failed to load texture: ${url}`, error)
+        logError(`Textures load base texture ${key}`, error)
       }
     })
 
@@ -118,7 +116,7 @@ export function useTextures() {
         variantPromises.push(
           Assets.load(url)
             .then(tex => { textures.value[variantKey] = tex })
-            .catch(e => console.warn(`Failed to load variant ${variantKey}`, e))
+            .catch(e => logWarn(`Textures load variant ${variantKey}`, e))
         )
       }
     })
@@ -129,7 +127,7 @@ export function useTextures() {
         cloudPromises.push(
             Assets.load(`/assets/clouds/cloud_${i}.png`)
                 .then(tex => { textures.value[`cloud_${i}`] = tex })
-                .catch(e => console.warn(`Failed cloud_${i}`, e))
+                .catch(e => logWarn(`Textures load cloud_${i}`, e))
         )
     }
 
@@ -140,7 +138,7 @@ export function useTextures() {
         avatarPromises.push(
             Assets.load(`/assets/males/${id}.png`)
                 .then(tex => { textures.value[`male_${id}`] = tex })
-                .catch(e => console.warn(`Failed male_${id}`, e))
+                .catch(e => logWarn(`Textures load male_${id}`, e))
         )
     }
     
@@ -148,7 +146,7 @@ export function useTextures() {
         avatarPromises.push(
             Assets.load(`/assets/females/${id}.png`)
                 .then(tex => { textures.value[`female_${id}`] = tex })
-                .catch(e => console.warn(`Failed female_${id}`, e))
+                .catch(e => logWarn(`Textures load female_${id}`, e))
         )
     }
 
@@ -162,7 +160,6 @@ export function useTextures() {
     })
 
     isLoaded.value = true
-    console.log('Base textures loaded')
   }
 
   // 动态加载宗门纹理（按需）- 加载4个切片用于渲染
@@ -177,7 +174,7 @@ export function useTextures() {
               const tex = await Assets.load(url)
               textures.value[key] = tex
           } catch (e) {
-              console.warn(`Failed to load sect texture: ${url}`, e)
+              logWarn(`Textures load sect_${sectId}_${i}`, e)
           }
       })
       
@@ -200,7 +197,7 @@ export function useTextures() {
                   textures.value[key] = tex
                   return
               } catch (e) {
-                  console.warn(`Failed to load city texture: ${url}`)
+                  logWarn(`Textures load city_${cityId}_${i}${ext}`, e)
               }
           }
       })

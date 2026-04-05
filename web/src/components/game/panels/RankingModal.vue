@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
 import { useUiStore } from '../../../stores/ui'
 import { formatRealmStage } from '@/utils/cultivationText'
+import { logError } from '@/utils/appError'
 
 const props = defineProps<{
   show: boolean
@@ -47,7 +48,7 @@ const fetchRankings = async () => {
     const res = await worldApi.fetchRankings()
     rankings.value = res || { heaven: [], earth: [], human: [], sect: [] }
   } catch (e) {
-    console.error(e)
+    logError('RankingModal fetch rankings', e)
   } finally {
     loading.value = false
   }

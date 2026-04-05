@@ -23,6 +23,7 @@ import { useBgm } from './composables/useBgm'
 import { useSidebarResize } from './composables/useSidebarResize'
 import { useAppShell } from './composables/useAppShell'
 import { useSystemMenuFlow } from './composables/useSystemMenuFlow'
+import { logError } from './utils/appError'
 
 // Stores
 import { useUiStore } from './stores/ui'
@@ -113,7 +114,7 @@ async function handleSplashAction(key: string) {
       window.close()
       document.body.innerHTML = `<div style="color:white; display:flex; justify-content:center; align-items:center; height:100vh; background:black; font-size:24px;">${t('game.controls.closed_msg')}</div>`
     } catch (e) {
-      console.error('Shutdown failed', e)
+      logError('App shutdown', e)
     }
     return
   }
@@ -128,7 +129,7 @@ async function handleReturnToMain() {
     await systemApi.resetGame()
     returnToSplash()
   } catch (e) {
-    console.error('Reset game failed', e)
+    logError('App reset game', e)
   }
 }
 

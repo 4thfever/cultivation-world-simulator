@@ -21,7 +21,6 @@ export const useMapStore = defineStore('map', () => {
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
       isLoaded.value = true;
-      console.log('[MapStore] Map preloaded');
     } catch (e) {
       logWarn('MapStore preload map', e);
       throw e;

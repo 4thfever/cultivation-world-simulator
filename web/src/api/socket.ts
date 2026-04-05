@@ -3,6 +3,8 @@
  * 纯粹的 Socket 封装，不依赖 Store
  */
 
+import { logError, logWarn } from '@/utils/appError'
+
 export type MessageHandler = (data: unknown) => void;
 
 export interface SocketOptions {
@@ -40,7 +42,7 @@ export class GameSocket {
       this.ws.onclose = this.onClose.bind(this);
       this.ws.onerror = this.onError.bind(this);
     } catch (e) {
-      console.error('WS Connection failed', e);
+      logError('Socket connect', e);
       this.scheduleReconnect();
     }
   }
@@ -71,7 +73,7 @@ export class GameSocket {
       const data = JSON.parse(event.data);
       this.handlers.forEach(h => h(data));
     } catch (e) {
-      console.warn('Failed to parse WS message', e);
+      logWarn('Socket parse message', e);
     }
   }
 

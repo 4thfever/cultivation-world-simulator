@@ -3,6 +3,7 @@ import { shallowRef, computed } from 'vue';
 import type { AvatarSummary } from '../types/core';
 import type { InitialStateDTO } from '../types/api';
 import { worldApi } from '../api';
+import { logWarn } from '../utils/appError';
 
 export const useAvatarStore = defineStore('avatar', () => {
   // Key: Avatar ID
@@ -53,11 +54,10 @@ export const useAvatarStore = defineStore('avatar', () => {
         stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
       }
       avatars.value = avatarMap;
-      console.log('[AvatarStore] Avatars preloaded:', avatarMap.size);
       // Return state info that might be useful for world store (e.g. time)
       return { year: stateRes.year, month: stateRes.month };
     } catch (e) {
-      console.warn('[AvatarStore] Failed to preload avatars', e);
+      logWarn('AvatarStore preload avatars', e);
       throw e;
     }
   }
