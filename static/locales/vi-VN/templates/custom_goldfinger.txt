@@ -17,7 +17,6 @@ Chỉ trả về duy nhất một đối tượng JSON, không thêm giải thí
   "thinking": "ghi ngắn gọn ý tưởng thiết kế",
   "name": "tên goldfinger",
   "desc": "mô tả ngắn",
-  "display_text": "phần mô tả hiển thị cho người chơi, phải có cảm giác外挂 truyện mạng",
   "story_prompt": "gợi ý cho AI viết truyện, giải thích câu chuyện nên xoay quanh goldfinger này như thế nào",
   "effects": {{
     "effect_key": "value"

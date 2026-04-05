@@ -175,7 +175,6 @@ export interface CustomContentDraftDTO extends AvatarAdjustOptionDTO {
   realm?: string;
   effects: Record<string, number | boolean>;
   weapon_type?: string;
-  display_text?: string;
   story_prompt?: string;
   mechanism_type?: string;
   is_custom?: boolean;

@@ -17,7 +17,6 @@
   "thinking": "簡短說明設計思路",
   "name": "外掛名稱",
   "desc": "外掛簡介",
-  "display_text": "給玩家展示的說明文字，要有網文外掛感",
   "story_prompt": "給 AI 寫故事時使用的提示詞，要強調故事該如何圍繞這個外掛展開",
   "effects": {{
     "effect_key": "value"

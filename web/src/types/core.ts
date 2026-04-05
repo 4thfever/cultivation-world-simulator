@@ -21,7 +21,6 @@ export interface Coordinates {
 export interface EffectEntity extends EntityBase {
   desc?: string;
   effect_desc?: string;
-  display_text?: string;
   story_prompt?: string;
   mechanism_type?: string;
   grade?: string;

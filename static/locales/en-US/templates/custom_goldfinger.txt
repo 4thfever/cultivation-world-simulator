@@ -17,7 +17,6 @@ Return only one JSON object:
   "thinking": "brief design reasoning",
   "name": "goldfinger name",
   "desc": "short description",
-  "display_text": "player-facing explanation text",
   "story_prompt": "AI-facing story hint that explains how stories should revolve around this goldfinger",
   "effects": {{
     "effect_key": "value"

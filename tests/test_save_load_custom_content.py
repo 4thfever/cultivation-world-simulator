@@ -77,8 +77,7 @@ def test_save_and_load_custom_goldfinger_round_trip(base_world, tmp_path):
         {
             "category": "goldfinger",
             "name": "逆命骰子",
-            "desc": "命数像被一枚骰子轻轻拨动。",
-            "display_text": "你的命数总会在关键时刻再掷一次。",
+            "desc": "你的命数总会在关键时刻再掷一次。",
             "story_prompt": "请强调命运被重新掷骰的感觉。",
             "effects": {
                 "extra_luck": 11,

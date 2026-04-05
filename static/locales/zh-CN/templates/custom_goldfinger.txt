@@ -17,7 +17,6 @@
   "thinking": "简短说明设计思路",
   "name": "外挂名称",
   "desc": "外挂简介",
-  "display_text": "给玩家展示的说明文本，要有网文外挂感",
   "story_prompt": "给AI写故事时用的提示词，要强调故事该如何围绕这个外挂展开",
   "effects": {{
     "effect_key": "value"

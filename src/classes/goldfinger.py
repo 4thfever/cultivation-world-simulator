@@ -26,7 +26,6 @@ class Goldfinger:
     condition: str
     effects: dict[str, object] | list[dict[str, object]]
     mechanism_type: str
-    display_text: str
     story_prompt: str
     mechanism_config: dict[str, Any] | list[dict[str, Any]]
     enabled: bool = True
@@ -43,9 +42,8 @@ class Goldfinger:
         from src.i18n import t
 
         desc_part = f" ({self.desc})" if self.desc else ""
-        display_part = f"\n{self.display_text}" if self.display_text else ""
         effect_part = t("\nEffect: {effect_desc}", effect_desc=self.effect_desc) if self.effect_desc else ""
-        return f"{self.name}{desc_part}{display_part}{effect_part}"
+        return f"{self.name}{desc_part}{effect_part}"
 
     def get_structured_info(self) -> dict:
         return {
@@ -56,7 +54,6 @@ class Goldfinger:
             "rarity": self.rarity.level.value,
             "color": self.rarity.color_rgb,
             "effect_desc": self.effect_desc,
-            "display_text": self.display_text,
             "story_prompt": self.story_prompt,
             "mechanism_type": self.mechanism_type,
             "enabled": self.enabled,
@@ -85,7 +82,6 @@ def _load_goldfingers() -> tuple[dict[int, Goldfinger], dict[str, Goldfinger]]:
             condition=get_str(row, "condition"),
             effects=effects,
             mechanism_type=get_str(row, "mechanism_type", "effect_only"),
-            display_text=get_str(row, "display_text"),
             story_prompt=get_str(row, "story_prompt"),
             mechanism_config=mechanism_config,
             enabled=get_bool(row, "enabled", True),

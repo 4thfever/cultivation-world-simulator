@@ -289,7 +289,7 @@ describe('AvatarDetail', () => {
           goldfinger: {
             id: '1',
             name: '气运之子',
-            desc: '天命眷顾',
+            desc: '天命偏爱，机缘主动靠近',
             effect_desc: '气运 +20',
           },
         } as any,
@@ -315,12 +315,12 @@ describe('AvatarDetail', () => {
 
     expect(wrapper.text()).toContain('Goldfinger')
     expect(wrapper.findAll('.equipment-slot-block')).toHaveLength(4)
-    expect(wrapper.text()).toContain('天命眷顾')
+    expect(wrapper.text()).toContain('天命偏爱，机缘主动靠近')
     expect(entityRowSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         item: expect.objectContaining({
           name: '气运之子',
-          desc: '天命眷顾',
+          desc: '天命偏爱，机缘主动靠近',
         }),
       }),
     )

@@ -61,7 +61,7 @@ def test_avatar_detail_api_exposes_goldfinger_fields(base_world):
         assert data["goldfinger"]["name"] == "穿越者"
         assert data["goldfinger"]["mechanism_type"] == "story_driven"
         assert "现代思维" in data["goldfinger"]["story_prompt"]
-        assert "另一个世界" in data["goldfinger"]["display_text"]
+        assert "另一个世界" in data["goldfinger"]["desc"]
         assert data["goldfinger"]["state"] == {"story_focus": "modern_mindset"}
         assert "外挂 [穿越者]" in data["current_effects"]
         assert "pic_id" in data
@@ -92,7 +92,7 @@ def test_avatar_detail_api_surfaces_randomly_initialized_goldfinger(base_world, 
         assert data["goldfinger"] is not None
         assert data["goldfinger"]["key"] == "CHILD_OF_FORTUNE"
         assert data["goldfinger"]["name"] == "气运之子"
-        assert "天地眷顾" in data["goldfinger"]["display_text"]
+        assert "天地眷顾" in data["goldfinger"]["desc"]
     finally:
         main.game_instance.update(original_instance)
 

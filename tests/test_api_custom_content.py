@@ -51,8 +51,7 @@ def test_generate_custom_goldfinger_api_uses_generation_service():
         mock_generate.return_value = {
             "category": "goldfinger",
             "name": "天命签到簿",
-            "desc": "每日都会给你一点命数回报",
-            "display_text": "一本只会在你心底翻页的天命簿册。",
+            "desc": "一本只会在你心底翻页的天命簿册。",
             "story_prompt": "请围绕签到感与命数回报展开。",
             "effects": {"extra_luck": 12},
             "effect_desc": "气运 +12",
@@ -118,8 +117,7 @@ def test_create_custom_goldfinger_api_registers_new_item():
             "draft": {
                 "category": "goldfinger",
                 "name": "万劫翻盘令",
-                "desc": "每逢险境总有一线翻盘之机。",
-                "display_text": "你像被一枚无形令牌庇护，越是倒霉越容易翻盘。",
+                "desc": "你像被一枚无形令牌庇护，越是倒霉越容易翻盘。",
                 "story_prompt": "若出现险境，请强调翻盘感。",
                 "effects": {
                     "extra_luck": 10,
@@ -148,7 +146,7 @@ def test_create_custom_goldfinger_api_accepts_numeric_string_effect_values():
             "draft": {
                 "category": "goldfinger",
                 "name": "天运回响",
-                "display_text": "你总能从命运回响里捞到一点额外好处。",
+                "desc": "你总能从命运回响里捞到一点额外好处。",
                 "effects": {
                     "extra_luck": "14",
                     "extra_breakthrough_success_rate": "0.12",
@@ -173,7 +171,7 @@ def test_create_custom_goldfinger_api_rejects_noncanonical_effect_keys():
             "draft": {
                 "category": "goldfinger",
                 "name": "命数偏爱",
-                "display_text": "你总能从命数的缝隙里捞到一点好处。",
+                "desc": "你总能从命数的缝隙里捞到一点好处。",
                 "effects": {
                     "luck_boost": 15,
                 },
@@ -195,8 +193,7 @@ async def test_generate_custom_goldfinger_draft_passes_allowed_effects_to_llm():
     ) as mock_call:
         mock_call.return_value = {
             "name": "天命签到簿",
-            "desc": "每日都会给你一点命数回报",
-            "display_text": "一本只会在你心底翻页的天命簿册。",
+            "desc": "一本只会在你心底翻页的天命簿册。",
             "story_prompt": "请围绕签到感与命数回报展开。",
             "effects": {"extra_luck": 12},
             "rarity": "SSR",

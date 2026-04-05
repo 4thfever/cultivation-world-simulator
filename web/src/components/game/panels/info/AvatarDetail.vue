@@ -83,6 +83,10 @@ const equipmentSlots = computed(() => [
   },
 ]);
 
+function getSlotDescription(item: EffectEntity | null | undefined): string {
+  return item?.desc || '';
+}
+
 const avatarHeaderSubtitle = computed(() => {
   return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
@@ -465,10 +469,10 @@ async function handleClearObjective() {
               </button>
             </div>
             <div
-              v-if="slot.category === 'goldfinger' && slot.item?.desc"
+              v-if="slot.category === 'goldfinger' && getSlotDescription(slot.item)"
               class="slot-desc"
             >
-              {{ slot.item.desc }}
+              {{ getSlotDescription(slot.item) }}
             </div>
           </div>
         </div>

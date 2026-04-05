@@ -31,14 +31,12 @@ def normalize_custom_goldfinger_draft(draft: dict[str, Any]) -> dict[str, Any]:
 
     name = str(draft.get("name", "") or "").strip()
     desc = str(draft.get("desc", "") or "").strip()
-    display_text = str(draft.get("display_text", "") or "").strip()
     story_prompt = str(draft.get("story_prompt", "") or "").strip()
     if not name:
         raise HTTPException(status_code=400, detail="name is required")
 
     effects = validate_custom_effects(draft.get("effects"))
-    normalized_desc = desc or display_text or f"{name}会持续影响角色命数与发展。"
-    normalized_display_text = display_text or normalized_desc
+    normalized_desc = desc or f"{name}会持续影响角色命数与发展。"
     normalized_story_prompt = story_prompt or f"若角色拥有“{name}”外挂，请围绕其外挂特征展开故事，并突出其超规格之处。"
     rarity_raw = str(draft.get("rarity", "SSR") or "SSR").strip().upper()
     normalized_rarity = rarity_raw if rarity_raw in {"SR", "SSR"} else "SSR"
@@ -47,7 +45,6 @@ def normalize_custom_goldfinger_draft(draft: dict[str, Any]) -> dict[str, Any]:
         "category": "goldfinger",
         "name": name,
         "desc": normalized_desc,
-        "display_text": normalized_display_text,
         "story_prompt": normalized_story_prompt,
         "effects": effects,
         "effect_desc": format_effects_to_text(effects),
@@ -92,7 +89,6 @@ def create_custom_goldfinger_from_draft(draft: dict[str, Any]) -> dict[str, Any]
         effects=dict(normalized["effects"]),
         effect_desc=normalized["effect_desc"],
         mechanism_type="effect_only",
-        display_text=normalized["display_text"],
         story_prompt=normalized["story_prompt"],
         mechanism_config={},
         enabled=True,

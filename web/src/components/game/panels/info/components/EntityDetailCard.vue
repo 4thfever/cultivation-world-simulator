@@ -30,6 +30,10 @@ const gradeBadgeClass = computed(() => {
 const displayAttribute = computed(() => {
   return formatAttributeLabel(props.item?.attribute, t);
 });
+
+const displayDescription = computed(() => {
+  return props.item?.desc || '';
+});
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const displayAttribute = computed(() => {
         {{ item.name }}
       </div>
 
-      <div class="sec-desc" v-if="item.desc">{{ item.desc }}</div>
+      <div class="sec-desc" v-if="displayDescription">{{ displayDescription }}</div>
 
       <div v-if="item.effect_desc" class="effect-box">
         <div class="label">{{ t('game.info_panel.popup.effect') }}</div>

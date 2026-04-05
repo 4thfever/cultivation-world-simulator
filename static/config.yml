@@ -71,7 +71,7 @@ sect:
   territory_noise_weight: 6  # 格子归属时的稳定锯齿扰动强度
   territory_dense_border_threshold: 8  # 接壤边达到该阈值后，关系额外恶化
   random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
-  decision_interval_years: 1
+  decision_interval_years: 3
   thinking_interval_years: 5
   recruit_cost: 500
   support_amount: 300

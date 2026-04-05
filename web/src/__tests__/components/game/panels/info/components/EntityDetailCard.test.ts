@@ -48,6 +48,24 @@ describe('EntityDetailCard', () => {
     expect(badge.classes()).toContain('grade-epic')
   })
 
+  it('renders description from desc', () => {
+    const wrapper = mount(EntityDetailCard, {
+      props: {
+        item: {
+          id: '3',
+          name: '气运之子',
+          rarity: 'SSR',
+          desc: '你仿佛生来便被天地眷顾，很多人求而不得的机缘总会向你靠近。',
+        } as any,
+      },
+      global: {
+        plugins: [buildI18n()],
+      },
+    })
+
+    expect(wrapper.text()).toContain('你仿佛生来便被天地眷顾')
+  })
+
   it('renders legendary badge style for SSR entities', () => {
     const wrapper = mount(EntityDetailCard, {
       props: {
