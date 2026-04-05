@@ -10,7 +10,7 @@ import { useMessage } from 'naive-ui';
 import EntityDetailCard from './EntityDetailCard.vue';
 import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
 
-type AdjustCategory = 'technique' | 'weapon' | 'auxiliary' | 'personas';
+type AdjustCategory = 'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger';
 
 const props = defineProps<{
   avatarId: string;
@@ -44,6 +44,7 @@ const categoryLabels: Record<AdjustCategory, string> = {
   weapon: 'game.info_panel.avatar.adjust.categories.weapon',
   auxiliary: 'game.info_panel.avatar.adjust.categories.auxiliary',
   personas: 'game.info_panel.avatar.adjust.categories.personas',
+  goldfinger: 'game.info_panel.avatar.adjust.categories.goldfinger',
 };
 
 const singleSlotCurrentItem = computed(() => props.currentItem ?? null);
@@ -70,12 +71,14 @@ const availableOptions = computed<AvatarAdjustOptionDTO[]>(() => {
       return catalog.value.auxiliaries;
     case 'personas':
       return catalog.value.personas;
+    case 'goldfinger':
+      return catalog.value.goldfingers;
   }
 });
 
 const normalizedSearch = computed(() => searchText.value.trim().toLowerCase());
 const supportsCustomGeneration = computed(() => {
-  return props.category === 'technique' || props.category === 'weapon' || props.category === 'auxiliary';
+  return props.category === 'technique' || props.category === 'weapon' || props.category === 'auxiliary' || props.category === 'goldfinger';
 });
 const needsRealmForCustomGeneration = computed(() => {
   return props.category === 'weapon' || props.category === 'auxiliary';

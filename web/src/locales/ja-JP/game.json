@@ -297,6 +297,7 @@
         "thinking": "思考",
         "traits": "特質",
         "techniques_equipment": "功法と装備",
+        "goldfinger": "外挂",
         "materials": "素材",
         "relations": "関係",
         "current_effects": "現在の効果"
@@ -329,7 +330,8 @@
           "technique": "功法",
           "weapon": "武器",
           "auxiliary": "補助装備",
-          "personas": "特質"
+          "personas": "特質",
+          "goldfinger": "外挂"
         }
       },
       "portrait": {

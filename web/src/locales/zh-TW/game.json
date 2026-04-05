@@ -297,6 +297,7 @@
         "thinking": "當前思考",
         "traits": "特質",
         "techniques_equipment": "功法與裝備",
+        "goldfinger": "外掛",
         "materials": "材料",
         "relations": "關係",
         "current_effects": "當前效果"
@@ -329,7 +330,8 @@
           "technique": "功法",
           "weapon": "武器",
           "auxiliary": "輔助裝備",
-          "personas": "特質"
+          "personas": "特質",
+          "goldfinger": "外掛"
         }
       },
       "portrait": {

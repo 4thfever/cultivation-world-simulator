@@ -21,6 +21,9 @@ export interface Coordinates {
 export interface EffectEntity extends EntityBase {
   desc?: string;
   effect_desc?: string;
+  display_text?: string;
+  story_prompt?: string;
+  mechanism_type?: string;
   grade?: string;
   realm?: string;
   rarity?: string; // e.g., 'SSR', 'R', '上品'
@@ -105,6 +108,7 @@ export interface AvatarDetail extends EntityBase {
   sect?: SectInfo;
   orthodoxy?: EffectEntity; // 新增道统字段
   personas: EffectEntity[];
+  goldfinger?: EffectEntity;
   technique?: EffectEntity;
   weapon?: EffectEntity & { proficiency: string };
   auxiliary?: EffectEntity;

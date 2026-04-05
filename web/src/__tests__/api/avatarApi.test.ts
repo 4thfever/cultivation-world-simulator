@@ -18,7 +18,7 @@ describe('avatarApi', () => {
 
   it('fetches avatar adjust options from the dedicated endpoint', async () => {
     const { avatarApi } = await import('@/api/modules/avatar')
-    getMock.mockResolvedValue({ techniques: [], weapons: [], auxiliaries: [], personas: [] })
+    getMock.mockResolvedValue({ techniques: [], weapons: [], auxiliaries: [], personas: [], goldfingers: [] })
 
     await avatarApi.fetchAvatarAdjustOptions()
 
@@ -39,6 +39,23 @@ describe('avatarApi', () => {
       avatar_id: 'avatar_1',
       category: 'personas',
       persona_ids: [1, 2, 3],
+    })
+  })
+
+  it('posts goldfinger adjustment payloads through the unified endpoint', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok' })
+
+    await avatarApi.updateAvatarAdjustment({
+      avatar_id: 'avatar_1',
+      category: 'goldfinger',
+      target_id: 930001,
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/update_avatar_adjustment', {
+      avatar_id: 'avatar_1',
+      category: 'goldfinger',
+      target_id: 930001,
     })
   })
 
@@ -71,6 +88,21 @@ describe('avatarApi', () => {
       category: 'weapon',
       realm: 'CORE_FORMATION',
       user_prompt: '想要一把金丹剑',
+    })
+  })
+
+  it('posts custom goldfinger generation requests without realm', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', draft: {} })
+
+    await avatarApi.generateCustomContent({
+      category: 'goldfinger',
+      user_prompt: '想要一个偏签到流的外挂',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+      category: 'goldfinger',
+      user_prompt: '想要一个偏签到流的外挂',
     })
   })
 

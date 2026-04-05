@@ -26,7 +26,7 @@ const props = defineProps<{
 
 const uiStore = useUiStore();
 const secondaryItem = ref<EffectEntity | null>(null);
-const adjustCategory = ref<'technique' | 'weapon' | 'auxiliary' | 'personas' | null>(null);
+const adjustCategory = ref<'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger' | null>(null);
 const showPortraitPanel = ref(false);
 const showObjectiveModal = ref(false);
 const objectiveContent = ref('');
@@ -217,7 +217,7 @@ function showDetail(item: EffectEntity | undefined) {
   }
 }
 
-function openAdjustPanel(category: 'technique' | 'weapon' | 'auxiliary' | 'personas') {
+function openAdjustPanel(category: 'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger') {
   adjustCategory.value = category;
 }
 
@@ -266,7 +266,7 @@ async function handleClearObjective() {
     <AvatarAdjustPanel
       :avatar-id="data.id"
       :category="adjustCategory"
-      :current-item="adjustCategory === 'technique' ? data.technique ?? null : adjustCategory === 'weapon' ? data.weapon ?? null : adjustCategory === 'auxiliary' ? data.auxiliary ?? null : null"
+      :current-item="adjustCategory === 'technique' ? data.technique ?? null : adjustCategory === 'weapon' ? data.weapon ?? null : adjustCategory === 'auxiliary' ? data.auxiliary ?? null : adjustCategory === 'goldfinger' ? data.goldfinger ?? null : null"
       :current-personas="adjustCategory === 'personas' ? data.personas : []"
       @close="closeAdjustPanel"
       @updated="uiStore.refreshDetail()"
@@ -445,6 +445,19 @@ async function handleClearObjective() {
           />
           <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
           <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('auxiliary')">
+            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
+          </button>
+        </div>
+        <div class="entity-subsection-title">{{ t('game.info_panel.avatar.sections.goldfinger') }}</div>
+        <div class="adjustable-row">
+          <EntityRow
+            v-if="data.goldfinger"
+            :item="data.goldfinger"
+            details-below
+            @click="showDetail(data.goldfinger)"
+          />
+          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
+          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('goldfinger')">
             <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
           </button>
         </div>
@@ -868,6 +881,13 @@ async function handleClearObjective() {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.entity-subsection-title {
+  margin: 8px 0 6px;
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 0.08em;
 }
 
 /* Relation specific styles */
