@@ -221,6 +221,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Hệ thống Effects cho nhân vật: buff/debuff
 - ✅ Công pháp của nhân vật
 - ✅ Binh khí và trang bị phụ trợ
+- ✅ Hệ thống Goldfinger
 - ✅ Đan dược
 - ✅ Ký ức ngắn hạn và dài hạn
 - ✅ Mục tiêu ngắn hạn và dài hạn, đồng thời cho phép người chơi chủ động đặt mục tiêu

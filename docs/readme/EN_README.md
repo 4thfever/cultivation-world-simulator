@@ -220,6 +220,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - ✅ Character Effects system: buffs/debuffs
 - ✅ Character techniques
 - ✅ Character weapons & auxiliary equipment
+- ✅ Goldfinger system
 - ✅ Elixirs
 - ✅ Character short and long-term memory
 - ✅ Character's short and long-term goals, supporting player active setting
