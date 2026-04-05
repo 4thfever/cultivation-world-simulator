@@ -44,3 +44,21 @@ def test_sect_decider_template_can_be_formatted() -> None:
 
     assert "recruit_avatar_ids" in prompt
     assert "A宗" in prompt
+
+
+def test_custom_goldfinger_template_can_be_formatted() -> None:
+    source_locale = get_source_locale()
+    template_path = Path(f"static/locales/{source_locale}/templates/custom_goldfinger.txt")
+    template = load_template(template_path)
+
+    infos = {
+        "allowed_effects": "- extra_luck: 气运, 值类型 int, 示例 2",
+        "user_prompt": "我想要一个偏签到流、数值稍强的外挂",
+    }
+
+    prompt = build_prompt(template, infos)
+
+    assert "外挂" in prompt or "goldfinger" in prompt
+    assert "\"thinking\"" in prompt
+    assert "extra_luck" in prompt
+    assert "我想要一个偏签到流、数值稍强的外挂" in prompt

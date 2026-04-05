@@ -54,6 +54,35 @@ const parsedCurrentEffects = computed(() => {
 
 const portraitUrl = computed(() => getAvatarPortraitUrl(props.data.gender, props.data.pic_id));
 
+const equipmentSlots = computed(() => [
+  {
+    category: 'technique' as const,
+    label: t('game.info_panel.avatar.adjust.categories.technique'),
+    item: props.data.technique ?? null,
+    meta: undefined,
+  },
+  {
+    category: 'weapon' as const,
+    label: t('game.info_panel.avatar.adjust.categories.weapon'),
+    item: props.data.weapon ?? null,
+    meta: props.data.weapon
+      ? t('game.info_panel.avatar.weapon_meta', { value: props.data.weapon.proficiency })
+      : undefined,
+  },
+  {
+    category: 'auxiliary' as const,
+    label: t('game.info_panel.avatar.adjust.categories.auxiliary'),
+    item: props.data.auxiliary ?? null,
+    meta: undefined,
+  },
+  {
+    category: 'goldfinger' as const,
+    label: t('game.info_panel.avatar.sections.goldfinger'),
+    item: props.data.goldfinger ?? null,
+    meta: undefined,
+  },
+]);
+
 const avatarHeaderSubtitle = computed(() => {
   return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
@@ -410,56 +439,32 @@ async function handleClearObjective() {
 
       <!-- Equipment & Sect -->
       <div class="section">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.techniques_equipment') }}</div>
-        <div class="adjustable-row">
-          <EntityRow 
-            v-if="data.technique" 
-            :item="data.technique" 
-            details-below
-            @click="showDetail(data.technique)" 
-          />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
-          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('technique')">
-            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
-          </button>
-        </div>
-        <div class="adjustable-row">
-          <EntityRow 
-            v-if="data.weapon" 
-            :item="data.weapon" 
-            :meta="t('game.info_panel.avatar.weapon_meta', { value: data.weapon.proficiency })"
-            details-below
-            @click="showDetail(data.weapon)" 
-          />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
-          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('weapon')">
-            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
-          </button>
-        </div>
-        <div class="adjustable-row">
-          <EntityRow 
-            v-if="data.auxiliary" 
-            :item="data.auxiliary" 
-            details-below
-            @click="showDetail(data.auxiliary)" 
-          />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
-          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('auxiliary')">
-            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
-          </button>
-        </div>
-        <div class="entity-subsection-title">{{ t('game.info_panel.avatar.sections.goldfinger') }}</div>
-        <div class="adjustable-row">
-          <EntityRow
-            v-if="data.goldfinger"
-            :item="data.goldfinger"
-            details-below
-            @click="showDetail(data.goldfinger)"
-          />
-          <div v-else class="empty-row">{{ t('game.info_panel.avatar.empty_short') }}</div>
-          <button class="adjust-btn inline" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('goldfinger')">
-            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
-          </button>
+        <div class="equipment-slots plain">
+          <div
+            v-for="slot in equipmentSlots"
+            :key="slot.category"
+            class="equipment-slot-block"
+          >
+            <div class="section-title subsection-title">{{ slot.label }}</div>
+            <div class="adjustable-row">
+              <EntityRow
+                v-if="slot.item"
+                :item="slot.item"
+                :meta="slot.meta"
+                details-below
+                @click="showDetail(slot.item)"
+              />
+              <div v-else class="empty-row slot-empty">{{ t('game.info_panel.avatar.empty_short') }}</div>
+              <button
+                class="adjust-btn inline"
+                :title="t('game.info_panel.avatar.adjust.entry')"
+                :aria-label="t('game.info_panel.avatar.adjust.entry')"
+                @click="openAdjustPanel(slot.category)"
+              >
+                <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
         </div>
          <EntityRow 
           v-if="data.spirit_animal" 
@@ -824,6 +829,26 @@ async function handleClearObjective() {
   margin-bottom: 4px;
 }
 
+.equipment-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.equipment-slots.plain {
+  gap: 8px;
+}
+
+.equipment-slot-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subsection-title {
+  margin-bottom: 2px;
+}
+
 .adjustable-row {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -883,11 +908,10 @@ async function handleClearObjective() {
   gap: 4px;
 }
 
-.entity-subsection-title {
-  margin: 8px 0 6px;
-  color: #888;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+.slot-empty {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
 }
 
 /* Relation specific styles */

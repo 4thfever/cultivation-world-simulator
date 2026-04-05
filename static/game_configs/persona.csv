@@ -29,17 +29,13 @@ id,name_id,desc_id,key,name,exclusion_keys,desc,rarity,condition,effects
 27,PERSONA_27_NAME,PERSONA_27_DESC,SHY,腼腆,OPEN_MINDED,你对待和他人结为道侣或者双修比较谨慎,N,,
 28,PERSONA_28_NAME,PERSONA_28_DESC,SIMP,舔狗,ALOOF;INDIFFERENT;MEAN;SHY,你对异性中外貌出众者格外友善。,N,,
 29,PERSONA_29_NAME,PERSONA_29_DESC,ENVIOUS,嫉妒,FRIENDLY;ENTHUSIASTIC,你对远超于你的人容易产生敌意。,N,,
-30,PERSONA_30_NAME,PERSONA_30_DESC,TRANSMIGRATOR,穿越者,,你来自现代社会，怀念现代社会的一切。,SR,,
-31,PERSONA_31_NAME,PERSONA_31_DESC,CHILD_OF_FORTUNE,气运之子,,天生气运加身，更易遇到奇遇。,SSR,,{extra_luck: 20}
 32,PERSONA_32_NAME,PERSONA_32_DESC,SWORD_FANATIC,剑痴,LAZY;TIMID,以剑入道，剑即是命。你认为剑道至上。,SR,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 1.0, extra_battle_strength_points: 3}]"
 33,PERSONA_33_NAME,PERSONA_33_DESC,SCHEMING,心机深沉,RASH;ENTHUSIASTIC;EXTROVERTED,深藏不露，行事谨慎，善于算计。,R,,
 34,PERSONA_34_NAME,PERSONA_34_DESC,LOYAL,忠诚,ALOOF;INDIFFERENT;MEAN,重承诺守信义，对认定的人绝不背叛。,R,,
 35,PERSONA_35_NAME,PERSONA_35_DESC,RUTHLESS,狠辣,FRIENDLY;ENTHUSIASTIC;TIMID,行事果决狠辣，不留后患，斩草必除根。,N,,
-36,PERSONA_36_NAME,PERSONA_36_DESC,REINCARNATOR,重生者,FICKLE;CASUAL,经历过一世，对未来有模糊预知。,SSR,,
 37,PERSONA_37_NAME,PERSONA_37_DESC,SUSPICIOUS,疑心重,ENTHUSIASTIC;EXTROVERTED;FRIENDLY,对任何人都保持怀疑，不轻易信任。,N,,
 38,PERSONA_38_NAME,PERSONA_38_DESC,BODY_CULTIVATOR,体修,LIFE_CHERISHING;TIMID,专注肉身淬炼，体魄强健，近战无敌。,R,,"[{when: 'avatar.weapon is None', when_desc: 'condition_unarmed', extra_battle_strength_points: 5}]"
 39,PERSONA_39_NAME,PERSONA_39_DESC,ALCHEMIST,炼丹师,AGGRESSIVE,精通丹道，对灵药敏感。,R,,{extra_refine_success_rate: 0.15}
-40,PERSONA_40_NAME,PERSONA_40_DESC,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,,天生福运，逢凶化吉。,SR,,{extra_luck: 8}
 41,PERSONA_41_NAME,PERSONA_41_DESC,SWORD_CULTIVATOR,剑修,LAZY,对剑道有着深厚的兴趣和独特的天赋。,R,,"[{when: 'avatar.weapon.type == ""SWORD""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 42,PERSONA_42_NAME,PERSONA_42_DESC,SABER_CULTIVATOR,刀修,LAZY,专精刀法，对刀道有着独特的理解。,R,,"[{when: 'avatar.weapon.type == ""SABER""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"
 43,PERSONA_43_NAME,PERSONA_43_DESC,SPEAR_CULTIVATOR,枪修,LAZY,精通枪法，百兵之王在手。,R,,"[{when: 'avatar.weapon.type == ""SPEAR""', extra_weapon_proficiency_gain: 0.5, extra_battle_strength_points: 1}]"

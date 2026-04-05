@@ -17,7 +17,7 @@ id,name_id,desc_id,name,rarity,effects,desc,duration_years
 15,CELESTIAL_PHENOMENON_15_NAME,CELESTIAL_PHENOMENON_15_DESC,阴阳交泰,R,{extra_dual_cultivation_exp: 20},阴阳交泰天地和合，彼此互补进境神速，最宜寻觅道侣共参双修之乐,5
 16,CELESTIAL_PHENOMENON_16_NAME,CELESTIAL_PHENOMENON_16_DESC,杀劫降临,SR,"{extra_battle_strength_points: 5, extra_fortune_probability: -0.005}",血光冲天杀意难抑，虽杀伐之力大增但机缘断绝，宜主动出击以杀证道,5
 17,CELESTIAL_PHENOMENON_17_NAME,CELESTIAL_PHENOMENON_17_DESC,太平盛世,R,"{extra_respire_exp: -10, extra_fortune_probability: 0.01}",天下太平万物安宁，虽苦修进境缓慢但机缘频出，宜游历天下寻找奇遇,5
-18,CELESTIAL_PHENOMENON_18_NAME,CELESTIAL_PHENOMENON_18_DESC,气运加身,R,"[{when: 'any(p.key == ""CHILD_OF_FORTUNE"" for p in avatar.personas)', extra_respire_exp: 25, extra_fortune_probability: 0.005}]",天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求,5
+18,CELESTIAL_PHENOMENON_18_NAME,CELESTIAL_PHENOMENON_18_DESC,气运加身,R,"[{when: 'avatar.goldfinger and avatar.goldfinger.key == ""CHILD_OF_FORTUNE""', extra_respire_exp: 25, extra_fortune_probability: 0.005}]",天命眷顾气运所钟，天选之人万事皆顺，常人只可仰望不可强求,5
 19,CELESTIAL_PHENOMENON_19_NAME,CELESTIAL_PHENOMENON_19_DESC,血月当空,SR,"{extra_battle_strength_points: 7, extra_respire_exp: -10, extra_retreat_success_rate: -0.2}",血月高悬人心躁动，战力虽强但静修困难，宜以战养战掠夺资源,5
 20,CELESTIAL_PHENOMENON_20_NAME,CELESTIAL_PHENOMENON_20_DESC,飞升之门,SSR,"{extra_respire_exp: 30, extra_breakthrough_success_rate: 0.2}",天门大开大道显现，感悟修行皆如有神助，正是冲击境界飞升成仙之时,7
 21,CELESTIAL_PHENOMENON_21_NAME,CELESTIAL_PHENOMENON_21_DESC,法则显化,SSR,{extra_breakthrough_success_rate: 0.5},天地法则清晰可触，瓶颈如纸一捅即破，万勿错过此突破天赐良机,3

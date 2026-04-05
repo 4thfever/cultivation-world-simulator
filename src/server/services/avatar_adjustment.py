@@ -6,6 +6,7 @@ from fastapi import HTTPException
 
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.custom_content import is_custom_content_id
+from src.classes.goldfinger import goldfingers_by_id
 from src.classes.items.weapon import weapons_by_id
 from src.classes.persona import personas_by_id
 from src.classes.technique import techniques_by_id
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
 
-VALID_AVATAR_ADJUSTMENT_CATEGORIES = ("technique", "weapon", "auxiliary", "personas")
+VALID_AVATAR_ADJUSTMENT_CATEGORIES = ("technique", "weapon", "auxiliary", "personas", "goldfinger")
 
 
 def build_avatar_adjust_options() -> dict:
@@ -34,6 +35,10 @@ def build_avatar_adjust_options() -> dict:
         "personas": [
             _build_option_from_structured(persona.get_structured_info())
             for persona in personas_by_id.values()
+        ],
+        "goldfingers": [
+            _build_option_from_structured(goldfinger.get_structured_info())
+            for goldfinger in goldfingers_by_id.values()
         ],
     }
 
@@ -67,6 +72,13 @@ def apply_avatar_adjustment(
             raise HTTPException(status_code=400, detail="persona_ids contains duplicate values")
 
         avatar.personas = [_get_existing(personas_by_id, persona_id, "Persona") for persona_id in persona_ids]
+        avatar.recalc_effects()
+        return
+
+    if category == "goldfinger":
+        avatar.goldfinger = None if target_id is None else _get_existing(goldfingers_by_id, target_id, "Goldfinger")
+        if target_id is None:
+            avatar.goldfinger_state = {}
         avatar.recalc_effects()
         return
 

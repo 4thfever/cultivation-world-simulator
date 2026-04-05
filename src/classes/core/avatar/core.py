@@ -28,6 +28,7 @@ from src.classes.event import Event
 from src.classes.action_runtime import ActionPlan, ActionInstance
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, get_random_compatible_personas
+from src.classes.goldfinger import Goldfinger
 from src.classes.material import Material
 from src.classes.items.weapon import Weapon
 from src.classes.items.auxiliary import Auxiliary
@@ -80,6 +81,8 @@ class Avatar(
 
     root: Root = field(default_factory=lambda: random.choice(list(Root)))
     personas: List[Persona] = field(default=None)  # type: ignore
+    goldfinger: Goldfinger | None = None
+    goldfinger_state: dict = field(default_factory=dict)
     technique: Technique | None = None
     _pending_events: List[Event] = field(default_factory=list)
     current_action: Optional[ActionInstance] = None

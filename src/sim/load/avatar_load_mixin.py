@@ -49,6 +49,7 @@ class AvatarLoadMixin:
         from src.classes.root import Root
         from src.classes.alignment import Alignment
         from src.classes.persona import personas_by_id
+        from src.classes.goldfinger import goldfingers_by_id
         from src.classes.appearance import get_appearance_by_level
         from src.classes.items.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
@@ -153,6 +154,9 @@ class AvatarLoadMixin:
         # 重建personas
         persona_ids = data.get("persona_ids", [])
         avatar.personas = [personas_by_id[pid] for pid in persona_ids if pid in personas_by_id]
+        goldfinger_id = data.get("goldfinger_id")
+        avatar.goldfinger = goldfingers_by_id.get(goldfinger_id) if goldfinger_id is not None else None
+        avatar.goldfinger_state = dict(data.get("goldfinger_state", {}) or {})
         avatar.official_rank = str(data.get("official_rank", "NONE") or "NONE")
         avatar.court_reputation = int(data.get("court_reputation", 0) or 0)
         last_governance_month = data.get("last_governance_month")

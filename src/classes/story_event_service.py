@@ -5,6 +5,7 @@ from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from src.classes.event import Event
+from src.classes.goldfinger import merge_story_prompt_with_goldfinger
 from src.classes.story_teller import StoryTeller
 from src.utils.config import CONFIG
 
@@ -102,12 +103,13 @@ class StoryEventService:
         final_result_text = (result_text or "").strip() or final_start_text
         if not final_result_text:
             return None
+        enriched_prompt = merge_story_prompt_with_goldfinger(prompt, *filtered_actors)
 
         story = await StoryTeller.tell_story(
             final_start_text,
             final_result_text,
             *filtered_actors,
-            prompt=prompt,
+            prompt=enriched_prompt,
             allow_relation_changes=allow_relation_changes,
         )
         return Event(
@@ -132,13 +134,14 @@ class StoryEventService:
             return None
         if not related_avatars:
             return None
+        enriched_prompt = merge_story_prompt_with_goldfinger(prompt, *related_avatars)
 
         story = await StoryTeller.tell_gathering_story(
             gathering_info=gathering_info,
             events_text=events_text,
             details_text=details_text,
             related_avatars=related_avatars,
-            prompt=prompt,
+            prompt=enriched_prompt,
         )
         return Event(
             month_stamp=month_stamp,

@@ -50,12 +50,17 @@ from src.server.services.custom_content_service import (
     create_custom_content_from_draft,
     generate_custom_content_draft,
 )
+from src.server.services.custom_goldfinger_service import (
+    create_custom_goldfinger_from_draft,
+    generate_custom_goldfinger_draft,
+)
 from src.run.load_map import load_cultivation_world_map
 from src.sim.avatar_init import make_avatars as _new_make_random, create_avatar_from_request
 from src.systems.dynasty_generator import generate_dynasty, generate_emperor
 from src.utils.config import CONFIG
 from src.classes.core.sect import sects_by_id
 from src.classes.technique import techniques_by_id
+from src.classes.goldfinger import goldfingers_by_id
 from src.classes.items.weapon import weapons_by_id
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.appearance import get_appearance_by_level
@@ -1529,7 +1534,7 @@ class DeleteAvatarRequest(BaseModel):
 
 class UpdateAvatarAdjustmentRequest(BaseModel):
     avatar_id: str
-    category: Literal["technique", "weapon", "auxiliary", "personas"]
+    category: Literal["technique", "weapon", "auxiliary", "personas", "goldfinger"]
     target_id: Optional[int] = None
     persona_ids: Optional[List[int]] = None
 
@@ -1540,13 +1545,13 @@ class UpdateAvatarPortraitRequest(BaseModel):
 
 
 class GenerateCustomContentRequest(BaseModel):
-    category: Literal["technique", "weapon", "auxiliary"]
+    category: Literal["technique", "weapon", "auxiliary", "goldfinger"]
     realm: Optional[str] = None
     user_prompt: str
 
 
 class CreateCustomContentRequest(BaseModel):
-    category: Literal["technique", "weapon", "auxiliary"]
+    category: Literal["technique", "weapon", "auxiliary", "goldfinger"]
     draft: dict
 
 @app.get("/api/meta/game_data")
@@ -1836,17 +1841,23 @@ def update_avatar_adjustment(req: UpdateAvatarAdjustmentRequest):
 
 @app.post("/api/action/generate_custom_content")
 async def generate_custom_content(req: GenerateCustomContentRequest):
-    draft = await generate_custom_content_draft(
-        req.category,
-        Realm.from_str(req.realm) if req.realm else None,
-        req.user_prompt,
-    )
+    if req.category == "goldfinger":
+        draft = await generate_custom_goldfinger_draft(req.user_prompt)
+    else:
+        draft = await generate_custom_content_draft(
+            req.category,
+            Realm.from_str(req.realm) if req.realm else None,
+            req.user_prompt,
+        )
     return {"status": "ok", "draft": draft}
 
 
 @app.post("/api/action/create_custom_content")
 def create_custom_content(req: CreateCustomContentRequest):
-    item = create_custom_content_from_draft(req.category, req.draft)
+    if req.category == "goldfinger":
+        item = create_custom_goldfinger_from_draft(req.draft)
+    else:
+        item = create_custom_content_from_draft(req.category, req.draft)
     return {"status": "ok", "item": item}
 
 

@@ -1,0 +1,11 @@
+id,name_id,desc_id,key,name,rarity,enabled,condition,effects,mechanism_type,display_text,story_prompt,exclusion_keys,mechanism_config
+,名称ID,描述ID,Key,名称,稀有度(N/R/SR/SSR),是否启用,选取条件,JSON形式,机制类型,给玩家展示的文本,给AI的提示词,互斥Key,机制配置
+1,,,CHILD_OF_FORTUNE,气运之子,SSR,true,,"{extra_luck: 20}",effect_only,你仿佛生来便被天地眷顾，很多人求而不得的机缘总会向你靠近。,若角色拥有“气运之子”外挂，请把“天命偏爱、机缘主动靠近、顺势而为”作为故事中的重要线索。,,{}
+2,,,BLESSED_WITH_GOOD_FORTUNE,福缘深厚,SR,true,,"{extra_luck: 12, extra_epiphany_probability: 0.05, extra_fortune_probability: 0.01}",effect_only,你福缘深厚，常常能在险处见转机，在寻常处见收获。,若角色拥有“福缘深厚”外挂，请把“逢凶化吉、小处见福、顺手撞见好事”作为故事中的重要线索。,,{}
+3,,,TRANSMIGRATOR,穿越者,SR,true,,"{extra_luck: 8, extra_epiphany_probability: 0.04, extra_breakthrough_success_rate: 0.03}",story_driven,你来自另一个世界，现代的记忆与思维仍在影响你看待修仙界的方式。,若角色拥有“穿越者”外挂，请重点描写其现代思维、异世界错位感，以及试图用现代经验理解或处理修仙问题的视角。,,{}
+4,,,REINCARNATOR,重生者,SSR,true,,"{extra_luck: 10, extra_breakthrough_success_rate: 0.06, extra_epiphany_probability: 0.03}",story_driven,你像是带着上一世的残影归来，对某些选择与危险有说不清的敏锐直觉。,若角色拥有“重生者”外挂，请重点描写其前世残留记忆、避坑冲动、旧日执念与对未来的误判。,,{}
+5,,,OLD_GRANDPA,随身老爷爷,SSR,true,,"{extra_luck: 6, extra_epiphany_probability: 0.08, extra_breakthrough_success_rate: 0.08}",story_driven,你的命运里像是始终藏着一位看不见的前辈，在关键时刻指点、催促，甚至与你争执。,若角色拥有“随身老爷爷”外挂，请重点描写那位隐秘前辈的指点、争执、隐瞒与安排，让故事带出明显的陪伴视角。,,{}
+6,,,BAD_LUCK_REVERSAL,霉运逆转,SSR,true,,"{extra_luck: 6, extra_fortune_probability: 0.015, extra_misfortune_probability: 0.02}",mechanic_driven,你常常会先撞上坏事的边缘，却又在最后一步把祸事翻成机缘。,若角色拥有“霉运逆转”外挂，请把“先险后吉、坏事翻盘、祸中见机”作为重要叙事节奏。,,{mode: "misfortune_to_fortune"}
+7,,,SYSTEM,系统,SSR,false,,,mechanic_driven,你的命运像被某种看不见的规则系统注视着，偶尔会有超出常理的任务感。,若角色拥有“系统”外挂，请保留一种被更高规则注视或驱动的感觉，但当前版本不要求具体任务机制。,,{}
+8,,,TIME_CHEAT,时间作弊,SSR,false,,,mechanic_driven,你对时间似乎有一种不合常理的利用方式，能在关键处比常人多看到一点未来或多试一次。,若角色拥有“时间作弊”外挂，请保留一种时间被扭曲或被多次尝试的感觉，但当前版本不要求具体机制。,,{}
+9,,,DEDUCTION_TERMINAL,推演终端,SSR,false,,,mechanic_driven,你的思维中像是嵌着一座冷静的推演终端，总会对局势给出近乎机械的分析。,若角色拥有“推演终端”外挂，请保留一种冷静推演、预判局势、理性拆解的味道，但当前版本不要求具体机制。,,{}

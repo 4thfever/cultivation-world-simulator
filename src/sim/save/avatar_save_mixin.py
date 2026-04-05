@@ -92,6 +92,8 @@ class AvatarSaveMixin:
             "sect_contribution": int(getattr(self, "sect_contribution", 0) or 0),
             "alignment": self.alignment.name if self.alignment else None,
             "persona_ids": [p.id for p in self.personas] if self.personas else [],
+            "goldfinger_id": self.goldfinger.id if getattr(self, "goldfinger", None) else None,
+            "goldfinger_state": dict(getattr(self, "goldfinger_state", {}) or {}),
             "official_rank": self.official_rank,
             "court_reputation": self.court_reputation,
             "last_governance_month": self.last_governance_month,

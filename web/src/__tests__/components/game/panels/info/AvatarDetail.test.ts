@@ -304,6 +304,7 @@ describe('AvatarDetail', () => {
     })
 
     expect(wrapper.text()).toContain('Goldfinger')
+    expect(wrapper.findAll('.equipment-slot-block')).toHaveLength(4)
   })
 
   it('passes goldfinger category and current item into adjust panel when clicking edit', async () => {
@@ -350,7 +351,7 @@ describe('AvatarDetail', () => {
     })
 
     const adjustButtons = wrapper.findAll('button.adjust-btn.inline')
-    expect(adjustButtons.length).toBeGreaterThanOrEqual(4)
+    expect(adjustButtons).toHaveLength(4)
 
     await adjustButtons[3].trigger('click')
 

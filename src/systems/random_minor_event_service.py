@@ -6,6 +6,7 @@ import random
 from src.classes.core.avatar import Avatar
 from src.classes.core.world import World
 from src.classes.event import Event
+from src.classes.goldfinger import build_goldfinger_story_hint
 from src.classes.observe import get_avatar_observation_radius
 from src.classes.relation.relations import ensure_numeric_relation_state
 from src.classes.relation.relation_delta_service import RelationDeltaService
@@ -135,13 +136,17 @@ class RandomMinorEventService:
         source_avatar = context.source_avatar
         target_avatar = context.target_avatar
         event_type = context.event_type
+        goldfinger_hint = build_goldfinger_story_hint(source_avatar, target_avatar)
+        world_info = context.world_info
+        if goldfinger_hint:
+            world_info = f"{world_info}\n外挂叙事提示：{goldfinger_hint}".strip()
 
         if target_avatar is None:
             avatar_info = json.dumps(source_avatar.get_expanded_info(detailed=True), ensure_ascii=False)
             return {
                 "avatar_info": avatar_info,
                 "location": context.location_name,
-                "world_info": context.world_info,
+                "world_info": world_info,
                 "event_key": event_type.event_key,
                 "event_desc": t(event_type.desc_id),
                 "tone": cls._tone_label(event_type.tone),
@@ -158,7 +163,7 @@ class RandomMinorEventService:
             "avatar_a_info": avatar_a_info,
             "avatar_b_info": avatar_b_info,
             "location": context.location_name,
-            "world_info": context.world_info,
+            "world_info": world_info,
             "event_key": event_type.event_key,
             "event_desc": t(event_type.desc_id),
             "tone": cls._tone_label(event_type.tone),

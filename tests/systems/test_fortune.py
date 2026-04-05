@@ -6,7 +6,15 @@ from src.classes.core.avatar import Avatar
 from src.systems.cultivation import Realm
 from src.classes.action_runtime import ActionInstance
 from src.classes.action.respire import Respire
+from src.classes.goldfinger import goldfingers_by_id
 from src.classes.persona import personas_by_id
+
+
+def _find_goldfinger_by_key(key: str):
+    for goldfinger in goldfingers_by_id.values():
+        if goldfinger.key == key:
+            return goldfinger
+    raise AssertionError(f"Goldfinger not found: {key}")
 
 
 def _find_persona_by_key(key: str):
@@ -38,7 +46,7 @@ def mock_story_teller():
 
 @pytest.mark.asyncio
 async def test_try_trigger_fortune(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
-    dummy_avatar.personas = [_find_persona_by_key("CHILD_OF_FORTUNE")]
+    dummy_avatar.goldfinger = _find_goldfinger_by_key("TRANSMIGRATOR")
     
     # Set current action for dynamic prompt
     action = Respire(dummy_avatar, dummy_avatar.world)
@@ -64,6 +72,8 @@ async def test_try_trigger_fortune(dummy_avatar: Avatar, mock_game_configs, mock
         # But during tests, if translations are missing, it might just be the msgid
         # So we check if it's the right msgid or contains the action
         assert "Respire" in prompt or "吐纳" in prompt or "吐納" in prompt or prompt == "fortune_dynamic_story_prompt"
+        assert "穿越者" in prompt
+        assert dummy_avatar.goldfinger.story_prompt in prompt
 
 @pytest.mark.asyncio
 async def test_try_trigger_misfortune(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
@@ -89,7 +99,7 @@ async def test_try_trigger_misfortune(dummy_avatar: Avatar, mock_game_configs, m
 
 @pytest.mark.asyncio
 async def test_negative_misfortune_probability_is_clamped_to_zero(dummy_avatar: Avatar, mock_game_configs, mock_story_teller):
-    dummy_avatar.personas = [_find_persona_by_key("CHILD_OF_FORTUNE")]
+    dummy_avatar.goldfinger = _find_goldfinger_by_key("CHILD_OF_FORTUNE")
     dummy_avatar.magic_stone.value = 1000
 
     with patch('random.random', return_value=0.0):

@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock, patch
 from src.classes.age import Age
 from src.classes.core.avatar import Avatar, Gender
 from src.classes.event import Event
+from src.classes.goldfinger import goldfingers_by_id
 from src.classes.root import Root
 from src.classes.alignment import Alignment
 from src.systems.cultivation import Realm
@@ -46,6 +47,13 @@ def _make_event_type(
     )
 
 
+def _find_goldfinger_by_key(key: str):
+    for goldfinger in goldfingers_by_id.values():
+        if goldfinger.key == key:
+            return goldfinger
+    raise AssertionError(f"Goldfinger not found: {key}")
+
+
 def _register_other_avatar(base_world, dummy_avatar: Avatar) -> Avatar:
     other_avatar = Avatar(
         world=base_world,
@@ -69,6 +77,7 @@ def _register_other_avatar(base_world, dummy_avatar: Avatar) -> Avatar:
 @pytest.mark.asyncio
 async def test_try_trigger_random_minor_event_single_returns_single_event(dummy_avatar: Avatar):
     solo_type = _make_event_type(event_key="daily_practice", participants=MinorEventParticipants.SOLO)
+    dummy_avatar.goldfinger = _find_goldfinger_by_key("OLD_GRANDPA")
     with (
         patch("src.systems.random_minor_event.RandomMinorEventService.should_trigger", return_value=True),
         patch("src.systems.random_minor_event_service.load_minor_event_types", return_value=[solo_type]),
@@ -85,6 +94,9 @@ async def test_try_trigger_random_minor_event_single_returns_single_event(dummy_
     assert event.is_story is False
     assert event.is_major is False
     assert event.related_avatars == [dummy_avatar.id]
+    infos = mock_call.await_args.kwargs["infos"]
+    assert "随身老爷爷" in infos["world_info"]
+    assert dummy_avatar.goldfinger.story_prompt in infos["world_info"]
     mock_delta.assert_not_called()
 
 
@@ -99,7 +111,9 @@ async def test_try_trigger_random_minor_event_pair_applies_friendliness_delta(
         tone=MinorEventTone.WARM,
         relation_hint=MinorEventRelationHint.MAYBE_UP,
     )
+    dummy_avatar.goldfinger = _find_goldfinger_by_key("TRANSMIGRATOR")
     other_avatar = _register_other_avatar(base_world, dummy_avatar)
+    other_avatar.goldfinger = _find_goldfinger_by_key("OLD_GRANDPA")
     before_a = dummy_avatar.get_friendliness(other_avatar)
     before_b = other_avatar.get_friendliness(dummy_avatar)
 
@@ -124,6 +138,9 @@ async def test_try_trigger_random_minor_event_pair_applies_friendliness_delta(
     assert dummy_avatar.get_friendliness(other_avatar) == before_a + 3
     assert other_avatar.get_friendliness(dummy_avatar) == before_b + 1
     assert "[event_key=small_mutual_help]" in mock_delta.await_args.kwargs["event_text"]
+    infos = mock_call.await_args.kwargs["infos"]
+    assert "穿越者" in infos["world_info"]
+    assert "随身老爷爷" in infos["world_info"]
 
 
 @pytest.mark.asyncio
