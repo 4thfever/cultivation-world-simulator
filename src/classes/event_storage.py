@@ -270,22 +270,77 @@ class EventStorage:
 
         return observations
 
-    def _row_to_event(self, row) -> "Event":
+    def _load_avatar_map_for_events(self, event_ids: list[str]) -> dict[str, list[str]]:
+        if not event_ids:
+            return {}
+
+        placeholders = ",".join("?" for _ in event_ids)
+        with self._db_lock:
+            rows = self._conn.execute(
+                f"""
+                SELECT event_id, avatar_id
+                FROM event_avatars
+                WHERE event_id IN ({placeholders})
+                ORDER BY rowid ASC
+                """,
+                event_ids,
+            ).fetchall()
+
+        grouped: dict[str, list[str]] = {}
+        for row in rows:
+            grouped.setdefault(row["event_id"], []).append(row["avatar_id"])
+        return grouped
+
+    def _load_sect_map_for_events(self, event_ids: list[str]) -> dict[str, list[int]]:
+        if not event_ids:
+            return {}
+
+        placeholders = ",".join("?" for _ in event_ids)
+        with self._db_lock:
+            rows = self._conn.execute(
+                f"""
+                SELECT event_id, sect_id
+                FROM event_sects
+                WHERE event_id IN ({placeholders})
+                ORDER BY rowid ASC
+                """,
+                event_ids,
+            ).fetchall()
+
+        grouped: dict[str, list[int]] = {}
+        for row in rows:
+            grouped.setdefault(row["event_id"], []).append(row["sect_id"])
+        return grouped
+
+    def _row_to_event(
+        self,
+        row,
+        *,
+        avatar_map: Optional[dict[str, list[str]]] = None,
+        sect_map: Optional[dict[str, list[int]]] = None,
+    ) -> "Event":
         from src.classes.event import Event
         from src.systems.time import MonthStamp
 
-        with self._db_lock:
-            avatar_rows = self._conn.execute(
-                "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
-                (row["id"],)
-            ).fetchall()
+        if avatar_map is None:
+            with self._db_lock:
+                avatar_rows = self._conn.execute(
+                    "SELECT avatar_id FROM event_avatars WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
             related_avatars = [r["avatar_id"] for r in avatar_rows]
+        else:
+            related_avatars = avatar_map.get(row["id"], [])
 
-            sect_rows = self._conn.execute(
-                "SELECT sect_id FROM event_sects WHERE event_id = ?",
-                (row["id"],)
-            ).fetchall()
+        if sect_map is None:
+            with self._db_lock:
+                sect_rows = self._conn.execute(
+                    "SELECT sect_id FROM event_sects WHERE event_id = ?",
+                    (row["id"],)
+                ).fetchall()
             related_sects = [r["sect_id"] for r in sect_rows]
+        else:
+            related_sects = sect_map.get(row["id"], [])
 
         return Event(
             month_stamp=MonthStamp(row["month_stamp"]),
@@ -300,6 +355,15 @@ class EventStorage:
             id=row["id"],
             created_at=_parse_time(row["created_at"]),
         )
+
+    def _build_events_from_rows(self, rows) -> list["Event"]:
+        event_ids = [row["id"] for row in rows]
+        avatar_map = self._load_avatar_map_for_events(event_ids)
+        sect_map = self._load_sect_map_for_events(event_ids)
+        return [
+            self._row_to_event(row, avatar_map=avatar_map, sect_map=sect_map)
+            for row in rows
+        ]
 
     def _load_observation_map_for_events(self, event_ids: list[str]) -> dict[str, list[sqlite3.Row]]:
         if not event_ids:
@@ -441,14 +505,9 @@ class EventStorage:
                     rows = rows[:limit]
 
                 # 构建事件对象。
-                events = []
-                last_rowid = None
-                last_month_stamp = None
-                for row in rows:
-                    event = self._row_to_event(row)
-                    events.append(event)
-                    last_rowid = row["rowid"]
-                    last_month_stamp = row["month_stamp"]
+                events = self._build_events_from_rows(rows)
+                last_rowid = rows[-1]["rowid"] if rows else None
+                last_month_stamp = rows[-1]["month_stamp"] if rows else None
 
                 # 生成 next_cursor。
                 next_cursor = None
@@ -514,11 +573,9 @@ class EventStorage:
 
                 from src.classes.event_renderer import render_observed_event
 
-                events = []
-                for row in rows:
-                    event = self._row_to_event(row)
+                events = self._build_events_from_rows(rows)
+                for event, row in zip(events, rows):
                     event.content = render_observed_event(event, row)
-                    events.append(event)
 
                 return list(reversed(events))  # 时间正序。
         except Exception as e:
@@ -555,11 +612,9 @@ class EventStorage:
 
                 from src.classes.event_renderer import render_observed_event
 
-                events = []
-                for row in rows:
-                    event = self._row_to_event(row)
+                events = self._build_events_from_rows(rows)
+                for event, row in zip(events, rows):
                     event.content = render_observed_event(event, row)
-                    events.append(event)
 
                 return list(reversed(events))  # 时间正序。
         except Exception as e:
@@ -593,9 +648,7 @@ class EventStorage:
             with self._db_lock:
                 rows = self._conn.execute(query, params).fetchall()
 
-                events = []
-                for row in rows:
-                    events.append(self._row_to_event(row))
+                events = self._build_events_from_rows(rows)
 
                 return list(reversed(events))  # 时间正序。
         except Exception as e:
@@ -630,9 +683,7 @@ class EventStorage:
             with self._db_lock:
                 rows = self._conn.execute(query, params).fetchall()
 
-                events = []
-                for row in rows:
-                    events.append(self._row_to_event(row))
+                events = self._build_events_from_rows(rows)
 
                 return list(reversed(events))  # 时间正序。
         except Exception as e:
