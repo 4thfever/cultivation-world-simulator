@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 from typing import List, Optional, TYPE_CHECKING, Any
 
-from src.utils.df import game_configs, get_bool, get_str, get_list_str, get_int
+from src.utils.df import game_configs, get_str, get_list_str, get_int
 from src.classes.effect import load_effect_from_str, format_effects_to_text
 from src.classes.rarity import Rarity, get_rarity_from_str
 
@@ -28,12 +28,11 @@ class Goldfinger:
     mechanism_type: str
     story_prompt: str
     mechanism_config: dict[str, Any] | list[dict[str, Any]]
-    enabled: bool = True
     effect_desc: str = ""
 
     @property
     def weight(self) -> float:
-        return self.rarity.weight if self.enabled else 0.0
+        return self.rarity.weight
 
     def get_info(self) -> str:
         return self.name
@@ -56,7 +55,6 @@ class Goldfinger:
             "effect_desc": self.effect_desc,
             "story_prompt": self.story_prompt,
             "mechanism_type": self.mechanism_type,
-            "enabled": self.enabled,
         }
 
 
@@ -84,7 +82,6 @@ def _load_goldfingers() -> tuple[dict[int, Goldfinger], dict[str, Goldfinger]]:
             mechanism_type=get_str(row, "mechanism_type", "effect_only"),
             story_prompt=get_str(row, "story_prompt"),
             mechanism_config=mechanism_config,
-            enabled=get_bool(row, "enabled", True),
             effect_desc=effect_desc,
         )
         goldfingers_by_id[goldfinger.id] = goldfinger
@@ -152,8 +149,6 @@ def _is_goldfinger_allowed(
     avatar: Optional["Avatar"],
 ) -> bool:
     goldfinger = goldfingers_by_id[goldfinger_id]
-    if not goldfinger.enabled:
-        return False
 
     if avatar is not None and goldfinger.condition:
         allowed = bool(eval(goldfinger.condition, {"__builtins__": {}}, {"avatar": avatar}))

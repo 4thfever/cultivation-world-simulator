@@ -204,7 +204,6 @@ class CustomContentRegistry:
             "story_prompt": str(item.story_prompt or ""),
             "exclusion_keys": list(item.exclusion_keys or []),
             "mechanism_config": item.mechanism_config,
-            "enabled": bool(item.enabled),
         }
 
     @staticmethod
@@ -278,7 +277,6 @@ class CustomContentRegistry:
                 mechanism_type=str(data.get("mechanism_type", "effect_only") or "effect_only"),
                 story_prompt=str(data.get("story_prompt", "") or ""),
                 mechanism_config=data.get("mechanism_config", {}) or {},
-                enabled=bool(data.get("enabled", True)),
             )
         except Exception:
             return None

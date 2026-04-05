@@ -83,10 +83,6 @@ const equipmentSlots = computed(() => [
   },
 ]);
 
-function getSlotDescription(item: EffectEntity | null | undefined): string {
-  return item?.desc || '';
-}
-
 const avatarHeaderSubtitle = computed(() => {
   return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
 });
@@ -467,12 +463,6 @@ async function handleClearObjective() {
               >
                 <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
               </button>
-            </div>
-            <div
-              v-if="slot.category === 'goldfinger' && getSlotDescription(slot.item)"
-              class="slot-desc"
-            >
-              {{ getSlotDescription(slot.item) }}
             </div>
           </div>
         </div>
@@ -922,14 +912,6 @@ async function handleClearObjective() {
   min-height: 36px;
   display: flex;
   align-items: center;
-}
-
-.slot-desc {
-  font-size: 12px;
-  line-height: 1.45;
-  color: #9aa4af;
-  margin-top: 2px;
-  padding-left: 8px;
 }
 
 /* Relation specific styles */

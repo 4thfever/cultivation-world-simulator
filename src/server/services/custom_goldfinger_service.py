@@ -51,7 +51,6 @@ def normalize_custom_goldfinger_draft(draft: dict[str, Any]) -> dict[str, Any]:
         "mechanism_type": "effect_only",
         "rarity": normalized_rarity,
         "is_custom": True,
-        "enabled": True,
     }
 
 
@@ -91,7 +90,6 @@ def create_custom_goldfinger_from_draft(draft: dict[str, Any]) -> dict[str, Any]
         mechanism_type="effect_only",
         story_prompt=normalized["story_prompt"],
         mechanism_config={},
-        enabled=True,
     )
     CustomContentRegistry.register_goldfinger(goldfinger)
 
