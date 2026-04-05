@@ -208,7 +208,7 @@ describe('useSettingStore', () => {
     await store.hydrate()
 
     expect(store.hydrated).toBe(true)
-    expect(consoleSpy).toHaveBeenCalledWith('Failed to hydrate settings:', expect.any(Error))
+    expect(consoleSpy).toHaveBeenCalledWith('[SettingStore hydrate]', expect.any(Error))
     consoleSpy.mockRestore()
   })
 })
