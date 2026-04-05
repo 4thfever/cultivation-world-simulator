@@ -1,0 +1,26 @@
+You are a xianxia world content designer. Create a new "goldfinger" based on the player's request.
+
+Constraints:
+1. This is a goldfinger, not a technique, weapon, or auxiliary equipment.
+2. Only use existing effects. Do not invent new mechanics.
+3. Do not use when, _desc, eval(...), avatar.xxx, special_data, or legal_actions.
+4. Because this is a custom goldfinger, the numbers can be a bit stronger than ordinary equipment or techniques, but must still fit the world.
+5. Player request:
+{user_prompt}
+6. It should feel like a protagonist template, special destiny, or extraordinary cheat from a xianxia novel.
+
+Allowed effects:
+{allowed_effects}
+
+Return only one JSON object:
+{{
+  "thinking": "brief design reasoning",
+  "name": "goldfinger name",
+  "desc": "short description",
+  "display_text": "player-facing explanation text",
+  "story_prompt": "AI-facing story hint that explains how stories should revolve around this goldfinger",
+  "effects": {{
+    "effect_key": "value"
+  }},
+  "rarity": "SR/SSR"
+}}

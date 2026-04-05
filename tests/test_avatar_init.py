@@ -10,9 +10,18 @@ from src.sim.avatar_init import (
     INITIAL_AGE_MAX_BY_REALM,
     _assign_initial_official_status,
     _get_initial_official_chance,
+    create_avatar_from_request,
     make_avatars,
 )
 from src.systems.cultivation import CultivationProgress, Realm
+from src.classes.goldfinger import goldfingers_by_id
+
+
+def _find_goldfinger_by_key(key: str):
+    for goldfinger in goldfingers_by_id.values():
+        if goldfinger.key == key:
+            return goldfinger
+    raise AssertionError(f"Goldfinger not found: {key}")
 
 
 class TestAgeLifespanInitialization:
@@ -97,6 +106,48 @@ class TestInitialOfficialStatus:
         assert officials
         assert any(avatar.official_rank == OFFICIAL_COUNTY for avatar in officials)
         assert all(avatar.court_reputation >= 80 for avatar in officials)
+
+
+class TestInitialGoldfingerAssignment:
+    """测试开局随机外挂分配。"""
+
+    def test_batch_creation_can_assign_goldfinger_when_probability_hits(self, base_world, monkeypatch):
+        target_goldfinger = _find_goldfinger_by_key("TRANSMIGRATOR")
+
+        monkeypatch.setattr("src.sim.avatar_init.INITIAL_GOLDFINGER_PROBABILITY", 1.0)
+        monkeypatch.setattr(
+            "src.sim.avatar_init.get_random_compatible_goldfinger",
+            lambda avatar: target_goldfinger,
+        )
+
+        avatars = make_avatars(base_world, count=8)
+
+        assert avatars
+        assert all(avatar.goldfinger is target_goldfinger for avatar in avatars.values())
+
+    def test_manual_avatar_creation_does_not_auto_assign_random_goldfinger(self, base_world, monkeypatch):
+        monkeypatch.setattr("src.sim.avatar_init.INITIAL_GOLDFINGER_PROBABILITY", 1.0)
+        monkeypatch.setattr(
+            "src.sim.avatar_init.get_random_compatible_goldfinger",
+            lambda avatar: _find_goldfinger_by_key("CHILD_OF_FORTUNE"),
+        )
+
+        avatar = create_avatar_from_request(
+            base_world,
+            base_world.month_stamp,
+            name="手动创建角色",
+            level=10,
+        )
+
+        assert avatar.goldfinger is None
+
+    def test_batch_creation_skips_goldfinger_when_probability_misses(self, base_world, monkeypatch):
+        monkeypatch.setattr("src.sim.avatar_init.INITIAL_GOLDFINGER_PROBABILITY", 0.0)
+
+        avatars = make_avatars(base_world, count=8)
+
+        assert avatars
+        assert all(avatar.goldfinger is None for avatar in avatars.values())
 
 
 class TestInitialRelationConstraints:

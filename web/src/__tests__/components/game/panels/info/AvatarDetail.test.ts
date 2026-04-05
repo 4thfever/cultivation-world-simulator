@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { defineComponent, h } from 'vue'
 import AvatarDetail from '@/components/game/panels/info/AvatarDetail.vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
@@ -48,6 +49,7 @@ describe('AvatarDetail', () => {
               sections: {
                 traits: 'Traits',
                 techniques_equipment: 'Arts & Gear',
+                goldfinger: 'Goldfinger',
                 relations: 'Relations',
                 current_effects: 'Current Effects',
               },
@@ -59,6 +61,7 @@ describe('AvatarDetail', () => {
                   technique: 'Technique',
                   weapon: 'Weapon',
                   auxiliary: 'Auxiliary',
+                  goldfinger: 'Goldfinger',
                 },
               },
               father_short: 'Father',
@@ -105,6 +108,7 @@ describe('AvatarDetail', () => {
     current_effects: '',
     personas: [],
     materials: [],
+    goldfinger: undefined,
     traits: [],
     items: [],
     skills: [],
@@ -264,5 +268,98 @@ describe('AvatarDetail', () => {
     expect(rows[0].find('.effect-content').text()).toContain('Special Ability Respiration Refinement Success Rate +15.0%')
     expect(rows[0].find('.effect-content').text()).toContain('Battle Strength +20')
     expect(rows[1].find('.effect-source').text()).toBe('Heaven and Earth Phenomenon')
+  })
+
+  it('renders goldfinger entry when present', () => {
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: {
+          ...mockAvatarData,
+          goldfinger: {
+            id: '1',
+            name: '气运之子',
+            desc: '天命眷顾',
+            effect_desc: '气运 +20',
+          },
+        } as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          StatItem: true,
+          EntityRow: true,
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
+        },
+      },
+    })
+
+    expect(wrapper.text()).toContain('Goldfinger')
+    expect(wrapper.findAll('.equipment-slot-block')).toHaveLength(4)
+  })
+
+  it('passes goldfinger category and current item into adjust panel when clicking edit', async () => {
+    let capturedProps: Record<string, unknown> | null = null
+    const AvatarAdjustPanelStub = defineComponent({
+      name: 'AvatarAdjustPanel',
+      props: ['avatarId', 'category', 'currentItem', 'currentPersonas'],
+      setup(props) {
+        capturedProps = props as unknown as Record<string, unknown>
+        return () => h('div', { class: 'adjust-panel-stub' })
+      },
+    })
+
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: {
+          ...mockAvatarData,
+          goldfinger: {
+            id: '1',
+            name: '气运之子',
+            desc: '天命眷顾',
+            effect_desc: '气运 +20',
+          },
+        } as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          StatItem: true,
+          EntityRow: true,
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+          AvatarAdjustPanel: AvatarAdjustPanelStub,
+          AvatarPortraitPanel: true,
+        },
+      },
+    })
+
+    const adjustButtons = wrapper.findAll('button.adjust-btn.inline')
+    expect(adjustButtons).toHaveLength(4)
+
+    await adjustButtons[3].trigger('click')
+
+    expect(capturedProps).not.toBeNull()
+    expect(capturedProps?.category).toBe('goldfinger')
+    expect(capturedProps?.currentItem).toMatchObject({
+      id: '1',
+      name: '气运之子',
+    })
   })
 })

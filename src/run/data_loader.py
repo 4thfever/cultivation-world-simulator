@@ -4,6 +4,7 @@ from src.classes.technique import reload as reload_techniques, techniques_by_id
 from src.classes.items.weapon import reload as reload_weapons, weapons_by_id
 from src.classes.items.auxiliary import reload as reload_auxiliaries, auxiliaries_by_id
 from src.classes.persona import reload as reload_personas, personas_by_id
+from src.classes.goldfinger import reload as reload_goldfingers, goldfingers_by_id
 from src.classes.celestial_phenomenon import reload as reload_phenomena, celestial_phenomena_by_id
 from src.utils.name_generator import reload as reload_names
 from src.classes.animal import reload as reload_animals
@@ -37,6 +38,7 @@ def reload_all_static_data():
     reload_weapons() 
     reload_auxiliaries()
     reload_personas()
+    reload_goldfingers()
     reload_phenomena()
     reload_names()
     reload_animals()
@@ -118,7 +120,13 @@ def fix_runtime_references(world: "World"):
                     new_personas.append(p) # Fallback
             avatar.personas = new_personas
 
-    # 6. 修复天地灵机引用
+        # 6. 修复外挂引用
+        if getattr(avatar, "goldfinger", None):
+            new_goldfinger = goldfingers_by_id.get(avatar.goldfinger.id)
+            if new_goldfinger:
+                avatar.goldfinger = new_goldfinger
+
+    # 7. 修复天地灵机引用
     if hasattr(world, "current_phenomenon") and world.current_phenomenon:
         new_p = celestial_phenomena_by_id.get(world.current_phenomenon.id)
         if new_p:

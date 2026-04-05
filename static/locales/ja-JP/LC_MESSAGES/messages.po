@@ -1926,6 +1926,9 @@ msgstr "この場を離れる"
 msgid "feedback_reject"
 msgstr "拒绝"
 
+msgid "Goldfinger"
+msgstr "外挂"
+
 msgid "{avatar} attempted to escape from {target}: {result}"
 msgstr "{avatar} は {target} からの逃走を試みた: {result}"
 
@@ -2028,11 +2031,13 @@ msgstr "{label}: {names}"
 # Complex Formatted String (get_other_avatar_info)
 msgid ""
 "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: "
-"{sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: "
-"{technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
+"{sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: "
+"{goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, "
+"HP: {hp}"
 msgstr ""
 "{name}、渾名: {nickname}、境界: {realm}、関係: {relation}、宗門: {sect}、属性: "
-"{alignment}、容姿: {appearance}、功法: {technique}、武器: {weapon}、補助: {aux}、HP: {hp}"
+"{alignment}、容姿: {appearance}、外挂: {goldfinger}、功法: {technique}、武器: "
+"{weapon}、補助: {aux}、HP: {hp}"
 
 msgid "{name}, Realm: {realm}"
 msgstr "{name}、境界: {realm}"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import difflib
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Literal
@@ -153,6 +154,10 @@ def _constraint_label(key: str) -> str:
     return t(_CONSTRAINT_DISPLAY.get(key, key))
 
 
+def _normalize_effect_key(key: object) -> str:
+    return str(key or "").strip()
+
+
 def _format_effect_examples() -> str:
     lines: list[str] = []
     for effect_key in ALL_EFFECTS:
@@ -170,6 +175,10 @@ def _format_effect_examples() -> str:
         else:
             lines.append(f"- {effect_key}: {effect_name}, {_prompt_text('value_type')} {type_name}, {_prompt_text('example')} {example}")
     return "\n".join(lines)
+
+
+def build_allowed_effects_text() -> str:
+    return _format_effect_examples()
 
 
 @lru_cache(maxsize=8)
@@ -242,19 +251,34 @@ def validate_custom_effects(effects: object) -> dict[str, object]:
     validated: dict[str, object] = {}
     allowed_keys = set(ALL_EFFECTS) - FORBIDDEN_EFFECT_KEYS
     for key, value in effects.items():
-        if key not in allowed_keys:
-            raise HTTPException(status_code=400, detail=f"Unsupported custom effect: {key}")
-        if key in {"when", "_desc"}:
+        normalized_key = _normalize_effect_key(key)
+        if normalized_key not in allowed_keys:
+            candidates = difflib.get_close_matches(str(key), sorted(allowed_keys), n=1, cutoff=0.6)
+            suggestion = f" Did you mean: {candidates[0]}?" if candidates else ""
+            raise HTTPException(status_code=400, detail=f"Unsupported custom effect: {key}.{suggestion}")
+        if normalized_key in {"when", "_desc"}:
             raise HTTPException(status_code=400, detail=f"Unsupported custom effect field: {key}")
         if isinstance(value, str):
             if "avatar." in value or value.strip().startswith("eval("):
-                raise HTTPException(status_code=400, detail=f"Dynamic effect value is not allowed: {key}")
-            raise HTTPException(status_code=400, detail=f"String effect value is not allowed: {key}")
+                raise HTTPException(status_code=400, detail=f"Dynamic effect value is not allowed: {normalized_key}")
+            normalized_value = value.strip()
+            lowered = normalized_value.lower()
+            if lowered in {"true", "false"}:
+                validated[str(normalized_key)] = lowered == "true"
+                continue
+            try:
+                if any(ch in normalized_value for ch in (".", "e", "E")):
+                    validated[str(normalized_key)] = float(normalized_value)
+                else:
+                    validated[str(normalized_key)] = int(normalized_value)
+                continue
+            except ValueError as exc:
+                raise HTTPException(status_code=400, detail=f"String effect value is not allowed: {normalized_key}") from exc
         if isinstance(value, list):
-            raise HTTPException(status_code=400, detail=f"List effect value is not allowed: {key}")
+            raise HTTPException(status_code=400, detail=f"List effect value is not allowed: {normalized_key}")
         if not isinstance(value, (int, float, bool)):
-            raise HTTPException(status_code=400, detail=f"Unsupported effect value type: {key}")
-        validated[str(key)] = value
+            raise HTTPException(status_code=400, detail=f"Unsupported effect value type: {normalized_key}")
+        validated[str(normalized_key)] = value
     return validated
 
 
@@ -316,7 +340,7 @@ async def generate_custom_content_draft(category: CustomCategory, realm: Realm |
         else _prompt_text("same_type_reference"),
         "user_prompt": prompt,
         "reference_items": build_reference_items_text(category, realm),
-        "allowed_effects": _format_effect_examples(),
+        "allowed_effects": build_allowed_effects_text(),
     }
     result = await call_llm_with_task_name(
         task_name="custom_content_generation",

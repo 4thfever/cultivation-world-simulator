@@ -141,6 +141,10 @@ class EffectsMixin:
         for p in self.personas:
             label = t("Trait [{name}]", name=p.name)
             _collect(label, source_obj=p)
+
+        if getattr(self, "goldfinger", None):
+            label = f"外挂 [{self.goldfinger.name}]"
+            _collect(label, source_obj=self.goldfinger)
             
         if self.weapon:
             label = t("Weapon [{name}]", name=self.weapon.name)

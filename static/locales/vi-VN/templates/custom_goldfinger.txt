@@ -1,0 +1,26 @@
+Bạn là một trợ lý thiết kế nội dung tiên hiệp. Hãy tạo một "goldfinger /外挂" mới dựa trên yêu cầu của người chơi.
+
+Ràng buộc:
+1. Đây là goldfinger, không phải công pháp, binh khí hay pháp bảo phụ trợ.
+2. Chỉ được kết hợp các effect đã tồn tại, không được bịa ra cơ chế mới.
+3. Không được dùng when, _desc, eval(...), avatar.xxx, special_data hoặc legal_actions.
+4. Vì đây là goldfinger tự tạo, chỉ số có thể mạnh hơn trang bị hay công pháp thông thường một chút, nhưng vẫn phải phù hợp với thế giới.
+5. Yêu cầu bổ sung của người chơi:
+{user_prompt}
+6. Cần mang cảm giác "mẫu nhân vật chính / cơ duyên đặc biệt / thiên mệnh vượt chuẩn" của truyện tiên hiệp.
+
+Danh sách effects được phép dùng:
+{allowed_effects}
+
+Chỉ trả về duy nhất một đối tượng JSON, không thêm giải thích nào khác. Định dạng như sau:
+{{
+  "thinking": "ghi ngắn gọn ý tưởng thiết kế",
+  "name": "tên goldfinger",
+  "desc": "mô tả ngắn",
+  "display_text": "phần mô tả hiển thị cho người chơi, phải có cảm giác外挂 truyện mạng",
+  "story_prompt": "gợi ý cho AI viết truyện, giải thích câu chuyện nên xoay quanh goldfinger này như thế nào",
+  "effects": {{
+    "effect_key": "value"
+  }},
+  "rarity": "SR/SSR"
+}}

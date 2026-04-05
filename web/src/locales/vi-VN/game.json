@@ -297,6 +297,7 @@
         "thinking": "Suy Nghĩ",
         "traits": "Đặc Chất",
         "techniques_equipment": "Công Pháp & Trang Bị",
+        "goldfinger": "Goldfinger",
         "materials": "Nguyên Liệu",
         "relations": "Quan Hệ",
         "current_effects": "Hiệu Ứng Hiện Tại"
@@ -329,7 +330,8 @@
           "technique": "Công Pháp",
           "weapon": "Vũ Khí",
           "auxiliary": "Trang Bị Phụ Trợ",
-          "personas": "Đặc Chất"
+          "personas": "Đặc Chất",
+          "goldfinger": "Goldfinger"
         }
       },
       "portrait": {

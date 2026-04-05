@@ -128,6 +128,21 @@ def translate_condition(condition: str) -> str:
         if m_name:
             return t("Has [{trait}] trait", trait=m_name.group(1))
 
+    # 1.5) Goldfinger 条件（外挂）
+    # 例: avatar.goldfinger and avatar.goldfinger.key == "CHILD_OF_FORTUNE"
+    if "avatar.goldfinger" in condition:
+        m_key = re.search(r'goldfinger\.key\s*==\s*["\'](.*?)["\']', condition)
+        if m_key:
+            key = m_key.group(1)
+            from src.classes.goldfinger import goldfingers_by_id
+
+            goldfinger_name = key
+            for goldfinger in goldfingers_by_id.values():
+                if goldfinger.key == key:
+                    goldfinger_name = goldfinger.name
+                    break
+            return t("Has [{trait}] trait", trait=goldfinger_name)
+
     # 2) Alignment 条件（阵营）
     # 例: avatar.alignment == Alignment.RIGHTEOUS
     if "avatar.alignment" in condition:

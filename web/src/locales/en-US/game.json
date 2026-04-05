@@ -297,6 +297,7 @@
         "thinking": "Thinking",
         "traits": "Traits",
         "techniques_equipment": "Arts & Gear",
+        "goldfinger": "Goldfinger",
         "materials": "Materials",
         "relations": "Relations",
         "current_effects": "Current Effects"
@@ -329,7 +330,8 @@
           "technique": "Technique",
           "weapon": "Weapon",
           "auxiliary": "Auxiliary Gear",
-          "personas": "Traits"
+          "personas": "Traits",
+          "goldfinger": "Goldfinger"
         }
       },
       "portrait": {

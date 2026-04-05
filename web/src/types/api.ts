@@ -149,11 +149,12 @@ export interface AvatarAdjustCatalogDTO {
   weapons: AvatarAdjustOptionDTO[];
   auxiliaries: AvatarAdjustOptionDTO[];
   personas: AvatarAdjustOptionDTO[];
+  goldfingers: AvatarAdjustOptionDTO[];
 }
 
 export interface UpdateAvatarAdjustmentParams {
   avatar_id: string;
-  category: 'technique' | 'weapon' | 'auxiliary' | 'personas';
+  category: 'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger';
   target_id?: number | null;
   persona_ids?: number[];
 }
@@ -164,21 +165,24 @@ export interface UpdateAvatarPortraitParams {
 }
 
 export interface GenerateCustomContentParams {
-  category: 'technique' | 'weapon' | 'auxiliary';
+  category: 'technique' | 'weapon' | 'auxiliary' | 'goldfinger';
   realm?: string;
   user_prompt: string;
 }
 
 export interface CustomContentDraftDTO extends AvatarAdjustOptionDTO {
-  category: 'technique' | 'weapon' | 'auxiliary';
+  category: 'technique' | 'weapon' | 'auxiliary' | 'goldfinger';
   realm?: string;
   effects: Record<string, number | boolean>;
   weapon_type?: string;
+  display_text?: string;
+  story_prompt?: string;
+  mechanism_type?: string;
   is_custom?: boolean;
 }
 
 export interface CreateCustomContentParams {
-  category: 'technique' | 'weapon' | 'auxiliary';
+  category: 'technique' | 'weapon' | 'auxiliary' | 'goldfinger';
   draft: CustomContentDraftDTO;
 }
 

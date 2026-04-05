@@ -17,6 +17,18 @@ from src.classes.official_rank import OFFICIAL_NONE
 from src.utils.config import CONFIG
 
 
+def _get_goldfinger_structured_payload(avatar: "Avatar") -> dict | None:
+    goldfinger = getattr(avatar, "goldfinger", None)
+    if goldfinger is None:
+        return None
+
+    payload = goldfinger.get_structured_info()
+    payload["state"] = dict(getattr(avatar, "goldfinger_state", {}) or {})
+    payload["source_of_truth"] = "avatar.goldfinger"
+    payload["state_source_of_truth"] = "avatar.goldfinger_state"
+    return payload
+
+
 def _get_effects_text(avatar: "Avatar") -> str:
     """获取格式化的效果文本"""
     from src.i18n import t
@@ -28,6 +40,15 @@ def _get_effects_text(avatar: "Avatar") -> str:
         if desc_str:
             effect_parts.append(f"[{source_name}] {desc_str}")
     return "\n".join(effect_parts) if effect_parts else t("None")
+
+
+def _get_goldfinger_detail(avatar: "Avatar", detailed: bool) -> str:
+    from src.i18n import t
+
+    goldfinger = getattr(avatar, "goldfinger", None)
+    if goldfinger is None:
+        return t("None")
+    return goldfinger.get_detailed_info() if detailed else goldfinger.get_info()
 
 
 def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
@@ -64,6 +85,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         technique_info = avatar.technique.get_detailed_info() if avatar.technique is not None else t("None")
         cultivation_info = avatar.cultivation_progress.get_detailed_info()
         personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else t("None")
+        goldfinger_info = _get_goldfinger_detail(avatar, detailed=True)
         materials_info = t("material_separator").join([f"{mat.get_detailed_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else t("None")
         appearance_info = avatar.appearance.get_detailed_info(avatar.gender)
         spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else t("None")
@@ -77,6 +99,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         technique_info = avatar.technique.get_info() if avatar.technique is not None else t("None")
         cultivation_info = avatar.cultivation_progress.get_info()
         personas_info = ", ".join([p.get_detailed_info() for p in avatar.personas]) if avatar.personas else t("None")
+        goldfinger_info = _get_goldfinger_detail(avatar, detailed=False)
         materials_info = t("material_separator").join([f"{mat.get_info()}x{quantity}" for mat, quantity in avatar.materials.items()]) if avatar.materials else t("None")
         appearance_info = avatar.appearance.get_info()
         spirit_animal_info = avatar.spirit_animal.get_info() if avatar.spirit_animal is not None else t("None")
@@ -97,6 +120,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
         t("Technique"): technique_info,
         t("Realm"): cultivation_info,
         t("Traits"): personas_info,
+        t("Goldfinger"): goldfinger_info,
         t("Materials"): materials_info,
         t("Appearance"): appearance_info,
         t("Weapon"): weapon_info,
@@ -200,14 +224,17 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
 
     # 1. 特质 (Personas)
     info["personas"] = [p.get_structured_info() for p in avatar.personas]
-    
-    # 2. 功法 (Technique)
+
+    # 2. 外挂 (Goldfinger)
+    info["goldfinger"] = _get_goldfinger_structured_payload(avatar)
+
+    # 3. 功法 (Technique)
     if avatar.technique:
         info["technique"] = avatar.technique.get_structured_info()
     else:
         info["technique"] = None
-        
-    # 3. 宗门 (Sect)
+
+    # 4. 宗门 (Sect)
     if avatar.sect:
         sect_info = avatar.sect.get_structured_info()
         if avatar.sect_rank:
@@ -274,7 +301,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "desc": t(desc_id) if desc_id else "",
         }
 
-    # 4. 装备 (Weapon & Auxiliary)
+    # 5. 装备 (Weapon & Auxiliary)
     if avatar.weapon:
         w_info = avatar.weapon.get_structured_info()
         w_info["proficiency"] = f"{avatar.weapon_proficiency:.1f}%"
@@ -287,7 +314,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     else:
         info["auxiliary"] = None
         
-    # 5. 材料 (Materials)
+    # 6. 材料 (Materials)
     materials_list = []
     for material, count in avatar.materials.items():
         m_info = material.get_structured_info()
@@ -295,7 +322,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         materials_list.append(m_info)
     info["materials"] = materials_list
     
-    # 6. 关系 (Relations)
+    # 7. 关系 (Relations)
     relations_list = []
     
     # 6.1 添加现有的修仙者关系
@@ -371,10 +398,10 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
 
     info["relations"] = relations_list
     
-    # 7. 外貌
+    # 8. 外貌
     info["appearance"] = avatar.appearance.get_info()
     
-    # 8. 灵根
+    # 9. 灵根
     from src.classes.root import format_root_cn
     root_str = format_root_cn(avatar.root)
     info["root"] = root_str
@@ -384,7 +411,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
          "effect_desc": avatar.root.effect_desc
     }
     
-    # 9. 灵兽
+    # 10. 灵兽
     if avatar.spirit_animal:
          info["spirit_animal"] = avatar.spirit_animal.get_structured_info()
 
@@ -481,6 +508,7 @@ def get_avatar_ai_context(
             "emotion": t(avatar.emotion.value),
             "long_term_objective": avatar.long_term_objective.content if avatar.long_term_objective else "",
             "short_term_objective": avatar.short_term_objective,
+            "goldfinger": _get_goldfinger_structured_payload(avatar),
         },
         "sect_context": sect_context,
         "local_world": {
@@ -541,6 +569,7 @@ def get_avatar_expanded_info(
     info[t("Nearby Avatars")] = observed
     info[t("Major Events")] = major_list
     info[t("Recent Events")] = minor_list
+    info["goldfinger_context"] = _get_goldfinger_structured_payload(avatar)
     return info
 
 
@@ -554,6 +583,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
     tech = to_avatar.technique.get_info() if to_avatar.technique else t("None")
     weapon = to_avatar.weapon.get_info() if to_avatar.weapon else t("None")
     aux = to_avatar.auxiliary.get_info() if to_avatar.auxiliary else t("None")
+    goldfinger = to_avatar.goldfinger.get_info() if getattr(to_avatar, "goldfinger", None) else t("None")
     alignment = to_avatar.alignment
     
     # 关系可能为空
@@ -572,7 +602,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
         relation = "/".join(labels)
 
     return t(
-        "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
+        "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
         name=to_avatar.name,
         nickname=nickname,
         realm=to_avatar.cultivation_progress.get_info(),
@@ -580,6 +610,7 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
         sect=sect,
         alignment=alignment,
         appearance=to_avatar.appearance.get_info(),
+        goldfinger=goldfinger,
         technique=tech,
         weapon=weapon,
         aux=aux,

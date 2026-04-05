@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from src.classes.effect import format_effects_to_text
+from src.classes.goldfinger import Goldfinger, goldfingers_by_id, goldfingers_by_name
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
 from src.classes.items.registry import ItemRegistry
 from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
@@ -21,6 +22,7 @@ CUSTOM_ID_START = {
     "technique": 900001,
     "weapon": 910001,
     "auxiliary": 920001,
+    "goldfinger": 930001,
 }
 
 
@@ -36,6 +38,7 @@ class CustomContentRegistry:
     custom_techniques_by_id: dict[int, Technique] = {}
     custom_weapons_by_id: dict[int, Weapon] = {}
     custom_auxiliaries_by_id: dict[int, Auxiliary] = {}
+    custom_goldfingers_by_id: dict[int, Goldfinger] = {}
     next_ids: dict[str, int] = dict(CUSTOM_ID_START)
 
     @classmethod
@@ -56,6 +59,11 @@ class CustomContentRegistry:
             auxiliaries_by_name.pop(auxiliary.name, None)
             ItemRegistry.unregister(item_id)
         cls.custom_auxiliaries_by_id.clear()
+
+        for item_id, goldfinger in list(cls.custom_goldfingers_by_id.items()):
+            goldfingers_by_id.pop(item_id, None)
+            goldfingers_by_name.pop(goldfinger.name, None)
+        cls.custom_goldfingers_by_id.clear()
 
         cls.next_ids = dict(CUSTOM_ID_START)
 
@@ -89,11 +97,19 @@ class CustomContentRegistry:
         return auxiliary
 
     @classmethod
+    def register_goldfinger(cls, goldfinger: Goldfinger) -> Goldfinger:
+        cls.custom_goldfingers_by_id[goldfinger.id] = goldfinger
+        goldfingers_by_id[goldfinger.id] = goldfinger
+        goldfingers_by_name[goldfinger.name] = goldfinger
+        return goldfinger
+
+    @classmethod
     def to_save_dict(cls) -> dict[str, Any]:
         return {
             "techniques": [cls._serialize_technique(item) for item in cls.custom_techniques_by_id.values()],
             "weapons": [cls._serialize_weapon(item) for item in cls.custom_weapons_by_id.values()],
             "auxiliaries": [cls._serialize_auxiliary(item) for item in cls.custom_auxiliaries_by_id.values()],
+            "goldfingers": [cls._serialize_goldfinger(item) for item in cls.custom_goldfingers_by_id.values()],
             "next_ids": dict(cls.next_ids),
         }
 
@@ -124,12 +140,19 @@ class CustomContentRegistry:
             if auxiliary is not None:
                 cls.register_auxiliary(auxiliary)
 
+        for item_data in list(payload.get("goldfingers", []) or []):
+            goldfinger = cls._deserialize_goldfinger(item_data)
+            if goldfinger is not None:
+                cls.register_goldfinger(goldfinger)
+
         if cls.custom_techniques_by_id:
             cls.next_ids["technique"] = max(cls.next_ids["technique"], max(cls.custom_techniques_by_id) + 1)
         if cls.custom_weapons_by_id:
             cls.next_ids["weapon"] = max(cls.next_ids["weapon"], max(cls.custom_weapons_by_id) + 1)
         if cls.custom_auxiliaries_by_id:
             cls.next_ids["auxiliary"] = max(cls.next_ids["auxiliary"], max(cls.custom_auxiliaries_by_id) + 1)
+        if cls.custom_goldfingers_by_id:
+            cls.next_ids["goldfinger"] = max(cls.next_ids["goldfinger"], max(cls.custom_goldfingers_by_id) + 1)
 
     @staticmethod
     def _serialize_technique(item: Technique) -> dict[str, Any]:
@@ -165,6 +188,24 @@ class CustomContentRegistry:
             "realm": item.realm.value,
             "desc": str(item.desc),
             "effects": dict(item.effects or {}),
+        }
+
+    @staticmethod
+    def _serialize_goldfinger(item: Goldfinger) -> dict[str, Any]:
+        return {
+            "id": int(item.id),
+            "key": str(item.key),
+            "name": str(item.name),
+            "desc": str(item.desc),
+            "rarity": item.rarity.level.value,
+            "condition": str(item.condition or ""),
+            "effects": dict(item.effects or {}) if isinstance(item.effects, dict) else item.effects,
+            "mechanism_type": str(item.mechanism_type or "effect_only"),
+            "display_text": str(item.display_text or ""),
+            "story_prompt": str(item.story_prompt or ""),
+            "exclusion_keys": list(item.exclusion_keys or []),
+            "mechanism_config": item.mechanism_config,
+            "enabled": bool(item.enabled),
         }
 
     @staticmethod
@@ -214,6 +255,32 @@ class CustomContentRegistry:
                 desc=str(data.get("desc", "") or ""),
                 effects=effects,
                 effect_desc=format_effects_to_text(effects),
+            )
+        except Exception:
+            return None
+
+    @staticmethod
+    def _deserialize_goldfinger(data: dict[str, Any]) -> Goldfinger | None:
+        try:
+            from src.classes.rarity import get_rarity_from_str
+
+            raw_effects = data.get("effects", {}) or {}
+            effect_desc = format_effects_to_text(raw_effects)
+            return Goldfinger(
+                id=int(data["id"]),
+                key=str(data.get("key", "") or "").upper(),
+                name=str(data["name"]),
+                desc=str(data.get("desc", "") or ""),
+                exclusion_keys=list(data.get("exclusion_keys", []) or []),
+                rarity=get_rarity_from_str(str(data.get("rarity", "N") or "N")),
+                condition=str(data.get("condition", "") or ""),
+                effects=raw_effects,
+                effect_desc=effect_desc,
+                mechanism_type=str(data.get("mechanism_type", "effect_only") or "effect_only"),
+                display_text=str(data.get("display_text", "") or ""),
+                story_prompt=str(data.get("story_prompt", "") or ""),
+                mechanism_config=data.get("mechanism_config", {}) or {},
+                enabled=bool(data.get("enabled", True)),
             )
         except Exception:
             return None

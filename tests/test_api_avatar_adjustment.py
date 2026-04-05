@@ -44,6 +44,7 @@ def test_get_avatar_adjust_options_contains_rich_structured_entries():
     assert data["weapons"]
     assert data["auxiliaries"]
     assert data["personas"]
+    assert data["goldfingers"]
 
     first_technique = data["techniques"][0]
     assert "id" in first_technique
@@ -53,6 +54,10 @@ def test_get_avatar_adjust_options_contains_rich_structured_entries():
     first_persona = data["personas"][0]
     assert "id" in first_persona
     assert "rarity" in first_persona
+
+    first_goldfinger = data["goldfingers"][0]
+    assert "id" in first_goldfinger
+    assert "mechanism_type" in first_goldfinger
 
 
 def test_update_weapon_adjustment_resets_proficiency(base_world):
@@ -211,5 +216,42 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
         assert clear_aux.status_code == 200
         assert avatar.technique is None
         assert avatar.auxiliary is None
+    finally:
+        main.game_instance.update(original_instance)
+
+
+def test_update_goldfinger_adjustment_allows_setting_and_clearing(base_world):
+    original_instance = main.game_instance.copy()
+    try:
+        avatar = _make_avatar(base_world)
+        goldfinger_id = next(iter(main.goldfingers_by_id.keys()))
+        main.game_instance["world"] = base_world
+
+        client = TestClient(main.app)
+        set_response = client.post(
+            "/api/action/update_avatar_adjustment",
+            json={
+                "avatar_id": avatar.id,
+                "category": "goldfinger",
+                "target_id": goldfinger_id,
+            },
+        )
+
+        assert set_response.status_code == 200
+        assert avatar.goldfinger is not None
+        assert avatar.goldfinger.id == goldfinger_id
+
+        clear_response = client.post(
+            "/api/action/update_avatar_adjustment",
+            json={
+                "avatar_id": avatar.id,
+                "category": "goldfinger",
+                "target_id": None,
+            },
+        )
+
+        assert clear_response.status_code == 200
+        assert avatar.goldfinger is None
+        assert avatar.goldfinger_state == {}
     finally:
         main.game_instance.update(original_instance)

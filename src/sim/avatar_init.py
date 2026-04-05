@@ -18,6 +18,7 @@ from src.classes.relation.relation import Relation
 from src.classes.technique import get_technique_by_sect, attribute_to_root, Technique, techniques_by_id, techniques_by_name
 from src.classes.items.weapon import Weapon, weapons_by_id, weapons_by_name
 from src.classes.items.auxiliary import Auxiliary, auxiliaries_by_id, auxiliaries_by_name
+from src.classes.goldfinger import Goldfinger, get_random_compatible_goldfinger
 from src.classes.persona import Persona, personas_by_id, personas_by_name
 from src.classes.items.magic_stone import MagicStone
 from src.classes.death_reason import DeathReason, DeathType
@@ -92,6 +93,8 @@ INITIAL_SECT_CONTRIBUTION_RANGE_BY_RANK: dict[str, tuple[int, int]] = {
     "elder": (80, 240),
     "patriarch": (150, 400),
 }
+
+INITIAL_GOLDFINGER_PROBABILITY: float = 0.01
 
 
 def _weighted_random_choice(weights: dict[str, int]) -> str:
@@ -278,6 +281,24 @@ def _assign_initial_sect_contribution(avatar: Avatar) -> None:
     rank_key = str(getattr(avatar.sect_rank, "value", "") or "outer")
     low, high = INITIAL_SECT_CONTRIBUTION_RANGE_BY_RANK.get(rank_key, (0, 60))
     avatar.sect_contribution = random.randint(low, high)
+
+
+def _assign_initial_goldfinger(avatar: Avatar) -> None:
+    if getattr(avatar, "goldfinger", None) is not None:
+        avatar.goldfinger_state = dict(getattr(avatar, "goldfinger_state", {}) or {})
+        avatar.recalc_effects()
+        return
+
+    if random.random() >= INITIAL_GOLDFINGER_PROBABILITY:
+        return
+
+    goldfinger = get_random_compatible_goldfinger(avatar)
+    if goldfinger is None:
+        return
+
+    avatar.goldfinger = goldfinger
+    avatar.goldfinger_state = {}
+    avatar.recalc_effects()
 
 
 def _roll_cultivation_start_month(
@@ -834,6 +855,7 @@ class AvatarFactory:
         plan: MortalPlan,
         attach_relations: bool = True,
         overrides: Optional[Dict[str, object]] = None,
+        allow_random_goldfinger: bool = True,
     ) -> Avatar:
         if name:
             final_name = name
@@ -900,6 +922,9 @@ class AvatarFactory:
 
         if overrides:
             AvatarFactory._apply_overrides(avatar, overrides)
+
+        if allow_random_goldfinger:
+            _assign_initial_goldfinger(avatar)
 
         _mark_dead_if_lifespan_exhausted(avatar, current_month_stamp)
 
@@ -1023,6 +1048,7 @@ class AvatarFactory:
                     avatar.root = mapped
 
             _assign_initial_official_status(avatar)
+            _assign_initial_goldfinger(avatar)
 
             _mark_dead_if_lifespan_exhausted(avatar, current_month_stamp)
 
@@ -1070,6 +1096,11 @@ class AvatarFactory:
         auxiliary = overrides.get("auxiliary")
         if isinstance(auxiliary, Auxiliary):
             avatar.auxiliary = auxiliary
+
+        goldfinger = overrides.get("goldfinger")
+        if isinstance(goldfinger, Goldfinger):
+            avatar.goldfinger = goldfinger
+            avatar.goldfinger_state = {}
 
         personas = overrides.get("personas")
         if isinstance(personas, list) and personas:
@@ -1328,6 +1359,7 @@ def create_avatar_from_request(
         plan=plan,
         attach_relations=False,
         overrides=overrides if overrides else None,
+        allow_random_goldfinger=False,
     )
     
     if relations:
