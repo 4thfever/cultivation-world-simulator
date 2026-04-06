@@ -742,12 +742,9 @@ class TestCallLLMWithTaskName:
 
     @pytest.mark.asyncio
     async def test_call_with_task_name_global_mode_override(self):
-        """Test that global mode overrides task mode."""
-        with patch("src.utils.llm.client.get_task_mode", return_value=LLMMode.FAST), \
-             patch("src.utils.llm.client.call_llm_with_template", new_callable=AsyncMock) as mock_call, \
-             patch("src.utils.llm.client.CONFIG") as mock_config:
-            # Global mode is "normal", should override task mode "fast".
-            mock_config.llm.mode = "normal"
+        """Test that call_llm_with_task_name trusts get_task_mode to apply overrides."""
+        with patch("src.utils.llm.client.get_task_mode", return_value=LLMMode.NORMAL) as mock_get_mode, \
+             patch("src.utils.llm.client.call_llm_with_template", new_callable=AsyncMock) as mock_call:
             mock_call.return_value = {}
 
             await call_llm_with_task_name(
@@ -756,8 +753,8 @@ class TestCallLLMWithTaskName:
                 infos={}
             )
 
+            mock_get_mode.assert_called_once_with("test_task")
             call_args = mock_call.call_args
-            # Should use NORMAL due to global override.
             assert call_args[0][2] == LLMMode.NORMAL
 
     @pytest.mark.asyncio

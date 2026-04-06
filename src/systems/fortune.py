@@ -334,7 +334,7 @@ async def try_trigger_fortune(avatar: Avatar) -> list[Event]:
       * 修为：根据境界增加修为经验（相当于一年修炼收益）
     - 故事：仅给出主旨主题，由 LLM 自由发挥生成短故事。
     """
-    base_prob = float(getattr(CONFIG.game, "fortune_probability", 0.0))
+    base_prob = float(getattr(CONFIG.world, "fortune_probability", 0.0))
     extra_prob = float(avatar.effects.get("extra_fortune_probability", 0.0))
     prob = max(0.0, base_prob + extra_prob)
     if prob <= 0.0:
@@ -594,7 +594,7 @@ async def try_trigger_misfortune(avatar: Avatar) -> list[Event]:
     - 受伤：扣减HP，可能致死（由simulator结算）
     - 修为倒退：扣减经验，不降级（经验值可为负？）-> 此处逻辑：扣减当前经验，最小为0
     """
-    base_prob = float(getattr(CONFIG.game, "misfortune_probability", 0.0))
+    base_prob = float(getattr(CONFIG.world, "misfortune_probability", 0.0))
     extra_prob = float(avatar.effects.get("extra_misfortune_probability", 0.0))
     prob = max(0.0, base_prob + extra_prob)
     if prob <= 0.0:

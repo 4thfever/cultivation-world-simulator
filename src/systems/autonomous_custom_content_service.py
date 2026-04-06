@@ -24,7 +24,7 @@ AUTONOMOUS_CREATION_CATEGORIES = ("technique", "weapon", "auxiliary")
 class AutonomousCustomContentService:
     @classmethod
     def should_trigger(cls, avatar: Avatar) -> bool:
-        base_prob = float(getattr(CONFIG.game, "autonomous_creation_probability", 0.0))
+        base_prob = float(getattr(CONFIG.world, "autonomous_creation_probability", 0.0))
         if base_prob <= 0.0:
             return False
         if not avatar.can_trigger_world_event:

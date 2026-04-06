@@ -69,6 +69,24 @@ from src.server.main import (
     update_init_progress,
     INIT_PHASE_NAMES,
 )
+from src.config import RunConfig
+
+
+def set_runtime_run_config(
+    *,
+    content_locale: str = "zh-CN",
+    init_npc_num: int = 0,
+    sect_num: int = 0,
+    npc_awakening_rate_per_month: float = 0.01,
+    world_lore: str = "",
+) -> None:
+    game_instance["run_config"] = RunConfig(
+        content_locale=content_locale,
+        init_npc_num=init_npc_num,
+        sect_num=sect_num,
+        npc_awakening_rate_per_month=npc_awakening_rate_per_month,
+        world_lore=world_lore,
+    ).model_dump()
 
 
 @pytest.fixture
@@ -164,9 +182,7 @@ class TestInitGameAsyncSuccess:
              patch("src.server.main.sects_by_id", {"sect1": MagicMock()}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 1
-            mock_config.game.init_npc_num = 5
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(sect_num=1, init_npc_num=5)
 
             mock_world_class.create_with_db.return_value = mock_world
 
@@ -207,9 +223,7 @@ class TestInitGameAsyncSuccess:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -244,9 +258,7 @@ class TestInitGameAsyncWithWorldLore:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = "Ancient worldview and history..."
+            set_runtime_run_config(world_lore="Ancient worldview and history...")
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -279,9 +291,7 @@ class TestInitGameAsyncWithWorldLore:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = "Some worldview and history"
+            set_runtime_run_config(world_lore="Some worldview and history")
             mock_world_class.create_with_db.return_value = mock_world
 
             # Should not raise, should continue.
@@ -313,9 +323,7 @@ class TestInitGameAsyncWithLLMFailure:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -355,9 +363,7 @@ class TestInitGameAsyncWithAvatars:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 3
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(init_npc_num=3)
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -419,9 +425,7 @@ class TestInitGameAsyncErrors:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -464,9 +468,7 @@ class TestInitGameAsyncWithSects:
              }):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 2  # Request 2 sects from 3 available.
-            mock_config.game.init_npc_num = 5
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(sect_num=2, init_npc_num=5)
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -500,9 +502,7 @@ class TestInitGameAsyncWithSects:
              patch("src.server.main.sects_by_id", {"s1": mock_sect1, "s2": mock_sect2}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 2
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(sect_num=2)
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -541,9 +541,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):  # Empty sects.
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 5  # Request 5 sects, but none available.
-            mock_config.game.init_npc_num = 3
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(sect_num=5, init_npc_num=3)
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -578,9 +576,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {"s1": mock_sect1, "s2": mock_sect2}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 10  # Request 10, only 2 available.
-            mock_config.game.init_npc_num = 3
-            mock_config.game.world_lore = ""
+            set_runtime_run_config(sect_num=10, init_npc_num=3)
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -631,9 +627,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 5
-            mock_config.game.world_lore = ""  # Empty history.
+            set_runtime_run_config(init_npc_num=5, world_lore="")
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -665,9 +659,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 5
-            mock_config.game.world_lore = "   \n\t  "  # Whitespace only.
+            set_runtime_run_config(init_npc_num=5, world_lore="   \n\t  ")
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -719,9 +711,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -755,9 +745,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -792,9 +780,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()
@@ -836,9 +822,7 @@ class TestInitGameAsyncEdgeCases:
              patch("src.server.main.sects_by_id", {}):
 
             mock_config.paths.saves = temp_saves_dir
-            mock_config.game.sect_num = 0
-            mock_config.game.init_npc_num = 0  # Zero NPCs.
-            mock_config.game.world_lore = ""
+            set_runtime_run_config()
             mock_world_class.create_with_db.return_value = mock_world
 
             await init_game_async()

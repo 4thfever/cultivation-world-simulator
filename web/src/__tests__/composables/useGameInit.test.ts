@@ -24,7 +24,7 @@ vi.mock('@/api', () => ({
     fetchMap: vi.fn().mockResolvedValue({
       data: [[{ type: 'grass' }]],
       regions: [],
-      config: {},
+      render_config: {},
     }),
     fetchInitialState: vi.fn().mockResolvedValue({
       year: 0,

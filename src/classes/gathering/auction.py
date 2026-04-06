@@ -32,7 +32,7 @@ class Auction(Gathering):
         检测拍卖会是否开始
         条件：后台积攒的 sold_item_count 到达配置阈值
         """
-        threshold = CONFIG.game.gathering.auction_trigger_count
+        threshold = CONFIG.world.gathering.auction_trigger_count
         return world.circulation.sold_item_count >= threshold
 
     def get_related_avatars(self, world: "World") -> List[int]:

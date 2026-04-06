@@ -52,7 +52,7 @@ async def run_annual_maintenance(simulator, ctx) -> None:
 
     cleaned_count = world.avatar_manager.cleanup_long_dead_avatars(
         world.month_stamp,
-        CONFIG.game.long_dead_cleanup_years,
+        CONFIG.world.long_dead_cleanup_years,
     )
     if cleaned_count > 0:
         get_logger().logger.info("Cleaned up %s long-dead avatars.", cleaned_count)

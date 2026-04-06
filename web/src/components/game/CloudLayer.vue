@@ -32,7 +32,7 @@ const MAX_CLOUDS = {
 const SPAWN_CHANCE = 0.01 // 稍微提高生成检测频率，因为有最大数量限制
 
 function getCloudFreq() {
-  const freq = mapStore.frontendConfig.cloud_freq || 'none'
+  const freq = mapStore.renderConfig.cloud_frequency || 'none'
   return freq as keyof typeof MAX_CLOUDS
 }
 
@@ -207,7 +207,7 @@ function clearClouds() {
   }
 }
 
-watch(() => mapStore.frontendConfig.cloud_freq, (val) => {
+watch(() => mapStore.renderConfig.cloud_frequency, (val) => {
   const freq = val || 'none'
   if (freq === 'none') {
     clearClouds()

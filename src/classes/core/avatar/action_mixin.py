@@ -212,7 +212,7 @@ class ActionMixin:
     @property
     def can_join_gathering(self: "Avatar") -> bool:
         """是否可以参加聚会"""
-        can_interrupt = getattr(CONFIG.game, 'can_interrupt_major_events', False)
+        can_interrupt = getattr(CONFIG.world, 'can_interrupt_major_events', False)
         
         if self.current_action and self.current_action.action:
             action_cls = self.current_action.action.__class__
@@ -228,7 +228,7 @@ class ActionMixin:
     @property
     def can_trigger_world_event(self: "Avatar") -> bool:
         """是否可以触发奇遇/霉运"""
-        can_interrupt = getattr(CONFIG.game, 'can_interrupt_major_events', False)
+        can_interrupt = getattr(CONFIG.world, 'can_interrupt_major_events', False)
         
         if self.current_action and self.current_action.action:
             action_cls = self.current_action.action.__class__

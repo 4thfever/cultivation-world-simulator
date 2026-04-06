@@ -20,7 +20,7 @@ function clone<T>(value: T): T {
 }
 
 const baseSettings = {
-  schema_version: 1,
+  schema_version: 2,
   ui: {
     locale: testDefaultLocale,
     audio: {
@@ -149,10 +149,9 @@ describe('useSettingStore', () => {
 
     expect(mockPatchSettings).toHaveBeenCalledWith({
       ui: { locale: 'zh-TW' },
-      new_game_defaults: { content_locale: 'zh-TW' },
     })
     expect(store.locale).toBe('zh-TW')
-    expect(store.newGameDraft.content_locale).toBe('zh-TW')
+    expect(store.newGameDraft.content_locale).toBe(testDefaultLocale)
     expect(document.documentElement.lang).toBe(getExpectedHtmlLang('zh-TW'))
   })
 
@@ -170,22 +169,22 @@ describe('useSettingStore', () => {
     expect(store.isAutoSave).toBe(true)
   })
 
-  it('keeps content locale aligned with ui locale when updating new game draft', () => {
+  it('keeps content locale independent when updating new game draft', () => {
     store.updateNewGameDraft({ init_npc_num: 20, content_locale: testFallbackLocale })
 
     expect(store.newGameDraft.init_npc_num).toBe(20)
-    expect(store.newGameDraft.content_locale).toBe(testDefaultLocale)
+    expect(store.newGameDraft.content_locale).toBe(testFallbackLocale)
   })
 
-  it('persists new game defaults before starting game with ui locale as content locale', async () => {
+  it('persists new game defaults before starting game without overriding content locale', async () => {
     await store.setLocale(testFallbackLocale)
-    store.updateNewGameDraft({ init_npc_num: 20, content_locale: testFallbackLocale })
+    store.updateNewGameDraft({ init_npc_num: 20, content_locale: testDefaultLocale })
 
     await store.startGameWithDraft()
 
     expect(mockPatchSettings).toHaveBeenCalledWith({
       new_game_defaults: {
-        content_locale: testFallbackLocale,
+        content_locale: testDefaultLocale,
         init_npc_num: 20,
         sect_num: 3,
         npc_awakening_rate_per_month: 0.01,
@@ -193,12 +192,32 @@ describe('useSettingStore', () => {
       },
     })
     expect(mockStartGame).toHaveBeenCalledWith({
-      content_locale: testFallbackLocale,
+      content_locale: testDefaultLocale,
       init_npc_num: 20,
       sect_num: 3,
       npc_awakening_rate_per_month: 0.01,
       world_lore: '',
     })
+  })
+
+  it('hydrates content locale from backend without forcing it to ui locale', async () => {
+    currentSettings = {
+      ...clone(baseSettings),
+      ui: {
+        ...clone(baseSettings.ui),
+        locale: testFallbackLocale,
+      },
+      new_game_defaults: {
+        ...clone(baseSettings.new_game_defaults),
+        content_locale: testDefaultLocale,
+      },
+    }
+    mockFetchSettings.mockResolvedValueOnce(clone(currentSettings))
+
+    await store.hydrate()
+
+    expect(store.locale).toBe(testFallbackLocale)
+    expect(store.newGameDraft.content_locale).toBe(testDefaultLocale)
   })
 
   it('marks store hydrated even when fetch fails', async () => {

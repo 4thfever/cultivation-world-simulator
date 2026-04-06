@@ -65,7 +65,7 @@ export interface MapResponseDTO {
     sect_color?: string;
     sub_type?: string;
   }>;
-  config?: FrontendConfigDTO;
+  render_config?: MapRenderConfigDTO;
 }
 
 // --- Detail 接口 ---
@@ -81,9 +81,9 @@ export type DetailResponseDTO =
   | RegionDetailDTO
   | SectDetailDTO;
 
-export interface FrontendConfigDTO {
+export interface MapRenderConfigDTO {
   water_speed?: 'none' | 'low' | 'medium' | 'high';
-  cloud_freq?: 'none' | 'low' | 'high';
+  cloud_frequency?: 'none' | 'low' | 'high';
 }
 
 export interface SaveFileDTO {

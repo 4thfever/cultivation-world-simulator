@@ -21,7 +21,7 @@ async def test_auction_is_start(base_world, mock_item_data):
     base_world.circulation.sold_elixirs = []
     
     # 设置阈值
-    CONFIG.game.gathering.auction_trigger_count = 5
+    CONFIG.world.gathering.auction_trigger_count = 5
     
     assert auction.is_start(base_world) is False
     

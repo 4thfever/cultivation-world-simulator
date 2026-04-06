@@ -71,7 +71,7 @@ async def _tick_action_round(avatars: list[Avatar], log_label: str) -> tuple[lis
 
 async def phase_execute_actions(living_avatars: list[Avatar]) -> list[Event]:
     events: list[Event] = []
-    max_local_rounds = CONFIG.game.max_action_rounds_per_turn
+    max_local_rounds = CONFIG.world.max_action_rounds_per_turn
 
     # 第一轮先让所有在执行动作的角色各跑一次。
     round_events, avatars_needing_retry = await _tick_action_round(

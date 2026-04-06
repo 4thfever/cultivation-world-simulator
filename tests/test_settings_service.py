@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-from pathlib import Path
 from unittest.mock import AsyncMock
 
 from src.config import AppSettingsPatch, LLMSettingsUpdate, get_data_paths, get_settings_service
@@ -13,6 +12,7 @@ def test_settings_service_creates_defaults_in_data_root():
     settings = service.get_settings_view()
     paths = get_data_paths()
 
+    assert settings.schema_version == 2
     assert settings.ui.locale == get_default_locale()
     assert paths.settings_file.exists()
     assert paths.secrets_file.exists()
@@ -81,9 +81,6 @@ def test_settings_api_and_start_game(monkeypatch):
     )
     assert patch_res["simulation"]["auto_save_enabled"] is True
 
-    old_local_config = Path("static/local_config.yml")
-    before = old_local_config.read_text(encoding="utf-8") if old_local_config.exists() else None
-
     start_res = asyncio.run(
         main.start_game(
             main.GameStartRequest(
@@ -98,8 +95,32 @@ def test_settings_api_and_start_game(monkeypatch):
     assert start_res["status"] == "ok"
     assert main.game_instance["run_config"]["content_locale"] == fallback_locale
     assert main.game_instance["run_config"]["init_npc_num"] == 18
-    after = old_local_config.read_text(encoding="utf-8") if old_local_config.exists() else None
-    assert before == after
+
+
+def test_runtime_run_config_comes_only_from_settings_defaults(monkeypatch):
+    from src.server import main
+
+    service = get_settings_service()
+    service.patch_settings(
+        AppSettingsPatch(
+            new_game_defaults={
+                "content_locale": get_fallback_locale(),
+                "init_npc_num": 22,
+                "sect_num": 5,
+                "npc_awakening_rate_per_month": 0.03,
+                "world_lore": "Fresh defaults",
+            }
+        )
+    )
+
+    monkeypatch.setitem(main.game_instance, "run_config", None)
+    runtime = main.get_runtime_run_config()
+
+    assert runtime.content_locale == get_fallback_locale()
+    assert runtime.init_npc_num == 22
+    assert runtime.sect_num == 5
+    assert runtime.npc_awakening_rate_per_month == 0.03
+    assert runtime.world_lore == "Fresh defaults"
 
 
 def test_llm_api_uses_saved_secret_when_testing(monkeypatch):

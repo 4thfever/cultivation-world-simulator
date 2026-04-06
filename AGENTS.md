@@ -23,7 +23,7 @@
 1. 本文件作用域：仓库根目录及其全部子目录。
 2. 当前仓库暂无更深层级的 `AGENTS.md` 或 `AGENTS.override.md`，因此本文件是项目级主说明。
 3. 指令来源：`.cursor/rules/*.mdc`、`.cursor/skills/*/SKILL.md`、`.cursor/commands/*.md`。
-4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；其中“小故事系统”请优先参考 `docs/specs/story-event-system.md`。
+4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`。
 
 ## 3. `.cursor/rules` 沉淀
 

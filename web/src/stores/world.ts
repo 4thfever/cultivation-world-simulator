@@ -165,7 +165,7 @@ export const useWorldStore = defineStore('world', () => {
   const avatarList = computed(() => avatarStore.avatarList);
   const mapData = computed(() => mapStore.mapData);
   const regions = computed(() => mapStore.regions);
-  const frontendConfig = computed(() => mapStore.frontendConfig);
+  const renderConfig = computed(() => mapStore.renderConfig);
   const events = computed(() => eventStore.events);
   const eventsCursor = computed(() => eventStore.eventsCursor);
   const eventsHasMore = computed(() => eventStore.eventsHasMore);
@@ -186,7 +186,7 @@ export const useWorldStore = defineStore('world', () => {
     avatarList,
     mapData,
     regions,
-    frontendConfig,
+    renderConfig,
     events,
     eventsCursor,
     eventsHasMore,

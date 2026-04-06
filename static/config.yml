@@ -1,6 +1,10 @@
 meta:
   version: "2.4.0"
 
+resources:
+  locales_dir: static/locales/
+  shared_game_configs_dir: static/game_configs/
+
 llm:
   default_modes:
     action_decision: "normal"
@@ -20,57 +24,46 @@ llm:
     sect_decider: "normal"
     sect_thinker: "fast"
 
-paths:
-  locales: static/locales/
-  shared_game_configs: static/game_configs/
-  # templates: static/templates/  <-- Managed by code now
-  # game_configs: static/game_configs/ <-- Managed by code now
-  saves: assets/saves/
-
 ai:
-  max_concurrent_requests: 10
   max_parse_retries: 3
 
-game:
-  init_npc_num: 9
-  sect_num: 3 # init_npc_num 大于 sect_num 时，会随机选择 sect_num 个宗门
-  start_year: 100 # 世界开始年份
-  npc_awakening_rate_per_month: 0.01
-  story:
-    enabled: true
-    probabilities:
-      combat: 0.4 # 战斗、暗杀、切磋
-      relationship_major: 0.6 # 表白、双修、结拜
-      cultivation_major: 0.40 # 突破、闭关
-      crafting: 0.10 # 炼丹、铸造、御兽
-      daily_social: 0.08 # 交谈、送礼、传道、茶会、下棋
-      sect_mission: 0.4 # 宗门任务
-      world_fortune: 0.50 # 奇遇
-      world_misfortune: 0.35 # 霉运
-      gathering: 1.0 # 拍卖会、秘境探索、天下武道会、宗门传道大会
+world:
+  start_year: 100
   autonomous_creation_probability: 0.001
   autonomous_creation_story_probability: 0.5
   fortune_probability: 0.005
   misfortune_probability: 0.005
-  random_minor_event_prob: 0.05 # 随机小事每月触发概率 (5%)
-  birth_rate_per_month: 0.005 # 每月生育概率 (0.5%)
-  max_children_per_couple: 2 # 每对道侣最大子女数量
-  max_action_rounds_per_turn: 3 # 每回合动作最大轮数（处理抢占/连招）
-  long_dead_cleanup_years: 20 # 多少年后清理已经完全没有影响力的死者
+  random_minor_event_prob: 0.05
+  birth_rate_per_month: 0.005
+  max_children_per_couple: 2
+  max_action_rounds_per_turn: 3
+  long_dead_cleanup_years: 20
   gathering:
     auction_trigger_count: 5
     sect_teaching_prob: 0.05
     base_epiphany_prob: 0.02
+  story:
+    enabled: true
+    probabilities:
+      combat: 0.4
+      relationship_major: 0.6
+      cultivation_major: 0.40
+      crafting: 0.10
+      daily_social: 0.08
+      sect_mission: 0.4
+      world_fortune: 0.50
+      world_misfortune: 0.35
+      gathering: 1.0
 
 sect:
-  income_per_tile: 7  # 势力范围内每地块每年基础灵石产出（配合更大势力范围做平衡）
-  influence_radius_divisor: 8  # 宗门战力换算势力半径时的除数，越小半径越大
-  influence_radius_bias: 1  # 宗门势力半径基础偏移
-  territory_distance_weight: 100  # 格子归属时，距离总部的主导权重
-  territory_strength_weight: 12  # 格子归属时，宗门战力对边界竞争的权重
-  territory_noise_weight: 6  # 格子归属时的稳定锯齿扰动强度
-  territory_dense_border_threshold: 8  # 接壤边达到该阈值后，关系额外恶化
-  random_event_prob_per_month: 0.03 # 宗门随机事件每月触发概率（全局单次抽签）
+  income_per_tile: 7
+  influence_radius_divisor: 8
+  influence_radius_bias: 1
+  territory_distance_weight: 100
+  territory_strength_weight: 12
+  territory_noise_weight: 6
+  territory_dense_border_threshold: 8
+  random_event_prob_per_month: 0.03
   decision_interval_years: 3
   thinking_interval_years: 5
   recruit_cost: 500
@@ -80,15 +73,13 @@ sect:
     FOUNDATION_ESTABLISHMENT: 30
     CORE_FORMATION: 60
     NASCENT_SOUL: 120
-df:
-  ids_separator: ";"
 
 avatar:
   persona_num: 3
 
 social:
-  major_event_context_num: 10  # 大事（长期记忆）展示数量
-  minor_event_context_num: 10  # 小事（短期记忆）展示数量
+  major_event_context_num: 10
+  minor_event_context_num: 10
   relation:
     min_friendliness: -100
     max_friendliness: 100
@@ -157,20 +148,18 @@ social:
           b_to_a: -8
 
 nickname:
-  major_event_threshold: 3  # 获得绰号所需的长期事件数量
-  minor_event_threshold: 25  # 获得绰号所需的短期事件数量
+  major_event_threshold: 3
+  minor_event_threshold: 25
 
 save:
   max_events_to_save: 1000
 
-frontend:
+frontend_defaults:
   water_speed: low
   cloud_freq: low
-system:
-  language: zh-CN
-  host: "127.0.0.1"  # 服务器绑定地址，设为 "0.0.0.0" 可允许局域网访问
-  port: 8002         # 服务器端口
+
+df:
+  ids_separator: ";"
 
 play:
   base_benefit_probability: 0.05
-

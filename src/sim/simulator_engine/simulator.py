@@ -11,8 +11,9 @@ from .phases import actions, annual, lifecycle, sect_war, social, world as world
 class Simulator:
     def __init__(self, world: World):
         self.world = world
-        self.awakening_rate = CONFIG.game.npc_awakening_rate_per_month
-        self.can_interrupt_major = getattr(CONFIG.game, "can_interrupt_major_events", False)
+        run_config = getattr(world, "run_config_snapshot", {}) or {}
+        self.awakening_rate = float(run_config.get("npc_awakening_rate_per_month", 0.01))
+        self.can_interrupt_major = getattr(CONFIG.world, "can_interrupt_major_events", False)
 
         from src.sim.managers.sect_manager import SectManager
 

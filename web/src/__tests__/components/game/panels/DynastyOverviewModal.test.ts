@@ -173,6 +173,10 @@ describe('DynastyOverviewModal', () => {
           common: {
             none: '无',
           },
+          realms: {
+            FOUNDATION_ESTABLISHMENT: '筑基',
+            CORE_FORMATION: '金丹',
+          },
         },
       },
     })

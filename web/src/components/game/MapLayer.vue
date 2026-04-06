@@ -182,7 +182,7 @@ async function renderMap() {
       // v8: deltaMS / deltaTime
       let baseSpeed = 0.5
       
-      const configSpeed = mapStore.frontendConfig?.water_speed || 'high' // default high as per old behavior
+      const configSpeed = mapStore.renderConfig?.water_speed || 'high' // default high as per old behavior
       if (configSpeed === 'none') {
         baseSpeed = 0
       } else if (configSpeed === 'low') {

@@ -1,10 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { useAudio } from '@/composables/useAudio'
 import { setActivePinia, createPinia } from 'pinia'
 import { useSettingStore } from '@/stores/setting'
 
+async function loadUseAudio() {
+  const module = await import('@/composables/useAudio')
+  return module.useAudio
+}
+
 describe('useAudio', () => {
   beforeEach(() => {
+    vi.resetModules()
     setActivePinia(createPinia())
     
     // Mock AudioContext
@@ -30,6 +35,7 @@ describe('useAudio', () => {
   })
 
   it('should initialize and load sounds', async () => {
+    const useAudio = await loadUseAudio()
     const { init } = useAudio()
     await init()
     expect(global.fetch).toHaveBeenCalled()
@@ -37,6 +43,7 @@ describe('useAudio', () => {
   })
 
   it('should play a sound if initialized', async () => {
+    const useAudio = await loadUseAudio()
     const { init, play } = useAudio()
     await init()
     
@@ -46,12 +53,14 @@ describe('useAudio', () => {
     expect(() => play('click')).not.toThrow()
   })
   
-  it('should not throw if playing without init', () => {
+  it('should not throw if playing without init', async () => {
+    const useAudio = await loadUseAudio()
     const { play } = useAudio()
     expect(() => play('click')).not.toThrow()
   })
   
   it('should not play if volume is 0', async () => {
+    const useAudio = await loadUseAudio()
     const { init, play } = useAudio()
     await init()
     

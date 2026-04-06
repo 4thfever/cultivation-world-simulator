@@ -22,6 +22,7 @@ from .settings_schema import (
     NewGameDefaults,
     RunConfig,
 )
+from src.i18n.locale_registry import get_default_locale
 
 
 def _model_to_dict(model: Any) -> dict[str, Any]:
@@ -41,6 +42,32 @@ def _atomic_write_json(path: Path, payload: dict[str, Any]) -> None:
 class SettingsService:
     def __init__(self) -> None:
         self.paths = get_data_paths()
+
+    def build_default_new_game_defaults(self) -> NewGameDefaults:
+        return NewGameDefaults(
+            content_locale=get_default_locale(),
+            init_npc_num=9,
+            sect_num=3,
+            npc_awakening_rate_per_month=0.01,
+            world_lore="",
+        )
+
+    def build_default_app_settings(self) -> AppSettings:
+        return AppSettings(
+            schema_version=2,
+            ui={
+                "locale": get_default_locale(),
+                "audio": AudioSettings(),
+            },
+            simulation={
+                "auto_save_enabled": False,
+                "max_auto_saves": 5,
+            },
+            llm={
+                "profile": LLMProfile(),
+            },
+            new_game_defaults=self.build_default_new_game_defaults(),
+        )
 
     def _load_model(self, path: Path, model_cls, default_model):
         if not path.exists():
@@ -65,7 +92,7 @@ class SettingsService:
         _atomic_write_json(self.paths.secrets_file, _model_to_dict(secrets))
 
     def get_settings(self) -> AppSettings:
-        settings = self._load_model(self.paths.settings_file, AppSettings, AppSettings())
+        settings = self._load_model(self.paths.settings_file, AppSettings, self.build_default_app_settings())
         self._save_settings(settings)
         return settings
 
@@ -121,7 +148,7 @@ class SettingsService:
         return self.get_settings_view()
 
     def reset_settings(self) -> AppSettingsView:
-        defaults = AppSettings()
+        defaults = self.build_default_app_settings()
         self._save_settings(defaults)
         self._save_secrets(LLMSecrets())
         return self.get_settings_view()

@@ -29,21 +29,21 @@ class StoryEventKind(StrEnum):
 class StoryEventService:
     @classmethod
     def is_enabled(cls) -> bool:
-        return bool(getattr(getattr(CONFIG.game, "story", None), "enabled", True))
+        return bool(getattr(getattr(CONFIG.world, "story", None), "enabled", True))
 
     @classmethod
     def get_probability(cls, kind: StoryEventKind) -> float:
         if kind == StoryEventKind.GATHERING:
             return 1.0
         if kind == StoryEventKind.AUTONOMOUS_CREATION:
-            raw = getattr(CONFIG.game, "autonomous_creation_story_probability", 0.0)
+            raw = getattr(CONFIG.world, "autonomous_creation_story_probability", 0.0)
             try:
                 prob = float(raw)
             except (TypeError, ValueError):
                 return 0.0
             return max(0.0, min(1.0, prob))
 
-        story_cfg = getattr(CONFIG.game, "story", None)
+        story_cfg = getattr(CONFIG.world, "story", None)
         if story_cfg is None:
             return 0.0
 

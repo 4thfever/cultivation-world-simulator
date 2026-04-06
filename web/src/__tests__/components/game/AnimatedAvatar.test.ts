@@ -29,8 +29,13 @@ describe('AnimatedAvatar', () => {
           container: true,
           animatedSprite: true,
           graphics: true,
-          text: true
-        }
+          sprite: true,
+        },
+        config: {
+          compilerOptions: {
+            isCustomElement: (tag) => ['container', 'graphics', 'sprite', 'text'].includes(tag),
+          },
+        },
       }
     })
 

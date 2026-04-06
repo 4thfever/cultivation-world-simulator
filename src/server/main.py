@@ -114,17 +114,7 @@ def get_runtime_run_config() -> RunConfig:
     if run_config:
         return RunConfig(**run_config)
 
-    defaults = get_settings_service().get_default_run_config()
-    game_conf = getattr(CONFIG, "game", None)
-    return RunConfig(
-        content_locale=defaults.content_locale,
-        init_npc_num=int(getattr(game_conf, "init_npc_num", defaults.init_npc_num)),
-        sect_num=int(getattr(game_conf, "sect_num", defaults.sect_num)),
-        npc_awakening_rate_per_month=float(
-            getattr(game_conf, "npc_awakening_rate_per_month", defaults.npc_awakening_rate_per_month)
-        ),
-        world_lore=str(getattr(game_conf, "world_lore", defaults.world_lore) or ""),
-    )
+    return get_settings_service().get_default_run_config()
 
 
 def reset_runtime_custom_content() -> None:
@@ -502,7 +492,7 @@ async def init_game_async():
         print(f"Events database: {events_db_path}")
 
         run_config = get_runtime_run_config()
-        start_year = getattr(CONFIG.game, "start_year", 100)
+        start_year = getattr(CONFIG.world, "start_year", 100)
         world = World.create_with_db(
             map=game_map,
             month_stamp=create_month_stamp(Year(start_year), Month.JANUARY),
@@ -801,8 +791,7 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(game_loop())
     
     npm_process = None
-    # 从环境变量或配置文件读取 host。
-    host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
+    host = os.environ.get("SERVER_HOST") or "127.0.0.1"
     
     if IS_DEV_MODE:
         print("🚀 Starting Development Mode (Dev Mode)...")
@@ -1137,7 +1126,7 @@ def get_map():
         "height": h,
         "data": map_data,
         "regions": regions_data,
-        "config": CONFIG.get("frontend", {})
+        "render_config": CONFIG.get("frontend_defaults", {})
     }
 
 
@@ -2157,9 +2146,8 @@ def start():
     _patch_sys_streams()
     import webbrowser
 
-    # 从环境变量或配置文件读取服务器配置。
-    host = os.environ.get("SERVER_HOST") or getattr(getattr(CONFIG, "system", None), "host", None) or "127.0.0.1"
-    port = int(os.environ.get("SERVER_PORT") or getattr(getattr(CONFIG, "system", None), "port", None) or 8002)
+    host = os.environ.get("SERVER_HOST") or "127.0.0.1"
+    port = int(os.environ.get("SERVER_PORT") or 8002)
 
     # 计算目标 URL (与 lifespan 中的逻辑保持一致)
     target_url = f"http://{host}:{port}"

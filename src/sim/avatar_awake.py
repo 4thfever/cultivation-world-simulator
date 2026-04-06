@@ -40,7 +40,8 @@ def process_awakening(world: World) -> List[Event]:
     
     # 2. 机缘觉醒 (Wild Avatars)
     # 读取配置中的觉醒率
-    wild_rate = getattr(CONFIG.game, "npc_awakening_rate_per_month", WILD_AWAKENING_RATE_BASE)
+    run_config = getattr(world, "run_config_snapshot", {}) or {}
+    wild_rate = run_config.get("npc_awakening_rate_per_month", WILD_AWAKENING_RATE_BASE)
     
     if random.random() < wild_rate:
         wild_event = _process_wild_awakening(world)

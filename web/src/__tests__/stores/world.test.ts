@@ -382,7 +382,7 @@ describe('useWorldStore', () => {
       vi.mocked(worldApi.fetchMap).mockResolvedValue({
         data: [[{ type: 'grass' }]],
         regions: [{ id: 'r1', name: 'Region 1' }],
-        config: { water_speed: 'low', cloud_freq: 'high' },
+        render_config: { water_speed: 'low', cloud_frequency: 'high' },
       } as any)
 
       await store.preloadMap()
@@ -390,8 +390,8 @@ describe('useWorldStore', () => {
       // mapStore data should be updated
       expect(store.mapData).toHaveLength(1)
       expect(store.regions.size).toBe(1)
-      expect(store.frontendConfig.water_speed).toBe('low')
-      expect(store.frontendConfig.cloud_freq).toBe('high')
+      expect(store.renderConfig.water_speed).toBe('low')
+      expect(store.renderConfig.cloud_frequency).toBe('high')
       // Note: store.isLoaded checks world loaded state, mapStore.isLoaded checks map loaded state.
       // preloadMap only affects mapStore.
       expect(mapStore.isLoaded).toBe(true) 
@@ -445,7 +445,7 @@ describe('useWorldStore', () => {
       vi.mocked(worldApi.fetchMap).mockResolvedValue({
         data: [[{ type: 'grass' }]],
         regions: [{ id: 'r1', name: 'Region 1' }],
-        config: {},
+        render_config: {},
       } as any)
       vi.mocked(worldApi.fetchInitialState).mockResolvedValue({
         year: 100,

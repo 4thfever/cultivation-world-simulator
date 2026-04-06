@@ -1,9 +1,9 @@
-import type { FrontendConfigDTO, RankingsDTO, RankingAvatarDTO, RankingSectDTO, TournamentSummaryDTO } from '@/types/api'
+import type { MapRenderConfigDTO, RankingsDTO, RankingAvatarDTO, RankingSectDTO, TournamentSummaryDTO } from '@/types/api'
 
-export function normalizeFrontendConfig(config?: FrontendConfigDTO): FrontendConfigDTO {
+export function normalizeMapRenderConfig(config?: MapRenderConfigDTO): MapRenderConfigDTO {
   return {
     water_speed: config?.water_speed ?? 'high',
-    cloud_freq: config?.cloud_freq ?? 'none',
+    cloud_frequency: config?.cloud_frequency ?? 'none',
   }
 }
 

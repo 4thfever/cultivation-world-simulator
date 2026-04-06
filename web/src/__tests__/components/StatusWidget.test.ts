@@ -52,6 +52,10 @@ vi.mock('naive-ui', () => ({
 
 import StatusWidget from '@/components/layout/StatusWidget.vue'
 
+const soundDirective = {
+  mounted() {},
+}
+
 describe('StatusWidget', () => {
   const defaultProps = {
     label: 'Test Label',
@@ -64,6 +68,11 @@ describe('StatusWidget', () => {
   it('should render label', () => {
     const wrapper = mount(StatusWidget, {
       props: defaultProps,
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     expect(wrapper.text()).toContain('Test Label')
@@ -75,6 +84,11 @@ describe('StatusWidget', () => {
         ...defaultProps,
         color: '#ff0000',
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const trigger = wrapper.find('.widget-trigger')
@@ -84,6 +98,11 @@ describe('StatusWidget', () => {
   it('should use default color when not provided', () => {
     const wrapper = mount(StatusWidget, {
       props: defaultProps,
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const trigger = wrapper.find('.widget-trigger')
@@ -93,6 +112,11 @@ describe('StatusWidget', () => {
   it('should emit trigger-click when clicked', async () => {
     const wrapper = mount(StatusWidget, {
       props: defaultProps,
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     await wrapper.find('.widget-trigger').trigger('click')
@@ -108,6 +132,11 @@ describe('StatusWidget', () => {
           ...defaultProps,
           disablePopover: true,
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       // Should not have popover wrapper.
@@ -121,6 +150,11 @@ describe('StatusWidget', () => {
         props: {
           ...defaultProps,
           disablePopover: true,
+        },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
         },
       })
 
@@ -164,6 +198,11 @@ describe('StatusWidget', () => {
           items: domainItems,
           title: 'Domain List',
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       expect(wrapper.find('.list-header').text()).toBe('Domain List')
@@ -178,6 +217,11 @@ describe('StatusWidget', () => {
           items: [],
           emptyText: 'No data available',
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       expect(wrapper.find('.n-empty-stub').exists()).toBe(true)
@@ -191,6 +235,11 @@ describe('StatusWidget', () => {
           mode: 'list',
           items: [],
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       // Default is Chinese text from props defaults.
@@ -203,6 +252,11 @@ describe('StatusWidget', () => {
           ...defaultProps,
           mode: 'list',
           items: [domainItems[0]],
+        },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
         },
       })
 
@@ -219,6 +273,11 @@ describe('StatusWidget', () => {
           mode: 'list',
           items: [domainItems[1]], // is_open: false.
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       expect(wrapper.find('.domain-item.is-closed').exists()).toBe(true)
@@ -230,6 +289,11 @@ describe('StatusWidget', () => {
           ...defaultProps,
           mode: 'list',
           items: [domainItems[0]], // is_open: true.
+        },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
         },
       })
 
@@ -247,6 +311,11 @@ describe('StatusWidget', () => {
         slots: {
           single: '<div class="custom-single">Custom Content</div>',
         },
+        global: {
+          directives: {
+            sound: soundDirective,
+          },
+        },
       })
 
       expect(wrapper.find('.custom-single').exists()).toBe(true)
@@ -257,6 +326,11 @@ describe('StatusWidget', () => {
   it('should render divider', () => {
     const wrapper = mount(StatusWidget, {
       props: defaultProps,
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     expect(wrapper.find('.divider').exists()).toBe(true)
@@ -271,6 +345,11 @@ describe('StatusWidget', () => {
         title: 'Custom Title',
         items: [{ id: 1, name: 'Test', desc: '', is_open: true, max_realm: '', danger_prob: 0, drop_prob: 0, cd_years: 0, open_prob: 0 }],
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     expect(wrapper.find('.list-header').text()).toBe('Custom Title')
@@ -282,6 +361,11 @@ describe('StatusWidget', () => {
         ...defaultProps,
         mode: 'list',
         items: [],
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 

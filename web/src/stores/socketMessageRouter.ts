@@ -41,7 +41,9 @@ function handleLlmConfigRequired(data: LLMConfigRequiredSocketMessage, deps: Soc
 }
 
 function handleGameReinitialized(data: GameReinitializedSocketMessage, deps: SocketRouterDeps) {
-  deps.worldStore.initialize().catch((e) => logError('SocketRouter reinitialize world', e))
+  Promise.resolve(deps.worldStore.initialize()).catch((e) =>
+    logError('SocketRouter reinitialize world', e),
+  )
   message.success(data.message || translate('ui.game_reinitialized'))
 }
 

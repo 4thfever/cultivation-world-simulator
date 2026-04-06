@@ -93,7 +93,7 @@ class RunConfig(NewGameDefaults):
 
 
 class AppSettings(BaseModel):
-    schema_version: int = 1
+    schema_version: int = 2
     ui: UISettings = Field(default_factory=UISettings)
     simulation: SimulationSettings = Field(default_factory=SimulationSettings)
     llm: LLMSettings = Field(default_factory=LLMSettings)

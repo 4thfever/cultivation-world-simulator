@@ -280,7 +280,7 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         # 兼容旧存档 "birth_rate"
         simulator.awakening_rate = simulator_data.get(
             "awakening_rate",
-            simulator_data.get("birth_rate", run_config_snapshot.get("npc_awakening_rate_per_month", CONFIG.game.npc_awakening_rate_per_month))
+            simulator_data.get("birth_rate", run_config_snapshot.get("npc_awakening_rate_per_month", 0.01))
         )
         
         print(f"Save loaded successfully! Loaded {len(all_avatars)} avatars")

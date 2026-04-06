@@ -41,7 +41,7 @@ class SectTeachingConference(Gathering):
         random.shuffle(valid_sects)
         
         # 从配置读取概率，默认 0.01
-        trigger_prob = CONFIG.game.gathering.sect_teaching_prob
+        trigger_prob = CONFIG.world.gathering.sect_teaching_prob
         
         # 3. 判定是否触发
         # 每个宗门独立判定，只要有一个中了就停下来。
@@ -83,7 +83,7 @@ class SectTeachingConference(Gathering):
             return []
             
         events = []
-        base_epiphany_prob = CONFIG.game.gathering.base_epiphany_prob
+        base_epiphany_prob = CONFIG.world.gathering.base_epiphany_prob
         
         # 1. 选定角色 (逻辑复用，但只针对 target_sect)
         members = list(sect.members.values())

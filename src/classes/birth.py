@@ -20,8 +20,8 @@ def process_births(world: World) -> list[Event]:
     """
     events = []
     
-    birth_rate = CONFIG.game.birth_rate_per_month
-    max_children = CONFIG.game.max_children_per_couple
+    birth_rate = CONFIG.world.birth_rate_per_month
+    max_children = CONFIG.world.max_children_per_couple
     current_time = int(world.month_stamp)
     processed_couples = set()
 

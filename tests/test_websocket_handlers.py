@@ -449,6 +449,7 @@ class TestMapAPI:
         assert data["width"] == 10
         assert data["height"] == 10
         assert "data" in data
+        assert "render_config" in data
         assert len(data["data"]) == 10  # 10 rows
         assert len(data["data"][0]) == 10  # 10 columns
 

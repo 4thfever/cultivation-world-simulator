@@ -10,6 +10,10 @@ vi.mock('@/utils/theme', () => ({
 
 import TagList from '@/components/game/panels/info/components/TagList.vue'
 
+const soundDirective = {
+  mounted() {},
+}
+
 describe('TagList', () => {
   const defaultTags = [
     { id: '1', name: 'Tag One' },
@@ -26,6 +30,11 @@ describe('TagList', () => {
     const wrapper = mount(TagList, {
       props: {
         tags: defaultTags,
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 
@@ -47,6 +56,11 @@ describe('TagList', () => {
       props: {
         tags: defaultTags,
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const tags = wrapper.findAll('.tag')
@@ -61,6 +75,11 @@ describe('TagList', () => {
     const wrapper = mount(TagList, {
       props: {
         tags: defaultTags,
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 
@@ -77,6 +96,11 @@ describe('TagList', () => {
       props: {
         tags: defaultTags,
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const tags = wrapper.findAll('.tag')
@@ -92,6 +116,11 @@ describe('TagList', () => {
     const wrapper = mount(TagList, {
       props: {
         tags: [],
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 
@@ -110,6 +139,11 @@ describe('TagList', () => {
       props: {
         tags: tagsWithoutId,
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const tags = wrapper.findAll('.tag')
@@ -125,6 +159,11 @@ describe('TagList', () => {
       props: {
         tags: singleTag,
       },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
     })
 
     const tags = wrapper.findAll('.tag')
@@ -138,6 +177,11 @@ describe('TagList', () => {
     const wrapper = mount(TagList, {
       props: {
         tags: defaultTags,
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 
@@ -154,6 +198,11 @@ describe('TagList', () => {
     const wrapper = mount(TagList, {
       props: {
         tags: tagsWithExtra,
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
       },
     })
 

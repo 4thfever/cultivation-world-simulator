@@ -50,8 +50,8 @@ def test_couple_birth_logic(base_world, dummy_avatar):
     mother.relation_start_dates[father.id] = start_time
     
     # 3. Mock 配置和概率，确保必中
-    CONFIG.game.birth_rate_per_month = 1.0 
-    CONFIG.game.max_children_per_couple = 1
+    CONFIG.world.birth_rate_per_month = 1.0
+    CONFIG.world.max_children_per_couple = 1
     
     # 4. 运行模拟器步骤
     sim = Simulator(base_world)
@@ -102,7 +102,7 @@ def test_birth_time_restriction(base_world, dummy_avatar):
     father.become_lovers_with(mother)
     
     # 此时时间刚刚建立，不满一年
-    CONFIG.game.birth_rate_per_month = 1.0
+    CONFIG.world.birth_rate_per_month = 1.0
     sim = Simulator(base_world)
     sim.awakening_rate = 0
     

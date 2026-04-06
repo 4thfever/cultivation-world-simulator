@@ -31,7 +31,7 @@ class RandomMinorEventService:
 
     @classmethod
     def should_trigger(cls, avatar: Avatar) -> bool:
-        base_prob = float(getattr(CONFIG.game, "random_minor_event_prob", 0.05))
+        base_prob = float(getattr(CONFIG.world, "random_minor_event_prob", 0.05))
         if base_prob <= 0.0:
             return False
         if not avatar.can_trigger_world_event:

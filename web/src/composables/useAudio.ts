@@ -60,14 +60,19 @@ export function useAudio() {
     // 浏览器策略：如果 Context 被暂停（通常发生在无交互的页面加载时），需要恢复
     // 必须在用户交互事件中调用 resume
     if (audioContext.state === 'suspended') {
-      audioContext.resume().catch(e => logWarn('Audio resume context', e));
+      Promise.resolve(audioContext.resume()).catch((e) => logWarn('Audio resume context', e));
     }
 
     const source = audioContext.createBufferSource();
+    const gainNode = audioContext.createGain();
+    if (!source || !gainNode) {
+      logWarn('Audio play unavailable', `Missing audio nodes for sound: ${type}`);
+      return;
+    }
+
     source.buffer = buffers[type]!;
     
     // 创建增益节点控制音量
-    const gainNode = audioContext.createGain();
     gainNode.gain.value = settingStore.sfxVolume;
     
     source.connect(gainNode);

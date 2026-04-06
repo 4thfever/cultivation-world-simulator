@@ -100,7 +100,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       // 提前加载纹理资源（利用后端生成事件等待期）
       if (!texturesPreloaded.value && isPhaseIn(GAME_PHASES.TEXTURES_READY, res.phase_name)) {
         texturesPreloaded.value = true
-        loadBaseTextures().catch((e) => logWarn('GameInit preload textures', e))
+        Promise.resolve(loadBaseTextures()).catch((e) => logWarn('GameInit preload textures', e))
       }
       
       // 状态跃迁：非 Ready -> Ready
