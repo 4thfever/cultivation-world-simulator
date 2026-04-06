@@ -76,14 +76,6 @@ const presets = computed<LlmPreset[]>(() => [
     api_format: 'anthropic'
   },
   {
-    name: t('llm.presets.groq'),
-    base_url: 'https://api.groq.com/openai/v1',
-    model_name: 'llama-3.3-70b-versatile',
-    fast_model_name: 'llama-3.1-8b-instant',
-    api_format: 'openai',
-    badge: 'free'
-  },
-  {
     name: t('llm.presets.kimi'),
     base_url: 'https://api.moonshot.cn/v1',
     model_name: 'kimi-k2.5',
@@ -95,7 +87,16 @@ const presets = computed<LlmPreset[]>(() => [
     base_url: 'https://api.deepseek.com',
     model_name: 'deepseek-chat',
     fast_model_name: 'deepseek-chat',
-    api_format: 'openai'
+    api_format: 'openai',
+    badge: 'free'
+  },
+  {
+    name: t('llm.presets.groq'),
+    base_url: 'https://api.groq.com/openai/v1',
+    model_name: 'llama-3.3-70b-versatile',
+    fast_model_name: 'llama-3.1-8b-instant',
+    api_format: 'openai',
+    badge: 'free'
   },
   {
     name: t('llm.presets.minimax'),
