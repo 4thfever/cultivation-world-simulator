@@ -48,7 +48,7 @@
 | `.cursor/rules/simulator-logic.mdc` | `src/sim/simulator.py`, `src/sim/**/*.py` | 相位优先拆为 `simulator_engine/phases` 中的独立函数，`step()` 只做编排；共享状态走 `SimulationStepContext`；新相位需重排索引；LLM/重计算相位异步化；死亡结算后维护 `living_avatars`；收尾统一走 `finalizer.finalize_step()`。 |
 | `.cursor/rules/story-event-system.mdc` | `src/classes/story_event_service.py`, `src/classes/action/**/*.py`, `src/classes/mutual_action/**/*.py`, `src/classes/gathering/**/*.py`, `src/systems/battle.py`, `src/systems/fortune.py`, `static/config.yml`, `tests/**/*.py` | 小故事统一走 `StoryEventService`；先生成基础结果事件，再尝试追加故事；非 gathering 按 `StoryEventKind + game.story.probabilities` 控制，`gathering` 固定 100%；LLM 展开的故事正文统一标记 `is_story=True`。 |
 | `.cursor/rules/sect-system.mdc` | `src/classes/core/sect.py`, `src/classes/core/world.py`, `src/classes/sect_decider.py`, `src/sim/managers/sect_manager.py`, `src/systems/sect_decision_context.py`, `src/classes/ranking.py`, `src/server/**/*.py`, `src/systems/sect_relations.py`, `web/src/**/*.{ts,vue}` | 统一宗门领域模型与 API 分层；通过 `SectContext` 管理本局启用宗门；势力快照由 `SectManager` 统一计算；宗门年度思考由 `SectDecider` 每年 1 月生成并写回 `yearly_thinking`，经 detail 暴露给前端；前端 detail 链路必须经过强类型 DTO + mapper。 |
-| `.cursor/rules/testing.mdc` | `tests/**/*.py` | 优先复用 `conftest.py` fixtures（`dummy_avatar`/`mock_llm_managers` 等），异步测试加 `@pytest.mark.asyncio`，避免过度设计；vibe coding 快速回归可用 `pytest -n 8`。 |
+| `.cursor/rules/testing.mdc` | `tests/**/*.py` | 优先复用 `conftest.py` fixtures（`dummy_avatar`/`mock_llm_managers` 等），异步测试加 `@pytest.mark.asyncio`，测试路径必须按当前平台生成、避免硬编码 Windows/Linux 绝对路径，避免过度设计；vibe coding 快速回归可用 `pytest -n 8`。 |
 | `.cursor/rules/vue-performance.mdc` | `web/src/**/*.vue|ts|tsx` | 大对象必须 `shallowRef`，长列表分页或虚拟滚动，昂贵派生用 `computed`，重构前后保留性能基线对比。 |
 
 ### 3.2 执行时应优先遵守的硬约束
@@ -75,6 +75,7 @@
 20. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
 21. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
 22. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
+23. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
 
 ## 4. `.cursor/skills` 沉淀
 

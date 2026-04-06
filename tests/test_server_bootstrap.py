@@ -15,16 +15,20 @@ def test_resolve_runtime_paths_for_dev_mode():
     assert assets_path.endswith("assets")
 
 
-def test_resolve_runtime_paths_for_frozen_mode():
+def test_resolve_runtime_paths_for_frozen_mode(tmp_path):
+    app_dir = tmp_path / "app"
+    executable = app_dir / "cultivation-world-simulator.exe"
+    meipass = app_dir / "_internal"
+
     web_dist_path, assets_path = resolve_runtime_paths(
         server_file="ignored",
         is_frozen=True,
-        executable=r"C:\app\cultivation-world-simulator.exe",
-        meipass=r"C:\app\_internal",
+        executable=str(executable),
+        meipass=str(meipass),
     )
 
-    assert web_dist_path == os.path.abspath(r"C:\app\web_static")
-    assert assets_path == os.path.abspath(r"C:\app\_internal\assets")
+    assert web_dist_path == os.path.abspath(str(app_dir / "web_static"))
+    assert assets_path == os.path.abspath(str(meipass / "assets"))
 
 
 def test_resolve_server_binding_uses_env_values(monkeypatch):

@@ -84,7 +84,7 @@
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
     "groq": "Groq",
-    "cerebras": "Cerebras",
+    "kimi": "Kimi",
     "ollama": "Ollama",
     "anthropic": "Anthropic"
   },

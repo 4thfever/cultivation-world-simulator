@@ -84,12 +84,11 @@ const presets = computed<LlmPreset[]>(() => [
     badge: 'free'
   },
   {
-    name: t('llm.presets.cerebras'),
-    base_url: 'https://api.cerebras.ai/v1',
-    model_name: 'gpt-oss-120b',
-    fast_model_name: 'llama3.1-8b',
-    api_format: 'openai',
-    badge: 'free'
+    name: t('llm.presets.kimi'),
+    base_url: 'https://api.moonshot.cn/v1',
+    model_name: 'kimi-k2.5',
+    fast_model_name: 'kimi-k2-turbo-preview',
+    api_format: 'openai'
   },
   {
     name: t('llm.presets.deepseek'),
