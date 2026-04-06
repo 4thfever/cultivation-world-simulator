@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTextures } from './composables/useTextures'
 import { ref, watch, computed } from 'vue'
-import { Graphics } from 'pixi.js'
+import { Graphics, type TextStyle } from 'pixi.js'
 import type { AvatarSummary } from '../../types/core'
 import { useSharedTicker } from './composables/useSharedTicker'
 import { avatarIdToColor } from '../../utils/eventHelper'
@@ -103,7 +103,7 @@ const drawFallback = (g: Graphics) => {
     g.stroke({ width: 2, color: 0x000000 })
 }
 
-const nameStyle = computed(() => ({
+const nameStyle = computed<TextStyle>(() => ({
     fontFamily: '"Microsoft YaHei", sans-serif',
     fontSize: 50,
     fontWeight: 'bold',
@@ -117,7 +117,7 @@ const nameStyle = computed(() => ({
         distance: 2,
         alpha: 0.8
     }
-} as any))
+}))
 
 function handlePointerTap() {
     useAudio().play('select')
@@ -128,11 +128,11 @@ function handlePointerTap() {
     })
 }
 
-const emojiStyle = {
+const emojiStyle: TextStyle = {
     fontFamily: '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif',
     fontSize: 70,
     align: 'center',
-} as any
+}
 
 const drawEmojiBg = (g: Graphics) => {
     g.clear()

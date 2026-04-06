@@ -15,13 +15,13 @@ Tests for WebSocket handlers and connection management.
   - Disconnect handling (via TestClient context manager)
 
 - Control API endpoints:
-  - POST /api/control/pause
-  - POST /api/control/resume
-  - POST /api/control/reset
+  - POST /api/v1/command/game/pause
+  - POST /api/v1/command/game/resume
+  - POST /api/v1/command/game/reset
 
 - State/Map API:
-  - GET /api/state (error handling, data serialization)
-  - GET /api/map (error handling, data serialization)
+  - GET /api/v1/query/world/state (error handling, data serialization)
+  - GET /api/v1/query/world/map (error handling, data serialization)
 
 - Event serialization:
   - serialize_events_for_client() function
@@ -261,14 +261,14 @@ class TestControlAPIEndpoints:
     """Tests for game control API endpoints."""
 
     def test_pause_game(self, client, reset_game_instance):
-        """Test POST /api/control/pause pauses the game."""
+        """Test POST /api/v1/command/game/pause pauses the game."""
         game_instance["is_paused"] = False
 
-        response = client.post("/api/control/pause")
+        response = client.post("/api/v1/command/game/pause")
 
         assert response.status_code == 200
         assert game_instance["is_paused"] is True
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ok"
         assert "pause" in data["message"].lower()
 
@@ -276,20 +276,20 @@ class TestControlAPIEndpoints:
         """Test pausing already paused game."""
         game_instance["is_paused"] = True
 
-        response = client.post("/api/control/pause")
+        response = client.post("/api/v1/command/game/pause")
 
         assert response.status_code == 200
         assert game_instance["is_paused"] is True
 
     def test_resume_game(self, client, reset_game_instance):
-        """Test POST /api/control/resume resumes the game."""
+        """Test POST /api/v1/command/game/resume resumes the game."""
         game_instance["is_paused"] = True
 
-        response = client.post("/api/control/resume")
+        response = client.post("/api/v1/command/game/resume")
 
         assert response.status_code == 200
         assert game_instance["is_paused"] is False
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ok"
         assert "resume" in data["message"].lower()
 
@@ -297,13 +297,13 @@ class TestControlAPIEndpoints:
         """Test resuming already running game."""
         game_instance["is_paused"] = False
 
-        response = client.post("/api/control/resume")
+        response = client.post("/api/v1/command/game/resume")
 
         assert response.status_code == 200
         assert game_instance["is_paused"] is False
 
     def test_reset_game(self, client, reset_game_instance):
-        """Test POST /api/control/reset resets the game to idle."""
+        """Test POST /api/v1/command/game/reset resets the game to idle."""
         game_instance["world"] = MagicMock()
         game_instance["sim"] = MagicMock()
         game_instance["is_paused"] = False
@@ -311,7 +311,7 @@ class TestControlAPIEndpoints:
         game_instance["init_phase"] = 5
         game_instance["init_progress"] = 100
 
-        response = client.post("/api/control/reset")
+        response = client.post("/api/v1/command/game/reset")
 
         assert response.status_code == 200
         assert game_instance["world"] is None
@@ -326,7 +326,7 @@ class TestControlAPIEndpoints:
         game_instance["init_status"] = "error"
         game_instance["init_error"] = "Some error"
 
-        response = client.post("/api/control/reset")
+        response = client.post("/api/v1/command/game/reset")
 
         assert response.status_code == 200
         assert game_instance["init_status"] == "idle"
@@ -334,21 +334,21 @@ class TestControlAPIEndpoints:
 
 
 class TestStateAPI:
-    """Tests for /api/state endpoint."""
+    """Tests for /api/v1/query/world/state endpoint."""
 
     def test_state_no_world(self, client, reset_game_instance):
-        """Test /api/state returns error when no world."""
+        """Test world state query returns structured 503 when no world."""
         game_instance["world"] = None
 
-        response = client.get("/api/state")
+        response = client.get("/api/v1/query/world/state")
 
-        assert response.status_code == 200
-        data = response.json()
-        assert "error" in data
-        assert data["error"] == "No world"
+        assert response.status_code == 503
+        data = response.json()["detail"]
+        assert data["code"] == "WORLD_NOT_READY"
+        assert data["message"] == "World not initialized"
 
     def test_state_with_world(self, client, reset_game_instance):
-        """Test /api/state returns world state."""
+        """Test world state query returns world state."""
         mock_world = MagicMock()
         mock_world.month_stamp.get_year.return_value = 100
         mock_world.month_stamp.get_month.return_value = MagicMock(value=3)
@@ -359,17 +359,17 @@ class TestStateAPI:
         game_instance["world"] = mock_world
         game_instance["is_paused"] = False
 
-        response = client.get("/api/state")
+        response = client.get("/api/v1/query/world/state")
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ok"
         assert data["year"] == 100
         assert data["month"] == 3
         assert data["is_paused"] is False
 
     def test_state_includes_avatars(self, client, reset_game_instance):
-        """Test /api/state includes avatar data."""
+        """Test world state query includes avatar data."""
         mock_avatar = MagicMock()
         mock_avatar.id = "test_avatar_1"
         mock_avatar.name = "Test Avatar"
@@ -388,10 +388,10 @@ class TestStateAPI:
         game_instance["world"] = mock_world
 
         with patch.object(main, 'resolve_avatar_pic_id', return_value=1):
-            response = client.get("/api/state")
+            response = client.get("/api/v1/query/world/state")
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert len(data["avatars"]) == 1
         avatar = data["avatars"][0]
         assert avatar["id"] == "test_avatar_1"
@@ -401,33 +401,35 @@ class TestStateAPI:
 
 
 class TestMapAPI:
-    """Tests for /api/map endpoint."""
+    """Tests for /api/v1/query/world/map endpoint."""
 
     def test_map_no_world(self, client, reset_game_instance):
-        """Test /api/map returns error when no world."""
+        """Test world map query returns structured 503 when no world."""
         game_instance["world"] = None
 
-        response = client.get("/api/map")
+        response = client.get("/api/v1/query/world/map")
 
-        assert response.status_code == 200
-        data = response.json()
-        assert "error" in data
+        assert response.status_code == 503
+        data = response.json()["detail"]
+        assert data["code"] == "WORLD_NOT_READY"
+        assert data["message"] == "World not initialized"
 
     def test_map_no_map(self, client, reset_game_instance):
-        """Test /api/map returns error when world has no map."""
+        """Test world map query returns structured 503 when world has no map."""
         mock_world = MagicMock()
         mock_world.map = None
 
         game_instance["world"] = mock_world
 
-        response = client.get("/api/map")
+        response = client.get("/api/v1/query/world/map")
 
-        assert response.status_code == 200
-        data = response.json()
-        assert "error" in data
+        assert response.status_code == 503
+        data = response.json()["detail"]
+        assert data["code"] == "MAP_NOT_READY"
+        assert data["message"] == "Map not initialized"
 
     def test_map_returns_data(self, client, reset_game_instance):
-        """Test /api/map returns map data."""
+        """Test world map query returns map data."""
         mock_tile = MagicMock()
         mock_tile.type.name = "PLAIN"
 
@@ -442,10 +444,10 @@ class TestMapAPI:
 
         game_instance["world"] = mock_world
 
-        response = client.get("/api/map")
+        response = client.get("/api/v1/query/world/map")
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["width"] == 10
         assert data["height"] == 10
         assert "data" in data

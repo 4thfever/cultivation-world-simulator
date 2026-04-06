@@ -107,10 +107,7 @@ export const useUiStore = defineStore('ui', () => {
       const data = await avatarApi.fetchDetailInfo(target);
 
       if (shouldAcceptResponse()) {
-        detailData.value = mapDetailDTOToDomain(
-          data,
-          target.type,
-        ) as AvatarDetail | RegionDetail | SectDetail;
+        detailData.value = mapDetailDTOToDomain(data, target.type);
       }
     } catch (e) {
       if (shouldAcceptResponse()) {

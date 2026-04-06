@@ -144,6 +144,107 @@ docker-compose up -d --build
 
 </details>
 
+<details>
+<summary><b>外部 API / Agent 連携（クリックで展開）</b></summary>
+
+次のような用途に適しています：
+
+- Claw / agent で世界状態を観測する
+- 外部 AI スキルや自動化スクリプトを作る
+- 「観測 -> 判断 -> 介入 -> 再観測」のループを実装する
+
+安定した名前空間を基準に連携することを推奨します：
+
+- 読み取り専用クエリ：`/api/v1/query/*`
+- 制御付き更新コマンド：`/api/v1/command/*`
+
+補足：
+
+- アプリ設定は引き続き `/api/settings*` と `/api/settings/llm*` で管理します。これらは設定の単一真源であり、外部制御互換レイヤーには含まれません。
+
+主な読み取り系エンドポイント：
+
+- `GET /api/v1/query/runtime/status`
+- `GET /api/v1/query/world/state`
+- `GET /api/v1/query/world/map`
+- `GET /api/v1/query/events`
+- `GET /api/v1/query/detail?type=avatar|region|sect&id=<target_id>`
+- `GET /api/v1/query/rankings`
+- `GET /api/v1/query/sect-relations`
+- `GET /api/v1/query/sects/territories`
+- `GET /api/v1/query/meta/game-data`
+- `GET /api/v1/query/meta/avatars`
+- `GET /api/v1/query/meta/avatar-adjust-options`
+- `GET /api/v1/query/meta/avatar-list`
+- `GET /api/v1/query/meta/phenomena`
+- `GET /api/v1/query/mortals/overview`
+- `GET /api/v1/query/dynasty/overview`
+- `GET /api/v1/query/dynasty/detail`
+- `GET /api/v1/query/saves`
+
+主な制御系エンドポイント：
+
+- `POST /api/v1/command/game/start`
+- `POST /api/v1/command/game/pause`
+- `POST /api/v1/command/game/resume`
+- `POST /api/v1/command/game/reset`
+- `POST /api/v1/command/game/reinit`
+- `POST /api/v1/command/game/save`
+- `POST /api/v1/command/game/load`
+- `POST /api/v1/command/game/delete-save`
+- `POST /api/v1/command/system/shutdown`
+- `DELETE /api/v1/command/events/cleanup`
+- `POST /api/v1/command/world/set-phenomenon`
+- `POST /api/v1/command/avatar/set-long-term-objective`
+- `POST /api/v1/command/avatar/clear-long-term-objective`
+- `POST /api/v1/command/avatar/create`
+- `POST /api/v1/command/avatar/delete`
+- `POST /api/v1/command/avatar/update-adjustment`
+- `POST /api/v1/command/avatar/update-portrait`
+- `POST /api/v1/command/avatar/generate-custom-content`
+- `POST /api/v1/command/avatar/create-custom-content`
+
+API 契約：
+
+- 成功レスポンス：
+  ```json
+  {
+    "ok": true,
+    "data": {}
+  }
+  ```
+- 失敗時は構造化エラーを返します。分岐には `detail.code` と `detail.message` を利用してください。
+
+最小構成の連携フローは次のとおりです：
+
+1. `GET /api/v1/query/runtime/status` で初期化状態を確認する。
+2. 未開始なら `POST /api/v1/command/game/start` で開始パラメータを送る。
+3. `GET /api/v1/query/world/state`、`/events`、`/detail` で世界スナップショットと対象情報を取得する。
+4. 方針に応じて `POST /api/v1/command/avatar/*` または `POST /api/v1/command/world/*` で介入する。
+5. キャラクターエディタや agent 拡張を行う場合は、`/api/v1/query/meta/avatars`、`/api/v1/query/meta/game-data`、`/api/v1/query/meta/avatar-adjust-options` で候補リソースを取得し、`/api/v1/command/avatar/generate-custom-content` で草案生成、`/api/v1/command/avatar/create-custom-content` で正式保存する。
+6. 必要に応じて `POST /api/v1/command/game/save` で保存し、`/api/v1/query/saves` + `/api/v1/command/game/load` で復元する。
+
+最小構成の Claw / agent 制御 skill を作るなら、次のループを推奨します：
+
+1. 各ラウンドの最初に `GET /api/v1/query/runtime/status` を呼ぶ。
+2. 未 ready の場合は状態に応じて `start`、継続ポーリング、または `reinit` を選ぶ。
+3. ready 後に `world/state`、`events`、`detail` を取得する。
+4. その後、意味を持つ `command` を 1 つ実行する。
+5. command 実行後はローカルキャッシュに頼らず、必ず再 query する。
+
+今後このプロジェクトに public API を追加する場合も、次の型で拡張することを推奨します：
+
+- 新しい読み取り能力は `src/server/public_query_builders.py` に優先して追加する。
+- 新しい書き込み能力は `src/server/command_handlers.py` に優先して追加する。
+- world / sim を変更する endpoint は、必ず統一 mutation 直列化を経由させる。
+- フロントエンドで利用する場合は、`web/src/types/api.ts` と mapper を同時に更新する。
+
+より詳細な設計は以下を参照してください：
+
+- `docs/specs/external-control-api.md`
+
+</details>
+
 ### 💭 なぜこの作品を作ったのか
 修仙小説の世界は魅力的ですが、読者が見られるのはそのごく一部だけです。  
 修仙ゲームは、完全にスクリプト化されているか、人間が書いた単純な状態機械に依存していることが多く、不自然で賢くない挙動になりがちです。  

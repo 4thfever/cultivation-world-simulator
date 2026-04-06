@@ -91,8 +91,8 @@ export const useEventStore = defineStore('event', () => {
         eventsFilter.value = filter;
       }
 
-      eventsCursor.value = res.next_cursor;
-      eventsHasMore.value = res.has_more;
+      eventsCursor.value = res.nextCursor;
+      eventsHasMore.value = res.hasMore;
       lastLoadDurationMs.value = performance.now() - loadStart;
     } catch (e) {
       // 如果不是最新请求，不处理错误。

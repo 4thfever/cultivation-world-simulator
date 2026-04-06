@@ -70,7 +70,7 @@ export interface MapResponseDTO {
 
 // --- Detail 接口 ---
 
-// 目前后端 /api/detail 直接返回 Avatar/Region/Sect 的结构化信息，
+// 目前后端 /api/v1/query/detail 直接返回 Avatar/Region/Sect 的结构化信息，
 // 在 P0 阶段我们先复用前端领域模型作为 DTO 类型，后续若后端结构调整再拆分。
 export type AvatarDetailDTO = AvatarDetail;
 export type RegionDetailDTO = RegionDetail;
@@ -472,8 +472,14 @@ export interface GameReinitializedSocketMessage {
   message?: string;
 }
 
+export interface PongSocketMessage {
+  type: 'pong';
+}
+
 export type SocketMessageDTO =
   | TickPayloadDTO
   | ToastSocketMessage
   | LLMConfigRequiredSocketMessage
   | GameReinitializedSocketMessage;
+
+export type SocketServerMessageDTO = SocketMessageDTO | PongSocketMessage;

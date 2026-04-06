@@ -15,6 +15,12 @@ const app = useApplication()
 const containerRef = ref<Container>()
 let viewport: PixiViewport | null = null
 
+declare global {
+  interface Window {
+    __viewport?: PixiViewport
+  }
+}
+
 onMounted(async () => {
   await nextTick()
   if (!containerRef.value || !app.value) return
@@ -41,7 +47,7 @@ onMounted(async () => {
   app.value.stage.addChild(viewport)
   viewport.addChild(container)
   
-  ;(window as any).__viewport = viewport
+  window.__viewport = viewport
 })
 
 function fitMap() {

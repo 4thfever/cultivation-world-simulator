@@ -17,6 +17,10 @@ const avatarStore = useAvatarStore()
 
 let maskGraphics: Graphics | null = null
 
+function getSelectedAvatarDetail(): AvatarDetail | null {
+  return uiStore.selectedTarget?.type === 'avatar' ? uiStore.detailData as AvatarDetail | null : null
+}
+
 function updateMask() {
   if (!maskGraphics) return
   
@@ -24,7 +28,7 @@ function updateMask() {
   g.clear()
   
   const target = uiStore.selectedTarget
-  const detail = uiStore.detailData as AvatarDetail | null
+  const detail = getSelectedAvatarDetail()
   
   if (!target || target.type !== 'avatar' || !detail || detail.observation_radius === undefined) {
     return

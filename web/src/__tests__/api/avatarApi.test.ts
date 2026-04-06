@@ -22,7 +22,7 @@ describe('avatarApi', () => {
 
     await avatarApi.fetchAvatarAdjustOptions()
 
-    expect(getMock).toHaveBeenCalledWith('/api/meta/avatar_adjust_options')
+    expect(getMock).toHaveBeenCalledWith('/api/v1/query/meta/avatar-adjust-options')
   })
 
   it('posts avatar adjustment payloads through the unified endpoint', async () => {
@@ -35,7 +35,7 @@ describe('avatarApi', () => {
       persona_ids: [1, 2, 3],
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/update_avatar_adjustment', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/update-adjustment', {
       avatar_id: 'avatar_1',
       category: 'personas',
       persona_ids: [1, 2, 3],
@@ -52,7 +52,7 @@ describe('avatarApi', () => {
       target_id: 930001,
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/update_avatar_adjustment', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/update-adjustment', {
       avatar_id: 'avatar_1',
       category: 'goldfinger',
       target_id: 930001,
@@ -68,7 +68,7 @@ describe('avatarApi', () => {
       pic_id: 12,
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/update_avatar_portrait', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/update-portrait', {
       avatar_id: 'avatar_1',
       pic_id: 12,
     })
@@ -84,7 +84,7 @@ describe('avatarApi', () => {
       user_prompt: '想要一把金丹剑',
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/generate-custom-content', {
       category: 'weapon',
       realm: 'CORE_FORMATION',
       user_prompt: '想要一把金丹剑',
@@ -100,7 +100,7 @@ describe('avatarApi', () => {
       user_prompt: '想要一个偏签到流的外挂',
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/generate-custom-content', {
       category: 'goldfinger',
       user_prompt: '想要一个偏签到流的外挂',
     })
@@ -121,7 +121,7 @@ describe('avatarApi', () => {
       } as any,
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/create_custom_content', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/create-custom-content', {
       category: 'auxiliary',
       draft: {
         id: '0',
@@ -142,9 +142,18 @@ describe('avatarApi', () => {
       user_prompt: '我想要一本偏火属性的功法',
     })
 
-    expect(postMock).toHaveBeenCalledWith('/api/action/generate_custom_content', {
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/avatar/generate-custom-content', {
       category: 'technique',
       user_prompt: '我想要一本偏火属性的功法',
     })
+  })
+
+  it('fetches avatar meta from /api/v1', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    getMock.mockResolvedValue({ males: [1, 2], females: [3, 4] })
+
+    await avatarApi.fetchAvatarMeta()
+
+    expect(getMock).toHaveBeenCalledWith('/api/v1/query/meta/avatars')
   })
 })

@@ -79,7 +79,7 @@ CREATE INDEX idx_event_avatars_event_id ON event_avatars(event_id);
 
 ## API 设计
 
-### GET /api/events
+### GET /api/v1/query/events
 
 获取事件列表（分页）。
 
@@ -117,7 +117,7 @@ CREATE INDEX idx_event_avatars_event_id ON event_avatars(event_id);
 }
 ```
 
-### DELETE /api/events/cleanup
+### DELETE /api/v1/command/events/cleanup
 
 清理历史事件（用户触发）。
 
@@ -341,6 +341,6 @@ def add_event(self, event: Event) -> bool:
    - [x] 双人筛选器
 
 4. **Phase 4: 清理**
-   - [x] 用户清理历史 API（`/api/events/cleanup`）
+   - [x] 用户清理历史 API（`/api/v1/command/events/cleanup`）
    - [ ] 清理历史 UI 按钮
    - [x] 移除旧的内存索引代码（EventManager 已重构）

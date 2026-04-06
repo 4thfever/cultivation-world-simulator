@@ -11,7 +11,7 @@ from src.classes.environment.map import Map
 
 def _build_minimal_world_with_sects():
   """
-  构造一个带有世界和两个宗门的最小环境，用于测试 /api/sect-relations。
+  构造一个带有世界和两个宗门的最小环境，用于测试 /api/v1/query/sect-relations。
   仅验证接口结构和基本计算是否正常工作。
   """
   # 构造简单地图
@@ -74,10 +74,10 @@ def api_client(monkeypatch):
 
 def test_get_sect_relations_basic(api_client: TestClient):
   """基本接口连通性与返回结构校验。"""
-  resp = api_client.get("/api/sect-relations")
+  resp = api_client.get("/api/v1/query/sect-relations")
   assert resp.status_code == 200
 
-  data = resp.json()
+  data = resp.json()["data"]
   assert "relations" in data
   relations = data["relations"]
   assert isinstance(relations, list)

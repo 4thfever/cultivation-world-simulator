@@ -26,7 +26,7 @@ globs:
     - 只负责：静态配置加载、运行时成员 & 势力状态（含 `magic_stone/total_battle_strength/influence_radius` 等）、基础展示字段（名字、阵营、驻地、功法列表等）。
     - **禁止**：在 `Sect` 内直接 import `src.server.main` 或任何 FastAPI 路由模块。
   - API 详情组装统一走 `src/server/assemblers/sect_detail.py` 中的 `build_sect_detail`：
-    - `/api/detail?type=sect` 必须通过 assembler 构造完整 DTO，不允许在路由中再散落手写拼装。
+    - `/api/v1/query/detail?type=sect` 必须通过 assembler 构造完整 DTO，不允许在路由中再散落手写拼装。
 
 - **依赖方向约束**  
   - 允许：`server/assemblers/*` 依赖 `classes/core/*`、`systems/*`。
@@ -71,8 +71,8 @@ globs:
     - `tile_owners`：每个地图格子被哪些宗门占据。
   - `get_tile_owners()` 与 `update_sects()` **必须复用**该 snapshot，不得各自重复实现“中心点 + 半径 + 曼哈顿菱形枚举”逻辑。
 - 关系系统与地图展示：
-  - `/api/sect-relations` 只能通过 `SectManager.get_tile_owners()` 获取 `(active_sects, tile_owners)` 后，再调用 `compute_sect_relations`，禁止绕过 `SectManager` 自己重新枚举 tile 拥有者。
-  - 地图势力图层（前端 `SectInfluenceLayer`）只依赖 `/api/map` 的宗门颜色 & `/api/detail` 的 `influence_radius`，不直接参与势力快照计算。
+  - `/api/v1/query/sect-relations` 只能通过 `SectManager.get_tile_owners()` 获取 `(active_sects, tile_owners)` 后，再调用 `compute_sect_relations`，禁止绕过 `SectManager` 自己重新枚举 tile 拥有者。
+  - 地图势力图层（前端 `SectInfluenceLayer`）只依赖地图查询接口的宗门颜色与 `/api/v1/query/detail` 的 `influence_radius`，不直接参与势力快照计算。
 
 ## 5. 榜单与关系：只看本局 active 宗门
 
@@ -80,15 +80,15 @@ globs:
   - 更新接口首选 `update_rankings_with_world(world, living_avatars)`：
     - 角色榜单仍按全服活着的角色计算。
     - 宗门榜单必须通过 `world.sect_context.get_active_sects()` 获取候选宗门，仅对本局启用且存续的宗门进行统计。
-  - `Simulator` 与 `/api/rankings` 调用时必须使用 `update_rankings_with_world`，而不是裸用 `update_rankings` + 全局 `sects_by_id`。
+  - `Simulator` 与 `/api/v1/query/rankings` 调用时必须使用 `update_rankings_with_world`，而不是裸用 `update_rankings` + 全局 `sects_by_id`。
 
 - 宗门关系 (`compute_sect_relations`, `src/systems/sect_relations.py`)：
   - 输入 `sects` 参数应来源于 `SectManager.get_tile_owners()` 的 `active_sects`，不允许在调用处再从全局池筛选。
   - `tile_owners` 参数必须来自统一的势力快照，避免规则漂移。
 
-## 6. `/api/detail` 接口契约与前端 DTO
+## 6. `/api/v1/query/detail` 接口契约与前端 DTO
 
-- 后端 `/api/detail` (`src/server/main.py`)：
+- 后端 `/api/v1/query/detail` (`src/server/main.py`)：
   - 目标解析逻辑固定：`type=avatar|region|sect` + `id`，解析出 `target` 对象。
   - `type="sect"` 分支必须调用 `build_sect_detail(sect, world, language_manager)`：
     - assembler 内负责：
@@ -108,7 +108,7 @@ globs:
 ## 7. 前端 detail mapper 与 Store 使用方式
 
 - Mapper (`web/src/api/mappers/detailMapper.ts`)：
-  - 必须存在 `mapDetailDTOToDomain(dto, targetType)`，负责将 `/api/detail` 的响应基于 `Selection.type` 收敛到：
+  - 必须存在 `mapDetailDTOToDomain(dto, targetType)`，负责将 `/api/v1/query/detail` 的响应基于 `Selection.type` 收敛到：
     - `AvatarDetail` / `RegionDetail` / `SectDetail`。
   - 新增字段时，优先在 DTO 类型上补充，再在 mapper 中做兼容（默认值、类型守卫等），禁止直接在组件里读裸 JSON。
 
@@ -138,7 +138,7 @@ globs:
 1. 新增宗门相关字段时，是否明确标注“静态/运行时/序列化用途”？  
 2. 涉及“本局启用宗门集合”的新逻辑，是否通过 `World.sect_context.get_active_sects()` 访问？  
 3. 涉及势力范围（tile 归属）的逻辑，是否通过 `SectManager` 的势力快照复用计算？  
-4. 新增 `/api/detail` 字段时，是否同时更新了：assembler → DTO 类型 → detailMapper → UI 组件？  
+4. 新增 `/api/v1/query/detail` 字段时，是否同时更新了：assembler → DTO 类型 → detailMapper → UI 组件？  
 5. 修改宗门榜或关系算法时，是否仍然只作用于本局 active 宗门，而非全局 `sects_by_id`？  
 6. 修改宗门周期思考逻辑时，是否仍使用 `SectDecisionContext` 作为唯一输入、并通过年度维护流程在每年 1 月按配置周期调度？  
 

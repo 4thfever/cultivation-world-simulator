@@ -9,42 +9,43 @@ import type {
 
 export const systemApi = {
   pauseGame() {
-    return httpClient.post('/api/control/pause', {});
+    return httpClient.post('/api/v1/command/game/pause', {});
   },
 
   resumeGame() {
-    return httpClient.post('/api/control/resume', {});
+    return httpClient.post('/api/v1/command/game/resume', {});
   },
 
   fetchSaves() {
-    return httpClient.get<{ saves: SaveFileDTO[] }>('/api/saves');
+    return httpClient.get<{ saves: SaveFileDTO[] }>('/api/v1/query/saves')
+      .then((data) => data.saves ?? []);
   },
 
   saveGame(customName?: string) {
     return httpClient.post<{ status: string; filename: string }>(
-      '/api/game/save',
+      '/api/v1/command/game/save',
       { custom_name: customName }
     );
   },
 
   deleteSave(filename: string) {
-    return httpClient.post<{ status: string; message: string }>('/api/game/delete', { filename });
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/game/delete-save', { filename });
   },
 
   loadGame(filename: string) {
-    return httpClient.post<{ status: string; message: string }>('/api/game/load', { filename });
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/game/load', { filename });
   },
 
   fetchInitStatus() {
-    return httpClient.get<InitStatusDTO>('/api/init-status');
+    return httpClient.get<InitStatusDTO>('/api/v1/query/runtime/status');
   },
 
   startNewGame() {
-    return httpClient.post<{ status: string; message: string }>('/api/game/new', {});
+    return this.reinitGame();
   },
 
   reinitGame() {
-    return httpClient.post<{ status: string; message: string }>('/api/control/reinit', {});
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/game/reinit', {});
   },
 
   fetchSettings() {
@@ -60,18 +61,18 @@ export const systemApi = {
   },
 
   startGame(config: RunConfigDTO) {
-    return httpClient.post<{ status: string; message: string }>('/api/game/start', config);
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/game/start', config);
   },
 
   fetchCurrentRun() {
-    return httpClient.get<RunConfigDTO>('/api/game/current-run');
+    return httpClient.get<RunConfigDTO>('/api/v1/query/system/current-run');
   },
 
   shutdown() {
-    return httpClient.post<{ status: string; message: string }>('/api/control/shutdown', {});
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/system/shutdown', {});
   },
 
   resetGame() {
-    return httpClient.post<{ status: string; message: string }>('/api/control/reset', {});
+    return httpClient.post<{ status: string; message: string }>('/api/v1/command/game/reset', {});
   }
 };

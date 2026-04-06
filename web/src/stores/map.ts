@@ -16,8 +16,8 @@ export const useMapStore = defineStore('map', () => {
     try {
       const mapRes = await worldApi.fetchMap();
       mapData.value = mapRes.data;
-      renderConfig.value = normalizeMapRenderConfig(mapRes.render_config);
-      const regionMap = new Map();
+      renderConfig.value = normalizeMapRenderConfig(mapRes.renderConfig);
+      const regionMap = new Map<string | number, RegionSummary>();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
       isLoaded.value = true;

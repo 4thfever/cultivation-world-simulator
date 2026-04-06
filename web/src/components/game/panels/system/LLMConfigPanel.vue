@@ -5,6 +5,16 @@ import type { LLMConfigDTO } from '@/types/api'
 import { useMessage, useDialog } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
+interface LlmPreset {
+  name: string
+  base_url: string
+  model_name: string
+  fast_model_name: string
+  api_format: LLMConfigDTO['api_format']
+  badge?: 'recommended' | 'free' | 'local'
+  isLocal?: boolean
+}
+
 const { t } = useI18n()
 const message = useMessage()
 const dialog = useDialog()
@@ -34,7 +44,7 @@ const apiFormatOptions = computed(() => [
   { label: t('llm.formats.anthropic'), value: 'anthropic', desc: t('llm.formats.anthropic_desc') }
 ])
 
-const presets = computed(() => [
+const presets = computed<LlmPreset[]>(() => [
   {
     name: t('llm.presets.qwen'),
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
@@ -141,7 +151,7 @@ async function fetchConfig() {
   }
 }
 
-function applyPreset(preset: any) {
+function applyPreset(preset: LlmPreset) {
   config.value.base_url = preset.base_url
   config.value.model_name = preset.model_name
   config.value.fast_model_name = preset.fast_model_name
@@ -176,8 +186,8 @@ async function handleTestAndSave() {
     await llmApi.saveConfig(config.value)
     message.success(t('llm.save_success'))
     emit('config-saved')
-  } catch (e: any) {
-    const errorMsg = e.response?.data?.detail || e.message
+  } catch (e) {
+    const errorMsg = e instanceof Error ? e.message : t('llm.test_save_failed_title')
     dialog.error({
       title: t('llm.test_save_failed_title'),
       content: errorMsg,

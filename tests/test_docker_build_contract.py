@@ -202,7 +202,7 @@ def test_frontend_compose_contract_depends_on_backend_and_exposes_port():
     assert '"8123:80"' in frontend_block
     assert "healthcheck:" in frontend_block
     assert "test:" in frontend_block
-    assert "http://localhost:80/api/state" in frontend_block
+    assert "http://localhost:80/api/v1/query/runtime/status" in frontend_block
     assert "interval:" in frontend_block
     assert "timeout:" in frontend_block
     assert "retries:" in frontend_block

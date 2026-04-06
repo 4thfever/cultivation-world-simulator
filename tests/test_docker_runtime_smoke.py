@@ -38,14 +38,13 @@ def http_json(url: str, method: str = "GET", payload: dict | None = None) -> dic
 def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
     deadline = time.time() + timeout_seconds
     last_error: Exception | None = None
+    last_payload: dict | None = None
     while time.time() < deadline:
         try:
-            payload = http_json("http://localhost:8002/api/state")
+            payload = http_json("http://localhost:8002/api/v1/query/runtime/status")
+            last_payload = payload
             if isinstance(payload, dict):
-                if payload.get("status") == "ok":
-                    return
-                # Server can be fully started before a world is initialized.
-                if payload.get("step") == 1 and payload.get("error") == "No world":
+                if payload.get("ok") is True and isinstance(payload.get("data"), dict):
                     return
         except (
             urllib.error.URLError,
@@ -57,7 +56,10 @@ def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
         ) as exc:
             last_error = exc
         time.sleep(2)
-    raise AssertionError(f"Backend /api/state did not become ready in time. Last error: {last_error!r}")
+    raise AssertionError(
+        "Backend /api/v1/query/runtime/status did not become ready in time. "
+        f"Last payload: {last_payload!r}; last error: {last_error!r}"
+    )
 
 
 def wait_until_game_ready(timeout_seconds: int = 300) -> None:
@@ -66,9 +68,9 @@ def wait_until_game_ready(timeout_seconds: int = 300) -> None:
     last_payload: dict | None = None
     while time.time() < deadline:
         try:
-            payload = http_json("http://localhost:8002/api/state")
+            payload = http_json("http://localhost:8002/api/v1/query/world/state")
             last_payload = payload
-            if isinstance(payload, dict) and payload.get("status") == "ok":
+            if isinstance(payload, dict) and payload.get("ok") is True:
                 return
         except (
             urllib.error.URLError,
@@ -120,7 +122,7 @@ def test_docker_compose_persists_settings_after_recreate():
         assert llm_status["configured"] is True
 
         start_res = http_json(
-            "http://localhost:8002/api/game/start",
+            "http://localhost:8002/api/v1/command/game/start",
             method="POST",
             payload={
                 "content_locale": "zh-CN",
@@ -130,20 +132,23 @@ def test_docker_compose_persists_settings_after_recreate():
                 "world_lore": "",
             },
         )
-        assert start_res["status"] == "ok"
+        assert start_res["ok"] is True
+        assert start_res["data"]["status"] == "ok"
         wait_until_game_ready(timeout_seconds=600)
 
         save_res = http_json(
-            "http://localhost:8002/api/game/save",
+            "http://localhost:8002/api/v1/command/game/save",
             method="POST",
             payload={"custom_name": "docker_smoke"},
         )
-        assert save_res["status"] == "ok"
-        saved_filename = save_res["filename"]
+        assert save_res["ok"] is True
+        assert save_res["data"]["status"] == "ok"
+        saved_filename = save_res["data"]["filename"]
         assert saved_filename.endswith(".json")
 
-        saves_before = http_json("http://localhost:8002/api/saves")
-        assert any(item["filename"] == saved_filename for item in saves_before["saves"])
+        saves_before = http_json("http://localhost:8002/api/v1/query/saves")
+        assert saves_before["ok"] is True
+        assert any(item["filename"] == saved_filename for item in saves_before["data"]["saves"])
 
         run_compose("down", timeout=180)
         run_compose("up", "-d", timeout=600)
@@ -155,15 +160,17 @@ def test_docker_compose_persists_settings_after_recreate():
         llm_status_after_recreate = http_json("http://localhost:8002/api/settings/llm/status")
         assert llm_status_after_recreate["configured"] is True
 
-        saves_after = http_json("http://localhost:8002/api/saves")
-        assert any(item["filename"] == saved_filename for item in saves_after["saves"])
+        saves_after = http_json("http://localhost:8002/api/v1/query/saves")
+        assert saves_after["ok"] is True
+        assert any(item["filename"] == saved_filename for item in saves_after["data"]["saves"])
 
         load_res = http_json(
-            "http://localhost:8002/api/game/load",
+            "http://localhost:8002/api/v1/command/game/load",
             method="POST",
             payload={"filename": saved_filename},
         )
-        assert load_res["status"] == "ok"
+        assert load_res["ok"] is True
+        assert load_res["data"]["status"] == "ok"
         wait_until_game_ready(timeout_seconds=300)
     except Exception as exc:
         ps = subprocess.run(

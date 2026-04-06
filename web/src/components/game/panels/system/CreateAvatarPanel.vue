@@ -136,8 +136,7 @@ async function fetchData() {
       avatarMeta.value = await avatarApi.fetchAvatarMeta()
     }
     // 获取角色列表用于关系选择
-    const res = await avatarApi.fetchAvatarList()
-    avatarList.value = res.avatars
+    avatarList.value = await avatarApi.fetchAvatarList()
   } catch (e) {
     message.error(t(uiKey('fetch_failed')))
   } finally {

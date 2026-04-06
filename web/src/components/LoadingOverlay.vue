@@ -11,8 +11,8 @@ const props = defineProps<{
 }>()
 
 const tipsList = computed<string[]>(() => {
-  const list = (tm as any)('loading.tips')
-  return Array.isArray(list) ? list : []
+  const list = tm('loading.tips')
+  return Array.isArray(list) ? list.filter((item): item is string => typeof item === 'string') : []
 })
 
 const currentTip = ref('')
@@ -68,7 +68,7 @@ async function handleRetry() {
   displayProgress.value = 0
   try {
     await systemApi.reinitGame()
-  } catch (e: any) {
+  } catch (e: unknown) {
     logError('LoadingOverlay reinit game', e)
   }
 }

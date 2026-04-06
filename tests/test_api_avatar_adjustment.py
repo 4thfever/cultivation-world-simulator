@@ -35,10 +35,10 @@ def _make_avatar(base_world) -> Avatar:
 
 def test_get_avatar_adjust_options_contains_rich_structured_entries():
     client = TestClient(main.app)
-    response = client.get("/api/meta/avatar_adjust_options")
+    response = client.get("/api/v1/query/meta/avatar-adjust-options")
 
     assert response.status_code == 200
-    data = response.json()
+    data = response.json()["data"]
 
     assert data["techniques"]
     assert data["weapons"]
@@ -73,7 +73,7 @@ def test_update_weapon_adjustment_resets_proficiency(base_world):
 
         client = TestClient(main.app)
         response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "weapon",
@@ -100,7 +100,7 @@ def test_update_weapon_adjustment_allows_clearing(base_world):
 
         client = TestClient(main.app)
         response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "weapon",
@@ -125,7 +125,7 @@ def test_update_personas_replaces_whole_set(base_world):
 
         client = TestClient(main.app)
         response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "personas",
@@ -148,7 +148,7 @@ def test_update_personas_rejects_duplicates(base_world):
 
         client = TestClient(main.app)
         response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "personas",
@@ -172,7 +172,7 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
 
         client = TestClient(main.app)
         response_technique = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "technique",
@@ -180,7 +180,7 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
             },
         )
         response_aux = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "auxiliary",
@@ -196,7 +196,7 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
         assert avatar.auxiliary is not main.auxiliaries_by_id[auxiliary_id]
 
         clear_technique = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "technique",
@@ -204,7 +204,7 @@ def test_update_technique_and_auxiliary_allow_clearing(base_world):
             },
         )
         clear_aux = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "auxiliary",
@@ -229,7 +229,7 @@ def test_update_goldfinger_adjustment_allows_setting_and_clearing(base_world):
 
         client = TestClient(main.app)
         set_response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "goldfinger",
@@ -242,7 +242,7 @@ def test_update_goldfinger_adjustment_allows_setting_and_clearing(base_world):
         assert avatar.goldfinger.id == goldfinger_id
 
         clear_response = client.post(
-            "/api/action/update_avatar_adjustment",
+            "/api/v1/command/avatar/update-adjustment",
             json={
                 "avatar_id": avatar.id,
                 "category": "goldfinger",

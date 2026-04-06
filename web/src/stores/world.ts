@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import { ref, shallowRef, computed } from 'vue';
 import type { CelestialPhenomenon, HiddenDomainInfo } from '../types/core';
-import type { TickPayloadDTO, InitialStateDTO } from '../types/api';
+import type { TickPayloadDTO } from '../types/api';
 import { worldApi } from '../api';
+import type { WorldStateSnapshot } from '../api/mappers/world';
 import { logError, logWarn } from '../utils/appError';
 import { useMapStore } from './map';
 import { useAvatarStore } from './avatar';
@@ -59,14 +60,14 @@ export const useWorldStore = defineStore('world', () => {
     void sectStore.refreshTerritories();
   }
 
-  function applyStateSnapshot(stateRes: InitialStateDTO) {
+  function applyStateSnapshot(stateRes: WorldStateSnapshot) {
     setTime(stateRes.year, stateRes.month);
     avatarStore.setAvatarsFromState(stateRes);
     
     // Reset events via store
     eventStore.reset();
 
-    currentPhenomenon.value = stateRes.phenomenon || null;
+    currentPhenomenon.value = stateRes.phenomenon;
     isLoaded.value = true;
     activeDomains.value = [];
   }
@@ -144,7 +145,7 @@ export const useWorldStore = defineStore('world', () => {
     if (phenomenaList.value.length > 0) return phenomenaList.value;
     try {
       const res = await worldApi.fetchPhenomenaList();
-      phenomenaList.value = res.phenomena as CelestialPhenomenon[];
+      phenomenaList.value = res;
       return phenomenaList.value;
     } catch (e) {
       logError('WorldStore fetch phenomena list', e);

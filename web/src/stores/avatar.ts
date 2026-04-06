@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { shallowRef, computed } from 'vue';
 import type { AvatarSummary } from '../types/core';
-import type { InitialStateDTO } from '../types/api';
+import type { WorldStateSnapshot } from '../api/mappers/world';
 import { worldApi } from '../api';
 import { logWarn } from '../utils/appError';
 
@@ -49,10 +49,8 @@ export const useAvatarStore = defineStore('avatar', () => {
   async function preloadAvatars() {
     try {
       const stateRes = await worldApi.fetchInitialState();
-      const avatarMap = new Map();
-      if (stateRes.avatars) {
-        stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
-      }
+      const avatarMap = new Map<string, AvatarSummary>();
+      stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
       avatars.value = avatarMap;
       // Return state info that might be useful for world store (e.g. time)
       return { year: stateRes.year, month: stateRes.month };
@@ -62,11 +60,9 @@ export const useAvatarStore = defineStore('avatar', () => {
     }
   }
 
-  function setAvatarsFromState(stateRes: InitialStateDTO) {
-    const avatarMap = new Map();
-    if (stateRes.avatars) {
-      stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
-    }
+  function setAvatarsFromState(stateRes: WorldStateSnapshot) {
+    const avatarMap = new Map<string, AvatarSummary>();
+    stateRes.avatars.forEach(av => avatarMap.set(av.id, av));
     avatars.value = avatarMap;
   }
 

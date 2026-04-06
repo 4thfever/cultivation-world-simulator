@@ -4,8 +4,9 @@
  */
 
 import { logError, logWarn } from '@/utils/appError'
+import type { SocketMessageDTO, SocketServerMessageDTO } from '@/types/api'
 
-export type MessageHandler = (data: unknown) => void;
+export type MessageHandler = (data: SocketMessageDTO) => void;
 
 export interface SocketOptions {
   url?: string;
@@ -70,8 +71,11 @@ export class GameSocket {
 
   private onMessage(event: MessageEvent) {
     try {
-      const data = JSON.parse(event.data);
-      this.handlers.forEach(h => h(data));
+      const data = parseSocketServerMessage(event.data);
+      if (!data || data.type === 'pong') {
+        return;
+      }
+      this.handlers.forEach((handler) => handler(data));
     } catch (e) {
       logWarn('Socket parse message', e);
     }
@@ -118,6 +122,25 @@ export class GameSocket {
 
   private notifyStatus(connected: boolean) {
     this.statusHandlers.forEach(h => h(connected));
+  }
+}
+
+function parseSocketServerMessage(raw: string): SocketServerMessageDTO | null {
+  const data: unknown = JSON.parse(raw)
+  if (!data || typeof data !== 'object' || !('type' in data)) {
+    return null
+  }
+
+  const type = (data as { type?: unknown }).type
+  switch (type) {
+    case 'tick':
+    case 'toast':
+    case 'llm_config_required':
+    case 'game_reinitialized':
+    case 'pong':
+      return data as SocketServerMessageDTO
+    default:
+      return null
   }
 }
 

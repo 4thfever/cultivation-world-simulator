@@ -25,7 +25,7 @@ def test_generate_custom_content_api_uses_generation_service():
         }
 
         response = client.post(
-            "/api/action/generate_custom_content",
+            "/api/v1/command/avatar/generate-custom-content",
             json={
                 "category": "weapon",
                 "realm": "CORE_FORMATION",
@@ -34,7 +34,7 @@ def test_generate_custom_content_api_uses_generation_service():
         )
 
     assert response.status_code == 200
-    payload = response.json()
+    payload = response.json()["data"]
     assert payload["status"] == "ok"
     assert payload["draft"]["name"] == "曜火巡天剑"
     assert payload["draft"]["is_custom"] is True
@@ -60,7 +60,7 @@ def test_generate_custom_goldfinger_api_uses_generation_service():
         }
 
         response = client.post(
-            "/api/action/generate_custom_content",
+            "/api/v1/command/avatar/generate-custom-content",
             json={
                 "category": "goldfinger",
                 "user_prompt": "想要一个偏签到流、数值稍强的外挂",
@@ -68,7 +68,7 @@ def test_generate_custom_goldfinger_api_uses_generation_service():
         )
 
     assert response.status_code == 200
-    payload = response.json()
+    payload = response.json()["data"]
     assert payload["status"] == "ok"
     assert payload["draft"]["category"] == "goldfinger"
     assert payload["draft"]["is_custom"] is True
@@ -81,7 +81,7 @@ def test_create_custom_content_api_registers_new_item():
     CustomContentRegistry.reset()
     client = TestClient(main.app)
     response = client.post(
-        "/api/action/create_custom_content",
+        "/api/v1/command/avatar/create-custom-content",
         json={
             "category": "technique",
             "draft": {
@@ -99,7 +99,7 @@ def test_create_custom_content_api_registers_new_item():
     )
 
     assert response.status_code == 200
-    payload = response.json()
+    payload = response.json()["data"]
     assert payload["status"] == "ok"
     assert payload["item"]["is_custom"] is True
     assert payload["item"]["id"] >= 900001
@@ -111,7 +111,7 @@ def test_create_custom_goldfinger_api_registers_new_item():
     CustomContentRegistry.reset()
     client = TestClient(main.app)
     response = client.post(
-        "/api/action/create_custom_content",
+        "/api/v1/command/avatar/create-custom-content",
         json={
             "category": "goldfinger",
             "draft": {
@@ -128,7 +128,7 @@ def test_create_custom_goldfinger_api_registers_new_item():
     )
 
     assert response.status_code == 200
-    payload = response.json()
+    payload = response.json()["data"]
     assert payload["status"] == "ok"
     assert payload["item"]["is_custom"] is True
     assert payload["item"]["id"] >= 930001
@@ -140,7 +140,7 @@ def test_create_custom_goldfinger_api_accepts_numeric_string_effect_values():
     CustomContentRegistry.reset()
     client = TestClient(main.app)
     response = client.post(
-        "/api/action/create_custom_content",
+        "/api/v1/command/avatar/create-custom-content",
         json={
             "category": "goldfinger",
             "draft": {
@@ -156,7 +156,7 @@ def test_create_custom_goldfinger_api_accepts_numeric_string_effect_values():
     )
 
     assert response.status_code == 200
-    payload = response.json()
+    payload = response.json()["data"]
     assert payload["status"] == "ok"
     assert payload["item"]["is_custom"] is True
     assert payload["item"]["effect_desc"]
@@ -165,7 +165,7 @@ def test_create_custom_goldfinger_api_accepts_numeric_string_effect_values():
 def test_create_custom_goldfinger_api_rejects_noncanonical_effect_keys():
     client = TestClient(main.app)
     response = client.post(
-        "/api/action/create_custom_content",
+        "/api/v1/command/avatar/create-custom-content",
         json={
             "category": "goldfinger",
             "draft": {

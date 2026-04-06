@@ -128,7 +128,7 @@
 
 来源：
 
-- `/api/map -> render_config`
+- `/api/v1/query/world/map -> render_config`
 - `useMapStore`
 
 职责：

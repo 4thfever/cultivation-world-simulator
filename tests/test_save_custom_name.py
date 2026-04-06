@@ -268,7 +268,7 @@ class TestEnhancedMetadata:
 
 
 class TestSaveApiWithCustomName:
-    """Tests for /api/game/save endpoint with custom name."""
+    """Tests for /api/v1/command/game/save endpoint with custom name."""
 
     def test_api_save_with_custom_name(self, temp_save_dir):
         """Test API save endpoint with custom name."""
@@ -288,12 +288,12 @@ class TestSaveApiWithCustomName:
         with patch.object(CONFIG.paths, "saves", temp_save_dir):
             client = TestClient(main.app)
             response = client.post(
-                "/api/game/save",
+                "/api/v1/command/game/save",
                 json={"custom_name": "我的API存档"}
             )
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ok"
         assert "我的API存档" in data["filename"]
 
@@ -317,12 +317,12 @@ class TestSaveApiWithCustomName:
         with patch.object(CONFIG.paths, "saves", temp_save_dir):
             client = TestClient(main.app)
             response = client.post(
-                "/api/game/save",
+                "/api/v1/command/game/save",
                 json={}
             )
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ok"
         assert data["filename"].endswith(".json")
 
@@ -346,7 +346,7 @@ class TestSaveApiWithCustomName:
             client = TestClient(main.app)
             # Name with only special characters - should be rejected.
             response = client.post(
-                "/api/game/save",
+                "/api/v1/command/game/save",
                 json={"custom_name": "!!!@@@###"}
             )
 
@@ -373,7 +373,7 @@ class TestSaveApiWithCustomName:
             client = TestClient(main.app)
             long_name = "a" * 51
             response = client.post(
-                "/api/game/save",
+                "/api/v1/command/game/save",
                 json={"custom_name": long_name}
             )
 
@@ -383,10 +383,10 @@ class TestSaveApiWithCustomName:
 
 
 class TestSavesListApiWithMetadata:
-    """Tests for /api/saves endpoint returning enhanced metadata."""
+    """Tests for /api/v1/query/saves endpoint returning enhanced metadata."""
 
     def test_api_saves_returns_new_fields(self, temp_save_dir):
-        """Test that /api/saves returns new metadata fields."""
+        """Test that /api/v1/query/saves returns new metadata fields."""
         from fastapi.testclient import TestClient
         from src.server import main
         from src.utils.config import CONFIG
@@ -413,10 +413,10 @@ class TestSavesListApiWithMetadata:
 
         with patch.object(CONFIG.paths, "saves", temp_save_dir):
             client = TestClient(main.app)
-            response = client.get("/api/saves")
+            response = client.get("/api/v1/query/saves")
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
 
         assert len(data["saves"]) >= 1
         save_item = data["saves"][0]
@@ -459,10 +459,10 @@ class TestSavesListApiWithMetadata:
 
         with patch.object(CONFIG.paths, "saves", temp_save_dir):
             client = TestClient(main.app)
-            response = client.get("/api/saves")
+            response = client.get("/api/v1/query/saves")
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
 
         # Find our legacy save.
         legacy_item = None

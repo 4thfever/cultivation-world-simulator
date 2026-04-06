@@ -24,7 +24,11 @@ globs: tests/**/*.py
 - **时间流逝**: 如果测试涉及时间流逝，可以直接修改 `dummy_avatar.world.month_stamp`。
 - **代码风格**: 测试代码同样需要保持简洁优雅、清晰易读。**避免过多的 `try...except`、`hasattr`、`getattr` 等过度设计 (over design)**。
 
-## 3. 示例结构
+## 3. 运行建议（vibe coding）
+
+- 在需要快速迭代、提高反馈速度的 vibe coding 场景下，后端测试可优先使用并行执行：`pytest -n 8`。
+
+## 4. 示例结构
 
 ```python
 import pytest

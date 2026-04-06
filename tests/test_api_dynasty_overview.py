@@ -43,9 +43,9 @@ def test_get_dynasty_overview_empty_when_world_missing():
     try:
         main.game_instance["world"] = None
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/overview")
+        resp = client.get("/api/v1/query/dynasty/overview")
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["name"] == ""
         assert data["royal_surname"] == ""
         assert data["style_tag"] == ""
@@ -79,10 +79,10 @@ def test_get_dynasty_overview_returns_world_dynasty(base_world):
         main.game_instance["sim"] = None
 
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/overview")
+        resp = client.get("/api/v1/query/dynasty/overview")
 
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["name"] == "晋"
         assert data["title"] == "晋朝"
         assert data["royal_surname"] == "司马"
@@ -105,9 +105,9 @@ def test_get_dynasty_detail_empty_when_world_missing():
     try:
         main.game_instance["world"] = None
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/detail")
+        resp = client.get("/api/v1/query/dynasty/detail")
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["overview"]["name"] == ""
         assert data["summary"]["official_count"] == 0
         assert data["summary"]["top_official_rank_name"] == ""
@@ -146,10 +146,10 @@ def test_get_dynasty_detail_returns_sorted_officials(base_world):
         main.game_instance["sim"] = None
 
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/detail")
+        resp = client.get("/api/v1/query/dynasty/detail")
 
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["overview"]["name"] == "韩"
         assert data["summary"]["official_count"] == 3
         assert data["summary"]["top_official_rank_name"] == "州牧"
@@ -187,10 +187,10 @@ def test_get_dynasty_overview_localizes_runtime_strings_for_en_us(base_world):
         main.game_instance["sim"] = None
 
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/overview")
+        resp = client.get("/api/v1/query/dynasty/overview")
 
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["name"] == "Jin"
         assert data["title"] == "Jin Dynasty"
         assert data["royal_house_name"] == "House Yun"
@@ -229,10 +229,10 @@ def test_get_dynasty_overview_localizes_runtime_strings_for_vi_vn(base_world):
         main.game_instance["sim"] = None
 
         client = TestClient(main.app)
-        resp = client.get("/api/dynasty/overview")
+        resp = client.get("/api/v1/query/dynasty/overview")
 
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["name"] == "Tấn"
         assert data["title"] == "Vương triều Tấn"
         assert data["royal_house_name"] == "Hoàng tộc Vân"

@@ -52,10 +52,10 @@ def test_avatar_detail_api_exposes_goldfinger_fields(base_world):
         main.game_instance["world"] = base_world
 
         client = TestClient(main.app)
-        response = client.get("/api/detail", params={"type": "avatar", "id": avatar.id})
+        response = client.get("/api/v1/query/detail", params={"type": "avatar", "id": avatar.id})
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["id"] == avatar.id
         assert data["goldfinger"] is not None
         assert data["goldfinger"]["name"] == "穿越者"
@@ -85,10 +85,10 @@ def test_avatar_detail_api_surfaces_randomly_initialized_goldfinger(base_world, 
         main.game_instance["world"] = base_world
 
         client = TestClient(main.app)
-        response = client.get("/api/detail", params={"type": "avatar", "id": avatar.id})
+        response = client.get("/api/v1/query/detail", params={"type": "avatar", "id": avatar.id})
 
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert data["goldfinger"] is not None
         assert data["goldfinger"]["key"] == "CHILD_OF_FORTUNE"
         assert data["goldfinger"]["name"] == "气运之子"
@@ -103,9 +103,11 @@ def test_avatar_detail_api_returns_404_for_missing_avatar(base_world):
         main.game_instance["world"] = base_world
         client = TestClient(main.app)
 
-        response = client.get("/api/detail", params={"type": "avatar", "id": "missing-avatar"})
+        response = client.get("/api/v1/query/detail", params={"type": "avatar", "id": "missing-avatar"})
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "Target not found"
+        detail = response.json()["detail"]
+        assert detail["code"] == "TARGET_NOT_FOUND"
+        assert detail["message"] == "Target not found"
     finally:
         main.game_instance.update(original_instance)

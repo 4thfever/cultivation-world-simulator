@@ -96,7 +96,7 @@ const resolveDiplomacyStatus = (item: SectRelationDTO) => {
 };
 
 const openSectInfo = (id: number) => {
-  uiStore.select('sect', id);
+  uiStore.select('sect', String(id));
   handleShowChange(false);
 };
 

@@ -36,7 +36,7 @@ const objectiveContent = ref('');
 const ZH_NUMBERS = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
 const currentEffectsText = computed(() => {
-  return props.data.current_effects || (props.data as Record<string, unknown>)['当前效果'] as string | undefined;
+  return props.data.current_effects || props.data['当前效果'];
 });
 
 const currentEffectsLines = computed(() => {
@@ -173,6 +173,20 @@ function parseEffectLine(line: string): { source: string; segments: string[] } {
   };
 }
 
+function createMortalRelationPlaceholder(labelKey: 'father_short' | 'mother_short'): RelationInfo {
+  return {
+    target_id: `mortal_${labelKey}_placeholder`,
+    name: '',
+    relation: '',
+    relation_type: BloodRelationType.TO_ME_IS_PARENT,
+    blood_relation: BloodRelationType.TO_ME_IS_PARENT,
+    realm: '',
+    sect: '',
+    is_mortal: true,
+    label_key: labelKey,
+  };
+}
+
 const groupedRelations = computed(() => {
   const rels = props.data.relations || [];
   
@@ -187,31 +201,11 @@ const groupedRelations = computed(() => {
   // 如果现有的不足2个，尝试补全
   if (existingParents.length < 2) {
     if (!hasFather) {
-      displayParents.unshift({ // Father usually first
-        target_id: `mortal_father_placeholder`,
-        name: '', 
-        relation: '', 
-        relation_type: BloodRelationType.TO_ME_IS_PARENT,
-        blood_relation: BloodRelationType.TO_ME_IS_PARENT,
-        realm: '',
-        sect: '',
-        is_mortal: true, 
-        label_key: 'father_short'
-      } as any);
+      displayParents.unshift(createMortalRelationPlaceholder('father_short'));
     }
     
     if (!hasMother) {
-      displayParents.push({
-        target_id: `mortal_mother_placeholder`,
-        name: '', 
-        relation: '', 
-        relation_type: BloodRelationType.TO_ME_IS_PARENT,
-        blood_relation: BloodRelationType.TO_ME_IS_PARENT,
-        realm: '',
-        sect: '',
-        is_mortal: true, 
-        label_key: 'mother_short'
-      } as any);
+      displayParents.push(createMortalRelationPlaceholder('mother_short'));
     }
   }
   
