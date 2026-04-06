@@ -19,7 +19,7 @@ globs: docker-compose.yml, deploy/Dockerfile.backend, deploy/Dockerfile.frontend
 - `backend.volumes` 必须挂载 `CWS_DATA_DIR` 对应容器路径（当前约定为 `./docker-data:/data`）。
 - 禁止仅保留 `./assets/saves:/app/assets/saves` 或 `./logs:/app/logs` 这类历史挂载而缺失 data root 挂载。
 - `frontend.depends_on` 若依赖 `backend`，应优先等待 `service_healthy`，不要只依赖启动顺序。
-- `frontend.healthcheck` 应通过代理链路验证后端可用性；当前推荐校验 `/api/state`，不要只检查 `/`。
+- `frontend.healthcheck` 应通过代理链路验证后端可用性；当前推荐校验 `/api/v1/query/runtime/status`，不要只检查 `/`。
 
 ## 4. 镜像构建约束
 - 后端生产镜像只安装运行时依赖，不要把 `pytest`、`pytest-cov`、`pytest-asyncio` 等测试依赖装进 runtime image。

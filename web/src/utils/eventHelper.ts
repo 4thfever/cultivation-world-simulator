@@ -1,3 +1,4 @@
+import type { EventDTO } from '@/types/api';
 import type { GameEvent } from '../types/core';
 
 export const MAX_EVENTS = 300;
@@ -5,7 +6,7 @@ export const MAX_EVENTS = 300;
 /**
  * 处理新事件列表，转换为 Domain 对象并分配序列号
  */
-export function processNewEvents(rawEvents: any[], currentYear: number, currentMonth: number): GameEvent[] {
+export function processNewEvents(rawEvents: EventDTO[], currentYear: number, currentMonth: number): GameEvent[] {
   if (!rawEvents || rawEvents.length === 0) return [];
 
   return rawEvents.map((e, index) => ({

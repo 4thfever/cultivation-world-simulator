@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { NModal, NTabs, NTabPane, NTable, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
+import type { RankingsDTO } from '@/types/api'
 import { useUiStore } from '../../../stores/ui'
 import { formatRealmStage } from '@/utils/cultivationText'
 import { logError } from '@/utils/appError'
@@ -29,13 +30,7 @@ const openSectInfo = (id: string) => {
 }
 
 const loading = ref(false)
-const rankings = ref<{
-  heaven: any[]
-  earth: any[]
-  human: any[]
-  sect: any[]
-  tournament?: any
-}>({
+const rankings = ref<RankingsDTO>({
   heaven: [],
   earth: [],
   human: [],
@@ -46,7 +41,7 @@ const fetchRankings = async () => {
   loading.value = true
   try {
     const res = await worldApi.fetchRankings()
-    rankings.value = res || { heaven: [], earth: [], human: [], sect: [] }
+    rankings.value = res
   } catch (e) {
     logError('RankingModal fetch rankings', e)
   } finally {

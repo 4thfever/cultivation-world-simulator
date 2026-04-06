@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, type WritableComputedRef } from 'vue';
 
 import i18n from '../locales';
 import { defaultLocale, getHtmlLang, isEnabledLocale, type AppLocale } from '../locales/registry';
@@ -8,10 +8,9 @@ import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
 import { logWarn } from '../utils/appError';
 
 function applyUiLocale(lang: string) {
-  if (i18n.mode === 'legacy') {
-    (i18n.global.locale as unknown as string) = lang;
-  } else {
-    (i18n.global.locale as unknown as { value: string }).value = lang;
+  const localeRef = i18n.global.locale;
+  if (typeof localeRef !== 'string') {
+    (localeRef as WritableComputedRef<string>).value = lang;
   }
 
   document.documentElement.lang = getHtmlLang(lang);

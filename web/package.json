@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit"

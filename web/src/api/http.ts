@@ -8,9 +8,9 @@ const API_BASE = import.meta.env.VITE_API_TARGET || '';
 
 export class ApiError extends Error {
   public status: number;
-  public response: { data: any };
+  public response: { data: unknown };
 
-  constructor(status: number, message: string, responseData?: any) {
+  constructor(status: number, message: string, responseData?: unknown) {
     super(message);
     this.status = status;
     this.name = 'ApiError';
@@ -24,14 +24,24 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   if (!response.ok) {
     // 尝试解析错误响应的 JSON
-    let errorData = null;
+    let errorData: unknown = null;
     let errorMessage = `Request failed: ${response.statusText}`;
     
     try {
       errorData = await response.json();
       // 如果后端返回了 detail 字段，使用它作为错误消息
-      if (errorData?.detail) {
-        errorMessage = errorData.detail;
+      if (errorData && typeof errorData === 'object' && 'detail' in errorData) {
+        const detail = (errorData as { detail?: unknown }).detail;
+        if (typeof detail === 'string') {
+          errorMessage = detail;
+        } else if (
+          detail &&
+          typeof detail === 'object' &&
+          'message' in detail &&
+          typeof (detail as { message?: unknown }).message === 'string'
+        ) {
+          errorMessage = (detail as { message: string }).message;
+        }
       }
     } catch {
       // 如果解析失败，使用默认错误消息
@@ -41,7 +51,17 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   }
 
   // 假设后端总是返回 JSON
-  return response.json();
+  const data: unknown = await response.json();
+  if (
+    data &&
+    typeof data === 'object' &&
+    'ok' in data &&
+    data.ok === true &&
+    'data' in data
+  ) {
+    return (data as { data: T }).data;
+  }
+  return data as T;
 }
 
 export const httpClient = {

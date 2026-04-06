@@ -16,6 +16,11 @@ export type SoundType = keyof typeof SOUND_URLS;
 let audioContext: AudioContext | null = null;
 const buffers: Partial<Record<SoundType, AudioBuffer>> = {};
 
+type AudioContextConstructor = new () => AudioContext;
+type AudioWindow = typeof window & {
+  webkitAudioContext?: AudioContextConstructor;
+};
+
 export function useAudio() {
   const settingStore = useSettingStore();
 
@@ -24,7 +29,8 @@ export function useAudio() {
     if (typeof window === 'undefined') return;
 
     if (!audioContext) {
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      const audioWindow = window as AudioWindow;
+      const AudioContextClass = audioWindow.AudioContext || audioWindow.webkitAudioContext;
       if (AudioContextClass) {
           audioContext = new AudioContextClass();
       } else {

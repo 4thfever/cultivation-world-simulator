@@ -65,9 +65,9 @@ def test_get_mortal_overview_empty_when_world_missing():
     try:
         main.game_instance["world"] = None
         client = TestClient(main.app)
-        resp = client.get("/api/mortals/overview")
+        resp = client.get("/api/v1/query/mortals/overview")
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
         assert data["summary"]["total_population"] == 0.0
         assert data["summary"]["tracked_mortal_count"] == 0
         assert data["cities"] == []
@@ -84,10 +84,10 @@ def test_get_mortal_overview_aggregates_cities_and_tracked_mortals():
         main.game_instance["sim"] = None
 
         client = TestClient(main.app)
-        resp = client.get("/api/mortals/overview")
+        resp = client.get("/api/v1/query/mortals/overview")
 
         assert resp.status_code == 200
-        data = resp.json()
+        data = resp.json()["data"]
 
         summary = data["summary"]
         assert summary["total_population"] == 140.0

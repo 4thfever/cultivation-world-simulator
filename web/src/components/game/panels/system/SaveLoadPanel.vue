@@ -46,8 +46,7 @@ const nameError = computed(() => {
 async function fetchSaves() {
   loading.value = true
   try {
-    const res = await systemApi.fetchSaves()
-    saves.value = res.saves
+    saves.value = await systemApi.fetchSaves()
   } catch (e) {
     message.error(t('save_load.fetch_failed'))
   } finally {
@@ -144,7 +143,7 @@ function getSaveDisplayName(save: SaveFileDTO): string {
     return save.custom_name
   }
   // 从文件名提取时间部分
-  return save.filename.replace('.json', '')
+  return save.filename?.replace('.json', '') || ''
 }
 
 watch(() => props.mode, () => {

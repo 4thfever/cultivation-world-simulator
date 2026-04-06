@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 def _sect_runtime_source_label(source: str, language_manager: object) -> str:
     """
     根据当前语言返回运行时宗门效果来源的可读标签。
-    逻辑与 /api/detail 中 sect 分支保持一致。
+    逻辑与 /api/v1/query/detail 中 sect 分支保持一致。
     """
     key = (source or "").strip().lower()
 
@@ -30,12 +30,12 @@ def build_sect_detail(sect: "Sect", world: "World", language_manager: object) ->
     组装宗门详情的完整结构化信息。
 
     - 基础字段来自 sect.get_structured_info()
-    - 运行时效果字段与 /api/detail 现有实现保持完全一致
+    - 运行时效果字段与 /api/v1/query/detail 现有实现保持完全一致
     """
     # 1. 先获取领域层提供的基础信息
     info: Dict[str, Any] = sect.get_structured_info()
 
-    # 2. 拼接运行时效果信息（与原 /api/detail 保持等价）
+    # 2. 拼接运行时效果信息（与原 /api/v1/query/detail 保持等价）
     current_month = int(getattr(world, "month_stamp", 0))
     runtime_items: List[Dict[str, Any]] = []
 

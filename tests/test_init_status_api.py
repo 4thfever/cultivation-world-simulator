@@ -2,9 +2,9 @@
 Tests for the initialization status API endpoints.
 
 These tests verify the loading screen backend functionality:
-- /api/init-status endpoint
-- /api/game/new endpoint
-- /api/control/reinit endpoint
+- /api/v1/query/runtime/status endpoint
+- /api/v1/command/game/start endpoint
+- /api/v1/command/game/reinit endpoint
 - Initialization phases and progress tracking
 """
 
@@ -48,14 +48,14 @@ def reset_game_instance():
 
 
 class TestInitStatusEndpoint:
-    """Tests for /api/init-status endpoint."""
+    """Tests for /api/v1/query/runtime/status endpoint."""
 
     def test_init_status_idle(self, client, reset_game_instance):
         """Test init-status returns idle state correctly."""
-        response = client.get("/api/init-status")
+        response = client.get("/api/v1/query/runtime/status")
         assert response.status_code == 200
         
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "idle"
         assert data["phase"] == 0
         assert data["phase_name"] == ""
@@ -72,10 +72,10 @@ class TestInitStatusEndpoint:
         game_instance["init_progress"] = 33
         game_instance["init_start_time"] = time.time() - 5  # 5 seconds ago
         
-        response = client.get("/api/init-status")
+        response = client.get("/api/v1/query/runtime/status")
         assert response.status_code == 200
         
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "in_progress"
         assert data["phase"] == 3
         assert data["phase_name"] == "initializing_sects"
@@ -89,10 +89,10 @@ class TestInitStatusEndpoint:
         game_instance["init_phase_name"] = "generating_initial_events"
         game_instance["init_progress"] = 100
         
-        response = client.get("/api/init-status")
+        response = client.get("/api/v1/query/runtime/status")
         assert response.status_code == 200
         
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "ready"
         assert data["progress"] == 100
 
@@ -101,10 +101,10 @@ class TestInitStatusEndpoint:
         game_instance["init_status"] = "error"
         game_instance["init_error"] = "LLM connection failed"
         
-        response = client.get("/api/init-status")
+        response = client.get("/api/v1/query/runtime/status")
         assert response.status_code == 200
         
-        data = response.json()
+        data = response.json()["data"]
         assert data["status"] == "error"
         assert data["error"] == "LLM connection failed"
 
@@ -114,10 +114,10 @@ class TestInitStatusEndpoint:
         game_instance["llm_check_failed"] = True
         game_instance["llm_error_message"] = "API key invalid"
         
-        response = client.get("/api/init-status")
+        response = client.get("/api/v1/query/runtime/status")
         assert response.status_code == 200
         
-        data = response.json()
+        data = response.json()["data"]
         assert data["llm_check_failed"] is True
         assert data["llm_error_message"] == "API key invalid"
 
@@ -140,10 +140,10 @@ class TestUpdateInitProgress:
 
 
 class TestNewGameEndpoint:
-    """Tests for /api/game/start endpoint."""
+    """Tests for /api/v1/command/game/start endpoint."""
 
     def test_new_game_starts_initialization(self, client, reset_game_instance):
-        """Test /api/game/start starts initialization process."""
+        """Test /api/v1/command/game/start starts initialization process."""
         with patch.object(main, 'init_game_async', new_callable=AsyncMock) as mock_init:
             # Prepare minimal valid request data
             payload = {
@@ -152,16 +152,16 @@ class TestNewGameEndpoint:
                 "npc_awakening_rate_per_month": 0.01,
                 "world_lore": "Some worldview and history"
             }
-            response = client.post("/api/game/start", json=payload)
+            response = client.post("/api/v1/command/game/start", json=payload)
             
             assert response.status_code == 200
-            data = response.json()
+            data = response.json()["data"]
             assert data["status"] == "ok"
             assert "started" in data["message"].lower()
             assert game_instance["init_status"] == "pending"
 
     def test_new_game_rejects_when_in_progress(self, client, reset_game_instance):
-        """Test /api/game/start rejects request when already initializing."""
+        """Test /api/v1/command/game/start rejects request when already initializing."""
         game_instance["init_status"] = "in_progress"
         
         payload = {
@@ -169,13 +169,13 @@ class TestNewGameEndpoint:
             "sect_num": 2,
             "npc_awakening_rate_per_month": 0.01
         }
-        response = client.post("/api/game/start", json=payload)
+        response = client.post("/api/v1/command/game/start", json=payload)
         
         assert response.status_code == 400
         assert "already initializing" in response.json()["detail"].lower()
 
     def test_new_game_clears_existing_state(self, client, reset_game_instance):
-        """Test /api/game/start clears existing game state when ready."""
+        """Test /api/v1/command/game/start clears existing game state when ready."""
         mock_world = MagicMock()
         mock_sim = MagicMock()
         game_instance["world"] = mock_world
@@ -188,7 +188,7 @@ class TestNewGameEndpoint:
                 "sect_num": 2,
                 "npc_awakening_rate_per_month": 0.01
             }
-            response = client.post("/api/game/start", json=payload)
+            response = client.post("/api/v1/command/game/start", json=payload)
             
             assert response.status_code == 200
             assert game_instance["world"] is None
@@ -196,10 +196,10 @@ class TestNewGameEndpoint:
 
 
 class TestReinitEndpoint:
-    """Tests for /api/control/reinit endpoint."""
+    """Tests for /api/v1/command/game/reinit endpoint."""
 
     def test_reinit_clears_state(self, client, reset_game_instance):
-        """Test /api/control/reinit clears all game state."""
+        """Test /api/v1/command/game/reinit clears all game state."""
         game_instance["world"] = MagicMock()
         game_instance["sim"] = MagicMock()
         game_instance["init_status"] = "error"
@@ -208,7 +208,7 @@ class TestReinitEndpoint:
         game_instance["init_progress"] = 50
         
         with patch.object(main, 'init_game_async', new_callable=AsyncMock):
-            response = client.post("/api/control/reinit")
+            response = client.post("/api/v1/command/game/reinit")
             
             assert response.status_code == 200
             assert game_instance["world"] is None
@@ -219,21 +219,21 @@ class TestReinitEndpoint:
             assert game_instance["init_error"] is None
 
     def test_reinit_starts_new_initialization(self, client, reset_game_instance):
-        """Test /api/control/reinit starts new initialization task."""
+        """Test /api/v1/command/game/reinit starts new initialization task."""
         with patch.object(main, 'init_game_async', new_callable=AsyncMock) as mock_init:
-            response = client.post("/api/control/reinit")
+            response = client.post("/api/v1/command/game/reinit")
             
             assert response.status_code == 200
-            data = response.json()
+            data = response.json()["data"]
             assert data["status"] == "ok"
             assert "reinitialization" in data["message"].lower()
 
 
 class TestMapAndStateAPIDuringInit:
-    """Tests to verify /api/map and /api/state availability during initialization phases."""
+    """Tests to verify v1 world query availability during initialization phases."""
 
     def test_map_available_during_checking_llm(self, client, reset_game_instance):
-        """Test /api/map is available when world exists (checking_llm phase)."""
+        """Test /api/v1/query/world/map is available when world exists."""
         # Simulate world being created but LLM check in progress.
         mock_world = MagicMock()
         mock_map = MagicMock()
@@ -248,13 +248,12 @@ class TestMapAndStateAPIDuringInit:
         game_instance["init_phase"] = 5
         game_instance["init_phase_name"] = "checking_llm"
         
-        # The /api/map endpoint should work.
-        response = client.get("/api/map")
-        # It may return data or empty, but should not error with 503.
+        response = client.get("/api/v1/query/world/map")
         assert response.status_code == 200
+        assert response.json()["ok"] is True
 
     def test_state_available_during_generating_events(self, client, reset_game_instance):
-        """Test /api/state is available during generating_initial_events phase."""
+        """Test /api/v1/query/world/state is available during generating_initial_events."""
         mock_world = MagicMock()
         mock_world.month_stamp.get_year.return_value = 100
         mock_world.month_stamp.get_month.return_value = MagicMock(value=1)
@@ -266,8 +265,9 @@ class TestMapAndStateAPIDuringInit:
         game_instance["init_phase"] = 6
         game_instance["init_phase_name"] = "generating_initial_events"
         
-        response = client.get("/api/state")
+        response = client.get("/api/v1/query/world/state")
         assert response.status_code == 200
+        assert response.json()["ok"] is True
 
 
 class TestInitGameAsync:

@@ -10,52 +10,60 @@ import type {
   DynastyDetailResponseDTO,
   DynastyOverviewResponseDTO,
 } from '../../types/api';
-import { normalizeRankingsResponse } from '../mappers/world';
+import {
+  normalizeInitialState,
+  normalizeMapResponse,
+  normalizePhenomenaList,
+  normalizeRankingsResponse,
+} from '../mappers/world';
 import { normalizeMortalOverview } from '../mappers/mortal';
 import { normalizeDynastyDetail, normalizeDynastyOverview } from '../mappers/dynasty';
 
 export const worldApi = {
-  fetchInitialState() {
-    return httpClient.get<InitialStateDTO>('/api/state');
+  async fetchInitialState() {
+    const data = await httpClient.get<InitialStateDTO>('/api/v1/query/world/state');
+    return normalizeInitialState(data);
   },
 
-  fetchMap() {
-    return httpClient.get<MapResponseDTO>('/api/map');
+  async fetchMap() {
+    const data = await httpClient.get<MapResponseDTO>('/api/v1/query/world/map');
+    return normalizeMapResponse(data);
   },
 
-  fetchPhenomenaList() {
-    return httpClient.get<{ phenomena: PhenomenonDTO[] }>('/api/meta/phenomena');
+  async fetchPhenomenaList() {
+    const data = await httpClient.get<{ phenomena: PhenomenonDTO[] }>('/api/v1/query/meta/phenomena');
+    return normalizePhenomenaList(data);
   },
 
   setPhenomenon(id: number) {
-    return httpClient.post('/api/control/set_phenomenon', { id });
+    return httpClient.post('/api/v1/command/world/set-phenomenon', { id });
   },
 
   async fetchRankings() {
-    const data = await httpClient.get<Partial<RankingsDTO>>('/api/rankings');
+    const data = await httpClient.get<Partial<RankingsDTO>>('/api/v1/query/rankings');
     return normalizeRankingsResponse(data);
   },
 
   fetchSectRelations() {
-    return httpClient.get<SectRelationsResponseDTO>('/api/sect-relations');
+    return httpClient.get<SectRelationsResponseDTO>('/api/v1/query/sect-relations');
   },
 
   fetchSectTerritories() {
-    return httpClient.get<SectTerritoriesResponseDTO>('/api/sects/territories');
+    return httpClient.get<SectTerritoriesResponseDTO>('/api/v1/query/sects/territories');
   },
 
   async fetchMortalOverview() {
-    const data = await httpClient.get<MortalOverviewResponseDTO>('/api/mortals/overview');
+    const data = await httpClient.get<MortalOverviewResponseDTO>('/api/v1/query/mortals/overview');
     return normalizeMortalOverview(data);
   },
 
   async fetchDynastyOverview() {
-    const data = await httpClient.get<DynastyOverviewResponseDTO>('/api/dynasty/overview');
+    const data = await httpClient.get<DynastyOverviewResponseDTO>('/api/v1/query/dynasty/overview');
     return normalizeDynastyOverview(data);
   },
 
   async fetchDynastyDetail() {
-    const data = await httpClient.get<DynastyDetailResponseDTO>('/api/dynasty/detail');
+    const data = await httpClient.get<DynastyDetailResponseDTO>('/api/v1/query/dynasty/detail');
     return normalizeDynastyDetail(data);
   },
 };

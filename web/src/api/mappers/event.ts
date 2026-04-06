@@ -1,6 +1,12 @@
 import type { EventDTO } from '@/types/api'
 import type { GameEvent } from '@/types/core'
 
+export interface EventPage {
+  events: EventDTO[]
+  nextCursor: string | null
+  hasMore: boolean
+}
+
 export function mapEventDtoToGameEvent(event: EventDTO): GameEvent {
   return {
     id: event.id,
@@ -22,5 +28,15 @@ export function mapEventDtoToGameEvent(event: EventDTO): GameEvent {
 export function mapEventDtosToTimeline(events: EventDTO[]): GameEvent[] {
   // API returns newest-first; timeline UI expects oldest-first.
   return events.map(mapEventDtoToGameEvent).reverse()
+}
+
+export function normalizeEventsResponse(
+  input: { events?: EventDTO[]; next_cursor?: string | null; has_more?: boolean } | null | undefined,
+): EventPage {
+  return {
+    events: Array.isArray(input?.events) ? input.events : [],
+    nextCursor: input?.next_cursor ?? null,
+    hasMore: input?.has_more ?? false,
+  }
 }
 

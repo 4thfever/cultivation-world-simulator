@@ -145,6 +145,107 @@ docker-compose up -d --build
 
 </details>
 
+<details>
+<summary><b>外接 API / Agent 接入（點擊展開）</b></summary>
+
+適合以下場景：
+
+- 用 Claw / agent 觀察世界狀態
+- 製作外部 AI skill 或自動化腳本
+- 實現「觀察 -> 決策 -> 干預 -> 再觀察」的閉環遊玩
+
+建議直接圍繞穩定命名空間開發：
+
+- 只讀查詢：`/api/v1/query/*`
+- 受控寫入：`/api/v1/command/*`
+
+補充說明：
+
+- 應用設定仍透過 `/api/settings*` 與 `/api/settings/llm*` 管理；它們是設定真源，不屬於外接控制相容層。
+
+常用只讀接口：
+
+- `GET /api/v1/query/runtime/status`
+- `GET /api/v1/query/world/state`
+- `GET /api/v1/query/world/map`
+- `GET /api/v1/query/events`
+- `GET /api/v1/query/detail?type=avatar|region|sect&id=<target_id>`
+- `GET /api/v1/query/rankings`
+- `GET /api/v1/query/sect-relations`
+- `GET /api/v1/query/sects/territories`
+- `GET /api/v1/query/meta/game-data`
+- `GET /api/v1/query/meta/avatars`
+- `GET /api/v1/query/meta/avatar-adjust-options`
+- `GET /api/v1/query/meta/avatar-list`
+- `GET /api/v1/query/meta/phenomena`
+- `GET /api/v1/query/mortals/overview`
+- `GET /api/v1/query/dynasty/overview`
+- `GET /api/v1/query/dynasty/detail`
+- `GET /api/v1/query/saves`
+
+常用控制接口：
+
+- `POST /api/v1/command/game/start`
+- `POST /api/v1/command/game/pause`
+- `POST /api/v1/command/game/resume`
+- `POST /api/v1/command/game/reset`
+- `POST /api/v1/command/game/reinit`
+- `POST /api/v1/command/game/save`
+- `POST /api/v1/command/game/load`
+- `POST /api/v1/command/game/delete-save`
+- `POST /api/v1/command/system/shutdown`
+- `DELETE /api/v1/command/events/cleanup`
+- `POST /api/v1/command/world/set-phenomenon`
+- `POST /api/v1/command/avatar/set-long-term-objective`
+- `POST /api/v1/command/avatar/clear-long-term-objective`
+- `POST /api/v1/command/avatar/create`
+- `POST /api/v1/command/avatar/delete`
+- `POST /api/v1/command/avatar/update-adjustment`
+- `POST /api/v1/command/avatar/update-portrait`
+- `POST /api/v1/command/avatar/generate-custom-content`
+- `POST /api/v1/command/avatar/create-custom-content`
+
+接口約定：
+
+- 成功返回：
+  ```json
+  {
+    "ok": true,
+    "data": {}
+  }
+  ```
+- 失敗時返回結構化錯誤，可讀取 `detail.code` 與 `detail.message` 做程式判斷。
+
+一個最小接入流程通常是：
+
+1. 調用 `GET /api/v1/query/runtime/status` 判斷目前是否已初始化。
+2. 如未開局，調用 `POST /api/v1/command/game/start` 提交開局參數。
+3. 用 `GET /api/v1/query/world/state`、`/events`、`/detail` 取得世界快照與目標資訊。
+4. 依策略調用 `POST /api/v1/command/avatar/*` 或 `POST /api/v1/command/world/*` 執行干預。
+5. 若要做角色編輯器或 agent 自主擴展，可先用 `/api/v1/query/meta/avatars`、`/api/v1/query/meta/game-data`、`/api/v1/query/meta/avatar-adjust-options` 拉取可選資源，再透過 `/api/v1/command/avatar/generate-custom-content` 產生草稿、`/api/v1/command/avatar/create-custom-content` 正式入庫。
+6. 在需要時調用 `POST /api/v1/command/game/save` 保存目前局，或透過 `/api/v1/query/saves` + `/api/v1/command/game/load` 還原存檔。
+
+如果要做一個最小的 Claw / agent 控制 skill，建議直接採用以下回路：
+
+1. 每輪先調用 `GET /api/v1/query/runtime/status`
+2. 若未 ready，就依狀態選擇 `start`、持續輪詢，或 `reinit`
+3. ready 後再調用 `world/state`、`events`、`detail`
+4. 接著再調用一個有語義的 `command`
+5. command 後重新 query，而不是依賴本地快取
+
+若後續要為專案新增一個公共接口，也建議按這個範式擴展：
+
+- 新的只讀能力優先加到 `src/server/public_query_builders.py`
+- 新的寫入能力優先加到 `src/server/command_handlers.py`
+- 會修改 world / sim 的接口必須走統一 mutation 串行化
+- 前端要消費時，同步更新 `web/src/types/api.ts` 與 mapper
+
+更完整的設計說明請參考：
+
+- `docs/specs/external-control-api.md`
+
+</details>
+
 ### 💭 為什麼要做這個？
 修仙網文中的世界很精彩，但讀者永遠只能觀察到一隅。
 

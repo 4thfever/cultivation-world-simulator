@@ -254,7 +254,7 @@ export interface RegionSummary extends EntityBase, Coordinates {
   sect_id?: number;
   sect_name?: string;
   sect_color?: string;
-  // 是否为激活宗门（由后端 /api/map 提供）。未提供时视为 true。
+  // 是否为激活宗门（由后端地图查询接口提供，当前主路径为 /api/v1/query/world/map）。未提供时视为 true。
   sect_is_active?: boolean;
   sub_type?: string; // for cultivate regions: "cave" or "ruin"
 }

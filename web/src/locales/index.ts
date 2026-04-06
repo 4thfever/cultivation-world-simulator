@@ -12,6 +12,8 @@ type LocaleJsonModule = {
   default: Record<string, unknown>
 }
 
+type LocaleMessageTree = Record<string, unknown>
+
 const localeJsonModules = import.meta.glob('./*/*.json', { eager: true }) as Record<string, LocaleJsonModule>
 
 /**
@@ -19,7 +21,7 @@ const localeJsonModules = import.meta.glob('./*/*.json', { eager: true }) as Rec
  * @param lang 语言标识符 (如 'zh-CN')
  */
 const loadLocaleMessages = (lang: AppLocale) => {
-  const messages: Record<string, unknown> = {}
+  const messages: LocaleMessageTree = {}
 
   for (const [path, module] of Object.entries(localeJsonModules)) {
     const matched = path.match(/^\.\/([^/]+)\/([^/]+)\.json$/)
@@ -36,19 +38,20 @@ const loadLocaleMessages = (lang: AppLocale) => {
 
 const messages = Object.fromEntries(
   enabledLocales.map((locale) => [locale, loadLocaleMessages(locale)])
-) as Record<string, Record<string, unknown>>
+) as Record<string, LocaleMessageTree>
 
 const schemaMessages = isEnabledLocale(schemaLocale)
   ? loadLocaleMessages(schemaLocale)
   : {}
 
 type MessageSchema = typeof schemaMessages
+type LocaleMessages = Record<AppLocale, MessageSchema>
 
 const i18n = createI18n<[MessageSchema], string>({
   legacy: false,
   locale: defaultLocale,
   fallbackLocale,
-  messages: messages as any,
+  messages: messages as LocaleMessages,
 })
 
 export default i18n

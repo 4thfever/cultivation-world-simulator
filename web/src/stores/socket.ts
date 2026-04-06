@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { gameSocket } from '../api/socket';
 import { useWorldStore } from './world';
 import { useUiStore } from './ui';
-import type { SocketMessageDTO } from '../types/api';
 import { routeSocketMessage } from './socketMessageRouter';
 
 export const useSocketStore = defineStore('socket', () => {
@@ -27,9 +26,8 @@ export const useSocketStore = defineStore('socket', () => {
       }
     });
 
-    cleanupMessage = gameSocket.on((data: unknown) => {
-      if (!data || typeof data !== 'object' || !('type' in data)) return;
-      routeSocketMessage(data as SocketMessageDTO, { worldStore, uiStore });
+    cleanupMessage = gameSocket.on((data) => {
+      routeSocketMessage(data, { worldStore, uiStore });
     });
 
     // Connect socket

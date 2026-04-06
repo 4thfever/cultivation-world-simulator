@@ -382,7 +382,7 @@ describe('useWorldStore', () => {
       vi.mocked(worldApi.fetchMap).mockResolvedValue({
         data: [[{ type: 'grass' }]],
         regions: [{ id: 'r1', name: 'Region 1' }],
-        render_config: { water_speed: 'low', cloud_frequency: 'high' },
+        renderConfig: { water_speed: 'low', cloud_frequency: 'high' },
       } as any)
 
       await store.preloadMap()
@@ -445,7 +445,7 @@ describe('useWorldStore', () => {
       vi.mocked(worldApi.fetchMap).mockResolvedValue({
         data: [[{ type: 'grass' }]],
         regions: [{ id: 'r1', name: 'Region 1' }],
-        render_config: {},
+        renderConfig: {},
       } as any)
       vi.mocked(worldApi.fetchInitialState).mockResolvedValue({
         year: 100,
@@ -454,8 +454,8 @@ describe('useWorldStore', () => {
       })
       vi.mocked(eventApi.fetchEvents).mockResolvedValue({
         events: [],
-        next_cursor: null,
-        has_more: false,
+        nextCursor: null,
+        hasMore: false,
       })
 
       await store.initialize()
@@ -476,8 +476,8 @@ describe('useWorldStore', () => {
       })
       vi.mocked(eventApi.fetchEvents).mockResolvedValue({
         events: [],
-        next_cursor: null,
-        has_more: false,
+        nextCursor: null,
+        hasMore: false,
       })
 
       await store.initialize()
@@ -519,8 +519,8 @@ describe('useWorldStore', () => {
         events: [
           { id: 'e1', text: 'Event 1', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: [], created_at: '2026-01-01T00:00:00Z' },
         ],
-        next_cursor: 'cursor-123',
-        has_more: true,
+        nextCursor: 'cursor-123',
+        hasMore: true,
       })
 
       await store.loadEvents({})
@@ -538,8 +538,8 @@ describe('useWorldStore', () => {
         events: [
           { id: 'e2', text: 'Event 2', year: 100, month: 1, month_stamp: 1200, related_avatar_ids: [], created_at: '2026-01-01T00:00:00Z' },
         ],
-        next_cursor: 'new-cursor',
-        has_more: false,
+        nextCursor: 'new-cursor',
+        hasMore: false,
       })
 
       await store.loadEvents({}, true)
@@ -563,8 +563,8 @@ describe('useWorldStore', () => {
 
       vi.mocked(eventApi.fetchEvents).mockResolvedValue({
         events: [],
-        next_cursor: null,
-        has_more: false,
+        nextCursor: null,
+        hasMore: false,
       })
 
       await store.loadMoreEvents()
@@ -589,8 +589,8 @@ describe('useWorldStore', () => {
 
       vi.mocked(eventApi.fetchEvents).mockResolvedValue({
         events: [],
-        next_cursor: null,
-        has_more: false,
+        nextCursor: null,
+        hasMore: false,
       })
 
       await store.resetEvents({ avatar_id: 'a1' })
@@ -602,9 +602,9 @@ describe('useWorldStore', () => {
 
   describe('getPhenomenaList', () => {
     it('should fetch phenomena list if not cached', async () => {
-      vi.mocked(worldApi.fetchPhenomenaList).mockResolvedValue({
-        phenomena: [{ id: 1, name: 'Full Moon', description: 'A full moon' }],
-      })
+      vi.mocked(worldApi.fetchPhenomenaList).mockResolvedValue([
+        { id: 1, name: 'Full Moon', description: 'A full moon' },
+      ] as any)
 
       const result = await store.getPhenomenaList()
 

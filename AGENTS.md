@@ -24,6 +24,7 @@
 2. 当前仓库暂无更深层级的 `AGENTS.md` 或 `AGENTS.override.md`，因此本文件是项目级主说明。
 3. 指令来源：`.cursor/rules/*.mdc`、`.cursor/skills/*/SKILL.md`、`.cursor/commands/*.md`。
 4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`。
+5. 外接控制 API 的服务端当前已经完成一轮模块化收口；优先参考 `docs/specs/external-control-api.md` 中的“当前落地后的服务端模块地图”，不要再把 query builder、command handler、初始化 phase 或宿主装配重新堆回 `src/server/main.py`。
 
 ## 3. `.cursor/rules` 沉淀
 
@@ -34,7 +35,8 @@
 | `.cursor/rules/action-development.mdc` | `src/classes/action/**/*.py`, `src/classes/mutual_action/**/*.py` | 新动作必须补齐 `ACTION_NAME_ID/DESC_ID/REQUIREMENTS_ID/EMOJI/PARAMS`、生命周期方法、注册装饰器、`__init__.py` 导出和测试。 |
 | `.cursor/rules/config-architecture.mdc` | `src/config/**/*.py`, `src/server/**/*.py`, `src/utils/config.py`, `src/utils/llm/**/*.py`, `src/sim/save/**/*.py`, `src/sim/load/**/*.py`, `web/src/stores/setting.ts`, `web/src/api/modules/system.ts`, `web/src/api/modules/llm.ts`, `web/src/components/game/panels/system/**/*.vue`, `web/src/App.vue` | 配置分为只读版本配置、`settings.json/secrets.json` 应用设置、`RunConfig` 本局快照；用户数据统一走 data root；前端设置真源是 `/api/settings`；LLM key 不回传前端；存档需保存 `run_config`。 |
 | `.cursor/rules/development-phase.mdc` | `*.py`, `*.vue`, `*.ts`, `*.tsx`, `*.json` | 开发阶段：**原则上不要求**向前/向下兼容，以新代码清晰合理为先；若兼容可**零代价**顺带（如一行 `.get` 且不拖结构）可做，**不得**为兼容付出双轨/分支/牺牲主路径可读性。 |
-| `.cursor/rules/docker-persistence.mdc` | `docker-compose.yml`, `deploy/Dockerfile.*`, `deploy/nginx.conf`, `src/config/data_paths.py`, `src/server/main.py`, `src/utils/config.py`, `tests/test_docker_*.py`, `tests/test_nginx_proxy_contract.py`, `tests/test_server_binding.py`, `README.md`, `docs/readme/*.md` | Docker 场景统一走 `CWS_DATA_DIR` 持久化；容器不得因无人连接自动退出；frontend 健康检查要反映 backend 代理链路可用；生产镜像只装 runtime 依赖；相关改动必须补 contract/smoke 测试与文档。 |
+| `.cursor/rules/docker-persistence.mdc` | `docker-compose.yml`, `deploy/Dockerfile.backend`, `deploy/Dockerfile.frontend`, `deploy/nginx.conf`, `src/config/data_paths.py`, `src/server/main.py`, `src/utils/config.py`, `tests/test_docker_build_contract.py`, `tests/test_data_paths_runtime_contract.py`, `tests/test_docker_runtime_smoke.py`, `tests/test_nginx_proxy_contract.py`, `tests/test_server_binding.py`, `README.md`, `docs/readme/*.md` | Docker 场景统一走 `CWS_DATA_DIR` 持久化；容器不得因无人连接自动退出；frontend 健康检查要反映 backend 代理链路可用；生产镜像只装 runtime 依赖；相关改动必须补 contract/smoke 测试与文档。 |
+| `.cursor/rules/external-control-api.mdc` | `src/server/**/*.py`, `web/src/api/**/*.ts`, `web/src/stores/**/*.ts`, `tests/test_api_*.py`, `tests/test_websocket_handlers.py`, `tests/test_init_status_api.py`, `tests/test_game_init_integration.py`, `docs/specs/external-control-api.md`, `README.md` | 外接控制 API 以外部 agent / Claw 接入为第一视角；允许不向前兼容，优先建立 runtime/service/API 分层；稳定接口应按 query/command 分离并统一响应格式；所有 mutation 必须串行化，不得继续扩散 `main.py` 直连 `game_instance` 的写法。 |
 | `.cursor/rules/event-system.mdc` | `src/classes/event.py`, `src/classes/event_storage.py`, `src/systems/**/*.py` | 明确 `is_major/is_story` 语义，准确填写 `related_avatars`，统一由模拟器集中入库，查询走分页。 |
 | `.cursor/rules/frontend-sound.mdc` | `web/src/**/*.vue|ts|tsx` | 标准按钮默认自动音效，特殊音效用 `v-sound`，禁音用 `data-no-sound`，仅特殊场景允许 `useAudio` 编程式播放。 |
 | `.cursor/rules/frontend-typing-error.mdc` | `web/src/**/*.vue|ts|tsx` | DTO 先更新 `types/api.ts`，映射逻辑放 `api/mappers`，避免 `any` 扩散，错误统一 `appError`，Socket 分发在 `socketMessageRouter`。 |
@@ -46,7 +48,7 @@
 | `.cursor/rules/simulator-logic.mdc` | `src/sim/simulator.py`, `src/sim/**/*.py` | 相位优先拆为 `simulator_engine/phases` 中的独立函数，`step()` 只做编排；共享状态走 `SimulationStepContext`；新相位需重排索引；LLM/重计算相位异步化；死亡结算后维护 `living_avatars`；收尾统一走 `finalizer.finalize_step()`。 |
 | `.cursor/rules/story-event-system.mdc` | `src/classes/story_event_service.py`, `src/classes/action/**/*.py`, `src/classes/mutual_action/**/*.py`, `src/classes/gathering/**/*.py`, `src/systems/battle.py`, `src/systems/fortune.py`, `static/config.yml`, `tests/**/*.py` | 小故事统一走 `StoryEventService`；先生成基础结果事件，再尝试追加故事；非 gathering 按 `StoryEventKind + game.story.probabilities` 控制，`gathering` 固定 100%；LLM 展开的故事正文统一标记 `is_story=True`。 |
 | `.cursor/rules/sect-system.mdc` | `src/classes/core/sect.py`, `src/classes/core/world.py`, `src/classes/sect_decider.py`, `src/sim/managers/sect_manager.py`, `src/systems/sect_decision_context.py`, `src/classes/ranking.py`, `src/server/**/*.py`, `src/systems/sect_relations.py`, `web/src/**/*.{ts,vue}` | 统一宗门领域模型与 API 分层；通过 `SectContext` 管理本局启用宗门；势力快照由 `SectManager` 统一计算；宗门年度思考由 `SectDecider` 每年 1 月生成并写回 `yearly_thinking`，经 detail 暴露给前端；前端 detail 链路必须经过强类型 DTO + mapper。 |
-| `.cursor/rules/testing.mdc` | `tests/**/*.py` | 优先复用 `conftest.py` fixtures（`dummy_avatar`/`mock_llm_managers` 等），异步测试加 `@pytest.mark.asyncio`，避免过度设计。 |
+| `.cursor/rules/testing.mdc` | `tests/**/*.py` | 优先复用 `conftest.py` fixtures（`dummy_avatar`/`mock_llm_managers` 等），异步测试加 `@pytest.mark.asyncio`，避免过度设计；vibe coding 快速回归可用 `pytest -n 8`。 |
 | `.cursor/rules/vue-performance.mdc` | `web/src/**/*.vue|ts|tsx` | 大对象必须 `shallowRef`，长列表分页或虚拟滚动，昂贵派生用 `computed`，重构前后保留性能基线对比。 |
 
 ### 3.2 执行时应优先遵守的硬约束
@@ -69,12 +71,17 @@
 16. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
 17. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
 18. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
+19. 外接控制 API 的稳定契约应优先服务外部 agent / Claw 集成；新增公共接口时先判断是 `query` 还是 `command`，并优先落到 runtime/service 分层与 `/api/v1/*` 稳定命名空间中。
+20. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
+21. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
+22. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
 
 ## 4. `.cursor/skills` 沉淀
 
 | 技能 | 用途 | 关键流程 |
 |---|---|---|
 | `fill-i18n-phase2` | 进入多语言补全 Phase 2 | 生成缺失报告 -> 按 `static/locales/registry.json` 补全启用语言（如 `en-US/zh-TW/vi-VN/ja-JP`） -> 必要时编译 `.mo` -> 跑 locale 测试 -> 清理报告。 |
+| `external-control-api` | 规划或实现面向外部 agent / Claw 的稳定控制 API | 先梳理现有 query/command 与 `main.py`/`game_instance` 耦合 -> 明确 runtime/service/API 分层与 v1 命名空间 -> 优先做 mutation 串行化和稳定 DTO/错误码 -> 最后同步 README / `docs/specs/external-control-api.md` / `AGENTS.md`。 |
 | `git-pr` | 创建规范 PR | 从 `main` 拉新分支，标准 commit type，push 后 `gh pr create`，遵守 PR 模板。 |
 | `i18n-development` | 日常 i18n 开发 | 在拆分 `.po` 维护条目，优先修改 `modules/` / `game_configs_modules/`，语言列表与新增语言流程以 `static/locales/registry.json` 为准，避免直接改 `LC_MESSAGES/*.po`，改完必须 `build_mo.py`。 |
 | `spec-interview` | 需求访谈后产出 spec | 多轮提问澄清隐含约束与风险，最后落地到 `docs/specs/<feature>.md`。 |
@@ -94,12 +101,13 @@
 ## 6. 测试与验证命令（从技能中提炼）
 
 1. 后端全量测试：`pytest`
-2. 前端测试：`cd web && npm run test`
-3. 前端类型检查：`cd web && npm run type-check`
-4. locale 对齐检查：
+2. vibe coding 快速回归：`pytest -n 8`
+3. 前端测试：`cd web && npm run test`
+4. 前端类型检查：`cd web && npm run type-check`
+5. locale 对齐检查：
    - `pytest tests/test_frontend_locales.py`
    - `pytest tests/test_backend_locales.py`
-5. 语言注册表检查：`python tools/i18n/generate_missing_report.py`
+6. 语言注册表检查：`python tools/i18n/generate_missing_report.py`
 
 ## 7. 维护约定
 

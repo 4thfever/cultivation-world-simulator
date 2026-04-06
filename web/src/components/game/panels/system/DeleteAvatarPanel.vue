@@ -27,8 +27,7 @@ const filteredAvatars = computed(() => {
 async function fetchAvatarList() {
   loading.value = true
   try {
-    const res = await avatarApi.fetchAvatarList()
-    avatarList.value = res.avatars
+    avatarList.value = await avatarApi.fetchAvatarList()
   } catch (e) {
     message.error(t(uiKey('fetch_failed')))
   } finally {

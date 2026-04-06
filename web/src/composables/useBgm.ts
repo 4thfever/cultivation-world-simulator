@@ -184,10 +184,11 @@ export function useBgm() {
             performCrossfade(nextTrack, currentTrack, crossfadeOutgoing, mySwitchId);
             currentTrackIndex = nextIndex;
             activeType = currentType;
-        } catch (e: any) {
+        } catch (e: unknown) {
             if (mySwitchId !== currentSwitchId) return;
+            const errorName = e instanceof Error ? e.name : '';
 
-            if (e?.name === 'NotAllowedError') {
+            if (errorName === 'NotAllowedError') {
                 activeType = null;
                 audioUnlocked = false;
                 currentTrack.pause();
@@ -195,7 +196,7 @@ export function useBgm() {
                 return;
             }
 
-            if (e?.name === 'AbortError') {
+            if (errorName === 'AbortError') {
                 return;
             }
 

@@ -68,6 +68,7 @@ vi.mock('@/api', () => ({
     fetchSaves: vi.fn(),
     saveGame: vi.fn(),
     loadGame: vi.fn(),
+    deleteSave: vi.fn(),
   },
 }))
 
@@ -144,7 +145,7 @@ describe('SaveLoadPanel', () => {
 
   describe('Save Mode', () => {
     it('should render save actions in save mode', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -160,7 +161,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should open save modal when clicking new save', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -175,7 +176,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should call saveGame without name on quick save', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
       vi.mocked(systemApi.saveGame).mockResolvedValue({ status: 'ok', filename: 'auto_save.json' })
 
       const wrapper = mount(SaveLoadPanel, {
@@ -198,7 +199,7 @@ describe('SaveLoadPanel', () => {
         createMockSave({ filename: 'save1.json', custom_name: '我的存档' }),
         createMockSave({ filename: 'save2.json', game_time: '200年6月' }),
       ]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -213,7 +214,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should not render save actions in load mode', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -228,7 +229,7 @@ describe('SaveLoadPanel', () => {
 
     it('should call loadGame when clicking save item', async () => {
       const mockSaves = [createMockSave({ filename: 'test.json' })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
       vi.mocked(systemApi.loadGame).mockResolvedValue({ status: 'ok', message: 'loaded' })
 
       const wrapper = mount(SaveLoadPanel, {
@@ -246,7 +247,7 @@ describe('SaveLoadPanel', () => {
     it('should not load if user cancels confirm', async () => {
       vi.spyOn(window, 'confirm').mockReturnValue(false)
       const mockSaves = [createMockSave({ filename: 'test.json' })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -264,7 +265,7 @@ describe('SaveLoadPanel', () => {
   describe('Save Display', () => {
     it('should display custom name when available', async () => {
       const mockSaves = [createMockSave({ custom_name: '自定义名称', filename: 'test.json' })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -278,7 +279,7 @@ describe('SaveLoadPanel', () => {
 
     it('should display filename when no custom name', async () => {
       const mockSaves = [createMockSave({ custom_name: null, filename: '20260101_120000.json' })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -296,7 +297,7 @@ describe('SaveLoadPanel', () => {
         createMockSave({ filename: 'auto_save.json', is_auto_save: true }),
         createMockSave({ filename: 'manual_save.json', is_auto_save: false })
       ]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -314,7 +315,7 @@ describe('SaveLoadPanel', () => {
 
     it('should display avatar counts', async () => {
       const mockSaves = [createMockSave({ alive_count: 15, avatar_count: 20 })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -329,7 +330,7 @@ describe('SaveLoadPanel', () => {
 
     it('should display event count', async () => {
       const mockSaves = [createMockSave({ event_count: 100 })]
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: mockSaves })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue(mockSaves)
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -344,7 +345,7 @@ describe('SaveLoadPanel', () => {
 
   describe('Name Validation', () => {
     it('should show error for name over 50 chars', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -364,7 +365,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should show error for invalid characters', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -384,7 +385,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should allow valid Chinese name', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -403,7 +404,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should allow empty name', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },
@@ -425,7 +426,7 @@ describe('SaveLoadPanel', () => {
 
   describe('Empty State', () => {
     it('should show empty message when no saves', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'load' },
@@ -455,7 +456,7 @@ describe('SaveLoadPanel', () => {
     })
 
     it('should handle saveGame error gracefully', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
       vi.mocked(systemApi.saveGame).mockRejectedValue(new Error('Save error'))
 
       const wrapper = mount(SaveLoadPanel, {
@@ -474,7 +475,7 @@ describe('SaveLoadPanel', () => {
 
   describe('Mode Switching', () => {
     it('should refetch saves when mode changes', async () => {
-      vi.mocked(systemApi.fetchSaves).mockResolvedValue({ saves: [] })
+      vi.mocked(systemApi.fetchSaves).mockResolvedValue([])
 
       const wrapper = mount(SaveLoadPanel, {
         props: { mode: 'save' },

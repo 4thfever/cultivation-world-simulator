@@ -178,7 +178,7 @@ async function renderMap() {
   // --- 4. 启动动画 Ticker ---
   if (hasSea || hasWater) {
     ticker = new Ticker()
-    ticker.add((tickerInstance: any) => {
+    ticker.add((tickerInstance: Ticker) => {
       // v8: deltaMS / deltaTime
       let baseSpeed = 0.5
       

@@ -225,16 +225,16 @@ class TestGameDataAPI:
         return TestClient(app)
 
     def test_game_data_techniques_have_sect_id(self, client):
-        response = client.get("/api/meta/game_data")
+        response = client.get("/api/v1/query/meta/game-data")
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert len(data["techniques"]) > 0
         assert "sect_id" in data["techniques"][0]
 
     def test_game_data_sects_structure(self, client):
-        response = client.get("/api/meta/game_data")
+        response = client.get("/api/v1/query/meta/game-data")
         assert response.status_code == 200
-        data = response.json()
+        data = response.json()["data"]
         assert len(data["sects"]) > 0
         assert "id" in data["sects"][0]
 

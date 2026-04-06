@@ -14,6 +14,16 @@ describe('httpClient api', () => {
     expect(res).toEqual({ data: 'test' })
   })
 
+  it('should unwrap v1 ok/data envelope automatically', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: vi.fn().mockResolvedValue({ ok: true, data: { value: 42 } })
+    }) as any
+
+    const res = await httpClient.get('/test')
+    expect(res).toEqual({ value: 42 })
+  })
+
   it('should make POST request successfully', async () => {
     const res = await httpClient.post('/test', { data: 1 })
     expect(res).toEqual({ data: 'test' })
@@ -27,6 +37,17 @@ describe('httpClient api', () => {
     }) as any
 
     await expect(httpClient.get('/test')).rejects.toThrow()
+  })
+
+  it('should prefer structured detail.message on v1 error payloads', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 503,
+      statusText: 'Service Unavailable',
+      json: vi.fn().mockResolvedValue({ detail: { code: 'WORLD_NOT_READY', message: 'World not initialized' } })
+    }) as any
+
+    await expect(httpClient.get('/test')).rejects.toThrow('World not initialized')
   })
 
   it('should throw error when fetch fails', async () => {

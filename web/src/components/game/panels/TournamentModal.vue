@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { NModal, NSpin, NEmpty } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
+import type { RankingsDTO } from '@/types/api'
 import { useWorldStore } from '../../../stores/world'
 import { useUiStore } from '../../../stores/ui'
 import { logError } from '@/utils/appError'
@@ -25,15 +26,18 @@ const openAvatarInfo = (id: string) => {
 }
 
 const loading = ref(false)
-const rankings = ref<{
-  tournament?: any
-}>({})
+const rankings = ref<RankingsDTO>({
+  heaven: [],
+  earth: [],
+  human: [],
+  sect: [],
+})
 
 const fetchRankings = async () => {
   loading.value = true
   try {
     const res = await worldApi.fetchRankings()
-    rankings.value = res || {}
+    rankings.value = res
   } catch (e) {
     logError('TournamentModal fetch rankings', e)
   } finally {
