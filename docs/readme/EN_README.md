@@ -148,101 +148,46 @@ The backend container persists user data through `CWS_DATA_DIR=/data`, including
 <details>
 <summary><b>External API / Agent Integration (Click to expand)</b></summary>
 
-Suitable for scenarios such as:
+This section is for external agent / Claw integration, automation scripts, or gameplay loops such as "observe -> decide -> intervene -> observe again."
 
-- Observing world state with Claw / agents
-- Building external AI skills or automation scripts
-- Implementing a closed loop of "observe -> decide -> intervene -> observe again"
-
-For integration, build around the stable namespace:
+For integration, build directly around the stable namespaces:
 
 - Read-only queries: `/api/v1/query/*`
 - Controlled mutations: `/api/v1/command/*`
 
-Additional notes:
-
-- App settings are still managed through `/api/settings*` and `/api/settings/llm*`. These are the source of truth for settings and are not part of the external control compatibility layer.
-
-Common read-only endpoints:
+Common starting endpoints:
 
 - `GET /api/v1/query/runtime/status`
 - `GET /api/v1/query/world/state`
-- `GET /api/v1/query/world/map`
 - `GET /api/v1/query/events`
 - `GET /api/v1/query/detail?type=avatar|region|sect&id=<target_id>`
-- `GET /api/v1/query/rankings`
-- `GET /api/v1/query/sect-relations`
-- `GET /api/v1/query/sects/territories`
-- `GET /api/v1/query/meta/game-data`
-- `GET /api/v1/query/meta/avatars`
-- `GET /api/v1/query/meta/avatar-adjust-options`
-- `GET /api/v1/query/meta/avatar-list`
-- `GET /api/v1/query/meta/phenomena`
-- `GET /api/v1/query/mortals/overview`
-- `GET /api/v1/query/dynasty/overview`
-- `GET /api/v1/query/dynasty/detail`
-- `GET /api/v1/query/saves`
-
-Common control endpoints:
-
 - `POST /api/v1/command/game/start`
-- `POST /api/v1/command/game/pause`
-- `POST /api/v1/command/game/resume`
-- `POST /api/v1/command/game/reset`
-- `POST /api/v1/command/game/reinit`
-- `POST /api/v1/command/game/save`
-- `POST /api/v1/command/game/load`
-- `POST /api/v1/command/game/delete-save`
-- `POST /api/v1/command/system/shutdown`
-- `DELETE /api/v1/command/events/cleanup`
-- `POST /api/v1/command/world/set-phenomenon`
-- `POST /api/v1/command/avatar/set-long-term-objective`
-- `POST /api/v1/command/avatar/clear-long-term-objective`
-- `POST /api/v1/command/avatar/create`
-- `POST /api/v1/command/avatar/delete`
-- `POST /api/v1/command/avatar/update-adjustment`
-- `POST /api/v1/command/avatar/update-portrait`
-- `POST /api/v1/command/avatar/generate-custom-content`
-- `POST /api/v1/command/avatar/create-custom-content`
-
-API contract:
-
-- Success response:
-  ```json
-  {
-    "ok": true,
-    "data": {}
-  }
-  ```
-- Failures return structured errors. Use `detail.code` and `detail.message` for programmatic handling.
+- `POST /api/v1/command/avatar/*`
+- `POST /api/v1/command/world/*`
 
 A minimal integration flow is usually:
 
-1. Call `GET /api/v1/query/runtime/status` to check whether the game is initialized.
-2. If not started, call `POST /api/v1/command/game/start` with initialization parameters.
-3. Use `GET /api/v1/query/world/state`, `/events`, and `/detail` to fetch world snapshots and target details.
-4. Execute interventions through `POST /api/v1/command/avatar/*` or `POST /api/v1/command/world/*` according to your policy.
-5. For avatar editors or agent-driven extension, fetch candidate resources via `/api/v1/query/meta/avatars`, `/api/v1/query/meta/game-data`, and `/api/v1/query/meta/avatar-adjust-options`, then generate drafts with `/api/v1/command/avatar/generate-custom-content` and persist them with `/api/v1/command/avatar/create-custom-content`.
-6. Save the current run with `POST /api/v1/command/game/save`, or restore using `/api/v1/query/saves` + `/api/v1/command/game/load`.
+1. Call `GET /api/v1/query/runtime/status` to check current runtime state.
+2. If the game is not initialized, call `POST /api/v1/command/game/start`.
+3. Pull world snapshots and target information via `world/state`, `events`, and `detail`.
+4. Execute one intervention via a `command`.
+5. Re-run `query` calls after each intervention; do not infer results from local cache.
 
-If you want to build a minimal Claw / agent control skill, this loop is recommended:
+Successful responses usually return:
 
-1. Start each round with `GET /api/v1/query/runtime/status`.
-2. If not ready, choose `start`, keep polling, or `reinit` based on status.
-3. Once ready, query `world/state`, `events`, and `detail`.
-4. Then execute one semantic `command`.
-5. After each command, query again instead of relying on local cache.
+```json
+{
+  "ok": true,
+  "data": {}
+}
+```
 
-If you plan to add a new public API endpoint later, follow this pattern:
+On failure, structured errors are returned. Read `detail.code` and `detail.message` for programmatic branching.
 
-- Add new read-only capability to `src/server/public_query_builders.py`.
-- Add new write capability to `src/server/command_handlers.py`.
-- Any endpoint that mutates world/sim must go through unified mutation serialization.
-- If frontend consumes it, update `web/src/types/api.ts` and related mappers together.
+Additional notes:
 
-For a more complete design reference:
-
-- `docs/specs/external-control-api.md`
+- App settings are still managed via `/api/settings*` and `/api/settings/llm*`; they are the source of truth for settings and not part of the external control compatibility layer.
+- For the complete API list, layering design, and extension conventions, see `docs/specs/external-control-api.md`.
 
 </details>
 

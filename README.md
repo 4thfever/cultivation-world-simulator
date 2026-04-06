@@ -146,103 +146,48 @@ docker-compose up -d --build
 </details>
 
 <details>
-<summary><b>外接 API / Agent 接入 (点击展开)</b></summary>
+<summary><b>外接 API / Agent/Claw 接入 (点击展开)</b></summary>
 
-适合以下场景：
-
-- 用 Claw / agent 观察世界状态
-- 做外部 AI skill 或自动化脚本
-- 实现“观察 -> 决策 -> 干预 -> 再观察”的闭环游玩
+这部分适合做外部 agent / Claw 接入、自动化脚本，或者实现“观察 -> 决策 -> 干预 -> 再观察”的闭环游玩。
 
 推荐直接围绕稳定命名空间开发：
 
 - 只读查询：`/api/v1/query/*`
 - 受控写入：`/api/v1/command/*`
 
-补充说明：
-
-- 应用设置仍通过 `/api/settings*` 与 `/api/settings/llm*` 管理，它们属于设置真源，不属于外接控制兼容层。
-
-常用只读接口：
+常见起点接口：
 
 - `GET /api/v1/query/runtime/status`
 - `GET /api/v1/query/world/state`
-- `GET /api/v1/query/world/map`
 - `GET /api/v1/query/events`
 - `GET /api/v1/query/detail?type=avatar|region|sect&id=<target_id>`
-- `GET /api/v1/query/rankings`
-- `GET /api/v1/query/sect-relations`
-- `GET /api/v1/query/sects/territories`
-- `GET /api/v1/query/meta/game-data`
-- `GET /api/v1/query/meta/avatars`
-- `GET /api/v1/query/meta/avatar-adjust-options`
-- `GET /api/v1/query/meta/avatar-list`
-- `GET /api/v1/query/meta/phenomena`
-- `GET /api/v1/query/mortals/overview`
-- `GET /api/v1/query/dynasty/overview`
-- `GET /api/v1/query/dynasty/detail`
-- `GET /api/v1/query/saves`
-
-常用控制接口：
-
 - `POST /api/v1/command/game/start`
-- `POST /api/v1/command/game/pause`
-- `POST /api/v1/command/game/resume`
-- `POST /api/v1/command/game/reset`
-- `POST /api/v1/command/game/reinit`
-- `POST /api/v1/command/game/save`
-- `POST /api/v1/command/game/load`
-- `POST /api/v1/command/game/delete-save`
-- `POST /api/v1/command/system/shutdown`
-- `DELETE /api/v1/command/events/cleanup`
-- `POST /api/v1/command/world/set-phenomenon`
-- `POST /api/v1/command/avatar/set-long-term-objective`
-- `POST /api/v1/command/avatar/clear-long-term-objective`
-- `POST /api/v1/command/avatar/create`
-- `POST /api/v1/command/avatar/delete`
-- `POST /api/v1/command/avatar/update-adjustment`
-- `POST /api/v1/command/avatar/update-portrait`
-- `POST /api/v1/command/avatar/generate-custom-content`
-- `POST /api/v1/command/avatar/create-custom-content`
+- `POST /api/v1/command/avatar/*`
+- `POST /api/v1/command/world/*`
 
-接口约定：
+最小接入流程通常是：
 
-- 成功返回：
-  ```json
-  {
-    "ok": true,
-    "data": {}
-  }
-  ```
-- 失败时返回结构化错误，可读取 `detail.code` 与 `detail.message` 做程序判断。
+1. 先调用 `GET /api/v1/query/runtime/status` 判断当前运行状态。
+2. 如未开局，调用 `POST /api/v1/command/game/start` 初始化。
+3. 用 `world/state`、`events`、`detail` 拉取世界快照与目标信息。
+4. 根据策略调用一个 `command` 执行干预。
+5. 干预后重新 `query`，不要依赖本地缓存推断结果。
 
-一个最小接入流程通常是：
+接口成功时通常返回：
 
-1. 调 `GET /api/v1/query/runtime/status` 判断当前是否已初始化。
-2. 如未开局，调用 `POST /api/v1/command/game/start` 提交开局参数。
-3. 用 `GET /api/v1/query/world/state`、`/events`、`/detail` 获取世界快照与目标信息。
-4. 根据策略调用 `POST /api/v1/command/avatar/*` 或 `POST /api/v1/command/world/*` 执行干预。
-5. 若要做角色编辑器或 agent 自主扩展，可先用 `/api/v1/query/meta/avatars`、`/api/v1/query/meta/game-data`、`/api/v1/query/meta/avatar-adjust-options` 拉取可选资源，再通过 `/api/v1/command/avatar/generate-custom-content` 生成草稿、`/api/v1/command/avatar/create-custom-content` 正式落库。
-6. 在需要时调用 `POST /api/v1/command/game/save` 保存当前局，或通过 `/api/v1/query/saves` + `/api/v1/command/game/load` 恢复存档。
+```json
+{
+  "ok": true,
+  "data": {}
+}
+```
 
-如果要做一个最小的 Claw / agent 控制 skill，推荐直接采用下面的回路：
+失败时会返回结构化错误，可读取 `detail.code` 与 `detail.message` 做程序判断。
 
-1. 每轮先调 `GET /api/v1/query/runtime/status`
-2. 若未 ready，就根据状态选择 `start`、继续轮询，或 `reinit`
-3. ready 后再调 `world/state`、`events`、`detail`
-4. 再调用一个有语义的 `command`
-5. command 后重新 query，而不是依赖本地缓存
+补充说明：
 
-如果后续要给项目新增一个公共接口，也推荐按这个范式扩展：
-
-- 新只读能力优先加到 `src/server/public_query_builders.py`
-- 新写能力优先加到 `src/server/command_handlers.py`
-- 会改 world / sim 的接口必须走统一 mutation 串行化
-- 前端要消费时，同步更新 `web/src/types/api.ts` 与 mapper
-
-更完整的设计说明请参考：
-
-- `docs/specs/external-control-api.md`
+- 应用设置仍通过 `/api/settings*` 与 `/api/settings/llm*` 管理，它们属于设置真源，不属于外接控制兼容层。
+- 更完整的接口清单、分层设计与扩展约定请参考 `docs/specs/external-control-api.md`。
 
 </details>
 

@@ -147,101 +147,46 @@ Backend container dùng `CWS_DATA_DIR=/data` để lưu bền vững dữ liệu
 <details>
 <summary><b>API bên ngoài / Tích hợp Agent (nhấn để mở)</b></summary>
 
-Phù hợp cho các tình huống:
+Phần này phù hợp cho việc tích hợp agent / Claw bên ngoài, script tự động hóa, hoặc cách chơi theo vòng lặp "quan sát -> quyết định -> can thiệp -> quan sát lại".
 
-- Dùng Claw / agent để quan sát trạng thái thế giới
-- Xây dựng AI skill bên ngoài hoặc script tự động hóa
-- Triển khai vòng lặp "quan sát -> quyết định -> can thiệp -> quan sát lại"
-
-Nên phát triển trực tiếp quanh namespace ổn định:
+Nên tích hợp trực tiếp theo namespace ổn định:
 
 - Truy vấn chỉ đọc: `/api/v1/query/*`
 - Ghi có kiểm soát: `/api/v1/command/*`
 
-Ghi chú thêm:
-
-- Thiết lập ứng dụng vẫn được quản lý qua `/api/settings*` và `/api/settings/llm*`; đây là nguồn sự thật cho cấu hình, không thuộc lớp tương thích điều khiển bên ngoài.
-
-Các endpoint chỉ đọc thường dùng:
+Các endpoint khởi đầu thường dùng:
 
 - `GET /api/v1/query/runtime/status`
 - `GET /api/v1/query/world/state`
-- `GET /api/v1/query/world/map`
 - `GET /api/v1/query/events`
 - `GET /api/v1/query/detail?type=avatar|region|sect&id=<target_id>`
-- `GET /api/v1/query/rankings`
-- `GET /api/v1/query/sect-relations`
-- `GET /api/v1/query/sects/territories`
-- `GET /api/v1/query/meta/game-data`
-- `GET /api/v1/query/meta/avatars`
-- `GET /api/v1/query/meta/avatar-adjust-options`
-- `GET /api/v1/query/meta/avatar-list`
-- `GET /api/v1/query/meta/phenomena`
-- `GET /api/v1/query/mortals/overview`
-- `GET /api/v1/query/dynasty/overview`
-- `GET /api/v1/query/dynasty/detail`
-- `GET /api/v1/query/saves`
-
-Các endpoint điều khiển thường dùng:
-
 - `POST /api/v1/command/game/start`
-- `POST /api/v1/command/game/pause`
-- `POST /api/v1/command/game/resume`
-- `POST /api/v1/command/game/reset`
-- `POST /api/v1/command/game/reinit`
-- `POST /api/v1/command/game/save`
-- `POST /api/v1/command/game/load`
-- `POST /api/v1/command/game/delete-save`
-- `POST /api/v1/command/system/shutdown`
-- `DELETE /api/v1/command/events/cleanup`
-- `POST /api/v1/command/world/set-phenomenon`
-- `POST /api/v1/command/avatar/set-long-term-objective`
-- `POST /api/v1/command/avatar/clear-long-term-objective`
-- `POST /api/v1/command/avatar/create`
-- `POST /api/v1/command/avatar/delete`
-- `POST /api/v1/command/avatar/update-adjustment`
-- `POST /api/v1/command/avatar/update-portrait`
-- `POST /api/v1/command/avatar/generate-custom-content`
-- `POST /api/v1/command/avatar/create-custom-content`
+- `POST /api/v1/command/avatar/*`
+- `POST /api/v1/command/world/*`
 
-Quy ước API:
+Quy trình tích hợp tối thiểu thường là:
 
-- Trả về khi thành công:
-  ```json
-  {
-    "ok": true,
-    "data": {}
-  }
-  ```
-- Khi thất bại sẽ trả lỗi có cấu trúc; có thể đọc `detail.code` và `detail.message` để xử lý theo chương trình.
+1. Gọi `GET /api/v1/query/runtime/status` để kiểm tra trạng thái chạy hiện tại.
+2. Nếu ván chưa khởi tạo, gọi `POST /api/v1/command/game/start`.
+3. Dùng `world/state`, `events`, `detail` để lấy snapshot thế giới và thông tin mục tiêu.
+4. Thực thi một hành động can thiệp qua `command`.
+5. Sau can thiệp, gọi lại `query`; không suy đoán kết quả từ cache cục bộ.
 
-Một quy trình tích hợp tối thiểu thường là:
+Khi thành công, API thường trả về:
 
-1. Gọi `GET /api/v1/query/runtime/status` để kiểm tra đã khởi tạo hay chưa.
-2. Nếu chưa vào ván, gọi `POST /api/v1/command/game/start` để gửi tham số mở ván.
-3. Dùng `GET /api/v1/query/world/state`, `/events`, `/detail` để lấy snapshot thế giới và thông tin mục tiêu.
-4. Theo chiến lược, gọi `POST /api/v1/command/avatar/*` hoặc `POST /api/v1/command/world/*` để can thiệp.
-5. Nếu làm trình chỉnh sửa nhân vật hoặc mở rộng agent, có thể lấy tài nguyên tùy chọn qua `/api/v1/query/meta/avatars`, `/api/v1/query/meta/game-data`, `/api/v1/query/meta/avatar-adjust-options`, sau đó tạo bản nháp bằng `/api/v1/command/avatar/generate-custom-content` và lưu chính thức bằng `/api/v1/command/avatar/create-custom-content`.
-6. Khi cần, gọi `POST /api/v1/command/game/save` để lưu ván hiện tại, hoặc khôi phục qua `/api/v1/query/saves` + `/api/v1/command/game/load`.
+```json
+{
+  "ok": true,
+  "data": {}
+}
+```
 
-Nếu bạn muốn làm một skill điều khiển Claw / agent ở mức tối thiểu, nên đi theo vòng lặp sau:
+Khi thất bại, API trả lỗi có cấu trúc; có thể đọc `detail.code` và `detail.message` để xử lý theo chương trình.
 
-1. Mỗi vòng đều gọi `GET /api/v1/query/runtime/status` trước.
-2. Nếu chưa ready, dựa vào trạng thái để chọn `start`, tiếp tục polling, hoặc `reinit`.
-3. Khi đã ready, mới gọi `world/state`, `events`, `detail`.
-4. Sau đó thực thi một `command` có ngữ nghĩa rõ ràng.
-5. Sau mỗi command, hãy query lại thay vì dựa vào cache cục bộ.
+Ghi chú bổ sung:
 
-Nếu sau này cần thêm một public API mới cho dự án, cũng nên theo cùng khuôn mẫu:
-
-- Năng lực chỉ đọc mới ưu tiên thêm vào `src/server/public_query_builders.py`.
-- Năng lực ghi mới ưu tiên thêm vào `src/server/command_handlers.py`.
-- Endpoint nào sửa world / sim bắt buộc đi qua cơ chế tuần tự hóa mutation thống nhất.
-- Khi frontend dùng endpoint mới, cập nhật đồng thời `web/src/types/api.ts` và mapper liên quan.
-
-Tài liệu thiết kế đầy đủ hơn:
-
-- `docs/specs/external-control-api.md`
+- Thiết lập ứng dụng vẫn được quản lý qua `/api/settings*` và `/api/settings/llm*`; đây là nguồn sự thật cho cấu hình, không thuộc lớp tương thích điều khiển bên ngoài.
+- Danh sách API đầy đủ hơn, thiết kế phân lớp và quy ước mở rộng xem tại `docs/specs/external-control-api.md`.
 
 </details>
 
