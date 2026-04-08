@@ -215,6 +215,12 @@ docker-compose up -d --build
   </a>
 </div>
 
+## プラグイン
+
+本リポジトリ向けプラグインを提供してくださったコントリビューターの皆さまに感謝します。
+
+- [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">

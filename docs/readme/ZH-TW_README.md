@@ -219,6 +219,12 @@ docker-compose up -d --build
   </a>
 </div>
 
+## 插件
+
+感謝貢獻者為本倉庫提供插件。
+
+- [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+
 ## 👥 貢獻者
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">

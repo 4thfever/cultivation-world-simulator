@@ -220,6 +220,12 @@ Nếu bạn thấy dự án này thú vị, hãy cho chúng tôi một Star ⭐.
   </a>
 </div>
 
+## Plugin
+
+Cảm ơn các contributor đã đóng góp plugin cho repo này.
+
+- [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">

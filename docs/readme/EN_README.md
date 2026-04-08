@@ -219,6 +219,12 @@ If you find this project interesting, please give us a Star ⭐! This will inspi
   </a>
 </div>
 
+## Plugins
+
+Thanks to contributors for building plugins for this repository.
+
+- [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
