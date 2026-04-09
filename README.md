@@ -225,6 +225,7 @@ docker-compose up -d --build
 感谢贡献者为本 repo 贡献插件。
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+- [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
 
 ## 👥 贡献者
 

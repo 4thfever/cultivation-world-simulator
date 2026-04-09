@@ -224,6 +224,7 @@ If you find this project interesting, please give us a Star ⭐! This will inspi
 Thanks to contributors for building plugins for this repository.
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+- [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
 
 ## 👥 Contributors
 

@@ -225,6 +225,7 @@ Nếu bạn thấy dự án này thú vị, hãy cho chúng tôi một Star ⭐.
 Cảm ơn các contributor đã đóng góp plugin cho repo này.
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
+- [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
 
 ## 👥 Contributors
 
