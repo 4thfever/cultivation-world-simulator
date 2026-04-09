@@ -14,6 +14,9 @@ import StatusBar from './components/layout/StatusBar.vue'
 import EventPanel from './components/game/panels/EventPanel.vue'
 import SystemMenu from './components/SystemMenu.vue'
 import LoadingOverlay from './components/LoadingOverlay.vue'
+import menuIcon from '@/assets/icons/ui/lucide/menu.svg'
+import playIcon from '@/assets/icons/ui/lucide/play.svg'
+import pauseIcon from '@/assets/icons/ui/lucide/pause.svg'
 
 // Composables
 import { useGameInit } from './composables/useGameInit'
@@ -174,21 +177,20 @@ watch(sidebarWidth, width => {
               <div class="top-controls">
                 <!-- 暂停/播放按钮 -->
                 <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
-                  <!-- 播放图标 (当暂停时显示) -->
-                  <svg v-if="isManualPaused" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M8 5v14l11-7z"/>
-                  </svg>
-                  <!-- 暂停图标 (当播放时显示) -->
-                  <svg v-else viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                  </svg>
+                  <span
+                    class="control-btn-icon"
+                    :style="{ '--icon-url': `url(${isManualPaused ? playIcon : pauseIcon})` }"
+                    aria-hidden="true"
+                  ></span>
                 </button>
 
                 <!-- 菜单按钮 -->
                 <button class="control-btn menu-toggle" @click="openGameMenu()">
-                  <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                  </svg>
+                  <span
+                    class="control-btn-icon"
+                    :style="{ '--icon-url': `url(${menuIcon})` }"
+                    aria-hidden="true"
+                  ></span>
                 </button>
               </div>
 
@@ -286,6 +288,21 @@ watch(sidebarWidth, width => {
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+}
+
+.control-btn-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .control-btn:hover {

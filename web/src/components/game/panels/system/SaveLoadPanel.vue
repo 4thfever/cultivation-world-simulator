@@ -7,6 +7,15 @@ import { useWorldStore } from '../../../../stores/world'
 import { useUiStore } from '../../../../stores/ui'
 import { useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import plusIcon from '@/assets/icons/ui/lucide/plus.svg'
+import zapIcon from '@/assets/icons/ui/lucide/zap.svg'
+import clockIcon from '@/assets/icons/ui/lucide/clock-3.svg'
+import usersIcon from '@/assets/icons/ui/lucide/users.svg'
+import scrollTextIcon from '@/assets/icons/ui/lucide/scroll-text.svg'
+import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
+import saveIcon from '@/assets/icons/ui/lucide/save.svg'
+import folderOpenIcon from '@/assets/icons/ui/lucide/folder-open.svg'
+import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
 
 const { t } = useI18n()
 
@@ -166,14 +175,14 @@ onMounted(() => {
     <template v-if="mode === 'save'">
       <div class="save-actions">
         <div class="new-save-card" @click="openSaveModal">
-          <div class="icon">+</div>
+          <div class="icon icon-mask" :style="{ '--icon-url': `url(${plusIcon})` }" aria-hidden="true"></div>
           <div>{{ t('save_load.new_save') }}</div>
           <div class="sub">{{ t('save_load.new_save_desc') }}</div>
         </div>
         <div class="quick-save-card" @click="handleQuickSave">
           <div class="icon">
             <NSpin v-if="saving" size="small" />
-            <span v-else>&#9889;</span>
+            <span v-else class="icon-mask" :style="{ '--icon-url': `url(${zapIcon})` }" aria-hidden="true"></span>
           </div>
           <div>{{ t('save_load.quick_save') }}</div>
           <div class="sub">{{ t('save_load.quick_save_desc') }}</div>
@@ -194,17 +203,32 @@ onMounted(() => {
         <div class="save-info">
           <div class="save-header">
             <span class="save-name">{{ getSaveDisplayName(save) }}</span>
-            <span v-if="save.is_auto_save" class="auto-save-badge">{{ t('ui.auto_save') }}</span>
+            <span v-if="save.is_auto_save" class="auto-save-badge">
+              <span class="meta-icon auto-save-icon" :style="{ '--icon-url': `url(${saveIcon})` }" aria-hidden="true"></span>
+              {{ t('ui.auto_save') }}
+            </span>
           </div>
           <div class="save-meta">
-            <span class="game-time">{{ t('save_load.game_time', { time: save.game_time }) }}</span>
+            <span class="save-meta-item game-time">
+              <span class="meta-icon" :style="{ '--icon-url': `url(${clockIcon})` }" aria-hidden="true"></span>
+              {{ t('save_load.game_time', { time: save.game_time }) }}
+            </span>
             <span class="divider">|</span>
-            <span class="avatar-count">{{ t('save_load.avatar_count', { alive: save.alive_count, total: save.avatar_count }) }}</span>
+            <span class="save-meta-item avatar-count">
+              <span class="meta-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></span>
+              {{ t('save_load.avatar_count', { alive: save.alive_count, total: save.avatar_count }) }}
+            </span>
             <span class="divider">|</span>
-            <span class="event-count">{{ t('save_load.event_count', { count: save.event_count }) }}</span>
+            <span class="save-meta-item event-count">
+              <span class="meta-icon" :style="{ '--icon-url': `url(${scrollTextIcon})` }" aria-hidden="true"></span>
+              {{ t('save_load.event_count', { count: save.event_count }) }}
+            </span>
           </div>
           <div class="save-footer">
-            <span class="save-time">{{ formatSaveTime(save.save_time) }}</span>
+            <span class="save-meta-item save-time">
+              <span class="meta-icon" :style="{ '--icon-url': `url(${calendarIcon})` }" aria-hidden="true"></span>
+              {{ formatSaveTime(save.save_time) }}
+            </span>
             <span class="version">v{{ save.version }}</span>
           </div>
         </div>
@@ -215,13 +239,19 @@ onMounted(() => {
              secondary 
              @click.stop="handleDelete(save.filename)"
            >
-             {{ t('save_load.delete') }}
+             <span class="load-action-inner">
+               <span class="button-icon" :style="{ '--icon-url': `url(${trashIcon})` }" aria-hidden="true"></span>
+               <span>{{ t('save_load.delete') }}</span>
+             </span>
            </NButton>
            <NButton
              size="small"
              @click.stop="handleLoad(save.filename)"
            >
-             {{ t('save_load.load') }}
+             <span class="load-action-inner">
+               <span class="button-icon" :style="{ '--icon-url': `url(${folderOpenIcon})` }" aria-hidden="true"></span>
+               <span>{{ t('save_load.load') }}</span>
+             </span>
            </NButton>
         </div>
       </div>
@@ -317,6 +347,26 @@ onMounted(() => {
 .new-save-card .icon, .quick-save-card .icon {
   font-size: 2.5em;
   margin-bottom: 0.2em;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-mask {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .new-save-card .sub, .quick-save-card .sub {
@@ -378,6 +428,9 @@ onMounted(() => {
   border-radius: 4px;
   font-size: 0.75em;
   border: 1px solid #4a7a4a;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
 }
 
 .save-meta {
@@ -386,6 +439,34 @@ onMounted(() => {
   gap: 0.5em;
   margin-bottom: 0.3em;
   font-size: 0.85em;
+}
+
+.save-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.meta-icon,
+.button-icon {
+  width: 0.95em;
+  height: 0.95em;
+  flex-shrink: 0;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.auto-save-icon {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .game-time {
@@ -420,6 +501,12 @@ onMounted(() => {
   display: flex;
   gap: 1em;
   align-items: center;
+}
+
+.load-action-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
 }
 
 .loading {

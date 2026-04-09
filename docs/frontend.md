@@ -239,3 +239,28 @@
     *   `lastLoadDurationMs`：历史事件加载耗时。
 
 这些指标用于回归比较，不用于线上用户可见展示。
+
+## 9. UI Icon 约定 (UI Icon Guidelines)
+
+当前前端已收敛出一套统一的 UI icon 方案，后续新增系统级 icon 时应优先复用，而不是重新从不同站点混搭。
+
+1. **单一来源**:
+   * 当前统一使用 `Lucide` outline SVG。
+   * 本地图标目录：`web/src/assets/icons/ui/lucide/`
+   * 来源与当前映射说明：`web/src/assets/icons/ui/lucide/README.md`
+2. **使用范围**:
+   * 顶部悬浮控制按钮
+   * 系统菜单 tab
+   * 顶部状态栏入口
+   * 设置页、存档页、关于/其他等系统级面板
+3. **风格约束**:
+   * 不要在同一 UI 区域混用多个 icon 家族。
+   * 默认使用 outline 风格，不与 filled / emoji / 彩色拟物图标混搭。
+   * icon 只作为辅助识别，不替代多语言文案；关键入口旁必须保留文字。
+4. **技术形态**:
+   * 优先通过 `import xxxIcon from '@/assets/icons/ui/lucide/*.svg'` 模块导入。
+   * 优先使用 `currentColor + mask-image` 渲染，让 hover / active / disabled 状态与文字颜色保持一致。
+   * 不要为同类按钮分别内嵌手写 SVG，除非现有 icon 库确实没有合适素材。
+5. **增量维护**:
+   * 新增 icon 前先检查 `web/src/assets/icons/ui/lucide/` 是否已有可复用图标。
+   * 若需下载新图标，优先补到同一目录，并同步更新该目录下 README 的来源与建议映射。

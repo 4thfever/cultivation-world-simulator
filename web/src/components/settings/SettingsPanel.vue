@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { NIcon, NSelect, NSlider, NSwitch } from 'naive-ui'
+import { NSelect, NSlider, NSwitch } from 'naive-ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { localeRegistry } from '@/locales/registry'
 import { useSettingStore } from '@/stores/setting'
+import languagesIcon from '@/assets/icons/ui/lucide/languages.svg'
+import volumeIcon from '@/assets/icons/ui/lucide/volume-2.svg'
+import saveIcon from '@/assets/icons/ui/lucide/save.svg'
 
 const { t } = useI18n()
 const settingStore = useSettingStore()
@@ -27,13 +30,7 @@ const languageOptions = computed(() =>
     <div class="settings-form">
       <div class="setting-item">
         <div class="setting-label-group">
-          <n-icon size="24" color="#eee" class="setting-icon language-badge-icon" aria-label="Language">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-              <rect x="6" y="10" width="52" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="4"/>
-              <path fill="currentColor" d="M15 22h18v4H15zm2 8h14v4H17zm-3 8h20v4H14z"/>
-              <path fill="currentColor" d="M44 21l8 21h-4.4l-1.6-4.5h-8L36.4 42H32l8-21zm.7 12.8l-2.7-7.8l-2.8 7.8z"/>
-            </svg>
-          </n-icon>
+          <span class="setting-icon language-badge-icon" :style="{ '--icon-url': `url(${languagesIcon})` }" aria-label="Language"></span>
           <span class="setting-label">{{ t('ui.language') }}</span>
         </div>
         <n-select
@@ -46,9 +43,7 @@ const languageOptions = computed(() =>
 
       <div class="setting-item">
         <div class="setting-label-group">
-          <n-icon size="24" color="#eee" class="setting-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M264 416.19a23.92 23.92 0 0 1-14.21-4.69l-.66-.51l-91.46-75H88a24 24 0 0 1-24-24V200a24 24 0 0 1 24-24h69.65l91.46-75l.66-.51A24 24 0 0 1 288 119.69v272.62a24 24 0 0 1-24 23.88Z"/><path fill="currentColor" d="M352 336a16 16 0 0 1-14.29-23.18c9.49-18.9 14.29-39.8 14.29-62.18s-4.8-43.28-14.29-62.18A16 16 0 1 1 366.29 174c12.78 25.4 19.24 53.48 19.24 83.35s-6.46 58-19.24 83.35A16 16 0 0 1 352 336Z"/><path fill="currentColor" d="M400 384a16 16 0 0 1-13.87-24c19.16-32.9 29.3-70.19 29.3-108s-10.14-75.1-29.3-108a16 16 0 1 1 27.74-16c21.85 37.52 33.56 80.77 33.56 124s-11.71 86.48-33.56 124A16 16 0 0 1 400 384Z"/></svg>
-          </n-icon>
+          <span class="setting-icon" :style="{ '--icon-url': `url(${volumeIcon})` }" aria-hidden="true"></span>
           <span class="setting-label">{{ t('ui.sound') }}</span>
         </div>
 
@@ -87,9 +82,7 @@ const languageOptions = computed(() =>
 
       <div class="setting-item">
         <div class="setting-label-group">
-          <n-icon size="24" color="#eee" class="setting-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5l-5-5l1.41-1.41L11 12.67V3h2v9.67z"/></svg>
-          </n-icon>
+          <span class="setting-icon" :style="{ '--icon-url': `url(${saveIcon})` }" aria-hidden="true"></span>
           <div class="setting-description">
             <span class="setting-label">{{ t('ui.auto_save') }}</span>
             <span class="setting-subtitle">{{ t('ui.auto_save_desc') }}</span>
@@ -146,10 +139,22 @@ const languageOptions = computed(() =>
 }
 
 .setting-icon {
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.9;
+  color: #eee;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .language-badge-icon {

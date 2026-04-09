@@ -78,6 +78,24 @@ describe('StatusWidget', () => {
     expect(wrapper.text()).toContain('Test Label')
   })
 
+  it('should render icon slot when icon url is provided', () => {
+    const wrapper = mount(StatusWidget, {
+      props: {
+        ...defaultProps,
+        icon: '/icons/test.svg',
+      },
+      global: {
+        directives: {
+          sound: soundDirective,
+        },
+      },
+    })
+
+    const icon = wrapper.find('.widget-icon')
+    expect(icon.exists()).toBe(true)
+    expect(icon.attributes('style')).toContain('url(/icons/test.svg)')
+  })
+
   it('should render label with custom color', () => {
     const wrapper = mount(StatusWidget, {
       props: {

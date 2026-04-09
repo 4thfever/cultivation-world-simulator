@@ -12,6 +12,13 @@ import TournamentModal from '../game/panels/TournamentModal.vue'
 import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
+import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
+import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
+import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
+import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
+import swordsIcon from '@/assets/icons/ui/lucide/swords.svg'
+import usersIcon from '@/assets/icons/ui/lucide/users.svg'
+import landmarkIcon from '@/assets/icons/ui/lucide/landmark.svg'
 
 const { t, locale } = useI18n()
 const store = useWorldStore()
@@ -87,6 +94,7 @@ async function handleSelect(id: number, name: string) {
 
       <StatusWidget
         :label="t('game.status_bar.world_info.label')"
+        :icon="bookOpenIcon"
         color="#91caff"
         mode="single"
         :disable-popover="true"
@@ -98,6 +106,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget 
         v-if="store.currentPhenomenon"
         :label="`[${store.currentPhenomenon.name}]`"
+        :icon="sparklesIcon"
         :color="phenomenonColor"
         mode="single"
         :disable-popover="true"
@@ -107,6 +116,7 @@ async function handleSelect(id: number, name: string) {
       <!-- 秘境 -->
       <StatusWidget
         :label="domainLabel"
+        :icon="shieldIcon"
         :color="domainColor"
         mode="list"
         :title="t('game.status_bar.hidden_domain.title')"
@@ -117,6 +127,7 @@ async function handleSelect(id: number, name: string) {
       <!-- 榜单 -->
       <StatusWidget
         :label="t('game.ranking.title_short')"
+        :icon="trophyIcon"
         color="#d4b106"
         mode="single"
         :disable-popover="true"
@@ -126,6 +137,7 @@ async function handleSelect(id: number, name: string) {
       <!-- 武道会 -->
       <StatusWidget
         :label="t('game.ranking.tournament_short')"
+        :icon="swordsIcon"
         color="#d4b106"
         mode="single"
         :disable-popover="true"
@@ -135,6 +147,7 @@ async function handleSelect(id: number, name: string) {
       <!-- 宗门关系 -->
       <StatusWidget
         :label="t('game.sect_relations.title_short')"
+        :icon="shieldIcon"
         color="#597ef7"
         mode="single"
         :disable-popover="true"
@@ -143,6 +156,7 @@ async function handleSelect(id: number, name: string) {
 
       <StatusWidget
         :label="t('game.mortal_system.title_short')"
+        :icon="usersIcon"
         color="#73d13d"
         mode="single"
         :disable-popover="true"
@@ -151,6 +165,7 @@ async function handleSelect(id: number, name: string) {
 
       <StatusWidget
         :label="t('game.dynasty.title_short')"
+        :icon="landmarkIcon"
         color="#d46b08"
         mode="single"
         :disable-popover="true"

@@ -2,6 +2,15 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { SystemMenuTab } from '@/stores/ui'
+import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
+import folderOpenIcon from '@/assets/icons/ui/lucide/folder-open.svg'
+import saveIcon from '@/assets/icons/ui/lucide/save.svg'
+import userPlusIcon from '@/assets/icons/ui/lucide/user-plus.svg'
+import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
+import botIcon from '@/assets/icons/ui/lucide/bot.svg'
+import settingsIcon from '@/assets/icons/ui/lucide/settings.svg'
+import infoIcon from '@/assets/icons/ui/lucide/info.svg'
+import ellipsisIcon from '@/assets/icons/ui/lucide/ellipsis.svg'
 
 const props = defineProps<{
   visible: boolean
@@ -17,16 +26,16 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
-const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: boolean }> => ([
-  { key: 'start', label: t('ui.start_game'), disabled: false },
-  { key: 'load', label: t('ui.load_game'), disabled: false },
-  { key: 'save', label: t('ui.save_game'), disabled: !props.gameInitialized },
-  { key: 'create', label: t('ui.create_character'), disabled: !props.gameInitialized },
-  { key: 'delete', label: t('ui.delete_character'), disabled: !props.gameInitialized },
-  { key: 'llm', label: t('ui.llm_settings'), disabled: false },
-  { key: 'settings', label: t('ui.settings'), disabled: false },
-  { key: 'about', label: t('ui.about'), disabled: false },
-  { key: 'other', label: t('ui.other'), disabled: false },
+const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: boolean; icon: string }> => ([
+  { key: 'start', label: t('ui.start_game'), disabled: false, icon: sparklesIcon },
+  { key: 'load', label: t('ui.load_game'), disabled: false, icon: folderOpenIcon },
+  { key: 'save', label: t('ui.save_game'), disabled: !props.gameInitialized, icon: saveIcon },
+  { key: 'create', label: t('ui.create_character'), disabled: !props.gameInitialized, icon: userPlusIcon },
+  { key: 'delete', label: t('ui.delete_character'), disabled: !props.gameInitialized, icon: trashIcon },
+  { key: 'llm', label: t('ui.llm_settings'), disabled: false, icon: botIcon },
+  { key: 'settings', label: t('ui.settings'), disabled: false, icon: settingsIcon },
+  { key: 'about', label: t('ui.about'), disabled: false, icon: infoIcon },
+  { key: 'other', label: t('ui.other'), disabled: false, icon: ellipsisIcon },
 ]))
 </script>
 
@@ -54,7 +63,10 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
           @click="emit('tab-change', tab.key)"
           v-sound:select
         >
-          {{ tab.label }}
+          <span class="tab-inner">
+            <span class="tab-icon" :style="{ '--icon-url': `url(${tab.icon})` }" aria-hidden="true"></span>
+            <span class="tab-label">{{ tab.label }}</span>
+          </span>
         </button>
       </div>
 
@@ -129,6 +141,34 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
   cursor: pointer;
   transition: all 0.2s;
   font-size: 1em;
+}
+
+.tab-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-width: 0;
+}
+
+.tab-label {
+  min-width: 0;
+}
+
+.tab-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .menu-tabs button:hover:not(:disabled) {

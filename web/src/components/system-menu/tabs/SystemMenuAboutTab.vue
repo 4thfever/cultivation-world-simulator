@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import folderGitIcon from '@/assets/icons/ui/lucide/folder-git-2.svg'
+import usersIcon from '@/assets/icons/ui/lucide/users.svg'
+import chevronRightIcon from '@/assets/icons/ui/lucide/chevron-right.svg'
 
 const { t } = useI18n()
 
@@ -21,13 +24,13 @@ function openLink(url: string) {
         v-sound
       >
         <div class="btn-content">
-          <div class="btn-icon">⭐</div>
+          <div class="btn-icon" :style="{ '--icon-url': `url(${folderGitIcon})` }" aria-hidden="true"></div>
           <div class="btn-text-group">
             <span class="btn-title">{{ t('ui.about_github') }}</span>
             <span class="btn-desc">{{ t('ui.about_github_desc') }}</span>
           </div>
         </div>
-        <div class="btn-arrow">❯</div>
+        <div class="btn-arrow" :style="{ '--icon-url': `url(${chevronRightIcon})` }" aria-hidden="true"></div>
       </button>
 
       <button
@@ -36,13 +39,13 @@ function openLink(url: string) {
         v-sound
       >
         <div class="btn-content">
-          <div class="btn-icon">👥</div>
+          <div class="btn-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></div>
           <div class="btn-text-group">
             <span class="btn-title">{{ t('ui.about_contributors') }}</span>
             <span class="btn-desc">{{ t('ui.about_contributors_desc') }}</span>
           </div>
         </div>
-        <div class="btn-arrow">❯</div>
+        <div class="btn-arrow" :style="{ '--icon-url': `url(${chevronRightIcon})` }" aria-hidden="true"></div>
       </button>
     </div>
   </div>
@@ -103,10 +106,19 @@ function openLink(url: string) {
 }
 
 .btn-icon {
-  font-size: 24px;
+  width: 24px;
+  height: 24px;
   opacity: 0.8;
-  width: 32px;
-  text-align: center;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .btn-text-group {
@@ -127,7 +139,18 @@ function openLink(url: string) {
 }
 
 .btn-arrow {
-  font-size: 18px;
+  width: 18px;
+  height: 18px;
   opacity: 0.3;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 </style>

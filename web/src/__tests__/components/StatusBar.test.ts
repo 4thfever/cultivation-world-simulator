@@ -133,12 +133,13 @@ vi.mock('naive-ui', () => ({
 // Stub StatusWidget.
 const StatusWidgetStub = defineComponent({
   name: 'StatusWidget',
-  props: ['label', 'color', 'mode', 'disablePopover', 'title', 'items', 'emptyText'],
+  props: ['label', 'icon', 'color', 'mode', 'disablePopover', 'title', 'items', 'emptyText'],
   emits: ['trigger-click'],
   setup(props, { emit }) {
     return () => h('div', {
       class: 'status-widget-stub',
       'data-label': props.label,
+      'data-icon': props.icon,
       'data-color': props.color,
       onClick: () => emit('trigger-click'),
     }, props.label)
@@ -277,6 +278,7 @@ describe('StatusBar', () => {
 
       const widgets = wrapper.findAll('.status-widget-stub')
       expect(widgets[0]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
+      expect(widgets[0]?.attributes('data-icon')).toBeTruthy()
       expect(widgets[1]?.attributes('data-label')).toBe('[Test Phenomenon]')
     })
   })

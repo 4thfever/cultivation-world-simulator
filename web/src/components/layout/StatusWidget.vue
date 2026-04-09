@@ -9,6 +9,7 @@ const { t } = useI18n()
 interface Props {
   // 触发器显示
   label: string
+  icon?: string
   color?: string
   
   // 弹窗内容
@@ -46,7 +47,8 @@ const emit = defineEmits(['trigger-click'])
       @click="emit('trigger-click')"
       v-sound="'open'"
     >
-      {{ props.label }}
+      <span v-if="props.icon" class="widget-icon" :style="{ '--icon-url': `url(${props.icon})` }" aria-hidden="true"></span>
+      <span>{{ props.label }}</span>
     </span>
 
     <!-- 分支B: 启用 Popover -->
@@ -58,7 +60,8 @@ const emit = defineEmits(['trigger-click'])
           @click="emit('trigger-click')"
           v-sound="'open'"
         >
-          {{ props.label }}
+          <span v-if="props.icon" class="widget-icon" :style="{ '--icon-url': `url(${props.icon})` }" aria-hidden="true"></span>
+          <span>{{ props.label }}</span>
         </span>
       </template>
       
@@ -108,11 +111,30 @@ const emit = defineEmits(['trigger-click'])
 <style scoped>
 .widget-trigger {
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-weight: bold;
   transition: opacity 0.2s;
 }
 .widget-trigger:hover { opacity: 0.8; }
 .divider { color: #444; margin-right: 10px; }
+
+.widget-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
 
 .list-header {
   font-weight: bold;

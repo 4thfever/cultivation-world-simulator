@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import houseIcon from '@/assets/icons/ui/lucide/house.svg'
+import logOutIcon from '@/assets/icons/ui/lucide/log-out.svg'
+import chevronRightIcon from '@/assets/icons/ui/lucide/chevron-right.svg'
 
 const { t } = useI18n()
 
@@ -19,24 +22,24 @@ const emit = defineEmits<{
     <div class="other-actions">
       <button class="custom-action-btn" @click="emit('return-to-main')" v-sound>
         <div class="btn-content">
-          <div class="btn-icon">🏠</div>
+          <div class="btn-icon" :style="{ '--icon-url': `url(${houseIcon})` }" aria-hidden="true"></div>
           <div class="btn-text-group">
             <span class="btn-title">{{ t('ui.return_to_main') }}</span>
             <span class="btn-desc">{{ t('ui.return_to_main_desc') }}</span>
           </div>
         </div>
-        <div class="btn-arrow">❯</div>
+        <div class="btn-arrow" :style="{ '--icon-url': `url(${chevronRightIcon})` }" aria-hidden="true"></div>
       </button>
 
       <button class="custom-action-btn danger-hover" @click="emit('exit-game')" v-sound>
         <div class="btn-content">
-          <div class="btn-icon">🚪</div>
+          <div class="btn-icon" :style="{ '--icon-url': `url(${logOutIcon})` }" aria-hidden="true"></div>
           <div class="btn-text-group">
             <span class="btn-title">{{ t('ui.quit_game') }}</span>
             <span class="btn-desc">{{ t('ui.quit_game_desc') }}</span>
           </div>
         </div>
-        <div class="btn-arrow">❯</div>
+        <div class="btn-arrow" :style="{ '--icon-url': `url(${chevronRightIcon})` }" aria-hidden="true"></div>
       </button>
     </div>
   </div>
@@ -108,10 +111,19 @@ const emit = defineEmits<{
 }
 
 .btn-icon {
-  font-size: 24px;
+  width: 24px;
+  height: 24px;
   opacity: 0.8;
-  width: 32px;
-  text-align: center;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .btn-text-group {
@@ -132,7 +144,18 @@ const emit = defineEmits<{
 }
 
 .btn-arrow {
-  font-size: 18px;
+  width: 18px;
+  height: 18px;
   opacity: 0.3;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 </style>
