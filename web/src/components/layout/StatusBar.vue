@@ -2,10 +2,8 @@
 import { useWorldStore } from '../../stores/world'
 import { useSocketStore } from '../../stores/socket'
 import { ref, computed } from 'vue'
-import { NModal, NList, NListItem, NTag, NEmpty, useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
-import { useWorldInfo } from '../../composables/useWorldInfo'
 
 import RankingModal from '../game/panels/RankingModal.vue'
 import TournamentModal from '../game/panels/TournamentModal.vue'
@@ -13,6 +11,8 @@ import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.vue'
+import WorldInfoModal from '../game/panels/WorldInfoModal.vue'
+import PhenomenonSelectorModal from '../game/panels/PhenomenonSelectorModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
@@ -25,8 +25,6 @@ import landmarkIcon from '@/assets/icons/ui/lucide/landmark.svg'
 const { t, locale } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
-const { entries: worldInfoEntries, loading: worldInfoLoading } = useWorldInfo()
-const message = useMessage()
 const showSelector = ref(false)
 const showWorldInfoModal = ref(false)
 const showRankingModal = ref(false)
@@ -61,16 +59,6 @@ function getRarityColor(rarity: string) {
 async function openPhenomenonSelector() {
   await store.getPhenomenaList()
   showSelector.value = true
-}
-
-async function handleSelect(id: number, name: string) {
-  try {
-    await store.changePhenomenon(id)
-    message.success(t('game.status_bar.change_success', { name }))
-    showSelector.value = false
-  } catch (e) {
-    message.error(t('common.error'))
-  }
 }
 </script>
 
@@ -150,35 +138,7 @@ async function handleSelect(id: number, name: string) {
     </div>
 
     <RankingModal v-model:show="showRankingModal" />
-
-    <n-modal
-      v-model:show="showWorldInfoModal"
-      preset="card"
-      :title="t('game.status_bar.world_info.title')"
-      style="width: 820px; max-height: 80vh; overflow-y: auto;"
-    >
-      <div class="world-info-card">
-        <div class="world-info-note">
-          <span class="world-info-note-icon" :style="{ '--icon-url': `url(${bookOpenIcon})` }" aria-hidden="true"></span>
-          {{ t('game.status_bar.world_info.ai_knowledge_note') }}
-        </div>
-
-        <div v-if="worldInfoEntries.length > 0" class="world-info-list">
-          <div
-            v-for="entry in worldInfoEntries"
-            :key="entry.id"
-            class="world-info-item"
-          >
-            <div class="world-info-item-title">{{ entry.title }}</div>
-            <div class="world-info-item-desc">{{ entry.desc }}</div>
-          </div>
-        </div>
-
-        <div v-else class="world-info-empty">
-          {{ worldInfoLoading ? t('common.loading') : t('game.status_bar.world_info.empty') }}
-        </div>
-      </div>
-    </n-modal>
+    <WorldInfoModal v-model:show="showWorldInfoModal" />
     
     <TournamentModal v-model:show="showTournamentModal" />
 
@@ -189,33 +149,7 @@ async function handleSelect(id: number, name: string) {
     <MortalOverviewModal v-model:show="showMortalOverviewModal" />
 
     <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
-
-    <n-modal
-      v-model:show="showSelector"
-      preset="card"
-      :title="t('game.status_bar.selector_title')"
-      style="width: 700px; max-height: 80vh; overflow-y: auto;"
-    >
-      <n-list hoverable clickable>
-        <n-list-item v-for="p in store.phenomenaList" :key="p.id" @click="handleSelect(p.id, p.name)" v-sound:select>
-          <div class="list-item-content">
-            <div class="item-left">
-              <div class="item-name" :style="{ color: getRarityColor(p.rarity) }">
-                {{ p.name }}
-                <n-tag size="small" :bordered="false" :color="{ color: 'rgba(255,255,255,0.1)', textColor: getRarityColor(p.rarity) }">
-                  {{ p.rarity }}
-                </n-tag>
-              </div>
-              <div class="item-desc">{{ p.desc }}</div>
-            </div>
-            <div class="item-right">
-               <div class="item-effect" v-if="p.effect_desc">{{ p.effect_desc }}</div>
-            </div>
-          </div>
-        </n-list-item>
-        <n-empty v-if="store.phenomenaList.length === 0" :description="t('game.status_bar.empty_data')" />
-      </n-list>
-    </n-modal>
+    <PhenomenonSelectorModal v-model:show="showSelector" />
 
     <div class="author">
       <a
@@ -265,116 +199,6 @@ async function handleSelect(id: number, name: string) {
   color: #d2c5a3;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-.world-info-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.world-info-note {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: #86afe0;
-  padding: 0 0 10px;
-  border-bottom: 1px solid #2f2f2f;
-}
-
-.world-info-note-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  background-color: currentColor;
-  -webkit-mask-image: var(--icon-url);
-  mask-image: var(--icon-url);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  flex-shrink: 0;
-}
-
-.world-info-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.world-info-item {
-  display: grid;
-  grid-template-columns: 88px minmax(0, 1fr);
-  column-gap: 12px;
-  align-items: start;
-  padding: 8px 0;
-  border-bottom: 1px solid #2f2f2f;
-}
-
-.world-info-item-title {
-  font-size: 15px;
-  font-weight: bold;
-  color: #8fc0ff;
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
-.world-info-item-desc {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #bfd5ef;
-  min-width: 0;
-}
-
-.world-info-empty {
-  font-size: 13px;
-  color: #8ea9c8;
-  padding: 8px 0;
-}
-
-@media (max-width: 640px) {
-  .world-info-item {
-    grid-template-columns: 1fr;
-    row-gap: 2px;
-  }
-
-  .world-info-item-title {
-    white-space: normal;
-  }
-}
-
-.list-item-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 4px 0;
-}
-
-.item-name {
-  font-weight: bold;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.item-desc {
-  color: #aeb4bc;
-  font-size: 13px;
-}
-
-.item-effect {
-  font-size: 12px;
-  color: #d8a14a;
-  background: rgba(216, 161, 74, 0.12);
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-top: 4px;
 }
 
 .status-dot {
