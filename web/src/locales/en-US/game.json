@@ -254,6 +254,29 @@
       "rogue": "Rogue Cultivator"
     }
   },
+  "avatar_overview": {
+    "title_short": "[Characters]",
+    "title": "Character Overview",
+    "status_summary": "[Characters {total} · Alive {alive} · Dead {dead}]",
+    "empty": "No character statistics available",
+    "tabs": {
+      "overview": "Overview",
+      "deceased": "Deceased"
+    },
+    "summary": {
+      "title": "Overview Stats",
+      "total_count": "Total Characters",
+      "alive_count": "Living Characters",
+      "dead_count": "Deceased Characters",
+      "sect_member_count": "Sect Members",
+      "rogue_count": "Rogue Cultivators"
+    },
+    "realm_distribution": {
+      "title": "Living Realm Distribution",
+      "realm": "Realm",
+      "count": "Count"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Effect: ",

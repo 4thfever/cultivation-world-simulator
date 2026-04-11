@@ -25,6 +25,7 @@ def create_public_query_router(
     build_mortal_overview: Callable[[], dict],
     build_dynasty_overview: Callable[[], dict],
     build_dynasty_detail: Callable[[], dict],
+    build_avatar_overview: Callable[[], dict],
     build_saves: Callable[[], dict],
     build_detail: Callable[..., dict],
     build_deceased_list: Callable[[], dict],
@@ -112,6 +113,10 @@ def create_public_query_router(
     @router.get("/api/v1/query/dynasty/detail")
     def get_dynasty_detail_v1():
         return ok_response(build_dynasty_detail())
+
+    @router.get("/api/v1/query/avatars/overview")
+    def get_avatar_overview_v1():
+        return ok_response(build_avatar_overview())
 
     @router.get("/api/v1/query/saves")
     def get_saves_v1():

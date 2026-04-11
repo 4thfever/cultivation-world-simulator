@@ -67,6 +67,7 @@ from src.server.services.game_queries import (
     get_mortal_overview as get_mortal_overview_query,
     get_dynasty_overview as get_dynasty_overview_query,
     get_dynasty_detail as get_dynasty_detail_query,
+    get_avatar_overview as get_avatar_overview_query,
     get_world_map,
     get_world_state,
 )
@@ -272,6 +273,7 @@ public_query_builders = create_public_query_builders(
     build_dynasty_overview=build_dynasty_overview,
     get_dynasty_detail_query=get_dynasty_detail_query,
     build_dynasty_detail=build_dynasty_detail,
+    get_avatar_overview_query=get_avatar_overview_query,
     get_deceased_list_query=get_deceased_list,
 )
 
@@ -293,6 +295,7 @@ build_public_sect_relations = public_query_builders.build_public_sect_relations
 build_public_mortal_overview = public_query_builders.build_public_mortal_overview
 build_public_dynasty_overview = public_query_builders.build_public_dynasty_overview
 build_public_dynasty_detail = public_query_builders.build_public_dynasty_detail
+build_public_avatar_overview = public_query_builders.build_public_avatar_overview
 build_public_deceased_list = public_query_builders.build_public_deceased_list
 
 
@@ -542,6 +545,7 @@ configure_routes_and_mounts(
     build_mortal_overview=build_public_mortal_overview,
     build_dynasty_overview=build_public_dynasty_overview,
     build_dynasty_detail=build_public_dynasty_detail,
+    build_avatar_overview=build_public_avatar_overview,
     build_saves=build_public_saves,
     build_detail=build_public_detail,
     build_deceased_list=build_public_deceased_list,

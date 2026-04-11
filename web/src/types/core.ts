@@ -380,6 +380,24 @@ export interface DynastyDetail {
   officials: DynastyOfficial[];
 }
 
+export interface AvatarOverviewSummary {
+  totalCount: number;
+  aliveCount: number;
+  deadCount: number;
+  sectMemberCount: number;
+  rogueCount: number;
+}
+
+export interface AvatarRealmDistributionItem {
+  realm: string;
+  count: number;
+}
+
+export interface AvatarOverview {
+  summary: AvatarOverviewSummary;
+  realmDistribution: AvatarRealmDistributionItem[];
+}
+
 // --- 事件 (Events) ---
 
 export interface GameEvent {

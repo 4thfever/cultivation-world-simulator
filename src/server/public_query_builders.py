@@ -47,6 +47,7 @@ def create_public_query_builders(
     build_dynasty_overview,
     get_dynasty_detail_query,
     build_dynasty_detail,
+    get_avatar_overview_query,
     get_deceased_list_query,
 ):
     def _resolve_avatar_pic_id(avatar):
@@ -158,6 +159,9 @@ def create_public_query_builders(
     def build_public_dynasty_detail() -> dict:
         return get_dynasty_detail_query(runtime, build_dynasty_detail=build_dynasty_detail)
 
+    def build_public_avatar_overview() -> dict:
+        return get_avatar_overview_query(runtime)
+
     def build_public_deceased_list() -> dict:
         return get_deceased_list_query(runtime)
 
@@ -180,5 +184,6 @@ def create_public_query_builders(
         build_public_mortal_overview=build_public_mortal_overview,
         build_public_dynasty_overview=build_public_dynasty_overview,
         build_public_dynasty_detail=build_public_dynasty_detail,
+        build_public_avatar_overview=build_public_avatar_overview,
         build_public_deceased_list=build_public_deceased_list,
     )

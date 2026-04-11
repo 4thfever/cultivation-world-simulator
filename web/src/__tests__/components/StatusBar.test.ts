@@ -12,6 +12,7 @@ const { mockGetPhenomenaList, mockChangePhenomenon, mockSuccess, mockError } = v
 }))
 
 const refreshDynastyOverviewMock = vi.hoisted(() => vi.fn())
+const refreshAvatarOverviewMock = vi.hoisted(() => vi.fn())
 
 // Mutable store state that can be modified in tests.
 let mockYear = 100
@@ -24,6 +25,17 @@ let mockPhenomenaList: any[] = [
   { id: 3, name: 'Phenomenon 3', rarity: 'SSR', desc: 'Desc 3', effect_desc: 'Effect 3' },
 ]
 let mockIsConnected = true
+let mockAvatarOverview: any = {
+  summary: {
+    totalCount: 0,
+    aliveCount: 0,
+    deadCount: 0,
+    sectMemberCount: 0,
+    rogueCount: 0,
+  },
+  realmDistribution: [],
+}
+let mockAvatarOverviewLoaded = false
 const mockFetch = vi.fn()
 
 // Mock vue-i18n.
@@ -70,6 +82,14 @@ vi.mock('@/stores/dynasty', () => ({
     isLoading: false,
     isLoaded: true,
     refreshOverview: refreshDynastyOverviewMock,
+  }),
+}))
+
+vi.mock('@/stores/avatarOverview', () => ({
+  useAvatarOverviewStore: () => ({
+    get overview() { return mockAvatarOverview },
+    get isLoaded() { return mockAvatarOverviewLoaded },
+    refreshOverview: refreshAvatarOverviewMock,
   }),
 }))
 
@@ -157,7 +177,7 @@ describe('StatusBar', () => {
       stubs: {
         StatusWidget: StatusWidgetStub,
         TimeOverviewModal: true,
-        DeceasedModal: true,
+        AvatarOverviewModal: true,
       },
     },
   }
@@ -173,6 +193,17 @@ describe('StatusBar', () => {
     mockCurrentPhenomenon = { id: 1, name: 'Test Phenomenon', rarity: 'R' }
     mockActiveDomains = []
     mockIsConnected = true
+    mockAvatarOverview = {
+      summary: {
+        totalCount: 0,
+        aliveCount: 0,
+        deadCount: 0,
+        sectMemberCount: 0,
+        rogueCount: 0,
+      },
+      realmDistribution: [],
+    }
+    mockAvatarOverviewLoaded = false
 
     // Setup default mock implementations.
     mockGetPhenomenaList.mockImplementation(() => Promise.resolve())
@@ -452,7 +483,38 @@ describe('StatusBar', () => {
 
     const widgets = wrapper.findAll('.status-widget-stub')
     const deceasedWidget = widgets[9]
-    expect(deceasedWidget.attributes('data-label')).toBe('game.deceased.title_short')
+    expect(deceasedWidget.attributes('data-label')).toBe('game.avatar_overview.title_short')
     expect(deceasedWidget.attributes('data-color')).toBe('#8c8c8c')
+  })
+
+  it('should render avatar overview summary when loaded', () => {
+    mockAvatarOverviewLoaded = true
+    mockAvatarOverview = {
+      summary: {
+        totalCount: 128,
+        aliveCount: 93,
+        deadCount: 35,
+        sectMemberCount: 70,
+        rogueCount: 23,
+      },
+      realmDistribution: [],
+    }
+
+    const wrapper = mount(StatusBar, globalConfig)
+
+    const widgets = wrapper.findAll('.status-widget-stub')
+    const overviewWidget = widgets[9]
+    expect(overviewWidget.attributes('data-label')).toContain('128')
+    expect(overviewWidget.attributes('data-label')).toContain('93')
+    expect(overviewWidget.attributes('data-label')).toContain('35')
+  })
+
+  it('should fetch avatar overview before opening modal if not loaded', async () => {
+    const wrapper = mount(StatusBar, globalConfig)
+
+    await wrapper.findAll('.status-widget-stub')[9].trigger('click')
+    await nextTick()
+
+    expect(refreshAvatarOverviewMock).toHaveBeenCalled()
   })
 })

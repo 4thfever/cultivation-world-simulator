@@ -254,6 +254,29 @@
       "rogue": "散修"
     }
   },
+  "avatar_overview": {
+    "title_short": "[角色總覽]",
+    "title": "角色總覽",
+    "status_summary": "[角色 {total} · 生 {alive} · 死 {dead}]",
+    "empty": "暫無角色統計",
+    "tabs": {
+      "overview": "概覽",
+      "deceased": "已故角色"
+    },
+    "summary": {
+      "title": "總覽統計",
+      "total_count": "總角色數",
+      "alive_count": "現存活人數",
+      "dead_count": "已故人數",
+      "sect_member_count": "宗門成員",
+      "rogue_count": "散修人數"
+    },
+    "realm_distribution": {
+      "title": "活人境界分布",
+      "realm": "境界",
+      "count": "人數"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "效果：",

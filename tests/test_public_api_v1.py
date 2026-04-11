@@ -615,3 +615,64 @@ def test_v1_deceased_list_returns_ok_with_world():
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)
+
+
+def test_v1_avatar_overview_returns_structured_error_when_world_missing():
+    original = _reset_state()
+    try:
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/avatars/overview")
+
+        assert response.status_code == 503
+        detail = response.json()["detail"]
+        assert detail["code"] == "WORLD_NOT_READY"
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_avatar_overview_returns_ok_with_world():
+    original = _reset_state()
+    try:
+        mock_record = MagicMock()
+        mock_record.to_dict.return_value = {
+            "id": "dead-1",
+            "name": "陨落者",
+            "gender": "男",
+            "age_at_death": 88,
+            "realm_at_death": "金丹",
+            "stage_at_death": "前期",
+            "death_reason": "战死",
+            "death_time": 35,
+            "sect_name_at_death": "青云宗",
+            "alignment_at_death": "正道",
+            "backstory": None,
+            "custom_pic_id": None,
+        }
+        living_avatar = MagicMock()
+        living_avatar.cultivation_progress.realm = "练气"
+        living_avatar.sect = MagicMock()
+        rogue_avatar = MagicMock()
+        rogue_avatar.cultivation_progress.realm = "练气"
+        rogue_avatar.sect = None
+
+        mock_world = MagicMock()
+        mock_world.avatar_manager.avatars = {"a1": living_avatar, "a2": rogue_avatar}
+        mock_world.deceased_manager.get_all_records.return_value = [mock_record]
+        main.game_instance["world"] = mock_world
+
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/avatars/overview")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["summary"]["total_count"] == 3
+        assert payload["data"]["summary"]["alive_count"] == 2
+        assert payload["data"]["summary"]["dead_count"] == 1
+        assert payload["data"]["summary"]["sect_member_count"] == 1
+        assert payload["data"]["summary"]["rogue_count"] == 1
+        assert payload["data"]["realm_distribution"][0] == {"realm": "练气", "count": 2}
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)

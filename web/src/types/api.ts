@@ -474,6 +474,24 @@ export interface DeceasedListResponseDTO {
   deceased: DeceasedRecordDTO[];
 }
 
+export interface AvatarOverviewSummaryDTO {
+  total_count: number;
+  alive_count: number;
+  dead_count: number;
+  sect_member_count: number;
+  rogue_count: number;
+}
+
+export interface AvatarRealmDistributionItemDTO {
+  realm: string;
+  count: number;
+}
+
+export interface AvatarOverviewResponseDTO {
+  summary: AvatarOverviewSummaryDTO;
+  realm_distribution: AvatarRealmDistributionItemDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = AppLocale | string;
 

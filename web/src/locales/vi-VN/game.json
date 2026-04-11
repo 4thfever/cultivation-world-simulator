@@ -254,6 +254,29 @@
       "rogue": "Tán Tu"
     }
   },
+  "avatar_overview": {
+    "title_short": "[Tổng Quan Nhân Vật]",
+    "title": "Tổng Quan Nhân Vật",
+    "status_summary": "[Nhân vật {total} · Sống {alive} · Mất {dead}]",
+    "empty": "Chưa có thống kê nhân vật",
+    "tabs": {
+      "overview": "Tổng quan",
+      "deceased": "Nhân vật đã mất"
+    },
+    "summary": {
+      "title": "Thống Kê Tổng Quan",
+      "total_count": "Tổng Số Nhân Vật",
+      "alive_count": "Số Người Còn Sống",
+      "dead_count": "Số Người Đã Mất",
+      "sect_member_count": "Thành Viên Tông Môn",
+      "rogue_count": "Số Tán Tu"
+    },
+    "realm_distribution": {
+      "title": "Phân Bố Cảnh Giới Người Sống",
+      "realm": "Cảnh Giới",
+      "count": "Số Lượng"
+    }
+  },
   "info_panel": {
     "popup": {
       "effect": "Hiệu quả: ",

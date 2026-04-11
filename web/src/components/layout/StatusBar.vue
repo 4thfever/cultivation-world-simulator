@@ -14,8 +14,9 @@ import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.
 import WorldInfoModal from '../game/panels/WorldInfoModal.vue'
 import TimeOverviewModal from '../game/panels/TimeOverviewModal.vue'
 import PhenomenonSelectorModal from '../game/panels/PhenomenonSelectorModal.vue'
-import DeceasedModal from '../game/panels/DeceasedModal.vue'
+import AvatarOverviewModal from '../game/panels/AvatarOverviewModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
+import { useAvatarOverviewStore } from '@/stores/avatarOverview'
 import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
@@ -29,6 +30,7 @@ import clock3Icon from '@/assets/icons/ui/lucide/clock-3.svg'
 const { t, locale } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
+const avatarOverviewStore = useAvatarOverviewStore()
 const showSelector = ref(false)
 const showTimeOverviewModal = ref(false)
 const showWorldInfoModal = ref(false)
@@ -38,7 +40,7 @@ const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
 const showHiddenDomainModal = ref(false)
-const showDeceasedModal = ref(false)
+const showAvatarOverviewModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -48,6 +50,19 @@ const phenomenonColor = computed(() => {
 
 const domainLabel = computed(() => {
   return t('game.status_bar.hidden_domain.label')
+})
+
+const avatarOverviewLabel = computed(() => {
+  const summary = avatarOverviewStore.overview.summary
+  if (!avatarOverviewStore.isLoaded || summary.totalCount <= 0) {
+    return t('game.avatar_overview.title_short')
+  }
+
+  return t('game.avatar_overview.status_summary', {
+    total: summary.totalCount,
+    alive: summary.aliveCount,
+    dead: summary.deadCount,
+  })
 })
 
 const timeLabel = computed(() => {
@@ -65,6 +80,13 @@ function getRarityColor(rarity: string) {
 async function openPhenomenonSelector() {
   await store.getPhenomenaList()
   showSelector.value = true
+}
+
+async function openAvatarOverview() {
+  if (!avatarOverviewStore.isLoaded) {
+    await avatarOverviewStore.refreshOverview()
+  }
+  showAvatarOverviewModal.value = true
 }
 </script>
 
@@ -149,11 +171,11 @@ async function openPhenomenonSelector() {
       />
 
       <StatusWidget
-        :label="t('game.deceased.title_short')"
+        :label="avatarOverviewLabel"
         :icon="clock3Icon"
         :color="STATUS_BAR_COLORS.neutral"
         :disable-popover="true"
-        @trigger-click="showDeceasedModal = true"
+        @trigger-click="openAvatarOverview"
       />
     </div>
 
@@ -171,7 +193,7 @@ async function openPhenomenonSelector() {
 
     <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
     <PhenomenonSelectorModal v-model:show="showSelector" />
-    <DeceasedModal v-model:show="showDeceasedModal" />
+    <AvatarOverviewModal v-model:show="showAvatarOverviewModal" />
 
     <div class="author">
       <a

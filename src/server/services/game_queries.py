@@ -228,6 +228,45 @@ def get_deceased_list(runtime) -> dict[str, Any]:
     return {"deceased": [r.to_dict() for r in records]}
 
 
+def get_avatar_overview(runtime) -> dict[str, Any]:
+    """返回角色总览摘要与最近死亡角色。"""
+    world = _require_world(runtime)
+
+    living_avatars = list(getattr(world.avatar_manager, "avatars", {}).values())
+    dead_records = world.deceased_manager.get_all_records()
+
+    realm_counts: dict[str, int] = {}
+    sect_member_count = 0
+    rogue_count = 0
+
+    for avatar in living_avatars:
+        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "未知"))
+        realm_counts[realm] = realm_counts.get(realm, 0) + 1
+        if getattr(avatar, "sect", None) is None:
+            rogue_count += 1
+        else:
+            sect_member_count += 1
+
+    realm_distribution = [
+        {"realm": realm, "count": count}
+        for realm, count in sorted(
+            realm_counts.items(),
+            key=lambda item: (-item[1], item[0]),
+        )
+    ]
+
+    return {
+        "summary": {
+            "total_count": len(living_avatars) + len(dead_records),
+            "alive_count": len(living_avatars),
+            "dead_count": len(dead_records),
+            "sect_member_count": sect_member_count,
+            "rogue_count": rogue_count,
+        },
+        "realm_distribution": realm_distribution,
+    }
+
+
 def get_world_state(
     runtime,
     *,

@@ -11,6 +11,7 @@ import { useEventStore } from './event';
 import { useSectStore } from './sect';
 import { useMortalStore } from './mortal';
 import { useDynastyStore } from './dynasty';
+import { useAvatarOverviewStore } from './avatarOverview';
 
 const PHENOMENON_RARITY_ORDER: Record<string, number> = {
   N: 0,
@@ -40,6 +41,7 @@ export const useWorldStore = defineStore('world', () => {
   const sectStore = useSectStore();
   const mortalStore = useMortalStore();
   const dynastyStore = useDynastyStore();
+  const avatarOverviewStore = useAvatarOverviewStore();
 
   const year = ref(0);
   const month = ref(0);
@@ -165,6 +167,7 @@ export const useWorldStore = defineStore('world', () => {
     sectStore.reset();
     mortalStore.reset();
     dynastyStore.reset();
+    avatarOverviewStore.reset();
     mapStore.reset();
   }
 

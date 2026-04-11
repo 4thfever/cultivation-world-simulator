@@ -10,6 +10,7 @@ import type {
   DynastyDetailResponseDTO,
   DynastyOverviewResponseDTO,
   DeceasedListResponseDTO,
+  AvatarOverviewResponseDTO,
 } from '../../types/api';
 import {
   normalizeInitialState,
@@ -19,6 +20,7 @@ import {
 } from '../mappers/world';
 import { normalizeMortalOverview } from '../mappers/mortal';
 import { normalizeDynastyDetail, normalizeDynastyOverview } from '../mappers/dynasty';
+import { normalizeAvatarOverview } from '../mappers/avatarOverview';
 
 export const worldApi = {
   async fetchInitialState() {
@@ -71,5 +73,10 @@ export const worldApi = {
   async fetchDeceasedList() {
     const data = await httpClient.get<DeceasedListResponseDTO>('/api/v1/query/deceased');
     return data.deceased;
+  },
+
+  async fetchAvatarOverview() {
+    const data = await httpClient.get<AvatarOverviewResponseDTO>('/api/v1/query/avatars/overview');
+    return normalizeAvatarOverview(data);
   },
 };
