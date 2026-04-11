@@ -333,9 +333,10 @@ def get_relation_state_labels(
 
 def get_relations_strs(avatar: "Avatar", max_lines: int = 12) -> list[str]:
     from src.i18n import t
+    from src.classes.relation.relations import iter_display_relation_items
 
     grouped: dict[str, list[str]] = defaultdict(list)
-    relation_states = getattr(avatar, "relations", {}) or {}
+    relation_states = dict(iter_display_relation_items(avatar))
     computed_relations = getattr(avatar, "computed_relations", {}) or {}
 
     all_targets = set(relation_states.keys()) | set(computed_relations.keys())

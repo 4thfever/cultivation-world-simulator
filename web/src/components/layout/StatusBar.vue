@@ -106,14 +106,6 @@ async function openAvatarOverview() {
       />
 
       <StatusWidget
-        :label="t('game.status_bar.world_info.label')"
-        :icon="bookOpenIcon"
-        :color="STATUS_BAR_COLORS.worldInfo"
-        :disable-popover="true"
-        @trigger-click="showWorldInfoModal = true"
-      />
-      
-      <StatusWidget 
         v-if="store.currentPhenomenon"
         :label="`[${store.currentPhenomenon.name}]`"
         :icon="sparklesIcon"
@@ -128,6 +120,30 @@ async function openAvatarOverview() {
         :color="STATUS_BAR_COLORS.hiddenDomain"
         :disable-popover="true"
         @trigger-click="showHiddenDomainModal = true"
+      />
+
+      <StatusWidget
+        :label="t('game.sect_relations.title_short')"
+        :icon="shieldIcon"
+        :color="STATUS_BAR_COLORS.sectRelations"
+        :disable-popover="true"
+        @trigger-click="showSectRelationsModal = true"
+      />
+
+      <StatusWidget
+        :label="t('game.dynasty.title_short')"
+        :icon="landmarkIcon"
+        :color="STATUS_BAR_COLORS.dynasty"
+        :disable-popover="true"
+        @trigger-click="showDynastyOverviewModal = true"
+      />
+
+      <StatusWidget
+        :label="t('game.mortal_system.title_short')"
+        :icon="usersIcon"
+        :color="STATUS_BAR_COLORS.mortal"
+        :disable-popover="true"
+        @trigger-click="showMortalOverviewModal = true"
       />
 
       <StatusWidget
@@ -147,35 +163,19 @@ async function openAvatarOverview() {
       />
 
       <StatusWidget
-        :label="t('game.sect_relations.title_short')"
-        :icon="shieldIcon"
-        :color="STATUS_BAR_COLORS.sectRelations"
-        :disable-popover="true"
-        @trigger-click="showSectRelationsModal = true"
-      />
-
-      <StatusWidget
-        :label="t('game.mortal_system.title_short')"
-        :icon="usersIcon"
-        :color="STATUS_BAR_COLORS.mortal"
-        :disable-popover="true"
-        @trigger-click="showMortalOverviewModal = true"
-      />
-
-      <StatusWidget
-        :label="t('game.dynasty.title_short')"
-        :icon="landmarkIcon"
-        :color="STATUS_BAR_COLORS.dynasty"
-        :disable-popover="true"
-        @trigger-click="showDynastyOverviewModal = true"
-      />
-
-      <StatusWidget
         :label="avatarOverviewLabel"
         :icon="clock3Icon"
         :color="STATUS_BAR_COLORS.neutral"
         :disable-popover="true"
         @trigger-click="openAvatarOverview"
+      />
+
+      <StatusWidget
+        :label="t('game.status_bar.world_info.label')"
+        :icon="bookOpenIcon"
+        :color="STATUS_BAR_COLORS.worldInfo"
+        :disable-popover="true"
+        @trigger-click="showWorldInfoModal = true"
       />
     </div>
 

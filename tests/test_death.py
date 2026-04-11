@@ -91,6 +91,77 @@ def test_relation_display_with_death(base_world, dummy_avatar):
     # 死亡后：显示带死因的名字
     strs_after = get_relations_strs(dummy_avatar)
     assert "友好：Friend(已故：重伤不治身亡)" in strs_after
+    assert friend not in dummy_avatar.relations
+    assert friend in dummy_avatar.archived_relations
+    assert dummy_avatar not in friend.relations
+    assert dummy_avatar in friend.archived_relations
+
+
+def test_death_archives_master_relation_and_clears_active_graph(base_world, dummy_avatar):
+    from src.classes.core.avatar import Avatar, Gender
+    from src.classes.age import Age
+    from src.systems.cultivation import Realm
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+    from src.systems.time import create_month_stamp, Year, Month
+
+    master = Avatar(
+        world=base_world,
+        name="Master",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(1990), Month.JANUARY),
+        age=Age(50, Realm.Foundation_Establishment),
+        gender=Gender.MALE,
+        pos_x=1, pos_y=1,
+        root=Root.WOOD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    base_world.avatar_manager.register_avatar(master)
+    dummy_avatar.acknowledge_master(master)
+
+    assert master in dummy_avatar.relations
+    handle_death(base_world, master, DeathReason(DeathType.OLD_AGE))
+
+    assert master not in dummy_avatar.relations
+    assert master in dummy_avatar.archived_relations
+    assert dummy_avatar not in master.relations
+    assert dummy_avatar in master.archived_relations
+    assert master.sect is None
+    assert master.death_info["sect_name_at_death"] == ""
+
+
+def test_structured_relations_mark_archived_scope_after_death(base_world, dummy_avatar):
+    from src.classes.core.avatar import Avatar, Gender
+    from src.classes.age import Age
+    from src.systems.cultivation import Realm
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+    from src.systems.time import create_month_stamp, Year, Month
+
+    friend = Avatar(
+        world=base_world,
+        name="Friend",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.MALE,
+        pos_x=0,
+        pos_y=0,
+        root=Root.WOOD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    base_world.avatar_manager.register_avatar(friend)
+    dummy_avatar.make_friend_with(friend)
+
+    handle_death(base_world, friend, DeathReason(DeathType.SERIOUS_INJURY))
+
+    relations = dummy_avatar.get_structured_info()["relations"]
+    archived_entry = next(item for item in relations if item["target_id"] == friend.id)
+    assert archived_entry["relation_scope"] == "archived"
+    assert archived_entry["numeric_relation"] == "friend"
+    assert archived_entry["is_dead"] is True
 
 
 def test_avatar_manager_archive_death(base_world, dummy_avatar):

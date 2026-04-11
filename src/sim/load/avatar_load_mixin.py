@@ -228,6 +228,7 @@ class AvatarLoadMixin:
         
         # relations 需要在外部单独重建（因为需要所有 avatar 都加载完成）
         avatar.relations = {}
+        avatar.archived_relations = {}
         
         # 恢复丹药记录
         elixir_list_data = data.get("elixirs", [])

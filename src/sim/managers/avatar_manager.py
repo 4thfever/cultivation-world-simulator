@@ -149,6 +149,13 @@ class AvatarManager:
         related = list(getattr(avatar, "relations", {}).keys())
         for other in related:
             avatar.clear_relation(other)
+        archived_related = list(getattr(avatar, "archived_relations", {}).keys())
+        for other in archived_related:
+            getattr(avatar, "archived_relations", {}).pop(other, None)
+            if getattr(other, "archived_relations", None) is not None:
+                other.archived_relations.pop(avatar, None)
+            avatar.relation_start_dates.pop(other.id, None)
+            other.relation_start_dates.pop(avatar.id, None)
 
         # 2. 清理占据的洞府
         if hasattr(avatar, "owned_regions") and avatar.owned_regions:
@@ -164,6 +171,8 @@ class AvatarManager:
                 continue
             if getattr(other, "relations", None) is not None and avatar in other.relations:
                 other.clear_relation(avatar)
+            if getattr(other, "archived_relations", None) is not None:
+                other.archived_relations.pop(avatar, None)
         
         # 4. 清理宗门关系
         if getattr(avatar, "sect", None) is not None:

@@ -24,6 +24,7 @@ from src.classes.technique import (
 from src.classes.items.weapon import Weapon, get_random_weapon_by_realm
 from src.classes.items.auxiliary import Auxiliary, get_random_auxiliary_by_realm
 from src.classes.relation.relation import Relation
+from src.classes.relation.relations import get_live_related_avatars
 from src.classes.alignment import Alignment
 from src.systems.cultivation import Realm
 from src.systems.single_choice import (
@@ -48,10 +49,7 @@ class FortuneKind(Enum):
 
 def _has_master(avatar: Avatar) -> bool:
     """检查是否已有师傅"""
-    for other, state in avatar.relations.items():
-        if Relation.IS_MASTER_OF in state.identity_relations:
-            return True
-    return False
+    return bool(get_live_related_avatars(avatar, identity_relation=Relation.IS_MASTER_OF))
 
 
 def _is_alignment_compatible(avatar: Avatar, other: Avatar) -> bool:
@@ -79,7 +77,7 @@ def _find_potential_master(avatar: Avatar) -> Optional[Avatar]:
     same_sect_candidates: list[Avatar] = []
     other_candidates: list[Avatar] = []
     
-    for other in avatar.world.avatar_manager.avatars.values():
+    for other in avatar.world.avatar_manager.get_living_avatars():
         if other is avatar:
             continue
         

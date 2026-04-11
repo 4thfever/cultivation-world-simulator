@@ -208,11 +208,16 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
             avatar_id = avatar_data["id"]
             avatar = all_avatars[avatar_id]
             relations_dict = avatar_data.get("relations", {})
+            archived_relations_dict = avatar_data.get("archived_relations", {})
             
             for other_id, relation_state_data in relations_dict.items():
                 if other_id in all_avatars:
                     other_avatar = all_avatars[other_id]
                     avatar.relations[other_avatar] = RelationState.from_save_dict(relation_state_data)
+            for other_id, relation_state_data in archived_relations_dict.items():
+                if other_id in all_avatars:
+                    other_avatar = all_avatars[other_id]
+                    avatar.archived_relations[other_avatar] = RelationState.from_save_dict(relation_state_data)
         
         # 将所有avatar添加到world
         world.avatar_manager.avatars = living_avatars

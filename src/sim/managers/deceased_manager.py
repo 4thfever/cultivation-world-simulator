@@ -25,8 +25,8 @@ class DeceasedManager:
             stage_at_death=avatar.cultivation_progress.stage.value,
             death_reason=death_info.get("reason", ""),
             death_time=death_info.get("time", 0),
-            sect_name_at_death=avatar.sect.name if avatar.sect else "",
-            alignment_at_death=str(avatar.alignment) if avatar.alignment else "",
+            sect_name_at_death=str(death_info.get("sect_name_at_death", "")),
+            alignment_at_death=str(death_info.get("alignment_at_death", "")),
             backstory=avatar.backstory,
             custom_pic_id=avatar.custom_pic_id,
         )

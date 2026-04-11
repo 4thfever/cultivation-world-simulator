@@ -29,6 +29,10 @@ class AvatarSaveMixin:
             other.id: relation_state.to_save_dict()
             for other, relation_state in self.relations.items()
         }
+        archived_relations_dict = {
+            other.id: relation_state.to_save_dict()
+            for other, relation_state in getattr(self, "archived_relations", {}).items()
+        }
         
         # 序列化materials: dict[Material, int] -> dict[int, int]
         materials_dict = {
@@ -87,6 +91,7 @@ class AvatarSaveMixin:
             
             # 社交与状态
             "relations": relations_dict,
+            "archived_relations": archived_relations_dict,
             "sect_id": self.sect.id if self.sect else None,
             "sect_rank": self.sect_rank.value if self.sect_rank else None,
             "sect_contribution": int(getattr(self, "sect_contribution", 0) or 0),

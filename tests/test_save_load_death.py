@@ -4,7 +4,9 @@ from pathlib import Path
 from src.sim.save.save_game import save_game
 from src.sim.load.load_game import load_game
 from src.classes.core.avatar import Avatar
+from src.classes.death import handle_death
 from src.classes.death_reason import DeathReason, DeathType
+from src.systems.cultivation import Realm
 from src.systems.time import MonthStamp, Month, Year, create_month_stamp
 
 def test_dead_avatar_stays_dead_after_load(base_world, dummy_avatar):
@@ -82,3 +84,84 @@ def test_cleanup_long_dead_avatars(base_world, dummy_avatar):
     assert cleaned_count == 1
     assert dummy_avatar.id not in base_world.avatar_manager.dead_avatars
     assert base_world.avatar_manager.get_avatar(dummy_avatar.id) is None
+
+
+def test_archived_relations_survive_save_load(base_world, dummy_avatar):
+    from src.classes.core.avatar import Gender
+    from src.classes.age import Age
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+
+    friend = Avatar(
+        world=base_world,
+        name="Friend",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.MALE,
+        pos_x=1,
+        pos_y=1,
+        root=Root.WOOD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+
+    dummy_avatar.weapon = None
+    friend.weapon = None
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    base_world.avatar_manager.register_avatar(friend)
+    dummy_avatar.make_friend_with(friend)
+
+    handle_death(base_world, friend, DeathReason(DeathType.SERIOUS_INJURY))
+
+    from src.sim.simulator import Simulator
+    simulator = Simulator(base_world)
+    success, save_filename = save_game(base_world, simulator, existed_sects=[])
+    assert success
+
+    from src.utils.config import CONFIG
+    save_path = CONFIG.paths.saves / save_filename
+    loaded_world, _, _ = load_game(save_path)
+
+    loaded_dummy = loaded_world.avatar_manager.get_avatar(dummy_avatar.id)
+    loaded_friend = loaded_world.avatar_manager.get_avatar(friend.id)
+    assert loaded_dummy is not None
+    assert loaded_friend is not None
+    assert loaded_friend.is_dead is True
+    assert loaded_friend not in loaded_dummy.relations
+    assert loaded_friend in loaded_dummy.archived_relations
+
+
+def test_cleanup_long_dead_avatar_removes_archived_relation_references(base_world, dummy_avatar):
+    from src.classes.core.avatar import Gender
+    from src.classes.age import Age
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+
+    friend = Avatar(
+        world=base_world,
+        name="Friend",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.MALE,
+        pos_x=1,
+        pos_y=1,
+        root=Root.WOOD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    base_world.avatar_manager.register_avatar(friend)
+    dummy_avatar.make_friend_with(friend)
+
+    death_time = create_month_stamp(Year(1), Month.JANUARY)
+    friend.set_dead("Old Age", death_time)
+    base_world.avatar_manager.handle_death(friend.id)
+    assert friend in dummy_avatar.archived_relations
+
+    current_time_20y = create_month_stamp(Year(21), Month.JANUARY)
+    cleaned_count = base_world.avatar_manager.cleanup_long_dead_avatars(current_time_20y, threshold_years=20)
+
+    assert cleaned_count == 1
+    assert friend not in dummy_avatar.archived_relations

@@ -29,6 +29,15 @@ def _ensure_relations_dict(avatar: "Avatar") -> dict:
     return relations
 
 
+def _ensure_archived_relations_dict(avatar: "Avatar") -> dict:
+    relations = getattr(avatar, "archived_relations", None)
+    if isinstance(relations, dict):
+        return relations
+    relations = {}
+    setattr(avatar, "archived_relations", relations)
+    return relations
+
+
 def _normalize_numeric_relation(value: NumericRelation | object) -> NumericRelation:
     return value if isinstance(value, NumericRelation) else NumericRelation.STRANGER
 
@@ -48,6 +57,13 @@ def _get_or_create_state(from_avatar: "Avatar", to_avatar: "Avatar") -> Relation
         state = RelationState()
         relations[to_avatar] = state
     return state
+
+
+def _copy_state_to_archive(from_avatar: "Avatar", to_avatar: "Avatar", state: RelationState | None) -> None:
+    if state is None:
+        return
+    archived_relations = _ensure_archived_relations_dict(from_avatar)
+    archived_relations[to_avatar] = state.copy()
 
 
 def clamp_friendliness(value: int) -> int:
@@ -310,6 +326,8 @@ def _apply_identity_friendliness_floor(state: RelationState) -> None:
 def clear_relation(from_avatar: "Avatar", to_avatar: "Avatar") -> None:
     from_avatar.relations.pop(to_avatar, None)
     to_avatar.relations.pop(from_avatar, None)
+    getattr(from_avatar, "archived_relations", {}).pop(to_avatar, None)
+    getattr(to_avatar, "archived_relations", {}).pop(from_avatar, None)
     from_avatar.relation_start_dates.pop(to_avatar.id, None)
     to_avatar.relation_start_dates.pop(from_avatar.id, None)
 
@@ -323,6 +341,68 @@ def clear_friendliness(from_avatar: "Avatar", to_avatar: "Avatar", *, keep_struc
     state.last_numeric_relation_change_month = None
     if not keep_structural_relations and state.blood_relation is None and not state.identity_relations:
         from_avatar.relations.pop(to_avatar, None)
+
+
+def iter_live_relation_items(avatar: "Avatar") -> list[tuple["Avatar", RelationState]]:
+    return list((_ensure_relations_dict(avatar) or {}).items())
+
+
+def iter_archived_relation_items(avatar: "Avatar") -> list[tuple["Avatar", RelationState]]:
+    return list((_ensure_archived_relations_dict(avatar) or {}).items())
+
+
+def iter_display_relation_items(avatar: "Avatar") -> list[tuple["Avatar", RelationState]]:
+    merged: dict["Avatar", RelationState] = {}
+    for other, state in iter_archived_relation_items(avatar):
+        merged[other] = state
+    for other, state in iter_live_relation_items(avatar):
+        merged[other] = state
+    return list(merged.items())
+
+
+def iter_display_relation_entries(avatar: "Avatar") -> list[tuple["Avatar", RelationState, str]]:
+    entries: list[tuple["Avatar", RelationState, str]] = []
+    live_targets = {other for other, _ in iter_live_relation_items(avatar)}
+    for other, state in iter_archived_relation_items(avatar):
+        if other in live_targets:
+            continue
+        entries.append((other, state, "archived"))
+    for other, state in iter_live_relation_items(avatar):
+        entries.append((other, state, "active"))
+    return entries
+
+
+def get_live_related_avatars(
+    avatar: "Avatar",
+    *,
+    identity_relation: Relation | None = None,
+    numeric_relation: NumericRelation | None = None,
+) -> list["Avatar"]:
+    candidates: list["Avatar"] = []
+    for other, state in iter_live_relation_items(avatar):
+        if identity_relation is not None and identity_relation not in state.identity_relations:
+            continue
+        if numeric_relation is not None and state.last_numeric_relation != numeric_relation:
+            continue
+        candidates.append(other)
+    return candidates
+
+
+def archive_relation_pair(from_avatar: "Avatar", to_avatar: "Avatar") -> None:
+    from_state = get_state(from_avatar, to_avatar)
+    to_state = get_state(to_avatar, from_avatar)
+    _copy_state_to_archive(from_avatar, to_avatar, from_state)
+    _copy_state_to_archive(to_avatar, from_avatar, to_state)
+    from_avatar.relations.pop(to_avatar, None)
+    to_avatar.relations.pop(from_avatar, None)
+    from_avatar.relation_start_dates.pop(to_avatar.id, None)
+    to_avatar.relation_start_dates.pop(from_avatar.id, None)
+
+
+def archive_all_relations_for_death(avatar: "Avatar") -> None:
+    related = list(_ensure_relations_dict(avatar).keys())
+    for other in related:
+        archive_relation_pair(avatar, other)
 
 
 def cancel_relation(from_avatar: "Avatar", to_avatar: "Avatar", relation: Relation) -> bool:

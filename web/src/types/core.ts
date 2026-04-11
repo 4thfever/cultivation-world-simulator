@@ -241,6 +241,8 @@ export interface RelationInfo {
   realm: string;
   sect: string;
   is_mortal?: boolean;
+  is_dead?: boolean;
+  relation_scope?: 'active' | 'archived' | 'computed' | 'mortal_child' | string;
   label_key?: string;
   target_gender?: string;
 }

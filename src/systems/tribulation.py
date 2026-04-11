@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
 from src.i18n import t
 from src.classes.relation.relation import NumericRelation, Relation
+from src.classes.relation.relations import get_live_related_avatars, iter_live_relation_items
 
 TRIBULATION_DISPLAY_MSGIDS = {
     "心魔": "tribulation_inner_demon",
@@ -117,7 +118,7 @@ class TribulationSelector:
         # 检查是否有特殊关系，可以触发关系型劫难
         available_tribulations = base_tribulations.copy()
         
-        rels = getattr(avatar, "relations", {})
+        rels = dict(iter_live_relation_items(avatar))
         has_enemy = any(state.last_numeric_relation == NumericRelation.ARCHENEMY for state in rels.values())
         has_lover = any(Relation.IS_LOVER_OF in state.identity_relations for state in rels.values())
         
@@ -145,18 +146,17 @@ class TribulationSelector:
             return None
         
         if tribulation_name == "寻仇":
-            candidates = [
-                other
-                for other, state in avatar.relations.items()
-                if state.last_numeric_relation == NumericRelation.ARCHENEMY
-            ]
+            candidates = get_live_related_avatars(
+                avatar,
+                numeric_relation=NumericRelation.ARCHENEMY,
+            )
         else:
             target_rel = tribulation.relation_type
-            candidates = [
-                other
-                for other, state in avatar.relations.items()
-                if target_rel is not None and target_rel in state.identity_relations
-            ]
+            candidates = (
+                get_live_related_avatars(avatar, identity_relation=target_rel)
+                if target_rel is not None
+                else []
+            )
         
         if not candidates:
             return None

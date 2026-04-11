@@ -94,6 +94,7 @@ class Avatar(
     materials: dict[Material, int] = field(default_factory=dict)
     hp: HP = field(default_factory=lambda: HP(0, 0))
     relations: dict["Avatar", RelationState] = field(default_factory=dict)
+    archived_relations: dict["Avatar", RelationState] = field(default_factory=dict)
     # 缓存的二阶关系 (由 Simulator 定期计算)
     computed_relations: dict["Avatar", Relation] = field(default_factory=dict)
     alignment: Alignment | None = None
@@ -368,7 +369,9 @@ class Avatar(
         self.death_info = {
             "time": int(time),
             "reason": reason,
-            "location": (self.pos_x, self.pos_y)
+            "location": (self.pos_x, self.pos_y),
+            "sect_name_at_death": self.sect.name if self.sect else "",
+            "alignment_at_death": str(self.alignment) if self.alignment else "",
         }
         
         self.planned_actions.clear()
@@ -384,12 +387,14 @@ class Avatar(
 
         if self.sect:
             self.sect.remove_member(self)
+            self.sect = None
+            self.sect_rank = None
 
-        # 死亡后先清空死者对外的友好度，保留血缘/身份关系供展示与后续清墓使用。
-        from src.classes.relation.relations import clear_friendliness
+        # 死亡后立刻退出活跃关系图，仅在 archived_relations 中保留展示/追忆语义。
+        from src.classes.relation.relations import archive_all_relations_for_death
 
-        for other in list(self.relations.keys()):
-            clear_friendliness(self, other, keep_structural_relations=True)
+        archive_all_relations_for_death(self)
+        self.computed_relations = {}
 
     def death_by_old_age(self) -> bool:
         """检查是否老死"""

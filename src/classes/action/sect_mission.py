@@ -205,6 +205,7 @@ class SectMission(TimedAction):
             return []
 
         events: list[Event] = []
+        related_sect_ids = [int(self.avatar.sect.id)]
         related_avatar_ids = [self.avatar.id]
         if self.issuer_avatar_id:
             related_avatar_ids.append(self.issuer_avatar_id)
@@ -227,7 +228,7 @@ class SectMission(TimedAction):
                     month_stamp=self.world.month_stamp,
                     content=result_text,
                     related_avatars=related_avatar_ids,
-                    related_sects=[int(self.avatar.sect.id)],
+                    related_sects=related_sect_ids,
                     is_major=False,
                 )
             )
@@ -252,7 +253,7 @@ class SectMission(TimedAction):
                     month_stamp=self.world.month_stamp,
                     content=result_text,
                     related_avatars=related_avatar_ids,
-                    related_sects=[int(self.avatar.sect.id)],
+                    related_sects=related_sect_ids,
                     is_major=False,
                 )
             )
@@ -269,7 +270,7 @@ class SectMission(TimedAction):
             allow_relation_changes=False,
         )
         if story_event is not None:
-            story_event.related_sects = [int(self.avatar.sect.id)]
+            story_event.related_sects = related_sect_ids
             events.append(story_event)
 
         return events

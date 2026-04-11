@@ -168,6 +168,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     # 基础信息
     from src.i18n import t
     from src.classes.observe import get_avatar_observation_radius
+    from src.classes.relation.relations import iter_display_relation_entries
     emoji = EMOTION_EMOJIS.get(avatar.emotion, EMOTION_EMOJIS[EmotionType.CALM])
     
     born_region_name = t("Unknown")
@@ -327,14 +328,16 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
     
     # 6.1 添加现有的修仙者关系
     existing_ids = set()
-    for other, relation_state in avatar.relations.items():
+    for other, relation_state, relation_scope in iter_display_relation_entries(avatar):
         existing_ids.add(other.id)
+        other_death_info = getattr(other, "death_info", None) or {}
+        other_sect_name = other.sect.name if other.sect else str(other_death_info.get("sect_name_at_death", "") or t("Rogue Cultivator"))
         blood_label = get_relation_label(relation_state.blood_relation, avatar, other) if relation_state.blood_relation else None
         identity_labels = [
             get_relation_label(rel, avatar, other)
             for rel in sorted(relation_state.identity_relations, key=lambda item: item.value)
         ]
-        numeric_relation = avatar.get_numeric_relation(other)
+        numeric_relation = relation_state.last_numeric_relation
         relations_list.append({
             "target_id": other.id,
             "name": other.name,
@@ -345,9 +348,11 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "numeric_relation": numeric_relation.value,
             "friendliness": relation_state.friendliness,
             "realm": other.cultivation_progress.get_info(),
-            "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
+            "sect": other_sect_name,
             "is_mortal": False,
-            "target_gender": other.gender.value
+            "target_gender": other.gender.value,
+            "is_dead": bool(getattr(other, "is_dead", False)),
+            "relation_scope": relation_scope,
         })
 
     for other, relation in avatar.computed_relations.items():
@@ -373,6 +378,8 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
             "sect": other.sect.name if other.sect else t("Rogue Cultivator"),
             "is_mortal": False,
             "target_gender": other.gender.value,
+            "is_dead": bool(getattr(other, "is_dead", False)),
+            "relation_scope": "computed",
         })
     
     # 6.2 [新增] 添加凡人子女
@@ -393,7 +400,9 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
                 "realm": t("Mortal"),
                 "sect": t("None"),
                 "is_mortal": True,
-                "target_gender": gender_val
+                "target_gender": gender_val,
+                "is_dead": False,
+                "relation_scope": "mortal_child",
             })
 
     info["relations"] = relations_list

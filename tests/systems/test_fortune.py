@@ -3,11 +3,15 @@ from unittest.mock import patch, AsyncMock, MagicMock
 
 from src.systems.fortune import try_trigger_fortune, try_trigger_misfortune, FortuneKind, MisfortuneKind
 from src.classes.core.avatar import Avatar
+from src.classes.death import handle_death
+from src.classes.death_reason import DeathReason, DeathType
 from src.systems.cultivation import Realm
 from src.classes.action_runtime import ActionInstance
 from src.classes.action.respire import Respire
 from src.classes.goldfinger import goldfingers_by_id
 from src.classes.persona import personas_by_id
+from src.systems.tribulation import TribulationSelector
+from src.systems.cultivation import CultivationProgress
 
 
 def _find_goldfinger_by_key(key: str):
@@ -107,3 +111,78 @@ async def test_negative_misfortune_probability_is_clamped_to_zero(dummy_avatar: 
 
     assert events == []
     assert dummy_avatar.magic_stone.value == 1000
+
+
+def test_dead_master_no_longer_blocks_finding_new_master(base_world, dummy_avatar):
+    from src.classes.core.avatar import Avatar, Gender
+    from src.classes.age import Age
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+    from src.systems.time import create_month_stamp, Year, Month
+
+    old_master = Avatar(
+        world=base_world,
+        name="OldMaster",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(1950), Month.JANUARY),
+        age=Age(80, Realm.Foundation_Establishment),
+        gender=Gender.MALE,
+        pos_x=1,
+        pos_y=1,
+        root=Root.WOOD,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    new_master = Avatar(
+        world=base_world,
+        name="NewMaster",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(1960), Month.JANUARY),
+        age=Age(70, Realm.Foundation_Establishment),
+        gender=Gender.MALE,
+        pos_x=2,
+        pos_y=2,
+        root=Root.WATER,
+        alignment=Alignment.RIGHTEOUS,
+    )
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    base_world.avatar_manager.register_avatar(old_master)
+    base_world.avatar_manager.register_avatar(new_master)
+    new_master.cultivation_progress = CultivationProgress(level=40)
+    dummy_avatar.acknowledge_master(old_master)
+
+    handle_death(base_world, old_master, DeathReason(DeathType.OLD_AGE))
+
+    from src.systems.fortune import _has_master, _find_potential_master
+
+    assert _has_master(dummy_avatar) is False
+    assert _find_potential_master(dummy_avatar) == new_master
+
+
+def test_tribulation_selector_skips_dead_relation_targets(base_world, dummy_avatar):
+    from src.classes.core.avatar import Avatar, Gender
+    from src.classes.age import Age
+    from src.utils.id_generator import get_avatar_id
+    from src.classes.root import Root
+    from src.classes.alignment import Alignment
+    from src.systems.time import create_month_stamp, Year, Month
+
+    enemy = Avatar(
+        world=base_world,
+        name="Enemy",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(1995), Month.JANUARY),
+        age=Age(40, Realm.Foundation_Establishment),
+        gender=Gender.MALE,
+        pos_x=1,
+        pos_y=1,
+        root=Root.FIRE,
+        alignment=Alignment.EVIL,
+    )
+    base_world.avatar_manager.register_avatar(dummy_avatar)
+    base_world.avatar_manager.register_avatar(enemy)
+    dummy_avatar.make_enemy_of(enemy)
+
+    handle_death(base_world, enemy, DeathReason(DeathType.BATTLE, killer_name="Someone"))
+
+    assert TribulationSelector.choose_related_avatar(dummy_avatar, "寻仇") is None
