@@ -268,9 +268,9 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // When phenomenon is null, v-if hides the widget.
-      // World info widget plus domain/ranking/tournament/sect-relations/mortal/dynasty widgets should exist.
+      // World info widget plus domain/ranking/tournament/sect-relations/mortal/dynasty/deceased widgets should exist.
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(7)
+      expect(widgets.length).toBe(8)
     })
 
     it('should place world info widget before phenomenon widget', () => {
@@ -431,8 +431,8 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
-    expect(widgets.length).toBe(8)
+    // worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty + deceased
+    expect(widgets.length).toBe(9)
     const sectRelationsWidget = widgets[5]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })
@@ -441,7 +441,16 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    const dynastyWidget = widgets[7]
+    const dynastyWidget = widgets[8]
     expect(dynastyWidget.attributes('data-label')).toBe('game.dynasty.title_short')
+  })
+
+  it('should render deceased StatusWidget', () => {
+    const wrapper = mount(StatusBar, globalConfig)
+
+    const widgets = wrapper.findAll('.status-widget-stub')
+    const deceasedWidget = widgets[7]
+    expect(deceasedWidget.attributes('data-label')).toBe('game.deceased.title_short')
+    expect(deceasedWidget.attributes('data-color')).toBe('#8c8c8c')
   })
 })

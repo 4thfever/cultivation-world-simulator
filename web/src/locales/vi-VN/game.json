@@ -417,5 +417,23 @@
       "runtime_effect_meta": "Nguồn: {source} - Còn lại: {months} tháng",
       "runtime_effect_meta_permanent": "Nguồn: {source} - Thời hạn: Vĩnh viễn"
     }
+  },
+  "deceased": {
+    "title_short": "Đã mất",
+    "title": "Nhân vật đã mất",
+    "empty": "Chưa có nhân vật đã mất",
+    "name": "Tên",
+    "sect": "Tông môn",
+    "alignment": "Phe phái",
+    "death_time": "Thời điểm qua đời",
+    "death_reason": "Nguyên nhân qua đời",
+    "age_at_death": "Thọ",
+    "realm_at_death": "Cảnh giới cuối",
+    "backstory": "Tiểu sử",
+    "events": "Sự kiện liên quan",
+    "no_events": "Không có sự kiện liên quan",
+    "back_to_list": "Quay lại danh sách",
+    "death_year": "Năm {year} tháng {month}",
+    "rogue": "Tán tu"
   }
 }

@@ -417,5 +417,23 @@
       "runtime_effect_meta": "来源：{source} - 剩余：{months}个月",
       "runtime_effect_meta_permanent": "来源：{source} - 持续：长期"
     }
+  },
+  "deceased": {
+    "title_short": "已故",
+    "title": "已故角色",
+    "empty": "暂无已故角色",
+    "name": "姓名",
+    "sect": "宗门",
+    "alignment": "阵营",
+    "death_time": "陨落时间",
+    "death_reason": "死因",
+    "age_at_death": "享年",
+    "realm_at_death": "终焉境界",
+    "backstory": "生平",
+    "events": "相关事件",
+    "no_events": "暂无相关事件",
+    "back_to_list": "返回列表",
+    "death_year": "第{year}年{month}月",
+    "rogue": "散修"
   }
 }

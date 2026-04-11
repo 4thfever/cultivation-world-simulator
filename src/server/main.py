@@ -54,6 +54,7 @@ from src.server.services.custom_goldfinger_service import (
 from src.server.services.game_lifecycle import reinit_game_lifecycle, start_game_lifecycle
 from src.server.services.game_queries import (
     get_detail as get_detail_query,
+    get_deceased_list,
     get_events_page,
     get_game_data as get_game_data_query,
     get_rankings as get_rankings_query,
@@ -270,6 +271,7 @@ public_query_builders = create_public_query_builders(
     build_dynasty_overview=build_dynasty_overview,
     get_dynasty_detail_query=get_dynasty_detail_query,
     build_dynasty_detail=build_dynasty_detail,
+    get_deceased_list_query=get_deceased_list,
 )
 
 build_public_world_state = public_query_builders.build_public_world_state
@@ -290,6 +292,7 @@ build_public_sect_relations = public_query_builders.build_public_sect_relations
 build_public_mortal_overview = public_query_builders.build_public_mortal_overview
 build_public_dynasty_overview = public_query_builders.build_public_dynasty_overview
 build_public_dynasty_detail = public_query_builders.build_public_dynasty_detail
+build_public_deceased_list = public_query_builders.build_public_deceased_list
 
 
 def update_init_progress(phase: int, phase_name: str = ""):
@@ -540,6 +543,7 @@ configure_routes_and_mounts(
     build_dynasty_detail=build_public_dynasty_detail,
     build_saves=build_public_saves,
     build_detail=build_public_detail,
+    build_deceased_list=build_public_deceased_list,
     create_public_command_router=create_public_command_router,
     run_start_game=run_start_game,
     run_reinit_game=run_reinit_game,

@@ -417,5 +417,23 @@
       "runtime_effect_meta": "Source: {source} - Remaining: {months} months",
       "runtime_effect_meta_permanent": "Source: {source} - Duration: Permanent"
     }
+  },
+  "deceased": {
+    "title_short": "Deceased",
+    "title": "Deceased Characters",
+    "empty": "No deceased characters yet",
+    "name": "Name",
+    "sect": "Sect",
+    "alignment": "Alignment",
+    "death_time": "Time of Death",
+    "death_reason": "Cause of Death",
+    "age_at_death": "Age at Death",
+    "realm_at_death": "Final Realm",
+    "backstory": "Biography",
+    "events": "Related Events",
+    "no_events": "No related events",
+    "back_to_list": "Back to List",
+    "death_year": "Year {year}, Month {month}",
+    "rogue": "Rogue"
   }
 }

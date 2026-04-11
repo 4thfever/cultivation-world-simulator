@@ -27,6 +27,7 @@ def create_public_query_router(
     build_dynasty_detail: Callable[[], dict],
     build_saves: Callable[[], dict],
     build_detail: Callable[..., dict],
+    build_deceased_list: Callable[[], dict],
 ) -> APIRouter:
     router = APIRouter()
 
@@ -122,5 +123,9 @@ def create_public_query_router(
         target_id: str = Query(alias="id"),
     ):
         return ok_response(build_detail(target_type=target_type, target_id=target_id))
+
+    @router.get("/api/v1/query/deceased")
+    def get_deceased_list_v1():
+        return ok_response(build_deceased_list())
 
     return router

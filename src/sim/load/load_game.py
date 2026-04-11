@@ -152,6 +152,10 @@ def load_game(save_path: Optional[Path] = None) -> Tuple["World", "Simulator", L
         world.prune_expired_sect_relation_modifiers(int(world.month_stamp))
         world.sect_wars = list(world_data.get("sect_wars", []) or [])
 
+        # 恢复已故角色档案
+        deceased_data = world_data.get("deceased_records", [])
+        world.deceased_manager.load_from_list(deceased_data)
+
         for sect in sects_by_id.values():
             sect.magic_stone = 0
             sect.is_active = True

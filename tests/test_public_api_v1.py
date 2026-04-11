@@ -579,3 +579,39 @@ def test_v1_create_custom_content_uses_ok_envelope():
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)
+
+
+def test_v1_deceased_list_returns_ok_envelope_when_world_missing():
+    """GET /api/v1/query/deceased 在世界未初始化时返回 503。"""
+    original = _reset_state()
+    try:
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/deceased")
+
+        assert response.status_code == 503
+        detail = response.json()["detail"]
+        assert detail["code"] == "WORLD_NOT_READY"
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_deceased_list_returns_ok_with_world():
+    """GET /api/v1/query/deceased 在世界初始化后返回 ok + deceased 列表。"""
+    original = _reset_state()
+    try:
+        mock_world = MagicMock()
+        mock_world.deceased_manager.get_all_records.return_value = []
+        main.game_instance["world"] = mock_world
+
+        client = TestClient(main.app)
+        response = client.get("/api/v1/query/deceased")
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert "deceased" in payload["data"]
+        assert isinstance(payload["data"]["deceased"], list)
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)

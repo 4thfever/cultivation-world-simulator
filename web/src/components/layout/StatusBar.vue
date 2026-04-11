@@ -13,6 +13,7 @@ import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
+import DeceasedModal from '../game/panels/DeceasedModal.vue'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
 import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
@@ -33,6 +34,7 @@ const showTournamentModal = ref(false)
 const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
+const showDeceasedModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -166,6 +168,15 @@ async function handleSelect(id: number, name: string) {
         :disable-popover="true"
         @trigger-click="showDynastyOverviewModal = true"
       />
+
+      <!-- 已故角色 -->
+      <StatusWidget
+        :label="t('game.deceased.title_short')"
+        color="#8c8c8c"
+        mode="single"
+        :disable-popover="true"
+        @trigger-click="showDeceasedModal = true"
+      />
     </div>
 
     <!-- 榜单 Modal -->
@@ -211,6 +222,9 @@ async function handleSelect(id: number, name: string) {
 
     <!-- 王朝系统 Modal -->
     <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
+
+    <!-- 已故角色 Modal -->
+    <DeceasedModal v-model:show="showDeceasedModal" />
 
     <!-- 天象选择器 Modal -->
     <n-modal
