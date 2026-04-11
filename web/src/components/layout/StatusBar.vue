@@ -12,6 +12,7 @@ import TournamentModal from '../game/panels/TournamentModal.vue'
 import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
+import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
 import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
@@ -32,25 +33,6 @@ const showTournamentModal = ref(false)
 const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
-
-const STATUS_BAR_COLORS = {
-  neutral: '#8c8c8c',
-  worldInfo: '#78b6ff',
-  ranking: '#cfa53a',
-  tournament: '#e3b341',
-  sectRelations: '#7c8ff7',
-  mortal: '#5fbf7a',
-  dynasty: '#b8793b',
-  hiddenDomainDormant: '#6f6253',
-  hiddenDomainActive: '#d8a14a',
-} as const
-
-const PHENOMENON_RARITY_COLORS: Record<string, string> = {
-  N: '#9aa4b2',
-  R: '#63a3ff',
-  SR: '#63c28b',
-  SSR: '#e1ab52',
-}
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -359,9 +341,9 @@ async function handleSelect(id: number, name: string) {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
-  color: #8f98a3;
+  color: #86afe0;
   padding: 0 0 10px;
   border-bottom: 1px solid #2f2f2f;
 }
@@ -398,23 +380,23 @@ async function handleSelect(id: number, name: string) {
 }
 
 .world-info-item-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
-  color: #d9dbe0;
-  line-height: 1.6;
+  color: #8fc0ff;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
 .world-info-item-desc {
-  font-size: 12px;
-  line-height: 1.6;
-  color: #b7bcc6;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #bfd5ef;
   min-width: 0;
 }
 
 .world-info-empty {
-  font-size: 12px;
-  color: #868d96;
+  font-size: 13px;
+  color: #8ea9c8;
   padding: 8px 0;
 }
 

@@ -4,6 +4,7 @@ import { NModal, NTabs, NTabPane, NTable, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { worldApi } from '../../../api/modules/world'
 import type { RankingsDTO } from '@/types/api'
+import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
 import { useUiStore } from '../../../stores/ui'
 import { formatRealmStage } from '@/utils/cultivationText'
 import { logError } from '@/utils/appError'
@@ -19,6 +20,20 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const uiStore = useUiStore()
+const rankingTheme = SYSTEM_PANEL_THEMES.ranking
+const panelStyleVars = {
+  '--panel-accent': rankingTheme.accent,
+  '--panel-accent-strong': rankingTheme.accentStrong,
+  '--panel-accent-soft': rankingTheme.accentSoft,
+  '--panel-link': rankingTheme.link,
+  '--panel-link-hover': rankingTheme.linkHover,
+  '--panel-title': rankingTheme.title,
+  '--panel-empty': rankingTheme.empty,
+  '--panel-border': rankingTheme.border,
+  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
+  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
+  '--panel-text-muted': SHARED_UI_COLORS.textMuted,
+}
 
 const openAvatarInfo = (id: string) => {
   uiStore.select('avatar', id)
@@ -70,11 +85,12 @@ watch(() => props.show, (newVal) => {
     style="width: 750px; max-height: 80vh; overflow-y: auto;"
   >
     <n-spin :show="loading">
-      <div class="ranking-lead">
-        <span class="lead-icon" :style="{ '--icon-url': `url(${trophyIcon})` }" aria-hidden="true"></span>
-        <span>{{ t('game.ranking.title') }}</span>
-      </div>
-      <div style="display: flex; gap: 20px;">
+      <div class="ranking-modal" :style="panelStyleVars">
+        <div class="ranking-lead">
+          <span class="lead-icon" :style="{ '--icon-url': `url(${trophyIcon})` }" aria-hidden="true"></span>
+          <span>{{ t('game.ranking.title') }}</span>
+        </div>
+        <div style="display: flex; gap: 20px;">
         <div style="flex: 1; min-width: 0;">
           <n-tabs type="line" animated>
         <n-tab-pane name="heaven" :tab="t('game.ranking.heaven')">
@@ -100,7 +116,7 @@ watch(() => props.show, (newVal) => {
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.heaven.length">
-                <td colspan="5" style="text-align: center; color: #888;">{{ t('game.ranking.empty') }}</td>
+                <td colspan="5" class="empty-cell">{{ t('game.ranking.empty') }}</td>
               </tr>
             </tbody>
           </n-table>
@@ -129,7 +145,7 @@ watch(() => props.show, (newVal) => {
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.earth.length">
-                <td colspan="5" style="text-align: center; color: #888;">{{ t('game.ranking.empty') }}</td>
+                <td colspan="5" class="empty-cell">{{ t('game.ranking.empty') }}</td>
               </tr>
             </tbody>
           </n-table>
@@ -158,7 +174,7 @@ watch(() => props.show, (newVal) => {
                 <td>{{ item.power }}</td>
               </tr>
               <tr v-if="!rankings.human.length">
-                <td colspan="5" style="text-align: center; color: #888;">{{ t('game.ranking.empty') }}</td>
+                <td colspan="5" class="empty-cell">{{ t('game.ranking.empty') }}</td>
               </tr>
             </tbody>
           </n-table>
@@ -184,7 +200,7 @@ watch(() => props.show, (newVal) => {
                 <td>{{ item.total_power }}</td>
               </tr>
               <tr v-if="!rankings.sect.length">
-                <td colspan="5" style="text-align: center; color: #888;">{{ t('game.ranking.empty') }}</td>
+                <td colspan="5" class="empty-cell">{{ t('game.ranking.empty') }}</td>
               </tr>
             </tbody>
           </n-table>
@@ -192,21 +208,34 @@ watch(() => props.show, (newVal) => {
       </n-tabs>
         </div>
       </div>
+      </div>
     </n-spin>
   </n-modal>
 </template>
 
 <style scoped>
 .clickable-text {
-  color: #4dabf7;
+  color: var(--panel-link);
   cursor: pointer;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .clickable-text:hover {
-  color: #8bc6ff;
+  color: var(--panel-link-hover);
   text-decoration: underline;
+}
+
+:deep(.n-tabs-tab) {
+  color: var(--panel-text-secondary);
+}
+
+:deep(.n-tabs-tab.n-tabs-tab--active) {
+  color: var(--panel-accent-strong);
+}
+
+:deep(.n-tabs-bar) {
+  background-color: var(--panel-accent-soft);
 }
 
 :deep(.n-table) {
@@ -214,6 +243,7 @@ watch(() => props.show, (newVal) => {
 }
 :deep(.n-table th) {
   font-weight: bold;
+  color: var(--panel-text-secondary);
 }
 
 .ranking-lead {
@@ -221,7 +251,7 @@ watch(() => props.show, (newVal) => {
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  color: #f4d47c;
+  color: var(--panel-title);
   font-weight: 700;
 }
 
@@ -238,5 +268,10 @@ watch(() => props.show, (newVal) => {
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+.empty-cell {
+  text-align: center;
+  color: var(--panel-empty);
 }
 </style>

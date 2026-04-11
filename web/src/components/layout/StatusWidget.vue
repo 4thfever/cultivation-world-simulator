@@ -57,11 +57,12 @@ function getDomainStatClass(key: 'danger' | 'drop' | 'cooldown' | 'chance') {
       v-if="disablePopover"
       class="widget-trigger" 
       :style="{ color: props.color }"
+      :title="props.label"
       @click="emit('trigger-click')"
       v-sound="'open'"
     >
       <span v-if="props.icon" class="widget-icon" :style="{ '--icon-url': `url(${props.icon})` }" aria-hidden="true"></span>
-      <span>{{ props.label }}</span>
+      <span class="widget-label">{{ props.label }}</span>
     </span>
 
     <!-- 分支B: 启用 Popover -->
@@ -70,11 +71,12 @@ function getDomainStatClass(key: 'danger' | 'drop' | 'cooldown' | 'chance') {
         <span 
           class="widget-trigger" 
           :style="{ color: props.color }"
+          :title="props.label"
           @click="emit('trigger-click')"
           v-sound="'open'"
         >
           <span v-if="props.icon" class="widget-icon" :style="{ '--icon-url': `url(${props.icon})` }" aria-hidden="true"></span>
-          <span>{{ props.label }}</span>
+          <span class="widget-label">{{ props.label }}</span>
         </span>
       </template>
       
@@ -122,6 +124,11 @@ function getDomainStatClass(key: 'danger' | 'drop' | 'cooldown' | 'chance') {
 </template>
 
 <style scoped>
+.status-widget {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
 .widget-trigger {
   cursor: pointer;
   display: inline-flex;
@@ -130,9 +137,19 @@ function getDomainStatClass(key: 'danger' | 'drop' | 'cooldown' | 'chance') {
   font-weight: bold;
   transition: opacity 0.2s, color 0.2s;
   white-space: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
 }
 .widget-trigger:hover { opacity: 0.92; }
 .divider { color: #4a443b; margin-right: 10px; }
+
+.widget-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .widget-icon {
   width: 14px;

@@ -2,6 +2,7 @@
 import { computed, watch } from 'vue'
 import { NModal, NTable, NTag, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
 import { useMortalStore } from '@/stores/mortal'
 import {
   formatPopulationGrowthText,
@@ -20,6 +21,17 @@ const emit = defineEmits<{
 
 const { locale, t } = useI18n()
 const mortalStore = useMortalStore()
+const mortalTheme = SYSTEM_PANEL_THEMES.mortal
+const panelStyleVars = {
+  '--panel-accent': mortalTheme.accent,
+  '--panel-accent-strong': mortalTheme.accentStrong,
+  '--panel-accent-soft': mortalTheme.accentSoft,
+  '--panel-title': mortalTheme.title,
+  '--panel-empty': mortalTheme.empty,
+  '--panel-border': mortalTheme.border,
+  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
+  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
+}
 
 const summary = computed(() => mortalStore.overview.summary)
 const cityRows = computed(() => mortalStore.overview.cities)
@@ -60,7 +72,7 @@ watch(
     style="width: 980px; max-height: 80vh; overflow-y: auto;"
   >
     <n-spin :show="mortalStore.isLoading">
-      <div class="mortal-overview">
+      <div class="mortal-overview" :style="panelStyleVars">
         <section class="section">
           <div class="section-title">
             <span class="section-title-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></span>
@@ -166,8 +178,8 @@ watch(
   gap: 6px;
   font-size: 13px;
   font-weight: 700;
-  color: #d9d9d9;
-  border-bottom: 1px solid #333;
+  color: var(--panel-title);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 6px;
 }
 
@@ -195,29 +207,33 @@ watch(
 
 .summary-card {
   padding: 10px 12px;
-  border: 1px solid #2f2f2f;
+  border: 1px solid var(--panel-border);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-accent-soft);
 }
 
 .summary-label {
   font-size: 12px;
-  color: #8c8c8c;
+  color: var(--panel-text-secondary);
   margin-bottom: 6px;
 }
 
 .summary-value {
   font-size: 18px;
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--panel-text-primary);
 }
 
 .summary-value.growth {
-  color: #95de64;
+  color: var(--panel-accent-strong);
+}
+
+:deep(.n-table th) {
+  color: var(--panel-text-secondary);
 }
 
 .empty-cell {
   text-align: center;
-  color: #888;
+  color: var(--panel-empty);
 }
 </style>

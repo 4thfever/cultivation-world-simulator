@@ -2,6 +2,7 @@
 import { computed, watch } from 'vue'
 import { NModal, NSpin, NTag } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
 import { useDynastyStore } from '@/stores/dynasty'
 import { useUiStore } from '@/stores/ui'
 import { formatCultivationText } from '@/utils/cultivationText'
@@ -22,6 +23,17 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const dynastyStore = useDynastyStore()
 const uiStore = useUiStore()
+const dynastyTheme = SYSTEM_PANEL_THEMES.dynasty
+const panelStyleVars = {
+  '--panel-accent': dynastyTheme.accent,
+  '--panel-accent-strong': dynastyTheme.accentStrong,
+  '--panel-accent-soft': dynastyTheme.accentSoft,
+  '--panel-title': dynastyTheme.title,
+  '--panel-empty': dynastyTheme.empty,
+  '--panel-border': dynastyTheme.border,
+  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
+  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
+}
 
 const overview = computed(() => dynastyStore.overview)
 const officials = computed(() => dynastyStore.officials)
@@ -61,7 +73,7 @@ watch(
     style="width: 760px; max-height: 80vh; overflow-y: auto;"
   >
     <n-spin :show="dynastyStore.isLoading">
-      <div class="dynasty-overview">
+      <div class="dynasty-overview" :style="panelStyleVars">
         <template v-if="hasOverview">
           <section class="hero-card">
             <div class="hero-header">
@@ -209,10 +221,10 @@ watch(
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border: 1px solid #2f2f2f;
+  border: 1px solid var(--panel-border);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(124, 45, 18, 0.35), rgba(107, 33, 168, 0.08)),
+    linear-gradient(135deg, rgba(184, 121, 59, 0.34), rgba(69, 48, 30, 0.14)),
     rgba(255, 255, 255, 0.03);
 }
 
@@ -232,24 +244,24 @@ watch(
 .hero-icon {
   width: 28px;
   height: 28px;
-  color: #ffd591;
+  color: var(--panel-accent-strong);
   margin-top: 2px;
 }
 
 .hero-title {
   font-size: 24px;
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--panel-text-primary);
 }
 
 .hero-subtitle {
   font-size: 13px;
-  color: #d9d9d9;
+  color: var(--panel-text-secondary);
   margin-top: 4px;
 }
 
 .hero-desc {
-  color: #cfcfcf;
+  color: var(--panel-text-secondary);
   line-height: 1.7;
 }
 
@@ -265,8 +277,8 @@ watch(
   gap: 6px;
   font-size: 13px;
   font-weight: 700;
-  color: #d9d9d9;
-  border-bottom: 1px solid #333;
+  color: var(--panel-title);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 6px;
 }
 
@@ -299,7 +311,7 @@ watch(
 
 .section-meta {
   font-size: 12px;
-  color: #8c8c8c;
+  color: var(--panel-text-secondary);
 }
 
 .info-grid {
@@ -311,25 +323,25 @@ watch(
 .info-card,
 .effect-card {
   padding: 10px 12px;
-  border: 1px solid #2f2f2f;
+  border: 1px solid var(--panel-border);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-accent-soft);
 }
 
 .info-label {
   font-size: 12px;
-  color: #8c8c8c;
+  color: var(--panel-text-secondary);
   margin-bottom: 6px;
 }
 
 .info-value {
   font-size: 18px;
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--panel-text-primary);
 }
 
 .effect-card {
-  color: #d9d9d9;
+  color: var(--panel-text-secondary);
   line-height: 1.7;
 }
 
@@ -341,16 +353,16 @@ watch(
 }
 
 .effect-source {
-  color: #8c8c8c;
+  color: var(--panel-text-secondary);
   white-space: nowrap;
 }
 
 .effect-content {
-  color: #d9d9d9;
+  color: var(--panel-text-primary);
 }
 
 .emperor-tag {
-  color: #ffd591;
+  color: var(--panel-accent-strong);
 }
 
 .official-list {
@@ -366,9 +378,9 @@ watch(
   align-items: center;
   width: 100%;
   padding: 12px;
-  border: 1px solid #2f2f2f;
+  border: 1px solid var(--panel-border);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-accent-soft);
   color: inherit;
   text-align: left;
   cursor: pointer;
@@ -377,7 +389,7 @@ watch(
 
 .official-row:hover {
   background: rgba(255, 255, 255, 0.06);
-  border-color: #4a4a4a;
+  border-color: var(--panel-accent);
 }
 
 .official-main {
@@ -387,13 +399,13 @@ watch(
 .official-name {
   font-size: 16px;
   font-weight: 700;
-  color: #f5f5f5;
+  color: var(--panel-text-primary);
 }
 
 .official-rank {
   margin-top: 4px;
   font-size: 12px;
-  color: #ffd591;
+  color: var(--panel-accent-strong);
 }
 
 .official-side {
@@ -405,13 +417,13 @@ watch(
 
 .official-meta {
   font-size: 12px;
-  color: #bfbfbf;
+  color: var(--panel-text-secondary);
   white-space: nowrap;
 }
 
 .empty-state {
   text-align: center;
-  color: #888;
+  color: var(--panel-empty);
   padding: 20px 0;
 }
 

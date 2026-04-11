@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue';
 import { NModal, NTable, NTag, NSpin } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { worldApi } from '@/api';
+import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors';
 import { useUiStore } from '../../../stores/ui';
 import type { SectRelationDTO } from '../../../types/api';
 import { logError } from '@/utils/appError';
@@ -17,6 +18,19 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const uiStore = useUiStore();
+const sectTheme = SYSTEM_PANEL_THEMES.sectRelations
+const panelStyleVars = {
+  '--panel-accent': sectTheme.accent,
+  '--panel-accent-strong': sectTheme.accentStrong,
+  '--panel-accent-soft': sectTheme.accentSoft,
+  '--panel-link': sectTheme.link,
+  '--panel-link-hover': sectTheme.linkHover,
+  '--panel-title': sectTheme.title,
+  '--panel-empty': sectTheme.empty,
+  '--panel-border': sectTheme.border,
+  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
+  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
+}
 
 const loading = ref(false);
 const relations = ref<SectRelationDTO[]>([]);
@@ -27,16 +41,16 @@ const sortedRelations = computed(() => {
 });
 
 const getValueColor = (value: number) => {
-  if (value <= -50) return '#ff4d4f';
-  if (value < 0) return '#fa8c16';
-  if (value >= 50) return '#52c41a';
-  if (value > 0) return '#a0d911';
+  if (value <= -50) return SHARED_UI_COLORS.dangerSoft;
+  if (value < 0) return '#d8a14a';
+  if (value >= 50) return SHARED_UI_COLORS.successSoft;
+  if (value > 0) return '#b6df89';
   return '#d9d9d9';
 };
 
 const getDeltaColor = (delta: number) => {
-  if (delta > 0) return '#52c41a';
-  if (delta < 0) return '#ff4d4f';
+  if (delta > 0) return SHARED_UI_COLORS.successStrong;
+  if (delta < 0) return SHARED_UI_COLORS.dangerStrong;
   return '#d9d9d9';
 };
 
@@ -136,6 +150,7 @@ watch(
     style="width: 800px; max-height: 80vh; overflow-y: auto;"
   >
     <n-spin :show="loading">
+      <div class="sect-relations-panel" :style="panelStyleVars">
       <n-table :bordered="false" :single-line="false" size="small">
         <thead>
           <tr>
@@ -185,47 +200,59 @@ watch(
             </td>
           </tr>
           <tr v-if="!sortedRelations.length">
-            <td colspan="5" style="text-align: center; color: #888;">
+            <td colspan="5" class="empty-cell">
               {{ t('game.sect_relations.empty') }}
             </td>
           </tr>
         </tbody>
       </n-table>
+      </div>
     </n-spin>
   </n-modal>
 </template>
 
 <style scoped>
 .clickable-text {
-  color: #4dabf7;
+  color: var(--panel-link);
   cursor: pointer;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .clickable-text:hover {
-  color: #8bc6ff;
+  color: var(--panel-link-hover);
   text-decoration: underline;
+}
+
+:deep(.n-table th) {
+  color: var(--panel-text-secondary);
 }
 
 .value-label {
   margin-left: 6px;
   font-size: 0.9em;
   opacity: 0.9;
+  color: var(--panel-text-secondary);
 }
 
 .reason-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: var(--panel-accent-soft);
 }
 
 .reason-text {
-  color: #d9d9d9;
+  color: var(--panel-text-primary);
 }
 
 .delta-text {
   font-weight: 700;
+}
+
+.empty-cell {
+  text-align: center;
+  color: var(--panel-empty);
 }
 </style>
 
