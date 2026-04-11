@@ -12,6 +12,7 @@ import TournamentModal from '../game/panels/TournamentModal.vue'
 import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
 import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
+import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
@@ -33,6 +34,7 @@ const showTournamentModal = ref(false)
 const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
+const showHiddenDomainModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -42,12 +44,6 @@ const phenomenonColor = computed(() => {
 
 const domainLabel = computed(() => {
   return t('game.status_bar.hidden_domain.label')
-})
-
-const domainColor = computed(() => {
-  // 如果有任意一个秘境是开启状态，则亮色
-  const anyOpen = store.activeDomains.some(d => d.is_open)
-  return anyOpen ? STATUS_BAR_COLORS.hiddenDomainActive : STATUS_BAR_COLORS.hiddenDomainDormant
 })
 
 const timeLabel = computed(() => {
@@ -91,60 +87,47 @@ async function handleSelect(id: number, name: string) {
         :label="t('game.status_bar.world_info.label')"
         :icon="bookOpenIcon"
         :color="STATUS_BAR_COLORS.worldInfo"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showWorldInfoModal = true"
-      >
-      </StatusWidget>
+      />
       
-      <!-- 天地灵机 -->
       <StatusWidget 
         v-if="store.currentPhenomenon"
         :label="`[${store.currentPhenomenon.name}]`"
         :icon="sparklesIcon"
         :color="phenomenonColor"
-        mode="single"
         :disable-popover="true"
         @trigger-click="openPhenomenonSelector"
       />
 
-      <!-- 秘境 -->
       <StatusWidget
         :label="domainLabel"
         :icon="shieldIcon"
-        :color="domainColor"
-        mode="list"
-        :title="t('game.status_bar.hidden_domain.title')"
-        :items="store.activeDomains"
-        :empty-text="t('game.status_bar.hidden_domain.empty')"
+        :color="STATUS_BAR_COLORS.hiddenDomain"
+        :disable-popover="true"
+        @trigger-click="showHiddenDomainModal = true"
       />
 
-      <!-- 榜单 -->
       <StatusWidget
         :label="t('game.ranking.title_short')"
         :icon="trophyIcon"
         :color="STATUS_BAR_COLORS.ranking"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showRankingModal = true"
       />
 
-      <!-- 武道会 -->
       <StatusWidget
         :label="t('game.ranking.tournament_short')"
         :icon="swordsIcon"
         :color="STATUS_BAR_COLORS.tournament"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showTournamentModal = true"
       />
 
-      <!-- 宗门关系 -->
       <StatusWidget
         :label="t('game.sect_relations.title_short')"
         :icon="shieldIcon"
         :color="STATUS_BAR_COLORS.sectRelations"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showSectRelationsModal = true"
       />
@@ -153,7 +136,6 @@ async function handleSelect(id: number, name: string) {
         :label="t('game.mortal_system.title_short')"
         :icon="usersIcon"
         :color="STATUS_BAR_COLORS.mortal"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showMortalOverviewModal = true"
       />
@@ -162,13 +144,11 @@ async function handleSelect(id: number, name: string) {
         :label="t('game.dynasty.title_short')"
         :icon="landmarkIcon"
         :color="STATUS_BAR_COLORS.dynasty"
-        mode="single"
         :disable-popover="true"
         @trigger-click="showDynastyOverviewModal = true"
       />
     </div>
 
-    <!-- 榜单 Modal -->
     <RankingModal v-model:show="showRankingModal" />
 
     <n-modal
@@ -200,19 +180,16 @@ async function handleSelect(id: number, name: string) {
       </div>
     </n-modal>
     
-    <!-- 武道会 Modal -->
     <TournamentModal v-model:show="showTournamentModal" />
 
-    <!-- 宗门关系 Modal -->
     <SectRelationsModal v-model:show="showSectRelationsModal" />
 
-    <!-- 凡人系统 Modal -->
+    <HiddenDomainOverviewModal v-model:show="showHiddenDomainModal" />
+
     <MortalOverviewModal v-model:show="showMortalOverviewModal" />
 
-    <!-- 王朝系统 Modal -->
     <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
 
-    <!-- 天象选择器 Modal -->
     <n-modal
       v-model:show="showSelector"
       preset="card"
@@ -288,47 +265,6 @@ async function handleSelect(id: number, name: string) {
   color: #d2c5a3;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-/* .phenomenon, .divider, .phenomenon-name REMOVED (moved to StatusWidget) */
-
-.phenomenon-card {
-  padding: 4px 0;
-}
-
-.p-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  font-weight: bold;
-  font-size: 15px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 4px;
-}
-
-.p-rarity {
-  font-size: 12px;
-  opacity: 0.8;
-  border: 1px solid currentColor;
-  padding: 0 4px;
-  border-radius: 2px;
-}
-
-.p-desc {
-  font-size: 13px;
-  color: #ddd;
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-
-/* 统一的效果块样式 */
-.effect-block {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #444;
-  border-radius: 4px;
-  padding: 8px 10px;
-  margin: 8px 0;
 }
 
 .world-info-card {
@@ -409,35 +345,6 @@ async function handleSelect(id: number, name: string) {
   .world-info-item-title {
     white-space: normal;
   }
-}
-
-.effect-label {
-  font-size: 12px;
-  color: #8a8171;
-  margin-bottom: 4px;
-}
-
-.effect-content {
-  font-size: 13px;
-  color: #e3b341;
-  font-weight: 500;
-  line-height: 1.5;
-  white-space: pre-wrap;
-}
-
-.p-duration {
-  font-size: 12px;
-  color: #8a8171;
-  text-align: right;
-}
-
-.click-tip {
-  font-size: 10px;
-  color: #746b5f;
-  text-align: center;
-  margin-top: 8px;
-  border-top: 1px dashed #333;
-  padding-top: 4px;
 }
 
 .list-item-content {

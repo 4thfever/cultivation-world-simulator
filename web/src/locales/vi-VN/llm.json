@@ -80,6 +80,7 @@
     "qwen": "Qwen",
     "deepseek": "DeepSeek",
     "minimax": "MiniMax",
+    "longcat": "LongCat",
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -98,6 +99,7 @@
     "qwen": "Aliyun Bailian (Qwen / Đề cử)",
     "deepseek": "Nền tảng DeepSeek (Nhanh & Rẻ)",
     "minimax": "Nền tảng MiniMax (Ngữ cảnh 1M, Nhanh)",
+    "longcat": "Nền tảng API LongCat (Meituan, hạn mức miễn phí lớn)",
     "openrouter": "OpenRouter (Tất cả trong một / Đề cử)",
     "siliconflow": "SiliconFlow (Tổng hợp nội địa)",
     "gemini": "Google AI Studio (Gemini)"

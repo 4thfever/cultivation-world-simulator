@@ -80,6 +80,7 @@
     "qwen": "通義千問",
     "deepseek": "DeepSeek",
     "minimax": "MiniMax",
+    "longcat": "LongCat",
     "siliconflow": "硅基流動",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -98,6 +99,7 @@
     "qwen": "阿里雲百鍊 (Qwen / 最推薦)",
     "deepseek": "DeepSeek 開放平臺 (國內推薦，便宜)",
     "minimax": "MiniMax 開放平台 (百萬上下文，高速)",
+    "longcat": "LongCat API 開放平台 (美團，免費額度高)",
     "openrouter": "OpenRouter (全機型聚合，推薦)",
     "siliconflow": "硅基流動 (國內聚合)",
     "gemini": "Google AI Studio (Gemini)"

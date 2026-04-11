@@ -227,6 +227,7 @@ def get_world_state(
     resolve_avatar_action_emoji: Callable[[Any], str],
     resolve_avatar_pic_id: Callable[[Any], int],
     serialize_events_for_client: Callable[[list[Any]], list[dict[str, Any]]],
+    serialize_active_domains: Callable[[Any], list[dict[str, Any]]],
     serialize_phenomenon: Callable[[Any], dict[str, Any] | None],
 ) -> dict[str, Any]:
     world = _require_world(runtime)
@@ -273,6 +274,7 @@ def get_world_state(
         "avatar_count": len(world.avatar_manager.avatars),
         "avatars": avatars,
         "events": recent_events,
+        "active_domains": serialize_active_domains(world),
         "phenomenon": serialize_phenomenon(world.current_phenomenon),
         "is_paused": runtime.get("is_paused", False),
     }

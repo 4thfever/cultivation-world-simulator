@@ -89,8 +89,8 @@ export const useWorldStore = defineStore('world', () => {
     eventStore.reset();
 
     currentPhenomenon.value = stateRes.phenomenon;
+    activeDomains.value = stateRes.activeDomains;
     isLoaded.value = true;
-    activeDomains.value = [];
   }
 
   async function preloadMap() {

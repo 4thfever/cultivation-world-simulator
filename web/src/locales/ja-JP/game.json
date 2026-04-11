@@ -14,10 +14,11 @@
       "label": "[秘境]",
       "title": "秘境一覧",
       "empty": "秘境データがありません",
+      "required_realm": "推奨境界",
       "danger": "危険",
       "drop": "機縁",
-      "status_open": "出現中",
-      "status_closed": "未出現"
+      "cooldown": "冷却周期",
+      "open_chance": "出現確率"
     },
     "world_info": {
       "label": "[世界情報]",

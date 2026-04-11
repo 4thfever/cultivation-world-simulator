@@ -39,6 +39,7 @@ export interface InitialStateDTO {
   }>;
   events?: EventDTO[];
   phenomenon?: CelestialPhenomenon | null;
+  active_domains?: HiddenDomainInfo[];
 }
 
 export interface TickPayloadDTO {

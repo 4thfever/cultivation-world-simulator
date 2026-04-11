@@ -80,6 +80,7 @@
     "qwen": "Qwen",
     "deepseek": "DeepSeek",
     "minimax": "MiniMax",
+    "longcat": "LongCat",
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -98,6 +99,7 @@
     "qwen": "Aliyun Bailian (Qwen / Recommended)",
     "deepseek": "DeepSeek Platform (Fast & Cheap)",
     "minimax": "MiniMax Platform (1M Context, Fast)",
+    "longcat": "LongCat API Platform (Meituan, generous free quota)",
     "openrouter": "OpenRouter (All-in-one, Recommended)",
     "siliconflow": "SiliconFlow (Domestic Aggregation)",
     "gemini": "Google AI Studio (Gemini)"

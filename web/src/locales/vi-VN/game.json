@@ -14,10 +14,11 @@
       "label": "[Bí Cảnh]",
       "title": "Danh Sách Bí Cảnh",
       "empty": "Không có dữ liệu bí cảnh",
+      "required_realm": "Cảnh Giới Khuyến Nghị",
       "danger": "Nguy hiểm",
       "drop": "Cơ duyên",
-      "status_open": "Mở",
-      "status_closed": "Đóng"
+      "cooldown": "Chu Kỳ Hồi",
+      "open_chance": "Tỷ Lệ Xuất Hiện"
     },
     "world_info": {
       "label": "[Thong Tin The Gioi]",

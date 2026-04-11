@@ -80,6 +80,7 @@
     "qwen": "Qwen",
     "deepseek": "DeepSeek",
     "minimax": "MiniMax",
+    "longcat": "LongCat",
     "siliconflow": "SiliconFlow",
     "openrouter": "OpenRouter",
     "gemini": "Gemini",
@@ -98,6 +99,7 @@
     "qwen": "Aliyun Bailian（Qwen / 推奨）",
     "deepseek": "DeepSeek Platform（高速・低価格）",
     "minimax": "MiniMax Platform（100 万コンテキスト・高速）",
+    "longcat": "LongCat API Platform（Meituan・無料枠多め）",
     "openrouter": "OpenRouter（統合型 / 推奨）",
     "siliconflow": "SiliconFlow（国内集約）",
     "gemini": "Google AI Studio（Gemini）"

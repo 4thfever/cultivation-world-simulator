@@ -6,8 +6,7 @@ export const STATUS_BAR_COLORS = {
   sectRelations: '#7c8ff7',
   mortal: '#5fbf7a',
   dynasty: '#b8793b',
-  hiddenDomainDormant: '#6f6253',
-  hiddenDomainActive: '#d8a14a',
+  hiddenDomain: '#b78a52',
 } as const
 
 export const PHENOMENON_RARITY_COLORS: Record<string, string> = {
@@ -79,5 +78,13 @@ export const SYSTEM_PANEL_THEMES = {
     title: '#e3c7a3',
     empty: '#978470',
     border: '#47321f',
+  },
+  hiddenDomain: {
+    accent: STATUS_BAR_COLORS.hiddenDomain,
+    accentStrong: '#e3c08f',
+    accentSoft: 'rgba(183, 138, 82, 0.16)',
+    title: '#e8ccb0',
+    empty: '#9b876f',
+    border: '#4a3726',
   },
 } as const

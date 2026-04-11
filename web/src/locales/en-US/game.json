@@ -14,10 +14,11 @@
       "label": "[Hidden Domain]",
       "title": "Hidden Domains List",
       "empty": "No hidden domains data",
+      "required_realm": "Suggested Realm",
       "danger": "Danger",
       "drop": "Fortune",
-      "status_open": "Open",
-      "status_closed": "Closed"
+      "cooldown": "Cooldown",
+      "open_chance": "Spawn Chance"
     },
     "world_info": {
       "label": "[World Info]",

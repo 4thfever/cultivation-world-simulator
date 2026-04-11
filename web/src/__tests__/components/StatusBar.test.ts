@@ -368,37 +368,37 @@ describe('StatusBar', () => {
   })
 
   describe('domain color', () => {
-    it('should return #d8a14a when any domain is open', () => {
+    it('should use the same hidden domain color when any domain is open', () => {
       mockActiveDomains = [
-        { id: 1, name: 'D1', is_open: false },
-        { id: 2, name: 'D2', is_open: true },
+        { id: 1, name: 'D1' },
+        { id: 2, name: 'D2' },
       ]
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#d8a14a')
+      expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
 
-    it('should return #6f6253 when all domains are closed', () => {
+    it('should use the same hidden domain color when all domains are closed', () => {
       mockActiveDomains = [
-        { id: 1, name: 'D1', is_open: false },
-        { id: 2, name: 'D2', is_open: false },
+        { id: 1, name: 'D1' },
+        { id: 2, name: 'D2' },
       ]
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#6f6253')
+      expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
 
-    it('should return #6f6253 when no domains', () => {
+    it('should use the same hidden domain color when there are no domains', () => {
       mockActiveDomains = []
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#6f6253')
+      expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
   })
 

@@ -225,6 +225,7 @@ public_query_builders = create_public_query_builders(
     resolve_avatar_action_emoji=resolve_avatar_action_emoji,
     resolve_avatar_pic_id=resolve_avatar_pic_id,
     serialize_events_for_client=serialize_events_for_client,
+    serialize_active_domains=serialize_active_domains,
     serialize_phenomenon=serialize_phenomenon,
     get_world_state=get_world_state,
     get_world_map=get_world_map,

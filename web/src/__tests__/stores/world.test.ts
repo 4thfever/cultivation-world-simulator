@@ -451,6 +451,7 @@ describe('useWorldStore', () => {
         year: 100,
         month: 1,
         avatars: [createMockAvatar()],
+        activeDomains: [{ id: 'domain-1', name: '秘境', desc: 'desc', required_realm: 'QI_REFINEMENT', danger_prob: 0.2, drop_prob: 0.4, cd_years: 3, open_prob: 0.1 }],
       })
       vi.mocked(eventApi.fetchEvents).mockResolvedValue({
         events: [],
@@ -463,6 +464,7 @@ describe('useWorldStore', () => {
       expect(worldApi.fetchMap).toHaveBeenCalled()
       expect(worldApi.fetchInitialState).toHaveBeenCalled()
       expect(store.isLoaded).toBe(true)
+      expect(store.activeDomains).toHaveLength(1)
     })
 
     it('should skip map load if already loaded', async () => {

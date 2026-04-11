@@ -6,7 +6,7 @@ from src.classes.effect import format_effects_to_text
 
 
 def serialize_active_domains(world) -> list[dict[str, Any]]:
-    """Serialize all hidden-domain configs together with current open state."""
+    """Serialize hidden-domain configs for frontend display."""
     domains_data: list[dict[str, Any]] = []
     gathering_manager = getattr(world, "gathering_manager", None)
     if not world or not gathering_manager:
@@ -24,8 +24,6 @@ def serialize_active_domains(world) -> list[dict[str, Any]]:
         return domains_data
 
     all_configs = hidden_domain_gathering._load_configs()
-    active_ids = {domain.id for domain in hidden_domain_gathering._active_domains}
-
     for domain in all_configs:
         domains_data.append(
             {
@@ -35,7 +33,6 @@ def serialize_active_domains(world) -> list[dict[str, Any]]:
                 "required_realm": str(domain.required_realm),
                 "danger_prob": domain.danger_prob,
                 "drop_prob": domain.drop_prob,
-                "is_open": domain.id in active_ids,
                 "cd_years": domain.cd_years,
                 "open_prob": domain.open_prob,
             }

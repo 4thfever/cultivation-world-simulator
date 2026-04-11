@@ -107,6 +107,14 @@ const presets = computed<LlmPreset[]>(() => [
     api_format: 'openai'
   },
   {
+    name: t('llm.presets.longcat'),
+    base_url: 'https://api.longcat.chat/openai',
+    model_name: 'LongCat-Flash-Chat',
+    fast_model_name: 'LongCat-Flash-Lite',
+    api_format: 'openai',
+    badge: 'free'
+  },
+  {
     name: t('llm.presets.siliconflow'),
     base_url: 'https://api.siliconflow.cn/v1',
     model_name: 'Qwen/Qwen2.5-72B-Instruct',
@@ -409,6 +417,7 @@ onMounted(() => {
                <li><a href="https://bailian.console.aliyun.com/" target="_blank">{{ t('llm.help_links.qwen') }}</a></li>
                <li><a href="https://platform.deepseek.com/" target="_blank">{{ t('llm.help_links.deepseek') }}</a></li>
                <li><a href="https://platform.minimaxi.com/" target="_blank">{{ t('llm.help_links.minimax') }}</a></li>
+               <li><a href="https://longcat.chat/platform/docs/zh/" target="_blank">{{ t('llm.help_links.longcat') }}</a></li>
                <li><a href="https://openrouter.ai/" target="_blank">{{ t('llm.help_links.openrouter') }}</a></li>
                <li><a href="https://cloud.siliconflow.cn/" target="_blank">{{ t('llm.help_links.siliconflow') }}</a></li>
                <li><a href="https://aistudio.google.com/" target="_blank">{{ t('llm.help_links.gemini') }}</a></li>
