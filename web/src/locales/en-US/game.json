@@ -26,6 +26,9 @@
       "ai_knowledge_note": "What the cultivator AI knows about the cultivation world",
       "empty": "No world info available"
     },
+    "avatar_overview": {
+      "label": "[Characters]"
+    },
     "time": {
       "title": "Time Overview",
       "current_date": "Current Date",

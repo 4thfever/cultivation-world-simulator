@@ -483,11 +483,11 @@ describe('StatusBar', () => {
 
     const widgets = wrapper.findAll('.status-widget-stub')
     const deceasedWidget = widgets[8]
-    expect(deceasedWidget.attributes('data-label')).toBe('game.avatar_overview.title_short')
+    expect(deceasedWidget.attributes('data-label')).toBe('game.status_bar.avatar_overview.label')
     expect(deceasedWidget.attributes('data-color')).toBe('#8c8c8c')
   })
 
-  it('should render avatar overview summary when loaded', () => {
+  it('should keep avatar overview label fixed when loaded', () => {
     mockAvatarOverviewLoaded = true
     mockAvatarOverview = {
       summary: {
@@ -504,9 +504,7 @@ describe('StatusBar', () => {
 
     const widgets = wrapper.findAll('.status-widget-stub')
     const overviewWidget = widgets[8]
-    expect(overviewWidget.attributes('data-label')).toContain('128')
-    expect(overviewWidget.attributes('data-label')).toContain('93')
-    expect(overviewWidget.attributes('data-label')).toContain('35')
+    expect(overviewWidget.attributes('data-label')).toBe('game.status_bar.avatar_overview.label')
   })
 
   it('should fetch avatar overview before opening modal if not loaded', async () => {

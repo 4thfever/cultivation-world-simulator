@@ -53,16 +53,7 @@ const domainLabel = computed(() => {
 })
 
 const avatarOverviewLabel = computed(() => {
-  const summary = avatarOverviewStore.overview.summary
-  if (!avatarOverviewStore.isLoaded || summary.totalCount <= 0) {
-    return t('game.avatar_overview.title_short')
-  }
-
-  return t('game.avatar_overview.status_summary', {
-    total: summary.totalCount,
-    alive: summary.aliveCount,
-    dead: summary.deadCount,
-  })
+  return t('game.status_bar.avatar_overview.label')
 })
 
 const timeLabel = computed(() => {

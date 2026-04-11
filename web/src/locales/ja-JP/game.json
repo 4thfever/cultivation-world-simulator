@@ -26,6 +26,9 @@
       "ai_knowledge_note": "修士 AI がこの仙道世界について把握している知識",
       "empty": "世界情報がありません"
     },
+    "avatar_overview": {
+      "label": "[人物概覧]"
+    },
     "time": {
       "title": "時間概要",
       "current_date": "現在日時",

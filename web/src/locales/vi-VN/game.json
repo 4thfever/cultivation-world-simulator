@@ -26,6 +26,9 @@
       "ai_knowledge_note": "Nhung gi AI tu si biet ve gioi tu tien",
       "empty": "Khong co thong tin the gioi"
     },
+    "avatar_overview": {
+      "label": "[Tổng Quan Nhân Vật]"
+    },
     "time": {
       "title": "Tong Quan Thoi Gian",
       "current_date": "Ngay Hien Tai",
