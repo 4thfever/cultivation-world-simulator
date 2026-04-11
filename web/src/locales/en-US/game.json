@@ -25,6 +25,22 @@
       "title": "World Info",
       "ai_knowledge_note": "What the cultivator AI knows about the cultivation world",
       "empty": "No world info available"
+    },
+    "time": {
+      "title": "Time Overview",
+      "current_date": "Current Date",
+      "current_date_value": "Year {year}, Month {month}",
+      "elapsed": "Run Duration",
+      "elapsed_months_only": "Running for {months} months",
+      "elapsed_years_only": "Running for {years} years",
+      "elapsed_years_months": "Running for {years} years and {months} months",
+      "phenomenon": "Current Phenomenon",
+      "no_phenomenon": "No current phenomenon",
+      "tournament": "Next Tournament",
+      "no_tournament": "No tournament info available",
+      "sect_war": "Sect Wars",
+      "war_active": "{count} sect war(s) currently active",
+      "war_none": "No sect wars at the moment"
     }
   },
   "world_info": {

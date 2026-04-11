@@ -74,6 +74,9 @@ describe('useWorldStore', () => {
     it('should have correct initial values', () => {
       expect(store.year).toBe(0)
       expect(store.month).toBe(0)
+      expect(store.startYear).toBe(0)
+      expect(store.startMonth).toBe(0)
+      expect(store.elapsedMonths).toBe(0)
       expect(store.avatars.size).toBe(0)
       expect(store.events).toEqual([])
       expect(store.isLoaded).toBe(false)
@@ -116,6 +119,8 @@ describe('useWorldStore', () => {
 
     it('should update time when loaded', () => {
       store.isLoaded = true
+      store.startYear = 100
+      store.startMonth = 1
 
       const payload: TickPayloadDTO = {
         type: 'tick',
@@ -129,6 +134,7 @@ describe('useWorldStore', () => {
 
       expect(store.year).toBe(101)
       expect(store.month).toBe(3)
+      expect(store.elapsedMonths).toBe(14)
     })
 
     it('should merge avatar updates when loaded', () => {
@@ -370,6 +376,9 @@ describe('useWorldStore', () => {
 
       expect(store.year).toBe(0)
       expect(store.month).toBe(0)
+      expect(store.startYear).toBe(0)
+      expect(store.startMonth).toBe(0)
+      expect(store.elapsedMonths).toBe(0)
       expect(store.avatars.size).toBe(0)
       expect(store.events).toEqual([])
       expect(store.isLoaded).toBe(false)
@@ -464,6 +473,8 @@ describe('useWorldStore', () => {
       expect(worldApi.fetchMap).toHaveBeenCalled()
       expect(worldApi.fetchInitialState).toHaveBeenCalled()
       expect(store.isLoaded).toBe(true)
+      expect(store.startYear).toBe(100)
+      expect(store.startMonth).toBe(1)
       expect(store.activeDomains).toHaveLength(1)
     })
 
@@ -510,6 +521,8 @@ describe('useWorldStore', () => {
 
       expect(store.year).toBe(150)
       expect(store.month).toBe(8)
+      expect(store.startYear).toBe(150)
+      expect(store.startMonth).toBe(8)
       expect(store.avatars.size).toBe(1)
       expect(store.isLoaded).toBe(true)
     })

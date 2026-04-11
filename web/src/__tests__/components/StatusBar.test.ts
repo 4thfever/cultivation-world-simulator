@@ -156,6 +156,7 @@ describe('StatusBar', () => {
       },
       stubs: {
         StatusWidget: StatusWidgetStub,
+        TimeOverviewModal: true,
       },
     },
   }
@@ -222,7 +223,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[1]
+      const widget = wrapper.findAll('.status-widget-stub')[2]
       expect(widget.attributes('data-color')).toBe('#9aa4b2')
     })
 
@@ -231,7 +232,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[1]
+      const widget = wrapper.findAll('.status-widget-stub')[2]
       expect(widget.attributes('data-color')).toBe('#63a3ff')
     })
 
@@ -240,7 +241,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[1]
+      const widget = wrapper.findAll('.status-widget-stub')[2]
       expect(widget.attributes('data-color')).toBe('#63c28b')
     })
 
@@ -249,7 +250,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[1]
+      const widget = wrapper.findAll('.status-widget-stub')[2]
       expect(widget.attributes('data-color')).toBe('#e1ab52')
     })
 
@@ -258,7 +259,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const widget = wrapper.findAll('.status-widget-stub')[1]
+      const widget = wrapper.findAll('.status-widget-stub')[2]
       expect(widget.attributes('data-color')).toBe('#8c8c8c')
     })
 
@@ -267,19 +268,19 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      // When phenomenon is null, v-if hides the widget.
-      // World info widget plus domain/ranking/tournament/sect-relations/mortal/dynasty widgets should exist.
+      // time + world info + domain/ranking/tournament/sect-relations/mortal/dynasty
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(7)
+      expect(widgets.length).toBe(8)
     })
 
-    it('should place world info widget before phenomenon widget', () => {
+    it('should place time widget before world info widget and phenomenon widget', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets[0]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
+      expect(widgets[0]?.attributes('data-label')).toBe('100common.year5common.month')
+      expect(widgets[1]?.attributes('data-label')).toBe('game.status_bar.world_info.label')
       expect(widgets[0]?.attributes('data-icon')).toBeTruthy()
-      expect(widgets[1]?.attributes('data-label')).toBe('[Test Phenomenon]')
+      expect(widgets[2]?.attributes('data-label')).toBe('[Test Phenomenon]')
     })
   })
 
@@ -288,7 +289,7 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // Trigger click on phenomenon widget.
-      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[2].trigger('click')
 
       // Run all pending timers and promises.
       await vi.runAllTimersAsync()
@@ -300,7 +301,7 @@ describe('StatusBar', () => {
     it('should show selector modal after getPhenomenaList', async () => {
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[2].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -313,7 +314,7 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       // Open selector.
-      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[2].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -333,7 +334,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[2].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -352,7 +353,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      await wrapper.findAll('.status-widget-stub')[1].trigger('click')
+      await wrapper.findAll('.status-widget-stub')[2].trigger('click')
       await vi.runAllTimersAsync()
       await nextTick()
 
@@ -376,7 +377,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[3]
       expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
 
@@ -388,7 +389,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[3]
       expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
 
@@ -397,7 +398,7 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      const domainWidget = wrapper.findAll('.status-widget-stub')[2]
+      const domainWidget = wrapper.findAll('.status-widget-stub')[3]
       expect(domainWidget.attributes('data-color')).toBe('#b78a52')
     })
   })
@@ -415,7 +416,7 @@ describe('StatusBar', () => {
 
     const wrapper = mount(StatusBar, globalConfig)
 
-    const phenomenonWidget = wrapper.findAll('.status-widget-stub')[1]
+    const phenomenonWidget = wrapper.findAll('.status-widget-stub')[2]
     expect(phenomenonWidget.attributes('data-label')).toBe('[TestPhenomenon]')
     expect(phenomenonWidget.attributes('data-color')).toBe('#63c28b')
   })
@@ -423,7 +424,7 @@ describe('StatusBar', () => {
   it('should pass correct props to domain StatusWidget', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
-    const domainWidget = wrapper.findAll('.status-widget-stub')[2]
+    const domainWidget = wrapper.findAll('.status-widget-stub')[3]
     expect(domainWidget.attributes('data-label')).toBe('game.status_bar.hidden_domain.label')
   })
 
@@ -431,9 +432,9 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
-    expect(widgets.length).toBe(8)
-    const sectRelationsWidget = widgets[5]
+    // time + worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
+    expect(widgets.length).toBe(9)
+    const sectRelationsWidget = widgets[6]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })
 
@@ -441,7 +442,7 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    const dynastyWidget = widgets[7]
+    const dynastyWidget = widgets[8]
     expect(dynastyWidget.attributes('data-label')).toBe('game.dynasty.title_short')
   })
 })

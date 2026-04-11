@@ -43,6 +43,8 @@ export const useWorldStore = defineStore('world', () => {
 
   const year = ref(0);
   const month = ref(0);
+  const startYear = ref(0);
+  const startMonth = ref(0);
   const currentPhenomenon = ref<CelestialPhenomenon | null>(null);
   const phenomenaList = shallowRef<CelestialPhenomenon[]>([]);
   const activeDomains = shallowRef<HiddenDomainInfo[]>([]);
@@ -83,6 +85,8 @@ export const useWorldStore = defineStore('world', () => {
 
   function applyStateSnapshot(stateRes: WorldStateSnapshot) {
     setTime(stateRes.year, stateRes.month);
+    startYear.value = stateRes.year;
+    startMonth.value = stateRes.month;
     avatarStore.setAvatarsFromState(stateRes);
     
     // Reset events via store
@@ -150,6 +154,8 @@ export const useWorldStore = defineStore('world', () => {
   function reset() {
     year.value = 0;
     month.value = 0;
+    startYear.value = 0;
+    startMonth.value = 0;
     currentPhenomenon.value = null;
     activeDomains.value = [];
     isLoaded.value = false;
@@ -185,6 +191,12 @@ export const useWorldStore = defineStore('world', () => {
   // Backward-compatible proxies (gradually migrated by components/tests).
   const avatars = computed(() => avatarStore.avatars);
   const avatarList = computed(() => avatarStore.avatarList);
+  const elapsedMonths = computed(() => {
+    if (startYear.value <= 0 || startMonth.value <= 0 || year.value <= 0 || month.value <= 0) {
+      return 0;
+    }
+    return Math.max(0, (year.value - startYear.value) * 12 + (month.value - startMonth.value));
+  });
   const mapData = computed(() => mapStore.mapData);
   const regions = computed(() => mapStore.regions);
   const renderConfig = computed(() => mapStore.renderConfig);
@@ -198,6 +210,9 @@ export const useWorldStore = defineStore('world', () => {
     // State
     year,
     month,
+    startYear,
+    startMonth,
+    elapsedMonths,
     currentPhenomenon,
     phenomenaList,
     activeDomains,

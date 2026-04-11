@@ -1,5 +1,6 @@
 export const STATUS_BAR_COLORS = {
   neutral: '#8c8c8c',
+  time: '#d2c5a3',
   worldInfo: '#78b6ff',
   ranking: '#cfa53a',
   tournament: '#cf6f3d',
@@ -33,6 +34,14 @@ export const SHARED_UI_COLORS = {
 } as const
 
 export const SYSTEM_PANEL_THEMES = {
+  time: {
+    accent: STATUS_BAR_COLORS.time,
+    accentStrong: '#eadcbb',
+    accentSoft: 'rgba(210, 197, 163, 0.12)',
+    title: '#f0e5c8',
+    empty: '#998f7b',
+    border: '#4a4336',
+  },
   ranking: {
     accent: STATUS_BAR_COLORS.ranking,
     accentStrong: '#f1cf6d',

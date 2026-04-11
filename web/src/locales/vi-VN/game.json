@@ -25,6 +25,22 @@
       "title": "Thong Tin The Gioi",
       "ai_knowledge_note": "Nhung gi AI tu si biet ve gioi tu tien",
       "empty": "Khong co thong tin the gioi"
+    },
+    "time": {
+      "title": "Tong Quan Thoi Gian",
+      "current_date": "Ngay Hien Tai",
+      "current_date_value": "Nam {year}, thang {month}",
+      "elapsed": "Thoi Gian Van Hanh",
+      "elapsed_months_only": "Da van hanh {months} thang",
+      "elapsed_years_only": "Da van hanh {years} nam",
+      "elapsed_years_months": "Da van hanh {years} nam {months} thang",
+      "phenomenon": "Thien Tuong Hien Tai",
+      "no_phenomenon": "Khong co thien tuong hien tai",
+      "tournament": "Lan Luan Vo / Dai Hoi Tiep Theo",
+      "no_tournament": "Khong co thong tin ve luan vo / dai hoi",
+      "sect_war": "Chien Tranh Tong Mon",
+      "war_active": "Hien co {count} cuoc chien tong mon",
+      "war_none": "Hien khong co chien tranh tong mon"
     }
   },
   "world_info": {

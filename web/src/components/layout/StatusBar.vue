@@ -12,8 +12,10 @@ import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
 import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
 import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.vue'
 import WorldInfoModal from '../game/panels/WorldInfoModal.vue'
+import TimeOverviewModal from '../game/panels/TimeOverviewModal.vue'
 import PhenomenonSelectorModal from '../game/panels/PhenomenonSelectorModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
+import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
 import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
@@ -26,6 +28,7 @@ const { t, locale } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
 const showSelector = ref(false)
+const showTimeOverviewModal = ref(false)
 const showWorldInfoModal = ref(false)
 const showRankingModal = ref(false)
 const showTournamentModal = ref(false)
@@ -69,7 +72,13 @@ async function openPhenomenonSelector() {
       <span class="status-dot" :class="{ connected: socketStore.isConnected }"></span>
     </div>
     <div class="center">
-      <span class="time">{{ timeLabel }}</span>
+      <StatusWidget
+        :label="timeLabel"
+        :icon="calendarIcon"
+        :color="STATUS_BAR_COLORS.time"
+        :disable-popover="true"
+        @trigger-click="showTimeOverviewModal = true"
+      />
 
       <StatusWidget
         :label="t('game.status_bar.world_info.label')"
@@ -138,6 +147,7 @@ async function openPhenomenonSelector() {
     </div>
 
     <RankingModal v-model:show="showRankingModal" />
+    <TimeOverviewModal v-model:show="showTimeOverviewModal" />
     <WorldInfoModal v-model:show="showWorldInfoModal" />
     
     <TournamentModal v-model:show="showTournamentModal" />
@@ -193,12 +203,6 @@ async function openPhenomenonSelector() {
   align-items: center;
   gap: 10px;
   min-width: 0;
-}
-
-.time {
-  color: #d2c5a3;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
 .status-dot {

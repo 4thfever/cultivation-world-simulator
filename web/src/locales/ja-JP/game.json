@@ -25,6 +25,22 @@
       "title": "世界情報",
       "ai_knowledge_note": "修士 AI がこの仙道世界について把握している知識",
       "empty": "世界情報がありません"
+    },
+    "time": {
+      "title": "時間概要",
+      "current_date": "現在日時",
+      "current_date_value": "{year}年{month}月",
+      "elapsed": "今回の経過時間",
+      "elapsed_months_only": "{months}か月経過",
+      "elapsed_years_only": "{years}年経過",
+      "elapsed_years_months": "{years}年{months}か月経過",
+      "phenomenon": "現在の天象",
+      "no_phenomenon": "現在の天象なし",
+      "tournament": "次回の論道・大会",
+      "no_tournament": "論道・大会情報なし",
+      "sect_war": "宗門戦争",
+      "war_active": "現在 {count} 件の宗門戦争が進行中",
+      "war_none": "現在宗門戦争はありません"
     }
   },
   "world_info": {

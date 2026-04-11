@@ -25,6 +25,22 @@
       "title": "世界信息",
       "ai_knowledge_note": "修仙者AI关于修仙界的知识",
       "empty": "暂无世界信息"
+    },
+    "time": {
+      "title": "时间总览",
+      "current_date": "当前日期",
+      "current_date_value": "第 {year} 年 {month} 月",
+      "elapsed": "本局历时",
+      "elapsed_months_only": "已运行 {months} 个月",
+      "elapsed_years_only": "已运行 {years} 年",
+      "elapsed_years_months": "已运行 {years} 年 {months} 个月",
+      "phenomenon": "当前天象",
+      "no_phenomenon": "暂无天象",
+      "tournament": "下次论道/大比",
+      "no_tournament": "暂无论道/大比信息",
+      "sect_war": "宗门战争",
+      "war_active": "当前有 {count} 场宗门战争",
+      "war_none": "当前无宗门战争"
     }
   },
   "world_info": {
