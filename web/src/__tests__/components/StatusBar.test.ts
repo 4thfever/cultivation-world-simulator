@@ -157,6 +157,7 @@ describe('StatusBar', () => {
       stubs: {
         StatusWidget: StatusWidgetStub,
         TimeOverviewModal: true,
+        DeceasedModal: true,
       },
     },
   }
@@ -268,9 +269,9 @@ describe('StatusBar', () => {
 
       const wrapper = mount(StatusBar, globalConfig)
 
-      // time + world info + domain/ranking/tournament/sect-relations/mortal/dynasty
+      // time + world info + domain/ranking/tournament/sect-relations/mortal/dynasty/deceased
       const widgets = wrapper.findAll('.status-widget-stub')
-      expect(widgets.length).toBe(8)
+      expect(widgets.length).toBe(9)
     })
 
     it('should place time widget before world info widget and phenomenon widget', () => {
@@ -432,8 +433,8 @@ describe('StatusBar', () => {
     const wrapper = mount(StatusBar, globalConfig)
 
     const widgets = wrapper.findAll('.status-widget-stub')
-    // time + worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty
-    expect(widgets.length).toBe(9)
+    // time + worldInfo + currentPhenomenon + domain + ranking + tournament + sect_relations + mortal + dynasty + deceased
+    expect(widgets.length).toBe(10)
     const sectRelationsWidget = widgets[6]
     expect(sectRelationsWidget.attributes('data-label')).toBe('game.sect_relations.title_short')
   })
@@ -444,5 +445,14 @@ describe('StatusBar', () => {
     const widgets = wrapper.findAll('.status-widget-stub')
     const dynastyWidget = widgets[8]
     expect(dynastyWidget.attributes('data-label')).toBe('game.dynasty.title_short')
+  })
+
+  it('should render deceased StatusWidget', () => {
+    const wrapper = mount(StatusBar, globalConfig)
+
+    const widgets = wrapper.findAll('.status-widget-stub')
+    const deceasedWidget = widgets[9]
+    expect(deceasedWidget.attributes('data-label')).toBe('game.deceased.title_short')
+    expect(deceasedWidget.attributes('data-color')).toBe('#8c8c8c')
   })
 })

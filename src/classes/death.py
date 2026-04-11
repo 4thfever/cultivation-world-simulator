@@ -23,5 +23,8 @@ def handle_death(world: World, avatar: Avatar, reason: Union[str, DeathReason]) 
     
     # 从管理器中归档（硬移动），并记录变更
     world.avatar_manager.handle_death(avatar.id)
+
+    # 记录已故档案（独立于 AvatarManager，不受 cleanup 影响）
+    world.deceased_manager.record_death(avatar)
     
     # 可以在这里触发其他逻辑，比如检查是否有继承人等

@@ -434,5 +434,23 @@
       "runtime_effect_meta": "出典: {source} - 残り {months} か月",
       "runtime_effect_meta_permanent": "出典: {source} - 持続: 永続"
     }
+  },
+  "deceased": {
+    "title_short": "故人",
+    "title": "故人キャラクター",
+    "empty": "故人はまだいません",
+    "name": "名前",
+    "sect": "宗門",
+    "alignment": "属性",
+    "death_time": "没年",
+    "death_reason": "死因",
+    "age_at_death": "享年",
+    "realm_at_death": "最終境界",
+    "backstory": "略歴",
+    "events": "関連イベント",
+    "no_events": "関連イベントなし",
+    "back_to_list": "リストに戻る",
+    "death_year": "第{year}年{month}月",
+    "rogue": "野修"
   }
 }

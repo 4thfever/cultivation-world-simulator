@@ -221,6 +221,13 @@ def _require_world(runtime):
     return world
 
 
+def get_deceased_list(runtime) -> dict[str, Any]:
+    """返回所有已故角色档案列表。"""
+    world = _require_world(runtime)
+    records = world.deceased_manager.get_all_records()
+    return {"deceased": [r.to_dict() for r in records]}
+
+
 def get_world_state(
     runtime,
     *,

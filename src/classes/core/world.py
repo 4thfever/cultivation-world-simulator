@@ -7,6 +7,7 @@ from src.classes.environment.map import Map
 from src.systems.time import Year, Month, MonthStamp
 from src.sim.managers.avatar_manager import AvatarManager
 from src.sim.managers.mortal_manager import MortalManager
+from src.sim.managers.deceased_manager import DeceasedManager
 from src.sim.managers.event_manager import EventManager
 from src.classes.circulation import CirculationManager
 from src.classes.gathering.gathering import GatheringManager
@@ -33,6 +34,8 @@ class World():
     mortal_manager: MortalManager = field(default_factory=MortalManager)
     # 全局事件管理器
     event_manager: EventManager = field(default_factory=EventManager)
+    # 已故角色档案管理器（独立于 AvatarManager，不受 cleanup 影响）
+    deceased_manager: DeceasedManager = field(default_factory=DeceasedManager)
     # 当前天地灵机（世界级buff/debuff）
     current_phenomenon: Optional["CelestialPhenomenon"] = None
     # 当前王朝（凡人王朝）

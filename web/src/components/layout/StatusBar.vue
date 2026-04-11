@@ -14,6 +14,7 @@ import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.
 import WorldInfoModal from '../game/panels/WorldInfoModal.vue'
 import TimeOverviewModal from '../game/panels/TimeOverviewModal.vue'
 import PhenomenonSelectorModal from '../game/panels/PhenomenonSelectorModal.vue'
+import DeceasedModal from '../game/panels/DeceasedModal.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
 import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
@@ -23,6 +24,7 @@ import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
 import swordsIcon from '@/assets/icons/ui/lucide/swords.svg'
 import usersIcon from '@/assets/icons/ui/lucide/users.svg'
 import landmarkIcon from '@/assets/icons/ui/lucide/landmark.svg'
+import clock3Icon from '@/assets/icons/ui/lucide/clock-3.svg'
 
 const { t, locale } = useI18n()
 const store = useWorldStore()
@@ -36,6 +38,7 @@ const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
 const showHiddenDomainModal = ref(false)
+const showDeceasedModal = ref(false)
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -144,6 +147,14 @@ async function openPhenomenonSelector() {
         :disable-popover="true"
         @trigger-click="showDynastyOverviewModal = true"
       />
+
+      <StatusWidget
+        :label="t('game.deceased.title_short')"
+        :icon="clock3Icon"
+        :color="STATUS_BAR_COLORS.neutral"
+        :disable-popover="true"
+        @trigger-click="showDeceasedModal = true"
+      />
     </div>
 
     <RankingModal v-model:show="showRankingModal" />
@@ -160,6 +171,7 @@ async function openPhenomenonSelector() {
 
     <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
     <PhenomenonSelectorModal v-model:show="showSelector" />
+    <DeceasedModal v-model:show="showDeceasedModal" />
 
     <div class="author">
       <a

@@ -210,6 +210,8 @@ def save_game(
             "sect_runtime_states": sect_runtime_states,
             "sect_relation_modifiers": list(getattr(world, "sect_relation_modifiers", []) or []),
             "sect_wars": list(getattr(world, "sect_wars", []) or []),
+            # 已故角色档案（独立于 AvatarManager，不受 cleanup 影响）
+            "deceased_records": world.deceased_manager.to_save_list(),
         }
         
         # 保存所有Avatar（第一阶段：不含relations）

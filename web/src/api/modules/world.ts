@@ -9,6 +9,7 @@ import type {
   MortalOverviewResponseDTO,
   DynastyDetailResponseDTO,
   DynastyOverviewResponseDTO,
+  DeceasedListResponseDTO,
 } from '../../types/api';
 import {
   normalizeInitialState,
@@ -65,5 +66,10 @@ export const worldApi = {
   async fetchDynastyDetail() {
     const data = await httpClient.get<DynastyDetailResponseDTO>('/api/v1/query/dynasty/detail');
     return normalizeDynastyDetail(data);
+  },
+
+  async fetchDeceasedList() {
+    const data = await httpClient.get<DeceasedListResponseDTO>('/api/v1/query/deceased');
+    return data.deceased;
   },
 };
