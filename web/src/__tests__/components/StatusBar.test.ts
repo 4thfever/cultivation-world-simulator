@@ -217,49 +217,49 @@ describe('StatusBar', () => {
   })
 
   describe('phenomenonColor', () => {
-    it('should return #ccc for N rarity', () => {
+    it('should return #9aa4b2 for N rarity', () => {
       mockCurrentPhenomenon = { id: 1, name: 'Test', rarity: 'N' }
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const widget = wrapper.findAll('.status-widget-stub')[1]
-      expect(widget.attributes('data-color')).toBe('#ccc')
+      expect(widget.attributes('data-color')).toBe('#9aa4b2')
     })
 
-    it('should return #4dabf7 for R rarity', () => {
+    it('should return #63a3ff for R rarity', () => {
       mockCurrentPhenomenon = { id: 1, name: 'Test', rarity: 'R' }
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const widget = wrapper.findAll('.status-widget-stub')[1]
-      expect(widget.attributes('data-color')).toBe('#4dabf7')
+      expect(widget.attributes('data-color')).toBe('#63a3ff')
     })
 
-    it('should return #a0d911 for SR rarity', () => {
+    it('should return #63c28b for SR rarity', () => {
       mockCurrentPhenomenon = { id: 1, name: 'Test', rarity: 'SR' }
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const widget = wrapper.findAll('.status-widget-stub')[1]
-      expect(widget.attributes('data-color')).toBe('#a0d911')
+      expect(widget.attributes('data-color')).toBe('#63c28b')
     })
 
-    it('should return #fa8c16 for SSR rarity', () => {
+    it('should return #e1ab52 for SSR rarity', () => {
       mockCurrentPhenomenon = { id: 1, name: 'Test', rarity: 'SSR' }
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const widget = wrapper.findAll('.status-widget-stub')[1]
-      expect(widget.attributes('data-color')).toBe('#fa8c16')
+      expect(widget.attributes('data-color')).toBe('#e1ab52')
     })
 
-    it('should return #ccc for unknown rarity', () => {
+    it('should return #8c8c8c for unknown rarity', () => {
       mockCurrentPhenomenon = { id: 1, name: 'Test', rarity: 'UNKNOWN' }
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const widget = wrapper.findAll('.status-widget-stub')[1]
-      expect(widget.attributes('data-color')).toBe('#ccc')
+      expect(widget.attributes('data-color')).toBe('#8c8c8c')
     })
 
     it('should hide phenomenon widget when currentPhenomenon is null', () => {
@@ -368,7 +368,7 @@ describe('StatusBar', () => {
   })
 
   describe('domain color', () => {
-    it('should return #fa8c16 when any domain is open', () => {
+    it('should return #d8a14a when any domain is open', () => {
       mockActiveDomains = [
         { id: 1, name: 'D1', is_open: false },
         { id: 2, name: 'D2', is_open: true },
@@ -377,10 +377,10 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#fa8c16')
+      expect(domainWidget.attributes('data-color')).toBe('#d8a14a')
     })
 
-    it('should return #666 when all domains are closed', () => {
+    it('should return #6f6253 when all domains are closed', () => {
       mockActiveDomains = [
         { id: 1, name: 'D1', is_open: false },
         { id: 2, name: 'D2', is_open: false },
@@ -389,16 +389,16 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#666')
+      expect(domainWidget.attributes('data-color')).toBe('#6f6253')
     })
 
-    it('should return #666 when no domains', () => {
+    it('should return #6f6253 when no domains', () => {
       mockActiveDomains = []
 
       const wrapper = mount(StatusBar, globalConfig)
 
       const domainWidget = wrapper.findAll('.status-widget-stub')[2]
-      expect(domainWidget.attributes('data-color')).toBe('#666')
+      expect(domainWidget.attributes('data-color')).toBe('#6f6253')
     })
   })
 
@@ -417,7 +417,7 @@ describe('StatusBar', () => {
 
     const phenomenonWidget = wrapper.findAll('.status-widget-stub')[1]
     expect(phenomenonWidget.attributes('data-label')).toBe('[TestPhenomenon]')
-    expect(phenomenonWidget.attributes('data-color')).toBe('#a0d911')
+    expect(phenomenonWidget.attributes('data-color')).toBe('#63c28b')
   })
 
   it('should pass correct props to domain StatusWidget', () => {

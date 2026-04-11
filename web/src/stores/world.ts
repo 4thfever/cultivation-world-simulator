@@ -12,6 +12,27 @@ import { useSectStore } from './sect';
 import { useMortalStore } from './mortal';
 import { useDynastyStore } from './dynasty';
 
+const PHENOMENON_RARITY_ORDER: Record<string, number> = {
+  N: 0,
+  R: 1,
+  SR: 2,
+  SSR: 3,
+};
+
+function sortPhenomenaByRarity(phenomena: CelestialPhenomenon[]): CelestialPhenomenon[] {
+  return [...phenomena].sort((left, right) => {
+    const rarityDiff =
+      (PHENOMENON_RARITY_ORDER[left.rarity] ?? Number.MAX_SAFE_INTEGER) -
+      (PHENOMENON_RARITY_ORDER[right.rarity] ?? Number.MAX_SAFE_INTEGER);
+
+    if (rarityDiff !== 0) {
+      return rarityDiff;
+    }
+
+    return left.id - right.id;
+  });
+}
+
 export const useWorldStore = defineStore('world', () => {
   const mapStore = useMapStore();
   const avatarStore = useAvatarStore();
@@ -145,7 +166,7 @@ export const useWorldStore = defineStore('world', () => {
     if (phenomenaList.value.length > 0) return phenomenaList.value;
     try {
       const res = await worldApi.fetchPhenomenaList();
-      phenomenaList.value = res;
+      phenomenaList.value = sortPhenomenaByRarity(res);
       return phenomenaList.value;
     } catch (e) {
       logError('WorldStore fetch phenomena list', e);

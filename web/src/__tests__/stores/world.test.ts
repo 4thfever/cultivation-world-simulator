@@ -630,6 +630,20 @@ describe('useWorldStore', () => {
       expect(result).toEqual([])
       consoleSpy.mockRestore()
     })
+
+    it('should sort phenomena by rarity from low to high', async () => {
+      vi.mocked(worldApi.fetchPhenomenaList).mockResolvedValue([
+        { id: 4, name: 'Heaven Blaze', desc: 'SSR item', rarity: 'SSR' },
+        { id: 2, name: 'Spirit Tide', desc: 'R item', rarity: 'R' },
+        { id: 3, name: 'Star Echo', desc: 'SR item', rarity: 'SR' },
+        { id: 1, name: 'Calm Mist', desc: 'N item', rarity: 'N' },
+      ] as any)
+
+      const result = await store.getPhenomenaList()
+
+      expect(result.map(item => item.rarity)).toEqual(['N', 'R', 'SR', 'SSR'])
+      expect(result.map(item => item.id)).toEqual([1, 2, 3, 4])
+    })
   })
 
   describe('changePhenomenon', () => {

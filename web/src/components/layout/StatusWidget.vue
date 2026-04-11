@@ -34,6 +34,19 @@ const props = withDefaults(defineProps<Props>(), {
 
 // 发射点击事件（用于天地灵机的"更易天象"）
 const emit = defineEmits(['trigger-click'])
+
+function getDomainStatClass(key: 'danger' | 'drop' | 'cooldown' | 'chance') {
+  switch (key) {
+    case 'danger':
+      return 'is-danger'
+    case 'drop':
+      return 'is-drop'
+    case 'cooldown':
+      return 'is-cooldown'
+    case 'chance':
+      return 'is-chance'
+  }
+}
 </script>
 
 <template>
@@ -93,10 +106,10 @@ const emit = defineEmits(['trigger-click'])
                 </div>
                 <div class="d-desc">{{ item.desc }}</div>
                 <div class="d-stats">
-                  <span>💀 {{ (item.danger_prob * 100).toFixed(0) }}%</span>
-                  <span>🎁 {{ (item.drop_prob * 100).toFixed(0) }}%</span>
-                  <span>⏱️ {{ item.cd_years }}{{ t('common.year') }}</span>
-                  <span>🎲 {{ (item.open_prob * 100).toFixed(0) }}%</span>
+                  <span class="d-stat" :class="getDomainStatClass('danger')">💀 {{ (item.danger_prob * 100).toFixed(0) }}%</span>
+                  <span class="d-stat" :class="getDomainStatClass('drop')">🎁 {{ (item.drop_prob * 100).toFixed(0) }}%</span>
+                  <span class="d-stat" :class="getDomainStatClass('cooldown')">⏱️ {{ item.cd_years }}{{ t('common.year') }}</span>
+                  <span class="d-stat" :class="getDomainStatClass('chance')">🎲 {{ (item.open_prob * 100).toFixed(0) }}%</span>
                 </div>
               </div>
             </n-list-item>
@@ -115,10 +128,11 @@ const emit = defineEmits(['trigger-click'])
   align-items: center;
   gap: 6px;
   font-weight: bold;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, color 0.2s;
+  white-space: nowrap;
 }
-.widget-trigger:hover { opacity: 0.8; }
-.divider { color: #444; margin-right: 10px; }
+.widget-trigger:hover { opacity: 0.92; }
+.divider { color: #4a443b; margin-right: 10px; }
 
 .widget-icon {
   width: 14px;
@@ -142,51 +156,71 @@ const emit = defineEmits(['trigger-click'])
   border-bottom: 1px solid #333;
   margin-bottom: 4px;
   font-size: 14px;
+  color: #ddd5c1;
 }
 
 .domain-item { 
   padding: 8px; 
-  border-radius: 4px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.03);
   margin-bottom: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* 移除之前的 opacity 和 grayscale，改用颜色控制 */
 .domain-item.is-closed { 
-  background: rgba(0, 0, 0, 0.2); 
+  background: rgba(54, 46, 39, 0.22);
+  border-color: rgba(130, 113, 93, 0.14);
 }
 
-/* 未开启时的标题颜色变暗 */
 .domain-item.is-closed .d-name {
-  color: #888;
+  color: #9e9385;
 }
 
-/* 开启时背景稍微亮一点 */
 .domain-item:not(.is-closed) {
-  background: rgba(250, 219, 20, 0.05); /* 淡淡的金色背景 */
-  border: 1px solid rgba(250, 219, 20, 0.1);
+  background: linear-gradient(180deg, rgba(216, 161, 74, 0.1), rgba(216, 161, 74, 0.04));
+  border: 1px solid rgba(216, 161, 74, 0.18);
 }
 
 .d-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .d-title-group { display: flex; align-items: center; gap: 8px; }
-.d-name { font-weight: bold; color: #fadb14; font-size: 14px; transition: color 0.3s; }
+.d-name { font-weight: bold; color: #dfbc72; font-size: 14px; transition: color 0.3s; }
 .d-tag { font-size: 10px; height: 18px; line-height: 18px; }
 .d-status { font-size: 10px; height: 18px; line-height: 18px; padding: 0 4px; }
-/* 描述文字颜色调整，未开启时不要太暗 */
 .d-desc { 
   font-size: 12px; 
-  color: #ccc; 
+  color: #cfc8bb; 
   margin-bottom: 8px; 
   line-height: 1.4; 
 }
 .domain-item.is-closed .d-desc {
-  color: #999;
+  color: #aaa092;
 }
 
-.d-stats { display: flex; gap: 12px; font-size: 12px; color: #888; flex-wrap: wrap; }
-/* 统计数据在开启状态下高亮一点 */
+.d-stats { display: flex; gap: 10px; font-size: 12px; color: #9d9487; flex-wrap: wrap; }
 .domain-item:not(.is-closed) .d-stats {
-  color: #aaa;
+  color: #c8bda9;
+}
+
+.d-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.d-stat.is-danger {
+  color: #d48370;
+}
+
+.d-stat.is-drop {
+  color: #d8b35b;
+}
+
+.d-stat.is-cooldown {
+  color: #8fb0c8;
+}
+
+.d-stat.is-chance {
+  color: #88bf8b;
 }
 
 .empty-state { padding: 20px; }

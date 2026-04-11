@@ -297,12 +297,13 @@ function getDiplomacySub(item: DiplomacyItem) {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
-  color: #666;
-  border-bottom: 1px solid #333;
+  color: #9f9380;
+  border-bottom: 1px solid rgba(175, 148, 105, 0.32);
   padding-bottom: 4px;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
 
 .section-title-icon {

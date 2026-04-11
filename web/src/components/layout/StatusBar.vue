@@ -33,39 +33,52 @@ const showSectRelationsModal = ref(false)
 const showMortalOverviewModal = ref(false)
 const showDynastyOverviewModal = ref(false)
 
+const STATUS_BAR_COLORS = {
+  neutral: '#8c8c8c',
+  worldInfo: '#78b6ff',
+  ranking: '#cfa53a',
+  tournament: '#e3b341',
+  sectRelations: '#7c8ff7',
+  mortal: '#5fbf7a',
+  dynasty: '#b8793b',
+  hiddenDomainDormant: '#6f6253',
+  hiddenDomainActive: '#d8a14a',
+} as const
+
+const PHENOMENON_RARITY_COLORS: Record<string, string> = {
+  N: '#9aa4b2',
+  R: '#63a3ff',
+  SR: '#63c28b',
+  SSR: '#e1ab52',
+}
+
 const phenomenonColor = computed(() => {
-  const p = store.currentPhenomenon;
-  if (!p) return '#ccc';
-  return getRarityColor(p.rarity);
+  const p = store.currentPhenomenon
+  if (!p) return STATUS_BAR_COLORS.neutral
+  return getRarityColor(p.rarity)
 })
 
 const domainLabel = computed(() => {
-  return t('game.status_bar.hidden_domain.label');
-});
+  return t('game.status_bar.hidden_domain.label')
+})
 
 const domainColor = computed(() => {
   // 如果有任意一个秘境是开启状态，则亮色
-  const anyOpen = store.activeDomains.some(d => d.is_open);
-  return anyOpen ? '#fa8c16' : '#666'; // 有开启亮橙色，全关闭灰色
-});
+  const anyOpen = store.activeDomains.some(d => d.is_open)
+  return anyOpen ? STATUS_BAR_COLORS.hiddenDomainActive : STATUS_BAR_COLORS.hiddenDomainDormant
+})
 
 const timeLabel = computed(() => {
-  const yearPart = `${store.year}${t('common.year')}`;
-  const monthPart = `${store.month}${t('common.month')}`;
+  const yearPart = `${store.year}${t('common.year')}`
+  const monthPart = `${store.month}${t('common.month')}`
   if (locale.value.startsWith('ja') || locale.value.startsWith('zh')) {
-    return `${yearPart}${monthPart}`;
+    return `${yearPart}${monthPart}`
   }
-  return `${yearPart} ${monthPart}`;
-});
+  return `${yearPart} ${monthPart}`
+})
 
 function getRarityColor(rarity: string) {
-  switch (rarity) {
-    case 'N': return '#ccc';
-    case 'R': return '#4dabf7'; // Blue
-    case 'SR': return '#a0d911'; // Lime
-    case 'SSR': return '#fa8c16'; // Orange/Gold
-    default: return '#ccc';
-  }
+  return PHENOMENON_RARITY_COLORS[rarity] ?? STATUS_BAR_COLORS.neutral
 }
 async function openPhenomenonSelector() {
   await store.getPhenomenaList()
@@ -95,7 +108,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.status_bar.world_info.label')"
         :icon="bookOpenIcon"
-        color="#91caff"
+        :color="STATUS_BAR_COLORS.worldInfo"
         mode="single"
         :disable-popover="true"
         @trigger-click="showWorldInfoModal = true"
@@ -128,7 +141,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.ranking.title_short')"
         :icon="trophyIcon"
-        color="#d4b106"
+        :color="STATUS_BAR_COLORS.ranking"
         mode="single"
         :disable-popover="true"
         @trigger-click="showRankingModal = true"
@@ -138,7 +151,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.ranking.tournament_short')"
         :icon="swordsIcon"
-        color="#d4b106"
+        :color="STATUS_BAR_COLORS.tournament"
         mode="single"
         :disable-popover="true"
         @trigger-click="showTournamentModal = true"
@@ -148,7 +161,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.sect_relations.title_short')"
         :icon="shieldIcon"
-        color="#597ef7"
+        :color="STATUS_BAR_COLORS.sectRelations"
         mode="single"
         :disable-popover="true"
         @trigger-click="showSectRelationsModal = true"
@@ -157,7 +170,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.mortal_system.title_short')"
         :icon="usersIcon"
-        color="#73d13d"
+        :color="STATUS_BAR_COLORS.mortal"
         mode="single"
         :disable-popover="true"
         @trigger-click="showMortalOverviewModal = true"
@@ -166,7 +179,7 @@ async function handleSelect(id: number, name: string) {
       <StatusWidget
         :label="t('game.dynasty.title_short')"
         :icon="landmarkIcon"
-        color="#d46b08"
+        :color="STATUS_BAR_COLORS.dynasty"
         mode="single"
         :disable-popover="true"
         @trigger-click="showDynastyOverviewModal = true"
@@ -261,8 +274,11 @@ async function handleSelect(id: number, name: string) {
 <style scoped>
 .top-bar {
   height: 36px;
-  background: #1f1f1f;
-  border-bottom: 1px solid #333;
+  background:
+    linear-gradient(180deg, rgba(34, 34, 34, 0.98), rgba(22, 22, 22, 0.98)),
+    linear-gradient(90deg, rgba(120, 182, 255, 0.08), rgba(227, 179, 65, 0.04) 38%, rgba(95, 191, 122, 0.06) 100%);
+  border-bottom: 1px solid #2f2f2f;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -275,12 +291,21 @@ async function handleSelect(id: number, name: string) {
 .top-bar .title {
   font-weight: bold;
   margin-right: 8px;
+  color: #e8dcc0;
+  letter-spacing: 0.04em;
 }
 
 .center {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+}
+
+.time {
+  color: #d2c5a3;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* .phenomenon, .divider, .phenomenon-name REMOVED (moved to StatusWidget) */
@@ -336,7 +361,7 @@ async function handleSelect(id: number, name: string) {
   gap: 6px;
   font-size: 12px;
   line-height: 1.5;
-  color: #999;
+  color: #8f98a3;
   padding: 0 0 10px;
   border-bottom: 1px solid #2f2f2f;
 }
@@ -375,7 +400,7 @@ async function handleSelect(id: number, name: string) {
 .world-info-item-title {
   font-size: 13px;
   font-weight: bold;
-  color: #ddd;
+  color: #d9dbe0;
   line-height: 1.6;
   white-space: nowrap;
 }
@@ -383,13 +408,13 @@ async function handleSelect(id: number, name: string) {
 .world-info-item-desc {
   font-size: 12px;
   line-height: 1.6;
-  color: #bfbfbf;
+  color: #b7bcc6;
   min-width: 0;
 }
 
 .world-info-empty {
   font-size: 12px;
-  color: #8c8c8c;
+  color: #868d96;
   padding: 8px 0;
 }
 
@@ -406,13 +431,13 @@ async function handleSelect(id: number, name: string) {
 
 .effect-label {
   font-size: 12px;
-  color: #888;
+  color: #8a8171;
   margin-bottom: 4px;
 }
 
 .effect-content {
   font-size: 13px;
-  color: #fadb14; /* 亮黄色，匹配游戏常见的高亮色 */
+  color: #e3b341;
   font-weight: 500;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -420,13 +445,13 @@ async function handleSelect(id: number, name: string) {
 
 .p-duration {
   font-size: 12px;
-  color: #888;
+  color: #8a8171;
   text-align: right;
 }
 
 .click-tip {
   font-size: 10px;
-  color: #666;
+  color: #746b5f;
   text-align: center;
   margin-top: 8px;
   border-top: 1px dashed #333;
@@ -449,14 +474,14 @@ async function handleSelect(id: number, name: string) {
 }
 
 .item-desc {
-  color: #aaa;
+  color: #aeb4bc;
   font-size: 13px;
 }
 
 .item-effect {
   font-size: 12px;
-  color: #e6a23c; /* Warning color */
-  background: rgba(230, 162, 60, 0.1);
+  color: #d8a14a;
+  background: rgba(216, 161, 74, 0.12);
   padding: 2px 6px;
   border-radius: 4px;
   display: inline-block;

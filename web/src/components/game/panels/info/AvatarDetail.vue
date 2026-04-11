@@ -23,8 +23,12 @@ import heartHandshakeIcon from '@/assets/icons/ui/lucide/heart-handshake.svg';
 import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
 import packageIcon from '@/assets/icons/ui/lucide/package.svg';
 import pencilLineIcon from '@/assets/icons/ui/lucide/pencil-line.svg';
+import scrollIcon from '@/assets/icons/ui/lucide/scroll.svg';
+import shieldIcon from '@/assets/icons/ui/lucide/shield.svg';
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg';
+import swordsIcon from '@/assets/icons/ui/lucide/swords.svg';
 import triangleAlertIcon from '@/assets/icons/ui/lucide/triangle-alert.svg';
+import zapIcon from '@/assets/icons/ui/lucide/zap.svg';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -65,12 +69,14 @@ const equipmentSlots = computed(() => [
   {
     category: 'technique' as const,
     label: t('game.info_panel.avatar.adjust.categories.technique'),
+    icon: scrollIcon,
     item: props.data.technique ?? null,
     meta: undefined,
   },
   {
     category: 'weapon' as const,
     label: t('game.info_panel.avatar.adjust.categories.weapon'),
+    icon: swordsIcon,
     item: props.data.weapon ?? null,
     meta: props.data.weapon
       ? t('game.info_panel.avatar.weapon_meta', { value: props.data.weapon.proficiency })
@@ -79,12 +85,14 @@ const equipmentSlots = computed(() => [
   {
     category: 'auxiliary' as const,
     label: t('game.info_panel.avatar.adjust.categories.auxiliary'),
+    icon: shieldIcon,
     item: props.data.auxiliary ?? null,
     meta: undefined,
   },
   {
     category: 'goldfinger' as const,
     label: t('game.info_panel.avatar.sections.goldfinger'),
+    icon: zapIcon,
     item: props.data.goldfinger ?? null,
     meta: undefined,
   },
@@ -453,7 +461,10 @@ async function handleClearObjective() {
             :key="slot.category"
             class="equipment-slot-block"
           >
-            <div class="section-title subsection-title">{{ slot.label }}</div>
+            <div class="section-title subsection-title">
+              <span class="section-title-icon" :style="{ '--icon-url': `url(${slot.icon})` }" aria-hidden="true"></span>
+              {{ slot.label }}
+            </div>
             <div class="adjustable-row">
               <EntityRow
                 v-if="slot.item"
@@ -848,12 +859,13 @@ async function handleClearObjective() {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
-  color: #666;
-  border-bottom: 1px solid #333;
+  color: #9f9380;
+  border-bottom: 1px solid rgba(175, 148, 105, 0.32);
   padding-bottom: 4px;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
 
 .equipment-slots {
@@ -874,6 +886,7 @@ async function handleClearObjective() {
 
 .subsection-title {
   margin-bottom: 2px;
+  color: #a99a84;
 }
 
 .adjustable-row {
