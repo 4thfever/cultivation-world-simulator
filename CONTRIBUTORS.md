@@ -6,64 +6,15 @@
 Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project.
 Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.
 
-<table>
-  <tr>
-    <td align="center" width="20%">
-      <a href="https://github.com/4thfever">
-        <img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="150" height="150" alt="4thfever avatar" /><br />
-        <strong>4thfever</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/xzhseh">
-        <img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="150" height="150" alt="xzhseh avatar" /><br />
-        <strong>xzhseh</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/teps3105">
-        <img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="150" height="150" alt="teps3105 avatar" /><br />
-        <strong>teps3105</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/LuckVd">
-        <img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="150" height="150" alt="LuckVd avatar" /><br />
-        <strong>LuckVd</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/MarkYangKp">
-        <img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="150" height="150" alt="MarkYangKp avatar" /><br />
-        <strong>MarkYangKp</strong>
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="20%">
-      <a href="https://github.com/octo-patch">
-        <img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="150" height="150" alt="octo-patch avatar" /><br />
-        <strong>octo-patch</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/Robinwhliu">
-        <img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="150" height="150" alt="Robinwhliu avatar" /><br />
-        <strong>Robinwhliu</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/Seafoodsz">
-        <img src="https://avatars.githubusercontent.com/u/13925953?v=4" width="150" height="150" alt="Seafoodsz avatar" /><br />
-        <strong>Seafoodsz</strong>
-      </a>
-    </td>
-    <td align="center" width="20%">
-      <a href="https://github.com/Tianrant">
-        <img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="150" height="150" alt="Tianrant avatar" /><br />
-        <strong>Tianrant</strong>
-      </a>
-    </td>
-    <td width="20%"></td>
-  </tr>
-</table>
+| Name | Avatar | GitHub |
+| --- | --- | --- |
+| 4thfever | <img src="https://avatars.githubusercontent.com/u/19970391?v=4" alt="4thfever avatar" width="64" height="64" /> | [@4thfever](https://github.com/4thfever) |
+| xzhseh | <img src="https://avatars.githubusercontent.com/u/91381303?v=4" alt="xzhseh avatar" width="64" height="64" /> | [@xzhseh](https://github.com/xzhseh) |
+| teps3105 | <img src="https://avatars.githubusercontent.com/u/16871632?v=4" alt="teps3105 avatar" width="64" height="64" /> | [@teps3105](https://github.com/teps3105) |
+| LuckVd | <img src="https://avatars.githubusercontent.com/u/37114923?v=4" alt="LuckVd avatar" width="64" height="64" /> | [@LuckVd](https://github.com/LuckVd) |
+| MarkYangKp | <img src="https://avatars.githubusercontent.com/u/42310488?v=4" alt="MarkYangKp avatar" width="64" height="64" /> | [@MarkYangKp](https://github.com/MarkYangKp) |
+| octo-patch | <img src="https://avatars.githubusercontent.com/u/266937838?v=4" alt="octo-patch avatar" width="64" height="64" /> | [@octo-patch](https://github.com/octo-patch) |
+| Robinwhliu | <img src="https://avatars.githubusercontent.com/u/86167266?v=4" alt="Robinwhliu avatar" width="64" height="64" /> | [@Robinwhliu](https://github.com/Robinwhliu) |
+| Seafoodsz | <img src="https://avatars.githubusercontent.com/u/13925953?v=4" alt="Seafoodsz avatar" width="64" height="64" /> | [@Seafoodsz](https://github.com/Seafoodsz) |
+| Tianrant | <img src="https://avatars.githubusercontent.com/u/260025727?v=4" alt="Tianrant avatar" width="64" height="64" /> | [@Tianrant](https://github.com/Tianrant) |
+| RealityError | <img src="https://avatars.githubusercontent.com/u/67266280?v=4" alt="RealityError avatar" width="64" height="64" /> | [@RealityError](https://github.com/RealityError) |

@@ -91,33 +91,21 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
         "Thanks to everyone who has contributed code, ideas, feedback, and time to this open source project.",
         "Every pull request, issue, discussion, and review helps `Cultivation World Simulator` grow into something better.",
         "",
-        "<table>",
+        "| Name | Avatar | GitHub |",
+        "| --- | --- | --- |",
     ]
 
-    for index in range(0, len(contributors), 5):
-        pair = contributors[index : index + 5]
-        lines.append("  <tr>")
-        for contributor in pair:
-            login = contributor.get("login") or "unknown"
-            avatar_url = contributor.get("avatar_url") or ""
-            profile_url = (
-                contributor.get("html_url")
-                or f"https://github.com/{parse.quote(login)}"
-            )
-            lines.extend(
-                [
-                    '    <td align="center" width="20%">',
-                    f'      <a href="{profile_url}">',
-                    f'        <img src="{avatar_url}" width="150" height="150" alt="{login} avatar" /><br />',
-                    f"        <strong>{login}</strong>",
-                    "      </a>",
-                    "    </td>",
-                ]
-            )
-        for _ in range(5 - len(pair)):
-            lines.append('    <td width="20%"></td>')
-        lines.append("  </tr>")
-    lines.append("</table>")
+    for contributor in contributors:
+        login = contributor.get("login") or "unknown"
+        avatar_url = contributor.get("avatar_url") or ""
+        profile_url = (
+            contributor.get("html_url") or f"https://github.com/{parse.quote(login)}"
+        )
+        name = contributor.get("login") or "unknown"
+        avatar = f'<img src="{avatar_url}" alt="{login} avatar" width="64" height="64" />'
+        github = f"[@{login}]({profile_url})"
+        lines.append(f"| {name} | {avatar} | {github} |")
+
     lines.append("")
     return "\n".join(lines)
 
