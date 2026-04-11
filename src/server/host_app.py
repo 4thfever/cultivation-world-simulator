@@ -118,6 +118,7 @@ def configure_routes_and_mounts(
     build_dynasty_detail,
     build_saves,
     build_detail,
+    build_deceased_list,
     create_public_command_router,
     run_start_game,
     run_reinit_game,
@@ -179,6 +180,7 @@ def configure_routes_and_mounts(
             build_dynasty_detail=build_dynasty_detail,
             build_saves=build_saves,
             build_detail=build_detail,
+            build_deceased_list=build_deceased_list,
         )
     )
 

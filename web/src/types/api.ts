@@ -453,6 +453,27 @@ export interface DynastyDetailResponseDTO {
   officials: DynastyOfficialDTO[];
 }
 
+// --- Deceased Characters ---
+
+export interface DeceasedRecordDTO {
+  id: string;
+  name: string;
+  gender: string;
+  age_at_death: number;
+  realm_at_death: string;
+  stage_at_death: string;
+  death_reason: string;
+  death_time: number;
+  sect_name_at_death: string;
+  alignment_at_death: string;
+  backstory: string | null;
+  custom_pic_id: number | null;
+}
+
+export interface DeceasedListResponseDTO {
+  deceased: DeceasedRecordDTO[];
+}
+
 export type ToastLevel = 'error' | 'warning' | 'success' | 'info' | string;
 export type AppLanguage = AppLocale | string;
 
