@@ -7,6 +7,7 @@ import type { RankingsDTO } from '@/types/api'
 import { useUiStore } from '../../../stores/ui'
 import { formatRealmStage } from '@/utils/cultivationText'
 import { logError } from '@/utils/appError'
+import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
 
 const props = defineProps<{
   show: boolean
@@ -69,6 +70,10 @@ watch(() => props.show, (newVal) => {
     style="width: 750px; max-height: 80vh; overflow-y: auto;"
   >
     <n-spin :show="loading">
+      <div class="ranking-lead">
+        <span class="lead-icon" :style="{ '--icon-url': `url(${trophyIcon})` }" aria-hidden="true"></span>
+        <span>{{ t('game.ranking.title') }}</span>
+      </div>
       <div style="display: flex; gap: 20px;">
         <div style="flex: 1; min-width: 0;">
           <n-tabs type="line" animated>
@@ -209,5 +214,29 @@ watch(() => props.show, (newVal) => {
 }
 :deep(.n-table th) {
   font-weight: bold;
+}
+
+.ranking-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #f4d47c;
+  font-weight: 700;
+}
+
+.lead-icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 </style>

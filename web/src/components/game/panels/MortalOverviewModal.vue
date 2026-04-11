@@ -7,6 +7,8 @@ import {
   formatPopulationGrowthText,
   formatPopulationText,
 } from '@/utils/populationFormat'
+import buildingIcon from '@/assets/icons/ui/lucide/building-2.svg'
+import usersIcon from '@/assets/icons/ui/lucide/users.svg'
 
 const props = defineProps<{
   show: boolean;
@@ -60,7 +62,10 @@ watch(
     <n-spin :show="mortalStore.isLoading">
       <div class="mortal-overview">
         <section class="section">
-          <div class="section-title">{{ t('game.mortal_system.summary.title') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></span>
+            {{ t('game.mortal_system.summary.title') }}
+          </div>
           <div class="summary-grid">
             <div class="summary-card">
               <div class="summary-label">{{ t('game.mortal_system.summary.total_population') }}</div>
@@ -86,7 +91,10 @@ watch(
         </section>
 
         <section class="section">
-          <div class="section-title">{{ t('game.mortal_system.cities.title') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${buildingIcon})` }" aria-hidden="true"></span>
+            {{ t('game.mortal_system.cities.title') }}
+          </div>
           <n-table :bordered="false" :single-line="false" size="small">
             <thead>
               <tr>
@@ -153,11 +161,30 @@ watch(
 }
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 700;
   color: #d9d9d9;
   border-bottom: 1px solid #333;
   padding-bottom: 6px;
+}
+
+.section-title-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
 }
 
 .summary-grid {

@@ -4,6 +4,8 @@ import { useI18n } from 'vue-i18n'
 import { avatarApi, type SimpleAvatarDTO } from '../../../../api'
 import { useWorldStore } from '../../../../stores/world'
 import { useMessage, NInput, NButton } from 'naive-ui'
+import searchIcon from '@/assets/icons/ui/lucide/search.svg'
+import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
 
 const worldStore = useWorldStore()
 const message = useMessage()
@@ -61,7 +63,11 @@ onMounted(() => {
 <template>
   <div class="delete-panel">
     <div class="search-bar">
-      <n-input v-model:value="avatarSearch" :placeholder="t(uiKey('search_placeholder'))" />
+      <n-input v-model:value="avatarSearch" :placeholder="t(uiKey('search_placeholder'))">
+        <template #prefix>
+          <span class="input-icon" :style="{ '--icon-url': `url(${searchIcon})` }" aria-hidden="true"></span>
+        </template>
+      </n-input>
     </div>
     <div class="avatar-list">
       <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
@@ -77,7 +83,10 @@ onMounted(() => {
               {{ avatar.gender }} | {{ avatar.age }} {{ t(uiKey('age_unit')) }} | {{ t('realms.' + avatar.realm) }} | {{ avatar.sect_name }}
            </div>
          </div>
-         <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">{{ t('save_load.delete') }}</n-button>
+         <n-button type="error" size="small" @click="handleDeleteAvatar(avatar.id, avatar.name)">
+           <span class="button-icon" :style="{ '--icon-url': `url(${trashIcon})` }" aria-hidden="true"></span>
+           {{ t('save_load.delete') }}
+         </n-button>
       </div>
     </div>
   </div>
@@ -137,5 +146,26 @@ onMounted(() => {
     color: #888;
     font-size: 0.85em;
     margin-top: 0.3em;
+}
+
+.input-icon,
+.button-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.input-icon {
+  color: #888;
 }
 </style>

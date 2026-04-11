@@ -11,6 +11,7 @@ import botIcon from '@/assets/icons/ui/lucide/bot.svg'
 import settingsIcon from '@/assets/icons/ui/lucide/settings.svg'
 import infoIcon from '@/assets/icons/ui/lucide/info.svg'
 import ellipsisIcon from '@/assets/icons/ui/lucide/ellipsis.svg'
+import xIcon from '@/assets/icons/ui/lucide/x.svg'
 
 const props = defineProps<{
   visible: boolean
@@ -49,8 +50,9 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
           class="close-btn"
           @click="emit('close')"
           v-sound:cancel
+          aria-label="Close"
         >
-          ×
+          <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
         </button>
       </div>
 
@@ -122,9 +124,26 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
   background: none;
   border: none;
   color: #999;
-  font-size: 1.5em;
   cursor: pointer;
-  padding: 0 0.5em;
+  padding: 0.25em 0.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-icon {
+  width: 1.15em;
+  height: 1.15em;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .menu-tabs {

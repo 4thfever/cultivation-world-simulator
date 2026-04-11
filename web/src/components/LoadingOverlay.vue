@@ -3,6 +3,8 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { systemApi, type InitStatusDTO } from '../api'
 import { useI18n } from 'vue-i18n'
 import { logError } from '../utils/appError'
+import refreshIcon from '@/assets/icons/ui/lucide/refresh-cw.svg'
+import triangleAlertIcon from '@/assets/icons/ui/lucide/triangle-alert.svg'
 
 const { t, tm } = useI18n()
 
@@ -194,7 +196,13 @@ onUnmounted(() => {
         <!-- 圆环内容 -->
         <div class="ring-content">
           <div class="percentage" :class="{ error: isError }">
-            {{ isError ? '!' : progress + '%' }}
+            <span
+              v-if="isError"
+              class="ring-error-icon"
+              :style="{ '--icon-url': `url(${triangleAlertIcon})` }"
+              aria-hidden="true"
+            ></span>
+            <template v-else>{{ progress + '%' }}</template>
           </div>
         </div>
       </div>
@@ -205,6 +213,7 @@ onUnmounted(() => {
       <div v-if="isError" class="error-section">
         <p class="error-message">{{ errorMessage }}</p>
         <button class="retry-btn" @click="handleRetry">
+          <span class="retry-icon" :style="{ '--icon-url': `url(${refreshIcon})` }" aria-hidden="true"></span>
           {{ t('loading.retry') }}
         </button>
       </div>
@@ -398,11 +407,40 @@ onUnmounted(() => {
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .retry-btn:hover {
   background: rgba(255, 107, 107, 0.1);
   border-color: rgba(255, 107, 107, 0.6);
+}
+
+.ring-error-icon,
+.retry-icon {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.ring-error-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.retry-icon {
+  width: 1em;
+  height: 1em;
 }
 
 /* Tips 区域 */

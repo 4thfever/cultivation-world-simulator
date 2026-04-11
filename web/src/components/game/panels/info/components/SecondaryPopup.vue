@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { EffectEntity } from '@/types/core';
 import EntityDetailCard from './EntityDetailCard.vue';
+import xIcon from '@/assets/icons/ui/lucide/x.svg';
 
 const props = defineProps<{
   item: EffectEntity | null;
@@ -14,7 +15,9 @@ defineEmits(['close']);
     <div v-if="item" class="secondary-panel">
       <div class="sec-header">
         <span class="sec-title">{{ item.name }}</span>
-        <button class="close-btn" @click="$emit('close')">×</button>
+        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+          <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
+        </button>
       </div>
       
       <div class="sec-body">
@@ -60,13 +63,30 @@ defineEmits(['close']);
   background: transparent;
   border: none;
   color: #888;
-  font-size: 18px;
   cursor: pointer;
   padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-btn:hover {
   color: #fff;
+}
+
+.close-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .sec-body {

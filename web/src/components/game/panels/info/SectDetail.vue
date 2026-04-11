@@ -8,6 +8,14 @@ import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import { useI18n } from 'vue-i18n';
 import { formatCultivationText } from '@/utils/cultivationText';
+import brainIcon from '@/assets/icons/ui/lucide/brain.svg';
+import flagIcon from '@/assets/icons/ui/lucide/flag.svg';
+import heartHandshakeIcon from '@/assets/icons/ui/lucide/heart-handshake.svg';
+import mapPinIcon from '@/assets/icons/ui/lucide/map-pin.svg';
+import scaleIcon from '@/assets/icons/ui/lucide/scale.svg';
+import scrollIcon from '@/assets/icons/ui/lucide/scroll.svg';
+import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg';
+import usersIcon from '@/assets/icons/ui/lucide/users.svg';
 
 type DiplomacyItem = NonNullable<SectDetail['diplomacy_items']>[number];
 
@@ -137,22 +145,34 @@ function getDiplomacySub(item: DiplomacyItem) {
 
        <!-- Intro -->
        <div class="section">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.intro') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${flagIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.intro') }}
+          </div>
           <div class="text-content">{{ data.desc }}</div>
        </div>
 
        <div class="section">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.rule') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${scaleIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.rule') }}
+          </div>
           <div class="text-content rule-content">{{ ruleText }}</div>
        </div>
 
        <div class="section" v-if="data.periodic_thinking">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.thinking') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${brainIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.thinking') }}
+          </div>
           <div class="text-content thinking-text-content">{{ data.periodic_thinking }}</div>
        </div>
 
        <div class="section" v-if="simplifiedDiplomacyItems.length">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.diplomacy') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${heartHandshakeIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.diplomacy') }}
+          </div>
           <div class="list-container">
              <RelationRow
                v-for="item in simplifiedDiplomacyItems"
@@ -167,13 +187,19 @@ function getDiplomacySub(item: DiplomacyItem) {
        
        <!-- HQ -->
        <div class="section">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.hq', { name: data.hq_name }) }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${mapPinIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.hq', { name: data.hq_name }) }}
+          </div>
           <div class="text-content">{{ data.hq_desc }}</div>
        </div>
 
        <!-- Effects -->
        <div class="section">
-         <div class="section-title">{{ t('game.info_panel.sect.sections.bonus') }}</div>
+         <div class="section-title">
+           <span class="section-title-icon" :style="{ '--icon-url': `url(${sparklesIcon})` }" aria-hidden="true"></span>
+           {{ t('game.info_panel.sect.sections.bonus') }}
+         </div>
          <div class="text-content highlight">{{ data.effect_desc || t('game.info_panel.sect.no_bonus') }}</div>
          <div v-if="data.runtime_effect_items?.length" class="runtime-effects-list">
             <div
@@ -198,7 +224,10 @@ function getDiplomacySub(item: DiplomacyItem) {
 
        <!-- Techniques -->
        <div class="section">
-         <div class="section-title">{{ t('game.info_panel.sect.sections.techniques') }}</div>
+         <div class="section-title">
+           <span class="section-title-icon" :style="{ '--icon-url': `url(${scrollIcon})` }" aria-hidden="true"></span>
+           {{ t('game.info_panel.sect.sections.techniques') }}
+         </div>
          <div class="list-container" v-if="data.techniques?.length">
             <EntityRow 
               v-for="t in data.techniques" 
@@ -212,7 +241,10 @@ function getDiplomacySub(item: DiplomacyItem) {
 
        <!-- Members -->
        <div class="section" v-if="data.members?.length">
-          <div class="section-title">{{ t('game.info_panel.sect.sections.members') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.sect.sections.members') }}
+          </div>
           <div class="list-container">
              <RelationRow 
                v-for="m in data.members" 
@@ -262,12 +294,31 @@ function getDiplomacySub(item: DiplomacyItem) {
 }
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   font-weight: bold;
   color: #666;
   border-bottom: 1px solid #333;
   padding-bottom: 4px;
   margin-bottom: 4px;
+}
+
+.section-title-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
 }
 
 .text-content {

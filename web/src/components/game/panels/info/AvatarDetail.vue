@@ -15,9 +15,16 @@ import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import type { RelationInfo } from '@/types/core';
 import { logError } from '@/utils/appError';
-import editIcon from '@/assets/icons/edit.png';
 import { getAvatarPortraitUrl } from '@/utils/assetUrls';
 import { formatCultivationText } from '@/utils/cultivationText';
+import brainIcon from '@/assets/icons/ui/lucide/brain.svg';
+import checkIcon from '@/assets/icons/ui/lucide/check.svg';
+import heartHandshakeIcon from '@/assets/icons/ui/lucide/heart-handshake.svg';
+import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
+import packageIcon from '@/assets/icons/ui/lucide/package.svg';
+import pencilLineIcon from '@/assets/icons/ui/lucide/pencil-line.svg';
+import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg';
+import triangleAlertIcon from '@/assets/icons/ui/lucide/triangle-alert.svg';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -309,6 +316,7 @@ async function handleClearObjective() {
       <button class="btn" @click="handleClearObjective">{{ t('game.info_panel.avatar.clear_objective') }}</button>
     </div>
     <div class="dead-banner" v-else>
+      <span class="inline-icon" :style="{ '--icon-url': `url(${triangleAlertIcon})` }" aria-hidden="true"></span>
       {{ t('game.info_panel.avatar.dead_with_reason', { reason: data.death_info?.reason || t('game.info_panel.avatar.unknown_reason') }) }}
     </div>
 
@@ -327,7 +335,7 @@ async function handleClearObjective() {
             <div class="portrait-overlay">
               <span class="portrait-overlay-text">{{ t('game.info_panel.avatar.portrait.entry') }}</span>
               <span class="portrait-edit-badge">
-                <img class="portrait-edit-icon" :src="editIcon" alt="" aria-hidden="true" />
+                <span class="portrait-edit-icon" :style="{ '--icon-url': `url(${pencilLineIcon})` }" aria-hidden="true"></span>
               </span>
             </div>
           </div>
@@ -415,16 +423,22 @@ async function handleClearObjective() {
 
       <!-- Thinking -->
       <div class="section" v-if="data.thinking">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.thinking') }}</div>
+        <div class="section-title">
+          <span class="section-title-icon" :style="{ '--icon-url': `url(${brainIcon})` }" aria-hidden="true"></span>
+          {{ t('game.info_panel.avatar.sections.thinking') }}
+        </div>
         <div class="text-content">{{ data.thinking }}</div>
       </div>
 
       <!-- Personas -->
       <div class="section">
         <div class="section-header">
-          <div class="section-title">{{ t('game.info_panel.avatar.sections.traits') }}</div>
+          <div class="section-title">
+            <span class="section-title-icon" :style="{ '--icon-url': `url(${messageCircleIcon})` }" aria-hidden="true"></span>
+            {{ t('game.info_panel.avatar.sections.traits') }}
+          </div>
           <button class="adjust-btn" :title="t('game.info_panel.avatar.adjust.entry')" :aria-label="t('game.info_panel.avatar.adjust.entry')" @click="openAdjustPanel('personas')">
-            <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
+            <span class="adjust-icon" :style="{ '--icon-url': `url(${pencilLineIcon})` }" aria-hidden="true"></span>
           </button>
         </div>
         <TagList v-if="data.personas?.length" :tags="data.personas" @click="showDetail" />
@@ -455,7 +469,7 @@ async function handleClearObjective() {
                 :aria-label="t('game.info_panel.avatar.adjust.entry')"
                 @click="openAdjustPanel(slot.category)"
               >
-                <img class="adjust-icon" :src="editIcon" alt="" aria-hidden="true" />
+                <span class="adjust-icon" :style="{ '--icon-url': `url(${pencilLineIcon})` }" aria-hidden="true"></span>
               </button>
             </div>
           </div>
@@ -470,7 +484,10 @@ async function handleClearObjective() {
 
       <!-- Materials -->
       <div class="section" v-if="data.materials?.length">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.materials') }}</div>
+        <div class="section-title">
+          <span class="section-title-icon" :style="{ '--icon-url': `url(${packageIcon})` }" aria-hidden="true"></span>
+          {{ t('game.info_panel.avatar.sections.materials') }}
+        </div>
         <div class="list-container">
           <EntityRow 
             v-for="item in data.materials"
@@ -485,7 +502,10 @@ async function handleClearObjective() {
 
       <!-- Relations (Refactored) -->
       <div class="section" v-if="data.relations?.length || groupedRelations.parents.length">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.relations') }}</div>
+        <div class="section-title">
+          <span class="section-title-icon" :style="{ '--icon-url': `url(${heartHandshakeIcon})` }" aria-hidden="true"></span>
+          {{ t('game.info_panel.avatar.sections.relations') }}
+        </div>
         
         <div class="list-container">
           <!-- Parents Group -->
@@ -558,7 +578,10 @@ async function handleClearObjective() {
 
       <!-- Effects -->
       <div class="section" v-if="parsedCurrentEffects.length">
-        <div class="section-title">{{ t('game.info_panel.avatar.sections.current_effects') }}</div>
+        <div class="section-title">
+          <span class="section-title-icon" :style="{ '--icon-url': `url(${sparklesIcon})` }" aria-hidden="true"></span>
+          {{ t('game.info_panel.avatar.sections.current_effects') }}
+        </div>
         <div class="effects-list">
           <div
             v-for="effect in parsedCurrentEffects"
@@ -582,7 +605,10 @@ async function handleClearObjective() {
         <h3>{{ t('game.info_panel.avatar.modals.set_long_term') }}</h3>
         <textarea v-model="objectiveContent" :placeholder="t('game.info_panel.avatar.modals.placeholder')"></textarea>
         <div class="modal-footer">
-          <button class="btn primary" @click="handleSetObjective">{{ t('common.confirm') }}</button>
+          <button class="btn primary" @click="handleSetObjective">
+            <span class="button-icon" :style="{ '--icon-url': `url(${checkIcon})` }" aria-hidden="true"></span>
+            {{ t('common.confirm') }}
+          </button>
           <button class="btn" @click="showObjectiveModal = false">{{ t('common.cancel') }}</button>
         </div>
       </div>
@@ -616,6 +642,10 @@ async function handleClearObjective() {
   font-size: 13px;
   margin-bottom: 12px;
   border: 1px solid #7a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .action-banner {
@@ -815,6 +845,9 @@ async function handleClearObjective() {
 }
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   font-weight: bold;
   color: #666;
@@ -887,7 +920,6 @@ async function handleClearObjective() {
   width: 13px;
   height: 13px;
   display: block;
-  object-fit: contain;
 }
 
 .text-content {
@@ -949,6 +981,10 @@ async function handleClearObjective() {
   cursor: pointer;
   font-size: 12px;
   transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .btn:hover {
@@ -1008,6 +1044,31 @@ async function handleClearObjective() {
 .modal-footer {
   display: flex;
   gap: 10px;
+}
+
+.portrait-edit-icon,
+.adjust-icon,
+.section-title-icon,
+.inline-icon,
+.button-icon {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.section-title-icon,
+.inline-icon,
+.button-icon {
+  width: 1em;
+  height: 1em;
 }
 
 .effects-list {

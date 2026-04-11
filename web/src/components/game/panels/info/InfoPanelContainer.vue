@@ -2,6 +2,7 @@
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
 import { useUiStore } from '../../../../stores/ui';
 import { useI18n } from 'vue-i18n';
+import xIcon from '@/assets/icons/ui/lucide/x.svg';
 
 const { t } = useI18n();
 
@@ -121,7 +122,9 @@ watch(() => uiStore.selectedTarget, (val) => {
           </div>
         </div>
       </div>
-      <button class="close-btn" @click="close">×</button>
+      <button class="close-btn" aria-label="Close" @click="close">
+        <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
+      </button>
     </div>
 
     <!-- Body -->
@@ -242,14 +245,30 @@ watch(() => uiStore.selectedTarget, (val) => {
   background: transparent;
   border: none;
   color: #999;
-  font-size: 20px;
-  line-height: 1;
   cursor: pointer;
   padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-btn:hover {
   color: white;
+}
+
+.close-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .panel-body {

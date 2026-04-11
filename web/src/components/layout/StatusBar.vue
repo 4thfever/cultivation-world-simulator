@@ -183,7 +183,10 @@ async function handleSelect(id: number, name: string) {
       style="width: 820px; max-height: 80vh; overflow-y: auto;"
     >
       <div class="world-info-card">
-        <div class="world-info-note">{{ t('game.status_bar.world_info.ai_knowledge_note') }}</div>
+        <div class="world-info-note">
+          <span class="world-info-note-icon" :style="{ '--icon-url': `url(${bookOpenIcon})` }" aria-hidden="true"></span>
+          {{ t('game.status_bar.world_info.ai_knowledge_note') }}
+        </div>
 
         <div v-if="worldInfoEntries.length > 0" class="world-info-list">
           <div
@@ -328,11 +331,30 @@ async function handleSelect(id: number, name: string) {
 }
 
 .world-info-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   line-height: 1.5;
   color: #999;
   padding: 0 0 10px;
   border-bottom: 1px solid #2f2f2f;
+}
+
+.world-info-note-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
 }
 
 .world-info-list {

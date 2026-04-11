@@ -16,6 +16,7 @@ Downloaded for current UI areas:
 - settings panel
 - save/load panel
 - about / other menu cards
+- shared panel actions and semantic detail sections
 
 Suggested mapping:
 - `menu.svg`: game menu button
@@ -47,3 +48,24 @@ Suggested mapping:
 - `house.svg`: return to main
 - `log-out.svg`: quit game
 - `chevron-right.svg`: navigation affordance
+- `pencil-line.svg`: edit avatar portrait or adjustable detail entries
+- `x.svg`: close panel or modal controls
+- `refresh-cw.svg`: retry or refresh data
+- `triangle-alert.svg`: warning, danger, or destructive confirmation
+- `check.svg`: confirm, apply, or success state
+- `sliders-horizontal.svg`: filter controls
+- `search.svg`: search inputs
+- `map.svg`: region detail or world map context
+- `map-pin.svg`: region location or birthplace context
+- `building-2.svg`: city, mortal settlement, or dynasty context
+- `mountain.svg`: cave, ruin, or cultivation region
+- `leaf.svg`: plants and natural resources
+- `gem.svg`: lodes, spirit stones, or rare materials
+- `package.svg`: materials, inventory, or market items
+- `scroll.svg`: event log, story, or lore context
+- `brain.svg`: avatar or sect thinking
+- `message-circle.svg`: dialogue, notes, or explanatory text
+- `heart-handshake.svg`: relationships or diplomacy
+- `crown.svg`: emperor, dynasty, or top ranking
+- `scale.svg`: rules, governance, or balance
+- `flag.svg`: sect, faction, or force marker

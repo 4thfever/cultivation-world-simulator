@@ -5,6 +5,11 @@ import { useI18n } from 'vue-i18n'
 import { useDynastyStore } from '@/stores/dynasty'
 import { useUiStore } from '@/stores/ui'
 import { formatCultivationText } from '@/utils/cultivationText'
+import buildingIcon from '@/assets/icons/ui/lucide/building-2.svg'
+import crownIcon from '@/assets/icons/ui/lucide/crown.svg'
+import landmarkIcon from '@/assets/icons/ui/lucide/landmark.svg'
+import scaleIcon from '@/assets/icons/ui/lucide/scale.svg'
+import usersIcon from '@/assets/icons/ui/lucide/users.svg'
 
 const props = defineProps<{
   show: boolean;
@@ -60,9 +65,12 @@ watch(
         <template v-if="hasOverview">
           <section class="hero-card">
             <div class="hero-header">
-              <div>
+              <div class="hero-title-wrap">
+                <span class="hero-icon" :style="{ '--icon-url': `url(${landmarkIcon})` }" aria-hidden="true"></span>
+                <div>
                 <div class="hero-title">{{ overview.title || overview.name }}</div>
                 <div class="hero-subtitle">{{ t('game.dynasty.royal_house') }}：{{ overview.royal_house_name || overview.royal_surname }}</div>
+                </div>
               </div>
               <n-tag size="small" :bordered="false" type="success">
                 {{ t('game.dynasty.low_magic') }}
@@ -71,8 +79,11 @@ watch(
             <div class="hero-desc">{{ overview.desc }}</div>
           </section>
 
-          <section class="section">
-            <div class="section-title">{{ t('game.dynasty.summary.title') }}</div>
+        <section class="section">
+            <div class="section-title">
+              <span class="section-title-icon" :style="{ '--icon-url': `url(${buildingIcon})` }" aria-hidden="true"></span>
+              {{ t('game.dynasty.summary.title') }}
+            </div>
             <div class="info-grid">
               <div class="info-card">
                 <div class="info-label">{{ t('game.dynasty.name') }}</div>
@@ -93,8 +104,11 @@ watch(
             </div>
           </section>
 
-          <section class="section">
-            <div class="section-title">{{ t('game.dynasty.emperor.title') }}</div>
+        <section class="section">
+            <div class="section-title">
+              <span class="section-title-icon" :style="{ '--icon-url': `url(${crownIcon})` }" aria-hidden="true"></span>
+              {{ t('game.dynasty.emperor.title') }}
+            </div>
             <div v-if="emperor" class="info-grid">
               <div class="info-card">
                 <div class="info-label">{{ t('game.dynasty.emperor.name') }}</div>
@@ -118,8 +132,11 @@ watch(
             </div>
           </section>
 
-          <section class="section">
-            <div class="section-title">{{ t('game.dynasty.effect') }}</div>
+        <section class="section">
+            <div class="section-title">
+              <span class="section-title-icon" :style="{ '--icon-url': `url(${scaleIcon})` }" aria-hidden="true"></span>
+              {{ t('game.dynasty.effect') }}
+            </div>
             <div v-if="effectLines.length" class="effect-card">
               <div class="effects-grid">
                 <template v-for="(line, idx) in effectLines" :key="idx">
@@ -135,7 +152,10 @@ watch(
 
           <section class="section">
             <div class="section-header">
-              <div class="section-title">{{ t('game.dynasty.officials.title') }}</div>
+              <div class="section-title">
+                <span class="section-title-icon" :style="{ '--icon-url': `url(${usersIcon})` }" aria-hidden="true"></span>
+                {{ t('game.dynasty.officials.title') }}
+              </div>
               <div class="section-meta">{{ t('game.dynasty.officials.count', { count: summary.officialCount }) }}</div>
             </div>
             <div v-if="officials.length" class="official-list">
@@ -203,6 +223,19 @@ watch(
   align-items: flex-start;
 }
 
+.hero-title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hero-icon {
+  width: 28px;
+  height: 28px;
+  color: #ffd591;
+  margin-top: 2px;
+}
+
 .hero-title {
   font-size: 24px;
   font-weight: 700;
@@ -227,11 +260,34 @@ watch(
 }
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 700;
   color: #d9d9d9;
   border-bottom: 1px solid #333;
   padding-bottom: 6px;
+}
+
+.hero-icon,
+.section-title-icon {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.section-title-icon {
+  width: 1em;
+  height: 1em;
 }
 
 .section-header {

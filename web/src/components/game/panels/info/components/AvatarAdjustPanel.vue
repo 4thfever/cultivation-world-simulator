@@ -9,6 +9,10 @@ import { useI18n } from 'vue-i18n';
 import { useMessage } from 'naive-ui';
 import EntityDetailCard from './EntityDetailCard.vue';
 import { formatAttributeLabel, formatEntityGrade } from '@/utils/cultivationText';
+import checkIcon from '@/assets/icons/ui/lucide/check.svg';
+import refreshIcon from '@/assets/icons/ui/lucide/refresh-cw.svg';
+import searchIcon from '@/assets/icons/ui/lucide/search.svg';
+import xIcon from '@/assets/icons/ui/lucide/x.svg';
 
 type AdjustCategory = 'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger';
 
@@ -295,7 +299,9 @@ async function saveCustomDraft() {
     <div v-if="category" class="adjust-panel">
       <div class="adjust-header">
         <span class="adjust-title">{{ panelTitle }}</span>
-        <button class="close-btn" @click="$emit('close')">×</button>
+        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+          <span class="icon-mask close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
+        </button>
       </div>
 
       <div class="adjust-body">
@@ -338,6 +344,7 @@ async function saveCustomDraft() {
             :placeholder="t('game.info_panel.avatar.adjust.custom.prompt_placeholder')"
           />
           <button class="apply-btn" :disabled="draftLoading || saveDraftLoading" @click="generateCustomDraft">
+            <span class="icon-mask button-icon" :style="{ '--icon-url': `url(${refreshIcon})` }" aria-hidden="true"></span>
             {{ draftLoading ? t('common.loading') : t('game.info_panel.avatar.adjust.custom.generate') }}
           </button>
           <div v-if="customDraft" class="draft-preview">
@@ -352,18 +359,22 @@ async function saveCustomDraft() {
             :disabled="saveDraftLoading || draftLoading"
             @click="saveCustomDraft"
           >
+            <span class="icon-mask button-icon" :style="{ '--icon-url': `url(${checkIcon})` }" aria-hidden="true"></span>
             {{ saveDraftLoading ? t('common.loading') : t('game.info_panel.avatar.adjust.custom.save') }}
           </button>
         </div>
 
         <div class="block grow">
           <div class="block-title">{{ t('game.info_panel.avatar.adjust.select') }}</div>
-          <input
-            v-model="searchText"
-            class="search-input"
-            type="text"
-            :placeholder="t('game.info_panel.avatar.adjust.search_placeholder')"
-          />
+          <label class="search-field">
+            <span class="icon-mask search-icon" :style="{ '--icon-url': `url(${searchIcon})` }" aria-hidden="true"></span>
+            <input
+              v-model="searchText"
+              class="search-input"
+              type="text"
+              :placeholder="t('game.info_panel.avatar.adjust.search_placeholder')"
+            />
+          </label>
 
           <div v-if="isLoading" class="state-text">{{ t('common.loading') }}</div>
           <div v-else-if="errorText" class="state-text error">{{ errorText }}</div>
@@ -398,6 +409,7 @@ async function saveCustomDraft() {
 
         <div v-if="category === 'personas'" class="footer">
           <button class="apply-btn" :disabled="submitLoading" @click="applyPersonas">
+            <span class="icon-mask button-icon" :style="{ '--icon-url': `url(${checkIcon})` }" aria-hidden="true"></span>
             {{ submitLoading ? t('common.loading') : t('game.info_panel.avatar.adjust.apply_personas') }}
           </button>
         </div>
@@ -442,9 +454,11 @@ async function saveCustomDraft() {
   background: transparent;
   border: none;
   color: #888;
-  font-size: 18px;
   cursor: pointer;
   padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-btn:hover {
@@ -494,15 +508,27 @@ async function saveCustomDraft() {
   letter-spacing: 0.02em;
 }
 
-.search-input {
+.search-field {
   width: 100%;
   box-sizing: border-box;
   background: #111;
   border: 1px solid #444;
-  color: #eee;
-  padding: 8px 10px;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+}
+
+.search-input {
+  min-width: 0;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #eee;
+  padding: 8px 0;
   font-size: 12px;
+  outline: none;
 }
 
 .select-input,
@@ -631,6 +657,10 @@ async function saveCustomDraft() {
   color: #fff;
   cursor: pointer;
   font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .apply-btn:disabled {
@@ -671,5 +701,34 @@ async function saveCustomDraft() {
 .empty-text {
   color: #888;
   font-size: 12px;
+}
+
+.icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.close-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.button-icon,
+.search-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.search-icon {
+  color: #777;
 }
 </style>

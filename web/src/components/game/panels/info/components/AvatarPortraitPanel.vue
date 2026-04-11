@@ -6,6 +6,8 @@ import { avatarApi } from '@/api';
 import { useAvatarStore } from '@/stores/avatar';
 import { getAvatarPortraitUrl } from '@/utils/assetUrls';
 import { logError, toErrorMessage } from '@/utils/appError';
+import checkIcon from '@/assets/icons/ui/lucide/check.svg';
+import xIcon from '@/assets/icons/ui/lucide/x.svg';
 
 const props = defineProps<{
   avatarId: string;
@@ -92,7 +94,9 @@ async function handleApply() {
     <div v-if="visible" class="portrait-panel">
       <div class="panel-header">
         <span class="panel-title">{{ t('game.info_panel.avatar.portrait.title') }}</span>
-        <button class="close-btn" @click="$emit('close')">×</button>
+        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+          <span class="icon-mask close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
+        </button>
       </div>
 
       <div class="panel-body">
@@ -125,6 +129,7 @@ async function handleApply() {
 
         <div class="footer">
           <button class="action-btn primary" :disabled="!selectedPicId || submitLoading" @click="handleApply">
+            <span class="icon-mask button-icon" :style="{ '--icon-url': `url(${checkIcon})` }" aria-hidden="true"></span>
             {{ submitLoading ? t('common.loading') : t('common.confirm') }}
           </button>
           <button class="action-btn" :disabled="submitLoading" @click="$emit('close')">
@@ -172,13 +177,39 @@ async function handleApply() {
   background: transparent;
   border: none;
   color: #888;
-  font-size: 18px;
   cursor: pointer;
   padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-btn:hover {
   color: #fff;
+}
+
+.icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+.close-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.button-icon {
+  width: 1em;
+  height: 1em;
 }
 
 .panel-body {
@@ -286,6 +317,10 @@ async function handleApply() {
   color: #ddd;
   cursor: pointer;
   font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .action-btn.primary {

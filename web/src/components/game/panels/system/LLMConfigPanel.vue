@@ -4,6 +4,7 @@ import { llmApi } from '@/api'
 import type { LLMConfigDTO } from '@/types/api'
 import { useMessage, useDialog } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import xIcon from '@/assets/icons/ui/lucide/x.svg'
 
 interface LlmPreset {
   name: string
@@ -357,7 +358,9 @@ onMounted(() => {
       <div class="modal-content">
         <div class="modal-header">
           <h3>{{ t('llm.help.title') }}</h3>
-          <button class="close-btn" @click="showHelpModal = false">×</button>
+          <button class="close-btn" aria-label="Close" @click="showHelpModal = false">
+            <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
+          </button>
         </div>
         
         <div class="modal-body">
@@ -734,13 +737,31 @@ onMounted(() => {
   background: none;
   border: none;
   color: #666;
-  font-size: 1.5em;
   cursor: pointer;
   transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2em;
 }
 
 .close-btn:hover {
   color: #fff;
+}
+
+.close-icon {
+  width: 1.1em;
+  height: 1.1em;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .modal-body {

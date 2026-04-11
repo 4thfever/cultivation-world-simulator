@@ -7,6 +7,13 @@ import SecondaryPopup from './components/SecondaryPopup.vue';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import { formatPopulationRatioText } from '@/utils/populationFormat';
+import buildingIcon from '@/assets/icons/ui/lucide/building-2.svg';
+import gemIcon from '@/assets/icons/ui/lucide/gem.svg';
+import leafIcon from '@/assets/icons/ui/lucide/leaf.svg';
+import mapIcon from '@/assets/icons/ui/lucide/map.svg';
+import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
+import mountainIcon from '@/assets/icons/ui/lucide/mountain.svg';
+import packageIcon from '@/assets/icons/ui/lucide/package.svg';
 
 const { locale, t } = useI18n();
 const props = defineProps<{
@@ -51,6 +58,12 @@ function getRegionTypeExplanation(): string {
   return t('game.info_panel.region.type_explanations.normal');
 }
 
+function getRegionTypeIcon(): string {
+  if (props.data.type === 'city') return buildingIcon;
+  if (props.data.type === 'cultivate') return mountainIcon;
+  return mapIcon;
+}
+
 function showDetail(item: EffectEntity | undefined) {
   if (item) {
     secondaryItem.value = item;
@@ -75,8 +88,14 @@ function jumpToAvatar(id: string) {
 
     <!-- Info -->
     <div class="section">
-      <div class="section-title">{{ data.type_name }}</div>
-      <div class="type-note">{{ getRegionTypeExplanation() }}</div>
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${getRegionTypeIcon()})` }" aria-hidden="true"></span>
+        {{ data.type_name }}
+      </div>
+      <div class="type-note">
+        <span class="inline-icon" :style="{ '--icon-url': `url(${messageCircleIcon})` }" aria-hidden="true"></span>
+        {{ getRegionTypeExplanation() }}
+      </div>
       <div class="desc">{{ data.desc }}</div>
 
       <!-- Population -->
@@ -102,7 +121,10 @@ function jumpToAvatar(id: string) {
 
     <!-- Essence -->
     <div class="section" v-if="data.essence">
-      <div class="section-title">{{ t('game.info_panel.region.essence_title') }}</div>
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${gemIcon})` }" aria-hidden="true"></span>
+        {{ t('game.info_panel.region.essence_title') }}
+      </div>
       <div class="essence-info">
         {{ t('game.info_panel.region.essence_info', { type: formatEssenceType(data.essence.type), density: data.essence.density }) }}
       </div>
@@ -136,7 +158,10 @@ function jumpToAvatar(id: string) {
 
     <!-- Plants -->
     <div class="section" v-if="data.plants?.length">
-      <div class="section-title">{{ t('game.info_panel.region.sections.plants') }}</div>
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${leafIcon})` }" aria-hidden="true"></span>
+        {{ t('game.info_panel.region.sections.plants') }}
+      </div>
       <div class="list">
         <EntityRow 
           v-for="plant in data.plants"
@@ -150,7 +175,10 @@ function jumpToAvatar(id: string) {
 
     <!-- Lodes -->
     <div class="section" v-if="data.lodes?.length">
-      <div class="section-title">{{ t('game.info_panel.region.sections.lodes') }}</div>
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${gemIcon})` }" aria-hidden="true"></span>
+        {{ t('game.info_panel.region.sections.lodes') }}
+      </div>
       <div class="list">
         <EntityRow 
           v-for="lode in data.lodes"
@@ -164,7 +192,10 @@ function jumpToAvatar(id: string) {
 
     <!-- Store Items -->
     <div class="section" v-if="data.store_items?.length">
-      <div class="section-title">{{ t('game.info_panel.region.sections.market') }}</div>
+      <div class="section-title">
+        <span class="section-title-icon" :style="{ '--icon-url': `url(${packageIcon})` }" aria-hidden="true"></span>
+        {{ t('game.info_panel.region.sections.market') }}
+      </div>
       <div class="list">
         <EntityRow 
           v-for="item in data.store_items"
@@ -196,6 +227,9 @@ function jumpToAvatar(id: string) {
 }
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   font-weight: bold;
   color: #666;
@@ -211,9 +245,29 @@ function jumpToAvatar(id: string) {
 }
 
 .type-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
   font-size: 12px;
   color: #a8d8c0;
   line-height: 1.5;
+}
+
+.section-title-icon,
+.inline-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  flex-shrink: 0;
 }
 
 .essence-info {
