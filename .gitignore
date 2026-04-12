@@ -157,6 +157,7 @@ secrets.json
 tmp/appdata/
 tmp/data/
 tmp/userdata/
+.tmp_codex/
 
 台本/
 笔记/
