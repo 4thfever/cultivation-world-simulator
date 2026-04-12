@@ -22,6 +22,7 @@ class _DummyPhenomenon:
 class _DummyWorld:
     def __init__(self):
         self.current_phenomenon = _DummyPhenomenon("Heaven Tide", "Spiritual qi surges")
+        self.world_lore = type("WorldLore", (), {"text": ""})()
 
     def get_info(self, detailed: bool = False):
         return {"world_state": "stable", "detailed": detailed}
@@ -90,6 +91,7 @@ async def test_sect_thinker_returns_llm_content_when_valid():
     assert kwargs["infos"]["decision_summary"] == "招徕散修 1 人。"
     assert "守住门规与传承" in kwargs["infos"]["decision_context_info"]
     assert "供养成本" in kwargs["infos"]["decision_context_info"]
+    assert kwargs["infos"]["world_lore"] == ""
 
 
 @pytest.mark.asyncio

@@ -37,7 +37,8 @@ def test_world_lore_structure(base_world):
     lore_text = "这是一个宗门林立、正邪对峙的修仙世界。"
     base_world.set_world_lore(lore_text)
     assert base_world.world_lore.text == lore_text
-    assert base_world.static_info[t("World lore and history")] == lore_text
+    assert t("World lore and history") not in base_world.static_info
+    assert lore_text not in str(base_world.get_info())
 
 
 def test_world_lore_static_info_key_is_localized(base_world):
@@ -46,7 +47,7 @@ def test_world_lore_static_info_key_is_localized(base_world):
         language_manager._current = "en-US"
         reload_translations()
         base_world.set_world_lore("Sects rise and fall under rewritten heavens.")
-        assert base_world.static_info["World lore and history"] == "Sects rise and fall under rewritten heavens."
+        assert "World lore and history" not in base_world.static_info
     finally:
         language_manager._current = original_lang
         reload_translations()
@@ -138,9 +139,13 @@ def test_world_lore_syncs_sect_region_metadata():
 @pytest.mark.asyncio
 async def test_apply_world_lore_uses_world_lore_tasks(base_world):
     manager = WorldLoreManager(base_world)
+    base_world.set_world_lore("旧有 lore 不应混入 world_info")
 
     async def fake_call(**kwargs):
         task_name = kwargs["task_name"]
+        infos = kwargs["infos"]
+        assert infos["world_lore"] == "强调门规与正邪格局的世界观"
+        assert "旧有 lore 不应混入 world_info" not in infos["world_info"]
         if task_name == "world_lore_map":
             return {"city_regions_change": {}, "normal_regions_change": {}, "cultivate_regions_change": {}}
         if task_name == "world_lore_sect":

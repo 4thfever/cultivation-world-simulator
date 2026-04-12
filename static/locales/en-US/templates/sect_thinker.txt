@@ -8,6 +8,9 @@ Sect Name:
 World Info:
 {world_info}
 
+Worldview and History:
+{world_lore}
+
 Current Heavenly Aura / Phenomenon:
 {current_phenomenon_info}
 
@@ -34,3 +37,4 @@ Requirements:
 }}
 9. The output must be fully written in natural English. Do not write in Chinese, Japanese, or mixed language text, even if the sect name, world data, or decision context contains Chinese.
 10. Proper nouns may stay in their original form, but the sentence itself must still be natural English.
+

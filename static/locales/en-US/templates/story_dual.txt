@@ -3,6 +3,9 @@ You are a novelist in a Xianxia world; you need to expand an event into a story 
 World Background:
 {world_info}
 
+Worldview and History:
+{world_lore}
+
 The dict[AvatarName, info] of the NPCs you need to make decisions for is:
 {avatar_infos}
 
@@ -19,3 +22,4 @@ Note: Return the results in JSON format only, in the format:
     "thinking": ..., // Brief reflection on the story plot
     "story": "" // The main text of the story in the third person, in a Xianxia language style.
 }}
+

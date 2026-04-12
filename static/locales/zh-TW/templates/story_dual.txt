@@ -3,6 +3,9 @@
 世界背景：
 {world_info}
 
+世界觀與歷史設定：
+{world_lore}
+
 你需要進行決策的NPC的dict[AvatarName, info]爲
 {avatar_infos}
 
@@ -19,3 +22,4 @@
     "thinking": ..., // 簡單思考故事劇情
     "story": "" // 第三人稱的故事正文，仙俠語言風格
 }}
+

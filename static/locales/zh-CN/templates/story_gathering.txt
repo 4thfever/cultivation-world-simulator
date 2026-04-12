@@ -3,6 +3,9 @@
 世界背景：
 {world_info}
 
+世界观与历史设定：
+{world_lore}
+
 事件设定：
 {gathering_info}
 
@@ -24,3 +27,4 @@ events：
     "thinking": ..., // 简单思考故事剧情
     "story": "" // 第三人称的故事正文，仙侠语言风格
 }}
+

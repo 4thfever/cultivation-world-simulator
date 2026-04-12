@@ -3,6 +3,9 @@ You are a storyteller in a Xianxia world, responsible for giving nicknames to ch
 World Background:
 {world_info}
 
+Thế giới quan và lịch sử:
+{world_lore}
+
 A nickname is an evaluation and title for a character in the cultivation world. Requirements:
 1. Fits the Xianxia worldview and style.
 2. Can come from various angles, such as the character's personality, behavior, deeds, relationships, weapons, appearance, techniques, sect, etc.
@@ -25,3 +28,4 @@ Note:
 - "thinking" is your thought process; please provide a detailed analysis.
 - "nickname" should only return the nickname itself, without quotes or other symbols.
 - The nickname must fit the style of the Xianxia world.
+

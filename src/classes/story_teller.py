@@ -72,6 +72,7 @@ class StoryTeller:
 
         return {
             "world_info": world_info,
+            "world_lore": actors[0].world.world_lore.text if actors else "",
             "avatar_infos": avatar_infos,
             "avatar_name_1": avatar_name_1,
             "avatar_name_2": avatar_name_2,
@@ -151,6 +152,7 @@ class StoryTeller:
             
         infos = {
             "world_info": world_info,
+            "world_lore": related_avatars[0].world.world_lore.text,
             "gathering_info": gathering_info,
             "events": events_text,
             "details": details_text,

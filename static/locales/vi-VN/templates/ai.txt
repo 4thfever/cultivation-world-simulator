@@ -1,6 +1,9 @@
 You are a decision-maker in a Xianxia world, responsible for determining the subsequent actions and behaviors of a character.
 The world information known to the character is:
 {world_info}
+
+Thế giới quan và lịch sử:
+{world_lore}
 All executable actions are:
 {general_action_infos}
 The info of the NPC you need to make decisions for is:
@@ -25,3 +28,4 @@ Requirements and constraints:
 - Some actions require moving to satisfy certain conditions before they can be executed; you may plan accordingly.
 - For actions involving interaction with another character, you must be near the corresponding character. You can use MoveToAvatar before execution.
 - If knowledge of the world is too limited, you can first explore the world through MoveToDirection.
+

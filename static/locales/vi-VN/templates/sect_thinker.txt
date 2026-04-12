@@ -8,6 +8,9 @@ Tên tông môn:
 Thông tin thế giới:
 {world_info}
 
+Thế giới quan và lịch sử:
+{world_lore}
+
 Thiên tượng / khí vận hiện tại:
 {current_phenomenon_info}
 
@@ -34,3 +37,4 @@ Yêu cầu:
 }}
 9. Kết quả phải hoàn toàn bằng tiếng Việt tự nhiên. Không được viết bằng tiếng Trung, tiếng Nhật hoặc văn bản pha trộn nhiều ngôn ngữ, kể cả khi tên riêng hay dữ liệu đầu vào có chứa tiếng Trung.
 10. Tên riêng có thể giữ nguyên dạng gốc, nhưng toàn bộ câu văn vẫn phải là tiếng Việt tự nhiên.
+

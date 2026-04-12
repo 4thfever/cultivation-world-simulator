@@ -89,6 +89,7 @@ async def generate_long_term_objective(avatar: "Avatar") -> Optional[LongTermObj
     template_path = CONFIG.paths.templates / "long_term_objective.txt"
     infos = {
         "world_info": world_info,
+        "world_lore": avatar.world.world_lore.text,
         "avatar_info": expanded_info,
         "general_action_infos": get_action_infos_str(avatar),
     }

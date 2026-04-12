@@ -8,6 +8,9 @@
 世界信息：
 {world_info}
 
+世界观与历史设定：
+{world_lore}
+
 本轮决策上下文：
 {decision_context_info}
 
@@ -49,3 +52,4 @@
 2. 不要重复填写同一个 avatar_id 或 other_sect_id。
 3. thinking 简洁即可，20~60 字。
 4. thinking 要直接体现宗门身份与财政判断；若本轮包含强硬外交或战争考量，也应自然体现，例如“我宗当守正道统、量入为出，若敌宗压境，便当以战止争”这类风格。
+

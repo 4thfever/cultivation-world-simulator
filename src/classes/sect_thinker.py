@@ -45,6 +45,7 @@ class SectThinker:
         infos = {
             "sect_name": sect.name,
             "world_info": to_json_str_with_intent(cls._serialize_world_info(world)),
+            "world_lore": world.world_lore.text,
             "current_phenomenon_info": cls._current_phenomenon_info(world),
             "decision_context_info": to_json_str_with_intent(
                 cls._serialize_context(decision_context)

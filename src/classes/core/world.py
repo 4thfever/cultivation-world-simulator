@@ -430,9 +430,6 @@ class World():
             d_val = row.get("desc")
             if t_val and d_val:
                 desc[t_val] = d_val
-        
-        if self.world_lore.text:
-            desc[t("World lore and history")] = self.world_lore.text
         return desc
 
     @classmethod

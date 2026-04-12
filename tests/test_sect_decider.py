@@ -322,6 +322,7 @@ async def test_sect_decider_llm_plan_receives_detailed_info(base_world):
     assert "bio" in infos["decision_context_info"]
     assert "守正积势" in infos["decision_context_info"]
     assert "传承资源" in infos["decision_context_info"]
+    assert infos["world_lore"] == ""
 
 
 @pytest.mark.asyncio

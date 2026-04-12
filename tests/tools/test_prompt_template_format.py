@@ -35,6 +35,7 @@ def test_sect_decider_template_can_be_formatted() -> None:
     infos = {
         "sect_name": "A宗",
         "world_info": "{}",
+        "world_lore": "",
         "decision_context_info": "{}",
         "recruit_cost": 500,
         "support_amount": 300,

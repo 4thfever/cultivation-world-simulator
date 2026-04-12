@@ -32,6 +32,7 @@ async def generate_backstory(avatar: "Avatar") -> Optional[str]:
         
         infos = {
             "world_info": str(avatar.world.get_info()),
+            "world_lore": avatar.world.world_lore.text,
             "avatar_info": str(avatar.get_expanded_info(detailed=True))
         }
         

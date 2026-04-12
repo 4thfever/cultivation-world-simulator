@@ -3,6 +3,9 @@
 世界背景:
 {world_info}
 
+世界観と歴史設定：
+{world_lore}
+
 判断対象となる NPC たちの dict[AvatarName, info] は次の通りです:
 {avatar_infos}
 
@@ -19,3 +22,4 @@
     "thinking": ..., // 物語の構成に関する簡潔な考察
     "story": "" // 仙道文体による三人称の本文
 }}
+

@@ -3,6 +3,9 @@ Bạn là một người kể chuyện trong thế giới tiên hiệp, phụ tr
 Bối cảnh thế giới:
 {world_info}
 
+Thế giới quan và lịch sử:
+{world_lore}
+
 Yêu cầu:
 1. Dựa trên thuộc tính, quan hệ, tuổi bắt đầu tu luyện, thân phận và các thông tin khác của nhân vật, suy ra bối cảnh cuộc sống của họ trước thời Luyện Khí (giai đoạn phàm nhân), cùng câu chuyện họ đã bước lên tiên lộ và đạt tới Luyện Khí như thế nào.
 2. Diễn đạt ngắn gọn, rõ ràng, khoảng 30-40 từ.
@@ -23,3 +26,4 @@ Trả về JSON theo định dạng:
 Lưu ý:
 - "thinking" là quá trình suy nghĩ của bạn.
 - "backstory" chỉ trả về chính phần mô tả thân thế, không thêm dấu ngoặc kép hay ký hiệu khác.
+

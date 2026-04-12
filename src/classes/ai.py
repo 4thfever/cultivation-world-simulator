@@ -68,6 +68,7 @@ class LLMAI(AI):
                 "avatar_info": avatar_info,
                 "avatar_ai_context": avatar_ai_context,
                 "world_info": world_info,
+                "world_lore": world.world_lore.text,
                 "general_action_infos": general_action_infos,
             }
             template_path = CONFIG.paths.templates / "ai.txt"

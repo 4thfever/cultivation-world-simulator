@@ -8,6 +8,9 @@
 世界信息：
 {world_info}
 
+世界观与历史设定：
+{world_lore}
+
 当前天地灵气/天地异象：
 {current_phenomenon_info}
 
@@ -32,3 +35,4 @@
 {{
   "sect_thinking": "......"
 }}
+

@@ -76,6 +76,7 @@ async def generate_nickname(avatar: "Avatar") -> Optional[dict]:
         template_path = CONFIG.paths.templates / "nickname.txt"
         infos = {
             "world_info": avatar.world.static_info,
+            "world_lore": avatar.world.world_lore.text,
             "avatar_info": expanded_info,
         }
         

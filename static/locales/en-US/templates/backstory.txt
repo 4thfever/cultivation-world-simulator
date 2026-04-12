@@ -3,6 +3,9 @@ You are a storyteller in a Xianxia world, responsible for deducing the backstory
 World Background:
 {world_info}
 
+Worldview and History:
+{world_lore}
+
 Requirements:
 1. Based on the character's attributes, relationships, cultivation age, identity, etc., deduce their life background before Qi Refinement (mortal period) and the story of how they successfully embarked on the path of cultivation (reaching the Qi Refinement stage).
 2. Be concise and clear, around 30-40 words.
@@ -23,3 +26,4 @@ Return JSON format:
 Note:
 - "thinking" is your thought process.
 - "backstory" should only return the backstory description itself, without quotes or other symbols.
+

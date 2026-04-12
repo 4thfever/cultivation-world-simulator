@@ -8,6 +8,9 @@
 世界情報:
 {world_info}
 
+世界観と歴史設定：
+{world_lore}
+
 現在の天象・気運:
 {current_phenomenon_info}
 
@@ -33,3 +36,4 @@
   "sect_thinking": "..."
 }}
 9. 出力は必ず自然な日本語で行い、中国語や英語を混ぜてはいけません。
+

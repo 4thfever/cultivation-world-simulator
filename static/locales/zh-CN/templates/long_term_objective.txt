@@ -3,6 +3,9 @@
 当前世界信息：
 {world_info}
 
+世界观与历史设定：
+{world_lore}
+
 角色信息：
 {avatar_info}
 
