@@ -306,6 +306,30 @@ export interface InitStatusDTO {
   version?: string;
   llm_check_failed: boolean;
   llm_error_message: string;
+  is_paused?: boolean;
+  pause_reason?: string;
+  roleplay?: RoleplaySessionDTO | null;
+}
+
+export interface RoleplayPromptRequestDTO {
+  request_id: string;
+  type: 'decision' | 'choice' | string;
+  avatar_id: string;
+  title: string;
+  description: string;
+  options?: Array<{
+    key: string;
+    title: string;
+    description: string;
+  }>;
+  created_at: number;
+}
+
+export interface RoleplaySessionDTO {
+  controlled_avatar_id: string | null;
+  status: 'inactive' | 'observing' | 'awaiting_decision' | 'submitting' | string;
+  pending_request: RoleplayPromptRequestDTO | null;
+  last_prompt_context: Record<string, unknown> | null;
 }
 
 export interface RankingAvatarDTO {

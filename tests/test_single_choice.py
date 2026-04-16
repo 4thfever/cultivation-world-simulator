@@ -1,6 +1,9 @@
+import asyncio
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
 
+from src.server.runtime import DEFAULT_GAME_STATE, GameSessionRuntime
+from src.server.services.roleplay_service import submit_roleplay_choice
 from src.systems.single_choice import (
     ChoiceSource,
     FallbackMode,
@@ -19,15 +22,23 @@ from src.utils.config import CONFIG
 class MockAvatar:
     def __init__(self):
         self.name = "TestAvatar"
+        self.id = "avatar_1"
         self.weapon = None
         self.auxiliary = None
         self.technique = None
         self.world = Mock()
         self.world.static_info = {}
+        self.world.get_observable_avatars = Mock(return_value=[])
+        self.world.event_manager.get_major_events_by_avatar = Mock(return_value=[])
+        self.world.event_manager.get_minor_events_by_avatar = Mock(return_value=[])
+        self.world.avatar_manager.get_avatar = Mock(side_effect=lambda avatar_id: self if avatar_id == self.id else None)
         self.change_weapon = Mock()
         self.sell_weapon = Mock(return_value=100)
         self.consume_elixir = Mock()
         self.sell_elixir = Mock(return_value=50)
+        self.current_action_name = "thinking"
+        self.short_term_objective = ""
+        self.thinking = ""
 
     def get_info(self, detailed=False):
         return {"name": self.name}
@@ -182,3 +193,66 @@ async def test_elixir_reject_sells_new():
     assert "卖掉了新获得的PowerPill" in outcome.result_text
     avatar.sell_elixir.assert_called_once_with(new_elixir)
     avatar.consume_elixir.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_roleplay_choice_waits_for_player_submission_and_resumes():
+    avatar = MockAvatar()
+    runtime = GameSessionRuntime(
+        {
+            **DEFAULT_GAME_STATE,
+            "roleplay_session": {
+                "controlled_avatar_id": None,
+                "status": "inactive",
+                "pending_request": None,
+                "last_prompt_context": None,
+            },
+        }
+    )
+    avatar.world.runtime = runtime
+    runtime.update({"world": avatar.world})
+    runtime.get_roleplay_session()["controlled_avatar_id"] = avatar.id
+    runtime.get_roleplay_session()["status"] = "observing"
+
+    old_weapon = MockItem("OldSword")
+    new_weapon = MockItem("NewSword")
+    avatar.weapon = old_weapon
+
+    task = asyncio.create_task(
+        resolve_item_exchange(
+            ItemExchangeRequest(
+                avatar=avatar,
+                new_item=new_weapon,
+                kind=ItemExchangeKind.WEAPON,
+                scene_intro="Context",
+                reject_mode=RejectMode.SELL_NEW,
+                auto_accept_when_empty=False,
+            )
+        )
+    )
+
+    session = runtime.get_roleplay_session()
+    pending = None
+    for _ in range(10):
+        await asyncio.sleep(0)
+        session = runtime.get_roleplay_session()
+        pending = session["pending_request"]
+        if session["status"] == "awaiting_choice" and pending is not None:
+            break
+
+    assert session["status"] == "awaiting_choice"
+    assert pending["type"] == "choice"
+    assert len(pending["options"]) == 2
+
+    await submit_roleplay_choice(
+        runtime,
+        avatar_id=avatar.id,
+        request_id=pending["request_id"],
+        selected_key="REJECT",
+    )
+    outcome = await task
+
+    assert outcome.accepted is False
+    assert outcome.action == ItemDisposition.SOLD_NEW
+    assert outcome.decision.source == ChoiceSource.PLAYER_ROLEPLAY
+    assert avatar.sell_weapon.assert_called_once_with(new_weapon) is None

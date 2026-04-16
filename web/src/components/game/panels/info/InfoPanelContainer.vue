@@ -151,9 +151,9 @@ watch(() => uiStore.selectedTarget, (val) => {
 .info-panel {
   position: absolute;
   top: 60px;
+  bottom: 16px;
   right: 20px;
   width: min(clamp(340px, 26vw, 376px), calc(100vw - var(--cws-sidebar-width, 400px) - 52px));
-  max-height: calc(100vh - 80px);
   background: var(--panel-bg);
   border: 1px solid var(--color-border);
   border-radius: 8px;

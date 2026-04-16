@@ -120,6 +120,7 @@ def configure_routes_and_mounts(
     build_saves,
     build_detail,
     build_deceased_list,
+    build_roleplay_session,
     create_public_command_router,
     run_start_game,
     run_reinit_game,
@@ -140,6 +141,10 @@ def configure_routes_and_mounts(
     run_save_game,
     run_delete_save,
     run_load_game,
+    run_start_roleplay,
+    run_stop_roleplay,
+    run_submit_roleplay_decision,
+    run_submit_roleplay_choice,
     assets_path: str,
     web_dist_path: str,
     is_dev_mode: bool,
@@ -183,6 +188,7 @@ def configure_routes_and_mounts(
             build_saves=build_saves,
             build_detail=build_detail,
             build_deceased_list=build_deceased_list,
+            build_roleplay_session=build_roleplay_session,
         )
     )
 
@@ -207,6 +213,10 @@ def configure_routes_and_mounts(
             run_save_game=run_save_game,
             run_delete_save=run_delete_save,
             run_load_game=run_load_game,
+            run_start_roleplay=run_start_roleplay,
+            run_stop_roleplay=run_stop_roleplay,
+            run_submit_roleplay_decision=run_submit_roleplay_decision,
+            run_submit_roleplay_choice=run_submit_roleplay_choice,
         )
     )
 

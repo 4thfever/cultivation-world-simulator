@@ -107,32 +107,7 @@ class Conversation(MutualAction):
 
     def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:
         """调用通用异步 step 逻辑"""
-        target = self._get_target_avatar(target_avatar)
-        if target is None:
-            return ActionResult(status=ActionStatus.FAILED, events=[])
-
-        # 若无任务，创建异步任务
-        if self._response_task is None and self._response_cached is None:
-            infos = self._build_prompt_infos(target)
-            import asyncio
-            loop = asyncio.get_running_loop()
-            self._response_task = loop.create_task(self._call_llm_response(infos))
-
-        # 若任务已完成，消费结果
-        if self._response_task is not None and self._response_task.done():
-            self._response_cached = self._response_task.result()
-            self._response_task = None
-
-        if self._response_cached is not None:
-            res = self._response_cached
-            self._response_cached = None
-            r = res.get(target.name, {})
-            thinking = r.get("thinking", "")
-            target.thinking = thinking
-            
-            return self._handle_response_result(target, r)
-
-        return ActionResult(status=ActionStatus.RUNNING, events=[])
+        return super().step(target_avatar=target_avatar)
 
     async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         target = getattr(self, "_conversation_target", None) or self._get_target_avatar(target_avatar)

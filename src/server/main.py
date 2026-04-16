@@ -71,6 +71,14 @@ from src.server.services.game_queries import (
     get_world_map,
     get_world_state,
 )
+from src.server.services.roleplay_service import (
+    clear_roleplay_session as clear_roleplay_session_service,
+    get_roleplay_session as get_roleplay_session_query,
+    start_roleplay as start_roleplay_service,
+    stop_roleplay as stop_roleplay_service,
+    submit_roleplay_choice as submit_roleplay_choice_service,
+    submit_roleplay_decision as submit_roleplay_decision_service,
+)
 from src.server.services.event_control import cleanup_events as cleanup_events_command
 from src.server.api.public_v1 import (
     create_public_command_router,
@@ -275,6 +283,7 @@ public_query_builders = create_public_query_builders(
     build_dynasty_detail=build_dynasty_detail,
     get_avatar_overview_query=get_avatar_overview_query,
     get_deceased_list_query=get_deceased_list,
+    get_roleplay_session_query=get_roleplay_session_query,
 )
 
 build_public_world_state = public_query_builders.build_public_world_state
@@ -297,6 +306,7 @@ build_public_dynasty_overview = public_query_builders.build_public_dynasty_overv
 build_public_dynasty_detail = public_query_builders.build_public_dynasty_detail
 build_public_avatar_overview = public_query_builders.build_public_avatar_overview
 build_public_deceased_list = public_query_builders.build_public_deceased_list
+build_public_roleplay_session = public_query_builders.build_public_roleplay_session
 
 
 def update_init_progress(phase: int, phase_name: str = ""):
@@ -443,6 +453,12 @@ command_handlers = create_command_handlers(
     get_load_game_into_runtime=lambda: load_game_into_runtime,
     get_load_game=lambda: load_game,
     get_events_db_path=get_events_db_path,
+    get_roleplay_session=get_roleplay_session_query,
+    clear_roleplay_session=clear_roleplay_session_service,
+    start_roleplay=start_roleplay_service,
+    stop_roleplay=stop_roleplay_service,
+    submit_roleplay_decision=submit_roleplay_decision_service,
+    submit_roleplay_choice=submit_roleplay_choice_service,
 )
 
 run_start_game = command_handlers.run_start_game
@@ -463,6 +479,10 @@ run_clear_long_term_objective = command_handlers.run_clear_long_term_objective
 run_save_game = command_handlers.run_save_game
 run_delete_save = command_handlers.run_delete_save
 run_load_game = command_handlers.run_load_game
+run_start_roleplay = command_handlers.run_start_roleplay
+run_stop_roleplay = command_handlers.run_stop_roleplay
+run_submit_roleplay_decision = command_handlers.run_submit_roleplay_decision
+run_submit_roleplay_choice = command_handlers.run_submit_roleplay_choice
 
 
 def get_settings() -> dict:
@@ -549,6 +569,7 @@ configure_routes_and_mounts(
     build_saves=build_public_saves,
     build_detail=build_public_detail,
     build_deceased_list=build_public_deceased_list,
+    build_roleplay_session=build_public_roleplay_session,
     create_public_command_router=create_public_command_router,
     run_start_game=run_start_game,
     run_reinit_game=run_reinit_game,
@@ -569,6 +590,10 @@ configure_routes_and_mounts(
     run_save_game=run_save_game,
     run_delete_save=run_delete_save,
     run_load_game=run_load_game,
+    run_start_roleplay=run_start_roleplay,
+    run_stop_roleplay=run_stop_roleplay,
+    run_submit_roleplay_decision=run_submit_roleplay_decision,
+    run_submit_roleplay_choice=run_submit_roleplay_choice,
     assets_path=ASSETS_PATH,
     web_dist_path=WEB_DIST_PATH,
     is_dev_mode=IS_DEV_MODE,

@@ -11,6 +11,7 @@ import type {
   GenerateCustomContentParams,
   CustomContentDraftDTO,
   CreateCustomContentParams,
+  RoleplaySessionDTO,
 } from '../../types/api';
 
 export interface HoverParams {
@@ -76,5 +77,35 @@ export const avatarApi = {
 
   deleteAvatar(avatarId: string) {
     return httpClient.post<{ status: string; message: string }>('/api/v1/command/avatar/delete', { avatar_id: avatarId });
+  },
+
+  fetchRoleplaySession() {
+    return httpClient.get<RoleplaySessionDTO>('/api/v1/query/roleplay/session');
+  },
+
+  startRoleplay(avatarId: string) {
+    return httpClient.post<RoleplaySessionDTO>('/api/v1/command/roleplay/start', {
+      avatar_id: avatarId,
+    });
+  },
+
+  stopRoleplay(avatarId?: string) {
+    return httpClient.post<RoleplaySessionDTO>('/api/v1/command/roleplay/stop', {
+      avatar_id: avatarId,
+    });
+  },
+
+  submitRoleplayDecision(params: { avatar_id: string; request_id: string; command_text: string }) {
+    return httpClient.post<{ status: string; message: string; planned_action_count: number }>(
+      '/api/v1/command/roleplay/submit-decision',
+      params,
+    );
+  },
+
+  submitRoleplayChoice(params: { avatar_id: string; request_id: string; selected_key: string }) {
+    return httpClient.post<{ status: string; message: string; result?: unknown }>(
+      '/api/v1/command/roleplay/submit-choice',
+      params,
+    );
   }
 };

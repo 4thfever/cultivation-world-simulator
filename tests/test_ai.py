@@ -236,6 +236,27 @@ class TestLLMAIDecide:
         # Avatar should be skipped since no valid pairs.
         assert test_avatar not in results
 
+    @pytest.mark.asyncio
+    async def test_decide_always_passes_player_command_field(self, mock_world, test_avatar):
+        """Standard AI decisions should keep ai.txt optional placeholders satisfiable."""
+        mock_response = {
+            test_avatar.name: {
+                "action_name_params_pairs": [["cultivate", {}]],
+                "avatar_thinking": "Keep training.",
+                "short_term_objective": "Grow stronger",
+                "current_emotion": "emotion_calm",
+            }
+        }
+
+        ai = LLMAI()
+        with patch("src.classes.ai.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            mock_llm.return_value = mock_response
+            await ai._decide(mock_world, [test_avatar])
+
+        assert mock_llm.await_count == 1
+        _, _, infos = mock_llm.await_args.args
+        assert infos["player_command"] == ""
+
 
 class TestLLMAIEmotionUpdate:
     """Tests for emotion update logic in LLMAI._decide."""

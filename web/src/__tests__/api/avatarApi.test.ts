@@ -156,4 +156,47 @@ describe('avatarApi', () => {
 
     expect(getMock).toHaveBeenCalledWith('/api/v1/query/meta/avatars')
   })
+
+  it('fetches roleplay session from the dedicated endpoint', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    getMock.mockResolvedValue({ controlled_avatar_id: null, status: 'inactive', pending_request: null, last_prompt_context: null })
+
+    await avatarApi.fetchRoleplaySession()
+
+    expect(getMock).toHaveBeenCalledWith('/api/v1/query/roleplay/session')
+  })
+
+  it('posts roleplay decision submissions', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', planned_action_count: 1 })
+
+    await avatarApi.submitRoleplayDecision({
+      avatar_id: 'avatar_1',
+      request_id: 'req_1',
+      command_text: '先调息恢复一下',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/roleplay/submit-decision', {
+      avatar_id: 'avatar_1',
+      request_id: 'req_1',
+      command_text: '先调息恢复一下',
+    })
+  })
+
+  it('posts roleplay choice submissions', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok' })
+
+    await avatarApi.submitRoleplayChoice({
+      avatar_id: 'avatar_1',
+      request_id: 'req_choice_1',
+      selected_key: 'ACCEPT',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/roleplay/submit-choice', {
+      avatar_id: 'avatar_1',
+      request_id: 'req_choice_1',
+      selected_key: 'ACCEPT',
+    })
+  })
 })

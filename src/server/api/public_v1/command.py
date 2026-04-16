@@ -82,6 +82,26 @@ class LoadGameRequest(BaseModel):
     filename: str
 
 
+class RoleplayStartRequest(BaseModel):
+    avatar_id: str
+
+
+class RoleplayStopRequest(BaseModel):
+    avatar_id: Optional[str] = None
+
+
+class RoleplaySubmitDecisionRequest(BaseModel):
+    avatar_id: str
+    request_id: str
+    command_text: str
+
+
+class RoleplaySubmitChoiceRequest(BaseModel):
+    avatar_id: str
+    request_id: str
+    selected_key: str
+
+
 def create_public_command_router(
     *,
     run_start_game: Callable[[BaseModel], object],
@@ -103,6 +123,10 @@ def create_public_command_router(
     run_save_game: Callable[..., dict],
     run_delete_save: Callable[..., dict],
     run_load_game: Callable[..., object],
+    run_start_roleplay: Callable[..., object],
+    run_stop_roleplay: Callable[..., object],
+    run_submit_roleplay_decision: Callable[..., object],
+    run_submit_roleplay_choice: Callable[..., object],
 ) -> APIRouter:
     router = APIRouter()
 
@@ -191,5 +215,33 @@ def create_public_command_router(
     @router.post("/api/v1/command/game/load")
     async def api_load_game_v1(req: LoadGameRequest):
         return ok_response(await run_load_game(filename=req.filename))
+
+    @router.post("/api/v1/command/roleplay/start")
+    async def start_roleplay_v1(req: RoleplayStartRequest):
+        return ok_response(await run_start_roleplay(avatar_id=req.avatar_id))
+
+    @router.post("/api/v1/command/roleplay/stop")
+    async def stop_roleplay_v1(req: RoleplayStopRequest):
+        return ok_response(await run_stop_roleplay(avatar_id=req.avatar_id))
+
+    @router.post("/api/v1/command/roleplay/submit-decision")
+    async def submit_roleplay_decision_v1(req: RoleplaySubmitDecisionRequest):
+        return ok_response(
+            await run_submit_roleplay_decision(
+                avatar_id=req.avatar_id,
+                request_id=req.request_id,
+                command_text=req.command_text,
+            )
+        )
+
+    @router.post("/api/v1/command/roleplay/submit-choice")
+    async def submit_roleplay_choice_v1(req: RoleplaySubmitChoiceRequest):
+        return ok_response(
+            await run_submit_roleplay_choice(
+                avatar_id=req.avatar_id,
+                request_id=req.request_id,
+                selected_key=req.selected_key,
+            )
+        )
 
     return router

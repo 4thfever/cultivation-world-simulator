@@ -75,6 +75,8 @@ class SectRecruitmentScenario(SingleChoiceScenario[SectRecruitmentOutcome]):
             situation=situation,
             options=options,
             fallback_policy=self.request.fallback_policy,
+            title=t("{sect_name} has extended a recruitment invitation to you.", sect_name=sect.name),
+            description=situation,
             context={
                 "sect_name": sect.name,
                 "sect_rule_desc": rule_desc,

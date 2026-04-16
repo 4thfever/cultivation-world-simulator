@@ -1,5 +1,6 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 import json
+import asyncio
 
 from fastapi.testclient import TestClient
 
@@ -13,6 +14,7 @@ from src.systems.time import Month, Year, create_month_stamp
 from src.utils.id_generator import get_avatar_id
 from src.classes.core.world import World
 from src.classes.environment.map import Map
+from src.classes.environment.tile import TileType
 import pytest
 
 
@@ -24,6 +26,7 @@ def _reset_state():
             "world": None,
             "sim": None,
             "is_paused": True,
+            "roleplay_auto_paused": False,
             "init_status": "idle",
             "init_phase": 0,
             "init_phase_name": "",
@@ -34,6 +37,12 @@ def _reset_state():
             "current_save_path": None,
             "llm_check_failed": False,
             "llm_error_message": "",
+            "roleplay_session": {
+                "controlled_avatar_id": None,
+                "status": "inactive",
+                "pending_request": None,
+                "last_prompt_context": None,
+            },
         }
     )
     return original
@@ -70,7 +79,11 @@ def _make_avatar(base_world) -> Avatar:
 
 
 def _create_test_map():
-    return Map(width=5, height=5)
+    game_map = Map(width=5, height=5)
+    for x in range(5):
+        for y in range(5):
+            game_map.create_tile(x, y, TileType.PLAIN)
+    return game_map
 
 
 def test_v1_runtime_status_uses_ok_envelope():
@@ -613,6 +626,170 @@ def test_v1_deceased_list_returns_ok_with_world():
         assert "deceased" in payload["data"]
         assert isinstance(payload["data"]["deceased"], list)
     finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_start_and_session_query_use_ok_envelope():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar.id})
+
+        assert response.status_code == 200
+        payload = response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["controlled_avatar_id"] == avatar.id
+        assert payload["data"]["status"] == "awaiting_decision"
+
+        session_response = client.get("/api/v1/query/roleplay/session")
+        assert session_response.status_code == 200
+        session_payload = session_response.json()
+        assert session_payload["ok"] is True
+        assert session_payload["data"]["controlled_avatar_id"] == avatar.id
+        assert session_payload["data"]["pending_request"]["avatar_id"] == avatar.id
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_submit_decision_loads_plans():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        start_response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar.id})
+        request_id = start_response.json()["data"]["pending_request"]["request_id"]
+
+        with patch("src.server.services.roleplay_service.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            mock_llm.return_value = {
+                avatar.name: {
+                    "avatar_thinking": "我先调息，再去探索。",
+                    "current_emotion": "emotion_calm",
+                    "short_term_objective": "恢复状态并探索机缘",
+                    "action_name_params_pairs": [
+                        ["Respire", {}],
+                    ],
+                }
+            }
+            submit_response = client.post(
+                "/api/v1/command/roleplay/submit-decision",
+                json={
+                    "avatar_id": avatar.id,
+                    "request_id": request_id,
+                    "command_text": "先调息恢复一下",
+                },
+            )
+
+        assert submit_response.status_code == 200
+        payload = submit_response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["planned_action_count"] == 1
+        assert len(avatar.planned_actions) == 1
+        assert main.runtime.get_roleplay_session()["status"] == "observing"
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_stop_clears_session():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        start_response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar.id})
+        assert start_response.status_code == 200
+
+        stop_response = client.post("/api/v1/command/roleplay/stop", json={"avatar_id": avatar.id})
+
+        assert stop_response.status_code == 200
+        payload = stop_response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["status"] == "inactive"
+        assert main.runtime.get_roleplay_session()["controlled_avatar_id"] is None
+        assert main.runtime.get("roleplay_auto_paused") is False
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_submit_choice_resolves_pending_future():
+    original = _reset_state()
+    loop = asyncio.new_event_loop()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        pending_future = loop.create_future()
+        main.runtime.update(
+            {
+                "roleplay_auto_paused": True,
+                "roleplay_session": {
+                    "controlled_avatar_id": avatar.id,
+                    "status": "awaiting_choice",
+                    "pending_request": {
+                        "request_id": "choice-test-1",
+                        "type": "choice",
+                        "avatar_id": avatar.id,
+                        "title": "choice",
+                        "description": "desc",
+                        "options": [
+                            {"key": "Accept", "title": "Accept", "description": "Accept"},
+                            {"key": "Reject", "title": "Reject", "description": "Reject"},
+                        ],
+                    },
+                    "last_prompt_context": None,
+                    "_choice_future": pending_future,
+                },
+            }
+        )
+
+        client = TestClient(main.app)
+        submit_response = client.post(
+            "/api/v1/command/roleplay/submit-choice",
+            json={
+                "avatar_id": avatar.id,
+                "request_id": "choice-test-1",
+                "selected_key": "Reject",
+            },
+        )
+
+        assert submit_response.status_code == 200
+        payload = submit_response.json()
+        assert payload["ok"] is True
+        assert payload["data"]["selected_key"] == "Reject"
+        assert pending_future.done() is True
+        assert pending_future.result() == "Reject"
+        assert main.runtime.get_roleplay_session()["status"] == "submitting"
+    finally:
+        loop.close()
         main.game_instance.clear()
         main.game_instance.update(original)
 

@@ -52,6 +52,12 @@ def create_command_handlers(
     get_load_game_into_runtime,
     get_load_game,
     get_events_db_path,
+    get_roleplay_session,
+    clear_roleplay_session,
+    start_roleplay,
+    stop_roleplay,
+    submit_roleplay_decision,
+    submit_roleplay_choice,
 ):
     async def run_start_game(req) -> dict:
         run_config = RunConfig(**model_to_dict(req))
@@ -76,6 +82,29 @@ def create_command_handlers(
     async def run_resume_game() -> dict:
         await runtime.run_mutation(runtime.set_paused, False)
         return {"status": "ok", "message": "Game resumed"}
+
+    async def run_start_roleplay(*, avatar_id: str) -> dict:
+        return await runtime.run_mutation(start_roleplay, runtime, avatar_id=avatar_id)
+
+    async def run_stop_roleplay(*, avatar_id: str | None) -> dict:
+        return stop_roleplay(runtime, avatar_id=avatar_id)
+
+    async def run_submit_roleplay_decision(*, avatar_id: str, request_id: str, command_text: str) -> dict:
+        return await runtime.run_mutation(
+            submit_roleplay_decision,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            command_text=command_text,
+        )
+
+    async def run_submit_roleplay_choice(*, avatar_id: str, request_id: str, selected_key: str) -> dict:
+        return await submit_roleplay_choice(
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            selected_key=selected_key,
+        )
 
     async def run_cleanup_events(*, keep_major: bool, before_month_stamp: int | None) -> dict:
         return await runtime.run_mutation(
@@ -224,4 +253,8 @@ def create_command_handlers(
         run_save_game=run_save_game,
         run_delete_save=run_delete_save,
         run_load_game=run_load_game,
+        run_start_roleplay=run_start_roleplay,
+        run_stop_roleplay=run_stop_roleplay,
+        run_submit_roleplay_decision=run_submit_roleplay_decision,
+        run_submit_roleplay_choice=run_submit_roleplay_choice,
     )

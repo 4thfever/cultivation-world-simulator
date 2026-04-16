@@ -10,6 +10,7 @@ import TagList from './components/TagList.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import AvatarAdjustPanel from './components/AvatarAdjustPanel.vue';
 import AvatarPortraitPanel from './components/AvatarPortraitPanel.vue';
+import RoleplayPanel from './components/RoleplayPanel.vue';
 import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
@@ -317,13 +318,7 @@ async function handleClearObjective() {
       @close="showPortraitPanel = false"
       @updated="uiStore.refreshDetail()"
     />
-
-    <!-- Actions Bar -->
-    <div class="actions-bar" v-if="!data.is_dead">
-      <button class="btn primary" @click="showObjectiveModal = true">{{ t('game.info_panel.avatar.set_objective') }}</button>
-      <button class="btn" @click="handleClearObjective">{{ t('game.info_panel.avatar.clear_objective') }}</button>
-    </div>
-    <div class="dead-banner" v-else>
+    <div class="dead-banner" v-if="data.is_dead">
       <span class="inline-icon" :style="{ '--icon-url': `url(${triangleAlertIcon})` }" aria-hidden="true"></span>
       {{ t('game.info_panel.avatar.dead_with_reason', { reason: data.death_info?.reason || t('game.info_panel.avatar.unknown_reason') }) }}
     </div>
@@ -369,6 +364,13 @@ async function handleClearObjective() {
           <span class="label">{{ t('game.info_panel.avatar.short_term_objective') }}</span>
           <span class="value">{{ data.short_term_objective || t('common.none') }}</span>
         </div>
+      </div>
+
+      <RoleplayPanel v-if="!data.is_dead" :avatar="data" />
+
+      <div class="actions-bar" v-if="!data.is_dead">
+        <button class="btn primary" @click="showObjectiveModal = true">{{ t('game.info_panel.avatar.set_objective') }}</button>
+        <button class="btn" @click="handleClearObjective">{{ t('game.info_panel.avatar.clear_objective') }}</button>
       </div>
 
       <!-- Action State Banner -->

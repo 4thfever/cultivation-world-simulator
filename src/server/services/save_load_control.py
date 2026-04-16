@@ -119,6 +119,7 @@ async def load_game_into_runtime(
         raise HTTPException(status_code=404, detail="File not found")
 
     async def _do_load():
+        runtime.clear_roleplay_session()
         save_meta = get_save_info(target_path)
         if save_meta:
             save_lang = save_meta.get("language")
@@ -153,6 +154,7 @@ async def load_game_into_runtime(
             old_world.event_manager.close()
 
         new_world, new_sim, new_sects = load_game(target_path)
+        new_world.runtime = runtime
         runtime.update({"init_progress": 70, "init_phase_name": "restoring_state"})
         await asyncio.sleep(0)
 

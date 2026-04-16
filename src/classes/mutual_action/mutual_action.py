@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
 import asyncio
@@ -16,6 +17,25 @@ from src.classes.action.targeting_mixin import TargetingMixin
 if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
     from src.classes.core.world import World
+
+
+@dataclass(slots=True)
+class _MutualActionResponseScenario:
+    action: "MutualAction"
+    target_avatar: "Avatar"
+    request: object
+
+    def build_request(self):
+        return self.request
+
+    async def apply_decision(self, decision):
+        return {
+            self.target_avatar.name: {
+                "thinking": decision.thinking,
+                "response": decision.selected_key,
+                "feedback": decision.selected_key,
+            }
+        }
 
 
 class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
@@ -133,6 +153,63 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         template_path = self._get_template_path()
         return await call_llm_with_task_name("interaction_feedback", template_path, infos)
 
+    def _build_response_choice_request(self, target_avatar: "Avatar"):
+        from src.systems.single_choice import (
+            FallbackMode,
+            FallbackPolicy,
+            SingleChoiceOption,
+            SingleChoiceRequest,
+        )
+
+        action_name = self.get_action_name()
+        situation = getattr(self, "_start_event_content", "") or self.get_desc() or action_name
+        response_options = [
+            SingleChoiceOption(
+                key=response_name,
+                title=self.get_response_label(response_name),
+                description=f"{target_avatar.name}: {self.get_response_label(response_name)}",
+            )
+            for response_name in self.RESPONSE_ACTIONS
+        ]
+
+        avatar_infos = {
+            target_avatar.name: target_avatar.get_info(detailed=True),
+            self.avatar.name: self.avatar.get_expanded_info(other_avatar=target_avatar, detailed=True),
+        }
+
+        return SingleChoiceRequest(
+            task_name="single_choice",
+            template_path=CONFIG.paths.templates / "single_choice.txt",
+            avatar=target_avatar,
+            request_id=f"mutual-action-{type(self).__name__}-{self.avatar.id}-{target_avatar.id}",
+            title=f"{target_avatar.name}: {action_name}",
+            description=situation,
+            situation=situation,
+            options=response_options,
+            fallback_policy=FallbackPolicy(mode=FallbackMode.FIRST_OPTION),
+            context={
+                "avatar_infos": avatar_infos,
+                "initiator_name": self.avatar.name,
+                "target_name": target_avatar.name,
+                "action_name": action_name,
+                "action_info": self.get_desc(),
+            },
+        )
+
+    async def _call_response_resolution(self, target_avatar: "Avatar") -> dict:
+        if not self.RESPONSE_ACTIONS:
+            infos = self._build_prompt_infos(target_avatar)
+            return await self._call_llm_response(infos)
+
+        from src.systems.single_choice import resolve_single_choice
+
+        scenario = _MutualActionResponseScenario(
+            action=self,
+            target_avatar=target_avatar,
+            request=self._build_response_choice_request(target_avatar),
+        )
+        return await resolve_single_choice(scenario)
+
     def _set_target_immediate_action(
         self,
         target_avatar: "Avatar",
@@ -173,6 +250,19 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def _apply_response(self, target_avatar: "Avatar", response_name: str) -> None:
         # 默认不额外记录，由事件系统承担
         return
+
+    def _handle_response_result(self, target_avatar: "Avatar", result: dict) -> ActionResult:
+        thinking = result.get("thinking", "")
+        response = result.get("response", result.get("feedback", ""))
+
+        target_avatar.thinking = thinking
+        self._settle_response(target_avatar, response)
+
+        response_event = self._build_response_event(target_avatar, response)
+        self._apply_response(target_avatar, response)
+
+        events = [response_event] if response_event is not None else []
+        return ActionResult(status=ActionStatus.COMPLETED, events=events)
 
     def _build_response_event_content(self, target_avatar: "Avatar", response_name: str) -> str:
         response_label = self.get_response_label(str(response_name).strip())
@@ -264,9 +354,8 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
 
         # 若无任务，创建异步任务
         if self._response_task is None and self._response_cached is None:
-            infos = self._build_prompt_infos(target)
             loop = asyncio.get_running_loop()
-            self._response_task = loop.create_task(self._call_llm_response(infos))
+            self._response_task = loop.create_task(self._call_response_resolution(target))
 
         # 若任务已完成，消费结果
         if self._response_task is not None and self._response_task.done():
@@ -277,17 +366,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             res = self._response_cached
             self._response_cached = None
             r = res.get(target.name, {})
-            thinking = r.get("thinking", "")
-            response = r.get("response", r.get("feedback", ""))
-
-            target.thinking = thinking
-            self._settle_response(target, response)
-
-            response_event = self._build_response_event(target, response)
-            self._apply_response(target, response)
-
-            events = [response_event] if response_event is not None else []
-            return ActionResult(status=ActionStatus.COMPLETED, events=events)
+            return self._handle_response_result(target, r)
 
         return ActionResult(status=ActionStatus.RUNNING, events=[])
 
