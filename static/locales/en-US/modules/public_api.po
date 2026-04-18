@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Language: en-US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "World not initialized"
+msgstr "World not initialized"
+
+msgid "Avatar not found"
+msgstr "Avatar not found"
+
+msgid "Objective set"
+msgstr "Objective set"
+
+msgid "Objective cleared"
+msgstr "Objective cleared"
+
+msgid "No user objective to clear"
+msgstr "No user objective to clear"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "Invalid pic_id for avatar gender"
+
+msgid "Avatar portrait updated"
+msgstr "Avatar portrait updated"
+
+msgid "Avatar deleted"
+msgstr "Avatar deleted"
+
+msgid "Avatar adjustment applied"
+msgstr "Avatar adjustment applied"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "Invalid pic_id for selected gender"
+
+msgid "Created avatar {avatar_name}"
+msgstr "Created avatar {avatar_name}"
+
+msgid "Phenomenon not found"
+msgstr "Phenomenon not found"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "Phenomenon set to {phenomenon_name}"
+
+msgid "Invalid filename"
+msgstr "Invalid filename"
+
+msgid "Game not initialized"
+msgstr "Game not initialized"
+
+msgid "Invalid save name"
+msgstr "Invalid save name"
+
+msgid "Save failed"
+msgstr "Save failed"
+
+msgid "Save deleted"
+msgstr "Save deleted"
+
+msgid "File not found"
+msgstr "File not found"
+
+msgid "Game loaded"
+msgstr "Game loaded"
+
+msgid "Load failed: {error}"
+msgstr "Load failed: {error}"
+
+msgid "Game reset to idle"
+msgstr "Game reset to idle"
+
+msgid "Game paused"
+msgstr "Game paused"
+
+msgid "Game resumed"
+msgstr "Game resumed"

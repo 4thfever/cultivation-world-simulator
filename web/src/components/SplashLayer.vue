@@ -46,12 +46,12 @@ onMounted(() => {
 
 // 定义按钮列表
 const menuOptions = computed(() => [
-  { label: t('ui.start_game'), subLabel: 'Start Game', key: 'start', disabled: false },
-  { label: t('ui.load_game'), subLabel: 'Load Game', key: 'load', disabled: false },
-  { label: t('ui.achievements'), subLabel: 'Achievements', key: 'achievements', disabled: true },
-  { label: t('ui.settings'), subLabel: 'Settings', key: 'settings', disabled: false },
-  { label: t('ui.about'), subLabel: 'About', key: 'about', disabled: false },
-  { label: t('ui.exit'), subLabel: 'Exit', key: 'exit', disabled: false }
+  { label: t('ui.start_game'), subLabel: t('splash.menu_start'), key: 'start', disabled: false },
+  { label: t('ui.load_game'), subLabel: t('splash.menu_load'), key: 'load', disabled: false },
+  { label: t('ui.achievements'), subLabel: t('splash.menu_achievements'), key: 'achievements', disabled: true },
+  { label: t('ui.settings'), subLabel: t('splash.menu_settings'), key: 'settings', disabled: false },
+  { label: t('ui.about'), subLabel: t('splash.menu_about'), key: 'about', disabled: false },
+  { label: t('ui.exit'), subLabel: t('splash.menu_exit'), key: 'exit', disabled: false }
 ])
 
 function handleClick(key: string) {
@@ -76,7 +76,7 @@ function handleClick(key: string) {
     <div class="glass-panel">
       <div class="title-area">
         <h1>{{ t('splash.title') }}</h1>
-        <p>AI Cultivation World Simulator</p>
+        <p>{{ t('splash.subtitle') }}</p>
       </div>
       
       <div class="menu-area">

@@ -52,6 +52,14 @@ def create_command_handlers(
     get_load_game_into_runtime,
     get_load_game,
     get_events_db_path,
+    get_roleplay_session,
+    clear_roleplay_session,
+    start_roleplay,
+    stop_roleplay,
+    submit_roleplay_decision,
+    submit_roleplay_choice,
+    submit_roleplay_conversation_turn,
+    end_roleplay_conversation,
 ):
     async def run_start_game(req) -> dict:
         run_config = RunConfig(**model_to_dict(req))
@@ -67,15 +75,60 @@ def create_command_handlers(
 
     async def run_reset_game() -> dict:
         await runtime.run_mutation(runtime.reset_to_idle)
+        # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game reset to idle"}
 
     async def run_pause_game() -> dict:
         await runtime.run_mutation(runtime.set_paused, True)
+        # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game paused"}
 
     async def run_resume_game() -> dict:
         await runtime.run_mutation(runtime.set_paused, False)
+        # Keep top-level external control command messages stable for agents/tests.
         return {"status": "ok", "message": "Game resumed"}
+
+    async def run_start_roleplay(*, avatar_id: str) -> dict:
+        # Starting roleplay only mutates runtime session metadata, so it should
+        # not queue behind long-running world mutations like sim.step().
+        return start_roleplay(runtime, avatar_id=avatar_id)
+
+    async def run_stop_roleplay(*, avatar_id: str | None) -> dict:
+        return stop_roleplay(runtime, avatar_id=avatar_id)
+
+    async def run_submit_roleplay_decision(*, avatar_id: str, request_id: str, command_text: str) -> dict:
+        return await runtime.run_mutation(
+            submit_roleplay_decision,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            command_text=command_text,
+        )
+
+    async def run_submit_roleplay_choice(*, avatar_id: str, request_id: str, selected_key: str) -> dict:
+        return await submit_roleplay_choice(
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            selected_key=selected_key,
+        )
+
+    async def run_send_roleplay_conversation(*, avatar_id: str, request_id: str, message: str) -> dict:
+        return await runtime.run_mutation(
+            submit_roleplay_conversation_turn,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            message=message,
+        )
+
+    async def run_end_roleplay_conversation(*, avatar_id: str, request_id: str) -> dict:
+        return await runtime.run_mutation(
+            end_roleplay_conversation,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+        )
 
     async def run_cleanup_events(*, keep_major: bool, before_month_stamp: int | None) -> dict:
         return await runtime.run_mutation(
@@ -224,4 +277,10 @@ def create_command_handlers(
         run_save_game=run_save_game,
         run_delete_save=run_delete_save,
         run_load_game=run_load_game,
+        run_start_roleplay=run_start_roleplay,
+        run_stop_roleplay=run_stop_roleplay,
+        run_submit_roleplay_decision=run_submit_roleplay_decision,
+        run_submit_roleplay_choice=run_submit_roleplay_choice,
+        run_send_roleplay_conversation=run_send_roleplay_conversation,
+        run_end_roleplay_conversation=run_end_roleplay_conversation,
     )

@@ -1,5 +1,12 @@
 {
   "title": "AI Cultivation World Simulator",
+  "subtitle": "AI Cultivation World Simulator",
+  "menu_start": "Start Game",
+  "menu_load": "Load Game",
+  "menu_achievements": "Achievements",
+  "menu_settings": "Settings",
+  "menu_about": "About",
+  "menu_exit": "Exit",
   "start": "Start Cultivation",
   "continue": "Continue Path",
   "settings": "Settings"

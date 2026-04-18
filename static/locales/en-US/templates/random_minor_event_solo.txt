@@ -1,0 +1,20 @@
+You are participating in a sandbox simulation set in a Xianxia world. Based on the given information, write a very short random minor incident for a single character.
+
+Character info: {avatar_info}
+Current location: {location}
+Current world state: {world_info}
+Minor event type: {event_key}
+Minor event description: {event_desc}
+Tone: {tone}
+
+Requirements:
+1. Write only one small incident that just happened, in 20-50 words.
+2. Keep the style natural and concrete, like a short log entry in the event panel, not vague or overly lyrical.
+3. Do not introduce major outcomes such as a great battle, breakthrough, severe injury, or obtaining a divine artifact.
+4. Do not include any attributes, numbers, or conclusions about relation changes.
+5. Return strict JSON:
+```json
+{{
+  "event_text": "Write the event description here"
+}}
+```

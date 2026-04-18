@@ -23,6 +23,12 @@ describe('SplashLayer', () => {
           splash: {
             title: 'Title',
             subtitle: 'Subtitle',
+            menu_start: 'Start Game',
+            menu_load: 'Load Game',
+            menu_achievements: 'Achievements',
+            menu_settings: 'Settings',
+            menu_about: 'About',
+            menu_exit: 'Exit',
             click_to_start: 'Click to start'
           },
           ui: {

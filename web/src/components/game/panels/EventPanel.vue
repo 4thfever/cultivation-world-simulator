@@ -2,10 +2,12 @@
 import { computed, ref, watch, nextTick, h, onMounted } from 'vue'
 import { useAvatarStore } from '../../../stores/avatar'
 import { useEventStore } from '../../../stores/event'
+import { useRoleplayStore } from '../../../stores/roleplay'
 import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
 import { useSectStore } from '../../../stores/sect'
 import { NSelect, NSpin } from 'naive-ui'
+import EventStreamList from '@/components/game/EventStreamList.vue'
 import type { SelectOption } from 'naive-ui'
 import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
 import { prependAllOption } from '../../../utils/selectOptions'
@@ -16,6 +18,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const avatarStore = useAvatarStore()
 const eventStore = useEventStore()
+const roleplayStore = useRoleplayStore()
 const uiStore = useUiStore()
 const mapStore = useMapStore()
 const sectStore = useSectStore()
@@ -24,6 +27,15 @@ const filterValue1 = ref('all')
 const filterSectValue = ref<number | 'all'>('all')
 const filterMajorScope = ref<FetchEventsParams['major_scope']>('all')
 const eventListRef = ref<HTMLElement | null>(null)
+const preRoleplayFilter = ref<{
+  avatar: string
+  sect: number | 'all'
+  majorScope: FetchEventsParams['major_scope']
+} | null>(null)
+const suppressFilterWatch = ref(false)
+const roleplayAutoApplied = ref(false)
+
+const controlledAvatarId = computed(() => roleplayStore.session.controlled_avatar_id ?? '')
 
 const filterOptions = computed(() => [
   { label: t('game.event_panel.filter_all'), value: 'all' },
@@ -48,6 +60,8 @@ const majorFilterOptions = computed(() => [
   { label: t('game.event_panel.filter_event_scope_major'), value: 'major' },
   { label: t('game.event_panel.filter_event_scope_minor'), value: 'minor' },
 ])
+
+const panelTitle = computed(() => t('game.event_panel.title'))
 
 // 直接使用 store 中的事件（已由 API 过滤）
 const displayEvents = computed(() => eventStore.events || [])
@@ -118,6 +132,26 @@ async function reloadEvents() {
   })
 }
 
+async function setFiltersAndReload(params: {
+  avatar?: string
+  sect?: number | 'all'
+  majorScope?: FetchEventsParams['major_scope']
+}) {
+  suppressFilterWatch.value = true
+  if (params.avatar !== undefined) {
+    filterValue1.value = params.avatar
+  }
+  if (params.sect !== undefined) {
+    filterSectValue.value = params.sect
+  }
+  if (params.majorScope !== undefined) {
+    filterMajorScope.value = params.majorScope
+  }
+  await nextTick()
+  suppressFilterWatch.value = false
+  await reloadEvents()
+}
+
 onMounted(() => {
   if (!sectStore.isLoaded && mapStore.isLoaded) {
     void sectStore.refreshTerritories()
@@ -148,6 +182,10 @@ watch(
 
 // 切换宗门筛选
 watch(filterSectValue, async (newVal) => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   if (newVal !== 'all') {
     // 选了宗门，清空角色的过滤条件
     filterValue1.value = 'all'
@@ -157,6 +195,10 @@ watch(filterSectValue, async (newVal) => {
 
 // 切换第一人筛选
 watch(filterValue1, async (newVal) => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   if (newVal !== 'all') {
     // 选了角色，清空宗门的过滤条件
     filterSectValue.value = 'all'
@@ -165,8 +207,48 @@ watch(filterValue1, async (newVal) => {
 })
 
 watch(filterMajorScope, async () => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   await reloadEvents()
 })
+
+watch(
+  controlledAvatarId,
+  async (newAvatarId, oldAvatarId) => {
+    if (newAvatarId) {
+      if (!oldAvatarId && preRoleplayFilter.value == null) {
+        preRoleplayFilter.value = {
+          avatar: filterValue1.value,
+          sect: filterSectValue.value,
+          majorScope: filterMajorScope.value,
+        }
+      }
+      roleplayAutoApplied.value = true
+      await setFiltersAndReload({
+        avatar: newAvatarId,
+        sect: 'all',
+      })
+      return
+    }
+
+    if (oldAvatarId && preRoleplayFilter.value && roleplayAutoApplied.value) {
+      const previous = preRoleplayFilter.value
+      preRoleplayFilter.value = null
+      roleplayAutoApplied.value = false
+      await setFiltersAndReload({
+        avatar: previous.avatar,
+        sect: previous.sect,
+        majorScope: previous.majorScope,
+      })
+      return
+    }
+    preRoleplayFilter.value = null
+    roleplayAutoApplied.value = false
+  },
+  { immediate: true }
+)
 
 // 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）
 watch(displayEvents, () => {
@@ -230,7 +312,7 @@ function handleSectClick(sectId?: number) {
 <template>
   <section class="sidebar-section">
     <div class="sidebar-header">
-      <h3>{{ t('game.event_panel.title') }}</h3>
+      <h3>{{ panelTitle }}</h3>
       <div class="filter-group">
         <n-select
           v-model:value="filterSectValue"
@@ -266,30 +348,14 @@ function handleSectClick(sectId?: number) {
         <span v-if="eventStore.eventsLoading">{{ t('common.loading') }}</span>
         <span v-else>{{ t('game.event_panel.load_more') }}</span>
       </div>
-      <div v-for="event in displayEvents" :key="event.id" class="event-item">
-        <div class="event-date">{{ formatEventDate(event) }}</div>
-        <div class="event-content">
-          <template v-for="(segment, index) in renderEventContent(event)" :key="`${event.id}-${index}`">
-            <span
-              v-if="segment.type === 'avatar'"
-              class="clickable-avatar"
-              :style="{ color: segment.color }"
-              @click="handleAvatarClick(segment.avatarId)"
-            >
-              {{ segment.text }}
-            </span>
-            <span
-              v-else-if="segment.type === 'sect'"
-              class="clickable-sect"
-              :style="{ color: segment.color }"
-              @click="handleSectClick(segment.sectId)"
-            >
-              {{ segment.text }}
-            </span>
-            <span v-else>{{ segment.text }}</span>
-          </template>
-        </div>
-      </div>
+      <EventStreamList
+        :events="displayEvents"
+        :empty-text="emptyEventMessage"
+        :format-date="formatEventDate"
+        :render-segments="renderEventContent"
+        :on-avatar-click="handleAvatarClick"
+        :on-sect-click="handleSectClick"
+      />
     </div>
   </section>
 </template>
@@ -333,32 +399,6 @@ function handleSectClick(sectId?: number) {
   padding: 8px 12px;
 }
 
-.event-item {
-  display: flex;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid #2a2a2a;
-}
-
-.event-item:last-child {
-  border-bottom: none;
-}
-
-.event-date {
-  flex: 0 0 25%;
-  font-size: 12px;
-  color: #999;
-  white-space: nowrap;
-}
-
-.event-content {
-  flex: 1;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #ddd;
-  white-space: pre-line;
-}
-
 .empty, .loading {
   padding: 20px;
   text-align: center;
@@ -379,22 +419,5 @@ function handleSectClick(sectId?: number) {
   color: #666;
   font-size: 11px;
   border-bottom: 1px solid #2a2a2a;
-}
-
-/* 可点击的角色名样式 */
-.event-content :deep(.clickable-avatar) {
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.event-content :deep(.clickable-sect) {
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.event-content :deep(.clickable-avatar:hover),
-.event-content :deep(.clickable-sect:hover) {
-  opacity: 0.8;
-  text-decoration: underline;
 }
 </style>

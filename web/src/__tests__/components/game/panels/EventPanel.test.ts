@@ -23,6 +23,15 @@ const uiStoreMock = {
   select: vi.fn(),
 }
 
+const roleplayStoreMock = reactive({
+  session: {
+    controlled_avatar_id: null as string | null,
+    status: 'inactive',
+    pending_request: null,
+    last_prompt_context: null as Record<string, unknown> | null,
+  },
+})
+
 const mapStoreMock = reactive({
   regions: new Map<string | number, { id: string; name: string; type: string; sect_id?: number; sect_name?: string; sect_color?: string; x: number; y: number }>(),
   isLoaded: true,
@@ -48,6 +57,10 @@ vi.mock('@/stores/event', () => ({
 
 vi.mock('@/stores/ui', () => ({
   useUiStore: () => uiStoreMock,
+}))
+
+vi.mock('@/stores/roleplay', () => ({
+  useRoleplayStore: () => roleplayStoreMock,
 }))
 
 vi.mock('@/stores/map', () => ({
@@ -115,6 +128,9 @@ describe('EventPanel', () => {
     eventStoreMock.resetEvents.mockClear()
     eventStoreMock.loadMoreEvents.mockClear()
     uiStoreMock.select.mockClear()
+    roleplayStoreMock.session.controlled_avatar_id = null
+    roleplayStoreMock.session.status = 'inactive'
+    roleplayStoreMock.session.last_prompt_context = null
     sectStoreMock.refreshTerritories.mockClear()
     sectStoreMock.activeSectOptions = [
       { label: '青云门', value: 1 },
@@ -311,5 +327,50 @@ describe('EventPanel', () => {
     await wrapper.vm.$nextTick()
 
     expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ major_scope: 'major' }))
+  })
+
+  it('locks event panel to controlled avatar during roleplay', async () => {
+    roleplayStoreMock.session.controlled_avatar_id = 'a1'
+    const i18n = createEventPanelI18n()
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ avatar_id: 'a1' }))
+
+    const selects = wrapper.findAllComponents(NSelect)
+    expect(selects[0].props('disabled')).toBeFalsy()
+    expect(selects[1].props('disabled')).toBeFalsy()
+    expect(wrapper.text()).toContain('Events')
+  })
+
+  it('restores previous event filters after leaving roleplay', async () => {
+    const i18n = createEventPanelI18n()
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] }
+    })
+
+    const selects = wrapper.findAllComponents(NSelect)
+    const avatarSelect = selects[1]
+    await avatarSelect.vm.$emit('update:value', 'a1')
+    await wrapper.vm.$nextTick()
+
+    eventStoreMock.resetEvents.mockClear()
+    roleplayStoreMock.session.controlled_avatar_id = 'a1'
+    await wrapper.vm.$nextTick()
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ avatar_id: 'a1' }))
+
+    eventStoreMock.resetEvents.mockClear()
+    roleplayStoreMock.session.controlled_avatar_id = null
+    await wrapper.vm.$nextTick()
+    await wrapper.vm.$nextTick()
+
+    expect(eventStoreMock.resetEvents).toHaveBeenCalledWith(expect.objectContaining({ avatar_id: 'a1' }))
   })
 })

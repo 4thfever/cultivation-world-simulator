@@ -32,7 +32,7 @@ const title = computed(() => {
   if (uiStore.detailData) {
     return uiStore.detailData.name;
   }
-  return uiStore.selectedTarget?.id || 'Detail';
+  return uiStore.selectedTarget?.id || t('common.detail');
 });
 
 const subTitle = computed(() => {
@@ -122,7 +122,7 @@ watch(() => uiStore.selectedTarget, (val) => {
           </div>
         </div>
       </div>
-      <button class="close-btn" aria-label="Close" @click="close">
+      <button class="close-btn" :aria-label="t('ui.close')" @click="close">
         <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
       </button>
     </div>
@@ -151,9 +151,9 @@ watch(() => uiStore.selectedTarget, (val) => {
 .info-panel {
   position: absolute;
   top: 60px;
+  bottom: 16px;
   right: 20px;
   width: min(clamp(340px, 26vw, 376px), calc(100vw - var(--cws-sidebar-width, 400px) - 52px));
-  max-height: calc(100vh - 80px);
   background: var(--panel-bg);
   border: 1px solid var(--color-border);
   border-radius: 8px;

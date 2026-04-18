@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { EffectEntity } from '@/types/core';
+import { useI18n } from 'vue-i18n';
 import EntityDetailCard from './EntityDetailCard.vue';
 import xIcon from '@/assets/icons/ui/lucide/x.svg';
 
@@ -8,6 +9,8 @@ const props = defineProps<{
 }>();
 
 defineEmits(['close']);
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -15,7 +18,7 @@ defineEmits(['close']);
     <div v-if="item" class="secondary-panel">
       <div class="sec-header">
         <span class="sec-title">{{ item.name }}</span>
-        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+        <button class="close-btn" :aria-label="t('ui.close')" @click="$emit('close')">
           <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
         </button>
       </div>

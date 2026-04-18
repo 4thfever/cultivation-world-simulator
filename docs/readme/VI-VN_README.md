@@ -251,7 +251,7 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Trang bắt đầu game
 - ✅ BGM và hiệu ứng âm thanh
 - ✅ Người chơi có thể chỉnh sửa nội dung
-- [ ] Chế độ cá nhân (nhập vai nhân vật)
+- ✅ Chế độ nhập vai
 
 ### 🗺️ Hệ Thống Thế Giới
 - ✅ Hệ thống ô tile cơ bản

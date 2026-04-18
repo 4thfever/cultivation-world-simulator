@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Language: zh-TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "World not initialized"
+msgstr "世界尚未初始化"
+
+msgid "Avatar not found"
+msgstr "未找到該角色"
+
+msgid "Objective set"
+msgstr "目標已設定"
+
+msgid "Objective cleared"
+msgstr "目標已清空"
+
+msgid "No user objective to clear"
+msgstr "目前沒有可清空的使用者目標"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "該頭像不適用於目前角色性別"
+
+msgid "Avatar portrait updated"
+msgstr "角色頭像已更新"
+
+msgid "Avatar deleted"
+msgstr "角色已刪除"
+
+msgid "Avatar adjustment applied"
+msgstr "角色調整已套用"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "所選頭像不適用於目前性別"
+
+msgid "Created avatar {avatar_name}"
+msgstr "已建立角色：{avatar_name}"
+
+msgid "Phenomenon not found"
+msgstr "未找到該天象"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "天象已設為：{phenomenon_name}"
+
+msgid "Invalid filename"
+msgstr "無效的檔名"
+
+msgid "Game not initialized"
+msgstr "遊戲尚未初始化"
+
+msgid "Invalid save name"
+msgstr "無效的存檔名稱"
+
+msgid "Save failed"
+msgstr "存檔失敗"
+
+msgid "Save deleted"
+msgstr "存檔已刪除"
+
+msgid "File not found"
+msgstr "未找到檔案"
+
+msgid "Game loaded"
+msgstr "讀檔完成"
+
+msgid "Load failed: {error}"
+msgstr "讀檔失敗：{error}"
+
+msgid "Game reset to idle"
+msgstr "遊戲已重設為閒置狀態"
+
+msgid "Game paused"
+msgstr "遊戲已暫停"
+
+msgid "Game resumed"
+msgstr "遊戲已繼續"

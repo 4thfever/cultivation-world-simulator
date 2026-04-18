@@ -11,6 +11,7 @@ Testing Strategy:
     This allows testing the action logic without actual LLM calls.
 """
 
+import asyncio
 import pytest
 from unittest.mock import MagicMock, AsyncMock, patch
 
@@ -21,6 +22,9 @@ from src.classes.mutual_action.confess import Confess
 from src.classes.mutual_action.swear_brotherhood import SwearBrotherhood
 from src.classes.action_runtime import ActionStatus
 from src.classes.relation.relation import Relation
+from src.server.runtime.session import DEFAULT_GAME_STATE
+from src.server.runtime.session import GameSessionRuntime
+from src.server.services.roleplay_service import submit_roleplay_choice
 
 
 class TestTalk:
@@ -116,15 +120,10 @@ class TestTalk:
         dummy_avatar.load_decide_result_chain = MagicMock()
         dummy_avatar.commit_next_plan = MagicMock(return_value=None)
         
-        mock_response = {
-            target_avatar.name: {
-                "thinking": "This person seems friendly.",
-                "feedback": "Talk"
-            }
-        }
+        mock_response = {"choice": "Talk", "thinking": "This person seems friendly."}
         
         with patch("src.classes.observe.is_within_observation", return_value=True):
-            with patch("src.classes.mutual_action.mutual_action.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            with patch("src.systems.single_choice.engine.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
                 mock_llm.return_value = mock_response
                 
                 # First step: trigger LLM task
@@ -150,15 +149,10 @@ class TestTalk:
         action = Talk(dummy_avatar, dummy_avatar.world)
         action._start_month_stamp = 100
         
-        mock_response = {
-            target_avatar.name: {
-                "thinking": "I don't want to talk.",
-                "feedback": "Reject"
-            }
-        }
+        mock_response = {"choice": "Reject", "thinking": "I don't want to talk."}
         
         with patch("src.classes.observe.is_within_observation", return_value=True):
-            with patch("src.classes.mutual_action.mutual_action.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            with patch("src.systems.single_choice.engine.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
                 mock_llm.return_value = mock_response
                 
                 res1 = action.step(target_avatar)
@@ -169,6 +163,60 @@ class TestTalk:
                 assert res2.status == ActionStatus.COMPLETED
                 assert len(res2.events) >= 1
                 assert "拒绝" in res2.events[0].content
+
+    @pytest.mark.asyncio
+    async def test_talk_step_uses_player_roleplay_choice_when_target_controlled(self, dummy_avatar, target_avatar):
+        """Controlled targets should answer mutual actions through the unified roleplay choice flow."""
+        action = Talk(dummy_avatar, dummy_avatar.world)
+        action._start_month_stamp = 100
+        dummy_avatar.load_decide_result_chain = MagicMock()
+        dummy_avatar.commit_next_plan = MagicMock(return_value=None)
+
+        runtime = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
+        dummy_avatar.world.runtime = runtime
+        runtime.update({"world": dummy_avatar.world})
+        dummy_avatar.world.avatar_manager.get_avatar = MagicMock(
+            side_effect=lambda avatar_id: target_avatar if str(avatar_id) == str(target_avatar.id) else None
+        )
+        runtime.update(
+            {
+                "roleplay_session": {
+                    "controlled_avatar_id": target_avatar.id,
+                    "status": "observing",
+                    "pending_request": None,
+                    "last_prompt_context": None,
+                }
+            }
+        )
+
+        with patch("src.classes.observe.is_within_observation", return_value=True):
+            res1 = action.step(target_avatar)
+            assert res1.status == ActionStatus.RUNNING
+            assert action._response_task is not None
+
+            await asyncio.sleep(0)
+
+            pending = runtime.get_roleplay_session()["pending_request"]
+            assert runtime.get("roleplay_auto_paused") is True
+            assert pending is not None
+            assert pending["type"] == "choice"
+            assert [option["key"] for option in pending["options"]] == ["Talk", "Reject"]
+
+            await submit_roleplay_choice(
+                runtime,
+                avatar_id=target_avatar.id,
+                request_id=pending["request_id"],
+                selected_key="Talk",
+            )
+            await action._response_task
+
+            res2 = action.step(target_avatar)
+            assert res2.status == ActionStatus.COMPLETED
+            assert res2.events == []
+            dummy_avatar.load_decide_result_chain.assert_called_once()
+            dummy_avatar.commit_next_plan.assert_called_once()
+            assert runtime.get("roleplay_auto_paused") is False
+            assert runtime.get_roleplay_session()["pending_request"] is None
 
     def test_talk_step_with_none_target(self, dummy_avatar):
         """Test Talk step with None target returns FAILED."""

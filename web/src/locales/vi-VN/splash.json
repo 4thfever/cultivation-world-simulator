@@ -1,5 +1,12 @@
 {
   "title": "Trình Mô Phỏng Thế Giới Tu Tiên AI",
+  "subtitle": "Trình Mô Phỏng Thế Giới Tu Tiên AI",
+  "menu_start": "Bắt đầu trò chơi",
+  "menu_load": "Tải bản lưu",
+  "menu_achievements": "Thành tựu",
+  "menu_settings": "Cài đặt",
+  "menu_about": "Giới thiệu",
+  "menu_exit": "Thoát",
   "start": "Bắt Đầu Tu Tiên",
   "continue": "Tiếp Tục Tiên Lộ",
   "settings": "Cài Đặt"

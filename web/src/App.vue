@@ -9,6 +9,7 @@ const { t } = useI18n()
 // Components
 import SplashLayer from './components/SplashLayer.vue'
 import GameCanvas from './components/game/GameCanvas.vue'
+import RoleplayDock from './components/game/RoleplayDock.vue'
 import InfoPanelContainer from './components/game/panels/info/InfoPanelContainer.vue'
 import StatusBar from './components/layout/StatusBar.vue'
 import EventPanel from './components/game/panels/EventPanel.vue'
@@ -32,10 +33,12 @@ import { logError } from './utils/appError'
 import { useUiStore } from './stores/ui'
 import { useSettingStore } from './stores/setting'
 import { useSystemStore } from './stores/system'
+import { useRoleplayStore } from './stores/roleplay'
 
 const uiStore = useUiStore()
 const settingStore = useSettingStore()
 const systemStore = useSystemStore()
+const roleplayStore = useRoleplayStore()
 
 // Sidebar resizer 状态
 const { sidebarWidth, isResizing, onResizerMouseDown } = useSidebarResize()
@@ -49,7 +52,9 @@ const {
   initStatus, 
   gameInitialized, 
   showLoading,
-} = useGameInit()
+} = useGameInit({
+  onIdle: () => roleplayStore.reset(),
+})
 
 const {
   showMenu,
@@ -130,6 +135,7 @@ async function handleSplashAction(key: string) {
 async function handleReturnToMain() {
   try {
     await systemApi.resetGame()
+    roleplayStore.reset()
     returnToSplash()
   } catch (e) {
     logError('App reset game', e)
@@ -173,38 +179,41 @@ watch(sidebarWidth, width => {
           
           <div class="main-content">
             <div class="map-container">
-              <!-- 顶部控制栏 -->
-              <div class="top-controls">
-                <!-- 暂停/播放按钮 -->
-                <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
-                  <span
-                    class="control-btn-icon"
-                    :style="{ '--icon-url': `url(${isManualPaused ? playIcon : pauseIcon})` }"
-                    aria-hidden="true"
-                  ></span>
-                </button>
+              <div class="map-stage">
+                <!-- 顶部控制栏 -->
+                <div class="top-controls">
+                  <!-- 暂停/播放按钮 -->
+                  <button class="control-btn pause-toggle" @click="toggleManualPause" :title="isManualPaused ? t('game.controls.resume') : t('game.controls.pause')">
+                    <span
+                      class="control-btn-icon"
+                      :style="{ '--icon-url': `url(${isManualPaused ? playIcon : pauseIcon})` }"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
 
-                <!-- 菜单按钮 -->
-                <button class="control-btn menu-toggle" @click="openGameMenu()">
-                  <span
-                    class="control-btn-icon"
-                    :style="{ '--icon-url': `url(${menuIcon})` }"
-                    aria-hidden="true"
-                  ></span>
-                </button>
+                  <!-- 菜单按钮 -->
+                  <button class="control-btn menu-toggle" @click="openGameMenu()">
+                    <span
+                      class="control-btn-icon"
+                      :style="{ '--icon-url': `url(${menuIcon})` }"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </div>
+
+                <!-- 暂停状态提示 -->
+                <div v-if="isManualPaused" class="pause-indicator">
+                  <div class="pause-text">{{ t('game.controls.paused') }}</div>
+                </div>
+
+                <GameCanvas
+                  :sidebar-width="sidebarWidth"
+                  @avatarSelected="handleSelection"
+                  @regionSelected="handleSelection"
+                />
+                <InfoPanelContainer />
               </div>
-
-              <!-- 暂停状态提示 -->
-              <div v-if="isManualPaused" class="pause-indicator">
-                <div class="pause-text">{{ t('game.controls.paused') }}</div>
-              </div>
-
-              <GameCanvas
-                :sidebar-width="sidebarWidth"
-                @avatarSelected="handleSelection"
-                @regionSelected="handleSelection"
-              />
-              <InfoPanelContainer />
+              <RoleplayDock />
             </div>
             <div
               class="sidebar-resizer"
@@ -262,9 +271,18 @@ watch(sidebarWidth, width => {
 
 .map-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #111;
+  overflow: hidden;
+}
+
+.map-stage {
+  flex: 1;
   position: relative;
   background: #111;
   overflow: hidden;
+  min-height: 0;
 }
 
 .top-controls {

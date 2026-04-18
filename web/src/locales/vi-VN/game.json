@@ -117,7 +117,7 @@
     "closed_msg": "Trò chơi đã đóng. Bạn có thể yên tâm đóng tab này."
   },
   "event_panel": {
-    "title": "",
+    "title": "Sự kiện",
     "filter_all": "Tất Cả",
     "filter_all_sects": "Tất Cả Tông Môn",
     "filter_event_scope_all": "Mọi Việc",
@@ -129,6 +129,74 @@
     "empty_dual": "Không có sự kiện giữa hai bên này",
     "empty_single": "Không có sự kiện của tu sĩ này",
     "empty_none": "Không có sự kiện"
+  },
+  "roleplay": {
+    "panel": {
+      "start": "Nhập vai",
+      "stop": "Thoát nhập vai"
+    },
+    "dock": {
+      "interaction_title": "Luồng tương tác",
+      "interaction_caption": "Đầu vào và đầu ra trong lần nhập vai này",
+      "interaction_empty": "Hiện chưa có bản ghi tương tác mới."
+    },
+    "status": {
+      "awaiting_decision": "Chờ chỉ lệnh",
+      "awaiting_choice": "Chờ lựa chọn",
+      "conversing": "Đang đối thoại",
+      "submitting": "Đang gửi",
+      "observing": "Đang quan sát"
+    },
+    "summary": {
+      "decision": "Cần quyết định hành động tiếp theo",
+      "choice": "Cần đưa ra phản hồi",
+      "conversation": "Đang trò chuyện với {target}",
+      "observing": "Chuỗi hành động hiện tại vẫn đang chạy"
+    },
+    "request": {
+      "title_decision": "Quyết định",
+      "title_choice": "Lựa chọn",
+      "title_conversation": "Đối thoại",
+      "title_observing": "Quan sát",
+      "caption_decision": "Nhập một ý định, hệ thống sẽ mở rộng thành chuỗi hành động",
+      "caption_choice": "Chọn một phản hồi từ các phương án hữu hạn",
+      "caption_conversation": "Người chơi điều khiển lời nói của {avatar}, bên kia do LLM hồi đáp",
+      "caption_observing": "Hiện không có yêu cầu nào cần xử lý ngay",
+      "decision_default_description": "Nhập một ý định, hệ thống sẽ mở rộng nó thành chuỗi hành động tiếp theo của nhân vật này.",
+      "choice_default_description": "Hãy chọn một phản hồi.",
+      "conversation_default_description": "Thế giới đang tạm dừng, chờ bạn tiếp tục phát ngôn với vai nhân vật hiện tại."
+    },
+    "decision": {
+      "placeholder": "Nhập ý định tiếp theo của nhân vật, ví dụ: hồi khí trước rồi đi thăm dò gần đó.",
+      "submit": "Gửi chỉ lệnh",
+      "submitting": "Đang xử lý..."
+    },
+    "choice": {
+      "submitting": "Đang xử lý lựa chọn, vui lòng chờ..."
+    },
+    "conversation": {
+      "placeholder": "Nhập điều bạn muốn nói.",
+      "submit": "Gửi",
+      "sending": "Đang gửi...",
+      "awaiting_reply": "Đang chờ hồi đáp...",
+      "end": "Kết thúc đối thoại"
+    },
+    "errors": {
+      "fetch_session": "Không thể lấy trạng thái nhập vai",
+      "start": "Không thể bắt đầu nhập vai",
+      "stop": "Không thể thoát nhập vai",
+      "submit_decision": "Không thể gửi chỉ lệnh nhập vai",
+      "submit_choice": "Không thể gửi lựa chọn nhập vai",
+      "send_conversation": "Không thể gửi nội dung đối thoại",
+      "end_conversation": "Không thể kết thúc đối thoại"
+    },
+    "idle": {
+      "hint": "Bạn vẫn đang quan sát thế giới ở góc nhìn toàn tri. Khi chuỗi hành động của nhân vật này kết thúc, yêu cầu tiếp theo sẽ chờ bạn tại đây."
+    },
+    "fallback": {
+      "avatar_name": "Nhân vật",
+      "counterpart_name": "Bên kia"
+    }
   },
   "event_templates": {
     "nickname_awarded": "{avatar_name} đã gây dựng danh tiếng trong tu tiên giới, được người đời gọi là \"{nickname}\"."

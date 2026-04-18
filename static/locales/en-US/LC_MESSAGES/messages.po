@@ -2967,6 +2967,78 @@ msgstr "Foundation Establishment"
 msgid "nascent_soul"
 msgstr "Nascent Soul"
 
+msgid "World not initialized"
+msgstr "World not initialized"
+
+msgid "Avatar not found"
+msgstr "Avatar not found"
+
+msgid "Objective set"
+msgstr "Objective set"
+
+msgid "Objective cleared"
+msgstr "Objective cleared"
+
+msgid "No user objective to clear"
+msgstr "No user objective to clear"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "Invalid pic_id for avatar gender"
+
+msgid "Avatar portrait updated"
+msgstr "Avatar portrait updated"
+
+msgid "Avatar deleted"
+msgstr "Avatar deleted"
+
+msgid "Avatar adjustment applied"
+msgstr "Avatar adjustment applied"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "Invalid pic_id for selected gender"
+
+msgid "Created avatar {avatar_name}"
+msgstr "Created avatar {avatar_name}"
+
+msgid "Phenomenon not found"
+msgstr "Phenomenon not found"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "Phenomenon set to {phenomenon_name}"
+
+msgid "Invalid filename"
+msgstr "Invalid filename"
+
+msgid "Game not initialized"
+msgstr "Game not initialized"
+
+msgid "Invalid save name"
+msgstr "Invalid save name"
+
+msgid "Save failed"
+msgstr "Save failed"
+
+msgid "Save deleted"
+msgstr "Save deleted"
+
+msgid "File not found"
+msgstr "File not found"
+
+msgid "Game loaded"
+msgstr "Game loaded"
+
+msgid "Load failed: {error}"
+msgstr "Load failed: {error}"
+
+msgid "Game reset to idle"
+msgstr "Game reset to idle"
+
+msgid "Game paused"
+msgstr "Game paused"
+
+msgid "Game resumed"
+msgstr "Game resumed"
+
 msgid "apprentice"
 msgstr "Apprentice"
 
@@ -3187,6 +3259,100 @@ msgstr "You learned that {subject_name} experienced a major event: {content}"
 
 msgid "You learned that {subject_name} experienced a major event."
 msgstr "You learned that {subject_name} experienced a major event."
+
+msgid "World is not initialized yet"
+msgstr "World is not initialized yet"
+
+msgid "Target avatar does not exist"
+msgstr "Target avatar does not exist"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} needs a new command"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "World paused and waiting for your roleplay command."
+
+msgid "There is already a pending roleplay request"
+msgstr "There is already a pending roleplay request"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} needs to make a choice"
+
+msgid ""
+"The other party falls silent for a moment and does not reply immediately."
+msgstr ""
+"The other party falls silent for a moment and does not reply immediately."
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} pauses to think and responds to the topic."
+
+msgid ""
+"{avatar_name} and {target_avatar_name} talked for {turns} turns and both "
+"gained a new impression of the topic at hand."
+msgstr ""
+"{avatar_name} and {target_avatar_name} talked for {turns} turns and both "
+"gained a new impression of the topic at hand."
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} is talking with {target_avatar_name}"
+
+msgid ""
+"World paused and waiting for you to continue speaking as {avatar_name} with "
+"{target_avatar_name}."
+msgstr ""
+"World paused and waiting for you to continue speaking as {avatar_name} with "
+"{target_avatar_name}."
+
+msgid "There is already another avatar under roleplay control"
+msgstr "There is already another avatar under roleplay control"
+
+msgid "Roleplay target does not match"
+msgstr "Roleplay target does not match"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "The current request is not waiting for a roleplay command"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "Roleplay request does not exist or has expired"
+
+msgid "Please enter a roleplay command"
+msgstr "Please enter a roleplay command"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "Failed to generate a valid action plan from this command"
+
+msgid "Roleplay command submitted"
+msgstr "Roleplay command submitted"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "The current request is not waiting for a roleplay choice"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "Roleplay choice state is invalid, please trigger it again"
+
+msgid "This roleplay choice has already been handled"
+msgstr "This roleplay choice has already been handled"
+
+msgid "Roleplay choice submitted"
+msgstr "Roleplay choice submitted"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "The current request is not in a roleplay conversation"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "Roleplay conversation request does not exist or has expired"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "Roleplay conversation session does not exist or has expired"
+
+msgid "Please enter dialogue content"
+msgstr "Please enter dialogue content"
+
+msgid "Conversation updated"
+msgstr "Conversation updated"
+
+msgid "Conversation ended"
+msgstr "Conversation ended"
 
 # Root Element
 msgid "gold_element"

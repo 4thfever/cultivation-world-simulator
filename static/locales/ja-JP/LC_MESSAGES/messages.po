@@ -2785,6 +2785,78 @@ msgstr "築基"
 msgid "nascent_soul"
 msgstr "元嬰"
 
+msgid "World not initialized"
+msgstr "ワールドはまだ初期化されていません"
+
+msgid "Avatar not found"
+msgstr "キャラクターが見つかりません"
+
+msgid "Objective set"
+msgstr "目標を設定しました"
+
+msgid "Objective cleared"
+msgstr "目標をクリアしました"
+
+msgid "No user objective to clear"
+msgstr "クリアできるプレイヤー目標はありません"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "この性別では使用できない pic_id です"
+
+msgid "Avatar portrait updated"
+msgstr "キャラクターの立ち絵を更新しました"
+
+msgid "Avatar deleted"
+msgstr "キャラクターを削除しました"
+
+msgid "Avatar adjustment applied"
+msgstr "キャラクター調整を適用しました"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "選択した性別では使用できない pic_id です"
+
+msgid "Created avatar {avatar_name}"
+msgstr "キャラクター {avatar_name} を作成しました"
+
+msgid "Phenomenon not found"
+msgstr "天象が見つかりません"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "天象を {phenomenon_name} に設定しました"
+
+msgid "Invalid filename"
+msgstr "無効なファイル名です"
+
+msgid "Game not initialized"
+msgstr "ゲームはまだ初期化されていません"
+
+msgid "Invalid save name"
+msgstr "無効なセーブ名です"
+
+msgid "Save failed"
+msgstr "セーブに失敗しました"
+
+msgid "Save deleted"
+msgstr "セーブを削除しました"
+
+msgid "File not found"
+msgstr "ファイルが見つかりません"
+
+msgid "Game loaded"
+msgstr "セーブを読み込みました"
+
+msgid "Load failed: {error}"
+msgstr "ロードに失敗しました: {error}"
+
+msgid "Game reset to idle"
+msgstr "ゲームを待機状態にリセットしました"
+
+msgid "Game paused"
+msgstr "ゲームを一時停止しました"
+
+msgid "Game resumed"
+msgstr "ゲームを再開しました"
+
 msgid "apprentice"
 msgstr "弟子"
 
@@ -2989,6 +3061,98 @@ msgstr "{subject_name} が大きな出来事を経験したと知った: {conten
 
 msgid "You learned that {subject_name} experienced a major event."
 msgstr "{subject_name} が大きな出来事を経験したと知った。"
+
+msgid "World is not initialized yet"
+msgstr "世界はまだ初期化されていません"
+
+msgid "Target avatar does not exist"
+msgstr "対象キャラクターが存在しません"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} は新しい指示を必要としています"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "世界は一時停止中で、あなたの扮演指示を待っています。"
+
+msgid "There is already a pending roleplay request"
+msgstr "すでに処理待ちの扮演リクエストがあります"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} は選択を行う必要があります"
+
+msgid ""
+"The other party falls silent for a moment and does not reply immediately."
+msgstr "相手はしばらく黙り込み、すぐには返答しなかった。"
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} は少し考え込み、その話題に応じた。"
+
+msgid ""
+"{avatar_name} and {target_avatar_name} talked for {turns} turns and both "
+"gained a new impression of the topic at hand."
+msgstr ""
+"{avatar_name} と {target_avatar_name} は {turns} "
+"往復ほど語り合い、その場の話題について互いに新たな印象を得た。"
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} は {target_avatar_name} と会話中です"
+
+msgid ""
+"World paused and waiting for you to continue speaking as {avatar_name} with "
+"{target_avatar_name}."
+msgstr ""
+"世界は一時停止中で、{avatar_name} として {target_avatar_name} との会話を続けるあなたの発言を待っています。"
+
+msgid "There is already another avatar under roleplay control"
+msgstr "すでに別のキャラクターが扮演中です"
+
+msgid "Roleplay target does not match"
+msgstr "扮演対象が一致しません"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "現在のリクエストは扮演指示待ちではありません"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "扮演リクエストが存在しないか、すでに失効しています"
+
+msgid "Please enter a roleplay command"
+msgstr "扮演指示を入力してください"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "この指示から有効な行動計画を生成できませんでした"
+
+msgid "Roleplay command submitted"
+msgstr "扮演指示を送信しました"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "現在のリクエストは扮演選択待ちではありません"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "扮演選択の状態が不正です。もう一度発生させてください"
+
+msgid "This roleplay choice has already been handled"
+msgstr "この扮演選択はすでに処理されています"
+
+msgid "Roleplay choice submitted"
+msgstr "扮演選択を送信しました"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "現在のリクエストは扮演会話中ではありません"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "扮演会話リクエストが存在しないか、すでに失効しています"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "扮演会話セッションが存在しないか、すでに失効しています"
+
+msgid "Please enter dialogue content"
+msgstr "会話内容を入力してください"
+
+msgid "Conversation updated"
+msgstr "会話を更新しました"
+
+msgid "Conversation ended"
+msgstr "会話を終了しました"
 
 # Root Element
 msgid "gold_element"

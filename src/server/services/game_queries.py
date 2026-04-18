@@ -4,10 +4,13 @@ from typing import Any, Callable
 
 from fastapi import Query
 
+from src.i18n import t
 from src.server.services.public_api_contract import raise_public_error
 
 
 def get_runtime_status(runtime, version: str) -> dict[str, Any]:
+    from src.server.services.roleplay_service import get_roleplay_session as build_roleplay_session
+
     start_time = runtime.get("init_start_time")
     elapsed = 0.0
     if start_time:
@@ -25,7 +28,9 @@ def get_runtime_status(runtime, version: str) -> dict[str, Any]:
         "version": version,
         "llm_check_failed": runtime.get("llm_check_failed", False),
         "llm_error_message": runtime.get("llm_error_message", ""),
-        "is_paused": runtime.get("is_paused", True),
+        "is_paused": runtime.is_effectively_paused() if hasattr(runtime, "is_effectively_paused") else runtime.get("is_paused", True),
+        "pause_reason": runtime.get_pause_reason() if hasattr(runtime, "get_pause_reason") else ("paused" if runtime.get("is_paused", True) else ""),
+        "roleplay": build_roleplay_session(runtime) if hasattr(runtime, "get_roleplay_session") else None,
     }
 
 
@@ -150,8 +155,8 @@ def get_avatar_list(runtime) -> dict[str, Any]:
 
     avatars: list[dict[str, Any]] = []
     for avatar in world.avatar_manager.avatars.values():
-        sect_name = avatar.sect.name if avatar.sect else "散修"
-        realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else "未知"
+        sect_name = avatar.sect.name if avatar.sect else t("Rogue Cultivator")
+        realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else t("Unknown")
         avatars.append(
             {
                 "id": str(avatar.id),
@@ -240,7 +245,7 @@ def get_avatar_overview(runtime) -> dict[str, Any]:
     rogue_count = 0
 
     for avatar in living_avatars:
-        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "未知"))
+        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", t("Unknown")))
         realm_counts[realm] = realm_counts.get(realm, 0) + 1
         if getattr(avatar, "sect", None) is None:
             rogue_count += 1
@@ -322,7 +327,7 @@ def get_world_state(
         "events": recent_events,
         "active_domains": serialize_active_domains(world),
         "phenomenon": serialize_phenomenon(world.current_phenomenon),
-        "is_paused": runtime.get("is_paused", False),
+        "is_paused": runtime.is_effectively_paused() if hasattr(runtime, "is_effectively_paused") else runtime.get("is_paused", False),
     }
 
 

@@ -102,6 +102,7 @@ async def perform_game_initialization(
     check_llm_connectivity: Callable[[], tuple[bool, str]],
 ) -> None:
     runtime.begin_initialization()
+    runtime.clear_roleplay_session()
 
     async def _do_init():
         update_init_progress(0, "scanning_assets")
@@ -130,6 +131,7 @@ async def perform_game_initialization(
             events_db_path=events_db_path,
             start_year=start_year,
         )
+        world.runtime = runtime
         world.dynasty = generate_dynasty()
         world.dynasty.current_emperor = generate_emperor(world.dynasty, int(world.month_stamp))
         world.event_manager.add_event(

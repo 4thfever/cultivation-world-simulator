@@ -2977,6 +2977,78 @@ msgstr "Trúc Cơ"
 msgid "nascent_soul"
 msgstr "Nguyên Anh"
 
+msgid "World not initialized"
+msgstr "Thế giới chưa được khởi tạo"
+
+msgid "Avatar not found"
+msgstr "Không tìm thấy nhân vật"
+
+msgid "Objective set"
+msgstr "Đã đặt mục tiêu"
+
+msgid "Objective cleared"
+msgstr "Đã xóa mục tiêu"
+
+msgid "No user objective to clear"
+msgstr "Hiện không có mục tiêu người chơi để xóa"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "pic_id không hợp lệ với giới tính của nhân vật"
+
+msgid "Avatar portrait updated"
+msgstr "Đã cập nhật chân dung nhân vật"
+
+msgid "Avatar deleted"
+msgstr "Đã xóa nhân vật"
+
+msgid "Avatar adjustment applied"
+msgstr "Đã áp dụng chỉnh sửa nhân vật"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "pic_id không hợp lệ với giới tính đã chọn"
+
+msgid "Created avatar {avatar_name}"
+msgstr "Đã tạo nhân vật {avatar_name}"
+
+msgid "Phenomenon not found"
+msgstr "Không tìm thấy thiên tượng"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "Đã đặt thiên tượng thành {phenomenon_name}"
+
+msgid "Invalid filename"
+msgstr "Tên tệp không hợp lệ"
+
+msgid "Game not initialized"
+msgstr "Trò chơi chưa được khởi tạo"
+
+msgid "Invalid save name"
+msgstr "Tên bản lưu không hợp lệ"
+
+msgid "Save failed"
+msgstr "Lưu thất bại"
+
+msgid "Save deleted"
+msgstr "Đã xóa bản lưu"
+
+msgid "File not found"
+msgstr "Không tìm thấy tệp"
+
+msgid "Game loaded"
+msgstr "Đã tải bản lưu"
+
+msgid "Load failed: {error}"
+msgstr "Tải thất bại: {error}"
+
+msgid "Game reset to idle"
+msgstr "Trò chơi đã được đặt lại về trạng thái chờ"
+
+msgid "Game paused"
+msgstr "Trò chơi đã tạm dừng"
+
+msgid "Game resumed"
+msgstr "Trò chơi đã tiếp tục"
+
 msgid "apprentice"
 msgstr "Đồ Đệ"
 
@@ -3200,6 +3272,99 @@ msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự: 
 
 msgid "You learned that {subject_name} experienced a major event."
 msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự."
+
+msgid "World is not initialized yet"
+msgstr "Thế giới vẫn chưa được khởi tạo"
+
+msgid "Target avatar does not exist"
+msgstr "Nhân vật mục tiêu không tồn tại"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} cần một chỉ lệnh mới"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "Thế giới đã tạm dừng và đang chờ chỉ lệnh nhập vai của bạn."
+
+msgid "There is already a pending roleplay request"
+msgstr "Đã có một yêu cầu nhập vai đang chờ xử lý"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} cần đưa ra một lựa chọn"
+
+msgid ""
+"The other party falls silent for a moment and does not reply immediately."
+msgstr "Đối phương im lặng một lát, không lập tức đáp lời."
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} dừng lại suy nghĩ rồi đáp lại chủ đề ấy."
+
+msgid ""
+"{avatar_name} and {target_avatar_name} talked for {turns} turns and both "
+"gained a new impression of the topic at hand."
+msgstr ""
+"{avatar_name} và {target_avatar_name} đã trò chuyện qua lại {turns} lượt, cả"
+" hai đều có thêm một ấn tượng mới về chủ đề trước mắt."
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} đang trò chuyện với {target_avatar_name}"
+
+msgid ""
+"World paused and waiting for you to continue speaking as {avatar_name} with "
+"{target_avatar_name}."
+msgstr ""
+"Thế giới đã tạm dừng, đang chờ bạn tiếp tục lên tiếng với vai {avatar_name} "
+"khi trò chuyện cùng {target_avatar_name}."
+
+msgid "There is already another avatar under roleplay control"
+msgstr "Đã có một nhân vật khác đang được nhập vai"
+
+msgid "Roleplay target does not match"
+msgstr "Mục tiêu nhập vai không khớp"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "Yêu cầu hiện tại không ở trạng thái chờ chỉ lệnh nhập vai"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "Yêu cầu nhập vai không tồn tại hoặc đã hết hiệu lực"
+
+msgid "Please enter a roleplay command"
+msgstr "Vui lòng nhập chỉ lệnh nhập vai"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "Không thể tạo ra kế hoạch hành động hợp lệ từ chỉ lệnh này"
+
+msgid "Roleplay command submitted"
+msgstr "Đã gửi chỉ lệnh nhập vai"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "Yêu cầu hiện tại không ở trạng thái chờ lựa chọn nhập vai"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "Trạng thái lựa chọn nhập vai không hợp lệ, vui lòng kích hoạt lại"
+
+msgid "This roleplay choice has already been handled"
+msgstr "Lựa chọn nhập vai này đã được xử lý"
+
+msgid "Roleplay choice submitted"
+msgstr "Đã gửi lựa chọn nhập vai"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "Yêu cầu hiện tại không nằm trong một cuộc đối thoại nhập vai"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "Yêu cầu đối thoại nhập vai không tồn tại hoặc đã hết hiệu lực"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "Phiên đối thoại nhập vai không tồn tại hoặc đã hết hiệu lực"
+
+msgid "Please enter dialogue content"
+msgstr "Vui lòng nhập nội dung đối thoại"
+
+msgid "Conversation updated"
+msgstr "Đối thoại đã được cập nhật"
+
+msgid "Conversation ended"
+msgstr "Đối thoại đã kết thúc"
 
 # Root Element
 msgid "gold_element"

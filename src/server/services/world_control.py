@@ -1,16 +1,17 @@
 from __future__ import annotations
 
 from fastapi import HTTPException
+from src.i18n import t
 
 
 def set_world_phenomenon(runtime, *, phenomenon_id: int, celestial_phenomena_by_id) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     phenomenon = celestial_phenomena_by_id.get(phenomenon_id)
     if not phenomenon:
-        raise HTTPException(status_code=404, detail="Phenomenon not found")
+        raise HTTPException(status_code=404, detail=t("Phenomenon not found"))
 
     world.current_phenomenon = phenomenon
     try:
@@ -18,4 +19,4 @@ def set_world_phenomenon(runtime, *, phenomenon_id: int, celestial_phenomena_by_
     except Exception:
         pass
 
-    return {"status": "ok", "message": f"Phenomenon set to {phenomenon.name}"}
+    return {"status": "ok", "message": t("Phenomenon set to {phenomenon_name}", phenomenon_name=phenomenon.name)}

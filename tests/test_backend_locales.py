@@ -96,3 +96,35 @@ class TestBackendLocales:
         if errors:
             pytest.fail("Backend PO global keys validation FAILED:\n" + "\n".join(errors))
 
+    def test_template_files_consistency(self):
+        """检查所有启用语言的 templates 目录与 source locale 保持同名模板集合。"""
+        root = get_project_root()
+        locales = get_locale_codes()
+        base_loc = get_source_locale()
+        base_template_dir = root / "static" / "locales" / base_loc / "templates"
+
+        assert base_template_dir.exists(), f"Base template directory not found: {base_template_dir}"
+
+        base_templates = {
+            path.name
+            for path in base_template_dir.glob("*.txt")
+        }
+        errors = []
+
+        for loc in locales:
+            target_template_dir = root / "static" / "locales" / loc / "templates"
+            if not target_template_dir.exists():
+                errors.append(f"Template directory not found: {target_template_dir}")
+                continue
+
+            target_templates = {path.name for path in target_template_dir.glob("*.txt")}
+            missing = sorted(base_templates - target_templates)
+            if missing:
+                errors.append(
+                    f"[{loc}] missing template files present in {base_loc}:\n"
+                    + "\n".join(f"  - {name}" for name in missing)
+                )
+
+        if errors:
+            pytest.fail("Backend template validation FAILED:\n" + "\n".join(errors))
+

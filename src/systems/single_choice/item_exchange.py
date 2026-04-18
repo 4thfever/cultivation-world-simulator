@@ -232,6 +232,8 @@ class ItemExchangeScenario(SingleChoiceScenario[ItemExchangeOutcome]):
                     )
                 ],
                 fallback_policy=FallbackPolicy(FallbackMode.PREFERRED_KEY, preferred_key="ACCEPT"),
+                title=self.request.scene_intro,
+                description=self.request.scene_intro,
             )
 
         return SingleChoiceRequest(
@@ -241,6 +243,8 @@ class ItemExchangeScenario(SingleChoiceScenario[ItemExchangeOutcome]):
             situation=_build_item_exchange_situation(self.request, self.spec, self.current_item),
             options=_build_item_exchange_options(self.request, self.spec, self.current_item),
             fallback_policy=self.request.fallback_policy,
+            title=self.request.scene_intro,
+            description=self.request.scene_intro,
         )
 
     async def apply_decision(self, decision: SingleChoiceDecision) -> ItemExchangeOutcome:

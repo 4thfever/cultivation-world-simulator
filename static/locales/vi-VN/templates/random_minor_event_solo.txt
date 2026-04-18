@@ -1,0 +1,20 @@
+Bạn đang tham gia một mô phỏng sandbox trong thế giới tiên hiệp. Dựa trên thông tin đã cho, hãy viết một sự vụ ngẫu nhiên rất ngắn cho một nhân vật.
+
+Thông tin nhân vật: {avatar_info}
+Địa điểm hiện tại: {location}
+Trạng thái thế giới hiện tại: {world_info}
+Loại tiểu sự: {event_key}
+Mô tả tiểu sự: {event_desc}
+Sắc thái: {tone}
+
+Yêu cầu:
+1. Chỉ viết một chuyện nhỏ vừa xảy ra, dài 20~50 chữ.
+2. Văn phong phải tự nhiên và cụ thể, giống như một ghi chép ngắn trong bảng sự kiện, không mơ hồ hay quá trữ tình.
+3. Không được dẫn đến hậu quả lớn như đại chiến, đột phá, trọng thương hay nhận được thần khí.
+4. Không được viết bất kỳ thuộc tính, con số hay kết luận về thay đổi quan hệ.
+5. Trả về JSON nghiêm ngặt:
+```json
+{{
+  "event_text": "Điền mô tả sự kiện tại đây"
+}}
+```

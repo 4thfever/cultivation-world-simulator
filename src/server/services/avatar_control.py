@@ -3,34 +3,35 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import HTTPException
+from src.i18n import t
 
 
 def set_long_term_objective_for_avatar(runtime, *, avatar_id: str, content: str, setter) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     avatar = world.avatar_manager.avatars.get(avatar_id)
     if not avatar:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
     setter(avatar, content)
-    return {"status": "ok", "message": "Objective set"}
+    return {"status": "ok", "message": t("Objective set")}
 
 
 def clear_long_term_objective_for_avatar(runtime, *, avatar_id: str, clearer) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     avatar = world.avatar_manager.avatars.get(avatar_id)
     if not avatar:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
     cleared = clearer(avatar)
     return {
         "status": "ok",
-        "message": "Objective cleared" if cleared else "No user objective to clear",
+        "message": t("Objective cleared") if cleared else t("No user objective to clear"),
     }
 
 
@@ -43,31 +44,31 @@ def update_avatar_portrait_in_world(
 ) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     avatar = world.avatar_manager.avatars.get(avatar_id)
     if not avatar:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
     gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
     available_ids = set(avatar_assets.get(gender_key, []))
     if available_ids and pic_id not in available_ids:
-        raise HTTPException(status_code=400, detail="Invalid pic_id for avatar gender")
+        raise HTTPException(status_code=400, detail=t("Invalid pic_id for avatar gender"))
 
     avatar.custom_pic_id = pic_id
-    return {"status": "ok", "message": "Avatar portrait updated"}
+    return {"status": "ok", "message": t("Avatar portrait updated")}
 
 
 def delete_avatar_in_world(runtime, *, avatar_id: str) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     if avatar_id not in world.avatar_manager.avatars:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
     world.avatar_manager.remove_avatar(avatar_id)
-    return {"status": "ok", "message": "Avatar deleted"}
+    return {"status": "ok", "message": t("Avatar deleted")}
 
 
 def update_avatar_adjustment_in_world(
@@ -81,11 +82,11 @@ def update_avatar_adjustment_in_world(
 ) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     avatar = world.avatar_manager.avatars.get(avatar_id)
     if not avatar:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
     apply_avatar_adjustment(
         avatar,
@@ -93,7 +94,7 @@ def update_avatar_adjustment_in_world(
         target_id=target_id,
         persona_ids=persona_ids,
     )
-    return {"status": "ok", "message": "Avatar adjustment applied"}
+    return {"status": "ok", "message": t("Avatar adjustment applied")}
 
 
 def create_avatar_in_world(
@@ -110,7 +111,7 @@ def create_avatar_in_world(
 ) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail=t("World not initialized"))
 
     sect = sects_by_id.get(req.sect_id) if req.sect_id is not None else None
     personas = req.persona_ids if req.persona_ids else None
@@ -155,7 +156,7 @@ def create_avatar_in_world(
         gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
         available_ids = set(avatar_assets.get(gender_key, []))
         if available_ids and req.pic_id not in available_ids:
-            raise HTTPException(status_code=400, detail="Invalid pic_id for selected gender")
+            raise HTTPException(status_code=400, detail=t("Invalid pic_id for selected gender"))
         avatar.custom_pic_id = req.pic_id
 
     if req.alignment:
@@ -170,6 +171,6 @@ def create_avatar_in_world(
     world.avatar_manager.register_avatar(avatar, is_newly_born=True)
     return {
         "status": "ok",
-        "message": f"Created avatar {avatar.name}",
+        "message": t("Created avatar {avatar_name}", avatar_name=avatar.name),
         "avatar_id": str(avatar.id),
     }

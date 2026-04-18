@@ -8,12 +8,25 @@ from src.utils.config import CONFIG
 
 
 async def phase_decide_actions(world, living_avatars: list[Avatar]) -> None:
+    try:
+        from src.server.services.roleplay_service import maybe_request_roleplay_decision
+
+        maybe_request_roleplay_decision(world)
+    except Exception:
+        pass
+
+    controlled_avatar_id = None
+    runtime = getattr(world, "runtime", None)
+    if runtime is not None and hasattr(runtime, "get_roleplay_session"):
+        controlled_avatar_id = str(runtime.get_roleplay_session().get("controlled_avatar_id") or "")
+
     # 只给“既没在执行动作，也没有待执行计划”的角色补决策，
     # 避免 LLM 覆盖已经排好的行动链。
     avatars_to_decide = [
         avatar
         for avatar in living_avatars
         if avatar.current_action is None and not avatar.has_plans()
+        and str(getattr(avatar, "id", "")) != controlled_avatar_id
     ]
     if not avatars_to_decide:
         return

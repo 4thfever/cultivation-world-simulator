@@ -17,4 +17,5 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
 | Robinwhliu | <img src="https://avatars.githubusercontent.com/u/86167266?v=4" alt="Robinwhliu avatar" width="64" height="64" /> | [@Robinwhliu](https://github.com/Robinwhliu) |
 | Seafoodsz | <img src="https://avatars.githubusercontent.com/u/13925953?v=4" alt="Seafoodsz avatar" width="64" height="64" /> | [@Seafoodsz](https://github.com/Seafoodsz) |
 | Tianrant | <img src="https://avatars.githubusercontent.com/u/260025727?v=4" alt="Tianrant avatar" width="64" height="64" /> | [@Tianrant](https://github.com/Tianrant) |
+| cw1990 | <img src="https://avatars.githubusercontent.com/u/10458746?v=4" alt="cw1990 avatar" width="64" height="64" /> | [@cw1990](https://github.com/cw1990) |
 | RealityError | <img src="https://avatars.githubusercontent.com/u/67266280?v=4" alt="RealityError avatar" width="64" height="64" /> | [@RealityError](https://github.com/RealityError) |

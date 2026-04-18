@@ -10,6 +10,7 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
     "world": None,
     "sim": None,
     "is_paused": True,
+    "roleplay_auto_paused": False,
     "init_status": "idle",
     "init_phase": 0,
     "init_phase_name": "",
@@ -20,6 +21,14 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
     "current_save_path": None,
     "llm_check_failed": False,
     "llm_error_message": "",
+    "roleplay_session": {
+        "controlled_avatar_id": None,
+        "status": "inactive",
+        "pending_request": None,
+        "last_prompt_context": None,
+        "conversation_session": None,
+        "interaction_history": [],
+    },
 }
 
 
@@ -59,6 +68,7 @@ class GameSessionRuntime:
                 "current_save_path": None,
                 "run_config": run_config,
                 "is_paused": True,
+                "roleplay_auto_paused": False,
                 "init_status": "idle",
                 "init_phase": 0,
                 "init_phase_name": "",
@@ -69,6 +79,7 @@ class GameSessionRuntime:
                 "llm_error_message": "",
             }
         )
+        self.clear_roleplay_session()
 
     def mark_pending_initialization(self, *, clear_world: bool) -> None:
         if clear_world:
@@ -76,11 +87,13 @@ class GameSessionRuntime:
             self._state["sim"] = None
             self._state["current_save_path"] = None
         self._state["is_paused"] = True
+        self._state["roleplay_auto_paused"] = False
         self._state["init_status"] = "pending"
         self._state["init_phase"] = 0
         self._state["init_phase_name"] = ""
         self._state["init_progress"] = 0
         self._state["init_error"] = None
+        self.clear_roleplay_session()
 
     def begin_initialization(self) -> None:
         self._state["init_status"] = "in_progress"
@@ -99,6 +112,60 @@ class GameSessionRuntime:
 
     def set_paused(self, paused: bool) -> None:
         self._state["is_paused"] = bool(paused)
+
+    def set_roleplay_auto_paused(self, paused: bool) -> None:
+        self._state["roleplay_auto_paused"] = bool(paused)
+
+    def is_effectively_paused(self) -> bool:
+        return bool(self._state.get("is_paused", False) or self._state.get("roleplay_auto_paused", False))
+
+    def get_pause_reason(self) -> str:
+        if self._state.get("roleplay_auto_paused", False):
+            session = self.get_roleplay_session()
+            status = str(session.get("status", "") or "")
+            if status == "awaiting_decision":
+                return "roleplay_waiting_decision"
+            if status == "awaiting_choice":
+                return "roleplay_waiting_choice"
+            if status == "conversing":
+                return "roleplay_conversation"
+            return "roleplay_waiting"
+        if self._state.get("is_paused", False):
+            return "paused"
+        return ""
+
+    def get_roleplay_session(self) -> dict[str, Any]:
+        session = self._state.get("roleplay_session")
+        if not isinstance(session, dict):
+            session = {
+                "controlled_avatar_id": None,
+                "status": "inactive",
+                "pending_request": None,
+                "last_prompt_context": None,
+                "conversation_session": None,
+                "interaction_history": [],
+            }
+            self._state["roleplay_session"] = session
+        return session
+
+    def clear_roleplay_session(self) -> None:
+        existing = self._state.get("roleplay_session")
+        if isinstance(existing, dict):
+            choice_future = existing.get("_choice_future")
+            try:
+                if choice_future is not None and hasattr(choice_future, "done") and not choice_future.done():
+                    choice_future.cancel()
+            except Exception:
+                pass
+        self._state["roleplay_session"] = {
+            "controlled_avatar_id": None,
+            "status": "inactive",
+            "pending_request": None,
+            "last_prompt_context": None,
+            "conversation_session": None,
+            "interaction_history": [],
+        }
+        self._state["roleplay_auto_paused"] = False
 
     async def run_mutation(
         self,

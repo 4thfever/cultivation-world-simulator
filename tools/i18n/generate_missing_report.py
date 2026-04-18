@@ -137,6 +137,40 @@ def generate_report():
         else:
             report_lines.append("")
 
+    # 3. Template Check
+    report_lines.append("## Template Missing\n")
+    base_template_dir = root / "static" / "locales" / base_loc / "templates"
+    if base_template_dir.exists():
+        base_templates = sorted(f.name for f in base_template_dir.iterdir() if f.is_file() and f.suffix == ".txt")
+        for target_loc in locales:
+            report_lines.append(f"### [{target_loc}]")
+            target_template_dir = root / "static" / "locales" / target_loc / "templates"
+            missing_templates = []
+            empty_templates = []
+
+            for template_name in base_templates:
+                target_file = target_template_dir / template_name
+                if not target_file.exists():
+                    missing_templates.append(template_name)
+                    continue
+                try:
+                    if not target_file.read_text(encoding="utf-8").strip():
+                        empty_templates.append(template_name)
+                except OSError:
+                    empty_templates.append(template_name)
+
+            if not missing_templates and not empty_templates:
+                report_lines.append("- All templates are present.\n")
+                continue
+
+            for template_name in missing_templates:
+                report_lines.append(f"- Missing template: `static/locales/{target_loc}/templates/{template_name}`")
+            for template_name in empty_templates:
+                report_lines.append(f"- Empty template: `static/locales/{target_loc}/templates/{template_name}`")
+            report_lines.append("")
+    else:
+        report_lines.append(f"`{base_loc}` base directory not found for templates.\n")
+
     report_path = root / "i18n_missing_report.md"
     with open(report_path, "w", encoding="utf-8") as f:
         f.write("\n".join(report_lines))

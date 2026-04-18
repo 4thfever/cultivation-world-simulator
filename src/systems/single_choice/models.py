@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
 class ChoiceSource(Enum):
     LLM = "llm"
+    PLAYER_ROLEPLAY = "player_roleplay"
     FALLBACK = "fallback"
 
 
@@ -42,6 +43,9 @@ class SingleChoiceRequest:
     situation: str
     options: list[SingleChoiceOption]
     fallback_policy: FallbackPolicy
+    request_id: str = ""
+    title: str = ""
+    description: str = ""
     context: dict[str, Any] = field(default_factory=dict)
 
 

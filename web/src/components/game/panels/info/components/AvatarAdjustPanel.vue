@@ -299,7 +299,7 @@ async function saveCustomDraft() {
     <div v-if="category" class="adjust-panel">
       <div class="adjust-header">
         <span class="adjust-title">{{ panelTitle }}</span>
-        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+        <button class="close-btn" :aria-label="t('ui.close')" @click="$emit('close')">
           <span class="icon-mask close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
         </button>
       </div>

@@ -29,6 +29,7 @@ def create_public_query_router(
     build_saves: Callable[[], dict],
     build_detail: Callable[..., dict],
     build_deceased_list: Callable[[], dict],
+    build_roleplay_session: Callable[[], dict],
 ) -> APIRouter:
     router = APIRouter()
 
@@ -132,5 +133,9 @@ def create_public_query_router(
     @router.get("/api/v1/query/deceased")
     def get_deceased_list_v1():
         return ok_response(build_deceased_list())
+
+    @router.get("/api/v1/query/roleplay/session")
+    def get_roleplay_session_v1():
+        return ok_response(build_roleplay_session())
 
     return router

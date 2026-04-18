@@ -70,6 +70,7 @@ class LLMAI(AI):
                 "world_info": world_info,
                 "world_lore": world.world_lore.text,
                 "general_action_infos": general_action_infos,
+                "player_command": "",
             }
             template_path = CONFIG.paths.templates / "ai.txt"
             res = await call_llm_with_task_name("action_decision", template_path, info)

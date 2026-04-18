@@ -306,6 +306,76 @@ export interface InitStatusDTO {
   version?: string;
   llm_check_failed: boolean;
   llm_error_message: string;
+  is_paused?: boolean;
+  pause_reason?: string;
+  roleplay?: RoleplaySessionDTO | null;
+}
+
+export interface RoleplayPromptRequestDTO {
+  request_id: string;
+  type: 'decision' | 'choice' | string;
+  avatar_id: string;
+  target_avatar_id?: string;
+  title: string;
+  description: string;
+  options?: Array<{
+    key: string;
+    title: string;
+    description: string;
+  }>;
+  messages?: RoleplayConversationMessageDTO[];
+  can_end?: boolean;
+  created_at: number;
+}
+
+export interface RoleplayConversationMessageDTO {
+  id: string;
+  role: 'player' | 'assistant' | string;
+  speaker_avatar_id?: string;
+  speaker_name: string;
+  content: string;
+  created_at: number;
+}
+
+export interface RoleplayConversationSessionDTO {
+  session_id: string;
+  request_id: string;
+  avatar_id: string;
+  target_avatar_id: string;
+  initiator_avatar_id: string;
+  status: 'awaiting_player' | 'generating_reply' | 'awaiting_continue' | 'completed' | 'cancelled' | string;
+  messages: RoleplayConversationMessageDTO[];
+  started_at: number;
+  last_summary?: {
+    summary?: string;
+    relation_hint?: string;
+    story_hint?: string;
+  } | null;
+  last_ai_thinking?: string;
+}
+
+export interface RoleplayActionDisplayTokenDTO {
+  kind: 'verb' | 'arg' | string;
+  text: string;
+}
+
+export interface RoleplayInteractionRecordDTO {
+  type: 'command' | 'action_chain' | 'error' | string;
+  created_at: number;
+  text?: string;
+  actions?: Array<{
+    action_name: string;
+    tokens: RoleplayActionDisplayTokenDTO[];
+  }>;
+}
+
+export interface RoleplaySessionDTO {
+  controlled_avatar_id: string | null;
+  status: 'inactive' | 'observing' | 'awaiting_decision' | 'awaiting_choice' | 'conversing' | 'submitting' | string;
+  pending_request: RoleplayPromptRequestDTO | null;
+  last_prompt_context: Record<string, unknown> | null;
+  conversation_session?: RoleplayConversationSessionDTO | null;
+  interaction_history?: RoleplayInteractionRecordDTO[];
 }
 
 export interface RankingAvatarDTO {

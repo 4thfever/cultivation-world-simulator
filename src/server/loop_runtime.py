@@ -137,7 +137,7 @@ async def run_game_loop_forever(
         await asyncio.sleep(1.0)
 
         try:
-            if runtime.get("is_paused", False):
+            if runtime.is_effectively_paused():
                 continue
             if runtime.get("init_status") != "ready":
                 continue

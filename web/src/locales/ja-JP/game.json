@@ -117,7 +117,7 @@
     "closed_msg": "ゲームは終了しました。このタブは安全に閉じられます。"
   },
   "event_panel": {
-    "title": "",
+    "title": "イベント",
     "filter_all": "すべて",
     "filter_all_sects": "全宗門",
     "filter_event_scope_all": "全イベント",
@@ -129,6 +129,74 @@
     "empty_dual": "この二人の間にイベントはありません",
     "empty_single": "この修士のイベントはありません",
     "empty_none": "イベントはありません"
+  },
+  "roleplay": {
+    "panel": {
+      "start": "扮演",
+      "stop": "扮演終了"
+    },
+    "dock": {
+      "interaction_title": "対話ログ",
+      "interaction_caption": "今回の扮演中に発生した入出力",
+      "interaction_empty": "まだ新しい対話記録はありません。"
+    },
+    "status": {
+      "awaiting_decision": "指示待ち",
+      "awaiting_choice": "選択待ち",
+      "conversing": "会話中",
+      "submitting": "送信中",
+      "observing": "観察中"
+    },
+    "summary": {
+      "decision": "次の行動を決める必要があります",
+      "choice": "返答を選ぶ必要があります",
+      "conversation": "{target} と会話中",
+      "observing": "現在の行動チェーンはまだ進行中です"
+    },
+    "request": {
+      "title_decision": "決定",
+      "title_choice": "選択",
+      "title_conversation": "会話",
+      "title_observing": "観察",
+      "caption_decision": "一文で意図を入力すると、システムが行動チェーンへ展開します",
+      "caption_choice": "限られた選択肢から一つ返答を選びます",
+      "caption_conversation": "プレイヤーは {avatar} の発言を操作し、相手は LLM が返答します",
+      "caption_observing": "今すぐ処理すべきリクエストはありません",
+      "decision_default_description": "一文で意図を入力すると、システムがこのキャラクターの次の行動チェーンへ展開します。",
+      "choice_default_description": "返答を一つ選んでください。",
+      "conversation_default_description": "世界は一時停止中で、現在のキャラクターとしての次の発言を待っています。"
+    },
+    "decision": {
+      "placeholder": "キャラクターの次の意図を入力してください。例：まず気息を整え、その後で近くを探索する。",
+      "submit": "指示を送信",
+      "submitting": "処理中..."
+    },
+    "choice": {
+      "submitting": "選択を処理中です。しばらくお待ちください..."
+    },
+    "conversation": {
+      "placeholder": "話したい内容を入力してください。",
+      "submit": "送信",
+      "sending": "送信中...",
+      "awaiting_reply": "返答待ち...",
+      "end": "会話を終了"
+    },
+    "errors": {
+      "fetch_session": "扮演状態の取得に失敗しました",
+      "start": "扮演の開始に失敗しました",
+      "stop": "扮演の終了に失敗しました",
+      "submit_decision": "扮演指示の送信に失敗しました",
+      "submit_choice": "扮演選択の送信に失敗しました",
+      "send_conversation": "会話メッセージの送信に失敗しました",
+      "end_conversation": "会話の終了に失敗しました"
+    },
+    "idle": {
+      "hint": "あなたはまだ全知視点で世界を観察しています。このキャラクターの行動チェーンが終わると、次の操作はここで待機します。"
+    },
+    "fallback": {
+      "avatar_name": "キャラクター",
+      "counterpart_name": "相手"
+    }
   },
   "event_templates": {
     "nickname_awarded": "{avatar_name} は仙道界で名を挙げ、「{nickname}」と呼ばれるようになった。"
