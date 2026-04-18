@@ -33,8 +33,8 @@
   "placeholders": {
     "api_key": "Nhập API Key của bạn tại đây (thường bắt đầu bằng sk-)",
     "base_url": "https://api.example.com/v1",
-    "normal_model": "ví dụ: gpt-4, claude-3-opus, qwen-plus",
-    "fast_model": "ví dụ: gpt-3.5-turbo, qwen-flash",
+    "normal_model": "ví dụ: gpt-4, claude-3-opus, qwen3.5-plus",
+    "fast_model": "ví dụ: gpt-3.5-turbo, qwen3.5-flash",
     "max_concurrent_requests": "Mặc định: 10"
   },
   "modes": {

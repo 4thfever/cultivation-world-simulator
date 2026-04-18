@@ -33,8 +33,8 @@
   "placeholders": {
     "api_key": "Enter your API Key here (usually starts with sk-)",
     "base_url": "https://api.example.com/v1",
-    "normal_model": "e.g., gpt-4, claude-3-opus, qwen-plus",
-    "fast_model": "e.g., gpt-3.5-turbo, qwen-flash",
+    "normal_model": "e.g., gpt-4, claude-3-opus, qwen3.5-plus",
+    "fast_model": "e.g., gpt-3.5-turbo, qwen3.5-flash",
     "max_concurrent_requests": "Default: 10"
   },
   "modes": {

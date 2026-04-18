@@ -49,8 +49,8 @@ const presets = computed<LlmPreset[]>(() => [
   {
     name: t('llm.presets.qwen'),
     base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-    model_name: 'qwen-plus',
-    fast_model_name: 'qwen-flash',
+    model_name: 'qwen3.5-plus',
+    fast_model_name: 'qwen3.5-flash',
     api_format: 'openai',
     badge: 'recommended'
   },
@@ -383,7 +383,7 @@ onMounted(() => {
             <h4>{{ t('llm.help.q2_title') }}</h4>
             <div class="model-cards">
               <div class="card">
-                <h5>Qwen-Plus / Fast</h5>
+                <h5>Qwen 3.5 Plus / Flash</h5>
                 <p>{{ t('llm.help.q2_qwen') }}</p>
               </div>
               <div class="card">

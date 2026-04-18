@@ -33,8 +33,8 @@
   "placeholders": {
     "api_key": "ここに API Key を入力してください（通常は sk- で始まります）",
     "base_url": "https://api.example.com/v1",
-    "normal_model": "例: gpt-4, claude-3-opus, qwen-plus",
-    "fast_model": "例: gpt-3.5-turbo, qwen-flash",
+    "normal_model": "例: gpt-4, claude-3-opus, qwen3.5-plus",
+    "fast_model": "例: gpt-3.5-turbo, qwen3.5-flash",
     "max_concurrent_requests": "既定値: 10"
   },
   "modes": {

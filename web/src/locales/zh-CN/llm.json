@@ -33,8 +33,8 @@
   "placeholders": {
     "api_key": "在此填入你自己的 API Key (通常以 sk- 开头)",
     "base_url": "https://api.example.com/v1",
-    "normal_model": "例如: gpt-4, claude-3-opus, qwen-plus",
-    "fast_model": "例如: gpt-3.5-turbo, qwen-flash",
+    "normal_model": "例如: gpt-4, claude-3-opus, qwen3.5-plus",
+    "fast_model": "例如: gpt-3.5-turbo, qwen3.5-flash",
     "max_concurrent_requests": "默认: 10"
   },
   "modes": {
