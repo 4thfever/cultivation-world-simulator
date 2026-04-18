@@ -83,7 +83,7 @@ def _ensure_request_identity(request: SingleChoiceRequest) -> SingleChoiceReques
         avatar_id = str(getattr(request.avatar, "id", getattr(request.avatar, "name", "avatar")))
         request.request_id = f"choice-{avatar_id}-{int(asyncio.get_running_loop().time() * 1000)}"
     if not request.title:
-        request.title = f"{getattr(request.avatar, 'name', 'Avatar')} needs to choose"
+        request.title = f"{getattr(request.avatar, 'name', '角色')} 需要做出选择"
     if not request.description:
         request.description = request.situation
     return request

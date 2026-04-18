@@ -199,4 +199,36 @@ describe('avatarApi', () => {
       selected_key: 'ACCEPT',
     })
   })
+
+  it('posts roleplay conversation messages', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', messages: [], reply: '回应' })
+
+    await avatarApi.sendRoleplayConversation({
+      avatar_id: 'avatar_1',
+      request_id: 'req_conv_1',
+      message: '你好',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/roleplay/conversation/send', {
+      avatar_id: 'avatar_1',
+      request_id: 'req_conv_1',
+      message: '你好',
+    })
+  })
+
+  it('posts roleplay conversation end requests', async () => {
+    const { avatarApi } = await import('@/api/modules/avatar')
+    postMock.mockResolvedValue({ status: 'ok', summary: '二人谈笑风生。' })
+
+    await avatarApi.endRoleplayConversation({
+      avatar_id: 'avatar_1',
+      request_id: 'req_conv_1',
+    })
+
+    expect(postMock).toHaveBeenCalledWith('/api/v1/command/roleplay/conversation/end', {
+      avatar_id: 'avatar_1',
+      request_id: 'req_conv_1',
+    })
+  })
 })

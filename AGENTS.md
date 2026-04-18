@@ -23,7 +23,7 @@
 1. 本文件作用域：仓库根目录及其全部子目录。
 2. 当前仓库暂无更深层级的 `AGENTS.md` 或 `AGENTS.override.md`，因此本文件是项目级主说明。
 3. 指令来源：`.cursor/rules/*.mdc`、`.cursor/skills/*/SKILL.md`、`.cursor/commands/*.md`。
-4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`。
+4. 补充设计文档：`docs/specs/*.md` 中记录已经落地的重要系统设计；配置系统请优先参考 `docs/specs/config-architecture.md`，小故事系统请优先参考 `docs/specs/story-event-system.md`，角色扮演模式请优先参考 `docs/specs/avatar-roleplay-mode.md` 与 `docs/specs/single-choice-unified-framework.md`。
 5. 外接控制 API 的服务端当前已经完成一轮模块化收口；优先参考 `docs/specs/external-control-api.md` 中的“当前落地后的服务端模块地图”，不要再把 query builder、command handler、初始化 phase 或宿主装配重新堆回 `src/server/main.py`。
 
 ## 3. `.cursor/rules` 沉淀
@@ -43,6 +43,7 @@
 | `.cursor/rules/frontend.mdc` | `web/src/**/*.{vue,ts,js}` | 后端驱动架构、Store 职责边界、根层 UI 采用 `scene + overlay`、启动状态机集中在 `useAppShell`、系统菜单采用壳层/内容层/流程层拆分、Socket 分层、`shallowRef`/长列表性能策略、容器尺寸统一用 `useElementSize()`；前端 `public` 资源禁止写死站点根绝对路径，必须走 `BASE_URL` helper 或 `src/assets` 模块导入。 |
 | `.cursor/rules/i18n-phase1.mdc` | `*.py`, `*.vue`, `*.json`, `*.po` | 当前默认仍是 Phase 1：日常功能开发优先只改 `zh-CN`；但若任务被明确提升为 Phase 2 / 正式多语言补全 / 新增语言接入，则应按 `static/locales/registry.json` 中启用语言统一处理（可包含 `ja-JP`）；i18n 源文件优先维护 `modules/` 与 `game_configs_modules/`，`LC_MESSAGES/*.po` 属于合并产物；`.po` 中 `msgid` 不得直接使用中文。 |
 | `.cursor/rules/llm-integration.mdc` | `src/utils/llm/**/*.py`, `src/**/*.py` | 统一走 `src.utils.llm.client`，按场景选 `LLMMode`，重试交给底层，异常捕获 `LLMError/ParseError` 并降级。 |
+| `.cursor/rules/roleplay-mode.mdc` | `src/server/**/*.py`, `src/systems/single_choice/**/*.py`, `src/classes/mutual_action/**/*.py`, `src/sim/**/*.py`, `web/src/components/game/**/*.vue`, `web/src/stores/roleplay.ts`, `web/src/api/modules/avatar.ts`, `web/src/types/api.ts`, `tests/test_public_api_v1.py`, `tests/test_single_choice.py`, `tests/test_action_social.py`, `tests/test_mutual_actions.py`, `web/src/__tests__/components/game/**/*.test.ts`, `docs/specs/avatar-roleplay-mode.md`, `docs/specs/single-choice-unified-framework.md` | 默认仍是上帝视角；扮演态是单角色 runtime 接管；只在决策边界暂停；二期优先重构 `single_choice` 为统一有限决策框架；三期对话必须依附 `Conversation` 动作，原始聊天记录不进存档。 |
 | `.cursor/rules/python-registry.mdc` | `src/classes/**/*.py` | 使用注册装饰器的新类，必须在对应 `__init__.py` 导入，否则注册不生效；同时要补注册测试。 |
 | `.cursor/rules/save-load-serialization.mdc` | `src/sim/save/**/*.py`, `src/sim/load/**/*.py`, `src/classes/**/*.py` | 存档只保存 JSON 基础类型，跨对象引用只存 ID；复杂类序列化拆到 Mixin；加载侧以当前模型清晰为准，旧存档迁就服从 `development-phase.mdc`（零代价可 `.get`，不买单不双轨）。 |
 | `.cursor/rules/simulator-logic.mdc` | `src/sim/simulator.py`, `src/sim/**/*.py` | 相位优先拆为 `simulator_engine/phases` 中的独立函数，`step()` 只做编排；共享状态走 `SimulationStepContext`；新相位需重排索引；LLM/重计算相位异步化；死亡结算后维护 `living_avatars`；收尾统一走 `finalizer.finalize_step()`。 |
@@ -78,6 +79,10 @@
 23. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
 24. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
 25. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
+26. 角色扮演模式默认是“上帝视角下的单角色接管”，不是独立全局模式；实现时不要再把“个人模式”和“上帝模式”分成两套系统。
+27. 扮演态、`pending_request`、`conversation_session`、choice continuation 全部属于 runtime；不得写入存档，也必须在 `load/reinit/reset/start` 后显式清空。
+28. 角色扮演只允许在决策边界暂停，禁止中途打断动作链；二期有限选择必须优先走统一 choice resolver / continuation，不要在业务场景里散落 `if roleplay ... else ...`。
+29. 三期自由对话必须依附 `Conversation` 动作触发，采用“玩家一侧输入、目标角色由 LLM 回复”的单边接管模式；原始聊天记录不进长期事件流，只以 summary 落地。
 
 ## 4. `.cursor/skills` 沉淀
 
@@ -87,6 +92,7 @@
 | `external-control-api` | 规划或实现面向外部 agent / Claw 的稳定控制 API | 先梳理现有 query/command 与 `main.py`/`game_instance` 耦合 -> 明确 runtime/service/API 分层与 v1 命名空间 -> 优先做 mutation 串行化和稳定 DTO/错误码 -> 最后同步 README / `docs/specs/external-control-api.md` / `AGENTS.md`。 |
 | `git-pr` | 创建规范 PR | 从 `main` 拉新分支，标准 commit type，push 后 `gh pr create`，遵守 PR 模板。 |
 | `i18n-development` | 日常 i18n 开发 | 在拆分 `.po` 维护条目，优先修改 `modules/` / `game_configs_modules/`，语言列表与新增语言流程以 `static/locales/registry.json` 为准，避免直接改 `LC_MESSAGES/*.po`，改完必须 `build_mo.py`。 |
+| `roleplay-mode-implementation` | 规划、实现或重构角色扮演模式 | 先核对属于一期/二期/三期哪一层 -> 对照 `avatar-roleplay-mode.md` 与 `single-choice-unified-framework.md` -> 保持“上帝视角下单角色接管、只在决策边界暂停、runtime 不进存档” -> 再落到 runtime/API/frontend/test。 |
 | `spec-interview` | 需求访谈后产出 spec | 多轮提问澄清隐含约束与风险，最后落地到 `docs/specs/<feature>.md`。 |
 | `test-validate` | 测试执行参考 | 后端 `pytest`、前端 `npm run test/type-check`、变更类型对应测试策略。 |
 
@@ -97,6 +103,7 @@
 | `.cursor/commands/pack_to_github.md` | `/pack_to_github` | 依次执行 GitHub 打包流程：`pack_github.ps1` -> `compress.ps1` -> `release.ps1`。 |
 | `.cursor/commands/pack_to_steam.md` | `/pack_to_steam` | 依次执行 Steam 打包流程：`pack_steam.ps1` -> `upload_steam.ps1`（需人工输密码）。 |
 | `.cursor/commands/sync_contributors.md` | `/sync_contributors` | 从 GitHub contributors API 同步仓库贡献者，并自动更新根目录 `CONTRIBUTORS.md`。 |
+| `.cursor/commands/sync_roleplay_docs.md` | `/sync_roleplay_docs` | 同步角色扮演模式相关的 rule / skill / spec / AGENTS / 测试收尾，重点核对上帝视角单角色接管、决策边界暂停、runtime 不进存档、choice continuation 与 `Conversation` 对话语义。 |
 | `.cursor/commands/sync_readme.md` | `/sync_readme` | 以 `README.md` 为源，按 `static/locales/registry.json` 中需同步语言，更新 `docs/readme/` 下各 `*_README.md`。 |
 | `.cursor/commands/update_version.md` | `/update_version` | 打 tag、更新 `static/config.yml` 版本并提交。 |
 | `.cursor/commands/sync_agents.md` | `/sync_agents` | 重新扫描 `.cursor` 并更新根目录 `AGENTS.md`（本次新增）。 |
@@ -126,3 +133,5 @@
 2. `.cursor/skills/*/SKILL.md`
 3. `.cursor/commands/*.md`
 4. `docs/specs/story-event-system.md`
+5. `docs/specs/avatar-roleplay-mode.md`
+6. `docs/specs/single-choice-unified-framework.md`

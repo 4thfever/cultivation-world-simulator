@@ -84,7 +84,9 @@ class Conversation(MutualAction):
         处理 LLM 返回的对话结果，包括对话内容和关系变化。
         Conversation 不需要响应事件（RESPONSE_ACTIONS 为空），直接生成内容。
         """
+        thinking = str(result.get("thinking", "")).strip()
         conversation_content = str(result.get("conversation_content", "")).strip()
+        target.thinking = thinking
 
         # 使用开始时间戳
         month_stamp = self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp
@@ -106,20 +108,71 @@ class Conversation(MutualAction):
         return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
 
     def step(self, target_avatar: "Avatar|str", **kwargs) -> ActionResult:
-        """调用通用异步 step 逻辑"""
-        return super().step(target_avatar=target_avatar)
+        """玩家扮演时转入 runtime 对话会话，否则复用原有异步 LLM 对话逻辑。"""
+        target = self._get_target_avatar(target_avatar)
+        if target is None or self._is_dead_avatar(target):
+            return ActionResult(status=ActionStatus.FAILED, events=[])
+
+        runtime = getattr(self.world, "runtime", None)
+        if runtime is None:
+            return super().step(target_avatar=target_avatar)
+        from src.server.services.roleplay_service import begin_roleplay_conversation, is_player_controlled_avatar
+        if not is_player_controlled_avatar(avatar=self.avatar):
+            return super().step(target_avatar=target_avatar)
+
+        session = runtime.get_roleplay_session()
+        conversation_session = session.get("conversation_session") or {}
+        is_matching_session = (
+            str(conversation_session.get("avatar_id") or "") == str(self.avatar.id)
+            and str(conversation_session.get("target_avatar_id") or "") == str(target.id)
+        )
+
+        if is_matching_session and str(conversation_session.get("status") or "") == "completed":
+            summary_payload = conversation_session.get("last_summary") or {}
+            summary_text = str(summary_payload.get("summary", "") or "").strip()
+            relation_hint = str(summary_payload.get("relation_hint", "") or "").strip()
+            story_hint = str(summary_payload.get("story_hint", "") or "").strip()
+            target.thinking = str(conversation_session.get("last_ai_thinking", "") or "")
+            events_to_return = []
+            if summary_text:
+                event = Event(
+                    self._start_month_stamp if self._start_month_stamp is not None else self.world.month_stamp,
+                    summary_text,
+                    related_avatars=[self.avatar.id, target.id],
+                )
+                self._conversation_result_text = summary_text
+                self._conversation_relation_hint = relation_hint
+                self._conversation_story_hint = story_hint
+                self._conversation_target = target
+                events_to_return.append(event)
+            session["conversation_session"] = None
+            session["pending_request"] = None
+            if str(session.get("status") or "") != "inactive":
+                session["status"] = "observing"
+            return ActionResult(status=ActionStatus.COMPLETED, events=events_to_return)
+
+        if not is_matching_session:
+            begin_roleplay_conversation(runtime, avatar=self.avatar, target_avatar=target)
+
+        return ActionResult(status=ActionStatus.RUNNING, events=[])
 
     async def finish(self, target_avatar: "Avatar|str") -> list[Event]:
         target = getattr(self, "_conversation_target", None) or self._get_target_avatar(target_avatar)
         result_text = getattr(self, "_conversation_result_text", "")
+        relation_hint = str(getattr(self, "_conversation_relation_hint", "") or "").strip()
+        story_hint = str(getattr(self, "_conversation_story_hint", "") or "").strip()
         if target is None or not result_text:
             return []
+
+        relation_resolution_text = result_text
+        if relation_hint:
+            relation_resolution_text = f"{result_text}\n[relation_hint={relation_hint}]"
 
         a_to_b, b_to_a = await RelationDeltaService.resolve_event_text_delta(
             action_key="conversation",
             avatar_a=self.avatar,
             avatar_b=target,
-            event_text=result_text,
+            event_text=relation_resolution_text,
         )
         RelationDeltaService.apply_bidirectional_delta(self.avatar, target, a_to_b, b_to_a)
 
@@ -130,6 +183,7 @@ class Conversation(MutualAction):
             result_text=result_text,
             actors=[self.avatar, target],
             related_avatar_ids=[self.avatar.id, target.id],
+            prompt=story_hint,
             allow_relation_changes=False,
         )
         return [story_event] if story_event is not None else []

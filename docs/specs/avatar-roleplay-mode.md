@@ -230,6 +230,8 @@
 - 玩家可以在对话上下文中扮演角色进行自由发言。
 - 可连续多轮交互，直到玩家主动结束。
 - 对话结果最终压缩为抽象叙述事件，而不是把全部原始聊天记录灌入长期事件流。
+- 对话必须依附现有 `Conversation` 动作触发，不新增“脱离世界动作语义的自由聊天入口”。
+- 对话中只有玩家扮演侧由玩家输入，另一侧仍由 LLM 回复。
 
 ### 三期必须新增的能力
 
@@ -245,6 +247,7 @@
 - 叙述化 summary；
 - 相关角色 ID；
 - 必要的情绪/关系/后续动作影响。
+- 可选的故事扩展事件；
 
 不建议长期保存原始逐轮对话文本到事件存储中，以避免：
 
@@ -269,6 +272,7 @@
 - `pending_request: dict | None`
 - `started_at: float | None`
 - `last_prompt_context: dict | None`
+- `conversation_session: dict | None`
 
 语义：
 
@@ -278,6 +282,30 @@
 - `awaiting_choice`：二期选项等待中。
 - `conversing`：三期自由对话会话中。
 - `submitting`：前端已提交，服务端正在解析或装载结果。
+
+### 6.1.1 三期对话会话态
+
+建议在 `RoleplaySession` 中新增运行时字段：
+
+- `conversation_session`
+
+建议字段：
+
+- `session_id`
+- `request_id`
+- `avatar_id`
+- `target_avatar_id`
+- `initiator_avatar_id`
+- `status: awaiting_player | generating_reply | awaiting_continue | completed | cancelled`
+- `messages`
+- `started_at`
+- `last_summary`
+
+语义要求：
+
+- 该结构是纯 runtime 状态，不写入 world，不写入 save；
+- `messages` 保存本次会话逐轮聊天记录，仅用于本轮对话上下文和结束后的 summary；
+- `last_summary` 仅作为本轮结束态的临时缓存，不作为长期事实来源。
 
 ### 6.2 暂停原因
 
@@ -313,10 +341,13 @@
 - `request_id`
 - `type: decision | choice | conversation`
 - `avatar_id`
+- `target_avatar_id`
 - `title`
 - `description`
 - `context`
 - `options`
+- `messages`
+- `can_end`
 - `created_at`
 
 其中：
@@ -324,6 +355,12 @@
 - `decision` 对应一期文本输入；
 - `choice` 对应二期按钮选择；
 - `conversation` 对应三期会话输入。
+
+三期约束：
+
+- `conversation` 请求必须绑定一个已经进入中的 `Conversation` 动作；
+- 不允许前端脱离动作链凭空创建自由聊天会话；
+- `messages` 仅用于前端渲染当前会话，不进入正式事件存储。
 
 ### 6.4 通用有限决策请求
 
@@ -582,40 +619,122 @@
 
 ## 9. 三期详细流程
 
-### 9.1 对话会话启动
+### 9.1 触发原则
 
-当系统判断当前场景进入自由对话时：
+三期对话必须依附现有 `Conversation` 动作触发。
+
+不建议新增“玩家点一个按钮就和任意角色自由聊天”的独立入口。  
+原因：
+
+1. `Conversation` 已经是世界中的正式动作语义；
+2. 这样可以保持动作链、事件、关系变化、故事系统语义一致；
+3. 可以避免“UI 上发生了聊天，但世界里并没有对应动作”的割裂。
+
+因此推荐路径是：
+
+1. 玩家通过一期文本决策或二期有限响应，让角色执行 `Talk` / `Conversation` 相关动作；
+2. 当动作链推进到 `Conversation` 时：
+   - 若当前不是玩家扮演：沿用现有 AI 对话逻辑；
+   - 若当前是玩家扮演：进入三期 `conversation` 型 request；
+3. 对话结束后，`Conversation` 动作完成并进入结算。
+
+### 9.2 对话会话启动
+
+当 `Conversation` 动作检测到“当前对话主体是玩家扮演角色”时：
 
 1. 创建 `RoleplayPromptRequest(type=conversation)`；
-2. 构建对话上下文；
+2. 构建 `conversation_session`；
 3. 进入 `conversing` 状态；
-4. 世界暂停。
+4. 世界暂停；
+5. 底部 dock 切换为 chat 界面。
 
-### 9.2 多轮聊天
+### 9.3 多轮聊天
 
-多轮对话会话期间：
+多轮对话期间采用“玩家一侧输入，目标角色由 LLM 回复”的单边接管模式。
 
-- 玩家可以连续输入多句；
-- 对方回应由 LLM 或既有对话逻辑生成；
-- 每轮记录到临时会话缓存；
-- 不直接把每句话都写成正式事件。
+这意味着：
 
-### 9.3 结束对话
+- 玩家只控制当前扮演角色的发言；
+- 对方角色不由玩家代打，不支持双边手动输入；
+- 每次玩家发送一句，系统生成目标角色一句回复；
+- 逐轮追加到 runtime `messages`；
+- 原始消息不直接写入正式事件系统。
 
-结束方式可包括：
+### 9.4 三期 prompt 设计
 
-- 玩家主动点“结束对话”；
-- 系统判断对话自然结束；
-- 场景因对象失效或其他事件被迫终止。
+三期需要单独的 conversation prompt，不建议复用一期开放式动作规划 prompt。
+
+建议 prompt 上下文至少分四段：
+
+1. 双方角色信息
+   - 姓名、境界、立场、关系、当前状态、近期目标
+2. 历史交互摘要
+   - 近期共同事件
+   - 关系变化
+   - 之前重要往来
+3. 本次对话上下文
+   - 谁发起
+   - 为什么开始
+   - 所在地点
+   - 当前时间
+4. 本轮前文
+   - 最近若干轮 message history
+
+建议 LLM 输出固定结构：
+
+- `reply_content`
+- `speaker_thinking`
+- `conversation_state`
+- `summary_hint`
+- `relation_hint`
+
+额外约束：
+
+- LLM 不能主动结束会话；
+- 会话结束权只属于玩家显式点击“结束对话”；
+- 若 LLM 认为话题已尽，可通过 `conversation_state` 或 `summary_hint` 表达“适合收尾”，但不得直接终止。
+
+### 9.5 结束对话
+
+结束权以玩家为准。
+
+允许的结束方式：
+
+- 玩家主动点击“结束对话”；
+- 目标角色失效、死亡、离场等导致被迫中断。
+
+不允许：
+
+- LLM 自主判定并结束对话。
 
 结束后：
 
 1. 调用 summary 服务；
-2. 生成叙述型事件文本；
-3. 写入事件管理器；
-4. 必要时同步关系变化、情绪影响、后续动作提示；
+2. 生成摘要事件；
+3. 可选生成关系变化 hint；
+4. 可选生成故事扩展事件；
 5. 清空临时对话缓存；
-6. 恢复 `observing` 或退出扮演。
+6. 恢复 `observing` 或继续后续动作链。
+
+### 9.6 Summary 设计
+
+三期 summary 服务建议输出三层结果：
+
+1. `conversation_brief_summary`
+   - 面向事件栏
+   - 一至两句叙述文本
+2. `conversation_relation_hint`
+   - 面向关系变化计算
+   - 可以是结构化 hint
+3. `conversation_story_hint`
+   - 面向后续小故事扩展
+   - 可选
+
+其中：
+
+- 正式事件流至少写入 `conversation_brief_summary`；
+- 原始聊天记录不进入长期事件存储；
+- summary 本身也不要求进存档，最终长期事实以入库后的事件和关系变化结果为准。
 
 ## 10. 后端架构建议
 
@@ -690,13 +809,21 @@
 三期建议额外新增：
 
 - `src/server/services/roleplay_conversation_summary.py`
+- `src/server/services/roleplay_conversation_service.py`
 
 职责：
 
-- 接收临时对话轮次；
-- 输出叙述型事件文本；
-- 控制摘要长度与风格；
-- 不直接耦合 UI 层。
+- `roleplay_conversation_service.py`
+  - 创建 / 读取 / 推进 `conversation_session`
+  - 处理玩家发送发言
+  - 调用 LLM 生成目标角色回复
+  - 在结束时触发 summary
+- `roleplay_conversation_summary.py`
+  - 接收临时对话轮次
+  - 输出叙述型事件文本
+  - 控制摘要长度与风格
+  - 提供关系 / 故事 hint
+  - 不直接耦合 UI 层
 
 ## 11. API 设计建议
 
@@ -789,11 +916,25 @@
 - `avatar_id`
 - `message`
 
+行为：
+
+- 将玩家本轮发言追加到 `conversation_session`
+- 调用 conversation prompt 生成目标角色回复
+- 返回最新消息列表或最新增量消息
+- 维持世界暂停
+
 ### `POST /api/v1/command/roleplay/conversation/end`
 
 三期使用：
 
 - 主动结束对话并触发 summary。
+
+行为：
+
+- 仅允许玩家显式触发；
+- 触发 summary；
+- 完成 `Conversation` 动作；
+- 清空 runtime 对话缓存。
 
 ## 11.3 错误码建议
 
@@ -820,10 +961,9 @@
 主要职责：
 
 - 显示当前是否可进入扮演；
-- 显示进入/退出按钮；
-- 显示强提示；
-- 显示文本输入框或选项按钮；
-- 显示该角色局部事件流。
+- 显示进入/退出按钮。
+
+三期的主要交互面不再放在 avatar info panel 内，而是继续使用主界面底部 dock。
 
 ## 12.2 Store
 
@@ -861,7 +1001,38 @@
 - “世界已暂停，等待你的操作”；
 - 明确的提交入口。
 
-这层强提示可作为 overlay，而不是只在小输入框里隐性呈现。
+一期二期可用 dock 顶部状态栏承担强提示；三期对话期间则由 chat 头部承担。
+
+### 12.5 三期对话 UI
+
+三期不建议新开弹窗或独立页面，继续复用当前底部 `RoleplayDock`。
+
+建议在 dock 中新增第三种模式：
+
+- `decision`
+- `choice`
+- `conversation`
+
+其中 `conversation` 模式建议采用 chat 布局：
+
+1. 顶部一行
+   - 当前角色
+   - 对话对象
+   - 当前状态
+   - “结束对话”按钮
+2. 中部主区
+   - 消息流
+   - 左右区分说话双方
+3. 底部输入区
+   - 输入框
+   - 发送按钮
+
+界面约束：
+
+- 信息密度优先，不做大面积空白区；
+- 顶部工具栏保持紧凑；
+- 对话进行中可以同时显示 chat 与事件摘要区，但 chat 是主内容区；
+- 会话结束后 dock 恢复普通事件流视图。
 
 ## 13. 读档、存档与生命周期
 
@@ -1023,6 +1194,9 @@
 4. 文本提交成功后输入框清空并收起等待态。
 5. roleplay 局部事件流正确按 avatar_id 加载。
 6. load game 后 roleplay store 自动重置。
+7. 三期 conversation request 能正确渲染 chat UI。
+8. 玩家发送一轮消息后会出现 LLM 回复。
+9. 点击结束对话后会关闭 conversation 状态并恢复普通事件流。
 
 ## 17. 分期落地建议
 
@@ -1066,9 +1240,12 @@
 
 做三期：
 
+- 以 `Conversation` 动作为唯一触发入口接入玩家对话
 - conversation session
-- summary service
+- conversation prompt
+- conversation summary service
 - 对话 UI
+- 关系 / 故事 hint 结算
 
 ## 18. 结论
 
@@ -1079,6 +1256,53 @@
 - 只在决策边界暂停世界等待玩家；
 - 一期做文本决策；
 - 二期先做通用有限决策框架，再在其上承载选项与邀约响应；
-- 三期做自由对话与摘要入事件。
+- 三期继续依附 `Conversation` 动作实现玩家自由对话，并以 summary 入事件。
 
 这条路线对现有架构最友好，也最符合当前仓库已经成型的 runtime / public v1 API / 事件系统 / 动作链体系。
+
+## 19. 三期最终拍板结论
+
+本轮需求确认后，三期按以下结论执行：
+
+1. 对话必须依附现有 `Conversation` 动作触发，不新增独立自由聊天入口。
+2. 对话采用“玩家说一句，目标角色由 LLM 回一句”的单边接管模式。
+3. 结束权以玩家为准，LLM 不能主动结束对话。
+4. 原始聊天记录不进存档；对话会话态完全属于 runtime。
+5. Summary 可以输出“摘要事件 + 关系 hint + 可选故事扩展”三层结果。
+6. 底部 dock 在对话进行中允许同时展示 chat 与事件区域，但应以 chat 为主。
+
+## 20. 三期实现计划
+
+建议按以下顺序落地：
+
+### 20.1 后端 runtime 与协议层
+
+- 扩展 `RoleplaySession` 支持 `conversation_session`
+- 扩展 `RoleplayPromptRequest(type=conversation)`
+- 扩展 runtime status / query DTO
+- 新增 conversation send / end command
+
+### 20.2 动作层接入
+
+- 以 `Conversation` 动作为唯一入口
+- 非扮演角色继续走现有自动对话逻辑
+- 扮演角色进入 `conversation_session`
+
+### 20.3 LLM 层
+
+- 新增 conversation prompt
+- 新增 conversation summary prompt
+- 先实现稳定的“玩家一句 -> LLM 一句 -> 玩家决定是否继续”
+
+### 20.4 前端层
+
+- 在 `RoleplayDock` 中新增 `conversation` 模式
+- 实现消息流、发送、结束对话
+- 对话结束后回切普通事件流
+
+### 20.5 测试层
+
+- 后端会话创建、推进、结束、失效
+- summary 入事件
+- reset/load/stop 后会话清空
+- 前端 dock chat 模式渲染与交互

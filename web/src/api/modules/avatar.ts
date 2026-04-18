@@ -107,5 +107,19 @@ export const avatarApi = {
       '/api/v1/command/roleplay/submit-choice',
       params,
     );
+  },
+
+  sendRoleplayConversation(params: { avatar_id: string; request_id: string; message: string }) {
+    return httpClient.post<{ status: string; message: string; messages: unknown[]; reply: string }>(
+      '/api/v1/command/roleplay/conversation/send',
+      params,
+    );
+  },
+
+  endRoleplayConversation(params: { avatar_id: string; request_id: string }) {
+    return httpClient.post<{ status: string; message: string; summary: string; relation_hint?: string; story_hint?: string }>(
+      '/api/v1/command/roleplay/conversation/end',
+      params,
+    );
   }
 };

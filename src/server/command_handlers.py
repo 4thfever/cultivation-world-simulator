@@ -58,6 +58,8 @@ def create_command_handlers(
     stop_roleplay,
     submit_roleplay_decision,
     submit_roleplay_choice,
+    submit_roleplay_conversation_turn,
+    end_roleplay_conversation,
 ):
     async def run_start_game(req) -> dict:
         run_config = RunConfig(**model_to_dict(req))
@@ -84,7 +86,9 @@ def create_command_handlers(
         return {"status": "ok", "message": "Game resumed"}
 
     async def run_start_roleplay(*, avatar_id: str) -> dict:
-        return await runtime.run_mutation(start_roleplay, runtime, avatar_id=avatar_id)
+        # Starting roleplay only mutates runtime session metadata, so it should
+        # not queue behind long-running world mutations like sim.step().
+        return start_roleplay(runtime, avatar_id=avatar_id)
 
     async def run_stop_roleplay(*, avatar_id: str | None) -> dict:
         return stop_roleplay(runtime, avatar_id=avatar_id)
@@ -104,6 +108,23 @@ def create_command_handlers(
             avatar_id=avatar_id,
             request_id=request_id,
             selected_key=selected_key,
+        )
+
+    async def run_send_roleplay_conversation(*, avatar_id: str, request_id: str, message: str) -> dict:
+        return await runtime.run_mutation(
+            submit_roleplay_conversation_turn,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
+            message=message,
+        )
+
+    async def run_end_roleplay_conversation(*, avatar_id: str, request_id: str) -> dict:
+        return await runtime.run_mutation(
+            end_roleplay_conversation,
+            runtime,
+            avatar_id=avatar_id,
+            request_id=request_id,
         )
 
     async def run_cleanup_events(*, keep_major: bool, before_month_stamp: int | None) -> dict:
@@ -257,4 +278,6 @@ def create_command_handlers(
         run_stop_roleplay=run_stop_roleplay,
         run_submit_roleplay_decision=run_submit_roleplay_decision,
         run_submit_roleplay_choice=run_submit_roleplay_choice,
+        run_send_roleplay_conversation=run_send_roleplay_conversation,
+        run_end_roleplay_conversation=run_end_roleplay_conversation,
     )

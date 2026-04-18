@@ -6,11 +6,14 @@ from typing import Any
 
 from fastapi import HTTPException
 
-from src.classes.actions import get_action_infos_str
-from src.classes.core.avatar.info_presenter import get_avatar_ai_context
 from src.classes.emotions import EmotionType
+from src.server.services.roleplay_action_display import build_roleplay_action_chain_display
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
+from src.utils.strings import to_json_str_with_intent
+
+
+_MAX_INTERACTION_HISTORY = 24
 
 
 def get_roleplay_session(runtime) -> dict[str, Any]:
@@ -19,7 +22,60 @@ def get_roleplay_session(runtime) -> dict[str, Any]:
     pending = session.get("pending_request")
     if isinstance(pending, dict):
         session["pending_request"] = dict(pending)
+    conversation_session = session.get("conversation_session")
+    if isinstance(conversation_session, dict):
+        session["conversation_session"] = dict(conversation_session)
+    history = session.get("interaction_history")
+    if isinstance(history, list):
+        copied_history: list[dict[str, Any]] = []
+        for item in history:
+            if not isinstance(item, dict):
+                continue
+            copied_item = dict(item)
+            actions = copied_item.get("actions")
+            if isinstance(actions, list):
+                copied_item["actions"] = [
+                    {
+                        **dict(action),
+                        "tokens": [dict(token) for token in action.get("tokens", []) if isinstance(token, dict)],
+                    }
+                    for action in actions
+                    if isinstance(action, dict)
+                ]
+            copied_history.append(copied_item)
+        session["interaction_history"] = copied_history
     return session
+
+
+def _append_interaction_history(runtime, record: dict[str, Any]) -> None:
+    session = runtime.get_roleplay_session()
+    history = session.get("interaction_history")
+    if not isinstance(history, list):
+        history = []
+        session["interaction_history"] = history
+
+    history.append({"created_at": time.time(), **record})
+    if len(history) > _MAX_INTERACTION_HISTORY:
+        del history[:-_MAX_INTERACTION_HISTORY]
+
+
+def _find_choice_option_text(pending: dict[str, Any], selected_key: str) -> str:
+    options = pending.get("options")
+    if isinstance(options, list):
+        for option in options:
+            if not isinstance(option, dict):
+                continue
+            if str(option.get("key") or "") != str(selected_key):
+                continue
+            title = str(option.get("title") or "").strip()
+            description = str(option.get("description") or "").strip()
+            if title and description:
+                return f"{title}：{description}"
+            if title:
+                return title
+            if description:
+                return description
+    return str(selected_key)
 
 
 def clear_roleplay_session(runtime) -> None:
@@ -27,6 +83,10 @@ def clear_roleplay_session(runtime) -> None:
 
 
 def is_player_controlled_choice_target(*, avatar) -> bool:
+    return is_player_controlled_avatar(avatar=avatar)
+
+
+def is_player_controlled_avatar(*, avatar) -> bool:
     runtime = getattr(getattr(avatar, "world", None), "runtime", None)
     if runtime is None or not hasattr(runtime, "get_roleplay_session"):
         return False
@@ -37,14 +97,14 @@ def is_player_controlled_choice_target(*, avatar) -> bool:
 def _require_world(runtime):
     world = runtime.get("world")
     if world is None:
-        raise HTTPException(status_code=503, detail="World not initialized")
+        raise HTTPException(status_code=503, detail="世界尚未初始化")
     return world
 
 
 def _find_avatar_or_raise(world, avatar_id: str):
     avatar = world.avatar_manager.get_avatar(avatar_id)
     if avatar is None:
-        raise HTTPException(status_code=404, detail="Avatar not found")
+        raise HTTPException(status_code=404, detail="目标角色不存在")
     return avatar
 
 
@@ -74,6 +134,28 @@ def _make_pending_choice_request(
         "title": title,
         "description": description,
         "options": options,
+        "created_at": time.time(),
+    }
+
+
+def _make_pending_conversation_request(
+    *,
+    avatar,
+    target_avatar,
+    request_id: str,
+    title: str,
+    description: str,
+    messages: list[dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "request_id": request_id,
+        "type": "conversation",
+        "avatar_id": str(avatar.id),
+        "target_avatar_id": str(target_avatar.id),
+        "title": title,
+        "description": description,
+        "messages": list(messages),
+        "can_end": True,
         "created_at": time.time(),
     }
 
@@ -123,7 +205,7 @@ def begin_roleplay_choice(
     session = runtime.get_roleplay_session()
     pending = session.get("pending_request")
     if pending is not None:
-        raise HTTPException(status_code=409, detail="Another roleplay request is already pending")
+        raise HTTPException(status_code=409, detail="已有待处理的扮演请求")
 
     request_id = str(getattr(request, "request_id", "") or f"roleplay-choice-{avatar.id}-{int(time.time() * 1000)}")
     request.request_id = request_id
@@ -185,13 +267,160 @@ def _build_prompt_context(avatar) -> dict[str, Any]:
     }
 
 
+def _build_conversation_history_payload(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    payload: list[dict[str, Any]] = []
+    for item in messages[-12:]:
+        payload.append(
+            {
+                "role": str(item.get("role", "")),
+                "speaker_name": str(item.get("speaker_name", "")),
+                "content": str(item.get("content", "")),
+            }
+        )
+    return payload
+
+
+def _build_fallback_conversation_reply(*, target_avatar, last_player_message: str) -> tuple[str, str]:
+    if not last_player_message.strip():
+        return "对方沉默片刻，没有立刻接话。", ""
+    return f"{target_avatar.name}略作思索，回应了对方的话题。", ""
+
+
+async def _generate_roleplay_conversation_reply(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
+    world = avatar.world
+    info = {
+        "avatar_name": avatar.name,
+        "target_avatar_name": target_avatar.name,
+        "world_info": to_json_str_with_intent(world.get_info(avatar=avatar, detailed=True)),
+        "avatar_infos": to_json_str_with_intent(
+            {
+                avatar.name: avatar.get_expanded_info(other_avatar=target_avatar, detailed=True),
+                target_avatar.name: target_avatar.get_info(detailed=True),
+            }
+        ),
+        "conversation_history": to_json_str_with_intent(_build_conversation_history_payload(messages)),
+    }
+    template_path = CONFIG.paths.templates / "roleplay_conversation_turn.txt"
+    try:
+        response = await call_llm_with_task_name("roleplay_conversation_turn", template_path, info)
+        payload = response.get(target_avatar.name, {}) if isinstance(response, dict) else {}
+        reply = str(payload.get("reply_content", payload.get("conversation_content", "")) or "").strip()
+        thinking = str(payload.get("speaker_thinking", payload.get("thinking", "")) or "").strip()
+        if reply:
+            return {"reply_content": reply, "speaker_thinking": thinking}
+    except Exception:
+        pass
+
+    last_player_message = str(messages[-1].get("content", "") if messages else "")
+    fallback_reply, fallback_thinking = _build_fallback_conversation_reply(
+        target_avatar=target_avatar,
+        last_player_message=last_player_message,
+    )
+    return {
+        "reply_content": fallback_reply,
+        "speaker_thinking": fallback_thinking,
+    }
+
+
+def _build_fallback_conversation_summary(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
+    turns = max(sum(1 for item in messages if item.get("role") == "player"), 1)
+    summary = f"{avatar.name}与{target_avatar.name}进行了一番交谈，来回交流了{turns}轮，彼此对当下话题都有了新的印象。"
+    return {
+        "summary": summary,
+        "relation_hint": "",
+        "story_hint": "",
+    }
+
+
+async def _summarize_roleplay_conversation(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
+    world = avatar.world
+    info = {
+        "avatar_name": avatar.name,
+        "target_avatar_name": target_avatar.name,
+        "world_info": to_json_str_with_intent(world.get_info(avatar=avatar, detailed=True)),
+        "avatar_infos": to_json_str_with_intent(
+            {
+                avatar.name: avatar.get_expanded_info(other_avatar=target_avatar, detailed=True),
+                target_avatar.name: target_avatar.get_info(detailed=True),
+            }
+        ),
+        "conversation_history": to_json_str_with_intent(_build_conversation_history_payload(messages)),
+    }
+    template_path = CONFIG.paths.templates / "roleplay_conversation_summary.txt"
+    try:
+        response = await call_llm_with_task_name("roleplay_conversation_summary", template_path, info)
+        if isinstance(response, dict):
+            summary = str(response.get("summary", "") or "").strip()
+            relation_hint = str(response.get("relation_hint", "") or "").strip()
+            story_hint = str(response.get("story_hint", "") or "").strip()
+            if summary:
+                return {
+                    "summary": summary,
+                    "relation_hint": relation_hint,
+                    "story_hint": story_hint,
+                }
+    except Exception:
+        pass
+    return _build_fallback_conversation_summary(avatar=avatar, target_avatar=target_avatar, messages=messages)
+
+
+def begin_roleplay_conversation(runtime, *, avatar, target_avatar) -> dict[str, Any]:
+    session = runtime.get_roleplay_session()
+    pending = session.get("pending_request")
+    existing = session.get("conversation_session")
+    if isinstance(existing, dict):
+        if (
+            str(existing.get("avatar_id") or "") == str(avatar.id)
+            and str(existing.get("target_avatar_id") or "") == str(target_avatar.id)
+            and str(existing.get("status") or "") in {"awaiting_player", "awaiting_continue", "completed"}
+        ):
+            return dict(session)
+    if pending is not None:
+        raise HTTPException(status_code=409, detail="已有待处理的扮演请求")
+
+    request_id = f"roleplay-conversation-{avatar.id}-{target_avatar.id}-{int(time.time() * 1000)}"
+    title = f"{avatar.name} 与 {target_avatar.name} 对话中"
+    description = f"世界已暂停，等待你继续扮演 {avatar.name} 与 {target_avatar.name} 交谈。"
+    messages: list[dict[str, Any]] = []
+    session["controlled_avatar_id"] = str(avatar.id)
+    session["status"] = "conversing"
+    session["pending_request"] = _make_pending_conversation_request(
+        avatar=avatar,
+        target_avatar=target_avatar,
+        request_id=request_id,
+        title=title,
+        description=description,
+        messages=messages,
+    )
+    session["last_prompt_context"] = {
+        **_build_prompt_context(avatar),
+        "target_avatar_id": str(target_avatar.id),
+        "target_avatar_name": target_avatar.name,
+        "conversation_title": title,
+    }
+    session["conversation_session"] = {
+        "session_id": request_id,
+        "request_id": request_id,
+        "avatar_id": str(avatar.id),
+        "target_avatar_id": str(target_avatar.id),
+        "initiator_avatar_id": str(avatar.id),
+        "status": "awaiting_player",
+        "messages": messages,
+        "started_at": time.time(),
+        "last_summary": None,
+        "last_ai_thinking": "",
+    }
+    runtime.set_roleplay_auto_paused(True)
+    return dict(session)
+
+
 def start_roleplay(runtime, *, avatar_id: str) -> dict[str, Any]:
     world = _require_world(runtime)
     avatar = _find_avatar_or_raise(world, avatar_id)
     session = runtime.get_roleplay_session()
     current_avatar_id = session.get("controlled_avatar_id")
     if current_avatar_id and str(current_avatar_id) != str(avatar_id):
-        raise HTTPException(status_code=409, detail="Another avatar is already under roleplay control")
+        raise HTTPException(status_code=409, detail="已有其他角色正在被扮演")
 
     prompt_context = _build_prompt_context(avatar)
     if avatar.current_action is None and not avatar.has_plans():
@@ -203,7 +432,7 @@ def stop_roleplay(runtime, *, avatar_id: str | None = None) -> dict[str, Any]:
     session = runtime.get_roleplay_session()
     current_avatar_id = session.get("controlled_avatar_id")
     if avatar_id and current_avatar_id and str(current_avatar_id) != str(avatar_id):
-        raise HTTPException(status_code=409, detail="Roleplay target mismatch")
+        raise HTTPException(status_code=409, detail="扮演目标不匹配")
     runtime.clear_roleplay_session()
     return get_roleplay_session(runtime)
 
@@ -231,22 +460,32 @@ def maybe_request_roleplay_decision(world) -> bool:
 
 
 async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, command_text: str) -> dict[str, Any]:
+    from src.classes.actions import get_action_infos_str
+    from src.classes.core.avatar.info_presenter import get_avatar_ai_context
+
     world = _require_world(runtime)
     avatar = _find_avatar_or_raise(world, avatar_id)
     session = runtime.get_roleplay_session()
     pending = session.get("pending_request") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="Roleplay target mismatch")
+        raise HTTPException(status_code=409, detail="扮演目标不匹配")
     if str(session.get("status") or "") != "awaiting_decision":
-        raise HTTPException(status_code=409, detail="Roleplay is not waiting for a decision")
+        raise HTTPException(status_code=409, detail="当前不在等待扮演指令")
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="Roleplay request not found")
+        raise HTTPException(status_code=404, detail="扮演请求不存在或已失效")
     if not str(command_text or "").strip():
-        raise HTTPException(status_code=400, detail="Roleplay command text is required")
+        raise HTTPException(status_code=400, detail="请输入扮演指令")
 
     session["status"] = "submitting"
     command_text = str(command_text).strip()
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "command",
+            "text": command_text,
+        },
+    )
 
     observed = world.get_observable_avatars(avatar)
     info = {
@@ -276,7 +515,14 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
     if not pairs:
         session["status"] = "awaiting_decision"
         runtime.set_roleplay_auto_paused(True)
-        raise HTTPException(status_code=422, detail="No valid action plan generated from roleplay command")
+        _append_interaction_history(
+            runtime,
+            {
+                "type": "error",
+                "text": "未能从该指令生成有效行动计划",
+            },
+        )
+        raise HTTPException(status_code=422, detail="未能从扮演指令生成有效行动计划")
 
     avatar_thinking = str(payload.get("avatar_thinking", payload.get("thinking", "")) or command_text)
     short_term_objective = str(payload.get("short_term_objective", "") or command_text)
@@ -287,6 +533,13 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
         pass
 
     avatar.load_decide_result_chain(pairs, avatar_thinking, short_term_objective)
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "action_chain",
+            "actions": build_roleplay_action_chain_display(pairs),
+        },
+    )
     _set_observing(
         runtime,
         avatar_id=str(avatar.id),
@@ -309,22 +562,166 @@ async def submit_roleplay_choice(runtime, *, avatar_id: str, request_id: str, se
     pending = session.get("pending_request") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="Roleplay target mismatch")
+        raise HTTPException(status_code=409, detail="扮演目标不匹配")
     if str(session.get("status") or "") != "awaiting_choice":
-        raise HTTPException(status_code=409, detail="Roleplay is not waiting for a choice")
+        raise HTTPException(status_code=409, detail="当前不在等待扮演选择")
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="Roleplay request not found")
+        raise HTTPException(status_code=404, detail="扮演请求不存在或已失效")
 
     choice_future = session.get("_choice_future")
     if choice_future is None:
-        raise HTTPException(status_code=409, detail="Roleplay choice future not available")
+        raise HTTPException(status_code=409, detail="扮演选择状态异常，请重新触发")
     if hasattr(choice_future, "done") and choice_future.done():
-        raise HTTPException(status_code=409, detail="Roleplay choice request already resolved")
+        raise HTTPException(status_code=409, detail="该扮演选择已处理")
 
     session["status"] = "submitting"
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "choice",
+            "text": _find_choice_option_text(pending, str(selected_key)),
+        },
+    )
     choice_future.set_result(str(selected_key))
     return {
         "status": "ok",
         "message": "扮演选择已提交",
         "selected_key": str(selected_key),
+    }
+
+
+async def submit_roleplay_conversation_turn(runtime, *, avatar_id: str, request_id: str, message: str) -> dict[str, Any]:
+    world = _require_world(runtime)
+    avatar = _find_avatar_or_raise(world, avatar_id)
+    session = runtime.get_roleplay_session()
+    pending = session.get("pending_request") or {}
+    conversation_session = session.get("conversation_session") or {}
+
+    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
+        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+    if str(session.get("status") or "") != "conversing":
+        raise HTTPException(status_code=409, detail="当前不在扮演对话中")
+    if str(pending.get("request_id") or "") != str(request_id):
+        raise HTTPException(status_code=404, detail="扮演对话请求不存在或已失效")
+    if str(conversation_session.get("request_id") or "") != str(request_id):
+        raise HTTPException(status_code=404, detail="扮演对话会话不存在或已失效")
+    if not str(message or "").strip():
+        raise HTTPException(status_code=400, detail="请输入对话内容")
+
+    target_avatar = _find_avatar_or_raise(world, str(conversation_session.get("target_avatar_id") or ""))
+    session["status"] = "submitting"
+
+    messages = list(conversation_session.get("messages") or [])
+    player_message = {
+        "id": f"msg-player-{int(time.time() * 1000)}",
+        "role": "player",
+        "speaker_avatar_id": str(avatar.id),
+        "speaker_name": avatar.name,
+        "content": str(message).strip(),
+        "created_at": time.time(),
+    }
+    messages.append(player_message)
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "conversation_player",
+            "text": player_message["content"],
+        },
+    )
+
+    reply_payload = await _generate_roleplay_conversation_reply(
+        avatar=avatar,
+        target_avatar=target_avatar,
+        messages=messages,
+    )
+    reply_text = str(reply_payload.get("reply_content", "") or "").strip()
+    ai_thinking = str(reply_payload.get("speaker_thinking", "") or "").strip()
+    reply_message = {
+        "id": f"msg-target-{int(time.time() * 1000)}",
+        "role": "assistant",
+        "speaker_avatar_id": str(target_avatar.id),
+        "speaker_name": target_avatar.name,
+        "content": reply_text,
+        "created_at": time.time(),
+    }
+    messages.append(reply_message)
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "conversation_assistant",
+            "text": reply_text,
+        },
+    )
+
+    conversation_session["messages"] = messages
+    conversation_session["status"] = "awaiting_player"
+    conversation_session["last_ai_thinking"] = ai_thinking
+    pending["messages"] = list(messages)
+    session["pending_request"] = pending
+    session["conversation_session"] = conversation_session
+    session["status"] = "conversing"
+    session["last_prompt_context"] = {
+        **(session.get("last_prompt_context") or {}),
+        "last_player_message": player_message["content"],
+        "last_target_reply": reply_text,
+    }
+    target_avatar.thinking = ai_thinking
+    runtime.set_roleplay_auto_paused(True)
+    return {
+        "status": "ok",
+        "message": "对话已更新",
+        "messages": list(messages),
+        "reply": reply_text,
+    }
+
+
+async def end_roleplay_conversation(runtime, *, avatar_id: str, request_id: str) -> dict[str, Any]:
+    world = _require_world(runtime)
+    avatar = _find_avatar_or_raise(world, avatar_id)
+    session = runtime.get_roleplay_session()
+    pending = session.get("pending_request") or {}
+    conversation_session = session.get("conversation_session") or {}
+
+    if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
+        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+    if str(session.get("status") or "") != "conversing":
+        raise HTTPException(status_code=409, detail="当前不在扮演对话中")
+    if str(pending.get("request_id") or "") != str(request_id):
+        raise HTTPException(status_code=404, detail="扮演对话请求不存在或已失效")
+    if str(conversation_session.get("request_id") or "") != str(request_id):
+        raise HTTPException(status_code=404, detail="扮演对话会话不存在或已失效")
+
+    target_avatar = _find_avatar_or_raise(world, str(conversation_session.get("target_avatar_id") or ""))
+    messages = list(conversation_session.get("messages") or [])
+    summary_payload = await _summarize_roleplay_conversation(
+        avatar=avatar,
+        target_avatar=target_avatar,
+        messages=messages,
+    )
+    summary_text = str(summary_payload.get("summary", "") or "").strip()
+    _append_interaction_history(
+        runtime,
+        {
+            "type": "conversation_summary",
+            "text": summary_text,
+        },
+    )
+
+    conversation_session["status"] = "completed"
+    conversation_session["last_summary"] = dict(summary_payload)
+    session["conversation_session"] = conversation_session
+    session["pending_request"] = None
+    session["status"] = "observing"
+    session["last_prompt_context"] = {
+        **(session.get("last_prompt_context") or {}),
+        "last_conversation_summary": summary_text,
+        "target_avatar_name": target_avatar.name,
+    }
+    runtime.set_roleplay_auto_paused(False)
+    return {
+        "status": "ok",
+        "message": "对话已结束",
+        "summary": summary_text,
+        "relation_hint": str(summary_payload.get("relation_hint", "") or ""),
+        "story_hint": str(summary_payload.get("story_hint", "") or ""),
     }

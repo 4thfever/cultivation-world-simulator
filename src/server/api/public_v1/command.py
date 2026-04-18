@@ -102,6 +102,17 @@ class RoleplaySubmitChoiceRequest(BaseModel):
     selected_key: str
 
 
+class RoleplayConversationSendRequest(BaseModel):
+    avatar_id: str
+    request_id: str
+    message: str
+
+
+class RoleplayConversationEndRequest(BaseModel):
+    avatar_id: str
+    request_id: str
+
+
 def create_public_command_router(
     *,
     run_start_game: Callable[[BaseModel], object],
@@ -127,6 +138,8 @@ def create_public_command_router(
     run_stop_roleplay: Callable[..., object],
     run_submit_roleplay_decision: Callable[..., object],
     run_submit_roleplay_choice: Callable[..., object],
+    run_send_roleplay_conversation: Callable[..., object],
+    run_end_roleplay_conversation: Callable[..., object],
 ) -> APIRouter:
     router = APIRouter()
 
@@ -241,6 +254,25 @@ def create_public_command_router(
                 avatar_id=req.avatar_id,
                 request_id=req.request_id,
                 selected_key=req.selected_key,
+            )
+        )
+
+    @router.post("/api/v1/command/roleplay/conversation/send")
+    async def send_roleplay_conversation_v1(req: RoleplayConversationSendRequest):
+        return ok_response(
+            await run_send_roleplay_conversation(
+                avatar_id=req.avatar_id,
+                request_id=req.request_id,
+                message=req.message,
+            )
+        )
+
+    @router.post("/api/v1/command/roleplay/conversation/end")
+    async def end_roleplay_conversation_v1(req: RoleplayConversationEndRequest):
+        return ok_response(
+            await run_end_roleplay_conversation(
+                avatar_id=req.avatar_id,
+                request_id=req.request_id,
             )
         )
 

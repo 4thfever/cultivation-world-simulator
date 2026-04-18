@@ -145,6 +145,8 @@ def configure_routes_and_mounts(
     run_stop_roleplay,
     run_submit_roleplay_decision,
     run_submit_roleplay_choice,
+    run_send_roleplay_conversation,
+    run_end_roleplay_conversation,
     assets_path: str,
     web_dist_path: str,
     is_dev_mode: bool,
@@ -217,6 +219,8 @@ def configure_routes_and_mounts(
             run_stop_roleplay=run_stop_roleplay,
             run_submit_roleplay_decision=run_submit_roleplay_decision,
             run_submit_roleplay_choice=run_submit_roleplay_choice,
+            run_send_roleplay_conversation=run_send_roleplay_conversation,
+            run_end_roleplay_conversation=run_end_roleplay_conversation,
         )
     )
 

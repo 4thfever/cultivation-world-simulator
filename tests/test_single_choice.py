@@ -1,4 +1,5 @@
 import asyncio
+from fastapi import HTTPException
 import pytest
 from unittest.mock import AsyncMock, Mock, patch
 
@@ -256,3 +257,45 @@ async def test_roleplay_choice_waits_for_player_submission_and_resumes():
     assert outcome.action == ItemDisposition.SOLD_NEW
     assert outcome.decision.source == ChoiceSource.PLAYER_ROLEPLAY
     assert avatar.sell_weapon.assert_called_once_with(new_weapon) is None
+
+
+def test_roleplay_choice_conflict_rejects_second_pending_request():
+    from src.server.services.roleplay_service import begin_roleplay_choice
+
+    avatar = MockAvatar()
+    runtime = GameSessionRuntime(
+        {
+            **DEFAULT_GAME_STATE,
+            "roleplay_session": {
+                "controlled_avatar_id": avatar.id,
+                "status": "awaiting_choice",
+                "pending_request": {
+                    "request_id": "existing-choice",
+                    "type": "choice",
+                    "avatar_id": avatar.id,
+                    "title": "已有请求",
+                    "description": "desc",
+                    "options": [],
+                },
+                "last_prompt_context": None,
+            },
+        }
+    )
+
+    request = SingleChoiceRequest(
+        task_name="single_choice",
+        template_path=CONFIG.paths.templates / "single_choice.txt",
+        avatar=avatar,
+        situation="Context",
+        options=[
+            Mock(key="ACCEPT", title="Accept", description="Accept new item"),
+            Mock(key="REJECT", title="Reject", description="Reject new item"),
+        ],
+        fallback_policy=FallbackPolicy(FallbackMode.FIRST_OPTION),
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        begin_roleplay_choice(runtime, request=request)
+
+    assert exc_info.value.status_code == 409
+    assert exc_info.value.detail == "已有待处理的扮演请求"

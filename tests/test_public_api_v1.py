@@ -42,6 +42,8 @@ def _reset_state():
                 "status": "inactive",
                 "pending_request": None,
                 "last_prompt_context": None,
+                "conversation_session": None,
+                "interaction_history": [],
             },
         }
     )
@@ -656,6 +658,7 @@ def test_v1_roleplay_start_and_session_query_use_ok_envelope():
         assert session_payload["ok"] is True
         assert session_payload["data"]["controlled_avatar_id"] == avatar.id
         assert session_payload["data"]["pending_request"]["avatar_id"] == avatar.id
+        assert session_payload["data"]["interaction_history"] == []
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)
@@ -702,6 +705,53 @@ def test_v1_roleplay_submit_decision_loads_plans():
         assert payload["data"]["planned_action_count"] == 1
         assert len(avatar.planned_actions) == 1
         assert main.runtime.get_roleplay_session()["status"] == "observing"
+        session_payload = client.get("/api/v1/query/roleplay/session").json()["data"]
+        assert len(session_payload["interaction_history"]) == 2
+        assert session_payload["interaction_history"][0]["type"] == "command"
+        assert session_payload["interaction_history"][0]["text"] == "先调息恢复一下"
+        assert session_payload["interaction_history"][1]["type"] == "action_chain"
+        assert session_payload["interaction_history"][1]["actions"][0]["tokens"][0]["text"]
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_submit_decision_records_failed_resolution():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        start_response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar.id})
+        request_id = start_response.json()["data"]["pending_request"]["request_id"]
+
+        with patch("src.server.services.roleplay_service.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            mock_llm.return_value = {
+                avatar.name: {
+                    "avatar_thinking": "我再看看。",
+                    "action_name_params_pairs": [],
+                }
+            }
+            submit_response = client.post(
+                "/api/v1/command/roleplay/submit-decision",
+                json={
+                    "avatar_id": avatar.id,
+                    "request_id": request_id,
+                    "command_text": "去一个我也不知道的地方",
+                },
+            )
+
+        assert submit_response.status_code == 422
+        session_payload = client.get("/api/v1/query/roleplay/session").json()["data"]
+        assert [item["type"] for item in session_payload["interaction_history"]] == ["command", "error"]
+        assert session_payload["interaction_history"][0]["text"] == "去一个我也不知道的地方"
+        assert "未能从该指令生成有效行动计划" in session_payload["interaction_history"][1]["text"]
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)
@@ -766,6 +816,8 @@ def test_v1_roleplay_submit_choice_resolves_pending_future():
                         ],
                     },
                     "last_prompt_context": None,
+                    "conversation_session": None,
+                    "interaction_history": [],
                     "_choice_future": pending_future,
                 },
             }
@@ -788,8 +840,187 @@ def test_v1_roleplay_submit_choice_resolves_pending_future():
         assert pending_future.done() is True
         assert pending_future.result() == "Reject"
         assert main.runtime.get_roleplay_session()["status"] == "submitting"
+        session_payload = client.get("/api/v1/query/roleplay/session").json()["data"]
+        assert session_payload["interaction_history"][-1]["type"] == "choice"
+        assert "Reject" in session_payload["interaction_history"][-1]["text"]
     finally:
         loop.close()
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_conversation_send_and_end_updates_session():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        target = _make_avatar(world)
+        target.name = "对话目标"
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        session = main.runtime.get_roleplay_session()
+        session["controlled_avatar_id"] = avatar.id
+        session["status"] = "conversing"
+        session["pending_request"] = {
+            "request_id": "conversation-test-1",
+            "type": "conversation",
+            "avatar_id": avatar.id,
+            "target_avatar_id": target.id,
+            "title": "对话中",
+            "description": "等待发言",
+            "messages": [],
+            "can_end": True,
+        }
+        session["conversation_session"] = {
+            "session_id": "conversation-test-1",
+            "request_id": "conversation-test-1",
+            "avatar_id": avatar.id,
+            "target_avatar_id": target.id,
+            "initiator_avatar_id": avatar.id,
+            "status": "awaiting_player",
+            "messages": [],
+            "started_at": 1.0,
+            "last_summary": None,
+            "last_ai_thinking": "",
+        }
+        session["interaction_history"] = []
+        main.runtime.set_roleplay_auto_paused(True)
+
+        client = TestClient(main.app)
+        with patch("src.server.services.roleplay_service.call_llm_with_task_name", new_callable=AsyncMock) as mock_llm:
+            mock_llm.side_effect = [
+                {
+                    target.name: {
+                        "reply_content": "我可以听听你的来意。",
+                        "speaker_thinking": "先听他说什么。",
+                    }
+                },
+                {
+                    "summary": "二人简单交换了来意，对后续接触留下余地。",
+                    "relation_hint": "关系略有缓和",
+                    "story_hint": "",
+                },
+            ]
+            send_response = client.post(
+                "/api/v1/command/roleplay/conversation/send",
+                json={
+                    "avatar_id": avatar.id,
+                    "request_id": "conversation-test-1",
+                    "message": "我想与你聊聊。",
+                },
+            )
+            end_response = client.post(
+                "/api/v1/command/roleplay/conversation/end",
+                json={
+                    "avatar_id": avatar.id,
+                    "request_id": "conversation-test-1",
+                },
+            )
+
+        assert send_response.status_code == 200
+        send_payload = send_response.json()
+        assert send_payload["ok"] is True
+        assert send_payload["data"]["reply"] == "我可以听听你的来意。"
+        assert len(send_payload["data"]["messages"]) == 2
+        session_payload_after_send = client.get("/api/v1/query/roleplay/session").json()["data"]
+        history_types_after_send = [item["type"] for item in session_payload_after_send["interaction_history"]]
+        assert "conversation_player" in history_types_after_send
+        assert "conversation_assistant" in history_types_after_send
+
+        assert end_response.status_code == 200
+        end_payload = end_response.json()
+        assert end_payload["ok"] is True
+        assert "交换了来意" in end_payload["data"]["summary"]
+        assert main.runtime.get_roleplay_session()["pending_request"] is None
+        assert main.runtime.get_roleplay_session()["conversation_session"]["status"] == "completed"
+        session_payload_after_end = client.get("/api/v1/query/roleplay/session").json()["data"]
+        assert session_payload_after_end["interaction_history"][-1]["type"] == "conversation_summary"
+        assert "交换了来意" in session_payload_after_end["interaction_history"][-1]["text"]
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_start_rejects_when_another_avatar_is_controlled():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar_1 = _make_avatar(world)
+        avatar_2 = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        client = TestClient(main.app)
+        first_response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar_1.id})
+        assert first_response.status_code == 200
+
+        second_response = client.post("/api/v1/command/roleplay/start", json={"avatar_id": avatar_2.id})
+
+        assert second_response.status_code == 409
+        assert second_response.json()["detail"] == "已有其他角色正在被扮演"
+    finally:
+        main.game_instance.clear()
+        main.game_instance.update(original)
+
+
+def test_v1_roleplay_submit_choice_rejects_stale_request_after_stop():
+    original = _reset_state()
+    try:
+        game_map = _create_test_map()
+        world = World(map=game_map, month_stamp=create_month_stamp(Year(100), Month.JANUARY))
+        avatar = _make_avatar(world)
+        world.runtime = main.runtime
+        main.game_instance["world"] = world
+        main.game_instance["sim"] = main.Simulator(world)
+        main.game_instance["is_paused"] = False
+
+        loop = asyncio.new_event_loop()
+        pending_future = loop.create_future()
+        main.runtime.update(
+            {
+                "roleplay_auto_paused": True,
+                "roleplay_session": {
+                    "controlled_avatar_id": avatar.id,
+                    "status": "awaiting_choice",
+                    "pending_request": {
+                        "request_id": "choice-stale-1",
+                        "type": "choice",
+                        "avatar_id": avatar.id,
+                        "title": "choice",
+                        "description": "desc",
+                        "options": [{"key": "Accept", "title": "Accept", "description": "Accept"}],
+                    },
+                    "last_prompt_context": None,
+                    "_choice_future": pending_future,
+                },
+            }
+        )
+
+        client = TestClient(main.app)
+        stop_response = client.post("/api/v1/command/roleplay/stop", json={"avatar_id": avatar.id})
+        assert stop_response.status_code == 200
+
+        submit_response = client.post(
+            "/api/v1/command/roleplay/submit-choice",
+            json={
+                "avatar_id": avatar.id,
+                "request_id": "choice-stale-1",
+                "selected_key": "Accept",
+            },
+        )
+
+        assert submit_response.status_code == 409
+        assert submit_response.json()["detail"] == "扮演目标不匹配"
+        assert pending_future.cancelled() is True
+        loop.close()
+    finally:
         main.game_instance.clear()
         main.game_instance.update(original)
 

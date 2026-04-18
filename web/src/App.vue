@@ -33,10 +33,12 @@ import { logError } from './utils/appError'
 import { useUiStore } from './stores/ui'
 import { useSettingStore } from './stores/setting'
 import { useSystemStore } from './stores/system'
+import { useRoleplayStore } from './stores/roleplay'
 
 const uiStore = useUiStore()
 const settingStore = useSettingStore()
 const systemStore = useSystemStore()
+const roleplayStore = useRoleplayStore()
 
 // Sidebar resizer 状态
 const { sidebarWidth, isResizing, onResizerMouseDown } = useSidebarResize()
@@ -50,7 +52,9 @@ const {
   initStatus, 
   gameInitialized, 
   showLoading,
-} = useGameInit()
+} = useGameInit({
+  onIdle: () => roleplayStore.reset(),
+})
 
 const {
   showMenu,
@@ -131,6 +135,7 @@ async function handleSplashAction(key: string) {
 async function handleReturnToMain() {
   try {
     await systemApi.resetGame()
+    roleplayStore.reset()
     returnToSplash()
   } catch (e) {
     logError('App reset game', e)

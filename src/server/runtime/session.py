@@ -26,6 +26,8 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
         "status": "inactive",
         "pending_request": None,
         "last_prompt_context": None,
+        "conversation_session": None,
+        "interaction_history": [],
     },
 }
 
@@ -125,6 +127,8 @@ class GameSessionRuntime:
                 return "roleplay_waiting_decision"
             if status == "awaiting_choice":
                 return "roleplay_waiting_choice"
+            if status == "conversing":
+                return "roleplay_conversation"
             return "roleplay_waiting"
         if self._state.get("is_paused", False):
             return "paused"
@@ -138,6 +142,8 @@ class GameSessionRuntime:
                 "status": "inactive",
                 "pending_request": None,
                 "last_prompt_context": None,
+                "conversation_session": None,
+                "interaction_history": [],
             }
             self._state["roleplay_session"] = session
         return session
@@ -156,6 +162,8 @@ class GameSessionRuntime:
             "status": "inactive",
             "pending_request": None,
             "last_prompt_context": None,
+            "conversation_session": None,
+            "interaction_history": [],
         }
         self._state["roleplay_auto_paused"] = False
 

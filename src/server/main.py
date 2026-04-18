@@ -72,10 +72,12 @@ from src.server.services.game_queries import (
     get_world_state,
 )
 from src.server.services.roleplay_service import (
+    end_roleplay_conversation as end_roleplay_conversation_service,
     clear_roleplay_session as clear_roleplay_session_service,
     get_roleplay_session as get_roleplay_session_query,
     start_roleplay as start_roleplay_service,
     stop_roleplay as stop_roleplay_service,
+    submit_roleplay_conversation_turn as submit_roleplay_conversation_turn_service,
     submit_roleplay_choice as submit_roleplay_choice_service,
     submit_roleplay_decision as submit_roleplay_decision_service,
 )
@@ -459,6 +461,8 @@ command_handlers = create_command_handlers(
     stop_roleplay=stop_roleplay_service,
     submit_roleplay_decision=submit_roleplay_decision_service,
     submit_roleplay_choice=submit_roleplay_choice_service,
+    submit_roleplay_conversation_turn=submit_roleplay_conversation_turn_service,
+    end_roleplay_conversation=end_roleplay_conversation_service,
 )
 
 run_start_game = command_handlers.run_start_game
@@ -483,6 +487,8 @@ run_start_roleplay = command_handlers.run_start_roleplay
 run_stop_roleplay = command_handlers.run_stop_roleplay
 run_submit_roleplay_decision = command_handlers.run_submit_roleplay_decision
 run_submit_roleplay_choice = command_handlers.run_submit_roleplay_choice
+run_send_roleplay_conversation = command_handlers.run_send_roleplay_conversation
+run_end_roleplay_conversation = command_handlers.run_end_roleplay_conversation
 
 
 def get_settings() -> dict:
@@ -594,6 +600,8 @@ configure_routes_and_mounts(
     run_stop_roleplay=run_stop_roleplay,
     run_submit_roleplay_decision=run_submit_roleplay_decision,
     run_submit_roleplay_choice=run_submit_roleplay_choice,
+    run_send_roleplay_conversation=run_send_roleplay_conversation,
+    run_end_roleplay_conversation=run_end_roleplay_conversation,
     assets_path=ASSETS_PATH,
     web_dist_path=WEB_DIST_PATH,
     is_dev_mode=IS_DEV_MODE,

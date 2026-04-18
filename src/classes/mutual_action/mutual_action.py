@@ -119,6 +119,12 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     def _get_template_path(self) -> Path:
         return CONFIG.paths.templates / "mutual_action.txt"
 
+    @staticmethod
+    def _is_dead_avatar(target_avatar: "Avatar | None") -> bool:
+        if target_avatar is None:
+            return False
+        return getattr(target_avatar, "is_dead", False) is True
+
     def _build_prompt_infos(self, target_avatar: "Avatar") -> dict:
         avatar_name_1 = self.avatar.name
         avatar_name_2 = target_avatar.name
@@ -307,7 +313,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
             return False, t("Target does not exist")
         if target == self.avatar:
             return False, t("Cannot initiate interaction with self")
-        if target.is_dead:
+        if self._is_dead_avatar(target):
             return False, t("Target is already dead")
         # 调用子类的额外检查
         return self._can_start(target)
@@ -325,7 +331,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         启动互动动作，返回开始事件
         """
         target = self._get_target_avatar(target_avatar)
-        if target is not None and target.is_dead:
+        if self._is_dead_avatar(target):
             return NULL_EVENT
 
         # 记录开始时间
@@ -349,7 +355,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         异步化：首帧发起LLM任务并返回RUNNING；任务完成后在后续帧落地响应并完成。
         """
         target = self._get_target_avatar(target_avatar)
-        if target is None or target.is_dead:
+        if target is None or self._is_dead_avatar(target):
             return ActionResult(status=ActionStatus.FAILED, events=[])
 
         # 若无任务，创建异步任务

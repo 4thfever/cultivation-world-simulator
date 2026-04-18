@@ -6,6 +6,7 @@ import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
 import { useSectStore } from '../../../stores/sect'
 import { NSelect, NSpin } from 'naive-ui'
+import EventStreamList from '@/components/game/EventStreamList.vue'
 import type { SelectOption } from 'naive-ui'
 import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
 import { prependAllOption } from '../../../utils/selectOptions'
@@ -266,30 +267,14 @@ function handleSectClick(sectId?: number) {
         <span v-if="eventStore.eventsLoading">{{ t('common.loading') }}</span>
         <span v-else>{{ t('game.event_panel.load_more') }}</span>
       </div>
-      <div v-for="event in displayEvents" :key="event.id" class="event-item">
-        <div class="event-date">{{ formatEventDate(event) }}</div>
-        <div class="event-content">
-          <template v-for="(segment, index) in renderEventContent(event)" :key="`${event.id}-${index}`">
-            <span
-              v-if="segment.type === 'avatar'"
-              class="clickable-avatar"
-              :style="{ color: segment.color }"
-              @click="handleAvatarClick(segment.avatarId)"
-            >
-              {{ segment.text }}
-            </span>
-            <span
-              v-else-if="segment.type === 'sect'"
-              class="clickable-sect"
-              :style="{ color: segment.color }"
-              @click="handleSectClick(segment.sectId)"
-            >
-              {{ segment.text }}
-            </span>
-            <span v-else>{{ segment.text }}</span>
-          </template>
-        </div>
-      </div>
+      <EventStreamList
+        :events="displayEvents"
+        :empty-text="emptyEventMessage"
+        :format-date="formatEventDate"
+        :render-segments="renderEventContent"
+        :on-avatar-click="handleAvatarClick"
+        :on-sect-click="handleSectClick"
+      />
     </div>
   </section>
 </template>
@@ -333,32 +318,6 @@ function handleSectClick(sectId?: number) {
   padding: 8px 12px;
 }
 
-.event-item {
-  display: flex;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid #2a2a2a;
-}
-
-.event-item:last-child {
-  border-bottom: none;
-}
-
-.event-date {
-  flex: 0 0 25%;
-  font-size: 12px;
-  color: #999;
-  white-space: nowrap;
-}
-
-.event-content {
-  flex: 1;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #ddd;
-  white-space: pre-line;
-}
-
 .empty, .loading {
   padding: 20px;
   text-align: center;
@@ -379,22 +338,5 @@ function handleSectClick(sectId?: number) {
   color: #666;
   font-size: 11px;
   border-bottom: 1px solid #2a2a2a;
-}
-
-/* 可点击的角色名样式 */
-.event-content :deep(.clickable-avatar) {
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.event-content :deep(.clickable-sect) {
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.event-content :deep(.clickable-avatar:hover),
-.event-content :deep(.clickable-sect:hover) {
-  opacity: 0.8;
-  text-decoration: underline;
 }
 </style>

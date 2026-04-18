@@ -8,6 +8,8 @@ from src.server.services.public_api_contract import raise_public_error
 
 
 def get_runtime_status(runtime, version: str) -> dict[str, Any]:
+    from src.server.services.roleplay_service import get_roleplay_session as build_roleplay_session
+
     start_time = runtime.get("init_start_time")
     elapsed = 0.0
     if start_time:
@@ -27,7 +29,7 @@ def get_runtime_status(runtime, version: str) -> dict[str, Any]:
         "llm_error_message": runtime.get("llm_error_message", ""),
         "is_paused": runtime.is_effectively_paused() if hasattr(runtime, "is_effectively_paused") else runtime.get("is_paused", True),
         "pause_reason": runtime.get_pause_reason() if hasattr(runtime, "get_pause_reason") else ("paused" if runtime.get("is_paused", True) else ""),
-        "roleplay": runtime.get_roleplay_session() if hasattr(runtime, "get_roleplay_session") else None,
+        "roleplay": build_roleplay_session(runtime) if hasattr(runtime, "get_roleplay_session") else None,
     }
 
 
