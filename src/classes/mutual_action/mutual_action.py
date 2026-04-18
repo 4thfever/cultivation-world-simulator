@@ -361,7 +361,13 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
         # 若无任务，创建异步任务
         if self._response_task is None and self._response_cached is None:
             loop = asyncio.get_running_loop()
-            self._response_task = loop.create_task(self._call_response_resolution(target))
+            # Some unit tests patch get_running_loop() with a bare MagicMock just to
+            # bypass async scheduling. In that case, creating the coroutine here would
+            # leak an un-awaited coroutine object and emit RuntimeWarning.
+            if isinstance(loop, asyncio.AbstractEventLoop):
+                self._response_task = loop.create_task(self._call_response_resolution(target))
+            else:
+                return ActionResult(status=ActionStatus.RUNNING, events=[])
 
         # 若任务已完成，消费结果
         if self._response_task is not None and self._response_task.done():

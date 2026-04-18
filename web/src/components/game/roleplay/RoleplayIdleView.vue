@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <div class="roleplay-dock__idle">
-    当前仍在上帝视角观察世界。该角色的动作链结束后，会在这里等待你的下一步操作。
+    {{ t('game.roleplay.idle.hint') }}
   </div>
 </template>
 

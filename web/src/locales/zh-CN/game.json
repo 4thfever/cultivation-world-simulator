@@ -130,6 +130,74 @@
     "empty_single": "该修士暂无事件",
     "empty_none": "暂无事件"
   },
+  "roleplay": {
+    "panel": {
+      "start": "扮演",
+      "stop": "退出扮演"
+    },
+    "dock": {
+      "interaction_title": "交互流",
+      "interaction_caption": "本次扮演中的输入与输出",
+      "interaction_empty": "当前还没有新的交互记录。"
+    },
+    "status": {
+      "awaiting_decision": "等待指令",
+      "awaiting_choice": "等待选择",
+      "conversing": "对话中",
+      "submitting": "提交中",
+      "observing": "观察中"
+    },
+    "summary": {
+      "decision": "需要决定下一步行动",
+      "choice": "需要做出回应",
+      "conversation": "正在与 {target} 交谈",
+      "observing": "当前动作链仍在执行"
+    },
+    "request": {
+      "title_decision": "决策",
+      "title_choice": "选项",
+      "title_conversation": "对话",
+      "title_observing": "观察",
+      "caption_decision": "输入一句意图，系统会扩展成行动链",
+      "caption_choice": "从有限选项里做出一次回应",
+      "caption_conversation": "玩家控制 {avatar} 发言，对方由 LLM 回复",
+      "caption_observing": "当前没有需要立即处理的请求",
+      "decision_default_description": "输入一句意图，系统会把它扩展成该角色的下一步行动链。",
+      "choice_default_description": "请选择一个回应。",
+      "conversation_default_description": "世界已暂停，等待你继续扮演当前角色发言。"
+    },
+    "decision": {
+      "placeholder": "输入角色的下一步意图，例如：先调息恢复，再去附近探索。",
+      "submit": "提交指令",
+      "submitting": "处理中..."
+    },
+    "choice": {
+      "submitting": "正在处理选择，请稍候..."
+    },
+    "conversation": {
+      "placeholder": "输入你想说的话。",
+      "submit": "发送",
+      "sending": "发送中...",
+      "awaiting_reply": "等待回复...",
+      "end": "结束对话"
+    },
+    "errors": {
+      "fetch_session": "获取扮演状态失败",
+      "start": "开始扮演失败",
+      "stop": "退出扮演失败",
+      "submit_decision": "提交扮演指令失败",
+      "submit_choice": "提交扮演选择失败",
+      "send_conversation": "发送对话失败",
+      "end_conversation": "结束对话失败"
+    },
+    "idle": {
+      "hint": "当前仍在上帝视角观察世界。该角色的动作链结束后，会在这里等待你的下一步操作。"
+    },
+    "fallback": {
+      "avatar_name": "角色",
+      "counterpart_name": "对方"
+    }
+  },
   "event_templates": {
     "nickname_awarded": "{avatar_name}在修仙界中闯出名号，被人称为「{nickname}」。"
   },

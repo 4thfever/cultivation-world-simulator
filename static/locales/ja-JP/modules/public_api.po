@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Language: ja-JP\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "World not initialized"
+msgstr "ワールドはまだ初期化されていません"
+
+msgid "Avatar not found"
+msgstr "キャラクターが見つかりません"
+
+msgid "Objective set"
+msgstr "目標を設定しました"
+
+msgid "Objective cleared"
+msgstr "目標をクリアしました"
+
+msgid "No user objective to clear"
+msgstr "クリアできるプレイヤー目標はありません"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "この性別では使用できない pic_id です"
+
+msgid "Avatar portrait updated"
+msgstr "キャラクターの立ち絵を更新しました"
+
+msgid "Avatar deleted"
+msgstr "キャラクターを削除しました"
+
+msgid "Avatar adjustment applied"
+msgstr "キャラクター調整を適用しました"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "選択した性別では使用できない pic_id です"
+
+msgid "Created avatar {avatar_name}"
+msgstr "キャラクター {avatar_name} を作成しました"
+
+msgid "Phenomenon not found"
+msgstr "天象が見つかりません"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "天象を {phenomenon_name} に設定しました"
+
+msgid "Invalid filename"
+msgstr "無効なファイル名です"
+
+msgid "Game not initialized"
+msgstr "ゲームはまだ初期化されていません"
+
+msgid "Invalid save name"
+msgstr "無効なセーブ名です"
+
+msgid "Save failed"
+msgstr "セーブに失敗しました"
+
+msgid "Save deleted"
+msgstr "セーブを削除しました"
+
+msgid "File not found"
+msgstr "ファイルが見つかりません"
+
+msgid "Game loaded"
+msgstr "セーブを読み込みました"
+
+msgid "Load failed: {error}"
+msgstr "ロードに失敗しました: {error}"
+
+msgid "Game reset to idle"
+msgstr "ゲームを待機状態にリセットしました"
+
+msgid "Game paused"
+msgstr "ゲームを一時停止しました"
+
+msgid "Game resumed"
+msgstr "ゲームを再開しました"

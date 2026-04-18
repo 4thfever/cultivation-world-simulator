@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onUnmounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import RoleplayChoiceView from '@/components/game/roleplay/RoleplayChoiceView.vue';
 import RoleplayConversationView from '@/components/game/roleplay/RoleplayConversationView.vue';
@@ -13,6 +14,7 @@ import { useRoleplayDockState } from '@/composables/useRoleplayDockState';
 
 const MIN_DOCK_HEIGHT = 148;
 const MAX_DOCK_HEIGHT = 420;
+const { t } = useI18n();
 
 const {
   roleplayStore,
@@ -87,7 +89,7 @@ onUnmounted(() => {
             <RoleplayDecisionView
               v-if="isDecision"
               v-model="commandText"
-              :description="pending?.description || '输入一句意图，系统会把它扩展成该角色的下一步行动链。'"
+              :description="pending?.description || t('game.roleplay.request.decision_default_description')"
               :error-text="requestErrorText"
               :is-submitting="roleplayStore.isSubmitting"
               :submit-text="decisionSubmitText"
@@ -96,7 +98,7 @@ onUnmounted(() => {
 
             <RoleplayChoiceView
               v-else-if="isChoice"
-              :description="pending?.description || '请选择一个回应。'"
+              :description="pending?.description || t('game.roleplay.request.choice_default_description')"
               :options="pending?.options ?? []"
               :error-text="requestErrorText"
               :is-submitting="roleplayStore.isSubmitting"
@@ -109,7 +111,7 @@ onUnmounted(() => {
               v-model="commandText"
               :avatar-name="avatarName"
               :target-name="conversationTargetName"
-              :description="pending?.description || ''"
+              :description="pending?.description || t('game.roleplay.request.conversation_default_description')"
               :caption="requestPanelCaption"
               :messages="conversationMessages"
               :error-text="requestErrorText"
@@ -123,7 +125,7 @@ onUnmounted(() => {
           </section>
 
           <section class="roleplay-dock__interaction-pane">
-            <RoleplaySectionHeader title="交互流" caption="本次扮演中的输入与输出" />
+            <RoleplaySectionHeader :title="t('game.roleplay.dock.interaction_title')" :caption="t('game.roleplay.dock.interaction_caption')" />
             <RoleplayInteractionHistory
               v-if="interactionHistory.length"
               class="roleplay-dock__interaction-stream"
@@ -134,7 +136,7 @@ onUnmounted(() => {
               fill-height
             />
             <div v-else class="roleplay-dock__interaction-empty">
-              当前还没有新的交互记录。
+              {{ t('game.roleplay.dock.interaction_empty') }}
             </div>
           </section>
         </div>

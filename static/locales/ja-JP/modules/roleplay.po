@@ -1,0 +1,83 @@
+msgid "World is not initialized yet"
+msgstr "世界はまだ初期化されていません"
+
+msgid "Target avatar does not exist"
+msgstr "対象キャラクターが存在しません"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} は新しい指示を必要としています"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "世界は一時停止中で、あなたの扮演指示を待っています。"
+
+msgid "There is already a pending roleplay request"
+msgstr "すでに処理待ちの扮演リクエストがあります"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} は選択を行う必要があります"
+
+msgid "The other party falls silent for a moment and does not reply immediately."
+msgstr "相手はしばらく黙り込み、すぐには返答しなかった。"
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} は少し考え込み、その話題に応じた。"
+
+msgid "{avatar_name} and {target_avatar_name} talked for {turns} turns and both gained a new impression of the topic at hand."
+msgstr "{avatar_name} と {target_avatar_name} は {turns} 往復ほど語り合い、その場の話題について互いに新たな印象を得た。"
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} は {target_avatar_name} と会話中です"
+
+msgid "World paused and waiting for you to continue speaking as {avatar_name} with {target_avatar_name}."
+msgstr "世界は一時停止中で、{avatar_name} として {target_avatar_name} との会話を続けるあなたの発言を待っています。"
+
+msgid "There is already another avatar under roleplay control"
+msgstr "すでに別のキャラクターが扮演中です"
+
+msgid "Roleplay target does not match"
+msgstr "扮演対象が一致しません"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "現在のリクエストは扮演指示待ちではありません"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "扮演リクエストが存在しないか、すでに失効しています"
+
+msgid "Please enter a roleplay command"
+msgstr "扮演指示を入力してください"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "この指示から有効な行動計画を生成できませんでした"
+
+msgid "Roleplay command submitted"
+msgstr "扮演指示を送信しました"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "現在のリクエストは扮演選択待ちではありません"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "扮演選択の状態が不正です。もう一度発生させてください"
+
+msgid "This roleplay choice has already been handled"
+msgstr "この扮演選択はすでに処理されています"
+
+msgid "Roleplay choice submitted"
+msgstr "扮演選択を送信しました"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "現在のリクエストは扮演会話中ではありません"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "扮演会話リクエストが存在しないか、すでに失効しています"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "扮演会話セッションが存在しないか、すでに失効しています"
+
+msgid "Please enter dialogue content"
+msgstr "会話内容を入力してください"
+
+msgid "Conversation updated"
+msgstr "会話を更新しました"
+
+msgid "Conversation ended"
+msgstr "会話を終了しました"

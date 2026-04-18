@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 const props = defineProps<{
   description: string
   modelValue: string
@@ -6,6 +8,8 @@ const props = defineProps<{
   isSubmitting: boolean
   submitText: string
 }>()
+
+const { t } = useI18n()
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
@@ -34,7 +38,7 @@ function handleSubmit() {
     <textarea
       class="roleplay-dock__input"
       rows="3"
-      placeholder="输入角色的下一步意图，例如：先调息恢复，再去附近探索。"
+      :placeholder="t('game.roleplay.decision.placeholder')"
       :value="modelValue"
       @input="handleInput"
       @keydown="handleKeydown"

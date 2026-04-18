@@ -32,7 +32,7 @@ const title = computed(() => {
   if (uiStore.detailData) {
     return uiStore.detailData.name;
   }
-  return uiStore.selectedTarget?.id || 'Detail';
+  return uiStore.selectedTarget?.id || t('common.detail');
 });
 
 const subTitle = computed(() => {
@@ -122,7 +122,7 @@ watch(() => uiStore.selectedTarget, (val) => {
           </div>
         </div>
       </div>
-      <button class="close-btn" aria-label="Close" @click="close">
+      <button class="close-btn" :aria-label="t('ui.close')" @click="close">
         <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
       </button>
     </div>

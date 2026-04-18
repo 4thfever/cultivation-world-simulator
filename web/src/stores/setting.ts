@@ -143,7 +143,7 @@ export const useSettingStore = defineStore('setting', () => {
   async function startGameWithDraft() {
     const saved = await saveNewGameDefaults();
     if (!saved) {
-      throw new Error('Failed to save new game defaults');
+      throw new Error(i18n.global.t('ui.new_game_defaults_save_failed'));
     }
     return systemApi.startGame({ ...newGameDraft.value });
   }

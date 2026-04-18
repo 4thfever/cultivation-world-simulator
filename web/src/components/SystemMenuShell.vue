@@ -50,7 +50,7 @@ const tabs = computed((): Array<{ key: SystemMenuTab; label: string; disabled: b
           class="close-btn"
           @click="emit('close')"
           v-sound:cancel
-          aria-label="Close"
+          :aria-label="t('ui.close')"
         >
           <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
         </button>

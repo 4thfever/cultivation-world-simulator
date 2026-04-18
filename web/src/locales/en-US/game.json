@@ -117,7 +117,7 @@
     "closed_msg": "Game closed. You can safely close this tab."
   },
   "event_panel": {
-    "title": "",
+    "title": "Events",
     "filter_all": "All",
     "filter_all_sects": "All Sects",
     "filter_event_scope_all": "All Events",
@@ -129,6 +129,74 @@
     "empty_dual": "No events between these two",
     "empty_single": "No events for this cultivator",
     "empty_none": "No events"
+  },
+  "roleplay": {
+    "panel": {
+      "start": "Roleplay",
+      "stop": "Stop Roleplay"
+    },
+    "dock": {
+      "interaction_title": "Interaction Log",
+      "interaction_caption": "Input and output during this roleplay session",
+      "interaction_empty": "There are no new interaction records yet."
+    },
+    "status": {
+      "awaiting_decision": "Awaiting Command",
+      "awaiting_choice": "Awaiting Choice",
+      "conversing": "Conversing",
+      "submitting": "Submitting",
+      "observing": "Observing"
+    },
+    "summary": {
+      "decision": "Needs a next action",
+      "choice": "Needs a response",
+      "conversation": "Talking with {target}",
+      "observing": "Current action chain is still running"
+    },
+    "request": {
+      "title_decision": "Decision",
+      "title_choice": "Choice",
+      "title_conversation": "Conversation",
+      "title_observing": "Observe",
+      "caption_decision": "Enter one intent and the system will expand it into an action chain",
+      "caption_choice": "Make one response from limited options",
+      "caption_conversation": "The player speaks as {avatar}, and the other side replies through the LLM",
+      "caption_observing": "There is no request that needs immediate handling right now",
+      "decision_default_description": "Enter one intent and the system will expand it into this character's next action chain.",
+      "choice_default_description": "Choose one response.",
+      "conversation_default_description": "The world is paused, waiting for you to continue speaking as the current character."
+    },
+    "decision": {
+      "placeholder": "Enter the character's next intent, for example: recover first, then explore nearby.",
+      "submit": "Submit Command",
+      "submitting": "Processing..."
+    },
+    "choice": {
+      "submitting": "Processing your choice, please wait..."
+    },
+    "conversation": {
+      "placeholder": "Enter what you want to say.",
+      "submit": "Send",
+      "sending": "Sending...",
+      "awaiting_reply": "Waiting for reply...",
+      "end": "End Conversation"
+    },
+    "errors": {
+      "fetch_session": "Failed to fetch roleplay state",
+      "start": "Failed to start roleplay",
+      "stop": "Failed to stop roleplay",
+      "submit_decision": "Failed to submit roleplay command",
+      "submit_choice": "Failed to submit roleplay choice",
+      "send_conversation": "Failed to send conversation message",
+      "end_conversation": "Failed to end conversation"
+    },
+    "idle": {
+      "hint": "You are still observing the world in omniscient view. When this character's action chain finishes, the next prompt will wait for you here."
+    },
+    "fallback": {
+      "avatar_name": "Avatar",
+      "counterpart_name": "Other Side"
+    }
   },
   "event_templates": {
     "nickname_awarded": "{avatar_name} made a name in the cultivation world and came to be known as \"{nickname}\"."

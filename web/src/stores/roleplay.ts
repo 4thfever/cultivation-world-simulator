@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 import { avatarApi } from '@/api';
+import i18n from '@/locales';
 import type { RoleplaySessionDTO } from '@/types/api';
 import { logError } from '@/utils/appError';
 
@@ -19,6 +20,7 @@ function createInactiveSession(): RoleplaySessionDTO {
 
 
 export const useRoleplayStore = defineStore('roleplay', () => {
+  const { t } = i18n.global;
   const session = ref<RoleplaySessionDTO>(createInactiveSession());
   const isLoading = ref(false);
   const isSubmitting = ref(false);
@@ -34,7 +36,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return session.value;
     } catch (e) {
       logError('RoleplayStore fetch session', e);
-      error.value = e instanceof Error ? e.message : '获取扮演状态失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.fetch_session');
       return session.value;
     } finally {
       isLoading.value = false;
@@ -49,7 +51,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return session.value;
     } catch (e) {
       logError('RoleplayStore start', e);
-      error.value = e instanceof Error ? e.message : '开始扮演失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.start');
       throw e;
     } finally {
       isSubmitting.value = false;
@@ -64,7 +66,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return session.value;
     } catch (e) {
       logError('RoleplayStore stop', e);
-      error.value = e instanceof Error ? e.message : '退出扮演失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.stop');
       throw e;
     } finally {
       isSubmitting.value = false;
@@ -80,7 +82,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return result;
     } catch (e) {
       logError('RoleplayStore submit decision', e);
-      error.value = e instanceof Error ? e.message : '提交扮演指令失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.submit_decision');
       throw e;
     } finally {
       isSubmitting.value = false;
@@ -96,7 +98,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return result;
     } catch (e) {
       logError('RoleplayStore submit choice', e);
-      error.value = e instanceof Error ? e.message : '提交扮演选择失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.submit_choice');
       throw e;
     } finally {
       isSubmitting.value = false;
@@ -112,7 +114,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return result;
     } catch (e) {
       logError('RoleplayStore send conversation', e);
-      error.value = e instanceof Error ? e.message : '发送对话失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.send_conversation');
       throw e;
     } finally {
       isSubmitting.value = false;
@@ -128,7 +130,7 @@ export const useRoleplayStore = defineStore('roleplay', () => {
       return result;
     } catch (e) {
       logError('RoleplayStore end conversation', e);
-      error.value = e instanceof Error ? e.message : '结束对话失败';
+      error.value = e instanceof Error ? e.message : t('game.roleplay.errors.end_conversation');
       throw e;
     } finally {
       isSubmitting.value = false;

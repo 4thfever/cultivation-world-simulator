@@ -366,7 +366,7 @@ onMounted(() => {
       <div class="modal-content">
         <div class="modal-header">
           <h3>{{ t('llm.help.title') }}</h3>
-          <button class="close-btn" aria-label="Close" @click="showHelpModal = false">
+          <button class="close-btn" :aria-label="t('ui.close')" @click="showHelpModal = false">
             <span class="close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
           </button>
         </div>

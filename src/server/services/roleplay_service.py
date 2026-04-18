@@ -7,6 +7,7 @@ from typing import Any
 from fastapi import HTTPException
 
 from src.classes.emotions import EmotionType
+from src.i18n import t
 from src.server.services.roleplay_action_display import build_roleplay_action_chain_display
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
@@ -105,14 +106,14 @@ def is_player_controlled_avatar(*, avatar) -> bool:
 def _require_world(runtime):
     world = runtime.get("world")
     if world is None:
-        raise HTTPException(status_code=503, detail="世界尚未初始化")
+        raise HTTPException(status_code=503, detail=t("World is not initialized yet"))
     return world
 
 
 def _find_avatar_or_raise(world, avatar_id: str):
     avatar = world.avatar_manager.get_avatar(avatar_id)
     if avatar is None:
-        raise HTTPException(status_code=404, detail="目标角色不存在")
+        raise HTTPException(status_code=404, detail=t("Target avatar does not exist"))
     return avatar
 
 
@@ -121,8 +122,8 @@ def _make_pending_decision_request(*, avatar) -> dict[str, Any]:
         "request_id": f"roleplay-decision-{avatar.id}-{int(time.time() * 1000)}",
         "type": "decision",
         "avatar_id": str(avatar.id),
-        "title": f"{avatar.name} 需要新的指令",
-        "description": "世界已暂停，正在等待你的扮演指令。",
+        "title": t("{avatar_name} needs a new command", avatar_name=avatar.name),
+        "description": t("World paused and waiting for your roleplay command."),
         "created_at": time.time(),
     }
 
@@ -213,11 +214,11 @@ def begin_roleplay_choice(
     session = runtime.get_roleplay_session()
     pending = session.get("pending_request")
     if pending is not None:
-        raise HTTPException(status_code=409, detail="已有待处理的扮演请求")
+        raise HTTPException(status_code=409, detail=t("There is already a pending roleplay request"))
 
     request_id = str(getattr(request, "request_id", "") or f"roleplay-choice-{avatar.id}-{int(time.time() * 1000)}")
     request.request_id = request_id
-    request_title = str(getattr(request, "title", "") or f"{avatar.name} 需要做出选择")
+    request_title = str(getattr(request, "title", "") or t("{avatar_name} needs to make a choice", avatar_name=avatar.name))
     request_description = str(getattr(request, "description", "") or getattr(request, "situation", "") or "")
     options = [
         {
@@ -299,8 +300,8 @@ def _build_conversation_history_payload(messages: list[dict[str, Any]]) -> list[
 
 def _build_fallback_conversation_reply(*, target_avatar, last_player_message: str) -> tuple[str, str]:
     if not last_player_message.strip():
-        return "对方沉默片刻，没有立刻接话。", ""
-    return f"{target_avatar.name}略作思索，回应了对方的话题。", ""
+        return t("The other party falls silent for a moment and does not reply immediately."), ""
+    return t("{target_avatar_name} pauses to think and responds to the topic.", target_avatar_name=target_avatar.name), ""
 
 
 async def _generate_roleplay_conversation_reply(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
@@ -341,7 +342,12 @@ async def _generate_roleplay_conversation_reply(*, avatar, target_avatar, messag
 
 def _build_fallback_conversation_summary(*, avatar, target_avatar, messages: list[dict[str, Any]]) -> dict[str, str]:
     turns = max(sum(1 for item in messages if item.get("role") == "player"), 1)
-    summary = f"{avatar.name}与{target_avatar.name}进行了一番交谈，来回交流了{turns}轮，彼此对当下话题都有了新的印象。"
+    summary = t(
+        "{avatar_name} and {target_avatar_name} talked for {turns} turns and both gained a new impression of the topic at hand.",
+        avatar_name=avatar.name,
+        target_avatar_name=target_avatar.name,
+        turns=turns,
+    )
     return {
         "summary": summary,
         "relation_hint": "",
@@ -393,11 +399,15 @@ def begin_roleplay_conversation(runtime, *, avatar, target_avatar) -> dict[str, 
         ):
             return dict(session)
     if pending is not None:
-        raise HTTPException(status_code=409, detail="已有待处理的扮演请求")
+        raise HTTPException(status_code=409, detail=t("There is already a pending roleplay request"))
 
     request_id = f"roleplay-conversation-{avatar.id}-{target_avatar.id}-{int(time.time() * 1000)}"
-    title = f"{avatar.name} 与 {target_avatar.name} 对话中"
-    description = f"世界已暂停，等待你继续扮演 {avatar.name} 与 {target_avatar.name} 交谈。"
+    title = t("{avatar_name} is talking with {target_avatar_name}", avatar_name=avatar.name, target_avatar_name=target_avatar.name)
+    description = t(
+        "World paused and waiting for you to continue speaking as {avatar_name} with {target_avatar_name}.",
+        avatar_name=avatar.name,
+        target_avatar_name=target_avatar.name,
+    )
     messages: list[dict[str, Any]] = []
     session["controlled_avatar_id"] = str(avatar.id)
     session["status"] = "conversing"
@@ -437,7 +447,7 @@ def start_roleplay(runtime, *, avatar_id: str) -> dict[str, Any]:
     session = runtime.get_roleplay_session()
     current_avatar_id = session.get("controlled_avatar_id")
     if current_avatar_id and str(current_avatar_id) != str(avatar_id):
-        raise HTTPException(status_code=409, detail="已有其他角色正在被扮演")
+        raise HTTPException(status_code=409, detail=t("There is already another avatar under roleplay control"))
 
     prompt_context = _build_prompt_context(avatar)
     if avatar.current_action is None and not avatar.has_plans():
@@ -449,7 +459,7 @@ def stop_roleplay(runtime, *, avatar_id: str | None = None) -> dict[str, Any]:
     session = runtime.get_roleplay_session()
     current_avatar_id = session.get("controlled_avatar_id")
     if avatar_id and current_avatar_id and str(current_avatar_id) != str(avatar_id):
-        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
     runtime.clear_roleplay_session()
     return get_roleplay_session(runtime)
 
@@ -486,13 +496,13 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
     pending = session.get("pending_request") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
     if str(session.get("status") or "") != "awaiting_decision":
-        raise HTTPException(status_code=409, detail="当前不在等待扮演指令")
+        raise HTTPException(status_code=409, detail=t("The current request is not waiting for a roleplay command"))
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演请求不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay request does not exist or has expired"))
     if not str(command_text or "").strip():
-        raise HTTPException(status_code=400, detail="请输入扮演指令")
+        raise HTTPException(status_code=400, detail=t("Please enter a roleplay command"))
 
     session["status"] = "submitting"
     command_text = str(command_text).strip()
@@ -536,10 +546,10 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
             runtime,
             {
                 "type": "error",
-                "text": "未能从该指令生成有效行动计划",
+                "text": t("Failed to generate a valid action plan from this command"),
             },
         )
-        raise HTTPException(status_code=422, detail="未能从扮演指令生成有效行动计划")
+        raise HTTPException(status_code=422, detail=t("Failed to generate a valid action plan from this command"))
 
     avatar_thinking = str(payload.get("avatar_thinking", payload.get("thinking", "")) or command_text)
     short_term_objective = str(payload.get("short_term_objective", "") or command_text)
@@ -567,7 +577,7 @@ async def submit_roleplay_decision(runtime, *, avatar_id: str, request_id: str, 
     )
     return {
         "status": "ok",
-        "message": "扮演指令已提交",
+        "message": t("Roleplay command submitted"),
         "planned_action_count": len(pairs),
     }
 
@@ -579,17 +589,17 @@ async def submit_roleplay_choice(runtime, *, avatar_id: str, request_id: str, se
     pending = session.get("pending_request") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
     if str(session.get("status") or "") != "awaiting_choice":
-        raise HTTPException(status_code=409, detail="当前不在等待扮演选择")
+        raise HTTPException(status_code=409, detail=t("The current request is not waiting for a roleplay choice"))
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演请求不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay request does not exist or has expired"))
 
     choice_future = session.get("_choice_future")
     if choice_future is None:
-        raise HTTPException(status_code=409, detail="扮演选择状态异常，请重新触发")
+        raise HTTPException(status_code=409, detail=t("Roleplay choice state is invalid, please trigger it again"))
     if hasattr(choice_future, "done") and choice_future.done():
-        raise HTTPException(status_code=409, detail="该扮演选择已处理")
+        raise HTTPException(status_code=409, detail=t("This roleplay choice has already been handled"))
 
     session["status"] = "submitting"
     _append_interaction_history(
@@ -602,7 +612,7 @@ async def submit_roleplay_choice(runtime, *, avatar_id: str, request_id: str, se
     choice_future.set_result(str(selected_key))
     return {
         "status": "ok",
-        "message": "扮演选择已提交",
+        "message": t("Roleplay choice submitted"),
         "selected_key": str(selected_key),
     }
 
@@ -615,15 +625,15 @@ async def submit_roleplay_conversation_turn(runtime, *, avatar_id: str, request_
     conversation_session = session.get("conversation_session") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
     if str(session.get("status") or "") != "conversing":
-        raise HTTPException(status_code=409, detail="当前不在扮演对话中")
+        raise HTTPException(status_code=409, detail=t("The current request is not in a roleplay conversation"))
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演对话请求不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay conversation request does not exist or has expired"))
     if str(conversation_session.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演对话会话不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay conversation session does not exist or has expired"))
     if not str(message or "").strip():
-        raise HTTPException(status_code=400, detail="请输入对话内容")
+        raise HTTPException(status_code=400, detail=t("Please enter dialogue content"))
 
     target_avatar = _find_avatar_or_raise(world, str(conversation_session.get("target_avatar_id") or ""))
     session["status"] = "submitting"
@@ -686,7 +696,7 @@ async def submit_roleplay_conversation_turn(runtime, *, avatar_id: str, request_
     runtime.set_roleplay_auto_paused(True)
     return {
         "status": "ok",
-        "message": "对话已更新",
+        "message": t("Conversation updated"),
         "messages": list(messages),
         "reply": reply_text,
     }
@@ -700,13 +710,13 @@ async def end_roleplay_conversation(runtime, *, avatar_id: str, request_id: str)
     conversation_session = session.get("conversation_session") or {}
 
     if str(session.get("controlled_avatar_id") or "") != str(avatar_id):
-        raise HTTPException(status_code=409, detail="扮演目标不匹配")
+        raise HTTPException(status_code=409, detail=t("Roleplay target does not match"))
     if str(session.get("status") or "") != "conversing":
-        raise HTTPException(status_code=409, detail="当前不在扮演对话中")
+        raise HTTPException(status_code=409, detail=t("The current request is not in a roleplay conversation"))
     if str(pending.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演对话请求不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay conversation request does not exist or has expired"))
     if str(conversation_session.get("request_id") or "") != str(request_id):
-        raise HTTPException(status_code=404, detail="扮演对话会话不存在或已失效")
+        raise HTTPException(status_code=404, detail=t("Roleplay conversation session does not exist or has expired"))
 
     target_avatar = _find_avatar_or_raise(world, str(conversation_session.get("target_avatar_id") or ""))
     messages = list(conversation_session.get("messages") or [])
@@ -737,7 +747,7 @@ async def end_roleplay_conversation(runtime, *, avatar_id: str, request_id: str)
     runtime.set_roleplay_auto_paused(False)
     return {
         "status": "ok",
-        "message": "对话已结束",
+        "message": t("Conversation ended"),
         "summary": summary_text,
         "relation_hint": str(summary_payload.get("relation_hint", "") or ""),
         "story_hint": str(summary_payload.get("story_hint", "") or ""),

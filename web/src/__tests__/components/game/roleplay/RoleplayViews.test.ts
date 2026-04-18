@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
+import { createI18n } from 'vue-i18n'
 
 import RoleplayChoiceView from '@/components/game/roleplay/RoleplayChoiceView.vue'
 import RoleplayConversationView from '@/components/game/roleplay/RoleplayConversationView.vue'
@@ -9,9 +10,36 @@ import RoleplayIdleView from '@/components/game/roleplay/RoleplayIdleView.vue'
 import RoleplayInteractionHistory from '@/components/game/roleplay/RoleplayInteractionHistory.vue'
 import RoleplaySectionHeader from '@/components/game/roleplay/RoleplaySectionHeader.vue'
 
+function createRoleplayI18n() {
+  return createI18n({
+    legacy: false,
+    locale: 'zh',
+    messages: {
+      zh: {
+        game: {
+          roleplay: {
+            panel: { stop: '退出扮演' },
+            conversation: {
+              end: '结束对话',
+              placeholder: '输入你想说的话。',
+            },
+            decision: {
+              placeholder: '输入角色的下一步意图，例如：先调息恢复，再去附近探索。',
+            },
+            idle: {
+              hint: '当前仍在上帝视角观察世界。该角色的动作链结束后，会在这里等待你的下一步操作。',
+            },
+          },
+        },
+      },
+    },
+  })
+}
+
 describe('Roleplay subviews', () => {
   it('renders dock header and emits exit', async () => {
     const wrapper = mount(RoleplayDockHeader, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatarName: '闻人雾',
         statusText: '等待指令',
@@ -42,6 +70,7 @@ describe('Roleplay subviews', () => {
 
   it('updates and submits decision input', async () => {
     const wrapper = mount(RoleplayDecisionView, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         description: '输入一句意图。',
         modelValue: '',
@@ -93,6 +122,7 @@ describe('Roleplay subviews', () => {
 
   it('renders conversation view and emits send/end', async () => {
     const wrapper = mount(RoleplayConversationView, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatarName: '闻人雾',
         targetName: '阴长生',
@@ -136,7 +166,9 @@ describe('Roleplay subviews', () => {
   })
 
   it('renders idle hint', () => {
-    const wrapper = mount(RoleplayIdleView)
+    const wrapper = mount(RoleplayIdleView, {
+      global: { plugins: [createRoleplayI18n()] },
+    })
     expect(wrapper.text()).toContain('当前仍在上帝视角观察世界')
   })
 

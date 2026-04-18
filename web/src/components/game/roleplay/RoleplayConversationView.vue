@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 type ConversationMessage = {
   id: string
@@ -26,6 +27,8 @@ const emit = defineEmits<{
   send: []
   end: []
 }>()
+
+const { t } = useI18n()
 
 const chatListRef = ref<HTMLElement | null>(null)
 
@@ -69,7 +72,7 @@ watch(
         :disabled="isSubmitting"
         @click="emit('end')"
       >
-        结束对话
+        {{ t('game.roleplay.conversation.end') }}
       </button>
     </div>
     <div ref="chatListRef" class="roleplay-dock__chat-list">
@@ -87,7 +90,7 @@ watch(
       <textarea
         class="roleplay-dock__input roleplay-dock__input--conversation"
         rows="2"
-        placeholder="输入你想说的话。"
+        :placeholder="t('game.roleplay.conversation.placeholder')"
         :value="modelValue"
         @input="handleInput"
         @keydown="handleKeydown"

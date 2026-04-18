@@ -4,6 +4,7 @@ from typing import Any, Callable
 
 from fastapi import Query
 
+from src.i18n import t
 from src.server.services.public_api_contract import raise_public_error
 
 
@@ -154,8 +155,8 @@ def get_avatar_list(runtime) -> dict[str, Any]:
 
     avatars: list[dict[str, Any]] = []
     for avatar in world.avatar_manager.avatars.values():
-        sect_name = avatar.sect.name if avatar.sect else "散修"
-        realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else "未知"
+        sect_name = avatar.sect.name if avatar.sect else t("Rogue Cultivator")
+        realm_str = avatar.cultivation_progress.realm.value if hasattr(avatar, "cultivation_progress") else t("Unknown")
         avatars.append(
             {
                 "id": str(avatar.id),
@@ -244,7 +245,7 @@ def get_avatar_overview(runtime) -> dict[str, Any]:
     rogue_count = 0
 
     for avatar in living_avatars:
-        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", "未知"))
+        realm = str(getattr(getattr(avatar, "cultivation_progress", None), "realm", t("Unknown")))
         realm_counts[realm] = realm_counts.get(realm, 0) + 1
         if getattr(avatar, "sect", None) is None:
             rogue_count += 1

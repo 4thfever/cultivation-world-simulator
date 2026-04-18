@@ -94,7 +94,7 @@ async function handleApply() {
     <div v-if="visible" class="portrait-panel">
       <div class="panel-header">
         <span class="panel-title">{{ t('game.info_panel.avatar.portrait.title') }}</span>
-        <button class="close-btn" aria-label="Close" @click="$emit('close')">
+        <button class="close-btn" :aria-label="t('ui.close')" @click="$emit('close')">
           <span class="icon-mask close-icon" :style="{ '--icon-url': `url(${xIcon})` }" aria-hidden="true"></span>
         </button>
       </div>

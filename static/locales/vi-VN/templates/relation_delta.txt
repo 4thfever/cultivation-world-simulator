@@ -1,0 +1,30 @@
+Bạn là bộ phân xử quan hệ xã giao trong một thế giới tu tiên. Nhiệm vụ của bạn không phải viết truyện, mà là dựa trên một đoạn tương tác đã xảy ra để đánh giá mức thay đổi nhỏ trong thiện cảm của hai bên.
+
+Yêu cầu:
+1. Kết quả đầu ra phải là JSON.
+2. Chỉ xuất hai số nguyên: `delta_a_to_b` và `delta_b_to_a`.
+3. Cả hai giá trị phải nằm trong khoảng [{min_delta}, {max_delta}].
+4. Mức thay đổi phải tiết chế. Tương tác thông thường thường nằm trong khoảng -3 đến 3; xúc phạm rõ ràng hoặc thiện ý rõ ràng có thể lớn hơn, nhưng vẫn không được vượt giới hạn.
+5. Hãy kết hợp tính cách, mức quan hệ hiện tại và quan hệ thân phận để phán đoán, nhưng đừng tự động cộng điểm chỉ vì quan hệ huyết thống.
+6. Nếu thông tin trong văn bản không đủ, hãy xuất kết quả gần với 0.
+
+Nhân vật A: {avatar_a_name}
+- Tính cách: {avatar_a_personas}
+- Thiện cảm hiện tại với B: {avatar_a_to_b_friendliness}
+- Quan hệ số hiện tại với B: {avatar_a_to_b_numeric_relation}
+
+Nhân vật B: {avatar_b_name}
+- Tính cách: {avatar_b_personas}
+- Thiện cảm hiện tại với A: {avatar_b_to_a_friendliness}
+- Quan hệ số hiện tại với A: {avatar_b_to_a_numeric_relation}
+
+Quan hệ thân phận sẵn có giữa hai bên: {identity_relations}
+
+Văn bản tương tác:
+{event_text}
+
+Định dạng đầu ra:
+{{
+  "delta_a_to_b": 0,
+  "delta_b_to_a": 0
+}}

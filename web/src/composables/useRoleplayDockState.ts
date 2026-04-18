@@ -1,8 +1,10 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useRoleplayStore } from '@/stores/roleplay'
 
 export function useRoleplayDockState() {
+  const { t } = useI18n()
   const roleplayStore = useRoleplayStore()
   const commandText = ref('')
   const optimisticConversationMessage = ref<{
@@ -39,12 +41,12 @@ export function useRoleplayDockState() {
   const avatarName = computed(() => {
     const context = session.value.last_prompt_context ?? {}
     const rawName = typeof context.avatar_name === 'string' ? context.avatar_name : ''
-    return rawName || controlledAvatarId.value || '角色'
+    return rawName || controlledAvatarId.value || t('game.roleplay.fallback.avatar_name')
   })
   const conversationTargetName = computed(() => {
     const context = session.value.last_prompt_context ?? {}
     const rawName = typeof context.target_avatar_name === 'string' ? context.target_avatar_name : ''
-    return rawName || '对方'
+    return rawName || t('game.roleplay.fallback.counterpart_name')
   })
   const conversationMessages = computed(() => {
     const baseMessages = [...(pending.value?.messages ?? conversationSession.value?.messages ?? [])]
@@ -55,38 +57,38 @@ export function useRoleplayDockState() {
     return baseMessages
   })
   const statusText = computed(() => {
-    if (session.value.status === 'awaiting_decision') return '等待指令'
-    if (session.value.status === 'awaiting_choice') return '等待选择'
-    if (session.value.status === 'conversing') return '对话中'
-    if (session.value.status === 'submitting') return '提交中'
-    if (hasActiveRoleplay.value) return '观察中'
+    if (session.value.status === 'awaiting_decision') return t('game.roleplay.status.awaiting_decision')
+    if (session.value.status === 'awaiting_choice') return t('game.roleplay.status.awaiting_choice')
+    if (session.value.status === 'conversing') return t('game.roleplay.status.conversing')
+    if (session.value.status === 'submitting') return t('game.roleplay.status.submitting')
+    if (hasActiveRoleplay.value) return t('game.roleplay.status.observing')
     return ''
   })
   const requestSummary = computed(() => {
-    if (isDecision.value) return '需要决定下一步行动'
-    if (isChoice.value) return pending.value?.description || '需要做出回应'
-    if (isConversation.value) return `正在与 ${conversationTargetName.value} 交谈`
-    return '当前动作链仍在执行'
+    if (isDecision.value) return t('game.roleplay.summary.decision')
+    if (isChoice.value) return pending.value?.description || t('game.roleplay.summary.choice')
+    if (isConversation.value) return t('game.roleplay.summary.conversation', { target: conversationTargetName.value })
+    return t('game.roleplay.summary.observing')
   })
   const requestPanelTitle = computed(() => {
-    if (isDecision.value) return '决策'
-    if (isChoice.value) return '选项'
-    if (isConversation.value) return '对话'
-    return '观察'
+    if (isDecision.value) return t('game.roleplay.request.title_decision')
+    if (isChoice.value) return t('game.roleplay.request.title_choice')
+    if (isConversation.value) return t('game.roleplay.request.title_conversation')
+    return t('game.roleplay.request.title_observing')
   })
   const requestPanelCaption = computed(() => {
-    if (isDecision.value) return '输入一句意图，系统会扩展成行动链'
-    if (isChoice.value) return '从有限选项里做出一次回应'
-    if (isConversation.value) return `玩家控制 ${avatarName.value} 发言，对方由 LLM 回复`
-    return '当前没有需要立即处理的请求'
+    if (isDecision.value) return t('game.roleplay.request.caption_decision')
+    if (isChoice.value) return t('game.roleplay.request.caption_choice')
+    if (isConversation.value) return t('game.roleplay.request.caption_conversation', { avatar: avatarName.value })
+    return t('game.roleplay.request.caption_observing')
   })
   const requestErrorText = computed(() => roleplayStore.error || '')
-  const decisionSubmitText = computed(() => roleplayStore.isSubmitting ? '处理中...' : '提交指令')
-  const choiceSubmittingText = computed(() => roleplayStore.isSubmitting ? '正在处理选择，请稍候...' : '')
+  const decisionSubmitText = computed(() => roleplayStore.isSubmitting ? t('game.roleplay.decision.submitting') : t('game.roleplay.decision.submit'))
+  const choiceSubmittingText = computed(() => roleplayStore.isSubmitting ? t('game.roleplay.choice.submitting') : '')
   const conversationSubmitText = computed(() => {
-    if (isConversationAwaitingReply.value) return '等待回复...'
-    if (roleplayStore.isSubmitting) return '发送中...'
-    return '发送'
+    if (isConversationAwaitingReply.value) return t('game.roleplay.conversation.awaiting_reply')
+    if (roleplayStore.isSubmitting) return t('game.roleplay.conversation.sending')
+    return t('game.roleplay.conversation.submit')
   })
 
   async function refreshRoleplayState() {

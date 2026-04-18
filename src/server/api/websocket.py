@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Callable
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from src.i18n import t
 
 
 def create_websocket_router(
@@ -17,7 +18,7 @@ def create_websocket_router(
         await manager.connect(websocket)
 
         if game_instance.get("llm_check_failed", False):
-            error_msg = game_instance.get("llm_error_message", "LLM 连接失败")
+            error_msg = game_instance.get("llm_error_message", t("LLM connection failed"))
             await websocket.send_json({
                 "type": "llm_config_required",
                 "error": error_msg,

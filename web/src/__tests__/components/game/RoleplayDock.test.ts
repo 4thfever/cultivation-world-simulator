@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { reactive, nextTick } from 'vue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createI18n } from 'vue-i18n'
 
 import RoleplayDock from '@/components/game/RoleplayDock.vue'
 
@@ -60,6 +61,75 @@ vi.mock('@/utils/appError', () => ({
   logError: vi.fn(),
 }))
 
+function createRoleplayI18n() {
+  return createI18n({
+    legacy: false,
+    locale: 'zh',
+    messages: {
+      zh: {
+        game: {
+          roleplay: {
+            panel: { stop: '退出扮演' },
+            dock: {
+              interaction_title: '交互流',
+              interaction_caption: '本次扮演中的输入与输出',
+              interaction_empty: '当前还没有新的交互记录。',
+            },
+            status: {
+              awaiting_decision: '等待指令',
+              awaiting_choice: '等待选择',
+              conversing: '对话中',
+              submitting: '提交中',
+              observing: '观察中',
+            },
+            summary: {
+              decision: '需要决定下一步行动',
+              choice: '需要做出回应',
+              conversation: '正在与 {target} 交谈',
+              observing: '当前动作链仍在执行',
+            },
+            request: {
+              title_decision: '决策',
+              title_choice: '选项',
+              title_conversation: '对话',
+              title_observing: '观察',
+              caption_decision: '输入一句意图，系统会扩展成行动链',
+              caption_choice: '从有限选项里做出一次回应',
+              caption_conversation: '玩家控制 {avatar} 发言，对方由 LLM 回复',
+              caption_observing: '当前没有需要立即处理的请求',
+              decision_default_description: '输入一句意图，系统会把它扩展成该角色的下一步行动链。',
+              choice_default_description: '请选择一个回应。',
+              conversation_default_description: '世界已暂停，等待你继续扮演当前角色发言。',
+            },
+            decision: {
+              placeholder: '输入角色的下一步意图，例如：先调息恢复，再去附近探索。',
+              submit: '提交指令',
+              submitting: '处理中...',
+            },
+            choice: {
+              submitting: '正在处理选择，请稍候...',
+            },
+            conversation: {
+              placeholder: '输入你想说的话。',
+              submit: '发送',
+              sending: '发送中...',
+              awaiting_reply: '等待回复...',
+              end: '结束对话',
+            },
+            idle: {
+              hint: '当前仍在上帝视角观察世界。该角色的动作链结束后，会在这里等待你的下一步操作。',
+            },
+            fallback: {
+              avatar_name: '角色',
+              counterpart_name: '对方',
+            },
+          },
+        },
+      },
+    },
+  })
+}
+
 describe('RoleplayDock', () => {
   beforeEach(() => {
     roleplayStoreMock.session.controlled_avatar_id = null
@@ -102,7 +172,7 @@ describe('RoleplayDock', () => {
       },
     ]
 
-    const wrapper = mount(RoleplayDock)
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
     await nextTick()
 
     expect(wrapper.text()).toContain('闻人雾')
@@ -143,7 +213,7 @@ describe('RoleplayDock', () => {
       { type: 'choice', created_at: 1, text: '拒绝：婉拒邀约' },
     ]
 
-    const wrapper = mount(RoleplayDock)
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
     await nextTick()
 
     expect(wrapper.text()).toContain('冷清雅邀请你加入浩然书院，成为门下弟子。')
@@ -168,6 +238,7 @@ describe('RoleplayDock', () => {
 
     const wrapper = mount(RoleplayDock, {
       attachTo: document.body,
+      global: { plugins: [createRoleplayI18n()] },
     })
     await nextTick()
 
@@ -203,7 +274,7 @@ describe('RoleplayDock', () => {
       },
     ]
 
-    const wrapper = mount(RoleplayDock)
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
     await nextTick()
 
     expect(wrapper.text()).toContain('当前仍在上帝视角观察世界')
@@ -240,7 +311,7 @@ describe('RoleplayDock', () => {
       { type: 'conversation_assistant', created_at: 2, text: '阁下为何前来？' },
     ]
 
-    const wrapper = mount(RoleplayDock)
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
     await nextTick()
 
     expect(wrapper.text()).toContain('闻人雾 ↔ 阴长生')
@@ -286,7 +357,7 @@ describe('RoleplayDock', () => {
       target_avatar_name: '阴长生',
     }
 
-    const wrapper = mount(RoleplayDock)
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
     await nextTick()
 
     const textarea = wrapper.find('.roleplay-dock__input--conversation')

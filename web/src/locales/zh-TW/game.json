@@ -117,7 +117,7 @@
     "closed_msg": "遊戲已關閉，您可以安全關閉此標籤頁。"
   },
   "event_panel": {
-    "title": "",
+    "title": "事件",
     "filter_all": "所有人",
     "filter_all_sects": "所有宗門",
     "filter_event_scope_all": "所有事",
@@ -129,6 +129,74 @@
     "empty_dual": "這兩人之間暫無事件",
     "empty_single": "該修士暫無事件",
     "empty_none": "暫無事件"
+  },
+  "roleplay": {
+    "panel": {
+      "start": "扮演",
+      "stop": "退出扮演"
+    },
+    "dock": {
+      "interaction_title": "互動流",
+      "interaction_caption": "本次扮演中的輸入與輸出",
+      "interaction_empty": "目前還沒有新的互動記錄。"
+    },
+    "status": {
+      "awaiting_decision": "等待指令",
+      "awaiting_choice": "等待選擇",
+      "conversing": "對話中",
+      "submitting": "提交中",
+      "observing": "觀察中"
+    },
+    "summary": {
+      "decision": "需要決定下一步行動",
+      "choice": "需要做出回應",
+      "conversation": "正在與 {target} 交談",
+      "observing": "當前動作鏈仍在執行"
+    },
+    "request": {
+      "title_decision": "決策",
+      "title_choice": "選項",
+      "title_conversation": "對話",
+      "title_observing": "觀察",
+      "caption_decision": "輸入一句意圖，系統會擴展成行動鏈",
+      "caption_choice": "從有限選項裡做出一次回應",
+      "caption_conversation": "玩家控制 {avatar} 發言，對方由 LLM 回覆",
+      "caption_observing": "目前沒有需要立即處理的請求",
+      "decision_default_description": "輸入一句意圖，系統會把它擴展成該角色的下一步行動鏈。",
+      "choice_default_description": "請選擇一個回應。",
+      "conversation_default_description": "世界已暫停，等待你繼續扮演當前角色發言。"
+    },
+    "decision": {
+      "placeholder": "輸入角色的下一步意圖，例如：先調息恢復，再去附近探索。",
+      "submit": "提交指令",
+      "submitting": "處理中..."
+    },
+    "choice": {
+      "submitting": "正在處理選擇，請稍候..."
+    },
+    "conversation": {
+      "placeholder": "輸入你想說的話。",
+      "submit": "送出",
+      "sending": "傳送中...",
+      "awaiting_reply": "等待回覆...",
+      "end": "結束對話"
+    },
+    "errors": {
+      "fetch_session": "取得扮演狀態失敗",
+      "start": "開始扮演失敗",
+      "stop": "退出扮演失敗",
+      "submit_decision": "提交扮演指令失敗",
+      "submit_choice": "提交扮演選擇失敗",
+      "send_conversation": "送出對話失敗",
+      "end_conversation": "結束對話失敗"
+    },
+    "idle": {
+      "hint": "目前仍以上帝視角觀察世界。當該角色的動作鏈結束後，會在這裡等待你的下一步操作。"
+    },
+    "fallback": {
+      "avatar_name": "角色",
+      "counterpart_name": "對方"
+    }
   },
   "event_templates": {
     "nickname_awarded": "{avatar_name}在修仙界中闖出名號，被人稱為「{nickname}」。"

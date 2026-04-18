@@ -2779,6 +2779,78 @@ msgstr "築基"
 msgid "nascent_soul"
 msgstr "元嬰"
 
+msgid "World not initialized"
+msgstr "世界尚未初始化"
+
+msgid "Avatar not found"
+msgstr "未找到該角色"
+
+msgid "Objective set"
+msgstr "目標已設定"
+
+msgid "Objective cleared"
+msgstr "目標已清空"
+
+msgid "No user objective to clear"
+msgstr "目前沒有可清空的使用者目標"
+
+msgid "Invalid pic_id for avatar gender"
+msgstr "該頭像不適用於目前角色性別"
+
+msgid "Avatar portrait updated"
+msgstr "角色頭像已更新"
+
+msgid "Avatar deleted"
+msgstr "角色已刪除"
+
+msgid "Avatar adjustment applied"
+msgstr "角色調整已套用"
+
+msgid "Invalid pic_id for selected gender"
+msgstr "所選頭像不適用於目前性別"
+
+msgid "Created avatar {avatar_name}"
+msgstr "已建立角色：{avatar_name}"
+
+msgid "Phenomenon not found"
+msgstr "未找到該天象"
+
+msgid "Phenomenon set to {phenomenon_name}"
+msgstr "天象已設為：{phenomenon_name}"
+
+msgid "Invalid filename"
+msgstr "無效的檔名"
+
+msgid "Game not initialized"
+msgstr "遊戲尚未初始化"
+
+msgid "Invalid save name"
+msgstr "無效的存檔名稱"
+
+msgid "Save failed"
+msgstr "存檔失敗"
+
+msgid "Save deleted"
+msgstr "存檔已刪除"
+
+msgid "File not found"
+msgstr "未找到檔案"
+
+msgid "Game loaded"
+msgstr "讀檔完成"
+
+msgid "Load failed: {error}"
+msgstr "讀檔失敗：{error}"
+
+msgid "Game reset to idle"
+msgstr "遊戲已重設為閒置狀態"
+
+msgid "Game paused"
+msgstr "遊戲已暫停"
+
+msgid "Game resumed"
+msgstr "遊戲已繼續"
+
 msgid "apprentice"
 msgstr "徒弟"
 
@@ -2980,6 +3052,96 @@ msgstr "你得知 {subject_name} 發生了一件大事：{content}"
 
 msgid "You learned that {subject_name} experienced a major event."
 msgstr "你得知 {subject_name} 發生了一件大事。"
+
+msgid "World is not initialized yet"
+msgstr "世界尚未初始化"
+
+msgid "Target avatar does not exist"
+msgstr "目標角色不存在"
+
+msgid "{avatar_name} needs a new command"
+msgstr "{avatar_name} 需要新的指令"
+
+msgid "World paused and waiting for your roleplay command."
+msgstr "世界已暫停，正在等待你的扮演指令。"
+
+msgid "There is already a pending roleplay request"
+msgstr "已有待處理的扮演請求"
+
+msgid "{avatar_name} needs to make a choice"
+msgstr "{avatar_name} 需要做出選擇"
+
+msgid ""
+"The other party falls silent for a moment and does not reply immediately."
+msgstr "對方沉默片刻，沒有立刻接話。"
+
+msgid "{target_avatar_name} pauses to think and responds to the topic."
+msgstr "{target_avatar_name} 略作思索，回應了對方的話題。"
+
+msgid ""
+"{avatar_name} and {target_avatar_name} talked for {turns} turns and both "
+"gained a new impression of the topic at hand."
+msgstr ""
+"{avatar_name} 與 {target_avatar_name} 進行了一番交談，來回交流了 {turns} 輪，彼此對當下話題都有了新的印象。"
+
+msgid "{avatar_name} is talking with {target_avatar_name}"
+msgstr "{avatar_name} 與 {target_avatar_name} 對話中"
+
+msgid ""
+"World paused and waiting for you to continue speaking as {avatar_name} with "
+"{target_avatar_name}."
+msgstr "世界已暫停，等待你繼續扮演 {avatar_name} 與 {target_avatar_name} 交談。"
+
+msgid "There is already another avatar under roleplay control"
+msgstr "已有其他角色正在被扮演"
+
+msgid "Roleplay target does not match"
+msgstr "扮演目標不匹配"
+
+msgid "The current request is not waiting for a roleplay command"
+msgstr "目前不在等待扮演指令"
+
+msgid "Roleplay request does not exist or has expired"
+msgstr "扮演請求不存在或已失效"
+
+msgid "Please enter a roleplay command"
+msgstr "請輸入扮演指令"
+
+msgid "Failed to generate a valid action plan from this command"
+msgstr "未能從該指令生成有效行動計畫"
+
+msgid "Roleplay command submitted"
+msgstr "扮演指令已提交"
+
+msgid "The current request is not waiting for a roleplay choice"
+msgstr "目前不在等待扮演選擇"
+
+msgid "Roleplay choice state is invalid, please trigger it again"
+msgstr "扮演選擇狀態異常，請重新觸發"
+
+msgid "This roleplay choice has already been handled"
+msgstr "該扮演選擇已處理"
+
+msgid "Roleplay choice submitted"
+msgstr "扮演選擇已提交"
+
+msgid "The current request is not in a roleplay conversation"
+msgstr "目前不在扮演對話中"
+
+msgid "Roleplay conversation request does not exist or has expired"
+msgstr "扮演對話請求不存在或已失效"
+
+msgid "Roleplay conversation session does not exist or has expired"
+msgstr "扮演對話會話不存在或已失效"
+
+msgid "Please enter dialogue content"
+msgstr "請輸入對話內容"
+
+msgid "Conversation updated"
+msgstr "對話已更新"
+
+msgid "Conversation ended"
+msgstr "對話已結束"
 
 # Root Element
 msgid "gold_element"

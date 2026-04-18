@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 defineProps<{
   avatarName: string
   statusText: string
   requestSummary: string
   isSubmitting: boolean
 }>()
+
+const { t } = useI18n()
 
 const emit = defineEmits<{
   exit: []
@@ -23,7 +27,7 @@ const emit = defineEmits<{
       :disabled="isSubmitting"
       @click="emit('exit')"
     >
-      退出扮演
+      {{ t('game.roleplay.panel.stop') }}
     </button>
   </div>
 </template>

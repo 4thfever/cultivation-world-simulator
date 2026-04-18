@@ -1,5 +1,12 @@
 {
   "title": "AI修仙世界模拟器",
+  "subtitle": "AI修仙世界模拟器",
+  "menu_start": "开始游戏",
+  "menu_load": "读取存档",
+  "menu_achievements": "成就",
+  "menu_settings": "系统设置",
+  "menu_about": "关于",
+  "menu_exit": "离开",
   "start": "开始修仙",
   "continue": "继续道途",
   "settings": "系统设置"

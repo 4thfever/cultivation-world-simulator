@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useRoleplayStore } from '@/stores/roleplay';
 import type { AvatarDetail } from '@/types/core';
@@ -8,6 +9,7 @@ const props = defineProps<{
   avatar: AvatarDetail;
 }>();
 
+const { t } = useI18n();
 const roleplayStore = useRoleplayStore();
 
 const session = computed(() => roleplayStore.session);
@@ -41,7 +43,7 @@ watch(currentAvatarId, () => {
       :disabled="isAnotherAvatarControlled || roleplayStore.isSubmitting"
       @click="handleStartRoleplay"
     >
-      扮演
+      {{ t('game.roleplay.panel.start') }}
     </button>
     <button
       v-else
@@ -49,7 +51,7 @@ watch(currentAvatarId, () => {
       :disabled="roleplayStore.isSubmitting"
       @click="handleStopRoleplay"
     >
-      退出扮演
+      {{ t('game.roleplay.panel.stop') }}
     </button>
   </div>
 </template>

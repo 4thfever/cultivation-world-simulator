@@ -30,7 +30,7 @@ const languageOptions = computed(() =>
     <div class="settings-form">
       <div class="setting-item">
         <div class="setting-label-group">
-          <span class="setting-icon language-badge-icon" :style="{ '--icon-url': `url(${languagesIcon})` }" aria-label="Language"></span>
+          <span class="setting-icon language-badge-icon" :style="{ '--icon-url': `url(${languagesIcon})` }" :aria-label="t('ui.language_accessible_label')"></span>
           <span class="setting-label">{{ t('ui.language') }}</span>
         </div>
         <n-select

@@ -6,11 +6,12 @@ import time
 from typing import Any, Callable
 
 from fastapi import HTTPException
+from src.i18n import t
 
 
 def validate_save_filename(filename: str) -> None:
     if ".." in filename or "/" in filename or "\\" in filename:
-        raise HTTPException(status_code=400, detail="Invalid filename")
+        raise HTTPException(status_code=400, detail=t("Invalid filename"))
 
 
 def resolve_existing_save_path(filename: str, *, candidate_dirs) -> Any:
@@ -56,15 +57,15 @@ def save_current_game(
     world = runtime.get("world")
     sim = runtime.get("sim")
     if not world or not sim:
-        raise HTTPException(status_code=503, detail="Game not initialized")
+        raise HTTPException(status_code=503, detail=t("Game not initialized"))
 
     existed_sects = getattr(world, "existed_sects", []) or list(sects_by_id.values())
     if custom_name and not validate_save_name(custom_name):
-        raise HTTPException(status_code=400, detail="Invalid save name")
+        raise HTTPException(status_code=400, detail=t("Invalid save name"))
 
     success, filename = save_game(world, sim, existed_sects, custom_name=custom_name)
     if not success:
-        raise HTTPException(status_code=500, detail="Save failed")
+        raise HTTPException(status_code=500, detail=t("Save failed"))
     return {"status": "ok", "filename": filename}
 
 
@@ -91,7 +92,7 @@ def delete_save_file(
         except Exception as exc:
             print(f"[Warning] Failed to delete db file {events_db_path}: {exc}")
 
-    return {"status": "ok", "message": "Save deleted"}
+    return {"status": "ok", "message": t("Save deleted")}
 
 
 async def load_game_into_runtime(
@@ -116,7 +117,7 @@ async def load_game_into_runtime(
         candidate_dirs=[saves_dir, *(fallback_saves_dirs or [])],
     )
     if target_path is None or not target_path.exists():
-        raise HTTPException(status_code=404, detail="File not found")
+        raise HTTPException(status_code=404, detail=t("File not found"))
 
     async def _do_load():
         runtime.clear_roleplay_session()
@@ -175,7 +176,7 @@ async def load_game_into_runtime(
         await asyncio.sleep(0)
         runtime.finish_initialization(phase_name="complete")
         runtime.update({"init_progress": 100})
-        return {"status": "ok", "message": "Game loaded"}
+        return {"status": "ok", "message": t("Game loaded")}
 
     try:
         return await runtime.run_mutation(_do_load)
@@ -186,4 +187,4 @@ async def load_game_into_runtime(
 
         traceback.print_exc()
         runtime.fail_initialization(str(exc))
-        raise HTTPException(status_code=500, detail=f"Load failed: {str(exc)}")
+        raise HTTPException(status_code=500, detail=t("Load failed: {error}", error=str(exc)))

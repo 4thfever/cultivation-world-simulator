@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { reactive, nextTick } from 'vue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createI18n } from 'vue-i18n'
 
 import RoleplayPanel from '@/components/game/panels/info/components/RoleplayPanel.vue'
 
@@ -21,6 +22,25 @@ vi.mock('@/stores/roleplay', () => ({
   useRoleplayStore: () => roleplayStoreMock,
 }))
 
+function createRoleplayI18n() {
+  return createI18n({
+    legacy: false,
+    locale: 'zh',
+    messages: {
+      zh: {
+        game: {
+          roleplay: {
+            panel: {
+              start: '扮演',
+              stop: '退出扮演',
+            },
+          },
+        },
+      },
+    },
+  })
+}
+
 describe('RoleplayPanel', () => {
   beforeEach(() => {
     roleplayStoreMock.session.controlled_avatar_id = null
@@ -33,6 +53,7 @@ describe('RoleplayPanel', () => {
 
   it('shows start button and starts roleplay for current avatar', async () => {
     const wrapper = mount(RoleplayPanel, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatar: { id: 'avatar-1' },
       },
@@ -48,6 +69,7 @@ describe('RoleplayPanel', () => {
 
   it('fetches roleplay session only once on initial mount', async () => {
     mount(RoleplayPanel, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatar: { id: 'avatar-1' },
       },
@@ -61,6 +83,7 @@ describe('RoleplayPanel', () => {
     roleplayStoreMock.session.controlled_avatar_id = 'avatar-1'
 
     const wrapper = mount(RoleplayPanel, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatar: { id: 'avatar-1' },
       },
@@ -78,6 +101,7 @@ describe('RoleplayPanel', () => {
     roleplayStoreMock.session.controlled_avatar_id = 'avatar-2'
 
     const wrapper = mount(RoleplayPanel, {
+      global: { plugins: [createRoleplayI18n()] },
       props: {
         avatar: { id: 'avatar-1' },
       },
