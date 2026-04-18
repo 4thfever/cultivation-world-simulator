@@ -496,9 +496,44 @@ def get_settings() -> dict:
     return _model_to_dict(get_settings_service().get_settings_view())
 
 
+def _patch_settings_model(req):
+    updated = get_settings_service().patch_settings(req)
+    next_locale = str(updated.new_game_defaults.content_locale)
+    current_locale = str(language_manager)
+
+    if next_locale and next_locale != current_locale:
+        apply_runtime_content_locale(next_locale)
+
+    run_config = game_instance.get("run_config")
+    if isinstance(run_config, dict):
+        run_config["content_locale"] = next_locale
+
+    return updated
+
+
 def patch_settings(req) -> dict:
     """兼容保留：更新应用设置。"""
-    return _model_to_dict(get_settings_service().patch_settings(req))
+    return _model_to_dict(_patch_settings_model(req))
+
+
+def _reset_settings_model():
+    updated = get_settings_service().reset_settings()
+    next_locale = str(updated.new_game_defaults.content_locale)
+    current_locale = str(language_manager)
+
+    if next_locale and next_locale != current_locale:
+        apply_runtime_content_locale(next_locale)
+
+    run_config = game_instance.get("run_config")
+    if isinstance(run_config, dict):
+        run_config["content_locale"] = next_locale
+
+    return updated
+
+
+def reset_settings() -> dict:
+    """兼容保留：重置应用设置，并同步全局语言。"""
+    return _model_to_dict(_reset_settings_model())
 
 
 async def start_game(req: GameStartRequest) -> dict:
@@ -546,8 +581,8 @@ configure_routes_and_mounts(
     create_settings_router=create_settings_router,
     model_to_dict=_model_to_dict,
     get_settings_view=get_settings_service().get_settings_view,
-    patch_settings=get_settings_service().patch_settings,
-    reset_settings=get_settings_service().reset_settings,
+    patch_settings=_patch_settings_model,
+    reset_settings=_reset_settings_model,
     get_llm_view=get_settings_service().get_llm_view,
     get_llm_runtime_config=get_settings_service().get_llm_runtime_config,
     get_llm_test_payload=get_settings_service().get_llm_test_payload,

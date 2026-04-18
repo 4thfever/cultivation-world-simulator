@@ -6,10 +6,18 @@ const {
   mockFetchSettings,
   mockPatchSettings,
   mockStartGame,
+  mockMapPreload,
+  mockWorldFetchState,
+  mockSectRefreshTerritories,
+  mockEventResetEvents,
 } = vi.hoisted(() => ({
   mockFetchSettings: vi.fn(),
   mockPatchSettings: vi.fn(),
   mockStartGame: vi.fn(),
+  mockMapPreload: vi.fn(),
+  mockWorldFetchState: vi.fn(),
+  mockSectRefreshTerritories: vi.fn(),
+  mockEventResetEvents: vi.fn(),
 }))
 
 let mockI18nLocale: { value: string } | string = { value: testDefaultLocale }
@@ -75,6 +83,32 @@ vi.mock('@/api/modules/system', () => ({
   },
 }))
 
+vi.mock('@/stores/map', () => ({
+  useMapStore: () => ({
+    preloadMap: mockMapPreload,
+  }),
+}))
+
+vi.mock('@/stores/world', () => ({
+  useWorldStore: () => ({
+    isLoaded: true,
+    fetchState: mockWorldFetchState,
+  }),
+}))
+
+vi.mock('@/stores/sect', () => ({
+  useSectStore: () => ({
+    refreshTerritories: mockSectRefreshTerritories,
+  }),
+}))
+
+vi.mock('@/stores/event', () => ({
+  useEventStore: () => ({
+    eventsFilter: {},
+    resetEvents: mockEventResetEvents,
+  }),
+}))
+
 import { useSettingStore } from '@/stores/setting'
 
 describe('useSettingStore', () => {
@@ -86,6 +120,10 @@ describe('useSettingStore', () => {
     mockI18nLocale = { value: testDefaultLocale }
     mockI18nMode = 'composition'
     currentSettings = clone(baseSettings)
+    mockMapPreload.mockResolvedValue(undefined)
+    mockWorldFetchState.mockResolvedValue(undefined)
+    mockSectRefreshTerritories.mockResolvedValue(undefined)
+    mockEventResetEvents.mockResolvedValue(undefined)
     mockFetchSettings.mockImplementation(async () => clone(currentSettings))
     mockPatchSettings.mockImplementation(async (patch: any) => {
       currentSettings = {
@@ -149,10 +187,15 @@ describe('useSettingStore', () => {
 
     expect(mockPatchSettings).toHaveBeenCalledWith({
       ui: { locale: 'zh-TW' },
+      new_game_defaults: { content_locale: 'zh-TW' },
     })
     expect(store.locale).toBe('zh-TW')
-    expect(store.newGameDraft.content_locale).toBe(testDefaultLocale)
+    expect(store.newGameDraft.content_locale).toBe('zh-TW')
     expect(document.documentElement.lang).toBe(getExpectedHtmlLang('zh-TW'))
+    expect(mockMapPreload).toHaveBeenCalled()
+    expect(mockWorldFetchState).toHaveBeenCalled()
+    expect(mockEventResetEvents).toHaveBeenCalledWith({})
+    expect(mockSectRefreshTerritories).toHaveBeenCalled()
   })
 
   it('saves bgm volume through patchSettings', async () => {
@@ -169,14 +212,14 @@ describe('useSettingStore', () => {
     expect(store.isAutoSave).toBe(true)
   })
 
-  it('keeps content locale independent when updating new game draft', () => {
+  it('allows manual content locale edits in draft before start game', () => {
     store.updateNewGameDraft({ init_npc_num: 20, content_locale: testFallbackLocale })
 
     expect(store.newGameDraft.init_npc_num).toBe(20)
     expect(store.newGameDraft.content_locale).toBe(testFallbackLocale)
   })
 
-  it('persists new game defaults before starting game without overriding content locale', async () => {
+  it('persists manually adjusted content locale before starting game', async () => {
     await store.setLocale(testFallbackLocale)
     store.updateNewGameDraft({ init_npc_num: 20, content_locale: testDefaultLocale })
 
@@ -200,7 +243,7 @@ describe('useSettingStore', () => {
     })
   })
 
-  it('hydrates content locale from backend without forcing it to ui locale', async () => {
+  it('hydrates content locale from backend as saved by settings service', async () => {
     currentSettings = {
       ...clone(baseSettings),
       ui: {

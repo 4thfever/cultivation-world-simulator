@@ -18,6 +18,7 @@ globs: web/src/**/*.{vue,ts,js}
   - 应用壳层必须采用 `scene + overlay` 思路：底层场景至少区分 `boot / splash / initializing / game`，`SystemMenu` 与 `LoadingOverlay` 作为 overlay 叠加。
   - 游戏主界面只能由 `scene === 'game'` 驱动，禁止通过 `!showSplash`、`!showLoading` 等反向布尔组合推断“已经进入游戏”。
   - 从 `SplashLayer` 打开的设置/读档/关于页仍属于 `splash` 上下文；打开菜单不得隐式暴露地图、状态栏或其他游戏内 UI。
+  - `SplashLayer` 的主标题/按钮主标签可以本地化，但标题下副标题与按钮下小字辅文必须始终保持英文，用于帮助多语言用户快速识别功能；相关 i18n key 应显式使用英文语义命名（如 `splash.tagline_en`、`splash.subtitle_*_en`），后续本地化时不得把这些 key 再翻译成各语言版本。
   - 系统菜单应采用“壳层 + 内容层 + 流程层”拆分：`SystemMenuShell` 负责容器，`SettingsPanel` 负责设置内容，`useSystemMenuFlow` 负责菜单业务流程；不要把三者重新揉回 `SystemMenu.vue` 巨石组件。
 - **Socket 分层约束**:
   - `api/socket.ts` 只负责 transport（连接、重连、消息订阅）。

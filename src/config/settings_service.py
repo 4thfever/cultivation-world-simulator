@@ -123,6 +123,11 @@ class SettingsService:
             ui_patch = patch_payload["ui"]
             if ui_patch.get("locale") is not None:
                 payload["ui"]["locale"] = ui_patch["locale"]
+                if not (
+                    patch_payload.get("new_game_defaults")
+                    and patch_payload["new_game_defaults"].get("content_locale") is not None
+                ):
+                    payload["new_game_defaults"]["content_locale"] = ui_patch["locale"]
             if ui_patch.get("audio"):
                 audio_patch = ui_patch["audio"]
                 if audio_patch.get("bgm_volume") is not None:

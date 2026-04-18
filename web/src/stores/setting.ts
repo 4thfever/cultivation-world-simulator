@@ -6,6 +6,10 @@ import { defaultLocale, getHtmlLang, isEnabledLocale, type AppLocale } from '../
 import { systemApi } from '../api/modules/system';
 import type { AppSettingsDTO, RunConfigDTO } from '../types/api';
 import { logWarn } from '../utils/appError';
+import { useEventStore } from './event';
+import { useMapStore } from './map';
+import { useSectStore } from './sect';
+import { useWorldStore } from './world';
 
 function applyUiLocale(lang: string) {
   const localeRef = i18n.global.locale;
@@ -17,6 +21,11 @@ function applyUiLocale(lang: string) {
 }
 
 export const useSettingStore = defineStore('setting', () => {
+  const eventStore = useEventStore();
+  const mapStore = useMapStore();
+  const sectStore = useSectStore();
+  const worldStore = useWorldStore();
+
   const hydrated = ref(false);
   const loading = ref(false);
 
@@ -45,6 +54,28 @@ export const useSettingStore = defineStore('setting', () => {
     applyUiLocale(locale.value);
   }
 
+  async function refreshLocalizedRuntimeData() {
+    const currentFilter = { ...eventStore.eventsFilter };
+
+    try {
+      await mapStore.preloadMap();
+    } catch (e) {
+      logWarn('SettingStore refresh localized map', e);
+    }
+
+    if (!worldStore.isLoaded) {
+      return;
+    }
+
+    try {
+      await worldStore.fetchState();
+      await eventStore.resetEvents(currentFilter);
+      await sectStore.refreshTerritories();
+    } catch (e) {
+      logWarn('SettingStore refresh localized runtime data', e);
+    }
+  }
+
   async function hydrate() {
     if (loading.value) return;
 
@@ -64,16 +95,27 @@ export const useSettingStore = defineStore('setting', () => {
   async function setLocale(lang: string) {
     const nextLocale = isEnabledLocale(lang) ? lang : defaultLocale
     const previous = locale.value;
+    const previousContentLocale = newGameDraft.value.content_locale;
     locale.value = nextLocale;
+    newGameDraft.value = {
+      ...newGameDraft.value,
+      content_locale: nextLocale,
+    };
     applyUiLocale(nextLocale);
 
     try {
       const settings = await systemApi.patchSettings({
         ui: { locale: nextLocale },
+        new_game_defaults: { content_locale: nextLocale },
       });
       applySettings(settings);
+      await refreshLocalizedRuntimeData();
     } catch (e) {
       locale.value = previous;
+      newGameDraft.value = {
+        ...newGameDraft.value,
+        content_locale: previousContentLocale,
+      };
       applyUiLocale(previous);
       logWarn('SettingStore set locale', e);
     }
