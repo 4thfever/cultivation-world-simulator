@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, ref } from 'vue'
 import { useUiStore } from '@/stores/ui'
+import { useSocketStore } from '@/stores/socket'
 import { useSystemStore } from '@/stores/system'
 import { useGameControl } from '@/composables/useGameControl'
 
@@ -34,10 +35,12 @@ const createTestComponent = () => {
 
 describe('useGameControl', () => {
   let uiStore: ReturnType<typeof useUiStore>
+  let socketStore: ReturnType<typeof useSocketStore>
   let systemStore: ReturnType<typeof useSystemStore>
 
   beforeEach(() => {
     uiStore = useUiStore()
+    socketStore = useSocketStore()
     systemStore = useSystemStore()
     vi.clearAllMocks()
   })
@@ -117,6 +120,39 @@ describe('useGameControl', () => {
     wrapper.vm.toggleManualPause()
 
     expect(togglePauseSpy).toHaveBeenCalledTimes(1)
+    wrapper.unmount()
+  })
+
+  it('resumes backend after websocket reconnect when game is active and not manually paused', async () => {
+    const resumeSpy = vi.spyOn(systemStore, 'resume').mockResolvedValue(undefined)
+    const { component, gameInitialized, showMenu } = createTestComponent()
+    gameInitialized.value = true
+    showMenu.value = false
+    systemStore.isManualPaused = false
+    const wrapper = mount(component)
+
+    socketStore.isConnected = false
+    await Promise.resolve()
+    socketStore.isConnected = true
+    await Promise.resolve()
+
+    expect(resumeSpy).toHaveBeenCalledTimes(1)
+    wrapper.unmount()
+  })
+
+  it('does not auto-resume after reconnect when user has manually paused', async () => {
+    const resumeSpy = vi.spyOn(systemStore, 'resume').mockResolvedValue(undefined)
+    const { component, gameInitialized } = createTestComponent()
+    gameInitialized.value = true
+    systemStore.isManualPaused = true
+    const wrapper = mount(component)
+
+    socketStore.isConnected = false
+    await Promise.resolve()
+    socketStore.isConnected = true
+    await Promise.resolve()
+
+    expect(resumeSpy).not.toHaveBeenCalled()
     wrapper.unmount()
   })
 })

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { reactive, nextTick } from 'vue'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createI18n } from 'vue-i18n'
 
 import RoleplayDock from '@/components/game/RoleplayDock.vue'
@@ -148,6 +148,10 @@ describe('RoleplayDock', () => {
     roleplayStoreMock.stopRoleplay.mockClear()
     eventApiMock.fetchEvents.mockClear()
     eventApiMock.fetchEvents.mockResolvedValue({ events: [] })
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('renders decision console and submits command text', async () => {
@@ -371,5 +375,38 @@ describe('RoleplayDock', () => {
     resolveSend?.()
     await nextTick()
     await nextTick()
+  })
+
+  it('does not keep polling roleplay session when no active roleplay exists', async () => {
+    vi.useFakeTimers()
+
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
+    await nextTick()
+
+    expect(roleplayStoreMock.fetchSession).toHaveBeenCalledTimes(1)
+
+    await vi.advanceTimersByTimeAsync(3000)
+
+    expect(roleplayStoreMock.fetchSession).toHaveBeenCalledTimes(1)
+    wrapper.unmount()
+  })
+
+  it('keeps polling roleplay session while an avatar is under roleplay control', async () => {
+    vi.useFakeTimers()
+    roleplayStoreMock.session.controlled_avatar_id = 'avatar-1'
+    roleplayStoreMock.session.status = 'observing'
+    roleplayStoreMock.session.last_prompt_context = {
+      avatar_name: '闻人雾',
+    }
+
+    const wrapper = mount(RoleplayDock, { global: { plugins: [createRoleplayI18n()] } })
+    await nextTick()
+
+    expect(roleplayStoreMock.fetchSession).toHaveBeenCalledTimes(1)
+
+    await vi.advanceTimersByTimeAsync(2200)
+
+    expect(roleplayStoreMock.fetchSession.mock.calls.length).toBeGreaterThanOrEqual(3)
+    wrapper.unmount()
   })
 })

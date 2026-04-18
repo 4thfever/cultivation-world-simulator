@@ -1,6 +1,7 @@
 import { watch, type Ref } from 'vue'
 import { useUiStore } from '@/stores/ui'
 import { useSystemStore } from '@/stores/system'
+import { useSocketStore } from '@/stores/socket'
 import { logError } from '@/utils/appError'
 import { storeToRefs } from 'pinia'
 
@@ -15,8 +16,10 @@ interface UseGameControlOptions {
 export function useGameControl(options: UseGameControlOptions) {
   const uiStore = useUiStore()
   const systemStore = useSystemStore()
+  const socketStore = useSocketStore()
   
   const { isManualPaused } = storeToRefs(systemStore)
+  const { isConnected } = storeToRefs(socketStore)
 
   // 统一的暂停控制逻辑：
   // - 菜单打开时：暂停后端（不影响 isManualPaused）
@@ -31,6 +34,14 @@ export function useGameControl(options: UseGameControlOptions) {
         systemStore.resume().catch((e) => logError('GameControl resume', e))
       }
     }
+  })
+
+  watch(isConnected, (connected, wasConnected) => {
+    if (!connected || wasConnected !== false) return
+    if (!options.gameInitialized.value) return
+    if (options.showMenu.value || isManualPaused.value) return
+
+    systemStore.resume().catch((e) => logError('GameControl resume after reconnect', e))
   })
 
   // 快捷键处理

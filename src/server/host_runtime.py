@@ -10,12 +10,16 @@ from fastapi import WebSocket
 
 class EndpointFilter(logging.Filter):
     """
-    Log filter to hide successful runtime status polling requests
+    Log filter to hide successful high-frequency polling requests
     to reduce console noise.
     """
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return record.getMessage().find("GET /api/v1/query/runtime/status") == -1
+        message = record.getMessage()
+        return (
+            "GET /api/v1/query/runtime/status" not in message
+            and "GET /api/v1/query/roleplay/session" not in message
+        )
 
 
 class ConnectionManager:

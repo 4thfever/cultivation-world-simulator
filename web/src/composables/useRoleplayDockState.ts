@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useRoleplayStore } from '@/stores/roleplay'
@@ -169,9 +169,16 @@ export function useRoleplayDockState() {
     pollTimer = null
   }
 
+  watch(hasActiveRoleplay, (active) => {
+    if (active) {
+      startPolling()
+      return
+    }
+    stopPolling()
+  })
+
   onMounted(() => {
     void refreshRoleplayState()
-    startPolling()
   })
 
   onUnmounted(() => {
