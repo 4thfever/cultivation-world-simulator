@@ -139,12 +139,14 @@ describe('RoleplayDock', () => {
       avatar_name: '闻人雾',
     }
     roleplayStoreMock.session.interaction_history = [
+      { type: 'choice_prompt', created_at: 1, text: '冷清雅邀请你加入浩然书院，成为门下弟子。' },
       { type: 'choice', created_at: 1, text: '拒绝：婉拒邀约' },
     ]
 
     const wrapper = mount(RoleplayDock)
     await nextTick()
 
+    expect(wrapper.text()).toContain('冷清雅邀请你加入浩然书院，成为门下弟子。')
     expect(wrapper.text()).toContain('拒绝：婉拒邀约')
     const buttons = wrapper.findAll('button.roleplay-dock__choice')
     expect(buttons).toHaveLength(2)
@@ -184,6 +186,30 @@ describe('RoleplayDock', () => {
     await nextTick()
 
     wrapper.unmount()
+  })
+
+  it('keeps interaction history visible while observing', async () => {
+    roleplayStoreMock.session.controlled_avatar_id = 'avatar-1'
+    roleplayStoreMock.session.status = 'observing'
+    roleplayStoreMock.session.last_prompt_context = {
+      avatar_name: '闻人雾',
+    }
+    roleplayStoreMock.session.interaction_history = [
+      { type: 'command', created_at: 1, text: '先调息恢复，再去探索。' },
+      {
+        type: 'action_chain',
+        created_at: 2,
+        actions: [{ action_name: 'MoveToRegion', tokens: [{ kind: 'verb', text: '移动到' }, { kind: 'arg', text: '青石谷' }] }],
+      },
+    ]
+
+    const wrapper = mount(RoleplayDock)
+    await nextTick()
+
+    expect(wrapper.text()).toContain('当前仍在上帝视角观察世界')
+    expect(wrapper.text()).toContain('先调息恢复，再去探索。')
+    expect(wrapper.text()).toContain('移动到')
+    expect(wrapper.text()).toContain('青石谷')
   })
 
   it('renders conversation mode and sends chat messages', async () => {
@@ -230,5 +256,49 @@ describe('RoleplayDock', () => {
       request_id: 'req-conversation',
       message: '我来求一条路。',
     })
+  })
+
+  it('shows optimistic player message while waiting for conversation reply', async () => {
+    let resolveSend: (() => void) | null = null
+    roleplayStoreMock.sendConversation.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveSend = () => resolve({ status: 'ok' })
+        })
+    )
+
+    roleplayStoreMock.session.controlled_avatar_id = 'avatar-1'
+    roleplayStoreMock.session.status = 'conversing'
+    roleplayStoreMock.session.pending_request = {
+      request_id: 'req-conversation',
+      type: 'conversation',
+      avatar_id: 'avatar-1',
+      target_avatar_id: 'avatar-2',
+      title: '闻人雾 与 阴长生 对话中',
+      description: '世界已暂停，等待你继续发言。',
+      messages: [],
+    }
+    roleplayStoreMock.session.conversation_session = {
+      messages: [],
+    }
+    roleplayStoreMock.session.last_prompt_context = {
+      avatar_name: '闻人雾',
+      target_avatar_name: '阴长生',
+    }
+
+    const wrapper = mount(RoleplayDock)
+    await nextTick()
+
+    const textarea = wrapper.find('.roleplay-dock__input--conversation')
+    await textarea.setValue('你好')
+    await wrapper.find('.roleplay-dock__conversation-actions .roleplay-dock__submit').trigger('click')
+    await nextTick()
+
+    expect(wrapper.text()).toContain('你好')
+    expect(wrapper.text()).toContain('等待回复...')
+
+    resolveSend?.()
+    await nextTick()
+    await nextTick()
   })
 })

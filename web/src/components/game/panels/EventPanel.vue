@@ -2,6 +2,7 @@
 import { computed, ref, watch, nextTick, h, onMounted } from 'vue'
 import { useAvatarStore } from '../../../stores/avatar'
 import { useEventStore } from '../../../stores/event'
+import { useRoleplayStore } from '../../../stores/roleplay'
 import { useUiStore } from '../../../stores/ui'
 import { useMapStore } from '../../../stores/map'
 import { useSectStore } from '../../../stores/sect'
@@ -17,6 +18,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const avatarStore = useAvatarStore()
 const eventStore = useEventStore()
+const roleplayStore = useRoleplayStore()
 const uiStore = useUiStore()
 const mapStore = useMapStore()
 const sectStore = useSectStore()
@@ -25,6 +27,15 @@ const filterValue1 = ref('all')
 const filterSectValue = ref<number | 'all'>('all')
 const filterMajorScope = ref<FetchEventsParams['major_scope']>('all')
 const eventListRef = ref<HTMLElement | null>(null)
+const preRoleplayFilter = ref<{
+  avatar: string
+  sect: number | 'all'
+  majorScope: FetchEventsParams['major_scope']
+} | null>(null)
+const suppressFilterWatch = ref(false)
+const roleplayAutoApplied = ref(false)
+
+const controlledAvatarId = computed(() => roleplayStore.session.controlled_avatar_id ?? '')
 
 const filterOptions = computed(() => [
   { label: t('game.event_panel.filter_all'), value: 'all' },
@@ -49,6 +60,8 @@ const majorFilterOptions = computed(() => [
   { label: t('game.event_panel.filter_event_scope_major'), value: 'major' },
   { label: t('game.event_panel.filter_event_scope_minor'), value: 'minor' },
 ])
+
+const panelTitle = computed(() => t('game.event_panel.title'))
 
 // 直接使用 store 中的事件（已由 API 过滤）
 const displayEvents = computed(() => eventStore.events || [])
@@ -119,6 +132,26 @@ async function reloadEvents() {
   })
 }
 
+async function setFiltersAndReload(params: {
+  avatar?: string
+  sect?: number | 'all'
+  majorScope?: FetchEventsParams['major_scope']
+}) {
+  suppressFilterWatch.value = true
+  if (params.avatar !== undefined) {
+    filterValue1.value = params.avatar
+  }
+  if (params.sect !== undefined) {
+    filterSectValue.value = params.sect
+  }
+  if (params.majorScope !== undefined) {
+    filterMajorScope.value = params.majorScope
+  }
+  await nextTick()
+  suppressFilterWatch.value = false
+  await reloadEvents()
+}
+
 onMounted(() => {
   if (!sectStore.isLoaded && mapStore.isLoaded) {
     void sectStore.refreshTerritories()
@@ -149,6 +182,10 @@ watch(
 
 // 切换宗门筛选
 watch(filterSectValue, async (newVal) => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   if (newVal !== 'all') {
     // 选了宗门，清空角色的过滤条件
     filterValue1.value = 'all'
@@ -158,6 +195,10 @@ watch(filterSectValue, async (newVal) => {
 
 // 切换第一人筛选
 watch(filterValue1, async (newVal) => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   if (newVal !== 'all') {
     // 选了角色，清空宗门的过滤条件
     filterSectValue.value = 'all'
@@ -166,8 +207,48 @@ watch(filterValue1, async (newVal) => {
 })
 
 watch(filterMajorScope, async () => {
+  if (suppressFilterWatch.value) return
+  if (controlledAvatarId.value) {
+    roleplayAutoApplied.value = false
+  }
   await reloadEvents()
 })
+
+watch(
+  controlledAvatarId,
+  async (newAvatarId, oldAvatarId) => {
+    if (newAvatarId) {
+      if (!oldAvatarId && preRoleplayFilter.value == null) {
+        preRoleplayFilter.value = {
+          avatar: filterValue1.value,
+          sect: filterSectValue.value,
+          majorScope: filterMajorScope.value,
+        }
+      }
+      roleplayAutoApplied.value = true
+      await setFiltersAndReload({
+        avatar: newAvatarId,
+        sect: 'all',
+      })
+      return
+    }
+
+    if (oldAvatarId && preRoleplayFilter.value && roleplayAutoApplied.value) {
+      const previous = preRoleplayFilter.value
+      preRoleplayFilter.value = null
+      roleplayAutoApplied.value = false
+      await setFiltersAndReload({
+        avatar: previous.avatar,
+        sect: previous.sect,
+        majorScope: previous.majorScope,
+      })
+      return
+    }
+    preRoleplayFilter.value = null
+    roleplayAutoApplied.value = false
+  },
+  { immediate: true }
+)
 
 // 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）
 watch(displayEvents, () => {
@@ -231,7 +312,7 @@ function handleSectClick(sectId?: number) {
 <template>
   <section class="sidebar-section">
     <div class="sidebar-header">
-      <h3>{{ t('game.event_panel.title') }}</h3>
+      <h3>{{ panelTitle }}</h3>
       <div class="filter-group">
         <n-select
           v-model:value="filterSectValue"

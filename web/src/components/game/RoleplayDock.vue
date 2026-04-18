@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, onUnmounted } from 'vue';
 
-import EventStreamList from '@/components/game/EventStreamList.vue';
 import RoleplayChoiceView from '@/components/game/roleplay/RoleplayChoiceView.vue';
 import RoleplayConversationView from '@/components/game/roleplay/RoleplayConversationView.vue';
 import RoleplayDecisionView from '@/components/game/roleplay/RoleplayDecisionView.vue';
 import RoleplayDockHeader from '@/components/game/roleplay/RoleplayDockHeader.vue';
 import RoleplayIdleView from '@/components/game/roleplay/RoleplayIdleView.vue';
+import RoleplayInteractionHistory from '@/components/game/roleplay/RoleplayInteractionHistory.vue';
 import RoleplaySectionHeader from '@/components/game/roleplay/RoleplaySectionHeader.vue';
 import { useDockResize } from '@/composables/useDockResize';
 import { useRoleplayDockState } from '@/composables/useRoleplayDockState';
@@ -17,13 +17,11 @@ const MAX_DOCK_HEIGHT = 420;
 const {
   roleplayStore,
   commandText,
-  eventListRef,
   pending,
   hasActiveRoleplay,
   isDecision,
   isChoice,
   isConversation,
-  displayEvents,
   avatarName,
   conversationTargetName,
   conversationMessages,
@@ -36,13 +34,12 @@ const {
   decisionSubmitText,
   choiceSubmittingText,
   conversationSubmitText,
-  mainLayoutClass,
+  isConversationAwaitingReply,
   handleSubmitDecision,
   handleSubmitChoice,
   handleStopRoleplay,
   handleSendConversation,
   handleEndConversation,
-  formatEventDate,
 } = useRoleplayDockState();
 
 const {
@@ -83,7 +80,7 @@ onUnmounted(() => {
       />
 
       <div class="roleplay-dock__body">
-        <div class="roleplay-dock__main" :class="mainLayoutClass">
+        <div class="roleplay-dock__main" :class="{ 'roleplay-dock__main--conversation': isConversation }">
           <section class="roleplay-dock__active-request">
             <RoleplaySectionHeader :title="requestPanelTitle" :caption="requestPanelCaption" />
 
@@ -94,7 +91,6 @@ onUnmounted(() => {
               :error-text="requestErrorText"
               :is-submitting="roleplayStore.isSubmitting"
               :submit-text="decisionSubmitText"
-              :interaction-history="interactionHistory"
               @submit="handleSubmitDecision"
             />
 
@@ -105,7 +101,6 @@ onUnmounted(() => {
               :error-text="requestErrorText"
               :is-submitting="roleplayStore.isSubmitting"
               :submitting-text="choiceSubmittingText"
-              :interaction-history="interactionHistory"
               @submit="handleSubmitChoice"
             />
 
@@ -118,9 +113,8 @@ onUnmounted(() => {
               :caption="requestPanelCaption"
               :messages="conversationMessages"
               :error-text="requestErrorText"
-              :is-submitting="roleplayStore.isSubmitting"
+              :is-submitting="roleplayStore.isSubmitting || isConversationAwaitingReply"
               :submit-text="conversationSubmitText"
-              :interaction-history="interactionHistory"
               @send="handleSendConversation"
               @end="handleEndConversation"
             />
@@ -128,14 +122,19 @@ onUnmounted(() => {
             <RoleplayIdleView v-else />
           </section>
 
-          <section class="roleplay-dock__activity-stream">
-            <RoleplaySectionHeader title="事件流" caption="该角色最近发生的事" />
-            <div ref="eventListRef" class="roleplay-dock__events-list">
-              <EventStreamList
-                :events="displayEvents"
-                empty-text="暂无相关事件"
-                :format-date="formatEventDate"
-              />
+          <section class="roleplay-dock__interaction-pane">
+            <RoleplaySectionHeader title="交互流" caption="本次扮演中的输入与输出" />
+            <RoleplayInteractionHistory
+              v-if="interactionHistory.length"
+              class="roleplay-dock__interaction-stream"
+              :items="interactionHistory"
+              :max-items="16"
+              :player-name="avatarName"
+              :counterpart-name="conversationTargetName"
+              fill-height
+            />
+            <div v-else class="roleplay-dock__interaction-empty">
+              当前还没有新的交互记录。
             </div>
           </section>
         </div>
@@ -198,22 +197,27 @@ onUnmounted(() => {
 }
 
 .roleplay-dock__active-request,
-.roleplay-dock__activity-stream {
+.roleplay-dock__interaction-pane {
   min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
-.roleplay-dock__activity-stream {
+.roleplay-dock__interaction-pane {
   border-left: 1px solid rgba(255, 255, 255, 0.05);
   padding-left: 10px;
 }
 
-.roleplay-dock__events-list {
+.roleplay-dock__interaction-stream {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
-  padding: 0 4px 0 0;
+}
+
+.roleplay-dock__interaction-empty {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #8e8574;
+  padding-top: 6px;
 }
 
 @media (max-width: 900px) {
@@ -222,7 +226,7 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
 
-  .roleplay-dock__activity-stream {
+  .roleplay-dock__interaction-pane {
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-left: 0;

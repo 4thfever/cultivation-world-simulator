@@ -817,7 +817,9 @@ def test_v1_roleplay_submit_choice_resolves_pending_future():
                     },
                     "last_prompt_context": None,
                     "conversation_session": None,
-                    "interaction_history": [],
+                    "interaction_history": [
+                        {"type": "choice_prompt", "text": "desc", "created_at": 1.0},
+                    ],
                     "_choice_future": pending_future,
                 },
             }
@@ -841,6 +843,8 @@ def test_v1_roleplay_submit_choice_resolves_pending_future():
         assert pending_future.result() == "Reject"
         assert main.runtime.get_roleplay_session()["status"] == "submitting"
         session_payload = client.get("/api/v1/query/roleplay/session").json()["data"]
+        assert session_payload["interaction_history"][-2]["type"] == "choice_prompt"
+        assert session_payload["interaction_history"][-2]["text"] == "desc"
         assert session_payload["interaction_history"][-1]["type"] == "choice"
         assert "Reject" in session_payload["interaction_history"][-1]["text"]
     finally:

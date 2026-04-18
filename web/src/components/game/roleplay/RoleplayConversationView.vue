@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
 
-import type { RoleplayInteractionRecordDTO } from '@/types/api'
-
-import RoleplayInteractionHistory from './RoleplayInteractionHistory.vue'
-
 type ConversationMessage = {
   id: string
   role: string
@@ -23,7 +19,6 @@ const props = defineProps<{
   errorText: string
   isSubmitting: boolean
   submitText: string
-  interactionHistory: RoleplayInteractionRecordDTO[]
 }>()
 
 const emit = defineEmits<{
@@ -36,6 +31,12 @@ const chatListRef = ref<HTMLElement | null>(null)
 
 function handleInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLTextAreaElement).value)
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Enter' || event.shiftKey || props.isSubmitting || !props.modelValue.trim()) return
+  event.preventDefault()
+  emit('send')
 }
 
 function handleSend() {
@@ -71,7 +72,6 @@ watch(
         结束对话
       </button>
     </div>
-    <RoleplayInteractionHistory :items="interactionHistory" />
     <div ref="chatListRef" class="roleplay-dock__chat-list">
       <div
         v-for="message in messages"
@@ -90,6 +90,7 @@ watch(
         placeholder="输入你想说的话。"
         :value="modelValue"
         @input="handleInput"
+        @keydown="handleKeydown"
       />
       <div class="roleplay-dock__conversation-actions">
         <div v-if="errorText" class="roleplay-dock__error">{{ errorText }}</div>

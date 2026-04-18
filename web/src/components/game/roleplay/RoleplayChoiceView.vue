@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import type { RoleplayInteractionRecordDTO } from '@/types/api'
-
-import RoleplayInteractionHistory from './RoleplayInteractionHistory.vue'
-
 type ChoiceOption = {
   key: string
   title: string
@@ -15,7 +11,6 @@ const props = defineProps<{
   errorText: string
   isSubmitting: boolean
   submittingText: string
-  interactionHistory: RoleplayInteractionRecordDTO[]
 }>()
 
 const emit = defineEmits<{
@@ -59,7 +54,6 @@ function handleSubmit(selectedKey: string) {
 <template>
   <div class="roleplay-dock__choice-pane">
     <div class="roleplay-dock__request-intro">{{ description }}</div>
-    <RoleplayInteractionHistory :items="interactionHistory" />
     <div class="roleplay-dock__choice-list">
       <button
         v-for="option in options"

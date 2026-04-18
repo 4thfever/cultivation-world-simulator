@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import type { RoleplayInteractionRecordDTO } from '@/types/api'
-
-import RoleplayInteractionHistory from './RoleplayInteractionHistory.vue'
-
 const props = defineProps<{
   description: string
   modelValue: string
   errorText: string
   isSubmitting: boolean
   submitText: string
-  interactionHistory: RoleplayInteractionRecordDTO[]
 }>()
 
 const emit = defineEmits<{
@@ -21,6 +16,12 @@ function handleInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLTextAreaElement).value)
 }
 
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Enter' || event.shiftKey || props.isSubmitting || !props.modelValue.trim()) return
+  event.preventDefault()
+  emit('submit')
+}
+
 function handleSubmit() {
   if (props.isSubmitting || !props.modelValue.trim()) return
   emit('submit')
@@ -30,13 +31,13 @@ function handleSubmit() {
 <template>
   <div class="roleplay-dock__console">
     <div class="roleplay-dock__request-intro">{{ description }}</div>
-    <RoleplayInteractionHistory :items="interactionHistory" />
     <textarea
       class="roleplay-dock__input"
       rows="3"
       placeholder="输入角色的下一步意图，例如：先调息恢复，再去附近探索。"
       :value="modelValue"
       @input="handleInput"
+      @keydown="handleKeydown"
     />
     <div class="roleplay-dock__actions">
       <div v-if="errorText" class="roleplay-dock__error">{{ errorText }}</div>

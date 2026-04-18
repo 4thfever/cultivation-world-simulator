@@ -1,35 +1,41 @@
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-import { eventApi } from '@/api'
-import { mapEventDtosToTimeline } from '@/api/mappers/event'
 import { useRoleplayStore } from '@/stores/roleplay'
-import type { GameEvent } from '@/types/core'
-import { logError } from '@/utils/appError'
 
 export function useRoleplayDockState() {
   const roleplayStore = useRoleplayStore()
   const commandText = ref('')
-  const localEvents = ref<GameEvent[]>([])
-  const eventListRef = ref<HTMLElement | null>(null)
+  const optimisticConversationMessage = ref<{
+    id: string
+    role: string
+    speaker_name: string
+    content: string
+    created_at: number
+  } | null>(null)
+  const isConversationAwaitingReply = ref(false)
 
   let pollTimer: ReturnType<typeof setInterval> | null = null
 
   const session = computed(() => roleplayStore.session)
   const pending = computed(() => session.value.pending_request)
   const conversationSession = computed(() => session.value.conversation_session)
-  const interactionHistory = computed(() => session.value.interaction_history ?? [])
+  const interactionHistory = computed(() => {
+    const baseItems = [...(session.value.interaction_history ?? [])]
+    const optimisticMessage = optimisticConversationMessage.value
+    if (optimisticMessage) {
+      baseItems.push({
+        type: 'conversation_player',
+        created_at: optimisticMessage.created_at,
+        text: optimisticMessage.content,
+      })
+    }
+    return baseItems
+  })
   const controlledAvatarId = computed(() => session.value.controlled_avatar_id ?? '')
   const hasActiveRoleplay = computed(() => !!controlledAvatarId.value)
   const isDecision = computed(() => pending.value?.type === 'decision')
   const isChoice = computed(() => pending.value?.type === 'choice')
   const isConversation = computed(() => pending.value?.type === 'conversation')
-  const requestKind = computed<'decision' | 'choice' | 'conversation' | 'none'>(() => {
-    if (isDecision.value) return 'decision'
-    if (isChoice.value) return 'choice'
-    if (isConversation.value) return 'conversation'
-    return 'none'
-  })
-  const displayEvents = computed(() => localEvents.value)
   const avatarName = computed(() => {
     const context = session.value.last_prompt_context ?? {}
     const rawName = typeof context.avatar_name === 'string' ? context.avatar_name : ''
@@ -40,9 +46,14 @@ export function useRoleplayDockState() {
     const rawName = typeof context.target_avatar_name === 'string' ? context.target_avatar_name : ''
     return rawName || '对方'
   })
-  const conversationMessages = computed(
-    () => pending.value?.messages ?? conversationSession.value?.messages ?? []
-  )
+  const conversationMessages = computed(() => {
+    const baseMessages = [...(pending.value?.messages ?? conversationSession.value?.messages ?? [])]
+    const optimisticMessage = optimisticConversationMessage.value
+    if (optimisticMessage) {
+      baseMessages.push(optimisticMessage)
+    }
+    return baseMessages
+  })
   const statusText = computed(() => {
     if (session.value.status === 'awaiting_decision') return '等待指令'
     if (session.value.status === 'awaiting_choice') return '等待选择'
@@ -72,26 +83,14 @@ export function useRoleplayDockState() {
   const requestErrorText = computed(() => roleplayStore.error || '')
   const decisionSubmitText = computed(() => roleplayStore.isSubmitting ? '处理中...' : '提交指令')
   const choiceSubmittingText = computed(() => roleplayStore.isSubmitting ? '正在处理选择，请稍候...' : '')
-  const conversationSubmitText = computed(() => roleplayStore.isSubmitting ? '发送中...' : '发送')
-  const mainLayoutClass = computed(() => ({
-    'roleplay-dock__main--conversation': requestKind.value === 'conversation',
-  }))
+  const conversationSubmitText = computed(() => {
+    if (isConversationAwaitingReply.value) return '等待回复...'
+    if (roleplayStore.isSubmitting) return '发送中...'
+    return '发送'
+  })
 
   async function refreshRoleplayState() {
     await roleplayStore.fetchSession()
-  }
-
-  async function refreshLocalEvents() {
-    if (!controlledAvatarId.value) {
-      localEvents.value = []
-      return
-    }
-    try {
-      const page = await eventApi.fetchEvents({ avatar_id: controlledAvatarId.value, limit: 18 })
-      localEvents.value = mapEventDtosToTimeline(page.events)
-    } catch (e) {
-      logError('RoleplayDock refresh events', e)
-    }
   }
 
   async function handleSubmitDecision() {
@@ -120,12 +119,31 @@ export function useRoleplayDockState() {
 
   async function handleSendConversation() {
     if (!pending.value?.request_id || !controlledAvatarId.value || !commandText.value.trim()) return
-    await roleplayStore.sendConversation({
-      avatar_id: controlledAvatarId.value,
-      request_id: pending.value.request_id,
-      message: commandText.value.trim(),
-    })
+    const message = commandText.value.trim()
+    const createdAt = Date.now()
+    optimisticConversationMessage.value = {
+      id: `optimistic-${createdAt}`,
+      role: 'player',
+      speaker_name: avatarName.value,
+      content: message,
+      created_at: createdAt,
+    }
     commandText.value = ''
+    isConversationAwaitingReply.value = true
+    try {
+      await roleplayStore.sendConversation({
+        avatar_id: controlledAvatarId.value,
+        request_id: pending.value.request_id,
+        message,
+      })
+      optimisticConversationMessage.value = null
+    } catch (e) {
+      optimisticConversationMessage.value = null
+      commandText.value = message
+      throw e
+    } finally {
+      isConversationAwaitingReply.value = false
+    }
   }
 
   async function handleEndConversation() {
@@ -136,15 +154,10 @@ export function useRoleplayDockState() {
     })
   }
 
-  function formatEventDate(event: GameEvent) {
-    return `${event.year}年${event.month}月`
-  }
-
   function startPolling() {
     if (pollTimer) return
     pollTimer = setInterval(() => {
       void refreshRoleplayState()
-      void refreshLocalEvents()
     }, 1000)
   }
 
@@ -154,33 +167,8 @@ export function useRoleplayDockState() {
     pollTimer = null
   }
 
-  watch(controlledAvatarId, () => {
-    void refreshLocalEvents()
-  })
-
-  watch(
-    displayEvents,
-    () => {
-      const el = eventListRef.value
-      if (!el) return
-
-      const isScrollable = el.scrollHeight > el.clientHeight
-      const isAtBottom = !isScrollable || (el.scrollHeight - el.scrollTop - el.clientHeight < 50)
-
-      if (isAtBottom) {
-        nextTick(() => {
-          if (eventListRef.value) {
-            eventListRef.value.scrollTop = eventListRef.value.scrollHeight
-          }
-        })
-      }
-    },
-    { deep: true }
-  )
-
   onMounted(() => {
     void refreshRoleplayState()
-    void refreshLocalEvents()
     startPolling()
   })
 
@@ -191,13 +179,11 @@ export function useRoleplayDockState() {
   return {
     roleplayStore,
     commandText,
-    eventListRef,
     pending,
     hasActiveRoleplay,
     isDecision,
     isChoice,
     isConversation,
-    displayEvents,
     avatarName,
     conversationTargetName,
     conversationMessages,
@@ -210,12 +196,11 @@ export function useRoleplayDockState() {
     decisionSubmitText,
     choiceSubmittingText,
     conversationSubmitText,
-    mainLayoutClass,
+    isConversationAwaitingReply,
     handleSubmitDecision,
     handleSubmitChoice,
     handleStopRoleplay,
     handleSendConversation,
     handleEndConversation,
-    formatEventDate,
   }
 }

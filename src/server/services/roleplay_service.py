@@ -78,6 +78,14 @@ def _find_choice_option_text(pending: dict[str, Any], selected_key: str) -> str:
     return str(selected_key)
 
 
+def _build_choice_prompt_text(*, title: str, description: str) -> str:
+    clean_title = str(title or "").strip()
+    clean_description = str(description or "").strip()
+    if clean_description:
+        return clean_description
+    return clean_title
+
+
 def clear_roleplay_session(runtime) -> None:
     runtime.clear_roleplay_session()
 
@@ -237,6 +245,15 @@ def begin_roleplay_choice(
     session["last_prompt_context"] = prompt_context
     session["_choice_future"] = choice_future
     session["_choice_request_model"] = request
+    choice_prompt_text = _build_choice_prompt_text(title=request_title, description=request_description)
+    if choice_prompt_text:
+        _append_interaction_history(
+            runtime,
+            {
+                "type": "choice_prompt",
+                "text": choice_prompt_text,
+            },
+        )
     runtime.set_roleplay_auto_paused(True)
     return choice_future
 

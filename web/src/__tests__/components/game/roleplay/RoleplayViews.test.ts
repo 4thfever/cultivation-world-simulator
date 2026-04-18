@@ -48,28 +48,8 @@ describe('Roleplay subviews', () => {
         errorText: '',
         isSubmitting: false,
         submitText: '提交指令',
-        interactionHistory: [
-          { type: 'command', created_at: 1, text: '先恢复灵气。' },
-          {
-            type: 'action_chain',
-            created_at: 2,
-            actions: [
-              {
-                action_name: 'Respire',
-                tokens: [
-                  { kind: 'verb', text: '调息' },
-                  { kind: 'arg', text: '片刻' },
-                ],
-              },
-            ],
-          },
-        ],
       },
     })
-
-    expect(wrapper.text()).toContain('先恢复灵气。')
-    expect(wrapper.text()).toContain('调息')
-    expect(wrapper.text()).toContain('片刻')
 
     const textarea = wrapper.find('textarea.roleplay-dock__input')
     await textarea.setValue('先恢复灵气。')
@@ -80,6 +60,12 @@ describe('Roleplay subviews', () => {
     await wrapper.find('button.roleplay-dock__submit').trigger('click')
 
     expect(wrapper.emitted('submit')).toHaveLength(1)
+
+    await textarea.trigger('keydown', { key: 'Enter' })
+    expect(wrapper.emitted('submit')).toHaveLength(2)
+
+    await textarea.trigger('keydown', { key: 'Enter', shiftKey: true })
+    expect(wrapper.emitted('submit')).toHaveLength(2)
   })
 
   it('renders choices and emits selected key', async () => {
@@ -93,13 +79,9 @@ describe('Roleplay subviews', () => {
         errorText: '',
         isSubmitting: false,
         submittingText: '',
-        interactionHistory: [
-          { type: 'choice', created_at: 1, text: '接受：前往会面' },
-        ],
       },
     })
 
-    expect(wrapper.text()).toContain('接受：前往会面')
     const buttons = wrapper.findAll('button.roleplay-dock__choice')
     expect(buttons).toHaveLength(2)
     expect(buttons[0].classes()).toContain('roleplay-dock__choice--accept')
@@ -129,17 +111,11 @@ describe('Roleplay subviews', () => {
         errorText: '',
         isSubmitting: false,
         submitText: '发送',
-        interactionHistory: [
-          { type: 'conversation_player', created_at: 1, text: '我来求一条路。' },
-          { type: 'conversation_assistant', created_at: 2, text: '路未必在我手中。' },
-        ],
       },
     })
 
     expect(wrapper.text()).toContain('闻人雾 ↔ 阴长生')
     expect(wrapper.text()).toContain('阁下为何前来？')
-    expect(wrapper.text()).toContain('我来求一条路。')
-    expect(wrapper.text()).toContain('路未必在我手中。')
 
     const textarea = wrapper.find('textarea.roleplay-dock__input--conversation')
     await textarea.setValue('我来求一条路。')
@@ -148,6 +124,12 @@ describe('Roleplay subviews', () => {
     await wrapper.setProps({ modelValue: '我来求一条路。' })
     await wrapper.find('.roleplay-dock__conversation-actions .roleplay-dock__submit').trigger('click')
     expect(wrapper.emitted('send')).toHaveLength(1)
+
+    await textarea.trigger('keydown', { key: 'Enter' })
+    expect(wrapper.emitted('send')).toHaveLength(2)
+
+    await textarea.trigger('keydown', { key: 'Enter', shiftKey: true })
+    expect(wrapper.emitted('send')).toHaveLength(2)
 
     await wrapper.find('button.roleplay-dock__submit--quiet').trigger('click')
     expect(wrapper.emitted('end')).toHaveLength(1)
@@ -162,9 +144,11 @@ describe('Roleplay subviews', () => {
     const wrapper = mount(RoleplayInteractionHistory, {
       props: {
         maxItems: 2,
+        playerName: '闻人雾',
+        counterpartName: '阴长生',
         items: [
-          { type: 'command', created_at: 1, text: '第一条' },
-          { type: 'command', created_at: 2, text: '第二条' },
+          { type: 'conversation_player', created_at: 1, text: '第一条' },
+          { type: 'conversation_assistant', created_at: 2, text: '第二条' },
           { type: 'command', created_at: 3, text: '第三条' },
         ],
       },
@@ -173,5 +157,6 @@ describe('Roleplay subviews', () => {
     expect(wrapper.text()).not.toContain('第一条')
     expect(wrapper.text()).toContain('第二条')
     expect(wrapper.text()).toContain('第三条')
+    expect(wrapper.text()).toContain('阴长生')
   })
 })
