@@ -4235,6 +4235,9 @@ msgstr "Human List 1st Place"
 msgid "Sect Headquarters"
 msgstr "Sect Headquarters"
 
+msgid "LLM connection failed"
+msgstr "LLM connection failed"
+
 # Weapon System - Weapons
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "

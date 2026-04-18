@@ -15,3 +15,6 @@ msgstr ""
 # Frontend UI Translations
 msgid "Sect Headquarters"
 msgstr "Tông môn trú địa"
+
+msgid "LLM connection failed"
+msgstr "Kết nối LLM thất bại"

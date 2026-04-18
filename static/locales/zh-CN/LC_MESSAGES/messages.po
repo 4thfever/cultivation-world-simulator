@@ -3914,6 +3914,9 @@ msgstr "人榜第一"
 msgid "Sect Headquarters"
 msgstr "宗门驻地"
 
+msgid "LLM connection failed"
+msgstr "LLM 连接失败"
+
 # Weapon 系统 - 武器
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "

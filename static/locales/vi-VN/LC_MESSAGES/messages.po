@@ -4238,6 +4238,9 @@ msgstr "Nhân bảng đệ nhất"
 msgid "Sect Headquarters"
 msgstr "Tông môn trú địa"
 
+msgid "LLM connection failed"
+msgstr "Kết nối LLM thất bại"
+
 # Weapon System - Weapons
 msgid ""
 "Weapon {name}'s weapon_type '{weapon_type_str}' is invalid, must be a valid "

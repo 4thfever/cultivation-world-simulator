@@ -15,3 +15,6 @@ msgstr ""
 # Frontend UI Translations
 msgid "Sect Headquarters"
 msgstr "宗門駐地"
+
+msgid "LLM connection failed"
+msgstr "LLM 連線失敗"
