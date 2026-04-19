@@ -5,6 +5,9 @@ Tests for env-driven server binding and static config cleanup.
 from __future__ import annotations
 
 import os
+import subprocess
+import sys
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -62,3 +65,79 @@ def test_static_config_no_longer_contains_runtime_saves_source():
 
     assert "resources" in CONFIG
     assert "saves" not in CONFIG.resources
+
+
+def test_load_config_is_independent_from_current_working_directory(tmp_path, monkeypatch):
+    from src.i18n.locale_registry import get_project_root
+    from src.utils.config import load_config
+
+    nested_dir = tmp_path / "nested" / "launcher"
+    nested_dir.mkdir(parents=True)
+    monkeypatch.chdir(nested_dir)
+
+    config = load_config()
+
+    assert Path(config.resources.locales_dir) == get_project_root() / "static" / "locales"
+    assert Path(config.resources.shared_game_configs_dir) == get_project_root() / "static" / "game_configs"
+
+
+def test_update_paths_for_language_falls_back_when_resources_missing(monkeypatch):
+    from src.i18n.locale_registry import get_project_root
+    import src.utils.config as app_config
+
+    original_resources = app_config.CONFIG.resources
+    try:
+        app_config.CONFIG.resources = {}
+        app_config.update_paths_for_language("zh-CN")
+
+        assert Path(app_config.CONFIG.paths.locales) == get_project_root() / "static" / "locales"
+        assert Path(app_config.CONFIG.paths.shared_game_configs) == get_project_root() / "static" / "game_configs"
+        assert Path(app_config.CONFIG.paths.templates) == get_project_root() / "static" / "locales" / "zh-CN" / "templates"
+    finally:
+        app_config.CONFIG.resources = original_resources
+
+
+def test_story_style_loading_is_independent_from_current_working_directory(tmp_path, monkeypatch):
+    from src.classes.story_teller import _load_story_style_msgids
+
+    nested_dir = tmp_path / "nested" / "launcher"
+    nested_dir.mkdir(parents=True)
+    monkeypatch.chdir(nested_dir)
+
+    msgids = _load_story_style_msgids()
+
+    assert msgids
+
+
+def test_server_main_import_succeeds_from_non_project_cwd(tmp_path):
+    from src.i18n.locale_registry import get_project_root
+
+    launch_dir = tmp_path / "launcher"
+    launch_dir.mkdir()
+    data_dir = tmp_path / "appdata"
+    project_root = get_project_root()
+
+    env = os.environ.copy()
+    existing_pythonpath = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = (
+        str(project_root)
+        if not existing_pythonpath
+        else os.pathsep.join([str(project_root), existing_pythonpath])
+    )
+    env["CWS_DATA_DIR"] = str(data_dir)
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "import src.server.main; print('import-ok')",
+        ],
+        cwd=launch_dir,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "import-ok" in result.stdout

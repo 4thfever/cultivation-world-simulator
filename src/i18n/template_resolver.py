@@ -5,6 +5,7 @@ from pathlib import Path
 from src.classes.language import language_manager
 from src.i18n.locale_registry import (
     get_fallback_locale,
+    get_project_root,
     get_source_locale,
     normalize_locale_code,
 )
@@ -35,7 +36,9 @@ def resolve_locale_template_path(
     if locales_dir is None:
         from src.utils.config import CONFIG
 
-        locales_dir = Path(CONFIG.paths.get("locales", Path("static/locales")))
+        locales_dir = Path(
+            CONFIG.paths.get("locales", get_project_root() / "static" / "locales")
+        )
 
     for locale_code in iter_template_locale_codes(current_locale=current_locale):
         candidate = locales_dir / locale_code / "templates" / filename

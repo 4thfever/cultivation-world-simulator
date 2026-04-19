@@ -1,12 +1,12 @@
 from pathlib import Path
 
 from src.utils.llm.prompt import build_prompt, load_template
-from src.i18n.locale_registry import get_source_locale
+from src.i18n.locale_registry import get_project_root, get_source_locale
 
 
 def test_sect_random_event_template_can_be_formatted() -> None:
     source_locale = get_source_locale()
-    template_path = Path(f"static/locales/{source_locale}/templates/sect_random_event.txt")
+    template_path = get_project_root() / "static" / "locales" / source_locale / "templates" / "sect_random_event.txt"
     template = load_template(template_path)
 
     infos = {
@@ -29,7 +29,7 @@ def test_sect_random_event_template_can_be_formatted() -> None:
 
 
 def test_sect_decider_template_can_be_formatted() -> None:
-    template_path = Path(f"static/locales/{get_source_locale()}/templates/sect_decider.txt")
+    template_path = get_project_root() / "static" / "locales" / get_source_locale() / "templates" / "sect_decider.txt"
     template = load_template(template_path)
 
     infos = {
@@ -49,7 +49,7 @@ def test_sect_decider_template_can_be_formatted() -> None:
 
 def test_custom_goldfinger_template_can_be_formatted() -> None:
     source_locale = get_source_locale()
-    template_path = Path(f"static/locales/{source_locale}/templates/custom_goldfinger.txt")
+    template_path = get_project_root() / "static" / "locales" / source_locale / "templates" / "custom_goldfinger.txt"
     template = load_template(template_path)
 
     infos = {
@@ -67,7 +67,7 @@ def test_custom_goldfinger_template_can_be_formatted() -> None:
 
 def test_roleplay_conversation_turn_template_can_be_formatted() -> None:
     source_locale = get_source_locale()
-    template_path = Path(f"static/locales/{source_locale}/templates/roleplay_conversation_turn.txt")
+    template_path = get_project_root() / "static" / "locales" / source_locale / "templates" / "roleplay_conversation_turn.txt"
     template = load_template(template_path)
 
     infos = {
@@ -88,7 +88,7 @@ def test_roleplay_conversation_turn_template_can_be_formatted() -> None:
 
 def test_relation_delta_template_can_be_formatted() -> None:
     source_locale = get_source_locale()
-    template_path = Path(f"static/locales/{source_locale}/templates/relation_delta.txt")
+    template_path = get_project_root() / "static" / "locales" / source_locale / "templates" / "relation_delta.txt"
     template = load_template(template_path)
 
     infos = {

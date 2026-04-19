@@ -4,7 +4,12 @@ from pathlib import Path
 from src.classes.language import language_manager
 from src.utils.config import CONFIG, update_paths_for_language
 from src.utils.df import load_game_configs, reload_game_configs, game_configs
-from src.i18n.locale_registry import get_default_locale, get_fallback_locale, get_locale_codes
+from src.i18n.locale_registry import (
+    get_default_locale,
+    get_fallback_locale,
+    get_locale_codes,
+    get_project_root,
+)
 
 class TestLanguage:
     def setup_method(self):
@@ -35,16 +40,16 @@ class TestLanguage:
         update_paths_for_language(target_locale)
         
         # 重构后，game_configs 指向单一源 static/game_configs
-        expected_game_configs = Path("static/game_configs")
+        expected_game_configs = get_project_root() / "static" / "game_configs"
         # 注意：Path 比较在不同系统上可能需要 resolve
         assert CONFIG.paths.game_configs.resolve() == expected_game_configs.resolve()
-        assert CONFIG.paths.shared_game_configs.resolve() == Path("static/game_configs").resolve()
+        assert CONFIG.paths.shared_game_configs.resolve() == expected_game_configs.resolve()
 
         default_locale = get_default_locale()
         language_manager.set_language(default_locale)
         update_paths_for_language(default_locale)
         # 依然指向单一源
-        expected_zh = Path("static/game_configs")
+        expected_zh = get_project_root() / "static" / "game_configs"
         assert CONFIG.paths.game_configs.resolve() == expected_zh.resolve()
 
     def test_game_config_loading_and_override(self, tmp_path):

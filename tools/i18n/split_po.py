@@ -9,6 +9,8 @@ import re
 import polib
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 def get_category_from_comment(comment):
     """
     Extract category from translator comment like "Battle messages"
@@ -150,7 +152,7 @@ def split_po_file(po_path: Path):
         # print(f"    -> {out_path.name} ({len(entries)} entries)")
 
 def main():
-    root_dir = Path("static/locales")
+    root_dir = PROJECT_ROOT / "static" / "locales"
     if not root_dir.exists():
         print(f"Directory not found: {root_dir}")
         return

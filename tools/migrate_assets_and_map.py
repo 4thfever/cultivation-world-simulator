@@ -3,9 +3,11 @@ import csv
 import shutil
 from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 # Configs
-CONFIG_DIR = Path("static/game_configs")
-ASSETS_DIR = Path("assets/sects")
+CONFIG_DIR = PROJECT_ROOT / "static" / "game_configs"
+ASSETS_DIR = PROJECT_ROOT / "assets" / "sects"
 TILE_MAP_PATH = CONFIG_DIR / "tile_map.csv"
 SECT_PATH = CONFIG_DIR / "sect.csv"
 

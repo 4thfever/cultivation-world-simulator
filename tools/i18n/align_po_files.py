@@ -58,7 +58,7 @@ def pick_locale_data(item_data: dict, *preferred_locales: str | None) -> dict:
     return {}
 
 def main():
-    base_dir = Path('static/locales')
+    base_dir = PROJECT_ROOT / "static" / "locales"
     locales = get_locale_codes()
     subdirs = ['modules', 'game_configs_modules']
     

@@ -41,7 +41,7 @@ def pick_locale_data(item_data: dict, *preferred_locales: str | None) -> dict:
     return {}
 
 def main():
-    base_dir = Path('static/locales')
+    base_dir = PROJECT_ROOT / "static" / "locales"
     locales = get_locale_codes()
     subdirs = ['modules', 'game_configs_modules']
     
@@ -115,7 +115,7 @@ def main():
     print(f"Total msgids: {len(msgid_data)}")
     print(f"Total target files: {len(target_files_content)}")
     
-    with open('mapping_preview.txt', 'w', encoding='utf-8') as f:
+    with open(PROJECT_ROOT / 'mapping_preview.txt', 'w', encoding='utf-8') as f:
         for t_file, items in sorted(target_files_content.items()):
             f.write(f"\n[{t_file}] ({len(items)} items)\n")
             for item in items[:5]: # print first 5 items to preview

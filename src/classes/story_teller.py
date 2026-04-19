@@ -11,10 +11,11 @@ if TYPE_CHECKING:
 from src.utils.config import CONFIG
 from src.utils.llm import call_llm_with_task_name
 from src.i18n import t
+from src.i18n.locale_registry import get_project_root
 
 
 def _load_story_style_msgids() -> tuple[str, ...]:
-    path = Path("static/story_styles.json")
+    path = get_project_root() / "static" / "story_styles.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     return tuple(str(item) for item in data if str(item).strip())
 
