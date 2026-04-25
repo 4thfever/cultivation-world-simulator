@@ -32,6 +32,24 @@ DEFAULT_GAME_STATE: dict[str, Any] = {
 }
 
 
+def create_default_roleplay_session() -> dict[str, Any]:
+    return {
+        "controlled_avatar_id": None,
+        "status": "inactive",
+        "pending_request": None,
+        "last_prompt_context": None,
+        "conversation_session": None,
+        "interaction_history": [],
+    }
+
+
+def create_default_game_state() -> dict[str, Any]:
+    return {
+        **DEFAULT_GAME_STATE,
+        "roleplay_session": create_default_roleplay_session(),
+    }
+
+
 class GameSessionRuntime:
     """
     Unified access point for the in-memory game session state.
@@ -44,6 +62,7 @@ class GameSessionRuntime:
     def __init__(self, state: dict[str, Any]):
         self._state = state
         self._mutation_lock = asyncio.Lock()
+        self._ensure_owned_roleplay_session()
 
     @property
     def state(self) -> dict[str, Any]:
@@ -57,7 +76,7 @@ class GameSessionRuntime:
 
     def replace_with_defaults(self) -> None:
         self._state.clear()
-        self._state.update(DEFAULT_GAME_STATE)
+        self._state.update(create_default_game_state())
 
     def reset_to_idle(self, *, clear_run_config: bool = True) -> None:
         run_config = None if clear_run_config else self._state.get("run_config")
@@ -135,18 +154,25 @@ class GameSessionRuntime:
         return ""
 
     def get_roleplay_session(self) -> dict[str, Any]:
+        self._ensure_owned_roleplay_session()
         session = self._state.get("roleplay_session")
         if not isinstance(session, dict):
-            session = {
-                "controlled_avatar_id": None,
-                "status": "inactive",
-                "pending_request": None,
-                "last_prompt_context": None,
-                "conversation_session": None,
-                "interaction_history": [],
-            }
+            session = create_default_roleplay_session()
             self._state["roleplay_session"] = session
         return session
+
+    def _ensure_owned_roleplay_session(self) -> None:
+        session = self._state.get("roleplay_session")
+        if session is DEFAULT_GAME_STATE["roleplay_session"]:
+            self._state["roleplay_session"] = create_default_roleplay_session()
+            return
+
+        if not isinstance(session, dict):
+            return
+
+        default_history = DEFAULT_GAME_STATE["roleplay_session"]["interaction_history"]
+        if session.get("interaction_history") is default_history:
+            session["interaction_history"] = []
 
     def clear_roleplay_session(self) -> None:
         existing = self._state.get("roleplay_session")
@@ -157,14 +183,7 @@ class GameSessionRuntime:
                     choice_future.cancel()
             except Exception:
                 pass
-        self._state["roleplay_session"] = {
-            "controlled_avatar_id": None,
-            "status": "inactive",
-            "pending_request": None,
-            "last_prompt_context": None,
-            "conversation_session": None,
-            "interaction_history": [],
-        }
+        self._state["roleplay_session"] = create_default_roleplay_session()
         self._state["roleplay_auto_paused"] = False
 
     async def run_mutation(

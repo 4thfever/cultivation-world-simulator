@@ -111,7 +111,7 @@ from src.i18n import t
 from src.config import get_settings_service
 from src.i18n.locale_registry import uses_space_separated_names
 from src.utils.llm.config import LLMConfig
-from src.server.runtime import DEFAULT_GAME_STATE, GameSessionRuntime
+from src.server.runtime import GameSessionRuntime, create_default_game_state
 from src.server.host_runtime import (
     ConnectionManager,
     EndpointFilter,
@@ -160,7 +160,7 @@ from src.server.serialization import (
 )
 
 # 全局游戏实例
-game_instance = dict(DEFAULT_GAME_STATE)
+game_instance = create_default_game_state()
 runtime = GameSessionRuntime(game_instance)
 
 # Cache for avatar IDs

@@ -60,6 +60,19 @@ def test_roleplay_pause_state_is_counted_in_effective_pause():
     assert runtime.is_effectively_paused() is False
 
 
+def test_default_roleplay_session_is_not_shared_between_runtimes():
+    runtime_a = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
+    runtime_a.get_roleplay_session()["pending_request"] = {"request_id": "leaked"}
+    runtime_a.get_roleplay_session()["interaction_history"].append({"type": "test"})
+
+    runtime_b = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
+
+    assert runtime_b.get_roleplay_session()["pending_request"] is None
+    assert runtime_b.get_roleplay_session()["interaction_history"] == []
+    assert DEFAULT_GAME_STATE["roleplay_session"]["pending_request"] is None
+    assert DEFAULT_GAME_STATE["roleplay_session"]["interaction_history"] == []
+
+
 def test_roleplay_pause_reason_reflects_choice_waiting():
     runtime = GameSessionRuntime(dict(DEFAULT_GAME_STATE))
     session = runtime.get_roleplay_session()
