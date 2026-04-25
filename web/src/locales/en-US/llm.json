@@ -71,7 +71,7 @@
     "q3_model_name": "Model Name: Tell the server which 'brain' to use, e.g., deepseek-chat or gemini-3-flash-preview.",
     "q4_title": "🔗 4. Where to get Key?",
     "q5_title": "🛡️ 5. Security Note",
-    "q5_p1": "Your API Key is only saved in your local computer's configuration file (`static/local_config.yml`), and the locally running game backend communicates directly with the model vendor. This game (Cultivation World Simulator) is completely open-source and will never upload your Key to any third-party server. Also, please do not share your local_config.yml file with anyone.",
+    "q5_p1": "Your API Key is only saved in `secrets.json` under the local user data directory, and the locally running game backend communicates directly with the model vendor. This game (Cultivation World Simulator) is completely open-source and will never upload your Key to any third-party server. Also, please do not share the user data directory that contains settings/secrets.",
     "q5_p2": "Token usage incurs costs; please evaluate the cost of use yourself.",
     "confirm": "I understand"
   },

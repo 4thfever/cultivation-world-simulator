@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, shallowRef, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { NButton, NEmpty, NModal, NSpin, NTable, NTabPane, NTabs } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
-import { worldApi } from '@/api/modules/world'
-import { eventApi } from '@/api/modules/event'
-import { mapDeceasedList } from '@/api/mappers/deceased'
 import { useAvatarOverviewStore } from '@/stores/avatarOverview'
 import { formatRealmStage } from '@/utils/cultivationText'
-import type { EventDTO } from '@/types/api'
-import type { DeceasedRecordView } from '@/api/mappers/deceased'
-import { logError } from '@/utils/appError'
+import { useDeceasedRecords } from '@/composables/useDeceasedRecords'
 import usersIcon from '@/assets/icons/ui/lucide/users.svg'
 import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
 
@@ -39,54 +34,21 @@ const panelStyleVars = {
 const summary = computed(() => avatarOverviewStore.overview.summary)
 const realmDistribution = computed(() => avatarOverviewStore.overview.realmDistribution)
 const activeTab = ref<'overview' | 'deceased'>('overview')
-const deceasedLoading = ref(false)
-const deceasedLoaded = ref(false)
-const records = shallowRef<DeceasedRecordView[]>([])
-const selectedRecord = ref<DeceasedRecordView | null>(null)
-const eventsLoading = ref(false)
-const events = shallowRef<EventDTO[]>([])
+const {
+  recordsLoading: deceasedLoading,
+  recordsLoaded: deceasedLoaded,
+  records,
+  selectedRecord,
+  eventsLoading,
+  events,
+  fetchRecords: fetchDeceased,
+  selectRecord,
+  backToList,
+  resetSelection,
+} = useDeceasedRecords({ logScope: 'AvatarOverviewModal' })
 
 function handleShowChange(value: boolean) {
   emit('update:show', value)
-}
-
-async function fetchDeceased() {
-  deceasedLoading.value = true
-  try {
-    const dtos = await worldApi.fetchDeceasedList()
-    records.value = mapDeceasedList(dtos)
-    deceasedLoaded.value = true
-  } catch (error) {
-    logError('AvatarOverviewModal fetch deceased', error)
-    records.value = []
-    deceasedLoaded.value = false
-  } finally {
-    deceasedLoading.value = false
-  }
-}
-
-async function fetchEvents(avatarId: string) {
-  eventsLoading.value = true
-  try {
-    const res = await eventApi.fetchEvents({ avatar_id: avatarId, limit: 50 })
-    events.value = res.events
-  } catch (error) {
-    logError('AvatarOverviewModal fetch events', error)
-    events.value = []
-  } finally {
-    eventsLoading.value = false
-  }
-}
-
-function selectRecord(record: DeceasedRecordView) {
-  selectedRecord.value = record
-  events.value = []
-  void fetchEvents(record.id)
-}
-
-function backToList() {
-  selectedRecord.value = null
-  events.value = []
 }
 
 async function handleTabUpdate(value: string) {
@@ -101,15 +63,13 @@ watch(
   (show) => {
     if (show) {
       activeTab.value = 'overview'
-      selectedRecord.value = null
-      events.value = []
+      resetSelection()
       void avatarOverviewStore.refreshOverview()
       return
     }
 
     activeTab.value = 'overview'
-    selectedRecord.value = null
-    events.value = []
+    resetSelection()
   },
   { immediate: true },
 )

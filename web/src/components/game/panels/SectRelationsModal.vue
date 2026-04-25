@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { watch, computed } from 'vue';
 import { NModal, NTable, NTag, NSpin } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
-import { worldApi } from '@/api';
 import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors';
 import { useUiStore } from '../../../stores/ui';
 import type { SectRelationDTO } from '../../../types/api';
-import { logError } from '@/utils/appError';
+import { useWorldOverviewData } from '@/composables/useWorldOverviewData';
 
 const props = defineProps<{
   show: boolean;
@@ -32,8 +31,7 @@ const panelStyleVars = {
   '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
 }
 
-const loading = ref(false);
-const relations = ref<SectRelationDTO[]>([]);
+const { loading, relations, fetchRelations } = useWorldOverviewData('SectRelationsModal');
 
 const sortedRelations = computed(() => {
   // 敌对程度高（数值更低）的排在前面
@@ -112,19 +110,6 @@ const resolveDiplomacyStatus = (item: SectRelationDTO) => {
 const openSectInfo = (id: number) => {
   uiStore.select('sect', String(id));
   handleShowChange(false);
-};
-
-const fetchRelations = async () => {
-  loading.value = true;
-  try {
-    const res = await worldApi.fetchSectRelations();
-    relations.value = res.relations ?? [];
-  } catch (e) {
-    logError('SectRelationsModal fetch relations', e);
-    relations.value = [];
-  } finally {
-    loading.value = false;
-  }
 };
 
 const handleShowChange = (val: boolean) => {

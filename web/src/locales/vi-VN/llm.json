@@ -71,7 +71,7 @@
     "q3_model_name": "Tên mô hình: cho máy chủ biết nên dùng \"bộ não\" nào, ví dụ deepseek-chat hoặc gemini-3-flash-preview.",
     "q4_title": "🔗 4. Lấy Key ở đâu?",
     "q5_title": "🛡️ 5. Lưu ý bảo mật",
-    "q5_p1": "API Key của bạn chỉ được lưu trong tệp cấu hình cục bộ trên máy tính của bạn, và backend trò chơi chạy tại chỗ sẽ trực tiếp giao tiếp với nhà cung cấp mô hình. Trò chơi này (Cultivation World Simulator) hoàn toàn mã nguồn mở và sẽ không bao giờ tải API Key của bạn lên bất kỳ máy chủ bên thứ ba nào. Ngoài ra, xin đừng chia sẻ tệp cấu hình cục bộ của bạn cho người khác.",
+    "q5_p1": "API Key của bạn chỉ được lưu trong `secrets.json` bên trong thư mục dữ liệu người dùng cục bộ, và backend trò chơi chạy tại chỗ sẽ trực tiếp giao tiếp với nhà cung cấp mô hình. Trò chơi này (Cultivation World Simulator) hoàn toàn mã nguồn mở và sẽ không bao giờ tải API Key của bạn lên bất kỳ máy chủ bên thứ ba nào. Ngoài ra, xin đừng chia sẻ thư mục dữ liệu người dùng chứa settings/secrets cho người khác.",
     "q5_p2": "Việc sử dụng token sẽ phát sinh chi phí; hãy tự đánh giá chi phí trước khi sử dụng.",
     "confirm": "Tôi đã hiểu"
   },

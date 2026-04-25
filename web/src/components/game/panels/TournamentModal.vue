@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { NModal, NSpin, NEmpty } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { worldApi } from '../../../api/modules/world'
-import type { RankingsDTO } from '@/types/api'
 import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
 import { useWorldStore } from '../../../stores/world'
 import { useUiStore } from '../../../stores/ui'
-import { logError } from '@/utils/appError'
+import { useWorldOverviewData } from '@/composables/useWorldOverviewData'
 
 const props = defineProps<{
   show: boolean
@@ -40,25 +38,7 @@ const openAvatarInfo = (id: string) => {
   handleShowChange(false)
 }
 
-const loading = ref(false)
-const rankings = ref<RankingsDTO>({
-  heaven: [],
-  earth: [],
-  human: [],
-  sect: [],
-})
-
-const fetchRankings = async () => {
-  loading.value = true
-  try {
-    const res = await worldApi.fetchRankings()
-    rankings.value = res
-  } catch (e) {
-    logError('TournamentModal fetch rankings', e)
-  } finally {
-    loading.value = false
-  }
-}
+const { loading, rankings, fetchRankings } = useWorldOverviewData('TournamentModal')
 
 const handleShowChange = (val: boolean) => {
   emit('update:show', val)

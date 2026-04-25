@@ -9,13 +9,13 @@ import { useSectStore } from '../../../stores/sect'
 import { NSelect, NSpin } from 'naive-ui'
 import EventStreamList from '@/components/game/EventStreamList.vue'
 import type { SelectOption } from 'naive-ui'
-import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor } from '../../../utils/eventHelper'
+import { tokenizeEventContent, buildAvatarColorMap, buildSectColorMap, avatarIdToColor, type EventContentToken } from '../../../utils/eventHelper'
 import { prependAllOption } from '../../../utils/selectOptions'
 import type { GameEvent } from '../../../types/core'
 import type { FetchEventsParams } from '../../../types/api'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const avatarStore = useAvatarStore()
 const eventStore = useEventStore()
 const roleplayStore = useRoleplayStore()
@@ -27,6 +27,7 @@ const filterValue1 = ref('all')
 const filterSectValue = ref<number | 'all'>('all')
 const filterMajorScope = ref<FetchEventsParams['major_scope']>('all')
 const eventListRef = ref<HTMLElement | null>(null)
+const eventSegmentCache = new Map<string, EventContentToken[]>()
 const preRoleplayFilter = ref<{
   avatar: string
   sect: number | 'all'
@@ -255,8 +256,13 @@ watch(
   { immediate: true }
 )
 
-// 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）
-watch(displayEvents, () => {
+// 智能滚动：仅当用户处于底部时才自动跟随滚动（用于实时推送的新事件）。
+// 只监听列表边界，避免长事件流下 deep traverse 整个事件对象数组。
+watch(() => {
+  const events = displayEvents.value
+  const lastEvent = events[events.length - 1]
+  return `${events.length}:${lastEvent?.id ?? ''}:${lastEvent?.createdAt ?? ''}`
+}, () => {
   const el = eventListRef.value
   if (!el) return
 
@@ -270,7 +276,7 @@ watch(displayEvents, () => {
       }
     })
   }
-}, { deep: true })
+})
 
 const emptyEventMessage = computed(() => {
   if (filterValue1.value !== 'all') return t('game.event_panel.empty_single')
@@ -293,12 +299,36 @@ const sectColorMap = computed(() => buildSectColorMap(
     }))
 ))
 
-// 渲染事件内容：拆分为安全 token，避免使用 v-html。
-function renderEventContent(event: GameEvent) {
-  const text = event.renderKey
+watch([avatarColorMap, sectColorMap, locale], () => {
+  eventSegmentCache.clear()
+})
+
+function getEventText(event: GameEvent) {
+  return event.renderKey
     ? t(`game.event_templates.${event.renderKey}`, event.renderParams ?? {})
     : (event.content || event.text || '')
-  return tokenizeEventContent(text, avatarColorMap.value, sectColorMap.value)
+}
+
+function getEventSegmentCacheKey(event: GameEvent, text: string) {
+  return [
+    locale.value,
+    event.id,
+    event.renderKey ?? '',
+    JSON.stringify(event.renderParams ?? {}),
+    text,
+  ].join('\u001f')
+}
+
+// 渲染事件内容：拆分为安全 token，避免使用 v-html。
+function renderEventContent(event: GameEvent) {
+  const text = getEventText(event)
+  const cacheKey = getEventSegmentCacheKey(event, text)
+  const cached = eventSegmentCache.get(cacheKey)
+  if (cached) return cached
+
+  const tokens = tokenizeEventContent(text, avatarColorMap.value, sectColorMap.value)
+  eventSegmentCache.set(cacheKey, tokens)
+  return tokens
 }
 
 function handleAvatarClick(avatarId?: string) {

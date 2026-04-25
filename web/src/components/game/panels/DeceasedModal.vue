@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { ref, shallowRef, watch } from 'vue'
+import { watch } from 'vue'
 import { NModal, NTable, NSpin, NEmpty, NButton } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { worldApi } from '../../../api/modules/world'
-import { eventApi } from '../../../api/modules/event'
-import { mapDeceasedList } from '../../../api/mappers/deceased'
-import type { DeceasedRecordView } from '../../../api/mappers/deceased'
-import type { EventDTO } from '@/types/api'
 import { formatRealmStage } from '@/utils/cultivationText'
-import { logError } from '@/utils/appError'
+import { useDeceasedRecords } from '@/composables/useDeceasedRecords'
 
 const props = defineProps<{
   show: boolean
@@ -19,47 +14,17 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-
-const loading = ref(false)
-const records = shallowRef<DeceasedRecordView[]>([])
-const selectedRecord = ref<DeceasedRecordView | null>(null)
-const eventsLoading = ref(false)
-const events = shallowRef<EventDTO[]>([])
-
-const fetchDeceased = async () => {
-  loading.value = true
-  try {
-    const dtos = await worldApi.fetchDeceasedList()
-    records.value = mapDeceasedList(dtos)
-  } catch (e) {
-    logError('DeceasedModal fetch deceased', e)
-  } finally {
-    loading.value = false
-  }
-}
-
-const fetchEvents = async (avatarId: string) => {
-  eventsLoading.value = true
-  try {
-    const res = await eventApi.fetchEvents({ avatar_id: avatarId, limit: 50 })
-    events.value = res.events
-  } catch (e) {
-    logError('DeceasedModal fetch events', e)
-  } finally {
-    eventsLoading.value = false
-  }
-}
-
-const selectRecord = (record: DeceasedRecordView) => {
-  selectedRecord.value = record
-  events.value = []
-  fetchEvents(record.id)
-}
-
-const backToList = () => {
-  selectedRecord.value = null
-  events.value = []
-}
+const {
+  recordsLoading: loading,
+  records,
+  selectedRecord,
+  eventsLoading,
+  events,
+  fetchRecords: fetchDeceased,
+  selectRecord,
+  backToList,
+  resetSelection,
+} = useDeceasedRecords({ logScope: 'DeceasedModal' })
 
 const handleShowChange = (val: boolean) => {
   emit('update:show', val)
@@ -67,9 +32,10 @@ const handleShowChange = (val: boolean) => {
 
 watch(() => props.show, (newVal) => {
   if (newVal) {
-    selectedRecord.value = null
-    events.value = []
-    fetchDeceased()
+    resetSelection()
+    void fetchDeceased()
+  } else {
+    resetSelection()
   }
 })
 </script>

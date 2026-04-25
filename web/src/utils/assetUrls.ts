@@ -3,9 +3,11 @@ export function withBasePublicPath(path: string): string {
   return `${import.meta.env.BASE_URL}${normalizedPath}`
 }
 
+const GAME_ASSET_BASE = '/assets'
+
 export function getGameAssetUrl(path: string): string {
   const normalizedPath = path.replace(/^\/+/, '')
-  return `/assets/${normalizedPath}`
+  return `${GAME_ASSET_BASE}/${normalizedPath}`
 }
 
 export function getAvatarPortraitUrl(gender: string | undefined, picId: number | null | undefined): string {

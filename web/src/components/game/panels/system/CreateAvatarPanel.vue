@@ -1,215 +1,37 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RelationType } from '@/constants/relations'
-import { avatarApi, type GameDataDTO, type CreateAvatarParams, type SimpleAvatarDTO } from '../../../../api'
-import { useWorldStore } from '../../../../stores/world'
-import { useMessage, NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
-import { getAvatarPortraitUrl } from '@/utils/assetUrls'
-import { formatEntityGrade } from '@/utils/cultivationText'
+import { NInput, NSelect, NSlider, NRadioGroup, NRadioButton, NForm, NFormItem, NButton } from 'naive-ui'
+import { useCreateAvatarPanel } from '@/composables/useCreateAvatarPanel'
 
 const emit = defineEmits<{
   (e: 'created'): void
 }>()
 
 const { t } = useI18n()
-const worldStore = useWorldStore()
-const message = useMessage()
-const loading = ref(false)
 
-const GENDER_MALE = '男'
-const GENDER_FEMALE = '女'
-
-function uiKey(path: string): string {
-  return `ui.create_avatar.${path}`
-}
-
-// --- State ---
-const gameData = ref<GameDataDTO | null>(null)
-const avatarMeta = ref<{ males: number[]; females: number[] } | null>(null)
-const avatarList = ref<SimpleAvatarDTO[]>([]) // For relation selection
-
-const createForm = ref<CreateAvatarParams>({
-  surname: '',
-  given_name: '',
-  gender: GENDER_MALE,
-  age: 16,
-  level: undefined,
-  sect_id: undefined,
-  persona_ids: [],
-  pic_id: undefined,
-  technique_id: undefined,
-  weapon_id: undefined,
-  auxiliary_id: undefined,
-  alignment: undefined,
-  appearance: 7,
-  relations: []
-})
-
-const relationOptions = computed(() => [
-  { label: t(uiKey('relation_labels.parent')), value: RelationType.TO_ME_IS_PARENT },
-  { label: t(uiKey('relation_labels.child')), value: RelationType.TO_ME_IS_CHILD },
-  { label: t(uiKey('relation_labels.sibling')), value: RelationType.TO_ME_IS_SIBLING },
-  { label: t(uiKey('relation_labels.master')), value: RelationType.TO_ME_IS_MASTER },
-  { label: t(uiKey('relation_labels.disciple')), value: RelationType.TO_ME_IS_DISCIPLE },
-  { label: t(uiKey('relation_labels.lover')), value: RelationType.TO_ME_IS_LOVER },
-  { label: t(uiKey('relation_labels.friend')), value: RelationType.TO_ME_IS_FRIEND },
-  { label: t(uiKey('relation_labels.enemy')), value: RelationType.TO_ME_IS_ENEMY },
-])
-
-// --- Computed Options ---
-const sectOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.sects.map(s => ({ label: s.name, value: s.id }))
-})
-
-const personaOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.personas.map(p => ({ label: p.name + ` (${p.desc})`, value: p.id }))
-})
-
-const realmOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.realms.map((r, idx) => ({
-    label: t(`realms.${r}`),
-    value: idx * 30 + 1
-  }))
-})
-
-const techniqueOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.techniques.map(item => ({
-    label: `${item.name}（${t('attributes.' + item.attribute)}·${t('technique_grades.' + item.grade)}）`,
-    value: item.id
-  }))
-})
-
-const weaponOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.weapons.map(w => ({
-    label: `${w.name}（${t('game.info_panel.popup.types.' + w.type)}·${formatEntityGrade(w.grade, t)}）`,
-    value: w.id
-  }))
-})
-
-const auxiliaryOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.auxiliaries.map(a => ({
-    label: `${a.name}（${formatEntityGrade(a.grade, t)}）`,
-    value: a.id
-  }))
-})
-
-const alignmentOptions = computed(() => {
-  if (!gameData.value) return []
-  return gameData.value.alignments.map(a => ({
-    label: a.label,
-    value: a.value
-  }))
-})
-
-const availableAvatars = computed(() => {
-  if (!avatarMeta.value) return []
-  const key = createForm.value.gender === GENDER_FEMALE ? 'females' : 'males'
-  return avatarMeta.value[key] || []
-})
-
-const currentAvatarUrl = computed(() => {
-  return getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id)
-})
-
-const avatarOptions = computed(() => {
-  return avatarList.value.map(a => ({
-    label: `[${a.sect_name}] ${a.name}`,
-    value: a.id
-  }))
-})
-
-// --- Methods ---
-async function fetchData() {
-  loading.value = true
-  try {
-    if (!gameData.value) {
-      gameData.value = await avatarApi.fetchGameData()
-    }
-    if (!avatarMeta.value) {
-      avatarMeta.value = await avatarApi.fetchAvatarMeta()
-    }
-    // 获取角色列表用于关系选择
-    avatarList.value = await avatarApi.fetchAvatarList()
-  } catch (e) {
-    message.error(t(uiKey('fetch_failed')))
-  } finally {
-    loading.value = false
-  }
-}
-
-function addRelation() {
-  if (!createForm.value.relations) {
-    createForm.value.relations = []
-  }
-  createForm.value.relations.push({ target_id: '', relation: RelationType.TO_ME_IS_FRIEND })
-}
-
-function removeRelation(index: number) {
-  createForm.value.relations?.splice(index, 1)
-}
-
-async function handleCreateAvatar() {
-  if (!createForm.value.level && realmOptions.value.length > 0) {
-    createForm.value.level = realmOptions.value[0].value as number
-  }
-
-  loading.value = true
-  try {
-    const payload = { ...createForm.value }
-    if (!payload.alignment) {
-      payload.alignment = 'NEUTRAL'
-    }
-    
-    await avatarApi.createAvatar(payload)
-    message.success(t(uiKey('create_success')))
-    await worldStore.fetchState?.()
-    
-    // Reset form
-    createForm.value = {
-      surname: '',
-      given_name: '',
-      gender: GENDER_MALE,
-      age: 16,
-      level: realmOptions.value[0]?.value,
-      sect_id: undefined,
-      persona_ids: [],
-      pic_id: undefined,
-      technique_id: undefined,
-      weapon_id: undefined,
-      auxiliary_id: undefined,
-      alignment: undefined,
-      appearance: 7,
-      relations: []
-    }
-    
-    emit('created')
-  } catch (e) {
-    message.error(t(uiKey('create_failed'), { error: String(e) }))
-  } finally {
-    loading.value = false
-  }
-}
-
-watch(() => createForm.value.gender, () => {
-  createForm.value.pic_id = undefined
-})
-
-watch(() => realmOptions.value, (options) => {
-  if (!createForm.value.level && options.length > 0) {
-    createForm.value.level = options[0].value as number
-  }
-}, { immediate: true })
-
-onMounted(() => {
-  fetchData()
-})
+const {
+  GENDER_MALE,
+  GENDER_FEMALE,
+  loading,
+  gameData,
+  createForm,
+  relationOptions,
+  sectOptions,
+  personaOptions,
+  realmOptions,
+  techniqueOptions,
+  weaponOptions,
+  auxiliaryOptions,
+  alignmentOptions,
+  availableAvatars,
+  currentAvatarUrl,
+  avatarOptions,
+  uiKey,
+  addRelation,
+  removeRelation,
+  handleCreateAvatar,
+  getAvatarPortraitUrl,
+} = useCreateAvatarPanel(() => emit('created'))
 </script>
 
 <template>

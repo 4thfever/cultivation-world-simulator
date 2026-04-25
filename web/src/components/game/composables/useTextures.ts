@@ -1,9 +1,10 @@
-import { ref } from 'vue'
+import { markRaw, ref, shallowRef } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
 import { avatarApi } from '@/api'
 import type { RegionSummary } from '@/types/core'
 import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
+import { getGameAssetUrl } from '@/utils/assetUrls'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -25,13 +26,17 @@ const TILE_VARIANTS: Record<string, { prefix: string, count: number, startIndex?
   'SWAMP': { prefix: 'swamp', count: 9, startIndex: 0 },
 }
 
-// 全局纹理缓存，避免重复加载
-const textures = ref<Record<string, Texture>>({})
+// 全局纹理缓存，避免重复加载。Pixi Texture 不能进入 Vue 深层响应式代理。
+const textures = shallowRef<Record<string, Texture>>({})
 const isLoaded = ref(false)
 const availableAvatars = ref<{ males: number[], females: number[] }>({ males: [], females: [] })
 let baseTexturesPromise: Promise<void> | null = null
 const sectTexturePromises = new Map<number, Promise<void>>()
 const cityTexturePromises = new Map<number, Promise<void>>()
+
+function setTexture(key: string, texture: Texture) {
+  textures.value[key] = markRaw(texture)
+}
 
 export function useTextures() {
   
@@ -80,35 +85,35 @@ export function useTextures() {
     }
 
     const manifest: Record<string, string> = {
-      'PLAIN': '/assets/tiles/plain.png',
-      'WATER': '/assets/tiles/water.png',
-      'SEA': '/assets/tiles/sea.png',
-      'WATER_FULL': '/assets/tiles/water_full.jpg',
-      'SEA_FULL': '/assets/tiles/sea_full.jpg',
-      'CITY': '/assets/tiles/city.png',
-      'VOLCANO': '/assets/tiles/volcano.png',
-      'SWAMP': '/assets/tiles/swamp.png',
-      'FARM': '/assets/tiles/farm.png',
-      'ISLAND': '/assets/tiles/island.png',
-      'BAMBOO': '/assets/tiles/bamboo.png',
-      'GOBI': '/assets/tiles/gobi.png',
-      'TUNDRA': '/assets/tiles/tundra.png',
-      'MARSH': '/assets/tiles/swamp.png',
+      'PLAIN': getGameAssetUrl('tiles/plain.png'),
+      'WATER': getGameAssetUrl('tiles/water.png'),
+      'SEA': getGameAssetUrl('tiles/sea.png'),
+      'WATER_FULL': getGameAssetUrl('tiles/water_full.jpg'),
+      'SEA_FULL': getGameAssetUrl('tiles/sea_full.jpg'),
+      'CITY': getGameAssetUrl('tiles/city.png'),
+      'VOLCANO': getGameAssetUrl('tiles/volcano.png'),
+      'SWAMP': getGameAssetUrl('tiles/swamp.png'),
+      'FARM': getGameAssetUrl('tiles/farm.png'),
+      'ISLAND': getGameAssetUrl('tiles/island.png'),
+      'BAMBOO': getGameAssetUrl('tiles/bamboo.png'),
+      'GOBI': getGameAssetUrl('tiles/gobi.png'),
+      'TUNDRA': getGameAssetUrl('tiles/tundra.png'),
+      'MARSH': getGameAssetUrl('tiles/swamp.png'),
       // Cave slices
-      'cave_0': '/assets/tiles/cave_0.png',
-      'cave_1': '/assets/tiles/cave_1.png',
-      'cave_2': '/assets/tiles/cave_2.png',
-      'cave_3': '/assets/tiles/cave_3.png',
+      'cave_0': getGameAssetUrl('tiles/cave_0.png'),
+      'cave_1': getGameAssetUrl('tiles/cave_1.png'),
+      'cave_2': getGameAssetUrl('tiles/cave_2.png'),
+      'cave_3': getGameAssetUrl('tiles/cave_3.png'),
       // Ruin slices
-      'ruin_0': '/assets/tiles/ruin_0.png',
-      'ruin_1': '/assets/tiles/ruin_1.png',
-      'ruin_2': '/assets/tiles/ruin_2.png',
-      'ruin_3': '/assets/tiles/ruin_3.png',
+      'ruin_0': getGameAssetUrl('tiles/ruin_0.png'),
+      'ruin_1': getGameAssetUrl('tiles/ruin_1.png'),
+      'ruin_2': getGameAssetUrl('tiles/ruin_2.png'),
+      'ruin_3': getGameAssetUrl('tiles/ruin_3.png'),
     }
 
     const tilePromises = Object.entries(manifest).map(async ([key, url]) => {
       try {
-        textures.value[key] = await Assets.load(url)
+        setTexture(key, await Assets.load(url))
       } catch (error) {
         logError(`Textures load base texture ${key}`, error)
       }
@@ -119,10 +124,10 @@ export function useTextures() {
     Object.entries(TILE_VARIANTS).forEach(([key, { prefix, count, startIndex = 0 }]) => {
       for (let i = startIndex; i < startIndex + count; i++) {
         const variantKey = `${key}_${i}`
-        const url = `/assets/tiles/${prefix}_${i}.png`
+        const url = getGameAssetUrl(`tiles/${prefix}_${i}.png`)
         variantPromises.push(
           Assets.load(url)
-            .then(tex => { textures.value[variantKey] = tex })
+            .then(tex => { setTexture(variantKey, tex) })
             .catch(e => logWarn(`Textures load variant ${variantKey}`, e))
         )
       }
@@ -132,8 +137,8 @@ export function useTextures() {
     const cloudPromises: Promise<void>[] = []
     for (let i = 0; i <= 8; i++) {
         cloudPromises.push(
-            Assets.load(`/assets/clouds/cloud_${i}.png`)
-                .then(tex => { textures.value[`cloud_${i}`] = tex })
+            Assets.load(getGameAssetUrl(`clouds/cloud_${i}.png`))
+                .then(tex => { setTexture(`cloud_${i}`, tex) })
                 .catch(e => logWarn(`Textures load cloud_${i}`, e))
         )
     }
@@ -143,16 +148,16 @@ export function useTextures() {
     
     for (const id of availableAvatars.value.males) {
         avatarPromises.push(
-            Assets.load(`/assets/males/${id}.png`)
-                .then(tex => { textures.value[`male_${id}`] = tex })
+            Assets.load(getGameAssetUrl(`males/${id}.png`))
+                .then(tex => { setTexture(`male_${id}`, tex) })
                 .catch(e => logWarn(`Textures load male_${id}`, e))
         )
     }
     
     for (const id of availableAvatars.value.females) {
         avatarPromises.push(
-            Assets.load(`/assets/females/${id}.png`)
-                .then(tex => { textures.value[`female_${id}`] = tex })
+            Assets.load(getGameAssetUrl(`females/${id}.png`))
+                .then(tex => { setTexture(`female_${id}`, tex) })
                 .catch(e => logWarn(`Textures load female_${id}`, e))
         )
     }
@@ -162,7 +167,7 @@ export function useTextures() {
     // 为没有基础纹理的变体类型设置默认纹理（使用第0个变体作为默认值）
     Object.keys(TILE_VARIANTS).forEach(key => {
         if (!textures.value[key] && textures.value[`${key}_0`]) {
-            textures.value[key] = textures.value[`${key}_0`]
+            setTexture(key, textures.value[`${key}_0`])
         }
     })
 
@@ -185,10 +190,10 @@ export function useTextures() {
           const key = `sect_${sectId}_${i}`
           if (textures.value[key]) return
           
-          const url = `/assets/sects/sect_${sectId}_${i}.png`
+          const url = getGameAssetUrl(`sects/sect_${sectId}_${i}.png`)
           try {
               const tex = await Assets.load(url)
-              textures.value[key] = tex
+              setTexture(key, tex)
           } catch (e) {
               logWarn(`Textures load sect_${sectId}_${i}`, e)
           }
@@ -217,10 +222,10 @@ export function useTextures() {
           if (textures.value[key]) return
           
           for (const ext of extensions) {
-              const url = `/assets/cities/city_${cityId}_${i}${ext}`
+              const url = getGameAssetUrl(`cities/city_${cityId}_${i}${ext}`)
               try {
                   const tex = await Assets.load(url)
-                  textures.value[key] = tex
+                  setTexture(key, tex)
                   return
               } catch (e) {
                   logWarn(`Textures load city_${cityId}_${i}${ext}`, e)

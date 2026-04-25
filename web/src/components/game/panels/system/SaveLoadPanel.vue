@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
+import { computed } from 'vue'
 import { NModal, NInput, NButton, NSpin, NTooltip } from 'naive-ui'
-import { systemApi } from '../../../../api'
-import type { SaveFileDTO } from '../../../../types/api'
-import { useWorldStore } from '../../../../stores/world'
-import { useUiStore } from '../../../../stores/ui'
-import { useMessage } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useSaveLoadPanel } from '@/composables/useSaveLoadPanel'
 import plusIcon from '@/assets/icons/ui/lucide/plus.svg'
 import zapIcon from '@/assets/icons/ui/lucide/zap.svg'
 import clockIcon from '@/assets/icons/ui/lucide/clock-3.svg'
@@ -27,140 +23,24 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const worldStore = useWorldStore()
-const uiStore = useUiStore()
-const message = useMessage()
-const loading = ref(false)
-const saves = ref<SaveFileDTO[]>([])
-
-// 保存对话框状态
-const showSaveModal = ref(false)
-const saveName = ref('')
-const saving = ref(false)
-
-// 名称验证
-const nameError = computed(() => {
-  if (!saveName.value) return ''
-  if (saveName.value.length > 50) {
-    return t('save_load.name_too_long')
-  }
-  // 只允许中文、字母、数字和下划线
-  const pattern = /^[\w\u4e00-\u9fff]+$/
-  if (!pattern.test(saveName.value)) {
-    return t('save_load.name_invalid_chars')
-  }
-  return ''
-})
-
-async function fetchSaves() {
-  loading.value = true
-  try {
-    saves.value = await systemApi.fetchSaves()
-  } catch (e) {
-    message.error(t('save_load.fetch_failed'))
-  } finally {
-    loading.value = false
-  }
-}
-
-// 打开保存对话框
-function openSaveModal() {
-  saveName.value = ''
-  showSaveModal.value = true
-}
-
-// 快速保存（不输入名称）
-async function handleQuickSave() {
-  saving.value = true
-  try {
-    const res = await systemApi.saveGame()
-    message.success(t('save_load.save_success', { filename: res.filename }))
-    await fetchSaves()
-  } catch (e) {
-    message.error(t('save_load.save_failed'))
-  } finally {
-    saving.value = false
-  }
-}
-
-// 带名称保存
-async function handleSaveWithName() {
-  if (nameError.value) return
-
-  saving.value = true
-  try {
-    const customName = saveName.value.trim() || undefined
-    const res = await systemApi.saveGame(customName)
-    message.success(t('save_load.save_success', { filename: res.filename }))
-    showSaveModal.value = false
-    saveName.value = ''
-    await fetchSaves()
-  } catch (e) {
-    message.error(t('save_load.save_failed'))
-  } finally {
-    saving.value = false
-  }
-}
-
-async function handleLoad(filename: string) {
-  if (!confirm(t('save_load.load_confirm', { filename }))) return
-
-  loading.value = true
-  try {
-    await systemApi.loadGame(filename)
-    worldStore.reset()
-    uiStore.clearSelection()
-    await worldStore.initialize()
-    message.success(t('save_load.load_success'))
-    emit('close')
-  } catch (e) {
-    message.error(t('save_load.load_failed'))
-  } finally {
-    loading.value = false
-  }
-}
-
-async function handleDelete(filename: string) {
-  if (!confirm(t('save_load.delete_confirm', { filename }))) return
-
-  loading.value = true
-  try {
-    await systemApi.deleteSave(filename)
-    message.success(t('save_load.delete_success'))
-    await fetchSaves()
-  } catch (e) {
-    message.error(t('save_load.delete_failed'))
-  } finally {
-    loading.value = false
-  }
-}
-
-// 格式化保存时间
-function formatSaveTime(isoTime: string): string {
-  if (!isoTime) return ''
-  try {
-    const date = new Date(isoTime)
-    return date.toLocaleString()
-  } catch {
-    return isoTime
-  }
-}
-
-// 获取存档显示名称
-function getSaveDisplayName(save: SaveFileDTO): string {
-  if (save.custom_name) {
-    return save.custom_name
-  }
-  // 从文件名提取时间部分
-  return save.filename?.replace('.json', '') || ''
-}
-
-watch(() => props.mode, () => {
-  fetchSaves()
-})
-
-onMounted(() => {
-  fetchSaves()
+const modeRef = computed(() => props.mode)
+const {
+  loading,
+  saves,
+  showSaveModal,
+  saveName,
+  saving,
+  nameError,
+  openSaveModal,
+  handleQuickSave,
+  handleSaveWithName,
+  handleLoad,
+  handleDelete,
+  formatSaveTime,
+  getSaveDisplayName,
+} = useSaveLoadPanel({
+  mode: modeRef,
+  close: () => emit('close'),
 })
 </script>
 

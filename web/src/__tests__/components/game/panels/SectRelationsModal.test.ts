@@ -26,7 +26,7 @@ vi.mock('naive-ui', () => ({
   },
 }))
 
-vi.mock('@/api', () => ({
+vi.mock('@/api/modules/world', () => ({
   worldApi: {
     fetchInitialState: vi.fn(),
     fetchMap: vi.fn(),
@@ -34,6 +34,9 @@ vi.mock('@/api', () => ({
     setPhenomenon: vi.fn(),
     fetchSectRelations: vi.fn(),
   },
+}))
+
+vi.mock('@/api', () => ({
   eventApi: {
     fetchEvents: vi.fn(),
   },
@@ -46,7 +49,7 @@ vi.mock('@/stores/ui', () => ({
   }),
 }))
 
-import { worldApi } from '@/api'
+import { worldApi } from '@/api/modules/world'
 
 describe('SectRelationsModal', () => {
   beforeEach(() => {

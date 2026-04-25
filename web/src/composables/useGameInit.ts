@@ -2,6 +2,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useSystemStore } from '@/stores/system'
 import { useWorldStore } from '@/stores/world'
 import { useSocketStore } from '@/stores/socket'
+import { useMapStore } from '@/stores/map'
 import { GAME_PHASES } from '@/constants/game'
 import { storeToRefs } from 'pinia'
 
@@ -24,6 +25,7 @@ function isPhaseIn(list: readonly string[], phaseName: string): phaseName is Ini
 export function useGameInit(options: UseGameInitOptions = {}) {
   const systemStore = useSystemStore()
   const worldStore = useWorldStore()
+  const mapStore = useMapStore()
   const socketStore = useSocketStore()
   const { loadBaseTextures, preloadRegionTextures } = useTextures()
 
@@ -46,7 +48,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
 
   async function preloadMapAndRegionTextures() {
     await worldStore.preloadMap()
-    await preloadRegionTextures(worldStore.regions.values())
+    await preloadRegionTextures(mapStore.regions.values())
   }
 
   // Methods

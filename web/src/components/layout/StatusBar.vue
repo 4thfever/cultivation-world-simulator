@@ -4,19 +4,8 @@ import { useSocketStore } from '../../stores/socket'
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import StatusWidget from './StatusWidget.vue'
-
-import RankingModal from '../game/panels/RankingModal.vue'
-import TournamentModal from '../game/panels/TournamentModal.vue'
-import SectRelationsModal from '../game/panels/SectRelationsModal.vue'
-import MortalOverviewModal from '../game/panels/MortalOverviewModal.vue'
-import DynastyOverviewModal from '../game/panels/DynastyOverviewModal.vue'
-import HiddenDomainOverviewModal from '../game/panels/HiddenDomainOverviewModal.vue'
-import WorldInfoModal from '../game/panels/WorldInfoModal.vue'
-import TimeOverviewModal from '../game/panels/TimeOverviewModal.vue'
-import PhenomenonSelectorModal from '../game/panels/PhenomenonSelectorModal.vue'
-import AvatarOverviewModal from '../game/panels/AvatarOverviewModal.vue'
+import StatusBarPanels from './StatusBarPanels.vue'
 import { PHENOMENON_RARITY_COLORS, STATUS_BAR_COLORS } from '@/constants/uiColors'
-import { useAvatarOverviewStore } from '@/stores/avatarOverview'
 import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
 import bookOpenIcon from '@/assets/icons/ui/lucide/book-open.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
@@ -30,17 +19,19 @@ import clock3Icon from '@/assets/icons/ui/lucide/clock-3.svg'
 const { t, locale } = useI18n()
 const store = useWorldStore()
 const socketStore = useSocketStore()
-const avatarOverviewStore = useAvatarOverviewStore()
-const showSelector = ref(false)
-const showTimeOverviewModal = ref(false)
-const showWorldInfoModal = ref(false)
-const showRankingModal = ref(false)
-const showTournamentModal = ref(false)
-const showSectRelationsModal = ref(false)
-const showMortalOverviewModal = ref(false)
-const showDynastyOverviewModal = ref(false)
-const showHiddenDomainModal = ref(false)
-const showAvatarOverviewModal = ref(false)
+const panelsRef = ref<InstanceType<typeof StatusBarPanels> | null>(null)
+
+type StatusBarPanelKey =
+  | 'time'
+  | 'worldInfo'
+  | 'ranking'
+  | 'tournament'
+  | 'sectRelations'
+  | 'mortalOverview'
+  | 'dynastyOverview'
+  | 'hiddenDomain'
+  | 'phenomenonSelector'
+  | 'avatarOverview'
 
 const phenomenonColor = computed(() => {
   const p = store.currentPhenomenon
@@ -70,14 +61,11 @@ function getRarityColor(rarity: string) {
 }
 async function openPhenomenonSelector() {
   await store.getPhenomenaList()
-  showSelector.value = true
+  void openPanel('phenomenonSelector')
 }
 
-async function openAvatarOverview() {
-  if (!avatarOverviewStore.isLoaded) {
-    await avatarOverviewStore.refreshOverview()
-  }
-  showAvatarOverviewModal.value = true
+function openPanel(panel: StatusBarPanelKey) {
+  void panelsRef.value?.open(panel)
 }
 </script>
 
@@ -93,7 +81,7 @@ async function openAvatarOverview() {
         :icon="calendarIcon"
         :color="STATUS_BAR_COLORS.time"
         :disable-popover="true"
-        @trigger-click="showTimeOverviewModal = true"
+        @trigger-click="openPanel('time')"
       />
 
       <StatusWidget
@@ -110,7 +98,7 @@ async function openAvatarOverview() {
         :icon="shieldIcon"
         :color="STATUS_BAR_COLORS.hiddenDomain"
         :disable-popover="true"
-        @trigger-click="showHiddenDomainModal = true"
+        @trigger-click="openPanel('hiddenDomain')"
       />
 
       <StatusWidget
@@ -118,7 +106,7 @@ async function openAvatarOverview() {
         :icon="shieldIcon"
         :color="STATUS_BAR_COLORS.sectRelations"
         :disable-popover="true"
-        @trigger-click="showSectRelationsModal = true"
+        @trigger-click="openPanel('sectRelations')"
       />
 
       <StatusWidget
@@ -126,7 +114,7 @@ async function openAvatarOverview() {
         :icon="landmarkIcon"
         :color="STATUS_BAR_COLORS.dynasty"
         :disable-popover="true"
-        @trigger-click="showDynastyOverviewModal = true"
+        @trigger-click="openPanel('dynastyOverview')"
       />
 
       <StatusWidget
@@ -134,7 +122,7 @@ async function openAvatarOverview() {
         :icon="usersIcon"
         :color="STATUS_BAR_COLORS.mortal"
         :disable-popover="true"
-        @trigger-click="showMortalOverviewModal = true"
+        @trigger-click="openPanel('mortalOverview')"
       />
 
       <StatusWidget
@@ -142,7 +130,7 @@ async function openAvatarOverview() {
         :icon="trophyIcon"
         :color="STATUS_BAR_COLORS.ranking"
         :disable-popover="true"
-        @trigger-click="showRankingModal = true"
+        @trigger-click="openPanel('ranking')"
       />
 
       <StatusWidget
@@ -150,7 +138,7 @@ async function openAvatarOverview() {
         :icon="swordsIcon"
         :color="STATUS_BAR_COLORS.tournament"
         :disable-popover="true"
-        @trigger-click="showTournamentModal = true"
+        @trigger-click="openPanel('tournament')"
       />
 
       <StatusWidget
@@ -158,7 +146,7 @@ async function openAvatarOverview() {
         :icon="clock3Icon"
         :color="STATUS_BAR_COLORS.neutral"
         :disable-popover="true"
-        @trigger-click="openAvatarOverview"
+        @trigger-click="openPanel('avatarOverview')"
       />
 
       <StatusWidget
@@ -166,25 +154,11 @@ async function openAvatarOverview() {
         :icon="bookOpenIcon"
         :color="STATUS_BAR_COLORS.worldInfo"
         :disable-popover="true"
-        @trigger-click="showWorldInfoModal = true"
+        @trigger-click="openPanel('worldInfo')"
       />
     </div>
 
-    <RankingModal v-model:show="showRankingModal" />
-    <TimeOverviewModal v-model:show="showTimeOverviewModal" />
-    <WorldInfoModal v-model:show="showWorldInfoModal" />
-    
-    <TournamentModal v-model:show="showTournamentModal" />
-
-    <SectRelationsModal v-model:show="showSectRelationsModal" />
-
-    <HiddenDomainOverviewModal v-model:show="showHiddenDomainModal" />
-
-    <MortalOverviewModal v-model:show="showMortalOverviewModal" />
-
-    <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
-    <PhenomenonSelectorModal v-model:show="showSelector" />
-    <AvatarOverviewModal v-model:show="showAvatarOverviewModal" />
+    <StatusBarPanels ref="panelsRef" />
 
     <div class="author">
       <a
@@ -214,6 +188,7 @@ async function openAvatarOverview() {
   font-size: 14px;
   z-index: 10;
   gap: 16px;
+  min-width: 0;
 }
 
 .top-bar .title {
@@ -221,6 +196,7 @@ async function openAvatarOverview() {
   margin-right: 8px;
   color: #e8dcc0;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .center {
@@ -228,6 +204,20 @@ async function openAvatarOverview() {
   align-items: center;
   gap: 10px;
   min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.center :deep(.status-widget) {
+  flex: 0 0 auto;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 0 1 auto;
 }
 
 .status-dot {

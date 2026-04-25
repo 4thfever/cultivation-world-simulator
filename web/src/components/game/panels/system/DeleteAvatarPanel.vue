@@ -1,63 +1,19 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { avatarApi, type SimpleAvatarDTO } from '../../../../api'
-import { useWorldStore } from '../../../../stores/world'
-import { useMessage, NInput, NButton } from 'naive-ui'
+import { NInput, NButton } from 'naive-ui'
+import { useDeleteAvatarPanel } from '@/composables/useDeleteAvatarPanel'
 import searchIcon from '@/assets/icons/ui/lucide/search.svg'
 import trashIcon from '@/assets/icons/ui/lucide/trash-2.svg'
 
-const worldStore = useWorldStore()
-const message = useMessage()
 const { t } = useI18n()
-const loading = ref(false)
 
-function uiKey(path: string): string {
-  return `ui.delete_avatar.${path}`
-}
-
-// --- State ---
-const avatarList = ref<SimpleAvatarDTO[]>([])
-const avatarSearch = ref('')
-
-const filteredAvatars = computed(() => {
-  if (!avatarSearch.value) return avatarList.value
-  return avatarList.value.filter(a => a.name.includes(avatarSearch.value))
-})
-
-// --- Methods ---
-async function fetchAvatarList() {
-  loading.value = true
-  try {
-    avatarList.value = await avatarApi.fetchAvatarList()
-  } catch (e) {
-    message.error(t(uiKey('fetch_failed')))
-  } finally {
-    loading.value = false
-  }
-}
-
-async function handleDeleteAvatar(id: string, name: string) {
-  if (!confirm(t(uiKey('delete_confirm'), { name }))) return
-  
-  loading.value = true
-  try {
-    await avatarApi.deleteAvatar(id)
-    message.success(t(uiKey('delete_success')))
-    await Promise.all([
-      fetchAvatarList(),
-      worldStore.fetchState ? worldStore.fetchState() : Promise.resolve()
-    ])
-  } catch (e) {
-    message.error(t(uiKey('delete_failed')))
-  } finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => {
-  fetchAvatarList()
-})
+const {
+  loading,
+  avatarSearch,
+  filteredAvatars,
+  uiKey,
+  handleDeleteAvatar,
+} = useDeleteAvatarPanel()
 </script>
 
 <template>

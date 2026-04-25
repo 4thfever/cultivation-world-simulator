@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { NModal, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { worldApi } from '@/api/modules/world'
 import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
 import { useWorldStore } from '@/stores/world'
-import type { RankingsDTO, SectRelationDTO } from '@/types/api'
 import calendarIcon from '@/assets/icons/ui/lucide/calendar.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
 import swordsIcon from '@/assets/icons/ui/lucide/swords.svg'
 import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
-import { logError } from '@/utils/appError'
+import { useWorldOverviewData } from '@/composables/useWorldOverviewData'
 
 const props = defineProps<{
   show: boolean
@@ -35,14 +33,12 @@ const panelStyleVars = {
   '--panel-text-muted': SHARED_UI_COLORS.textMuted,
 }
 
-const loading = ref(false)
-const rankings = ref<RankingsDTO>({
-  heaven: [],
-  earth: [],
-  human: [],
-  sect: [],
-})
-const relations = ref<SectRelationDTO[]>([])
+const {
+  loading,
+  rankings,
+  relations,
+  fetchRankingsAndRelations,
+} = useWorldOverviewData('TimeOverviewModal')
 
 const currentDateText = computed(() => (
   t('game.status_bar.time.current_date_value', {
@@ -92,32 +88,6 @@ const warStatusText = computed(() => (
     : t('game.status_bar.time.war_none')
 ))
 
-async function fetchTimeOverviewData() {
-  loading.value = true
-  try {
-    const [rankingsResult, relationsResult] = await Promise.allSettled([
-      worldApi.fetchRankings(),
-      worldApi.fetchSectRelations(),
-    ])
-
-    if (rankingsResult.status === 'fulfilled') {
-      rankings.value = rankingsResult.value
-    } else {
-      rankings.value = { heaven: [], earth: [], human: [], sect: [] }
-      logError('TimeOverviewModal fetch rankings', rankingsResult.reason)
-    }
-
-    if (relationsResult.status === 'fulfilled') {
-      relations.value = relationsResult.value.relations ?? []
-    } else {
-      relations.value = []
-      logError('TimeOverviewModal fetch sect relations', relationsResult.reason)
-    }
-  } finally {
-    loading.value = false
-  }
-}
-
 function handleShowChange(value: boolean) {
   emit('update:show', value)
 }
@@ -126,7 +96,7 @@ watch(
   () => props.show,
   (show) => {
     if (show) {
-      void fetchTimeOverviewData()
+      void fetchRankingsAndRelations()
     }
   },
 )
