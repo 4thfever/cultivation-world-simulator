@@ -11,23 +11,41 @@ export const useMapStore = defineStore('map', () => {
   const regions = shallowRef<Map<string | number, RegionSummary>>(new Map());
   const renderConfig = ref<MapRenderConfigDTO>(normalizeMapRenderConfig());
   const isLoaded = ref(false);
+  let preloadMapPromise: Promise<void> | null = null;
+  let preloadMapRequestId = 0;
 
   async function preloadMap() {
-    try {
+    if (isLoaded.value && mapData.value.length > 0) return;
+    if (preloadMapPromise) return preloadMapPromise;
+
+    const requestId = ++preloadMapRequestId;
+    preloadMapPromise = (async () => {
       const mapRes = await worldApi.fetchMap();
+      if (requestId !== preloadMapRequestId) return;
+
       mapData.value = mapRes.data;
       renderConfig.value = normalizeMapRenderConfig(mapRes.renderConfig);
       const regionMap = new Map<string | number, RegionSummary>();
       mapRes.regions.forEach(r => regionMap.set(r.id, r));
       regions.value = regionMap;
       isLoaded.value = true;
-    } catch (e) {
-      logWarn('MapStore preload map', e);
-      throw e;
-    }
+    })()
+      .catch((e) => {
+        logWarn('MapStore preload map', e);
+        throw e;
+      })
+      .finally(() => {
+        if (requestId === preloadMapRequestId) {
+          preloadMapPromise = null;
+        }
+      });
+
+    return preloadMapPromise;
   }
 
   function reset() {
+    preloadMapRequestId++;
+    preloadMapPromise = null;
     mapData.value = [];
     regions.value = new Map();
     renderConfig.value = normalizeMapRenderConfig();

@@ -25,7 +25,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const systemStore = useSystemStore()
   const worldStore = useWorldStore()
   const socketStore = useSocketStore()
-  const { loadBaseTextures } = useTextures()
+  const { loadBaseTextures, preloadRegionTextures } = useTextures()
 
   const { initStatus, isInitialized, isLoading } = storeToRefs(systemStore)
   
@@ -37,6 +37,17 @@ export function useGameInit(options: UseGameInitOptions = {}) {
   const lastPollDurationMs = ref(0)
   
   let pollInterval: ReturnType<typeof setInterval> | null = null
+
+  function preloadBaseTexturesOnce() {
+    if (texturesPreloaded.value) return
+    texturesPreloaded.value = true
+    Promise.resolve(loadBaseTextures()).catch((e) => logWarn('GameInit preload textures', e))
+  }
+
+  async function preloadMapAndRegionTextures() {
+    await worldStore.preloadMap()
+    await preloadRegionTextures(worldStore.regions.values())
+  }
 
   // Methods
   async function initializeGame() {
@@ -88,7 +99,8 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       // 提前加载地图
       if (!mapPreloaded.value && isPhaseIn(GAME_PHASES.MAP_READY, res.phase_name)) {
         mapPreloaded.value = true
-        worldStore.preloadMap()
+        Promise.resolve(preloadMapAndRegionTextures()).catch((e) => logWarn('GameInit preload map textures', e))
+        preloadBaseTexturesOnce()
       }
       
       // 提前加载角色
@@ -99,8 +111,7 @@ export function useGameInit(options: UseGameInitOptions = {}) {
       
       // 提前加载纹理资源（利用后端生成事件等待期）
       if (!texturesPreloaded.value && isPhaseIn(GAME_PHASES.TEXTURES_READY, res.phase_name)) {
-        texturesPreloaded.value = true
-        Promise.resolve(loadBaseTextures()).catch((e) => logWarn('GameInit preload textures', e))
+        preloadBaseTexturesOnce()
       }
       
       // 状态跃迁：非 Ready -> Ready

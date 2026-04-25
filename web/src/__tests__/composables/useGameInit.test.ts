@@ -7,14 +7,16 @@ import { useSocketStore } from '@/stores/socket'
 import type { InitStatusDTO } from '@/types/api'
 
 // Use vi.hoisted to define mocks before vi.mock is hoisted.
-const { mockLoadBaseTextures } = vi.hoisted(() => ({
+const { mockLoadBaseTextures, mockPreloadRegionTextures } = vi.hoisted(() => ({
   mockLoadBaseTextures: vi.fn().mockResolvedValue(undefined),
+  mockPreloadRegionTextures: vi.fn().mockResolvedValue(undefined),
 }))
 
 // Mock useTextures composable.
 vi.mock('@/components/game/composables/useTextures', () => ({
   useTextures: () => ({
     loadBaseTextures: mockLoadBaseTextures,
+    preloadRegionTextures: mockPreloadRegionTextures,
   }),
 }))
 

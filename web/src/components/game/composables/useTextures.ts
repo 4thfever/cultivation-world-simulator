@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { Assets, Texture, TextureStyle } from 'pixi.js'
 import { avatarApi } from '@/api'
+import type { RegionSummary } from '@/types/core'
 import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
 
@@ -28,11 +29,17 @@ const TILE_VARIANTS: Record<string, { prefix: string, count: number, startIndex?
 const textures = ref<Record<string, Texture>>({})
 const isLoaded = ref(false)
 const availableAvatars = ref<{ males: number[], females: number[] }>({ males: [], females: [] })
+let baseTexturesPromise: Promise<void> | null = null
+const sectTexturePromises = new Map<number, Promise<void>>()
+const cityTexturePromises = new Map<number, Promise<void>>()
 
 export function useTextures() {
   
   // 基础纹理加载（地图块、角色）
   const loadBaseTextures = async () => {
+    if (baseTexturesPromise) return baseTexturesPromise
+
+    baseTexturesPromise = (async () => {
     // 1. 获取最新的 Avatar Meta 并检查是否有变化
     let metaChanged = false
     try {
@@ -160,10 +167,19 @@ export function useTextures() {
     })
 
     isLoaded.value = true
+    })().finally(() => {
+      baseTexturesPromise = null
+    })
+
+    return baseTexturesPromise
   }
 
   // 动态加载宗门纹理（按需）- 加载4个切片用于渲染
   const loadSectTexture = async (sectId: number) => {
+      if ([0, 1, 2, 3].every(i => textures.value[`sect_${sectId}_${i}`])) return
+      const existingPromise = sectTexturePromises.get(sectId)
+      if (existingPromise) return existingPromise
+
       // 加载4个切片 _0, _1, _2, _3
       const slicePromises = [0, 1, 2, 3].map(async (i) => {
           const key = `sect_${sectId}_${i}`
@@ -178,11 +194,21 @@ export function useTextures() {
           }
       })
       
-      await Promise.all(slicePromises)
+      const promise = Promise.all(slicePromises)
+        .then(() => undefined)
+        .finally(() => {
+          sectTexturePromises.delete(sectId)
+        })
+      sectTexturePromises.set(sectId, promise)
+      return promise
   }
 
   // 动态加载城市纹理（按需）- 加载4个切片用于渲染
   const loadCityTexture = async (cityId: number) => {
+      if ([0, 1, 2, 3].every(i => textures.value[`city_${cityId}_${i}`])) return
+      const existingPromise = cityTexturePromises.get(cityId)
+      if (existingPromise) return existingPromise
+
       // 加载4个切片 _0, _1, _2, _3
       const extensions = ['.jpg', '.png']
       
@@ -202,7 +228,41 @@ export function useTextures() {
           }
       })
       
-      await Promise.all(slicePromises)
+      const promise = Promise.all(slicePromises)
+        .then(() => undefined)
+        .finally(() => {
+          cityTexturePromises.delete(cityId)
+        })
+      cityTexturePromises.set(cityId, promise)
+      return promise
+  }
+
+  const preloadRegionTextures = async (regions: Iterable<RegionSummary>) => {
+      const regionList = Array.from(regions)
+      const sectIds = Array.from(
+        new Set(
+          regionList
+            .filter(region => region.type === 'sect' && region.sect_id)
+            .map(region => region.sect_id as number)
+        )
+      )
+
+      const cityIds = Array.from(
+        new Set(
+          regionList
+            .filter(region => region.type === 'city' && region.id)
+            .map(region => {
+              const id = typeof region.id === 'string' ? parseInt(region.id) : region.id
+              return isNaN(id) ? null : id
+            })
+            .filter(id => id !== null)
+        )
+      ) as number[]
+
+      await Promise.all([
+        ...sectIds.map(id => loadSectTexture(id)),
+        ...cityIds.map(id => loadCityTexture(id))
+      ])
   }
 
   // 获取地形纹理（支持随机变体）
@@ -227,6 +287,7 @@ export function useTextures() {
     loadBaseTextures,
     loadSectTexture,
     loadCityTexture,
+    preloadRegionTextures,
     availableAvatars,
     getTileTexture
   }

@@ -11,7 +11,12 @@ import { buildVisibleRegionLabels } from './utils/mapLabels'
 
 const TILE_SIZE = 64
 const mapContainer = ref<Container>()
-const { textures, isLoaded, loadSectTexture, loadCityTexture, getTileTexture } = useTextures()
+const {
+  textures,
+  isLoaded,
+  preloadRegionTextures,
+  getTileTexture,
+} = useTextures()
 const mapStore = useMapStore()
 const { locale } = useI18n()
 
@@ -64,7 +69,7 @@ async function renderMap() {
   cleanupTicker()
   mapContainer.value.removeChildren()
   
-  await preloadRegionTextures()
+  await preloadRegionTextures(mapStore.regions.values())
 
   if (!mapContainer.value) return // Check again after await
   const rows = mapStore.mapData.length
@@ -219,37 +224,6 @@ async function renderMap() {
     width: mapWidth,
     height: mapHeight
   })
-}
-
-async function preloadRegionTextures() {
-  const regions = Array.from(mapStore.regions.values());
-  
-  // Sects - use sect_id instead of sect_name
-  const sectIds = Array.from(
-    new Set(
-      regions
-        .filter(region => region.type === 'sect' && region.sect_id)
-        .map(region => region.sect_id as number)
-    )
-  )
-  
-  // Cities - use city id (convert to number)
-  const cityIds = Array.from(
-    new Set(
-      regions
-        .filter(region => region.type === 'city' && region.id)
-        .map(region => {
-          const id = typeof region.id === 'string' ? parseInt(region.id) : region.id
-          return isNaN(id) ? null : id
-        })
-        .filter(id => id !== null)
-    )
-  ) as number[]
-
-  await Promise.all([
-      ...sectIds.map(id => loadSectTexture(id)),
-      ...cityIds.map(id => loadCityTexture(id))
-  ])
 }
 
 function renderLargeRegions() {
