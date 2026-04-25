@@ -126,6 +126,7 @@
     "deceased": "(Deceased)",
     "add_second": "+ Add Second",
     "load_more": "Scroll up to load more",
+    "roleplay_locked": "Roleplay locked: {avatar}",
     "empty_dual": "No events between these two",
     "empty_single": "No events for this cultivator",
     "empty_none": "No events"
@@ -133,12 +134,18 @@
   "roleplay": {
     "panel": {
       "start": "Roleplay",
-      "stop": "Stop Roleplay"
+      "stop": "Stop Roleplay",
+      "controlled_by": "Currently roleplaying: {avatar}",
+      "go_to_controlled": "Go to Avatar"
     },
     "dock": {
       "interaction_title": "Interaction Log",
       "interaction_caption": "Input and output during this roleplay session",
-      "interaction_empty": "There are no new interaction records yet."
+      "interaction_empty": "There are no new interaction records yet.",
+      "collapse": "Collapse roleplay panel",
+      "expand": "Expand roleplay panel",
+      "collapse_short": "Min",
+      "expand_short": "Max"
     },
     "status": {
       "awaiting_decision": "Awaiting Command",
@@ -179,7 +186,19 @@
       "submit": "Send",
       "sending": "Sending...",
       "awaiting_reply": "Waiting for reply...",
-      "end": "End Conversation"
+      "end": "End Conversation",
+      "end_disabled": "You cannot end the conversation while waiting for a reply"
+    },
+    "pause_indicator": {
+      "awaiting_decision": "Roleplay paused: awaiting your command",
+      "awaiting_choice": "Roleplay paused: awaiting your choice",
+      "conversing": "Roleplay paused: conversation in progress",
+      "submitting": "Roleplay paused: processing your submission"
+    },
+    "feedback": {
+      "decision_submitted": "Command submitted: {text}",
+      "choice_submitted": "Choice submitted: {text}",
+      "conversation_failed": "Send failed. Your text was kept so you can edit and retry."
     },
     "errors": {
       "fetch_session": "Failed to fetch roleplay state",

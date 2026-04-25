@@ -43,6 +43,7 @@ function getMarkerText(item: RoleplayInteractionRecordDTO) {
   if (item.type === 'conversation_player') return props.playerName || '你'
   if (item.type === 'conversation_assistant') return props.counterpartName || '对方'
   if (item.type === 'conversation_summary') return '#'
+  if (item.type === 'local_feedback') return '...'
   return '='
 }
 </script>
@@ -139,6 +140,11 @@ function getMarkerText(item: RoleplayInteractionRecordDTO) {
 .roleplay-history__row--conversation_summary .roleplay-history__marker,
 .roleplay-history__row--conversation_summary .roleplay-history__content {
   color: #c8ba95;
+}
+
+.roleplay-history__row--local_feedback .roleplay-history__marker,
+.roleplay-history__row--local_feedback .roleplay-history__content {
+  color: #dec48b;
 }
 
 .roleplay-history__content {

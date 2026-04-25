@@ -311,9 +311,29 @@ export interface InitStatusDTO {
   roleplay?: RoleplaySessionDTO | null;
 }
 
+export type RoleplayPromptRequestType = 'decision' | 'choice' | 'conversation';
+export type RoleplayChoiceVariant = 'accept' | 'reject' | 'default';
+export type RoleplaySessionStatus =
+  | 'inactive'
+  | 'observing'
+  | 'awaiting_decision'
+  | 'awaiting_choice'
+  | 'conversing'
+  | 'submitting';
+export type RoleplayInteractionRecordType =
+  | 'command'
+  | 'action_chain'
+  | 'error'
+  | 'choice_prompt'
+  | 'choice'
+  | 'conversation_player'
+  | 'conversation_assistant'
+  | 'conversation_summary'
+  | 'local_feedback';
+
 export interface RoleplayPromptRequestDTO {
   request_id: string;
-  type: 'decision' | 'choice' | string;
+  type: RoleplayPromptRequestType;
   avatar_id: string;
   target_avatar_id?: string;
   title: string;
@@ -322,6 +342,7 @@ export interface RoleplayPromptRequestDTO {
     key: string;
     title: string;
     description: string;
+    variant?: RoleplayChoiceVariant;
   }>;
   messages?: RoleplayConversationMessageDTO[];
   can_end?: boolean;
@@ -330,7 +351,7 @@ export interface RoleplayPromptRequestDTO {
 
 export interface RoleplayConversationMessageDTO {
   id: string;
-  role: 'player' | 'assistant' | string;
+  role: 'player' | 'assistant';
   speaker_avatar_id?: string;
   speaker_name: string;
   content: string;
@@ -343,7 +364,7 @@ export interface RoleplayConversationSessionDTO {
   avatar_id: string;
   target_avatar_id: string;
   initiator_avatar_id: string;
-  status: 'awaiting_player' | 'generating_reply' | 'awaiting_continue' | 'completed' | 'cancelled' | string;
+  status: 'awaiting_player' | 'generating_reply' | 'awaiting_continue' | 'completed' | 'cancelled';
   messages: RoleplayConversationMessageDTO[];
   started_at: number;
   last_summary?: {
@@ -355,12 +376,12 @@ export interface RoleplayConversationSessionDTO {
 }
 
 export interface RoleplayActionDisplayTokenDTO {
-  kind: 'verb' | 'arg' | string;
+  kind: 'verb' | 'arg';
   text: string;
 }
 
 export interface RoleplayInteractionRecordDTO {
-  type: 'command' | 'action_chain' | 'error' | string;
+  type: RoleplayInteractionRecordType;
   created_at: number;
   text?: string;
   actions?: Array<{
@@ -371,7 +392,7 @@ export interface RoleplayInteractionRecordDTO {
 
 export interface RoleplaySessionDTO {
   controlled_avatar_id: string | null;
-  status: 'inactive' | 'observing' | 'awaiting_decision' | 'awaiting_choice' | 'conversing' | 'submitting' | string;
+  status: RoleplaySessionStatus;
   pending_request: RoleplayPromptRequestDTO | null;
   last_prompt_context: Record<string, unknown> | null;
   conversation_session?: RoleplayConversationSessionDTO | null;

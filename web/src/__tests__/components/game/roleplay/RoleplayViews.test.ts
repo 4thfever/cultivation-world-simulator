@@ -19,8 +19,15 @@ function createRoleplayI18n() {
         game: {
           roleplay: {
             panel: { stop: '退出扮演' },
+            dock: {
+              collapse: '折叠扮演面板',
+              expand: '展开扮演面板',
+              collapse_short: '收',
+              expand_short: '展',
+            },
             conversation: {
               end: '结束对话',
+              end_disabled: '等待回复时暂不能结束对话',
               placeholder: '输入你想说的话。',
             },
             decision: {
@@ -45,6 +52,7 @@ describe('Roleplay subviews', () => {
         statusText: '等待指令',
         requestSummary: '需要决定下一步行动',
         isSubmitting: false,
+        isCollapsed: false,
       },
     })
 
@@ -54,6 +62,8 @@ describe('Roleplay subviews', () => {
 
     await wrapper.find('button.roleplay-dock__exit').trigger('click')
     expect(wrapper.emitted('exit')).toHaveLength(1)
+    await wrapper.find('button.roleplay-dock__collapse').trigger('click')
+    expect(wrapper.emitted('toggle-collapse')).toHaveLength(1)
   })
 
   it('renders section header copy', () => {
@@ -102,8 +112,8 @@ describe('Roleplay subviews', () => {
       props: {
         description: '请选择一个回应。',
         options: [
-          { key: 'accept', title: '接受', description: '前往会面' },
-          { key: 'reject', title: '拒绝', description: '婉拒邀约' },
+          { key: 'accept', title: '接受', description: '前往会面', variant: 'accept' },
+          { key: 'reject', title: '拒绝', description: '婉拒邀约', variant: 'reject' },
         ],
         errorText: '',
         isSubmitting: false,
@@ -118,6 +128,9 @@ describe('Roleplay subviews', () => {
 
     await buttons[1].trigger('click')
     expect(wrapper.emitted('submit')?.[0]).toEqual(['reject'])
+
+    await wrapper.find('.roleplay-dock__choice-list').trigger('keydown', { key: '1' })
+    expect(wrapper.emitted('submit')?.[1]).toEqual(['accept'])
   })
 
   it('renders conversation view and emits send/end', async () => {

@@ -2,6 +2,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useRoleplayStore } from '@/stores/roleplay'
+import type { RoleplayInteractionRecordDTO } from '@/types/api'
 
 export function useRoleplayDockState() {
   const { t } = useI18n()
@@ -9,11 +10,12 @@ export function useRoleplayDockState() {
   const commandText = ref('')
   const optimisticConversationMessage = ref<{
     id: string
-    role: string
+    role: 'player'
     speaker_name: string
     content: string
     created_at: number
   } | null>(null)
+  const optimisticInteractionRecord = ref<RoleplayInteractionRecordDTO | null>(null)
   const isConversationAwaitingReply = ref(false)
 
   let pollTimer: ReturnType<typeof setInterval> | null = null
@@ -23,6 +25,10 @@ export function useRoleplayDockState() {
   const conversationSession = computed(() => session.value.conversation_session)
   const interactionHistory = computed(() => {
     const baseItems = [...(session.value.interaction_history ?? [])]
+    const optimisticRecord = optimisticInteractionRecord.value
+    if (optimisticRecord) {
+      baseItems.push(optimisticRecord)
+    }
     const optimisticMessage = optimisticConversationMessage.value
     if (optimisticMessage) {
       baseItems.push({
@@ -97,16 +103,30 @@ export function useRoleplayDockState() {
 
   async function handleSubmitDecision() {
     if (!pending.value?.request_id || !controlledAvatarId.value || !commandText.value.trim()) return
+    const command = commandText.value.trim()
+    optimisticInteractionRecord.value = {
+      type: 'local_feedback',
+      created_at: Date.now(),
+      text: t('game.roleplay.feedback.decision_submitted', { text: command }),
+    }
     await roleplayStore.submitDecision({
       avatar_id: controlledAvatarId.value,
       request_id: pending.value.request_id,
-      command_text: commandText.value.trim(),
+      command_text: command,
     })
     commandText.value = ''
   }
 
   async function handleSubmitChoice(selectedKey: string) {
     if (!pending.value?.request_id || !controlledAvatarId.value) return
+    const selectedOption = pending.value.options?.find(option => option.key === selectedKey)
+    optimisticInteractionRecord.value = {
+      type: 'local_feedback',
+      created_at: Date.now(),
+      text: t('game.roleplay.feedback.choice_submitted', {
+        text: selectedOption?.title || selectedOption?.description || selectedKey,
+      }),
+    }
     await roleplayStore.submitChoice({
       avatar_id: controlledAvatarId.value,
       request_id: pending.value.request_id,
@@ -141,6 +161,11 @@ export function useRoleplayDockState() {
       optimisticConversationMessage.value = null
     } catch (e) {
       optimisticConversationMessage.value = null
+      optimisticInteractionRecord.value = {
+        type: 'local_feedback',
+        created_at: Date.now(),
+        text: t('game.roleplay.feedback.conversation_failed'),
+      }
       commandText.value = message
       throw e
     } finally {
@@ -175,6 +200,9 @@ export function useRoleplayDockState() {
       return
     }
     stopPolling()
+    optimisticInteractionRecord.value = null
+    optimisticConversationMessage.value = null
+    commandText.value = ''
   })
 
   onMounted(() => {

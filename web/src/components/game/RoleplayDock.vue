@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onUnmounted } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import RoleplayChoiceView from '@/components/game/roleplay/RoleplayChoiceView.vue';
@@ -14,6 +14,8 @@ import { useRoleplayDockState } from '@/composables/useRoleplayDockState';
 
 const MIN_DOCK_HEIGHT = 148;
 const MAX_DOCK_HEIGHT = 420;
+const COLLAPSED_DOCK_HEIGHT = 35;
+const DOCK_HEIGHT_STORAGE_KEY = 'cws-roleplay-dock-height';
 const { t } = useI18n();
 
 const {
@@ -44,16 +46,40 @@ const {
   handleEndConversation,
 } = useRoleplayDockState();
 
+function getInitialDockHeight() {
+  const rawValue = window.localStorage.getItem(DOCK_HEIGHT_STORAGE_KEY);
+  const storedHeight = rawValue ? Number(rawValue) : Number.NaN;
+  if (Number.isFinite(storedHeight)) {
+    return Math.max(MIN_DOCK_HEIGHT, Math.min(MAX_DOCK_HEIGHT, storedHeight));
+  }
+  return 214;
+}
+
+const isCollapsed = ref(false);
+
 const {
   dockHeight,
   isResizing,
   startResize,
   stopResize,
-} = useDockResize(214, MIN_DOCK_HEIGHT, MAX_DOCK_HEIGHT, () => hasActiveRoleplay.value);
+} = useDockResize(getInitialDockHeight(), MIN_DOCK_HEIGHT, MAX_DOCK_HEIGHT, () => hasActiveRoleplay.value && !isCollapsed.value);
 
 const dockStyle = computed(() => ({
-  height: hasActiveRoleplay.value ? `${dockHeight.value}px` : '0px',
+  height: hasActiveRoleplay.value ? `${isCollapsed.value ? COLLAPSED_DOCK_HEIGHT : dockHeight.value}px` : '0px',
 }));
+
+function toggleCollapsed() {
+  isCollapsed.value = !isCollapsed.value;
+}
+
+watch(dockHeight, (height) => {
+  window.localStorage.setItem(DOCK_HEIGHT_STORAGE_KEY, String(height));
+});
+
+watch(hasActiveRoleplay, (active) => {
+  if (active) return;
+  isCollapsed.value = false;
+});
 
 onUnmounted(() => {
   stopResize();
@@ -63,6 +89,7 @@ onUnmounted(() => {
 <template>
   <section
     class="roleplay-dock"
+    tabindex="-1"
     :class="{ 'roleplay-dock--active': hasActiveRoleplay, 'is-resizing': isResizing }"
     :style="dockStyle"
   >
@@ -78,10 +105,12 @@ onUnmounted(() => {
         :status-text="statusText"
         :request-summary="requestSummary"
         :is-submitting="roleplayStore.isSubmitting"
+        :is-collapsed="isCollapsed"
+        @toggle-collapse="toggleCollapsed"
         @exit="handleStopRoleplay"
       />
 
-      <div class="roleplay-dock__body">
+      <div v-if="!isCollapsed" class="roleplay-dock__body">
         <div class="roleplay-dock__main" :class="{ 'roleplay-dock__main--conversation': isConversation }">
           <section class="roleplay-dock__active-request">
             <RoleplaySectionHeader :title="requestPanelTitle" :caption="requestPanelCaption" />

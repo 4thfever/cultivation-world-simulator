@@ -174,6 +174,7 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
                 key=response_name,
                 title=self.get_response_label(response_name),
                 description=f"{target_avatar.name}: {self.get_response_label(response_name)}",
+                metadata={"display_variant": "reject" if response_name == "Reject" else "accept"},
             )
             for response_name in self.RESPONSE_ACTIONS
         ]

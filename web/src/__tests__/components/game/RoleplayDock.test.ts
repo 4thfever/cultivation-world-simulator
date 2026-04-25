@@ -21,7 +21,7 @@ const roleplayStoreMock = reactive({
       avatar_id: string
       title: string
       description: string
-      options?: Array<{ key: string; title: string; description: string }>
+      options?: Array<{ key: string; title: string; description: string; variant?: 'accept' | 'reject' | 'default' }>
       messages?: Array<{ id: string; role: string; speaker_name: string; content: string; created_at: number }>
     },
     last_prompt_context: null as Record<string, unknown> | null,
@@ -74,6 +74,10 @@ function createRoleplayI18n() {
               interaction_title: '交互流',
               interaction_caption: '本次扮演中的输入与输出',
               interaction_empty: '当前还没有新的交互记录。',
+              collapse: '折叠扮演面板',
+              expand: '展开扮演面板',
+              collapse_short: '收',
+              expand_short: '展',
             },
             status: {
               awaiting_decision: '等待指令',
@@ -115,6 +119,12 @@ function createRoleplayI18n() {
               sending: '发送中...',
               awaiting_reply: '等待回复...',
               end: '结束对话',
+              end_disabled: '等待回复时暂不能结束对话',
+            },
+            feedback: {
+              decision_submitted: '已提交指令：{text}',
+              choice_submitted: '已选择：{text}',
+              conversation_failed: '发送失败，原文已保留，可修改后重试。',
             },
             idle: {
               hint: '当前仍在上帝视角观察世界。该角色的动作链结束后，会在这里等待你的下一步操作。',
@@ -187,6 +197,9 @@ describe('RoleplayDock', () => {
     expect(textarea.exists()).toBe(true)
     await textarea.setValue('先调息恢复，再去探索。')
     await wrapper.find('button.roleplay-dock__submit').trigger('click')
+    await nextTick()
+
+    expect(wrapper.text()).toContain('已提交指令：先调息恢复，再去探索。')
 
     expect(roleplayStoreMock.submitDecision).toHaveBeenCalledWith({
       avatar_id: 'avatar-1',
@@ -205,8 +218,8 @@ describe('RoleplayDock', () => {
       title: '是否赴约',
       description: '对方正在等待你的回应。',
       options: [
-        { key: 'accept', title: '接受', description: '前往会面' },
-        { key: 'reject', title: '拒绝', description: '婉拒邀约' },
+        { key: 'accept', title: '接受', description: '前往会面', variant: 'accept' },
+        { key: 'reject', title: '拒绝', description: '婉拒邀约', variant: 'reject' },
       ],
     }
     roleplayStoreMock.session.last_prompt_context = {
@@ -225,6 +238,9 @@ describe('RoleplayDock', () => {
     const buttons = wrapper.findAll('button.roleplay-dock__choice')
     expect(buttons).toHaveLength(2)
     await buttons[1].trigger('click')
+    await nextTick()
+
+    expect(wrapper.text()).toContain('已选择：拒绝')
 
     expect(roleplayStoreMock.submitChoice).toHaveBeenCalledWith({
       avatar_id: 'avatar-1',

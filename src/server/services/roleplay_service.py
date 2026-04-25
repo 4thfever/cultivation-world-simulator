@@ -87,6 +87,16 @@ def _build_choice_prompt_text(*, title: str, description: str) -> str:
     return clean_title
 
 
+def _get_choice_option_variant(option) -> str:
+    metadata = getattr(option, "metadata", None)
+    if not isinstance(metadata, dict):
+        return "default"
+    raw_variant = str(metadata.get("display_variant") or metadata.get("variant") or "").strip().lower()
+    if raw_variant in {"accept", "reject", "default"}:
+        return raw_variant
+    return "default"
+
+
 def clear_roleplay_session(runtime) -> None:
     runtime.clear_roleplay_session()
 
@@ -225,6 +235,7 @@ def begin_roleplay_choice(
             "key": str(option.key),
             "title": str(option.title),
             "description": str(option.description),
+            "variant": _get_choice_option_variant(option),
         }
         for option in getattr(request, "options", [])
     ]

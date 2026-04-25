@@ -61,11 +61,13 @@ class SectRecruitmentScenario(SingleChoiceScenario[SectRecruitmentOutcome]):
                 key="ACCEPT",
                 title=t("Accept invitation"),
                 description=t("Join {sect_name} and become one of its disciples.", sect_name=sect.name),
+                metadata={"display_variant": "accept"},
             ),
             SingleChoiceOption(
                 key="REJECT",
                 title=t("Decline invitation"),
                 description=t("Remain an independent cultivator."),
+                metadata={"display_variant": "reject"},
             ),
         ]
         return SingleChoiceRequest(

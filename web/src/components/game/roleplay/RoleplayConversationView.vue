@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 type ConversationMessage = {
@@ -31,6 +31,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 const chatListRef = ref<HTMLElement | null>(null)
+const inputRef = ref<HTMLTextAreaElement | null>(null)
 
 function handleInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLTextAreaElement).value)
@@ -50,14 +51,29 @@ function handleSend() {
 watch(
   () => props.messages,
   () => {
+    const el = chatListRef.value
+    const shouldFollow = !el || el.scrollHeight - el.scrollTop - el.clientHeight < 48
     nextTick(() => {
-      if (chatListRef.value) {
+      if (chatListRef.value && shouldFollow) {
         chatListRef.value.scrollTop = chatListRef.value.scrollHeight
       }
     })
   },
   { deep: true }
 )
+
+watch(
+  () => props.isSubmitting,
+  (isSubmitting) => {
+    if (!isSubmitting) {
+      nextTick(() => inputRef.value?.focus())
+    }
+  }
+)
+
+onMounted(() => {
+  inputRef.value?.focus()
+})
 </script>
 
 <template>
@@ -70,6 +86,7 @@ watch(
       <button
         class="roleplay-dock__submit roleplay-dock__submit--quiet"
         :disabled="isSubmitting"
+        :title="isSubmitting ? t('game.roleplay.conversation.end_disabled') : t('game.roleplay.conversation.end')"
         @click="emit('end')"
       >
         {{ t('game.roleplay.conversation.end') }}
@@ -88,9 +105,11 @@ watch(
     </div>
     <div class="roleplay-dock__actions roleplay-dock__actions--conversation">
       <textarea
+        ref="inputRef"
         class="roleplay-dock__input roleplay-dock__input--conversation"
         rows="2"
         :placeholder="t('game.roleplay.conversation.placeholder')"
+        :disabled="isSubmitting"
         :value="modelValue"
         @input="handleInput"
         @keydown="handleKeydown"
@@ -209,6 +228,11 @@ watch(
   color: #f4f1e8;
   padding: 10px 12px;
   font: inherit;
+}
+
+.roleplay-dock__input:disabled {
+  opacity: 0.72;
+  cursor: default;
 }
 
 .roleplay-dock__input--conversation {

@@ -173,11 +173,13 @@ def _build_item_exchange_options(
             key="ACCEPT",
             title=t("Accept new item"),
             description=accept_desc,
+            metadata={"display_variant": "accept"},
         ),
         SingleChoiceOption(
             key="REJECT",
             title=t("Reject new item"),
             description=reject_desc,
+            metadata={"display_variant": "reject"},
         ),
     ]
 
@@ -229,6 +231,7 @@ class ItemExchangeScenario(SingleChoiceScenario[ItemExchangeOutcome]):
                         key="ACCEPT",
                         title=t("Accept new item"),
                         description=t("Automatically accept the new item."),
+                        metadata={"display_variant": "accept"},
                     )
                 ],
                 fallback_policy=FallbackPolicy(FallbackMode.PREFERRED_KEY, preferred_key="ACCEPT"),

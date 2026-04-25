@@ -126,6 +126,7 @@
     "deceased": "(已故)",
     "add_second": "+ 添加第二人",
     "load_more": "向上滚动加载更多",
+    "roleplay_locked": "扮演锁定：{avatar}",
     "empty_dual": "这两人之间暂无事件",
     "empty_single": "该修士暂无事件",
     "empty_none": "暂无事件"
@@ -133,12 +134,18 @@
   "roleplay": {
     "panel": {
       "start": "扮演",
-      "stop": "退出扮演"
+      "stop": "退出扮演",
+      "controlled_by": "当前正在扮演：{avatar}",
+      "go_to_controlled": "前往该角色"
     },
     "dock": {
       "interaction_title": "交互流",
       "interaction_caption": "本次扮演中的输入与输出",
-      "interaction_empty": "当前还没有新的交互记录。"
+      "interaction_empty": "当前还没有新的交互记录。",
+      "collapse": "折叠扮演面板",
+      "expand": "展开扮演面板",
+      "collapse_short": "收",
+      "expand_short": "展"
     },
     "status": {
       "awaiting_decision": "等待指令",
@@ -179,7 +186,19 @@
       "submit": "发送",
       "sending": "发送中...",
       "awaiting_reply": "等待回复...",
-      "end": "结束对话"
+      "end": "结束对话",
+      "end_disabled": "等待回复时暂不能结束对话"
+    },
+    "pause_indicator": {
+      "awaiting_decision": "扮演暂停：等待你的行动指令",
+      "awaiting_choice": "扮演暂停：等待你的选择",
+      "conversing": "扮演暂停：对话中",
+      "submitting": "扮演暂停：正在处理提交"
+    },
+    "feedback": {
+      "decision_submitted": "已提交指令：{text}",
+      "choice_submitted": "已选择：{text}",
+      "conversation_failed": "发送失败，原文已保留，可修改后重试。"
     },
     "errors": {
       "fetch_session": "获取扮演状态失败",

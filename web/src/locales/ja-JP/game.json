@@ -126,6 +126,7 @@
     "deceased": "（死亡）",
     "add_second": "+ 2 人目を追加",
     "load_more": "上へスクロールしてさらに読み込む",
+    "roleplay_locked": "扮演固定：{avatar}",
     "empty_dual": "この二人の間にイベントはありません",
     "empty_single": "この修士のイベントはありません",
     "empty_none": "イベントはありません"
@@ -133,12 +134,18 @@
   "roleplay": {
     "panel": {
       "start": "扮演",
-      "stop": "扮演終了"
+      "stop": "扮演終了",
+      "controlled_by": "現在扮演中：{avatar}",
+      "go_to_controlled": "そのキャラクターへ"
     },
     "dock": {
       "interaction_title": "対話ログ",
       "interaction_caption": "今回の扮演中に発生した入出力",
-      "interaction_empty": "まだ新しい対話記録はありません。"
+      "interaction_empty": "まだ新しい対話記録はありません。",
+      "collapse": "扮演パネルを折りたたむ",
+      "expand": "扮演パネルを展開",
+      "collapse_short": "縮",
+      "expand_short": "展"
     },
     "status": {
       "awaiting_decision": "指示待ち",
@@ -179,7 +186,19 @@
       "submit": "送信",
       "sending": "送信中...",
       "awaiting_reply": "返答待ち...",
-      "end": "会話を終了"
+      "end": "会話を終了",
+      "end_disabled": "返答待ちの間は会話を終了できません"
+    },
+    "pause_indicator": {
+      "awaiting_decision": "扮演一時停止：行動指示を待っています",
+      "awaiting_choice": "扮演一時停止：選択を待っています",
+      "conversing": "扮演一時停止：会話中",
+      "submitting": "扮演一時停止：送信を処理中"
+    },
+    "feedback": {
+      "decision_submitted": "指示を送信しました：{text}",
+      "choice_submitted": "選択しました：{text}",
+      "conversation_failed": "送信に失敗しました。本文は保持されたため、編集して再試行できます。"
     },
     "errors": {
       "fetch_session": "扮演状態の取得に失敗しました",

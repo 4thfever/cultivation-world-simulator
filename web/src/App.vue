@@ -80,6 +80,14 @@ const {
 })
 
 const settingsHydrated = computed(() => settingStore.hydrated)
+const roleplayPauseText = computed(() => {
+  const status = roleplayStore.session.status
+  if (status === 'awaiting_decision') return t('game.roleplay.pause_indicator.awaiting_decision')
+  if (status === 'awaiting_choice') return t('game.roleplay.pause_indicator.awaiting_choice')
+  if (status === 'conversing') return t('game.roleplay.pause_indicator.conversing')
+  if (status === 'submitting') return t('game.roleplay.pause_indicator.submitting')
+  return ''
+})
 
 const {
   scene,
@@ -140,6 +148,12 @@ async function handleReturnToMain() {
   } catch (e) {
     logError('App reset game', e)
   }
+}
+
+function focusRoleplayDock() {
+  const dock = document.querySelector<HTMLElement>('.roleplay-dock--active')
+  dock?.scrollIntoView({ block: 'end', behavior: 'smooth' })
+  dock?.focus()
 }
 
 onMounted(() => {
@@ -205,6 +219,15 @@ watch(sidebarWidth, width => {
                 <div v-if="isManualPaused" class="pause-indicator">
                   <div class="pause-text">{{ t('game.controls.paused') }}</div>
                 </div>
+
+                <button
+                  v-if="roleplayPauseText"
+                  class="roleplay-pause-indicator"
+                  type="button"
+                  @click="focusRoleplayDock"
+                >
+                  {{ roleplayPauseText }}
+                </button>
 
                 <GameCanvas
                   :sidebar-width="sidebarWidth"
@@ -347,6 +370,33 @@ watch(sidebarWidth, width => {
   letter-spacing: 2px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
+}
+
+.roleplay-pause-indicator {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 91;
+  max-width: min(460px, calc(100% - 180px));
+  border: 1px solid rgba(212, 185, 133, 0.32);
+  border-radius: 20px;
+  padding: 6px 16px;
+  color: #f6ecd2;
+  background: rgba(42, 31, 14, 0.78);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.roleplay-pause-indicator:hover {
+  border-color: rgba(232, 202, 143, 0.52);
+  background: rgba(58, 41, 17, 0.86);
 }
 
 .sidebar-resizer {

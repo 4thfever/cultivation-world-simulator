@@ -3,6 +3,7 @@ import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useRoleplayStore } from '@/stores/roleplay';
+import { useUiStore } from '@/stores/ui';
 import type { AvatarDetail } from '@/types/core';
 
 const props = defineProps<{
@@ -11,12 +12,18 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const roleplayStore = useRoleplayStore();
+const uiStore = useUiStore();
 
 const session = computed(() => roleplayStore.session);
 const currentAvatarId = computed(() => props.avatar.id);
 const controlledAvatarId = computed(() => session.value.controlled_avatar_id ?? '');
 const isCurrentAvatarControlled = computed(() => controlledAvatarId.value === currentAvatarId.value);
 const isAnotherAvatarControlled = computed(() => !!controlledAvatarId.value && !isCurrentAvatarControlled.value);
+const controlledAvatarName = computed(() => {
+  const context = session.value.last_prompt_context ?? {};
+  const rawName = typeof context.avatar_name === 'string' ? context.avatar_name : '';
+  return rawName || controlledAvatarId.value || t('game.roleplay.fallback.avatar_name');
+});
 
 async function refreshRoleplayState() {
   await roleplayStore.fetchSession();
@@ -30,6 +37,12 @@ async function handleStopRoleplay() {
   await roleplayStore.stopRoleplay(currentAvatarId.value);
 }
 
+function handleGoToControlledAvatar() {
+  if (controlledAvatarId.value) {
+    uiStore.select('avatar', controlledAvatarId.value);
+  }
+}
+
 watch(currentAvatarId, () => {
   void refreshRoleplayState();
 }, { immediate: true });
@@ -37,6 +50,9 @@ watch(currentAvatarId, () => {
 
 <template>
   <div class="roleplay-panel">
+    <div v-if="isAnotherAvatarControlled" class="roleplay-panel__busy">
+      {{ t('game.roleplay.panel.controlled_by', { avatar: controlledAvatarName }) }}
+    </div>
     <button
       v-if="!isCurrentAvatarControlled"
       class="roleplay-btn roleplay-btn--primary"
@@ -46,7 +62,15 @@ watch(currentAvatarId, () => {
       {{ t('game.roleplay.panel.start') }}
     </button>
     <button
-      v-else
+      v-if="isAnotherAvatarControlled"
+      class="roleplay-btn roleplay-btn--ghost"
+      :disabled="roleplayStore.isSubmitting"
+      @click="handleGoToControlledAvatar"
+    >
+      {{ t('game.roleplay.panel.go_to_controlled') }}
+    </button>
+    <button
+      v-else-if="isCurrentAvatarControlled"
       class="roleplay-btn roleplay-btn--secondary"
       :disabled="roleplayStore.isSubmitting"
       @click="handleStopRoleplay"
@@ -59,7 +83,15 @@ watch(currentAvatarId, () => {
 <style scoped>
 .roleplay-panel {
   display: flex;
+  flex-direction: column;
+  gap: 6px;
   width: 100%;
+}
+
+.roleplay-panel__busy {
+  color: #b9b0a0;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .roleplay-btn {
@@ -101,5 +133,11 @@ watch(currentAvatarId, () => {
   background: rgba(255, 255, 255, 0.06);
   color: #ddd6c8;
   border-color: rgba(255, 255, 255, 0.18);
+}
+
+.roleplay-btn--ghost {
+  background: transparent;
+  color: #cfc6b7;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 </style>

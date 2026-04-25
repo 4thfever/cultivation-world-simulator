@@ -36,6 +36,11 @@ const suppressFilterWatch = ref(false)
 const roleplayAutoApplied = ref(false)
 
 const controlledAvatarId = computed(() => roleplayStore.session.controlled_avatar_id ?? '')
+const roleplayLockedAvatarName = computed(() => {
+  if (!controlledAvatarId.value || !roleplayAutoApplied.value) return ''
+  const avatar = avatarStore.avatarList.find(item => item.id === controlledAvatarId.value)
+  return avatar?.name ?? controlledAvatarId.value
+})
 
 const filterOptions = computed(() => [
   { label: t('game.event_panel.filter_all'), value: 'all' },
@@ -314,6 +319,9 @@ function handleSectClick(sectId?: number) {
     <div class="sidebar-header">
       <h3>{{ panelTitle }}</h3>
       <div class="filter-group">
+        <span v-if="roleplayLockedAvatarName" class="roleplay-event-lock">
+          {{ t('game.event_panel.roleplay_locked', { avatar: roleplayLockedAvatarName }) }}
+        </span>
         <n-select
           v-model:value="filterSectValue"
           :options="sectFilterOptions"
@@ -387,6 +395,20 @@ function handleSectClick(sectId?: number) {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.roleplay-event-lock {
+  max-width: 160px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(208, 180, 124, 0.24);
+  color: #dec48b;
+  background: rgba(86, 61, 23, 0.32);
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .event-filter {

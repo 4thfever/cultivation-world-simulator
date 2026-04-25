@@ -6,11 +6,13 @@ defineProps<{
   statusText: string
   requestSummary: string
   isSubmitting: boolean
+  isCollapsed: boolean
 }>()
 
 const { t } = useI18n()
 
 const emit = defineEmits<{
+  'toggle-collapse': []
   exit: []
 }>()
 </script>
@@ -22,13 +24,23 @@ const emit = defineEmits<{
       <span class="roleplay-dock__status">{{ statusText }}</span>
       <span class="roleplay-dock__notice">{{ requestSummary }}</span>
     </div>
-    <button
-      class="roleplay-dock__exit"
-      :disabled="isSubmitting"
-      @click="emit('exit')"
-    >
-      {{ t('game.roleplay.panel.stop') }}
-    </button>
+    <div class="roleplay-dock__toolbar-actions">
+      <button
+        class="roleplay-dock__collapse"
+        type="button"
+        :title="isCollapsed ? t('game.roleplay.dock.expand') : t('game.roleplay.dock.collapse')"
+        @click="emit('toggle-collapse')"
+      >
+        {{ isCollapsed ? t('game.roleplay.dock.expand_short') : t('game.roleplay.dock.collapse_short') }}
+      </button>
+      <button
+        class="roleplay-dock__exit"
+        :disabled="isSubmitting"
+        @click="emit('exit')"
+      >
+        {{ t('game.roleplay.panel.stop') }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -87,6 +99,29 @@ const emit = defineEmits<{
   cursor: pointer;
 }
 
+.roleplay-dock__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.roleplay-dock__collapse {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(208, 180, 124, 0.22);
+  border-radius: 6px;
+  color: #f6ecd2;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.roleplay-dock__collapse:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .roleplay-dock__exit:disabled {
   cursor: default;
   opacity: 0.62;
@@ -101,6 +136,11 @@ const emit = defineEmits<{
   .roleplay-dock__meta {
     width: 100%;
     flex-wrap: wrap;
+  }
+
+  .roleplay-dock__toolbar-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }
 </style>

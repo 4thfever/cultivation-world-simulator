@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
 type ChoiceOption = {
   key: string
   title: string
   description: string
+  variant?: 'accept' | 'reject' | 'default'
 }
 
 const props = defineProps<{
@@ -17,44 +20,38 @@ const emit = defineEmits<{
   submit: [selectedKey: string]
 }>()
 
+const choiceListRef = ref<HTMLElement | null>(null)
+
 function getChoiceVariant(option: ChoiceOption): 'accept' | 'reject' | 'default' {
-  const content = `${option.key ?? ''} ${option.title ?? ''}`.toLowerCase()
-  if (
-    content.includes('accept') ||
-    content.includes('agree') ||
-    content.includes('yes') ||
-    content.includes('take') ||
-    content.includes('接受') ||
-    content.includes('同意') ||
-    content.includes('采纳') ||
-    content.includes('答应')
-  ) {
-    return 'accept'
-  }
-  if (
-    content.includes('reject') ||
-    content.includes('decline') ||
-    content.includes('refuse') ||
-    content.includes('no') ||
-    content.includes('拒绝') ||
-    content.includes('放弃') ||
-    content.includes('不')
-  ) {
-    return 'reject'
-  }
-  return 'default'
+  return option.variant ?? 'default'
 }
 
 function handleSubmit(selectedKey: string) {
   if (props.isSubmitting) return
   emit('submit', selectedKey)
 }
+
+function handleChoiceKeydown(event: KeyboardEvent) {
+  const index = Number(event.key) - 1
+  if (!Number.isInteger(index) || index < 0 || index >= props.options.length) return
+  event.preventDefault()
+  handleSubmit(props.options[index].key)
+}
+
+onMounted(() => {
+  choiceListRef.value?.focus()
+})
 </script>
 
 <template>
   <div class="roleplay-dock__choice-pane">
     <div class="roleplay-dock__request-intro">{{ description }}</div>
-    <div class="roleplay-dock__choice-list">
+    <div
+      ref="choiceListRef"
+      class="roleplay-dock__choice-list"
+      tabindex="0"
+      @keydown="handleChoiceKeydown"
+    >
       <button
         v-for="option in options"
         :key="option.key"
@@ -98,6 +95,7 @@ function handleSubmit(selectedKey: string) {
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
+  outline: none;
 }
 
 .roleplay-dock__choice {

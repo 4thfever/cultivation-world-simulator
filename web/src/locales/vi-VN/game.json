@@ -126,6 +126,7 @@
     "deceased": "(Đã chết)",
     "add_second": "+ Thêm mục so sánh",
     "load_more": "Kéo lên để tải thêm",
+    "roleplay_locked": "Đang khóa nhập vai: {avatar}",
     "empty_dual": "Không có sự kiện giữa hai bên này",
     "empty_single": "Không có sự kiện của tu sĩ này",
     "empty_none": "Không có sự kiện"
@@ -133,12 +134,18 @@
   "roleplay": {
     "panel": {
       "start": "Nhập vai",
-      "stop": "Thoát nhập vai"
+      "stop": "Thoát nhập vai",
+      "controlled_by": "Đang nhập vai: {avatar}",
+      "go_to_controlled": "Đến nhân vật"
     },
     "dock": {
       "interaction_title": "Luồng tương tác",
       "interaction_caption": "Đầu vào và đầu ra trong lần nhập vai này",
-      "interaction_empty": "Hiện chưa có bản ghi tương tác mới."
+      "interaction_empty": "Hiện chưa có bản ghi tương tác mới.",
+      "collapse": "Thu gọn bảng nhập vai",
+      "expand": "Mở rộng bảng nhập vai",
+      "collapse_short": "Thu",
+      "expand_short": "Mở"
     },
     "status": {
       "awaiting_decision": "Chờ chỉ lệnh",
@@ -179,7 +186,19 @@
       "submit": "Gửi",
       "sending": "Đang gửi...",
       "awaiting_reply": "Đang chờ hồi đáp...",
-      "end": "Kết thúc đối thoại"
+      "end": "Kết thúc đối thoại",
+      "end_disabled": "Không thể kết thúc đối thoại khi đang chờ hồi đáp"
+    },
+    "pause_indicator": {
+      "awaiting_decision": "Nhập vai tạm dừng: chờ chỉ lệnh của bạn",
+      "awaiting_choice": "Nhập vai tạm dừng: chờ lựa chọn của bạn",
+      "conversing": "Nhập vai tạm dừng: đang đối thoại",
+      "submitting": "Nhập vai tạm dừng: đang xử lý gửi"
+    },
+    "feedback": {
+      "decision_submitted": "Đã gửi chỉ lệnh: {text}",
+      "choice_submitted": "Đã chọn: {text}",
+      "conversation_failed": "Gửi thất bại. Nội dung đã được giữ lại để bạn sửa và thử lại."
     },
     "errors": {
       "fetch_session": "Không thể lấy trạng thái nhập vai",
