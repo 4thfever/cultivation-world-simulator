@@ -104,19 +104,6 @@ def trigger_process_shutdown(*, is_dev_mode: bool) -> dict[str, str]:
 
 def patch_sys_streams() -> None:
     """修复无控制台模式下 sys.stdout/stderr 为 None 导致 uvicorn 报错的问题"""
-    import sys
+    from src.server.encoding_runtime import configure_process_encoding
 
-    class DummyStream:
-        def write(self, *args, **kwargs):
-            pass
-
-        def flush(self, *args, **kwargs):
-            pass
-
-        def isatty(self):
-            return False
-
-    if sys.stdout is None:
-        sys.stdout = DummyStream()
-    if sys.stderr is None:
-        sys.stderr = DummyStream()
+    configure_process_encoding()

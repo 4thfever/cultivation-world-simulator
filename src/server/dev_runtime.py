@@ -4,6 +4,8 @@ import os
 import platform
 import subprocess
 
+from src.server.encoding_runtime import build_utf8_subprocess_env
+
 
 def start_frontend_dev_server(*, project_root: str):
     """Start the Vite dev server in dev mode and return the spawned process."""
@@ -11,13 +13,15 @@ def start_frontend_dev_server(*, project_root: str):
     print(f"Starting frontend dev server (npm run dev) at: {web_dir}")
 
     vite_port = os.environ.get("VITE_PORT", "5173")
+    env = build_utf8_subprocess_env()
     if platform.system() == "Windows":
         cmd = f"npx vite --port {vite_port} --strictPort"
-        return subprocess.Popen(cmd, cwd=web_dir, shell=True)
+        return subprocess.Popen(cmd, cwd=web_dir, shell=True, env=env)
     return subprocess.Popen(
         ["npx", "vite", "--port", vite_port, "--strictPort"],
         cwd=web_dir,
         shell=False,
+        env=env,
     )
 
 

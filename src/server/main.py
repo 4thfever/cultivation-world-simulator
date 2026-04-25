@@ -1,25 +1,15 @@
 import sys
 import os
 
-# ==============================================================================
-# 修复 PyInstaller 打包并在非中文 Windows (如英语环境) 运行时 print 导致的崩溃问题。
-# 系统默认可能回退至 cp1252 编码，此时如果 print 包含中文字符的路径就会抛出 UnicodeEncodeError。
-# 我们在此强制将标准输出/错误流重置为 UTF-8，并将无法转换的字符替换掉，以防报错崩溃。
-# ==============================================================================
-for stream_name in ('stdout', 'stderr'):
-    stream = getattr(sys, stream_name, None)
-    if stream is not None:
-        try:
-            stream.reconfigure(encoding='utf-8', errors='replace')
-        except Exception:
-            pass
-# ==============================================================================
+# 确保可以导入 src 模块，并尽早修复跨语言环境下的标准流编码。
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from src.server.encoding_runtime import configure_process_encoding
+
+configure_process_encoding()
 
 import asyncio
 import uvicorn
-
-# 确保可以导入 src 模块
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from src.sim.simulator import Simulator
 from src.classes.core.world import World
