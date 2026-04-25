@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
 import { NButton, NEmpty, NModal, NSpin, NTable, NTabPane, NTabs } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
-import { useAvatarOverviewStore } from '@/stores/avatarOverview'
+import { useAvatarOverviewModal } from '@/composables/useAvatarOverviewModal'
 import { formatRealmStage } from '@/utils/cultivationText'
-import { useDeceasedRecords } from '@/composables/useDeceasedRecords'
 import usersIcon from '@/assets/icons/ui/lucide/users.svg'
 import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
 
@@ -18,61 +15,25 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const avatarOverviewStore = useAvatarOverviewStore()
-const avatarTheme = SYSTEM_PANEL_THEMES.dynasty
-const panelStyleVars = {
-  '--panel-accent': avatarTheme.accent,
-  '--panel-accent-strong': avatarTheme.accentStrong,
-  '--panel-accent-soft': avatarTheme.accentSoft,
-  '--panel-title': avatarTheme.title,
-  '--panel-empty': avatarTheme.empty,
-  '--panel-border': avatarTheme.border,
-  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
-  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
-}
-
-const summary = computed(() => avatarOverviewStore.overview.summary)
-const realmDistribution = computed(() => avatarOverviewStore.overview.realmDistribution)
-const activeTab = ref<'overview' | 'deceased'>('overview')
 const {
-  recordsLoading: deceasedLoading,
-  recordsLoaded: deceasedLoaded,
+  avatarOverviewStore,
+  panelStyleVars,
+  summary,
+  realmDistribution,
+  activeTab,
+  deceasedLoading,
   records,
   selectedRecord,
   eventsLoading,
   events,
-  fetchRecords: fetchDeceased,
   selectRecord,
   backToList,
-  resetSelection,
-} = useDeceasedRecords({ logScope: 'AvatarOverviewModal' })
+  handleTabUpdate,
+} = useAvatarOverviewModal(() => props.show)
 
 function handleShowChange(value: boolean) {
   emit('update:show', value)
 }
-
-async function handleTabUpdate(value: string) {
-  activeTab.value = value === 'deceased' ? 'deceased' : 'overview'
-  if (activeTab.value === 'deceased' && !deceasedLoaded.value) {
-    await fetchDeceased()
-  }
-}
-
-watch(
-  () => props.show,
-  (show) => {
-    if (show) {
-      activeTab.value = 'overview'
-      resetSelection()
-      void avatarOverviewStore.refreshOverview()
-      return
-    }
-
-    activeTab.value = 'overview'
-    resetSelection()
-  },
-  { immediate: true },
-)
 </script>
 
 <template>

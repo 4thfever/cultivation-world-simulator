@@ -5,6 +5,20 @@ import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import { useUiStore } from '@/stores/ui'
 
+function createInfoPanelI18n() {
+  return createI18n({
+    legacy: false,
+    locale: 'zh-CN',
+    messages: {
+      'zh-CN': {
+        ui: {
+          close: '关闭',
+        },
+      },
+    },
+  })
+}
+
 describe('InfoPanelContainer', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
@@ -15,11 +29,7 @@ describe('InfoPanelContainer', () => {
   })
 
   it('should render successfully', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh-CN',
-      messages: {}
-    })
+    const i18n = createInfoPanelI18n()
 
     const wrapper = mount(InfoPanelContainer, {
       global: {
@@ -36,11 +46,7 @@ describe('InfoPanelContainer', () => {
   })
 
   it('should not close when pointerdown happens inside portrait panel', async () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh-CN',
-      messages: {}
-    })
+    const i18n = createInfoPanelI18n()
 
     const wrapper = mount(InfoPanelContainer, {
       attachTo: document.body,
@@ -78,11 +84,7 @@ describe('InfoPanelContainer', () => {
   })
 
   it('should not render region subtitle in header', async () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: 'zh-CN',
-      messages: {},
-    })
+    const i18n = createInfoPanelI18n()
 
     const wrapper = mount(InfoPanelContainer, {
       global: {

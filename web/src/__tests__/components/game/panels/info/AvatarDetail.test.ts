@@ -148,6 +148,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         }
       }
     })
@@ -177,6 +178,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         }
       }
     })
@@ -232,6 +234,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         },
       },
     })
@@ -269,6 +272,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         },
       },
     })
@@ -309,6 +313,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: true,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         },
       },
     })
@@ -363,6 +368,7 @@ describe('AvatarDetail', () => {
           SecondaryPopup: true,
           AvatarAdjustPanel: AvatarAdjustPanelStub,
           AvatarPortraitPanel: true,
+          RoleplayPanel: true,
         },
       },
     })

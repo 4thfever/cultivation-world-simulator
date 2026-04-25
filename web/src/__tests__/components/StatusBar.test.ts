@@ -38,6 +38,10 @@ let mockAvatarOverview: any = {
 let mockAvatarOverviewLoaded = false
 const mockFetch = vi.fn()
 
+async function settleAsyncPanels() {
+  await nextTick()
+}
+
 // Mock vue-i18n.
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
@@ -322,10 +326,7 @@ describe('StatusBar', () => {
 
       // Trigger click on phenomenon widget.
       await wrapper.findAll('.status-widget-stub')[1].trigger('click')
-
-      // Run all pending timers and promises.
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       expect(mockGetPhenomenaList).toHaveBeenCalled()
     })
@@ -334,8 +335,7 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       await wrapper.findAll('.status-widget-stub')[1].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       expect(wrapper.find('.n-modal-stub').exists()).toBe(true)
     })
@@ -347,16 +347,14 @@ describe('StatusBar', () => {
 
       // Open selector.
       await wrapper.findAll('.status-widget-stub')[1].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       // Find and click a list item.
       const listItems = wrapper.findAll('.n-list-item-stub')
       expect(listItems.length).toBeGreaterThan(0)
 
       await listItems[0].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       expect(mockChangePhenomenon).toHaveBeenCalled()
     })
@@ -367,15 +365,13 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       await wrapper.findAll('.status-widget-stub')[1].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       const listItems = wrapper.findAll('.n-list-item-stub')
       expect(listItems.length).toBeGreaterThan(0)
 
       await listItems[0].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       expect(mockSuccess).toHaveBeenCalled()
     })
@@ -386,15 +382,13 @@ describe('StatusBar', () => {
       const wrapper = mount(StatusBar, globalConfig)
 
       await wrapper.findAll('.status-widget-stub')[1].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       const listItems = wrapper.findAll('.n-list-item-stub')
       expect(listItems.length).toBeGreaterThan(0)
 
       await listItems[0].trigger('click')
-      await vi.runAllTimersAsync()
-      await nextTick()
+      await settleAsyncPanels()
 
       expect(mockError).toHaveBeenCalled()
     })

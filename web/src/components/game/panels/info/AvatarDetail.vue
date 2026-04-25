@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import type { AvatarDetail, EffectEntity } from '@/types/core';
-import { BloodRelationType } from '@/constants/relations';
+import type { AvatarDetail } from '@/types/core';
 import { formatHp } from '@/utils/formatters/number';
 import StatItem from './components/StatItem.vue';
 import EntityRow from './components/EntityRow.vue';
@@ -11,25 +9,18 @@ import SecondaryPopup from './components/SecondaryPopup.vue';
 import AvatarAdjustPanel from './components/AvatarAdjustPanel.vue';
 import AvatarPortraitPanel from './components/AvatarPortraitPanel.vue';
 import RoleplayPanel from './components/RoleplayPanel.vue';
-import { avatarApi } from '@/api';
 import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
-import type { RelationInfo } from '@/types/core';
-import { logError } from '@/utils/appError';
-import { getAvatarPortraitUrl } from '@/utils/assetUrls';
 import { formatCultivationText } from '@/utils/cultivationText';
+import { useAvatarDetailPanel } from '@/composables/useAvatarDetailPanel';
 import brainIcon from '@/assets/icons/ui/lucide/brain.svg';
 import checkIcon from '@/assets/icons/ui/lucide/check.svg';
 import heartHandshakeIcon from '@/assets/icons/ui/lucide/heart-handshake.svg';
 import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
 import packageIcon from '@/assets/icons/ui/lucide/package.svg';
 import pencilLineIcon from '@/assets/icons/ui/lucide/pencil-line.svg';
-import scrollIcon from '@/assets/icons/ui/lucide/scroll.svg';
-import shieldIcon from '@/assets/icons/ui/lucide/shield.svg';
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg';
-import swordsIcon from '@/assets/icons/ui/lucide/swords.svg';
 import triangleAlertIcon from '@/assets/icons/ui/lucide/triangle-alert.svg';
-import zapIcon from '@/assets/icons/ui/lucide/zap.svg';
 
 const { t, locale } = useI18n();
 const props = defineProps<{
@@ -37,263 +28,31 @@ const props = defineProps<{
 }>();
 
 const uiStore = useUiStore();
-const secondaryItem = ref<EffectEntity | null>(null);
-const adjustCategory = ref<'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger' | null>(null);
-const showPortraitPanel = ref(false);
-const showObjectiveModal = ref(false);
-const objectiveContent = ref('');
 
-// --- Computeds ---
-
-const ZH_NUMBERS = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-
-const currentEffectsText = computed(() => {
-  return props.data.current_effects || props.data['当前效果'];
-});
-
-const currentEffectsLines = computed(() => {
-  const text = currentEffectsText.value;
-  if (!text || text === '无') return [];
-  return text.split('\n');
-});
-
-const parsedCurrentEffects = computed(() => {
-  return currentEffectsLines.value.map((line, idx) => ({
-    id: `${idx}-${line}`,
-    ...parseEffectLine(line),
-  }));
-});
-
-const portraitUrl = computed(() => getAvatarPortraitUrl(props.data.gender, props.data.pic_id));
-
-const equipmentSlots = computed(() => [
-  {
-    category: 'technique' as const,
-    label: t('game.info_panel.avatar.adjust.categories.technique'),
-    icon: scrollIcon,
-    item: props.data.technique ?? null,
-    meta: undefined,
-  },
-  {
-    category: 'weapon' as const,
-    label: t('game.info_panel.avatar.adjust.categories.weapon'),
-    icon: swordsIcon,
-    item: props.data.weapon ?? null,
-    meta: props.data.weapon
-      ? t('game.info_panel.avatar.weapon_meta', { value: props.data.weapon.proficiency })
-      : undefined,
-  },
-  {
-    category: 'auxiliary' as const,
-    label: t('game.info_panel.avatar.adjust.categories.auxiliary'),
-    icon: shieldIcon,
-    item: props.data.auxiliary ?? null,
-    meta: undefined,
-  },
-  {
-    category: 'goldfinger' as const,
-    label: t('game.info_panel.avatar.sections.goldfinger'),
-    icon: zapIcon,
-    item: props.data.goldfinger ?? null,
-    meta: undefined,
-  },
-]);
-
-const avatarHeaderSubtitle = computed(() => {
-  return props.data.sect?.name || t('game.info_panel.avatar.stats.rogue');
-});
-
-const avatarRealmText = computed(() => formatCultivationText(props.data.realm, t));
-
-const formattedRanking = computed(() => {
-  if (!props.data.ranking) return null;
-  const { type, rank } = props.data.ranking;
-  const listName = t(`game.ranking.${type}`).split(' ')[0];
-  
-  const isZh = locale.value.startsWith('zh');
-  if (isZh) {
-    return `${listName}第${ZH_NUMBERS[rank] || rank}`;
-  } else if (locale.value.startsWith('ja')) {
-    return `${listName}${rank}位`;
-  } else {
-    return `${listName} Rank ${rank}`;
-  }
-});
-
-function formatGenderLabel(rawGender: string): string {
-  if (rawGender === 'Male' || rawGender === 'male') return t('ui.create_avatar.gender_labels.male');
-  if (rawGender === 'Female' || rawGender === 'female') return t('ui.create_avatar.gender_labels.female');
-  return rawGender;
-}
-
-function buildRelationMetaLines(rel: RelationInfo): string[] {
-  const parts = (rel.relation || '')
-    .split(/\s*\/\s*/)
-    .map(part => part.trim())
-    .filter(Boolean);
-
-  let structuralParts = parts;
-  let attitudeText: string | null = null;
-
-  if (rel.numeric_relation && parts.length > 0) {
-    attitudeText = parts[parts.length - 1];
-    structuralParts = parts.slice(0, -1);
-  }
-
-  const lines: string[] = [];
-
-  if (structuralParts.length > 0) {
-    lines.push(structuralParts.join(' / '));
-  }
-
-  if (attitudeText && rel.numeric_relation !== 'stranger') {
-    const friendlinessSuffix = typeof rel.friendliness === 'number' ? `（${rel.friendliness}）` : '';
-    lines.push(`${attitudeText}${friendlinessSuffix}`);
-  }
-
-  return lines;
-}
-
-function hasVisibleRelationMeta(rel: RelationInfo): boolean {
-  return buildRelationMetaLines(rel).length > 0;
-}
-
-function formatRelationSub(rel: RelationInfo): string {
-  return [rel.sect?.trim(), formatCultivationText(rel.realm, t)].filter(Boolean).join(' · ');
-}
-
-function parseEffectLine(line: string): { source: string; segments: string[] } {
-  const trimmed = line.trim();
-  if (!trimmed.startsWith('[')) {
-    return {
-      source: t('ui.other'),
-      segments: trimmed.split(/[;；]/).map(segment => segment.trim()).filter(Boolean),
-    };
-  }
-
-  const separatorIndex = trimmed.lastIndexOf('] ');
-  if (separatorIndex <= 0) {
-    return {
-      source: t('ui.other'),
-      segments: [trimmed],
-    };
-  }
-
-  return {
-    source: trimmed.slice(1, separatorIndex).trim() || t('ui.other'),
-    segments: trimmed
-      .slice(separatorIndex + 2)
-      .split(/[;；]/)
-      .map(segment => segment.trim())
-      .filter(Boolean),
-  };
-}
-
-function createMortalRelationPlaceholder(labelKey: 'father_short' | 'mother_short'): RelationInfo {
-  return {
-    target_id: `mortal_${labelKey}_placeholder`,
-    name: '',
-    relation: '',
-    relation_type: BloodRelationType.TO_ME_IS_PARENT,
-    blood_relation: BloodRelationType.TO_ME_IS_PARENT,
-    realm: '',
-    sect: '',
-    is_mortal: true,
-    label_key: labelKey,
-  };
-}
-
-const groupedRelations = computed(() => {
-  const rels = props.data.relations || [];
-  
-  const existingParents = rels.filter(r => r.blood_relation === BloodRelationType.TO_ME_IS_PARENT);
-  const displayParents = [...existingParents];
-  
-  // 补全凡人父母占位符
-  // Check genders of existing parents
-  const hasFather = existingParents.some(p => p.target_gender === 'male');
-  const hasMother = existingParents.some(p => p.target_gender === 'female');
-  
-  // 如果现有的不足2个，尝试补全
-  if (existingParents.length < 2) {
-    if (!hasFather) {
-      displayParents.unshift(createMortalRelationPlaceholder('father_short'));
-    }
-    
-    if (!hasMother) {
-      displayParents.push(createMortalRelationPlaceholder('mother_short'));
-    }
-  }
-  
-  const children = rels.filter(r =>
-    r.blood_relation === BloodRelationType.TO_ME_IS_CHILD && (r.is_mortal || hasVisibleRelationMeta(r))
-  );
-  
-  const bloodOthers = rels.filter(r =>
-    r.blood_relation &&
-    r.blood_relation !== BloodRelationType.TO_ME_IS_PARENT &&
-    r.blood_relation !== BloodRelationType.TO_ME_IS_CHILD &&
-    hasVisibleRelationMeta(r)
-  );
-
-  const others = rels.filter(r => 
-    !r.blood_relation && hasVisibleRelationMeta(r)
-  );
-
-  return {
-    parents: displayParents,
-    children: children,
-    bloodOthers: bloodOthers,
-    others: others
-  };
-});
-
-// --- Actions ---
-
-function showDetail(item: EffectEntity | undefined) {
-  if (item) {
-    secondaryItem.value = item;
-  }
-}
-
-function openAdjustPanel(category: 'technique' | 'weapon' | 'auxiliary' | 'personas' | 'goldfinger') {
-  adjustCategory.value = category;
-}
-
-function closeAdjustPanel() {
-  adjustCategory.value = null;
-}
-
-function jumpToAvatar(id: string) {
-  uiStore.select('avatar', id);
-}
-
-function jumpToSect(id: string) {
-  uiStore.select('sect', id);
-}
-
-async function handleSetObjective() {
-  if (!objectiveContent.value.trim()) return;
-  try {
-    await avatarApi.setLongTermObjective(props.data.id, objectiveContent.value);
-    showObjectiveModal.value = false;
-    objectiveContent.value = '';
-    uiStore.refreshDetail();
-  } catch (e) {
-    logError('AvatarDetail.handleSetObjective', e);
-    alert(t('game.info_panel.avatar.modals.set_failed'));
-  }
-}
-
-async function handleClearObjective() {
-  if (!confirm(t('game.info_panel.avatar.modals.clear_confirm'))) return;
-  try {
-    await avatarApi.clearLongTermObjective(props.data.id);
-    uiStore.refreshDetail();
-  } catch (e) {
-    logError('AvatarDetail.handleClearObjective', e);
-  }
-}
+const {
+  secondaryItem,
+  adjustCategory,
+  showPortraitPanel,
+  showObjectiveModal,
+  objectiveContent,
+  parsedCurrentEffects,
+  portraitUrl,
+  equipmentSlots,
+  avatarHeaderSubtitle,
+  avatarRealmText,
+  formattedRanking,
+  groupedRelations,
+  formatGenderLabel,
+  buildRelationMetaLines,
+  formatRelationSub,
+  showDetail,
+  openAdjustPanel,
+  closeAdjustPanel,
+  jumpToAvatar,
+  jumpToSect,
+  handleSetObjective,
+  handleClearObjective,
+} = useAvatarDetailPanel(() => props.data, t, locale, uiStore);
 </script>
 
 <template>

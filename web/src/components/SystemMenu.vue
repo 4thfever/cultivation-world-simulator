@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { defineAsyncComponent, ref, watch } from 'vue'
 import type { SystemMenuTab } from '@/stores/ui'
 import SystemMenuShell from '@/components/SystemMenuShell.vue'
-import SystemMenuStartTab from '@/components/system-menu/tabs/SystemMenuStartTab.vue'
-import SystemMenuLoadTab from '@/components/system-menu/tabs/SystemMenuLoadTab.vue'
-import SystemMenuSaveTab from '@/components/system-menu/tabs/SystemMenuSaveTab.vue'
-import SystemMenuCreateTab from '@/components/system-menu/tabs/SystemMenuCreateTab.vue'
-import SystemMenuDeleteTab from '@/components/system-menu/tabs/SystemMenuDeleteTab.vue'
-import SystemMenuLlmTab from '@/components/system-menu/tabs/SystemMenuLlmTab.vue'
-import SystemMenuSettingsTab from '@/components/system-menu/tabs/SystemMenuSettingsTab.vue'
-import SystemMenuAboutTab from '@/components/system-menu/tabs/SystemMenuAboutTab.vue'
-import SystemMenuOtherTab from '@/components/system-menu/tabs/SystemMenuOtherTab.vue'
+
+const SystemMenuStartTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuStartTab.vue'))
+const SystemMenuLoadTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuLoadTab.vue'))
+const SystemMenuSaveTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuSaveTab.vue'))
+const SystemMenuCreateTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuCreateTab.vue'))
+const SystemMenuDeleteTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuDeleteTab.vue'))
+const SystemMenuLlmTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuLlmTab.vue'))
+const SystemMenuSettingsTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuSettingsTab.vue'))
+const SystemMenuAboutTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuAboutTab.vue'))
+const SystemMenuOtherTab = defineAsyncComponent(() => import('@/components/system-menu/tabs/SystemMenuOtherTab.vue'))
 
 const props = defineProps<{
   visible: boolean

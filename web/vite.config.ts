@@ -28,6 +28,28 @@ export default defineConfig(({ mode }) => {
       // Some packaged-runtime browser paths handle `mask-image: url(data:...)`
       // inconsistently, which can make icon masks disappear in the exe build.
       assetsInlineLimit: 0,
+      chunkSizeWarningLimit: 550,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            const normalizedId = id.replace(/\\/g, '/')
+            if (normalizedId.includes('/src/components/game/panels/')) {
+              return 'game-panels'
+            }
+            if (!normalizedId.includes('node_modules')) return undefined
+            if (normalizedId.includes('naive-ui') || normalizedId.includes('vfonts')) {
+              return 'vendor-ui'
+            }
+            if (normalizedId.includes('vue3-pixi')) {
+              return undefined
+            }
+            if (normalizedId.includes('vue') || normalizedId.includes('pinia') || normalizedId.includes('@vueuse')) {
+              return 'vendor-vue'
+            }
+            return undefined
+          },
+        },
+      },
     },
     server: {
       host: '0.0.0.0', // 允许局域网访问

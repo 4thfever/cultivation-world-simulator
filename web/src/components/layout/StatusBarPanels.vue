@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import { useAvatarOverviewStore } from '@/stores/avatarOverview'
-import RankingModal from '@/components/game/panels/RankingModal.vue'
-import TournamentModal from '@/components/game/panels/TournamentModal.vue'
-import SectRelationsModal from '@/components/game/panels/SectRelationsModal.vue'
-import MortalOverviewModal from '@/components/game/panels/MortalOverviewModal.vue'
-import DynastyOverviewModal from '@/components/game/panels/DynastyOverviewModal.vue'
-import HiddenDomainOverviewModal from '@/components/game/panels/HiddenDomainOverviewModal.vue'
-import WorldInfoModal from '@/components/game/panels/WorldInfoModal.vue'
-import TimeOverviewModal from '@/components/game/panels/TimeOverviewModal.vue'
 import PhenomenonSelectorModal from '@/components/game/panels/PhenomenonSelectorModal.vue'
-import AvatarOverviewModal from '@/components/game/panels/AvatarOverviewModal.vue'
+
+const RankingModal = defineAsyncComponent(() => import('@/components/game/panels/RankingModal.vue'))
+const TournamentModal = defineAsyncComponent(() => import('@/components/game/panels/TournamentModal.vue'))
+const SectRelationsModal = defineAsyncComponent(() => import('@/components/game/panels/SectRelationsModal.vue'))
+const MortalOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/MortalOverviewModal.vue'))
+const DynastyOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/DynastyOverviewModal.vue'))
+const HiddenDomainOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/HiddenDomainOverviewModal.vue'))
+const WorldInfoModal = defineAsyncComponent(() => import('@/components/game/panels/WorldInfoModal.vue'))
+const TimeOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/TimeOverviewModal.vue'))
+const AvatarOverviewModal = defineAsyncComponent(() => import('@/components/game/panels/AvatarOverviewModal.vue'))
 
 type StatusBarPanelKey =
   | 'time'
@@ -60,14 +61,14 @@ defineExpose({ open })
 </script>
 
 <template>
-  <RankingModal v-model:show="showRankingModal" />
-  <TimeOverviewModal v-model:show="showTimeOverviewModal" />
-  <WorldInfoModal v-model:show="showWorldInfoModal" />
-  <TournamentModal v-model:show="showTournamentModal" />
-  <SectRelationsModal v-model:show="showSectRelationsModal" />
-  <HiddenDomainOverviewModal v-model:show="showHiddenDomainModal" />
-  <MortalOverviewModal v-model:show="showMortalOverviewModal" />
-  <DynastyOverviewModal v-model:show="showDynastyOverviewModal" />
-  <PhenomenonSelectorModal v-model:show="showPhenomenonSelector" />
-  <AvatarOverviewModal v-model:show="showAvatarOverviewModal" />
+  <RankingModal v-if="showRankingModal" v-model:show="showRankingModal" />
+  <TimeOverviewModal v-if="showTimeOverviewModal" v-model:show="showTimeOverviewModal" />
+  <WorldInfoModal v-if="showWorldInfoModal" v-model:show="showWorldInfoModal" />
+  <TournamentModal v-if="showTournamentModal" v-model:show="showTournamentModal" />
+  <SectRelationsModal v-if="showSectRelationsModal" v-model:show="showSectRelationsModal" />
+  <HiddenDomainOverviewModal v-if="showHiddenDomainModal" v-model:show="showHiddenDomainModal" />
+  <MortalOverviewModal v-if="showMortalOverviewModal" v-model:show="showMortalOverviewModal" />
+  <DynastyOverviewModal v-if="showDynastyOverviewModal" v-model:show="showDynastyOverviewModal" />
+  <PhenomenonSelectorModal v-if="showPhenomenonSelector" v-model:show="showPhenomenonSelector" />
+  <AvatarOverviewModal v-if="showAvatarOverviewModal" v-model:show="showAvatarOverviewModal" />
 </template>
