@@ -1,8 +1,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDialog, useMessage } from 'naive-ui'
+import { storeToRefs } from 'pinia'
 import { llmApi } from '@/api'
 import type { LLMConfigDTO } from '@/types/api'
+import { useUiStore } from '@/stores/ui'
 
 export interface LlmPreset {
   name: string
@@ -28,6 +30,8 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
   const { t } = useI18n()
   const message = useMessage()
   const dialog = useDialog()
+  const uiStore = useUiStore()
+  const { llmConfigError } = storeToRefs(uiStore)
   const loading = ref(false)
   const testing = ref(false)
   const showHelpModal = ref(false)
@@ -186,6 +190,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
       message.success(t('llm.test_success'))
       await llmApi.saveConfig(config.value)
       message.success(t('llm.save_success'))
+      uiStore.clearLlmConfigError()
       onConfigSaved()
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : t('llm.test_save_failed_title')
@@ -208,6 +213,7 @@ export function useLlmConfigPanel(onConfigSaved: () => void) {
     testing,
     showHelpModal,
     hasSavedApiKey,
+    llmConfigError,
     config,
     modeOptions,
     apiFormatOptions,

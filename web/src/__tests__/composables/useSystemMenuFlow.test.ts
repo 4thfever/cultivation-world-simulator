@@ -51,7 +51,7 @@ describe('useSystemMenuFlow', () => {
   })
 
   it('routes startup to llm tab when llm is missing', async () => {
-    mockFetchStatus.mockResolvedValue({ configured: false })
+    mockFetchStatus.mockResolvedValue({ configured: false, requires_config: false, last_failure: '' })
     const flow = useSystemMenuFlow()
 
     await flow.performStartupCheck('splash')
@@ -61,6 +61,21 @@ describe('useSystemMenuFlow', () => {
     expect(flow.canCloseMenu.value).toBe(false)
     expect(flow.menuContext.value).toBe('splash')
     expect(mockMessageWarning).toHaveBeenCalled()
+  })
+
+  it('routes startup to llm tab when saved config has runtime failure', async () => {
+    mockFetchStatus.mockResolvedValue({
+      configured: true,
+      requires_config: true,
+      last_failure: '身份验证失败',
+    })
+    const flow = useSystemMenuFlow()
+
+    await flow.performStartupCheck('splash')
+
+    expect(flow.menuDefaultTab.value).toBe('llm')
+    expect(flow.canCloseMenu.value).toBe(false)
+    expect(mockMessageWarning).toHaveBeenCalledWith('身份验证失败')
   })
 
   it('handles llm ready by reopening start path', () => {

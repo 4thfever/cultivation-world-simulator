@@ -51,6 +51,19 @@ $SourceDir = $AppDirObj.FullName
 Write-Host "Found Application: $AppName" -ForegroundColor Gray
 Write-Host "Source Directory: $SourceDir" -ForegroundColor Gray
 
+function Assert-NoSensitiveConfigs {
+    param(
+        [Parameter(Mandatory = $true)][string]$RootPath
+    )
+
+    $SensitiveConfigNames = @("local_config.yml", "settings.json", "secrets.json")
+    $MatchedFiles = Get-ChildItem -Path $RootPath -Include $SensitiveConfigNames -Recurse -Force -ErrorAction SilentlyContinue
+    if ($MatchedFiles) {
+        $List = ($MatchedFiles | ForEach-Object { $_.FullName }) -join "`n"
+        throw "Sensitive config files remain in package:`n$List"
+    }
+}
+
 # ==============================================================================
 # 4. Clean Sensitive Files
 # ==============================================================================
@@ -88,6 +101,9 @@ if ($SaveDirs) {
         }
     }
 }
+
+Assert-NoSensitiveConfigs -RootPath $SourceDir
+Write-Host "  [✓] Verified no sensitive config files remain." -ForegroundColor Green
 
 # ==============================================================================
 # 5. Compress

@@ -95,6 +95,7 @@ def configure_routes_and_mounts(
     reset_settings,
     get_llm_view,
     get_llm_runtime_config,
+    get_llm_failure_state,
     get_llm_test_payload,
     test_connectivity,
     update_llm,
@@ -150,7 +151,16 @@ def configure_routes_and_mounts(
     assets_path: str,
     web_dist_path: str,
     is_dev_mode: bool,
+    version: str = "",
 ):
+    @app.get("/api/health")
+    def health():
+        return {
+            "ok": True,
+            "status": "ready",
+            "version": version,
+        }
+
     app.include_router(create_websocket_router(manager=manager, game_instance=game_instance))
 
     app.include_router(
@@ -161,6 +171,7 @@ def configure_routes_and_mounts(
             reset_settings=reset_settings,
             get_llm_view=get_llm_view,
             get_llm_runtime_config=get_llm_runtime_config,
+            get_llm_failure_state=get_llm_failure_state,
             get_llm_test_payload=get_llm_test_payload,
             test_connectivity=test_connectivity,
             update_llm=update_llm,
@@ -232,17 +243,50 @@ def configure_routes_and_mounts(
     )
 
 
-def start_server(*, patch_sys_streams, resolve_server_binding, prepare_browser_target, is_dev_mode: bool, app, uvicorn_module):
+def start_server(
+    *,
+    patch_sys_streams,
+    resolve_server_binding,
+    prepare_browser_target,
+    is_browser_auto_open_disabled,
+    print_startup_diagnostics,
+    get_data_paths,
+    get_runtime_mode,
+    get_web_dist_path,
+    get_assets_path,
+    is_idle_shutdown_enabled,
+    is_dev_mode: bool,
+    app,
+    uvicorn_module,
+):
     patch_sys_streams()
     import webbrowser
 
     host, port = resolve_server_binding()
     target_url = prepare_browser_target(is_dev_mode=is_dev_mode, host=host, port=port)
+    browser_disabled = is_browser_auto_open_disabled()
 
-    print(f"Opening browser at {target_url}...")
     try:
-        webbrowser.open(target_url)
+        print_startup_diagnostics(
+            runtime_mode=get_runtime_mode(),
+            data_paths=get_data_paths(),
+            host=host,
+            port=port,
+            web_dist_path=get_web_dist_path(),
+            assets_path=get_assets_path(),
+            browser_disabled=browser_disabled,
+            idle_shutdown_enabled=is_idle_shutdown_enabled(),
+        )
     except Exception as exc:
-        print(f"Failed to open browser: {exc}")
+        print(f"Warning: failed to print startup diagnostics: {exc}")
+
+    if browser_disabled:
+        print(f"Browser auto open disabled. Web UI available at {target_url}")
+    else:
+        print(f"Opening browser at {target_url}...")
+        try:
+            webbrowser.open(target_url)
+        except Exception as exc:
+            print(f"Failed to open browser: {exc}")
 
     uvicorn_module.run(app, host=host, port=port, log_level="info")

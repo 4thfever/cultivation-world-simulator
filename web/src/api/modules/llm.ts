@@ -1,5 +1,5 @@
 import { httpClient } from '../http';
-import type { LLMConfigDTO, LLMConfigViewDTO } from '../../types/api';
+import type { LLMConfigDTO, LLMConfigViewDTO, LLMStatusDTO } from '../../types/api';
 
 export const llmApi = {
   fetchConfig() {
@@ -15,6 +15,6 @@ export const llmApi = {
   },
   
   fetchStatus() {
-    return httpClient.get<{ configured: boolean }>('/api/settings/llm/status');
+    return httpClient.get<LLMStatusDTO>('/api/settings/llm/status');
   }
 };

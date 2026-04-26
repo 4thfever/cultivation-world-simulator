@@ -233,6 +233,12 @@ export interface LLMConfigDTO {
   api_format: string;
 }
 
+export interface LLMStatusDTO {
+  configured: boolean;
+  requires_config?: boolean;
+  last_failure?: string;
+}
+
 export interface RunConfigDTO {
   content_locale: AppLocale | string;
   init_npc_num: number;

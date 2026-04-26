@@ -36,6 +36,7 @@ function handleToastMessage(data: ToastSocketMessage) {
 function handleLlmConfigRequired(data: LLMConfigRequiredSocketMessage, deps: SocketRouterDeps) {
   const errorMessage = data.error || translate('ui.llm_connection_failed_config')
   logWarn('SocketRouter llm config required', errorMessage)
+  deps.uiStore.setLlmConfigError?.(errorMessage)
   deps.uiStore.openSystemMenu('llm', false)
   message.error(errorMessage)
 }

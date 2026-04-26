@@ -44,6 +44,66 @@ def test_settings_service_updates_llm_secret_without_exposing_key():
     assert "secret-key" in get_data_paths().secrets_file.read_text(encoding="utf-8")
 
 
+def test_settings_service_applies_default_llm_seed_on_first_create(monkeypatch):
+    monkeypatch.setenv("CWS_DEFAULT_LLM_BASE_URL", "https://api.longcat.example/openai")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_MODEL", "LongCat-Flash-Chat")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_FAST_MODEL", "LongCat-Flash-Lite")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_API_KEY", "seed-key")
+
+    service = get_settings_service()
+    settings = service.get_settings_view()
+    profile, api_key = service.get_llm_runtime_config()
+
+    assert settings.llm.profile.has_api_key is True
+    assert profile.base_url == "https://api.longcat.example/openai"
+    assert profile.model_name == "LongCat-Flash-Chat"
+    assert api_key == "seed-key"
+    assert "seed-key" not in get_data_paths().settings_file.read_text(encoding="utf-8")
+
+
+def test_settings_service_seed_does_not_override_existing_user_config(monkeypatch):
+    service = get_settings_service()
+    service.update_llm(
+        LLMSettingsUpdate(
+            base_url="https://api.user.example/v1",
+            api_key="user-key",
+            model_name="user-model",
+            fast_model_name="user-fast",
+            mode="default",
+            max_concurrent_requests=10,
+            clear_api_key=False,
+        )
+    )
+
+    monkeypatch.setenv("CWS_DEFAULT_LLM_BASE_URL", "https://api.longcat.example/openai")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_MODEL", "LongCat-Flash-Chat")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_FAST_MODEL", "LongCat-Flash-Lite")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_API_KEY", "seed-key")
+
+    profile, api_key = service.get_llm_runtime_config()
+
+    assert profile.base_url == "https://api.user.example/v1"
+    assert profile.model_name == "user-model"
+    assert api_key == "user-key"
+
+
+def test_settings_reset_does_not_reapply_default_llm_seed(monkeypatch):
+    monkeypatch.setenv("CWS_DEFAULT_LLM_BASE_URL", "https://api.longcat.example/openai")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_MODEL", "LongCat-Flash-Chat")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_FAST_MODEL", "LongCat-Flash-Lite")
+    monkeypatch.setenv("CWS_DEFAULT_LLM_API_KEY", "seed-key")
+
+    service = get_settings_service()
+    assert service.get_settings_view().llm.profile.has_api_key is True
+
+    reset = service.reset_settings()
+    profile, api_key = service.get_llm_runtime_config()
+
+    assert reset.llm.profile.has_api_key is False
+    assert profile.base_url == ""
+    assert api_key == ""
+
+
 def test_patch_settings_updates_audio_and_new_game_defaults():
     service = get_settings_service()
     fallback_locale = get_fallback_locale()
@@ -186,6 +246,16 @@ def test_settings_patch_api_returns_200_when_router_serializes_model(monkeypatch
     assert applied_locales == [get_fallback_locale()]
 
 
+def test_health_api_is_available_before_game_start():
+    from src.server import main
+
+    client = TestClient(main.app)
+    response = client.get("/api/health")
+
+    assert response.status_code == 200
+    assert response.json()["ok"] is True
+
+
 def test_settings_reset_api_returns_200_when_router_serializes_model(monkeypatch):
     from src.server import main
 
@@ -203,6 +273,21 @@ def test_settings_reset_api_returns_200_when_router_serializes_model(monkeypatch
     assert payload["ui"]["locale"] == get_default_locale()
     assert payload["new_game_defaults"]["content_locale"] == get_default_locale()
     assert applied_locales == [get_default_locale()]
+
+
+def test_llm_status_api_reports_runtime_failure(monkeypatch):
+    from src.server import main
+
+    monkeypatch.setitem(main.game_instance, "llm_check_failed", True)
+    monkeypatch.setitem(main.game_instance, "llm_error_message", "身份验证失败")
+
+    client = TestClient(main.app)
+    response = client.get("/api/settings/llm/status")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["requires_config"] is True
+    assert payload["last_failure"] == "身份验证失败"
 
 
 def test_llm_api_uses_saved_secret_when_testing(monkeypatch):

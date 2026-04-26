@@ -103,12 +103,13 @@ from src.classes.event import Event
 from src.classes.celestial_phenomenon import celestial_phenomena_by_id
 from src.classes.long_term_objective import set_user_long_term_objective, clear_user_long_term_objective
 from src.sim import save_game, list_saves, load_game, get_events_db_path
-from src.utils.llm.client import test_connectivity as _test_connectivity
+from src.utils.llm.client import register_llm_failure_handler, test_connectivity as _test_connectivity
 from src.run.data_loader import reload_all_static_data
 from src.classes.language import language_manager
 from src.systems.sect_relations import compute_sect_relations
 from src.i18n import t
 from src.config import get_settings_service
+from src.config.data_paths import get_data_paths
 from src.i18n.locale_registry import uses_space_separated_names
 from src.utils.llm.config import LLMConfig
 from src.server.runtime import GameSessionRuntime, create_default_game_state
@@ -119,7 +120,13 @@ from src.server.host_runtime import (
     trigger_process_shutdown,
 )
 from src.server.auto_save import trigger_auto_save as _trigger_auto_save
-from src.server.bootstrap import prepare_browser_target, resolve_runtime_paths, resolve_server_binding
+from src.server.bootstrap import (
+    is_browser_auto_open_disabled,
+    prepare_browser_target,
+    print_startup_diagnostics,
+    resolve_runtime_paths,
+    resolve_server_binding,
+)
 from src.server.command_handlers import create_command_handlers
 from src.server.dev_runtime import start_frontend_dev_server, stop_frontend_dev_server
 from src.server.host_app import (
@@ -563,6 +570,29 @@ def test_llm_connection(req) -> dict:
 
 handle_llm_updated = create_llm_updated_handler(game_instance=game_instance, manager=manager)
 
+
+async def handle_global_llm_failure(error_message: str) -> None:
+    """Pause the runtime and notify clients that LLM configuration needs attention."""
+    if game_instance.get("llm_check_failed") and game_instance.get("llm_error_message") == error_message:
+        return
+
+    game_instance["llm_check_failed"] = True
+    game_instance["llm_error_message"] = error_message
+    game_instance["is_paused"] = True
+    await manager.broadcast(
+        {
+            "type": "llm_config_required",
+            "error": error_message,
+        }
+    )
+
+
+register_llm_failure_handler(handle_global_llm_failure)
+
+
+def get_runtime_mode_label() -> str:
+    return "Frozen/Packaged" if getattr(sys, "frozen", False) else "Development"
+
 configure_routes_and_mounts(
     app=app,
     create_websocket_router=create_websocket_router,
@@ -575,6 +605,10 @@ configure_routes_and_mounts(
     reset_settings=_reset_settings_model,
     get_llm_view=get_settings_service().get_llm_view,
     get_llm_runtime_config=get_settings_service().get_llm_runtime_config,
+    get_llm_failure_state=lambda: (
+        bool(game_instance.get("llm_check_failed", False)),
+        str(game_instance.get("llm_error_message", "") or ""),
+    ),
     get_llm_test_payload=get_settings_service().get_llm_test_payload,
     test_connectivity=test_connectivity,
     update_llm=get_settings_service().update_llm,
@@ -630,6 +664,7 @@ configure_routes_and_mounts(
     assets_path=ASSETS_PATH,
     web_dist_path=WEB_DIST_PATH,
     is_dev_mode=IS_DEV_MODE,
+    version=str(getattr(CONFIG.meta, "version", "")),
 )
 
 def start():
@@ -638,6 +673,13 @@ def start():
         patch_sys_streams=patch_sys_streams,
         resolve_server_binding=resolve_server_binding,
         prepare_browser_target=prepare_browser_target,
+        is_browser_auto_open_disabled=is_browser_auto_open_disabled,
+        print_startup_diagnostics=print_startup_diagnostics,
+        get_data_paths=get_data_paths,
+        get_runtime_mode=get_runtime_mode_label,
+        get_web_dist_path=lambda: WEB_DIST_PATH,
+        get_assets_path=lambda: ASSETS_PATH,
+        is_idle_shutdown_enabled=is_idle_shutdown_enabled,
         is_dev_mode=IS_DEV_MODE,
         app=app,
         uvicorn_module=uvicorn,

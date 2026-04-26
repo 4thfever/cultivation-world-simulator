@@ -21,9 +21,12 @@ export function useSystemMenuFlow() {
 
     try {
       const res = await llmApi.fetchStatus()
-      if (!res.configured) {
+      if (res.last_failure) {
+        uiStore.setLlmConfigError(res.last_failure)
+      }
+      if (!res.configured || res.requires_config) {
         uiStore.openSystemMenu('llm', false, context)
-        message.warning(translate('ui.llm_config_required_notice'))
+        message.warning(res.last_failure || translate('ui.llm_config_required_notice'))
       }
     } catch (e) {
       logError('SystemMenuFlow llm status', e)
@@ -45,6 +48,7 @@ export function useSystemMenuFlow() {
   }
 
   function handleLLMReady() {
+    uiStore.clearLlmConfigError()
     uiStore.setSystemMenuClosable(true)
     menuDefaultTab.value = 'start'
     message.success(translate('ui.llm_ready_start_game'))

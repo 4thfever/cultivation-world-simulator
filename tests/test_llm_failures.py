@@ -28,8 +28,11 @@ from src.utils.llm.client import (
     call_llm_json,
     call_llm_with_template,
     call_llm_with_task_name,
+    classify_llm_error,
+    register_llm_failure_handler,
     test_connectivity as llm_test_connectivity,
     _call_with_requests,
+    LLMFailureKind,
     LLMMode,
 )
 from src.utils.llm.config import LLMConfig
@@ -457,6 +460,82 @@ class TestConnectivityTest:
         assert success is False
         assert "身份验证失败(401)" in error
         assert "invalid x-api-key" in error
+
+
+class TestLLMFailureClassification:
+    def test_classifies_auth_errors_as_config_required(self):
+        failure = classify_llm_error('HTTP_401::{"error":{"message":"bad key"}}')
+
+        assert failure.kind == LLMFailureKind.CONFIG_REQUIRED
+        assert failure.is_config_required is True
+        assert "bad key" in failure.user_message
+
+    def test_classifies_provider_5xx_as_not_config_required(self):
+        failure = classify_llm_error('HTTP_500::{"error":{"message":"server down"}}')
+
+        assert failure.kind == LLMFailureKind.PROVIDER_UNAVAILABLE
+        assert failure.is_config_required is False
+
+    @pytest.mark.asyncio
+    async def test_call_llm_notifies_config_required_for_auth_failure(self):
+        messages: list[str] = []
+
+        async def handler(message: str):
+            messages.append(message)
+
+        register_llm_failure_handler(handler)
+        mock_config = LLMConfig(
+            model_name="test-model",
+            api_key="bad-key",
+            base_url="http://test.api/v1",
+        )
+        http_error = make_http_error(
+            url="http://test.api/v1/chat/completions",
+            code=401,
+            msg="Unauthorized",
+            body=b'{"error": {"message": "Invalid API key"}}',
+        )
+
+        try:
+            with patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
+                 patch("urllib.request.urlopen", side_effect=http_error):
+                with pytest.raises(Exception):
+                    await call_llm("test prompt")
+        finally:
+            register_llm_failure_handler(None)
+
+        assert len(messages) == 1
+        assert "身份验证失败(401)" in messages[0]
+
+    @pytest.mark.asyncio
+    async def test_call_llm_does_not_notify_for_provider_5xx(self):
+        messages: list[str] = []
+
+        async def handler(message: str):
+            messages.append(message)
+
+        register_llm_failure_handler(handler)
+        mock_config = LLMConfig(
+            model_name="test-model",
+            api_key="test-key",
+            base_url="http://test.api/v1",
+        )
+        http_error = make_http_error(
+            url="http://test.api/v1/chat/completions",
+            code=500,
+            msg="Internal Server Error",
+            body=b'{"error": {"message": "Server error"}}',
+        )
+
+        try:
+            with patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
+                 patch("urllib.request.urlopen", side_effect=http_error):
+                with pytest.raises(Exception):
+                    await call_llm("test prompt")
+        finally:
+            register_llm_failure_handler(None)
+
+        assert messages == []
 
 
 class TestConfigurationValidation:

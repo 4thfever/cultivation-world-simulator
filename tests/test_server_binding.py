@@ -42,6 +42,19 @@ def test_start_uses_env_host_and_port():
     assert kwargs["port"] == 8080
 
 
+def test_start_respects_no_browser_env():
+    from src.server import main
+
+    with patch.dict(os.environ, {"CWS_NO_BROWSER": "1"}, clear=False), \
+         patch.object(main, "uvicorn") as mock_uvicorn, \
+         patch("webbrowser.open") as mock_open, \
+         patch("os.kill"):
+        main.start()
+
+    mock_uvicorn.run.assert_called_once()
+    mock_open.assert_not_called()
+
+
 def test_empty_env_host_falls_back_to_default():
     with patch.dict(os.environ, {"SERVER_HOST": ""}, clear=True):
         host = os.environ.get("SERVER_HOST") or "127.0.0.1"

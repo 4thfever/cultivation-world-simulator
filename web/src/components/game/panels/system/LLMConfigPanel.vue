@@ -14,6 +14,7 @@ const {
   testing,
   showHelpModal,
   hasSavedApiKey,
+  llmConfigError,
   config,
   modeOptions,
   apiFormatOptions,
@@ -27,6 +28,9 @@ const {
   <div class="llm-panel">
     <div v-if="loading" class="loading">{{ t('llm.loading') }}</div>
     <div v-else class="config-form">
+      <div v-if="llmConfigError" class="error-banner">
+        {{ llmConfigError }}
+      </div>
       
       <!-- 预设按钮 -->
       <div class="section">
@@ -269,6 +273,19 @@ const {
 
 .section {
   margin-bottom: 1.5em;
+}
+
+.error-banner {
+  background: rgba(155, 48, 48, 0.18);
+  border: 1px solid rgba(225, 92, 92, 0.42);
+  border-radius: 0.35em;
+  color: #f0b7b7;
+  line-height: 1.45;
+  margin-bottom: 1em;
+  max-height: 7em;
+  overflow: auto;
+  padding: 0.75em 0.9em;
+  word-break: break-word;
 }
 
 .section-title {

@@ -83,6 +83,19 @@ $AdditionalHooksPath = $ScriptDir
 # Source path
 $SrcPath = Join-Path $RepoRoot "src"
 
+function Assert-NoSensitiveConfigs {
+    param(
+        [Parameter(Mandatory = $true)][string]$RootPath
+    )
+
+    $SensitiveConfigNames = @("local_config.yml", "settings.json", "secrets.json")
+    $MatchedFiles = Get-ChildItem -Path $RootPath -Include $SensitiveConfigNames -Recurse -Force -ErrorAction SilentlyContinue
+    if ($MatchedFiles) {
+        $List = ($MatchedFiles | ForEach-Object { $_.FullName }) -join "`n"
+        throw "Sensitive config files remain in package:`n$List"
+    }
+}
+
 # Assemble PyInstaller arguments
 $argsList = @(
     $EntryPy,
@@ -186,6 +199,9 @@ try {
                  Copy-Item -Path $WebDistDir -Destination $DestWeb -Recurse -Force
                  Write-Host "✓ Copied web_dist to web_static in exe directory" -ForegroundColor Green
             }
+
+            Assert-NoSensitiveConfigs -RootPath $ExeDir
+            Write-Host "✓ Verified package contains no sensitive config files" -ForegroundColor Green
             
             $BuildDirRoot = Join-Path $RepoRoot "tmp\build"
             if (Test-Path $BuildDirRoot) {

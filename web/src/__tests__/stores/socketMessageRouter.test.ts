@@ -23,6 +23,7 @@ describe('socketMessageRouter', () => {
     selectedTarget: null as null | { type: string; id: string },
     refreshDetail: vi.fn(),
     openSystemMenu: vi.fn(),
+    setLlmConfigError: vi.fn(),
   }
 
   beforeEach(() => {
@@ -48,6 +49,7 @@ describe('socketMessageRouter', () => {
     )
 
     expect(uiStore.openSystemMenu).toHaveBeenCalledWith('llm', false)
+    expect(uiStore.setLlmConfigError).toHaveBeenCalledWith('LLM required')
     expect(mockMessage.error).toHaveBeenCalledWith('LLM required')
   })
 

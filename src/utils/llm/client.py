@@ -5,7 +5,9 @@ import urllib.request
 import urllib.error
 import asyncio
 from pathlib import Path
-from typing import Optional
+from dataclasses import dataclass
+from enum import Enum
+from typing import Awaitable, Callable, Optional
 
 from src.config import get_settings_service
 from src.run.log import log_llm_call
@@ -18,6 +20,131 @@ from .exceptions import LLMError, ParseError
 # 模块级信号量，懒加载
 _SEMAPHORE: Optional[asyncio.Semaphore] = None
 _SEMAPHORE_LIMIT: Optional[int] = None
+_LLM_FAILURE_HANDLER: Optional[Callable[[str], Awaitable[None] | None]] = None
+
+
+class LLMFailureKind(str, Enum):
+    CONFIG_REQUIRED = "config_required"
+    RATE_LIMITED = "rate_limited"
+    TEMPORARY_NETWORK = "temporary_network"
+    PROVIDER_UNAVAILABLE = "provider_unavailable"
+    PARSE_ERROR = "parse_error"
+    UNKNOWN = "unknown"
+
+
+@dataclass(frozen=True)
+class LLMFailureInfo:
+    kind: LLMFailureKind
+    user_message: str
+    http_status: int | None = None
+    provider_message: str = ""
+
+    @property
+    def is_config_required(self) -> bool:
+        return self.kind in {LLMFailureKind.CONFIG_REQUIRED, LLMFailureKind.RATE_LIMITED}
+
+
+def register_llm_failure_handler(handler: Callable[[str], Awaitable[None] | None] | None) -> None:
+    global _LLM_FAILURE_HANDLER
+    _LLM_FAILURE_HANDLER = handler
+
+
+async def _notify_config_required(error_message: str) -> None:
+    if _LLM_FAILURE_HANDLER is None:
+        return
+
+    result = _LLM_FAILURE_HANDLER(error_message)
+    if asyncio.iscoroutine(result):
+        await result
+
+
+def _extract_provider_message(body_str: str) -> str:
+    provider_msg = body_str
+    try:
+        body_json = json.loads(body_str)
+        if isinstance(body_json, dict):
+            if "error" in body_json and isinstance(body_json["error"], dict):
+                provider_msg = body_json["error"].get("message") or body_json["error"].get("msg") or body_str
+            elif body_json.get("type") == "error" and "error" in body_json:
+                err_obj = body_json["error"]
+                if isinstance(err_obj, dict):
+                    provider_msg = err_obj.get("message") or body_str
+            elif "message" in body_json:
+                provider_msg = body_json["message"]
+    except Exception:
+        pass
+
+    if len(provider_msg) > 200:
+        provider_msg = provider_msg[:200] + "..."
+    return provider_msg
+
+
+def classify_llm_error(error_raw: str) -> LLMFailureInfo:
+    if error_raw.startswith("NETWORK_ERROR::"):
+        reason = error_raw.split("::", 1)[1]
+        return LLMFailureInfo(
+            kind=LLMFailureKind.TEMPORARY_NETWORK,
+            user_message=f"网络连接失败，请检查 Base URL 是否可达或本地代理设置。(底层错误: {reason})",
+            provider_message=reason,
+        )
+
+    if error_raw.startswith("HTTP_"):
+        parts = error_raw.split("::", 1)
+        code_str = parts[0].replace("HTTP_", "")
+        body_str = parts[1] if len(parts) > 1 else ""
+        provider_msg = _extract_provider_message(body_str)
+        try:
+            http_status = int(code_str)
+        except ValueError:
+            http_status = None
+
+        if code_str == "401":
+            return LLMFailureInfo(
+                kind=LLMFailureKind.CONFIG_REQUIRED,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=f"身份验证失败(401)，请检查 API Key 是否填写正确。服务商返回: {provider_msg}",
+            )
+        if code_str == "403":
+            return LLMFailureInfo(
+                kind=LLMFailureKind.CONFIG_REQUIRED,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=f"访问被拒绝(403)，可能是模型未授权或 IP 受限。服务商返回: {provider_msg}",
+            )
+        if code_str == "404":
+            return LLMFailureInfo(
+                kind=LLMFailureKind.CONFIG_REQUIRED,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=f"找不到服务(404)，请检查 Base URL 是否正确(通常需要以 /v1 结尾)，或模型名是否存在。服务商返回: {provider_msg}",
+            )
+        if code_str == "429":
+            return LLMFailureInfo(
+                kind=LLMFailureKind.RATE_LIMITED,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=f"额度超限或请求频繁(429)，请检查账号余额。服务商返回: {provider_msg}",
+            )
+        if code_str.startswith("5"):
+            return LLMFailureInfo(
+                kind=LLMFailureKind.PROVIDER_UNAVAILABLE,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=f"服务商内部异常({code_str})，请稍后重试。服务商返回: {provider_msg}",
+            )
+        return LLMFailureInfo(
+            kind=LLMFailureKind.UNKNOWN,
+            http_status=http_status,
+            provider_message=provider_msg,
+            user_message=f"请求失败({code_str})。服务商返回: {provider_msg}",
+        )
+
+    return LLMFailureInfo(
+        kind=LLMFailureKind.UNKNOWN,
+        user_message=f"未知错误: {error_raw}",
+        provider_message=error_raw,
+    )
 
 
 def _get_semaphore() -> asyncio.Semaphore:
@@ -146,8 +273,14 @@ async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
     config = LLMConfig.from_mode(mode)
     semaphore = _get_semaphore()
     
-    async with semaphore:
-        result = await asyncio.to_thread(_call_with_requests, config, prompt)
+    try:
+        async with semaphore:
+            result = await asyncio.to_thread(_call_with_requests, config, prompt)
+    except Exception as exc:
+        failure = classify_llm_error(str(exc))
+        if failure.is_config_required:
+            await _notify_config_required(failure.user_message)
+        raise
     
     log_llm_call(config.model_name, prompt, result)
     return result
@@ -233,53 +366,4 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
         error_raw = str(e)
         print(f"Connectivity test failed: {error_raw}")
         
-        # 1. 尝试解析网络错误
-        if error_raw.startswith("NETWORK_ERROR::"):
-            reason = error_raw.split("::", 1)[1]
-            return False, f"网络连接失败，请检查 Base URL 是否可达或本地代理设置。(底层错误: {reason})"
-            
-        # 2. 尝试解析 HTTP 错误
-        if error_raw.startswith("HTTP_"):
-            parts = error_raw.split("::", 1)
-            code_str = parts[0].replace("HTTP_", "")
-            body_str = parts[1] if len(parts) > 1 else ""
-            
-            # 尝试从 body 中提取真实的报错字段
-            provider_msg = body_str
-            try:
-                body_json = json.loads(body_str)
-                if isinstance(body_json, dict):
-                    # 兼容 OpenAI 和大部分厂商的 {"error": {"message": "..."}}
-                    if "error" in body_json and isinstance(body_json["error"], dict):
-                        provider_msg = body_json["error"].get("message") or body_json["error"].get("msg") or body_str
-                    # 兼容 Anthropic 的 {"type": "error", "error": {"type": "...", "message": "..."}}
-                    elif body_json.get("type") == "error" and "error" in body_json:
-                        err_obj = body_json["error"]
-                        if isinstance(err_obj, dict):
-                            provider_msg = err_obj.get("message") or body_str
-                    # 兼容部分直接 {"message": "..."} 的厂商
-                    elif "message" in body_json:
-                        provider_msg = body_json["message"]
-            except Exception:
-                pass # 解析 JSON 失败则保留原字符串
-                
-            # 截断过长的 HTML/文本报错，防止前端炸版
-            if len(provider_msg) > 200:
-                provider_msg = provider_msg[:200] + "..."
-
-            # 3. 按照状态码归类
-            if code_str == "401":
-                return False, f"身份验证失败(401)，请检查 API Key 是否填写正确。服务商返回: {provider_msg}"
-            elif code_str == "403":
-                return False, f"访问被拒绝(403)，可能是模型未授权或 IP 受限。服务商返回: {provider_msg}"
-            elif code_str == "404":
-                return False, f"找不到服务(404)，请检查 Base URL 是否正确(通常需要以 /v1 结尾)，或模型名是否存在。服务商返回: {provider_msg}"
-            elif code_str == "429":
-                return False, f"额度超限或请求频繁(429)，请检查账号余额。服务商返回: {provider_msg}"
-            elif code_str.startswith("5"):
-                return False, f"服务商内部异常({code_str})，请稍后重试。服务商返回: {provider_msg}"
-            else:
-                return False, f"请求失败({code_str})。服务商返回: {provider_msg}"
-                
-        # 3. 未知错误兜底
-        return False, f"未知错误: {error_raw}"
+        return False, classify_llm_error(error_raw).user_message

@@ -3,7 +3,12 @@ from __future__ import annotations
 import os
 import sys
 
-from src.server.bootstrap import prepare_browser_target, resolve_runtime_paths, resolve_server_binding
+from src.server.bootstrap import (
+    is_browser_auto_open_disabled,
+    prepare_browser_target,
+    resolve_runtime_paths,
+    resolve_server_binding,
+)
 from src.server.encoding_runtime import (
     build_utf8_subprocess_env,
     configure_process_encoding,
@@ -42,6 +47,27 @@ def test_resolve_server_binding_uses_env_values(monkeypatch):
     monkeypatch.setenv("SERVER_PORT", "9001")
 
     assert resolve_server_binding() == ("0.0.0.0", 9001)
+
+
+def test_resolve_server_binding_auto_avoids_port_when_not_explicit(monkeypatch):
+    monkeypatch.delenv("SERVER_PORT", raising=False)
+    monkeypatch.setenv("SERVER_HOST", "127.0.0.1")
+    monkeypatch.setattr("src.server.bootstrap.get_free_port", lambda start_port, max_port=65535: 8007)
+
+    assert resolve_server_binding() == ("127.0.0.1", 8007)
+
+
+def test_resolve_server_binding_does_not_auto_shift_explicit_port(monkeypatch):
+    monkeypatch.setenv("SERVER_PORT", "9009")
+    monkeypatch.setattr("src.server.bootstrap.get_free_port", lambda *_args, **_kwargs: 8010)
+
+    assert resolve_server_binding() == ("127.0.0.1", 9009)
+
+
+def test_browser_auto_open_disabled_env(monkeypatch):
+    monkeypatch.setenv("CWS_NO_BROWSER", "true")
+
+    assert is_browser_auto_open_disabled() is True
 
 
 def test_prepare_browser_target_keeps_backend_url_when_not_dev(monkeypatch):

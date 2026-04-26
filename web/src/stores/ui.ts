@@ -32,6 +32,7 @@ export const useUiStore = defineStore('ui', () => {
   const systemMenuDefaultTab = ref<SystemMenuTab>('load');
   const systemMenuClosable = ref(true);
   const systemMenuContext = ref<SystemMenuContext>('game');
+  const llmConfigError = ref('');
   
   // 详情数据 (可能为空，或正在加载)
   // 使用 shallowRef 避免深层响应式转换带来的性能开销 (对于大型嵌套对象，如 AvatarDetail)
@@ -88,6 +89,14 @@ export const useUiStore = defineStore('ui', () => {
     systemMenuClosable.value = closable;
   }
 
+  function setLlmConfigError(error: string) {
+    llmConfigError.value = error;
+  }
+
+  function clearLlmConfigError() {
+    llmConfigError.value = '';
+  }
+
   async function refreshDetail() {
     if (!selectedTarget.value) return;
 
@@ -126,6 +135,7 @@ export const useUiStore = defineStore('ui', () => {
     systemMenuDefaultTab,
     systemMenuClosable,
     systemMenuContext,
+    llmConfigError,
     detailData,
     isLoadingDetail,
     detailError,
@@ -136,6 +146,8 @@ export const useUiStore = defineStore('ui', () => {
     openSystemMenu,
     closeSystemMenu,
     setSystemMenuClosable,
+    setLlmConfigError,
+    clearLlmConfigError,
     refreshDetail
   };
 });

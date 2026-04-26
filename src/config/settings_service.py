@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from copy import deepcopy
 from functools import lru_cache
@@ -52,7 +53,41 @@ class SettingsService:
             world_lore="",
         )
 
-    def build_default_app_settings(self) -> AppSettings:
+    def _build_default_llm_seed(self) -> tuple[LLMProfile, str] | None:
+        base_url = os.environ.get("CWS_DEFAULT_LLM_BASE_URL", "").strip()
+        model_name = os.environ.get("CWS_DEFAULT_LLM_MODEL", "").strip()
+        fast_model_name = os.environ.get("CWS_DEFAULT_LLM_FAST_MODEL", "").strip()
+        api_key = os.environ.get("CWS_DEFAULT_LLM_API_KEY", "").strip()
+
+        if not (base_url and model_name and fast_model_name and api_key):
+            return None
+
+        max_concurrent_raw = os.environ.get("CWS_DEFAULT_LLM_MAX_CONCURRENT_REQUESTS", "").strip()
+        try:
+            max_concurrent = int(max_concurrent_raw) if max_concurrent_raw else 10
+        except ValueError:
+            max_concurrent = 10
+
+        return (
+            LLMProfile(
+                base_url=base_url,
+                model_name=model_name,
+                fast_model_name=fast_model_name,
+                mode=os.environ.get("CWS_DEFAULT_LLM_MODE", "default").strip() or "default",
+                max_concurrent_requests=max_concurrent,
+                has_api_key=True,
+                api_format=os.environ.get("CWS_DEFAULT_LLM_API_FORMAT", "openai").strip() or "openai",
+            ),
+            api_key,
+        )
+
+    def build_default_app_settings(self, *, apply_llm_seed: bool = True) -> AppSettings:
+        llm_profile = LLMProfile()
+        if apply_llm_seed:
+            seed = self._build_default_llm_seed()
+            if seed is not None:
+                llm_profile = seed[0]
+
         return AppSettings(
             schema_version=2,
             ui={
@@ -64,7 +99,7 @@ class SettingsService:
                 "max_auto_saves": 5,
             },
             llm={
-                "profile": LLMProfile(),
+                "profile": llm_profile,
             },
             new_game_defaults=self.build_default_new_game_defaults(),
         )
@@ -100,6 +135,12 @@ class SettingsService:
         secrets = self._load_model(self.paths.secrets_file, LLMSecrets, LLMSecrets())
         if self.paths.secrets_file.exists():
             return secrets
+        seed = self._build_default_llm_seed()
+        if seed is not None:
+            settings = self.get_settings()
+            seed_profile, seed_key = seed
+            if settings.llm.profile == seed_profile:
+                secrets.api_key = seed_key
         self._save_secrets(secrets)
         return secrets
 
@@ -153,7 +194,7 @@ class SettingsService:
         return self.get_settings_view()
 
     def reset_settings(self) -> AppSettingsView:
-        defaults = self.build_default_app_settings()
+        defaults = self.build_default_app_settings(apply_llm_seed=False)
         self._save_settings(defaults)
         self._save_secrets(LLMSecrets())
         return self.get_settings_view()
