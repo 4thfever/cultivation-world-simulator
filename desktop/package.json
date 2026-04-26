@@ -1,0 +1,21 @@
+{
+  "name": "cultivation-world-simulator-desktop",
+  "version": "0.0.0",
+  "description": "Steam Electron shell for Cultivation World Simulator",
+  "author": "Cultivation World Simulator contributors",
+  "private": true,
+  "type": "module",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"build/**/*.test.js\"",
+    "dist:steam": "npm run build && electron-builder --config electron-builder.config.cjs --win dir"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "electron": "^35.2.1",
+    "electron-builder": "^26.0.12",
+    "typescript": "~5.9.3"
+  }
+}

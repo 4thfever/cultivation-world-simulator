@@ -1,6 +1,11 @@
-# Steam Electron 版前置优化方案
+# Steam Electron 打包上传方案
 
-本文档记录在正式实现 Steam Electron 版本之前，适合先落地到主代码线的一批基础优化。
+本文档记录 Steam Electron 版本的前置优化、正式 Electron 宿主方案，以及面向 SteamCMD 的一键打包上传管线设计。
+
+当前文档分为两层：
+
+1. 已完成的通用底盘优化：这些能力对 GitHub / 浏览器使用模式也有收益。
+2. 待实现的 Steam Electron 管线：这些能力只服务 Steam 桌面成品，不影响现有开源包默认流程。
 
 这些优化的共同标准是：
 
@@ -23,11 +28,11 @@
 3. Electron 窗口加载本地 HTTP 地址，而不是直接用 `file://` 打开前端产物。
 4. Steam 版可以预置一套 LongCat 默认 LLM 配置，降低首次启动门槛。
 
-在进入 Electron 实现前，应先把通用底盘补稳。
+在进入 Electron 实现前，应先把通用底盘补稳；截至 2026-04-26，通用底盘已完成一轮实现，下一步进入 Electron 宿主和 Steam 上传管线。
 
 ## 当前落地状态
 
-截至 2026-04-26，本 spec 中的前置优化已完成一轮实现，Electron 本体尚未开始。
+截至 2026-04-26，本 spec 中的前置优化已完成一轮实现，Steam Electron 管线也已完成首轮最小可用实现。
 
 已完成：
 
@@ -42,21 +47,36 @@
 9. 默认 LLM 配置种子机制：支持 `CWS_DEFAULT_LLM_*` 环境变量首次写入默认 LLM profile 与 `secrets.json`，不覆盖用户已有配置。
 10. 禁止覆盖用户已有 LLM 配置测试：覆盖 seed 首次写入、不覆盖用户配置、reset 不重套 seed 等场景。
 11. 前端 LLM 配置页展示当前失败原因：Socket/status 写入 UI store，`LLMConfigPanel` 顶部展示失败原因，保存成功后清空。
-12. 打包脚本敏感文件清理契约：`pack_github.ps1`、`pack_steam.ps1`、`compress.ps1` 增加 `Assert-NoSensitiveConfigs`，并有 contract 测试覆盖。
+12. 打包脚本敏感文件清理契约：`pack_github.ps1`、`compress.ps1`、`pack_steam_electron.ps1` 均执行 `Assert-NoSensitiveConfigs`，并有 contract 测试覆盖。
+13. Electron 桌面宿主：新增 `desktop/` 工程，主进程负责启动 packaged 后端、等待 `/api/health`、加载本地 HTTP UI、退出时清理后端进程。
+14. Steam Electron 打包脚本：新增 `tools/package/pack_steam_electron.ps1`，串联 web build、PyInstaller 后端、Electron builder unpacked 产物和敏感配置扫描。
+15. Steam 上传脚本参数化：`upload_steam.ps1` 支持 `-ContentRoot`、`-BuildDesc`、`-Branch`、`-Preview`，并强制显式传入 `-ContentRoot`。
+16. Cursor 一键命令：`/pack_to_steam` 是唯一 Steam 上传入口，描述构建、读取 content root marker、上传 Steam 的顺序。
+17. Steam 私有 seed 资源：Electron 支持读取 `resources/steam-seed.json`，只把允许的 `CWS_DEFAULT_LLM_*` 注入后端环境。
 
 验证记录：
 
-- 后端全量：`pytest -q`，1410 passed, 2 skipped。
-- 前端类型检查：`cd web && npm run type-check` 通过。
-- 前端全量测试：`cd web && npm run test`，524 passed。
+- 后端全量：`pytest -q`，1410 passed, 2 skipped。（前置阶段记录）
+- 前端类型检查：`cd web && npm run type-check` 通过。（前置阶段记录）
+- 前端全量测试：`cd web && npm run test`，524 passed。（前置阶段记录）
+- Electron 单测：`cd desktop && npm test`，10 passed。
+- 打包契约测试：`pytest tests/test_package_contract.py`，4 passed。
+- PowerShell 语法检查：`pack_steam_electron.ps1` / `upload_steam.ps1` 通过 Parser 检查。
+- Electron builder smoke：使用 dummy backend 成功生成 `desktop/release/win-unpacked`。
+- 完整 Steam Electron pack smoke：`powershell ./tools/package/pack_steam_electron.ps1` 成功生成 `tmp/v3.0.1_steam_electron/win-unpacked`。
+- Steam VDF preview：`upload_steam.ps1 -ContentRoot <win-unpacked> -BuildDesc v3.0.1-electron-preview -Preview` 成功生成 VDF，未上传。
+- Packaged backend health smoke：启动最终产物内 `resources/backend/AICultivationSimulator_Steam.exe`，`GET /api/health` 返回 200。
 
-仍未开始：
+后续仍未完成：
 
-- Electron 工程结构、主进程、窗口加载、后端进程管理、`electron-builder`、Steam Electron 上传链路。
+- 真实 SteamCMD 上传未在本次验证中执行。
+- Steamworks 后台 Launch Option / 内部分支验证需在 Steamworks 环境中手动完成。
 
 ## 目标
 
-本阶段目标不是实现 Electron，而是提前完成以下基础能力：
+### 已完成的前置目标
+
+前置阶段目标不是实现 Electron，而是提前完成以下基础能力：
 
 1. 运行中 LLM key / 模型 / 额度失效时能统一提示用户配置。
 2. 后端启动端口更稳，减少端口占用导致的启动失败。
@@ -65,9 +85,20 @@
 5. 默认 LLM 配置可以通过安全的种子机制写入用户数据目录。
 6. 敏感配置不进入发布包的契约更明确。
 
+### Electron 阶段目标
+
+正式 Steam Electron 阶段目标是：
+
+1. 新增独立 Electron 桌面宿主，不改变现有 GitHub 开源包和浏览器启动体验。
+2. Electron 主进程启动本地 PyInstaller 后端 exe，等待 `/api/health` 后加载本地 HTTP UI。
+3. 构建 Steam 专用 unpacked Electron 产物，用于 Steam depot 上传；不上传安装器。
+4. 允许 Steam 包注入免费 LongCat 默认 key，降低首次启动门槛。
+5. 新增 Cursor 一键命令，串联 Steam Electron 构建与 SteamCMD 上传。
+6. 删除旧 `pack_steam.ps1` PyInstaller Steam 包脚本，Steam 发布只保留 Electron 管线，避免两条管线互相污染。
+
 ## 非目标
 
-本阶段暂不做：
+### 前置阶段非目标
 
 1. 不新增 Electron 目录、`electron-builder` 配置或桌面窗口逻辑。
 2. 不把前端改为 `file://` 可运行。
@@ -75,6 +106,15 @@
 4. 不把真实 LongCat key 提交到仓库。
 5. 不在每次 `/api/settings/llm/status` 请求时真实调用模型。
 6. 不改变默认用户数据目录到 Electron `userData`。
+
+### Electron 首版非目标
+
+1. 暂不接入 Steamworks SDK。
+2. 暂不接入 Steam Cloud。
+3. 暂不实现成就、Overlay、Rich Presence、统计或 DLC。
+4. 暂不支持 macOS / Linux Steam 包；首版仅处理 Windows。
+5. 暂不做安装器发行；Steam depot 上传 Electron unpacked 目录。
+6. 暂不把 Steam 版用户数据迁移到 Electron `userData`，后端仍按当前 `CWS_DATA_DIR` / frozen 默认规则落盘。
 
 ## 前置优化清单
 
@@ -411,7 +451,7 @@ class LLMFailureKind(str, Enum):
 
 现状：
 
-- `pack_github.ps1`、`pack_steam.ps1`、`compress.ps1` 已清理 `local_config.yml`、`settings.json`、`secrets.json`。
+- `pack_github.ps1`、`compress.ps1`、`pack_steam_electron.ps1` 已清理 `local_config.yml`、`settings.json`、`secrets.json`。
 
 目标：
 
@@ -513,10 +553,261 @@ class LLMFailureKind(str, Enum):
 
 这样 Electron 不需要重新解决 LLM 配置、端口避让、编码、健康检查、敏感文件清理等底层问题。
 
+## Steam Electron 正式方案
+
+### 推荐目录结构
+
+新增 Electron 工程时建议使用独立目录，避免污染 `web/` 这个纯前端工程：
+
+```text
+desktop/
+  package.json
+  tsconfig.json
+  electron-builder.yml
+  src/
+    main.ts
+    preload.ts
+    backend.ts
+    health.ts
+    paths.ts
+  assets/
+    icon.ico
+```
+
+新增打包脚本：
+
+```text
+tools/package/
+  pack_steam_electron.ps1
+  upload_steam.ps1              # 改为支持 -ContentRoot / -BuildDesc / -Branch
+  steam/
+    steam_config.env.example
+    app_build.vdf.template
+    depot_build.vdf.template
+```
+
+保留唯一 Cursor 命令：
+
+```text
+.cursor/commands/pack_to_steam.md
+```
+
+旧 `tools/package/pack_steam.ps1` 已废弃并删除。正式 Electron 管线不要复用旧输出目录名，输出到 `tmp/<tag>_steam_electron/`。
+
+### Electron 主进程职责
+
+Electron 主进程只做宿主编排，不承载游戏业务逻辑：
+
+1. 计算后端 exe 路径，开发模式可指向 `tmp/<tag>_steam_backend/AICultivationSimulator_Steam/AICultivationSimulator_Steam.exe` 或本地 Python 启动命令。
+2. 找一个空闲端口，显式写入 `SERVER_PORT`，避免后端再次漂移到别的端口。
+3. 启动后端子进程，并写入环境变量：
+   - `SERVER_PORT=<port>`
+   - `CWS_NO_BROWSER=1`
+   - `CWS_DISABLE_AUTO_SHUTDOWN=1`
+   - `PYTHONUTF8=1`
+   - `PYTHONIOENCODING=utf-8`
+   - `CWS_DEFAULT_LLM_*`（Steam 私有包使用）
+4. 轮询 `http://127.0.0.1:<port>/api/health`。
+5. 健康检查通过后创建或展示 `BrowserWindow`，并加载 `http://127.0.0.1:<port>`。
+6. 如果健康检查超时，显示桌面错误页，提供日志路径和退出按钮。
+7. 主窗口关闭、App 退出、后端异常时清理后端进程树。
+
+注意：Electron 不使用 `file://` 打开 `web/dist`，前端静态资源仍由后端 HTTP 服务托管。
+
+### Electron 安全基线
+
+首版也应保持默认安全姿态：
+
+1. `nodeIntegration: false`。
+2. `contextIsolation: true`。
+3. `sandbox: true`，除非 preload 有明确不可替代的 Node 依赖。
+4. preload 默认保持极小，只暴露日志路径、版本号、退出等必要 IPC。
+5. Renderer 不直接读写本地文件，不直接持有 LLM key。
+6. `BrowserWindow` 只加载 `127.0.0.1:<port>`，禁止导航到外部站点；外链统一交给系统浏览器打开。
+
+### 后端产物布局
+
+Steam Electron 包内部建议布局：
+
+```text
+CultivationWorldSimulator.exe          # Electron 主程序，Steam Launch Option 指向它
+resources/
+  backend/
+    AICultivationSimulator_Steam.exe
+    _internal/
+    static/
+    web_static/
+```
+
+后端仍由 PyInstaller `onedir` 构建。Electron builder 通过 `extraResources` 把后端目录复制到 `resources/backend`，不要把后端 exe、`_internal`、`static`、`web_static` 打进 asar。
+
+Steam depot 上传 `electron-builder` 的 unpacked 输出目录，例如：
+
+```text
+desktop/dist/win-unpacked/
+```
+
+不要上传 NSIS / Squirrel / MSI 安装器。Steam 负责安装、更新、校验和启动。
+
+### Steam 免费 Key 注入
+
+项目所有者已确认 Steam 首版可以把免费 LongCat key 打包进 Steam 私有产物中。实现上仍应遵守以下约束：
+
+1. key 不提交到仓库。
+2. key 不进入 GitHub 开源包。
+3. key 不写入 `settings.json`，只通过 `CWS_DEFAULT_LLM_API_KEY` 首次种子写入用户数据目录中的 `secrets.json`。
+4. key 不输出到日志、诊断信息、前端状态或错误详情。
+5. `reset_settings()` 不重新套用 seed，尊重用户主动清空设置。
+
+推荐做法：
+
+1. 在 `tools/package/steam/steam_config.env` 或单独私有 env 文件中维护 Steam 私有 LLM seed。
+2. `pack_steam_electron.ps1` 构建 Electron 包时把这些值写入 Electron 主进程运行时可读取的私有配置文件，或在 Electron 启动后端时注入环境变量。
+3. 该私有配置文件只进入 Steam Electron 包，不进入 GitHub 包，不加入版本控制。
+
+由于前端和后端当前已有默认 seed 机制，Electron 侧不需要自己写 `settings.json` / `secrets.json`。
+
+### 数据目录策略
+
+首版不迁移到 Electron `userData`。数据目录保持现有后端策略：
+
+1. 用户显式设置 `CWS_DATA_DIR` 时，以 `CWS_DATA_DIR` 为准。
+2. Steam Electron 包默认走 frozen 后端的数据目录，即 Windows 下 `%LOCALAPPDATA%/CultivationWorldSimulator`。
+3. Electron 只负责展示日志路径，不直接管理存档、设置和 secrets。
+
+后续如果引入 Steam Cloud，再单独设计 `saves/` 同步范围；首版不做 Steam Cloud。
+
+## Steam Electron 打包脚本
+
+### `pack_steam_electron.ps1`
+
+推荐职责：
+
+1. 获取当前 git tag，产物目录使用 `tmp/<tag>_steam_electron/`。
+2. 执行前端构建：`cd web && npm run build`。
+3. 执行后端 PyInstaller 构建，参数以 `pack_steam_electron.ps1` 为准，输出到 Electron 专用 backend staging 目录。
+4. 扫描 backend staging，确认不包含 `local_config.yml`、`settings.json`、`secrets.json`。
+5. 安装或校验 `desktop/node_modules`。
+6. 执行 Electron 构建，例如 `cd desktop && npm run build && npm run dist:steam`。
+7. 将 backend staging 作为 `extraResources` 复制进 Electron `resources/backend`。
+8. 扫描最终 `win-unpacked` 目录：
+   - 禁止开发者本地 `settings.json` / `secrets.json` / `local_config.yml`。
+   - 禁止 source map，除非明确要上传调试符号。
+   - 允许 Steam 私有 LLM seed 或已编译进 Electron 主进程的免费 key。
+9. 输出最终 Steam content root 路径。
+
+建议命令：
+
+```powershell
+powershell ./tools/package/pack_steam_electron.ps1
+```
+
+### `upload_steam.ps1`
+
+上传脚本只接收显式 content root，不再推断旧 Steam/PyInstaller 产物路径：
+
+```powershell
+powershell ./tools/package/upload_steam.ps1 `
+  -ContentRoot "tmp/<tag>_steam_electron/win-unpacked" `
+  -BuildDesc "<tag>-electron" `
+  -Branch ""
+```
+
+参数语义：
+
+1. `-ContentRoot`：要上传到 depot 的目录；Electron 管线传 `win-unpacked`。
+2. `-BuildDesc`：SteamPipe build 描述，默认使用 git tag。
+3. `-Branch`：可选；为空时不 `setlive`，上传后手动在 Steamworks 后台推送。
+4. `-Preview`：可选；只生成 VDF 并打印路径，不执行 SteamCMD 上传。
+
+VDF 仍使用 UTF-8 no BOM 写出。
+
+## Cursor 一键命令
+
+`.cursor/commands/pack_to_steam.md` 内容应明确串联两步：
+
+1. 运行 `powershell ./tools/package/pack_steam_electron.ps1`。
+2. 成功后运行 `powershell ./tools/package/upload_steam.ps1 -ContentRoot <pack脚本输出的win-unpacked路径> -BuildDesc <tag>-electron`。
+
+命令要求：
+
+1. 任一步 exit code 非 0，立即停止后续步骤。
+2. 上传阶段允许用户手动输入 Steam 密码或 Steam Guard。
+3. 不把密码、key、Steam Guard token 回显到对话中。
+4. 结束时报告：
+   - git tag
+   - content root
+   - Steam build desc
+   - 是否已上传
+   - 如果未自动 set live，提醒去 Steamworks 后台把 build 推到目标分支。
+
+如果上传脚本支持 `-Preview`，不要新增第二个 Steam 上传入口；需要预览时直接手动执行 `upload_steam.ps1 -Preview`。
+
+## Steamworks 首版后台约定
+
+首版只依赖 SteamPipe，不接 Steamworks SDK：
+
+1. Steam Launch Option 指向 Electron 主 exe，而不是后端 PyInstaller exe。
+2. depot 内容根是 Electron unpacked 目录。
+3. 首次验证建议上传到内部测试分支，不直接推 default。
+4. 不配置 Steam Cloud。
+5. 不配置成就、统计、Overlay 强依赖。
+6. `steam_appid.txt` 只用于本地开发测试，不进入正式 depot。
+
+## Electron 阶段测试策略
+
+### 单元 / 契约测试
+
+建议新增：
+
+1. Electron 后端路径解析测试：packaged / dev 两种路径。
+2. Electron 启动环境变量构造测试，确认包含 `SERVER_PORT`、`CWS_NO_BROWSER`、`CWS_DISABLE_AUTO_SHUTDOWN`、UTF-8 变量。
+3. Electron health polling 测试：成功、超时、后端提前退出。
+4. 打包脚本 contract 测试：`pack_steam_electron.ps1` 包含敏感文件扫描。
+5. 上传脚本 contract 测试：支持 `-ContentRoot`、`-BuildDesc`、`-Branch`、`-Preview`。
+6. Cursor 命令 contract 测试：`.cursor/commands/pack_to_steam.md` 引用正确脚本，且不存在重复 Steam Electron 别名命令。
+
+### 本地 smoke
+
+建议人工或半自动验证：
+
+1. 从干净目录启动 `win-unpacked/CultivationWorldSimulator.exe`。
+2. Electron 窗口能打开首页。
+3. 后端不会自动打开系统浏览器。
+4. 关闭 Electron 后，后端进程退出。
+5. 首次启动能种子写入默认 LLM 配置。
+6. 日志里不出现 API key。
+7. 模拟端口占用时仍能启动。
+
+### Steam smoke
+
+上传到内部分支后验证：
+
+1. Steam 安装后能启动 Electron 主程序。
+2. Steam 更新后旧存档仍可读取。
+3. Steam 卸载不会误删 `%LOCALAPPDATA%/CultivationWorldSimulator` 用户数据。
+4. 没有把本地开发 `settings.json` / `secrets.json` 打进 depot。
+5. Steam 客户端离线启动时，除了 LLM 网络能力不可用外，应用本体能正常打开并提示配置/网络问题。
+
+## 实施顺序
+
+推荐按以下顺序落地：
+
+1. 新建 `desktop/` Electron 最小工程，打通开发模式加载本地后端。
+2. 实现 Electron 启动 packaged 后端 exe、health 等待、退出清理。
+3. 新增 `pack_steam_electron.ps1`，先只产出本地可运行 `win-unpacked`。
+4. 参数化 `upload_steam.ps1`，支持 Electron content root。
+5. 更新 `.cursor/commands/pack_to_steam.md` 为唯一 Steam Electron 入口。
+6. 补 contract 测试和本地 smoke 文档。
+7. 上传 Steam 内部测试分支验证。
+
 ## 维护约定
 
 1. 任何新增的默认 LLM 配置来源都不得绕过 `SettingsService`。
-2. API Key 不得写入 `settings.json`、静态配置、前端资源或日志。
+2. 除 Steam Electron 私有 seed 外，API Key 不得写入 `settings.json`、静态配置、前端资源或日志；Steam 私有 seed 也不得进入仓库、GitHub 包或前端可见状态。
 3. 任何会要求用户处理 LLM 配置的错误，都应统一走 `llm_config_required` 链路。
 4. 打包版新增宿主行为时，应优先通过环境变量控制，保持 GitHub 默认体验不变。
 5. 后续实现 Electron 时，应先复查本 spec 的完成状态，再新增桌面壳逻辑。
+6. Steam Electron 管线必须与 GitHub 开源管线保持脚本和输出目录隔离。
+7. Steam 私有免费 key 可以进入 Steam Electron 产物，但不得进入仓库、GitHub 包、日志、`settings.json` 和前端可见状态。
+8. Steam 首版不接 Steamworks SDK / Steam Cloud；若后续启用，需要另起 spec。

@@ -103,7 +103,7 @@
 | 命令文件 | 建议命令名 | 功能 |
 |---|---|---|
 | `.cursor/commands/pack_to_github.md` | `/pack_to_github` | 依次执行 GitHub 打包流程：`pack_github.ps1` -> `compress.ps1` -> `release.ps1`。 |
-| `.cursor/commands/pack_to_steam.md` | `/pack_to_steam` | 依次执行 Steam 打包流程：`pack_steam.ps1` -> `upload_steam.ps1`（需人工输密码）。 |
+| `.cursor/commands/pack_to_steam.md` | `/pack_to_steam` | 默认且唯一的 Steam Electron 打包上传流程：`pack_steam_electron.ps1` -> 读取 `tmp/steam_electron_content_root.txt` -> `upload_steam.ps1 -ContentRoot ... -BuildDesc <tag>-electron`；旧 PyInstaller Steam 包脚本与 Electron 别名命令均已删除。 |
 | `.cursor/commands/sync_contributors.md` | `/sync_contributors` | 从 GitHub contributors API 同步仓库贡献者，并自动更新根目录 `CONTRIBUTORS.md`。 |
 | `.cursor/commands/sync_roleplay_docs.md` | `/sync_roleplay_docs` | 同步角色扮演模式相关的 rule / skill / spec / AGENTS / 测试收尾，重点核对上帝视角单角色接管、决策边界暂停、runtime 不进存档、choice continuation 与 `Conversation` 对话语义。 |
 | `.cursor/commands/sync_readme.md` | `/sync_readme` | 以 `README.md` 为源，按 `static/locales/registry.json` 中需同步语言，更新 `docs/readme/` 下各 `*_README.md`。 |
