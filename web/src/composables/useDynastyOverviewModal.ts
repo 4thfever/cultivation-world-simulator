@@ -40,6 +40,7 @@ export function useDynastyOverviewModal(show: () => boolean) {
         void dynastyStore.refreshDetail()
       }
     },
+    { immediate: true },
   )
 
   return {

@@ -9,7 +9,7 @@
 *   **状态管理**: Pinia (模块化 Store)
 *   **UI 组件库**: Naive UI (用于系统菜单、面板等常规 UI)
 *   **游戏渲染**: Vue3-Pixi (基于 Pixi.js 的 2D 渲染引擎，处理地图、角色动画)
-*   **网络请求**: Axios (RESTful API)
+*   **网络请求**: 基于 `fetch` 的轻量封装（`web/src/api/http.ts`）
 *   **国际化**: Vue I18n
 
 ## 2. 目录结构详解 (Directory Structure)
@@ -23,18 +23,20 @@
     *   `system.ts`: 系统级控制（启动、暂停、重置、存档）。
     *   `world.ts`: 获取地图数据、初始状态、天象信息。
     *   `event.ts`: 事件日志的分页拉取。
+    *   `avatar.ts` / `llm.ts` 等：角色详情、LLM 配置和其他垂直领域接口。
 *   `mappers/`:
     *   `event.ts`: `EventDTO -> GameEvent` 的转换与时间线顺序规范化。
     *   `world.ts`: `rankings/config` 的响应归一化，减少组件和 store 内散乱兼容逻辑。
+    *   新增接口若有结构转换，应优先在此处归一化，再交给 store / composable。
 
 ### 2.2 组件层 (`src/components/`)
 *   **`game/` (核心游戏画面)**
     *   `GameCanvas.vue`: Pixi.js 应用入口，管理视口 (`Viewport`) 和图层顺序。
-    *   `MapLayer.vue`: 负责地图瓦片渲染、动态水面效果 (Shader/Ticker)、区域标注。
+    *   `MapLayer.vue`: 地图渲染的模板壳层；Pixi 生命周期、瓦片构建、动态水面、区域标注等集中在 `components/game/composables/useMapLayerRenderer.ts`。
     *   `EntityLayer.vue`: 负责角色 (Avatar) 的渲染、移动动画插值。
     *   `CloudLayer.vue`: 战争迷雾或装饰性云层。
     *   `panels/`: 游戏内悬浮面板。
-        *   `EventPanel.vue`: 左侧事件日志，包含无限滚动、单人/双人筛选逻辑。
+        *   `EventPanel.vue`: 左侧事件日志展示层；滚动、筛选和加载状态集中在 `composables/useEventPanel.ts`。
         *   `info/`: 选中对象（角色/地块）的详细信息面板容器。
         *   `system/`: 系统菜单内的子面板（存档、设置、LLM配置、创建角色）。
 *   **`layout/`**: 全局布局组件。
@@ -59,7 +61,12 @@
 *   `useGameControl.ts`: 负责纯游戏控制逻辑，如暂停/继续、ESC 输入处理、与菜单可见性的联动暂停恢复。
 *   `useSidebarResize.ts`: 负责侧边栏（事件面板）的拖拽调整宽度逻辑。
 *   `useAudio.ts` / `useBgm.ts`: 音效与背景音乐管理。
-*   `useTextures.ts`: Pixi 纹理的预加载与缓存管理。
+*   `useEventPanel.ts`: 事件面板的数据加载、筛选、滚动和可见状态。
+*   `useLoadingOverlayState.ts`: 启动遮罩的进度文案、阶段状态与展示派生逻辑。
+*   `useRankingModal.ts` / `useDynastyOverviewModal.ts` / `useMortalOverviewModal.ts` / `useTimeOverviewModal.ts` / `useSectRelationsModal.ts` / `useHiddenDomainOverviewModal.ts`: 状态栏弹窗的数据加载和派生字段。
+*   `useRegionDetailPanel.ts` / `useSectDetailPanel.ts` / `useAvatarPortraitPanel.ts`: 详情页与头像换图的局部业务状态。
+*   `components/game/composables/useTextures.ts`: Pixi 纹理的预加载与缓存管理。
+*   `components/game/composables/useMapLayerRenderer.ts`: 地图 Pixi 对象生命周期、静态瓦片构建、水面 ticker、区域标签与交互。
 
 ### 2.4 状态管理层 (`src/stores/`)
 基于 Pinia 的状态管理。
@@ -140,14 +147,21 @@
 4. 新增消息类型时，优先修改 router 和 DTO，不在组件层做消息分支。
 
 ### 3.7 渲染架构
-*   **Vue3-Pixi**: 使用 Vue 组件声明式地编写 Pixi 对象。
+*   **Vue3-Pixi**: 使用 Vue 组件声明式地编写 Pixi 对象；复杂 Pixi 生命周期放入局部 composable，组件负责挂载点和事件转发。
 *   **性能优化与避坑 (Gotchas)**:
     *   **严禁将 PIXI 原生对象 (如 `Sprite`, `Container`) 放入 Vue 的深层响应式对象 (`ref`, `reactive`) 中**。这会导致 PIXI 内部严格相等 (`===`) 比较失败（如 `removeChild` 失效），引发内存泄漏和逻辑堆积 Bug。若需在组件中保存实例引用，请使用普通变量或 `shallowRef`。
     *   地图使用 `shallowRef` 存储，避免 Vue 深度监听 100x100 的地图数组。
-    *   地块渲染使用 `onMounted` 一次性构建 Pixi Sprite，静态地块不参与响应式更新，仅在地图数据重载时重建。
+    *   地块渲染由 `useMapLayerRenderer` 在挂载后一次性构建 Pixi Sprite，静态地块不参与响应式更新，仅在地图数据重载时重建。
     *   动态效果（如水面流动）使用 `PIXI.Ticker` 独立驱动，不依赖 Vue 渲染循环。
     *   地图区域名（`MapLayer` / `utils/mapLabels.ts`）默认应采用“碰撞避让”而非“重叠即隐藏”。避让策略必须兼容 `zh-CN / zh-TW / en-US / vi-VN / ja-JP` 五种语言：紧凑脚本（中文、日文）与拉丁脚本（英文、越南文）分别使用各自的文字尺寸估算与换行策略。
     *   地图区域名避让逻辑必须保持轻量。优先使用固定数量候选位置 + 邻域碰撞检测（如空间桶 / 网格索引），避免引入全局两两比较、力导向模拟、逐帧布局或其他会随区域数量快速退化的算法。
+
+### 3.8 组件 / Composable 边界
+前端大型组件的默认方向是“模板展示层 + composable 业务层”。
+1. 面板、弹窗、详情页组件只保留 DOM 结构、样式、事件绑定和少量展示判断。
+2. 数据加载、派生字段、跳转、提交、timer、Pixi 生命周期等逻辑优先放到 `web/src/composables/*` 或局部 `components/**/composables/*`。
+3. 状态栏弹窗若使用 `defineAsyncComponent + v-if` 懒加载，并依赖 `props.show` 触发请求，watcher 必须使用 `{ immediate: true }`，否则“首次挂载即打开”的场景会跳过拉取数据。
+4. 王朝、排行/天下武道会、凡人、宗门关系、时间、已故角色等弹窗都应保留“初始 `show=true` 仍会请求数据”的回归测试。
 
 ## 4. 关键文件索引 (Critical Files Index)
 
@@ -160,8 +174,12 @@
 | `web/src/components/settings/SettingsPanel.vue` | 可复用设置内容面板。负责语言、音量、自动保存等设置项。 | 中 |
 | `web/src/stores/world.ts` | world 级编排与时间/天象状态。 | 高 |
 | `web/src/stores/socketMessageRouter.ts` | Socket 业务消息路由中心。新增消息类型时优先修改此处。 | 高 |
-| `web/src/components/game/panels/EventPanel.vue` | 事件日志面板。涉及 UI 展示、筛选、性能优化（虚拟滚动/分页）。 | 中 |
-| `web/src/components/game/MapLayer.vue` | 地图渲染核心。涉及 Pixi 绘图、纹理管理、Shader/Mask 特效。 | 中 |
+| `web/src/components/layout/StatusBarPanels.vue` | 状态栏弹窗装配层。负责按需加载和打开状态，不承载弹窗数据逻辑。 | 中 |
+| `web/src/components/game/panels/EventPanel.vue` | 事件日志展示层。数据、筛选、滚动逻辑在 `useEventPanel.ts`。 | 中 |
+| `web/src/composables/useEventPanel.ts` | 事件日志面板逻辑。负责加载、筛选、滚动和可见状态。 | 中 |
+| `web/src/components/game/MapLayer.vue` | 地图渲染模板壳层。负责挂载容器与事件转发。 | 中 |
+| `web/src/components/game/composables/useMapLayerRenderer.ts` | 地图 Pixi 渲染核心。涉及纹理、Sprite 生命周期、Ticker、标签与交互。 | 中 |
+| `web/src/composables/useLoadingOverlayState.ts` | LoadingOverlay 展示状态和进度文案派生。 | 低 |
 | `web/src/composables/useGameControl.ts` | 游戏控制层。负责暂停恢复、ESC 输入、菜单显隐联动暂停恢复。 | 低 |
 | `web/src/api/modules/*.ts` + `web/src/api/mappers/*.ts` | API 请求与 DTO 归一化。新增接口建议同步补 mapper。 | 中 |
 | `web/src/locales/*.json` | 多语言文本。修改 UI 文字时必改。 | 高 |
@@ -171,7 +189,8 @@
 **Vibe Coding 提示**:
 *   修改 UI 时，优先检查 `stores/ui.ts`、`useAppShell.ts`、`useSystemMenuFlow.ts` 和对应的 Panel 组件。
 *   修改数据逻辑时，先看 `stores/world.ts` 及其拆分出的子 Store。
-*   涉及 Pixi 渲染问题时，直接关注 `web/src/components/game/` 下的 Layer 组件。
+*   涉及 Pixi 渲染问题时，优先关注 `web/src/components/game/composables/useMapLayerRenderer.ts` 与 `components/game/composables/useTextures.ts`。
+*   状态栏弹窗首次打开为空时，优先检查是否是 `defineAsyncComponent + v-if` 首次挂载，相关 `props.show` watcher 是否设置了 `{ immediate: true }`。
 *   Socket 消息逻辑优先改 `stores/socketMessageRouter.ts`，不要把消息分支散到组件中。
 *   新增后端响应字段时，优先在 `types/api.ts` 和 `api/mappers/` 收敛转换。
 *   修改地图文字显示时，优先检查 `web/src/components/game/utils/mapLabels.ts` 和 `web/src/utils/mapStyles.ts`，不要在 `MapLayer.vue` 内临时堆叠随机偏移或硬编码语言分支。

@@ -1,140 +1,29 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { systemApi, type InitStatusDTO } from '../api'
+import type { InitStatusDTO } from '../api'
 import { useI18n } from 'vue-i18n'
-import { logError } from '../utils/appError'
+import { useLoadingOverlayState } from '@/composables/useLoadingOverlayState'
 import refreshIcon from '@/assets/icons/ui/lucide/refresh-cw.svg'
 import triangleAlertIcon from '@/assets/icons/ui/lucide/triangle-alert.svg'
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 
 const props = defineProps<{
   status: InitStatusDTO | null
 }>()
 
-const tipsList = computed<string[]>(() => {
-  const list = tm('loading.tips')
-  return Array.isArray(list) ? list.filter((item): item is string => typeof item === 'string') : []
-})
-
-const currentTip = ref('')
-const displayProgress = ref(0) // 实际显示的进度
-const localElapsed = ref(0)
-let tipInterval: ReturnType<typeof setInterval> | null = null
-let elapsedInterval: ReturnType<typeof setInterval> | null = null
-
-const progress = computed(() => displayProgress.value)
-const phaseText = computed(() => {
-  const phaseName = props.status?.phase_name || ''
-  if (!phaseName) return t('loading.phase.chaos')
-  return t(`loading.phase.${phaseName}`)
-})
-const isError = computed(() => props.status?.status === 'error')
-const errorMessage = computed(() => props.status?.error || t('loading.unknown_error'))
-
-// 初始化随机 Tip
-watch(tipsList, (list) => {
-  if (list.length > 0 && !currentTip.value) {
-    currentTip.value = list[Math.floor(Math.random() * list.length)]
-  }
-}, { immediate: true })
-
-// 监听后端进度，如果后端进度领先，则同步
-watch(() => props.status?.progress, (newVal) => {
-  if (newVal !== undefined && newVal !== null) {
-    if (newVal > displayProgress.value) {
-      displayProgress.value = newVal
-    }
-  }
-}, { immediate: true })
-
-// 根据时间计算背景透明度：前5秒保持不透明，5-20秒逐渐透明到0.8。
-// 只影响背景，不影响内容亮度。
-const bgOpacity = computed(() => {
-  const elapsed = localElapsed.value
-  if (elapsed <= 5) return 1
-  if (elapsed >= 20) return 0.9
-  // 5秒 -> 1.0, 20秒 -> 0.9 (线性插值)。
-  return 1 - (elapsed - 5) / 15 * 0.1
-})
-
-// SVG 圆环参数
-const radius = 90
-const circumference = 2 * Math.PI * radius
-const strokeDashoffset = computed(() => {
-  return circumference - (progress.value / 100) * circumference
-})
-
-async function handleRetry() {
-  localElapsed.value = 0
-  displayProgress.value = 0
-  try {
-    await systemApi.reinitGame()
-  } catch (e: unknown) {
-    logError('LoadingOverlay reinit game', e)
-  }
-}
-
-function startTimers() {
-  // Tips 切换
-  tipInterval = setInterval(() => {
-    if (tipsList.value.length > 0) {
-      const idx = Math.floor(Math.random() * tipsList.value.length)
-      currentTip.value = tipsList.value[idx]
-    }
-  }, 5000)
-  
-  // 本地计时器 + 阶段文案轮换 + 伪进度自增
-  elapsedInterval = setInterval(() => {
-    localElapsed.value++
-
-    // 伪进度逻辑
-    if (props.status?.status === 'in_progress' && displayProgress.value < 99) {
-      const currentPhase = props.status?.phase ?? 0
-      // 后端定义的进度节点: {0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85}
-      const progressMap: Record<number, number> = { 0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 70, 6: 85 }
-      const nextPhaseStart = progressMap[currentPhase + 1] ?? 100
-      
-      // 每1秒增加 1%
-      if (localElapsed.value % 1 === 0) {
-        // 如果还没达到下一阶段的起点前 1%，就继续自增
-        if (displayProgress.value < nextPhaseStart - 1) {
-          displayProgress.value++
-        } else if (currentPhase === 6 && displayProgress.value < 99) {
-          // 最后一个阶段（6阶段）允许一直增加到 99%
-          displayProgress.value++
-        }
-      }
-    }
-  }, 1000)
-}
-
-function stopTimers() {
-  if (tipInterval) {
-    clearInterval(tipInterval)
-    tipInterval = null
-  }
-  if (elapsedInterval) {
-    clearInterval(elapsedInterval)
-    elapsedInterval = null
-  }
-}
-
-// 当状态从 ready 变成其他时，重置
-watch(() => props.status?.status, (newStatus, oldStatus) => {
-  if (oldStatus === 'ready' && newStatus !== 'ready') {
-    localElapsed.value = 0
-    displayProgress.value = 0
-  }
-})
-
-onMounted(() => {
-  startTimers()
-})
-
-onUnmounted(() => {
-  stopTimers()
-})
+const {
+  currentTip,
+  progress,
+  phaseText,
+  isError,
+  errorMessage,
+  bgOpacity,
+  localElapsed,
+  radius,
+  circumference,
+  strokeDashoffset,
+  handleRetry,
+} = useLoadingOverlayState(() => props.status)
 </script>
 
 <template>

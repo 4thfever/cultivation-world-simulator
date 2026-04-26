@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { RegionDetail, EffectEntity } from '@/types/core';
+import type { RegionDetail } from '@/types/core';
 import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
-import { useUiStore } from '@/stores/ui';
 import { useI18n } from 'vue-i18n';
 import { formatPopulationRatioText } from '@/utils/populationFormat';
-import buildingIcon from '@/assets/icons/ui/lucide/building-2.svg';
+import { useRegionDetailPanel } from '@/composables/useRegionDetailPanel';
 import gemIcon from '@/assets/icons/ui/lucide/gem.svg';
 import leafIcon from '@/assets/icons/ui/lucide/leaf.svg';
-import mapIcon from '@/assets/icons/ui/lucide/map.svg';
 import messageCircleIcon from '@/assets/icons/ui/lucide/message-circle.svg';
-import mountainIcon from '@/assets/icons/ui/lucide/mountain.svg';
 import packageIcon from '@/assets/icons/ui/lucide/package.svg';
 
 const { locale, t } = useI18n();
@@ -20,70 +16,24 @@ const props = defineProps<{
   data: RegionDetail;
 }>();
 
-const uiStore = useUiStore();
-const secondaryItem = ref<EffectEntity | null>(null);
-const ATTRIBUTE_KEYS = new Set(['GOLD', 'WOOD', 'WATER', 'FIRE', 'EARTH', 'ICE', 'WIND', 'DARK', 'THUNDER', 'EVIL']);
-
-function getPopulationBarColor(ratio: number): string {
-  if (ratio > 0.8) return '#52c41a';
-  if (ratio > 0.3) return '#1890ff';
-  return '#ff4d4f';
-}
-
-function formatEssenceType(rawType: string | undefined): string {
-  if (!rawType) return '';
-  return rawType
-    .split(',')
-    .map((part) => part.trim())
-    .filter(Boolean)
-    .map((part) => {
-      const normalized = part.toUpperCase();
-      return ATTRIBUTE_KEYS.has(normalized) ? t(`attributes.${normalized}`) : part;
-    })
-    .join('、');
-}
-
-function getRegionTypeExplanation(): string {
-  if (props.data.type === 'city') {
-    return t('game.info_panel.region.type_explanations.city');
-  }
-  if (props.data.type === 'cultivate') {
-    return props.data.sub_type === 'ruin'
-      ? t('game.info_panel.region.type_explanations.ruin')
-      : t('game.info_panel.region.type_explanations.cave');
-  }
-  if (props.data.type === 'sect') {
-    return t('game.info_panel.region.type_explanations.sect');
-  }
-  return t('game.info_panel.region.type_explanations.normal');
-}
-
-function getRegionTypeIcon(): string {
-  if (props.data.type === 'city') return buildingIcon;
-  if (props.data.type === 'cultivate') return mountainIcon;
-  return mapIcon;
-}
-
-function showDetail(item: EffectEntity | undefined) {
-  if (item) {
-    secondaryItem.value = item;
-  }
-}
-
-function jumpToSect(id: number) {
-  uiStore.select('sect', id.toString());
-}
-
-function jumpToAvatar(id: string) {
-  uiStore.select('avatar', id);
-}
+const {
+  secondaryItem,
+  getPopulationBarColor,
+  formatEssenceType,
+  getRegionTypeExplanation,
+  getRegionTypeIcon,
+  showDetail,
+  closeSecondaryDetail,
+  jumpToSect,
+  jumpToAvatar,
+} = useRegionDetailPanel(() => props.data);
 </script>
 
 <template>
   <div class="region-detail">
     <SecondaryPopup 
       :item="secondaryItem" 
-      @close="secondaryItem = null" 
+      @close="closeSecondaryDetail" 
     />
 
     <!-- Info -->

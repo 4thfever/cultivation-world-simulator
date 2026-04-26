@@ -45,6 +45,7 @@ export function useMortalOverviewModal(show: () => boolean) {
         void mortalStore.refreshOverview()
       }
     },
+    { immediate: true },
   )
 
   return {

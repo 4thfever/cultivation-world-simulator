@@ -37,7 +37,7 @@ watch(() => props.show, (newVal) => {
   } else {
     resetSelection()
   }
-})
+}, { immediate: true })
 </script>
 
 <template>

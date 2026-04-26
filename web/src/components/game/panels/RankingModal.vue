@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { watch } from 'vue'
 import { NModal, NTabs, NTabPane, NTable, NSpin } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
-import { useUiStore } from '../../../stores/ui'
 import { formatRealmStage } from '@/utils/cultivationText'
-import { useWorldOverviewData } from '@/composables/useWorldOverviewData'
+import { useRankingModal } from '@/composables/useRankingModal'
 import trophyIcon from '@/assets/icons/ui/lucide/trophy.svg'
 
 const props = defineProps<{
@@ -17,43 +14,16 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const uiStore = useUiStore()
-const rankingTheme = SYSTEM_PANEL_THEMES.ranking
-const panelStyleVars = {
-  '--panel-accent': rankingTheme.accent,
-  '--panel-accent-strong': rankingTheme.accentStrong,
-  '--panel-accent-soft': rankingTheme.accentSoft,
-  '--panel-link': rankingTheme.link,
-  '--panel-link-hover': rankingTheme.linkHover,
-  '--panel-title': rankingTheme.title,
-  '--panel-empty': rankingTheme.empty,
-  '--panel-border': rankingTheme.border,
-  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
-  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
-  '--panel-text-muted': SHARED_UI_COLORS.textMuted,
-}
-
-const openAvatarInfo = (id: string) => {
-  uiStore.select('avatar', id)
-  handleShowChange(false)
-}
-
-const openSectInfo = (id: string) => {
-  uiStore.select('sect', id)
-  handleShowChange(false)
-}
-
-const { loading, rankings, fetchRankings } = useWorldOverviewData('RankingModal')
-
 const handleShowChange = (val: boolean) => {
   emit('update:show', val)
 }
-
-watch(() => props.show, (newVal) => {
-  if (newVal) {
-    fetchRankings()
-  }
-})
+const {
+  loading,
+  rankings,
+  panelStyleVars,
+  openAvatarInfo,
+  openSectInfo,
+} = useRankingModal(() => props.show, () => handleShowChange(false))
 </script>
 
 <template>

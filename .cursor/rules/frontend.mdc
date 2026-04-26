@@ -23,6 +23,14 @@ globs: web/src/**/*.{vue,ts,js}
 - **Socket 分层约束**:
   - `api/socket.ts` 只负责 transport（连接、重连、消息订阅）。
   - 消息分发必须通过 `stores/socketMessageRouter.ts`，禁止在组件内直接按消息类型分支。
+- **组件 / Composable 边界**:
+  - 大型面板、状态栏弹窗、详情页组件应优先保持“模板展示层”职责；数据加载、派生字段、跳转、提交、timer、Pixi 生命周期等业务状态应下沉到 `web/src/composables/*` 或局部 `components/**/composables/*`。
+  - 已拆出的边界包括：系统启动遮罩、地图 Pixi 渲染、宗门/区域详情、头像换图、排行/王朝/凡人/时间/宗门关系/秘境概览等；后续修改应优先延续现有 composable，不要把逻辑重新堆回 `.vue`。
+  - `web/src/components/game/composables/*` 用于游戏渲染域的局部 composable（如 Pixi/地图生命周期）；跨面板复用的状态逻辑放 `web/src/composables/*`。
+- **状态栏弹窗与懒加载**:
+  - 非首屏状态栏弹窗可使用 `defineAsyncComponent` + `v-if` 按需加载；高频且测试/交互依赖同步挂载的弹窗可保留静态 import。
+  - 如果弹窗组件在 `props.show === true` 时才被 `v-if` 首次挂载，内部依赖 `show` 触发 API 请求的 watcher 必须使用 `{ immediate: true }`，否则首次打开不会拉数据。
+  - 这类弹窗必须补“初始挂载即 `show=true` 仍会请求数据”的回归测试，典型例子是王朝、排行/天下武道会、凡人总览、宗门关系、时间总览、已故角色列表。
 
 ## 2. Vue 3 性能最佳实践 (Performance Best Practices)
 - **强制约束 (MUST)**: 对于从后端接收的大型只读对象（如 `AvatarDetail`, 游戏状态快照，地图数据），**必须使用 `shallowRef`** 而不是 `ref` 或 `reactive`。这能避免深层 Proxy 转换导致的性能卡顿 (10ms-100ms+ UI freezes)。

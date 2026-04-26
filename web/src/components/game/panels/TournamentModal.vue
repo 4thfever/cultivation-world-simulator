@@ -46,9 +46,9 @@ const handleShowChange = (val: boolean) => {
 
 watch(() => props.show, (newVal) => {
   if (newVal) {
-    fetchRankings()
+    void fetchRankings()
   }
-})
+}, { immediate: true })
 </script>
 
 <template>

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { NModal, NEmpty, NTag } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { SHARED_UI_COLORS, SYSTEM_PANEL_THEMES } from '@/constants/uiColors'
-import { useWorldStore } from '@/stores/world'
+import { useHiddenDomainOverviewModal } from '@/composables/useHiddenDomainOverviewModal'
 import { formatRealmLabel } from '@/utils/cultivationText'
 import shieldIcon from '@/assets/icons/ui/lucide/shield.svg'
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg'
@@ -19,27 +17,10 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const worldStore = useWorldStore()
-const hiddenDomainTheme = SYSTEM_PANEL_THEMES.hiddenDomain
-const panelStyleVars = {
-  '--panel-accent': hiddenDomainTheme.accent,
-  '--panel-accent-strong': hiddenDomainTheme.accentStrong,
-  '--panel-accent-soft': hiddenDomainTheme.accentSoft,
-  '--panel-title': hiddenDomainTheme.title,
-  '--panel-empty': hiddenDomainTheme.empty,
-  '--panel-border': hiddenDomainTheme.border,
-  '--panel-text-primary': SHARED_UI_COLORS.textPrimary,
-  '--panel-text-secondary': SHARED_UI_COLORS.textSecondary,
-}
-
-const domainItems = computed(() => worldStore.activeDomains)
+const { panelStyleVars, domainItems, formatPercent } = useHiddenDomainOverviewModal()
 
 function handleShowChange(value: boolean) {
   emit('update:show', value)
-}
-
-function formatPercent(value: number): string {
-  return `${(value * 100).toFixed(0)}%`
 }
 </script>
 

@@ -195,6 +195,11 @@ describe('DynastyOverviewModal', () => {
     expect(refreshDetailMock).toHaveBeenCalled()
   })
 
+  it('fetches overview when initially mounted open', () => {
+    createWrapper(true)
+    expect(refreshDetailMock).toHaveBeenCalled()
+  })
+
   it('renders dynasty summary', () => {
     const wrapper = createWrapper(true)
     const text = wrapper.text()

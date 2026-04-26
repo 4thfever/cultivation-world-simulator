@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { SectDetail, EffectEntity } from '@/types/core';
-import { useUiStore } from '@/stores/ui';
+import type { SectDetail } from '@/types/core';
+import { useSectDetailPanel } from '@/composables/useSectDetailPanel';
 import StatItem from './components/StatItem.vue';
 import SecondaryPopup from './components/SecondaryPopup.vue';
 import EntityRow from './components/EntityRow.vue';
 import RelationRow from './components/RelationRow.vue';
 import { useI18n } from 'vue-i18n';
-import { formatCultivationText } from '@/utils/cultivationText';
 import brainIcon from '@/assets/icons/ui/lucide/brain.svg';
 import flagIcon from '@/assets/icons/ui/lucide/flag.svg';
 import heartHandshakeIcon from '@/assets/icons/ui/lucide/heart-handshake.svg';
@@ -17,109 +15,36 @@ import scrollIcon from '@/assets/icons/ui/lucide/scroll.svg';
 import sparklesIcon from '@/assets/icons/ui/lucide/sparkles.svg';
 import usersIcon from '@/assets/icons/ui/lucide/users.svg';
 
-type DiplomacyItem = NonNullable<SectDetail['diplomacy_items']>[number];
-
 const { t } = useI18n();
 const props = defineProps<{
   data: SectDetail;
 }>();
 
-const uiStore = useUiStore();
-const secondaryItem = ref<EffectEntity | null>(null);
-const MAX_DIPLOMACY_ITEMS = 4;
-
-function jumpToAvatar(id: string) {
-  uiStore.select('avatar', id);
-}
-
-function jumpToSect(id: string) {
-  uiStore.select('sect', id);
-}
-
-function showDetail(item: EffectEntity | undefined) {
-  if (item) {
-    secondaryItem.value = item;
-  }
-}
-
-const alignmentText = props.data.alignment;
-
-const ruleText = computed(() => {
-  if (!props.data.rule_desc) {
-    return t('game.info_panel.sect.no_rule');
-  }
-  return props.data.rule_desc;
-});
-
-const warStatusText = computed(() => (
-  (props.data.war_summary?.active_war_count ?? 0) > 0
-    ? t('game.sect_relations.status_war')
-    : t('game.sect_relations.status_peace')
-));
-
-const strongestEnemyText = computed(() => (
-  props.data.war_summary?.strongest_enemy_name || t('common.none')
-));
-
-const yearlyIncomeText = computed(() => (
-  t('game.info_panel.sect.stats.income_value', {
-    income: Math.floor(props.data.economy_summary?.estimated_yearly_income || 0),
-  })
-));
-
-const yearlyUpkeepText = computed(() => (
-  t('game.info_panel.sect.stats.upkeep_value', {
-    upkeep: Math.floor(props.data.economy_summary?.estimated_yearly_upkeep || 0),
-  })
-));
-
-const warWearinessText = computed(() => `${Math.max(0, Math.floor(props.data.war_weariness || 0))}/100`);
-
-const simplifiedDiplomacyItems = computed(() => {
-  const items = [...(props.data.diplomacy_items ?? [])];
-  return items
-    .sort((a, b) => {
-      if (a.status === 'war' && b.status !== 'war') {
-        return -1;
-      }
-      if (a.status !== 'war' && b.status === 'war') {
-        return 1;
-      }
-      return (a.relation_value ?? 0) - (b.relation_value ?? 0);
-    })
-    .slice(0, MAX_DIPLOMACY_ITEMS);
-});
-
-function getDurationYears(months: number) {
-  return Math.max(0, Math.floor((months || 0) / 12));
-}
-
-function getDiplomacyMeta(item: DiplomacyItem) {
-  const statusKey = item.status === 'war'
-    ? 'game.sect_relations.status_war'
-    : 'game.sect_relations.status_peace';
-  const relationPart = item.relation_value === undefined
-    ? ''
-    : t('game.info_panel.sect.diplomacy_meta_relation', { value: item.relation_value });
-  return relationPart
-    ? `${t(statusKey)} · ${relationPart}`
-    : t(statusKey);
-}
-
-function getDiplomacySub(item: DiplomacyItem) {
-  const years = getDurationYears(item.duration_months);
-  const durationKey = item.status === 'war'
-    ? 'game.info_panel.sect.diplomacy_war_years'
-    : 'game.info_panel.sect.diplomacy_peace_years';
-  return t(durationKey, { count: years });
-}
+const {
+  secondaryItem,
+  alignmentText,
+  ruleText,
+  warStatusText,
+  strongestEnemyText,
+  yearlyIncomeText,
+  yearlyUpkeepText,
+  warWearinessText,
+  simplifiedDiplomacyItems,
+  jumpToAvatar,
+  jumpToSect,
+  showDetail,
+  closeSecondaryDetail,
+  getDiplomacyMeta,
+  getDiplomacySub,
+  getMemberSub,
+} = useSectDetailPanel(() => props.data);
 </script>
 
 <template>
   <div class="sect-detail">
     <SecondaryPopup 
       :item="secondaryItem" 
-      @close="secondaryItem = null" 
+      @close="closeSecondaryDetail" 
     />
 
     <div class="content-scroll">
@@ -251,7 +176,7 @@ function getDiplomacySub(item: DiplomacyItem) {
                :key="m.id"
                :name="m.name"
                :meta="m.rank"
-               :sub="`${formatCultivationText(m.realm, t)} · ${t('game.info_panel.avatar.stats.sect_contribution')} ${m.contribution ?? 0}`"
+               :sub="getMemberSub(m)"
                @click="jumpToAvatar(m.id)"
              />
           </div>
