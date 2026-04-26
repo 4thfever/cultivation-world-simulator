@@ -160,7 +160,7 @@ try {
     & $SteamCmd @argsList
 
     if ($LASTEXITCODE -ne 0) {
-        throw "SteamCMD failed with exit code $LASTEXITCODE. Check logs above; password or Steam Guard may need attention."
+        throw "SteamCMD failed with exit code $LASTEXITCODE. Check SteamCMD logs above and in the Steam ContentBuilder logs directory."
     }
     Write-Host "`n[Success] Uploaded this build to Steam." -ForegroundColor Green
     if ($Branch) {

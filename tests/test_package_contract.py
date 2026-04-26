@@ -36,6 +36,21 @@ def test_steam_electron_packaging_contract():
     assert "CWS_DEFAULT_LLM_API_KEY" in content
 
 
+def test_pack_upload_steam_wraps_full_pipeline():
+    project_root = get_project_root()
+    script = project_root / "tools" / "package" / "pack_upload_steam.ps1"
+    content = script.read_text(encoding="utf-8")
+
+    assert "pack_steam_electron.ps1" in content
+    assert "steam_electron_content_root.txt" in content
+    assert "upload_steam.ps1" in content
+    assert "-ContentRoot" in content
+    assert "-BuildDesc" in content
+    assert "[switch]$PreviewUpload" in content
+    assert not (project_root / "tools" / "package" / "pack_upload_steam.cmd").exists()
+    assert not (project_root / "tools" / "package" / "pack_upload_steam.sh").exists()
+
+
 def test_steam_upload_script_supports_electron_parameters():
     project_root = get_project_root()
     script = project_root / "tools" / "package" / "upload_steam.ps1"
@@ -54,9 +69,8 @@ def test_steam_electron_cursor_command_exists():
     command = project_root / ".cursor" / "commands" / "pack_to_steam.md"
     content = command.read_text(encoding="utf-8")
 
-    assert "pack_steam_electron.ps1" in content
-    assert "steam_electron_content_root.txt" in content
-    assert "upload_steam.ps1 -ContentRoot" in content
+    assert "pack_upload_steam.ps1" in content
+    assert "pack_upload_steam.cmd" not in content
 
 
 def test_default_steam_cursor_command_does_not_use_legacy_pack_script():

@@ -2,14 +2,11 @@
 
 这是当前默认 Steam 发布管线；旧的 PyInstaller Steam 包脚本已经废弃并删除。
 
-1. **编译与打包 (Steam Electron unpacked 目录)**：
-   运行命令 `powershell ./tools/package/pack_steam_electron.ps1`，等待成功完成。
-   该脚本会把最终可上传目录写入 `tmp/steam_electron_content_root.txt`。
-2. **读取上传目录**：
-   读取 `tmp/steam_electron_content_root.txt`，将其中路径作为 `$ContentRoot`。
-3. **发布到 Steam**：
-   运行命令 `powershell ./tools/package/upload_steam.ps1 -ContentRoot "$ContentRoot" -BuildDesc "<当前git tag>-electron"`。
-   这一步可能需要用户手动输入 Steam 密码或 Steam Guard。
+1. **编译、打包并上传**：
+   运行命令 `powershell ./tools/package/pack_upload_steam.ps1`，等待完成。
+   该脚本会自动执行 `pack_steam_electron.ps1`、读取 `tmp/steam_electron_content_root.txt`，再调用 `upload_steam.ps1 -ContentRoot ... -BuildDesc <当前git tag>-electron`。
+   上传阶段可能需要用户手动输入 Steam 密码或 Steam Guard。
+   若只想构建并生成 VDF 而不上传，可手动运行 `powershell ./tools/package/pack_upload_steam.ps1 -PreviewUpload`。
 
 注意：
 

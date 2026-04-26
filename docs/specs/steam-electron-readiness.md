@@ -51,7 +51,8 @@
 13. Electron 桌面宿主：新增 `desktop/` 工程，主进程负责启动 packaged 后端、等待 `/api/health`、加载本地 HTTP UI、退出时清理后端进程。
 14. Steam Electron 打包脚本：新增 `tools/package/pack_steam_electron.ps1`，串联 web build、PyInstaller 后端、Electron builder unpacked 产物和敏感配置扫描。
 15. Steam 上传脚本参数化：`upload_steam.ps1` 支持 `-ContentRoot`、`-BuildDesc`、`-Branch`、`-Preview`，并强制显式传入 `-ContentRoot`。
-16. Cursor 一键命令：`/pack_to_steam` 是唯一 Steam 上传入口，描述构建、读取 content root marker、上传 Steam 的顺序。
+16. 单入口上传脚本：新增 `tools/package/pack_upload_steam.ps1`，串联 Steam Electron 构建、读取 content root marker、SteamCMD 上传。
+17. Cursor 一键命令：`/pack_to_steam` 是唯一 Steam 上传入口，调用 `powershell ./tools/package/pack_upload_steam.ps1`。
 17. Steam 私有 seed 资源：Electron 支持读取 `resources/steam-seed.json`，只把允许的 `CWS_DEFAULT_LLM_*` 注入后端环境。
 
 验证记录：
@@ -579,6 +580,7 @@ desktop/
 ```text
 tools/package/
   pack_steam_electron.ps1
+  pack_upload_steam.ps1
   upload_steam.ps1              # 改为支持 -ContentRoot / -BuildDesc / -Branch
   steam/
     steam_config.env.example
@@ -726,8 +728,8 @@ VDF 仍使用 UTF-8 no BOM 写出。
 
 `.cursor/commands/pack_to_steam.md` 内容应明确串联两步：
 
-1. 运行 `powershell ./tools/package/pack_steam_electron.ps1`。
-2. 成功后运行 `powershell ./tools/package/upload_steam.ps1 -ContentRoot <pack脚本输出的win-unpacked路径> -BuildDesc <tag>-electron`。
+1. 运行 `powershell ./tools/package/pack_upload_steam.ps1`。
+2. 该脚本内部执行 `pack_steam_electron.ps1`、读取 `tmp/steam_electron_content_root.txt`、再运行 `upload_steam.ps1 -ContentRoot <pack脚本输出的win-unpacked路径> -BuildDesc <tag>-electron`。
 
 命令要求：
 
@@ -765,7 +767,7 @@ VDF 仍使用 UTF-8 no BOM 写出。
 3. Electron health polling 测试：成功、超时、后端提前退出。
 4. 打包脚本 contract 测试：`pack_steam_electron.ps1` 包含敏感文件扫描。
 5. 上传脚本 contract 测试：支持 `-ContentRoot`、`-BuildDesc`、`-Branch`、`-Preview`。
-6. Cursor 命令 contract 测试：`.cursor/commands/pack_to_steam.md` 引用正确脚本，且不存在重复 Steam Electron 别名命令。
+6. Cursor 命令 contract 测试：`.cursor/commands/pack_to_steam.md` 引用 `pack_upload_steam.ps1`，且不存在重复 Steam Electron 别名命令。
 
 ### 本地 smoke
 
@@ -797,7 +799,7 @@ VDF 仍使用 UTF-8 no BOM 写出。
 2. 实现 Electron 启动 packaged 后端 exe、health 等待、退出清理。
 3. 新增 `pack_steam_electron.ps1`，先只产出本地可运行 `win-unpacked`。
 4. 参数化 `upload_steam.ps1`，支持 Electron content root。
-5. 更新 `.cursor/commands/pack_to_steam.md` 为唯一 Steam Electron 入口。
+5. 新增 `pack_upload_steam.ps1` 并更新 `.cursor/commands/pack_to_steam.md` 为唯一 Steam Electron 入口。
 6. 补 contract 测试和本地 smoke 文档。
 7. 上传 Steam 内部测试分支验证。
 
