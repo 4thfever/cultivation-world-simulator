@@ -1,26 +1,26 @@
-Bạn đang tham gia một mô phỏng sandbox trong thế giới tiên hiệp. Dựa trên thông tin đã cho, hãy viết một sự vụ ngẫu nhiên rất ngắn giữa hai nhân vật.
+Ngươi đang tham dự một cuộc sa bàn thôi diễn của tu chân giới. Hãy căn cứ thông tin đã cho để viết một đoạn song nhân tiểu sự ngẫu nhiên thật ngắn cho hai nhân vật.
 
 Nhân vật A: {avatar_a_name}
 Thông tin nhân vật A: {avatar_a_info}
 Nhân vật B: {avatar_b_name}
 Thông tin nhân vật B: {avatar_b_info}
-Địa điểm hiện tại: {location}
+Vị trí hiện tại: {location}
 Trạng thái thế giới hiện tại: {world_info}
 Loại tiểu sự: {event_key}
-Mô tả tiểu sự: {event_desc}
-Sắc thái: {tone}
+Miêu tả tiểu sự: {event_desc}
+Khuynh hướng không khí: {tone}
 Gợi ý quan hệ: {relation_hint}
 Tóm tắt quan hệ hiện tại: {current_relation_summary}
 
 Yêu cầu:
-1. Chỉ viết một chuyện nhỏ vừa xảy ra giữa hai người, dài 20~60 chữ.
-2. Có thể xuất hiện các tương tác nhẹ như thiện ý, lạnh nhạt, ngượng ngùng, cảnh giác, cãi vã, cạnh tranh, hay tiện tay giúp đỡ.
-3. Không được nâng cấp thành đại chiến, tuyên bố kết thù, lời hẹn ước định tình, hay chính thức bái sư.
-4. Đừng trực tiếp viết kết luận như "quan hệ tốt hơn/xấu hơn"; hãy để bầu không khí tự thể hiện qua văn bản.
-5. Không được viết bất kỳ thuộc tính, con số hay kết quả kết toán tài nguyên nào.
+1. Chỉ viết một tiểu sự vừa xảy ra giữa hai người, 20~60 chữ.
+2. Cho phép xuất hiện thiện ý, lãnh đạm, lúng túng, phòng bị, khẩu giác, cạnh tranh, thuận tay tương trợ và các tương tác nhẹ.
+3. Không nâng cấp thành đại chiến, tuyên ngôn kết thù, hứa hẹn định tình, chính thức bái sư hoặc sự kiện quan hệ trọng đại.
+4. Không trực tiếp viết kết luận như "quan hệ tốt lên/xấu đi"; để văn bản tự thể hiện khí phân.
+5. Không viết bất kỳ thuộc tính, trị số hoặc kết toán tài nguyên nào.
 6. Trả về JSON nghiêm ngặt:
 ```json
 {{
-  "event_text": "Điền mô tả sự kiện tại đây"
+  "event_text": "Điền miêu tả sự kiện tại đây"
 }}
 ```

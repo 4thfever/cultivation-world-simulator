@@ -1,45 +1,44 @@
-You are a creator of a Xianxia world. I will provide you with an original world background and a piece of "worldview and history".
-You need to understand the worldview first, then refer to the historical context to modify the sect information and their corresponding sect-region information in this world.
-Note: the current sect system has been separated into "sect entity" and "sect region", so you may only modify the existing name/desc of each part and must not invent new structure.
-Specifically:
-- A sect entity desc should focus on sect identity, cultivation style, internal structure, core facilities, overall temperament, and latent tensions.
-- A sect region desc should focus on terrain, architecture, spatial layering, environmental anomalies, dynamic scenery, and sensory atmosphere.
-- Sect desc and sect region desc should complement each other and should not repeat the same batch of information.
+Ngươi là sáng tác giả của tiên hiệp tu chân giới. Ta sẽ đưa cho ngươi bối cảnh thế giới nguyên thủy và một đoạn thiết lập "thế giới quan cùng lịch sử".
+Ngươi cần ưu tiên lý giải thế giới quan, rồi tham khảo mạch lịch sử để chỉnh sửa thông tin tông môn đang tồn tại trong thế giới này, cùng thông tin trú địa tương ứng của tông môn.
+Chú ý: hệ thống tông môn hiện tại đã tách thành "tông môn bản thể" và "tông môn khu vực", vì vậy chỉ được chỉnh sửa name/desc đã có của tông môn và tông môn khu vực, không được tự ý thêm cấu trúc.
+Trong đó:
+- desc của tông môn bản thể nên chú trọng định vị tông môn, phương thức tu hành, kết cấu nội bộ, cơ sở hạch tâm, khí chất tổng thể và mâu thuẫn tiềm tàng.
+- desc của tông môn khu vực nên chú trọng địa mạo, kiến trúc, tầng thứ không gian, dị tượng hoàn cảnh, cảnh tượng động thái và cảm quan không khí.
+- Tông môn và tông môn khu vực cần phối hợp với nhau, không lặp lại cùng một nhóm thông tin.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
-Worldview and History:
+Thế giới quan và lịch sử:
 {world_lore}
 
-Sect Information:
+Thông tin tông môn:
 {sects}
 
-Sect Region Information:
+Thông tin tông môn khu vực:
 {sect_regions}
 
-Based on the above information, analyze and return modification suggestions.
+Dựa trên các thông tin trên, hãy phân tích và trả về ý kiến chỉnh sửa.
 
-Return in JSON format:
+Trả về JSON:
 {{
-    "thinking": "Analyze what kind of modifications should be made",
+    "thinking": "Phân tích nên có chỉnh sửa như thế nào",
     "sects_change": 
         {{
-            "id": {{ // original id
-                "name": str // new name
-                "desc": desc // new desc
+            "id": {{ // id gốc
+                "name": str // Tên mới
+                "desc": desc // desc mới
             }}
         }},
-    "sect_regions_change": {{}} // dict, structure as above, for sect regions
+    "sect_regions_change": {{}} // dict, cấu trúc như trên, nhằm vào tông môn khu vực
 }}
 
-Requirements:
-1. "thinking" only needs to briefly explain the basis of the modification; focus on the returned results.
-2. Modifications should prioritize the worldview setting and then the historical context, and must be logically sound.
-3. If an item has no modifications, return an empty dictionary {{}}.
-4. For items to be modified, only return "name" and "desc", and no other keys.
-5. Each desc should be around 120-180 words in Chinese-length density; keep it concise but sufficiently detailed.
-6. Do not restate sect rules, prohibitions, punishments, or expulsion logic.
-7. Do not include player bonuses, numeric effects, or gameplay/mechanical explanations.
-8. Sect desc and sect region desc must have clear division of labor and should avoid repeating each other.
-
+Yêu cầu:
+1. thinking chỉ cần lược thuật căn cứ chỉnh sửa, trọng điểm đặt vào kết quả chỉnh sửa trả về.
+2. Cần ưu tiên tham khảo thế giới quan, rồi kết hợp mạch lịch sử để chỉnh sửa, lập luận phải hợp lý.
+3. Nếu một hạng mục không sửa, hãy trả về dict rỗng {{}}.
+4. Hạng mục cần sửa chỉ trả về name và desc, không trả về key khác.
+5. desc nên khống chế khoảng 120~180 chữ.
+6. Không lặp lại môn quy, cấm lệnh hoặc logic trừng phạt.
+7. Không viết bonus người chơi, hiệu quả trị số hoặc thuyết minh cơ chế.
+8. desc của tông môn và desc của tông môn khu vực cần phân công rõ ràng, tận lượng tránh trùng lặp.

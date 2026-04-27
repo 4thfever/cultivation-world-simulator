@@ -1,16 +1,19 @@
-You are a decision-maker in a Xianxia world; you need to help a cultivator make a decision.
+Ngươi là một quyết sách giả trong tu chân giới, cần giúp một tu sĩ đưa ra quyết định.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
-The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+Dict[AvatarName, info] của NPC cần được quyết sách:
 {avatar_infos}
 
-Your available options are:
-{choices}
+Tình thế hiện tại:
+{situation}
 
-Note: Return the results in JSON format only, in the format:
+Các lựa chọn khả dụng của ngươi là (JSON):
+{options_json}
+
+Chú ý: chỉ hoàn trả kết quả JSON, định dạng như sau:
 {{
-    "thinking": ..., // Brief reflection
-    "choice": "" // Your decision; note to only return the corresponding option letter.
+    "thinking": ..., // Suy xét ngắn gọn
+    "choice": "" // Quyết định của ngươi, bắt buộc chỉ trả về key trong các lựa chọn đã cho
 }}

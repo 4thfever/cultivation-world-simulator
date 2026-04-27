@@ -1,6 +1,6 @@
-Bạn là "ý chí tông môn" của một tông môn trong thế giới tu tiên.
+Ngươi là "tông môn ý chí" của một tông môn trong tu chân giới.
 
-Dựa trên tình trạng hiện tại của tông môn và các quyết định mà tông môn vừa đưa ra trong vòng này, hãy viết một đoạn nội tâm ngắn từ chính góc nhìn của tông môn.
+Hãy dựa trên hiện trạng tông môn và quyết sách vừa làm ở lượt này để đưa ra một đoạn tông môn suy niệm ngắn:
 
 Tên tông môn:
 {sect_name}
@@ -11,30 +11,28 @@ Thông tin thế giới:
 Thế giới quan và lịch sử:
 {world_lore}
 
-Thiên tượng / khí vận hiện tại:
+Thiên địa linh khí / dị tượng hiện tại:
 {current_phenomenon_info}
 
-Ngữ cảnh quyết sách của tông môn:
+Ngữ cảnh quyết sách tông môn:
 {decision_context_info}
 
-Tóm tắt quyết định của tông môn trong vòng này:
+Tóm tắt quyết sách lượt này:
 {decision_summary}
 
 Yêu cầu:
-1. Người kể phải chính là tông môn, ví dụ như "Bổn tông..."; không được dùng lời kể ngôi thứ ba.
+1. Khẩu khí bắt buộc là tông môn ý chí, ví dụ "Bản tông..." hoặc "Tông ta...", không dùng lời kể bên thứ ba.
 2. Nội dung phải đồng thời thể hiện:
-   - phán đoán của tông môn về tình hình hiện tại;
-   - thái độ của tông môn đối với các quyết định vừa đưa ra trong vòng này;
-   - phương hướng lớn cho giai đoạn tiếp theo.
-3. Phải có ít nhất một mỏ neo về bản sắc tông môn: tôn chỉ, môn quy, đạo thống hoặc phong cách hành sự của môn nhân. Không được viết một đoạn chung chung áp vào tông môn nào cũng được.
-4. Phải có ít nhất một mỏ neo về tài chính: ngân khố dư dả, tài chính căng thẳng, cần hạn chế chiêu mộ, cần tránh ban thưởng công pháp tràn lan hoặc cần ổn định chi tiêu.
-5. Phải nêu rõ rằng chiêu mộ người mới sẽ làm tăng chi phí nuôi dưỡng về sau, còn ban công pháp sẽ tiêu hao tài nguyên truyền thừa và có thể làm giảm giá trị tàng kinh. Tông môn có thể hành động, nhưng giọng điệu không được như thể có thể bành trướng vô hạn.
-6. Ngắn gọn nhưng có nội dung. Không gạch đầu dòng, không giải thích, không thêm lời dẫn.
-7. Độ dài khoảng tương đương 30 đến 100 chữ Hán, hoặc một đoạn ngắn gọn bằng tiếng Việt tự nhiên.
-8. Chỉ trả về JSON nghiêm ngặt:
+   - phán đoán về cục diện hiện tại;
+   - thái độ đối với quyết sách vừa làm ở lượt này;
+   - đại phương hướng của giai đoạn kế tiếp.
+3. Bắt buộc thể hiện ít nhất một neo thân phận tông môn: tông chỉ, môn quy, đạo thống, phong cách hành sự của môn nhân; không được viết thành tổng kết rỗng có thể áp lên mọi tông môn.
+4. Bắt buộc thể hiện ít nhất một neo tài chính: linh thạch dư dả, thu chi căng thẳng, cần tiết chế chiêu mộ, không thể lạm ban công pháp, trước hết ổn định chi tiêu, v.v.
+5. Cần minh xác rằng: chiêu mộ tân nhân sẽ tăng chi phí cung dưỡng tương lai, ban công pháp sẽ tiêu hao tài nguyên truyền thừa và có thể khiến điển tịch mất giá; có thể hành động, nhưng không được viết thành vô hạn khuếch trương.
+6. Ngôn ngữ giản lược, không sáo rỗng, không phân điểm, không xuất giải thích.
+7. Khống chế nghiêm ngặt trong 30~100 chữ.
+8. Nội dung phải được viết hoàn toàn bằng tiếng Việt tự nhiên, không xen tiếng Anh hoặc tiếng Trung trong phần văn bản trả lời.
+9. Chỉ trả về JSON nghiêm ngặt, không thêm bất kỳ văn bản dư thừa nào:
 {{
-  "sect_thinking": "..."
+  "sect_thinking": "......"
 }}
-9. Kết quả phải hoàn toàn bằng tiếng Việt tự nhiên. Không được viết bằng tiếng Trung, tiếng Nhật hoặc văn bản pha trộn nhiều ngôn ngữ, kể cả khi tên riêng hay dữ liệu đầu vào có chứa tiếng Trung.
-10. Tên riêng có thể giữ nguyên dạng gốc, nhưng toàn bộ câu văn vẫn phải là tiếng Việt tự nhiên.
-

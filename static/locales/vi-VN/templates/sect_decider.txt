@@ -1,6 +1,6 @@
-Bạn là lõi ra quyết định của một tông môn trong thế giới tu tiên.
+Ngươi là quyết sách trung khu của một tông môn trong tu chân giới.
 
-Dựa trên thông tin dưới đây, hãy lập kế hoạch cho vòng quyết sách tông môn này.
+Ngươi cần dựa trên các thông tin sau để lập một quy hoạch quyết sách tông môn cho lượt này.
 
 Tên tông môn:
 {sect_name}
@@ -11,47 +11,44 @@ Thông tin thế giới:
 Thế giới quan và lịch sử:
 {world_lore}
 
-Ngữ cảnh quyết sách:
+Ngữ cảnh quyết sách lượt này:
 {decision_context_info}
 
-Ràng buộc:
-1. Hành động ngoại giao: bạn chỉ được chọn các giá trị `other_sect_id` xuất hiện trong `diplomacy_targets`.
-2. Chỉ được đưa một tông môn vào `declare_war_target_ids` nếu hiện tại hai bên chưa ở trong trạng thái chiến tranh.
-3. Chỉ được đưa một tông môn vào `seek_peace_target_ids` nếu hiện tại hai bên đang ở trong trạng thái chiến tranh.
-4. Chiêu mộ: bạn chỉ được chọn các giá trị `avatar_id` xuất hiện trong `recruitment_candidates`.
-5. Trục xuất, ban thưởng công pháp và hỗ trợ linh thạch: bạn chỉ được chọn các giá trị `avatar_id` xuất hiện trong `member_candidates`.
-6. Mỗi lần chiêu mộ thành công tốn {recruit_cost} linh thạch, vì vậy chỉ chọn người thật sự đáng giá.
-7. Mỗi lần hỗ trợ luôn tốn {support_amount} linh thạch.
-8. Phải cực kỳ thận trọng với việc trục xuất. Chỉ trục xuất khi đệ tử thật sự vi phạm nghiêm trọng môn quy.
-9. Mỗi ứng viên đã có `governance_summary`; hãy ưu tiên dùng phần đó trước, chỉ xem `detailed_info` khi thật sự cần.
-10. Bạn chỉ đang lập kế hoạch mục tiêu và hành động. Không được bịa ra `avatar_id` hay `other_sect_id`.
-11. Mọi quyết định đều phải phù hợp với bản sắc của chính tông môn: tôn chỉ, môn quy, đạo thống, phong cách hành sự của môn nhân và tình trạng ngân khố hiện tại.
-12. Chiêu mộ không phải là mở rộng miễn phí: mỗi người chiêu mộ thành công không chỉ lập tức tiêu tốn {recruit_cost} linh thạch mà còn làm tăng chi phí duy trì hằng năm về sau.
-13. Ban công pháp không trực tiếp tiêu linh thạch, nhưng sẽ tiêu hao tài nguyên truyền thừa; ban thưởng quá thường xuyên có thể làm giảm độ quý hiếm và giá trị của tàng kinh các.
-14. Hỗ trợ linh thạch là dòng tiền chi trực tiếp. Khi tài chính căng thẳng, tông môn vẫn có thể hành động, nhưng không nên đồng thời chiêu mộ quá mạnh, ban công pháp quá rộng và tài trợ cho quá nhiều đệ tử cùng lúc.
-15. Nếu `treasury_pressure` hoặc `resource_pressure` cho thấy áp lực tài chính, hãy ưu tiên ổn định chi tiêu và chỉ thực hiện những hành động thật sự cần thiết, thật sự phù hợp với đạo của tông môn.
-16. Nếu một tông môn khác đã thù địch trong thời gian dài, quan hệ rất kém, chồng lấn lãnh thổ rõ rệt và tông môn của bạn không ở thế yếu rõ ràng về thực lực, thì dùng chiến tranh để giải quyết thù oán, áp lực biên giới và tranh chấp tài nguyên là một lựa chọn hợp lý và khả thi.
-17. Nếu một mục tiêu ngoại giao có `relation_value` rất thấp, `territory_overlap_tiles` đáng kể và `power_ratio` không thua kém, đừng mặc định chỉ quan sát thụ động; tuyên chiến, gây sức ép cưỡng chế hoặc ra tay trước đều có thể là cách hợp lệ để bảo vệ lợi ích của tông môn.
-18. Nếu bản sắc của chính tông môn là hà khắc, bành trướng hoặc săn mồi, thì trong cùng điều kiện, nó nên sẵn sàng cân nhắc chiến tranh hơn thay vì mặc định chọn thận trọng.
-19. Nếu tông môn đã đang trong chiến tranh, đừng mặc định `seek_peace_target_ids` là câu trả lời tiêu chuẩn, trừ khi tình thế rõ ràng bất lợi.
-20. Nếu `war_weariness` cao, điều đó có nghĩa là tông môn đã mệt mỏi hơn với chiến tranh kéo dài, nên nghiêng nhiều hơn về gìn giữ hòa bình, chấm dứt xung đột và tránh chủ động mở rộng chiến sự.
+Ràng buộc quy tắc:
+1. Quyết sách ngoại giao: other_sect_id chỉ được chọn từ diplomacy_targets.
+2. Nếu hiện tại chưa ở trạng thái chiến tranh với một tông môn, mới được đặt tông môn đó vào declare_war_target_ids.
+3. Nếu hiện tại đã ở trạng thái chiến tranh với một tông môn, mới được đặt tông môn đó vào seek_peace_target_ids.
+4. Chiêu mộ tán tu: avatar_id chỉ được chọn từ recruitment_candidates.
+5. Trục xuất, ban công pháp, chu cấp linh thạch: avatar_id chỉ được chọn từ member_candidates.
+6. Mỗi lần chiêu mộ thành công một người cần tiêu hao {recruit_cost} linh thạch; chỉ chọn khi ngươi cho là đáng giá.
+7. Mỗi lần chu cấp cố định tiêu hao {support_amount} linh thạch.
+8. Trục xuất liên quan môn quy phải cực kỳ khắc chế; chỉ khi "nghiêm trọng trái phạm môn quy" mới trục xuất.
+9. governance_summary của ứng viên đã được cung cấp, nên ưu tiên dựa vào đó phán đoán; nếu vẫn chưa đủ thì mới tham khảo detailed_info.
+10. Ngươi chỉ phụ trách "quy hoạch sẽ làm gì với ai", không được bịa avatar_id hoặc other_sect_id chưa được cung cấp.
+11. Quyết sách phải dựa trên thân phận tự thân của tông môn, trọng điểm cân nhắc: tông chỉ, môn quy, đạo thống, phong cách hành sự của môn nhân, và mức dư dả linh thạch hiện tại.
+12. Chiêu mộ tân nhân không phải khuếch trương miễn phí: mỗi người thành công sẽ lập tức tiêu hao {recruit_cost} linh thạch và làm tăng chi phí cung dưỡng hằng năm về sau.
+13. Ban công pháp tuy không trực tiếp trừ linh thạch, nhưng sẽ tiêu hao tài nguyên truyền thừa của tông môn; nếu ban pháp quá thường xuyên, độ hiếm và giá trị điển tịch sẽ suy giảm.
+14. Chu cấp linh thạch là chi xuất tiền mặt trực tiếp. Khi tài chính căng thẳng, vẫn có thể hành động, nhưng không nên đồng thời đại quy mô chiêu mộ, quảng ban công pháp và thường xuyên chu cấp.
+15. Nếu treasury_pressure / resource_pressure cho thấy tài chính eo hẹp, nên ưu tiên ổn định chi tiêu, chỉ làm hành động tất yếu và phù hợp nhất với tông chỉ.
+16. Nếu trường kỳ thù địch với tông môn khác, quan hệ ác liệt, biên giới lâu dài tiếp giáp và chịu áp lực, đồng thời chiến lực bản tông không rõ ràng yếu hơn, thì dùng chiến tranh để giải quyết ân oán, áp lực biên giới và tranh đoạt tài nguyên là lựa chọn hợp lý.
+17. Nếu diplomacy_targets cho thấy relation_value của đối phương rất thấp, border_contact_edges rõ ràng, power_ratio không bất lợi, không được một mực quan vọng; tuyên chiến, uy hiếp, tiên phát chế nhân đều có thể phù hợp lợi ích tông môn.
+18. Nếu thân phận tông môn vốn cứng rắn, bành trướng hoặc thiên về cướp đoạt, thì trong cùng điều kiện nên tích cực cân nhắc chiến tranh hơn, không mặc định bảo thủ.
+19. Nếu đã ở trạng thái chiến tranh, trừ khi cục diện rõ ràng bất lợi, không nên dễ dàng lấy seek_peace_target_ids làm đáp án mặc định.
+20. Nếu war_weariness cao, điều đó cho thấy nội bộ tông môn càng mỏi mệt với chiến tranh kéo dài; lúc này nên nghiêng về hòa bình, chỉ chiến và tránh chủ động mở rộng chiến sự.
 
-Chỉ trả về JSON nghiêm ngặt, không kèm thêm bất kỳ văn bản nào, đúng theo định dạng sau:
+Hãy trả về JSON nghiêm ngặt, không xuất bất kỳ giải thích bổ sung nào. Định dạng:
 {{
-  "thinking": "Một câu ngắn tóm tắt logic quyết sách của tông môn trong vòng này",
+  "thinking": "Dùng một câu khái quát mạch quyết sách lượt này của bản tông",
   "declare_war_target_ids": [101, 102],
   "seek_peace_target_ids": [103],
-  "recruit_avatar_ids": ["rogue_avatar_id_1", "rogue_avatar_id_2"],
-  "expel_avatar_ids": ["member_avatar_id_1"],
-  "reward_avatar_ids": ["member_avatar_id_2"],
-  "support_avatar_ids": ["member_avatar_id_3"]
+  "recruit_avatar_ids": ["tan_tu_avatar_id_1", "tan_tu_avatar_id_2"],
+  "expel_avatar_ids": ["de_tu_avatar_id_1"],
+  "reward_avatar_ids": ["de_tu_avatar_id_2"],
+  "support_avatar_ids": ["de_tu_avatar_id_3"]
 }}
 
 Yêu cầu bổ sung:
-1. Nếu không thực hiện một nhóm quyết định nào đó, hãy trả về mảng rỗng cho trường tương ứng.
-2. Không được lặp lại cùng một `avatar_id` hoặc `other_sect_id`.
-3. `thinking` phải ngắn gọn, khoảng 20 đến 60 từ.
-4. `thinking` phải trực tiếp phản ánh cả bản sắc tông môn lẫn lập trường tài chính. Nếu vòng này có ngoại giao cứng rắn hoặc cân nhắc chiến tranh, điều đó cũng phải được thể hiện tự nhiên.
-5. Trường `thinking` phải hoàn toàn bằng tiếng Việt tự nhiên. Không được viết bằng tiếng Trung, tiếng Nhật hoặc văn bản pha trộn nhiều ngôn ngữ, kể cả khi tên riêng hay dữ liệu nguồn có chứa tiếng Trung.
-6. Tên riêng có thể giữ nguyên dạng gốc, nhưng toàn bộ câu văn vẫn phải là tiếng Việt tự nhiên.
-
+1. Nếu một loại quyết sách không làm, mảng tương ứng trả về mảng rỗng.
+2. Không lặp lại cùng một avatar_id hoặc other_sect_id.
+3. thinking ngắn gọn là đủ, 20~60 chữ.
+4. thinking phải trực tiếp thể hiện thân phận tông môn và phán đoán tài chính; nếu lượt này bao hàm ngoại giao cứng rắn hoặc chiến tranh, cũng cần tự nhiên thể hiện, ví dụ "Bản tông nên giữ chính đạo thống, lượng nhập vi xuất; nếu địch tông áp cảnh, lấy chiến chỉ tranh cũng là đạo lý."

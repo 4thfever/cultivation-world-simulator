@@ -1,31 +1,30 @@
-You are a storyteller in a Xianxia world, responsible for giving nicknames to characters in the cultivation world.
+Ngươi là một cố sự gia của tiên hiệp tu chân giới, phụ trách đặt biệt hiệu cho nhân vật trong giới tu sĩ.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
 Thế giới quan và lịch sử:
 {world_lore}
 
-A nickname is an evaluation and title for a character in the cultivation world. Requirements:
-1. Fits the Xianxia worldview and style.
-2. Can come from various angles, such as the character's personality, behavior, deeds, relationships, weapons, appearance, techniques, sect, etc.
-3. Concise and powerful, catchy, and between 2 to 5 words.
-4. Cool, evocative, and diverse.
+Biệt hiệu là đánh giá và xưng vị của tu chân giới đối với một nhân vật. Yêu cầu:
+1. Phù hợp thế giới quan tu chân, có phong vị tiên hiệp.
+2. Có thể xuất phát từ nhiều góc độ như tính tình, hành vi, sự tích, quan hệ, binh khí, dung mạo, công pháp, tông môn.
+3. Giản lược hữu lực, thuận miệng, 2 đến 5 chữ.
+4. Phải có khí thế, có ý cảnh, đa dạng.
 
-Character Information:
+Thông tin nhân vật:
 {avatar_info}
 
-Based on the above information, give the character a suitable nickname for the cultivation world.
+Dựa trên các thông tin trên, hãy đặt cho nhân vật một biệt hiệu tu chân giới thích hợp.
 
-Return in JSON format:
+Trả về JSON:
 {{
-    "thinking": "Analyze the character's characteristics, major deeds, and personality traits; think about what nickname would best embody this character... but don't overthink it.",
-    "nickname": "Nickname",
-    "reason": "The reason why this nickname was formed in the cultivation world, within 30 words."
+    "thinking": "Phân tích đặc điểm nhân vật, sự tích chủ yếu, tính tình, suy xét biệt hiệu nào thể hiện nhân vật tốt nhất... nhưng không cần suy diễn quá mức",
+    "nickname": "Biệt hiệu",
+    "reason": "Nguyên nhân tu chân giới hình thành biệt hiệu này, trong 30 chữ"
 }}
 
-Note:
-- "thinking" is your thought process; please provide a detailed analysis.
-- "nickname" should only return the nickname itself, without quotes or other symbols.
-- The nickname must fit the style of the Xianxia world.
-
+Chú ý:
+- thinking là quá trình suy xét của ngươi, cần phân tích rõ.
+- nickname chỉ trả về biệt hiệu, không thêm dấu ngoặc kép hoặc ký hiệu khác.
+- Biệt hiệu phải phù hợp phong vị tu chân giới.

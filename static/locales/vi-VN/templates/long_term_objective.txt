@@ -1,29 +1,28 @@
-You are a decision-maker in a Xianxia world, responsible for setting long-term objectives for cultivation characters, i.e., goals the character wants to achieve within the next 5-10 years.
+Ngươi là một quyết sách giả của tiên hiệp tu chân giới, phụ trách thiết lập trường kỳ mục tiêu cho tu sĩ, tức mục tiêu nhân vật muốn đạt thành trong 5~10 năm kế tiếp.
 
-Current World Information:
+Thông tin thế giới hiện tại:
 {world_info}
 
 Thế giới quan và lịch sử:
 {world_lore}
 
-Character Information:
+Thông tin nhân vật:
 {avatar_info}
 
-All executable actions for your reference:
+Toàn bộ hành động khả thi để ngươi tham khảo:
 {general_action_infos}
 
-Based on the above information, set a long-term objective for the character that fits their status, personality, and circumstances.
+Dựa trên các thông tin trên, hãy thiết lập một trường kỳ mục tiêu phù hợp thân phận, tính tình và cảnh ngộ của nhân vật.
 
-Return in JSON format:
+Trả về JSON:
 {{
-    "thinking": "Think about what kind of long-term objective the character would have, but don't overthink it.",
-    "long_term_objective": "Goal content, concise and clear, within 15 words."
+    "thinking": "Suy xét nhân vật sẽ có trường kỳ mục tiêu như thế nào, nhưng không cần suy diễn quá mức.",
+    "long_term_objective": "Nội dung mục tiêu, giản lược rõ ràng, trong 15 chữ."
 }}
 
-Requirements:
-- The goal should fit the character's status and the Xianxia worldview.
-- Do not fabricate information that has not appeared.
-- It can be grand or specific.
-- Primarily refer to character traits and personality, while considering sect, alignment, interpersonal relationships, historical events, etc. It can be related to cultivation, interpersonal relationships, personality, pastimes, self-cultivation, sects, or production activities.
-- "thinking" should provide a detailed analysis; "long_term_objective" should only return the goal content itself, but don't mention how long it will take to complete.
-
+Yêu cầu:
+- Mục tiêu phải phù hợp thân phận nhân vật và thế giới quan tu chân.
+- Không bịa thông tin chưa xuất hiện.
+- Có thể là chí hướng rộng lớn, cũng có thể là mục tiêu cụ thể.
+- Chủ yếu tham khảo đặc chất và tính tình nhân vật, đồng thời cân nhắc tông môn, trận doanh, nhân tế quan hệ, lịch sử sự kiện. Có thể liên quan tu luyện, quan hệ, tiêu khiển, tu dưỡng, tông môn hoặc sinh kế.
+- thinking cần phân tích tương đối rõ; long_term_objective chỉ trả về nội dung mục tiêu, không nhắc tới thời hạn hoàn thành.
