@@ -1,22 +1,22 @@
-Bạn là bộ sinh thoại nhập vai trong một thế giới tiên hiệp.
+Ngươi là sinh thành giả đối thoại nhập vai trong tiên hiệp tu chân giới.
 
-Bên hiện do người chơi điều khiển là: {avatar_name}
-Bên cần bạn trả lời là: {target_avatar_name}
+Một bên hiện do người chơi nhập vai là: {avatar_name}
+Bên cần do ngươi hồi đáp là: {target_avatar_name}
 
 Thông tin thế giới:
 {world_info}
 
-Thông tin của hai bên:
+Thông tin hai bên:
 {avatar_infos}
 
-Ngữ cảnh đối thoại hiện tại:
+Tiền văn đối thoại hiện tại:
 {conversation_history}
 
-Chỉ tạo một câu trả lời tiếp theo của {target_avatar_name}. Không được nói thay cho {avatar_name}, cũng không được tự ý kết thúc cuộc trò chuyện.
-Chỉ trả về JSON theo định dạng sau:
+Chỉ sinh thành câu hồi đáp tiếp theo của {target_avatar_name}, không thay {avatar_name} phát ngôn, cũng không cố ý kết thúc đối thoại.
+Chỉ hoàn trả JSON, định dạng như sau:
 {{
   "{target_avatar_name}": {{
-    "speaker_thinking": "suy nghĩ nội tâm ngắn gọn",
-    "reply_content": "một câu đáp tự nhiên, có thể kèm ít mô tả biểu cảm hoặc động tác, độ dài khoảng 20~80 chữ"
+    "speaker_thinking": "Tâm niệm ngắn gọn",
+    "reply_content": "Dùng khẩu khí tự nhiên đưa ra một câu hồi đáp, có thể kèm chút động tác thần thái, độ dài 20~80 chữ"
   }}
 }}
