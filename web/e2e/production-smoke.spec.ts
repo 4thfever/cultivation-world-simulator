@@ -60,6 +60,22 @@ const mockRuntimeStatus = {
 async function installApiMocks(page: Page) {
   if (!mockApi) return
 
+  await page.route('**/assets/splash.png', async (route) => {
+    await route.fulfill({
+      status: 204,
+      contentType: 'image/png',
+      body: '',
+    })
+  })
+
+  await page.route('**/assets/splash.mp4', async (route) => {
+    await route.fulfill({
+      status: 204,
+      contentType: 'video/mp4',
+      body: '',
+    })
+  })
+
   await page.route('**/api/settings', async (route) => {
     await route.fulfill({
       status: 200,
