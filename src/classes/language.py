@@ -28,16 +28,22 @@ class LanguageManager:
             pass
 
         try:
-            from src.utils.name_generator import reload as reload_names
-            reload_names()
+            from src.run.data_loader import reload_all_static_data
+            reload_all_static_data()
         except ImportError:
-            pass
+            # Some imports can still be incomplete during early module initialization.
+            # Keep the lightweight reloads so language switching remains usable there.
+            try:
+                from src.utils.name_generator import reload as reload_names
+                reload_names()
+            except ImportError:
+                pass
 
-        try:
-            from src.classes.core.dynasty import reload as reload_dynasties
-            reload_dynasties()
-        except ImportError:
-            pass
+            try:
+                from src.classes.core.dynasty import reload as reload_dynasties
+                reload_dynasties()
+            except ImportError:
+                pass
 
     def __str__(self):
         return self._current
