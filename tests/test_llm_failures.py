@@ -476,6 +476,44 @@ class TestLLMFailureClassification:
         assert failure.kind == LLMFailureKind.PROVIDER_UNAVAILABLE
         assert failure.is_config_required is False
 
+    def test_classifies_longcat_insufficient_quota_as_rate_limited(self):
+        failure = classify_llm_error(
+            'HTTP_403::{"error":{"code":"insufficient_quota","message":"API Key quota is insufficient"}}',
+            base_url="https://api.longcat.chat/openai/v1",
+        )
+
+        assert failure.kind == LLMFailureKind.RATE_LIMITED
+        assert failure.is_config_required is True
+        assert "LongCat API Key 免费 Token 配额不足" in failure.user_message
+        assert "API Key quota is insufficient" in failure.user_message
+
+    def test_classifies_payment_required_balance_as_rate_limited(self):
+        failure = classify_llm_error(
+            'HTTP_402::{"error":{"code":"insufficient_balance","message":"Insufficient Balance"}}'
+        )
+
+        assert failure.kind == LLMFailureKind.RATE_LIMITED
+        assert failure.is_config_required is True
+        assert "额度不足或计费受限(402)" in failure.user_message
+        assert "Insufficient Balance" in failure.user_message
+
+    def test_classifies_400_balance_keyword_as_rate_limited(self):
+        failure = classify_llm_error(
+            'HTTP_400::{"message":"账户余额不足，请充值后重试"}'
+        )
+
+        assert failure.kind == LLMFailureKind.RATE_LIMITED
+        assert failure.is_config_required is True
+        assert "余额不足" in failure.user_message
+
+    def test_does_not_classify_5xx_quota_text_as_config_required(self):
+        failure = classify_llm_error(
+            'HTTP_500::{"error":{"message":"quota backend temporarily unavailable"}}'
+        )
+
+        assert failure.kind == LLMFailureKind.PROVIDER_UNAVAILABLE
+        assert failure.is_config_required is False
+
     @pytest.mark.asyncio
     async def test_call_llm_notifies_config_required_for_auth_failure(self):
         messages: list[str] = []
@@ -506,6 +544,37 @@ class TestLLMFailureClassification:
 
         assert len(messages) == 1
         assert "身份验证失败(401)" in messages[0]
+
+    @pytest.mark.asyncio
+    async def test_call_llm_notifies_config_required_for_longcat_quota_failure(self):
+        messages: list[str] = []
+
+        async def handler(message: str):
+            messages.append(message)
+
+        register_llm_failure_handler(handler)
+        mock_config = LLMConfig(
+            model_name="LongCat-Flash-Chat",
+            api_key="quota-limited-key",
+            base_url="https://api.longcat.chat/openai/v1",
+        )
+        http_error = make_http_error(
+            url="https://api.longcat.chat/openai/v1/chat/completions",
+            code=403,
+            msg="Forbidden",
+            body=b'{"error": {"code": "insufficient_quota", "message": "API Key quota is insufficient"}}',
+        )
+
+        try:
+            with patch("src.utils.llm.client.LLMConfig.from_mode", return_value=mock_config), \
+                 patch("urllib.request.urlopen", side_effect=http_error):
+                with pytest.raises(Exception):
+                    await call_llm("test prompt")
+        finally:
+            register_llm_failure_handler(None)
+
+        assert len(messages) == 1
+        assert "LongCat API Key 免费 Token 配额不足" in messages[0]
 
     @pytest.mark.asyncio
     async def test_call_llm_does_not_notify_for_provider_5xx(self):

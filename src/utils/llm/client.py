@@ -22,6 +22,36 @@ _SEMAPHORE: Optional[asyncio.Semaphore] = None
 _SEMAPHORE_LIMIT: Optional[int] = None
 _LLM_FAILURE_HANDLER: Optional[Callable[[str], Awaitable[None] | None]] = None
 
+_QUOTA_ERROR_CODES = {
+    "insufficient_quota",
+    "quota_exceeded",
+    "insufficient_balance",
+    "balance_not_enough",
+    "balance_not_sufficient",
+    "billing_not_active",
+    "payment_required",
+}
+_RATE_LIMIT_ERROR_CODES = {
+    "rate_limit_exceeded",
+    "rate_limited",
+    "too_many_requests",
+}
+_BILLING_KEYWORDS = (
+    "insufficient quota",
+    "insufficient_quota",
+    "quota exceeded",
+    "insufficient balance",
+    "insufficient_balance",
+    "payment required",
+    "billing details",
+    "free token quota",
+    "余额不足",
+    "配额不足",
+    "额度不足",
+    "额度不够",
+)
+_BILLING_KEYWORD_HTTP_STATUSES = {400, 402, 403, 429}
+
 
 class LLMFailureKind(str, Enum):
     CONFIG_REQUIRED = "config_required"
@@ -79,7 +109,72 @@ def _extract_provider_message(body_str: str) -> str:
     return provider_msg
 
 
-def classify_llm_error(error_raw: str) -> LLMFailureInfo:
+def _load_provider_body(body_str: str) -> dict | None:
+    try:
+        body_json = json.loads(body_str)
+    except Exception:
+        return None
+    if isinstance(body_json, dict):
+        return body_json
+    return None
+
+
+def _normalize_error_token(value: object) -> str:
+    return str(value or "").strip().lower().replace("-", "_").replace(" ", "_")
+
+
+def _collect_provider_error_codes(body_str: str) -> set[str]:
+    body_json = _load_provider_body(body_str)
+    if body_json is None:
+        return set()
+
+    values: set[str] = set()
+
+    def collect_from_dict(data: dict) -> None:
+        for key in ("code", "type", "error_code", "err_code"):
+            value = data.get(key)
+            if value is not None:
+                values.add(_normalize_error_token(value))
+
+    collect_from_dict(body_json)
+    error_obj = body_json.get("error")
+    if isinstance(error_obj, dict):
+        collect_from_dict(error_obj)
+
+    return {value for value in values if value}
+
+
+def _has_billing_or_quota_signal(body_str: str, provider_msg: str, http_status: int | None) -> bool:
+    error_codes = _collect_provider_error_codes(body_str)
+    if error_codes & _QUOTA_ERROR_CODES:
+        return True
+    if http_status == 429 and error_codes & _RATE_LIMIT_ERROR_CODES:
+        return True
+    if http_status not in _BILLING_KEYWORD_HTTP_STATUSES:
+        return False
+
+    haystack = f"{body_str}\n{provider_msg}".lower()
+    return any(keyword in haystack for keyword in _BILLING_KEYWORDS)
+
+
+def _build_quota_message(
+    *,
+    code_str: str,
+    provider_msg: str,
+    base_url: str = "",
+) -> str:
+    if "longcat.chat" in base_url.lower():
+        return (
+            f"LongCat API Key 免费 Token 配额不足，请到 LongCat 用量信息页申请提额或更换 Key。"
+            f"服务商返回: {provider_msg}"
+        )
+    return (
+        f"额度不足或计费受限({code_str})，请检查账号余额、Token 配额或服务商用量限制。"
+        f"服务商返回: {provider_msg}"
+    )
+
+
+def classify_llm_error(error_raw: str, *, base_url: str = "") -> LLMFailureInfo:
     if error_raw.startswith("NETWORK_ERROR::"):
         reason = error_raw.split("::", 1)[1]
         return LLMFailureInfo(
@@ -98,6 +193,17 @@ def classify_llm_error(error_raw: str) -> LLMFailureInfo:
         except ValueError:
             http_status = None
 
+        if _has_billing_or_quota_signal(body_str, provider_msg, http_status):
+            return LLMFailureInfo(
+                kind=LLMFailureKind.RATE_LIMITED,
+                http_status=http_status,
+                provider_message=provider_msg,
+                user_message=_build_quota_message(
+                    code_str=code_str,
+                    provider_msg=provider_msg,
+                    base_url=base_url,
+                ),
+            )
         if code_str == "401":
             return LLMFailureInfo(
                 kind=LLMFailureKind.CONFIG_REQUIRED,
@@ -277,7 +383,7 @@ async def call_llm(prompt: str, mode: LLMMode = LLMMode.NORMAL) -> str:
         async with semaphore:
             result = await asyncio.to_thread(_call_with_requests, config, prompt)
     except Exception as exc:
-        failure = classify_llm_error(str(exc))
+        failure = classify_llm_error(str(exc), base_url=config.base_url)
         if failure.is_config_required:
             await _notify_config_required(failure.user_message)
         raise
@@ -366,4 +472,4 @@ def test_connectivity(mode: LLMMode = LLMMode.NORMAL, config: Optional[LLMConfig
         error_raw = str(e)
         print(f"Connectivity test failed: {error_raw}")
         
-        return False, classify_llm_error(error_raw).user_message
+        return False, classify_llm_error(error_raw, base_url=config.base_url).user_message

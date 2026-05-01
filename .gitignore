@@ -112,6 +112,7 @@ venv.bak/
 # dotenv (env files). Keep examples.
 *.env
 *.env.*
+tools/img_gen/*.env
 !.env.example
 !*.env.example
 

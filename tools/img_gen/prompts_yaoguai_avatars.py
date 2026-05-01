@@ -1,0 +1,290 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+YAOGUAI_COMMON_PROMPT_BASE = (
+    "二次元漫画风格，略微Q版，正面看镜头。"
+    "纯白背景，背景必须干净无纹理、无阴影、无渐变、无雾气、无光晕、无边框。"
+    "角色完整居中，只露出完整头部、面部和少量肩颈，头发和发饰不要接触图片边缘，主体边缘清晰。"
+    "保留明显但好看的妖族特征，像素风格，细节别太多。"
+)
+
+FEMALE_YAOGUAI_PROMPT_BASE = f"一个好看的仙侠妖族女性角色头像。{YAOGUAI_COMMON_PROMPT_BASE}"
+MALE_YAOGUAI_PROMPT_BASE = f"一个好看的仙侠妖族男性角色头像。{YAOGUAI_COMMON_PROMPT_BASE}"
+
+REALM_ORDER = [
+    ("qi_refining", "练气"),
+    ("foundation", "筑基"),
+    ("golden_core", "金丹"),
+    ("nascent_soul", "元婴"),
+]
+
+YAOGUAI_REALM_SLUGS = [realm_slug for realm_slug, _ in REALM_ORDER]
+
+SPECIES_REALMS = {
+    "fox": [
+        (
+            "qi_refining",
+            "练气",
+            "练气阶段外观：狐耳绒毛更朴素柔软，眼尾妆很浅，狐形饰物简单，神情带一点青涩。"
+            "不要新增额外符纹或大面积光效。",
+        ),
+        (
+            "foundation",
+            "筑基",
+            "筑基阶段外观：狐耳轮廓更清楚，眼尾妆更精致，狐形饰物略华丽，眼神更沉稳。"
+            "只增强原有发色、耳饰和贴身微光。",
+        ),
+        (
+            "golden_core",
+            "金丹",
+            "金丹阶段外观：瞳孔高光更亮，眼尾红妆或金妆更凝练，狐形饰物质感更细致。"
+            "原有狐耳、发梢和耳坠有轻微亮泽，效果克制。",
+        ),
+        (
+            "nascent_soul",
+            "元婴",
+            "元婴阶段外观：神情空灵优雅，狐耳和发丝更轻盈，眼尾妆清透，原有狐形饰物更精美。"
+            "只保留贴身柔光，不出现背景光环。",
+        ),
+    ],
+    "wolf": [
+        (
+            "qi_refining",
+            "练气",
+            "练气阶段外观：狼耳略显蓬松，脸颊狼纹很浅，衣领朴素，眼神有年轻锐气。"
+            "不要新增额外符纹或大面积光效。",
+        ),
+        (
+            "foundation",
+            "筑基",
+            "筑基阶段外观：狼耳轮廓更清晰，脸颊狼纹更稳定，眼神沉稳锐利，发饰略精致。"
+            "只增强原有冷色高光。",
+        ),
+        (
+            "golden_core",
+            "金丹",
+            "金丹阶段外观：瞳孔高光更集中，狼纹边缘更利落，护额或兽牙饰物质感更强。"
+            "原有冷光略微增强但贴近主体。",
+        ),
+        (
+            "nascent_soul",
+            "元婴",
+            "元婴阶段外观：神情冷静空灵，狼耳和发丝更轻盈，狼纹清晰优雅，冷色贴身光更柔和。"
+            "不要出现背景月亮或场景。",
+        ),
+    ],
+    "bird": [
+        (
+            "qi_refining",
+            "练气",
+            "练气阶段外观：羽饰更朴素，眼尾彩纹很浅，羽冠较小，神情轻快青涩。"
+            "不要新增额外符纹或大面积光效。",
+        ),
+        (
+            "foundation",
+            "筑基",
+            "筑基阶段外观：羽冠和耳羽轮廓更清楚，眼尾彩纹更稳定，羽毛饰物略精致。"
+            "只增强原有羽色和贴身微光。",
+        ),
+        (
+            "golden_core",
+            "金丹",
+            "金丹阶段外观：瞳孔高光更明亮，羽冠层次更清晰，彩羽饰物有细小金属光泽。"
+            "原有彩纹更凝练，不新增背景羽翼。",
+        ),
+        (
+            "nascent_soul",
+            "元婴",
+            "元婴阶段外观：神情空灵轻盈，羽饰更细致柔和，发丝和羽冠微亮。"
+            "只保留贴身清透光，不出现展开翅膀或背景特效。",
+        ),
+    ],
+    "snake": [
+        (
+            "qi_refining",
+            "练气",
+            "练气阶段外观：竖瞳光泽较弱，鳞纹很浅，蛇形饰物简单，神情带一点冷淡青涩。"
+            "不要新增额外符纹或大面积光效。",
+        ),
+        (
+            "foundation",
+            "筑基",
+            "筑基阶段外观：竖瞳更清晰，细鳞纹更稳定，蛇形耳饰略精致，眼神更冷静。"
+            "只增强原有冷色微光。",
+        ),
+        (
+            "golden_core",
+            "金丹",
+            "金丹阶段外观：竖瞳高光更锐利，鳞纹边缘更利落，蛇形饰物有细小金属质感。"
+            "原有眼影和鳞片光泽更明显但克制。",
+        ),
+        (
+            "nascent_soul",
+            "元婴",
+            "元婴阶段外观：神情空灵神秘，竖瞳清透，鳞纹优雅细致，发丝带轻微冷光。"
+            "不要出现背景蛇影或大面积雾气。",
+        ),
+    ],
+    "turtle": [
+        (
+            "qi_refining",
+            "练气",
+            "练气阶段外观：龟甲纹饰较朴素，玉石饰物简单，眼神温和青涩，衣领厚实素净。"
+            "不要新增额外符纹或大面积光效。",
+        ),
+        (
+            "foundation",
+            "筑基",
+            "筑基阶段外观：龟甲纹饰更清楚，玉石饰物略精致，眼神沉稳，衣领纹理更整齐。"
+            "只增强原有青绿色或玉色微光。",
+        ),
+        (
+            "golden_core",
+            "金丹",
+            "金丹阶段外观：瞳孔高光更稳定，龟甲纹边缘更利落，玉石饰物有温润光泽。"
+            "衣领可有细小几何纹，整体厚重但不夸张。",
+        ),
+        (
+            "nascent_soul",
+            "元婴",
+            "元婴阶段外观：神情安宁空灵，龟甲纹优雅细致，玉石饰物更清透，贴身柔光沉稳。"
+            "不要出现背景法阵或大面积光环。",
+        ),
+    ],
+}
+
+SPECIES_NAMES = {
+    "fox": "狐",
+    "wolf": "狼",
+    "bird": "鸟",
+    "snake": "蛇",
+    "turtle": "龟",
+}
+
+FEMALE_SPECIES_AFFIXES = {
+    "fox": [
+        "狐族特征，柔软白金长发，蓬松狐耳，琥珀眼眸，眼尾红妆，细金铃铛发饰，神情狡黠甜美。",
+        "狐族特征，绯红卷发，深红狐耳，浅金竖瞳，桃花额印，毛绒耳坠，微笑妩媚。",
+        "狐族特征，墨黑长发，银尖狐耳，蓝紫眼眸，白玉狐形发簪，表情清冷神秘。",
+    ],
+    "wolf": [
+        "狼族特征，苍灰短发，尖狼耳，冰蓝眼眸，脸颊浅色狼纹，黑银护额，眼神锐利。",
+        "狼族特征，深蓝狼尾发型，银灰狼耳，金色瞳孔，兽牙耳饰，眉眼野性张扬。",
+        "狼族特征，雪白长辫，白色狼耳，浅蓝眼眸，额间月牙印，神情沉静冷冽。",
+    ],
+    "bird": [
+        "鸟族特征，孔雀蓝长发，羽状耳羽，翠金眼眸，彩羽步摇，眼尾彩色纹样，笑容骄傲。",
+        "鸟族特征，白羽短发，细小羽冠，浅金眼眸，羽毛耳饰，神情轻盈明亮。",
+        "鸟族特征，乌黑长发，鸦羽发饰，暗紫眼眸，黑羽耳坠，表情冷艳安静。",
+    ],
+    "snake": [
+        "蛇族特征，墨绿长直发，金色竖瞳，细鳞耳饰，眼尾青绿色眼影，微笑危险优雅。",
+        "蛇族特征，银白盘发，淡青竖瞳，额角细小鳞纹，透明玉簪，表情冷淡。",
+        "蛇族特征，紫黑卷发，暗金竖瞳，蛇形耳坠，唇色偏紫，神情慵懒神秘。",
+    ],
+    "turtle": [
+        "龟族特征，深棕盘发，温和圆眼，龟甲纹发簪，青玉耳坠，神情安稳柔和。",
+        "龟族特征，墨绿短发，浅绿色眼眸，龟甲纹额饰，厚重玉石发扣，表情沉静。",
+        "龟族特征，灰青长发，淡金眼眸，玄色龟甲形发冠，脸颊细小青纹，气息厚重安宁。",
+    ],
+}
+
+MALE_SPECIES_AFFIXES = {
+    "fox": [
+        "狐族特征，白金长发，蓬松狐耳，琥珀眼眸，眼尾红纹，细金耳扣，神情狡黠俊美。",
+        "狐族特征，绯红短发，深红狐耳，浅金竖瞳，桃花额印，毛绒领口，嘴角轻挑。",
+        "狐族特征，墨黑束发，银尖狐耳，蓝紫眼眸，白玉狐形发冠，表情清冷神秘。",
+    ],
+    "wolf": [
+        "狼族特征，苍灰短发，尖狼耳，冰蓝眼眸，脸颊浅色狼纹，黑银护额，眼神锋利。",
+        "狼族特征，深蓝狼尾发型，银灰狼耳，金色瞳孔，兽牙耳饰，浓眉野性张扬。",
+        "狼族特征，雪白长辫，白色狼耳，浅蓝眼眸，额间月牙印，神情沉静冷冽。",
+    ],
+    "bird": [
+        "鸟族特征，孔雀蓝长发，羽状耳羽，翠金眼眸，彩羽发冠，眼尾彩色纹样，笑容骄傲。",
+        "鸟族特征，白羽短发，细小羽冠，浅金眼眸，羽毛耳饰，神情轻盈明亮。",
+        "鸟族特征，乌黑长发，鸦羽发饰，暗紫眼眸，黑羽耳坠，表情冷峻安静。",
+    ],
+    "snake": [
+        "蛇族特征，墨绿长直发，金色竖瞳，细鳞耳饰，眼尾青绿色眼影，微笑危险优雅。",
+        "蛇族特征，银白束发，淡青竖瞳，额角细小鳞纹，透明玉冠，表情冷淡。",
+        "蛇族特征，紫黑卷发，暗金竖瞳，蛇形耳坠，唇色偏紫，神情慵懒神秘。",
+    ],
+    "turtle": [
+        "龟族特征，深棕束发，温和圆眼，龟甲纹发簪，青玉耳坠，神情安稳柔和。",
+        "龟族特征，墨绿短发，浅绿色眼眸，龟甲纹额饰，厚重玉石发扣，表情沉静。",
+        "龟族特征，灰青长发，淡金眼眸，玄色龟甲形发冠，脸颊细小青纹，神情厚重安宁。",
+    ],
+}
+
+
+@dataclass(frozen=True)
+class YaoguaiAvatarPromptRecord:
+    species_slug: str
+    species_name: str
+    gender: str
+    index: int
+    realm_slug: str
+    realm_name: str
+    prompt: str
+
+    @property
+    def filename_stem(self) -> str:
+        return f"{self.species_slug}_{self.gender}_{self.index:02d}_{self.realm_slug}"
+
+
+def yaoguai_avatar_prompt_records(
+    *,
+    species_slugs: list[str] | None = None,
+    genders: list[str] | None = None,
+    realm_slugs: list[str] | None = None,
+) -> list[YaoguaiAvatarPromptRecord]:
+    selected_species = species_slugs or list(SPECIES_NAMES)
+    selected_genders = genders or ["female", "male"]
+    requested_realm_slugs = set(realm_slugs or YAOGUAI_REALM_SLUGS)
+
+    unknown_species = set(selected_species) - set(SPECIES_NAMES)
+    if unknown_species:
+        raise ValueError(f"unknown species slug: {', '.join(sorted(unknown_species))}")
+
+    unknown_genders = set(selected_genders) - {"female", "male"}
+    if unknown_genders:
+        raise ValueError(f"unknown gender: {', '.join(sorted(unknown_genders))}")
+
+    missing_realms = requested_realm_slugs - set(YAOGUAI_REALM_SLUGS)
+    if missing_realms:
+        raise ValueError(f"unknown realm slug: {', '.join(sorted(missing_realms))}")
+
+    records: list[YaoguaiAvatarPromptRecord] = []
+    for species_slug in selected_species:
+        for gender in selected_genders:
+            prompt_base = (
+                FEMALE_YAOGUAI_PROMPT_BASE
+                if gender == "female"
+                else MALE_YAOGUAI_PROMPT_BASE
+            )
+            affixes = (
+                FEMALE_SPECIES_AFFIXES[species_slug]
+                if gender == "female"
+                else MALE_SPECIES_AFFIXES[species_slug]
+            )
+            selected_realms = [
+                realm
+                for realm in SPECIES_REALMS[species_slug]
+                if realm[0] in requested_realm_slugs
+            ]
+            for index, affix in enumerate(affixes, start=1):
+                for realm_slug, realm_name, realm_prompt in selected_realms:
+                    records.append(
+                        YaoguaiAvatarPromptRecord(
+                            species_slug=species_slug,
+                            species_name=SPECIES_NAMES[species_slug],
+                            gender=gender,
+                            index=index,
+                            realm_slug=realm_slug,
+                            realm_name=realm_name,
+                            prompt=prompt_base + affix + realm_prompt,
+                        )
+                    )
+    return records
