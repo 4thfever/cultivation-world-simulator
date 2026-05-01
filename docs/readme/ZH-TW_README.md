@@ -1,4 +1,4 @@
-<!-- 語言 / Language -->
+<!-- Language / 語言 -->
 <h3 align="center">
   <a href="../../README.md">简体中文</a> · <a href="ZH-TW_README.md">繁體中文</a> · <a href="EN_README.md">English</a> · <a href="VI-VN_README.md">Tiếng Việt</a> · <a href="JA-JP_README.md">日本語</a>
 </h3>
@@ -8,7 +8,7 @@
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
 [![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
-![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
+![QQ 群](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
@@ -92,12 +92,12 @@
 
 ### 首次啟動說明
 
-- 無論使用原始碼還是 Docker，第一次進入後都需要先在設定頁配置可用的模型預設（如 DeepSeek / MiniMax / Ollama），再開始新遊戲。
+- 無論使用原始碼還是 Docker，首次進入後都需要先在設定頁配置可用的模型預設（如 DeepSeek / MiniMax / Ollama），再開始新遊戲。
 - 開發模式下，前端頁面通常會自動打開；如果沒有自動打開，請訪問啟動日誌中顯示的前端地址。
 
 ### 方式一：源碼部署（開發模式，推薦）
 
-適合需要修改程式碼或調試的開發者。
+適合需要修改程式碼或除錯的開發者。
 
 1. **安裝依賴並啟動**
    ```bash
@@ -129,14 +129,14 @@ docker-compose up -d --build
 
 訪問前端：`http://localhost:8123`
 
-後端容器透過 `CWS_DATA_DIR=/data` 統一持久化使用者資料，包含設定、密鑰、存檔與日誌。預設已映射到宿主機 `./docker-data`，即使執行 `docker compose down` 後再 `up`，資料仍會保留。
+後端容器透過 `CWS_DATA_DIR=/data` 統一持久化使用者資料，包含設定、密鑰、存檔與日誌。預設已映射到宿主機 `./docker-data`，即使執行 `docker compose down` 後重新 `up`，這些資料也會保留。
 
 <details>
 <summary><b>區域網路/手機訪問配置 (點擊展開)</b></summary>
 
-> ⚠️ 移動端 UI 暫未完全適配，僅供嚐鮮。
+> ⚠️ 移动端 UI 暫未完全適配，僅供嚐鮮。
 
-1. **後端配置**：建議透過環境變數啟動後端，例如在 PowerShell 執行 `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`。如需修改預設值，可編輯唯讀配置 `static/config.yml` 內的 `system.host`。
+1. **後端配置**：推薦透過環境變數啟動後端，例如 PowerShell 中執行 `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`。如需改預設值，可編輯唯讀配置 `static/config.yml` 中的 `system.host`。
 2. **前端配置**：修改 `web/vite.config.ts`，在 server 塊中添加 `host: '0.0.0.0'`。
 3. **訪問方式**：確保手機與電腦在同一 WiFi 下，訪問 `http://<電腦區域網路IP>:5173`。
 
@@ -145,14 +145,14 @@ docker-compose up -d --build
 <details>
 <summary><b>外接 API / Agent/Claw 接入 (點擊展開)</b></summary>
 
-這部分適合做外部 agent / Claw 接入、自動化腳本，或者實作「觀察 -> 決策 -> 干預 -> 再觀察」的閉環遊玩。
+這部分適合做外部 agent / Claw 接入、自動化腳本，或者實現「觀察 -> 決策 -> 干預 -> 再觀察」的閉環遊玩。
 
-建議直接圍繞穩定命名空間開發：
+推薦直接圍繞穩定命名空間開發：
 
 - 只讀查詢：`/api/v1/query/*`
 - 受控寫入：`/api/v1/command/*`
 
-常見起點接口：
+常見接口：
 
 - `GET /api/v1/query/runtime/status`
 - `GET /api/v1/query/world/state`
@@ -197,12 +197,12 @@ docker-compose up -d --build
 
 希望能創造出純粹的、快樂的、直接的、活著的修仙世界的沉浸感。不是像一些遊戲公司的純粹宣傳工具，也不是像史丹福小鎮那樣的純粹研究，而是能給玩家提供真實代入感和沉浸感的實際世界。
 
-## 📞 聯絡方式
+## 📞 聯繫方式
 如果您對專案有任何問題或建議，歡迎提交 Issue。
 
 - **Bilibili**: [點擊關注](https://space.bilibili.com/527346837)
 - **QQ群**: `1071821688` (入群答案：肥桥今天吃什么)
-- **Discord**: [加入社群](https://discord.gg/3Wnjvc7K)
+- **Discord**: [加入社區](https://discord.gg/3Wnjvc7K)
 
 ---
 
@@ -217,9 +217,9 @@ docker-compose up -d --build
   </a>
 </div>
 
-## 插件
+# 插件
 
-感謝貢獻者為本倉庫提供插件。
+感謝貢獻者為本 repo 貢獻插件。
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
 - [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
@@ -227,7 +227,7 @@ docker-compose up -d --build
 ## 👥 貢獻者
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=11" />
+  <img src="https://contrib.rocks/image?repo=4thfever%2Fcultivation-world-simulator&max=100&columns=11" />
 </a>
 
 更多貢獻細節請查看 [CONTRIBUTORS.md](../../CONTRIBUTORS.md)。
@@ -269,8 +269,8 @@ docker-compose up -d --build
 - ✅ 角色間的相互關係
 - ✅ 角色交互範圍
 - ✅ 角色 Effects 系統：增益/減益效果
-- ✅ 角色功法
-- ✅ 角色兵器 & 補助裝備
+- ✅ 功法
+- ✅ 兵器 & 輔助裝備
 - ✅ 外掛系統
 - ✅ 丹藥
 - ✅ 角色長短期記憶
@@ -307,7 +307,7 @@ docker-compose up -d --build
 - ✅ 系統性的動作註冊與運行邏輯
 
 ### 🎭 事件系統
-- ✅ 天地靈氣變动
+- ✅ 天地靈氣變動
 - ✅ 多人大事件：
   - ✅ 拍賣會
   - ✅ 秘境探索
@@ -332,7 +332,7 @@ docker-compose up -d --build
 
 ### 🤖 AI 增強系統
 - ✅ LLM 接口集成
-- ✅ 角色 AI 系統（規則 AI + LLM AI）
+- ✅ 角色 AI 系统（規則 AI + LLM AI）
 - ✅ 協程化決策機制，異步運行，多線程加速 AI 決策
 - ✅ 長期規劃和目標導向行為
 - ✅ 突發動作響應系統（對外界刺激的即時反應）

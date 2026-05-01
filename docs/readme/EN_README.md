@@ -1,4 +1,4 @@
-<!-- Language / 语言 -->
+<!-- Language / Language -->
 <h3 align="center">
   <a href="../../README.md">简体中文</a> · <a href="ZH-TW_README.md">繁體中文</a> · <a href="EN_README.md">English</a> · <a href="VI-VN_README.md">Tiếng Việt</a> · <a href="JA-JP_README.md">日本語</a>
 </h3>
@@ -24,8 +24,8 @@
   <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
 </p>
 
-> **Act as the Heavenly Dao and observe a cultivation world simulator driven by rules and AI as it evolves on its own.**
-> **Fully LLM-driven NPCs, emergent ensemble storytelling, easy Docker setup, and a solid base for development and modding.**
+> **Act as the "Heavenly Dao" and observe a cultivation world simulator driven by rule systems and AI as it evolves on its own.**
+> **Fully LLM-driven, emergent ensemble storytelling, supports one-click Docker deployment, and is suitable for source code development and secondary creation.**
 
 <p align="center">
   <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
@@ -34,14 +34,14 @@
 ## 📖 Introduction
 
 This is an **AI-driven cultivation world simulator**.
-In the simulator, every cultivator is an independent Agent that can freely observe the environment and make decisions. At the same time, to avoid AI hallucinations and excessive divergence, a complex and flexible cultivation worldview and operating rules are woven in. In a world woven together by rules and AI, cultivator Agents and sect wills compete and cooperate, and new compelling stories emerge. You can quietly watch the world change, witness the rise and fall of sects and the emergence of prodigies, or bring down tribulations and alter minds, subtly intervening in the world's progress.
+In the simulator, every cultivator is an independent Agent who can freely observe the environment and make decisions. At the same time, to avoid AI hallucinations and excessive divergence, a complex and flexible cultivation worldview and operating rules have been incorporated. In a world woven by rules and AI, cultivator Agents and sect wills compete and cooperate with each other, and new exciting plots constantly emerge. You can quietly observe the changes of the world, witness the rise and fall of sects and the rise of geniuses, or bring down heavenly tribulations or modify minds to subtly intervene in the world's progress.
 
 ### ✨ Core Highlights
 
-- 👁️ **Act as the Heavenly Dao**: You are not a cultivator, but the **Heavenly Dao** controlling the world's rules. Observe the myriad forms of life and experience their joys and sorrows.
-- 🤖 **Fully AI-Driven**: Every NPC is independently driven by LLMs, with unique personalities, memories, relationships, and behavioral logic. They make decisions based on the current situation, have love and hate, form factions, and even defy the heavens to change their fate.
-- 🌏 **Rules as the Cornerstone**: The world runs on a rigorous system of spiritual roots, realms, cultivation methods, personality, sects, elixirs, weapons, martial arts tournaments, auctions, lifespans, and more. AI imagination is constrained within a reasonable and rich cultivation logic framework, ensuring the world is authentic and credible.
-- 🦋 **Emergent Storytelling**: Even the developer doesn't know what will happen next. There is no preset script, only world evolution woven from countless causes and effects. Sect wars, righteous vs. demonic conflicts, the fall of geniuses—all are deduced autonomously by the world's logic.
+- 👁️ **Play as "Heavenly Dao"**: You are not a cultivator, but the **Heavenly Dao** who controls the rules of the world. Observe all walks of life and experience their joys and sorrows.
+- 🤖 **Fully AI-driven**: Every NPC is independently driven by LLM, with unique personality, memory, interpersonal relationships, and behavioral logic. They will make decisions based on the immediate situation, have love and hate, form cliques, and even change their fate against the heavens.
+- 🌏 **Rules as the Foundation**: The world runs on a rigorous system composed of spiritual roots, realms, cultivation methods, personalities, sects, elixirs, weapons, martial arts tournaments, auctions, lifespans, and other elements. AI's imagination is limited within a reasonable and rich cultivation logic framework, ensuring the world is authentic and credible.
+- 🦋 **Emergent Plot**: Even the developers don't know what will happen in the next second. There is no preset script, only world evolution woven by countless causes and effects. Sect wars, the struggle between righteous and demonic, and the fall of geniuses are all independently deduced by the world logic.
 
 <table border="0">
   <tr>
@@ -85,41 +85,41 @@ In the simulator, every cultivator is an independent Agent that can freely obser
 
 ## 🚀 Quick Start
 
-### Recommended Path
+### Recommended Method
 
-- **Want to modify code or debug**: Use the source setup and prepare Python `3.10+`, Node.js `18+`, and an available model service.
-- **Just want to play**: Prefer Docker for one-click deployment.
+- **Want to modify code or debug**: Use source code deployment and prepare Python `3.10+`, Node.js `18+`, and available model services.
+- **Want to experience directly**: Prioritize one-click Docker deployment.
 
-### First Launch
+### First Launch Instructions
 
-- Whether you use the source setup or Docker, you need to configure an available model preset on the settings page, such as DeepSeek, MiniMax, or Ollama, before starting a new game.
-- In development mode, the frontend page usually opens automatically. If it does not, use the frontend URL shown in the startup logs.
+- Whether using source code or Docker, after entering for the first time, you need to configure available model presets (such as DeepSeek / MiniMax / Ollama) on the settings page before starting a new game.
+- In development mode, the frontend page usually opens automatically; if it doesn't, please visit the frontend address shown in the startup logs.
 
-### Option 1: Source Code Deployment (Development Mode, Recommended)
+### Method 1: Source Code Deployment (Development Mode, Recommended)
 
 Suitable for developers who need to modify code or debug.
 
-1. **Install Dependencies and Start**
+1. **Install dependencies and start**
    ```bash
    # 1. Install backend dependencies
    pip install -r requirements.txt
 
-   # 2. Install frontend dependencies (Node.js required)
+   # 2. Install frontend dependencies (requires Node.js)
    cd web && npm install && cd ..
 
-   # 3. Start service (Automatically pulls up frontend and backend)
+   # 3. Start service (automatically pulls up frontend and backend)
    python src/server/main.py --dev
    ```
 
-2. **Configure the Model**
-   Choose a model preset on the frontend settings page, such as DeepSeek, MiniMax, or Ollama, and then start a new game. The configuration is saved automatically in the user data directory.
+2. **Configure Model**
+   After selecting a model preset (such as DeepSeek / MiniMax / Ollama) on the frontend settings page, you can start a new game. The configuration will be automatically saved to the user data directory.
 
-3. **Open the Frontend**
-   Development mode starts the frontend dev server automatically. Open the frontend URL shown in the startup logs, which is usually `http://localhost:5173`.
+3. **Visit Frontend**
+   Development mode will automatically pull up the frontend development server. Please visit the frontend address shown in the startup logs, usually `http://localhost:5173`.
 
-### Option 2: Docker One-Click Deployment (Untested)
+### Method 2: Docker One-click Deployment (Untested)
 
-No environment configuration needed, just run:
+No environment configuration required, just run directly:
 
 ```bash
 git clone https://github.com/4thfever/cultivation-world-simulator.git
@@ -127,30 +127,30 @@ cd cultivation-world-simulator
 docker-compose up -d --build
 ```
 
-Open the frontend: `http://localhost:8123`
+Visit frontend: `http://localhost:8123`
 
-The backend container persists user data through `CWS_DATA_DIR=/data`, including settings, secrets, saves, and logs. By default this is mapped to host path `./docker-data`, so data remains after `docker compose down` followed by `up`.
+The backend container persists user data through `CWS_DATA_DIR=/data`, including settings, secrets, saves, and logs. It is mapped to the host's `./docker-data` by default, so this data will be retained even if `docker compose down` is executed and then `up` again.
 
 <details>
-<summary><b>LAN / Mobile Access Configuration (Click to expand)</b></summary>
+<summary><b>LAN/Mobile Access Configuration (Click to expand)</b></summary>
 
 > ⚠️ Mobile UI is not fully adapted yet, for early access only.
 
-1. **Backend Config**: Prefer starting the backend with an environment variable, for example in PowerShell: `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev`. If you need to change the default value, edit the read-only config `static/config.yml` and set `system.host`.
-2. **Frontend Config**: Modify `web/vite.config.ts`, add `host: '0.0.0.0'` in the server block.
-3. **Access Method**: Ensure phone and computer are under the same WiFi, access `http://<Computer-LAN-IP>:5173`.
+1. **Backend Configuration**: It is recommended to start the backend through environment variables, for example, execute `$env:SERVER_HOST='0.0.0.0'; python src/server/main.py --dev` in PowerShell. If you need to change the default value, you can edit the read-only configuration `system.host` in `static/config.yml`.
+2. **Frontend Configuration**: Modify `web/vite.config.ts` and add `host: '0.0.0.0'` in the server block.
+3. **Access Method**: Ensure the phone and computer are on the same WiFi, and visit `http://<Computer LAN IP>:5173`.
 
 </details>
 
 <details>
-<summary><b>External API / Agent Integration (Click to expand)</b></summary>
+<summary><b>External API / Agent/Claw Access (Click to expand)</b></summary>
 
-This section is for external agent / Claw integration, automation scripts, or gameplay loops such as "observe -> decide -> intervene -> observe again."
+This part is suitable for external agent / Claw access, automation scripts, or achieving a closed-loop gameplay of "observation -> decision -> intervention -> re-observation".
 
-For integration, build directly around the stable namespaces:
+It is recommended to develop directly around stable namespaces:
 
-- Read-only queries: `/api/v1/query/*`
-- Controlled mutations: `/api/v1/command/*`
+- Read-only Query: `/api/v1/query/*`
+- Controlled Write: `/api/v1/command/*`
 
 Common starting endpoints:
 
@@ -162,15 +162,15 @@ Common starting endpoints:
 - `POST /api/v1/command/avatar/*`
 - `POST /api/v1/command/world/*`
 
-A minimal integration flow is usually:
+The minimal access process is usually:
 
-1. Call `GET /api/v1/query/runtime/status` to check current runtime state.
-2. If the game is not initialized, call `POST /api/v1/command/game/start`.
-3. Pull world snapshots and target information via `world/state`, `events`, and `detail`.
-4. Execute one intervention via a `command`.
-5. Re-run `query` calls after each intervention; do not infer results from local cache.
+1. First call `GET /api/v1/query/runtime/status` to determine the current running state.
+2. If the game has not started, call `POST /api/v1/command/game/start` to initialize.
+3. Use `world/state`, `events`, and `detail` to pull world snapshots and target information.
+4. Call a `command` to perform an intervention according to the strategy.
+5. `query` again after intervention, do not rely on local cache to infer results.
 
-Successful responses usually return:
+When the interface is successful, it usually returns:
 
 ```json
 {
@@ -179,29 +179,29 @@ Successful responses usually return:
 }
 ```
 
-On failure, structured errors are returned. Read `detail.code` and `detail.message` for programmatic branching.
+When it fails, it will return a structured error, and you can read `detail.code` and `detail.message` for program judgment.
 
 Additional notes:
 
-- App settings are still managed via `/api/settings*` and `/api/settings/llm*`; they are the source of truth for settings and not part of the external control compatibility layer.
-- For the complete API list, layering design, and extension conventions, see `docs/specs/external-control-api.md`.
+- Application settings are still managed through `/api/settings*` and `/api/settings/llm*`. They belong to the source of truth for settings and do not belong to the external control compatibility layer.
+- For a more complete interface list, layered design, and extension conventions, please refer to `docs/specs/external-control-api.md`.
 
 </details>
 
 ### 💭 Why make this?
-The worlds in cultivation novels are fascinating, but readers can only ever observe a corner of them.
+The world in cultivation web novels is wonderful, but readers can only ever observe a corner of it.
 
-Cultivation games are either completely scripted or rely on simple state machines designed by humans, often resulting in forced and unintelligent behaviors.
+Cultivation genre games are either completely preset scripts or rely on simple rule state machines designed by humans, with many far-fetched and unintelligent performances.
 
-With the advent of Large Language Models, the goal of making "every character alive" seems reachable.
+After the emergence of large language models, the goal of making "every character vivid" seems reachable.
 
-I hope to create a pure, joyful, direct, and living sense of immersion in a cultivation world. Not a pure marketing tool for some game company, nor pure research like Stanford Town, but an actual world that provides players with real immersion.
+I hope to create a pure, happy, direct, and living sense of immersion in the cultivation world. It's not like a pure publicity tool for some game companies, nor like a pure research like Stanford Town, but an actual world that can provide players with real sense of substitution and immersion.
 
 ## 📞 Contact
-If you have any questions or suggestions about the project, feel free to submit an Issue.
+If you have any questions or suggestions for the project, welcome to submit an Issue.
 
-- **Bilibili**: [Subscribe](https://space.bilibili.com/527346837)
-- **QQ Group**: `1071821688` (Verification answer: 肥桥今天吃什么)
+- **Bilibili**: [Click to Follow](https://space.bilibili.com/527346837)
+- **QQ Group**: `1071821688` (Answer to join: 肥桥今天吃什么)
 - **Discord**: [Join Community](https://discord.gg/3Wnjvc7K)
 
 ---
@@ -209,7 +209,7 @@ If you have any questions or suggestions about the project, feel free to submit 
 
 ## ⭐ Star History
 
-If you find this project interesting, please give us a Star ⭐! This will inspire us to continuously improve and add new features.
+If you find this project interesting, please give us a Star ⭐! This will motivate us to continuously improve and add new features.
 
 <div align="center">
   <a href="https://star-history.com/#4thfever/cultivation-world-simulator&Date">
@@ -217,9 +217,9 @@ If you find this project interesting, please give us a Star ⭐! This will inspi
   </a>
 </div>
 
-## Plugins
+# Plugins
 
-Thanks to contributors for building plugins for this repository.
+Thanks to contributors for contributing plugins to this repo.
 
 - [cultivation-world-simulator-api-skill](https://github.com/RealityError/cultivation-world-simulator-api-skill)
 - [cultivation-world-simulator-android](https://github.com/RealityError/cultivation-world-simulator-android)
@@ -227,142 +227,142 @@ Thanks to contributors for building plugins for this repository.
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=11" />
+  <img src="https://contrib.rocks/image?repo=4thfever%2Fcultivation-world-simulator&max=100&columns=11" />
 </a>
 
-For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
+For more contribution details, please check [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 
 ## 📋 Feature Development Progress
 
 ### 🏗️ Foundation System
 - ✅ Basic world map, time, event system
-- ✅ Diverse terrain types (plain, mountain, forest, desert, water, etc.)
+- ✅ Diverse terrain types (plains, mountains, forests, deserts, waters, etc.)
 - ✅ Web frontend-based display interface
 - ✅ Basic simulator framework
 - ✅ Configuration files
-- ✅ Release one-click playable exe
+- ✅ release one-click playable exe
 - ✅ Menu bar & Save & Load
 - ✅ Flexible custom LLM interface
 - ✅ Support Mac OS
 - ✅ Multi-language localization
 - ✅ Start game page
 - ✅ BGM & Sound effects
-- ✅ Player editing
+- ✅ Player editable
 - ✅ Roleplay mode
 
 ### 🗺️ World System
 - ✅ Basic tile system
-- ✅ Basic region, cultivation region, city region, sect region
+- ✅ Basic regions, cultivation regions, city regions, sect regions
 - ✅ Same-tile NPC interaction
-- ✅ Qi distribution and yield design
+- ✅ Spiritual energy distribution and output design
 - ✅ World events
 - ✅ Heaven, Earth, and Mortal Rankings
 - [ ] Larger and more beautiful maps & Random maps
 
 ### 👤 Character System
-- ✅ Character basic attributes system
-- ✅ Cultivation realms system
-- ✅ Spiritual roots system
+- ✅ Character basic attribute system
+- ✅ Cultivation realm system
+- ✅ Spiritual root system
 - ✅ Basic movement actions
 - ✅ Character traits and personality
 - ✅ Realm breakthrough mechanism
-- ✅ Interpersonal relationships
+- ✅ Interpersonal relationships between characters
 - ✅ Character interaction range
-- ✅ Character Effects system: buffs/debuffs
-- ✅ Character techniques
-- ✅ Character weapons & auxiliary equipment
-- ✅ Goldfinger system
+- ✅ Character Effects system: buff/debuff effects
+- ✅ Cultivation methods
+- ✅ Weapons & Auxiliary equipment
+- ✅ Cheat system
 - ✅ Elixirs
 - ✅ Character short and long-term memory
 - ✅ Character's short and long-term goals, supporting player active setting
 - ✅ Character nicknames
-- ✅ Life Skills
-  - ✅ Harvesting, Hunting, Mining, Planting
+- ✅ Life skills
+  - ✅ Gathering, Hunting, Mining, Planting
   - ✅ Casting
-  - ✅ Refining
+  - ✅ Alchemy
 - ✅ Mortals
-- [ ] Deity Transformation Realm
+- [ ] Deity Transformation realm
 
 ### 🏛️ Organizations
 - ✅ Sects
-  - ✅ Settings, techniques, healing, base, conduct style, tasks
-  - ✅ Sect special actions: Hehuan Sect (dual cultivation), Hundred Beasts Sect (beast taming), etc.
+  - ✅ Settings, cultivation methods, healing, base, conduct style, tasks
+  - ✅ Sect special actions: Hehuan Sect (dual cultivation), Baishou Sect (beast taming), etc.
   - ✅ Sect tiers
   - ✅ Orthodoxy
 - [ ] Clans
 - ✅ Imperial Court
 - ✅ Organization Will AI
 - ✅ Organization tasks, resources, functions
-- ✅ Inter-organization relations network
+- ✅ Inter-organization relationship network
 
 ### ⚡ Action System
 - ✅ Basic movement actions
 - ✅ Action execution framework
-- ✅ Defined actions with explicit rules
-- ✅ Long-duration action execution and settlement system
-  - ✅ Support multi-month sustained actions (e.g., cultivation, breakthrough, playing, etc.)
-  - ✅ Automatic settlement mechanism upon action completion
-- ✅ Multiplayer actions: action initiation and response
+- ✅ Defined actions with clear rules
+- ✅ Long-term action execution and settlement system
+  - ✅ Support multi-month continuous actions (such as cultivation, breakthrough, games, etc.)
+  - ✅ Automatic settlement mechanism when the action is completed
+- ✅ Multiplayer actions: action initiation and action response
 - ✅ LLM actions affecting interpersonal relationships
-- ✅ Systematic action registration and runtime logic
+- ✅ Systematic action registration and operation logic
 
 ### 🎭 Event System
-- ✅ Heaven and earth Qi fluctuations
+- ✅ Heaven and earth spiritual energy changes
 - ✅ Large multiplayer events:
-  - ✅ Auctions
-  - ✅ Hidden domain exploration
+  - ✅ Auction
+  - ✅ Secret realm exploration
   - ✅ World Martial Arts Tournament
-  - ✅ Sect preaching convention
+  - ✅ Sect preaching assembly
 - [ ] Sudden events
   - [ ] Treasure/cave emergence
-  - [ ] Natural disasters
+  - [ ] Natural disaster
 
 ### ⚔️ Combat System
-- ✅ Advantages and counters relationships
+- ✅ Advantage and counter relationship
 - ✅ Win rate calculation system
 
 ### 🎒 Item System
-- ✅ Basic items, spirit stones framework
+- ✅ Basic items, spirit stone framework
 - ✅ Item trading mechanism
 
 ### 🌿 Ecosystem
 - ✅ Animals and plants
-- ✅ Hunting, gathering, materials system
+- ✅ Hunting, gathering, material system
 - [ ] Demonic beasts
 
 ### 🤖 AI Enhancement System
 - ✅ LLM interface integration
-- ✅ Character AI system (Rules AI + LLM AI)
-- ✅ Coroutine decision-making mechanism, asynchronous running, multi-threaded acceleration of AI decisions
+- ✅ Character AI system (Rule AI + LLM AI)
+- ✅ Coroutine decision-making mechanism, asynchronous operation, multi-threaded acceleration of AI decision-making
 - ✅ Long-term planning and goal-oriented behavior
-- ✅ Sudden action response system (immediate reaction to external stimuli)
-- ✅ LLM-driven NPC dialogue, thinking, and interaction
-- ✅ LLM generated short story fragments
-- ✅ Separately connect max/flash models based on task requirements
+- ✅ Sudden action response system (immediate response to external stimuli)
+- ✅ LLM-driven NPC dialogue, thinking, interaction
+- ✅ LLM generates small plot fragments
+- ✅ Access max/flash models separately according to task requirements
 - ✅ Micro-theaters
   - ✅ Combat micro-theaters
   - ✅ Dialogue micro-theaters
   - ✅ Different text styles for micro-theaters
-- ✅ One-time choices (e.g., whether to switch techniques)
+- ✅ One-time choices (such as whether to switch cultivation methods)
 
 ### 🏛️ World Lore System
 - ✅ Inject basic world knowledge
-- ✅ Dynamic generation of techniques, equipment, sects, and regional information based on user input history
+- ✅ Dynamic generation of cultivation methods, equipment, sects, and regional information based on user input history
 
-### ✨ Specials
+### ✨ Special
 - ✅ Fortuitous encounters
-- ✅ Heavenly Tribulations & Heart Devils
-- [ ] Opportunities & Karma
-- [ ] Divination & Prophecies
+- ✅ Heavenly Tribulation & Heart Devil
+- [ ] Opportunity & Karma
+- [ ] Divination & Prophecy
 - [ ] Character Secrets & Conspiracies
-- [ ] Ascension to Upper Realm
+- [ ] Ascension to the upper realm
 - [ ] Formations
-- [ ] World Secrets & World Laws
+- [ ] World secrets & World laws
 - [ ] Gu
-- [ ] World-ending Crisis
+- [ ] World-ending crisis
 - [ ] Found a sect / Establish a clan / Become emperor
 
-###  Telescope Long-term Prospects
-- [ ] Novelization & imagery & video of history/events
-- [ ] Skill agentification, cultivators autonomously planning, analyzing, calling tools, and making decisions
+###  telescope Long-term Prospects
+- [ ] Novelization & Imaging & Video of history/events
+- [ ] Skill agentification, cultivators independently plan, analyze, call tools, and make decisions
 - [ ] Integrate your own Claw into the cultivation world

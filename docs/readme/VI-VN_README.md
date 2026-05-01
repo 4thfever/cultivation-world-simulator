@@ -7,8 +7,8 @@
 # Mô Phỏng Thế Giới Tu Tiên (Cultivation World Simulator)
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
-[![Bilibili](https://img.shields.io/badge/Bilibili-Watch_Video-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
-![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
+[![Bilibili](https://img.shields.io/badge/Bilibili-%E6%9F%A5%E7%9C%8B%E8%A6%96%E9%A0%BB-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
+![QQ Group](https://img.shields.io/badge/QQ%E7%BE%A4-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
 
@@ -21,11 +21,11 @@
 
 
 <p align="center">
-  <img src="../../assets/screenshot.gif" alt="Game Demo" width="100%">
+  <img src="../../assets/screenshot.gif" alt="Demo game" width="100%">
 </p>
 
-> **Bạn sẽ đóng vai Thiên Đạo, quan sát trình mô phỏng thế giới tu tiên do quy tắc và AI cùng vận hành tự mình diễn hóa.**
-> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, hỗ trợ Docker để khởi động nhanh, đồng thời cũng phù hợp cho phát triển mã nguồn và modding.**
+> **Bạn sẽ đóng vai "Thiên Đạo", quan sát một trình mô phỏng thế giới tu tiên do hệ thống quy tắc và AI cùng vận hành tự mình diễn hóa.**
+> **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, hỗ trợ Docker để triển khai nhanh, đồng thời cũng phù hợp cho phát triển mã nguồn và sáng tạo thứ cấp.**
 
 <p align="center">
   <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
@@ -38,10 +38,10 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 
 ### ✨ Điểm Nổi Bật
 
-- 👁️ **Vào vai Thiên Đạo**: Bạn không phải một tu sĩ, mà là **Thiên Đạo** nắm giữ quy tắc vận hành của thế giới. Quan sát muôn hình muôn vẻ của chúng sinh, cảm nhận bi hoan ly hợp.
+- 👁️ **Vào vai "Thiên Đạo"**: Bạn không phải một tu sĩ, mà là **Thiên Đạo** nắm giữ quy tắc vận hành của thế giới. Quan sát muôn hình muôn vẻ của chúng sinh, cảm nhận bi hoan ly hợp.
 - 🤖 **Toàn bộ nhân vật đều do AI dẫn động**: Mỗi NPC đều được LLM điều khiển độc lập, có tính cách, ký ức, quan hệ xã hội và logic hành vi riêng. Họ sẽ tự đưa ra quyết định theo cục diện hiện tại, biết yêu hận, biết kết bè phái, thậm chí còn có thể nghịch thiên cải mệnh.
 - 🌏 **Lấy quy tắc làm nền móng**: Thế giới vận hành bằng một hệ thống nghiêm cẩn gồm linh căn, cảnh giới, công pháp, tính cách, tông môn, đan dược, binh khí, võ đạo hội, đấu giá hội, thọ nguyên và nhiều yếu tố khác. Sức tưởng tượng của AI được đặt trong khung logic tu tiên hợp lý và phong phú, đảm bảo thế giới chân thực đáng tin.
-- 🦋 **Tự sự nảy sinh tự nhiên**: Ngay cả tác giả cũng không biết khoảnh khắc tiếp theo sẽ xảy ra chuyện gì. Không có kịch bản định sẵn, chỉ có thế giới tự mình diễn hóa từ vô số nhân quả giao chồng. Đại chiến tông môn, chính ma tranh phong, thiên kiêu vẫn lạc, tất cả đều do logic thế giới tự suy diễn.
+- 🦋 **Cốt truyện nảy sinh tự nhiên**: Ngay cả tác giả cũng không biết khoảnh khắc tiếp theo sẽ xảy ra chuyện gì. Không có kịch bản định sẵn, chỉ có thế giới tự mình diễn hóa từ vô số nhân quả giao chồng. Đại chiến tông môn, chính ma tranh phong, thiên kiêu vẫn lạc, tất cả đều do logic thế giới tự suy diễn.
 
 <table border="0">
   <tr>
@@ -189,7 +189,6 @@ Ghi chú bổ sung:
 </details>
 
 ### 💭 Vì Sao Làm Dự Án Này?
-
 Thế giới trong truyện tu tiên rất hấp dẫn, nhưng độc giả thường chỉ được nhìn thấy một góc rất nhỏ của nó.
 
 Phần lớn game tu tiên hiện nay hoặc là kịch bản viết sẵn hoàn toàn, hoặc dựa vào những state machine đơn giản do con người thiết kế, nên thường tạo ra cảm giác gượng gạo và kém thông minh.
@@ -199,7 +198,6 @@ Sau khi mô hình ngôn ngữ lớn xuất hiện, mục tiêu làm cho "mỗi m
 Tôi muốn tạo ra một cảm giác nhập vai thuần túy, trực tiếp, sống động và vui vẻ trong một thế giới tu tiên. Không phải công cụ quảng bá thuần túy cho một công ty game nào đó, cũng không chỉ là dự án nghiên cứu như Stanford Town, mà là một thế giới thực sự có thể mang đến cảm giác nhập vai cho người chơi.
 
 ## 📞 Liên Hệ
-
 Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào về dự án, cứ tự nhiên mở Issue.
 
 - **Bilibili**: [Theo dõi](https://space.bilibili.com/527346837)
@@ -219,7 +217,7 @@ Nếu bạn thấy dự án này thú vị, hãy cho chúng tôi một Star ⭐.
   </a>
 </div>
 
-## Plugin
+# Plugin
 
 Cảm ơn các contributor đã đóng góp plugin cho repo này.
 
@@ -229,7 +227,7 @@ Cảm ơn các contributor đã đóng góp plugin cho repo này.
 ## 👥 Contributors
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=11" />
+  <img src="https://contrib.rocks/image?repo=4thfever%2Fcultivation-world-simulator&max=100&columns=11" />
 </a>
 
 Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
@@ -271,8 +269,8 @@ Chi tiết đóng góp vui lòng xem [CONTRIBUTORS.md](../../CONTRIBUTORS.md).
 - ✅ Quan hệ giữa các nhân vật
 - ✅ Phạm vi tương tác của nhân vật
 - ✅ Hệ thống Effects cho nhân vật: buff/debuff
-- ✅ Nhân vật công pháp
-- ✅ Nhân vật binh khí và trang bị phụ trợ
+- ✅ Công pháp
+- ✅ Binh khí và trang bị phụ trợ
 - ✅ Hệ thống Goldfinger
 - ✅ Đan dược
 - ✅ Ký ức ngắn hạn và dài hạn
