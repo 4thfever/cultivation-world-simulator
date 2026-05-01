@@ -13,6 +13,7 @@ Every pull request, issue, discussion, and review helps `Cultivation World Simul
 | teps3105 | <img src="https://avatars.githubusercontent.com/u/16871632?v=4" alt="teps3105 avatar" width="64" height="64" /> | [@teps3105](https://github.com/teps3105) |
 | LuckVd | <img src="https://avatars.githubusercontent.com/u/37114923?v=4" alt="LuckVd avatar" width="64" height="64" /> | [@LuckVd](https://github.com/LuckVd) |
 | MarkYangKp | <img src="https://avatars.githubusercontent.com/u/42310488?v=4" alt="MarkYangKp avatar" width="64" height="64" /> | [@MarkYangKp](https://github.com/MarkYangKp) |
+| Meanliss | <img src="https://avatars.githubusercontent.com/u/117923713?v=4" alt="Meanliss avatar" width="64" height="64" /> | [@Meanliss](https://github.com/Meanliss) |
 | octo-patch | <img src="https://avatars.githubusercontent.com/u/266937838?v=4" alt="octo-patch avatar" width="64" height="64" /> | [@octo-patch](https://github.com/octo-patch) |
 | Robinwhliu | <img src="https://avatars.githubusercontent.com/u/86167266?v=4" alt="Robinwhliu avatar" width="64" height="64" /> | [@Robinwhliu](https://github.com/Robinwhliu) |
 | Seafoodsz | <img src="https://avatars.githubusercontent.com/u/13925953?v=4" alt="Seafoodsz avatar" width="64" height="64" /> | [@Seafoodsz](https://github.com/Seafoodsz) |
