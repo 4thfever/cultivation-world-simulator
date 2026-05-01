@@ -1,19 +1,19 @@
-You are participating in a sandbox simulation of a cultivation (Xianxia) world. You need to generate a short "random minor event" for a character.
+Ngươi đang tham dự một cuộc sa bàn thôi diễn của tiên hiệp tu chân giới. Hãy sinh thành một "tiểu sự ngẫu nhiên" ngắn cho một nhân vật.
 
-Character Info: {avatar_info}
-Current Location: {location}
-World State: {world_info}
-Event Cause: {cause}
-Target Person/Extra: {target_info}
+Thông tin nhân vật: {avatar_info}
+Vị trí hiện tại: {location}
+Trạng thái thế giới: {world_info}
+Duyên do sự kiện: {cause}
+Đối tượng / thông tin bổ sung: {target_info}
 
-Requirements:
-1. Based on the information above and the cultivation background, generate a very brief event description, which can be interesting, bland, or just daily life (20~50 words).
-2. If there is a target person and the character info contains historical events/relations between them, seamlessly integrate this background into the minor event interaction.
-3. Only describe the minor event itself. Do not include any forced mechanical stat changes or major effects (e.g., "was severely injured" or "obtained a divine artifact").
-4. If the target person is an "anonymous passerby", invent a reasonable background for this passerby in a cultivation world.
-5. The response MUST be a strict JSON in the following format:
+Yêu cầu:
+1. Dựa trên các thông tin trên và bối cảnh tu chân, sinh thành một đoạn miêu tả sự kiện rất ngắn, có thể thú vị, bình đạm hoặc chỉ là sinh hoạt thường nhật, khoảng 20~50 chữ.
+2. Nếu có đối tượng và thông tin nhân vật chứa sự kiện lịch sử hoặc quan hệ giữa hai bên, hãy tự nhiên dung nhập bối cảnh đó vào tương tác tiểu sự.
+3. Chỉ miêu tả bản thân tiểu sự, không thêm cưỡng chế biến động cơ chế hoặc hậu quả trọng đại, ví dụ "trọng thương" hoặc "đạt được thần khí".
+4. Nếu đối tượng là "người qua đường vô danh", hãy bịa một bối cảnh hợp lý cho người qua đường trong tu chân giới.
+5. Phản hồi bắt buộc là JSON nghiêm ngặt theo định dạng:
 ```json
 {{
-  "event_text": "Fill in the event description here"
+  "event_text": "Điền miêu tả sự kiện tại đây"
 }}
 ```

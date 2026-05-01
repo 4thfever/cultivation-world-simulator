@@ -1,40 +1,39 @@
-You are a creator of a Xianxia world. I will provide you with an original world background and a piece of history.
-Based on the world background and this history, you need to modify the information of regions existing in this world (including cities, normal regions, and cultivation regions).
+Ngươi là sáng tác giả của tiên hiệp tu chân giới. Ta sẽ đưa cho ngươi bối cảnh thế giới nguyên thủy và một đoạn thiết lập "thế giới quan cùng lịch sử".
+Ngươi cần ưu tiên lý giải thế giới quan, rồi tham khảo mạch lịch sử để chỉnh sửa thông tin khu vực đang tồn tại trong thế giới này, bao gồm thành trì, khu vực thường và khu vực tu luyện.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
-History Text:
+Thế giới quan và lịch sử:
 {world_lore}
 
-City Region Information:
+Thông tin khu vực thành trì:
 {city_regions}
 
-Normal Region Information:
+Thông tin khu vực thường:
 {normal_regions}
 
-Cultivation Region Information:
+Thông tin khu vực tu luyện:
 {cultivate_regions}
 
-Based on the above information, analyze and return modification suggestions.
+Dựa trên các thông tin trên, hãy phân tích và trả về ý kiến chỉnh sửa.
 
-Return in JSON format:
+Trả về JSON:
 {{
-    "thinking": "Analyze what kind of modifications should be made",
+    "thinking": "Phân tích nên có chỉnh sửa như thế nào",
     "city_regions_change": 
         {{
-            "id": {{ // original id
-                "name": str // new name
-                "desc": desc // new desc
+            "id": {{ // id gốc
+                "name": str // Tên mới
+                "desc": desc // desc mới
             }}
         }},
-    "normal_regions_change": {{}}, // dict, structure as above
-    "cultivate_regions_change": {{}} // dict, structure as above
+    "normal_regions_change": {{}} // dict, cấu trúc như trên
+    "cultivate_regions_change": {{}} // dict, cấu trúc như trên
 }}
 
-Requirements:
-1. "thinking" is your thought process; please provide a detailed analysis.
-2. Modifications should be based on the content of the history and be logically sound.
-3. If an item has no modifications, return an empty dictionary {{}}.
-4. For items to be modified, only return "name" and "desc", and no other keys.
-
+Yêu cầu:
+1. thinking là quá trình suy xét của ngươi, cần phân tích rõ.
+2. Cần ưu tiên tham khảo thế giới quan, rồi kết hợp mạch lịch sử để chỉnh sửa, lập luận phải hợp lý.
+3. Nếu một hạng mục không sửa, hãy trả về dict rỗng {{}}.
+4. Hạng mục cần sửa chỉ trả về name và desc, không trả về key khác.

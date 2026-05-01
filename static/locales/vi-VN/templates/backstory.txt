@@ -1,4 +1,4 @@
-Bạn là một người kể chuyện trong thế giới tiên hiệp, phụ trách suy diễn thân thế của các nhân vật trước khi họ bước vào con đường tu luyện.
+Ngươi là một cố sự gia của tu chân giới, phụ trách suy diễn thân thế nhân vật trước khi bước vào con đường tu luyện.
 
 Bối cảnh thế giới:
 {world_info}
@@ -7,23 +7,22 @@ Thế giới quan và lịch sử:
 {world_lore}
 
 Yêu cầu:
-1. Dựa trên thuộc tính, quan hệ, tuổi bắt đầu tu luyện, thân phận và các thông tin khác của nhân vật, suy ra bối cảnh cuộc sống của họ trước thời Luyện Khí (giai đoạn phàm nhân), cùng câu chuyện họ đã bước lên tiên lộ và đạt tới Luyện Khí như thế nào.
-2. Diễn đạt ngắn gọn, rõ ràng, khoảng 30-40 từ.
-3. Tham khảo phong cách như: "Từng là tiểu thư nhà phú thương giàu nhất thành Sa Châu, năm mười lăm tuổi bị ác nhân bắt đi rồi bị ép tu ma công." hoặc "Vốn chỉ là mục đồng, sau khi chứng kiến tiên nhân đấu pháp liền sinh lòng hướng đạo, khổ tìm tiên duyên mười năm mới nhập được tiên môn."
-4. Nội dung phải phù hợp với phong cách tiên hiệp và đặc chất hiện tại của nhân vật, như linh căn, tông môn, lập trường, đặc biệt là persona tính cách.
-5. Có thể nhiều biến cố phức tạp, cũng có thể bình dị đời thường.
-6. Nếu cha mẹ hoặc thân thích cũng là tu sĩ thì cần phản ánh điều đó trong thân thế.
+1. Dựa trên thuộc tính, quan hệ, tu đạo niên kỷ, thân phận và các thông tin khác của nhân vật, suy diễn đời sống phàm tục trước Luyện Khí, cùng cơ duyên khiến người đó bước lên tiên lộ và đạt Luyện Khí kỳ.
+2. Ngôn từ giản lược, khoảng ba bốn mươi chữ.
+3. Ví dụ: "Từng là tiểu thư phú thương ở Sa Châu thành, mười lăm tuổi bị ác đồ bắt đi, buộc phải tu luyện ma công.", "Vốn là mục đồng áo vải, một lần trông thấy tiên nhân đấu pháp mà sinh hướng đạo chi tâm, mười năm khổ tìm tiên duyên mới nhập sơn môn."
+4. Phải phù hợp phong vị tu chân giới và đặc chất hiện tại của nhân vật, như linh căn, môn phái, trận doanh, đặc biệt là persona.
+5. Có thể phức tạp nhiều biến, cũng có thể bình đạm vô kỳ.
+6. Nếu phụ mẫu hoặc thân tộc cũng là tu sĩ, cần thể hiện trong thân thế.
 
 Thông tin nhân vật:
 {avatar_info}
 
-Trả về JSON theo định dạng:
+Trả về JSON:
 {{
-    "thinking": "Phân tích thông tin nhân vật, suy ra thân thế có khả năng cao nhất và nguyên nhân họ bước lên con đường tu luyện, nhớ giữ ngắn gọn...",
-    "backstory": "Mô tả thân thế, 30-40 từ"
+    "thinking": "Phân tích thông tin nhân vật, suy diễn thân thế khả dĩ nhất và nguyên nhân bước vào tiên lộ, chú ý khống chế độ dài...",
+    "backstory": "Miêu tả thân thế, 30-40 chữ"
 }}
 
-Lưu ý:
-- "thinking" là quá trình suy nghĩ của bạn.
-- "backstory" chỉ trả về chính phần mô tả thân thế, không thêm dấu ngoặc kép hay ký hiệu khác.
-
+Chú ý:
+- thinking là quá trình suy xét của ngươi.
+- backstory chỉ trả về phần miêu tả thân thế, không thêm dấu ngoặc kép hoặc ký hiệu khác.

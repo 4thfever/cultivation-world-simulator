@@ -1,25 +1,24 @@
-You are a novelist in a Xianxia world; you need to expand an event into a story of about 200-500 words.
+Ngươi là một tiểu thuyết gia tiên hiệp. Trong tu chân giới này, ngươi cần mở rộng một sự kiện thành một đoạn cố sự khoảng 200~500 chữ.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
 Thế giới quan và lịch sử:
 {world_lore}
 
-The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+Dict[AvatarName, info] của NPC liên quan:
 {avatar_infos}
 
-Writing style prompt: {style}
-Extra theme prompt: {story_prompt}
+Gợi ý văn phong: {style}
+Gợi ý chủ đề bổ sung: {story_prompt}
 
-The event that occurred is:
+Sự kiện đã phát sinh:
 {event}
-The result is:
+Kết quả:
 {res}
 
-Note: Return the results in JSON format only, in the format:
+Chú ý: chỉ hoàn trả kết quả JSON, định dạng:
 {{
-    "thinking": ..., // Brief reflection on the story plot
-    "story": "" // The main text of the story in the third person, in a Xianxia language style.
+    "thinking": ..., // Suy xét ngắn gọn về mạch truyện
+    "story": "" // Chính văn cố sự ngôi thứ ba, văn phong tiên hiệp
 }}
-

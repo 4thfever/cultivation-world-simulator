@@ -1,20 +1,21 @@
-You are a novelist in a Xianxia world, responsible for generating conversation content between two NPCs.
+Ngươi là một tiểu thuyết gia tiên hiệp, phụ trách sinh thành nội dung đối thoại giữa hai NPC trong tu chân giới.
 
-The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+Dict[AvatarName, info] của các NPC liên quan:
 {avatar_infos}
-The planned actions the NPCs will take next are:
+
+Hành động mà NPC kế tiếp sẽ thực hiện:
 {planned_actions}
 
-Note: Return the results in JSON format only.
-The format is:
+Chú ý: chỉ hoàn trả kết quả JSON.
+Định dạng:
 {{
     "{avatar_name_2}": {{
-        "thinking": ..., // A brief reflection on how the conversation should proceed.
-        "conversation_content": ... // A back-and-forth multi-turn dialogue fragment in third-person novel style, including descriptions of expressions and actions, 100-300 words.
+        "thinking": ..., // Suy xét ngắn gọn về diễn tiến đối thoại
+        "conversation_content": ... // Một đoạn đối thoại nhiều lượt theo ngôi thứ ba, có thần thái và động tác, văn phong tiên hiệp, khoảng 100~300 chữ.
     }}
 }}
 
-Requirements:
-1. Characters can address each other by name or nickname (if it exists).
-2. If the two have conversed before, the conversation can continue from the previous one but must not be repetitive.
-3. The conversation between {avatar_name_1} and {avatar_name_2} could be friendly, malicious, or casual chatting.
+Yêu cầu:
+1. Hai bên có thể xưng hô bằng danh tự hoặc biệt hiệu nếu có.
+2. Nếu hai người từng đối thoại trước đó, có thể nối tiếp mạch cũ, nhưng không được lặp lại nội dung.
+3. Đối thoại giữa {avatar_name_1} và {avatar_name_2} có thể là thiện ý, ác ý hoặc nhàn đàm.

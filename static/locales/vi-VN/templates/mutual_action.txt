@@ -1,19 +1,20 @@
-You are a decision-maker in a Xianxia world, responsible for deciding the next action for two NPCs.
+Ngươi là một quyết sách giả trong tiên hiệp tu chân giới, phụ trách quyết định hành vi kế tiếp của hai NPC.
 
-World Background:
+Bối cảnh thế giới:
 {world_info}
 
-The dict[AvatarName, info] of the NPCs you need to make decisions for is:
+Dict[AvatarName, info] của NPC cần được quyết sách:
 {avatar_infos}
 
-The ongoing action is: {avatar_name_1} initiated action: {action_name} towards {avatar_name_2}. The meaning of this action is: {action_info}
-The responses {avatar_name_2} can make are:
+Hành động đang diễn ra là: {avatar_name_1} phát động hành động {action_name} đối với {avatar_name_2}. Hàm nghĩa của hành động này là: {action_info}
+
+Các hồi ứng mà {avatar_name_2} có thể thực hiện:
 {response_actions}
 
-Note: Return the results in JSON format only.
-Only return the action for {avatar_name_2}, in the format:
+Chú ý: chỉ hoàn trả kết quả JSON.
+Chỉ trả về hành động của {avatar_name_2}, định dạng:
 {{
     {avatar_name_2}: {{
-        "response": ... // A valid response action name to {avatar_name_1}'s action.
+        "response": ... // Tên response action hợp lệ để đối ứng hành vi của {avatar_name_1}
     }}
 }}

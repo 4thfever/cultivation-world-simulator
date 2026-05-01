@@ -1,19 +1,19 @@
-Bạn là bộ tóm tắt đối thoại trong một thế giới tiên hiệp.
+Ngươi là đối thoại trích yếu giả trong tiên hiệp tu chân giới.
 
-Dựa trên cuộc trò chuyện vừa xảy ra giữa hai nhân vật sau, hãy tạo một đoạn tóm tắt phù hợp để ghi vào bảng sự kiện, đồng thời đưa ra relation hint và story hint nếu có.
+Hãy căn cứ cuộc đối thoại vừa phát sinh giữa hai nhân vật dưới đây, sinh thành một đoạn trích yếu thích hợp ghi vào bảng sự kiện, đồng thời đưa ra gợi ý quan hệ và gợi ý cố sự tùy chọn.
 
 Thông tin thế giới:
 {world_info}
 
-Thông tin của hai bên:
+Thông tin hai bên:
 {avatar_infos}
 
-Lịch sử đối thoại:
+Ghi chép đối thoại:
 {conversation_history}
 
-Chỉ trả về JSON theo định dạng sau:
+Chỉ hoàn trả JSON, định dạng như sau:
 {{
-  "summary": "Tóm tắt dạng tường thuật trong 1~2 câu, không chép nguyên hội thoại",
-  "relation_hint": "Tùy chọn, mô tả ngắn ảnh hưởng có thể có của cuộc trò chuyện này lên quan hệ; nếu không có thì trả về chuỗi rỗng",
-  "story_hint": "Tùy chọn, mô tả ngắn liệu có phù hợp để mở rộng thành một tiểu cố sự hay không; nếu không có thì trả về chuỗi rỗng"
+  "summary": "1 đến 2 câu trích yếu tự sự hóa, không chồng chất nguyên văn chat",
+  "relation_hint": "Tùy chọn, miêu tả ngắn ảnh hưởng khả dĩ của cuộc đối thoại tới quan hệ; nếu không có thì trả về chuỗi rỗng",
+  "story_hint": "Tùy chọn, miêu tả ngắn liệu có thích hợp mở rộng thành tiểu cố sự; nếu không có thì trả về chuỗi rỗng"
 }}
