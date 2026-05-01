@@ -4,10 +4,10 @@
 </h3>
 <p align="center">— ✦ —</p>
 
-# 修仙世界シミュレーター
+# 修仙世界シミュレーター (Cultivation World Simulator)
 
 ![GitHub stars](https://img.shields.io/github/stars/4thfever/cultivation-world-simulator?style=social)
-[![Bilibili](https://img.shields.io/badge/Bilibili-動画を見る-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
+[![Bilibili](https://img.shields.io/badge/Bilibili-%E5%8B%95%E7%94%BB%E3%82%92%E8%A6%8B%E3%82%8B-FB7299?logo=bilibili)](https://space.bilibili.com/527346837)
 ![QQ Group](https://img.shields.io/badge/QQ%20Group-1071821688-deepskyblue?logo=tencent-qq&logoColor=white)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?logo=discord&logoColor=white)](https://discord.gg/3Wnjvc7K)
 [![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](../../LICENSE)
@@ -19,6 +19,7 @@
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white)
 ![PixiJS](https://img.shields.io/badge/PixiJS-E72264?style=flat&logo=pixijs&logoColor=white)
 
+
 <p align="center">
   <img src="../../assets/screenshot.gif" alt="ゲームデモ" width="100%">
 </p>
@@ -27,13 +28,12 @@
 > **全 NPC が LLM 駆動、群像的な物語が自然発生し、Docker で手軽に動かせて、改造や二次創作の土台としても扱いやすい作品です。**
 
 <p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-  <a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
 </p>
 
 ## 📖 紹介
 
-これは **AI 駆動の修仙世界シミュレーター** です。  
+これは **AI 駆動の修仙世界シミュレーター** です。
 このシミュレーターでは、すべての修士が独立した Agent として存在し、環境を観察し、自ら判断して行動します。同時に、AI の暴走や幻覚を防ぐため、複雑かつ柔軟な修仙世界観と運行ルールが織り込まれています。ルールと AI が共に織り上げる世界では、修士たちと宗門の意思が競い合い、ときに協力し、新たな物語が絶えず生まれます。宗門の興亡や天才の台頭を静かに見届けることも、天劫を下したり心境へ干渉したりして世界の流れにそっと手を加えることもできます。
 
 ### ✨ 主な魅力
@@ -41,7 +41,7 @@
 - 👁️ **「天道」を演じる**: あなたは一人の修士ではなく、世界の法則を司る **天道** です。万象を見渡し、衆生の悲喜こもごもを味わえます。
 - 🤖 **完全 AI 駆動**: すべての NPC が LLM によって独立駆動され、固有の性格、記憶、人間関係、行動原理を持ちます。局面に応じて判断し、愛憎を抱き、勢力を結び、時には天命に逆らいます。
 - 🌏 **厳密な世界ルール**: 霊根、境界、功法、性格、宗門、丹薬、兵器、武道会、競売会、寿元などが組み合わさって世界が動きます。AI の想像力は、豊かでありながら破綻しない修仙ロジックの中に収められています。
-- 🦋 **涌現する物語**: 次の瞬間に何が起きるかは、開発者にも分かりません。あらかじめ決まった脚本ではなく、無数の因果が絡み合って世界が変化していきます。
+- 🦋 **涌現する物語**: 次の瞬間に何が起きるかは、開発者にも分かりません。あらかじめ決まった脚本ではなく、無数の因果が絡み合って世界が変化していきます。宗門大戦、正魔の争い、天才の没落、すべてが世界のロジックによって自律的に推論されます。
 
 <table border="0">
   <tr>
@@ -92,7 +92,7 @@
 
 ### 初回起動時の注意
 
-- ソース起動でも Docker 起動でも、新しいゲームを始める前に設定ページで利用可能なモデルプリセットを選ぶ必要があります。DeepSeek、MiniMax、Ollama などが使えます。
+- ソース起動でも Docker 起動でも、新しいゲームを始める前に設定ページで利用可能なモデルプリセットを選ぶ必要があります（DeepSeek / MiniMax / Ollama など）。
 - 開発モードでは通常フロントエンドページが自動で開きます。開かない場合は、起動ログに表示された URL にアクセスしてください。
 
 ### 方法 1: ソースコード起動（開発向け・推奨）
@@ -143,7 +143,7 @@ docker-compose up -d --build
 </details>
 
 <details>
-<summary><b>外部 API / Agent 連携（クリックで展開）</b></summary>
+<summary><b>外部 API / Agent/Claw 連携（クリックで展開）</b></summary>
 
 このセクションは、外部 agent / Claw 連携、自動化スクリプト、または「観測 -> 判断 -> 介入 -> 再観測」のループ運用に向いています。
 
@@ -189,9 +189,12 @@ docker-compose up -d --build
 </details>
 
 ### 💭 なぜこの作品を作ったのか
-修仙小説の世界は魅力的ですが、読者が見られるのはそのごく一部だけです。  
-修仙ゲームは、完全にスクリプト化されているか、人間が書いた単純な状態機械に依存していることが多く、不自然で賢くない挙動になりがちです。  
-大規模言語モデルの登場によって、「すべてのキャラクターが生きている」世界は、ようやく手の届く目標になりました。  
+修仙小説の世界は魅力的ですが、読者が見られるのはそのごく一部だけです。
+
+修仙ゲームは、完全にスクリプト化されているか、人間が書いた単純な状態機械に依存していることが多く、不自然で賢くない挙動になりがちです。
+
+大規模言語モデルの登場によって、「すべてのキャラクターが生きている」世界は、ようやく手の届く目標になりました。
+
 この作品では、宣伝のためだけの器でも、純研究でもなく、プレイヤーが本当に没入できる、純粋で、生きていて、楽しい修仙世界を作りたいと考えています。
 
 ## 📞 連絡先
@@ -202,6 +205,7 @@ docker-compose up -d --build
 - **Discord**: [コミュニティに参加](https://discord.gg/3Wnjvc7K)
 
 ---
+
 
 ## ⭐ Star History
 
@@ -307,7 +311,7 @@ docker-compose up -d --build
 - ✅ 大規模多人イベント:
   - ✅ 競売会
   - ✅ 秘境探索
-  - ✅ 天下武道会
+  - ✅ 天下武道會
   - ✅ 宗門伝道大会
 - [ ] 突発イベント
   - [ ] 宝物 / 洞府出世

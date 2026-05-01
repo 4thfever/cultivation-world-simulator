@@ -28,8 +28,7 @@
 > **全員 LLM 驅動、群像湧現敘事、支援 Docker 一鍵部署，也適合原始碼開發與二次創作。**
 
 <p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-  <a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
 </p>
 
 ## 📖 簡介
@@ -144,7 +143,7 @@ docker-compose up -d --build
 </details>
 
 <details>
-<summary><b>外接 API / Agent 接入（點擊展開）</b></summary>
+<summary><b>外接 API / Agent/Claw 接入 (點擊展開)</b></summary>
 
 這部分適合做外部 agent / Claw 接入、自動化腳本，或者實作「觀察 -> 決策 -> 干預 -> 再觀察」的閉環遊玩。
 
@@ -207,6 +206,7 @@ docker-compose up -d --build
 
 ---
 
+
 ## ⭐ Star History
 
 如果你覺得這個項目有趣，請給我們一個 Star ⭐！這將激勵我們持續改進和添加新功能。
@@ -237,10 +237,10 @@ docker-compose up -d --build
 ### 🏗️ 基礎系統
 - ✅ 基礎世界地圖、時間、事件系統
 - ✅ 多樣化地形類型（平原、山脈、森林、沙漠、水域等）
-- ✅ 基於Web前端顯示界面
+- ✅ 基於 Web 前端顯示界面
 - ✅ 基礎模擬器框架
 - ✅ 配置文件
-- ✅ release 一鍵即玩的exe
+- ✅ release 一鍵即玩的 exe
 - ✅ 菜單欄 & 存檔 & 讀檔
 - ✅ 靈活自定義 LLM 接口
 - ✅ 支援 macOS
@@ -270,7 +270,7 @@ docker-compose up -d --build
 - ✅ 角色交互範圍
 - ✅ 角色 Effects 系統：增益/減益效果
 - ✅ 角色功法
-- ✅ 角色兵器 & 輔助裝備
+- ✅ 角色兵器 & 補助裝備
 - ✅ 外掛系統
 - ✅ 丹藥
 - ✅ 角色長短期記憶
@@ -307,7 +307,7 @@ docker-compose up -d --build
 - ✅ 系統性的動作註冊與運行邏輯
 
 ### 🎭 事件系統
-- ✅ 天地靈氣變動
+- ✅ 天地靈氣變动
 - ✅ 多人大事件：
   - ✅ 拍賣會
   - ✅ 秘境探索
@@ -364,5 +364,5 @@ docker-compose up -d --build
 
 ### 🔭 遠期展望
 - [ ] 歷史/事件的小說化 & 圖片化 & 視頻化
-- [ ] Skill agent化，修士自行規劃、分析、調用工具、決策
+- [ ] Skill agent 化，修士自行規劃、分析、調用工具、決策
 - [ ] 將自己的 Claw 配入修仙世界

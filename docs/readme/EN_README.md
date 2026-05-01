@@ -28,8 +28,7 @@
 > **Fully LLM-driven NPCs, emergent ensemble storytelling, easy Docker setup, and a solid base for development and modding.**
 
 <p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-  <a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
 </p>
 
 ## 📖 Introduction
@@ -207,6 +206,7 @@ If you have any questions or suggestions about the project, feel free to submit 
 
 ---
 
+
 ## ⭐ Star History
 
 If you find this project interesting, please give us a Star ⭐! This will inspire us to continuously improve and add new features.
@@ -362,7 +362,7 @@ For more contribution details, please see [CONTRIBUTORS.md](../../CONTRIBUTORS.m
 - [ ] World-ending Crisis
 - [ ] Found a sect / Establish a clan / Become emperor
 
-### 🔭 Long-term Prospects
+###  Telescope Long-term Prospects
 - [ ] Novelization & imagery & video of history/events
 - [ ] Skill agentification, cultivators autonomously planning, analyzing, calling tools, and making decisions
 - [ ] Integrate your own Claw into the cultivation world
