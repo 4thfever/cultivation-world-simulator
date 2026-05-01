@@ -36,16 +36,6 @@ export default defineConfig(({ mode }) => {
             if (normalizedId.includes('/src/components/game/panels/')) {
               return 'game-panels'
             }
-            if (!normalizedId.includes('node_modules')) return undefined
-            if (normalizedId.includes('naive-ui') || normalizedId.includes('vfonts')) {
-              return 'vendor-ui'
-            }
-            if (normalizedId.includes('vue3-pixi')) {
-              return undefined
-            }
-            if (normalizedId.includes('vue') || normalizedId.includes('pinia') || normalizedId.includes('@vueuse')) {
-              return 'vendor-vue'
-            }
             return undefined
           },
         },

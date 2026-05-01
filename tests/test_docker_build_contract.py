@@ -59,6 +59,11 @@ def get_compose_text() -> str:
     return compose_file.read_text(encoding="utf-8")
 
 
+def get_workflow_text(name: str) -> str:
+    workflow_file = get_project_root() / ".github" / "workflows" / name
+    return workflow_file.read_text(encoding="utf-8")
+
+
 def test_frontend_registry_import_targets_static_registry():
     project_root = get_project_root()
     registry_ts = project_root / "web" / "src" / "locales" / "registry.ts"
@@ -108,6 +113,33 @@ def test_frontend_dockerfile_copies_shared_world_info_csv():
         "Frontend Docker build must copy the shared world info csv because "
         "web/src/utils/worldInfo.ts imports it from outside web/."
     )
+
+
+def test_frontend_vite_config_does_not_force_split_vue_and_ui_vendor_chunks():
+    vite_config = (get_project_root() / "web" / "vite.config.ts").read_text(encoding="utf-8")
+
+    assert "vendor-vue" not in vite_config
+    assert "vendor-ui" not in vite_config
+
+
+def test_main_ci_runs_frontend_production_build_and_smoke():
+    workflow = get_workflow_text("test.yml")
+
+    assert "npm run build" in workflow
+    assert "npm run smoke:production" in workflow
+    assert "CWS_SMOKE_MOCK_API" in workflow
+    assert "npx playwright install --with-deps chromium" in workflow
+
+
+def test_docker_smoke_ci_builds_and_browser_tests_compose_frontend():
+    workflow = get_workflow_text("docker-smoke.yml")
+
+    assert "docker compose build" in workflow
+    assert "docker compose up -d --build" in workflow
+    assert "http://localhost:8123/api/v1/query/runtime/status" in workflow
+    assert "CWS_SMOKE_BASE_URL" in workflow
+    assert "CWS_SMOKE_SKIP_WEBSERVER" in workflow
+    assert "npm run smoke:production" in workflow
 
 
 def test_backend_dockerfile_does_not_copy_tools_directory():

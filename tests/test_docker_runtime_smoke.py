@@ -62,6 +62,33 @@ def wait_until_backend_ready(timeout_seconds: int = 120) -> None:
     )
 
 
+def wait_until_frontend_proxy_ready(timeout_seconds: int = 120) -> None:
+    deadline = time.time() + timeout_seconds
+    last_error: Exception | None = None
+    last_payload: dict | None = None
+    while time.time() < deadline:
+        try:
+            payload = http_json("http://localhost:8123/api/v1/query/runtime/status")
+            last_payload = payload
+            if isinstance(payload, dict):
+                if payload.get("ok") is True and isinstance(payload.get("data"), dict):
+                    return
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            json.JSONDecodeError,
+            ConnectionResetError,
+            ConnectionRefusedError,
+            OSError,
+        ) as exc:
+            last_error = exc
+        time.sleep(2)
+    raise AssertionError(
+        "Frontend proxy /api/v1/query/runtime/status did not become ready in time. "
+        f"Last payload: {last_payload!r}; last error: {last_error!r}"
+    )
+
+
 def wait_until_game_ready(timeout_seconds: int = 300) -> None:
     deadline = time.time() + timeout_seconds
     last_error: Exception | None = None
@@ -94,6 +121,7 @@ def test_docker_compose_persists_settings_after_recreate():
     try:
         run_compose("up", "-d", "--build", timeout=900)
         wait_until_backend_ready()
+        wait_until_frontend_proxy_ready()
 
         updated = http_json(
             "http://localhost:8002/api/settings",
@@ -189,10 +217,19 @@ def test_docker_compose_persists_settings_after_recreate():
             timeout=120,
             check=False,
         )
+        frontend_logs = subprocess.run(
+            ["docker", "compose", "logs", "--no-color", "frontend"],
+            cwd=get_project_root(),
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        )
         raise AssertionError(
             "Docker runtime smoke test failed.\n"
             f"compose ps:\n{ps.stdout}\n"
             f"backend logs:\n{logs.stdout}\n"
+            f"frontend logs:\n{frontend_logs.stdout}\n"
             f"original error: {exc!r}"
         ) from exc
     finally:

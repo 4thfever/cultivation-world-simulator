@@ -1,0 +1,133 @@
+name: Docker Smoke
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker images
+        run: docker compose build
+
+  docker-runtime-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: docker-build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "requirements.txt"
+
+      - name: Install Python dependencies
+        run: |
+          uv pip install --system -r requirements.txt
+          uv pip install --system pytest
+
+      - name: Run Docker runtime smoke
+        run: pytest -m docker tests/test_docker_runtime_smoke.py -v
+
+      - name: Collect Docker logs
+        if: failure()
+        run: |
+          mkdir -p tmp/docker-smoke
+          docker compose ps > tmp/docker-smoke/compose-ps.txt || true
+          docker compose logs --no-color backend > tmp/docker-smoke/backend.log || true
+          docker compose logs --no-color frontend > tmp/docker-smoke/frontend.log || true
+
+      - name: Upload Docker runtime logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-runtime-smoke-logs
+          path: tmp/docker-smoke/
+          if-no-files-found: ignore
+
+  docker-frontend-browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: docker-build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Install Playwright browser
+        working-directory: web
+        run: npx playwright install --with-deps chromium
+
+      - name: Start Docker compose
+        run: docker compose up -d --build
+
+      - name: Wait for frontend proxy health
+        run: |
+          for i in {1..90}; do
+            if curl -fsS http://localhost:8123/api/v1/query/runtime/status > /tmp/cws-runtime-status.json; then
+              cat /tmp/cws-runtime-status.json
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose ps
+          docker compose logs --no-color backend
+          docker compose logs --no-color frontend
+          exit 1
+
+      - name: Run Docker frontend browser smoke
+        working-directory: web
+        env:
+          CWS_SMOKE_BASE_URL: "http://127.0.0.1:8123"
+          CWS_SMOKE_SKIP_WEBSERVER: "1"
+        run: npm run smoke:production
+
+      - name: Collect Docker frontend smoke artifacts
+        if: failure()
+        run: |
+          mkdir -p tmp/docker-frontend-smoke
+          docker compose ps > tmp/docker-frontend-smoke/compose-ps.txt || true
+          docker compose logs --no-color backend > tmp/docker-frontend-smoke/backend.log || true
+          docker compose logs --no-color frontend > tmp/docker-frontend-smoke/frontend.log || true
+          find web/dist -maxdepth 2 -type f | sort > tmp/docker-frontend-smoke/web-dist-files.txt || true
+
+      - name: Upload Docker frontend smoke artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-frontend-browser-smoke-artifacts
+          path: |
+            tmp/docker-frontend-smoke/
+            web/playwright-report/
+            web/test-results/
+          if-no-files-found: ignore
+
+      - name: Stop Docker compose
+        if: always()
+        run: docker compose down
+

@@ -46,6 +46,10 @@ jobs:
         working-directory: web
         run: npm ci
 
+      - name: Install Playwright browser
+        working-directory: web
+        run: npx playwright install --with-deps chromium
+
       - name: Run frontend type check
         working-directory: web
         run: npm run type-check
@@ -53,6 +57,26 @@ jobs:
       - name: Run frontend tests with coverage
         working-directory: web
         run: npm run test:coverage
+
+      - name: Build frontend production bundle
+        working-directory: web
+        run: npm run build
+
+      - name: Run frontend production smoke
+        working-directory: web
+        env:
+          CWS_SMOKE_MOCK_API: "1"
+        run: npm run smoke:production
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-production-smoke-report
+          path: |
+            web/playwright-report/
+            web/test-results/
+          if-no-files-found: ignore
 
       # --- Upload Coverage ---
       - name: Upload coverage to Codecov
