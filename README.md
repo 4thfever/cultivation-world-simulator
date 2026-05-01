@@ -227,7 +227,7 @@ docker-compose up -d --build
 ## 👥 贡献者
 
 <a href="https://github.com/4thfever/cultivation-world-simulator/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=4thfever/cultivation-world-simulator&max=100&columns=11" />
+  <img src="https://contrib.rocks/image?repo=4thfever%2Fcultivation-world-simulator&max=100&columns=11" />
 </a>
 
 更多贡献细节请查看 [CONTRIBUTORS.md](CONTRIBUTORS.md)。

@@ -12,12 +12,13 @@ from urllib import error, parse, request
 
 DEFAULT_REPO = "4thfever/cultivation-world-simulator"
 DEFAULT_OUTPUT = Path("CONTRIBUTORS.md")
+DEFAULT_README = Path("README.md")
 API_BASE_URL = "https://api.github.com"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Fetch GitHub contributors and regenerate CONTRIBUTORS.md."
+        description="Fetch GitHub contributors and regenerate CONTRIBUTORS.md and update README.md."
     )
     parser.add_argument(
         "--repo",
@@ -29,6 +30,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_OUTPUT,
         help=f"Output Markdown path. Default: {DEFAULT_OUTPUT}",
+    )
+    parser.add_argument(
+        "--readme",
+        type=Path,
+        default=DEFAULT_README,
+        help=f"README path to update. Default: {DEFAULT_README}",
     )
     return parser.parse_args()
 
@@ -110,6 +117,38 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def update_readme(readme_path: Path, repo: str) -> bool:
+    if not readme_path.exists():
+        print(f"Warning: {readme_path} not found, skipping README update.")
+        return False
+
+    content = readme_path.read_text(encoding="utf-8")
+    
+    # Pattern to match the contributors section in README.md
+    # Looking for:
+    # ## 👥 贡献者
+    # 
+    # <a href="...">
+    #   <img src="..." />
+    # </a>
+    pattern = re.compile(
+        r"(## 👥 贡献者\s*\n\s*\n)<a href=\"https://github\.com/[^/]+/[^/]+/graphs/contributors\">\s*\n\s*<img src=\"https://contrib\.rocks/image\?repo=[^&]+&max=\d+&columns=\d+\" />\s*\n\s*</a>",
+        re.MULTILINE
+    )
+    
+    new_img_tag = f'<a href="https://github.com/{repo}/graphs/contributors">\n  <img src="https://contrib.rocks/image?repo={repo.replace("/", "%2F")}&max=100&columns=11" />\n</a>'
+    
+    new_content, count = pattern.subn(rf"\1{new_img_tag}", content)
+    
+    if count > 0:
+        readme_path.write_text(new_content, encoding="utf-8")
+        print(f"Updated {readme_path} contributors section.")
+        return True
+    else:
+        print(f"Warning: Could not find contributors section in {readme_path} to update.")
+        return False
+
+
 def main() -> int:
     args = parse_args()
     contributors = fetch_all_contributors(args.repo)
@@ -119,6 +158,9 @@ def main() -> int:
     print(
         f"Updated {args.output} with {len(contributors)} contributors from {args.repo}."
     )
+    
+    update_readme(args.readme, args.repo)
+    
     return 0
 
 

@@ -1,4 +1,4 @@
-当用户调用此命令时，请同步并更新仓库根目录 `CONTRIBUTORS.md`，来源为 GitHub 仓库贡献者列表。
+当用户调用此命令时，请同步并更新仓库根目录 `CONTRIBUTORS.md` 以及 `README.md` 中的贡献者部分，来源为 GitHub 仓库贡献者列表。
 
 请严格执行以下流程：
 
@@ -15,15 +15,19 @@
    - 表格仅保留三列：`Name`、`Avatar`、`GitHub`
    - 不要补充“每个人做了什么”的说明
    - 表格数据以 GitHub contributors API 返回结果为准
-4. **失败处理**：
+4. **同步更新 README.md**：
+   - 脚本会自动更新 `README.md` 中的 `## 👥 贡献者` 章节
+   - 确保 `README.md` 中的 contrib.rocks 图片链接指向正确的仓库
+5. **失败处理**：
    - 若 GitHub API 请求失败，明确说明失败原因
    - 不要在请求失败时写入伪造或手填的贡献者数据
-5. **完成后自检**：
+6. **完成后自检**：
    - 检查 `CONTRIBUTORS.md` 是否已更新
+   - 检查 `README.md` 的贡献者部分是否已同步
    - 检查表格是否可读、链接是否指向正确 GitHub 主页
    - 输出本次同步的贡献者总数
 
 注意：
 
-- 仅更新 `CONTRIBUTORS.md` 与必要脚本，不要顺带修改其他业务文件。
+- 仅更新 `CONTRIBUTORS.md`、`README.md` 与必要脚本，不要顺带修改其他业务文件。
 - 若新增或修改了 `.cursor/commands`，建议随后执行一次 `/sync_agents`，保持 `AGENTS.md` 索引同步。
