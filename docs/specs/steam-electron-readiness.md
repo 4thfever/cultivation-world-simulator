@@ -5,7 +5,7 @@
 当前文档分为两层：
 
 1. 已完成的通用底盘优化：这些能力对 GitHub / 浏览器使用模式也有收益。
-2. 待实现的 Steam Electron 管线：这些能力只服务 Steam 桌面成品，不影响现有开源包默认流程。
+2. 已完成首轮最小可用实现的 Steam Electron 管线：这些能力只服务 Steam 桌面成品，不影响现有开源包默认流程。
 
 这些优化的共同标准是：
 
@@ -19,16 +19,16 @@
 当前打包流程大体分为两类：
 
 1. GitHub 开源包：PyInstaller 打包后端，运行时打开系统浏览器访问本地 Web UI。
-2. Steam 包：目前仍然沿用类似 PyInstaller 后端 + Web UI 的方式，后续计划改成 Electron 桌面成品。
+2. Steam 包：使用 Electron 桌面宿主，主进程启动本地后端并加载本地 HTTP UI。
 
-未来 Steam 版的预期形态是：
+当前 Steam Electron 版的形态是：
 
 1. Electron 主进程负责启动本地 Python 后端。
 2. 后端继续服务 Web UI、API、WebSocket 与静态资源。
 3. Electron 窗口加载本地 HTTP 地址，而不是直接用 `file://` 打开前端产物。
 4. Steam 版可以预置一套 LongCat 默认 LLM 配置，降低首次启动门槛。
 
-在进入 Electron 实现前，应先把通用底盘补稳；截至 2026-04-26，通用底盘已完成一轮实现，下一步进入 Electron 宿主和 Steam 上传管线。
+通用底盘和 Steam Electron 管线已经完成首轮最小可用实现；后续重点是 Steamworks 环境中的真实上传、Launch Option 与内部分支验证。
 
 ## 当前落地状态
 
@@ -53,7 +53,7 @@
 15. Steam 上传脚本参数化：`upload_steam.ps1` 支持 `-ContentRoot`、`-BuildDesc`、`-Branch`、`-Preview`，并强制显式传入 `-ContentRoot`。
 16. 单入口上传脚本：新增 `tools/package/pack_upload_steam.ps1`，串联 Steam Electron 构建、读取 content root marker、SteamCMD 上传。
 17. Cursor 一键命令：`/pack_to_steam` 是唯一 Steam 上传入口，调用 `powershell ./tools/package/pack_upload_steam.ps1`。
-17. Steam 私有 seed 资源：Electron 支持读取 `resources/steam-seed.json`，只把允许的 `CWS_DEFAULT_LLM_*` 注入后端环境。
+18. Steam 私有 seed 资源：Electron 支持读取 `resources/steam-seed.json`，只把允许的 `CWS_DEFAULT_LLM_*` 注入后端环境。
 
 验证记录：
 
@@ -86,9 +86,9 @@
 5. 默认 LLM 配置可以通过安全的种子机制写入用户数据目录。
 6. 敏感配置不进入发布包的契约更明确。
 
-### Electron 阶段目标
+### 已完成的 Electron 阶段目标
 
-正式 Steam Electron 阶段目标是：
+正式 Steam Electron 阶段目标已完成首轮最小可用实现：
 
 1. 新增独立 Electron 桌面宿主，不改变现有 GitHub 开源包和浏览器启动体验。
 2. Electron 主进程启动本地 PyInstaller 后端 exe，等待 `/api/health` 后加载本地 HTTP UI。
@@ -99,9 +99,11 @@
 
 ## 非目标
 
-### 前置阶段非目标
+### 前置阶段历史非目标
 
-1. 不新增 Electron 目录、`electron-builder` 配置或桌面窗口逻辑。
+以下约束只描述前置阶段，不再代表当前仓库最终状态：
+
+1. 前置阶段不新增 Electron 目录、`electron-builder` 配置或桌面窗口逻辑。
 2. 不把前端改为 `file://` 可运行。
 3. 不改变 GitHub 包默认启动后打开系统浏览器的体验。
 4. 不把真实 LongCat key 提交到仓库。

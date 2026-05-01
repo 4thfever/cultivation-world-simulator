@@ -2,6 +2,8 @@
 
 本文档记录 2026-05 针对 issue #195 的现象分析、LLM 关系判断与后续修复方案。
 
+当前状态：本文档仍是待收口的排障/修复 spec，不是已完成历史文档。代码中 `runtime.finish_initialization()` 已支持传入 `phase_name="complete"`，但新开局初始化主流程仍需要继续核对 ready 后的 phase 语义和前端初始化可恢复逻辑。
+
 ## 1. 用户现象
 
 用户反馈：
@@ -202,4 +204,3 @@ LLM 仍可能造成的影响：
 2. `pytest tests/test_init_status_api.py tests/test_game_init_integration.py`。
 3. 开发模式启动，正常新开局进入游戏。
 4. 人为让 `world/state` 返回失败，确认页面不会永久无诊断卡住。
-

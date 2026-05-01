@@ -198,20 +198,23 @@
 
 ## 5. 桌面版与 Steam 适配 (Desktop & Steam)
 
-当前桌面打包版本统一使用本地 HTTP 服务 + 系统浏览器的模式运行。
+当前仓库有两条桌面/发布路径，需要分开理解。
 
-1.  **统一启动流程**:
-    *   `start()` 会先计算目标 URL，再调用 `webbrowser.open()` 打开系统默认浏览器。
+1.  **GitHub / 源码浏览器模式**:
+    *   `src/server/main.py` 的 `start()` 会先计算目标 URL，再按配置决定是否调用 `webbrowser.open()` 打开系统默认浏览器。
     *   `uvicorn` 后端服务继续在当前 Python 进程中运行。
-    *   在开发模式下，前端仍会以子进程方式启动 `npm run dev`。
+    *   在开发模式下，前端仍会以子进程方式启动 `npm run dev`，HMR 依然有效。
 
-2.  **开发体验**:
-    *   运行 `python src/server/main.py --dev` 时，会自动开启 Debug 模式。
-    *   HMR (热重载) 依然有效，修改 `web/src` 代码后浏览器页面会自动刷新。
+2.  **Steam Electron 模式**:
+    *   `desktop/` 是独立 Electron 宿主工程。
+    *   Electron 主进程负责启动 packaged 后端、等待 `/api/health`、再加载本地 HTTP UI。
+    *   Steam 打包入口是 `tools/package/pack_steam_electron.ps1`，上传入口由 `tools/package/pack_upload_steam.ps1` 串联。
+    *   Electron 模式通过环境变量控制后端行为，例如禁止自动打开系统浏览器。
 
 3.  **打包与发布**:
-    *   打包后的 `.exe` 会负责拉起本地服务并打开浏览器页面。
-    *   不再需要额外包含桌面嵌入式 WebView 宿主运行时。
+    *   普通开源包仍可走本地服务 + 系统浏览器体验。
+    *   Steam 发布只保留 Electron 管线；旧 PyInstaller Steam 包脚本已经删除。
+    *   Steam 相关细节以 `docs/specs/steam-electron-readiness.md` 和 `tools/package/*.ps1` 为准。
 
 4.  **画布尺寸原则**:
     *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。

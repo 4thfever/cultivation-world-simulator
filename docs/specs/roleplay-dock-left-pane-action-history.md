@@ -1,6 +1,13 @@
-# 底部扮演栏左侧：输入记录与动作链展示 Spec
+# 扮演栏交互记录与动作链展示 Spec
 
-本文档聚焦角色扮演模式下，底部 `RoleplayDock` 左侧区域的结构设计，重点解决以下三个问题：
+本文档最初聚焦角色扮演模式下 `RoleplayDock` 左侧区域的结构设计。当前界面已经按 `roleplay-dock-layout-v2.md` 收口为：
+
+1. 左侧：当前请求区。
+2. 右侧：扮演交互流。
+
+因此本文档保留的核心价值是“交互记录与动作链如何建模和展示”，不再约束它必须放在左侧。
+
+重点解决以下三个问题：
 
 1. 玩家提交过的决策文本不要每次都清空到“无痕”，而要以某种形式保留下来。
 2. 玩家输入被后端翻译成动作链后，应在前端以当前语言可读地展示出来。
@@ -14,7 +21,7 @@
 
 ### 1.1 交互目标
 
-底部扮演栏左侧不应只是一个“当前输入框”，而应逐步形成一个轻量的“操作记录流”：
+底部扮演栏不应只是一个“当前输入框”，而应形成一个轻量的“操作记录流”：
 
 - 玩家输入过什么意图
 - 系统把它翻译成了什么动作链
@@ -58,15 +65,15 @@
 
 ## 3. 用户体验设计
 
-## 3.1 左侧区域的新结构
+## 3.1 当前布局中的挂载位置
 
-建议将 `RoleplayDock` 左侧 `Active Request` 区进一步拆成上下两段：
+当前推荐布局中：
 
-1. 上方：当前请求输入区
+1. 左侧 `Active Request` 区只展示当前正在等待玩家处理的请求：
    - `decision`：文本框 + 提交
    - `choice`：按钮
    - `conversation`：聊天输入
-2. 下方：最近操作记录流
+2. 右侧 `Interaction Stream` 区展示最近操作记录流。
 
 其中“最近操作记录流”是本次新增重点。
 
@@ -431,7 +438,7 @@ build_roleplay_action_display_pairs(
 1. `decision_input`
 2. `decision_rejected`
 
-这样左侧记录流会天然形成成对结构：
+这样交互记录流会天然形成成对结构：
 
 ```text
 > 我先调息恢复，再去附近探索。
@@ -443,7 +450,7 @@ build_roleplay_action_display_pairs(
 
 ## 6.3 前端渲染
 
-建议在 `RoleplayDock` 左侧请求区内，输入区下面新增：
+当前实现应在 `RoleplayDock` 的 `Interaction Stream` 区渲染：
 
 - `RoleplayInteractionHistory.vue`
 
@@ -464,7 +471,7 @@ build_roleplay_action_display_pairs(
 
 ## 7.1 `decision` 模式
 
-左侧结构建议：
+结构建议：
 
 ```text
 [请求标题]
@@ -566,7 +573,7 @@ build_roleplay_action_display_pairs(
 - runtime 增加 `interaction_history`
 - `submit_roleplay_decision` 成功/失败写记录
 - 后端 action display builder
-- 前端左侧记录流渲染
+- 前端交互记录流渲染
 
 ### 第二步
 
@@ -578,7 +585,7 @@ build_roleplay_action_display_pairs(
 
 ### 第三步
 
-再考虑把二期 `choice_selected` 和三期 `conversation_turn` 也并入同一条左侧交互历史流
+再考虑把二期 `choice_selected` 和三期 `conversation_turn` 也并入同一条交互历史流
 
 ---
 
@@ -602,7 +609,7 @@ build_roleplay_action_display_pairs(
 
 ## 12. 结论
 
-底部扮演栏左侧不应该只是“当前输入框”，而应该升级为一个轻量的“操作记录流”：
+底部扮演栏不应该只是“当前输入框”，而应该提供一个轻量的“操作记录流”：
 
 - 玩家输入保留痕迹
 - 系统解析结果可见
