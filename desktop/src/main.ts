@@ -4,6 +4,7 @@ import type { ChildProcess } from 'node:child_process'
 
 import { collectSeedEnv, findFreePort, getDefaultLogDir, startBackend, stopBackend } from './backend.js'
 import { waitForHealth } from './health.js'
+import { isAllowedAppNavigation, shouldOpenExternally } from './navigation.js'
 import { normalizeHttpUrl, resolvePackagedBackendExe } from './paths.js'
 import { readSeedEnv } from './seed.js'
 
@@ -29,13 +30,17 @@ function createWindow(targetUrl: string): BrowserWindow {
 
   window.once('ready-to-show', () => window.show())
   window.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url)
+    if (shouldOpenExternally(targetUrl, url)) {
+      shell.openExternal(url)
+    }
     return { action: 'deny' }
   })
   window.webContents.on('will-navigate', (event, url) => {
-    if (!url.startsWith(targetUrl)) {
+    if (!isAllowedAppNavigation(targetUrl, url)) {
       event.preventDefault()
-      shell.openExternal(url)
+      if (shouldOpenExternally(targetUrl, url)) {
+        shell.openExternal(url)
+      }
     }
   })
   void window.loadURL(targetUrl)

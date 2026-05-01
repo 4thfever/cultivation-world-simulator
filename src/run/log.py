@@ -13,20 +13,21 @@ import time
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
+from src.config.data_paths import get_data_paths
 from src.utils.config import CONFIG
 
 class Logger:
     """通用日志记录器"""
     
-    def __init__(self, log_dir: str = "logs"):
+    def __init__(self, log_dir: str | os.PathLike | None = None):
         """
         初始化日志记录器
         
         Args:
             log_dir: 日志文件存储目录
         """
-        self.log_dir = Path(log_dir)
-        self.log_dir.mkdir(exist_ok=True)
+        self.log_dir = Path(log_dir) if log_dir is not None else get_data_paths().logs_dir
+        self.log_dir.mkdir(parents=True, exist_ok=True)
         
         # 清理旧日志文件
         self._cleanup_old_logs()

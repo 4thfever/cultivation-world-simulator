@@ -34,6 +34,17 @@ def test_steam_electron_packaging_contract():
     assert "npm run dist:steam" in content
     assert "Assert-NoSensitiveConfigs" in content
     assert "CWS_DEFAULT_LLM_API_KEY" in content
+    assert 'Remove-Item -Path $DestWeb -Recurse -Force' in content
+
+
+def test_steam_frontend_build_avoids_fragile_vendor_chunks():
+    project_root = get_project_root()
+    config = project_root / "web" / "vite.config.ts"
+    content = config.read_text(encoding="utf-8")
+
+    assert "return 'game-panels'" in content
+    assert "vendor-vue" not in content
+    assert "vendor-ui" not in content
 
 
 def test_pack_upload_steam_wraps_full_pipeline():

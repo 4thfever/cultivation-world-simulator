@@ -225,6 +225,9 @@ if (Test-Path $StaticPath) {
 }
 if (Test-Path $WebDistDir) {
     $DestWeb = Join-Path $BackendExeDir "web_static"
+    if (Test-Path $DestWeb) {
+        Remove-Item -Path $DestWeb -Recurse -Force
+    }
     Copy-Item -Path $WebDistDir -Destination $DestWeb -Recurse -Force
 }
 

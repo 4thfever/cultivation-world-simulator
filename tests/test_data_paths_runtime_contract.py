@@ -36,3 +36,16 @@ def test_config_paths_saves_is_injected_from_data_paths(monkeypatch, tmp_path: P
     resolved_paths = data_paths.get_data_paths()
 
     assert reloaded_config.CONFIG.paths.saves == resolved_paths.saves_dir
+
+
+def test_default_llm_logger_uses_data_root_logs(monkeypatch, tmp_path: Path):
+    explicit_root = (tmp_path / "steam-runtime-data").resolve()
+    monkeypatch.setenv("CWS_DATA_DIR", str(explicit_root))
+    data_paths.reset_data_paths_cache()
+
+    import src.run.log as run_log
+
+    monkeypatch.setattr(run_log.Logger, "_setup_current_logger", lambda self: None)
+    logger = run_log.Logger()
+
+    assert logger.log_dir == explicit_root / "logs"
