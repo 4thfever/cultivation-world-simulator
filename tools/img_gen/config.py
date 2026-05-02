@@ -5,14 +5,15 @@ from dataclasses import dataclass
 from pathlib import Path
 
 TOOL_DIR = Path(__file__).resolve().parent
-DEFAULT_ENV_PATH = TOOL_DIR / "tabcode.env"
+DEFAULT_ENV_PATH = TOOL_DIR / "image_api.env"
+LEGACY_ENV_PATH = TOOL_DIR / "tabcode.env"
 
 
 @dataclass(frozen=True)
 class ImageGenConfig:
     api_key: str
-    base_url: str = "https://api2.tabcode.cc/openai/draw/v1"
-    model: str = "gpt-image-2"
+    base_url: str = "https://api.bltcy.ai/v1"
+    model: str = "gpt-image-2-all"
     size: str = "1024x1024"
 
 
@@ -31,20 +32,30 @@ def _parse_env_file(path: Path) -> dict[str, str]:
 
 
 def load_config(env_path: str | Path = DEFAULT_ENV_PATH) -> ImageGenConfig:
-    env_values = _parse_env_file(Path(env_path))
+    env_file = Path(env_path)
+    env_values = _parse_env_file(env_file)
+    if env_file == DEFAULT_ENV_PATH and not env_values:
+        env_values = _parse_env_file(LEGACY_ENV_PATH)
 
-    def get(name: str, default: str = "") -> str:
-        return os.environ.get(name, env_values.get(name, default)).strip()
+    def get(name: str, default: str = "", legacy_name: str | None = None) -> str:
+        value = os.environ.get(name)
+        if value is None and legacy_name is not None:
+            value = os.environ.get(legacy_name)
+        if value is None:
+            value = env_values.get(name)
+        if value is None and legacy_name is not None:
+            value = env_values.get(legacy_name)
+        return (value or default).strip()
 
-    api_key = get("TABCODE_API_KEY")
+    api_key = get("IMAGE_API_KEY", legacy_name="TABCODE_API_KEY")
     if not api_key:
         raise RuntimeError(
-            "请在 tools/img_gen/tabcode.env 或环境变量中设置 TABCODE_API_KEY"
+            "请在 tools/img_gen/image_api.env 或环境变量中设置 IMAGE_API_KEY"
         )
 
     return ImageGenConfig(
         api_key=api_key,
-        base_url=get("TABCODE_BASE_URL", ImageGenConfig.base_url),
-        model=get("TABCODE_IMAGE_MODEL", ImageGenConfig.model),
-        size=get("TABCODE_IMAGE_SIZE", ImageGenConfig.size),
+        base_url=get("IMAGE_API_BASE_URL", ImageGenConfig.base_url, "TABCODE_BASE_URL"),
+        model=get("IMAGE_API_MODEL", ImageGenConfig.model, "TABCODE_IMAGE_MODEL"),
+        size=get("IMAGE_API_SIZE", ImageGenConfig.size, "TABCODE_IMAGE_SIZE"),
     )

@@ -29,7 +29,7 @@ def generate_sects(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate sect scene images with Tabcode.")
+    parser = argparse.ArgumentParser(description="Generate sect scene images with an OpenAI-compatible image API.")
     parser.add_argument("--output-dir", default="tools/img_gen/tmp/sects")
     parser.add_argument("--limit", type=int)
     args = parser.parse_args()

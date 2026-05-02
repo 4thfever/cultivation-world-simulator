@@ -12,7 +12,7 @@ from tools.img_gen.io_utils import open_preview, save_png
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate one preview image with Tabcode.")
+    parser = argparse.ArgumentParser(description="Generate one preview image with an OpenAI-compatible image API.")
     parser.add_argument("--prompt", default="a cat sitting on a wooden table")
     parser.add_argument("--output-dir", default="tools/img_gen/tmp/preview")
     parser.add_argument("--open", action="store_true", help="Open the generated image.")
@@ -21,7 +21,7 @@ def main() -> None:
     output_path = save_png(
         generate_image_bytes(args.prompt),
         args.output_dir,
-        prefix="tabcode_preview",
+        prefix="image_api_preview",
     )
     if args.open:
         open_preview(output_path)

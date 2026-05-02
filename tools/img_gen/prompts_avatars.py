@@ -43,6 +43,8 @@ class AvatarPromptRecord:
     index: int
     realm_slug: str
     realm_name: str
+    appearance_prompt: str
+    realm_prompt: str
     prompt: str
 
     @property
@@ -200,6 +202,8 @@ def avatar_realm_prompt_records(
             index=index,
             realm_slug=realm_slug,
             realm_name=realm_name,
+            appearance_prompt=affix,
+            realm_prompt=realm_prompt,
             prompt=prompt_base + affix + realm_prompt,
         )
         for index, affix in enumerate(affixes, start=1)

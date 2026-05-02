@@ -93,6 +93,7 @@
 | `fill-i18n-phase2` | 进入多语言补全 Phase 2 | 生成缺失报告 -> 按 `static/locales/registry.json` 补全启用语言（如 `en-US/zh-TW/vi-VN/ja-JP`） -> 必要时编译 `.mo` -> 跑 locale 测试 -> 清理报告。 |
 | `external-control-api` | 规划或实现面向外部 agent / Claw 的稳定控制 API | 先梳理现有 query/command 与 `main.py`/`game_instance` 耦合 -> 明确 runtime/service/API 分层与 v1 命名空间 -> 优先做 mutation 串行化和稳定 DTO/错误码 -> 最后同步 README / `docs/specs/external-control-api.md` / `AGENTS.md`。 |
 | `git-pr` | 创建规范 PR | 从 `main` 拉新分支，标准 commit type，push 后 `gh pr create`，遵守 PR 模板。 |
+| `img-gen-avatar` | 维护 `tools/img_gen` 头像生图、境界图生图编辑、prompt 与后处理流程 | 遵循两段式流程：练气文生图，后三境界基于练气图 edits；保护像素风格、低细节、Q 版二次元风、角色识别特征、纯白背景和妖族种族特征；避免泄露 `image_api.env`。 |
 | `i18n-development` | 日常 i18n 开发 | 在拆分 `.po` 维护条目，优先修改 `modules/` / `game_configs_modules/`，语言列表与新增语言流程以 `static/locales/registry.json` 为准，避免直接改 `LC_MESSAGES/*.po`，改完必须 `build_mo.py`。 |
 | `roleplay-mode-implementation` | 规划、实现或重构角色扮演模式 | 先核对属于一期/二期/三期哪一层 -> 对照 `avatar-roleplay-mode.md` 与 `single-choice-unified-framework.md` -> 保持“上帝视角下单角色接管、只在决策边界暂停、runtime 不进存档” -> 再落到 runtime/API/frontend/test。 |
 | `spec-interview` | 需求访谈后产出 spec | 多轮提问澄清隐含约束与风险，最后落地到 `docs/specs/<feature>.md`。 |

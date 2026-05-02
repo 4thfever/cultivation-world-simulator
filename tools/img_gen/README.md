@@ -1,6 +1,6 @@
 # 图片生成工具
 
-本目录是本地资产生成工具集，当前只使用 Tabcode 的 OpenAI-compatible 图像接口。
+本目录是本地资产生成工具集，当前使用 OpenAI-compatible 图像接口。
 接口配置、prompt 数据、生成脚本和后处理脚本都放在 `tools/img_gen/` 下。
 
 图像生成设计原则见 [DESIGN.md](./DESIGN.md)。
@@ -10,17 +10,17 @@
 先创建本地 env 文件：
 
 ```powershell
-Copy-Item tools/img_gen/tabcode.env.example tools/img_gen/tabcode.env
+Copy-Item tools/img_gen/image_api.env.example tools/img_gen/image_api.env
 ```
 
-然后在 `tools/img_gen/tabcode.env` 中填写：
+然后在 `tools/img_gen/image_api.env` 中填写：
 
 ```env
-TABCODE_API_KEY=你的 key
+IMAGE_API_KEY=你的 key
 ```
 
-`tabcode.env` 已被 `.gitignore` 忽略，不要提交真实 key。同名系统环境变量会覆盖
-`tabcode.env` 中的值。
+`image_api.env` 已被 `.gitignore` 忽略，不要提交真实 key。同名系统环境变量会覆盖
+`image_api.env` 中的值。
 
 需要运行这些工具时，先安装本目录的工具依赖：
 
@@ -32,35 +32,55 @@ pip install -r tools/img_gen/requirements.txt
 
 | 任务 | 运行文件 | 常用命令 | 默认输出 |
 |---|---|---|---|
-| 测试 Tabcode 生图是否可用 | `generate_preview.py` | `python tools/img_gen/generate_preview.py --open` | `tools/img_gen/tmp/preview/` |
-| 生成人族女性头像 | `generate_avatars.py` | `python tools/img_gen/generate_avatars.py --gender female` | `tools/img_gen/tmp/avatars/female/` |
-| 生成人族男性头像 | `generate_avatars.py` | `python tools/img_gen/generate_avatars.py --gender male` | `tools/img_gen/tmp/avatars/male/` |
-| 生成人族部分头像 | `generate_avatars.py` | `python tools/img_gen/generate_avatars.py --gender female --limit 2 --realm qi_refining --realm golden_core` | `tools/img_gen/tmp/avatars/female/` |
-| 生成妖族头像 | `generate_yaoguai_avatars.py` | `python tools/img_gen/generate_yaoguai_avatars.py` | `tools/img_gen/tmp/yaoguai_avatars/` |
-| 生成妖族部分头像 | `generate_yaoguai_avatars.py` | `python tools/img_gen/generate_yaoguai_avatars.py --species fox --gender female --limit 1` | `tools/img_gen/tmp/yaoguai_avatars/` |
+| 测试图像 API 是否可用 | `generate_preview.py` | `python tools/img_gen/generate_preview.py --open` | `tools/img_gen/tmp/preview/` |
+| 第 1 段：生成人族女性练气基准头像 | `generate_avatars.py` | `python tools/img_gen/generate_avatars.py --gender female` | `tools/img_gen/tmp/avatars/female/` |
+| 第 1 段：生成人族男性练气基准头像 | `generate_avatars.py` | `python tools/img_gen/generate_avatars.py --gender male` | `tools/img_gen/tmp/avatars/male/` |
+| 第 2 段：由人族练气图编辑后三境界 | `edit_avatar_realms.py` | `python tools/img_gen/edit_avatar_realms.py --gender female` | 默认写回输入目录 |
+| 第 1 段：生成妖族练气基准头像 | `generate_yaoguai_avatars.py` | `python tools/img_gen/generate_yaoguai_avatars.py` | `tools/img_gen/tmp/yaoguai_avatars/` |
+| 第 2 段：由妖族练气图编辑后三境界 | `edit_yaoguai_avatar_realms.py` | `python tools/img_gen/edit_yaoguai_avatar_realms.py` | 默认写回输入目录 |
 | 生成宗门图 | `generate_sects.py` | `python tools/img_gen/generate_sects.py` | `tools/img_gen/tmp/sects/` |
 | 生成地图 tile 图 | `generate_tiles.py` | `python tools/img_gen/generate_tiles.py plain forest mountain` | `tools/img_gen/tmp/tiles/` |
 | 后处理人族头像 | `postprocess_avatars.py` | `python tools/img_gen/postprocess_avatars.py --input-dir tools/img_gen/tmp/avatars/female --output-dir tools/img_gen/tmp/processed_avatars/female` | 指定的 `--output-dir` |
 | 后处理妖族头像 | `postprocess_yaoguai_avatars.py` | `python tools/img_gen/postprocess_yaoguai_avatars.py` | `tools/img_gen/tmp/processed_yaoguai_avatars/` |
 | 后处理宗门图 | `postprocess_sects.py` | `python tools/img_gen/postprocess_sects.py` | `tools/img_gen/tmp/processed_sects/` |
 
+所有生成和编辑脚本默认遇到已存在的目标文件会跳过，避免重复扣费。需要重跑时加
+`--overwrite`。
+
 ## 人族头像
 
 人族头像 prompt 在 `prompts_avatars.py` 中维护。
 
-每个性别当前有 48 个外貌描述，每个外貌会展开为 4 个境界：
+当前流程分两段：
 
-```text
-qi_refining   练气
-foundation    筑基
-golden_core   金丹
-nascent_soul  元婴
-```
+1. 文生图生成练气基准头像。
+2. 用练气图作为输入图，通过图片编辑接口生成筑基、金丹、元婴。
 
-默认完整生成量：
+每个性别当前有 48 个外貌描述。完整跑完后：
 
 ```text
 48 个外貌 * 4 个境界 * 2 个性别 = 384 张
+```
+
+先生成练气：
+
+```powershell
+python tools/img_gen/generate_avatars.py --gender female
+python tools/img_gen/generate_avatars.py --gender male
+```
+
+再从练气图编辑后三境界：
+
+```powershell
+python tools/img_gen/edit_avatar_realms.py --gender female
+python tools/img_gen/edit_avatar_realms.py --gender male
+```
+
+只试跑少量图：
+
+```powershell
+python tools/img_gen/generate_avatars.py --gender female --limit 2
+python tools/img_gen/edit_avatar_realms.py --gender female --limit 2 --realm golden_core
 ```
 
 文件名会保留性别、外貌 index 和境界：
@@ -72,7 +92,8 @@ tools/img_gen/tmp/avatars/female/female_001_golden_core.png
 tools/img_gen/tmp/avatars/female/female_001_nascent_soul.png
 ```
 
-同目录会写出 `manifest.json`，记录每张图的性别、外貌 index、境界英文 slug、境界中文名和完整 prompt。
+`manifest.json` 记录练气文生图任务。`realm_edit_manifest.json` 记录图片编辑任务，
+包括源图、目标境界和完整 prompt。
 
 ## 妖族头像
 
@@ -88,10 +109,29 @@ snake   蛇
 turtle  龟
 ```
 
-每个种族 3 个外貌，每个外貌 4 个境界，男女各一套：
+每个种族 3 个外貌，每个外貌 4 个境界，男女各一套。完整跑完后：
 
 ```text
 5 个种族 * 3 个外貌 * 4 个境界 * 2 个性别 = 120 张
+```
+
+先生成练气：
+
+```powershell
+python tools/img_gen/generate_yaoguai_avatars.py
+```
+
+再从练气图编辑后三境界：
+
+```powershell
+python tools/img_gen/edit_yaoguai_avatar_realms.py
+```
+
+只试跑狐族女性第一个外貌：
+
+```powershell
+python tools/img_gen/generate_yaoguai_avatars.py --species fox --gender female --limit 1
+python tools/img_gen/edit_yaoguai_avatar_realms.py --species fox --gender female --limit 1
 ```
 
 文件按种族和性别分目录：
@@ -103,7 +143,7 @@ tools/img_gen/tmp/yaoguai_avatars/fox/female/fox_female_01_golden_core.png
 tools/img_gen/tmp/yaoguai_avatars/fox/female/fox_female_01_nascent_soul.png
 ```
 
-同样会写出 `manifest.json`，记录种族、性别、外貌 index、境界和完整 prompt。
+同样会写出 `manifest.json` 和 `realm_edit_manifest.json`。
 
 ## 后处理
 
@@ -129,7 +169,11 @@ python tools/img_gen/postprocess_sects.py
 
 ## 维护提示
 
-1. 真实 key 只放 `tools/img_gen/tabcode.env` 或系统环境变量。
+1. 真实 key 只放 `tools/img_gen/image_api.env` 或系统环境变量。
 2. 新增头像 prompt 时，注意人族男女数量一致。
-3. 境界差异应尽量体现在原有可见特征的强弱、精致度和气质上，不要给所有角色套同一种灵纹或光效。
-4. 背景相关约束应保持纯白、干净、无阴影、无渐变，方便后续抠图。
+3. 练气图是后三境界编辑的源图，不要随意删除。
+4. 境界差异应尽量体现在原有可见特征的强弱、精致度和气质上，不要给所有角色套同一种灵纹或光效。
+5. 背景相关约束应保持纯白、干净、无阴影、无渐变，方便后续抠图。
+6. 图生图编辑时，必须保持输入图的像素风格、低细节程度和 Q 版二次元漫画风，禁止把头像改成写实、高清插画、厚涂或过度精细风格。
+7. 图生图编辑时，还要保护角色识别特征：脸型、五官比例、肤色倾向、发型、发色、瞳色、瞳孔形状、表情基调、原有面部标记、主要饰物、主体大小、头肩占比和纯白背景。
+8. 妖族图生图编辑还要额外保护种族特征的位置和基本形状，例如狐耳、狼耳、耳羽、竖瞳、鳞纹、龟甲纹、脸颊纹样等。

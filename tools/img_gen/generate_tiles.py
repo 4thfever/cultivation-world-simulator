@@ -30,7 +30,7 @@ def generate_tiles(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate 3x3 tile sprite sheets with Tabcode.")
+    parser = argparse.ArgumentParser(description="Generate 3x3 tile sprite sheets with an OpenAI-compatible image API.")
     parser.add_argument("names", nargs="*", help="Tile names. Empty means all prompts.")
     parser.add_argument("--output-dir", default="tools/img_gen/tmp/tiles")
     args = parser.parse_args()
