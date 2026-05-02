@@ -72,6 +72,7 @@ const {
     <AvatarPortraitPanel
       :avatar-id="data.id"
       :gender="data.gender"
+      :realm="data.realm_id || data.realm"
       :current-pic-id="data.pic_id"
       :visible="showPortraitPanel"
       @close="showPortraitPanel = false"

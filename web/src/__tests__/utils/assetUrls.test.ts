@@ -9,13 +9,14 @@ describe('assetUrls', () => {
 
   it('keeps game assets on the backend /assets route', () => {
     expect(getGameAssetUrl('tiles/plain.png')).toBe('/assets/tiles/plain.png')
-    expect(getGameAssetUrl('/males/1.png')).toBe('/assets/males/1.png')
+    expect(getGameAssetUrl('/avatars/male/001/qi_refining.png')).toBe('/assets/avatars/male/001/qi_refining.png')
   })
 
-  it('builds avatar portrait urls from gender and pic id', () => {
-    expect(getAvatarPortraitUrl('male', 3)).toBe('/assets/males/3.png')
-    expect(getAvatarPortraitUrl('female', 8)).toBe('/assets/females/8.png')
-    expect(getAvatarPortraitUrl('女', 5)).toBe('/assets/females/5.png')
+  it('builds realm-aware avatar portrait urls from gender and pic id', () => {
+    expect(getAvatarPortraitUrl('male', 3)).toBe('/assets/avatars/male/003/qi_refining.png')
+    expect(getAvatarPortraitUrl('female', 8, 'FOUNDATION_ESTABLISHMENT')).toBe('/assets/avatars/female/008/foundation.png')
+    expect(getAvatarPortraitUrl('女', 5, 'CORE_FORMATION')).toBe('/assets/avatars/female/005/golden_core.png')
+    expect(getAvatarPortraitUrl('male', 6, 'NASCENT_SOUL')).toBe('/assets/avatars/male/006/nascent_soul.png')
     expect(getAvatarPortraitUrl('male', null)).toBe('')
   })
 })

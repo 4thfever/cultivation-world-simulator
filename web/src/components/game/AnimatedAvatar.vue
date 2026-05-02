@@ -17,7 +17,7 @@ const emit = defineEmits<{
   (e: 'select', payload: { type: 'avatar'; id: string; name?: string }): void
 }>()
 
-const { textures, availableAvatars } = useTextures()
+const { availableAvatars, ensureAvatarTexture } = useTextures()
 
 // Target position (grid coordinates)
 const targetX = ref(props.avatar.x)
@@ -85,15 +85,13 @@ function getTexture() {
      }
   }
 
-  const key = `${gender}_${pid}`
-  return textures.value[key]
+  return ensureAvatarTexture(gender, pid, props.avatar.realm)
 }
 
 function getScale() {
   const tex = getTexture()
   if (!tex) return 1
-  // Scale up: 3.5x tile size
-  return (props.tileSize * 3.5) / Math.max(tex.width, tex.height)
+  return (props.tileSize * 4.2) / Math.max(tex.width, tex.height)
 }
 
 const drawFallback = (g: Graphics) => {

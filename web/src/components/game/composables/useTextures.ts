@@ -4,7 +4,7 @@ import { avatarApi } from '@/api'
 import type { RegionSummary } from '@/types/core'
 import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
-import { getGameAssetUrl } from '@/utils/assetUrls'
+import { getAvatarIndexSlug, getAvatarPortraitUrl, getRealmAssetSlug, getGameAssetUrl } from '@/utils/assetUrls'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -33,9 +33,15 @@ const availableAvatars = ref<{ males: number[], females: number[] }>({ males: []
 let baseTexturesPromise: Promise<void> | null = null
 const sectTexturePromises = new Map<number, Promise<void>>()
 const cityTexturePromises = new Map<number, Promise<void>>()
+const avatarTexturePromises = new Map<string, Promise<void>>()
 
 function setTexture(key: string, texture: Texture) {
   textures.value[key] = markRaw(texture)
+}
+
+function getAvatarTextureKey(gender: string | undefined, picId: number | null | undefined, realm: string | null | undefined): string {
+  const normalizedGender = String(gender || '').toLowerCase() === 'female' ? 'female' : 'male'
+  return `${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
 }
 
 export function useTextures() {
@@ -69,8 +75,8 @@ export function useTextures() {
         logWarn('Textures load avatar meta', e)
         // Fallback: 只有在列表为空时才使用默认值
         if (availableAvatars.value.males.length === 0) {
-            availableAvatars.value.males = Array.from({length: 47}, (_, i) => i + 1)
-            availableAvatars.value.females = Array.from({length: 41}, (_, i) => i + 1)
+            availableAvatars.value.males = Array.from({length: 48}, (_, i) => i + 1)
+            availableAvatars.value.females = Array.from({length: 48}, (_, i) => i + 1)
             metaChanged = true
         }
     }
@@ -78,10 +84,7 @@ export function useTextures() {
     // 2. 如果已经加载过，且元数据没有变化，则跳过
     // 注意：如果 metaChanged 为 true，即使 isLoaded 为 true 也要重新执行加载逻辑（Pixi Assets 会处理去重）
     if (isLoaded.value && !metaChanged) {
-        // Double check if textures are actually loaded for current avatars
-        // This handles the case where meta didn't change (e.g. was fallback) but textures weren't loaded
-        const missingTexture = availableAvatars.value.males.some(id => !textures.value[`male_${id}`])
-        if (!missingTexture) return
+        return
     }
 
     const manifest: Record<string, string> = {
@@ -143,26 +146,7 @@ export function useTextures() {
         )
     }
 
-    // Load Avatars based on available IDs
-    const avatarPromises: Promise<void>[] = []
-    
-    for (const id of availableAvatars.value.males) {
-        avatarPromises.push(
-            Assets.load(getGameAssetUrl(`males/${id}.png`))
-                .then(tex => { setTexture(`male_${id}`, tex) })
-                .catch(e => logWarn(`Textures load male_${id}`, e))
-        )
-    }
-    
-    for (const id of availableAvatars.value.females) {
-        avatarPromises.push(
-            Assets.load(getGameAssetUrl(`females/${id}.png`))
-                .then(tex => { setTexture(`female_${id}`, tex) })
-                .catch(e => logWarn(`Textures load female_${id}`, e))
-        )
-    }
-
-    await Promise.all([...tilePromises, ...variantPromises, ...avatarPromises, ...cloudPromises])
+    await Promise.all([...tilePromises, ...variantPromises, ...cloudPromises])
 
     // 为没有基础纹理的变体类型设置默认纹理（使用第0个变体作为默认值）
     Object.keys(TILE_VARIANTS).forEach(key => {
@@ -270,6 +254,26 @@ export function useTextures() {
       ])
   }
 
+  const ensureAvatarTexture = (
+    gender: string | undefined,
+    picId: number | null | undefined,
+    realm: string | null | undefined,
+  ): Texture | undefined => {
+    if (!picId) return undefined
+    const key = getAvatarTextureKey(gender, picId, realm)
+    if (textures.value[key]) return textures.value[key]
+    if (avatarTexturePromises.has(key)) return undefined
+
+    const promise = Assets.load(getAvatarPortraitUrl(gender, picId, realm))
+      .then(tex => { setTexture(key, tex) })
+      .catch(e => logWarn(`Textures load avatar ${key}`, e))
+      .finally(() => {
+        avatarTexturePromises.delete(key)
+      })
+    avatarTexturePromises.set(key, promise)
+    return undefined
+  }
+
   // 获取地形纹理（支持随机变体）
   const getTileTexture = (type: string, x: number, y: number): Texture | undefined => {
     const variantConfig = TILE_VARIANTS[type]
@@ -294,6 +298,7 @@ export function useTextures() {
     loadCityTexture,
     preloadRegionTextures,
     availableAvatars,
+    ensureAvatarTexture,
     getTileTexture
   }
 }

@@ -15,10 +15,17 @@ def test_build_avatar_updates_includes_birth_death_and_position_deltas():
         pos_x=3,
         pos_y=4,
         gender=SimpleNamespace(value="male"),
+        cultivation_progress=SimpleNamespace(realm=SimpleNamespace(value="QI_REFINEMENT")),
         current_action_name="行走",
     )
     dead_avatar = SimpleNamespace(id="dead-1", name="Ancestor")
-    living_avatar = SimpleNamespace(id="live-1", pos_x=7, pos_y=8)
+    living_avatar = SimpleNamespace(
+        id="live-1",
+        pos_x=7,
+        pos_y=8,
+        gender=SimpleNamespace(value="female"),
+        cultivation_progress=SimpleNamespace(realm=SimpleNamespace(value="FOUNDATION_ESTABLISHMENT")),
+    )
 
     avatar_manager = SimpleNamespace(
         avatars={"born-1": born_avatar},
@@ -37,6 +44,7 @@ def test_build_avatar_updates_includes_birth_death_and_position_deltas():
 
     assert updates[0]["id"] == "born-1"
     assert updates[0]["pic_id"] == 99
+    assert updates[0]["realm"] == "QI_REFINEMENT"
     assert updates[0]["action_emoji"] == "🚶"
     assert updates[1] == {
         "id": "dead-1",
@@ -48,6 +56,9 @@ def test_build_avatar_updates_includes_birth_death_and_position_deltas():
         "id": "live-1",
         "x": 7,
         "y": 8,
+        "gender": "female",
+        "pic_id": 1,
+        "realm": "FOUNDATION_ESTABLISHMENT",
         "action_emoji": "✨",
     }
 

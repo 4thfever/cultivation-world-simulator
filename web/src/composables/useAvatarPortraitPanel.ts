@@ -9,6 +9,7 @@ import { logError, toErrorMessage } from '@/utils/appError'
 export interface AvatarPortraitPanelProps {
   avatarId: string
   gender: string
+  realm?: string | null
   currentPicId?: number | null
   visible: boolean
 }
@@ -38,7 +39,7 @@ export function useAvatarPortraitPanel(
       : avatarMeta.value.males
   })
 
-  const previewUrl = computed(() => getAvatarPortraitUrl(props.gender, selectedPicId.value))
+  const previewUrl = computed(() => getAvatarPortraitUrl(props.gender, selectedPicId.value, props.realm))
 
   watch(
     () => props.currentPicId,

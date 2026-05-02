@@ -7,6 +7,7 @@ import xIcon from '@/assets/icons/ui/lucide/x.svg';
 const props = defineProps<{
   avatarId: string;
   gender: string;
+  realm?: string | null;
   currentPicId?: number | null;
   visible: boolean;
 }>();

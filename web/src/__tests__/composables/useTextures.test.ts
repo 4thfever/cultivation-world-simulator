@@ -99,6 +99,11 @@ describe('useTextures', () => {
       const { getTileTexture } = useTextures()
       expect(typeof getTileTexture).toBe('function')
     })
+
+    it('should return ensureAvatarTexture function', () => {
+      const { ensureAvatarTexture } = useTextures()
+      expect(typeof ensureAvatarTexture).toBe('function')
+    })
   })
 
   describe('loadBaseTextures', () => {
@@ -156,20 +161,21 @@ describe('useTextures', () => {
       expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/clouds/cloud_8.png')
     })
 
-    it('should load avatar textures based on meta', async () => {
+    it('should lazy-load avatar textures by realm on demand', async () => {
       mockFetchAvatarMeta.mockResolvedValue({
         males: [1, 5, 10],
         females: [2, 7],
       })
 
-      const { loadBaseTextures } = useTextures()
+      const { loadBaseTextures, ensureAvatarTexture, textures } = useTextures()
       await loadBaseTextures()
 
-      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/males/1.png')
-      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/males/5.png')
-      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/males/10.png')
-      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/females/2.png')
-      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/females/7.png')
+      ensureAvatarTexture('male', 5, 'FOUNDATION_ESTABLISHMENT')
+      await Promise.resolve()
+
+      expect(mockAssetsLoad).toHaveBeenCalledWith('/assets/avatars/male/005/foundation.png')
+      await Promise.resolve()
+      expect(textures.value['male_005_foundation']).toBeDefined()
     })
 
     it('should use fallback avatar range when meta fetch fails', async () => {
@@ -180,8 +186,8 @@ describe('useTextures', () => {
       await loadBaseTextures()
 
       // Should use fallback range.
-      expect(availableAvatars.value.males.length).toBe(47)
-      expect(availableAvatars.value.females.length).toBe(41)
+      expect(availableAvatars.value.males.length).toBe(48)
+      expect(availableAvatars.value.females.length).toBe(48)
 
       consoleSpy.mockRestore()
     })

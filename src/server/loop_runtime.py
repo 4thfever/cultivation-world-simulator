@@ -31,8 +31,9 @@ def build_avatar_updates(
                 "name": avatar.name,
                 "x": int(getattr(avatar, "pos_x", 0)),
                 "y": int(getattr(avatar, "pos_y", 0)),
-                "gender": avatar.gender.value,
+                "gender": getattr(getattr(avatar, "gender", None), "value", "male"),
                 "pic_id": resolve_avatar_pic_id(avatar),
+                "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
                 "action": avatar.current_action_name,
                 "action_emoji": resolve_avatar_action_emoji(avatar),
                 "is_dead": False,
@@ -63,6 +64,9 @@ def build_avatar_updates(
                 "id": str(avatar.id),
                 "x": int(getattr(avatar, "pos_x", 0)),
                 "y": int(getattr(avatar, "pos_y", 0)),
+                "gender": getattr(getattr(avatar, "gender", None), "value", "male"),
+                "pic_id": resolve_avatar_pic_id(avatar),
+                "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
                 "action_emoji": resolve_avatar_action_emoji(avatar),
             }
         )

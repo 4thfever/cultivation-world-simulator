@@ -36,6 +36,7 @@ export interface InitialStateDTO {
     action?: string;
     gender?: string;
     pic_id?: number;
+    realm?: string;
   }>;
   events?: EventDTO[];
   phenomenon?: CelestialPhenomenon | null;

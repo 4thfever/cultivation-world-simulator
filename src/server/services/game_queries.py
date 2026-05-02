@@ -310,6 +310,7 @@ def get_world_state(
                 "action_emoji": resolve_avatar_action_emoji(avatar),
                 "gender": str(avatar.gender.value),
                 "pic_id": resolve_avatar_pic_id(avatar),
+                "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
             }
         )
 
@@ -503,4 +504,5 @@ def get_detail(
     info = target.get_structured_info()
     if target_type == "avatar":
         info["pic_id"] = resolve_avatar_pic_id(target)
+        info["realm_id"] = target.cultivation_progress.realm.value
     return info

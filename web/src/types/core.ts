@@ -48,6 +48,7 @@ export interface AvatarSummary extends EntityBase, Coordinates {
   action_emoji?: string;
   gender?: string;
   pic_id?: number;
+  realm?: string;
   is_dead?: boolean;
 }
 
@@ -72,6 +73,7 @@ export interface AvatarDetail extends EntityBase {
   
   // 修行状态
   realm: string;
+  realm_id?: string;
   level: number;
   hp: { cur: number; max: number };
   observation_radius?: number;

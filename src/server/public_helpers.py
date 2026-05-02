@@ -43,23 +43,26 @@ def apply_runtime_content_locale(*, game_instance: dict, language_manager, lang_
 
 
 def scan_avatar_assets(*, assets_path: str) -> dict[str, list[int]]:
-    def get_ids(subdir: str) -> list[int]:
-        directory = os.path.join(assets_path, subdir)
+    def get_ids(gender: str) -> list[int]:
+        directory = os.path.join(assets_path, "avatars", gender)
         if not os.path.exists(directory):
             return []
         ids: list[int] = []
-        for filename in os.listdir(directory):
-            if not filename.lower().endswith(".png"):
+        for name in os.listdir(directory):
+            index_dir = os.path.join(directory, name)
+            if not os.path.isdir(index_dir):
                 continue
             try:
-                ids.append(int(os.path.splitext(filename)[0]))
+                avatar_id = int(name)
             except ValueError:
-                pass
+                continue
+            if os.path.exists(os.path.join(index_dir, "qi_refining.png")):
+                ids.append(avatar_id)
         return sorted(ids)
 
     avatar_assets = {
-        "males": get_ids("males"),
-        "females": get_ids("females"),
+        "males": get_ids("male"),
+        "females": get_ids("female"),
     }
     print(
         f"Loaded avatar assets: {len(avatar_assets['males'])} males, "

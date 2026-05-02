@@ -94,8 +94,15 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     return avatarMeta.value[key] || []
   })
 
+  const selectedRealm = computed(() => {
+    const level = createForm.value.level
+    if (!level || !gameData.value?.realms.length) return 'QI_REFINEMENT'
+    const index = Math.max(0, Math.min(gameData.value.realms.length - 1, Math.floor((level - 1) / 30)))
+    return gameData.value.realms[index]
+  })
+
   const currentAvatarUrl = computed(() => (
-    getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id)
+    getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id, selectedRealm.value)
   ))
 
   const avatarOptions = computed(() => avatarList.value.map(avatar => ({
@@ -198,6 +205,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     alignmentOptions,
     availableAvatars,
     currentAvatarUrl,
+    selectedRealm,
     avatarOptions,
     uiKey,
     fetchData,
