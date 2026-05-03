@@ -20,6 +20,7 @@ YAO_TARGET = ASSETS_DIR / "yao"
 REALMS = ("qi_refining", "foundation", "golden_core", "nascent_soul")
 HUMAN_GENDERS = ("female", "male")
 YAO_SPECIES = ("fox", "wolf", "bird", "snake", "turtle")
+YAO_EXPECTED_INDICES_PER_SPECIES_GENDER = 9
 
 HUMAN_RE = re.compile(r"^(female|male)_(\d{3})_(qi_refining|foundation|golden_core|nascent_soul)\.png$")
 YAO_RE = re.compile(
@@ -82,8 +83,11 @@ def _copy_yao(source_dir: Path) -> int:
     for species in YAO_SPECIES:
         for gender in HUMAN_GENDERS:
             indices = sorted({index for s, g, index, _ in seen if s == species and g == gender})
-            if len(indices) != 3:
-                raise ValueError(f"Expected 3 {species}/{gender} avatar indices, got {len(indices)}")
+            if len(indices) != YAO_EXPECTED_INDICES_PER_SPECIES_GENDER:
+                raise ValueError(
+                    f"Expected {YAO_EXPECTED_INDICES_PER_SPECIES_GENDER} "
+                    f"{species}/{gender} avatar indices, got {len(indices)}"
+                )
             for index in indices:
                 missing = [realm for realm in REALMS if (species, gender, index, realm) not in seen]
                 if missing:

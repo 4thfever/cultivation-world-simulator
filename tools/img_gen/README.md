@@ -42,6 +42,7 @@ pip install -r tools/img_gen/requirements.txt
 | 生成地图 tile 图 | `generate_tiles.py` | `python tools/img_gen/generate_tiles.py plain forest mountain` | `tools/img_gen/tmp/tiles/` |
 | 后处理人族头像 | `postprocess_avatars.py` | `python tools/img_gen/postprocess_avatars.py --input-dir tools/img_gen/tmp/avatars/female --output-dir tools/img_gen/tmp/processed_avatars/female` | 指定的 `--output-dir` |
 | 后处理妖族头像 | `postprocess_yaoguai_avatars.py` | `python tools/img_gen/postprocess_yaoguai_avatars.py` | `tools/img_gen/tmp/processed_yaoguai_avatars/` |
+| 发布头像到游戏 assets | `publish_avatar_assets.py` | `python tools/img_gen/publish_avatar_assets.py --use-processed` | `assets/avatars/` 与 `assets/yao/` |
 | 后处理宗门图 | `postprocess_sects.py` | `python tools/img_gen/postprocess_sects.py` | `tools/img_gen/tmp/processed_sects/` |
 
 所有生成和编辑脚本默认遇到已存在的目标文件会跳过，避免重复扣费。需要重跑时加
@@ -109,10 +110,10 @@ snake   蛇
 turtle  龟
 ```
 
-每个种族 3 个外貌，每个外貌 4 个境界，男女各一套。完整跑完后：
+每个种族 9 个外貌，每个外貌 4 个境界，男女各一套。完整跑完后：
 
 ```text
-5 个种族 * 3 个外貌 * 4 个境界 * 2 个性别 = 120 张
+5 个种族 * 9 个外貌 * 4 个境界 * 2 个性别 = 360 张
 ```
 
 先生成练气：
@@ -126,6 +127,8 @@ python tools/img_gen/generate_yaoguai_avatars.py
 ```powershell
 python tools/img_gen/edit_yaoguai_avatar_realms.py
 ```
+
+如果已经生成过前 3 个外貌，直接运行以上命令即可；脚本默认会跳过已存在文件，只补齐新增的 4-9 号外貌。不要加 `--overwrite`，否则会重新生成旧图并重新扣费。
 
 只试跑狐族女性第一个外貌：
 
