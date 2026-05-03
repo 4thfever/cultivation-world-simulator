@@ -10,8 +10,11 @@ from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.help_people import HelpPeople
 from src.classes.action.catch import Catch
 from src.classes.action.sect_mission import SectMission
+from src.classes.action.breakthrough import Breakthrough
+from src.classes.actions import get_action_infos
 from src.classes.alignment import Alignment
 from src.classes.core.avatar import Avatar
+from src.systems.cultivation import CultivationProgress, REALM_ORDER, LEVELS_PER_REALM
 
 def test_respire_can_possibly_start(dummy_avatar, base_world):
     action = Respire(dummy_avatar, base_world)
@@ -143,3 +146,25 @@ def test_sect_mission_can_possibly_start(dummy_avatar, base_world):
     mock_sect.members = {}
     dummy_avatar.sect = mock_sect
     assert action.can_possibly_start() is True
+
+
+def test_breakthrough_can_possibly_start_only_at_valid_bottleneck(dummy_avatar, base_world):
+    action = Breakthrough(dummy_avatar, base_world)
+
+    dummy_avatar.cultivation_progress = CultivationProgress(level=15, exp=0)
+    assert action.can_possibly_start() is False
+
+    dummy_avatar.cultivation_progress = CultivationProgress(level=30, exp=0)
+    assert action.can_possibly_start() is True
+
+    max_level = len(REALM_ORDER) * LEVELS_PER_REALM
+    dummy_avatar.cultivation_progress = CultivationProgress(level=max_level, exp=0)
+    assert action.can_possibly_start() is False
+
+
+def test_action_infos_filters_breakthrough_when_avatar_cannot_break_through(dummy_avatar):
+    dummy_avatar.cultivation_progress = CultivationProgress(level=15, exp=0)
+    assert "Breakthrough" not in get_action_infos(dummy_avatar)
+
+    dummy_avatar.cultivation_progress = CultivationProgress(level=30, exp=0)
+    assert "Breakthrough" in get_action_infos(dummy_avatar)

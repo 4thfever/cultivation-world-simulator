@@ -42,6 +42,9 @@ class Breakthrough(TimedAction):
     IS_MAJOR: bool = True
     # 保留类级常量声明，实际读取模块级配置
 
+    def can_possibly_start(self) -> bool:
+        return self.avatar.cultivation_progress.can_break_through()
+
     def calc_success_rate(self) -> float:
         """
         计算突破境界的成功率（由修为进度给出）
