@@ -123,7 +123,7 @@ def render_readme_contributors_section(
     lines = [
         "## 👥 贡献者",
         "",
-        '<div align="center">',
+        '<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center;">',
     ]
     for contributor in contributors:
         login = contributor.get("login") or "unknown"
@@ -133,7 +133,7 @@ def render_readme_contributors_section(
         )
         lines.extend(
             [
-                f'<a href="{profile_url}" title="{login}">',
+                f'<a href="{profile_url}" title="{login}" style="display: inline-block; text-decoration: none; line-height: 0;">',
                 f'  <img src="{avatar_url}" alt="{login} avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />',
                 "</a>",
             ]

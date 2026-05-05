@@ -28,7 +28,7 @@
 > **全員 LLM 驅動、群像湧現敘事、支援 Docker 一鍵部署，也適合原始碼開發與二次創作。**
 
 <p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
+  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="220" height="48" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="220" height="48"/></a>
 </p>
 
 ## 📖 簡介
@@ -226,7 +226,7 @@ docker-compose up -d --build
 
 ## 👥 貢獻者
 
-<div align="center">
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center;">
 <a href="https://github.com/4thfever" title="4thfever">
   <img src="https://avatars.githubusercontent.com/u/19970391?v=4" alt="4thfever avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>

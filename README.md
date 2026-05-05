@@ -28,7 +28,7 @@
 > **全员 LLM 驱动、群像涌现叙事、支持 Docker 一键部署，也适合源码开发与二次创作。**
 
 <p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="250" height="54" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="250" height="55"/></a>
+  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="220" height="48" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="220" height="48"/></a>
 </p>
 
 ## 📖 简介
@@ -226,44 +226,44 @@ docker-compose up -d --build
 
 ## 👥 贡献者
 
-<div align="center">
-<a href="https://github.com/4thfever" title="4thfever">
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center;">
+<a href="https://github.com/4thfever" title="4thfever" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/19970391?v=4" alt="4thfever avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/xzhseh" title="xzhseh">
+<a href="https://github.com/xzhseh" title="xzhseh" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/91381303?v=4" alt="xzhseh avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/teps3105" title="teps3105">
+<a href="https://github.com/teps3105" title="teps3105" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/16871632?v=4" alt="teps3105 avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/cooleryu" title="cooleryu">
+<a href="https://github.com/cooleryu" title="cooleryu" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/53998515?v=4" alt="cooleryu avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/LuckVd" title="LuckVd">
+<a href="https://github.com/LuckVd" title="LuckVd" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/37114923?v=4" alt="LuckVd avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/MarkYangKp" title="MarkYangKp">
+<a href="https://github.com/MarkYangKp" title="MarkYangKp" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/42310488?v=4" alt="MarkYangKp avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/Meanliss" title="Meanliss">
+<a href="https://github.com/Meanliss" title="Meanliss" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/117923713?v=4" alt="Meanliss avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/octo-patch" title="octo-patch">
+<a href="https://github.com/octo-patch" title="octo-patch" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/266937838?v=4" alt="octo-patch avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/Robinwhliu" title="Robinwhliu">
+<a href="https://github.com/Robinwhliu" title="Robinwhliu" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/86167266?v=4" alt="Robinwhliu avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/Seafoodsz" title="Seafoodsz">
+<a href="https://github.com/Seafoodsz" title="Seafoodsz" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/13925953?v=4" alt="Seafoodsz avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/Tianrant" title="Tianrant">
+<a href="https://github.com/Tianrant" title="Tianrant" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/260025727?v=4" alt="Tianrant avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/cw1990" title="cw1990">
+<a href="https://github.com/cw1990" title="cw1990" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/10458746?v=4" alt="cw1990 avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
-<a href="https://github.com/RealityError" title="RealityError">
+<a href="https://github.com/RealityError" title="RealityError" style="display: inline-block; text-decoration: none; line-height: 0;">
   <img src="https://avatars.githubusercontent.com/u/67266280?v=4" alt="RealityError avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />
 </a>
 </div>
