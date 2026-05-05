@@ -27,9 +27,12 @@
 > **你將作為「天道」，觀察一個由規則系統與 AI 共同驅動的修仙世界模擬器自行演化。**
 > **全員 LLM 驅動、群像湧現敘事、支援 Docker 一鍵部署，也適合原始碼開發與二次創作。**
 
-<p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="220" height="48" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="220" height="48"/></a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="300" /></a></td>
+    <td align="center"><a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="300" /></a></td>
+  </tr>
+</table>
 
 ## 📖 簡介
 

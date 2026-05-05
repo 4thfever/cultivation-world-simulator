@@ -27,9 +27,12 @@
 > **Bạn sẽ đóng vai "Thiên Đạo", quan sát một trình mô phỏng thế giới tu tiên do hệ thống quy tắc và AI cùng vận hành tự mình diễn hóa.**
 > **Toàn bộ nhân vật đều do LLM dẫn động, cốt truyện quần tượng nảy sinh tự nhiên, hỗ trợ Docker để triển khai nhanh, đồng thời cũng phù hợp cho phát triển mã nguồn và sáng tạo thứ cấp.**
 
-<p align="center">
-  <a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="220" height="48" /></a>&nbsp;&nbsp;<a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="220" height="48"/></a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://hellogithub.com/repository/4thfever/cultivation-world-simulator" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=d0d75240fb95445bba1d7af7574d8420&claim_uid=DogxfCROM1PBL89" alt="Featured｜HelloGitHub" width="300" /></a></td>
+    <td align="center"><a href="https://trendshift.io/repositories/20502" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20502" alt="4thfever%2Fcultivation-world-simulator | Trendshift" width="300" /></a></td>
+  </tr>
+</table>
 
 ## 📖 Giới Thiệu
 
