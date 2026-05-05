@@ -12,6 +12,7 @@ from src.classes.official_rank import (
 )
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.i18n import t
+from src.classes.race import is_yao_avatar
 
 
 class Govern(TimedAction):
@@ -24,12 +25,17 @@ class Govern(TimedAction):
     duration_months = 3
 
     def can_possibly_start(self) -> bool:
+        if is_yao_avatar(self.avatar):
+            return False
         return True
 
     def _execute(self) -> None:
         return
 
     def can_start(self) -> tuple[bool, str]:
+        if is_yao_avatar(self.avatar):
+            return False, t("Yao cultivators cannot serve as mortal officials.")
+
         region = getattr(getattr(self.avatar, "tile", None), "region", None)
         if not isinstance(region, CityRegion):
             return False, t("Must be in a City to govern.")

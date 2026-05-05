@@ -164,6 +164,7 @@ def get_avatar_list(runtime) -> dict[str, Any]:
                 "sect_name": sect_name,
                 "realm": realm_str,
                 "gender": str(avatar.gender),
+                "race": getattr(getattr(avatar, "race", None), "id", "human"),
                 "age": avatar.age.age,
             }
         )
@@ -171,10 +172,20 @@ def get_avatar_list(runtime) -> dict[str, Any]:
     return {"avatars": avatars}
 
 
-def get_avatar_assets_meta(*, avatar_assets: dict[str, list[int]]) -> dict[str, list[int]]:
+def get_avatar_assets_meta(*, avatar_assets: dict) -> dict[str, Any]:
+    if "human" not in avatar_assets:
+        return {
+            "human": {
+                "male": list(avatar_assets.get("males", [])),
+                "female": list(avatar_assets.get("females", [])),
+            }
+        }
     return {
-        "males": list(avatar_assets.get("males", [])),
-        "females": list(avatar_assets.get("females", [])),
+        str(race_id): {
+            "male": list((assets or {}).get("male", [])),
+            "female": list((assets or {}).get("female", [])),
+        }
+        for race_id, assets in avatar_assets.items()
     }
 
 
@@ -309,6 +320,7 @@ def get_world_state(
                 "action": str(action_name),
                 "action_emoji": resolve_avatar_action_emoji(avatar),
                 "gender": str(avatar.gender.value),
+                "race": getattr(getattr(avatar, "race", None), "id", "human"),
                 "pic_id": resolve_avatar_pic_id(avatar),
                 "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
             }

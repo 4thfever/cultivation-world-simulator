@@ -50,6 +50,7 @@ class AvatarLoadMixin:
         from src.classes.alignment import Alignment
         from src.classes.persona import personas_by_id
         from src.classes.goldfinger import goldfingers_by_id
+        from src.classes.race import get_race
         from src.classes.appearance import get_appearance_by_level
         from src.classes.items.magic_stone import MagicStone
         from src.classes.action_runtime import ActionPlan
@@ -85,6 +86,7 @@ class AvatarLoadMixin:
         
         # 设置灵根
         avatar.root = Root[data["root"]]
+        avatar.race = get_race(data["race_id"])
         
         # 设置功法
         technique_id = data.get("technique_id")

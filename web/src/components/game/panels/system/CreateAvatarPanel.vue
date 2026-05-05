@@ -12,6 +12,7 @@ const { t } = useI18n()
 const {
   GENDER_MALE,
   GENDER_FEMALE,
+  RACE_OPTIONS,
   loading,
   gameData,
   createForm,
@@ -25,6 +26,7 @@ const {
   alignmentOptions,
   availableAvatars,
   currentAvatarUrl,
+  selectedRealm,
   avatarOptions,
   uiKey,
   addRelation,
@@ -51,6 +53,9 @@ const {
               <n-radio-button :value="GENDER_MALE" :label="t(uiKey('gender_labels.male'))" />
               <n-radio-button :value="GENDER_FEMALE" :label="t(uiKey('gender_labels.female'))" />
             </n-radio-group>
+          </n-form-item>
+          <n-form-item label="种族">
+            <n-select v-model:value="createForm.race" :options="RACE_OPTIONS" />
           </n-form-item>
           <n-form-item :label="t(uiKey('labels.age'))">
             <n-slider v-model:value="createForm.age" :min="16" :max="100" :step="1" />
@@ -128,7 +133,7 @@ const {
             :class="{ selected: createForm.pic_id === id }"
             @click="createForm.pic_id = id"
           >
-            <img :src="getAvatarPortraitUrl(createForm.gender, id)" loading="lazy" />
+            <img :src="getAvatarPortraitUrl(createForm.gender, id, selectedRealm, createForm.race)" loading="lazy" />
           </div>
           <div v-if="availableAvatars.length === 0" class="no-avatars">{{ t(uiKey('no_avatars')) }}</div>
         </div>

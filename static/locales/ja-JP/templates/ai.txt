@@ -17,7 +17,7 @@
         "avatar_thinking": ... // 人物本人の一人称視点で、簡潔かつ明確に思考を書く
         "current_emotion": ... // 現在の気分に最も合う語を次から 1 つ選ぶ: Calm, Happy, Angry, Sad, Fearful, Surprised, Expectant, Disgusted, Confused, Exhausted
         "short_term_objective": ..., // 次の一定期間における短期目標
-        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 5〜10 個の将来行動を一度に決め、順に実行する。action_params は必ず辞書 {{}} を返すこと。空なら空辞書で、null は不可
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // 複数の後続行動を一度に決め、順に実行する。目的に合う場合は同じ行動を連続または反復して予定してよい。action_params は必ず辞書 {{}} を返すこと。空なら空辞書で、null は不可
     }}
 }}
 

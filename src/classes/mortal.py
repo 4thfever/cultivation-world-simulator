@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from src.classes.gender import Gender
+from src.classes.race import Race, get_race
 from src.systems.time import MonthStamp
 
 @dataclass
@@ -12,6 +13,7 @@ class Mortal:
     name: str               # 姓名
     gender: Gender          # 性别
     birth_month_stamp: MonthStamp  # 出生时间戳
+    race: Race = field(default_factory=lambda: get_race("human"))
     parents: list[str] = field(default_factory=list)      # 父母的 Avatar ID
     born_region_id: int = -1  # 出身地区域ID (-1表示未知)
 
@@ -22,6 +24,7 @@ class Mortal:
             "name": self.name,
             "gender": self.gender.value,
             "birth_month_stamp": int(self.birth_month_stamp),
+            "race_id": getattr(getattr(self, "race", None), "id", "human"),
             "parents": self.parents,
             "born_region_id": self.born_region_id
         }
@@ -34,6 +37,7 @@ class Mortal:
             name=data["name"],
             gender=Gender(data["gender"]),
             birth_month_stamp=MonthStamp(data["birth_month_stamp"]),
+            race=get_race(data.get("race_id", "human")),
             parents=data.get("parents", []),
             born_region_id=data.get("born_region_id", -1)
         )

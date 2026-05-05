@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh-CN\n"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr "世界中存在人族与妖族修士。妖族包括狐、狼、鸟、蛇、龟等种族，各有不同天性：狐灵慧狡黠，狼凶悍掠食，鸟善迁徙侦察，蛇隐忍狠毒，龟长寿善守。妖族可修行并加入接纳妖族的宗门，但部分重视人族礼法或儒道秩序的宗门不接纳妖族。"

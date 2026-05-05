@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: vi-VN\n"
+
+msgid "RACE_HUMAN_NAME"
+msgstr "Nhân tộc"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "Bạn là một con người bình thường."
+
+msgid "RACE_FOX_NAME"
+msgstr "Hồ tộc"
+
+msgid "RACE_FOX_DESC"
+msgstr "Hồ tộc bẩm sinh thông tuệ, giỏi quan sát lời nói và sắc mặt, phần lớn có dung mạo nổi bật, thường được cho là có duyên tự nhiên với cơ duyên và giao tế nhân tình."
+
+msgid "RACE_WOLF_NAME"
+msgstr "Lang tộc"
+
+msgid "RACE_WOLF_DESC"
+msgstr "Lang tộc có huyết mạch cường kiện, coi trọng sinh tồn, săn bắt và chiến đấu, bản năng nhạy bén, hành động nhanh nhẹn, thường mài giũa tu vi trong chém giết."
+
+msgid "RACE_BIRD_NAME"
+msgstr "Điểu tộc"
+
+msgid "RACE_BIRD_DESC"
+msgstr "Điểu tộc có cảm tri rộng mở, thân pháp nhẹ nhàng linh hoạt, bẩm sinh hướng về phương xa, giỏi trinh sát, thoát thân và thăm dò những vùng đất chưa biết."
+
+msgid "RACE_SNAKE_NAME"
+msgstr "Xà tộc"
+
+msgid "RACE_SNAKE_DESC"
+msgstr "Xà tộc khí tức u vi, hành sự nhẫn nại, giỏi ẩn nấp và tập kích, thường khiến tu sĩ nhân tộc kiêng dè, nhưng cũng thích nghi tốt hơn với nơi âm u hiểm địa."
+
+msgid "RACE_TURTLE_NAME"
+msgstr "Quy tộc"
+
+msgid "RACE_TURTLE_DESC"
+msgstr "Quy tộc thọ nguyên kéo dài, thể phách vững chắc, hành sự chậm rãi cẩn trọng, sở trường nhất là phòng thủ, điều dưỡng và bế quan dài lâu."

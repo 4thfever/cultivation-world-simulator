@@ -6,6 +6,7 @@ from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.environment.region import CityRegion
 from src.systems.cultivation import REALM_RANK
+from src.classes.race import is_yao_avatar
 
 class Educate(TimedAction):
     """
@@ -30,6 +31,8 @@ class Educate(TimedAction):
     POPULATION_GAIN_ON_SUCCESS = 0.2
 
     def can_possibly_start(self) -> bool:
+        if is_yao_avatar(self.avatar):
+            return False
         legal = self.avatar.effects.get("legal_actions", [])
         if "Educate" not in legal:
             return False
@@ -78,6 +81,9 @@ class Educate(TimedAction):
         self._last_exp = exp
 
     def can_start(self) -> tuple[bool, str]:
+        if is_yao_avatar(self.avatar):
+            return False, t("Yao cultivators cannot cultivate Confucian education.")
+
         # 1. 瓶颈检查
         if not self.avatar.cultivation_progress.can_cultivate():
             return False, t("Cultivation has reached bottleneck, cannot continue cultivating")

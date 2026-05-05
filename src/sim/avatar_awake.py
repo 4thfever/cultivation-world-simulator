@@ -18,6 +18,7 @@ from src.classes.items.weapon import get_random_weapon_by_realm
 from src.utils.config import CONFIG
 from src.utils.born_region import get_born_region_id
 from src.i18n import t
+from src.classes.race import Race, roll_avatar_race
 
 # 常量
 MIN_AWAKENING_AGE = 16
@@ -83,14 +84,15 @@ def _process_bloodline_awakening(world: World) -> List[Event]:
 def _process_wild_awakening(world: World) -> Optional[Event]:
     # 随机生成一个新的野生角色
     gender = random.choice(list(Gender))
-    from src.utils.name_generator import get_random_name
-    name = get_random_name(gender)
+    race = roll_avatar_race()
+    from src.utils.name_generator import get_random_name_for_race
+    name = get_random_name_for_race(gender, race)
     
     age_val = random.randint(MIN_AWAKENING_AGE, 30)
     
     # 构造 Avatar
-    born_id = get_born_region_id(world)
-    avatar = _create_simple_avatar(world, name, gender, age_val, parents=[], born_region_id=born_id)
+    born_id = get_born_region_id(world, race=race)
+    avatar = _create_simple_avatar(world, name, gender, age_val, parents=[], born_region_id=born_id, race=race)
     
     # 注册
     world.avatar_manager.register_avatar(avatar, is_newly_born=True)
@@ -113,7 +115,8 @@ def _promote_mortal_to_avatar(world: World, mortal: Mortal) -> Avatar:
         age_years, 
         parents=mortal.parents,
         mortal_id=mortal.id, # 复用 ID
-        born_region_id=mortal.born_region_id
+        race=getattr(mortal, "race", None),
+        born_region_id=mortal.born_region_id,
     )
     
     return avatar
@@ -125,7 +128,8 @@ def _create_simple_avatar(
     age_years: int, 
     parents: List[str],
     mortal_id: Optional[str] = None,
-    born_region_id: Optional[int] = None
+    born_region_id: Optional[int] = None,
+    race: Optional[Race] = None,
 ) -> Avatar:
     # 1. 基础属性
     level = 1
@@ -144,6 +148,9 @@ def _create_simple_avatar(
     y = random.randint(0, world.map.height - 1)
     
     birth_stamp = world.month_stamp - age_years * 12
+    avatar_race = race or roll_avatar_race()
+    if born_region_id is None:
+        born_region_id = get_born_region_id(world, race=avatar_race)
     
     avatar = Avatar(
         world=world,
@@ -157,7 +164,8 @@ def _create_simple_avatar(
         pos_y=y,
         root=random.choice(list(Root)),
         sect=None, # 刚觉醒默认为散修
-        born_region_id=born_region_id
+        born_region_id=born_region_id,
+        race=avatar_race,
     )
     
     avatar.cultivation_start_month_stamp = world.month_stamp

@@ -29,6 +29,15 @@ def _get_goldfinger_structured_payload(avatar: "Avatar") -> dict | None:
     return payload
 
 
+def _get_race_info(avatar: "Avatar", *, detailed: bool = False) -> dict:
+    race = getattr(avatar, "race", None)
+    if race is None:
+        from src.classes.race import get_race
+
+        race = get_race("human")
+    return race.get_info(detailed=detailed)
+
+
 def _get_effects_text(avatar: "Avatar") -> str:
     """获取格式化的效果文本"""
     from src.i18n import t
@@ -107,6 +116,7 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     info_dict = {
         t("Name"): avatar.name,
         t("Origin"): born_region_name,
+        t("Race"): _get_race_info(avatar, detailed=detailed).get("name", ""),
         t("Gender"): str(avatar.gender),
         t("Age"): str(avatar.age),
         t("HP"): str(avatar.hp),
@@ -186,6 +196,7 @@ def get_avatar_structured_info(avatar: "Avatar") -> dict:
         "name": avatar.name,
         "origin": born_region_name,
         "born_region_id": avatar.born_region_id,
+        "race": _get_race_info(avatar, detailed=True),
         "cultivation_start_age": start_age,
         "cultivation_start_month_stamp": int(avatar.cultivation_start_month_stamp) if avatar.cultivation_start_month_stamp else None,
         "gender": str(avatar.gender),
@@ -510,6 +521,7 @@ def get_avatar_ai_context(
     return {
         "self_profile": {
             "name": avatar.name,
+            "race": _get_race_info(avatar, detailed=True),
             "realm": avatar.cultivation_progress.get_info(),
             "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
             "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
@@ -611,9 +623,10 @@ def get_other_avatar_info(from_avatar: "Avatar", to_avatar: "Avatar") -> str:
         relation = "/".join(labels)
 
     return t(
-        "{name}, Nickname: {nickname}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
+        "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}",
         name=to_avatar.name,
         nickname=nickname,
+        race=_get_race_info(to_avatar).get("name", ""),
         realm=to_avatar.cultivation_progress.get_info(),
         relation=relation,
         sect=sect,
@@ -643,6 +656,7 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     # 基础描述
     lines = [t("【{name}】 {gender} {age} years old", name=avatar.name, gender=avatar.gender, age=avatar.age)]
     lines.append(t("Origin: {origin}", origin=born_region_name))
+    lines.append(t("Race: {race}", race=_get_race_info(avatar).get("name", "")))
     lines.append(t("Realm: {realm}", realm=avatar.cultivation_progress.get_info()))
     lines.append(t("Current Action: {action}", action=avatar.current_action_name))
     if avatar.sect:

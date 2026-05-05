@@ -4,7 +4,7 @@ import json
 from enum import Enum
 
 from src.classes.alignment import Alignment
-from src.utils.df import game_configs, get_str, get_float, get_int
+from src.utils.df import game_configs, get_str, get_float, get_int, get_bool
 from src.classes.effect import load_effect_from_str
 from src.classes.sect_effect import SectEffectsMixin
 from src.classes.core.orthodoxy import get_orthodoxy
@@ -71,6 +71,8 @@ class Sect(SectEffectsMixin):
     # 门规
     rule_id: str = ""
     rule_desc: str = ""
+    # 是否接纳妖族弟子
+    accept_yao: bool = True
     
     # 势力相关
     magic_stone: int = 0
@@ -119,6 +121,14 @@ class Sect(SectEffectsMixin):
         """从宗门移除成员"""
         if avatar.id in self.members:
             del self.members[avatar.id]
+
+    def accepts_race(self, race: object) -> bool:
+        from src.classes.race import is_yao_race
+
+        return self.accept_yao or not is_yao_race(race)
+
+    def accepts_avatar_race(self, avatar: "Avatar") -> bool:
+        return self.accepts_race(getattr(avatar, "race", None))
 
     def get_info(self) -> str:
         from src.i18n import t
@@ -235,6 +245,7 @@ class Sect(SectEffectsMixin):
             "color": self.color,
             "rule_id": self.rule_id,
             "rule_desc": self.rule_desc,
+            "accept_yao": self.accept_yao,
             "periodic_thinking": self.periodic_thinking,
             # 兼容旧字段，前后端迁移完成后可删除。
             "yearly_thinking": self.periodic_thinking,
@@ -672,6 +683,7 @@ def _load_sects_data() -> tuple[dict[int, Sect], dict[str, Sect]]:
             color=color,
             rule_id=rule_id,
             rule_desc=rule_desc,
+            accept_yao=get_bool(row, "accept_yao", True),
         )
         new_by_id[sect.id] = sect
         new_by_name[sect.name] = sect

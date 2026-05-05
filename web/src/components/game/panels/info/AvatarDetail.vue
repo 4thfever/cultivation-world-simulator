@@ -72,6 +72,7 @@ const {
     <AvatarPortraitPanel
       :avatar-id="data.id"
       :gender="data.gender"
+      :race="data.race?.id"
       :realm="data.realm_id || data.realm"
       :current-pic-id="data.pic_id"
       :visible="showPortraitPanel"
@@ -151,6 +152,11 @@ const {
         
         <StatItem :label="t('game.info_panel.avatar.stats.hp')" :value="formatHp(data.hp.cur, data.hp.max)" />
         <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="formatGenderLabel(data.gender)" />
+        <StatItem
+          :label="t('game.info_panel.avatar.stats.race')"
+          :value="data.race?.name || '人族'"
+          :on-click="() => showDetail(data.race)"
+        />
         
         <StatItem 
           :label="t('game.info_panel.avatar.stats.alignment')" 

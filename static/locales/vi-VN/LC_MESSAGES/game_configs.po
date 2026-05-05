@@ -2496,6 +2496,56 @@ msgstr ""
 msgid "PLANT_9_NAME"
 msgstr "Cửu Khúc Thanh Âm Trúc"
 
+msgid "RACE_HUMAN_NAME"
+msgstr "Nhân tộc"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "Bạn là một con người bình thường."
+
+msgid "RACE_FOX_NAME"
+msgstr "Hồ tộc"
+
+msgid "RACE_FOX_DESC"
+msgstr ""
+"Hồ tộc bẩm sinh thông tuệ, giỏi quan sát lời nói và sắc mặt, phần lớn có "
+"dung mạo nổi bật, thường được cho là có duyên tự nhiên với cơ duyên và giao "
+"tế nhân tình."
+
+msgid "RACE_WOLF_NAME"
+msgstr "Lang tộc"
+
+msgid "RACE_WOLF_DESC"
+msgstr ""
+"Lang tộc có huyết mạch cường kiện, coi trọng sinh tồn, săn bắt và chiến đấu,"
+" bản năng nhạy bén, hành động nhanh nhẹn, thường mài giũa tu vi trong chém "
+"giết."
+
+msgid "RACE_BIRD_NAME"
+msgstr "Điểu tộc"
+
+msgid "RACE_BIRD_DESC"
+msgstr ""
+"Điểu tộc có cảm tri rộng mở, thân pháp nhẹ nhàng linh hoạt, bẩm sinh hướng "
+"về phương xa, giỏi trinh sát, thoát thân và thăm dò những vùng đất chưa "
+"biết."
+
+msgid "RACE_SNAKE_NAME"
+msgstr "Xà tộc"
+
+msgid "RACE_SNAKE_DESC"
+msgstr ""
+"Xà tộc khí tức u vi, hành sự nhẫn nại, giỏi ẩn nấp và tập kích, thường khiến"
+" tu sĩ nhân tộc kiêng dè, nhưng cũng thích nghi tốt hơn với nơi âm u hiểm "
+"địa."
+
+msgid "RACE_TURTLE_NAME"
+msgstr "Quy tộc"
+
+msgid "RACE_TURTLE_DESC"
+msgstr ""
+"Quy tộc thọ nguyên kéo dài, thể phách vững chắc, hành sự chậm rãi cẩn trọng,"
+" sở trường nhất là phòng thủ, điều dưỡng và bế quan dài lâu."
+
 #. random_minor_event.csv: 心境偏移
 msgid "minor_event_cause_1"
 msgstr "Tâm cảnh lệch chuyển"
@@ -4393,3 +4443,25 @@ msgstr "Quan Chức"
 
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "Quan Chức"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr ""
+"世界中存在人族与妖族修士。妖族包括狐、狼、鸟、蛇、龟等种族，各有不同天性：狐灵慧狡黠，狼凶悍掠食，鸟善迁徙侦察，蛇隐忍狠毒，龟长寿善守。妖族可修行并加入接纳妖族的宗门，但部分重视人族礼法或儒道秩序的宗门不接纳妖族。"

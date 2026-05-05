@@ -11,7 +11,7 @@ from src.utils.resolution import resolve_query
 from src.systems.cultivation import CultivationProgress, Realm
 from src.classes.root import Root
 from src.classes.age import Age
-from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname
+from src.utils.name_generator import get_random_name_for_sect, pick_surname_for_sect, get_random_name_with_surname, get_random_name_for_race
 from src.utils.id_generator import get_avatar_id
 from src.classes.core.sect import Sect, sects_by_id, sects_by_name
 from src.classes.relation.relation import Relation
@@ -25,6 +25,7 @@ from src.classes.death_reason import DeathReason, DeathType
 from src.classes.official_rank import OFFICIAL_NONE, resolve_rank_changes
 from src.classes.relation.relations import set_friendliness
 from src.utils.born_region import get_born_region_id
+from src.classes.race import Race, get_race, roll_avatar_race
 
 
 # —— 参数常量（便于调参）——
@@ -131,6 +132,28 @@ def _roll_social_initial_friendliness_pair(avatar_a: Avatar, avatar_b: Avatar) -
         positive_bias += 1
     elif level_gap >= 40:
         negative_bias += 2
+    if getattr(getattr(avatar_a, "race", None), "id", "human") != getattr(getattr(avatar_b, "race", None), "id", "human"):
+        bias_a = int(avatar_a.effects.get("extra_cross_race_friendliness", 0) or 0)
+        bias_b = int(avatar_b.effects.get("extra_cross_race_friendliness", 0) or 0)
+        a_to_b, b_to_a = _roll_social_initial_friendliness_pair_without_cross_race(
+            avatar_a,
+            avatar_b,
+            positive_bias,
+            negative_bias,
+        )
+        return max(-100, min(100, a_to_b + bias_a)), max(-100, min(100, b_to_a + bias_b))
+
+    return _roll_social_initial_friendliness_pair_without_cross_race(avatar_a, avatar_b, positive_bias, negative_bias)
+
+
+def _roll_social_initial_friendliness_pair_without_cross_race(
+    avatar_a: Avatar,
+    avatar_b: Avatar,
+    positive_bias: int,
+    negative_bias: int,
+) -> tuple[int, int]:
+    same_sect = avatar_a.sect is not None and avatar_a.sect is avatar_b.sect
+    level_gap = abs(int(avatar_a.cultivation_progress.level) - int(avatar_b.cultivation_progress.level))
 
     weights = {
         "mutual_friend": 34 + positive_bias * 7,
@@ -356,6 +379,7 @@ class EquipmentAllocator:
 @dataclass
 class MortalPlan:
     gender: Optional[Gender] = None
+    race: Race = field(default_factory=lambda: get_race("human"))
     sect: Optional[Sect] = None
     surname: Optional[str] = None
     parent_avatar: Optional[Avatar] = None
@@ -369,6 +393,7 @@ class MortalPlan:
 class PopulationPlan:
     sects: List[Optional[Sect]]
     genders: List[Optional[Gender]]
+    races: List[Race]
     surnames: List[Optional[str]]
     relations: Dict[Tuple[int, int], Relation]
     friendliness: Dict[Tuple[int, int], int] = field(default_factory=dict)
@@ -494,6 +519,7 @@ class MortalPlanner:
         allow_relations: bool = True,
     ) -> MortalPlan:
         plan = MortalPlan(level=level)
+        plan.race = roll_avatar_race()
 
         plan.gender = random_gender()
         plan.pos_x = random.randint(0, world.map.width - 1)
@@ -512,13 +538,17 @@ class MortalPlanner:
                 existed_sects = []
 
         if random.random() < NEW_MORTAL_SECT_PROB:
-            picked = PopulationPlanner._pick_sects_balanced(existed_sects or [], 1)
+            accepted_sects = [sect for sect in (existed_sects or []) if sect.accepts_race(plan.race)]
+            picked = PopulationPlanner._pick_sects_balanced(accepted_sects, 1)
             plan.sect = picked[0] if picked else None
 
         if allow_relations and existing_avatars:
             if random.random() < NEW_MORTAL_PARENT_PROB:
                 candidates: list[Avatar] = [
-                    av for av in existing_avatars if av.age.age >= age.age + PARENT_MIN_DIFF
+                    av
+                    for av in existing_avatars
+                    if av.age.age >= age.age + PARENT_MIN_DIFF
+                    and getattr(getattr(av, "race", None), "id", "human") == plan.race.id
                 ]
                 if candidates:
                     parent = random.choice(candidates)
@@ -558,11 +588,15 @@ class PopulationPlanner:
         use_sects = bool(existed_sects)
         planned_sect: list[Optional[Sect]] = [None] * n
         if n == 0:
-            return PopulationPlan(planned_sect, [None] * 0, [None] * 0, {}, {})
+            return PopulationPlan(planned_sect, [None] * 0, [], [None] * 0, {}, {})
+
+        planned_race: list[Race] = [roll_avatar_race() for _ in range(n)]
 
         if use_sects and existed_sects:
             sect_member_target = int(n * SECT_MEMBER_RATIO)
-            planned_sect[:sect_member_target] = PopulationPlanner._pick_sects_balanced(existed_sects, sect_member_target)
+            counts: dict[int, int] = {sect.id: 0 for sect in existed_sects}
+            for idx in range(sect_member_target):
+                planned_sect[idx] = PopulationPlanner._pick_sect_for_race(existed_sects, planned_race[idx], counts)
             paired = list(zip(planned_sect, list(range(n))))
             random.shuffle(paired)
             planned_sect = [p[0] for p in paired]
@@ -661,7 +695,7 @@ class PopulationPlanner:
             if planned_gender[idx] is None:
                 planned_gender[idx] = random_gender()
 
-        return PopulationPlan(planned_sect, planned_gender, planned_surname, planned_relations, {})
+        return PopulationPlan(planned_sect, planned_gender, planned_race, planned_surname, planned_relations, {})
 
     @staticmethod
     def _pick_sects_balanced(existed_sects: List[Sect], k: int) -> list[Optional[Sect]]:
@@ -676,6 +710,21 @@ class PopulationPlanner:
             counts[s.id] = counts.get(s.id, 0) + 1
             chosen.append(s)
         return chosen
+
+    @staticmethod
+    def _pick_sect_for_race(
+        existed_sects: List[Sect],
+        race: Race,
+        current_counts: dict[int, int],
+    ) -> Optional[Sect]:
+        candidates = [sect for sect in existed_sects if sect.accepts_race(race)]
+        if not candidates:
+            return None
+        min_count = min(current_counts.get(sect.id, 0) for sect in candidates)
+        tied = [sect for sect in candidates if current_counts.get(sect.id, 0) == min_count]
+        sect = random.choice(tied)
+        current_counts[sect.id] = current_counts.get(sect.id, 0) + 1
+        return sect
 
     @staticmethod
     def _pick_different_sect(
@@ -863,7 +912,7 @@ class AvatarFactory:
             if plan.surname:
                 final_name = get_random_name_with_surname(plan.gender, plan.surname, plan.sect)
             else:
-                final_name = get_random_name_for_sect(plan.gender, plan.sect)
+                final_name = get_random_name_for_race(plan.gender, plan.race, plan.sect)
 
         birth_month_stamp = current_month_stamp - age.age * 12 + random.randint(0, 11)
 
@@ -878,6 +927,7 @@ class AvatarFactory:
             pos_x=plan.pos_x,
             pos_y=plan.pos_y,
             sect=plan.sect,
+            race=plan.race,
         )
 
         avatar.magic_stone = MagicStone(50)
@@ -887,7 +937,7 @@ class AvatarFactory:
         parents_list = []
         if plan.parent_avatar:
             parents_list.append(plan.parent_avatar)
-        avatar.born_region_id = get_born_region_id(world, parents=parents_list, sect=plan.sect)
+        avatar.born_region_id = get_born_region_id(world, parents=parents_list, sect=plan.sect, race=plan.race)
 
         # 在构造 Avatar 实例后计算并赋值：
         if avatar.cultivation_start_month_stamp is None:
@@ -938,6 +988,7 @@ class AvatarFactory:
     ) -> dict[str, Avatar]:
         planned_sect = population_plan.sects
         planned_gender = population_plan.genders
+        planned_race = population_plan.races
         planned_surname = population_plan.surnames
         planned_relations = population_plan.relations
         n = len(planned_sect)
@@ -990,12 +1041,15 @@ class AvatarFactory:
 
         for i in range(n):
             gender = planned_gender[i] or random_gender()
+            race = planned_race[i] if i < len(planned_race) else get_race("human")
             sect = planned_sect[i]
+            if sect is not None and not sect.accepts_race(race):
+                sect = None
 
             if planned_surname[i]:
                 name = get_random_name_with_surname(gender, planned_surname[i] or "", sect)
             else:
-                name = get_random_name_for_sect(gender, sect)
+                name = get_random_name_for_race(gender, race, sect)
 
             level = levels[i]
             cultivation_progress = CultivationProgress(level)
@@ -1021,12 +1075,13 @@ class AvatarFactory:
                 pos_y=y,
                 root=random.choice(list(Root)),
                 sect=sect,
+                race=race,
             )
 
             avatar.magic_stone = MagicStone(50)
             avatar.tile = world.map.get_tile(x, y)
 
-            avatar.born_region_id = get_born_region_id(world, parents=[], sect=sect)
+            avatar.born_region_id = get_born_region_id(world, parents=[], sect=sect, race=race)
 
             # 在构造 Avatar 实例后计算并赋值：
             if avatar.cultivation_start_month_stamp is None:
@@ -1070,7 +1125,7 @@ class AvatarFactory:
                 for (p_idx, c_idx), rel in constrained_relations.items()
                 if rel is Relation.IS_CHILD_OF and c_idx == i and avatars_by_index[p_idx] is not None
             ]
-            avatar.born_region_id = get_born_region_id(world, parents=parents, sect=avatar.sect)
+            avatar.born_region_id = get_born_region_id(world, parents=parents, sect=avatar.sect, race=avatar.race)
 
         from src.classes.relation.relations import update_second_degree_relations
 
@@ -1204,6 +1259,17 @@ def _parse_auxiliary(value: Union[str, int, Auxiliary, None]) -> Optional[Auxili
     return auxiliaries_by_name.get(s)
 
 
+def _parse_race(value: Union[str, Race, None]) -> Optional[Race]:
+    if value is None:
+        return None
+    if isinstance(value, Race):
+        return value
+    s = str(value).strip()
+    if not s:
+        return None
+    return get_race(s)
+
+
 def _parse_personas(value: Union[str, int, Persona, List[Union[str, int, Persona]], None]) -> Optional[List[Persona]]:
     if value is None:
         return None
@@ -1280,6 +1346,7 @@ def create_avatar_from_request(
     auxiliary: Union[str, int, Auxiliary, None] = None,
     personas: Union[str, int, Persona, List[Union[str, int, Persona]], None] = None,
     appearance: Optional[int] = None,
+    race: Union[str, Race, None] = None,
     relations: Optional[List[Dict[str, str]]] = None,
 ) -> Avatar:
     """
@@ -1299,6 +1366,11 @@ def create_avatar_from_request(
         innate_max_lifespan=_create_random_innate_lifespan(),
     )
     plan = MortalPlanner.plan(world, name=name or "", age=tmp_age_for_plan, allow_relations=False)
+    plan.race = get_race("human")
+
+    requested_race = _parse_race(race)
+    if requested_race is not None:
+        plan.race = requested_race
 
     # 覆盖：性别
     g = _parse_gender(gender)
@@ -1308,7 +1380,7 @@ def create_avatar_from_request(
     # 覆盖：宗门
     s = _parse_sect(sect)
     if s is not None:
-        plan.sect = s
+        plan.sect = s if s.accepts_race(plan.race) else None
 
     # 覆盖：等级
     if isinstance(level, int):

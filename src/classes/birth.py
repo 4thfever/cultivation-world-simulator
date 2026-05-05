@@ -5,10 +5,24 @@ from src.classes.relation.relation import Relation
 from src.classes.mortal import Mortal
 from src.classes.event import Event
 from src.utils.config import CONFIG
-from src.utils.name_generator import get_random_name_with_surname
+from src.utils.name_generator import get_random_name_with_surname, get_random_name_for_race
 from src.utils.id_generator import get_avatar_id
 from src.utils.born_region import get_born_region_id
 from src.i18n import t
+from src.classes.race import get_avatar_race
+
+
+def _resolve_child_race(parent1: Avatar, parent2: Avatar):
+    race1 = get_avatar_race(parent1)
+    race2 = get_avatar_race(parent2)
+    if race1.id == race2.id:
+        return race1
+    if race1.is_yao and race2.is_yao:
+        return random.choice([race1, race2])
+    yao_parent_race = race1 if race1.is_yao else race2 if race2.is_yao else None
+    if yao_parent_race is not None and random.random() < 0.5:
+        return yao_parent_race
+    return get_avatar_race(None)
 
 def process_births(world: World) -> list[Event]:
     """
@@ -88,16 +102,21 @@ def _create_child_for_couple(world: World, parent1: Avatar, parent2: Avatar) -> 
     father_surname = father.name[0] # 简单取首字
     
     # 使用公共API生成名字
-    child_name = get_random_name_with_surname(child_gender, father_surname, sect=None)
+    child_race = _resolve_child_race(parent1, parent2)
+    if child_race.is_yao:
+        child_name = get_random_name_for_race(child_gender, child_race)
+    else:
+        child_name = get_random_name_with_surname(child_gender, father_surname, sect=None)
     
     # 3. 创建对象
     child = Mortal(
         id=get_avatar_id(),
         name=child_name,
         gender=child_gender,
+        race=child_race,
         birth_month_stamp=world.month_stamp,
         parents=[str(parent1.id), str(parent2.id)],
-        born_region_id=get_born_region_id(world, parents=[parent1, parent2])
+        born_region_id=get_born_region_id(world, parents=[parent1, parent2], race=child_race)
     )
     
     # 4. 绑定关系

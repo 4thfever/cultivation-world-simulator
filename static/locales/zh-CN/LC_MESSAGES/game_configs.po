@@ -2042,6 +2042,42 @@ msgstr "紫竹林中的变异异种，竹身九曲，内空外坚。风吹过时
 msgid "PLANT_9_NAME"
 msgstr "九曲清音竹"
 
+msgid "RACE_HUMAN_NAME"
+msgstr "人族"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "你是一个普通的人类"
+
+msgid "RACE_FOX_NAME"
+msgstr "狐族"
+
+msgid "RACE_FOX_DESC"
+msgstr "狐族天生灵慧，善于察言观色，容貌多半出众，常被认为与机缘和人情往来有天然亲和。"
+
+msgid "RACE_WOLF_NAME"
+msgstr "狼族"
+
+msgid "RACE_WOLF_DESC"
+msgstr "狼族血脉强健，重视生存、狩猎与战斗，本能敏锐，行动迅捷，常在厮杀中磨砺修为。"
+
+msgid "RACE_BIRD_NAME"
+msgstr "鸟族"
+
+msgid "RACE_BIRD_DESC"
+msgstr "鸟族感知开阔，身法轻灵，天生向往远方，擅长侦察、脱身与探索未知之地。"
+
+msgid "RACE_SNAKE_NAME"
+msgstr "蛇族"
+
+msgid "RACE_SNAKE_DESC"
+msgstr "蛇族气息幽微，行事隐忍，擅长潜伏与突袭，常被人族修士忌惮，却也更能适应阴暗险地。"
+
+msgid "RACE_TURTLE_NAME"
+msgstr "龟族"
+
+msgid "RACE_TURTLE_DESC"
+msgstr "龟族寿元绵长，体魄稳固，行事缓慢谨慎，最擅长守御、疗养与长久闭关。"
+
 #. random_minor_event.csv: 心境偏移
 msgid "minor_event_cause_1"
 msgstr "心境偏移"
@@ -3550,3 +3586,25 @@ msgstr "官职"
 #. world_info.csv: 官职
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "官职"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr ""
+"世界中存在人族与妖族修士。妖族包括狐、狼、鸟、蛇、龟等种族，各有不同天性：狐灵慧狡黠，狼凶悍掠食，鸟善迁徙侦察，蛇隐忍狠毒，龟长寿善守。妖族可修行并加入接纳妖族的宗门，但部分重视人族礼法或儒道秩序的宗门不接纳妖族。"

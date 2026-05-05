@@ -25,7 +25,7 @@ Chú ý: chỉ hoàn trả kết quả JSON.
         "avatar_thinking": ... // Từ lập trường nhân vật, dùng ngôi thứ nhất để miêu tả suy nghĩ ngắn gọn, rõ ràng.
         "current_emotion": ... // Chọn một từ phù hợp nhất với tâm cảnh hiện tại: Bình thản, Vui mừng, Phẫn nộ, Bi thương, Sợ hãi, Kinh ngạc, Kỳ vọng, Chán ghét, Nghi hoặc, Mỏi mệt.
         "short_term_objective": ..., // Mục tiêu ngắn hạn của nhân vật trong một đoạn thời gian kế tiếp.
-        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // Một lần quyết định 5~10 hành động tương lai, thi hành theo thứ tự. action_params bắt buộc là dict {{}}. Nếu không có tham số thì trả về dict rỗng, không được trả về null.
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // Một lần quyết định vài hành động kế tiếp, thi hành theo thứ tự; có thể sắp xếp cùng một hành động liên tiếp hoặc lặp lại khi phù hợp với mục tiêu. action_params bắt buộc là dict {{}}. Nếu không có tham số thì trả về dict rỗng, không được trả về null.
     }}
 }}
 

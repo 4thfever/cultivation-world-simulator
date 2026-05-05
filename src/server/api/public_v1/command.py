@@ -36,6 +36,7 @@ class CreateAvatarRequest(BaseModel):
     auxiliary_id: Optional[int] = None
     alignment: Optional[str] = None
     appearance: Optional[int] = None
+    race: Optional[str] = None
     relations: Optional[list[dict]] = None
 
 

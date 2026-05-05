@@ -6,6 +6,16 @@ from fastapi import HTTPException
 from src.i18n import t
 
 
+def _available_portrait_ids(avatar_assets: dict, *, race_id: str, gender_value: str) -> set[int]:
+    gender_key = "female" if gender_value == "female" else "male"
+    if "human" in avatar_assets:
+        race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
+        return set(race_assets.get(gender_key, []))
+
+    legacy_key = "females" if gender_key == "female" else "males"
+    return set(avatar_assets.get(legacy_key, []))
+
+
 def set_long_term_objective_for_avatar(runtime, *, avatar_id: str, content: str, setter) -> dict[str, str]:
     world = runtime.get("world")
     if not world:
@@ -50,8 +60,11 @@ def update_avatar_portrait_in_world(
     if not avatar:
         raise HTTPException(status_code=404, detail=t("Avatar not found"))
 
-    gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
-    available_ids = set(avatar_assets.get(gender_key, []))
+    available_ids = _available_portrait_ids(
+        avatar_assets,
+        race_id=getattr(getattr(avatar, "race", None), "id", "human"),
+        gender_value=getattr(avatar.gender, "value", "male"),
+    )
     if available_ids and pic_id not in available_ids:
         raise HTTPException(status_code=400, detail=t("Invalid pic_id for avatar gender"))
 
@@ -120,7 +133,14 @@ def create_avatar_in_world(
     final_name = None
     surname = (req.surname or "").strip()
     given_name = (req.given_name or "").strip()
-    if surname or given_name:
+    race_id = str(getattr(req, "race", None) or "human")
+    if race_id != "human":
+        if given_name:
+            from src.utils.name_generator import get_name_with_race_surname
+
+            final_name = get_name_with_race_surname(req.gender, race_id, given_name)
+            have_name = True
+    elif surname or given_name:
         if surname and given_name:
             if uses_space_separated_names(language_manager.current):
                 final_name = f"{surname} {given_name}"
@@ -149,12 +169,16 @@ def create_avatar_in_world(
         weapon=req.weapon_id,
         auxiliary=req.auxiliary_id,
         appearance=req.appearance,
+        race=getattr(req, "race", None),
         relations=req.relations,
     )
 
     if req.pic_id is not None:
-        gender_key = "females" if getattr(avatar.gender, "value", "male") == "female" else "males"
-        available_ids = set(avatar_assets.get(gender_key, []))
+        available_ids = _available_portrait_ids(
+            avatar_assets,
+            race_id=getattr(getattr(avatar, "race", None), "id", "human"),
+            gender_value=getattr(avatar.gender, "value", "male"),
+        )
         if available_ids and req.pic_id not in available_ids:
             raise HTTPException(status_code=400, detail=t("Invalid pic_id for selected gender"))
         avatar.custom_pic_id = req.pic_id

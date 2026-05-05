@@ -32,6 +32,8 @@ from .consts import (
     EXTRA_REFINE_SUCCESS_RATE,
     EXTRA_RESPIRE_EXP,
     EXTRA_RESPIRE_EXP_MULTIPLIER,
+    EXTRA_REST_EXP,
+    EXTRA_REST_HP_RECOVERY_RATE,
     EXTRA_RETREAT_SUCCESS_RATE,
     EXTRA_SECT_MISSION_SUCCESS_RATE,
     EXTRA_WEAPON_PROFICIENCY_GAIN,
@@ -42,6 +44,8 @@ from .consts import (
     SHOP_BUY_PRICE_REDUCTION,
     TEMPER_DURATION_REDUCTION,
     EXTRA_BREAKTHROUGH_SUCCESS_RATE,
+    EXTRA_CROSS_RACE_FRIENDLINESS,
+    EXTRA_EAT_MORTALS_EXP_MULTIPLIER,
 )
 
 
@@ -113,6 +117,11 @@ EFFECT_PROMPT_META: dict[str, EffectPromptMeta] = {
         value_type="float",
         example=0.1,
         references=_refs(("small", "0.05"), ("medium", "0.1"), ("large", "0.2")),
+    ),
+    EXTRA_REST_EXP: EffectPromptMeta(
+        value_type="int",
+        example=30,
+        references=_refs(("small", "10 to 30"), ("medium", "50 to 100"), ("large", "150+")),
     ),
     EXTRA_DUAL_CULTIVATION_EXP: EffectPromptMeta(
         value_type="int",
@@ -216,6 +225,11 @@ EFFECT_PROMPT_META: dict[str, EffectPromptMeta] = {
         example=0.2,
         references=_refs(("small", "0.1 to 0.2"), ("medium", "0.5"), ("large", "1.0")),
     ),
+    EXTRA_REST_HP_RECOVERY_RATE: EffectPromptMeta(
+        value_type="float",
+        example=0.2,
+        references=_refs(("small", "0.1 to 0.2"), ("medium", "0.5"), ("large", "1.0")),
+    ),
     DAMAGE_REDUCTION: EffectPromptMeta(
         value_type="float",
         example=0.1,
@@ -241,6 +255,16 @@ EFFECT_PROMPT_META: dict[str, EffectPromptMeta] = {
         value_type="float",
         example=0.5,
         references=_refs(("small", "0.5"), ("medium", "1.0"), ("large", "2")),
+    ),
+    EXTRA_EAT_MORTALS_EXP_MULTIPLIER: EffectPromptMeta(
+        value_type="float",
+        example=0.5,
+        references=_refs(("small", "0.2"), ("medium", "0.5"), ("large", "1.0")),
+    ),
+    EXTRA_CROSS_RACE_FRIENDLINESS: EffectPromptMeta(
+        value_type="int",
+        example=10,
+        references=_refs(("small", "5 to 10"), ("medium", "20 to 30"), ("hostile", "-20 to -30")),
     ),
     EXTRA_HIDDEN_DOMAIN_DROP_PROB: EffectPromptMeta(
         value_type="float",

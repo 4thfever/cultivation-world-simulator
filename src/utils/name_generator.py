@@ -175,6 +175,33 @@ def get_random_name_with_surname(
     return _name_manager.get_random_full_name_with_surname(gender, surname, sect_id)
 
 
+def get_random_name_for_race(gender: Gender, race, sect=None) -> str:
+    """
+    妖族使用种族名作姓；人族沿用原有宗门/通用姓氏规则。
+    """
+    from src.classes.race import get_race, get_race_surname
+
+    race_obj = get_race(getattr(race, "id", race))
+    if not race_obj.is_yao:
+        return get_random_name_for_sect(gender, sect)
+    surname = get_race_surname(race_obj)
+    return _name_manager.get_random_full_name_with_surname(gender, surname, None)
+
+
+def get_name_with_race_surname(gender: Gender, race, given_name: str | None = None) -> str:
+    from src.classes.language import language_manager
+    from src.classes.race import get_race, get_race_surname
+
+    race_obj = get_race(getattr(race, "id", race))
+    surname = get_race_surname(race_obj)
+    if not surname:
+        return str(given_name or "").strip() or get_random_name(gender)
+    final_given_name = str(given_name or "").strip() or _name_manager.get_random_given_name(gender, None)
+    if uses_space_separated_names(language_manager.current):
+        return f"{surname} {final_given_name}"
+    return surname + final_given_name
+
+
 def reload():
     """重新加载数据"""
     _name_manager._load_names()

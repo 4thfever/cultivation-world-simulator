@@ -33,13 +33,21 @@ export function getAvatarIndexSlug(picId: number | null | undefined): string {
   return String(picId || 1).padStart(3, '0')
 }
 
+export function getYaoAvatarIndexSlug(picId: number | null | undefined): string {
+  return String(picId || 1).padStart(2, '0')
+}
+
 export function getAvatarPortraitUrl(
   gender: string | undefined,
   picId: number | null | undefined,
   realm?: string | null,
+  race?: string | null,
 ): string {
   if (!picId) return ''
   const normalizedGender = String(gender || '').toLowerCase()
   const dir = normalizedGender === 'female' || normalizedGender === '女' ? 'female' : 'male'
-  return getGameAssetUrl(`avatars/${dir}/${getAvatarIndexSlug(picId)}/${getRealmAssetSlug(realm)}.png`)
+  const normalizedRace = String(race || 'human').trim().toLowerCase() || 'human'
+  const root = normalizedRace === 'human' ? 'avatars' : `yao/${normalizedRace}`
+  const indexSlug = normalizedRace === 'human' ? getAvatarIndexSlug(picId) : getYaoAvatarIndexSlug(picId)
+  return getGameAssetUrl(`${root}/${dir}/${indexSlug}/${getRealmAssetSlug(realm)}.png`)
 }

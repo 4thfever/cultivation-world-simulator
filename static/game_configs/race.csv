@@ -1,0 +1,8 @@
+id,name_id,desc_id,name,desc,weight,effects
+id,名称ID,描述ID,名称,描述,妖族抽样权重,JSON形式（支持宽松格式，见effects.py说明）
+human,RACE_HUMAN_NAME,RACE_HUMAN_DESC,人族,你是一个普通的人类,0,{}
+fox,RACE_FOX_NAME,RACE_FOX_DESC,狐族,狐族天生灵慧，善于察言观色，容貌多半出众，常被认为与机缘和人情往来有天然亲和。,1,"{extra_appearance: 1, extra_fortune_probability: 0.002, extra_item_sell_price_multiplier: 0.1, extra_escape_success_rate: 0.1, extra_harvest_materials: 1}"
+wolf,RACE_WOLF_NAME,RACE_WOLF_DESC,狼族,狼族血脉强健，重视生存、狩猎与战斗，本能敏锐，行动迅捷，常在厮杀中磨砺修为。,1,"{extra_battle_strength_points: 2, extra_hunt_materials: 2, extra_move_step: 1, extra_eat_mortals_exp_multiplier: 0.5}"
+bird,RACE_BIRD_NAME,RACE_BIRD_DESC,鸟族,鸟族感知开阔，身法轻灵，天生向往远方，擅长侦察、脱身与探索未知之地。,1,"{extra_observation_radius: 2, extra_escape_success_rate: 0.2, extra_move_step: 1, extra_harvest_materials: 1}"
+snake,RACE_SNAKE_NAME,RACE_SNAKE_DESC,蛇族,蛇族气息幽微，行事隐忍，擅长潜伏与突袭，常被人族修士忌惮，却也更能适应阴暗险地。,1,"{extra_assassinate_success_rate: 0.1, extra_escape_success_rate: 0.1, extra_hidden_domain_danger_prob: -0.03}"
+turtle,RACE_TURTLE_NAME,RACE_TURTLE_DESC,龟族,龟族寿元绵长，体魄稳固，行事缓慢谨慎，最擅长守御、疗养与长久闭关。,1,"{extra_max_hp: 80, damage_reduction: 0.1, extra_max_lifespan: 80, extra_hp_recovery_rate: 0.2, extra_rest_exp: 30, extra_rest_hp_recovery_rate: 0.3}"

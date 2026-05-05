@@ -4,6 +4,7 @@ from src.i18n import t
 from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.utils.gather import execute_gather, check_can_start_gather
+from src.classes.race import is_yao_avatar
 
 
 class Hunt(TimedAction):
@@ -39,8 +40,12 @@ class Hunt(TimedAction):
         return check_can_start_gather(self.avatar, "animals", "动物")
 
     def start(self) -> Event:
-        content = t("{avatar} begins hunting at {location}",
-                   avatar=self.avatar.name, location=self.avatar.tile.location_name)
+        if is_yao_avatar(self.avatar):
+            content = t("{avatar} begins tracking prey by scent and instinct at {location}",
+                       avatar=self.avatar.name, location=self.avatar.tile.location_name)
+        else:
+            content = t("{avatar} begins hunting at {location}",
+                       avatar=self.avatar.name, location=self.avatar.tile.location_name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     # TimedAction 已统一 step 逻辑
@@ -48,8 +53,12 @@ class Hunt(TimedAction):
     async def finish(self) -> list[Event]:
         # 必定有产出
         materials_desc = ", ".join([f"{k}x{v}" for k, v in self.gained_materials.items()])
-        content = t("{avatar} finished hunting, obtained: {materials}",
-                   avatar=self.avatar.name, materials=materials_desc)
+        if is_yao_avatar(self.avatar):
+            content = t("{avatar} finished a primal hunt, obtained: {materials}",
+                       avatar=self.avatar.name, materials=materials_desc)
+        else:
+            content = t("{avatar} finished hunting, obtained: {materials}",
+                       avatar=self.avatar.name, materials=materials_desc)
         return [Event(
             self.world.month_stamp,
             content,

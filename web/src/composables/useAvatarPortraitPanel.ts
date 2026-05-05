@@ -4,11 +4,14 @@ import { useMessage } from 'naive-ui'
 import { avatarApi } from '@/api'
 import { useAvatarStore } from '@/stores/avatar'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
+import { getAvatarAssetIds, normalizeAvatarAssetLibraries } from '@/utils/avatarAssets'
 import { logError, toErrorMessage } from '@/utils/appError'
+import type { AvatarAssetLibraries } from '@/utils/avatarAssets'
 
 export interface AvatarPortraitPanelProps {
   avatarId: string
   gender: string
+  race?: string | null
   realm?: string | null
   currentPicId?: number | null
   visible: boolean
@@ -25,21 +28,17 @@ export function useAvatarPortraitPanel(
   const message = useMessage()
   const avatarStore = useAvatarStore()
 
-  const avatarMeta = ref<{ males: number[]; females: number[] } | null>(null)
+  const avatarMeta = ref<AvatarAssetLibraries | null>(null)
   const isLoading = ref(false)
   const submitLoading = ref(false)
   const errorText = ref('')
   const selectedPicId = ref<number | null>(props.currentPicId ?? null)
 
   const availableAvatars = computed(() => {
-    if (!avatarMeta.value) return []
-    const normalizedGender = String(props.gender || '').toLowerCase()
-    return normalizedGender === 'female' || normalizedGender === '女'
-      ? avatarMeta.value.females
-      : avatarMeta.value.males
+    return getAvatarAssetIds(avatarMeta.value, props.race, props.gender)
   })
 
-  const previewUrl = computed(() => getAvatarPortraitUrl(props.gender, selectedPicId.value, props.realm))
+  const previewUrl = computed(() => getAvatarPortraitUrl(props.gender, selectedPicId.value, props.realm, props.race))
 
   watch(
     () => props.currentPicId,
@@ -56,7 +55,7 @@ export function useAvatarPortraitPanel(
       if (!visible || avatarMeta.value || isLoading.value) return
       isLoading.value = true
       try {
-        avatarMeta.value = await avatarApi.fetchAvatarMeta()
+        avatarMeta.value = normalizeAvatarAssetLibraries(await avatarApi.fetchAvatarMeta())
       } catch (error) {
         logError('AvatarPortraitPanel.fetchAvatarMeta', error)
         errorText.value = toErrorMessage(error, t('game.info_panel.avatar.portrait.load_failed'))
