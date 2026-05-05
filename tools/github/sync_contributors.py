@@ -120,27 +120,27 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
 def render_readme_contributors_section(
     repo: str, contributors: list[dict[str, Any]]
 ) -> str:
-    lines = [
-        "## 👥 贡献者",
-        "",
-        '<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center;">',
-    ]
+    avatar_links: list[str] = []
     for contributor in contributors:
         login = contributor.get("login") or "unknown"
         avatar_url = contributor.get("avatar_url") or ""
         profile_url = (
             contributor.get("html_url") or f"https://github.com/{parse.quote(login)}"
         )
-        lines.extend(
-            [
-                f'<a href="{profile_url}" title="{login}" style="display: inline-block; text-decoration: none; line-height: 0;">',
-                f'  <img src="{avatar_url}" alt="{login} avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />',
-                "</a>",
-            ]
+        avatar_links.append(
+            f'<a href="{profile_url}" title="{login}"><img src="{avatar_url}" alt="{login} avatar" width="56" height="56" /></a>'
         )
+
+    lines = [
+        "## 👥 贡献者",
+        "",
+        '<p align="center">',
+    ]
+    for start in range(0, len(avatar_links), 8):
+        lines.append(" ".join(avatar_links[start : start + 8]))
     lines.extend(
         [
-            "</div>",
+            "</p>",
             "",
             "更多贡献细节请查看 [CONTRIBUTORS.md](CONTRIBUTORS.md)。",
             "",
