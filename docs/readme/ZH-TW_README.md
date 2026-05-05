@@ -226,10 +226,25 @@ docker-compose up -d --build
 
 ## 👥 貢獻者
 
-<p align="center">
-<a href="https://github.com/4thfever" title="4thfever"><img src="https://avatars.githubusercontent.com/u/19970391?v=4" alt="4thfever avatar" width="56" height="56" /></a> <a href="https://github.com/xzhseh" title="xzhseh"><img src="https://avatars.githubusercontent.com/u/91381303?v=4" alt="xzhseh avatar" width="56" height="56" /></a> <a href="https://github.com/teps3105" title="teps3105"><img src="https://avatars.githubusercontent.com/u/16871632?v=4" alt="teps3105 avatar" width="56" height="56" /></a> <a href="https://github.com/cooleryu" title="cooleryu"><img src="https://avatars.githubusercontent.com/u/53998515?v=4" alt="cooleryu avatar" width="56" height="56" /></a> <a href="https://github.com/LuckVd" title="LuckVd"><img src="https://avatars.githubusercontent.com/u/37114923?v=4" alt="LuckVd avatar" width="56" height="56" /></a> <a href="https://github.com/MarkYangKp" title="MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" alt="MarkYangKp avatar" width="56" height="56" /></a> <a href="https://github.com/Meanliss" title="Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" alt="Meanliss avatar" width="56" height="56" /></a> <a href="https://github.com/octo-patch" title="octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" alt="octo-patch avatar" width="56" height="56" /></a>
-<a href="https://github.com/Robinwhliu" title="Robinwhliu"><img src="https://avatars.githubusercontent.com/u/86167266?v=4" alt="Robinwhliu avatar" width="56" height="56" /></a> <a href="https://github.com/Seafoodsz" title="Seafoodsz"><img src="https://avatars.githubusercontent.com/u/13925953?v=4" alt="Seafoodsz avatar" width="56" height="56" /></a> <a href="https://github.com/Tianrant" title="Tianrant"><img src="https://avatars.githubusercontent.com/u/260025727?v=4" alt="Tianrant avatar" width="56" height="56" /></a> <a href="https://github.com/cw1990" title="cw1990"><img src="https://avatars.githubusercontent.com/u/10458746?v=4" alt="cw1990 avatar" width="56" height="56" /></a> <a href="https://github.com/RealityError" title="RealityError"><img src="https://avatars.githubusercontent.com/u/67266280?v=4" alt="RealityError avatar" width="56" height="56" /></a>
-</p>
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/4thfever"><img src="https://avatars.githubusercontent.com/u/19970391?v=4" width="56" height="56" alt="4thfever" /><br /><sub><b>4thfever</b></sub></a></td>
+    <td align="center"><a href="https://github.com/xzhseh"><img src="https://avatars.githubusercontent.com/u/91381303?v=4" width="56" height="56" alt="xzhseh" /><br /><sub><b>xzhseh</b></sub></a></td>
+    <td align="center"><a href="https://github.com/teps3105"><img src="https://avatars.githubusercontent.com/u/16871632?v=4" width="56" height="56" alt="teps3105" /><br /><sub><b>teps3105</b></sub></a></td>
+    <td align="center"><a href="https://github.com/cooleryu"><img src="https://avatars.githubusercontent.com/u/53998515?v=4" width="56" height="56" alt="cooleryu" /><br /><sub><b>cooleryu</b></sub></a></td>
+    <td align="center"><a href="https://github.com/LuckVd"><img src="https://avatars.githubusercontent.com/u/37114923?v=4" width="56" height="56" alt="LuckVd" /><br /><sub><b>LuckVd</b></sub></a></td>
+    <td align="center"><a href="https://github.com/MarkYangKp"><img src="https://avatars.githubusercontent.com/u/42310488?v=4" width="56" height="56" alt="MarkYangKp" /><br /><sub><b>MarkYangKp</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Meanliss"><img src="https://avatars.githubusercontent.com/u/117923713?v=4" width="56" height="56" alt="Meanliss" /><br /><sub><b>Meanliss</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/octo-patch"><img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="56" height="56" alt="octo-patch" /><br /><sub><b>octo-patch</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Robinwhliu"><img src="https://avatars.githubusercontent.com/u/86167266?v=4" width="56" height="56" alt="Robinwhliu" /><br /><sub><b>Robinwhliu</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Seafoodsz"><img src="https://avatars.githubusercontent.com/u/13925953?v=4" width="56" height="56" alt="Seafoodsz" /><br /><sub><b>Seafoodsz</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Tianrant"><img src="https://avatars.githubusercontent.com/u/260025727?v=4" width="56" height="56" alt="Tianrant" /><br /><sub><b>Tianrant</b></sub></a></td>
+    <td align="center"><a href="https://github.com/cw1990"><img src="https://avatars.githubusercontent.com/u/10458746?v=4" width="56" height="56" alt="cw1990" /><br /><sub><b>cw1990</b></sub></a></td>
+    <td align="center"><a href="https://github.com/RealityError"><img src="https://avatars.githubusercontent.com/u/67266280?v=4" width="56" height="56" alt="RealityError" /><br /><sub><b>RealityError</b></sub></a></td>
+  </tr>
+</table>
 
 更多貢獻細節請查看 [CONTRIBUTORS.md](../../CONTRIBUTORS.md)。
 

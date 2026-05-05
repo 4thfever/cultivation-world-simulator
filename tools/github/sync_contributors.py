@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import re
@@ -120,27 +121,30 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
 def render_readme_contributors_section(
     repo: str, contributors: list[dict[str, Any]]
 ) -> str:
-    avatar_links: list[str] = []
+    contributor_cells: list[str] = []
     for contributor in contributors:
         login = contributor.get("login") or "unknown"
         avatar_url = contributor.get("avatar_url") or ""
         profile_url = (
             contributor.get("html_url") or f"https://github.com/{parse.quote(login)}"
         )
-        avatar_links.append(
-            f'<a href="{profile_url}" title="{login}"><img src="{avatar_url}" alt="{login} avatar" width="56" height="56" /></a>'
+        safe_login = html.escape(login)
+        contributor_cells.append(
+            f'<td align="center"><a href="{profile_url}"><img src="{avatar_url}" width="56" height="56" alt="{safe_login}" /><br /><sub><b>{safe_login}</b></sub></a></td>'
         )
 
     lines = [
         "## 👥 贡献者",
         "",
-        '<p align="center">',
+        "<table>",
     ]
-    for start in range(0, len(avatar_links), 8):
-        lines.append(" ".join(avatar_links[start : start + 8]))
+    for start in range(0, len(contributor_cells), 7):
+        lines.append("  <tr>")
+        lines.append("    " + "\n    ".join(contributor_cells[start : start + 7]))
+        lines.append("  </tr>")
     lines.extend(
         [
-            "</p>",
+            "</table>",
             "",
             "更多贡献细节请查看 [CONTRIBUTORS.md](CONTRIBUTORS.md)。",
             "",
