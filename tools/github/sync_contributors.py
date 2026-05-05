@@ -117,36 +117,59 @@ def render_markdown(repo: str, contributors: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def update_readme(readme_path: Path, repo: str) -> bool:
+def render_readme_contributors_section(
+    repo: str, contributors: list[dict[str, Any]]
+) -> str:
+    lines = [
+        "## 👥 贡献者",
+        "",
+        '<div align="center">',
+    ]
+    for contributor in contributors:
+        login = contributor.get("login") or "unknown"
+        avatar_url = contributor.get("avatar_url") or ""
+        profile_url = (
+            contributor.get("html_url") or f"https://github.com/{parse.quote(login)}"
+        )
+        lines.extend(
+            [
+                f'<a href="{profile_url}" title="{login}">',
+                f'  <img src="{avatar_url}" alt="{login} avatar" width="56" height="56" style="border-radius: 50%; margin: 4px;" />',
+                "</a>",
+            ]
+        )
+    lines.extend(
+        [
+            "</div>",
+            "",
+            "更多贡献细节请查看 [CONTRIBUTORS.md](CONTRIBUTORS.md)。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def update_readme(readme_path: Path, repo: str, contributors: list[dict[str, Any]]) -> bool:
     if not readme_path.exists():
         print(f"Warning: {readme_path} not found, skipping README update.")
         return False
 
     content = readme_path.read_text(encoding="utf-8")
     
-    # Pattern to match the contributors section in README.md
-    # Looking for:
-    # ## 👥 贡献者
-    # 
-    # <a href="...">
-    #   <img src="..." />
-    # </a>
-    pattern = re.compile(
-        r"(## 👥 贡献者\s*\n\s*\n)<a href=\"https://github\.com/[^/]+/[^/]+/graphs/contributors\">\s*\n\s*<img src=\"https://contrib\.rocks/image\?repo=[^&]+&max=\d+&columns=\d+\" />\s*\n\s*</a>",
-        re.MULTILINE
-    )
-    
-    new_img_tag = f'<a href="https://github.com/{repo}/graphs/contributors">\n  <img src="https://contrib.rocks/image?repo={repo.replace("/", "%2F")}&max=100&columns=11" />\n</a>'
-    
-    new_content, count = pattern.subn(rf"\1{new_img_tag}", content)
-    
-    if count > 0:
-        readme_path.write_text(new_content, encoding="utf-8")
-        print(f"Updated {readme_path} contributors section.")
-        return True
-    else:
+    pattern = re.compile(r"## 👥 贡献者\s*\n.*?(?=\n## |\Z)", re.DOTALL)
+    section = render_readme_contributors_section(repo, contributors)
+    new_content, count = pattern.subn(section, content, count=1)
+
+    if count == 0:
         print(f"Warning: Could not find contributors section in {readme_path} to update.")
         return False
+
+    if new_content != content:
+        readme_path.write_text(new_content, encoding="utf-8")
+        print(f"Updated {readme_path} contributors section.")
+    else:
+        print(f"{readme_path} contributors section already up to date.")
+    return True
 
 
 def main() -> int:
@@ -159,7 +182,7 @@ def main() -> int:
         f"Updated {args.output} with {len(contributors)} contributors from {args.repo}."
     )
     
-    update_readme(args.readme, args.repo)
+    update_readme(args.readme, args.repo, contributors)
     
     return 0
 

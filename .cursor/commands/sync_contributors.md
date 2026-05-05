@@ -17,7 +17,9 @@
    - 表格数据以 GitHub contributors API 返回结果为准
 4. **同步更新 README.md**：
    - 脚本会自动更新 `README.md` 中的 `## 👥 贡献者` 章节
-   - 确保 `README.md` 中的 contrib.rocks 图片链接指向正确的仓库
+   - `README.md` 贡献者头像必须与 GitHub contributors API 结果一一对应（数量与身份一致）
+   - 不要仅依赖第三方聚合图（如 contrib.rocks）作为唯一展示来源，避免缓存/过滤导致头像缺失
+   - 若使用头像墙或网格，应由 API 返回列表直接渲染，并保持链接指向正确 GitHub 主页
 5. **失败处理**：
    - 若 GitHub API 请求失败，明确说明失败原因
    - 不要在请求失败时写入伪造或手填的贡献者数据
