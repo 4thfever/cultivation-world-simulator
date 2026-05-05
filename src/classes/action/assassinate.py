@@ -5,6 +5,7 @@ import random
 from src.i18n import t
 from src.classes.action import InstantAction
 from src.classes.action.cooldown import cooldown_action
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.action.targeting_mixin import TargetingMixin
 from src.classes.event import Event
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -27,6 +28,7 @@ class Assassinate(InstantAction, TargetingMixin):
     # 不需要翻译的常量
     EMOJI = "🗡️"
     PARAMS = {"avatar_name": "AvatarName"}
+    PARAM_OPTION_SOURCES = {"avatar_name": ParamOptionSource.OBSERVABLE_AVATAR_NAME}
     ACTION_CD_MONTHS = 12
     
     # LLM 提示词 ID

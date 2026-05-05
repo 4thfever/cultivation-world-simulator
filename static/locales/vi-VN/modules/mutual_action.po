@@ -198,6 +198,9 @@ msgstr "{initiator} định tặng {item} cho {target}"
 msgid "{initiator} attempts to seize {region} from {host}"
 msgstr "{initiator} định cướp đoạt {region} từ tay {host}"
 
+msgid "{initiator} begins occupying unclaimed cave dwelling {region}"
+msgstr "{initiator} bắt đầu chiếm giữ động phủ vô chủ {region}"
+
 msgid "{initiator} and {target} enjoyed a tea gathering"
 msgstr "{initiator} và {target} cùng dự một buổi trà đàm vui vẻ"
 
@@ -239,6 +242,9 @@ msgstr "{target} chấp nhận lời mời bắt chuyện của {initiator}"
 
 msgid "{target} feedback to {initiator}: {feedback}"
 msgstr "{target} hồi đáp với {initiator}: {feedback}"
+
+msgid "{avatar} occupied cave dwelling {region}"
+msgstr "{avatar} đã chiếm giữ động phủ {region}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target} đã từ chối lời tỏ tình của {initiator}"

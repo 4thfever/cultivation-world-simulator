@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin, Move
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.utils.distance import manhattan_distance
@@ -96,6 +97,7 @@ class MoveToDirection(DefineAction, ActualActionMixin):
     # 不需要翻译的常量
     EMOJI = "🧭"
     PARAMS = {"direction": "direction (north/south/east/west)"}
+    PARAM_OPTION_SOURCES = {"direction": ParamOptionSource.CARDINAL_DIRECTION}
     IS_MAJOR = False
     
     # 固定持续时间

@@ -11,7 +11,13 @@ from src.utils.resolution import (
     ResolutionResult
 )
 from src.classes.material import Material
+from src.classes.environment.region import CityRegion, Region
+from src.classes.core.avatar import Avatar, Gender
+from src.classes.age import Age
+from src.classes.root import Root
 from src.systems.cultivation import Realm
+from src.systems.time import Month, Year, create_month_stamp
+from src.utils.id_generator import get_avatar_id
 
 # ==================== Normalize Tests ====================
 
@@ -98,6 +104,50 @@ def test_resolve_query_realm():
     # 3. 无效值
     res = resolve_query("不存在的境界", expected_types=[Realm])
     assert not res.is_valid
+
+
+def test_resolve_query_goods_by_id(monkeypatch):
+    material = Material(id=123456, name="ID材料", desc="测试描述", realm=Realm.Qi_Refinement)
+
+    import src.utils.resolution as resolution
+
+    monkeypatch.setitem(resolution.materials_by_id, material.id, material)
+
+    res = resolve_query(str(material.id), expected_types=[Material])
+
+    assert res.is_valid
+    assert res.obj is material
+
+
+def test_resolve_query_region_by_id(mock_world):
+    region = CityRegion(id=77, name="ID区域", desc="测试区域")
+    mock_world.map.regions = {region.id: region}
+
+    res = resolve_query(str(region.id), world=mock_world, expected_types=[Region])
+
+    assert res.is_valid
+    assert res.obj is region
+
+
+def test_resolve_query_avatar_by_id(base_world):
+    avatar = Avatar(
+        world=base_world,
+        name="IDTarget",
+        id=get_avatar_id(),
+        birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+        age=Age(20, Realm.Qi_Refinement),
+        gender=Gender.FEMALE,
+        pos_x=0,
+        pos_y=0,
+        root=Root.WOOD,
+        personas=[],
+    )
+    base_world.avatar_manager.register_avatar(avatar)
+
+    res = resolve_query(str(avatar.id), world=base_world, expected_types=[Avatar])
+
+    assert res.is_valid
+    assert res.obj is avatar
 
 def test_resolve_query_unsupported_type():
     """测试不支持的类型输入"""

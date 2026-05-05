@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 
 from src.i18n import t
 from .mutual_action import InvitationAction
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.relation.relation_delta_service import RelationDeltaService
 from src.classes.story_event_service import StoryEventKind, StoryEventService
@@ -39,6 +40,9 @@ class Gift(InvitationAction):
         "target_avatar": "Avatar",
         "item_id": "str", 
         "amount": "int"
+    }
+    PARAM_OPTION_SOURCES = {
+        "item_id": ParamOptionSource.GIFTABLE_ITEM_ID,
     }
     
     RESPONSE_ACTIONS = ["Accept", "Reject"]

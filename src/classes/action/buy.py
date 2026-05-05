@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Tuple, Any
 
 from src.i18n import t
 from src.classes.action import InstantAction
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.environment.region import CityRegion
 from src.classes.items.elixir import Elixir
@@ -34,6 +35,7 @@ class Buy(InstantAction):
     # 不需要翻译的常量
     EMOJI = "💸"
     PARAMS = {"target_name": "str"}
+    PARAM_OPTION_SOURCES = {"target_name": ParamOptionSource.CURRENT_CITY_STORE_ITEM_NAME}
 
     def can_start(self, target_name: str) -> tuple[bool, str]:
         region = self.avatar.tile.region

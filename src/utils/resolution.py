@@ -4,9 +4,13 @@ from dataclasses import dataclass
 
 from src.utils.normalize import normalize_goods_name, normalize_name, normalize_avatar_name
 from src.classes.items.elixir import elixirs_by_name, Elixir
+from src.classes.items.elixir import elixirs_by_id
 from src.classes.items.weapon import weapons_by_name, Weapon
+from src.classes.items.weapon import weapons_by_id
 from src.classes.items.auxiliary import auxiliaries_by_name, Auxiliary
+from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.material import materials_by_name, Material
+from src.classes.material import materials_by_id
 from src.systems.cultivation import Realm
 
 @dataclass
@@ -110,6 +114,17 @@ def _success(obj: Any, type_cls: Type) -> ResolutionResult:
 
 def _resolve_goods(name: str) -> Any | None:
     """解析物品/装备/丹药"""
+    item_id = _parse_int_id(name)
+    if item_id is not None:
+        if item_id in elixirs_by_id:
+            return elixirs_by_id[item_id]
+        if item_id in weapons_by_id:
+            return weapons_by_id[item_id]
+        if item_id in auxiliaries_by_id:
+            return auxiliaries_by_id[item_id]
+        if item_id in materials_by_id:
+            return materials_by_id[item_id]
+
     norm = normalize_goods_name(name)
     
     # 1. 丹药 (返回列表中的第一个)
@@ -152,6 +167,12 @@ def _resolve_region(name: str, world: Any) -> Any | None:
     regions = getattr(world.map, "regions", {})
     if not regions:
         return None
+
+    region_id = _parse_int_id(name)
+    if region_id is not None:
+        region = regions.get(region_id) or regions.get(str(region_id))
+        if region is not None:
+            return region
     
     norm = normalize_name(name)
     
@@ -178,13 +199,29 @@ def _resolve_avatar(name: str, world: Any) -> Any | None:
     """解析角色"""
     if not hasattr(world, 'avatar_manager'):
         return None
+
+    manager = world.avatar_manager
+    avatar = None
+    if hasattr(manager, "get_avatar"):
+        avatar = manager.get_avatar(name)
+    else:
+        avatar = getattr(manager, "avatars", {}).get(str(name))
+    if avatar is not None:
+        return avatar
         
     norm = normalize_avatar_name(name)
     
     # 遍历查找 (性能注意：如果角色极多可能需要优化为字典查找)
     # 假设 avatar_manager.avatars 是 dict[id, Avatar]
-    for avatar in world.avatar_manager.avatars.values():
+    for avatar in manager.avatars.values():
         if avatar.name == norm:
             return avatar
             
     return None
+
+
+def _parse_int_id(value: str) -> int | None:
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return None

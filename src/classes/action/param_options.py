@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
@@ -8,6 +9,17 @@ if TYPE_CHECKING:
 
 
 MAX_PARAM_OPTIONS = 20
+
+
+class ParamOptionSource(str, Enum):
+    CURRENT_CITY_STORE_ITEM_NAME = "current_city_store_item_name"
+    SELLABLE_ITEM_NAME = "sellable_item_name"
+    GIFTABLE_ITEM_ID = "giftable_item_id"
+    OBSERVABLE_AVATAR_NAME = "observable_avatar_name"
+    KNOWN_REGION_NAME = "known_region_name"
+    KNOWN_CULTIVATE_REGION_NAME = "known_cultivate_region_name"
+    MATERIAL_REALM_VALUE = "material_realm_value"
+    CARDINAL_DIRECTION = "cardinal_direction"
 
 
 def build_param_options(action_cls: type, avatar: "Avatar") -> dict[str, list[dict[str, Any]]]:
@@ -21,6 +33,10 @@ def build_param_options(action_cls: type, avatar: "Avatar") -> dict[str, list[di
 
 
 def _options_for_param(action_cls: type, avatar: "Avatar", param_name: str, param_type: object) -> list[dict[str, Any]]:
+    source = _get_declared_param_option_sources(action_cls).get(param_name)
+    if source is not None:
+        return _options_for_source(action_cls, avatar, source)
+
     action_name = action_cls.__name__
     normalized_type = str(param_type).lower().replace(" ", "")
 
@@ -37,6 +53,38 @@ def _options_for_param(action_cls: type, avatar: "Avatar", param_name: str, para
     if param_name == "target_realm":
         return _realm_options_for_material_action(action_cls, avatar)
     if param_name == "direction" or "direction" in normalized_type:
+        return _direction_options()
+    return []
+
+
+def _get_declared_param_option_sources(action_cls: type) -> dict[str, ParamOptionSource | str]:
+    sources: dict[str, ParamOptionSource | str] = {}
+    for cls in reversed(action_cls.__mro__):
+        sources.update(getattr(cls, "PARAM_OPTION_SOURCES", {}) or {})
+    return sources
+
+
+def _options_for_source(action_cls: type, avatar: "Avatar", source: ParamOptionSource | str) -> list[dict[str, Any]]:
+    try:
+        source = ParamOptionSource(source)
+    except ValueError:
+        return []
+
+    if source == ParamOptionSource.CURRENT_CITY_STORE_ITEM_NAME:
+        return _store_item_options(avatar)
+    if source == ParamOptionSource.SELLABLE_ITEM_NAME:
+        return _sellable_item_options(avatar)
+    if source == ParamOptionSource.GIFTABLE_ITEM_ID:
+        return _gift_item_options(avatar)
+    if source == ParamOptionSource.OBSERVABLE_AVATAR_NAME:
+        return _avatar_options(avatar)
+    if source == ParamOptionSource.KNOWN_REGION_NAME:
+        return _known_region_options(avatar)
+    if source == ParamOptionSource.KNOWN_CULTIVATE_REGION_NAME:
+        return _known_region_options(avatar, cultivate_only=True)
+    if source == ParamOptionSource.MATERIAL_REALM_VALUE:
+        return _realm_options_for_material_action(action_cls, avatar)
+    if source == ParamOptionSource.CARDINAL_DIRECTION:
         return _direction_options()
     return []
 
@@ -65,13 +113,17 @@ def _item_kind(item: object) -> str:
 def _item_option(
     item: object,
     *,
+    value: str | None = None,
     price: int | None = None,
     count: int | None = None,
     source: str | None = None,
 ) -> dict[str, Any]:
+    item_id = str(getattr(item, "id", ""))
+    name = str(getattr(item, "name", ""))
     option: dict[str, Any] = {
-        "id": str(getattr(item, "id", "")),
-        "name": str(getattr(item, "name", "")),
+        "value": value if value is not None else name,
+        "id": item_id,
+        "name": name,
         "type": _item_kind(item),
     }
     realm = getattr(item, "realm", None)
@@ -94,7 +146,12 @@ def _store_item_options(avatar: "Avatar") -> list[dict[str, Any]]:
     store_items = list(getattr(region, "store_items", []) or [])
     options = []
     for item in store_items:
-        options.append(_item_option(item, price=prices.get_buying_price(item, avatar), source="current_city_store"))
+        options.append(_item_option(
+            item,
+            value=str(getattr(item, "name", "")),
+            price=prices.get_buying_price(item, avatar),
+            source="current_city_store",
+        ))
     return _limit_options(options)
 
 
@@ -102,15 +159,15 @@ def _sellable_item_options(avatar: "Avatar") -> list[dict[str, Any]]:
     options: list[dict[str, Any]] = []
     for material, count in getattr(avatar, "materials", {}).items():
         if int(count) > 0:
-            options.append(_item_option(material, count=int(count), source="inventory"))
+            options.append(_item_option(material, value=str(getattr(material, "name", "")), count=int(count), source="inventory"))
 
     weapon = getattr(avatar, "weapon", None)
     if weapon is not None:
-        options.append(_item_option(weapon, source="equipped_weapon"))
+        options.append(_item_option(weapon, value=str(getattr(weapon, "name", "")), source="equipped_weapon"))
 
     auxiliary = getattr(avatar, "auxiliary", None)
     if auxiliary is not None:
-        options.append(_item_option(auxiliary, source="equipped_auxiliary"))
+        options.append(_item_option(auxiliary, value=str(getattr(auxiliary, "name", "")), source="equipped_auxiliary"))
 
     return _limit_options(options)
 
@@ -123,6 +180,7 @@ def _gift_item_options(avatar: "Avatar") -> list[dict[str, Any]]:
         from src.i18n import t
 
         options.append({
+            "value": "SPIRIT_STONE",
             "id": "SPIRIT_STONE",
             "name": t("spirit stones"),
             "type": "spirit_stone",
@@ -131,15 +189,15 @@ def _gift_item_options(avatar: "Avatar") -> list[dict[str, Any]]:
 
     for material, count in getattr(avatar, "materials", {}).items():
         if int(count) > 0:
-            options.append(_item_option(material, count=int(count), source="inventory"))
+            options.append(_item_option(material, value=str(getattr(material, "id", "")), count=int(count), source="inventory"))
 
     weapon = getattr(avatar, "weapon", None)
     if weapon is not None:
-        options.append(_item_option(weapon, source="equipped_weapon"))
+        options.append(_item_option(weapon, value=str(getattr(weapon, "id", "")), source="equipped_weapon"))
 
     auxiliary = getattr(avatar, "auxiliary", None)
     if auxiliary is not None:
-        options.append(_item_option(auxiliary, source="equipped_auxiliary"))
+        options.append(_item_option(auxiliary, value=str(getattr(auxiliary, "id", "")), source="equipped_auxiliary"))
 
     return _limit_options(options)
 
@@ -153,16 +211,18 @@ def _avatar_options(avatar: "Avatar") -> list[dict[str, Any]]:
     candidates = []
     if hasattr(manager, "get_observable_avatars"):
         candidates = manager.get_observable_avatars(avatar)
-    if not candidates and hasattr(manager, "get_living_avatars"):
+    elif hasattr(manager, "get_living_avatars"):
         candidates = [item for item in manager.get_living_avatars() if item is not avatar]
 
     options = []
     for other in candidates:
         if other is avatar or getattr(other, "is_dead", False):
             continue
+        name = str(getattr(other, "name", ""))
         option = {
+            "value": name,
             "id": str(getattr(other, "id", "")),
-            "name": str(getattr(other, "name", "")),
+            "name": name,
             "realm": str(getattr(getattr(other, "cultivation_progress", None), "get_info", lambda: "")()),
         }
         sect = getattr(other, "sect", None)
@@ -179,6 +239,8 @@ def _known_region_options(avatar: "Avatar", *, cultivate_only: bool = False) -> 
     game_map = getattr(world, "map", None)
     regions = list(getattr(game_map, "regions", {}).values())
     known_regions = getattr(avatar, "known_regions", None)
+    if known_regions is None:
+        return []
 
     options = []
     for region in regions:
@@ -193,11 +255,20 @@ def _known_region_options(avatar: "Avatar", *, cultivate_only: bool = False) -> 
 
 
 def _region_option(region: "Region") -> dict[str, Any]:
-    return {
+    name = str(getattr(region, "name", ""))
+    option = {
+        "value": name,
         "id": str(getattr(region, "id", "")),
-        "name": str(getattr(region, "name", "")),
+        "name": name,
         "type": str(region.get_region_type() if hasattr(region, "get_region_type") else type(region).__name__),
     }
+    host_avatar = getattr(region, "host_avatar", None)
+    if host_avatar is not None:
+        option["host_avatar"] = {
+            "id": str(getattr(host_avatar, "id", "")),
+            "name": str(getattr(host_avatar, "name", "")),
+        }
+    return option
 
 
 def _realm_options_for_material_action(action_cls: type, avatar: "Avatar") -> list[dict[str, Any]]:
@@ -215,6 +286,7 @@ def _realm_options_for_material_action(action_cls: type, avatar: "Avatar") -> li
         if cost > 0 and count < cost:
             continue
         options.append({
+            "value": realm.value,
             "id": realm.value,
             "name": str(realm),
             "material_count": count,
@@ -225,8 +297,8 @@ def _realm_options_for_material_action(action_cls: type, avatar: "Avatar") -> li
 
 def _direction_options() -> list[dict[str, Any]]:
     return [
-        {"id": "north", "name": "north"},
-        {"id": "south", "name": "south"},
-        {"id": "east", "name": "east"},
-        {"id": "west", "name": "west"},
+        {"value": "north", "id": "north", "name": "north"},
+        {"value": "south", "id": "south", "name": "south"},
+        {"value": "east", "id": "east", "name": "east"},
+        {"value": "west", "id": "west", "name": "west"},
     ]

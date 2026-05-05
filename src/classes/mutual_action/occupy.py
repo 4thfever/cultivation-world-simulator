@@ -1,19 +1,16 @@
 from __future__ import annotations
 
-import random
 from typing import TYPE_CHECKING
 
 from src.i18n import t
 from src.classes.mutual_action.mutual_action import PressureAction
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.action.registry import register_action
 from src.classes.action.cooldown import cooldown_action
 from src.classes.environment.region import CultivateRegion
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.systems.battle import decide_battle
-from src.classes.story_teller import StoryTeller
-from src.classes.death import handle_death
-from src.classes.death_reason import DeathReason
 from src.classes.action.event_helper import EventHelper
 from src.utils.resolution import resolve_query
 
@@ -39,6 +36,7 @@ class Occupy(PressureAction):
     # 不需要翻译的常量
     EMOJI = "🚩"
     PARAMS = {"region_name": "str"}
+    PARAM_OPTION_SOURCES = {"region_name": ParamOptionSource.KNOWN_CULTIVATE_REGION_NAME}
     RESPONSE_ACTIONS = ["Yield", "Reject"]
     
     # 自定义反馈标签
@@ -69,6 +67,8 @@ class Occupy(PressureAction):
             return False, err
         if region.host_avatar == self.avatar:
             return False, t("Already the owner of this cave dwelling")
+        if host is None:
+            return True, ""
         return super().can_start(target_avatar=host)
 
     def start(self, region_name: str) -> Event:
@@ -78,8 +78,12 @@ class Occupy(PressureAction):
         self.target_region_name = region_name
 
         region_display_name = region.name if region else self.avatar.tile.location_name
-        content = t("{initiator} attempts to seize {region} from {host}",
-                   initiator=self.avatar.name, region=region_display_name, host=host.name)
+        if host is None:
+            content = t("{initiator} begins occupying unclaimed cave dwelling {region}",
+                       initiator=self.avatar.name, region=region_display_name)
+        else:
+            content = t("{initiator} attempts to seize {region} from {host}",
+                       initiator=self.avatar.name, region=region_display_name, host=host.name)
 
         rel_ids = [self.avatar.id]
         if host:
@@ -96,6 +100,20 @@ class Occupy(PressureAction):
 
     def step(self, region_name: str) -> ActionResult:
         region, host, _ = self._get_region_and_host(region_name)
+        if region is None:
+            return ActionResult(status=ActionStatus.FAILED, events=[])
+        if host is None:
+            self.avatar.occupy_region(region)
+            self._last_result = None
+            content = t("{avatar} occupied cave dwelling {region}",
+                        avatar=self.avatar.name, region=region.name)
+            event = Event(
+                self.world.month_stamp,
+                content,
+                related_avatars=[self.avatar.id],
+                is_major=True,
+            )
+            return ActionResult(status=ActionStatus.COMPLETED, events=[event])
         return super().step(target_avatar=host)
 
     def _settle_response(self, target_avatar: "Avatar", response_name: str) -> None:

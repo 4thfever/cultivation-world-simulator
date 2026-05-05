@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.i18n import t
 from src.classes.action import InstantAction, Move
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
 from src.classes.environment.region import Region
@@ -18,6 +19,7 @@ class MoveAwayFromRegion(InstantAction):
     # 不需要翻译的常量
     EMOJI = "🏃"
     PARAMS = {"region": "RegionName"}
+    PARAM_OPTION_SOURCES = {"region": ParamOptionSource.KNOWN_REGION_NAME}
 
     def _execute(self, region: str) -> None:
         # 解析目标区域，并沿“远离该区域最近格点”的方向移动一步

@@ -5,6 +5,7 @@ from typing import Optional, TYPE_CHECKING, List
 
 from src.i18n import t
 from src.classes.action import TimedAction
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.story_event_service import StoryEventKind, StoryEventService
 from src.systems.cultivation import Realm
 from src.classes.event import Event
@@ -36,6 +37,7 @@ class Cast(TimedAction):
     # 不需要翻译的常量
     EMOJI = "🔥"
     PARAMS = {"target_realm": "str"}
+    PARAM_OPTION_SOURCES = {"target_realm": ParamOptionSource.MATERIAL_REALM_VALUE}
 
     COST = 5
     SUCCESS_RATES = {

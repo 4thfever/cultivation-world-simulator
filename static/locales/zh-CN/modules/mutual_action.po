@@ -169,6 +169,9 @@ msgstr "{initiator} 试图向 {target} 赠送 {item}"
 msgid "{initiator} attempts to seize {region} from {host}"
 msgstr "{initiator} 对 {host} 的 {region} 发起抢夺"
 
+msgid "{initiator} begins occupying unclaimed cave dwelling {region}"
+msgstr "{initiator} 开始占据无主洞府 {region}"
+
 msgid "{initiator} and {target} enjoyed a tea gathering"
 msgstr "{initiator} 与 {target} 共赴茶会，宾主尽欢"
 
@@ -210,6 +213,9 @@ msgstr "{target} 接受了 {initiator} 的攀谈"
 
 msgid "{target} feedback to {initiator}: {feedback}"
 msgstr "{target} 对 {initiator} 的回应：{feedback}"
+
+msgid "{avatar} occupied cave dwelling {region}"
+msgstr "{avatar} 占据了洞府 {region}"
 
 msgid "{target} rejected {initiator}'s confession"
 msgstr "{target}婉拒了{initiator}的表白"

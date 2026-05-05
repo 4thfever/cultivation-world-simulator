@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.action import Move
 from src.classes.action_runtime import ActionResult, ActionStatus
 from src.classes.action.move_helper import clamp_manhattan_with_diagonal_priority
-from src.utils.normalize import normalize_avatar_name
+from src.utils.resolution import resolve_query
 
 
 class MoveToAvatar(DefineAction, ActualActionMixin):
@@ -22,17 +23,15 @@ class MoveToAvatar(DefineAction, ActualActionMixin):
     # 不需要翻译的常量
     EMOJI = "🏃"
     PARAMS = {"avatar_name": "str"}
+    PARAM_OPTION_SOURCES = {"avatar_name": ParamOptionSource.OBSERVABLE_AVATAR_NAME}
 
     def _get_target(self, avatar_name: str):
         """
-        根据名字查找目标角色；找不到返回 None。
-        会自动规范化名字（去除括号等附加信息）以提高容错性。
+        根据名字或 ID 查找目标角色；找不到返回 None。
         """
-        normalized_name = normalize_avatar_name(avatar_name)
-        for v in self.world.avatar_manager.avatars.values():
-            if v.name == normalized_name:
-                return v
-        return None
+        from src.classes.core.avatar import Avatar
+
+        return resolve_query(avatar_name, self.world, expected_types=[Avatar]).obj
 
     def _execute(self, avatar_name: str) -> None:
         target = self._get_target(avatar_name)

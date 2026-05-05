@@ -20,6 +20,7 @@ from src.classes.mutual_action.spar import Spar
 from src.classes.mutual_action.impart import Impart
 from src.classes.mutual_action.confess import Confess
 from src.classes.mutual_action.swear_brotherhood import SwearBrotherhood
+from src.classes.mutual_action.occupy import Occupy
 from src.classes.action_runtime import ActionStatus
 from src.classes.relation.relation import Relation
 from src.server.runtime.session import DEFAULT_GAME_STATE
@@ -936,3 +937,124 @@ class TestMutualActionBase:
             )
 
         mock_push_pair.assert_not_called()
+
+
+class TestOccupy:
+    """Tests for Occupy's unclaimed cave and contested cave paths."""
+
+    def test_can_start_unclaimed_cultivate_region(self, dummy_avatar, base_world):
+        from src.classes.environment.region import CultivateRegion
+
+        cave = CultivateRegion(id=901, name="无主洞府", desc="灵气充盈", cors=[(1, 1)])
+        base_world.map.regions[cave.id] = cave
+        action = Occupy(dummy_avatar, base_world)
+
+        can_start, reason = action.can_start(region_name="无主洞府")
+
+        assert can_start is True
+        assert reason == ""
+
+    def test_start_unclaimed_cultivate_region_does_not_require_host(self, dummy_avatar, base_world):
+        from src.classes.environment.region import CultivateRegion
+
+        cave = CultivateRegion(id=902, name="清风洞府", desc="无主", cors=[(1, 1)])
+        base_world.map.regions[cave.id] = cave
+        action = Occupy(dummy_avatar, base_world)
+
+        event = action.start(region_name="清风洞府")
+
+        assert "清风洞府" in event.content
+        assert event.related_avatars == [dummy_avatar.id]
+
+    def test_step_unclaimed_cultivate_region_occupies_directly(self, dummy_avatar, base_world):
+        from src.classes.environment.region import CultivateRegion
+
+        cave = CultivateRegion(id=903, name="明月洞府", desc="无主", cors=[(1, 1)])
+        base_world.map.regions[cave.id] = cave
+        action = Occupy(dummy_avatar, base_world)
+        action.start(region_name="明月洞府")
+
+        result = action.step(region_name="明月洞府")
+
+        assert result.status == ActionStatus.COMPLETED
+        assert cave.host_avatar is dummy_avatar
+        assert cave in dummy_avatar.owned_regions
+        assert len(result.events) == 1
+        assert result.events[0].is_major is True
+        assert result.events[0].related_avatars == [dummy_avatar.id]
+
+    def test_cannot_start_owned_cultivate_region(self, dummy_avatar, base_world):
+        from src.classes.environment.region import CultivateRegion
+
+        cave = CultivateRegion(id=904, name="自家洞府", desc="已占据", cors=[(1, 1)])
+        base_world.map.regions[cave.id] = cave
+        dummy_avatar.occupy_region(cave)
+        action = Occupy(dummy_avatar, base_world)
+
+        can_start, reason = action.can_start(region_name="自家洞府")
+
+        assert can_start is False
+        assert reason
+
+
+class TestAvatarIdActionParams:
+    """Actions that target avatars should accept stable avatar IDs as well as names."""
+
+    def test_move_to_avatar_resolves_target_id(self, dummy_avatar, base_world):
+        from src.classes.action.move_to_avatar import MoveToAvatar
+        from src.classes.core.avatar import Avatar, Gender
+        from src.classes.age import Age
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
+        from src.classes.root import Root
+        from src.classes.environment.tile import Tile, TileType
+        from src.utils.id_generator import get_avatar_id
+
+        dummy_avatar.tile = Tile(0, 0, TileType.PLAIN)
+        target = Avatar(
+            world=base_world,
+            name="MoveIdTarget",
+            id=get_avatar_id(),
+            birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+            age=Age(25, Realm.Qi_Refinement),
+            gender=Gender.FEMALE,
+            pos_x=1,
+            pos_y=0,
+            root=Root.EARTH,
+            personas=[],
+        )
+        target.tile = Tile(1, 0, TileType.PLAIN)
+        base_world.avatar_manager.register_avatar(target)
+        action = MoveToAvatar(dummy_avatar, base_world)
+
+        event = action.start(avatar_name=str(target.id))
+
+        assert target.name in event.content
+        assert target.id in event.related_avatars
+
+    def test_mutual_action_resolves_target_id(self, dummy_avatar, base_world):
+        from src.classes.core.avatar import Avatar, Gender
+        from src.classes.age import Age
+        from src.systems.cultivation import Realm
+        from src.systems.time import Year, Month, create_month_stamp
+        from src.classes.root import Root
+        from src.utils.id_generator import get_avatar_id
+
+        target = Avatar(
+            world=base_world,
+            name="TalkIdTarget",
+            id=get_avatar_id(),
+            birth_month_stamp=create_month_stamp(Year(2000), Month.JANUARY),
+            age=Age(25, Realm.Qi_Refinement),
+            gender=Gender.FEMALE,
+            pos_x=0,
+            pos_y=0,
+            root=Root.EARTH,
+            personas=[],
+        )
+        base_world.avatar_manager.register_avatar(target)
+        action = Talk(dummy_avatar, base_world)
+
+        resolved = action._get_target_avatar(str(target.id))
+
+        assert resolved is target

@@ -3,6 +3,7 @@ from __future__ import annotations
 import random
 from src.i18n import t
 from src.classes.action import DefineAction, ActualActionMixin
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event
 from src.classes.environment.region import Region
 from src.classes.environment.sect_region import SectRegion
@@ -25,6 +26,7 @@ class MoveToRegion(DefineAction, ActualActionMixin):
     # 不需要翻译的常量
     EMOJI = "🏃"
     PARAMS = {"region": "region_name"}
+    PARAM_OPTION_SOURCES = {"region": ParamOptionSource.KNOWN_REGION_NAME}
 
     def __init__(self, avatar, world):
         super().__init__(avatar, world)

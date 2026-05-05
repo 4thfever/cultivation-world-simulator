@@ -7,6 +7,7 @@ import asyncio
 
 from src.i18n import t
 from src.classes.action.action import DefineAction, ActualActionMixin, LLMAction
+from src.classes.action.param_options import ParamOptionSource
 from src.classes.event import Event, NULL_EVENT
 from src.utils.llm import call_llm_with_task_name
 from src.utils.config import CONFIG
@@ -58,6 +59,9 @@ class MutualAction(DefineAction, LLMAction, ActualActionMixin, TargetingMixin):
     # 不需要翻译的常量
     EMOJI: str = "💬"
     PARAMS: dict = {"target_avatar": "Avatar"}
+    PARAM_OPTION_SOURCES: dict[str, ParamOptionSource] = {
+        "target_avatar": ParamOptionSource.OBSERVABLE_AVATAR_NAME,
+    }
     RESPONSE_ACTIONS: list[str] = []
     RESPONSE_EVENT_STYLE: str = "reply"
     SHOW_RESPONSE_EVENT: bool = False
