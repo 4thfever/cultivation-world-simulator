@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from src.classes.core.avatar import Avatar
 
 from src.classes.action.registry import ActionRegistry
+from src.classes.action.param_options import build_param_options
 # 确保在收集注册表前加载所有动作模块（含 mutual actions）
 import src.classes.action  # noqa: F401
 import src.classes.mutual_action  # noqa: F401
@@ -17,13 +18,18 @@ ALL_ACTUAL_ACTION_CLASSES = list(ActionRegistry.all_actual())
 ALL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTION_CLASSES]
 ALL_ACTUAL_ACTION_NAMES = [cls.__name__ for cls in ALL_ACTUAL_ACTION_CLASSES]
 
-def _build_action_info(action):
+
+def _build_action_info(action, avatar: "Avatar" | None = None):
     info = {
         "desc": action.get_desc(),
         "require": action.get_requirements(),
     }
     if hasattr(action, 'PARAMS') and action.PARAMS:
         info["params"] = action.PARAMS
+        if avatar is not None:
+            param_options = build_param_options(action, avatar)
+            if param_options:
+                info["param_options"] = param_options
 
     cd = int(getattr(action, "ACTION_CD_MONTHS", 0) or 0)
     if cd > 0:
@@ -42,7 +48,7 @@ def get_action_infos(avatar: "Avatar" | None = None) -> Dict[str, Any]:
             action_inst = action_cls(avatar, avatar.world)
             if not action_inst.can_possibly_start():
                 continue
-        infos[action_cls.__name__] = _build_action_info(action_cls)
+        infos[action_cls.__name__] = _build_action_info(action_cls, avatar=avatar)
     return infos
 
 def get_action_infos_str(avatar: "Avatar" | None = None) -> str:
