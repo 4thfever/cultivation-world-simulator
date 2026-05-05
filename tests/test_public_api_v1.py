@@ -265,7 +265,7 @@ def test_v1_avatar_meta_uses_ok_envelope():
         assert response.status_code == 200
         payload = response.json()
         assert payload["ok"] is True
-        assert payload["data"] == {"males": [1, 2], "females": [3, 4]}
+        assert payload["data"] == {"human": {"male": [1, 2], "female": [3, 4]}}
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)

@@ -29,6 +29,7 @@ from src.classes.action_runtime import ActionPlan, ActionInstance
 from src.classes.alignment import Alignment
 from src.classes.persona import Persona, get_random_compatible_personas
 from src.classes.goldfinger import Goldfinger
+from src.classes.race import Race, get_race
 from src.classes.material import Material
 from src.classes.items.weapon import Weapon
 from src.classes.items.auxiliary import Auxiliary
@@ -74,6 +75,7 @@ class Avatar(
     birth_month_stamp: MonthStamp
     age: Age
     gender: Gender
+    race: Race = field(default_factory=lambda: get_race("human"))
     cultivation_progress: CultivationProgress = field(default_factory=lambda: CultivationProgress(0))
     pos_x: int = 0
     pos_y: int = 0
@@ -304,6 +306,8 @@ class Avatar(
         """加入宗门"""
         if self.is_dead:
             return
+        if not sect.accepts_avatar_race(self):
+            return
         if self.sect:
             self.leave_sect()
         self.sect = sect
@@ -357,6 +361,10 @@ class Avatar(
     def get_official_rank_name(self) -> str:
         from src.classes.official_rank import get_official_rank_name
         return get_official_rank_name(self.official_rank)
+
+    @property
+    def is_yao(self) -> bool:
+        return bool(getattr(getattr(self, "race", None), "is_yao", False))
 
     # ========== 死亡相关 ==========
 
@@ -636,6 +644,9 @@ class Avatar(
         
         if self.personas is None:
             self.personas = get_random_compatible_personas(persona_num, avatar=self)
+
+        if not isinstance(self.race, Race):
+            self.race = get_race(getattr(self.race, "id", self.race))
 
         if self.technique is None:
             self.technique = get_technique_by_sect(self.sect)

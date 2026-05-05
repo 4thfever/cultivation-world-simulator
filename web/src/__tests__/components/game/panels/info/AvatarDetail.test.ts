@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, nextTick } from 'vue'
 import AvatarDetail from '@/components/game/panels/info/AvatarDetail.vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
@@ -49,6 +49,7 @@ describe('AvatarDetail', () => {
                 origin: 'Origin',
                 hp: 'HP',
                 gender: 'Gender',
+                race: 'Race',
                 alignment: 'Alignment',
                 sect: 'Sect',
                 rogue: 'Rogue',
@@ -328,6 +329,66 @@ describe('AvatarDetail', () => {
         }),
       }),
     )
+  })
+
+  it('renders race in stats grid and opens secondary detail', async () => {
+    let secondaryItem: unknown = null
+    const SecondaryPopupStub = defineComponent({
+      name: 'SecondaryPopup',
+      props: ['item'],
+      setup(props) {
+        return () => {
+          secondaryItem = props.item
+          return h('div', { class: 'secondary-popup-stub' }, props.item?.name || '')
+        }
+      },
+    })
+
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: {
+          ...mockAvatarData,
+          race: {
+            id: 'fox',
+            name: '狐族',
+            desc: '狐族灵慧狡黠',
+            effect_desc: '采集材料 +1',
+          },
+        } as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: SecondaryPopupStub,
+          AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
+          RoleplayPanel: true,
+        },
+      },
+    })
+
+    expect(wrapper.text()).toContain('Race')
+    expect(wrapper.text()).toContain('狐族')
+
+    const raceStat = wrapper.findAll('.stat-item').find(item => item.text().includes('Race'))
+    expect(raceStat).toBeTruthy()
+    await raceStat!.trigger('click')
+    await nextTick()
+
+    expect(secondaryItem).toMatchObject({
+      id: 'fox',
+      name: '狐族',
+      effect_desc: '采集材料 +1',
+    })
+    expect(wrapper.text()).toContain('狐族')
   })
 
   it('passes goldfinger category and current item into adjust panel when clicking edit', async () => {

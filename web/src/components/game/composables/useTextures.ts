@@ -5,6 +5,7 @@ import type { RegionSummary } from '@/types/core'
 import { getClusteredTileVariant } from '@/utils/procedural'
 import { logError, logWarn } from '@/utils/appError'
 import { getAvatarIndexSlug, getAvatarPortraitUrl, getRealmAssetSlug, getGameAssetUrl } from '@/utils/assetUrls'
+import { normalizeAvatarAssetLibraries, type AvatarAssetLibraries } from '@/utils/avatarAssets'
 
 // 设置全局纹理缩放模式为 nearest (像素风)
 TextureStyle.defaultOptions.scaleMode = 'nearest'
@@ -29,7 +30,11 @@ const TILE_VARIANTS: Record<string, { prefix: string, count: number, startIndex?
 // 全局纹理缓存，避免重复加载。Pixi Texture 不能进入 Vue 深层响应式代理。
 const textures = shallowRef<Record<string, Texture>>({})
 const isLoaded = ref(false)
-const availableAvatars = ref<{ males: number[], females: number[] }>({ males: [], females: [] })
+const availableAvatars = ref<AvatarAssetLibraries>({
+  human: { male: [], female: [] },
+  males: [],
+  females: [],
+})
 let baseTexturesPromise: Promise<void> | null = null
 const sectTexturePromises = new Map<number, Promise<void>>()
 const cityTexturePromises = new Map<number, Promise<void>>()
@@ -39,9 +44,18 @@ function setTexture(key: string, texture: Texture) {
   textures.value[key] = markRaw(texture)
 }
 
-function getAvatarTextureKey(gender: string | undefined, picId: number | null | undefined, realm: string | null | undefined): string {
+function getAvatarTextureKey(
+  gender: string | undefined,
+  picId: number | null | undefined,
+  realm: string | null | undefined,
+  race: string | null | undefined,
+): string {
   const normalizedGender = String(gender || '').toLowerCase() === 'female' ? 'female' : 'male'
-  return `${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
+  const normalizedRace = String(race || 'human').toLowerCase()
+  if (normalizedRace === 'human') {
+    return `${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
+  }
+  return `${normalizedRace}_${normalizedGender}_${getAvatarIndexSlug(picId)}_${getRealmAssetSlug(realm)}`
 }
 
 export function useTextures() {
@@ -56,27 +70,31 @@ export function useTextures() {
     try {
         const meta = await avatarApi.fetchAvatarMeta()
         
-        // 对比当前缓存的列表和新获取的列表
-        const newMalesStr = JSON.stringify(meta.males || [])
-        const curMalesStr = JSON.stringify(availableAvatars.value.males)
-        if (meta.males && newMalesStr !== curMalesStr) {
-            availableAvatars.value.males = meta.males
-            metaChanged = true
-        }
+        const normalizedMeta = normalizeAvatarAssetLibraries(meta)
 
-        const newFemalesStr = JSON.stringify(meta.females || [])
-        const curFemalesStr = JSON.stringify(availableAvatars.value.females)
-        if (meta.females && newFemalesStr !== curFemalesStr) {
-            availableAvatars.value.females = meta.females
+        const newMetaStr = JSON.stringify(normalizedMeta)
+        const curMetaStr = JSON.stringify(availableAvatars.value)
+        if (newMetaStr !== curMetaStr) {
+            availableAvatars.value = normalizedMeta
             metaChanged = true
         }
         
     } catch (e) {
         logWarn('Textures load avatar meta', e)
         // Fallback: 只有在列表为空时才使用默认值
-        if (availableAvatars.value.males.length === 0) {
-            availableAvatars.value.males = Array.from({length: 48}, (_, i) => i + 1)
-            availableAvatars.value.females = Array.from({length: 48}, (_, i) => i + 1)
+        if (!availableAvatars.value.human) {
+            availableAvatars.value.human = {
+              male: availableAvatars.value.males || [],
+              female: availableAvatars.value.females || [],
+            }
+        }
+        if (availableAvatars.value.human.male.length === 0) {
+            availableAvatars.value.human = {
+              male: Array.from({length: 48}, (_, i) => i + 1),
+              female: Array.from({length: 48}, (_, i) => i + 1),
+            }
+            availableAvatars.value.males = availableAvatars.value.human.male
+            availableAvatars.value.females = availableAvatars.value.human.female
             metaChanged = true
         }
     }
@@ -258,13 +276,14 @@ export function useTextures() {
     gender: string | undefined,
     picId: number | null | undefined,
     realm: string | null | undefined,
+    race?: string | null,
   ): Texture | undefined => {
     if (!picId) return undefined
-    const key = getAvatarTextureKey(gender, picId, realm)
+    const key = getAvatarTextureKey(gender, picId, realm, race)
     if (textures.value[key]) return textures.value[key]
     if (avatarTexturePromises.has(key)) return undefined
 
-    const promise = Assets.load(getAvatarPortraitUrl(gender, picId, realm))
+    const promise = Assets.load(getAvatarPortraitUrl(gender, picId, realm, race))
       .then(tex => { setTexture(key, tex) })
       .catch(e => logWarn(`Textures load avatar ${key}`, e))
       .finally(() => {

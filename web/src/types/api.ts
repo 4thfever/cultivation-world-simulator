@@ -35,6 +35,7 @@ export interface InitialStateDTO {
     y: number;
     action?: string;
     gender?: string;
+    race?: string;
     pic_id?: number;
     realm?: string;
   }>;
@@ -123,6 +124,7 @@ export interface SimpleAvatarDTO {
   realm: string;
   gender: string;
   age: number;
+  race?: string;
 }
 
 export interface CreateAvatarParams {
@@ -139,6 +141,7 @@ export interface CreateAvatarParams {
   auxiliary_id?: number;
   alignment?: string;
   appearance?: number;
+  race?: string;
   relations?: Array<{ target_id: string; relation: string }>;
 }
 

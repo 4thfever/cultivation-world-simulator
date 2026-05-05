@@ -42,9 +42,9 @@ def apply_runtime_content_locale(*, game_instance: dict, language_manager, lang_
         fix_runtime_references(world)
 
 
-def scan_avatar_assets(*, assets_path: str) -> dict[str, list[int]]:
-    def get_ids(gender: str) -> list[int]:
-        directory = os.path.join(assets_path, "avatars", gender)
+def scan_avatar_assets(*, assets_path: str) -> dict[str, dict[str, list[int]]]:
+    def get_ids(base_dir: str, gender: str) -> list[int]:
+        directory = os.path.join(base_dir, gender)
         if not os.path.exists(directory):
             return []
         ids: list[int] = []
@@ -60,27 +60,54 @@ def scan_avatar_assets(*, assets_path: str) -> dict[str, list[int]]:
                 ids.append(avatar_id)
         return sorted(ids)
 
-    avatar_assets = {
-        "males": get_ids("male"),
-        "females": get_ids("female"),
+    avatar_assets: dict[str, dict[str, list[int]]] = {}
+    human_base = os.path.join(assets_path, "avatars")
+    avatar_assets["human"] = {
+        "male": get_ids(human_base, "male"),
+        "female": get_ids(human_base, "female"),
     }
+
+    yao_base = os.path.join(assets_path, "yao")
+    if os.path.exists(yao_base):
+        for race_id in os.listdir(yao_base):
+            race_dir = os.path.join(yao_base, race_id)
+            if not os.path.isdir(race_dir):
+                continue
+            avatar_assets[race_id] = {
+                "male": get_ids(race_dir, "male"),
+                "female": get_ids(race_dir, "female"),
+            }
+
+    human_assets = avatar_assets["human"]
     print(
-        f"Loaded avatar assets: {len(avatar_assets['males'])} males, "
-        f"{len(avatar_assets['females'])} females"
+        f"Loaded avatar assets: {len(human_assets['male'])} human males, "
+        f"{len(human_assets['female'])} human females, "
+        f"{max(0, len(avatar_assets) - 1)} yao race libraries"
     )
     return avatar_assets
 
 
-def resolve_avatar_pic_id(*, avatar_assets: dict[str, list[int]], avatar) -> int:
+def _get_avatar_asset_bucket(*, avatar_assets: dict, avatar) -> list[int]:
+    race_id = getattr(getattr(avatar, "race", None), "id", "human") if avatar is not None else "human"
+    gender_val = getattr(getattr(avatar, "gender", None), "value", "male") if avatar is not None else "male"
+    gender_key = "female" if gender_val == "female" else "male"
+
+    if "human" in avatar_assets:
+        race_assets = avatar_assets.get(race_id) or avatar_assets.get("human", {})
+        return list(race_assets.get(gender_key, []))
+
+    legacy_key = "females" if gender_key == "female" else "males"
+    return list(avatar_assets.get(legacy_key, []))
+
+
+def resolve_avatar_pic_id(*, avatar_assets: dict, avatar) -> int:
     if avatar is None:
         return 1
     custom_pic_id = getattr(avatar, "custom_pic_id", None)
     if custom_pic_id is not None:
         return custom_pic_id
 
-    gender_val = getattr(getattr(avatar, "gender", None), "value", "male")
-    key = "females" if gender_val == "female" else "males"
-    available = avatar_assets.get(key, [])
+    available = _get_avatar_asset_bucket(avatar_assets=avatar_assets, avatar=avatar)
     if not available:
         return 1
 

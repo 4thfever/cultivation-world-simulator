@@ -3049,6 +3049,29 @@ msgstr "Trò chơi đã tạm dừng"
 msgid "Game resumed"
 msgstr "Trò chơi đã tiếp tục"
 
+msgid "Race"
+msgstr "种族"
+
+msgid "Race [{name}]"
+msgstr "种族[{name}]"
+
+msgid "Race: {race}"
+msgstr "种族：{race}"
+
+msgid "Yao cultivators cannot cultivate Confucian education."
+msgstr "妖族修士不能修行儒门教化。"
+
+msgid "Yao cultivators cannot serve as mortal officials."
+msgstr "妖族修士不能入凡俗王朝为官。"
+
+msgid ""
+"{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: "
+"{relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, "
+"Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, "
+"Auxiliary: {aux}, HP: {hp}"
+msgstr ""
+"{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+
 msgid "apprentice"
 msgstr "Đồ Đệ"
 
@@ -4276,3 +4299,82 @@ msgstr "Tiên"
 
 msgid "zither"
 msgstr "Cầm"
+
+msgid "rest_action_name"
+msgstr "休息"
+
+msgid "rest_description"
+msgstr "停下来调息休养，恢复生命。龟族休息时会额外获得少量修为经验。"
+
+msgid "rest_requirements"
+msgstr "没有特殊要求。"
+
+msgid "eat_mortals_action_name"
+msgstr "吃凡人"
+
+msgid "eat_mortals_description"
+msgstr "妖族潜入凡人聚居处吞食凡人，将血食与恐惧炼为修为。"
+
+msgid "eat_mortals_requirements"
+msgstr "需要是妖族，且位于城市区域；正义阵营通常不会做此事。"
+
+msgid "Dead avatars cannot rest."
+msgstr "死者无法休息。"
+
+msgid "{avatar} withdraws into quiet turtle-breathing rest."
+msgstr "{avatar}缩入静处，以龟息之法缓缓休养。"
+
+msgid "{avatar} begins resting."
+msgstr "{avatar}开始休息。"
+
+msgid ""
+"{avatar} finished resting, recovered {hp} HP and gained {exp} cultivation "
+"experience."
+msgstr "{avatar}结束休息，恢复了{hp}点生命，并获得{exp}点修为经验。"
+
+msgid "{avatar} finished resting and recovered {hp} HP."
+msgstr "{avatar}结束休息，恢复了{hp}点生命。"
+
+msgid "Only yao cultivators can eat mortals."
+msgstr "只有妖族修士才能吃凡人。"
+
+msgid "Righteous cultivators will not eat mortals."
+msgstr "正义阵营的修士不会吃凡人。"
+
+msgid "Can only eat mortals in city areas."
+msgstr "只能在城市区域吃凡人。"
+
+msgid "There are no mortals here to eat."
+msgstr "这里没有可供吞食的凡人。"
+
+msgid "{avatar} stalks the mortal crowds of {city}."
+msgstr "{avatar}潜入{city}的人群之中，暗暗寻找血食。"
+
+msgid ""
+"{avatar} ate {count} mortals in {city}, refining flesh and fear into {exp} "
+"cultivation experience."
+msgstr "{avatar}在{city}吃掉了{count}名凡人，将血肉与恐惧炼化为{exp}点修为经验。"
+
+msgid "{avatar} follows wild instincts to seek spiritual herbs at {location}"
+msgstr "{avatar}循着野性本能，在{location}搜寻灵草。"
+
+msgid "{avatar} finished foraging through the wilds, obtained: {materials}"
+msgstr "{avatar}在山野间觅食采集完毕，获得：{materials}"
+
+msgid "{avatar} begins tracking prey by scent and instinct at {location}"
+msgstr "{avatar}在{location}凭气味与本能追踪猎物。"
+
+msgid "{avatar} finished a primal hunt, obtained: {materials}"
+msgstr "{avatar}完成了一场野性的狩猎，获得：{materials}"
+
+msgid "effect_extra_rest_exp"
+msgstr "休息额外修为经验"
+
+msgid "effect_extra_rest_hp_recovery_rate"
+msgstr "休息生命恢复倍率"
+
+msgid "effect_extra_eat_mortals_exp_multiplier"
+msgstr "吃凡人修为经验倍率"
+
+msgid "effect_extra_cross_race_friendliness"
+msgstr "跨种族初始好感修正"

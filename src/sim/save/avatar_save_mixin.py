@@ -67,6 +67,7 @@ class AvatarSaveMixin:
             "name": self.name,
             "birth_month_stamp": int(self.birth_month_stamp),
             "gender": self.gender.value,
+            "race_id": getattr(getattr(self, "race", None), "id", "human"),
             "pos_x": self.pos_x,
             "pos_y": self.pos_y,
             "born_region_id": self.born_region_id,

@@ -30,6 +30,7 @@ from .attack import Attack
 from .plunder_people import PlunderPeople
 from .help_people import HelpPeople
 from .devour_people import DevourPeople
+from .eat_mortals import EatMortals
 from .self_heal import SelfHeal
 from .catch import Catch
 from .nurture_weapon import NurtureWeapon
@@ -40,6 +41,7 @@ from .refine import Refine
 from .buy import Buy
 from .mine import Mine
 from .retreat import Retreat
+from .rest import Rest
 from .meditate import Meditate
 from .educate import Educate
 from .govern import Govern
@@ -75,6 +77,7 @@ register_action(actual=False)(Attack)
 register_action(actual=True)(PlunderPeople)
 register_action(actual=True)(HelpPeople)
 register_action(actual=True)(DevourPeople)
+register_action(actual=True)(EatMortals)
 register_action(actual=True)(SelfHeal)
 register_action(actual=True)(Catch)
 register_action(actual=True)(NurtureWeapon)
@@ -85,6 +88,7 @@ register_action(actual=True)(Refine)
 register_action(actual=True)(Buy)
 register_action(actual=True)(Mine)
 register_action(actual=True)(Retreat)
+register_action(actual=True)(Rest)
 register_action(actual=True)(Meditate)
 register_action(actual=True)(Educate)
 register_action(actual=True)(Govern)
@@ -123,6 +127,7 @@ __all__ = [
     "PlunderPeople",
     "HelpPeople",
     "DevourPeople",
+    "EatMortals",
     "SelfHeal",
     "Catch",
     "NurtureWeapon",
@@ -133,6 +138,7 @@ __all__ = [
     "Buy",
     "Mine",
     "Retreat",
+    "Rest",
     "Meditate",
     "Educate",
     "Govern",

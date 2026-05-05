@@ -112,7 +112,12 @@ export function useAvatarDetailPanel(
     ...parseAvatarEffectLine(line, t),
   })))
 
-  const portraitUrl = computed(() => getAvatarPortraitUrl(data().gender, data().pic_id, data().realm_id || data().realm))
+  const portraitUrl = computed(() => getAvatarPortraitUrl(
+    data().gender,
+    data().pic_id,
+    data().realm_id || data().realm,
+    data().race?.id,
+  ))
 
   const equipmentSlots = computed(() => [
     {

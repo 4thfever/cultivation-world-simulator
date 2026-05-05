@@ -6,15 +6,27 @@ import { avatarApi } from '@/api'
 import type { CreateAvatarParams, GameDataDTO, SimpleAvatarDTO } from '@/types/api'
 import { useWorldStore } from '@/stores/world'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
+import { getAvatarAssetIds, normalizeAvatarAssetLibraries } from '@/utils/avatarAssets'
 import { formatEntityGrade } from '@/utils/cultivationText'
+import type { AvatarAssetLibraries } from '@/utils/avatarAssets'
 
 export const GENDER_MALE = '男'
 export const GENDER_FEMALE = '女'
+
+export const RACE_OPTIONS = [
+  { label: '人族', value: 'human' },
+  { label: '狐族', value: 'fox' },
+  { label: '狼族', value: 'wolf' },
+  { label: '鸟族', value: 'bird' },
+  { label: '蛇族', value: 'snake' },
+  { label: '龟族', value: 'turtle' },
+]
 
 const createDefaultForm = (): CreateAvatarParams => ({
   surname: '',
   given_name: '',
   gender: GENDER_MALE,
+  race: 'human',
   age: 16,
   level: undefined,
   sect_id: undefined,
@@ -34,7 +46,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
   const message = useMessage()
   const loading = ref(false)
   const gameData = ref<GameDataDTO | null>(null)
-  const avatarMeta = ref<{ males: number[]; females: number[] } | null>(null)
+  const avatarMeta = ref<AvatarAssetLibraries | null>(null)
   const avatarList = ref<SimpleAvatarDTO[]>([])
   const createForm = ref<CreateAvatarParams>(createDefaultForm())
 
@@ -89,9 +101,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
   })) ?? [])
 
   const availableAvatars = computed(() => {
-    if (!avatarMeta.value) return []
-    const key = createForm.value.gender === GENDER_FEMALE ? 'females' : 'males'
-    return avatarMeta.value[key] || []
+    return getAvatarAssetIds(avatarMeta.value, createForm.value.race, createForm.value.gender)
   })
 
   const selectedRealm = computed(() => {
@@ -102,7 +112,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
   })
 
   const currentAvatarUrl = computed(() => (
-    getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id, selectedRealm.value)
+    getAvatarPortraitUrl(createForm.value.gender, createForm.value.pic_id, selectedRealm.value, createForm.value.race)
   ))
 
   const avatarOptions = computed(() => avatarList.value.map(avatar => ({
@@ -117,7 +127,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
         gameData.value = await avatarApi.fetchGameData()
       }
       if (!avatarMeta.value) {
-        avatarMeta.value = await avatarApi.fetchAvatarMeta()
+        avatarMeta.value = normalizeAvatarAssetLibraries(await avatarApi.fetchAvatarMeta())
       }
       avatarList.value = await avatarApi.fetchAvatarList()
     } catch {
@@ -176,6 +186,13 @@ export function useCreateAvatarPanel(onCreated: () => void) {
   )
 
   watch(
+    () => createForm.value.race,
+    () => {
+      createForm.value.pic_id = undefined
+    },
+  )
+
+  watch(
     realmOptions,
     options => {
       if (!createForm.value.level && options.length > 0) {
@@ -192,6 +209,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
   return {
     GENDER_MALE,
     GENDER_FEMALE,
+    RACE_OPTIONS,
     loading,
     gameData,
     createForm,

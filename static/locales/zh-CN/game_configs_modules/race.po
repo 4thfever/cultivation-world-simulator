@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh-CN\n"
+
+msgid "RACE_HUMAN_NAME"
+msgstr "人族"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "你是一个普通的人类"
+
+msgid "RACE_FOX_NAME"
+msgstr "狐族"
+
+msgid "RACE_FOX_DESC"
+msgstr "狐族天生灵慧，善于察言观色，容貌多半出众，常被认为与机缘和人情往来有天然亲和。"
+
+msgid "RACE_WOLF_NAME"
+msgstr "狼族"
+
+msgid "RACE_WOLF_DESC"
+msgstr "狼族血脉强健，重视生存、狩猎与战斗，本能敏锐，行动迅捷，常在厮杀中磨砺修为。"
+
+msgid "RACE_BIRD_NAME"
+msgstr "鸟族"
+
+msgid "RACE_BIRD_DESC"
+msgstr "鸟族感知开阔，身法轻灵，天生向往远方，擅长侦察、脱身与探索未知之地。"
+
+msgid "RACE_SNAKE_NAME"
+msgstr "蛇族"
+
+msgid "RACE_SNAKE_DESC"
+msgstr "蛇族气息幽微，行事隐忍，擅长潜伏与突袭，常被人族修士忌惮，却也更能适应阴暗险地。"
+
+msgid "RACE_TURTLE_NAME"
+msgstr "龟族"
+
+msgid "RACE_TURTLE_DESC"
+msgstr "龟族寿元绵长，体魄稳固，行事缓慢谨慎，最擅长守御、疗养与长久闭关。"

@@ -5,6 +5,8 @@ from src.classes.action.meditate import Meditate
 from src.classes.action.temper import Temper
 from src.classes.action.educate import Educate
 from src.classes.action.govern import Govern
+from src.classes.action.rest import Rest
+from src.classes.action.eat_mortals import EatMortals
 from src.classes.action.devour_people import DevourPeople
 from src.classes.action.plunder_people import PlunderPeople
 from src.classes.action.help_people import HelpPeople
@@ -76,6 +78,11 @@ def test_educate_can_possibly_start(dummy_avatar, base_world):
         mock_effects.return_value = {"legal_actions": ["Educate"]}
         assert action.can_possibly_start() is True
 
+        from src.classes.race import get_race
+
+        dummy_avatar.race = get_race("fox")
+        assert action.can_possibly_start() is False
+
 def test_devour_people_can_possibly_start(dummy_avatar, base_world):
     action = DevourPeople(dummy_avatar, base_world)
     
@@ -90,6 +97,35 @@ def test_devour_people_can_possibly_start(dummy_avatar, base_world):
 
 def test_govern_can_possibly_start(dummy_avatar, base_world):
     action = Govern(dummy_avatar, base_world)
+    assert action.can_possibly_start() is True
+
+    from src.classes.race import get_race
+
+    dummy_avatar.race = get_race("wolf")
+    assert action.can_possibly_start() is False
+
+
+def test_rest_can_possibly_start_for_all(dummy_avatar, base_world):
+    action = Rest(dummy_avatar, base_world)
+    assert action.can_possibly_start() is True
+
+
+def test_eat_mortals_can_possibly_start_depends_on_yao_and_alignment(dummy_avatar, base_world):
+    from src.classes.race import get_race
+
+    action = EatMortals(dummy_avatar, base_world)
+    dummy_avatar.race = get_race("human")
+    dummy_avatar.alignment = Alignment.EVIL
+    assert action.can_possibly_start() is False
+
+    dummy_avatar.race = get_race("wolf")
+    dummy_avatar.alignment = Alignment.RIGHTEOUS
+    assert action.can_possibly_start() is False
+
+    dummy_avatar.alignment = Alignment.NEUTRAL
+    assert action.can_possibly_start() is True
+
+    dummy_avatar.alignment = Alignment.EVIL
     assert action.can_possibly_start() is True
 
 def test_plunder_people_can_possibly_start(dummy_avatar, base_world):

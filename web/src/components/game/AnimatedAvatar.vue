@@ -72,7 +72,9 @@ function getTexture() {
   
   // Fallback logic if pic_id is missing
   if (!pid) {
-     const list = availableAvatars.value[gender === 'female' ? 'females' : 'males']
+     const raceKey = String(props.avatar.race || 'human').toLowerCase()
+     const library = availableAvatars.value[raceKey] || availableAvatars.value.human
+     const list = Array.isArray(library) ? library : library?.[gender === 'female' ? 'female' : 'male']
      if (list && list.length > 0) {
          let hash = 0
          const str = props.avatar.id || props.avatar.name || 'default'
@@ -85,7 +87,7 @@ function getTexture() {
      }
   }
 
-  return ensureAvatarTexture(gender, pid, props.avatar.realm)
+  return ensureAvatarTexture(gender, pid, props.avatar.realm, props.avatar.race)
 }
 
 function getScale() {

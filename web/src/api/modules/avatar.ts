@@ -21,7 +21,7 @@ export interface HoverParams {
 
 export const avatarApi = {
   fetchAvatarMeta() {
-    return httpClient.get<{ males: number[]; females: number[] }>('/api/v1/query/meta/avatars');
+    return httpClient.get<unknown>('/api/v1/query/meta/avatars');
   },
 
   fetchDetailInfo(params: HoverParams) {

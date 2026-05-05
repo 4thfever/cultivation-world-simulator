@@ -409,6 +409,7 @@
         "awakened_age": "Started Cultivation At",
         "hp": "HP",
         "gender": "Gender",
+        "race": "Race",
         "alignment": "Alignment",
         "sect": "Sect",
         "official_rank": "Official Rank",

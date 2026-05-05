@@ -17,7 +17,7 @@ The format is:
         "avatar_thinking": ... // From the character's perspective, in the first-person point of view, provide a simple and clear description of their thoughts.
         "current_emotion": ... // Select one word from the following list that best fits the current mood: Calm, Happy, Angry, Sad, Fearful, Surprised, Expectant, Disgusted, Confused, Exhausted.
         "short_term_objective": ..., // The character's short-term objective for the next period of time.
-        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // Decide on 5-10 future actions at once, to be executed in sequence. action_params must be a dictionary {{}}. If empty, return an empty dictionary; cannot return null.
+        "action_name_params_pairs": list[Tuple[action_name, action_params]]  // Decide on several subsequent actions at once, to be executed in sequence; the same action may be scheduled consecutively or repeatedly when it fits the objective. action_params must be a dictionary {{}}. If empty, return an empty dictionary; cannot return null.
     }}
 }}
 

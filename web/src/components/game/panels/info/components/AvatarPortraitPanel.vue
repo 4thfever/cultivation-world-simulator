@@ -7,6 +7,7 @@ import xIcon from '@/assets/icons/ui/lucide/x.svg';
 const props = defineProps<{
   avatarId: string;
   gender: string;
+  race?: string | null;
   realm?: string | null;
   currentPicId?: number | null;
   visible: boolean;
@@ -62,7 +63,7 @@ const {
               type="button"
               @click="selectedPicId = id"
             >
-              <img :src="getAvatarPortraitUrl(gender, id)" :alt="`${t('game.info_panel.avatar.portrait.option_alt')} ${id}`" loading="lazy" />
+              <img :src="getAvatarPortraitUrl(gender, id, realm, race)" :alt="`${t('game.info_panel.avatar.portrait.option_alt')} ${id}`" loading="lazy" />
             </button>
           </div>
           <div v-else class="state-text">{{ t('game.info_panel.avatar.portrait.empty_library') }}</div>

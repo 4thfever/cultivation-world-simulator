@@ -331,11 +331,15 @@ class SectDecider:
                 break
             if not candidate.get("alignment_recruitable", False):
                 continue
+            if not candidate.get("race_recruitable", True):
+                continue
 
             avatar = avatars.get(candidate["avatar_id"])
             if avatar is None or getattr(avatar, "is_dead", False):
                 continue
             if getattr(avatar, "sect", None) is not None:
+                continue
+            if not sect.accepts_avatar_race(avatar):
                 continue
 
             outcome = await resolve_sect_recruitment(

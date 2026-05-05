@@ -8,6 +8,7 @@ from src.systems.time import MonthStamp
 from src.classes.relation.relation import Relation
 from src.sim.avatar_awake import process_awakening, _process_bloodline_awakening, _process_wild_awakening
 from src.utils.config import CONFIG
+from src.classes.race import get_race
 
 @pytest.fixture
 def mock_world(base_world):
@@ -20,6 +21,7 @@ def test_process_bloodline_awakening(mock_world):
         id="m1", 
         name="Test Mortal", 
         gender=Gender.MALE, 
+        race=get_race("fox"),
         birth_month_stamp=MonthStamp(0), # 足够大
         parents=[]
     )
@@ -44,6 +46,7 @@ def test_process_bloodline_awakening(mock_world):
     avatar = mock_world.avatar_manager.get_avatar("m1")
     assert avatar is not None
     assert avatar.name == "Test Mortal"
+    assert avatar.race.id == "fox"
     assert avatar.cultivation_progress.level == 1 # 练气一层
 
 def test_process_bloodline_awakening_age_limit(mock_world):
@@ -70,7 +73,8 @@ def test_process_wild_awakening(mock_world):
     # 注意：simulator.py 中 process_awakening 会调用它
     # 我们这里直接测试 _process_wild_awakening
     
-    event = _process_wild_awakening(mock_world)
+    with patch("src.sim.avatar_awake.roll_avatar_race", return_value=get_race("snake")):
+        event = _process_wild_awakening(mock_world)
     
     assert event is not None
     assert "rogue cultivator" in event.content or "散修" in event.content
@@ -83,6 +87,7 @@ def test_process_wild_awakening(mock_world):
     avatar = mock_world.avatar_manager.get_avatar(new_ids[0])
     assert avatar is not None
     assert avatar.sect is None # 散修
+    assert avatar.race.id == "snake"
 
 def test_awakening_integration(mock_world):
     """测试 process_awakening 集成调用"""

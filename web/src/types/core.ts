@@ -47,6 +47,7 @@ export interface AvatarSummary extends EntityBase, Coordinates {
   action?: string;
   action_emoji?: string;
   gender?: string;
+  race?: string;
   pic_id?: number;
   realm?: string;
   is_dead?: boolean;
@@ -56,6 +57,7 @@ export interface AvatarDetail extends EntityBase {
   // 基础信息
   pic_id?: number | null;
   gender: string;
+  race?: EffectEntity;
   age: number;
   origin: string;
   cultivation_start_age?: number;
@@ -170,6 +172,7 @@ export interface SectDetail extends EntityBase {
   effect_desc: string;
   rule_id?: string;
   rule_desc?: string;
+  accept_yao?: boolean;
   technique_names?: string[]; // Deprecated
   techniques: EffectEntity[];
   preferred_weapon: string;

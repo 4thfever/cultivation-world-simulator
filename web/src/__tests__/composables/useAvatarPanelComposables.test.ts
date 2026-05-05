@@ -182,7 +182,10 @@ describe('avatar panel composables', () => {
       auxiliaries: [{ id: 5, name: '炼丹术', grade: 'high' }],
       alignments: [{ value: 'GOOD', label: '正道' }],
     })
-    vi.mocked(avatarApi.fetchAvatarMeta).mockResolvedValue({ males: [1], females: [2] })
+    vi.mocked(avatarApi.fetchAvatarMeta).mockResolvedValue({
+      human: { male: [1], female: [2] },
+      fox: { male: [3], female: [4] },
+    })
     vi.mocked(avatarApi.fetchAvatarList).mockResolvedValue([
       { id: 'a1', name: '李青', sect_name: '青云宗', realm: 'QI_REFINEMENT', gender: '男', age: 18 },
     ])
@@ -282,6 +285,35 @@ describe('avatar panel composables', () => {
     await nextTick()
 
     expect(panel.createForm.value.pic_id).toBeUndefined()
+  })
+
+  it('resets selected portrait and switches library when race changes', async () => {
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    expect(panel.availableAvatars.value).toEqual([1])
+    panel.createForm.value.pic_id = 1
+    panel.createForm.value.race = 'fox'
+    await nextTick()
+
+    expect(panel.createForm.value.pic_id).toBeUndefined()
+    expect(panel.availableAvatars.value).toEqual([3])
+  })
+
+  it('normalizes wrapped avatar metadata before switching race libraries', async () => {
+    vi.mocked(avatarApi.fetchAvatarMeta).mockResolvedValueOnce({
+      data: {
+        human: { male: [1], female: [2] },
+        fox: { male: [3, 4], female: [5] },
+      },
+    })
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    panel.createForm.value.race = 'fox'
+    await nextTick()
+
+    expect(panel.availableAvatars.value).toEqual([3, 4])
   })
 
   it('filters and deletes avatars after confirmation', async () => {

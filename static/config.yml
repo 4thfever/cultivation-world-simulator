@@ -76,6 +76,7 @@ sect:
 
 avatar:
   persona_num: 3
+  yao_race_probability: 0.1
 
 social:
   major_event_context_num: 10

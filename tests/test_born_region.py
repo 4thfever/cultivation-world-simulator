@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 from src.classes.core.world import World
 from src.classes.core.avatar import Avatar, Gender
 from src.classes.environment.map import Map
-from src.classes.environment.region import CityRegion, Region
+from src.classes.environment.region import CityRegion, Region, NormalRegion
 from src.classes.environment.sect_region import SectRegion
 from src.classes.core.sect import Sect
 from src.classes.environment.tile import Tile, TileType
@@ -20,17 +20,20 @@ def mock_world():
     city1 = CityRegion(id=1, name="CityA", desc="City A")
     city2 = CityRegion(id=2, name="CityB", desc="City B")
     sect_region = SectRegion(id=3, name="SectBase", desc="Sect HQ", sect_id=1, sect_name="TestSect")
+    wild_region = NormalRegion(id=4, name="Wilds", desc="Wild land")
     
     # 注入到 Map
     game_map.regions[1] = city1
     game_map.regions[2] = city2
     game_map.regions[3] = sect_region
+    game_map.regions[4] = wild_region
     game_map.update_sect_regions() # 更新 sect_regions 字典
     
     # 设置中心点
     city1.center_loc = (0, 0)
     city2.center_loc = (9, 9)
     sect_region.center_loc = (5, 5)
+    wild_region.center_loc = (2, 7)
 
     world = MagicMock(spec=World)
     world.map = game_map
@@ -75,6 +78,13 @@ def test_born_region_priority_random_city(mock_world):
     # 无父母，无宗门
     born_id = get_born_region_id(mock_world, parents=[], sect=None)
     assert born_id in [1, 2] # 只能是两个城市之一
+
+
+def test_yao_born_region_prefers_wild_region(mock_world):
+    from src.classes.race import get_race
+
+    born_id = get_born_region_id(mock_world, parents=[], sect=None, race=get_race("fox"))
+    assert born_id == 4
 
 def test_info_presenter_integration(mock_world):
     """测试展示层集成"""

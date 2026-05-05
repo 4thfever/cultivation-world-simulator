@@ -236,6 +236,7 @@ def build_sect_decision_context(
 
         avatar_sect = getattr(avatar, "sect", None)
         if avatar_sect is None:
+            race_recruitable = bool(sect.accepts_avatar_race(avatar))
             recruitment_candidates.append(
                 {
                     "avatar_id": str(getattr(avatar, "id", "")),
@@ -247,6 +248,7 @@ def build_sect_decision_context(
                     "technique_grade": _technique_grade_text(avatar),
                     "technique_grade_rank": _technique_grade_rank(avatar),
                     "alignment_recruitable": bool(sect.is_alignment_recruitable(getattr(avatar, "alignment", None))),
+                    "race_recruitable": race_recruitable,
                     "detailed_info": avatar.get_info(detailed=True),
                     "governance_summary": _build_governance_summary(avatar),
                 }
@@ -277,6 +279,7 @@ def build_sect_decision_context(
     recruitment_candidates.sort(
         key=lambda item: (
             0 if item["alignment_recruitable"] else 1,
+            0 if item.get("race_recruitable", True) else 1,
             -item["technique_grade_rank"],
             item["magic_stone"],
             item["name"],

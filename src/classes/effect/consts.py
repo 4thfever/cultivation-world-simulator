@@ -139,6 +139,14 @@ EXTRA_RETREAT_SUCCESS_RATE = "extra_retreat_success_rate"
   - 大量: 0.2 (20%)
 """
 
+EXTRA_REST_EXP = "extra_rest_exp"
+"""
+额外休息修为经验
+类型: int
+结算: src/classes/action/rest.py
+说明: 休息动作结算时额外获得的固定修为经验。
+"""
+
 # --- 双修相关 ---
 EXTRA_DUAL_CULTIVATION_EXP = "extra_dual_cultivation_exp"
 """
@@ -371,6 +379,14 @@ EXTRA_HP_RECOVERY_RATE = "extra_hp_recovery_rate"
   - 大量: 1.0 (翻倍)
 """
 
+EXTRA_REST_HP_RECOVERY_RATE = "extra_rest_hp_recovery_rate"
+"""
+额外休息恢复倍率
+类型: float
+结算: src/classes/action/rest.py
+说明: 休息动作恢复生命值时的额外倍率。
+"""
+
 DAMAGE_REDUCTION = "damage_reduction"
 """
 伤害减免
@@ -431,6 +447,22 @@ EXTRA_PLUNDER_MULTIPLIER = "extra_plunder_multiplier"
   - 微量: 0.5 
   - 中量: 1.0
   - 大量: 2
+"""
+
+EXTRA_EAT_MORTALS_EXP_MULTIPLIER = "extra_eat_mortals_exp_multiplier"
+"""
+额外吃凡人修为经验倍率
+类型: float
+结算: src/classes/action/eat_mortals.py
+说明: 妖族吃凡人时获得修为经验的倍率加成。
+"""
+
+EXTRA_CROSS_RACE_FRIENDLINESS = "extra_cross_race_friendliness"
+"""
+跨种族初始好感修正
+类型: int
+结算: src/sim/avatar_init.py
+说明: 不同种族角色生成初始关系时的好感修正。
 """
 
 # 秘境相关
@@ -546,6 +578,7 @@ ALL_EFFECTS = [
     "temper_duration_reduction",         # float - 锻体时长缩减
     "extra_breakthrough_success_rate",   # float - 额外突破成功率
     "extra_retreat_success_rate",        # float - 额外闭关成功率
+    "extra_rest_exp",                    # int - 额外休息修为经验
     
     # 双修相关
     "extra_dual_cultivation_exp",        # int - 额外双修经验
@@ -585,11 +618,14 @@ ALL_EFFECTS = [
     # 生存与恢复相关
     "extra_max_lifespan",                # int - 额外最大寿元（年）
     "extra_hp_recovery_rate",            # float - 额外HP恢复速率倍率
+    "extra_rest_hp_recovery_rate",       # float - 额外休息恢复倍率
     
     # 经济相关
     "extra_item_sell_price_multiplier",  # float - 额外物品出售价格倍率
     "shop_buy_price_reduction",          # float - 商铺购买价格倍率减免
     "extra_plunder_multiplier",          # float - 额外搜刮收益倍率
+    "extra_eat_mortals_exp_multiplier",  # float - 额外吃凡人修为经验倍率
+    "extra_cross_race_friendliness",     # int - 跨种族初始好感修正
     
     # 秘境相关
     "extra_hidden_domain_drop_prob",     # float - 额外秘境掉落概率

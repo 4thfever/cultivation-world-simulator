@@ -2465,6 +2465,55 @@ msgstr ""
 msgid "PLANT_9_NAME"
 msgstr "Nine-Bend Qingyin Bamboo"
 
+msgid "RACE_HUMAN_NAME"
+msgstr "Human"
+
+msgid "RACE_HUMAN_DESC"
+msgstr "You are an ordinary human."
+
+msgid "RACE_FOX_NAME"
+msgstr "Fox Yao"
+
+msgid "RACE_FOX_DESC"
+msgstr ""
+"Fox yao are naturally clever, skilled at reading expressions and moods, "
+"often striking in appearance, and commonly seen as having an innate affinity"
+" for opportunity and social ties."
+
+msgid "RACE_WOLF_NAME"
+msgstr "Wolf Yao"
+
+msgid "RACE_WOLF_DESC"
+msgstr ""
+"Wolf yao have strong bloodlines, value survival, hunting, and battle, "
+"possess keen instincts and swift movement, and often temper their "
+"cultivation through combat."
+
+msgid "RACE_BIRD_NAME"
+msgstr "Bird Yao"
+
+msgid "RACE_BIRD_DESC"
+msgstr ""
+"Bird yao have broad perception and nimble movement, are born to yearn for "
+"distant places, and excel at scouting, escape, and exploring the unknown."
+
+msgid "RACE_SNAKE_NAME"
+msgstr "Snake Yao"
+
+msgid "RACE_SNAKE_DESC"
+msgstr ""
+"Snake yao have subtle auras and patient ways, excel at hiding and ambush, "
+"are often feared by human cultivators, and adapt well to dark and dangerous "
+"places."
+
+msgid "RACE_TURTLE_NAME"
+msgstr "Turtle Yao"
+
+msgid "RACE_TURTLE_DESC"
+msgstr ""
+"Turtle yao are long-lived and steady of body, slow and cautious in conduct, "
+"and most skilled at defense, recuperation, and long secluded cultivation."
+
 #. random_minor_event.csv: 心境偏移
 msgid "minor_event_cause_1"
 msgstr "Shift in state of mind"
@@ -4426,3 +4475,25 @@ msgstr "Official Rank"
 
 msgid "WORLD_INFO_OFFICIAL_TITLE"
 msgstr "Official Rank"
+
+msgid "PERSONA_1015_NAME"
+msgstr "亲近异类"
+
+msgid "PERSONA_1015_DESC"
+msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+
+msgid "PERSONA_1016_NAME"
+msgstr "痛恨异类"
+
+msgid "PERSONA_1016_DESC"
+msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+
+msgid "WORLD_INFO_RACE_TITLE"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_NAME"
+msgstr "种族"
+
+msgid "WORLD_INFO_RACE_DESC"
+msgstr ""
+"世界中存在人族与妖族修士。妖族包括狐、狼、鸟、蛇、龟等种族，各有不同天性：狐灵慧狡黠，狼凶悍掠食，鸟善迁徙侦察，蛇隐忍狠毒，龟长寿善守。妖族可修行并加入接纳妖族的宗门，但部分重视人族礼法或儒道秩序的宗门不接纳妖族。"

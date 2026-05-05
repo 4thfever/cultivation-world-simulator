@@ -125,6 +125,10 @@ class EffectsMixin:
             if sanxiu_orthodoxy:
                 label = t("Orthodoxy [{name}]", name=t(sanxiu_orthodoxy.name))
                 _collect(label, source_obj=sanxiu_orthodoxy)
+
+        if getattr(self, "race", None):
+            label = t("Race [{name}]", name=str(self.race))
+            _collect(label, source_obj=self.race)
             
         if self.technique:
             label = t("Technique [{name}]", name=self.technique.name)
