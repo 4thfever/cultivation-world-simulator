@@ -127,6 +127,7 @@
     "add_second": "+ Add Second",
     "load_more": "Scroll up to load more",
     "roleplay_locked": "Roleplay locked: {avatar}",
+    "story_subject_prefix": "[{avatar}] {content}",
     "empty_dual": "No events between these two",
     "empty_single": "No events for this cultivator",
     "empty_none": "No events"

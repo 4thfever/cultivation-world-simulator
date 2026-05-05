@@ -127,6 +127,7 @@
     "add_second": "+ 2 人目を追加",
     "load_more": "上へスクロールしてさらに読み込む",
     "roleplay_locked": "扮演固定：{avatar}",
+    "story_subject_prefix": "【{avatar}】{content}",
     "empty_dual": "この二人の間にイベントはありません",
     "empty_single": "この修士のイベントはありません",
     "empty_none": "イベントはありません"

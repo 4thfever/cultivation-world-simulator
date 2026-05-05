@@ -8,6 +8,7 @@ import { NSelect } from 'naive-ui'
 const avatarStoreMock = reactive({
   avatarList: [
     { id: 'a1', name: 'Alice', is_dead: false },
+    { id: 'a2', name: 'Bob', is_dead: false },
   ],
 })
 
@@ -88,6 +89,7 @@ function createEventPanelI18n(locale = 'zh') {
             deceased: '(dead)',
             load_more: 'load',
             roleplay_locked: 'locked: {avatar}',
+            story_subject_prefix: '[{avatar}] {content}',
             empty_none: 'none',
             empty_single: 'none',
           },
@@ -109,6 +111,7 @@ function createEventPanelI18n(locale = 'zh') {
             deceased: '(dead)',
             load_more: 'load',
             roleplay_locked: 'locked: {avatar}',
+            story_subject_prefix: '[{avatar}] {content}',
             empty_none: 'none',
             empty_single: 'none',
           },
@@ -249,6 +252,82 @@ describe('EventPanel', () => {
 
     expect(wrapper.text()).toContain('Alice da duoc goi la "Xich Huyet Thanh Dia Chu".')
     expect(wrapper.text()).not.toContain('Old fallback content')
+  })
+
+  it('prefixes single-avatar story when the story text omits the avatar name', () => {
+    const i18n = createEventPanelI18n()
+
+    eventStoreMock.events = [
+      {
+        id: 'story-missing-name',
+        text: '',
+        content: 'He sat through the night and found a trace of insight.',
+        year: 1,
+        month: 3,
+        timestamp: 15,
+        relatedAvatarIds: ['a1'],
+        isMajor: false,
+        isStory: true,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    expect(wrapper.text()).toContain('[Alice] He sat through the night')
+    expect(wrapper.find('.clickable-avatar').text()).toBe('Alice')
+  })
+
+  it('does not prefix single-avatar story when the story text already includes the avatar name', () => {
+    const i18n = createEventPanelI18n()
+
+    eventStoreMock.events = [
+      {
+        id: 'story-with-name',
+        text: '',
+        content: 'Alice sat through the night and found a trace of insight.',
+        year: 1,
+        month: 3,
+        timestamp: 15,
+        relatedAvatarIds: ['a1'],
+        isMajor: false,
+        isStory: true,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    expect(wrapper.text()).toContain('Alice sat through the night')
+    expect(wrapper.text()).not.toContain('[Alice] Alice')
+  })
+
+  it('does not prefix multi-avatar story events', () => {
+    const i18n = createEventPanelI18n()
+
+    eventStoreMock.events = [
+      {
+        id: 'story-multi',
+        text: '',
+        content: 'They exchanged sword intent below the old gate.',
+        year: 1,
+        month: 3,
+        timestamp: 15,
+        relatedAvatarIds: ['a1', 'a2'],
+        isMajor: false,
+        isStory: true,
+      },
+    ]
+
+    const wrapper = mount(EventPanel, {
+      global: { plugins: [i18n] },
+    })
+
+    expect(wrapper.text()).toContain('They exchanged sword intent below the old gate.')
+    expect(wrapper.text()).not.toContain('[Alice]')
+    expect(wrapper.text()).not.toContain('[Bob]')
   })
 
   it('sect filter options use sect_name as label', () => {

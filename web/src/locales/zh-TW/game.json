@@ -127,6 +127,7 @@
     "add_second": "+ 添加第二人",
     "load_more": "向上滾動載入更多",
     "roleplay_locked": "扮演鎖定：{avatar}",
+    "story_subject_prefix": "【{avatar}】{content}",
     "empty_dual": "這兩人之間暫無事件",
     "empty_single": "該修士暫無事件",
     "empty_none": "暫無事件"
