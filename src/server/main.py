@@ -97,6 +97,7 @@ from src.classes.items.weapon import weapons_by_id
 from src.classes.items.auxiliary import auxiliaries_by_id
 from src.classes.appearance import get_appearance_by_level
 from src.classes.persona import personas_by_id
+from src.classes.race import races_by_id
 from src.systems.cultivation import REALM_ORDER, Realm
 from src.classes.alignment import Alignment
 from src.classes.event import Event
@@ -242,6 +243,7 @@ public_query_builders = create_public_query_builders(
     get_runtime_status=get_runtime_status,
     get_events_page=get_events_page,
     get_game_data_query=get_game_data_query,
+    races_by_id=races_by_id,
     personas_by_id=personas_by_id,
     realm_order=REALM_ORDER,
     techniques_by_id=techniques_by_id,

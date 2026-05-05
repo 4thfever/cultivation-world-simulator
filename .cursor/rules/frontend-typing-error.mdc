@@ -9,6 +9,7 @@ globs: ["web/src/**/*.vue", "web/src/**/*.ts", "web/src/**/*.tsx"]
 ## 1. DTO 与 Mapper 先行
 - 新增或修改后端响应字段时，先更新 `web/src/types/api.ts`。
 - 需要结构转换或兼容逻辑时，优先放在 `web/src/api/mappers/*`，不要散在组件或 store 中。
+- 后端新增可选枚举/配置型元数据（如 race、alignment、realm 等）给前端选择器使用时，应优先通过 DTO 暴露 `value + label` 或结构化实体；前端不应自行维护会展示给用户的中文硬编码选项表。
 
 ## 2. 禁止扩散 any
 - 新增代码不得引入无必要 `any`。
@@ -22,3 +23,6 @@ globs: ["web/src/**/*.vue", "web/src/**/*.ts", "web/src/**/*.tsx"]
 - `web/src/api/socket.ts` 只负责 transport。
 - 消息业务分发统一在 `web/src/stores/socketMessageRouter.ts`，不要在组件中按消息类型分支。
 
+## 5. 前端 i18n 边界
+- `.vue` / composable 中新增用户可见文案必须走 `vue-i18n` 或后端已本地化 DTO，不能直接写中文兜底。
+- 组件 fallback 文案也必须可本地化，例如 race 缺失时不能 fallback 为 `'人族'`，应使用 `t(...)` 或后端提供的默认实体。

@@ -55,6 +55,7 @@
     "labels": {
       "name": "Tên",
       "gender": "Giới tính",
+      "race": "Chủng tộc",
       "age": "Tuổi",
       "initial_realm": "Cảnh giới ban đầu",
       "sect": "Tông môn",

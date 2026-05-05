@@ -50,6 +50,7 @@ describe('AvatarDetail', () => {
                 hp: 'HP',
                 gender: 'Gender',
                 race: 'Race',
+                unknown_race: 'Unknown',
                 alignment: 'Alignment',
                 sect: 'Sect',
                 rogue: 'Rogue',
@@ -389,6 +390,39 @@ describe('AvatarDetail', () => {
       effect_desc: '采集材料 +1',
     })
     expect(wrapper.text()).toContain('狐族')
+  })
+
+  it('does not fall back to hardcoded Chinese when race detail is missing', () => {
+    const wrapper = mount(AvatarDetail, {
+      props: {
+        data: {
+          ...mockAvatarData,
+          race: undefined,
+        } as any,
+      },
+      global: {
+        plugins: [
+          createPinia(),
+          i18n,
+        ],
+        directives: {
+          sound: () => {},
+        },
+        stubs: {
+          RelationRow: true,
+          TagList: true,
+          SecondaryPopup: true,
+          AvatarAdjustPanel: true,
+          AvatarPortraitPanel: true,
+          RoleplayPanel: true,
+        },
+      },
+    })
+
+    const raceStat = wrapper.findAll('.stat-item').find(item => item.text().includes('Race'))
+
+    expect(raceStat).toBeTruthy()
+    expect(raceStat!.text()).not.toContain('人族')
   })
 
   it('passes goldfinger category and current item into adjust panel when clicking edit', async () => {

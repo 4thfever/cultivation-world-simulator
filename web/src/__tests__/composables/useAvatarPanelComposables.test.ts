@@ -4,7 +4,7 @@ import { createI18n } from 'vue-i18n'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { avatarApi } from '@/api'
 import { useAvatarAdjustmentPanel, type AvatarAdjustmentPanelProps } from '@/composables/useAvatarAdjustmentPanel'
-import { useCreateAvatarPanel } from '@/composables/useCreateAvatarPanel'
+import { RACE_OPTIONS, useCreateAvatarPanel } from '@/composables/useCreateAvatarPanel'
 import { useDeleteAvatarPanel } from '@/composables/useDeleteAvatarPanel'
 
 const messageMock = {
@@ -175,6 +175,10 @@ describe('avatar panel composables', () => {
     })
     vi.mocked(avatarApi.fetchGameData).mockResolvedValue({
       sects: [{ id: 1, name: '青云宗', alignment: 'GOOD' }],
+      races: [
+        { id: 'human', label: '人族' },
+        { id: 'fox', label: '狐族' },
+      ],
       personas: [{ id: 2, name: '沉稳', desc: '冷静', rarity: 'common' }],
       realms: ['QI_REFINEMENT', 'FOUNDATION_ESTABLISHMENT'],
       techniques: [{ id: 3, name: '火云诀', grade: 'high', attribute: 'FIRE', sect: null }],
@@ -274,6 +278,22 @@ describe('avatar panel composables', () => {
     }))
     expect(fetchStateMock).toHaveBeenCalled()
     expect(onCreated).toHaveBeenCalled()
+  })
+
+  it('does not expose hardcoded Chinese race labels in create avatar options', () => {
+    const chinesePattern = /[\u4e00-\u9fff]/
+
+    expect(RACE_OPTIONS.map(option => option.label).filter(label => chinesePattern.test(label))).toEqual([])
+  })
+
+  it('uses localized race options from game metadata', async () => {
+    const panel = mountComposable(() => useCreateAvatarPanel(vi.fn()))
+    await settle()
+
+    expect(panel.raceOptions.value).toEqual([
+      { label: '人族', value: 'human' },
+      { label: '狐族', value: 'fox' },
+    ])
   })
 
   it('resets selected portrait when gender changes', async () => {

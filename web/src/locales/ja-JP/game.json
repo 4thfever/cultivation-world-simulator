@@ -410,6 +410,7 @@
         "hp": "HP",
         "gender": "性別",
         "race": "種族",
+        "unknown_race": "不明",
         "alignment": "属性",
         "sect": "宗門",
         "official_rank": "官位",

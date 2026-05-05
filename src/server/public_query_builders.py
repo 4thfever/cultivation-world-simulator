@@ -21,6 +21,7 @@ def create_public_query_builders(
     get_runtime_status,
     get_events_page,
     get_game_data_query,
+    races_by_id,
     personas_by_id,
     realm_order,
     techniques_by_id,
@@ -105,6 +106,7 @@ def create_public_query_builders(
     def build_public_game_data() -> dict:
         return get_game_data_query(
             sects_by_id=sects_by_id,
+            races_by_id=races_by_id,
             personas_by_id=personas_by_id,
             realm_order=realm_order,
             techniques_by_id=techniques_by_id,

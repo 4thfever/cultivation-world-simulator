@@ -410,6 +410,7 @@
         "hp": "HP",
         "gender": "Gender",
         "race": "Race",
+        "unknown_race": "Unknown",
         "alignment": "Alignment",
         "sect": "Sect",
         "official_rank": "Official Rank",

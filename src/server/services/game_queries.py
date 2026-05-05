@@ -85,6 +85,7 @@ def get_sect_relations(runtime, *, compute_sect_relations) -> dict[str, Any]:
 def get_game_data(
     *,
     sects_by_id,
+    races_by_id,
     personas_by_id,
     realm_order,
     techniques_by_id,
@@ -104,6 +105,13 @@ def get_game_data(
             "rarity": persona.rarity.level.name if hasattr(persona.rarity, "level") else "N",
         }
         for persona in personas_by_id.values()
+    ]
+    races_list = [
+        {
+            "id": race.id,
+            "label": race.get_info().get("name", race.id),
+        }
+        for race in races_by_id.values()
     ]
     realms_list = [realm.value for realm in realm_order]
     techniques_list = [
@@ -139,6 +147,7 @@ def get_game_data(
     ]
     return {
         "sects": sects_list,
+        "races": races_list,
         "personas": personas_list,
         "realms": realms_list,
         "techniques": techniques_list,

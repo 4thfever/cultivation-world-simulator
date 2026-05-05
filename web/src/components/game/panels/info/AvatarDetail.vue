@@ -154,7 +154,7 @@ const {
         <StatItem :label="t('game.info_panel.avatar.stats.gender')" :value="formatGenderLabel(data.gender)" />
         <StatItem
           :label="t('game.info_panel.avatar.stats.race')"
-          :value="data.race?.name || '人族'"
+          :value="data.race?.name || t('game.info_panel.avatar.stats.unknown_race')"
           :on-click="() => showDetail(data.race)"
         />
         

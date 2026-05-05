@@ -1,9 +1,13 @@
+import re
+
 from src.classes.core.avatar import Avatar, Gender
 from src.classes.race import get_race, is_yao_avatar, roll_avatar_race
 from src.classes.age import Age
 from src.classes.alignment import Alignment
 from src.classes.core.sect import sects_by_name
 from src.classes.sect_ranks import SectRank
+from src.classes.language import language_manager
+from src.i18n import reload_translations
 from src.systems.cultivation import Realm
 from src.systems.time import Month, Year, create_month_stamp
 from src.classes.root import Root
@@ -65,3 +69,32 @@ def test_sect_race_policy_blocks_haoran_academy(base_world):
 
     human_avatar.join_sect(academy, SectRank.OuterDisciple)
     assert human_avatar.sect is academy
+
+
+def _contains_chinese(text: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fff]", text or ""))
+
+
+def test_english_race_detail_and_effect_text_have_no_chinese():
+    original_lang = str(language_manager.current)
+    try:
+        language_manager.set_language("en-US")
+        reload_translations()
+
+        from src.classes.race import get_race, reload as reload_races
+
+        reload_races()
+        wolf_info = get_race("wolf").get_info(detailed=True)
+
+        assert wolf_info["name"] == "Wolf Yao"
+        assert not _contains_chinese(wolf_info["type_name"])
+        assert not _contains_chinese(wolf_info["desc"])
+        assert not _contains_chinese(wolf_info["effect_desc"])
+        assert "Battle Strength" in wolf_info["effect_desc"]
+        assert "Eat Mortals" in wolf_info["effect_desc"] or "mortal" in wolf_info["effect_desc"].lower()
+    finally:
+        language_manager.set_language(original_lang)
+        reload_translations()
+        from src.classes.race import reload as reload_races
+
+        reload_races()

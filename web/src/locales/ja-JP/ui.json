@@ -55,6 +55,7 @@
     "labels": {
       "name": "名前",
       "gender": "性別",
+      "race": "種族",
       "age": "年齢",
       "initial_realm": "初期境界",
       "sect": "宗門",

@@ -1,22 +1,25 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh-CN\n"
+"Language: zh-TW\n"
 
 msgid "Race"
-msgstr "种族"
+msgstr "種族"
 
 msgid "Race [{name}]"
-msgstr "种族[{name}]"
+msgstr "種族[{name}]"
 
 msgid "Race: {race}"
-msgstr "种族：{race}"
+msgstr "種族：{race}"
 
 msgid "Yao cultivators cannot cultivate Confucian education."
-msgstr "妖族修士不能修行儒门教化。"
+msgstr "妖族修士不能修行儒門教化。"
 
 msgid "Yao cultivators cannot serve as mortal officials."
-msgstr "妖族修士不能入凡俗王朝为官。"
+msgstr "妖族修士不能入凡俗王朝為官。"
+
+msgid "yao_backstory_constraint"
+msgstr "妖族身世約束：此角色是{race}，出身應來自山林、荒野、沼澤、洞穴、海島等野外環境，可以自然成長、被同族長輩撫養、被人族追捕後逃脫，或在野外偶得靈機；不要寫成普通人類城市家庭、凡俗書院或人族宗族童年。"
 
 msgid "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
-msgstr "{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+msgstr "{name}，綽號：{nickname}，種族：{race}，境界：{realm}，關係：{relation}，宗門：{sect}，陣營：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，輔助裝備：{aux}，HP：{hp}"

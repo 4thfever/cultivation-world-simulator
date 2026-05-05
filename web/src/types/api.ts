@@ -109,6 +109,7 @@ export interface SaveFileDTO {
 
 export interface GameDataDTO {
   sects: Array<{ id: number; name: string; alignment: string }>;
+  races?: Array<{ id: string; label: string }>;
   personas: Array<{ id: number; name: string; desc: string; rarity: string }>;
   realms: string[];
   techniques: Array<{ id: number; name: string; grade: string; attribute: string; sect: string | null }>;

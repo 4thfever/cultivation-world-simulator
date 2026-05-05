@@ -1,5 +1,6 @@
 import pytest
 import os
+import re
 from pathlib import Path
 from collections import Counter
 
@@ -21,6 +22,15 @@ def extract_msgids(filepath: Path) -> list[str]:
     po = polib.pofile(str(filepath))
     # We ignore empty msgids as they are usually header entries in PO files
     return [entry.msgid for entry in po if entry.msgid]
+
+def extract_po_pairs(filepath: Path) -> dict[str, str]:
+    if not HAS_POLIB or not filepath.exists():
+        return {}
+    po = polib.pofile(str(filepath))
+    return {entry.msgid: entry.msgstr for entry in po if entry.msgid and not entry.obsolete}
+
+def contains_chinese(text: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fff]", text or ""))
 
 class TestBackendLocales:
     @pytest.mark.skipif(not HAS_POLIB, reason="polib not installed")
@@ -127,4 +137,50 @@ class TestBackendLocales:
 
         if errors:
             pytest.fail("Backend template validation FAILED:\n" + "\n".join(errors))
+
+    @pytest.mark.skipif(not HAS_POLIB, reason="polib not installed")
+    def test_non_chinese_locale_critical_race_entries_do_not_use_chinese_msgstr(self):
+        """
+        关键 race/yao 词条一旦存在于非中文 locale，就不能用中文 msgstr 伪装已翻译。
+        Phase 1 可以缺目标语言词条，但不能把中文副本合进 en-US 等目录。
+        """
+        root = get_project_root()
+        source_loc = get_source_locale()
+        cjk_free_locales = {"en-US", "vi-VN"}
+        locales = [
+            loc
+            for loc in get_locale_codes()
+            if loc != source_loc and loc in cjk_free_locales
+        ]
+        critical_msgids = {
+            "Race",
+            "Race [{name}]",
+            "Race: {race}",
+            "yao_backstory_constraint",
+            "effect_extra_eat_mortals_exp_multiplier",
+            "effect_extra_cross_race_friendliness",
+            "RACE_HUMAN_NAME",
+            "RACE_WOLF_NAME",
+            "RACE_WOLF_DESC",
+            "PERSONA_1015_NAME",
+            "PERSONA_1015_DESC",
+            "PERSONA_1016_NAME",
+            "PERSONA_1016_DESC",
+            "WORLD_INFO_RACE_TITLE",
+            "WORLD_INFO_RACE_NAME",
+            "WORLD_INFO_RACE_DESC",
+        }
+
+        errors = []
+        for loc in locales:
+            for domain in ("messages", "game_configs"):
+                po_file = root / "static" / "locales" / loc / "LC_MESSAGES" / f"{domain}.po"
+                pairs = extract_po_pairs(po_file)
+                for msgid in sorted(critical_msgids & pairs.keys()):
+                    msgstr = pairs[msgid]
+                    if contains_chinese(msgstr):
+                        errors.append(f"[{loc}/{domain}] {msgid!r} has Chinese msgstr: {msgstr!r}")
+
+        if errors:
+            pytest.fail("Critical race/yao i18n entries contain Chinese in non-Chinese locales:\n" + "\n".join(errors))
 

@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh-CN\n"
+"Language: en-US\n"
 
 msgid "PERSONA_1015_NAME"
-msgstr "亲近异类"
+msgstr "Kindred to Other Kinds"
 
 msgid "PERSONA_1015_DESC"
-msgstr "你对不同种族的修士抱有天然好奇与亲近，愿意越过出身差异建立关系。"
+msgstr "You feel natural curiosity and warmth toward cultivators of other races, and are willing to build ties across differences of origin."
 
 msgid "PERSONA_1016_NAME"
-msgstr "痛恨异类"
+msgstr "Hates Other Kinds"
 
 msgid "PERSONA_1016_DESC"
-msgstr "你本能地排斥与自己种族不同的修士，很难真正信任异族。"
+msgstr "You instinctively reject cultivators of other races and find it hard to truly trust outsiders."
 
 msgid "WORLD_INFO_RACE_TITLE"
-msgstr "种族"
+msgstr "Race"
 
 msgid "WORLD_INFO_RACE_NAME"
-msgstr "种族"
+msgstr "Race"
 
 msgid "WORLD_INFO_RACE_DESC"
-msgstr "世界中存在人族与妖族修士。妖族包括狐、狼、鸟、蛇、龟等种族，各有不同天性：狐灵慧狡黠，狼凶悍掠食，鸟善迁徙侦察，蛇隐忍狠毒，龟长寿善守。妖族可修行并加入接纳妖族的宗门，但部分重视人族礼法或儒道秩序的宗门不接纳妖族。"
+msgstr "The world contains both human and yao cultivators. Yao include fox, wolf, bird, snake, turtle, and other races, each with different instincts: foxes are clever and sly, wolves are fierce hunters, birds excel at migration and scouting, snakes are patient and venomous, and turtles are long-lived and defensive. Yao can cultivate and join sects that accept them, but some sects that emphasize human rites or Confucian order do not accept yao."

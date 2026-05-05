@@ -1,22 +1,25 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh-CN\n"
+"Language: vi-VN\n"
 
 msgid "Race"
-msgstr "种族"
+msgstr "Chủng tộc"
 
 msgid "Race [{name}]"
-msgstr "种族[{name}]"
+msgstr "Chủng tộc [{name}]"
 
 msgid "Race: {race}"
-msgstr "种族：{race}"
+msgstr "Chủng tộc: {race}"
 
 msgid "Yao cultivators cannot cultivate Confucian education."
-msgstr "妖族修士不能修行儒门教化。"
+msgstr "Tu sĩ yêu tộc không thể tu luyện giáo hóa Nho môn."
 
 msgid "Yao cultivators cannot serve as mortal officials."
-msgstr "妖族修士不能入凡俗王朝为官。"
+msgstr "Tu sĩ yêu tộc không thể làm quan trong vương triều phàm tục."
+
+msgid "yao_backstory_constraint"
+msgstr "Ràng buộc xuất thân yêu tộc: nhân vật này là {race}. Xuất thân nên đến từ rừng núi, hoang dã, đầm lầy, hang động, hải đảo hoặc môi trường tự nhiên khác. Có thể trưởng thành tự nhiên, được trưởng bối cùng tộc nuôi dưỡng, thoát khỏi sự săn đuổi của tu sĩ nhân tộc, hoặc gặp linh cơ trong hoang dã. Không viết thành gia đình thành thị nhân loại bình thường, học viện phàm tục hoặc tuổi thơ trong tông tộc nhân tộc."
 
 msgid "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
-msgstr "{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+msgstr "{name}, Biệt danh: {nickname}, Chủng tộc: {race}, Cảnh giới: {realm}, Quan hệ: {relation}, Tông môn: {sect}, Lập trường: {alignment}, Ngoại hình: {appearance}, Kim thủ chỉ: {goldfinger}, Công pháp: {technique}, Vũ khí: {weapon}, Trang bị phụ trợ: {aux}, HP: {hp}"

@@ -2858,19 +2858,24 @@ msgid "Game resumed"
 msgstr "ゲームを再開しました"
 
 msgid "Race"
-msgstr "种族"
+msgstr "種族"
 
 msgid "Race [{name}]"
-msgstr "种族[{name}]"
+msgstr "種族[{name}]"
 
 msgid "Race: {race}"
-msgstr "种族：{race}"
+msgstr "種族: {race}"
 
 msgid "Yao cultivators cannot cultivate Confucian education."
-msgstr "妖族修士不能修行儒门教化。"
+msgstr "妖族の修士は儒門の教化を修められない。"
 
 msgid "Yao cultivators cannot serve as mortal officials."
-msgstr "妖族修士不能入凡俗王朝为官。"
+msgstr "妖族の修士は凡俗王朝の官吏にはなれない。"
+
+msgid "yao_backstory_constraint"
+msgstr ""
+"妖族の来歴制約: "
+"この人物は{race}であり、出自は山林、荒野、沼地、洞窟、島などの野外環境に由来するべきです。同族の年長者に育てられた、自然の中で成長した、人族修士の追跡から逃れた、あるいは野外で霊機を得た、などとして構いません。普通の人間都市の家庭、凡俗の書院、人族宗族の幼少期として書かないでください。"
 
 msgid ""
 "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: "
@@ -2878,7 +2883,9 @@ msgid ""
 "Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, "
 "Auxiliary: {aux}, HP: {hp}"
 msgstr ""
-"{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+"{name}、異名: {nickname}、種族: {race}、境界: {realm}、関係: {relation}、宗門: {sect}、属性: "
+"{alignment}、外見: {appearance}、チート: {goldfinger}、功法: {technique}、武器: "
+"{weapon}、補助装備: {aux}、HP: {hp}"
 
 msgid "apprentice"
 msgstr "弟子"
@@ -3993,77 +4000,77 @@ msgid "rest_action_name"
 msgstr "休息"
 
 msgid "rest_description"
-msgstr "停下来调息休养，恢复生命。龟族休息时会额外获得少量修为经验。"
+msgstr "立ち止まって調息し、生命力を回復する。亀族は休息時に少量の修為経験を追加で得る。"
 
 msgid "rest_requirements"
-msgstr "没有特殊要求。"
+msgstr "特別な条件はない。"
 
 msgid "eat_mortals_action_name"
-msgstr "吃凡人"
+msgstr "凡人を喰らう"
 
 msgid "eat_mortals_description"
-msgstr "妖族潜入凡人聚居处吞食凡人，将血食与恐惧炼为修为。"
+msgstr "妖族が凡人の集落に潜入して凡人を喰らい、血肉と恐怖を修為へと錬化する。"
 
 msgid "eat_mortals_requirements"
-msgstr "需要是妖族，且位于城市区域；正义阵营通常不会做此事。"
+msgstr "妖族であり、都市区域にいる必要がある。正義陣営は通常これを行わない。"
 
 msgid "Dead avatars cannot rest."
-msgstr "死者无法休息。"
+msgstr "死者は休息できない。"
 
 msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar}缩入静处，以龟息之法缓缓休养。"
+msgstr "{avatar}は静かな場所へ身を引き、亀息の法でゆっくり休養した。"
 
 msgid "{avatar} begins resting."
-msgstr "{avatar}开始休息。"
+msgstr "{avatar}は休息を始めた。"
 
 msgid ""
 "{avatar} finished resting, recovered {hp} HP and gained {exp} cultivation "
 "experience."
-msgstr "{avatar}结束休息，恢复了{hp}点生命，并获得{exp}点修为经验。"
+msgstr "{avatar}は休息を終え、HPを{hp}回復し、修為経験を{exp}得た。"
 
 msgid "{avatar} finished resting and recovered {hp} HP."
-msgstr "{avatar}结束休息，恢复了{hp}点生命。"
+msgstr "{avatar}は休息を終え、HPを{hp}回復した。"
 
 msgid "Only yao cultivators can eat mortals."
-msgstr "只有妖族修士才能吃凡人。"
+msgstr "凡人を喰らえるのは妖族の修士だけだ。"
 
 msgid "Righteous cultivators will not eat mortals."
-msgstr "正义阵营的修士不会吃凡人。"
+msgstr "正義陣営の修士は凡人を喰らわない。"
 
 msgid "Can only eat mortals in city areas."
-msgstr "只能在城市区域吃凡人。"
+msgstr "凡人を喰らえるのは都市区域だけだ。"
 
 msgid "There are no mortals here to eat."
-msgstr "这里没有可供吞食的凡人。"
+msgstr "ここには喰らえる凡人がいない。"
 
 msgid "{avatar} stalks the mortal crowds of {city}."
-msgstr "{avatar}潜入{city}的人群之中，暗暗寻找血食。"
+msgstr "{avatar}は{city}の人混みに潜み、密かに血食を探した。"
 
 msgid ""
 "{avatar} ate {count} mortals in {city}, refining flesh and fear into {exp} "
 "cultivation experience."
-msgstr "{avatar}在{city}吃掉了{count}名凡人，将血肉与恐惧炼化为{exp}点修为经验。"
+msgstr "{avatar}は{city}で凡人を{count}人喰らい、血肉と恐怖を{exp}の修為経験へと錬化した。"
 
 msgid "{avatar} follows wild instincts to seek spiritual herbs at {location}"
-msgstr "{avatar}循着野性本能，在{location}搜寻灵草。"
+msgstr "{avatar}は野性の本能に従い、{location}で霊草を探した"
 
 msgid "{avatar} finished foraging through the wilds, obtained: {materials}"
-msgstr "{avatar}在山野间觅食采集完毕，获得：{materials}"
+msgstr "{avatar}は山野での採集を終え、獲得: {materials}"
 
 msgid "{avatar} begins tracking prey by scent and instinct at {location}"
-msgstr "{avatar}在{location}凭气味与本能追踪猎物。"
+msgstr "{avatar}は{location}で匂いと本能を頼りに獲物を追い始めた"
 
 msgid "{avatar} finished a primal hunt, obtained: {materials}"
-msgstr "{avatar}完成了一场野性的狩猎，获得：{materials}"
+msgstr "{avatar}は野性的な狩りを終え、獲得: {materials}"
 
 msgid "effect_extra_rest_exp"
-msgstr "休息额外修为经验"
+msgstr "休息時の追加修為経験"
 
 msgid "effect_extra_rest_hp_recovery_rate"
-msgstr "休息生命恢复倍率"
+msgstr "休息時HP回復倍率"
 
 msgid "effect_extra_eat_mortals_exp_multiplier"
-msgstr "吃凡人修为经验倍率"
+msgstr "凡人を喰らう修為経験倍率"
 
 msgid "effect_extra_cross_race_friendliness"
-msgstr "跨种族初始好感修正"
+msgstr "異種族間の初期好感補正"

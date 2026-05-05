@@ -39,9 +39,9 @@
 | `.cursor/rules/external-control-api.mdc` | `src/server/**/*.py`, `web/src/api/**/*.ts`, `web/src/stores/**/*.ts`, `tests/test_api_*.py`, `tests/test_websocket_handlers.py`, `tests/test_init_status_api.py`, `tests/test_game_init_integration.py`, `docs/specs/external-control-api.md`, `README.md` | 外接控制 API 以外部 agent / Claw 接入为第一视角；允许不向前兼容，优先建立 runtime/service/API 分层；稳定接口应按 query/command 分离并统一响应格式；所有 mutation 必须串行化，不得继续扩散 `main.py` 直连 `game_instance` 的写法。 |
 | `.cursor/rules/event-system.mdc` | `src/classes/event.py`, `src/classes/event_storage.py`, `src/systems/**/*.py` | 明确 `is_major/is_story` 语义，准确填写 `related_avatars`，统一由模拟器集中入库，查询走分页。 |
 | `.cursor/rules/frontend-sound.mdc` | `web/src/**/*.vue|ts|tsx` | 标准按钮默认自动音效，特殊音效用 `v-sound`，禁音用 `data-no-sound`，仅特殊场景允许 `useAudio` 编程式播放。 |
-| `.cursor/rules/frontend-typing-error.mdc` | `web/src/**/*.vue|ts|tsx` | DTO 先更新 `types/api.ts`，映射逻辑放 `api/mappers`，避免 `any` 扩散，错误统一 `appError`，Socket 分发在 `socketMessageRouter`。 |
+| `.cursor/rules/frontend-typing-error.mdc` | `web/src/**/*.vue|ts|tsx` | DTO 先更新 `types/api.ts`，映射逻辑放 `api/mappers`，避免 `any` 扩散，错误统一 `appError`，Socket 分发在 `socketMessageRouter`；配置型选择器优先用后端本地化 DTO，不要在前端维护用户可见中文硬编码选项。 |
 | `.cursor/rules/frontend.mdc` | `web/src/**/*.{vue,ts,js}` | 后端驱动架构、Store 职责边界、根层 UI 采用 `scene + overlay`、启动状态机集中在 `useAppShell`、系统菜单采用壳层/内容层/流程层拆分、Socket 分层、复杂面板逻辑下沉到 composable、懒加载弹窗的 `show` watcher 必须 `immediate`、`shallowRef`/长列表性能策略、容器尺寸统一用 `useElementSize()`；前端 `public` 资源禁止写死站点根绝对路径，必须走 `BASE_URL` helper 或 `src/assets` 模块导入。 |
-| `.cursor/rules/i18n-phase1.mdc` | `*.py`, `*.vue`, `*.json`, `*.po` | 当前默认仍是 Phase 1：日常功能开发优先只改 `zh-CN`；但若任务被明确提升为 Phase 2 / 正式多语言补全 / 新增语言接入，则应按 `static/locales/registry.json` 中启用语言统一处理（可包含 `ja-JP`）；i18n 源文件优先维护 `modules/` 与 `game_configs_modules/`，`LC_MESSAGES/*.po` 属于合并产物；`.po` 中 `msgid` 不得直接使用中文。 |
+| `.cursor/rules/i18n-phase1.mdc` | `*.py`, `*.vue`, `*.json`, `*.po` | 当前默认仍是 Phase 1：日常功能开发优先只改 `zh-CN`；但若任务被明确提升为 Phase 2 / 正式多语言补全 / 新增语言接入，则应按 `static/locales/registry.json` 中启用语言统一处理（可包含 `ja-JP`）；i18n 源文件优先维护 `modules/` 与 `game_configs_modules/`，`LC_MESSAGES/*.po` 属于合并产物；`.po` 中 `msgid` 不得直接使用中文；非中文 locale 不得用中文 `msgstr` 伪装已翻译，种族/妖族效果/创建面板 race 选项属于跨端 i18n 契约。 |
 | `.cursor/rules/llm-integration.mdc` | `src/utils/llm/**/*.py`, `src/**/*.py` | 统一走 `src.utils.llm.client`，按场景选 `LLMMode`，重试交给底层，异常捕获 `LLMError/ParseError` 并降级。 |
 | `.cursor/rules/roleplay-mode.mdc` | `src/server/**/*.py`, `src/systems/single_choice/**/*.py`, `src/classes/mutual_action/**/*.py`, `src/sim/**/*.py`, `web/src/components/game/**/*.vue`, `web/src/stores/roleplay.ts`, `web/src/api/modules/avatar.ts`, `web/src/types/api.ts`, `tests/test_public_api_v1.py`, `tests/test_single_choice.py`, `tests/test_action_social.py`, `tests/test_mutual_actions.py`, `web/src/__tests__/components/game/**/*.test.ts`, `docs/specs/avatar-roleplay-mode.md`, `docs/specs/single-choice-unified-framework.md` | 默认仍是上帝视角；扮演态是单角色 runtime 接管；只在决策边界暂停；二期优先重构 `single_choice` 为统一有限决策框架；三期对话必须依附 `Conversation` 动作，原始聊天记录不进存档。 |
 | `.cursor/rules/python-registry.mdc` | `src/classes/**/*.py` | 使用注册装饰器的新类，必须在对应 `__init__.py` 导入，否则注册不生效；同时要补注册测试。 |
@@ -63,28 +63,31 @@
 7. i18n 拆分源文件的真源是 `static/locales/<lang>/modules/*.po` 与 `static/locales/<lang>/game_configs_modules/*.po`；`static/locales/<lang>/LC_MESSAGES/messages.po` 与 `static/locales/<lang>/LC_MESSAGES/game_configs.po` 是合并产物，日常不要直接改，改完源文件后要运行 `python tools/i18n/build_mo.py`。
 8. `.po` 中的 `msgid` 不得直接写中文；应使用英文源文或稳定 key，中文内容只能放在 `msgstr`。
 9. 前端设置页的语言入口需要兼顾中文默认界面对外国用户的可发现性；`web/src/components/SystemMenu.vue` 中非英语 UI 的语言文案必须保留可见的 `Language` 英文提示（如 `语言 / Language`），不要在后续本地化时去掉。
-10. 用户设置不得再写入 `static/local_config.yml`；正式真源是用户数据目录中的 `settings.json/secrets.json`，本局参数必须走 `RunConfig` 并随存档保存。
-11. 小故事统一通过 `src/classes/story_event_service.py` 生成；业务代码应先产出事实事件，再决定是否追加故事事件。
-12. `gathering` 的故事固定为 `100%`，且所有 LLM 展开的故事正文统一使用 `is_story=True`，不要再混用 `is_major=True` 作为故事正文标记。
-13. 前端自带静态资源（`web/public/*`）禁止写死 `/icons/...`、`/sfx/...`、`/bgm/...` 这类根路径；固定图片优先放 `web/src/assets/*` 模块导入，运行时路径统一通过 `import.meta.env.BASE_URL` helper 生成。
-14. 前端系统级 UI icon 当前统一使用 `Lucide` outline SVG，资源目录为 `web/src/assets/icons/ui/lucide/`；新增 icon 时优先复用该目录并保持单一家族，不要混用多套 icon 风格；关键入口保留文字，优先用 `currentColor + mask-image` 渲染，详见 `docs/frontend.md` 与该目录下 `README.md`。
-15. 前端根层页面编排必须采用 `scene + overlay` 语义：`SystemMenu`、`LoadingOverlay` 不得通过关闭 Splash 等副作用去推断当前底层页面；游戏主界面只能在 `scene === 'game'` 时渲染。
-16. 状态栏与系统级导航配色必须把“模块基础色”和“状态覆盖色”分层：基础色表达栏目归属，状态色只用于激活/可用/稀有度等动态信息；避免黄橙色同时承担多个语义。
-17. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
-18. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
-19. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
-20. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
-21. 外接控制 API 的稳定契约应优先服务外部 agent / Claw 集成；新增公共接口时先判断是 `query` 还是 `command`，并优先落到 runtime/service 分层与 `/api/v1/*` 稳定命名空间中。
-22. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
-23. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
-24. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
-25. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
-26. 角色扮演模式默认是“上帝视角下的单角色接管”，不是独立全局模式；实现时不要再把“个人模式”和“上帝模式”分成两套系统。
-27. 扮演态、`pending_request`、`conversation_session`、choice continuation 全部属于 runtime；不得写入存档，也必须在 `load/reinit/reset/start` 后显式清空。
-28. 角色扮演只允许在决策边界暂停，禁止中途打断动作链；二期有限选择必须优先走统一 choice resolver / continuation，不要在业务场景里散落 `if roleplay ... else ...`。
-29. 三期自由对话必须依附 `Conversation` 动作触发，采用“玩家一侧输入、目标角色由 LLM 回复”的单边接管模式；原始聊天记录不进长期事件流，只以 summary 落地。
-30. 前端大型面板/弹窗/详情页的业务状态、数据加载、派生字段、跳转、提交、timer 与 Pixi 生命周期应优先放入既有 composable；不要把这些逻辑重新堆回 `.vue` 展示组件。
-31. 使用 `defineAsyncComponent` + `v-if` 懒加载的弹窗，如果依赖 `props.show` 触发请求，watcher 必须 `{ immediate: true }`，并补“初始挂载 `show=true` 也会请求”的测试，避免王朝、天下武道会等状态栏入口首次打开为空。
+10. 非中文 locale 目录（尤其 `en-US`）中已有条目不得保留中文 `msgstr` 作为占位；Phase 1 可缺目标语言词条，但不能把中文副本当成目标语言翻译。
+11. 种族、妖族 action/effect key、角色创建 race 选项与 race 详情展示属于前后端 i18n 契约：后端优先提供本地化结构化 DTO，前端不得写死 `人族/狐族/狼族/鸟族/蛇族/龟族` 等用户可见 label，也不得用中文作为缺省 fallback。
+12. LLM/运行时生成文本（如 `backstory`、`thinking`、目标）不会随 UI 语言自动翻译；新增生成文本约束或 prompt 片段时应走 locale template 或翻译 key，避免在 Python 逻辑中硬编码中文最终文案。
+13. 用户设置不得再写入 `static/local_config.yml`；正式真源是用户数据目录中的 `settings.json/secrets.json`，本局参数必须走 `RunConfig` 并随存档保存。
+14. 小故事统一通过 `src/classes/story_event_service.py` 生成；业务代码应先产出事实事件，再决定是否追加故事事件。
+15. `gathering` 的故事固定为 `100%`，且所有 LLM 展开的故事正文统一使用 `is_story=True`，不要再混用 `is_major=True` 作为故事正文标记。
+16. 前端自带静态资源（`web/public/*`）禁止写死 `/icons/...`、`/sfx/...`、`/bgm/...` 这类根路径；固定图片优先放 `web/src/assets/*` 模块导入，运行时路径统一通过 `import.meta.env.BASE_URL` helper 生成。
+17. 前端系统级 UI icon 当前统一使用 `Lucide` outline SVG，资源目录为 `web/src/assets/icons/ui/lucide/`；新增 icon 时优先复用该目录并保持单一家族，不要混用多套 icon 风格；关键入口保留文字，优先用 `currentColor + mask-image` 渲染，详见 `docs/frontend.md` 与该目录下 `README.md`。
+18. 前端根层页面编排必须采用 `scene + overlay` 语义：`SystemMenu`、`LoadingOverlay` 不得通过关闭 Splash 等副作用去推断当前底层页面；游戏主界面只能在 `scene === 'game'` 时渲染。
+19. 状态栏与系统级导航配色必须把“模块基础色”和“状态覆盖色”分层：基础色表达栏目归属，状态色只用于激活/可用/稀有度等动态信息；避免黄橙色同时承担多个语义。
+20. Docker / Compose 部署中，容器生命周期由进程管理器控制；不得因 WebSocket 断开、无人连接等桌面版逻辑自动退出。
+21. Docker 健康检查必须尽量反映真实可用性，尤其前端代理链路不能只检查静态首页；若依赖 backend，`depends_on` 优先等待 `service_healthy`。
+22. Docker 生产镜像只安装 runtime dependencies，不要把 `pytest` 等测试依赖装进运行镜像，也不要重新依赖 `/app/assets/saves`、`/app/logs` 等旧运行目录。
+23. 改动 Docker 相关配置、镜像、代理或持久化语义时，必须同步更新 contract/smoke 测试以及 `README.md` / `docs/readme/*.md` 中的部署说明。
+24. 外接控制 API 的稳定契约应优先服务外部 agent / Claw 集成；新增公共接口时先判断是 `query` 还是 `command`，并优先落到 runtime/service 分层与 `/api/v1/*` 稳定命名空间中。
+25. 所有会修改世界状态的 API 必须通过统一 mutation 入口串行化，避免与 `Simulator.step()` 并发写 world；禁止继续扩散路由层直接改 `game_instance` 的写法。
+26. 外接控制 API 的 query builder / command handler / service 若依赖会被测试 patch、配置 reload 或后续继续拆模块的函数与配置，优先使用 `get_*` getter 或在调用时动态读取，不要在模块初始化时把依赖绑死。
+27. 影响运行时语义的配置必须优先按“调用时读取当前配置”处理，尤其是存档目录、数据根、settings/secrets 派生配置；不要假设仓库里某个模块级 `CONFIG` 永远是最新对象。
+28. 编写或修改测试时，禁止硬编码只在单一操作系统下成立的绝对路径；涉及路径断言时优先使用 `tmp_path`、`pathlib.Path`、`os.path.join()` 等按当前平台生成路径，确保 Windows 本地与 GitHub Actions Linux 的结果一致。
+29. 角色扮演模式默认是“上帝视角下的单角色接管”，不是独立全局模式；实现时不要再把“个人模式”和“上帝模式”分成两套系统。
+30. 扮演态、`pending_request`、`conversation_session`、choice continuation 全部属于 runtime；不得写入存档，也必须在 `load/reinit/reset/start` 后显式清空。
+31. 角色扮演只允许在决策边界暂停，禁止中途打断动作链；二期有限选择必须优先走统一 choice resolver / continuation，不要在业务场景里散落 `if roleplay ... else ...`。
+32. 三期自由对话必须依附 `Conversation` 动作触发，采用“玩家一侧输入、目标角色由 LLM 回复”的单边接管模式；原始聊天记录不进长期事件流，只以 summary 落地。
+33. 前端大型面板/弹窗/详情页的业务状态、数据加载、派生字段、跳转、提交、timer 与 Pixi 生命周期应优先放入既有 composable；不要把这些逻辑重新堆回 `.vue` 展示组件。
+34. 使用 `defineAsyncComponent` + `v-if` 懒加载的弹窗，如果依赖 `props.show` 触发请求，watcher 必须 `{ immediate: true }`，并补“初始挂载 `show=true` 也会请求”的测试，避免王朝、天下武道会等状态栏入口首次打开为空。
 
 ## 4. `.cursor/skills` 沉淀
 

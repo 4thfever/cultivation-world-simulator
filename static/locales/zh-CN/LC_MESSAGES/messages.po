@@ -2867,6 +2867,10 @@ msgstr "妖族修士不能修行儒门教化。"
 msgid "Yao cultivators cannot serve as mortal officials."
 msgstr "妖族修士不能入凡俗王朝为官。"
 
+msgid "yao_backstory_constraint"
+msgstr ""
+"妖族身世约束：此角色是{race}，出身应来自山林、荒野、沼泽、洞穴、海岛等野外环境，可以自然成长、被同族长辈抚养、被人族追捕后逃脱，或在野外偶得灵机；不要写成普通人类城市家庭、凡俗书院或人族宗族童年。"
+
 msgid ""
 "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: "
 "{relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, "

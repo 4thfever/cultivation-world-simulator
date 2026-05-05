@@ -1,22 +1,25 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: zh-CN\n"
+"Language: en-US\n"
 
 msgid "Race"
-msgstr "种族"
+msgstr "Race"
 
 msgid "Race [{name}]"
-msgstr "种族[{name}]"
+msgstr "Race [{name}]"
 
 msgid "Race: {race}"
-msgstr "种族：{race}"
+msgstr "Race: {race}"
 
 msgid "Yao cultivators cannot cultivate Confucian education."
-msgstr "妖族修士不能修行儒门教化。"
+msgstr "Yao cultivators cannot cultivate Confucian education."
 
 msgid "Yao cultivators cannot serve as mortal officials."
-msgstr "妖族修士不能入凡俗王朝为官。"
+msgstr "Yao cultivators cannot serve as mortal officials."
+
+msgid "yao_backstory_constraint"
+msgstr "Yao backstory constraint: this character is {race}. Their origin should come from wild environments such as forests, mountains, wilderness, swamps, caves, or islands. They may have grown naturally, been raised by elders of their own kind, escaped after being hunted by human cultivators, or encountered spiritual opportunity in the wild. Do not write them as having an ordinary human city family, mortal academy, or human clan childhood."
 
 msgid "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"
-msgstr "{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+msgstr "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: {relation}, Sect: {sect}, Alignment: {alignment}, Appearance: {appearance}, Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, Auxiliary: {aux}, HP: {hp}"

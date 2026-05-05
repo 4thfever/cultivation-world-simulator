@@ -13,14 +13,16 @@ import type { AvatarAssetLibraries } from '@/utils/avatarAssets'
 export const GENDER_MALE = '男'
 export const GENDER_FEMALE = '女'
 
-export const RACE_OPTIONS = [
-  { label: '人族', value: 'human' },
-  { label: '狐族', value: 'fox' },
-  { label: '狼族', value: 'wolf' },
-  { label: '鸟族', value: 'bird' },
-  { label: '蛇族', value: 'snake' },
-  { label: '龟族', value: 'turtle' },
+export const DEFAULT_RACE_OPTIONS = [
+  { label: 'Human', value: 'human' },
+  { label: 'Fox Yao', value: 'fox' },
+  { label: 'Wolf Yao', value: 'wolf' },
+  { label: 'Bird Yao', value: 'bird' },
+  { label: 'Snake Yao', value: 'snake' },
+  { label: 'Turtle Yao', value: 'turtle' },
 ]
+
+export const RACE_OPTIONS = DEFAULT_RACE_OPTIONS
 
 const createDefaultForm = (): CreateAvatarParams => ({
   surname: '',
@@ -64,6 +66,15 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     { label: t(uiKey('relation_labels.friend')), value: RelationType.TO_ME_IS_FRIEND },
     { label: t(uiKey('relation_labels.enemy')), value: RelationType.TO_ME_IS_ENEMY },
   ])
+
+  const raceOptions = computed(() => {
+    const races = gameData.value?.races
+    if (!races?.length) return DEFAULT_RACE_OPTIONS
+    return races.map(race => ({
+      label: race.label,
+      value: race.id,
+    }))
+  })
 
   const sectOptions = computed(() => gameData.value?.sects.map(sect => ({
     label: sect.name,
@@ -210,6 +221,7 @@ export function useCreateAvatarPanel(onCreated: () => void) {
     GENDER_MALE,
     GENDER_FEMALE,
     RACE_OPTIONS,
+    raceOptions,
     loading,
     gameData,
     createForm,

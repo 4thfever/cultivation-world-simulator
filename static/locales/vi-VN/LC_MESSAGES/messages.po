@@ -3050,19 +3050,28 @@ msgid "Game resumed"
 msgstr "Trò chơi đã tiếp tục"
 
 msgid "Race"
-msgstr "种族"
+msgstr "Chủng tộc"
 
 msgid "Race [{name}]"
-msgstr "种族[{name}]"
+msgstr "Chủng tộc [{name}]"
 
 msgid "Race: {race}"
-msgstr "种族：{race}"
+msgstr "Chủng tộc: {race}"
 
 msgid "Yao cultivators cannot cultivate Confucian education."
-msgstr "妖族修士不能修行儒门教化。"
+msgstr "Tu sĩ yêu tộc không thể tu luyện giáo hóa Nho môn."
 
 msgid "Yao cultivators cannot serve as mortal officials."
-msgstr "妖族修士不能入凡俗王朝为官。"
+msgstr "Tu sĩ yêu tộc không thể làm quan trong vương triều phàm tục."
+
+msgid "yao_backstory_constraint"
+msgstr ""
+"Ràng buộc xuất thân yêu tộc: nhân vật này là {race}. Xuất thân nên đến từ "
+"rừng núi, hoang dã, đầm lầy, hang động, hải đảo hoặc môi trường tự nhiên "
+"khác. Có thể trưởng thành tự nhiên, được trưởng bối cùng tộc nuôi dưỡng, "
+"thoát khỏi sự săn đuổi của tu sĩ nhân tộc, hoặc gặp linh cơ trong hoang dã. "
+"Không viết thành gia đình thành thị nhân loại bình thường, học viện phàm tục"
+" hoặc tuổi thơ trong tông tộc nhân tộc."
 
 msgid ""
 "{name}, Nickname: {nickname}, Race: {race}, Realm: {realm}, Relation: "
@@ -3070,7 +3079,10 @@ msgid ""
 "Goldfinger: {goldfinger}, Technique: {technique}, Weapon: {weapon}, "
 "Auxiliary: {aux}, HP: {hp}"
 msgstr ""
-"{name}，绰号：{nickname}，种族：{race}，境界：{realm}，关系：{relation}，宗门：{sect}，阵营：{alignment}，外貌：{appearance}，金手指：{goldfinger}，功法：{technique}，武器：{weapon}，辅助装备：{aux}，HP：{hp}"
+"{name}, Biệt danh: {nickname}, Chủng tộc: {race}, Cảnh giới: {realm}, Quan "
+"hệ: {relation}, Tông môn: {sect}, Lập trường: {alignment}, Ngoại hình: "
+"{appearance}, Kim thủ chỉ: {goldfinger}, Công pháp: {technique}, Vũ khí: "
+"{weapon}, Trang bị phụ trợ: {aux}, HP: {hp}"
 
 msgid "apprentice"
 msgstr "Đồ Đệ"
@@ -4301,80 +4313,92 @@ msgid "zither"
 msgstr "Cầm"
 
 msgid "rest_action_name"
-msgstr "休息"
+msgstr "Nghỉ Ngơi"
 
 msgid "rest_description"
-msgstr "停下来调息休养，恢复生命。龟族休息时会额外获得少量修为经验。"
+msgstr ""
+"Dừng lại điều tức dưỡng thương để hồi phục sinh lực. Quy tộc khi nghỉ ngơi "
+"sẽ nhận thêm một ít kinh nghiệm tu vi."
 
 msgid "rest_requirements"
-msgstr "没有特殊要求。"
+msgstr "Không có yêu cầu đặc biệt."
 
 msgid "eat_mortals_action_name"
-msgstr "吃凡人"
+msgstr "Ăn Phàm Nhân"
 
 msgid "eat_mortals_description"
-msgstr "妖族潜入凡人聚居处吞食凡人，将血食与恐惧炼为修为。"
+msgstr ""
+"Yêu tộc lẻn vào nơi phàm nhân tụ cư để nuốt phàm nhân, luyện huyết thực và "
+"nỗi sợ thành tu vi."
 
 msgid "eat_mortals_requirements"
-msgstr "需要是妖族，且位于城市区域；正义阵营通常不会做此事。"
+msgstr ""
+"Cần là yêu tộc và ở khu vực thành thị; phe chính nghĩa thường sẽ không làm "
+"việc này."
 
 msgid "Dead avatars cannot rest."
-msgstr "死者无法休息。"
+msgstr "Nhân vật đã chết không thể nghỉ ngơi."
 
 msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar}缩入静处，以龟息之法缓缓休养。"
+msgstr ""
+"{avatar} lui vào nơi yên tĩnh, dùng phép quy tức chậm rãi dưỡng thương."
 
 msgid "{avatar} begins resting."
-msgstr "{avatar}开始休息。"
+msgstr "{avatar} bắt đầu nghỉ ngơi."
 
 msgid ""
 "{avatar} finished resting, recovered {hp} HP and gained {exp} cultivation "
 "experience."
-msgstr "{avatar}结束休息，恢复了{hp}点生命，并获得{exp}点修为经验。"
+msgstr ""
+"{avatar} kết thúc nghỉ ngơi, hồi phục {hp} HP và nhận {exp} kinh nghiệm tu "
+"vi."
 
 msgid "{avatar} finished resting and recovered {hp} HP."
-msgstr "{avatar}结束休息，恢复了{hp}点生命。"
+msgstr "{avatar} kết thúc nghỉ ngơi và hồi phục {hp} HP."
 
 msgid "Only yao cultivators can eat mortals."
-msgstr "只有妖族修士才能吃凡人。"
+msgstr "Chỉ tu sĩ yêu tộc mới có thể ăn phàm nhân."
 
 msgid "Righteous cultivators will not eat mortals."
-msgstr "正义阵营的修士不会吃凡人。"
+msgstr "Tu sĩ phe chính nghĩa sẽ không ăn phàm nhân."
 
 msgid "Can only eat mortals in city areas."
-msgstr "只能在城市区域吃凡人。"
+msgstr "Chỉ có thể ăn phàm nhân trong khu vực thành thị."
 
 msgid "There are no mortals here to eat."
-msgstr "这里没有可供吞食的凡人。"
+msgstr "Ở đây không có phàm nhân để nuốt ăn."
 
 msgid "{avatar} stalks the mortal crowds of {city}."
-msgstr "{avatar}潜入{city}的人群之中，暗暗寻找血食。"
+msgstr "{avatar} lẩn vào đám đông phàm nhân ở {city}, âm thầm tìm huyết thực."
 
 msgid ""
 "{avatar} ate {count} mortals in {city}, refining flesh and fear into {exp} "
 "cultivation experience."
-msgstr "{avatar}在{city}吃掉了{count}名凡人，将血肉与恐惧炼化为{exp}点修为经验。"
+msgstr ""
+"{avatar} đã ăn {count} phàm nhân ở {city}, luyện huyết nhục và nỗi sợ thành "
+"{exp} kinh nghiệm tu vi."
 
 msgid "{avatar} follows wild instincts to seek spiritual herbs at {location}"
-msgstr "{avatar}循着野性本能，在{location}搜寻灵草。"
+msgstr "{avatar} lần theo bản năng hoang dã để tìm linh thảo tại {location}"
 
 msgid "{avatar} finished foraging through the wilds, obtained: {materials}"
-msgstr "{avatar}在山野间觅食采集完毕，获得：{materials}"
+msgstr "{avatar} đã hái lượm xong trong hoang dã, thu được: {materials}"
 
 msgid "{avatar} begins tracking prey by scent and instinct at {location}"
-msgstr "{avatar}在{location}凭气味与本能追踪猎物。"
+msgstr ""
+"{avatar} bắt đầu lần theo mùi và bản năng để truy tìm con mồi tại {location}"
 
 msgid "{avatar} finished a primal hunt, obtained: {materials}"
-msgstr "{avatar}完成了一场野性的狩猎，获得：{materials}"
+msgstr "{avatar} hoàn thành một cuộc săn nguyên thủy, thu được: {materials}"
 
 msgid "effect_extra_rest_exp"
-msgstr "休息额外修为经验"
+msgstr "Kinh nghiệm tu vi thêm khi nghỉ ngơi"
 
 msgid "effect_extra_rest_hp_recovery_rate"
-msgstr "休息生命恢复倍率"
+msgstr "Tỷ lệ hồi HP khi nghỉ ngơi"
 
 msgid "effect_extra_eat_mortals_exp_multiplier"
-msgstr "吃凡人修为经验倍率"
+msgstr "Hệ số kinh nghiệm tu vi khi ăn phàm nhân"
 
 msgid "effect_extra_cross_race_friendliness"
-msgstr "跨种族初始好感修正"
+msgstr "Hiệu chỉnh thiện cảm ban đầu khác chủng tộc"

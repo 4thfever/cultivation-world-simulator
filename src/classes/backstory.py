@@ -36,12 +36,10 @@ async def generate_backstory(avatar: "Avatar") -> Optional[str]:
             "avatar_info": str(avatar.get_expanded_info(detailed=True))
         }
         if getattr(avatar, "is_yao", False):
+            from src.i18n import t
+
             race_name = str(getattr(getattr(avatar, "race", None), "get_info", lambda detailed=False: {"name": "妖族"})(detailed=False).get("name", "妖族"))
-            infos["avatar_info"] += (
-                "\n妖族身世约束：此角色是{race}，出身应来自山林、荒野、沼泽、洞穴、海岛等野外环境，"
-                "可以自然成长、被同族长辈抚养、被人族追捕后逃脱，或在野外偶得灵机；"
-                "不要写成普通人类城市家庭、凡俗书院或人族宗族童年。"
-            ).format(race=race_name)
+            infos["avatar_info"] += "\n" + t("yao_backstory_constraint", race=race_name)
         
         template_path = CONFIG.paths.templates / "backstory.txt"
         

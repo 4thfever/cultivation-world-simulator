@@ -55,6 +55,7 @@
     "labels": {
       "name": "Name",
       "gender": "Gender",
+      "race": "Race",
       "age": "Age",
       "initial_realm": "Initial Realm",
       "sect": "Sect",

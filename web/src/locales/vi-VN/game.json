@@ -410,6 +410,7 @@
         "hp": "Sinh Mệnh",
         "gender": "Giới Tính",
         "race": "Chủng tộc",
+        "unknown_race": "Không rõ",
         "alignment": "Lập Trường",
         "sect": "Tông Môn",
         "official_rank": "Quan Chức",

@@ -14,3 +14,6 @@ globs: *.py, *.vue, *.json, *.po
 4. **先改模块源文件，不改构建产物**：`static/locales/<lang>/modules/*.po` 与 `static/locales/<lang>/game_configs_modules/*.po` 是日常维护的源文件；`static/locales/<lang>/LC_MESSAGES/messages.po` 与 `static/locales/<lang>/LC_MESSAGES/game_configs.po` 是通过 `python tools/i18n/build_mo.py` 合并生成的构建产物。除非明确在修构建脚本，否则不要直接改 `LC_MESSAGES/*.po`，否则下次构建会被覆盖。
 5. **改完源文件后重建**：修改拆分后的 `.po` 文件后，必须执行 `python tools/i18n/build_mo.py`，确保 `LC_MESSAGES/*.po` / `.mo` 与源文件一致。
 6. **忽略测试失败**：由于只写了中文，`test_frontend_locales.py` 和 `test_backend_locales.py` 会因为缺少 key 而报错。**请直接忽略这些报错，绝对不要试图去补全其他语言来修复测试！** (这些会在 Phase 2 统一处理)。
+7. **非中文目录不能出现中文副本回退**：即使 Phase 1 不要求补齐非 `zh-CN`，也禁止把 `en-US`、`vi-VN`、`ja-JP` 等非中文 locale 的模块文件写成中文副本。已有非中文条目若存在，必须保持目标语言；新增中文源词条可以缺失目标语言，但不能用中文 `msgstr` 假装已翻译。
+8. **种族与妖族效果属于跨端 i18n 契约**：新增或修改 `static/game_configs/race.csv`、妖族 action、妖族 effect key、角色创建 race 选项时，必须同步考虑后端 `game_configs_modules/race.po` / `modules/race.po` / `modules/yao_actions.po` 与前端创建面板展示。不得在前端写死 `人族/狐族/狼族/鸟族/蛇族/龟族` 作为面向用户的 label。
+9. **运行时生成文本与 UI 翻译分开处理**：`backstory`、`thinking`、目标等 LLM/运行时生成文本不会随 UI 语言自动翻译。新增生成文本约束或 prompt 片段时，应走 locale template 或翻译 key，不要在 Python 逻辑中硬编码中文自然语言作为最终用户可见内容。
