@@ -192,6 +192,9 @@ msgstr "{subject_name} が {killer_name} に殺されたと知った。"
 msgid "You learned that {subject_name} and {other_name} {bond_label}."
 msgstr "{subject_name} と {other_name} が {bond_label} と知った。"
 
+msgid "You witnessed {predator_name} devouring mortals in {city_name}."
+msgstr "{predator_name} が {city_name} で凡人を貪るのを目撃した。"
+
 msgid "You learned that {subject_name} experienced a major event: {content}"
 msgstr "{subject_name} が大きな出来事を経験したと知った: {content}"
 

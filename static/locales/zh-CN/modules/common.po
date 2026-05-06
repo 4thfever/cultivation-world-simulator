@@ -253,5 +253,8 @@ msgstr "{surname}氏"
 msgid "Action on cooldown, {remain} month(s) remaining"
 msgstr "冷却中，还需 {remain} 个月"
 
+msgid "Somewhere"
+msgstr "某处"
+
 msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
 msgstr "主题围绕处理政务、遭遇邪祟、地方豪强、政敌掣肘展开。"

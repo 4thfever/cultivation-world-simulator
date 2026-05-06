@@ -34,6 +34,15 @@ def render_observed_event(event: "Event", observation_row) -> str:
         bond_label = t(str(params.get("bond_label_id") or "bond_label_major_relationship"))
         return t("You learned that {subject_name} and {other_name} {bond_label}.", subject_name=subject_name, other_name=other_name, bond_label=bond_label)
 
+    if propagation_kind == "local_witness_public_predation":
+        predator_name = str(params.get("predator_name") or subject_name)
+        city_name = str(params.get("city_name") or t("Somewhere"))
+        return t(
+            "You witnessed {predator_name} devouring mortals in {city_name}.",
+            predator_name=predator_name,
+            city_name=city_name,
+        )
+
     if propagation_kind == "close_relation_major":
         if event.content:
             return t("You learned that {subject_name} experienced a major event: {content}", subject_name=subject_name, content=event.content)

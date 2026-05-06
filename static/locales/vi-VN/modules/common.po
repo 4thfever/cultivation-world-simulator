@@ -256,5 +256,8 @@ msgstr "Hoàng tộc {surname}"
 msgid "Action on cooldown, {remain} month(s) remaining"
 msgstr "Hành động đang hồi chiêu, còn {remain} tháng"
 
+msgid "Somewhere"
+msgstr "Một nơi nào đó"
+
 msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
 msgstr "Tập trung vào việc xử lý chính vụ, tà họa, hào cường địa phương và đối thủ chính trị gây trở ngại."

@@ -5,6 +5,7 @@ from src.classes.action import TimedAction
 from src.classes.event import Event
 from src.classes.alignment import Alignment
 from src.classes.environment.region import CityRegion
+from src.classes.public_event_reaction_service import PUBLIC_PREDATION_EVENT_TYPE
 from src.classes.race import is_yao_avatar
 from src.systems.cultivation import REALM_RANK
 
@@ -70,5 +71,14 @@ class EatMortals(TimedAction):
                 t("{avatar} ate {count} mortals in {city}, refining flesh and fear into {exp} cultivation experience.", avatar=self.avatar.name, count=eaten_people, city=region.name, exp=exp),
                 related_avatars=[self.avatar.id],
                 is_major=True,
+                event_type=PUBLIC_PREDATION_EVENT_TYPE,
+                render_params={
+                    "predator_id": str(self.avatar.id),
+                    "predator_name": self.avatar.name,
+                    "subject_name": self.avatar.name,
+                    "city_name": region.name,
+                    "eaten_count": eaten_people,
+                    "exp": exp,
+                },
             )
         ]
