@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.classes.event import Event
 from src.classes.close_relation_event_service import append_close_relation_major_observations
+from src.classes.public_event_reaction_service import apply_public_event_reactions
 from src.run.log import get_logger
 
 from .context import SimulationStepContext
@@ -31,6 +32,7 @@ def finalize_step(ctx: SimulationStepContext) -> list[Event]:
         "bond_master_disciple_formed",
     }
     for event in final_events:
+        apply_public_event_reactions(event, ctx.world)
         if not event.is_major or event.is_story or event.event_type in special_major_kinds:
             continue
         for avatar_id in event.related_avatars or []:

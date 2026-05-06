@@ -202,6 +202,9 @@ msgstr "Ngươi biết rằng {subject_name} đã bị {killer_name} sát hại.
 msgid "You learned that {subject_name} and {other_name} {bond_label}."
 msgstr "Ngươi biết rằng {subject_name} và {other_name} {bond_label}."
 
+msgid "You witnessed {predator_name} devouring mortals in {city_name}."
+msgstr "Ngươi chứng kiến {predator_name} nuốt chửng phàm nhân ở {city_name}."
+
 msgid "You learned that {subject_name} experienced a major event: {content}"
 msgstr "Ngươi biết rằng {subject_name} đã trải qua một đại sự: {content}"
 

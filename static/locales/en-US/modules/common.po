@@ -257,5 +257,8 @@ msgstr "House {surname}"
 msgid "Action on cooldown, {remain} month(s) remaining"
 msgstr "Action on cooldown, {remain} month(s) remaining"
 
+msgid "Somewhere"
+msgstr "Somewhere"
+
 msgid "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."
 msgstr "Focus on governance affairs, malevolent incidents, local strongmen, and political rivals creating obstacles."

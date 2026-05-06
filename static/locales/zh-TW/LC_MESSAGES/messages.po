@@ -1337,6 +1337,9 @@ msgstr "{surname}氏"
 msgid "Action on cooldown, {remain} month(s) remaining"
 msgstr "冷卻中，還需 {remain} 個月"
 
+msgid "Somewhere"
+msgstr "某處"
+
 msgid ""
 "Focus on governance affairs, malevolent incidents, local strongmen, and "
 "political rivals creating obstacles."
@@ -3079,6 +3082,9 @@ msgstr "你得知 {subject_name} 被 {killer_name} 殺害。"
 
 msgid "You learned that {subject_name} and {other_name} {bond_label}."
 msgstr "你得知 {subject_name} 與 {other_name}{bond_label}。"
+
+msgid "You witnessed {predator_name} devouring mortals in {city_name}."
+msgstr "你目睹 {predator_name} 在 {city_name} 吞食凡人。"
 
 msgid "You learned that {subject_name} experienced a major event: {content}"
 msgstr "你得知 {subject_name} 發生了一件大事：{content}"
