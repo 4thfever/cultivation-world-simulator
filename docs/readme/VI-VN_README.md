@@ -92,6 +92,7 @@ Trong trình mô phỏng, mỗi tu sĩ đều là một Agent độc lập, có 
 
 - **Nếu muốn sửa code hoặc debug**: Dùng cách chạy từ mã nguồn, đồng thời chuẩn bị Python `3.10+`, Node.js `18+` và một dịch vụ mô hình khả dụng.
 - **Nếu chỉ muốn trải nghiệm ngay**: Ưu tiên dùng Docker để triển khai một lệnh.
+- Nếu cần tra nhanh thông tin thế giới, hành động, tông môn và dữ liệu liên quan, hãy tạo wiki cục bộ trong `tools/wiki`.
 
 ### Lưu Ý Khi Khởi Chạy Lần Đầu
 

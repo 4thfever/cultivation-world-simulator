@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cultivation World Wiki</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1 data-i18n="appTitle">Cultivation World Wiki</h1>
+          <p id="metaLine" data-i18n="loading">Loading data...</p>
+        </div>
+        <div class="controls">
+          <label class="control">
+            <span data-i18n="language">Language</span>
+            <select id="localeSelect"></select>
+          </label>
+          <label class="control search-control">
+            <span data-i18n="globalSearch">Global Search</span>
+            <input id="globalSearchInput" type="search" placeholder="Search all tabs" data-i18n-placeholder="globalSearchPlaceholder" />
+          </label>
+        </div>
+      </header>
+
+      <nav id="tabs" class="tabs" aria-label="Wiki sections"></nav>
+
+      <main>
+        <section id="content" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

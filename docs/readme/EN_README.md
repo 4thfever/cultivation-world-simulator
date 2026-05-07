@@ -92,6 +92,7 @@ In the simulator, every cultivator is an independent Agent who can freely observ
 
 - **Want to modify code or debug**: Use source code deployment and prepare Python `3.10+`, Node.js `18+`, and available model services.
 - **Want to experience directly**: Prioritize one-click Docker deployment.
+- For a quick reference wiki on world info, actions, sects, and more, generate the local helper site in `tools/wiki`.
 
 ### First Launch Instructions
 

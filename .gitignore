@@ -160,6 +160,7 @@ tmp/appdata/
 tmp/data/
 tmp/userdata/
 .tmp_codex/
+tools/wiki/dist/
 
 台本/
 笔记/
