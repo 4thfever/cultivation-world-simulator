@@ -38,6 +38,10 @@ def _get_race_info(avatar: "Avatar", *, detailed: bool = False) -> dict:
     return race.get_info(detailed=detailed)
 
 
+def _get_race_behavior_desc(avatar: "Avatar") -> str:
+    return str(_get_race_info(avatar, detailed=True).get("behavior_desc", "") or "")
+
+
 def _get_effects_text(avatar: "Avatar") -> str:
     """获取格式化的效果文本"""
     from src.i18n import t
@@ -159,6 +163,9 @@ def get_avatar_info(avatar: "Avatar", detailed: bool = False) -> dict:
     
     if detailed:
         info_dict[t("Current Effects")] = _get_effects_text(avatar)
+        race_behavior_desc = _get_race_behavior_desc(avatar)
+        if race_behavior_desc:
+            info_dict[t("Race Behavior Priority")] = race_behavior_desc
         if avatar.backstory:
             info_dict[t("Backstory")] = avatar.backstory
 
@@ -522,6 +529,7 @@ def get_avatar_ai_context(
         "self_profile": {
             "name": avatar.name,
             "race": _get_race_info(avatar, detailed=True),
+            "race_behavior_priority": _get_race_behavior_desc(avatar),
             "realm": avatar.cultivation_progress.get_info(),
             "hp": {"cur": avatar.hp.cur, "max": avatar.hp.max},
             "magic_stone": int(getattr(getattr(avatar, "magic_stone", None), "value", 0)),
@@ -657,6 +665,9 @@ def get_avatar_desc(avatar: "Avatar", detailed: bool = False) -> str:
     lines = [t("【{name}】 {gender} {age} years old", name=avatar.name, gender=avatar.gender, age=avatar.age)]
     lines.append(t("Origin: {origin}", origin=born_region_name))
     lines.append(t("Race: {race}", race=_get_race_info(avatar).get("name", "")))
+    race_behavior_desc = _get_race_behavior_desc(avatar)
+    if detailed and race_behavior_desc:
+        lines.append(t("Race Behavior Priority: {behavior}", behavior=race_behavior_desc))
     lines.append(t("Realm: {realm}", realm=avatar.cultivation_progress.get_info()))
     lines.append(t("Current Action: {action}", action=avatar.current_action_name))
     if avatar.sect:

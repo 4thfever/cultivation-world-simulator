@@ -9,11 +9,17 @@ msgstr "Nhân tộc"
 msgid "RACE_HUMAN_DESC"
 msgstr "Bạn là một con người bình thường."
 
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr "Nhân tộc không chịu ràng buộc bản năng yêu tộc; hành động chủ yếu do tính cách, mục tiêu, tông môn, lập trường và cảnh ngộ hiện tại quyết định."
+
 msgid "RACE_FOX_NAME"
 msgstr "Hồ tộc"
 
 msgid "RACE_FOX_DESC"
 msgstr "Hồ tộc bẩm sinh thông tuệ, giỏi quan sát lời nói và sắc mặt, phần lớn có dung mạo nổi bật, thường được cho là có duyên tự nhiên với cơ duyên và giao tế nhân tình."
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr "Hành động của hồ tộc ưu tiên thể hiện quan sát sắc mặt, thăm dò xã giao, mượn thế giao dịch và đánh hơi cơ duyên; tính cách thông thường chỉ được tô điểm thủ đoạn, không được viết hồ tộc thành tu sĩ thẳng ruột ngựa, không kinh doanh quan hệ."
 
 msgid "RACE_WOLF_NAME"
 msgstr "Lang tộc"
@@ -21,11 +27,17 @@ msgstr "Lang tộc"
 msgid "RACE_WOLF_DESC"
 msgstr "Lang tộc có huyết mạch cường kiện, coi trọng sinh tồn, săn bắt và chiến đấu, bản năng nhạy bén, hành động nhanh nhẹn, thường mài giũa tu vi trong chém giết."
 
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr "Hành động của lang tộc ưu tiên thể hiện sinh tồn, săn bắt, chiến đấu, lãnh địa và phán đoán mạnh yếu; tính cách thông thường chỉ được thay đổi cách tiến công, không được khiến lang tộc lâu dài an tọa luận đạo hoặc né tránh mọi tranh đấu."
+
 msgid "RACE_BIRD_NAME"
 msgstr "Điểu tộc"
 
 msgid "RACE_BIRD_DESC"
 msgstr "Điểu tộc có cảm tri rộng mở, thân pháp nhẹ nhàng linh hoạt, bẩm sinh hướng về phương xa, giỏi trinh sát, thoát thân và thăm dò những vùng đất chưa biết."
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr "Hành động của điểu tộc ưu tiên thể hiện di cư, trinh sát, viễn hành, quan sát và tránh hiểm; tính cách thông thường chỉ ảnh hưởng lộ tuyến và tiết tấu, không được khiến điểu tộc vô cớ mắc kẹt lâu một chỗ hoặc từ bỏ tầm nhìn khám phá."
 
 msgid "RACE_SNAKE_NAME"
 msgstr "Xà tộc"
@@ -33,8 +45,14 @@ msgstr "Xà tộc"
 msgid "RACE_SNAKE_DESC"
 msgstr "Xà tộc khí tức u vi, hành sự nhẫn nại, giỏi ẩn nấp và tập kích, thường khiến tu sĩ nhân tộc kiêng dè, nhưng cũng thích nghi tốt hơn với nơi âm u hiểm địa."
 
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr "Hành động của xà tộc ưu tiên thể hiện ẩn phục, nhẫn nại, thăm dò, đi vòng và tập kích; tính cách thông thường chỉ được thay đổi mức độ ngoan độc, không được viết xà tộc thành tu sĩ chính diện cứng đối cứng, náo nhiệt phô trương."
+
 msgid "RACE_TURTLE_NAME"
 msgstr "Quy tộc"
 
 msgid "RACE_TURTLE_DESC"
 msgstr "Quy tộc thọ nguyên kéo dài, thể phách vững chắc, hành sự chậm rãi cẩn trọng, sở trường nhất là phòng thủ, điều dưỡng và bế quan dài lâu."
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr "Hành động của quy tộc ưu tiên thể hiện chậm rãi, phòng thủ, điều dưỡng, nghỉ ngơi và bế quan; trừ khi tránh hiểm, đột phá, chức trách tông môn, mục tiêu rõ ràng hoặc nhu cầu tài nguyên, không nên thường xuyên di chuyển hay chủ động gây tranh chấp, tính cách thông thường không được lấn át bản năng thủ vững này."

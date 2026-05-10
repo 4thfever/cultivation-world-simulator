@@ -17,9 +17,15 @@ vi.mock('naive-ui', () => ({
 }))
 
 const fetchStateMock = vi.fn()
+const updateAvatarsMock = vi.fn()
 vi.mock('@/stores/world', () => ({
   useWorldStore: () => ({
     fetchState: fetchStateMock,
+  }),
+}))
+vi.mock('@/stores/avatar', () => ({
+  useAvatarStore: () => ({
+    updateAvatars: updateAvatarsMock,
   }),
 }))
 
@@ -193,7 +199,22 @@ describe('avatar panel composables', () => {
     vi.mocked(avatarApi.fetchAvatarList).mockResolvedValue([
       { id: 'a1', name: '李青', sect_name: '青云宗', realm: 'QI_REFINEMENT', gender: '男', age: 18 },
     ])
-    vi.mocked(avatarApi.createAvatar).mockResolvedValue({ status: 'ok', message: 'ok', avatar_id: 'new' })
+    vi.mocked(avatarApi.createAvatar).mockResolvedValue({
+      status: 'ok',
+      message: 'ok',
+      avatar_id: 'new',
+      avatar: {
+        id: 'new',
+        name: '李青',
+        x: 1,
+        y: 2,
+        gender: 'male',
+        race: 'human',
+        pic_id: 1,
+        realm: 'QI_REFINEMENT',
+        is_dead: false,
+      },
+    })
     vi.mocked(avatarApi.deleteAvatar).mockResolvedValue({ status: 'ok', message: 'ok' })
     fetchStateMock.mockResolvedValue(undefined)
   })
@@ -276,6 +297,10 @@ describe('avatar panel composables', () => {
       given_name: '青',
       alignment: 'NEUTRAL',
     }))
+    expect(updateAvatarsMock).toHaveBeenCalledWith([expect.objectContaining({
+      id: 'new',
+      name: '李青',
+    })])
     expect(fetchStateMock).toHaveBeenCalled()
     expect(onCreated).toHaveBeenCalled()
   })

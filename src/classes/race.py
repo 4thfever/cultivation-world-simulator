@@ -18,6 +18,7 @@ class Race:
     id: str
     name: str
     desc: str
+    behavior_desc: str
     effects: Dict[str, Any]
     effect_desc: str = ""
     weight: float = 0.0
@@ -34,6 +35,8 @@ class Race:
         }
         if detailed:
             info["desc"] = t(self.desc)
+            if self.behavior_desc:
+                info["behavior_desc"] = t(self.behavior_desc)
             info["effect_desc"] = self.effect_desc
         return info
 
@@ -54,6 +57,7 @@ def _load_race_data() -> Dict[str, Race]:
             id=race_id,
             name=get_str(row, "name_id") or get_str(row, "name") or race_id,
             desc=get_str(row, "desc_id") or get_str(row, "desc"),
+            behavior_desc=get_str(row, "behavior_desc_id") or get_str(row, "behavior_desc"),
             effects=effects,
             effect_desc=format_effects_to_text(effects),
             weight=max(0.0, get_float(row, "weight", 0.0)),
@@ -63,6 +67,7 @@ def _load_race_data() -> Dict[str, Race]:
             id=HUMAN_RACE_ID,
             name="RACE_HUMAN_NAME",
             desc="RACE_HUMAN_DESC",
+            behavior_desc="RACE_HUMAN_BEHAVIOR_DESC",
             effects={},
             weight=0.0,
         )

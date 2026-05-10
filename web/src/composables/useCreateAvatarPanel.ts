@@ -5,6 +5,7 @@ import { RelationType } from '@/constants/relations'
 import { avatarApi } from '@/api'
 import type { CreateAvatarParams, GameDataDTO, SimpleAvatarDTO } from '@/types/api'
 import { useWorldStore } from '@/stores/world'
+import { useAvatarStore } from '@/stores/avatar'
 import { getAvatarPortraitUrl } from '@/utils/assetUrls'
 import { getAvatarAssetIds, normalizeAvatarAssetLibraries } from '@/utils/avatarAssets'
 import { formatEntityGrade } from '@/utils/cultivationText'
@@ -45,6 +46,7 @@ const createDefaultForm = (): CreateAvatarParams => ({
 export function useCreateAvatarPanel(onCreated: () => void) {
   const { t } = useI18n()
   const worldStore = useWorldStore()
+  const avatarStore = useAvatarStore()
   const message = useMessage()
   const loading = ref(false)
   const gameData = ref<GameDataDTO | null>(null)
@@ -174,9 +176,12 @@ export function useCreateAvatarPanel(onCreated: () => void) {
         payload.alignment = 'NEUTRAL'
       }
 
-      await avatarApi.createAvatar(payload)
+      const response = await avatarApi.createAvatar(payload)
       message.success(t(uiKey('create_success')))
       await worldStore.fetchState?.()
+      if (response.avatar) {
+        avatarStore.updateAvatars([response.avatar])
+      }
       createForm.value = {
         ...createDefaultForm(),
         level: realmOptions.value[0]?.value,

@@ -437,6 +437,19 @@ def test_v1_create_avatar_returns_ok_envelope(base_world):
         assert payload["ok"] is True
         assert payload["data"]["status"] == "ok"
         assert payload["data"]["avatar_id"]
+        assert payload["data"]["avatar"] == {
+            "id": payload["data"]["avatar_id"],
+            "name": "云舟",
+            "x": payload["data"]["avatar"]["x"],
+            "y": payload["data"]["avatar"]["y"],
+            "action": payload["data"]["avatar"]["action"],
+            "action_emoji": payload["data"]["avatar"]["action_emoji"],
+            "gender": "male",
+            "race": "human",
+            "pic_id": payload["data"]["avatar"]["pic_id"],
+            "realm": "QI_REFINEMENT",
+            "is_dead": False,
+        }
     finally:
         main.game_instance.clear()
         main.game_instance.update(original)

@@ -7,7 +7,7 @@ msgid "rest_action_name"
 msgstr "Nghỉ Ngơi"
 
 msgid "rest_description"
-msgstr "Dừng lại điều tức dưỡng thương để hồi phục sinh lực. Quy tộc khi nghỉ ngơi sẽ nhận thêm một ít kinh nghiệm tu vi."
+msgstr "Dừng lại điều tức dưỡng thương trong 3 tháng để hồi phục sinh lực. Quy tộc khi nghỉ ngơi sẽ nhận thêm kinh nghiệm tu vi."
 
 msgid "rest_requirements"
 msgstr "Không có yêu cầu đặc biệt."
@@ -23,9 +23,6 @@ msgstr "Cần là yêu tộc và ở khu vực thành thị; phe chính nghĩa t
 
 msgid "Dead avatars cannot rest."
 msgstr "Nhân vật đã chết không thể nghỉ ngơi."
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar} lui vào nơi yên tĩnh, dùng phép quy tức chậm rãi dưỡng thương."
 
 msgid "{avatar} begins resting."
 msgstr "{avatar} bắt đầu nghỉ ngơi."

@@ -12,6 +12,12 @@ msgstr "Chủng tộc [{name}]"
 msgid "Race: {race}"
 msgstr "Chủng tộc: {race}"
 
+msgid "Race Behavior Priority"
+msgstr "Ưu tiên hành vi chủng tộc"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "Ưu tiên hành vi chủng tộc: {behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "Tu sĩ yêu tộc không thể tu luyện giáo hóa Nho môn."
 

@@ -2471,6 +2471,11 @@ msgstr "Human"
 msgid "RACE_HUMAN_DESC"
 msgstr "You are an ordinary human."
 
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr ""
+"Humans have no yao instinct constraint; their actions are mainly shaped by "
+"personality, objectives, sect, alignment, and current circumstances."
+
 msgid "RACE_FOX_NAME"
 msgstr "Fox Yao"
 
@@ -2479,6 +2484,13 @@ msgstr ""
 "Fox yao are naturally clever, skilled at reading expressions and moods, "
 "often striking in appearance, and commonly seen as having an innate affinity"
 " for opportunity and social ties."
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr ""
+"Fox yao actions should first show reading moods, social probing, "
+"advantageous trades, and a nose for opportunity. Ordinary personality may "
+"only shape the method; it must not turn fox yao into blunt cultivators who "
+"do not cultivate relationships."
 
 msgid "RACE_WOLF_NAME"
 msgstr "Wolf Yao"
@@ -2489,6 +2501,13 @@ msgstr ""
 "possess keen instincts and swift movement, and often temper their "
 "cultivation through combat."
 
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr ""
+"Wolf yao actions should first show survival, hunting, combat, territory, and"
+" judgments of strength. Ordinary personality may only change how they "
+"attack; it must not make wolf yao sit in idle discourse for long or avoid "
+"all conflict."
+
 msgid "RACE_BIRD_NAME"
 msgstr "Bird Yao"
 
@@ -2496,6 +2515,13 @@ msgid "RACE_BIRD_DESC"
 msgstr ""
 "Bird yao have broad perception and nimble movement, are born to yearn for "
 "distant places, and excel at scouting, escape, and exploring the unknown."
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr ""
+"Bird yao actions should first show migration, scouting, travel, observation,"
+" and evasion. Ordinary personality may only affect route and pace; it must "
+"not leave bird yao trapped in one place without cause or abandoning their "
+"need for wider sight."
 
 msgid "RACE_SNAKE_NAME"
 msgstr "Snake Yao"
@@ -2506,6 +2532,13 @@ msgstr ""
 "are often feared by human cultivators, and adapt well to dark and dangerous "
 "places."
 
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr ""
+"Snake yao actions should first show lurking, patience, probing, indirect "
+"routes, and sudden ambush. Ordinary personality may only change how ruthless"
+" they are; it must not make snake yao into loud, frontal, openly bustling "
+"cultivators."
+
 msgid "RACE_TURTLE_NAME"
 msgstr "Turtle Yao"
 
@@ -2513,6 +2546,14 @@ msgid "RACE_TURTLE_DESC"
 msgstr ""
 "Turtle yao are long-lived and steady of body, slow and cautious in conduct, "
 "and most skilled at defense, recuperation, and long secluded cultivation."
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr ""
+"Turtle yao actions should first show slowness, defense, recuperation, rest, "
+"and seclusion. Unless avoiding danger, breaking through, fulfilling sect "
+"duties, pursuing a clear target, or meeting resource needs, they should not "
+"move frequently or initiate conflict; ordinary personality must not override"
+" this guarding instinct."
 
 #. random_minor_event.csv: 心境偏移
 msgid "minor_event_cause_1"

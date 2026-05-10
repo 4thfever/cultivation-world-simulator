@@ -2867,6 +2867,12 @@ msgstr "种族[{name}]"
 msgid "Race: {race}"
 msgstr "种族：{race}"
 
+msgid "Race Behavior Priority"
+msgstr "种族行为优先级"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "种族行为优先级：{behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "妖族修士不能修行儒门教化。"
 
@@ -3988,7 +3994,7 @@ msgid "rest_action_name"
 msgstr "休息"
 
 msgid "rest_description"
-msgstr "停下来调息休养，恢复生命。龟族休息时会额外获得少量修为经验。"
+msgstr "停下来调息休养3个月，恢复生命。龟族休息时会额外获得修为经验。"
 
 msgid "rest_requirements"
 msgstr "没有特殊要求。"
@@ -4004,9 +4010,6 @@ msgstr "需要是妖族，且位于城市区域；正义阵营通常不会做此
 
 msgid "Dead avatars cannot rest."
 msgstr "死者无法休息。"
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar}缩入静处，以龟息之法缓缓休养。"
 
 msgid "{avatar} begins resting."
 msgstr "{avatar}开始休息。"

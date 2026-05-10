@@ -13,6 +13,7 @@ import type {
   CreateCustomContentParams,
   RoleplaySessionDTO,
 } from '../../types/api';
+import type { AvatarSummary } from '../../types/core';
 
 export interface HoverParams {
   type: string;
@@ -56,7 +57,7 @@ export const avatarApi = {
   },
 
   createAvatar(params: CreateAvatarParams) {
-    return httpClient.post<{ status: string; message: string; avatar_id: string }>('/api/v1/command/avatar/create', params);
+    return httpClient.post<{ status: string; message: string; avatar_id: string; avatar?: AvatarSummary }>('/api/v1/command/avatar/create', params);
   },
 
   updateAvatarAdjustment(params: UpdateAvatarAdjustmentParams) {

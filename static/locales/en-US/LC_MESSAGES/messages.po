@@ -3054,6 +3054,12 @@ msgstr "Race [{name}]"
 msgid "Race: {race}"
 msgstr "Race: {race}"
 
+msgid "Race Behavior Priority"
+msgstr "Race Behavior Priority"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "Race Behavior Priority: {behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "Yao cultivators cannot cultivate Confucian education."
 
@@ -4320,8 +4326,8 @@ msgstr "Rest"
 
 msgid "rest_description"
 msgstr ""
-"Stop to regulate breath and recover HP. Turtle yao gain a small amount of "
-"extra cultivation experience while resting."
+"Stop to regulate breath and recover HP over 3 months. Turtle yao gain extra "
+"cultivation experience while resting."
 
 msgid "rest_requirements"
 msgstr "No special requirements."
@@ -4341,9 +4347,6 @@ msgstr ""
 
 msgid "Dead avatars cannot rest."
 msgstr "Dead avatars cannot rest."
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar} withdraws into quiet turtle-breathing rest."
 
 msgid "{avatar} begins resting."
 msgstr "{avatar} begins resting."

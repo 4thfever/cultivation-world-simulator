@@ -48,6 +48,7 @@ def test_race_config_loads_human_and_yao_effects(base_world):
     assert avatar.effects.get("extra_hunt_materials") == 2
     assert avatar.effects.get("extra_eat_mortals_exp_multiplier") == 0.5
     assert wolf.get_info()["name"] == "狼族"
+    assert "领地" in wolf.get_info(detailed=True)["behavior_desc"]
 
 
 def test_roll_avatar_race_probability_edges():
@@ -89,7 +90,9 @@ def test_english_race_detail_and_effect_text_have_no_chinese():
         assert wolf_info["name"] == "Wolf Yao"
         assert not _contains_chinese(wolf_info["type_name"])
         assert not _contains_chinese(wolf_info["desc"])
+        assert not _contains_chinese(wolf_info["behavior_desc"])
         assert not _contains_chinese(wolf_info["effect_desc"])
+        assert "territory" in wolf_info["behavior_desc"].lower()
         assert "Battle Strength" in wolf_info["effect_desc"]
         assert "Eat Mortals" in wolf_info["effect_desc"] or "mortal" in wolf_info["effect_desc"].lower()
     finally:
@@ -98,3 +101,16 @@ def test_english_race_detail_and_effect_text_have_no_chinese():
         from src.classes.race import reload as reload_races
 
         reload_races()
+
+
+def test_race_behavior_priority_enters_avatar_ai_context(base_world):
+    from src.classes.core.avatar.info_presenter import get_avatar_ai_context
+
+    turtle_avatar = _make_avatar(base_world, race_id="turtle")
+    context = get_avatar_ai_context(turtle_avatar)
+
+    race_info = context["self_profile"]["race"]
+    assert race_info["id"] == "turtle"
+    assert "behavior_desc" in race_info
+    assert "race_behavior_priority" in context["self_profile"]
+    assert "不应频繁移动" in context["self_profile"]["race_behavior_priority"]

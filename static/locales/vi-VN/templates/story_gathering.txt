@@ -21,6 +21,7 @@ Gợi ý chủ đề bổ sung: {story_prompt}
 Chú ý:
 1. Không cố miêu tả toàn bộ mọi sự kiện; hãy tự sàng chọn phần thú vị và giàu kịch tính nhất để diễn dịch.
 2. Chú trọng tương tác nhân vật, tâm lý đấu pháp, cạnh tranh hoặc hợp tác.
+3. Nếu người tham dự có yêu tộc, chính văn phải thể hiện đặc chất chủng tộc qua cách hành động, cảm quan, tiết tấu hoặc phán đoán giá trị; miêu tả chủng tộc ưu tiên hơn persona thông thường, không viết yêu tộc như tu sĩ nhân tộc chỉ đổi nhãn chủng tộc.
 
 Chỉ hoàn trả kết quả JSON, định dạng:
 {{

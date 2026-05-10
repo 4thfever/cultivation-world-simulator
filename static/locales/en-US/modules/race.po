@@ -12,6 +12,12 @@ msgstr "Race [{name}]"
 msgid "Race: {race}"
 msgstr "Race: {race}"
 
+msgid "Race Behavior Priority"
+msgstr "Race Behavior Priority"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "Race Behavior Priority: {behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "Yao cultivators cannot cultivate Confucian education."
 

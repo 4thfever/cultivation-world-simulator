@@ -13,7 +13,7 @@ class Rest(TimedAction):
     EMOJI = "💤"
     PARAMS = {}
 
-    duration_months = 1
+    duration_months = 3
     BASE_HP_RECOVERY_RATIO = 0.2
 
     def _execute(self) -> None:
@@ -25,10 +25,7 @@ class Rest(TimedAction):
         return True, ""
 
     def start(self) -> Event:
-        if getattr(getattr(self.avatar, "race", None), "id", "human") == "turtle":
-            content = t("{avatar} withdraws into quiet turtle-breathing rest.", avatar=self.avatar.name)
-        else:
-            content = t("{avatar} begins resting.", avatar=self.avatar.name)
+        content = t("{avatar} begins resting.", avatar=self.avatar.name)
         return Event(self.world.month_stamp, content, related_avatars=[self.avatar.id])
 
     async def finish(self) -> list[Event]:

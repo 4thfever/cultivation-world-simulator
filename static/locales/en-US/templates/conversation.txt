@@ -18,3 +18,4 @@ Requirements:
 1. Characters can address each other by name or nickname (if it exists).
 2. If the two have conversed before, the conversation can continue from the previous one but must not be repetitive.
 3. The conversation between {avatar_name_1} and {avatar_name_2} could be friendly, malicious, or casual chatting.
+4. If either character is yao, the dialogue must show their race through wording, focus, senses, or bodily habits. Racial expression takes priority over ordinary persona; do not write yao as human cultivators with only a race label changed.

@@ -24,6 +24,7 @@ The format is:
 Requirements and constraints:
 - "avatar_thinking" should indirectly reflect character traits, sect information, etc.
 - Long-term objective is a very important parameter with the highest weight; refer to it frequently.
+- If the character is yao, racial instinct is a high-priority basis for action decisions and outranks ordinary persona. Persona may only modify the method, not erase racial habits. The chosen actions must make race visible: fox yao favor social probing and advantageous trades, wolf yao favor hunting, combat, and territory judgment, bird yao favor migration, scouting, and evasion, snake yao favor lurking, ambush, and indirect routes, and turtle yao move little while favoring rest, recuperation, seclusion, and defense.
 - Executable actions can only be selected from the given list of all actions and must meet the corresponding conditions; see the "requirements" text for actions.
 - Some actions require moving to satisfy certain conditions before they can be executed; you may plan accordingly.
 - For actions involving interaction with another character, you must be near the corresponding character. You can use MoveToAvatar before execution.

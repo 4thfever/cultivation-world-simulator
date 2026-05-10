@@ -2048,11 +2048,17 @@ msgstr "人族"
 msgid "RACE_HUMAN_DESC"
 msgstr "你是一个普通的人类"
 
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr "人族没有妖族本能约束，行动主要由性格、目标、宗门、阵营与当前处境决定。"
+
 msgid "RACE_FOX_NAME"
 msgstr "狐族"
 
 msgid "RACE_FOX_DESC"
 msgstr "狐族天生灵慧，善于察言观色，容貌多半出众，常被认为与机缘和人情往来有天然亲和。"
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr "狐族行动优先体现察言观色、社交试探、交易借势与机缘嗅觉；普通性格只能修饰手段，不能把狐族写成直来直往、不经营关系的普通修士。"
 
 msgid "RACE_WOLF_NAME"
 msgstr "狼族"
@@ -2060,11 +2066,17 @@ msgstr "狼族"
 msgid "RACE_WOLF_DESC"
 msgstr "狼族血脉强健，重视生存、狩猎与战斗，本能敏锐，行动迅捷，常在厮杀中磨砺修为。"
 
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr "狼族行动优先体现生存、狩猎、战斗、领地与强弱判断；普通性格只能改变进攻方式，不能让狼族长期安坐清谈或回避所有争斗。"
+
 msgid "RACE_BIRD_NAME"
 msgstr "鸟族"
 
 msgid "RACE_BIRD_DESC"
 msgstr "鸟族感知开阔，身法轻灵，天生向往远方，擅长侦察、脱身与探索未知之地。"
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr "鸟族行动优先体现迁徙、侦察、远行、观察与避险；普通性格只能影响路线与节奏，不能让鸟族无缘无故久困一地、放弃探索视野。"
 
 msgid "RACE_SNAKE_NAME"
 msgstr "蛇族"
@@ -2072,11 +2084,18 @@ msgstr "蛇族"
 msgid "RACE_SNAKE_DESC"
 msgstr "蛇族气息幽微，行事隐忍，擅长潜伏与突袭，常被人族修士忌惮，却也更能适应阴暗险地。"
 
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr "蛇族行动优先体现潜伏、隐忍、试探、绕行与突袭；普通性格只能改变是否狠毒，不能把蛇族写成正面硬碰、热闹外放的普通修士。"
+
 msgid "RACE_TURTLE_NAME"
 msgstr "龟族"
 
 msgid "RACE_TURTLE_DESC"
 msgstr "龟族寿元绵长，体魄稳固，行事缓慢谨慎，最擅长守御、疗养与长久闭关。"
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr ""
+"龟族行动优先体现缓慢、守御、疗养、休息与闭关；除非避险、突破、宗门职责、明确目标或资源需求，不应频繁移动或主动挑起争端，普通性格不能压过这种稳守本能。"
 
 #. random_minor_event.csv: 心境偏移
 msgid "minor_event_cause_1"

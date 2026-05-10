@@ -7,7 +7,7 @@ msgid "rest_action_name"
 msgstr "休息"
 
 msgid "rest_description"
-msgstr "停下來調息休養，恢復生命。龜族休息時會額外獲得少量修為經驗。"
+msgstr "停下來調息休養3個月，恢復生命。龜族休息時會額外獲得修為經驗。"
 
 msgid "rest_requirements"
 msgstr "沒有特殊要求。"
@@ -23,9 +23,6 @@ msgstr "需要是妖族，且位於城市區域；正義陣營通常不會做此
 
 msgid "Dead avatars cannot rest."
 msgstr "死者無法休息。"
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar}縮入靜處，以龜息之法緩緩休養。"
 
 msgid "{avatar} begins resting."
 msgstr "{avatar}開始休息。"

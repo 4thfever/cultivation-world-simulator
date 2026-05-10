@@ -3064,6 +3064,12 @@ msgstr "Chủng tộc [{name}]"
 msgid "Race: {race}"
 msgstr "Chủng tộc: {race}"
 
+msgid "Race Behavior Priority"
+msgstr "Ưu tiên hành vi chủng tộc"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "Ưu tiên hành vi chủng tộc: {behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "Tu sĩ yêu tộc không thể tu luyện giáo hóa Nho môn."
 
@@ -4323,8 +4329,8 @@ msgstr "Nghỉ Ngơi"
 
 msgid "rest_description"
 msgstr ""
-"Dừng lại điều tức dưỡng thương để hồi phục sinh lực. Quy tộc khi nghỉ ngơi "
-"sẽ nhận thêm một ít kinh nghiệm tu vi."
+"Dừng lại điều tức dưỡng thương trong 3 tháng để hồi phục sinh lực. Quy tộc "
+"khi nghỉ ngơi sẽ nhận thêm kinh nghiệm tu vi."
 
 msgid "rest_requirements"
 msgstr "Không có yêu cầu đặc biệt."
@@ -4344,10 +4350,6 @@ msgstr ""
 
 msgid "Dead avatars cannot rest."
 msgstr "Nhân vật đã chết không thể nghỉ ngơi."
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr ""
-"{avatar} lui vào nơi yên tĩnh, dùng phép quy tức chậm rãi dưỡng thương."
 
 msgid "{avatar} begins resting."
 msgstr "{avatar} bắt đầu nghỉ ngơi."

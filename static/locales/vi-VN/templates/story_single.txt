@@ -17,6 +17,9 @@ Sự kiện đã phát sinh:
 Kết quả:
 {res}
 
+Yêu cầu:
+- Nếu người tham dự sự kiện là yêu tộc, chính văn phải thể hiện đặc chất chủng tộc qua cách hành động, cảm quan, tiết tấu hoặc phán đoán giá trị; miêu tả chủng tộc ưu tiên hơn persona thông thường, không viết yêu tộc như tu sĩ nhân tộc chỉ đổi nhãn chủng tộc.
+
 Chú ý: chỉ hoàn trả kết quả JSON, định dạng:
 {{
     "thinking": ..., // Suy xét ngắn gọn về mạch truyện

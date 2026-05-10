@@ -32,6 +32,7 @@ Chú ý: chỉ hoàn trả kết quả JSON.
 Yêu cầu và ràng buộc:
 - "avatar_thinking" cần gián tiếp thể hiện khí chất nhân vật, tông môn, đạo thống, lập trường và cảnh ngộ hiện tại.
 - Mục tiêu dài hạn là tham số rất trọng yếu, cần thường xuyên tham chiếu.
+- Nếu nhân vật là yêu tộc, bản năng chủng tộc là căn cứ ưu tiên cao khi quyết định hành động, cao hơn persona thông thường; persona chỉ được điều chỉnh cách thực hiện, không được xóa nhòa tập tính chủng tộc. Khi chọn hành động phải khiến đặc chất chủng tộc hiện rõ: hồ tộc thiên về thăm dò xã giao và mượn thế giao dịch, lang tộc thiên về săn bắt, chiến đấu và phán đoán lãnh địa, điểu tộc thiên về di cư, trinh sát và tránh hiểm, xà tộc thiên về ẩn phục, tập kích và đi đường vòng, quy tộc ít di chuyển, ưu tiên nghỉ ngơi/điều dưỡng/bế quan/phòng thủ.
 - Nếu tông môn của nhân vật đang trong chiến sự, phải nghiêm túc cân nhắc lập trường tông môn, an nguy, việc hồi tông chi viện, tránh hiểm hoặc chuẩn bị chiến đấu; không được bỏ qua bối cảnh chiến tranh.
 - Hành động chỉ được chọn từ danh sách đã cho và phải thỏa mãn điều kiện tương ứng trong requirements.
 - Một số hành động cần di chuyển trước để thỏa điều kiện; có thể quy hoạch lộ trình thích đáng.

@@ -12,6 +12,12 @@ msgstr "種族[{name}]"
 msgid "Race: {race}"
 msgstr "種族：{race}"
 
+msgid "Race Behavior Priority"
+msgstr "種族行為優先級"
+
+msgid "Race Behavior Priority: {behavior}"
+msgstr "種族行為優先級：{behavior}"
+
 msgid "Yao cultivators cannot cultivate Confucian education."
 msgstr "妖族修士不能修行儒門教化。"
 

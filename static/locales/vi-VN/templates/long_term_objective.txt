@@ -24,5 +24,6 @@ Yêu cầu:
 - Mục tiêu phải phù hợp thân phận nhân vật và thế giới quan tu chân.
 - Không bịa thông tin chưa xuất hiện.
 - Có thể là chí hướng rộng lớn, cũng có thể là mục tiêu cụ thể.
+- Nếu nhân vật là yêu tộc, mục tiêu dài hạn trước hết phải thể hiện phương thức sinh tồn của chủng tộc, không chỉ viết mục tiêu tu sĩ thông thường; persona chỉ được tô sắc phong cách mục tiêu, không được phủ lên khuynh hướng cốt lõi của chủng tộc. Hồ tộc thiên về kinh doanh quan hệ và cơ duyên, lang tộc thiên về săn bắt, lãnh địa và khiêu chiến cường giả, điểu tộc thiên về viễn du trinh sát, xà tộc thiên về ẩn nhẫn đoạt cơ, quy tộc thiên về thủ địa bế quan, điều dưỡng và đột phá vững chắc.
 - Chủ yếu tham khảo đặc chất và tính tình nhân vật, đồng thời cân nhắc tông môn, trận doanh, nhân tế quan hệ, lịch sử sự kiện. Có thể liên quan tu luyện, quan hệ, tiêu khiển, tu dưỡng, tông môn hoặc sinh kế.
 - thinking cần phân tích tương đối rõ; long_term_objective chỉ trả về nội dung mục tiêu, không nhắc tới thời hạn hoàn thành.

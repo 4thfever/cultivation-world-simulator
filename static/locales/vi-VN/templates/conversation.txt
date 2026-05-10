@@ -19,3 +19,4 @@ Yêu cầu:
 1. Hai bên có thể xưng hô bằng danh tự hoặc biệt hiệu nếu có.
 2. Nếu hai người từng đối thoại trước đó, có thể nối tiếp mạch cũ, nhưng không được lặp lại nội dung.
 3. Đối thoại giữa {avatar_name_1} và {avatar_name_2} có thể là thiện ý, ác ý hoặc nhàn đàm.
+4. Nếu một trong hai nhân vật là yêu tộc, đối thoại phải thể hiện chủng tộc qua cách dùng lời, điều họ chú ý, cảm quan hoặc tập tính thân thể. Biểu hiện chủng tộc ưu tiên hơn persona thông thường; không viết yêu tộc như tu sĩ nhân tộc chỉ đổi nhãn chủng tộc.

@@ -22,6 +22,7 @@ Note:
 1. Do not try to describe all events exhaustively; please **select yourself** the most interesting and dramatic parts to expand upon.
 2. Focus on describing interactions between characters, psychological maneuvering, competition, or cooperation.
 3. Focus on describing the tense atmosphere during the bidding process.
+4. If any participant is yao, the story text must show racial traits through movement, senses, rhythm, or value judgment. Racial description takes priority over ordinary persona; do not write yao as human cultivators with only a race label changed.
 
 Return the results in JSON format only, in the format:
 {{

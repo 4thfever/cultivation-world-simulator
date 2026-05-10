@@ -19,11 +19,13 @@ async def test_turtle_rest_recovers_hp_and_gains_exp(avatar_in_city):
     action = Rest(avatar_in_city, avatar_in_city.world)
     ok, reason = action.can_start()
     assert ok, reason
+    assert action.duration_months == 3
+    assert action.start().content == f"{avatar_in_city.name}开始休息。"
 
     events = await action.finish()
 
     assert avatar_in_city.hp.cur > old_hp
-    assert avatar_in_city.cultivation_progress.exp > old_exp
+    assert avatar_in_city.cultivation_progress.exp == old_exp + 90
     assert "修为经验" in events[0].content
 
 
@@ -32,12 +34,16 @@ async def test_human_rest_does_not_gain_exp(avatar_in_city):
     avatar_in_city.race = get_race("human")
     avatar_in_city.personas = []
     avatar_in_city.technique = None
+    avatar_in_city.hp.cur = max(1, avatar_in_city.hp.cur - 50)
+    old_hp = avatar_in_city.hp.cur
     avatar_in_city.recalc_effects()
     old_exp = avatar_in_city.cultivation_progress.exp
 
-    await Rest(avatar_in_city, avatar_in_city.world).finish()
+    events = await Rest(avatar_in_city, avatar_in_city.world).finish()
 
+    assert avatar_in_city.hp.cur > old_hp
     assert avatar_in_city.cultivation_progress.exp == old_exp
+    assert "修为经验" not in events[0].content
 
 
 @pytest.mark.asyncio

@@ -17,6 +17,9 @@ The event that occurred is:
 The result is:
 {res}
 
+Requirements:
+- If an event participant is yao, the story text must show racial traits through movement, senses, rhythm, or value judgment. Racial description takes priority over ordinary persona; do not write yao as human cultivators with only a race label changed.
+
 Note: Return the results in JSON format only, in the format:
 {{
     "thinking": ..., // Brief reflection on the story plot

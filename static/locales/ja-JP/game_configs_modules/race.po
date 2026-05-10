@@ -9,11 +9,17 @@ msgstr "人族"
 msgid "RACE_HUMAN_DESC"
 msgstr "あなたは普通の人間です。"
 
+msgid "RACE_HUMAN_BEHAVIOR_DESC"
+msgstr "人族には妖族本能による制約はなく、行動は主に性格、目標、宗門、立場、現在の境遇によって決まる。"
+
 msgid "RACE_FOX_NAME"
 msgstr "狐族"
 
 msgid "RACE_FOX_DESC"
 msgstr "狐族は生まれつき聡く、言葉や表情を読むことに長け、容姿に優れる者が多く、機縁や人付き合いに天然の親和を持つとされる。"
+
+msgid "RACE_FOX_BEHAVIOR_DESC"
+msgstr "狐族の行動は、空気を読むこと、社交的な探り、取引で利を得ること、機縁を嗅ぎ取ることを優先して表す。通常の性格は手段を飾るだけで、狐族を直情的で関係を築かない普通の修士として書いてはならない。"
 
 msgid "RACE_WOLF_NAME"
 msgstr "狼族"
@@ -21,11 +27,17 @@ msgstr "狼族"
 msgid "RACE_WOLF_DESC"
 msgstr "狼族は血脈が強健で、生存、狩り、戦いを重んじ、本能が鋭く行動も素早い。しばしば戦いの中で修為を磨く。"
 
+msgid "RACE_WOLF_BEHAVIOR_DESC"
+msgstr "狼族の行動は、生存、狩り、戦闘、縄張り、強弱判断を優先して表す。通常の性格は攻め方を変えるだけで、狼族を長く座して清談したり、あらゆる争いを避けたりする者として書いてはならない。"
+
 msgid "RACE_BIRD_NAME"
 msgstr "鳥族"
 
 msgid "RACE_BIRD_DESC"
 msgstr "鳥族は感知が広く身法が軽やかで、生まれつき遠方に憧れ、偵察、離脱、未知の地の探索に長けている。"
+
+msgid "RACE_BIRD_BEHAVIOR_DESC"
+msgstr "鳥族の行動は、移動、偵察、遠行、観察、危険回避を優先して表す。通常の性格は経路と速度に影響するだけで、鳥族を理由なく一か所に長く留めたり、広い視野を求める本能を捨てさせたりしてはならない。"
 
 msgid "RACE_SNAKE_NAME"
 msgstr "蛇族"
@@ -33,8 +45,14 @@ msgstr "蛇族"
 msgid "RACE_SNAKE_DESC"
 msgstr "蛇族は気配が幽かで忍耐強く、潜伏と奇襲を得意とする。人族修士から忌避されがちだが、暗く険しい地にもよく適応する。"
 
+msgid "RACE_SNAKE_BEHAVIOR_DESC"
+msgstr "蛇族の行動は、潜伏、忍耐、探り、迂回、奇襲を優先して表す。通常の性格は冷酷さの度合いを変えるだけで、蛇族を正面からぶつかる騒がしく外向きな修士として書いてはならない。"
+
 msgid "RACE_TURTLE_NAME"
 msgstr "亀族"
 
 msgid "RACE_TURTLE_DESC"
 msgstr "亀族は寿元が長く体躯も堅固で、振る舞いは緩やかかつ慎重。守御、療養、長期の閉関を最も得意とする。"
+
+msgid "RACE_TURTLE_BEHAVIOR_DESC"
+msgstr "亀族の行動は、緩慢さ、守御、療養、休息、閉関を優先して表す。危険回避、突破、宗門の務め、明確な目標、資源需要がない限り、頻繁に移動したり自ら争いを起こしたりすべきではなく、通常の性格がこの守りの本能を上書きしてはならない。"

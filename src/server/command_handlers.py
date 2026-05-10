@@ -29,6 +29,8 @@ def create_command_handlers(
     language_manager,
     alignment_from_str,
     get_appearance_by_level,
+    resolve_avatar_pic_id,
+    resolve_avatar_action_emoji,
     delete_avatar_in_world,
     update_avatar_adjustment_in_world,
     apply_avatar_adjustment,
@@ -158,6 +160,11 @@ def create_command_handlers(
             avatar_assets=avatar_assets,
             alignment_from_str=alignment_from_str,
             get_appearance_by_level=get_appearance_by_level,
+            resolve_avatar_pic_id=lambda avatar: resolve_avatar_pic_id(
+                avatar_assets=avatar_assets,
+                avatar=avatar,
+            ),
+            resolve_avatar_action_emoji=resolve_avatar_action_emoji,
         )
 
     async def run_delete_avatar(*, avatar_id: str) -> dict:

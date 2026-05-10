@@ -7,7 +7,7 @@ msgid "rest_action_name"
 msgstr "Rest"
 
 msgid "rest_description"
-msgstr "Stop to regulate breath and recover HP. Turtle yao gain a small amount of extra cultivation experience while resting."
+msgstr "Stop to regulate breath and recover HP over 3 months. Turtle yao gain extra cultivation experience while resting."
 
 msgid "rest_requirements"
 msgstr "No special requirements."
@@ -23,9 +23,6 @@ msgstr "Requires a yao cultivator in a city region; righteous cultivators usuall
 
 msgid "Dead avatars cannot rest."
 msgstr "Dead avatars cannot rest."
-
-msgid "{avatar} withdraws into quiet turtle-breathing rest."
-msgstr "{avatar} withdraws into quiet turtle-breathing rest."
 
 msgid "{avatar} begins resting."
 msgstr "{avatar} begins resting."

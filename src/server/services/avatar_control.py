@@ -121,7 +121,9 @@ def create_avatar_in_world(
     avatar_assets: dict[str, list[int]],
     alignment_from_str,
     get_appearance_by_level,
-) -> dict[str, str]:
+    resolve_avatar_pic_id,
+    resolve_avatar_action_emoji,
+) -> dict[str, Any]:
     world = runtime.get("world")
     if not world:
         raise HTTPException(status_code=503, detail=t("World not initialized"))
@@ -197,4 +199,17 @@ def create_avatar_in_world(
         "status": "ok",
         "message": t("Created avatar {avatar_name}", avatar_name=avatar.name),
         "avatar_id": str(avatar.id),
+        "avatar": {
+            "id": str(getattr(avatar, "id", "no_id")),
+            "name": str(getattr(avatar, "name", "no_name")),
+            "x": int(getattr(avatar, "pos_x", 0)),
+            "y": int(getattr(avatar, "pos_y", 0)),
+            "action": str(getattr(avatar, "current_action_name", "")),
+            "action_emoji": resolve_avatar_action_emoji(avatar),
+            "gender": str(getattr(getattr(avatar, "gender", None), "value", "")),
+            "race": getattr(getattr(avatar, "race", None), "id", "human"),
+            "pic_id": resolve_avatar_pic_id(avatar),
+            "realm": getattr(getattr(getattr(avatar, "cultivation_progress", None), "realm", None), "value", ""),
+            "is_dead": False,
+        },
     }
