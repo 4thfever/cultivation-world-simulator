@@ -6,8 +6,9 @@ param(
 $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$RepoRoot = (Resolve-Path (Join-Path $ScriptDir "..\..")).Path
-$SteamDir = Join-Path $ScriptDir "steam"
+$RepoRoot = (Resolve-Path (Join-Path $ScriptDir "..\..\..")).Path
+$PackageDir = Split-Path -Parent $ScriptDir
+$DesktopSeedDir = $ScriptDir
 
 function Get-GitTag {
     Push-Location $RepoRoot
@@ -56,7 +57,7 @@ function Import-EnvFile {
     }
 }
 
-function Write-SteamSeedFile {
+function Write-DesktopSeedFile {
     param(
         [Parameter(Mandatory = $true)][string]$OutputPath
     )
@@ -93,26 +94,26 @@ function Write-SteamSeedFile {
 
 $tag = Get-GitTag
 if (-not $BuildDesc) {
-    $BuildDesc = "$tag-electron"
+    $BuildDesc = "$tag-desktop"
 }
 
-$DistRoot = Join-Path $RepoRoot ("tmp\" + $tag + "_steam_electron")
+$DistRoot = Join-Path $RepoRoot ("tmp\" + $tag + "_desktop")
 $BackendDistRoot = Join-Path $DistRoot "backend_dist"
-$BackendBuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag + "_steam_electron_backend")
-$BackendSpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag + "_steam_electron_backend")
-$SeedFile = Join-Path $DistRoot "steam-seed.json"
-$ContentRootFile = Join-Path $RepoRoot "tmp\steam_electron_content_root.txt"
+$BackendBuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag + "_desktop_backend")
+$BackendSpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag + "_desktop_backend")
+$SeedFile = Join-Path $DistRoot "desktop-seed.json"
+$ContentRootFile = Join-Path $RepoRoot "tmp\desktop_content_root.txt"
 
 New-Item -ItemType Directory -Force -Path $DistRoot, $BackendDistRoot, $BackendBuildDir, $BackendSpecDir | Out-Null
 
-Write-Host ">>> Steam Electron package tag: $tag" -ForegroundColor Cyan
+Write-Host ">>> Desktop Electron package tag: $tag" -ForegroundColor Cyan
 Write-Host ">>> Build desc: $BuildDesc" -ForegroundColor Cyan
 
-# Load optional private Steam/LLM settings. This file is ignored by git via *.env rules.
-Import-EnvFile -Path (Join-Path $SteamDir "steam_config.env")
-$HasSeed = Write-SteamSeedFile -OutputPath $SeedFile
+# Load optional private desktop/LLM settings. This file is ignored by git via *.env rules.
+Import-EnvFile -Path (Join-Path $DesktopSeedDir "desktop_seed.env")
+$HasSeed = Write-DesktopSeedFile -OutputPath $SeedFile
 if ($HasSeed) {
-    Write-Host "[OK] Prepared Steam private LLM seed file." -ForegroundColor Green
+    Write-Host "[OK] Prepared desktop private LLM seed file." -ForegroundColor Green
 }
 else {
     Write-Host "i No CWS_DEFAULT_LLM_* seed values found; building without private LLM seed." -ForegroundColor Yellow
@@ -144,11 +145,11 @@ finally {
 
 # --- Backend PyInstaller Build ---
 $EntryPy = Join-Path $RepoRoot "src\server\main.py"
-$AppName = "AICultivationSimulator_Steam"
+$AppName = "AICultivationSimulator_Backend"
 $AssetsPath = Join-Path $RepoRoot "assets"
 $StaticPath = Join-Path $RepoRoot "static"
 $IconPath = Join-Path $AssetsPath "icon.ico"
-$RuntimeHookPath = Join-Path $ScriptDir "runtime_hook_setcwd.py"
+$RuntimeHookPath = Join-Path $PackageDir "runtime_hook_setcwd.py"
 
 if (-not (Test-Path $EntryPy)) {
     throw "Entry script not found: $EntryPy"
@@ -165,7 +166,7 @@ $PyInstallerArgs = @(
     "--workpath", $BackendBuildDir,
     "--specpath", $BackendSpecDir,
     "--paths", $RepoRoot,
-    "--additional-hooks-dir", $ScriptDir,
+    "--additional-hooks-dir", $PackageDir,
     "--add-data", "${AssetsPath};assets",
     "--add-data", "${StaticPath};static",
     "--exclude-module", "litellm",
@@ -205,7 +206,7 @@ if (Test-Path $IconPath) {
 
 Push-Location $RepoRoot
 try {
-    Write-Host "Executing PyInstaller for Steam Electron backend..."
+    Write-Host "Executing PyInstaller for desktop Electron backend..."
     & pyinstaller @PyInstallerArgs
     if ($LASTEXITCODE -ne 0) {
         throw "PyInstaller execution failed with exit code $LASTEXITCODE."
@@ -235,38 +236,38 @@ Assert-NoSensitiveConfigs -RootPath $BackendExeDir
 Write-Host "[OK] Verified backend package contains no local sensitive config files." -ForegroundColor Green
 
 # --- Electron Build ---
-$DesktopDir = Join-Path $RepoRoot "desktop"
-if (-not (Test-Path $DesktopDir)) {
-    throw "Desktop Electron directory not found: $DesktopDir"
+$DesktopAppDir = Join-Path $RepoRoot "desktop"
+if (-not (Test-Path $DesktopAppDir)) {
+    throw "Desktop Electron directory not found: $DesktopAppDir"
 }
 
-Push-Location $DesktopDir
+Push-Location $DesktopAppDir
 try {
     if (-not (Test-Path "node_modules") -and -not $SkipNpmInstall) {
         Write-Host "Installing desktop npm dependencies..."
         cmd /c "npm install"
     }
 
-    $env:CWS_STEAM_BACKEND_DIR = $BackendExeDir
+    $env:CWS_DESKTOP_BACKEND_DIR = $BackendExeDir
     $env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
     if ($HasSeed) {
-        $env:CWS_STEAM_SEED_FILE = $SeedFile
+        $env:CWS_DESKTOP_SEED_FILE = $SeedFile
     }
 
-    Write-Host "Building Electron Steam package..."
-    cmd /c "npm run dist:steam"
+    Write-Host "Building Electron desktop package..."
+    cmd /c "npm run dist:desktop"
     if ($LASTEXITCODE -ne 0) {
         throw "Electron build failed."
     }
 }
 finally {
-    Remove-Item Env:CWS_STEAM_BACKEND_DIR -ErrorAction SilentlyContinue
-    Remove-Item Env:CWS_STEAM_SEED_FILE -ErrorAction SilentlyContinue
+    Remove-Item Env:CWS_DESKTOP_BACKEND_DIR -ErrorAction SilentlyContinue
+    Remove-Item Env:CWS_DESKTOP_SEED_FILE -ErrorAction SilentlyContinue
     Remove-Item Env:CSC_IDENTITY_AUTO_DISCOVERY -ErrorAction SilentlyContinue
     Pop-Location
 }
 
-$ElectronOutput = Join-Path $DesktopDir "release\win-unpacked"
+$ElectronOutput = Join-Path $DesktopAppDir "release\win-unpacked"
 if (-not (Test-Path $ElectronOutput)) {
     throw "Electron unpacked output not found: $ElectronOutput"
 }
@@ -281,14 +282,18 @@ Assert-NoSensitiveConfigs -RootPath $FinalContentRoot
 $SourceMaps = Get-ChildItem -Path $FinalContentRoot -Include "*.map" -Recurse -Force -ErrorAction SilentlyContinue
 if ($SourceMaps) {
     $List = ($SourceMaps | ForEach-Object { $_.FullName }) -join "`n"
-    throw "Source maps remain in Steam Electron package:`n$List"
+    throw "Source maps remain in desktop Electron package:`n$List"
 }
 
 $ResolvedContentRoot = (Resolve-Path $FinalContentRoot).Path
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 [System.IO.File]::WriteAllText($ContentRootFile, $ResolvedContentRoot, $utf8NoBom)
 
-Write-Host "`n=== Steam Electron package completed ===" -ForegroundColor Cyan
+Write-Host "`n=== Desktop Electron package completed ===" -ForegroundColor Cyan
 Write-Host "Content root: $ResolvedContentRoot"
 Write-Host "Content root marker: $ContentRootFile"
 Write-Host "Build desc: $BuildDesc"
+Write-Host ""
+Write-Host "Next:" -ForegroundColor Cyan
+Write-Host "  Publish Steam: powershell ./tools/package/publish_steam.ps1 -NoBuild"
+Write-Host "  Prepare Epic:  powershell ./tools/package/publish_epic.ps1 -NoBuild"

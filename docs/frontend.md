@@ -196,7 +196,7 @@
 *   修改地图文字显示时，优先检查 `web/src/components/game/utils/mapLabels.ts` 和 `web/src/utils/mapStyles.ts`，不要在 `MapLayer.vue` 内临时堆叠随机偏移或硬编码语言分支。
 *   修改设置项时，优先改 `SettingsPanel.vue`；除非是菜单容器行为，不要把设置 UI 直接塞回 `SystemMenu.vue`。
 
-## 5. 桌面版与 Steam 适配 (Desktop & Steam)
+## 5. 桌面版与商店发布适配 (Desktop Distribution)
 
 当前仓库有两条桌面/发布路径，需要分开理解。
 
@@ -205,16 +205,17 @@
     *   `uvicorn` 后端服务继续在当前 Python 进程中运行。
     *   在开发模式下，前端仍会以子进程方式启动 `npm run dev`，HMR 依然有效。
 
-2.  **Steam Electron 模式**:
+2.  **Desktop Electron 模式**:
     *   `desktop/` 是独立 Electron 宿主工程。
     *   Electron 主进程负责启动 packaged 后端、等待 `/api/health`、再加载本地 HTTP UI。
-    *   Steam 打包入口是 `tools/package/pack_steam_electron.ps1`，上传入口由 `tools/package/pack_upload_steam.ps1` 串联。
+    *   通用桌面打包入口是 `tools/package/pack_desktop.ps1`，最终 content root 会写入 `tmp/desktop_content_root.txt`。
     *   Electron 模式通过环境变量控制后端行为，例如禁止自动打开系统浏览器。
 
 3.  **打包与发布**:
     *   普通开源包仍可走本地服务 + 系统浏览器体验。
-    *   Steam 发布只保留 Electron 管线；旧 PyInstaller Steam 包脚本已经删除。
-    *   Steam 相关细节以 `docs/specs/steam-electron-readiness.md` 和 `tools/package/*.ps1` 为准。
+    *   商店发布统一基于 Electron desktop content root；具体平台发布脚本在 `tools/package/<platform>/publish.ps1` 中分层维护。
+    *   Steam 发布入口是 `tools/package/publish_steam.ps1`，Epic 发布入口已预留为 `tools/package/publish_epic.ps1`。
+    *   旧 PyInstaller Steam 包脚本已经删除；Steam 只作为平台发布层复用通用 desktop 构建结果。
 
 4.  **画布尺寸原则**:
     *   **不要**使用 `useWindowSize()`（依赖 `window.resize` 事件）来驱动 PIXI 画布尺寸。

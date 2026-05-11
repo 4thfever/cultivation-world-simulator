@@ -9,7 +9,7 @@ test('resolvePackagedBackendExe points at resources backend directory', () => {
     resourcesPath: path.join('C:', 'game', 'resources'),
   })
 
-  assert.equal(exe, path.join('C:', 'game', 'resources', 'backend', 'AICultivationSimulator_Steam.exe'))
+  assert.equal(exe, path.join('C:', 'game', 'resources', 'backend', 'AICultivationSimulator_Backend.exe'))
 })
 
 test('normalizeHttpUrl uses localhost loopback by default', () => {

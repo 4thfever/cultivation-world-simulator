@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-export const BACKEND_EXE_NAME = 'AICultivationSimulator_Steam.exe'
+export const BACKEND_EXE_NAME = 'AICultivationSimulator_Backend.exe'
 
 export interface BackendPathOptions {
   resourcesPath: string

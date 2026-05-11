@@ -12,7 +12,7 @@ test('readSeedEnv returns empty env when seed file is missing', () => {
 
 test('readSeedEnv only returns allowed non-empty llm seed keys', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cws-seed-'))
-  const seedFile = path.join(dir, 'steam-seed.json')
+  const seedFile = path.join(dir, 'desktop-seed.json')
   fs.writeFileSync(seedFile, JSON.stringify({
     CWS_DEFAULT_LLM_BASE_URL: 'https://api.example.test',
     CWS_DEFAULT_LLM_API_KEY: 'free-key',

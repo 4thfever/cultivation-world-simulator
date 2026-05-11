@@ -2,9 +2,9 @@ const path = require('node:path')
 
 const fs = require('node:fs')
 
-const backendDir = process.env.CWS_STEAM_BACKEND_DIR
-  ? path.resolve(process.env.CWS_STEAM_BACKEND_DIR)
-  : path.resolve(__dirname, '..', 'tmp', 'steam_electron_backend')
+const backendDir = process.env.CWS_DESKTOP_BACKEND_DIR
+  ? path.resolve(process.env.CWS_DESKTOP_BACKEND_DIR)
+  : path.resolve(__dirname, '..', 'tmp', 'desktop_backend')
 
 const extraResources = [
   {
@@ -13,10 +13,10 @@ const extraResources = [
   },
 ]
 
-if (process.env.CWS_STEAM_SEED_FILE && fs.existsSync(process.env.CWS_STEAM_SEED_FILE)) {
+if (process.env.CWS_DESKTOP_SEED_FILE && fs.existsSync(process.env.CWS_DESKTOP_SEED_FILE)) {
   extraResources.push({
-    from: path.resolve(process.env.CWS_STEAM_SEED_FILE),
-    to: 'steam-seed.json',
+    from: path.resolve(process.env.CWS_DESKTOP_SEED_FILE),
+    to: 'desktop-seed.json',
   })
 }
 

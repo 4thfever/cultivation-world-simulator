@@ -25,6 +25,7 @@ if (-not $tag) {
 $DistDir = Join-Path $RepoRoot ("tmp\" + $tag + "_github")
 $BuildDir = Join-Path $RepoRoot ("tmp\build\" + $tag + "_github")
 $SpecDir = Join-Path $RepoRoot ("tmp\spec\" + $tag + "_github")
+$GitHubBuildMarker = Join-Path $RepoRoot "tmp\github_build_dir.txt"
 New-Item -ItemType Directory -Force -Path $DistDir, $BuildDir, $SpecDir | Out-Null
 
 # --- Web Frontend Build ---
@@ -212,8 +213,16 @@ try {
             Write-Host "`n=== Package completed for GitHub Release ===" -ForegroundColor Cyan
             Write-Host "Distribution directory: " (Resolve-Path $DistDir).Path
             if (Test-Path $ExeDir) {
-                Write-Host "Executable directory: " (Resolve-Path $ExeDir).Path
+                $ResolvedExeDir = (Resolve-Path $ExeDir).Path
+                $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+                [System.IO.File]::WriteAllText($GitHubBuildMarker, $ResolvedExeDir, $utf8NoBom)
+                Write-Host "Executable directory: " $ResolvedExeDir
+                Write-Host "Build marker: " $GitHubBuildMarker
             }
+            Write-Host ""
+            Write-Host "Next:" -ForegroundColor Cyan
+            Write-Host "  Compress: powershell ./tools/package/compress.ps1"
+            Write-Host "  Publish:  powershell ./tools/package/publish_github.ps1 -NoBuild"
         } else {
              Write-Error "Build finished but executable directory not found at $ExeDir"
         }

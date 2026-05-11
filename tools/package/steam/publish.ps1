@@ -11,8 +11,8 @@ $ErrorActionPreference = "Stop"
 # 0. Environment and path setup
 # ==============================================================================
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$RepoRoot = (Resolve-Path (Join-Path $ScriptDir "..\..")).Path
-$SteamDir = Join-Path $ScriptDir "steam"
+$RepoRoot = (Resolve-Path (Join-Path $ScriptDir "..\..\..")).Path
+$SteamDir = $ScriptDir
 
 function Import-EnvFile {
     param(

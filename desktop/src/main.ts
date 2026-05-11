@@ -58,7 +58,7 @@ async function boot(): Promise<void> {
     port,
     logDir,
     seedEnv: {
-      ...readSeedEnv(path.join(process.resourcesPath, 'steam-seed.json')),
+      ...readSeedEnv(path.join(process.resourcesPath, 'desktop-seed.json')),
       ...collectSeedEnv(),
     },
   })

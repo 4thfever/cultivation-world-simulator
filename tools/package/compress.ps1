@@ -110,6 +110,7 @@ Write-Host "  [✓] Verified no sensitive config files remain." -ForegroundColor
 # ==============================================================================
 $ZipFileName = "AI_Cultivation_World_Simulator_${tag}.zip"
 $ZipPath = Join-Path $RepoRoot "tmp\$ZipFileName"
+$ZipPathMarker = Join-Path $RepoRoot "tmp\github_zip_path.txt"
 
 if (Test-Path $ZipPath) {
     Remove-Item -Path $ZipPath -Force
@@ -124,8 +125,15 @@ try {
     Compress-Archive -Path $SourceDir -DestinationPath $ZipPath -CompressionLevel Optimal
     
     if (Test-Path $ZipPath) {
+        $ResolvedZipPath = (Resolve-Path $ZipPath).Path
+        $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+        [System.IO.File]::WriteAllText($ZipPathMarker, $ResolvedZipPath, $utf8NoBom)
         Write-Host "`nSUCCESS: Package created at:" -ForegroundColor Green
-        Write-Host $ZipPath -ForegroundColor White
+        Write-Host $ResolvedZipPath -ForegroundColor White
+        Write-Host "Zip marker: $ZipPathMarker"
+        Write-Host ""
+        Write-Host "Next:" -ForegroundColor Cyan
+        Write-Host "  Publish: powershell ./tools/package/publish_github.ps1 -NoBuild"
     } else {
         throw "Archive file was not created."
     }
