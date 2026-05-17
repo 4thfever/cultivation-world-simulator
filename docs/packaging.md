@@ -18,9 +18,10 @@ powershell ./tools/package/publish_steam.ps1
 powershell ./tools/package/publish_epic.ps1
 ```
 
-`publish_epic.ps1` is currently a placeholder after the desktop build step. Wire
-the Epic distribution tool in `tools/package/epic/publish.ps1` before using it
-for a real upload.
+`publish_epic.ps1` uses Epic's BuildPatchTool when
+`tools/package/epic/epic_config.env` is configured. Without `-RequireUpload`,
+the Epic step stays in preview mode and prints the prepared command without
+executing the upload.
 
 ## One Entry
 
@@ -36,10 +37,12 @@ powershell ./tools/package/task.ps1 -Action publish -Target steam -Preview
 powershell ./tools/package/publish_github.ps1 -NoBuild
 powershell ./tools/package/publish_steam.ps1 -NoBuild -Preview
 powershell ./tools/package/publish_epic.ps1 -NoBuild
+powershell ./tools/package/publish_epic.ps1 -NoBuild -RequireUpload
 ```
 
 Use `publish_epic.ps1 -RequireUpload` only after the Epic distribution tooling
-is configured.
+is configured and the `EPIC_CLIENT_SECRET` environment variable is set in your
+current terminal.
 
 ## What I Want
 
@@ -50,3 +53,4 @@ is configured.
 | Publish GitHub Release | `powershell ./tools/package/publish_github.ps1` |
 | Publish Steam | `powershell ./tools/package/publish_steam.ps1` |
 | Prepare Epic desktop package | `powershell ./tools/package/publish_epic.ps1` |
+| Upload Epic desktop package | `powershell ./tools/package/publish_epic.ps1 -RequireUpload` |

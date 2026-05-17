@@ -27,10 +27,11 @@ written into `settings.json` / `secrets.json`.
 
 ## Platform Upload Layers
 
-`tools/package/publish_epic.ps1` is the reserved Epic publishing entry. It
-currently builds the desktop package and then calls `tools/package/epic/publish.ps1`,
-whose real upload command is intentionally left unimplemented until the Epic
-distribution tooling is available.
+`tools/package/publish_epic.ps1` is the Epic publishing entry. It builds the
+desktop package and then calls `tools/package/epic/publish.ps1`, which wraps
+Epic's BuildPatchTool `UploadBinary` mode. The real upload only runs with
+`-RequireUpload`; otherwise the script validates available configuration and
+prints a preview command.
 
 `tools/package/publish_steam.ps1` is the Steam publishing entry. It reuses
 `pack_desktop.ps1` and no longer owns the desktop build layout.
@@ -56,8 +57,10 @@ powershell ./tools/package/publish_steam.ps1
 powershell ./tools/package/publish_epic.ps1
 ```
 
-Epic publishing is currently a placeholder until the Epic distribution tooling
-is wired into `tools/package/epic/publish.ps1`.
+Epic publishing requires a local `tools/package/epic/epic_config.env` copied
+from the example file. Product IDs may live in that ignored file. The client
+secret should be supplied through the `EPIC_CLIENT_SECRET` environment variable
+in the current terminal before running with `-RequireUpload`.
 
 ## Verification
 

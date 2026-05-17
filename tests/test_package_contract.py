@@ -101,7 +101,7 @@ def test_publish_github_wraps_existing_release_pipeline():
     assert "[switch]$Preview" in content
 
 
-def test_epic_upload_script_is_explicit_placeholder():
+def test_epic_upload_script_wraps_build_patch_tool():
     project_root = get_project_root()
     script = project_root / "tools" / "package" / "epic" / "publish.ps1"
     content = script.read_text(encoding="utf-8")
@@ -110,9 +110,14 @@ def test_epic_upload_script_is_explicit_placeholder():
     assert "[string]$BuildVersion" in content
     assert "[switch]$Preview" in content
     assert "epic_config.env" in content
-    assert "Epic upload is not implemented yet" in content
     assert "[switch]$RequireUpload" in content
-    assert "Exiting successfully because Epic publishing is currently a placeholder" in content
+    assert "EPIC_BUILD_PATCH_TOOL_PATH" in content
+    assert "EPIC_CLIENT_SECRET_ENV_VAR" in content
+    assert "ClientSecretEnvVar" in content
+    assert "-mode=UploadBinary" in content
+    assert "-BuildRoot=$ContentRoot" in content
+    assert "-AppLaunch=$AppLaunch" in content
+    assert "Add -RequireUpload to upload" in content
 
 
 def test_steam_upload_script_supports_electron_parameters():
@@ -137,14 +142,15 @@ def test_desktop_cursor_command_exists():
     assert "desktop_content_root.txt" in content
 
 
-def test_epic_cursor_command_exists_as_placeholder():
+def test_epic_cursor_command_exists_for_build_patch_tool():
     project_root = get_project_root()
     command = project_root / ".cursor" / "commands" / "publish_epic.md"
     content = command.read_text(encoding="utf-8")
 
     assert "publish_epic.ps1" in content
     assert "epic/publish.ps1" in content
-    assert "尚未实现" in content
+    assert "BuildPatchTool" in content
+    assert "RequireUpload" in content
 
 
 def test_publish_commands_exist():
